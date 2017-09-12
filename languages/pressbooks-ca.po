@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
-"PO-Revision-Date: 2017-09-11 17:32+0000\n"
+"PO-Revision-Date: 2017-09-12 21:42+0000\n"
 "Last-Translator: Ned Zimmerman\n"
 "Language-Team: Catalan (http://www.transifex.com/pressbooks/pressbooks/language/ca/)\n"
 "MIME-Version: 1.0\n"
@@ -199,84 +199,84 @@ msgstr ""
 msgid "The source book&rsquo;s taxonomies could not be read."
 msgstr ""
 
-#: ../inc/class-cloner.php:980
+#: ../inc/class-cloner.php:986
 msgid ""
 "You can only clone from a book hosted by Pressbooks 4.1 or later. Please "
 "ensure that your source book meets these requirements."
 msgstr ""
 
-#: ../inc/class-cloner.php:1081
+#: ../inc/class-cloner.php:1087
 msgid "Your book URL can only contain lowercase letters (a-z) and numbers."
 msgstr ""
 
-#: ../inc/class-cloner.php:1083
+#: ../inc/class-cloner.php:1089
 msgid "Your book URL must contain at least some letters."
 msgstr ""
 
-#: ../inc/class-cloner.php:1085
+#: ../inc/class-cloner.php:1091
 msgid "That book URL is not allowed."
 msgstr ""
 
-#: ../inc/class-cloner.php:1087
+#: ../inc/class-cloner.php:1093
 msgid "Your book URL must be at least %s character."
 msgid_plural "Your book URL must be at least %s characters."
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../inc/class-cloner.php:1089
+#: ../inc/class-cloner.php:1095
 msgid "Sorry, you may not use that book URL."
 msgstr ""
 
-#: ../inc/class-cloner.php:1091
+#: ../inc/class-cloner.php:1097
 msgid "Sorry, that book URL already exists!"
 msgstr ""
 
-#: ../inc/class-cloner.php:1145
+#: ../inc/class-cloner.php:1151
 msgid ""
 "Cloning succeeded! Cloned %1$s, %2$s, %3$s, %4$s, %5$s, and %6$s to %7$s."
 msgstr ""
 
-#: ../inc/class-cloner.php:1146
+#: ../inc/class-cloner.php:1152
 msgid "%s term"
 msgid_plural "%s terms"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../inc/class-cloner.php:1147
+#: ../inc/class-cloner.php:1153
 msgid "%s front matter"
 msgid_plural "%s front matter"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../inc/class-cloner.php:1148
+#: ../inc/class-cloner.php:1154
 msgid "%s part"
 msgid_plural "%s parts"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../inc/class-cloner.php:1149
+#: ../inc/class-cloner.php:1155
 msgid "%s chapter"
 msgid_plural "%s chapters"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../inc/class-cloner.php:1150
+#: ../inc/class-cloner.php:1156
 msgid "%s back matter"
 msgid_plural "%s back matter"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../inc/class-cloner.php:1151
+#: ../inc/class-cloner.php:1157
 msgid "%s media attachment"
 msgid_plural "%s media attachments"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../inc/class-cloner.php:1155
+#: ../inc/class-cloner.php:1161
 msgid "Cloning failed."
 msgstr ""
 
-#: ../inc/class-cloner.php:1160
+#: ../inc/class-cloner.php:1166
 msgid ""
 "You must enter a valid URL for a book on a Pressbooks network running "
 "Pressbooks 4.1 or greater as well as a new URL for your cloned book."
@@ -1656,6 +1656,12 @@ msgid ""
 " to function properly. Please visit %s for installation instructions."
 msgstr ""
 
+#: ../inc/theme/namespace.php:91
+msgid ""
+"The Pressbooks Custom CSS theme must be upgraded. Please visit %s for "
+"installation instructions."
+msgstr ""
+
 #: ../inc/utility/namespace.php:557
 msgctxt "Plugin Installer"
 msgid "Popular"
@@ -1732,7 +1738,7 @@ msgstr "Notícies de Pressbooks"
 msgid "My Book"
 msgstr "El meu llibre"
 
-#: ../inc/admin/dashboard/namespace.php82, ../inc/admin/laf/namespace.php:517
+#: ../inc/admin/dashboard/namespace.php82, ../inc/admin/laf/namespace.php:531
 msgid "Users"
 msgstr "Usuaris"
 
@@ -1749,8 +1755,8 @@ msgid "Organize"
 msgstr "Organitza"
 
 #: ../inc/admin/dashboard/namespace.php195,
-#: ../inc/admin/dashboard/namespace.php196, ../inc/admin/laf/namespace.php499,
-#: ../inc/admin/laf/namespace.php:565
+#: ../inc/admin/dashboard/namespace.php196, ../inc/admin/laf/namespace.php513,
+#: ../inc/admin/laf/namespace.php:579
 msgid "Dashboard"
 msgstr "Tauler"
 
@@ -1863,7 +1869,7 @@ msgid "EPUB is required for MOBI export. Would you like to reenable it?"
 msgstr "EPUB és necessari per a exportar a format MOBI. Vols activar-lo de nou?"
 
 #: ../inc/admin/laf/namespace.php207, ../inc/admin/laf/namespace.php293,
-#: ../inc/admin/laf/namespace.php983,
+#: ../inc/admin/laf/namespace.php997,
 #: ../inc/admin/network/class-sharingandprivacyoptions.php:226
 msgid "Sharing and Privacy Settings"
 msgstr "Preferències de compartir i privacitat"
@@ -1893,27 +1899,27 @@ msgstr "Pressbooks.com"
 msgid "Add A New Book"
 msgstr "Afegeix un nou llibre"
 
-#: ../inc/admin/laf/namespace.php:471
+#: ../inc/admin/laf/namespace.php:484
 msgid "Clone A Book"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:490
+#: ../inc/admin/laf/namespace.php:504
 msgid "Network Admin"
 msgstr "Administra la xarxa"
 
-#: ../inc/admin/laf/namespace.php:508
+#: ../inc/admin/laf/namespace.php:522
 msgid "Sites"
 msgstr "Llocs"
 
-#: ../inc/admin/laf/namespace.php:526
+#: ../inc/admin/laf/namespace.php:540
 msgid "Visit Network"
 msgstr "Visita la xarxa"
 
-#: ../inc/admin/laf/namespace.php:579
+#: ../inc/admin/laf/namespace.php:593
 msgid "Visit Site"
 msgstr "Visita el lloc"
 
-#: ../inc/admin/laf/namespace.php:730
+#: ../inc/admin/laf/namespace.php:744
 msgid ""
 "Are you sure you want to unlock your theme? This will update your book to "
 "the most recent version of your selected theme, which may change your "
@@ -1921,66 +1927,66 @@ msgid ""
 "page, this action will NOT be reversable!"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:776
+#: ../inc/admin/laf/namespace.php:790
 msgid "Book Visibility"
 msgstr "Visibilitat del llibre"
 
-#: ../inc/admin/laf/namespace.php:783
+#: ../inc/admin/laf/namespace.php:797
 msgid "Private Content"
 msgstr "Contingut privat"
 
-#: ../inc/admin/laf/namespace.php:790
+#: ../inc/admin/laf/namespace.php:804
 msgid "Disable Comments"
 msgstr "Desactiva els comentaris"
 
-#: ../inc/admin/laf/namespace.php:799
+#: ../inc/admin/laf/namespace.php:813
 msgid "Share Latest Export Files"
 msgstr "Comparteix els darrers arxius exportats"
 
-#: ../inc/admin/laf/namespace.php:833
+#: ../inc/admin/laf/namespace.php:847
 msgid "Sharing and Privacy settings"
 msgstr "Preferències de compartir i privacitat"
 
-#: ../inc/admin/laf/namespace.php:849
+#: ../inc/admin/laf/namespace.php:863
 msgid "Public. I would like this book to be visible to everyone."
 msgstr "Públic. Vull que aquest llibre sigui visible per a tothom."
 
-#: ../inc/admin/laf/namespace.php:855
+#: ../inc/admin/laf/namespace.php:869
 msgid ""
 "Private. I would like this book to be accessible only to people I invite."
 msgstr "Privat. Vull que aquest llibre sigui només accessible per a les persones que jo convidi."
 
-#: ../inc/admin/laf/namespace.php:878
+#: ../inc/admin/laf/namespace.php:892
 msgid "Who can see private front matter, chapters and back matter?"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:881
+#: ../inc/admin/laf/namespace.php:895
 msgid "Only logged in editors and administrators."
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:883
+#: ../inc/admin/laf/namespace.php:897
 msgid "All logged in users including subscribers."
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:899
+#: ../inc/admin/laf/namespace.php:913
 msgid ""
 "Yes. I want to automatically disable comments, trackbacks and pingbacks on "
 "all front matter, chapters and back matter."
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:905
+#: ../inc/admin/laf/namespace.php:919
 msgid ""
 "No. I want to leave comments, trackbacks and pingbacks enabled on all front "
 "matter, chapters and back matter unless I disable them manually."
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:921
+#: ../inc/admin/laf/namespace.php:935
 msgid ""
 "Yes. I would like the latest export files to be available on the homepage "
 "for free, to everyone."
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:927
+#: ../inc/admin/laf/namespace.php:941
 msgid ""
 "No. I would like the latest export files to only be available to "
 "administrators."
@@ -3004,6 +3010,7 @@ msgstr ""
 #: ../inc/api/endpoints/controller/class-metadata.php290,
 #: ../inc/api/endpoints/controller/class-metadata.php309,
 #: ../inc/api/endpoints/controller/class-metadata.php343,
+#: ../inc/api/endpoints/controller/class-metadata.php366,
 #: ../inc/api/endpoints/controller/class-sectionmetadata.php104,
 #: ../inc/api/endpoints/controller/class-sectionmetadata.php153,
 #: ../inc/api/endpoints/controller/class-sectionmetadata.php182,
@@ -3012,7 +3019,8 @@ msgstr ""
 #: ../inc/api/endpoints/controller/class-sectionmetadata.php251,
 #: ../inc/api/endpoints/controller/class-sectionmetadata.php272,
 #: ../inc/api/endpoints/controller/class-sectionmetadata.php291,
-#: ../inc/api/endpoints/controller/class-sectionmetadata.php:325
+#: ../inc/api/endpoints/controller/class-sectionmetadata.php325,
+#: ../inc/api/endpoints/controller/class-sectionmetadata.php:348
 msgid "The type of the thing."
 msgstr ""
 
@@ -3024,6 +3032,7 @@ msgstr ""
 #: ../inc/api/endpoints/controller/class-metadata.php275,
 #: ../inc/api/endpoints/controller/class-metadata.php296,
 #: ../inc/api/endpoints/controller/class-metadata.php349,
+#: ../inc/api/endpoints/controller/class-metadata.php379,
 #: ../inc/api/endpoints/controller/class-sectionmetadata.php110,
 #: ../inc/api/endpoints/controller/class-sectionmetadata.php159,
 #: ../inc/api/endpoints/controller/class-sectionmetadata.php188,
@@ -3031,7 +3040,8 @@ msgstr ""
 #: ../inc/api/endpoints/controller/class-sectionmetadata.php234,
 #: ../inc/api/endpoints/controller/class-sectionmetadata.php257,
 #: ../inc/api/endpoints/controller/class-sectionmetadata.php278,
-#: ../inc/api/endpoints/controller/class-sectionmetadata.php:331
+#: ../inc/api/endpoints/controller/class-sectionmetadata.php331,
+#: ../inc/api/endpoints/controller/class-sectionmetadata.php:361
 msgid "The name of the thing."
 msgstr ""
 
@@ -3084,7 +3094,9 @@ msgid ""
 "items."
 msgstr ""
 
-#: ../inc/api/endpoints/controller/class-metadata.php:145
+#: ../inc/api/endpoints/controller/class-metadata.php145,
+#: ../inc/api/endpoints/controller/class-metadata.php385,
+#: ../inc/api/endpoints/controller/class-sectionmetadata.php:367
 msgid "A description of the item."
 msgstr ""
 
@@ -3154,14 +3166,19 @@ msgstr ""
 msgid "The party holding the legal copyright to the CreativeWork."
 msgstr ""
 
-#: ../inc/api/endpoints/controller/class-metadata.php360,
-#: ../inc/api/endpoints/controller/class-sectionmetadata.php:342
+#: ../inc/api/endpoints/controller/class-metadata.php359,
+#: ../inc/api/endpoints/controller/class-sectionmetadata.php:341
 msgid ""
 "A license document that applies to this content, typically indicated by URL."
 msgstr ""
 
-#: ../inc/api/endpoints/controller/class-metadata.php367,
-#: ../inc/api/endpoints/controller/class-sectionmetadata.php:349
+#: ../inc/api/endpoints/controller/class-metadata.php373,
+#: ../inc/api/endpoints/controller/class-sectionmetadata.php:355
+msgid "URL of the item."
+msgstr ""
+
+#: ../inc/api/endpoints/controller/class-metadata.php396,
+#: ../inc/api/endpoints/controller/class-sectionmetadata.php:378
 msgid ""
 "A resource that was used in the creation of this resource. This term can be "
 "repeated for multiple sources."
@@ -3175,7 +3192,7 @@ msgstr ""
 msgid "The ID for the parent of the object."
 msgstr ""
 
-#: ../inc/api/endpoints/controller/class-sectionmetadata.php:385
+#: ../inc/api/endpoints/controller/class-sectionmetadata.php:414
 msgid "Invalid post ID."
 msgstr ""
 
@@ -3648,7 +3665,7 @@ msgstr ""
 msgid "Clone It!"
 msgstr ""
 
-#: ../templates/admin/custom-styles.php:27
+#: ../templates/admin/custom-styles.php:28
 msgid "Error: Something went wrong. See logs for more details."
 msgstr "Error: alguna cosa no ha anat bé. Revisa els registres per a més detalls."
 
@@ -3657,7 +3674,7 @@ msgid "You are currently editing styles for"
 msgstr ""
 
 #: ../templates/admin/custom-styles.php:39
-msgid "Theme Styles"
+msgid "Theme Styles (%s)"
 msgstr ""
 
 #: ../templates/admin/custom-styles.php:41

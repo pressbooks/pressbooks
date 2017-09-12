@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
-"PO-Revision-Date: 2017-09-11 17:32+0000\n"
+"PO-Revision-Date: 2017-09-12 21:42+0000\n"
 "Last-Translator: Ned Zimmerman\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/pressbooks/pressbooks/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -197,77 +197,77 @@ msgstr ""
 msgid "The source book&rsquo;s taxonomies could not be read."
 msgstr ""
 
-#: ../inc/class-cloner.php:980
+#: ../inc/class-cloner.php:986
 msgid ""
 "You can only clone from a book hosted by Pressbooks 4.1 or later. Please "
 "ensure that your source book meets these requirements."
 msgstr ""
 
-#: ../inc/class-cloner.php:1081
+#: ../inc/class-cloner.php:1087
 msgid "Your book URL can only contain lowercase letters (a-z) and numbers."
 msgstr ""
 
-#: ../inc/class-cloner.php:1083
+#: ../inc/class-cloner.php:1089
 msgid "Your book URL must contain at least some letters."
 msgstr ""
 
-#: ../inc/class-cloner.php:1085
+#: ../inc/class-cloner.php:1091
 msgid "That book URL is not allowed."
 msgstr ""
 
-#: ../inc/class-cloner.php:1087
+#: ../inc/class-cloner.php:1093
 msgid "Your book URL must be at least %s character."
 msgid_plural "Your book URL must be at least %s characters."
 msgstr[0] ""
 
-#: ../inc/class-cloner.php:1089
+#: ../inc/class-cloner.php:1095
 msgid "Sorry, you may not use that book URL."
 msgstr ""
 
-#: ../inc/class-cloner.php:1091
+#: ../inc/class-cloner.php:1097
 msgid "Sorry, that book URL already exists!"
 msgstr ""
 
-#: ../inc/class-cloner.php:1145
+#: ../inc/class-cloner.php:1151
 msgid ""
 "Cloning succeeded! Cloned %1$s, %2$s, %3$s, %4$s, %5$s, and %6$s to %7$s."
 msgstr ""
 
-#: ../inc/class-cloner.php:1146
+#: ../inc/class-cloner.php:1152
 msgid "%s term"
 msgid_plural "%s terms"
 msgstr[0] ""
 
-#: ../inc/class-cloner.php:1147
+#: ../inc/class-cloner.php:1153
 msgid "%s front matter"
 msgid_plural "%s front matter"
 msgstr[0] ""
 
-#: ../inc/class-cloner.php:1148
+#: ../inc/class-cloner.php:1154
 msgid "%s part"
 msgid_plural "%s parts"
 msgstr[0] ""
 
-#: ../inc/class-cloner.php:1149
+#: ../inc/class-cloner.php:1155
 msgid "%s chapter"
 msgid_plural "%s chapters"
 msgstr[0] ""
 
-#: ../inc/class-cloner.php:1150
+#: ../inc/class-cloner.php:1156
 msgid "%s back matter"
 msgid_plural "%s back matter"
 msgstr[0] ""
 
-#: ../inc/class-cloner.php:1151
+#: ../inc/class-cloner.php:1157
 msgid "%s media attachment"
 msgid_plural "%s media attachments"
 msgstr[0] ""
 
-#: ../inc/class-cloner.php:1155
+#: ../inc/class-cloner.php:1161
 msgid "Cloning failed."
 msgstr ""
 
-#: ../inc/class-cloner.php:1160
+#: ../inc/class-cloner.php:1166
 msgid ""
 "You must enter a valid URL for a book on a Pressbooks network running "
 "Pressbooks 4.1 or greater as well as a new URL for your cloned book."
@@ -1647,6 +1647,12 @@ msgid ""
 " to function properly. Please visit %s for installation instructions."
 msgstr "The Pressbooks Book theme is not installed, but Pressbooks needs it in order to function properly. Please visit %s for installation instructions."
 
+#: ../inc/theme/namespace.php:91
+msgid ""
+"The Pressbooks Custom CSS theme must be upgraded. Please visit %s for "
+"installation instructions."
+msgstr ""
+
 #: ../inc/utility/namespace.php:557
 msgctxt "Plugin Installer"
 msgid "Popular"
@@ -1723,7 +1729,7 @@ msgstr "Pressbooks新闻"
 msgid "My Book"
 msgstr "我的书籍"
 
-#: ../inc/admin/dashboard/namespace.php82, ../inc/admin/laf/namespace.php:517
+#: ../inc/admin/dashboard/namespace.php82, ../inc/admin/laf/namespace.php:531
 msgid "Users"
 msgstr "用户"
 
@@ -1740,8 +1746,8 @@ msgid "Organize"
 msgstr "组织"
 
 #: ../inc/admin/dashboard/namespace.php195,
-#: ../inc/admin/dashboard/namespace.php196, ../inc/admin/laf/namespace.php499,
-#: ../inc/admin/laf/namespace.php:565
+#: ../inc/admin/dashboard/namespace.php196, ../inc/admin/laf/namespace.php513,
+#: ../inc/admin/laf/namespace.php:579
 msgid "Dashboard"
 msgstr "仪表板"
 
@@ -1854,7 +1860,7 @@ msgid "EPUB is required for MOBI export. Would you like to reenable it?"
 msgstr "MOBI导出功能依赖于EPUB导出。您要重新启用EPUB导出功能吗？"
 
 #: ../inc/admin/laf/namespace.php207, ../inc/admin/laf/namespace.php293,
-#: ../inc/admin/laf/namespace.php983,
+#: ../inc/admin/laf/namespace.php997,
 #: ../inc/admin/network/class-sharingandprivacyoptions.php:226
 msgid "Sharing and Privacy Settings"
 msgstr "分享和隐私设置"
@@ -1884,27 +1890,27 @@ msgstr "Pressbooks.com"
 msgid "Add A New Book"
 msgstr "新建书"
 
-#: ../inc/admin/laf/namespace.php:471
+#: ../inc/admin/laf/namespace.php:484
 msgid "Clone A Book"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:490
+#: ../inc/admin/laf/namespace.php:504
 msgid "Network Admin"
 msgstr " 网络管理"
 
-#: ../inc/admin/laf/namespace.php:508
+#: ../inc/admin/laf/namespace.php:522
 msgid "Sites"
 msgstr "站点"
 
-#: ../inc/admin/laf/namespace.php:526
+#: ../inc/admin/laf/namespace.php:540
 msgid "Visit Network"
 msgstr "访问网络"
 
-#: ../inc/admin/laf/namespace.php:579
+#: ../inc/admin/laf/namespace.php:593
 msgid "Visit Site"
 msgstr "访问站点"
 
-#: ../inc/admin/laf/namespace.php:730
+#: ../inc/admin/laf/namespace.php:744
 msgid ""
 "Are you sure you want to unlock your theme? This will update your book to "
 "the most recent version of your selected theme, which may change your "
@@ -1912,66 +1918,66 @@ msgid ""
 "page, this action will NOT be reversable!"
 msgstr "您确认要解锁您的主题吗？这将更新您的书籍以匹配您选中主题的最新修订状态，这也许会更改您的书籍的外观和页数。当您在此页面保存设置后，该操作就无法撤销！"
 
-#: ../inc/admin/laf/namespace.php:776
+#: ../inc/admin/laf/namespace.php:790
 msgid "Book Visibility"
 msgstr "书籍的可见性"
 
-#: ../inc/admin/laf/namespace.php:783
+#: ../inc/admin/laf/namespace.php:797
 msgid "Private Content"
 msgstr "私有内容"
 
-#: ../inc/admin/laf/namespace.php:790
+#: ../inc/admin/laf/namespace.php:804
 msgid "Disable Comments"
 msgstr "禁用评论"
 
-#: ../inc/admin/laf/namespace.php:799
+#: ../inc/admin/laf/namespace.php:813
 msgid "Share Latest Export Files"
 msgstr "分享最近导出的文件"
 
-#: ../inc/admin/laf/namespace.php:833
+#: ../inc/admin/laf/namespace.php:847
 msgid "Sharing and Privacy settings"
 msgstr "分享和隐私设置"
 
-#: ../inc/admin/laf/namespace.php:849
+#: ../inc/admin/laf/namespace.php:863
 msgid "Public. I would like this book to be visible to everyone."
 msgstr "公开。我想每个人都可以访问该书。"
 
-#: ../inc/admin/laf/namespace.php:855
+#: ../inc/admin/laf/namespace.php:869
 msgid ""
 "Private. I would like this book to be accessible only to people I invite."
 msgstr "私有。我想该书只能被我邀请的人访问。"
 
-#: ../inc/admin/laf/namespace.php:878
+#: ../inc/admin/laf/namespace.php:892
 msgid "Who can see private front matter, chapters and back matter?"
 msgstr "谁能看到私有的正文前材料、章和正文后材料？"
 
-#: ../inc/admin/laf/namespace.php:881
+#: ../inc/admin/laf/namespace.php:895
 msgid "Only logged in editors and administrators."
 msgstr "只有登入的编辑们和管理员们。"
 
-#: ../inc/admin/laf/namespace.php:883
+#: ../inc/admin/laf/namespace.php:897
 msgid "All logged in users including subscribers."
 msgstr "所有登入用户，包括订阅者们。"
 
-#: ../inc/admin/laf/namespace.php:899
+#: ../inc/admin/laf/namespace.php:913
 msgid ""
 "Yes. I want to automatically disable comments, trackbacks and pingbacks on "
 "all front matter, chapters and back matter."
 msgstr "是。我想在所有的正文前材料、章、正文后材料中禁用评论、引用通告和参照通知。"
 
-#: ../inc/admin/laf/namespace.php:905
+#: ../inc/admin/laf/namespace.php:919
 msgid ""
 "No. I want to leave comments, trackbacks and pingbacks enabled on all front "
 "matter, chapters and back matter unless I disable them manually."
 msgstr "不。我想在所有的正文前材料、章、正文后材料中启用评论、引用通告和参照通知，除非我手动禁用。"
 
-#: ../inc/admin/laf/namespace.php:921
+#: ../inc/admin/laf/namespace.php:935
 msgid ""
 "Yes. I would like the latest export files to be available on the homepage "
 "for free, to everyone."
 msgstr "是。我想最新的导出文件显示在首页上，每个人都可以免费下载。"
 
-#: ../inc/admin/laf/namespace.php:927
+#: ../inc/admin/laf/namespace.php:941
 msgid ""
 "No. I would like the latest export files to only be available to "
 "administrators."
@@ -2994,6 +3000,7 @@ msgstr "JSON-LD上下文。"
 #: ../inc/api/endpoints/controller/class-metadata.php290,
 #: ../inc/api/endpoints/controller/class-metadata.php309,
 #: ../inc/api/endpoints/controller/class-metadata.php343,
+#: ../inc/api/endpoints/controller/class-metadata.php366,
 #: ../inc/api/endpoints/controller/class-sectionmetadata.php104,
 #: ../inc/api/endpoints/controller/class-sectionmetadata.php153,
 #: ../inc/api/endpoints/controller/class-sectionmetadata.php182,
@@ -3002,7 +3009,8 @@ msgstr "JSON-LD上下文。"
 #: ../inc/api/endpoints/controller/class-sectionmetadata.php251,
 #: ../inc/api/endpoints/controller/class-sectionmetadata.php272,
 #: ../inc/api/endpoints/controller/class-sectionmetadata.php291,
-#: ../inc/api/endpoints/controller/class-sectionmetadata.php:325
+#: ../inc/api/endpoints/controller/class-sectionmetadata.php325,
+#: ../inc/api/endpoints/controller/class-sectionmetadata.php:348
 msgid "The type of the thing."
 msgstr "事物类型。"
 
@@ -3014,6 +3022,7 @@ msgstr "事物类型。"
 #: ../inc/api/endpoints/controller/class-metadata.php275,
 #: ../inc/api/endpoints/controller/class-metadata.php296,
 #: ../inc/api/endpoints/controller/class-metadata.php349,
+#: ../inc/api/endpoints/controller/class-metadata.php379,
 #: ../inc/api/endpoints/controller/class-sectionmetadata.php110,
 #: ../inc/api/endpoints/controller/class-sectionmetadata.php159,
 #: ../inc/api/endpoints/controller/class-sectionmetadata.php188,
@@ -3021,7 +3030,8 @@ msgstr "事物类型。"
 #: ../inc/api/endpoints/controller/class-sectionmetadata.php234,
 #: ../inc/api/endpoints/controller/class-sectionmetadata.php257,
 #: ../inc/api/endpoints/controller/class-sectionmetadata.php278,
-#: ../inc/api/endpoints/controller/class-sectionmetadata.php:331
+#: ../inc/api/endpoints/controller/class-sectionmetadata.php331,
+#: ../inc/api/endpoints/controller/class-sectionmetadata.php:361
 msgid "The name of the thing."
 msgstr "事物名。"
 
@@ -3074,7 +3084,9 @@ msgid ""
 "items."
 msgstr ""
 
-#: ../inc/api/endpoints/controller/class-metadata.php:145
+#: ../inc/api/endpoints/controller/class-metadata.php145,
+#: ../inc/api/endpoints/controller/class-metadata.php385,
+#: ../inc/api/endpoints/controller/class-sectionmetadata.php:367
 msgid "A description of the item."
 msgstr "项的描述。"
 
@@ -3144,14 +3156,19 @@ msgstr "首次cb日期，使用ISO 8601日期格式。"
 msgid "The party holding the legal copyright to the CreativeWork."
 msgstr "CreativeWork的版权合法所有者。"
 
-#: ../inc/api/endpoints/controller/class-metadata.php360,
-#: ../inc/api/endpoints/controller/class-sectionmetadata.php:342
+#: ../inc/api/endpoints/controller/class-metadata.php359,
+#: ../inc/api/endpoints/controller/class-sectionmetadata.php:341
 msgid ""
 "A license document that applies to this content, typically indicated by URL."
 msgstr "该内容的授权许可文档，通常给出授权文档的网址。"
 
-#: ../inc/api/endpoints/controller/class-metadata.php367,
-#: ../inc/api/endpoints/controller/class-sectionmetadata.php:349
+#: ../inc/api/endpoints/controller/class-metadata.php373,
+#: ../inc/api/endpoints/controller/class-sectionmetadata.php:355
+msgid "URL of the item."
+msgstr ""
+
+#: ../inc/api/endpoints/controller/class-metadata.php396,
+#: ../inc/api/endpoints/controller/class-sectionmetadata.php:378
 msgid ""
 "A resource that was used in the creation of this resource. This term can be "
 "repeated for multiple sources."
@@ -3165,7 +3182,7 @@ msgstr "任何元数据键，最多5个，英文逗号隔开。"
 msgid "The ID for the parent of the object."
 msgstr "对象的父级ID。"
 
-#: ../inc/api/endpoints/controller/class-sectionmetadata.php:385
+#: ../inc/api/endpoints/controller/class-sectionmetadata.php:414
 msgid "Invalid post ID."
 msgstr "无效帖子ID。"
 
@@ -3638,7 +3655,7 @@ msgstr ""
 msgid "Clone It!"
 msgstr ""
 
-#: ../templates/admin/custom-styles.php:27
+#: ../templates/admin/custom-styles.php:28
 msgid "Error: Something went wrong. See logs for more details."
 msgstr "出错了。请查看日志获得更多细节。"
 
@@ -3647,7 +3664,7 @@ msgid "You are currently editing styles for"
 msgstr ""
 
 #: ../templates/admin/custom-styles.php:39
-msgid "Theme Styles"
+msgid "Theme Styles (%s)"
 msgstr ""
 
 #: ../templates/admin/custom-styles.php:41
