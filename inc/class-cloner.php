@@ -512,15 +512,21 @@ class Cloner {
 			'https://choosealicense.com/no-license/',
 		];
 
+		if ( is_array( $this->sourceBookMetadata['license'] ) ) {
+			$license_url = $this->sourceBookMetadata['license']['url'];
+		} else { // Backwards compatibility.
+			$license_url = $this->sourceBookMetadata['license'];
+		}
+
 		if ( ! empty( $this->sourceBookId ) ) {
 			if ( current_user_can( 'manage_network_options' ) ) {
 				return true; // Network administrators can clone local books no matter how they're licensed
-			} elseif ( ! in_array( $this->sourceBookMetadata['license'], $restrictive_licenses, true ) ) {
+			} elseif ( ! in_array( $license_url, $restrictive_licenses, true ) ) {
 				return true; // Anyone can clone local books that aren't restrictively licensed
 			} else {
 				return false;
 			}
-		} elseif ( in_array( $this->sourceBookMetadata['license'], $restrictive_licenses, true ) ) {
+		} elseif ( in_array( $license_url, $restrictive_licenses, true ) ) {
 			return false; // No one can clone global books that are restrictively licensed
 		}
 		return true;
