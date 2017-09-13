@@ -36,7 +36,7 @@
     "vanilla/htmlawed": "v2.2.1.1",
     "pressbooks/mix": "^2.1.0",
     "pressbooks/pb-cli": "^1.5",
-    "masterminds/html5": "^2.2",
+    "masterminds/html5": "^2.3",
     "jenssegers/imagehash": "^0.4.2"
   },
   "require-dev": {
