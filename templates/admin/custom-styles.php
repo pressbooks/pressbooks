@@ -23,6 +23,10 @@ $your_styles = $style_post->post_content;
 // Template
 // -------------------------------------------------------------------------------------------------------------------
 
+if ( ! empty( $_GET['debug'] ) ) { // Debug
+	$theme_styles = \Pressbooks\Sanitize\normalize_css_urls( $theme_styles, 'http://DEBUG' );
+}
+
 if ( ! empty( $_GET['custom_styles_error'] ) ) {
 	// Conversion failed
 	printf( '<div class="error">%s</div>', __( 'Error: Something went wrong. See logs for more details.', 'pressbooks' ) );
