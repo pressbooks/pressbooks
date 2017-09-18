@@ -368,7 +368,7 @@ msgstr ""
 msgid "SASS Error"
 msgstr ""
 
-#: ../inc/class-styles.php:88, ../inc/class-styles.php:88, ../templates/admin/custom-styles.php:33
+#: ../inc/class-styles.php:88, ../inc/class-styles.php:88, ../templates/admin/custom-styles.php:37
 msgid "Custom Styles"
 msgstr ""
 
@@ -2781,7 +2781,7 @@ msgstr ""
 msgid "Contents"
 msgstr ""
 
-#: ../inc/modules/export/prince/class-pdf.php:269
+#: ../inc/modules/export/prince/class-pdf.php:283
 msgid "This book was produced using Pressbooks.com, and PDF rendering was done by PrinceXML."
 msgstr ""
 
@@ -3166,23 +3166,23 @@ msgstr ""
 msgid "Clone It!"
 msgstr ""
 
-#: ../templates/admin/custom-styles.php:28
+#: ../templates/admin/custom-styles.php:32
 msgid "Error: Something went wrong. See logs for more details."
 msgstr ""
 
-#: ../templates/admin/custom-styles.php:38
+#: ../templates/admin/custom-styles.php:42
 msgid "You are currently editing styles for"
 msgstr ""
 
-#: ../templates/admin/custom-styles.php:39
+#: ../templates/admin/custom-styles.php:43
 msgid "Theme Styles (%s)"
 msgstr ""
 
-#: ../templates/admin/custom-styles.php:41
+#: ../templates/admin/custom-styles.php:45
 msgid "Your Styles"
 msgstr ""
 
-#: ../templates/admin/custom-styles.php:43
+#: ../templates/admin/custom-styles.php:47
 msgid "Save"
 msgstr ""
 
