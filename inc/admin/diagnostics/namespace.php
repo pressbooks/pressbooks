@@ -141,6 +141,23 @@ $output .= 'Max Input Vars: ' . ini_get( 'max_input_vars' ) . "\n";
 $output .= 'URL-aware fopen: ' . ( ini_get( 'allow_url_fopen' ) ? 'On (' . ini_get( 'allow_url_fopen' ) . ')' : 'N/A' ) . "\n";
 $output .= 'Display Errors: ' . ( ini_get( 'display_errors' ) ? 'On (' . ini_get( 'display_errors' ) . ')' : 'N/A' ) . "\n\n";
 $output .= "#### PHP Extensions\n\n";
+$output .= 'OPcache: ';
+$opcache = false;
+if ( extension_loaded( 'Zend OPcache' ) ) {
+	$output .= 'Zend,';
+	$opcache = true;
+}
+if ( extension_loaded( 'apc' ) ) {
+	$output .= 'APC,';
+	$opcache = true;
+}
+if ( $opcache ) {
+	$output = rtrim( $output, ',' ) . "\n";
+} else {
+	$output .= 'Disabled' . "\n";
+}
+
+$output .= 'XDebug: ' . ( extension_loaded( 'xdebug' ) ? 'Enabled' : 'Disabled' ) . "\n";
 $output .= 'cURL: ' . ( function_exists( 'curl_init' ) ? 'Supported' : 'Not Supported' ) . "\n";
 if ( function_exists( 'curl_init' ) && function_exists( 'curl_version' ) ) {
 	$curl_values = curl_version();
