@@ -956,15 +956,16 @@ class Cloner {
 				if ( $image->hasAttribute( 'class' ) ) {
 					$image->setAttribute( 'class', preg_replace( '/wp-image-\d+/', "wp-image-{$attachment_id}", $image->getAttribute( 'class' ) ) );
 				}
-				// Update srcset URLs
-				if ( $image->hasAttribute( 'srcset' ) ) {
-					$image->setAttribute( 'srcset', wp_get_attachment_image_srcset( $attachment_id ) );
-				}
 				// Update wrapper IDs
 				if ( $image->parentNode->tagName === 'div' && strpos( $image->parentNode->getAttribute( 'id' ), 'attachment_' ) !== false ) {
 					$image->parentNode->setAttribute( 'id', preg_replace( '/attachment_\d+/', "attachment_{$attachment_id}", $image->parentNode->getAttribute( 'id' ) ) );
 				}
 			}
+		}
+
+		// Update srcset URLs
+		if ( $image->hasAttribute( 'srcset' ) ) {
+			$image->setAttribute( 'srcset', wp_get_attachment_image_srcset( $attachment_id ) );
 		}
 
 		return $src_new;
