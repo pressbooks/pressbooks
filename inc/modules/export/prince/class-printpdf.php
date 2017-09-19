@@ -41,6 +41,6 @@ class PrintPdf extends Pdf {
 	 * @return string
 	 */
 	protected function getPdfOutputIntent() {
-		return PB_PLUGIN_URL . 'assets/icc/USWebCoatedSWOP.icc';
+		return apply_filters( 'pb_prince_output_intent_path', '/usr/lib/prince/icc/USWebCoatedSWOP.icc' );
 	}
 }
