@@ -987,3 +987,39 @@ function word_count( $content ) {
 
 	return $n;
 }
+
+/**
+ * Because realpath() does not work on files that do not exist... Handles paths and URLs
+ *
+ * @param string $path
+ *
+ * @return string
+ */
+function absolute_path( $path ) {
+
+	if ( filter_var( $path, FILTER_VALIDATE_URL ) !== false ) {
+		$url = $path;
+		$path = parse_url( $path, PHP_URL_PATH );
+	}
+
+	$new_path = str_replace( '\\', '/', $path );
+	$parts = array_filter( explode( '/', $new_path ), 'strlen' );
+	$absolutes = [];
+	foreach ( $parts as $part ) {
+		if ( '.' == $part ) {
+			continue;
+		}
+		if ( '..' == $part ) {
+			array_pop( $absolutes );
+		} else {
+			$absolutes[] = $part;
+		}
+	}
+
+	$new_path = '/' . implode( '/', $absolutes );
+	if ( isset( $url ) ) {
+		$new_path = str_lreplace( $path, $new_path, $url );
+	}
+
+	return $new_path;
+}

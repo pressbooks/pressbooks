@@ -292,4 +292,32 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertEquals( 4, $count );
 	}
 
+
+	public function test_absolute_path() {
+
+		$path = '/simple/path';
+		$this->assertEquals( '/simple/path', \Pressbooks\Utility\absolute_path( $path ) );
+
+		$path = 'weird-path';
+		$this->assertEquals( '/weird-path', \Pressbooks\Utility\absolute_path( $path ) );
+
+		$path = '/path/to/test/.././..//..///..///../one/two/../three/filename';
+		$this->assertEquals( '/one/three/filename', \Pressbooks\Utility\absolute_path( $path ) );
+
+		$path = '\path\to\test\..\.\..\\..\\\..\\\..\one\two\..\three\filename';
+		$this->assertEquals( '/one/three/filename', \Pressbooks\Utility\absolute_path( $path ) );
+
+		$path = 'http://www.pressbooks.dev/simple/path';
+		$this->assertEquals( 'http://www.pressbooks.dev/simple/path', \Pressbooks\Utility\absolute_path( $path ) );
+
+		$path = 'http://www.pressbooks.dev/path/to/test/.././..//..///..///../one/two/../three/filename';
+		$this->assertEquals( 'http://www.pressbooks.dev/one/three/filename', \Pressbooks\Utility\absolute_path( $path ) );
+
+		$path = 'https://localhost/path/to/test/.././..//..///..///../one/two/../three/filename';
+		$this->assertEquals( 'https://localhost/one/three/filename', \Pressbooks\Utility\absolute_path( $path ) );
+
+		$path = 'ftp://127.0.0.1//path/to/test/.././..//..///..///../one/two/../three/filename';
+		$this->assertEquals( 'ftp://127.0.0.1/one/three/filename', \Pressbooks\Utility\absolute_path( $path ) );
+	}
+
 }

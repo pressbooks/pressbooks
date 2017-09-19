@@ -6,8 +6,6 @@
 
 namespace Pressbooks;
 
-use function Pressbooks\Sanitize\normalize_css_urls;
-
 class Sass {
 
 	/**
