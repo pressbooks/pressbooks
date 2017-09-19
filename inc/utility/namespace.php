@@ -1006,10 +1006,10 @@ function absolute_path( $path ) {
 	$parts = array_filter( explode( '/', $new_path ), 'strlen' );
 	$absolutes = [];
 	foreach ( $parts as $part ) {
-		if ( '.' == $part ) {
+		if ( '.' === $part ) {
 			continue;
 		}
-		if ( '..' == $part ) {
+		if ( '..' === $part ) {
 			array_pop( $absolutes );
 		} else {
 			$absolutes[] = $part;
