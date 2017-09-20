@@ -38,7 +38,7 @@ class PBLatexAdmin extends PBLatex {
 
 	function adminPageLoad() {
 		if ( ! current_user_can( 'manage_options' ) )
-				wp_die( __( 'Insufficient LaTeX-fu', 'pb-latex' ) );
+				wp_die( __( 'Insufficient LaTeX-fu', 'pressbooks' ) );
 
 		add_action( 'admin_head', array( &$this, 'adminHead' ) );
 
@@ -62,7 +62,7 @@ class PBLatexAdmin extends PBLatex {
 
 		if ( isset( $new['method'] ) ) {
 			if ( empty( $this->methods[$new['method']] ) ) {
-				$this->errors->add( 'method', __( 'Invalid LaTeX generation method', 'pb-latex' ), $new['method'] );
+				$this->errors->add( 'method', __( 'Invalid LaTeX generation method', 'pressbooks' ), $new['method'] );
 			} else {
 				$method = $new['method'];
 			}
@@ -71,7 +71,7 @@ class PBLatexAdmin extends PBLatex {
 		if ( isset( $new['fg'] ) ) {
 			$fg = strtolower( substr( preg_replace( '/[^0-9a-f]/i', '', $new['fg'] ), 0, 6 ) );
 			if ( 6 > $l = strlen( $fg ) ) {
-				$this->errors->add( 'fg', __( 'Invalid text color', 'pb-latex' ), $new['fg'] );
+				$this->errors->add( 'fg', __( 'Invalid text color', 'pressbooks' ), $new['fg'] );
 				$fg .= str_repeat( '0', 6 - $l );
 			}
 		}
@@ -82,7 +82,7 @@ class PBLatexAdmin extends PBLatex {
 			} else {
 				$bg = substr( preg_replace( '/[^0-9a-f]/i', '', $new['bg'] ), 0, 6 );
 				if ( 6 > $l = strlen( $bg ) ) {
-					$this->errors->add( 'bg', __( 'Invalid background color', 'pb-latex' ), $new['bg'] );
+					$this->errors->add( 'bg', __( 'Invalid background color', 'pressbooks' ), $new['bg'] );
 					$bg .= str_repeat( '0', 6 - $l );
 				}
 			}
@@ -126,9 +126,9 @@ class PBLatexAdmin extends PBLatex {
 			$message = '<div class="error"><p>' . $url->get_error_message() . "</p></div>\n";
 			echo $message;
 		} else {
-			$alt = esc_attr( __( 'Test Image', 'pb-latex' ) );
+			$alt = esc_attr( __( 'Test Image', 'pressbooks' ) );
 			echo "<img class='test-image' src='" . esc_url( $url ) . "' alt='$alt' />\n";
-			echo "<p class='test-image'>" . __( 'If you can see a big integral, all is well.', 'pb-latex' ) . '</p>';
+			echo "<p class='test-image'>" . __( 'If you can see a big integral, all is well.', 'pressbooks' ) . '</p>';
 			$r = true;
 		}
 		return $r;
@@ -179,7 +179,7 @@ tr.pb-latex-method-<?php echo $current_method; ?> {
 
 	function adminPage() {
 		if ( !current_user_can( 'manage_options' ) )
-			wp_die( __( 'Insufficient LaTeX-fu', 'pb-latex' ) );
+			wp_die( __( 'Insufficient LaTeX-fu', 'pressbooks' ) );
 
 		/**
 		 * Add custom latex renderer options to the radio input options.
@@ -189,7 +189,7 @@ tr.pb-latex-method-<?php echo $current_method; ?> {
 		 * @param array Base list of latex renderers.
 		 */
 		$latex_renderers = apply_filters( 'pb_add_latex_renderer_option', array(
-			'Automattic_Latex_WPCOM' => __( 'WordPress.com LaTeX Server (recommended)', 'pb-latex' ),
+			'Automattic_Latex_WPCOM' => __( 'WordPress.com LaTeX Server (recommended)', 'pressbooks' ),
 		) );
 
 		$default_wrappers = array();
@@ -232,7 +232,7 @@ tr.pb-latex-method-<?php echo $current_method; ?> {
 	<?php	endif; ?>
 
 	<div class='wrap'>
-	<h2><?php _e( 'PB LaTeX Options', 'pb-latex' ); ?></h2>
+	<h2><?php _e( 'PB LaTeX Options', 'pressbooks' ); ?></h2>
 
 	<?php if ( empty( $errors ) ) $this->testImage(); ?>
 
@@ -244,7 +244,7 @@ tr.pb-latex-method-<?php echo $current_method; ?> {
 		<tr>
 			<th scope="row"><?php _e( 'Syntax' ); ?></th>
 			<td class="syntax">
-				<p><?php printf( __( 'You may use either the shortcode syntax %s<br /> or the &#8220;inline&#8221; syntax %s OR %s<br /> to insert LaTeX into your posts.', 'pb-latex' ),
+				<p><?php printf( __( 'You may use either the shortcode syntax %s<br /> or the &#8220;inline&#8221; syntax %s OR %s<br /> to insert LaTeX into your posts.', 'pressbooks' ),
 					'<code>[latex]e^{\i \pi} + 1 = 0[/latex]</code>',
 					'<code>$latex e^{\i \pi} + 1 = 0$</code>',
 					'<code>$$ e^{\i \pi} + 1 = 0 $$</code>'
@@ -256,7 +256,7 @@ tr.pb-latex-method-<?php echo $current_method; ?> {
 		<?php endif; ?>
 
 		<tr<?php if ( in_array( 'method', $errors ) ) echo ' class="form-invalid"'; ?>>
-			<th scope="row"><?php _e( 'LaTeX generation method', 'pb-latex' ); ?></th>
+			<th scope="row"><?php _e( 'LaTeX generation method', 'pressbooks' ); ?></th>
 			<td>
 				<ul id="pb-latex-method-switch">
 					<?php foreach ( $latex_renderers as $renderer => $label ) { ?>
@@ -267,7 +267,7 @@ tr.pb-latex-method-<?php echo $current_method; ?> {
 		</tr>
 
 		<tr<?php if ( in_array( 'fg', $errors ) ) echo ' class="form-invalid"'; ?>>
-			<th scope="row"><label for="pb-latex-fg"><?php _e( 'Default text color', 'pb-latex' ); ?></label></th>
+			<th scope="row"><label for="pb-latex-fg"><?php _e( 'Default text color', 'pressbooks' ); ?></label></th>
 			<td>
 				<input type='text' name='pb_latex[fg]' value='<?php echo esc_attr( $values['fg'] ); ?>' id='pb-latex-fg' />
 				<?php _e( 'A six digit hexadecimal number like <code>000000</code> or <code>ffffff</code>' ); ?>
@@ -275,7 +275,7 @@ tr.pb-latex-method-<?php echo $current_method; ?> {
 		</tr>
 
 		<tr<?php if ( in_array( 'bg', $errors ) ) echo ' class="form-invalid"'; ?>>
-			<th scope="row"><label for="pb-latex-bg"><?php _e( 'Default background color', 'pb-latex' ); ?></label></th>
+			<th scope="row"><label for="pb-latex-bg"><?php _e( 'Default background color', 'pressbooks' ); ?></label></th>
 			<td>
 				<input type='text' name='pb_latex[bg]' value='<?php echo esc_attr( $values['bg'] ); ?>' id='pb-latex-bg' />
 				<?php _e( 'A six digit hexadecimal number like <code>000000</code> or <code>ffffff</code>, or <code>transparent</code>' ); ?>
@@ -286,7 +286,7 @@ tr.pb-latex-method-<?php echo $current_method; ?> {
 
 
 	<p class="submit">
-		<input type="submit" class="button-primary" value="<?php echo esc_attr( __( 'Update LaTeX Options', 'pb-latex' ) ); ?>" />
+		<input type="submit" class="button-primary" value="<?php echo esc_attr( __( 'Update LaTeX Options', 'pressbooks' ) ); ?>" />
 		<?php wp_nonce_field( 'pb-latex' ); ?>
 	</p>
 	</form>
