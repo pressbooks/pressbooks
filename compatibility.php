@@ -59,7 +59,22 @@ function pb_meets_minimum_requirements() {
 		}
 	}
 
+	if ( $is_compatible ) {
+		pb_init_autoloader();
+	}
+
 	return $is_compatible;
+}
+
+/**
+ * Plugins are loaded in random order. Other plugins that depend on pressbooks (before pressbooks is loaded) should init the autoloader.
+ */
+function pb_init_autoloader() {
+	static $registered = false;
+	if ( ! $registered ) {
+		\HM\Autoloader\register_class_path( 'Pressbooks', __DIR__ . '/inc' );
+		$registered = true;
+	}
 }
 
 /**
