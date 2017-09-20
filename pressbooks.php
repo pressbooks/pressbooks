@@ -8,8 +8,6 @@ Author: Book Oven Inc.
 Author URI: https://pressbooks.com
 Text Domain: pressbooks
 License: GPLv2
-GitHub Plugin URI: https://github.com/pressbooks/pressbooks
-Release Asset: true
 Network: True
 */
 
