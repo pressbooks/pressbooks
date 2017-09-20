@@ -45,6 +45,7 @@ TK.
 6. Catalog
 
 == Upgrade Notice ==
+= 4.2 =
 
 Upon upgrading to Pressbooks 4.2.0, you will need to install the [Pressbooks Book](https://github.com/pressbooks/pressbooks-book) and [Pressbooks Publisher](https://github.com/pressbooks/pressbooks-publisher) themes along with any of our other open source [book themes](https://github.com/search?q=topic%3Abook-theme+org%3Apressbooks&type=Repositories) that were bundled with earlier versions of Pressbooks. For more information, see the [upgrading instructions](https://docs.pressbooks.org/upgrading).
 Pressbooks now requires [PHP >= 5.6](https://secure.php.net/supported-versions.php)
