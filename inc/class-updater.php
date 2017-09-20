@@ -11,6 +11,7 @@ namespace Pressbooks;
 
 /**
  * @see https://github.com/YahnisElsts/plugin-update-checker/issues/93
+ * @see https://api.github.com/repos/pressbooks/pressbooks/releases
  */
 class Updater extends \Puc_v4p2_Vcs_GitHubApi {
 
