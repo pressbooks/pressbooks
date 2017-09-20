@@ -521,7 +521,7 @@ class Book {
 			return false;
 		}
 
-		$doc = new HTML5();
+		$doc = new HTML5( [ 'disable_html_ns' => true ] ); // Disable default namespace for \DOMXPath compatibility
 		$dom = $doc->loadHTML( $content );
 		$sections = $dom->getElementsByTagName( 'h1' );
 		foreach ( $sections as $section ) {

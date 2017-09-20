@@ -30,6 +30,17 @@ require( PB_PLUGIN_DIR . 'inc/admin/plugins/namespace.php' );
 $is_book = Book::isBook();
 
 // -------------------------------------------------------------------------------------------------------------------
+// Check for updates
+// -------------------------------------------------------------------------------------------------------------------
+
+$updater = new \Puc_v4p2_Vcs_PluginUpdateChecker(
+	new \Pressbooks\Updater( 'https://github.com/pressbooks/pressbooks/' ),
+	__DIR__ . '/pressbooks.php', // Fully qualified path to the main plugin file
+	'pressbooks'
+);
+$updater->setBranch( 'master' );
+
+// -------------------------------------------------------------------------------------------------------------------
 // Look & feel of admin interface and Dashboard
 // -------------------------------------------------------------------------------------------------------------------
 
@@ -275,3 +286,4 @@ add_filter( 'gettext', '\Pressbooks\Utility\change_recommendations_sentence', 10
 
 // Theme check
 add_action( 'admin_init', '\Pressbooks\Theme\check_required_themes' );
+add_action( 'admin_init', '\Pressbooks\Theme\check_upgraded_customcss' );

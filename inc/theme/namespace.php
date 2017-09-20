@@ -75,6 +75,33 @@ function check_required_themes() {
 }
 
 /**
+ * Check if custom-css is old; prompt to upgrade
+ *
+ * @since 4.3
+ */
+function check_upgraded_customcss() {
+	if ( get_transient( 'pb_has_upgraded_custom_css' ) !== false ) {
+		return;
+	}
+
+	foreach ( [ 'pressbooks-custom-css', 'pressbooks-customcss' ] as $name ) {
+		$theme = wp_get_theme( $name );
+		if ( $theme->exists() && ! version_compare( $theme->get( 'Version' ), '1.0.0', '>=' ) ) {
+			wp_die( sprintf(
+				__( 'The Pressbooks Custom CSS theme must be upgraded. Please visit %s for installation instructions.', 'pressbooks' ),
+				sprintf(
+					'<a href="%1$s">%2$s</a>',
+					'https://github.com/pressbooks/pressbooks-custom-css',
+					'GitHub'
+				)
+			) );
+		}
+	}
+
+	set_transient( 'pb_has_upgraded_custom_css', 1 );
+}
+
+/**
  * Update theme slugs from Pressbooks < 4.0.
  *
  * @since 4.0
