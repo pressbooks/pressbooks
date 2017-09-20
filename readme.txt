@@ -47,7 +47,7 @@ TK.
 6. Catalog
 
 == Upgrade Notice ==
-= 4.2 =
+= 4.3.2 =
 
 Upon upgrading to Pressbooks 4.3.2, you will need to install the [Pressbooks Book](https://github.com/pressbooks/pressbooks-book) and [Pressbooks Publisher](https://github.com/pressbooks/pressbooks-publisher) themes along with any of our other open source [book themes](https://github.com/search?q=topic%3Abook-theme+org%3Apressbooks&type=Repositories) that were bundled with earlier versions of Pressbooks. For more information, see the [upgrading instructions](https://docs.pressbooks.org/upgrading).
 
@@ -60,16 +60,13 @@ Pressbooks now requires [WordPress 4.8.1](https://wordpress.org/download/).
 Pressbooks now requires [PrinceXML 11](http://www.princexml.com/download/) for PDF exports.
 
 == Changelog ==
-
-### 4.3.2
-
+= 4.3.2 =
 **NOTICE:** Pressbooks 4.3.2 requires WordPress 4.8.1.
 **NOTICE:** Users of the Pressbooks Custom CSS theme must upgrade to Pressbooks Custom CSS 1.0 for compatibility with Pressbooks 4.3.2.
 
 * **[FIX]** Fixed an issue which prevented the Print PDF profile from loading properly (see #951).
 
-### 4.3.1
-
+= 4.3.1 =
 **NOTICE:** Pressbooks 4.3.1 requires WordPress 4.8.1.
 **NOTICE:** Users of the Pressbooks Custom CSS theme must upgrade to Pressbooks Custom CSS 1.0 for compatibility with Pressbooks 4.3.1.
 
@@ -77,8 +74,7 @@ Pressbooks now requires [PrinceXML 11](http://www.princexml.com/download/) for P
 * **[FIX]** Resolved an issue where some fonts would not be loaded properly during the PDF export routine (see #944 and #945).
 * **[FIX]** Updated routines that use XPath for compatibility with HTML5, resolving some issues with multi-level TOC and EpubCheck validation (see #947).
 
-### 4.3
-
+= 4.3 =
 **NOTICE:** Pressbooks 4.3 requires WordPress 4.8.1.
 **NOTICE:** Users of the Pressbooks Custom CSS theme must upgrade to Pressbooks Custom CSS 1.0 for compatibility with Pressbooks 4.3.
 
@@ -90,8 +86,7 @@ Pressbooks now requires [PrinceXML 11](http://www.princexml.com/download/) for P
 * **[FIX]** Fixed an issue which would prevent super administrators without any books on a network from accessing the cloning page (see #913 and #933).
 * **[FIX]** Fixed a regression which blocked the use of custom LaTeX renderers (props to @monkecheese; see #928).
 
-### 4.2
-
+= 4.2 =
 **NOTICE:** Pressbooks 4.2 requires WordPress 4.8.1.
 
 * **Feature:** Full-sized images will be used where possible in Print PDF exports to ensure that exported PDFs meet image resolution requirements (see #894, #898 and #900).
@@ -108,8 +103,7 @@ Pressbooks now requires [PrinceXML 11](http://www.princexml.com/download/) for P
 * **Fix:** Fixed an issue where the Pressbooks News dashboard widget would be cached in the wrong language (see #918 and #921).
 * **Fix:** Removed some unused code from the PB LaTeX symbiont (props to @jeremyfelt; see #923).
 
-### 4.1
-
+= 4.1 =
 **NOTICE:** Pressbooks 4.1 requires [WordPress 4.8.1](https://wordpress.org/news/2017/08/wordpress-4-8-1-maintenance-release/).
 
 * **Feature:** Cloning! Clone any public, properly-licensed book from any Pressbooks 4.1 network including your own (super admins can clone any book from their own network, regardless of license) (see #841, #857, #881, #885).
@@ -126,19 +120,17 @@ Pressbooks now requires [PrinceXML 11](http://www.princexml.com/download/) for P
 * **Fix:** The EPUB importer now properly detects and handles optional whitespaces (see #554, #874).
 * **Fix:** Users without super admin privileges can no longer access the trash when they shouldn't be able to do so (see #865).
 
-### 4.0.2
+= 4.0.2 =
 * **Fix:** Fixed an issue where locating a PDF output intent file would fail on certain systems (see #866).
 
-### 4.0.1
+= 4.0.1 =
 * **Fix:** Fixed an issue where the template root for book themes was not properly updated (see #854, #859).
 * **Fix:** Fixed an issue where ampersands were not being sanitized in XML outputs (see #860).
 * **Fix:** Fixed an issue where the Disable Comments setting was not being saved properly (see #861).
 * **Fix:** Fixed an incorrect link in upgrade notices (see #848, #849).
 
-### 4.0.0
-
+= 4.0.0 =
 **NOTICE:** Upon upgrading to Pressbooks 4.0, you will need to install the [Pressbooks Book](https://github.com/pressbooks/pressbooks-book) and [Pressbooks Publisher](https://github.com/pressbooks/pressbooks-publisher) themes along with any of our other open source [book themes](https://github.com/search?q=topic%3Abook-theme+org%3Apressbooks&type=Repositories) that were bundled with earlier versions of Pressbooks. For more information, see the [upgrading instructions](https://docs.pressbooks.org/upgrading).
-
 **NOTICE:** Pressbooks 4.0 requires [WordPress 4.8.0](https://wordpress.org/news/2017/06/evans/).
 
 #### Pressbooks 4.0 "Slate"
@@ -188,10 +180,10 @@ The Pressbooks command line interface is now part of Pressbooks. Want to make yo
 * **Fix:** The Search and Replace module no longer searches items in the trash (see [6978734](https://github.com/pressbooks/pressbooks/commit/697873425439be829abaeb077fbc3f6a8391b17e)).
 * **Fix:** Miscellaneous improvements to improve performance and reduce unnecessary error output.
 
-### 3.9.10
+= 3.9.10 =
 * **Feature:** Strikethrough text (the `<del>` tag) can now be used in front matter, part, chapter and back matter titles (see #790).
 
-### 3.9.9
+= 3.9.9 =
 **NOTICE:** Pressbooks now requires [WordPress 4.7.5](https://wordpress.org/news/2017/05/wordpress-4-7-5/).
 
 * **Feature:** A curated listed of recommended plugins is now displayed within the plugin installer (see #729).
@@ -211,19 +203,19 @@ The Pressbooks command line interface is now part of Pressbooks. Want to make yo
 * **Fix:** Fixed issues that arose when `pb_language` or `user_interface_lang` were not set (props to @monkecheese for initial bug report and testing; see #738, #739, #740).
 * **Fix:** Fixed an issue where a database error would be thrown when installing on a utf8mb4 MySQL instance (props to @jeremyfelt; see #733).
 
-### 3.9.8.2
+= 3.9.8.2 =
 **NOTICE:** Pressbooks' PHP version requirement (>= 5.6) and WordPress version requirement (>= 4.7.3) can no longer be overridden. Before installing Pressbooks 3.9.8, please ensure that your system has been upgraded accordingly.
 
 * **Fix:** Switched to an unmodified version of htmLawed to fix a regression in [vanilla/htmlawed](https://github.com/vanilla/htmlawed/) which was stripping paragraph tags from blockquotes (see #723).
 * **Fix:** Fixed an issue where users would be informed that their theme had been unlocked when saving Export options even thought it was already unlocked (see #722).
 * **Fix:** Fixed an issue where wp-cli would give a permissions error because of the `\Pressbooks\ThemeLock::isLocked()` check (see #721).
 
-### 3.9.8.1
+= 3.9.8.1 =
 **NOTICE:** Pressbooks' PHP version requirement (>= 5.6) and WordPress version requirement (>= 4.7.3) can no longer be overridden. Before installing Pressbooks 3.9.8, please ensure that your system has been upgraded accordingly.
 
 * **Fix:** Restored some webbook styles that were being omitted in older book themes.
 
-### 3.9.8
+= 3.9.8 =
 **NOTICE:** Pressbooks' PHP version requirement (>= 5.6) and WordPress version requirement (>= 4.7.3) can no longer be overridden. Before installing Pressbooks 3.9.8, please ensure that your system has been upgraded accordingly.
 
 * **Feature:** Themes can now be locked a particular version. The theme's stylesheets and other assets will be copied into the book's media directory and used for future exports (see #657, #704).
@@ -249,15 +241,15 @@ The Pressbooks command line interface is now part of Pressbooks. Want to make yo
 * **Fix:** Numberless chapters no longer display a lonely period in PDF outputs from SCSS v2 themes (props to @thomasdumm for the report; see #670).
 * **Fix:** Importing as a draft now works for EPUB imports (props to @thomasdumm for the report; see #668).
 
-### 3.9.7.2
+= 3.9.7.2 =
 **NOTICE:** Pressbooks now requires [WordPress 4.7.3](https://wordpress.org/news/2017/03/wordpress-4-7-3-security-and-maintenance-release/).
 
 * **Enhancement:** Streamlined and refactored the running content SCSS partials for SCSS-based themes (see #675 and #686).
 
-### 3.9.7.1
+= 3.9.7.1 =
 * **Fix:** Fixed an issue where the custom CSS file for webbooks would not be loaded on subdirectory installs.
 
-### 3.9.7
+= 3.9.7 =
 **NOTICE:** Pressbooks now requires [WordPress 4.7.2](https://wordpress.org/news/2017/01/wordpress-4-7-2-security-release/).
 
 * **Feature:** Added support for Canadian Indigenous syllabics, which are used for the Chipewyan, Inuktitut, Plains Cree, Cree, Moose Cree, Slave, Northern Cree, Naskapi, Swampy Cree, Southern East Cree, and Ojibwa languages (props to @bdolor; see #635).
