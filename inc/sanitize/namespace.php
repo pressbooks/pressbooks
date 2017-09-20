@@ -346,12 +346,12 @@ function normalize_css_urls( $css, $url_path = '' ) {
 
 			if ( $url_path && ! preg_match( '#^https?://#i', $url ) ) {
 				if ( filter_var( $url_path, FILTER_VALIDATE_URL ) !== false ) {
-					$my_asset = "$url_path/$url";
+					$my_asset = \Pressbooks\Utility\absolute_path( "$url_path/$url" );
 				} else {
 					$my_asset = realpath( "$url_path/$url" );
 				}
 				if ( $my_asset ) {
-					return "url($url_path/$url)";
+					return "url($my_asset)";
 				}
 			}
 
