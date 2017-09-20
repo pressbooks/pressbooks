@@ -235,14 +235,28 @@ class Pdf extends Export {
 
 		$css = $styles->customize( 'prince', $scss, $this->cssOverrides );
 
-		$scss_dir = pathinfo( $this->exportStylePath, PATHINFO_DIRNAME );
-		$css = normalize_css_urls( $css, $scss_dir );
+		$css = normalize_css_urls( $css, $this->urlPath() );
 
 		if ( WP_DEBUG ) {
 			Container::get( 'Sass' )->debug( $css, $scss, 'prince' );
 		}
 
 		return $css;
+	}
+
+	/**
+	 * Convert the directory containing `$this->exportStylePath` to a URL that can be used by services like DocRaptor
+	 * Useful for sending assets like images/asterisk.png, images/em-dash.png, ...
+	 *
+	 * @return string
+	 */
+	protected function urlPath() {
+		$dir = str_replace( Container::get( 'Styles' )->getDir(), '', pathinfo( $this->exportStylePath, PATHINFO_DIRNAME ) );
+		$dir = ltrim( $dir, '/' );
+		$url_path = trailingslashit( get_stylesheet_directory_uri() ) . $dir;
+		$url_path = set_url_scheme( $url_path );
+
+		return $url_path;
 	}
 
 

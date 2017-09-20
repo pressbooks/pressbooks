@@ -337,9 +337,38 @@ class SectionMetadata extends \WP_REST_Controller {
 					'readonly' => true,
 				],
 				'license' => [
-					'type' => 'string',
-					'format' => 'uri',
+					'type' => 'object',
 					'description' => __( 'A license document that applies to this content, typically indicated by URL.' ),
+					'properties' => [
+						'@type' => [
+							'type' => 'string',
+							'enum' => [
+								'CreativeWork',
+							],
+							'description' => __( 'The type of the thing.' ),
+							'context' => [ 'view' ],
+							'readonly' => true,
+						],
+						'url' => [
+							'type' => 'string',
+							'format' => 'uri',
+							'description' => __( 'URL of the item.' ),
+							'context' => [ 'view' ],
+							'readonly' => true,
+						],
+						'name' => [
+							'type' => 'string',
+							'description' => __( 'The name of the thing.' ),
+							'context' => [ 'view' ],
+							'readonly' => true,
+						],
+						'description' => [
+							'type' => 'string',
+							'description' => __( 'A description of the item.' ),
+							'context' => [ 'view' ],
+							'readonly' => true,
+						],
+					],
 					'context' => [ 'view' ],
 					'readonly' => true,
 				],

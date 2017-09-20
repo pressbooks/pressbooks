@@ -78,6 +78,24 @@ class MetadataTest extends \WP_UnitTestCase {
 		$this->assertEquals( $result['pb_title'], 'Moby Dick' );
 		$this->assertEquals( $result['pb_author'], 'Herman Melville' );
 		$this->assertEquals( $result['pb_book_license'], 'public-domain' );
+
+		$schema = [
+			'@context' => 'http://schema.org',
+			'@type' => 'Book',
+			'author' => [
+				'@type' => 'Person',
+				'name' => 'Herman Melville',
+			],
+			'name' => 'Moby Dick',
+			'license' => [
+				'url' => 'https://creativecommons.org/publicdomain/zero/1.0/',
+				'name' => 'Public Domain (No Rights Reserved)',
+				'description' => 'Call me Ishmael.',
+			],
+		];
+
+		$result = \Pressbooks\Metadata\schema_to_book_information( $schema );
+		$this->assertEquals( $result['pb_custom_copyright'], 'Call me Ishmael.' );
 	}
 
 	public function test_section_information_to_schema() {
@@ -106,6 +124,38 @@ class MetadataTest extends \WP_UnitTestCase {
 				'name' => 'Herman Melville',
 			],
 			'name' => 'Moby Dick',
+			'license' => [
+				'url' => 'https://creativecommons.org/publicdomain/zero/1.0/',
+				'name' => 'Public Domain (No Rights Reserved)',
+			],
+		];
+
+		$section_schema = [
+			'@context' => 'http://bib.schema.org',
+			'@type' => 'Chapter',
+			'author' => [
+				'@type' => 'Person',
+				'name' => 'Herman Melville',
+			],
+			'name' => 'Loomings',
+			'license' => [
+				'url' => 'https://creativecommons.org/publicdomain/zero/1.0/',
+				'name' => 'Public Domain (No Rights Reserved)',
+			],
+		];
+
+		$result = \Pressbooks\Metadata\schema_to_section_information( $section_schema, $book_schema );
+		$this->assertArrayNotHasKey( 'pb_section_author', $result );
+		$this->assertArrayNotHasKey( 'pb_section_license', $result );
+
+		$book_schema = [
+			'@context' => 'http://schema.org',
+			'@type' => 'Book',
+			'author' => [
+				'@type' => 'Person',
+				'name' => 'Herman Melville',
+			],
+			'name' => 'Moby Dick',
 			'license' => 'https://creativecommons.org/publicdomain/zero/1.0/',
 		];
 
@@ -117,12 +167,14 @@ class MetadataTest extends \WP_UnitTestCase {
 				'name' => 'Herman Melville',
 			],
 			'name' => 'Loomings',
-			'license' => 'https://creativecommons.org/publicdomain/zero/1.0/',
+			'license' => [
+				'url' => 'https://choosealicense.com/no-license/',
+				'name' => 'All Rights Reserved',
+			],
 		];
 
 		$result = \Pressbooks\Metadata\schema_to_section_information( $section_schema, $book_schema );
-		$this->assertArrayNotHasKey( 'pb_section_author', $result );
-		$this->assertArrayNotHasKey( 'pb_section_license', $result );
+		$this->assertArrayHasKey( 'pb_section_license', $result );
 	}
 
 }

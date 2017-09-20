@@ -1,8 +1,10 @@
 === Pressbooks ===
 
 Contributors: Pressbooks <code@pressbooks.com>
-Version: 4.2.0
+Version: 4.3.2
+Stable Tag: 4.3.2
 Tags: ebooks, publishing, webbooks
+Requires PHP: 5.6
 Requires at least: 4.8.1
 Tested up to: 4.8.1
 License: GPLv2 or later
@@ -46,7 +48,10 @@ TK.
 
 == Upgrade Notice ==
 
-Upon upgrading to Pressbooks 4.2.0, you will need to install the [Pressbooks Book](https://github.com/pressbooks/pressbooks-book) and [Pressbooks Publisher](https://github.com/pressbooks/pressbooks-publisher) themes along with any of our other open source [book themes](https://github.com/search?q=topic%3Abook-theme+org%3Apressbooks&type=Repositories) that were bundled with earlier versions of Pressbooks. For more information, see the [upgrading instructions](https://docs.pressbooks.org/upgrading).
+Upon upgrading to Pressbooks 4.3.2, you will need to install the [Pressbooks Book](https://github.com/pressbooks/pressbooks-book) and [Pressbooks Publisher](https://github.com/pressbooks/pressbooks-publisher) themes along with any of our other open source [book themes](https://github.com/search?q=topic%3Abook-theme+org%3Apressbooks&type=Repositories) that were bundled with earlier versions of Pressbooks. For more information, see the [upgrading instructions](https://docs.pressbooks.org/upgrading).
+
+Upon upgrading to Pressbooks 4.3.2, users of the [Pressbooks Custom CSS](https://github.com/pressbooks/pressbooks-custom-css) theme will need to upgrade to version 1.0 of the Pressbooks Custom CSS theme.
+
 Pressbooks now requires [PHP >= 5.6](https://secure.php.net/supported-versions.php)
 
 Pressbooks now requires [WordPress 4.8.1](https://wordpress.org/download/).
@@ -54,6 +59,35 @@ Pressbooks now requires [WordPress 4.8.1](https://wordpress.org/download/).
 Pressbooks now requires [PrinceXML 11](http://www.princexml.com/download/) for PDF exports.
 
 == Changelog ==
+
+### 4.3.2
+
+**NOTICE:** Pressbooks 4.3.2 requires WordPress 4.8.1.
+**NOTICE:** Users of the Pressbooks Custom CSS theme must upgrade to Pressbooks Custom CSS 1.0 for compatibility with Pressbooks 4.3.2.
+
+* **[FIX]** Fixed an issue which prevented the Print PDF profile from loading properly (see #951).
+
+### 4.3.1
+
+**NOTICE:** Pressbooks 4.3.1 requires WordPress 4.8.1.
+**NOTICE:** Users of the Pressbooks Custom CSS theme must upgrade to Pressbooks Custom CSS 1.0 for compatibility with Pressbooks 4.3.1.
+
+* **[CORE ENHANCEMENT]** Added a debuggin switch to Custom Styles (see #946).
+* **[FIX]** Resolved an issue where some fonts would not be loaded properly during the PDF export routine (see #944 and #945).
+* **[FIX]** Updated routines that use XPath for compatibility with HTML5, resolving some issues with multi-level TOC and EpubCheck validation (see #947).
+
+### 4.3
+
+**NOTICE:** Pressbooks 4.3 requires WordPress 4.8.1.
+**NOTICE:** Users of the Pressbooks Custom CSS theme must upgrade to Pressbooks Custom CSS 1.0 for compatibility with Pressbooks 4.3.
+
+* **[FEATURE]** Custom Styles: Navigate to _Appearance_ &rarr; _Custom Styles_ on your book's dashboard to add custom CSS or SCSS to any book theme (see #658, #912, #925, #937, #938, #940, #941, and #942).
+* **[ENHANCEMENT]** Expanded the `license` property of the `/metadata` endpoint to include a human-readable license name and custom license text (if present) (see #934 and #936).
+* **[ENHANCEMENT]** Added the book's short description to the `/metadata` endpoint as a [`disambiguatingDescription`](http://schema.org/disambiguatingDescription) (see #930 and #932).
+* **[ENHANCEMENT]** Clarified errors when trying to clone a book from Pressbooks < 4.1 (see #914 and #931).
+* **[ENHANCEMENT]** Renamed several action and filter hooks and deprecated the old versions (see #926).
+* **[FIX]** Fixed an issue which would prevent super administrators without any books on a network from accessing the cloning page (see #913 and #933).
+* **[FIX]** Fixed a regression which blocked the use of custom LaTeX renderers (props to @monkecheese; see #928).
 
 ### 4.2
 

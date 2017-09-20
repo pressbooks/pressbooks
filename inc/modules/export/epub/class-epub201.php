@@ -1752,7 +1752,7 @@ class Epub201 extends Export {
 	 */
 	protected function kneadHtml( $html, $type, $pos = 0 ) {
 
-		$doc = new HTML5();
+		$doc = new HTML5( [ 'disable_html_ns' => true ] ); // Disable default namespace for \DOMXPath compatibility
 		$dom = $doc->loadHTML( $html );
 
 		// Download images, change to relative paths

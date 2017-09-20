@@ -134,7 +134,7 @@ class StylesTest extends \WP_UnitTestCase {
 		ob_start();
 		$this->cs->editor();
 		$output = ob_get_clean();
-		$this->assertContains( '<h2>Custom Styles</h2>', $output );
+		$this->assertContains( '<h1>Custom Styles</h1>', $output );
 	}
 
 
@@ -142,6 +142,3 @@ class StylesTest extends \WP_UnitTestCase {
 
 
 }
-
-
-

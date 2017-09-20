@@ -304,14 +304,17 @@ function maybe_https( $url ) {
  * Search for all possible permutations of CSS url syntax -- url("*"), url('*'), and url(*) -- and update URLs as needed.
  *
  * @param string $css
- * @param string $dir
+ * @param string $url_path
  *
  * @return string
  */
-function normalize_css_urls( $css, $dir = '' ) {
+function normalize_css_urls( $css, $url_path = '' ) {
+
 	$url_regex = '/url\(([\s])?([\"|\'])?(.*?)([\"|\'])?([\s])?\)/i';
+	$root_theme = get_template_directory_uri(); // If you want the current child theme then use `get_stylesheet_directory_uri()`
+
 	$css = preg_replace_callback(
-		$url_regex, function ( $matches ) use ( $dir ) {
+		$url_regex, function ( $matches ) use ( $url_path, $root_theme ) {
 
 			$typography_dir = get_theme_root( 'pressbooks-book' ) . '/pressbooks-book/assets/book/typography/';
 
@@ -323,13 +326,13 @@ function normalize_css_urls( $css, $dir = '' ) {
 				$url = str_replace( 'themes-book/pressbooks-book/', '', $url );
 				$my_asset = realpath( $typography_dir . $url );
 				if ( $my_asset ) {
-					return 'url(' . get_template_directory_uri() . '/assets/book/typography/' . $url . ')';
+					return 'url(' . $root_theme . '/assets/book/typography/' . $url . ')';
 				}
 			}
 			if ( preg_match( '#^fonts/[a-zA-Z0-9_-]+(\.woff|\.otf|\.ttf)$#i', $url ) ) {
 				$my_asset = realpath( $typography_dir . $url );
 				if ( $my_asset ) {
-					return 'url(' . get_template_directory_uri() . '/assets/book/typography/' . $url . ')';
+					return 'url(' . $root_theme . '/assets/book/typography/' . $url . ')';
 				}
 			}
 			if ( preg_match( '#^uploads/assets/fonts/[a-zA-Z0-9_-]+(\.woff|\.otf|\.ttf)$#i', $url ) ) {
@@ -339,12 +342,16 @@ function normalize_css_urls( $css, $dir = '' ) {
 				}
 			}
 
-			// Look for anything !NOT! prefixed with http(s), convert to fullpath
+			// Look for anything !NOT! prefixed with http(s), convert to $url_path
 
-			if ( $dir && ! preg_match( '#^https?://#i', $url ) ) {
-				$my_asset = realpath( "$dir/$url" );
+			if ( $url_path && ! preg_match( '#^https?://#i', $url ) ) {
+				if ( filter_var( $url_path, FILTER_VALIDATE_URL ) !== false ) {
+					$my_asset = "$url_path/$url";
+				} else {
+					$my_asset = realpath( "$url_path/$url" );
+				}
 				if ( $my_asset ) {
-					return "url($dir/$url)";
+					return "url($url_path/$url)";
 				}
 			}
 
