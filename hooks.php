@@ -7,7 +7,6 @@
 use Pressbooks\Book;
 use Pressbooks\Container;
 use Pressbooks\Theme\Lock;
-use Pressbooks\Updater;
 use function \Pressbooks\l10n\use_book_locale;
 use function \Pressbooks\Utility\include_plugins as include_symbionts;
 
@@ -35,16 +34,6 @@ require( PB_PLUGIN_DIR . 'inc/theme/namespace.php' );
 require( PB_PLUGIN_DIR . 'inc/utility/namespace.php' );
 
 include_symbionts();
-
-// -------------------------------------------------------------------------------------------------------------------
-// Check for updates
-// -------------------------------------------------------------------------------------------------------------------
-
-$updateChecker = new Puc_v4p2_Vcs_PluginUpdateChecker(
-    new Updater( 'https://github.com/pressbooks/pressbooks/' ),
-    __FILE__,
-    'pressbooks'
-);
 
 // -------------------------------------------------------------------------------------------------------------------
 // Recycle, reduce, reuse
