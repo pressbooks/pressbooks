@@ -16,9 +16,7 @@ abstract class Import {
 	 * @deprecated
 	 * @var array
 	 */
-	static $logsEmail = [
-		'errors@pressbooks.com',
-	];
+	static $logsEmail = [];
 
 
 	/**

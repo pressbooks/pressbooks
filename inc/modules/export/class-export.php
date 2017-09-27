@@ -31,9 +31,7 @@ abstract class Export {
 	 *
 	 * @var array
 	 */
-	public $errorsEmail = [
-		'errors@pressbooks.com',
-	];
+	public $errorsEmail = [];
 
 
 	/**

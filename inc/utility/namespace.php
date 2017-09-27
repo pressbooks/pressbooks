@@ -752,6 +752,15 @@ function email_error_log( $emails, $subject, $message ) {
 		}
 	);
 
+	/**
+	 * Filter an array of email addresses error logs are sent to
+	 *
+	 * @since 4.3.3
+	 *
+	 * @param array $emails Current link category term object.
+	 */
+	$emails = apply_filters( 'pb_email_error_report', $emails );
+
 	foreach ( $emails as $email ) {
 		// Call pluggable
 		\wp_mail( $email, $subject, $message );
