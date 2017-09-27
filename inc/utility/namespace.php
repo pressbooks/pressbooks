@@ -765,7 +765,7 @@ function email_error_log( $emails, $subject, $message ) {
 	 *
 	 * @since 4.3.3
 	 *
-	 * @param array $emails Current link category term object.
+	 * @param array $emails
 	 */
 	$emails = apply_filters( 'pb_email_error_report', $emails );
 
