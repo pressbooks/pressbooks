@@ -55,7 +55,7 @@ class Activation {
 			 *
 			 * @since 3.9.7
 			 *
-			 * @param string Default description ('Simple Book Publishing').
+			 * @param string $value Default description ('Simple Book Publishing').
 			 */
 			update_blog_option( 1, 'blogdescription', apply_filters( 'pb_root_description', __( 'Simple Book Publishing', 'pressbooks' ) ) );
 
@@ -124,7 +124,7 @@ class Activation {
 			 *
 			 * @since 4.1.0
 			 *
-			 * @param bool Whether or not to redirect the user
+			 * @param bool $value Whether or not to redirect the user
 			 */
 			if ( apply_filters( 'pb_redirect_to_new_book', true ) ) {
 				\Pressbooks\Redirect\location( get_admin_url( $this->blog_id ) );
@@ -266,7 +266,7 @@ class Activation {
 		 *
 		 * @since 4.1.0
 		 *
-		 * @param array The default book content.
+		 * @param array $posts The default book content.
 		 */
 		$posts = apply_filters( 'pb_default_book_content', $posts );
 
@@ -286,7 +286,7 @@ class Activation {
 		 *
 		 * @since 3.9.7
 		 *
-		 * @param string Default description ('Simple Book Publishing').
+		 * @param string $value Default description ('Simple Book Publishing').
 		 */
 		update_option( 'blogdescription', apply_filters( 'pb_book_description', __( 'Simple Book Publishing', 'pressbooks' ) ) );
 

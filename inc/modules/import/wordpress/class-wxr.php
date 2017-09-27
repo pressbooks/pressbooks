@@ -78,7 +78,7 @@ class Wxr extends Import {
 		 *
 		 * @since 3.6.0
 		 *
-		 * @param array
+		 * @param array $value
 		 */
 		$supported_post_types = apply_filters( 'pb_import_custom_post_types', [ 'post', 'page', 'front-matter', 'chapter', 'part', 'back-matter', 'metadata' ] );
 
@@ -145,7 +145,7 @@ class Wxr extends Import {
 		 *
 		 * @since 3.6.0
 		 *
-		 * @param array
+		 * @param array $value
 		 */
 		$taxonomies = apply_filters( 'pb_import_custom_taxonomies', [ 'front-matter-type', 'chapter-type', 'back-matter-type' ] );
 

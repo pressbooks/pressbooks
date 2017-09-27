@@ -89,9 +89,11 @@ if ( false == get_site_transient( 'pb_odt_compatible' ) && false == \Pressbooks\
 
 if ( $dependency_errors ) {
 	/**
+	 * Filter the array of dependency errors, remove unwanted formats.
+	 *
 	 * @since 3.9.8
 	 *
-	 * Filter the array of dependency errors, remove unwanted formats.
+	 * @param array $dependency_errors
 	 */
 	$dependency_messages = apply_filters( 'pb_dependency_errors', $dependency_errors );
 	if ( ! empty( $dependency_messages ) ) {
@@ -257,7 +259,6 @@ foreach ( $exports as $file ) {
 		$file_class = 'print-pdf';
 	} else {
 		/**
-		 * @since 3.9.8
 		 * Map custom export format file extensions to their CSS class.
 		 *
 		 * For example, here's how one might set the CSS class for a .docx file:
@@ -269,6 +270,9 @@ foreach ( $exports as $file ) {
 		 *	return $file_extension;
 		 * } );
 		 *
+		 * @since 3.9.8
+		 *
+		 * @param string $file_extension
 		 */
 		$file_class = apply_filters( 'pb_get_export_file_class', $file_extension );
 	}

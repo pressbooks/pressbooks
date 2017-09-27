@@ -151,6 +151,8 @@ class PublishOptions extends \Pressbooks\Options {
 			 *
 			 * @since 3.9.3
 			 * @deprecated 4.3.0 Use pb_publish_page instead.
+			 *
+			 * @param string $output
 			 */
 			apply_filters( 'pressbooks_publish_page', $output )
 		);

@@ -30,6 +30,8 @@ function custom_color_scheme() {
 		 *
 		 * @since 3.5.2
 		 * @deprecated 4.3.0 Use pb_login_color_scheme instead.
+		 *
+		 * @param string $html
 		 */
 		apply_filters( 'pressbooks_login_color_scheme', $html )
 	);
@@ -67,6 +69,8 @@ function custom_login_logo() {
 		 *
 		 * @since 3.5.2
 		 * @deprecated 4.3.0 Use pb_login_logo instead.
+		 *
+		 * @param string $html
 		 */
 		apply_filters( 'pressbooks_login_logo', $html )
 	);

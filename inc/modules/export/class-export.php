@@ -604,7 +604,6 @@ abstract class Export {
 			}
 
 			/**
-			 * @since 3.9.8
 			 * Catch enabled custom formats and add their classes to the $modules array.
 			 *
 			 * For example, here's how one might catch a hypothetical Word exporter:
@@ -616,6 +615,9 @@ abstract class Export {
 			 *    return $modules;
 			 * } );
 			 *
+			 * @since 3.9.8
+			 *
+			 * @param array $modules
 			 */
 			$modules = apply_filters( 'pb_active_export_modules', $modules );
 
@@ -656,7 +658,11 @@ abstract class Export {
 
 				$outputs[ $module ] = $exporter->getOutputPath();
 
-				// Stats hook
+				/**
+				 * Stats hook
+				 *
+				 * @param string
+				 */
 				do_action( 'pressbooks_track_export', substr( strrchr( $module, '\\' ), 1 ) );
 			}
 
