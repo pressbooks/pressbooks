@@ -767,7 +767,7 @@ function email_error_log( $emails, $subject, $message ) {
 	 *
 	 * @param array $emails
 	 */
-	$emails = apply_filters( 'pb_email_error_report', $emails );
+	$emails = apply_filters( 'pb_error_log_emails', $emails );
 
 	foreach ( $emails as $email ) {
 		// Call pluggable
