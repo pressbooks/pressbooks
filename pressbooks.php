@@ -35,6 +35,8 @@ function _pb_session_start() { // @codingStandardsIgnoreLine
 				 *
 				 * @since 3.9.4.2
 				 * @deprecated 4.3.0 Use pb_session_configuration instead.
+				 *
+				 * @param bool $value
 				 */
 				apply_filters( 'pressbooks_session_configuration', false )
 			);

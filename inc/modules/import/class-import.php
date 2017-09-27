@@ -16,9 +16,7 @@ abstract class Import {
 	 * @deprecated
 	 * @var array
 	 */
-	static $logsEmail = [
-		'errors@pressbooks.com',
-	];
+	static $logsEmail = [];
 
 
 	/**
@@ -289,6 +287,8 @@ abstract class Import {
 					 * Allows users to add a custom import routine for custom import type.
 					 *
 					 * @since 3.9.6
+					 *
+					 * @param \Pressbooks\Modules\Import\Import $value
 					 */
 					$importer = apply_filters( 'pb_initialize_import', null );
 					if ( is_object( $importer ) ) {
@@ -316,7 +316,7 @@ abstract class Import {
 			 *
 			 * @since 3.9.6
 			 *
-			 * @param array The list of currently allowed file types.
+			 * @param array $value The list of currently allowed file types.
 			 */
 			$allowed_file_types = apply_filters(
 				'pb_import_file_types', [
@@ -428,6 +428,8 @@ abstract class Import {
 					 * via HTTP GET requests
 					 *
 					 * @since 4.0.0
+					 *
+					 * @param \Pressbooks\Modules\Import\Import $value
 					 */
 					$importer = apply_filters( 'pb_initialize_import', null );
 					if ( is_object( $importer ) ) {

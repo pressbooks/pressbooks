@@ -14,7 +14,7 @@ $custom_post_types = apply_filters( 'pb_import_custom_post_types', [] );
  *
  * @since 3.9.6
  *
- * @param array The list of current import options in select field.
+ * @param array $value The list of current import options in select field.
  */
 $import_option_types = apply_filters( 'pb_select_import_type', [
 	'wxr' => __( 'WXR (WordPress eXtended RSS)', 'pressbooks' ),
@@ -190,8 +190,9 @@ $supported_file_extensions = implode( ', ', array_keys( $import_option_types ) )
 					 *
 					 * @since 4.0.0
 					 *
+					 * @param string $value
 					 */
-					echo apply_filters( 'pb_import_table_cell', null );
+					echo apply_filters( 'pb_import_table_cell', '' );
 					?>
 				</tr>
 

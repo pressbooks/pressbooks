@@ -96,6 +96,9 @@ class EbookOptions extends \Pressbooks\Options {
 		 * Add custom settings fields.
 		 *
 		 * @since 3.9.7
+		 *
+		 * @param string $arg1
+		 * @param string $arg2
 		 */
 		do_action( 'pb_theme_options_ebook_add_settings_fields', $_page, $_section );
 
@@ -205,7 +208,9 @@ class EbookOptions extends \Pressbooks\Options {
 	 */
 	static function getDefaults() {
 		/**
-		 * @since 3.9.7 TODO
+		 * @since 3.9.7
+		 *
+		 * @param array $value
 		 */
 		return apply_filters(
 			'pb_theme_options_ebook_defaults', [
@@ -236,6 +241,8 @@ class EbookOptions extends \Pressbooks\Options {
 		 * Allow custom boolean options to be passed to sanitization routines.
 		 *
 		 * @since 3.9.7
+		 *
+		 * @param array $value
 		 */
 		return apply_filters(
 			'pb_theme_options_ebook_booleans', [
@@ -254,6 +261,8 @@ class EbookOptions extends \Pressbooks\Options {
 		 * Allow custom string options to be passed to sanitization routines.
 		 *
 		 * @since 3.9.7
+		 *
+		 * @param array $value
 		 */
 		return apply_filters( 'pb_theme_options_ebook_strings', [] );
 	}
@@ -268,6 +277,8 @@ class EbookOptions extends \Pressbooks\Options {
 		 * Allow custom integer options to be passed to sanitization routines.
 		 *
 		 * @since 3.9.7
+		 *
+		 * @param array $value
 		 */
 		return apply_filters( 'pb_theme_options_ebook_integers', [] );
 	}
@@ -282,6 +293,8 @@ class EbookOptions extends \Pressbooks\Options {
 		 * Allow custom float options to be passed to sanitization routines.
 		 *
 		 * @since 3.9.7
+		 *
+		 * @param array $value
 		 */
 		return apply_filters( 'pb_theme_options_ebook_floats', [] );
 	}
@@ -296,6 +309,8 @@ class EbookOptions extends \Pressbooks\Options {
 		 * Allow custom predifined options to be passed to sanitization routines.
 		 *
 		 * @since 3.9.7
+		 *
+		 * @param array $value
 		 */
 		return apply_filters(
 			'pb_theme_options_ebook_predefined', [

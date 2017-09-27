@@ -180,7 +180,6 @@ function get_media_path( $guid ) {
  */
 function latest_exports() {
 	/**
-	 * @since 3.9.8
 	 * Add custom export formats to the latest exports filetype mapping array.
 	 *
 	 * For example, here's how one might add a hypothetical Word export format:
@@ -190,6 +189,9 @@ function latest_exports() {
 	 *    return $filetypes;
 	 * } );
 	 *
+	 * @since 3.9.8
+	 *
+	 * @param array $value
 	 */
 	$filetypes = apply_filters(
 		'pb_latest_export_filetypes', [
@@ -404,6 +406,8 @@ function check_saxonhe_install() {
 	 * @since 3.9.8
 	 *
 	 * Allows the SaxonHE dependency error to be disabled.
+	 *
+	 * @param bool $value
 	 */
 	return apply_filters( 'pb_odt_has_dependencies', false );
 }
@@ -514,6 +518,8 @@ function disable_comments() {
 		 * Allows comments to be enabled on the root blog by adding a function to this filter that returns false.
 		 *
 		 * @since 3.9.6
+		 *
+		 * @param bool $value
 		 */
 		return apply_filters( 'pb_disable_root_comments', true );
 	}
@@ -602,6 +608,8 @@ function fetch_recommended_plugins() {
 	 * Filter the URL of the Pressbooks Recommended Plugins server.
 	 *
 	 * @since 4.0.0
+	 *
+	 * @param string $value
 	 */
 	$url = $http_url = apply_filters( 'pb_recommended_plugins_url', 'https://pressbooks-plugins.now.sh' ) . '/api/plugin-recommendations';
 	$ssl = wp_http_supports( [ 'ssl' ] );
@@ -752,6 +760,15 @@ function email_error_log( $emails, $subject, $message ) {
 		}
 	);
 
+	/**
+	 * Filter an array of email addresses error logs are sent to
+	 *
+	 * @since 4.3.3
+	 *
+	 * @param array $emails
+	 */
+	$emails = apply_filters( 'pb_error_log_emails', $emails );
+
 	foreach ( $emails as $email ) {
 		// Call pluggable
 		\wp_mail( $email, $subject, $message );
@@ -821,6 +838,8 @@ function remote_get_retry( $url, $args, $retry = 3, $attempts = 0, $response = [
 		 *
 		 * @since 3.9.6
 		 * @deprecated 4.3.0 Use pb_remote_get_retry_response_codes isntead.
+		 *
+		 * @param array $value
 		 */
 		apply_filters( 'pressbooks_remote_get_retry_response_codes', [ 400 ] )
 	);
@@ -841,6 +860,8 @@ function remote_get_retry( $url, $args, $retry = 3, $attempts = 0, $response = [
 		 *
 		 * @since 3.9.6
 		 * @deprecated 4.3.0 Use pb_remote_get_retry_wait_time isntead.
+		 *
+		 * @param int $value
 		 */
 		apply_filters( 'pressbooks_remote_get_retry_wait_time', 1000 )
 	);

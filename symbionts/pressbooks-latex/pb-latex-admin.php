@@ -186,7 +186,7 @@ tr.pb-latex-method-<?php echo $current_method; ?> {
 		 *
 		 * @since 3.9.7
 		 *
-		 * @param array Base list of latex renderers.
+		 * @param array $value Base list of latex renderers.
 		 */
 		$latex_renderers = apply_filters( 'pb_add_latex_renderer_option', array(
 			'Automattic_Latex_WPCOM' => __( 'WordPress.com LaTeX Server (recommended)', 'pressbooks' ),
@@ -203,7 +203,7 @@ tr.pb-latex-method-<?php echo $current_method; ?> {
 				 *
 				 * @since 3.9.7
 				 *
-				 * @param string The name of the class to be used.
+				 * @param string $class The name of the class to be used.
 				 */
 				apply_filters( 'pb_require_latex', $class );
 			}

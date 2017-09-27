@@ -15,7 +15,10 @@ function list_post_types() {
 
 	/**
 	 * Allow users to add additional custom post types to the list of permitted post types.
+	 *
 	 * @since 4.0.0
+	 *
+	 * @param array $value
 	 */
 	return apply_filters(
 		'pb_supported_post_types', [
