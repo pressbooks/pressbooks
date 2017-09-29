@@ -2,10 +2,10 @@
 
 use Pressbooks\Container;
 
-class FakePimpleContainer extends \Pimple\Container {
+class FakePimpleContainer extends \Illuminate\Container\Container {
 }
 
-class AnotherFakePimpleContainer extends \Pimple\Container {
+class AnotherFakePimpleContainer extends \Illuminate\Container\Container {
 }
 
 
@@ -18,7 +18,7 @@ class ContainerTest extends \WP_UnitTestCase {
 	public function setUp() {
 
 		parent::setUp();
-		Container::setPimple( null );
+		Container::setInstance( null );
 	}
 
 	/**
@@ -32,17 +32,11 @@ class ContainerTest extends \WP_UnitTestCase {
 
 	public function test_initSetGetPimple() {
 
-		Container::init( new FakePimpleContainer() );
-		$this->assertTrue( Container::getPimple() instanceof FakePimpleContainer );
+		Container::setInstance( new FakePimpleContainer() );
+		$this->assertTrue( Container::getInstance() instanceof FakePimpleContainer );
 
-		Container::setPimple( new AnotherFakePimpleContainer() );
-		$this->assertTrue( Container::getPimple() instanceof AnotherFakePimpleContainer );
-	}
-
-	public function test_getPimpleException() {
-
-		$this->setExpectedException( '\LogicException' );
-		$p = Container::getPimple();
+		Container::setInstance( new AnotherFakePimpleContainer() );
+		$this->assertTrue( Container::getInstance() instanceof AnotherFakePimpleContainer );
 	}
 
 	public function test_getSet() {
@@ -76,21 +70,24 @@ class ContainerTest extends \WP_UnitTestCase {
 		$this->assertTrue( is_object( $var3 ) && ( $var3 instanceof Closure ) );
 		$this->assertTrue( 'test3' == $var3() );
 
-		$this->expectException(\Pimple\Exception\FrozenServiceException::class);
+		// Should not replace
 		Container::set(
 			'test1', function () {
 				return 'test4';
 			}
 		);
+		$var4 = Container::get( 'test1' );
+		$this->assertTrue( 'test1' == $var4 );
 
+		// Should replace
 		Container::set(
 			'test1', function () {
 				return 'test4';
 			},
 			null, true
 		);
-		$var4 = Container::get( 'test1' );
-		$this->assertTrue( 'test4' == $var4 );
+		$var5 = Container::get( 'test1' );
+		$this->assertTrue( 'test4' == $var5 );
 	}
 
 	public function test_getException() {

@@ -91,7 +91,7 @@ if ( ! defined( 'PB_ROOT_THEME' ) ) {
 if ( file_exists( $composer = PB_PLUGIN_DIR . 'vendor/autoload.php' ) ) {
 	require_once( $composer );
 } else {
-	if ( ! class_exists( '\Pimple\Container' ) ) {
+	if ( ! class_exists( '\Illuminate\Container\Container' ) ) {
 		die( sprintf( __( 'Pressbooks dependencies are missing. Please make sure that your project&rsquo;s <a href="%1$s">Composer autoload file</a> is being required, or use the <a href="%2$s">latest release</a> instead.', 'pressbooks' ), 'https://getcomposer.org/doc/01-basic-usage.md#autoloading', 'https://github.com/pressbooks/pressbooks/releases/latest/' ) );
 	}
 }

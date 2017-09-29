@@ -28,7 +28,6 @@
     "composer/installers": "~1.0",
     "davidgorges/human-name-parser": "^0.2.1",
     "gridonic/princexml-php": "^1.2",
-    "pimple/pimple": "^3.0",
     "leafo/scssphp": "^0.6.7",
     "pressbooks/pb-api": "^1.1",
     "perchten/rmrdir": "^1.0",
