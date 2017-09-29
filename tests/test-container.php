@@ -2,10 +2,10 @@
 
 use Pressbooks\Container;
 
-class FakePimpleContainer extends \Illuminate\Container\Container {
+class FakeContainer extends \Illuminate\Container\Container {
 }
 
-class AnotherFakePimpleContainer extends \Illuminate\Container\Container {
+class AnotherFakeContainer extends \Illuminate\Container\Container {
 }
 
 
@@ -30,18 +30,18 @@ class ContainerTest extends \WP_UnitTestCase {
 		parent::tearDown();
 	}
 
-	public function test_initSetGetPimple() {
+	public function test_initSetGet() {
 
-		Container::setInstance( new FakePimpleContainer() );
-		$this->assertTrue( Container::getInstance() instanceof FakePimpleContainer );
+		Container::setInstance( new FakeContainer() );
+		$this->assertTrue( Container::getInstance() instanceof FakeContainer );
 
-		Container::setInstance( new AnotherFakePimpleContainer() );
-		$this->assertTrue( Container::getInstance() instanceof AnotherFakePimpleContainer );
+		Container::setInstance( new AnotherFakeContainer() );
+		$this->assertTrue( Container::getInstance() instanceof AnotherFakeContainer );
 	}
 
 	public function test_getSet() {
 
-		Container::init( new FakePimpleContainer() );
+		Container::init( new FakeContainer() );
 
 		Container::set(
 			'test1', function () {

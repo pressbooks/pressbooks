@@ -18,7 +18,7 @@ $c->singleton( 'Styles', function ( \Illuminate\Container\Container $c ) {
 
 $c->singleton( 'Blade', function ( \Illuminate\Container\Container $c ) {
 	$views = __DIR__ . '/templates';
-	$cache = __DIR__ . '/cache';
+	$cache = wp_upload_dir()['basedir'] . '/cache';
 	return new \Jenssegers\Blade\Blade( $views, $cache, $c );
 } );
 
