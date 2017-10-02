@@ -305,6 +305,8 @@ abstract class Export {
 	/**
 	 * Fix annoying characters that the user probably didn't do on purpose
 	 *
+	 * @deprecated
+	 *
 	 * @param string $html
 	 *
 	 * @return string
@@ -392,6 +394,8 @@ abstract class Export {
 	/**
 	 * Will create an html blob of copyright, returns empty string if something goes wrong
 	 *
+	 * @deprecated moved to \Pressbooks\Modules\Export\Blade::doCopyrightLicense
+	 *
 	 * @param array $metadata
 	 * @param string $title (optional)
 	 * @param int $id (optional)
@@ -407,8 +411,8 @@ abstract class Export {
 		}
 
 		try {
-			$licensing = new \Pressbooks\Licensing();
-			return $licensing->doLicense( $metadata, $id, $title );
+			$templating = new \Pressbooks\Modules\Export\Blade();
+			return $templating->doCopyrightLicense( $metadata, $title, $id, false );
 		} catch ( \Exception $e ) {
 			$this->logError( $e->getMessage() );
 		}
