@@ -52,6 +52,13 @@ if ( ! empty( $GLOBALS['PB_PIMPLE_OVERRIDE'] ) ) {
 	Container::init();
 }
 
+if ( ! function_exists( 'app' ) ) {
+	// Fake Laravel app() so we can use Blade @inject directive
+	function app( $var ) {
+		return Container::get( $var );
+	}
+}
+
 // -------------------------------------------------------------------------------------------------------------------
 // API
 // -------------------------------------------------------------------------------------------------------------------
