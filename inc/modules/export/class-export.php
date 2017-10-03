@@ -394,8 +394,6 @@ abstract class Export {
 	/**
 	 * Will create an html blob of copyright, returns empty string if something goes wrong
 	 *
-	 * @deprecated moved to \Pressbooks\Modules\Export\Blade::doCopyrightLicense
-	 *
 	 * @param array $metadata
 	 * @param string $title (optional)
 	 * @param int $id (optional)
@@ -411,8 +409,8 @@ abstract class Export {
 		}
 
 		try {
-			$templating = new \Pressbooks\Modules\Export\Blade();
-			return $templating->doCopyrightLicense( $metadata, $title, $id, false );
+			$licensing = new \Pressbooks\Licensing();
+			return $licensing->doLicense( $metadata, $id, $title );
 		} catch ( \Exception $e ) {
 			$this->logError( $e->getMessage() );
 		}

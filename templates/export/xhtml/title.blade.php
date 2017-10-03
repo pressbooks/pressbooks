@@ -1,5 +1,5 @@
 <?php /** @var \Pressbooks\Modules\Export\Xhtml\Blade $s */ ?>
-
+@inject('s', '\Pressbooks\Modules\Export\Xhtml\Blade')
 @foreach($book_contents['front-matter'] as $front_matter)
     @continue(!$front_matter['export'])
     @continue('title-page' !== ($subclass = $s->getFrontMatterType($front_matter['ID'])))
@@ -11,7 +11,7 @@
     @if(isset($content))
         {!! $content !!}
     @else
-        <h1 class="title">{{ $title }}</h1>
+        <h1 class="title">{!! $title !!}</h1>
         <h2 class="subtitle">{{ $metadata['pb_subtitle'] or '' }}</h2>
         <h3 class="author">{{ $metadata['pb_author'] or '' }}</h3>
         <h4 class="contributing-authors">{{ $metadata['pb_contributing_authors'] or '' }}</h4>

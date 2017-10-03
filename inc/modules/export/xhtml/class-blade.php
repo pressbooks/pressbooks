@@ -6,7 +6,6 @@
 
 namespace Pressbooks\Modules\Export\Xhtml;
 
-use Masterminds\HTML5;
 use Pressbooks\Sanitize;
 
 /**
@@ -14,7 +13,11 @@ use Pressbooks\Sanitize;
  *
  * @see https://laravel.com/docs/5.4/blade#service-injection
  */
-class Blade extends \Pressbooks\Modules\Export\Blade {
+class Blade {
+
+	// Fun fact: A data member that is commonly available to all objects of a class is called a static
+	// member. Unlike regular data members, static members share the memory space between all objects of the
+	// same class.
 
 	/**
 	 * Endnotes storage container.
@@ -22,7 +25,7 @@ class Blade extends \Pressbooks\Modules\Export\Blade {
 	 *
 	 * @var array
 	 */
-	public $endnotes = [];
+	public static $endnotes = [];
 
 
 	/**
@@ -31,7 +34,7 @@ class Blade extends \Pressbooks\Modules\Export\Blade {
 	 *
 	 * @var int
 	 */
-	public $frontMatterPos = 1;
+	public static $frontMatterPos = 1;
 
 
 	/**
@@ -40,7 +43,7 @@ class Blade extends \Pressbooks\Modules\Export\Blade {
 	 *
 	 * @var bool
 	 */
-	public $hasIntroduction = false;
+	public static $hasIntroduction = false;
 
 
 	/**
@@ -89,71 +92,5 @@ class Blade extends \Pressbooks\Modules\Export\Blade {
 	public function showTitle( $id ) {
 		return (bool) get_post_meta( $id, 'pb_show_title', true );
 	}
-
-	/**
-	 * @see \Pressbooks\Sanitize\decode
-	 *
-	 * @param $slug
-	 *
-	 * @return mixed
-	 */
-	public function decode( $slug ) {
-		return \Pressbooks\Sanitize\decode( $slug );
-	}
-
-	/**
-	 * Removes the CC attribution link.
-	 *
-	 * @since 4.1
-	 *
-	 * @param string $content
-	 *
-	 * @return string
-	 */
-	public function removeAttributionLink( $content ) {
-		$html5 = new HTML5();
-		$dom = $html5->loadHTML( $content );
-
-		$urls = $dom->getElementsByTagName( 'a' );
-		foreach ( $urls as $url ) {
-			/** @var \DOMElement $url */
-			// Is this the the attributionUrl?
-			if ( $url->getAttribute( 'rel' ) === 'cc:attributionURL' ) {
-				$url->parentNode->replaceChild(
-					$dom->createTextNode( $url->nodeValue ),
-					$url
-				);
-			}
-		}
-
-		$content = $html5->saveHTML( $dom );
-		$content = \Pressbooks\Sanitize\strip_container_tags( $content );
-
-		return $content;
-	}
-
-
-	/**
-	 * Tidy HTML
-	 *
-	 * @param string $html
-	 *
-	 * @return string
-	 */
-	public function tidy( $html ) {
-
-		// Make XHTML 1.1 strict using htmlLawed
-
-		$config = [
-			'valid_xhtml' => 1,
-			'no_deprecated_attr' => 2,
-			'unique_ids' => 'fixme-',
-			'hook' => '\Pressbooks\Sanitize\html5_to_xhtml11',
-			'tidy' => -1,
-		];
-
-		return \Pressbooks\HtmLawed::filter( $html, $config );
-	}
-
 
 }
