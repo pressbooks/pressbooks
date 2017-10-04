@@ -11,12 +11,12 @@
         <meta name="{!! $s->sanitizeHtmlMetaKey($key) !!}" content="{!! $s->sanitizeHtmlMetaVal($val) !!}"/>
     @endforeach
     <title>{!! $title !!}</title>
-    @isset($style_url)
+    @if(!empty($style_url))
         <link rel='stylesheet' href='{!! $style_url !!}' type='text/css'/>
-    @endisset
-    @isset($script_url)
+    @endif
+    @if(!empty($script_url))
         <script src='{!! $script_url !!}' type='text/javascript'></script>
-    @endisset
+    @endif
 </head>
 <body lang="{!! $lang !!}">
 {!! $buffer !!}
