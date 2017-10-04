@@ -223,6 +223,7 @@ class Xhtml11 extends Export {
 
 		$blade = Container::get( 'Blade' );
 		$book = $blade->render( 'export.xhtml.book', [
+			'xml_version' => '<?xml version="1.0" encoding="UTF-8"?>',
 			'lang' => $this->lang,
 			'pb_plugin_version' => PB_PLUGIN_VERSION,
 			'style_url' => $style_url,
@@ -810,18 +811,6 @@ class Xhtml11 extends Export {
 				}
 			}
 
-			if ( $author ) {
-				$content = '<h2 class="chapter-author">' . Sanitize\decode( $author ) . '</h2>' . $content;
-			}
-
-			if ( $subtitle ) {
-				$content = '<h2 class="chapter-subtitle">' . Sanitize\decode( $subtitle ) . '</h2>' . $content;
-			}
-
-			if ( $short_title ) {
-				$content = '<h6 class="short-title">' . Sanitize\decode( $short_title ) . '</h6>' . $content;
-			}
-
 			$append_front_matter_content .= $this->removeAttributionLink( $this->doSectionLevelLicense( $metadata, $front_matter_id ) );
 
 			echo $blade->render( 'export.xhtml.front-matter', [
@@ -830,6 +819,9 @@ class Xhtml11 extends Export {
 				'slug' => $slug,
 				'i' => $i,
 				'title' => Sanitize\decode( $title ),
+				'author' => Sanitize\decode( $author ),
+				'subtitle' => Sanitize\decode( $subtitle ),
+				'short_title' => Sanitize\decode( $short_title ),
 				'content' => $content,
 				'append_front_matter_content' => $append_front_matter_content,
 			] );
@@ -925,18 +917,6 @@ class Xhtml11 extends Export {
 					}
 				}
 
-				if ( $author ) {
-					$content = '<h2 class="chapter-author">' . Sanitize\decode( $author ) . '</h2>' . $content;
-				}
-
-				if ( $subtitle ) {
-					$content = '<h2 class="chapter-subtitle">' . Sanitize\decode( $subtitle ) . '</h2>' . $content;
-				}
-
-				if ( $short_title ) {
-					$content = '<h6 class="short-title">' . Sanitize\decode( $short_title ) . '</h6>' . $content;
-				}
-
 				$append_chapter_content .= $this->removeAttributionLink( $this->doSectionLevelLicense( $metadata, $chapter_id ) );
 
 				$my_chapters .= $blade->render( 'export.xhtml.chapter', [
@@ -945,6 +925,9 @@ class Xhtml11 extends Export {
 					'slug' => $slug,
 					'i' => ( 'numberless' === $subclass ) ? '' : $j,
 					'title' => Sanitize\decode( $title ),
+					'author' => Sanitize\decode( $author ),
+					'subtitle' => Sanitize\decode( $subtitle ),
+					'short_title' => Sanitize\decode( $short_title ),
 					'content' => $content,
 					'append_chapter_content' => $append_chapter_content,
 				] );
@@ -1019,18 +1002,6 @@ class Xhtml11 extends Export {
 				}
 			}
 
-			if ( $author ) {
-				$content = '<h2 class="chapter-author">' . Sanitize\decode( $author ) . '</h2>' . $content;
-			}
-
-			if ( $subtitle ) {
-				$content = '<h2 class="chapter-subtitle">' . Sanitize\decode( $subtitle ) . '</h2>' . $content;
-			}
-
-			if ( $short_title ) {
-				$content = '<h6 class="short-title">' . Sanitize\decode( $short_title ) . '</h6>' . $content;
-			}
-
 			$append_back_matter_content .= $this->removeAttributionLink( $this->doSectionLevelLicense( $metadata, $back_matter_id ) );
 
 			echo $blade->render( 'export.xhtml.back-matter', [
@@ -1039,6 +1010,9 @@ class Xhtml11 extends Export {
 				'slug' => $slug,
 				'i' => $i,
 				'title' => Sanitize\decode( $title ),
+				'author' => Sanitize\decode( $author ),
+				'subtitle' => Sanitize\decode( $subtitle ),
+				'short_title' => Sanitize\decode( $short_title ),
 				'content' => $content,
 				'append_back_matter_content' => $append_back_matter_content,
 			] );

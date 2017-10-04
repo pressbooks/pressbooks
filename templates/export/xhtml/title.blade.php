@@ -17,7 +17,7 @@
         <h4 class="contributing-authors">{{ $metadata['pb_contributing_authors'] or '' }}</h4>
         @if(current_theme_supports( 'pressbooks_publisher_logo' ))
             {{-- // TODO: Support custom publisher logo. --}}
-            <div class="publisher-logo"><img src="{{ get_theme_support( 'pressbooks_publisher_logo' )[0]['logo_uri']; }}"/></div>
+            <div class="publisher-logo"><img src="{{ get_theme_support( 'pressbooks_publisher_logo' )[0]['logo_uri'] }}"/></div>
         @endif
         <h4 class="publisher">{{ $metadata['pb_publisher'] or '' }}</h4>
         <h5 class="publisher-city">{{ $metadata['pb_publisher_city'] or '' }}</h5>
