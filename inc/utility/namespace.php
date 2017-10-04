@@ -1044,3 +1044,38 @@ function absolute_path( $path ) {
 
 	return $new_path;
 }
+
+/**
+ * Compare URL domain names (not subdomain)
+ *
+ * @param string $url1
+ * @param string $url2
+ *
+ * @return bool
+ */
+function urls_have_same_host( $url1, $url2 ) {
+
+	$host1 = parse_url( $url1, PHP_URL_HOST );
+	$host2 = parse_url( $url2, PHP_URL_HOST );
+	if ( ! $host1 || ! $host2 ) {
+		return false;
+	}
+
+	$host_names1 = explode( '.', $host1 );
+	if ( count( $host_names1 ) > 1 ) {
+		$bottom_host_name1 = $host_names1[ count( $host_names1 ) - 2 ] . '.' . $host_names1[ count( $host_names1 ) - 1 ];
+	} else {
+		$bottom_host_name1 = $host1;
+	}
+
+	$host_names2 = explode( '.', $host2 );
+	if ( count( $host_names2 ) > 1 ) {
+		$bottom_host_name2 = $host_names2[ count( $host_names2 ) - 2 ] . '.' . $host_names2[ count( $host_names2 ) - 1 ];
+	} else {
+		$bottom_host_name2 = $host2;
+	}
+
+	$same_host = ( $bottom_host_name1 === $bottom_host_name2 );
+
+	return $same_host;
+}

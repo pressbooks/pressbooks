@@ -570,9 +570,7 @@ class Wxr extends Import {
 	 * @return bool
 	 */
 	protected function sameAsSource( $url ) {
-		$same_host = ( parse_url( $this->sourceBookUrl, PHP_URL_HOST ) === parse_url( $url, PHP_URL_HOST ) );
-
-		return $same_host;
+		return \Pressbooks\Utility\urls_have_same_host( $this->sourceBookUrl, $url );
 	}
 
 	/**
