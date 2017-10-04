@@ -229,7 +229,7 @@ class Xhtml11 extends Export {
 			'script_url' => $script_url,
 			'title' => get_bloginfo( 'name' ),
 			'metadata' => $metadata,
-			'buffer' => $buffer,
+			'buffer' => $this->prettify( $buffer ),
 		] );
 
 		if ( $return ) {
@@ -494,10 +494,23 @@ class Xhtml11 extends Export {
 			'no_deprecated_attr' => 2,
 			'unique_ids' => 'fixme-',
 			'hook' => '\Pressbooks\Sanitize\html5_to_xhtml11',
-			'tidy' => -1,
 		];
 
 		return \Pressbooks\HtmLawed::filter( $html, $config );
+	}
+
+	/**
+	 * Prettify HTML
+	 *
+	 * @param $html
+	 *
+	 * @return string
+	 */
+	protected function prettify( $html ) {
+
+		// Simplest, allowing all valid HTML markup except uncommon URL schemes like 'whatsapp:', and prettying-up the HTML
+
+		return \Pressbooks\HtmLawed::filter( $html, [ 'tidy' => 5 ] );
 	}
 
 
