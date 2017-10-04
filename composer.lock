@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "7547db90890050f51bb29b2c70588ec5",
+    "content-hash": "1043f2851f952708d9ccb0e8d96304b0",
     "packages": [
         {
             "name": "composer/installers",
@@ -697,16 +697,16 @@
         },
         {
             "name": "vanilla/htmlawed",
-            "version": "v2.2.1.1",
+            "version": "v2.2.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vanilla/htmlawed.git",
-                "reference": "d7c49fa7bfa3006973616141f35c67999fdc5132"
+                "reference": "58651edbc4c45a2d6b5254b8a9a69dc63ff1457b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vanilla/htmlawed/zipball/d7c49fa7bfa3006973616141f35c67999fdc5132",
-                "reference": "d7c49fa7bfa3006973616141f35c67999fdc5132",
+                "url": "https://api.github.com/repos/vanilla/htmlawed/zipball/58651edbc4c45a2d6b5254b8a9a69dc63ff1457b",
+                "reference": "58651edbc4c45a2d6b5254b8a9a69dc63ff1457b",
                 "shasum": ""
             },
             "require": {
@@ -732,7 +732,52 @@
                 }
             ],
             "description": "A composer wrapper for the htmLawed library to purify & filter HTML. Tested with PHPUnit and PhantomJS!",
-            "time": "2017-05-17T18:14:43+00:00"
+            "time": "2017-09-13T19:20:25+00:00"
+        },
+        {
+            "name": "yahnis-elsts/plugin-update-checker",
+            "version": "v4.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/YahnisElsts/plugin-update-checker.git",
+                "reference": "846d11194719111c94296dabcf97a86e95b69449"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/YahnisElsts/plugin-update-checker/zipball/846d11194719111c94296dabcf97a86e95b69449",
+                "reference": "846d11194719111c94296dabcf97a86e95b69449",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "plugin-update-checker.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Yahnis Elsts",
+                    "email": "whiteshadow@w-shadow.com",
+                    "homepage": "http://w-shadow.com/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A custom update checker for WordPress plugins and themes. Useful if you can't host your plugin in the official WP repository but still want it to support automatic updates.",
+            "homepage": "https://github.com/YahnisElsts/plugin-update-checker/",
+            "keywords": [
+                "automatic updates",
+                "plugin updates",
+                "theme updates",
+                "wordpress"
+            ],
+            "time": "2017-07-21T11:27:31+00:00"
         }
     ],
     "packages-dev": [

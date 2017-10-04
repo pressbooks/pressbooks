@@ -3,13 +3,11 @@
 Plugin Name: Pressbooks
 Plugin URI: https://pressbooks.com
 Description: Simple Book Production
-Version: 4.3.2
+Version: 4.3.3
 Author: Book Oven Inc.
 Author URI: https://pressbooks.com
 Text Domain: pressbooks
 License: GPLv2
-GitHub Plugin URI: https://github.com/pressbooks/pressbooks
-Release Asset: true
 Network: True
 */
 
@@ -37,6 +35,8 @@ function _pb_session_start() { // @codingStandardsIgnoreLine
 				 *
 				 * @since 3.9.4.2
 				 * @deprecated 4.3.0 Use pb_session_configuration instead.
+				 *
+				 * @param bool $value
 				 */
 				apply_filters( 'pressbooks_session_configuration', false )
 			);
@@ -61,7 +61,7 @@ add_action( 'wp_login', '_pb_session_kill' );
 // -------------------------------------------------------------------------------------------------------------------
 
 if ( ! defined( 'PB_PLUGIN_VERSION' ) ) {
-	define( 'PB_PLUGIN_VERSION', '4.3.2' );
+	define( 'PB_PLUGIN_VERSION', '4.3.3' );
 }
 
 if ( ! defined( 'PB_PLUGIN_DIR' ) ) {
@@ -83,12 +83,6 @@ if ( ! defined( 'WP_DEFAULT_THEME' ) ) {
 if ( ! defined( 'PB_ROOT_THEME' ) ) {
 	define( 'PB_ROOT_THEME', 'pressbooks-publisher' );
 }
-
-// -------------------------------------------------------------------------------------------------------------------
-// Class autoloader
-// -------------------------------------------------------------------------------------------------------------------
-
-\HM\Autoloader\register_class_path( 'Pressbooks', __DIR__ . '/inc' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Composer autoloader (if needed)
@@ -113,6 +107,12 @@ if ( ! function_exists( 'pb_meets_minimum_requirementsz' ) && ! @include_once( P
 } elseif ( ! pb_meets_minimum_requirements() ) {
 	return;
 }
+
+// -------------------------------------------------------------------------------------------------------------------
+// Class autoloader
+// -------------------------------------------------------------------------------------------------------------------
+
+pb_init_autoloader();
 
 // -------------------------------------------------------------------------------------------------------------------
 // Configure root site

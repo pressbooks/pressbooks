@@ -217,8 +217,7 @@ class Catalog {
 				 * @since 3.9.5.1
 				 *
 				 * @param string $cover The url to cover image.
-				 * @param string $metadata ['pb_cover_image'] The original url to the
-				 *        cover image.
+				 * @param string $original The original url to the cover image.
 				 */
 				$cid = \Pressbooks\Image\attachment_id_from_url( apply_filters( 'pb_cover_image', $cover, $metadata['pb_cover_image'] ) );
 				foreach ( $cover_sizes as $size => $default ) {

@@ -292,4 +292,44 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertEquals( 4, $count );
 	}
 
+
+	public function test_absolute_path() {
+
+		$path = '/simple/path';
+		$this->assertEquals( '/simple/path', \Pressbooks\Utility\absolute_path( $path ) );
+
+		$path = 'weird-path';
+		$this->assertEquals( '/weird-path', \Pressbooks\Utility\absolute_path( $path ) );
+
+		$path = '/path/to/test/.././..//..///..///../one/two/../three/filename';
+		$this->assertEquals( '/one/three/filename', \Pressbooks\Utility\absolute_path( $path ) );
+
+		$path = '\path\to\test\..\.\..\\..\\\..\\\..\one\two\..\three\filename';
+		$this->assertEquals( '/one/three/filename', \Pressbooks\Utility\absolute_path( $path ) );
+
+		$path = 'http://www.pressbooks.dev/simple/path';
+		$this->assertEquals( 'http://www.pressbooks.dev/simple/path', \Pressbooks\Utility\absolute_path( $path ) );
+
+		$path = 'http://www.pressbooks.dev/path/to/test/.././..//..///..///../one/two/../three/filename';
+		$this->assertEquals( 'http://www.pressbooks.dev/one/three/filename', \Pressbooks\Utility\absolute_path( $path ) );
+
+		$path = 'https://localhost/path/to/test/.././..//..///..///../one/two/../three/filename';
+		$this->assertEquals( 'https://localhost/one/three/filename', \Pressbooks\Utility\absolute_path( $path ) );
+
+		$path = 'ftp://127.0.0.1//path/to/test/.././..//..///..///../one/two/../three/filename';
+		$this->assertEquals( 'ftp://127.0.0.1/one/three/filename', \Pressbooks\Utility\absolute_path( $path ) );
+	}
+
+	public function test_urls_have_same_host() {
+		$this->assertTrue( \Pressbooks\Utility\urls_have_same_host( 'https://pressbooks.com', 'https://pressbooks.com' ) );
+		$this->assertTrue( \Pressbooks\Utility\urls_have_same_host( 'https://book.pressbooks.com', 'https://pressbooks.com' ) );
+		$this->assertTrue( \Pressbooks\Utility\urls_have_same_host( 'gopher://book.pressbooks.com', 'https://pressbooks.com/foo/bar?hello=world' ) );
+		$this->assertTrue( \Pressbooks\Utility\urls_have_same_host( 'https://book.book.book.pressbooks.com', 'https://pressbooks.com' ) );
+		$this->assertTrue( \Pressbooks\Utility\urls_have_same_host( 'https://co.uk', 'https://co.uk' ) );
+
+		$this->assertFalse( \Pressbooks\Utility\urls_have_same_host( 'https://book.pressbooks.com', 'https://book.pressbooks.dev' ) );
+		$this->assertFalse( \Pressbooks\Utility\urls_have_same_host( 'x', 'x' ) );
+		$this->assertFalse( \Pressbooks\Utility\urls_have_same_host( 'pressbooks.com', 'pressbooks.com' ) ); // Not a fully qualified URL
+	}
+
 }

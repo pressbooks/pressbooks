@@ -6,8 +6,6 @@
 
 namespace Pressbooks;
 
-use function Pressbooks\Sanitize\normalize_css_urls;
-
 class Sass {
 
 	/**
@@ -15,9 +13,7 @@ class Sass {
 	 *
 	 * @var array
 	 */
-	public $errorsEmail = [
-		'errors@pressbooks.com',
-	];
+	public $errorsEmail = [];
 
 
 	/**

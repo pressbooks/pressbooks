@@ -121,6 +121,8 @@ class ThemeOptions {
 		 * Add a custom tab to the theme options page.
 		 *
 		 * @since 3.9.7
+		 *
+		 * @param array $tabs
 		 */
 		return apply_filters( 'pb_theme_options_tabs', $tabs );
 	}
