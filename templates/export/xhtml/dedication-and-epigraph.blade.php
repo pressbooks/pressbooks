@@ -4,7 +4,7 @@
     @foreach($book_contents['front-matter'] as $front_matter)
         @continue(!$front_matter['export'])
         @continue($compare !== ($subclass = $s->getFrontMatterType($front_matter['ID'])))
-        <div class="front-matter {!! $subclass !!}" id="{!! $front_matter['post_name'] !!}">
+        <div class="front-matter {{ $subclass }}" id="{{ $front_matter['post_name'] }}">
             <div class="front-matter-title-wrap">
                 <h3 class="front-matter-number">{{ $s::$frontMatterPos }}</h3>
                 <h1 class="front-matter-title">

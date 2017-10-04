@@ -49,18 +49,6 @@ class Blade {
 	/**
 	 * echoMetaData
 	 *
-	 * @param string $name
-	 *
-	 * @return string
-	 */
-	public function sanitizeHtmlMetaKey( $name ) {
-		$name = Sanitize\sanitize_xml_id( str_replace( '_', '-', $name ) );
-		return $name;
-	}
-
-	/**
-	 * echoMetaData
-	 *
 	 * @param string $content
 	 *
 	 * @return string

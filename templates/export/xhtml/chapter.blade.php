@@ -8,9 +8,9 @@ if ( ! $s::$hasIntroduction ) {
     $class = 'chapter';
 }
 @endphp
-<div class="{!! $class !!} {!! $subclass !!}" id="{!! $slug !!}">
+<div class="{{ $class }} {{ $subclass }}" id="{{ $slug }}">
     <div class="chapter-title-wrap">
-        <h3 class="chapter-number">{!! $i !!}</h3>
+        <h3 class="chapter-number">{{ $i }}</h3>
         <h2 class="chapter-title">{!! $title !!}</h2>
     </div>
     <div class="ugc chapter-ugc">{!! $content !!}</div>
