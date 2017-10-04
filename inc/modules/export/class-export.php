@@ -305,6 +305,8 @@ abstract class Export {
 	/**
 	 * Fix annoying characters that the user probably didn't do on purpose
 	 *
+	 * @deprecated
+	 *
 	 * @param string $html
 	 *
 	 * @return string

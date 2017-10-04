@@ -28,7 +28,6 @@
     "composer/installers": "~1.0",
     "davidgorges/human-name-parser": "^0.2.1",
     "gridonic/princexml-php": "^1.2",
-    "pimple/pimple": "^3.0",
     "leafo/scssphp": "^0.6.7",
     "pressbooks/pb-api": "^1.1",
     "perchten/rmrdir": "^1.0",
@@ -38,7 +37,9 @@
     "pressbooks/pb-cli": "^1.5",
     "masterminds/html5": "^2.3",
     "jenssegers/imagehash": "^0.4.2",
-    "yahnis-elsts/plugin-update-checker": "^4.2"
+    "yahnis-elsts/plugin-update-checker": "^4.2",
+    "jenssegers/blade": "^1.1",
+    "illuminate/view": "~5.4.0"
   },
   "require-dev": {
     "phpunit/phpunit": "~5.7",
