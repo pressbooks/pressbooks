@@ -43,8 +43,17 @@ class PBLatex {
 		add_action( 'wp_head', array( &$this, 'wpHead' ) );
 
 		add_filter( 'the_content', array( &$this, 'inlineToShortcode' ), 7 ); // Before wptexturize()
-		add_filter( 'the_content', array( &$this, 'doThisShortcode' ), 8 ); // Before wpautop()
-
+		/**
+		 * doThisShortcode has the potential to cause unexpected behavior for some
+		 * latex renderers (e.g. MathJax, Katex).
+		 *
+		 * See https://github.com/pressbooks/pressbooks/issues/958
+		 *
+		 * @since 4.3.4
+		 */
+		if ( ! has_action( 'pb_enqueue_latex_scripts' ) ) {
+			add_filter( 'the_content', array( &$this, 'doThisShortcode' ), 8 ); // Before wpautop()
+		}
 		/**
 		 * Add additional style/script/shortcode dependencies for a given latex renderer.
 		 * Ex:
