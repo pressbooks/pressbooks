@@ -7,16 +7,16 @@
     <meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
     <meta http-equiv="Content-Language" content="{!! $lang !!}"/>
     <meta name="generator" content="Pressbooks {!! $pb_plugin_version !!}"/>
-    @foreach ($metadata as $key => $val)
-        <meta name="{{ str_replace('_', '-', $key) }}" content="{!! $s->sanitizeHtmlMetaVal($val) !!}"/>
-    @endforeach
+@foreach ($metadata as $key => $val)
+    <meta name="{{ str_replace('_', '-', $key) }}" content="{!! $s->sanitizeHtmlMetaVal($val) !!}"/>
+@endforeach
     <title>{{ $title }}</title>
-    @if(!empty($style_url))
-        <link rel='stylesheet' href='{{ $style_url }}' type='text/css'/>
-    @endif
-    @if(!empty($script_url))
-        <script src='{{ $script_url }}' type='text/javascript'></script>
-    @endif
+@if(!empty($style_url))
+    <link rel='stylesheet' href='{{ $style_url }}' type='text/css'/>
+@endif
+@if(!empty($script_url))
+    <script src='{{ $script_url }}' type='text/javascript'></script>
+@endif
 </head>
 <body lang="{{ $lang }}">
 {!! $buffer !!}
