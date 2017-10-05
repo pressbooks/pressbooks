@@ -511,7 +511,12 @@ class Xhtml11 extends Export {
 
 		// Simplest, allowing all valid HTML markup except uncommon URL schemes like 'whatsapp:', and prettying-up the HTML
 
-		return \Pressbooks\HtmLawed::filter( $html, [ 'tidy' => 5 ] );
+		$config = [
+			'tidy' => 5,
+			'unique_ids' => 0,
+		];
+
+		return \Pressbooks\HtmLawed::filter( $html, $config );
 	}
 
 
