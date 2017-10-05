@@ -80,7 +80,9 @@ class Xhtml11 extends Export {
 	 */
 	function convert() {
 
-		// Get XHTML
+		// convert() is called on export, transform() is called when a browser points to /format/xhtml
+		// Always prettify XHTML on convert, maybe prettify on transform()
+		$_GET['pretty'] = 1;
 
 		$output = $this->transform( true );
 
@@ -170,7 +172,11 @@ class Xhtml11 extends Export {
 		// ------------------------------------------------------------------------------------------------------------
 		// XHTML, Setup
 
-		$this->blade = Container::get( 'Blade' );
+		$this->blade = new \Jenssegers\Blade\Blade(
+			[ __DIR__ . '/templates' ],
+			\Pressbooks\Utility\get_cache_path(),
+			Container::getInstance()
+		);
 
 		$metadata = \Pressbooks\Book::getBookInformation();
 		$book_contents = $this->preProcessBookContents( \Pressbooks\Book::getBookContents() );
@@ -231,7 +237,7 @@ class Xhtml11 extends Export {
 		// ------------------------------------------------------------------------------------------------------------
 		// XHTML, Wrap
 
-		$book = $this->blade->render( 'export.xhtml.book', [
+		$book = $this->blade->render( 'book', [
 			'xml_version' => '<?xml version="1.0" encoding="UTF-8"?>',
 			'lang' => $this->lang,
 			'pb_plugin_version' => PB_PLUGIN_VERSION,
@@ -539,7 +545,7 @@ class Xhtml11 extends Export {
 	 * @param array $book_contents
 	 */
 	protected function echoBeforeTitle( $book_contents ) {
-		echo $this->blade->render( 'export.xhtml.before-title', [
+		echo $this->blade->render( 'before-title', [
 			'book_contents' => $book_contents,
 		] );
 	}
@@ -549,7 +555,7 @@ class Xhtml11 extends Export {
 	 *
 	 */
 	protected function echoHalfTitle() {
-		echo $this->blade->render( 'export.xhtml.half-title', [
+		echo $this->blade->render( 'half-title', [
 			'title' => get_bloginfo( 'name' ),
 		] );
 	}
@@ -560,7 +566,7 @@ class Xhtml11 extends Export {
 	 * @param array $metadata
 	 */
 	protected function echoTitle( $book_contents, $metadata ) {
-		echo $this->blade->render( 'export.xhtml.title', [
+		echo $this->blade->render( 'title', [
 			'title' => get_bloginfo( 'name' ),
 			'book_contents' => $book_contents,
 			'metadata' => $metadata,
@@ -617,7 +623,7 @@ class Xhtml11 extends Export {
 			$html .= '</p>';
 		}
 
-		echo $this->blade->render( 'export.xhtml.copyright', [
+		echo $this->blade->render( 'copyright', [
 			'copyright' => $html,
 		] );
 	}
@@ -627,7 +633,7 @@ class Xhtml11 extends Export {
 	 * @param array $book_contents
 	 */
 	protected function echoDedicationAndEpigraph( $book_contents ) {
-		echo $this->blade->render( 'export.xhtml.dedication-and-epigraph', [
+		echo $this->blade->render( 'dedication-and-epigraph', [
 			'book_contents' => $book_contents,
 		] );
 	}
@@ -822,7 +828,7 @@ class Xhtml11 extends Export {
 
 			$append_front_matter_content .= $this->removeAttributionLink( $this->doSectionLevelLicense( $metadata, $front_matter_id ) );
 
-			echo $this->blade->render( 'export.xhtml.front-matter', [
+			echo $this->blade->render( 'front-matter', [
 				'post_id' => $front_matter_id,
 				'subclass' => $subclass,
 				'slug' => $slug,
@@ -892,7 +898,7 @@ class Xhtml11 extends Export {
 
 			$m = ( 'invisible' === $invisibility ) ? 0 : $i;
 
-			$my_part = $this->blade->render( 'export.xhtml.part', [
+			$my_part = $this->blade->render( 'part', [
 				'post_id' => $part['ID'],
 				'subclass' => $inject_introduction_class ? "introduction {$invisibility}": $invisibility,
 				'slug' => $slug,
@@ -927,7 +933,7 @@ class Xhtml11 extends Export {
 
 				$append_chapter_content .= $this->removeAttributionLink( $this->doSectionLevelLicense( $metadata, $chapter_id ) );
 
-				$my_chapters .= $this->blade->render( 'export.xhtml.chapter', [
+				$my_chapters .= $this->blade->render( 'chapter', [
 					'post_id' => $chapter_id,
 					'subclass' => $subclass,
 					'slug' => $slug,
@@ -1011,7 +1017,7 @@ class Xhtml11 extends Export {
 
 			$append_back_matter_content .= $this->removeAttributionLink( $this->doSectionLevelLicense( $metadata, $back_matter_id ) );
 
-			echo $this->blade->render( 'export.xhtml.back-matter', [
+			echo $this->blade->render( 'back-matter', [
 				'post_id' => $back_matter_id,
 				'subclass' => $subclass,
 				'slug' => $slug,

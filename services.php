@@ -18,10 +18,7 @@ $c->singleton( 'Styles', function ( \Illuminate\Container\Container $c ) {
 
 $c->singleton( 'Blade', function ( \Illuminate\Container\Container $c ) {
 	$views = __DIR__ . '/templates';
-	$cache = wp_upload_dir()['basedir'] . '/cache';
-	if ( ! file_exists( $cache ) ) {
-		wp_mkdir_p( $cache );
-	}
+	$cache = \Pressbooks\Utility\get_cache_path();
 	return new \Jenssegers\Blade\Blade( $views, $cache, $c );
 } );
 
