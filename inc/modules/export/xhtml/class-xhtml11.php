@@ -28,6 +28,10 @@ class Xhtml11 extends Export {
 	 */
 	protected $lang = 'en';
 
+	/**
+	 * @var \Jenssegers\Blade\Blade
+	 */
+	protected $blade;
 
 	/**
 	 * @param array $args
@@ -125,13 +129,14 @@ class Xhtml11 extends Export {
 	 *
 	 * Supported http params:
 	 *
-	 *   + timestamp: (int) combines with `hashkey` to allow a 3rd party service temporary access
-	 *   + hashkey: (string) combines with `timestamp` to allow a 3rd party service temporary access
 	 *   + endnotes: (bool) move all footnotes to end of the book
+	 *   + fullsize-images: (bool) replace images with originals when possible
+	 *   + hashkey: (string) combines with `timestamp` to allow a 3rd party service temporary access
+	 *   + pretty: (bool) prettify HTML
+	 *   + preview: (bool) Use `Content-Disposition: inline` instead of `Content-Disposition: attachment` when passing through Export::formSubmit*
 	 *   + style: (string) name of a user generated stylesheet you want included in the header
 	 *   + script: (string) name of javascript file you you want included in the header
-	 *   + preview: (bool) Use `Content-Disposition: inline` instead of `Content-Disposition: attachment` when passing through Export::formSubmit
-	 *   + fullsize-images: (bool) replace images with originals when possible
+	 *   + timestamp: (int) combines with `hashkey` to allow a 3rd party service temporary access
 	 *
 	 * @see \Pressbooks\Redirect\do_format
 	 *
@@ -164,6 +169,8 @@ class Xhtml11 extends Export {
 
 		// ------------------------------------------------------------------------------------------------------------
 		// XHTML, Setup
+
+		$this->blade = Container::get( 'Blade' );
 
 		$metadata = \Pressbooks\Book::getBookInformation();
 		$book_contents = $this->preProcessBookContents( \Pressbooks\Book::getBookContents() );
@@ -217,12 +224,14 @@ class Xhtml11 extends Export {
 		$this->echoBackMatter( $book_contents, $metadata );
 
 		$buffer = ob_get_clean();
+		if ( ! empty( $_GET['pretty'] ) ) {
+			$buffer = $this->prettify( $buffer );
+		}
 
 		// ------------------------------------------------------------------------------------------------------------
 		// XHTML, Wrap
 
-		$blade = Container::get( 'Blade' );
-		$book = $blade->render( 'export.xhtml.book', [
+		$book = $this->blade->render( 'export.xhtml.book', [
 			'xml_version' => '<?xml version="1.0" encoding="UTF-8"?>',
 			'lang' => $this->lang,
 			'pb_plugin_version' => PB_PLUGIN_VERSION,
@@ -230,7 +239,7 @@ class Xhtml11 extends Export {
 			'script_url' => $script_url,
 			'title' => get_bloginfo( 'name' ),
 			'metadata' => $metadata,
-			'buffer' => $this->prettify( $buffer ),
+			'buffer' => $buffer,
 		] );
 
 		if ( $return ) {
@@ -495,6 +504,7 @@ class Xhtml11 extends Export {
 			'no_deprecated_attr' => 2,
 			'unique_ids' => 'fixme-',
 			'hook' => '\Pressbooks\Sanitize\html5_to_xhtml11',
+			'tidy' => -1,
 		];
 
 		return \Pressbooks\HtmLawed::filter( $html, $config );
@@ -529,8 +539,7 @@ class Xhtml11 extends Export {
 	 * @param array $book_contents
 	 */
 	protected function echoBeforeTitle( $book_contents ) {
-		$blade = Container::get( 'Blade' );
-		echo $blade->render( 'export.xhtml.before-title', [
+		echo $this->blade->render( 'export.xhtml.before-title', [
 			'book_contents' => $book_contents,
 		] );
 	}
@@ -540,8 +549,7 @@ class Xhtml11 extends Export {
 	 *
 	 */
 	protected function echoHalfTitle() {
-		$blade = Container::get( 'Blade' );
-		echo $blade->render( 'export.xhtml.half-title', [
+		echo $this->blade->render( 'export.xhtml.half-title', [
 			'title' => get_bloginfo( 'name' ),
 		] );
 	}
@@ -552,8 +560,7 @@ class Xhtml11 extends Export {
 	 * @param array $metadata
 	 */
 	protected function echoTitle( $book_contents, $metadata ) {
-		$blade = Container::get( 'Blade' );
-		echo $blade->render( 'export.xhtml.title', [
+		echo $this->blade->render( 'export.xhtml.title', [
 			'title' => get_bloginfo( 'name' ),
 			'book_contents' => $book_contents,
 			'metadata' => $metadata,
@@ -610,8 +617,7 @@ class Xhtml11 extends Export {
 			$html .= '</p>';
 		}
 
-		$blade = Container::get( 'Blade' );
-		echo $blade->render( 'export.xhtml.copyright', [
+		echo $this->blade->render( 'export.xhtml.copyright', [
 			'copyright' => $html,
 		] );
 	}
@@ -621,8 +627,7 @@ class Xhtml11 extends Export {
 	 * @param array $book_contents
 	 */
 	protected function echoDedicationAndEpigraph( $book_contents ) {
-		$blade = Container::get( 'Blade' );
-		echo $blade->render( 'export.xhtml.dedication-and-epigraph', [
+		echo $this->blade->render( 'export.xhtml.dedication-and-epigraph', [
 			'book_contents' => $book_contents,
 		] );
 	}
@@ -782,7 +787,6 @@ class Xhtml11 extends Export {
 	 */
 	protected function echoFrontMatter( $book_contents, $metadata ) {
 
-		$blade = Container::get( 'Blade' );
 		$i = Blade::$frontMatterPos;
 		foreach ( $book_contents['front-matter'] as $front_matter ) {
 
@@ -818,7 +822,7 @@ class Xhtml11 extends Export {
 
 			$append_front_matter_content .= $this->removeAttributionLink( $this->doSectionLevelLicense( $metadata, $front_matter_id ) );
 
-			echo $blade->render( 'export.xhtml.front-matter', [
+			echo $this->blade->render( 'export.xhtml.front-matter', [
 				'post_id' => $front_matter_id,
 				'subclass' => $subclass,
 				'slug' => $slug,
@@ -855,7 +859,6 @@ class Xhtml11 extends Export {
 	 */
 	protected function echoPartsAndChapters( $book_contents, $metadata ) {
 
-		$blade = Container::get( 'Blade' );
 		$i = $j = 1;
 		foreach ( $book_contents['part'] as $part ) {
 
@@ -889,7 +892,7 @@ class Xhtml11 extends Export {
 
 			$m = ( 'invisible' === $invisibility ) ? 0 : $i;
 
-			$my_part = $blade->render( 'export.xhtml.part', [
+			$my_part = $this->blade->render( 'export.xhtml.part', [
 				'post_id' => $part['ID'],
 				'subclass' => $inject_introduction_class ? "introduction {$invisibility}": $invisibility,
 				'slug' => $slug,
@@ -924,7 +927,7 @@ class Xhtml11 extends Export {
 
 				$append_chapter_content .= $this->removeAttributionLink( $this->doSectionLevelLicense( $metadata, $chapter_id ) );
 
-				$my_chapters .= $blade->render( 'export.xhtml.chapter', [
+				$my_chapters .= $this->blade->render( 'export.xhtml.chapter', [
 					'post_id' => $chapter_id,
 					'subclass' => $subclass,
 					'slug' => $slug,
@@ -982,7 +985,6 @@ class Xhtml11 extends Export {
 	 */
 	protected function echoBackMatter( $book_contents, $metadata ) {
 
-		$blade = Container::get( 'Blade' );
 		$i = 1;
 		foreach ( $book_contents['back-matter'] as $back_matter ) {
 
@@ -1009,7 +1011,7 @@ class Xhtml11 extends Export {
 
 			$append_back_matter_content .= $this->removeAttributionLink( $this->doSectionLevelLicense( $metadata, $back_matter_id ) );
 
-			echo $blade->render( 'export.xhtml.back-matter', [
+			echo $this->blade->render( 'export.xhtml.back-matter', [
 				'post_id' => $back_matter_id,
 				'subclass' => $subclass,
 				'slug' => $slug,
