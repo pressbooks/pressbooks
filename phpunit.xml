@@ -20,6 +20,7 @@
 			<exclude>
 				<directory suffix=".php">./inc/modules/export/epub/templates</directory>
 				<directory suffix=".php">./inc/modules/export/indesign/templates</directory>
+				<directory suffix=".php">./inc/modules/export/xhtml/templates</directory>
 			</exclude>
 		</whitelist>
 	</filter>
