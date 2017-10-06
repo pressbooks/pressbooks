@@ -46,5 +46,6 @@
     <exclude-pattern>/hm-autoloader.php</exclude-pattern>
     <exclude-pattern>/compatibility.php</exclude-pattern>
     <exclude-pattern>/functions.php</exclude-pattern>
+    <exclude-pattern>*.blade.php</exclude-pattern>
 
 </ruleset>
