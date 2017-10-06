@@ -329,15 +329,20 @@ class EbookOptions extends \Pressbooks\Options {
 	 * @since 3.9.8
 	 */
 	static function scssOverrides( $scss ) {
+
+		$styles = \Pressbooks\Container::get( 'Styles' );
+		$v2_compatible = $styles->isCurrentThemeCompatible( 2 );
+
 		// --------------------------------------------------------------------
 		// Global Options
 
-		$custom_styles = \Pressbooks\Container::get( 'Styles' );
 		$options = get_option( 'pressbooks_theme_options_global' );
 
 		if ( ! $options['chapter_numbers'] ) {
-			if ( $custom_styles->isCurrentThemeCompatible( 2 ) ) {
-				$scss .= "\$chapter-number-display: none; \n";
+			if ( $v2_compatible ) {
+				$styles->getSass()->setVariables( [
+					'chapter-number-display' => 'none',
+				] );
 			} else {
 				$scss .= "div.part-title-wrap > .part-number, div.chapter-title-wrap > .chapter-number { display: none !important; } \n";
 			}
@@ -350,9 +355,11 @@ class EbookOptions extends \Pressbooks\Options {
 
 		// Indent paragraphs?
 		if ( 'skiplines' === $options['ebook_paragraph_separation'] ) {
-			if ( $custom_styles->isCurrentThemeCompatible( 2 ) ) {
-				$scss .= "\$para-margin-top: 1em; \n";
-				$scss .= "\$para-indent: 0; \n";
+			if ( $v2_compatible ) {
+				$styles->getSass()->setVariables( [
+					'para-margin-top' => '1em',
+					'para-indent' => '0',
+				] );
 			} else {
 				$scss .= "p + p, .indent, div.ugc p.indent { text-indent: 0; margin-top: 1em; } \n";
 			}

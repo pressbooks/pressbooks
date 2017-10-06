@@ -6,6 +6,9 @@
 
 namespace Pressbooks;
 
+/**
+ * SCSS Compiler and Build Tools
+ */
 class Sass {
 
 	/**
@@ -15,6 +18,17 @@ class Sass {
 	 */
 	public $errorsEmail = [];
 
+	/**
+	 * @var array
+	 */
+	protected $vars = [];
+
+	/**
+	 * @param array $vars
+	 */
+	public function setVariables( array $vars ) {
+		$this->vars = array_merge( $this->vars, $vars );
+	}
 
 	/**
 	 * Get default include paths
@@ -24,7 +38,7 @@ class Sass {
 	 *
 	 * @return array
 	 */
-	function defaultIncludePaths( $type, $theme = null ) {
+	public function defaultIncludePaths( $type, $theme = null ) {
 
 		if ( null === $theme ) {
 			$theme = wp_get_theme();
@@ -43,7 +57,7 @@ class Sass {
 	 *
 	 * @return array
 	 */
-	function getStringsToLocalize() {
+	public function getStringsToLocalize() {
 
 		return [
 			'chapter' => __( 'Chapter', 'pressbooks' ),
@@ -57,7 +71,7 @@ class Sass {
 	 *
 	 * @return string
 	 */
-	function pathToPartials() {
+	public function pathToPartials() {
 		return get_theme_root( 'pressbooks-book' ) . '/pressbooks-book/assets/legacy/styles/';
 	}
 
@@ -66,7 +80,7 @@ class Sass {
 	 *
 	 * @return string
 	 */
-	function pathToGlobals() {
+	public function pathToGlobals() {
 		return get_theme_root( 'pressbooks-book' ) . '/pressbooks-book/assets/book/styles/';
 	}
 
@@ -76,7 +90,7 @@ class Sass {
 	 *
 	 * @return string
 	 */
-	function pathToFonts() {
+	public function pathToFonts() {
 		return get_theme_root( 'pressbooks-book' ) . '/pressbooks-book/assets/book/typography/styles/';
 	}
 
@@ -86,7 +100,7 @@ class Sass {
 	 *
 	 * @return string
 	 */
-	function pathToUserGeneratedCss() {
+	public function pathToUserGeneratedCss() {
 
 		$wp_upload_dir = wp_upload_dir();
 		$upload_dir = $wp_upload_dir['basedir'] . '/css';
@@ -104,7 +118,7 @@ class Sass {
 	 *
 	 * @return string
 	 */
-	function urlToUserGeneratedCss() {
+	public function urlToUserGeneratedCss() {
 
 		$wp_upload_dir = wp_upload_dir();
 		$upload_dir = $wp_upload_dir['baseurl'] . '/css';
@@ -118,7 +132,7 @@ class Sass {
 	 *
 	 * @return string
 	 */
-	function pathToUserGeneratedSass() {
+	public function pathToUserGeneratedSass() {
 
 		$wp_upload_dir = wp_upload_dir();
 		$upload_dir = $wp_upload_dir['basedir'] . '/scss';
@@ -136,7 +150,7 @@ class Sass {
 	 *
 	 * @return string
 	 */
-	function pathToDebugDir() {
+	public function pathToDebugDir() {
 
 		$wp_upload_dir = wp_upload_dir();
 		$upload_dir = $wp_upload_dir['basedir'] . '/scss-debug';
@@ -157,17 +171,18 @@ class Sass {
 	 *
 	 * @return string
 	 */
-	function compile( $scss, $includes = [] ) {
+	public function compile( $scss, $includes = [] ) {
 
 		$scss = $this->prependLocalizedVars( $scss );
 
 		try {
 			$css = '/* Silence is golden. */'; // If no SCSS input was passed, prevent file write errors by putting a comment in the CSS output.
-
-			if ( '' !== $scss ) {
-				$sass = new \Leafo\ScssPhp\Compiler;
+			$sass = new \Leafo\ScssPhp\Compiler;
+			if ( ! empty( $scss ) || ! empty( $this->vars ) ) {
+				$sass->setVariables( $this->vars );
 				$sass->setImportPaths( $includes );
 				$css = $sass->compile( $scss );
+				$this->vars = []; // Reset
 			}
 		} catch ( \Exception $e ) {
 
@@ -196,7 +211,7 @@ class Sass {
 	 *
 	 * @return string
 	 */
-	function prependLocalizedVars( $scss ) {
+	public function prependLocalizedVars( $scss ) {
 		$strings = $this->getStringsToLocalize();
 		$localizations = '';
 
@@ -218,7 +233,7 @@ class Sass {
 	 *
 	 * @return array
 	 */
-	function parseVariables( $scss ) {
+	public function parseVariables( $scss ) {
 
 		preg_match_all( '/\$(.*?):(.*?);/', $scss, $matches );
 		$output = array_combine( $matches[1], $matches[2] );
@@ -275,7 +290,7 @@ class Sass {
 	 *
 	 * @param string $filename
 	 */
-	function debug( $css, $scss, $filename ) {
+	public function debug( $css, $scss, $filename ) {
 
 		$debug_dir = $this->pathToDebugDir();
 
@@ -296,7 +311,7 @@ class Sass {
 	 *
 	 * @return bool
 	 */
-	function isCurrentThemeCompatible( $version = 1, $theme = null ) {
+	public function isCurrentThemeCompatible( $version = 1, $theme = null ) {
 		return Container::get( 'Styles' )->isCurrentThemeCompatible( $version, $theme );
 	}
 
@@ -307,7 +322,7 @@ class Sass {
 	 *
 	 * @return void
 	 */
-	function updateWebBookStyleSheet() {
+	public function updateWebBookStyleSheet() {
 		Container::get( 'Styles' )->updateWebBookStyleSheet();
 	}
 }
