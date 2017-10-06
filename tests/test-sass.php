@@ -20,6 +20,20 @@ class SassTest extends \WP_UnitTestCase {
 		$this->sass = Container::get( 'Sass' );
 	}
 
+	public function test_paths() {
+
+		$this->assertNotEmpty( $this->sass->pathToPartials() );
+		$this->assertNotEmpty( $this->sass->pathToGlobals() );
+		$this->assertNotEmpty( $this->sass->pathToFonts() );
+		$this->assertNotEmpty( $this->sass->pathToUserGeneratedCss() );
+		$this->assertNotEmpty( $this->sass->pathToUserGeneratedSass() );
+		$this->assertNotEmpty( $this->sass->pathToDebugDir() );
+		$this->assertNotEmpty( $this->sass->urlToUserGeneratedCss() );
+
+		$paths = $this->sass->defaultIncludePaths( 'prince' );
+		$this->assertTrue( is_array( $paths ) );
+		$this->assertNotEmpty( $paths );
+	}
 
 	public function test_getStringsToLocalize() {
 
@@ -55,5 +69,17 @@ class SassTest extends \WP_UnitTestCase {
 		$this->assertArrayHasKey( 'font-size', $vars );
 		$this->assertEquals( $vars['red'], '#d4002d' );
 		$this->assertEquals( $vars['font-size'], '14pt' );
+	}
+
+
+	public function test_compile() {
+		$scss = 'p { font-size: $foo }';
+		$this->sass->setVariables( [ 'foo' => 999 ] );
+		$css = $this->sass->compile( $scss );
+		$expected = <<<EOF
+p {
+  font-size: 999; }
+EOF;
+		$this->assertEquals( trim( $expected ), trim( $css ) );
 	}
 }
