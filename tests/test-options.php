@@ -222,6 +222,10 @@ class OptionsTest extends \WP_UnitTestCase {
 
 			$defaults = $opt::filterDefaults( $opt::getDefaults() );
 			$this->assertTrue( is_array( $defaults ) );
+
+			if ( method_exists( $option, 'scssOverrides' ) ) {
+				$this->assertStringStartsWith( 'HELLO WORLD', $option::scssOverrides( "HELLO WORLD \n" ) );
+			}
 		}
 	}
 

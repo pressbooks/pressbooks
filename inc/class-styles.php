@@ -6,6 +6,9 @@
 
 namespace Pressbooks;
 
+/**
+ * Custom Styles Feature(s)
+ */
 class Styles {
 
 	const PAGE = 'pb_custom_styles';
@@ -140,7 +143,7 @@ class Styles {
 	/**
 	 * Custom style rules will be saved in a custom post type: custom-style
 	 */
-	function registerPosts() {
+	public function registerPosts() {
 		$args = [
 			'exclude_from_search' => true,
 			'public' => false,
@@ -189,7 +192,7 @@ class Styles {
 	 *
 	 * @return \WP_Post|false
 	 */
-	public  function getPost( $slug ) {
+	public function getPost( $slug ) {
 
 		// Supported post names (ie. slugs)
 		$supported = array_keys( $this->supported );
@@ -313,7 +316,7 @@ class Styles {
 	 *
 	 * @return bool
 	 */
-	public  function isCurrentThemeCompatible( $version = 1, $theme = null ) {
+	public function isCurrentThemeCompatible( $version = 1, $theme = null ) {
 
 		if ( null === $theme ) {
 			$theme = wp_get_theme();
@@ -477,7 +480,7 @@ class Styles {
 	 *
 	 * @return void
 	 */
-	function updateWebBookStyleSheet() {
+	public function updateWebBookStyleSheet() {
 
 		$overrides = apply_filters( 'pb_web_css_override', '' ) . "\n";
 
@@ -556,7 +559,7 @@ class Styles {
 	 *
 	 * @return string
 	 */
-	function renderDropdownForSlugs( $slug ) {
+	public function renderDropdownForSlugs( $slug ) {
 
 		$select_id = $select_name = 'slug';
 		$redirect_url = get_admin_url( get_current_blog_id(), '/themes.php?page=' . $this::PAGE . '&slug=' );
@@ -598,7 +601,7 @@ class Styles {
 	 *
 	 * @return string
 	 */
-	function renderRevisionsTable( $slug, $post_id ) {
+	public function renderRevisionsTable( $slug, $post_id ) {
 
 		$args = [
 			'posts_per_page' => 10,
@@ -626,7 +629,7 @@ class Styles {
 	/**
 	 * Save custom styles to database
 	 */
-	function formSubmit() {
+	public function formSubmit() {
 
 		if ( empty( $this->isFormSubmission() ) || empty( current_user_can( 'edit_others_posts' ) ) ) {
 			// Don't do anything in this function, bail.

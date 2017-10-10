@@ -364,23 +364,27 @@ class WebOptions extends \Pressbooks\Options {
 	 */
 	static function scssOverrides( $scss ) {
 
-		$custom_styles = \Pressbooks\Container::get( 'Styles' );
-		$v2_compatible = $custom_styles->isCurrentThemeCompatible( 2 );
+		$styles = \Pressbooks\Container::get( 'Styles' );
+		$v2_compatible = $styles->isCurrentThemeCompatible( 2 );
 
 		$options = get_option( 'pressbooks_theme_options_web' );
 
 		if ( isset( $options['paragraph_separation'] ) ) {
 			if ( 'indent' === $options['paragraph_separation'] ) {
 				if ( $v2_compatible ) {
-					$scss .= "\$para-margin-top: 0; \n";
-					$scss .= "\$para-indent: 1em; \n";
+					$styles->getSass()->setVariables( [
+						'para-margin-top' => '0',
+						'para-indent' => '1em',
+					] );
 				} else {
 					$scss .= "* + p { text-indent: 1em; margin-top: 0; margin-bottom: 0; } \n";
 				}
 			} elseif ( 'skiplines' === $options['paragraph_separation'] ) {
 				if ( $v2_compatible ) {
-					$scss .= "\$para-margin-top: 1em; \n";
-					$scss .= "\$para-indent: 0; \n";
+					$styles->getSass()->setVariables( [
+						'para-margin-top' => '1em',
+						'para-indent' => '0',
+					] );
 				} else {
 					$scss .= "p + p { text-indent: 0em; margin-top: 1em; } \n";
 				}
