@@ -132,6 +132,7 @@ $supported_file_extensions = implode( ', ', array_keys( $import_option_types ) )
 		<script type="text/javascript">
 			jQuery(function ($) {
 				$('#pb-www').hide();
+				$('#pb-other').hide();
 
 				$(".pb-html-target").change(
 					function () {
@@ -142,12 +143,15 @@ $supported_file_extensions = implode( ', ', array_keys( $import_option_types ) )
 							$('#pb-www').hide();
 							// clear http value at input elem
 							$('.widefat').val('');
-						} else {
+						} else if (val == 'html') {
 							$('#pb-file').hide();
 							$('#pb-www').show();
-
+							$('#pb-other').hide();
+						} else {
+							$('#pb-file').hide();
+							$('#pb-www').hide();
+							$('#pb-other').show();
 						}
-
 					});
 
 			});
@@ -185,14 +189,19 @@ $supported_file_extensions = implode( ', ', array_keys( $import_option_types ) )
 						<input type="url" class="widefat" name="import_http" id="import_http" placeholder="https://url-to-import.com">
 					</td>
 					<?php
-					/**
-					 * Allows developers to add a new input type
-					 *
-					 * @since 4.0.0
-					 *
-					 * @param string $value
-					 */
-					echo apply_filters( 'pb_import_table_cell', '' );
+						/**
+						 * Allows developers to add a new input type. Be sure to add the id
+						 * `pb-other` to the td element wrapping the custom input field so
+						 * that it renders when the custom renderer is selected from the
+						 * drop down.
+						 *
+						 * Ex: <td id="pb-other"><input type="file" name="import_file" id="import_file"></td>
+						 *
+						 * @since 4.0.0
+						 *
+						 * @param string $value
+						 */
+						echo apply_filters( 'pb_import_table_cell', '' );
 					?>
 				</tr>
 
