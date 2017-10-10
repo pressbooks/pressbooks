@@ -194,7 +194,15 @@ $_current_user_id = $catalog->getUserId();
 		<div id="catalog-sidebar" class="catalog-sidebar">
 	<?php endif ?>
 		<h2 class="pressbooks-logo">
-			<a href="<?php echo network_site_url(); ?>">Pressbooks</a>
+			<a href="<?php echo network_site_url(); ?>">
+				<?php
+					/**
+					 * pb_catalog_title allows users to change the catalog title branding.
+					 * @since 4.3.4
+					 */
+					echo apply_filters('pb_catalog_title', 'Pressbooks');
+				?>
+			</a>
 		</h2>
 		<p class="tag-menu assistive-text">Menu</p>
 		<div class="sidebar-inner-wrap">
