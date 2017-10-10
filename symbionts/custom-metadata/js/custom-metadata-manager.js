@@ -177,13 +177,15 @@
 	 	// init the datepicker fields
 		$( '.custom-metadata-field.datepicker' ).find( 'input' ).datepicker({
 			changeMonth: true,
-			changeYear: true
+			changeYear: true,
+			dateFormat: 'mm/dd/yy'
 		});
 
 		// init the datetimepicker fields
 		$( '.custom-metadata-field.datetimepicker' ).find( 'input' ).datetimepicker({
 			changeMonth: true,
-			changeYear: true
+			changeYear: true,
+			dateFormat: 'mm/dd/yy'
 		});
 
 		// init the timepicker fields
