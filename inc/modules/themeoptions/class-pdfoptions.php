@@ -1633,21 +1633,12 @@ class PDFOptions extends \Pressbooks\Options {
 		}
 
 		// Margins
-		$outside = ( isset( $options['pdf_page_margin_outside'] ) ) ? $options['pdf_page_margin_outside'] : '2cm';
-		$inside = ( isset( $options['pdf_page_margin_inside'] ) ) ? $options['pdf_page_margin_inside'] : '2cm';
-		$top = ( isset( $options['pdf_page_margin_top'] ) ) ? $options['pdf_page_margin_top'] : '2cm';
-		$bottom = ( isset( $options['pdf_page_margin_bottom'] ) ) ? $options['pdf_page_margin_bottom'] : '2cm';
-
 		if ( $v2_compatible ) {
 			$styles->getSass()->setVariables( [
-				'page-margin-left-top' => $top,
-				'page-margin-left-right' => $inside,
-				'page-margin-left-bottom:' => $bottom,
-				'page-margin-left-left' => $outside,
-				'page-margin-right-top' => $top,
-				'page-margin-right-right' => $outside,
-				'page-margin-right-bottom' => $bottom,
-				'page-margin-right-left' => $inside,
+				'page-margin-top' => ( isset( $options['pdf_page_margin_top'] ) ) ? $options['pdf_page_margin_top'] : '2cm',
+				'page-margin-inside' => ( isset( $options['pdf_page_margin_inside'] ) ) ? $options['pdf_page_margin_inside'] : '2cm',
+				'page-margin-bottom' => ( isset( $options['pdf_page_margin_bottom'] ) ) ? $options['pdf_page_margin_bottom'] : '2cm',
+				'page-margin-outside' => ( isset( $options['pdf_page_margin_outside'] ) ) ? $options['pdf_page_margin_outside'] : '2cm',
 			] );
 		}
 
