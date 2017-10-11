@@ -15,8 +15,8 @@ use Pressbooks\Sanitize;
  */
 class Blade {
 
-	// Fun fact: A data member that is commonly available to all objects of a class is called a static
-	// member. Unlike regular data members, static members share the memory space between all objects of the
+	// A data member that is commonly available to all objects of a class is called a static member.
+	// Unlike regular data members, static members share the memory space between all objects of the
 	// same class.
 
 	/**
