@@ -3,7 +3,7 @@
 Plugin Name: Pressbooks
 Plugin URI: https://pressbooks.com
 Description: Simple Book Production
-Version: 4.3.3
+Version: 4.3.4
 Author: Book Oven Inc.
 Author URI: https://pressbooks.com
 Text Domain: pressbooks
@@ -61,7 +61,7 @@ add_action( 'wp_login', '_pb_session_kill' );
 // -------------------------------------------------------------------------------------------------------------------
 
 if ( ! defined( 'PB_PLUGIN_VERSION' ) ) {
-	define( 'PB_PLUGIN_VERSION', '4.3.3' );
+	define( 'PB_PLUGIN_VERSION', '4.3.4' );
 }
 
 if ( ! defined( 'PB_PLUGIN_DIR' ) ) {
@@ -100,7 +100,7 @@ if ( file_exists( $composer = PB_PLUGIN_DIR . 'vendor/autoload.php' ) ) {
 // Check minimum requirements
 // -------------------------------------------------------------------------------------------------------------------
 
-if ( ! function_exists( 'pb_meets_minimum_requirementsz' ) && ! @include_once( PB_PLUGIN_DIR . 'compatibility.php' ) ) { // @codingStandardsIgnoreLine
+if ( ! function_exists( 'pb_meets_minimum_requirements' ) && ! @include_once( PB_PLUGIN_DIR . 'compatibility.php' ) ) { // @codingStandardsIgnoreLine
 	return add_action( 'admin_notices', function () {
 		echo '<div id="message" class="error fade"><p>' . __( 'Cannot find Pressbooks install.', 'pressbooks' ) . '</p></div>';
 	} );

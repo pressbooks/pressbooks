@@ -1,8 +1,8 @@
 === Pressbooks ===
 
 Contributors: Pressbooks <code@pressbooks.com>
-Version: 4.3.3
-Stable Tag: 4.3.3
+Version: 4.3.4
+Stable Tag: 4.3.4
 Tags: ebooks, publishing, webbooks
 Requires PHP: 5.6
 Requires at least: 4.8.2
@@ -47,11 +47,11 @@ TK.
 6. Catalog
 
 == Upgrade Notice ==
-= 4.3.3 =
+= 4.3.4 =
 
-Upon upgrading to Pressbooks 4.3.3, you will need to install the [Pressbooks Book](https://github.com/pressbooks/pressbooks-book) and [Pressbooks Publisher](https://github.com/pressbooks/pressbooks-publisher) themes along with any of our other open source [book themes](https://github.com/search?q=topic%3Abook-theme+org%3Apressbooks&type=Repositories) that were bundled with earlier versions of Pressbooks. For more information, see the [upgrading instructions](https://docs.pressbooks.org/upgrading).
+Upon upgrading to Pressbooks 4.3.4, you will need to install the [Pressbooks Book](https://github.com/pressbooks/pressbooks-book) and [Pressbooks Publisher](https://github.com/pressbooks/pressbooks-publisher) themes along with any of our other open source [book themes](https://github.com/search?q=topic%3Abook-theme+org%3Apressbooks&type=Repositories) that were bundled with earlier versions of Pressbooks. For more information, see the [upgrading instructions](https://docs.pressbooks.org/upgrading).
 
-Upon upgrading to Pressbooks 4.3.3, users of the [Pressbooks Custom CSS](https://github.com/pressbooks/pressbooks-custom-css) theme will need to upgrade to version 1.0 of the Pressbooks Custom CSS theme.
+Upon upgrading to Pressbooks 4.3.4, users of the [Pressbooks Custom CSS](https://github.com/pressbooks/pressbooks-custom-css) theme will need to upgrade to version 1.0 of the Pressbooks Custom CSS theme.
 
 Pressbooks now requires [PHP >= 5.6](https://secure.php.net/supported-versions.php)
 
@@ -60,6 +60,16 @@ Pressbooks now requires [WordPress 4.8.2](https://wordpress.org/download/).
 Pressbooks now requires [PrinceXML 11](http://www.princexml.com/download/) for PDF exports.
 
 == Changelog ==
+= 4.3.4 =
+**NOTICE:** Pressbooks >= 4.3.3 requires WordPress 4.8.2.
+**NOTICE:** Users of the Pressbooks Custom CSS theme must upgrade to Pressbooks Custom CSS 1.0 for compatibility with Pressbooks >= 4.3.0.
+
+* **[CORE ENHANCEMENT]** The user catalog title can now be changed via the `pb_catalog_title` filter (props to @monkecheese; see #961).
+* **[CORE ENHANCEMENT]** SCSS variables from theme options will now be passed to the SCSS compiler as key/value pairs rather than by building SCSS in PHP (see #782 and #963).
+* **[FIX]** Fixed an issue where the PDF margins theme option was not being applied properly.
+* **[FIX]** Fixed a conflict between the updated Pressbooks LaTeX module and third-party renderers (props to @monkecheese; see #958 and #959).
+* **[FIX]** The publication date should now save properly, regardless of book language (thanks to @thomasdumm for the bug report; see #965 and #966).
+
 = 4.3.3 =
 **NOTICE:** Pressbooks 4.3.3 requires WordPress 4.8.2.
 **NOTICE:** Users of the Pressbooks Custom CSS theme must upgrade to Pressbooks Custom CSS 1.0 for compatibility with Pressbooks 4.3.3.
