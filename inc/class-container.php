@@ -3,7 +3,7 @@
 namespace Pressbooks;
 
 /**
- * Redundant wrapper around \Illuminate\Container\Container() for backwards compatibility
+ * Redundant wrapper around \Illuminate\Container\Container() for backwards compatibility (we used to use Pimple)
  */
 class Container extends \Illuminate\Container\Container {
 
