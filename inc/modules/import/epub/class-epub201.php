@@ -44,9 +44,16 @@ class Epub201 extends Import {
 	 * @var boolean
 	 */
 	protected $isPbEpub = false;
+        
+        /**
+         * Array of manifest with tytpe application/xhtml+xml
+         * 
+         * @var array()
+         */
+        protected $manifest = [];
 
 
-	/**
+        /**
 	 *
 	 */
 	function __construct() {
@@ -81,37 +88,62 @@ class Epub201 extends Import {
 		];
 
 		$xml = $this->getOpf();
-		foreach ( $xml->manifest->children() as $item ) {
-			/** @var \SimpleXMLElement $item */
-			// Get attributes
-			$id = $title = $type = $href = '';
-			foreach ( $item->attributes() as $key => $val ) {
-				if ( 'id' === $key ) {
+                
+                foreach ($xml->manifest->children() as $item) {
+                        /** @var \SimpleXMLElement $item */
+                        // Get attributes
+                        $id = $title = $type = $href = '';
+                        foreach ( $item->attributes() as $key => $val ) {
+                                if ( 'id' === $key ) {
+                                        $id = (string) $val;
+                                } elseif ( 'media-type' === $key ) {
+                                        $type = (string) $val;
+                                }elseif ( 'href' === $key ) {
+                                        $href = $val;
+                                }
+                        }
+                    
+                        // Skip
+                        if ( 'application/xhtml+xml' !== $type ) {
+                                continue;
+                        }
+                    
+                        $this->manifest[$id] = [
+                                'type' => $type,
+                                'herf' => $href
+                        ];
+                }
+                
+                foreach ( $xml->spine->children() as $item ) {
+                        /** @var \SimpleXMLElement $item */
+                        // Get attributes
+                        $id = "";
+                        
+                        foreach ( $item->attributes() as $key => $val ) {
+				if ( 'idref' === $key ) {
 					$id = (string) $val;
-				} elseif ( 'media-type' === $key ) {
-					$type = (string) $val;
-				} elseif ( 'href' === $key && 'OEBPS/copyright.html' === $val ) {
-					$this->pbCheck( $val );
 				}
-				if ( 'href' === $key ) {
-					$href = $val;
+                        }
+                        
+                        if(isset($this->manifest[$id])){
+                                $type = $this->manifest[$id]['type'];
+                                $href = $this->manifest[$id]['herf'];
+                                $title = "";
+                                
+                                if ( 'OEBPS/copyright.html' === $href ) {
+					$this->pbCheck( $href );
 				}
-			}
+                                
+                                // Set
+                                // Extract title from file
+                                $html = $this->getZipContent( $this->basedir . $href, false );
+                                $matches = [];
+                                preg_match( '/(?:<title[^>]*>)(.+)<\/title\s*>/isU', $html, $matches );
+                                $title = ( ! empty( $matches[1] ) ? wp_strip_all_tags( $matches[1] ) : $id );
 
-			// Skip
-			if ( 'application/xhtml+xml' !== $type ) {
-				continue;
-			}
-
-			// Set
-			// Extract title from file
-			$html = $this->getZipContent( $this->basedir . $href, false );
-			$matches = [];
-			preg_match( '/(?:<title[^>]*>)(.+)<\/title\s*>/isU', $html, $matches );
-			$title = ( ! empty( $matches[1] ) ? wp_strip_all_tags( $matches[1] ) : $id );
-
-			$option['chapters'][ $id ] = $title;
-		}
+                                $option['chapters'][ $id ] = $title;
+                        }
+                }
 
 		return update_option( 'pressbooks_current_import', $option );
 	}
