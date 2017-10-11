@@ -6,6 +6,12 @@
  * @license GPLv2 (or any later version)
  */
 
+if ( ! function_exists( 'app' ) ) {
+	// Fake Laravel app() so we can use Blade @inject directive
+	function app( $var ) {
+		return \Pressbooks\Container::get( $var );
+	}
+}
 
 /**
  * Shortcut to \Pressbooks\Book::get( 'prev' );

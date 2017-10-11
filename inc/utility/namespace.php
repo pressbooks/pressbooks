@@ -1079,3 +1079,16 @@ function urls_have_same_host( $url1, $url2 ) {
 
 	return $same_host;
 }
+
+/**
+ * Blade cache path
+ *
+ * @return string
+ */
+function get_cache_path() {
+	$cache = wp_upload_dir()['basedir'] . '/cache';
+	if ( ! file_exists( $cache ) ) {
+		wp_mkdir_p( $cache );
+	}
+	return $cache;
+}

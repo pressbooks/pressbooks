@@ -332,4 +332,8 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertFalse( \Pressbooks\Utility\urls_have_same_host( 'pressbooks.com', 'pressbooks.com' ) ); // Not a fully qualified URL
 	}
 
+	public function test_get_cache_path() {
+		$this->assertNotEmpty( \Pressbooks\Utility\get_cache_path() );
+	}
+
 }

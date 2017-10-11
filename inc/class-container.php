@@ -3,30 +3,21 @@
 namespace Pressbooks;
 
 /**
- * Cheap wrapper around \Pimple\Container() so that we can use
- * PhpStorm IDE to auto-complete things or hot-swap services for Unit Testing.
+ * Redundant wrapper around \Illuminate\Container\Container() for backwards compatibility (we used to use Pimple)
  */
-class Container {
-
-	/**
-	 * @var \Pimple\Container
-	 */
-	protected static $pimple;
-
+class Container extends \Illuminate\Container\Container {
 
 	/**
 	 * If you add services, don't forget to also edit config/.phpstorm.meta.php
 	 *
-	 * @param \Pimple\Container $pimple
+	 * @param \Illuminate\Contracts\Container\Container $c
 	 */
-	static function init( $pimple = null ) {
-		if ( null === $pimple ) {
-			static::$pimple = require( __DIR__ . '/../services.php' );
-		} else {
-			static::$pimple = $pimple;
+	static function init( $c = null ) {
+		if ( is_null( $c ) ) {
+			$c = require( __DIR__ . '/../services.php' );
 		}
+		static::setInstance( $c );
 	}
-
 
 	/**
 	 * @param string $var
@@ -34,13 +25,11 @@ class Container {
 	 * @return mixed
 	 */
 	static function get( $var ) {
-		if ( ! static::$pimple ) {
-			throw new \LogicException( '\Pimple\Container not set, call init() or setPimple() before using get().' );
+		if ( is_null( static::$instance ) ) {
+			throw new \LogicException( 'Container not set, call init() or setInstance() before using get().' );
 		}
-
-		return static::$pimple[ $var ];
+		return static::$instance[ $var ];
 	}
-
 
 	/**
 	 * @param string $key
@@ -49,41 +38,22 @@ class Container {
 	 * @param bool $replace (optional)
 	 */
 	static function set( $key, $val, $type = null, $replace = false ) {
-		if ( ! static::$pimple ) {
-			throw new \LogicException( '\Pimple\Container not set, call init() or setPimple() before using set().' );
+		if ( is_null( static::$instance ) ) {
+			throw new \LogicException( 'Container not set, call init() or setInstance() before using set().' );
 		}
 
 		if ( $replace ) {
-			unset( static::$pimple[ $key ] ); // Override frozen service
+			unset( static::$instance[ $key ] );
 		}
 
-		if ( 'factory' === $type ) {
-			static::$pimple[ $key ] = static::$pimple->factory( $val );
-		} elseif ( 'protect' === $type ) {
-			static::$pimple[ $key ] = static::$pimple->protect( $val );
-		} else {
-			static::$pimple[ $key ] = $val;
+		if ( ! static::$instance->bound( $key ) ) {
+			if ( in_array( $type, [ 'factory', 'bind' ], true ) ) {
+				static::$instance->bind( $key, $val );
+			} elseif ( in_array( $type, [ 'protect', 'instance' ], true ) ) {
+				static::$instance->instance( $key, $val );
+			} else {
+				static::$instance->singleton( $key, $val );
+			}
 		}
 	}
-
-
-	/**
-	 * @return \Pimple\Container
-	 */
-	static function getPimple() {
-		if ( ! static::$pimple ) {
-			throw new \LogicException( '\Pimple\Container not set, call init() or setPimple() before using getPimple().' );
-		}
-
-		return static::$pimple;
-	}
-
-
-	/**
-	 * @param \Pimple\Container $pimple
-	 */
-	public static function setPimple( $pimple ) {
-		static::$pimple = $pimple;
-	}
-
 }
