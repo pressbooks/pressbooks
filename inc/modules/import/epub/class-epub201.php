@@ -89,31 +89,10 @@ class Epub201 extends Import {
 
 		$xml = $this->getOpf();
                 
-                foreach ($xml->manifest->children() as $item) {
-                        /** @var \SimpleXMLElement $item */
-                        // Get attributes
-                        $id = $title = $type = $href = '';
-                        foreach ( $item->attributes() as $key => $val ) {
-                                if ( 'id' === $key ) {
-                                        $id = (string) $val;
-                                } elseif ( 'media-type' === $key ) {
-                                        $type = (string) $val;
-                                }elseif ( 'href' === $key ) {
-                                        $href = $val;
-                                }
-                        }
-                    
-                        // Skip
-                        if ( 'application/xhtml+xml' !== $type ) {
-                                continue;
-                        }
-                    
-                        $this->manifest[$id] = [
-                                'type' => $type,
-                                'herf' => $href
-                        ];
-                }
+                //Format manifest to array
+                $this->parseManifestToArray($xml);
                 
+                //Iterate each spine and get each manifest item in the order of spine
                 foreach ( $xml->spine->children() as $item ) {
                         /** @var \SimpleXMLElement $item */
                         // Get attributes
@@ -125,11 +104,14 @@ class Epub201 extends Import {
 				}
                         }
                         
+                        //Check this manifest item exists or not
                         if(isset($this->manifest[$id])){
+                             
                                 $type = $this->manifest[$id]['type'];
                                 $href = $this->manifest[$id]['herf'];
                                 $title = "";
                                 
+                                //Check manifest item is copyright or not
                                 if ( 'OEBPS/copyright.html' === $href ) {
 					$this->pbCheck( $href );
 				}
@@ -207,35 +189,46 @@ class Epub201 extends Import {
 	 * @param array $current_import
 	 */
 	protected function parseManifest( \SimpleXMLElement $xml, array $match_ids, $chapter_parent, $current_import ) {
-
+                
+                //Format manifest to array
+                $this->parseManifestToArray($xml);                
 		$total = 0;
-		foreach ( $xml->manifest->children() as $item ) {
-			/** @var \SimpleXMLElement $item */
-			// Get attributes
-			$id = $href = '';
-			foreach ( $item->attributes() as $key => $val ) {
-				if ( 'id' === $key ) {
+                
+                //Iterate each spine and get each manifest item in the order of spine
+                foreach ( $xml->spine->children() as $item ) {
+                        /** @var \SimpleXMLElement $item */
+                        // Get attributes
+                        $id = "";
+                        
+                        foreach ( $item->attributes() as $key => $val ) {
+				if ( 'idref' === $key ) {
 					$id = (string) $val;
-				} elseif ( 'href' === $key ) {
-					if ( 'OEBPS/copyright.html' === $val ) {
-						$this->pbCheck( $val );
-					}
-					$href = $this->basedir . $val;
 				}
-			}
+                        }
+                        
+                        //Check this manifest item exists or not
+                        if(isset($this->manifest[$id])){
+                                $href = $this->manifest[$id]['herf'];
+                                
+                                if('OEBPS/copyright.html' === $href){
+                                    $this->pbCheck( $href );
+                                }
+                                
+                                $href = $this->basedir . $href;
+                                
+                                // Skip
+                                if ( ! $this->flaggedForImport( $id ) ) {
+                                        continue;
+                                }
+                                if ( ! isset( $match_ids[ $id ] ) ) {
+                                        continue;
+                                }
 
-			// Skip
-			if ( ! $this->flaggedForImport( $id ) ) {
-				continue;
-			}
-			if ( ! isset( $match_ids[ $id ] ) ) {
-				continue;
-			}
-
-			// Insert
-			$this->kneadAndInsert( $href, $this->determinePostType( $id ), $chapter_parent, $current_import['default_post_status'] );
-			++$total;
-		}
+                                // Insert
+                                $this->kneadAndInsert( $href, $this->determinePostType( $id ), $chapter_parent, $current_import['default_post_status'] );
+                                ++$total;
+                        }
+                }
 
 		$_SESSION['pb_notices'][] = sprintf( __( 'Imported %s chapters.', 'pressbooks' ), $total );
 	}
@@ -586,4 +579,41 @@ class Epub201 extends Import {
 
 		return $doc;
 	}
+        
+        
+        /**
+         * Parse manifest with type 'application/xhtml+xml' to array 
+         * 
+         * @param \SimpleXMLElement $xml
+         * @return array()
+         */
+        protected function parseManifestToArray(\SimpleXMLElement $xml) {
+            
+                foreach ($xml->manifest->children() as $item) {
+                        /** @var \SimpleXMLElement $item */
+                        // Get attributes
+                        $id = $title = $type = $href = '';
+                        foreach ( $item->attributes() as $key => $val ) {
+                                if ( 'id' === $key ) {
+                                        $id = (string) $val;
+                                } elseif ( 'media-type' === $key ) {
+                                        $type = (string) $val;
+                                }elseif ( 'href' === $key ) {
+                                        $href = $val;
+                                }
+                        }
+                    
+                        // Skip
+                        if ( 'application/xhtml+xml' !== $type ) {
+                                continue;
+                        }
+                    
+                        $this->manifest[$id] = [
+                                'type' => $type,
+                                'herf' => $href
+                        ];
+                }
+                
+                return $this->manifest;
+        }
 }
