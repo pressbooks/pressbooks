@@ -1475,7 +1475,6 @@ class PDFOptions extends \Pressbooks\Options {
 		 */
 		return apply_filters(
 			'pb_theme_options_pdf_integers', [
-			'pdf_body_font_size',
 			'widows',
 			'orphans',
 			]
@@ -1497,7 +1496,8 @@ class PDFOptions extends \Pressbooks\Options {
 		 */
 		return apply_filters(
 			'pb_theme_options_pdf_floats', [
-			'pdf_body_line_height',
+				'pdf_body_font_size',
+				'pdf_body_line_height',
 			]
 		);
 	}
