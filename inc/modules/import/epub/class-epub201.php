@@ -47,6 +47,14 @@ class Epub201 extends Import {
 
 
 	/**
+	 * Array of manifest with type application/xhtml+xml
+	 *
+	 * @var array()
+	 */
+	protected $manifest = [];
+
+
+	/**
 	 *
 	 */
 	function __construct() {
@@ -81,36 +89,43 @@ class Epub201 extends Import {
 		];
 
 		$xml = $this->getOpf();
-		foreach ( $xml->manifest->children() as $item ) {
+
+		//Format manifest to array
+		$this->parseManifestToArray( $xml );
+
+		//Iterate each spine and get each manifest item in the order of spine
+		foreach ( $xml->spine->children() as $item ) {
 			/** @var \SimpleXMLElement $item */
 			// Get attributes
-			$id = $title = $type = $href = '';
+			$id = '';
+
 			foreach ( $item->attributes() as $key => $val ) {
-				if ( 'id' === $key ) {
+				if ( 'idref' === $key ) {
 					$id = (string) $val;
-				} elseif ( 'media-type' === $key ) {
-					$type = (string) $val;
-				} elseif ( 'href' === $key && 'OEBPS/copyright.html' === $val ) {
-					$this->pbCheck( $val );
-				}
-				if ( 'href' === $key ) {
-					$href = $val;
 				}
 			}
 
-			// Skip
-			if ( 'application/xhtml+xml' !== $type ) {
-				continue;
+			//Check this manifest item exists or not
+			if ( isset( $this->manifest[ $id ] ) ) {
+
+				$type = $this->manifest[ $id ]['type'];
+				$href = $this->manifest[ $id ]['herf'];
+				$title = '';
+
+				//Check manifest item is copyright or not
+				if ( 'OEBPS/copyright.html' === $href ) {
+					$this->pbCheck( $href );
+				}
+
+				// Set
+				// Extract title from file
+				$html = $this->getZipContent( $this->basedir . $href, false );
+				$matches = [];
+				preg_match( '/(?:<title[^>]*>)(.+)<\/title\s*>/isU', $html, $matches );
+				$title = ( ! empty( $matches[1] ) ? wp_strip_all_tags( $matches[1] ) : $id );
+
+				$option['chapters'][ $id ] = $title;
 			}
-
-			// Set
-			// Extract title from file
-			$html = $this->getZipContent( $this->basedir . $href, false );
-			$matches = [];
-			preg_match( '/(?:<title[^>]*>)(.+)<\/title\s*>/isU', $html, $matches );
-			$title = ( ! empty( $matches[1] ) ? wp_strip_all_tags( $matches[1] ) : $id );
-
-			$option['chapters'][ $id ] = $title;
 		}
 
 		return update_option( 'pressbooks_current_import', $option );
@@ -176,33 +191,44 @@ class Epub201 extends Import {
 	 */
 	protected function parseManifest( \SimpleXMLElement $xml, array $match_ids, $chapter_parent, $current_import ) {
 
+		//Format manifest to array
+		$this->parseManifestToArray( $xml );
 		$total = 0;
-		foreach ( $xml->manifest->children() as $item ) {
+
+		//Iterate each spine and get each manifest item in the order of spine
+		foreach ( $xml->spine->children() as $item ) {
 			/** @var \SimpleXMLElement $item */
 			// Get attributes
-			$id = $href = '';
+			$id = '';
+
 			foreach ( $item->attributes() as $key => $val ) {
-				if ( 'id' === $key ) {
+				if ( 'idref' === $key ) {
 					$id = (string) $val;
-				} elseif ( 'href' === $key ) {
-					if ( 'OEBPS/copyright.html' === $val ) {
-						$this->pbCheck( $val );
-					}
-					$href = $this->basedir . $val;
 				}
 			}
 
-			// Skip
-			if ( ! $this->flaggedForImport( $id ) ) {
-				continue;
-			}
-			if ( ! isset( $match_ids[ $id ] ) ) {
-				continue;
-			}
+			//Check this manifest item exists or not
+			if ( isset( $this->manifest[ $id ] ) ) {
+				$href = $this->manifest[ $id ]['herf'];
 
-			// Insert
-			$this->kneadAndInsert( $href, $this->determinePostType( $id ), $chapter_parent, $current_import['default_post_status'] );
-			++$total;
+				if ( 'OEBPS/copyright.html' === $href ) {
+					$this->pbCheck( $href );
+				}
+
+				$href = $this->basedir . $href;
+
+				// Skip
+				if ( ! $this->flaggedForImport( $id ) ) {
+					continue;
+				}
+				if ( ! isset( $match_ids[ $id ] ) ) {
+					continue;
+				}
+
+				// Insert
+				$this->kneadAndInsert( $href, $this->determinePostType( $id ), $chapter_parent, $current_import['default_post_status'] );
+				++$total;
+			}
 		}
 
 		$_SESSION['pb_notices'][] = sprintf( __( 'Imported %s chapters.', 'pressbooks' ), $total );
@@ -553,5 +579,40 @@ class Epub201 extends Import {
 		// TODO: Fix self-referencing URLs
 
 		return $doc;
+	}
+
+
+	/**
+	* Parse manifest with type 'application/xhtml+xml' to array
+	*
+	* @param \SimpleXMLElement $xml
+	*/
+	protected function parseManifestToArray( \SimpleXMLElement $xml ) {
+
+		foreach ( $xml->manifest->children() as $item ) {
+			/** @var \SimpleXMLElement $item */
+			// Get attributes
+			$id = $title = $type = $href = '';
+			foreach ( $item->attributes() as $key => $val ) {
+				if ( 'id' === $key ) {
+					$id = (string) $val;
+				} elseif ( 'media-type' === $key ) {
+						$type = (string) $val;
+				} elseif ( 'href' === $key ) {
+						$href = $val;
+				}
+			}
+
+						// Skip
+			if ( 'application/xhtml+xml' !== $type ) {
+				continue;
+			}
+
+			$this->manifest[ $id ] = [
+					'type' => $type,
+					'herf' => $href,
+					];
+		}
+
 	}
 }
