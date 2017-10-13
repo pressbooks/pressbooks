@@ -47,7 +47,7 @@ class Epub201 extends Import {
 
 
 	/**
-	 * Array of manifest with tytpe application/xhtml+xml
+	 * Array of manifest with type application/xhtml+xml
 	 *
 	 * @var array()
 	 */
@@ -582,12 +582,11 @@ class Epub201 extends Import {
 	}
 
 
-		/**
-		 * Parse manifest with type 'application/xhtml+xml' to array
-		 *
-		 * @param \SimpleXMLElement $xml
-		 * @return array()
-		 */
+	/**
+	* Parse manifest with type 'application/xhtml+xml' to array
+	*
+	* @param \SimpleXMLElement $xml
+	*/
 	protected function parseManifestToArray( \SimpleXMLElement $xml ) {
 
 		foreach ( $xml->manifest->children() as $item ) {
@@ -610,11 +609,10 @@ class Epub201 extends Import {
 			}
 
 			$this->manifest[ $id ] = [
-										'type' => $type,
-										'herf' => $href,
-									];
+					'type' => $type,
+					'herf' => $href,
+					];
 		}
 
-		return $this->manifest;
 	}
 }
