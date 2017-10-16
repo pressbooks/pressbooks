@@ -422,7 +422,7 @@ function check_saxonhe_install() {
 function show_experimental_features( $host = '' ) {
 
 	if ( ! $host ) {
-		$host = parse_url( network_site_url(), PHP_URL_HOST );
+		$host = parse_url( network_home_url(), PHP_URL_HOST );
 	}
 
 	// hosts where experimental features should be hidden

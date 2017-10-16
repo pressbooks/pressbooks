@@ -67,7 +67,7 @@ class Catalog_List_Table extends \WP_List_Table {
 
 		// Build row actions
 		$actions = [
-			'visit' => sprintf( '<a href="%s">%s</a>', get_site_url( $blog_id ), __( 'Visit Book' ) ),
+			'visit' => sprintf( '<a href="%s">%s</a>', get_home_url( $blog_id ), __( 'Visit Book' ) ),
 		];
 
 		// Only include admin link if user has admin rights to the book in question
@@ -559,7 +559,7 @@ class Catalog_List_Table extends \WP_List_Table {
 			$user_login = get_userdata( get_current_user_id() )->user_login;
 		}
 
-		$view_url = network_site_url( "/catalog/$user_login" );
+		$view_url = network_home_url( "/catalog/$user_login" );
 
 		return $view_url;
 	}
