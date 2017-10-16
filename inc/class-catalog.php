@@ -1249,7 +1249,7 @@ class Catalog {
 		}
 
 		$url = parse_url( \Pressbooks\Sanitize\canonicalize_url( $_REQUEST['add_book_by_url'] ) );
-		$main = parse_url( network_site_url() );
+		$main = parse_url( network_home_url() );
 
 		if ( strpos( $url['host'], $main['host'] ) === false ) {
 			$_SESSION['pb_errors'][] = __( 'Invalid URL.', 'pressbooks' );

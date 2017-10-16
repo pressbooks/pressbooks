@@ -121,7 +121,7 @@ function _base_url() {
 	if ( false === $base_url ) {
 		global $_current_user_id;
 		$base_url = get_userdata( $_current_user_id )->user_login;
-		$base_url = network_site_url( "/catalog/$base_url" );
+		$base_url = network_home_url( "/catalog/$base_url" );
 	}
 
 	return $base_url;
@@ -194,7 +194,7 @@ $_current_user_id = $catalog->getUserId();
 		<div id="catalog-sidebar" class="catalog-sidebar">
 	<?php endif ?>
 		<h2 class="pressbooks-logo">
-			<a href="<?php echo network_site_url(); ?>">
+			<a href="<?php echo network_home_url(); ?>">
 				<?php
 					/**
 					 * pb_catalog_title allows users to change the catalog title branding.
@@ -244,7 +244,7 @@ $_current_user_id = $catalog->getUserId();
 				<div class="book-data mix<?php echo _tag_classes( $b ); ?>">
 
 					<div class="book">
-						<a href="<?php echo get_site_url( $b['blogs_id'], '', 'http' ); ?>">
+						<a href="<?php echo get_home_url( $b['blogs_id'] ); ?>">
 						<p class="book-description"><?php echo wp_trim_words( strip_tags( pb_decode( $b['about'] ) ), 50, '...' ); ?><span class="book-link">&rarr;</span></p>
 						<img src="<?php echo $b['cover_url']['pb_cover_medium']; ?>" alt="book-cover" width="225" height="<?php echo $b['cover_height']; ?>" /></a>
 					</div><!-- end .book -->
@@ -252,7 +252,7 @@ $_current_user_id = $catalog->getUserId();
 					<div class="book-info">
 						<h2><?php echo $b['title']; ?></h2>
 
-						<p><a href="<?php echo get_site_url( $b['blogs_id'], '', 'http' ); ?>"><?php echo $b['author']; ?></a></p>
+						<p><a href="<?php echo get_home_url( $b['blogs_id'] ); ?>"><?php echo $b['author']; ?></a></p>
 					</div><!-- end book-info -->
 
 				</div><!-- end .book-data -->
@@ -264,7 +264,7 @@ $_current_user_id = $catalog->getUserId();
 
 			</div>	<!-- end .catalog-content-->
 			<div class="footer">
-				<p><a href="<?php echo network_site_url(); ?>"><?php _e( 'Pressbooks: the CMS for Books.', 'pressbooks' ); ?></a></p>
+				<p><a href="<?php echo network_home_url(); ?>"><?php _e( 'Pressbooks: the CMS for Books.', 'pressbooks' ); ?></a></p>
 			</div>
 
 		</div>	<!-- end .catalog-content-wrap -->
