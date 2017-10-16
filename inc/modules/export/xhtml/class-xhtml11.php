@@ -7,7 +7,6 @@
 namespace Pressbooks\Modules\Export\Xhtml;
 
 use Masterminds\HTML5;
-use Pressbooks\Container;
 use Pressbooks\Modules\Export\Export;
 use Pressbooks\Sanitize;
 use function Pressbooks\Sanitize\clean_filename;
@@ -21,6 +20,34 @@ class Xhtml11 extends Export {
 	 */
 	public $url;
 
+
+	/**
+	 * Endnotes storage container.
+	 * Use when overriding the footnote shortcode.
+	 *
+	 * @var array
+	 */
+	protected $endnotes = [];
+
+
+	/**
+	 * We forcefully reorder some of the front-matter types to respect the Chicago Manual of Style.
+	 * Keep track of where we are using this variable.
+	 *
+	 * @var int
+	 */
+	protected $frontMatterPos = 1;
+
+
+	/**
+	 * Sometimes the user will omit an introduction so we must inject the style in either the first
+	 * part or the first chapter ourselves.
+	 *
+	 * @var bool
+	 */
+	protected $hasIntroduction = false;
+
+
 	/**
 	 * Main language of document, two letter code
 	 *
@@ -28,10 +55,6 @@ class Xhtml11 extends Export {
 	 */
 	protected $lang = 'en';
 
-	/**
-	 * @var \Jenssegers\Blade\Blade
-	 */
-	protected $blade;
 
 	/**
 	 * @param array $args
@@ -80,9 +103,7 @@ class Xhtml11 extends Export {
 	 */
 	function convert() {
 
-		// convert() is called on export, transform() is called when a browser points to /format/xhtml
-		// Always prettify XHTML on convert, maybe prettify on transform()
-		$_GET['pretty'] = 1;
+		// Get XHTML
 
 		$output = $this->transform( true );
 
@@ -131,14 +152,13 @@ class Xhtml11 extends Export {
 	 *
 	 * Supported http params:
 	 *
-	 *   + endnotes: (bool) move all footnotes to end of the book
-	 *   + fullsize-images: (bool) replace images with originals when possible
+	 *   + timestamp: (int) combines with `hashkey` to allow a 3rd party service temporary access
 	 *   + hashkey: (string) combines with `timestamp` to allow a 3rd party service temporary access
-	 *   + pretty: (bool) prettify HTML
-	 *   + preview: (bool) Use `Content-Disposition: inline` instead of `Content-Disposition: attachment` when passing through Export::formSubmit*
+	 *   + endnotes: (bool) move all footnotes to end of the book
 	 *   + style: (string) name of a user generated stylesheet you want included in the header
 	 *   + script: (string) name of javascript file you you want included in the header
-	 *   + timestamp: (int) combines with `hashkey` to allow a 3rd party service temporary access
+	 *   + preview: (bool) Use `Content-Disposition: inline` instead of `Content-Disposition: attachment` when passing through Export::formSubmit
+	 *   + fullsize-images: (bool) replace images with originals when possible
 	 *
 	 * @see \Pressbooks\Redirect\do_format
 	 *
@@ -170,13 +190,7 @@ class Xhtml11 extends Export {
 		}
 
 		// ------------------------------------------------------------------------------------------------------------
-		// XHTML, Setup
-
-		$this->blade = new \Jenssegers\Blade\Blade(
-			[ __DIR__ . '/templates' ],
-			\Pressbooks\Utility\get_cache_path(),
-			Container::getInstance()
-		);
+		// XHTML, Start!
 
 		$metadata = \Pressbooks\Book::getBookInformation();
 		$book_contents = $this->preProcessBookContents( \Pressbooks\Book::getBookContents() );
@@ -186,42 +200,59 @@ class Xhtml11 extends Export {
 			list( $this->lang ) = explode( '-', $metadata['pb_language'] );
 		}
 
-		$style_url = $script_url = false;
-		if ( ! empty( $_GET['style'] ) ) {
-			$style_url = Container::get( 'Sass' )->urlToUserGeneratedCss() . '/' . clean_filename( $_GET['style'] ) . '.css';
-		}
-		if ( ! empty( $_GET['script'] ) ) {
-			$script_url = $this->getExportScriptUrl( clean_filename( $_GET['script'] ) ) . '/script.js';
-		}
-
-		// ------------------------------------------------------------------------------------------------------------
-		// XHTML, Start
-
 		ob_start();
 
+		$this->echoDocType( $book_contents, $metadata );
+
+		echo "<head>\n";
+		echo '<meta content="text/html; charset=UTF-8" http-equiv="content-type" />' . "\n";
+		echo '<meta http-equiv="Content-Language" content="' . $this->lang . '" />' . "\n";
+		echo '<meta name="generator" content="Pressbooks ' . PB_PLUGIN_VERSION . '" />' . "\n";
+
+		$this->echoMetaData( $book_contents, $metadata );
+
+		echo '<title>' . get_bloginfo( 'name' ) . "</title>\n";
+
+		if ( ! empty( $_GET['style'] ) ) {
+			$url = \Pressbooks\Container::get( 'Sass' )->urlToUserGeneratedCss() . '/' . clean_filename( $_GET['style'] ) . '.css';
+			echo "<link rel='stylesheet' href='$url' type='text/css' />\n";
+		}
+
+		if ( ! empty( $_GET['script'] ) ) {
+			$url = $this->getExportScriptUrl( clean_filename( $_GET['script'] ) ) . '/script.js';
+			if ( $url ) {
+				echo "<script src='$url' type='text/javascript'></script>\n";
+			}
+		}
+
+		echo "</head>\n<body lang='{$this->lang}'>\n";
+
 		// Before Title Page
-		$this->echoBeforeTitle( $book_contents );
+		$this->echoBeforeTitle( $book_contents, $metadata );
 
 		// Half-title
-		$this->echoHalfTitle();
+		$this->echoHalfTitle( $book_contents, $metadata );
+
+		// Cover
+		$this->echoCover( $book_contents, $metadata );
 
 		// Title
 		$this->echoTitle( $book_contents, $metadata );
 
 		// Copyright
-		$this->echoCopyright( $metadata );
+		$this->echoCopyright( $book_contents, $metadata );
 
 		// Dedication and Epigraph (In that order!)
-		$this->echoDedicationAndEpigraph( $book_contents );
+		$this->echoDedicationAndEpigraph( $book_contents, $metadata );
 
 		// Table of contents
-		$this->echoToc( $book_contents );
+		$this->echoToc( $book_contents, $metadata );
 
 		// Front-matter
 		$this->echoFrontMatter( $book_contents, $metadata );
 
 		// Promo
-		$this->createPromo();
+		$this->createPromo( $book_contents, $metadata );
 
 		// Parts, Chapters
 		$this->echoPartsAndChapters( $book_contents, $metadata );
@@ -229,29 +260,14 @@ class Xhtml11 extends Export {
 		// Back-matter
 		$this->echoBackMatter( $book_contents, $metadata );
 
+		// XHTML, Stop!
+		echo "</body>\n</html>";
+
 		$buffer = ob_get_clean();
-		if ( ! empty( $_GET['pretty'] ) ) {
-			$buffer = $this->prettify( $buffer );
-		}
-
-		// ------------------------------------------------------------------------------------------------------------
-		// XHTML, Wrap
-
-		$book = $this->blade->render( 'book', [
-			'xml_version' => '<?xml version="1.0" encoding="UTF-8"?>',
-			'lang' => $this->lang,
-			'pb_plugin_version' => PB_PLUGIN_VERSION,
-			'style_url' => $style_url,
-			'script_url' => $script_url,
-			'title' => get_bloginfo( 'name' ),
-			'metadata' => $metadata,
-			'buffer' => $buffer,
-		] );
-
 		if ( $return ) {
-			return $book;
+			return $buffer;
 		} else {
-			echo $book;
+			echo $buffer;
 			return null;
 		}
 	}
@@ -292,7 +308,7 @@ class Xhtml11 extends Export {
 	/**
 	 * Convert footnotes to endnotes by moving them to the end of the_content()
 	 *
-	 * @see endnotes.blade.php
+	 * @see doEndnotes
 	 *
 	 * @param array $atts
 	 * @param null $content
@@ -307,9 +323,37 @@ class Xhtml11 extends Export {
 			return '';
 		}
 
-		Blade::$endnotes[ $id ][] = trim( $content );
+		$this->endnotes[ $id ][] = trim( $content );
 
-		return '<sup class="endnote">' . count( Blade::$endnotes[ $id ] ) . '</sup>';
+		return '<sup class="endnote">' . count( $this->endnotes[ $id ] ) . '</sup>';
+	}
+
+
+	/**
+	 * Style endnotes.
+	 *
+	 * @see endnoteShortcode
+	 *
+	 * @param $id
+	 *
+	 * @return string
+	 */
+	function doEndnotes( $id ) {
+
+		if ( ! isset( $this->endnotes[ $id ] ) || ! count( $this->endnotes[ $id ] ) ) {
+			return '';
+		}
+
+		$e = '<div class="endnotes">';
+		$e .= '<hr />';
+		$e .= '<h3>' . __( 'Notes', 'pressbooks' ) . '</h3>';
+		$e .= '<ol>';
+		foreach ( $this->endnotes[ $id ] as $endnote ) {
+			$e .= "<li><span>$endnote</span></li>";
+		}
+		$e .= '</ol></div>';
+
+		return $e;
 	}
 
 
@@ -516,48 +560,107 @@ class Xhtml11 extends Export {
 		return \Pressbooks\HtmLawed::filter( $html, $config );
 	}
 
-	/**
-	 * Prettify HTML
-	 *
-	 * @param $html
-	 *
-	 * @return string
-	 */
-	protected function prettify( $html ) {
-
-		// Simplest, allowing all valid HTML markup except uncommon URL schemes like 'whatsapp:', and prettying-up the HTML
-
-		$config = [
-			'tidy' => 5,
-			'unique_ids' => 0,
-		];
-
-		return \Pressbooks\HtmLawed::filter( $html, $config );
-	}
-
 
 	// ----------------------------------------------------------------------------------------------------------------
 	// Echo Functions
 	// ----------------------------------------------------------------------------------------------------------------
 
-
 	/**
 	 * @param array $book_contents
+	 * @param array $metadata
 	 */
-	protected function echoBeforeTitle( $book_contents ) {
-		echo $this->blade->render( 'before-title', [
-			'book_contents' => $book_contents,
-		] );
+	protected function echoDocType( $book_contents, $metadata ) {
+
+		echo '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
+		echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">' . "\n";
+		echo '<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="' . $this->lang . '">' . "\n";
 	}
 
 
 	/**
-	 *
+	 * @param array $book_contents
+	 * @param array $metadata
 	 */
-	protected function echoHalfTitle() {
-		echo $this->blade->render( 'half-title', [
-			'title' => get_bloginfo( 'name' ),
-		] );
+	protected function echoMetaData( $book_contents, $metadata ) {
+
+		foreach ( $metadata as $name => $content ) {
+			$name = Sanitize\sanitize_xml_id( str_replace( '_', '-', $name ) );
+			$content = trim( strip_tags( html_entity_decode( $content ) ) ); // Plain text
+			$content = preg_replace( '/\s+/', ' ', preg_replace( '/\n+/', ' ', $content ) ); // Normalize whitespaces
+			$content = Sanitize\sanitize_xml_attribute( $content );
+			printf( '<meta name="%s" content="%s" />', $name, $content );
+			echo "\n";
+		}
+	}
+
+
+	/**
+	 * @param array $book_contents
+	 * @param array $metadata
+	 */
+	protected function echoCover( $book_contents, $metadata ) {
+		// Does nothing.
+		// Is here for child classes to override if ever needed.
+	}
+
+
+	/**
+	 * @param array $book_contents
+	 * @param array $metadata
+	 */
+	protected function echoBeforeTitle( $book_contents, $metadata ) {
+
+		$front_matter_printf = '<div class="front-matter %s" id="%s">';
+		$front_matter_printf .= '<div class="front-matter-title-wrap"><h3 class="front-matter-number">%s</h3><h1 class="front-matter-title">%s</h1></div>';
+		$front_matter_printf .= '<div class="ugc front-matter-ugc">%s</div>%s';
+		$front_matter_printf .= '</div>';
+
+		$i = $this->frontMatterPos;
+		foreach ( [ 'before-title' ] as $compare ) {
+			foreach ( $book_contents['front-matter'] as $front_matter ) {
+
+				if ( ! $front_matter['export'] ) {
+					continue; // Skip
+				}
+
+				$front_matter_id = $front_matter['ID'];
+				$subclass = \Pressbooks\Taxonomy::getFrontMatterType( $front_matter_id );
+
+				if ( $compare !== $subclass ) {
+					continue; //Skip
+				}
+
+				$slug = $front_matter['post_name'];
+				$title = ( get_post_meta( $front_matter_id, 'pb_show_title', true ) ? $front_matter['post_title'] : '<span class="display-none">' . $front_matter['post_title'] . '</span>' ); // Preserve auto-indexing in Prince using hidden span
+				$content = $front_matter['post_content'];
+
+				printf(
+					$front_matter_printf,
+					$subclass,
+					$slug,
+					$i,
+					Sanitize\decode( $title ),
+					$content,
+					$this->doEndnotes( $front_matter_id )
+				);
+
+				echo "\n";
+				++$i;
+			}
+		}
+		$this->frontMatterPos = $i;
+	}
+
+
+	/**
+	 * @param array $book_contents
+	 * @param array $metadata
+	 */
+	protected function echoHalfTitle( $book_contents, $metadata ) {
+
+		echo '<div id="half-title-page">';
+		echo '<h1 class="title">' . get_bloginfo( 'name' ) . '</h1>';
+		echo '</div>' . "\n";
 	}
 
 
@@ -566,18 +669,52 @@ class Xhtml11 extends Export {
 	 * @param array $metadata
 	 */
 	protected function echoTitle( $book_contents, $metadata ) {
-		echo $this->blade->render( 'title', [
-			'title' => get_bloginfo( 'name' ),
-			'book_contents' => $book_contents,
-			'metadata' => $metadata,
-		] );
+
+		// Look for custom title-page
+
+		$content = '';
+		foreach ( $book_contents['front-matter'] as $front_matter ) {
+
+			if ( ! $front_matter['export'] ) {
+				continue; // Skip
+			}
+
+			$front_matter_id = $front_matter['ID'];
+			$subclass = \Pressbooks\Taxonomy::getFrontMatterType( $front_matter_id );
+
+			if ( 'title-page' !== $subclass ) {
+				continue; // Skip
+			}
+
+			$content = $front_matter['post_content'];
+			break;
+		}
+
+		// HTML
+
+		echo '<div id="title-page">';
+		if ( $content ) {
+			echo $content;
+		} else {
+			printf( '<h1 class="title">%s</h1>', get_bloginfo( 'name' ) );
+			printf( '<h2 class="subtitle">%s</h2>', ( isset( $metadata['pb_subtitle'] ) ) ? $metadata['pb_subtitle'] : '' );
+			printf( '<h3 class="author">%s</h3>', ( isset( $metadata['pb_author'] ) ) ? $metadata['pb_author'] : '' );
+			printf( '<h4 class="contributing-authors">%s</h4>', ( isset( $metadata['pb_contributing_authors'] ) ) ? $metadata['pb_contributing_authors'] : '' );
+			if ( current_theme_supports( 'pressbooks_publisher_logo' ) ) {
+				printf( '<div class="publisher-logo"><img src="%s" /></div>', get_theme_support( 'pressbooks_publisher_logo' )[0]['logo_uri'] ); // TODO: Support custom publisher logo.
+			}
+			printf( '<h4 class="publisher">%s</h4>', ( isset( $metadata['pb_publisher'] ) ) ? $metadata['pb_publisher'] : '' );
+			printf( '<h5 class="publisher-city">%s</h5>', ( isset( $metadata['pb_publisher_city'] ) ) ? $metadata['pb_publisher_city'] : '' );
+		}
+		echo "</div>\n";
 	}
 
 
 	/**
+	 * @param array $book_contents
 	 * @param array $metadata
 	 */
-	protected function echoCopyright( $metadata ) {
+	protected function echoCopyright( $book_contents, $metadata ) {
 
 		if ( empty( $metadata['pb_book_license'] ) ) {
 			$all_rights_reserved = true;
@@ -592,57 +729,96 @@ class Xhtml11 extends Export {
 			$has_custom_copyright = false;
 		}
 
+		// HTML
+		echo '<div id="copyright-page"><div class="ugc">';
+
 		// Custom Copyright must override All Rights Reserved
-		$html = '';
 		if ( ! $has_custom_copyright || ( $has_custom_copyright && ! $all_rights_reserved ) ) {
 			$license = $this->doCopyrightLicense( $metadata );
 			if ( $license ) {
-				$html .= $this->removeAttributionLink( $license );
+				echo $this->removeAttributionLink( $license );
 			}
 		}
 
 		// Custom copyright
 		if ( $has_custom_copyright ) {
-			$html .= $this->tidy( $metadata['pb_custom_copyright'] );
+			echo $this->tidy( $metadata['pb_custom_copyright'] );
 		}
 
 		// default, so something is displayed
 		if ( empty( $metadata['pb_custom_copyright'] ) && empty( $license ) ) {
-			$html .= '<p>';
-			$html .= get_bloginfo( 'name' ) . ' ' . __( 'Copyright', 'pressbooks' ) . ' &#169; ';
+			echo '<p>';
+			echo get_bloginfo( 'name' ) . ' ' . __( 'Copyright', 'pressbooks' ) . ' &#169; ';
 			if ( ! empty( $meta['pb_copyright_year'] ) ) {
-				$html .= $meta['pb_copyright_year'] . ' ';
+				echo $meta['pb_copyright_year'] . ' ';
 			} elseif ( ! empty( $meta['pb_publication_date'] ) ) {
-				$html .= strftime( '%Y', $meta['pb_publication_date'] );
+				echo strftime( '%Y', $meta['pb_publication_date'] );
 			} else {
-				$html .= date( 'Y' );
+				echo date( 'Y' );
 			}
 			if ( ! empty( $metadata['pb_copyright_holder'] ) ) {
-				$html .= ' ' . __( 'by', 'pressbooks' ) . ' ' . $metadata['pb_copyright_holder'] . '. ';
+				echo ' ' . __( 'by', 'pressbooks' ) . ' ' . $metadata['pb_copyright_holder'] . '. ';
 			}
-			$html .= '</p>';
+			echo '</p>';
 		}
 
-		echo $this->blade->render( 'copyright', [
-			'copyright' => $html,
-		] );
+		echo "</div></div>\n";
 	}
 
 
 	/**
 	 * @param array $book_contents
+	 * @param array $metadata
 	 */
-	protected function echoDedicationAndEpigraph( $book_contents ) {
-		echo $this->blade->render( 'dedication-and-epigraph', [
-			'book_contents' => $book_contents,
-		] );
+	protected function echoDedicationAndEpigraph( $book_contents, $metadata ) {
+
+		$front_matter_printf = '<div class="front-matter %s" id="%s">';
+		$front_matter_printf .= '<div class="front-matter-title-wrap"><h3 class="front-matter-number">%s</h3><h1 class="front-matter-title">%s</h1></div>';
+		$front_matter_printf .= '<div class="ugc front-matter-ugc">%s</div>%s';
+		$front_matter_printf .= '</div>';
+
+		$i = $this->frontMatterPos;
+		foreach ( [ 'dedication', 'epigraph' ] as $compare ) {
+			foreach ( $book_contents['front-matter'] as $front_matter ) {
+
+				if ( ! $front_matter['export'] ) {
+					continue; // Skip
+				}
+
+				$front_matter_id = $front_matter['ID'];
+				$subclass = \Pressbooks\Taxonomy::getFrontMatterType( $front_matter_id );
+
+				if ( $compare !== $subclass ) {
+					continue; // Skip
+				}
+
+				$slug = $front_matter['post_name'];
+				$title = ( get_post_meta( $front_matter_id, 'pb_show_title', true ) ? $front_matter['post_title'] : '<span class="display-none">' . $front_matter['post_title'] . '</span>' ); // Preserve auto-indexing in Prince using hidden span
+				$content = $front_matter['post_content'];
+
+				printf(
+					$front_matter_printf,
+					$subclass,
+					$slug,
+					$i,
+					Sanitize\decode( $title ),
+					$content,
+					$this->doEndnotes( $front_matter_id )
+				);
+
+				echo "\n";
+				++$i;
+			}
+		}
+		$this->frontMatterPos = $i;
 	}
 
 
 	/**
 	 * @param array $book_contents
+	 * @param array $metadata
 	 */
-	protected function echoToc( $book_contents ) {
+	protected function echoToc( $book_contents, $metadata ) {
 
 		echo '<div id="toc"><h1>' . __( 'Contents', 'pressbooks' ) . '</h1><ul>';
 		foreach ( $book_contents as $type => $struct ) {
@@ -793,7 +969,12 @@ class Xhtml11 extends Export {
 	 */
 	protected function echoFrontMatter( $book_contents, $metadata ) {
 
-		$i = Blade::$frontMatterPos;
+		$front_matter_printf = '<div class="front-matter %s" id="%s">';
+		$front_matter_printf .= '<div class="front-matter-title-wrap"><h3 class="front-matter-number">%s</h3><h1 class="front-matter-title">%s</h1></div>';
+		$front_matter_printf .= '<div class="ugc front-matter-ugc">%s</div>%s%s';
+		$front_matter_printf .= '</div>';
+
+		$i = $this->frontMatterPos;
 		foreach ( $book_contents['front-matter'] as $front_matter ) {
 
 			if ( ! $front_matter['export'] ) {
@@ -808,7 +989,7 @@ class Xhtml11 extends Export {
 			}
 
 			if ( 'introduction' === $subclass ) {
-				Blade::$hasIntroduction = true;
+				$this->hasIntroduction = true;
 			}
 
 			$slug = $front_matter['post_name'];
@@ -826,31 +1007,43 @@ class Xhtml11 extends Export {
 				}
 			}
 
+			if ( $author ) {
+				$content = '<h2 class="chapter-author">' . Sanitize\decode( $author ) . '</h2>' . $content;
+			}
+
+			if ( $subtitle ) {
+				$content = '<h2 class="chapter-subtitle">' . Sanitize\decode( $subtitle ) . '</h2>' . $content;
+			}
+
+			if ( $short_title ) {
+				$content = '<h6 class="short-title">' . Sanitize\decode( $short_title ) . '</h6>' . $content;
+			}
+
 			$append_front_matter_content .= $this->removeAttributionLink( $this->doSectionLevelLicense( $metadata, $front_matter_id ) );
 
-			echo $this->blade->render( 'front-matter', [
-				'post_id' => $front_matter_id,
-				'subclass' => $subclass,
-				'slug' => $slug,
-				'i' => $i,
-				'title' => Sanitize\decode( $title ),
-				'author' => Sanitize\decode( $author ),
-				'subtitle' => Sanitize\decode( $subtitle ),
-				'short_title' => Sanitize\decode( $short_title ),
-				'content' => $content,
-				'append_front_matter_content' => $append_front_matter_content,
-			] );
+			printf(
+				$front_matter_printf,
+				$subclass,
+				$slug,
+				$i,
+				Sanitize\decode( $title ),
+				$content,
+				$append_front_matter_content,
+				$this->doEndnotes( $front_matter_id )
+			);
 
+			echo "\n";
 			++$i;
 		}
-		Blade::$frontMatterPos = $i;
+		$this->frontMatterPos = $i;
 	}
 
 
 	/**
-	 *
+	 * @param array $book_contents
+	 * @param array $metadata
 	 */
-	protected function createPromo() {
+	protected function createPromo( $book_contents, $metadata ) {
 
 		$promo_html = apply_filters( 'pressbooks_pdf_promo', '' );
 		if ( $promo_html ) {
@@ -865,55 +1058,71 @@ class Xhtml11 extends Export {
 	 */
 	protected function echoPartsAndChapters( $book_contents, $metadata ) {
 
+		$part_printf = '<div class="part %s" id="%s">';
+		$part_printf .= '<div class="part-title-wrap"><h3 class="part-number">%s</h3><h1 class="part-title">%s</h1></div>%s';
+		$part_printf .= '</div>';
+
+		$chapter_printf = '<div class="chapter %s" id="%s">';
+		$chapter_printf .= '<div class="chapter-title-wrap"><h3 class="chapter-number">%s</h3><h2 class="chapter-title">%s</h2></div>';
+		$chapter_printf .= '<div class="ugc chapter-ugc">%s</div>%s%s';
+		$chapter_printf .= '</div>';
+
 		$i = $j = 1;
 		foreach ( $book_contents['part'] as $part ) {
 
 			$invisibility = ( get_post_meta( $part['ID'], 'pb_part_invisible', true ) === 'on' ) ? 'invisible' : '';
 
+			$part_printf_changed = '';
 			$slug = $part['post_name'];
 			$title = $part['post_title'];
 			$part_content = trim( $part['post_content'] );
 
 			// Inject introduction class?
-			$inject_introduction_class = false;
 			if ( 'invisible' !== $invisibility ) { // visible
 				if ( count( $book_contents['part'] ) === 1 ) { // only part
 					if ( $part_content ) { // has content
-						if ( ! Blade::$hasIntroduction ) {
-							$inject_introduction_class = true;
-							Blade::$hasIntroduction = true;
+						if ( ! $this->hasIntroduction ) {
+							$part_printf_changed = str_replace( '<div class="part %s" id=', '<div class="part introduction %s" id=', $part_printf );
+							$this->hasIntroduction = true;
 						}
 					}
 				} elseif ( count( $book_contents['part'] ) > 1 ) { // multiple parts
-					if ( ! Blade::$hasIntroduction ) {
-						$inject_introduction_class = true;
-						Blade::$hasIntroduction = true;
+					if ( ! $this->hasIntroduction ) {
+						$part_printf_changed = str_replace( '<div class="part %s" id=', '<div class="part introduction %s" id=', $part_printf );
+						$this->hasIntroduction = true;
 					}
 				}
 			}
 
+			// Inject part content?
 			if ( $part_content ) {
 				$part_content = $this->preProcessPostContent( $part_content );
+				if ( $part_printf_changed ) {
+					$part_printf_changed = str_replace( '</h1></div>%s</div>', '</h1></div><div class="ugc part-ugc">%s</div></div>', $part_printf_changed );
+				} else {
+					$part_printf_changed = str_replace( '</h1></div>%s</div>', '</h1></div><div class="ugc part-ugc">%s</div></div>', $part_printf );
+				}
 			}
 
-			$m = ( 'invisible' === $invisibility ) ? 0 : $i;
-
-			$my_part = $this->blade->render( 'part', [
-				'post_id' => $part['ID'],
-				'subclass' => $inject_introduction_class ? "introduction {$invisibility}": $invisibility,
-				'slug' => $slug,
-				'i' => \Pressbooks\L10n\romanize( $m ),
-				'title' => Sanitize\decode( $title ),
-				'content' => $part_content,
-			] );
+			$m = ( 'invisible' === $invisibility ) ? '' : $i;
+			$my_part = sprintf(
+				( $part_printf_changed ? $part_printf_changed : $part_printf ),
+				$invisibility,
+				$slug,
+				\Pressbooks\L10n\romanize( $m ),
+				Sanitize\decode( $title ),
+				$part_content
+			) . "\n";
 
 			$my_chapters = '';
+
 			foreach ( $part['chapters'] as $chapter ) {
 
 				if ( ! $chapter['export'] ) {
 					continue; // Skip
 				}
 
+				$chapter_printf_changed = '';
 				$chapter_id = $chapter['ID'];
 				$subclass = \Pressbooks\Taxonomy::getChapterType( $chapter_id );
 				$slug = $chapter['post_name'];
@@ -931,20 +1140,37 @@ class Xhtml11 extends Export {
 					}
 				}
 
+				if ( $author ) {
+					$content = '<h2 class="chapter-author">' . Sanitize\decode( $author ) . '</h2>' . $content;
+				}
+
+				if ( $subtitle ) {
+					$content = '<h2 class="chapter-subtitle">' . Sanitize\decode( $subtitle ) . '</h2>' . $content;
+				}
+
+				if ( $short_title ) {
+					$content = '<h6 class="short-title">' . Sanitize\decode( $short_title ) . '</h6>' . $content;
+				}
+
+				// Inject introduction class?
+				if ( ! $this->hasIntroduction ) {
+					$chapter_printf_changed = str_replace( '<div class="chapter %s" id=', '<div class="chapter introduction %s" id=', $chapter_printf );
+					$this->hasIntroduction = true;
+				}
+
 				$append_chapter_content .= $this->removeAttributionLink( $this->doSectionLevelLicense( $metadata, $chapter_id ) );
 
-				$my_chapters .= $this->blade->render( 'chapter', [
-					'post_id' => $chapter_id,
-					'subclass' => $subclass,
-					'slug' => $slug,
-					'i' => ( 'numberless' === $subclass ) ? '' : $j,
-					'title' => Sanitize\decode( $title ),
-					'author' => Sanitize\decode( $author ),
-					'subtitle' => Sanitize\decode( $subtitle ),
-					'short_title' => Sanitize\decode( $short_title ),
-					'content' => $content,
-					'append_chapter_content' => $append_chapter_content,
-				] );
+				$n = ( 'numberless' === $subclass ) ? '' : $j;
+				$my_chapters .= sprintf(
+					( $chapter_printf_changed ? $chapter_printf_changed : $chapter_printf ),
+					$subclass,
+					$slug,
+					$n,
+					Sanitize\decode( $title ),
+					$content,
+					$append_chapter_content,
+					$this->doEndnotes( $chapter_id )
+				) . "\n";
 
 				if ( 'numberless' !== $subclass ) {
 					++$j;
@@ -991,7 +1217,12 @@ class Xhtml11 extends Export {
 	 */
 	protected function echoBackMatter( $book_contents, $metadata ) {
 
-		$i = 1;
+		$back_matter_printf = '<div class="back-matter %s" id="%s">';
+		$back_matter_printf .= '<div class="back-matter-title-wrap"><h3 class="back-matter-number">%s</h3><h1 class="back-matter-title">%s</h1></div>';
+		$back_matter_printf .= '<div class="ugc back-matter-ugc">%s</div>%s%s';
+		$back_matter_printf .= '</div>';
+
+		$i = $s = 1;
 		foreach ( $book_contents['back-matter'] as $back_matter ) {
 
 			if ( ! $back_matter['export'] ) {
@@ -1015,21 +1246,32 @@ class Xhtml11 extends Export {
 				}
 			}
 
+			if ( $author ) {
+				$content = '<h2 class="chapter-author">' . Sanitize\decode( $author ) . '</h2>' . $content;
+			}
+
+			if ( $subtitle ) {
+				$content = '<h2 class="chapter-subtitle">' . Sanitize\decode( $subtitle ) . '</h2>' . $content;
+			}
+
+			if ( $short_title ) {
+				$content = '<h6 class="short-title">' . Sanitize\decode( $short_title ) . '</h6>' . $content;
+			}
+
 			$append_back_matter_content .= $this->removeAttributionLink( $this->doSectionLevelLicense( $metadata, $back_matter_id ) );
 
-			echo $this->blade->render( 'back-matter', [
-				'post_id' => $back_matter_id,
-				'subclass' => $subclass,
-				'slug' => $slug,
-				'i' => $i,
-				'title' => Sanitize\decode( $title ),
-				'author' => Sanitize\decode( $author ),
-				'subtitle' => Sanitize\decode( $subtitle ),
-				'short_title' => Sanitize\decode( $short_title ),
-				'content' => $content,
-				'append_back_matter_content' => $append_back_matter_content,
-			] );
+			printf(
+				$back_matter_printf,
+				$subclass,
+				$slug,
+				$i,
+				Sanitize\decode( $title ),
+				$content,
+				$append_back_matter_content,
+				$this->doEndnotes( $back_matter_id )
+			);
 
+			echo "\n";
 			++$i;
 		}
 
