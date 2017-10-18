@@ -651,6 +651,11 @@ class Styles {
 				\Pressbooks\Redirect\location( $redirect_url . '&custom_styles_error=true' );
 			}
 
+			// Remove wp_filter_post_kses, this causes CSS escaping issues
+			remove_filter( 'content_save_pre', 'wp_filter_post_kses' );
+			remove_filter( 'content_filtered_save_pre', 'wp_filter_post_kses' );
+			remove_all_filters( 'content_save_pre' );
+
 			// Write to database
 			$my_post = [
 				'ID' => absint( $_POST['post_id'] ),
