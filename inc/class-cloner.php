@@ -964,7 +964,17 @@ class Cloner {
 				}
 				// Update wrapper IDs
 				if ( $image->parentNode->tagName === 'div' && strpos( $image->parentNode->getAttribute( 'id' ), 'attachment_' ) !== false ) {
+					// <div> id
 					$image->parentNode->setAttribute( 'id', preg_replace( '/attachment_\d+/', "attachment_{$attachment_id}", $image->parentNode->getAttribute( 'id' ) ) );
+				}
+				foreach ( $image->parentNode->childNodes as $child ) {
+					if ( $child instanceof \DOMText &&
+						strpos( $child->nodeValue, '[caption ' ) !== false &&
+						strpos( $child->nodeValue, 'attachment_' ) !== false
+					) {
+						// [caption] id
+						$child->nodeValue = preg_replace( '/attachment_\d+/', "attachment_{$attachment_id}", $child->nodeValue );
+					}
 				}
 			}
 		}
