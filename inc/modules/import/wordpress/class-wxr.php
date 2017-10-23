@@ -188,8 +188,8 @@ class Wxr extends Import {
 			$dom = $this->scrapeAndKneadImages( $dom );
 			$html = $doc->saveHTML( $dom );
 
-			// Remove auto-created <html> <body> and <!DOCTYPE> tags.
-			$html = \Pressbooks\Sanitize\strip_container_tags( $html );
+			$html = \Pressbooks\Sanitize\strip_container_tags( $html ); // Remove auto-created <html> <body> and <!DOCTYPE> tags.
+			$html = shortcode_unautop( $html ); // Ensures that shortcodes are not wrapped in `<p>...</p>`.
 
 			if ( 'metadata' === $post_type ) {
 				$pid = $this->bookInfoPid();

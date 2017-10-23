@@ -645,9 +645,13 @@ class Cloner {
 		// Set status
 		$section['status'] = 'publish';
 
-		// Load HTMl snippet into DOMDocument
+		// Load HTML snippet into DOMDocument
 		$html5 = new HTML5();
-		$dom = $html5->loadHTML( $section['content']['rendered'] );
+		if ( ! empty( $section['content']['raw'] ) ) {
+			$dom = $html5->loadHTML( wpautop( $section['content']['raw'] ) );
+		} else {
+			$dom = $html5->loadHTML( $section['content']['rendered'] );
+		}
 
 		// Download images, change image paths
 		$media = $this->scrapeAndKneadImages( $dom );
@@ -658,8 +662,10 @@ class Cloner {
 
 		unset( $html5, $dom, $media ); // premature optimization, try to free up memory
 
-		// Remove auto-created <html> <body> and <!DOCTYPE> tags.
-		$content = \Pressbooks\Sanitize\strip_container_tags( $content );
+		$content = \Pressbooks\Sanitize\strip_container_tags( $content ); // Remove auto-created <html> <body> and <!DOCTYPE> tags.
+		if ( ! empty( $section['content']['raw'] ) ) {
+			$content = shortcode_unautop( $content ); // Ensures that shortcodes are not wrapped in `<p>...</p>`.
+		}
 
 		// Set title and content
 		$section['title'] = $section['title']['rendered'];
