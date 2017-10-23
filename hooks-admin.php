@@ -73,6 +73,7 @@ if ( $is_book ) {
 	add_filter( 'submenu_file', '\Pressbooks\Admin\Laf\fix_submenu_file', 10, 2 );
 	add_action( 'wp_dashboard_setup', '\Pressbooks\Admin\Dashboard\replace_dashboard_widgets' );
 	remove_action( 'welcome_panel', 'wp_welcome_panel' );
+	remove_action( 'try_gutenberg_panel', 'wp_try_gutenberg_panel' );
 	add_action( 'customize_register', '\Pressbooks\Admin\Laf\customize_register', 1000 );
 	add_filter( 'all_plugins', '\Pressbooks\Admin\Plugins\filter_plugins', 10 );
 	// Disable theme customizer
