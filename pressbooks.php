@@ -90,12 +90,12 @@ if ( ! defined( 'PB_ROOT_THEME' ) ) {
  * @since 4.3.5
  * @see https://bugs.php.net/bug.php?id=54391
  *
- * @param string $value
+ * @param string $pb_lc_ctype
  * @return string
  */
-$pb_lc_type = apply_filters( 'pb_lc_type', 'en_US.UTF-8' );
-setlocale( LC_CTYPE, 'UTF8', $pb_lc_type );
-putenv( "LC_CTYPE={$pb_lc_type}" );
+$pb_lc_ctype = apply_filters( 'pb_lc_ctype', 'en_US.UTF-8' );
+setlocale( LC_CTYPE, 'UTF8', $pb_lc_ctype );
+putenv( "LC_CTYPE={$pb_lc_ctype}" );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Composer autoloader (if needed)
