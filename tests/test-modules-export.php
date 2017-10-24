@@ -140,6 +140,10 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 		$this->assertStringStartsWith( 'deny from all', file_get_contents( $path . '.htaccess' ) );
 	}
 
+	/**
+	 * Sanity check that exports run without obvious errors
+	 * Verify XHTML content for good measure
+	 */
 	public function test_sanityChecks() {
 
 		$this->_book();
@@ -180,6 +184,13 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 				$xhtml_path = $exporter->getOutputPath();
 			}
 		}
+
+		// Verify XHTML content for good measure
+		$xhtml_content = file_get_contents( ( $xhtml_path ) );
+		$this->assertContains( '<span class="footnote">', $xhtml_content );
+		$this->assertContains( 'wp.com/latex.php', $xhtml_content );
+		$this->assertContains( ' <div id="attachment_1" ', $xhtml_content );
+		$this->assertContains( '<p><em>Ka kite ano!</em></p>', $xhtml_content );
 
 		foreach ( $paths as $path ) {
 			unlink( $path );

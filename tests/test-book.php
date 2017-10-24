@@ -14,7 +14,6 @@ class BookTest extends \WP_UnitTestCase {
 	}
 
 
-
 	public function test_isBook() {
 
 		$book = \Pressbooks\Book::getInstance();
@@ -34,7 +33,10 @@ class BookTest extends \WP_UnitTestCase {
 		$this->_book();
 		$this->_createChapter();
 		$structure = $book::getBookStructure();
-		$page = $structure['__orphans'][0]; // In __orphans because doesn't belong to a part
+
+		$this->assertTrue( count( $structure['__orphans'] ) === 1 ); // In __orphans because doesn't belong to a part
+		$vals = array_values( $structure['__orphans'] );
+		$page = array_shift( $vals );
 		$this->assertTrue( $page['export'] );
 		$this->assertEquals( $structure['front-matter'][0]['post_title'], __( 'Introduction', 'pressbooks' ) );
 		$this->assertArrayHasKey( 'part', $structure );
@@ -45,14 +47,18 @@ class BookTest extends \WP_UnitTestCase {
 		global $blog_id;
 		delete_post_meta( $page['ID'], 'pb_export' );
 		$structure = $book::getBookStructure( $blog_id );
-		$page = $structure['__orphans'][0];
+		$this->assertTrue( count( $structure['__orphans'] ) === 1 );
+		$vals = array_values( $structure['__orphans'] );
+		$page = array_shift( $vals );
 		$this->assertTrue( $page['export'] );
 
 		// Returns latest export value no cache
 		delete_post_meta( $page['ID'], 'pb_export' );
 		$book::deleteBookObjectCache();
 		$structure = $book::getBookStructure();
-		$page = $structure['__orphans'][0];
+		$this->assertTrue( count( $structure['__orphans'] ) === 1 );
+		$vals = array_values( $structure['__orphans'] );
+		$page = array_shift( $vals );
 		$this->assertFalse( $page['export'] );
 	}
 
@@ -64,7 +70,9 @@ class BookTest extends \WP_UnitTestCase {
 		$this->_book();
 		$this->_createChapter();
 		$contents = $book::getBookContents();
-		$page = $contents['__orphans'][0]; // In __orphans because doesn't belong to a part
+		$this->assertTrue( count( $contents['__orphans'] ) === 1 ); // In __orphans because doesn't belong to a part
+		$vals = array_values( $contents['__orphans'] );
+		$page = array_shift( $vals );
 		$this->assertTrue( $page['export'] );
 		$this->assertEquals( $contents['front-matter'][0]['post_content'], __( 'This is where you can write your introduction.', 'pressbooks' ) );
 		$this->assertArrayHasKey( 'part', $contents );
@@ -74,14 +82,18 @@ class BookTest extends \WP_UnitTestCase {
 		// Returns cached export value
 		delete_post_meta( $page['ID'], 'pb_export' );
 		$contents = $book::getBookContents();
-		$page = $contents['__orphans'][0];
+		$this->assertTrue( count( $contents['__orphans'] ) === 1 );
+		$vals = array_values( $contents['__orphans'] );
+		$page = array_shift( $vals );
 		$this->assertTrue( $page['export'] );
 
 		// Returns latest export value no cache
 		delete_post_meta( $page['ID'], 'pb_export' );
 		$book::deleteBookObjectCache();
 		$contents = $book::getBookContents();
-		$page = $contents['__orphans'][0];
+		$this->assertTrue( count( $contents['__orphans'] ) === 1 );
+		$vals = array_values( $contents['__orphans'] );
+		$page = array_shift( $vals );
 		$this->assertFalse( $page['export'] );
 	}
 
@@ -123,8 +135,8 @@ class BookTest extends \WP_UnitTestCase {
 		$wc = $book::wordCount();
 		$wc_selected_for_export = $book::wordCount( true );
 
-		$this->assertEquals( 46, $wc );
-		$this->assertEquals( 46, $wc_selected_for_export );
+		$this->assertEquals( 99, $wc );
+		$this->assertEquals( 99, $wc_selected_for_export );
 	}
 
 	public function test_getSubsections() {
