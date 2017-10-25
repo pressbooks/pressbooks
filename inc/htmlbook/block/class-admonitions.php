@@ -2,6 +2,8 @@
 
 namespace Pressbooks\HTMLBook\Block;
 
+use \Pressbooks\HTMLBook\Element;
+
 /**
  * Based on HTMLBook (Unofficial Draft 16 February 2016)
  *
@@ -25,7 +27,7 @@ namespace Pressbooks\HTMLBook\Block;
  *
  * @see http://oreillymedia.github.io/HTMLBook/#_admonitions
  */
-class Admonitions {
+class Admonitions extends Element {
 
 	/**
 	 * @var string
@@ -47,5 +49,12 @@ class Admonitions {
 		'caution',
 		'important',
 	];
+
+	/**
+	 * @return string
+	 */
+	public function attributes(): string {
+		return '';
+	}
 
 }

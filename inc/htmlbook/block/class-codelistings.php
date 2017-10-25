@@ -2,6 +2,8 @@
 
 namespace Pressbooks\HTMLBook\Block;
 
+use \Pressbooks\HTMLBook\Element;
+
 /**
  * Based on HTMLBook (Unofficial Draft 16 February 2016)
  *
@@ -18,7 +20,7 @@ namespace Pressbooks\HTMLBook\Block;
  *
  * @see http://oreillymedia.github.io/HTMLBook/#_code_listings
  */
-class CodeListings {
+class CodeListings extends Element {
 
 	/**
 	 * @var string
@@ -36,5 +38,35 @@ class CodeListings {
 	protected $dataTypes = [
 		'programlisting',
 	];
+
+	/**
+	 * @var string
+	 */
+	protected $codeLanguage;
+
+	/**
+	 * @return string
+	 */
+	public function getCodeLanguage(): string {
+		return $this->codeLanguage;
+	}
+
+	/**
+	 * @param string $code_language
+	 */
+	public function setCodeLanguage( string $code_language ) {
+		$this->codeLanguage = $code_language;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function attributes(): string {
+		$att = '';
+		if ( ! empty( $this->codeLanguage ) ) {
+			$att .= 'data-code-language="' . $this->codeLanguage . '"';
+		}
+		return $att;
+	}
 
 }
