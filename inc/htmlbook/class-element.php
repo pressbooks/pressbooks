@@ -2,7 +2,7 @@
 
 namespace Pressbooks\HTMLBook;
 
-use \Masterminds\HTML5;
+use Masterminds\HTML5;
 
 /**
  * Based on HTMLBook (Unofficial Draft 16 February 2016)
@@ -125,6 +125,11 @@ class Element {
 	/**
 	 * @var array
 	 */
+	protected $attributes = [];
+
+	/**
+	 * @var array
+	 */
 	protected $content = [];
 
 	/**
@@ -139,7 +144,7 @@ class Element {
 	/**
 	 * @return string
 	 */
-	public function getTag(): string {
+	public function getTag() {
 		return $this->tag;
 	}
 
@@ -153,12 +158,14 @@ class Element {
 	/**
 	 * @return string
 	 */
-	public function getDataType(): string {
+	public function getDataType() {
 		return $this->dataType;
 	}
 
 	/**
 	 * @param string $data_type
+	 *
+	 * @throws \LogicException
 	 */
 	public function setDataType( string $data_type ) {
 		if ( ! in_array( $data_type, $this->dataTypes, true ) ) {
@@ -170,29 +177,55 @@ class Element {
 	/**
 	 * @return array
 	 */
-	public function getContent(): array {
+	public function getAttributes() {
+		return $this->attributes;
+	}
+
+	/**
+	 * @param array $attributes
+	 */
+	public function setAttributes( array $attributes ) {
+		$this->attributes = $attributes;
+	}
+
+	/**
+	 * @param mixed $attribute
+	 */
+	public function appendAttribute( $attribute ) {
+		$this->attributes[] = $attribute;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getContent() {
 		return $this->content;
 	}
 
 	/**
 	 * @param array $content
+	 *
+	 * @throws \LogicException
 	 */
 	public function setContent( array $content ) {
+		foreach ( $content as $v ) {
+			if ( $this === $v ) {
+				throw new \LogicException( 'Recursion problem: cannot set self as content to self' );
+			}
+		}
 		$this->content = $content;
 	}
 
 	/**
 	 * @param mixed $content
+	 *
+	 * @throws \LogicException
 	 */
 	public function appendContent( $content ) {
+		if ( $this === $content ) {
+			throw new \LogicException( 'Recursion problem: cannot set self as content to self' );
+		}
 		$this->content[] = $content;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function attributes(): string {
-		return '';
 	}
 
 	/**
@@ -200,7 +233,7 @@ class Element {
 	 *
 	 * @return bool
 	 */
-	public function isInline( $var ): bool {
+	public function isInline( $var ) {
 
 		if ( is_object( $var ) ) {
 			$class = get_class( $var );
@@ -209,12 +242,11 @@ class Element {
 
 		if ( is_string( $var ) ) {
 			$html5 = new HTML5();
-			$dom = $html5->loadHTML( $var );
-			$tags = $dom->getElementsByTagName( '*' );
-			if ( $tags->length !== 2 ) {
+			$dom = $html5->loadHTMLFragment( $var );
+			if ( $dom->childNodes->length !== 1 ) {
 				return false;
 			}
-			return ( in_array( $tags->item( 1 )->nodeName, $this->inline, true ) );
+			return ( in_array( $dom->childNodes->item( 0 )->tagName, $this->inline, true ) );
 		}
 
 		return false;
@@ -225,7 +257,7 @@ class Element {
 	 *
 	 * @return bool
 	 */
-	public function isBlock( $var ): bool {
+	public function isBlock( $var ) {
 
 		if ( is_object( $var ) ) {
 			$class = get_class( $var );
@@ -234,12 +266,12 @@ class Element {
 
 		if ( is_string( $var ) ) {
 			$html5 = new HTML5();
-			$dom = $html5->loadHTML( $var );
-			$tags = $dom->getElementsByTagName( '*' );
-			if ( $tags->length !== 2 ) {
+			$dom = $html5->loadHTMLFragment( $var );
+			if ( $dom->childNodes->length !== 1 ) {
 				return false;
 			}
-			return ( in_array( $tags->item( 1 )->nodeName, $this->block, true ) );
+			return ( in_array( $dom->childNodes->item( 0 )->tagName, $this->block, true ) );
+
 		}
 
 		return false;
@@ -250,7 +282,7 @@ class Element {
 	 *
 	 * @return bool
 	 */
-	public function isHeading( $var ): bool {
+	public function isHeading( $var ) {
 
 		if ( is_object( $var ) ) {
 			return is_subclass_of( $var, '\Pressbooks\HTMLBook\Heading\Headings' );
@@ -259,38 +291,55 @@ class Element {
 		if ( is_string( $var ) ) {
 			$headings = [ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' ];
 			$html5 = new HTML5();
-			$dom = $html5->loadHTML( $var );
-			$tags = $dom->getElementsByTagName( '*' );
-			if ( $tags->length !== 2 ) {
+			$dom = $html5->loadHTMLFragment( $var );
+			if ( $dom->childNodes->length !== 1 ) {
 				return false;
 			}
-			return ( in_array( $tags->item( 1 )->nodeName, $headings, true ) );
+			return ( in_array( $dom->childNodes->item( 0 )->tagName, $headings, true ) );
 		}
 
 		return false;
 	}
 
+	/**
+	 * @return string
+	 */
+	public function attributes() {
+		$att = '';
+		foreach ( $this->attributes as $k => $v ) {
+			if ( ! preg_match( '/\d+/', $k ) ) {
+				$att .= "{$k}=\"{$v}\" ";
+			} else {
+				$att .= "{$v} ";
+			}
+		}
+		return trim( $att );
+	}
 
 	/**
-	 * @throws \LogicException
+	 * @return string
+	 */
+	public function content() {
+		return $this->__toString();
+	}
+
+	/**
 	 * @return string
 	 */
 	public function __toString() {
-
 		if ( empty( $this->tag ) ) {
-			throw new \LogicException( 'Tag is required but was not set.' );
+			trigger_error( 'Tag is required but was not set.', E_USER_ERROR );
 		}
 		if ( $this->dataTypeRequired && empty( $this->dataType ) ) {
-			throw new \LogicException( 'DataType is required but was not set. Valid values are: ' . rtrim( implode( ',', $this->dataTypes ), ',' ) );
+			trigger_error( 'DataType is required but was not set. Valid values are: ' . rtrim( implode( ',', $this->dataTypes ) ), E_USER_ERROR );
 		}
-		$this->validateContentModel();
 
 		$html = "<{$this->tag}";
 		$att = '';
 		if ( ! empty( $this->dataType ) ) {
-			$att .= 'data-type="' . $this->dataType . '" ';
+			$att .= "data-type=\"{$this->dataType}\" ";
 		}
-		$att .= trim( $this->attributes() );
+		$att .= $this->attributes();
 		if ( ! empty( $att ) ) {
 			$html .= " {$att}>";
 		} else {
@@ -299,7 +348,7 @@ class Element {
 		foreach ( $this->content as $content ) {
 			$html .= (string) $content;
 		}
-		$html .= "</{$this->tag}}>";
+		$html .= "</{$this->tag}>";
 
 		return $html;
 	}

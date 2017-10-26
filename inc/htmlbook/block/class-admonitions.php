@@ -2,7 +2,7 @@
 
 namespace Pressbooks\HTMLBook\Block;
 
-use \Pressbooks\HTMLBook\Element;
+use Pressbooks\HTMLBook\Element;
 
 /**
  * Based on HTMLBook (Unofficial Draft 16 February 2016)
@@ -49,12 +49,5 @@ class Admonitions extends Element {
 		'caution',
 		'important',
 	];
-
-	/**
-	 * @return string
-	 */
-	public function attributes(): string {
-		return '';
-	}
 
 }

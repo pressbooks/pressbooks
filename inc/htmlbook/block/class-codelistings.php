@@ -2,7 +2,7 @@
 
 namespace Pressbooks\HTMLBook\Block;
 
-use \Pressbooks\HTMLBook\Element;
+use Pressbooks\HTMLBook\Element;
 
 /**
  * Based on HTMLBook (Unofficial Draft 16 February 2016)
@@ -62,11 +62,10 @@ class CodeListings extends Element {
 	 * @return string
 	 */
 	public function attributes(): string {
-		$att = '';
 		if ( ! empty( $this->codeLanguage ) ) {
-			$att .= 'data-code-language="' . $this->codeLanguage . '"';
+			$this->attributes['data-code-language'] = $this->codeLanguage;
 		}
-		return $att;
+		return parent::attributes();
 	}
 
 }
