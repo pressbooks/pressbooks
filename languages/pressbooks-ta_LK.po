@@ -54,11 +54,11 @@ msgstr ""
 msgid "Main Body"
 msgstr "மையப் பகுதி"
 
-#: ../inc/class-activation.php188, ../tests/test-book.php:39
+#: ../inc/class-activation.php188, ../tests/test-book.php:41
 msgid "Introduction"
 msgstr "அறிமுகம்"
 
-#: ../inc/class-activation.php190, ../tests/test-book.php:69
+#: ../inc/class-activation.php190, ../tests/test-book.php:77
 msgid "This is where you can write your introduction."
 msgstr "இது உங்களுக்கான இடம்!  அறிமுகப்படுத்திக் கொள்ளலாமே!"
 
@@ -203,84 +203,84 @@ msgstr ""
 msgid "The source book&rsquo;s taxonomies could not be read."
 msgstr ""
 
-#: ../inc/class-cloner.php:1010
+#: ../inc/class-cloner.php:1026
 msgid ""
 "You can only clone from a book hosted by Pressbooks 4.1 or later. Please "
 "ensure that your source book meets these requirements."
 msgstr ""
 
-#: ../inc/class-cloner.php:1111
+#: ../inc/class-cloner.php:1127
 msgid "Your book URL can only contain lowercase letters (a-z) and numbers."
 msgstr ""
 
-#: ../inc/class-cloner.php:1113
+#: ../inc/class-cloner.php:1129
 msgid "Your book URL must contain at least some letters."
 msgstr ""
 
-#: ../inc/class-cloner.php:1115
+#: ../inc/class-cloner.php:1131
 msgid "That book URL is not allowed."
 msgstr ""
 
-#: ../inc/class-cloner.php:1117
+#: ../inc/class-cloner.php:1133
 msgid "Your book URL must be at least %s character."
 msgid_plural "Your book URL must be at least %s characters."
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../inc/class-cloner.php:1119
+#: ../inc/class-cloner.php:1135
 msgid "Sorry, you may not use that book URL."
 msgstr ""
 
-#: ../inc/class-cloner.php:1121
+#: ../inc/class-cloner.php:1137
 msgid "Sorry, that book URL already exists!"
 msgstr ""
 
-#: ../inc/class-cloner.php:1175
+#: ../inc/class-cloner.php:1191
 msgid ""
 "Cloning succeeded! Cloned %1$s, %2$s, %3$s, %4$s, %5$s, and %6$s to %7$s."
 msgstr ""
 
-#: ../inc/class-cloner.php:1176
+#: ../inc/class-cloner.php:1192
 msgid "%s term"
 msgid_plural "%s terms"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../inc/class-cloner.php:1177
+#: ../inc/class-cloner.php:1193
 msgid "%s front matter"
 msgid_plural "%s front matter"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../inc/class-cloner.php:1178
+#: ../inc/class-cloner.php:1194
 msgid "%s part"
 msgid_plural "%s parts"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../inc/class-cloner.php:1179
+#: ../inc/class-cloner.php:1195
 msgid "%s chapter"
 msgid_plural "%s chapters"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../inc/class-cloner.php:1180
+#: ../inc/class-cloner.php:1196
 msgid "%s back matter"
 msgid_plural "%s back matter"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../inc/class-cloner.php:1181
+#: ../inc/class-cloner.php:1197
 msgid "%s media attachment"
 msgid_plural "%s media attachments"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../inc/class-cloner.php:1185
+#: ../inc/class-cloner.php:1201
 msgid "Cloning failed."
 msgstr ""
 
-#: ../inc/class-cloner.php:1190
+#: ../inc/class-cloner.php:1206
 msgid ""
 "You must enter a valid URL for a book on a Pressbooks network running "
 "Pressbooks 4.1 or greater as well as a new URL for your cloned book."
@@ -1485,7 +1485,7 @@ msgid "book"
 msgstr ""
 
 #: ../inc/redirect/namespace.php377,
-#: ../inc/modules/export/class-export.php:817
+#: ../inc/modules/export/class-export.php:815
 msgid "File not found"
 msgstr "கோப்பு கிடைக்கவில்லை"
 
@@ -3272,7 +3272,7 @@ msgstr "வழு : ஒப்புதல் இல்லை "
 msgid "Notes"
 msgstr "குறிப்புகள்"
 
-#: ../inc/modules/import/epub/class-epub201.php:208
+#: ../inc/modules/import/epub/class-epub201.php:234
 msgid "Imported %s chapters."
 msgstr "%s அதிகாரங்களைக் கொண்டு வந்து விட்டோம்."
 
@@ -3387,7 +3387,7 @@ msgstr ""
 msgid "Apply Class"
 msgstr ""
 
-#: ../pressbooks.php:105
+#: ../pressbooks.php:118
 msgid "Cannot find Pressbooks install."
 msgstr ""
 
