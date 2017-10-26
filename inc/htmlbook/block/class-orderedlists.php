@@ -28,7 +28,7 @@ use Pressbooks\HTMLBook\Element;
  *
  * @see https://oreillymedia.github.io/HTMLBook/#_ordered_lists
  */
-class OrderedLists extends Elemet {
+class OrderedLists extends Element {
 
 	/**
 	 * @var string

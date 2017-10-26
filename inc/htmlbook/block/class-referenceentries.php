@@ -43,4 +43,9 @@ class ReferenceEntries extends Element {
 	 */
 	protected $tag = 'div';
 
+	/**
+	 * @var array
+	 */
+	protected $attributes = [ 'class' => 'refentry' ];
+
 }

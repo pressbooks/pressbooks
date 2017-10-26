@@ -143,8 +143,8 @@ class Element {
 	 * Element constructor.
 	 */
 	public function __construct() {
-		if ( $this->dataTypeRequired === true && count( $this->dataTypes ) === 1 ) {
-			$this->setDataType( $this->dataTypes[0] );
+		if ( $this->dataTypeRequired === true && count( $this->dataTypes ) ) {
+			$this->setDataType( $this->dataTypes[0] ); // Start with a default
 		}
 	}
 
@@ -356,6 +356,7 @@ class Element {
 		}
 		$att .= $this->renderAttributes();
 		if ( ! empty( $att ) ) {
+			$att = trim( $att );
 			$html .= " {$att}>";
 		} else {
 			$html .= '>';

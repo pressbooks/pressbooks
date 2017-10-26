@@ -56,7 +56,16 @@ class CodeListings extends Element {
 	 */
 	public function setCodeLanguage( string $code_language ) {
 		$this->codeLanguage = $code_language;
-		$this->attributes['data-code-language'] = $code_language;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function renderAttributes() {
+		if ( ! empty( $this->codeLanguage ) ) {
+			$this->attributes['data-code-language'] = $this->codeLanguage;
+		}
+		return parent::renderAttributes();
 	}
 
 }
