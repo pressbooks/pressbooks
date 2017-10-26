@@ -3,7 +3,7 @@
 namespace Pressbooks\HTMLBook;
 
 /**
- * Based on HTMLBook (Unofficial Draft 16 February 2016)
+ * Based on HTMLBook
  *
  * To add comments to an HTMLBook document, either use standard HTML/XML comment syntax:
  *

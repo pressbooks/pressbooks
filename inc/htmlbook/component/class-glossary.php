@@ -3,7 +3,7 @@
 namespace Pressbooks\HTMLBook\Component;
 
 /**
- * Based on HTMLBook (Unofficial Draft 16 February 2016)
+ * Based on HTMLBook
  *
  * HTML element: <section>
  *

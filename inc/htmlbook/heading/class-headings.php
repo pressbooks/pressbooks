@@ -3,7 +3,7 @@
 namespace Pressbooks\HTMLBook\Heading;
 
 /**
- * Based on HTMLBook (Unofficial Draft 16 February 2016)
+ * Based on HTMLBook
  *
  * HTML elements: <h1>, <h2>, <h3>, <h4>, <h5>, or <h6>
  *

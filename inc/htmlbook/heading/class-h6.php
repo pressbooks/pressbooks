@@ -3,7 +3,7 @@
 namespace Pressbooks\HTMLBook\Heading;
 
 /**
- * Based on HTMLBook (Unofficial Draft 16 February 2016)
+ * Based on HTMLBook
  *
  * @see https://oreillymedia.github.io/HTMLBook/#_headings
  */

@@ -5,7 +5,7 @@ namespace Pressbooks\HTMLBook\Block;
 use Pressbooks\HTMLBook\Element;
 
 /**
- * Based on HTMLBook (Unofficial Draft 16 February 2016)
+ * Based on HTMLBook
  *
  * HTML element: <pre>
  *
@@ -47,7 +47,7 @@ class CodeListings extends Element {
 	/**
 	 * @return string
 	 */
-	public function getCodeLanguage(): string {
+	public function getCodeLanguage() {
 		return $this->codeLanguage;
 	}
 
@@ -61,7 +61,7 @@ class CodeListings extends Element {
 	/**
 	 * @return string
 	 */
-	public function attributes(): string {
+	public function attributes() {
 		if ( ! empty( $this->codeLanguage ) ) {
 			$this->attributes['data-code-language'] = $this->codeLanguage;
 		}

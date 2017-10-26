@@ -5,7 +5,7 @@ namespace Pressbooks\HTMLBook;
 use Masterminds\HTML5;
 
 /**
- * Based on HTMLBook (Unofficial Draft 16 February 2016)
+ * Based on HTMLBook
  *
  * + HTMLBook is a subset of XHTML5. All HTMLBook is XHTML5, but not all XHTML5 is HTMLBook.
  * + HTMLBook contains no additional elements or attributes outside of the XHTML5 specification.
