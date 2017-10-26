@@ -188,8 +188,8 @@ class Wxr extends Import {
 			$dom = $this->scrapeAndKneadImages( $dom );
 			$html = $doc->saveHTML( $dom );
 
-			// Remove auto-created <html> <body> and <!DOCTYPE> tags.
-			$html = \Pressbooks\Sanitize\strip_container_tags( $html );
+			$html = \Pressbooks\Sanitize\strip_container_tags( $html ); // Remove auto-created <html> <body> and <!DOCTYPE> tags.
+			$html = shortcode_unautop( $html ); // Ensures that shortcodes are not wrapped in `<p>...</p>`.
 
 			if ( 'metadata' === $post_type ) {
 				$pid = $this->bookInfoPid();
@@ -669,11 +669,16 @@ class Wxr extends Import {
 					$image->setAttribute( 'class', preg_replace( '/wp-image-\d+/', "wp-image-{$attachment_id}", $image->getAttribute( 'class' ) ) );
 				}
 				// Update wrapper IDs
+				if ( $image->parentNode->tagName === 'div' && strpos( $image->parentNode->getAttribute( 'id' ), 'attachment_' ) !== false ) {
+					// <div> id
+					$image->parentNode->setAttribute( 'id', preg_replace( '/attachment_\d+/', "attachment_{$attachment_id}", $image->parentNode->getAttribute( 'id' ) ) );
+				}
 				foreach ( $image->parentNode->childNodes as $child ) {
 					if ( $child instanceof \DOMText &&
 						strpos( $child->nodeValue, '[caption ' ) !== false &&
 						strpos( $child->nodeValue, 'attachment_' ) !== false
 					) {
+						// [caption] id
 						$child->nodeValue = preg_replace( '/attachment_\d+/', "attachment_{$attachment_id}", $child->nodeValue );
 					}
 				}

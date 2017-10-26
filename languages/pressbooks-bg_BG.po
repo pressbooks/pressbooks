@@ -1,17 +1,16 @@
 # Copyright (C) 2017 Pressbooks
 # This file is distributed under the same license as the Pressbooks package.
 # Translators:
-# Zoe Wake Hyde <zoe@pressbooks.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
-"PO-Revision-Date: 2017-10-11 13:56+0000\n"
-"Last-Translator: Ned Zimmerman\n"
-"Language-Team: Afrikaans (http://www.transifex.com/pressbooks/pressbooks/language/af/)\n"
+"PO-Revision-Date: 2017-10-26 14:16+0000\n"
+"Last-Translator: Hugh McGuire <hugh@pressbooks.com>\n"
+"Language-Team: Bulgarian (Bulgaria) (http://www.transifex.com/pressbooks/pressbooks/language/bg_BG/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: af\n"
+"Language: bg_BG\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
@@ -58,7 +57,7 @@ msgstr ""
 
 #: ../inc/class-activation.php:195
 msgid "Chapter 1"
-msgstr "Hoofstuk 1"
+msgstr ""
 
 #: ../inc/class-activation.php:197
 msgid ""
@@ -83,7 +82,7 @@ msgstr ""
 #: ../inc/modules/export/epub/class-epub201.php776,
 #: ../tests/test-cloner.php:42
 msgid "Cover"
-msgstr "Voorblad"
+msgstr ""
 
 #: ../inc/class-activation.php220,
 #: ../inc/modules/themeoptions/class-pdfoptions.php241,
@@ -91,7 +90,7 @@ msgstr "Voorblad"
 #: ../inc/modules/export/epub/templates/epub3/toc.php23,
 #: ../tests/test-cloner.php:47
 msgid "Table of Contents"
-msgstr "Inhoudsopgawe"
+msgstr ""
 
 #: ../inc/class-activation.php225, ../inc/admin/laf/namespace.php21,
 #: ../templates/admin/catalog.php:98
@@ -387,7 +386,7 @@ msgstr ""
 #: ../inc/modules/export/epub/templates/epub201/opf.php81,
 #: ../inc/modules/export/epub/templates/epub3/opf.php:91
 msgid "Copyright"
-msgstr "Kopiereg"
+msgstr ""
 
 #: ../inc/class-licensing.php259, ../inc/class-styles.php622,
 #: ../inc/modules/export/epub/class-epub201.php988,
@@ -411,7 +410,7 @@ msgstr ""
 #: ../templates/admin/import.php78, ../templates/admin/organize.php66,
 #: ../templates/admin/trash.php:56
 msgid "Chapter"
-msgstr "Hoofstuk"
+msgstr ""
 
 #: ../inc/class-sass.php64, ../inc/admin/metaboxes/namespace.php145,
 #: ../inc/admin/metaboxes/namespace.php527,
@@ -421,7 +420,7 @@ msgstr "Hoofstuk"
 #: ../templates/admin/import.php80, ../templates/admin/organize.php43,
 #: ../templates/admin/trash.php:53
 msgid "Part"
-msgstr "Deel"
+msgstr ""
 
 #: ../inc/class-sass.php:255
 msgid "SASS Error"
@@ -1012,7 +1011,7 @@ msgstr ""
 #: ../inc/posttype/namespace.php:45
 msgctxt "post type singular name"
 msgid "Chapter"
-msgstr "Hoofstuk"
+msgstr ""
 
 #: ../inc/posttype/namespace.php:46
 msgctxt "book"
@@ -1059,7 +1058,7 @@ msgstr ""
 #: ../inc/posttype/namespace.php:82
 msgctxt "post type singular name"
 msgid "Part"
-msgstr "Deel"
+msgstr ""
 
 #: ../inc/posttype/namespace.php:83
 msgctxt "book"
@@ -3236,7 +3235,7 @@ msgstr ""
 
 #: ../inc/modules/export/epub/class-epub201.php:917
 msgid "Title Page"
-msgstr "Titelblad"
+msgstr ""
 
 #: ../inc/modules/export/epub/class-epub201.php:1221
 msgid "Make your own books using Pressbooks.com"
@@ -3244,12 +3243,12 @@ msgstr ""
 
 #: ../inc/modules/export/epub/class-epub201.php:1604
 msgid "Table Of Contents"
-msgstr "Inhoudsopgawe"
+msgstr ""
 
 #: ../inc/modules/export/epub/class-epub201.php1619,
 #: ../inc/modules/export/xhtml/class-xhtml11.php:823
 msgid "Contents"
-msgstr "Inhoud"
+msgstr ""
 
 #: ../inc/modules/export/prince/class-pdf.php:279
 msgid ""
@@ -3291,11 +3290,11 @@ msgstr ""
 
 #: ../inc/modules/import/wordpress/class-wxr.php:235
 msgid "part"
-msgstr "Deel"
+msgstr ""
 
 #: ../inc/modules/import/wordpress/class-wxr.php:236
 msgid "chapter"
-msgstr "Hoofstuk"
+msgstr ""
 
 #: ../inc/modules/searchandreplace/types/class-content.php:54
 msgid "view"

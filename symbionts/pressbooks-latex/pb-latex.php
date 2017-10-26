@@ -27,7 +27,7 @@ class PBLatex {
 	var $methods;
 
 	function init() {
-		$this->options = get_option( 'pb_latex' );
+		$this->options = get_option( 'pb_latex', [ 'method' => 'Automattic_Latex_WPCOM' ] );
 
 		/**
 		 * Append latex render methods to the list of default methods.

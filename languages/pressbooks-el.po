@@ -1,7 +1,7 @@
 # Copyright (C) 2017 Pressbooks
 # This file is distributed under the same license as the Pressbooks package.
 # Translators:
-# aggelos manousopoulos <a.manousopoulos@gmail.com>, 2015-2016
+# aggelos manousopoulos <a.manousopoulos@gmail.com>, 2015-2017
 # LaScapigliata <ditri2000@hotmail.com>, 2015
 # LaScapigliata <ditri2000@hotmail.com>, 2015
 # Antonio Devís <colomet@hotmail.com>, 2015
@@ -10,8 +10,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
-"PO-Revision-Date: 2017-10-11 13:56+0000\n"
-"Last-Translator: Ned Zimmerman\n"
+"PO-Revision-Date: 2017-10-14 18:58+0000\n"
+"Last-Translator: aggelos manousopoulos <a.manousopoulos@gmail.com>\n"
 "Language-Team: Greek (http://www.transifex.com/pressbooks/pressbooks/language/el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -36,28 +36,28 @@ msgid ""
 "Pressbooks will not work with your version of WordPress. Pressbooks requires"
 " a dedicated install of WordPress Multisite, version %s or greater. Please "
 "upgrade WordPress if you would like to use Pressbooks."
-msgstr ""
+msgstr "Το Pressbooks δεν λειτουργεί με αυτή την έκδοση WordPress. Απαιτείται εγκατάσταση του WordPress Multisite, έκδοση %s ή μεγαλύτερη. Παρακαλούμε αναβαθμίστε το WordPress για να χρησιμοποιείτε το Pressbooks."
 
 #: ../compatibility.php:111
 msgid ""
 "The Pressbooks plugin is inactive, but you have active plugins that require "
 "Pressbooks. This is causing errors. Please go to the Plugins page, and "
 "activate Pressbooks."
-msgstr ""
+msgstr "Το πρόσθετο Pressbooks είναι ανενεργό, αλλά έχετε ενεργά πρόσθετα για τα οποία απαιτείται Pressbooks. Αυτό προκαλεί σφάλματα. Παρακαλώ πηγαίνετε στη σελίδα των Plugins κι ενεργοποιήστε το Pressbooks."
 
 #: ../inc/class-activation.php60, ../inc/class-activation.php:291
 msgid "Simple Book Publishing"
-msgstr ""
+msgstr "Δημοσίευση απλού βιβλίου"
 
 #: ../inc/class-activation.php:182
 msgid "Main Body"
 msgstr "Κυρίως μέρος"
 
-#: ../inc/class-activation.php188, ../tests/test-book.php:39
+#: ../inc/class-activation.php188, ../tests/test-book.php:41
 msgid "Introduction"
 msgstr "Εισαγωγή"
 
-#: ../inc/class-activation.php190, ../tests/test-book.php:69
+#: ../inc/class-activation.php190, ../tests/test-book.php:77
 msgid "This is where you can write your introduction."
 msgstr "Εδώ μπορείτε να γράψετε την εισαγωγή του βιβλίου σας"
 
@@ -202,84 +202,84 @@ msgstr ""
 msgid "The source book&rsquo;s taxonomies could not be read."
 msgstr ""
 
-#: ../inc/class-cloner.php:1010
+#: ../inc/class-cloner.php:1026
 msgid ""
 "You can only clone from a book hosted by Pressbooks 4.1 or later. Please "
 "ensure that your source book meets these requirements."
 msgstr ""
 
-#: ../inc/class-cloner.php:1111
+#: ../inc/class-cloner.php:1127
 msgid "Your book URL can only contain lowercase letters (a-z) and numbers."
-msgstr ""
+msgstr "H διεύθυνση του βιβλίου σας μπορεί να περιέχει μόνο πεζά γράμματα (a-z) και αριθμούς."
 
-#: ../inc/class-cloner.php:1113
+#: ../inc/class-cloner.php:1129
 msgid "Your book URL must contain at least some letters."
-msgstr ""
+msgstr "Η διεύθυνση του βιβλίου σας πρέπει να περιέχει κάποια γράμματα."
 
-#: ../inc/class-cloner.php:1115
+#: ../inc/class-cloner.php:1131
 msgid "That book URL is not allowed."
-msgstr ""
+msgstr "Αυτή η διεύθυνση δεν είναι αποδεκτή."
 
-#: ../inc/class-cloner.php:1117
+#: ../inc/class-cloner.php:1133
 msgid "Your book URL must be at least %s character."
 msgid_plural "Your book URL must be at least %s characters."
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../inc/class-cloner.php:1119
+#: ../inc/class-cloner.php:1135
 msgid "Sorry, you may not use that book URL."
 msgstr ""
 
-#: ../inc/class-cloner.php:1121
+#: ../inc/class-cloner.php:1137
 msgid "Sorry, that book URL already exists!"
-msgstr ""
+msgstr "Λυπούμαστε, αυτή η διεύθυνση βιβλίου υπάρχει ήδη!"
 
-#: ../inc/class-cloner.php:1175
+#: ../inc/class-cloner.php:1191
 msgid ""
 "Cloning succeeded! Cloned %1$s, %2$s, %3$s, %4$s, %5$s, and %6$s to %7$s."
 msgstr ""
 
-#: ../inc/class-cloner.php:1176
+#: ../inc/class-cloner.php:1192
 msgid "%s term"
 msgid_plural "%s terms"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../inc/class-cloner.php:1177
+#: ../inc/class-cloner.php:1193
 msgid "%s front matter"
 msgid_plural "%s front matter"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../inc/class-cloner.php:1178
+#: ../inc/class-cloner.php:1194
 msgid "%s part"
 msgid_plural "%s parts"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../inc/class-cloner.php:1179
+#: ../inc/class-cloner.php:1195
 msgid "%s chapter"
 msgid_plural "%s chapters"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../inc/class-cloner.php:1180
+#: ../inc/class-cloner.php:1196
 msgid "%s back matter"
 msgid_plural "%s back matter"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../inc/class-cloner.php:1181
+#: ../inc/class-cloner.php:1197
 msgid "%s media attachment"
 msgid_plural "%s media attachments"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../inc/class-cloner.php:1185
+#: ../inc/class-cloner.php:1201
 msgid "Cloning failed."
-msgstr ""
+msgstr "Η κλωνοποίηση απέτυχε."
 
-#: ../inc/class-cloner.php:1190
+#: ../inc/class-cloner.php:1206
 msgid ""
 "You must enter a valid URL for a book on a Pressbooks network running "
 "Pressbooks 4.1 or greater as well as a new URL for your cloned book."
@@ -303,7 +303,7 @@ msgstr ""
 
 #: ../inc/class-globaltypography.php:43
 msgid "Hindi"
-msgstr ""
+msgstr "Χίντι"
 
 #: ../inc/class-globaltypography.php:44
 msgid "Chinese (Simplified)"
@@ -323,7 +323,7 @@ msgstr "Γκουτζαράτι"
 
 #: ../inc/class-globaltypography.php:48
 msgid "Punjabi (Gurmukhi)"
-msgstr ""
+msgstr "Παντζάμπι (Γκουρμούχι)"
 
 #: ../inc/class-globaltypography.php:49
 msgid "Japanese"
@@ -355,31 +355,31 @@ msgstr ""
 
 #: ../inc/class-licensing.php:43
 msgid "Public Domain (No Rights Reserved)"
-msgstr ""
+msgstr "Κοινό Κτήμα (Χωρίς δικαιώματα)"
 
 #: ../inc/class-licensing.php:52
 msgid "CC BY (Attribution)"
-msgstr ""
+msgstr "CC BY (Αναφορά δημιουργού)"
 
 #: ../inc/class-licensing.php:61
 msgid "CC BY-SA (Attribution ShareAlike)"
-msgstr ""
+msgstr "CC BY-SA (Αναφορά Δημιουργού - Παρόμοια Διανομή)"
 
 #: ../inc/class-licensing.php:70
 msgid "CC BY-ND (Attribution NoDerivatives)"
-msgstr ""
+msgstr "CC BY-ND (Αναφορά Δημιουργού-Όχι Παράγωγα Έργα)"
 
 #: ../inc/class-licensing.php:79
 msgid "CC BY-NC (Attribution NonCommercial)"
-msgstr ""
+msgstr "CC BY-NC (Αναφορά Δημιουργού-Μη Εμπορική Χρήση)"
 
 #: ../inc/class-licensing.php:88
 msgid "CC BY-NC-SA (Attribution NonCommercial ShareAlike)"
-msgstr ""
+msgstr "CC BY-NC-SA (Αναφορά Δημιουργού - Μη Εμπορική Χρήση - Παρόμοια Διανομή)"
 
 #: ../inc/class-licensing.php:97
 msgid "CC BY-NC-ND (Attribution NonCommercial NoDerivatives)"
-msgstr ""
+msgstr "CC BY-NC-ND (Αναφορά Δημιουργού-Μη Εμπορική Χρήση-Όχι Παράγωγα Έργα)"
 
 #: ../inc/class-licensing.php102, ../inc/class-licensing.php:262
 msgid "All Rights Reserved"
@@ -439,15 +439,15 @@ msgstr ""
 
 #: ../inc/class-styles.php:111
 msgid "Custom Style for Ebook"
-msgstr ""
+msgstr "Προσαρμοσμένο στιλ για Ebook"
 
 #: ../inc/class-styles.php:116
 msgid "Custom Style for PDF"
-msgstr ""
+msgstr "Προσαρμοσμένο στιλ για PDF"
 
 #: ../inc/class-styles.php:121
 msgid "Custom Style for Web"
-msgstr ""
+msgstr "Προσαρμοσμένο στιλ για Web"
 
 #: ../inc/class-styles.php:547
 msgid ""
@@ -457,11 +457,11 @@ msgstr "Απρόσμενο σφάλμα: Υπήρξε ένα πρόβλημα σ
 
 #: ../inc/class-styles.php:587
 msgid "Web"
-msgstr ""
+msgstr "Web"
 
 #: ../inc/class-styles.php:619
 msgid "Last 10 Revisions"
-msgstr ""
+msgstr "Τελευταίες 10 αναθεωρήσεις"
 
 #: ../inc/class-taxonomy.php:34
 msgctxt "taxonomy general name"
@@ -631,7 +631,7 @@ msgstr "Δείτε το βιβλίο"
 
 #: ../inc/admin/class-catalog-list-table.php:75
 msgid "Visit Admin"
-msgstr "Δείτε Διαχειριστή"
+msgstr "Διαχείριση"
 
 #: ../inc/admin/class-catalog-list-table.php106,
 #: ../inc/admin/class-catalog-list-table.php214,
@@ -768,7 +768,7 @@ msgstr "Όχι. Αγνόησε λάθη πιστοποίησης."
 
 #: ../inc/admin/class-exportoptions.php:71
 msgid "Yes."
-msgstr ""
+msgstr "Ναι"
 
 #: ../inc/admin/class-exportoptions.php:71
 msgid "Email me validation error logs on export."
@@ -776,15 +776,15 @@ msgstr ""
 
 #: ../inc/admin/class-exportoptions.php:78
 msgid "Lock Theme"
-msgstr ""
+msgstr "Κλείδωσε θέμα"
 
 #: ../inc/admin/class-exportoptions.php:83
 msgid "Lock your theme at its current version."
-msgstr ""
+msgstr "Κλείδωμα θέματος και της τρέχουσας έκδοσης."
 
 #: ../inc/admin/class-exportoptions.php:99
 msgid "Export settings."
-msgstr ""
+msgstr "Εξαγωγή ρυθμίσεων."
 
 #: ../inc/admin/class-exportoptions.php:162
 msgid ""
@@ -837,7 +837,7 @@ msgstr "URL άλλης υπηρεσίας"
 msgid ""
 "Once your book is finished, you can download the files and submit them to "
 "ebookstores and print-on-demand providers."
-msgstr ""
+msgstr "Εφόσον ολοκληρώθηκε το βιβλίο σας, μπορείτε να κατεβάσετε τα αρχεία και να τα υποβάλετε σε ηλεκτρονικά βιβλιοπωλεία και εκδότες με εκτύπωση κατά παραγγελία."
 
 #: ../inc/admin/class-publishoptions.php:127
 msgid "Ebook Stores"
@@ -891,7 +891,7 @@ msgstr ""
 
 #: ../inc/api/namespace.php:162
 msgid "Part does not exist"
-msgstr ""
+msgstr "Το μέρος αυτό δεν υπάρχει."
 
 #: ../inc/api/namespace.php:165
 msgid "ID is not a part"
@@ -970,7 +970,7 @@ msgid ""
 "your ebook files but not your PDF export. Read more <a "
 "href=\"https://guide.pressbooks.com/chapter/how-to-design-your-book-"
 "cover/\">here</a>."
-msgstr ""
+msgstr "Το εξώφυλλο πρέπει να είναι σε αναλογία 1 προς 1.5. Προτεινόμενες διαστάσεις είναι 2500 px X 3750 px, μέγιστο μέγεθος 2MB.<br /> Υπενθύμιση: Αυτό το εξώφυλλο θα περιληφθεί στα αρχεία ebook αλλά όχι στο PDF. Διαβάστε περισσότερα <a href=\"https://guide.pressbooks.com/chapter/how-to-design-your-book-cover/\">εδώ</a>."
 
 #: ../inc/image/namespace.php362, ../templates/admin/export.php287,
 #: ../templates/admin/organize.php86, ../templates/admin/organize.php111,
@@ -991,11 +991,11 @@ msgstr ""
 
 #: ../inc/metadata/namespace.php:100
 msgid "Hide Additional Book Information"
-msgstr ""
+msgstr "Απόκρυψη πρόσθετων πληροφοριών βιβλίου"
 
 #: ../inc/metadata/namespace.php:103
 msgid "Show Additional Book Information"
-msgstr ""
+msgstr "Εμφάνιση πρόσθετων πληροφοριών βιβλίου"
 
 #: ../inc/metadata/namespace.php:110
 msgid ""
@@ -1457,22 +1457,22 @@ msgstr "Το προσχέδιο του μετακειμενικού στοιχε
 #: ../inc/posttype/namespace.php404,
 #: ../inc/modules/import/wordpress/class-wxr.php:235
 msgid "parts"
-msgstr ""
+msgstr "μέρη"
 
 #: ../inc/posttype/namespace.php405,
 #: ../inc/modules/import/wordpress/class-wxr.php:236
 msgid "chapters"
-msgstr ""
+msgstr "κεφάλαια"
 
 #: ../inc/posttype/namespace.php406,
 #: ../inc/modules/import/wordpress/class-wxr.php:234
 msgid "front matter"
-msgstr ""
+msgstr "προκειμενικά στοιχεία"
 
 #: ../inc/posttype/namespace.php407,
 #: ../inc/modules/import/wordpress/class-wxr.php:237
 msgid "back matter"
-msgstr ""
+msgstr "μετακειμενικά στοιχεία."
 
 #: ../inc/redirect/namespace.php169, ../inc/redirect/namespace.php:402
 msgid "Error: Unknown export format."
@@ -1484,7 +1484,7 @@ msgid "book"
 msgstr "βιβλίο"
 
 #: ../inc/redirect/namespace.php377,
-#: ../inc/modules/export/class-export.php:817
+#: ../inc/modules/export/class-export.php:815
 msgid "File not found"
 msgstr "Το αρχείο δεν βρέθηκε"
 
@@ -1506,7 +1506,7 @@ msgstr ""
 
 #: ../inc/registration/namespace.php:35
 msgid "Webbook Address:"
-msgstr ""
+msgstr "Διεύθυνση webbook"
 
 #: ../inc/registration/namespace.php38, ../inc/registration/namespace.php:70
 msgid ""
@@ -1526,7 +1526,7 @@ msgstr "Γλώσσα βιβλίου: "
 
 #: ../inc/registration/namespace.php:47
 msgid "Would you like your webbook to be visible to the public?"
-msgstr ""
+msgstr "Θέλετε το webbook να είναι ορατό δημόσια;"
 
 #: ../inc/registration/namespace.php:51
 msgid "Create Book"
@@ -1592,32 +1592,32 @@ msgstr ""
 
 #: ../inc/registration/namespace.php:106
 msgid "Password"
-msgstr ""
+msgstr "Κωδικός πρόσβασης"
 
 #: ../inc/registration/namespace.php:109
 msgid "Type in your password."
-msgstr ""
+msgstr "Πληκτρολογήστε κωδικό πρόσβασης."
 
 #: ../inc/registration/namespace.php:111
 msgid "Confirm Password"
-msgstr ""
+msgstr "Επιβεβαίωση κωδικού πρόσβασης"
 
 #: ../inc/registration/namespace.php:113
 msgid "Type in your password again."
-msgstr ""
+msgstr "Πληκτρολογήστε ξανά τον κωδικό πρόσβασης."
 
 #: ../inc/registration/namespace.php125, ../inc/registration/namespace.php158,
 #: ../inc/registration/namespace.php178, ../inc/registration/namespace.php:195
 msgid "Please try again."
-msgstr ""
+msgstr "Παρακαλώ προσπαθήστε ξανά."
 
 #: ../inc/registration/namespace.php:135
 msgid "You have to enter a password."
-msgstr ""
+msgstr "Πρέπει να εισαγάγετε ένα κωδικό πρόσβασης."
 
 #: ../inc/registration/namespace.php:141
 msgid "Passwords do not match."
-msgstr ""
+msgstr "Οι κωδικοί δεν ταιριάζουν."
 
 #: ../inc/theme/class-lock.php:67
 msgid ""
@@ -1668,12 +1668,12 @@ msgstr ""
 #: ../inc/utility/namespace.php:563
 msgctxt "Plugin Installer"
 msgid "Popular"
-msgstr ""
+msgstr "Δημοφιλές"
 
 #: ../inc/utility/namespace.php:564
 msgctxt "Plugin Installer"
 msgid "Favorites"
-msgstr ""
+msgstr "Αγαπημένα"
 
 #: ../inc/utility/namespace.php622, ../inc/utility/namespace.php629,
 #: ../inc/utility/namespace.php:644
@@ -1735,7 +1735,7 @@ msgstr "Ρυθμίσεις Google Analytics."
 
 #: ../inc/admin/dashboard/namespace.php:16
 msgid "Pressbooks News"
-msgstr ""
+msgstr "Τα Νέα του Pressbooks"
 
 #: ../inc/admin/dashboard/namespace.php:81
 msgid "My Book"
@@ -1789,7 +1789,7 @@ msgstr ""
 
 #: ../inc/admin/delete/class-book.php:49
 msgid "Delete Book"
-msgstr ""
+msgstr "Διαγραφή βιβλίου"
 
 #. translators: Do not translate USERNAME, URL_DELETE, SITE_NAME: those are
 #. placeholders.
@@ -1816,7 +1816,7 @@ msgstr ""
 #: ../inc/admin/diagnostics/namespace.php21,
 #: ../inc/admin/diagnostics/namespace.php37, ../inc/admin/laf/namespace.php:24
 msgid "Diagnostics"
-msgstr ""
+msgstr "Διαγνωστικά"
 
 #: ../inc/admin/diagnostics/namespace.php:38
 msgid "Please submit this information with any bug reports."
@@ -1826,7 +1826,7 @@ msgstr ""
 msgid ""
 "To copy the system info, click below then press Ctrl + C (PC) or Cmd + C "
 "(Mac)."
-msgstr ""
+msgstr "Για αντιγραφή των πληροφοριών του συστήματος κλικ παρακάτω και Ctrl + C (PC) ή Cmd + C (Mac)."
 
 #: ../inc/admin/laf/namespace.php:20
 msgid "Powered by"
@@ -1853,7 +1853,7 @@ msgstr "Εκδόθηκε"
 #: ../templates/admin/organize.php86, ../templates/admin/organize.php111,
 #: ../templates/admin/organize.php178, ../templates/admin/trash.php:18
 msgid "Trash"
-msgstr ""
+msgstr "Διαγραφή"
 
 #: ../inc/admin/laf/namespace.php161, ../inc/admin/laf/namespace.php161,
 #: ../inc/modules/import/wordpress/class-wxr.php:347
@@ -1940,7 +1940,7 @@ msgstr "Ιδιωτικό περιεχόμενο"
 
 #: ../inc/admin/laf/namespace.php:804
 msgid "Disable Comments"
-msgstr ""
+msgstr "Απενεργοποίηση σχολίων"
 
 #: ../inc/admin/laf/namespace.php:813
 msgid "Share Latest Export Files"
@@ -3271,7 +3271,7 @@ msgstr "Σφάλμα μη ορθής άδειας"
 msgid "Notes"
 msgstr "Σημειώσεις"
 
-#: ../inc/modules/import/epub/class-epub201.php:208
+#: ../inc/modules/import/epub/class-epub201.php:234
 msgid "Imported %s chapters."
 msgstr "Εισήχθησαν %s κεφάλαια."
 
@@ -3386,7 +3386,7 @@ msgstr "Δεύτερο"
 msgid "Apply Class"
 msgstr ""
 
-#: ../pressbooks.php:105
+#: ../pressbooks.php:118
 msgid "Cannot find Pressbooks install."
 msgstr "Δεν βρέθηκε εγκατεστημένο το Pressbook."
 

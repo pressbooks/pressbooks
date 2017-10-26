@@ -3,7 +3,7 @@
 Plugin Name: Pressbooks
 Plugin URI: https://pressbooks.com
 Description: Simple Book Production
-Version: 4.3.4
+Version: 4.3.5
 Author: Book Oven Inc.
 Author URI: https://pressbooks.com
 Text Domain: pressbooks
@@ -61,7 +61,7 @@ add_action( 'wp_login', '_pb_session_kill' );
 // -------------------------------------------------------------------------------------------------------------------
 
 if ( ! defined( 'PB_PLUGIN_VERSION' ) ) {
-	define( 'PB_PLUGIN_VERSION', '4.3.4' );
+	define( 'PB_PLUGIN_VERSION', '4.3.5' );
 }
 
 if ( ! defined( 'PB_PLUGIN_DIR' ) ) {
@@ -83,6 +83,19 @@ if ( ! defined( 'WP_DEFAULT_THEME' ) ) {
 if ( ! defined( 'PB_ROOT_THEME' ) ) {
 	define( 'PB_ROOT_THEME', 'pressbooks-publisher' );
 }
+
+/**
+ * Set locale to UTF8 so escapeshellcmd() doesn't strip valid characters
+ *
+ * @since 4.3.5
+ * @see https://bugs.php.net/bug.php?id=54391
+ *
+ * @param string $pb_lc_ctype
+ * @return string
+ */
+$pb_lc_ctype = apply_filters( 'pb_lc_ctype', 'en_US.UTF-8' );
+setlocale( LC_CTYPE, 'UTF8', $pb_lc_ctype );
+putenv( "LC_CTYPE={$pb_lc_ctype}" );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Composer autoloader (if needed)
