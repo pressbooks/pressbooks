@@ -2,6 +2,8 @@
 
 namespace Pressbooks\HTMLBook\Inline;
 
+use Pressbooks\HTMLBook\Element;
+
 /**
  * Based on HTMLBook
  *
@@ -20,7 +22,7 @@ namespace Pressbooks\HTMLBook\Inline;
  *
  * @see https://oreillymedia.github.io/HTMLBook/#_cross_references
  */
-class CrossReferences {
+class CrossReferences extends Element {
 
 	/**
 	 * @var string

@@ -74,8 +74,8 @@ class HTMLBookTest extends \WP_UnitTestCase {
 	public function test_Block_CodeListings() {
 
 		$e = new \Pressbooks\HTMLBook\Block\CodeListings();
-		$e->setCodeLanguage( 'php' );
 		$e->appendAttribute( 'foo="bar"' );
+		$e->setCodeLanguage( 'php' );
 		$e->appendContent( 'Hi!' );
 
 		$this->assertEquals( '<pre data-type="programlisting" foo="bar" data-code-language="php">Hi!</pre>', (string) $e );

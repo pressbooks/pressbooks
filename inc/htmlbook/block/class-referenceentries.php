@@ -2,6 +2,8 @@
 
 namespace Pressbooks\HTMLBook\Block;
 
+use Pressbooks\HTMLBook\Element;
+
 /**
  * Based on HTMLBook
  *
@@ -34,21 +36,11 @@ namespace Pressbooks\HTMLBook\Block;
  *
  * @see https://oreillymedia.github.io/HTMLBook/#_refentry
  */
-class ReferenceEntries {
+class ReferenceEntries extends Element {
 
 	/**
 	 * @var string
 	 */
 	protected $tag = 'div';
-
-	/**
-	 * @var bool
-	 */
-	protected $dataTypeRequired = false;
-
-	/**
-	 * @var array
-	 */
-	protected $dataTypes = [];
 
 }

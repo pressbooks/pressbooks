@@ -2,6 +2,8 @@
 
 namespace Pressbooks\HTMLBook\Inline;
 
+use Pressbooks\HTMLBook\Element;
+
 /**
  * Based on HTMLBook
  *
@@ -13,21 +15,11 @@ namespace Pressbooks\HTMLBook\Inline;
  *
  * @see https://oreillymedia.github.io/HTMLBook/#_subscripts
  */
-class Subscripts {
+class Subscripts extends Element {
 
 	/**
 	 * @var string
 	 */
 	protected $tag = 'sub';
-
-	/**
-	 * @var bool
-	 */
-	protected $dataTypeRequired = false;
-
-	/**
-	 * @var array
-	 */
-	protected $dataTypes = [];
 
 }

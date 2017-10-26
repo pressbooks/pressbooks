@@ -2,6 +2,8 @@
 
 namespace Pressbooks\HTMLBook\Block;
 
+use Pressbooks\HTMLBook\Element;
+
 /**
  * Based on HTMLBook
  *
@@ -23,21 +25,11 @@ namespace Pressbooks\HTMLBook\Block;
  *
  * @see https://oreillymedia.github.io/HTMLBook/#_itemized_lists
  */
-class ItemizedLists {
+class ItemizedLists extends Element {
 
 	/**
 	 * @var string
 	 */
 	protected $tag = 'ul';
-
-	/**
-	 * @var bool
-	 */
-	protected $dataTypeRequired = false;
-
-	/**
-	 * @var array
-	 */
-	protected $dataTypes = [];
 
 }

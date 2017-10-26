@@ -2,6 +2,8 @@
 
 namespace Pressbooks\HTMLBook\Block;
 
+use Pressbooks\HTMLBook\Element;
+
 /**
  * Based on HTMLBook
  *
@@ -26,21 +28,11 @@ namespace Pressbooks\HTMLBook\Block;
  *
  * @see https://oreillymedia.github.io/HTMLBook/#_ordered_lists
  */
-class OrderedLists {
+class OrderedLists extends Elemet {
 
 	/**
 	 * @var string
 	 */
 	protected $tag = 'ol';
-
-	/**
-	 * @var bool
-	 */
-	protected $dataTypeRequired = false;
-
-	/**
-	 * @var array
-	 */
-	protected $dataTypes = [];
 
 }

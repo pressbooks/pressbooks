@@ -2,6 +2,8 @@
 
 namespace Pressbooks\HTMLBook\Block;
 
+use Pressbooks\HTMLBook\Element;
+
 /**
  * Based on HTMLBook
  *
@@ -61,21 +63,11 @@ namespace Pressbooks\HTMLBook\Block;
  *
  * @see https://oreillymedia.github.io/HTMLBook/#_tables
  */
-class Tables {
+class Tables extends Element {
 
 	/**
 	 * @var string
 	 */
 	protected $tag = 'table';
-
-	/**
-	 * @var bool
-	 */
-	protected $dataTypeRequired = false;
-
-	/**
-	 * @var array
-	 */
-	protected $dataTypes = [];
 
 }

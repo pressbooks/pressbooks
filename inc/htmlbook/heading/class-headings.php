@@ -2,6 +2,8 @@
 
 namespace Pressbooks\HTMLBook\Heading;
 
+use Pressbooks\HTMLBook\Element;
+
 /**
  * Based on HTMLBook
  *
@@ -30,16 +32,6 @@ namespace Pressbooks\HTMLBook\Heading;
  *
  * @see https://oreillymedia.github.io/HTMLBook/#_headings
  */
-abstract class Headings {
-
-	/**
-	 * @var bool
-	 */
-	protected $dataTypeRequired = false;
-
-	/**
-	 * @var array
-	 */
-	protected $dataTypes = [];
+abstract class Headings extends Element {
 
 }

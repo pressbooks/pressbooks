@@ -2,6 +2,8 @@
 
 namespace Pressbooks\HTMLBook\Component;
 
+use Pressbooks\HTMLBook\Element;
+
 /**
  * Based on HTMLBook
  *
@@ -25,7 +27,7 @@ namespace Pressbooks\HTMLBook\Component;
  *
  * @see https://oreillymedia.github.io/HTMLBook/#_part
  */
-class Part {
+class Part extends Element {
 
 	/**
 	 * @var string

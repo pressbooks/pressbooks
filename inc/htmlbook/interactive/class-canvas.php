@@ -2,6 +2,8 @@
 
 namespace Pressbooks\HTMLBook\Interactive;
 
+use Pressbooks\HTMLBook\Element;
+
 /**
  * Based on HTMLBook
  *
@@ -19,21 +21,11 @@ namespace Pressbooks\HTMLBook\Interactive;
  *
  * @see https://oreillymedia.github.io/HTMLBook/#_canvas
  */
-class Canvas {
+class Canvas extends Element {
 
 	/**
 	 * @var string
 	 */
 	protected $tag = 'canvas';
-
-	/**
-	 * @var bool
-	 */
-	protected $dataTypeRequired = false;
-
-	/**
-	 * @var array
-	 */
-	protected $dataTypes = [];
 
 }

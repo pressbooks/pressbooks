@@ -2,6 +2,8 @@
 
 namespace Pressbooks\HTMLBook\Block;
 
+use Pressbooks\HTMLBook\Element;
+
 /**
  * Based on HTMLBook
  *
@@ -22,7 +24,7 @@ namespace Pressbooks\HTMLBook\Block;
  *
  * @see https://oreillymedia.github.io/HTMLBook/#_examples
  */
-class Examples {
+class Examples extends Element {
 
 	/**
 	 * @var string

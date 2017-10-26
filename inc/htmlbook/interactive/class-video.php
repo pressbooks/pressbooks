@@ -2,6 +2,8 @@
 
 namespace Pressbooks\HTMLBook\Interactive;
 
+use Pressbooks\HTMLBook\Element;
+
 /**
  * Based on HTMLBook
  *
@@ -21,21 +23,11 @@ namespace Pressbooks\HTMLBook\Interactive;
  *
  * @see https://oreillymedia.github.io/HTMLBook/#_video
  */
-class Video {
+class Video extends Element {
 
 	/**
 	 * @var string
 	 */
 	protected $tag = 'video';
-
-	/**
-	 * @var bool
-	 */
-	protected $dataTypeRequired = false;
-
-	/**
-	 * @var array
-	 */
-	protected $dataTypes = [];
 
 }

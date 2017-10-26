@@ -319,7 +319,7 @@ class Element {
 	/**
 	 * @return string
 	 */
-	public function attributes() {
+	public function renderAttributes() {
 		$att = '';
 		foreach ( $this->attributes as $k => $v ) {
 			if ( ! preg_match( '/\d+/', $k ) ) {
@@ -334,7 +334,7 @@ class Element {
 	/**
 	 * @return string
 	 */
-	public function content() {
+	public function render() {
 		return $this->__toString();
 	}
 
@@ -354,7 +354,7 @@ class Element {
 		if ( ! empty( $this->dataType ) ) {
 			$att .= "data-type=\"{$this->dataType}\" ";
 		}
-		$att .= $this->attributes();
+		$att .= $this->renderAttributes();
 		if ( ! empty( $att ) ) {
 			$html .= " {$att}>";
 		} else {

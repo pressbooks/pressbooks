@@ -2,6 +2,8 @@
 
 namespace Pressbooks\HTMLBook\Inline;
 
+use Pressbooks\HTMLBook\Element;
+
 /**
  * Based on HTMLBook
  *
@@ -23,7 +25,7 @@ namespace Pressbooks\HTMLBook\Inline;
  *
  * @see https://oreillymedia.github.io/HTMLBook/#_index_term
  */
-class IndexTerm {
+class IndexTerm extends Element {
 
 	/**
 	 * @var string

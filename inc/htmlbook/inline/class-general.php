@@ -2,6 +2,8 @@
 
 namespace Pressbooks\HTMLBook\Inline;
 
+use Pressbooks\HTMLBook\Element;
+
 /**
  * Based on HTMLBook
  *
@@ -14,21 +16,11 @@ namespace Pressbooks\HTMLBook\Inline;
  *
  * @see https://oreillymedia.github.io/HTMLBook/#_general_purpose_phrase_markup_for_other_styling_underline_strikethrough_etc
  */
-class General {
+class General extends Element {
 
 	/**
 	 * @var string
 	 */
 	protected $tag = 'span';
-
-	/**
-	 * @var bool
-	 */
-	protected $dataTypeRequired = false;
-
-	/**
-	 * @var array
-	 */
-	protected $dataTypes = [];
 
 }

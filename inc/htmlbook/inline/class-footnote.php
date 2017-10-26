@@ -2,6 +2,8 @@
 
 namespace Pressbooks\HTMLBook\Inline;
 
+use Pressbooks\HTMLBook\Element;
+
 /**
  * Based on HTMLBook
  *
@@ -31,7 +33,7 @@ namespace Pressbooks\HTMLBook\Inline;
  *
  * @see https://oreillymedia.github.io/HTMLBook/#_footnote_endnote
  */
-class Footnote {
+class Footnote extends Element {
 
 	/**
 	 * @var string

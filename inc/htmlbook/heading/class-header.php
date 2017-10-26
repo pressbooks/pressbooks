@@ -2,6 +2,8 @@
 
 namespace Pressbooks\HTMLBook\Heading;
 
+use Pressbooks\HTMLBook\Element;
+
 /**
  * Based on HTMLBook
  *
@@ -23,21 +25,11 @@ namespace Pressbooks\HTMLBook\Heading;
  *
  * @see https://oreillymedia.github.io/HTMLBook/#header_block
  */
-class Header {
+class Header extends Element {
 
 	/**
 	 * @var string
 	 */
 	protected $tag = 'header';
-
-	/**
-	 * @var bool
-	 */
-	protected $dataTypeRequired = false;
-
-	/**
-	 * @var array
-	 */
-	protected $dataTypes = [];
 
 }
