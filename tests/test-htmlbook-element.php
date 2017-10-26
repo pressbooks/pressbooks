@@ -4,7 +4,10 @@ class HTMLBookTest extends \WP_UnitTestCase {
 
 	public function test_isInline() {
 		$e = new \Pressbooks\HTMLBook\Element();
+		$f = new \Pressbooks\HTMLBook\Element();
+		$f->setTag( 'ruby' );
 
+		$this->assertTrue( $e->isInline( $f ) );
 		$this->assertTrue( $e->isInline( '<ruby>漢 <rt>ㄏㄢˋ</rt></ruby>' ) );
 		$this->assertFalse( $e->isInline( '<ruby>漢 <rt>ㄏㄢˋ</rt></ruby><p>How are you?</p>' ) );
 
@@ -17,7 +20,10 @@ class HTMLBookTest extends \WP_UnitTestCase {
 
 	public function test_isBlock() {
 		$e = new \Pressbooks\HTMLBook\Element();
+		$f = new \Pressbooks\HTMLBook\Element();
+		$f->setTag( 'blockquote' );
 
+		$this->assertTrue( $e->isBlock( $f ) );
 		$this->assertTrue( $e->isBlock( '<blockquote>Hello World!</blockquote>' ) );
 		$this->assertTrue( $e->isBlock( '<blockquote><p><strong>Hello</strong> <em>World!</em></p></blockquote>' ) );
 		$this->assertFalse( $e->isBlock( '<blockquote>Hello World!</blockquote><p>How are you?</p>' ) );
@@ -31,7 +37,10 @@ class HTMLBookTest extends \WP_UnitTestCase {
 
 	public function test_isHeading() {
 		$e = new \Pressbooks\HTMLBook\Element();
+		$f = new \Pressbooks\HTMLBook\Element();
+		$f->setTag( 'h1' );
 
+		$this->assertTrue( $e->isHeading( $f ) );
 		$this->assertTrue( $e->isHeading( '<h1>Hello World!</h1>' ) );
 		$this->assertTrue( $e->isHeading( '<h1><strong>Hello</strong> <em>World!</em></h1>' ) );
 

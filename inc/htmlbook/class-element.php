@@ -236,8 +236,10 @@ class Element {
 	public function isInline( $var ) {
 
 		if ( is_object( $var ) ) {
-			$class = get_class( $var );
-			return ( strpos( $class, 'Pressbooks\HTMLBook\Inline\\' ) !== false );
+			if ( $var instanceof Element ) {
+				return ( in_array( $var->getTag(), $this->inline, true ) );
+			}
+			return ( strpos( get_class( $var ), 'Pressbooks\HTMLBook\Inline\\' ) !== false );
 		}
 
 		if ( is_string( $var ) ) {
@@ -260,8 +262,10 @@ class Element {
 	public function isBlock( $var ) {
 
 		if ( is_object( $var ) ) {
-			$class = get_class( $var );
-			return ( strpos( $class, 'Pressbooks\HTMLBook\Block\\' ) !== false );
+			if ( $var instanceof Element ) {
+				return ( in_array( $var->getTag(), $this->block, true ) );
+			}
+			return ( strpos( get_class( $var ), 'Pressbooks\HTMLBook\Block\\' ) !== false );
 		}
 
 		if ( is_string( $var ) ) {
@@ -284,12 +288,16 @@ class Element {
 	 */
 	public function isHeading( $var ) {
 
+		$headings = [ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' ];
+
 		if ( is_object( $var ) ) {
+			if ( $var instanceof Element ) {
+				return ( in_array( $var->getTag(), $headings, true ) );
+			}
 			return is_subclass_of( $var, '\Pressbooks\HTMLBook\Heading\Headings' );
 		}
 
 		if ( is_string( $var ) ) {
-			$headings = [ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' ];
 			$html5 = new HTML5();
 			$dom = $html5->loadHTMLFragment( $var );
 			if ( $dom->childNodes->length !== 1 ) {
