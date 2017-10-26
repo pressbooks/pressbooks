@@ -150,18 +150,19 @@ class Posts extends \WP_REST_Posts_Controller {
 		// The _embed parameter indicates to the server that the response should include these embedded resources.
 		// @see https://developer.wordpress.org/rest-api/using-the-rest-api/global-parameters/#_embed
 
-		if ( isset( $_GET['_embed'] ) ) {
-			if ( isset( $schema['properties']['content'] ) ) {
-				$schema['properties']['content']['context'][] = 'embed';
-				$schema['properties']['content']['properties']['rendered']['context'][] = 'embed';
-			}
-			if ( isset( $schema['properties']['meta'] ) ) {
-				$schema['properties']['meta']['context'][] = 'embed';
-			}
-			foreach ( [ 'front-matter-type', 'chapter-type', 'back-matter-type' ] as $taxonomy ) {
-				if ( isset( $schema['properties'][ $taxonomy ] ) ) {
-					$schema['properties'][ $taxonomy ]['context'][] = 'embed';
-				}
+		if ( isset( $schema['properties']['content'] ) ) {
+			$schema['properties']['content']['context'][] = 'embed';
+			$schema['properties']['content']['properties']['rendered']['context'][] = 'embed';
+			// Add raw content to view/embed contexts so that we can use it when cloning over REST API
+			$schema['properties']['content']['properties']['raw']['context'][] = 'view';
+			$schema['properties']['content']['properties']['raw']['context'][] = 'embed';
+		}
+		if ( isset( $schema['properties']['meta'] ) ) {
+			$schema['properties']['meta']['context'][] = 'embed';
+		}
+		foreach ( [ 'front-matter-type', 'chapter-type', 'back-matter-type' ] as $taxonomy ) {
+			if ( isset( $schema['properties'][ $taxonomy ] ) ) {
+				$schema['properties'][ $taxonomy ]['context'][] = 'embed';
 			}
 		}
 
