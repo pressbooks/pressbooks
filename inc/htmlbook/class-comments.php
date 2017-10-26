@@ -14,7 +14,7 @@ namespace Pressbooks\HTMLBook;
  *     <div data-type="comment">This is a comment preceding a paragraph of text</div>
  *     <p>This is a paragraph of text <span data-type="comment">Inline comment in paragraph</span></p>
  *
- * @see http://oreillymedia.github.io/HTMLBook/#_comments
+ * @see https://oreillymedia.github.io/HTMLBook/#_comments
  */
 class Comments {
 

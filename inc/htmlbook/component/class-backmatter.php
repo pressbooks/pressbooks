@@ -22,7 +22,7 @@ namespace Pressbooks\HTMLBook\Component;
  *       </section>
  *     </section>
  *
- * @see http://oreillymedia.github.io/HTMLBook/#_backmatter
+ * @see https://oreillymedia.github.io/HTMLBook/#_backmatter
  */
 class Backmatter {
 

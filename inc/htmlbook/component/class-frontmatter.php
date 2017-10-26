@@ -21,7 +21,7 @@ namespace Pressbooks\HTMLBook\Component;
  *       <p>By Paul Hudson</p>
  *     </section>
  *
- * @see http://oreillymedia.github.io/HTMLBook/#_frontmatter
+ * @see https://oreillymedia.github.io/HTMLBook/#_frontmatter
  */
 class Frontmatter {
 

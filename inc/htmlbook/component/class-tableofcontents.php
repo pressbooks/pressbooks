@@ -29,7 +29,7 @@ namespace Pressbooks\HTMLBook\Component;
  *       </ol>
  *     </nav>
  *
- * @see http://oreillymedia.github.io/HTMLBook/#_table_of_contents
+ * @see https://oreillymedia.github.io/HTMLBook/#_table_of_contents
  */
 class TableOfContents {
 

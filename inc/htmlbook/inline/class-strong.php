@@ -11,7 +11,7 @@ namespace Pressbooks\HTMLBook\Inline;
  *
  *     <p>I <strong>love</strong> HTML!</p>
  *
- * @see http://oreillymedia.github.io/HTMLBook/#_strong_generally_for_bold
+ * @see https://oreillymedia.github.io/HTMLBook/#_strong_generally_for_bold
  */
 class Strong {
 

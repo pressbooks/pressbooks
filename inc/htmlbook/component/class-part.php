@@ -23,7 +23,7 @@ namespace Pressbooks\HTMLBook\Component;
  *       </section>
  *     </div>
  *
- * @see http://oreillymedia.github.io/HTMLBook/#_part
+ * @see https://oreillymedia.github.io/HTMLBook/#_part
  */
 class Part {
 

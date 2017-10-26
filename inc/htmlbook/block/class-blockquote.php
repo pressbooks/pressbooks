@@ -29,7 +29,7 @@ namespace Pressbooks\HTMLBook\Block;
  *       <p>In this final chapter of the book, we will…<p>
  *     </section>
  *
- * @see http://oreillymedia.github.io/HTMLBook/#_blockquote
+ * @see https://oreillymedia.github.io/HTMLBook/#_blockquote
  */
 class Blockquote {
 

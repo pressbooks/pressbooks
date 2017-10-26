@@ -23,7 +23,7 @@ namespace Pressbooks\HTMLBook\Component;
  *       </section>
  *     </section>
  *
- * @see http://oreillymedia.github.io/HTMLBook/#_preface
+ * @see https://oreillymedia.github.io/HTMLBook/#_preface
  */
 class Preface {
 

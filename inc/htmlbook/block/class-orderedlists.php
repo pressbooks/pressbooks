@@ -24,7 +24,7 @@ namespace Pressbooks\HTMLBook\Block;
  *       <!-- And so on -->
  *     </ol>
  *
- * @see http://oreillymedia.github.io/HTMLBook/#_ordered_lists
+ * @see https://oreillymedia.github.io/HTMLBook/#_ordered_lists
  */
 class OrderedLists {
 

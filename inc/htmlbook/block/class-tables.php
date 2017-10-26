@@ -59,7 +59,7 @@ namespace Pressbooks\HTMLBook\Block;
  *       </tbody>
  *     </table>
  *
- * @see http://oreillymedia.github.io/HTMLBook/#_tables
+ * @see https://oreillymedia.github.io/HTMLBook/#_tables
  */
 class Tables {
 

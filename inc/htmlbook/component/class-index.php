@@ -36,7 +36,7 @@ namespace Pressbooks\HTMLBook\Component;
  *       </div>
  *     </section>
  *
- * @see http://oreillymedia.github.io/HTMLBook/#_index
+ * @see https://oreillymedia.github.io/HTMLBook/#_index
  */
 class Index {
 

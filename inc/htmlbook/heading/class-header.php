@@ -21,7 +21,7 @@ namespace Pressbooks\HTMLBook\Heading;
  *       <!-- Chapter content here... -->
  *     </section>
  *
- * @see http://oreillymedia.github.io/HTMLBook/#header_block
+ * @see https://oreillymedia.github.io/HTMLBook/#header_block
  */
 class Header {
 

@@ -39,7 +39,7 @@ namespace Pressbooks\HTMLBook\Component;
  *       </section>
  *     </section>
  *
- * @see http://oreillymedia.github.io/HTMLBook/#_sections
+ * @see https://oreillymedia.github.io/HTMLBook/#_sections
  */
 class Sections {
 

@@ -11,7 +11,7 @@ namespace Pressbooks\HTMLBook\Inline;
  *
  *     <p>Enter <code>echo "Hello World"</code> on the command line</p>
  *
- * @see http://oreillymedia.github.io/HTMLBook/#_literal_for_inline_code_elements_variables_functions_etc
+ * @see https://oreillymedia.github.io/HTMLBook/#_literal_for_inline_code_elements_variables_functions_etc
  */
 class Literal {
 

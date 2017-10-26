@@ -24,7 +24,7 @@ namespace Pressbooks\HTMLBook\Component;
  *
  * Note: Just as in standard HTML5, <body> is a child of the root <html> element.
  *
- * @see http://oreillymedia.github.io/HTMLBook/#_book
+ * @see https://oreillymedia.github.io/HTMLBook/#_book
  */
 class Book {
 

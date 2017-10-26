@@ -7,7 +7,14 @@ use Masterminds\HTML5;
 /**
  * Based on HTMLBook (Unofficial Draft 16 February 2016)
  *
- * @see http://oreillymedia.github.io/HTMLBook
+ * + HTMLBook is a subset of XHTML5. All HTMLBook is XHTML5, but not all XHTML5 is HTMLBook.
+ * + HTMLBook contains no additional elements or attributes outside of the XHTML5 specification.
+ * + HTMLBook is semantically tailored to the structure of a book, including more complex content used in technical and reference documents.
+ * + HTMLBook is defined with and can be validated against an XML schema.
+ * + HTMLBook stylesheets are written in CSS.
+ *
+ * @see https://github.com/oreillymedia/HTMLBook
+ * @see https://oreillymedia.github.io/HTMLBook
  */
 class Element {
 
@@ -17,7 +24,7 @@ class Element {
 	 * Content, and Sectioning Content) are considered to be Block Elements. Here is
 	 * a complete list:
 	 *
-	 * @see http://oreillymedia.github.io/HTMLBook/#block_elements
+	 * @see https://oreillymedia.github.io/HTMLBook/#block_elements
 	 *
 	 * @var array
 	 */
@@ -54,7 +61,7 @@ class Element {
 	 * In HTMLBook, the majority of elements classified by the HTML5 specification as
 	 * Phrasing Content are considered to be Inline Elements. Here is a complete list:
 	 *
-	 * @see http://oreillymedia.github.io/HTMLBook/#inline_elements
+	 * @see https://oreillymedia.github.io/HTMLBook/#inline_elements
 	 *
 	 * @var array
 	 */

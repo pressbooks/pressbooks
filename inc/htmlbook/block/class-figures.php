@@ -18,7 +18,7 @@ namespace Pressbooks\HTMLBook\Block;
  *       <img src="cute_kitty.gif" alt="Photo of an adorable cat"/>
  *     </figure>
  *
- * @see http://oreillymedia.github.io/HTMLBook/#_figures
+ * @see https://oreillymedia.github.io/HTMLBook/#_figures
  */
 class Figures {
 

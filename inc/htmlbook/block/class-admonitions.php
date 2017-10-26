@@ -25,7 +25,7 @@ use Pressbooks\HTMLBook\Element;
  *
  *     <div data-type="warning">Make sure to get your AsciiDoc markup right!</div>
  *
- * @see http://oreillymedia.github.io/HTMLBook/#_admonitions
+ * @see https://oreillymedia.github.io/HTMLBook/#_admonitions
  */
 class Admonitions extends Element {
 

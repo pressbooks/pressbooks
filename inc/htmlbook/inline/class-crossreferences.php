@@ -18,7 +18,7 @@ namespace Pressbooks\HTMLBook\Inline;
  *       <!-- Blah blah blah -->
  *     </section>
  *
- * @see http://oreillymedia.github.io/HTMLBook/#_cross_references
+ * @see https://oreillymedia.github.io/HTMLBook/#_cross_references
  */
 class CrossReferences {
 

@@ -21,7 +21,7 @@ namespace Pressbooks\HTMLBook\Block;
  *       <!-- And so on -->
  *     </ul>
  *
- * @see http://oreillymedia.github.io/HTMLBook/#_itemized_lists
+ * @see https://oreillymedia.github.io/HTMLBook/#_itemized_lists
  */
 class ItemizedLists {
 

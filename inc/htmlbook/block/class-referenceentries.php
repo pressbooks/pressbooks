@@ -32,7 +32,7 @@ namespace Pressbooks\HTMLBook\Block;
  *       </div>
  *     </div>
  *
- * @see http://oreillymedia.github.io/HTMLBook/#_refentry
+ * @see https://oreillymedia.github.io/HTMLBook/#_refentry
  */
 class ReferenceEntries {
 

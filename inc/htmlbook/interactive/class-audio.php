@@ -19,7 +19,7 @@ namespace Pressbooks\HTMLBook\Interactive;
  *       reading system. Hear the audio online at http://example.com.</em>
  *     </audio>
  *
- * @see http://oreillymedia.github.io/HTMLBook/#_audio
+ * @see https://oreillymedia.github.io/HTMLBook/#_audio
  */
 class Audio {
 

@@ -20,7 +20,7 @@ namespace Pressbooks\HTMLBook\Block;
  *       <pre data-type="programlisting">print "Hello World"</pre>
  *     </div>
  *
- * @see http://oreillymedia.github.io/HTMLBook/#_examples
+ * @see https://oreillymedia.github.io/HTMLBook/#_examples
  */
 class Examples {
 

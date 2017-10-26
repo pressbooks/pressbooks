@@ -29,7 +29,7 @@ namespace Pressbooks\HTMLBook\Inline;
  *    section, adding appropriate marker symbols/numeration) should be handled by XSL/CSS stylesheet
  *    processing.
  *
- * @see http://oreillymedia.github.io/HTMLBook/#_footnote_endnote
+ * @see https://oreillymedia.github.io/HTMLBook/#_footnote_endnote
  */
 class Footnote {
 

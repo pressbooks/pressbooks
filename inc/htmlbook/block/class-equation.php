@@ -24,7 +24,7 @@ namespace Pressbooks\HTMLBook\Block;
  *       </math>
  *     </div>
  *
- * @see http://oreillymedia.github.io/HTMLBook/#_equation
+ * @see https://oreillymedia.github.io/HTMLBook/#_equation
  */
 class Equation {
 

@@ -28,7 +28,7 @@ namespace Pressbooks\HTMLBook\Heading;
  *     sect5 title -> h5
  *     sidebar title -> h5
  *
- * @see http://oreillymedia.github.io/HTMLBook/#_headings
+ * @see https://oreillymedia.github.io/HTMLBook/#_headings
  */
 abstract class Headings {
 

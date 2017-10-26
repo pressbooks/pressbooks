@@ -22,7 +22,7 @@ namespace Pressbooks\HTMLBook\Block;
  *       <dd>Used to indicate user input</dd>
  *     </dl>
  *
- * @see http://oreillymedia.github.io/HTMLBook/#_definition_lists
+ * @see https://oreillymedia.github.io/HTMLBook/#_definition_lists
  */
 class DefinitionLists {
 

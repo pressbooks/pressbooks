@@ -11,7 +11,7 @@ namespace Pressbooks\HTMLBook\Inline;
  *
  *     <p>The formula for water is H<sub>2</sub>O</p>
  *
- * @see http://oreillymedia.github.io/HTMLBook/#_subscripts
+ * @see https://oreillymedia.github.io/HTMLBook/#_subscripts
  */
 class Subscripts {
 

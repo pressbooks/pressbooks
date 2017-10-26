@@ -31,7 +31,7 @@ namespace Pressbooks\HTMLBook\Component;
  *       </dl>
  *     </section>
  *
- * @see http://oreillymedia.github.io/HTMLBook/#glossary
+ * @see https://oreillymedia.github.io/HTMLBook/#glossary
  */
 class Glossary {
 

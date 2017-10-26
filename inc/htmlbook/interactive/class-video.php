@@ -19,7 +19,7 @@ namespace Pressbooks\HTMLBook\Interactive;
  *       reading system. View the video online at http://example.com.</em>
  *     </video>
  *
- * @see http://oreillymedia.github.io/HTMLBook/#_video
+ * @see https://oreillymedia.github.io/HTMLBook/#_video
  */
 class Video {
 

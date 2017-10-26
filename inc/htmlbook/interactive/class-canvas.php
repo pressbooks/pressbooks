@@ -17,7 +17,7 @@ namespace Pressbooks\HTMLBook\Interactive;
  *       Your browser does not support the HTML 5 Canvas. See the interactive example at http://example.com.
  *     </canvas>
  *
- * @see http://oreillymedia.github.io/HTMLBook/#_canvas
+ * @see https://oreillymedia.github.io/HTMLBook/#_canvas
  */
 class Canvas {
 

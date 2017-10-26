@@ -11,7 +11,7 @@ namespace Pressbooks\HTMLBook\Inline;
  *
  *     <p>The area of a circle is πr<sup>2</sup></p>
  *
- * @see http://oreillymedia.github.io/HTMLBook/#_superscripts
+ * @see https://oreillymedia.github.io/HTMLBook/#_superscripts
  */
 class Superscripts {
 

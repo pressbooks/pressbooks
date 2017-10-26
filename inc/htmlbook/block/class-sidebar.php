@@ -18,7 +18,7 @@ namespace Pressbooks\HTMLBook\Block;
  *       <p>Did you know that in Boston, they call it "soda", and in Chicago, they call it "pop"?</p>
  *     </aside>
  *
- * @see http://oreillymedia.github.io/HTMLBook/#_sidebar
+ * @see https://oreillymedia.github.io/HTMLBook/#_sidebar
  */
 class Sidebar {
 

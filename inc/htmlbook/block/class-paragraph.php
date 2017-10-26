@@ -11,7 +11,7 @@ namespace Pressbooks\HTMLBook\Block;
  *
  *     <p>This is a standard paragraph with some <em>emphasized text</em></p>
  *
- * @see http://oreillymedia.github.io/HTMLBook/#_paragraph
+ * @see https://oreillymedia.github.io/HTMLBook/#_paragraph
  */
 class Paragraph {
 

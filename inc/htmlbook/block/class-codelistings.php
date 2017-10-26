@@ -18,7 +18,7 @@ use Pressbooks\HTMLBook\Element;
  *
  *     <pre data-type="programlisting">print "<em>Hello World</em>"</pre>
  *
- * @see http://oreillymedia.github.io/HTMLBook/#_code_listings
+ * @see https://oreillymedia.github.io/HTMLBook/#_code_listings
  */
 class CodeListings extends Element {
 

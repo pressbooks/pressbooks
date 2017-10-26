@@ -21,7 +21,7 @@ namespace Pressbooks\HTMLBook\Inline;
  *     <p>The Atlas build system<a data-type="indexterm" data-primary="Atlas" data-secondary="build system"/> lets
  *     you build EPUB, Mobi, PDF, and HTML content</p>
  *
- * @see http://oreillymedia.github.io/HTMLBook/#_index_term
+ * @see https://oreillymedia.github.io/HTMLBook/#_index_term
  */
 class IndexTerm {
 

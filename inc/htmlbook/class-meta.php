@@ -20,7 +20,7 @@ namespace Pressbooks\HTMLBook;
  *       <meta name="isbn-13" content="9781449344856"/>
  *     </head>
  *
- * @see http://oreillymedia.github.io/HTMLBook/#_metadata_points
+ * @see https://oreillymedia.github.io/HTMLBook/#_metadata_points
  */
 class Meta {
 

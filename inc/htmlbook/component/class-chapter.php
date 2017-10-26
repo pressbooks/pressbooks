@@ -24,7 +24,7 @@ namespace Pressbooks\HTMLBook\Component;
  *       </section>
  *     </section>
  *
- * @see http://oreillymedia.github.io/HTMLBook/#_chapter
+ * @see https://oreillymedia.github.io/HTMLBook/#_chapter
  */
 class Chapter {
 

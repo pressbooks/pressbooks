@@ -11,7 +11,7 @@ namespace Pressbooks\HTMLBook\Inline;
  *
  *     <p>I <em>love</em> HTML!</p>
  *
- * @see http://oreillymedia.github.io/HTMLBook/#_emphasis_generally_for_italic
+ * @see https://oreillymedia.github.io/HTMLBook/#_emphasis_generally_for_italic
  */
 class Emphasis {
 
