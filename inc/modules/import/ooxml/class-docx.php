@@ -736,21 +736,29 @@ class Docx extends Import {
 		);
 
 		foreach ( $relations->Relationship as $rel ) {
-			if ( (string) $rel['Type'] === $schema ) {
+			// must be cast as a string to avoid returning SimpleXml Object.
+			$rel_type = (string) $rel['Type'];
+			$rel_id = (string) $rel['Id'];
+			$rel_target = (string) $rel['Target'];
+			if ( $rel_type === $schema ) {
 				switch ( $id ) {
-					// must be cast as a string to avoid returning SimpleXml Object.
 					case 'footnotes':
-						$path = 'word/' . (string) $rel['Target'];
-						break;
 					case 'endnotes':
-						$path = 'word/' . (string) $rel['Target'];
+						$path = 'word/' . $rel_target;
 						break;
 					case 'hyperlink':
 						$path = [];
-						$path[ "{$rel['Id']}" ] = (string) $rel['Target'];
+						$path[ $rel_id ] = $rel_target;
 						break;
 					default:
-						$path = (string) $rel['Target'];
+						if ( $rel_type === self::IMAGE_SCHEMA ) {
+							if ( $id === $rel_id ) {
+								$path = $rel_target;
+								break 2; // Unique id was found, break out of foreach
+							}
+						} else {
+							$path = $rel_target;
+						}
 						break;
 				}
 			}
