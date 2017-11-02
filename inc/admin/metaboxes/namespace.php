@@ -772,13 +772,13 @@ function metadata_save_box( $post ) {
  */
 function metadata_subject_box( $post ) {
 	wp_nonce_field( basename( __FILE__ ), 'subject_meta_nonce' );
-	$nonacademic_subject = get_post_meta( $post->ID, 'pb_nonacademic_subject', true );
+	$nonacademic_subject = get_post_meta( $post->ID, 'pb_general_subject', true );
 	$academic_subject = get_post_meta( $post->ID, 'pb_academic_subject', true ); ?>
 	<div class="custom-metadata-field select">
-		<label for="pb_nonacademic_subject"><?php _e( 'Non-academic Subject', 'pressbooks' ); ?></label>
-		<select id="nonacademic-subject" name="pb_nonacademic_subject">
+		<label for="pb_general_subject"><?php _e( 'General Subject', 'pressbooks' ); ?></label>
+		<select id="general-subject" name="pb_general_subject">
 		<option value=""></option>
-		<?php foreach ( \Pressbooks\Metadata\get_nonacademic_subjects() as $subject_group ) { ?>
+		<?php foreach ( \Pressbooks\Metadata\get_general_subjects() as $subject_group ) { ?>
 		<optgroup label="<?php echo $subject_group['label']; ?>">
 			<?php foreach ( $subject_group['children'] as $subject ) { ?>
 			<option value="<?php echo $subject['slug']; ?>" <?php selected( $nonacademic_subject, $subject['slug'] ); ?>><?php echo $subject['label']; ?></option>
@@ -805,6 +805,8 @@ function metadata_subject_box( $post ) {
 /**
  * Save subject metadata
  *
+ * @since 4.4.0
+ *
  * @param int $post_id The post ID.
  */
 function save_subject_metadata( $post_id ) {
@@ -814,10 +816,10 @@ function save_subject_metadata( $post_id ) {
 	if ( ! current_user_can( 'edit_post', $post_id ) ) {
 		return;
 	}
-	if ( isset( $_REQUEST['pb_nonacademic_subject'] ) && ! empty( $_REQUEST['pb_nonacademic_subject'] ) ) {
-		update_post_meta( $post_id, 'pb_nonacademic_subject', sanitize_text_field( $_POST['pb_nonacademic_subject'] ) );
+	if ( isset( $_REQUEST['pb_general_subject'] ) && ! empty( $_REQUEST['pb_general_subject'] ) ) {
+		update_post_meta( $post_id, 'pb_general_subject', sanitize_text_field( $_POST['pb_general_subject'] ) );
 	} else {
-		delete_post_meta( $post_id, 'pb_nonacademic_subject' );
+		delete_post_meta( $post_id, 'pb_general_subject' );
 	}
 	if ( isset( $_REQUEST['pb_academic_subject'] ) && ! empty( $_REQUEST['pb_academic_subject'] ) ) {
 		update_post_meta( $post_id, 'pb_academic_subject', sanitize_text_field( $_POST['pb_academic_subject'] ) );

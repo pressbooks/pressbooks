@@ -625,9 +625,13 @@ function schema_to_section_information( $section_schema, $book_schema ) {
 }
 
 /**
+ * Return an array of general subjects.
+ *
  * @since 4.4.0
+ *
+ * @return array
  */
-function get_nonacademic_subjects() {
+function get_general_subjects() {
 	return [
 		[
 			'slug' => 'fiction',
@@ -680,7 +684,11 @@ function get_nonacademic_subjects() {
 }
 
 /**
+ * Return an array of academic subjects.
+ *
  * @since 4.4.0
+ *
+ * @return array
  */
 function get_academic_subjects() {
 	return [
@@ -693,7 +701,7 @@ function get_academic_subjects() {
 				[ 'slug' => 'business-management-information-systems','label' => __( 'Management & Information Systems', 'pressbooks' ) ],
 				[ 'slug' => 'business-marketing','label' => __( 'Marketing', 'pressbooks' ) ],
 				[ 'slug' => 'business-economics','label' => __( 'Economics', 'pressbooks' ) ],
-				[ 'slug' => 'business-other','label' => __( 'Other', 'pressbooks' ) ],
+				[ 'slug' => 'business-other','label' => __( 'Other Business', 'pressbooks' ) ],
 			],
 		],
 		[
@@ -705,7 +713,7 @@ function get_academic_subjects() {
 				[ 'slug' => 'education-physical-education', 'label' => __( 'Physical Education', 'pressbooks' ) ],
 				[ 'slug' => 'education-secondary-education','label' => __( 'Secondary Education', 'pressbooks' ) ],
 				[ 'slug' => 'education-post-secondary', 'label' => __( 'Post-secondary Education', 'pressbooks' ) ],
-				[ 'slug' => 'education-other', 'label' => __( 'Other', 'pressbooks' ) ],
+				[ 'slug' => 'education-other', 'label' => __( 'Other Education', 'pressbooks' ) ],
 			],
 		],
 		[
@@ -721,7 +729,7 @@ function get_academic_subjects() {
 				[ 'slug' => 'engineering-technology-mining-materials', 'label' => __( 'Mining & Materials', 'pressbooks' ) ],
 				[ 'slug' => 'engineering-technology-urban-planning', 'label' => __( 'Urban Planning', 'pressbooks' ) ],
 				[ 'slug' => 'engineering-technology-computer-science-software-engineering', 'label' => __( 'Computer Science & Software Engineering', 'pressbooks' ) ],
-				[ 'slug' => 'engineering-technology-other', 'label' => __( 'Other', 'pressbooks' ) ],
+				[ 'slug' => 'engineering-technology-other', 'label' => __( 'Other Engineering & Technology', 'pressbooks' ) ],
 			],
 		],
 		[
@@ -738,7 +746,7 @@ function get_academic_subjects() {
 				[ 'slug' => 'health-sciences-psychiatry-behavioural-sciences', 'label' => __( 'Psychiatry & Behavioural Sciences', 'pressbooks' ) ],
 				[ 'slug' => 'health-sciences-public-health-healthy-policy', 'label' => __( 'Public Health & Healthy Policy', 'pressbooks' ) ],
 				[ 'slug' => 'health-sciences-sports-medicine', 'label' => __( 'Sports Medicine', 'pressbooks' ) ],
-				[ 'slug' => 'health-sciences-other', 'label' => __( 'Other', 'pressbooks' ) ],
+				[ 'slug' => 'health-sciences-other', 'label' => __( 'Other Health Sciences', 'pressbooks' ) ],
 			],
 		],
 		[
@@ -756,7 +764,7 @@ function get_academic_subjects() {
 				[ 'slug' => 'humanities-arts-music', 'label' => __( 'Music', 'pressbooks' ) ],
 				[ 'slug' => 'humanities-arts-philosophy', 'label' => __( 'Philosophy', 'pressbooks' ) ],
 				[ 'slug' => 'humanities-arts-religious-studies', 'label' => __( 'Religious Studies', 'pressbooks' ) ],
-				[ 'slug' => 'humanities-arts-other', 'label' => __( 'Other', 'pressbooks' ) ],
+				[ 'slug' => 'humanities-arts-other', 'label' => __( 'Other Humanities & Arts', 'pressbooks' ) ],
 			],
 		],
 		[
@@ -769,7 +777,7 @@ function get_academic_subjects() {
 				[ 'slug' => 'law-intellectual-property', 'label' => __( 'Intellectual Property', 'pressbooks' ) ],
 				[ 'slug' => 'law-international-trade', 'label' => __( 'International & Trade', 'pressbooks' ) ],
 				[ 'slug' => 'law-public-law-policy', 'label' => __( 'Public Law & Policy', 'pressbooks' ) ],
-				[ 'slug' => 'law-other', 'label' => __( 'Other', 'pressbooks' ) ],
+				[ 'slug' => 'law-other', 'label' => __( 'Other Law', 'pressbooks' ) ],
 			],
 		],
 		[
@@ -780,7 +788,7 @@ function get_academic_subjects() {
 				[ 'slug' => 'support-resources-student-guides', 'label' => __( 'Student Guides', 'pressbooks' ) ],
 				[ 'slug' => 'support-resources-teaching-guides', 'label' => __( 'Teaching Guides', 'pressbooks' ) ],
 				[ 'slug' => 'support-resources-toolkits', 'label' => __( 'Toolkits', 'pressbooks' ) ],
-				[ 'slug' => 'support-resources-other', 'label' => __( 'Other', 'pressbooks' ) ],
+				[ 'slug' => 'support-resources-other', 'label' => __( 'Other Support Resources', 'pressbooks' ) ],
 			],
 		],
 		[
@@ -793,7 +801,7 @@ function get_academic_subjects() {
 				[ 'slug' => 'sciences-geography', 'label' => __( 'Geography', 'pressbooks' ) ],
 				[ 'slug' => 'sciences-mathematics', 'label' => __( 'Mathematics', 'pressbooks' ) ],
 				[ 'slug' => 'sciences-physics', 'label' => __( 'Physics', 'pressbooks' ) ],
-				[ 'slug' => 'sciences-other', 'label' => __( 'Other', 'pressbooks' ) ],
+				[ 'slug' => 'sciences-other', 'label' => __( 'Other Sciences', 'pressbooks' ) ],
 			],
 		],
 		[
@@ -809,7 +817,7 @@ function get_academic_subjects() {
 				[ 'slug' => 'social-sciences-psychology', 'label' => __( 'Psychology', 'pressbooks' ) ],
 				[ 'slug' => 'social-sciences-social-work', 'label' => __( 'Social Work', 'pressbooks' ) ],
 				[ 'slug' => 'social-sciences-sociology', 'label' => __( 'Sociology', 'pressbooks' ) ],
-				[ 'slug' => 'social-sciences-other', 'label' => __( 'Other', 'pressbooks' ) ],
+				[ 'slug' => 'social-sciences-other', 'label' => __( 'Other Social Sciences', 'pressbooks' ) ],
 			],
 		],
 	];
