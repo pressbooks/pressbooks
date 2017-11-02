@@ -366,6 +366,8 @@ function add_meta_boxes() {
 		]
 	);
 
+	add_meta_box( 'subjects', __( 'Subjects', 'pressbooks' ), __NAMESPACE__ . '\metadata_subject_box', 'metadata', 'normal', 'low' );
+
 	if ( $show_expanded_metadata ) {
 		x_add_metadata_group(
 			'additional-catalog-information', 'metadata', [
@@ -759,4 +761,67 @@ function metadata_save_box( $post ) {
 		<input name="original_publish" type="hidden" id="original_publish" value="Publish"/>
 		<input name="publish" id="publish" type="submit" class="button button-primary button-large" value="Save" tabindex="5" accesskey="p"/>
 	<?php }
+}
+
+/**
+ * Display subjects meta box
+ *
+ * @since 4.4.0
+ *
+ * @param \WP_Post $post
+ */
+function metadata_subject_box( $post ) {
+	wp_nonce_field( basename( __FILE__ ), 'subject_meta_nonce' );
+	$nonacademic_subject = get_post_meta( $post->ID, 'pb_nonacademic_subject', true );
+	$academic_subject = get_post_meta( $post->ID, 'pb_academic_subject', true ); ?>
+	<div class="custom-metadata-field select">
+		<label for="pb_nonacademic_subject"><?php _e( 'Non-academic Subject', 'pressbooks' ); ?></label>
+		<select id="nonacademic-subject" name="pb_nonacademic_subject">
+		<option value=""></option>
+		<?php foreach ( \Pressbooks\Metadata\get_nonacademic_subjects() as $subject_group ) { ?>
+		<optgroup label="<?php echo $subject_group['label']; ?>">
+			<?php foreach ( $subject_group['children'] as $subject ) { ?>
+			<option value="<?php echo $subject['slug']; ?>" <?php selected( $nonacademic_subject, $subject['slug'] ); ?>><?php echo $subject['label']; ?></option>
+			<?php } ?>
+		</optgroup>
+		<?php } ?>
+		</select>
+	</div>
+	<div class="custom-metadata-field select">
+		<label for="pb_academic_subject"><?php _e( 'Academic Subject', 'pressbooks' ); ?></label>
+		<select id="academic-subject" name="pb_academic_subject">
+		<option value=""></option>
+		<?php foreach ( \Pressbooks\Metadata\get_academic_subjects() as $subject_group ) { ?>
+		<optgroup label="<?php echo $subject_group['label']; ?>">
+			<?php foreach ( $subject_group['children'] as $subject ) { ?>
+			<option value="<?php echo $subject['slug']; ?>" <?php selected( $academic_subject, $subject['slug'] ); ?>><?php echo $subject['label']; ?></option>
+			<?php } ?>
+		</optgroup>
+		<?php } ?>
+		</select>
+	</div><?php
+}
+
+/**
+ * Save subject metadata
+ *
+ * @param int $post_id The post ID.
+ */
+function save_subject_metadata( $post_id ) {
+	if ( ! isset( $_POST['subject_meta_nonce'] ) || ! wp_verify_nonce( $_POST['subject_meta_nonce'], basename( __FILE__ ) ) ) {
+		return;
+	}
+	if ( ! current_user_can( 'edit_post', $post_id ) ) {
+		return;
+	}
+	if ( isset( $_REQUEST['pb_nonacademic_subject'] ) && ! empty( $_REQUEST['pb_nonacademic_subject'] ) ) {
+		update_post_meta( $post_id, 'pb_nonacademic_subject', sanitize_text_field( $_POST['pb_nonacademic_subject'] ) );
+	} else {
+		delete_post_meta( $post_id, 'pb_nonacademic_subject' );
+	}
+	if ( isset( $_REQUEST['pb_academic_subject'] ) && ! empty( $_REQUEST['pb_academic_subject'] ) ) {
+		update_post_meta( $post_id, 'pb_academic_subject', sanitize_text_field( $_POST['pb_academic_subject'] ) );
+	} else {
+		delete_post_meta( $post_id, 'pb_academic_subject' );
+	}
 }
