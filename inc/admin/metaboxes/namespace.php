@@ -772,7 +772,11 @@ function metadata_save_box( $post ) {
  */
 function metadata_subject_box( $post ) {
 	wp_nonce_field( basename( __FILE__ ), 'subject_meta_nonce' );
-	$pb_subject = get_post_meta( $post->ID, 'pb_subject', true ); ?>
+	$pb_primary_subject = get_post_meta( $post->ID, 'pb_primary_subject', true );
+	$pb_additional_subjects = get_post_meta( $post->ID, 'pb_additional_subjects', true );
+	if ( ! $pb_additional_subjects ) {
+		$pb_additional_subjects = [];
+	} ?>
 	<div class="custom-metadata-field select">
 		<label for="pb_primary_subject"><?php _e( 'Primary Subject', 'pressbooks' ); ?></label>
 		<select id="primary-subject" name="pb_primary_subject">
@@ -780,7 +784,7 @@ function metadata_subject_box( $post ) {
 			<?php foreach ( \Pressbooks\Metadata\get_thema_subjects() as $subject_group ) { ?>
 			<optgroup label="<?php echo $subject_group['label']; ?>">
 				<?php foreach ( $subject_group['children'] as $key => $value ) { ?>
-				<option value="<?php echo $key; ?>" <?php selected( $pb_subject, $key ); ?>><?php echo $value; ?></option>
+				<option value="<?php echo $key; ?>" <?php selected( $pb_primary_subject, $key ); ?>><?php echo $value; ?></option>
 				<?php } ?>
 			</optgroup>
 			<?php } ?>
@@ -789,12 +793,12 @@ function metadata_subject_box( $post ) {
 	</div>
 	<div class="custom-metadata-field select">
 		<label for="pb_additional_subjects"><?php _e( 'Additional Subject(s)', 'pressbooks' ); ?></label>
-		<select id="additional-subjects" name="pb_additional_subjects" multiple>
+		<select id="additional-subjects" name="pb_additional_subjects[]" multiple>
 			<option value=""></option>
 			<?php foreach ( \Pressbooks\Metadata\get_thema_subjects( true ) as $subject_group ) { ?>
 			<optgroup label="<?php echo $subject_group['label']; ?>">
 				<?php foreach ( $subject_group['children'] as $key => $value ) { ?>
-				<option value="<?php echo $key; ?>" <?php selected( $pb_subject, $key ); ?>><?php echo $value; ?></option>
+				<option value="<?php echo $key; ?>" <?php selected( in_array( $key, $pb_additional_subjects, true ), true ); ?>><?php echo $value; ?></option>
 				<?php } ?>
 			</optgroup>
 			<?php } ?>
@@ -825,7 +829,8 @@ function save_subject_metadata( $post_id ) {
 	}
 
 	if ( isset( $_REQUEST['pb_additional_subjects'] ) && ! empty( $_REQUEST['pb_additional_subjects'] ) ) {
-		update_post_meta( $post_id, 'pb_additional_subjects', array_map( 'sanitize_text_field', $_POST['pb_additional_subjects'] ) );
+		$value = ( is_array( $_POST['pb_additional_subjects'] ) ) ? $_POST['pb_additional_subjects'] : [ $_POST['pb_additional_subjects'] ];
+		update_post_meta( $post_id, 'pb_additional_subjects', array_map( 'sanitize_text_field', $value ) );
 	} else {
 		delete_post_meta( $post_id, 'pb_additional_subjects' );
 	}
