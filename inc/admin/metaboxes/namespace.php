@@ -366,7 +366,7 @@ function add_meta_boxes() {
 		]
 	);
 
-	add_meta_box( 'subject', __( 'Subject', 'pressbooks' ), __NAMESPACE__ . '\metadata_subject_box', 'metadata', 'normal', 'low' );
+	add_meta_box( 'subject', __( 'Subject(s)', 'pressbooks' ), __NAMESPACE__ . '\metadata_subject_box', 'metadata', 'normal', 'low' );
 
 	if ( $show_expanded_metadata ) {
 		x_add_metadata_group(
