@@ -193,6 +193,7 @@ function book_information_to_schema( $book_information ) {
 		 'pb_ebook_isbn' => 'isbn',
 		 'pb_keywords_tags' => 'keywords',
 		 'pb_subtitle' => 'alternativeHeadline',
+		 'pb_subject' => 'genre',
 		 'pb_language' => 'inLanguage',
 		 'pb_copyright_year' => 'copyrightYear',
 		 'pb_about_50' => 'disambiguatingDescription',
@@ -336,6 +337,7 @@ function schema_to_book_information( $book_schema ) {
 		'isbn' => 'pb_ebook_isbn',
 		'keywords' => 'pb_keywords_tags',
 		'alternativeHeadline' => 'pb_subtitle',
+		'genre' => 'pb_subject',
 		'inLanguage' => 'pb_language',
 		'copyrightYear' => 'pb_copyright_year',
 		'disambiguatingDescription' => 'pb_about_50',
@@ -624,201 +626,49 @@ function schema_to_section_information( $section_schema, $book_schema ) {
 	return $section_information;
 }
 
+
 /**
- * Return an array of general subjects.
+ * Return an array of Thema subject categories.
  *
  * @since 4.4.0
  *
+ * @param bool $include_qualifiers Whether or not the Theme subject qualifiers should be included.
  * @return array
  */
-function get_general_subjects() {
-	return [
-		[
-			'slug' => 'fiction',
-			'label' => __( 'Fiction', 'pressbooks' ),
-			'children' => [
-				[ 'slug' => 'fiction-action-adventure', 'label' => __( 'Action & Adventure', 'pressbooks' ) ],
-				[ 'slug' => 'fiction-crime', 'label' => __( 'Crime', 'pressbooks' ) ],
-				[ 'slug' => 'fiction-children-juvenile', 'label' => __( 'Children & Juvenile', 'pressbooks' ) ],
-				[ 'slug' => 'fiction-erotic', 'label' => __( 'Erotic', 'pressbooks' ) ],
-				[ 'slug' => 'fiction-general', 'label' => __( 'General Fiction', 'pressbooks' ) ],
-				[ 'slug' => 'fiction-historical', 'label' => __( 'Historical', 'pressbooks' ) ],
-				[ 'slug' => 'fiction-humor-comedy', 'label' => __( 'Humor & Comedy', 'pressbooks' ) ],
-				[ 'slug' => 'fiction-lgbtq', 'label' => __( 'LGBTQ+', 'pressbooks' ) ],
-				[ 'slug' => 'fiction-literary', 'label' => __( 'Literary', 'pressbooks' ) ],
-				[ 'slug' => 'fiction-mystery-suspense', 'label' => __( 'Mystery & Suspense', 'pressbooks' ) ],
-				[ 'slug' => 'fiction-poetry', 'label' => __( 'Poetry', 'pressbooks' ) ],
-				[ 'slug' => 'fiction-political', 'label' => __( 'Political', 'pressbooks' ) ],
-				[ 'slug' => 'fiction-religious', 'label' => __( 'Religious', 'pressbooks' ) ],
-				[ 'slug' => 'fiction-romance', 'label' => __( 'Romance', 'pressbooks' ) ],
-				[ 'slug' => 'fiction-sci-fi-fantasy', 'label' => __( 'Sci-Fi & Fantasy', 'pressbooks' ) ],
-				[ 'slug' => 'fiction-short-stories', 'label' => __( 'Short Stories', 'pressbooks' ) ],
-				[ 'slug' => 'fiction-thriller-horror', 'label' => __( 'Thriller & Horror', 'pressbooks' ) ],
-				[ 'slug' => 'fiction-young-adult', 'label' => __( 'Young Adult', 'pressbooks' ) ],
-			],
-		],
-		[
-			'slug' => 'non-fiction',
-			'label' => __( 'Non-fiction', 'pressbooks' ),
-			'children' => [
-				[ 'slug' => 'non-fiction-art-design-photography','label' => __( 'Art, Design & Photography', 'pressbooks' ) ],
-				[ 'slug' => 'non-fiction-biography-memoir','label' => __( 'Biography & Memoir', 'pressbooks' ) ],
-				[ 'slug' => 'non-fiction-business-economics','label' => __( 'Business & Economics', 'pressbooks' ) ],
-				[ 'slug' => 'non-fiction-environment-science-nature','label' => __( 'Environment, Science & Nature', 'pressbooks' ) ],
-				[ 'slug' => 'non-fiction-essays','label' => __( 'Essays', 'pressbooks' ) ],
-				[ 'slug' => 'non-fiction-family-relationships','label' => __( 'Family & Relationships', 'pressbooks' ) ],
-				[ 'slug' => 'non-fiction-general-non-fiction', 'label' => __( 'General Non-fiction', 'pressbooks' ) ],
-				[ 'slug' => 'non-fiction-health-well-being','label' => __( 'Health & Well-being', 'pressbooks' ) ],
-				[ 'slug' => 'non-fiction-home-food-drink','label' => __( 'Home, Food & Drink', 'pressbooks' ) ],
-				[ 'slug' => 'non-fiction-how-to-advice','label' => __( 'How-To & Advice', 'pressbooks' ) ],
-				[ 'slug' => 'non-fiction-humor-comedy','label' => __( 'Humor & Comedy', 'pressbooks' ) ],
-				[ 'slug' => 'non-fiction-reference-language','label' => __( 'Reference & Language', 'pressbooks' ) ],
-				[ 'slug' => 'non-fiction-religion-spirituality', 'label' => __( 'Religion & Spirituality', 'pressbooks' ) ],
-				[ 'slug' => 'non-fiction-social-political','label' => __( 'Social & Political', 'pressbooks' ) ],
-				[ 'slug' => 'non-fiction-sports-games','label' => __( 'Sports & Games', 'pressbooks' ) ],
-				[ 'slug' => 'non-fiction-technology','label' => __( 'Technology', 'pressbooks' ) ],
-				[ 'slug' => 'non-fiction-travel','label' => __( 'Travel', 'pressbooks' ) ],
-			],
-		],
-	];
+function get_thema_subjects( $include_qualifiers = false ) {
+	$json = file_get_contents( PB_PLUGIN_DIR . 'symbionts/Thema_v1.2_en.json' );
+	$values = json_decode( $json );
+	$subjects = [];
+	foreach ( $values->CodeList->Code as $code ) {
+		if ( ctype_alpha( substr( $code->CodeValue, 0, 1 ) ) || $include_qualifiers && ctype_digit( substr( $code->CodeValue, 0, 1 ) ) ) {
+			if ( strlen( $code->CodeValue ) === 1 ) {
+				$subjects[ $code->CodeValue ] = [ 'label' => $code->CodeDescription ];
+				if ( ctype_alpha( $code->CodeValue ) ) {
+					$subjects[ $code->CodeValue ]['children'][ $code->CodeValue ] = $code->CodeDescription;
+				}
+			} else {
+				$subjects[ substr( $code->CodeValue, 0, 1 ) ]['children'][ $code->CodeValue ] = $code->CodeDescription;
+			}
+		}
+	}
+	return $subjects;
 }
 
 /**
- * Return an array of academic subjects.
+ * Retrieve the subject name from a Thema subject code.
  *
  * @since 4.4.0
  *
- * @return array
+ * @param string $code The Thema code.
+ * @return string The subject name.
  */
-function get_academic_subjects() {
-	return [
-		[
-			'slug' => 'business',
-			'label' => __( 'Business', 'pressbooks' ),
-			'children' => [
-				[ 'slug' => 'business-accounting','label' => __( 'Accounting', 'pressbooks' ) ],
-				[ 'slug' => 'business-finance','label' => __( 'Finance', 'pressbooks' ) ],
-				[ 'slug' => 'business-management-information-systems','label' => __( 'Management & Information Systems', 'pressbooks' ) ],
-				[ 'slug' => 'business-marketing','label' => __( 'Marketing', 'pressbooks' ) ],
-				[ 'slug' => 'business-economics','label' => __( 'Economics', 'pressbooks' ) ],
-				[ 'slug' => 'business-other','label' => __( 'Other Business', 'pressbooks' ) ],
-			],
-		],
-		[
-			'slug' => 'education',
-			'label' => __( 'Education', 'pressbooks' ),
-			'children' => [
-				[ 'slug' => 'education-educational-psychology','label' => __( 'Educational Psychology', 'pressbooks' ) ],
-				[ 'slug' => 'education-kindergarten-elementary','label' => __( 'Kindergarten & Elementary', 'pressbooks' ) ],
-				[ 'slug' => 'education-physical-education', 'label' => __( 'Physical Education', 'pressbooks' ) ],
-				[ 'slug' => 'education-secondary-education','label' => __( 'Secondary Education', 'pressbooks' ) ],
-				[ 'slug' => 'education-post-secondary', 'label' => __( 'Post-secondary Education', 'pressbooks' ) ],
-				[ 'slug' => 'education-other', 'label' => __( 'Other Education', 'pressbooks' ) ],
-			],
-		],
-		[
-			'slug' => 'engineering-technology',
-			'label' => __( 'Engineering & Technology', 'pressbooks' ),
-			'children' => [
-				[ 'slug' => 'engineering-technology-architecture', 'label' => __( 'Architecture', 'pressbooks' ) ],
-				[ 'slug' => 'engineering-technology-bioengineering', 'label' => __( 'Bioengineering', 'pressbooks' ) ],
-				[ 'slug' => 'engineering-technology-chemical-engineering', 'label' => __( 'Chemical Engineering', 'pressbooks' ) ],
-				[ 'slug' => 'engineering-technology-civil-engineering', 'label' => __( 'Civil Engineering', 'pressbooks' ) ],
-				[ 'slug' => 'engineering-technology-electrical-engineering', 'label' => __( 'Electrical Engineering', 'pressbooks' ) ],
-				[ 'slug' => 'engineering-technology-mechanical-engineering', 'label' => __( 'Mechanical Engineering', 'pressbooks' ) ],
-				[ 'slug' => 'engineering-technology-mining-materials', 'label' => __( 'Mining & Materials', 'pressbooks' ) ],
-				[ 'slug' => 'engineering-technology-urban-planning', 'label' => __( 'Urban Planning', 'pressbooks' ) ],
-				[ 'slug' => 'engineering-technology-computer-science-software-engineering', 'label' => __( 'Computer Science & Software Engineering', 'pressbooks' ) ],
-				[ 'slug' => 'engineering-technology-other', 'label' => __( 'Other Engineering & Technology', 'pressbooks' ) ],
-			],
-		],
-		[
-			'slug' => 'health-sciences',
-			'label' => __( 'Health Sciences', 'pressbooks' ),
-			'children' => [
-				[ 'slug' => 'health-sciences-biochemistry-biomedical-sciences', 'label' => __( 'Biochemistry & Biomedical Sciences', 'pressbooks' ) ],
-				[ 'slug' => 'health-sciences-dentistry', 'label' => __( 'Dentistry', 'pressbooks' ) ],
-				[ 'slug' => 'health-sciences-medicine', 'label' => __( 'Medicine', 'pressbooks' ) ],
-				[ 'slug' => 'health-sciences-nursing', 'label' => __( 'Nursing', 'pressbooks' ) ],
-				[ 'slug' => 'health-sciences-nutrition', 'label' => __( 'Nutrition', 'pressbooks' ) ],
-				[ 'slug' => 'health-sciences-pharmacy', 'label' => __( 'Pharmacy', 'pressbooks' ) ],
-				[ 'slug' => 'health-sciences-physiotherapy-rehabilitation-therapy', 'label' => __( 'Physiotherapy & Rehabilitation Therapy', 'pressbooks' ) ],
-				[ 'slug' => 'health-sciences-psychiatry-behavioural-sciences', 'label' => __( 'Psychiatry & Behavioural Sciences', 'pressbooks' ) ],
-				[ 'slug' => 'health-sciences-public-health-healthy-policy', 'label' => __( 'Public Health & Healthy Policy', 'pressbooks' ) ],
-				[ 'slug' => 'health-sciences-sports-medicine', 'label' => __( 'Sports Medicine', 'pressbooks' ) ],
-				[ 'slug' => 'health-sciences-other', 'label' => __( 'Other Health Sciences', 'pressbooks' ) ],
-			],
-		],
-		[
-			'slug' => 'humanities-arts',
-			'label' => __( 'Humanities & Arts', 'pressbooks' ),
-			'children' => [
-				[ 'slug' => 'humanities-arts-archaeology', 'label' => __( 'Archaeology', 'pressbooks' ) ],
-				[ 'slug' => 'humanities-arts-art', 'label' => __( 'Art', 'pressbooks' ) ],
-				[ 'slug' => 'humanities-arts-classics', 'label' => __( 'Classics', 'pressbooks' ) ],
-				[ 'slug' => 'humanities-arts-design', 'label' => __( 'Design', 'pressbooks' ) ],
-				[ 'slug' => 'humanities-arts-history', 'label' => __( 'History', 'pressbooks' ) ],
-				[ 'slug' => 'humanities-arts-language', 'label' => __( 'Language', 'pressbooks' ) ],
-				[ 'slug' => 'humanities-arts-literature', 'label' => __( 'Literature', 'pressbooks' ) ],
-				[ 'slug' => 'humanities-arts-media-communication-studies', 'label' => __( 'Media & Communication Studies', 'pressbooks' ) ],
-				[ 'slug' => 'humanities-arts-music', 'label' => __( 'Music', 'pressbooks' ) ],
-				[ 'slug' => 'humanities-arts-philosophy', 'label' => __( 'Philosophy', 'pressbooks' ) ],
-				[ 'slug' => 'humanities-arts-religious-studies', 'label' => __( 'Religious Studies', 'pressbooks' ) ],
-				[ 'slug' => 'humanities-arts-other', 'label' => __( 'Other Humanities & Arts', 'pressbooks' ) ],
-			],
-		],
-		[
-			'slug' => 'law',
-			'label' => __( 'Law', 'pressbooks' ),
-			'children' => [
-				[ 'slug' => 'law-contracts-property-commercial', 'label' => __( 'Contracts, Property & Commercial', 'pressbooks' ) ],
-				[ 'slug' => 'law-criminal', 'label' => __( 'Criminal', 'pressbooks' ) ],
-				[ 'slug' => 'law-human-rights', 'label' => __( 'Human Rights', 'pressbooks' ) ],
-				[ 'slug' => 'law-intellectual-property', 'label' => __( 'Intellectual Property', 'pressbooks' ) ],
-				[ 'slug' => 'law-international-trade', 'label' => __( 'International & Trade', 'pressbooks' ) ],
-				[ 'slug' => 'law-public-law-policy', 'label' => __( 'Public Law & Policy', 'pressbooks' ) ],
-				[ 'slug' => 'law-other', 'label' => __( 'Other Law', 'pressbooks' ) ],
-			],
-		],
-		[
-			'slug' => 'support-resources',
-			'label' => __( 'Support Resources', 'pressbooks' ),
-			'children' => [
-				[ 'slug' => 'support-resources-college-success', 'label' => __( 'College Success', 'pressbooks' ) ],
-				[ 'slug' => 'support-resources-student-guides', 'label' => __( 'Student Guides', 'pressbooks' ) ],
-				[ 'slug' => 'support-resources-teaching-guides', 'label' => __( 'Teaching Guides', 'pressbooks' ) ],
-				[ 'slug' => 'support-resources-toolkits', 'label' => __( 'Toolkits', 'pressbooks' ) ],
-				[ 'slug' => 'support-resources-other', 'label' => __( 'Other Support Resources', 'pressbooks' ) ],
-			],
-		],
-		[
-			'slug' => 'sciences',
-			'label' => __( 'Sciences', 'pressbooks' ),
-			'children' => [
-				[ 'slug' => 'sciences-biology', 'label' => __( 'Biology', 'pressbooks' ) ],
-				[ 'slug' => 'sciences-chemistry', 'label' => __( 'Chemistry', 'pressbooks' ) ],
-				[ 'slug' => 'sciences-environment-earth-sciences', 'label' => __( 'Environment & Earth Sciences', 'pressbooks' ) ],
-				[ 'slug' => 'sciences-geography', 'label' => __( 'Geography', 'pressbooks' ) ],
-				[ 'slug' => 'sciences-mathematics', 'label' => __( 'Mathematics', 'pressbooks' ) ],
-				[ 'slug' => 'sciences-physics', 'label' => __( 'Physics', 'pressbooks' ) ],
-				[ 'slug' => 'sciences-other', 'label' => __( 'Other Sciences', 'pressbooks' ) ],
-			],
-		],
-		[
-			'slug' => 'social-sciences',
-			'label' => __( 'Social Sciences', 'pressbooks' ),
-			'children' => [
-				[ 'slug' => 'social-sciences-anthropology', 'label' => __( 'Anthropology', 'pressbooks' ) ],
-				[ 'slug' => 'social-sciences-gender-studies', 'label' => __( 'Gender Studies', 'pressbooks' ) ],
-				[ 'slug' => 'social-sciences-indigenous-studies', 'label' => __( 'Indigenous Studies', 'pressbooks' ) ],
-				[ 'slug' => 'social-sciences-linguistics', 'label' => __( 'Linguistics', 'pressbooks' ) ],
-				[ 'slug' => 'social-sciences-museums-libraries-information-sciences', 'label' => __( 'Museums, Libraries & Information Sciences', 'pressbooks' ) ],
-				[ 'slug' => 'social-sciences-political-science', 'label' => __( 'Political Science', 'pressbooks' ) ],
-				[ 'slug' => 'social-sciences-psychology', 'label' => __( 'Psychology', 'pressbooks' ) ],
-				[ 'slug' => 'social-sciences-social-work', 'label' => __( 'Social Work', 'pressbooks' ) ],
-				[ 'slug' => 'social-sciences-sociology', 'label' => __( 'Sociology', 'pressbooks' ) ],
-				[ 'slug' => 'social-sciences-other', 'label' => __( 'Other Social Sciences', 'pressbooks' ) ],
-			],
-		],
-	];
+function get_subject_from_thema( $code ) {
+	$subjects = get_thema_subjects( true );
+	foreach ( $subjects as $key => $group ) {
+		if ( strpos( $key, $code ) === 0 ) {
+			return $group['children'][ $code ];
+		}
+	}
+
+	return false;
 }
