@@ -177,4 +177,17 @@ class MetadataTest extends \WP_UnitTestCase {
 		$this->assertArrayHasKey( 'pb_section_license', $result );
 	}
 
+	public function test_get_thema_subjects() {
+		$result = \Pressbooks\Metadata\get_thema_subjects();
+		$this->assertArrayHasKey( 'Y', $result );
+		$this->assertArrayNotHasKey( '1', $result );
+		$result = \Pressbooks\Metadata\get_thema_subjects( true );
+		$this->assertArrayHasKey( 'Y', $result );
+		$this->assertArrayHasKey( '1', $result );
+	}
+
+	public function test_get_subject_from_thema() {
+		$result = \Pressbooks\Metadata\get_subject_from_thema( '1KBC-CA-JM' );
+		$this->assertEquals( 'Nova Scotia: South Shore & Kejimkujik National Park', $result );
+	}
 }

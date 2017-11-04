@@ -777,6 +777,7 @@ function metadata_subject_box( $post ) {
 	if ( ! $pb_additional_subjects ) {
 		$pb_additional_subjects = [];
 	} ?>
+	<pre><?php echo \Pressbooks\Metadata\get_subject_from_thema( '1' ); ?></pre>
 	<div class="custom-metadata-field select">
 		<label for="pb_primary_subject"><?php _e( 'Primary Subject', 'pressbooks' ); ?></label>
 		<select id="primary-subject" name="pb_primary_subject">
@@ -789,7 +790,7 @@ function metadata_subject_box( $post ) {
 			</optgroup>
 			<?php } ?>
 		</select>
-		<span class="description"><?php _e( 'The primary subject helps properly classify your book in your network&rsquo;s catalog. It is not used on your personal catalog page. The chosen subject also appears on the cover page of your webbook.', 'pressbooks' ); ?></span>
+		<span class="description"><?php _e( 'This appears on the web homepage of your book and helps categorize it in your network catalog (if applicable).', 'pressbooks' ); ?></span>
 	</div>
 	<div class="custom-metadata-field select">
 		<label for="pb_additional_subjects"><?php _e( 'Additional Subject(s)', 'pressbooks' ); ?></label>
@@ -803,7 +804,7 @@ function metadata_subject_box( $post ) {
 			</optgroup>
 			<?php } ?>
 		</select>
-		<span class="description"><?php _e( 'Additional subject(s) help further classify your book. The chosen subject(s) appear on the cover page of your webbook.', 'pressbooks' ); ?></span>
+		<span class="description"><?php _e( 'This appears on the web homepage of your book.', 'pressbooks' ); ?></span>
 	</div>
 <?php
 }

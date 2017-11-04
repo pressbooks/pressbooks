@@ -665,7 +665,7 @@ function get_thema_subjects( $include_qualifiers = false ) {
 function get_subject_from_thema( $code ) {
 	$subjects = get_thema_subjects( true );
 	foreach ( $subjects as $key => $group ) {
-		if ( strpos( $key, $code ) === 0 ) {
+		if ( strpos( $code, strval( $key ) ) === 0 ) {
 			return $group['children'][ $code ];
 		}
 	}
