@@ -777,7 +777,6 @@ function metadata_subject_box( $post ) {
 	if ( ! $pb_additional_subjects ) {
 		$pb_additional_subjects = [];
 	} ?>
-	<pre><?php echo \Pressbooks\Metadata\get_subject_from_thema( '1' ); ?></pre>
 	<div class="custom-metadata-field select">
 		<label for="pb_primary_subject"><?php _e( 'Primary Subject', 'pressbooks' ); ?></label>
 		<select id="primary-subject" name="pb_primary_subject">
