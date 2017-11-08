@@ -114,7 +114,7 @@ class Book {
 		// Book Information
 		// ----------------------------------------------------------------------------
 
-		$expected_array = [ 'pb_keywords_tags', 'pb_bisac_subject', 'pb_contributing_authors', 'pb_editor', 'pb_translator' ];
+		$expected_array = [ 'pb_keywords_tags', 'pb_additional_subjects', 'pb_bisac_subject', 'pb_contributing_authors', 'pb_editor', 'pb_translator' ];
 		$expected_the_content = [ 'pb_custom_copyright', 'pb_about_unlimited' ];
 		$expected_url = [ 'pb_cover_image' ];
 

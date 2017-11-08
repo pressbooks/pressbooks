@@ -1,0 +1,1 @@
+The Thema global subject classification system is created and maintained by [EDItEUR](http://www.editeur.org) and used under [license](http://www.editeur.org/files/about/EDItEUR%20IPR%20licence%2001-06-15.pdf).
