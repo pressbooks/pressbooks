@@ -117,8 +117,6 @@ function add_metadata_styles( $hook ) {
 			$assets = new Assets( 'pressbooks', 'plugin' );
 			wp_enqueue_style( 'metadata', $assets->getPath( 'styles/metadata.css' ) );
 		} elseif ( 'part' === $post_type ) {
-			$assets = new Assets( 'pressbooks', 'plugin' );
-			wp_enqueue_style( 'part', $assets->getPath( 'styles/part.css' ) );
 			add_filter(
 				'page_attributes_dropdown_pages_args', function () {
 					return [ 'post_type' => '__GARBAGE__' ];
