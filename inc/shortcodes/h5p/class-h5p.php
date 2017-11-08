@@ -29,6 +29,7 @@ class H5P {
 	 * @see \H5P_Plugin::shortcode
 	 *
 	 * @param array $atts
+	 *
 	 * @return string
 	 */
 	public function shortcodeHandler( $atts ) {
@@ -36,33 +37,38 @@ class H5P {
 		global $id; // This is the Post ID, [@see WP_Query::setup_postdata, ...]
 		global $wpdb;
 
+		$h5p_title = __( 'Interactive H5P Content', 'pressbooks' );
+		$h5p_url = get_permalink( $id );
+
 		if ( isset( $atts['slug'] ) ) {
+			$wpdb->suppress_errors();
 			$row = $wpdb->get_row(
 				$wpdb->prepare( "SELECT id FROM {$wpdb->prefix}h5p_contents WHERE slug=%s", $atts['slug'] ),
 				ARRAY_A
 			);
-			if ( $wpdb->last_error ) {
-				return '';
+			if ( isset( $row['id'] ) ) {
+				$atts['id'] = $row['id'];
 			}
-			if ( ! isset( $row['id'] ) ) {
-				return '';
-			}
-			$atts['id'] = $row['id'];
 		}
 
 		$h5p_id = isset( $atts['id'] ) ? intval( $atts['id'] ) : 0;
-		if ( ! $h5p_id ) {
-			return '';
+
+		// H5P Content
+		if ( $h5p_id ) {
+			try {
+				if ( class_exists( '\H5P_Plugin' ) ) {
+					$content = \H5P_Plugin::get_instance()->get_content( $h5p_id );
+					if ( is_array( $content ) && ! empty( $content['title'] ) ) {
+						$h5p_title = $content['title'];
+					}
+				}
+			} catch ( \Exception $e ) {
+				// Do nothing
+			}
 		}
 
-		if ( ! class_exists( '\H5P_Plugin' ) ) {
-			return '';
-		}
-
-		$content = \H5P_Plugin::get_instance()->get_content( $h5p_id );
-		$url = get_permalink( $id );
-
-		$html = "<p class='h5p'>{$content['title']}<br/>{$url}</a></p>";
+		// HTML
+		$html = "<p class='h5p'>{$h5p_title}:<br/>{$h5p_url}</a></p>";
 
 		return $html;
 	}

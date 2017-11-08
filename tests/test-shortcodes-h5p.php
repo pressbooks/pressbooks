@@ -8,13 +8,10 @@ class Shortcodes_H5P extends \WP_UnitTestCase {
 	}
 
 	public function test_shortcodeHandler() {
-		global $wpdb;
-		$wpdb->suppress_errors();
-
 		$h5p = new \Pressbooks\Shortcodes\H5P\H5P();
-		$this->assertTrue( is_string( $h5p->shortcodeHandler( [] ) ) );
-		$this->assertTrue( is_string( $h5p->shortcodeHandler( [ 'slug' => 'foo' ] ) ) );
-		$this->assertTrue( is_string( $h5p->shortcodeHandler( [ 'id' => 999 ] ) ) );
+		$this->assertContains("<p class='h5p'>", $h5p->shortcodeHandler( [] ) );
+		$this->assertContains("<p class='h5p'>", $h5p->shortcodeHandler( [ 'slug' => 'foo' ] ) );
+		$this->assertContains("<p class='h5p'>", $h5p->shortcodeHandler( [ 'id' => 999 ] ) );
 	}
 
 	public function test_override() {
