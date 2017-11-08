@@ -182,17 +182,13 @@ class Xhtml11 extends Export {
 			}
 		}
 
+		do_action( 'pb_pre_export' );
+
 		// Override footnote shortcode
 		if ( ! empty( $_GET['endnotes'] ) ) {
 			add_shortcode( 'footnote', [ $this, 'endnoteShortcode' ] );
 		} else {
 			add_shortcode( 'footnote', [ $this, 'footnoteShortcode' ] );
-		}
-
-		// Override H5P
-		$h5p = new \Pressbooks\Shortcodes\H5P\H5P();
-		if ( $h5p->isActive() ) {
-			$h5p->override();
 		}
 
 		// ------------------------------------------------------------------------------------------------------------

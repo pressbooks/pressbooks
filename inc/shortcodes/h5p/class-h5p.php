@@ -5,6 +5,11 @@ namespace Pressbooks\Shortcodes\H5P;
 class H5P {
 
 	/**
+	 * Anchor we append to URLs to hint that it's external
+	 */
+	const ANCHOR = '#pb-h5p';
+
+	/**
 	 * Is this the HP5 plugin we're looking for?
 	 *
 	 * @return bool
@@ -69,7 +74,8 @@ class H5P {
 		}
 
 		// HTML
-		$html = "<p class='h5p'>{$h5p_title}:<br/>{$h5p_url}</a></p>";
+		$anchor = self::ANCHOR;
+		$html = "<p class='h5p'>{$h5p_title}:<br/><a href='{$h5p_url}{$anchor}'>{$h5p_url}</a></p>";
 
 		return $html;
 	}

@@ -604,12 +604,6 @@ abstract class Export {
 			// --------------------------------------------------------------------------------------------------------
 			// Other People's Plugins
 
-			// Override H5P
-			$h5p = new \Pressbooks\Shortcodes\H5P\H5P();
-			if ( $h5p->isActive() ) {
-				$h5p->override();
-			}
-
 			/**
 			 * Catch enabled custom formats and add their classes to the $modules array.
 			 *
@@ -627,6 +621,13 @@ abstract class Export {
 			 * @param array $modules
 			 */
 			$modules = apply_filters( 'pb_active_export_modules', $modules );
+
+			/**
+			 * Let other plugins tweak things before exporting
+			 *
+			 * @since 4.3.6
+			 */
+			do_action( 'pb_pre_export' );
 
 			// --------------------------------------------------------------------------------------------------------
 			// Clear cache? Range is 1 hour.
