@@ -189,6 +189,12 @@ class Xhtml11 extends Export {
 			add_shortcode( 'footnote', [ $this, 'footnoteShortcode' ] );
 		}
 
+		// Override H5P
+		$h5p = new \Pressbooks\Shortcodes\H5P\H5P();
+		if ( $h5p->isActive() ) {
+			$h5p->override();
+		}
+
 		// ------------------------------------------------------------------------------------------------------------
 		// XHTML, Start!
 
@@ -317,7 +323,7 @@ class Xhtml11 extends Export {
 	 */
 	function endnoteShortcode( $atts, $content = null ) {
 
-		global $id;
+		global $id; // This is the Post ID, [@see WP_Query::setup_postdata, preProcessBookContents, ...]
 
 		if ( ! $content ) {
 			return '';
