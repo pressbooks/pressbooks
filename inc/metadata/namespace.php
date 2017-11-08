@@ -706,12 +706,12 @@ function get_subject_from_thema( $code ) {
  * @return bool
  */
 
- function is_bisac( $code ) {
-	 if ( strlen( $code ) === 9 ) {
-		 if ( ctype_alpha( substr( $code, 0, 3 ) ) && ctype_digit( substr( $code, 3, 6 ) ) ) {
-			 return true;
-		 }
-	 }
+function is_bisac( $code ) {
+	if ( strlen( $code ) === 9 ) {
+		if ( ctype_alpha( substr( $code, 0, 3 ) ) && ctype_digit( substr( $code, 3, 6 ) ) ) {
+			return true;
+		}
+	}
 
-	 return false;
- }
+	return false;
+}
