@@ -117,8 +117,6 @@ function add_metadata_styles( $hook ) {
 			$assets = new Assets( 'pressbooks', 'plugin' );
 			wp_enqueue_style( 'metadata', $assets->getPath( 'styles/metadata.css' ) );
 		} elseif ( 'part' === $post_type ) {
-			$assets = new Assets( 'pressbooks', 'plugin' );
-			wp_enqueue_style( 'part', $assets->getPath( 'styles/part.css' ) );
 			add_filter(
 				'page_attributes_dropdown_pages_args', function () {
 					return [ 'post_type' => '__GARBAGE__' ];
@@ -329,7 +327,7 @@ function add_meta_boxes() {
 		'field_type' => 'wysiwyg',
 		'group' => 'copyright',
 		'label' => __( 'Copyright Notice', 'pressbooks' ),
-		'description' => __( 'Enter a custom copyright notice, with whatever infomation you like. This will override the auto-generated copyright notice, and be inserted after the title page.', 'pressbooks' ),
+		'description' => __( 'Enter a custom copyright notice, with whatever information you like. This will override the auto-generated copyright notice if All Rights Reserved or no license is selected, and will be inserted after the title page. If you select a Creative Commons license, the custom notice will appear after the license text in both the webbook and your exports.', 'pressbooks' ),
 		]
 	);
 

@@ -15,6 +15,7 @@ trait utilsTrait {
 
 		// Export = on
 		$book = \Pressbooks\Book::getInstance();
+		$pid = $this->_createChapter();
 		foreach ( $book::getBookStructure() as $key => $section ) {
 			if ( $key === 'front-matter' || $key === 'back-matter' ) {
 				foreach ( $section as $val ) {
@@ -23,6 +24,10 @@ trait utilsTrait {
 			}
 			if ( $key === 'part' ) {
 				foreach ( $section as $part ) {
+					if ( $pid ) {
+						wp_update_post( [ 'ID' => $pid, 'post_parent' => $part['ID'] ] );
+						$pid = false;
+					}
 					foreach ( $part['chapters'] as $val ) {
 						update_post_meta( $val['ID'], 'pb_export', 'on' );
 					}
@@ -39,11 +44,36 @@ trait utilsTrait {
 	 * @return int
 	 */
 	private function _createChapter() {
+
+		$content = '<em>Kia ora tatou!</em>
+
+<h1>Footnote</h1>
+
+Footnotes are cool. [footnote]but endnotes are cooler?[/footnote]
+
+<h1>Math</h1>
+				
+This is my math:
+
+$latex \displaystyle P_\nu^{-\mu}(z)=\frac{\left(z^2-1\right)^{\frac{\mu}{2}}}{2^\mu \sqrt{\pi}\Gamma\left(\mu+\frac{1}{2}\right)}\int_{-1}^1\frac{\left(1-t^2\right)^{\mu -\frac{1}{2}}}{\left(z+t\sqrt{z^2-1}\right)^{\mu-\nu}}dt$$
+
+Also my math:
+
+[latex]e^{\i \pi} + 1 = 0[/latex]
+
+There are many maths like it but these ones are mine.
+
+<h1>Image</h1>
+
+[caption id="attachment_1" align="aligncenter" width="225"]<img class="wp-image-1 size-full" src="https://pressbooks.com/wp-content/uploads/2015/04/open-book-7-225x161.png" alt="Open Book" width="225" height="161" /> Like an open book.[/caption]
+
+<em>Ka kite ano!</em>';
+
 		$new_post = [
-			'post_title' => 'test chapter',
+			'post_title' => 'Test Chapter: ' . rand(),
 			'post_type' => 'chapter',
 			'post_status' => 'publish',
-			'post_content' => 'some content',
+			'post_content' => trim( $content ),
 		];
 		$pid = $this->factory()->post->create_object( $new_post );
 		update_post_meta( $pid, 'pb_export', 'on' );

@@ -31,7 +31,7 @@ class Posts extends \WP_REST_Posts_Controller {
 		add_post_type_support( $this->post_type, 'custom-fields' );
 
 		add_filter( "rest_{$this->post_type}_query", [ $this, 'overrideQueryArgs' ] );
-		add_filter( "rest_prepare_{$this->post_type}", [ $this, 'overrideResponse' ], 10, 2 );
+		add_filter( "rest_prepare_{$this->post_type}", [ $this, 'overrideResponse' ], 10, 3 );
 		add_filter( "rest_{$this->post_type}_trashable", [ $this, 'overrideTrashable' ], 10, 2 );
 	}
 
@@ -59,10 +59,11 @@ class Posts extends \WP_REST_Posts_Controller {
 	 *
 	 * @param \WP_REST_Response $response
 	 * @param \WP_Post $post
+	 * @param \WP_REST_Request $request
 	 *
 	 * @return mixed
 	 */
-	public function overrideResponse( $response, $post ) {
+	public function overrideResponse( $response, $post, $request ) {
 
 		if ( $post->post_type === 'chapter' ) {
 			// Add rest link to associated part
@@ -70,7 +71,26 @@ class Posts extends \WP_REST_Posts_Controller {
 		}
 
 		if ( in_array( $post->post_type, [ 'front-matter', 'chapter', 'back-matter' ], true ) ) {
+			// Add rest link to metadata
 			$response->add_link( 'metadata', trailingslashit( rest_url( sprintf( '%s/%s/%d/metadata', $this->namespace, $this->rest_base, $post->ID ) ) ) );
+		}
+
+		// Check that we are in view/embed context (and)
+		// Check that content is password protected (and)
+		// Check that content is empty (if not then API has already verified that the user can_access_password_content)
+		if ( in_array( $request['context'], [ 'view', 'embed' ], true ) ) {
+			if ( ! empty( $response->data['content'] ) ) {
+				if ( $response->data['content']['protected'] && empty( $response->data['content']['rendered'] ) ) {
+					// Hide raw data
+					$response->data['content']['raw'] = '';
+				}
+			}
+			if ( ! empty( $response->data['excerpt'] ) ) {
+				if ( $response->data['excerpt']['protected'] && empty( $response->data['excerpt']['rendered'] ) ) {
+					// Hide raw data
+					$response->data['excerpt']['raw'] = '';
+				}
+			}
 		}
 
 		return $response;
@@ -150,18 +170,19 @@ class Posts extends \WP_REST_Posts_Controller {
 		// The _embed parameter indicates to the server that the response should include these embedded resources.
 		// @see https://developer.wordpress.org/rest-api/using-the-rest-api/global-parameters/#_embed
 
-		if ( isset( $_GET['_embed'] ) ) {
-			if ( isset( $schema['properties']['content'] ) ) {
-				$schema['properties']['content']['context'][] = 'embed';
-				$schema['properties']['content']['properties']['rendered']['context'][] = 'embed';
-			}
-			if ( isset( $schema['properties']['meta'] ) ) {
-				$schema['properties']['meta']['context'][] = 'embed';
-			}
-			foreach ( [ 'front-matter-type', 'chapter-type', 'back-matter-type' ] as $taxonomy ) {
-				if ( isset( $schema['properties'][ $taxonomy ] ) ) {
-					$schema['properties'][ $taxonomy ]['context'][] = 'embed';
-				}
+		if ( isset( $schema['properties']['content'] ) ) {
+			$schema['properties']['content']['context'][] = 'embed';
+			$schema['properties']['content']['properties']['rendered']['context'][] = 'embed';
+			// Add raw content to view/embed contexts so that we can use it when cloning over REST API
+			$schema['properties']['content']['properties']['raw']['context'][] = 'view';
+			$schema['properties']['content']['properties']['raw']['context'][] = 'embed';
+		}
+		if ( isset( $schema['properties']['meta'] ) ) {
+			$schema['properties']['meta']['context'][] = 'embed';
+		}
+		foreach ( [ 'front-matter-type', 'chapter-type', 'back-matter-type' ] as $taxonomy ) {
+			if ( isset( $schema['properties'][ $taxonomy ] ) ) {
+				$schema['properties'][ $taxonomy ]['context'][] = 'embed';
 			}
 		}
 

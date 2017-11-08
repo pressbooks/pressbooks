@@ -539,10 +539,6 @@ abstract class Export {
 			return;
 		}
 
-		// Set locale to UTF8 so escapeshellcmd() doesn't strip valid characters.
-		setlocale( LC_CTYPE, 'UTF8', 'en_US.UTF-8' );
-		putenv( 'LC_CTYPE=en_US.UTF-8' );
-
 		// Override some WP behaviours when exporting
 		\Pressbooks\Sanitize\fix_audio_shortcode();
 
