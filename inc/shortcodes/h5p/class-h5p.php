@@ -41,7 +41,7 @@ class H5P {
 		$h5p_url = get_permalink( $id );
 
 		if ( isset( $atts['slug'] ) ) {
-			$wpdb->suppress_errors();
+			$suppress = $wpdb->suppress_errors();
 			$row = $wpdb->get_row(
 				$wpdb->prepare( "SELECT id FROM {$wpdb->prefix}h5p_contents WHERE slug=%s", $atts['slug'] ),
 				ARRAY_A
@@ -49,6 +49,7 @@ class H5P {
 			if ( isset( $row['id'] ) ) {
 				$atts['id'] = $row['id'];
 			}
+			$wpdb->suppress_errors( $suppress );
 		}
 
 		$h5p_id = isset( $atts['id'] ) ? intval( $atts['id'] ) : 0;
