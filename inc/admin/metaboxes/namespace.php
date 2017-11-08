@@ -771,7 +771,7 @@ function metadata_save_box( $post ) {
 function metadata_subject_box( $post ) {
 	wp_nonce_field( basename( __FILE__ ), 'subject_meta_nonce' );
 	$pb_primary_subject = get_post_meta( $post->ID, 'pb_primary_subject', true );
-	$pb_additional_subjects = get_post_meta( $post->ID, 'pb_additional_subjects', true );
+	$pb_additional_subjects = get_post_meta( $post->ID, 'pb_additional_subjects' );
 	if ( ! $pb_additional_subjects ) {
 		$pb_additional_subjects = [];
 	} ?>
@@ -828,7 +828,10 @@ function save_subject_metadata( $post_id ) {
 
 	if ( isset( $_REQUEST['pb_additional_subjects'] ) && ! empty( $_REQUEST['pb_additional_subjects'] ) ) {
 		$value = ( is_array( $_POST['pb_additional_subjects'] ) ) ? $_POST['pb_additional_subjects'] : [ $_POST['pb_additional_subjects'] ];
-		update_post_meta( $post_id, 'pb_additional_subjects', array_map( 'sanitize_text_field', $value ) );
+		delete_post_meta( $post_id, 'pb_additional_subjects' );
+		foreach ( $value as $v ) {
+			add_post_meta( $post_id, 'pb_additional_subjects', sanitize_text_field( $v ) );
+		}
 	} else {
 		delete_post_meta( $post_id, 'pb_additional_subjects' );
 	}
