@@ -209,6 +209,23 @@ function book_information_to_schema( $book_information ) {
 			}
 		}
 
+		if ( isset( $book_information['pb_primary_subject'] ) ) {
+			$book_schema['about'][] = [
+			 '@type' => 'Thing',
+			 'identifier' => $book_information['pb_primary_subject'],
+			];
+		}
+
+		if ( isset( $book_information['pb_additional_subjects'] ) ) {
+			$additional_subjects = explode( ', ', $book_information['pb_additional_subjects'] );
+			foreach ( $additional_subjects as $additional_subject ) {
+				$book_schema['about'][] = [
+				 '@type' => 'Thing',
+				 'identifier' => $additional_subject,
+				];
+			}
+		}
+
 		if ( isset( $book_information['pb_bisac_subject'] ) ) {
 			$bisac_subjects = explode( ', ', $book_information['pb_bisac_subject'] );
 			foreach ( $bisac_subjects as $bisac_subject ) {
@@ -354,10 +371,17 @@ function schema_to_book_information( $book_schema ) {
 	}
 
 	if ( isset( $book_schema['about'] ) ) {
+		$subjects = [];
 		$bisac_subjects = [];
-		foreach ( $book_schema['about'] as $bisac_subject ) {
-			$bisac_subjects[] = $bisac_subject['identifier'];
+		foreach ( $book_schema['about'] as $subject ) {
+			if ( is_bisac( $subject['identifier'] ) ) {
+				$bisac_subjects[] = $subject['identifier'];
+			} else {
+				$subjects[] = $subject['identifier'];
+			}
 		}
+		$book_information['pb_primary_subject'] = array_shift( $subjects );
+		$book_information['pb_additional_subjects'] = implode( ', ', $subjects );
 		$book_information['pb_bisac_subject'] = implode( ', ', $bisac_subjects );
 	}
 
@@ -672,3 +696,22 @@ function get_subject_from_thema( $code ) {
 
 	return false;
 }
+
+/**
+ * Determine if a subject code is a BISAC code.
+ *
+ * @since 4.4.0
+ *
+ * @param string $code The code.
+ * @return bool
+ */
+
+ function is_bisac( $code ) {
+	 if ( strlen( $code ) === 9 ) {
+		 if ( ctype_alpha( substr( $code, 0, 3 ) ) && ctype_digit( substr( $code, 3, 6 ) ) ) {
+			 return true;
+		 }
+	 }
+
+	 return false;
+ }

@@ -190,4 +190,11 @@ class MetadataTest extends \WP_UnitTestCase {
 		$result = \Pressbooks\Metadata\get_subject_from_thema( '1KBC-CA-JM' );
 		$this->assertEquals( 'Nova Scotia: South Shore & Kejimkujik National Park', $result );
 	}
+
+	public function test_is_bisac() {
+		$result = \Pressbooks\Metadata\is_bisac( 'AB' );
+		$this->assertFalse( $result );
+		$result = \Pressbooks\Metadata\is_bisac( 'ANT123456' );
+		$this->assertTrue( $result );
+	}
 }
