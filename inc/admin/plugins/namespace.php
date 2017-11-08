@@ -20,7 +20,10 @@ namespace Pressbooks\Admin\Plugins;
 
 function filter_plugins( $plugins ) {
 	if ( ! is_super_admin() ) {
-		$slugs = [ 'hypothesis' ];
+		$slugs = [
+			'h5p',
+			'hypothesis',
+		];
 		$approved = [];
 		foreach ( $slugs as $slug ) {
 			$approved[] = $slug . '/' . $slug . '.php';

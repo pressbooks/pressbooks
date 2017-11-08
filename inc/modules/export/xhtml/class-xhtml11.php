@@ -182,6 +182,8 @@ class Xhtml11 extends Export {
 			}
 		}
 
+		do_action( 'pb_pre_export' );
+
 		// Override footnote shortcode
 		if ( ! empty( $_GET['endnotes'] ) ) {
 			add_shortcode( 'footnote', [ $this, 'endnoteShortcode' ] );
@@ -317,7 +319,7 @@ class Xhtml11 extends Export {
 	 */
 	function endnoteShortcode( $atts, $content = null ) {
 
-		global $id;
+		global $id; // This is the Post ID, [@see WP_Query::setup_postdata, preProcessBookContents, ...]
 
 		if ( ! $content ) {
 			return '';

@@ -717,6 +717,15 @@ class Epub201 extends Export {
 						copy( $my_font, "$path_to_epub_assets/$filename" );
 						return "url(assets/$filename)";
 					}
+				} elseif ( preg_match( '#^uploads/assets/fonts/[a-zA-Z0-9_-]+(' . $this->supportedFontExtensions . ')$#i', $url ) ) {
+
+					// Look for wp-content/uploads/assets/typography/fonts/*.ttf (or .otf), copy into our Epub
+
+					$my_font = realpath( WP_CONTENT_DIR . '/' . $url );
+					if ( $my_font ) {
+						copy( $my_font, "$path_to_epub_assets/$filename" );
+						return "url(assets/$filename)";
+					}
 				} elseif ( preg_match( '#^https?://#i', $url ) && preg_match( '/(' . $this->supportedFontExtensions . ')$/i', $url ) ) {
 
 					// Look for fonts via http(s), pull them in locally
@@ -2125,6 +2134,12 @@ class Epub201 extends Export {
 		}
 
 		if ( ! $last_part ) {
+			return false;
+		}
+
+		// Anchors we consider external
+		$external_anchors = [ \Pressbooks\Shortcodes\H5P\H5P::ANCHOR ];
+		if ( in_array( $anchor, $external_anchors, true ) ) {
 			return false;
 		}
 
