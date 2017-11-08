@@ -549,8 +549,8 @@ function section_information_to_schema( $section_information, $book_information 
 		}
 
 		if ( ! isset( $section_information['pb_section_license'] ) ) {
-			if ( isset( $book_information['pb_license'] ) ) {
-				$section_information['pb_section_license'] = $book_information['pb_license'];
+			if ( isset( $book_information['pb_book_license'] ) ) {
+				$section_information['pb_section_license'] = $book_information['pb_book_license'];
 			} else {
 				$section_information['pb_section_license'] = 'all-rights-reserved';
 			}
