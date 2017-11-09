@@ -2137,12 +2137,6 @@ class Epub201 extends Export {
 			return false;
 		}
 
-		// Anchors we consider external
-		$external_anchors = [ \Pressbooks\Shortcodes\H5P\H5P::ANCHOR ];
-		if ( in_array( $anchor, $external_anchors, true ) ) {
-			return false;
-		}
-
 		$lookup = \Pressbooks\Book::getBookStructure();
 		if ( 'part' !== $posttype && ! isset( $lookup['__export_lookup'][ $last_part ] ) ) {
 			return false;

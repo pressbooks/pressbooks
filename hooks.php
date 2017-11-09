@@ -204,14 +204,6 @@ if ( $is_book && Lock::isLocked() ) {
 	add_filter( 'pb_stylesheet_directory_uri', [ '\Pressbooks\Theme\Lock', 'getLockDirURI' ] );
 }
 
-// Override H5P
-add_action( 'pb_pre_export', function() {
-	$h5p = new \Pressbooks\Shortcodes\H5P\H5P();
-	if ( $h5p->isActive() ) {
-		$h5p->override();
-	}
-} );
-
 // -------------------------------------------------------------------------------------------------------------------
 // Upgrade Book Metadata
 // -------------------------------------------------------------------------------------------------------------------

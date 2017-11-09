@@ -21,7 +21,6 @@ namespace Pressbooks\Admin\Plugins;
 function filter_plugins( $plugins ) {
 	if ( ! is_super_admin() ) {
 		$slugs = [
-			'h5p',
 			'hypothesis',
 		];
 		$approved = [];
