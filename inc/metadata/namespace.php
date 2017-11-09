@@ -193,6 +193,7 @@ function book_information_to_schema( $book_information ) {
 		 'pb_ebook_isbn' => 'isbn',
 		 'pb_keywords_tags' => 'keywords',
 		 'pb_subtitle' => 'alternativeHeadline',
+		 'pb_subject' => 'genre',
 		 'pb_language' => 'inLanguage',
 		 'pb_copyright_year' => 'copyrightYear',
 		 'pb_about_50' => 'disambiguatingDescription',
@@ -205,6 +206,23 @@ function book_information_to_schema( $book_information ) {
 	 foreach ( $mapped_properties as $old => $new ) {
 		 if ( isset( $book_information[ $old ] ) ) {
 			 $book_schema[ $new ] = $book_information[ $old ];
+			}
+		}
+
+		if ( isset( $book_information['pb_primary_subject'] ) ) {
+			$book_schema['about'][] = [
+			 '@type' => 'Thing',
+			 'identifier' => $book_information['pb_primary_subject'],
+			];
+		}
+
+		if ( isset( $book_information['pb_additional_subjects'] ) ) {
+			$additional_subjects = explode( ', ', $book_information['pb_additional_subjects'] );
+			foreach ( $additional_subjects as $additional_subject ) {
+				$book_schema['about'][] = [
+				 '@type' => 'Thing',
+				 'identifier' => $additional_subject,
+				];
 			}
 		}
 
@@ -336,6 +354,7 @@ function schema_to_book_information( $book_schema ) {
 		'isbn' => 'pb_ebook_isbn',
 		'keywords' => 'pb_keywords_tags',
 		'alternativeHeadline' => 'pb_subtitle',
+		'genre' => 'pb_subject',
 		'inLanguage' => 'pb_language',
 		'copyrightYear' => 'pb_copyright_year',
 		'disambiguatingDescription' => 'pb_about_50',
@@ -352,10 +371,17 @@ function schema_to_book_information( $book_schema ) {
 	}
 
 	if ( isset( $book_schema['about'] ) ) {
+		$subjects = [];
 		$bisac_subjects = [];
-		foreach ( $book_schema['about'] as $bisac_subject ) {
-			$bisac_subjects[] = $bisac_subject['identifier'];
+		foreach ( $book_schema['about'] as $subject ) {
+			if ( is_bisac( $subject['identifier'] ) ) {
+				$bisac_subjects[] = $subject['identifier'];
+			} else {
+				$subjects[] = $subject['identifier'];
+			}
 		}
+		$book_information['pb_primary_subject'] = array_shift( $subjects );
+		$book_information['pb_additional_subjects'] = implode( ', ', $subjects );
 		$book_information['pb_bisac_subject'] = implode( ', ', $bisac_subjects );
 	}
 
@@ -549,8 +575,8 @@ function section_information_to_schema( $section_information, $book_information 
 		}
 
 		if ( ! isset( $section_information['pb_section_license'] ) ) {
-			if ( isset( $book_information['pb_license'] ) ) {
-				$section_information['pb_section_license'] = $book_information['pb_license'];
+			if ( isset( $book_information['pb_book_license'] ) ) {
+				$section_information['pb_section_license'] = $book_information['pb_book_license'];
 			} else {
 				$section_information['pb_section_license'] = 'all-rights-reserved';
 			}
@@ -622,4 +648,70 @@ function schema_to_section_information( $section_schema, $book_schema ) {
 	}
 
 	return $section_information;
+}
+
+
+/**
+ * Return an array of Thema subject categories.
+ *
+ * @since 4.4.0
+ *
+ * @param bool $include_qualifiers Whether or not the Theme subject qualifiers should be included.
+ * @return array
+ */
+function get_thema_subjects( $include_qualifiers = false ) {
+	$json = file_get_contents( PB_PLUGIN_DIR . 'symbionts/thema/Thema_v1.2_en.json' );
+	$values = json_decode( $json );
+	$subjects = [];
+	foreach ( $values->CodeList->Code as $code ) {
+		if ( ctype_alpha( substr( $code->CodeValue, 0, 1 ) ) || $include_qualifiers && ctype_digit( substr( $code->CodeValue, 0, 1 ) ) ) {
+			if ( strlen( $code->CodeValue ) === 1 ) {
+				$subjects[ $code->CodeValue ] = [ 'label' => $code->CodeDescription ];
+				if ( ctype_alpha( $code->CodeValue ) ) {
+					$subjects[ $code->CodeValue ]['children'][ $code->CodeValue ] = $code->CodeDescription;
+				}
+			} else {
+				$subjects[ substr( $code->CodeValue, 0, 1 ) ]['children'][ $code->CodeValue ] = $code->CodeDescription;
+			}
+		}
+	}
+	return $subjects;
+}
+
+/**
+ * Retrieve the subject name from a Thema subject code.
+ *
+ * @since 4.4.0
+ *
+ * @param string $code The Thema code.
+ * @return string The subject name.
+ */
+function get_subject_from_thema( $code ) {
+	$subjects = get_thema_subjects( true );
+	foreach ( $subjects as $key => $group ) {
+		if ( strpos( $code, strval( $key ) ) === 0 ) {
+			return $group['children'][ $code ];
+		}
+	}
+
+	return false;
+}
+
+/**
+ * Determine if a subject code is a BISAC code.
+ *
+ * @since 4.4.0
+ *
+ * @param string $code The code.
+ * @return bool
+ */
+
+function is_bisac( $code ) {
+	if ( strlen( $code ) === 9 ) {
+		if ( ctype_alpha( substr( $code, 0, 3 ) ) && ctype_digit( substr( $code, 3, 6 ) ) ) {
+			return true;
+		}
+	}
+
+	return false;
 }

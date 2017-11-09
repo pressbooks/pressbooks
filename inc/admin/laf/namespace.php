@@ -166,7 +166,9 @@ function replace_book_admin_menu() {
 					wp_enqueue_script( 'pb-metadata' );
 					wp_localize_script(
 						'pb-metadata', 'PB_BookInfoToken', [
-						'bookInfoMenuId' => preg_replace( '|[^a-zA-Z0-9_:.]|', '-', $bookinfo_page ),
+							'bookInfoMenuId' => preg_replace( '|[^a-zA-Z0-9_:.]|', '-', $bookinfo_page ),
+							'selectSubjectText' => __( 'Choose a subject…', 'pressbooks' ),
+							'selectSubjectsText' => __( 'Choose some subject(s)…', 'pressbooks' ),
 						]
 					);
 				}

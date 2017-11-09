@@ -117,8 +117,6 @@ function add_metadata_styles( $hook ) {
 			$assets = new Assets( 'pressbooks', 'plugin' );
 			wp_enqueue_style( 'metadata', $assets->getPath( 'styles/metadata.css' ) );
 		} elseif ( 'part' === $post_type ) {
-			$assets = new Assets( 'pressbooks', 'plugin' );
-			wp_enqueue_style( 'part', $assets->getPath( 'styles/part.css' ) );
 			add_filter(
 				'page_attributes_dropdown_pages_args', function () {
 					return [ 'post_type' => '__GARBAGE__' ];
@@ -329,7 +327,7 @@ function add_meta_boxes() {
 		'field_type' => 'wysiwyg',
 		'group' => 'copyright',
 		'label' => __( 'Copyright Notice', 'pressbooks' ),
-		'description' => __( 'Enter a custom copyright notice, with whatever infomation you like. This will override the auto-generated copyright notice, and be inserted after the title page.', 'pressbooks' ),
+		'description' => __( 'Enter a custom copyright notice, with whatever information you like. This will override the auto-generated copyright notice if All Rights Reserved or no license is selected, and will be inserted after the title page. If you select a Creative Commons license, the custom notice will appear after the license text in both the webbook and your exports.', 'pressbooks' ),
 		]
 	);
 
@@ -365,6 +363,8 @@ function add_meta_boxes() {
 		'description' => __( 'The full description of your book.', 'pressbooks' ),
 		]
 	);
+
+	add_meta_box( 'subject', __( 'Subject(s)', 'pressbooks' ), __NAMESPACE__ . '\metadata_subject_box', 'metadata', 'normal', 'low' );
 
 	if ( $show_expanded_metadata ) {
 		x_add_metadata_group(
@@ -759,4 +759,80 @@ function metadata_save_box( $post ) {
 		<input name="original_publish" type="hidden" id="original_publish" value="Publish"/>
 		<input name="publish" id="publish" type="submit" class="button button-primary button-large" value="Save" tabindex="5" accesskey="p"/>
 	<?php }
+}
+
+/**
+ * Display subjects meta box
+ *
+ * @since 4.4.0
+ *
+ * @param \WP_Post $post
+ */
+function metadata_subject_box( $post ) {
+	wp_nonce_field( basename( __FILE__ ), 'subject_meta_nonce' );
+	$pb_primary_subject = get_post_meta( $post->ID, 'pb_primary_subject', true );
+	$pb_additional_subjects = get_post_meta( $post->ID, 'pb_additional_subjects' );
+	if ( ! $pb_additional_subjects ) {
+		$pb_additional_subjects = [];
+	} ?>
+	<div class="custom-metadata-field select">
+		<label for="pb_primary_subject"><?php _e( 'Primary Subject', 'pressbooks' ); ?></label>
+		<select id="primary-subject" name="pb_primary_subject">
+			<option value=""></option>
+			<?php foreach ( \Pressbooks\Metadata\get_thema_subjects() as $subject_group ) { ?>
+			<optgroup label="<?php echo $subject_group['label']; ?>">
+				<?php foreach ( $subject_group['children'] as $key => $value ) { ?>
+				<option value="<?php echo $key; ?>" <?php selected( $pb_primary_subject, $key ); ?>><?php echo $value; ?></option>
+				<?php } ?>
+			</optgroup>
+			<?php } ?>
+		</select>
+		<span class="description"><?php printf( __( 'This appears on the web homepage of your book and helps categorize it in your network catalog (if applicable). Use %s to determine which subject category is best for your book.', 'pressbooks' ), sprintf( '<a href="%1$s">%2$s</a>', 'http://www.editeur.org/files/Thema/20160601%20Thema%20v1.2%20Basic%20instructions.pdf', __( 'these instructions', 'pressbooks' ) ) ); ?></span>
+	</div>
+	<div class="custom-metadata-field select">
+		<label for="pb_additional_subjects"><?php _e( 'Additional Subject(s)', 'pressbooks' ); ?></label>
+		<select id="additional-subjects" name="pb_additional_subjects[]" multiple>
+			<option value=""></option>
+			<?php foreach ( \Pressbooks\Metadata\get_thema_subjects( true ) as $subject_group ) { ?>
+			<optgroup label="<?php echo $subject_group['label']; ?>">
+				<?php foreach ( $subject_group['children'] as $key => $value ) { ?>
+				<option value="<?php echo $key; ?>" <?php selected( in_array( $key, $pb_additional_subjects, true ), true ); ?>><?php echo $value; ?></option>
+				<?php } ?>
+			</optgroup>
+			<?php } ?>
+		</select>
+		<span class="description"><?php printf( __( 'This appears on the web homepage of your book. Use %s to determine which additional subject categories are appropriate for your book.', 'pressbooks' ), sprintf( '<a href="%1$s">%2$s</a>', 'http://www.editeur.org/files/Thema/20160601%20Thema%20v1.2%20Basic%20instructions.pdf', __( 'these instructions', 'pressbooks' ) ) ); ?></span>
+	</div>
+<?php
+}
+
+/**
+ * Save subject metadata
+ *
+ * @since 4.4.0
+ *
+ * @param int $post_id The post ID.
+ */
+function save_subject_metadata( $post_id ) {
+	if ( ! isset( $_POST['subject_meta_nonce'] ) || ! wp_verify_nonce( $_POST['subject_meta_nonce'], basename( __FILE__ ) ) ) {
+		return;
+	}
+	if ( ! current_user_can( 'edit_post', $post_id ) ) {
+		return;
+	}
+	if ( isset( $_REQUEST['pb_primary_subject'] ) && ! empty( $_REQUEST['pb_primary_subject'] ) ) {
+		update_post_meta( $post_id, 'pb_primary_subject', sanitize_text_field( $_POST['pb_primary_subject'] ) );
+	} else {
+		delete_post_meta( $post_id, 'pb_primary_subject' );
+	}
+
+	if ( isset( $_REQUEST['pb_additional_subjects'] ) && ! empty( $_REQUEST['pb_additional_subjects'] ) ) {
+		$value = ( is_array( $_POST['pb_additional_subjects'] ) ) ? $_POST['pb_additional_subjects'] : [ $_POST['pb_additional_subjects'] ];
+		delete_post_meta( $post_id, 'pb_additional_subjects' );
+		foreach ( $value as $v ) {
+			add_post_meta( $post_id, 'pb_additional_subjects', sanitize_text_field( $v ) );
+		}
+	} else {
+		delete_post_meta( $post_id, 'pb_additional_subjects' );
+	}
 }

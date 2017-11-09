@@ -64,7 +64,7 @@ class Footnotes {
 	 */
 	function shortcodeHandler( $atts, $content = '' ) {
 
-		global $id;
+		global $id; // This is the Post ID, [@see WP_Query::setup_postdata, ...]
 
 		$a = shortcode_atts(
 			[
@@ -122,7 +122,7 @@ class Footnotes {
 	 */
 	function footnoteContent( $content ) {
 
-		global $id;
+		global $id; // This is the Post ID, [@see WP_Query::setup_postdata, ...]
 
 		if ( ! empty( $this->footnotes ) && isset( $this->footnotes[ $id ] ) ) {
 			$footnotes = $this->footnotes[ $id ];
