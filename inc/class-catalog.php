@@ -714,6 +714,12 @@ class Catalog {
 	 * @param string $meta_key
 	 */
 	function uploadLogo( $meta_key ) {
+		// Include media utilities
+		if ( ! function_exists( 'media_handle_sideload' ) ) {
+			require_once( ABSPATH . 'wp-admin/includes/image.php' );
+			require_once( ABSPATH . 'wp-admin/includes/file.php' );
+			require_once( ABSPATH . 'wp-admin/includes/media.php' );
+		}
 
 		if ( isset( $_FILES[ $meta_key ]['name'] ) && empty( $_FILES[ $meta_key ]['name'] ) ) {
 			return; // Bail
