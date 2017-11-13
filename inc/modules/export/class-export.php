@@ -625,7 +625,7 @@ abstract class Export {
 			/**
 			 * Let other plugins tweak things before exporting
 			 *
-			 * @since 4.3.6
+			 * @since 4.4.0
 			 */
 			do_action( 'pb_pre_export' );
 
