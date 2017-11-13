@@ -1398,6 +1398,56 @@ class PDFOptions extends \Pressbooks\Options {
 	 * @return array $defaults
 	 */
 	static function filterDefaults( $defaults ) {
+
+		// TODO: Use transient, expire transient when theme is upgraded
+
+		// CSS => WP
+		$overrides = [
+			'body-font-size' => 'pdf_body_font_size',
+			'body-line-height' => 'pdf_body_line_height',
+			'page-margin-top' => 'pdf_page_margin_top',
+			'page-margin-inside' => 'pdf_page_margin_inside',
+			'page-margin-bottom' => 'pdf_page_margin_bottom',
+			'page-margin-outside' => 'pdf_page_margin_outside',
+			// 'front-matter-running-content-left' => 'running_content_front_matter_left' // TODO...
+		];
+
+		$sass = \Pressbooks\Container::get( 'Sass' );
+		$path_to_global = $sass->pathToGlobals();
+		$path_to_theme = get_stylesheet_directory();
+
+		$files = [
+			$path_to_global . '/variables/_elements.scss',
+			$path_to_global . '/variables/_structure.scss',
+			$path_to_theme . '/assets/styles/components/_elements.scss',
+			$path_to_theme . '/assets/styles/components/_structure.scss',
+		];
+
+		foreach ( $files as $file ) {
+			if ( file_exists( $file ) ) {
+				$contents = file_get_contents( $file );
+				$vars = $sass->parseVariables( $contents );
+				foreach ( $overrides as $css => $wp ) {
+					if ( isset( $vars[ $css ] ) ) {
+						$val = $vars[ $css ];
+						if ( substr( $val, 0, 1 ) === '(' ) {
+							// We think this is a Sass Map
+							$map = array_map( 'trim', explode( ',', str_replace( [ '(', ')' ], '', $val ) ) );
+							foreach ( $map as $t ) {
+								if ( 0 === strpos( $t, 'prince:' ) ) {
+									$defaults[ $wp ] = trim( str_replace( 'prince:', '', $t ) );
+									break;
+								}
+							}
+						} else {
+							// Use as is
+							$defaults[ $wp ] = $val;
+						}
+					}
+				}
+			}
+		}
+
 		return $defaults;
 	}
 

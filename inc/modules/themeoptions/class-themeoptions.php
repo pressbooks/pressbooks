@@ -30,8 +30,9 @@ class ThemeOptions {
 	 */
 	function loadTabs() {
 		foreach ( $this->tabs as $slug => $subclass ) {
+			/** @var \Pressbooks\Options $subclass */
 			add_filter( "option_page_capability_pressbooks_theme_options_$slug", [ $this, 'setPermissions' ], 10, 1 );
-			add_filter( 'pressbooks_theme_options_' . $slug . '_defaults', [ $subclass, 'filterDefaults' ], 10, 1 );
+			add_filter( "pb_theme_options_{$slug}_defaults", [ $subclass, 'filterDefaults' ], 10, 1 );
 			$option = get_option( 'pressbooks_theme_options_' . $slug, $subclass::getDefaults() );
 			/** @var \Pressbooks\Options $tab */
 			$tab = new $subclass( $option );
@@ -125,6 +126,10 @@ class ThemeOptions {
 		 * @param array $tabs
 		 */
 		return apply_filters( 'pb_theme_options_tabs', $tabs );
+	}
+
+	static function afterSwitchTheme() {
+		// TODO
 	}
 
 }

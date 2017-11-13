@@ -234,14 +234,31 @@ class Sass {
 	 * @return array
 	 */
 	public function parseVariables( $scss ) {
-
-		preg_match_all( '/\$(.*?):(.*?);/', $scss, $matches );
-		$output = array_combine( $matches[1], $matches[2] );
-		$output = array_map(
-			function ( $val ) {
-				return ltrim( str_replace( ' !default', '', $val ) );
-			}, $output
-		);
+		$output = [];
+		$parser = new \Leafo\ScssPhp\Parser( null );
+		$tree = $parser->parse( $scss );
+		foreach ( $tree->children as $item ) {
+			if ( $item[0] === 'assign' && $item[1][0] === 'var' ) {
+				$key = $item[1][1];
+				switch ( $item[2][0] ) {
+					case 'var':
+						$val = '$' . $item[2][1];
+						break;
+					case 'fncall':
+						$fncall = $item[2][1];
+						$fncall_params = '';
+						foreach ( $item[2][2] as $param ) {
+							$fncall_params .= $param[1][1] . ', ';
+						}
+						$fncall_params = rtrim( $fncall_params, ', ' );
+						$val = "{$fncall}({$fncall_params})";
+						break;
+					default:
+						$val = ( new \Leafo\ScssPhp\Compiler() )->compileValue( $item[2] );
+				}
+				$output[ $key ] = $val;
+			}
+		}
 		return $output;
 	}
 
