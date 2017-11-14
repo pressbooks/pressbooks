@@ -30,18 +30,18 @@ class ThemeOptions {
 	 */
 	function loadTabs() {
 		foreach ( $this->tabs as $slug => $subclass ) {
-			/** @var \Pressbooks\Options $subclass */
+			/** @var \Pressbooks\Options $subclass (not instantiated, just a string) */
 			add_filter( "option_page_capability_pressbooks_theme_options_$slug", [ $this, 'setPermissions' ], 10, 1 );
 			add_filter( "pb_theme_options_{$slug}_defaults", [ $subclass, 'filterDefaults' ], 10, 1 );
-			$option = get_option( 'pressbooks_theme_options_' . $slug, $subclass::getDefaults() );
+			$options = get_option( "pressbooks_theme_options_{$slug}", $subclass::getDefaults() );
 			/** @var \Pressbooks\Options $tab */
-			$tab = new $subclass( $option );
+			$tab = new $subclass( $options );
 			$tab->init();
-			wp_cache_delete( 'pressbooks_theme_options_' . $slug . '_version', 'options' );
-			$version = get_option( 'pressbooks_theme_options_' . $slug . '_version', 0 );
+			wp_cache_delete( "pressbooks_theme_options_{$slug}_version", 'options' );
+			$version = get_option( "pressbooks_theme_options_{$slug}_version", 0 );
 			if ( $version < $tab::VERSION ) {
 				$tab->upgrade( $version );
-				update_option( 'pressbooks_theme_options_' . $slug . '_version', $tab::VERSION, false );
+				update_option( "pressbooks_theme_options_{$slug}_version", $tab::VERSION, false );
 				if ( WP_DEBUG ) {
 					error_log( 'Upgraded ' . $slug . ' options from version ' . $version . ' --> ' . $tab::VERSION );
 				}
@@ -71,7 +71,7 @@ class ThemeOptions {
 			<?php settings_errors(); ?>
 			<?php $active_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'global'; ?>
 			<h2 class="nav-tab-wrapper">
-				<?php foreach ( \Pressbooks\Modules\ThemeOptions\ThemeOptions::getTabs() as $slug => $subclass ) { ?>
+				<?php foreach ( self::getTabs() as $slug => $subclass ) { ?>
 					<a href="<?php echo admin_url( '/themes.php' );
 					?>?page=pressbooks_theme_options&tab=<?php echo $slug;
 					?>" class="nav-tab <?php echo $active_tab === $slug ? 'nav-tab-active' : ''; ?>"><?php echo $subclass::getTitle() ?></a>
@@ -90,7 +90,7 @@ class ThemeOptions {
 	 * Instantiate the class and add loadTabs() to the admin_init hook.
 	 */
 	static function init() {
-		$self = new self( \Pressbooks\Modules\ThemeOptions\ThemeOptions::getTabs() );
+		$self = new self( self::getTabs() );
 		add_action( 'admin_init', [ $self, 'loadTabs' ] );
 	}
 
@@ -128,8 +128,18 @@ class ThemeOptions {
 		return apply_filters( 'pb_theme_options_tabs', $tabs );
 	}
 
+	/**
+	 * Override saved options with filtered defaults when switching theme
+	 */
 	static function afterSwitchTheme() {
-		// TODO
+		$tabs = self::getTabs();
+		foreach ( $tabs as $slug => $subclass ) {
+			/** @var \Pressbooks\Options $subclass (not instantiated, just a string) */
+			$current_options = get_option( "pressbooks_theme_options_{$slug}", [] );
+			if ( ! empty( $current_options ) ) {
+				update_option( "pressbooks_theme_options_{$slug}", $subclass::filterDefaults( $current_options ) );
+			}
+		}
 	}
 
 }
