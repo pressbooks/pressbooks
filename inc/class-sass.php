@@ -238,13 +238,13 @@ class Sass {
 		$parser = new \Leafo\ScssPhp\Parser( null );
 		$tree = $parser->parse( $scss );
 		foreach ( $tree->children as $item ) {
-			if ( $item[0] === 'assign' && $item[1][0] === 'var' ) {
+			if ( $item[0] === \Leafo\ScssPhp\Type::T_ASSIGN && $item[1][0] === \Leafo\ScssPhp\Type::T_VARIABLE ) {
 				$key = $item[1][1];
 				switch ( $item[2][0] ) {
-					case 'var':
+					case \Leafo\ScssPhp\Type::T_VARIABLE:
 						$val = '$' . $item[2][1];
 						break;
-					case 'fncall':
+					case \Leafo\ScssPhp\Type::T_FUNCTION_CALL:
 						$fncall = $item[2][1];
 						$fncall_params = '';
 						foreach ( $item[2][2] as $param ) {
@@ -254,7 +254,7 @@ class Sass {
 						$val = "{$fncall}({$fncall_params})";
 						break;
 					default:
-						$val = ( new \Leafo\ScssPhp\Compiler() )->compileValue( $item[2] );
+						$val = @( new \Leafo\ScssPhp\Compiler() )->compileValue( $item[2] ); // @codingStandardsIgnoreLine
 				}
 				$output[ $key ] = $val;
 			}
