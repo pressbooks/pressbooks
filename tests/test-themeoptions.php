@@ -19,19 +19,9 @@ class ThemeOptionsTest extends \WP_UnitTestCase {
 	}
 
 	public function test_loadTabs() {
-		$option = 'pressbooks_theme_options_ebook_version';
-
-		delete_option( $option );
-		wp_cache_delete( $option, 'options' );
-
-		$version = get_option( $option, 'notset' );
-		$this->assertEquals( 'notset', $version );
-
+		global $wp_registered_settings;
 		$this->themeOptions->loadTabs();
-
-		$version = get_option( $option, 'should_be_set_now' );
-		$this->assertTrue( is_numeric( $version ) );
-		$this->assertTrue( $version > 0 );
+		$this->assertArrayHasKey( 'pressbooks_theme_options_ebook', $wp_registered_settings );
 	}
 
 	public function test_setPermissions() {
