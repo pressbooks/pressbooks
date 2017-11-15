@@ -21,12 +21,15 @@ class ThemeOptionsTest extends \WP_UnitTestCase {
 	public function test_loadTabs() {
 		$option = 'pressbooks_theme_options_ebook_version';
 
+		delete_option( $option );
+		wp_cache_delete( $option, 'options' );
+
 		$version = get_option( $option, 'notset' );
 		$this->assertEquals( 'notset', $version );
 
 		$this->themeOptions->loadTabs();
 
-		$version = get_option( $option, 0 );
+		$version = get_option( $option, 'should_be_set_now' );
 		$this->assertTrue( is_numeric( $version ) );
 		$this->assertTrue( $version > 0 );
 	}
