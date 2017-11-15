@@ -17,6 +17,11 @@ namespace Pressbooks;
 abstract class Options {
 
 	/**
+	 * @var int
+	 */
+	const VERSION = null;
+
+	/**
 	 * Configure the options page or tab using the settings API.
 	 */
 	abstract function init();

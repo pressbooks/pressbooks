@@ -8,12 +8,12 @@ namespace Pressbooks\Modules\ThemeOptions;
 
 /**
  * Not a subclass of \Pressbooks\Options!
- * Handles initialization of "Theme Options" admin menu
+ * Handles initialization of Theme Options admin menu
  */
 class ThemeOptions {
 
 	/**
-	 * @var \Pressbooks\Modules\ThemeOptions\ThemeOptions
+	 * @var ThemeOptions
 	 */
 	private static $instance = null;
 
@@ -22,12 +22,19 @@ class ThemeOptions {
 	 */
 	static public function init() {
 		if ( is_null( self::$instance ) ) {
-			$self = new self();
-			add_action( 'admin_init', [ $self, 'loadTabs' ] );
-			add_filter( 'admin_menu', [ $self, 'adminMenu' ] );
-			add_action( 'after_switch_theme', [ $self, 'afterSwitchTheme' ] );
+			self::$instance = new self();
+			self::hooks( self::$instance );
 		}
 		return self::$instance;
+	}
+
+	/**
+	 * @param ThemeOptions $obj
+	 */
+	static public function hooks( ThemeOptions $obj ) {
+		add_action( 'admin_init', [ $obj, 'loadTabs' ] );
+		add_filter( 'admin_menu', [ $obj, 'adminMenu' ] );
+		add_action( 'after_switch_theme', [ $obj, 'afterSwitchTheme' ] );
 	}
 
 	/**
@@ -98,7 +105,7 @@ class ThemeOptions {
 			$tab->init();
 			wp_cache_delete( "pressbooks_theme_options_{$slug}_version", 'options' );
 			$version = get_option( "pressbooks_theme_options_{$slug}_version", 0 );
-			if ( $version < $tab::VERSION ) {
+			if ( $tab::VERSION !== null && $version < $tab::VERSION ) {
 				$tab->upgrade( $version );
 				update_option( "pressbooks_theme_options_{$slug}_version", $tab::VERSION, false );
 				if ( WP_DEBUG ) {
@@ -118,7 +125,7 @@ class ThemeOptions {
 	 *
 	 * @return string
 	 */
-	function setPermissions( $capability ) {
+	public function setPermissions( $capability ) {
 		return 'edit_others_posts';
 	}
 
@@ -151,12 +158,23 @@ class ThemeOptions {
 	 * Override saved options with filtered defaults when switching theme
 	 */
 	public function afterSwitchTheme() {
+		$this->clearCache();
 		foreach ( $this->getTabs() as $slug => $subclass ) {
 			/** @var \Pressbooks\Options $subclass (not instantiated, just a string) */
 			$current_options = get_option( "pressbooks_theme_options_{$slug}", [] );
 			if ( ! empty( $current_options ) ) {
 				update_option( "pressbooks_theme_options_{$slug}", $subclass::filterDefaults( $current_options ) );
 			}
+		}
+	}
+
+	/**
+	 * Clear caches in one fell swoop
+	 */
+	public function clearCache() {
+		foreach ( $this->getTabs() as $slug => $subclass ) {
+			wp_cache_delete( "pressbooks_theme_options_{$slug}_version", 'options' );
+			delete_transient( "pressbooks_theme_options_{$slug}_parsed_sass_variables" );
 		}
 	}
 

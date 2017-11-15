@@ -1399,8 +1399,6 @@ class PDFOptions extends \Pressbooks\Options {
 	 */
 	static function filterDefaults( $defaults ) {
 
-		// TODO: Use transient, expire transient when theme is upgraded
-
 		// SASS => WP
 		$overrides = [
 			'body-font-size' => 'pdf_body_font_size',
@@ -1421,35 +1419,40 @@ class PDFOptions extends \Pressbooks\Options {
 			'back-matter-running-content-right' => 'running_content_back_matter_right',
 		];
 
-		$sass = \Pressbooks\Container::get( 'Sass' );
+		$transient_name = 'pressbooks_theme_options_pdf_parsed_sass_variables';
+		$parsed_sass_variables = get_transient( $transient_name );
+		if ( $parsed_sass_variables === false ) {
+			// Order of files matter. If a variable is duplicated in other files then the last one takes precedence
+			$parsed_sass_variables = [];
+			$sass = \Pressbooks\Container::get( 'Sass' );
+			$path_to_global = $sass->pathToGlobals();
+			$path_to_theme = get_stylesheet_directory();
+			$files = [
+				$path_to_global . '/variables/_elements.scss',
+				$path_to_global . '/variables/_structure.scss',
+				$path_to_theme . '/assets/styles/components/_elements.scss',
+				$path_to_theme . '/assets/styles/components/_structure.scss',
+			];
+			foreach ( $files as $file ) {
+				if ( file_exists( $file ) ) {
+					$parsed_sass_variables[] = $sass->parseVariables( file_get_contents( $file ) );
+				}
+			}
+			set_transient( $transient_name, $parsed_sass_variables );
+		}
 
-		// Order of files matter. If a variable is duplicated in other files then the last one takes precedence
-		$path_to_global = $sass->pathToGlobals();
-		$path_to_theme = get_stylesheet_directory();
-		$files = [
-			$path_to_global . '/variables/_elements.scss',
-			$path_to_global . '/variables/_structure.scss',
-			$path_to_theme . '/assets/styles/components/_elements.scss',
-			$path_to_theme . '/assets/styles/components/_structure.scss',
-		];
-
-		foreach ( $files as $file ) {
-			if ( file_exists( $file ) ) {
-				$parsed_variables = $sass->parseVariables( file_get_contents( $file ) );
-				foreach ( $overrides as $sass_var => $wp_option ) {
-					if ( isset( $parsed_variables[ $sass_var ] ) ) {
-						$val = self::parseSassValue( $parsed_variables[ $sass_var ] );
-						if ( ! empty( $val ) ) {
-							if ( in_array( $wp_option, self::getFloatOptions(), true ) ) {
-								$val = (float) preg_replace( '/[^0-9.]/', '', $val ); // Extract digits and periods
-							} elseif ( in_array( $wp_option, self::getIntegerOptions(), true ) ) {
-								$val = (int) preg_replace( '/[^0-9]/', '', $val ); // Extract digits
-							} elseif ( in_array( $wp_option, self::getBooleanOptions(), true ) ) {
-								$val = filter_var( $val, FILTER_VALIDATE_BOOLEAN ); // Convert to boolean
-							}
-							$defaults[ $wp_option ] = $val; // Override default with new value
-						}
+		foreach ( $parsed_sass_variables as $parsed_variables ) {
+			foreach ( $overrides as $sass_var => $wp_option ) {
+				$val = self::parseSassValue( $parsed_variables[ $sass_var ] ?? '' );
+				if ( ! empty( $val ) ) {
+					if ( in_array( $wp_option, self::getFloatOptions(), true ) ) {
+						$val = (float) preg_replace( '/[^0-9.]/', '', $val ); // Extract digits and periods
+					} elseif ( in_array( $wp_option, self::getIntegerOptions(), true ) ) {
+						$val = (int) preg_replace( '/[^0-9]/', '', $val ); // Extract digits
+					} elseif ( in_array( $wp_option, self::getBooleanOptions(), true ) ) {
+						$val = filter_var( $val, FILTER_VALIDATE_BOOLEAN ); // Convert to boolean
 					}
+					$defaults[ $wp_option ] = $val; // Override default with new value
 				}
 			}
 		}
