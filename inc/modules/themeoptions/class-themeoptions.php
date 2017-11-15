@@ -108,7 +108,7 @@ class ThemeOptions {
 			if ( $tab::VERSION !== null && $version < $tab::VERSION ) {
 				$tab->upgrade( $version );
 				update_option( "pressbooks_theme_options_{$slug}_version", $tab::VERSION, false );
-				if ( WP_DEBUG ) {
+				if ( WP_DEBUG && ! defined( 'WP_TESTS_MULTISITE' ) ) {
 					error_log( 'Upgraded ' . $slug . ' options from version ' . $version . ' --> ' . $tab::VERSION );
 				}
 			}
