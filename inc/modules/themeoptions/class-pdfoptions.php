@@ -1443,16 +1443,18 @@ class PDFOptions extends \Pressbooks\Options {
 
 		foreach ( $parsed_sass_variables as $parsed_variables ) {
 			foreach ( $overrides as $sass_var => $wp_option ) {
-				$val = self::parseSassValue( $parsed_variables[ $sass_var ] ?? '' );
-				if ( ! empty( $val ) ) {
-					if ( in_array( $wp_option, self::getFloatOptions(), true ) ) {
-						$val = (float) preg_replace( '/[^0-9.]/', '', $val ); // Extract digits and periods
-					} elseif ( in_array( $wp_option, self::getIntegerOptions(), true ) ) {
-						$val = (int) preg_replace( '/[^0-9]/', '', $val ); // Extract digits
-					} elseif ( in_array( $wp_option, self::getBooleanOptions(), true ) ) {
-						$val = filter_var( $val, FILTER_VALIDATE_BOOLEAN ); // Convert to boolean
+				if ( isset( $parsed_variables[ $sass_var ] ) ) {
+					$val = self::parseSassValue( $parsed_variables[ $sass_var ] );
+					if ( ! empty( $val ) ) {
+						if ( in_array( $wp_option, self::getFloatOptions(), true ) ) {
+							$val = (float) preg_replace( '/[^0-9.]/', '', $val ); // Extract digits and periods
+						} elseif ( in_array( $wp_option, self::getIntegerOptions(), true ) ) {
+							$val = (int) preg_replace( '/[^0-9]/', '', $val ); // Extract digits
+						} elseif ( in_array( $wp_option, self::getBooleanOptions(), true ) ) {
+							$val = filter_var( $val, FILTER_VALIDATE_BOOLEAN ); // Convert to boolean
+						}
+						$defaults[ $wp_option ] = $val; // Override default with new value
 					}
-					$defaults[ $wp_option ] = $val; // Override default with new value
 				}
 			}
 		}
@@ -1665,7 +1667,9 @@ class PDFOptions extends \Pressbooks\Options {
 		$styles = \Pressbooks\Container::get( 'Styles' );
 		$v2_compatible = $styles->isCurrentThemeCompatible( 2 );
 
-		$scss .= "/* Theme Options */\n";
+		if ( ! $v2_compatible ) {
+			$scss .= "/* Theme Options */\n";
+		}
 
 		// --------------------------------------------------------------------
 		// Global Options
