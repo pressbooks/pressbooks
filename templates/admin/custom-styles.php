@@ -50,17 +50,17 @@ if ( ! empty( $_GET['custom_styles_error'] ) ) {
 	<?php echo $revisions_table; ?>
 </div>
 <script>
-	var e1 = CodeMirror.fromTextArea( document.getElementById( 'theme_styles' ), {
+(function( $, wp ) {
+	var e1 = wp.CodeMirror.fromTextArea( document.getElementById( 'theme_styles' ), {
 		lineNumbers: true,
 		matchBrackets: true,
 		readOnly: true,
-		viewportMargin: 5000,
 		mode: 'text/x-scss'
 	} );
-	var e2 = CodeMirror.fromTextArea( document.getElementById( 'your_styles' ), {
+	var e2 = wp.CodeMirror.fromTextArea( document.getElementById( 'your_styles' ), {
 		lineNumbers: true,
 		matchBrackets: true,
-		viewportMargin: 5000,
 		mode: 'text/x-scss'
 	} );
+})( window.jQuery, window.wp );
 </script>

@@ -36,8 +36,5 @@
     "/scripts/js-cookie.js": "/scripts/js-cookie.js?id=6e9eb1f53afb135aedaf",
     "/scripts/select2.js": "/scripts/select2.js?id=49283e815f0ce68a27a6",
     "/scripts/sidr.js": "/scripts/sidr.js?id=32495427b04ceeab5376",
-    "/scripts/table.js": "/scripts/table.js?id=91254dca68b8df2b6da6",
-    "/scripts/codemirror.js": "/scripts/codemirror.js?id=ea406e6f0c7be461f35b",
-    "/scripts/codemirror-mode-css.js": "/scripts/codemirror-mode-css.js?id=61bee8734295d343fb46",
-    "/styles/codemirror.css": "/styles/codemirror.css?id=9555ceae663b6ebb3ca2"
+    "/scripts/table.js": "/scripts/table.js?id=91254dca68b8df2b6da6"
 }
