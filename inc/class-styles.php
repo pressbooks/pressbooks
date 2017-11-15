@@ -403,6 +403,13 @@ class Styles {
 
 		$scss = $this->applyOverrides( $scss, $overrides );
 
+		// Apply Theme Options
+		if ( $type === 'prince' ) {
+			$scss = apply_filters( 'pb_pdf_css_override', $scss );
+		} else {
+			$scss = apply_filters( "pb_{$type}_css_override", $scss );
+		}
+
 		if ( $this->isCurrentThemeCompatible( 1 ) ) {
 			$css = $this->sass->compile(
 				$scss,
