@@ -62,7 +62,7 @@ msgstr ""
 msgid "Authors"
 msgstr ""
 
-#: ../inc/class-activation.php:215, ../inc/admin/class-catalog-list-table.php:171, ../inc/modules/export/epub/class-epub201.php:776, ../tests/test-cloner.php:42
+#: ../inc/class-activation.php:215, ../inc/admin/class-catalog-list-table.php:171, ../inc/modules/export/epub/class-epub201.php:785, ../tests/test-cloner.php:42
 msgid "Cover"
 msgstr ""
 
@@ -106,23 +106,23 @@ msgstr ""
 msgid "Default Data"
 msgstr ""
 
-#: ../inc/class-catalog.php:752
+#: ../inc/class-catalog.php:758
 msgid "Catalog Logo"
 msgstr ""
 
-#: ../inc/class-catalog.php:1109, ../inc/class-catalog.php:1164, ../inc/class-catalog.php:1208, ../inc/admin/class-catalog-list-table.php:549, ../templates/admin/catalog.php:19
+#: ../inc/class-catalog.php:1115, ../inc/class-catalog.php:1170, ../inc/class-catalog.php:1214, ../inc/admin/class-catalog-list-table.php:549, ../templates/admin/catalog.php:19
 msgid "You do not have permission to do that."
 msgstr ""
 
-#: ../inc/class-catalog.php:1136, ../inc/class-catalog.php:1191, ../inc/class-catalog.php:1227, ../inc/class-catalog.php:1283, ../inc/admin/analytics/namespace.php:187, ../inc/admin/network/class-sharingandprivacyoptions.php:127, ../templates/admin/dashboard.php:28
+#: ../inc/class-catalog.php:1142, ../inc/class-catalog.php:1197, ../inc/class-catalog.php:1233, ../inc/class-catalog.php:1289, ../inc/admin/analytics/namespace.php:187, ../inc/admin/network/class-sharingandprivacyoptions.php:127, ../templates/admin/dashboard.php:28
 msgid "Settings saved."
 msgstr ""
 
-#: ../inc/class-catalog.php:1255
+#: ../inc/class-catalog.php:1261
 msgid "Invalid URL."
 msgstr ""
 
-#: ../inc/class-catalog.php:1275
+#: ../inc/class-catalog.php:1281
 msgid "No book found."
 msgstr ""
 
@@ -340,11 +340,11 @@ msgstr ""
 msgid "All Rights Reserved"
 msgstr ""
 
-#: ../inc/class-licensing.php:257, ../inc/admin/metaboxes/namespace.php:294, ../inc/modules/export/epub/class-epub201.php:979, ../inc/modules/export/epub/class-epub201.php:1005, ../inc/modules/export/xhtml/class-xhtml11.php:751, ../inc/modules/export/epub/templates/epub201/opf.php:81, ../inc/modules/export/epub/templates/epub3/opf.php:91
+#: ../inc/class-licensing.php:257, ../inc/admin/metaboxes/namespace.php:292, ../inc/modules/export/epub/class-epub201.php:988, ../inc/modules/export/epub/class-epub201.php:1014, ../inc/modules/export/xhtml/class-xhtml11.php:753, ../inc/modules/export/epub/templates/epub201/opf.php:81, ../inc/modules/export/epub/templates/epub3/opf.php:91
 msgid "Copyright"
 msgstr ""
 
-#: ../inc/class-licensing.php:259, ../inc/class-styles.php:622, ../inc/modules/export/epub/class-epub201.php:988, ../inc/modules/export/xhtml/class-xhtml11.php:760, ../inc/modules/export/epub/templates/epub201/opf.php:90, ../inc/modules/export/epub/templates/epub3/opf.php:100
+#: ../inc/class-licensing.php:259, ../inc/class-styles.php:608, ../inc/modules/export/epub/class-epub201.php:997, ../inc/modules/export/xhtml/class-xhtml11.php:762, ../inc/modules/export/epub/templates/epub201/opf.php:90, ../inc/modules/export/epub/templates/epub3/opf.php:100
 msgid "by"
 msgstr ""
 
@@ -352,7 +352,7 @@ msgstr ""
 msgid "except where otherwise noted."
 msgstr ""
 
-#: ../inc/class-metadata.php:409, ../inc/admin/metaboxes/namespace.php:97, ../inc/admin/metaboxes/namespace.php:154
+#: ../inc/class-metadata.php:409, ../inc/admin/metaboxes/namespace.php:97, ../inc/admin/metaboxes/namespace.php:152
 msgid "Cover Image"
 msgstr ""
 
@@ -360,39 +360,39 @@ msgstr ""
 msgid "Chapter"
 msgstr ""
 
-#: ../inc/class-sass.php:64, ../inc/admin/metaboxes/namespace.php:145, ../inc/admin/metaboxes/namespace.php:527, ../inc/api/endpoints/controller/class-toc.php:184, ../inc/modules/export/epub/class-epub201.php:1640, ../inc/modules/searchandreplace/types/class-content.php:68, ../templates/admin/import.php:80, ../templates/admin/organize.php:43, ../templates/admin/trash.php:53
+#: ../inc/class-sass.php:64, ../inc/admin/metaboxes/namespace.php:143, ../inc/admin/metaboxes/namespace.php:527, ../inc/api/endpoints/controller/class-toc.php:184, ../inc/modules/export/epub/class-epub201.php:1649, ../inc/modules/searchandreplace/types/class-content.php:68, ../templates/admin/import.php:80, ../templates/admin/organize.php:43, ../templates/admin/trash.php:53
 msgid "Part"
 msgstr ""
 
-#: ../inc/class-sass.php:255
+#: ../inc/class-sass.php:260
 msgid "SASS Error"
 msgstr ""
 
-#: ../inc/class-styles.php:91, ../inc/class-styles.php:91, ../templates/admin/custom-styles.php:37
+#: ../inc/class-styles.php:77, ../inc/class-styles.php:77, ../templates/admin/custom-styles.php:37
 msgid "Custom Styles"
 msgstr ""
 
-#: ../inc/class-styles.php:111
+#: ../inc/class-styles.php:97
 msgid "Custom Style for Ebook"
 msgstr ""
 
-#: ../inc/class-styles.php:116
+#: ../inc/class-styles.php:102
 msgid "Custom Style for PDF"
 msgstr ""
 
-#: ../inc/class-styles.php:121
+#: ../inc/class-styles.php:107
 msgid "Custom Style for Web"
 msgstr ""
 
-#: ../inc/class-styles.php:547
+#: ../inc/class-styles.php:533
 msgid "Unexpected Error: There was a problem trying to query slug: %s - Please contact technical support."
 msgstr ""
 
-#: ../inc/class-styles.php:587
+#: ../inc/class-styles.php:573
 msgid "Web"
 msgstr ""
 
-#: ../inc/class-styles.php:619
+#: ../inc/class-styles.php:605
 msgid "Last 10 Revisions"
 msgstr ""
 
@@ -586,7 +586,7 @@ msgstr ""
 msgid "Title"
 msgstr ""
 
-#: ../inc/admin/class-catalog-list-table.php:173, ../inc/admin/metaboxes/namespace.php:190, ../templates/admin/organize.php:90, ../templates/admin/organize.php:159
+#: ../inc/admin/class-catalog-list-table.php:173, ../inc/admin/metaboxes/namespace.php:188, ../templates/admin/organize.php:90, ../templates/admin/organize.php:159
 msgid "Author"
 msgstr ""
 
@@ -646,7 +646,7 @@ msgstr ""
 msgid "The public link to your catalog page"
 msgstr ""
 
-#: ../inc/admin/class-catalog-list-table.php:477, ../inc/admin/laf/namespace.php:242, ../inc/admin/laf/namespace.php:242, ../inc/admin/laf/namespace.php:312, ../inc/admin/laf/namespace.php:312, ../inc/admin/laf/namespace.php:442
+#: ../inc/admin/class-catalog-list-table.php:477, ../inc/admin/laf/namespace.php:244, ../inc/admin/laf/namespace.php:244, ../inc/admin/laf/namespace.php:314, ../inc/admin/laf/namespace.php:314, ../inc/admin/laf/namespace.php:444
 msgid "My Catalog"
 msgstr ""
 
@@ -702,7 +702,7 @@ msgstr ""
 msgid "This will prevent any changes to your book&rsquo;s appearance and page count when themes are updated."
 msgstr ""
 
-#: ../inc/admin/class-exportoptions.php:182, ../inc/admin/laf/namespace.php:220, ../inc/admin/metaboxes/namespace.php:537
+#: ../inc/admin/class-exportoptions.php:182, ../inc/admin/laf/namespace.php:222, ../inc/admin/metaboxes/namespace.php:537
 msgid "Export Settings"
 msgstr ""
 
@@ -770,7 +770,7 @@ msgstr ""
 msgid "If you would like to add <strong>BUY</strong> links to your Pressbooks web book, add the links to your book at the different retailers below:"
 msgstr ""
 
-#: ../inc/admin/class-publishoptions.php:293, ../inc/admin/laf/namespace.php:204, ../inc/admin/laf/namespace.php:204
+#: ../inc/admin/class-publishoptions.php:293, ../inc/admin/laf/namespace.php:206, ../inc/admin/laf/namespace.php:206
 msgid "Publish"
 msgstr ""
 
@@ -1321,7 +1321,7 @@ msgstr ""
 msgid "book"
 msgstr ""
 
-#: ../inc/redirect/namespace.php:377, ../inc/modules/export/class-export.php:815
+#: ../inc/redirect/namespace.php:377, ../inc/modules/export/class-export.php:825
 msgid "File not found"
 msgstr ""
 
@@ -1523,7 +1523,7 @@ msgstr ""
 msgid "My Book"
 msgstr ""
 
-#: ../inc/admin/dashboard/namespace.php:82, ../inc/admin/laf/namespace.php:531
+#: ../inc/admin/dashboard/namespace.php:82, ../inc/admin/laf/namespace.php:533
 msgid "Users"
 msgstr ""
 
@@ -1535,7 +1535,7 @@ msgstr ""
 msgid "Organize"
 msgstr ""
 
-#: ../inc/admin/dashboard/namespace.php:195, ../inc/admin/dashboard/namespace.php:196, ../inc/admin/laf/namespace.php:513, ../inc/admin/laf/namespace.php:579
+#: ../inc/admin/dashboard/namespace.php:195, ../inc/admin/dashboard/namespace.php:196, ../inc/admin/laf/namespace.php:515, ../inc/admin/laf/namespace.php:581
 msgid "Dashboard"
 msgstr ""
 
@@ -1603,11 +1603,11 @@ msgstr ""
 msgid "Powered by"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:22, ../inc/admin/laf/namespace.php:403
+#: ../inc/admin/laf/namespace.php:22, ../inc/admin/laf/namespace.php:405
 msgid "Help"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:25, ../inc/admin/laf/namespace.php:413
+#: ../inc/admin/laf/namespace.php:25, ../inc/admin/laf/namespace.php:415
 msgid "Contact"
 msgstr ""
 
@@ -1627,119 +1627,127 @@ msgstr ""
 msgid "Book Info"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:178, ../inc/admin/laf/namespace.php:178, ../inc/admin/laf/namespace.php:220, ../templates/admin/export.php:141, ../templates/admin/organize.php:45, ../templates/admin/organize.php:95, ../templates/admin/organize.php:164
+#: ../inc/admin/laf/namespace.php:170
+msgid "Choose a subject…"
+msgstr ""
+
+#: ../inc/admin/laf/namespace.php:171
+msgid "Choose some subject(s)…"
+msgstr ""
+
+#: ../inc/admin/laf/namespace.php:180, ../inc/admin/laf/namespace.php:180, ../inc/admin/laf/namespace.php:222, ../templates/admin/export.php:141, ../templates/admin/organize.php:45, ../templates/admin/organize.php:95, ../templates/admin/organize.php:164
 msgid "Export"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:186
+#: ../inc/admin/laf/namespace.php:188
 msgid "EPUB is required for MOBI export. Would you like to reenable it?"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:207, ../inc/admin/laf/namespace.php:293, ../inc/admin/laf/namespace.php:997, ../inc/admin/network/class-sharingandprivacyoptions.php:226
+#: ../inc/admin/laf/namespace.php:209, ../inc/admin/laf/namespace.php:295, ../inc/admin/laf/namespace.php:999, ../inc/admin/network/class-sharingandprivacyoptions.php:226
 msgid "Sharing and Privacy Settings"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:207, ../inc/admin/laf/namespace.php:293
+#: ../inc/admin/laf/namespace.php:209, ../inc/admin/laf/namespace.php:295
 msgid "Sharing &amp; Privacy"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:223, ../inc/admin/laf/namespace.php:223, ../templates/admin/import.php:32, ../templates/admin/import.php:75
+#: ../inc/admin/laf/namespace.php:225, ../inc/admin/laf/namespace.php:225, ../templates/admin/import.php:32, ../templates/admin/import.php:75
 msgid "Import"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:232, ../inc/admin/laf/namespace.php:232
+#: ../inc/admin/laf/namespace.php:234, ../inc/admin/laf/namespace.php:234
 msgid "Clone a Book"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:371, ../inc/admin/laf/namespace.php:382
+#: ../inc/admin/laf/namespace.php:373, ../inc/admin/laf/namespace.php:384
 msgid "About Pressbooks"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:393
+#: ../inc/admin/laf/namespace.php:395
 msgid "Pressbooks.com"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:451
+#: ../inc/admin/laf/namespace.php:453
 msgid "Add A New Book"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:484
+#: ../inc/admin/laf/namespace.php:486
 msgid "Clone A Book"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:504
+#: ../inc/admin/laf/namespace.php:506
 msgid "Network Admin"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:522
+#: ../inc/admin/laf/namespace.php:524
 msgid "Sites"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:540
+#: ../inc/admin/laf/namespace.php:542
 msgid "Visit Network"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:593
+#: ../inc/admin/laf/namespace.php:595
 msgid "Visit Site"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:744
+#: ../inc/admin/laf/namespace.php:746
 msgid "Are you sure you want to unlock your theme? This will update your book to the most recent version of your selected theme, which may change your book&rsquo;s appearance and page count. Once you save your settings on this page, this action will NOT be reversable!"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:790
+#: ../inc/admin/laf/namespace.php:792
 msgid "Book Visibility"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:797
+#: ../inc/admin/laf/namespace.php:799
 msgid "Private Content"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:804
+#: ../inc/admin/laf/namespace.php:806
 msgid "Disable Comments"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:813
+#: ../inc/admin/laf/namespace.php:815
 msgid "Share Latest Export Files"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:847
+#: ../inc/admin/laf/namespace.php:849
 msgid "Sharing and Privacy settings"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:863
+#: ../inc/admin/laf/namespace.php:865
 msgid "Public. I would like this book to be visible to everyone."
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:869
+#: ../inc/admin/laf/namespace.php:871
 msgid "Private. I would like this book to be accessible only to people I invite."
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:892
+#: ../inc/admin/laf/namespace.php:894
 msgid "Who can see private front matter, chapters and back matter?"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:895
+#: ../inc/admin/laf/namespace.php:897
 msgid "Only logged in editors and administrators."
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:897
+#: ../inc/admin/laf/namespace.php:899
 msgid "All logged in users including subscribers."
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:913
+#: ../inc/admin/laf/namespace.php:915
 msgid "Yes. I want to automatically disable comments, trackbacks and pingbacks on all front matter, chapters and back matter."
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:919
+#: ../inc/admin/laf/namespace.php:921
 msgid "No. I want to leave comments, trackbacks and pingbacks enabled on all front matter, chapters and back matter unless I disable them manually."
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:935
+#: ../inc/admin/laf/namespace.php:937
 msgid "Yes. I would like the latest export files to be available on the homepage for free, to everyone."
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:941
+#: ../inc/admin/laf/namespace.php:943
 msgid "No. I would like the latest export files to only be available to administrators."
 msgstr ""
 
@@ -1751,164 +1759,168 @@ msgstr ""
 msgid "Your cover image (%s) is too big. It should be no more than 2MB."
 msgstr ""
 
-#: ../inc/admin/metaboxes/namespace.php:149
+#: ../inc/admin/metaboxes/namespace.php:147
 msgid "Save Part"
 msgstr ""
 
-#: ../inc/admin/metaboxes/namespace.php:150
+#: ../inc/admin/metaboxes/namespace.php:148
 msgid "Save Book Information"
 msgstr ""
 
-#: ../inc/admin/metaboxes/namespace.php:160
+#: ../inc/admin/metaboxes/namespace.php:158
 msgid "General Book Information"
 msgstr ""
 
-#: ../inc/admin/metaboxes/namespace.php:175
+#: ../inc/admin/metaboxes/namespace.php:173
 msgid "Short Title"
 msgstr ""
 
-#: ../inc/admin/metaboxes/namespace.php:176
+#: ../inc/admin/metaboxes/namespace.php:174
 msgid "In case of long titles that might be truncated in running heads in the PDF export."
 msgstr ""
 
-#: ../inc/admin/metaboxes/namespace.php:183
+#: ../inc/admin/metaboxes/namespace.php:181
 msgid "Subtitle"
 msgstr ""
 
-#: ../inc/admin/metaboxes/namespace.php:198
+#: ../inc/admin/metaboxes/namespace.php:196
 msgid "Author, file as"
 msgstr ""
 
-#: ../inc/admin/metaboxes/namespace.php:199
+#: ../inc/admin/metaboxes/namespace.php:197
 msgid "This ensures that your ebook will sort properly in ebook stores, by the author's last name."
 msgstr ""
 
-#: ../inc/admin/metaboxes/namespace.php:207
+#: ../inc/admin/metaboxes/namespace.php:205
 msgid "Contributing Author(s)"
 msgstr ""
 
-#: ../inc/admin/metaboxes/namespace.php:209
+#: ../inc/admin/metaboxes/namespace.php:207
 msgid "This may be used when more than one person shares the responsibility for the intellectual content of a book."
 msgstr ""
 
-#: ../inc/admin/metaboxes/namespace.php:216
+#: ../inc/admin/metaboxes/namespace.php:214
 msgid "Editor(s)"
 msgstr ""
 
-#: ../inc/admin/metaboxes/namespace.php:224
+#: ../inc/admin/metaboxes/namespace.php:222
 msgid "Translator(s)"
 msgstr ""
 
-#: ../inc/admin/metaboxes/namespace.php:232
+#: ../inc/admin/metaboxes/namespace.php:230
 msgid "Publisher"
 msgstr ""
 
-#: ../inc/admin/metaboxes/namespace.php:233, ../inc/admin/metaboxes/namespace.php:241
+#: ../inc/admin/metaboxes/namespace.php:231, ../inc/admin/metaboxes/namespace.php:239
 msgid "This text appears on the title page of your book."
 msgstr ""
 
-#: ../inc/admin/metaboxes/namespace.php:240
+#: ../inc/admin/metaboxes/namespace.php:238
 msgid "Publisher City"
 msgstr ""
 
-#: ../inc/admin/metaboxes/namespace.php:249
+#: ../inc/admin/metaboxes/namespace.php:247
 msgid "Publication Date"
 msgstr ""
 
-#: ../inc/admin/metaboxes/namespace.php:250, ../inc/admin/metaboxes/namespace.php:260
+#: ../inc/admin/metaboxes/namespace.php:248, ../inc/admin/metaboxes/namespace.php:258
 msgid "This is added to the metadata in your ebook."
 msgstr ""
 
-#: ../inc/admin/metaboxes/namespace.php:259
+#: ../inc/admin/metaboxes/namespace.php:257
 msgid "On-Sale Date"
 msgstr ""
 
-#: ../inc/admin/metaboxes/namespace.php:268
+#: ../inc/admin/metaboxes/namespace.php:266
 msgid "Ebook ISBN"
 msgstr ""
 
-#: ../inc/admin/metaboxes/namespace.php:269
+#: ../inc/admin/metaboxes/namespace.php:267
 msgid "ISBN is the International Standard Book Number, and you'll need one if you want to sell your book in some online ebook stores. This is added to the metadata in your ebook."
 msgstr ""
 
-#: ../inc/admin/metaboxes/namespace.php:276
+#: ../inc/admin/metaboxes/namespace.php:274
 msgid "Print ISBN"
 msgstr ""
 
-#: ../inc/admin/metaboxes/namespace.php:277
+#: ../inc/admin/metaboxes/namespace.php:275
 msgid "ISBN is the International Standard Book Number, and you'll need one if you want to sell your book in online and physical book stores."
 msgstr ""
 
-#: ../inc/admin/metaboxes/namespace.php:287
+#: ../inc/admin/metaboxes/namespace.php:285
 msgid "Language"
 msgstr ""
 
-#: ../inc/admin/metaboxes/namespace.php:288
+#: ../inc/admin/metaboxes/namespace.php:286
 msgid "This sets metadata in your ebook, making it easier to find in some stores. It also changes some system generated content for supported languages, such as the \"Contents\" header."
 msgstr ""
 
-#: ../inc/admin/metaboxes/namespace.php:288
+#: ../inc/admin/metaboxes/namespace.php:286
 msgid "Help translate Pressbooks into your language!"
 msgstr ""
 
-#: ../inc/admin/metaboxes/namespace.php:303
+#: ../inc/admin/metaboxes/namespace.php:301
 msgid "Copyright Year"
 msgstr ""
 
-#: ../inc/admin/metaboxes/namespace.php:304
+#: ../inc/admin/metaboxes/namespace.php:302
 msgid "Year that the book is/was published."
 msgstr ""
 
-#: ../inc/admin/metaboxes/namespace.php:312
+#: ../inc/admin/metaboxes/namespace.php:310
 msgid "Copyright Holder"
 msgstr ""
 
-#: ../inc/admin/metaboxes/namespace.php:313
+#: ../inc/admin/metaboxes/namespace.php:311
 msgid "Name of the copyright holder."
 msgstr ""
 
-#: ../inc/admin/metaboxes/namespace.php:321, ../inc/admin/metaboxes/namespace.php:518, ../inc/admin/metaboxes/namespace.php:600, ../inc/admin/metaboxes/namespace.php:638
+#: ../inc/admin/metaboxes/namespace.php:319, ../inc/admin/metaboxes/namespace.php:518, ../inc/admin/metaboxes/namespace.php:600, ../inc/admin/metaboxes/namespace.php:638
 msgid "Select a License"
 msgstr ""
 
-#: ../inc/admin/metaboxes/namespace.php:322
+#: ../inc/admin/metaboxes/namespace.php:320
 msgid "Copyright License"
 msgstr ""
 
-#: ../inc/admin/metaboxes/namespace.php:323
+#: ../inc/admin/metaboxes/namespace.php:321
 msgid "You can select various licenses including Creative Commons."
 msgstr ""
 
-#: ../inc/admin/metaboxes/namespace.php:331
+#: ../inc/admin/metaboxes/namespace.php:329
 msgid "Copyright Notice"
 msgstr ""
 
-#: ../inc/admin/metaboxes/namespace.php:332
-msgid "Enter a custom copyright notice, with whatever infomation you like. This will override the auto-generated copyright notice, and be inserted after the title page."
+#: ../inc/admin/metaboxes/namespace.php:330
+msgid "Enter a custom copyright notice, with whatever information you like. This will override the auto-generated copyright notice if All Rights Reserved or no license is selected, and will be inserted after the title page. If you select a Creative Commons license, the custom notice will appear after the license text in both the webbook and your exports."
 msgstr ""
 
-#: ../inc/admin/metaboxes/namespace.php:346
+#: ../inc/admin/metaboxes/namespace.php:344
 msgid "Book Tagline"
 msgstr ""
 
-#: ../inc/admin/metaboxes/namespace.php:347
+#: ../inc/admin/metaboxes/namespace.php:345
 msgid "A very short description of your book. It should fit in a Twitter post, and encapsulate your book in the briefest sentence."
 msgstr ""
 
-#: ../inc/admin/metaboxes/namespace.php:355
+#: ../inc/admin/metaboxes/namespace.php:353
 msgid "Short Description"
 msgstr ""
 
-#: ../inc/admin/metaboxes/namespace.php:356
+#: ../inc/admin/metaboxes/namespace.php:354
 msgid "A short paragraph about your book, for catalogs, reviewers etc. to quote."
 msgstr ""
 
-#: ../inc/admin/metaboxes/namespace.php:364
+#: ../inc/admin/metaboxes/namespace.php:362
 msgid "Long Description"
 msgstr ""
 
-#: ../inc/admin/metaboxes/namespace.php:365
+#: ../inc/admin/metaboxes/namespace.php:363
 msgid "The full description of your book."
+msgstr ""
+
+#: ../inc/admin/metaboxes/namespace.php:367
+msgid "Subject(s)"
 msgstr ""
 
 #: ../inc/admin/metaboxes/namespace.php:372
@@ -2069,6 +2081,26 @@ msgstr ""
 
 #: ../inc/admin/metaboxes/namespace.php:667
 msgid "Hide from table of contents and part numbering."
+msgstr ""
+
+#: ../inc/admin/metaboxes/namespace.php:779
+msgid "Primary Subject"
+msgstr ""
+
+#: ../inc/admin/metaboxes/namespace.php:790
+msgid "This appears on the web homepage of your book and helps categorize it in your network catalog (if applicable). Use %s to determine which subject category is best for your book."
+msgstr ""
+
+#: ../inc/admin/metaboxes/namespace.php:790, ../inc/admin/metaboxes/namespace.php:804
+msgid "these instructions"
+msgstr ""
+
+#: ../inc/admin/metaboxes/namespace.php:793
+msgid "Additional Subject(s)"
+msgstr ""
+
+#: ../inc/admin/metaboxes/namespace.php:804
+msgid "This appears on the web homepage of your book. Use %s to determine which additional subject categories are appropriate for your book."
 msgstr ""
 
 #: ../inc/admin/network/class-sharingandprivacyoptions.php:65
@@ -2761,23 +2793,23 @@ msgstr ""
 msgid "Word count."
 msgstr ""
 
-#: ../inc/modules/export/epub/class-epub201.php:907
+#: ../inc/modules/export/epub/class-epub201.php:916
 msgid "Publisher Logo"
 msgstr ""
 
-#: ../inc/modules/export/epub/class-epub201.php:917
+#: ../inc/modules/export/epub/class-epub201.php:926
 msgid "Title Page"
 msgstr ""
 
-#: ../inc/modules/export/epub/class-epub201.php:1221
+#: ../inc/modules/export/epub/class-epub201.php:1230
 msgid "Make your own books using Pressbooks.com"
 msgstr ""
 
-#: ../inc/modules/export/epub/class-epub201.php:1604
+#: ../inc/modules/export/epub/class-epub201.php:1613
 msgid "Table Of Contents"
 msgstr ""
 
-#: ../inc/modules/export/epub/class-epub201.php:1619, ../inc/modules/export/xhtml/class-xhtml11.php:823
+#: ../inc/modules/export/epub/class-epub201.php:1628, ../inc/modules/export/xhtml/class-xhtml11.php:825
 msgid "Contents"
 msgstr ""
 
@@ -2789,7 +2821,7 @@ msgstr ""
 msgid "Invalid permission error"
 msgstr ""
 
-#: ../inc/modules/export/xhtml/class-xhtml11.php:349
+#: ../inc/modules/export/xhtml/class-xhtml11.php:351
 msgid "Notes"
 msgstr ""
 
@@ -3541,4 +3573,26 @@ msgstr ""
 
 #: ../tests/test-registration.php:18
 msgid "Create Site"
+msgstr ""
+
+#: ../vendor/yahnis-elsts/plugin-update-checker/Puc/v4p2/Plugin/UpdateChecker.php:358
+msgid "Check for updates"
+msgstr ""
+
+#: ../vendor/yahnis-elsts/plugin-update-checker/Puc/v4p2/Plugin/UpdateChecker.php:405
+msgctxt "the plugin title"
+msgid "The %s plugin is up to date."
+msgstr ""
+
+#: ../vendor/yahnis-elsts/plugin-update-checker/Puc/v4p2/Plugin/UpdateChecker.php:407
+msgctxt "the plugin title"
+msgid "A new version of the %s plugin is available."
+msgstr ""
+
+#: ../vendor/yahnis-elsts/plugin-update-checker/Puc/v4p2/Plugin/UpdateChecker.php:409
+msgid "Unknown update checker status \"%s\""
+msgstr ""
+
+#: ../vendor/yahnis-elsts/plugin-update-checker/Puc/v4p2/Vcs/PluginUpdateChecker.php:85
+msgid "There is no changelog available."
 msgstr ""

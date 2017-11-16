@@ -7054,9 +7054,9 @@ wordwrap@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/wordwrap/-/wordwrap-1.0.0.tgz#27584810891456a4171c8d0226441ade90cbcaeb"
 
-wp-admin-colors@^4.8.0:
-  version "4.8.0"
-  resolved "https://registry.yarnpkg.com/wp-admin-colors/-/wp-admin-colors-4.8.0.tgz#18e54d17a7950f19203870703785d75bf377bb42"
+wp-admin-colors@^4.9.0:
+  version "4.9.0"
+  resolved "https://registry.yarnpkg.com/wp-admin-colors/-/wp-admin-colors-4.9.0.tgz#aa07941c198d93796bb7945fd7f5f9b98c13b41c"
 
 wp-pot-cli@^1.0.1:
   version "1.0.3"

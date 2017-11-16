@@ -1,12 +1,12 @@
 === Pressbooks ===
 
 Contributors: Pressbooks <code@pressbooks.com>
-Version: 4.3.5
-Stable Tag: 4.3.5
+Version: 4.4.0
+Stable Tag: 4.4.0
 Tags: ebooks, publishing, webbooks
 Requires PHP: 5.6
-Requires at least: 4.8.2
-Tested up to: 4.8.2
+Requires at least: 4.9
+Tested up to: 4.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -47,19 +47,25 @@ TK.
 6. Catalog
 
 == Upgrade Notice ==
-= 4.3.5 =
+= 4.4.0 =
 
-Upon upgrading to Pressbooks 4.3.5, you will need to install the [Pressbooks Book](https://github.com/pressbooks/pressbooks-book) and [Pressbooks Publisher](https://github.com/pressbooks/pressbooks-publisher) themes along with any of our other open source [book themes](https://github.com/search?q=topic%3Abook-theme+org%3Apressbooks&type=Repositories) that were bundled with earlier versions of Pressbooks. For more information, see the [upgrading instructions](https://docs.pressbooks.org/upgrading).
-
-Upon upgrading to Pressbooks 4.3.5, users of the [Pressbooks Custom CSS](https://github.com/pressbooks/pressbooks-custom-css) theme will need to upgrade to version 1.0 of the Pressbooks Custom CSS theme.
-
-Pressbooks now requires [PHP >= 5.6](https://secure.php.net/supported-versions.php)
-
-Pressbooks now requires [WordPress 4.8.2](https://wordpress.org/download/).
-
-Pressbooks now requires [PrinceXML 11](http://www.princexml.com/download/) for PDF exports.
+Pressbooks now requires [WordPress 4.9](https://wordpress.org/news/2017/11/tipton/).
 
 == Changelog ==
+= 4.4.0 =
+**NOTICE:** Pressbooks >= 4.4 requires [WordPress 4.9](https://wordpress.org/news/2017/11/tipton/).
+
+* **[FEATURE]** You can now assign [Thema](https://ns.editeur.org/thema/en) subject categories to your book on the Book Information page (see #978).
+* **[FEATURE]** Part slugs are now editable (props to @colomet for the suggestion; see 3f5eca2).
+* **[CORE ENHANCEMENT]** Pressbooks now uses WordPress’ included [CodeMirror](https://make.wordpress.org/core/2017/10/22/code-editing-improvements-in-wordpress-4-9/) scripts and styles for our Custom Styles editor (see #980).
+* **[CORE ENHANCEMENT]** Added the `pb_global_components_path` filter which lets book themes override the global components path to point to their own bundled components libraries (see #982).
+* **[CORE ENHANCEMENT]** Added the `pb_pre_export` action to allow tweaks prior to an export routine (see 5302eea).
+* **[CORE ENHANCEMENT]** Our `app()` function now matches Laravel 5.4’s function signature (see cdcb9e8).
+* **[FIX]** Importing a Word document with multiple images now works properly (props to @rootl for the bug report; see #288 and #977).
+* **[FIX]** Chapters will now correctly inherit their book’s license in the API (see #979).
+* **[FIX]** Chapters will no longer show raw content in the API if they are password-protected (see #975).
+* **[FIX]** Uploading an image to the user catalog no longer causes an error (props to @emasters for the bug report; see #983).
+
 = 4.3.5 =
 **NOTICE:** Pressbooks >= 4.3.3 requires WordPress 4.8.2.
 **NOTICE:** Users of the Pressbooks Custom CSS theme must upgrade to Pressbooks Custom CSS 1.0 for compatibility with Pressbooks >= 4.3.0.
