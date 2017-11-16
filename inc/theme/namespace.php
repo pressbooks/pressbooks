@@ -130,6 +130,20 @@ function migrate_book_themes() {
 		}
 
 		update_option( 'pressbooks_theme_migration', 1 );
+	} elseif ( get_option( 'pressbooks_theme_migration' ) === 1 ) {
+		$theme = wp_get_theme()->get_stylesheet();
+		if ( $theme === 'pressbooks-book' ) {
+			switch_theme( 'pressbooks-luther' );
+			if ( Lock::isLocked() ) {
+				$data = Lock::getLockData();
+				$data['stylesheet'] = 'pressbooks-luther';
+				$json = json_encode( $data );
+				$lockfile = Lock::getLockDir() . '/lock.json';
+				file_put_contents( $lockfile, $json );
+			}
+		}
+
+		update_option( 'pressbooks_theme_migration', 2 );
 	}
 }
 
