@@ -1682,6 +1682,15 @@ class PDFOptions extends \Pressbooks\Options {
 			} else {
 				$scss .= "p + p { text-indent: 0em; margin-top: 1em; } \n";
 			}
+		} else {
+			if ( $v2_compatible ) {
+				$styles->getSass()->setVariables( [
+					'para-margin-top' => '0',
+					'para-indent' => '1em',
+				] );
+			} else {
+				$scss .= "p + p { text-indent: 1em; margin-top: 0em; } \n";
+			}
 		}
 
 		// Include blank pages?
