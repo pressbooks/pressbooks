@@ -16,7 +16,6 @@
   "devDependencies": {
     "babel-eslint": "^7.2.3",
     "block-ui": "^2.70.1",
-    "codemirror": "^5.29.0",
     "countup.js": "^1.8.5",
     "cross-env": "^5.0.5",
     "eslint": "^3.19.0",
@@ -38,7 +37,7 @@
     "stylelint-config-standard": "^16.0.0",
     "stylelint-webpack-plugin": "^0.7.1",
     "tinymce": "^4.6.3",
-    "wp-admin-colors": "^4.8.0",
+    "wp-admin-colors": "^4.9.0",
     "wp-pot-cli": "^1.0.1",
     "wpapi": "^1.1.2"
   },

@@ -81,7 +81,12 @@ class Sass {
 	 * @return string
 	 */
 	public function pathToGlobals() {
-		return get_theme_root( 'pressbooks-book' ) . '/pressbooks-book/assets/book/styles/';
+		/**
+		 * Filter the path to global book theme components.
+		 *
+		 * @since 4.4.0
+		 */
+		return apply_filters( 'pb_global_components_path', get_theme_root( 'pressbooks-book' ) . '/pressbooks-book/assets/book/styles/' );
 	}
 
 
