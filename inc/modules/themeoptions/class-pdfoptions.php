@@ -1452,6 +1452,8 @@ class PDFOptions extends \Pressbooks\Options {
 							$val = (int) preg_replace( '/[^0-9]/', '', $val ); // Extract digits
 						} elseif ( in_array( $wp_option, self::getBooleanOptions(), true ) ) {
 							$val = filter_var( $val, FILTER_VALIDATE_BOOLEAN ); // Convert to boolean
+						} elseif ( strpos( $wp_option, 'running_content', true ) ) {
+							$val = self::replaceRunningContentStrings( $val );
 						}
 						$defaults[ $wp_option ] = $val; // Override default with new value
 					}
@@ -1478,9 +1480,9 @@ class PDFOptions extends \Pressbooks\Options {
 			return ''; // Did not find prince mapping
 		}
 
-		if ( substr( $val, 0, 12 ) === 'string(book-' ) {
+		if ( substr( $val, 0, 7 ) === 'string(' ) {
 			// We think this is one of our running content variables
-			preg_match( '/string\((book-.+?)\)/', $val, $matches );
+			preg_match( '/string\((.+?)\)/', $val, $matches );
 			if ( ! empty( $matches[1] ) ) {
 				return trim( str_replace( '-', '_', "%{$matches[1]}%" ) );
 			}
@@ -1648,6 +1650,43 @@ class PDFOptions extends \Pressbooks\Options {
 				'" string(chapter-author) "',
 				'" string(chapter-subtitle) "',
 				'',
+			],
+			$input
+		);
+	}
+
+	/**
+	 * Replace running content strings with tags.
+	 *
+	 * @param string $input
+	 *
+	 * @return string
+	 *
+	 * @since 4.5.0
+	 */
+	static function replaceRunningContentStrings( $input ) {
+		return str_replace(
+			[
+				'string(book-title)',
+				'string(book-subtitle)',
+				'string(book-author)',
+				'string(part-number)',
+				'string(part-title)',
+				'string(section-title)',
+				'string(chapter-author)',
+				'string(chapter-subtitle)',
+				'',
+			],
+			[
+				'%book_title%',
+				'%book_subtitle%',
+				'%book_author%',
+				'%part_number%',
+				'%part_title%',
+				'%section_title%',
+				'%section_author%',
+				'%section_subtitle%',
+				'%blank%',
 			],
 			$input
 		);
