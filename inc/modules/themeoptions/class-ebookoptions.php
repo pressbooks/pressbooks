@@ -363,6 +363,15 @@ class EbookOptions extends \Pressbooks\Options {
 			} else {
 				$scss .= "p + p, .indent, div.ugc p.indent { text-indent: 0; margin-top: 1em; } \n";
 			}
+		} else {
+			if ( $v2_compatible ) {
+				$styles->getSass()->setVariables( [
+					'para-margin-top' => '0',
+					'para-indent' => '1em',
+				] );
+			} else {
+				$scss .= "p + p, .indent, div.ugc p.indent { text-indent: 1em; margin-top: 0em; } \n";
+			}
 		}
 
 		return $scss;

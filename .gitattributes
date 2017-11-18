@@ -12,5 +12,5 @@
 /phpcs.ruleset.xml export-ignore
 /phpunit.xml export-ignore
 /tests export-ignore
-/webpack.mx.js export-ignore
+/webpack.mix.js export-ignore
 /yarn.lock export-ignore

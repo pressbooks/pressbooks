@@ -254,11 +254,11 @@ add_action( 'init', '\Pressbooks\Theme\migrate_book_themes' );
 add_action( 'init', '\Pressbooks\Theme\update_template_root' );
 
 // -------------------------------------------------------------------------------------------------------------------
-// Regenerate web theme stylesheet
+// Regenerate stylesheets
 // -------------------------------------------------------------------------------------------------------------------
 
 add_action( 'init', function() {
-	Container::get( 'Styles' )->maybeUpdateWebBookStyleSheet();
+	Container::get( 'Styles' )->maybeUpdateStylesheets();
 } );
 
 // -------------------------------------------------------------------------------------------------------------------

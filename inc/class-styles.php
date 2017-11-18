@@ -389,6 +389,13 @@ class Styles {
 
 		$scss = $this->applyOverrides( $scss, $overrides );
 
+		// Apply Theme Options
+		if ( $type === 'prince' ) {
+			$scss = apply_filters( 'pb_pdf_css_override', $scss );
+		} else {
+			$scss = apply_filters( "pb_{$type}_css_override", $scss );
+		}
+
 		if ( $this->isCurrentThemeCompatible( 1 ) ) {
 			$css = $this->sass->compile(
 				$scss,
@@ -495,18 +502,19 @@ class Styles {
 	}
 
 	/**
-	 * If the current theme's version has increased, call updateWebBookStyleSheet().
+	 * If the current theme's version has increased, do SCSS stuff
 	 *
 	 * @return bool
 	 */
-	public function maybeUpdateWebBookStylesheet() {
+	public function maybeUpdateStylesheets() {
 		$theme = wp_get_theme();
 		$current_version = $theme->get( 'Version' );
-		$last_version = get_option( 'pressbooks_theme_version', $current_version );
+		$last_version = get_option( 'pb_theme_version', $current_version );
 
 		if ( version_compare( $current_version, $last_version ) > 0 ) {
+			( new \Pressbooks\Modules\ThemeOptions\ThemeOptions() )->clearCache();
 			$this->updateWebBookStyleSheet();
-			update_option( 'pressbooks_theme_version', $current_version );
+			update_option( 'pb_theme_version', $current_version );
 			return true;
 		}
 

@@ -1,5 +1,7 @@
 <?php
 
+use Pressbooks\Modules\ThemeOptions\PDFOptions;
+
 class OptionsMock extends \Pressbooks\Options {
 	/**
 	 * The value for option: pressbooks_mock_options_version
@@ -284,6 +286,20 @@ class OptionsTest extends \WP_UnitTestCase {
 		$result = $this->options->sanitize( $input );
 		$this->assertArrayHasKey( 'option_predef', $result );
 		$this->assertEquals( $result['option_predef'], 'European Swallow' );
+	}
+
+	function test_PDFOptions_replaceRunningContentTags() {
+		$v = PDFOptions::replaceRunningContentTags( '%book_title%' );
+		$this->assertEquals( '"" string(book-title) ""', $v );
+
+		$v = PDFOptions::replaceRunningContentTags( 'blah %book_title% blah' );
+		$this->assertEquals( '"blah " string(book-title) " blah"', $v );
+
+		$v = PDFOptions::replaceRunningContentTags( '%blank%' );
+		$this->assertEquals( '""', $v );
+
+		$v = PDFOptions::replaceRunningContentTags( 'blah %blank% blah' );
+		$this->assertEquals( '"blah  blah"', $v );
 	}
 
 }
