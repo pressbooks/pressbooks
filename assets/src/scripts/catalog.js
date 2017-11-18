@@ -32,7 +32,9 @@ jQuery( function ( $ ) {
 		} else {
 			currentFilters = filter1_name;
 		}
-		$( '.catalog-content-wrap h1 span.current-filters' ).text( currentFilters ).show();
+		$( '.catalog-content-wrap h1 span.current-filters' )
+			.text( currentFilters )
+			.show();
 		$( '.catalog-content-wrap h1 span.filtered-by' ).show();
 		$( '.catalog-content-wrap h1 span.clear-filters' ).show();
 	} );
@@ -60,7 +62,9 @@ jQuery( function ( $ ) {
 		} else {
 			currentFilters = filter2_name;
 		}
-		$( '.catalog-content-wrap h1 span.current-filters' ).text( currentFilters ).show();
+		$( '.catalog-content-wrap h1 span.current-filters' )
+			.text( currentFilters )
+			.show();
 		$( '.catalog-content-wrap h1 span.filtered-by' ).show();
 		$( '.catalog-content-wrap h1 span.clear-filters' ).show();
 	} );

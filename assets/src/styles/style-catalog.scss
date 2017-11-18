@@ -96,8 +96,13 @@ video {
 /**************************************************************
 * Main tags
 **************************************************************/
-html { overflow-y: scroll; }
-html { -webkit-font-smoothing: antialiased; }
+html {
+  overflow-y: scroll;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+}
 
 body {
   background: url(../images/sidebar-bg.png) 20% 0 repeat-y;
@@ -140,7 +145,7 @@ h2 {
 
 h3 {
   font-size: 1.08em;
-  line-height: 1.4em;   /* 14/13 */
+  line-height: 1.4em; /* 14/13 */
   text-transform: uppercase;
 }
 
@@ -167,12 +172,17 @@ img {
   visibility: hidden;
   display: block;
   font-size: 0;
-  content: " ";
+  content: ' ';
   clear: both;
   height: 0;
 }
-* html .clearfix { zoom: 1; } /* IE6 */
-*:first-child + html .clearfix { zoom: 1; } /* IE7 */
+
+* html .clearfix {
+  zoom: 1;
+} /* IE6 */
+*:first-child + html .clearfix {
+  zoom: 1;
+} /* IE7 */
 
 /**************************************************************
 * Structure
@@ -489,7 +499,7 @@ img {
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
     border-top: 10px solid #fff;
-    content: "";
+    content: '';
     cursor: pointer;
     display: inline-block;
     height: 0;
@@ -523,15 +533,15 @@ img {
   }
 
   a::after {
-    content: " (" attr(href) ")";
+    content: ' (' attr(href) ')';
   }
 
   abbr::after {
-    content: " (" attr(title) ")";
+    content: ' (' attr(title) ')';
   }
 
   .ir a::after {
-    content: "";
+    content: '';
   } /* Don't show links for images */
 
   pre,
@@ -549,7 +559,9 @@ img {
     page-break-inside: avoid;
   }
 
-  @page { margin: 0.5cm; }
+  @page {
+    margin: 0.5cm;
+  }
 
   p,
   h2,

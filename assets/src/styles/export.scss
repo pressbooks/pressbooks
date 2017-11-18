@@ -381,7 +381,7 @@
       }
 
       .theme-actions {
-        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+        -ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity=0)';
         opacity: 0;
         -webkit-transition: opacity 0.1s ease-in-out;
         transition: opacity 0.1s ease-in-out;
@@ -421,7 +421,7 @@
 
       &:hover {
         .theme-actions {
-          -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+          -ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity=100)';
           opacity: 1;
         }
 
