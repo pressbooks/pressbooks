@@ -35,7 +35,8 @@
     "masterminds/html5": "^2.3",
     "jenssegers/imagehash": "^0.4.2",
     "yahnis-elsts/plugin-update-checker": "4.2",
-    "jenssegers/blade": "^1.1"
+    "jenssegers/blade": "^1.1",
+    "illuminate/container": "5.4.*"
   },
   "require-dev": {
     "phpunit/phpunit": "~5.7",
