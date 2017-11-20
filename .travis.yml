@@ -11,7 +11,6 @@ branches:
   - dev
   - "/\\d+\\.\\d+(\\.\\d+)?(-\\S*)?$/"
 php:
-- 5.6
 - 7.0.8
 - 7.1
 - nightly
@@ -60,7 +59,7 @@ before_deploy:
 - cd ../
 - zip -9 -ry $TRAVIS_BUILD_DIR/$TRAVIS_PROJECT_SLUG-$TRAVIS_TAG.zip $TRAVIS_PROJECT_SLUG
   -x *.git* *assets/src/\* *bin/\* *node_modules/\* *tests/\* *.editorconfig* *.gitattributes*
-  *.github* *.gitignore* *.phpstorm.meta.php* *.travis.yml* *.tx* *phpcs.ruleset.xml*
+  *.github* *.gitignore* *.phpstorm.meta.php* *.travis.yml* *.tx* *package-lock.json* *phpcs.ruleset.xml*
   *phpunit.xml* *webpack.mix.js* *yarn.lock*
 - cd $TRAVIS_BUILD_DIR
 deploy:

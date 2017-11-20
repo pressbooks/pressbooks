@@ -28,7 +28,7 @@ function pb_meets_minimum_requirements() {
 
 	// PHP Version
 	global $pb_minimum_php;
-	$pb_minimum_php = '5.6.0';
+	$pb_minimum_php = '7.0.0';
 
 	if ( ! version_compare( PHP_VERSION, $pb_minimum_php, '>=' ) ) {
 		add_action( 'admin_notices', '_pb_minimum_php' );

@@ -1398,7 +1398,99 @@ class PDFOptions extends \Pressbooks\Options {
 	 * @return array $defaults
 	 */
 	static function filterDefaults( $defaults ) {
+
+		// SASS => WP
+		$overrides = [
+			'body-font-size' => 'pdf_body_font_size',
+			'body-line-height' => 'pdf_body_line_height',
+			'page-margin-top' => 'pdf_page_margin_top',
+			'page-margin-inside' => 'pdf_page_margin_inside',
+			'page-margin-bottom' => 'pdf_page_margin_bottom',
+			'page-margin-outside' => 'pdf_page_margin_outside',
+			'front-matter-running-content-left' => 'running_content_front_matter_left',
+			'front-matter-running-content-right' => 'running_content_front_matter_right',
+			'introduction-running-content-left' => 'running_content_introduction_left',
+			'introduction-running-content-right' => 'running_content_introduction_right',
+			'part-running-content-left' => 'running_content_part_left',
+			'part-running-content-right' => 'running_content_part_right',
+			'chapter-running-content-left' => 'running_content_chapter_left',
+			'chapter-running-content-right' => 'running_content_chapter_right',
+			'back-matter-running-content-left' => 'running_content_back_matter_left',
+			'back-matter-running-content-right' => 'running_content_back_matter_right',
+		];
+
+		$transient_name = 'pressbooks_theme_options_pdf_parsed_sass_variables';
+		$parsed_sass_variables = get_transient( $transient_name );
+		if ( $parsed_sass_variables === false ) {
+			// Order of files matter. If a variable is duplicated in other files then the last one takes precedence
+			$parsed_sass_variables = [];
+			$sass = \Pressbooks\Container::get( 'Sass' );
+			$path_to_global = $sass->pathToGlobals();
+			$path_to_theme = get_stylesheet_directory();
+			$files = [
+				$path_to_global . '/variables/_elements.scss',
+				$path_to_global . '/variables/_structure.scss',
+				$path_to_theme . '/assets/styles/components/_elements.scss',
+				$path_to_theme . '/assets/styles/components/_structure.scss',
+			];
+			foreach ( $files as $file ) {
+				if ( file_exists( $file ) ) {
+					$parsed_sass_variables[] = $sass->parseVariables( file_get_contents( $file ) );
+				}
+			}
+			set_transient( $transient_name, $parsed_sass_variables );
+		}
+
+		foreach ( $parsed_sass_variables as $parsed_variables ) {
+			foreach ( $overrides as $sass_var => $wp_option ) {
+				if ( isset( $parsed_variables[ $sass_var ] ) ) {
+					$val = self::parseSassValue( $parsed_variables[ $sass_var ] );
+					if ( ! empty( $val ) ) {
+						if ( in_array( $wp_option, self::getFloatOptions(), true ) ) {
+							$val = (float) preg_replace( '/[^0-9.]/', '', $val ); // Extract digits and periods
+						} elseif ( in_array( $wp_option, self::getIntegerOptions(), true ) ) {
+							$val = (int) preg_replace( '/[^0-9]/', '', $val ); // Extract digits
+						} elseif ( in_array( $wp_option, self::getBooleanOptions(), true ) ) {
+							$val = filter_var( $val, FILTER_VALIDATE_BOOLEAN ); // Convert to boolean
+						} elseif ( strpos( $wp_option, 'running_content', true ) ) {
+							$val = self::replaceRunningContentStrings( $val );
+						}
+						$defaults[ $wp_option ] = $val; // Override default with new value
+					}
+				}
+			}
+		}
+
 		return $defaults;
+	}
+
+	/**
+	 * @param string $val
+	 *
+	 * @return string
+	 */
+	static protected function parseSassValue( $val ) {
+
+		if ( substr( $val, 0, 1 ) === '(' ) {
+			// We think this is a Sass Map
+			preg_match( '/prince:([^,]+)/', $val, $matches );
+			if ( ! empty( $matches[1] ) ) {
+				return trim( $matches[1] );
+			}
+			return ''; // Did not find prince mapping
+		}
+
+		if ( substr( $val, 0, 7 ) === 'string(' ) {
+			// We think this is one of our running content variables
+			preg_match( '/string\((.+?)\)/', $val, $matches );
+			if ( ! empty( $matches[1] ) ) {
+				return trim( str_replace( '-', '_', "%{$matches[1]}%" ) );
+			}
+			return ''; // Did not find what we were looking for
+		}
+
+		// Use as is
+		return $val;
 	}
 
 	/**
@@ -1564,6 +1656,43 @@ class PDFOptions extends \Pressbooks\Options {
 	}
 
 	/**
+	 * Replace running content strings with tags.
+	 *
+	 * @param string $input
+	 *
+	 * @return string
+	 *
+	 * @since 4.5.0
+	 */
+	static function replaceRunningContentStrings( $input ) {
+		return str_replace(
+			[
+				'string(book-title)',
+				'string(book-subtitle)',
+				'string(book-author)',
+				'string(part-number)',
+				'string(part-title)',
+				'string(section-title)',
+				'string(chapter-author)',
+				'string(chapter-subtitle)',
+				'',
+			],
+			[
+				'%book_title%',
+				'%book_subtitle%',
+				'%book_author%',
+				'%part_number%',
+				'%part_title%',
+				'%section_title%',
+				'%section_author%',
+				'%section_subtitle%',
+				'%blank%',
+			],
+			$input
+		);
+	}
+
+	/**
 	 * Apply overrides.
 	 *
 	 * @param string $scss
@@ -1577,7 +1706,9 @@ class PDFOptions extends \Pressbooks\Options {
 		$styles = \Pressbooks\Container::get( 'Styles' );
 		$v2_compatible = $styles->isCurrentThemeCompatible( 2 );
 
-		$scss .= "/* Theme Options */\n";
+		if ( ! $v2_compatible ) {
+			$scss .= "/* Theme Options */\n";
+		}
 
 		// --------------------------------------------------------------------
 		// Global Options
@@ -1681,6 +1812,15 @@ class PDFOptions extends \Pressbooks\Options {
 				] );
 			} else {
 				$scss .= "p + p { text-indent: 0em; margin-top: 1em; } \n";
+			}
+		} else {
+			if ( $v2_compatible ) {
+				$styles->getSass()->setVariables( [
+					'para-margin-top' => '0',
+					'para-indent' => '1em',
+				] );
+			} else {
+				$scss .= "p + p { text-indent: 1em; margin-top: 0em; } \n";
 			}
 		}
 

@@ -239,14 +239,31 @@ class Sass {
 	 * @return array
 	 */
 	public function parseVariables( $scss ) {
-
-		preg_match_all( '/\$(.*?):(.*?);/', $scss, $matches );
-		$output = array_combine( $matches[1], $matches[2] );
-		$output = array_map(
-			function ( $val ) {
-				return ltrim( str_replace( ' !default', '', $val ) );
-			}, $output
-		);
+		$output = [];
+		$parser = new \Leafo\ScssPhp\Parser( null );
+		$tree = $parser->parse( $scss );
+		foreach ( $tree->children as $item ) {
+			if ( $item[0] === \Leafo\ScssPhp\Type::T_ASSIGN && $item[1][0] === \Leafo\ScssPhp\Type::T_VARIABLE ) {
+				$key = $item[1][1];
+				switch ( $item[2][0] ) {
+					case \Leafo\ScssPhp\Type::T_VARIABLE:
+						$val = '$' . $item[2][1];
+						break;
+					case \Leafo\ScssPhp\Type::T_FUNCTION_CALL:
+						$fncall = $item[2][1];
+						$fncall_params = '';
+						foreach ( $item[2][2] as $param ) {
+							$fncall_params .= $param[1][1] . ', ';
+						}
+						$fncall_params = rtrim( $fncall_params, ', ' );
+						$val = "{$fncall}({$fncall_params})";
+						break;
+					default:
+						$val = @( new \Leafo\ScssPhp\Compiler() )->compileValue( $item[2] ); // @codingStandardsIgnoreLine
+				}
+				$output[ $key ] = $val;
+			}
+		}
 		return $output;
 	}
 

@@ -9,6 +9,9 @@
     <!-- Show progress -->
     <arg value="p"/>
 
+	<!-- Be quiet -->
+    <arg value="q"/>
+
     <!-- Use HM Coding Standards -->
     <rule ref="vendor/humanmade/coding-standards">
         <!-- Disable all ESLint checks -->
