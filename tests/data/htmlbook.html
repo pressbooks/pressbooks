@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+
+<html xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://www.w3.org/1999/xhtml ../schema/htmlbook.xsd"
+ xmlns="http://www.w3.org/1999/xhtml">
+
+  <head>
+    <title>HTMLBook Sample</title>
+    <meta name="HTMLBook Sample" content="text/html; charset=utf-8" />
+  </head>
+  <body data-type="book" class="book" id="htmlbook">
+    <!--body must have class of book-->
+    <figure data-type="cover">
+      <img src="cover.png"/>
+    </figure>
+    <!-- body must have h1 child with book title -->
+    <section data-type="titlepage" class="titlepage">
+      <header>
+	<h1>HTMLBook Sample</h1>
+	<p data-type="subtitle">Optional Subtitle</p>
+	<p data-type="author">O’Reilly Media</p>
+      </header>
+    </section>
+    <section data-type="copyright-page">
+      <h1>HTMLBook Sample</h1>
+      <p class="author">by O’Reilly Media</p>
+    </section>
+    <section data-type="dedication" class="dedication">
+      <!-- optional h1 used for dedication titles -->
+      <h1>Dedication Title</h1>
+      <p>I owe it all to Project Unicorn.</p>
+    </section>     
+    <nav data-type="toc" class="toc" id="toc">
+      <h1>Table of Contents</h1>
+      <ol style="list-style-type:none">
+        <li><a href="#foreword">Foreword</a></li>
+        <li><a href="#preface">Preface</a></li>
+        <li><a href="#part01">Part I, HTMLBook Rises</a>
+          <ol style="list-style-type:none">
+            <li><a href="#chapter01">Chapter 1. HTMLBook Markup</a>
+              <ol style="list-style-type:none">
+                <li><a href="#ahead">This Is an A-Head</a>
+                  <ol style="list-style-type:none">
+                    <li><a href="#bhead">This Is a B-Head</a></li>
+                  </ol>
+                </li>
+                <li><a href="#markup_examples">Some Markup Examples</a>
+                  <ol style="list-style-type:none">
+                    <li><a href="#inlines">Inline Markup</a></li>
+                    <li><a href="#blocks">Block Elements</a>
+                      <ol style="list-style-type:none">
+                        <li><a href="#lists">Lists</a></li>
+                        <li><a href="#images">Images</a></li>
+                        <li><a href="#tables">Tables</a></li>
+                        <li><a href="#equations">Equations</a></li>
+                        <li><a href="#examples">Code Examples</a></li>
+                        <li><a href="#sidebars">Sidebars</a></li>
+                        <li><a href="#codelisting">Code Listing</a></li>
+                        <li><a href="#notes">Admonitions</a></li>
+                      </ol>
+                    </li>
+                    <li><a href="#multimedia">Multimedia and Interactive</a></li>
+                  </ol>
+                </li>
+              </ol>
+            </li>
+
+            <li><a href="#chapter02">Chapter 2. Another Chapter</a>
+              <ol style="list-style-type:none">
+                <li><a href="#0201">Dolor Sit</a>
+                  <ol style="list-style-type:none">
+                    <li><a href="#0202">Amet Consectetur</a></li>
+                    <li><a href="#0203">Adipiscing Elit</a></li>
+                  </ol>
+                </li>
+                <li><a href="#0204">Iaculis Eget</a>
+                  <ol style="list-style-type:none">
+                    <li><a href="#0205">Tempus Eu Tellus</a></li>
+                    <li><a href="#0206">Tristique Semper Diam</a></li>
+                  </ol>
+                </li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+        <li><a href="#part02">Part II, Return of HTMLBook</a>
+          <ol style="list-style-type:none">
+            <li><a href="#chapter03">Chapter 3. Lorem Ipsum!</a></li>
+            <li><a href="#chapter04">Chapter 4. Consectetur Adipiscing Elit</a></li>
+          </ol>
+        </li>
+
+        <li><a href="#appendixa">Appendix A. Curabitur Bibendum</a></li>
+
+        <li><a href="#glossary">Glossary</a></li>
+
+        <li><a href="#index">Index</a></li>
+
+      </ol>
+    </nav>
+    <section class="foreword" hidden="hidden" data-type="foreword" id="foreword">
+      <h1>Foreword</h1>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean eros sapien, iaculis eget
+        egestas eu, tempus eu tellus. Aliquam in facilisis sapien. Nulla blandit, ligula vel auctor
+        facilisis, quam felis rhoncus arcu, non rhoncus nulla felis sed est. Pellentesque ac velit
+        arcu, placerat dignissim augue. Nulla vitae tortor in elit ultrices dictum. Quisque eget
+        massa at nisl malesuada sodales sed id est. Pellentesque vehicula venenatis justo, sit amet
+        vehicula leo laoreet eget. Donec vel urna quis metus feugiat vulputate eget ut urna. In
+        tristique semper diam ut adipiscing. Fusce sagittis congue purus scelerisque hendrerit.
+        Donec sit amet interdum massa.</p>
+    </section>
+    <section class="preface" data-type="preface" id="preface">
+      <h1>Preface</h1>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean eros sapien, iaculis eget
+        egestas eu, tempus eu tellus. Aliquam in facilisis sapien. Nulla blandit, ligula vel auctor
+        facilisis, quam felis rhoncus arcu, non rhoncus nulla felis sed est. Pellentesque ac velit
+        arcu, placerat dignissim augue. Nulla vitae tortor in elit ultrices dictum. Quisque eget
+        massa at nisl malesuada sodales sed id est. Pellentesque vehicula venenatis justo, sit amet
+        vehicula leo laoreet eget. Donec vel urna quis metus feugiat vulputate eget ut urna. In
+        tristique semper diam ut adipiscing. Fusce sagittis congue purus scelerisque hendrerit.
+        Donec sit amet interdum massa.</p>
+    </section>
+    <div data-type="part" class="part" id="part01">
+      <!-- parts are optional and use divs -->
+      <h1>Part I, HTMLBook Rises</h1>
+      <p>This part contains two chapters. <a data-type="xref" href="chapter01">Chapter 1</a>
+        demonstrates HTMLBook markup, while <a data-type="xref" href="#chapter02">Chapter 2</a> is just
+        a slug.</p>
+      <section data-type="chapter" id="chapter01">
+        <h1>Chapter 1. HTMLBook Markup</h1>
+        <p>This chapter describes and demonstrates the types of markup<a data-type="indexterm"
+            data-primary="markup" data-secondary="types of"></a> that might appear in a chapter. See
+            <em>mappings.asciidoc</em> for more information. HTMLBook borrows much of its semantics
+          from the EPUB 3 specification, as applied via the <a
+            href="http://idpf.org/accessibility/guidelines/content/semantics/epub-type.php"
+              ><code>epub:type</code></a> attribute. Where EPUB semantics come up short, HTMLBook
+          falls back to <a href="http://www.docbook.org/">DocBook</a> semantics, e.g.,
+            <code>data-type="userinput"</code>, as described in <a data-type="xref" href="#inlines">Inline
+            Markup</a>.</p>
+        <section data-type="sect1" class="sect1" id="ahead">
+          <h1>This Is an A-Head</h1>
+          <p>Nested sections are captured in <code>section</code> tags.</p>
+          <section data-type="sect2" class="sect2" id="bhead">
+            <h2>This Is a B-Head</h2>
+            <p>Note that the <code>hN</code> tag matches the <code>sectN</code> class on the
+                <code>section</code>.</p>
+          </section>
+        </section>
+        <section data-type="sect1" class="sect1" id="markup_examples">
+          <h1>Some Markup Examples</h1>
+          <p>This file uses the components of the book container, such as the chapters, table of
+            contents, and so on. The following section demonstrates the components typically used in
+            a chapter.</p>
+          <section data-type="sect2" class="sect2" id="inlines">
+            <h2>Inline Markup</h2>
+            <p>No surprises here, just vanilla HTML for <em>emphasis</em> and
+                <strong>strong</strong>. Use <code>code</code> and add classes <code
+                data-type="userinput">userinput</code> or <code data-type="replaceable">replaceable</code>,
+              if you like.</p>
+          </section>
+          <section data-type="sect2" class="sect2" id="blocks">
+            <h2>Block Elements</h2>
+            <p>Block elements<a data-type="indexterm" data-primary="markup"
+                data-secondary="block elements"></a> in HTMLBook are pretty much standard HTML, with
+              some semantic classes sometimes included.</p>
+            <section data-type="sect3" class="sect3" id="lists">
+              <h3>Lists</h3>
+              <p><a data-type="indexterm" data-primary="lists"></a>Unordered list:</p>
+              <ul>
+                <li>Red</li>
+                <li>Orange</li>
+                <li>
+                  <p>Blue</p>
+                  <p>Optionally, you could add <code>p</code>s for a <code>li</code> with multiple
+                    paragraphs.</p>
+                </li>
+              </ul>
+              <p>Ordered list:</p>
+              <ol>
+                <li value="3">Step 1</li>
+                <li>Step 2</li>
+                <li>
+                  <p>Step 3</p>
+                  <p>Optionally, you could add <code>p</code>s for a <code>li</code> with multiple
+                    paragraphs.</p>
+                </li>
+              </ol>
+              <p>Definition lists:</p>
+              <dl>
+                <dt>Constant width bold</dt>
+                <dd>Used to indicate user input.</dd>
+
+                <dt>Constant width italic</dt>
+                <dd><p>Shows text that should be replaced with user-supplied values or by values
+                    determined by context.</p>
+                  <p>Use a <code>p</code> for <code>dd</code>s with multiple paragraphs.</p>
+                </dd>
+              </dl>
+            </section>
+            <section class="sect3" data-type="sect3" id="images">
+              <h3>Images</h3>
+              <p>Images use the <code>figure</code>, which can optionally have a caption.</p>
+              <figure id="robot_unicorn">
+                <figcaption>Penguin in Raincoat (by Moini:
+                  <a href="http://openclipart.org/detail/189837/penguin-in-the-rain-by-moini-189837">openclipart source</a>)</figcaption>
+                <img src="images/rain_penguin.png"
+                     alt="Illustration of a penguin in a raincoat. The penguin is in a yellow raincoat, with matching yellow hat, and is wearing galoshes."/>
+              </figure>
+            </section>
+            <section data-type="sect3" class="sect3" id="tables">
+              <h3>Tables</h3>
+              <p><a data-type="indexterm" data-primary="tables"></a>Tables use standard HTML markup.</p>
+              <table>
+                <caption><span data-type="label">Table 1-1.</span> State capitals</caption>
+                <tr>
+                  <th>State</th>
+                  <th>Capital</th>
+                </tr>
+                <tr>
+                  <td>Massachusetts</td>
+                  <td>Boston</td>
+                </tr>
+                <!-- And so on -->
+              </table>
+            </section>
+            <section data-type="sect3" class="sect3" id="equations">
+              <h3>Equations</h3>
+              <p>Equations might have a title and and a label, like <a href="#py_theorem">Equation 1-1</a> does.</p>
+              <div data-type="equation" id="py_theorem">
+                <h5><span data-type="label">Equation 1-1.</span> Pythagorean Theorem</h5>
+                <math xmlns="http://www.w3.org/1998/Math/MathML">
+                  <msup><mi>a</mi><mn>2</mn></msup>
+                  <mo>+</mo>
+                  <msup><mi>b</mi><mn>2</mn></msup>
+                  <mo>=</mo>
+                  <msup><mi>c</mi><mn>2</mn></msup>
+                </math>
+              </div>
+            </section>
+            <section data-type="sect3" class="sect3" id="examples">
+              <h3>Code Examples</h3>
+              <p>Code examples are just <code>pre</code>s with a title. <a href="#example01">Example 1-1</a> includes some random Java code.</p>
+              <div class="example" data-type="example" id="example01">
+                <h5><span data-type="label">Example 1-1.</span> Random Java code</h5> 
+                <pre data-code-language="java">import java.applet.*;
+import java.awt.*;
+
+public class Scribble extends Applet {
+    private int last_x = 0;
+    private int last_y = 0;
+    private Color current_color = Color.black;
+    private Button clear_button;
+    private Choice color_choices;
+                </pre>
+              </div>
+            </section>
+            <section data-type="sect3" class="sect3" id="sidebars">
+              <h3>Sidebars</h3>
+              <p>Sidebars use the <code>aside</code> element. There’s a sidebar in this section.</p>
+              <aside data-type="sidebar" class="sidebar">
+                <h5>Amusing Digression</h5>
+                <p>Did you know that in Boston, they call it “soda,” but in Chicago, they call it “pop”?</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc mauris odio, commodo ut feugiat nec, tempus eget libero. Maecenas id nunc id justo sagittis fringilla. Phasellus fringilla tincidunt nunc, eget iaculis dui interdum at. Sed at libero mattis arcu sodales accumsan vel non est. Integer lacinia urna a lectus placerat gravida. Nullam laoreet justo ac ante ornare lobortis. Ut vitae adipiscing lorem:</p>
+                <pre data-code-language="java">import java.applet.*;
+import java.awt.*;
+
+public class Scribble extends Applet {
+    private int last_x = 0;
+    private int last_y = 0;
+    private Color current_color = Color.black;
+    private Button clear_button;
+    private Choice color_choices;
+                </pre>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc mauris odio, commodo ut feugiat nec, tempus eget libero. Maecenas id nunc id justo sagittis fringilla.</p>
+              </aside>
+            </section>
+            <section data-type="sect3" class="sect3" id="codelisting">
+              <h3>Code Listings</h3>
+              <p>Just a <code>pre</code>, as you’d expect:</p>
+              <pre data-type="programlisting" class="programlisting">print "<em>Hello World</em>"</pre>
+            </section>
+            <section data-type="sect3" class="sect3" id="admonitions">
+              <h3>Admonitions</h3>
+              <p>Admonitions are notes, tips, and warnings—all of which are very typical of technical writing. A note follows this paragraph.</p>
+              <div data-type="note" class="note">
+                <p>Please take note of this important information.</p>
+                <p>Aliquam lacinia mollis tincidunt. Etiam pretium tortor arcu, id pellentesque risus pellentesque eu. Proin posuere metus sed mollis viverra. Morbi ut imperdiet eros. Nam iaculis consequat nisl at posuere. Curabitur velit felis, faucibus in convallis quis, feugiat at ante. In vehicula, velit id pharetra posuere, erat orci volutpat odio, vitae fringilla felis nisl blandit velit.</p>
+              </div>
+              <p>Admonitions can optionally include titles.</p>
+              <div data-type="note" class="note">
+               <h1>Helpful Info</h1>
+               <p>Please take note of this important information.</p>
+              </div>
+              <p>Or you might have a warning, which just takes a different <code>class</code> attribute.</p>
+              <div data-type="warning" class="warning">Warning! Warning! Intruder alert!</div>              
+            </section>
+          </section>
+          <section data-type="sect2" class="sect2" id="multimedia">
+            <h2>Multimedia Interactive</h2>
+            <!-- fill this in -->
+          </section>
+        </section>
+      </section>
+      <section data-type="chapter" class="chapter" id="chapter02">
+	<header>
+          <h1>Chapter 2. Another Chapter</h1>
+          <p data-type="subtitle">This is the chapter's subtitle</p>
+	</header>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean eros sapien, iaculis eget
+          egestas eu, tempus eu tellus. Aliquam in facilisis sapien. Nulla blandit, ligula vel
+          auctor facilisis, quam felis rhoncus arcu, non rhoncus nulla felis sed est. Pellentesque
+          ac velit arcu, placerat dignissim augue. Nulla vitae tortor in elit ultrices dictum.
+          Quisque eget massa at nisl malesuada sodales sed id est. Pellentesque vehicula venenatis
+          justo, sit amet vehicula leo laoreet eget. Donec vel urna quis metus feugiat vulputate
+          eget ut urna. In tristique semper diam ut adipiscing. Fusce sagittis congue purus
+          scelerisque hendrerit. Donec sit amet interdum massa.</p>
+        <section data-type="sect1" class="sect1" id="sect0201">
+          <h1>Dolor Sit</h1>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean eros sapien, iaculis
+            eget egestas eu, tempus eu tellus. Aliquam in facilisis sapien.</p>
+          <section data-type="sect2" class="sect2" id="sect0202">
+            <h2>Amet Consectetur</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean eros sapien, iaculis
+              eget egestas eu, tempus eu tellus. Aliquam in facilisis sapien.</p>
+          </section>
+          <section data-type="sect2" class="sect2" id="sect0203">
+            <h2>Adipiscing Elit</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean eros sapien, iaculis
+              eget egestas eu, tempus eu tellus. Aliquam in facilisis sapien.</p>
+          </section>
+        </section>
+        <section data-type="sect1" class="sect1" id="sect0204">
+          <h1>Iaculis Eget</h1>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean eros sapien, iaculis
+            eget egestas eu, tempus eu tellus. Aliquam in facilisis sapien.</p>
+          <section data-type="sect2" class="sect2" id="sect0205">
+            <h2>Tempus Eu Tellus</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean eros sapien, iaculis
+              eget egestas eu, tempus eu tellus. Aliquam in facilisis sapien.</p>
+          </section>
+          <section data-type="sect2" class="sect2" id="sect0206">
+            <h2>Tristique Semper Diam</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean eros sapien, iaculis
+              eget egestas eu, tempus eu tellus. Aliquam in facilisis sapien.</p>
+          </section>
+        </section>
+      </section>
+    </div>
+    <div data-type="part" id="part02">
+      <!-- parts are optional and use divs -->
+      <h1>Part II, Return of HTMLBook</h1>
+      <p>This part is just a slug. We can't have just one part after all.</p>
+      <section data-type="chapter" class="chapter" id="chapter03">
+        <h1>Chapter 3. Lorem Ipsum!</h1>
+        <!-- chapter content here -->
+      </section>
+      <section data-type="chapter" class="chapter" id="chapter04">
+        <h1>Chapter 4. Consectetur Adipiscing Elit</h1>
+        <!-- chapter content here -->
+      </section>
+    </div>
+    <section data-type="appendix" class="appendix" id="appendixa">
+      <h1>Appendix A. Curabitur Bibendum</h1>
+      <p>Nunc malesuada blandit nisi ac iaculis. Ut bibendum tincidunt dui quis iaculis. Vivamus
+        lectus tortor, volutpat sed scelerisque ut, tempus vel eros. Phasellus placerat rutrum massa
+        vulputate scelerisque. In hac habitasse platea dictumst. Etiam sem erat, pulvinar ut luctus
+        elementum, gravida condimentum lacus. Nulla vehicula metus vel sem feugiat rutrum iaculis
+        leo auctor. Praesent vehicula augue id libero hendrerit interdum. Etiam consectetur sagittis
+        egestas. Pellentesque in bibendum magna.</p>
+    </section>
+    <section data-type="glossary" class="glossary" id="glossary">
+      <h1>Glossary</h1>
+      <dl class="glossary" data-type="glossary">
+        <dt class="glossterm" data-type="glossterm">
+          <dfn>Atlas</dfn>
+        </dt>
+        <dd class="glossdef" data-type="glossdef"> Best authoring platform ever. </dd>
+      </dl>
+      <dl data-type="glossary" class="glossary">
+        <dt data-type="glossterm" class="glossterm">
+          <dfn>Suspendisse mollis</dfn>
+        </dt>
+        <dd data-type="glossdef" class="glossdef"> Sed quis nisl dui, et vestibulum sem. </dd>
+      </dl>
+    </section>
+    <section data-type="index" class="index" id="index">
+      <h1>Index</h1>
+      <div data-type="indexbody" class="indexbody">
+        <div data-type="indexgroup" class="indexgroup">
+          <h2>L</h2>
+          <ul data-type="indexentry" class="indexentry" style="list-style-type:none">
+            <li>lists, <a data-type="xref" class="indexentry" href="#lists">Lists</a></li>
+          </ul>
+        </div>
+        <div data-type="indexgroup" class="indexgroup">
+          <h2>M</h2>
+          <ul data-type="indexentry" class="indexentry" style="list-style-type:none">
+            <li>markup <ul data-type="indexentry" class="indexentry" style="list-style-type:none">
+                <li data-type="indexentry" class="indexentry">types of, <a data-type="xref" class="indexentry" href="#chapter01"
+                    >Chapter 1</a></li>
+                <li data-type="indexentry" class="indexentry">block elements, <a data-type="xref" class="indexentry" href="#blocks"
+                    >Block Elements</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <div data-type="indexgroup" class="indexgroup">
+          <h2>T</h2>
+          <ul data-type="indexentry" class="indexentry" style="list-style-type:none">
+            <li>tables, <a data-type="xref" class="indexentry" href="#tables">Tables</a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
