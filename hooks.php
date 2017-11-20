@@ -134,9 +134,8 @@ add_filter( 'upload_mimes', '\Pressbooks\Media\add_mime_types' );
 
 if ( $is_book ) {
 	add_action( 'init', '\Pressbooks\PostType\register_post_types' );
-	add_action( 'init', '\Pressbooks\PostType\register_meta' );
 	add_action( 'init', '\Pressbooks\Taxonomy::registerTaxonomies' );
-	add_action( 'post_updated_messages', '\Pressbooks\PostType\post_type_messages' );
+	add_action( 'init', '\Pressbooks\PostType\register_meta' );
 	add_filter( 'request', '\Pressbooks\PostType\add_post_types_rss' );
 	add_filter( 'hypothesis_supported_posttypes', '\Pressbooks\PostType\add_posttypes_to_hypothesis' );
 }

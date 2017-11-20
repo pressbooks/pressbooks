@@ -384,7 +384,6 @@ class Activation {
 		refresh_blog_details( $this->blog_id );
 	}
 
-
 	/**
 	 * Never let a user change [ Your Profile > Admin Color Scheme ]
 	 *

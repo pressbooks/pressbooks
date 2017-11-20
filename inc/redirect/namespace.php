@@ -446,10 +446,19 @@ function redirect_away_from_bad_urls() {
 	}
 
 	// ---------------------------------------------------------------------------------------------------------------
+	// If user is on edit-tags.php, check for valid taxonomy
+
+	if ( preg_match( '~/wp-admin/edit-tags\.php$~', $check_against_url ) ) {
+		if ( isset( $_REQUEST['taxonomy'] ) && ! in_array( $_REQUEST['taxonomy'], [ 'contributor' ], true ) ) {
+			$_SESSION['pb_notices'][] = __( 'Unsupported taxonomy.', 'pressbooks' );
+			\Pressbooks\Redirect\location( $redirect_url );
+		}
+	}
+
+	// ---------------------------------------------------------------------------------------------------------------
 	// Don't let user go to any of these pages, under any circumstance
 
 	$restricted = [
-		'edit-tags',
 		'export',
 		'import',
 		'link-(manager|add)',
