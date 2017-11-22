@@ -41,7 +41,7 @@
   "require-dev": {
     "phpunit/phpunit": "~5.7",
     "doctrine/instantiator": "1.0.*",
-    "humanmade/coding-standards": "dev-master"
+    "humanmade/coding-standards": "^0.2"
   },
   "suggest": {
     "pressbooks/pressbooks-book":
