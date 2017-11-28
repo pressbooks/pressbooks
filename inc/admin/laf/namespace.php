@@ -43,26 +43,10 @@ function admin_title( $admin_title ) {
 /**
  * Removes some default WordPress Admin Sidebar items and adds our own
  */
+/**
+ * Removes some default WordPress Admin Sidebar items and adds our own
+ */
 function replace_book_admin_menu() {
-
-	global $menu, $submenu;
-
-	// Modify $menu and $submenu global arrays to do some tasks, such as adding a new separator, moving items from one menu into another, and reordering sub-menu items.
-
-	if ( isset( $menu[60] ) ) {
-		$menu[13] = $menu[60]; // Relocate Appearance
-		unset( $menu[60] );
-	}
-
-	if ( isset( $menu[10] ) ) {
-		$menu[68] = $menu[10]; // Relocate Media
-		unset( $menu[10] );
-	}
-
-	if ( isset( $menu[25] ) ) {
-		$menu[69] = $menu[25]; // Relocate Comments
-		unset( $menu[25] );
-	}
 
 	// Remove items we don't want the user to see.
 	remove_submenu_page( 'index.php', 'my-sites.php' );
@@ -73,11 +57,7 @@ function replace_book_admin_menu() {
 	remove_submenu_page( 'options-general.php', 'options-media.php' );
 	remove_submenu_page( 'options-general.php', 'options-permalink.php' );
 
-	remove_menu_page( 'edit.php?post_type=part' );
 	remove_menu_page( 'edit.php' );
-	remove_menu_page( 'edit.php?post_type=front-matter' );
-	remove_menu_page( 'edit.php?post_type=back-matter' );
-	remove_menu_page( 'edit.php?post_type=metadata' );
 	remove_menu_page( 'link-manager.php' );
 	remove_menu_page( 'edit.php?post_type=page' );
 
@@ -85,10 +65,8 @@ function replace_book_admin_menu() {
 	remove_submenu_page( 'tools.php', 'import.php' );
 	remove_submenu_page( 'tools.php', 'export.php' );
 
-	remove_submenu_page( 'edit.php?post_type=chapter', 'edit.php?post_type=chapter' );
-
 	// Organize
-	$organize_page = add_submenu_page( 'edit.php?post_type=chapter', __( 'Organize', 'pressbooks' ), __( 'Organize', 'pressbooks' ), 'edit_posts', 'pressbooks', __NAMESPACE__ . '\display_organize' );
+	$organize_page = add_menu_page( __( 'Organize', 'pressbooks' ), __( 'Organize', 'pressbooks' ), 'edit_posts', 'pb_organize', __NAMESPACE__ . '\display_organize', 'dashicons-book' );
 	add_action(
 		'admin_enqueue_scripts', function ( $hook ) use ( $organize_page ) {
 			if ( $hook === $organize_page ) {
@@ -111,38 +89,72 @@ function replace_book_admin_menu() {
 			}
 		}
 	);
-	if ( current_user_can( 'edit_posts' ) ) {
-		$add_chapter = $submenu['edit.php?post_type=chapter'][10];
-		unset( $submenu['edit.php?post_type=chapter'][10] );
-		$add_part = $submenu['edit.php?post_type=part'][10];
-		$add_front_matter = $submenu['edit.php?post_type=front-matter'][10];
-		$add_back_matter = $submenu['edit.php?post_type=back-matter'][10];
-		array_push( $submenu['edit.php?post_type=chapter'], $add_part, $add_chapter, $add_front_matter, $add_back_matter );
-	} else {
-		unset( $submenu['edit.php?post_type=chapter'][10] );
-	}
-	if ( is_super_admin() ) {
-		// If network administrator, give the option to see chapter, front matter and back matter types.
-		$front_matter_types = $submenu['edit.php?post_type=front-matter'][15];
-		$back_matter_types = $submenu['edit.php?post_type=back-matter'][15];
-		if ( isset( $submenu['edit.php?post_type=chapter'][15] ) ) {
-			$chapter_types = $submenu['edit.php?post_type=chapter'][15];
-			unset( $submenu['edit.php?post_type=chapter'][15] );
-			array_push(
-				$submenu['edit.php?post_type=chapter'],
-				$chapter_types,
-				$front_matter_types,
-				$back_matter_types
-			);
-		} else {
-			array_push(
-				$submenu['edit.php?post_type=chapter'],
-				$front_matter_types,
-				$back_matter_types
-			);
-		}
-	}
-	add_submenu_page( 'edit.php?post_type=chapter', __( 'Trash' ), __( 'Trash' ), 'delete_posts', 'trash', __NAMESPACE__ . '\display_trash' );
+
+	add_submenu_page(
+		'pb_organize',
+		__( 'Add Part', 'pressbooks' ),
+		__( 'Add Part', 'pressbooks' ),
+		'edit_posts',
+		'post-new.php?post_type=part'
+	);
+
+	add_submenu_page(
+		'pb_organize',
+		__( 'Add Chapter', 'pressbooks' ),
+		__( 'Add Chapter', 'pressbooks' ),
+		'edit_posts',
+		'post-new.php?post_type=chapter'
+	);
+
+	add_submenu_page(
+		'pb_organize',
+		__( 'Add Front Matter', 'pressbooks' ),
+		__( 'Add Front Matter', 'pressbooks' ),
+		'edit_posts',
+		'post-new.php?post_type=front-matter'
+	);
+
+	add_submenu_page(
+		'pb_organize',
+		__( 'Add Back Matter', 'pressbooks' ),
+		__( 'Add Back Matter', 'pressbooks' ),
+		'edit_posts',
+		'post-new.php?post_type=back-matter'
+	);
+
+	add_submenu_page(
+		'pb_organize',
+		__( 'Chapter Types', 'pressbooks' ),
+		__( 'Chapter Types', 'pressbooks' ),
+		'manage_network',
+		'edit-tags.php?taxonomy=chapter-type&post_type=chapter'
+	);
+
+	add_submenu_page(
+		'pb_organize',
+		__( 'Front Matter Types', 'pressbooks' ),
+		__( 'Front Matter Types', 'pressbooks' ),
+		'manage_network',
+		'edit-tags.php?taxonomy=front-matter-type&post_type=front-matter'
+	);
+
+	add_submenu_page(
+		'pb_organize',
+		__( 'Back Matter Types', 'pressbooks' ),
+		__( 'Back Matter Types', 'pressbooks' ),
+		'manage_network',
+		'edit-tags.php?taxonomy=back-matter-type&post_type=back-matter'
+	);
+
+	add_submenu_page(
+		'pb_organize',
+		__( 'Contributors', 'pressbooks' ),
+		__( 'Contributors', 'pressbooks' ),
+		'manage_options',
+		'edit-tags.php?taxonomy=contributor'
+	);
+
+	add_submenu_page( 'pb_organize', __( 'Trash' ), __( 'Trash' ), 'delete_posts', 'pb_trash', __NAMESPACE__ . '\display_trash' );
 
 	// Book Information
 	$metadata = new \Pressbooks\Metadata();
@@ -239,6 +251,37 @@ function replace_book_admin_menu() {
 }
 
 /**
+ * Reorder the book administration menu.
+ *
+ * @since 5.0.0
+ *
+ * return array
+ */
+function reorder_book_admin_menu() {
+	$metadata = new \Pressbooks\Metadata();
+	$book_info_url = ( ! empty( $metadata->getMetaPost() ) ) ?
+		'post.php?post=' . $metadata->getMetaPost()->ID . '&action=edit' :
+		'post-new.php?post_type=metadata';
+	return [
+		'index.php',
+		'separator1',
+		'pb_organize',
+		'post.php',
+		$book_info_url,
+		'themes.php',
+		'pb_export',
+		'pb_publish',
+		'separator2',
+		'plugins.php',
+		'upload.php',
+		'edit-comments.php',
+		'users.php',
+		'tools.php',
+		'options-general.php',
+	];
+}
+
+/**
  * When user clicks [Front-Matter Types / Back-Matter Types] sub-menus, then they should be highlighted
  *
  * @param string $file
@@ -250,6 +293,7 @@ function fix_parent_file( $file ) {
 	$haystack = [
 		'edit.php?post_type=front-matter',
 		'edit.php?post_type=back-matter',
+		'edit-tags.php?taxonomy=contributor',
 	];
 	if ( in_array( $file, $haystack, true ) ) {
 		$file = 'edit.php?post_type=chapter';
@@ -269,7 +313,7 @@ function fix_parent_file( $file ) {
 function fix_submenu_file( $submenu_file, $parent_file ) {
 
 	if ( empty( $submenu_file ) && empty( $_REQUEST['post_type'] ) && $parent_file === 'edit.php?post_type=chapter' ) {
-		$submenu_file = 'pressbooks';
+		$submenu_file = 'pb_organize';
 	}
 
 	return $submenu_file;
@@ -655,36 +699,29 @@ function default_meta_checkboxes() {
  * Transforms the category selection meta box from checkboxes to radio buttons to ensure only one item
  */
 function transform_category_selection_box() {
+	global $pagenow, $typenow;
 
-	$base = get_bloginfo( 'url' );
-
-	if ( ( $base . '/wp-admin/post-new.php?post_type=front-matter' ) === 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] ) {
-		$term = get_term_by( 'slug', 'miscellaneous', 'front-matter-type' );
-	} elseif ( ( $base . '/wp-admin/post-new.php?post_type=back-matter' ) === 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] ) {
-		$term = get_term_by( 'slug', 'miscellaneous', 'back-matter-type' );
-	} elseif ( ( $base . '/wp-admin/post-new.php?post_type=chapter' ) === 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] ) {
-		$term = get_term_by( 'slug', 'standard', 'chapter-type' );
+	if ( in_array( $pagenow, [ 'post-new.php' ], true ) ) {
+		switch ( $typenow ) {
+			case 'chapter':
+				$term = get_term_by( 'slug', 'standard', 'chapter-type' );
+				break;
+			case 'front-matter':
+				$term = get_term_by( 'slug', 'miscellaneous', 'front-matter-type' );
+				break;
+			case 'back-matter':
+				$term = get_term_by( 'slug', 'miscellaneous', 'back-matter-type' );
+				break;
+		}
 	}
 
-	?>
-	<script type="text/javascript">
-		jQuery('.category-tabs, .category-pop').remove();
-		jQuery('input:checkbox[id^="in-front-matter-type"]').each(function () {
-			jQuery(this).replaceWith(jQuery(this).clone(true).attr('type', 'radio'));
-		});
-		jQuery('input:checkbox[id^="in-back-matter-type"]').each(function () {
-			jQuery(this).replaceWith(jQuery(this).clone(true).attr('type', 'radio'));
-		});
-		jQuery('input:checkbox[id^="in-chapter-type"]').each(function () {
-			jQuery(this).replaceWith(jQuery(this).clone(true).attr('type', 'radio'));
-		});
-		<?php if ( isset( $term ) ) :  ?>
-		jQuery('input:radio[id="in-front-matter-type-<?php echo $term->term_id; ?>"]').attr('checked', 'checked');
-		jQuery('input:radio[id="in-back-matter-type-<?php echo $term->term_id; ?>"]').attr('checked', 'checked');
-		jQuery('input:radio[id="in-chapter-type-<?php echo $term->term_id; ?>"]').attr('checked', 'checked');
-		<?php endif; ?>
-	</script>
-	<?php
+	if ( isset( $term ) ) {
+		printf(
+			"<script type='text/javascript'>jQuery('select#%s-typedropdown').val('%d');</script>",
+			$typenow,
+			$term->term_id
+		);
+	}
 }
 
 function disable_customizer() {
@@ -706,10 +743,10 @@ function init_css_js() {
 	wp_admin_css_color(
 		'pb_colors', 'Pressbooks', $assets->getPath( 'styles/colors-pb.css' ), apply_filters(
 			'pressbooks_admin_colors', [
-			'#b40026',
-			'#d4002d',
-			'#e9e9e9',
-			'#dfdfdf',
+				'#b40026',
+				'#d4002d',
+				'#e9e9e9',
+				'#dfdfdf',
 			]
 		)
 	);
