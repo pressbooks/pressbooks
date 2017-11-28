@@ -130,7 +130,8 @@ function migrate_book_themes() {
 		}
 
 		update_option( 'pressbooks_theme_migration', 1 );
-	} elseif ( get_option( 'pressbooks_theme_migration' ) === 1 ) {
+	}
+	if ( get_option( 'pressbooks_theme_migration' ) === 1 ) {
 		$theme = wp_get_theme()->get_stylesheet();
 		if ( $theme === 'pressbooks-book' ) {
 			switch_theme( 'pressbooks-luther' );
