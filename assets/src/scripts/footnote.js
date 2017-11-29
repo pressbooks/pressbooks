@@ -12,9 +12,16 @@
 						footNote = mySelection;
 						ed.selection.setContent( '[footnote]' + footNote + '[/footnote]' );
 					} else {
-						footNote = prompt( 'Footnote Content', 'Enter your footnote content here.' );
+						footNote = prompt(
+							'Footnote Content',
+							'Enter your footnote content here.'
+						);
 						if ( footNote !== '' ) {
-							ed.execCommand( 'mceInsertContent', false, '[footnote]' + footNote + '[/footnote]' );
+							ed.execCommand(
+								'mceInsertContent',
+								false,
+								'[footnote]' + footNote + '[/footnote]'
+							);
 						}
 					}
 				},

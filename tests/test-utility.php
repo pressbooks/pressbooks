@@ -240,8 +240,17 @@ class UtilityTest extends \WP_UnitTestCase {
 
 	public function test_rcopy() {
 		$uploads = wp_upload_dir();
+
 		$src = trailingslashit( $uploads['path'] ) . 'src';
+		if ( file_exists( $src ) ) {
+			rmrdir( $src );
+		}
+
 		$dest = trailingslashit( $uploads['path'] ) . 'dest';
+		if ( file_exists( $dest ) ) {
+			rmrdir( $dest );
+		}
+
 		@mkdir( $src );
 		file_put_contents( $src . '/test.txt', 'test' );
 
@@ -252,6 +261,46 @@ class UtilityTest extends \WP_UnitTestCase {
 
 		$return = \Pressbooks\Utility\rcopy( trailingslashit( $uploads['path'] ) . 'missing', $dest );
 		$this->assertEquals( $return, false );
+	}
+
+	public function test_rcopy_excludes() {
+		$uploads = wp_upload_dir();
+
+		$src = trailingslashit( $uploads['path'] ) . 'src';
+		if ( file_exists( $src ) ) {
+			rmrdir( $src );
+		}
+
+		$dest = trailingslashit( $uploads['path'] ) . 'dest';
+		if ( file_exists( $dest ) ) {
+			rmrdir( $dest );
+		}
+
+		@mkdir( $src );
+		@mkdir( "$src/subdir" );
+		file_put_contents( $src . '/test.txt', 'test' );
+		file_put_contents( $src . '/subdir/test.txt', 'test' );
+		file_put_contents( $src . '/readme.txt', 'test' );
+
+		$return = \Pressbooks\Utility\rcopy( $src, $dest, [ 'readme.*' ] );
+		$this->assertTrue( $return );
+		$this->assertFalse( file_exists( $dest . '/readme.txt' ) );
+		$this->assertEquals( 'test', file_get_contents( $dest . '/test.txt' ) );
+		$this->assertEquals( 'test', file_get_contents( $dest . '/subdir/test.txt' ) );
+
+		rmrdir( $dest );
+		$return = \Pressbooks\Utility\rcopy( $src, $dest, [ 'test.txt' ] );
+		$this->assertTrue( $return );
+		$this->assertFalse( file_exists( $dest . '/test.txt' ) );
+		$this->assertFalse( file_exists( $dest . '/subdir/test.txt' ) );
+		$this->assertEquals( 'test', file_get_contents( $dest . '/readme.txt' ) );
+
+		rmrdir( $dest );
+		$return = \Pressbooks\Utility\rcopy( $src, $dest, [ 'subdir' ] );
+		$this->assertTrue( $return );
+		$this->assertFalse( file_exists( $dest . '/subdir' ) );
+		$this->assertEquals( 'test', file_get_contents( $dest . '/test.txt' ) );
+		$this->assertEquals( 'test', file_get_contents( $dest . '/readme.txt' ) );
 	}
 
 	public function test_str_starts_with() {

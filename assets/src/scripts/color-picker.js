@@ -1,5 +1,5 @@
 jQuery( function ( $ ) {
 	$( function () {
-	  $( '.pb_catalog_color' ).wpColorPicker();
+		$( '.pb_catalog_color' ).wpColorPicker();
 	} );
 } );

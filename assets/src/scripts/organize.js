@@ -3,9 +3,9 @@
 import CountUp from 'countup.js';
 
 let Pressbooks = {
-	'oldPart':        null,
-	'newPart':        null,
-	'defaultOptions': {
+	oldPart:        null,
+	newPart:        null,
+	defaultOptions: {
 		revert:      true,
 		helper:      'clone',
 		zIndex:      2700,
@@ -24,7 +24,7 @@ let Pressbooks = {
 			Pressbooks.update( el.item );
 		},
 	},
-	'frontMatterOptions': {
+	frontMatterOptions: {
 		revert:      true,
 		helper:      'clone',
 		zIndex:      2700,
@@ -41,7 +41,7 @@ let Pressbooks = {
 			Pressbooks.fmupdate( el.item );
 		},
 	},
-	'backMatterOptions': {
+	backMatterOptions: {
 		revert:      true,
 		helper:      'clone',
 		zIndex:      2700,
@@ -73,19 +73,29 @@ let Pressbooks = {
 				old_part_order: jQuery( '#' + Pressbooks.oldPart ).sortable( 'serialize' ),
 				new_part:       Pressbooks.newPart.replace( /^part-([0-9]+)$/i, '$1' ),
 				old_part:       Pressbooks.oldPart.replace( /^part-([0-9]+)$/i, '$1' ),
-				id:             jQuery( el ).attr( 'id' ).replace( /^chapter-([0-9]+)$/i, '$1' ),
-				_ajax_nonce:    PB_OrganizeToken.orderNonce,
+				id:             jQuery( el )
+					.attr( 'id' )
+					.replace( /^chapter-([0-9]+)$/i, '$1' ),
+				_ajax_nonce: PB_OrganizeToken.orderNonce,
 			},
 			cache:    false,
 			dataType: 'html',
 			error:    function ( obj, status, thrown ) {
-				jQuery( '#message' ).html( '<p><strong>There has been an error updating your chapter data. Usually, <a href="' + window.location.href + '">refreshing the page</a> helps.</strong></p>' ).addClass( 'error' );
+				jQuery( '#message' )
+					.html(
+						'<p><strong>There has been an error updating your chapter data. Usually, <a href="' +
+							window.location.href +
+							'">refreshing the page</a> helps.</strong></p>'
+					)
+					.addClass( 'error' );
 				// window.setTimeout(function(){window.location.replace(window.location.href)}, 5000, true);
 			},
 			success: function ( htmlStr ) {
 				if ( htmlStr === 'NOCHANGE' ) {
-					jQuery( '#message' ).html( '<p><strong>No changes were registered.</strong></p>' ).addClass( 'error' );
-				}				else {
+					jQuery( '#message' )
+						.html( '<p><strong>No changes were registered.</strong></p>' )
+						.addClass( 'error' );
+				} else {
 					// Chapters have been reordered.
 				}
 			},
@@ -111,13 +121,21 @@ let Pressbooks = {
 			cache:    false,
 			dataType: 'html',
 			error:    function ( obj, status, thrown ) {
-				jQuery( '#message' ).html( '<p><strong>There has been an error updating your front matter data Usually, <a href="' + window.location.href + '">refreshing the page</a> helps.</strong></p>' ).addClass( 'error' );
+				jQuery( '#message' )
+					.html(
+						'<p><strong>There has been an error updating your front matter data Usually, <a href="' +
+							window.location.href +
+							'">refreshing the page</a> helps.</strong></p>'
+					)
+					.addClass( 'error' );
 				//window.setTimeout(function(){window.location.replace(window.location.href)}, 5000, true);
 			},
 			success: function ( htmlStr ) {
 				if ( htmlStr === 'NOCHANGE' ) {
-					jQuery( '#message' ).html( '<p><strong>No changes were registered.</strong></p>' ).addClass( 'error' );
-				}				else {
+					jQuery( '#message' )
+						.html( '<p><strong>No changes were registered.</strong></p>' )
+						.addClass( 'error' );
+				} else {
 					// Front Matter has been reordered.
 				}
 			},
@@ -143,13 +161,21 @@ let Pressbooks = {
 			cache:    false,
 			dataType: 'html',
 			error:    function ( obj, status, thrown ) {
-				jQuery( '#message' ).html( '<p><strong>There has been an error updating your back matter data. Usually, <a href="' + window.location.href + '">refreshing the page</a> helps.</strong></p>' ).addClass( 'error' );
+				jQuery( '#message' )
+					.html(
+						'<p><strong>There has been an error updating your back matter data. Usually, <a href="' +
+							window.location.href +
+							'">refreshing the page</a> helps.</strong></p>'
+					)
+					.addClass( 'error' );
 				//window.setTimeout(function(){window.location.replace(window.location.href)}, 5000, true);
 			},
 			success: function ( htmlStr ) {
 				if ( htmlStr === 'NOCHANGE' ) {
-					jQuery( '#message' ).html( '<p><strong>No changes were registered.</strong></p>' ).addClass( 'error' );
-				}				else {
+					jQuery( '#message' )
+						.html( '<p><strong>No changes were registered.</strong></p>' )
+						.addClass( 'error' );
+				} else {
 					// Back Matter has been reordered.
 				}
 			},
@@ -163,11 +189,16 @@ let Pressbooks = {
 // --------------------------------------------------------------------------------------------------------------------
 
 jQuery( document ).ready( function ( $ ) {
-
 	// Init drag & drop
-	$( 'table.chapters' ).sortable( Pressbooks.defaultOptions ).disableSelection();
-	$( 'table#front-matter' ).sortable( Pressbooks.frontMatterOptions ).disableSelection();
-	$( 'table#back-matter' ).sortable( Pressbooks.backMatterOptions ).disableSelection();
+	$( 'table.chapters' )
+		.sortable( Pressbooks.defaultOptions )
+		.disableSelection();
+	$( 'table#front-matter' )
+		.sortable( Pressbooks.frontMatterOptions )
+		.disableSelection();
+	$( 'table#back-matter' )
+		.sortable( Pressbooks.backMatterOptions )
+		.disableSelection();
 
 	// Public/Private form at top of page
 	$( 'input[name=blog_public]' ).change( function () {
@@ -190,12 +221,16 @@ jQuery( document ).ready( function ( $ ) {
 					$( 'h4.publicize-alert > span' ).text( PB_OrganizeToken.private );
 					$( 'label span.public' ).css( 'font-weight', 'normal' );
 					$( 'label span.private' ).css( 'font-weight', 'bold' );
-					$( '.publicize-alert' ).removeClass( 'public' ).addClass( 'private' );
+					$( '.publicize-alert' )
+						.removeClass( 'public' )
+						.addClass( 'private' );
 				} else if ( blog_public === 1 ) {
 					$( 'h4.publicize-alert > span' ).text( PB_OrganizeToken.public );
 					$( 'label span.public' ).css( 'font-weight', 'bold' );
 					$( 'label span.private' ).css( 'font-weight', 'normal' );
-					$( '.publicize-alert' ).removeClass( 'private' ).addClass( 'public' );
+					$( '.publicize-alert' )
+						.removeClass( 'private' )
+						.addClass( 'public' );
 				}
 			},
 			error: function ( xhr, ajaxOptions, thrownError ) {
@@ -209,7 +244,9 @@ jQuery( document ).ready( function ( $ ) {
 	$( '.chapter_privacy' ).change( function () {
 		let post_status;
 
-		let col = $( this ).parent().prev( '.column-status' );
+		let col = $( this )
+			.parent()
+			.prev( '.column-status' );
 		let id = $( this ).attr( 'id' );
 		id = id.split( '_' );
 		id = id[id.length - 1];
@@ -302,7 +339,9 @@ jQuery( document ).ready( function ( $ ) {
 	$( '.fm_privacy' ).change( function () {
 		let post_status;
 
-		let col = $( this ).parent().prev( '.column-status' );
+		let col = $( this )
+			.parent()
+			.prev( '.column-status' );
 		let id = $( this ).attr( 'id' );
 		id = id.split( '_' );
 		id = id[id.length - 1];
@@ -395,7 +434,9 @@ jQuery( document ).ready( function ( $ ) {
 	$( '.bm_privacy' ).change( function () {
 		let post_status;
 
-		let col = $( this ).parent().prev( '.column-status' );
+		let col = $( this )
+			.parent()
+			.prev( '.column-status' );
 		let id = $( this ).attr( 'id' );
 		id = id.split( '_' );
 		id = id[id.length - 1];
@@ -487,23 +528,29 @@ jQuery( document ).ready( function ( $ ) {
 	let pbOrganizeTdToggle = [];
 	$( 'table thead th' ).click( function () {
 		let tdIndex = $( this ).index() + 1;
-		let tableIndex = $( this ).parents( 'table' ).index();
+		let tableIndex = $( this )
+			.parents( 'table' )
+			.index();
 		let i = tableIndex + '_' + tdIndex;
 		if ( pbOrganizeTdToggle[i] ) {
-			$( this ).parents( 'table' ).find( 'tr td:nth-of-type(' + tdIndex + ')' )
-							.find( 'input[type=checkbox]:checked' )
-							.click();
+			$( this )
+				.parents( 'table' )
+				.find( 'tr td:nth-of-type(' + tdIndex + ')' )
+				.find( 'input[type=checkbox]:checked' )
+				.click();
 			pbOrganizeTdToggle[i] = false;
 		} else {
-			$( this ).parents( 'table' ).find( 'tr td:nth-of-type(' + tdIndex + ')' )
-							.find( 'input[type=checkbox]:not(:checked)' )
-							.click();
+			$( this )
+				.parents( 'table' )
+				.find( 'tr td:nth-of-type(' + tdIndex + ')' )
+				.find( 'input[type=checkbox]:not(:checked)' )
+				.click();
 			pbOrganizeTdToggle[i] = true;
 		}
 	} );
 
 	// Warn of incomplete AJAX
-	$( window ).on( 'beforeunload', function (){
+	$( window ).on( 'beforeunload', function () {
 		if ( $.active > 0 ) {
 			return 'Changes you made may not be saved...';
 		}
@@ -512,14 +559,20 @@ jQuery( document ).ready( function ( $ ) {
 	// Update word count when needed.
 	function updateWordCountForExport() {
 		const data = {
-			'action':      'pb_update_word_count_for_export',
-			'_ajax_nonce': PB_OrganizeToken.wordCountNonce,
+			action:      'pb_update_word_count_for_export',
+			_ajax_nonce: PB_OrganizeToken.wordCountNonce,
 		};
 		$.post( ajaxurl, data, function ( response ) {
 			const current_count = parseInt( $( '#wc-selected-for-export' ).text(), 10 );
-			let count_up = new CountUp( 'wc-selected-for-export', current_count, response, 0, 2.5, { separator: '' } );
+			let count_up = new CountUp(
+				'wc-selected-for-export',
+				current_count,
+				response,
+				0,
+				2.5,
+				{ separator: '' }
+			);
 			count_up.start();
 		} );
 	}
-
 } );

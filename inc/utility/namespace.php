@@ -917,10 +917,11 @@ function mail_from_name( $name ) {
  *
  * @param string $src
  * @param string $dest
+ * @param array $excludes (optional, supports shell wildcard patterns)
  *
  * @return bool
  */
-function rcopy( $src, $dest ) {
+function rcopy( $src, $dest, $excludes = [] ) {
 	if ( ! is_dir( $src ) ) {
 		return false;
 	}
@@ -934,11 +935,21 @@ function rcopy( $src, $dest ) {
 	$i = new \DirectoryIterator( $src );
 	foreach ( $i as $f ) {
 		if ( $f->isFile() ) {
-			if ( false === copy( $f->getRealPath(), "$dest/" . $f->getFilename() ) ) {
+			foreach ( $excludes as $exclude ) {
+				if ( fnmatch( $exclude, "$f" ) ) {
+					continue 2;
+				}
+			}
+			if ( false === copy( $f->getRealPath(), "$dest/$f" ) ) {
 				return false;
 			}
 		} elseif ( ! $f->isDot() && $f->isDir() ) {
-			\Pressbooks\Utility\rcopy( $f->getRealPath(), "$dest/$f" );
+			foreach ( $excludes as $exclude ) {
+				if ( fnmatch( $exclude, "$f" ) ) {
+					continue 2;
+				}
+			}
+			\Pressbooks\Utility\rcopy( $f->getRealPath(), "$dest/$f", $excludes );
 		}
 	}
 	return true;

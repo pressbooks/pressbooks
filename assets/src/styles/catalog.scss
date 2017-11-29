@@ -24,13 +24,12 @@
 }
 
 @font-face {
-  font-family: "catalog-page";
-  src: url("../fonts/catalog-page.eot");
-  src:
-    url("../fonts/catalog-page.eot?#iefix") format("embedded-opentype"),
-    url("../fonts/catalog-page.ttf") format("truetype"),
-    url("../fonts/catalog-page.svg#catalog-page") format("svg"),
-    url("../fonts/catalog-page.woff") format("woff");
+  font-family: 'catalog-page';
+  src: url('../fonts/catalog-page.eot');
+  src: url('../fonts/catalog-page.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/catalog-page.ttf') format('truetype'),
+    url('../fonts/catalog-page.svg#catalog-page') format('svg'),
+    url('../fonts/catalog-page.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
@@ -39,7 +38,7 @@
   margin-right: 5px;
 
   &::before {
-    font-family: "catalog-page";
+    font-family: 'catalog-page';
     font-style: normal;
     font-weight: normal;
     font-size: 1em;
