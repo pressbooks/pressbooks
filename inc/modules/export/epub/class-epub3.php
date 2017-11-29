@@ -426,7 +426,7 @@ class Epub3 extends Epub201 {
 	protected function createOPF( $book_contents, $metadata ) {
 
 		if ( empty( $this->manifest ) ) {
-			throw new \Exception( '$this->manifest cannot be empty. Did you forget to call $this->createOEPBS() ?' );
+			throw new \Exception( '$this->manifest cannot be empty. Did you forget to call $this->createOEBPS() ?' );
 		}
 
 		$vars = [
@@ -477,7 +477,7 @@ class Epub3 extends Epub201 {
 	protected function createNCX( $book_contents, $metadata ) {
 
 		if ( empty( $this->manifest ) ) {
-			throw new \Exception( '$this->manifest cannot be empty. Did you forget to call $this->createOEPBS() ?' );
+			throw new \Exception( '$this->manifest cannot be empty. Did you forget to call $this->createOEBPS() ?' );
 		}
 
 		// Sanitize variables for usage in XML template

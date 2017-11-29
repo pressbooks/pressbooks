@@ -92,13 +92,13 @@ class ContainerTest extends \WP_UnitTestCase {
 
 	public function test_getException() {
 
-		$this->setExpectedException( '\LogicException' );
+		$this->setExpectedException( '\LogicException', null );
 		$var = Container::get( 'foo' );
 	}
 
 	public function test_setException() {
 
-		$this->setExpectedException( '\LogicException' );
+		$this->setExpectedException( '\LogicException', null );
 		Container::set( 'foo', 'bar' );
 	}
 
