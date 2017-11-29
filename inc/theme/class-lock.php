@@ -19,7 +19,7 @@ class Lock {
 		$lock_dir = $wp_upload_dir['basedir'] . '/lock';
 
 		if ( ! file_exists( $lock_dir ) ) {
-			mkdir( $lock_dir, 0775, true );
+			wp_mkdir_p( $lock_dir );
 		}
 
 		return $lock_dir;
@@ -46,7 +46,7 @@ class Lock {
 	static function toggleThemeLock( $old_value, $value, $option ) {
 		if ( isset( $value['theme_lock'] ) && 1 === absint( $value['theme_lock'] ) ) {
 			return Lock::lockTheme();
-		} elseif ( 1 === absint( $old_value['theme_lock'] ) && ! isset( $value['theme_lock'] ) ) {
+		} elseif ( 1 === absint( $old_value['theme_lock'] ) && empty( $value['theme_lock'] ) ) {
 			return Lock::unlockTheme();
 		}
 		return false;
@@ -83,9 +83,50 @@ class Lock {
 		return false;
 	}
 
+	/**
+	 * @return bool
+	 */
 	static function copyAssets() {
-		$excludes = [ '*.php', '.git', '.svn' ];
-		return \Pressbooks\Utility\rcopy( realpath( get_stylesheet_directory() ), Lock::getLockDir(), $excludes );
+
+		$source_dir = realpath( get_stylesheet_directory() );
+		$dest_dir = Lock::getLockDir();
+
+		// Start by copying all the assets we can find (for old theme compatibility)
+
+		$ok = \Pressbooks\Utility\rcopy(
+			$source_dir,
+			$dest_dir,
+			[ '*.php', '*.git', 'node_modules/', '.github/', '.tx/' ], // Excludes
+			[ '*.css', '*.scss', '*.png', '*.jpg', '*.gif', '*.svg', '*.js' ] // Includes
+		);
+		if ( ! $ok ) {
+			return false;
+		}
+
+		// We should only copy:
+
+		$keepers = [
+			"{$source_dir}/assets/fonts/" => "{$dest_dir}/assets/fonts/",
+			"{$source_dir}/assets/images/" => "{$dest_dir}/assets/images/",
+			"{$source_dir}/assets/scripts/" => "{$dest_dir}/assets/scripts/",
+			"{$source_dir}/assets/styles/" => "{$dest_dir}/assets/styles/",
+			"{$source_dir}/node_modules/buckram/" => "{$dest_dir}/node_modules/buckram/",
+		];
+		foreach ( $keepers as $source => $dest ) {
+			if ( file_exists( $source ) ) {
+				wp_mkdir_p( $dest );
+				$ok = \Pressbooks\Utility\rcopy(
+					$source,
+					$dest,
+					[ '*.php', '.git' ] // Excludes
+				);
+				if ( ! $ok ) {
+					return false;
+				}
+			}
+		}
+
+		return true;
 	}
 
 	/**
@@ -114,7 +155,8 @@ class Lock {
 	 * @return \WP_Theme
 	 */
 	static function unlockTheme() {
-		rmrdir( Lock::getLockDir() );
+		$dir = Lock::getLockDir();
+		@rmrdir( $dir ); // @codingStandardsIgnoreLine
 		$_SESSION['pb_notices'][] = sprintf( '<strong>%s</strong>', __( 'Your book&rsquo;s theme has been unlocked.', 'pressbooks' ) );
 
 		return wp_get_theme();

@@ -917,11 +917,17 @@ function mail_from_name( $name ) {
  *
  * @param string $src
  * @param string $dest
- * @param array $excludes (optional, supports shell wildcard patterns)
+ * @param array $excludes (optional, supports shell wildcard patterns, add a unix like trailing slash for folders)
+ * @param array $includes (optional, supports shell wildcard patterns, add a unis like trailing slash for folders)
  *
  * @return bool
  */
-function rcopy( $src, $dest, $excludes = [] ) {
+function rcopy( $src, $dest, $excludes = [], $includes = [] ) {
+
+	// Remove trailing slashes
+	$src = rtrim( $src, '\\/' );
+	$dest = rtrim( $dest, '\\/' );
+
 	if ( ! is_dir( $src ) ) {
 		return false;
 	}
@@ -934,22 +940,47 @@ function rcopy( $src, $dest, $excludes = [] ) {
 
 	$i = new \DirectoryIterator( $src );
 	foreach ( $i as $f ) {
+		$include_this_file = ( empty( $includes ) ? true : false );
 		if ( $f->isFile() ) {
+			// File
 			foreach ( $excludes as $exclude ) {
 				if ( fnmatch( $exclude, "$f" ) ) {
-					continue 2;
+					continue 2; // Excluded, go to next file
 				}
 			}
-			if ( false === copy( $f->getRealPath(), "$dest/$f" ) ) {
-				return false;
+			foreach ( $includes as $include ) {
+				if ( fnmatch( $include, "$f" ) ) {
+					$include_this_file = true;
+					break;
+				}
+			}
+			if ( $include_this_file ) {
+				if ( false === copy( $f->getRealPath(), "$dest/$f" ) ) {
+					return false;
+				}
 			}
 		} elseif ( ! $f->isDot() && $f->isDir() ) {
+			// Directory
 			foreach ( $excludes as $exclude ) {
-				if ( fnmatch( $exclude, "$f" ) ) {
-					continue 2;
+				if ( str_ends_with( $exclude, '/' ) ) {
+					if ( fnmatch( rtrim( $exclude, '/' ), "$f" ) ) {
+						continue 2; // Excluded, go to next file
+					}
 				}
 			}
-			\Pressbooks\Utility\rcopy( $f->getRealPath(), "$dest/$f", $excludes );
+			$dir_pattern_count = 0;
+			foreach ( $includes as $include ) {
+				if ( str_ends_with( $include, '/' ) ) {
+					$dir_pattern_count++;
+					if ( fnmatch( rtrim( $include, '/' ), "$f" ) ) {
+						$include_this_file = true;
+						break;
+					}
+				}
+			}
+			if ( $include_this_file || $dir_pattern_count === 0 ) {
+				\Pressbooks\Utility\rcopy( $f->getRealPath(), "$dest/$f", $excludes, $includes );
+			}
 		}
 	}
 	return true;
