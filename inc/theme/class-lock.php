@@ -84,7 +84,8 @@ class Lock {
 	}
 
 	static function copyAssets() {
-		return \Pressbooks\Utility\rcopy( realpath( get_stylesheet_directory() ), Lock::getLockDir() );
+		$excludes = [ '*.php', '.git', '.svn' ];
+		return \Pressbooks\Utility\rcopy( realpath( get_stylesheet_directory() ), Lock::getLockDir(), $excludes );
 	}
 
 	/**
