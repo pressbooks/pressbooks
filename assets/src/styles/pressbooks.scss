@@ -13,20 +13,19 @@
 /* Admin Bar */
 
 @font-face {
-  font-family: "PBFont";
-  src: url("../fonts/PBFont.eot");
-  src:
-    url("../fonts/PBFont.eot?#iefix") format("embedded-opentype"),
-    url("../fonts/PBFont.ttf") format("truetype"),
-    url("../fonts/PBFont.woff") format("woff"),
-    url("../fonts/PBFont.svg#PBFont") format("svg");
+  font-family: 'PBFont';
+  src: url('../fonts/PBFont.eot');
+  src: url('../fonts/PBFont.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/PBFont.ttf') format('truetype'),
+    url('../fonts/PBFont.woff') format('woff'),
+    url('../fonts/PBFont.svg#PBFont') format('svg');
   font-weight: normal;
   font-style: normal;
 }
 
 #wpadminbar {
   .quicklinks li .blavatar::before {
-    font: 14px/1 "PBFont" !important;
+    font: 14px/1 'PBFont' !important;
     -webkit-font-smoothing: antialiased;
     background: none;
     content: '\e600' !important;
@@ -39,7 +38,7 @@
   }
 
   #wp-admin-bar-wp-logo > .ab-item .ab-icon::before {
-    font: 20px/1 "PBFont" !important;
+    font: 20px/1 'PBFont' !important;
     -webkit-font-smoothing: antialiased;
     background: none;
     content: '\e600' !important;
@@ -70,7 +69,7 @@
           width: 55px;
           -webkit-font-smoothing: antialiased;
           background: none;
-          content: "\f318" !important;
+          content: '\f318' !important;
         }
       }
     }
@@ -80,7 +79,7 @@
     }
 
     #wp-admin-bar-wp-logo > .ab-item .ab-icon::before {
-      font: 28px/1 "PBFont" !important;
+      font: 28px/1 'PBFont' !important;
     }
   }
 }

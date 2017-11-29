@@ -1,4 +1,4 @@
-jQuery( function ( $  ) {
+jQuery( function ( $ ) {
 	$( '#theme_lock' ).change( function () {
 		if ( ! this.checked ) {
 			if ( window.confirm( PB_ThemeLockToken.confirmation ) ) {
