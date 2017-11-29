@@ -16,8 +16,7 @@ class ThemeLockTest extends \WP_UnitTestCase {
 	}
 
 	public function test_toggleThemeLock() {
-		$time = time();
-		sleep( 10 );
+		$time = time() - 10;
 		$theme = wp_get_theme();
 		$result = \Pressbooks\Theme\Lock::toggleThemeLock( [], [ 'theme_lock' => 1 ], 'pressbooks_export_options' );
 
@@ -37,8 +36,7 @@ class ThemeLockTest extends \WP_UnitTestCase {
 	}
 
 	public function test_lockTheme() {
-		$time = time();
-		sleep( 10 );
+		$time = time() - 10;
 		$theme = wp_get_theme();
 
 		$result = \Pressbooks\Theme\Lock::lockTheme();
@@ -105,10 +103,10 @@ class ThemeLockTest extends \WP_UnitTestCase {
 	}
 
 	public function test_getLockData() {
-		$time = time();
-		sleep( 10 );
+		$time = time() - 10;
 
 		$theme = wp_get_theme();
+		add_theme_support( 'zig-zag-zog' );
 
 		\Pressbooks\Theme\Lock::generateLock( $time );
 
@@ -118,9 +116,12 @@ class ThemeLockTest extends \WP_UnitTestCase {
 		$this->assertArrayHasKey( 'name', $result );
 		$this->assertArrayHasKey( 'version', $result );
 		$this->assertArrayHasKey( 'timestamp', $result );
+		$this->assertArrayHasKey( 'features', $result );
+		$this->assertTrue( is_array( $result['features'] ) );
 		$this->assertEquals( $result['stylesheet'], get_stylesheet() );
 		$this->assertEquals( $result['name'], $theme->get( 'Name' ) );
 		$this->assertEquals( $result['version'], $theme->get( 'Version' ) );
 		$this->assertEquals( $result['timestamp'], $time );
+		$this->assertContains( 'zig-zag-zog', $result['features'] );
 	}
 }

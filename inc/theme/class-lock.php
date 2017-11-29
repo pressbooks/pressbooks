@@ -93,12 +93,15 @@ class Lock {
 	 * @return array
 	 */
 	static function generateLock( $time ) {
+		global $_wp_theme_features;
 		$theme = wp_get_theme();
+		$theme_features = is_array( $_wp_theme_features ) ? array_keys( $_wp_theme_features ) : [];
 		$data = [
 			'stylesheet' => get_stylesheet(),
 			'name' => $theme->get( 'Name' ),
 			'version' => $theme->get( 'Version' ),
 			'timestamp' => $time,
+			'features' => $theme_features,
 		];
 		$json = json_encode( $data );
 		$lockfile = Lock::getLockDir() . '/lock.json';
