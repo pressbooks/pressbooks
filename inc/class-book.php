@@ -487,7 +487,7 @@ class Book {
 		}
 
 		$doc = new HTML5();
-		$dom = $doc->loadHTML( strip_tags( $content, '<h1>' ) );
+		$dom = $doc->loadHTML( strip_tags( $content, '<h1>' ) ); // Strip  everything except h1 to speed up load time
 		$sections = $dom->getElementsByTagName( 'h1' );
 		foreach ( $sections as $section ) {
 			$output[ $type . '-' . $id . '-section-' . $s ] = $section->textContent;
