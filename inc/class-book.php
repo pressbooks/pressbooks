@@ -477,14 +477,17 @@ class Book {
 		$type = $parent->post_type;
 		$output = [];
 		$s = 1;
-		$content = mb_convert_encoding( apply_filters( 'the_content', $parent->post_content ), 'HTML-ENTITIES', 'UTF-8' );
 
-		if ( empty( $content ) ) {
+		$content = wptexturize( $parent->post_content );
+		$content = wpautop( $content );
+		$content = mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' );
+
+		if ( stripos( $content, '<h1' ) === false ) {
 			return false;
 		}
 
 		$doc = new HTML5();
-		$dom = $doc->loadHTML( $content );
+		$dom = $doc->loadHTML( strip_tags( $content, '<h1>' ) ); // Strip everything except h1 to speed up load time
 		$sections = $dom->getElementsByTagName( 'h1' );
 		foreach ( $sections as $section ) {
 			$output[ $type . '-' . $id . '-section-' . $s ] = $section->textContent;
@@ -514,10 +517,12 @@ class Book {
 			return false;
 		}
 		$type = $parent->post_type;
-		$content = mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' );
-		$content = str_replace( [ '<b></b>', '<i></i>', '<strong></strong>', '<em></em>' ], '', $content );
 
-		if ( empty( $content ) ) {
+		// Fix unusual HTML that tends to break our DOM transform (issues/228)
+		$content = mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' );
+		$content = str_ireplace( [ '<b></b>', '<i></i>', '<strong></strong>', '<em></em>' ], '', $content );
+
+		if ( stripos( $content, '<h1' ) === false ) {
 			return false;
 		}
 
