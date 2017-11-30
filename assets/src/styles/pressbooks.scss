@@ -159,3 +159,7 @@ i.mce-i-icon {
 .button .dashicons {
   vertical-align: text-bottom;
 }
+
+.wp-menu-image.dashicons-admin-multisite::before {
+  content: '\f330';
+}
