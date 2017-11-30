@@ -248,7 +248,12 @@ class Lock {
 	 * @return string
 	 */
 	public function globalComponentsPath( $path ) {
-		return $this->getLockDir( false ) . '/global-components/';
+		$dir = $this->getLockDir( false ) . '/global-components/';
+		if ( file_exists( $dir ) ) {
+			return $this->getLockDir( false ) . '/global-components/';
+		} else {
+			return $path;
+		}
 	}
 
 	/**

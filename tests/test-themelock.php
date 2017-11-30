@@ -151,4 +151,16 @@ class ThemeLockTest extends \WP_UnitTestCase {
 		$this->assertEquals( $result['timestamp'], $time );
 		$this->assertContains( 'zig-zag-zog', $result['features'] );
 	}
+
+	public function test_globalComponentsPath() {
+		// Delete all files in the lock directory before testing
+		array_map( 'unlink', glob( $this->lock->getLockDir() . '/*' ) );
+
+		$result = $this->lock->globalComponentsPath( '/hello-world' );
+		$this->assertEquals( '/hello-world', $result );
+
+		$this->lock->copyAssets();
+		$result = $this->lock->globalComponentsPath( '/hello-world' );
+		$this->assertContains( 'lock/global-components', $result );
+	}
 }
