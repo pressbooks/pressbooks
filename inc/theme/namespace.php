@@ -116,11 +116,12 @@ function migrate_book_themes() {
 		if ( isset( $comparisons[ $theme ] ) ) {
 			switch_theme( $comparisons[ $theme ] );
 
-			if ( Lock::isLocked() ) {
-				$data = Lock::getLockData();
+			$lock = Lock::init();
+			if ( $lock->isLocked() ) {
+				$data = $lock->getLockData();
 				$data['stylesheet'] = $comparisons[ $theme ];
 				$json = json_encode( $data );
-				$lockfile = Lock::getLockDir() . '/lock.json';
+				$lockfile = $lock->getLockDir( false ) . '/lock.json';
 				file_put_contents( $lockfile, $json );
 			}
 		}
