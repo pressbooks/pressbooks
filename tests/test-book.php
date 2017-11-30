@@ -143,15 +143,27 @@ class BookTest extends \WP_UnitTestCase {
 		$this->_book();
 		$book = \Pressbooks\Book::getInstance();
 
-		$test = "<h1>Hi there!<b></b></h1><p>How are you?</p>";
 		$result = $book::getSubsections( 0 );
 		$this->assertEquals( false, $result );
 
+		$test = "<h1>Hi there!<b></b></h1><p>How are you?</p>";
 		$id = $book::getBookStructure()['front-matter'][0]['ID'];
 		$this->factory()->post->update_object( $id, [ 'post_content' => $test ] );
 		$result = $book::getSubsections( $id );
 		$this->assertArrayHasKey( "front-matter-{$id}-section-1", $result );
 		$this->assertEquals( 'Hi there!', $result["front-matter-{$id}-section-1"] );
+
+		$test = "<H1 style='font-size:small;'>Hi there!<B></B></H1><P>How are you?</P>"; // ALL CAPS
+		$id = $book::getBookStructure()['front-matter'][0]['ID'];
+		$this->factory()->post->update_object( $id, [ 'post_content' => $test ] );
+		$result = $book::getSubsections( $id );
+		$this->assertArrayHasKey( "front-matter-{$id}-section-1", $result );
+		$this->assertEquals( 'Hi there!', $result["front-matter-{$id}-section-1"] );
+
+		$test = "<h2>Hi there!<b></b></h2><p>How are you?</p>"; // H2
+		$this->factory()->post->update_object( $id, [ 'post_content' => $test ] );
+		$result = $book::getSubsections( $id );
+		$this->assertEquals( false, $result );
 	}
 
 	public function test_tagSubsections() {
@@ -167,6 +179,15 @@ class BookTest extends \WP_UnitTestCase {
 		$result = $book::tagSubsections( $test, $id );
 		$this->assertContains( "<h1 id=\"front-matter-{$id}-section-1", $result );
 		$this->assertNotContains( '<b></b>', $result );
+
+		$test = "<H1 style='font-size:small;'>Hi there!<B></B></H1><P>How are you?.</P>"; // ALL CAPS
+		$result = $book::tagSubsections( $test, $id );
+		$this->assertContains( "<h1 style=\"font-size:small;\" id=\"front-matter-{$id}-section-1\" class=\"section-header\"" , $result );
+		$this->assertNotContains( '<b></b>', $result );
+
+		$test = "<h2>Hi there!<b></b></h2><p>How are you?</p>"; // H2
+		$result = $book::tagSubsections( $test, $id );
+		$this->assertEquals( false, $result );
 	}
 
 }
