@@ -250,7 +250,7 @@ class Lock {
 	public function globalComponentsPath( $path ) {
 		$dir = $this->getLockDir( false ) . '/global-components/';
 		if ( file_exists( $dir ) ) {
-			return $this->getLockDir( false ) . '/global-components/';
+			return $dir;
 		} else {
 			return $path;
 		}
