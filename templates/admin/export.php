@@ -191,7 +191,7 @@ $formats = apply_filters( 'pb_export_formats', [
 			</fieldset>
 
 		<fieldset class="exotic">
-		<legend><?php _e( 'Exotic formats', 'pressbooks' ); ?>:</legend>
+		<legend><?php _e( 'Other formats', 'pressbooks' ); ?>:</legend>
 <?php foreach ( $formats['exotic'] as $key => $value ) {
 	printf(
 		'<input type="checkbox" id="%1$s" name="export_formats[%1$s]" value="1" %2$s/><label for="%1$s"> %3$s</label><br />',
