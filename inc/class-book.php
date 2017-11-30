@@ -482,9 +482,6 @@ class Book {
 		$content = wpautop( $content );
 		$content = mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' );
 
-		if ( empty( $content ) ) {
-			return false;
-		}
 		if ( stripos( $content, '<h1' ) === false ) {
 			return false;
 		}
@@ -525,9 +522,6 @@ class Book {
 		$content = mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' );
 		$content = str_ireplace( [ '<b></b>', '<i></i>', '<strong></strong>', '<em></em>' ], '', $content );
 
-		if ( empty( $content ) ) {
-			return false;
-		}
 		if ( stripos( $content, '<h1' ) === false ) {
 			return false;
 		}
