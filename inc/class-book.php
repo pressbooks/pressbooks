@@ -477,7 +477,10 @@ class Book {
 		$type = $parent->post_type;
 		$output = [];
 		$s = 1;
-		$content = mb_convert_encoding( apply_filters( 'the_content', $parent->post_content ), 'HTML-ENTITIES', 'UTF-8' );
+
+		$content = wptexturize( $parent->post_content );
+		$content = wpautop( $content );
+		$content = mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' );
 
 		if ( empty( $content ) ) {
 			return false;
