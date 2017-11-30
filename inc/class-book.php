@@ -482,9 +482,12 @@ class Book {
 		if ( empty( $content ) ) {
 			return false;
 		}
+		if ( stripos( $content, '<h1' ) === false ) {
+			return false;
+		}
 
 		$doc = new HTML5();
-		$dom = $doc->loadHTML( $content );
+		$dom = $doc->loadHTML( strip_tags( $content, '<h1>' ) );
 		$sections = $dom->getElementsByTagName( 'h1' );
 		foreach ( $sections as $section ) {
 			$output[ $type . '-' . $id . '-section-' . $s ] = $section->textContent;
@@ -514,10 +517,15 @@ class Book {
 			return false;
 		}
 		$type = $parent->post_type;
+
+		// Fix unusual HTML that tends to break our DOM transform (issues/228)
 		$content = mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' );
-		$content = str_replace( [ '<b></b>', '<i></i>', '<strong></strong>', '<em></em>' ], '', $content );
+		$content = str_ireplace( [ '<b></b>', '<i></i>', '<strong></strong>', '<em></em>' ], '', $content );
 
 		if ( empty( $content ) ) {
+			return false;
+		}
+		if ( stripos( $content, '<h1' ) === false ) {
 			return false;
 		}
 
