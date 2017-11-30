@@ -94,6 +94,9 @@ if ( true === is_main_site() ) {
 	add_action( 'wp_dashboard_setup', '\Pressbooks\Admin\Dashboard\replace_root_dashboard_widgets' );
 }
 
+// Replace strings
+add_action( 'gettext', '\Pressbooks\Admin\Laf\sites_to_books', 3, 20 );
+
 // Javascript, Css
 add_action( 'admin_init', '\Pressbooks\Admin\Laf\init_css_js' );
 

@@ -626,11 +626,13 @@ function replace_menu_bar_my_sites( $wp_admin_bar ) {
 			$wp_admin_bar->remove_menu( $menu_id . '-c' );
 		}
 
+		$title = ( is_main_site( $blog->userblog_id ) ) ? __( 'Visit Site', 'pressbooks' ) : __( 'Visit Book', 'pressbooks' );
+
 		$wp_admin_bar->add_menu(
 			[
 				'parent' => $menu_id,
 				'id' => $menu_id . '-v',
-				'title' => __( 'Visit Site', 'pressbooks' ),
+				'title' => $title,
 				'href' => get_home_url( $blog->userblog_id, '/' ),
 			]
 		);
@@ -1075,4 +1077,68 @@ function admin_notices() {
 		// Destroy the session.
 		unset( $_SESSION['pb_notices'] );
 	}
+}
+
+/**
+ * Replace 'site|sites' with 'book|books' throughout the interface.
+ *
+ * @since 4.5.0
+ *
+ * @param string $translated_text The translated string.
+ * @param string $untranslated_text The source string.
+ * @param string $domain The textdomain.
+ *
+ * @return string The modified translated string.
+ */
+function sites_to_books( $translated_text, $untranslated_text, $domain ) {
+	global $pagenow;
+
+	switch ( $untranslated_text ) {
+		case 'Sites' :
+			$translated_text = __( 'Books', 'pressbooks' );
+			break;
+		case 'All Sites' :
+			$translated_text = __( 'All Books', 'pressbooks' );
+			break;
+	}
+
+	if ( $pagenow === 'sites.php' ) {
+		switch ( $untranslated_text ) {
+			case 'Sites' :
+				$translated_text = __( 'Books', 'pressbooks' );
+				break;
+			case 'Search Sites' :
+				$translated_text = __( 'Search Books', 'pressbooks' );
+				break;
+		}
+	} elseif ( $pagenow === 'site-info.php' ) {
+		switch ( $untranslated_text ) {
+			case 'Edit Site: %s' :
+				$translated_text = __( 'Edit Book: %s', 'pressbooks' );
+				break;
+			case 'Site Address (URL)' :
+				$translated_text = __( 'Book Address (URL)', 'pressbooks' );
+				break;
+		}
+	} elseif ( $pagenow === 'site-new.php' ) {
+		switch ( $untranslated_text ) {
+			case 'Add New Site' :
+				$translated_text = __( 'Add New Book', 'pressbooks' );
+				break;
+			case 'Site Address (URL)' :
+				$translated_text = __( 'Book Address (URL)', 'pressbooks' );
+				break;
+			case 'Site Title' :
+				$translated_text = __( 'Book Title', 'pressbooks' );
+				break;
+			case 'Site Language' :
+				$translated_text = __( 'Book Language', 'pressbooks' );
+				break;
+			case 'Add Site' :
+				$translated_text = __( 'Add Book', 'pressbooks' );
+				break;
+		}
+	}
+
+	return $translated_text;
 }

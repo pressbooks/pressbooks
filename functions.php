@@ -292,7 +292,8 @@ function pb_should_parse_sections() {
  * @return string
  */
 function pb_tag_subsections( $content, $id ) {
-	return \Pressbooks\Book::tagSubsections( $content, $id );
+	$tagged_content = \Pressbooks\Book::tagSubsections( $content, $id );
+	return ( $tagged_content === false ) ? $content : $tagged_content;
 }
 
 /**
