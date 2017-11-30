@@ -202,6 +202,7 @@ $_ = \Pressbooks\Shortcodes\WikiPublisher\Glyphs::init();
 if ( $is_book && Lock::isLocked() ) {
 	add_filter( 'pb_stylesheet_directory', [ '\Pressbooks\Theme\Lock', 'getLockDir' ] );
 	add_filter( 'pb_stylesheet_directory_uri', [ '\Pressbooks\Theme\Lock', 'getLockDirURI' ] );
+	Lock::setLockedGlobalComponentsPath();
 }
 
 // -------------------------------------------------------------------------------------------------------------------
