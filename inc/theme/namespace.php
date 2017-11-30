@@ -8,10 +8,6 @@
 
 namespace Pressbooks\Theme;
 
-use Pressbooks\Theme\Lock;
-
-use function Pressbooks\Admin\Fonts\update_font_stacks;
-
 /**
  * Check for required themes; prompt to install if missing.
  *
