@@ -450,8 +450,18 @@ function set_locale( $lang ) {
  */
 function set_root_locale( $lang ) {
 
+	// Cheap cache
+	static $loc = '__UNSET__';
+
+	// Try to retrieve the network setting
 	$loc = get_site_option( 'WPLANG' );
-	return $loc;
+
+	// Return the language
+	if ( '__UNSET__' === $loc ) {
+		return $lang;
+	} else {
+		return ( $loc ? $loc : $lang );
+	}
 
 }
 
