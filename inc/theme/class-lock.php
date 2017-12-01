@@ -144,14 +144,10 @@ class Lock {
 			return false;
 		}
 
-		// We should only copy:
+		// Next, do keepers
 
 		$keepers = [
 			"{$source_dir}/assets/fonts/" => "{$dest_dir}/assets/fonts/",
-			"{$source_dir}/assets/images/" => "{$dest_dir}/assets/images/",
-			"{$source_dir}/assets/scripts/" => "{$dest_dir}/assets/scripts/",
-			"{$source_dir}/assets/styles/" => "{$dest_dir}/assets/styles/",
-			"{$source_dir}/node_modules/buckram/" => "{$dest_dir}/node_modules/buckram/",
 		];
 		foreach ( $keepers as $source => $dest ) {
 			if ( file_exists( $source ) ) {
