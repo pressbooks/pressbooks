@@ -230,10 +230,6 @@ if ( $is_book ) {
 	add_filter( 'pb_web_css_override', [ '\Pressbooks\Modules\ThemeOptions\WebOptions', 'scssOverrides' ] );
 }
 
-// Theme Lock
-add_action( 'admin_init', '\Pressbooks\Theme\Lock::restrictThemeManagement' );
-add_action( 'update_option_pressbooks_export_options', '\Pressbooks\Theme\Lock::toggleThemeLock', 10, 3 );
-
 // -------------------------------------------------------------------------------------------------------------------
 // "Catch-all" routines, must come after taxonomies and friends
 // -------------------------------------------------------------------------------------------------------------------

@@ -6,20 +6,61 @@
 
 namespace Pressbooks\Theme;
 
+use Pressbooks\Container;
+
 class Lock {
+
+	/**
+	 * @var Lock
+	 */
+	private static $instance = null;
+
+	/**
+	 * @return Lock
+	 */
+	static public function init() {
+		if ( is_null( self::$instance ) ) {
+			self::$instance = new self();
+			self::hooks( self::$instance );
+		}
+		return self::$instance;
+	}
+
+	/**
+	 * @param Lock $obj
+	 */
+	static public function hooks( Lock $obj ) {
+		if ( \Pressbooks\Book::isBook() && $obj->isLocked() ) {
+			add_filter( 'pb_stylesheet_directory', [ $obj, 'getLockDir' ] );
+			add_filter( 'pb_stylesheet_directory_uri', [ $obj, 'getLockDirURI' ] );
+			add_filter( 'pb_global_components_path', [ $obj, 'globalComponentsPath' ] );
+		}
+		if ( is_admin() ) {
+			add_action( 'admin_init', [ $obj, 'restrictThemeManagement' ] );
+			add_action( 'update_option_pressbooks_export_options', [ $obj, 'toggleThemeLock' ], 10, 3 );
+		}
+	}
+
+	/**
+	 * Constructor.
+	 */
+	public function __construct() {
+	}
 
 	/**
 	 * Get path to the theme lock directory.
 	 *
+	 * @param bool $mkdir
+	 *
 	 * @return string
 	 */
-	static function getLockDir() {
+	public function getLockDir( $mkdir = true ) {
 
 		$wp_upload_dir = wp_upload_dir();
 		$lock_dir = $wp_upload_dir['basedir'] . '/lock';
 
-		if ( ! file_exists( $lock_dir ) ) {
-			mkdir( $lock_dir, 0775, true );
+		if ( $mkdir && ! file_exists( $lock_dir ) ) {
+			wp_mkdir_p( $lock_dir );
 		}
 
 		return $lock_dir;
@@ -28,7 +69,7 @@ class Lock {
 	/**
 	 * @return string
 	 */
-	static function getLockDirURI() {
+	public function getLockDirURI() {
 		$wp_upload_dir = wp_upload_dir();
 		$lock_dir_uri = $wp_upload_dir['baseurl'] . '/lock';
 		$lock_dir_uri = \Pressbooks\Sanitize\maybe_https( $lock_dir_uri );
@@ -43,11 +84,11 @@ class Lock {
 	 *
 	 * @return mixed
 	 */
-	static function toggleThemeLock( $old_value, $value, $option ) {
+	public function toggleThemeLock( $old_value, $value, $option ) {
 		if ( isset( $value['theme_lock'] ) && 1 === absint( $value['theme_lock'] ) ) {
-			return Lock::lockTheme();
-		} elseif ( 1 === absint( $old_value['theme_lock'] ) && ! isset( $value['theme_lock'] ) ) {
-			return Lock::unlockTheme();
+			return $this->lockTheme();
+		} elseif ( 1 === absint( $old_value['theme_lock'] ) && empty( $value['theme_lock'] ) ) {
+			return $this->unlockTheme();
 		}
 		return false;
 	}
@@ -57,10 +98,10 @@ class Lock {
 	 *
 	 * @return mixed
 	 */
-	static function lockTheme() {
-		if ( true === Lock::copyAssets() ) {
+	public function lockTheme() {
+		if ( true === $this->copyAssets() ) {
 			$time = time();
-			$data = Lock::generateLock( $time );
+			$data = $this->generateLock( $time );
 			$_SESSION['pb_notices'][] = sprintf(
 				'<strong>%s</strong>',
 				sprintf(
@@ -83,8 +124,62 @@ class Lock {
 		return false;
 	}
 
-	static function copyAssets() {
-		return \Pressbooks\Utility\rcopy( realpath( get_stylesheet_directory() ), Lock::getLockDir() );
+	/**
+	 * @return bool
+	 */
+	public function copyAssets() {
+
+		$source_dir = realpath( get_stylesheet_directory() );
+		$dest_dir = $this->getLockDir();
+
+		// Start by copying all the assets we can find (old theme compatibility, screenshots, etc)
+
+		$ok = \Pressbooks\Utility\rcopy(
+			$source_dir,
+			$dest_dir,
+			[ '*.php', '.git/', 'node_modules/', '.github/', '.tx/' ], // Excludes
+			[ '*.css', '*.scss', '*.png', '*.jpg', '*.gif', '*.svg', '*.js' ] // Includes
+		);
+		if ( ! $ok ) {
+			return false;
+		}
+
+		// Next, do keepers
+
+		$keepers = [
+			"{$source_dir}/assets/images/" => "{$dest_dir}/assets/images/",
+			"{$source_dir}/assets/scripts/" => "{$dest_dir}/assets/scripts/",
+			"{$source_dir}/assets/styles/" => "{$dest_dir}/assets/styles/",
+			"{$source_dir}/assets/fonts/" => "{$dest_dir}/assets/fonts/",
+		];
+		foreach ( $keepers as $source => $dest ) {
+			if ( file_exists( $source ) ) {
+				wp_mkdir_p( $dest );
+				$ok = \Pressbooks\Utility\rcopy(
+					$source,
+					$dest,
+					[ '*.php', '.git/' ] // Excludes
+				);
+				if ( ! $ok ) {
+					return false;
+				}
+			}
+		}
+
+		// Lock the globals in a consistent place
+		// We know some files may be duplicated, we do this on purpose to future-proof (and because we're lazy)
+
+		$path_to_globals = Container::get( 'Sass' )->pathToGlobals();
+		$ok = \Pressbooks\Utility\rcopy(
+			$path_to_globals,
+			"{$dest_dir}/global-components/",
+			[ '*.php', '.git/' ] // Excludes
+		);
+		if ( ! $ok ) {
+			return false;
+		}
+
+		return true;
 	}
 
 	/**
@@ -92,16 +187,21 @@ class Lock {
 	 *
 	 * @return array
 	 */
-	static function generateLock( $time ) {
+	public function generateLock( $time ) {
 		$theme = wp_get_theme();
+
+		global $_wp_theme_features;
+		$theme_features = is_array( $_wp_theme_features ) ? array_keys( $_wp_theme_features ) : [];
+
 		$data = [
 			'stylesheet' => get_stylesheet(),
 			'name' => $theme->get( 'Name' ),
 			'version' => $theme->get( 'Version' ),
 			'timestamp' => $time,
+			'features' => $theme_features,
 		];
 		$json = json_encode( $data );
-		$lockfile = Lock::getLockDir() . '/lock.json';
+		$lockfile = $this->getLockDir() . '/lock.json';
 		file_put_contents( $lockfile, $json );
 		return $data;
 	}
@@ -109,8 +209,9 @@ class Lock {
 	/**
 	 * @return \WP_Theme
 	 */
-	static function unlockTheme() {
-		rmrdir( Lock::getLockDir() );
+	public function unlockTheme() {
+		$dir = $this->getLockDir( false );
+		@rmrdir( $dir ); // @codingStandardsIgnoreLine
 		$_SESSION['pb_notices'][] = sprintf( '<strong>%s</strong>', __( 'Your book&rsquo;s theme has been unlocked.', 'pressbooks' ) );
 
 		return wp_get_theme();
@@ -121,9 +222,9 @@ class Lock {
 	 *
 	 * @return bool
 	 */
-	static function isLocked() {
+	public function isLocked() {
 		$options = get_option( 'pressbooks_export_options' );
-		if ( realpath( Lock::getLockDir() . '/lock.json' ) && isset( $options['theme_lock'] ) && 1 === absint( $options['theme_lock'] ) ) {
+		if ( realpath( $this->getLockDir( false ) . '/lock.json' ) && isset( $options['theme_lock'] ) && 1 === absint( $options['theme_lock'] ) ) {
 			return true;
 		}
 		return false;
@@ -134,19 +235,33 @@ class Lock {
 	 *
 	 * @return array
 	 */
-	static function getLockData() {
-		$json = file_get_contents( Lock::getLockDir() . '/lock.json' );
+	public function getLockData() {
+		$json = file_get_contents( $this->getLockDir( false ) . '/lock.json' );
 		$output = json_decode( $json, true );
 		return $output;
 	}
 
 	/**
+	 * @param string $path
+	 *
+	 * @return string
+	 */
+	public function globalComponentsPath( $path ) {
+		$dir = $this->getLockDir( false ) . '/global-components/';
+		if ( file_exists( $dir ) ) {
+			return $dir;
+		} else {
+			return $path;
+		}
+	}
+
+	/**
 	 * Restrict access to Themes and Theme Options.
 	 */
-	static function restrictThemeManagement() {
-		$locked = \Pressbooks\Theme\Lock::isLocked();
+	public function restrictThemeManagement() {
+		$locked = $this->isLocked();
 		if ( $locked ) {
-			$data = \Pressbooks\Theme\Lock::getLockData();
+			$data = $this->getLockData();
 
 			// Redirect and notify users of theme lock status.
 

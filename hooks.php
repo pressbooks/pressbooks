@@ -6,7 +6,6 @@
 
 use Pressbooks\Book;
 use Pressbooks\Container;
-use Pressbooks\Theme\Lock;
 use function \Pressbooks\l10n\use_book_locale;
 use function \Pressbooks\Utility\include_plugins as include_symbionts;
 
@@ -194,15 +193,15 @@ add_action( 'do_robotstxt', '\Pressbooks\Utility\add_sitemap_to_robots_txt' );
 remove_filter( 'the_content', 'wpautop' );
 add_filter( 'the_content', 'wpautop' , 12 ); // execute wpautop after shortcode processing
 
-$_ = \Pressbooks\Shortcodes\Footnotes\Footnotes::init();
-$_ = \Pressbooks\Shortcodes\Generics\Generics::init();
-$_ = \Pressbooks\Shortcodes\WikiPublisher\Glyphs::init();
+\Pressbooks\Shortcodes\Footnotes\Footnotes::init();
+\Pressbooks\Shortcodes\Generics\Generics::init();
+\Pressbooks\Shortcodes\WikiPublisher\Glyphs::init();
 
+// -------------------------------------------------------------------------------------------------------------------
 // Theme Lock
-if ( $is_book && Lock::isLocked() ) {
-	add_filter( 'pb_stylesheet_directory', [ '\Pressbooks\Theme\Lock', 'getLockDir' ] );
-	add_filter( 'pb_stylesheet_directory_uri', [ '\Pressbooks\Theme\Lock', 'getLockDirURI' ] );
-}
+// -------------------------------------------------------------------------------------------------------------------
+
+\Pressbooks\Theme\Lock::init();
 
 // -------------------------------------------------------------------------------------------------------------------
 // Upgrade Book Metadata
