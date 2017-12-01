@@ -180,7 +180,7 @@ class Licensing {
 		if ( ! empty( $metadata['pb_copyright_year'] ) ) {
 			$copyright_year = $metadata['pb_copyright_year'];
 		} elseif ( ! empty( $metadata['pb_publication_date'] ) ) {
-			$copyright_year = strftime( '%Y', $metadata['pb_publication_date'] );
+			$copyright_year = strftime( '%Y', absint( $metadata['pb_publication_date'] ) );
 		} else {
 			$copyright_year = 0;
 		}
