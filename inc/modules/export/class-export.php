@@ -761,15 +761,12 @@ abstract class Export {
 			$book_lang = $codes[ $book_lang ];
 
 			foreach ( $compare_with as $compare ) {
-
 				$compare = str_replace( 'pressbooks-', '', $compare );
-
 				if ( strpos( $book_lang, $compare ) === 0 ) {
 					$loc = $compare;
 					break;
 				}
 			}
-
 			if ( '__UNSET__' === $loc ) {
 				$loc = 'en_US'; // No match found, default to english
 			}
