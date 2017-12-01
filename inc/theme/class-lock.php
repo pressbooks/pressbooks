@@ -147,6 +147,9 @@ class Lock {
 		// Next, do keepers
 
 		$keepers = [
+			"{$source_dir}/assets/images/" => "{$dest_dir}/assets/images/",
+			"{$source_dir}/assets/scripts/" => "{$dest_dir}/assets/scripts/",
+			"{$source_dir}/assets/styles/" => "{$dest_dir}/assets/styles/",
 			"{$source_dir}/assets/fonts/" => "{$dest_dir}/assets/fonts/",
 		];
 		foreach ( $keepers as $source => $dest ) {
@@ -164,7 +167,7 @@ class Lock {
 		}
 
 		// Lock the globals in a consistent place
-		// We know some files may be duplicated, we do this on purpose in a lazy attempt to future-proof
+		// We know some files may be duplicated, we do this on purpose to future-proof (and because we're lazy)
 
 		$path_to_globals = Container::get( 'Sass' )->pathToGlobals();
 		$ok = \Pressbooks\Utility\rcopy(
