@@ -409,24 +409,22 @@ function set_locale( $lang ) {
 	// Cheap cache
 	static $loc = '__UNSET__';
 
-	// Book information
-	$metadata = \Pressbooks\Book::getBookInformation();
-	$book_lang = ( ! empty( $metadata['pb_language'] ) ) ? $metadata['pb_language'] : 'en';
+	if ( '__UNSET__' === $loc ) {
+		// Book information
+		$metadata = \Pressbooks\Book::getBookInformation();
+		$book_lang = ( ! empty( $metadata['pb_language'] ) ) ? $metadata['pb_language'] : 'en';
 
-	if ( is_admin() ) {
-		// If user locale isn't set, use the book information value.
-		if ( function_exists( 'wp_get_current_user' ) && ! get_user_option( 'locale' ) ) {
-			if ( '__UNSET__' === $loc ) {
+		if ( is_admin() ) {
+			// If user locale isn't set, use the book information value.
+			if ( function_exists( 'wp_get_current_user' ) && ! get_user_option( 'locale' ) ) {
 				$locations = \Pressbooks\L10n\wplang_codes();
 				$loc = $locations[ $book_lang ];
 			}
-		}
-	} elseif ( isset( $GLOBALS['pagenow'] ) && 'wp-signup.php' === $GLOBALS['pagenow'] ) {
-		// If we're on the registration page, use the global setting.
-		$loc = get_site_option( 'WPLANG' );
-	} else {
-		// Use the book information value.
-		if ( '__UNSET__' === $loc ) {
+		} elseif ( isset( $GLOBALS['pagenow'] ) && 'wp-signup.php' === $GLOBALS['pagenow'] ) {
+			// If we're on the registration page, use the global setting.
+			$loc = get_site_option( 'WPLANG' );
+		} else {
+			// Use the book information value.
 			$locations = \Pressbooks\L10n\wplang_codes();
 			$loc = $locations[ $book_lang ];
 		}
@@ -449,20 +447,9 @@ function set_locale( $lang ) {
  * @return string
  */
 function set_root_locale( $lang ) {
-
-	// Cheap cache
-	static $loc = '__UNSET__';
-
 	// Try to retrieve the network setting
 	$loc = get_site_option( 'WPLANG' );
-
-	// Return the language
-	if ( '__UNSET__' === $loc ) {
-		return $lang;
-	} else {
-		return ( $loc ? $loc : $lang );
-	}
-
+	return ( $loc ? $loc : $lang );
 }
 
 /**
