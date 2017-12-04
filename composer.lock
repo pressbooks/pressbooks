@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "f99a2b995ddf341888b7f4f56982310f",
+    "content-hash": "b4f94271be4763c2c01d8f57fabd0729",
     "packages": [
         {
             "name": "composer/installers",
@@ -2624,20 +2624,20 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v4.0.0",
+            "version": "v3.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "7be8741ce5dce9943f41a9269f6828b66e726776"
+                "reference": "b3d0c9c11be3831b84825967dc6b52b5a7b84e04"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/7be8741ce5dce9943f41a9269f6828b66e726776",
-                "reference": "7be8741ce5dce9943f41a9269f6828b66e726776",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/b3d0c9c11be3831b84825967dc6b52b5a7b84e04",
+                "reference": "b3d0c9c11be3831b84825967dc6b52b5a7b84e04",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.1.3"
+                "php": "^5.5.9|>=7.0.8"
             },
             "conflict": {
                 "symfony/console": "<3.4"
@@ -2651,7 +2651,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.0-dev"
+                    "dev-master": "3.4-dev"
                 }
             },
             "autoload": {
@@ -2678,7 +2678,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2017-11-29T13:42:03+00:00"
+            "time": "2017-11-29T13:28:14+00:00"
         },
         {
             "name": "webmozart/assert",

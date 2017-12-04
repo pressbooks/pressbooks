@@ -42,7 +42,8 @@
     "phpunit/phpunit": "~5.7",
     "doctrine/instantiator": "1.0.*",
     "humanmade/coding-standards": "dev-master",
-    "fig-r/psr2r-sniffer": "dev-master"
+    "fig-r/psr2r-sniffer": "dev-master",
+    "symfony/yaml": "^3.3"
   },
   "suggest": {
     "pressbooks/pressbooks-book":
