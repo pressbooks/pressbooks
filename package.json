@@ -62,6 +62,9 @@
       "pb_sr": true,
       "post_status": true,
       "tinymce": true
+    },
+    "rules": {
+      "jsx-a11y/href-no-hash": 0
     }
   },
   "stylelint": {
