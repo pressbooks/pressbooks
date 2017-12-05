@@ -104,11 +104,14 @@ class ExportOptions extends \Pressbooks\Options {
 		<div class="wrap">
 			<h1><?php echo $this->getTitle(); ?></h1>
 			<form method="post" action="options.php">
-				<?php settings_fields( $this->getSlug() );
+				<?php
+				settings_fields( $this->getSlug() );
 				do_settings_sections( $this->getSlug() );
-				submit_button(); ?>
+				submit_button();
+				?>
 			</form>
-		</div> <?php
+		</div> 
+		<?php
 	}
 
 	function upgrade( $version ) {

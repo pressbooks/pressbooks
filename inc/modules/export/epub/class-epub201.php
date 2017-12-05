@@ -1402,12 +1402,12 @@ class Epub201 extends Export {
 
 				// Insert into correct pos
 				$this->manifest = array_slice( $this->manifest, 0, $array_pos, true ) + [
-						$file_id => [
-							'ID' => $part['ID'],
-							'post_title' => $part['post_title'],
-							'filename' => $filename,
-						],
-					] + array_slice( $this->manifest, $array_pos, count( $this->manifest ) - 1, true );
+					$file_id => [
+						'ID' => $part['ID'],
+						'post_title' => $part['post_title'],
+						'filename' => $filename,
+					],
+				] + array_slice( $this->manifest, $array_pos, count( $this->manifest ) - 1, true );
 
 				++$i;
 				if ( 'invisible' !== $invisibility ) {
@@ -1437,12 +1437,12 @@ class Epub201 extends Export {
 
 					// Insert into correct pos
 					$this->manifest = array_slice( $this->manifest, 0, $array_pos, true ) + [
-							$file_id => [
-								'ID' => $part['ID'],
-								'post_title' => $part['post_title'],
-								'filename' => $filename,
-							],
-						] + array_slice( $this->manifest, $array_pos, count( $this->manifest ) - 1, true );
+						$file_id => [
+							'ID' => $part['ID'],
+							'post_title' => $part['post_title'],
+							'filename' => $filename,
+						],
+					] + array_slice( $this->manifest, $array_pos, count( $this->manifest ) - 1, true );
 
 					++$i;
 					if ( 'invisible' !== $invisibility ) {
@@ -1472,12 +1472,12 @@ class Epub201 extends Export {
 
 						// Insert into correct pos
 						$this->manifest = array_slice( $this->manifest, 0, $array_pos, true ) + [
-								$file_id => [
-									'ID' => $part['ID'],
-									'post_title' => $part['post_title'],
-									'filename' => $filename,
-								],
-							] + array_slice( $this->manifest, $array_pos, count( $this->manifest ) - 1, true );
+							$file_id => [
+								'ID' => $part['ID'],
+								'post_title' => $part['post_title'],
+								'filename' => $filename,
+							],
+						] + array_slice( $this->manifest, $array_pos, count( $this->manifest ) - 1, true );
 
 						++$i;
 						if ( 'invisible' !== $invisibility ) {
@@ -1613,12 +1613,12 @@ class Epub201 extends Export {
 		$vars['post_title'] = __( 'Table Of Contents', 'pressbooks' );
 
 		$this->manifest = array_slice( $this->manifest, 0, $array_pos + 1, true ) + [
-				$file_id => [
-					'ID' => -1,
-					'post_title' => $vars['post_title'],
-					'filename' => $filename,
-				],
-			] + array_slice( $this->manifest, $array_pos + 1, count( $this->manifest ) - 1, true );
+			$file_id => [
+				'ID' => -1,
+				'post_title' => $vars['post_title'],
+				'filename' => $filename,
+			],
+		] + array_slice( $this->manifest, $array_pos + 1, count( $this->manifest ) - 1, true );
 
 		// HTML
 
@@ -1761,7 +1761,11 @@ class Epub201 extends Export {
 	 */
 	protected function kneadHtml( $html, $type, $pos = 0 ) {
 
-		$doc = new HTML5( [ 'disable_html_ns' => true ] ); // Disable default namespace for \DOMXPath compatibility
+		$doc = new HTML5(
+			[
+				'disable_html_ns' => true,
+			]
+		); // Disable default namespace for \DOMXPath compatibility
 		$dom = $doc->loadHTML( $html );
 
 		// Download images, change to relative paths
@@ -1849,7 +1853,11 @@ class Epub201 extends Export {
 			return $this->fetchedImageCache[ $url ];
 		}
 
-		$response = \Pressbooks\Utility\remote_get_retry( $url, [ 'timeout' => $this->timeout ] );
+		$response = \Pressbooks\Utility\remote_get_retry(
+			$url, [
+				'timeout' => $this->timeout,
+			]
+		);
 
 		// WordPress error?
 		if ( is_wp_error( $response ) ) {
@@ -1864,7 +1872,11 @@ class Epub201 extends Export {
 						$url = 'http:' . $url;
 					}
 				}
-				$response = wp_remote_get( $url, [ 'timeout' => $this->timeout ] );
+				$response = wp_remote_get(
+					$url, [
+						'timeout' => $this->timeout,
+					]
+				);
 				if ( is_wp_error( $response ) ) {
 					throw new \Exception( 'Bad URL: ' . $url );
 				}
@@ -1874,7 +1886,6 @@ class Epub201 extends Export {
 
 				return '';
 			}
-
 		}
 
 		// Basename without query string
@@ -1938,7 +1949,11 @@ class Epub201 extends Export {
 			return $this->fetchedFontCache[ $url ];
 		}
 
-		$response = wp_remote_get( $url, [ 'timeout' => $this->timeout ] );
+		$response = wp_remote_get(
+			$url, [
+				'timeout' => $this->timeout,
+			]
+		);
 
 		// WordPress error?
 		if ( is_wp_error( $response ) ) {

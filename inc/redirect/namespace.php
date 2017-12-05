@@ -374,7 +374,11 @@ function do_open() {
 				$book_title_slug = str_replace( [ '+' ], '', $book_title_slug ); // Remove symbols which confuse Apache (Ie. form urlencoded spaces)
 				$book_title_slug = sanitize_file_name( $book_title_slug );
 				if ( ! is_readable( $filepath ) ) {
-					wp_die( __( 'File not found', 'pressbooks' ) . ': ' . $files[ $_GET['type'] ], '', [ 'response' => 404 ] );
+					wp_die(
+						__( 'File not found', 'pressbooks' ) . ': ' . $files[ $_GET['type'] ], '', [
+							'response' => 404,
+						]
+					);
 				}
 
 				// Force download

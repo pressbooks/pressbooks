@@ -59,17 +59,19 @@ function init_book() {
 
 	// Add Part ID to chapters
 	// We disable hierarchical mode but still want to use `post_parent`
-	register_rest_field( 'chapter', 'part', [
-		'get_callback' => function ( $post_arr ) {
-			return (int) get_post( $post_arr['id'] )->post_parent;
-		},
-		'update_callback' => __NAMESPACE__ . '\update_part_id',
-		'schema' => [
-			'description' => __( 'Part ID.', 'pressbooks' ),
-			'type' => 'integer',
-			'context' => [ 'view', 'edit', 'embed' ],
-		],
-	] );
+	register_rest_field(
+		'chapter', 'part', [
+			'get_callback' => function ( $post_arr ) {
+				return (int) get_post( $post_arr['id'] )->post_parent;
+			},
+			'update_callback' => __NAMESPACE__ . '\update_part_id',
+			'schema' => [
+				'description' => __( 'Part ID.', 'pressbooks' ),
+				'type' => 'integer',
+				'context' => [ 'view', 'edit', 'embed' ],
+			],
+		]
+	);
 }
 
 /**
@@ -159,15 +161,32 @@ function update_part_id( $part_id, $post_obj ) {
 
 	$part = get_post( $part_id );
 	if ( $part === null ) {
-		return new \WP_Error( 'rest_chapter_part_failed', __( 'Part does not exist', 'pressbooks' ), [ 'status' => 500 ] );
+		return new \WP_Error(
+			'rest_chapter_part_failed', __( 'Part does not exist', 'pressbooks' ), [
+				'status' => 500,
+			]
+		);
 	}
 	if ( $part->post_type !== 'part' ) {
-		return new \WP_Error( 'rest_chapter_part_failed', __( 'ID is not a part', 'pressbooks' ), [ 'status' => 500 ] );
+		return new \WP_Error(
+			'rest_chapter_part_failed', __( 'ID is not a part', 'pressbooks' ), [
+				'status' => 500,
+			]
+		);
 	}
 
-	$ret = wp_update_post( [ 'ID' => $post_obj->ID, 'post_parent' => $part_id ] );
+	$ret = wp_update_post(
+		[
+			'ID' => $post_obj->ID,
+			'post_parent' => $part_id,
+		]
+	);
 	if ( false === $ret ) {
-		return new \WP_Error( 'rest_chapter_part_failed', __( 'Failed to update chapter part', 'pressbooks' ), [ 'status' => 500 ] );
+		return new \WP_Error(
+			'rest_chapter_part_failed', __( 'Failed to update chapter part', 'pressbooks' ), [
+				'status' => 500,
+			]
+		);
 	}
 
 	return true;

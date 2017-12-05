@@ -267,7 +267,8 @@ function dashboard_options_init() {
 function dashboard_feed_callback( $args ) {
 	?>
 	<p><?php __( 'Adjust settings for your dashboard RSS feed widget below.', 'pressbooks' ); ?></p>
-<?php }
+<?php
+}
 
 function display_feed_callback( $args ) {
 	$options = get_site_option(

@@ -65,7 +65,9 @@ class Taxonomy {
 				'show_ui' => true,
 				'show_in_rest' => true,
 				'query_var' => true,
-				'rewrite' => [ 'slug' => 'front-matter-type' ],
+				'rewrite' => [
+					'slug' => 'front-matter-type',
+				],
 			]
 		);
 
@@ -106,7 +108,9 @@ class Taxonomy {
 				'show_ui' => true,
 				'show_in_rest' => true,
 				'query_var' => true,
-				'rewrite' => [ 'slug' => 'back-matter-type' ],
+				'rewrite' => [
+					'slug' => 'back-matter-type',
+				],
 			]
 		);
 
@@ -147,7 +151,9 @@ class Taxonomy {
 				'show_ui' => true,
 				'show_in_rest' => true,
 				'query_var' => true,
-				'rewrite' => [ 'slug' => 'chapter-type' ],
+				'rewrite' => [
+					'slug' => 'chapter-type',
+				],
 			]
 		);
 	}
@@ -162,57 +168,241 @@ class Taxonomy {
 		}
 
 		// Front Matter
-		wp_insert_term( 'Abstract', 'front-matter-type', [ 'slug' => 'abstracts' ] );
-		wp_insert_term( 'Acknowledgements', 'front-matter-type', [ 'slug' => 'acknowledgements' ] );
-		wp_insert_term( 'Before Title Page', 'front-matter-type', [ 'slug' => 'before-title' ] );
-		wp_insert_term( 'Chronology, Timeline', 'front-matter-type', [ 'slug' => 'chronology-timeline' ] );
-		wp_insert_term( 'Dedication', 'front-matter-type', [ 'slug' => 'dedication' ] );
-		wp_insert_term( 'Disclaimer', 'front-matter-type', [ 'slug' => 'disclaimer' ] );
-		wp_insert_term( 'Epigraph', 'front-matter-type', [ 'slug' => 'epigraph' ] );
-		wp_insert_term( 'Foreword', 'front-matter-type', [ 'slug' => 'foreword' ] );
-		wp_insert_term( 'Genealogy, Family Tree', 'front-matter-type', [ 'slug' => 'genealogy-family-tree' ] );
-		wp_insert_term( 'Image credits', 'front-matter-type', [ 'slug' => 'image-credits' ] );
-		wp_insert_term( 'Introduction', 'front-matter-type', [ 'slug' => 'introduction' ] );
-		wp_insert_term( 'List of Abbreviations', 'front-matter-type', [ 'slug' => 'list-of-abbreviations' ] );
-		wp_insert_term( 'List of Characters', 'front-matter-type', [ 'slug' => 'list-of-characters' ] );
-		wp_insert_term( 'List of Illustrations', 'front-matter-type', [ 'slug' => 'list-of-illustrations' ] );
-		wp_insert_term( 'List of Tables', 'front-matter-type', [ 'slug' => 'list-of-tables' ] );
-		wp_insert_term( 'Miscellaneous', 'front-matter-type', [ 'slug' => 'miscellaneous' ] );
-		wp_insert_term( 'Other Books by Author', 'front-matter-type', [ 'slug' => 'other-books' ] );
-		wp_insert_term( 'Preface', 'front-matter-type', [ 'slug' => 'preface' ] );
-		wp_insert_term( 'Prologue', 'front-matter-type', [ 'slug' => 'prologue' ] );
-		wp_insert_term( 'Recommended citation', 'front-matter-type', [ 'slug' => 'recommended-citation' ] );
-		wp_insert_term( 'Title Page', 'front-matter-type', [ 'slug' => 'title-page' ] );
+		wp_insert_term(
+			'Abstract', 'front-matter-type', [
+				'slug' => 'abstracts',
+			]
+		);
+		wp_insert_term(
+			'Acknowledgements', 'front-matter-type', [
+				'slug' => 'acknowledgements',
+			]
+		);
+		wp_insert_term(
+			'Before Title Page', 'front-matter-type', [
+				'slug' => 'before-title',
+			]
+		);
+		wp_insert_term(
+			'Chronology, Timeline', 'front-matter-type', [
+				'slug' => 'chronology-timeline',
+			]
+		);
+		wp_insert_term(
+			'Dedication', 'front-matter-type', [
+				'slug' => 'dedication',
+			]
+		);
+		wp_insert_term(
+			'Disclaimer', 'front-matter-type', [
+				'slug' => 'disclaimer',
+			]
+		);
+		wp_insert_term(
+			'Epigraph', 'front-matter-type', [
+				'slug' => 'epigraph',
+			]
+		);
+		wp_insert_term(
+			'Foreword', 'front-matter-type', [
+				'slug' => 'foreword',
+			]
+		);
+		wp_insert_term(
+			'Genealogy, Family Tree', 'front-matter-type', [
+				'slug' => 'genealogy-family-tree',
+			]
+		);
+		wp_insert_term(
+			'Image credits', 'front-matter-type', [
+				'slug' => 'image-credits',
+			]
+		);
+		wp_insert_term(
+			'Introduction', 'front-matter-type', [
+				'slug' => 'introduction',
+			]
+		);
+		wp_insert_term(
+			'List of Abbreviations', 'front-matter-type', [
+				'slug' => 'list-of-abbreviations',
+			]
+		);
+		wp_insert_term(
+			'List of Characters', 'front-matter-type', [
+				'slug' => 'list-of-characters',
+			]
+		);
+		wp_insert_term(
+			'List of Illustrations', 'front-matter-type', [
+				'slug' => 'list-of-illustrations',
+			]
+		);
+		wp_insert_term(
+			'List of Tables', 'front-matter-type', [
+				'slug' => 'list-of-tables',
+			]
+		);
+		wp_insert_term(
+			'Miscellaneous', 'front-matter-type', [
+				'slug' => 'miscellaneous',
+			]
+		);
+		wp_insert_term(
+			'Other Books by Author', 'front-matter-type', [
+				'slug' => 'other-books',
+			]
+		);
+		wp_insert_term(
+			'Preface', 'front-matter-type', [
+				'slug' => 'preface',
+			]
+		);
+		wp_insert_term(
+			'Prologue', 'front-matter-type', [
+				'slug' => 'prologue',
+			]
+		);
+		wp_insert_term(
+			'Recommended citation', 'front-matter-type', [
+				'slug' => 'recommended-citation',
+			]
+		);
+		wp_insert_term(
+			'Title Page', 'front-matter-type', [
+				'slug' => 'title-page',
+			]
+		);
 
 		// Back Matter
-		wp_insert_term( 'About the Author', 'back-matter-type', [ 'slug' => 'about-the-author' ] );
-		wp_insert_term( 'About the Publisher', 'back-matter-type', [ 'slug' => 'about-the-publisher' ] );
-		wp_insert_term( 'Acknowledgements', 'back-matter-type', [ 'slug' => 'acknowledgements' ] );
-		wp_insert_term( 'Afterword', 'back-matter-type', [ 'slug' => 'afterword' ] );
-		wp_insert_term( 'Appendix', 'back-matter-type', [ 'slug' => 'appendix' ] );
-		wp_insert_term( "Author's Note", 'back-matter-type', [ 'slug' => 'authors-note' ] );
-		wp_insert_term( 'Back of Book Ad', 'back-matter-type', [ 'slug' => 'back-of-book-ad' ] );
-		wp_insert_term( 'Bibliography', 'back-matter-type', [ 'slug' => 'bibliography' ] );
-		wp_insert_term( 'Biographical Note', 'back-matter-type', [ 'slug' => 'biographical-note' ] );
-		wp_insert_term( 'Colophon', 'back-matter-type', [ 'slug' => 'colophon' ] );
-		wp_insert_term( 'Conclusion', 'back-matter-type', [ 'slug' => 'conclusion' ] );
-		wp_insert_term( 'Credits', 'back-matter-type', [ 'slug' => 'credits' ] );
-		wp_insert_term( 'Dedication', 'back-matter-type', [ 'slug' => 'dedication' ] );
-		wp_insert_term( 'Epilogue', 'back-matter-type', [ 'slug' => 'epilogue' ] );
-		wp_insert_term( 'Glossary', 'back-matter-type', [ 'slug' => 'glossary' ] );
-		wp_insert_term( 'Index', 'back-matter-type', [ 'slug' => 'index' ] );
-		wp_insert_term( 'Miscellaneous', 'back-matter-type', [ 'slug' => 'miscellaneous' ] );
-		wp_insert_term( 'Notes', 'back-matter-type', [ 'slug' => 'notes' ] );
-		wp_insert_term( 'Other Books by Author', 'back-matter-type', [ 'slug' => 'other-books' ] );
-		wp_insert_term( 'Permissions', 'back-matter-type', [ 'slug' => 'permissions' ] );
-		wp_insert_term( 'Reading Group Guide', 'back-matter-type', [ 'slug' => 'reading-group-guide' ] );
+		wp_insert_term(
+			'About the Author', 'back-matter-type', [
+				'slug' => 'about-the-author',
+			]
+		);
+		wp_insert_term(
+			'About the Publisher', 'back-matter-type', [
+				'slug' => 'about-the-publisher',
+			]
+		);
+		wp_insert_term(
+			'Acknowledgements', 'back-matter-type', [
+				'slug' => 'acknowledgements',
+			]
+		);
+		wp_insert_term(
+			'Afterword', 'back-matter-type', [
+				'slug' => 'afterword',
+			]
+		);
+		wp_insert_term(
+			'Appendix', 'back-matter-type', [
+				'slug' => 'appendix',
+			]
+		);
+		wp_insert_term(
+			"Author's Note", 'back-matter-type', [
+				'slug' => 'authors-note',
+			]
+		);
+		wp_insert_term(
+			'Back of Book Ad', 'back-matter-type', [
+				'slug' => 'back-of-book-ad',
+			]
+		);
+		wp_insert_term(
+			'Bibliography', 'back-matter-type', [
+				'slug' => 'bibliography',
+			]
+		);
+		wp_insert_term(
+			'Biographical Note', 'back-matter-type', [
+				'slug' => 'biographical-note',
+			]
+		);
+		wp_insert_term(
+			'Colophon', 'back-matter-type', [
+				'slug' => 'colophon',
+			]
+		);
+		wp_insert_term(
+			'Conclusion', 'back-matter-type', [
+				'slug' => 'conclusion',
+			]
+		);
+		wp_insert_term(
+			'Credits', 'back-matter-type', [
+				'slug' => 'credits',
+			]
+		);
+		wp_insert_term(
+			'Dedication', 'back-matter-type', [
+				'slug' => 'dedication',
+			]
+		);
+		wp_insert_term(
+			'Epilogue', 'back-matter-type', [
+				'slug' => 'epilogue',
+			]
+		);
+		wp_insert_term(
+			'Glossary', 'back-matter-type', [
+				'slug' => 'glossary',
+			]
+		);
+		wp_insert_term(
+			'Index', 'back-matter-type', [
+				'slug' => 'index',
+			]
+		);
+		wp_insert_term(
+			'Miscellaneous', 'back-matter-type', [
+				'slug' => 'miscellaneous',
+			]
+		);
+		wp_insert_term(
+			'Notes', 'back-matter-type', [
+				'slug' => 'notes',
+			]
+		);
+		wp_insert_term(
+			'Other Books by Author', 'back-matter-type', [
+				'slug' => 'other-books',
+			]
+		);
+		wp_insert_term(
+			'Permissions', 'back-matter-type', [
+				'slug' => 'permissions',
+			]
+		);
+		wp_insert_term(
+			'Reading Group Guide', 'back-matter-type', [
+				'slug' => 'reading-group-guide',
+			]
+		);
 		wp_insert_term( 'Resources', 'back-matter-type', [ 'slug', 'resources' ] );
-		wp_insert_term( 'Sources', 'back-matter-type', [ 'slug' => 'sources' ] );
-		wp_insert_term( 'Suggested Reading', 'back-matter-type', [ 'slug' => 'suggested-reading' ] );
+		wp_insert_term(
+			'Sources', 'back-matter-type', [
+				'slug' => 'sources',
+			]
+		);
+		wp_insert_term(
+			'Suggested Reading', 'back-matter-type', [
+				'slug' => 'suggested-reading',
+			]
+		);
 
 		// Chapter
-		wp_insert_term( 'Standard', 'chapter-type', [ 'slug' => 'standard' ] );
-		wp_insert_term( 'Numberless', 'chapter-type', [ 'slug' => 'numberless' ] );
+		wp_insert_term(
+			'Standard', 'chapter-type', [
+				'slug' => 'standard',
+			]
+		);
+		wp_insert_term(
+			'Numberless', 'chapter-type', [
+				'slug' => 'numberless',
+			]
+		);
 	}
 
 	/**
@@ -308,7 +498,12 @@ class Taxonomy {
 		$type_5 = get_term_by( 'slug', 'type-5', 'chapter-type' );
 
 		if ( $type_1 ) {
-			wp_update_term( $type_1->term_id, 'chapter-type', [ 'name' => 'Standard', 'slug' => 'standard' ] );
+			wp_update_term(
+				$type_1->term_id, 'chapter-type', [
+					'name' => 'Standard',
+					'slug' => 'standard',
+				]
+			);
 		}
 
 		if ( $type_2 ) {

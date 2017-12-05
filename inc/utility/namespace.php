@@ -195,17 +195,17 @@ function latest_exports() {
 	 */
 	$filetypes = apply_filters(
 		'pb_latest_export_filetypes', [
-		'epub3' => '._3.epub',
-		'epub' => '.epub',
-		'pdf' => '.pdf',
-		'print-pdf' => '._print.pdf',
-		'mobi' => '.mobi',
-		'icml' => '.icml',
-		'xhtml' => '.html',
-		'wxr' => '.xml',
-		'vanillawxr' => '._vanilla.xml',
-		'mpdf' => '._oss.pdf',
-		'odf' => '.odt',
+			'epub3' => '._3.epub',
+			'epub' => '.epub',
+			'pdf' => '.pdf',
+			'print-pdf' => '._print.pdf',
+			'mobi' => '.mobi',
+			'icml' => '.icml',
+			'xhtml' => '.html',
+			'wxr' => '.xml',
+			'vanillawxr' => '._vanilla.xml',
+			'mpdf' => '._oss.pdf',
+			'odf' => '.odt',
 		]
 	);
 
@@ -525,7 +525,11 @@ function disable_comments() {
 	}
 
 	$old_option = get_option( 'disable_comments_options' );
-	$new_option = get_option( 'pressbooks_sharingandprivacy_options', [ 'disable_comments' => 1 ] );
+	$new_option = get_option(
+		'pressbooks_sharingandprivacy_options', [
+			'disable_comments' => 1,
+		]
+	);
 
 	if ( false === (bool) $old_option ) {
 		$retval = (bool) $new_option['disable_comments'];
@@ -616,13 +620,21 @@ function fetch_recommended_plugins() {
 	if ( $ssl ) {
 		$url = set_url_scheme( $url, 'https' );
 	}
-	$request = wp_remote_get( $url, [ 'timeout' => 15 ] );
+	$request = wp_remote_get(
+		$url, [
+			'timeout' => 15,
+		]
+	);
 	if ( $ssl && is_wp_error( $request ) ) {
 		trigger_error(
 			__( 'An unexpected error occurred. Something may be wrong with the plugin recommendations server or your site&#8217;s server&#8217;s configuration.', 'pressbooks' ) . ' ' . __( '(Pressbooks could not establish a secure connection to the plugin recommendations server. Please contact your server administrator.)', 'pressbooks' ),
 			headers_sent() || WP_DEBUG ? E_USER_WARNING : E_USER_NOTICE
 		);
-		$request = wp_remote_get( $http_url, [ 'timeout' => 15 ] );
+		$request = wp_remote_get(
+			$http_url, [
+				'timeout' => 15,
+			]
+		);
 	}
 	if ( is_wp_error( $request ) ) {
 		$res = new \WP_Error(

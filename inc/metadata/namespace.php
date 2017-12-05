@@ -211,8 +211,8 @@ function book_information_to_schema( $book_information ) {
 
 		if ( isset( $book_information['pb_primary_subject'] ) ) {
 			$book_schema['about'][] = [
-			 '@type' => 'Thing',
-			 'identifier' => $book_information['pb_primary_subject'],
+				'@type' => 'Thing',
+				'identifier' => $book_information['pb_primary_subject'],
 			];
 		}
 
@@ -220,8 +220,8 @@ function book_information_to_schema( $book_information ) {
 			$additional_subjects = explode( ', ', $book_information['pb_additional_subjects'] );
 			foreach ( $additional_subjects as $additional_subject ) {
 				$book_schema['about'][] = [
-				 '@type' => 'Thing',
-				 'identifier' => $additional_subject,
+					'@type' => 'Thing',
+					'identifier' => $additional_subject,
 				];
 			}
 		}
@@ -230,16 +230,16 @@ function book_information_to_schema( $book_information ) {
 			$bisac_subjects = explode( ', ', $book_information['pb_bisac_subject'] );
 			foreach ( $bisac_subjects as $bisac_subject ) {
 				$book_schema['about'][] = [
-				 '@type' => 'Thing',
-				 'identifier' => $bisac_subject,
+					'@type' => 'Thing',
+					'identifier' => $bisac_subject,
 				];
 			}
 		}
 
 		if ( isset( $book_information['pb_author'] ) ) {
 			$book_schema['author'] = [
-			 '@type' => 'Person',
-			 'name' => $book_information['pb_author'],
+				'@type' => 'Person',
+				'name' => $book_information['pb_author'],
 			];
 
 			if ( isset( $book_information['pb_author_file_as'] ) ) {
@@ -251,8 +251,8 @@ function book_information_to_schema( $book_information ) {
 			$contributing_authors = explode( ', ', $book_information['pb_contributing_authors'] );
 			foreach ( $contributing_authors as $contributor ) {
 				$book_schema['contributor'][] = [
-				 '@type' => 'Person',
-				 'name' => $contributor,
+					'@type' => 'Person',
+					'name' => $contributor,
 				];
 			}
 		}
@@ -261,8 +261,8 @@ function book_information_to_schema( $book_information ) {
 			$editors = explode( ', ', $book_information['pb_editor'] );
 			foreach ( $editors as $editor ) {
 				$book_schema['editor'][] = [
-				 '@type' => 'Person',
-				 'name' => $editor,
+					'@type' => 'Person',
+					'name' => $editor,
 				];
 			}
 		}
@@ -271,30 +271,30 @@ function book_information_to_schema( $book_information ) {
 			$translators = explode( ', ', $book_information['pb_translator'] );
 			foreach ( $translators as $translator ) {
 				$book_schema['translator'][] = [
-				 '@type' => 'Person',
-				 'name' => $translator,
+					'@type' => 'Person',
+					'name' => $translator,
 				];
 			}
 		}
 
 		if ( isset( $book_information['pb_publisher'] ) ) {
 			$book_schema['publisher'] = [
-			 '@type' => 'Organization',
-			 'name' => $book_information['pb_publisher'],
+				'@type' => 'Organization',
+				'name' => $book_information['pb_publisher'],
 			];
 
 			if ( isset( $book_information['pb_publisher_city'] ) ) {
 				$book_schema['publisher']['address'] = [
-				 '@type' => 'PostalAddress',
-				 'addressLocality' => $book_information['pb_publisher_city'],
+					'@type' => 'PostalAddress',
+					'addressLocality' => $book_information['pb_publisher_city'],
 				];
 			}
 		}
 
 		if ( isset( $book_information['pb_audience'] ) ) {
 			$book_schema['audience'] = [
-			 '@type' => 'Audience',
-			 'name' => $book_information['pb_audience'],
+				'@type' => 'Audience',
+				'name' => $book_information['pb_audience'],
 			];
 		}
 
@@ -308,8 +308,8 @@ function book_information_to_schema( $book_information ) {
 
 		if ( isset( $book_information['pb_copyright_holder'] ) ) { // TODO: Person or Organization?
 			$book_schema['copyrightHolder'] = [
-			 '@type' => 'Organization',
-			 'name' => $book_information['pb_copyright_holder'],
+				'@type' => 'Organization',
+				'name' => $book_information['pb_copyright_holder'],
 			];
 		}
 
@@ -495,13 +495,13 @@ function section_information_to_schema( $section_information, $book_information 
 
 		if ( isset( $section_information['pb_section_author'] ) ) {
 			$section_schema['author'] = [
-			 '@type' => 'Person',
-			 'name' => $section_information['pb_section_author'],
+				'@type' => 'Person',
+				'name' => $section_information['pb_section_author'],
 			];
 		} elseif ( isset( $book_information['pb_author'] ) ) {
 			$section_schema['author'] = [
-			 '@type' => 'Person',
-			 'name' => $book_information['pb_author'],
+				'@type' => 'Person',
+				'name' => $book_information['pb_author'],
 			];
 
 			if ( isset( $book_information['pb_author_file_as'] ) ) {
@@ -513,8 +513,8 @@ function section_information_to_schema( $section_information, $book_information 
 			$contributing_authors = explode( ', ', $book_information['pb_contributing_authors'] );
 			foreach ( $contributing_authors as $contributor ) {
 				$section_schema['contributor'][] = [
-				 '@type' => 'Person',
-				 'name' => $contributor,
+					'@type' => 'Person',
+					'name' => $contributor,
 				];
 			}
 		}
@@ -523,8 +523,8 @@ function section_information_to_schema( $section_information, $book_information 
 			$editors = explode( ', ', $book_information['pb_editor'] );
 			foreach ( $editors as $editor ) {
 				$section_schema['editor'][] = [
-				 '@type' => 'Person',
-				 'name' => $editor,
+					'@type' => 'Person',
+					'name' => $editor,
 				];
 			}
 		}
@@ -533,29 +533,29 @@ function section_information_to_schema( $section_information, $book_information 
 			$translators = explode( ', ', $book_information['pb_translator'] );
 			foreach ( $translators as $translator ) {
 				$section_schema['translator'][] = [
-				 '@type' => 'Person',
-				 'name' => $translator,
+					'@type' => 'Person',
+					'name' => $translator,
 				];
 			}
 		}
 
 		if ( isset( $book_information['pb_audience'] ) ) {
 			$section_schema['audience'] = [
-			 '@type' => 'Audience',
-			 'name' => $book_information['pb_audience'],
+				'@type' => 'Audience',
+				'name' => $book_information['pb_audience'],
 			];
 		}
 
 		if ( isset( $book_information['pb_publisher'] ) ) {
 			$section_schema['publisher'] = [
-			 '@type' => 'Organization',
-			 'name' => $book_information['pb_publisher'],
+				'@type' => 'Organization',
+				'name' => $book_information['pb_publisher'],
 			];
 
 			if ( isset( $book_information['pb_publisher_city'] ) ) {
 				$section_schema['publisher']['address'] = [
-				 '@type' => 'PostalAddress',
-				 'addressLocality' => $book_information['pb_publisher_city'],
+					'@type' => 'PostalAddress',
+					'addressLocality' => $book_information['pb_publisher_city'],
 				];
 			}
 		}
@@ -569,8 +569,8 @@ function section_information_to_schema( $section_information, $book_information 
 
 		if ( isset( $book_information['pb_copyright_holder'] ) ) { // TODO: Person or Organization?
 			$section_schema['copyrightHolder'] = [
-			 '@type' => 'Organization',
-			 'name' => $book_information['pb_copyright_holder'],
+				'@type' => 'Organization',
+				'name' => $book_information['pb_copyright_holder'],
 			];
 		}
 
@@ -666,7 +666,9 @@ function get_thema_subjects( $include_qualifiers = false ) {
 	foreach ( $values->CodeList->Code as $code ) {
 		if ( ctype_alpha( substr( $code->CodeValue, 0, 1 ) ) || $include_qualifiers && ctype_digit( substr( $code->CodeValue, 0, 1 ) ) ) {
 			if ( strlen( $code->CodeValue ) === 1 ) {
-				$subjects[ $code->CodeValue ] = [ 'label' => $code->CodeDescription ];
+				$subjects[ $code->CodeValue ] = [
+					'label' => $code->CodeDescription,
+				];
 				if ( ctype_alpha( $code->CodeValue ) ) {
 					$subjects[ $code->CodeValue ]['children'][ $code->CodeValue ] = $code->CodeDescription;
 				}

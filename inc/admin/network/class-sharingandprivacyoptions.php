@@ -112,7 +112,8 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 		?>
 		<div class="wrap">
 			<h1><?php echo $this->getTitle(); ?></h1>
-			<?php $nonce = ( ! empty( $_REQUEST['_wpnonce'] ) ) ? $_REQUEST['_wpnonce'] : '';
+			<?php
+			$nonce = ( ! empty( $_REQUEST['_wpnonce'] ) ) ? $_REQUEST['_wpnonce'] : '';
 			if ( ! empty( $_POST ) ) {
 				if ( ! wp_verify_nonce( $nonce, $_option . '-options' ) ) {
 					wp_die( 'Security check' );
@@ -125,14 +126,19 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 					update_site_option( $_option, $options );
 					?>
 					<div id="message" class="updated notice is-dismissible"><p><strong><?php _e( 'Settings saved.', 'pressbooks' ); ?></strong></div>
-				<?php }
-			} ?>
+				<?php
+				}
+			}
+			?>
 			<form method="post" action="">
-				<?php settings_fields( $this->getSlug() );
+				<?php
+				settings_fields( $this->getSlug() );
 				do_settings_sections( $this->getSlug() );
-				submit_button(); ?>
+				submit_button();
+				?>
 			</form>
-		</div> <?php
+		</div> 
+		<?php
 	}
 
 	/**

@@ -819,7 +819,11 @@ abstract class Export {
 		$filepath = static::getExportFolder() . $filename;
 		if ( ! is_readable( $filepath ) ) {
 			// Cannot read file
-			wp_die( __( 'File not found', 'pressbooks' ) . ": $filename", '', [ 'response' => 404 ] );
+			wp_die(
+				__( 'File not found', 'pressbooks' ) . ": $filename", '', [
+					'response' => 404,
+				]
+			);
 		}
 
 		// Force download

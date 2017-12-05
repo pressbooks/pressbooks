@@ -33,7 +33,7 @@ function admin_enqueues() {
 	wp_enqueue_script( 'pb-network-managers', $assets->getPath( 'scripts/network-managers.js' ), [ 'jquery' ] );
 	wp_localize_script(
 		'pb-network-managers', 'PB_NetworkManagerToken', [
-		'networkManagerNonce' => wp_create_nonce( 'pb-network-managers' ),
+			'networkManagerNonce' => wp_create_nonce( 'pb-network-managers' ),
 		]
 	);
 }
@@ -91,7 +91,8 @@ function options() {
 		<p><?php _e( 'Network administrators&rsquo; access to network admininistration menus can be restricted to leave only sites and users visible to them.', 'pressbooks' ); ?></p>
 		<?php $superadmins->display(); ?>
 	</div>
-<?php }
+<?php
+}
 
 
 /**

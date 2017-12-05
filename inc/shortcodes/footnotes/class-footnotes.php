@@ -34,10 +34,12 @@ class Footnotes {
 		if ( ! self::$instance ) {
 			$self = new self;
 			add_shortcode( 'footnote', [ $self, 'shortcodeHandler' ] );
-			add_filter( 'no_texturize_shortcodes', function ( $excluded_shortcodes ) {
-				$excluded_shortcodes[] = 'footnote';
-				return $excluded_shortcodes;
-			} );
+			add_filter(
+				'no_texturize_shortcodes', function ( $excluded_shortcodes ) {
+					$excluded_shortcodes[] = 'footnote';
+					return $excluded_shortcodes;
+				}
+			);
 			// do_shortcode() is registered as a default filter on 'the_content' with a priority of 11.
 			// We need to run $this->footNoteContent() after this, set to 12
 			add_filter( 'the_content', [ $self, 'footnoteContent' ], 12 );
@@ -169,9 +171,9 @@ class Footnotes {
 				'admin_enqueue_scripts', function () {
 					wp_localize_script(
 						'editor', 'PB_FootnotesToken', [
-						'nonce' => wp_create_nonce( 'pb-footnote-convert' ),
-						'fn_title' => __( 'Insert Footnote', 'pressbooks' ),
-						'ftnref_title' => __( 'Convert MS Word Footnotes', 'pressbooks' ),
+							'nonce' => wp_create_nonce( 'pb-footnote-convert' ),
+							'fn_title' => __( 'Insert Footnote', 'pressbooks' ),
+							'ftnref_title' => __( 'Convert MS Word Footnotes', 'pressbooks' ),
 						]
 					);
 				}
@@ -302,10 +304,10 @@ class Footnotes {
 
 				$tmp = wp_kses(
 					$footnote[3], [
-					'b' => [],
-					'em' => [],
-					'i' => [],
-					'strong' => [],
+						'b' => [],
+						'em' => [],
+						'i' => [],
+						'strong' => [],
 					]
 				);
 				$tmp = \Pressbooks\Sanitize\remove_control_characters( $tmp );
@@ -328,7 +330,11 @@ class Footnotes {
 
 		// Send back JSON
 		header( 'Content-Type: application/json' );
-		$json = json_encode( [ 'content' => $html ] );
+		$json = json_encode(
+			[
+				'content' => $html,
+			]
+		);
 		echo $json;
 
 		wp_die();

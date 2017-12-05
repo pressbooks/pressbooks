@@ -174,9 +174,21 @@ function thumbnail_from_url( $url, $size ) {
 function intermediate_image_sizes( array $image_sizes = [] ) {
 
 	$our_sizes = [
-		'pb_cover_small' => [ 'width' => 65, 'height' => 0, 'crop' => false ],
-		'pb_cover_medium' => [ 'width' => 225, 'height' => 0, 'crop' => false ],
-		'pb_cover_large' => [ 'width' => 350, 'height' => 0, 'crop' => false ],
+		'pb_cover_small' => [
+			'width' => 65,
+			'height' => 0,
+			'crop' => false,
+		],
+		'pb_cover_medium' => [
+			'width' => 225,
+			'height' => 0,
+			'crop' => false,
+		],
+		'pb_cover_large' => [
+			'width' => 350,
+			'height' => 0,
+			'crop' => false,
+		],
 	];
 
 	if ( empty( $image_sizes ) ) {
@@ -372,7 +384,7 @@ function render_cover_image_box( $form_id, $cover_pid, $image_url, $ajax_action,
 							action: '<?php echo $ajax_action; ?>',
 							filename: image_file,
 							pid: pid,
-							_ajax_nonce: '<?php echo $nonce ?>'
+							_ajax_nonce: '<?php echo $nonce; ?>'
 						},
 						success: function (data) {
 							jQuery('#delete_cover_button').remove();
@@ -399,7 +411,10 @@ function render_cover_image_box( $form_id, $cover_pid, $image_url, $ajax_action,
 				<p><img id="cover_image_preview" src="<?php echo \Pressbooks\Image\default_cover_url(); ?>" style="width:auto;height:100px;" alt="cover_image"/></p>
 				<p><input type="file" name="<?php echo $form_id; ?>" value="<?php echo $image_url; ?>" id="<?php echo $form_id; ?>"/></p>
 			<?php } ?>
-			<?php if ( $description ) : ?><span class="description"><?php echo $description; ?></span><?php endif; ?>
+			<?php
+			if ( $description ) :
+?>
+<span class="description"><?php echo $description; ?></span><?php endif; ?>
 		</div>
 	</div>
 	<?php

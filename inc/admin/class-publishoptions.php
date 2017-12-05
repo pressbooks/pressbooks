@@ -136,7 +136,8 @@ class PublishOptions extends \Pressbooks\Options {
 		<h3><?php _e( 'Adding BUY Links to Your Pressbooks Web Book', 'pressbooks' ); ?></h3>
 		<p><?php _e( 'If you would like to add <strong>BUY</strong> links to your Pressbooks web book, add the links to your book at the different retailers below:', 'pressbooks' ); ?></p>
 
-		<?php $output = ob_get_contents();
+		<?php
+		$output = ob_get_contents();
 		ob_end_clean();
 
 		/**
@@ -163,11 +164,14 @@ class PublishOptions extends \Pressbooks\Options {
 		<div class="wrap">
 			<h1><?php echo $this->getTitle(); ?></h1>
 			<form method="post" action="options.php">
-				<?php settings_fields( $this->getSlug() );
+				<?php
+				settings_fields( $this->getSlug() );
 				do_settings_sections( $this->getSlug() );
-				submit_button(); ?>
+				submit_button();
+				?>
 			</form>
-		</div> <?php
+		</div> 
+		<?php
 	}
 
 	function upgrade( $version ) {

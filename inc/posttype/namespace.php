@@ -22,12 +22,12 @@ function list_post_types() {
 	 */
 	return apply_filters(
 		'pb_supported_post_types', [
-		'metadata',
-		'part',
-		'chapter',
-		'front-matter',
-		'back-matter',
-		'custom-css',
+			'metadata',
+			'part',
+			'chapter',
+			'front-matter',
+			'back-matter',
+			'custom-css',
 		]
 	);
 }
@@ -62,7 +62,10 @@ function register_post_types() {
 		'show_in_menu' => true,
 		'menu_position' => 5,
 		'query_var' => true,
-		'rewrite' => [ 'slug' => 'chapter', 'with_front' => false ],
+		'rewrite' => [
+		'slug' => 'chapter',
+		'with_front' => false,
+			],
 		'capability_type' => 'post',
 		'has_archive' => true,
 		'hierarchical' => false, // do not set to true unless you want to break permalinks. Do you really want to do that? >:(
@@ -99,7 +102,10 @@ function register_post_types() {
 		'show_in_menu' => true,
 		'menu_position' => 5,
 		'query_var' => true,
-		'rewrite' => [ 'slug' => 'part', 'with_front' => false ],
+		'rewrite' => [
+			'slug' => 'part',
+			'with_front' => false,
+		],
 		'capability_type' => 'post',
 		'has_archive' => true,
 		'hierarchical' => true,
@@ -134,7 +140,10 @@ function register_post_types() {
 		'show_in_menu' => true,
 		'menu_position' => 5,
 		'query_var' => true,
-		'rewrite' => [ 'slug' => 'front-matter', 'with_front' => false ],
+		'rewrite' => [
+			'slug' => 'front-matter',
+			'with_front' => false,
+		],
 		'capability_type' => 'post',
 		'has_archive' => true,
 		'hierarchical' => true,
@@ -169,7 +178,10 @@ function register_post_types() {
 		'show_in_menu' => true,
 		'menu_position' => 5,
 		'query_var' => true,
-		'rewrite' => [ 'slug' => 'back-matter', 'with_front' => false ],
+		'rewrite' => [
+			'slug' => 'back-matter',
+			'with_front' => false,
+		],
 		'capability_type' => 'post',
 		'has_archive' => true,
 		'hierarchical' => true,
@@ -227,36 +239,67 @@ function register_meta() {
 		'type' => 'string',
 	];
 
-	\register_meta( 'post', 'pb_export', array_merge( $defaults, [
-		'description' => __( 'Include in exports', 'pressbooks' ),
-		'sanitize_callback' => function( $v ) { return ( $v ? 'on' : null ) ; },
-	] ) );
+	\register_meta(
+		'post', 'pb_export', array_merge(
+			$defaults, [
+				'description' => __( 'Include in exports', 'pressbooks' ),
+				'sanitize_callback' => function( $v ) {
+					return ( $v ? 'on' : null ) ; },
+			]
+		)
+	);
 
-	\register_meta( 'post', 'pb_show_title', array_merge( $defaults, [
-		'description' => __( 'Show title in exports', 'pressbooks' ),
-		'sanitize_callback' => function( $v ) { return ( $v ? 'on' : null ) ; },
-	] ) );
+	\register_meta(
+		'post', 'pb_show_title', array_merge(
+			$defaults, [
+				'description' => __( 'Show title in exports', 'pressbooks' ),
+				'sanitize_callback' => function( $v ) {
+					return ( $v ? 'on' : null ) ; },
+			]
+		)
+	);
 
-	\register_meta( 'post', 'pb_ebook_start', array_merge( $defaults, [
-		'description' => __( 'Set as ebook start-point', 'pressbooks' ),
-		'sanitize_callback' => function( $v ) { return ( $v ? 'on' : null ) ; },
-	] ) );
+	\register_meta(
+		'post', 'pb_ebook_start', array_merge(
+			$defaults, [
+				'description' => __( 'Set as ebook start-point', 'pressbooks' ),
+				'sanitize_callback' => function( $v ) {
+					return ( $v ? 'on' : null ) ; },
+			]
+		)
+	);
 
-	\register_meta( 'post', 'pb_short_title', array_merge( $defaults, [
-		'description' => __( 'Chapter Short Title (appears in the PDF running header)', 'pressbooks' ),
-	] ) );
+	\register_meta(
+		'post', 'pb_short_title', array_merge(
+			$defaults, [
+				'description' => __( 'Chapter Short Title (appears in the PDF running header)', 'pressbooks' ),
+			]
+		)
+	);
 
-	\register_meta( 'post', 'pb_subtitle', array_merge( $defaults, [
-		'description' => __( 'Chapter Subtitle (appears in the Web/ebook/PDF output)', 'pressbooks' ),
-	] ) );
+	\register_meta(
+		'post', 'pb_subtitle', array_merge(
+			$defaults, [
+				'description' => __( 'Chapter Subtitle (appears in the Web/ebook/PDF output)', 'pressbooks' ),
+			]
+		)
+	);
 
-	\register_meta( 'post', 'pb_section_author', array_merge( $defaults, [
-		'description' => __( 'Chapter Author (appears in Web/ebook/PDF output)', 'pressbooks' ),
-	] ) );
+	\register_meta(
+		'post', 'pb_section_author', array_merge(
+			$defaults, [
+				'description' => __( 'Chapter Author (appears in Web/ebook/PDF output)', 'pressbooks' ),
+			]
+		)
+	);
 
-	\register_meta( 'post', 'pb_section_license', array_merge( $defaults, [
-		'description' => __( 'Chapter Copyright License (overrides book license on this page)', 'pressbooks' ),
-	] ) );
+	\register_meta(
+		'post', 'pb_section_license', array_merge(
+			$defaults, [
+				'description' => __( 'Chapter Copyright License (overrides book license on this page)', 'pressbooks' ),
+			]
+		)
+	);
 }
 
 /**

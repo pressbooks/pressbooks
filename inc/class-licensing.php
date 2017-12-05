@@ -214,7 +214,13 @@ class Licensing {
 
 			set_transient(
 				$transient_id,
-				[ $license => $html, $copyright_holder => 1, $title => 1, $lang => 1, $copyright_year => 1 ]
+				[
+					$license => $html,
+					$copyright_holder => 1,
+					$title => 1,
+					$lang => 1,
+					$copyright_year => 1,
+				]
 			);
 
 		} else {

@@ -341,9 +341,9 @@ class GlobalOptions extends \Pressbooks\Options {
 		 */
 		return apply_filters(
 			'pb_theme_options_global_defaults', [
-			'chapter_numbers' => 1,
-			'parse_subsections' => 0,
-			'copyright_license' => 0,
+				'chapter_numbers' => 1,
+				'parse_subsections' => 0,
+				'copyright_license' => 0,
 			]
 		);
 	}
@@ -374,8 +374,8 @@ class GlobalOptions extends \Pressbooks\Options {
 		 */
 		return apply_filters(
 			'pb_theme_options_global_booleans', [
-			'chapter_numbers',
-			'parse_subsections',
+				'chapter_numbers',
+				'parse_subsections',
 			]
 		);
 	}

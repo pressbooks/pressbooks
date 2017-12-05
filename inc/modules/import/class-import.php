@@ -320,14 +320,18 @@ abstract class Import {
 			 */
 			$allowed_file_types = apply_filters(
 				'pb_import_file_types', [
-				'epub' => 'application/epub+zip',
-				'xml' => 'application/xml',
-				'odt' => 'application/vnd.oasis.opendocument.text',
-				'docx' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+					'epub' => 'application/epub+zip',
+					'xml' => 'application/xml',
+					'odt' => 'application/vnd.oasis.opendocument.text',
+					'docx' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
 				]
 			);
 
-			$overrides = [ 'test_form' => false, 'test_type' => false, 'mimes' => $allowed_file_types ];
+			$overrides = [
+				'test_form' => false,
+				'test_type' => false,
+				'mimes' => $allowed_file_types,
+			];
 
 			if ( ! function_exists( 'wp_handle_upload' ) ) {
 				require_once( ABSPATH . 'wp-admin/includes/file.php' );
@@ -407,7 +411,9 @@ abstract class Import {
 				\Pressbooks\Redirect\location( $redirect_url );
 			}
 
-			$upload = [ 'url' => $_POST['import_http'] ];
+			$upload = [
+				'url' => $_POST['import_http'],
+			];
 
 			switch ( $_POST['type_of'] ) {
 				case 'html':

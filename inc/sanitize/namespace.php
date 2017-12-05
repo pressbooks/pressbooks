@@ -237,7 +237,9 @@ function strip_br( $slug ) {
 function filter_title( $title ) {
 	$allowed = [
 		'br' => [],
-		'span' => [ 'class' => [] ],
+		'span' => [
+			'class' => [],
+		],
 		'em' => [],
 		'strong' => [],
 		'del' => [],
@@ -358,7 +360,8 @@ function normalize_css_urls( $css, $url_path = '' ) {
 			return $matches[0]; // No change
 
 		},
-	$css );
+		$css
+	);
 
 	return $css;
 }

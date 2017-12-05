@@ -71,14 +71,18 @@ class Styles {
 			);
 		}
 
-		add_action( 'init', function () {
-			// Admin Menu
-			add_action( 'admin_menu', function () {
-				add_theme_page( __( 'Custom Styles', 'pressbooks' ), __( 'Custom Styles', 'pressbooks' ), 'edit_others_posts', $this::PAGE, [ $this, 'editor' ] );
-			}, 11 );
-			// Register Post Types
-			$this->registerPosts();
-		} );
+		add_action(
+			'init', function () {
+				// Admin Menu
+				add_action(
+					'admin_menu', function () {
+						add_theme_page( __( 'Custom Styles', 'pressbooks' ), __( 'Custom Styles', 'pressbooks' ), 'edit_others_posts', $this::PAGE, [ $this, 'editor' ] );
+					}, 11
+				);
+				// Register Post Types
+				$this->registerPosts();
+			}
+		);
 
 		// Catch form submission
 		add_action( 'init', [ $this, 'formSubmit' ], 50 );
@@ -110,7 +114,10 @@ class Styles {
 			],
 		];
 
-		$post = [ 'post_status' => 'publish', 'post_author' => wp_get_current_user()->ID ];
+		$post = [
+			'post_status' => 'publish',
+			'post_author' => wp_get_current_user()->ID,
+		];
 
 		foreach ( $posts as $item ) {
 			$exists = $wpdb->get_var(

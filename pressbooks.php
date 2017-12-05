@@ -114,9 +114,11 @@ if ( file_exists( $composer = PB_PLUGIN_DIR . 'vendor/autoload.php' ) ) {
 // -------------------------------------------------------------------------------------------------------------------
 
 if ( ! function_exists( 'pb_meets_minimum_requirements' ) && ! @include_once( PB_PLUGIN_DIR . 'compatibility.php' ) ) { // @codingStandardsIgnoreLine
-	return add_action( 'admin_notices', function () {
-		echo '<div id="message" class="error fade"><p>' . __( 'Cannot find Pressbooks install.', 'pressbooks' ) . '</p></div>';
-	} );
+	return add_action(
+		'admin_notices', function () {
+			echo '<div id="message" class="error fade"><p>' . __( 'Cannot find Pressbooks install.', 'pressbooks' ) . '</p></div>';
+		}
+	);
 } elseif ( ! pb_meets_minimum_requirements() ) {
 	return;
 }
@@ -131,9 +133,11 @@ pb_init_autoloader();
 // Configure root site
 // -------------------------------------------------------------------------------------------------------------------
 
-register_activation_hook( __FILE__, function () {
-	( new \Pressbooks\Activation() )->registerActivationHook();
-} );
+register_activation_hook(
+	__FILE__, function () {
+		( new \Pressbooks\Activation() )->registerActivationHook();
+	}
+);
 
 // -------------------------------------------------------------------------------------------------------------------
 // Initialize

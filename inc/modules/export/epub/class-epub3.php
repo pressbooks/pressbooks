@@ -324,7 +324,11 @@ class Epub3 extends Epub201 {
 			return $this->fetchedMediaCache[ $url ];
 		}
 
-		$response = wp_remote_get( $url, [ 'timeout' => $this->timeout ] );
+		$response = wp_remote_get(
+			$url, [
+				'timeout' => $this->timeout,
+			]
+		);
 
 		// WordPress error?
 		if ( is_wp_error( $response ) ) {
@@ -339,7 +343,11 @@ class Epub3 extends Epub201 {
 						$url = 'http:' . $url;
 					}
 				}
-				$response = wp_remote_get( $url, [ 'timeout' => $this->timeout ] );
+				$response = wp_remote_get(
+					$url, [
+						'timeout' => $this->timeout,
+					]
+				);
 				if ( is_wp_error( $response ) ) {
 					throw new \Exception( 'Bad URL: ' . $url );
 				}

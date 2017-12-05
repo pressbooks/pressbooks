@@ -97,15 +97,15 @@ function replace_book_admin_menu() {
 				wp_enqueue_script( 'pb-organize' );
 				wp_localize_script(
 					'pb-organize', 'PB_OrganizeToken', [
-					// Ajax nonces
-					'orderNonce' => wp_create_nonce( 'pb-update-book-order' ),
-					'exportNonce' => wp_create_nonce( 'pb-update-book-export' ),
-					'wordCountNonce' => wp_create_nonce( 'pb-update-word-count-for-export' ),
-					'showTitleNonce' => wp_create_nonce( 'pb-update-book-show-title' ),
-					'privacyNonce' => wp_create_nonce( 'pb-update-book-privacy' ),
-					'private' => __( 'Private', 'pressbooks' ),
-					'published' => __( 'Published', 'pressbooks' ),
-					'public' => __( 'Public', 'pressbooks' ),
+						// Ajax nonces
+						'orderNonce' => wp_create_nonce( 'pb-update-book-order' ),
+						'exportNonce' => wp_create_nonce( 'pb-update-book-export' ),
+						'wordCountNonce' => wp_create_nonce( 'pb-update-word-count-for-export' ),
+						'showTitleNonce' => wp_create_nonce( 'pb-update-book-show-title' ),
+						'privacyNonce' => wp_create_nonce( 'pb-update-book-privacy' ),
+						'private' => __( 'Private', 'pressbooks' ),
+						'published' => __( 'Published', 'pressbooks' ),
+						'public' => __( 'Public', 'pressbooks' ),
 					]
 				);
 			}
@@ -179,7 +179,7 @@ function replace_book_admin_menu() {
 				wp_enqueue_script( 'pb-export' );
 				wp_localize_script(
 					'pb-export', 'PB_ExportToken', [
-					'mobiConfirm' => __( 'EPUB is required for MOBI export. Would you like to reenable it?', 'pressbooks' ),
+						'mobiConfirm' => __( 'EPUB is required for MOBI export. Would you like to reenable it?', 'pressbooks' ),
 					]
 				);
 			}
@@ -217,21 +217,25 @@ function replace_book_admin_menu() {
 
 	// Import
 	$import_page = add_management_page( __( 'Import', 'pressbooks' ), __( 'Import', 'pressbooks' ), 'edit_posts', 'pb_import', __NAMESPACE__ . '\display_import' );
-	add_action( 'admin_enqueue_scripts', function ( $hook ) use ( $import_page ) {
-		if ( $hook === $import_page ) {
-			wp_enqueue_script( 'pb-import' );
+	add_action(
+		'admin_enqueue_scripts', function ( $hook ) use ( $import_page ) {
+			if ( $hook === $import_page ) {
+				wp_enqueue_script( 'pb-import' );
+			}
 		}
-	} );
+	);
 
 	// Clone a Book
 	if ( \Pressbooks\Cloner::isEnabled() ) {
 		$cloner_page = add_submenu_page( 'options.php', __( 'Clone a Book', 'pressbooks' ), __( 'Clone a Book', 'pressbooks' ), 'edit_posts', 'pb_cloner', __NAMESPACE__ . '\display_cloner' );
-		add_action( 'admin_enqueue_scripts', function ( $hook ) use ( $cloner_page ) {
-			if ( $hook === $cloner_page ) {
-				wp_enqueue_style( 'pb-cloner' );
-				wp_enqueue_script( 'pb-cloner' );
+		add_action(
+			'admin_enqueue_scripts', function ( $hook ) use ( $cloner_page ) {
+				if ( $hook === $cloner_page ) {
+					wp_enqueue_style( 'pb-cloner' );
+					wp_enqueue_script( 'pb-cloner' );
+				}
 			}
-		} );
+		);
 	}
 
 	// Catalog
@@ -287,8 +291,8 @@ function network_admin_menu() {
 
 	add_submenu_page(
 		'settings.php', __( 'Sharing and Privacy Settings', 'pressbooks' ), __( 'Sharing &amp; Privacy', 'pressbooks' ), 'manage_network', 'pressbooks_sharingandprivacy_options', [
-		$page,
-		'render',
+			$page,
+			'render',
 		]
 	);
 }
@@ -680,7 +684,7 @@ function transform_category_selection_box() {
 		jQuery('input:checkbox[id^="in-chapter-type"]').each(function () {
 			jQuery(this).replaceWith(jQuery(this).clone(true).attr('type', 'radio'));
 		});
-		<?php if ( isset( $term ) ) :  ?>
+		<?php if ( isset( $term ) ) : ?>
 		jQuery('input:radio[id="in-front-matter-type-<?php echo $term->term_id; ?>"]').attr('checked', 'checked');
 		jQuery('input:radio[id="in-back-matter-type-<?php echo $term->term_id; ?>"]').attr('checked', 'checked');
 		jQuery('input:radio[id="in-chapter-type-<?php echo $term->term_id; ?>"]').attr('checked', 'checked');
@@ -708,10 +712,10 @@ function init_css_js() {
 	wp_admin_css_color(
 		'pb_colors', 'Pressbooks', $assets->getPath( 'styles/colors-pb.css' ), apply_filters(
 			'pressbooks_admin_colors', [
-			'#b40026',
-			'#d4002d',
-			'#e9e9e9',
-			'#dfdfdf',
+				'#b40026',
+				'#d4002d',
+				'#e9e9e9',
+				'#dfdfdf',
 			]
 		)
 	);
@@ -738,8 +742,8 @@ function init_css_js() {
 		wp_enqueue_script( 'pressbooks/theme-lock', $assets->getPath( 'scripts/theme-lock.js' ), [ 'jquery' ] );
 		wp_localize_script(
 			'pressbooks/theme-lock', 'PB_ThemeLockToken', [
-			// Strings
-			'confirmation' => __( 'Are you sure you want to unlock your theme? This will update your book to the most recent version of your selected theme, which may change your book&rsquo;s appearance and page count. Once you save your settings on this page, this action will NOT be reversable!', 'pressbooks' ),
+				// Strings
+				'confirmation' => __( 'Are you sure you want to unlock your theme? This will update your book to the most recent version of your selected theme, which may change your book&rsquo;s appearance and page count. Once you save your settings on this page, this action will NOT be reversable!', 'pressbooks' ),
 			]
 		);
 	}
@@ -886,7 +890,8 @@ function privacy_permissive_private_content_callback( $args ) {
 		$subscriber->remove_cap( 'read_private_posts' );
 		$contributor->remove_cap( 'read_private_posts' );
 		$author->remove_cap( 'read_private_posts' );
-	} ?>
+	}
+	?>
 	<p><?php _e( 'Who can see private front matter, chapters and back matter?', 'pressbooks' ); ?></p>
 	<fieldgroup>
 		<input type="radio" id="standard-private-content" name="permissive_private_content" value="0" <?php checked( $permissive_private_content, 0 ); ?>/>
@@ -894,7 +899,8 @@ function privacy_permissive_private_content_callback( $args ) {
 		<input type="radio" id="permissive-private-content" name="permissive_private_content" value="1" <?php checked( $permissive_private_content, 1 ); ?>/>
 		<label for="permissive-private-content"><?php _e( 'All logged in users including subscribers.', 'pressbooks' ); ?></label>
 	</fieldgroup>
-<?php }
+<?php
+}
 
 /**
  * Privacy settings, disable_comments field callback
@@ -902,7 +908,11 @@ function privacy_permissive_private_content_callback( $args ) {
  * @param $args
  */
 function privacy_disable_comments_callback( $args ) {
-	$options = get_option( 'pressbooks_sharingandprivacy_options', [ 'disable_comments' => 1 ] );
+	$options = get_option(
+		'pressbooks_sharingandprivacy_options', [
+			'disable_comments' => 1,
+		]
+	);
 	$html = '<input type="radio" id="disable-comments" name="pressbooks_sharingandprivacy_options[disable_comments]" value="1" ';
 	if ( $options['disable_comments'] ) {
 		$html .= 'checked="checked" ';
@@ -994,8 +1004,10 @@ function display_privacy_settings() {
 	<div class="wrap">
 		<h2><?php _e( 'Sharing and Privacy Settings', 'pressbooks' ); ?></h2>
 		<form method="post" action="options.php">
-			<?php settings_fields( 'privacy_settings' );
-			do_settings_sections( 'privacy_settings' ); ?>
+			<?php
+			settings_fields( 'privacy_settings' );
+			do_settings_sections( 'privacy_settings' );
+			?>
 			<?php submit_button(); ?>
 		</form>
 	</div>
@@ -1057,47 +1069,47 @@ function sites_to_books( $translated_text, $untranslated_text, $domain ) {
 	global $pagenow;
 
 	switch ( $untranslated_text ) {
-		case 'Sites' :
+		case 'Sites':
 			$translated_text = __( 'Books', 'pressbooks' );
 			break;
-		case 'All Sites' :
+		case 'All Sites':
 			$translated_text = __( 'All Books', 'pressbooks' );
 			break;
 	}
 
 	if ( $pagenow === 'sites.php' ) {
 		switch ( $untranslated_text ) {
-			case 'Sites' :
+			case 'Sites':
 				$translated_text = __( 'Books', 'pressbooks' );
 				break;
-			case 'Search Sites' :
+			case 'Search Sites':
 				$translated_text = __( 'Search Books', 'pressbooks' );
 				break;
 		}
 	} elseif ( $pagenow === 'site-info.php' ) {
 		switch ( $untranslated_text ) {
-			case 'Edit Site: %s' :
+			case 'Edit Site: %s':
 				$translated_text = __( 'Edit Book: %s', 'pressbooks' );
 				break;
-			case 'Site Address (URL)' :
+			case 'Site Address (URL)':
 				$translated_text = __( 'Book Address (URL)', 'pressbooks' );
 				break;
 		}
 	} elseif ( $pagenow === 'site-new.php' ) {
 		switch ( $untranslated_text ) {
-			case 'Add New Site' :
+			case 'Add New Site':
 				$translated_text = __( 'Add New Book', 'pressbooks' );
 				break;
-			case 'Site Address (URL)' :
+			case 'Site Address (URL)':
 				$translated_text = __( 'Book Address (URL)', 'pressbooks' );
 				break;
-			case 'Site Title' :
+			case 'Site Title':
 				$translated_text = __( 'Book Title', 'pressbooks' );
 				break;
-			case 'Site Language' :
+			case 'Site Language':
 				$translated_text = __( 'Book Language', 'pressbooks' );
 				break;
-			case 'Add Site' :
+			case 'Add Site':
 				$translated_text = __( 'Add Book', 'pressbooks' );
 				break;
 		}

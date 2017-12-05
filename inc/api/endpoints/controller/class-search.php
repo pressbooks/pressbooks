@@ -17,15 +17,17 @@ class Search extends Books {
 	 */
 	public function register_routes() {
 
-		register_rest_route( $this->namespace, '/' . $this->rest_base, [
-			[
-				'methods' => \WP_REST_Server::READABLE,
-				'callback' => [ $this, 'get_items' ],
-				'permission_callback' => [ $this, 'get_items_permissions_check' ],
-				'args' => $this->get_collection_params(),
-			],
-			'schema' => [ $this, 'get_public_item_schema' ],
-		] );
+		register_rest_route(
+			$this->namespace, '/' . $this->rest_base, [
+				[
+					'methods' => \WP_REST_Server::READABLE,
+					'callback' => [ $this, 'get_items' ],
+					'permission_callback' => [ $this, 'get_items_permissions_check' ],
+					'args' => $this->get_collection_params(),
+				],
+				'schema' => [ $this, 'get_public_item_schema' ],
+			]
+		);
 	}
 
 	/**
@@ -60,7 +62,9 @@ class Search extends Books {
 		// Override search request
 		$search = $request->get_query_params();
 		unset( $search['per_page'], $search['next'] );
-		$request['search'] = ! empty( $search ) ? $search : [ null => null ]; // Set some weird value that means abort
+		$request['search'] = ! empty( $search ) ? $search : [
+			null => null,
+		]; // Set some weird value that means abort
 
 		$response = rest_ensure_response( $this->searchBooks( $request ) );
 		unset( $request['search'] );
@@ -83,7 +87,9 @@ class Search extends Books {
 			wp_die( 'LogicException: $search should be a [meta_key => val] array' );
 		}
 
-		if ( $search === [ null => null ] ) {
+		if ( $search === [
+			null => null,
+		] ) {
 			return false; // Abort search
 		}
 
