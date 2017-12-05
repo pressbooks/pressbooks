@@ -34,7 +34,7 @@ $is_book = Book::isBook();
 // -------------------------------------------------------------------------------------------------------------------
 
 if ( ! $is_book ) {
-	$updater = new \Puc_v4p2_Vcs_PluginUpdateChecker(
+	$updater = new \Puc_v4p3_Vcs_PluginUpdateChecker(
 		new \Pressbooks\Updater( 'https://github.com/pressbooks/pressbooks/' ),
 		__DIR__ . '/pressbooks.php', // Fully qualified path to the main plugin file
 		'pressbooks',
