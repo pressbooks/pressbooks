@@ -50,7 +50,8 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	 * Configure the network export options page using the settings API.
 	 */
 	function init() {
-		$_page = $_option = $this->getSlug();
+		$_option = $this->getSlug();
+		$_page = $_option;
 		$_section = $this->getSlug() . '_section';
 
 		add_settings_section(

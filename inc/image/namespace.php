@@ -64,7 +64,7 @@ function is_valid_image( $file, $filename, $is_stream = false ) {
 
 	if ( $is_stream ) {
 		$tmp_image_path = \Pressbooks\Utility\create_tmp_file();
-		file_put_contents( $tmp_image_path, $file );
+		\Pressbooks\Utility\put_contents( $tmp_image_path, $file );
 		$file = $tmp_image_path;
 	}
 

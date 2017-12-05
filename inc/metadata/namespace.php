@@ -660,7 +660,7 @@ function schema_to_section_information( $section_schema, $book_schema ) {
  * @return array
  */
 function get_thema_subjects( $include_qualifiers = false ) {
-	$json = file_get_contents( PB_PLUGIN_DIR . 'symbionts/thema/Thema_v1.2_en.json' );
+	$json = \Pressbooks\Utility\get_contents( PB_PLUGIN_DIR . 'symbionts/thema/Thema_v1.2_en.json' );
 	$values = json_decode( $json );
 	$subjects = [];
 	foreach ( $values->CodeList->Code as $code ) {

@@ -58,7 +58,8 @@ class PDFOptions extends \Pressbooks\Options {
 	 * Configure the PDF options tab using the settings API.
 	 */
 	function init() {
-		$_page = $_option = 'pressbooks_theme_options_' . $this->getSlug();
+		$_option = 'pressbooks_theme_options_' . $this->getSlug();
+		$_page = $_option;
 		$_section = $this->getSlug() . '_options_section';
 
 		if ( false === get_option( $_option ) ) {
@@ -1438,7 +1439,7 @@ class PDFOptions extends \Pressbooks\Options {
 			];
 			foreach ( $files as $file ) {
 				if ( file_exists( $file ) ) {
-					$parsed_sass_variables[] = $sass->parseVariables( file_get_contents( $file ) );
+					$parsed_sass_variables[] = $sass->parseVariables( \Pressbooks\Utility\get_contents( $file ) );
 				}
 			}
 			set_transient( $transient_name, $parsed_sass_variables );

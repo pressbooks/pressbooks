@@ -128,9 +128,9 @@ function migrate_book_themes() {
 			if ( $lock->isLocked() ) {
 				$data = $lock->getLockData();
 				$data['stylesheet'] = $comparisons[ $theme ];
-				$json = json_encode( $data );
+				$json = wp_json_encode( $data );
 				$lockfile = $lock->getLockDir( false ) . '/lock.json';
-				file_put_contents( $lockfile, $json );
+				\Pressbooks\Utility\put_contents( $lockfile, $json );
 			}
 		}
 

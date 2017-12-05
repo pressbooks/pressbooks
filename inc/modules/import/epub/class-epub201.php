@@ -537,7 +537,7 @@ class Epub201 extends Import {
 		}
 
 		$tmp_name = $this->createTmpFile();
-		file_put_contents( $tmp_name, $image_content );
+		\Pressbooks\Utility\put_contents( $tmp_name, $image_content );
 
 		if ( ! \Pressbooks\Image\is_valid_image( $tmp_name, $filename ) ) {
 
@@ -597,7 +597,9 @@ class Epub201 extends Import {
 		foreach ( $xml->manifest->children() as $item ) {
 			/** @var \SimpleXMLElement $item */
 			// Get attributes
-			$id = $title = $type = $href = '';
+			$id = '';
+			$type = '';
+			$href = '';
 			foreach ( $item->attributes() as $key => $val ) {
 				if ( 'id' === $key ) {
 					$id = (string) $val;

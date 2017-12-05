@@ -59,7 +59,8 @@ function update_admin_status() {
 				$restricted[] = $id;
 			}
 		} elseif ( 0 === absint( $_POST['status'] ) ) {
-			if ( ( $key = array_search( absint( $id ), $restricted, true ) ) !== false ) {
+			$key = array_search( absint( $id ), $restricted, true );
+			if ( $key !== false ) {
 				unset( $restricted[ $key ] );
 			}
 		}
@@ -181,7 +182,7 @@ function restrict_access() {
 		$restricted = [];
 	}
 
-	$check_against_url = parse_url( ( is_ssl() ? 'http://' : 'https://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'], PHP_URL_PATH );
+	$check_against_url = wp_parse_url( ( is_ssl() ? 'http://' : 'https://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'], PHP_URL_PATH );
 	$redirect_url = get_site_url() . '/wp-admin/network/';
 
 	// ---------------------------------------------------------------------------------------------------------------

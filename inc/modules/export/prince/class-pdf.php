@@ -119,7 +119,7 @@ class Pdf extends Export {
 		// CSS File
 		$css = $this->kneadCss();
 		$css_file = $this->createTmpFile();
-		file_put_contents( $css_file, $css );
+		\Pressbooks\Utility\put_contents( $css_file, $css );
 
 		// --------------------------------------------------------------------
 		// Save PDF as file in exports folder
@@ -145,7 +145,7 @@ class Pdf extends Export {
 		// Prince XML is very flexible. There could be errors but Prince will still render a PDF.
 		// We want to log those errors but we won't alert the user.
 		if ( count( $msg ) ) {
-			$this->logError( file_get_contents( $this->logfile ) );
+			$this->logError( \Pressbooks\Utility\get_contents( $this->logfile ) );
 		}
 
 		return $retval;
@@ -159,7 +159,7 @@ class Pdf extends Export {
 	function validate() {
 		// Is this a PDF?
 		if ( ! $this->isPdf( $this->outputPath ) ) {
-			$this->logError( file_get_contents( $this->logfile ) );
+			$this->logError( \Pressbooks\Utility\get_contents( $this->logfile ) );
 			return false;
 		}
 		return true;
@@ -231,7 +231,7 @@ class Pdf extends Export {
 
 		$styles = Container::get( 'Styles' );
 
-		$scss = file_get_contents( $this->exportStylePath );
+		$scss = \Pressbooks\Utility\get_contents( $this->exportStylePath );
 
 		$custom_styles = $styles->getPrincePost();
 		if ( $custom_styles && ! empty( $custom_styles->post_content ) ) {

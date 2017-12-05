@@ -84,7 +84,8 @@ class SearchAndReplace {
 			return;
 		}
 
-		$search_pattern = $replace_pattern = '';
+		$search_pattern = '';
+		$replace_pattern = '';
 
 		if ( isset( $_POST['search_pattern'] ) ) {
 			$search_pattern  = stripslashes( $_POST['search_pattern'] );

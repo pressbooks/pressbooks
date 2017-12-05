@@ -359,8 +359,8 @@ class Activation {
 						$locale = get_option( 'WPLANG' );
 						if ( ! empty( $locale ) ) {
 							$locale = array_search( $locale, \Pressbooks\L10n\wplang_codes(), true );
-						} elseif ( $locale = get_site_option( 'WPLANG' ) ) {
-							$locale = array_search( $locale, \Pressbooks\L10n\wplang_codes(), true );
+						} elseif ( get_site_option( 'WPLANG' ) ) {
+							$locale = array_search( get_site_option( 'WPLANG' ), \Pressbooks\L10n\wplang_codes(), true );
 						} else {
 							$locale = 'en';
 						}

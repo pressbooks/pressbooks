@@ -33,7 +33,8 @@ class Content extends \Pressbooks\Modules\SearchAndReplace\Search {
 
 		if ( count( $posts ) > 0 ) {
 			foreach ( $posts as $key => $post ) {
-				if ( ( $matches = $this->matches( $pattern, $post->post_content, $post->ID ) ) ) {
+				$matches = $this->matches( $pattern, $post->post_content, $post->ID );
+				if ( $matches ) {
 					foreach ( $matches as $match ) {
 						$match->title = $post->post_title;
 					}

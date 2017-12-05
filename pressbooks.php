@@ -101,7 +101,8 @@ putenv( "LC_CTYPE={$pb_lc_ctype}" );
 // Composer autoloader (if needed)
 // -------------------------------------------------------------------------------------------------------------------
 
-if ( file_exists( $composer = PB_PLUGIN_DIR . 'vendor/autoload.php' ) ) {
+$composer = PB_PLUGIN_DIR . 'vendor/autoload.php';
+if ( file_exists( $composer ) ) {
 	require_once( $composer );
 } else {
 	if ( ! class_exists( '\Illuminate\Container\Container' ) ) {

@@ -55,7 +55,8 @@ class EbookOptions extends \Pressbooks\Options {
 	 * Configure the ebook options tab using the settings API.
 	 */
 	function init() {
-		$_page = $_option = 'pressbooks_theme_options_' . $this->getSlug();
+		$_option = 'pressbooks_theme_options_' . $this->getSlug();
+		$_page = $_option;
 		$_section = $this->getSlug() . '_options_section';
 
 		if ( false === get_option( $_option ) ) {

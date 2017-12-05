@@ -294,7 +294,9 @@ class Footnotes {
 			'~<a[\s]+[^>]*?href[\s]?=[\s"\']+(?:#sdfootnote__REPLACE_ME__sym)["\']+.*?>(?:[^<]+|.*?)?</a>~si', // Libre Office
 		];
 
-		$footnotes = $find = $replace = [];
+		$footnotes = [];
+		$find = [];
+		$replace = [];
 
 		foreach ( $patterns as $i => $pattern ) {
 
@@ -330,7 +332,7 @@ class Footnotes {
 
 		// Send back JSON
 		header( 'Content-Type: application/json' );
-		$json = json_encode(
+		$json = wp_json_encode(
 			[
 				'content' => $html,
 			]

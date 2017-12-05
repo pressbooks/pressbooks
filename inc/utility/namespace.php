@@ -157,7 +157,7 @@ function get_media_prefix() {
  */
 function get_media_path( $guid ) {
 
-	$parts = parse_url( $guid );
+	$parts = wp_parse_url( $guid );
 	$path = $parts['path'];
 	$beginning = strpos( $path, 'files' );
 	if ( $beginning ) {
@@ -270,7 +270,7 @@ function do_sitemap() {
  * @return string Path to temporary file
  */
 function create_tmp_file() {
-	$stream = stream_get_meta_data( $GLOBALS[ mt_rand() ] = tmpfile() );
+	$stream = stream_get_meta_data( $GLOBALS[ mt_rand() ] = tmpfile() ); // @codingStandardsIgnoreLine
 
 	return $stream['uri'];
 }
@@ -422,7 +422,7 @@ function check_saxonhe_install() {
 function show_experimental_features( $host = '' ) {
 
 	if ( ! $host ) {
-		$host = parse_url( network_home_url(), PHP_URL_HOST );
+		$host = wp_parse_url( network_home_url(), PHP_URL_HOST );
 	}
 
 	// hosts where experimental features should be hidden
@@ -615,7 +615,8 @@ function fetch_recommended_plugins() {
 	 *
 	 * @param string $value
 	 */
-	$url = $http_url = apply_filters( 'pb_recommended_plugins_url', 'https://pressbooks-plugins.now.sh' ) . '/api/plugin-recommendations';
+	$http_url = apply_filters( 'pb_recommended_plugins_url', 'https://pressbooks-plugins.now.sh' ) . '/api/plugin-recommendations';
+	$url = $http_url;
 	$ssl = wp_http_supports( [ 'ssl' ] );
 	if ( $ssl ) {
 		$url = set_url_scheme( $url, 'https' );
@@ -1074,7 +1075,7 @@ function absolute_path( $path ) {
 
 	if ( filter_var( $path, FILTER_VALIDATE_URL ) !== false ) {
 		$url = $path;
-		$path = parse_url( $path, PHP_URL_PATH );
+		$path = wp_parse_url( $path, PHP_URL_PATH );
 	}
 
 	$new_path = str_replace( '\\', '/', $path );
@@ -1109,8 +1110,8 @@ function absolute_path( $path ) {
  */
 function urls_have_same_host( $url1, $url2 ) {
 
-	$host1 = parse_url( $url1, PHP_URL_HOST );
-	$host2 = parse_url( $url2, PHP_URL_HOST );
+	$host1 = wp_parse_url( $url1, PHP_URL_HOST );
+	$host2 = wp_parse_url( $url2, PHP_URL_HOST );
 	if ( ! $host1 || ! $host2 ) {
 		return false;
 	}
@@ -1145,4 +1146,52 @@ function get_cache_path() {
 		wp_mkdir_p( $cache );
 	}
 	return $cache;
+}
+
+/**
+ * @see \WP_Filesystem
+ */
+function init_direct_filesystem() {
+	$method = 'direct';
+	if ( ! class_exists( "WP_Filesystem_{$method}" ) ) {
+		$abstraction_file = apply_filters( 'filesystem_method_file', ABSPATH . 'wp-admin/includes/class-wp-filesystem-' . $method . '.php', $method );
+		if ( ! file_exists( $abstraction_file ) ) {
+			return;
+		}
+
+		// Requires
+		require_once( ABSPATH . 'wp-admin/includes/class-wp-filesystem-base.php' );
+		require_once( $abstraction_file );
+
+		// Set the permission constants if not already set.
+		if ( ! defined( 'FS_CHMOD_DIR' ) ) {
+			define( 'FS_CHMOD_DIR', ( fileperms( ABSPATH ) & 0777 | 0755 ) );
+		}
+		if ( ! defined( 'FS_CHMOD_FILE' ) ) {
+			define( 'FS_CHMOD_FILE', ( fileperms( ABSPATH . 'index.php' ) & 0777 | 0644 ) );
+		}
+	}
+}
+
+/**
+ * @param string $filename
+ *
+ * @return bool|string
+ */
+function get_contents( $filename ) {
+	init_direct_filesystem();
+	return ( new \WP_Filesystem_Direct( [] ) )
+		->get_contents( $filename );
+}
+
+/**
+ * @param string $filename
+ * @param mixed $data
+ *
+ * @return bool
+ */
+function put_contents( $filename, $data ) {
+	init_direct_filesystem();
+	return ( new \WP_Filesystem_Direct( [] ) )
+		->put_contents( $filename, $data );
 }

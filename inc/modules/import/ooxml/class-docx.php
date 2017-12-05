@@ -373,7 +373,7 @@ class Docx extends Import {
 		}
 
 		$tmp_name = $this->createTmpFile();
-		file_put_contents( $tmp_name, $image_content );
+		\Pressbooks\Utility\put_contents( $tmp_name, $image_content );
 
 		if ( ! \Pressbooks\Image\is_valid_image( $tmp_name, $filename ) ) {
 

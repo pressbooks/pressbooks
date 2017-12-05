@@ -95,9 +95,9 @@ class Odt extends Export {
 		$source = $content_path['dirname'] . '/source.xhtml';
 
 		if ( defined( 'WP_TESTS_MULTISITE' ) ) {
-			file_put_contents( $source, file_get_contents( $this->url ) );
+			\Pressbooks\Utility\put_contents( $source, \Pressbooks\Utility\get_contents( $this->url ) );
 		} else {
-			file_put_contents( $source, $this->queryXhtml() );
+			\Pressbooks\Utility\put_contents( $source, $this->queryXhtml() );
 		}
 
 		$xslt = PB_PLUGIN_DIR . 'inc/modules/export/odt/xhtml2odt.xsl';
@@ -113,7 +113,7 @@ class Odt extends Export {
 			$this->deleteDirectory( $mediafolder );
 		}
 
-		$urlcontent = file_get_contents( $source );
+		$urlcontent = \Pressbooks\Utility\get_contents( $source );
 		$urlcontent = preg_replace( '/xmlns\="http\:\/\/www\.w3\.org\/1999\/xhtml"/i', '', $urlcontent );
 
 		if ( empty( $urlcontent ) ) {
@@ -177,7 +177,7 @@ class Odt extends Export {
 			}
 		}
 
-		file_put_contents( $source, $doc->saveXML() );
+		\Pressbooks\Utility\put_contents( $source, $doc->saveXML() );
 
 		$errors = libxml_get_errors(); // TODO: Handle errors gracefully
 		libxml_clear_errors();
@@ -298,7 +298,7 @@ class Odt extends Export {
 		// Is this an ODT?
 		if ( ! $this->isOdt( $this->outputPath ) ) {
 
-			$this->logError( file_get_contents( $this->logfile ) );
+			$this->logError( \Pressbooks\Utility\get_contents( $this->logfile ) );
 
 			return false;
 		}
@@ -371,7 +371,7 @@ class Odt extends Export {
 		$filename = explode( '?', basename( $url ) );
 
 		// isolate latex image service from WP, add file extension
-		$host = parse_url( $url, PHP_URL_HOST );
+		$host = wp_parse_url( $url, PHP_URL_HOST );
 		if ( ( str_ends_with( $host, 'wordpress.com' ) || str_ends_with( $host, 'wp.com' ) ) && 'latex.php' === $filename[0] ) {
 			$filename = md5( array_pop( $filename ) );
 			// content-type = 'image/png'
@@ -386,7 +386,7 @@ class Odt extends Export {
 		}
 
 		$tmp_file = \Pressbooks\Utility\create_tmp_file();
-		file_put_contents( $tmp_file, wp_remote_retrieve_body( $response ) );
+		\Pressbooks\Utility\put_contents( $tmp_file, wp_remote_retrieve_body( $response ) );
 
 		if ( ! \Pressbooks\Image\is_valid_image( $tmp_file, $filename ) ) {
 			$already_done[ $url ] = '';
@@ -402,7 +402,7 @@ class Odt extends Export {
 		// Check for duplicates, save accordingly
 		if ( ! file_exists( "$fullpath/$filename" ) ) {
 			copy( $tmp_file, "$fullpath/$filename" );
-		} elseif ( md5( file_get_contents( $tmp_file ) ) !== md5( file_get_contents( "$fullpath/$filename" ) ) ) {
+		} elseif ( md5( \Pressbooks\Utility\get_contents( $tmp_file ) ) !== md5( \Pressbooks\Utility\get_contents( "$fullpath/$filename" ) ) ) {
 			$filename = wp_unique_filename( $fullpath, $filename );
 			copy( $tmp_file, "$fullpath/$filename" );
 		}

@@ -246,7 +246,11 @@ class Wxr extends Import {
 	 */
 	protected function pbCheck( array $xml ) {
 
-		$pt = $ch = $fm = $bm = $meta = 0;
+		$pt = 0;
+		$ch = 0;
+		$fm = 0;
+		$bm = 0;
+		$meta = 0;
 
 		foreach ( $xml['posts'] as $p ) {
 

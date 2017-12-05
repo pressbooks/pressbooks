@@ -352,7 +352,7 @@ class Styles {
 	public function customizeWeb( $overrides = [] ) {
 		$path = $this->getPathToWebScss();
 		if ( $path ) {
-			return $this->customize( 'web', file_get_contents( $path ), $overrides );
+			return $this->customize( 'web', \Pressbooks\Utility\get_contents( $path ), $overrides );
 		}
 		return '';
 	}
@@ -365,7 +365,7 @@ class Styles {
 	public function customizePrince( $overrides = [] ) {
 		$path = $this->getPathToPrinceScss();
 		if ( $path ) {
-			return $this->customize( 'prince', file_get_contents( $path ), $overrides );
+			return $this->customize( 'prince', \Pressbooks\Utility\get_contents( $path ), $overrides );
 		}
 		return '';
 	}
@@ -378,7 +378,7 @@ class Styles {
 	public function customizeEpub( $overrides = [] ) {
 		$path = $this->getPathToEpubScss();
 		if ( $path ) {
-			return $this->customize( 'epub', file_get_contents( $path ), $overrides );
+			return $this->customize( 'epub', \Pressbooks\Utility\get_contents( $path ), $overrides );
 		}
 		return '';
 	}
@@ -468,7 +468,7 @@ class Styles {
 
 		foreach ( $scan as $token => $replace_with ) {
 			if ( is_file( $replace_with ) ) {
-				$css = str_replace( $token, file_get_contents( $replace_with ), $css );
+				$css = str_replace( $token, \Pressbooks\Utility\get_contents( $replace_with ), $css );
 			}
 		}
 
@@ -488,9 +488,9 @@ class Styles {
 		$scss = '$url-base: \'' . get_stylesheet_directory_uri() . "/';\n";
 
 		if ( $this->isCurrentThemeCompatible( 1 ) ) {
-			$scss .= file_get_contents( realpath( get_stylesheet_directory() . '/style.scss' ) );
+			$scss .= \Pressbooks\Utility\get_contents( realpath( get_stylesheet_directory() . '/style.scss' ) );
 		} elseif ( $this->isCurrentThemeCompatible( 2 ) ) {
-			$scss .= file_get_contents( realpath( get_stylesheet_directory() . '/assets/styles/web/style.scss' ) );
+			$scss .= \Pressbooks\Utility\get_contents( realpath( get_stylesheet_directory() . '/assets/styles/web/style.scss' ) );
 		} else {
 			return;
 		}
@@ -505,7 +505,7 @@ class Styles {
 		$css = \Pressbooks\Sanitize\normalize_css_urls( $css );
 
 		$css_file = $this->sass->pathToUserGeneratedCss() . '/style.css';
-		file_put_contents( $css_file, $css );
+		\Pressbooks\Utility\put_contents( $css_file, $css );
 	}
 
 	/**
@@ -561,8 +561,8 @@ class Styles {
 	 * @return string
 	 */
 	public function renderDropdownForSlugs( $slug ) {
-
-		$select_id = $select_name = 'slug';
+		$select_name = 'slug';
+		$select_id = $select_name;
 		$redirect_url = get_admin_url( get_current_blog_id(), '/themes.php?page=' . $this::PAGE . '&slug=' );
 		$html = '';
 

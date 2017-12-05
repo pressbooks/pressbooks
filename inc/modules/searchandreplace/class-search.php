@@ -56,8 +56,7 @@ abstract class Search {
 			$regex_error = preg_replace( '/(.*?):/', '', $errstr, 1 );
 		};
 		set_error_handler( $error_handler );
-		// @codingStandardsIgnoreLine
-		$valid = @preg_match( $expr, null, $matches );
+		$valid = @preg_match( $expr, null, $matches ); // @codingStandardsIgnoreLine
 		restore_error_handler();
 		if ( false === $valid ) {
 			return $regex_error;

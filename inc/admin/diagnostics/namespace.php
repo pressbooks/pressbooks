@@ -162,7 +162,7 @@ if ( $opcache ) {
 $output .= 'XDebug: ' . ( extension_loaded( 'xdebug' ) ? 'Enabled' : 'Disabled' ) . "\n";
 $output .= 'cURL: ' . ( function_exists( 'curl_init' ) ? 'Supported' : 'Not Supported' ) . "\n";
 if ( function_exists( 'curl_init' ) && function_exists( 'curl_version' ) ) {
-	$curl_values = curl_version();
+	$curl_values = curl_version(); // @codingStandardsIgnoreLine
 	$output .= 'cURL Version: ' . $curl_values['version'] . "\n";
 }
 $output .= 'imagick: ' . ( extension_loaded( 'imagick' ) ? 'Installed' : 'Not Installed' ) . "\n";

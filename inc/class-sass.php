@@ -309,18 +309,16 @@ class Sass {
 	 * @param string $css
 	 * @param string $scss
 	 * @param string $filename
-	 *
-	 * @param string $filename
 	 */
 	public function debug( $css, $scss, $filename ) {
 
 		$debug_dir = $this->pathToDebugDir();
 
 		$css_debug_file = $debug_dir . "/{$filename}.css";
-		file_put_contents( $css_debug_file, $css );
+		\Pressbooks\Utility\put_contents( $css_debug_file, $css );
 
 		$scss_debug_file = $debug_dir . "/{$filename}.scss";
-		file_put_contents( $scss_debug_file, $scss );
+		\Pressbooks\Utility\put_contents( $scss_debug_file, $scss );
 	}
 
 	/**

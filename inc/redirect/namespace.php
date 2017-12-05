@@ -382,7 +382,8 @@ function do_open() {
 				}
 
 				// Force download
-				@set_time_limit( 0 ); // @codingStandardsIgnoreLine
+				// @codingStandardsIgnoreStart
+				@set_time_limit( 0 );
 				header( 'Content-Description: File Transfer' );
 				header( 'Content-Type: ' . \Pressbooks\Modules\Export\Export::mimeType( $filepath ) );
 				header( 'Content-Disposition: attachment; filename="' . $book_title_slug . '.' . $file_ext . '"' );
@@ -391,12 +392,13 @@ function do_open() {
 				header( 'Cache-Control: must-revalidate, post-check=0, pre-check=0' );
 				header( 'Pragma: public' );
 				header( 'Content-Length: ' . filesize( $filepath ) );
-				@ob_clean(); // @codingStandardsIgnoreLine
+				@ob_clean();
 				flush();
-				while ( @ob_end_flush() ) { // @codingStandardsIgnoreLine
+				while ( @ob_end_flush() ) {
 					// Fix out-of-memory problem
 				}
 				readfile( $filepath );
+				// @codingStandardsIgnoreEnd
 
 				exit;
 			}
@@ -426,7 +428,7 @@ function redirect_away_from_bad_urls() {
 		return; // Do nothing
 	}
 
-	$check_against_url = parse_url( ( is_ssl() ? 'http://' : 'https://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'], PHP_URL_PATH );
+	$check_against_url = wp_parse_url( ( is_ssl() ? 'http://' : 'https://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'], PHP_URL_PATH );
 	$redirect_url = get_site_url( get_current_blog_id(), '/wp-admin/' );
 	$trash_url = get_site_url( get_current_blog_id(), '/wp-admin/edit.php?post_type=chapter&page=trash' );
 

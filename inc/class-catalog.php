@@ -1315,8 +1315,8 @@ class Catalog {
 			$redirect_url = get_admin_url( get_current_blog_id(), '/index.php?page=pb_catalog' );
 		}
 
-		$url = parse_url( \Pressbooks\Sanitize\canonicalize_url( $_REQUEST['add_book_by_url'] ) );
-		$main = parse_url( network_home_url() );
+		$url = wp_parse_url( \Pressbooks\Sanitize\canonicalize_url( $_REQUEST['add_book_by_url'] ) );
+		$main = wp_parse_url( network_home_url() );
 
 		if ( strpos( $url['host'], $main['host'] ) === false ) {
 			$_SESSION['pb_errors'][] = __( 'Invalid URL.', 'pressbooks' );

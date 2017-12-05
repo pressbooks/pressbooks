@@ -200,9 +200,9 @@ class Lock {
 			'timestamp' => $time,
 			'features' => $theme_features,
 		];
-		$json = json_encode( $data );
+		$json = wp_json_encode( $data );
 		$lockfile = $this->getLockDir() . '/lock.json';
-		file_put_contents( $lockfile, $json );
+		\Pressbooks\Utility\put_contents( $lockfile, $json );
 		return $data;
 	}
 
@@ -236,7 +236,7 @@ class Lock {
 	 * @return array
 	 */
 	public function getLockData() {
-		$json = file_get_contents( $this->getLockDir( false ) . '/lock.json' );
+		$json = \Pressbooks\Utility\get_contents( $this->getLockDir( false ) . '/lock.json' );
 		$output = json_decode( $json, true );
 		return $output;
 	}
@@ -265,7 +265,7 @@ class Lock {
 
 			// Redirect and notify users of theme lock status.
 
-			$check_against_url = parse_url( ( is_ssl() ? 'http://' : 'https://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'], PHP_URL_PATH );
+			$check_against_url = wp_parse_url( ( is_ssl() ? 'http://' : 'https://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'], PHP_URL_PATH );
 			$redirect_url = get_site_url( get_current_blog_id(), '/wp-admin/' );
 
 			// ---------------------------------------------------------------------------------------------------------------

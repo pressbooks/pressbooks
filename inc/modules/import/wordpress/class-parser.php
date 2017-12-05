@@ -25,13 +25,18 @@ class Parser {
 		// Setup & sanity check
 		// ------------------------------------------------------------------------------------------------------------
 
-		$authors = $posts = $categories = $tags = $terms = [];
+		$authors = [];
+		$posts = [];
+		$categories = [];
+		$tags = [];
+		$terms = [];
+
 		libxml_use_internal_errors( true );
 
 		$old_value = libxml_disable_entity_loader( true );
 		$dom = new \DOMDocument;
 		$dom->recover = true; // Try to parse non-well formed documents
-		$success = $dom->loadXML( file_get_contents( $file ) );
+		$success = $dom->loadXML( \Pressbooks\Utility\get_contents( $file ) );
 		foreach ( $dom->childNodes as $child ) {
 			if ( XML_DOCUMENT_TYPE_NODE === $child->nodeType ) {
 				// Invalid XML: Detected use of disallowed DOCTYPE

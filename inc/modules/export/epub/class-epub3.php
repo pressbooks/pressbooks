@@ -173,7 +173,7 @@ class Epub3 extends Epub201 {
 	 */
 	protected function getProperties( $html_file ) {
 
-		$html = file_get_contents( $html_file );
+		$html = \Pressbooks\Utility\get_contents( $html_file );
 		$properties = [];
 
 		if ( empty( $html ) ) {
@@ -367,7 +367,7 @@ class Epub3 extends Epub201 {
 		$filename = Sanitize\force_ascii( $filename );
 
 		$tmp_file = \Pressbooks\Utility\create_tmp_file();
-		file_put_contents( $tmp_file, wp_remote_retrieve_body( $response ) );
+		\Pressbooks\Utility\put_contents( $tmp_file, wp_remote_retrieve_body( $response ) );
 
 		if ( ! \Pressbooks\Media\is_valid_media( $tmp_file, $filename ) ) {
 			$this->fetchedMediaCache[ $url ] = '';
@@ -377,7 +377,7 @@ class Epub3 extends Epub201 {
 		// Check for duplicates, save accordingly
 		if ( ! file_exists( "$fullpath/$filename" ) ) {
 			copy( $tmp_file, "$fullpath/$filename" );
-		} elseif ( md5( file_get_contents( $tmp_file ) ) !== md5( file_get_contents( "$fullpath/$filename" ) ) ) {
+		} elseif ( md5( \Pressbooks\Utility\get_contents( $tmp_file ) ) !== md5( \Pressbooks\Utility\get_contents( "$fullpath/$filename" ) ) ) {
 			$filename = wp_unique_filename( $fullpath, $filename );
 			copy( $tmp_file, "$fullpath/$filename" );
 		}
@@ -468,7 +468,7 @@ class Epub3 extends Epub201 {
 		$vars['meta'] = $metadata;
 
 		// Put contents
-		file_put_contents(
+		\Pressbooks\Utility\put_contents(
 			$this->tmpDir . '/book.opf',
 			$this->loadTemplate( $this->dir . '/templates/epub3/opf.php', $vars )
 		);
@@ -497,13 +497,13 @@ class Epub3 extends Epub201 {
 			'lang' => $this->lang,
 		];
 
-		file_put_contents(
+		\Pressbooks\Utility\put_contents(
 			$this->tmpDir . '/toc.xhtml',
 			$this->loadTemplate( $this->dir . '/templates/epub3/toc.php', $vars )
 		);
 
 		// For backwards compatibility
-		file_put_contents(
+		\Pressbooks\Utility\put_contents(
 			$this->tmpDir . '/toc.ncx',
 			$this->loadTemplate( $this->dir . '/templates/epub201/ncx.php', $vars )
 		);

@@ -46,7 +46,7 @@ class Xhtml extends Import {
 
 		}
 
-		$url = parse_url( $current_import['file'] );
+		$url = wp_parse_url( $current_import['file'] );
 		// get parent directory (with forward slash e.g. /parent)
 		$path = dirname( $url['path'] );
 
@@ -144,7 +144,7 @@ class Xhtml extends Import {
 			return $license;
 		}
 		// look for creativecommons domain
-		$parts = parse_url( $url );
+		$parts = wp_parse_url( $url );
 
 		if ( 'http' === $parts['scheme'] && 'creativecommons.org' === $parts['host'] ) {
 			// extract the license information from it

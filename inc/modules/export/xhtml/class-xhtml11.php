@@ -118,7 +118,7 @@ class Xhtml11 extends Export {
 		// Save XHTML as file in exports folder
 
 		$filename = $this->timestampedFileName( '.html' );
-		file_put_contents( $filename, $output );
+		\Pressbooks\Utility\put_contents( $filename, $output );
 		$this->outputPath = $filename;
 
 		return true;
@@ -1073,7 +1073,8 @@ class Xhtml11 extends Export {
 		$chapter_printf .= '<div class="ugc chapter-ugc">%s</div>%s%s';
 		$chapter_printf .= '</div>';
 
-		$i = $j = 1;
+		$i = 1;
+		$j = 1;
 		foreach ( $book_contents['part'] as $part ) {
 
 			$invisibility = ( get_post_meta( $part['ID'], 'pb_part_invisible', true ) === 'on' ) ? 'invisible' : '';
@@ -1228,7 +1229,7 @@ class Xhtml11 extends Export {
 		$back_matter_printf .= '<div class="ugc back-matter-ugc">%s</div>%s%s';
 		$back_matter_printf .= '</div>';
 
-		$i = $s = 1;
+		$i = 1;
 		foreach ( $book_contents['back-matter'] as $back_matter ) {
 
 			if ( ! $back_matter['export'] ) {

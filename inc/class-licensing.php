@@ -274,7 +274,7 @@ class Licensing {
 
 				$url =
 					$endpoint . $key[0] . '/' . $val[0] . '/get?' . $key[1] . '=' . $val[1] . '&' . $key[2] . '=' . $val[2] .
-					'&creator=' . urlencode( $copyright_holder ) . '&attribution_url=' . urlencode( $src_url ) . '&title=' . urlencode( $title ) . '&locale=' . $lang;
+					'&creator=' . rawurlencode( $copyright_holder ) . '&attribution_url=' . rawurlencode( $src_url ) . '&title=' . rawurlencode( $title ) . '&locale=' . $lang;
 				if ( $year ) {
 					$url .= '&year=' . (int) $year;
 				}

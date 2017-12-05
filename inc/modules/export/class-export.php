@@ -520,7 +520,7 @@ abstract class Export {
 		$path_to_htaccess = $path . '.htaccess';
 		if ( ! file_exists( $path_to_htaccess ) ) {
 			// Restrict access
-			file_put_contents( $path_to_htaccess, "deny from all\n" );
+			\Pressbooks\Utility\put_contents( $path_to_htaccess, "deny from all\n" );
 		}
 
 		return $path;
@@ -827,7 +827,8 @@ abstract class Export {
 		}
 
 		// Force download
-		@set_time_limit( 0 ); // @codingStandardsIgnoreLine
+		// @codingStandardsIgnoreStart
+		@set_time_limit( 0 );
 		header( 'Content-Description: File Transfer' );
 		header( 'Content-Type: ' . static::mimeType( $filepath ) );
 		if ( $inline ) {
@@ -840,11 +841,12 @@ abstract class Export {
 		header( 'Cache-Control: must-revalidate, post-check=0, pre-check=0' );
 		header( 'Pragma: public' );
 		header( 'Content-Length: ' . filesize( $filepath ) );
-		@ob_clean(); // @codingStandardsIgnoreLine
+		@ob_clean();
 		flush();
-		while ( @ob_end_flush() ) { // @codingStandardsIgnoreLine
+		while ( @ob_end_flush() ) {
 			// Fix out-of-memory problem
 		}
 		readfile( $filepath );
+		// @codingStandardsIgnoreEnd
 	}
 }

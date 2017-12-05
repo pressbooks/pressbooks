@@ -109,7 +109,7 @@ class VanillaWxr extends Wxr {
 
 		// save wxr as file in exports folder
 		$filename = $this->timestampedFileName( '._vanilla.xml' );
-		file_put_contents( $filename, $output );
+		\Pressbooks\Utility\put_contents( $filename, $output );
 		$this->outputPath = $filename;
 
 		return true;

@@ -548,7 +548,7 @@ class Book {
 			$section->setAttribute( 'class', 'section-header' );
 		}
 		$xpath = new \DOMXPath( $dom );
-		while ( ( $nodes = $xpath->query( '//*[not(text() or node() or self::br or self::hr or self::img)]' ) ) && $nodes->length > 0 ) {
+		while ( ( $nodes = $xpath->query( '//*[not(text() or node() or self::br or self::hr or self::img)]' ) ) && $nodes->length > 0 ) { // @codingStandardsIgnoreLine
 			foreach ( $nodes as $node ) {
 				/** @var $node \DOMElement */
 				$node->appendChild( new \DOMText( '' ) );
