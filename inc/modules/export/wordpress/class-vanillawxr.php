@@ -34,7 +34,7 @@ class VanillaWxr extends Wxr {
 
 		// check for errors
 		if ( ! $success ) {
-			throw new \Exception( print_r( libxml_get_errors(), true ) );
+			throw new \Exception( print_r( libxml_get_errors(), true ) ); // @codingStandardsIgnoreLine
 		}
 
 		for ( $i = 0; $i < $post_type->length; $i++ ) {
@@ -78,7 +78,7 @@ class VanillaWxr extends Wxr {
 
 		// sanity
 		if ( ! $xml ) {
-			throw new \Exception( print_r( libxml_get_errors(), true ) );
+			throw new \Exception( print_r( libxml_get_errors(), true ) ); // @codingStandardsIgnoreLine
 		}
 
 		$category = $xml->xpath( '/rss/channel/item/category' );

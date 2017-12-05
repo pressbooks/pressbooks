@@ -9,6 +9,7 @@ namespace Pressbooks\Modules\Export\Epub;
 
 use Pressbooks\Sanitize;
 use function \Pressbooks\Sanitize\sanitize_xml_attribute;
+use function \Pressbooks\Utility\debug_error_log;
 
 class Epub3 extends Epub201 {
 
@@ -236,7 +237,7 @@ class Epub3 extends Epub201 {
 				}
 			}
 		} catch ( \Exception $e ) {
-			error_log( $e );
+			debug_error_log( $e );
 		}
 
 		return false;
@@ -353,8 +354,7 @@ class Epub3 extends Epub201 {
 				}
 			} catch ( \Exception $exc ) {
 				$this->fetchedImageCache[ $url ] = '';
-				error_log( '\PressBooks\Export\Epub3\fetchAndSaveUniqueMedia wp_error on wp_remote_get() - ' . $response->get_error_message() . ' - ' . $exc->getMessage() );
-
+				debug_error_log( '\PressBooks\Export\Epub3\fetchAndSaveUniqueMedia wp_error on wp_remote_get() - ' . $response->get_error_message() . ' - ' . $exc->getMessage() );
 				return '';
 			}
 		}

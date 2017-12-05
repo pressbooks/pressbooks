@@ -15,6 +15,7 @@ use Pressbooks\Container;
 use Pressbooks\Sanitize;
 use function \Pressbooks\Sanitize\sanitize_xml_attribute;
 use function \Pressbooks\Utility\str_ends_with;
+use function \Pressbooks\Utility\debug_error_log;
 
 class Epub201 extends Export {
 
@@ -1885,8 +1886,7 @@ class Epub201 extends Export {
 				}
 			} catch ( \Exception $exc ) {
 				$this->fetchedImageCache[ $url ] = '';
-				error_log( '\PressBooks\Export\Epub201\fetchAndSaveUniqueImage wp_error on wp_remote_get() - ' . $response->get_error_message() . ' - ' . $exc->getMessage() );
-
+				debug_error_log( '\PressBooks\Export\Epub201\fetchAndSaveUniqueImage wp_error on wp_remote_get() - ' . $response->get_error_message() . ' - ' . $exc->getMessage() );
 				return '';
 			}
 		}
@@ -1914,7 +1914,7 @@ class Epub201 extends Export {
 
 		if ( ! \Pressbooks\Image\is_valid_image( $tmp_file, $filename ) ) {
 			$this->fetchedImageCache[ $url ] = '';
-			error_log( '\PressBooks\Export\Epub201\fetchAndSaveUniqueImage is_valid_image, not a valid image ' );
+			debug_error_log( '\PressBooks\Export\Epub201\fetchAndSaveUniqueImage is_valid_image, not a valid image ' );
 			return ''; // Not an image
 		}
 

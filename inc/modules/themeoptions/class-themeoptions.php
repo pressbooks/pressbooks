@@ -6,6 +6,8 @@
 
 namespace Pressbooks\Modules\ThemeOptions;
 
+use function \Pressbooks\Utility\debug_error_log;
+
 /**
  * Not a subclass of \Pressbooks\Options!
  * Handles initialization of Theme Options admin menu
@@ -108,8 +110,8 @@ class ThemeOptions {
 			if ( $tab::VERSION !== null && $version < $tab::VERSION ) {
 				$tab->upgrade( $version );
 				update_option( "pressbooks_theme_options_{$slug}_version", $tab::VERSION, false );
-				if ( WP_DEBUG && ! defined( 'WP_TESTS_MULTISITE' ) ) {
-					error_log( 'Upgraded ' . $slug . ' options from version ' . $version . ' --> ' . $tab::VERSION );
+				if ( ! defined( 'WP_TESTS_MULTISITE' ) ) {
+					debug_error_log( 'Upgraded ' . $slug . ' options from version ' . $version . ' --> ' . $tab::VERSION );
 				}
 			}
 		}

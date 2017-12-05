@@ -6,6 +6,8 @@
 
 namespace Pressbooks;
 
+use function \Pressbooks\Utility\debug_error_log;
+
 class Licensing {
 
 	/**
@@ -288,7 +290,7 @@ class Licensing {
 					if ( ! is_wp_error( $xml ) ) {
 						$xml = $xml['body'];
 					} else {
-						\error_log( '\Pressbooks\Licensing::getLicenseXml() error: ' . $xml->get_error_message() );
+						debug_error_log( '\Pressbooks\Licensing::getLicenseXml() error: ' . $xml->get_error_message() );
 						$xml = '';
 					}
 				}

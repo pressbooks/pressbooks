@@ -627,6 +627,7 @@ function fetch_recommended_plugins() {
 		]
 	);
 	if ( $ssl && is_wp_error( $request ) ) {
+		// @codingStandardsIgnoreLine
 		trigger_error(
 			__( 'An unexpected error occurred. Something may be wrong with the plugin recommendations server or your site&#8217;s server&#8217;s configuration.', 'pressbooks' ) . ' ' . __( '(Pressbooks could not establish a secure connection to the plugin recommendations server. Please contact your server administrator.)', 'pressbooks' ),
 			headers_sent() || WP_DEBUG ? E_USER_WARNING : E_USER_NOTICE
@@ -744,6 +745,15 @@ function format_bytes( $bytes, $precision = 2 ) {
 	return round( $bytes, $precision ) . ' ' . $units[ $pow ];
 }
 
+/**
+ * @param $message
+ * @param null $message_type
+ */
+function debug_error_log( $message, $message_type = null ) {
+	if ( WP_DEBUG ) {
+		\error_log( $message, $message_type ); // @codingStandardsIgnoreLine
+	}
+}
 
 /**
  * Email error to an array of recipients
@@ -757,7 +767,7 @@ function email_error_log( $emails, $subject, $message ) {
 	// ------------------------------------------------------------------------------------------------------------
 	// Write to generic error log to be safe
 
-	error_log( $subject . "\n" . $message );
+	debug_error_log( $subject . "\n" . $message );
 
 	// ------------------------------------------------------------------------------------------------------------
 	// Email logs
@@ -1150,16 +1160,11 @@ function get_cache_path() {
 
 /**
  * @see \WP_Filesystem
+ * @return \WP_Filesystem_Direct
  */
 function init_direct_filesystem() {
-	$method = 'direct';
-	if ( ! class_exists( "WP_Filesystem_{$method}" ) ) {
-		$abstraction_file = apply_filters( 'filesystem_method_file', ABSPATH . 'wp-admin/includes/class-wp-filesystem-' . $method . '.php', $method );
-		if ( ! file_exists( $abstraction_file ) ) {
-			return;
-		}
-
-		// Requires
+	if ( ! class_exists( 'WP_Filesystem_Direct' ) ) {
+		$abstraction_file = apply_filters( 'filesystem_method_file', ABSPATH . 'wp-admin/includes/class-wp-filesystem-direct.php', 'direct' ); // Use for mocks / testing
 		require_once( ABSPATH . 'wp-admin/includes/class-wp-filesystem-base.php' );
 		require_once( $abstraction_file );
 
@@ -1171,6 +1176,7 @@ function init_direct_filesystem() {
 			define( 'FS_CHMOD_FILE', ( fileperms( ABSPATH . 'index.php' ) & 0777 | 0644 ) );
 		}
 	}
+	return new \WP_Filesystem_Direct( [] );
 }
 
 /**
@@ -1179,9 +1185,8 @@ function init_direct_filesystem() {
  * @return bool|string
  */
 function get_contents( $filename ) {
-	init_direct_filesystem();
-	return ( new \WP_Filesystem_Direct( [] ) )
-		->get_contents( $filename );
+	$fs = init_direct_filesystem();
+	return $fs->get_contents( $filename );
 }
 
 /**
@@ -1191,7 +1196,6 @@ function get_contents( $filename ) {
  * @return bool
  */
 function put_contents( $filename, $data ) {
-	init_direct_filesystem();
-	return ( new \WP_Filesystem_Direct( [] ) )
-		->put_contents( $filename, $data );
+	$fs = init_direct_filesystem();
+	return $fs->put_contents( $filename, $data );
 }

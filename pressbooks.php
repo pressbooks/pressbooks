@@ -11,6 +11,8 @@ License: GPLv2
 Network: True
 */
 
+use function \Pressbooks\Utility\debug_error_log;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	return;
 }
@@ -19,7 +21,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Turn on $_SESSION
 // -------------------------------------------------------------------------------------------------------------------
 
-function _pb_session_start() { // @codingStandardsIgnoreLine
+// @codingStandardsIgnoreStart
+function _pb_session_start() {
 	if ( ! session_id() ) {
 		if ( ! headers_sent() ) {
 			ini_set( 'session.use_only_cookies', true );
@@ -42,15 +45,16 @@ function _pb_session_start() { // @codingStandardsIgnoreLine
 			);
 			session_start();
 		} else {
-			error_log( 'There was a problem with _pb_session_start(), headers already sent!' );
+			debug_error_log( 'There was a problem with _pb_session_start(), headers already sent!' );
 		}
 	}
 }
 
-function _pb_session_kill() { // @codingStandardsIgnoreLine
+function _pb_session_kill() {
 	$_SESSION = [];
 	session_destroy();
 }
+// @codingStandardsIgnoreEnd
 
 add_action( 'init', '_pb_session_start', 1 );
 add_action( 'wp_logout', '_pb_session_kill' );
@@ -106,6 +110,7 @@ if ( file_exists( $composer ) ) {
 	require_once( $composer );
 } else {
 	if ( ! class_exists( '\Illuminate\Container\Container' ) ) {
+		/* translators: 1: URL to Composer documentation, 2: URL to Pressbooks latest releases */
 		die( sprintf( __( 'Pressbooks dependencies are missing. Please make sure that your project&rsquo;s <a href="%1$s">Composer autoload file</a> is being required, or use the <a href="%2$s">latest release</a> instead.', 'pressbooks' ), 'https://getcomposer.org/doc/01-basic-usage.md#autoloading', 'https://github.com/pressbooks/pressbooks/releases/latest/' ) );
 	}
 }

@@ -211,7 +211,7 @@ abstract class Export {
 			'theme' => '' . wp_get_theme(), // Stringify by appending to empty string
 		];
 
-		$message = print_r( array_merge( $info, $more_info ), true ) . $message;
+		$message = print_r( array_merge( $info, $more_info ), true ) . $message; // @codingStandardsIgnoreLine
 		$exportoptions = get_option( 'pressbooks_export_options' );
 		if ( $current_user->user_email && isset( $exportoptions['email_validation_logs'] ) && 1 === absint( $exportoptions['email_validation_logs'] ) ) {
 			$this->errorsEmail[] = $current_user->user_email;

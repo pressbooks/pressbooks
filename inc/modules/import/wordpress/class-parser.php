@@ -46,17 +46,19 @@ class Parser {
 		}
 		libxml_disable_entity_loader( $old_value );
 
+		// @codingStandardsIgnoreStart
 		if ( ! $success || isset( $dom->doctype ) ) {
 			throw new \Exception( print_r( libxml_get_errors(), true ) );
 		}
 
-		$xml = @simplexml_import_dom( $dom ); // @codingStandardsIgnoreLine
+		$xml = @simplexml_import_dom( $dom );
 		unset( $dom );
 
 		// halt if loading produces an error
 		if ( ! $xml ) {
 			throw new \Exception( print_r( libxml_get_errors(), true ) );
 		}
+		// @codingStandardsIgnoreEnd
 
 		$wxr_version = $xml->xpath( '/rss/channel/wp:wxr_version' );
 		if ( ! $wxr_version ) {

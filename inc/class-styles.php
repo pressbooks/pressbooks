@@ -6,6 +6,8 @@
 
 namespace Pressbooks;
 
+use function \Pressbooks\Utility\debug_error_log;
+
 /**
  * Custom Styles Feature(s)
  */
@@ -643,12 +645,12 @@ class Styles {
 			$redirect_url = get_admin_url( get_current_blog_id(), '/themes.php?page=' . $this::PAGE . '&slug=' . $slug );
 
 			if ( ! isset( $_POST['post_id'], $_POST['post_id_integrity'] ) ) {
-				error_log( __METHOD__ . ' error: Missing post ID' );
+				debug_error_log( __METHOD__ . ' error: Missing post ID' );
 				\Pressbooks\Redirect\location( $redirect_url . '&custom_styles_error=true' );
 			}
 			if ( md5( NONCE_KEY . $_POST['post_id'] ) !== $_POST['post_id_integrity'] ) {
 				// A hacker trying to overwrite posts?.
-				error_log( __METHOD__ . ' error: unexpected value for post_id_integrity' );
+				debug_error_log( __METHOD__ . ' error: unexpected value for post_id_integrity' );
 				\Pressbooks\Redirect\location( $redirect_url . '&custom_styles_error=true' );
 			}
 
@@ -666,7 +668,7 @@ class Styles {
 
 			if ( is_wp_error( $response ) ) {
 				// Something went wrong?
-				error_log( __METHOD__ . ' error, wp_update_post(): ' . $response->get_error_message() );
+				debug_error_log( __METHOD__ . ' error, wp_update_post(): ' . $response->get_error_message() );
 				\Pressbooks\Redirect\location( $redirect_url . '&custom_styles_error=true' );
 			}
 

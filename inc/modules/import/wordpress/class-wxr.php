@@ -407,7 +407,10 @@ class Wxr extends Import {
 			foreach ( $meta_to_update as $meta_key ) {
 				$meta_val = $this->searchForMetaValue( $meta_key, $p['postmeta'] );
 				if ( is_serialized( $meta_val ) ) {
-					$meta_val = unserialize( $meta_val );
+					$meta_val = unserialize( $meta_val ); // @codingStandardsIgnoreLine
+					if ( is_object( $meta_val ) ) {
+						continue; // Hack attempt?
+					}
 				}
 				if ( $meta_val ) {
 					update_post_meta( $pid, $meta_key, $meta_val );

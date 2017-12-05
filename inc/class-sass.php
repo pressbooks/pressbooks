@@ -191,10 +191,11 @@ class Sass {
 			}
 		} catch ( \Exception $e ) {
 
+			$error_message = print_r( $sass->getParsedFiles(), true ); // @codingStandardsIgnoreLine
 			$_SESSION['pb_errors'][] = sprintf(
 				__( 'There was a problem with SASS. Contact your site administrator. Error: %1$s %2$s', 'pressbooks' ),
 				$e->getMessage(),
-				'<pre>' . print_r( $sass->getParsedFiles(), true ) . '</pre>'
+				"<pre>{$error_message}</pre>"
 			);
 
 			$this->logException( $e );
@@ -293,7 +294,7 @@ class Sass {
 			],
 		];
 
-		$message = print_r( array_merge( $info ), true );
+		$message = print_r( array_merge( $info ), true ); // @codingStandardsIgnoreLine
 
 		\Pressbooks\Utility\email_error_log(
 			$this->errorsEmail,
