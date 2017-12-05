@@ -80,17 +80,24 @@ div.error {
   color: $white;
   background: darken($monza, 5%);
 
-  .ab-item,
-  a.ab-item,
-  & > #wp-toolbar span.ab-label,
-  & > #wp-toolbar span.noticon {
-    color: $white;
-  }
-
   .ab-icon,
   .ab-icon::before,
   .ab-item::before,
   .ab-item::after {
+    color: $white;
+  }
+
+  &.mobile {
+    .quicklinks .ab-icon::before,
+    .quicklinks .ab-item::before {
+      color: $white;
+    }
+  }
+
+  .ab-item,
+  a.ab-item,
+  & > #wp-toolbar span.ab-label,
+  & > #wp-toolbar span.noticon {
     color: $white;
   }
 
@@ -129,13 +136,6 @@ div.error {
       }
     }
   }
-
-  &.mobile {
-    .quicklinks .ab-icon::before,
-    .quicklinks .ab-item::before {
-      color: $white;
-    }
-  }
 }
 
 // Themes
@@ -152,6 +152,10 @@ div.error {
 
 // Page Title Actions
 
+.page-title-action:focus {
+  color: $link-focus;
+}
+
 .wrap .add-new-h2,
 .wrap .add-new-h2:active,
 .wrap .page-title-action,
@@ -164,8 +168,4 @@ div.error {
   color: $white;
   background-color: $link-focus;
   border-color: $link;
-}
-
-.page-title-action:focus {
-  color: $link-focus;
 }
