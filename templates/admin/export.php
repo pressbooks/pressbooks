@@ -144,7 +144,7 @@ do_action( 'pressbooks_top_of_export_page' );
 <div class="export-page">
 
 <div class="export-config">
-	<h3><?php _e( 'Your Export Format Options', 'pressbooks' ); ?></h3>
+	<h3 class="export-config__header"><?php _e( 'Your Export Format Options', 'pressbooks' ); ?></h3>
 	<p><?php _e( 'Select which formats you want to export', 'pressbooks' ); ?>.</p>
 
 <?php
@@ -229,7 +229,7 @@ $formats = apply_filters( 'pb_export_formats', [
 		<h2><?php _e( 'Latest Export', 'pressbooks' ); ?>: <?php printf( _x( '%1$s at %2$s', 'Date and time string, e.g. "January 1, 2016 at 12:00pm', 'pressbooks' ), date( $date_format, $date ), date( $time_format, $date ) ); ?></h2>
 		<div class="export-files latest">
 	<?php } elseif ( $c > 0 ) { ?>
-		<h3><?php _e( 'Exported', 'pressbooks' ); ?> <?php printf( _x( '%1$s at %2$s', 'Date and time string, e.g. "January 1, 2016 at 12:00pm', 'pressbooks' ), date( $date_format, $date ), date( $time_format, $date ) ); ?></h3>
+		<h3 class="export-control__header"><?php _e( 'Exported', 'pressbooks' ); ?> <?php printf( _x( '%1$s at %2$s', 'Date and time string, e.g. "January 1, 2016 at 12:00pm', 'pressbooks' ), date( $date_format, $date ), date( $time_format, $date ) ); ?></h3>
 		<div class="export-files">
 	<?php }
 foreach ( $exports as $file ) {
@@ -281,7 +281,7 @@ foreach ( $exports as $file ) {
 		<input type="hidden" name="filename" value="<?php echo $file; ?>" />
 		<input type="hidden" name="delete_export_file" value="true" />
 		<div class="export-file-container">
-	<a class="export-file" href="<?php echo ( $download_url_prefix . $file ); ?>"><span class="export-file-icon <?php echo ( 0 == $c ? 'large' : 'small' ); ?> <?php echo $file_class; ?>" title="<?php echo esc_attr( $file ); ?>"></span></a>
+	<a class="export-file__link" href="<?php echo ( $download_url_prefix . $file ); ?>"><span class="export-file-icon <?php echo ( 0 == $c ? 'large' : 'small' ); ?> <?php echo $file_class; ?>" title="<?php echo esc_attr( $file ); ?>"></span></a>
 	<div class="file-actions">
 		<a href="<?php echo ( $download_url_prefix . $file ); ?>"><span class="dashicons dashicons-download"></span></a>
 		<button class="delete" type="submit" name="submit" src="" value="Delete" onclick="if ( !confirm('<?php esc_attr_e( 'Are you sure you want to delete this?', 'pressbooks' ); ?>' ) ) { return false }"><span class="dashicons dashicons-trash"></span></button>

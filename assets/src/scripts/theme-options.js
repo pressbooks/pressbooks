@@ -83,133 +83,133 @@ jQuery( function ( $ ) {
 		$( '#pdf_page_size' ).change( function () {
 			let size = $( '#pdf_page_size' ).val();
 			switch ( size ) {
-			case '1':
-				$( '#pdf_page_width' )
+				case '1':
+					$( '#pdf_page_width' )
 						.val( '5.5in' )
 						.parent()
 						.parent()
 						.hide();
-				$( '#pdf_page_height' )
+					$( '#pdf_page_height' )
 						.val( '8.5in' )
 						.parent()
 						.parent()
 						.hide();
-				break;
-			case '2':
-				$( '#pdf_page_width' )
+					break;
+				case '2':
+					$( '#pdf_page_width' )
 						.val( '6in' )
 						.parent()
 						.parent()
 						.hide();
-				$( '#pdf_page_height' )
+					$( '#pdf_page_height' )
 						.val( '9in' )
 						.parent()
 						.parent()
 						.hide();
-				break;
-			case '3':
-				$( '#pdf_page_width' )
+					break;
+				case '3':
+					$( '#pdf_page_width' )
 						.val( '8.5in' )
 						.parent()
 						.parent()
 						.hide();
-				$( '#pdf_page_height' )
+					$( '#pdf_page_height' )
 						.val( '11in' )
 						.parent()
 						.parent()
 						.hide();
-				break;
-			case '4':
-				$( '#pdf_page_width' )
+					break;
+				case '4':
+					$( '#pdf_page_width' )
 						.val( '8.5in' )
 						.parent()
 						.parent()
 						.hide();
-				$( '#pdf_page_height' )
+					$( '#pdf_page_height' )
 						.val( '9.25in' )
 						.parent()
 						.parent()
 						.hide();
-				break;
-			case '5':
-				$( '#pdf_page_width' )
+					break;
+				case '5':
+					$( '#pdf_page_width' )
 						.val( '5in' )
 						.parent()
 						.parent()
 						.hide();
-				$( '#pdf_page_height' )
+					$( '#pdf_page_height' )
 						.val( '7.75in' )
 						.parent()
 						.parent()
 						.hide();
-				break;
-			case '6':
-				$( '#pdf_page_width' )
+					break;
+				case '6':
+					$( '#pdf_page_width' )
 						.val( '4.25in' )
 						.parent()
 						.parent()
 						.hide();
-				$( '#pdf_page_height' )
+					$( '#pdf_page_height' )
 						.val( '7in' )
 						.parent()
 						.parent()
 						.hide();
-				break;
-			case '7':
-				$( '#pdf_page_width' )
+					break;
+				case '7':
+					$( '#pdf_page_width' )
 						.val( '21cm' )
 						.parent()
 						.parent()
 						.hide();
-				$( '#pdf_page_height' )
+					$( '#pdf_page_height' )
 						.val( '29.7cm' )
 						.parent()
 						.parent()
 						.hide();
-				break;
-			case '8':
-				$( '#pdf_page_width' )
+					break;
+				case '8':
+					$( '#pdf_page_width' )
 						.val( '14.8cm' )
 						.parent()
 						.parent()
 						.hide();
-				$( '#pdf_page_height' )
+					$( '#pdf_page_height' )
 						.val( '21cm' )
 						.parent()
 						.parent()
 						.hide();
-				break;
-			case '9':
-				$( '#pdf_page_width' )
+					break;
+				case '9':
+					$( '#pdf_page_width' )
 						.val( '5in' )
 						.parent()
 						.parent()
 						.hide();
-				$( '#pdf_page_height' )
+					$( '#pdf_page_height' )
 						.val( '8in' )
 						.parent()
 						.parent()
 						.hide();
-				break;
-			case '10':
-				$( '#pdf_page_width' )
+					break;
+				case '10':
+					$( '#pdf_page_width' )
 						.val( '' )
 						.parent()
 						.parent()
 						.fadeToggle();
-				$( '#pdf_page_height' )
+					$( '#pdf_page_height' )
 						.val( '' )
 						.parent()
 						.parent()
 						.fadeToggle();
-				break;
-			default:
-				$( '#pdf_page_width' )
+					break;
+				default:
+					$( '#pdf_page_width' )
 						.val( '5.5in' )
 						.parent()
 						.parent()
 						.hide();
-				$( '#pdf_page_height' )
+					$( '#pdf_page_height' )
 						.val( '8.5in' )
 						.parent()
 						.parent()

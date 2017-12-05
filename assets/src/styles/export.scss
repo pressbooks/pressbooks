@@ -47,7 +47,7 @@
       margin-bottom: 0;
     }
 
-    h3 {
+    &__header {
       font-weight: normal;
       margin-bottom: 0;
       padding: 10px 0 0 10px;
@@ -68,6 +68,13 @@
       .file-actions {
         visibility: hidden;
 
+        button {
+          background-color: transparent;
+          border: none;
+          cursor: pointer;
+          padding: 0;
+        }
+
         a,
         button {
           color: black;
@@ -79,13 +86,6 @@
           &:hover {
             color: #c5002a;
           }
-        }
-
-        button {
-          background-color: transparent;
-          border: none;
-          cursor: pointer;
-          padding: 0;
         }
       }
     }
@@ -104,12 +104,12 @@
         border-width: 0 1px 1px;
       }
 
-      form.export-file {
+      .export-file {
         display: inline-block;
         text-align: center;
         padding: 0 10px 0 0;
 
-        a {
+        &__link {
           text-align: center;
         }
 
@@ -318,7 +318,7 @@
       }
     }
 
-    h3 {
+    &__header {
       margin-bottom: 0;
     }
 
@@ -403,6 +403,17 @@
         }
       }
 
+      &:hover {
+        .theme-actions {
+          -ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity=100)';
+          opacity: 1;
+        }
+
+        .theme-screenshot {
+          background: #fff;
+        }
+      }
+
       &:focus {
         outline: 1px dotted #222;
 
@@ -416,17 +427,6 @@
           .theme-actions {
             display: block;
           }
-        }
-      }
-
-      &:hover {
-        .theme-actions {
-          -ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity=100)';
-          opacity: 1;
-        }
-
-        .theme-screenshot {
-          background: #fff;
         }
       }
     }

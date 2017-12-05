@@ -39,23 +39,17 @@ $inside: 1.58em;
       }
 
       &.top {
+        top: 0;
         width: $width - ($inside + $outside);
         height: $top;
         background: $verdun-green;
       }
 
       &.bottom {
+        bottom: 0;
         width: $width - ($inside + $outside);
         height: $bottom;
         background: $lochmara;
-      }
-
-      &.top {
-        top: 0;
-      }
-
-      &.bottom {
-        bottom: 0;
       }
     }
 
