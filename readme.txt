@@ -49,11 +49,30 @@ TK.
 == Upgrade Notice ==
 = 4.5.0 =
 
+Pressbooks now requires [PHP 7.0](https://secure.php.net/supported-versions.php) or greater.
+
 Pressbooks now requires [WordPress 4.9.1](https://wordpress.org/news/2017/11/wordpress-4-9-1-security-and-maintenance-release/).
 
 == Changelog ==
 = 4.5.0 =
+**NOTICE:** Pressbooks >= 4.5 requires [PHP 7.0](https://secure.php.net/supported-versions.php) or greater.
 **NOTICE:** Pressbooks >= 4.5 requires [WordPress 4.9.1](https://wordpress.org/news/2017/11/wordpress-4-9-1-security-and-maintenance-release/).
+
+* **[FEATURE]** Switching to a new theme will now update some PDF theme options to match the theme's values (see #456, #984).
+* **[FEATURE]** Add initial support to PDF and Ebook theme options for themes which skip lines between paragraphs by default (see #985).
+* **[CORE ENHANCEMENT]** Use standard build tools package [pressbooks-build-tools](https://www.npmjs.com/package/pressbooks-build-tools) for asset handling, upgrade Stylelint (see #1000).
+* **[CORE ENHANCEMENT]** Require PHP 7.0 or greater (see #935, #987).
+* **[CORE ENHANCEMENT]** Add exclude and include support to `Pressbooks\Utility\rcopy()` (see #990).
+* **[CORE ENHANCEMENT]** Improve Theme Lock feature in preparation for Pressbooks 5.0 (see #995).
+* **[CORE ENHANCEMENT]** Add Prettier for SCSS and JS formatting (see #991).
+* **[CORE ENHANCEMENT]** Optimize subsection parsing (see #992).
+* **[CORE ENHANCEMENT]** Optimize `__UNSET__` style (see #999).
+* **[CORE ENHANCEMENT]** Optimize unit testing (see #997).
+* **[FIX]** Replace 'Sites' with 'Books' throughout Pressbooks interface (see #993).
+* **[FIX]** Replace 'Exotic formats' with 'Other formats' on the Export page (see #996).
+* **[FIX]** Fix bug related to [#42574](https://core.trac.wordpress.org/ticket/42574) which prevented widget editing on the root blog (#998).
+* **[FIX]** Fix type mismatch in `\Pressbooks\Licensing` class (see [23ee4ff](https://github.com/pressbooks/pressbooks/commit/23ee4ffee60b585d1390690af627c455bf969883))
+* **[FIX]** Fix typo in EPUB exporter — the acronym is OEBPS (Open eBook Publication Structure) (props @bdolor; see #988).
 
 = 4.4.0 =
 **NOTICE:** Pressbooks >= 4.4 requires [WordPress 4.9](https://wordpress.org/news/2017/11/tipton/).
