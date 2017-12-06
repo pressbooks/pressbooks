@@ -285,14 +285,11 @@ class Licensing {
 				$ok = wp_remote_retrieve_response_code( $xml );
 
 				// if server response is not ok
-				if ( 200 === absint( $ok ) ) {
-					// if remote call went sideways
-					if ( ! is_wp_error( $xml ) ) {
-						$xml = $xml['body'];
-					} else {
-						debug_error_log( '\Pressbooks\Licensing::getLicenseXml() error: ' . $xml->get_error_message() );
-						$xml = '';
-					}
+				if ( absint( $ok ) === 200 && is_wp_error( $xml ) === false ) {
+					$xml = $xml['body'];
+				} else {
+					debug_error_log( '\Pressbooks\Licensing::getLicenseXml() error: ' . $xml->get_error_message() );
+					$xml = '';
 				}
 				break;
 		}
