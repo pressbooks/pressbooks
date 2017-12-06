@@ -29,7 +29,7 @@ $include_paths = [
 	dirname( realpath( $input_file_name ) ),
 ];
 
-$scss = file_get_contents( $input_file_name );
+$scss = \Pressbooks\Utility\get_contents( $input_file_name );
 
 try {
 	$sass = new \Leafo\ScssPhp\Compiler;
@@ -39,6 +39,6 @@ try {
 	die( $e->getMessage() );
 }
 
-file_put_contents( $output_file_name, $css );
+\Pressbooks\Utility\put_contents( $output_file_name, $css );
 
 echo( "$output_file_name was created successfully!\n" );

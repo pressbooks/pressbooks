@@ -38,7 +38,8 @@ function render_page() {
 		<p><?php _e( 'Please submit this information with any bug reports.', 'pressbooks' ); ?></p>
 		<textarea style="width: 800px; max-width: 100%; height: 600px; background: #fff; font-family: monospace;" readonly="readonly" onclick="this.focus(); this.select()"
 				  title="<?php _e( 'To copy the system info, click below then press Ctrl + C (PC) or Cmd + C (Mac).', 'pressbooks' ); ?>">
-<?php $output = "### System Information\n\n";
+<?php
+$output = "### System Information\n\n";
 if ( \Pressbooks\Book::isBook() ) {
 	$output .= "#### Book Info\n\n";
 	$output .= 'Book ID: ' . get_current_blog_id() . "\n";
@@ -161,11 +162,14 @@ if ( $opcache ) {
 $output .= 'XDebug: ' . ( extension_loaded( 'xdebug' ) ? 'Enabled' : 'Disabled' ) . "\n";
 $output .= 'cURL: ' . ( function_exists( 'curl_init' ) ? 'Supported' : 'Not Supported' ) . "\n";
 if ( function_exists( 'curl_init' ) && function_exists( 'curl_version' ) ) {
-	$curl_values = curl_version();
+	$curl_values = curl_version(); // @codingStandardsIgnoreLine
 	$output .= 'cURL Version: ' . $curl_values['version'] . "\n";
 }
 $output .= 'imagick: ' . ( extension_loaded( 'imagick' ) ? 'Installed' : 'Not Installed' ) . "\n";
 $output .= 'xsl: ' . ( extension_loaded( 'xsl' ) ? 'Installed' : 'Not Installed' );
-echo $output; ?></textarea>
+echo $output;
+?>
+</textarea>
 	</div>
-<?php }
+<?php
+}

@@ -15,6 +15,7 @@ use Pressbooks\Container;
 use Pressbooks\Sanitize;
 use function \Pressbooks\Sanitize\sanitize_xml_attribute;
 use function \Pressbooks\Utility\str_ends_with;
+use function \Pressbooks\Utility\debug_error_log;
 
 class Epub201 extends Export {
 
@@ -525,7 +526,7 @@ class Epub201 extends Export {
 	 */
 	protected function createContainer() {
 
-		file_put_contents(
+		\Pressbooks\Utility\put_contents(
 			$this->tmpDir . '/mimetype',
 			utf8_decode( 'application/epub+zip' )
 		);
@@ -534,12 +535,12 @@ class Epub201 extends Export {
 		mkdir( $this->tmpDir . '/OEBPS' );
 		mkdir( $this->tmpDir . '/OEBPS/assets' );
 
-		file_put_contents(
+		\Pressbooks\Utility\put_contents(
 			$this->tmpDir . '/META-INF/container.xml',
 			$this->loadTemplate( $this->dir . '/templates/epub201/container.php' )
 		);
 
-		file_put_contents(
+		\Pressbooks\Utility\put_contents(
 			$this->tmpDir . '/META-INF/com.apple.ibooks.display-options.xml',
 			$this->loadTemplate( $this->dir . '/templates/epub201/ibooks.php' )
 		);
@@ -605,7 +606,7 @@ class Epub201 extends Export {
 		$path_to_tmp_stylesheet = $this->tmpDir . "/OEBPS/{$this->stylesheet}";
 
 		// Copy stylesheet
-		file_put_contents(
+		\Pressbooks\Utility\put_contents(
 			$path_to_tmp_stylesheet,
 			$this->loadTemplate( $this->exportStylePath )
 		);
@@ -624,7 +625,7 @@ class Epub201 extends Export {
 
 		$styles = Container::get( 'Styles' );
 
-		$scss = file_get_contents( $path_to_copy_of_stylesheet );
+		$scss = \Pressbooks\Utility\get_contents( $path_to_copy_of_stylesheet );
 
 		if ( $this->extraCss ) {
 			$scss .= "\n" . $this->loadTemplate( $this->extraCss );
@@ -643,7 +644,7 @@ class Epub201 extends Export {
 		$css = $this->normalizeCssUrls( $css, $scss_dir, $path_to_epub_assets );
 
 		// Overwrite the new file with new info
-		file_put_contents( $path_to_copy_of_stylesheet, $css );
+		\Pressbooks\Utility\put_contents( $path_to_copy_of_stylesheet, $css );
 
 		if ( WP_DEBUG ) {
 			Container::get( 'Sass' )->debug( $css, $scss, 'epub' );
@@ -792,7 +793,7 @@ class Epub201 extends Export {
 		$file_id = 'front-cover';
 		$filename = "{$file_id}.{$this->filext}";
 
-		file_put_contents(
+		\Pressbooks\Utility\put_contents(
 			$this->tmpDir . "/OEBPS/$filename",
 			$this->loadTemplate( $this->dir . '/templates/epub201/html.php', $vars )
 		);
@@ -858,7 +859,7 @@ class Epub201 extends Export {
 				$file_id = 'front-matter-' . sprintf( '%03s', $i );
 				$filename = "{$file_id}-{$slug}.{$this->filext}";
 
-				file_put_contents(
+				\Pressbooks\Utility\put_contents(
 					$this->tmpDir . "/OEBPS/$filename",
 					$this->loadTemplate( $this->dir . '/templates/epub201/html.php', $vars )
 				);
@@ -933,7 +934,7 @@ class Epub201 extends Export {
 		$file_id = 'title-page';
 		$filename = "{$file_id}.{$this->filext}";
 
-		file_put_contents(
+		\Pressbooks\Utility\put_contents(
 			$this->tmpDir . "/OEBPS/$filename",
 			$this->loadTemplate( $this->dir . '/templates/epub201/html.php', $vars )
 		);
@@ -1021,7 +1022,7 @@ class Epub201 extends Export {
 		$file_id = 'copyright';
 		$filename = "{$file_id}.{$this->filext}";
 
-		file_put_contents(
+		\Pressbooks\Utility\put_contents(
 			$this->tmpDir . "/OEBPS/$filename",
 			$this->loadTemplate( $this->dir . '/templates/epub201/html.php', $vars )
 		);
@@ -1088,7 +1089,7 @@ class Epub201 extends Export {
 				$file_id = 'front-matter-' . sprintf( '%03s', $i );
 				$filename = "{$file_id}-{$slug}.{$this->filext}";
 
-				file_put_contents(
+				\Pressbooks\Utility\put_contents(
 					$this->tmpDir . "/OEBPS/$filename",
 					$this->loadTemplate( $this->dir . '/templates/epub201/html.php', $vars )
 				);
@@ -1196,7 +1197,7 @@ class Epub201 extends Export {
 			$file_id = 'front-matter-' . sprintf( '%03s', $i );
 			$filename = "{$file_id}-{$slug}.{$this->filext}";
 
-			file_put_contents(
+			\Pressbooks\Utility\put_contents(
 				$this->tmpDir . "/OEBPS/$filename",
 				$this->loadTemplate( $this->dir . '/templates/epub201/html.php', $vars )
 			);
@@ -1234,7 +1235,7 @@ class Epub201 extends Export {
 				'lang' => $this->lang,
 			];
 
-			file_put_contents(
+			\Pressbooks\Utility\put_contents(
 				$this->tmpDir . "/OEBPS/$filename",
 				$this->loadTemplate( $this->dir . '/templates/epub201/html.php', $vars )
 			);
@@ -1273,7 +1274,10 @@ class Epub201 extends Export {
 		];
 
 		// Parts, Chapters
-		$i = $j = $c = $p = 1;
+		$i = 1;
+		$j = 1;
+		$c = 1;
+		$p = 1;
 		foreach ( $book_contents['part'] as $part ) {
 
 			$invisibility = ( get_post_meta( $part['ID'], 'pb_part_invisible', true ) === 'on' ) ? 'invisible' : '';
@@ -1359,7 +1363,7 @@ class Epub201 extends Export {
 				$file_id = 'chapter-' . sprintf( '%03s', $j );
 				$filename = "{$file_id}-{$slug}.{$this->filext}";
 
-				file_put_contents(
+				\Pressbooks\Utility\put_contents(
 					$this->tmpDir . "/OEBPS/$filename",
 					$this->loadTemplate( $this->dir . '/templates/epub201/html.php', $vars )
 				);
@@ -1395,19 +1399,19 @@ class Epub201 extends Export {
 				$file_id = 'part-' . sprintf( '%03s', $i );
 				$filename = "{$file_id}-{$slug}.{$this->filext}";
 
-				file_put_contents(
+				\Pressbooks\Utility\put_contents(
 					$this->tmpDir . "/OEBPS/$filename",
 					$this->loadTemplate( $this->dir . '/templates/epub201/html.php', $vars )
 				);
 
 				// Insert into correct pos
 				$this->manifest = array_slice( $this->manifest, 0, $array_pos, true ) + [
-						$file_id => [
-							'ID' => $part['ID'],
-							'post_title' => $part['post_title'],
-							'filename' => $filename,
-						],
-					] + array_slice( $this->manifest, $array_pos, count( $this->manifest ) - 1, true );
+					$file_id => [
+						'ID' => $part['ID'],
+						'post_title' => $part['post_title'],
+						'filename' => $filename,
+					],
+				] + array_slice( $this->manifest, $array_pos, count( $this->manifest ) - 1, true );
 
 				++$i;
 				if ( 'invisible' !== $invisibility ) {
@@ -1430,19 +1434,19 @@ class Epub201 extends Export {
 					$file_id = 'part-' . sprintf( '%03s', $i );
 					$filename = "{$file_id}-{$slug}.{$this->filext}";
 
-					file_put_contents(
+					\Pressbooks\Utility\put_contents(
 						$this->tmpDir . "/OEBPS/$filename",
 						$this->loadTemplate( $this->dir . '/templates/epub201/html.php', $vars )
 					);
 
 					// Insert into correct pos
 					$this->manifest = array_slice( $this->manifest, 0, $array_pos, true ) + [
-							$file_id => [
-								'ID' => $part['ID'],
-								'post_title' => $part['post_title'],
-								'filename' => $filename,
-							],
-						] + array_slice( $this->manifest, $array_pos, count( $this->manifest ) - 1, true );
+						$file_id => [
+							'ID' => $part['ID'],
+							'post_title' => $part['post_title'],
+							'filename' => $filename,
+						],
+					] + array_slice( $this->manifest, $array_pos, count( $this->manifest ) - 1, true );
 
 					++$i;
 					if ( 'invisible' !== $invisibility ) {
@@ -1465,19 +1469,19 @@ class Epub201 extends Export {
 						$file_id = 'part-' . sprintf( '%03s', $i );
 						$filename = "{$file_id}-{$slug}.{$this->filext}";
 
-						file_put_contents(
+						\Pressbooks\Utility\put_contents(
 							$this->tmpDir . "/OEBPS/$filename",
 							$this->loadTemplate( $this->dir . '/templates/epub201/html.php', $vars )
 						);
 
 						// Insert into correct pos
 						$this->manifest = array_slice( $this->manifest, 0, $array_pos, true ) + [
-								$file_id => [
-									'ID' => $part['ID'],
-									'post_title' => $part['post_title'],
-									'filename' => $filename,
-								],
-							] + array_slice( $this->manifest, $array_pos, count( $this->manifest ) - 1, true );
+							$file_id => [
+								'ID' => $part['ID'],
+								'post_title' => $part['post_title'],
+								'filename' => $filename,
+							],
+						] + array_slice( $this->manifest, $array_pos, count( $this->manifest ) - 1, true );
 
 						++$i;
 						if ( 'invisible' !== $invisibility ) {
@@ -1572,7 +1576,7 @@ class Epub201 extends Export {
 			$file_id = 'back-matter-' . sprintf( '%03s', $i );
 			$filename = "{$file_id}-{$slug}.{$this->filext}";
 
-			file_put_contents(
+			\Pressbooks\Utility\put_contents(
 				$this->tmpDir . "/OEBPS/$filename",
 				$this->loadTemplate( $this->dir . '/templates/epub201/html.php', $vars )
 			);
@@ -1613,12 +1617,12 @@ class Epub201 extends Export {
 		$vars['post_title'] = __( 'Table Of Contents', 'pressbooks' );
 
 		$this->manifest = array_slice( $this->manifest, 0, $array_pos + 1, true ) + [
-				$file_id => [
-					'ID' => -1,
-					'post_title' => $vars['post_title'],
-					'filename' => $filename,
-				],
-			] + array_slice( $this->manifest, $array_pos + 1, count( $this->manifest ) - 1, true );
+			$file_id => [
+				'ID' => -1,
+				'post_title' => $vars['post_title'],
+				'filename' => $filename,
+			],
+		] + array_slice( $this->manifest, $array_pos + 1, count( $this->manifest ) - 1, true );
 
 		// HTML
 
@@ -1711,7 +1715,7 @@ class Epub201 extends Export {
 
 		$vars['post_content'] = $html;
 
-		file_put_contents(
+		\Pressbooks\Utility\put_contents(
 			$this->tmpDir . "/OEBPS/$filename",
 			$this->loadTemplate( $this->dir . '/templates/epub201/html.php', $vars )
 		);
@@ -1761,7 +1765,11 @@ class Epub201 extends Export {
 	 */
 	protected function kneadHtml( $html, $type, $pos = 0 ) {
 
-		$doc = new HTML5( [ 'disable_html_ns' => true ] ); // Disable default namespace for \DOMXPath compatibility
+		$doc = new HTML5(
+			[
+				'disable_html_ns' => true,
+			]
+		); // Disable default namespace for \DOMXPath compatibility
 		$dom = $doc->loadHTML( $html );
 
 		// Download images, change to relative paths
@@ -1775,7 +1783,7 @@ class Epub201 extends Export {
 
 		// Make sure empty tags (e.g. <b></b>) don't get turned into self-closing versions by adding an empty text node to them.
 		$xpath = new \DOMXPath( $dom );
-		while ( ( $nodes = $xpath->query( '//*[not(text() or node() or self::br or self::hr or self::img)]' ) ) && $nodes->length > 0 ) {
+		while ( ( $nodes = $xpath->query( '//*[not(text() or node() or self::br or self::hr or self::img)]' ) ) && $nodes->length > 0 ) { // @codingStandardsIgnoreLine
 			foreach ( $nodes as $node ) {
 				/** @var \DOMElement $node */
 				$node->appendChild( new \DOMText( '' ) );
@@ -1849,7 +1857,11 @@ class Epub201 extends Export {
 			return $this->fetchedImageCache[ $url ];
 		}
 
-		$response = \Pressbooks\Utility\remote_get_retry( $url, [ 'timeout' => $this->timeout ] );
+		$response = \Pressbooks\Utility\remote_get_retry(
+			$url, [
+				'timeout' => $this->timeout,
+			]
+		);
 
 		// WordPress error?
 		if ( is_wp_error( $response ) ) {
@@ -1864,24 +1876,26 @@ class Epub201 extends Export {
 						$url = 'http:' . $url;
 					}
 				}
-				$response = wp_remote_get( $url, [ 'timeout' => $this->timeout ] );
+				$response = wp_remote_get(
+					$url, [
+						'timeout' => $this->timeout,
+					]
+				);
 				if ( is_wp_error( $response ) ) {
 					throw new \Exception( 'Bad URL: ' . $url );
 				}
 			} catch ( \Exception $exc ) {
 				$this->fetchedImageCache[ $url ] = '';
-				error_log( '\PressBooks\Export\Epub201\fetchAndSaveUniqueImage wp_error on wp_remote_get() - ' . $response->get_error_message() . ' - ' . $exc->getMessage() );
-
+				debug_error_log( '\PressBooks\Export\Epub201\fetchAndSaveUniqueImage wp_error on wp_remote_get() - ' . $response->get_error_message() . ' - ' . $exc->getMessage() );
 				return '';
 			}
-
 		}
 
 		// Basename without query string
 		$filename = explode( '?', basename( $url ) );
 
 		// isolate latex image service from WP, add file extension
-		$host = parse_url( $url, PHP_URL_HOST );
+		$host = wp_parse_url( $url, PHP_URL_HOST );
 		if ( ( str_ends_with( $host, 'wordpress.com' ) || str_ends_with( $host, 'wp.com' ) ) && 'latex.php' === $filename[0] ) {
 			$filename = md5( array_pop( $filename ) );
 			// content-type = 'image/png'
@@ -1896,11 +1910,11 @@ class Epub201 extends Export {
 		}
 
 		$tmp_file = \Pressbooks\Utility\create_tmp_file();
-		file_put_contents( $tmp_file, wp_remote_retrieve_body( $response ) );
+		\Pressbooks\Utility\put_contents( $tmp_file, wp_remote_retrieve_body( $response ) );
 
 		if ( ! \Pressbooks\Image\is_valid_image( $tmp_file, $filename ) ) {
 			$this->fetchedImageCache[ $url ] = '';
-			error_log( '\PressBooks\Export\Epub201\fetchAndSaveUniqueImage is_valid_image, not a valid image ' );
+			debug_error_log( '\PressBooks\Export\Epub201\fetchAndSaveUniqueImage is_valid_image, not a valid image ' );
 			return ''; // Not an image
 		}
 
@@ -1913,7 +1927,7 @@ class Epub201 extends Export {
 		// Check for duplicates, save accordingly
 		if ( ! file_exists( "$fullpath/$filename" ) ) {
 			copy( $tmp_file, "$fullpath/$filename" );
-		} elseif ( md5( file_get_contents( $tmp_file ) ) !== md5( file_get_contents( "$fullpath/$filename" ) ) ) {
+		} elseif ( md5( \Pressbooks\Utility\get_contents( $tmp_file ) ) !== md5( \Pressbooks\Utility\get_contents( "$fullpath/$filename" ) ) ) {
 			$filename = wp_unique_filename( $fullpath, $filename );
 			copy( $tmp_file, "$fullpath/$filename" );
 		}
@@ -1938,7 +1952,11 @@ class Epub201 extends Export {
 			return $this->fetchedFontCache[ $url ];
 		}
 
-		$response = wp_remote_get( $url, [ 'timeout' => $this->timeout ] );
+		$response = wp_remote_get(
+			$url, [
+				'timeout' => $this->timeout,
+			]
+		);
 
 		// WordPress error?
 		if ( is_wp_error( $response ) ) {
@@ -1955,7 +1973,7 @@ class Epub201 extends Export {
 		$filename = Sanitize\force_ascii( $filename );
 
 		$tmp_file = \Pressbooks\Utility\create_tmp_file();
-		file_put_contents( $tmp_file, wp_remote_retrieve_body( $response ) );
+		\Pressbooks\Utility\put_contents( $tmp_file, wp_remote_retrieve_body( $response ) );
 
 		// TODO: Validate that this is actually a font
 		// TODO: Refactor fetchAndSaveUniqueImage() and fetchAndSaveUniqueFont() into a single method, but "inject" different validation
@@ -1963,7 +1981,7 @@ class Epub201 extends Export {
 		// Check for duplicates, save accordingly
 		if ( ! file_exists( "$fullpath/$filename" ) ) {
 			copy( $tmp_file, "$fullpath/$filename" );
-		} elseif ( md5( file_get_contents( $tmp_file ) ) !== md5( file_get_contents( "$fullpath/$filename" ) ) ) {
+		} elseif ( md5( \Pressbooks\Utility\get_contents( $tmp_file ) ) !== md5( \Pressbooks\Utility\get_contents( "$fullpath/$filename" ) ) ) {
 			$filename = wp_unique_filename( $fullpath, $filename );
 			copy( $tmp_file, "$fullpath/$filename" );
 		}
@@ -2105,11 +2123,11 @@ class Epub201 extends Export {
 		$url = trim( $url );
 		$url = rtrim( $url, '/' );
 
-		$domain = parse_url( $url );
+		$domain = wp_parse_url( $url );
 		$domain = ( isset( $domain['host'] ) ) ? $domain['host'] : false;
 
 		if ( $domain ) {
-			$domain2 = parse_url( wp_guess_url() );
+			$domain2 = wp_parse_url( wp_guess_url() );
 			$domain2 = ( isset( $domain2['host'] ) ) ? $domain2['host'] : false;
 			if ( $domain2 !== $domain ) {
 				return false; // If there is a domain name and it =/= ours, bail.
@@ -2207,7 +2225,7 @@ class Epub201 extends Export {
 		$vars['meta'] = $metadata;
 
 		// Put contents
-		file_put_contents(
+		\Pressbooks\Utility\put_contents(
 			$this->tmpDir . '/book.opf',
 			$this->loadTemplate( $this->dir . '/templates/epub201/opf.php', $vars )
 		);
@@ -2280,7 +2298,7 @@ class Epub201 extends Export {
 			'lang' => $this->lang,
 		];
 
-		file_put_contents(
+		\Pressbooks\Utility\put_contents(
 			$this->tmpDir . '/toc.ncx',
 			$this->loadTemplate( $this->dir . '/templates/epub201/ncx.php', $vars )
 		);

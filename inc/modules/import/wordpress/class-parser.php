@@ -25,13 +25,18 @@ class Parser {
 		// Setup & sanity check
 		// ------------------------------------------------------------------------------------------------------------
 
-		$authors = $posts = $categories = $tags = $terms = [];
+		$authors = [];
+		$posts = [];
+		$categories = [];
+		$tags = [];
+		$terms = [];
+
 		libxml_use_internal_errors( true );
 
 		$old_value = libxml_disable_entity_loader( true );
 		$dom = new \DOMDocument;
 		$dom->recover = true; // Try to parse non-well formed documents
-		$success = $dom->loadXML( file_get_contents( $file ) );
+		$success = $dom->loadXML( \Pressbooks\Utility\get_contents( $file ) );
 		foreach ( $dom->childNodes as $child ) {
 			if ( XML_DOCUMENT_TYPE_NODE === $child->nodeType ) {
 				// Invalid XML: Detected use of disallowed DOCTYPE
@@ -41,17 +46,19 @@ class Parser {
 		}
 		libxml_disable_entity_loader( $old_value );
 
+		// @codingStandardsIgnoreStart
 		if ( ! $success || isset( $dom->doctype ) ) {
 			throw new \Exception( print_r( libxml_get_errors(), true ) );
 		}
 
-		$xml = @simplexml_import_dom( $dom ); // @codingStandardsIgnoreLine
+		$xml = @simplexml_import_dom( $dom );
 		unset( $dom );
 
 		// halt if loading produces an error
 		if ( ! $xml ) {
 			throw new \Exception( print_r( libxml_get_errors(), true ) );
 		}
+		// @codingStandardsIgnoreEnd
 
 		$wxr_version = $xml->xpath( '/rss/channel/wp:wxr_version' );
 		if ( ! $wxr_version ) {

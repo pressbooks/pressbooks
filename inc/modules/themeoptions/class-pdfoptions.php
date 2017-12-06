@@ -58,7 +58,8 @@ class PDFOptions extends \Pressbooks\Options {
 	 * Configure the PDF options tab using the settings API.
 	 */
 	function init() {
-		$_page = $_option = 'pressbooks_theme_options_' . $this->getSlug();
+		$_option = 'pressbooks_theme_options_' . $this->getSlug();
+		$_page = $_option;
 		$_section = $this->getSlug() . '_options_section';
 
 		if ( false === get_option( $_option ) ) {
@@ -806,7 +807,8 @@ class PDFOptions extends \Pressbooks\Options {
 		<p>
 			<strong><?php _e( 'IMPORTANT: If you plan to use a print-on-demand service, margins under 2cm on any side can cause your file to be rejected.', 'pressbooks' ); ?></strong>
 		</p>
-	<?php }
+	<?php
+	}
 
 	/**
 	 * Render the pdf_page_margin_outside input.
@@ -815,7 +817,8 @@ class PDFOptions extends \Pressbooks\Options {
 	 */
 	function renderOutsideMarginField( $args ) {
 		?>
-		<?php $this->renderField(
+		<?php
+		$this->renderField(
 			[
 				'id' => 'pdf_page_margin_outside',
 				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
@@ -1048,7 +1051,8 @@ class PDFOptions extends \Pressbooks\Options {
 	function renderRunningContentField( $args ) {
 		?>
 		<p class="description"><?php echo $args[0]; ?></p>
-	<?php }
+	<?php
+	}
 
 	/**
 	 * Render the running_content_front_matter_left input.
@@ -1358,34 +1362,34 @@ class PDFOptions extends \Pressbooks\Options {
 		 */
 		return apply_filters(
 			'pb_theme_options_pdf_defaults', [
-			'pdf_body_font_size' => '11',
-			'pdf_body_line_height' => '1.4',
-			'pdf_page_width' => '5.5in',
-			'pdf_page_height' => '8.5in',
-			'pdf_page_margin_outside' => '2cm',
-			'pdf_page_margin_inside' => '2cm',
-			'pdf_page_margin_top' => '2cm',
-			'pdf_page_margin_bottom' => '2cm',
-			'pdf_hyphens' => 0,
-			'pdf_paragraph_separation' => 'indent',
-			'pdf_sectionopenings' => 'openauto',
-			'pdf_toc' => 1,
-			'pdf_crop_marks' => 0,
-			'pdf_romanize_parts' => 1,
-			'pdf_footnotes_style' => 'footnotes',
-			'widows' => 2,
-			'orphans' => 1,
-			'running_content_front_matter_left' => '%book_title%',
-			'running_content_front_matter_right' => '%section_title%',
-			'running_content_introduction_left' => '%book_title%',
-			'running_content_introduction_right' => '%section_title%',
-			'running_content_part_left' => '%book_title%',
-			'running_content_part_right' => '%part_title%',
-			'running_content_chapter_left' => '%book_title%',
-			'running_content_chapter_right' => '%section_title%',
-			'running_content_back_matter_left' => '%book_title%',
-			'running_content_back_matter_right' => '%section_title%',
-			'pdf_fontsize' => 0,
+				'pdf_body_font_size' => '11',
+				'pdf_body_line_height' => '1.4',
+				'pdf_page_width' => '5.5in',
+				'pdf_page_height' => '8.5in',
+				'pdf_page_margin_outside' => '2cm',
+				'pdf_page_margin_inside' => '2cm',
+				'pdf_page_margin_top' => '2cm',
+				'pdf_page_margin_bottom' => '2cm',
+				'pdf_hyphens' => 0,
+				'pdf_paragraph_separation' => 'indent',
+				'pdf_sectionopenings' => 'openauto',
+				'pdf_toc' => 1,
+				'pdf_crop_marks' => 0,
+				'pdf_romanize_parts' => 1,
+				'pdf_footnotes_style' => 'footnotes',
+				'widows' => 2,
+				'orphans' => 1,
+				'running_content_front_matter_left' => '%book_title%',
+				'running_content_front_matter_right' => '%section_title%',
+				'running_content_introduction_left' => '%book_title%',
+				'running_content_introduction_right' => '%section_title%',
+				'running_content_part_left' => '%book_title%',
+				'running_content_part_right' => '%part_title%',
+				'running_content_chapter_left' => '%book_title%',
+				'running_content_chapter_right' => '%section_title%',
+				'running_content_back_matter_left' => '%book_title%',
+				'running_content_back_matter_right' => '%section_title%',
+				'pdf_fontsize' => 0,
 			]
 		);
 	}
@@ -1435,7 +1439,7 @@ class PDFOptions extends \Pressbooks\Options {
 			];
 			foreach ( $files as $file ) {
 				if ( file_exists( $file ) ) {
-					$parsed_sass_variables[] = $sass->parseVariables( file_get_contents( $file ) );
+					$parsed_sass_variables[] = $sass->parseVariables( \Pressbooks\Utility\get_contents( $file ) );
 				}
 			}
 			set_transient( $transient_name, $parsed_sass_variables );
@@ -1508,11 +1512,11 @@ class PDFOptions extends \Pressbooks\Options {
 		 */
 		return apply_filters(
 			'pb_theme_options_pdf_booleans', [
-			'pdf_hyphens',
-			'pdf_toc',
-			'pdf_crop_marks',
-			'pdf_romanize_parts',
-			'pdf_fontsize',
+				'pdf_hyphens',
+				'pdf_toc',
+				'pdf_crop_marks',
+				'pdf_romanize_parts',
+				'pdf_fontsize',
 			]
 		);
 	}
@@ -1532,22 +1536,22 @@ class PDFOptions extends \Pressbooks\Options {
 		 */
 		return apply_filters(
 			'pb_theme_options_pdf_strings', [
-			'pdf_page_width',
-			'pdf_page_height',
-			'pdf_page_margin_outside',
-			'pdf_page_margin_inside',
-			'pdf_page_margin_top',
-			'pdf_page_margin_bottom',
-			'running_content_front_matter_left',
-			'running_content_front_matter_right',
-			'running_content_introduction_left',
-			'running_content_introduction_right',
-			'running_content_part_left',
-			'running_content_part_right',
-			'running_content_chapter_left',
-			'running_content_chapter_right',
-			'running_content_back_matter_left',
-			'running_content_back_matter_right',
+				'pdf_page_width',
+				'pdf_page_height',
+				'pdf_page_margin_outside',
+				'pdf_page_margin_inside',
+				'pdf_page_margin_top',
+				'pdf_page_margin_bottom',
+				'running_content_front_matter_left',
+				'running_content_front_matter_right',
+				'running_content_introduction_left',
+				'running_content_introduction_right',
+				'running_content_part_left',
+				'running_content_part_right',
+				'running_content_chapter_left',
+				'running_content_chapter_right',
+				'running_content_back_matter_left',
+				'running_content_back_matter_right',
 			]
 		);
 	}
@@ -1567,8 +1571,8 @@ class PDFOptions extends \Pressbooks\Options {
 		 */
 		return apply_filters(
 			'pb_theme_options_pdf_integers', [
-			'widows',
-			'orphans',
+				'widows',
+				'orphans',
 			]
 		);
 	}
@@ -1609,9 +1613,9 @@ class PDFOptions extends \Pressbooks\Options {
 		 */
 		return apply_filters(
 			'pb_theme_options_pdf_predefined', [
-			'pdf_paragraph_separation',
-			'pdf_sectionopenings',
-			'pdf_footnotes_style',
+				'pdf_paragraph_separation',
+				'pdf_sectionopenings',
+				'pdf_footnotes_style',
 			]
 		);
 	}
@@ -1718,12 +1722,14 @@ class PDFOptions extends \Pressbooks\Options {
 		// Should we display chapter numbers? True (default) or false.
 		if ( ! $options['chapter_numbers'] ) {
 			if ( $v2_compatible ) {
-				$styles->getSass()->setVariables( [
-					'chapter-number-display' => 'none',
-					'part-number-display' => 'none',
-					'toc-chapter-number-display' => 'none',
-					'toc-part-number-display' => 'none',
-				] );
+				$styles->getSass()->setVariables(
+					[
+						'chapter-number-display' => 'none',
+						'part-number-display' => 'none',
+						'toc-chapter-number-display' => 'none',
+						'toc-part-number-display' => 'none',
+					]
+				);
 			} else {
 				$scss .= "div.part-title-wrap > .part-number, div.chapter-title-wrap > .chapter-number, #toc .part a::before, #toc .chapter a::before { display: none !important; } \n";  // TODO: NO
 			}
@@ -1737,17 +1743,21 @@ class PDFOptions extends \Pressbooks\Options {
 		// Change body font size
 		if ( $v2_compatible && isset( $options['pdf_body_font_size'] ) ) {
 			$fontsize = $options['pdf_body_font_size'] . 'pt';
-			$styles->getSass()->setVariables( [
-				'body-font-size' => "(epub: medium, prince: $fontsize, web: 14pt)",
-			] );
+			$styles->getSass()->setVariables(
+				[
+					'body-font-size' => "(epub: medium, prince: $fontsize, web: 14pt)",
+				]
+			);
 		}
 
 		// Change body line height
 		if ( $v2_compatible && isset( $options['pdf_body_line_height'] ) ) {
 			$lineheight = $options['pdf_body_line_height'] . 'em';
-				$styles->getSass()->setVariables( [
-					'body-line-height' => "(epub: 1.4em, prince: $lineheight, web: 1.8em)",
-				] );
+				$styles->getSass()->setVariables(
+					[
+						'body-line-height' => "(epub: 1.4em, prince: $lineheight, web: 1.8em)",
+					]
+				);
 		}
 
 		// Page dimensions
@@ -1755,30 +1765,36 @@ class PDFOptions extends \Pressbooks\Options {
 		$height = $options['pdf_page_height'];
 
 		if ( $v2_compatible ) {
-			$styles->getSass()->setVariables( [
-				'page-width' => $width,
-				'page-height' => $height,
-			] );
+			$styles->getSass()->setVariables(
+				[
+					'page-width' => $width,
+					'page-height' => $height,
+				]
+			);
 		} else {
 			$scss .= "@page { size: $width $height; } \n";
 		}
 
 		// Margins
 		if ( $v2_compatible ) {
-			$styles->getSass()->setVariables( [
-				'page-margin-top' => ( isset( $options['pdf_page_margin_top'] ) ) ? $options['pdf_page_margin_top'] : '2cm',
-				'page-margin-inside' => ( isset( $options['pdf_page_margin_inside'] ) ) ? $options['pdf_page_margin_inside'] : '2cm',
-				'page-margin-bottom' => ( isset( $options['pdf_page_margin_bottom'] ) ) ? $options['pdf_page_margin_bottom'] : '2cm',
-				'page-margin-outside' => ( isset( $options['pdf_page_margin_outside'] ) ) ? $options['pdf_page_margin_outside'] : '2cm',
-			] );
+			$styles->getSass()->setVariables(
+				[
+					'page-margin-top' => ( isset( $options['pdf_page_margin_top'] ) ) ? $options['pdf_page_margin_top'] : '2cm',
+					'page-margin-inside' => ( isset( $options['pdf_page_margin_inside'] ) ) ? $options['pdf_page_margin_inside'] : '2cm',
+					'page-margin-bottom' => ( isset( $options['pdf_page_margin_bottom'] ) ) ? $options['pdf_page_margin_bottom'] : '2cm',
+					'page-margin-outside' => ( isset( $options['pdf_page_margin_outside'] ) ) ? $options['pdf_page_margin_outside'] : '2cm',
+				]
+			);
 		}
 
 		// Should we display crop marks? True or false (default).
 		if ( 1 === absint( $options['pdf_crop_marks'] ) ) {
 			if ( $v2_compatible ) {
-				$styles->getSass()->setVariables( [
-					'page-cropmarks' => 'crop',
-				] );
+				$styles->getSass()->setVariables(
+					[
+						'page-cropmarks' => 'crop',
+					]
+				);
 			} else {
 				$scss .= "@page { marks: crop } \n";
 			}
@@ -1787,17 +1803,21 @@ class PDFOptions extends \Pressbooks\Options {
 		// Hyphens?
 		if ( 1 === absint( $options['pdf_hyphens'] ) ) {
 			if ( $v2_compatible ) {
-				$styles->getSass()->setVariables( [
-					'para-hyphens' => 'auto',
-				] );
+				$styles->getSass()->setVariables(
+					[
+						'para-hyphens' => 'auto',
+					]
+				);
 			} else {
 				$scss .= "p { hyphens: auto; } \n";
 			}
 		} else {
 			if ( $v2_compatible ) {
-				$styles->getSass()->setVariables( [
-					'para-hyphens' => 'manual',
-				] );
+				$styles->getSass()->setVariables(
+					[
+						'para-hyphens' => 'manual',
+					]
+				);
 			} else {
 				$scss .= "p { hyphens: manual; } \n";
 			}
@@ -1806,19 +1826,23 @@ class PDFOptions extends \Pressbooks\Options {
 		// Indent paragraphs?
 		if ( 'skiplines' === $options['pdf_paragraph_separation'] ) {
 			if ( $v2_compatible ) {
-				$styles->getSass()->setVariables( [
-					'para-margin-top' => '1em',
-					'para-indent' => '0',
-				] );
+				$styles->getSass()->setVariables(
+					[
+						'para-margin-top' => '1em',
+						'para-indent' => '0',
+					]
+				);
 			} else {
 				$scss .= "p + p { text-indent: 0em; margin-top: 1em; } \n";
 			}
 		} else {
 			if ( $v2_compatible ) {
-				$styles->getSass()->setVariables( [
-					'para-margin-top' => '0',
-					'para-indent' => '1em',
-				] );
+				$styles->getSass()->setVariables(
+					[
+						'para-margin-top' => '0',
+						'para-indent' => '1em',
+					]
+				);
 			} else {
 				$scss .= "p + p { text-indent: 1em; margin-top: 0em; } \n";
 			}
@@ -1828,23 +1852,27 @@ class PDFOptions extends \Pressbooks\Options {
 		if ( isset( $options['pdf_sectionopenings'] ) ) {
 			if ( 'openright' === $options['pdf_sectionopenings'] ) {
 				if ( $v2_compatible ) {
-					$styles->getSass()->setVariables( [
-						'recto-verso-standard-opening' => 'right',
-						'recto-verso-first-section-opening' => 'right',
-						'recto-verso-section-opening' => 'right',
-					] );
+					$styles->getSass()->setVariables(
+						[
+							'recto-verso-standard-opening' => 'right',
+							'recto-verso-first-section-opening' => 'right',
+							'recto-verso-section-opening' => 'right',
+						]
+					);
 				} else {
 					$scss .= "#title-page, #toc, div.part, div.front-matter, div.front-matter.introduction, div.front-matter + div.front-matter, div.chapter, div.chapter + div.chapter, div.back-matter, div.back-matter + div.back-matter, #half-title-page h1.title:first-of-type  { page-break-before: right; } \n";
 					$scss .= "#copyright-page { page-break-before: left; }\n";
 				}
 			} elseif ( 'remove' === $options['pdf_sectionopenings'] ) {
 				if ( $v2_compatible ) {
-					$styles->getSass()->setVariables( [
-						'recto-verso-standard-opening' => 'auto',
-						'recto-verso-first-section-opening' => 'auto',
-						'recto-verso-section-opening' => 'auto',
-						'recto-verso-copyright-page-opening' => 'auto',
-					] );
+					$styles->getSass()->setVariables(
+						[
+							'recto-verso-standard-opening' => 'auto',
+							'recto-verso-first-section-opening' => 'auto',
+							'recto-verso-section-opening' => 'auto',
+							'recto-verso-copyright-page-opening' => 'auto',
+						]
+					);
 				} else {
 					$scss .= "#title-page, #copyright-page, #toc, div.part, div.front-matter, div.back-matter, div.chapter, #half-title-page h1.title:first-of-type  { page-break-before: auto; } \n";
 				}
@@ -1854,9 +1882,11 @@ class PDFOptions extends \Pressbooks\Options {
 		// Should we display the TOC? True (default) or false.
 		if ( ! $options['pdf_toc'] ) {
 			if ( $v2_compatible ) {
-				$styles->getSass()->setVariables( [
-					'toc-display' => 'none',
-				] );
+				$styles->getSass()->setVariables(
+					[
+						'toc-display' => 'none',
+					]
+				);
 			} else {
 				$scss .= "#toc { display: none; } \n";
 			}
@@ -1865,9 +1895,11 @@ class PDFOptions extends \Pressbooks\Options {
 		// Widows
 		if ( isset( $options['widows'] ) ) {
 			if ( $v2_compatible ) {
-				$styles->getSass()->setVariables( [
-					'widows' => $options['widows'],
-				] );
+				$styles->getSass()->setVariables(
+					[
+						'widows' => $options['widows'],
+					]
+				);
 			} else {
 				$scss .= "p { widows: {$options['widows']}; }\n";
 			}
@@ -1880,9 +1912,11 @@ class PDFOptions extends \Pressbooks\Options {
 		// Orphans
 		if ( isset( $options['orphans'] ) ) {
 			if ( $v2_compatible ) {
-				$styles->getSass()->setVariables( [
-					'orphans' => $options['orphans'],
-				] );
+				$styles->getSass()->setVariables(
+					[
+						'orphans' => $options['orphans'],
+					]
+				);
 			} else {
 				$scss .= "p { orphans: {$options['orphans']}; }\n";
 			}
@@ -1904,18 +1938,20 @@ class PDFOptions extends \Pressbooks\Options {
 			$chapter_running_content_right = ( isset( $options['running_content_chapter_right'] ) ) ? self::replaceRunningContentTags( $options['running_content_chapter_right'] ) : 'string(section-title)';
 			$back_matter_running_content_left = ( isset( $options['running_content_back_matter_left'] ) ) ? self::replaceRunningContentTags( $options['running_content_back_matter_left'] ) : 'string(book-title)';
 			$back_matter_running_content_right = ( isset( $options['running_content_back_matter_right'] ) ) ? self::replaceRunningContentTags( $options['running_content_back_matter_right'] ) : 'string(section-title)';
-			$styles->getSass()->setVariables( [
-				'front-matter-running-content-left' => $front_matter_running_content_left,
-				'front-matter-running-content-right' => $front_matter_running_content_right,
-				'introduction-running-content-left' => $introduction_running_content_left,
-				'introduction-running-content-right' => $introduction_running_content_right,
-				'part-running-content-left' => $part_running_content_left,
-				'part-running-content-right' => $part_running_content_right,
-				'chapter-running-content-left' => $chapter_running_content_left,
-				'chapter-running-content-right' => $chapter_running_content_right,
-				'back-matter-running-content-left' => $back_matter_running_content_left,
-				'back-matter-running-content-right' => $back_matter_running_content_right,
-			] );
+			$styles->getSass()->setVariables(
+				[
+					'front-matter-running-content-left' => $front_matter_running_content_left,
+					'front-matter-running-content-right' => $front_matter_running_content_right,
+					'introduction-running-content-left' => $introduction_running_content_left,
+					'introduction-running-content-right' => $introduction_running_content_right,
+					'part-running-content-left' => $part_running_content_left,
+					'part-running-content-right' => $part_running_content_right,
+					'chapter-running-content-left' => $chapter_running_content_left,
+					'chapter-running-content-right' => $chapter_running_content_right,
+					'back-matter-running-content-left' => $back_matter_running_content_left,
+					'back-matter-running-content-right' => $back_matter_running_content_right,
+				]
+			);
 		}
 
 		// a11y Font Size

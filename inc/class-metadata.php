@@ -454,11 +454,13 @@ class Metadata implements \JsonSerializable {
 		foreach ( $parts as $part ) {
 			$pb_part_content = trim( get_post_meta( $part->ID, 'pb_part_content', true ) );
 			if ( $pb_part_content ) {
-				$success = wp_update_post( [
-					'ID' => $part->ID,
-					'post_content' => $pb_part_content,
-					'comment_status' => 'closed',
-				] );
+				$success = wp_update_post(
+					[
+						'ID' => $part->ID,
+						'post_content' => $pb_part_content,
+						'comment_status' => 'closed',
+					]
+				);
 				if ( $success === $part->ID ) {
 					delete_post_meta( $part->ID, 'pb_part_content' );
 				}

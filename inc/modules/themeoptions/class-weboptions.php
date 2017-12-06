@@ -55,7 +55,8 @@ class WebOptions extends \Pressbooks\Options {
 	 * Configure the web options tab using the settings API.
 	 */
 	function init() {
-		$_page = $_option = 'pressbooks_theme_options_' . $this->getSlug();
+		$_option = 'pressbooks_theme_options_' . $this->getSlug();
+		$_page = $_option;
 		$_section = $this->getSlug() . '_options_section';
 
 		if ( false === get_option( $_option ) ) {
@@ -246,9 +247,9 @@ class WebOptions extends \Pressbooks\Options {
 		 */
 		return apply_filters(
 			'pb_theme_options_web_defaults', [
-			'social_media' => 1,
-			'paragraph_separation' => 'skiplines',
-			'part_title' => 0,
+				'social_media' => 1,
+				'paragraph_separation' => 'skiplines',
+				'part_title' => 0,
 			]
 		);
 	}
@@ -279,8 +280,8 @@ class WebOptions extends \Pressbooks\Options {
 		 */
 		return apply_filters(
 			'pb_theme_options_web_booleans', [
-			'social_media',
-			'part_title',
+				'social_media',
+				'part_title',
 			]
 		);
 	}
@@ -348,7 +349,7 @@ class WebOptions extends \Pressbooks\Options {
 		 */
 		return apply_filters(
 			'pb_theme_options_web_predefined', [
-			'paragraph_separation',
+				'paragraph_separation',
 			]
 		);
 	}
@@ -372,19 +373,23 @@ class WebOptions extends \Pressbooks\Options {
 		if ( isset( $options['paragraph_separation'] ) ) {
 			if ( 'indent' === $options['paragraph_separation'] ) {
 				if ( $v2_compatible ) {
-					$styles->getSass()->setVariables( [
-						'para-margin-top' => '0',
-						'para-indent' => '1em',
-					] );
+					$styles->getSass()->setVariables(
+						[
+							'para-margin-top' => '0',
+							'para-indent' => '1em',
+						]
+					);
 				} else {
 					$scss .= "* + p { text-indent: 1em; margin-top: 0; margin-bottom: 0; } \n";
 				}
 			} elseif ( 'skiplines' === $options['paragraph_separation'] ) {
 				if ( $v2_compatible ) {
-					$styles->getSass()->setVariables( [
-						'para-margin-top' => '1em',
-						'para-indent' => '0',
-					] );
+					$styles->getSass()->setVariables(
+						[
+							'para-margin-top' => '1em',
+							'para-indent' => '0',
+						]
+					);
 				} else {
 					$scss .= "p + p { text-indent: 0em; margin-top: 1em; } \n";
 				}

@@ -62,32 +62,40 @@ class Books extends \WP_REST_Controller {
 	 */
 	public function register_routes() {
 
-		register_rest_route( $this->namespace, '/' . $this->rest_base, [
-			[
-				'methods' => \WP_REST_Server::READABLE,
-				'callback' => [ $this, 'get_items' ],
-				'permission_callback' => [ $this, 'get_items_permissions_check' ],
-				'args' => $this->get_collection_params(),
-			],
-			'schema' => [ $this, 'get_public_item_schema' ],
-		] );
+		register_rest_route(
+			$this->namespace, '/' . $this->rest_base, [
+				[
+					'methods' => \WP_REST_Server::READABLE,
+					'callback' => [ $this, 'get_items' ],
+					'permission_callback' => [ $this, 'get_items_permissions_check' ],
+					'args' => $this->get_collection_params(),
+				],
+				'schema' => [ $this, 'get_public_item_schema' ],
+			]
+		);
 
-		register_rest_route( $this->namespace, '/' . $this->rest_base . '/(?P<id>[\d]+)', [
-			'args' => [
-				'id' => [
-					'description' => __( 'Unique identifier for the object.' ),
-					'type' => 'integer',
-				],
-			],
-			[
-				'methods' => \WP_REST_Server::READABLE,
-				'callback' => [ $this, 'get_item' ],
-				'permission_callback' => [ $this, 'get_item_permissions_check' ],
+		register_rest_route(
+			$this->namespace, '/' . $this->rest_base . '/(?P<id>[\d]+)', [
 				'args' => [
-					'context' => $this->get_context_param( [ 'default' => 'view' ] ),
+					'id' => [
+						'description' => __( 'Unique identifier for the object.' ),
+						'type' => 'integer',
+					],
 				],
-			],
-		] );
+				[
+					'methods' => \WP_REST_Server::READABLE,
+					'callback' => [ $this, 'get_item' ],
+					'permission_callback' => [ $this, 'get_item_permissions_check' ],
+					'args' => [
+						'context' => $this->get_context_param(
+							[
+								'default' => 'view',
+							]
+						),
+					],
+				],
+			]
+		);
 	}
 
 	public function get_item_schema() {
@@ -286,20 +294,30 @@ class Books extends \WP_REST_Controller {
 			'toc' => $this->prepare_response_for_collection( $response_toc ),
 		];
 
-		$this->linkCollector['api'][] = [ 'href' => get_rest_url( $id ) ];
+		$this->linkCollector['api'][] = [
+			'href' => get_rest_url( $id ),
+		];
 
 		restore_current_blog();
 
-		$this->linkCollector['metadata'][] = [ 'href' => $item['metadata']['_links']['self'][0]['href'] ];
+		$this->linkCollector['metadata'][] = [
+			'href' => $item['metadata']['_links']['self'][0]['href'],
+		];
 		unset( $item['metadata']['_links'] );
 
-		$this->linkCollector['toc'][] = [ 'href' => $item['toc']['_links']['self'][0]['href'] ];
+		$this->linkCollector['toc'][] = [
+			'href' => $item['toc']['_links']['self'][0]['href'],
+		];
 		foreach ( $item['toc']['_links']['metadata'] as $v ) {
-			$this->linkCollector['metadata'][] = [ 'href' => $v['href'] ];
+			$this->linkCollector['metadata'][] = [
+				'href' => $v['href'],
+			];
 		}
 		unset( $item['toc']['_links'] );
 
-		$this->linkCollector['self'][] = [ 'href' => rest_url( sprintf( '%s/%s/%d', $this->namespace, $this->rest_base, $id ) ) ];
+		$this->linkCollector['self'][] = [
+			'href' => rest_url( sprintf( '%s/%s/%d', $this->namespace, $this->rest_base, $id ) ),
+		];
 
 		return $item;
 	}
@@ -502,7 +520,7 @@ class Books extends \WP_REST_Controller {
 		$searched_books = 0;
 		$found_books = 0;
 		$results = [];
-		while ( $found_books < $request['per_page']  ) {
+		while ( $found_books < $request['per_page'] ) {
 			$book_ids = $this->searchBookIds( $request );
 			foreach ( $book_ids as $id ) {
 				$node = $this->renderBook( $id, $request['search'] );

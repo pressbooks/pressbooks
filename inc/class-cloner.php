@@ -97,7 +97,13 @@ class Cloner {
 	 *
 	 * @var array
 	 */
-	protected $itemsToClone = [ 'terms' => 0, 'front-matter' => 0, 'back-matter' => 0, 'parts' => 0, 'chapters' => 0 ];
+	protected $itemsToClone = [
+		'terms' => 0,
+		'front-matter' => 0,
+		'back-matter' => 0,
+		'parts' => 0,
+		'chapters' => 0,
+	];
 	/**
 	 * An array of cloned items.
 	 *
@@ -123,7 +129,9 @@ class Cloner {
 	 *
 	 * @var array
 	 */
-	protected $requestArgs = [ 'timeout' => 30 ];
+	protected $requestArgs = [
+		'timeout' => 30,
+	];
 
 	/**
 	 * @var array
@@ -387,7 +395,10 @@ class Cloner {
 	 */
 	public function buildListOfKnownImages( $url ) {
 		// Handle request (local or global)
-		$params = [ 'media_type' => 'image', 'per_page' => 100 ];
+		$params = [
+			'media_type' => 'image',
+			'per_page' => 100,
+		];
 		$response = $this->handleGetRequest( $url, 'wp/v2', 'media', $params );
 
 		// Handle errors
@@ -448,7 +459,11 @@ class Cloner {
 	 */
 	public function getBookStructure( $url ) {
 		// Handle request (local or global)
-		$response = $this->handleGetRequest( $url , 'pressbooks/v2', 'toc', [ '_embed' => 1 ] );
+		$response = $this->handleGetRequest(
+			$url , 'pressbooks/v2', 'toc', [
+				'_embed' => 1,
+			]
+		);
 
 		// Handle errors
 		if ( is_wp_error( $response ) ) {
@@ -477,7 +492,11 @@ class Cloner {
 
 		foreach ( [ 'front-matter-type', 'chapter-type', 'back-matter-type' ] as $taxonomy ) {
 			// Handle request (local or global)
-			$response = $this->handleGetRequest( $url, 'pressbooks/v2', "$taxonomy", [ 'per_page' => 25 ] );
+			$response = $this->handleGetRequest(
+				$url, 'pressbooks/v2', "$taxonomy", [
+					'per_page' => 25,
+				]
+			);
 
 			// Bail on error
 			if ( is_wp_error( $response ) ) {
@@ -553,9 +572,11 @@ class Cloner {
 		$title = $this->sourceBookMetadata['name'];
 		$user_id = get_current_user_id();
 		 // Disable automatic redirect to new book dashboard
-		 add_filter( 'pb_redirect_to_new_book', function () {
-			 return false;
-		 } );
+		add_filter(
+			'pb_redirect_to_new_book', function () {
+				return false;
+			}
+		);
 		 // Remove default content so that the book only contains the results of the clone operation
 		 add_filter( 'pb_default_book_content', [ $this, 'removeDefaultBookContent' ] );
 		$result = wpmu_create_blog( $domain, $path, $title, $user_id );
@@ -707,10 +728,12 @@ class Cloner {
 		}
 
 		foreach ( $attachments as $attachment ) {
-			wp_update_post( [
-				'ID' => $attachment,
-				'post_parent' => $response['id'],
-			] );
+			wp_update_post(
+				[
+					'ID' => $attachment,
+					'post_parent' => $response['id'],
+				]
+			);
 		}
 
 		return $response['id'];
@@ -927,7 +950,12 @@ class Cloner {
 			}
 		}
 
-		$pid = media_handle_sideload( [ 'name' => $filename, 'tmp_name' => $tmp_name ], 0 );
+		$pid = media_handle_sideload(
+			[
+				'name' => $filename,
+				'tmp_name' => $tmp_name,
+			], 0
+		);
 		$src = wp_get_attachment_url( $pid );
 		if ( ! $src ) {
 			$pid = 0;
@@ -1021,7 +1049,11 @@ class Cloner {
 		// Check for taxonomies introduced in Pressbooks 4.1
 		// We specifically check for 404 Not Found.
 		// If we get another kind of error it will be caught later because we want to know what went wrong.
-		$response = $this->handleGetRequest( $url, 'pressbooks/v2', 'chapter-type', [ 'per_page' => 1 ] );
+		$response = $this->handleGetRequest(
+			$url, 'pressbooks/v2', 'chapter-type', [
+				'per_page' => 1,
+			]
+		);
 		if ( is_wp_error( $response ) && in_array( (int) $response->get_error_code(), [ 404 ], true ) ) {
 			$_SESSION['pb_errors'][] = __( 'You can only clone from a book hosted by Pressbooks 4.1 or later. Please ensure that your source book meets these requirements.', 'pressbooks' );
 			return false;

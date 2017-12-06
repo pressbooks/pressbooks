@@ -7,6 +7,7 @@
 namespace Pressbooks\Modules\Import;
 
 use function \Pressbooks\Utility\getset;
+use function \Pressbooks\Utility\debug_error_log;
 
 abstract class Import {
 
@@ -320,14 +321,18 @@ abstract class Import {
 			 */
 			$allowed_file_types = apply_filters(
 				'pb_import_file_types', [
-				'epub' => 'application/epub+zip',
-				'xml' => 'application/xml',
-				'odt' => 'application/vnd.oasis.opendocument.text',
-				'docx' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+					'epub' => 'application/epub+zip',
+					'xml' => 'application/xml',
+					'odt' => 'application/vnd.oasis.opendocument.text',
+					'docx' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
 				]
 			);
 
-			$overrides = [ 'test_form' => false, 'test_type' => false, 'mimes' => $allowed_file_types ];
+			$overrides = [
+				'test_form' => false,
+				'test_type' => false,
+				'mimes' => $allowed_file_types,
+			];
 
 			if ( ! function_exists( 'wp_handle_upload' ) ) {
 				require_once( ABSPATH . 'wp-admin/includes/file.php' );
@@ -396,7 +401,7 @@ abstract class Import {
 
 			// Something failed
 			if ( is_wp_error( $remote_head ) ) {
-				error_log( '\Pressbooks\Modules\Import::formSubmit html import error, wp_remote_head()' . $remote_head->get_error_message() );
+				debug_error_log( '\Pressbooks\Modules\Import::formSubmit html import error, wp_remote_head()' . $remote_head->get_error_message() );
 				$_SESSION['pb_errors'][] = $remote_head->get_error_message();
 				\Pressbooks\Redirect\location( $redirect_url );
 			}
@@ -407,7 +412,9 @@ abstract class Import {
 				\Pressbooks\Redirect\location( $redirect_url );
 			}
 
-			$upload = [ 'url' => $_POST['import_http'] ];
+			$upload = [
+				'url' => $_POST['import_http'],
+			];
 
 			switch ( $_POST['type_of'] ) {
 				case 'html':
@@ -503,7 +510,7 @@ abstract class Import {
 			'blog_id' => get_current_blog_id(),
 		];
 
-		$message = print_r( array_merge( $info, $more_info ), true ) . $message;
+		$message = print_r( array_merge( $info, $more_info ), true ) . $message; // @codingStandardsIgnoreLine
 
 		\Pressbooks\Utility\email_error_log( self::$logsEmail, $subject, $message );
 	}

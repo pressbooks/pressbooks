@@ -169,7 +169,8 @@ function display_network_analytics_settings() {
 	?>
 	<div class="wrap">
 		<h2><?php _e( 'Google Analytics', 'pressbooks' ); ?></h2>
-		<?php $nonce = ( ! empty( $_REQUEST['_wpnonce'] ) ) ? $_REQUEST['_wpnonce'] : '';
+		<?php
+		$nonce = ( ! empty( $_REQUEST['_wpnonce'] ) ) ? $_REQUEST['_wpnonce'] : '';
 		if ( ! empty( $_POST ) ) {
 			if ( ! wp_verify_nonce( $nonce, 'pb_network_analytics-options' ) ) {
 				wp_die( 'Security check' );
@@ -183,17 +184,23 @@ function display_network_analytics_settings() {
 					update_option( 'ga_mu_site_specific_allowed', $_REQUEST['ga_mu_site_specific_allowed'] );
 				} else {
 					delete_option( 'ga_mu_site_specific_allowed' );
-				} ?>
+				}
+				?>
 				<div id="message" class="updated notice is-dismissible"><p><strong><?php _e( 'Settings saved.', 'pressbooks' ); ?></strong></div>
-			<?php }
-		} ?>
+			<?php
+			}
+		}
+		?>
 		<form method="POST" action="">
-			<?php settings_fields( 'pb_network_analytics' );
-			do_settings_sections( 'pb_network_analytics' ); ?>
+			<?php
+			settings_fields( 'pb_network_analytics' );
+			do_settings_sections( 'pb_network_analytics' );
+			?>
 			<?php submit_button(); ?>
 		</form>
 	</div>
-<?php }
+<?php
+}
 
 /**
  * Display Analytics settings (book)
@@ -203,8 +210,10 @@ function display_analytics_settings() {
 	<div class="wrap">
 		<h2><?php _e( 'Google Analytics', 'pressbooks' ); ?></h2>
 		<form method="POST" action="options.php">
-			<?php settings_fields( 'pb_analytics' );
-			do_settings_sections( 'pb_analytics' ); ?>
+			<?php
+			settings_fields( 'pb_analytics' );
+			do_settings_sections( 'pb_analytics' );
+			?>
 			<?php submit_button(); ?>
 		</form>
 	</div>

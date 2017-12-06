@@ -373,9 +373,19 @@ class Catalog {
 		global $wpdb;
 
 		if ( $for_real ) {
-			return $wpdb->delete( $this->dbTable, [ 'users_id' => $this->userId ], [ '%d' ] );
+			return $wpdb->delete(
+				$this->dbTable, [
+					'users_id' => $this->userId,
+				], [ '%d' ]
+			);
 		} else {
-			return $wpdb->update( $this->dbTable, [ 'deleted' => 1 ], [ 'users_id' => $this->userId ], [ '%d' ], [ '%d' ] );
+			return $wpdb->update(
+				$this->dbTable, [
+					'deleted' => 1,
+				], [
+					'users_id' => $this->userId,
+				], [ '%d' ], [ '%d' ]
+			);
 		}
 	}
 
@@ -429,8 +439,16 @@ class Catalog {
 
 		unset( $item['users_id'], $item['blogs_id'], $item['deleted'] ); // Don't allow spoofing
 
-		$data = [ 'users_id' => $this->userId, 'blogs_id' => $blog_id, 'deleted' => 0 ];
-		$format = [ 'users_id' => $this->dbColumns['users_id'], 'blogs_id' => $this->dbColumns['blogs_id'], 'deleted' => $this->dbColumns['deleted'] ];
+		$data = [
+			'users_id' => $this->userId,
+			'blogs_id' => $blog_id,
+			'deleted' => 0,
+		];
+		$format = [
+			'users_id' => $this->dbColumns['users_id'],
+			'blogs_id' => $this->dbColumns['blogs_id'],
+			'deleted' => $this->dbColumns['deleted'],
+		];
 
 		foreach ( $item as $key => $val ) {
 			if ( isset( $this->dbColumns[ $key ] ) ) {
@@ -487,9 +505,21 @@ class Catalog {
 		global $wpdb;
 
 		if ( $for_real ) {
-			return $wpdb->delete( $this->dbTable, [ 'users_id' => $this->userId, 'blogs_id' => $blog_id ], [ '%d', '%d' ] );
+			return $wpdb->delete(
+				$this->dbTable, [
+					'users_id' => $this->userId,
+					'blogs_id' => $blog_id,
+				], [ '%d', '%d' ]
+			);
 		} else {
-			return $wpdb->update( $this->dbTable, [ 'deleted' => 1 ], [ 'users_id' => $this->userId, 'blogs_id' => $blog_id ], [ '%d' ], [ '%d', '%d' ] );
+			return $wpdb->update(
+				$this->dbTable, [
+					'deleted' => 1,
+				], [
+					'users_id' => $this->userId,
+					'blogs_id' => $blog_id,
+				], [ '%d' ], [ '%d', '%d' ]
+			);
 		}
 	}
 
@@ -608,14 +638,27 @@ class Catalog {
 		}
 
 		if ( $for_real && is_super_admin() ) {
-			$wpdb->delete( $this->dbLinkTable, [ 'tags_id' => $tag_id ], [ '%d' ] );
-			$wpdb->delete( $this->dbTagsTable, [ 'id' => $tag_id ], [ '%d' ] );
+			$wpdb->delete(
+				$this->dbLinkTable, [
+					'tags_id' => $tag_id,
+				], [ '%d' ]
+			);
+			$wpdb->delete(
+				$this->dbTagsTable, [
+					'id' => $tag_id,
+				], [ '%d' ]
+			);
 			$result = 1;
 		} else {
 			$result = $wpdb->delete(
 				$this->dbLinkTable,
-				[ 'users_id' => $this->userId, 'blogs_id' => $blog_id, 'tags_id' => $tag_id, 'tags_group' => $tag_group ],
-				[ '%d',  '%d',  '%d', '%d' ]
+				[
+					'users_id' => $this->userId,
+					'blogs_id' => $blog_id,
+					'tags_id' => $tag_id,
+					'tags_group' => $tag_group,
+				],
+				[ '%d', '%d', '%d', '%d' ]
 			);
 		}
 
@@ -642,7 +685,13 @@ class Catalog {
 		/** @var $wpdb \wpdb */
 		global $wpdb;
 
-		$result = $wpdb->delete( $this->dbLinkTable, [ 'users_id' => $this->userId, 'blogs_id' => $blog_id, 'tags_group' => $tag_group ], [ '%d', '%d', '%d' ] );
+		$result = $wpdb->delete(
+			$this->dbLinkTable, [
+				'users_id' => $this->userId,
+				'blogs_id' => $blog_id,
+				'tags_group' => $tag_group,
+			], [ '%d', '%d', '%d' ]
+		);
 
 		// TODO:
 		// Optimize the links table: $wpdb->query( "OPTIMIZE TABLE {$this->dbLinkTable} " );
@@ -732,8 +781,16 @@ class Catalog {
 
 		switch_to_blog( $book->blog_id );
 
-		$allowed_file_types = [ 'jpg' => 'image/jpeg', 'jpeg' => 'image/jpeg', 'gif' => 'image/gif', 'png' => 'image/png' ];
-		$overrides = [ 'test_form' => false, 'mimes' => $allowed_file_types ];
+		$allowed_file_types = [
+			'jpg' => 'image/jpeg',
+			'jpeg' => 'image/jpeg',
+			'gif' => 'image/gif',
+			'png' => 'image/png',
+		];
+		$overrides = [
+			'test_form' => false,
+			'mimes' => $allowed_file_types,
+		];
 		$image = wp_handle_upload( $_FILES[ $meta_key ], $overrides );
 
 		if ( ! empty( $image['error'] ) ) {
@@ -1180,7 +1237,11 @@ class Catalog {
 		/* Go! */
 		$catalog = new static( $user_id );
 		$featured = ( isset( $_REQUEST['featured'] ) ) ? absint( $_REQUEST['featured'] ) : 0;
-		$catalog->saveBook( $blog_id, [ 'featured' => $featured ] );
+		$catalog->saveBook(
+			$blog_id, [
+				'featured' => $featured,
+			]
+		);
 
 		// Tags
 		for ( $i = 1; $i <= self::MAX_TAGS_GROUP; ++$i ) {
@@ -1254,8 +1315,8 @@ class Catalog {
 			$redirect_url = get_admin_url( get_current_blog_id(), '/index.php?page=pb_catalog' );
 		}
 
-		$url = parse_url( \Pressbooks\Sanitize\canonicalize_url( $_REQUEST['add_book_by_url'] ) );
-		$main = parse_url( network_home_url() );
+		$url = wp_parse_url( \Pressbooks\Sanitize\canonicalize_url( $_REQUEST['add_book_by_url'] ) );
+		$main = wp_parse_url( network_home_url() );
 
 		if ( strpos( $url['host'], $main['host'] ) === false ) {
 			$_SESSION['pb_errors'][] = __( 'Invalid URL.', 'pressbooks' );

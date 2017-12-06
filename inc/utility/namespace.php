@@ -157,7 +157,7 @@ function get_media_prefix() {
  */
 function get_media_path( $guid ) {
 
-	$parts = parse_url( $guid );
+	$parts = wp_parse_url( $guid );
 	$path = $parts['path'];
 	$beginning = strpos( $path, 'files' );
 	if ( $beginning ) {
@@ -195,17 +195,17 @@ function latest_exports() {
 	 */
 	$filetypes = apply_filters(
 		'pb_latest_export_filetypes', [
-		'epub3' => '._3.epub',
-		'epub' => '.epub',
-		'pdf' => '.pdf',
-		'print-pdf' => '._print.pdf',
-		'mobi' => '.mobi',
-		'icml' => '.icml',
-		'xhtml' => '.html',
-		'wxr' => '.xml',
-		'vanillawxr' => '._vanilla.xml',
-		'mpdf' => '._oss.pdf',
-		'odf' => '.odt',
+			'epub3' => '._3.epub',
+			'epub' => '.epub',
+			'pdf' => '.pdf',
+			'print-pdf' => '._print.pdf',
+			'mobi' => '.mobi',
+			'icml' => '.icml',
+			'xhtml' => '.html',
+			'wxr' => '.xml',
+			'vanillawxr' => '._vanilla.xml',
+			'mpdf' => '._oss.pdf',
+			'odf' => '.odt',
 		]
 	);
 
@@ -270,7 +270,7 @@ function do_sitemap() {
  * @return string Path to temporary file
  */
 function create_tmp_file() {
-	$stream = stream_get_meta_data( $GLOBALS[ mt_rand() ] = tmpfile() );
+	$stream = stream_get_meta_data( $GLOBALS[ mt_rand() ] = tmpfile() ); // @codingStandardsIgnoreLine
 
 	return $stream['uri'];
 }
@@ -422,7 +422,7 @@ function check_saxonhe_install() {
 function show_experimental_features( $host = '' ) {
 
 	if ( ! $host ) {
-		$host = parse_url( network_home_url(), PHP_URL_HOST );
+		$host = wp_parse_url( network_home_url(), PHP_URL_HOST );
 	}
 
 	// hosts where experimental features should be hidden
@@ -525,7 +525,11 @@ function disable_comments() {
 	}
 
 	$old_option = get_option( 'disable_comments_options' );
-	$new_option = get_option( 'pressbooks_sharingandprivacy_options', [ 'disable_comments' => 1 ] );
+	$new_option = get_option(
+		'pressbooks_sharingandprivacy_options', [
+			'disable_comments' => 1,
+		]
+	);
 
 	if ( false === (bool) $old_option ) {
 		$retval = (bool) $new_option['disable_comments'];
@@ -611,18 +615,28 @@ function fetch_recommended_plugins() {
 	 *
 	 * @param string $value
 	 */
-	$url = $http_url = apply_filters( 'pb_recommended_plugins_url', 'https://pressbooks-plugins.now.sh' ) . '/api/plugin-recommendations';
+	$http_url = apply_filters( 'pb_recommended_plugins_url', 'https://pressbooks-plugins.now.sh' ) . '/api/plugin-recommendations';
+	$url = $http_url;
 	$ssl = wp_http_supports( [ 'ssl' ] );
 	if ( $ssl ) {
 		$url = set_url_scheme( $url, 'https' );
 	}
-	$request = wp_remote_get( $url, [ 'timeout' => 15 ] );
+	$request = wp_remote_get(
+		$url, [
+			'timeout' => 15,
+		]
+	);
 	if ( $ssl && is_wp_error( $request ) ) {
+		// @codingStandardsIgnoreLine
 		trigger_error(
 			__( 'An unexpected error occurred. Something may be wrong with the plugin recommendations server or your site&#8217;s server&#8217;s configuration.', 'pressbooks' ) . ' ' . __( '(Pressbooks could not establish a secure connection to the plugin recommendations server. Please contact your server administrator.)', 'pressbooks' ),
 			headers_sent() || WP_DEBUG ? E_USER_WARNING : E_USER_NOTICE
 		);
-		$request = wp_remote_get( $http_url, [ 'timeout' => 15 ] );
+		$request = wp_remote_get(
+			$http_url, [
+				'timeout' => 15,
+			]
+		);
 	}
 	if ( is_wp_error( $request ) ) {
 		$res = new \WP_Error(
@@ -731,6 +745,15 @@ function format_bytes( $bytes, $precision = 2 ) {
 	return round( $bytes, $precision ) . ' ' . $units[ $pow ];
 }
 
+/**
+ * @param $message
+ * @param null $message_type
+ */
+function debug_error_log( $message, $message_type = null ) {
+	if ( WP_DEBUG ) {
+		\error_log( $message, $message_type ); // @codingStandardsIgnoreLine
+	}
+}
 
 /**
  * Email error to an array of recipients
@@ -744,7 +767,7 @@ function email_error_log( $emails, $subject, $message ) {
 	// ------------------------------------------------------------------------------------------------------------
 	// Write to generic error log to be safe
 
-	error_log( $subject . "\n" . $message );
+	debug_error_log( $subject . "\n" . $message );
 
 	// ------------------------------------------------------------------------------------------------------------
 	// Email logs
@@ -1062,7 +1085,7 @@ function absolute_path( $path ) {
 
 	if ( filter_var( $path, FILTER_VALIDATE_URL ) !== false ) {
 		$url = $path;
-		$path = parse_url( $path, PHP_URL_PATH );
+		$path = wp_parse_url( $path, PHP_URL_PATH );
 	}
 
 	$new_path = str_replace( '\\', '/', $path );
@@ -1097,8 +1120,8 @@ function absolute_path( $path ) {
  */
 function urls_have_same_host( $url1, $url2 ) {
 
-	$host1 = parse_url( $url1, PHP_URL_HOST );
-	$host2 = parse_url( $url2, PHP_URL_HOST );
+	$host1 = wp_parse_url( $url1, PHP_URL_HOST );
+	$host2 = wp_parse_url( $url2, PHP_URL_HOST );
 	if ( ! $host1 || ! $host2 ) {
 		return false;
 	}
@@ -1133,4 +1156,52 @@ function get_cache_path() {
 		wp_mkdir_p( $cache );
 	}
 	return $cache;
+}
+
+/**
+ * @since 5.0.0
+ *
+ * @see \WP_Filesystem
+ * @return \WP_Filesystem_Direct
+ */
+function init_direct_filesystem() {
+	if ( ! class_exists( 'WP_Filesystem_Direct' ) ) {
+		$abstraction_file = apply_filters( 'filesystem_method_file', ABSPATH . 'wp-admin/includes/class-wp-filesystem-direct.php', 'direct' ); // Use for mocks / testing
+		require_once( ABSPATH . 'wp-admin/includes/class-wp-filesystem-base.php' );
+		require_once( $abstraction_file );
+
+		// Set the permission constants if not already set.
+		if ( ! defined( 'FS_CHMOD_DIR' ) ) {
+			define( 'FS_CHMOD_DIR', ( fileperms( ABSPATH ) & 0777 | 0755 ) );
+		}
+		if ( ! defined( 'FS_CHMOD_FILE' ) ) {
+			define( 'FS_CHMOD_FILE', ( fileperms( ABSPATH . 'index.php' ) & 0777 | 0644 ) );
+		}
+	}
+	return new \WP_Filesystem_Direct( [] );
+}
+
+/**
+ * @since 5.0.0
+ *
+ * @param string $filename
+ *
+ * @return bool|string
+ */
+function get_contents( $filename ) {
+	$fs = init_direct_filesystem();
+	return $fs->get_contents( $filename );
+}
+
+/**
+ * @since 5.0.0
+ *
+ * @param string $filename
+ * @param mixed $data
+ *
+ * @return bool
+ */
+function put_contents( $filename, $data ) {
+	$fs = init_direct_filesystem();
+	return $fs->put_contents( $filename, $data );
 }

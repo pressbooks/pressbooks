@@ -191,10 +191,11 @@ class Sass {
 			}
 		} catch ( \Exception $e ) {
 
+			$error_message = print_r( $sass->getParsedFiles(), true ); // @codingStandardsIgnoreLine
 			$_SESSION['pb_errors'][] = sprintf(
 				__( 'There was a problem with SASS. Contact your site administrator. Error: %1$s %2$s', 'pressbooks' ),
 				$e->getMessage(),
-				'<pre>' . print_r( $sass->getParsedFiles(), true ) . '</pre>'
+				"<pre>{$error_message}</pre>"
 			);
 
 			$this->logException( $e );
@@ -293,7 +294,7 @@ class Sass {
 			],
 		];
 
-		$message = print_r( array_merge( $info ), true );
+		$message = print_r( array_merge( $info ), true ); // @codingStandardsIgnoreLine
 
 		\Pressbooks\Utility\email_error_log(
 			$this->errorsEmail,
@@ -309,18 +310,16 @@ class Sass {
 	 * @param string $css
 	 * @param string $scss
 	 * @param string $filename
-	 *
-	 * @param string $filename
 	 */
 	public function debug( $css, $scss, $filename ) {
 
 		$debug_dir = $this->pathToDebugDir();
 
 		$css_debug_file = $debug_dir . "/{$filename}.css";
-		file_put_contents( $css_debug_file, $css );
+		\Pressbooks\Utility\put_contents( $css_debug_file, $css );
 
 		$scss_debug_file = $debug_dir . "/{$filename}.scss";
-		file_put_contents( $scss_debug_file, $scss );
+		\Pressbooks\Utility\put_contents( $scss_debug_file, $scss );
 	}
 
 	/**

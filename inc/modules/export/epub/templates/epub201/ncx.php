@@ -29,7 +29,7 @@ if ( $enable_external_identifier ) {
 		<text><?php bloginfo( 'name' ); ?></text>
 	</docTitle>
 
-	<?php if ( ! empty( $author ) ) :  ?>
+	<?php if ( ! empty( $author ) ) : ?>
 	<docAuthor>
 		<text><?php echo $author; ?></text>
 	</docAuthor>
@@ -50,14 +50,17 @@ if ( $enable_external_identifier ) {
 			if ( get_post_meta( $v['ID'], 'pb_part_invisible', true ) !== 'on' ) {
 
 				$text = strip_tags( \Pressbooks\Sanitize\decode( $v['post_title'] ) );
-				if ( ! $text ) { $text = ' ';
+				if ( ! $text ) {
+					$text = ' ';
 				}
 
-				printf( '
+				printf(
+					'
 					<navPoint id="%s" playOrder="%s">
 					<navLabel><text>%s</text></navLabel>
 					<content src="OEBPS/%s" />
-					', $k, $i, $text, $v['filename'] );
+					', $k, $i, $text, $v['filename']
+				);
 
 				if ( preg_match( '/^part-/', $k ) ) {
 					$part_open = true;
