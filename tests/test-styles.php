@@ -55,7 +55,7 @@ class StylesTest extends \WP_UnitTestCase {
 
 	public function test_isCurrentThemeCompatible() {
 		// V1
-		$v1 = wp_get_theme( 'pressbooks-donhame' );
+		$v1 = wp_get_theme( 'pressbooks-donham' );
 		$this->assertTrue( $this->cs->isCurrentThemeCompatible( 1, $v1 ) );
 		$this->assertFalse( $this->cs->isCurrentThemeCompatible( 2, $v1 ) );
 		$this->assertFalse( $this->cs->isCurrentThemeCompatible( 999, $v1 ) );
@@ -68,14 +68,14 @@ class StylesTest extends \WP_UnitTestCase {
 
 	public function test_applyOverrides() {
 		// V1
-		$this->_book();
+		$this->_book( 'pressbooks-donham' );
 		$result = $this->cs->applyOverrides( '// SCSS.', '// Override.' );
 		$this->assertTrue( strpos( $result, '// SCSS.' ) === 0 );
 		$result = $this->cs->applyOverrides( '// SCSS.', [ '// Override 1.', '// Override 2.' ] );
 		$this->assertTrue( strpos( $result, '// SCSS.' ) === 0 );
 		$this->assertContains( '// Override 2.', $result );
 		// V2
-		switch_theme( 'pressbooks-clarke' );
+		switch_theme( 'pressbooks-book' );
 		$result = $this->cs->applyOverrides( '// SCSS.', '// Override.' );
 		$this->assertTrue( strpos( $result, '// Override.' ) === 0 );
 		$result = $this->cs->applyOverrides( '// SCSS.', [ '// Override 1.', '// Override 2.' ] );
