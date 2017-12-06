@@ -1159,6 +1159,8 @@ function get_cache_path() {
 }
 
 /**
+ * @since 5.0.0
+ *
  * @see \WP_Filesystem
  * @return \WP_Filesystem_Direct
  */
@@ -1180,6 +1182,8 @@ function init_direct_filesystem() {
 }
 
 /**
+ * @since 5.0.0
+ *
  * @param string $filename
  *
  * @return bool|string
@@ -1190,6 +1194,8 @@ function get_contents( $filename ) {
 }
 
 /**
+ * @since 5.0.0
+ *
  * @param string $filename
  * @param mixed $data
  *
