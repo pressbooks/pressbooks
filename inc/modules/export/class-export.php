@@ -211,7 +211,7 @@ abstract class Export {
 			'theme' => '' . wp_get_theme(), // Stringify by appending to empty string
 		];
 
-		$message = print_r( array_merge( $info, $more_info ), true ) . $message;
+		$message = print_r( array_merge( $info, $more_info ), true ) . $message; // @codingStandardsIgnoreLine
 		$exportoptions = get_option( 'pressbooks_export_options' );
 		if ( $current_user->user_email && isset( $exportoptions['email_validation_logs'] ) && 1 === absint( $exportoptions['email_validation_logs'] ) ) {
 			$this->errorsEmail[] = $current_user->user_email;
@@ -520,7 +520,7 @@ abstract class Export {
 		$path_to_htaccess = $path . '.htaccess';
 		if ( ! file_exists( $path_to_htaccess ) ) {
 			// Restrict access
-			file_put_contents( $path_to_htaccess, "deny from all\n" );
+			\Pressbooks\Utility\put_contents( $path_to_htaccess, "deny from all\n" );
 		}
 
 		return $path;
@@ -761,15 +761,12 @@ abstract class Export {
 			$book_lang = $codes[ $book_lang ];
 
 			foreach ( $compare_with as $compare ) {
-
 				$compare = str_replace( 'pressbooks-', '', $compare );
-
 				if ( strpos( $book_lang, $compare ) === 0 ) {
 					$loc = $compare;
 					break;
 				}
 			}
-
 			if ( '__UNSET__' === $loc ) {
 				$loc = 'en_US'; // No match found, default to english
 			}
@@ -822,11 +819,16 @@ abstract class Export {
 		$filepath = static::getExportFolder() . $filename;
 		if ( ! is_readable( $filepath ) ) {
 			// Cannot read file
-			wp_die( __( 'File not found', 'pressbooks' ) . ": $filename", '', [ 'response' => 404 ] );
+			wp_die(
+				__( 'File not found', 'pressbooks' ) . ": $filename", '', [
+					'response' => 404,
+				]
+			);
 		}
 
 		// Force download
-		@set_time_limit( 0 ); // @codingStandardsIgnoreLine
+		// @codingStandardsIgnoreStart
+		@set_time_limit( 0 );
 		header( 'Content-Description: File Transfer' );
 		header( 'Content-Type: ' . static::mimeType( $filepath ) );
 		if ( $inline ) {
@@ -839,11 +841,12 @@ abstract class Export {
 		header( 'Cache-Control: must-revalidate, post-check=0, pre-check=0' );
 		header( 'Pragma: public' );
 		header( 'Content-Length: ' . filesize( $filepath ) );
-		@ob_clean(); // @codingStandardsIgnoreLine
+		@ob_clean();
 		flush();
-		while ( @ob_end_flush() ) { // @codingStandardsIgnoreLine
+		while ( @ob_end_flush() ) {
 			// Fix out-of-memory problem
 		}
 		readfile( $filepath );
+		// @codingStandardsIgnoreEnd
 	}
 }

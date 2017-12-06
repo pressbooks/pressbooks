@@ -25,7 +25,7 @@
 
 #wpadminbar {
   .quicklinks li .blavatar::before {
-    font: 14px/1 'PBFont' !important;
+    font: 14px/1 'PBFont', sans-serif !important;
     -webkit-font-smoothing: antialiased;
     background: none;
     content: '\e600' !important;
@@ -38,7 +38,7 @@
   }
 
   #wp-admin-bar-wp-logo > .ab-item .ab-icon::before {
-    font: 20px/1 'PBFont' !important;
+    font: 20px/1 'PBFont', sans-serif !important;
     -webkit-font-smoothing: antialiased;
     background: none;
     content: '\e600' !important;
@@ -62,7 +62,7 @@
         position: relative;
 
         &::before {
-          font: 400 34px/1 dashicons;
+          font: 400 34px/1 'dashicons', sans-serif !important;
           text-align: center;
           text-indent: 0;
           top: 7px;
@@ -79,7 +79,7 @@
     }
 
     #wp-admin-bar-wp-logo > .ab-item .ab-icon::before {
-      font: 28px/1 'PBFont' !important;
+      font: 28px/1 'PBFont', sans-serif !important;
     }
   }
 }
@@ -149,7 +149,7 @@
 i.mce-i-icon {
   padding: 0 2px 0 0;
   margin-left: -2px;
-  font: 400 20px/1 dashicons;
+  font: 400 20px/1 'dashicons', sans-serif;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   vertical-align: top;

@@ -55,7 +55,7 @@ class SearchAndReplace {
 	 */
 	public function getL10n() {
 		return [
-		  'warning_text' => __( 'Once you&rsquo;ve pressed &lsquo;Replace & Save&rsquo; there is no going back! Have you checked &lsquo;Preview Replacements&rsquo; to make sure this will do what you want it to do?', 'pressbooks' ),
+			'warning_text' => __( 'Once you&rsquo;ve pressed &lsquo;Replace & Save&rsquo; there is no going back! Have you checked &lsquo;Preview Replacements&rsquo; to make sure this will do what you want it to do?', 'pressbooks' ),
 		];
 	}
 
@@ -84,7 +84,8 @@ class SearchAndReplace {
 			return;
 		}
 
-		$search_pattern = $replace_pattern = '';
+		$search_pattern = '';
+		$replace_pattern = '';
 
 		if ( isset( $_POST['search_pattern'] ) ) {
 			$search_pattern  = stripslashes( $_POST['search_pattern'] );
@@ -136,16 +137,35 @@ class SearchAndReplace {
 			} elseif ( isset( $_POST['replace_and_save'] ) ) {
 	?>
 		  <div class="updated" id="message" onclick="this.parentNode.removeChild (this)">
-		   <p><?php printf( _n( '%d occurrence replaced.', '%d occurrences replaced.', count( $results ) ), count( $results ) ) ?></p>
+		   <p><?php printf( _n( '%d occurrence replaced.', '%d occurrences replaced.', count( $results ) ), count( $results ) ); ?></p>
 		  </div>
 <?php
 			}
-			$this->render( 'search', [ 'search' => $search_pattern, 'replace' => $replace_pattern, 'searches' => $searches, 'source' => $source ] );
+			$this->render(
+				'search', [
+					'search' => $search_pattern,
+					'replace' => $replace_pattern,
+					'searches' => $searches,
+					'source' => $source,
+				]
+			);
 			if ( is_array( $results ) && ! isset( $_POST['replace_and_save'] ) ) {
-				$this->render( 'results', [ 'search' => $searcher, 'results' => $results ] );
+				$this->render(
+					'results', [
+						'search' => $searcher,
+						'results' => $results,
+					]
+				);
 			}
 		} else {
-			$this->render( 'search', [ 'search' => $search_pattern, 'replace' => $replace_pattern, 'searches' => $searches, 'source' => $source ] );
+			$this->render(
+				'search', [
+					'search' => $search_pattern,
+					'replace' => $replace_pattern,
+					'searches' => $searches,
+					'source' => $source,
+				]
+			);
 		}
 	}
 
@@ -162,7 +182,7 @@ class SearchAndReplace {
 	public function renderError( $message ) {
 		?>
 	<div class="fade error" id="message">
-		<p><?php echo $message ?></p>
+		<p><?php echo $message; ?></p>
 	</div>
 	<?php
 	}

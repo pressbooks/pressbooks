@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
-"PO-Revision-Date: 2017-11-16 13:35+0000\n"
+"PO-Revision-Date: 2017-12-06 14:37+0000\n"
 "Last-Translator: Ned Zimmerman\n"
 "Language-Team: Russian (http://www.transifex.com/pressbooks/pressbooks/language/ru/)\n"
 "MIME-Version: 1.0\n"
@@ -407,7 +407,7 @@ msgstr "Все права защищены"
 msgid "Copyright"
 msgstr "Авторские права"
 
-#: ../inc/class-licensing.php259, ../inc/class-styles.php608,
+#: ../inc/class-licensing.php259, ../inc/class-styles.php616,
 #: ../inc/modules/export/epub/class-epub201.php997,
 #: ../inc/modules/export/xhtml/class-xhtml11.php762,
 #: ../inc/modules/export/epub/templates/epub201/opf.php90,
@@ -441,7 +441,13 @@ msgstr "Глава"
 msgid "Part"
 msgstr "Часть"
 
-#: ../inc/class-sass.php:260
+#: ../inc/class-sass.php:195
+msgid ""
+"There was a problem with SASS. Contact your site administrator. Error: %1$s "
+"%2$s"
+msgstr ""
+
+#: ../inc/class-sass.php:277
 msgid "SASS Error"
 msgstr ""
 
@@ -462,17 +468,17 @@ msgstr ""
 msgid "Custom Style for Web"
 msgstr ""
 
-#: ../inc/class-styles.php:533
+#: ../inc/class-styles.php:541
 msgid ""
 "Unexpected Error: There was a problem trying to query slug: %s - Please "
 "contact technical support."
 msgstr ""
 
-#: ../inc/class-styles.php:573
+#: ../inc/class-styles.php:581
 msgid "Web"
 msgstr "Веб-сайт"
 
-#: ../inc/class-styles.php:605
+#: ../inc/class-styles.php:613
 msgid "Last 10 Revisions"
 msgstr ""
 
@@ -638,7 +644,8 @@ msgstr "Выбрать тип из самых использованного р�
 msgid "Chapter Types"
 msgstr "Типы раздела"
 
-#: ../inc/admin/class-catalog-list-table.php:70
+#: ../inc/admin/class-catalog-list-table.php70,
+#: ../inc/admin/laf/namespace.php:585
 msgid "Visit Book"
 msgstr "Ознакомиться с книгой"
 
@@ -673,7 +680,8 @@ msgstr "Заголовок"
 
 #: ../inc/admin/class-catalog-list-table.php173,
 #: ../inc/admin/metaboxes/namespace.php188, ../templates/admin/organize.php90,
-#: ../templates/admin/organize.php:159
+#: ../templates/admin/organize.php159,
+#: ../vendor/johnbillion/extended-cpts/src/class-extended-cpt-admin.php:673
 msgid "Author"
 msgstr "Автор"
 
@@ -696,14 +704,14 @@ msgid "Edit Tags"
 msgstr "Изменить теги"
 
 #: ../inc/admin/class-catalog-list-table.php385,
-#: ../inc/admin/laf/namespace.php112, ../templates/admin/organize.php25,
+#: ../inc/admin/laf/namespace.php106, ../templates/admin/organize.php25,
 #: ../templates/admin/organize.php31, ../templates/admin/organize.php93,
 #: ../templates/admin/organize.php:162
 msgid "Private"
 msgstr "Частный"
 
 #: ../inc/admin/class-catalog-list-table.php385,
-#: ../inc/admin/laf/namespace.php114, ../templates/admin/organize.php23,
+#: ../inc/admin/laf/namespace.php108, ../templates/admin/organize.php23,
 #: ../templates/admin/organize.php:28
 msgid "Public"
 msgstr "Публичный"
@@ -744,9 +752,9 @@ msgid "The public link to your catalog page"
 msgstr "Ссылка на страницу каталога"
 
 #: ../inc/admin/class-catalog-list-table.php477,
-#: ../inc/admin/laf/namespace.php244, ../inc/admin/laf/namespace.php244,
-#: ../inc/admin/laf/namespace.php314, ../inc/admin/laf/namespace.php314,
-#: ../inc/admin/laf/namespace.php:444
+#: ../inc/admin/laf/namespace.php238, ../inc/admin/laf/namespace.php238,
+#: ../inc/admin/laf/namespace.php308, ../inc/admin/laf/namespace.php308,
+#: ../inc/admin/laf/namespace.php:438
 msgid "My Catalog"
 msgstr "Мой каталог"
 
@@ -805,7 +813,7 @@ msgid ""
 " when themes are updated."
 msgstr ""
 
-#: ../inc/admin/class-exportoptions.php182, ../inc/admin/laf/namespace.php222,
+#: ../inc/admin/class-exportoptions.php182, ../inc/admin/laf/namespace.php216,
 #: ../inc/admin/metaboxes/namespace.php:537
 msgid "Export Settings"
 msgstr "Настройки Экспорта"
@@ -894,7 +902,7 @@ msgid ""
 msgstr ""
 
 #: ../inc/admin/class-publishoptions.php293,
-#: ../inc/admin/laf/namespace.php206, ../inc/admin/laf/namespace.php:206
+#: ../inc/admin/laf/namespace.php200, ../inc/admin/laf/namespace.php:200
 msgid "Publish"
 msgstr "Публиковать"
 
@@ -996,7 +1004,7 @@ msgstr "Вы уверены, что вы хотите удалить это?"
 msgid "Delete"
 msgstr "Удалить"
 
-#: ../inc/l10n/namespace.php483, ../inc/l10n/namespace.php:508
+#: ../inc/l10n/namespace.php480, ../inc/l10n/namespace.php:505
 msgid ""
 "Please contact your system administrator if you would like them to install "
 "extended %s language support for the Pressbooks interface."
@@ -1497,7 +1505,7 @@ msgid "book"
 msgstr "книга"
 
 #: ../inc/redirect/namespace.php377,
-#: ../inc/modules/export/class-export.php:825
+#: ../inc/modules/export/class-export.php:822
 msgid "File not found"
 msgstr "Файл не найден"
 
@@ -1632,47 +1640,47 @@ msgstr "Вы должны ввести пароль."
 msgid "Passwords do not match."
 msgstr "Пароли не совпадают."
 
-#: ../inc/theme/class-lock.php:67
+#: ../inc/theme/class-lock.php:108
 msgid ""
 "Your book&rsquo;s theme, %1$s, has been locked in its current state as of "
 "%2$s at %3$s."
 msgstr ""
 
-#: ../inc/theme/class-lock.php:80
+#: ../inc/theme/class-lock.php:121
 msgid ""
 "Your book&rsquo;s theme could not be locked. Please ensure that you have "
 "write access to the uploads directory."
 msgstr ""
 
-#: ../inc/theme/class-lock.php:114
+#: ../inc/theme/class-lock.php:215
 msgid "Your book&rsquo;s theme has been unlocked."
 msgstr ""
 
-#: ../inc/theme/class-lock.php:166
+#: ../inc/theme/class-lock.php:281
 msgid ""
 "Your book&rsquo;s theme, %1$s, was locked in its current state as of %2$s at"
 " %3$s. To select a new theme or change your theme options, please %4$s."
 msgstr ""
 
-#: ../inc/theme/namespace.php:38
+#: ../inc/theme/namespace.php:34
 msgid ""
 "Your theme, %1$s, is not installed. Please visit %2$s for installation "
 "instructions."
 msgstr ""
 
-#: ../inc/theme/namespace.php:52
+#: ../inc/theme/namespace.php:48
 msgid ""
 "The Pressbooks Publisher theme is not installed, but Pressbooks needs it in "
 "order to function properly. Please visit %s for installation instructions."
 msgstr ""
 
-#: ../inc/theme/namespace.php:65
+#: ../inc/theme/namespace.php:61
 msgid ""
 "The Pressbooks Book theme is not installed, but Pressbooks needs it in order"
 " to function properly. Please visit %s for installation instructions."
 msgstr ""
 
-#: ../inc/theme/namespace.php:91
+#: ../inc/theme/namespace.php:87
 msgid ""
 "The Pressbooks Custom CSS theme must be upgraded. Please visit %s for "
 "installation instructions."
@@ -1754,7 +1762,7 @@ msgstr "Новости Pressbooks"
 msgid "My Book"
 msgstr "Моя Книга"
 
-#: ../inc/admin/dashboard/namespace.php82, ../inc/admin/laf/namespace.php:533
+#: ../inc/admin/dashboard/namespace.php82, ../inc/admin/laf/namespace.php:527
 msgid "Users"
 msgstr "Пользователи"
 
@@ -1765,14 +1773,14 @@ msgid "Add"
 msgstr "Добавить"
 
 #: ../inc/admin/dashboard/namespace.php134,
-#: ../inc/admin/dashboard/namespace.php186, ../inc/admin/laf/namespace.php97,
-#: ../inc/admin/laf/namespace.php:97
+#: ../inc/admin/dashboard/namespace.php186, ../inc/admin/laf/namespace.php91,
+#: ../inc/admin/laf/namespace.php:91
 msgid "Organize"
 msgstr "Организовать"
 
 #: ../inc/admin/dashboard/namespace.php195,
-#: ../inc/admin/dashboard/namespace.php196, ../inc/admin/laf/namespace.php515,
-#: ../inc/admin/laf/namespace.php:581
+#: ../inc/admin/dashboard/namespace.php196, ../inc/admin/laf/namespace.php509,
+#: ../inc/admin/laf/namespace.php:575
 msgid "Dashboard"
 msgstr "Администрирование"
 
@@ -1845,105 +1853,100 @@ msgstr "Чтобы скопировать информацию о системе
 msgid "Powered by"
 msgstr "Поддерживается"
 
-#: ../inc/admin/laf/namespace.php22, ../inc/admin/laf/namespace.php:405
+#: ../inc/admin/laf/namespace.php22, ../inc/admin/laf/namespace.php:399
 msgid "Help"
 msgstr "Помощь"
 
-#: ../inc/admin/laf/namespace.php25, ../inc/admin/laf/namespace.php:415
+#: ../inc/admin/laf/namespace.php25, ../inc/admin/laf/namespace.php:409
 msgid "Contact"
 msgstr "Контакт"
 
-#: ../inc/admin/laf/namespace.php84, ../inc/admin/laf/namespace.php84,
-#: ../inc/modules/themeoptions/class-themeoptions.php:69
-msgid "Theme Options"
-msgstr "Варианты темы"
-
-#: ../inc/admin/laf/namespace.php:113
+#: ../inc/admin/laf/namespace.php:107
 msgid "Published"
 msgstr "Опубликованный"
 
-#: ../inc/admin/laf/namespace.php151, ../inc/admin/laf/namespace.php151,
+#: ../inc/admin/laf/namespace.php145, ../inc/admin/laf/namespace.php145,
 #: ../templates/admin/organize.php86, ../templates/admin/organize.php111,
 #: ../templates/admin/organize.php178, ../templates/admin/trash.php:18
 msgid "Trash"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php161, ../inc/admin/laf/namespace.php161,
+#: ../inc/admin/laf/namespace.php155, ../inc/admin/laf/namespace.php155,
 #: ../inc/modules/import/wordpress/class-wxr.php:347
 msgid "Book Info"
 msgstr "Информация о книге"
 
-#: ../inc/admin/laf/namespace.php:170
+#: ../inc/admin/laf/namespace.php:164
 msgid "Choose a subject…"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:171
+#: ../inc/admin/laf/namespace.php:165
 msgid "Choose some subject(s)…"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php180, ../inc/admin/laf/namespace.php180,
-#: ../inc/admin/laf/namespace.php222, ../templates/admin/export.php141,
+#: ../inc/admin/laf/namespace.php174, ../inc/admin/laf/namespace.php174,
+#: ../inc/admin/laf/namespace.php216, ../templates/admin/export.php141,
 #: ../templates/admin/organize.php45, ../templates/admin/organize.php95,
 #: ../templates/admin/organize.php:164
 msgid "Export"
 msgstr "Экспорт"
 
-#: ../inc/admin/laf/namespace.php:188
+#: ../inc/admin/laf/namespace.php:182
 msgid "EPUB is required for MOBI export. Would you like to reenable it?"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php209, ../inc/admin/laf/namespace.php295,
-#: ../inc/admin/laf/namespace.php999,
+#: ../inc/admin/laf/namespace.php203, ../inc/admin/laf/namespace.php289,
+#: ../inc/admin/laf/namespace.php995,
 #: ../inc/admin/network/class-sharingandprivacyoptions.php:226
 msgid "Sharing and Privacy Settings"
 msgstr "Обмен и настройки конфидецийности"
 
-#: ../inc/admin/laf/namespace.php209, ../inc/admin/laf/namespace.php:295
+#: ../inc/admin/laf/namespace.php203, ../inc/admin/laf/namespace.php:289
 msgid "Sharing &amp; Privacy"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php225, ../inc/admin/laf/namespace.php225,
+#: ../inc/admin/laf/namespace.php219, ../inc/admin/laf/namespace.php219,
 #: ../templates/admin/import.php32, ../templates/admin/import.php:75
 msgid "Import"
 msgstr "Импорт"
 
-#: ../inc/admin/laf/namespace.php234, ../inc/admin/laf/namespace.php:234
+#: ../inc/admin/laf/namespace.php228, ../inc/admin/laf/namespace.php:228
 msgid "Clone a Book"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php373, ../inc/admin/laf/namespace.php:384
+#: ../inc/admin/laf/namespace.php367, ../inc/admin/laf/namespace.php:378
 msgid "About Pressbooks"
 msgstr "О Pressbooks"
 
-#: ../inc/admin/laf/namespace.php:395
+#: ../inc/admin/laf/namespace.php:389
 msgid "Pressbooks.com"
 msgstr "Pressbooks.com"
 
-#: ../inc/admin/laf/namespace.php:453
+#: ../inc/admin/laf/namespace.php:447
 msgid "Add A New Book"
 msgstr "Добавить новую книгу"
 
-#: ../inc/admin/laf/namespace.php:486
+#: ../inc/admin/laf/namespace.php:480
 msgid "Clone A Book"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:506
+#: ../inc/admin/laf/namespace.php:500
 msgid "Network Admin"
 msgstr "Администратор сети"
 
-#: ../inc/admin/laf/namespace.php:524
+#: ../inc/admin/laf/namespace.php518, ../tests/test-admin-laf.php:71
 msgid "Sites"
 msgstr "Сайты"
 
-#: ../inc/admin/laf/namespace.php:542
+#: ../inc/admin/laf/namespace.php:536
 msgid "Visit Network"
 msgstr "Ознакомиться с сетью"
 
-#: ../inc/admin/laf/namespace.php:595
+#: ../inc/admin/laf/namespace.php:585
 msgid "Visit Site"
 msgstr "Посетить сайт"
 
-#: ../inc/admin/laf/namespace.php:746
+#: ../inc/admin/laf/namespace.php:742
 msgid ""
 "Are you sure you want to unlock your theme? This will update your book to "
 "the most recent version of your selected theme, which may change your "
@@ -1951,70 +1954,116 @@ msgid ""
 "page, this action will NOT be reversable!"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:792
+#: ../inc/admin/laf/namespace.php:788
 msgid "Book Visibility"
 msgstr "Видимость книги."
 
-#: ../inc/admin/laf/namespace.php:799
+#: ../inc/admin/laf/namespace.php:795
 msgid "Private Content"
 msgstr "Частный контент."
 
-#: ../inc/admin/laf/namespace.php:806
+#: ../inc/admin/laf/namespace.php:802
 msgid "Disable Comments"
 msgstr "Отключить комментарии"
 
-#: ../inc/admin/laf/namespace.php:815
+#: ../inc/admin/laf/namespace.php:811
 msgid "Share Latest Export Files"
 msgstr "Поделиться последними экспортируемыми файлами"
 
-#: ../inc/admin/laf/namespace.php:849
+#: ../inc/admin/laf/namespace.php:845
 msgid "Sharing and Privacy settings"
 msgstr "Настройка обмена и конфидецийности"
 
-#: ../inc/admin/laf/namespace.php:865
+#: ../inc/admin/laf/namespace.php:861
 msgid "Public. I would like this book to be visible to everyone."
 msgstr "Открыто для всех. Я хочу, чтобы эта книга была досутпна всем"
 
-#: ../inc/admin/laf/namespace.php:871
+#: ../inc/admin/laf/namespace.php:867
 msgid ""
 "Private. I would like this book to be accessible only to people I invite."
 msgstr "Ограниченный доступ. Я хочу, чтобы эта книга была доступна только тем, кого я приглашу."
 
-#: ../inc/admin/laf/namespace.php:894
+#: ../inc/admin/laf/namespace.php:890
 msgid "Who can see private front matter, chapters and back matter?"
 msgstr "Кто сможет видеть частную вступительную часть, разделы и заднюю часть?"
 
-#: ../inc/admin/laf/namespace.php:897
+#: ../inc/admin/laf/namespace.php:893
 msgid "Only logged in editors and administrators."
 msgstr "Только зарегистрированные редакторы и администраторы."
 
-#: ../inc/admin/laf/namespace.php:899
+#: ../inc/admin/laf/namespace.php:895
 msgid "All logged in users including subscribers."
 msgstr "Все зарегистрированные пользователи включая подписчиков."
 
-#: ../inc/admin/laf/namespace.php:915
+#: ../inc/admin/laf/namespace.php:911
 msgid ""
 "Yes. I want to automatically disable comments, trackbacks and pingbacks on "
 "all front matter, chapters and back matter."
 msgstr "Да. Я хочу автоматически отключить комментарии, обратные ссылки, сообщения во всех вступительной части, разделам и задней части."
 
-#: ../inc/admin/laf/namespace.php:921
+#: ../inc/admin/laf/namespace.php:917
 msgid ""
 "No. I want to leave comments, trackbacks and pingbacks enabled on all front "
 "matter, chapters and back matter unless I disable them manually."
 msgstr "Нет. Я хочу оставить комментарии, обратные ссылки и сообщения которые являются включенными во всей вступительной части, разделам и задней части пока я не отключу их вручную."
 
-#: ../inc/admin/laf/namespace.php:937
+#: ../inc/admin/laf/namespace.php:933
 msgid ""
 "Yes. I would like the latest export files to be available on the homepage "
 "for free, to everyone."
 msgstr "Да. Я хотел бы, чтобы последние експортувани файлы были доступны на домашней странице бесплатно для всех."
 
-#: ../inc/admin/laf/namespace.php:943
+#: ../inc/admin/laf/namespace.php:939
 msgid ""
 "No. I would like the latest export files to only be available to "
 "administrators."
 msgstr "Нет. Я бы хотел чтобы последние экспортируемые файлы были доступны для администраторов."
+
+#: ../inc/admin/laf/namespace.php1061, ../inc/admin/laf/namespace.php:1071
+msgid "Books"
+msgstr ""
+
+#: ../inc/admin/laf/namespace.php:1064
+msgid "All Books"
+msgstr ""
+
+#: ../inc/admin/laf/namespace.php:1074
+msgid "Search Books"
+msgstr ""
+
+#: ../inc/admin/laf/namespace.php:1080
+msgid "Edit Book: %s"
+msgstr ""
+
+#: ../inc/admin/laf/namespace.php1083, ../inc/admin/laf/namespace.php:1092
+msgid "Book Address (URL)"
+msgstr ""
+
+#: ../inc/admin/laf/namespace.php:1089
+msgid "Add New Book"
+msgstr ""
+
+#: ../inc/admin/laf/namespace.php1095,
+#: ../inc/modules/themeoptions/class-pdfoptions.php321,
+#: ../inc/modules/themeoptions/class-pdfoptions.php339,
+#: ../inc/modules/themeoptions/class-pdfoptions.php357,
+#: ../inc/modules/themeoptions/class-pdfoptions.php375,
+#: ../inc/modules/themeoptions/class-pdfoptions.php393,
+#: ../inc/modules/themeoptions/class-pdfoptions.php410,
+#: ../inc/modules/themeoptions/class-pdfoptions.php427,
+#: ../inc/modules/themeoptions/class-pdfoptions.php447,
+#: ../inc/modules/themeoptions/class-pdfoptions.php467,
+#: ../inc/modules/themeoptions/class-pdfoptions.php:485
+msgid "Book Title"
+msgstr "Название Книги"
+
+#: ../inc/admin/laf/namespace.php:1098
+msgid "Book Language"
+msgstr ""
+
+#: ../inc/admin/laf/namespace.php:1101
+msgid "Add Book"
+msgstr ""
 
 #: ../inc/admin/metaboxes/namespace.php:74
 msgid ""
@@ -2808,19 +2857,6 @@ msgstr "Содержание работы появляется в колонти
 msgid "Front Matter Left Page Running Content"
 msgstr "Вступительная часть левой страницы содержания работы"
 
-#: ../inc/modules/themeoptions/class-pdfoptions.php321,
-#: ../inc/modules/themeoptions/class-pdfoptions.php339,
-#: ../inc/modules/themeoptions/class-pdfoptions.php357,
-#: ../inc/modules/themeoptions/class-pdfoptions.php375,
-#: ../inc/modules/themeoptions/class-pdfoptions.php393,
-#: ../inc/modules/themeoptions/class-pdfoptions.php410,
-#: ../inc/modules/themeoptions/class-pdfoptions.php427,
-#: ../inc/modules/themeoptions/class-pdfoptions.php447,
-#: ../inc/modules/themeoptions/class-pdfoptions.php467,
-#: ../inc/modules/themeoptions/class-pdfoptions.php:485
-msgid "Book Title"
-msgstr "Название Книги"
-
 #: ../inc/modules/themeoptions/class-pdfoptions.php322,
 #: ../inc/modules/themeoptions/class-pdfoptions.php340,
 #: ../inc/modules/themeoptions/class-pdfoptions.php358,
@@ -2991,6 +3027,12 @@ msgstr "Важно: если вы планируете воспользоват�
 #: ../inc/modules/themeoptions/class-pdfoptions.php:1345
 msgid "PDF Options"
 msgstr "параметры PDF"
+
+#: ../inc/modules/themeoptions/class-themeoptions.php86,
+#: ../inc/modules/themeoptions/class-themeoptions.php87,
+#: ../inc/modules/themeoptions/class-themeoptions.php:138
+msgid "Theme Options"
+msgstr "Варианты темы"
 
 #: ../inc/modules/themeoptions/class-weboptions.php:74
 msgid "Enable Social Media"
@@ -3441,6 +3483,13 @@ msgstr "Второй"
 msgid "Apply Class"
 msgstr "Применить категорию"
 
+#: ../pressbooks.php:108
+msgid ""
+"Pressbooks dependencies are missing. Please make sure that your "
+"project&rsquo;s <a href=\"%1$s\">Composer autoload file</a> is being "
+"required, or use the <a href=\"%2$s\">latest release</a> instead."
+msgstr ""
+
 #: ../pressbooks.php:118
 msgid "Cannot find Pressbooks install."
 msgstr "Не удалось найти установления Пресбуку"
@@ -3824,8 +3873,8 @@ msgid "Standard book formats"
 msgstr "Форматы стандартной книги"
 
 #: ../templates/admin/export.php:194
-msgid "Exotic formats"
-msgstr "иностранные форматы"
+msgid "Other formats"
+msgstr ""
 
 #: ../templates/admin/export.php:206
 msgid "Your Theme Options"
@@ -4115,6 +4164,39 @@ msgstr ""
 #: ../tests/test-registration.php:18
 msgid "Create Site"
 msgstr "Создать сайт"
+
+#: ../vendor/johnbillion/extended-cpts/functions.php:61
+msgid "Post types must be registered on the \"init\" hook."
+msgstr ""
+
+#: ../vendor/johnbillion/extended-cpts/functions.php:134
+msgid "Taxonomies must be registered on the \"init\" hook."
+msgstr ""
+
+#: ../vendor/johnbillion/extended-cpts/src/class-extended-cpt-admin.php975,
+#: ../vendor/johnbillion/extended-cpts/src/class-extended-cpt-admin.php:1002
+msgid "Invalid connection type: %s"
+msgstr ""
+
+#: ../vendor/johnbillion/extended-cpts/src/class-extended-cpt.php:692
+msgid ""
+"Post type query var \"%s\" clashes with a taxonomy query var of the same "
+"name"
+msgstr ""
+
+#: ../vendor/johnbillion/extended-cpts/src/class-extended-taxonomy-admin.php:422
+msgid "Not specified"
+msgstr ""
+
+#: ../vendor/johnbillion/extended-cpts/src/class-extended-taxonomy.php:222
+msgid ""
+"Taxonomy query var \"%s\" clashes with a post type query var of the same "
+"name"
+msgstr ""
+
+#: ../vendor/johnbillion/extended-cpts/src/class-extended-taxonomy.php:228
+msgid "Taxonomy query var \"%s\" is not allowed"
+msgstr ""
 
 #: ../vendor/yahnis-elsts/plugin-update-checker/Puc/v4p2/Plugin/UpdateChecker.php:358
 msgid "Check for updates"

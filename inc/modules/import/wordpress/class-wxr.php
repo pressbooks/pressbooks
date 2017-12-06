@@ -246,7 +246,11 @@ class Wxr extends Import {
 	 */
 	protected function pbCheck( array $xml ) {
 
-		$pt = $ch = $fm = $bm = $meta = 0;
+		$pt = 0;
+		$ch = 0;
+		$fm = 0;
+		$bm = 0;
+		$meta = 0;
 
 		foreach ( $xml['posts'] as $p ) {
 
@@ -403,7 +407,10 @@ class Wxr extends Import {
 			foreach ( $meta_to_update as $meta_key ) {
 				$meta_val = $this->searchForMetaValue( $meta_key, $p['postmeta'] );
 				if ( is_serialized( $meta_val ) ) {
-					$meta_val = unserialize( $meta_val );
+					$meta_val = unserialize( $meta_val ); // @codingStandardsIgnoreLine
+					if ( is_object( $meta_val ) ) {
+						continue; // Hack attempt?
+					}
 				}
 				if ( $meta_val ) {
 					update_post_meta( $pid, $meta_key, $meta_val );
@@ -635,7 +642,12 @@ class Wxr extends Import {
 			}
 		}
 
-		$pid = media_handle_sideload( [ 'name' => $filename, 'tmp_name' => $tmp_name ], 0 );
+		$pid = media_handle_sideload(
+			[
+				'name' => $filename,
+				'tmp_name' => $tmp_name,
+			], 0
+		);
 		$src = wp_get_attachment_url( $pid );
 		if ( ! $src ) {
 			$pid = 0;

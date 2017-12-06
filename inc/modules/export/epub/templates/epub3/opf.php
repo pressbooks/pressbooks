@@ -73,7 +73,7 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 			echo $meta['pb_author_file_as'];
 		} elseif ( ! empty( $meta['pb_author'] ) ) {
 			$nameparser = new Parser();
-			try	{
+			try {
 				$author = $nameparser->parse( $meta['pb_author'] );
 				echo $author->getLastName() . ', ' . $author->getFirstName();
 			} catch ( NameParsingException $e ) {
@@ -111,17 +111,17 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 		foreach ( $meta as $key => $val ) {
 			switch ( $key ) {
 
-				case 'pb_publisher' :
+				case 'pb_publisher':
 					echo "<dc:publisher>$val</dc:publisher>\n";
 					break;
 
-				case 'pb_publication_date' :
+				case 'pb_publication_date':
 					echo '<dc:date>';
 					echo date( 'Y-m-d', (int) $val );
 					echo "</dc:date>\n";
 					break;
 
-				case 'pb_bisac_subject' :
+				case 'pb_bisac_subject':
 					$subjects = explode( ',', $val );
 					foreach ( $subjects as $subject ) {
 						echo '<dc:subject>' . trim( $subject ) . "</dc:subject>\n";
@@ -147,7 +147,7 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 		?>
 		<item id="toc" properties="nav" href="toc.xhtml" media-type="application/xhtml+xml"/>
 		<item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml" />
-		<?php if ( ! empty( $stylesheet ) ) :  ?>
+		<?php if ( ! empty( $stylesheet ) ) : ?>
 		<item id="stylesheet" href="OEBPS/<?php echo $stylesheet; ?>"  media-type="text/css" />
 		<?php endif; ?>
 	</manifest>

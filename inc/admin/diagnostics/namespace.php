@@ -38,7 +38,8 @@ function render_page() {
 		<p><?php _e( 'Please submit this information with any bug reports.', 'pressbooks' ); ?></p>
 		<textarea style="width: 800px; max-width: 100%; height: 600px; background: #fff; font-family: monospace;" readonly="readonly" onclick="this.focus(); this.select()"
 				  title="<?php _e( 'To copy the system info, click below then press Ctrl + C (PC) or Cmd + C (Mac).', 'pressbooks' ); ?>">
-<?php $output = "### System Information\n\n";
+<?php
+$output = "### System Information\n\n";
 if ( \Pressbooks\Book::isBook() ) {
 	$output .= "#### Book Info\n\n";
 	$output .= 'Book ID: ' . get_current_blog_id() . "\n";
@@ -68,9 +69,10 @@ if ( \Pressbooks\Book::isBook() ) {
 	switch_to_blog( $GLOBALS['current_site']->blog_id );
 	$root_theme = wp_get_theme();
 	restore_current_blog();
-	if ( \Pressbooks\Theme\Lock::isLocked() ) {
+	$lock = \Pressbooks\Theme\Lock::init();
+	if ( $lock->isLocked() ) {
 		$theme = wp_get_theme();
-		$data = \Pressbooks\Theme\Lock::getLockData();
+		$data = $lock->getLockData();
 		$datetime = strftime( '%x', $data['timestamp'] ) . ' at ' . strftime( '%X', $data['timestamp'] );
 		$output .= 'Book Theme: ' . $data['name'] . " (LOCKED on $datetime)\n";
 		$output .= 'Book Theme Version: ' . $data['version'] . " (LOCKED on $datetime &mdash; Current Version " . $theme->get( 'Version' ) . ")\n";
@@ -160,11 +162,14 @@ if ( $opcache ) {
 $output .= 'XDebug: ' . ( extension_loaded( 'xdebug' ) ? 'Enabled' : 'Disabled' ) . "\n";
 $output .= 'cURL: ' . ( function_exists( 'curl_init' ) ? 'Supported' : 'Not Supported' ) . "\n";
 if ( function_exists( 'curl_init' ) && function_exists( 'curl_version' ) ) {
-	$curl_values = curl_version();
+	$curl_values = curl_version(); // @codingStandardsIgnoreLine
 	$output .= 'cURL Version: ' . $curl_values['version'] . "\n";
 }
 $output .= 'imagick: ' . ( extension_loaded( 'imagick' ) ? 'Installed' : 'Not Installed' ) . "\n";
 $output .= 'xsl: ' . ( extension_loaded( 'xsl' ) ? 'Installed' : 'Not Installed' );
-echo $output; ?></textarea>
+echo $output;
+?>
+</textarea>
 	</div>
-<?php }
+<?php
+}

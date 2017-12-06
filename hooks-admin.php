@@ -34,7 +34,7 @@ $is_book = Book::isBook();
 // -------------------------------------------------------------------------------------------------------------------
 
 if ( ! $is_book ) {
-	$updater = new \Puc_v4p2_Vcs_PluginUpdateChecker(
+	$updater = new \Puc_v4p3_Vcs_PluginUpdateChecker(
 		new \Pressbooks\Updater( 'https://github.com/pressbooks/pressbooks/' ),
 		__DIR__ . '/pressbooks.php', // Fully qualified path to the main plugin file
 		'pressbooks',
@@ -144,17 +144,22 @@ if ( ! $is_book ) {
 // Posts, Meta Boxes
 // -------------------------------------------------------------------------------------------------------------------
 
-add_action('init', function() { // replace default title filtering with our custom one that allows certain tags
-	remove_filter( 'title_save_pre', 'wp_filter_kses' );
-	add_filter( 'title_save_pre', 'Pressbooks\Sanitize\filter_title' );
-});
+add_action(
+	'init', function() {
+		// replace default title filtering with our custom one that allows certain tags
+		remove_filter( 'title_save_pre', 'wp_filter_kses' );
+		add_filter( 'title_save_pre', 'Pressbooks\Sanitize\filter_title' );
+	}
+);
 
-add_action( 'admin_menu', function () {
-	remove_meta_box( 'pageparentdiv', 'chapter', 'normal' );
-	remove_meta_box( 'submitdiv', 'metadata', 'normal' );
-	remove_meta_box( 'submitdiv', 'author', 'normal' );
-	remove_meta_box( 'submitdiv', 'part', 'normal' );
-} );
+add_action(
+	'admin_menu', function () {
+		remove_meta_box( 'pageparentdiv', 'chapter', 'normal' );
+		remove_meta_box( 'submitdiv', 'metadata', 'normal' );
+		remove_meta_box( 'submitdiv', 'author', 'normal' );
+		remove_meta_box( 'submitdiv', 'part', 'normal' );
+	}
+);
 
 add_action( 'custom_metadata_manager_init_metadata', '\Pressbooks\Admin\Metaboxes\add_meta_boxes' );
 
@@ -215,12 +220,14 @@ if ( $is_book ) {
 	add_action( 'after_switch_theme', '\Pressbooks\Admin\Fonts\update_font_stacks' );
 
 	// Posts, Meta Boxes
-	add_action( 'updated_postmeta', function ( $meta_id, $object_id, $meta_key, $meta_value ) {
-		if ( 'pb_language' === $meta_key ) {
-			\Pressbooks\Book::deleteBookObjectCache();
-			\Pressbooks\Admin\Fonts\update_font_stacks();
-		}
-	}, 10, 4 );
+	add_action(
+		'updated_postmeta', function ( $meta_id, $object_id, $meta_key, $meta_value ) {
+			if ( 'pb_language' === $meta_key ) {
+				\Pressbooks\Book::deleteBookObjectCache();
+				\Pressbooks\Admin\Fonts\update_font_stacks();
+			}
+		}, 10, 4
+	);
 
 	// Init
 	add_action( 'admin_init', '\Pressbooks\Admin\Fonts\fix_missing_font_stacks' );
@@ -231,10 +238,6 @@ if ( $is_book ) {
 	add_filter( 'pb_pdf_css_override', [ '\Pressbooks\Modules\ThemeOptions\PDFOptions', 'scssOverrides' ] );
 	add_filter( 'pb_web_css_override', [ '\Pressbooks\Modules\ThemeOptions\WebOptions', 'scssOverrides' ] );
 }
-
-// Theme Lock
-add_action( 'admin_init', '\Pressbooks\Theme\Lock::restrictThemeManagement' );
-add_action( 'update_option_pressbooks_export_options', '\Pressbooks\Theme\Lock::toggleThemeLock', 10, 3 );
 
 // -------------------------------------------------------------------------------------------------------------------
 // "Catch-all" routines, must come after taxonomies and friends
@@ -251,43 +254,55 @@ add_action( 'init', '\Pressbooks\Cloner::formSubmit', 50 );
 
 if ( $is_book ) {
 
-	add_action( 'post_edit_form_tag', function () {
-		echo ' enctype="multipart/form-data"';
-	} );
+	add_action(
+		'post_edit_form_tag', function () {
+			echo ' enctype="multipart/form-data"';
+		}
+	);
 
 	// Disable all pointers (i.e. tooltips) all the time, see \WP_Internal_Pointers()
-	add_action( 'admin_init', function () {
-		remove_action( 'admin_enqueue_scripts', [ 'WP_Internal_Pointers', 'enqueue_scripts' ] );
-	} );
+	add_action(
+		'admin_init', function () {
+			remove_action( 'admin_enqueue_scripts', [ 'WP_Internal_Pointers', 'enqueue_scripts' ] );
+		}
+	);
 
 	// Fix for "are you sure you want to leave page" message when editing a part
-	add_action( 'admin_enqueue_scripts', function () {
-		if ( 'part' === get_post_type() ) {
-			wp_dequeue_script( 'autosave' );
+	add_action(
+		'admin_enqueue_scripts', function () {
+			if ( 'part' === get_post_type() ) {
+				wp_dequeue_script( 'autosave' );
+			}
 		}
-	} );
+	);
 
 	// Hide welcome screen
-	add_action( 'load-index.php', function () {
-		$user_id = get_current_user_id();
-		if ( get_user_meta( $user_id, 'show_welcome_panel', true ) ) {
-			update_user_meta( $user_id, 'show_welcome_panel', 0 );
+	add_action(
+		'load-index.php', function () {
+			$user_id = get_current_user_id();
+			if ( get_user_meta( $user_id, 'show_welcome_panel', true ) ) {
+				update_user_meta( $user_id, 'show_welcome_panel', 0 );
+			}
 		}
-	} );
+	);
 
 	// Disable live preview
-	add_filter( 'theme_action_links', function ( $actions ) {
-		unset( $actions['preview'] );
-		return $actions;
-	} );
+	add_filter(
+		'theme_action_links', function ( $actions ) {
+			unset( $actions['preview'] );
+			return $actions;
+		}
+	);
 
 }
 
 // Hide WP update nag
-add_action( 'admin_menu', function () {
-	remove_action( 'admin_notices', 'update_nag', 3 );
-	remove_filter( 'update_footer', 'core_update_footer' );
-} );
+add_action(
+	'admin_menu', function () {
+		remove_action( 'admin_notices', 'update_nag', 3 );
+		remove_filter( 'update_footer', 'core_update_footer' );
+	}
+);
 
 // Plugin Recommendations
 add_filter( 'install_plugins_tabs', '\Pressbooks\Utility\install_plugins_tabs' );

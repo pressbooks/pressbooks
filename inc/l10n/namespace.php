@@ -409,24 +409,22 @@ function set_locale( $lang ) {
 	// Cheap cache
 	static $loc = '__UNSET__';
 
-	// Book information
-	$metadata = \Pressbooks\Book::getBookInformation();
-	$book_lang = ( ! empty( $metadata['pb_language'] ) ) ? $metadata['pb_language'] : 'en';
+	if ( '__UNSET__' === $loc ) {
+		// Book information
+		$metadata = \Pressbooks\Book::getBookInformation();
+		$book_lang = ( ! empty( $metadata['pb_language'] ) ) ? $metadata['pb_language'] : 'en';
 
-	if ( is_admin() ) {
-		// If user locale isn't set, use the book information value.
-		if ( function_exists( 'wp_get_current_user' ) && ! get_user_option( 'locale' ) ) {
-			if ( '__UNSET__' === $loc ) {
+		if ( is_admin() ) {
+			// If user locale isn't set, use the book information value.
+			if ( function_exists( 'wp_get_current_user' ) && ! get_user_option( 'locale' ) ) {
 				$locations = \Pressbooks\L10n\wplang_codes();
 				$loc = $locations[ $book_lang ];
 			}
-		}
-	} elseif ( isset( $GLOBALS['pagenow'] ) && 'wp-signup.php' === $GLOBALS['pagenow'] ) {
-		// If we're on the registration page, use the global setting.
-		$loc = get_site_option( 'WPLANG' );
-	} else {
-		// Use the book information value.
-		if ( '__UNSET__' === $loc ) {
+		} elseif ( isset( $GLOBALS['pagenow'] ) && 'wp-signup.php' === $GLOBALS['pagenow'] ) {
+			// If we're on the registration page, use the global setting.
+			$loc = get_site_option( 'WPLANG' );
+		} else {
+			// Use the book information value.
 			$locations = \Pressbooks\L10n\wplang_codes();
 			$loc = $locations[ $book_lang ];
 		}
@@ -449,10 +447,9 @@ function set_locale( $lang ) {
  * @return string
  */
 function set_root_locale( $lang ) {
-
+	// Try to retrieve the network setting
 	$loc = get_site_option( 'WPLANG' );
-	return $loc;
-
+	return ( $loc ? $loc : $lang );
 }
 
 /**
@@ -523,7 +520,21 @@ function romanize( $integer ) {
 
 	$integer = absint( $integer );
 
-	$table = [ 'M' => 1000, 'CM' => 900, 'D' => 500, 'CD' => 400, 'C' => 100, 'XC' => 90, 'L' => 50, 'XL' => 40, 'X' => 10, 'IX' => 9, 'V' => 5, 'IV' => 4, 'I' => 1 ];
+	$table = [
+		'M' => 1000,
+		'CM' => 900,
+		'D' => 500,
+		'CD' => 400,
+		'C' => 100,
+		'XC' => 90,
+		'L' => 50,
+		'XL' => 40,
+		'X' => 10,
+		'IX' => 9,
+		'V' => 5,
+		'IV' => 4,
+		'I' => 1,
+	];
 	$return = '';
 	while ( $integer > 0 ) {
 		foreach ( $table as $rom => $arb ) {

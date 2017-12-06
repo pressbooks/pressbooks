@@ -6,6 +6,8 @@
 
 namespace Pressbooks;
 
+use function \Pressbooks\Utility\debug_error_log;
+
 class Licensing {
 
 	/**
@@ -180,7 +182,7 @@ class Licensing {
 		if ( ! empty( $metadata['pb_copyright_year'] ) ) {
 			$copyright_year = $metadata['pb_copyright_year'];
 		} elseif ( ! empty( $metadata['pb_publication_date'] ) ) {
-			$copyright_year = strftime( '%Y', $metadata['pb_publication_date'] );
+			$copyright_year = strftime( '%Y', absint( $metadata['pb_publication_date'] ) );
 		} else {
 			$copyright_year = 0;
 		}
@@ -214,7 +216,13 @@ class Licensing {
 
 			set_transient(
 				$transient_id,
-				[ $license => $html, $copyright_holder => 1, $title => 1, $lang => 1, $copyright_year => 1 ]
+				[
+					$license => $html,
+					$copyright_holder => 1,
+					$title => 1,
+					$lang => 1,
+					$copyright_year => 1,
+				]
 			);
 
 		} else {
@@ -268,7 +276,7 @@ class Licensing {
 
 				$url =
 					$endpoint . $key[0] . '/' . $val[0] . '/get?' . $key[1] . '=' . $val[1] . '&' . $key[2] . '=' . $val[2] .
-					'&creator=' . urlencode( $copyright_holder ) . '&attribution_url=' . urlencode( $src_url ) . '&title=' . urlencode( $title ) . '&locale=' . $lang;
+					'&creator=' . rawurlencode( $copyright_holder ) . '&attribution_url=' . rawurlencode( $src_url ) . '&title=' . rawurlencode( $title ) . '&locale=' . $lang;
 				if ( $year ) {
 					$url .= '&year=' . (int) $year;
 				}
@@ -282,7 +290,7 @@ class Licensing {
 					if ( ! is_wp_error( $xml ) ) {
 						$xml = $xml['body'];
 					} else {
-						\error_log( '\Pressbooks\Licensing::getLicenseXml() error: ' . $xml->get_error_message() );
+						debug_error_log( '\Pressbooks\Licensing::getLicenseXml() error: ' . $xml->get_error_message() );
 						$xml = '';
 					}
 				}

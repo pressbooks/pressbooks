@@ -55,7 +55,8 @@ class EbookOptions extends \Pressbooks\Options {
 	 * Configure the ebook options tab using the settings API.
 	 */
 	function init() {
-		$_page = $_option = 'pressbooks_theme_options_' . $this->getSlug();
+		$_option = 'pressbooks_theme_options_' . $this->getSlug();
+		$_page = $_option;
 		$_section = $this->getSlug() . '_options_section';
 
 		if ( false === get_option( $_option ) ) {
@@ -214,8 +215,8 @@ class EbookOptions extends \Pressbooks\Options {
 		 */
 		return apply_filters(
 			'pb_theme_options_ebook_defaults', [
-			'ebook_paragraph_separation' => 'indent',
-			'ebook_compress_images' => 0,
+				'ebook_paragraph_separation' => 'indent',
+				'ebook_compress_images' => 0,
 			]
 		);
 	}
@@ -246,7 +247,7 @@ class EbookOptions extends \Pressbooks\Options {
 		 */
 		return apply_filters(
 			'pb_theme_options_ebook_booleans', [
-			'ebook_compress_images',
+				'ebook_compress_images',
 			]
 		);
 	}
@@ -314,7 +315,7 @@ class EbookOptions extends \Pressbooks\Options {
 		 */
 		return apply_filters(
 			'pb_theme_options_ebook_predefined', [
-			'ebook_paragraph_separation',
+				'ebook_paragraph_separation',
 			]
 		);
 	}
@@ -340,9 +341,11 @@ class EbookOptions extends \Pressbooks\Options {
 
 		if ( ! $options['chapter_numbers'] ) {
 			if ( $v2_compatible ) {
-				$styles->getSass()->setVariables( [
-					'chapter-number-display' => 'none',
-				] );
+				$styles->getSass()->setVariables(
+					[
+						'chapter-number-display' => 'none',
+					]
+				);
 			} else {
 				$scss .= "div.part-title-wrap > .part-number, div.chapter-title-wrap > .chapter-number { display: none !important; } \n";
 			}
@@ -356,19 +359,23 @@ class EbookOptions extends \Pressbooks\Options {
 		// Indent paragraphs?
 		if ( 'skiplines' === $options['ebook_paragraph_separation'] ) {
 			if ( $v2_compatible ) {
-				$styles->getSass()->setVariables( [
-					'para-margin-top' => '1em',
-					'para-indent' => '0',
-				] );
+				$styles->getSass()->setVariables(
+					[
+						'para-margin-top' => '1em',
+						'para-indent' => '0',
+					]
+				);
 			} else {
 				$scss .= "p + p, .indent, div.ugc p.indent { text-indent: 0; margin-top: 1em; } \n";
 			}
 		} else {
 			if ( $v2_compatible ) {
-				$styles->getSass()->setVariables( [
-					'para-margin-top' => '0',
-					'para-indent' => '1em',
-				] );
+				$styles->getSass()->setVariables(
+					[
+						'para-margin-top' => '0',
+						'para-indent' => '1em',
+					]
+				);
 			} else {
 				$scss .= "p + p, .indent, div.ugc p.indent { text-indent: 1em; margin-top: 0em; } \n";
 			}

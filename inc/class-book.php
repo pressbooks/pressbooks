@@ -308,7 +308,10 @@ class Book {
 			foreach ( $book_structure[ $type ] as $i => $struct ) {
 				unset( $book_structure[ $type ][ $i ]['post_parent'] );
 				if ( 'part' !== $type ) {
-					$book_structure['__order'][ $struct['ID'] ] = [ 'export' => $struct['export'], 'post_status' => $struct['post_status'] ];
+					$book_structure['__order'][ $struct['ID'] ] = [
+						'export' => $struct['export'],
+						'post_status' => $struct['post_status'],
+					];
 					if ( $struct['export'] ) {
 						$book_structure['__export_lookup'][ $struct['post_name'] ] = $type;
 					}
@@ -316,9 +319,15 @@ class Book {
 					foreach ( $struct['chapters'] as $j => $chapter ) {
 						unset( $book_structure[ $type ][ $i ]['chapters'][ $j ]['post_parent'] );
 						if ( $struct['has_post_content'] && get_post_meta( $struct['ID'], 'pb_part_invisible', true ) !== 'on' ) {
-							$book_structure['__order'][ $struct['ID'] ] = [ 'export' => $struct['export'], 'post_status' => $struct['post_status'] ];
+							$book_structure['__order'][ $struct['ID'] ] = [
+								'export' => $struct['export'],
+								'post_status' => $struct['post_status'],
+							];
 						}
-						$book_structure['__order'][ $chapter['ID'] ] = [ 'export' => $chapter['export'], 'post_status' => $chapter['post_status'] ];
+						$book_structure['__order'][ $chapter['ID'] ] = [
+							'export' => $chapter['export'],
+							'post_status' => $chapter['post_status'],
+						];
 						if ( $chapter['export'] ) {
 							$book_structure['__export_lookup'][ $chapter['post_name'] ] = 'chapter';
 						}
@@ -526,7 +535,11 @@ class Book {
 			return false;
 		}
 
-		$doc = new HTML5( [ 'disable_html_ns' => true ] ); // Disable default namespace for \DOMXPath compatibility
+		$doc = new HTML5(
+			[
+				'disable_html_ns' => true,
+			]
+		); // Disable default namespace for \DOMXPath compatibility
 		$dom = $doc->loadHTML( $content );
 		$sections = $dom->getElementsByTagName( 'h1' );
 		foreach ( $sections as $section ) {
@@ -535,7 +548,7 @@ class Book {
 			$section->setAttribute( 'class', 'section-header' );
 		}
 		$xpath = new \DOMXPath( $dom );
-		while ( ( $nodes = $xpath->query( '//*[not(text() or node() or self::br or self::hr or self::img)]' ) ) && $nodes->length > 0 ) {
+		while ( ( $nodes = $xpath->query( '//*[not(text() or node() or self::br or self::hr or self::img)]' ) ) && $nodes->length > 0 ) { // @codingStandardsIgnoreLine
 			foreach ( $nodes as $node ) {
 				/** @var $node \DOMElement */
 				$node->appendChild( new \DOMText( '' ) );
@@ -576,7 +589,13 @@ class Book {
 						if ( 'chapter' === $key ) {
 							foreach ( $values as $position => $id ) {
 								$position += 1; // array is 0-indexed, but we want it to start from 1
-								$wpdb->update( $wpdb->posts, [ 'menu_order' => $position ], [ 'ID' => $id ] );
+								$wpdb->update(
+									$wpdb->posts, [
+										'menu_order' => $position,
+									], [
+										'ID' => $id,
+									]
+								);
 								clean_post_cache( $id );
 							}
 						}
@@ -590,7 +609,13 @@ class Book {
 					if ( 'chapter' === $key ) {
 						foreach ( $values as $position => $id ) {
 							$position += 1; // array is 0-indexed, but we want it to start from 1
-							$wpdb->update( $wpdb->posts, [ 'menu_order' => $position ], [ 'ID' => $id ] );
+							$wpdb->update(
+								$wpdb->posts, [
+									'menu_order' => $position,
+								], [
+									'ID' => $id,
+								]
+							);
 							clean_post_cache( $id );
 						}
 					}
@@ -622,7 +647,13 @@ class Book {
 					if ( 'front-matter' === $key ) {
 						foreach ( $values as $position => $id ) {
 							$position += 1;
-							$wpdb->update( $wpdb->posts, [ 'menu_order' => $position ], [ 'ID' => $id ] );
+							$wpdb->update(
+								$wpdb->posts, [
+									'menu_order' => $position,
+								], [
+									'ID' => $id,
+								]
+							);
 							clean_post_cache( $id );
 						}
 					}
@@ -650,7 +681,13 @@ class Book {
 					if ( 'back-matter' === $key ) {
 						foreach ( $values as $position => $id ) {
 							$position += 1;
-							$wpdb->update( $wpdb->posts, [ 'menu_order' => $position ], [ 'ID' => $id ] );
+							$wpdb->update(
+								$wpdb->posts, [
+									'menu_order' => $position,
+								], [
+									'ID' => $id,
+								]
+							);
 							clean_post_cache( $id );
 						}
 					}

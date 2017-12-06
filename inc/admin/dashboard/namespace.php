@@ -177,7 +177,10 @@ function display_users_widget() {
 
 	echo '<table>';
 	foreach ( $users as $user ) {
-		$meta = unserialize( $user->meta_value );
+		$meta = unserialize( $user->meta_value ); // @codingStandardsIgnoreLine
+		if ( is_object( $meta ) ) {
+			continue; // Hack attempt?
+		}
 		$u = get_userdata( $user->user_id );
 		echo '<tr><td>' . get_avatar( $user->user_id, 32 ) . '</td><td>' . $u->display_name . ' - ' . ucfirst( key( $meta ) ) . '</td></tr>';
 	}
@@ -267,7 +270,8 @@ function dashboard_options_init() {
 function dashboard_feed_callback( $args ) {
 	?>
 	<p><?php __( 'Adjust settings for your dashboard RSS feed widget below.', 'pressbooks' ); ?></p>
-<?php }
+<?php
+}
 
 function display_feed_callback( $args ) {
 	$options = get_site_option(

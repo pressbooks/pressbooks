@@ -144,7 +144,7 @@ do_action( 'pressbooks_top_of_export_page' );
 <div class="export-page">
 
 <div class="export-config">
-	<h3><?php _e( 'Your Export Format Options', 'pressbooks' ); ?></h3>
+	<h3 class="export-config__header"><?php _e( 'Your Export Format Options', 'pressbooks' ); ?></h3>
 	<p><?php _e( 'Select which formats you want to export', 'pressbooks' ); ?>.</p>
 
 <?php
@@ -191,7 +191,7 @@ $formats = apply_filters( 'pb_export_formats', [
 			</fieldset>
 
 		<fieldset class="exotic">
-		<legend><?php _e( 'Exotic formats', 'pressbooks' ); ?>:</legend>
+		<legend><?php _e( 'Other formats', 'pressbooks' ); ?>:</legend>
 <?php foreach ( $formats['exotic'] as $key => $value ) {
 	printf(
 		'<input type="checkbox" id="%1$s" name="export_formats[%1$s]" value="1" %2$s/><label for="%1$s"> %3$s</label><br />',
@@ -208,7 +208,7 @@ $formats = apply_filters( 'pb_export_formats', [
 		<div class="theme-screenshot">
 			<img src="<?php echo apply_filters( 'pb_stylesheet_directory_uri', get_stylesheet_directory_uri() ); ?>/screenshot.png" alt="">
 		</div>
-		<h3 class="theme-name"><?php echo wp_get_theme();?><?php if ( \Pressbooks\Theme\Lock::isLocked() ) { echo ' <span class="dashicons dashicons-lock" style="vertical-align: text-bottom;"></span>'; } ?></h3>
+		<h3 class="theme-name"><?php echo wp_get_theme();?><?php if ( \Pressbooks\Theme\Lock::init()->isLocked() ) { echo ' <span class="dashicons dashicons-lock" style="vertical-align: text-bottom;"></span>'; } ?></h3>
 		<div class="theme-actions">
 			<a class="button button-primary" href="<?php echo get_bloginfo( 'url' ); ?>/wp-admin/themes.php"><?php _e( 'Change Theme', 'pressbooks' ); ?></a>
 			<a class="button button-secondary" href="<?php echo get_bloginfo( 'url' ); ?>/wp-admin/themes.php?page=pressbooks_theme_options"><?php _e( 'Options', 'pressbooks' ); ?></a>
@@ -229,7 +229,7 @@ $formats = apply_filters( 'pb_export_formats', [
 		<h2><?php _e( 'Latest Export', 'pressbooks' ); ?>: <?php printf( _x( '%1$s at %2$s', 'Date and time string, e.g. "January 1, 2016 at 12:00pm', 'pressbooks' ), date( $date_format, $date ), date( $time_format, $date ) ); ?></h2>
 		<div class="export-files latest">
 	<?php } elseif ( $c > 0 ) { ?>
-		<h3><?php _e( 'Exported', 'pressbooks' ); ?> <?php printf( _x( '%1$s at %2$s', 'Date and time string, e.g. "January 1, 2016 at 12:00pm', 'pressbooks' ), date( $date_format, $date ), date( $time_format, $date ) ); ?></h3>
+		<h3 class="export-control__header"><?php _e( 'Exported', 'pressbooks' ); ?> <?php printf( _x( '%1$s at %2$s', 'Date and time string, e.g. "January 1, 2016 at 12:00pm', 'pressbooks' ), date( $date_format, $date ), date( $time_format, $date ) ); ?></h3>
 		<div class="export-files">
 	<?php }
 foreach ( $exports as $file ) {
@@ -281,7 +281,7 @@ foreach ( $exports as $file ) {
 		<input type="hidden" name="filename" value="<?php echo $file; ?>" />
 		<input type="hidden" name="delete_export_file" value="true" />
 		<div class="export-file-container">
-	<a class="export-file" href="<?php echo ( $download_url_prefix . $file ); ?>"><span class="export-file-icon <?php echo ( 0 == $c ? 'large' : 'small' ); ?> <?php echo $file_class; ?>" title="<?php echo esc_attr( $file ); ?>"></span></a>
+	<a class="export-file__link" href="<?php echo ( $download_url_prefix . $file ); ?>"><span class="export-file-icon <?php echo ( 0 == $c ? 'large' : 'small' ); ?> <?php echo $file_class; ?>" title="<?php echo esc_attr( $file ); ?>"></span></a>
 	<div class="file-actions">
 		<a href="<?php echo ( $download_url_prefix . $file ); ?>"><span class="dashicons dashicons-download"></span></a>
 		<button class="delete" type="submit" name="submit" src="" value="Delete" onclick="if ( !confirm('<?php esc_attr_e( 'Are you sure you want to delete this?', 'pressbooks' ); ?>' ) ) { return false }"><span class="dashicons dashicons-trash"></span></button>

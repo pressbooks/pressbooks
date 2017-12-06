@@ -70,7 +70,7 @@ class GlobalTypography {
 		$fullpath = $this->sass->pathToUserGeneratedSass() . "/_font-stack-{$type}.scss";
 
 		if ( is_file( $fullpath ) ) {
-			$return_value = file_get_contents( $fullpath );
+			$return_value = \Pressbooks\Utility\get_contents( $fullpath );
 		}
 
 		return $return_value;
@@ -256,7 +256,7 @@ class GlobalTypography {
 
 		$dir = $this->sass->pathToUserGeneratedSass();
 		$file = $dir . "/_font-stack-{$type}.scss";
-		file_put_contents( $file, $scss );
+		\Pressbooks\Utility\put_contents( $file, $scss );
 	}
 
 	/**

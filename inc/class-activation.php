@@ -270,8 +270,16 @@ class Activation {
 		 */
 		$posts = apply_filters( 'pb_default_book_content', $posts );
 
-		$part = [ 'post_status' => 'publish', 'comment_status' => 'closed', 'post_author' => $this->user_id ];
-		$post = [ 'post_status' => 'publish', 'comment_status' => 'open', 'post_author' => $this->user_id ];
+		$part = [
+			'post_status' => 'publish',
+			'comment_status' => 'closed',
+			'post_author' => $this->user_id,
+		];
+		$post = [
+			'post_status' => 'publish',
+			'comment_status' => 'open',
+			'post_author' => $this->user_id,
+		];
 		$page = [
 			'post_status' => 'publish',
 			'comment_status' => 'closed',
@@ -300,9 +308,9 @@ class Activation {
 			$exists = $wpdb->get_var(
 				$wpdb->prepare(
 					"SELECT ID FROM {$wpdb->posts} WHERE post_title = %s AND post_type = %s AND post_name = %s AND post_status = 'publish' ", [
-					$item['post_title'],
-					$item['post_type'],
-					$item['post_name'],
+						$item['post_title'],
+						$item['post_type'],
+						$item['post_name'],
 					]
 				)
 			);
@@ -351,8 +359,8 @@ class Activation {
 						$locale = get_option( 'WPLANG' );
 						if ( ! empty( $locale ) ) {
 							$locale = array_search( $locale, \Pressbooks\L10n\wplang_codes(), true );
-						} elseif ( $locale = get_site_option( 'WPLANG' ) ) {
-							$locale = array_search( $locale, \Pressbooks\L10n\wplang_codes(), true );
+						} elseif ( get_site_option( 'WPLANG' ) ) {
+							$locale = array_search( get_site_option( 'WPLANG' ), \Pressbooks\L10n\wplang_codes(), true );
 						} else {
 							$locale = 'en';
 						}

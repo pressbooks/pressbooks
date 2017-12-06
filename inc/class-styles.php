@@ -6,6 +6,8 @@
 
 namespace Pressbooks;
 
+use function \Pressbooks\Utility\debug_error_log;
+
 /**
  * Custom Styles Feature(s)
  */
@@ -71,14 +73,18 @@ class Styles {
 			);
 		}
 
-		add_action( 'init', function () {
-			// Admin Menu
-			add_action( 'admin_menu', function () {
-				add_theme_page( __( 'Custom Styles', 'pressbooks' ), __( 'Custom Styles', 'pressbooks' ), 'edit_others_posts', $this::PAGE, [ $this, 'editor' ] );
-			}, 11 );
-			// Register Post Types
-			$this->registerPosts();
-		} );
+		add_action(
+			'init', function () {
+				// Admin Menu
+				add_action(
+					'admin_menu', function () {
+						add_theme_page( __( 'Custom Styles', 'pressbooks' ), __( 'Custom Styles', 'pressbooks' ), 'edit_others_posts', $this::PAGE, [ $this, 'editor' ] );
+					}, 11
+				);
+				// Register Post Types
+				$this->registerPosts();
+			}
+		);
 
 		// Catch form submission
 		add_action( 'init', [ $this, 'formSubmit' ], 50 );
@@ -110,7 +116,10 @@ class Styles {
 			],
 		];
 
-		$post = [ 'post_status' => 'publish', 'post_author' => wp_get_current_user()->ID ];
+		$post = [
+			'post_status' => 'publish',
+			'post_author' => wp_get_current_user()->ID,
+		];
 
 		foreach ( $posts as $item ) {
 			$exists = $wpdb->get_var(
@@ -345,7 +354,7 @@ class Styles {
 	public function customizeWeb( $overrides = [] ) {
 		$path = $this->getPathToWebScss();
 		if ( $path ) {
-			return $this->customize( 'web', file_get_contents( $path ), $overrides );
+			return $this->customize( 'web', \Pressbooks\Utility\get_contents( $path ), $overrides );
 		}
 		return '';
 	}
@@ -358,7 +367,7 @@ class Styles {
 	public function customizePrince( $overrides = [] ) {
 		$path = $this->getPathToPrinceScss();
 		if ( $path ) {
-			return $this->customize( 'prince', file_get_contents( $path ), $overrides );
+			return $this->customize( 'prince', \Pressbooks\Utility\get_contents( $path ), $overrides );
 		}
 		return '';
 	}
@@ -371,7 +380,7 @@ class Styles {
 	public function customizeEpub( $overrides = [] ) {
 		$path = $this->getPathToEpubScss();
 		if ( $path ) {
-			return $this->customize( 'epub', file_get_contents( $path ), $overrides );
+			return $this->customize( 'epub', \Pressbooks\Utility\get_contents( $path ), $overrides );
 		}
 		return '';
 	}
@@ -461,7 +470,7 @@ class Styles {
 
 		foreach ( $scan as $token => $replace_with ) {
 			if ( is_file( $replace_with ) ) {
-				$css = str_replace( $token, file_get_contents( $replace_with ), $css );
+				$css = str_replace( $token, \Pressbooks\Utility\get_contents( $replace_with ), $css );
 			}
 		}
 
@@ -481,9 +490,9 @@ class Styles {
 		$scss = '$url-base: \'' . get_stylesheet_directory_uri() . "/';\n";
 
 		if ( $this->isCurrentThemeCompatible( 1 ) ) {
-			$scss .= file_get_contents( realpath( get_stylesheet_directory() . '/style.scss' ) );
+			$scss .= \Pressbooks\Utility\get_contents( realpath( get_stylesheet_directory() . '/style.scss' ) );
 		} elseif ( $this->isCurrentThemeCompatible( 2 ) ) {
-			$scss .= file_get_contents( realpath( get_stylesheet_directory() . '/assets/styles/web/style.scss' ) );
+			$scss .= \Pressbooks\Utility\get_contents( realpath( get_stylesheet_directory() . '/assets/styles/web/style.scss' ) );
 		} else {
 			return;
 		}
@@ -498,7 +507,7 @@ class Styles {
 		$css = \Pressbooks\Sanitize\normalize_css_urls( $css );
 
 		$css_file = $this->sass->pathToUserGeneratedCss() . '/style.css';
-		file_put_contents( $css_file, $css );
+		\Pressbooks\Utility\put_contents( $css_file, $css );
 	}
 
 	/**
@@ -554,8 +563,8 @@ class Styles {
 	 * @return string
 	 */
 	public function renderDropdownForSlugs( $slug ) {
-
-		$select_id = $select_name = 'slug';
+		$select_name = 'slug';
+		$select_id = $select_name;
 		$redirect_url = get_admin_url( get_current_blog_id(), '/themes.php?page=' . $this::PAGE . '&slug=' );
 		$html = '';
 
@@ -636,12 +645,12 @@ class Styles {
 			$redirect_url = get_admin_url( get_current_blog_id(), '/themes.php?page=' . $this::PAGE . '&slug=' . $slug );
 
 			if ( ! isset( $_POST['post_id'], $_POST['post_id_integrity'] ) ) {
-				error_log( __METHOD__ . ' error: Missing post ID' );
+				debug_error_log( __METHOD__ . ' error: Missing post ID' );
 				\Pressbooks\Redirect\location( $redirect_url . '&custom_styles_error=true' );
 			}
 			if ( md5( NONCE_KEY . $_POST['post_id'] ) !== $_POST['post_id_integrity'] ) {
 				// A hacker trying to overwrite posts?.
-				error_log( __METHOD__ . ' error: unexpected value for post_id_integrity' );
+				debug_error_log( __METHOD__ . ' error: unexpected value for post_id_integrity' );
 				\Pressbooks\Redirect\location( $redirect_url . '&custom_styles_error=true' );
 			}
 
@@ -659,7 +668,7 @@ class Styles {
 
 			if ( is_wp_error( $response ) ) {
 				// Something went wrong?
-				error_log( __METHOD__ . ' error, wp_update_post(): ' . $response->get_error_message() );
+				debug_error_log( __METHOD__ . ' error, wp_update_post(): ' . $response->get_error_message() );
 				\Pressbooks\Redirect\location( $redirect_url . '&custom_styles_error=true' );
 			}
 

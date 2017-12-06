@@ -54,24 +54,30 @@ class SectionMetadata extends \WP_REST_Controller {
 	 */
 	public function register_routes() {
 
-		register_rest_route( $this->namespace, '/' . $this->parent_base . '/(?P<parent>[\d]+)/' . $this->rest_base, [
-			'args' => [
-				'parent' => [
-					'required' => true,
-					'description' => __( 'The ID for the parent of the object.' ),
-					'type' => 'integer',
-				],
-			],
-			[
-				'methods' => \WP_REST_Server::READABLE,
-				'callback' => [ $this, 'get_item' ],
-				'permission_callback' => [ $this, 'get_item_permissions_check' ],
+		register_rest_route(
+			$this->namespace, '/' . $this->parent_base . '/(?P<parent>[\d]+)/' . $this->rest_base, [
 				'args' => [
-					'context' => $this->get_context_param( [ 'default' => 'view' ] ),
+					'parent' => [
+						'required' => true,
+						'description' => __( 'The ID for the parent of the object.' ),
+						'type' => 'integer',
+					],
 				],
-			],
-			'schema' => [ $this, 'get_public_item_schema' ],
-		] );
+				[
+					'methods' => \WP_REST_Server::READABLE,
+					'callback' => [ $this, 'get_item' ],
+					'permission_callback' => [ $this, 'get_item_permissions_check' ],
+					'args' => [
+						'context' => $this->get_context_param(
+							[
+								'default' => 'view',
+							]
+						),
+					],
+				],
+				'schema' => [ $this, 'get_public_item_schema' ],
+			]
+		);
 	}
 
 	/**
@@ -410,8 +416,18 @@ class SectionMetadata extends \WP_REST_Controller {
 	 * @return \WP_Error|\WP_REST_Response Response object on success, or WP_Error object on failure.
 	 */
 	public function get_item( $request ) {
-		$posts = get_posts( [ 'p' => $request['parent'], 'post_type' => $this->post_type, 'post_status' => 'any' ] );
-		$error = new \WP_Error( 'rest_post_invalid_id', __( 'Invalid post ID.' ), [ 'status' => 404 ] );
+		$posts = get_posts(
+			[
+				'p' => $request['parent'],
+				'post_type' => $this->post_type,
+				'post_status' => 'any',
+			]
+		);
+		$error = new \WP_Error(
+			'rest_post_invalid_id', __( 'Invalid post ID.' ), [
+				'status' => 404,
+			]
+		);
 		if ( empty( $posts ) ) {
 			return $error;
 		}
@@ -430,8 +446,12 @@ class SectionMetadata extends \WP_REST_Controller {
 		$section_meta = $this->buildMetadata( $section_meta, $book_meta );
 
 		$response = rest_ensure_response( $section_meta );
-		$this->linkCollector['self'] = [ 'href' => rest_url( sprintf( '%s/%s/%d/%s', $this->namespace, $this->parent_base, $request['parent'], 'metadata' ) ) ];
-		$this->linkCollector[ $this->post_type ] = [ 'href' => rest_url( sprintf( '%s/%s/%d', $this->namespace, $this->parent_base, $request['parent'] ) ) ];
+		$this->linkCollector['self'] = [
+			'href' => rest_url( sprintf( '%s/%s/%d/%s', $this->namespace, $this->parent_base, $request['parent'], 'metadata' ) ),
+		];
+		$this->linkCollector[ $this->post_type ] = [
+			'href' => rest_url( sprintf( '%s/%s/%d', $this->namespace, $this->parent_base, $request['parent'] ) ),
+		];
 		$response->add_links( $this->linkCollector );
 
 		return $response;

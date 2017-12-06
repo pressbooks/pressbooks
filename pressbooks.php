@@ -3,13 +3,15 @@
 Plugin Name: Pressbooks
 Plugin URI: https://pressbooks.com
 Description: Simple Book Production
-Version: 4.5.0-dev
+Version: 4.5.0
 Author: Book Oven Inc.
 Author URI: https://pressbooks.com
 Text Domain: pressbooks
 License: GPLv2
 Network: True
 */
+
+use function \Pressbooks\Utility\debug_error_log;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	return;
@@ -19,7 +21,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Turn on $_SESSION
 // -------------------------------------------------------------------------------------------------------------------
 
-function _pb_session_start() { // @codingStandardsIgnoreLine
+// @codingStandardsIgnoreStart
+function _pb_session_start() {
 	if ( ! session_id() ) {
 		if ( ! headers_sent() ) {
 			ini_set( 'session.use_only_cookies', true );
@@ -42,15 +45,16 @@ function _pb_session_start() { // @codingStandardsIgnoreLine
 			);
 			session_start();
 		} else {
-			error_log( 'There was a problem with _pb_session_start(), headers already sent!' );
+			debug_error_log( 'There was a problem with _pb_session_start(), headers already sent!' );
 		}
 	}
 }
 
-function _pb_session_kill() { // @codingStandardsIgnoreLine
+function _pb_session_kill() {
 	$_SESSION = [];
 	session_destroy();
 }
+// @codingStandardsIgnoreEnd
 
 add_action( 'init', '_pb_session_start', 1 );
 add_action( 'wp_logout', '_pb_session_kill' );
@@ -101,10 +105,12 @@ putenv( "LC_CTYPE={$pb_lc_ctype}" );
 // Composer autoloader (if needed)
 // -------------------------------------------------------------------------------------------------------------------
 
-if ( file_exists( $composer = PB_PLUGIN_DIR . 'vendor/autoload.php' ) ) {
+$composer = PB_PLUGIN_DIR . 'vendor/autoload.php';
+if ( file_exists( $composer ) ) {
 	require_once( $composer );
 } else {
 	if ( ! class_exists( '\Illuminate\Container\Container' ) ) {
+		/* translators: 1: URL to Composer documentation, 2: URL to Pressbooks latest releases */
 		die( sprintf( __( 'Pressbooks dependencies are missing. Please make sure that your project&rsquo;s <a href="%1$s">Composer autoload file</a> is being required, or use the <a href="%2$s">latest release</a> instead.', 'pressbooks' ), 'https://getcomposer.org/doc/01-basic-usage.md#autoloading', 'https://github.com/pressbooks/pressbooks/releases/latest/' ) );
 	}
 }
@@ -114,9 +120,11 @@ if ( file_exists( $composer = PB_PLUGIN_DIR . 'vendor/autoload.php' ) ) {
 // -------------------------------------------------------------------------------------------------------------------
 
 if ( ! function_exists( 'pb_meets_minimum_requirements' ) && ! @include_once( PB_PLUGIN_DIR . 'compatibility.php' ) ) { // @codingStandardsIgnoreLine
-	return add_action( 'admin_notices', function () {
-		echo '<div id="message" class="error fade"><p>' . __( 'Cannot find Pressbooks install.', 'pressbooks' ) . '</p></div>';
-	} );
+	return add_action(
+		'admin_notices', function () {
+			echo '<div id="message" class="error fade"><p>' . __( 'Cannot find Pressbooks install.', 'pressbooks' ) . '</p></div>';
+		}
+	);
 } elseif ( ! pb_meets_minimum_requirements() ) {
 	return;
 }
@@ -131,9 +139,11 @@ pb_init_autoloader();
 // Configure root site
 // -------------------------------------------------------------------------------------------------------------------
 
-register_activation_hook( __FILE__, function () {
-	( new \Pressbooks\Activation() )->registerActivationHook();
-} );
+register_activation_hook(
+	__FILE__, function () {
+		( new \Pressbooks\Activation() )->registerActivationHook();
+	}
+);
 
 // -------------------------------------------------------------------------------------------------------------------
 // Initialize

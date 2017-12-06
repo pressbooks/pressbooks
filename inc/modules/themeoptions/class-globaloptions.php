@@ -58,7 +58,8 @@ class GlobalOptions extends \Pressbooks\Options {
 	 * Configure the global options tab using the settings API.
 	 */
 	function init() {
-		$_page = $_option = 'pressbooks_theme_options_' . $this->getSlug();
+		$_option = 'pressbooks_theme_options_' . $this->getSlug();
+		$_page = $_option;
 		$_section = $this->getSlug() . '_options_section';
 
 		if ( false === get_option( $_option ) ) {
@@ -341,9 +342,9 @@ class GlobalOptions extends \Pressbooks\Options {
 		 */
 		return apply_filters(
 			'pb_theme_options_global_defaults', [
-			'chapter_numbers' => 1,
-			'parse_subsections' => 0,
-			'copyright_license' => 0,
+				'chapter_numbers' => 1,
+				'parse_subsections' => 0,
+				'copyright_license' => 0,
 			]
 		);
 	}
@@ -374,8 +375,8 @@ class GlobalOptions extends \Pressbooks\Options {
 		 */
 		return apply_filters(
 			'pb_theme_options_global_booleans', [
-			'chapter_numbers',
-			'parse_subsections',
+				'chapter_numbers',
+				'parse_subsections',
 			]
 		);
 	}

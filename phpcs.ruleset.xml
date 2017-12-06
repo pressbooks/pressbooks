@@ -14,16 +14,23 @@
 
     <!-- Use HM Coding Standards -->
     <rule ref="vendor/humanmade/coding-standards">
-        <!-- Disable all ESLint checks -->
+        <!-- Disable all ESLint checks: -->
         <exclude name="HM.Debug.ESLint"/>
-        <!-- Disable rules Pressbooks disagrees with -->
+        <!-- Disable rules Pressbooks disagrees with: -->
         <exclude name="WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid"/>
         <exclude name="WordPress.NamingConventions.ValidVariableName.MemberNotSnakeCase"/>
         <exclude name="WordPress.NamingConventions.ValidVariableName.NotSnakeCaseMemberVar"/>
         <exclude name="WordPress.VIP.SessionVariableUsage"/>
         <exclude name="WordPress.VIP.SessionFunctionsUsage"/>
-        <!-- Disable LayoutOrder until humanmade/coding-standards#5 is fixed -->
+        <exclude name="WordPress.PHP.DiscouragedPHPFunctions.system_calls_exec"/>
+        <exclude name="WordPress.PHP.DiscouragedPHPFunctions.runtime_configuration_ini_set"/>
+        <exclude name="WordPress.PHP.DiscouragedPHPFunctions.runtime_configuration_putenv"/>
+        <exclude name="WordPress.PHP.DevelopmentFunctions.error_log_trigger_error"/>
+        <!-- Disable LayoutOrder until humanmade/coding-standards#5 is fixed: -->
         <exclude name="HM.Layout.Order.WrongOrder"/>
+        <!-- Temporary, these should be enabled someday soon: -->
+        <exclude name="WordPress.CSRF.NonceVerification.NoNonceVerification"/>
+        <exclude name="WordPress.WP.I18n.MissingTranslatorsComment"/>
     </rule>
 
     <!-- Re-enable rules Pressbooks agrees with -->

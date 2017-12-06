@@ -36,7 +36,7 @@ class Wxr extends Export {
 		// Save WXR as file in exports folder
 
 		$filename = $this->timestampedFileName( '.xml' );
-		file_put_contents( $filename, $output );
+		\Pressbooks\Utility\put_contents( $filename, $output );
 		$this->outputPath = $filename;
 
 		return true;

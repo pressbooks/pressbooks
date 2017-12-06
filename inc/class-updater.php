@@ -13,10 +13,10 @@ namespace Pressbooks;
  * @see https://github.com/YahnisElsts/plugin-update-checker/issues/93
  * @see https://api.github.com/repos/pressbooks/pressbooks/releases
  */
-class Updater extends \Puc_v4p2_Vcs_GitHubApi {
+class Updater extends \Puc_v4p3_Vcs_GitHubApi {
 
 	/**
-	 * @return null|\Puc_v4p2_Vcs_Reference
+	 * @return null|\Puc_v4p3_Vcs_Reference
 	 */
 	public function getLatestRelease() {
 		$reference = parent::getLatestRelease();

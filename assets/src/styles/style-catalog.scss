@@ -98,9 +98,6 @@ video {
 **************************************************************/
 html {
   overflow-y: scroll;
-}
-
-html {
   -webkit-font-smoothing: antialiased;
 }
 
@@ -340,6 +337,7 @@ img {
   background-color: rgba(255, 255, 255, 0.8);
   opacity: 0;
   height: 100%;
+  display: block;
   overflow: hidden;
   padding: 18px;
   position: absolute;
@@ -353,24 +351,15 @@ img {
   width: 100%;
 }
 
-.book-description a {
-  display: block;
-  overflow: hidden;
-}
-
 .book:hover .book-description,
 .book:active .book-description {
+  color: #0094cc;
   display: block;
   opacity: 1;
   -webkit-transition: opacity 0.3s linear;
   -moz-transition: opacity 0.3s linear;
   -o-transition: opacity 0.3s linear;
   transition: opacity 0.3s linear;
-}
-
-.book:hover .book-description a,
-.book:active .book-description a {
-  color: #0094cc;
 }
 
 .book-link {
@@ -390,11 +379,8 @@ img {
   position: absolute;
   bottom: 0;
   left: 50%;
-  text-align: center;
-}
-
-.footer a {
   font-size: 0.9em;
+  text-align: center;
 }
 
 /*

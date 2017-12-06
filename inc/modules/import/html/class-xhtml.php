@@ -10,6 +10,7 @@ namespace Pressbooks\Modules\Import\Html;
 use Masterminds\HTML5;
 use Pressbooks\Modules\Import\Import;
 use Pressbooks\Book;
+use function \Pressbooks\Utility\debug_error_log;
 
 class Xhtml extends Import {
 
@@ -38,7 +39,7 @@ class Xhtml extends Import {
 		// Something failed
 		if ( is_wp_error( $html ) ) {
 			$redirect_url = get_admin_url( get_current_blog_id(), '/tools.php?page=pb_import' );
-			error_log( '\PressBooks\Import\Html import error, wp_remote_get() ' . $html->get_error_message() );
+			debug_error_log( '\PressBooks\Import\Html import error, wp_remote_get() ' . $html->get_error_message() );
 			$_SESSION['pb_errors'][] = $html->get_error_message();
 
 			$this->revokeCurrentImport();
@@ -46,7 +47,7 @@ class Xhtml extends Import {
 
 		}
 
-		$url = parse_url( $current_import['file'] );
+		$url = wp_parse_url( $current_import['file'] );
 		// get parent directory (with forward slash e.g. /parent)
 		$path = dirname( $url['path'] );
 
@@ -144,7 +145,7 @@ class Xhtml extends Import {
 			return $license;
 		}
 		// look for creativecommons domain
-		$parts = parse_url( $url );
+		$parts = wp_parse_url( $url );
 
 		if ( 'http' === $parts['scheme'] && 'creativecommons.org' === $parts['host'] ) {
 			// extract the license information from it
@@ -418,7 +419,12 @@ class Xhtml extends Import {
 			}
 		}
 
-		$pid = media_handle_sideload( [ 'name' => $filename, 'tmp_name' => $tmp_name ], 0 );
+		$pid = media_handle_sideload(
+			[
+				'name' => $filename,
+				'tmp_name' => $tmp_name,
+			], 0
+		);
 		$src = wp_get_attachment_url( $pid );
 		if ( ! $src ) {
 			$src = ''; // Change false to empty string
@@ -442,7 +448,7 @@ class Xhtml extends Import {
 		// check for wp error
 		if ( is_wp_error( $html ) ) {
 			$error_message = $html->get_error_message();
-			error_log( '\Pressbooks\Modules\Import\Html::setCurrentImportOption error, wp_remote_get' . $error_message );
+			debug_error_log( '\Pressbooks\Modules\Import\Html::setCurrentImportOption error, wp_remote_get' . $error_message );
 			$_SESSION['pb_errors'][] = $error_message;
 
 			return false;
