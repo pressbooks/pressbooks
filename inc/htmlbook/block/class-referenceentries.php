@@ -46,6 +46,8 @@ class ReferenceEntries extends Element {
 	/**
 	 * @var array
 	 */
-	protected $attributes = [ 'class' => 'refentry' ];
+	protected $attributes = [
+		'class' => 'refentry',
+	];
 
 }

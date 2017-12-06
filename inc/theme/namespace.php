@@ -143,9 +143,9 @@ function migrate_book_themes() {
 			if ( Lock::isLocked() ) {
 				$data = Lock::getLockData();
 				$data['stylesheet'] = 'pressbooks-luther';
-				$json = json_encode( $data );
+				$json = wp_json_encode( $data );
 				$lockfile = Lock::getLockDir() . '/lock.json';
-				file_put_contents( $lockfile, $json );
+				\Pressbooks\Utility\put_contents( $lockfile, $json );
 			}
 		}
 

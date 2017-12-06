@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b4f94271be4763c2c01d8f57fabd0729",
+    "content-hash": "b56989469ad964e6ff6c9e7351043b6e",
     "packages": [
         {
             "name": "composer/installers",
@@ -1425,7 +1425,7 @@
                 "codesniffer",
                 "cs"
             ],
-            "time": "2017-08-30T10:00:39+00:00"
+            "time": "2017-08-30 10:00:39"
         },
         {
             "name": "humanmade/coding-standards",
@@ -1452,7 +1452,7 @@
                 "GPL-2.0"
             ],
             "description": "Human Made coding standards",
-            "time": "2017-11-23T01:42:09+00:00"
+            "time": "2017-11-23 01:42:09"
         },
         {
             "name": "myclabs/deep-copy",

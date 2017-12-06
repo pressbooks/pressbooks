@@ -39,7 +39,9 @@ function register_post_types() {
 	register_extended_post_type(
 		'chapter', [
 			'admin_cols' => [
-				'chapter_type' => [ 'taxonomy' => 'chapter-type' ],
+				'chapter_type' => [
+					'taxonomy' => 'chapter-type',
+				],
 			],
 			'quick_edit' => false,
 			'capability_type' => 'post',
@@ -79,7 +81,9 @@ function register_post_types() {
 		'front-matter',
 		[
 			'admin_cols' => [
-				'front_matter_type' => [ 'taxonomy' => 'front-matter-type' ],
+				'front_matter_type' => [
+					'taxonomy' => 'front-matter-type',
+				],
 			],
 			'quick_edit' => false,
 			'capability_type' => 'post',
@@ -100,7 +104,9 @@ function register_post_types() {
 		'back-matter',
 		[
 			'admin_cols' => [
-				'back_matter_type' => [ 'taxonomy' => 'back-matter-type' ],
+				'back_matter_type' => [
+					'taxonomy' => 'back-matter-type',
+				],
 			],
 			'quick_edit' => false,
 			'capability_type' => 'post',
@@ -120,7 +126,9 @@ function register_post_types() {
 	register_extended_post_type(
 		'metadata',
 		[
-			'labels' => [ 'menu_name' => __( 'Book Info', 'pressbooks' ) ],
+			'labels' => [
+				'menu_name' => __( 'Book Info', 'pressbooks' ),
+			],
 			'quick_edit' => false,
 			'capability_type' => 'post',
 			'hierarchical' => false,
