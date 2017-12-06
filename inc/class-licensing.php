@@ -291,7 +291,7 @@ class Licensing {
 					if ( is_wp_error( $xml ) ) {
 						$error_message = $xml->get_error_message();
 					} elseif ( is_array( $xml ) && ! empty( $xml['body'] ) ) {
-						$error_message = $xml['body'];
+						$error_message = wp_strip_all_tags( $xml['body'] );
 					} else {
 						$error_message = 'An unknown error occurred';
 					}
