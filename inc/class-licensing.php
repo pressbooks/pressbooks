@@ -127,7 +127,7 @@ class Licensing {
 	 * @param string $title (optional)
 	 *
 	 * @return string
-	 * @throws \Exception`
+	 * @throws \Exception
 	 */
 	public function doLicense( $metadata, $post_id = 0, $title = '' ) {
 
@@ -284,12 +284,19 @@ class Licensing {
 				$xml = wp_remote_get( $url );
 				$ok = wp_remote_retrieve_response_code( $xml );
 
-				// if server response is not ok
 				if ( absint( $ok ) === 200 && is_wp_error( $xml ) === false ) {
 					$xml = $xml['body'];
 				} else {
-					debug_error_log( '\Pressbooks\Licensing::getLicenseXml() error: ' . $xml->get_error_message() );
-					$xml = '';
+					// Something went wrong, try to log it
+					if ( is_wp_error( $xml ) ) {
+						$error_message = $xml->get_error_message();
+					} elseif ( is_array( $xml ) && ! empty( $xml['body'] ) ) {
+						$error_message = $xml['body'];
+					} else {
+						$error_message = 'An unknown error occurred';
+					}
+					debug_error_log( '\Pressbooks\Licensing::getLicenseXml() error: ' . $error_message );
+					$xml = ''; // Set empty string
 				}
 				break;
 		}
