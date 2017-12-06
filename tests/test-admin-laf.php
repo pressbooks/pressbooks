@@ -44,9 +44,11 @@ class Admin_LafsTest extends \WP_UnitTestCase {
 		$this->assertEquals( $menu[12][0], 'Book Info' );
 		$this->assertEquals( $menu[14][0], 'Export' );
 		$this->assertEquals( $menu[16][0], 'Publish' );
+	}
 
-		$this->assertArrayHasKey( 'edit.php?post_type=part', $submenu );
-		$this->assertArrayHasKey( 'edit.php?post_type=chapter', $submenu );
+	function test_reorder_book_admin_menu() {
+		$order = \Pressbooks\Admin\Laf\reorder_book_admin_menu();
+		$this->assertEquals( $order[4], 'post-new.php?post_type=metadata' );
 	}
 
 	function test_replace_menu_bar_my_sites() {

@@ -1,0 +1,712 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec"
+               xmlns:functx="http://www.functx.com"
+	       xmlns="http://www.w3.org/1999/xhtml"
+	       xmlns:dc="http://purl.org/dc/elements/1.1/"
+	       xmlns:ncx="http://www.daisy.org/z3986/2005/ncx/"
+	       xmlns:dcterms="http://purl.org/dc/terms/"
+	       xmlns:opf="http://www.idpf.org/2007/opf"
+	       xmlns:h="http://www.w3.org/1999/xhtml"
+	       xmlns:e="http://github.com/oreillymedia/epubrenderer"
+               stylesheet="../epub.xsl">
+
+  <!-- Test suite for opf.xsl -->
+
+  <!-- Global params for testing -->
+  <x:param name="metadata.unique-identifier.id" select="'pub-identifier'"/>
+  <x:param name="metadata.unique-identifier"/> <!-- Leave blank globally -->
+  <x:param name="metadata.ibooks-specified-fonts" select="1"/>
+  <x:param name="generate.cover.html" select="1"/>
+
+  <x:param name="package.namespaces">
+    <opf.foo/>
+    <dc:foo/>
+    <dcterms:foo/>
+  </x:param>
+
+  <x:param name="ncx.toc.id" select="'tocncx'"/>
+  <x:param name="ncx.toc.filename" select="'toc.ncx'"/>
+  <x:param name="css.id" select="'bookcss'"/>
+  <x:param name="epub.cover.html.id" select="'bookcover'"/>
+  <x:param name="cover.html.filename" select="'cover.html'"/>
+  <x:param name="root.chunk.filename" select="'index.html'"/>
+  <x:param name="epub.cover.image.id" select="'bookcoverimage'"/>
+
+  <x:param name="external.assets.list">DejaVuSerif.otf
+DejaVuSans-Bold.otf
+UbuntuMono-Regular.otf
+UbuntuMono-Bold.otf
+UbuntuMono-BoldItalic.otf
+UbuntuMono-Italic.otf
+images/puppy.png
+images/kitkat.jpg</x:param>
+  
+  <x:scenario label="When get.external.assets.xml is run">
+    <x:call template="get.external.assets.xml">
+      <x:param name="assets.to.process">DejaVuSerif.otf
+DejaVuSerif.ttf
+boston.gif
+pencil.jpg
+UbuntuMono-Regular.otf
+css_images/puppy.png
+css_images/pizza.svg
+</x:param>
+    </x:call>
+    <x:expect label="it should return an XML-formatted lists of assets with proper mimetypes">
+      <e:assets>
+	<e:asset filename="DejaVuSerif.otf" mimetype="application/vnd.ms-opentype"/>
+	<e:asset filename="DejaVuSerif.ttf" mimetype="font/truetype"/>
+	<e:asset filename="boston.gif" mimetype="image/gif"/>
+	<e:asset filename="pencil.jpg" mimetype="image/jpeg"/>
+	<e:asset filename="UbuntuMono-Regular.otf" mimetype="application/vnd.ms-opentype"/>
+	<e:asset filename="css_images/puppy.png" mimetype="image/png"/>
+	<e:asset filename="css_images/pizza.svg" mimetype="image/svg+xml"/>
+      </e:assets>
+    </x:expect>
+  </x:scenario>
+
+  <x:scenario label="When generate.opf is run">
+    <x:call template="generate.opf.content"/>
+
+    <x:expect label="A package root element should be generated with the proper namespaces">
+      <package xmlns="http://www.idpf.org/2007/opf" 
+	       xmlns:opf="http://www.idpf.org/2007/opf"
+	       xmlns:dc="http://purl.org/dc/elements/1.1/"
+	       xmlns:dcterms="http://purl.org/dc/terms/"
+	       version="3.0"
+	       prefix="ibooks: http://vocabulary.itunes.apple.com/rdf/ibooks/vocabulary-extensions-1.0/"
+	       unique-identifier="pub-identifier">...</package>
+    </x:expect>
+    <x:expect label="The OPF package should contain a metadata element" test="exists(/opf:package/opf:metadata)"/>
+    <x:expect label="The OPF package should contain a manifest element" test="exists(/opf:package/opf:manifest)"/>
+    <x:expect label="The OPF package should contain a spine element" test="exists(/opf:package/opf:spine)"/>
+    <x:expect label="The OPF package should contain a guide element by default" test="exists(/opf:package/opf:guide)"/>
+  	<x:scenario label="with generate.guide disabled">
+  		<x:call>
+  			<x:param name="generate.guide" select="0"/>
+  		</x:call>
+  		<x:expect label="The OPF package should not contain a guide element" test="not(exists(/opf:package/opf:guide))"/>
+  	</x:scenario>
+  </x:scenario>
+
+  <x:scenario label="When opf.manifest is run">
+    <x:call template="opf.manifest"/>
+    <!-- Based on font list specified in global param $external.assets.list -->
+    <x:expect label="there should be items for each external asset" test="exists(/opf:manifest/opf:item[@href='DejaVuSerif.otf']) and
+								exists(/opf:manifest/opf:item[@href='DejaVuSans-Bold.otf']) and
+								exists(/opf:manifest/opf:item[@href='UbuntuMono-Regular.otf']) and
+								exists(/opf:manifest/opf:item[@href='UbuntuMono-Bold.otf']) and
+								exists(/opf:manifest/opf:item[@href='UbuntuMono-BoldItalic.otf']) and
+								exists(/opf:manifest/opf:item[@href='UbuntuMono-Italic.otf']) and
+								exists(/opf:manifest/opf:item[@href='images/puppy.png']) and
+								exists(/opf:manifest/opf:item[@href='images/kitkat.jpg'])"/>
+    <x:scenario label="with NCX generation enabled">
+      <x:call>
+	<x:param name="generate.ncx.toc" select="1"/>
+      </x:call>
+      <x:expect label="there should be a manifest item for the NCX TOC" test="exists(/opf:manifest/opf:item[@id = 'tocncx' and 
+									      @href = 'toc.ncx' and 
+									      @media-type= 'application/x-dtbncx+xml'])"/>
+    </x:scenario>
+    <x:scenario label="with NCX generation disabled">
+      <x:call>
+	<x:param name="generate.ncx.toc" select="0"/>
+      </x:call>
+      <x:expect label="there *should not* be a manifest item for the NCX TOC" test="not(exists(/opf:manifest/opf:item[@id = 'tocncx']))"/>
+    </x:scenario>
+
+    <x:scenario label="with CSS provided">
+      <x:call>
+	<x:param name="css.filename" select="'core.css'"/>
+      </x:call>
+      <x:expect label="there should be a manifest item for the CSS" test="exists(/opf:manifest/opf:item[@id = 'bookcss' and
+									  @href = 'core.css' and
+									  @media-type= 'text/css'])"/>
+    </x:scenario>
+    <x:scenario label="with no CSS provided">
+      <x:call>
+	<x:param name="css.filename" select="''"/>
+      </x:call>
+      <x:expect label="there *should not* be a manifest item for the CSS" test="not(exists(/opf:manifest/opf:item[@id = 'bookcss']))"/>
+    </x:scenario>
+
+    <x:scenario label="with cover HTML file enabled">
+      <x:call>
+	<x:param name="generate.cover.html" select="1"/>
+      </x:call>
+      <x:expect label="there should be a manifest item for the cover" test="exists(/opf:manifest/opf:item[@id = 'bookcover' and
+									  @href = 'cover.html' and
+									  @media-type= 'application/xhtml+xml'])"/>
+    </x:scenario>
+    <x:scenario label="with cover HTML file disabled">
+      <x:call>
+	<x:param name="generate.cover.html" select="0"/>
+      </x:call>
+      <x:expect label="there *should not* be a manifest item for the cover" test="not(exists(/opf:manifest/opf:item[@id = 'bookcover']))"/>
+    </x:scenario>
+
+    <x:scenario label="with root chunk generation enabled">
+      <x:call>
+	<x:param name="generate.root.chunk" select="1"/>
+      </x:call>
+      <x:expect label="there should be a manifest item for the root chunk" test="exists(/opf:manifest/opf:item[@href = 'index.html' and
+										 @media-type= 'application/xhtml+xml'])"/>
+    </x:scenario>
+
+    <x:scenario label="with root chunk generation disabled">
+      <x:call>
+	<x:param name="generate.root.chunk" select="0"/>
+      </x:call>
+      <x:expect label="there *should not* be a manifest item for the root chunk" test="not(exists(/opf:manifest/opf:item[@href = 'index.html']))"/>
+    </x:scenario>
+  </x:scenario>
+
+  <x:scenario label="When manifest-audio-video-assets is called">
+    <x:call template="manifest-audio-video-assets">
+      <x:param name="asset-nodes">
+	<video src="dancing-puppy.mp4"/>
+	<video src="dancing-kitty.ogg"/>
+	<audio src="barking-puppy.aac"/>
+	<audio src="purring-kitty.mp3"/>
+	<!-- Intentional duplicate for testing to ensure no manifest redundancy -->
+	<video src="dancing-puppy.mp4"/>
+      </x:param>
+    </x:call>
+    <x:expect label="there should be an item for each audio/video src in the source files"
+	      test="every $asset in ('dancing-puppy.mp4', 'dancing-kitty.ogg', 'barking-puppy.aac', 'purring-kitty.mp3') 
+		    satisfies (exists(//opf:item[@href=$asset]))"/>
+    <x:expect label="audio/video items should have the correct mimetype inferred" test="(every $asset in (//opf:item[substring-after(@href, '.') = 'mp4']) 
+									 satisfies ($asset[@media-type = 'video/mp4'])) and
+									 (every $asset in (//opf:item[substring-after(@href, '.') = 'ogg']) 
+									 satisfies ($asset[@media-type = 'video/ogg'])) and
+									 (every $asset in (//opf:item[substring-after(@href, '.') = 'aac']) 
+									 satisfies ($asset[@media-type = 'audio/mp4'])) and
+									 (every $asset in (//opf:item[substring-after(@href, '.') = 'mp3'])
+									 satisfies ($asset[@media-type = 'audio/mpeg']))"/>
+    <x:expect label="and there should be only one item that references each asset file" test="not(exists(//@href[(. = preceding::opf:item/@href) or (. = following::opf:item/@href)]))"/>
+
+    <x:scenario label="on audio/video elements with source children">
+      <x:call>
+	<x:param name="asset-nodes">
+	  <video>
+	    <source src="dancing-puppy.mp4"/>
+	    <source src="dancing-puppy.ogg"/>
+	  </video>
+	  <audio>
+	    <source src="purring-kitty.aac"/>
+	    <source src="purring-kitty.mp3"/>
+	  </audio>
+	  <!-- Intentional duplicate for testing to ensure no manifest redundancy -->
+	  <video>
+	    <source src="dancing-puppy.mp4"/>
+	  </video>
+	</x:param>
+      </x:call>
+      <x:expect label="there should be an item for each audio/video src in the source files"
+		test="every $asset in ('dancing-puppy.mp4', 'dancing-puppy.ogg', 'purring-kitty.aac', 'purring-kitty.mp3') 
+		      satisfies (exists(//opf:item[@href=$asset]))"/>
+      <x:expect label="audio/video items should have the correct mimetype inferred" test="(every $asset in (//opf:item[substring-after(@href, '.') = 'mp4']) 
+											  satisfies ($asset[@media-type = 'video/mp4'])) and
+											  (every $asset in (//opf:item[substring-after(@href, '.') = 'ogg']) 
+											  satisfies ($asset[@media-type = 'video/ogg'])) and
+											  (every $asset in (//opf:item[substring-after(@href, '.') = 'aac']) 
+											  satisfies ($asset[@media-type = 'audio/mp4'])) and
+											  (every $asset in (//opf:item[substring-after(@href, '.') = 'mp3'])
+											  satisfies ($asset[@media-type = 'audio/mpeg']))"/>
+      <x:expect label="and there should be only one item that references each asset file" test="not(exists(//@href[(. = preceding::opf:item/@href) or (. = following::opf:item/@href)]))"/>
+    </x:scenario>
+
+    <x:scenario label="on audio/video elements with @type attributes that don't match expected types that would be inferred from file extension">
+      <x:call>
+	<x:param name="asset-nodes">
+	  <video>
+	    <source src="dancing-puppy.mp4" type="video/ogg"/>
+	  </video>
+	  <audio>
+	    <source src="purring-kitty.mp3" type="audio/mp4"/>
+	  </audio>
+	</x:param>
+      </x:call>
+
+      <x:expect label="@type attributes should take precedence in determining item @media-type">
+	<item xmlns="http://www.idpf.org/2007/opf" id="..." href="dancing-puppy.mp4" media-type="video/ogg"/>
+	<item xmlns="http://www.idpf.org/2007/opf" id="..." href="purring-kitty.mp3" media-type="audio/mp4"/>
+      </x:expect>
+    </x:scenario>
+
+  </x:scenario>
+
+  <x:scenario label="When manifest-images is called">
+    <x:call template="manifest-images">
+      <x:param name="img-nodes">
+	<img src="puppy.jpg"/>
+	<img src="kitty.png"/>
+	<img src="birdie.gif"/>
+	<!-- Intentional duplicate for testing to ensure no manifest redundancy -->
+	<img src="puppy.jpg"/>
+      </x:param>
+    </x:call>
+    <x:expect label="there should be an item for each img src in the source files"
+	      test="every $image in ('puppy.jpg', 'kitty.png', 'birdie.gif')
+		    satisfies (exists(//opf:item[@href=$image]))"/>
+    <x:expect label="image items should have the correct mimetype" test="(every $image in (//opf:item[substring-after(@href, '.') = 'gif']) 
+									 satisfies ($image[@media-type = 'image/gif'])) and
+									 (every $image in (//opf:item[substring-after(@href, '.') = 'jpg']) 
+									 satisfies ($image[@media-type = 'image/jpeg'])) and
+									 (every $image in (//opf:item[substring-after(@href, '.') = 'png']) 
+									 satisfies ($image[@media-type = 'image/png']))"/>
+    <x:expect label="and there should be only one item that references each image file" test="not(exists(//@href[(. = preceding::opf:item/@href) or (. = following::opf:item/@href)]))"/> 
+    <x:scenario label="on a cover image">
+      <x:call>
+	<!-- Test XSL is output to a subdir of the .xspec dir, which also contains skeleton, so relative path contains .. to go up a directory level -->
+	<x:param name="img-nodes" select="document('../skeleton.html')//h:figure[@data-type='cover']//h:img"/>
+      </x:call>
+      <x:expect label="the item should have the proper cover-image id and cover-image property set">
+	<opf:item id="bookcoverimage" href="..." media-type="..." properties="cover-image"/>
+      </x:expect>
+    </x:scenario>
+  </x:scenario>
+
+  <x:scenario label="When manifest-html is called (no embedded MathML or SVG in chunks)">
+    <x:call template="manifest-html">
+      <x:param name="chunk.nodes">
+	<section data-type="chapter">
+	  <h1>Chapter Title</h1>
+	  <p>Chapter text</p>
+	</section>
+	<section data-type="sect1">
+	  <h1>Sect1 Title</h1>
+	  <p>Sect1 text</p>
+	</section>
+	<section data-type="appendix">
+	  <h1>Appendix Title</h1>
+	  <p>Appendix text</p>
+	</section>
+      </x:param>
+    </x:call>
+    <x:expect label="there should be an item for each chunk node in the source files with an id, href, and the proper media-type"
+	      test="count(//opf:item[@href and @id and @media-type='application/xhtml+xml']) = 3"/>
+    <x:expect label="there should be no special properties" test="count(//opf:item[@properties]) = 0"/>
+  </x:scenario>
+
+  <x:scenario label="When manifest-html is called for a chunk node that contains MathML">
+    <x:call template="manifest-html">
+      <x:param name="chunk.nodes">
+	<section data-type="chapter">
+	  <h1>Chapter Title</h1>
+	  <p>Chapter text</p>
+	  <p>Here's some MathML:</p>
+	  <math xmlns="http://www.w3.org/1998/Math/MathML"/>
+	</section>
+      </x:param>
+    </x:call>
+    <x:expect label="MathML should be present in the item properties"
+	      test="exists(//opf:item[contains(@properties, 'math')])"/>
+  </x:scenario>
+
+  <x:scenario label="When manifest-html is called for a chunk node that contains SVG">
+    <x:call template="manifest-html">
+      <x:param name="chunk.nodes">
+	<section data-type="chapter">
+	  <h1>Chapter Title</h1>
+	  <p>Chapter text</p>
+	  <p>Here's some SVG:</p>
+	  <svg xmlns="http://www.w3.org/2000/svg"/>
+	</section>
+      </x:param>
+    </x:call>
+    <x:expect label="SVG should be present in the item properties"
+	      test="exists(//opf:item[contains(@properties, 'svg')])"/>
+  </x:scenario>
+
+  <x:scenario label="When manifest-html is called for a chunk node that contains MathML *and* SVG">
+    <x:call template="manifest-html">
+      <x:param name="chunk.nodes">
+	<section data-type="chapter">
+	  <h1>Chapter Title</h1>
+	  <p>Chapter text</p>
+	  <p>Here's some MathML:</p>
+	  <math xmlns="http://www.w3.org/1998/Math/MathML"/>
+	  <p>Here's some SVG:</p>
+	  <svg xmlns="http://www.w3.org/2000/svg"/>
+	</section>
+      </x:param>
+    </x:call>
+    <x:expect label="Math *and* SVG should be present in the item properties"
+	      test="exists(//opf:item[contains(@properties, 'math') and contains(@properties, 'svg')])"/>
+  </x:scenario>
+
+  <x:scenario label="When generating OPF metadata for a book (with all metadata supplied)">
+    <x:call template="opf.metadata">
+      <x:param name="computed.identifier" select="'9780000000000'"/>
+      <x:param name="metadata.ibooks-specified-fonts" select="1"/>
+      <x:param name="metadata.title" select="'Understanding Computation'"/>
+      <x:param name="metadata.language" select="'fr'"/>
+      <x:param name="metadata.modified" select="'2013-11-16'"/>
+      <x:param name="metadata.rights" select="'Copyrighted by Me'"/>
+      <x:param name="metadata.publisher" select="'Prestigious Press, Inc.'"/>
+      <x:param name="metadata.subject" select="'Computers / General'"/>
+      <x:param name="metadata.date" select="'1999-11-16'"/>
+      <x:param name="metadata.description" select="'MARKETING COPY HERE'"/>
+      <x:param name="metadata.contributors">
+	<meta name="contributor" content="Socrates"/>
+      </x:param>
+      <x:param name="metadata.creators">
+	<meta name="creator" content="Descartes"/>
+      </x:param>
+      <x:param name="generate.cover.html" select="1"/>
+    </x:call>
+    <x:expect label="Identifiers should be generated" test="exists(/opf:metadata/dc:identifier[. = '9780000000000']) and 
+							    exists(/opf:metadata/opf:meta[@property='dcterms:identifier' and . = '9780000000000'])"/>
+    <x:expect label="Title should be generated" test="exists(/opf:metadata/dc:title[. = 'Understanding Computation']) and
+						      exists(/opf:metadata/opf:meta[@property='dcterms:title' and . = 'Understanding Computation'])"/>
+    <x:expect label="Language should be generated" test="exists(/opf:metadata/dc:language[. = 'fr']) and
+							 exists(/opf:metadata/opf:meta[@property = 'dcterms:language' and . = 'fr'])"/>
+    <x:expect label="Modified date should be generated" test="exists(/opf:metadata/opf:meta[@property = 'dcterms:modified' and . = '2013-11-16'])"/>
+    <x:expect label="Rights information should be generated" test="exists(/opf:metadata/dc:rights[. = 'Copyrighted by Me']) and
+								   exists(/opf:metadata/opf:meta[@property = 'dcterms:rightsHolder' and . = 'Copyrighted by Me'])"/>
+    <x:expect label="Publisher information should be generated" test="exists(/opf:metadata/dc:publisher[. = 'Prestigious Press, Inc.']) and
+								      exists(/opf:metadata/opf:meta[@property = 'dcterms:publisher' and . = 'Prestigious Press, Inc.'])"/>
+    <x:expect label="Subject (category) information should be generated" test="exists(/opf:metadata/dc:subject[. = 'Computers / General']) and
+									       exists(/opf:metadata/opf:meta[@property = 'dcterms:subject' and . = 'Computers / General'])"/>
+    <x:expect label="Publication date information should be generated" test="exists(/opf:metadata/dc:date[. = '1999-11-16']) and
+									     exists(/opf:metadata/opf:meta[@property='dcterms:date' and . = '1999-11-16'])"/>
+    <x:expect label="Description information should be generated" test="exists(/opf:metadata/dc:description[. = 'MARKETING COPY HERE']) and
+									exists(/opf:metadata/opf:meta[@property='dcterms:description' and . = 'MARKETING COPY HERE'])"/>
+    <x:expect label="Contributor information should be generated properly for one person" test="count(/opf:metadata/dc:contributor) = 1 and
+												exists(/opf:metadata/dc:contributor[. = 'Socrates']) and
+												count(/opf:metadata/opf:meta[@property = 'dcterms:contributor']) = 1 and
+												exists(/opf:metadata/opf:meta[@property = 'dcterms:contributor' and . = 'Socrates'])"/>
+    <x:expect label="Creator information should be generated properly for one author" test="count(/opf:metadata/dc:creator) = 1 and
+											    exists(/opf:metadata/dc:creator[. = 'Descartes']) and
+											    count(/opf:metadata/opf:meta[@property = 'dcterms:creator']) = 1 and
+											    exists(/opf:metadata/opf:meta[@property = 'dcterms:creator' and . = 'Descartes'])"/>
+    <x:expect label="Cover metadata should be generated" test="exists(/opf:metadata/opf:meta[@name='cover' and @content='bookcoverimage'])"/>
+    <x:expect label="iBooks metadata should be generated if specified" test="exists(/opf:metadata/opf:meta[@property='ibooks:specified-fonts' and . = 'true'])"/>
+
+    <x:scenario label="When generating OPF metadata for a book with two authors specified">
+      <x:call>
+	<x:param name="metadata.creators">
+	  <meta name="creator" content="Descartes"/>
+	  <meta name="creator" content="Kant"/>
+	</x:param>
+      </x:call>
+      <x:expect label="Creator information should be generated properly (if present) for two authors" test="count(/opf:metadata/dc:creator) = 1 and 
+													    exists(/opf:metadata/dc:creator[. = 'Descartes and Kant']) and
+													    count(/opf:metadata/opf:meta[@property = 'dcterms:creator']) = 2 and
+													    exists(/opf:metadata/opf:meta[@property = 'dcterms:creator' and . = 'Descartes']) and
+													    exists(/opf:metadata/opf:meta[@property = 'dcterms:creator' and . = 'Kant'])"/>
+    </x:scenario>    
+
+    <x:scenario label="When generating OPF metadata for a book with more than two authors specified">
+      <x:call>
+	<x:param name="metadata.creators">
+	  <meta name="creator" content="Descartes"/>
+	  <meta name="creator" content="Kant"/>
+	  <meta name="creator" content="Rawls"/>
+	</x:param>
+      </x:call>
+      <x:expect label="Creator information should be generated properly (if present) for more than two authors" test="count(/opf:metadata/dc:creator) = 1 and
+														      exists(/opf:metadata/dc:creator[. = 'Descartes, Kant, and Rawls']) and
+														      count(/opf:metadata/opf:meta[@property = 'dcterms:creator']) = 3 and
+														      exists(/opf:metadata/opf:meta[@property = 'dcterms:creator' and . = 'Descartes']) and
+														      exists(/opf:metadata/opf:meta[@property = 'dcterms:creator' and . = 'Kant']) and 
+														      exists(/opf:metadata/opf:meta[@property = 'dcterms:creator' and . = 'Rawls'])"/>
+    </x:scenario>
+
+    <x:scenario label="When generating OPF metadata for a book with more than one contributor specified">
+      <x:call>
+	<x:param name="metadata.contributors">
+	  <meta name="contributor" content="Socrates"/>
+	  <meta name="contributor" content="Plato"/>
+	  <meta name="contributor" content="Aristotle"/>
+	</x:param>
+      </x:call>
+      <x:expect label="Contributor information should be generated properly for multiple people" test="count(/opf:metadata/dc:contributor) = 3 and
+												       exists(/opf:metadata/dc:contributor[. = 'Socrates']) and
+												       exists(/opf:metadata/dc:contributor[. = 'Plato']) and
+												       exists(/opf:metadata/dc:contributor[. = 'Aristotle']) and
+												       count(/opf:metadata/opf:meta[@property = 'dcterms:contributor']) = 3 and
+												       exists(/opf:metadata/opf:meta[@property = 'dcterms:contributor' and . = 'Socrates']) and
+												       exists(/opf:metadata/opf:meta[@property = 'dcterms:contributor' and . = 'Plato']) and
+												       exists(/opf:metadata/opf:meta[@property = 'dcterms:contributor' and . = 'Aristotle'])"/>
+    </x:scenario>
+
+  </x:scenario>
+
+    <x:scenario label="When generating OPF metadata for book without any metadata supplied or a cover">
+      <x:call template="opf.metadata">
+	<x:param name="metadata.ibooks-specified-fonts"/>
+	<x:param name="metadata.title"/>
+	<x:param name="metadata.language"/>
+	<x:param name="metadata.modified"/>
+	<x:param name="metadata.rights"/>
+	<x:param name="metadata.publisher"/>
+	<x:param name="metadata.subject"/>
+	<x:param name="metadata.date"/>
+	<x:param name="metadata.description"/>
+	<x:param name="metadata.contributors"/>
+	<x:param name="metadata.creators"/>
+	<x:param name="generate.cover.html"/>
+      </x:call>
+      <x:expect label="Default value should be subbed in for book identifier to ensure EPUB validity" test="exists(/opf:metadata/dc:identifier[contains(., 'randomid')]) and
+													    exists(/opf:metadata/opf:meta[@property = 'dcterms:identifier' and contains(., 'randomid')])"/>
+      <x:expect label="Default value should be subbed in for book title to ensure EPUB validity" test="exists(/opf:metadata/dc:title[. = 'Untitled Book']) and
+												       exists(/opf:metadata/opf:meta[@property = 'dcterms:title' and . = 'Untitled Book'])"/>
+      <x:expect label="Default value should be subbed in for book language to ensure EPUB validity" test="exists(/opf:metadata/dc:language[. = 'en']) and
+													  exists(/opf:metadata/opf:meta[@property = 'dcterms:language' and . = 'en'])"/>
+      <x:expect label="Default value should be subbed in for book modification date to ensure EPUB validity" test="exists(/opf:metadata/opf:meta[@property = 'dcterms:modified' and . = '2014-01-01'])"/>
+      <x:expect label="Rights information *should not* be generated" test="not(exists(/opf:metadata/dc:rights)) and 
+									   not(exists(/opf:metadata/opf:meta[@property = 'dcterms:rightsHolder']))"/>
+      <x:expect label="Publisher information *should not* be generated" test="not(exists(/opf:metadata/dc:publisher)) and
+									      not(exists(/opf:metadata/opf:meta[@property = 'dcterms:publisher']))"/>
+      <x:expect label="Subject (category) information *should not* be generated" test="not(exists(/opf:metadata/dc:subject)) and
+										       not(exists(/opf:metadata/opf:meta[@property = 'dcterms:subject']))"/>
+      <x:expect label="Publication date information *should not* be generated" test="not(exists(/opf:metadata/dc:date)) and
+										     not(exists(/opf:metadata/opf:meta[@property = 'dcterms:date']))"/>
+      <x:expect label="Description information *should not* be generated" test="not(exists(/opf:metadata/dc:description)) and
+										not(exists(/opf:metadata/opf:meta[@property = 'dcterms:description']))"/>
+      <x:expect label="Contributor information *should not* be generated" test="not(exists(/opf:metadata/dc:contributor)) and
+										not(exists(/opf:metadata/opf:meta[@property = 'dcterms:contributor']))"/>
+      <x:expect label="Creator information *should not* be generated" test="not(exists(/opf:metadata/dc:creator)) and
+									    not(exists(/opf:metadata/opf:meta[@property = 'dcterms:creator']))"/>
+      <x:expect label="Cover metadata *should not* be generated if book does not have a cover" test="not(exists(/opf:metadata/opf:meta[@name = 'cover']))"/>
+      <x:expect label="iBooks metadata *should not* be generated if *not* specified" test="not(exists(/opf:metadata/opf:meta[@property='ibooks:specified-fonts']))"/>
+    </x:scenario>
+
+    <x:scenario label="When generate-spine is called">
+      <x:call template="generate-spine">
+	<x:param name="generate.ncx.toc" select="1"/>
+	<x:param name="cover.in.spine" select="1"/>
+	<x:param name="generate.cover.html" select="1"/>
+	<x:param name="chunk.nodes">
+	  <section data-type="preface">
+	    <h1>Dummy Preface</h1>
+	    <p>Hello World!</p>
+	  </section>
+	  <section data-type="chapter">
+	    <h1>Dummy Chapter</h1>
+	    <p>Hello World!</p>
+	  </section>
+	  <section data-type="appendix">
+	    <h1>Dummy Appendix</h1>
+	    <p>Hello World!</p>
+	  </section>
+	</x:param>
+      </x:call>
+      <x:expect label="There should be a 'toc' attribute on the spine element if NCX TOC generation is enabled" test="exists(/opf:spine[@toc = 'tocncx'])"/>
+      <x:expect label="There should be an itemref for the cover if cover.in.spine is enabled and cover HTML is being generated"
+		test="exists(/opf:spine/opf:itemref[@idref = 'bookcover'])"/>
+      <x:expect label="There should be an itemref for every chunk in the book"
+		test="every $chunk in ('preface', 'chapter', 'appendix')
+		      satisfies (exists(/opf:spine/opf:itemref[contains(@idref, $chunk)]))"/>
+
+      <x:scenario label="with NCX TOC generation disabled">
+	<x:call>
+	  <x:param name="generate.ncx.toc"/>
+	</x:call>
+	<x:expect label="There *should not* be a 'toc' attribute on the spine element" test="exists(/opf:spine[not(@toc)])"/>
+      </x:scenario>
+      <x:scenario label="with cover.in.spine disabled">
+	<x:call>
+	  <x:param name="cover.in.spine"/>
+	</x:call>
+	<x:expect label="There *should not* be an itemref for the cover" test="not(exists(/opf:spine/opf:itemref[@idref = 'bookcover']))"/>
+      </x:scenario>
+    </x:scenario>
+
+    <x:scenario label="When generate-guide is called">
+      <x:call template="generate-guide">
+	<x:param name="generate.cover.html" select="1"/>
+	<x:param name="html5.toc.node">
+	  <nav data-type="toc"/>
+	</x:param>
+      </x:call>
+      <!-- Note, we can't access document context from a named template, so we can't check hrefs here, but at least we can check for existence of elements -->
+      <!-- ToDo: parameterize context node for generate-guide so hrefs can be tested, and pending tests can be filled in -->
+      <x:expect label="There should be a reference element for the cover if generate.cover.html is enabled" test="exists(/opf:guide/opf:reference[@type='cover'])"/>
+      <x:expect label="There should be a reference element to the EPUB Nav doc" test="exists(/opf:guide/opf:reference[@type='toc'])"/>
+      <x:scenario label="With generate.cover.html disabled">
+	<x:call>
+	  <x:param name="generate.cover.html"/>
+	</x:call>
+	<x:expect label="There *should not* be a reference element for the cover" test="not(exists(/opf:guide/opf:reference[@type='cover']))"/>
+      </x:scenario>
+
+      <x:pending>
+	<x:scenario label="On content that contains a titlepage">
+	  
+	</x:scenario>
+	
+	<x:scenario label="On content that contains no titlepage, but does contain a TOC">
+	  
+	</x:scenario>
+	
+	<x:scenario label="On content that contains no titlepage or cover">
+	  
+	</x:scenario>
+      </x:pending>
+    </x:scenario>
+
+    <x:scenario label="When element is matched in opf.spine.itemref mode">
+      <x:context mode="opf.spine.itemref">
+	<section data-type="sect1">
+	  <h1>Test Sect1</h1>
+	  <p>I love XML</p>
+	</section>
+      </x:context>
+      <!-- Can't test generate-id here, but we can test that the right data-type is in the itemref idref -->
+      <x:expect label="An itemref should be generated with a proper idref" test="count(/opf:itemref[contains(@idref, 'sect1')]) = 1"/>
+    </x:scenario>
+
+    <x:scenario label="When Nav doc is matched in opf.spine.itemref mode">
+      <x:context mode="opf.spine.itemref">
+	<nav data-type="toc"/>
+      </x:context>
+      <x:expect label="An itemref *should not* be generated by default" test="count(/opf:itemref) = 0"/>
+      <x:scenario label="with nav.in.spine enabled">
+	<x:context>
+	  <x:param name="nav.in.spine">1</x:param>
+	</x:context>
+	<x:expect label="An itemref should be generated when nav.in.spine is enabled" test="count(/opf:itemref[contains(@idref, 'toc')]) = 1"/>
+      </x:scenario>
+    </x:scenario>
+
+    <x:scenario label="When element is matched in opf.id mode">
+      <x:context mode="opf.id">
+	<section data-type="glossary"/>
+      </x:context>
+      <x:expect label="An id value should be generated that contains the element data-type if it has one" test="contains(., 'glossary')"/>
+      <x:scenario label="that does not have a data-type">
+	<x:context mode="opf.id">
+	  <div/>
+	</x:context>
+	<x:expect label="An id value should be generated that contains the element local-name if it has no data-type" test="contains(., 'div')"/>
+      </x:scenario>
+    </x:scenario>
+
+    <x:scenario label="When a navigation document is matched in opf.manifest properties mode">
+      <x:context select="/h:body/h:nav[1]" mode="opf.manifest.properties">
+	<body>
+	  <nav data-type="toc"/>
+	  <!-- Second TOC -->
+	  <nav data-type="toc"/>
+	</body>
+      </x:context>
+      <x:expect label="It should return a value of 'nav'">nav</x:expect>
+      <x:scenario label="that is not the first nav in the book">
+	<x:context select="/h:body/h:nav[2]" mode="opf.manifest.properties">
+	  <body>
+	    <nav data-type="toc"/>
+	    <!-- Second TOC -->
+	    <nav data-type="toc"/>
+	  </body>
+	</x:context>
+	<x:expect label="It should not return a value" test="$x:result = ''"/>
+      </x:scenario>
+    </x:scenario>
+    
+    <x:scenario label="When a general element is matched in opf.manifest.properties mode">
+      <x:context mode="opf.manifest.properties" select="/h:section[@id='only_html']">
+	<section data-type="chapter" id="only_html">
+	  <p>Only HTML content...</p>
+	</section>
+	<section data-type="chapter" id="mml">
+	  <p>Here's a Math element</p>
+	  <math xmlns="http://www.w3.org/1998/Math/MathML"/>
+	</section>
+	<section data-type="chapter" id="svg">
+	  <p>Here's an SVG element</p>
+	  <svg xmlns="http://www.w3.org/2000/svg"/>
+	</section>
+	<section data-type="chapter" id="mml_and_svg">
+	  <p>Here's a MathML and an SVG element</p>
+	  <math xmlns="http://www.w3.org/1998/Math/MathML"/>
+	  <svg xmlns="http://www.w3.org/2000/svg"/>
+	</section>
+      </x:context>
+      <x:expect label="It should return nothing if the chunk contains neither MathML nor SVG" test="$x:result = ''"/>
+      <x:scenario label="With MathML content in the same chunk">
+	<x:context mode="opf.manifest.properties" select="/h:section[@id='mml']"/>
+	<x:expect label="It should return a result containing 'math'">mathml</x:expect>
+      </x:scenario>
+      <x:scenario label="With SVG content in the same chunk">
+	<x:context mode="opf.manifest.properties" select="/h:section[@id='svg']"/>
+	<x:expect label="It should return a result containing 'svg'">svg</x:expect>
+      </x:scenario>
+      <x:scenario label="With *both* MathML and SVG content in the same chunk">
+	<x:context mode="opf.manifest.properties" select="/h:section[@id='mml_and_svg']"/>
+	<x:expect label="It should return a result containing both 'math' and 'svg'" test="contains(., 'mathml') and contains(., 'svg')"/>
+      </x:scenario>
+    </x:scenario>
+
+    <x:scenario label="When has-element-in-chunk is called">
+      <x:call template="has-element-in-chunk">
+	<x:param name="element-name" select="'svg'"/>
+	<x:param name="chunk" select="document('../skeleton.html')//h:section[@data-type =  'preface' and @id = 'svg_preface']"/>
+	<x:param name="chunk-id" select="generate-id($chunk)"/>
+      </x:call>
+      <x:expect label="It should return 1 if an instance of the given element name can be found in the given chunk">1</x:expect>
+    </x:scenario>
+
+    <x:scenario label="When has-element-in-chunk is called">
+      <x:call template="has-element-in-chunk">
+	<x:param name="element-name" select="'math'"/>
+	<x:param name="chunk" select="document('../skeleton.html')//h:section[@id = 'child_of_mml_chunk']"/>
+	<x:param name="chunk-id" select="generate-id($chunk)"/>
+      </x:call>
+      <x:expect label="It should not return 1 if an instance of the given element name *cannot* be found in the given chunk (element in ancestor chunk)"
+		test="string-length($x:result) = 0"/>
+    </x:scenario>
+
+    <x:scenario label="When has-element-in-chunk is called">
+      <x:call template="has-element-in-chunk">
+	<x:param name="element-name" select="'svg'"/>
+	<x:param name="chunk" select="document('../skeleton.html')//h:section[@id = 'sibling_of_svg_chunk']"/>
+	<x:param name="chunk-id" select="generate-id($chunk)"/>
+      </x:call>
+      <x:expect label="It should not return 1 if an instance of the given element name *cannot* be found in the given chunk (element in sibling chunk)"
+		test="string-length($x:result) = 0"/>
+    </x:scenario>
+
+    <x:scenario label="When convert.date.to.utc is called">
+      <x:call template="convert.date.to.utc">
+	<x:param name="date" select="'2014-01-01T00:00:00.1234'"/>
+      </x:call>
+      <x:expect label="It should return a date in UTC format">2014-01-01T00:00:00Z</x:expect>
+    </x:scenario>
+
+    <x:scenario label="When get-extension-from-filename is called">
+      <x:call template="get-extension-from-filename">
+	<x:param name="filename" select="'document.xml'"/>
+      </x:call>
+      <x:expect label="It should return the filename extension if the file has one">xml</x:expect>
+      <x:scenario label=".">
+	<x:call>
+	  <x:param name="filename" select="'document.xml.html'"/>
+	</x:call>
+	<x:expect label="It should return the final filename extension if the file has more than one">html</x:expect>
+      </x:scenario>
+      <x:scenario label=".">
+	<x:call>
+	  <x:param name="filename" select="'no_extension_in_filename'"/>
+	</x:call>
+	<x:expect label="It should return nothing if the filename has no extension" test="string-length($x:result) = 0"/>
+      </x:scenario>
+    </x:scenario>
+
+    <x:scenario label="When get-mimetype-from-file-extension is called">
+      <x:call template="get-mimetype-from-file-extension">
+	<x:param name="file-extension" select="'svg'"/>
+      </x:call>
+      <x:expect label="It should return the proper mimetype for the given file type based on extension">image/svg+xml</x:expect>
+      <x:scenario label=".">
+	<x:call>
+	  <x:param name="file-extension" select="'bogus'"/>
+	</x:call>
+	<x:expect label="It should default to the XHTML mimetype if no mimetype can be found for the file type based on extension">application/xhtml+xml</x:expect>
+      </x:scenario>
+    </x:scenario>
+
+</x:description>

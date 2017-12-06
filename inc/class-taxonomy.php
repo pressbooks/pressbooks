@@ -28,134 +28,78 @@ class Taxonomy {
 	 */
 	static function registerTaxonomies() {
 
-		/* Front Matter Type */
-
-		$labels = [
-			'name' => _x( 'Front Matter Types', 'taxonomy general name' ),
-			'singular_name' => _x( 'Front Matter Type', 'taxonomy singular name' ),
-			'search_items' => __( 'Search Front Matter Types', 'pressbooks' ),
-			'popular_items' => __( 'Popular Front Matter Types', 'pressbooks' ),
-			'all_items' => __( 'All Front Matter Types', 'pressbooks' ),
-			'parent_item' => null,
-			'parent_item_colon' => null,
-			'edit_item' => __( 'Edit Front Matter Type', 'pressbooks' ),
-			'update_item' => __( 'Update Front Matter Type', 'pressbooks' ),
-			'add_new_item' => __( 'Add New Front Matter Type', 'pressbooks' ),
-			'new_item_name' => __( 'New Front Matter Type Name', 'pressbooks' ),
-			'separate_items_with_commas' => __( 'Separate front matter types with commas', 'pressbooks' ),
-			'add_or_remove_items' => __( 'Add or remove front matter type', 'pressbooks' ),
-			'choose_from_most_used' => __( 'Choose from the most used front matter type', 'pressbooks' ),
-			'menu_name' => __( 'Front Matter Types', 'pressbooks' ),
-		];
-
-		// can only apply front matter taxonomy to front matter post type
-		register_taxonomy(
+		register_extended_taxonomy(
 			'front-matter-type',
 			'front-matter',
 			[
-				'hierarchical' => true,
-				// only super-admins can change front matter terms
+				'meta_box' => 'dropdown',
 				'capabilities' => [
 					'manage_terms' => 'manage_sites',
 					'edit_terms' => 'manage_sites',
 					'delete_terms' => 'manage_sites',
 					'assign_terms' => 'edit_posts',
 				],
-				'labels' => $labels,
-				'show_ui' => true,
-				'show_in_rest' => true,
-				'query_var' => true,
-				'rewrite' => [
-					'slug' => 'front-matter-type',
-				],
 			]
 		);
 
-		/* Back Matter Type */
-
-		$labels = [
-			'name' => _x( 'Back Matter Types', 'taxonomy general name' ),
-			'singular_name' => _x( 'Back Matter Type', 'taxonomy singular name' ),
-			'search_items' => __( 'Search Back Matter Types', 'pressbooks' ),
-			'popular_items' => __( 'Popular Back Matter Types', 'pressbooks' ),
-			'all_items' => __( 'All Back Matter Types', 'pressbooks' ),
-			'parent_item' => null,
-			'parent_item_colon' => null,
-			'edit_item' => __( 'Edit Back Matter Type', 'pressbooks' ),
-			'update_item' => __( 'Update Back Matter Type', 'pressbooks' ),
-			'add_new_item' => __( 'Add New Back Matter Type', 'pressbooks' ),
-			'new_item_name' => __( 'New Back Matter Type Name', 'pressbooks' ),
-			'separate_items_with_commas' => __( 'Separate back matter types with commas', 'pressbooks' ),
-			'add_or_remove_items' => __( 'Add or remove back matter type', 'pressbooks' ),
-			'choose_from_most_used' => __( 'Choose from the most used back matter type', 'pressbooks' ),
-			'menu_name' => __( 'Back Matter Types', 'pressbooks' ),
-		];
-
-		// can only apply back matter taxonomy to back matter post type
-		register_taxonomy(
+		register_extended_taxonomy(
 			'back-matter-type',
 			'back-matter',
 			[
-				'hierarchical' => true,
-				// only super-admins can change back matter terms
+				'meta_box' => 'dropdown',
 				'capabilities' => [
 					'manage_terms' => 'manage_sites',
 					'edit_terms' => 'manage_sites',
 					'delete_terms' => 'manage_sites',
 					'assign_terms' => 'edit_posts',
 				],
-				'labels' => $labels,
-				'show_ui' => true,
-				'show_in_rest' => true,
-				'query_var' => true,
-				'rewrite' => [
-					'slug' => 'back-matter-type',
-				],
 			]
 		);
 
-		/* Chapter Type */
-
-		$labels = [
-			'name' => _x( 'Chapter Types', 'taxonomy general name' ),
-			'singular_name' => _x( 'Chapter Type', 'taxonomy singular name' ),
-			'search_items' => __( 'Search Chapter Types', 'pressbooks' ),
-			'popular_items' => __( 'Popular Chapter Types', 'pressbooks' ),
-			'all_items' => __( 'All Chapter Types', 'pressbooks' ),
-			'parent_item' => null,
-			'parent_item_colon' => null,
-			'edit_item' => __( 'Edit Chapter Type', 'pressbooks' ),
-			'update_item' => __( 'Update Chapter Type', 'pressbooks' ),
-			'add_new_item' => __( 'Add New Chapter Type', 'pressbooks' ),
-			'new_item_name' => __( 'New Chapter Type Name', 'pressbooks' ),
-			'separate_items_with_commas' => __( 'Separate chapter types with commas', 'pressbooks' ),
-			'add_or_remove_items' => __( 'Add or remove chapter type', 'pressbooks' ),
-			'choose_from_most_used' => __( 'Choose from the most used chapter type', 'pressbooks' ),
-			'menu_name' => __( 'Chapter Types', 'pressbooks' ),
-		];
-
-		// can only apply chapter taxonomy to chapter post type
-		register_taxonomy(
+		register_extended_taxonomy(
 			'chapter-type',
 			'chapter',
 			[
-				'hierarchical' => true,
-				// only super-admins can change chapter terms
+				'meta_box' => 'dropdown',
 				'capabilities' => [
 					'manage_terms' => 'manage_sites',
 					'edit_terms' => 'manage_sites',
 					'delete_terms' => 'manage_sites',
 					'assign_terms' => 'edit_posts',
 				],
-				'labels' => $labels,
-				'show_ui' => true,
-				'show_in_rest' => true,
-				'query_var' => true,
-				'rewrite' => [
-					'slug' => 'chapter-type',
+			]
+		);
+
+		register_extended_taxonomy(
+			'contributor',
+			[ 'metadata', 'chapter', 'part', 'front-matter', 'back-matter' ],
+			[
+				'meta_box' => false,
+				'hierarchical' => false,
+				'capabilities' => [
+					'manage_terms' => 'manage_sites',
+					'edit_terms' => 'manage_sites',
+					'delete_terms' => 'manage_sites',
+					'assign_terms' => 'edit_posts',
 				],
 			]
 		);
+
+		register_extended_taxonomy(
+			'license',
+			[ 'metadata', 'chapter', 'part', 'front-matter', 'back-matter' ],
+			[
+				'meta_box' => false,
+				'hierarchical' => false,
+				'capabilities' => [
+					'manage_terms' => 'manage_sites',
+					'edit_terms' => 'manage_sites',
+					'delete_terms' => 'manage_sites',
+					'assign_terms' => 'edit_posts',
+				],
+			]
+		);
+
 	}
 
 	/**
