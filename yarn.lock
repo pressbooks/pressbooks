@@ -784,6 +784,12 @@ babel-plugin-transform-regenerator@^6.22.0:
   dependencies:
     regenerator-transform "^0.10.0"
 
+babel-plugin-transform-runtime@^6.23.0:
+  version "6.23.0"
+  resolved "https://registry.yarnpkg.com/babel-plugin-transform-runtime/-/babel-plugin-transform-runtime-6.23.0.tgz#88490d446502ea9b8e7efb0fe09ec4d99479b1ee"
+  dependencies:
+    babel-runtime "^6.22.0"
+
 babel-plugin-transform-strict-mode@^6.24.1:
   version "6.24.1"
   resolved "https://registry.yarnpkg.com/babel-plugin-transform-strict-mode/-/babel-plugin-transform-strict-mode-6.24.1.tgz#d5faf7aa578a65bbe591cf5edae04a0c67020758"
@@ -4559,14 +4565,15 @@ known-css-properties@^0.4.0:
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/known-css-properties/-/known-css-properties-0.4.1.tgz#baaaf704e5f8a5f10e0e221212aae3ea738ea372"
 
-laravel-mix@^1.6.2:
-  version "1.6.2"
-  resolved "https://registry.yarnpkg.com/laravel-mix/-/laravel-mix-1.6.2.tgz#d7df2f63ad0008e07414728e7acc204be3d7e27d"
+laravel-mix@^1.7.0:
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/laravel-mix/-/laravel-mix-1.7.0.tgz#3a3e996a07eb50a97479d418421cc484fb3d8b4d"
   dependencies:
     autoprefixer "^7.1.1"
     babel-core "^6.24.1"
     babel-loader "^7.1.1"
     babel-plugin-transform-object-rest-spread "^6.26.0"
+    babel-plugin-transform-runtime "^6.23.0"
     babel-preset-env "^1.5.1"
     chokidar "^1.7.0"
     clean-css "^4.1.3"
@@ -6252,9 +6259,9 @@ preserve@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/preserve/-/preserve-0.2.0.tgz#815ed1f6ebc65926f865b310c0713bcb3315ce4b"
 
-pressbooks-build-tools@^0.5.0:
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/pressbooks-build-tools/-/pressbooks-build-tools-0.5.0.tgz#e5b1f306553a5d517eea1e1c7eafac3708b323d3"
+pressbooks-build-tools@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/pressbooks-build-tools/-/pressbooks-build-tools-0.6.0.tgz#5b7d9b214b07e12cba4b62338254154850e37b05"
   dependencies:
     babel-eslint "^8.0.3"
     browser-sync "^2.18.13"
@@ -6269,8 +6276,8 @@ pressbooks-build-tools@^0.5.0:
     eslint-plugin-jsx-a11y "^6.0.2"
     eslint-plugin-react "^7.5.1"
     extract-text-webpack-plugin "^3.0.2"
-    laravel-mix "^1.6.2"
-    prettier "^1.8.2"
+    laravel-mix "^1.7.0"
+    prettier "^1.9.1"
     prettier-stylelint "^0.4.2"
     rimraf "~2.6"
     stylelint "^8.3.1"
@@ -6298,9 +6305,13 @@ prettier-stylelint@^0.4.2:
     tempy "^0.2.1"
     update-notifier "^2.2.0"
 
-prettier@^1.7.0, prettier@^1.8.2:
+prettier@^1.7.0:
   version "1.9.0"
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.9.0.tgz#1a7205bdb6126b30cf8c0a7b2b86997162e1ee3e"
+
+prettier@^1.9.1:
+  version "1.9.1"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.9.1.tgz#41638a0d47c1efbd1b7d5a742aaa5548eab86d70"
 
 private@^0.1.6, private@^0.1.7, private@~0.1.5:
   version "0.1.8"
