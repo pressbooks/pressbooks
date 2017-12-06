@@ -140,11 +140,13 @@ function migrate_book_themes() {
 		$theme = wp_get_theme()->get_stylesheet();
 		if ( $theme === 'pressbooks-book' ) {
 			switch_theme( 'pressbooks-luther' );
-			if ( Lock::isLocked() ) {
-				$data = Lock::getLockData();
+
+			$lock = Lock::init();
+			if ( $lock->isLocked() ) {
+				$data = $lock->getLockData();
 				$data['stylesheet'] = 'pressbooks-luther';
 				$json = wp_json_encode( $data );
-				$lockfile = Lock::getLockDir() . '/lock.json';
+				$lockfile = $lock->getLockDir() . '/lock.json';
 				\Pressbooks\Utility\put_contents( $lockfile, $json );
 			}
 		}
