@@ -386,7 +386,7 @@ class Taxonomy {
 			]
 		);
 
-		foreach ( $this->licensing->getSupportedTypes() as $key => $val ) {
+		foreach ( $this->licensing->getSupportedTypes( true ) as $key => $val ) {
 			wp_insert_term(
 				$val['desc'], 'license', [
 					'slug' => $key,
