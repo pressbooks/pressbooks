@@ -6259,9 +6259,9 @@ preserve@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/preserve/-/preserve-0.2.0.tgz#815ed1f6ebc65926f865b310c0713bcb3315ce4b"
 
-pressbooks-build-tools@^0.7.0:
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/pressbooks-build-tools/-/pressbooks-build-tools-0.7.0.tgz#4b63be88b73b7c784cf1870ac0617b9e993c99da"
+pressbooks-build-tools@^0.8.0:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/pressbooks-build-tools/-/pressbooks-build-tools-0.8.0.tgz#def360d52e77707d17d965f4930a6f6c4bbf1c16"
   dependencies:
     babel-eslint "^8.0.3"
     browser-sync "^2.18.13"
