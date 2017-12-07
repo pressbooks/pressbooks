@@ -46,14 +46,13 @@
   },
   "homepage": "https://github.com/pressbooks/pressbooks/",
   "eslintConfig": {
-    "extends": "humanmade",
+    "extends": "./node_modules/pressbooks-build-tools/config/eslint.js",
     "globals": {
       "ajaxurl": true,
       "chapter_export": true,
       "chapter_show_title": true,
       "edButton": true,
       "edButtons": true,
-      "jQuery": true,
       "PB_BookInfoToken": true,
       "PB_FootnotesToken": true,
       "PB_NetworkManagerToken": true,
@@ -62,26 +61,9 @@
       "pb_sr": true,
       "post_status": true,
       "tinymce": true
-    },
-    "rules": {
-      "jsx-a11y/href-no-hash": 0
     }
   },
   "stylelint": {
-    "extends": [
-      "stylelint-config-recommended-scss",
-      "./node_modules/prettier-stylelint/config.js"
-    ],
-    "rules": {
-      "media-feature-name-no-unknown": [
-        true,
-        {
-          "ignoreMediaFeatureNames": [
-            "min--moz-device-pixel-ratio"
-          ]
-        }
-      ],
-      "media-query-list-comma-space-after": "always-single-line"
-    }
+    "extends": "./node_modules/pressbooks-build-tools/config/stylelint.js"
   }
 }
