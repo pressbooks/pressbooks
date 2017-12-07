@@ -173,6 +173,10 @@ class Epub201 extends Export {
 	 */
 	protected $extraCss = null;
 
+	/**
+	 * @var \Pressbooks\Taxonomy
+	 */
+	protected $taxonomy;
 
 	/**
 	 * @param array $args
@@ -180,6 +184,8 @@ class Epub201 extends Export {
 	function __construct( array $args ) {
 
 		// Some defaults
+
+		$this->taxonomy = \Pressbooks\Taxonomy::init();
 
 		if ( ! class_exists( '\PclZip' ) ) {
 			require_once( ABSPATH . 'wp-admin/includes/class-pclzip.php' );
@@ -279,9 +285,12 @@ class Epub201 extends Export {
 		$return_var = 0;
 		exec( $command, $output, $return_var );
 
-		// Remove JAVA warnings that are not actually errors
 		foreach ( $output as $k => $v ) {
 			if ( strpos( $v, 'Picked up _JAVA_OPTIONS:' ) !== false ) {
+				// Remove JAVA warnings that are not actually errors
+				unset( $output[ $k ] );
+			} elseif ( strpos( $v, 'non-standard font type application/x-font-ttf' ) !== false ) {
+				// @see https://github.com/IDPF/epubcheck/issues/586, https://github.com/IDPF/epubcheck/pull/633
 				unset( $output[ $k ] );
 			}
 		}
@@ -835,7 +844,7 @@ class Epub201 extends Export {
 				}
 
 				$front_matter_id = $front_matter['ID'];
-				$subclass = \Pressbooks\Taxonomy::getFrontMatterType( $front_matter_id );
+				$subclass = $this->taxonomy->getFrontMatterType( $front_matter_id );
 
 				if ( $compare !== $subclass ) {
 					continue; //Skip
@@ -893,7 +902,7 @@ class Epub201 extends Export {
 			}
 
 			$front_matter_id = $front_matter['ID'];
-			$subclass = \Pressbooks\Taxonomy::getFrontMatterType( $front_matter_id );
+			$subclass = $this->taxonomy->getFrontMatterType( $front_matter_id );
 
 			if ( 'title-page' !== $subclass ) {
 				continue; // Skip
@@ -1065,7 +1074,7 @@ class Epub201 extends Export {
 				}
 
 				$front_matter_id = $front_matter['ID'];
-				$subclass = \Pressbooks\Taxonomy::getFrontMatterType( $front_matter_id );
+				$subclass = $this->taxonomy->getFrontMatterType( $front_matter_id );
 
 				if ( $compare !== $subclass ) {
 					continue; //Skip
@@ -1139,7 +1148,7 @@ class Epub201 extends Export {
 			}
 
 			$front_matter_id = $front_matter['ID'];
-			$subclass = \Pressbooks\Taxonomy::getFrontMatterType( $front_matter_id );
+			$subclass = $this->taxonomy->getFrontMatterType( $front_matter_id );
 
 			if ( 'dedication' === $subclass || 'epigraph' === $subclass || 'title-page' === $subclass || 'before-title' === $subclass ) {
 				continue; // Skip
@@ -1307,7 +1316,7 @@ class Epub201 extends Export {
 
 				$chapter_printf_changed = '';
 				$chapter_id = $chapter['ID'];
-				$subclass = \Pressbooks\Taxonomy::getChapterType( $chapter_id );
+				$subclass = $this->taxonomy->getChapterType( $chapter_id );
 				$slug = $chapter['post_name'];
 				$title = ( get_post_meta( $chapter_id, 'pb_show_title', true ) ? $chapter['post_title'] : '' );
 				$content = $this->kneadHtml( $chapter['post_content'], 'chapter', $j );
@@ -1527,7 +1536,7 @@ class Epub201 extends Export {
 			}
 
 			$back_matter_id = $back_matter['ID'];
-			$subclass = \Pressbooks\Taxonomy::getBackMatterType( $back_matter_id );
+			$subclass = $this->taxonomy->getBackMatterType( $back_matter_id );
 			$slug = $back_matter['post_name'];
 			$title = ( get_post_meta( $back_matter_id, 'pb_show_title', true ) ? $back_matter['post_title'] : '' );
 			$content = $this->kneadHtml( $back_matter['post_content'], 'back-matter', $i );
@@ -1641,7 +1650,7 @@ class Epub201 extends Export {
 			$title = Sanitize\strip_br( $v['post_title'] );
 			if ( preg_match( '/^front-matter-/', $k ) ) {
 				$class = 'front-matter ';
-				$class .= \Pressbooks\Taxonomy::getFrontMatterType( $v['ID'] );
+				$class .= $this->taxonomy->getFrontMatterType( $v['ID'] );
 				$subtitle = trim( get_post_meta( $v['ID'], 'pb_subtitle', true ) );
 				$author = trim( get_post_meta( $v['ID'], 'pb_section_author', true ) );
 				$license = $this->doTocLicense( $v['ID'] );
@@ -1655,19 +1664,19 @@ class Epub201 extends Export {
 				}
 			} elseif ( preg_match( '/^chapter-/', $k ) ) {
 				$class = 'chapter';
-				$class .= \Pressbooks\Taxonomy::getChapterType( $v['ID'] );
+				$class .= $this->taxonomy->getChapterType( $v['ID'] );
 				$subtitle = trim( get_post_meta( $v['ID'], 'pb_subtitle', true ) );
 				$author = trim( get_post_meta( $v['ID'], 'pb_section_author', true ) );
 				$license = $this->doTocLicense( $v['ID'] );
-				if ( $this->numbered && \Pressbooks\Taxonomy::getChapterType( $v['ID'] ) !== 'numberless' ) {
+				if ( $this->numbered && $this->taxonomy->getChapterType( $v['ID'] ) !== 'numberless' ) {
 					$title = " $i. " . $title;
 				}
-				if ( \Pressbooks\Taxonomy::getChapterType( $v['ID'] ) !== 'numberless' ) {
+				if ( $this->taxonomy->getChapterType( $v['ID'] ) !== 'numberless' ) {
 					++$i;
 				}
 			} elseif ( preg_match( '/^back-matter-/', $k ) ) {
 				$class = 'back-matter ';
-				$class .= \Pressbooks\Taxonomy::getBackMatterType( $v['ID'] );
+				$class .= $this->taxonomy->getBackMatterType( $v['ID'] );
 				$subtitle = trim( get_post_meta( $v['ID'], 'pb_subtitle', true ) );
 				$author = trim( get_post_meta( $v['ID'], 'pb_section_author', true ) );
 				$license = $this->doTocLicense( $v['ID'] );

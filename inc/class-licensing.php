@@ -24,14 +24,14 @@ class Licensing {
 	 *        url,
 	 *        desc,
 	 *
+	 * @param bool $disable_translation (optional)
+	 *
 	 * @return array
 	 */
-	public function getSupportedTypes() {
+	public function getSupportedTypes( $disable_translation = false ) {
 
-		// Cheap cache
-		static $supported = null;
-		if ( is_array( $supported ) ) {
-			return $supported;
+		if ( $disable_translation ) {
+			add_filter( 'gettext', [ $this, 'disableTranslation' ], 999, 3 );
 		}
 
 		$supported = [
@@ -105,7 +105,24 @@ class Licensing {
 			],
 		];
 
+		if ( $disable_translation ) {
+			remove_filter( 'gettext', [ $this, 'disableTranslation' ], 999 );
+		}
+
 		return $supported;
+	}
+
+	/**
+	 * For gettext filter
+	 *
+	 * @param $translated
+	 * @param $original
+	 * @param $domain
+	 *
+	 * @return string
+	 */
+	public function disableTranslation( $translated, $original, $domain ) {
+		return $original;
 	}
 
 	/**
@@ -355,7 +372,7 @@ class Licensing {
 	 *
 	 * @return string
 	 */
-	function getLicenseFromUrl( $url ) {
+	public function getLicenseFromUrl( $url ) {
 		$licenses = $this->getSupportedTypes();
 		foreach ( $licenses as $license => $v ) {
 			if ( $url === $v['url'] ) {

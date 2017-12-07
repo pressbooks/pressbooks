@@ -229,15 +229,16 @@ function pb_get_chapter_number( $post_name ) {
  */
 function pb_get_section_type( $post ) {
 	$type = $post->post_type;
+	$taxonomy = \Pressbooks\Taxonomy::init();
 	switch ( $type ) {
 		case 'chapter':
-			$type = \Pressbooks\Taxonomy::getChapterType( $post->ID );
+			$type = $taxonomy->getChapterType( $post->ID );
 			break;
 		case 'front-matter':
-			$type = \Pressbooks\Taxonomy::getFrontMatterType( $post->ID );
+			$type = $taxonomy->getFrontMatterType( $post->ID );
 			break;
 		case 'back-matter':
-			$type = \Pressbooks\Taxonomy::getBackMatterType( $post->ID );
+			$type = $taxonomy->getBackMatterType( $post->ID );
 			break;
 	}
 

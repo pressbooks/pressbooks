@@ -29,11 +29,16 @@ class Activation {
 		'rewrite_rules' => '',
 	];
 
+	/**
+	 * @var Taxonomy
+	 */
+	protected $taxonomy;
 
 	/**
 	 * Constructor
 	 */
 	function __construct() {
+		$this->taxonomy = Taxonomy::init();
 	}
 
 
@@ -174,7 +179,7 @@ class Activation {
 		/** @var $wpdb \wpdb */
 		global $wpdb;
 
-		\Pressbooks\Taxonomy::insertTerms();
+		$this->taxonomy->insertTerms();
 
 		$posts = [
 			// Parts, Chapters, Front-Matter, Back-Matter

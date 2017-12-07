@@ -55,6 +55,11 @@ class Xhtml11 extends Export {
 	 */
 	protected $lang = 'en';
 
+	/**
+	 * @var \Pressbooks\Taxonomy
+	 */
+	protected $taxonomy;
+
 
 	/**
 	 * @param array $args
@@ -62,6 +67,8 @@ class Xhtml11 extends Export {
 	function __construct( array $args ) {
 
 		// Some defaults
+
+		$this->taxonomy = \Pressbooks\Taxonomy::init();
 
 		if ( ! defined( 'PB_XMLLINT_COMMAND' ) ) {
 			define( 'PB_XMLLINT_COMMAND', '/usr/bin/xmllint' );
@@ -630,7 +637,7 @@ class Xhtml11 extends Export {
 				}
 
 				$front_matter_id = $front_matter['ID'];
-				$subclass = \Pressbooks\Taxonomy::getFrontMatterType( $front_matter_id );
+				$subclass = $this->taxonomy->getFrontMatterType( $front_matter_id );
 
 				if ( $compare !== $subclass ) {
 					continue; //Skip
@@ -686,7 +693,7 @@ class Xhtml11 extends Export {
 			}
 
 			$front_matter_id = $front_matter['ID'];
-			$subclass = \Pressbooks\Taxonomy::getFrontMatterType( $front_matter_id );
+			$subclass = $this->taxonomy->getFrontMatterType( $front_matter_id );
 
 			if ( 'title-page' !== $subclass ) {
 				continue; // Skip
@@ -792,7 +799,7 @@ class Xhtml11 extends Export {
 				}
 
 				$front_matter_id = $front_matter['ID'];
-				$subclass = \Pressbooks\Taxonomy::getFrontMatterType( $front_matter_id );
+				$subclass = $this->taxonomy->getFrontMatterType( $front_matter_id );
 
 				if ( $compare !== $subclass ) {
 					continue; // Skip
@@ -865,7 +872,7 @@ class Xhtml11 extends Export {
 							continue;
 						}
 
-						$subclass = \Pressbooks\Taxonomy::getChapterType( $chapter['ID'] );
+						$subclass = $this->taxonomy->getChapterType( $chapter['ID'] );
 						$slug = $chapter['post_name'];
 						$title = Sanitize\strip_br( $chapter['post_title'] );
 						$subtitle = trim( get_post_meta( $chapter['ID'], 'pb_subtitle', true ) );
@@ -917,7 +924,7 @@ class Xhtml11 extends Export {
 					$title = Sanitize\strip_br( $val['post_title'] );
 
 					if ( 'front-matter' === $type ) {
-						$subclass = \Pressbooks\Taxonomy::getFrontMatterType( $val['ID'] );
+						$subclass = $this->taxonomy->getFrontMatterType( $val['ID'] );
 						if ( 'dedication' === $subclass || 'epigraph' === $subclass || 'title-page' === $subclass || 'before-title' === $subclass ) {
 							continue; // Skip
 						} else {
@@ -927,7 +934,7 @@ class Xhtml11 extends Export {
 							$license = $this->doTocLicense( $val['ID'] );
 						}
 					} elseif ( 'back-matter' === $type ) {
-						$typetype = $type . ' ' . \Pressbooks\Taxonomy::getBackMatterType( $val['ID'] );
+						$typetype = $type . ' ' . $this->taxonomy->getBackMatterType( $val['ID'] );
 						$subtitle = trim( get_post_meta( $val['ID'], 'pb_subtitle', true ) );
 						$author = trim( get_post_meta( $val['ID'], 'pb_section_author', true ) );
 						$license = $this->doTocLicense( $val['ID'] );
@@ -988,7 +995,7 @@ class Xhtml11 extends Export {
 			}
 
 			$front_matter_id = $front_matter['ID'];
-			$subclass = \Pressbooks\Taxonomy::getFrontMatterType( $front_matter_id );
+			$subclass = $this->taxonomy->getFrontMatterType( $front_matter_id );
 
 			if ( 'dedication' === $subclass || 'epigraph' === $subclass || 'title-page' === $subclass || 'before-title' === $subclass ) {
 				continue; // Skip
@@ -1131,7 +1138,7 @@ class Xhtml11 extends Export {
 
 				$chapter_printf_changed = '';
 				$chapter_id = $chapter['ID'];
-				$subclass = \Pressbooks\Taxonomy::getChapterType( $chapter_id );
+				$subclass = $this->taxonomy->getChapterType( $chapter_id );
 				$slug = $chapter['post_name'];
 				$title = ( get_post_meta( $chapter_id, 'pb_show_title', true ) ? $chapter['post_title'] : '<span class="display-none">' . $chapter['post_title'] . '</span>' ); // Preserve auto-indexing in Prince using hidden span
 				$content = $chapter['post_content'];
@@ -1237,7 +1244,7 @@ class Xhtml11 extends Export {
 			}
 
 			$back_matter_id = $back_matter['ID'];
-			$subclass = \Pressbooks\Taxonomy::getBackMatterType( $back_matter_id );
+			$subclass = $this->taxonomy->getBackMatterType( $back_matter_id );
 			$slug = $back_matter['post_name'];
 			$title = ( get_post_meta( $back_matter_id, 'pb_show_title', true ) ? $back_matter['post_title'] : '<span class="display-none">' . $back_matter['post_title'] . '</span>' ); // Preserve auto-indexing in Prince using hidden span
 			$content = $back_matter['post_content'];

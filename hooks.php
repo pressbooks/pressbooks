@@ -133,7 +133,7 @@ add_filter( 'upload_mimes', '\Pressbooks\Media\add_mime_types' );
 
 if ( $is_book ) {
 	add_action( 'init', '\Pressbooks\PostType\register_post_types' );
-	add_action( 'init', '\Pressbooks\Taxonomy::registerTaxonomies' );
+	\Pressbooks\Taxonomy::init();
 	add_action( 'init', '\Pressbooks\PostType\register_meta' );
 	add_filter( 'request', '\Pressbooks\PostType\add_post_types_rss' );
 	add_filter( 'hypothesis_supported_posttypes', '\Pressbooks\PostType\add_posttypes_to_hypothesis' );
@@ -217,24 +217,6 @@ if ( $is_book ) {
 			if ( $meta_version < \Pressbooks\Metadata::VERSION ) {
 				( new \Pressbooks\Metadata() )->upgrade( $meta_version );
 				update_option( 'pressbooks_metadata_version', \Pressbooks\Metadata::VERSION );
-			}
-		}, 1000
-	);
-}
-
-// -------------------------------------------------------------------------------------------------------------------
-// Upgrade Taxonomies
-// -------------------------------------------------------------------------------------------------------------------
-
-// TODO: Before this commit, we were updating 'pressbooks_taxonomy_version' with \Pressbooks\Metadata::VERSION (bug)
-
-if ( $is_book ) {
-	add_action(
-		'init', function () {
-			$taxonomy_version = get_option( 'pressbooks_taxonomy_version', 0 );
-			if ( $taxonomy_version < \Pressbooks\Taxonomy::VERSION ) {
-				( new \Pressbooks\Taxonomy() )->upgrade( $taxonomy_version );
-				update_option( 'pressbooks_taxonomy_version', \Pressbooks\Taxonomy::VERSION );
 			}
 		}, 1000
 	);

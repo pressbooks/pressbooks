@@ -18,13 +18,25 @@ class LicensingTest extends \WP_UnitTestCase {
 	}
 
 	public function test_getSupportedTypes() {
-		$result = $this->licensing->getSupportedTypes();
+		$result = $this->licensing->getSupportedTypes( false );
 		$this->assertTrue( is_array( $result ) );
 		foreach ( $result as $key => $val ) {
 			$this->assertArrayHasKey( 'api', $val );
 			$this->assertArrayHasKey( 'url', $val );
 			$this->assertArrayHasKey( 'desc', $val );
 		}
+		$result = $this->licensing->getSupportedTypes( true );
+		$this->assertTrue( is_array( $result ) );
+		foreach ( $result as $key => $val ) {
+			$this->assertArrayHasKey( 'api', $val );
+			$this->assertArrayHasKey( 'url', $val );
+			$this->assertArrayHasKey( 'desc', $val );
+		}
+	}
+
+	public function test_disableTranslation() {
+		$var = $this->licensing->disableTranslation( 'a', 'b', 'c' );
+		$this->assertEquals( 'b', $var );
 	}
 
 	public function test_doLicense() {
