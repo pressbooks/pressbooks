@@ -34,8 +34,13 @@ class Metadata implements \JsonSerializable {
 		'show-title' => 1,
 	];
 
+	/**
+	 * @var Taxonomy
+	 */
+	protected $taxonomy;
 
 	function __construct() {
+		$this->taxonomy = Taxonomy::init();
 	}
 
 
@@ -154,7 +159,7 @@ class Metadata implements \JsonSerializable {
 			$this->resetLandingPage();
 		}
 		if ( $version < 10 ) {
-			\Pressbooks\Taxonomy::insertTerms();
+			$this->taxonomy->insertTerms();
 			flush_rewrite_rules( false );
 		}
 		if ( $version < 11 ) {

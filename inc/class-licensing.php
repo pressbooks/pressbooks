@@ -28,7 +28,7 @@ class Licensing {
 	 */
 	public function getSupportedTypes() {
 
-		// Cheap cache
+		// Cheap cache, (translations are expensive ?)
 		static $supported = null;
 		if ( is_array( $supported ) ) {
 			return $supported;
@@ -355,7 +355,7 @@ class Licensing {
 	 *
 	 * @return string
 	 */
-	function getLicenseFromUrl( $url ) {
+	public function getLicenseFromUrl( $url ) {
 		$licenses = $this->getSupportedTypes();
 		foreach ( $licenses as $license => $v ) {
 			if ( $url === $v['url'] ) {

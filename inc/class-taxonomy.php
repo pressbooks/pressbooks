@@ -20,13 +20,47 @@ class Taxonomy {
 	 */
 	const VERSION = 1;
 
-	function __construct() {
+	/**
+	 * @var Taxonomy
+	 */
+	private static $instance = null;
+
+	/**
+	 * @var Licensing
+	 */
+	private $licensing;
+
+	/**
+	 * @return Taxonomy
+	 */
+	static public function init() {
+		if ( is_null( self::$instance ) ) {
+			$licensing = new Licensing();
+			self::$instance = new self( $licensing );
+			self::hooks( self::$instance );
+		}
+		return self::$instance;
+	}
+
+	/**
+	 * @param Taxonomy $obj
+	 */
+	static public function hooks( Taxonomy $obj ) {
+		add_action( 'init', [ $obj, 'registerTaxonomies' ] );
+		add_action( 'init', [ $obj, 'maybeUpgrade' ], 1000 );
+	}
+
+	/**
+	 * @param Licensing $licensing
+	 */
+	public function __construct( $licensing ) {
+		$this->licensing = $licensing;
 	}
 
 	/**
 	 * Create a custom taxonomy for Chapter, Front Matter and Back Matter post types
 	 */
-	static function registerTaxonomies() {
+	public function registerTaxonomies() {
 
 		register_extended_taxonomy(
 			'front-matter-type',
@@ -105,10 +139,10 @@ class Taxonomy {
 	/**
 	 * Insert Front Matter, Back Matter terms and Chapter Terms
 	 */
-	static function insertTerms() {
+	public function insertTerms() {
 
 		if ( ! taxonomy_exists( 'front-matter-type' ) ) {
-			self::registerTaxonomies();
+			$this->registerTaxonomies();
 		}
 
 		// Front Matter
@@ -324,7 +358,11 @@ class Taxonomy {
 				'slug' => 'reading-group-guide',
 			]
 		);
-		wp_insert_term( 'Resources', 'back-matter-type', [ 'slug', 'resources' ] );
+		wp_insert_term(
+			'Resources', 'back-matter-type', [
+				'slug' => 'resources',
+			]
+		);
 		wp_insert_term(
 			'Sources', 'back-matter-type', [
 				'slug' => 'sources',
@@ -347,6 +385,14 @@ class Taxonomy {
 				'slug' => 'numberless',
 			]
 		);
+
+		foreach ( $this->licensing->getSupportedTypes() as $key => $val ) {
+			wp_insert_term(
+				$val['desc'], 'license', [
+					'slug' => $key,
+				]
+			);
+		}
 	}
 
 	/**
@@ -356,7 +402,7 @@ class Taxonomy {
 	 *
 	 * @return string
 	 */
-	static function getFrontMatterType( $id ) {
+	public function getFrontMatterType( $id ) {
 
 		$terms = get_the_terms( $id, 'front-matter-type' );
 		if ( $terms && ! is_wp_error( $terms ) ) {
@@ -376,7 +422,7 @@ class Taxonomy {
 	 *
 	 * @return string
 	 */
-	static function getBackMatterType( $id ) {
+	public function getBackMatterType( $id ) {
 
 		$terms = get_the_terms( $id, 'back-matter-type' );
 		if ( $terms && ! is_wp_error( $terms ) ) {
@@ -396,7 +442,7 @@ class Taxonomy {
 	 *
 	 * @return string
 	 */
-	static function getChapterType( $id ) {
+	public function getChapterType( $id ) {
 
 		$terms = get_the_terms( $id, 'chapter-type' );
 		if ( $terms && ! is_wp_error( $terms ) ) {
@@ -418,11 +464,27 @@ class Taxonomy {
 	// ----------------------------------------------------------------------------------------------------------------
 
 	/**
-	 * Upgrade metadata.
+	 * Is it time to upgrade?
+	 */
+	public function maybeUpgrade() {
+
+		// TODO:
+		// Once upon a time we were updating 'pressbooks_taxonomy_version' with Metadata::VERSION instead of Taxonomy::VERSION
+		// Some books might be in a weird state (bug?)
+
+		$taxonomy_version = get_option( 'pressbooks_taxonomy_version', 0 );
+		if ( $taxonomy_version < self::VERSION ) {
+			$this->upgrade( $taxonomy_version );
+			update_option( 'pressbooks_taxonomy_version', self::VERSION );
+		}
+	}
+
+	/**
+	 * Upgrade
 	 *
 	 * @param int $version
 	 */
-	function upgrade( $version ) {
+	public function upgrade( $version ) {
 
 		if ( $version < 1 ) {
 			// Upgrade from version 0 (prior to Pressbooks\Taxonomy class) to version 1 (simplified chapter types)
@@ -434,7 +496,7 @@ class Taxonomy {
 	/**
 	 * Upgrade Chapter Types.
 	 */
-	function upgradeChapterTypes() {
+	protected function upgradeChapterTypes() {
 		$type_1 = get_term_by( 'slug', 'type-1', 'chapter-type' );
 		$type_2 = get_term_by( 'slug', 'type-2', 'chapter-type' );
 		$type_3 = get_term_by( 'slug', 'type-3', 'chapter-type' );
