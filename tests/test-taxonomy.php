@@ -59,6 +59,7 @@ class TaxonomyTest extends \WP_UnitTestCase {
 
 		foreach ( $pressbooks_taxonomies as $t ) {
 			$this->assertArrayHasKey( $t, $wp_taxonomies );
+			$this->assertTrue( $wp_taxonomies[ $t ]->show_in_rest );
 		}
 
 		$wp_taxonomies = $wp_taxonomies_old;

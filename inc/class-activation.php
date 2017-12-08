@@ -3,8 +3,6 @@
  * Contains all procedures which will be run on 'wpmu_new_blog' hook, register_activation_hook, and
  * register_deactivation_hook
  *
- * Contains file migration routines
- *
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */

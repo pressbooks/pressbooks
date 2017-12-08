@@ -423,11 +423,15 @@ class UtilityTest extends \WP_UnitTestCase {
 	}
 
 	public function get_generated_content_path() {
-		$this->assertContains( '/pressbooks/', \Pressbooks\Utility\get_generated_content_path() );
+		$path = \Pressbooks\Utility\get_generated_content_path();
+		$this->assertStringStartsWith( '/', $path );
+		$this->assertContains( '/pressbooks/', $path );
 	}
 
 	public function get_generated_content_url() {
-		$this->assertContains( '/pressbooks/', \Pressbooks\Utility\get_generated_content_url() );
+		$url = \Pressbooks\Utility\get_generated_content_url();
+		$this->assertStringStartsWith( 'http', $url );
+		$this->assertContains( '/pressbooks/', $url );
 	}
 
 	public function test_get_cache_path() {
