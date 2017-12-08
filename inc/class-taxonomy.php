@@ -46,8 +46,10 @@ class Taxonomy {
 	 * @param Taxonomy $obj
 	 */
 	static public function hooks( Taxonomy $obj ) {
-		add_action( 'init', [ $obj, 'registerTaxonomies' ] );
-		add_action( 'init', [ $obj, 'maybeUpgrade' ], 1000 );
+		if ( Book::isBook() ) {
+			add_action( 'init', [ $obj, 'registerTaxonomies' ] );
+			add_action( 'init', [ $obj, 'maybeUpgrade' ], 1000 );
+		}
 	}
 
 	/**

@@ -33,6 +33,7 @@ class TaxonomyTest extends \WP_UnitTestCase {
 	}
 
 	public function test_hooks() {
+		$this->_book();
 		$this->taxonomy->hooks( $this->taxonomy );
 		$this->assertEquals( 1000, has_filter( 'init', [ $this->taxonomy, 'maybeUpgrade' ] ) );
 	}
