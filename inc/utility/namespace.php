@@ -135,7 +135,7 @@ function truncate_exports( $max, $dir = null ) {
 
 /**
  * Return the full path to the directory containing media
- * Checks for `ms_files_rewriting` site option; uses /wp-content/blogs.dir/ if present, otherwise uses WordPress 3.5+ standard, /wp-content/uploads/sites/
+ * Checks for `ms_files_rewriting` site option; uses /wp-content/blogs.dir/ if present, otherwise uses WordPress 3.5+ standard
  *
  * @return string path
  */
@@ -143,7 +143,7 @@ function get_media_prefix() {
 	if ( get_site_option( 'ms_files_rewriting' ) ) {
 		return WP_CONTENT_DIR . '/blogs.dir/' . get_current_blog_id() . '/files/';
 	} else {
-		return WP_CONTENT_DIR . '/uploads/sites/' . get_current_blog_id() . '/';
+		return trailingslashit( get_generated_content_path( '', false ) );
 	}
 }
 
@@ -1146,16 +1146,49 @@ function urls_have_same_host( $url1, $url2 ) {
 }
 
 /**
+ * Namespace our generated content
+ *
+ * @param string $suffix (optional)
+ * @param bool $mkdir (optional)
+ *
+ * @return string
+ */
+function get_generated_content_path( $suffix = '', $mkdir = true ) {
+	$path = wp_upload_dir()['basedir'] . '/pressbooks';
+	if ( $suffix ) {
+		$suffix = ltrim( $suffix, '/' );
+		$path = absolute_path( "{$path}/{$suffix}" );
+	}
+	if ( $mkdir && ! file_exists( $path ) ) {
+		wp_mkdir_p( $path );
+	}
+	return $path;
+}
+
+/**
+ * Namespace our generated content
+ *
+ * @param string $suffix (optional)
+ *
+ * @return string
+ */
+function get_generated_content_url( $suffix = '' ) {
+	$path = wp_get_upload_dir()['baseurl'] . '/pressbooks';
+	if ( $suffix ) {
+		$suffix = ltrim( $suffix, '/' );
+		$path = absolute_path( "{$path}/{$suffix}" );
+	}
+	$path = \Pressbooks\Sanitize\maybe_https( $path );
+	return $path;
+}
+
+/**
  * Blade cache path
  *
  * @return string
  */
 function get_cache_path() {
-	$cache = wp_upload_dir()['basedir'] . '/cache';
-	if ( ! file_exists( $cache ) ) {
-		wp_mkdir_p( $cache );
-	}
-	return $cache;
+	return get_generated_content_path( '/cache' );
 }
 
 /**

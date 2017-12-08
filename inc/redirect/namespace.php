@@ -78,61 +78,45 @@ function login( $redirect_to, $request_redirect_to, $user ) {
  * Centralize flush_rewrite_rules() in one single function so that rule does not kill the other
  */
 function flusher() {
-
-	$pull_the_lever = false;
-
-	// See \Pressbooks\PostType\register_post_types
-	$set = get_option( 'pressbooks_flushed_post_type' );
-	if ( ! $set ) {
-		$pull_the_lever = true;
-		update_option( 'pressbooks_flushed_post_type', true );
-	}
-
-	// See rewrite_rules_for_format()
-	$set = get_option( 'pressbooks_flushed_format' );
-	if ( ! $set ) {
-		$pull_the_lever = true;
-		update_option( 'pressbooks_flushed_format', true );
-	}
-
-	// See rewrite_rules_for_catalog()
-	$set = get_option( 'pressbooks_flushed_catalog_V4' );
-	if ( ! $set ) {
-		$pull_the_lever = true;
-		update_option( 'pressbooks_flushed_catalog_V4', true );
-	}
-
-	// See rewrite_rules_for_sitemap()
-	$set = get_option( 'pressbooks_flushed_sitemap' );
-	if ( ! $set ) {
-		$pull_the_lever = true;
-		update_option( 'pressbooks_flushed_sitemap', true );
-	}
-
-	// See rewrite_rules_for_upgrade()
-	$set = get_option( 'pressbooks-vip_flushed_upgrade' );
-	if ( ! $set ) {
-		$pull_the_lever = true;
-		update_option( 'pressbooks-vip_flushed_upgrade', true );
-	}
-
-	$set = get_option( 'pressbooks_flushed_api' );
-	if ( ! $set ) {
-		$pull_the_lever = true;
-		update_option( 'pressbooks_flushed_api', true );
-	}
-
-	$set = get_option( 'pressbooks_flushed_open' );
-	if ( ! $set ) {
-		$pull_the_lever = true;
-		update_option( 'pressbooks_flushed_open', true );
-	}
-
-	if ( $pull_the_lever ) {
+	$number = 2; // Increment this number when you need to re-run flush_rewrite_rules()
+	if ( absint( get_option( 'pressbooks_flusher', 1 ) ) < $number ) {
 		flush_rewrite_rules( false );
+		update_option( 'pressbooks_flusher', $number );
 	}
 }
 
+/**
+ * Migrate generated content to namespaced folder
+ *
+ * @see \Pressbooks\Utility\get_generated_content_path
+ */
+function migrate_generated_content() {
+	$option_name = 'pressbooks_migrated_generated_content';
+	$is_migrated = get_option( $option_name, false );
+	if ( $is_migrated === false ) {
+		$move = [
+			'/cache',
+			'/css',
+			'/custom-css',
+			'/exports',
+			'/lock',
+			'/scss',
+			'/scss-debug',
+		];
+		$source_dir = untrailingslashit( wp_upload_dir()['basedir'] );
+		$dest_dir = untrailingslashit( \Pressbooks\Utility\get_generated_content_path() );
+
+		foreach ( $move as $suffix ) {
+			if ( is_dir( "{$source_dir}/{$suffix}" ) ) {
+				$ok = rename( "{$source_dir}/{$suffix}", "{$dest_dir}/{$suffix}" );
+				if ( ! $ok ) {
+					\Pressbooks\Utility\debug_error_log( "Failed to migrate: {$source_dir}/{$suffix}" );
+				}
+			}
+		}
+		update_option( $option_name, 1 );
+	}
+}
 
 /**
  * Add a rewrite rule for the keyword "format"

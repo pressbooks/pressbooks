@@ -12,8 +12,7 @@ class L10nTest extends \WP_UnitTestCase {
 	public function test_load_plugin_textdomain() {
 
 		\Pressbooks\L10n\load_plugin_textdomain();
-
-		$this->assertTrue( true );
+		$this->assertTrue( true ); // Did not crash
 	}
 
 	public function test_include_core_overrides() {

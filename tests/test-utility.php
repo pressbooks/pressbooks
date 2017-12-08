@@ -49,9 +49,8 @@ class UtilityTest extends \WP_UnitTestCase {
 	//  }
 
 	public function test_get_media_prefix() {
-
+		switch_to_blog( $this->factory()->blog->create() );
 		$prefix = \Pressbooks\Utility\get_media_prefix();
-
 		$this->assertTrue(
 			false !== strpos( $prefix, '/blogs.dir/' ) || false !== strpos( $prefix, '/uploads/sites/' )
 		);
@@ -220,7 +219,7 @@ class UtilityTest extends \WP_UnitTestCase {
 		try {
 			\Pressbooks\Utility\template( '/tmp/file/does/not/exist' );
 		} catch ( \Exception $e ) {
-			$this->assertTrue( true );
+			$this->assertTrue( true ); // Expected exception was thrown
 			return;
 		}
 		$this->fail();
@@ -421,6 +420,14 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertFalse( \Pressbooks\Utility\urls_have_same_host( 'https://book.pressbooks.com', 'https://book.pressbooks.dev' ) );
 		$this->assertFalse( \Pressbooks\Utility\urls_have_same_host( 'x', 'x' ) );
 		$this->assertFalse( \Pressbooks\Utility\urls_have_same_host( 'pressbooks.com', 'pressbooks.com' ) ); // Not a fully qualified URL
+	}
+
+	public function get_generated_content_path() {
+		$this->assertContains( '/pressbooks/', \Pressbooks\Utility\get_generated_content_path() );
+	}
+
+	public function get_generated_content_url() {
+		$this->assertContains( '/pressbooks/', \Pressbooks\Utility\get_generated_content_url() );
 	}
 
 	public function test_get_cache_path() {

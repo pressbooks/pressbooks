@@ -518,12 +518,11 @@ class Styles {
 	public function maybeUpdateStylesheets() {
 		$theme = wp_get_theme();
 		$current_version = $theme->get( 'Version' );
-		$last_version = get_option( 'pb_theme_version', $current_version );
-
+		$last_version = get_option( 'pressbooks_theme_version', $current_version );
 		if ( version_compare( $current_version, $last_version ) > 0 ) {
 			( new \Pressbooks\Modules\ThemeOptions\ThemeOptions() )->clearCache();
 			$this->updateWebBookStyleSheet();
-			update_option( 'pb_theme_version', $current_version );
+			update_option( 'pressbooks_theme_version', $current_version );
 			return true;
 		}
 
