@@ -514,7 +514,7 @@ abstract class Export {
 
 		$path = \Pressbooks\Utility\get_media_prefix() . 'exports/';
 		if ( ! file_exists( $path ) ) {
-			mkdir( $path, 0775, true );
+			wp_mkdir_p( $path );
 		}
 
 		$path_to_htaccess = $path . '.htaccess';

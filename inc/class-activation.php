@@ -30,24 +30,55 @@ class Activation {
 	];
 
 	/**
+	 * @var Activation
+	 */
+	protected static $instance = null;
+
+	/**
 	 * @var Taxonomy
 	 */
 	protected $taxonomy;
 
 	/**
-	 * Constructor
+	 * @since 5.0.0
+	 *
+	 * @return Activation
 	 */
-	function __construct() {
-		$this->taxonomy = Taxonomy::init();
+	static public function init() {
+		if ( is_null( self::$instance ) ) {
+			$taxonomy = Taxonomy::init();
+			self::$instance = new self( $taxonomy );
+			self::hooks( self::$instance );
+		}
+		return self::$instance;
 	}
 
+	/**
+	 * @since 5.0.0
+	 *
+	 * @param Activation $obj
+	 */
+	static public function hooks( Activation $obj ) {
+		register_activation_hook( realpath( __DIR__ . '/../pressbooks.php' ), [ $obj, 'registerActivationHook' ] );
+		add_action( 'wpmu_new_blog', [ $obj, 'wpmuNewBlog' ], 9, 2 );
+		add_action( 'wp_login', [ $obj, 'forcePbColors' ], 10, 2 );
+		add_action( 'profile_update', [ $obj, 'forcePbColors' ] );
+		add_action( 'user_register', [ $obj, 'forcePbColors' ] );
+	}
+
+	/**
+	 * @param Taxonomy $taxonomy
+	 */
+	function __construct( $taxonomy ) {
+		$this->taxonomy = $taxonomy;
+	}
 
 	/**
 	 * Activation hook
 	 *
 	 * @see register_activation_hook()
 	 */
-	function registerActivationHook() {
+	public function registerActivationHook() {
 
 		// Apply Pressbooks color scheme
 		update_user_option( get_current_user_id(), 'admin_color', 'pb_colors', true );
@@ -86,7 +117,7 @@ class Activation {
 	 *
 	 * @see add_action( 'wpmu_new_blog', ... )
 	 */
-	function wpmuNewBlog( $blog_id, $user_id ) {
+	public function wpmuNewBlog( $blog_id, $user_id ) {
 
 		$this->blog_id = (int) $blog_id;
 		$this->user_id = (int) $user_id;
@@ -403,7 +434,7 @@ class Activation {
 	 * @param int $id
 	 * @param object $user (optional)
 	 */
-	static function forcePbColors( $id, $user = null ) {
+	public function forcePbColors( $id, $user = null ) {
 
 		if ( is_numeric( $id ) ) {
 			$user_id = $id;

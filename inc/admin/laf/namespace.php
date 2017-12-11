@@ -189,11 +189,6 @@ function replace_book_admin_menu() {
 			if ( $hook === $export_page ) {
 				wp_enqueue_style( 'pb-export' );
 				wp_enqueue_script( 'pb-export' );
-				wp_localize_script(
-					'pb-export', 'PB_ExportToken', [
-						'mobiConfirm' => __( 'EPUB is required for MOBI export. Would you like to reenable it?', 'pressbooks' ),
-					]
-				);
 			}
 		}
 	);

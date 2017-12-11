@@ -106,15 +106,7 @@ class Sass {
 	 * @return string
 	 */
 	public function pathToUserGeneratedCss() {
-
-		$wp_upload_dir = wp_upload_dir();
-		$upload_dir = $wp_upload_dir['basedir'] . '/css';
-
-		if ( ! file_exists( $upload_dir ) ) {
-			mkdir( $upload_dir, 0775, true );
-		}
-
-		return $upload_dir;
+		return \Pressbooks\Utility\get_generated_content_path( '/css' );
 	}
 
 
@@ -124,11 +116,7 @@ class Sass {
 	 * @return string
 	 */
 	public function urlToUserGeneratedCss() {
-
-		$wp_upload_dir = wp_upload_dir();
-		$upload_dir = $wp_upload_dir['baseurl'] . '/css';
-		$upload_dir = \Pressbooks\Sanitize\maybe_https( $upload_dir );
-		return $upload_dir;
+		return \Pressbooks\Utility\get_generated_content_url( '/css' );
 	}
 
 
@@ -138,15 +126,7 @@ class Sass {
 	 * @return string
 	 */
 	public function pathToUserGeneratedSass() {
-
-		$wp_upload_dir = wp_upload_dir();
-		$upload_dir = $wp_upload_dir['basedir'] . '/scss';
-
-		if ( ! file_exists( $upload_dir ) ) {
-			mkdir( $upload_dir, 0775, true );
-		}
-
-		return $upload_dir;
+		return \Pressbooks\Utility\get_generated_content_path( '/scss' );
 	}
 
 
@@ -156,15 +136,7 @@ class Sass {
 	 * @return string
 	 */
 	public function pathToDebugDir() {
-
-		$wp_upload_dir = wp_upload_dir();
-		$upload_dir = $wp_upload_dir['basedir'] . '/scss-debug';
-
-		if ( ! file_exists( $upload_dir ) ) {
-			mkdir( $upload_dir, 0775, true );
-		}
-
-		return $upload_dir;
+		return \Pressbooks\Utility\get_generated_content_path( '/scss-debug' );
 	}
 
 

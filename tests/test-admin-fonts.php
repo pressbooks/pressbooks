@@ -58,14 +58,14 @@ class Admin_FontsTest extends \WP_UnitTestCase {
 	public function test_update_font_stacks() {
 
 		\Pressbooks\Admin\Fonts\update_font_stacks();
-		$this->assertTrue( true );
+		$this->assertTrue( true ); // Did not crash
 	}
 
 	public function test_fix_missing_font_stacks() {
 
 		$this->_book();
 		\Pressbooks\Admin\Fonts\fix_missing_font_stacks();
-		$this->assertTrue( true );
+		$this->assertTrue( true ); // Did not crash
 	}
 
 

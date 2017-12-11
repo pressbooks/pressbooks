@@ -55,25 +55,14 @@ class Lock {
 	 * @return string
 	 */
 	public function getLockDir( $mkdir = true ) {
-
-		$wp_upload_dir = wp_upload_dir();
-		$lock_dir = $wp_upload_dir['basedir'] . '/lock';
-
-		if ( $mkdir && ! file_exists( $lock_dir ) ) {
-			wp_mkdir_p( $lock_dir );
-		}
-
-		return $lock_dir;
+		return \Pressbooks\Utility\get_generated_content_path( '/lock', $mkdir );
 	}
 
 	/**
 	 * @return string
 	 */
 	public function getLockDirURI() {
-		$wp_upload_dir = wp_upload_dir();
-		$lock_dir_uri = $wp_upload_dir['baseurl'] . '/lock';
-		$lock_dir_uri = \Pressbooks\Sanitize\maybe_https( $lock_dir_uri );
-		return $lock_dir_uri;
+		return \Pressbooks\Utility\get_generated_content_url( '/lock' );
 	}
 
 
