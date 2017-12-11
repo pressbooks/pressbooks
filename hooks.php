@@ -142,6 +142,7 @@ if ( $is_book ) {
 	add_filter( 'comments_open', '\Pressbooks\PostType\comments_open', 10, 2 );
 	\Pressbooks\Taxonomy::init();
 	add_action( 'init', '\Pressbooks\PostType\register_meta' );
+	add_action( 'init', '\Pressbooks\PostType\register_post_statii' );
 	add_filter( 'request', '\Pressbooks\PostType\add_post_types_rss' );
 	add_filter( 'hypothesis_supported_posttypes', '\Pressbooks\PostType\add_posttypes_to_hypothesis' );
 }

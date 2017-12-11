@@ -18,7 +18,7 @@ class Taxonomy {
 	 * @see upgrade()
 	 * @var int
 	 */
-	const VERSION = 1;
+	const VERSION = 2;
 
 	/**
 	 * @var Taxonomy
@@ -145,6 +145,9 @@ class Taxonomy {
 
 	/**
 	 * Insert Front Matter, Back Matter terms and Chapter Terms
+	 *
+	 * If the term already exists on the same hierarchical level, or the term slug and name are not unique,
+	 * wp_insert_term() returns a WP_Error and we ignore it.
 	 */
 	public function insertTerms() {
 
@@ -497,6 +500,9 @@ class Taxonomy {
 			// Upgrade from version 0 (prior to Pressbooks\Taxonomy class) to version 1 (simplified chapter types)
 			$this->upgradeChapterTypes();
 			flush_rewrite_rules( false );
+		}
+		if ( $version < 2 ) {
+			$this->insertTerms(); // Re-trigger
 		}
 	}
 
