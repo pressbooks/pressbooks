@@ -40,6 +40,8 @@ class Activation {
 	protected $taxonomy;
 
 	/**
+	 * @since 5.0.0
+	 *
 	 * @return Activation
 	 */
 	static public function init() {
@@ -52,6 +54,8 @@ class Activation {
 	}
 
 	/**
+	 * @since 5.0.0
+	 *
 	 * @param Activation $obj
 	 */
 	static public function hooks( Activation $obj ) {
