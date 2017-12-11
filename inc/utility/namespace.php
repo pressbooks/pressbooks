@@ -1148,6 +1148,8 @@ function urls_have_same_host( $url1, $url2 ) {
 /**
  * Namespace our generated content
  *
+ * @since 5.0.0
+ *
  * @param string $suffix (optional)
  * @param bool $mkdir (optional)
  *
@@ -1167,6 +1169,8 @@ function get_generated_content_path( $suffix = '', $mkdir = true ) {
 
 /**
  * Namespace our generated content
+ *
+ * @since 5.0.0
  *
  * @param string $suffix (optional)
  *
