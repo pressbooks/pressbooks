@@ -24,7 +24,7 @@ class CustomCss {
 
 		$path = \Pressbooks\Utility\get_media_prefix() . 'custom-css/';
 		if ( ! file_exists( $path ) ) {
-			mkdir( $path, 0775, true );
+			wp_mkdir_p( $path );
 		}
 
 		return $path;

@@ -53,6 +53,10 @@ function register_post_types() {
 			'show_in_rest' => true,
 			'rest_base' => 'chapters',
 			'rest_controller_class' => '\Pressbooks\Api\Endpoints\Controller\Posts',
+			'rewrite' => [
+				'slug' => 'chapter',
+				'with_front' => false,
+			],
 		],
 		[
 			'singular' => __( 'Chapter', 'pressbooks' ),
@@ -71,6 +75,10 @@ function register_post_types() {
 			'show_in_rest' => true,
 			'rest_base' => 'parts',
 			'rest_controller_class' => '\Pressbooks\Api\Endpoints\Controller\Posts',
+			'rewrite' => [
+				'slug' => 'part',
+				'with_front' => false,
+			],
 		],
 		[
 			'singular' => __( 'Part', 'pressbooks' ),
@@ -94,6 +102,10 @@ function register_post_types() {
 			'show_in_rest' => true,
 			'rest_base' => 'front-matter',
 			'rest_controller_class' => '\Pressbooks\Api\Endpoints\Controller\Posts',
+			'rewrite' => [
+				'slug' => 'front-matter',
+				'with_front' => false,
+			],
 		],
 		[
 			'singular' => __( 'Front Matter', 'pressbooks' ),
@@ -117,6 +129,10 @@ function register_post_types() {
 			'show_in_rest' => true,
 			'rest_base' => 'back-matter',
 			'rest_controller_class' => '\Pressbooks\Api\Endpoints\Controller\Posts',
+			'rewrite' => [
+				'slug' => 'back-matter',
+				'with_front' => false,
+			],
 		],
 		[
 			'singular' => __( 'Back Matter', 'pressbooks' ),
@@ -142,6 +158,23 @@ function register_post_types() {
 			'plural' => __( 'Book Information', 'pressbooks' ),
 		]
 	);
+}
+
+/**
+ * Disable comments for Metadata
+ *
+ * @param bool $open Whether the current post is open for comments.
+ * @param int $post_id The post ID.
+ *
+ * @return bool
+ */
+function comments_open( $open, $post_id ) {
+	if ( $open ) {
+		if ( ( new \Pressbooks\Metadata() )->getMetaPost()->ID === $post_id ) {
+			return false;
+		}
+	}
+	return $open;
 }
 
 /**

@@ -52,6 +52,12 @@ if ( ! empty( $GLOBALS['PB_PIMPLE_OVERRIDE'] ) ) {
 }
 
 // -------------------------------------------------------------------------------------------------------------------
+// Activation
+// -------------------------------------------------------------------------------------------------------------------
+
+\Pressbooks\Activation::init();
+
+// -------------------------------------------------------------------------------------------------------------------
 // API
 // -------------------------------------------------------------------------------------------------------------------
 
@@ -133,6 +139,7 @@ add_filter( 'upload_mimes', '\Pressbooks\Media\add_mime_types' );
 
 if ( $is_book ) {
 	add_action( 'init', '\Pressbooks\PostType\register_post_types' );
+	add_filter( 'comments_open', '\Pressbooks\PostType\comments_open', 10, 2 );
 	\Pressbooks\Taxonomy::init();
 	add_action( 'init', '\Pressbooks\PostType\register_meta' );
 	add_action( 'init', '\Pressbooks\PostType\register_post_statii' );
@@ -157,21 +164,6 @@ if ( is_admin() === false ) {
 }
 
 // -------------------------------------------------------------------------------------------------------------------
-// The following is used when a REGISTERED USER creates a NEW BLOG
-// -------------------------------------------------------------------------------------------------------------------
-
-add_action(
-	'wpmu_new_blog', function ( $b, $u ) {
-		( new \Pressbooks\Activation() )->wpmuNewBlog( $b, $u );
-	}, 9, 2
-);
-
-// Force PB colors
-add_action( 'wp_login', '\Pressbooks\Activation::forcePbColors', 10, 2 );
-add_action( 'profile_update', '\Pressbooks\Activation::forcePbColors' );
-add_action( 'user_register', '\Pressbooks\Activation::forcePbColors' );
-
-// -------------------------------------------------------------------------------------------------------------------
 // Redirects
 // -------------------------------------------------------------------------------------------------------------------
 
@@ -182,6 +174,7 @@ add_filter( 'init', '\Pressbooks\Redirect\rewrite_rules_for_format', 1 );
 add_filter( 'init', '\Pressbooks\Redirect\rewrite_rules_for_catalog', 1 );
 add_filter( 'init', '\Pressbooks\Redirect\rewrite_rules_for_open', 1 );
 add_filter( 'login_redirect', '\Pressbooks\Redirect\login', 10, 3 );
+add_action( 'wp_loaded', '\Pressbooks\Redirect\migrate_generated_content' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Sitemap

@@ -33,6 +33,7 @@ class TaxonomyTest extends \WP_UnitTestCase {
 	}
 
 	public function test_hooks() {
+		$this->_book();
 		$this->taxonomy->hooks( $this->taxonomy );
 		$this->assertEquals( 1000, has_filter( 'init', [ $this->taxonomy, 'maybeUpgrade' ] ) );
 	}
@@ -59,6 +60,7 @@ class TaxonomyTest extends \WP_UnitTestCase {
 
 		foreach ( $pressbooks_taxonomies as $t ) {
 			$this->assertArrayHasKey( $t, $wp_taxonomies );
+			$this->assertTrue( $wp_taxonomies[ $t ]->show_in_rest );
 		}
 
 		$wp_taxonomies = $wp_taxonomies_old;

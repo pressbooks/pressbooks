@@ -52,7 +52,7 @@ function init_book() {
 
 	foreach ( get_taxonomies() as $taxonomy ) {
 		// Override Revisions routes for our custom post types
-		if ( in_array( $taxonomy, [ 'front-matter-type', 'chapter-type', 'back-matter-type' ], true ) ) {
+		if ( in_array( $taxonomy, [ 'front-matter-type', 'chapter-type', 'back-matter-type', 'license', 'contributor' ], true ) ) {
 			( new Endpoints\Controller\Terms( $taxonomy ) )->register_routes();
 		}
 	}
@@ -104,6 +104,8 @@ function hide_endpoints_from_book( $endpoints ) {
 			( strpos( $key, '/wp/v2/front-matter-type' ) === 0 ) ||
 			( strpos( $key, '/wp/v2/chapter-type' ) === 0 ) ||
 			( strpos( $key, '/wp/v2/back-matter-type' ) === 0 ) ||
+			( strpos( $key, '/wp/v2/license' ) === 0 ) ||
+			( strpos( $key, '/wp/v2/contributor' ) === 0 ) ||
 			( strpos( $key, '/wp/v2' ) === 0 && strpos( $key, '/revisions' ) !== false )
 		) {
 			unset( $endpoints[ $key ] );

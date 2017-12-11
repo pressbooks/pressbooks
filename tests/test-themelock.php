@@ -27,13 +27,13 @@ class ThemeLockTest extends \WP_UnitTestCase {
 
 		$result = $this->lock->getLockDir();
 
-		$this->assertEquals( true, substr( $result, -strlen( '/wp-content/uploads/lock' ) ) == '/wp-content/uploads/lock' );
+		$this->assertEquals( true, substr( $result, -strlen( '/wp-content/uploads/pressbooks/lock' ) ) == '/wp-content/uploads/pressbooks/lock' );
 	}
 
 	public function test_getLockDirURI() {
 		$result = $this->lock->getLockDirURI();
 
-		$this->assertEquals( true, substr( $result, -strlen( '/wp-content/uploads/lock' ) ) == '/wp-content/uploads/lock' );
+		$this->assertEquals( true, substr( $result, -strlen( '/wp-content/uploads/pressbooks/lock' ) ) == '/wp-content/uploads/pressbooks/lock' );
 	}
 
 	public function test_toggleThemeLock() {
