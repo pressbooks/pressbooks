@@ -88,6 +88,8 @@ function flusher() {
 /**
  * Migrate generated content to namespaced folder
  *
+ * @since 5.0.0
+ *
  * @see \Pressbooks\Utility\get_generated_content_path
  */
 function migrate_generated_content() {
