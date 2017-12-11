@@ -324,6 +324,11 @@ class Activation {
 			'post_author' => $this->user_id,
 			'tags_input' => __( 'Default Data', 'pressbooks' ),
 		];
+		$meta = [
+			'post_status' => 'publish',
+			'comment_status' => 'closed',
+			'post_author' => $this->user_id,
+		];
 
 		/**
 		 * Allow the default description of a new book to be customized.
@@ -355,6 +360,8 @@ class Activation {
 					$data = array_merge( $item, $page );
 				} elseif ( 'part' === $item['post_type'] ) {
 					$data = array_merge( $item, $part );
+				} elseif ( 'metadata' === $item['post_type'] ) {
+					$data = array_merge( $item, $meta );
 				} else {
 					$data = array_merge( $item, $post );
 				}

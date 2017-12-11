@@ -139,6 +139,7 @@ add_filter( 'upload_mimes', '\Pressbooks\Media\add_mime_types' );
 
 if ( $is_book ) {
 	add_action( 'init', '\Pressbooks\PostType\register_post_types' );
+	add_filter( 'comments_open', '\Pressbooks\PostType\comments_open', 10, 2 );
 	\Pressbooks\Taxonomy::init();
 	add_action( 'init', '\Pressbooks\PostType\register_meta' );
 	add_filter( 'request', '\Pressbooks\PostType\add_post_types_rss' );

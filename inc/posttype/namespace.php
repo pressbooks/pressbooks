@@ -145,6 +145,23 @@ function register_post_types() {
 }
 
 /**
+ * Disable comments for Metadata
+ *
+ * @param bool $open Whether the current post is open for comments.
+ * @param int $post_id The post ID.
+ *
+ * @return bool
+ */
+function comments_open( $open, $post_id ) {
+	if ( $open ) {
+		if ( ( new \Pressbooks\Metadata() )->getMetaPost()->ID === $post_id ) {
+			return false;
+		}
+	}
+	return $open;
+}
+
+/**
  * Register meta keys for our custom post types (used by REST API)
  */
 function register_meta() {
