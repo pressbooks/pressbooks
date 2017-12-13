@@ -25,7 +25,7 @@ class Activation {
 	 * @var array The set of default WP options to set up on activation
 	 */
 	private $opts = [
-		'pressbooks_theme_migration' => 2, // @see \Pressbooks\Theme\migrate_book_themes()
+		'pressbooks_theme_migration' => 2,
 		'show_on_front' => 'page',
 		'rewrite_rules' => '',
 	];
