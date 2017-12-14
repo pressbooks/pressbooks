@@ -82,5 +82,63 @@ class TaxonomyTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'standard', $this->taxonomy->getChapterType( 999 ) );
 	}
 
+	public function test_addContributor() {
+		$this->taxonomy->registerTaxonomies();
+
+		$this->assertFalse( $this->taxonomy->addContributor( 999 ) );
+
+		$user_id = $this->factory()->user->create( [ 'role' => 'contributor', 'first_name' => 'Joey', 'last_name' => 'Joe Joe' ] );
+		$user = get_userdata( $user_id );
+		$results = $this->taxonomy->addContributor( $user_id );
+		$this->assertTrue( is_array( $results ) );
+		$term = get_term_by( 'slug', $user->user_nicename, 'contributor' );
+		$this->assertEquals( $term->term_id, $results['term_id'] );
+		$this->assertEquals( $term->slug, $user->user_nicename );
+		$this->assertEquals( $term->name, 'Joey Joe Joe' );
+
+		$user_id = $this->factory()->user->create( [ 'role' => 'contributor'  ] );
+		$user = get_userdata( $user_id );
+		$results = $this->taxonomy->addContributor( $user_id );
+		$this->assertTrue( is_array( $results ) );
+		$term = get_term_by( 'slug', $user->user_nicename, 'contributor' );
+		$this->assertEquals( $term->term_id, $results['term_id'] );
+		$this->assertEquals( $term->slug, $user->user_nicename );
+		$this->assertEquals( $term->name, $user->user_nicename );
+	}
+
+	public function test_updateContributor() {
+		$this->taxonomy->registerTaxonomies();
+
+		$user_id = $this->factory()->user->create( [ 'role' => 'contributor', 'first_name' => 'Joey', 'last_name' => 'Joe Joe' ] );
+		$old_user_data = get_userdata( $user_id );
+		$this->assertFalse( $this->taxonomy->updateContributor( 999, $old_user_data ) );
+
+		$results = $this->taxonomy->updateContributor( $user_id, $old_user_data );
+		$this->assertTrue( is_array( $results ) );
+		$term = get_term_by( 'slug', $old_user_data->user_nicename, 'contributor' );
+		$this->assertEquals( $term->term_id, $results['term_id'] );
+		$this->assertEquals( $term->slug, $old_user_data->user_nicename );
+		$this->assertEquals( $term->name, 'Joey Joe Joe' );
+
+		$update_user_data = get_userdata( $user_id );
+		$update_user_data->last_name = 'Shabadoo';
+		wp_update_user( $update_user_data );
+		$results = $this->taxonomy->updateContributor( $user_id, $old_user_data );
+		$this->assertTrue( is_array( $results ) );
+		$term = get_term_by( 'slug', $old_user_data->user_nicename, 'contributor' );
+		$this->assertEquals( $term->term_id, $results['term_id'] );
+		$this->assertEquals( $term->slug, $old_user_data->user_nicename );
+		$this->assertEquals( $term->name, 'Joey Shabadoo' );
+
+		$update_user_data->first_name = '';
+		$update_user_data->last_name = '';
+		wp_update_user( $update_user_data );
+		$results = $this->taxonomy->updateContributor( $user_id, $old_user_data );
+		$this->assertTrue( is_array( $results ) );
+		$term = get_term_by( 'slug', $old_user_data->user_nicename, 'contributor' );
+		$this->assertEquals( $term->term_id, $results['term_id'] );
+		$this->assertEquals( $term->slug, $old_user_data->user_nicename );
+		$this->assertEquals( $term->name, $old_user_data->user_nicename );
+	}
 
 }

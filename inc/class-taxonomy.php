@@ -49,6 +49,8 @@ class Taxonomy {
 		if ( Book::isBook() ) {
 			add_action( 'init', [ $obj, 'registerTaxonomies' ] );
 			add_action( 'init', [ $obj, 'maybeUpgrade' ], 1000 );
+			add_action( 'user_register', [ $obj, 'addContributor' ] );
+			add_action( 'profile_update', [ $obj, 'updateContributor' ], 10, 2 );
 		}
 	}
 
@@ -60,7 +62,7 @@ class Taxonomy {
 	}
 
 	/**
-	 * Create a custom taxonomy for Chapter, Front Matter and Back Matter post types
+	 * Register taxonomies
 	 */
 	public function registerTaxonomies() {
 
@@ -144,7 +146,7 @@ class Taxonomy {
 	}
 
 	/**
-	 * Insert Front Matter, Back Matter terms and Chapter Terms
+	 * Insert terms
 	 *
 	 * If the term already exists on the same hierarchical level, or the term slug and name are not unique,
 	 * wp_insert_term() returns a WP_Error and we ignore it.
@@ -467,6 +469,54 @@ class Taxonomy {
 		}
 
 		return 'standard';
+	}
+
+	/**
+	 * @param int $user_id
+	 *
+	 * @return array|false An array containing the `term_id` and `term_taxonomy_id`, false otherwise.
+	 */
+	public function addContributor( $user_id ) {
+		$user = get_userdata( $user_id );
+		if ( $user ) {
+			$slug = $user->user_nicename;
+			$name = trim( "{$user->first_name} {$user->last_name}" );
+			if ( empty( $name ) ) {
+				$name = $slug;
+			}
+			$results = wp_insert_term( $name, 'contributor', [ 'slug' => $slug ] );
+			if ( is_array( $results ) ) {
+				return $results;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * @param int $user_id
+	 * @param \WP_User $old_user_data
+	 *
+	 * @return array|false An array containing the `term_id` and `term_taxonomy_id`, false otherwise.
+	 */
+	public function updateContributor( $user_id, $old_user_data ) {
+		$user = get_userdata( $user_id );
+		if ( $user ) {
+			$slug = $user->user_nicename;
+			$name = trim( "{$user->first_name} {$user->last_name}" );
+			if ( empty( $name ) ) {
+				$name = $slug;
+			}
+			$term = get_term_by( 'slug', $old_user_data->user_nicename, 'contributor' );
+			if ( $term ) {
+				$results = wp_update_term( $term->term_id, 'contributor', [ 'name' => $name, 'slug' => $slug ] );
+			} else {
+				$results = wp_insert_term( $name, 'contributor', [ 'slug' => $slug ] );
+			}
+			if ( is_array( $results ) ) {
+				return $results;
+			}
+		}
+		return false;
 	}
 
 	// ----------------------------------------------------------------------------------------------------------------
