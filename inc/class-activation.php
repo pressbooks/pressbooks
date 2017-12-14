@@ -25,6 +25,7 @@ class Activation {
 	 * @var array The set of default WP options to set up on activation
 	 */
 	private $opts = [
+		'pressbooks_theme_migration' => 2,
 		'show_on_front' => 'page',
 		'rewrite_rules' => '',
 	];
@@ -124,6 +125,7 @@ class Activation {
 
 		switch_to_blog( $this->blog_id );
 		if ( ! $this->isBookSetup() ) {
+
 			$this->wpmuActivate();
 			array_walk(
 				$this->opts, function ( $v, $k ) {
