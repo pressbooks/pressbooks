@@ -82,14 +82,40 @@ class TaxonomyTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'standard', $this->taxonomy->getChapterType( 999 ) );
 	}
 
+	public function test_insertContributor() {
+		$this->taxonomy->registerTaxonomies();
+
+		$tom = 'Töm O\'Reilly';
+		$results = $this->taxonomy->insertContributor( $tom );
+		$term = get_term_by( 'term_id', $results['term_id'], 'contributor' );
+		$this->assertEquals( 'tom-oreilly', $term->slug );
+
+		$results2 = $this->taxonomy->insertContributor( $tom ); // No dupes.
+		$this->assertEquals( $results, $results2 );
+	}
+
+	public function test_convertMetaToTerm() {
+		$this->taxonomy->registerTaxonomies();
+
+		$results = $this->taxonomy->convertMetaToTerm( null, null, 'unknown_key', 'Hello World!' );
+		$this->assertFalse( $results );
+
+		$results = $this->taxonomy->convertMetaToTerm( null, null, 'pb_contributing_authors', [ 'Will', 'Not', 'Work' ] );
+		$this->assertFalse( $results );
+
+		$results = $this->taxonomy->convertMetaToTerm( null, null, 'pb_contributing_authors', 'Töm O\'Reilly' );
+		$term = get_term_by( 'term_id', $results['term_id'], 'contributor' );
+		$this->assertEquals( 'tom-oreilly', $term->slug );
+	}
+
 	public function test_addContributor() {
 		$this->taxonomy->registerTaxonomies();
 
-		$this->assertFalse( $this->taxonomy->addContributor( 999 ) );
+		$this->assertFalse( $this->taxonomy->addUserContributor( 999 ) );
 
 		$user_id = $this->factory()->user->create( [ 'role' => 'contributor', 'first_name' => 'Joey', 'last_name' => 'Joe Joe' ] );
 		$user = get_userdata( $user_id );
-		$results = $this->taxonomy->addContributor( $user_id );
+		$results = $this->taxonomy->addUserContributor( $user_id );
 		$this->assertTrue( is_array( $results ) );
 		$term = get_term_by( 'slug', $user->user_nicename, 'contributor' );
 		$this->assertEquals( $term->term_id, $results['term_id'] );
@@ -98,7 +124,7 @@ class TaxonomyTest extends \WP_UnitTestCase {
 
 		$user_id = $this->factory()->user->create( [ 'role' => 'contributor'  ] );
 		$user = get_userdata( $user_id );
-		$results = $this->taxonomy->addContributor( $user_id );
+		$results = $this->taxonomy->addUserContributor( $user_id );
 		$this->assertTrue( is_array( $results ) );
 		$term = get_term_by( 'slug', $user->user_nicename, 'contributor' );
 		$this->assertEquals( $term->term_id, $results['term_id'] );
@@ -111,9 +137,9 @@ class TaxonomyTest extends \WP_UnitTestCase {
 
 		$user_id = $this->factory()->user->create( [ 'role' => 'contributor', 'first_name' => 'Joey', 'last_name' => 'Joe Joe' ] );
 		$old_user_data = get_userdata( $user_id );
-		$this->assertFalse( $this->taxonomy->updateContributor( 999, $old_user_data ) );
+		$this->assertFalse( $this->taxonomy->updateUserContributor( 999, $old_user_data ) );
 
-		$results = $this->taxonomy->updateContributor( $user_id, $old_user_data );
+		$results = $this->taxonomy->updateUserContributor( $user_id, $old_user_data );
 		$this->assertTrue( is_array( $results ) );
 		$term = get_term_by( 'slug', $old_user_data->user_nicename, 'contributor' );
 		$this->assertEquals( $term->term_id, $results['term_id'] );
@@ -123,7 +149,7 @@ class TaxonomyTest extends \WP_UnitTestCase {
 		$update_user_data = get_userdata( $user_id );
 		$update_user_data->last_name = 'Shabadoo';
 		wp_update_user( $update_user_data );
-		$results = $this->taxonomy->updateContributor( $user_id, $old_user_data );
+		$results = $this->taxonomy->updateUserContributor( $user_id, $old_user_data );
 		$this->assertTrue( is_array( $results ) );
 		$term = get_term_by( 'slug', $old_user_data->user_nicename, 'contributor' );
 		$this->assertEquals( $term->term_id, $results['term_id'] );
@@ -133,7 +159,7 @@ class TaxonomyTest extends \WP_UnitTestCase {
 		$update_user_data->first_name = '';
 		$update_user_data->last_name = '';
 		wp_update_user( $update_user_data );
-		$results = $this->taxonomy->updateContributor( $user_id, $old_user_data );
+		$results = $this->taxonomy->updateUserContributor( $user_id, $old_user_data );
 		$this->assertTrue( is_array( $results ) );
 		$term = get_term_by( 'slug', $old_user_data->user_nicename, 'contributor' );
 		$this->assertEquals( $term->term_id, $results['term_id'] );
