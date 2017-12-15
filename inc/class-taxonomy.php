@@ -483,9 +483,14 @@ class Taxonomy {
 		$slug = sanitize_title_with_dashes( remove_accents( $name ), '', 'save' );
 		$term = get_term_by( 'slug', $slug, 'contributor' );
 		if ( $term ) {
-			return [ 'term_id' => $term->term_id, 'term_taxonomy_id' => $term->term_taxonomy_id ];
+			return [
+				'term_id' => $term->term_id,
+				'term_taxonomy_id' => $term->term_taxonomy_id,
+			];
 		}
-		$results = wp_insert_term( $name, 'contributor', [ 'slug' => $slug ] );
+		$results = wp_insert_term( $name, 'contributor', [
+			'slug' => $slug,
+		] );
 		return is_array( $results ) ? $results : false;
 	}
 
@@ -524,7 +529,9 @@ class Taxonomy {
 			if ( empty( $name ) ) {
 				$name = $slug;
 			}
-			$results = wp_insert_term( $name, 'contributor', [ 'slug' => $slug ] );
+			$results = wp_insert_term( $name, 'contributor', [
+				'slug' => $slug,
+			] );
 			if ( is_array( $results ) ) {
 				return $results;
 			}
@@ -548,9 +555,14 @@ class Taxonomy {
 			}
 			$term = get_term_by( 'slug', $old_user_data->user_nicename, 'contributor' );
 			if ( $term ) {
-				$results = wp_update_term( $term->term_id, 'contributor', [ 'name' => $name, 'slug' => $slug ] );
+				$results = wp_update_term( $term->term_id, 'contributor', [
+					'name' => $name,
+					'slug' => $slug,
+				] );
 			} else {
-				$results = wp_insert_term( $name, 'contributor', [ 'slug' => $slug ] );
+				$results = wp_insert_term( $name, 'contributor', [
+					'slug' => $slug,
+				] );
 			}
 			if ( is_array( $results ) ) {
 				return $results;
