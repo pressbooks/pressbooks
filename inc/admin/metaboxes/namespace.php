@@ -192,47 +192,117 @@ function add_meta_boxes() {
 		]
 	);
 
+	// x_add_metadata_field( @codingStandardsIgnoreStart
+	// 	'pb_author', 'metadata', [
+	// 		'group' => 'general-book-information',
+	// 		'label' => __( 'Author', 'pressbooks' ),
+	// 	]
+	// ); @codingStandardsIgnoreEnd
+
 	x_add_metadata_field(
-		'pb_author', 'metadata', [
+		'pb_authors', 'metadata', [
 			'group' => 'general-book-information',
-			'label' => __( 'Author', 'pressbooks' ),
+			'label' => __( 'Author(s)', 'pressbooks' ),
+			'field_type' => 'taxonomy_multi_select',
+			'taxonomy' => 'contributor',
+			'select2' => true,
+		]
+	);
+
+	x_add_metadata_field(
+		'pb_editors', 'metadata', [
+			'group' => 'general-book-information',
+			'label' => __( 'Editor(s)', 'pressbooks' ),
+			'field_type' => 'taxonomy_multi_select',
+			'taxonomy' => 'contributor',
+			'select2' => true,
+		]
+	);
+
+	x_add_metadata_field(
+		'pb_translators', 'metadata', [
+			'group' => 'general-book-information',
+			'label' => __( 'Translator(s)', 'pressbooks' ),
+			'field_type' => 'taxonomy_multi_select',
+			'taxonomy' => 'contributor',
+			'select2' => true,
+		]
+	);
+
+	x_add_metadata_field(
+		'pb_proofreaders', 'metadata', [
+			'group' => 'general-book-information',
+			'label' => __( 'Proofreader(s)', 'pressbooks' ),
+			'field_type' => 'taxonomy_multi_select',
+			'taxonomy' => 'contributor',
+			'select2' => true,
+		]
+	);
+
+	x_add_metadata_field(
+		'pb_reviewers', 'metadata', [
+			'group' => 'general-book-information',
+			'label' => __( 'Reviewer(s)', 'pressbooks' ),
+			'field_type' => 'taxonomy_multi_select',
+			'taxonomy' => 'contributor',
+			'select2' => true,
+		]
+	);
+
+	x_add_metadata_field(
+		'pb_illustrators', 'metadata', [
+			'group' => 'general-book-information',
+			'label' => __( 'Illustrator(s)', 'pressbooks' ),
+			'field_type' => 'taxonomy_multi_select',
+			'taxonomy' => 'contributor',
+			'select2' => true,
+		]
+	);
+
+	x_add_metadata_field(
+		'pb_contributors', 'metadata', [
+			'group' => 'general-book-information',
+			'label' => __( 'Contributor(s)', 'pressbooks' ),
+			'field_type' => 'taxonomy_multi_select',
+			'taxonomy' => 'contributor',
+			'select2' => true,
 		]
 	);
 
 	if ( $show_expanded_metadata ) {
-		x_add_metadata_field(
-			'pb_author_file_as', 'metadata', [
-				'group' => 'general-book-information',
-				'label' => __( 'Author, file as', 'pressbooks' ),
-				'description' => __( 'This ensures that your ebook will sort properly in ebook stores, by the author\'s last name.', 'pressbooks' ),
-			]
-		);
+		// x_add_metadata_field( @codingStandardsIgnoreStart
+		// 	'pb_author_file_as', 'metadata', [
+		// 		'group' => 'general-book-information',
+		// 		'label' => __( 'Author, file as', 'pressbooks' ),
+		// 		'description' => __( 'This ensures that your ebook will sort properly in ebook stores, by the author\'s last name.', 'pressbooks' ),
+		// 	]
+		// ); @codingStandardsIgnoreEnd
 	}
 
-	x_add_metadata_field(
-		'pb_contributing_authors', 'metadata', [
-			'group' => 'general-book-information',
-			'label' => __( 'Contributing Author(s)', 'pressbooks' ),
-			'multiple' => true,
-			'description' => __( 'This may be used when more than one person shares the responsibility for the intellectual content of a book.', 'pressbooks' ),
-		]
-	);
+	// x_add_metadata_field( @codingStandardsIgnoreStart
+	// 	'pb_contributing_authors', 'metadata', [
+	// 		'group' => 'general-book-information',
+	// 		'label' => __( 'Contributing Author(s)', 'pressbooks' ),
+	// 		'multiple' => true,
+	// 		'description' => __( 'This may be used when more than one person shares the responsibility for the intellectual content of a book.', 'pressbooks' ),
+	// 	]
+	// );
 
-	x_add_metadata_field(
-		'pb_editor', 'metadata', [
-			'group' => 'general-book-information',
-			'label' => __( 'Editor(s)', 'pressbooks' ),
-			'multiple' => true,
-		]
-	);
+	// x_add_metadata_field(
+	// 	'pb_editor', 'metadata', [
+	// 		'group' => 'general-book-information',
+	// 		'label' => __( 'Editor(s)', 'pressbooks' ),
+	// 		'multiple' => true,
+	// 	]
+	// );
 
-	x_add_metadata_field(
-		'pb_translator', 'metadata', [
-			'group' => 'general-book-information',
-			'label' => __( 'Translator(s)', 'pressbooks' ),
-			'multiple' => true,
-		]
-	);
+	// x_add_metadata_field(
+	// 	'pb_translator', 'metadata', [
+	// 		'group' => 'general-book-information',
+	// 		'label' => __( 'Translator(s)', 'pressbooks' ),
+	// 		'multiple' => true,
+	// 	]
+	// ); @codingStandardsIgnoreEnd
 
 	x_add_metadata_field(
 		'pb_publisher', 'metadata', [
