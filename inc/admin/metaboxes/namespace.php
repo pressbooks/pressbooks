@@ -192,13 +192,6 @@ function add_meta_boxes() {
 		]
 	);
 
-	// x_add_metadata_field( @codingStandardsIgnoreStart
-	// 	'pb_author', 'metadata', [
-	// 		'group' => 'general-book-information',
-	// 		'label' => __( 'Author', 'pressbooks' ),
-	// 	]
-	// ); @codingStandardsIgnoreEnd
-
 	x_add_metadata_field(
 		'pb_authors', 'metadata', [
 			'group' => 'general-book-information',
@@ -268,41 +261,6 @@ function add_meta_boxes() {
 			'select2' => true,
 		]
 	);
-
-	if ( $show_expanded_metadata ) {
-		// x_add_metadata_field( @codingStandardsIgnoreStart
-		// 	'pb_author_file_as', 'metadata', [
-		// 		'group' => 'general-book-information',
-		// 		'label' => __( 'Author, file as', 'pressbooks' ),
-		// 		'description' => __( 'This ensures that your ebook will sort properly in ebook stores, by the author\'s last name.', 'pressbooks' ),
-		// 	]
-		// ); @codingStandardsIgnoreEnd
-	}
-
-	// x_add_metadata_field( @codingStandardsIgnoreStart
-	// 	'pb_contributing_authors', 'metadata', [
-	// 		'group' => 'general-book-information',
-	// 		'label' => __( 'Contributing Author(s)', 'pressbooks' ),
-	// 		'multiple' => true,
-	// 		'description' => __( 'This may be used when more than one person shares the responsibility for the intellectual content of a book.', 'pressbooks' ),
-	// 	]
-	// );
-
-	// x_add_metadata_field(
-	// 	'pb_editor', 'metadata', [
-	// 		'group' => 'general-book-information',
-	// 		'label' => __( 'Editor(s)', 'pressbooks' ),
-	// 		'multiple' => true,
-	// 	]
-	// );
-
-	// x_add_metadata_field(
-	// 	'pb_translator', 'metadata', [
-	// 		'group' => 'general-book-information',
-	// 		'label' => __( 'Translator(s)', 'pressbooks' ),
-	// 		'multiple' => true,
-	// 	]
-	// ); @codingStandardsIgnoreEnd
 
 	x_add_metadata_field(
 		'pb_publisher', 'metadata', [
@@ -591,9 +549,12 @@ function add_meta_boxes() {
 	);
 
 	x_add_metadata_field(
-		'pb_section_author', 'chapter', [
+		'pb_authors', 'chapter', [
 			'group' => 'chapter-metadata',
-			'label' => __( 'Chapter Author (appears in Web/ebook/PDF output)', 'pressbooks' ),
+			'label' => __( 'Author(s)', 'pressbooks' ),
+			'field_type' => 'taxonomy_multi_select',
+			'taxonomy' => 'contributor',
+			'select2' => true,
 		]
 	);
 
@@ -675,9 +636,12 @@ function add_meta_boxes() {
 	);
 
 	x_add_metadata_field(
-		'pb_section_author', 'front-matter', [
-			'group' => 'front-matter-metadata',
-			'label' => __( 'Front Matter Author (appears in Web/ebook/PDF output)', 'pressbooks' ),
+		'pb_authors', 'front-matter', [
+			'group' => 'front-matter-metadata-metadata',
+			'label' => __( 'Author(s)', 'pressbooks' ),
+			'field_type' => 'taxonomy_multi_select',
+			'taxonomy' => 'contributor',
+			'select2' => true,
 		]
 	);
 
@@ -715,9 +679,12 @@ function add_meta_boxes() {
 	);
 
 	x_add_metadata_field(
-		'pb_section_author', 'back-matter', [
-			'group' => 'back-matter-metadata',
-			'label' => __( 'Back Matter Author (appears in Web/ebook/PDF output)', 'pressbooks' ),
+		'pb_authors', 'back-matter', [
+			'group' => 'back-matter-metadata-metadata',
+			'label' => __( 'Author(s)', 'pressbooks' ),
+			'field_type' => 'taxonomy_multi_select',
+			'taxonomy' => 'contributor',
+			'select2' => true,
 		]
 	);
 
