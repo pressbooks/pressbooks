@@ -899,3 +899,72 @@ function save_subject_metadata( $post_id ) {
 		delete_post_meta( $post_id, 'pb_additional_subjects' );
 	}
 }
+
+/**
+ * @since 5.0.0
+ */
+function contributor_add_form() { ?>
+	<?php wp_nonce_field( 'contributor-meta', 'contributor_meta_nonce' ); ?>
+	<div class="form-field contributor-first-name-wrap">
+		<label for="contributor_first_name"><?php _e( 'First Name', 'pressbooks' ); ?></label>
+		<input type="text" name="contributor_first_name" id="contributor-first-name" value="" class="contributor-first-name-field" />
+		<p>
+	</div>
+	<div class="form-field contributor-last-name-wrap">
+		<label for="contributor_last_name"><?php _e( 'Last Name', 'pressbooks' ); ?></label>
+		<input type="text" name="contributor_last_name" id="contributor-last-name" value="" class="contributor-last-name-field" />
+	</div>
+	<?php
+}
+
+function contributor_edit_form( $term ) {
+	$firstname = get_term_meta( $term->term_id, 'contributor_first_name', true );
+	$lastname = get_term_meta( $term->term_id, 'contributor_last_name', true );
+	if ( ! $firstname ) {
+		$firstname = '';
+	}
+	if ( ! $lastname ) {
+		$lastname = '';
+	}
+?>
+	<tr class="form-field contributor-first-name-wrap">
+		<th scope="row"><label for="contributor_first_name"><?php _e( 'First Name', 'pressbooks' ); ?></label></th>
+		<td>
+			<?php wp_nonce_field( 'contributor-meta', 'contributor_meta_nonce' ); ?>
+			<input type="text" name="contributor_first_name" id="contributor-first-name" value="<?php echo esc_attr( $firstname ); ?>" class="contributor-first-name-field"  />
+		</td>
+	</tr>
+	<tr class="form-field contributor-last-name-wrap">
+		<th scope="row"><label for="contributor_last_name"><?php _e( 'First Name', 'pressbooks' ); ?></label></th>
+		<td>
+			<input type="text" name="contributor_last_name" id="contributor-last-name" value="<?php echo esc_attr( $lastname ); ?>" class="contributor-last-name-field"  />
+		</td>
+	</tr>
+<?php
+}
+
+/**
+ * @since 5.0.0
+ */
+function save_contributor_meta( $term_id, $tt_id, $taxonomy ) {
+	if ( $taxonomy !== 'contributor' ) {
+		return;
+	}
+	if ( ! isset( $_POST['contributor_meta_nonce'] ) || ! wp_verify_nonce( $_POST['contributor_meta_nonce'], 'contributor-meta' ) ) {
+		return;
+	}
+	$old_first_name  = get_term_meta( $term_id, 'contributor_first_name', true );
+	$old_last_name  = get_term_meta( $term_id, 'contributor_last_name', true );
+	$new_first_name = isset( $_POST['contributor_first_name'] ) ? sanitize_text_field( $_POST['contributor_first_name'] ) : '';
+	$new_last_name = isset( $_POST['contributor_last_name'] ) ? sanitize_text_field( $_POST['contributor_last_name'] ) : '';
+	if ( $new_first_name === '' ) {
+		delete_term_meta( $term_id, 'contributor_first_name' );
+	} elseif ( $old_first_name !== $new_first_name ) {
+		update_term_meta( $term_id, 'contributor_first_name', $new_first_name );
+	}
+	if ( $new_last_name === '' ) {
+		delete_term_meta( $term_id, 'contributor_last_name' );
+	} elseif ( $old_last_name !== $new_last_name ) {
+		update_term_meta( $term_id, 'contributor_last_name', $new_last_name );
+	}
+}
