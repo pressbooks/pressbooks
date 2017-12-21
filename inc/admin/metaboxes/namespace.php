@@ -904,7 +904,8 @@ function save_subject_metadata( $post_id ) {
  * @since 5.0.0
  */
 function contributor_add_form() {
-	wp_nonce_field( 'contributor-meta', 'contributor_meta_nonce' ); ?>
+	wp_nonce_field( 'contributor-meta', 'contributor_meta_nonce' );
+?>
 	<div class="form-field contributor-first-name-wrap">
 		<label for="contributor_first_name"><?php _e( 'First Name', 'pressbooks' ); ?></label>
 		<input type="text" name="contributor_first_name" id="contributor-first-name" value="" class="contributor-first-name-field" />
