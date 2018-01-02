@@ -717,3 +717,11 @@ function is_bisac( $code ) {
 
 	return false;
 }
+
+/**
+ * @since 5.0.0
+ */
+function register_contributor_meta() {
+	register_meta( 'term', 'contributor_first_name', 'sanitize_text_field' );
+	register_meta( 'term', 'contributor_last_name', 'sanitize_text_field' );
+}
