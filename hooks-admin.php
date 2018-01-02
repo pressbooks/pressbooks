@@ -34,13 +34,14 @@ $is_book = Book::isBook();
 // -------------------------------------------------------------------------------------------------------------------
 
 if ( ! $is_book ) {
-	$updater = new \Puc_v4p3_Vcs_PluginUpdateChecker(
-		new \Pressbooks\Updater( 'https://github.com/pressbooks/pressbooks/' ),
+	$updater = Puc_v4_Factory::buildUpdateChecker(
+		'https://github.com/pressbooks/pressbooks/',
 		__DIR__ . '/pressbooks.php', // Fully qualified path to the main plugin file
 		'pressbooks',
 		24
 	);
 	$updater->setBranch( 'master' );
+	$updater->getVcsApi()->enableReleaseAssets();
 }
 
 // -------------------------------------------------------------------------------------------------------------------

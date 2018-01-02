@@ -495,6 +495,8 @@ class Taxonomy {
 	}
 
 	/**
+	 * When certain meta keys are saved, create a matching term
+	 *
 	 * @param int $meta_id ID of updated metadata entry.
 	 * @param int $object_id Object ID.
 	 * @param string $meta_key Meta key.
@@ -517,6 +519,8 @@ class Taxonomy {
 	}
 
 	/**
+	 * When a user is added to a blog, create a matching Contributor term
+	 *
 	 * @param int $user_id
 	 *
 	 * @return array|false An array containing the `term_id` and `term_taxonomy_id`, false otherwise.
@@ -540,6 +544,8 @@ class Taxonomy {
 	}
 
 	/**
+	 * When a user is updated, update their matching Contributor term
+	 *
 	 * @param int $user_id
 	 * @param \WP_User $old_user_data
 	 *
