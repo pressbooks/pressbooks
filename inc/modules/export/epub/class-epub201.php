@@ -179,6 +179,12 @@ class Epub201 extends Export {
 	protected $taxonomy;
 
 	/**
+	 * @var array [original slug -> sanitized slug]
+	 */
+	protected $sanitizedSlugs = [];
+
+
+	/**
 	 * @param array $args
 	 */
 	function __construct( array $args ) {
@@ -405,6 +411,7 @@ class Epub201 extends Export {
 				}
 				if ( isset( $val['post_name'] ) ) {
 					$book_contents[ $type ][ $i ]['post_name'] = $this->preProcessPostName( $val['post_name'] );
+					$this->sanitizedSlugs[ $val['post_name'] ] = $book_contents[ $type ][ $i ]['post_name'];
 				}
 
 				if ( 'part' === $type ) {
@@ -421,6 +428,7 @@ class Epub201 extends Export {
 						}
 						if ( isset( $val2['post_name'] ) ) {
 							$book_contents[ $type ][ $i ]['chapters'][ $j ]['post_name'] = $this->preProcessPostName( $val2['post_name'] );
+							$this->sanitizedSlugs[ $val2['post_name'] ] = $book_contents[ $type ][ $i ]['chapters'][ $j ]['post_name'];
 						}
 					}
 				}
@@ -2056,7 +2064,7 @@ class Epub201 extends Export {
 			}
 
 			// Determine if we are trying to link to our own internal content
-			$internal_url = $this->fuzzyHrefMatch( $current_url, $type, $pos );
+			$internal_url = $this->fuzzyHrefMatch( $current_url, $pos );
 			if ( false !== $internal_url ) {
 				$url->setAttribute( 'href', $internal_url );
 				continue;
@@ -2119,12 +2127,11 @@ class Epub201 extends Export {
 	 * Try to determine if a URL is pointing to internal content. TODO: Refactor, for the love of all that is holy.
 	 *
 	 * @param $url
-	 * @param string $type front-matter, part, chapter, back-matter, ...
 	 * @param int $pos (optional) position of content, used when creating filenames like: chapter-001, chapter-002, ...
 	 *
 	 * @return bool|string
 	 */
-	protected function fuzzyHrefMatch( $url, $type, $pos ) {
+	protected function fuzzyHrefMatch( $url, $pos ) {
 		if ( ! $pos ) {
 			return false;
 		}
@@ -2143,51 +2150,55 @@ class Epub201 extends Export {
 			}
 		}
 
-		$last_part = explode( '/', $url );
-		$last_pos = count( $last_part ) - 1;
-		$posttype = ( isset( $last_part[ $last_pos - 1 ] ) ) ? $last_part[ $last_pos - 1 ] : false;
+		$split_url = explode( '/', $url );
+		$last_pos = count( $split_url ) - 1;
+		$posttype = ( isset( $split_url[ $last_pos - 1 ] ) ) ? $split_url[ $last_pos - 1 ] : false;
 		$anchor = '';
 
-		// Look for #anchors
-		if ( $last_pos > 0 && '#' === substr( trim( $last_part[ $last_pos ] ), 0, 1 ) ) {
-			$anchor = trim( $last_part[ $last_pos ] );
-			$last_part = trim( $last_part[ $last_pos - 1 ] );
-		} elseif ( false !== strpos( $last_part[ $last_pos ], '#' ) ) {
-			list( $last_part, $anchor ) = explode( '#', $last_part[ $last_pos ] );
+		// Guess the slug
+		if ( $last_pos > 0 && '#' === substr( trim( $split_url[ $last_pos ] ), 0, 1 ) ) {
+			$anchor = trim( $split_url[ $last_pos ] ); // Found an #anchor
+			$slug = trim( $split_url[ $last_pos - 1 ] );
+		} elseif ( false !== strpos( $split_url[ $last_pos ], '#' ) ) {
+			list( $slug, $anchor ) = explode( '#', $split_url[ $last_pos ] ); // Found an #anchor
 			$anchor = trim( "#{$anchor}" );
-			$last_part = trim( $last_part );
+			$slug = trim( $slug );
 		} else {
-			$last_part = trim( $last_part[ $last_pos ] );
+			$slug = trim( $split_url[ $last_pos ] );
 		}
 
-		if ( ! $last_part ) {
+		if ( ! $slug ) {
 			return false;
 		}
 
-		$lookup = \Pressbooks\Book::getBookStructure();
-		if ( 'part' !== $posttype && ! isset( $lookup['__export_lookup'][ $last_part ] ) ) {
+		static $lookup = false; // Cheap cache
+		if ( false === $lookup ) {
+			$lookup = \Pressbooks\Book::getBookStructure();
+		}
+
+		if ( 'part' !== $posttype && ! isset( $lookup['__export_lookup'][ $slug ] ) ) {
 			return false;
 		}
 
 		$new_url = '';
-		if ( 'part' !== $posttype && isset( $lookup['__export_lookup'][ $last_part ] ) ) {
+		if ( 'part' !== $posttype && isset( $lookup['__export_lookup'][ $slug ] ) ) {
 			// Handle front/back matter and chapters
-			$new_type = $lookup['__export_lookup'][ $last_part ];
+			$new_type = $lookup['__export_lookup'][ $slug ];
 			$new_pos = 0;
 			foreach ( $lookup['__export_lookup'] as $p => $t ) {
-				if ( $t === $new_type ) {
+				if ( (string) $t === (string) $new_type ) {
 					++$new_pos;
 				}
-				if ( $p === $last_part ) {
+				if ( (string) $p === (string) $slug ) {
 					break;
 				}
 			}
-			$new_url = "$new_type-" . sprintf( '%03s', $new_pos ) . "-$last_part.{$this->filext}";
-		} elseif ( 'part' === $posttype && ! isset( $lookup['__export_lookup'][ $last_part ] ) ) {
+			$new_url = "$new_type-" . sprintf( '%03s', $new_pos ) . '-' . ( isset( $this->sanitizedSlugs[ $slug ] ) ? $this->sanitizedSlugs[ $slug ] : $slug ) . ".{$this->filext}";
+		} elseif ( 'part' === $posttype && ! isset( $lookup['__export_lookup'][ $slug ] ) ) {
 			// Handle parts
 			foreach ( $lookup['part'] as $key => $part ) {
-				if ( $part['post_name'] === $last_part ) {
-					$new_url = 'part-' . sprintf( '%03s', $key + 1 ) . "-$last_part.{$this->filext}";
+				if ( $part['post_name'] === $slug ) {
+					$new_url = 'part-' . sprintf( '%03s', $key + 1 ) . '-' . ( isset( $this->sanitizedSlugs[ $slug ] ) ? $this->sanitizedSlugs[ $slug ] : $slug ) . ".{$this->filext}";
 				}
 			}
 		}
