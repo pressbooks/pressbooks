@@ -1287,7 +1287,7 @@ class custom_metadata_manager {
 				case 'taxonomy_select' :
 					$terms = get_terms( $field->taxonomy, array( 'hide_empty' => false ) );
 					if ( empty( $terms ) ) {
-						printf( __( 'There are no %s to select from yet.', $field->taxonomy ) );
+						printf( __( 'There are no %s to select from yet.', 'custom-metadata-manager' ), $field->taxonomy );
 						break;
 					}
 					$select2 = ( $field->select2 ) ? ' class="custom-metadata-select2" ' : ' ';
@@ -1302,7 +1302,7 @@ class custom_metadata_manager {
 				case 'taxonomy_radio' :
 					$terms = get_terms( $field->taxonomy, array( 'hide_empty' => false ) );
 					if ( empty( $terms ) ) {
-						printf( __( 'There are no %s to select from yet.', $field->taxonomy ) );
+						printf( __( 'There are no %s to select from yet.', 'custom-metadata-manager' ), $field->taxonomy );
 						break;
 					}
 					foreach ( $terms as $term ) {
@@ -1349,7 +1349,7 @@ class custom_metadata_manager {
 				case 'taxonomy_checkbox' :
 					$terms = get_terms( $field->taxonomy, array( 'hide_empty' => false ) );
 					if ( empty( $terms ) ) {
-						printf( __( 'There are no %s to select from yet.', $field->taxonomy ) );
+						printf( __( 'There are no %s to select from yet.', 'custom-metadata-manager' ), $field->taxonomy );
 						break;
 					}
 					foreach ( $terms as $term ) {
@@ -1362,7 +1362,7 @@ class custom_metadata_manager {
 				case 'taxonomy_multi_select' :
 					$terms = get_terms( $field->taxonomy, array( 'hide_empty' => false ) );
 					if ( empty( $terms ) ) {
-						printf( __( 'There are no %s to select from yet.', $field->taxonomy ) );
+						printf( __( 'There are no %s to select from yet.', 'custom-metadata-manager' ), $field->taxonomy );
 						break;
 					}
 					$select2 = ( $field->select2 ) ? ' class="custom-metadata-select2" ' : ' ';
