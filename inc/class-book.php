@@ -447,7 +447,7 @@ class Book {
 
 
 	/**
-	 * @return int
+	 *
 	 */
 	static function ajaxWordCount() {
 		if ( check_ajax_referer( 'pb-update-word-count-for-export' ) ) {
@@ -468,6 +468,8 @@ class Book {
 		wp_cache_delete( "book-str-$blog_id", 'pb' ); // Delete the cached value for getBookStructure()
 		wp_cache_delete( "book-cnt-$blog_id", 'pb' ); // Delete the cached value for getBookContents()
 		( new Catalog() )->deleteCacheByBookId( $blog_id );
+		static::$fixDupeSlugs = [];
+		static::$preview = [];
 	}
 
 	/**
