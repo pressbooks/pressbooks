@@ -319,9 +319,9 @@ function add_meta_boxes() {
 			'group' => 'general-book-information',
 			'field_type' => 'select',
 			'values' => \Pressbooks\L10n\supported_languages(),
-			'select2' => true,
 			'label' => __( 'Language', 'pressbooks' ),
 			'description' => __( 'This sets metadata in your ebook, making it easier to find in some stores. It also changes some system generated content for supported languages, such as the "Contents" header.', 'pressbooks' ) . '<br />' . sprintf( '<a href="https://www.transifex.com/pressbooks/pressbooks/">%s</a>', __( 'Help translate Pressbooks into your language!', 'pressbooks' ) ),
+			'select2' => true,
 		]
 	);
 

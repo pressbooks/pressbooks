@@ -745,6 +745,7 @@ function init_css_js() {
 
 	if ( isset( $_REQUEST['page'] ) && $_REQUEST['page'] === 'pb_catalog' ) {
 		wp_enqueue_style( 'wp-color-picker' );
+		wp_enqueue_style( 'select2', $assets->getPath( 'styles/select2.css' ) );
 		wp_enqueue_style( 'pressbooks-catalog', $assets->getPath( 'styles/catalog.css' ) );
 		wp_enqueue_script( 'color-picker', $assets->getPath( 'scripts/color-picker.js' ), [ 'wp-color-picker' ] );
 		wp_enqueue_script( 'select2-js', $assets->getPath( 'scripts/select2.js' ), [ 'jquery' ] );
@@ -756,6 +757,20 @@ function init_css_js() {
 		wp_enqueue_script( 'select2-js', $assets->getPath( 'scripts/select2.js' ), [ 'jquery' ] );
 		wp_enqueue_script( 'theme-options-js', $assets->getPath( 'scripts/theme-options.js' ), [ 'jquery' ] );
 	}
+
+	// Upgrade Select2 in Custom Metadata Manager
+	add_filter(
+		'custom_metadata_manager_select2_js',
+		function ( $path ) use ( $assets ) {
+			return $assets->getPath( 'scripts/select2.js' );
+		}
+	);
+	add_filter(
+		'custom_metadata_manager_select2_css',
+		function ( $path ) use ( $assets ) {
+			return $assets->getPath( 'styles/select2.css' );
+		}
+	);
 
 	if ( isset( $_REQUEST['page'] ) && $_REQUEST['page'] === 'pressbooks_export_options' ) {
 		wp_enqueue_script( 'pressbooks/theme-lock', $assets->getPath( 'scripts/theme-lock.js' ), [ 'jquery' ] );
@@ -780,7 +795,7 @@ function init_css_js() {
 	wp_register_script( 'pb-cloner', $assets->getPath( 'scripts/cloner.js' ), [ 'jquery' ] );
 	wp_register_script( 'pb-export', $assets->getPath( 'scripts/export.js' ), [ 'jquery' ] );
 	wp_register_script( 'pb-organize', $assets->getPath( 'scripts/organize.js' ), [ 'jquery', 'jquery-ui-core', 'jquery-blockui' ] );
-	wp_register_script( 'pb-metadata', $assets->getPath( 'scripts/book-information.js' ), [ 'jquery' ] );
+	wp_register_script( 'pb-metadata', $assets->getPath( 'scripts/book-information.js' ), [ 'jquery' ], false, true );
 	wp_register_script( 'pb-import', $assets->getPath( 'scripts/import.js' ), [ 'jquery' ] );
 
 	wp_register_style( 'pb-cloner', $assets->getPath( 'styles/cloner.css' ) );

@@ -1,6 +1,6 @@
 // This script is loaded when a user is on the [ Book Information ] page
 
-jQuery( function ( $ ) {
+jQuery( document ).ready( function ( $ ) {
 	// Hack to get menu item highlighted
 	$( '#' + PB_BookInfoToken.bookInfoMenuId )
 		.removeClass( 'wp-not-current-submenu' )
@@ -14,5 +14,6 @@ jQuery( function ( $ ) {
 		placeholder: PB_BookInfoToken.selectSubjectsText,
 		allowClear:  true,
 		width:       '100%',
+		minimumInputLength: 2,
 	} );
 } );
