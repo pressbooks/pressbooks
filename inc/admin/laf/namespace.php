@@ -127,7 +127,7 @@ function replace_book_admin_menu() {
 		__( 'Chapter Types', 'pressbooks' ),
 		__( 'Chapter Types', 'pressbooks' ),
 		'manage_network',
-		'edit-tags.php?taxonomy=chapter-type&post_type=chapter'
+		'edit-tags.php?taxonomy=chapter-type'
 	);
 
 	add_submenu_page(
@@ -135,7 +135,7 @@ function replace_book_admin_menu() {
 		__( 'Front Matter Types', 'pressbooks' ),
 		__( 'Front Matter Types', 'pressbooks' ),
 		'manage_network',
-		'edit-tags.php?taxonomy=front-matter-type&post_type=front-matter'
+		'edit-tags.php?taxonomy=front-matter-type'
 	);
 
 	add_submenu_page(
@@ -143,7 +143,7 @@ function replace_book_admin_menu() {
 		__( 'Back Matter Types', 'pressbooks' ),
 		__( 'Back Matter Types', 'pressbooks' ),
 		'manage_network',
-		'edit-tags.php?taxonomy=back-matter-type&post_type=back-matter'
+		'edit-tags.php?taxonomy=back-matter-type'
 	);
 
 	add_submenu_page(
@@ -281,41 +281,28 @@ function reorder_book_admin_menu() {
 }
 
 /**
- * When user clicks [Front-Matter Types / Back-Matter Types] sub-menus, then they should be highlighted
+ * Menu output hacks
+ *
+ * @see \_wp_menu_output
+ * @see wp-admin/menu-header.php
  *
  * @param string $file
  *
  * @return string
  */
 function fix_parent_file( $file ) {
-
+	global $submenu_file;
 	$haystack = [
-		'edit.php?post_type=front-matter',
-		'edit.php?post_type=back-matter',
+		'edit-tags.php?taxonomy=front-matter-type',
+		'edit-tags.php?taxonomy=chapter-type',
+		'edit-tags.php?taxonomy=back-matter-type',
 		'edit-tags.php?taxonomy=contributor',
 	];
-	if ( in_array( $file, $haystack, true ) ) {
-		$file = 'edit.php?post_type=chapter';
+	if ( in_array( $submenu_file, $haystack, true ) ) {
+		$file = 'pb_organize';
 	}
 
 	return $file;
-}
-
-/**
- * When user clicks [Text] menu, then the [Organize] sub-menu should be highlighted
- *
- * @param string $submenu_file
- * @param string $parent_file
- *
- * @return string
- */
-function fix_submenu_file( $submenu_file, $parent_file ) {
-
-	if ( empty( $submenu_file ) && empty( $_REQUEST['post_type'] ) && $parent_file === 'edit.php?post_type=chapter' ) {
-		$submenu_file = 'pb_organize';
-	}
-
-	return $submenu_file;
 }
 
 function network_admin_menu() {
