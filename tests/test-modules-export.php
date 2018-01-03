@@ -191,6 +191,7 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 		$this->assertContains( 'wp.com/latex.php', $xhtml_content );
 		$this->assertContains( ' <div id="attachment_1" ', $xhtml_content );
 		$this->assertContains( '<p><em>Ka kite ano!</em></p>', $xhtml_content );
+		$this->assertContains( 'https://github.com/pressbooks/pressbooks', $xhtml_content );
 
 		foreach ( $paths as $path ) {
 			unlink( $path );
