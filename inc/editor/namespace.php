@@ -169,9 +169,9 @@ function metadata_manager_default_editor_args( $args ) {
 	$args = [
 		'media_buttons' => false,
 		'tinymce' => [
-			'theme_advanced_buttons1' => 'bold,italic,underline,strikethrough,|,link,unlink,|,numlist,bullist,|,undo,redo,pastetext,pasteword,|',
-			'theme_advanced_buttons2' => '',
-			'theme_advanced_buttons3' => '',
+			'toolbar1' => 'bold,italic,underline,strikethrough,|,link,unlink,|,numlist,bullist,|,undo,redo,pastetext,pasteword,|',
+			'toolbar2' => '',
+			'toolbar3' => '',
 		],
 	] + $args;
 
