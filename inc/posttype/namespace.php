@@ -255,6 +255,22 @@ function register_meta() {
 }
 
 /**
+ * @since 5.0.0
+ */
+function register_post_statii() {
+	\register_post_status( 'web-only', [
+		'label'       => _x( 'Web Only', 'post status', 'pressbooks' ),
+		'public'      => true,
+		'label_count' => _n_noop( 'Web Only <span class="count">(%s)</span>', 'Web Only <span class="count">(%s)</span>' ),
+	] );
+	\register_post_status( 'export-only', [
+		'label'       => _x( 'Export Only', 'post status', 'pressbooks' ),
+		'public'      => true,
+		'label_count' => _n_noop( 'Export Only <span class="count">(%s)</span>', 'Export Only <span class="count">(%s)</span>' ),
+	] );
+}
+
+/**
  * Add custom post types to RSS feed
  *
  * @param array $args

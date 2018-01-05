@@ -18,7 +18,7 @@ class Taxonomy {
 	 * @see upgrade()
 	 * @var int
 	 */
-	const VERSION = 1;
+	const VERSION = 2;
 
 	/**
 	 * @var Taxonomy
@@ -49,6 +49,10 @@ class Taxonomy {
 		if ( Book::isBook() ) {
 			add_action( 'init', [ $obj, 'registerTaxonomies' ] );
 			add_action( 'init', [ $obj, 'maybeUpgrade' ], 1000 );
+			add_action( 'user_register', [ $obj, 'addUserContributor' ] );
+			add_action( 'profile_update', [ $obj, 'updateUserContributor' ], 10, 2 );
+			add_action( 'added_post_meta', [ $obj, 'convertMetaToTerm' ], 10, 4 );
+			add_action( 'updated_postmeta', [ $obj, 'convertMetaToTerm' ], 10, 4 );
 		}
 	}
 
@@ -60,7 +64,7 @@ class Taxonomy {
 	}
 
 	/**
-	 * Create a custom taxonomy for Chapter, Front Matter and Back Matter post types
+	 * Register taxonomies
 	 */
 	public function registerTaxonomies() {
 
@@ -144,7 +148,10 @@ class Taxonomy {
 	}
 
 	/**
-	 * Insert Front Matter, Back Matter terms and Chapter Terms
+	 * Insert terms
+	 *
+	 * If the term already exists on the same hierarchical level, or the term slug and name are not unique,
+	 * wp_insert_term() returns a WP_Error and we ignore it.
 	 */
 	public function insertTerms() {
 
@@ -466,6 +473,110 @@ class Taxonomy {
 		return 'standard';
 	}
 
+	/**
+	 * @param $name
+	 *
+	 * @return array|false An array containing the `term_id` and `term_taxonomy_id`, false otherwise.
+	 */
+	public function insertContributor( $name ) {
+		$name = trim( $name );
+		$slug = sanitize_title_with_dashes( remove_accents( $name ), '', 'save' );
+		$term = get_term_by( 'slug', $slug, 'contributor' );
+		if ( $term ) {
+			return [
+				'term_id' => $term->term_id,
+				'term_taxonomy_id' => $term->term_taxonomy_id,
+			];
+		}
+		$results = wp_insert_term( $name, 'contributor', [
+			'slug' => $slug,
+		] );
+		return is_array( $results ) ? $results : false;
+	}
+
+	/**
+	 * When certain meta keys are saved, create a matching term
+	 *
+	 * @param int $meta_id ID of updated metadata entry.
+	 * @param int $object_id Object ID.
+	 * @param string $meta_key Meta key.
+	 * @param mixed $meta_value Meta value.
+	 *
+	 * @return array|false An array containing the `term_id` and `term_taxonomy_id`, false otherwise.
+	 */
+	public function convertMetaToTerm( $meta_id, $object_id, $meta_key, $meta_value ) {
+		$contributor_keys = [
+			'pb_author',
+			'pb_contributing_authors',
+			'pb_editor',
+			'pb_translator',
+			'pb_section_author',
+		];
+		if ( in_array( $meta_key, $contributor_keys, true ) && ! empty( $meta_value ) && is_string( $meta_value ) ) {
+			return $this->insertContributor( $meta_value );
+		}
+		return false;
+	}
+
+	/**
+	 * When a user is added to a blog, create a matching Contributor term
+	 *
+	 * @param int $user_id
+	 *
+	 * @return array|false An array containing the `term_id` and `term_taxonomy_id`, false otherwise.
+	 */
+	public function addUserContributor( $user_id ) {
+		$user = get_userdata( $user_id );
+		if ( $user ) {
+			$slug = $user->user_nicename;
+			$name = trim( "{$user->first_name} {$user->last_name}" );
+			if ( empty( $name ) ) {
+				$name = $slug;
+			}
+			$results = wp_insert_term( $name, 'contributor', [
+				'slug' => $slug,
+			] );
+			if ( is_array( $results ) ) {
+				return $results;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * When a user is updated, update their matching Contributor term
+	 *
+	 * @param int $user_id
+	 * @param \WP_User $old_user_data
+	 *
+	 * @return array|false An array containing the `term_id` and `term_taxonomy_id`, false otherwise.
+	 */
+	public function updateUserContributor( $user_id, $old_user_data ) {
+		$user = get_userdata( $user_id );
+		if ( $user ) {
+			$slug = $user->user_nicename;
+			$name = trim( "{$user->first_name} {$user->last_name}" );
+			if ( empty( $name ) ) {
+				$name = $slug;
+			}
+			$term = get_term_by( 'slug', $old_user_data->user_nicename, 'contributor' );
+			if ( $term ) {
+				$results = wp_update_term( $term->term_id, 'contributor', [
+					'name' => $name,
+					'slug' => $slug,
+				] );
+			} else {
+				$results = wp_insert_term( $name, 'contributor', [
+					'slug' => $slug,
+				] );
+			}
+			if ( is_array( $results ) ) {
+				return $results;
+			}
+		}
+		return false;
+	}
+
 	// ----------------------------------------------------------------------------------------------------------------
 	// Upgrades
 	// ----------------------------------------------------------------------------------------------------------------
@@ -497,6 +608,9 @@ class Taxonomy {
 			// Upgrade from version 0 (prior to Pressbooks\Taxonomy class) to version 1 (simplified chapter types)
 			$this->upgradeChapterTypes();
 			flush_rewrite_rules( false );
+		}
+		if ( $version < 2 ) {
+			$this->insertTerms(); // Re-trigger
 		}
 	}
 

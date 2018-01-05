@@ -1248,7 +1248,7 @@ class custom_metadata_manager {
 					break;
 				case 'select' :
 					$select2 = ( $field->select2 ) ? ' class="custom-metadata-select2" ' : ' ';
-					$select2 .= ( $field->placeholder ) ? ' data-placeholder="'. esc_attr( $field->placeholder ) . '" ' : ' ';
+					$select2 .= ( $field->placeholder ) ? ' data-placeholder="'. esc_attr( $field->placeholder ) . '" ' : ' data-placeholder="" ';
 					printf( '<select id="%s" name="%s"%s>', esc_attr( $field_slug ), esc_attr( $field_id ), $select2 );
 					foreach ( $field->values as $value_slug => $value_label ) {
 						printf( '<option value="%s"%s>', esc_attr( $value_slug ), selected( $v, $value_slug, false ) );
@@ -1287,11 +1287,11 @@ class custom_metadata_manager {
 				case 'taxonomy_select' :
 					$terms = get_terms( $field->taxonomy, array( 'hide_empty' => false ) );
 					if ( empty( $terms ) ) {
-						printf( __( 'There are no %s to select from yet.', $field->taxonomy ) );
+						printf( __( 'There are no %s to select from yet.', 'custom-metadata-manager' ), $field->taxonomy );
 						break;
 					}
 					$select2 = ( $field->select2 ) ? ' class="custom-metadata-select2" ' : ' ';
-					$select2 .= ( $field->placeholder ) ? ' data-placeholder="'. esc_attr( $field->placeholder ) . '" ' : ' ';
+					$select2 .= ( $field->placeholder ) ? ' data-placeholder="'. esc_attr( $field->placeholder ) . '" ' : ' data-placeholder="" ';
 					printf( '<select name="%s" id="%s"%s>', esc_attr( $field_id ), esc_attr( $field_slug ), $select2 );
 						echo '<option value=""></option>';
 					foreach ( $terms as $term ) {
@@ -1302,7 +1302,7 @@ class custom_metadata_manager {
 				case 'taxonomy_radio' :
 					$terms = get_terms( $field->taxonomy, array( 'hide_empty' => false ) );
 					if ( empty( $terms ) ) {
-						printf( __( 'There are no %s to select from yet.', $field->taxonomy ) );
+						printf( __( 'There are no %s to select from yet.', 'custom-metadata-manager' ), $field->taxonomy );
 						break;
 					}
 					foreach ( $terms as $term ) {
@@ -1337,7 +1337,7 @@ class custom_metadata_manager {
 			switch ( $field->field_type ) :
 				case 'multi_select' :
 					$select2 = ( $field->select2 ) ? ' class="custom-metadata-select2" ' : ' ';
-					$select2 .= ( $field->placeholder ) ? ' data-placeholder="'. esc_attr( $field->placeholder ) . '" ' : ' ';
+					$select2 .= ( $field->placeholder ) ? ' data-placeholder="'. esc_attr( $field->placeholder ) . '" ' : ' data-placeholder="" ';
 					printf( '<select id="%s" name="%s"%smultiple>', esc_attr( $field_slug ), esc_attr( $field_id ), $select2 );
 					foreach ( $field->values as $value_slug => $value_label ) {
 						printf( '<option value="%s"%s>', esc_attr( $value_slug ), selected( in_array( $value_slug, $value ), true, false ) );
@@ -1349,7 +1349,7 @@ class custom_metadata_manager {
 				case 'taxonomy_checkbox' :
 					$terms = get_terms( $field->taxonomy, array( 'hide_empty' => false ) );
 					if ( empty( $terms ) ) {
-						printf( __( 'There are no %s to select from yet.', $field->taxonomy ) );
+						printf( __( 'There are no %s to select from yet.', 'custom-metadata-manager' ), $field->taxonomy );
 						break;
 					}
 					foreach ( $terms as $term ) {
@@ -1362,11 +1362,11 @@ class custom_metadata_manager {
 				case 'taxonomy_multi_select' :
 					$terms = get_terms( $field->taxonomy, array( 'hide_empty' => false ) );
 					if ( empty( $terms ) ) {
-						printf( __( 'There are no %s to select from yet.', $field->taxonomy ) );
+						printf( __( 'There are no %s to select from yet.', 'custom-metadata-manager' ), $field->taxonomy );
 						break;
 					}
 					$select2 = ( $field->select2 ) ? ' class="custom-metadata-select2" ' : ' ';
-					$select2 .= ( $field->placeholder ) ? ' data-placeholder="'. esc_attr( $field->placeholder ) . '" ' : ' ';
+					$select2 .= ( $field->placeholder ) ? ' data-placeholder="'. esc_attr( $field->placeholder ) . '" ' : ' data-placeholder="" ';
 					printf( '<select name="%s" id="%s"%smultiple>', esc_attr( $field_id ), esc_attr( $field_slug ), $select2 );
 					foreach ( $terms as $term ) {
 						printf( '<option value="%s"%s>%s</option>', esc_attr( $term->slug ), selected( in_array( $term->slug, $value ), true, false ), esc_html( $term->name ) );

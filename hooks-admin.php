@@ -34,13 +34,14 @@ $is_book = Book::isBook();
 // -------------------------------------------------------------------------------------------------------------------
 
 if ( ! $is_book ) {
-	$updater = new \Puc_v4p3_Vcs_PluginUpdateChecker(
-		new \Pressbooks\Updater( 'https://github.com/pressbooks/pressbooks/' ),
+	$updater = Puc_v4_Factory::buildUpdateChecker(
+		'https://github.com/pressbooks/pressbooks/',
 		__DIR__ . '/pressbooks.php', // Fully qualified path to the main plugin file
 		'pressbooks',
 		24
 	);
 	$updater->setBranch( 'master' );
+	$updater->getVcsApi()->enableReleaseAssets();
 }
 
 // -------------------------------------------------------------------------------------------------------------------
@@ -72,7 +73,6 @@ if ( $is_book ) {
 	add_filter( 'menu_order', '\Pressbooks\Admin\Laf\reorder_book_admin_menu' );
 	add_action( 'admin_menu', [ '\Pressbooks\Admin\Delete\Book', 'init' ] );
 	add_filter( 'parent_file', '\Pressbooks\Admin\Laf\fix_parent_file' );
-	add_filter( 'submenu_file', '\Pressbooks\Admin\Laf\fix_submenu_file', 10, 2 );
 	add_action( 'wp_dashboard_setup', '\Pressbooks\Admin\Dashboard\replace_dashboard_widgets' );
 	remove_action( 'welcome_panel', 'wp_welcome_panel' );
 	remove_action( 'try_gutenberg_panel', 'wp_try_gutenberg_panel' );
