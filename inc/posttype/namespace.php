@@ -264,9 +264,9 @@ function register_post_statii() {
 		'label_count' => _n_noop( 'Web Only <span class="count">(%s)</span>', 'Web Only <span class="count">(%s)</span>' ),
 	] );
 	\register_post_status( 'export-only', [
-		'label'       => _x( 'PDF+Ebook Only', 'post status', 'pressbooks' ),
+		'label'       => _x( 'Export Only', 'post status', 'pressbooks' ),
 		'public'      => true,
-		'label_count' => _n_noop( 'PDF+Ebook Only <span class="count">(%s)</span>', 'PDF+Ebook Only <span class="count">(%s)</span>' ),
+		'label_count' => _n_noop( 'Export Only <span class="count">(%s)</span>', 'Export Only <span class="count">(%s)</span>' ),
 	] );
 }
 
