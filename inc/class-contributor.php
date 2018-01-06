@@ -89,13 +89,10 @@ class Contributor {
 					$meta = get_post_meta( $post_id, $slug, false );
 					foreach ( $meta as $name ) {
 						$result = $this->insert( $name );
-						if ( $result ) {
-							$term = get_term( $result['term_id'], 'contributor' );
-							if ( $term && ! is_wp_error( $term ) ) {
-								$added = add_post_meta( $post_id, $contributor_type, $term->slug );
-								if ( $added !== false ) {
-									$contributors[] = $name;
-								}
+						if ( $result !== false ) {
+							$added = $this->link( $result['term_id'], $post_id, $contributor_type );
+							if ( $added !== false ) {
+								$contributors[] = $name;
 							}
 						}
 					}
