@@ -154,6 +154,8 @@ class Contributor {
 	 * @param int $term_id
 	 * @param int $post_id
 	 * @param string $contributor_type
+	 *
+	 * @return bool
 	 */
 	public function link( $term_id, $post_id, $contributor_type = 'pb_authors' ) {
 		if ( ! str_starts_with( $contributor_type, 'pb_' ) ) {
@@ -162,9 +164,10 @@ class Contributor {
 		if ( in_array( $contributor_type, $this->valid, true ) ) {
 			$term = get_term( $term_id, 'contributor' );
 			if ( $term && ! is_wp_error( $term ) ) {
-				add_post_meta( $post_id, $contributor_type, $term->slug );
+				return is_int( add_post_meta( $post_id, $contributor_type, $term->slug ) );
 			}
 		}
+		return false;
 	}
 
 	/**
