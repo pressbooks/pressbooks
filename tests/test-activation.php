@@ -22,11 +22,15 @@ class ActivationTest extends \WP_UnitTestCase {
 			->getMock();
 
 		$stub2 = $this
-			->getMockBuilder( '\Pressbooks\Taxonomy' )
-			->setConstructorArgs( [ $stub1 ] )
+			->getMockBuilder( '\Pressbooks\Contributor' )
 			->getMock();
 
-		$this->activation = new Activation( $stub2 );
+		$stub3 = $this
+			->getMockBuilder( '\Pressbooks\Taxonomy' )
+			->setConstructorArgs( [ $stub1, $stub2 ] )
+			->getMock();
+
+		$this->activation = new Activation( $stub3 );
 	}
 
 	public function test_init() {
