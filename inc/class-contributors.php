@@ -211,8 +211,8 @@ class Contributors {
 						'slug' => $slug,
 					]
 				);
-				update_term_meta( $results['term_id'], 'contributor_first_name', $user->first_name, '' );
-				update_term_meta( $results['term_id'], 'contributor_last_name', $user->last_name, '' );
+				update_term_meta( $results['term_id'], 'contributor_first_name', $user->first_name );
+				update_term_meta( $results['term_id'], 'contributor_last_name', $user->last_name );
 			} else {
 				$results = wp_insert_term(
 					$name, 'contributor', [
