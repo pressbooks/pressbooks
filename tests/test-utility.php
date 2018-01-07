@@ -438,4 +438,16 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertNotEmpty( \Pressbooks\Utility\get_cache_path() );
 	}
 
+	public function test_oxford_comma() {
+		$this->assertEquals( '', \Pressbooks\Utility\oxford_comma( [] ) );
+		$vars[] = 'One Person';
+		$this->assertEquals( 'One Person', \Pressbooks\Utility\oxford_comma( $vars ) );
+		$vars[] = 'Two People';
+		$this->assertEquals( 'One Person and Two People', \Pressbooks\Utility\oxford_comma( $vars ) );
+		$vars[] = 'Three People';
+		$this->assertEquals( 'One Person, Two People, and Three People', \Pressbooks\Utility\oxford_comma( $vars ) );
+		$vars[] = 'Four People';
+		$this->assertEquals( 'One Person, Two People, Three People, and Four People', \Pressbooks\Utility\oxford_comma( $vars ) );
+	}
+
 }

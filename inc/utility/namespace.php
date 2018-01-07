@@ -1242,3 +1242,27 @@ function put_contents( $filename, $data ) {
 	$fs = init_direct_filesystem();
 	return $fs->put_contents( $filename, $data );
 }
+
+
+/**
+ * Comma separated, Oxford comma, localized and between the last two items
+ *
+ * @since 5.0.0
+ *
+ * @param array $vars
+ *
+ * @return string
+ */
+function oxford_comma( array $vars ) {
+	if ( count( $vars ) === 2 ) {
+		return $vars[0] . ' ' . __( 'and', 'pressbooks' ) . ' ' . $vars[1];
+	} else {
+		$last = array_pop( $vars );
+		$output = implode( ', ', $vars );
+		if ( $output ) {
+			$output .= ', ' . __( 'and', 'pressbooks' ) . ' ';
+		}
+		$output .= $last;
+		return $output;
+	}
+}
