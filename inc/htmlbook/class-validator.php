@@ -11,6 +11,11 @@ class Validator {
 	 */
 	protected $schemaPath;
 
+	/**
+	 * @var array
+	 */
+	protected $errors = [];
+
 	public function __construct() {
 		if ( ! defined( 'PB_XMLLINT_COMMAND' ) ) {
 			define( 'PB_XMLLINT_COMMAND', '/usr/bin/xmllint' );
@@ -32,6 +37,13 @@ class Validator {
 	}
 
 	/**
+	 * @return array
+	 */
+	public function getErrors() {
+		return $this->errors;
+	}
+
+	/**
 	 * Validate an HTMLBook file
 	 *
 	 * @param string $path
@@ -43,15 +55,17 @@ class Validator {
 		$command = PB_XMLLINT_COMMAND . ' --noout --schema ' . escapeshellcmd( $this->getSchemaPath() ) . ' ' . escapeshellcmd( $path ) . ' 2>&1';
 
 		// Execute command
+		$this->errors = [];
 		$output = [];
 		$return_var = 0;
 		exec( $command, $output, $return_var );
 
 		if ( isset( $output[0] ) && str_ends_with( $output[0], ' validates' ) ) {
 			return true;
+		} else {
+			$this->errors = $output;
+			return false;
 		}
-
-		return false;
 	}
 
 }

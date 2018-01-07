@@ -24,6 +24,12 @@ trait utilsTrait {
 			}
 			if ( $key === 'part' ) {
 				foreach ( $section as $part ) {
+					wp_update_post(
+						[
+							'ID' => $part['ID'],
+							'post_content' => 'Part content...',
+						]
+					);
 					if ( $pid ) {
 						wp_update_post( [ 'ID' => $pid, 'post_parent' => $part['ID'] ] );
 						$pid = false;
