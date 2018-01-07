@@ -1,6 +1,6 @@
 <?php
 
-use Pressbooks\Contributor;
+use Pressbooks\Contributors;
 
 class ContributorTest extends \WP_UnitTestCase {
 
@@ -12,7 +12,7 @@ class ContributorTest extends \WP_UnitTestCase {
 	protected $taxonomy;
 
 	/**
-	 * @var \Pressbooks\Contributor
+	 * @var \Pressbooks\Contributors
 	 */
 	protected $contributor;
 
@@ -21,7 +21,7 @@ class ContributorTest extends \WP_UnitTestCase {
 	 */
 	public function setUp() {
 		parent::setUp();
-		$this->contributor = new Contributor();
+		$this->contributor = new Contributors();
 		$this->taxonomy = new \Pressbooks\Taxonomy(
 			$this->getMockBuilder( '\Pressbooks\Licensing' )->getMock(),
 			$this->contributor

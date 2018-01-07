@@ -22,7 +22,7 @@ class ActivationTest extends \WP_UnitTestCase {
 			->getMock();
 
 		$stub2 = $this
-			->getMockBuilder( '\Pressbooks\Contributor' )
+			->getMockBuilder( '\Pressbooks\Contributors' )
 			->getMock();
 
 		$stub3 = $this

@@ -25,7 +25,7 @@ class TaxonomyTest extends \WP_UnitTestCase {
 			->willReturn( [] );
 
 		$stub2 = $this
-			->getMockBuilder( '\Pressbooks\Contributor' )
+			->getMockBuilder( '\Pressbooks\Contributors' )
 			->getMock();
 		$stub2
 			->method( 'insert' )

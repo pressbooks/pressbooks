@@ -31,7 +31,7 @@ class Taxonomy {
 	private $licensing;
 
 	/**
-	 * @var Contributor
+	 * @var Contributors
 	 */
 	private $contributor;
 
@@ -41,7 +41,7 @@ class Taxonomy {
 	static public function init() {
 		if ( is_null( self::$instance ) ) {
 			$licensing = new Licensing();
-			$contributor = new Contributor();
+			$contributor = new Contributors();
 			self::$instance = new self( $licensing, $contributor );
 			self::hooks( self::$instance );
 		}
@@ -64,7 +64,7 @@ class Taxonomy {
 
 	/**
 	 * @param Licensing $licensing
-	 * @param Contributor $contributor
+	 * @param Contributors $contributor
 	 */
 	public function __construct( $licensing, $contributor ) {
 		$this->licensing = $licensing;

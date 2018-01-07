@@ -8,7 +8,7 @@ namespace Pressbooks;
 
 use function Pressbooks\Utility\str_starts_with;
 
-class Contributor {
+class Contributors {
 
 	/**
 	 * Valid contributor slugs
