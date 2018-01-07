@@ -111,7 +111,6 @@ class Contributors {
 	 * @return array|false An array containing the `term_id` and `term_taxonomy_id`, false otherwise.
 	 */
 	public function insert( $full_name, $post_id = 0, $contributor_type = 'pb_authors' ) {
-
 		$full_name = trim( $full_name );
 		$slug = sanitize_title_with_dashes( remove_accents( $full_name ), '', 'save' );
 		$term = get_term_by( 'slug', $slug, 'contributor' );

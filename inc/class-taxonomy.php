@@ -571,8 +571,14 @@ class Taxonomy {
 			'pb_translator' => 'pb_translators',
 			'pb_contributing_authors' => 'pb_contributors',
 		];
-		if ( isset( $contributor_migration[ $old_meta_key ] ) && ! empty( $meta_value ) && is_string( $meta_value ) ) {
-			$result = $this->contributor->insert( $meta_value, $post_id );
+		if ( isset( $contributor_migration[ $old_meta_key ] ) && ! empty( $meta_value ) ) {
+			if ( ! is_array( $meta_value ) ) {
+				$meta_value = [ $meta_value ];
+			}
+			$result = false;
+			foreach ( $meta_value as $mv ) {
+				$result = $this->contributor->insert( $mv, $post_id );
+			}
 			if ( $result ) {
 				return $result;
 			}

@@ -95,11 +95,11 @@ class TaxonomyTest extends \WP_UnitTestCase {
 		$results = $this->taxonomy->upgradeToContributorTaxonomy( null, null, 'unknown_key', 'Hello World!' );
 		$this->assertFalse( $results );
 
-		$results = $this->taxonomy->upgradeToContributorTaxonomy( null, null, 'pb_contributing_authors', [ 'Will', 'Not', 'Work' ] );
-		$this->assertFalse( $results );
+		$results = $this->taxonomy->upgradeToContributorTaxonomy( null, null, 'pb_contributing_authors', [ 'Joe Joe', 'Jim Jim', 'Jay Jay' ] );
+		$this->assertEquals( 999, $results['term_id'] );
+		$this->assertEquals( 999, $results['term_taxonomy_id'] );
 
 		$results = $this->taxonomy->upgradeToContributorTaxonomy( null, null, 'pb_contributing_authors', 'Töm O\'Reilly' );
-
 		$this->assertEquals( 999, $results['term_id'] );
 		$this->assertEquals( 999, $results['term_taxonomy_id'] );
 	}
