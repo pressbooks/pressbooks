@@ -304,7 +304,7 @@ abstract class Import {
 
 			if ( $ok ) {
 				// Success! Redirect to organize page
-				$success_url = get_admin_url( get_current_blog_id(), '/admin.php?page=pressbooks' );
+				$success_url = get_admin_url( get_current_blog_id(), '/admin.php?page=pb_organize' );
 				\Pressbooks\Redirect\location( $success_url );
 			}
 		} elseif ( isset( $_GET['import'] ) && ! empty( $_FILES['import_file']['name'] ) && isset( $_POST['type_of'] ) && check_admin_referer( 'pb-import' ) ) {

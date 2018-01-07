@@ -49,7 +49,7 @@ class Xhtml extends Import {
 
 		$url = wp_parse_url( $current_import['file'] );
 		// get parent directory (with forward slash e.g. /parent)
-		$path = dirname( $url['path'] );
+		$path = isset( $url['path'] ) ? dirname( $url['path'] ) : '/';
 
 		$domain = $url['scheme'] . '://' . $url['host'] . $path;
 

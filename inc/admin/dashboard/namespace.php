@@ -131,7 +131,7 @@ function display_book_widget() {
 
 	// add, organize
 	echo "</ul>\n";
-	echo '<div class="part-buttons"><a href="post-new.php?post_type=chapter">' . __( 'Add', 'pressbooks' ) . '</a> | <a class="remove" href="admin.php?page=pressbooks">' . __( 'Organize', 'pressbooks' ) . '</a></div>';
+	echo '<div class="part-buttons"><a href="post-new.php?post_type=chapter">' . __( 'Add', 'pressbooks' ) . '</a> | <a class="remove" href="admin.php?page=pb_organize">' . __( 'Organize', 'pressbooks' ) . '</a></div>';
 }
 
 
