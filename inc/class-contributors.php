@@ -211,12 +211,16 @@ class Contributors {
 						'slug' => $slug,
 					]
 				);
+				update_term_meta( $results['term_id'], 'contributor_first_name', $user->first_name, '' );
+				update_term_meta( $results['term_id'], 'contributor_last_name', $user->last_name, '' );
 			} else {
 				$results = wp_insert_term(
 					$name, 'contributor', [
 						'slug' => $slug,
 					]
 				);
+				add_term_meta( $results['term_id'], 'contributor_first_name', $user->first_name, true );
+				add_term_meta( $results['term_id'], 'contributor_last_name', $user->last_name, true );
 			}
 			if ( is_array( $results ) ) {
 				return $results;
