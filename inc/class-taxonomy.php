@@ -33,7 +33,7 @@ class Taxonomy {
 	/**
 	 * @var Contributors
 	 */
-	private $contributor;
+	private $contributors;
 
 	/**
 	 * @return Taxonomy
@@ -55,8 +55,8 @@ class Taxonomy {
 		if ( Book::isBook() ) {
 			add_action( 'init', [ $obj, 'registerTaxonomies' ] );
 			add_action( 'init', [ $obj, 'maybeUpgrade' ], 1000 );
-			add_action( 'user_register', [ $obj->contributor, 'addBlogUser' ] );
-			add_action( 'profile_update', [ $obj->contributor, 'updateBlogUser' ], 10, 2 );
+			add_action( 'user_register', [ $obj->contributors, 'addBlogUser' ] );
+			add_action( 'profile_update', [ $obj->contributors, 'updateBlogUser' ], 10, 2 );
 			add_action( 'added_post_meta', [ $obj, 'upgradeToContributorTaxonomy' ], 10, 4 );
 			add_action( 'updated_postmeta', [ $obj, 'upgradeToContributorTaxonomy' ], 10, 4 );
 		}
@@ -64,11 +64,11 @@ class Taxonomy {
 
 	/**
 	 * @param Licensing $licensing
-	 * @param Contributors $contributor
+	 * @param Contributors $contributors
 	 */
-	public function __construct( $licensing, $contributor ) {
+	public function __construct( $licensing, $contributors ) {
 		$this->licensing = $licensing;
-		$this->contributor = $contributor;
+		$this->contributors = $contributors;
 	}
 
 	/**
@@ -577,7 +577,7 @@ class Taxonomy {
 			}
 			$result = false;
 			foreach ( $meta_value as $mv ) {
-				$result = $this->contributor->insert( $mv, $post_id );
+				$result = $this->contributors->insert( $mv, $post_id );
 			}
 			if ( $result ) {
 				return $result;
