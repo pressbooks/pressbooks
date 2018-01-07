@@ -113,7 +113,7 @@ class HTMLBook extends Export {
 	 */
 	public function convert() {
 
-		// Get XHTML
+		// Get HTMLBook
 
 		$output = $this->transform( true );
 
@@ -121,7 +121,7 @@ class HTMLBook extends Export {
 			return false;
 		}
 
-		// Save XHTML as file in exports folder
+		// Save HTMLBook as file in exports folder
 
 		$filename = $this->timestampedFileName( '-htmlbook.html' );
 		\Pressbooks\Utility\put_contents( $filename, $output );
@@ -149,7 +149,7 @@ class HTMLBook extends Export {
 
 
 	/**
-	 * Procedure for "format/xhtml" rewrite rule.
+	 * Procedure for "format/htmlbook" rewrite rule.
 	 *
 	 * Supported http params:
 	 *
@@ -193,7 +193,7 @@ class HTMLBook extends Export {
 		}
 
 		// ------------------------------------------------------------------------------------------------------------
-		// XHTML, Start!
+		// HTMLBook, Start!
 
 		$metadata = \Pressbooks\Book::getBookInformation();
 		$book_contents = $this->preProcessBookContents( \Pressbooks\Book::getBookContents() );
@@ -558,7 +558,7 @@ class HTMLBook extends Export {
 	 */
 	protected function tidy( $html ) {
 
-		// Make XHTML 1.1 strict using htmlLawed
+		// HTML5
 
 		$config = [
 			'no_deprecated_attr' => 2,
@@ -840,7 +840,7 @@ class HTMLBook extends Export {
 					]
 				);
 				if ( ! $show_title ) {
-					$h1->setAttributes(
+					$h1->appendAttributes(
 						[
 							'class' => 'display-none',
 						]
@@ -856,7 +856,7 @@ class HTMLBook extends Export {
 					]
 				);
 				if ( ! $show_title ) {
-					$p->setAttributes(
+					$p->appendAttributes(
 						[
 							'class' => 'display-none',
 						]
