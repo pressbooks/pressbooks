@@ -110,6 +110,11 @@ class Element {
 	];
 
 	/**
+	 * @var \Pressbooks\HtmLawed
+	 */
+	protected $tidy;
+
+	/**
 	 * @var string
 	 */
 	protected $tag;
@@ -149,6 +154,13 @@ class Element {
 	}
 
 	/**
+	 * @param bool $tidy
+	 */
+	public function setTidy( bool $tidy, $obj = null ) {
+		$this->tidy = $tidy;
+	}
+
+	/**
 	 * @return string
 	 */
 	public function getTag() {
@@ -167,6 +179,13 @@ class Element {
 	 */
 	public function getDataType() {
 		return $this->dataType;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getSupportedDataTypes() {
+		return $this->dataTypes;
 	}
 
 	/**
@@ -199,7 +218,17 @@ class Element {
 	 * @param mixed $attribute
 	 */
 	public function appendAttribute( $attribute ) {
-		$this->attributes[] = $attribute;
+		if ( is_array( $attribute ) ) {
+			foreach ( $attribute as $k => $v ) {
+				if ( isset( $this->attributes[ $k ] ) ) {
+					$this->attributes[ $k ] .= " $v";
+				} else {
+					$this->attributes[ $k ] = $v;
+				}
+			}
+		} else {
+			$this->attributes[] = $attribute;
+		}
 	}
 
 	/**
@@ -210,11 +239,14 @@ class Element {
 	}
 
 	/**
-	 * @param array $content
+	 * @param mixed $content
 	 *
 	 * @throws \LogicException
 	 */
-	public function setContent( array $content ) {
+	public function setContent( $content ) {
+		if ( ! is_array( $content ) ) {
+			$content = [ $content ];
+		}
 		foreach ( $content as $v ) {
 			if ( $this === $v ) {
 				throw new \LogicException( 'Recursion problem: cannot set self as content to self' );
@@ -361,9 +393,20 @@ class Element {
 		} else {
 			$html .= '>';
 		}
+
+		$inner_html = '';
 		foreach ( $this->content as $content ) {
-			$html .= (string) $content;
+			$inner_html .= (string) $content;
 		}
+		if ( $this->tidy ) {
+			$inner_html = \Pressbooks\HtmLawed::filter(
+				$inner_html, [
+					'tidy' => 5,
+				]
+			);
+		}
+		$html .= $inner_html;
+
 		$html .= "</{$this->tag}>";
 
 		return $html;

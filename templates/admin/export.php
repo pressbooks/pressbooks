@@ -87,6 +87,12 @@ if ( false == get_site_transient( 'pb_odt_compatible' ) && false == \Pressbooks\
 	set_site_transient( 'pb_odt_compatible', true );
 }
 
+if ( false == get_site_transient( 'pb_htmlbook_compatible' ) && false == \Pressbooks\Modules\Export\HTMLBook\HTMLBook::hasDependencies() ) {
+	$dependency_errors['htmlbook'] = 'HTMLBook';
+} else {
+	set_site_transient( 'pb_htmlbook_compatible', true );
+}
+
 if ( $dependency_errors ) {
 	/**
 	 * Filter the array of dependency errors, remove unwanted formats.
@@ -169,6 +175,7 @@ $formats = apply_filters( 'pb_export_formats', [
 		'mobi' => __( 'MOBI (for Kindle)', 'pressbooks' ),
 	],
 	'exotic' => [
+		'htmlbook' => __( 'HTMLBook', 'pressbooks' ),
 		'epub3' => __( 'EPUB 3 (beta)', 'pressbooks' ),
 		'xhtml' => __( 'XHTML', 'pressbooks' ),
 		'odt' => __( 'OpenDocument (beta)', 'pressbooks' ),

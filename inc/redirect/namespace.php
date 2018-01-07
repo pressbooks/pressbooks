@@ -152,6 +152,14 @@ function do_format() {
 		exit;
 	}
 
+	if ( 'htmlbook' === $format ) {
+
+		$args = [];
+		$foo = new \Pressbooks\Modules\Export\HTMLBook\HTMLBook( $args );
+		$foo->transform();
+		exit;
+	}
+
 	wp_die( __( 'Error: Unknown export format.', 'pressbooks' ) );
 }
 

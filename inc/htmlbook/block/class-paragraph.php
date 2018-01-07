@@ -22,4 +22,11 @@ class Paragraph extends Element {
 	 */
 	protected $tag = 'p';
 
+	/**
+	 * @var array
+	 */
+	protected $dataTypes = [
+		'subtitle',
+		'author',
+	];
 }
