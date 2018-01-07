@@ -2,7 +2,7 @@
 
 use Pressbooks\Contributors;
 
-class ContributorTest extends \WP_UnitTestCase {
+class ContributorsTest extends \WP_UnitTestCase {
 
 	use utilsTrait;
 

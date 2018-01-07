@@ -100,18 +100,7 @@ class Contributors {
 			}
 		}
 
-		// Comma separated, Oxford comma, localized and between the last two items
-		if ( count( $contributors ) === 2 ) {
-			return $contributors[0] . ' ' . __( 'and', 'pressbooks' ) . ' ' . $contributors[1];
-		} else {
-			$last = array_pop( $contributors );
-			$output = implode( ', ', $contributors );
-			if ( $output ) {
-				$output .= ', ' . __( 'and', 'pressbooks' ) . ' ';
-			}
-			$output .= $last;
-			return $output;
-		}
+		return \Pressbooks\Utility\oxford_comma( $contributors );
 	}
 
 	/**
