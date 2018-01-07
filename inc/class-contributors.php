@@ -136,8 +136,9 @@ class Contributors {
 
 	/**
 	 * Associate a Contributor's Term ID to a Post ID (Taxonomy + Meta)
+	 * Technically we are assigning the Term Slug to the Post ID. This function handles either.
 	 *
-	 * @param int $term_id
+	 * @param int|string $term_id
 	 * @param int $post_id
 	 * @param string $contributor_type
 	 *
@@ -148,7 +149,11 @@ class Contributors {
 			$contributor_type = 'pb_' . $contributor_type;
 		}
 		if ( in_array( $contributor_type, $this->valid, true ) ) {
-			$term = get_term( $term_id, 'contributor' );
+			if ( preg_match( '/\d+/', $term_id ) ) {
+				$term = get_term( $term_id, 'contributor' ); // Get slug by Term ID
+			} else {
+				$term = get_term_by( 'slug', $term_id, 'contributor' ); // Verify that slug is valid
+			}
 			if ( $term && ! is_wp_error( $term ) ) {
 				return is_int( add_post_meta( $post_id, $contributor_type, $term->slug ) );
 			}
