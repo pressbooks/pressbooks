@@ -93,8 +93,9 @@ class HTMLBookElementTest extends \WP_UnitTestCase {
 
 		$e = new \Pressbooks\HTMLBook\Block\DefinitionLists();
 		$e->appendContent( 'Hi!' );
+		$e->setAttributes( [ 'class' => 'foobar' ] );
 		$this->assertEquals( $e->getTag(), 'dl' );
-		$this->assertEquals( '<dl>Hi!</dl>', $e->render() );
+		$this->assertEquals( '<dl class="foobar">Hi!</dl>', $e->render() );
 
 		$e = new \Pressbooks\HTMLBook\Block\Equation();
 		$e->appendContent( 'Hi!' );

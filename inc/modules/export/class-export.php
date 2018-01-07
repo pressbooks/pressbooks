@@ -400,7 +400,6 @@ abstract class Export {
 	 * @param string $section_author (deprecated)
 	 *
 	 * @return string $html blob
-	 * @throws \Exception
 	 */
 	protected function doCopyrightLicense( $metadata, $title = '', $id = 0, $section_author = '' ) {
 
@@ -599,6 +598,9 @@ abstract class Export {
 			}
 			if ( isset( $x['odt'] ) ) {
 				$modules[] = '\Pressbooks\Modules\Export\Odt\Odt';
+			}
+			if ( isset( $x['htmlbook'] ) ) {
+				$modules[] = '\Pressbooks\Modules\Export\HTMLBook\HTMLBook';
 			}
 
 			// --------------------------------------------------------------------------------------------------------
