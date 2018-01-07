@@ -403,7 +403,7 @@ class Wxr extends Import {
 		if ( 'metadata' === $post_type ) {
 			$this->importMetaBoxes( $pid, $p );
 		} else {
-			$meta_to_update = apply_filters( 'pb_import_metakeys', [ 'pb_section_author', 'pb_section_license', 'pb_short_title', 'pb_subtitle', 'pb_show_title', 'pb_export' ] );
+			$meta_to_update = apply_filters( 'pb_import_metakeys', [ 'pb_section_author', 'pb_section_license', 'pb_short_title', 'pb_subtitle', 'pb_show_title' ] );
 			foreach ( $meta_to_update as $meta_key ) {
 				$meta_val = $this->searchForMetaValue( $meta_key, $p['postmeta'] );
 				if ( is_serialized( $meta_val ) ) {

@@ -248,7 +248,7 @@ abstract class Import {
 		if ( ! empty( $_GET['import'] ) && isset( $_POST['chapters'] ) && is_array( $_POST['chapters'] ) && is_array( $current_import ) && isset( $current_import['file'] ) && check_admin_referer( 'pb-import' ) ) {
 
 			// Set post status
-			$current_import['default_post_status'] = ( isset( $_POST['import_as_drafts'] ) ) ? 'draft' : 'publish';
+			$current_import['default_post_status'] = ( isset( $_POST['import_as_drafts'] ) ) ? 'export-only' : 'publish';
 
 			// --------------------------------------------------------------------------------------------------------
 			// Do Import

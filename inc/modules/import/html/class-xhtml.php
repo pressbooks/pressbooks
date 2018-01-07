@@ -124,7 +124,6 @@ class Xhtml extends Import {
 		}
 
 		update_post_meta( $pid, 'pb_show_title', 'on' );
-		update_post_meta( $pid, 'pb_export', 'on' );
 
 		Book::consolidatePost( $pid, get_post( $pid ) ); // Reorder
 	}
