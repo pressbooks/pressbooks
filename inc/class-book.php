@@ -1074,8 +1074,9 @@ class Book {
 		} else {
 			// Export mode
 			global $wpdb;
-			foreach ( $wpdb->get_results( $wpdb->prepare( "SELECT post_id, meta_value FROM {$wpdb->postmeta} WHERE meta_key = %s", 'pb_export' ), ARRAY_A ) as $val ) {
-				$post_ids_to_export[ $val['post_id'] ] = $val['meta_value'];
+			$sql_args = [ 'export-only', 'publish', 'front-matter', 'part', 'chapter', 'back-matter' ];
+			foreach ( $wpdb->get_results( $wpdb->prepare( "SELECT ID FROM {$wpdb->posts} WHERE post_status IN (%s, %s) AND post_type IN (%s, %s, %s, %s)", $sql_args ), ARRAY_A ) as $val ) {
+				$post_ids_to_export[ $val['ID'] ] = 'on';
 			}
 		}
 
