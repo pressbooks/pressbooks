@@ -5,10 +5,37 @@ class MetadataTest extends \WP_UnitTestCase {
 	use utilsTrait;
 
 	/**
+	 * @var \Pressbooks\Metadata
+	 */
+	protected $metadata;
+
+	/**
+	 *
+	 */
+	public function setUp() {
+		parent::setUp();
+
+		$stub1 = $this
+			->getMockBuilder( '\Pressbooks\Licensing' )
+			->getMock();
+
+		$stub2 = $this
+			->getMockBuilder( '\Pressbooks\Contributors' )
+			->getMock();
+
+		$stub3 = $this
+			->getMockBuilder( '\Pressbooks\Taxonomy' )
+			->setConstructorArgs( [ $stub1, $stub2 ] )
+			->getMock();
+
+		$this->metadata = new \Pressbooks\Metadata( $stub3 );
+	}
+
+	/**
 	 * @see \Pressbooks\Metadata::jsonSerialize
 	 */
 	public function test_Metadata_JsonSerialize() {
-		$result = json_encode( new \Pressbooks\Metadata() );
+		$result = json_encode( $this->metadata );
 		$this->assertJson( $result );
 		$this->assertContains( '{"@context":"http:\/\/schema.org","@type":"Book","name":"Test Blog",', $result );
 
@@ -38,7 +65,7 @@ class MetadataTest extends \WP_UnitTestCase {
 		$book = \Pressbooks\Book::getInstance();
 
 		$this->_book();
-		$meta_post = ( new \Pressbooks\Metadata() )->getMetaPost();
+		$meta_post = $this->metadata->getMetaPost();
 
 		$result = \Pressbooks\Metadata\has_expanded_metadata();
 		$this->assertFalse( $result );
@@ -197,4 +224,25 @@ class MetadataTest extends \WP_UnitTestCase {
 		$result = \Pressbooks\Metadata\is_bisac( 'ANT123456' );
 		$this->assertTrue( $result );
 	}
+
+	public function test_postStatiiConversion() {
+		$val = $this->metadata->postStatiiConversion( 'wrong', 'wrong' );
+		$this->assertEquals( 'wrong', $val );
+
+		$val = $this->metadata->postStatiiConversion( 'does-not-exist', true );
+		$this->assertEquals( 'does-not-exist', $val );
+
+		$val = $this->metadata->postStatiiConversion( 'draft', true );
+		$this->assertEquals( 'export-only', $val );
+
+		$val = $this->metadata->postStatiiConversion( 'publish', true );
+		$this->assertEquals( 'publish', $val );
+
+		$val = $this->metadata->postStatiiConversion( 'draft', false );
+		$this->assertEquals( 'draft', $val );
+
+		$val = $this->metadata->postStatiiConversion( 'publish', false );
+		$this->assertEquals( 'web-only', $val );
+	}
+
 }

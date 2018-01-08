@@ -134,7 +134,6 @@ class Odt extends Import {
 		$pid = wp_insert_post( add_magic_quotes( $new_post ) );
 
 		update_post_meta( $pid, 'pb_show_title', 'on' );
-		update_post_meta( $pid, 'pb_export', 'on' );
 
 		Book::consolidatePost( $pid, get_post( $pid ) ); // Reorder
 	}

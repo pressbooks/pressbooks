@@ -18,7 +18,7 @@ class Metadata implements \JsonSerializable {
 	 * @see upgrade()
 	 * @var int
 	 */
-	const VERSION = 12;
+	const VERSION = 13;
 
 
 	/**
@@ -39,8 +39,17 @@ class Metadata implements \JsonSerializable {
 	 */
 	protected $taxonomy;
 
-	function __construct() {
-		$this->taxonomy = Taxonomy::init();
+	/**
+	 * TODO: Constructor params should not be optional. Refactor so that callers use Container, Init, ?
+	 *
+	 * @param Taxonomy $taxonomy
+	 */
+	public function __construct( $taxonomy = null ) {
+		if ( $taxonomy !== null ) {
+			$this->taxonomy = $taxonomy;
+		} else {
+			$this->taxonomy = Taxonomy::init();
+		}
 	}
 
 
@@ -49,7 +58,7 @@ class Metadata implements \JsonSerializable {
 	 *
 	 * @return \WP_Post|bool
 	 */
-	function getMetaPost() {
+	public function getMetaPost() {
 
 		$args = [
 			'post_type' => 'metadata',
@@ -76,7 +85,7 @@ class Metadata implements \JsonSerializable {
 	 *
 	 * @return array
 	 */
-	function getMetaPostMetadata() {
+	public function getMetaPostMetadata() {
 
 		$meta_post = $this->getMetaPost();
 
@@ -96,7 +105,7 @@ class Metadata implements \JsonSerializable {
 	 *
 	 * @return int|bool
 	 */
-	function getMidByKey( $post_id, $meta_key ) {
+	public function getMidByKey( $post_id, $meta_key ) {
 
 		/** @var \wpdb $wpdb */
 		global $wpdb;
@@ -135,7 +144,7 @@ class Metadata implements \JsonSerializable {
 	 *
 	 * @param int $version
 	 */
-	function upgrade( $version ) {
+	public function upgrade( $version ) {
 
 		if ( $version < 1 ) {
 			// Upgrade from version 0 (closed source service) to version 1 (initial open source offering)
@@ -168,13 +177,16 @@ class Metadata implements \JsonSerializable {
 		if ( $version < 12 ) {
 			Container::get( 'Styles' )->initPosts();
 		}
+		if ( $version < 13 ) {
+			$this->upgradeToPressbooksFive();
+		}
 	}
 
 
 	/**
 	 * Upgrade Ecommerce metadata
 	 */
-	function upgradeEcommerce() {
+	public function upgradeEcommerce() {
 
 		$options = get_option( 'ecomm-url' );
 		$compare = $this->getDeprecatedComparisonTable( 'ecommerce' );
@@ -197,7 +209,7 @@ class Metadata implements \JsonSerializable {
 	/**
 	 * Upgrade book information.
 	 */
-	function upgradeBookInformation() {
+	public function upgradeBookInformation() {
 
 		// Metadata
 
@@ -242,7 +254,7 @@ class Metadata implements \JsonSerializable {
 	/**
 	 * Upgrade book metadata.
 	 */
-	function upgradeBook() {
+	public function upgradeBook() {
 
 		$book_structure = Book::getBookStructure();
 		foreach ( $book_structure['__order'] as $post_id => $_ ) {
@@ -279,7 +291,7 @@ class Metadata implements \JsonSerializable {
 	 *
 	 * @return array
 	 */
-	function getDeprecatedComparisonTable( $table, $new_as_keys = false ) {
+	public function getDeprecatedComparisonTable( $table, $new_as_keys = false ) {
 		if ( 'chapter' === $table ) {
 			// Chapter
 			$metadata = [
@@ -365,7 +377,7 @@ class Metadata implements \JsonSerializable {
 	 *
 	 * @see \Pressbooks\Pressbooks::registerThemeDirectories
 	 */
-	function fixDoubleSlashBug() {
+	public function fixDoubleSlashBug() {
 
 		$theme = wp_get_theme();
 		if ( ! $theme->exists() || ! $theme->is_allowed() ) {
@@ -379,7 +391,7 @@ class Metadata implements \JsonSerializable {
 	/**
 	 * Change default book cover from PNG to JPG
 	 */
-	function changeDefaultBookCover() {
+	public function changeDefaultBookCover() {
 
 		$post = $this->getMetaPost();
 
@@ -396,7 +408,7 @@ class Metadata implements \JsonSerializable {
 	/**
 	 * Generate thumbnails for a user uploaded cover
 	 */
-	function makeThumbnailsForBookCover() {
+	public function makeThumbnailsForBookCover() {
 
 		$post = $this->getMetaPost();
 		if ( $post ) {
@@ -428,7 +440,7 @@ class Metadata implements \JsonSerializable {
 	/**
 	 * Fix broken landing page
 	 */
-	function resetLandingPage() {
+	public function resetLandingPage() {
 
 		/** @var $wpdb \wpdb */
 		global $wpdb;
@@ -450,7 +462,7 @@ class Metadata implements \JsonSerializable {
 	/**
 	 * Migrate part content to content editor
 	 */
-	function migratePartContentToEditor() {
+	public function migratePartContentToEditor() {
 
 		/** @var $wpdb \wpdb */
 		global $wpdb;
@@ -473,6 +485,65 @@ class Metadata implements \JsonSerializable {
 		}
 
 		Book::deleteBookObjectCache();
+	}
+
+	/**
+	 * @since 5.0.0
+	 */
+	public function upgradeToPressbooksFive() {
+		$contributor = new Contributors();
+		global $wpdb;
+		$sql = [ 'front-matter', 'part', 'chapter', 'back-matter' ];
+		$r1 = $wpdb->get_results( $wpdb->prepare( "SELECT ID, post_status FROM {$wpdb->posts} WHERE post_type IN (%s, %s, %s, %s)", $sql ), ARRAY_A );
+		foreach ( $r1 as $val ) {
+			$r2 = $wpdb->get_row( $wpdb->prepare( "SELECT meta_value FROM {$wpdb->postmeta} WHERE meta_key = %s AND post_id = %d", 'pb_export', $val['ID'] ), ARRAY_A );
+			$status = $val['post_status'];
+			$pb_export = ( isset( $r2['meta_value'] ) && $r2['meta_value'] === 'on' );
+			$new_status = $this->postStatiiConversion( $status, $pb_export );
+			wp_update_post( [
+				'ID' => $val['ID'],
+				'post_status' => $new_status,
+			] );
+			$contributor->getAll( $val['ID'] ); // Should trigger contributor upgrade
+		}
+		$contributor->getAll( $this->getMetaPost()->ID ); // Should trigger contributor upgrade
+	}
+
+	/**
+	 * @since 5.0.0
+	 *
+	 * @param string $status
+	 * @param bool $pb_export
+	 *
+	 * @return string
+	 */
+	public function postStatiiConversion( $status, $pb_export ) {
+
+		if ( ! is_bool( $pb_export ) ) {
+			return $status; // Doing it wrong...
+		}
+
+		if ( $pb_export ) {
+			// When pb_export = true and post_status = draft, new post_status = export_only
+			if ( $status === 'draft' ) {
+				return 'export-only';
+			}
+			// When pb_export = true and post_status = publish, new post_status = publish
+			if ( $status === 'publish' ) {
+				return 'publish';
+			}
+		} else {
+			// When pb_export = false and post_status = draft, new post_status = draft
+			if ( $status === 'draft' ) {
+				return 'draft';
+			}
+			// When pb_export = false and post_status = publish, new post_status = web_only
+			if ( $status === 'publish' ) {
+				return 'web-only';
+			}
+		}
+
+		return $status; // No change
 	}
 
 }

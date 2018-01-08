@@ -24,18 +24,15 @@ trait utilsTrait {
 			}
 			if ( $key === 'part' ) {
 				foreach ( $section as $part ) {
-					wp_update_post(
-						[
-							'ID' => $part['ID'],
-							'post_content' => 'Part content...',
-						]
-					);
+					wp_update_post( [ 'ID' => $part['ID'], 'post_content' => 'Part content...', 'post_status' => 'publish' ] );
 					if ( $pid ) {
 						wp_update_post( [ 'ID' => $pid, 'post_parent' => $part['ID'] ] );
+						wp_update_post( [ 'ID' => $pid, 'post_status' => 'publish' ] );
 						$pid = false;
 					}
 					foreach ( $part['chapters'] as $val ) {
 						update_post_meta( $val['ID'], 'pb_export', 'on' );
+						wp_update_post( [ 'ID' => $val['ID'], 'post_status' => 'publish' ] );
 					}
 				}
 			}

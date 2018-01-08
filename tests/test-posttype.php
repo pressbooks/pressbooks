@@ -6,7 +6,8 @@ use function \Pressbooks\PostType\{
 	register_meta,
 	register_post_statii,
 	add_post_types_rss,
-	add_posttypes_to_hypothesis
+	add_posttypes_to_hypothesis,
+	can_export
 };
 
 class PostTypeTest extends \WP_UnitTestCase {
@@ -74,6 +75,25 @@ class PostTypeTest extends \WP_UnitTestCase {
 		$this->assertEquals( false, in_array( 'posts', $posttypes ) );
 		$this->assertTrue( array_key_exists( 'chapter', $posttypes ) );
 		$this->assertEquals( 'chapters', $posttypes['chapter'] );
+	}
+
+	function test_can_export() {
+		\Pressbooks\PostType\register_post_statii();
+		$pid = $this->factory()->post->create();
+
+		$this->assertTrue( is_bool( can_export() ) );
+		wp_update_post( [ 'ID' => $pid, 'post_status' => 'draft' ] );
+		$this->assertFalse( can_export( $pid ) );
+		update_post_meta( $pid, 'pb_export', 'on' );
+		$this->assertTrue( can_export( $pid ) );
+		delete_post_meta( $pid, 'pb_export' );
+		$this->assertFalse( can_export( $pid ) );
+		wp_update_post( [ 'ID' => $pid, 'post_status' => 'publish' ] );
+		$this->assertTrue( can_export( $pid ) );
+		wp_update_post( [ 'ID' => $pid, 'post_status' => 'export-only' ] );
+		$this->assertTrue( can_export( $pid ) );
+		wp_update_post( [ 'ID' => $pid, 'post_status' => 'web-only' ] );
+		$this->assertFalse( can_export( $pid ) );
 	}
 
 }

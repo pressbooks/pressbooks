@@ -136,6 +136,10 @@ class Activation {
 					}
 				}
 			);
+
+			// Add initial contributor
+			( new Contributors() )->addBlogUser( $user_id );
+
 			wp_cache_flush();
 		}
 

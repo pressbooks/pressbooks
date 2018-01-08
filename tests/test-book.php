@@ -46,6 +46,7 @@ class BookTest extends \WP_UnitTestCase {
 		// Returns cached export value, with $blog_id as param
 		global $blog_id;
 		delete_post_meta( $page['ID'], 'pb_export' );
+		wp_update_post( [ 'ID' => $page['ID'], 'post_status' => 'draft' ] );
 		$structure = $book::getBookStructure( $blog_id );
 		$this->assertTrue( count( $structure['__orphans'] ) === 1 );
 		$vals = array_values( $structure['__orphans'] );
@@ -54,6 +55,7 @@ class BookTest extends \WP_UnitTestCase {
 
 		// Returns latest export value no cache
 		delete_post_meta( $page['ID'], 'pb_export' );
+		wp_update_post( [ 'ID' => $page['ID'], 'post_status' => 'draft' ] );
 		$book::deleteBookObjectCache();
 		$structure = $book::getBookStructure();
 		$this->assertTrue( count( $structure['__orphans'] ) === 1 );
@@ -81,6 +83,7 @@ class BookTest extends \WP_UnitTestCase {
 
 		// Returns cached export value
 		delete_post_meta( $page['ID'], 'pb_export' );
+		wp_update_post( [ 'ID' => $page['ID'], 'post_status' => 'draft' ] );
 		$contents = $book::getBookContents();
 		$this->assertTrue( count( $contents['__orphans'] ) === 1 );
 		$vals = array_values( $contents['__orphans'] );
@@ -89,6 +92,7 @@ class BookTest extends \WP_UnitTestCase {
 
 		// Returns latest export value no cache
 		delete_post_meta( $page['ID'], 'pb_export' );
+		wp_update_post( [ 'ID' => $page['ID'], 'post_status' => 'draft' ] );
 		$book::deleteBookObjectCache();
 		$contents = $book::getBookContents();
 		$this->assertTrue( count( $contents['__orphans'] ) === 1 );

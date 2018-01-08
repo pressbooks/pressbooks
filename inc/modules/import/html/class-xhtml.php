@@ -49,7 +49,7 @@ class Xhtml extends Import {
 
 		$url = wp_parse_url( $current_import['file'] );
 		// get parent directory (with forward slash e.g. /parent)
-		$path = dirname( $url['path'] );
+		$path = isset( $url['path'] ) ? dirname( $url['path'] ) : '/';
 
 		$domain = $url['scheme'] . '://' . $url['host'] . $path;
 
@@ -124,7 +124,6 @@ class Xhtml extends Import {
 		}
 
 		update_post_meta( $pid, 'pb_show_title', 'on' );
-		update_post_meta( $pid, 'pb_export', 'on' );
 
 		Book::consolidatePost( $pid, get_post( $pid ) ); // Reorder
 	}

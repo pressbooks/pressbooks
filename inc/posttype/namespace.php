@@ -316,3 +316,35 @@ function add_posttypes_to_hypothesis( $posttypes ) {
 
 	return $posttypes;
 }
+
+/**
+ * @since 5.0.0
+ *
+ * @param int $post_id
+ *
+ * @return bool
+ */
+function can_export( $post_id = 0 ) {
+
+	if ( ! $post_id ) {
+		$post_id = get_the_ID();
+		if ( ! $post_id ) {
+			// Try to find using deprecated means
+			global $id;
+			$post = get_post( $id );
+			if ( ! $post ) {
+				return false;
+			} else {
+				$post_id = $post->ID;
+			}
+		}
+	}
+
+	// Look if info exist in post status (new data model)
+	if ( in_array( get_post_status( $post_id ), [ 'export-only', 'publish' ], true ) ) {
+		return true;
+	} else {
+		// Look if info exist in post meta (old data model)
+		return ( get_post_meta( $post_id, 'pb_export', true ) === 'on' );
+	}
+}

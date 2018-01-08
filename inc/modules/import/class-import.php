@@ -248,7 +248,7 @@ abstract class Import {
 		if ( ! empty( $_GET['import'] ) && isset( $_POST['chapters'] ) && is_array( $_POST['chapters'] ) && is_array( $current_import ) && isset( $current_import['file'] ) && check_admin_referer( 'pb-import' ) ) {
 
 			// Set post status
-			$current_import['default_post_status'] = ( isset( $_POST['import_as_drafts'] ) ) ? 'draft' : 'publish';
+			$current_import['default_post_status'] = ( isset( $_POST['import_as_drafts'] ) ) ? 'export-only' : 'publish';
 
 			// --------------------------------------------------------------------------------------------------------
 			// Do Import
@@ -304,7 +304,7 @@ abstract class Import {
 
 			if ( $ok ) {
 				// Success! Redirect to organize page
-				$success_url = get_admin_url( get_current_blog_id(), '/admin.php?page=pressbooks' );
+				$success_url = get_admin_url( get_current_blog_id(), '/admin.php?page=pb_organize' );
 				\Pressbooks\Redirect\location( $success_url );
 			}
 		} elseif ( isset( $_GET['import'] ) && ! empty( $_FILES['import_file']['name'] ) && isset( $_POST['type_of'] ) && check_admin_referer( 'pb-import' ) ) {
