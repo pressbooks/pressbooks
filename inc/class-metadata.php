@@ -492,21 +492,28 @@ class Metadata implements \JsonSerializable {
 	 */
 	public function upgradeToPressbooksFive() {
 		$contributor = new Contributors();
+		// Get all posts in a book
 		global $wpdb;
 		$sql = [ 'front-matter', 'part', 'chapter', 'back-matter' ];
 		$r1 = $wpdb->get_results( $wpdb->prepare( "SELECT ID, post_status FROM {$wpdb->posts} WHERE post_type IN (%s, %s, %s, %s)", $sql ), ARRAY_A );
 		foreach ( $r1 as $val ) {
+			// Get pb_export for single post in a book
 			$r2 = $wpdb->get_row( $wpdb->prepare( "SELECT meta_value FROM {$wpdb->postmeta} WHERE meta_key = %s AND post_id = %d", 'pb_export', $val['ID'] ), ARRAY_A );
 			$status = $val['post_status'];
 			$pb_export = ( isset( $r2['meta_value'] ) && $r2['meta_value'] === 'on' );
 			$new_status = $this->postStatiiConversion( $status, $pb_export );
-			wp_update_post( [
-				'ID' => $val['ID'],
-				'post_status' => $new_status,
-			] );
-			$contributor->getAll( $val['ID'] ); // Should trigger contributor upgrade
+			if ( ! $new_status !== $status ) {
+				// Update post_status
+				wp_update_post(
+					[
+						'ID' => $val['ID'],
+						'post_status' => $new_status,
+					]
+				);
+			}
+			$contributor->getAll( $val['ID'] ); // Triggers contributor upgrade
 		}
-		$contributor->getAll( $this->getMetaPost()->ID ); // Should trigger contributor upgrade
+		$contributor->getAll( $this->getMetaPost()->ID ); // Triggers contributor upgrade
 	}
 
 	/**
@@ -524,7 +531,7 @@ class Metadata implements \JsonSerializable {
 		}
 
 		if ( $pb_export ) {
-			// When pb_export = true and post_status = draft, new post_status = export_only
+			// When pb_export = true and post_status = draft, new post_status = export-only
 			if ( $status === 'draft' ) {
 				return 'export-only';
 			}
@@ -537,7 +544,7 @@ class Metadata implements \JsonSerializable {
 			if ( $status === 'draft' ) {
 				return 'draft';
 			}
-			// When pb_export = false and post_status = publish, new post_status = web_only
+			// When pb_export = false and post_status = publish, new post_status = web-only
 			if ( $status === 'publish' ) {
 				return 'web-only';
 			}
