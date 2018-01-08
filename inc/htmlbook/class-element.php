@@ -399,11 +399,7 @@ class Element {
 			$inner_html .= (string) $content;
 		}
 		if ( $this->tidy ) {
-			$inner_html = \Pressbooks\HtmLawed::filter(
-				$inner_html, [
-					'tidy' => 5,
-				]
-			);
+			$inner_html = \Pressbooks\Sanitize\prettify( $inner_html );
 		}
 		$html .= $inner_html;
 

@@ -535,3 +535,22 @@ function cleanup_css( $css ) {
 
 	return $css;
 }
+
+/**
+ * Prettify HTML
+ *
+ * @param $html
+ *
+ * @return string
+ */
+function prettify( $html ) {
+
+	// Simplest, allowing all valid HTML markup except uncommon URL schemes like 'whatsapp:', and prettying-up the HTML
+
+	$config = [
+		'tidy' => 5,
+		'unique_ids' => 0,
+	];
+
+	return \Pressbooks\HtmLawed::filter( $html, $config );
+}
