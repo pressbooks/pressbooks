@@ -97,4 +97,10 @@ class L10nTest extends \WP_UnitTestCase {
 
 	}
 
+	public function test_get_book_language() {
+		$lang = \Pressbooks\L10n\get_book_language();
+		$this->assertNotEmpty( $lang );
+		$this->assertTrue( is_string( $lang ) );
+	}
+
 }

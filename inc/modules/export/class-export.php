@@ -756,11 +756,8 @@ abstract class Export {
 		if ( '__UNSET__' === $loc && function_exists( 'get_available_languages' ) ) {
 
 			$compare_with = get_available_languages( PB_PLUGIN_DIR . '/languages/' );
-
 			$codes = \Pressbooks\L10n\wplang_codes();
-			$metadata = Book::getBookInformation();
-			$book_lang = ( ! empty( $metadata['pb_language'] ) ) ? $metadata['pb_language'] : 'en';
-			$book_lang = $codes[ $book_lang ];
+			$book_lang = $codes[ \Pressbooks\L10n\get_book_language() ];
 
 			foreach ( $compare_with as $compare ) {
 				$compare = str_replace( 'pressbooks-', '', $compare );

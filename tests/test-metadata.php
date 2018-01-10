@@ -14,21 +14,7 @@ class MetadataTest extends \WP_UnitTestCase {
 	 */
 	public function setUp() {
 		parent::setUp();
-
-		$stub1 = $this
-			->getMockBuilder( '\Pressbooks\Licensing' )
-			->getMock();
-
-		$stub2 = $this
-			->getMockBuilder( '\Pressbooks\Contributors' )
-			->getMock();
-
-		$stub3 = $this
-			->getMockBuilder( '\Pressbooks\Taxonomy' )
-			->setConstructorArgs( [ $stub1, $stub2 ] )
-			->getMock();
-
-		$this->metadata = new \Pressbooks\Metadata( $stub3 );
+		$this->metadata = new \Pressbooks\Metadata();
 	}
 
 	/**
