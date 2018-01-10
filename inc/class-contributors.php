@@ -36,6 +36,7 @@ class Contributors {
 		'pb_editor',
 		'pb_translator',
 		'pb_contributing_authors',
+		'pb_author_file_as',
 	];
 
 	public function __construct() {
