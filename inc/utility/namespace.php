@@ -1035,6 +1035,21 @@ function str_ends_with( $haystack, $needle ) {
 }
 
 /**
+ * Remove a string from the beginning of a string
+ *
+ * @param $haystack
+ * @param $prefix
+ *
+ * @return bool|string
+ */
+function str_remove_prefix( $haystack, $prefix ) {
+	if ( substr( $haystack, 0, strlen( $prefix ) ) === $prefix ) {
+		$haystack = substr( $haystack, strlen( $prefix ) );
+	}
+	return $haystack;
+}
+
+/**
  * Replace last occurrence of a String
  *
  * @param string $search
@@ -1265,4 +1280,34 @@ function oxford_comma( array $vars ) {
 		$output .= $last;
 		return $output;
 	}
+}
+
+/**
+ * Explode an oxford comma seperated list of items
+ *
+ * @param $string
+ *
+ * @return array
+ */
+function oxford_comma_explode( $string ) {
+	$results = [];
+	if ( strpos( $string, ',' ) !== false ) {
+		$items = explode( ',', $string );
+		foreach ( $items as $item ) {
+			$item = trim( $item );
+			$item = str_remove_prefix( $item, __( 'and', 'pressbooks' ) . ' ' );
+			if ( ! empty( $item ) ) {
+				$results[] = $item;
+			}
+		}
+	} else {
+		$items = explode( ' ' . __( 'and', 'pressbooks' ) . ' ', $string );
+		foreach ( $items as $item ) {
+			$item = trim( $item );
+			if ( ! empty( $item ) ) {
+				$results[] = $item;
+			}
+		}
+	}
+	return $results;
 }

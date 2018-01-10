@@ -554,7 +554,9 @@ class Taxonomy {
 	}
 
 	/**
-	 * Upgrade to new Contributor Data Model
+	 * Upgrade to Pressbooks Five Contributor Data Model
+	 *
+	 * @since 5.0.0
 	 *
 	 * @param int $meta_id ID of updated metadata entry.
 	 * @param int $post_id Post ID.

@@ -354,6 +354,18 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertTrue( \Pressbooks\Utility\str_ends_with( 's0.wp.com', 'wp.com' ) );
 	}
 
+	public function test_str_remove_prefix() {
+
+		$result = \Pressbooks\Utility\str_remove_prefix( 'foo foo foo bar', 'foo'  );
+		$this->assertEquals( ' foo foo bar', $result );
+
+		$result = \Pressbooks\Utility\str_remove_prefix( 'foo foo foo bar', 'foo ' );
+		$this->assertEquals( 'foo foo bar', $result );
+
+		$result = \Pressbooks\Utility\str_remove_prefix( 'foo foo foo bar', 'FOO ' );
+		$this->assertEquals( 'foo foo foo bar', $result );
+	}
+
 	public function test_str_lreplace() {
 
 		$result = \Pressbooks\Utility\str_lreplace( 'foo', 'bar', 'foo foo foo bar' );
@@ -448,6 +460,13 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'One Person, Two People, and Three People', \Pressbooks\Utility\oxford_comma( $vars ) );
 		$vars[] = 'Four People';
 		$this->assertEquals( 'One Person, Two People, Three People, and Four People', \Pressbooks\Utility\oxford_comma( $vars ) );
+	}
+
+	public function test_oxford_comma_explode() {
+		$this->assertEmpty( \Pressbooks\Utility\oxford_comma_explode( '' ) );
+		$this->assertEquals( [ 'One Person', 'Two People' ], \Pressbooks\Utility\oxford_comma_explode( 'One Person and Two People' ) );
+		$this->assertEquals( [ 'One Person', 'Two People', 'Three People', 'Four People' ], \Pressbooks\Utility\oxford_comma_explode( 'One Person, Two People, Three People, and Four People' ) );
+		$this->assertEquals( [ 'andy', 'andrew', 'andrea', 'android' ], \Pressbooks\Utility\oxford_comma_explode( 'andy,andrew, andrea,  android' ) );
 	}
 
 }

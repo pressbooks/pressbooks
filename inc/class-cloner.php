@@ -16,6 +16,7 @@ use function Pressbooks\Image\strip_baseurl;
 use function Pressbooks\Metadata\schema_to_book_information;
 use function Pressbooks\Metadata\schema_to_section_information;
 use function \Pressbooks\Utility\getset;
+use function Pressbooks\Utility\oxford_comma_explode;
 
 class Cloner {
 	/**
@@ -597,14 +598,17 @@ class Cloner {
 	 * @return bool | int False if the creation failed; the ID of the new book's book information post if it succeeded.
 	 */
 	protected function cloneMetadata() {
-		$metadata_id = ( new Metadata )->getMetaPost()->ID;
+		$metadata_post_id = ( new Metadata )->getMetaPost()->ID;
 
-		if ( ! $metadata_id ) {
+		if ( ! $metadata_post_id ) {
 			return false;
 		}
 
+		$contributors = new Contributors();
 		$book_information = schema_to_book_information( $this->sourceBookMetadata );
 		$book_information['pb_is_based_on'] = $this->sourceBookUrl;
+
+		// Cover image
 		if ( strpos( $book_information['pb_cover_image'], 'plugins/pressbooks/assets/dist/images/default-book-cover.jpg' ) === false ) {
 			$new_cover_id = $this->fetchAndSaveUniqueImage( $book_information['pb_cover_image'] );
 			if ( $new_cover_id ) {
@@ -616,20 +620,25 @@ class Cloner {
 			$book_information['pb_cover_image'] = default_cover_url();
 		}
 
-		$array_values = [ 'pb_keywords_tags', 'pb_bisac_subject', 'pb_contributing_authors', 'pb_editor', 'pb_translator' ];
-
+		// Everything else
+		$metadata_array_values = [ 'pb_keywords_tags', 'pb_bisac_subject' ];
 		foreach ( $book_information as $key => $value ) {
-			if ( in_array( $key, $array_values, true ) ) {
+			if ( $contributors->isValid( $key ) ) {
+				$values = oxford_comma_explode( $value );
+				foreach ( $values as $v ) {
+					$contributors->insert( $v, $metadata_post_id, $key );
+				}
+			} elseif ( in_array( $key, $metadata_array_values, true ) ) {
 				$values = explode( ', ', $value );
 				foreach ( $values as $v ) {
-					add_post_meta( $metadata_id, $key, $v );
+					add_post_meta( $metadata_post_id, $key, $v );
 				}
 			} else {
-				update_post_meta( $metadata_id, $key, $value );
+				update_post_meta( $metadata_post_id, $key, $value );
 			}
 		}
 
-		return $metadata_id;
+		return $metadata_post_id;
 	}
 
 	/**

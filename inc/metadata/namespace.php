@@ -4,7 +4,8 @@ namespace Pressbooks\Metadata;
 
 use Pressbooks\Book;
 use Pressbooks\Licensing;
-use Pressbooks\Sanitize;
+use function \Pressbooks\Utility\oxford_comma;
+use function \Pressbooks\Utility\oxford_comma_explode;
 
 /**
  * Returns an html blob of meta elements based on what is set in 'Book Information'
@@ -267,8 +268,8 @@ function book_information_to_schema( $book_information ) {
 			}
 		}
 
-		if ( isset( $book_information['pb_translator'] ) ) {
-			$translators = explode( ', ', $book_information['pb_translator'] );
+		if ( isset( $book_information['pb_translators'] ) ) {
+			$translators = oxford_comma_explode( $book_information['pb_translators'] );
 			foreach ( $translators as $translator ) {
 				$book_schema['translator'][] = [
 					'@type' => 'Person',
@@ -413,7 +414,7 @@ function schema_to_book_information( $book_schema ) {
 		foreach ( $book_schema['translator'] as $translator ) {
 			$translators[] = $translator['name'];
 		}
-		$book_information['pb_translator'] = implode( ', ', $translators );
+		$book_information['pb_translators'] = oxford_comma( $translators );
 	}
 
 	if ( isset( $book_schema['publisher'] ) ) {
@@ -529,8 +530,8 @@ function section_information_to_schema( $section_information, $book_information 
 			}
 		}
 
-		if ( isset( $book_information['pb_translator'] ) ) {
-			$translators = explode( ', ', $book_information['pb_translator'] );
+		if ( isset( $book_information['pb_translators'] ) ) {
+			$translators = oxford_comma_explode( $book_information['pb_translators'] );
 			foreach ( $translators as $translator ) {
 				$section_schema['translator'][] = [
 					'@type' => 'Person',

@@ -114,52 +114,66 @@ class Book {
 		// Book Information
 		// ----------------------------------------------------------------------------
 
-		$expected_array = [ 'pb_keywords_tags', 'pb_additional_subjects', 'pb_bisac_subject', 'pb_contributing_authors', 'pb_editor', 'pb_translator' ];
-		$expected_the_content = [ 'pb_custom_copyright', 'pb_about_unlimited' ];
-		$expected_url = [ 'pb_cover_image' ];
-
 		$book_information = [];
 		$meta = new Metadata();
-		$data = $meta->getMetaPostMetadata();
+		$meta_post = $meta->getMetaPost();
 
-		foreach ( $data as $key => $val ) {
+		if ( $meta_post ) {
 
-			// Skip anything not prefixed with pb_
-			if ( ! preg_match( '/^pb_/', $key ) ) {
-				continue;
-			}
+			// Contributors
+			$contributors = new Contributors();
+			foreach ( $contributors->getAll( $meta_post->ID ) as $key => $val ) {
+				$book_information[ $key ] = $val;
+			};
 
-			// We only care about strings
-			if ( is_array( $val ) ) {
-				if ( false !== in_array( $key, $expected_array, true ) ) {
-					$val = implode( ', ', $val );
-				} else {
-					$val = array_values( $val );
-					$val = array_pop( $val );
+			// Post Meta
+			$expected_array = [ 'pb_keywords_tags', 'pb_additional_subjects', 'pb_bisac_subject' ];
+			$expected_the_content = [ 'pb_custom_copyright', 'pb_about_unlimited' ];
+			$expected_url = [ 'pb_cover_image' ];
+			foreach ( get_post_meta( $meta_post->ID ) as $key => $val ) {
+
+				// Skip anything not prefixed with pb_
+				if ( ! preg_match( '/^pb_/', $key ) ) {
+					continue;
 				}
+
+				// Skip deprecated contributor meta
+				if ( $contributors->isDeprecated( $key ) ) {
+					continue;
+				}
+
+				// We only care about strings
+				if ( is_array( $val ) ) {
+					if ( false !== in_array( $key, $expected_array, true ) ) {
+						$val = implode( ', ', $val );
+					} else {
+						$val = array_values( $val );
+						$val = array_pop( $val );
+					}
+				}
+
+				// Skip empty values
+				if ( ! trim( $val ) ) {
+					continue;
+				}
+
+				if ( false !== in_array( $key, $expected_the_content, true ) ) {
+					$val = wptexturize( $val );
+					$val = wpautop( $val );
+				} else {
+					$val = htmlspecialchars( $val, ENT_NOQUOTES | ENT_XHTML, 'UTF-8', false );
+				}
+
+				// Normalize URLs
+				if ( in_array( $key, $expected_url, true ) ) {
+					$val = set_url_scheme( $val );
+				}
+
+				// Remove invisible control characters that break XML
+				$val = \Pressbooks\Sanitize\remove_control_characters( $val );
+
+				$book_information[ $key ] = $val;
 			}
-
-			// Skip empty values
-			if ( ! trim( $val ) ) {
-				continue;
-			}
-
-			if ( false !== in_array( $key, $expected_the_content, true ) ) {
-				$val = wptexturize( $val );
-				$val = wpautop( $val );
-			} else {
-				$val = htmlspecialchars( $val, ENT_NOQUOTES | ENT_XHTML, 'UTF-8', false );
-			}
-
-			// Normalize URLs
-			if ( in_array( $key, $expected_url, true ) ) {
-				$val = set_url_scheme( $val );
-			}
-
-			// Remove invisible control characters that break XML
-			$val = \Pressbooks\Sanitize\remove_control_characters( $val );
-
-			$book_information[ $key ] = $val;
 		}
 
 		// Return our best guess if no book information has been entered.
