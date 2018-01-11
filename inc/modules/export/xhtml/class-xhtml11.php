@@ -718,6 +718,12 @@ class Xhtml11 extends Export {
 					$content .= sprintf( '<h3 class="author">%s</h3>', $author );
 				}
 			}
+			if ( isset( $metadata['pb_contributors'] ) ) {
+				$authors = oxford_comma_explode( $metadata['pb_contributors'] );
+				foreach ( $authors as $author ) {
+					$content .= sprintf( '<h3 class="author">%s</h3>', $author );
+				}
+			}
 			if ( current_theme_supports( 'pressbooks_publisher_logo' ) ) {
 				printf( '<div class="publisher-logo"><img src="%s" /></div>', get_theme_support( 'pressbooks_publisher_logo' )[0]['logo_uri'] ); // TODO: Support custom publisher logo.
 			}

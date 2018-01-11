@@ -935,6 +935,12 @@ class Epub201 extends Export {
 					$html .= sprintf( '<h3 class="author">%s</h3>', $author );
 				}
 			}
+			if ( isset( $metadata['pb_contributors'] ) ) {
+				$authors = oxford_comma_explode( $metadata['pb_contributors'] );
+				foreach ( $authors as $author ) {
+					$html .= sprintf( '<h3 class="author">%s</h3>', $author );
+				}
+			}
 			if ( current_theme_supports( 'pressbooks_publisher_logo' ) ) {
 				$html .= sprintf( '<div class="publisher-logo"><img src="%s" alt="%s" /></div>', get_theme_support( 'pressbooks_publisher_logo' )[0]['logo_uri'], __( 'Publisher Logo', 'pressbooks' ) ); // TODO: Support custom publisher logo.
 			}

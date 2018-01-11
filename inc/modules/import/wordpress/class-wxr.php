@@ -429,7 +429,6 @@ class Wxr extends Import {
 
 		// List of meta data keys that can support multiple values:
 		$multiple = [
-			'pb_contributing_authors' => true,
 			'pb_keywords_tags' => true,
 			'pb_bisac_subject' => true,
 		];

@@ -45,7 +45,7 @@ function get_microdata_elements() {
 		'about' => 'pb_bisac_subject',
 		'alternativeHeadline' => 'pb_subtitle',
 		'author' => 'pb_authors',
-		'contributor' => 'pb_contributing_authors',
+		'contributor' => 'pb_contributors',
 		'copyrightHolder' => 'pb_copyright_holder',
 		'copyrightYear' => 'pb_copyright_year',
 		'datePublished' => 'pb_publication_date',
@@ -246,8 +246,8 @@ function book_information_to_schema( $book_information ) {
 			}
 		}
 
-		if ( isset( $book_information['pb_contributing_authors'] ) ) {
-			$contributing_authors = explode( ', ', $book_information['pb_contributing_authors'] );
+		if ( isset( $book_information['pb_contributors'] ) ) {
+			$contributing_authors = oxford_comma_explode( $book_information['pb_contributors'] );
 			foreach ( $contributing_authors as $contributor ) {
 				$book_schema['contributor'][] = [
 					'@type' => 'Person',
@@ -402,7 +402,7 @@ function schema_to_book_information( $book_schema ) {
 		foreach ( $book_schema['contributor'] as $contributor ) {
 			$contributors[] = $contributor['name'];
 		}
-		$book_information['pb_contributing_authors'] = implode( ', ', $contributors );
+		$book_information['pb_contributors'] = oxford_comma( $contributors );
 	}
 
 	if ( isset( $book_schema['editor'] ) ) {
@@ -513,15 +513,15 @@ function section_information_to_schema( $section_information, $book_information 
 			}
 		}
 
-		if ( isset( $book_information['pb_contributing_authors'] ) ) {
-			$contributing_authors = explode( ', ', $book_information['pb_contributing_authors'] );
-			foreach ( $contributing_authors as $contributor ) {
-				$section_schema['contributor'][] = [
-					'@type' => 'Person',
-					'name' => $contributor,
-				];
-			}
+	if ( isset( $book_information['pb_contributors'] ) ) {
+		$contributing_authors = oxford_comma_explode( $book_information['pb_contributors'] );
+		foreach ( $contributing_authors as $contributor ) {
+			$section_schema['contributor'][] = [
+				'@type' => 'Person',
+				'name' => $contributor,
+			];
 		}
+	}
 
 		if ( isset( $book_information['pb_editors'] ) ) {
 			$editors = oxford_comma_explode( $book_information['pb_editors'] );

@@ -27,8 +27,8 @@ echo '<?xml version="1.0" encoding="utf-8" ?>' . "\n";
 	<h2><?php echo $meta['pb_authors']; ?></h2>
 <?php } ?>
 
-<?php if ( isset( $meta['pb_contributing_authors'] ) ) { ?>
-	<h3><?php echo $meta['pb_contributing_authors']; ?></h3>
+<?php if ( isset( $meta['pb_contributors'] ) ) { ?>
+	<h3><?php echo $meta['pb_contributors']; ?></h3>
 <?php } ?>
 
 <div class="page">
