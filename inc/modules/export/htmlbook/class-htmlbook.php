@@ -144,6 +144,12 @@ class HTMLBook extends Export {
 	 */
 	public function validate() {
 		// Is this a valid HtmlBook?
+
+		// TODO, three point validation:
+		// 1) Is this valid HTML5? (https://github.com/svenkreiss/html5validator, https://github.com/mozilla/html5-lint, ...)
+		// 2) If you remove all the user generated content, is this structurally valid HTMLBook?
+		// 3) Is this valid HTMLBook?
+
 		$v = new Validator();
 		if ( ! $v->validate( $this->outputPath ) ) {
 			$this->logError( implode( "\n", $v->getErrors() ) );
