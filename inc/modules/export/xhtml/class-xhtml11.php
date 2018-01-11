@@ -10,6 +10,7 @@ use Masterminds\HTML5;
 use Pressbooks\Modules\Export\Export;
 use Pressbooks\Sanitize;
 use function Pressbooks\Sanitize\clean_filename;
+use function Pressbooks\Utility\oxford_comma_explode;
 
 class Xhtml11 extends Export {
 
@@ -711,8 +712,12 @@ class Xhtml11 extends Export {
 		} else {
 			printf( '<h1 class="title">%s</h1>', get_bloginfo( 'name' ) );
 			printf( '<h2 class="subtitle">%s</h2>', ( isset( $metadata['pb_subtitle'] ) ) ? $metadata['pb_subtitle'] : '' );
-			printf( '<h3 class="author">%s</h3>', ( isset( $metadata['pb_author'] ) ) ? $metadata['pb_author'] : '' );
-			printf( '<h4 class="contributing-authors">%s</h4>', ( isset( $metadata['pb_contributing_authors'] ) ) ? $metadata['pb_contributing_authors'] : '' );
+			if ( isset( $metadata['pb_authors'] ) ) {
+				$authors = oxford_comma_explode( $metadata['pb_authors'] );
+				foreach ( $authors as $author ) {
+					$content .= sprintf( '<h3 class="author">%s</h3>', $author );
+				}
+			}
 			if ( current_theme_supports( 'pressbooks_publisher_logo' ) ) {
 				printf( '<div class="publisher-logo"><img src="%s" /></div>', get_theme_support( 'pressbooks_publisher_logo' )[0]['logo_uri'] ); // TODO: Support custom publisher logo.
 			}

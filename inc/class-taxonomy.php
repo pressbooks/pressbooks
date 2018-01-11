@@ -569,9 +569,10 @@ class Taxonomy {
 		$contributor_migration = [
 			'pb_author' => 'pb_authors',
 			'pb_section_author' => 'pb_authors',
+			'pb_author_file_as' => 'pb_authors',
+			'pb_contributing_authors' => 'pb_contributors',
 			'pb_editor' => 'pb_editors',
 			'pb_translator' => 'pb_translators',
-			'pb_contributing_authors' => 'pb_contributors',
 		];
 		if ( isset( $contributor_migration[ $old_meta_key ] ) && ! empty( $meta_value ) ) {
 			if ( ! is_array( $meta_value ) ) {

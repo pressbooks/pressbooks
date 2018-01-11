@@ -105,7 +105,7 @@ class ContributorsTest extends \WP_UnitTestCase {
 		$term = get_term_by( 'slug', $user->user_nicename, 'contributor' );
 		$this->assertEquals( $term->term_id, $results['term_id'] );
 		$this->assertEquals( $term->slug, $user->user_nicename );
-		$this->assertEquals( $term->name, $user->user_nicename );
+		$this->assertEquals( $term->name, $user->display_name );
 		$this->assertEquals( '', get_term_meta( $term->term_id, 'contributor_first_name', true ) );
 		$this->assertEquals( '', get_term_meta( $term->term_id, 'contributor_last_name', true ) );
 	}
@@ -142,7 +142,7 @@ class ContributorsTest extends \WP_UnitTestCase {
 		$term = get_term_by( 'slug', $old_user_data->user_nicename, 'contributor' );
 		$this->assertEquals( $term->term_id, $results['term_id'] );
 		$this->assertEquals( $term->slug, $old_user_data->user_nicename );
-		$this->assertEquals( $term->name, $old_user_data->user_nicename );
+		$this->assertEquals( $term->name, $old_user_data->display_name );
 	}
 
 }

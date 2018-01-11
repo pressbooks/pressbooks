@@ -66,13 +66,13 @@ class MetadataTest extends \WP_UnitTestCase {
 
 	public function test_book_information_to_schema() {
 		$book_information = [
-			'pb_author' => 'Herman Melville',
+			'pb_authors' => 'Herman Melville',
 			'pb_title' => 'Moby Dick',
 		];
 
 		$result = \Pressbooks\Metadata\book_information_to_schema( $book_information );
 		$this->assertEquals( $result['name'], 'Moby Dick' );
-		$this->assertEquals( $result['author']['name'], 'Herman Melville' );
+		$this->assertEquals( $result['author'][0]['name'], 'Herman Melville' );
 	}
 
 	public function test_schema_to_book_information() {
@@ -89,15 +89,17 @@ class MetadataTest extends \WP_UnitTestCase {
 
 		$result = \Pressbooks\Metadata\schema_to_book_information( $schema );
 		$this->assertEquals( $result['pb_title'], 'Moby Dick' );
-		$this->assertEquals( $result['pb_author'], 'Herman Melville' );
+		$this->assertEquals( $result['pb_authors'], 'Herman Melville' );
 		$this->assertEquals( $result['pb_book_license'], 'public-domain' );
 
 		$schema = [
 			'@context' => 'http://schema.org',
 			'@type' => 'Book',
 			'author' => [
-				'@type' => 'Person',
-				'name' => 'Herman Melville',
+				[
+					'@type' => 'Person',
+					'name' => 'Herman Melville',
+				],
 			],
 			'name' => 'Moby Dick',
 			'license' => [
@@ -108,6 +110,7 @@ class MetadataTest extends \WP_UnitTestCase {
 		];
 
 		$result = \Pressbooks\Metadata\schema_to_book_information( $schema );
+		$this->assertEquals( $result['pb_authors'], 'Herman Melville' );
 		$this->assertEquals( $result['pb_custom_copyright'], 'Call me Ishmael.' );
 	}
 
@@ -118,13 +121,13 @@ class MetadataTest extends \WP_UnitTestCase {
 		];
 
 		$book_information = [
-			'pb_author' => 'Herman Melville',
+			'pb_authors' => 'Herman Melville',
 			'pb_title' => 'Moby Dick',
 		];
 
 		$result = \Pressbooks\Metadata\section_information_to_schema( $section_information, $book_information );
 		$this->assertEquals( $result['name'], 'Loomings' );
-		$this->assertEquals( $result['author']['name'], 'Herman Melville' );
+		$this->assertEquals( $result['author'][0]['name'], 'Herman Melville' );
 		$this->assertEquals( $result['position'], 1 );
 	}
 

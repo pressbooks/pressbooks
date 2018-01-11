@@ -10,6 +10,7 @@ namespace Pressbooks\Modules\Export\Epub;
 use Pressbooks\Sanitize;
 use function \Pressbooks\Sanitize\sanitize_xml_attribute;
 use function \Pressbooks\Utility\debug_error_log;
+use function Pressbooks\Utility\oxford_comma_explode;
 
 class Epub3 extends Epub201 {
 
@@ -490,7 +491,7 @@ class Epub3 extends Epub201 {
 
 		// Sanitize variables for usage in XML template
 		$vars = [
-			'author' => isset( $metadata['pb_author'] ) ? sanitize_xml_attribute( $metadata['pb_author'] ) : '',
+			'author' => isset( $metadata['pb_authors'] ) ? sanitize_xml_attribute( oxford_comma_explode( $metadata['pb_authors'] )[0] ) : '',
 			'manifest' => $this->manifest,
 			'dtd_uid' => ! empty( $metadata['pb_ebook_isbn'] ) ? sanitize_xml_attribute( $metadata['pb_ebook_isbn'] ) : sanitize_xml_attribute( get_bloginfo( 'url' ) ),
 			'enable_external_identifier' => false,

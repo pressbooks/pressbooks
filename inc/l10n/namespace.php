@@ -454,7 +454,7 @@ function set_root_locale( $lang ) {
  * @since 3.9.6
  *
  * @param int $meta_id The metadata ID
- * @param int $post_ID The book information post ID
+ * @param int $post_id The book information post ID
  * @param string $meta_key The metadata key
  * @param string $meta_value The metadata value
  *

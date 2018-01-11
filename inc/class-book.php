@@ -182,7 +182,7 @@ class Book {
 				include( ABSPATH . 'wp-includes/pluggable.php' );
 			}
 			$author = get_user_by( 'email', get_bloginfo( 'admin_email' ) );
-			$book_information['pb_author'] = isset( $author->display_name ) ? $author->display_name : '';
+			$book_information['pb_authors'] = isset( $author->display_name ) ? $author->display_name : '';
 			$book_information['pb_cover_image'] = \Pressbooks\Image\default_cover_url();
 		}
 

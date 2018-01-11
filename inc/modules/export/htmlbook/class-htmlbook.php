@@ -22,6 +22,7 @@ use Pressbooks\HTMLBook\Validator;
 use Masterminds\HTML5;
 use Pressbooks\Modules\Export\Export;
 use Pressbooks\Sanitize;
+use function Pressbooks\Utility\oxford_comma_explode;
 
 class HTMLBook extends Export {
 
@@ -723,10 +724,14 @@ class HTMLBook extends Export {
 		if ( ! $content ) {
 			$content .= sprintf( '<h1 class="title">%s</h1>', get_bloginfo( 'name' ) );
 			$content .= sprintf( '<p class="subtitle">%s</p>', ( isset( $metadata['pb_subtitle'] ) ) ? $metadata['pb_subtitle'] : '' );
-			$content .= sprintf( '<p class="author">%s</p>', ( isset( $metadata['pb_author'] ) ) ? $metadata['pb_author'] : '' );
-			$content .= sprintf( '<p class="contributing-authors">%s</p>', ( isset( $metadata['pb_contributing_authors'] ) ) ? $metadata['pb_contributing_authors'] : '' );
+			if ( isset( $metadata['pb_authors'] ) ) {
+				$authors = oxford_comma_explode( $metadata['pb_authors'] );
+				foreach ( $authors as $author ) {
+					$content .= sprintf( '<p class="author">%s</p>', $author );
+				}
+			}
 			if ( current_theme_supports( 'pressbooks_publisher_logo' ) ) {
-				$content .= sprintf( '<div class="publisher-logo"><img src="%s" /></div>', get_theme_support( 'pressbooks_publisher_logo' )[0]['logo_uri'] ); // TODO: Support custom publisher logo.
+				$content .= sprintf( '<p class="publisher-logo"><img src="%s" /></p>', get_theme_support( 'pressbooks_publisher_logo' )[0]['logo_uri'] ); // TODO: Support custom publisher logo.
 			}
 			$content .= sprintf( '<p class="publisher">%s</p>', ( isset( $metadata['pb_publisher'] ) ) ? $metadata['pb_publisher'] : '' );
 			$content .= sprintf( '<p class="publisher-city">%s</p>', ( isset( $metadata['pb_publisher_city'] ) ) ? $metadata['pb_publisher_city'] : '' );

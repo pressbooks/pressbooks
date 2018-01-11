@@ -189,9 +189,9 @@ class Licensing {
 		} elseif ( isset( $metadata['pb_copyright_holder'] ) ) {
 			// book copyright holder higher priority than book author
 			$copyright_holder = $metadata['pb_copyright_holder'];
-		} elseif ( isset( $metadata['pb_author'] ) ) {
+		} elseif ( isset( $metadata['pb_authors'] ) ) {
 			// book author is the fallback, default
-			$copyright_holder = $metadata['pb_author'];
+			$copyright_holder = $metadata['pb_authors'];
 		} else {
 			$copyright_holder = '';
 		}

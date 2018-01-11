@@ -14,6 +14,7 @@ use Pressbooks\Modules\Export\Export;
 use Pressbooks\Container;
 use Pressbooks\Sanitize;
 use function \Pressbooks\Sanitize\sanitize_xml_attribute;
+use function Pressbooks\Utility\oxford_comma_explode;
 use function \Pressbooks\Utility\str_ends_with;
 use function \Pressbooks\Utility\debug_error_log;
 
@@ -928,8 +929,12 @@ class Epub201 extends Export {
 		} else {
 			$html .= sprintf( '<h1 class="title">%s</h1>', get_bloginfo( 'name' ) );
 			$html .= sprintf( '<h2 class="subtitle">%s</h2>', ( isset( $metadata['pb_subtitle'] ) ) ? $metadata['pb_subtitle'] : '' );
-			$html .= sprintf( '<h3 class="author">%s</h3>', ( isset( $metadata['pb_author'] ) ) ? $metadata['pb_author'] : '' );
-			$html .= sprintf( '<h4 class="author">%s</h4>', ( isset( $metadata['pb_contributing_authors'] ) ) ? $metadata['pb_contributing_authors'] : '' );
+			if ( isset( $metadata['pb_authors'] ) ) {
+				$authors = oxford_comma_explode( $metadata['pb_authors'] );
+				foreach ( $authors as $author ) {
+					$html .= sprintf( '<h3 class="author">%s</h3>', $author );
+				}
+			}
 			if ( current_theme_supports( 'pressbooks_publisher_logo' ) ) {
 				$html .= sprintf( '<div class="publisher-logo"><img src="%s" alt="%s" /></div>', get_theme_support( 'pressbooks_publisher_logo' )[0]['logo_uri'], __( 'Publisher Logo', 'pressbooks' ) ); // TODO: Support custom publisher logo.
 			}
@@ -2311,7 +2316,7 @@ class Epub201 extends Export {
 
 		// Sanitize variables for usage in XML template
 		$vars = [
-			'author' => isset( $metadata['pb_author'] ) ? sanitize_xml_attribute( $metadata['pb_author'] ) : '',
+			'author' => isset( $metadata['pb_authors'] ) ? sanitize_xml_attribute( oxford_comma_explode( $metadata['pb_authors'] )[0] ) : '',
 			'manifest' => $this->manifest,
 			'dtd_uid' => ! empty( $metadata['pb_ebook_isbn'] ) ? sanitize_xml_attribute( $metadata['pb_ebook_isbn'] ) : sanitize_xml_attribute( get_bloginfo( 'url' ) ),
 			'enable_external_identifier' => true,

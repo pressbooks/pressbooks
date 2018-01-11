@@ -15,7 +15,7 @@ use function \Pressbooks\Utility\oxford_comma_explode;
 function get_seo_meta_elements() {
 	// map items that are already captured
 	$meta_mapping = [
-		'author' => 'pb_author',
+		'author' => 'pb_authors',
 		'description' => 'pb_about_50',
 		'keywords' => 'pb_keywords_tags',
 		'publisher' => 'pb_publisher',
@@ -44,7 +44,7 @@ function get_microdata_elements() {
 	$micro_mapping = [
 		'about' => 'pb_bisac_subject',
 		'alternativeHeadline' => 'pb_subtitle',
-		'author' => 'pb_author',
+		'author' => 'pb_authors',
 		'contributor' => 'pb_contributing_authors',
 		'copyrightHolder' => 'pb_copyright_holder',
 		'copyrightYear' => 'pb_copyright_year',
@@ -236,11 +236,14 @@ function book_information_to_schema( $book_information ) {
 			}
 		}
 
-		if ( isset( $book_information['pb_author'] ) ) {
-			$book_schema['author'] = [
-				'@type' => 'Person',
-				'name' => $book_information['pb_author'],
-			];
+		if ( isset( $book_information['pb_authors'] ) ) {
+			$authors = oxford_comma_explode( $book_information['pb_authors'] );
+			foreach ( $authors as $author ) {
+				$book_schema['author'][] = [
+					'@type' => 'Person',
+					'name' => $author,
+				];
+			}
 		}
 
 		if ( isset( $book_information['pb_contributing_authors'] ) ) {
@@ -333,7 +336,7 @@ function book_information_to_schema( $book_information ) {
  *
  * @since 4.1
  *
- * @param array $schema
+ * @param array $book_schema
  *
  * @return array
  */
@@ -382,7 +385,16 @@ function schema_to_book_information( $book_schema ) {
 	}
 
 	if ( isset( $book_schema['author'] ) ) {
-		$book_information['pb_author'] = $book_schema['author']['name'];
+		$authors = [];
+		foreach ( $book_schema['author'] as $author ) {
+			if ( isset( $author['name'] ) ) {
+				$authors[] = $author['name'];
+			}
+		}
+		if ( empty( $authors ) && isset( $book_schema['author']['name'] ) ) {
+			$authors[] = $book_schema['author']['name']; // Backwards compatibility with Pressbooks 4
+		}
+		$book_information['pb_authors'] = oxford_comma( $authors );
 	}
 
 	if ( isset( $book_schema['contributor'] ) ) {
@@ -491,11 +503,14 @@ function section_information_to_schema( $section_information, $book_information 
 				'@type' => 'Person',
 				'name' => $section_information['pb_section_author'],
 			];
-		} elseif ( isset( $book_information['pb_author'] ) ) {
-			$section_schema['author'] = [
-				'@type' => 'Person',
-				'name' => $book_information['pb_author'],
-			];
+		} elseif ( isset( $book_information['pb_authors'] ) ) {
+			$authors = oxford_comma_explode( $book_information['pb_authors'] );
+			foreach ( $authors as $author ) {
+				$section_schema['author'][] = [
+					'@type' => 'Person',
+					'name' => $author,
+				];
+			}
 		}
 
 		if ( isset( $book_information['pb_contributing_authors'] ) ) {

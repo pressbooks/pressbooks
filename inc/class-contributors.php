@@ -113,15 +113,9 @@ class Contributors {
 		$contributors = [];
 		$meta = get_post_meta( $post_id, $contributor_type, false );
 		foreach ( $meta as $slug ) {
-			$term = get_term_by( 'slug', $slug, self::TAXONOMY );
-			if ( $term ) {
-				$first_name = get_term_meta( $term->term_id, 'contributor_first_name', true );
-				$last_name = get_term_meta( $term->term_id, 'contributor_last_name', true );
-				if ( ! empty( $first_name ) && ! empty( $last_name ) ) {
-					$contributors[] = "{$first_name} {$last_name}";
-				} elseif ( ! empty( $term->name ) ) {
-					$contributors[] = $term->name;
-				}
+			$name = $this->personalName( $slug );
+			if ( $name ) {
+				$contributors[] = $name;
 			}
 		}
 
@@ -223,7 +217,10 @@ class Contributors {
 			$slug = $user->user_nicename;
 			$name = trim( "{$user->first_name} {$user->last_name}" );
 			if ( empty( $name ) ) {
-				$name = $slug;
+				$name = $user->display_name;
+				if ( empty( $name ) ) {
+					$name = $slug;
+				}
 			}
 			$results = wp_insert_term( $name, self::TAXONOMY, [
 				'slug' => $slug,
@@ -251,7 +248,10 @@ class Contributors {
 			$slug = $user->user_nicename;
 			$name = trim( "{$user->first_name} {$user->last_name}" );
 			if ( empty( $name ) ) {
-				$name = $slug;
+				$name = $user->display_name;
+				if ( empty( $name ) ) {
+					$name = $slug;
+				}
 			}
 			$term = get_term_by( 'slug', $old_user_data->user_nicename, self::TAXONOMY );
 			if ( $term ) {
@@ -277,6 +277,34 @@ class Contributors {
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * Get personal name based on available data
+	 *
+	 * Returns empty string is we can't find anything useful
+	 *
+	 * A personal name is the set of names by which an individual is known and that can be recited as a word-group,
+	 * with the understanding that, taken together, they all relate to that one individual. In many cultures, the
+	 * term is synonymous with the birth name or legal name of the individual.
+	 *
+	 * @param string $slug
+	 *
+	 * @return string
+	 */
+	public function personalName( $slug ) {
+		$name = '';
+		$term = get_term_by( 'slug', $slug, self::TAXONOMY );
+		if ( $term ) {
+			$first_name = get_term_meta( $term->term_id, 'contributor_first_name', true );
+			$last_name = get_term_meta( $term->term_id, 'contributor_last_name', true );
+			if ( ! empty( $first_name ) && ! empty( $last_name ) ) {
+				$name = "{$first_name} {$last_name}";
+			} elseif ( ! empty( $term->name ) ) {
+				$name = $term->name;
+			}
+		}
+		return $name;
 	}
 
 }
