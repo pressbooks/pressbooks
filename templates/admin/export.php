@@ -175,10 +175,10 @@ $formats = apply_filters( 'pb_export_formats', [
 		'mobi' => __( 'MOBI (for Kindle)', 'pressbooks' ),
 	],
 	'exotic' => [
-		'htmlbook' => __( 'HTMLBook', 'pressbooks' ),
-		'epub3' => __( 'EPUB 3 (beta)', 'pressbooks' ),
+		'epub3' => __( 'EPUB 3', 'pressbooks' ),
 		'xhtml' => __( 'XHTML', 'pressbooks' ),
-		'odt' => __( 'OpenDocument (beta)', 'pressbooks' ),
+		'htmlbook' => __( 'HTMLBook', 'pressbooks' ),
+		'odt' => __( 'OpenDocument', 'pressbooks' ),
 		'wxr' => __( 'Pressbooks XML', 'pressbooks' ),
 		'vanillawxr' => __( 'WordPress XML', 'pressbooks' ),
 	],
@@ -186,7 +186,7 @@ $formats = apply_filters( 'pb_export_formats', [
 
 	<form id="pb-export-form" action="<?php echo $export_form_url ?>" method="POST">
 		<fieldset class="standard">
-				<legend><?php _e( 'Standard book formats', 'pressbooks' ); ?>:</legend>
+				<legend><?php _e( 'Supported formats', 'pressbooks' ); ?>:</legend>
 <?php foreach ( $formats['standard'] as $key => $value ) {
 	printf(
 		'<input type="checkbox" id="%1$s" name="export_formats[%1$s]" value="1" %2$s/><label for="%1$s"> %3$s</label><br />',
