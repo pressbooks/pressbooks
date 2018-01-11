@@ -161,7 +161,7 @@ class MetadataTest extends \WP_UnitTestCase {
 		];
 
 		$result = \Pressbooks\Metadata\schema_to_section_information( $section_schema, $book_schema );
-		$this->assertArrayNotHasKey( 'pb_section_author', $result );
+		$this->assertArrayNotHasKey( 'pb_authors', $result );
 		$this->assertArrayNotHasKey( 'pb_section_license', $result );
 
 		$book_schema = [

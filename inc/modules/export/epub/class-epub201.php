@@ -180,6 +180,11 @@ class Epub201 extends Export {
 	protected $taxonomy;
 
 	/**
+	 * @var \Pressbooks\Contributors
+	 */
+	protected $contributors;
+
+	/**
 	 * @var array [original slug -> sanitized slug]
 	 */
 	protected $sanitizedSlugs = [];
@@ -193,6 +198,7 @@ class Epub201 extends Export {
 		// Some defaults
 
 		$this->taxonomy = \Pressbooks\Taxonomy::init();
+		$this->contributors = new \Pressbooks\Contributors();
 
 		if ( ! class_exists( '\PclZip' ) ) {
 			require_once( ABSPATH . 'wp-admin/includes/class-pclzip.php' );
@@ -1183,7 +1189,7 @@ class Epub201 extends Export {
 			$append_front_matter_content = $this->kneadHtml( apply_filters( 'pb_append_front_matter_content', '', $front_matter_id ), 'front-matter', $i );
 			$short_title = trim( get_post_meta( $front_matter_id, 'pb_short_title', true ) );
 			$subtitle = trim( get_post_meta( $front_matter_id, 'pb_subtitle', true ) );
-			$author = trim( get_post_meta( $front_matter_id, 'pb_section_author', true ) );
+			$author = $this->contributors->get( $front_matter_id, 'pb_authors' );
 
 			if ( \Pressbooks\Modules\Export\Export::isParsingSubsections() === true ) {
 				$sections = \Pressbooks\Book::getSubsections( $front_matter_id );
@@ -1342,7 +1348,7 @@ class Epub201 extends Export {
 				$append_chapter_content = $this->kneadHtml( apply_filters( 'pb_append_chapter_content', '', $chapter_id ), 'chapter', $j );
 				$short_title = false; // Ie. running header title is not used in EPUB
 				$subtitle = trim( get_post_meta( $chapter_id, 'pb_subtitle', true ) );
-				$author = trim( get_post_meta( $chapter_id, 'pb_section_author', true ) );
+				$author = $this->contributors->get( $chapter_id, 'pb_authors' );
 
 				if ( \Pressbooks\Modules\Export\Export::isParsingSubsections() === true ) {
 					$sections = \Pressbooks\Book::getSubsections( $chapter_id );
@@ -1562,7 +1568,7 @@ class Epub201 extends Export {
 			$append_back_matter_content = $this->kneadHtml( apply_filters( 'pb_append_back_matter_content', '', $back_matter_id ), 'back-matter', $i );
 			$short_title = trim( get_post_meta( $back_matter_id, 'pb_short_title', true ) );
 			$subtitle = trim( get_post_meta( $back_matter_id, 'pb_subtitle', true ) );
-			$author = trim( get_post_meta( $back_matter_id, 'pb_section_author', true ) );
+			$author = $this->contributors->get( $back_matter_id, 'pb_authors' );
 
 			if ( \Pressbooks\Modules\Export\Export::isParsingSubsections() === true ) {
 				$sections = \Pressbooks\Book::getSubsections( $back_matter_id );
@@ -1671,7 +1677,7 @@ class Epub201 extends Export {
 				$class = 'front-matter ';
 				$class .= $this->taxonomy->getFrontMatterType( $v['ID'] );
 				$subtitle = trim( get_post_meta( $v['ID'], 'pb_subtitle', true ) );
-				$author = trim( get_post_meta( $v['ID'], 'pb_section_author', true ) );
+				$author = $this->contributors->get( $v['ID'], 'pb_authors' );
 				$license = $this->doTocLicense( $v['ID'] );
 			} elseif ( preg_match( '/^part-/', $k ) ) {
 				$class = 'part';
@@ -1685,7 +1691,7 @@ class Epub201 extends Export {
 				$class = 'chapter';
 				$class .= $this->taxonomy->getChapterType( $v['ID'] );
 				$subtitle = trim( get_post_meta( $v['ID'], 'pb_subtitle', true ) );
-				$author = trim( get_post_meta( $v['ID'], 'pb_section_author', true ) );
+				$author = $this->contributors->get( $v['ID'], 'pb_authors' );
 				$license = $this->doTocLicense( $v['ID'] );
 				if ( $this->numbered && $this->taxonomy->getChapterType( $v['ID'] ) !== 'numberless' ) {
 					$title = " $i. " . $title;
@@ -1697,7 +1703,7 @@ class Epub201 extends Export {
 				$class = 'back-matter ';
 				$class .= $this->taxonomy->getBackMatterType( $v['ID'] );
 				$subtitle = trim( get_post_meta( $v['ID'], 'pb_subtitle', true ) );
-				$author = trim( get_post_meta( $v['ID'], 'pb_section_author', true ) );
+				$author = $this->contributors->get( $v['ID'], 'pb_authors' );
 				$license = $this->doTocLicense( $v['ID'] );
 			} else {
 				continue;

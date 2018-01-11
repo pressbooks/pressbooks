@@ -8,6 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 use HumanNameParser\Parser;
 use HumanNameParser\Exception\NameParsingException;
+use function \Pressbooks\Utility\oxford_comma_explode;
 
 echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 ?>
@@ -44,35 +45,39 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 			unset( $meta['pb_about_140'] );
 		}
 
-		// Author
+		// First author
+		$first_author = oxford_comma_explode( $meta['pb_authors'] )[0];
+		if ( empty( $first_author ) ) {
+			$first_author = __( 'Authored by: ', 'pressbooks' ) . get_bloginfo( 'url' );
+		}
 		echo '<dc:creator opf:role="aut"';
-		if ( ! empty( $meta['pb_author_file_as'] ) ) {
-			echo ' opf:file-as="' . $meta['pb_author_file_as'] . '"';
-		} else {
+		try {
+			// TODO: Refactor to use term metadata: contributor_last_name, contributor_first_name
 			$nameparser = new Parser();
-			try {
-				$author = $nameparser->parse( $meta['pb_author'] );
-				$author_file_as = $author->getLastName() . ', ' . $author->getFirstName();
-			} catch ( NameParsingException $e ) {
-				$author_file_as = $meta['pb_author'];
-			}
-			echo ' opf:file-as="' . $author_file_as . '"';
+			$author = $nameparser->parse( $first_author );
+			$author_file_as = $author->getLastName() . ', ' . $author->getFirstName();
+		} catch ( NameParsingException $e ) {
+			$author_file_as = $first_author;
 		}
+		echo ' opf:file-as="' . $author_file_as . '"';
 		echo '>';
-		if ( ! empty( $meta['pb_author'] ) ) {
-			echo $meta['pb_author'];
-		}
+		echo $first_author;
 		echo '</dc:creator>' . "\n";
-		unset( $meta['pb_author_file_as'], $meta['pb_author'] );
 
 		// Contributing authors
-		if ( ! empty( $meta['pb_contributing_authors'] ) ) {
-			$contributors = explode( ',', $meta['pb_contributing_authors'] );
-
+		if ( ! empty( $meta['pb_authors'] ) ) {
+			$contributors = oxford_comma_explode( $meta['pb_authors'] );
 			foreach ( $contributors as $contributor ) {
 				echo '<dc:contributor opf:role="aut">' . trim( $contributor ) . '</dc:contributor>' . "\n";
 			}
-			unset( $meta['pb_contributing_authors'] );
+			unset( $meta['pb_authors'] );
+		}
+		if ( ! empty( $meta['pb_contributors'] ) ) {
+			$contributors = oxford_comma_explode( $meta['pb_contributors'] );
+			foreach ( $contributors as $contributor ) {
+				echo '<dc:contributor opf:role="aut">' . trim( $contributor ) . '</dc:contributor>' . "\n";
+			}
+			unset( $meta['pb_authors'], $meta['pb_contributors'] );
 		}
 
 		// Copyright

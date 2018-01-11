@@ -40,7 +40,7 @@ class PostTypeTest extends \WP_UnitTestCase {
 		register_meta();
 		$this->assertArrayHasKey( 'post', $wp_meta_keys );
 		$this->assertArrayHasKey( 'pb_show_title', $wp_meta_keys['post'] );
-		$this->assertArrayHasKey( 'pb_section_author', $wp_meta_keys['post'] );
+		$this->assertArrayHasKey( 'pb_short_title', $wp_meta_keys['post'] );
 
 		$wp_meta_keys = $wp_meta_keys_old;
 	}

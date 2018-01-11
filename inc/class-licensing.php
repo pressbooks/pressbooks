@@ -158,7 +158,7 @@ class Licensing {
 			$link = get_bloginfo( 'url' );
 		} else {
 			$section_license = get_post_meta( $post_id, 'pb_section_license', true );
-			$section_author = get_post_meta( $post_id, 'pb_section_author', true );
+			$section_author = ( new Contributors() )->get( $post_id, 'pb_authors' );
 			$link = get_permalink( $post_id );
 		}
 

@@ -238,14 +238,6 @@ function register_meta() {
 	);
 
 	\register_meta(
-		'post', 'pb_section_author', array_merge(
-			$defaults, [
-				'description' => __( 'Chapter Author (appears in Web/ebook/PDF output)', 'pressbooks' ),
-			]
-		)
-	);
-
-	\register_meta(
 		'post', 'pb_section_license', array_merge(
 			$defaults, [
 				'description' => __( 'Chapter Copyright License (overrides book license on this page)', 'pressbooks' ),

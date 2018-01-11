@@ -64,6 +64,10 @@ class HTMLBook extends Export {
 	 */
 	protected $taxonomy;
 
+	/**
+	 * @var \Pressbooks\Contributors
+	 */
+	protected $contributors;
 
 	/**
 	 * @param array $args
@@ -73,6 +77,7 @@ class HTMLBook extends Export {
 		// Some defaults
 
 		$this->taxonomy = \Pressbooks\Taxonomy::init();
+		$this->contributors = new \Pressbooks\Contributors();
 
 		$defaults = [
 			'endnotes' => false,
@@ -998,7 +1003,7 @@ class HTMLBook extends Export {
 						$slug = $chapter['post_name'];
 						$title = Sanitize\strip_br( $chapter['post_title'] );
 						$subtitle = trim( get_post_meta( $chapter['ID'], 'pb_subtitle', true ) );
-						$author = trim( get_post_meta( $chapter['ID'], 'pb_section_author', true ) );
+						$author = $this->contributors->get( $chapter['ID'], 'pb_authors' );
 						$license = $this->doTocLicense( $chapter['ID'] );
 
 						$li = new Element();
@@ -1059,13 +1064,13 @@ class HTMLBook extends Export {
 						} else {
 							$typetype = $type . ' ' . $subclass;
 							$subtitle = trim( get_post_meta( $val['ID'], 'pb_subtitle', true ) );
-							$author = trim( get_post_meta( $val['ID'], 'pb_section_author', true ) );
+							$author = $this->contributors->get( $val['ID'], 'pb_authors' );
 							$license = $this->doTocLicense( $val['ID'] );
 						}
 					} elseif ( 'back-matter' === $type ) {
 						$typetype = $type . ' ' . $this->taxonomy->getBackMatterType( $val['ID'] );
 						$subtitle = trim( get_post_meta( $val['ID'], 'pb_subtitle', true ) );
-						$author = trim( get_post_meta( $val['ID'], 'pb_section_author', true ) );
+						$author = $this->contributors->get( $val['ID'], 'pb_authors' );
 						$license = $this->doTocLicense( $val['ID'] );
 					}
 
@@ -1344,7 +1349,7 @@ class HTMLBook extends Export {
 				$append_chapter_content = apply_filters( 'pb_append_chapter_content', '', $chapter_id );
 				$short_title = trim( get_post_meta( $chapter_id, 'pb_short_title', true ) );
 				$subtitle = trim( get_post_meta( $chapter_id, 'pb_subtitle', true ) );
-				$author = trim( get_post_meta( $chapter_id, 'pb_section_author', true ) );
+				$author = $this->contributors->get( $chapter_id, 'pb_authors' );
 
 				if ( \Pressbooks\Modules\Export\Export::isParsingSubsections() === true ) {
 					$sections = \Pressbooks\Book::getSubsections( $chapter_id );
@@ -1482,7 +1487,7 @@ class HTMLBook extends Export {
 			$append_back_matter_content = apply_filters( 'pb_append_back_matter_content', '', $back_matter_id );
 			$short_title = trim( get_post_meta( $back_matter_id, 'pb_short_title', true ) );
 			$subtitle = trim( get_post_meta( $back_matter_id, 'pb_subtitle', true ) );
-			$author = trim( get_post_meta( $back_matter_id, 'pb_section_author', true ) );
+			$author = $this->contributors->get( $back_matter_id, 'pb_authors' );
 
 			if ( \Pressbooks\Modules\Export\Export::isParsingSubsections() === true ) {
 				$sections = \Pressbooks\Book::getSubsections( $back_matter_id );
