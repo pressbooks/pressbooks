@@ -50,7 +50,7 @@ function get_microdata_elements() {
 		'copyrightYear' => 'pb_copyright_year',
 		'datePublished' => 'pb_publication_date',
 		'description' => 'pb_about_50',
-		'editor' => 'pb_editor',
+		'editor' => 'pb_editors',
 		'image' => 'pb_cover_image',
 		'inLanguage' => 'pb_language',
 		'keywords' => 'pb_keywords_tags',
@@ -149,7 +149,6 @@ function show_expanded_metadata() {
 function has_expanded_metadata() {
 	$metadata = Book::getBookInformation();
 	$additional_fields = [
-		'pb_author_file_as',
 		'pb_onsale_date',
 		'pb_copyright_year',
 		'pb_series_title',
@@ -258,8 +257,8 @@ function book_information_to_schema( $book_information ) {
 			}
 		}
 
-		if ( isset( $book_information['pb_editor'] ) ) {
-			$editors = explode( ', ', $book_information['pb_editor'] );
+		if ( isset( $book_information['pb_editors'] ) ) {
+			$editors = oxford_comma_explode( $book_information['pb_editors'] );
 			foreach ( $editors as $editor ) {
 				$book_schema['editor'][] = [
 					'@type' => 'Person',
@@ -406,7 +405,7 @@ function schema_to_book_information( $book_schema ) {
 		foreach ( $book_schema['editor'] as $editor ) {
 			$editors[] = $editor['name'];
 		}
-		$book_information['pb_editor'] = implode( ', ', $editors );
+		$book_information['pb_editors'] = oxford_comma( $editors );
 	}
 
 	if ( isset( $book_schema['translator'] ) ) {
@@ -520,8 +519,8 @@ function section_information_to_schema( $section_information, $book_information 
 			}
 		}
 
-		if ( isset( $book_information['pb_editor'] ) ) {
-			$editors = explode( ', ', $book_information['pb_editor'] );
+		if ( isset( $book_information['pb_editors'] ) ) {
+			$editors = oxford_comma_explode( $book_information['pb_editors'] );
 			foreach ( $editors as $editor ) {
 				$section_schema['editor'][] = [
 					'@type' => 'Person',

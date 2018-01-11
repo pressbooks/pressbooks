@@ -33,10 +33,10 @@ class Contributors {
 	public $deprecated = [
 		'pb_author',
 		'pb_section_author',
-		'pb_editor',
-		'pb_translator',
 		'pb_contributing_authors',
 		'pb_author_file_as',
+		'pb_editor',
+		'pb_translator',
 	];
 
 	public function __construct() {
@@ -129,7 +129,7 @@ class Contributors {
 			// Look if contributors exist as metadata (old data model)
 			// If yes then convert to taxonomies (new data model)
 			$map = [
-				'pb_authors' => [ 'pb_author', 'pb_section_author' ],
+				'pb_authors' => [ 'pb_author', 'pb_section_author', 'pb_author_file_as' ],
 				'pb_editors' => [ 'pb_editor' ],
 				'pb_translators' => [ 'pb_translator' ],
 				'pb_contributors' => [ 'pb_contributing_authors' ],

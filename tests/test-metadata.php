@@ -58,7 +58,7 @@ class MetadataTest extends \WP_UnitTestCase {
 
 		\Pressbooks\Book::deleteBookObjectCache();
 
-		update_post_meta( $meta_post->ID, 'pb_author_file_as', 'Zimmerman, Ned' );
+		update_post_meta( $meta_post->ID, 'pb_audience', 'Zimmerman, Ned' );
 
 		$result = \Pressbooks\Metadata\has_expanded_metadata();
 		$this->assertTrue( $result );

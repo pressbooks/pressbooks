@@ -136,9 +136,8 @@ class Book {
 				if ( ! preg_match( '/^pb_/', $key ) ) {
 					continue;
 				}
-
-				// Skip deprecated contributor meta
-				if ( $contributors->isDeprecated( $key ) ) {
+				// Skip contributor meta (already done, look up)
+				if ( $contributors->isValid( $key ) || $contributors->isDeprecated( $key ) ) {
 					continue;
 				}
 
