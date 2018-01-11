@@ -241,10 +241,6 @@ function book_information_to_schema( $book_information ) {
 				'@type' => 'Person',
 				'name' => $book_information['pb_author'],
 			];
-
-			if ( isset( $book_information['pb_author_file_as'] ) ) {
-				$book_schema['author']['alternateName'] = $book_information['pb_author_file_as'];
-			}
 		}
 
 		if ( isset( $book_information['pb_contributing_authors'] ) ) {
@@ -387,9 +383,6 @@ function schema_to_book_information( $book_schema ) {
 
 	if ( isset( $book_schema['author'] ) ) {
 		$book_information['pb_author'] = $book_schema['author']['name'];
-		if ( isset( $book_schema['author']['alternateName'] ) ) {
-			$book_information['pb_author_file_as'] = $book_schema['author']['alternateName'];
-		}
 	}
 
 	if ( isset( $book_schema['contributor'] ) ) {
@@ -503,10 +496,6 @@ function section_information_to_schema( $section_information, $book_information 
 				'@type' => 'Person',
 				'name' => $book_information['pb_author'],
 			];
-
-			if ( isset( $book_information['pb_author_file_as'] ) ) {
-				$section_schema['author']['alternateName'] = $book_information['pb_author_file_as'];
-			}
 		}
 
 		if ( isset( $book_information['pb_contributing_authors'] ) ) {
