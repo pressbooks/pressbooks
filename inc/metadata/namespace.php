@@ -583,6 +583,11 @@ function section_information_to_schema( $section_information, $book_information 
 		}
 
 		$licensing = new Licensing;
+
+		if ( ! $licensing->isSupportedType( $section_information['pb_section_license'] ) ) {
+			$section_information['pb_section_license'] = 'all-rights-reserved';
+		}
+
 		$section_schema['license'] = [
 			'@type' => 'CreativeWork',
 			'url' => $licensing->getUrlForLicense( $section_information['pb_section_license'] ),
