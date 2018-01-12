@@ -248,21 +248,26 @@ foreach ( $exports as $file ) {
 		case 'pdf':
 			$pre_suffix = strstr( $file, '._print.pdf' );
 			break;
+		case 'html':
+			$pre_suffix = strstr( $file, '.-htmlbook.html' );
+			break;
 		case 'xml':
 			$pre_suffix = strstr( $file, '._vanilla.xml' );
 			break;
 		default:
 			$pre_suffix = false;
 	}
-	if ( 'html' == $file_extension ) {
+	if ( 'html' === $file_extension && '.-htmlbook.html' === $pre_suffix ) {
+		$file_class = 'htmlbook';
+	} elseif ( 'html' === $file_extension && false === $pre_suffix ) {
 		$file_class = 'xhtml';
-	} elseif ( 'xml' == $file_extension && '._vanilla.xml' == $pre_suffix ) {
+	} elseif ( 'xml' === $file_extension && '._vanilla.xml' === $pre_suffix ) {
 		$file_class = 'vanillawxr';
-	} elseif ( 'xml' == $file_extension && false == $pre_suffix ) {
+	} elseif ( 'xml' === $file_extension && false === $pre_suffix ) {
 		$file_class = 'wxr';
-	} elseif ( 'epub' == $file_extension && '._3.epub' == $pre_suffix ) {
+	} elseif ( 'epub' === $file_extension && '._3.epub' === $pre_suffix ) {
 		$file_class = 'epub3';
-	} elseif ( 'pdf' == $file_extension && '._print.pdf' == $pre_suffix ) {
+	} elseif ( 'pdf' === $file_extension && '._print.pdf' === $pre_suffix ) {
 		$file_class = 'print-pdf';
 	} else {
 		/**
