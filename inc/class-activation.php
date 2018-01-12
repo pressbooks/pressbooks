@@ -143,8 +143,10 @@ class Activation {
 			wp_cache_flush();
 		}
 
-		// Set current metadata version to skip redundant upgrade routines
+		// Set current metadata and taxonomy versions to skip redundant upgrade routines
 		update_option( 'pressbooks_metadata_version', \Pressbooks\Metadata::VERSION );
+		update_option( 'pressbooks_taxonomy_version', \Pressbooks\Taxonomy::VERSION );
+
 		flush_rewrite_rules( false );
 
 		/**
