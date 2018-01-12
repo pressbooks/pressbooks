@@ -32,14 +32,14 @@ function print_analytics() {
 	}
 	if ( ! empty( $book_analytics_code ) && Book::isBook() ) {
 		if ( is_subdomain_install() || defined( 'WP_TESTS_MULTISITE' ) ) {
-			$tracking_html .= "ga('create', '{$book_analytics_code}', 'bookTracker');\n";
+			$tracking_html .= "ga('create', '{$book_analytics_code}', 'auto', 'bookTracker');\n";
 			$tracking_html .= "ga('bookTracker.send', 'pageview');\n";
 		} else {
 			// TODO: https://developers.google.com/analytics/devguides/collection/upgrade/reference/gajs-analyticsjs#cookiepath
 			// TODO: https://core.trac.wordpress.org/ticket/42093
 			// @codingStandardsIgnoreStart
 			// $path = trailingslashit( parse_url( home_url(), PHP_URL_PATH ) );
-			// $tracking_html .= "ga('create', '{$book_analytics_code}', 'bookTracker', {'cookiePath': '{$path}'});\n";
+			// $tracking_html .= "ga('create', '{$book_analytics_code}', 'auto', 'bookTracker', {'cookiePath': '{$path}'});\n";
 			// $tracking_html .= "ga('bookTracker.send', 'pageview');\n";
 			// @codingStandardsIgnoreEnd
 		}
