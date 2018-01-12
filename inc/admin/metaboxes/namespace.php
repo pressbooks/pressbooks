@@ -143,11 +143,6 @@ function add_metadata_styles( $hook ) {
 function add_meta_boxes() {
 	$show_expanded_metadata = \Pressbooks\Metadata\show_expanded_metadata();
 
-	$licenses = [];
-	foreach ( ( new \Pressbooks\Licensing() )->getSupportedTypes() as $key => $val ) {
-		$licenses[ $key ] = $val['desc'];
-	}
-
 	// Override WordPress' parent_id
 
 	add_meta_box( 'chapter-parent', __( 'Part', 'pressbooks' ), __NAMESPACE__ . '\override_parent_id', 'chapter', 'side', 'high' );
@@ -353,10 +348,8 @@ function add_meta_boxes() {
 	x_add_metadata_field(
 		'pb_book_license', 'metadata', [
 			'group' => 'copyright',
-			'field_type' => 'select',
-			'values' => [
-				'' => __( 'Select a License', 'pressbooks' ),
-			] + $licenses,
+			'field_type' => 'taxonomy_select',
+			'taxonomy' => 'license',
 			'label' => __( 'Copyright License', 'pressbooks' ),
 			'description' => __( 'You can select various licenses including Creative Commons.', 'pressbooks' ),
 		]
@@ -561,10 +554,8 @@ function add_meta_boxes() {
 	x_add_metadata_field(
 		'pb_section_license', 'chapter', [
 			'group' => 'chapter-metadata',
-			'field_type' => 'select',
-			'values' => [
-				'' => __( 'Select a License', 'pressbooks' ),
-			] + $licenses,
+			'field_type' => 'taxonomy_select',
+			'taxonomy' => 'license',
 			'label' => __( 'Chapter Copyright License (overrides book license on this page)', 'pressbooks' ),
 		]
 	);
@@ -648,10 +639,8 @@ function add_meta_boxes() {
 	x_add_metadata_field(
 		'pb_section_license', 'front-matter', [
 			'group' => 'front-matter-metadata',
-			'field_type' => 'select',
-			'values' => [
-				'' => __( 'Select a License', 'pressbooks' ),
-			] + $licenses,
+			'field_type' => 'taxonomy_select',
+			'taxonomy' => 'license',
 			'label' => __( 'Front Matter Copyright License (overrides book license on this page)', 'pressbooks' ),
 		]
 	);
@@ -691,10 +680,8 @@ function add_meta_boxes() {
 	x_add_metadata_field(
 		'pb_section_license', 'back-matter', [
 			'group' => 'back-matter-metadata',
-			'field_type' => 'select',
-			'values' => [
-				'' => __( 'Select a License', 'pressbooks' ),
-			] + $licenses,
+			'field_type' => 'taxonomy_select',
+			'taxonomy' => 'license',
 			'label' => __( 'Back Matter Copyright License (overrides book license on this page)', 'pressbooks' ),
 		]
 	);
