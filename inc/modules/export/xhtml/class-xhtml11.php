@@ -14,6 +14,13 @@ use function Pressbooks\Sanitize\clean_filename;
 class Xhtml11 extends Export {
 
 	/**
+	 * Prettify HTML
+	 *
+	 * @var bool
+	 */
+	public $tidy = false;
+
+	/**
 	 * Service URL
 	 *
 	 * @var string
@@ -239,6 +246,12 @@ class Xhtml11 extends Export {
 		}
 
 		echo "</head>\n<body lang='{$this->lang}'>\n";
+		$replace_token = uniqid( 'PB_REPLACE_INNER_HTML_', true );
+		echo $replace_token;
+		echo "\n</body>\n</html>";
+
+		$buffer_outter_html = ob_get_clean();
+		ob_start();
 
 		// Before Title Page
 		$this->echoBeforeTitle( $book_contents, $metadata );
@@ -273,10 +286,16 @@ class Xhtml11 extends Export {
 		// Back-matter
 		$this->echoBackMatter( $book_contents, $metadata );
 
-		// XHTML, Stop!
-		echo "</body>\n</html>";
+		$buffer_inner_html = ob_get_clean();
 
-		$buffer = ob_get_clean();
+		if ( $this->tidy ) {
+			$buffer_inner_html = Sanitize\prettify( $buffer_inner_html );
+		}
+
+		// Put inner HTML inside outer HTML
+		$pos = strpos( $buffer_outter_html, $replace_token );
+		$buffer = substr_replace( $buffer_outter_html, $buffer_inner_html, $pos, strlen( $replace_token ) );
+
 		if ( $return ) {
 			return $buffer;
 		} else {
