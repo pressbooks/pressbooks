@@ -741,12 +741,6 @@ class HTMLBook extends Export {
 					$content .= sprintf( '<p class="author">%s</p>', $author );
 				}
 			}
-			if ( isset( $metadata['pb_contributors'] ) ) {
-				$authors = oxford_comma_explode( $metadata['pb_contributors'] );
-				foreach ( $authors as $author ) {
-					$content .= sprintf( '<p class="author">%s</p>', $author );
-				}
-			}
 			if ( current_theme_supports( 'pressbooks_publisher_logo' ) ) {
 				$content .= sprintf( '<p class="publisher-logo"><img src="%s" /></p>', get_theme_support( 'pressbooks_publisher_logo' )[0]['logo_uri'] ); // TODO: Support custom publisher logo.
 			}

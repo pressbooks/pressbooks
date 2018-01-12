@@ -936,16 +936,10 @@ class Epub201 extends Export {
 			$html .= sprintf( '<h1 class="title">%s</h1>', get_bloginfo( 'name' ) );
 			$html .= sprintf( '<h2 class="subtitle">%s</h2>', ( isset( $metadata['pb_subtitle'] ) ) ? $metadata['pb_subtitle'] : '' );
 			if ( isset( $metadata['pb_authors'] ) ) {
-				$authors = oxford_comma_explode( $metadata['pb_authors'] );
-				foreach ( $authors as $author ) {
-					$html .= sprintf( '<h3 class="author">%s</h3>', $author );
-				}
+				$html .= sprintf( '<h3 class="author">%s</h3>', $metadata['pb_authors'] );
 			}
 			if ( isset( $metadata['pb_contributors'] ) ) {
-				$authors = oxford_comma_explode( $metadata['pb_contributors'] );
-				foreach ( $authors as $author ) {
-					$html .= sprintf( '<h3 class="author">%s</h3>', $author );
-				}
+				$html .= sprintf( '<h3 class="author">%s</h3>', $metadata['pb_contributors'] );
 			}
 			if ( current_theme_supports( 'pressbooks_publisher_logo' ) ) {
 				$html .= sprintf( '<div class="publisher-logo"><img src="%s" alt="%s" /></div>', get_theme_support( 'pressbooks_publisher_logo' )[0]['logo_uri'], __( 'Publisher Logo', 'pressbooks' ) ); // TODO: Support custom publisher logo.
