@@ -10,6 +10,8 @@ use function Pressbooks\Utility\str_starts_with;
 
 class Contributors {
 
+	const TAXONOMY = 'contributor';
+
 	/**
 	 * Valid contributor slugs
 	 *
@@ -25,53 +27,95 @@ class Contributors {
 		'pb_contributors',
 	];
 
+	/**
+	 * @var array
+	 */
+	public $deprecated = [
+		'pb_author',
+		'pb_section_author',
+		'pb_contributing_authors',
+		'pb_author_file_as',
+		'pb_editor',
+		'pb_translator',
+	];
+
 	public function __construct() {
+	}
+
+	/**
+	 * @param string $contributor_type
+	 *
+	 * @return bool
+	 */
+	public function isValid( $contributor_type ) {
+		return in_array( $contributor_type, $this->valid, true );
+	}
+
+	/**
+	 * @param string $contributor_type
+	 *
+	 * @return bool
+	 */
+	public function isDeprecated( $contributor_type ) {
+		return in_array( $contributor_type, $this->deprecated, true );
 	}
 
 	/**
 	 * Retrieve all author/editor/etc lists for a given Post ID
 	 *
 	 * @param int $post_id
+	 * @param bool $as_strings
 	 *
 	 * @return array
 	 */
-	public function getAll( $post_id ) {
+	public function getAll( $post_id, $as_strings = true ) {
 		$contributors = [];
 		foreach ( $this->valid as $contributor_type ) {
-			$contributors[ $contributor_type ] = $this->get( $post_id, $contributor_type );
+			if ( $as_strings ) {
+				$contributors[ $contributor_type ] = $this->get( $post_id, $contributor_type );
+			} else {
+				$contributors[ $contributor_type ] = $this->getArray( $post_id, $contributor_type );
+			}
 		}
 		return $contributors;
 	}
 
 	/**
-	 * Retrieve author/editor/etc lists for a given Post ID and Contributor type
+	 * Retrieve author/editor/etc lists for a given Post ID and Contributor type, returns string
 	 *
-	 * @param int Post ID or object.
+	 * @param int $post_id
 	 * @param string $contributor_type
 	 *
 	 * @return string
 	 */
 	public function get( $post_id, $contributor_type ) {
+		$contributors = $this->getArray( $post_id, $contributor_type );
+		return \Pressbooks\Utility\oxford_comma( $contributors );
+	}
+
+	/**
+	 * Retrieve author/editor/etc lists for a given Post ID and Contributor type, returns array
+	 *
+	 * @param int $post_id
+	 * @param string $contributor_type
+	 *
+	 * @return array
+	 */
+	public function getArray( $post_id, $contributor_type ) {
 		if ( ! str_starts_with( $contributor_type, 'pb_' ) ) {
 			$contributor_type = 'pb_' . $contributor_type;
 		}
-		if ( ! in_array( $contributor_type, $this->valid, true ) ) {
-			return '';
+		if ( ! $this->isValid( $contributor_type ) ) {
+			return [];
 		}
 
 		// Look if contributors exist as taxonomies (new data model)
 		$contributors = [];
 		$meta = get_post_meta( $post_id, $contributor_type, false );
 		foreach ( $meta as $slug ) {
-			$term = get_term_by( 'slug', $slug, 'contributor' );
-			if ( $term ) {
-				$first_name = get_term_meta( $term->term_id, 'contributor_first_name', true );
-				$last_name = get_term_meta( $term->term_id, 'contributor_last_name', true );
-				if ( ! empty( $first_name ) && ! empty( $last_name ) ) {
-					$contributors[] = "{$first_name} {$last_name}";
-				} elseif ( ! empty( $term->name ) ) {
-					$contributors[] = $term->name;
-				}
+			$name = $this->personalName( $slug );
+			if ( $name ) {
+				$contributors[] = $name;
 			}
 		}
 
@@ -79,7 +123,7 @@ class Contributors {
 			// Look if contributors exist as metadata (old data model)
 			// If yes then convert to taxonomies (new data model)
 			$map = [
-				'pb_authors' => [ 'pb_author', 'pb_section_author' ],
+				'pb_authors' => [ 'pb_author', 'pb_section_author', 'pb_author_file_as' ],
 				'pb_editors' => [ 'pb_editor' ],
 				'pb_translators' => [ 'pb_translator' ],
 				'pb_contributors' => [ 'pb_contributing_authors' ],
@@ -100,7 +144,7 @@ class Contributors {
 			}
 		}
 
-		return \Pressbooks\Utility\oxford_comma( $contributors );
+		return $contributors;
 	}
 
 	/**
@@ -113,7 +157,7 @@ class Contributors {
 	public function insert( $full_name, $post_id = 0, $contributor_type = 'pb_authors' ) {
 		$full_name = trim( $full_name );
 		$slug = sanitize_title_with_dashes( remove_accents( $full_name ), '', 'save' );
-		$term = get_term_by( 'slug', $slug, 'contributor' );
+		$term = get_term_by( 'slug', $slug, self::TAXONOMY );
 		if ( $term ) {
 			return [
 				'term_id' => $term->term_id,
@@ -121,7 +165,7 @@ class Contributors {
 			];
 		}
 		$results = wp_insert_term(
-			$full_name, 'contributor', [
+			$full_name, self::TAXONOMY, [
 				'slug' => $slug,
 			]
 		);
@@ -147,11 +191,11 @@ class Contributors {
 		if ( ! str_starts_with( $contributor_type, 'pb_' ) ) {
 			$contributor_type = 'pb_' . $contributor_type;
 		}
-		if ( in_array( $contributor_type, $this->valid, true ) ) {
+		if ( $this->isValid( $contributor_type ) ) {
 			if ( preg_match( '/\d+/', $term_id ) ) {
-				$term = get_term( $term_id, 'contributor' ); // Get slug by Term ID
+				$term = get_term( $term_id, self::TAXONOMY ); // Get slug by Term ID
 			} else {
-				$term = get_term_by( 'slug', $term_id, 'contributor' ); // Verify that slug is valid
+				$term = get_term_by( 'slug', $term_id, self::TAXONOMY ); // Verify that slug is valid
 			}
 			if ( $term && ! is_wp_error( $term ) ) {
 				return is_int( add_post_meta( $post_id, $contributor_type, $term->slug ) );
@@ -173,9 +217,12 @@ class Contributors {
 			$slug = $user->user_nicename;
 			$name = trim( "{$user->first_name} {$user->last_name}" );
 			if ( empty( $name ) ) {
-				$name = $slug;
+				$name = $user->display_name;
+				if ( empty( $name ) ) {
+					$name = $slug;
+				}
 			}
-			$results = wp_insert_term( $name, 'contributor', [
+			$results = wp_insert_term( $name, self::TAXONOMY, [
 				'slug' => $slug,
 			] );
 			if ( is_array( $results ) ) {
@@ -201,12 +248,15 @@ class Contributors {
 			$slug = $user->user_nicename;
 			$name = trim( "{$user->first_name} {$user->last_name}" );
 			if ( empty( $name ) ) {
-				$name = $slug;
+				$name = $user->display_name;
+				if ( empty( $name ) ) {
+					$name = $slug;
+				}
 			}
-			$term = get_term_by( 'slug', $old_user_data->user_nicename, 'contributor' );
+			$term = get_term_by( 'slug', $old_user_data->user_nicename, self::TAXONOMY );
 			if ( $term ) {
 				$results = wp_update_term(
-					$term->term_id, 'contributor', [
+					$term->term_id, self::TAXONOMY, [
 						'name' => $name,
 						'slug' => $slug,
 					]
@@ -215,7 +265,7 @@ class Contributors {
 				update_term_meta( $results['term_id'], 'contributor_last_name', $user->last_name );
 			} else {
 				$results = wp_insert_term(
-					$name, 'contributor', [
+					$name, self::TAXONOMY, [
 						'slug' => $slug,
 					]
 				);
@@ -227,6 +277,34 @@ class Contributors {
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * Get personal name based on available data
+	 *
+	 * Returns empty string is we can't find anything useful
+	 *
+	 * A personal name is the set of names by which an individual is known and that can be recited as a word-group,
+	 * with the understanding that, taken together, they all relate to that one individual. In many cultures, the
+	 * term is synonymous with the birth name or legal name of the individual.
+	 *
+	 * @param string $slug
+	 *
+	 * @return string
+	 */
+	public function personalName( $slug ) {
+		$name = '';
+		$term = get_term_by( 'slug', $slug, self::TAXONOMY );
+		if ( $term ) {
+			$first_name = get_term_meta( $term->term_id, 'contributor_first_name', true );
+			$last_name = get_term_meta( $term->term_id, 'contributor_last_name', true );
+			if ( ! empty( $first_name ) && ! empty( $last_name ) ) {
+				$name = "{$first_name} {$last_name}";
+			} elseif ( ! empty( $term->name ) ) {
+				$name = $term->name;
+			}
+		}
+		return $name;
 	}
 
 }

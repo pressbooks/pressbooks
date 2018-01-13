@@ -6,6 +6,7 @@
 
 namespace Pressbooks\Admin\Metaboxes;
 
+use Pressbooks\Contributors;
 use PressbooksMix\Assets;
 
 /**
@@ -31,15 +32,16 @@ function title_update( $meta_id, $post_id, $meta_key, $meta_value ) {
  * @param \WP_Post $post
  */
 function add_required_data( $pid, $post ) {
-
-	$pb_author = get_post_meta( $pid, 'pb_author', true );
-	if ( ! $pb_author ) {
-		// if the pb_author metadata value is not set, set it to the primary book user's name
+	$pb_authors = get_post_meta( $pid, 'pb_authors', true );
+	if ( ! $pb_authors ) {
+		// if pb_authors is missing, set it to the primary book user
 		if ( 0 !== get_current_user_id() ) {
-			/** @var $user_info \WP_User */
 			$user_info = get_userdata( get_current_user_id() );
-			$name = $user_info->display_name;
-			update_post_meta( $pid, 'pb_author', $name );
+			$contributors = new Contributors();
+			$term = $contributors->addBlogUser( $user_info->ID );
+			if ( $term !== false ) {
+				$contributors->link( $term['term_id'], $pid, 'pb_authors' );
+			}
 		}
 	}
 }

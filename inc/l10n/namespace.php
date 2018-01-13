@@ -410,10 +410,7 @@ function set_locale( $lang ) {
 	static $loc = '__UNSET__';
 
 	if ( '__UNSET__' === $loc ) {
-		// Book information
-		$metadata = \Pressbooks\Book::getBookInformation();
-		$book_lang = ( ! empty( $metadata['pb_language'] ) ) ? $metadata['pb_language'] : 'en';
-
+		$book_lang = get_book_language();
 		if ( is_admin() ) {
 			// If user locale isn't set, use the book information value.
 			if ( function_exists( 'wp_get_current_user' ) && ! get_user_option( 'locale' ) ) {
@@ -436,7 +433,6 @@ function set_locale( $lang ) {
 	} else {
 		return ( $loc ? $loc : $lang );
 	}
-
 }
 
 /**
@@ -458,7 +454,7 @@ function set_root_locale( $lang ) {
  * @since 3.9.6
  *
  * @param int $meta_id The metadata ID
- * @param int $post_ID The book information post ID
+ * @param int $post_id The book information post ID
  * @param string $meta_key The metadata key
  * @param string $meta_value The metadata value
  *
@@ -549,6 +545,28 @@ function romanize( $integer ) {
 	return $return;
 }
 
+/**
+ * Get book language
+ *
+ * We used to get `pb_language` by calling \Pressbooks\Book::getBookInformation()
+ * When we introduced the Pressbooks Five data model, and if called before init, then that function would go into infinite recursion.
+ *
+ * @since 5.0.0
+ *
+ * @return string
+ */
+function get_book_language() {
+	// Book Language
+	$meta = new \Pressbooks\Metadata();
+	$meta_post = $meta->getMetaPost();
+	if ( $meta_post ) {
+		$book_lang = get_post_meta( $meta_post->ID, 'pb_language', true );
+	}
+	if ( empty( $book_lang ) ) {
+		$book_lang = 'en';
+	}
+	return $book_lang;
+}
 
 /**
  * Use the book locale to load POT translations?

@@ -14,21 +14,7 @@ class MetadataTest extends \WP_UnitTestCase {
 	 */
 	public function setUp() {
 		parent::setUp();
-
-		$stub1 = $this
-			->getMockBuilder( '\Pressbooks\Licensing' )
-			->getMock();
-
-		$stub2 = $this
-			->getMockBuilder( '\Pressbooks\Contributors' )
-			->getMock();
-
-		$stub3 = $this
-			->getMockBuilder( '\Pressbooks\Taxonomy' )
-			->setConstructorArgs( [ $stub1, $stub2 ] )
-			->getMock();
-
-		$this->metadata = new \Pressbooks\Metadata( $stub3 );
+		$this->metadata = new \Pressbooks\Metadata();
 	}
 
 	/**
@@ -72,7 +58,7 @@ class MetadataTest extends \WP_UnitTestCase {
 
 		\Pressbooks\Book::deleteBookObjectCache();
 
-		update_post_meta( $meta_post->ID, 'pb_author_file_as', 'Zimmerman, Ned' );
+		update_post_meta( $meta_post->ID, 'pb_audience', 'Zimmerman, Ned' );
 
 		$result = \Pressbooks\Metadata\has_expanded_metadata();
 		$this->assertTrue( $result );
@@ -80,13 +66,13 @@ class MetadataTest extends \WP_UnitTestCase {
 
 	public function test_book_information_to_schema() {
 		$book_information = [
-			'pb_author' => 'Herman Melville',
+			'pb_authors' => 'Herman Melville',
 			'pb_title' => 'Moby Dick',
 		];
 
 		$result = \Pressbooks\Metadata\book_information_to_schema( $book_information );
 		$this->assertEquals( $result['name'], 'Moby Dick' );
-		$this->assertEquals( $result['author']['name'], 'Herman Melville' );
+		$this->assertEquals( $result['author'][0]['name'], 'Herman Melville' );
 	}
 
 	public function test_schema_to_book_information() {
@@ -103,15 +89,17 @@ class MetadataTest extends \WP_UnitTestCase {
 
 		$result = \Pressbooks\Metadata\schema_to_book_information( $schema );
 		$this->assertEquals( $result['pb_title'], 'Moby Dick' );
-		$this->assertEquals( $result['pb_author'], 'Herman Melville' );
+		$this->assertEquals( $result['pb_authors'], 'Herman Melville' );
 		$this->assertEquals( $result['pb_book_license'], 'public-domain' );
 
 		$schema = [
 			'@context' => 'http://schema.org',
 			'@type' => 'Book',
 			'author' => [
-				'@type' => 'Person',
-				'name' => 'Herman Melville',
+				[
+					'@type' => 'Person',
+					'name' => 'Herman Melville',
+				],
 			],
 			'name' => 'Moby Dick',
 			'license' => [
@@ -122,6 +110,7 @@ class MetadataTest extends \WP_UnitTestCase {
 		];
 
 		$result = \Pressbooks\Metadata\schema_to_book_information( $schema );
+		$this->assertEquals( $result['pb_authors'], 'Herman Melville' );
 		$this->assertEquals( $result['pb_custom_copyright'], 'Call me Ishmael.' );
 	}
 
@@ -132,13 +121,13 @@ class MetadataTest extends \WP_UnitTestCase {
 		];
 
 		$book_information = [
-			'pb_author' => 'Herman Melville',
+			'pb_authors' => 'Herman Melville',
 			'pb_title' => 'Moby Dick',
 		];
 
 		$result = \Pressbooks\Metadata\section_information_to_schema( $section_information, $book_information );
 		$this->assertEquals( $result['name'], 'Loomings' );
-		$this->assertEquals( $result['author']['name'], 'Herman Melville' );
+		$this->assertEquals( $result['author'][0]['name'], 'Herman Melville' );
 		$this->assertEquals( $result['position'], 1 );
 	}
 
@@ -172,7 +161,7 @@ class MetadataTest extends \WP_UnitTestCase {
 		];
 
 		$result = \Pressbooks\Metadata\schema_to_section_information( $section_schema, $book_schema );
-		$this->assertArrayNotHasKey( 'pb_section_author', $result );
+		$this->assertArrayNotHasKey( 'pb_authors', $result );
 		$this->assertArrayNotHasKey( 'pb_section_license', $result );
 
 		$book_schema = [

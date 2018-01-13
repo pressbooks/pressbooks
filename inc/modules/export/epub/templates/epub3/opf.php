@@ -8,6 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 use HumanNameParser\Parser;
 use HumanNameParser\Exception\NameParsingException;
+use function \Pressbooks\Utility\oxford_comma_explode;
 
 echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 ?>
@@ -48,42 +49,43 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 			unset( $meta['pb_about_140'] );
 		}
 
-		// Author
-		echo '<dc:creator id="author">';
-
-		if ( ! empty( $meta['pb_author'] ) ) {
-			echo $meta['pb_author'];
-		} else {
-			echo 'Authored by: ' . get_bloginfo( 'url' );
+		// First author
+		$first_author = oxford_comma_explode( $meta['pb_authors'] )[0];
+		if ( empty( $first_author ) ) {
+			$first_author = __( 'Authored by: ', 'pressbooks' ) . get_bloginfo( 'url' );
 		}
-		echo '</dc:creator>' . "\n";
+		echo '<dc:creator id="author">' . $first_author . '</dc:creator>' . "\n";
 
 		// Contributing authors
-		if ( ! empty( $meta['pb_contributing_authors'] ) ) {
-			$contributors = explode( ',', $meta['pb_contributing_authors'] );
-
+		if ( ! empty( $meta['pb_authors'] ) ) {
+			$contributors = oxford_comma_explode( $meta['pb_authors'] );
 			foreach ( $contributors as $contributor ) {
 				echo '<dc:contributor>' . trim( $contributor ) . '</dc:contributor>' . "\n";
 			}
-			unset( $meta['pb_contributing_authors'] );
+			unset( $meta['pb_authors'] );
+		}
+		if ( ! empty( $meta['pb_contributors'] ) ) {
+			$contributors = oxford_comma_explode( $meta['pb_contributors'] );
+			foreach ( $contributors as $contributor ) {
+				echo '<dc:contributor>' . trim( $contributor ) . '</dc:contributor>' . "\n";
+			}
+			unset( $meta['pb_contributors'] );
 		}
 
+		// Refines
 		echo '<meta refines="#author" property="file-as">';
-		if ( ! empty( $meta['pb_author_file_as'] ) ) {
-			echo $meta['pb_author_file_as'];
-		} elseif ( ! empty( $meta['pb_author'] ) ) {
+
+		try {
+			// TODO: Refactor to use term metadata: contributor_last_name, contributor_first_name
 			$nameparser = new Parser();
-			try {
-				$author = $nameparser->parse( $meta['pb_author'] );
-				echo $author->getLastName() . ', ' . $author->getFirstName();
-			} catch ( NameParsingException $e ) {
-				echo $meta['pb_author'];
-			}
-		} else {
-			echo __( 'Authored by: ', 'pressbooks' ) . get_bloginfo( 'url' );
+			$author = $nameparser->parse( $first_author );
+			$author_file_as = $author->getLastName() . ', ' . $author->getFirstName();
+		} catch ( NameParsingException $e ) {
+			$author_file_as = $first_author;
 		}
+		echo $first_author;
 		echo '</meta>';
-		unset( $meta['pb_author_file_as'], $meta['pb_author'] );
+		unset( $meta['pb_authors'] );
 
 		// Copyright
 		if ( ! empty( $meta['pb_copyright_year'] ) || ! empty( $meta['pb_copyright_holder'] ) ) {

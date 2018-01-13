@@ -137,9 +137,6 @@ class Activation {
 				}
 			);
 
-			// Add initial contributor
-			( new Contributors() )->addBlogUser( $user_id );
-
 			wp_cache_flush();
 		}
 
@@ -403,9 +400,13 @@ class Activation {
 					} elseif ( 'metadata' === $item['post_type'] ) {
 						$metadata_id = $newpost;
 						if ( 0 !== get_current_user_id() ) {
+							// Add initial contributor
 							$user_info = get_userdata( get_current_user_id() );
-							$name = $user_info->display_name;
-							update_post_meta( $metadata_id, 'pb_author', $name );
+							$contributors = new Contributors();
+							$term = $contributors->addBlogUser( $user_info->ID );
+							if ( $term !== false ) {
+								$contributors->link( $term['term_id'], $metadata_id, 'pb_authors' );
+							}
 						}
 						$locale = get_option( 'WPLANG' );
 						if ( ! empty( $locale ) ) {

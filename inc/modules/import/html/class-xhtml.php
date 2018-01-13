@@ -8,6 +8,7 @@
 namespace Pressbooks\Modules\Import\Html;
 
 use Masterminds\HTML5;
+use Pressbooks\Contributors;
 use Pressbooks\Modules\Import\Import;
 use Pressbooks\Book;
 use function \Pressbooks\Utility\debug_error_log;
@@ -116,7 +117,7 @@ class Xhtml extends Import {
 		$pid = wp_insert_post( add_magic_quotes( $new_post ) );
 
 		if ( ! empty( $author ) ) {
-			update_post_meta( $pid, 'pb_section_author', $author );
+			( new Contributors() )->insert( $author, $pid, 'pb_authors' );
 		}
 
 		if ( ! empty( $license ) ) {

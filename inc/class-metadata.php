@@ -34,23 +34,10 @@ class Metadata implements \JsonSerializable {
 		'show-title' => 1,
 	];
 
-	/**
-	 * @var Taxonomy
-	 */
-	protected $taxonomy;
 
 	/**
-	 * TODO: Constructor params should not be optional. Refactor so that callers use Container, Init, ?
-	 *
-	 * @param Taxonomy $taxonomy
-	 */
-	public function __construct( $taxonomy = null ) {
-		if ( $taxonomy !== null ) {
-			$this->taxonomy = $taxonomy;
-		} else {
-			$this->taxonomy = Taxonomy::init();
-		}
-	}
+	*/
+	public function __construct() { }
 
 
 	/**
@@ -168,7 +155,8 @@ class Metadata implements \JsonSerializable {
 			$this->resetLandingPage();
 		}
 		if ( $version < 10 ) {
-			$this->taxonomy->insertTerms();
+			$taxonomy = Taxonomy::init();
+			$taxonomy->insertTerms();
 			flush_rewrite_rules( false );
 		}
 		if ( $version < 11 ) {
@@ -184,7 +172,9 @@ class Metadata implements \JsonSerializable {
 
 
 	/**
-	 * Upgrade Ecommerce metadata
+	 * Upgrade Ecommerce metadata - from version 0 (closed source) to version 1 (first open source version, february 2013)
+	 *
+	 * @deprecated
 	 */
 	public function upgradeEcommerce() {
 
@@ -207,7 +197,9 @@ class Metadata implements \JsonSerializable {
 
 
 	/**
-	 * Upgrade book information.
+	 * Upgrade book information - from version 0 (closed source) to version 1 (first open source version, february 2013)
+	 *
+	 * @deprecated
 	 */
 	public function upgradeBookInformation() {
 
@@ -252,7 +244,9 @@ class Metadata implements \JsonSerializable {
 
 
 	/**
-	 * Upgrade book metadata.
+	 * Upgrade book metadata - from version 0 (closed source) to version 1 (first open source version, february 2013)
+	 *
+	 * @deprecated
 	 */
 	public function upgradeBook() {
 
@@ -284,6 +278,8 @@ class Metadata implements \JsonSerializable {
 
 
 	/**
+	 * Upgrade from version 0 (closed source) to version 1 (first open source version, february 2013)
+	 *
 	 * @deprecated
 	 *
 	 * @param string $table

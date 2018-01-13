@@ -14,6 +14,7 @@ use Pressbooks\Modules\Export\Export;
 use Pressbooks\Container;
 use Pressbooks\Sanitize;
 use function \Pressbooks\Sanitize\sanitize_xml_attribute;
+use function Pressbooks\Utility\oxford_comma_explode;
 use function \Pressbooks\Utility\str_ends_with;
 use function \Pressbooks\Utility\debug_error_log;
 
@@ -179,6 +180,11 @@ class Epub201 extends Export {
 	protected $taxonomy;
 
 	/**
+	 * @var \Pressbooks\Contributors
+	 */
+	protected $contributors;
+
+	/**
 	 * @var array [original slug -> sanitized slug]
 	 */
 	protected $sanitizedSlugs = [];
@@ -192,6 +198,7 @@ class Epub201 extends Export {
 		// Some defaults
 
 		$this->taxonomy = \Pressbooks\Taxonomy::init();
+		$this->contributors = new \Pressbooks\Contributors();
 
 		if ( ! class_exists( '\PclZip' ) ) {
 			require_once( ABSPATH . 'wp-admin/includes/class-pclzip.php' );
@@ -928,8 +935,12 @@ class Epub201 extends Export {
 		} else {
 			$html .= sprintf( '<h1 class="title">%s</h1>', get_bloginfo( 'name' ) );
 			$html .= sprintf( '<h2 class="subtitle">%s</h2>', ( isset( $metadata['pb_subtitle'] ) ) ? $metadata['pb_subtitle'] : '' );
-			$html .= sprintf( '<h3 class="author">%s</h3>', ( isset( $metadata['pb_author'] ) ) ? $metadata['pb_author'] : '' );
-			$html .= sprintf( '<h4 class="author">%s</h4>', ( isset( $metadata['pb_contributing_authors'] ) ) ? $metadata['pb_contributing_authors'] : '' );
+			if ( isset( $metadata['pb_authors'] ) ) {
+				$html .= sprintf( '<h3 class="author">%s</h3>', $metadata['pb_authors'] );
+			}
+			if ( isset( $metadata['pb_contributors'] ) ) {
+				$html .= sprintf( '<h3 class="author">%s</h3>', $metadata['pb_contributors'] );
+			}
 			if ( current_theme_supports( 'pressbooks_publisher_logo' ) ) {
 				$html .= sprintf( '<div class="publisher-logo"><img src="%s" alt="%s" /></div>', get_theme_support( 'pressbooks_publisher_logo' )[0]['logo_uri'], __( 'Publisher Logo', 'pressbooks' ) ); // TODO: Support custom publisher logo.
 			}
@@ -1172,7 +1183,7 @@ class Epub201 extends Export {
 			$append_front_matter_content = $this->kneadHtml( apply_filters( 'pb_append_front_matter_content', '', $front_matter_id ), 'front-matter', $i );
 			$short_title = trim( get_post_meta( $front_matter_id, 'pb_short_title', true ) );
 			$subtitle = trim( get_post_meta( $front_matter_id, 'pb_subtitle', true ) );
-			$author = trim( get_post_meta( $front_matter_id, 'pb_section_author', true ) );
+			$author = $this->contributors->get( $front_matter_id, 'pb_authors' );
 
 			if ( \Pressbooks\Modules\Export\Export::isParsingSubsections() === true ) {
 				$sections = \Pressbooks\Book::getSubsections( $front_matter_id );
@@ -1331,7 +1342,7 @@ class Epub201 extends Export {
 				$append_chapter_content = $this->kneadHtml( apply_filters( 'pb_append_chapter_content', '', $chapter_id ), 'chapter', $j );
 				$short_title = false; // Ie. running header title is not used in EPUB
 				$subtitle = trim( get_post_meta( $chapter_id, 'pb_subtitle', true ) );
-				$author = trim( get_post_meta( $chapter_id, 'pb_section_author', true ) );
+				$author = $this->contributors->get( $chapter_id, 'pb_authors' );
 
 				if ( \Pressbooks\Modules\Export\Export::isParsingSubsections() === true ) {
 					$sections = \Pressbooks\Book::getSubsections( $chapter_id );
@@ -1551,7 +1562,7 @@ class Epub201 extends Export {
 			$append_back_matter_content = $this->kneadHtml( apply_filters( 'pb_append_back_matter_content', '', $back_matter_id ), 'back-matter', $i );
 			$short_title = trim( get_post_meta( $back_matter_id, 'pb_short_title', true ) );
 			$subtitle = trim( get_post_meta( $back_matter_id, 'pb_subtitle', true ) );
-			$author = trim( get_post_meta( $back_matter_id, 'pb_section_author', true ) );
+			$author = $this->contributors->get( $back_matter_id, 'pb_authors' );
 
 			if ( \Pressbooks\Modules\Export\Export::isParsingSubsections() === true ) {
 				$sections = \Pressbooks\Book::getSubsections( $back_matter_id );
@@ -1660,7 +1671,7 @@ class Epub201 extends Export {
 				$class = 'front-matter ';
 				$class .= $this->taxonomy->getFrontMatterType( $v['ID'] );
 				$subtitle = trim( get_post_meta( $v['ID'], 'pb_subtitle', true ) );
-				$author = trim( get_post_meta( $v['ID'], 'pb_section_author', true ) );
+				$author = $this->contributors->get( $v['ID'], 'pb_authors' );
 				$license = $this->doTocLicense( $v['ID'] );
 			} elseif ( preg_match( '/^part-/', $k ) ) {
 				$class = 'part';
@@ -1674,7 +1685,7 @@ class Epub201 extends Export {
 				$class = 'chapter';
 				$class .= $this->taxonomy->getChapterType( $v['ID'] );
 				$subtitle = trim( get_post_meta( $v['ID'], 'pb_subtitle', true ) );
-				$author = trim( get_post_meta( $v['ID'], 'pb_section_author', true ) );
+				$author = $this->contributors->get( $v['ID'], 'pb_authors' );
 				$license = $this->doTocLicense( $v['ID'] );
 				if ( $this->numbered && $this->taxonomy->getChapterType( $v['ID'] ) !== 'numberless' ) {
 					$title = " $i. " . $title;
@@ -1686,7 +1697,7 @@ class Epub201 extends Export {
 				$class = 'back-matter ';
 				$class .= $this->taxonomy->getBackMatterType( $v['ID'] );
 				$subtitle = trim( get_post_meta( $v['ID'], 'pb_subtitle', true ) );
-				$author = trim( get_post_meta( $v['ID'], 'pb_section_author', true ) );
+				$author = $this->contributors->get( $v['ID'], 'pb_authors' );
 				$license = $this->doTocLicense( $v['ID'] );
 			} else {
 				continue;
@@ -2311,7 +2322,7 @@ class Epub201 extends Export {
 
 		// Sanitize variables for usage in XML template
 		$vars = [
-			'author' => isset( $metadata['pb_author'] ) ? sanitize_xml_attribute( $metadata['pb_author'] ) : '',
+			'author' => isset( $metadata['pb_authors'] ) ? sanitize_xml_attribute( oxford_comma_explode( $metadata['pb_authors'] )[0] ) : '',
 			'manifest' => $this->manifest,
 			'dtd_uid' => ! empty( $metadata['pb_ebook_isbn'] ) ? sanitize_xml_attribute( $metadata['pb_ebook_isbn'] ) : sanitize_xml_attribute( get_bloginfo( 'url' ) ),
 			'enable_external_identifier' => true,

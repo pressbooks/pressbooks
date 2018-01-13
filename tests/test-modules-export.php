@@ -148,7 +148,7 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 
 		$this->_book();
 		$meta_post = ( new \Pressbooks\Metadata() )->getMetaPost();
-		update_post_meta( $meta_post->ID, 'pb_author', 'Zimmerman, Ned' );
+		( new \Pressbooks\Contributors() )->insert( 'Ned Zimmerman', $meta_post->ID );
 		$user_id = $this->factory()->user->create( [ 'role' => 'contributor' ] );
 		wp_set_current_user( $user_id );
 
