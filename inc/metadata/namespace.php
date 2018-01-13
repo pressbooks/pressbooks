@@ -576,8 +576,8 @@ function section_information_to_schema( $section_information, $book_information 
 		];
 	}
 
-	if ( ! isset( $section_information['pb_section_license'] ) ) {
-		if ( isset( $book_information['pb_book_license'] ) ) {
+	if ( empty( $section_information['pb_section_license'] ) ) {
+		if ( ! empty( $book_information['pb_book_license'] ) ) {
 			$section_information['pb_section_license'] = $book_information['pb_book_license'];
 		} else {
 			$section_information['pb_section_license'] = 'all-rights-reserved';
@@ -585,6 +585,11 @@ function section_information_to_schema( $section_information, $book_information 
 	}
 
 	$licensing = new Licensing;
+
+	if ( ! $licensing->isSupportedType( $section_information['pb_section_license'] ) ) {
+		$section_information['pb_section_license'] = 'all-rights-reserved';
+	}
+
 	$section_schema['license'] = [
 		'@type' => 'CreativeWork',
 		'url' => $licensing->getUrlForLicense( $section_information['pb_section_license'] ),

@@ -118,9 +118,9 @@
           margin: 0 auto 8px;
 
           &.small {
-            width: 32px;
-            height: 32px;
-            background-size: 32px 32px;
+            width: 36px;
+            height: 36px;
+            background-size: 36px 36px;
             background-position: -0 0;
             background-repeat: no-repeat;
 
@@ -193,6 +193,14 @@
 
               @include hidpi {
                 background-image: url(../images/xhtml-72.png);
+              }
+            }
+
+            &.htmlbook {
+              background-image: url(../images/html5-36.png);
+
+              @include hidpi {
+                background-image: url(../images/html5-72.png);
               }
             }
 
@@ -281,6 +289,14 @@
 
               @include hidpi {
                 background-image: url(../images/xhtml-96.png);
+              }
+            }
+
+            &.htmlbook {
+              background-image: url(../images/html5-48.png);
+
+              @include hidpi {
+                background-image: url(../images/html5-96.png);
               }
             }
 

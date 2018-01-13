@@ -304,4 +304,16 @@ TERRIBLE;
 		$this->assertEquals( '\\\A0', \Pressbooks\Sanitize\cleanup_css( $css ) );
 	}
 
+	public function test_prettify() {
+		$val = '<div><p>Hello!</p></div>';
+		$result = \Pressbooks\Sanitize\prettify( $val );
+
+		$pretty = <<< PRETTY
+<div>
+    <p>Hello!</p>
+</div>
+PRETTY;
+		$this->assertEquals( trim( $pretty ), trim( $result ) );
+	}
+
 }

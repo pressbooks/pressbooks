@@ -27,6 +27,13 @@ use function Pressbooks\Utility\oxford_comma_explode;
 class HTMLBook extends Export {
 
 	/**
+	 * Prettify HTML
+	 *
+	 * @var bool
+	 */
+	public $tidy = true;
+
+	/**
 	 * Service URL
 	 *
 	 * @var string
@@ -255,7 +262,10 @@ class HTMLBook extends Export {
 		// Back-matter
 		$this->backMatter( $book, $book_contents, $metadata );
 
-		$book->setTidy( true );
+		if ( $this->tidy ) {
+			$book->setTidy( true );
+		}
+
 		echo $book->render();
 		echo "\n" . '</html>';
 
