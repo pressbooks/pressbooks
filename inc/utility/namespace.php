@@ -201,6 +201,7 @@ function latest_exports() {
 			'print-pdf' => '._print.pdf',
 			'mobi' => '.mobi',
 			'icml' => '.icml',
+			'htmlbook' => '-htmlbook.html',
 			'xhtml' => '.html',
 			'wxr' => '.xml',
 			'vanillawxr' => '._vanilla.xml',

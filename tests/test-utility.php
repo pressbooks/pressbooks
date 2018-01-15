@@ -69,6 +69,20 @@ class UtilityTest extends \WP_UnitTestCase {
 		);
 	}
 
+	public function test_latest_exports() {
+		$this->_book();
+		foreach ( [
+			'\Pressbooks\Modules\Export\HTMLBook\HTMLBook',
+			'\Pressbooks\Modules\Export\WordPress\Wxr',
+		] as $module ) {
+			$exporter = new $module( [] );
+			$exporter->convert();
+		}
+		$latest = \Pressbooks\Utility\latest_exports();
+		$this->assertArrayHasKey( 'htmlbook', $latest );
+		$this->assertArrayHasKey( 'wxr', $latest );
+	}
+
 	public function test_add_sitemap_to_robots_txt_0() {
 
 		update_option( 'blog_public', 0 );
@@ -157,6 +171,13 @@ class UtilityTest extends \WP_UnitTestCase {
 
 		$this->assertTrue( is_array( $filtered ) );
 		$this->assertArrayHasKey( 'a-plugin-that-does-not-exist/foobar.php', $filtered );
+	}
+
+	public function test_install_plugins_tabs() {
+		$tabs = \Pressbooks\Utility\install_plugins_tabs();
+		$this->assertArrayNotHasKey( 'featured', $tabs );
+		$this->assertArrayNotHasKey( 'popular', $tabs );
+		$this->assertArrayNotHasKey( 'favorites', $tabs );
 	}
 
 	public function test_file_upload_max_size() {
