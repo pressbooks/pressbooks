@@ -469,4 +469,12 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertEquals( [ 'andy', 'andrew', 'andrea', 'android' ], \Pressbooks\Utility\oxford_comma_explode( 'andy,andrew, andrea,  android' ) );
 	}
 
+	public function test_is_assoc() {
+		$this->assertFalse( \Pressbooks\Utility\is_assoc( 'Doing it wrong' ) );
+		$this->assertFalse( \Pressbooks\Utility\is_assoc( [ 'a', 'b', 'c' ] ) );
+		$this->assertFalse( \Pressbooks\Utility\is_assoc( [ "0" => 'a', "1" => 'b', "2" => 'c' ] ) );
+		$this->assertTrue( \Pressbooks\Utility\is_assoc( [ "1" => 'a', "0" => 'b', "2" => 'c' ] ) );
+		$this->assertTrue( \Pressbooks\Utility\is_assoc( [ "a" => 'a', "b" => 'b', "c" => 'c' ] ) );
+	}
+
 }

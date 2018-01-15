@@ -604,9 +604,7 @@ class Cloner {
 			return false;
 		}
 
-		$contributors = new Contributors();
 		$book_information = schema_to_book_information( $this->sourceBookMetadata );
-		$book_information['pb_is_based_on'] = $this->sourceBookUrl;
 
 		// Cover image
 		if ( strpos( $book_information['pb_cover_image'], 'plugins/pressbooks/assets/dist/images/default-book-cover.jpg' ) === false ) {
@@ -621,7 +619,9 @@ class Cloner {
 		}
 
 		// Everything else
-		$metadata_array_values = [ 'pb_keywords_tags', 'pb_bisac_subject' ];
+		$book_information['pb_is_based_on'] = $this->sourceBookUrl;
+		$metadata_array_values = [ 'pb_keywords_tags', 'pb_bisac_subject', 'pb_additional_subjects' ];
+		$contributors = new Contributors();
 		foreach ( $book_information as $key => $value ) {
 			if ( $contributors->isValid( $key ) ) {
 				$values = oxford_comma_explode( $value );
@@ -779,8 +779,16 @@ class Cloner {
 
 		$section_information = schema_to_section_information( $section_metadata, $this->sourceBookMetadata );
 
+		$contributors = new Contributors();
 		foreach ( $section_information as $key => $value ) {
-			update_post_meta( $target_id, $key, $value ); // TODO handle errors
+			if ( $contributors->isValid( $key ) ) {
+				$values = oxford_comma_explode( $value );
+				foreach ( $values as $v ) {
+					$contributors->insert( $v, $section_id, $key );
+				}
+			} else {
+				update_post_meta( $target_id, $key, $value ); // TODO handle errors
+			}
 		}
 
 		return true;
