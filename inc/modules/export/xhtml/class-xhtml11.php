@@ -84,6 +84,10 @@ class Xhtml11 extends Export {
 		$this->taxonomy = \Pressbooks\Taxonomy::init();
 		$this->contributors = new \Pressbooks\Contributors();
 
+		if ( Container::get( 'Styles' )->isCurrentThemeCompatible( 2 ) ) {
+			$this->wrapHeaderElements = true;
+		}
+
 		if ( ! defined( 'PB_XMLLINT_COMMAND' ) ) {
 			define( 'PB_XMLLINT_COMMAND', '/usr/bin/xmllint' );
 		}
@@ -649,9 +653,9 @@ class Xhtml11 extends Export {
 	 */
 	protected function echoBeforeTitle( $book_contents, $metadata ) {
 
-		$front_matter_printf = '<div class="front-matter %s" id="%s">';
-		$front_matter_printf .= '<div class="front-matter-title-wrap"><h3 class="front-matter-number">%s</h3><h1 class="front-matter-title">%s</h1></div>';
-		$front_matter_printf .= '<div class="ugc front-matter-ugc">%s</div>%s';
+		$front_matter_printf = '<div class="front-matter %1$s" id="%2$s">';
+		$front_matter_printf .= '<div class="front-matter-title-wrap"><h3 class="front-matter-number">%3$s</h3><h1 class="front-matter-title">%4$s</h1></div>';
+		$front_matter_printf .= '<div class="ugc front-matter-ugc">%5$s</div>%6$s';
 		$front_matter_printf .= '</div>';
 
 		$i = $this->frontMatterPos;
@@ -1011,12 +1015,6 @@ class Xhtml11 extends Export {
 	 * @param array $metadata
 	 */
 	protected function echoFrontMatter( $book_contents, $metadata ) {
-		if ( Container::get( 'Styles' )->isCurrentThemeCompatible( 2 ) ) {
-			$wrap_header_elements = true;
-		} else {
-			$wrap_header_elements = false;
-		}
-
 		$front_matter_printf = '<div class="front-matter %1$s" id="%2$s">';
 		$front_matter_printf .= '<div class="front-matter-title-wrap"><h3 class="front-matter-number">%3$s</h3><h1 class="front-matter-title">%4$s</h1>%5$s</div>';
 		$front_matter_printf .= '<div class="ugc front-matter-ugc">%6$s</div>%7$s%8$s';
@@ -1057,7 +1055,7 @@ class Xhtml11 extends Export {
 			}
 
 			if ( $author ) {
-				if ( $wrap_header_elements ) {
+				if ( $this->wrapHeaderElements ) {
 					$after_title .= '<h2 class="chapter-author">' . Sanitize\decode( $author ) . '</h2>';
 				} else {
 					$content = '<h2 class="chapter-author">' . Sanitize\decode( $author ) . '</h2>' . $content;
@@ -1065,7 +1063,7 @@ class Xhtml11 extends Export {
 			}
 
 			if ( $subtitle ) {
-				if ( $wrap_header_elements ) {
+				if ( $this->wrapHeaderElements ) {
 					$after_title .= '<h2 class="chapter-subtitle">' . Sanitize\decode( $subtitle ) . '</h2>';
 				} else {
 					$content = '<h2 class="chapter-subtitle">' . Sanitize\decode( $subtitle ) . '</h2>' . $content;
@@ -1073,7 +1071,7 @@ class Xhtml11 extends Export {
 			}
 
 			if ( $short_title ) {
-				if ( $wrap_header_elements ) {
+				if ( $this->wrapHeaderElements ) {
 					$after_title .= '<h6 class="short-title">' . Sanitize\decode( $short_title ) . '</h6>';
 				} else {
 					$content = '<h6 class="short-title">' . Sanitize\decode( $short_title ) . '</h6>' . $content;
@@ -1119,12 +1117,6 @@ class Xhtml11 extends Export {
 	 * @param array $metadata
 	 */
 	protected function echoPartsAndChapters( $book_contents, $metadata ) {
-		if ( Container::get( 'Styles' )->isCurrentThemeCompatible( 2 ) ) {
-			$wrap_header_elements = true;
-		} else {
-			$wrap_header_elements = false;
-		}
-
 		$part_printf = '<div class="part %1$s" id="%2$s">';
 		$part_printf .= '<div class="part-title-wrap"><h3 class="part-number">%3$s</h3><h1 class="part-title">%4$s</h1></div>%5$s';
 		$part_printf .= '</div>';
@@ -1210,7 +1202,7 @@ class Xhtml11 extends Export {
 				}
 
 				if ( $author ) {
-					if ( $wrap_header_elements ) {
+					if ( $this->wrapHeaderElements ) {
 						$after_title .= '<h2 class="chapter-author">' . Sanitize\decode( $author ) . '</h2>';
 					} else {
 						$content = '<h2 class="chapter-author">' . Sanitize\decode( $author ) . '</h2>' . $content;
@@ -1218,7 +1210,7 @@ class Xhtml11 extends Export {
 				}
 
 				if ( $subtitle ) {
-					if ( $wrap_header_elements ) {
+					if ( $this->wrapHeaderElements ) {
 						$after_title .= '<h2 class="chapter-subtitle">' . Sanitize\decode( $subtitle ) . '</h2>';
 					} else {
 						$content = '<h2 class="chapter-subtitle">' . Sanitize\decode( $subtitle ) . '</h2>' . $content;
@@ -1226,7 +1218,7 @@ class Xhtml11 extends Export {
 				}
 
 				if ( $short_title ) {
-					if ( $wrap_header_elements ) {
+					if ( $this->wrapHeaderElements ) {
 						$after_title .= '<h6 class="short-title">' . Sanitize\decode( $short_title ) . '</h6>';
 					} else {
 						$content = '<h6 class="short-title">' . Sanitize\decode( $short_title ) . '</h6>' . $content;
@@ -1235,15 +1227,15 @@ class Xhtml11 extends Export {
 
 				// Inject introduction class?
 				if ( ! $this->hasIntroduction ) {
-					$chapter_printf_changed = str_replace( '<div class="chapter %s" id=', '<div class="chapter introduction %s" id=', $chapter_printf );
+					$subclass .= ' introduction';
 					$this->hasIntroduction = true;
 				}
 
 				$append_chapter_content .= $this->removeAttributionLink( $this->doSectionLevelLicense( $metadata, $chapter_id ) );
 
-				$n = ( 'numberless' === $subclass ) ? '' : $j;
+				$n = ( strpos( $subclass, 'numberless' ) === false ) ? '' : $j;
 				$my_chapters .= sprintf(
-					( $chapter_printf_changed ? $chapter_printf_changed : $chapter_printf ),
+					$chapter_printf,
 					$subclass,
 					$slug,
 					$n,
@@ -1298,12 +1290,6 @@ class Xhtml11 extends Export {
 	 * @param array $metadata
 	 */
 	protected function echoBackMatter( $book_contents, $metadata ) {
-		if ( Container::get( 'Styles' )->isCurrentThemeCompatible( 2 ) ) {
-			$wrap_header_elements = true;
-		} else {
-			$wrap_header_elements = false;
-		}
-
 		$back_matter_printf = '<div class="back-matter %1$s" id="%2$s">';
 		$back_matter_printf .= '<div class="back-matter-title-wrap"><h3 class="back-matter-number">%3$s</h3><h1 class="back-matter-title">%4$s</h1>%5$s</div>';
 		$back_matter_printf .= '<div class="ugc back-matter-ugc">%6$s</div>%7$s%8$s';
@@ -1335,7 +1321,7 @@ class Xhtml11 extends Export {
 			}
 
 			if ( $author ) {
-				if ( $wrap_header_elements ) {
+				if ( $this->wrapHeaderElements ) {
 					$after_title .= '<h2 class="chapter-author">' . Sanitize\decode( $author ) . '</h2>';
 				} else {
 					$content = '<h2 class="chapter-author">' . Sanitize\decode( $author ) . '</h2>' . $content;
@@ -1343,7 +1329,7 @@ class Xhtml11 extends Export {
 			}
 
 			if ( $subtitle ) {
-				if ( $wrap_header_elements ) {
+				if ( $this->wrapHeaderElements ) {
 					$after_title .= '<h2 class="chapter-subtitle">' . Sanitize\decode( $subtitle ) . '</h2>';
 				} else {
 					$content = '<h2 class="chapter-subtitle">' . Sanitize\decode( $subtitle ) . '</h2>' . $content;
@@ -1351,7 +1337,7 @@ class Xhtml11 extends Export {
 			}
 
 			if ( $short_title ) {
-				if ( $wrap_header_elements ) {
+				if ( $this->wrapHeaderElements ) {
 					$after_title .= '<h6 class="short-title">' . Sanitize\decode( $short_title ) . '</h6>';
 				} else {
 					$content = '<h6 class="short-title">' . Sanitize\decode( $short_title ) . '</h6>' . $content;
