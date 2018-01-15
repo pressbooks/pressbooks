@@ -55,7 +55,7 @@ trait utilsTrait {
 Footnotes are cool. [footnote]but endnotes are cooler?[/footnote]
 
 <h1>Math</h1>
-				
+
 This is my math:
 
 $latex \displaystyle P_\nu^{-\mu}(z)=\frac{\left(z^2-1\right)^{\frac{\mu}{2}}}{2^\mu \sqrt{\pi}\Gamma\left(\mu+\frac{1}{2}\right)}\int_{-1}^1\frac{\left(1-t^2\right)^{\mu -\frac{1}{2}}}{\left(z+t\sqrt{z^2-1}\right)^{\mu-\nu}}dt$$
@@ -85,6 +85,7 @@ There are many maths like it but these ones are mine.
 		];
 		$pid = $this->factory()->post->create_object( $new_post );
 		update_post_meta( $pid, 'pb_export', 'on' );
+		update_post_meta( $pid, 'pb_subtitle', 'Or, A Chapter to Test' );
 
 		return $pid;
 	}

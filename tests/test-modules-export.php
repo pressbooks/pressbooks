@@ -195,10 +195,23 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 		$this->assertContains( ' <div id="attachment_1" ', $xhtml_content );
 		$this->assertContains( '<p><em>Ka kite ano!</em></p>', $xhtml_content );
 		$this->assertContains( 'https://github.com/pressbooks/pressbooks', $xhtml_content );
+		$this->assertContains( '</h2><h2 class="chapter-subtitle">Or, A Chapter to Test</h2></div>', $xhtml_content );
 
 		foreach ( $paths as $path ) {
 			unlink( $path );
 		}
+
+		$this->_book( 'pressbooks-donham' ); // Use an old book.
+		$meta_post = ( new \Pressbooks\Metadata() )->getMetaPost();
+		( new \Pressbooks\Contributors() )->insert( 'Ned Zimmerman', $meta_post->ID );
+		$user_id = $this->factory()->user->create( [ 'role' => 'contributor' ] );
+		wp_set_current_user( $user_id );
+
+		$exporter = new \Pressbooks\Modules\Export\Xhtml\Xhtml11( [] );
+		$this->assertTrue( $exporter->convert() );
+		$xhtml_path = $exporter->getOutputPath();
+		// Heading elements should be in a "bad" place.
+		$this->assertContains( '</h2></div><div class="ugc chapter-ugc"><h2 class="chapter-subtitle">Or, A Chapter to Test</h2>', $xhtml_content );
 	}
 
 }

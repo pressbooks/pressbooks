@@ -93,6 +93,15 @@ class Epub201 extends Export {
 	protected $hasIntroduction = false;
 
 	/**
+	 * Should all header elements be wrapped in a container? Requires a theme based on Buckram.
+	 *
+	 * @see https://github.com/pressbooks/buckram/
+	 *
+	 * @var bool
+	 */
+	protected $wrapHeaderElements = false;
+
+	/**
 	 * Used to set cover-image in OPF for kindlegen compatibility.
 	 *
 	 * @var string
@@ -210,6 +219,10 @@ class Epub201 extends Export {
 
 		$this->tmpDir = $this->createTmpDir();
 		$this->exportStylePath = $this->getExportStylePath( 'epub' );
+
+		if ( get_theme_support( 'buckram' ) || wp_get_theme()->get_stylesheet() === 'pressbooks-book' ) {
+			$this->wrapHeaderElements = true;
+		}
 
 		$this->themeOptionsOverrides();
 
@@ -837,9 +850,9 @@ class Epub201 extends Export {
 	 */
 	protected function createBeforeTitle( $book_contents, $metadata ) {
 
-		$front_matter_printf = '<div class="front-matter %s" id="%s">';
-		$front_matter_printf .= '<div class="front-matter-title-wrap"><h3 class="front-matter-number">%s</h3><h1 class="front-matter-title">%s</h1></div>';
-		$front_matter_printf .= '<div class="ugc front-matter-ugc">%s</div>%s';
+		$front_matter_printf = '<div class="front-matter %1$s" id="%2$s">';
+		$front_matter_printf .= '<div class="front-matter-title-wrap"><h3 class="front-matter-number">%3$s</h3><h1 class="front-matter-title">%4$s</h1></div>';
+		$front_matter_printf .= '<div class="ugc front-matter-ugc">%5$s</div>%6$s';
 		$front_matter_printf .= '</div>';
 
 		$vars = [
@@ -1070,9 +1083,9 @@ class Epub201 extends Export {
 	 */
 	protected function createDedicationAndEpigraph( $book_contents, $metadata ) {
 
-		$front_matter_printf = '<div class="front-matter %s" id="%s">';
-		$front_matter_printf .= '<div class="front-matter-title-wrap"><h3 class="front-matter-number">%s</h3><h1 class="front-matter-title">%s</h1></div>';
-		$front_matter_printf .= '<div class="ugc front-matter-ugc">%s</div>%s';
+		$front_matter_printf = '<div class="front-matter %1$s" id="%2$s">';
+		$front_matter_printf .= '<div class="front-matter-title-wrap"><h3 class="front-matter-number">%3$s</h3><h1 class="front-matter-title">%4$s</h1></div>';
+		$front_matter_printf .= '<div class="ugc front-matter-ugc">%5$s</div>%6$s';
 		$front_matter_printf .= '</div>';
 
 		$vars = [
@@ -1144,10 +1157,9 @@ class Epub201 extends Export {
 	 * @param array $metadata
 	 */
 	protected function createFrontMatter( $book_contents, $metadata ) {
-
-		$front_matter_printf = '<div class="front-matter %s" id="%s">';
-		$front_matter_printf .= '<div class="front-matter-title-wrap"><h3 class="front-matter-number">%s</h3><h1 class="front-matter-title">%s</h1></div>';
-		$front_matter_printf .= '<div class="ugc front-matter-ugc">%s</div>%s';
+		$front_matter_printf = '<div class="front-matter %1$s" id="%2$s">';
+		$front_matter_printf .= '<div class="front-matter-title-wrap"><h3 class="front-matter-number">%3$s</h3><h1 class="front-matter-title">%4$s</h1>%5$s</div>';
+		$front_matter_printf .= '<div class="ugc front-matter-ugc">%6$s</div>%7$s';
 		$front_matter_printf .= '</div>';
 
 		$vars = [
@@ -1179,6 +1191,7 @@ class Epub201 extends Export {
 
 			$slug = $front_matter['post_name'];
 			$title = ( get_post_meta( $front_matter_id, 'pb_show_title', true ) ? $front_matter['post_title'] : '' );
+			$after_title = '';
 			$content = $this->kneadHtml( $front_matter['post_content'], 'front-matter', $i );
 			$append_front_matter_content = $this->kneadHtml( apply_filters( 'pb_append_front_matter_content', '', $front_matter_id ), 'front-matter', $i );
 			$short_title = trim( get_post_meta( $front_matter_id, 'pb_short_title', true ) );
@@ -1194,15 +1207,27 @@ class Epub201 extends Export {
 			}
 
 			if ( $author ) {
-				$content = '<h2 class="chapter-author">' . Sanitize\decode( $author ) . '</h2>' . $content;
+				if ( $this->wrapHeaderElements ) {
+					$after_title .= '<h2 class="chapter-author">' . Sanitize\decode( $author ) . '</h2>';
+				} else {
+					$content = '<h2 class="chapter-author">' . Sanitize\decode( $author ) . '</h2>' . $content;
+				}
 			}
 
 			if ( $subtitle ) {
-				$content = '<h2 class="chapter-subtitle">' . Sanitize\decode( $subtitle ) . '</h2>' . $content;
+				if ( $this->wrapHeaderElements ) {
+					$after_title .= '<h2 class="chapter-subtitle">' . Sanitize\decode( $subtitle ) . '</h2>';
+				} else {
+					$content = '<h2 class="chapter-subtitle">' . Sanitize\decode( $subtitle ) . '</h2>' . $content;
+				}
 			}
 
 			if ( $short_title ) {
-				$content = '<h6 class="short-title">' . Sanitize\decode( $short_title ) . '</h6>' . $content;
+				if ( $this->wrapHeaderElements ) {
+					$after_title .= '<h6 class="short-title">' . Sanitize\decode( $short_title ) . '</h6>';
+				} else {
+					$content = '<h6 class="short-title">' . Sanitize\decode( $short_title ) . '</h6>' . $content;
+				}
 			}
 
 			$section_license = $this->doSectionLevelLicense( $metadata, $front_matter_id );
@@ -1217,6 +1242,7 @@ class Epub201 extends Export {
 				$slug,
 				$i,
 				Sanitize\decode( $title ),
+				$after_title,
 				$content,
 				$var['append_front_matter_content'] = $append_front_matter_content,
 				''
@@ -1282,14 +1308,13 @@ class Epub201 extends Export {
 	 * @param array $metadata
 	 */
 	protected function createPartsAndChapters( $book_contents, $metadata ) {
-
-		$part_printf = '<div class="part %s" id="%s">';
-		$part_printf .= '<div class="part-title-wrap"><h3 class="part-number">%s</h3><h1 class="part-title">%s</h1></div>%s';
+		$part_printf = '<div class="part %1$s" id="%2$s">';
+		$part_printf .= '<div class="part-title-wrap"><h3 class="part-number">%3$s</h3><h1 class="part-title">%4$s</h1></div>%5$s';
 		$part_printf .= '</div>';
 
-		$chapter_printf = '<div class="chapter %s" id="%s">';
-		$chapter_printf .= '<div class="chapter-title-wrap"><h3 class="chapter-number">%s</h3><h2 class="chapter-title">%s</h2></div>';
-		$chapter_printf .= '<div class="ugc chapter-ugc">%s</div>%s';
+		$chapter_printf = '<div class="chapter %1$s" id="%2$s">';
+		$chapter_printf .= '<div class="chapter-title-wrap"><h3 class="chapter-number">%3$s</h3><h2 class="chapter-title">%4$s</h2>%5$s</div>';
+		$chapter_printf .= '<div class="ugc chapter-ugc">%6$s</div>%7$s';
 		$chapter_printf .= '</div>';
 
 		$vars = [
@@ -1324,7 +1349,7 @@ class Epub201 extends Export {
 			$part_content = trim( $part['post_content'] );
 			if ( $part_content ) {
 				$part_content = $this->kneadHtml( $this->preProcessPostContent( $part_content ), 'custom', $p );
-				$part_printf_changed = str_replace( '</h1></div>%s</div>', '</h1></div><div class="ugc part-ugc">%s</div></div>', $part_printf );
+				$part_printf_changed = str_replace( '</h1></div>%5$s</div>', '</h1></div><div class="ugc part-ugc">%5$s</div></div>', $part_printf );
 			}
 
 			foreach ( $part['chapters'] as $chapter ) {
@@ -1338,6 +1363,7 @@ class Epub201 extends Export {
 				$subclass = $this->taxonomy->getChapterType( $chapter_id );
 				$slug = $chapter['post_name'];
 				$title = ( get_post_meta( $chapter_id, 'pb_show_title', true ) ? $chapter['post_title'] : '' );
+				$after_title = '';
 				$content = $this->kneadHtml( $chapter['post_content'], 'chapter', $j );
 				$append_chapter_content = $this->kneadHtml( apply_filters( 'pb_append_chapter_content', '', $chapter_id ), 'chapter', $j );
 				$short_title = false; // Ie. running header title is not used in EPUB
@@ -1353,20 +1379,32 @@ class Epub201 extends Export {
 				}
 
 				if ( $author ) {
-					$content = '<h2 class="chapter-author">' . Sanitize\decode( $author ) . '</h2>' . $content;
+					if ( $this->wrapHeaderElements ) {
+						$after_title .= '<h2 class="chapter-author">' . Sanitize\decode( $author ) . '</h2>';
+					} else {
+						$content = '<h2 class="chapter-author">' . Sanitize\decode( $author ) . '</h2>' . $content;
+					}
 				}
 
 				if ( $subtitle ) {
-					$content = '<h2 class="chapter-subtitle">' . Sanitize\decode( $subtitle ) . '</h2>' . $content;
+					if ( $this->wrapHeaderElements ) {
+						$after_title .= '<h2 class="chapter-subtitle">' . Sanitize\decode( $subtitle ) . '</h2>';
+					} else {
+						$content = '<h2 class="chapter-subtitle">' . Sanitize\decode( $subtitle ) . '</h2>' . $content;
+					}
 				}
 
 				if ( $short_title ) {
-					$content = '<h6 class="short-title">' . Sanitize\decode( $short_title ) . '</h6>' . $content;
+					if ( $this->wrapHeaderElements ) {
+						$after_title .= '<h6 class="short-title">' . Sanitize\decode( $short_title ) . '</h6>';
+					} else {
+						$content = '<h6 class="short-title">' . Sanitize\decode( $short_title ) . '</h6>' . $content;
+					}
 				}
 
 				// Inject introduction class?
 				if ( ! $this->hasIntroduction ) {
-					$chapter_printf_changed = str_replace( '<div class="chapter %s" id=', '<div class="chapter introduction %s" id=', $chapter_printf );
+					$subclass .= ' introduction';
 					$this->hasIntroduction = true;
 				}
 
@@ -1375,14 +1413,15 @@ class Epub201 extends Export {
 					$append_chapter_content .= $this->kneadHtml( $this->tidy( $section_license ), 'chapter', $j );
 				}
 
-				$n = ( 'numberless' === $subclass ) ? '' : $c;
+				$n = ( strpos( $subclass, 'numberless' ) === false ) ? '' : $c;
 				$vars['post_title'] = $chapter['post_title'];
 				$vars['post_content'] = sprintf(
-					( $chapter_printf_changed ? $chapter_printf_changed : $chapter_printf ),
+					$chapter_printf,
 					$subclass,
 					$slug,
 					( $this->numbered ? $n : '' ),
 					Sanitize\decode( $title ),
+					$after_title,
 					$content,
 					$var['append_chapter_content'] = $append_chapter_content,
 					''
@@ -1532,10 +1571,9 @@ class Epub201 extends Export {
 	 * @param array $metadata
 	 */
 	protected function createBackMatter( $book_contents, $metadata ) {
-
-		$back_matter_printf = '<div class="back-matter %s" id="%s">';
-		$back_matter_printf .= '<div class="back-matter-title-wrap"><h3 class="back-matter-number">%s</h3><h1 class="back-matter-title">%s</h1></div>';
-		$back_matter_printf .= '<div class="ugc back-matter-ugc">%s</div>%s';
+		$back_matter_printf = '<div class="back-matter %1$s" id="%2$s">';
+		$back_matter_printf .= '<div class="back-matter-title-wrap"><h3 class="back-matter-number">%3$s</h3><h1 class="back-matter-title">%4$s</h1>%5$s</div>';
+		$back_matter_printf .= '<div class="ugc back-matter-ugc">%6$s</div>%7$s';
 		$back_matter_printf .= '</div>';
 
 		$vars = [
@@ -1558,6 +1596,7 @@ class Epub201 extends Export {
 			$subclass = $this->taxonomy->getBackMatterType( $back_matter_id );
 			$slug = $back_matter['post_name'];
 			$title = ( get_post_meta( $back_matter_id, 'pb_show_title', true ) ? $back_matter['post_title'] : '' );
+			$after_title = '';
 			$content = $this->kneadHtml( $back_matter['post_content'], 'back-matter', $i );
 			$append_back_matter_content = $this->kneadHtml( apply_filters( 'pb_append_back_matter_content', '', $back_matter_id ), 'back-matter', $i );
 			$short_title = trim( get_post_meta( $back_matter_id, 'pb_short_title', true ) );
@@ -1573,15 +1612,27 @@ class Epub201 extends Export {
 			}
 
 			if ( $author ) {
-				$content = '<h2 class="chapter-author">' . Sanitize\decode( $author ) . '</h2>' . $content;
+				if ( $this->wrapHeaderElements ) {
+					$after_title .= '<h2 class="chapter-author">' . Sanitize\decode( $author ) . '</h2>';
+				} else {
+					$content = '<h2 class="chapter-author">' . Sanitize\decode( $author ) . '</h2>' . $content;
+				}
 			}
 
 			if ( $subtitle ) {
-				$content = '<h2 class="chapter-subtitle">' . Sanitize\decode( $subtitle ) . '</h2>' . $content;
+				if ( $this->wrapHeaderElements ) {
+					$after_title .= '<h2 class="chapter-subtitle">' . Sanitize\decode( $subtitle ) . '</h2>';
+				} else {
+					$content = '<h2 class="chapter-subtitle">' . Sanitize\decode( $subtitle ) . '</h2>' . $content;
+				}
 			}
 
 			if ( $short_title ) {
-				$content = '<h6 class="short-title">' . Sanitize\decode( $short_title ) . '</h6>' . $content;
+				if ( $this->wrapHeaderElements ) {
+					$after_title .= '<h6 class="short-title">' . Sanitize\decode( $short_title ) . '</h6>';
+				} else {
+					$content = '<h6 class="short-title">' . Sanitize\decode( $short_title ) . '</h6>' . $content;
+				}
 			}
 
 			$section_license = $this->doSectionLevelLicense( $metadata, $back_matter_id );
@@ -1596,6 +1647,7 @@ class Epub201 extends Export {
 				$slug,
 				$i,
 				Sanitize\decode( $title ),
+				$after_title,
 				$content,
 				$var['append_back_matter_content'] = $append_back_matter_content,
 				''
