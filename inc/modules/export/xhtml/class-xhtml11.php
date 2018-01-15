@@ -56,6 +56,14 @@ class Xhtml11 extends Export {
 	 */
 	protected $hasIntroduction = false;
 
+	/**
+	 * Should all header elements be wrapped in a container? Requires a theme based on Buckram.
+	 *
+	 * @see https://github.com/pressbooks/buckram/
+	 *
+	 * @var bool
+	 */
+	protected $wrapHeaderElements = false;
 
 	/**
 	 * Main language of document, two letter code
@@ -84,7 +92,7 @@ class Xhtml11 extends Export {
 		$this->taxonomy = \Pressbooks\Taxonomy::init();
 		$this->contributors = new \Pressbooks\Contributors();
 
-		if ( Container::get( 'Styles' )->isCurrentThemeCompatible( 2 ) ) {
+		if ( get_theme_support( 'buckram' ) || wp_get_theme()->get_stylesheet() === 'pressbooks-book' ) {
 			$this->wrapHeaderElements = true;
 		}
 

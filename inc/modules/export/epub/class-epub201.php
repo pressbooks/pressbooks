@@ -220,7 +220,7 @@ class Epub201 extends Export {
 		$this->tmpDir = $this->createTmpDir();
 		$this->exportStylePath = $this->getExportStylePath( 'epub' );
 
-		if ( Container::get( 'Styles' )->isCurrentThemeCompatible( 2 ) ) {
+		if ( get_theme_support( 'buckram' ) || wp_get_theme()->get_stylesheet() === 'pressbooks-book' ) {
 			$this->wrapHeaderElements = true;
 		}
 
