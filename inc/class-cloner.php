@@ -784,7 +784,7 @@ class Cloner {
 			if ( $contributors->isValid( $key ) ) {
 				$values = oxford_comma_explode( $value );
 				foreach ( $values as $v ) {
-					$contributors->insert( $v, $section_id, $key );
+					$contributors->insert( $v, $target_id, $key );
 				}
 			} else {
 				update_post_meta( $target_id, $key, $value ); // TODO handle errors

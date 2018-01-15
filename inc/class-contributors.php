@@ -200,6 +200,7 @@ class Contributors {
 				$term = get_term_by( 'slug', $term_id, self::TAXONOMY ); // Verify that slug is valid
 			}
 			if ( $term && ! is_wp_error( $term ) ) {
+				wp_set_object_terms( $post_id, $term->term_id, self::TAXONOMY, true );
 				if ( $wpdb->get_var( $wpdb->prepare( "SELECT meta_id FROM {$wpdb->postmeta} WHERE post_id = %d AND meta_key = %s AND meta_value = %s", $post_id, $contributor_type, $term->slug ) ) ) {
 					return true;
 				} else {
