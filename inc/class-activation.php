@@ -140,9 +140,12 @@ class Activation {
 			wp_cache_flush();
 		}
 
-		// Set current metadata and taxonomy versions to skip redundant upgrade routines
+		// Set current versions to skip redundant upgrade routines
 		update_option( 'pressbooks_metadata_version', \Pressbooks\Metadata::VERSION );
 		update_option( 'pressbooks_taxonomy_version', \Pressbooks\Taxonomy::VERSION );
+		foreach ( ( new \Pressbooks\Modules\ThemeOptions\ThemeOptions() )->getTabs() as $slug => $theme_options_class ) {
+			update_option( "pressbooks_theme_options_{$slug}_version", $theme_options_class::VERSION, false );
+		}
 
 		flush_rewrite_rules( false );
 
