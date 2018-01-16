@@ -714,20 +714,25 @@ class Book {
 
 
 	/**
-	 * WP_Ajax hook. Updates a post's "export" setting (export post into book or not)
+	 * WP_Ajax hook. Updates a post's post status to reflect visibility in various media.
 	 */
-	static function updateExportOptions() {
-		if ( check_ajax_referer( 'pb-update-book-export' ) ) {
+	static function updateVisibilityOptions() {
+		if ( check_ajax_referer( 'pb-update-visibility' ) ) {
 			$post_id = absint( $_POST['post_id'] );
 			if ( current_user_can( 'edit_post', $post_id ) ) {
-				$valid_meta_keys = [
-					'pb_export',
+				$valid_statii = [
+					'draft',
+					'web-only',
+					'export-only',
+					'publish',
 				];
 
-				$meta_key = in_array( $_POST['type'], $valid_meta_keys, true ) ? $_POST['type'] : false;
-				if ( $meta_key ) {
-					$meta_value = ( $_POST['chapter_export'] ) ? 'on' : 0;
-					update_post_meta( $post_id, $meta_key, $meta_value );
+				$status = in_array( $_POST['post_status'], $valid_statii, true ) ? $_POST['post_status'] : false;
+				if ( $status ) {
+					wp_update_post( [
+						'ID' => $post_id,
+						'post_status' => $status,
+					] );
 					static::deleteBookObjectCache();
 				}
 			}
@@ -747,29 +752,10 @@ class Book {
 
 				$meta_key = in_array( $_POST['type'], $valid_meta_keys, true ) ? $_POST['type'] : false;
 				if ( $meta_key ) {
-					$meta_value = ( $_POST['chapter_show_title'] ) ? 'on' : 0;
+					$meta_value = ( $_POST['show_title'] ) ? 'on' : 0;
 					update_post_meta( $post_id, $meta_key, $meta_value );
 					static::deleteBookObjectCache();
 				}
-			}
-		}
-	}
-
-	/**
-	 * WP_Ajax hook. Updates a post's privacy setting (whether the post is published or privately published)
-	 */
-	static function updatePrivacyOptions() {
-		if ( check_ajax_referer( 'pb-update-book-privacy' ) ) {
-			$post_id = absint( $_POST['post_id'] );
-			if ( current_user_can( 'edit_post', $post_id ) ) {
-				$post_status = $_POST['post_status'];
-
-				$my_post = [];
-				$my_post['ID'] = $post_id;
-				$my_post['post_status'] = $post_status;
-
-				wp_update_post( $my_post );
-				static::deleteBookObjectCache();
 			}
 		}
 	}

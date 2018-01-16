@@ -240,56 +240,64 @@ jQuery( document ).ready( function ( $ ) {
 	} );
 
 	// Chapter switches
+	$( '.web_visibility, .export_visibility' ).change( function () {
+		let id = $( this ).attr( 'data-id' );
+		let export_visibility = $( `#export_visibility_${id}` );
+		let web_visibility = $( `#web_visibility_${id}` );
+		let status_indicator = $( `#status_${id}` );
 
-	$( '.chapter_privacy' ).change( function () {
 		let post_status;
 
-		let col = $( this )
-			.parent()
-			.prev( '.column-status' );
-		let id = $( this ).attr( 'id' );
-		id = id.split( '_' );
-		id = id[id.length - 1];
-
-		if ( $( this ).is( ':checked' ) ) {
-			post_status = 'private';
+		if ( web_visibility.is( ':checked' ) ) {
+			if ( export_visibility.is( ':checked' ) ) {
+				post_status = 'publish';
+			} else {
+				post_status = 'web-only';
+			}
 		} else {
-			post_status = 'publish';
+			if ( export_visibility.is( ':checked' ) ) {
+				post_status = 'export-only';
+			} else {
+				post_status = 'draft';
+			}
 		}
 
 		$.ajax( {
 			url:  ajaxurl,
 			type: 'POST',
 			data: {
-				action:      'pb_update_privacy_options',
+				action:      'pb_update_visibility',
 				post_id:     id,
 				post_status: post_status,
-				_ajax_nonce: PB_OrganizeToken.privacyNonce,
+				_ajax_nonce: PB_OrganizeToken.visibilityNonce,
 			},
 			beforeSend: function () {
-				if ( post_status === 'private' ) {
-					col.text( PB_OrganizeToken.private );
+				if (
+					post_status === 'publish' ||
+					post_status === 'web-only' ||
+					post_status === 'export-only'
+				) {
+					status_indicator.text( PB_OrganizeToken.published );
 				} else {
-					col.text( PB_OrganizeToken.published );
+					status_indicator.text( PB_OrganizeToken.draft );
 				}
 			},
+			success: function () {
+				updateWordCountForExport();
+			},
 			error: function ( xhr, ajaxOptions, thrownError ) {
-				// TODO, catch error
+				// TODO
 			},
 		} );
 	} );
 
-	$( '.chapter_show_title_check' ).change( function () {
-		let chapter_show_title;
+	$( '.show_title' ).change( function () {
+		let id = $( this ).attr( 'data-id' );
 
-		let id = $( this ).attr( 'id' );
-		id = id.split( '_' );
-		id = id[id.length - 1];
+		let chapter_show_title = 0;
 
 		if ( $( this ).is( ':checked' ) ) {
 			chapter_show_title = 1;
-		} else {
-			chapter_show_title = 0;
 		}
 
 		$.ajax( {
@@ -301,225 +309,6 @@ jQuery( document ).ready( function ( $ ) {
 				chapter_show_title: chapter_show_title,
 				type:               'pb_show_title',
 				_ajax_nonce:        PB_OrganizeToken.showTitleNonce,
-			},
-		} );
-	} );
-
-	$( '.chapter_export_check' ).change( function () {
-		let chapter_export;
-
-		let id = $( this ).attr( 'id' );
-		id = id.split( '_' );
-		id = id[id.length - 1];
-
-		if ( $( this ).is( ':checked' ) ) {
-			chapter_export = 1;
-		} else {
-			chapter_export = 0;
-		}
-
-		$.ajax( {
-			url:  ajaxurl,
-			type: 'POST',
-			data: {
-				action:         'pb_update_export_options',
-				post_id:        id,
-				chapter_export: chapter_export,
-				type:           'pb_export',
-				_ajax_nonce:    PB_OrganizeToken.exportNonce,
-			},
-			success: function () {
-				updateWordCountForExport();
-			},
-		} );
-	} );
-
-	// Front-matter switches
-
-	$( '.fm_privacy' ).change( function () {
-		let post_status;
-
-		let col = $( this )
-			.parent()
-			.prev( '.column-status' );
-		let id = $( this ).attr( 'id' );
-		id = id.split( '_' );
-		id = id[id.length - 1];
-
-		if ( $( this ).is( ':checked' ) ) {
-			post_status = 'private';
-		} else {
-			post_status = 'publish';
-		}
-
-		$.ajax( {
-			url:  ajaxurl,
-			type: 'POST',
-			data: {
-				action:      'pb_update_privacy_options',
-				post_id:     id,
-				post_status: post_status,
-				_ajax_nonce: PB_OrganizeToken.privacyNonce,
-			},
-			beforeSend: function () {
-				if ( post_status === 'private' ) {
-					col.text( PB_OrganizeToken.private );
-				} else {
-					col.text( PB_OrganizeToken.published );
-				}
-			},
-			error: function ( xhr, ajaxOptions, thrownError ) {
-				// TODO, catch error
-			},
-		} );
-	} );
-
-	$( '.fm_show_title_check' ).change( function () {
-		let chapter_show_title;
-
-		let id = $( this ).attr( 'id' );
-		id = id.split( '_' );
-		id = id[id.length - 1];
-
-		if ( $( this ).is( ':checked' ) ) {
-			chapter_show_title = 1;
-		} else {
-			chapter_show_title = 0;
-		}
-
-		$.ajax( {
-			url:  ajaxurl,
-			type: 'POST',
-			data: {
-				action:             'pb_update_show_title_options',
-				post_id:            id,
-				chapter_show_title: chapter_show_title,
-				type:               'pb_show_title',
-				_ajax_nonce:        PB_OrganizeToken.showTitleNonce,
-			},
-		} );
-	} );
-
-	$( '.fm_export_check' ).change( function () {
-		let chapter_export;
-
-		let id = $( this ).attr( 'id' );
-		id = id.split( '_' );
-		id = id[id.length - 1];
-
-		if ( $( this ).is( ':checked' ) ) {
-			chapter_export = 1;
-		} else {
-			chapter_export = 0;
-		}
-
-		$.ajax( {
-			url:  ajaxurl,
-			type: 'POST',
-			data: {
-				action:         'pb_update_export_options',
-				post_id:        id,
-				chapter_export: chapter_export,
-				type:           'pb_export',
-				_ajax_nonce:    PB_OrganizeToken.exportNonce,
-			},
-			success: function () {
-				updateWordCountForExport();
-			},
-		} );
-	} );
-
-	// Back-matter switches
-
-	$( '.bm_privacy' ).change( function () {
-		let post_status;
-
-		let col = $( this )
-			.parent()
-			.prev( '.column-status' );
-		let id = $( this ).attr( 'id' );
-		id = id.split( '_' );
-		id = id[id.length - 1];
-
-		if ( $( this ).is( ':checked' ) ) {
-			post_status = 'private';
-		} else {
-			post_status = 'publish';
-		}
-
-		$.ajax( {
-			url:  ajaxurl,
-			type: 'POST',
-			data: {
-				action:      'pb_update_privacy_options',
-				post_id:     id,
-				post_status: post_status,
-				_ajax_nonce: PB_OrganizeToken.privacyNonce,
-			},
-			beforeSend: function () {
-				if ( post_status === 'private' ) {
-					col.text( PB_OrganizeToken.private );
-				} else {
-					col.text( PB_OrganizeToken.published );
-				}
-			},
-			error: function ( xhr, ajaxOptions, thrownError ) {
-				// TODO, catch error
-			},
-		} );
-	} );
-
-	$( '.bm_show_title_check' ).change( function () {
-		let chapter_show_title;
-
-		let id = $( this ).attr( 'id' );
-		id = id.split( '_' );
-		id = id[id.length - 1];
-
-		if ( $( this ).is( ':checked' ) ) {
-			chapter_show_title = 1;
-		} else {
-			chapter_show_title = 0;
-		}
-
-		$.ajax( {
-			url:  ajaxurl,
-			type: 'POST',
-			data: {
-				action:             'pb_update_show_title_options',
-				post_id:            id,
-				chapter_show_title: chapter_show_title,
-				type:               'pb_show_title',
-				_ajax_nonce:        PB_OrganizeToken.showTitleNonce,
-			},
-		} );
-	} );
-
-	$( '.bm_export_check' ).change( function () {
-		let chapter_export;
-
-		let id = $( this ).attr( 'id' );
-		id = id.split( '_' );
-		id = id[id.length - 1];
-
-		if ( $( this ).is( ':checked' ) ) {
-			chapter_export = 1;
-		} else {
-			chapter_export = 0;
-		}
-
-		$.ajax( {
-			url:  ajaxurl,
-			type: 'POST',
-			data: {
-				action:         'pb_update_export_options',
-				post_id:        id,
-				chapter_export: chapter_export,
-				type:           'pb_export',
-				_ajax_nonce:    PB_OrganizeToken.exportNonce,
-			},
-			success: function () {
-				updateWordCountForExport();
 			},
 		} );
 	} );

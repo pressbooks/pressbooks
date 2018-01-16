@@ -77,10 +77,11 @@ function replace_book_admin_menu() {
 					'pb-organize', 'PB_OrganizeToken', [
 						// Ajax nonces
 						'orderNonce' => wp_create_nonce( 'pb-update-book-order' ),
-						'exportNonce' => wp_create_nonce( 'pb-update-book-export' ),
 						'wordCountNonce' => wp_create_nonce( 'pb-update-word-count-for-export' ),
 						'showTitleNonce' => wp_create_nonce( 'pb-update-book-show-title' ),
 						'privacyNonce' => wp_create_nonce( 'pb-update-book-privacy' ),
+						'visibilityNonce' => wp_create_nonce( 'pb-update-visibility' ),
+						'draft' => __( 'Draft', 'pressbooks' ),
 						'private' => __( 'Private', 'pressbooks' ),
 						'published' => __( 'Published', 'pressbooks' ),
 						'public' => __( 'Public', 'pressbooks' ),

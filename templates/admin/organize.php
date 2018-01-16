@@ -6,13 +6,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /* Outputs the content of the Organize page for a book */
 
-global $user_ID; // @codingStandardsIgnoreLine
 $statuses = get_post_stati( [], 'objects' );
 $book_structure = \Pressbooks\Book::getBookStructure();
 $book_is_public = ( ! empty( get_option( 'blog_public' ) ) );
 $disable_comments = \Pressbooks\Utility\disable_comments();
 $wc = \Pressbooks\Book::wordCount();
 $wc_selected_for_export = \Pressbooks\Book::wordCount( true );
+$contributors = new \Pressbooks\Contributors();
 ?>
 
 <div class="wrap">
@@ -40,7 +40,7 @@ $wc_selected_for_export = \Pressbooks\Book::wordCount( true );
 			<a class="page-title-action" href="<?php echo admin_url( 'edit.php?post_type=front-matter' ); ?>"><?php _e( 'Front Matter', 'pressbooks' ); ?></a>
 			<a class="page-title-action" href="<?php echo admin_url( 'edit.php?post_type=chapter' ); ?>"><?php _e( 'Chapters', 'pressbooks' ); ?></a>
 			<a class="page-title-action" href="<?php echo admin_url( 'edit.php?post_type=back-matter' ); ?>"><?php _e( 'Back Matter', 'pressbooks' ); ?></a>
-			<a class="page-title-action" href="<?php echo admin_url( 'edit.php?post_type=part' ); ?>"><?php _e( 'Part', 'pressbooks' ); ?></a>
+			<a class="page-title-action" href="<?php echo admin_url( 'edit.php?post_type=part' ); ?>"><?php _e( 'Parts', 'pressbooks' ); ?></a>
 		<?php else : ?>
 			<a class="page-title-action" href="<?php echo admin_url( 'admin.php?page=pb_export' ); ?>"><?php _e( 'Export', 'pressbooks' ); ?></a>
 			<a class="page-title-action" href="<?php echo admin_url( 'post-new.php?post_type=front-matter' ); ?>"><?php _e( 'Add Front Matter', 'pressbooks' ); ?></a>
@@ -87,12 +87,12 @@ $wc_selected_for_export = \Pressbooks\Book::wordCount( true );
 								</div>
 
 							</th>
-							<th><?php _e( 'Author', 'pressbooks' ); ?></th>
+							<th><?php _e( 'Authors', 'pressbooks' ); ?></th>
 							<?php if ( false === $disable_comments ) : ?><th><?php _e( 'Comments', 'pressbooks' ); ?></th><?php endif; ?>
 							<th><?php _e( 'Status', 'pressbooks' ); ?></th>
-							<th role="button"><?php _e( 'Private', 'pressbooks' ); ?></th>
+							<th role="button"><?php _e( 'Show in Web', 'pressbooks' ); ?></th>
+							<th role="button"><?php _e( 'Show in Exports', 'pressbooks' ); ?></th>
 							<th role="button"><?php _e( 'Show Title', 'pressbooks' ); ?></th>
-							<th role="button"><?php _e( 'Export', 'pressbooks' ); ?></th>
 						</tr>
 					</thead>
 
@@ -113,23 +113,31 @@ $wc_selected_for_export = \Pressbooks\Book::wordCount( true );
 								</div>
 							</td>
 							<td class="author column-author">
-								<?php echo $content['post_author'] === $user_ID ? 'You' : get_userdata( $content['post_author'] )->display_name; // @codingStandardsIgnoreLine ?>
+								<?php echo $contributors->get( $content['ID'], 'pb_authors' ); ?>
 							</td>
 							<?php if ( false === $disable_comments ) : ?><td class="comments column-comments">
 								<a class="post-comment-count" href="<?php echo admin_url( 'edit-comments.php?p=' . $content['ID'] ); ?>">
 									<span class="comment-count"><?php echo $content['comment_count']; ?></span>
 								</a>
 							</td><?php endif; ?>
-							<td class="status column-status"><?php echo $statuses[ $content['post_status'] ]->label; ?></td>
-							<td class="status column-privacy">
-								<input class="<?php echo $type_abbr; ?>_privacy" type="checkbox" name="<?php echo $type_abbr; ?>-private[<?php echo $content['ID']; ?>]" id="<?php echo $type_abbr; ?>_private_<?php echo $content['ID']; ?>" <?php checked( 'private', get_post_status( $content['ID'] ) ); ?> />
+							<td class="status column-status" id="status_<?php echo $content['ID']; ?>"><?php echo ( in_array( $content['post_status'], [ 'web-only', 'export-only', 'publish' ], true ) ) ? __( 'Published', 'pressbooks' ) : $statuses[ $content['post_status'] ]->label; ?></td>
+							<?php
+							$visibility = [
+								'web' => ( in_array( $content['post_status'], [ 'web-only', 'publish' ], true ) ) ? true : false,
+								'export' => ( in_array( $content['post_status'], [ 'export-only', 'publish' ], true ) ) ? true : false,
+							];
+							?>
+							<td class="visibility column-web">
+								<input class="web_visibility" type="checkbox" data-id="<?php echo $content['ID']; ?>" name="web_visibility_[<?php echo $content['ID']; ?>]" id="web_visibility_<?php echo $content['ID']; ?>" <?php checked( true, $visibility['web'] ); ?> />
+								<label for="web_visibility_<?php echo $content['ID']; ?>"><?php _e( 'Show in Web', 'pressbooks' ); ?></label>
 							</td>
-							<?php $export = get_post_meta( $content['ID'], 'pb_export', true ); ?>
+							<td class="visibility column-exports">
+								<input class="export_visibility" type="checkbox" data-id="<?php echo $content['ID']; ?>" name="export_visibility_[<?php echo $content['ID']; ?>]" id="export_visibility_<?php echo $content['ID']; ?>" <?php checked( true, $visibility['export'] ); ?> />
+								<label for="export_visibility_<?php echo $content['ID']; ?>"><?php _e( 'Show in Exports', 'pressbooks' ); ?></label>
+							</td>
 							<td class="export column-showtitle">
-								<input class="<?php echo $type_abbr; ?>_show_title_check" type="checkbox" name="<?php echo $type_abbr; ?>-showtitle[<?php echo $content['ID']; ?>]" id="<?php echo $type_abbr; ?>_show_title_<?php echo $content['ID']; ?>" <?php checked( get_post_meta( $content['ID'], 'pb_show_title', true ), 'on', true ); ?>/>
-							</td>
-							<td class="export column-export">
-								<input class="<?php echo $type_abbr; ?>_export_check" type="checkbox" name="<?php echo $type_abbr; ?>-export[<?php echo $content['ID']; ?>]" id="<?php echo $type_abbr; ?>_export_<?php echo $content['ID']; ?>" <?php checked( get_post_meta( $content['ID'], 'pb_export', true ), 'on', true ); ?>/>
+								<input class="show_title" type="checkbox" data-id="<?php echo $content['ID']; ?>" name="show_title_[<?php echo $content['ID']; ?>]" id="show_title_<?php echo $content['ID']; ?>" <?php checked( get_post_meta( $content['ID'], 'pb_show_title', true ), 'on', true ); ?>/>
+								<label for="show_title_<?php echo $content['ID']; ?>"><?php _e( 'Show Title', 'pressbooks' ); ?></label>
 							</td>
 						</tr>
 					<?php endforeach; ?>
@@ -156,12 +164,12 @@ $wc_selected_for_export = \Pressbooks\Book::wordCount( true );
 			<thead>
 				<tr>
 					<th><?php echo $type_name; ?></th>
-					<th><?php _e( 'Author', 'pressbooks' ); ?></th>
+					<th><?php _e( 'Authors', 'pressbooks' ); ?></th>
 					<?php if ( false === $disable_comments ) : ?><th><?php _e( 'Comments', 'pressbooks' ); ?></th><?php endif; ?>
 					<th><?php _e( 'Status', 'pressbooks' ); ?></th>
-					<th role="button"><?php _e( 'Private', 'pressbooks' ); ?></th>
+					<th role="button"><?php _e( 'Show in Web', 'pressbooks' ); ?></th>
+					<th role="button"><?php _e( 'Show in Exports', 'pressbooks' ); ?></th>
 					<th role="button"><?php _e( 'Show Title', 'pressbooks' ); ?></th>
-					<th role="button"><?php _e( 'Export', 'pressbooks' ); ?></th>
 				</tr>
 			</thead>
 
@@ -180,24 +188,32 @@ $wc_selected_for_export = \Pressbooks\Book::wordCount( true );
 						</div>
 					</td>
 					<td class="author column-author">
-						<?php echo $content['post_author'] == $user_ID ? 'You' : get_userdata( $content['post_author'] )->display_name; // @codingStandardsIgnoreLine ?>
+						<?php echo $contributors->get( $content['ID'], 'pb_authors' ); ?>
 					</td>
 					<?php if ( false === $disable_comments ) : ?><td class="comments column-comments">
 						<a class="post-comment-count" href="<?php echo admin_url( 'edit-comments.php?p=' . $content['ID'] ); ?>">
 							<span class="comment-count"><?php echo $content['comment_count']; ?></span>
 						</a>
 					</td><?php endif; ?>
-					<td class="status column-status"><?php echo $statuses[ $content['post_status'] ]->label; ?></td>
-					<td class="status column-privacy">
-						<input class="<?php echo $type_abbr; ?>_privacy" type="checkbox" name="<?php echo $type_abbr; ?>-private[<?php echo $content['ID']; ?>]" id="<?php echo $type_abbr; ?>_private_<?php echo $content['ID']; ?>" <?php checked( 'private', get_post_status( $content['ID'] ) ); ?> />
+					<td class="status column-status" id="status_<?php echo $content['ID']; ?>"><?php echo ( in_array( $content['post_status'], [ 'web-only', 'export-only', 'publish' ], true ) ) ? __( 'Published', 'pressbooks' ) : $statuses[ $content['post_status'] ]->label; ?></td>
+					<?php
+					$visibility = [
+						'web' => ( in_array( $content['post_status'], [ 'web-only', 'publish' ], true ) ) ? true : false,
+						'export' => ( in_array( $content['post_status'], [ 'export-only', 'publish' ], true ) ) ? true : false,
+					];
+					?>
+					<td class="status column-web">
+						<input class="web_visibility" type="checkbox" data-id="<?php echo $content['ID']; ?>" name="web_visibility_[<?php echo $content['ID']; ?>]" id="web_visibility_<?php echo $content['ID']; ?>" <?php checked( true, $visibility['web'] ); ?> />
+						<label for="web_visibility_<?php echo $content['ID']; ?>"><?php _e( 'Show in Web', 'pressbooks' ); ?></label>
 					</td>
-					<?php $export = get_post_meta( $content['ID'], 'pb_export', true ); ?>
-					<td class="status column-showtitle">
-						<input class="<?php echo $type_abbr; ?>_show_title_check" type="checkbox" name="<?php echo $type_abbr; ?>-showtitle[<?php echo $content['ID']; ?>]" id="<?php echo $type_abbr; ?>_show_title_<?php echo $content['ID']; ?>" <?php checked( get_post_meta( $content['ID'], 'pb_show_title', true ), 'on', true ); ?>/>
+					<td class="export column-exports">
+						<input class="export_visibility" type="checkbox" data-id="<?php echo $content['ID']; ?>" name="export_visibility_[<?php echo $content['ID']; ?>]" id="export_visibility_<?php echo $content['ID']; ?>" <?php checked( true, $visibility['export'] ); ?> />
+						<label for="export_visibility_<?php echo $content['ID']; ?>"><?php _e( 'Show in Exports', 'pressbooks' ); ?></label>
 					</td>
-					<td class="export column-export">
-						<input class="<?php echo $type_abbr; ?>_export_check" type="checkbox" name="<?php echo $type_abbr; ?>-export[<?php echo $content['ID']; ?>]" id="<?php echo $type_abbr; ?>_export_<?php echo $content['ID']; ?>" <?php checked( get_post_meta( $content['ID'], 'pb_export', true ), 'on', true ); ?>/>
-					</td>
+					<td class="export column-showtitle">
+					<input class="show_title" type="checkbox" data-id="<?php echo $content['ID']; ?>" name="show_title_[<?php echo $content['ID']; ?>]" id="show_title_<?php echo $content['ID']; ?>" <?php checked( get_post_meta( $content['ID'], 'pb_show_title', true ), 'on', true ); ?>/>
+					<label for="show_title_<?php echo $content['ID']; ?>"><?php _e( 'Show Title', 'pressbooks' ); ?></label>
+		</td>
 				</tr>
 			<?php endforeach; ?>
 			</tbody>
