@@ -80,7 +80,7 @@ function init_book() {
 function init_root() {
 
 	// Initialize required book stuff. Disabled because we don't want them in the root site Admin UI, but we need them here...
-	if ( get_post_status_object( 'export-only' ) === null ) {
+	if ( get_post_status_object( 'web-only' ) === null ) {
 		\Pressbooks\PostType\register_post_statii();
 	}
 	if ( ! taxonomy_exists( 'front-matter-type' ) ) {

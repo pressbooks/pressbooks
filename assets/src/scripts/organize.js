@@ -256,7 +256,7 @@ jQuery( document ).ready( function ( $ ) {
 			}
 		} else {
 			if ( export_visibility.is( ':checked' ) ) {
-				post_status = 'export-only';
+				post_status = 'private';
 			} else {
 				post_status = 'draft';
 			}
@@ -275,7 +275,7 @@ jQuery( document ).ready( function ( $ ) {
 				if (
 					post_status === 'publish' ||
 					post_status === 'web-only' ||
-					post_status === 'export-only'
+					post_status === 'private'
 				) {
 					status_indicator.text( PB_OrganizeToken.published );
 				} else {

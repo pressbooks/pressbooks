@@ -120,11 +120,11 @@ $contributors = new \Pressbooks\Contributors();
 									<span class="comment-count"><?php echo $content['comment_count']; ?></span>
 								</a>
 							</td><?php endif; ?>
-							<td class="status column-status" id="status_<?php echo $content['ID']; ?>"><?php echo ( in_array( $content['post_status'], [ 'web-only', 'export-only', 'publish' ], true ) ) ? __( 'Published', 'pressbooks' ) : $statuses[ $content['post_status'] ]->label; ?></td>
+							<td class="status column-status" id="status_<?php echo $content['ID']; ?>"><?php echo ( in_array( $content['post_status'], [ 'web-only', 'private', 'publish' ], true ) ) ? __( 'Published', 'pressbooks' ) : $statuses[ $content['post_status'] ]->label; ?></td>
 							<?php
 							$visibility = [
 								'web' => ( in_array( $content['post_status'], [ 'web-only', 'publish' ], true ) ) ? true : false,
-								'export' => ( in_array( $content['post_status'], [ 'export-only', 'publish' ], true ) ) ? true : false,
+								'export' => ( in_array( $content['post_status'], [ 'private', 'publish' ], true ) ) ? true : false,
 							];
 							?>
 							<td class="visibility column-web">
@@ -195,11 +195,11 @@ $contributors = new \Pressbooks\Contributors();
 							<span class="comment-count"><?php echo $content['comment_count']; ?></span>
 						</a>
 					</td><?php endif; ?>
-					<td class="status column-status" id="status_<?php echo $content['ID']; ?>"><?php echo ( in_array( $content['post_status'], [ 'web-only', 'export-only', 'publish' ], true ) ) ? __( 'Published', 'pressbooks' ) : $statuses[ $content['post_status'] ]->label; ?></td>
+					<td class="status column-status" id="status_<?php echo $content['ID']; ?>"><?php echo ( in_array( $content['post_status'], [ 'web-only', 'private', 'publish' ], true ) ) ? __( 'Published', 'pressbooks' ) : $statuses[ $content['post_status'] ]->label; ?></td>
 					<?php
 					$visibility = [
 						'web' => ( in_array( $content['post_status'], [ 'web-only', 'publish' ], true ) ) ? true : false,
-						'export' => ( in_array( $content['post_status'], [ 'export-only', 'publish' ], true ) ) ? true : false,
+						'export' => ( in_array( $content['post_status'], [ 'private', 'publish' ], true ) ) ? true : false,
 					];
 					?>
 					<td class="status column-web">
