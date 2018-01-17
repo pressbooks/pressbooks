@@ -635,6 +635,9 @@ class Cloner {
 				}
 			} else {
 				update_post_meta( $metadata_post_id, $key, $value );
+				if ( $key === 'pb_book_license' ) {
+					wp_set_object_terms( $metadata_post_id, $value, Licensing::TAXONOMY ); // Link
+				}
 			}
 		}
 
@@ -718,6 +721,9 @@ class Cloner {
 		// Determine endpoint based on $post_type
 		$endpoint = ( in_array( $post_type, [ 'chapter', 'part' ], true ) ) ? $post_type . 's' : $post_type;
 
+		// Remove items handled by cloneSectionMetadata()
+		unset( $section['meta']['pb_authors'], $section['meta']['pb_section_license'] );
+
 		// POST internal request
 		$request = new \WP_REST_Request( 'POST', "/pressbooks/v2/$endpoint" );
 		$request->set_body_params( $section );
@@ -787,7 +793,10 @@ class Cloner {
 					$contributors->insert( $v, $target_id, $key );
 				}
 			} else {
-				update_post_meta( $target_id, $key, $value ); // TODO handle errors
+				update_post_meta( $target_id, $key, $value );
+				if ( $key === 'pb_section_license' ) {
+					wp_set_object_terms( $target_id, $value, Licensing::TAXONOMY ); // Link
+				}
 			}
 		}
 

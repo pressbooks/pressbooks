@@ -10,6 +10,8 @@ use function \Pressbooks\Utility\debug_error_log;
 
 class Licensing {
 
+	const TAXONOMY = 'license';
+
 	/**
 	 * Wheee!
 	 */

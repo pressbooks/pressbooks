@@ -410,7 +410,7 @@ class Taxonomy {
 
 		foreach ( $this->licensing->getSupportedTypes( true ) as $key => $val ) {
 			wp_insert_term(
-				$val['desc'], 'license', [
+				$val['desc'], Licensing::TAXONOMY, [
 					'slug' => $key,
 				]
 			);
@@ -528,7 +528,7 @@ class Taxonomy {
 		$sql_args = [ 'pb_section_license', 'pb_book_license' ];
 		$results = $wpdb->get_results( $wpdb->prepare( "SELECT post_id, meta_value FROM {$wpdb->postmeta} WHERE meta_key IN (%s, %s)", $sql_args ), ARRAY_A );
 		foreach ( $results as $val ) {
-			wp_set_object_terms( $val['post_id'], $val['meta_value'], 'license' );
+			wp_set_object_terms( $val['post_id'], $val['meta_value'], Licensing::TAXONOMY );
 		}
 	}
 
