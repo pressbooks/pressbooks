@@ -200,6 +200,9 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 		foreach ( $paths as $path ) {
 			unlink( $path );
 		}
+	}
+
+	public function test_sanityCheckXhtmlWithoutBuckram() {
 
 		$this->_book( 'pressbooks-donham' ); // Use an old book.
 		$meta_post = ( new \Pressbooks\Metadata() )->getMetaPost();
@@ -209,9 +212,17 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 
 		$exporter = new \Pressbooks\Modules\Export\Xhtml\Xhtml11( [] );
 		$this->assertTrue( $exporter->convert() );
-		$xhtml_path = $exporter->getOutputPath();
+		$this->assertTrue( $exporter->validate() );
+		$xhtml_content = file_get_contents( $exporter->getOutputPath() );
+
+		$this->assertContains( '<span class="footnote">', $xhtml_content );
+		$this->assertContains( 'wp.com/latex.php', $xhtml_content );
+		$this->assertContains( ' <div id="attachment_1" ', $xhtml_content );
+		$this->assertContains( '<p><em>Ka kite ano!</em></p>', $xhtml_content );
+		$this->assertContains( 'https://github.com/pressbooks/pressbooks', $xhtml_content );
 		// Heading elements should be in a "bad" place.
 		$this->assertContains( '</h2></div><div class="ugc chapter-ugc"><h2 class="chapter-subtitle">Or, A Chapter to Test</h2>', $xhtml_content );
-	}
 
+		unlink( $exporter->getOutputPath() );
+	}
 }

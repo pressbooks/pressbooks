@@ -2,6 +2,7 @@
 
 class UtilityTest extends \WP_UnitTestCase {
 
+	use utilsTrait;
 
 	public function test_getset() {
 
@@ -71,10 +72,13 @@ class UtilityTest extends \WP_UnitTestCase {
 
 	public function test_latest_exports() {
 		$this->_book();
+		$user_id = $this->factory()->user->create( [ 'role' => 'contributor' ] );
+		wp_set_current_user( $user_id );
 		foreach ( [
 			'\Pressbooks\Modules\Export\HTMLBook\HTMLBook',
 			'\Pressbooks\Modules\Export\WordPress\Wxr',
 		] as $module ) {
+			/** @var \Pressbooks\Modules\Export\Export $exporter */
 			$exporter = new $module( [] );
 			$exporter->convert();
 		}
@@ -174,10 +178,8 @@ class UtilityTest extends \WP_UnitTestCase {
 	}
 
 	public function test_install_plugins_tabs() {
-		$tabs = \Pressbooks\Utility\install_plugins_tabs();
+		$tabs = \Pressbooks\Utility\install_plugins_tabs( [] );
 		$this->assertArrayNotHasKey( 'featured', $tabs );
-		$this->assertArrayNotHasKey( 'popular', $tabs );
-		$this->assertArrayNotHasKey( 'favorites', $tabs );
 	}
 
 	public function test_file_upload_max_size() {
