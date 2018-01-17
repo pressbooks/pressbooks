@@ -500,4 +500,13 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertTrue( \Pressbooks\Utility\is_assoc( [ "a" => 'a', "b" => 'b', "c" => 'c' ] ) );
 	}
 
+	public function test_empty_space() {
+		$this->assertFalse( \Pressbooks\Utility\empty_space( 'Hi' ) );
+		$this->assertFalse( \Pressbooks\Utility\empty_space( true ) );
+		$this->assertTrue( \Pressbooks\Utility\empty_space( '' ) );
+		$this->assertTrue( \Pressbooks\Utility\empty_space( '  ' ) );
+		$this->assertTrue( \Pressbooks\Utility\empty_space( "\n\r\t" ) );
+		$this->assertTrue( \Pressbooks\Utility\empty_space( false ) );
+	}
+
 }

@@ -1330,3 +1330,20 @@ function is_assoc( $arr ) {
 	}
 	return array_keys( $arr ) !== range( 0, count( $arr ) - 1 );
 }
+
+/**
+ * Like PHP empty(), but also checks if a string is just white space
+ *
+ * @param mixed $var
+ *
+ * @return bool
+ */
+function empty_space( $var ) {
+	if ( is_string( $var ) ) {
+		if ( ctype_space( $var ) ) {
+			$var = '';
+		}
+		$var = trim( $var );
+	}
+	return empty( $var );
+}
