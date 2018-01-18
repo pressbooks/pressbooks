@@ -159,16 +159,17 @@ class Contributors {
 		$slug = sanitize_title_with_dashes( remove_accents( $full_name ), '', 'save' );
 		$term = get_term_by( 'slug', $slug, self::TAXONOMY );
 		if ( $term ) {
-			return [
+			$results = [
 				'term_id' => $term->term_id,
 				'term_taxonomy_id' => $term->term_taxonomy_id,
 			];
+		} else {
+			$results = wp_insert_term(
+				$full_name, self::TAXONOMY, [
+					'slug' => $slug,
+				]
+			);
 		}
-		$results = wp_insert_term(
-			$full_name, self::TAXONOMY, [
-				'slug' => $slug,
-			]
-		);
 
 		if ( $post_id && is_array( $results ) ) {
 			$this->link( $results['term_id'], $post_id, $contributor_type );
@@ -188,6 +189,7 @@ class Contributors {
 	 * @return bool
 	 */
 	public function link( $term_id, $post_id, $contributor_type = 'pb_authors' ) {
+		global $wpdb;
 		if ( ! str_starts_with( $contributor_type, 'pb_' ) ) {
 			$contributor_type = 'pb_' . $contributor_type;
 		}
@@ -198,7 +200,12 @@ class Contributors {
 				$term = get_term_by( 'slug', $term_id, self::TAXONOMY ); // Verify that slug is valid
 			}
 			if ( $term && ! is_wp_error( $term ) ) {
-				return is_int( add_post_meta( $post_id, $contributor_type, $term->slug ) );
+				wp_set_object_terms( $post_id, $term->term_id, self::TAXONOMY, true );
+				if ( $wpdb->get_var( $wpdb->prepare( "SELECT meta_id FROM {$wpdb->postmeta} WHERE post_id = %d AND meta_key = %s AND meta_value = %s", $post_id, $contributor_type, $term->slug ) ) ) {
+					return true;
+				} else {
+					return is_int( add_post_meta( $post_id, $contributor_type, $term->slug ) );
+				}
 			}
 		}
 		return false;

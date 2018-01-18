@@ -604,9 +604,7 @@ class Cloner {
 			return false;
 		}
 
-		$contributors = new Contributors();
 		$book_information = schema_to_book_information( $this->sourceBookMetadata );
-		$book_information['pb_is_based_on'] = $this->sourceBookUrl;
 
 		// Cover image
 		if ( strpos( $book_information['pb_cover_image'], 'plugins/pressbooks/assets/dist/images/default-book-cover.jpg' ) === false ) {
@@ -621,7 +619,9 @@ class Cloner {
 		}
 
 		// Everything else
-		$metadata_array_values = [ 'pb_keywords_tags', 'pb_bisac_subject' ];
+		$book_information['pb_is_based_on'] = $this->sourceBookUrl;
+		$metadata_array_values = [ 'pb_keywords_tags', 'pb_bisac_subject', 'pb_additional_subjects' ];
+		$contributors = new Contributors();
 		foreach ( $book_information as $key => $value ) {
 			if ( $contributors->isValid( $key ) ) {
 				$values = oxford_comma_explode( $value );
@@ -635,6 +635,9 @@ class Cloner {
 				}
 			} else {
 				update_post_meta( $metadata_post_id, $key, $value );
+				if ( $key === 'pb_book_license' ) {
+					wp_set_object_terms( $metadata_post_id, $value, Licensing::TAXONOMY ); // Link
+				}
 			}
 		}
 
@@ -718,6 +721,9 @@ class Cloner {
 		// Determine endpoint based on $post_type
 		$endpoint = ( in_array( $post_type, [ 'chapter', 'part' ], true ) ) ? $post_type . 's' : $post_type;
 
+		// Remove items handled by cloneSectionMetadata()
+		unset( $section['meta']['pb_authors'], $section['meta']['pb_section_license'] );
+
 		// POST internal request
 		$request = new \WP_REST_Request( 'POST', "/pressbooks/v2/$endpoint" );
 		$request->set_body_params( $section );
@@ -779,8 +785,19 @@ class Cloner {
 
 		$section_information = schema_to_section_information( $section_metadata, $this->sourceBookMetadata );
 
+		$contributors = new Contributors();
 		foreach ( $section_information as $key => $value ) {
-			update_post_meta( $target_id, $key, $value ); // TODO handle errors
+			if ( $contributors->isValid( $key ) ) {
+				$values = oxford_comma_explode( $value );
+				foreach ( $values as $v ) {
+					$contributors->insert( $v, $target_id, $key );
+				}
+			} else {
+				update_post_meta( $target_id, $key, $value );
+				if ( $key === 'pb_section_license' ) {
+					wp_set_object_terms( $target_id, $value, Licensing::TAXONOMY ); // Link
+				}
+			}
 		}
 
 		return true;

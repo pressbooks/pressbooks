@@ -4,6 +4,7 @@ namespace Pressbooks\Metadata;
 
 use Pressbooks\Book;
 use Pressbooks\Licensing;
+use function \Pressbooks\Utility\is_assoc;
 use function \Pressbooks\Utility\oxford_comma;
 use function \Pressbooks\Utility\oxford_comma_explode;
 
@@ -629,36 +630,48 @@ function schema_to_section_information( $section_schema, $book_schema ) {
 		}
 	}
 
-	if ( $section_schema['author']['name'] !== $book_schema['author']['name'] ) {
-		$authors = [];
-		foreach ( $section_schema['author'] as $author ) {
-			if ( isset( $author['name'] ) ) {
-				$authors[] = $author['name'];
+	// Authors
+	if ( isset( $section_schema['author'], $book_schema['author'] ) ) {
+		$book_authors = [];
+		if ( is_assoc( $book_schema['author'] ) ) {
+			$book_schema['author'] = [ $book_schema['author'] ];
+		}
+		foreach ( $book_schema['author'] as $book_author ) {
+			if ( isset( $book_author['name'] ) ) {
+				$book_authors[] = $book_author['name'];
 			}
 		}
-		if ( empty( $authors ) && isset( $section_schema['author']['name'] ) ) {
-			$authors[] = $section_schema['author']['name']; // Backwards compatibility with Pressbooks 4
+		$section_authors = [];
+		if ( is_assoc( $section_schema['author'] ) ) {
+			$section_schema['author'] = [ $section_schema['author'] ];
 		}
-		$section_information['pb_author'] = oxford_comma( $authors );
+		foreach ( $section_schema['author'] as $section_author ) {
+			if ( isset( $section_author['name'] ) ) {
+				$section_authors[] = $section_author['name'];
+			}
+		}
+		if ( $section_authors !== $book_authors ) {
+			$section_information['pb_authors'] = oxford_comma( $section_authors );
+		}
 	}
 
+	// License
 	if ( is_array( $book_schema['license'] ) ) {
 		$book_license = $book_schema['license']['url'];
 	} else {
 		$book_license = $book_schema['license'];
 	}
-
 	if ( is_array( $section_schema['license'] ) ) {
 		$section_license = $section_schema['license']['url'];
 	} else {
 		$section_license = $section_schema['license'];
 	}
-
 	if ( $section_license !== $book_license ) {
 		$licensing = new Licensing;
 		$section_information['pb_section_license'] = $licensing->getLicenseFromUrl( $section_license );
 	}
 
+	// Version Tracking
 	if ( isset( $section_schema['isBasedOn'] ) && $section_schema['isBasedOn'] !== $book_schema['isBasedOn'] ) {
 		$section_information['pb_is_based_on'] = $section_schema['isBasedOn'];
 	}
@@ -746,4 +759,18 @@ function register_contributor_meta() {
 	];
 	register_meta( 'term', 'contributor_first_name', $args );
 	register_meta( 'term', 'contributor_last_name', $args );
+}
+
+/**
+ * Ensure book data models are registered.
+ *
+ * These should already have been initialized by hooks, but sometimes they are disabled because we don't want them in the root site.
+ */
+function init_book_data_models() {
+	if ( get_post_status_object( 'web-only' ) === null ) {
+		\Pressbooks\PostType\register_post_statii();
+	}
+	if ( ! taxonomy_exists( 'front-matter-type' ) ) {
+		\Pressbooks\Taxonomy::init()->registerTaxonomies();
+	}
 }
