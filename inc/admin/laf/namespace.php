@@ -127,7 +127,7 @@ function replace_book_admin_menu() {
 		__( 'Chapter Types', 'pressbooks' ),
 		__( 'Chapter Types', 'pressbooks' ),
 		'manage_network',
-		'edit-tags.php?taxonomy=chapter-type'
+		'edit-tags.php?taxonomy=chapter-type&post_type=chapter'
 	);
 
 	add_submenu_page(
@@ -135,7 +135,7 @@ function replace_book_admin_menu() {
 		__( 'Front Matter Types', 'pressbooks' ),
 		__( 'Front Matter Types', 'pressbooks' ),
 		'manage_network',
-		'edit-tags.php?taxonomy=front-matter-type'
+		'edit-tags.php?taxonomy=front-matter-type&post_type=front-matter'
 	);
 
 	add_submenu_page(
@@ -143,7 +143,7 @@ function replace_book_admin_menu() {
 		__( 'Back Matter Types', 'pressbooks' ),
 		__( 'Back Matter Types', 'pressbooks' ),
 		'manage_network',
-		'edit-tags.php?taxonomy=back-matter-type'
+		'edit-tags.php?taxonomy=back-matter-type&post_type=back-matter'
 	);
 
 	add_submenu_page(

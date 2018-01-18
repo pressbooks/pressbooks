@@ -347,9 +347,7 @@ abstract class Export {
 	protected function createTmpDir() {
 
 		$temp_file = tempnam( sys_get_temp_dir(), '' );
-		if ( file_exists( $temp_file ) ) {
-			unlink( $temp_file );
-		}
+		@unlink( $temp_file ); // @codingStandardsIgnoreLine
 		mkdir( $temp_file );
 		if ( ! is_dir( $temp_file ) ) {
 			throw new \Exception( 'Could not create temporary directory.' );
