@@ -28,6 +28,11 @@ class ContributorsTest extends \WP_UnitTestCase {
 		);
 	}
 
+	public function test_maybeUpgradeSlug() {
+		$this->assertEquals( 'pb_authors', $this->contributor->upgradeSlug( 'pb_section_author' ) );
+		$this->assertEquals( 'garbage', $this->contributor->upgradeSlug( 'garbage' ) );
+	}
+
 	public function test_insert() {
 		$this->taxonomy->registerTaxonomies();
 

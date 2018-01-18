@@ -7,6 +7,7 @@
 namespace Pressbooks;
 
 use function Pressbooks\Utility\str_starts_with;
+use function Pressbooks\Utility\oxford_comma_explode;
 
 class Contributors {
 
@@ -312,6 +313,50 @@ class Contributors {
 			}
 		}
 		return $name;
+	}
+
+	/**
+	 * @param string $old_slug
+	 *
+	 * @return string
+	 */
+	public function upgradeSlug( $old_slug ) {
+		$map = [
+			'pb_author' => 'pb_authors',
+			'pb_section_author' => 'pb_authors',
+			'pb_contributing_authors' => 'pb_contributors',
+			'pb_author_file_as' => 'pb_authors',
+			'pb_editor' => 'pb_editors',
+			'pb_translator' => 'pb_translators',
+		];
+		if ( isset( $map[ $old_slug ] ) ) {
+			return $map[ $old_slug ];
+		}
+		return $old_slug;
+	}
+
+	/**
+	 * @param string $old_slug
+	 * @param string|array $names
+	 * @param int $post_id
+	 */
+	public function upgradeMetaToTerm( $old_slug, $names, $post_id ) {
+
+		$new_slug = $this->upgradeSlug( $old_slug );
+		if ( $new_slug === $old_slug ) {
+			return; // Nothing to upgrade
+		}
+
+		if ( ! is_array( $names ) ) {
+			$names = [ $names ];
+		}
+
+		foreach ( $names as $contributors ) {
+			$values = oxford_comma_explode( $contributors );
+			foreach ( $values as $v ) {
+				$this->insert( $v, $post_id, $new_slug );
+			}
+		}
 	}
 
 }
