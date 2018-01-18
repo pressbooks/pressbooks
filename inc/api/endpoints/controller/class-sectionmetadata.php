@@ -432,18 +432,10 @@ class SectionMetadata extends \WP_REST_Controller {
 			return $error;
 		}
 
-		$section_meta = get_post_meta( $request['parent'], '', true );
-		$book_meta = Book::getBookInformation();
-		$section_meta['pb_title'] = get_the_title( $request['parent'] );
-		if ( $this->post_type === 'chapter' ) {
-			$section_meta['pb_chapter_number'] = pb_get_chapter_number( get_post_field( 'post_name', $request['parent'] ) );
-		}
-		foreach ( $section_meta as $key => $value ) {
-			if ( is_array( $value ) ) {
-				$section_meta[ $key ] = array_pop( $value );
-			}
-		}
-		$section_meta = $this->buildMetadata( $section_meta, $book_meta );
+		$section_meta = $this->buildMetadata(
+			$this->getSectionInformation( $request['parent'] ),
+			Book::getBookInformation()
+		);
 
 		$response = rest_ensure_response( $section_meta );
 		$this->linkCollector['self'] = [
@@ -455,6 +447,31 @@ class SectionMetadata extends \WP_REST_Controller {
 		$response->add_links( $this->linkCollector );
 
 		return $response;
+	}
+
+	/**
+	 * @param int $post_id
+	 *
+	 * @return array
+	 */
+	protected function getSectionInformation( $post_id ) {
+		$section_meta = get_post_meta( $post_id, '', true );
+		$section_meta['pb_title'] = get_the_title( $post_id );
+		if ( $this->post_type === 'chapter' ) {
+			$section_meta['pb_chapter_number'] = pb_get_chapter_number( get_post_field( 'post_name', $post_id ) );
+		}
+		foreach ( $section_meta as $key => $value ) {
+			if ( is_array( $value ) ) {
+				$section_meta[ $key ] = array_pop( $value );
+			}
+		}
+		// Override Contributors
+		$contributors = new \Pressbooks\Contributors();
+		foreach ( $contributors->getAll( $post_id ) as $key => $val ) {
+			$section_meta[ $key ] = $val;
+		};
+
+		return $section_meta;
 	}
 
 	/**

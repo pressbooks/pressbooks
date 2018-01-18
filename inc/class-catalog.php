@@ -101,6 +101,8 @@ class Catalog {
 			$this->userId = get_current_user_id();
 		}
 
+		//  Might be missing because Catalog code can be run in the root site
+		\Pressbooks\Metadata\init_book_data_models();
 	}
 
 
@@ -179,7 +181,7 @@ class Catalog {
 				$data[ $i ]['featured'] = $val['featured'];
 				$data[ $i ]['deleted'] = 0;
 				$data[ $i ]['title'] = ! empty( $metadata['pb_title'] ) ? $metadata['pb_title'] : get_bloginfo( 'name' );
-				$data[ $i ]['author'] = ( isset( $metadata['pb_authors'] ) ) ? oxford_comma_explode( $metadata['pb_authors'] )[0] : '';
+				$data[ $i ]['author'] = ( ! \Pressbooks\Utility\empty_space( $metadata['pb_authors'] ) ) ? oxford_comma_explode( $metadata['pb_authors'] )[0] : '';
 				$data[ $i ]['pub_date'] = ! empty( $metadata['pb_publication_date'] ) ? date( 'Y-m-d', (int) $metadata['pb_publication_date'] ) : '';
 				$data[ $i ]['private'] = ( ! empty( get_option( 'blog_public' ) ) ? 0 : 1 );
 
@@ -264,7 +266,7 @@ class Catalog {
 			$data[ $i ]['featured'] = 0;
 			$data[ $i ]['deleted'] = 1;
 			$data[ $i ]['title'] = ! empty( $metadata['pb_title'] ) ? $metadata['pb_title'] : get_bloginfo( 'name' );
-			$data[ $i ]['author'] = ( isset( $metadata['pb_authors'] ) ) ? oxford_comma_explode( $metadata['pb_authors'] )[0] : '';
+			$data[ $i ]['author'] = ( ! \Pressbooks\Utility\empty_space( $metadata['pb_authors'] ) ) ? oxford_comma_explode( $metadata['pb_authors'] )[0] : '';
 			$data[ $i ]['pub_date'] = ! empty( $metadata['pb_publication_date'] ) ? date( 'Y-m-d', (int) $metadata['pb_publication_date'] ) : '';
 			$data[ $i ]['private'] = ( ! empty( get_option( 'blog_public' ) ) ? 0 : 1 );
 

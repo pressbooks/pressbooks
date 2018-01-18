@@ -8,7 +8,7 @@ trait utilsTrait {
 	 * @param string $theme (optional)
 	 */
 	private function _book( $theme = 'pressbooks-book' ) {
-
+		add_filter( 'pb_redirect_to_new_book', '__return_false' );
 		$blog_id = $this->factory()->blog->create();
 		switch_to_blog( $blog_id );
 		switch_theme( $theme );

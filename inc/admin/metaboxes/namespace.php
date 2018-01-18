@@ -7,6 +7,7 @@
 namespace Pressbooks\Admin\Metaboxes;
 
 use Pressbooks\Contributors;
+use Pressbooks\Licensing;
 use PressbooksMix\Assets;
 
 /**
@@ -194,7 +195,7 @@ function add_meta_boxes() {
 			'group' => 'general-book-information',
 			'label' => __( 'Author(s)', 'pressbooks' ),
 			'field_type' => 'taxonomy_multi_select',
-			'taxonomy' => 'contributor',
+			'taxonomy' => Contributors::TAXONOMY,
 			'select2' => true,
 		]
 	);
@@ -204,7 +205,7 @@ function add_meta_boxes() {
 			'group' => 'general-book-information',
 			'label' => __( 'Editor(s)', 'pressbooks' ),
 			'field_type' => 'taxonomy_multi_select',
-			'taxonomy' => 'contributor',
+			'taxonomy' => Contributors::TAXONOMY,
 			'select2' => true,
 		]
 	);
@@ -214,7 +215,7 @@ function add_meta_boxes() {
 			'group' => 'general-book-information',
 			'label' => __( 'Translator(s)', 'pressbooks' ),
 			'field_type' => 'taxonomy_multi_select',
-			'taxonomy' => 'contributor',
+			'taxonomy' => Contributors::TAXONOMY,
 			'select2' => true,
 		]
 	);
@@ -224,7 +225,7 @@ function add_meta_boxes() {
 			'group' => 'general-book-information',
 			'label' => __( 'Proofreader(s)', 'pressbooks' ),
 			'field_type' => 'taxonomy_multi_select',
-			'taxonomy' => 'contributor',
+			'taxonomy' => Contributors::TAXONOMY,
 			'select2' => true,
 		]
 	);
@@ -234,7 +235,7 @@ function add_meta_boxes() {
 			'group' => 'general-book-information',
 			'label' => __( 'Reviewer(s)', 'pressbooks' ),
 			'field_type' => 'taxonomy_multi_select',
-			'taxonomy' => 'contributor',
+			'taxonomy' => Contributors::TAXONOMY,
 			'select2' => true,
 		]
 	);
@@ -244,7 +245,7 @@ function add_meta_boxes() {
 			'group' => 'general-book-information',
 			'label' => __( 'Illustrator(s)', 'pressbooks' ),
 			'field_type' => 'taxonomy_multi_select',
-			'taxonomy' => 'contributor',
+			'taxonomy' => Contributors::TAXONOMY,
 			'select2' => true,
 		]
 	);
@@ -254,7 +255,7 @@ function add_meta_boxes() {
 			'group' => 'general-book-information',
 			'label' => __( 'Contributor(s)', 'pressbooks' ),
 			'field_type' => 'taxonomy_multi_select',
-			'taxonomy' => 'contributor',
+			'taxonomy' => Contributors::TAXONOMY,
 			'select2' => true,
 		]
 	);
@@ -351,7 +352,7 @@ function add_meta_boxes() {
 		'pb_book_license', 'metadata', [
 			'group' => 'copyright',
 			'field_type' => 'taxonomy_select',
-			'taxonomy' => 'license',
+			'taxonomy' => Licensing::TAXONOMY,
 			'label' => __( 'Copyright License', 'pressbooks' ),
 			'description' => __( 'You can select various licenses including Creative Commons.', 'pressbooks' ),
 		]
@@ -548,7 +549,7 @@ function add_meta_boxes() {
 			'group' => 'chapter-metadata',
 			'label' => __( 'Author(s)', 'pressbooks' ),
 			'field_type' => 'taxonomy_multi_select',
-			'taxonomy' => 'contributor',
+			'taxonomy' => Contributors::TAXONOMY,
 			'select2' => true,
 		]
 	);
@@ -557,7 +558,7 @@ function add_meta_boxes() {
 		'pb_section_license', 'chapter', [
 			'group' => 'chapter-metadata',
 			'field_type' => 'taxonomy_select',
-			'taxonomy' => 'license',
+			'taxonomy' => Licensing::TAXONOMY,
 			'label' => __( 'Chapter Copyright License (overrides book license on this page)', 'pressbooks' ),
 		]
 	);
@@ -633,7 +634,7 @@ function add_meta_boxes() {
 			'group' => 'front-matter-metadata-metadata',
 			'label' => __( 'Author(s)', 'pressbooks' ),
 			'field_type' => 'taxonomy_multi_select',
-			'taxonomy' => 'contributor',
+			'taxonomy' => Contributors::TAXONOMY,
 			'select2' => true,
 		]
 	);
@@ -642,7 +643,7 @@ function add_meta_boxes() {
 		'pb_section_license', 'front-matter', [
 			'group' => 'front-matter-metadata',
 			'field_type' => 'taxonomy_select',
-			'taxonomy' => 'license',
+			'taxonomy' => Licensing::TAXONOMY,
 			'label' => __( 'Front Matter Copyright License (overrides book license on this page)', 'pressbooks' ),
 		]
 	);
@@ -674,7 +675,7 @@ function add_meta_boxes() {
 			'group' => 'back-matter-metadata-metadata',
 			'label' => __( 'Author(s)', 'pressbooks' ),
 			'field_type' => 'taxonomy_multi_select',
-			'taxonomy' => 'contributor',
+			'taxonomy' => Contributors::TAXONOMY,
 			'select2' => true,
 		]
 	);
@@ -683,7 +684,7 @@ function add_meta_boxes() {
 		'pb_section_license', 'back-matter', [
 			'group' => 'back-matter-metadata',
 			'field_type' => 'taxonomy_select',
-			'taxonomy' => 'license',
+			'taxonomy' => Licensing::TAXONOMY,
 			'label' => __( 'Back Matter Copyright License (overrides book license on this page)', 'pressbooks' ),
 		]
 	);

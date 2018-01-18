@@ -2,6 +2,7 @@
 
 class UtilityTest extends \WP_UnitTestCase {
 
+	use utilsTrait;
 
 	public function test_getset() {
 
@@ -71,10 +72,13 @@ class UtilityTest extends \WP_UnitTestCase {
 
 	public function test_latest_exports() {
 		$this->_book();
+		$user_id = $this->factory()->user->create( [ 'role' => 'contributor' ] );
+		wp_set_current_user( $user_id );
 		foreach ( [
 			'\Pressbooks\Modules\Export\HTMLBook\HTMLBook',
 			'\Pressbooks\Modules\Export\WordPress\Wxr',
 		] as $module ) {
+			/** @var \Pressbooks\Modules\Export\Export $exporter */
 			$exporter = new $module( [] );
 			$exporter->convert();
 		}
@@ -174,10 +178,8 @@ class UtilityTest extends \WP_UnitTestCase {
 	}
 
 	public function test_install_plugins_tabs() {
-		$tabs = \Pressbooks\Utility\install_plugins_tabs();
+		$tabs = \Pressbooks\Utility\install_plugins_tabs( [] );
 		$this->assertArrayNotHasKey( 'featured', $tabs );
-		$this->assertArrayNotHasKey( 'popular', $tabs );
-		$this->assertArrayNotHasKey( 'favorites', $tabs );
 	}
 
 	public function test_file_upload_max_size() {
@@ -488,6 +490,23 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertEquals( [ 'One Person', 'Two People' ], \Pressbooks\Utility\oxford_comma_explode( 'One Person and Two People' ) );
 		$this->assertEquals( [ 'One Person', 'Two People', 'Three People', 'Four People' ], \Pressbooks\Utility\oxford_comma_explode( 'One Person, Two People, Three People, and Four People' ) );
 		$this->assertEquals( [ 'andy', 'andrew', 'andrea', 'android' ], \Pressbooks\Utility\oxford_comma_explode( 'andy,andrew, andrea,  android' ) );
+	}
+
+	public function test_is_assoc() {
+		$this->assertFalse( \Pressbooks\Utility\is_assoc( 'Doing it wrong' ) );
+		$this->assertFalse( \Pressbooks\Utility\is_assoc( [ 'a', 'b', 'c' ] ) );
+		$this->assertFalse( \Pressbooks\Utility\is_assoc( [ "0" => 'a', "1" => 'b', "2" => 'c' ] ) );
+		$this->assertTrue( \Pressbooks\Utility\is_assoc( [ "1" => 'a', "0" => 'b', "2" => 'c' ] ) );
+		$this->assertTrue( \Pressbooks\Utility\is_assoc( [ "a" => 'a', "b" => 'b', "c" => 'c' ] ) );
+	}
+
+	public function test_empty_space() {
+		$this->assertFalse( \Pressbooks\Utility\empty_space( 'Hi' ) );
+		$this->assertFalse( \Pressbooks\Utility\empty_space( true ) );
+		$this->assertTrue( \Pressbooks\Utility\empty_space( '' ) );
+		$this->assertTrue( \Pressbooks\Utility\empty_space( '  ' ) );
+		$this->assertTrue( \Pressbooks\Utility\empty_space( "\n\r\t" ) );
+		$this->assertTrue( \Pressbooks\Utility\empty_space( false ) );
 	}
 
 }

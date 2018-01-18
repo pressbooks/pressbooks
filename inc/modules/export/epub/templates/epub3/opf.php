@@ -50,8 +50,9 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 		}
 
 		// First author
-		$first_author = oxford_comma_explode( $meta['pb_authors'] )[0];
-		if ( empty( $first_author ) ) {
+		if ( ! \Pressbooks\Utility\empty_space( $meta['pb_authors'] ) ) {
+			$first_author = oxford_comma_explode( $meta['pb_authors'] )[0];
+		} else {
 			$first_author = __( 'Authored by: ', 'pressbooks' ) . get_bloginfo( 'url' );
 		}
 		echo '<dc:creator id="author">' . $first_author . '</dc:creator>' . "\n";

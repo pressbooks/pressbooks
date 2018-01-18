@@ -201,7 +201,7 @@ function latest_exports() {
 			'print-pdf' => '._print.pdf',
 			'mobi' => '.mobi',
 			'icml' => '.icml',
-			'htmlbook' => '-htmlbook.html',
+			'htmlbook' => '.-htmlbook.html',
 			'xhtml' => '.html',
 			'wxr' => '.xml',
 			'vanillawxr' => '._vanilla.xml',
@@ -1311,4 +1311,39 @@ function oxford_comma_explode( $string ) {
 		}
 	}
 	return $results;
+}
+
+
+/**
+ * Check whether an array is zero-indexed and sequential
+ *
+ * @param mixed $arr
+ *
+ * @return bool
+ */
+function is_assoc( $arr ) {
+	if ( ! is_array( $arr ) ) {
+		return false;
+	}
+	if ( [] === $arr ) {
+		return false;
+	}
+	return array_keys( $arr ) !== range( 0, count( $arr ) - 1 );
+}
+
+/**
+ * Like PHP empty(), but also checks if a string is just white space
+ *
+ * @param mixed $var
+ *
+ * @return bool
+ */
+function empty_space( $var ) {
+	if ( is_string( $var ) ) {
+		if ( ctype_space( $var ) ) {
+			$var = '';
+		}
+		$var = trim( $var );
+	}
+	return empty( $var );
 }
