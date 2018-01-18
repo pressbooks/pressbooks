@@ -192,16 +192,6 @@ function register_meta() {
 	];
 
 	\register_meta(
-		'post', 'pb_export', array_merge(
-			$defaults, [
-				'description' => __( 'Include in exports', 'pressbooks' ),
-				'sanitize_callback' => function( $v ) {
-					return ( $v ? 'on' : null ) ; },
-			]
-		)
-	);
-
-	\register_meta(
 		'post', 'pb_show_title', array_merge(
 			$defaults, [
 				'description' => __( 'Show title in exports', 'pressbooks' ),

@@ -8,7 +8,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $statuses = get_post_stati( [], 'objects' );
 $book_structure = \Pressbooks\Book::getBookStructure();
-$book_is_public = ( ! empty( get_option( 'blog_public' ) ) );
+// wp_die( '<pre>' . print_r( $book_structure, true ) . '</pre>' );
+$meta_post = ( new \Pressbooks\Metadata() )->getMetaPost();
+$book_is_public = ( ! empty( get_option( 'blog_public' ) ) ) ? 1 : 0;
 $disable_comments = \Pressbooks\Utility\disable_comments();
 $wc = \Pressbooks\Book::wordCount();
 $wc_selected_for_export = \Pressbooks\Book::wordCount( true );
@@ -25,17 +27,17 @@ $contributors = new \Pressbooks\Contributors();
 			<h4 class="publicize-alert private"><?php _e( 'This book\'s global privacy is set to', 'pressbooks' ); ?> <span><?php _e( 'Private', 'pressbooks' ); ?></span></h4>
 			<?php } ?>
 			<div class="publicize-form">
-				<label for="blog-public"><input type="radio" <?php if ( $book_is_public ) { echo 'checked="checked"';} ?> value="1" name="blog_public" id="blog-public"><span class="public<?php if ( $book_is_public ) { echo ' active';} ?>"><?php _e( 'Public', 'pressbooks' ); ?></span> &mdash;
+				<label for="blog-public"><input type="radio" <?php checked( $book_is_public, 1 ); ?> value="1" name="blog_public" id="blog-public"><span class="public<?php if ( $book_is_public ) { echo ' active';} ?>"><?php _e( 'Public', 'pressbooks' ); ?></span> &mdash;
 					<?php _e( 'Promote your book, set individual chapters privacy below.', 'pressbooks' ); ?>
 				</label>
-				<label for="blog-private"><input type="radio" <?php if ( ! $book_is_public ) { echo 'checked="checked"';} ?> value="0" name="blog_public" id="blog-private"><span class="private<?php if ( ! $book_is_public ) { echo ' active';} ?>"><?php _e( 'Private', 'pressbooks' ); ?></span> &mdash;
-					<?php _e( 'Only users you invite can see your book, regardless of individual chapter privacy settings below.', 'pressbooks' ); ?>
+				<label for="blog-private"><input type="radio" <?php checked( $book_is_public, 0 ); ?> value="0" name="blog_public" id="blog-private"><span class="private<?php if ( ! $book_is_public ) { echo ' active';} ?>"><?php _e( 'Private', 'pressbooks' ); ?></span> &mdash;
+					<?php _e( 'Only users you invite can see your book, regardless of individual chapter visibility below.', 'pressbooks' ); ?>
 				</label>
 			</div>
 		</div>
 	</div>
 	<?php endif; ?>
-	<h2><?php bloginfo( 'name' ); ?>
+	<h1 class="wp-heading-inline"><?php bloginfo( 'name' ); ?></h1>
 		<?php if ( is_super_admin() ) : ?>
 			<a class="page-title-action" href="<?php echo admin_url( 'edit.php?post_type=front-matter' ); ?>"><?php _e( 'Front Matter', 'pressbooks' ); ?></a>
 			<a class="page-title-action" href="<?php echo admin_url( 'edit.php?post_type=chapter' ); ?>"><?php _e( 'Chapters', 'pressbooks' ); ?></a>
@@ -48,15 +50,14 @@ $contributors = new \Pressbooks\Contributors();
 			<a class="page-title-action" href="<?php echo admin_url( 'post-new.php?post_type=chapter' ); ?>"><?php _e( 'Add Chapter', 'pressbooks' ); ?></a>
 			<a class="page-title-action" href="<?php echo admin_url( 'post-new.php?post_type=part' ); ?>"><?php _e( 'Add Part', 'pressbooks' ); ?></a>
 		<?php endif; ?>
-	</h2>
-
-	<p>
+	<p class="word-count">
 		<strong><?php _e( 'Word Count:', 'pressbooks' ); ?></strong> <?php printf( __( '%s (whole book)', 'pressbooks' ), "<span id='wc-all'>$wc</span>" ); ?> /
 		<?php printf( __( '%s (selected for export)', 'pressbooks' ), "<span id='wc-selected-for-export'>$wc_selected_for_export</span>" ); ?>
 	</p>
 
-	<?php // Iterate through types and output nice tables for each one.
+	<?php
 
+	// Iterate through types and output nice tables for each one.
 	$types = [
 		'front-matter' => [
 			'name' => __( 'Front Matter', 'pressbooks' ),
@@ -72,12 +73,13 @@ $contributors = new \Pressbooks\Contributors();
 		],
 	];
 
-	foreach ( $types as $type_slug => $type ) :
-		$type_name = $type['name'];
-		$type_abbr = $type['abbreviation'];
-		if ( 'chapter' === $type_slug ) : // Chapters have to be handled differently. ?>
+	foreach ( $types as $slug => $type ) :
+		$name = $type['name'];
+		 // Chapters have to be handled differently.
+		if ( 'chapter' === $slug ) :
+		?>
 			<?php foreach ( $book_structure['part'] as $part ) : ?>
-				<table id="part-<?php echo $part['ID']; ?>" class="wp-list-table widefat fixed <?php echo $type_slug; ?>s" cellspacing="0">
+				<table id="part_<?php echo $part['ID']; ?>" class="wp-list-table widefat fixed <?php echo $slug; ?>s" cellspacing="0" data-id="<?php echo $content['ID']; ?>">
 					<thead>
 						<tr>
 							<th class="has-row-actions">
@@ -88,8 +90,11 @@ $contributors = new \Pressbooks\Contributors();
 
 							</th>
 							<th><?php _e( 'Authors', 'pressbooks' ); ?></th>
-							<?php if ( false === $disable_comments ) : ?><th><?php _e( 'Comments', 'pressbooks' ); ?></th><?php endif; ?>
-							<th><?php _e( 'Status', 'pressbooks' ); ?></th>
+							<?php
+							if ( false === $disable_comments ) :
+							?>
+								<th><?php _e( 'Comments', 'pressbooks' ); ?></th>
+							<?php endif; ?>
 							<th role="button"><?php _e( 'Show in Web', 'pressbooks' ); ?></th>
 							<th role="button"><?php _e( 'Show in Exports', 'pressbooks' ); ?></th>
 							<th role="button"><?php _e( 'Show Title', 'pressbooks' ); ?></th>
@@ -99,8 +104,11 @@ $contributors = new \Pressbooks\Contributors();
 					<?php if ( count( $part['chapters'] ) > 0 ) : ?>
 
 					<tbody id="the-list">
-					<?php foreach ( $part['chapters'] as $content ) : ?>
-						<tr id="<?php echo $type_slug; ?>-<?php echo $content['ID']; ?>">
+					<?php
+					$count = count( $part['chapters'] );
+					$c = 1; // Start the counter
+					foreach ( $part['chapters'] as $content ) : ?>
+						<tr id="<?php echo $slug; ?>_<?php echo $content['ID']; ?>">
 							<td class="title column-title has-row-actions">
 								<div class="row-title"><a href="<?php echo admin_url( 'post.php?post=' . $content['ID'] . '&action=edit' ); ?>">
 								<?php echo $content['post_title']; ?>
@@ -109,18 +117,34 @@ $contributors = new \Pressbooks\Contributors();
 								<?php } ?></a>
 								<div class="row-actions">
 									<a href="<?php echo admin_url( 'post.php?post=' . $content['ID'] . '&action=edit' ); ?>"><?php _e( 'Edit', 'pressbooks' ); ?></a> | <a class="delete-link" href="<?php echo get_delete_post_link( $content['ID'] ); ?>" onclick="if ( !confirm( '<?php _e( 'Are you sure you want to delete this?', 'pressbooks' ); ?>' ) ) { return false }"><?php _e( 'Trash', 'pressbooks' ); ?></a> | <a href="<?php echo get_permalink( $content['ID'] ); ?>"><?php _e( 'View', 'pressbooks' ); ?></a>
+									<?php if ( $c > 1 ) : ?>
+ | <a href="#" class="move-up"><?php _e( 'Move Up', 'pressbooks' ); ?></a>
+									<?php endif; ?>
+									<?php if ( $c === 0 || $c < $count ) : ?>
+ | <a href="#" class="move-down"><?php _e( 'Move Down', 'pressbooks' ); ?></a>
+									<?php endif; ?>
 								</div>
 								</div>
 							</td>
 							<td class="author column-author">
-								<?php echo $contributors->get( $content['ID'], 'pb_authors' ); ?>
+								<?php
+								$section_authors = $contributors->get( $content['ID'], 'pb_authors' );
+								if ( $section_authors ) {
+									echo $section_authors;
+								} else {
+									echo $contributors->get( $meta_post->ID, 'pb_authors' );
+								}
+								?>
 							</td>
-							<?php if ( false === $disable_comments ) : ?><td class="comments column-comments">
+							<?php
+							if ( false === $disable_comments ) :
+							?>
+							<td class="comments column-comments">
 								<a class="post-comment-count" href="<?php echo admin_url( 'edit-comments.php?p=' . $content['ID'] ); ?>">
 									<span class="comment-count"><?php echo $content['comment_count']; ?></span>
 								</a>
-							</td><?php endif; ?>
-							<td class="status column-status" id="status_<?php echo $content['ID']; ?>"><?php echo ( in_array( $content['post_status'], [ 'web-only', 'private', 'publish' ], true ) ) ? __( 'Published', 'pressbooks' ) : $statuses[ $content['post_status'] ]->label; ?></td>
+							</td>
+							<?php endif; ?>
 							<?php
 							$visibility = [
 								'web' => ( in_array( $content['post_status'], [ 'web-only', 'publish' ], true ) ) ? true : false,
@@ -140,7 +164,10 @@ $contributors = new \Pressbooks\Contributors();
 								<label for="show_title_<?php echo $content['ID']; ?>"><?php _e( 'Show Title', 'pressbooks' ); ?></label>
 							</td>
 						</tr>
-					<?php endforeach; ?>
+					<?php
+					$c++;
+					endforeach;
+					?>
 					</tbody>
 					<?php endif; ?>
 					<tfoot>
@@ -150,9 +177,8 @@ $contributors = new \Pressbooks\Contributors();
 							<?php if ( false === $disable_comments ) : ?><th>&nbsp;</th><?php endif; ?>
 							<th>&nbsp;</th>
 							<th>&nbsp;</th>
-							<th>&nbsp;</th>
 							<th>
-								<a href="<?php echo admin_url( 'post-new.php?post_type=' . $type_slug . '&startparent=' . $part['ID'] ); ?>" class="button"><?php _e( 'Add', 'pressbooks' ); ?> <?php echo $type_name; ?></a>
+								<a href="<?php echo admin_url( 'post-new.php?post_type=' . $slug . '&startparent=' . $part['ID'] ); ?>" class="button"><?php _e( 'Add', 'pressbooks' ); ?> <?php echo $name; ?></a>
 							</th>
 						</tr>
 					</tfoot>
@@ -160,13 +186,14 @@ $contributors = new \Pressbooks\Contributors();
 			<?php endforeach; ?>
 			<p><a class="button" href="<?php echo admin_url( 'post-new.php?post_type=part' ); ?>"><?php _e( 'Add Part', 'pressbooks' ); ?></a></p>
 		<?php else : ?>
-		<table id="<?php echo $type_slug; ?>" class="wp-list-table widefat fixed <?php echo $type_slug; ?>" cellspacing="0">
+		<table id="<?php echo $slug; ?>" class="wp-list-table widefat fixed <?php echo $slug; ?>" cellspacing="0">
 			<thead>
 				<tr>
-					<th><?php echo $type_name; ?></th>
+					<th><?php echo $name; ?></th>
 					<th><?php _e( 'Authors', 'pressbooks' ); ?></th>
-					<?php if ( false === $disable_comments ) : ?><th><?php _e( 'Comments', 'pressbooks' ); ?></th><?php endif; ?>
-					<th><?php _e( 'Status', 'pressbooks' ); ?></th>
+					<?php if ( false === $disable_comments ) : ?>
+					<th><?php _e( 'Comments', 'pressbooks' ); ?></th>
+					<?php endif; ?>
 					<th role="button"><?php _e( 'Show in Web', 'pressbooks' ); ?></th>
 					<th role="button"><?php _e( 'Show in Exports', 'pressbooks' ); ?></th>
 					<th role="button"><?php _e( 'Show Title', 'pressbooks' ); ?></th>
@@ -174,8 +201,11 @@ $contributors = new \Pressbooks\Contributors();
 			</thead>
 
 			<tbody id="the-list">
-			<?php foreach ( $book_structure[ $type_slug ] as $content ) : ?>
-				<tr id="<?php echo $type_slug; ?>-<?php echo $content['ID']; ?>">
+			<?php
+			$count = count( $book_structure[ $slug ] );
+			$c = 1; // Start the counter
+			foreach ( $book_structure[ $slug ] as $content ) : ?>
+				<tr id="<?php echo $slug; ?>_<?php echo $content['ID']; ?>">
 					<td class="title column-title has-row-actions">
 						<div class="row-title"><a href="<?php echo admin_url( 'post.php?post=' . $content['ID'] . '&action=edit' ); ?>">
 						<?php echo $content['post_title']; ?>
@@ -184,18 +214,30 @@ $contributors = new \Pressbooks\Contributors();
 						<?php } ?></a>
 						<div class="row-actions">
 							<a href="<?php echo admin_url( 'post.php?post=' . $content['ID'] . '&action=edit' ); ?>"><?php _e( 'Edit', 'pressbooks' ); ?></a> | <a class="delete-link" href="<?php echo get_delete_post_link( $content['ID'] ); ?>" onclick="if ( !confirm( '<?php _e( 'Are you sure you want to delete this?', 'pressbooks' ); ?>' ) ) { return false }"><?php _e( 'Trash', 'pressbooks' ); ?></a> | <a href="<?php echo get_permalink( $content['ID'] ); ?>"><?php _e( 'View', 'pressbooks' ); ?></a>
+							<?php if ( $c > 1 ) : ?>
+| <a href="#" data-id="<?php echo $content['ID']; ?>" class="move-up"><?php _e( 'Move Up', 'pressbooks' ); ?></a>
+							<?php endif; ?>
+							<?php if ( $c === 0 || $c < $count ) : ?>
+| <a href="#" data-id="<?php echo $content['ID']; ?>" class="move-down"><?php _e( 'Move Down', 'pressbooks' ); ?></a>
+							<?php endif; ?>
 						</div>
 						</div>
 					</td>
 					<td class="author column-author">
-						<?php echo $contributors->get( $content['ID'], 'pb_authors' ); ?>
+						<?php
+						$section_authors = $contributors->get( $content['ID'], 'pb_authors' );
+						if ( $section_authors ) {
+							echo $chapter_authors;
+						} else {
+							echo $contributors->get( $meta_post->ID, 'pb_authors' );
+						}
+						?>
 					</td>
 					<?php if ( false === $disable_comments ) : ?><td class="comments column-comments">
 						<a class="post-comment-count" href="<?php echo admin_url( 'edit-comments.php?p=' . $content['ID'] ); ?>">
 							<span class="comment-count"><?php echo $content['comment_count']; ?></span>
 						</a>
 					</td><?php endif; ?>
-					<td class="status column-status" id="status_<?php echo $content['ID']; ?>"><?php echo ( in_array( $content['post_status'], [ 'web-only', 'private', 'publish' ], true ) ) ? __( 'Published', 'pressbooks' ) : $statuses[ $content['post_status'] ]->label; ?></td>
 					<?php
 					$visibility = [
 						'web' => ( in_array( $content['post_status'], [ 'web-only', 'publish' ], true ) ) ? true : false,
@@ -215,7 +257,10 @@ $contributors = new \Pressbooks\Contributors();
 					<label for="show_title_<?php echo $content['ID']; ?>"><?php _e( 'Show Title', 'pressbooks' ); ?></label>
 		</td>
 				</tr>
-			<?php endforeach; ?>
+			<?php
+			$c++;
+			endforeach;
+			?>
 			</tbody>
 			<tfoot>
 				<tr>
@@ -224,9 +269,8 @@ $contributors = new \Pressbooks\Contributors();
 					<?php if ( false === $disable_comments ) : ?><th>&nbsp;</th><?php endif; ?>
 					<th>&nbsp;</th>
 					<th>&nbsp;</th>
-					<th>&nbsp;</th>
 					<th>
-						<a href="<?php echo admin_url( 'post-new.php?post_type=' . $type_slug ); ?>" class="button"><?php _e( 'Add', 'pressbooks' ); ?> <?php echo $type_name; ?></a>
+						<a href="<?php echo admin_url( 'post-new.php?post_type=' . $slug ); ?>" class="button"><?php _e( 'Add', 'pressbooks' ); ?> <?php echo $name; ?></a>
 					</th>
 				</tr>
 			</tfoot>

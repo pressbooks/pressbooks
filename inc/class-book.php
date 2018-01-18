@@ -740,27 +740,6 @@ class Book {
 	}
 
 	/**
-	 * WP_Ajax hook. Updates a post's "show title" setting (show title in exports or not)
-	 */
-	static function updateShowTitleOptions() {
-		if ( check_ajax_referer( 'pb-update-book-show-title' ) ) {
-			$post_id = absint( $_POST['post_id'] );
-			if ( current_user_can( 'edit_post', $post_id ) ) {
-				$valid_meta_keys = [
-					'pb_show_title',
-				];
-
-				$meta_key = in_array( $_POST['type'], $valid_meta_keys, true ) ? $_POST['type'] : false;
-				if ( $meta_key ) {
-					$meta_value = ( $_POST['show_title'] ) ? 'on' : 0;
-					update_post_meta( $post_id, $meta_key, $meta_value );
-					static::deleteBookObjectCache();
-				}
-			}
-		}
-	}
-
-	/**
 	 * WP_Ajax hook. Updates a post's privacy setting (whether the post is published or privately published)
 	 */
 	static function updateGlobalPrivacyOptions() {

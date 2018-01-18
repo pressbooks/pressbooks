@@ -291,26 +291,110 @@ jQuery( document ).ready( function ( $ ) {
 		} );
 	} );
 
-	$( '.show_title' ).change( function () {
-		let id = $( this ).attr( 'data-id' );
+	$( '.show_title' ).change( function ( event ) {
+		let target = $( event.target )
+			.parent()
+			.parent()
+			.attr( 'id' );
+		target = target.split( '_' );
+		target = {
+			id:        target[target.length - 1],
+			post_type: target[0],
+		};
 
-		let chapter_show_title = 0;
+		let showtitle = '';
 
-		if ( $( this ).is( ':checked' ) ) {
-			chapter_show_title = 1;
+		if ( $( event.target ).is( ':checked' ) ) {
+			showtitle = 'on';
 		}
 
-		$.ajax( {
-			url:  ajaxurl,
-			type: 'POST',
-			data: {
-				action:             'pb_update_show_title_options',
-				post_id:            id,
-				chapter_show_title: chapter_show_title,
-				type:               'pb_show_title',
-				_ajax_nonce:        PB_OrganizeToken.showTitleNonce,
+		let post = instantiateTypeModel( target );
+		post.fetch( {
+			success: function ( model, response, options ) {
+				post.save( { meta: { pb_show_title: showtitle } }, { patch: true } );
 			},
 		} );
+	} );
+
+	function getRowFromAction( el ) {
+		return $( el )
+			.parent()
+			.parent()
+			.parent()
+			.parent();
+	}
+
+	function instantiateTypeModel( item ) {
+		let model;
+		if ( item.post_type === 'chapter' ) {
+			model = new wp.api.models.Chapters( { id: item.id } );
+		} else if ( item.post_type === 'front-matter' ) {
+			model = new wp.api.models.FrontMatter( { id: item.id } );
+		} else if ( item.post_type === 'back-matter' ) {
+			model = new wp.api.models.BackMatter( { id: item.id } );
+		} else if ( item.post_type === 'part' ) {
+			model = new wp.api.models.BackMatter( { id: item.id } );
+		}
+		return model;
+	}
+
+	function adjustMenuOrder( item, adjustment ) {
+		let post = instantiateTypeModel( item );
+		post.fetch( {
+			success: function ( model, response, options ) {
+				post.save(
+					{ menu_order: model.attributes.menu_order + adjustment },
+					{ patch: true }
+				);
+			},
+		} );
+	}
+
+	function swap( firstItem, secondItem ) {
+		adjustMenuOrder( firstItem, 1 );
+		adjustMenuOrder( secondItem, -1 );
+		$( `#${firstItem.post_type}_${firstItem.id}` )
+			.next()
+			.after( $( `#${firstItem.post_type}_${firstItem.id}` ) );
+		// updateControls( firstItem, secondItem );
+	}
+
+	$( '.move-down' ).click( event => {
+		event.preventDefault();
+		let target = getRowFromAction( event.target ).attr( 'id' );
+		target = target.split( '_' );
+		target = {
+			id:        target[target.length - 1],
+			post_type: target[0],
+		};
+		let next = getRowFromAction( event.target )
+			.next()
+			.attr( 'id' );
+		next = next.split( '_' );
+		next = {
+			id:        next[next.length - 1],
+			post_type: next[0],
+		};
+		swap( target, next );
+	} );
+
+	$( '.move-up' ).click( event => {
+		event.preventDefault();
+		let target = getRowFromAction( event.target ).attr( 'id' );
+		target = target.split( '_' );
+		target = {
+			id:        target[target.length - 1],
+			post_type: target[0],
+		};
+		let prev = getRowFromAction( event.target )
+			.prev()
+			.attr( 'id' );
+		prev = prev.split( '_' );
+		prev = {
+			id:        prev[prev.length - 1],
+			post_type: prev[0],
+		};
+		swap( prev, target );
 	} );
 
 	// Bulk action
