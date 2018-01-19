@@ -159,18 +159,17 @@ let Pressbooks = {
 		},
 	},
 	update: function ( el ) {
-		// $.blockUI.defaults.applyPlatformOpacityRules = false;
-		// $.blockUI( { message: jQuery( '#loader.chapter' ) } );
+		$.blockUI.defaults.applyPlatformOpacityRules = false;
+		$.blockUI( { message: jQuery( '#loader.chapter' ) } );
 		updateParent( el, $( '#' + Pressbooks.newPart ) );
 		updateIndex( $( '#' + Pressbooks.oldPart ) );
 		updateIndex( $( '#' + Pressbooks.newPart ) );
 		updateControls( $( '#' + Pressbooks.oldPart ) );
 		updateControls( $( '#' + Pressbooks.newPart ) );
-		// $.unblockUI();
 	},
 
 	fmupdate: function ( el ) {
-		// $.blockUI.defaults.applyPlatformOpacityRules = false;
+		$.blockUI.defaults.applyPlatformOpacityRules = false;
 		// $.blockUI( { message: jQuery( '#loader.front-matter' ) } );
 		updateIndex(
 			$( el )
@@ -182,12 +181,11 @@ let Pressbooks = {
 				.parent()
 				.parent()
 		);
-		// $.unblockUI();
 	},
 
 	bmupdate: function ( el ) {
-		// $.blockUI.defaults.applyPlatformOpacityRules = false;
-		// $.blockUI( { message: jQuery( '#loader.back-matter' ) } );
+		$.blockUI.defaults.applyPlatformOpacityRules = false;
+		$.blockUI( { message: jQuery( '#loader.back-matter' ) } );
 		updateIndex(
 			$( el )
 				.parent()
@@ -198,7 +196,6 @@ let Pressbooks = {
 				.parent()
 				.parent()
 		);
-		// $.unblockUI();
 	},
 };
 
@@ -322,8 +319,8 @@ jQuery( document ).ready( function ( $ ) {
 	} );
 
 	$( document ).on( 'click', '.move-up', event => {
-		jQuery.blockUI.defaults.applyPlatformOpacityRules = false;
-		jQuery.blockUI( { message: jQuery( '#loader.chapter' ) } );
+		$.blockUI.defaults.applyPlatformOpacityRules = false;
+		$.blockUI( { message: jQuery( '#loader.chapter' ) } );
 		let row = getRowFromAction( event.target );
 		let table = $( row )
 			.parent()
@@ -345,12 +342,11 @@ jQuery( document ).ready( function ( $ ) {
 			updateIndex( table );
 			updateControls( table );
 		}
-		jQuery.unblockUI();
 	} );
 
 	$( document ).on( 'click', '.move-down', event => {
-		jQuery.blockUI.defaults.applyPlatformOpacityRules = false;
-		jQuery.blockUI( { message: jQuery( '#loader.chapter' ) } );
+		$.blockUI.defaults.applyPlatformOpacityRules = false;
+		$.blockUI( { message: jQuery( '#loader.chapter' ) } );
 		let row = getRowFromAction( event.target );
 		let table = $( row )
 			.parent()
@@ -372,7 +368,6 @@ jQuery( document ).ready( function ( $ ) {
 			updateIndex( table );
 			updateControls( table );
 		}
-		jQuery.unblockUI();
 	} );
 
 	// Bulk action
@@ -398,6 +393,10 @@ jQuery( document ).ready( function ( $ ) {
 				.click();
 			pbOrganizeTdToggle[i] = true;
 		}
+	} );
+
+	$( document ).ajaxStop( function () {
+		$.unblockUI();
 	} );
 
 	// Warn of incomplete AJAX
