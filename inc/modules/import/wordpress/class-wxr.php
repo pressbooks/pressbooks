@@ -426,7 +426,7 @@ class Wxr extends Import {
 		$meta_val = $this->searchForMetaValue( 'pb_section_author', $p['postmeta'] );
 		if ( $meta_val ) {
 			// PB4 contributors (full names)
-			( new Contributors() )->upgradeMetaToTerm( 'pb_section_author', $meta_val, $pid );
+			( new Contributors() )->convert( 'pb_section_author', $meta_val, $pid );
 		}
 	}
 
@@ -467,7 +467,7 @@ class Wxr extends Import {
 				wp_set_object_terms( $pid, $meta['value'], Contributors::TAXONOMY );
 			} elseif ( $contributor->isDeprecated( $meta['key'] ) ) {
 				// PB4 contributors (full names)
-				$contributor->upgradeMetaToTerm( $meta['key'], $meta['value'], $pid );
+				$contributor->convert( $meta['key'], $meta['value'], $pid );
 			} elseif ( isset( $metadata_array_values[ $meta['key'] ] ) ) {
 				// Multi value
 				add_post_meta( $pid, $meta['key'], $meta['value'] );

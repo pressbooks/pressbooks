@@ -320,7 +320,7 @@ class Contributors {
 	 *
 	 * @return string
 	 */
-	public function upgradeSlug( $old_slug ) {
+	public function maybeUpgradeSlug( $old_slug ) {
 		$map = [
 			'pb_author' => 'pb_authors',
 			'pb_section_author' => 'pb_authors',
@@ -339,24 +339,29 @@ class Contributors {
 	 * @param string $old_slug
 	 * @param string|array $names
 	 * @param int $post_id
+	 *
+	 * @return array|false An array containing `term_id` and `term_taxonomy_id`, false otherwise.
 	 */
-	public function upgradeMetaToTerm( $old_slug, $names, $post_id ) {
+	public function convert( $old_slug, $names, $post_id ) {
 
-		$new_slug = $this->upgradeSlug( $old_slug );
+		$new_slug = $this->maybeUpgradeSlug( $old_slug );
 		if ( $new_slug === $old_slug ) {
-			return; // Nothing to upgrade
+			return false; // Nothing to convert
 		}
 
 		if ( ! is_array( $names ) ) {
 			$names = [ $names ];
 		}
 
+		$result = false;
 		foreach ( $names as $contributors ) {
 			$values = oxford_comma_explode( $contributors );
 			foreach ( $values as $v ) {
-				$this->insert( $v, $post_id, $new_slug );
+				$result = $this->insert( $v, $post_id, $new_slug );
 			}
 		}
+
+		return $result;
 	}
 
 }

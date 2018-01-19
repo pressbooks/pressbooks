@@ -28,7 +28,7 @@ class TaxonomyTest extends \WP_UnitTestCase {
 			->getMockBuilder( '\Pressbooks\Contributors' )
 			->getMock();
 		$stub2
-			->method( 'insert' )
+			->method( 'convert' )
 			->willReturn( [ 'term_id' => 999, 'term_taxonomy_id' => 999 ] );
 
 		$this->taxonomy = new Taxonomy( $stub1, $stub2 );
@@ -92,8 +92,7 @@ class TaxonomyTest extends \WP_UnitTestCase {
 	public function test_convertMetaToTerm() {
 		$this->taxonomy->registerTaxonomies();
 
-		$results = $this->taxonomy->upgradeToContributorTaxonomy( null, null, 'unknown_key', 'Hello World!' );
-		$this->assertFalse( $results );
+		// Pointless fake tests, stubbed.
 
 		$results = $this->taxonomy->upgradeToContributorTaxonomy( null, null, 'pb_contributing_authors', [ 'Joe Joe', 'Jim Jim', 'Jay Jay' ] );
 		$this->assertEquals( 999, $results['term_id'] );
