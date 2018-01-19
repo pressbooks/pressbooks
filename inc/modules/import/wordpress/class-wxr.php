@@ -38,6 +38,11 @@ class Wxr extends Import {
 	protected $knownImages = [];
 
 	/**
+	 * @var \Pressbooks\Contributors;
+	 */
+	protected $contributors;
+
+	/**
 	 *
 	 */
 	function __construct() {
@@ -46,6 +51,7 @@ class Wxr extends Import {
 			require_once( ABSPATH . 'wp-admin/includes/file.php' );
 			require_once( ABSPATH . 'wp-admin/includes/media.php' );
 		}
+		$this->contributors = new Contributors();
 	}
 
 	/**
@@ -124,6 +130,8 @@ class Wxr extends Import {
 			return false;
 		}
 
+		wp_defer_term_counting( true );
+
 		$this->pbCheck( $xml );
 
 		$this->sourceBookUrl = $xml['base_url'];
@@ -160,7 +168,7 @@ class Wxr extends Import {
 		foreach ( $terms as $t ) {
 			$term = term_exists( $t['term_name'], $t['term_taxonomy'] );
 			if ( null === $term || 0 === $term ) {
-				wp_insert_term(
+				$results = wp_insert_term(
 					$t['term_name'],
 					$t['term_taxonomy'],
 					[
@@ -168,6 +176,11 @@ class Wxr extends Import {
 						'slug' => $t['slug'],
 					]
 				);
+				if ( ! empty( $t['termmeta'] ) && is_array( $results ) ) {
+					foreach ( $t['termmeta'] as $termmeta ) {
+						add_term_meta( $results['term_id'], $termmeta['key'], $termmeta['value'], true );
+					}
+				}
 			}
 		}
 
@@ -231,6 +244,8 @@ class Wxr extends Import {
 				++$totals[ $post_type ];
 			}
 		}
+
+		wp_defer_term_counting( false ); // Flush
 
 		// Done
 		$_SESSION['pb_notices'][] =
@@ -405,6 +420,8 @@ class Wxr extends Import {
 	 */
 	protected function importPbPostMeta( $pid, $p ) {
 
+		$data_model = $this->figureOutDataModel( $p['postmeta'] );
+
 		$meta_to_update = apply_filters( 'pb_import_metakeys', [ 'pb_section_license', 'pb_short_title', 'pb_subtitle', 'pb_show_title' ] );
 		foreach ( $meta_to_update as $meta_key ) {
 			$meta_val = $this->searchForMetaValue( $meta_key, $p['postmeta'] );
@@ -416,17 +433,19 @@ class Wxr extends Import {
 			}
 		}
 
-		$meta_val = $this->searchForMetaValue( 'pb_authors', $p['postmeta'] );
-		if ( $meta_val ) {
-			// PB5 contributors (slugs)
-			add_post_meta( $pid, 'pb_authors', $meta_val );
-			wp_set_object_terms( $pid, $meta_val, Contributors::TAXONOMY );
-		}
-
-		$meta_val = $this->searchForMetaValue( 'pb_section_author', $p['postmeta'] );
-		if ( $meta_val ) {
-			// PB4 contributors (full names)
-			( new Contributors() )->convert( 'pb_section_author', $meta_val, $pid );
+		if ( $data_model === 5 ) {
+			$meta_val = $this->searchForMetaValue( 'pb_authors', $p['postmeta'] );
+			if ( $meta_val ) {
+				// PB5 contributors (slugs)
+				add_post_meta( $pid, 'pb_authors', $meta_val );
+				wp_set_object_terms( $pid, $meta_val, Contributors::TAXONOMY );
+			}
+		} else {
+			$meta_val = $this->searchForMetaValue( 'pb_section_author', $p['postmeta'] );
+			if ( $meta_val ) {
+				// PB4 contributors (full names)
+				$this->contributors->convert( 'pb_section_author', $meta_val, $pid );
+			}
 		}
 	}
 
@@ -437,6 +456,8 @@ class Wxr extends Import {
 	 * @param array $p Single Item Returned From \Pressbooks\Modules\Import\WordPress\Parser::parse
 	 */
 	protected function importMetaBoxes( $pid, $p ) {
+
+		$data_model = $this->figureOutDataModel( $p['postmeta'] );
 
 		// List of meta data keys that can support multiple values:
 		$metadata_array_values = [
@@ -454,21 +475,29 @@ class Wxr extends Import {
 			}
 		}
 
+		// Import contributors
+		foreach ( $p['postmeta'] as $meta ) {
+			if ( $data_model === 5 && $this->contributors->isValid( $meta['key'] ) ) {
+				// PB5 contributors (slugs)
+				add_post_meta( $pid, $meta['key'], $meta['value'] );
+				wp_set_object_terms( $pid, $meta['value'], Contributors::TAXONOMY );
+			} elseif ( $data_model === 4 && $this->contributors->isDeprecated( $meta['key'] ) ) {
+				// PB4 contributors (full names)
+				$this->contributors->convert( $meta['key'], $meta['value'], $pid );
+			}
+		}
+
 		// Import post meta
-		$contributor = new Contributors();
 		foreach ( $p['postmeta'] as $meta ) {
 			if ( 0 !== strpos( $meta['key'], 'pb_' ) ) {
 				continue; // Skip
 			}
+			// Skip contributor meta (already done, look up)
+			if ( $this->contributors->isValid( $meta['key'] ) || $this->contributors->isDeprecated( $meta['key'] ) ) {
+				continue;
+			}
 
-			if ( $contributor->isValid( $meta['key'] ) ) {
-				// PB5 contributors (slugs)
-				add_post_meta( $pid, $meta['key'], $meta['value'] );
-				wp_set_object_terms( $pid, $meta['value'], Contributors::TAXONOMY );
-			} elseif ( $contributor->isDeprecated( $meta['key'] ) ) {
-				// PB4 contributors (full names)
-				$contributor->convert( $meta['key'], $meta['value'], $pid );
-			} elseif ( isset( $metadata_array_values[ $meta['key'] ] ) ) {
+			if ( isset( $metadata_array_values[ $meta['key'] ] ) ) {
 				// Multi value
 				add_post_meta( $pid, $meta['key'], $meta['value'] );
 			} else {
@@ -734,6 +763,33 @@ class Wxr extends Import {
 		}
 
 		return $src_new;
+	}
+
+	/**
+	 * For backwards-compatibility, some PB5 field names are pluralized so that any third-party code that looks for the old fields will still be able to retrieve them.
+	 * That means both the old and new fields could still be in the XML. If we try to import both it causes buggy behaviour.
+	 * This function helps us pick either/or.
+	 *
+	 * @param array $postmeta
+	 *
+	 * @return int
+	 */
+	protected function figureOutDataModel( $postmeta ) {
+
+		foreach ( $this->contributors->valid as $contributor_type ) {
+			if ( $this->searchForMetaValue( $contributor_type, $postmeta ) ) {
+				return 5;
+			};
+		}
+
+		foreach ( $this->contributors->deprecated as $contributor_type ) {
+			if ( $this->searchForMetaValue( $contributor_type, $postmeta ) ) {
+				return 4;
+			};
+		}
+
+		// We found nothing? May as well use most recent version then...
+		return 5;
 	}
 
 }
