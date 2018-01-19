@@ -569,38 +569,18 @@ class Taxonomy {
 	}
 
 	/**
-	 * Upgrade to Pressbooks Five Contributor Data Model
+	 * If some plugin is still saving to the old/deprecated contributor slugs, then upgrade to Pressbooks Five Data Model
 	 *
 	 * @since 5.0.0
 	 *
 	 * @param int $meta_id ID of updated metadata entry.
-	 * @param int $post_id Post ID.
-	 * @param string $old_meta_key Meta key.
+	 * @param int $object_id Post ID.
+	 * @param string $meta_key Meta key.
 	 * @param mixed $meta_value Meta value.
 	 *
 	 * @return array|false An array containing the `term_id` and `term_taxonomy_id`, false otherwise.
 	 */
-	public function upgradeToContributorTaxonomy( $meta_id, $post_id, $old_meta_key, $meta_value ) {
-		$contributor_migration = [
-			'pb_author' => 'pb_authors',
-			'pb_section_author' => 'pb_authors',
-			'pb_author_file_as' => 'pb_authors',
-			'pb_contributing_authors' => 'pb_contributors',
-			'pb_editor' => 'pb_editors',
-			'pb_translator' => 'pb_translators',
-		];
-		if ( isset( $contributor_migration[ $old_meta_key ] ) && ! empty( $meta_value ) ) {
-			if ( ! is_array( $meta_value ) ) {
-				$meta_value = [ $meta_value ];
-			}
-			$result = false;
-			foreach ( $meta_value as $mv ) {
-				$result = $this->contributors->insert( $mv, $post_id );
-			}
-			if ( $result ) {
-				return $result;
-			}
-		}
-		return false;
+	public function upgradeToContributorTaxonomy( $meta_id, $object_id, $meta_key, $meta_value ) {
+		return $this->contributors->convert( $meta_key, $meta_value, $object_id );
 	}
 }

@@ -145,4 +145,26 @@ class ContributorsTest extends \WP_UnitTestCase {
 		$this->assertEquals( $term->name, $old_user_data->display_name );
 	}
 
+	public function test_maybeUpgradeSlug() {
+		$this->assertEquals( 'pb_authors', $this->contributor->maybeUpgradeSlug( 'pb_section_author' ) );
+		$this->assertEquals( 'garbage', $this->contributor->maybeUpgradeSlug( 'garbage' ) );
+	}
+
+	public function test_upgradeMetaToTerm() {
+		$this->taxonomy->registerTaxonomies();
+		$post_id = $this->_createChapter();
+
+		$this->assertFalse(
+			$this->contributor->convert( 'garbage', 'Rando1', $post_id )
+		);
+
+		$this->contributor->convert( 'pb_contributing_authors', 'Rando1', $post_id );
+		$s = $this->contributor->get( $post_id, 'pb_contributors' );
+		$this->assertEquals( 'Rando1', $s );
+
+		$this->contributor->convert( 'pb_contributing_authors', [ 'Rando2', 'Rando3' ], $post_id );
+		$s = $this->contributor->get( $post_id, 'pb_contributors' );
+		$this->assertEquals( 'Rando1, Rando2, and Rando3', $s );
+	}
+
 }

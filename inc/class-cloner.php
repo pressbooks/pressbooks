@@ -238,6 +238,7 @@ class Cloner {
 		$this->targetBookUrl = get_blogaddress_by_id( $this->targetBookId );
 
 		switch_to_blog( $this->targetBookId );
+		wp_defer_term_counting( true );
 
 		// Clone Metadata
 		$this->clonedItems['metadata'] = $this->cloneMetadata();
@@ -279,6 +280,7 @@ class Cloner {
 			$this->clonedItems['back-matter'][] = $this->cloneBackMatter( $backmatter['id'] );
 		}
 
+		wp_defer_term_counting( false ); // Flush
 		restore_current_blog();
 
 		return true;
