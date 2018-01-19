@@ -2,6 +2,110 @@
 
 import CountUp from 'countup.js';
 
+let $ = window.jQuery;
+
+function getRowFromAction( el ) {
+	return $( el )
+		.parent()
+		.parent()
+		.parent()
+		.parent()
+		.parent();
+}
+
+function instantiateTypeModel( item ) {
+	let model;
+	if ( item.post_type === 'chapter' ) {
+		model = new wp.api.models.Chapters( { id: item.id } );
+	} else if ( item.post_type === 'front-matter' ) {
+		model = new wp.api.models.FrontMatter( { id: item.id } );
+	} else if ( item.post_type === 'back-matter' ) {
+		model = new wp.api.models.BackMatter( { id: item.id } );
+	} else if ( item.post_type === 'part' ) {
+		model = new wp.api.models.Parts( { id: item.id } );
+	}
+	return model;
+}
+
+function updateParent( chapter, part ) {
+	chapter = chapter.attr( 'id' ).split( '_' );
+	chapter = chapter[chapter.length - 1];
+	part = part.attr( 'id' ).split( '_' );
+	part = part[part.length - 1];
+
+	let post = new wp.api.models.Chapters( { id: chapter } );
+	post.fetch( {
+		success: function ( model, response, options ) {
+			post.save( { part: part }, { patch: true } );
+		},
+	} );
+}
+
+function getAdjacentContainer( table, relationship ) {
+	if ( relationship === 'prev' ) {
+		return $( table ).prev( '[id^=part]' );
+	} else if ( relationship === 'next' ) {
+		return $( table ).next( '[id^=part]' );
+	}
+}
+
+function updateIndex( table ) {
+	table
+		.children( 'tbody' )
+		.children( 'tr' )
+		.each( ( i, el ) => {
+			let item = $( el )
+				.attr( 'id' )
+				.split( '_' );
+			item = {
+				id:         item[item.length - 1],
+				post_type:  item[0],
+				menu_order: i,
+			};
+			let post = instantiateTypeModel( item );
+			post.fetch( {
+				success: function ( model, response, options ) {
+					post.save( { menu_order: item.menu_order }, { patch: true } );
+				},
+			} );
+			i++;
+		} );
+}
+
+function updateControls( table ) {
+	table
+		.children( 'tbody' )
+		.children( 'tr' )
+		.each( ( i, el ) => {
+			let controls = '';
+			let up = '<button class="move-up">Move Up</button>';
+			let down = '<button class="move-down">Move Down</button>';
+
+			if ( $( el ).is( 'tr:first-of-type' ) ) {
+				if ( table.prev( '[id^=part]' ).length ) {
+					controls = ` | ${up} | ${down}`;
+				} else {
+					controls = ` | ${down}`;
+				}
+			} else if ( $( el ).is( 'tr:last-of-type' ) ) {
+				if ( $( table ).next( '[id^=part]' ).length ) {
+					controls = ` | ${up} | ${down}`;
+				} else {
+					controls = ` | ${up}`;
+				}
+			} else {
+				controls = ` | ${up} | ${down}`;
+			}
+
+			$( el )
+				.children( '.has-row-actions' )
+				.children( '.row-title' )
+				.children( '.row-actions' )
+				.children( '.reorder' )
+				.html( controls );
+		} );
+}
+
 let Pressbooks = {
 	oldPart:        null,
 	newPart:        null,
@@ -34,10 +138,8 @@ let Pressbooks = {
 		dropOnEmpty: true,
 		cursor:      'crosshair',
 		items:       'tbody > tr',
-		start:       function ( index, el ) {
-			// alert(el);
-		},
-		stop: function ( index, el ) {
+		start:       function ( index, el ) {},
+		stop:        function ( index, el ) {
 			Pressbooks.fmupdate( el.item );
 		},
 	},
@@ -51,138 +153,52 @@ let Pressbooks = {
 		dropOnEmpty: true,
 		cursor:      'crosshair',
 		items:       'tbody > tr',
-		start:       function ( index, el ) {
-			// alert(el);
-		},
-		stop: function ( index, el ) {
+		start:       function ( index, el ) {},
+		stop:        function ( index, el ) {
 			Pressbooks.bmupdate( el.item );
 		},
 	},
 	update: function ( el ) {
-		jQuery.ajax( {
-			beforeSend: function () {
-				jQuery.blockUI.defaults.applyPlatformOpacityRules = false;
-				jQuery.blockUI( { message: jQuery( '#loader.chapter' ) } );
-			},
-			url:  ajaxurl,
-			type: 'POST',
-			data: {
-				action:         'pb_update_chapter',
-				// see http://forum.jquery.com/topic/sortable-serialize-not-changing-sort-order-over-3-div-cols
-				new_part_order: jQuery( '#' + Pressbooks.newPart ).sortable( 'serialize' ),
-				old_part_order: jQuery( '#' + Pressbooks.oldPart ).sortable( 'serialize' ),
-				new_part:       Pressbooks.newPart.replace( /^part-([0-9]+)$/i, '$1' ),
-				old_part:       Pressbooks.oldPart.replace( /^part-([0-9]+)$/i, '$1' ),
-				id:             jQuery( el )
-					.attr( 'id' )
-					.replace( /^chapter-([0-9]+)$/i, '$1' ),
-				_ajax_nonce: PB_OrganizeToken.orderNonce,
-			},
-			cache:    false,
-			dataType: 'html',
-			error:    function ( obj, status, thrown ) {
-				jQuery( '#message' )
-					.html(
-						'<p><strong>There has been an error updating your chapter data. Usually, <a href="' +
-							window.location.href +
-							'">refreshing the page</a> helps.</strong></p>'
-					)
-					.addClass( 'error' );
-				// window.setTimeout(function(){window.location.replace(window.location.href)}, 5000, true);
-			},
-			success: function ( htmlStr ) {
-				if ( htmlStr === 'NOCHANGE' ) {
-					jQuery( '#message' )
-						.html( '<p><strong>No changes were registered.</strong></p>' )
-						.addClass( 'error' );
-				} else {
-					// Chapters have been reordered.
-				}
-			},
-			complete: function () {
-				jQuery.unblockUI();
-			},
-		} );
+		// $.blockUI.defaults.applyPlatformOpacityRules = false;
+		// $.blockUI( { message: jQuery( '#loader.chapter' ) } );
+		updateParent( el, $( '#' + Pressbooks.newPart ) );
+		updateIndex( $( '#' + Pressbooks.oldPart ) );
+		updateIndex( $( '#' + Pressbooks.newPart ) );
+		updateControls( $( '#' + Pressbooks.oldPart ) );
+		updateControls( $( '#' + Pressbooks.newPart ) );
+		// $.unblockUI();
 	},
 
 	fmupdate: function ( el ) {
-		jQuery.ajax( {
-			beforeSend: function () {
-				jQuery.blockUI.defaults.applyPlatformOpacityRules = false;
-				jQuery.blockUI( { message: jQuery( '#loader.front-matter' ) } );
-			},
-			url:  ajaxurl,
-			type: 'POST',
-			data: {
-				action:             'pb_update_front_matter',
-				front_matter_order: jQuery( '#front-matter' ).sortable( 'serialize' ),
-				_ajax_nonce:        PB_OrganizeToken.orderNonce,
-			},
-			cache:    false,
-			dataType: 'html',
-			error:    function ( obj, status, thrown ) {
-				jQuery( '#message' )
-					.html(
-						'<p><strong>There has been an error updating your front matter data Usually, <a href="' +
-							window.location.href +
-							'">refreshing the page</a> helps.</strong></p>'
-					)
-					.addClass( 'error' );
-				//window.setTimeout(function(){window.location.replace(window.location.href)}, 5000, true);
-			},
-			success: function ( htmlStr ) {
-				if ( htmlStr === 'NOCHANGE' ) {
-					jQuery( '#message' )
-						.html( '<p><strong>No changes were registered.</strong></p>' )
-						.addClass( 'error' );
-				} else {
-					// Front Matter has been reordered.
-				}
-			},
-			complete: function () {
-				jQuery.unblockUI();
-			},
-		} );
+		// $.blockUI.defaults.applyPlatformOpacityRules = false;
+		// $.blockUI( { message: jQuery( '#loader.front-matter' ) } );
+		updateIndex(
+			$( el )
+				.parent()
+				.parent()
+		);
+		updateControls(
+			$( el )
+				.parent()
+				.parent()
+		);
+		// $.unblockUI();
 	},
 
 	bmupdate: function ( el ) {
-		jQuery.ajax( {
-			beforeSend: function () {
-				jQuery.blockUI.defaults.applyPlatformOpacityRules = false;
-				jQuery.blockUI( { message: jQuery( '#loader.back-matter' ) } );
-			},
-			url:  ajaxurl,
-			type: 'POST',
-			data: {
-				action:            'pb_update_back_matter',
-				back_matter_order: jQuery( '#back-matter' ).sortable( 'serialize' ),
-				_ajax_nonce:       PB_OrganizeToken.orderNonce,
-			},
-			cache:    false,
-			dataType: 'html',
-			error:    function ( obj, status, thrown ) {
-				jQuery( '#message' )
-					.html(
-						'<p><strong>There has been an error updating your back matter data. Usually, <a href="' +
-							window.location.href +
-							'">refreshing the page</a> helps.</strong></p>'
-					)
-					.addClass( 'error' );
-				//window.setTimeout(function(){window.location.replace(window.location.href)}, 5000, true);
-			},
-			success: function ( htmlStr ) {
-				if ( htmlStr === 'NOCHANGE' ) {
-					jQuery( '#message' )
-						.html( '<p><strong>No changes were registered.</strong></p>' )
-						.addClass( 'error' );
-				} else {
-					// Back Matter has been reordered.
-				}
-			},
-			complete: function () {
-				jQuery.unblockUI();
-			},
-		} );
+		// $.blockUI.defaults.applyPlatformOpacityRules = false;
+		// $.blockUI( { message: jQuery( '#loader.back-matter' ) } );
+		updateIndex(
+			$( el )
+				.parent()
+				.parent()
+		);
+		updateControls(
+			$( el )
+				.parent()
+				.parent()
+		);
+		// $.unblockUI();
 	},
 };
 
@@ -304,108 +320,6 @@ jQuery( document ).ready( function ( $ ) {
 			},
 		} );
 	} );
-
-	function getRowFromAction( el ) {
-		return $( el )
-			.parent()
-			.parent()
-			.parent()
-			.parent()
-			.parent();
-	}
-
-	function instantiateTypeModel( item ) {
-		let model;
-		if ( item.post_type === 'chapter' ) {
-			model = new wp.api.models.Chapters( { id: item.id } );
-		} else if ( item.post_type === 'front-matter' ) {
-			model = new wp.api.models.FrontMatter( { id: item.id } );
-		} else if ( item.post_type === 'back-matter' ) {
-			model = new wp.api.models.BackMatter( { id: item.id } );
-		} else if ( item.post_type === 'part' ) {
-			model = new wp.api.models.Parts( { id: item.id } );
-		}
-		return model;
-	}
-
-	function updateParent( chapter, part ) {
-		chapter = chapter.attr( 'id' ).split( '_' );
-		chapter = chapter[chapter.length - 1];
-		part = part.attr( 'id' ).split( '_' );
-		part = part[part.length - 1];
-
-		let post = new wp.api.models.Chapters( { id: chapter } );
-		post.fetch( {
-			success: function ( model, response, options ) {
-				post.save( { part: part }, { patch: true } );
-			},
-		} );
-	}
-
-	function getAdjacentContainer( table, relationship ) {
-		if ( relationship === 'prev' ) {
-			return $( table ).prev( '[id^=part]' );
-		} else if ( relationship === 'next' ) {
-			return $( table ).next( '[id^=part]' );
-		}
-	}
-
-	function updateIndex( table ) {
-		table
-			.children( 'tbody' )
-			.children( 'tr' )
-			.each( ( i, el ) => {
-				let item = $( el )
-					.attr( 'id' )
-					.split( '_' );
-				item = {
-					id:         item[item.length - 1],
-					post_type:  item[0],
-					menu_order: i,
-				};
-				let post = instantiateTypeModel( item );
-				post.fetch( {
-					success: function ( model, response, options ) {
-						post.save( { menu_order: item.menu_order }, { patch: true } );
-					},
-				} );
-				i++;
-			} );
-	}
-
-	function updateControls( table ) {
-		table
-			.children( 'tbody' )
-			.children( 'tr' )
-			.each( ( i, el ) => {
-				let controls = '';
-				let up = '<button class="move-up">Move Up</button>';
-				let down = '<button class="move-down">Move Down</button>';
-
-				if ( $( el ).is( 'tr:first-of-type' ) ) {
-					if ( table.prev( '[id^=part]' ).length ) {
-						controls = ` | ${up} | ${down}`;
-					} else {
-						controls = ` | ${down}`;
-					}
-				} else if ( $( el ).is( 'tr:last-of-type' ) ) {
-					if ( $( table ).next( '[id^=part]' ).length ) {
-						controls = ` | ${up} | ${down}`;
-					} else {
-						controls = ` | ${up}`;
-					}
-				} else {
-					controls = ` | ${up} | ${down}`;
-				}
-
-				$( el )
-					.children( '.has-row-actions' )
-					.children( '.row-title' )
-					.children( '.row-actions' )
-					.children( '.reorder' )
-					.html( controls );
-			} );
-	}
 
 	$( document ).on( 'click', '.move-up', event => {
 		jQuery.blockUI.defaults.applyPlatformOpacityRules = false;
