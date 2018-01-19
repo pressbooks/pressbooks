@@ -51,7 +51,7 @@ function init_book() {
 	}
 
 	foreach ( get_taxonomies() as $taxonomy ) {
-		// Override Revisions routes for our custom post types
+		// Override custom taxonomy routes
 		if ( in_array( $taxonomy, [ 'front-matter-type', 'chapter-type', 'back-matter-type', 'license', 'contributor' ], true ) ) {
 			( new Endpoints\Controller\Terms( $taxonomy ) )->register_routes();
 		}
@@ -132,6 +132,8 @@ function hide_endpoints_from_root( $endpoints ) {
 }
 
 /**
+ * Filter to adjust the url returned by the get_rest_url() function
+ *
  * @param string $url
  * @param string $path
  *
@@ -143,8 +145,9 @@ function fix_book_urls( $url, $path ) {
 	$pbns = 'pressbooks/v2/';
 
 	if ( strpos( $path, $wpns ) !== false ) {
-		foreach ( get_custom_post_types() as $post_type ) {
-			if ( strpos( $path, "{$wpns}{$post_type}" ) !== false ) {
+		$fixes = get_custom_post_types() + [ 'license', 'contributor' ];
+		foreach ( $fixes as $fix ) {
+			if ( strpos( $path, "{$wpns}{$fix}" ) !== false ) {
 				$url = str_replace( $wpns, $pbns, $url );
 				break;
 			}

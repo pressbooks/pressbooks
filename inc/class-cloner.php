@@ -331,7 +331,7 @@ class Cloner {
 		$response = rest_do_request( $request )->get_data();
 
 		// Inform user of failure, bail
-		if ( is_wp_error( $response ) ) {
+		if ( is_wp_error( $response ) || @$response['data']['status'] >= 400 ) { // @codingStandardsIgnoreLine
 			return false;
 		} else {
 			return $response['id'];
@@ -730,7 +730,7 @@ class Cloner {
 		$response = rest_do_request( $request )->get_data();
 
 		// Inform user of failure, bail
-		if ( @$response['data']['status'] >= 400 ) { // @codingStandardsIgnoreLine
+		if ( is_wp_error( $response ) || @$response['data']['status'] >= 400 ) { // @codingStandardsIgnoreLine
 			return false;
 		}
 
