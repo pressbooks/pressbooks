@@ -258,6 +258,10 @@ jQuery( document ).ready( function ( $ ) {
 			id:        item[item.length - 1],
 			post_type: item[0],
 		};
+
+		$.blockUI.defaults.applyPlatformOpacityRules = false;
+		$.blockUI( { message: jQuery( `#loader.${item.post_type}` ) } );
+
 		let export_visibility = $( `#export_visibility_${item.id}` );
 		let web_visibility = $( `#web_visibility_${item.id}` );
 
@@ -303,6 +307,9 @@ jQuery( document ).ready( function ( $ ) {
 			id:        target[target.length - 1],
 			post_type: target[0],
 		};
+
+		$.blockUI.defaults.applyPlatformOpacityRules = false;
+		$.blockUI( { message: jQuery( `#loader.${target.post_type}` ) } );
 
 		let showtitle = '';
 
