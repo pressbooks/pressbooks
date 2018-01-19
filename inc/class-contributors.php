@@ -7,6 +7,7 @@
 namespace Pressbooks;
 
 use function Pressbooks\Utility\str_starts_with;
+use function Pressbooks\Utility\oxford_comma_explode;
 
 class Contributors {
 
@@ -220,7 +221,7 @@ class Contributors {
 	 */
 	public function addBlogUser( $user_id ) {
 		$user = get_userdata( $user_id );
-		if ( $user ) {
+		if ( $user && user_can( $user, 'edit_posts' ) ) {
 			$slug = $user->user_nicename;
 			$name = trim( "{$user->first_name} {$user->last_name}" );
 			if ( empty( $name ) ) {
@@ -251,7 +252,7 @@ class Contributors {
 	 */
 	public function updateBlogUser( $user_id, $old_user_data ) {
 		$user = get_userdata( $user_id );
-		if ( $user ) {
+		if ( $user && user_can( $user, 'edit_posts' ) ) {
 			$slug = $user->user_nicename;
 			$name = trim( "{$user->first_name} {$user->last_name}" );
 			if ( empty( $name ) ) {
@@ -312,6 +313,55 @@ class Contributors {
 			}
 		}
 		return $name;
+	}
+
+	/**
+	 * @param string $old_slug
+	 *
+	 * @return string
+	 */
+	public function maybeUpgradeSlug( $old_slug ) {
+		$map = [
+			'pb_author' => 'pb_authors',
+			'pb_section_author' => 'pb_authors',
+			'pb_contributing_authors' => 'pb_contributors',
+			'pb_author_file_as' => 'pb_authors',
+			'pb_editor' => 'pb_editors',
+			'pb_translator' => 'pb_translators',
+		];
+		if ( isset( $map[ $old_slug ] ) ) {
+			return $map[ $old_slug ];
+		}
+		return $old_slug;
+	}
+
+	/**
+	 * @param string $old_slug
+	 * @param string|array $names
+	 * @param int $post_id
+	 *
+	 * @return array|false An array containing `term_id` and `term_taxonomy_id`, false otherwise.
+	 */
+	public function convert( $old_slug, $names, $post_id ) {
+
+		$new_slug = $this->maybeUpgradeSlug( $old_slug );
+		if ( $new_slug === $old_slug ) {
+			return false; // Nothing to convert
+		}
+
+		if ( ! is_array( $names ) ) {
+			$names = [ $names ];
+		}
+
+		$result = false;
+		foreach ( $names as $contributors ) {
+			$values = oxford_comma_explode( $contributors );
+			foreach ( $values as $v ) {
+				$result = $this->insert( $v, $post_id, $new_slug );
+			}
+		}
+
+		return $result;
 	}
 
 }

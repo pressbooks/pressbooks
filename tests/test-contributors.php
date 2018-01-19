@@ -108,6 +108,9 @@ class ContributorsTest extends \WP_UnitTestCase {
 		$this->assertEquals( $term->name, $user->display_name );
 		$this->assertEquals( '', get_term_meta( $term->term_id, 'contributor_first_name', true ) );
 		$this->assertEquals( '', get_term_meta( $term->term_id, 'contributor_last_name', true ) );
+
+		$user_id = $this->factory()->user->create( [ 'role' => 'subscriber', 'first_name' => 'Fanny', 'last_name' => 'Fan Fan' ] );
+		$this->assertFalse( $this->contributor->addBlogUser( $user_id ) );
 	}
 
 	public function test_update() {
@@ -143,6 +146,28 @@ class ContributorsTest extends \WP_UnitTestCase {
 		$this->assertEquals( $term->term_id, $results['term_id'] );
 		$this->assertEquals( $term->slug, $old_user_data->user_nicename );
 		$this->assertEquals( $term->name, $old_user_data->display_name );
+	}
+
+	public function test_maybeUpgradeSlug() {
+		$this->assertEquals( 'pb_authors', $this->contributor->maybeUpgradeSlug( 'pb_section_author' ) );
+		$this->assertEquals( 'garbage', $this->contributor->maybeUpgradeSlug( 'garbage' ) );
+	}
+
+	public function test_upgradeMetaToTerm() {
+		$this->taxonomy->registerTaxonomies();
+		$post_id = $this->_createChapter();
+
+		$this->assertFalse(
+			$this->contributor->convert( 'garbage', 'Rando1', $post_id )
+		);
+
+		$this->contributor->convert( 'pb_contributing_authors', 'Rando1', $post_id );
+		$s = $this->contributor->get( $post_id, 'pb_contributors' );
+		$this->assertEquals( 'Rando1', $s );
+
+		$this->contributor->convert( 'pb_contributing_authors', [ 'Rando2', 'Rando3' ], $post_id );
+		$s = $this->contributor->get( $post_id, 'pb_contributors' );
+		$this->assertEquals( 'Rando1, Rando2, and Rando3', $s );
 	}
 
 }
