@@ -108,6 +108,9 @@ class ContributorsTest extends \WP_UnitTestCase {
 		$this->assertEquals( $term->name, $user->display_name );
 		$this->assertEquals( '', get_term_meta( $term->term_id, 'contributor_first_name', true ) );
 		$this->assertEquals( '', get_term_meta( $term->term_id, 'contributor_last_name', true ) );
+
+		$user_id = $this->factory()->user->create( [ 'role' => 'subscriber', 'first_name' => 'Fanny', 'last_name' => 'Fan Fan' ] );
+		$this->assertFalse( $this->contributor->addBlogUser( $user_id ) );
 	}
 
 	public function test_update() {
