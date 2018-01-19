@@ -163,3 +163,48 @@ i.mce-i-icon {
 .wp-menu-image.dashicons-admin-multisite::before {
   content: '\f330';
 }
+
+/*!
+ * WordPress CSS Spinner
+ * @license GPL-2.0+
+ * @author kuus <kunderikuus@gmail.com> (http://kunderikuus.net)
+ */
+
+$wp-spinner-bg: #808080;
+$wp-spinner-fg: #fff;
+$wp-spinner-size: 18px;
+$wp-spinner-size-inner: 4px;
+$wp-spinner-anim-duration: 1.08s;
+
+
+@keyframes infinite-spinning {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.cssanimations {
+  .spinner {
+    position: relative;
+    width: $wp-spinner-size;
+    height: $wp-spinner-size;
+    border-radius: $wp-spinner-size;
+    background: $wp-spinner-bg;
+    animation: infinite-spinning $wp-spinner-anim-duration linear infinite;
+
+    &:after {
+      content: "";
+      position: absolute;
+      top: 2px;
+      left: 50%;
+      width: $wp-spinner-size-inner;
+      height: $wp-spinner-size-inner;
+      border-radius: $wp-spinner-size-inner;
+      margin-left: -($wp-spinner-size-inner / 2);
+      background: $wp-spinner-fg;
+    }
+  }
+}

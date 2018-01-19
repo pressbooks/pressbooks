@@ -170,7 +170,7 @@ let Pressbooks = {
 
 	fmupdate: function ( el ) {
 		$.blockUI.defaults.applyPlatformOpacityRules = false;
-		// $.blockUI( { message: jQuery( '#loader.front-matter' ) } );
+		$.blockUI( { message: jQuery( '#loader.front-matter' ) } );
 		updateIndex(
 			$( el )
 				.parent()
@@ -319,9 +319,13 @@ jQuery( document ).ready( function ( $ ) {
 	} );
 
 	$( document ).on( 'click', '.move-up', event => {
-		$.blockUI.defaults.applyPlatformOpacityRules = false;
-		$.blockUI( { message: jQuery( '#loader.chapter' ) } );
 		let row = getRowFromAction( event.target );
+		let postType = $( row )
+			.attr( 'id' )
+			.split( '_' );
+		postType = postType[0];
+		$.blockUI.defaults.applyPlatformOpacityRules = false;
+		$.blockUI( { message: jQuery( `#loader.${postType}` ) } );
 		let table = $( row )
 			.parent()
 			.parent();
@@ -345,9 +349,13 @@ jQuery( document ).ready( function ( $ ) {
 	} );
 
 	$( document ).on( 'click', '.move-down', event => {
-		$.blockUI.defaults.applyPlatformOpacityRules = false;
-		$.blockUI( { message: jQuery( '#loader.chapter' ) } );
 		let row = getRowFromAction( event.target );
+		let postType = $( row )
+			.attr( 'id' )
+			.split( '_' );
+		postType = postType[0];
+		$.blockUI.defaults.applyPlatformOpacityRules = false;
+		$.blockUI( { message: jQuery( `#loader.${postType}` ) } );
 		let table = $( row )
 			.parent()
 			.parent();

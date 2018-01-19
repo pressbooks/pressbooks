@@ -319,17 +319,17 @@ $contributors = new \Pressbooks\Contributors();
 	<?php endforeach; ?>
 </div>
 
-<div id="loader" class="chapter">
-	<p><img src="<?php echo PB_PLUGIN_URL; ?>assets/dist/images/loader.gif" alt="Loader" id="loaderimg" /></p>
-	<h3 id="loadermsg"><?php _e( 'Reordering Chapters', 'pressbooks' ); ?>&hellip;</h3>
+<div id="loader" class="chapter loading-content">
+	<span class="spinner"></span>
+	<p class="message"><?php _e( 'Updating Chapter', 'pressbooks' ); ?>&hellip;</p>
 </div>
 
-<div id="loader" class="front-matter">
-	<p><img src="<?php echo PB_PLUGIN_URL; ?>assets/dist/images/loader.gif" alt="Loader" id="loaderimg" /></p>
-	<h3 id="loadermsg"><?php _e( 'Reordering Front Matter', 'pressbooks' ); ?>&hellip;</h3>
+<div id="loader" class="front-matter loading-content">
+	<span class="spinner"></span>
+	<p class="message"><?php _e( 'Updating Front Matter', 'pressbooks' ); ?>&hellip;</p>
 </div>
 
-<div id="loader" class="back-matter">
-	<p><img src="<?php echo PB_PLUGIN_URL; ?>assets/dist/images/loader.gif" alt="Loader" id="loaderimg" /></p>
-	<h3 id="loadermsg"><?php _e( 'Reordering Back Matter', 'pressbooks' ); ?>&hellip;</h3>
+<div id="loader" class="back-matter loading-content">
+	<span class="spinner"></span>
+	<p class="message"><?php _e( 'Updating Back Matter', 'pressbooks' ); ?>&hellip;</p>
 </div>
