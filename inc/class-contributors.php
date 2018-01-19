@@ -220,7 +220,7 @@ class Contributors {
 	 */
 	public function addBlogUser( $user_id ) {
 		$user = get_userdata( $user_id );
-		if ( $user ) {
+		if ( $user && user_can( $user, 'edit_posts' ) ) {
 			$slug = $user->user_nicename;
 			$name = trim( "{$user->first_name} {$user->last_name}" );
 			if ( empty( $name ) ) {
@@ -251,7 +251,7 @@ class Contributors {
 	 */
 	public function updateBlogUser( $user_id, $old_user_data ) {
 		$user = get_userdata( $user_id );
-		if ( $user ) {
+		if ( $user && user_can( $user, 'edit_posts' ) ) {
 			$slug = $user->user_nicename;
 			$name = trim( "{$user->first_name} {$user->last_name}" );
 			if ( empty( $name ) ) {

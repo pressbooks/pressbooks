@@ -98,16 +98,8 @@ class ContributorsTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'Joey', get_term_meta( $term->term_id, 'contributor_first_name', true ) );
 		$this->assertEquals( 'Joe Joe', get_term_meta( $term->term_id, 'contributor_last_name', true ) );
 
-		$user_id = $this->factory()->user->create( [ 'role' => 'contributor' ] );
-		$user = get_userdata( $user_id );
-		$results = $this->contributor->addBlogUser( $user_id );
-		$this->assertTrue( is_array( $results ) );
-		$term = get_term_by( 'slug', $user->user_nicename, 'contributor' );
-		$this->assertEquals( $term->term_id, $results['term_id'] );
-		$this->assertEquals( $term->slug, $user->user_nicename );
-		$this->assertEquals( $term->name, $user->display_name );
-		$this->assertEquals( '', get_term_meta( $term->term_id, 'contributor_first_name', true ) );
-		$this->assertEquals( '', get_term_meta( $term->term_id, 'contributor_last_name', true ) );
+		$user_id = $this->factory()->user->create( [ 'role' => 'subscriber', 'first_name' => 'Fanny', 'last_name' => 'Fan Fan' ] );
+		$this->assertFalse( $this->contributor->addBlogUser( $user_id ) );
 	}
 
 	public function test_update() {
