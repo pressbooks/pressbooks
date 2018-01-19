@@ -36,7 +36,7 @@
           margin-bottom: 10px;
         }
 
-        span.active {
+        input:checked + span {
           font-weight: bold;
         }
       }
@@ -54,19 +54,27 @@
       font-weight: normal;
     }
 
+    .row-actions button {
+      padding: 0;
+      border: 0;
+      color: darken($monza, 5%);
+      cursor: pointer;
+
+      &:focus,
+      &:hover {
+        color: $monza;
+      }
+    }
+
     thead {
       tr {
         th {
           font-weight: bold;
-
-          &:first-child {
-            width: 20%;
-          }
         }
 
-        th:nth-child(5),
-        th:nth-child(6),
-        th:nth-child(7) {
+        th:nth-child(3),
+        th:nth-child(4),
+        th:nth-child(5) {
           cursor: pointer;
         }
       }
@@ -84,10 +92,6 @@
 
           &.column-comments {
             padding: 8px 10px;
-          }
-
-          &:first-child {
-            width: 20%;
           }
         }
 

@@ -109,7 +109,7 @@ let Pressbooks = {
 		jQuery.ajax( {
 			beforeSend: function () {
 				jQuery.blockUI.defaults.applyPlatformOpacityRules = false;
-				jQuery.blockUI( { message: jQuery( '#loader.fm' ) } );
+				jQuery.blockUI( { message: jQuery( '#loader.front-matter' ) } );
 			},
 			url:  ajaxurl,
 			type: 'POST',
@@ -149,7 +149,7 @@ let Pressbooks = {
 		jQuery.ajax( {
 			beforeSend: function () {
 				jQuery.blockUI.defaults.applyPlatformOpacityRules = false;
-				jQuery.blockUI( { message: jQuery( '#loader.bm' ) } );
+				jQuery.blockUI( { message: jQuery( '#loader.back-matter' ) } );
 			},
 			url:  ajaxurl,
 			type: 'POST',
@@ -219,15 +219,11 @@ jQuery( document ).ready( function ( $ ) {
 			beforeSend: function () {
 				if ( blog_public === 0 ) {
 					$( 'h4.publicize-alert > span' ).text( PB_OrganizeToken.private );
-					$( 'label span.public' ).css( 'font-weight', 'normal' );
-					$( 'label span.private' ).css( 'font-weight', 'bold' );
 					$( '.publicize-alert' )
 						.removeClass( 'public' )
 						.addClass( 'private' );
 				} else if ( blog_public === 1 ) {
 					$( 'h4.publicize-alert > span' ).text( PB_OrganizeToken.public );
-					$( 'label span.public' ).css( 'font-weight', 'bold' );
-					$( 'label span.private' ).css( 'font-weight', 'normal' );
 					$( '.publicize-alert' )
 						.removeClass( 'private' )
 						.addClass( 'public' );
@@ -240,53 +236,46 @@ jQuery( document ).ready( function ( $ ) {
 	} );
 
 	// Chapter switches
-	$( '.web_visibility, .export_visibility' ).change( function () {
-		let id = $( this ).attr( 'data-id' );
-		let export_visibility = $( `#export_visibility_${id}` );
-		let web_visibility = $( `#web_visibility_${id}` );
-		let status_indicator = $( `#status_${id}` );
+	$( '.web_visibility, .export_visibility' ).change( event => {
+		let row = $( event.target )
+			.parent()
+			.parent();
+		let item = row.attr( 'id' ).split( '_' );
+		item = {
+			id:        item[item.length - 1],
+			post_type: item[0],
+		};
+		let export_visibility = $( `#export_visibility_${item.id}` );
+		let web_visibility = $( `#web_visibility_${item.id}` );
 
-		let post_status;
+		let postStatus;
 
 		if ( web_visibility.is( ':checked' ) ) {
 			if ( export_visibility.is( ':checked' ) ) {
-				post_status = 'publish';
+				postStatus = 'publish';
 			} else {
-				post_status = 'web-only';
+				postStatus = 'web-only';
 			}
 		} else {
 			if ( export_visibility.is( ':checked' ) ) {
-				post_status = 'private';
+				postStatus = 'private';
 			} else {
-				post_status = 'draft';
+				postStatus = 'draft';
 			}
 		}
 
-		$.ajax( {
-			url:  ajaxurl,
-			type: 'POST',
-			data: {
-				action:      'pb_update_visibility',
-				post_id:     id,
-				post_status: post_status,
-				_ajax_nonce: PB_OrganizeToken.visibilityNonce,
-			},
-			beforeSend: function () {
-				if (
-					post_status === 'publish' ||
-					post_status === 'web-only' ||
-					post_status === 'private'
-				) {
-					status_indicator.text( PB_OrganizeToken.published );
-				} else {
-					status_indicator.text( PB_OrganizeToken.draft );
-				}
-			},
-			success: function () {
-				updateWordCountForExport();
-			},
-			error: function ( xhr, ajaxOptions, thrownError ) {
-				// TODO
+		let post = instantiateTypeModel( item );
+		post.fetch( {
+			success: function ( model, response, options ) {
+				post.save(
+					{ status: postStatus },
+					{
+						patch:   true,
+						success: function () {
+							updateWordCountForExport();
+						},
+					}
+				);
 			},
 		} );
 	} );
@@ -321,6 +310,7 @@ jQuery( document ).ready( function ( $ ) {
 			.parent()
 			.parent()
 			.parent()
+			.parent()
 			.parent();
 	}
 
@@ -333,68 +323,142 @@ jQuery( document ).ready( function ( $ ) {
 		} else if ( item.post_type === 'back-matter' ) {
 			model = new wp.api.models.BackMatter( { id: item.id } );
 		} else if ( item.post_type === 'part' ) {
-			model = new wp.api.models.BackMatter( { id: item.id } );
+			model = new wp.api.models.Parts( { id: item.id } );
 		}
 		return model;
 	}
 
-	function adjustMenuOrder( item, adjustment ) {
-		let post = instantiateTypeModel( item );
+	function updateParent( chapter, part ) {
+		chapter = chapter.attr( 'id' ).split( '_' );
+		chapter = chapter[chapter.length - 1];
+		part = part.attr( 'id' ).split( '_' );
+		part = part[part.length - 1];
+
+		let post = new wp.api.models.Chapters( { id: chapter } );
 		post.fetch( {
 			success: function ( model, response, options ) {
-				post.save(
-					{ menu_order: model.attributes.menu_order + adjustment },
-					{ patch: true }
-				);
+				post.save( { part: part }, { patch: true } );
 			},
 		} );
 	}
 
-	function swap( firstItem, secondItem ) {
-		adjustMenuOrder( firstItem, 1 );
-		adjustMenuOrder( secondItem, -1 );
-		$( `#${firstItem.post_type}_${firstItem.id}` )
-			.next()
-			.after( $( `#${firstItem.post_type}_${firstItem.id}` ) );
-		// updateControls( firstItem, secondItem );
+	function getAdjacentContainer( table, relationship ) {
+		if ( relationship === 'prev' ) {
+			return $( table ).prev( '[id^=part]' );
+		} else if ( relationship === 'next' ) {
+			return $( table ).next( '[id^=part]' );
+		}
 	}
 
-	$( '.move-down' ).click( event => {
-		event.preventDefault();
-		let target = getRowFromAction( event.target ).attr( 'id' );
-		target = target.split( '_' );
-		target = {
-			id:        target[target.length - 1],
-			post_type: target[0],
-		};
-		let next = getRowFromAction( event.target )
-			.next()
-			.attr( 'id' );
-		next = next.split( '_' );
-		next = {
-			id:        next[next.length - 1],
-			post_type: next[0],
-		};
-		swap( target, next );
+	function updateIndex( table ) {
+		table
+			.children( 'tbody' )
+			.children( 'tr' )
+			.each( ( i, el ) => {
+				let item = $( el )
+					.attr( 'id' )
+					.split( '_' );
+				item = {
+					id:         item[item.length - 1],
+					post_type:  item[0],
+					menu_order: i,
+				};
+				let post = instantiateTypeModel( item );
+				post.fetch( {
+					success: function ( model, response, options ) {
+						post.save( { menu_order: item.menu_order }, { patch: true } );
+					},
+				} );
+				i++;
+			} );
+	}
+
+	function updateControls( table ) {
+		table
+			.children( 'tbody' )
+			.children( 'tr' )
+			.each( ( i, el ) => {
+				let controls = '';
+				let up = '<button class="move-up">Move Up</button>';
+				let down = '<button class="move-down">Move Down</button>';
+
+				if ( $( el ).is( 'tr:first-of-type' ) ) {
+					if ( table.prev( '[id^=part]' ).length ) {
+						controls = ` | ${up} | ${down}`;
+					} else {
+						controls = ` | ${down}`;
+					}
+				} else if ( $( el ).is( 'tr:last-of-type' ) ) {
+					if ( $( table ).next( '[id^=part]' ).length ) {
+						controls = ` | ${up} | ${down}`;
+					} else {
+						controls = ` | ${up}`;
+					}
+				} else {
+					controls = ` | ${up} | ${down}`;
+				}
+
+				$( el )
+					.children( '.has-row-actions' )
+					.children( '.row-title' )
+					.children( '.row-actions' )
+					.children( '.reorder' )
+					.html( controls );
+			} );
+	}
+
+	$( document ).on( 'click', '.move-up', event => {
+		jQuery.blockUI.defaults.applyPlatformOpacityRules = false;
+		jQuery.blockUI( { message: jQuery( '#loader.chapter' ) } );
+		let row = getRowFromAction( event.target );
+		let table = $( row )
+			.parent()
+			.parent();
+		if (
+			$( row ).is( 'tr:first-of-type' ) &&
+			table.is( '[id^=part]' ) &&
+			table.prev( '[id^=part]' ).length
+		) {
+			let targetTable = getAdjacentContainer( table, 'prev' );
+			targetTable.append( row );
+			updateParent( row, targetTable );
+			updateIndex( table );
+			updateIndex( targetTable );
+			updateControls( table );
+			updateControls( targetTable );
+		} else {
+			row.prev().before( row );
+			updateIndex( table );
+			updateControls( table );
+		}
+		jQuery.unblockUI();
 	} );
 
-	$( '.move-up' ).click( event => {
-		event.preventDefault();
-		let target = getRowFromAction( event.target ).attr( 'id' );
-		target = target.split( '_' );
-		target = {
-			id:        target[target.length - 1],
-			post_type: target[0],
-		};
-		let prev = getRowFromAction( event.target )
-			.prev()
-			.attr( 'id' );
-		prev = prev.split( '_' );
-		prev = {
-			id:        prev[prev.length - 1],
-			post_type: prev[0],
-		};
-		swap( prev, target );
+	$( document ).on( 'click', '.move-down', event => {
+		jQuery.blockUI.defaults.applyPlatformOpacityRules = false;
+		jQuery.blockUI( { message: jQuery( '#loader.chapter' ) } );
+		let row = getRowFromAction( event.target );
+		let table = $( row )
+			.parent()
+			.parent();
+		if (
+			$( row ).is( 'tr:last-of-type' ) &&
+			table.is( '[id^=part]' ) &&
+			table.next( '[id^=part]' ).length
+		) {
+			let targetTable = getAdjacentContainer( table, 'next' );
+			targetTable.prepend( row );
+			updateParent( row, targetTable );
+			updateIndex( table );
+			updateIndex( targetTable );
+			updateControls( table );
+			updateControls( targetTable );
+		} else {
+			row.next().after( row );
+			updateIndex( table );
+			updateControls( table );
+		}
+		jQuery.unblockUI();
 	} );
 
 	// Bulk action

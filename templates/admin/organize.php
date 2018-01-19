@@ -27,10 +27,10 @@ $contributors = new \Pressbooks\Contributors();
 			<h4 class="publicize-alert private"><?php _e( 'This book\'s global privacy is set to', 'pressbooks' ); ?> <span><?php _e( 'Private', 'pressbooks' ); ?></span></h4>
 			<?php } ?>
 			<div class="publicize-form">
-				<label for="blog-public"><input type="radio" <?php checked( $book_is_public, 1 ); ?> value="1" name="blog_public" id="blog-public"><span class="public<?php if ( $book_is_public ) { echo ' active';} ?>"><?php _e( 'Public', 'pressbooks' ); ?></span> &mdash;
+				<label for="blog-public"><input type="radio" <?php checked( $book_is_public, 1 ); ?> value="1" name="blog_public" id="blog-public"><span class="public"><?php _e( 'Public', 'pressbooks' ); ?></span> &mdash;
 					<?php _e( 'Promote your book, set individual chapters privacy below.', 'pressbooks' ); ?>
 				</label>
-				<label for="blog-private"><input type="radio" <?php checked( $book_is_public, 0 ); ?> value="0" name="blog_public" id="blog-private"><span class="private<?php if ( ! $book_is_public ) { echo ' active';} ?>"><?php _e( 'Private', 'pressbooks' ); ?></span> &mdash;
+				<label for="blog-private"><input type="radio" <?php checked( $book_is_public, 0 ); ?> value="0" name="blog_public" id="blog-private"><span class="private"><?php _e( 'Private', 'pressbooks' ); ?></span> &mdash;
 					<?php _e( 'Only users you invite can see your book, regardless of individual chapter visibility below.', 'pressbooks' ); ?>
 				</label>
 			</div>
@@ -78,14 +78,23 @@ $contributors = new \Pressbooks\Contributors();
 		 // Chapters have to be handled differently.
 		if ( 'chapter' === $slug ) :
 		?>
-			<?php foreach ( $book_structure['part'] as $part ) : ?>
+			<?php
+			$parts = count( $book_structure['part'] );
+			$p = 1;
+			foreach ( $book_structure['part'] as $part ) :
+			?>
 				<table id="part_<?php echo $part['ID']; ?>" class="wp-list-table widefat fixed <?php echo $slug; ?>s" cellspacing="0" data-id="<?php echo $content['ID']; ?>">
 					<thead>
 						<tr>
 							<th class="has-row-actions">
 								<a href="<?php echo admin_url( 'post.php?post=' . $part['ID'] . '&action=edit' ); ?>"><?php echo $part['post_title']; ?></a>
 								<div class="row-actions">
-									<a href="<?php echo admin_url( 'post.php?post=' . $part['ID'] . '&action=edit' ); ?>"><?php _e( 'Edit', 'pressbooks' ); ?></a> | <?php if ( count( $book_structure['part'] ) > 1 ) : // Don't allow deletion of last remaining part. Bad things happen. ?> <a class="delete-link" href="<?php echo get_delete_post_link( $part['ID'] ); ?>" onclick="if ( !confirm( '<?php _e( 'Are you sure you want to delete this?', 'pressbooks' ); ?>' ) ) { return false }"><?php _e( 'Trash', 'pressbooks' ); ?></a> | <?php endif; ?> <a href="<?php echo get_permalink( $part['ID'] ); ?>"><?php _e( 'View', 'pressbooks' ); ?></a>
+									<a href="<?php echo admin_url( 'post.php?post=' . $part['ID'] . '&action=edit' ); ?>"><?php _e( 'Edit', 'pressbooks' ); ?></a> |
+														<?php
+														if ( count( $book_structure['part'] ) > 1 ) :
+															// Don't allow deletion of last remaining part. Bad things happen.
+					?>
+					 <a class="delete-link" href="<?php echo get_delete_post_link( $part['ID'] ); ?>" onclick="if ( !confirm( '<?php _e( 'Are you sure you want to delete this?', 'pressbooks' ); ?>' ) ) { return false }"><?php _e( 'Trash', 'pressbooks' ); ?></a> | <?php endif; ?> <a href="<?php echo get_permalink( $part['ID'] ); ?>"><?php _e( 'View', 'pressbooks' ); ?></a>
 								</div>
 
 							</th>
@@ -105,9 +114,10 @@ $contributors = new \Pressbooks\Contributors();
 
 					<tbody id="the-list">
 					<?php
-					$count = count( $part['chapters'] );
-					$c = 1; // Start the counter
-					foreach ( $part['chapters'] as $content ) : ?>
+					$chapters = count( $part['chapters'] );
+					$c = 1; // Start the chapter counter
+					foreach ( $part['chapters'] as $content ) :
+					?>
 						<tr id="<?php echo $slug; ?>_<?php echo $content['ID']; ?>">
 							<td class="title column-title has-row-actions">
 								<div class="row-title"><a href="<?php echo admin_url( 'post.php?post=' . $content['ID'] . '&action=edit' ); ?>">
@@ -117,12 +127,20 @@ $contributors = new \Pressbooks\Contributors();
 								<?php } ?></a>
 								<div class="row-actions">
 									<a href="<?php echo admin_url( 'post.php?post=' . $content['ID'] . '&action=edit' ); ?>"><?php _e( 'Edit', 'pressbooks' ); ?></a> | <a class="delete-link" href="<?php echo get_delete_post_link( $content['ID'] ); ?>" onclick="if ( !confirm( '<?php _e( 'Are you sure you want to delete this?', 'pressbooks' ); ?>' ) ) { return false }"><?php _e( 'Trash', 'pressbooks' ); ?></a> | <a href="<?php echo get_permalink( $content['ID'] ); ?>"><?php _e( 'View', 'pressbooks' ); ?></a>
-									<?php if ( $c > 1 ) : ?>
- | <a href="#" class="move-up"><?php _e( 'Move Up', 'pressbooks' ); ?></a>
+								<?php
+								if ( $c > 1 || ( $p > 1 && $parts > 1 ) || $c < $chapters || $p < $parts ) :
+?>
+<span class="reorder"><?php endif; ?>
+								<?php if ( $c > 1 || ( $p > 1 && $parts > 1 ) ) : ?>
+ | <button class="move-up"><?php _e( 'Move Up', 'pressbooks' ); ?></button>
 									<?php endif; ?>
-									<?php if ( $c === 0 || $c < $count ) : ?>
- | <a href="#" class="move-down"><?php _e( 'Move Down', 'pressbooks' ); ?></a>
+									<?php if ( $c < $chapters || $p < $parts ) : ?>
+ | <button class="move-down"><?php _e( 'Move Down', 'pressbooks' ); ?></button>
 									<?php endif; ?>
+								<?php
+								if ( $c > 1 || ( $p > 1 && $parts > 1 ) || $c < $chapters || $p < $parts ) :
+?>
+</span><?php endif; ?>
 								</div>
 								</div>
 							</td>
@@ -174,7 +192,10 @@ $contributors = new \Pressbooks\Contributors();
 						<tr>
 							<th>&nbsp;</th>
 							<th>&nbsp;</th>
-							<?php if ( false === $disable_comments ) : ?><th>&nbsp;</th><?php endif; ?>
+							<?php
+							if ( false === $disable_comments ) :
+?>
+<th>&nbsp;</th><?php endif; ?>
 							<th>&nbsp;</th>
 							<th>&nbsp;</th>
 							<th>
@@ -183,7 +204,10 @@ $contributors = new \Pressbooks\Contributors();
 						</tr>
 					</tfoot>
 				</table>
-			<?php endforeach; ?>
+			<?php
+			$p++;
+			endforeach;
+			?>
 			<p><a class="button" href="<?php echo admin_url( 'post-new.php?post_type=part' ); ?>"><?php _e( 'Add Part', 'pressbooks' ); ?></a></p>
 		<?php else : ?>
 		<table id="<?php echo $slug; ?>" class="wp-list-table widefat fixed <?php echo $slug; ?>" cellspacing="0">
@@ -202,9 +226,10 @@ $contributors = new \Pressbooks\Contributors();
 
 			<tbody id="the-list">
 			<?php
-			$count = count( $book_structure[ $slug ] );
-			$c = 1; // Start the counter
-			foreach ( $book_structure[ $slug ] as $content ) : ?>
+			$sections = count( $book_structure[ $slug ] );
+			$s = 1; // Start the counter
+			foreach ( $book_structure[ $slug ] as $content ) :
+			?>
 				<tr id="<?php echo $slug; ?>_<?php echo $content['ID']; ?>">
 					<td class="title column-title has-row-actions">
 						<div class="row-title"><a href="<?php echo admin_url( 'post.php?post=' . $content['ID'] . '&action=edit' ); ?>">
@@ -214,12 +239,21 @@ $contributors = new \Pressbooks\Contributors();
 						<?php } ?></a>
 						<div class="row-actions">
 							<a href="<?php echo admin_url( 'post.php?post=' . $content['ID'] . '&action=edit' ); ?>"><?php _e( 'Edit', 'pressbooks' ); ?></a> | <a class="delete-link" href="<?php echo get_delete_post_link( $content['ID'] ); ?>" onclick="if ( !confirm( '<?php _e( 'Are you sure you want to delete this?', 'pressbooks' ); ?>' ) ) { return false }"><?php _e( 'Trash', 'pressbooks' ); ?></a> | <a href="<?php echo get_permalink( $content['ID'] ); ?>"><?php _e( 'View', 'pressbooks' ); ?></a>
-							<?php if ( $c > 1 ) : ?>
-| <a href="#" data-id="<?php echo $content['ID']; ?>" class="move-up"><?php _e( 'Move Up', 'pressbooks' ); ?></a>
+							<?php
+							if ( $s > 1 || $s < $sections ) {
+								echo '<span class="reorder">';
+							}
+							?>
+							<?php if ( $s > 1 ) : ?>
+| <button class="move-up"><?php _e( 'Move Up', 'pressbooks' ); ?></button>
 							<?php endif; ?>
-							<?php if ( $c === 0 || $c < $count ) : ?>
-| <a href="#" data-id="<?php echo $content['ID']; ?>" class="move-down"><?php _e( 'Move Down', 'pressbooks' ); ?></a>
+							<?php if ( $s < $sections ) : ?>
+| <button class="move-down"><?php _e( 'Move Down', 'pressbooks' ); ?></button>
 							<?php endif; ?>
+							<?php
+							if ( $s > 1 || $s < $sections ) :
+?>
+</span><?php endif; ?>
 						</div>
 						</div>
 					</td>
@@ -233,7 +267,10 @@ $contributors = new \Pressbooks\Contributors();
 						}
 						?>
 					</td>
-					<?php if ( false === $disable_comments ) : ?><td class="comments column-comments">
+					<?php
+					if ( false === $disable_comments ) :
+?>
+<td class="comments column-comments">
 						<a class="post-comment-count" href="<?php echo admin_url( 'edit-comments.php?p=' . $content['ID'] ); ?>">
 							<span class="comment-count"><?php echo $content['comment_count']; ?></span>
 						</a>
@@ -258,7 +295,7 @@ $contributors = new \Pressbooks\Contributors();
 		</td>
 				</tr>
 			<?php
-			$c++;
+			$s++;
 			endforeach;
 			?>
 			</tbody>
@@ -266,7 +303,10 @@ $contributors = new \Pressbooks\Contributors();
 				<tr>
 					<th>&nbsp;</th>
 					<th>&nbsp;</th>
-					<?php if ( false === $disable_comments ) : ?><th>&nbsp;</th><?php endif; ?>
+					<?php
+					if ( false === $disable_comments ) :
+?>
+<th>&nbsp;</th><?php endif; ?>
 					<th>&nbsp;</th>
 					<th>&nbsp;</th>
 					<th>
@@ -284,12 +324,12 @@ $contributors = new \Pressbooks\Contributors();
 	<h3 id="loadermsg"><?php _e( 'Reordering Chapters', 'pressbooks' ); ?>&hellip;</h3>
 </div>
 
-<div id="loader" class="fm">
+<div id="loader" class="front-matter">
 	<p><img src="<?php echo PB_PLUGIN_URL; ?>assets/dist/images/loader.gif" alt="Loader" id="loaderimg" /></p>
 	<h3 id="loadermsg"><?php _e( 'Reordering Front Matter', 'pressbooks' ); ?>&hellip;</h3>
 </div>
 
-<div id="loader" class="bm">
+<div id="loader" class="back-matter">
 	<p><img src="<?php echo PB_PLUGIN_URL; ?>assets/dist/images/loader.gif" alt="Loader" id="loaderimg" /></p>
 	<h3 id="loadermsg"><?php _e( 'Reordering Back Matter', 'pressbooks' ); ?>&hellip;</h3>
 </div>

@@ -196,7 +196,6 @@ add_action( 'wp_ajax_pb_update_chapter', '\Pressbooks\Book::updateChapter' );
 add_action( 'wp_ajax_pb_update_front_matter', '\Pressbooks\Book::updateFrontMatter' );
 add_action( 'wp_ajax_pb_update_back_matter', '\Pressbooks\Book::updateBackMatter' );
 add_action( 'wp_ajax_pb_update_word_count_for_export', '\Pressbooks\Book::ajaxWordCount' );
-add_action( 'wp_ajax_pb_update_visibility', '\Pressbooks\Book::updateVisibilityOptions' );
 add_action( 'wp_ajax_pb_update_global_privacy_options', '\Pressbooks\Book::updateGlobalPrivacyOptions' );
 // Book Information Page
 add_action( 'wp_ajax_pb_delete_cover_image', '\Pressbooks\Admin\Metaboxes\delete_cover_image' );
