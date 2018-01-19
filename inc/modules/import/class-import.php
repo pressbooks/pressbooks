@@ -512,7 +512,9 @@ abstract class Import {
 
 		$message = print_r( array_merge( $info, $more_info ), true ) . $message; // @codingStandardsIgnoreLine
 
-		\Pressbooks\Utility\email_error_log( self::$logsEmail, $subject, $message );
+		if ( ! defined( 'WP_TESTS_MULTISITE' ) ) {
+			\Pressbooks\Utility\email_error_log( self::$logsEmail, $subject, $message );
+		}
 	}
 
 
