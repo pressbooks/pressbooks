@@ -176,7 +176,8 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 
 		// First, look if the user has set this themselves.
 		$start_key = false;
-		$ebook_options = get_option( 'pressbooks_theme_options_ebook' );
+		$start_id = false;
+		$ebook_options = get_option( 'pressbooks_theme_options_ebook', [] );
 		if ( isset( $ebook_options['ebook_start_point'] ) && ! empty( $ebook_options['ebook_start_point'] ) ) {
 			$start_id = $ebook_options['ebook_start_point'];
 		}
