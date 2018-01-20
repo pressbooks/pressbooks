@@ -40,7 +40,7 @@ class GlobalTypography {
 			'ar' => __( 'Arabic', 'pressbooks' ),
 			'he' => __( 'Biblical Hebrew', 'pressbooks' ),
 			'cans' => __( 'Canadian Indigenous Syllabics', 'pressbooks' ),
-			'hi' => __( 'Hindi', 'pressbooks' ),
+			'hi' => __( 'Devanagari (Hindi and Sanskrit)', 'pressbooks' ),
 			'zh_HANS' => __( 'Chinese (Simplified)', 'pressbooks' ),
 			'zh_HANT' => __( 'Chinese (Traditional)', 'pressbooks' ),
 			'cop' => __( 'Coptic', 'pressbooks' ),
@@ -151,7 +151,8 @@ class GlobalTypography {
 			case 'he': // Biblical Hebrew
 				$lang = 'he';
 				break;
-			case 'hi': // Biblical Hebrew
+			case 'hi': // Hindi
+			case 'sa': // Sanskrit
 				$lang = 'hi';
 				break;
 			case 'zh': // Chinese (Simplified)
