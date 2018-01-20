@@ -164,6 +164,18 @@ i.mce-i-icon {
   content: '\f330';
 }
 
+.postbox#status-visibility {
+  .inside {
+    padding: 0;
+  }
+
+  #minor-publishing-actions {
+    p {
+      text-align: left;
+    }
+  }
+}
+
 /*!
  * WordPress CSS Spinner
  * @license GPL-2.0+
