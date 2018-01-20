@@ -1,4 +1,5 @@
 @import 'partials/colors';
+@import 'partials/mixins';
 
 /* Organize Page */
 
@@ -43,65 +44,33 @@
     }
   }
 
-  .widefat {
-    margin-top: 10px;
-
-    .delete-link {
-      color: $torch-red;
+  table {
+    th {
+      vertical-align: top;
+      padding-top: 8px;
     }
 
-    .row-actions {
-      font-weight: normal;
-    }
+    td {
+      .row-actions {
+        font-weight: normal;
 
-    .row-actions button {
-      padding: 0;
-      border: 0;
-      color: darken($monza, 5%);
-      cursor: pointer;
-
-      &:focus,
-      &:hover {
-        color: $monza;
-      }
-    }
-
-    thead {
-      tr {
-        th {
-          font-weight: bold;
-        }
-
-        th:nth-child(3),
-        th:nth-child(4),
-        th:nth-child(5) {
+        button {
+          padding: 0;
+          border: 0;
+          color: darken($monza, 5%);
+          background-color: transparent;
           cursor: pointer;
+
+          &:focus,
+          &:hover {
+            color: $monza;
+          }
         }
       }
     }
 
-    tbody {
-      tr {
-        td {
-          vertical-align: top;
-
-          span.comment-count {
-            width: auto !important;
-            float: none;
-          }
-
-          &.column-comments {
-            padding: 8px 10px;
-          }
-        }
-
-        &.ui-state-highlight {
-          background: $mercury;
-          color: $mine-shaft;
-          height: 1.5em;
-          line-height: 1.2em;
-        }
-      }
+    & + table {
+      margin-top: 2em;
     }
   }
 
@@ -110,6 +79,15 @@
 
     p {
       text-align: center;
+    }
+  }
+}
+
+@media (min-width: 783px) {
+  table {
+    .author-label,
+    input + label {
+      @include visually-hidden();
     }
   }
 }

@@ -83,10 +83,10 @@ $contributors = new \Pressbooks\Contributors();
 			$p = 1;
 			foreach ( $book_structure['part'] as $part ) :
 			?>
-				<table id="part_<?php echo $part['ID']; ?>" class="wp-list-table widefat fixed <?php echo $slug; ?>s" cellspacing="0" data-id="<?php echo $content['ID']; ?>">
+				<table id="part_<?php echo $part['ID']; ?>" class="wp-list-table widefat fixed striped chapters">
 					<thead>
 						<tr>
-							<th class="has-row-actions">
+							<th scope="col" id="title" class="has-row-actions manage-column column-title column-primary">
 								<a href="<?php echo admin_url( 'post.php?post=' . $part['ID'] . '&action=edit' ); ?>"><?php echo $part['post_title']; ?></a>
 								<div class="row-actions">
 									<a href="<?php echo admin_url( 'post.php?post=' . $part['ID'] . '&action=edit' ); ?>"><?php _e( 'Edit', 'pressbooks' ); ?></a> |
@@ -145,12 +145,13 @@ $contributors = new \Pressbooks\Contributors();
 								</div>
 							</td>
 							<td class="author column-author">
+							<span class="author-label"><?php _e( 'Authors', 'pressbooks' ); ?>:</span>
 								<?php
 								$section_authors = $contributors->get( $content['ID'], 'pb_authors' );
 								if ( $section_authors ) {
 									echo $section_authors;
 								} else {
-									echo $contributors->get( $meta_post->ID, 'pb_authors' );
+									echo '—';
 								}
 								?>
 							</td>
@@ -210,10 +211,10 @@ $contributors = new \Pressbooks\Contributors();
 			?>
 			<p><a class="button" href="<?php echo admin_url( 'post-new.php?post_type=part' ); ?>"><?php _e( 'Add Part', 'pressbooks' ); ?></a></p>
 		<?php else : ?>
-		<table id="<?php echo $slug; ?>" class="wp-list-table widefat fixed <?php echo $slug; ?>" cellspacing="0">
+		<table id="<?php echo $slug; ?>" class="wp-list-table widefat fixed striped <?php echo $slug; ?>" cellspacing="0">
 			<thead>
 				<tr>
-					<th><?php echo $name; ?></th>
+					<th scope="col" id="title" class="has-row-actions manage-column column-title column-primary"><?php echo $name; ?></th>
 					<th><?php _e( 'Authors', 'pressbooks' ); ?></th>
 					<?php if ( false === $disable_comments ) : ?>
 					<th><?php _e( 'Comments', 'pressbooks' ); ?></th>
@@ -258,12 +259,13 @@ $contributors = new \Pressbooks\Contributors();
 						</div>
 					</td>
 					<td class="author column-author">
+						<span class="author-label"><?php _e( 'Authors', 'pressbooks' ); ?>:</span>
 						<?php
 						$section_authors = $contributors->get( $content['ID'], 'pb_authors' );
 						if ( $section_authors ) {
-							echo $chapter_authors;
+							echo $section_authors;
 						} else {
-							echo $contributors->get( $meta_post->ID, 'pb_authors' );
+							echo '—';
 						}
 						?>
 					</td>
