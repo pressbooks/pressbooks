@@ -15,6 +15,11 @@ $disable_comments = \Pressbooks\Utility\disable_comments();
 $wc = \Pressbooks\Book::wordCount();
 $wc_selected_for_export = \Pressbooks\Book::wordCount( true );
 $contributors = new \Pressbooks\Contributors();
+$start_point = false;
+$ebook_options = get_option( 'pressbooks_theme_options_ebook' );
+if ( isset( $ebook_options['ebook_start_point'] ) && ! empty( $ebook_options['ebook_start_point'] ) ) {
+	$start_point = $ebook_options['ebook_start_point'];
+}
 ?>
 
 <div class="wrap">
@@ -123,7 +128,7 @@ $contributors = new \Pressbooks\Contributors();
 							<td class="title column-title has-row-actions">
 								<div class="row-title"><a href="<?php echo admin_url( 'post.php?post=' . $content['ID'] . '&action=edit' ); ?>">
 								<?php echo $content['post_title']; ?>
-								<?php if ( get_post_meta( $content['ID'], 'pb_ebook_start', true ) ) { ?>
+								<?php if ( $start_point === $content['ID'] ) { ?>
 									<span class="ebook-start-point" title="<?php _e( 'Ebook start point', 'pressbooks' ); ?>">&#9733;</span>
 								<?php } ?></a>
 								<div class="row-actions">
@@ -236,7 +241,7 @@ $contributors = new \Pressbooks\Contributors();
 					<td class="title column-title has-row-actions">
 						<div class="row-title"><a href="<?php echo admin_url( 'post.php?post=' . $content['ID'] . '&action=edit' ); ?>">
 						<?php echo $content['post_title']; ?>
-						<?php if ( get_post_meta( $content['ID'], 'pb_ebook_start', true ) ) { ?>
+						<?php if ( $start_point === $content['ID'] ) { ?>
 							<span class="ebook-start-point" title="<?php _e( 'Ebook start point', 'pressbooks' ); ?>">&#9733;</span>
 						<?php } ?></a>
 						<div class="row-actions">
