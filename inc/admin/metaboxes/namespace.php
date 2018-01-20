@@ -938,8 +938,9 @@ function publish_fields_save( $post_id, $post, $update ) {
 		return;
 	}
 
-	if ( $post->post_status === 'trash' )
+	if ( $post->post_status === 'trash' ) {
 		return;
+	}
 
 	$show_in_web = ( isset( $_POST['web_visibility'] ) && $_POST['web_visibility'] === '1' ) ? true : false;
 	$show_in_exports = ( isset( $_POST['export_visibility'] ) && $_POST['export_visibility'] === '1' ) ? true : false;
