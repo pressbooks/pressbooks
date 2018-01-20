@@ -79,10 +79,19 @@ function replace_book_admin_menu() {
 						'orderNonce' => wp_create_nonce( 'pb-update-book-order' ),
 						'wordCountNonce' => wp_create_nonce( 'pb-update-word-count-for-export' ),
 						'privacyNonce' => wp_create_nonce( 'pb-update-book-privacy' ),
-						'draft' => __( 'Draft', 'pressbooks' ),
-						'private' => __( 'Private', 'pressbooks' ),
-						'published' => __( 'Published', 'pressbooks' ),
-						'public' => __( 'Public', 'pressbooks' ),
+						'updatingChapters' => __( 'Updating chapters.', 'pressbooks' ),
+						'updatingPart' => __( 'Updating part.', 'pressbooks' ),
+						'updatingFrontMatter' => __( 'Updating front matter.', 'pressbooks' ),
+						'updatingBackMatter' => __( 'Updating back matter.', 'pressbooks' ),
+						'updated' => __( 'Update complete!', 'pressbooks' ),
+						'updatedChapters' => __( 'The chapters have been successfully updated!', 'pressbooks' ),
+						'updatedPart' => __( 'The part has been successfully updated!', 'pressbooks' ),
+						'updatedFrontMatter' => __( 'The front matter has been successfully updated!', 'pressbooks' ),
+						'updatedBackMatter' => __( 'Th back matter has been successfully updated!', 'pressbooks' ),
+						'updatingChaptersFailed' => __( 'Sorry, the chapters could not be updated.', 'pressbooks' ),
+						'updatingPartFailed' => __( 'Sorry, the part could not be updated.', 'pressbooks' ),
+						'updatingFrontMatterFailed' => __( 'Sorry, the front matter could not be updated.', 'pressbooks' ),
+						'updatingBackMatterFailed' => __( 'Sorry, the back matter could not be updated.', 'pressbooks' ),
 					]
 				);
 			}

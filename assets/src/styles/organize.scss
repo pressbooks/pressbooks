@@ -74,11 +74,9 @@
     }
   }
 
-  #loader {
-    display: none;
-
-    p {
-      text-align: center;
+  [role="alert"] {
+    &.visually-hidden {
+      @include visually-hidden();
     }
   }
 }

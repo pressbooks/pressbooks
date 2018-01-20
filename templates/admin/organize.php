@@ -18,6 +18,7 @@ $contributors = new \Pressbooks\Contributors();
 ?>
 
 <div class="wrap">
+	<div aria-live="assertive" role="alert" class="visually-hidden"><span class="spinner"></span><p class="message"></p></div>
 	<?php if ( current_user_can( 'manage_options' ) ) : ?>
 	<div id="publicize-panel" class="postbox">
 		<div class="inside">
@@ -319,19 +320,4 @@ $contributors = new \Pressbooks\Contributors();
 		</table>
 		<?php endif; ?>
 	<?php endforeach; ?>
-</div>
-
-<div id="loader" class="chapter loading-content">
-	<span class="spinner"></span>
-	<p class="message"><?php _e( 'Updating Chapter', 'pressbooks' ); ?>&hellip;</p>
-</div>
-
-<div id="loader" class="front-matter loading-content">
-	<span class="spinner"></span>
-	<p class="message"><?php _e( 'Updating Front Matter', 'pressbooks' ); ?>&hellip;</p>
-</div>
-
-<div id="loader" class="back-matter loading-content">
-	<span class="spinner"></span>
-	<p class="message"><?php _e( 'Updating Back Matter', 'pressbooks' ); ?>&hellip;</p>
 </div>

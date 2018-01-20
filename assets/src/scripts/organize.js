@@ -13,6 +13,24 @@ function getRowFromAction( el ) {
 		.parent();
 }
 
+function initiateModal( item ) {
+	$.blockUI.defaults.applyPlatformOpacityRules = false;
+	let alert = $( '[role="alert"]' );
+	let alertMessage;
+	if ( item.post_type === 'chapter' ) {
+		alertMessage = PB_OrganizeToken.updatingChapters;
+	} else if ( item.post_type === 'front-matter' ) {
+		alertMessage = PB_OrganizeToken.updatingFrontMatter;
+	} else if ( item.post_type === 'back-matter' ) {
+		alertMessage = PB_OrganizeToken.updatingBackMatter;
+	} else if ( item.post_type === 'part' ) {
+		alertMessage = PB_OrganizeToken.updatingPart;
+	}
+	alert.children( 'p' ).text( alertMessage );
+	alert.addClass( 'loading-content' ).removeClass( 'visually-hidden' );
+	$.blockUI( { message: $( alert ) } );
+}
+
 function instantiateTypeModel( item ) {
 	let model;
 	if ( item.post_type === 'chapter' ) {
@@ -159,8 +177,7 @@ let Pressbooks = {
 		},
 	},
 	update: function ( el ) {
-		$.blockUI.defaults.applyPlatformOpacityRules = false;
-		$.blockUI( { message: jQuery( '#loader.chapter' ) } );
+		initiateModal( { post_type: 'chapter' } );
 		updateParent( el, $( '#' + Pressbooks.newPart ) );
 		updateIndex( $( '#' + Pressbooks.oldPart ) );
 		updateIndex( $( '#' + Pressbooks.newPart ) );
@@ -169,8 +186,7 @@ let Pressbooks = {
 	},
 
 	fmupdate: function ( el ) {
-		$.blockUI.defaults.applyPlatformOpacityRules = false;
-		$.blockUI( { message: jQuery( '#loader.front-matter' ) } );
+		initiateModal( { post_type: 'front-matter' } );
 		updateIndex(
 			$( el )
 				.parent()
@@ -184,8 +200,7 @@ let Pressbooks = {
 	},
 
 	bmupdate: function ( el ) {
-		$.blockUI.defaults.applyPlatformOpacityRules = false;
-		$.blockUI( { message: jQuery( '#loader.back-matter' ) } );
+		initiateModal( { post_type: 'back-matter' } );
 		updateIndex(
 			$( el )
 				.parent()
@@ -259,9 +274,7 @@ jQuery( document ).ready( function ( $ ) {
 			post_type: item[0],
 		};
 
-		$.blockUI.defaults.applyPlatformOpacityRules = false;
-		$.blockUI( { message: jQuery( `#loader.${item.post_type}` ) } );
-
+		initiateModal( item );
 		let export_visibility = $( `#export_visibility_${item.id}` );
 		let web_visibility = $( `#web_visibility_${item.id}` );
 
@@ -308,8 +321,7 @@ jQuery( document ).ready( function ( $ ) {
 			post_type: target[0],
 		};
 
-		$.blockUI.defaults.applyPlatformOpacityRules = false;
-		$.blockUI( { message: jQuery( `#loader.${target.post_type}` ) } );
+		initiateModal( target );
 
 		let showtitle = '';
 
@@ -327,12 +339,8 @@ jQuery( document ).ready( function ( $ ) {
 
 	$( document ).on( 'click', '.move-up', event => {
 		let row = getRowFromAction( event.target );
-		let postType = $( row )
-			.attr( 'id' )
-			.split( '_' );
-		postType = postType[0];
-		$.blockUI.defaults.applyPlatformOpacityRules = false;
-		$.blockUI( { message: jQuery( `#loader.${postType}` ) } );
+		let item = row.attr( 'id' ).split( '_' );
+		initiateModal( { post_type: item[0] } );
 		let table = $( row )
 			.parent()
 			.parent();
@@ -357,12 +365,8 @@ jQuery( document ).ready( function ( $ ) {
 
 	$( document ).on( 'click', '.move-down', event => {
 		let row = getRowFromAction( event.target );
-		let postType = $( row )
-			.attr( 'id' )
-			.split( '_' );
-		postType = postType[0];
-		$.blockUI.defaults.applyPlatformOpacityRules = false;
-		$.blockUI( { message: jQuery( `#loader.${postType}` ) } );
+		let item = row.attr( 'id' ).split( '_' );
+		initiateModal( { post_type: item[0] } );
 		let table = $( row )
 			.parent()
 			.parent();
@@ -411,7 +415,14 @@ jQuery( document ).ready( function ( $ ) {
 	} );
 
 	$( document ).ajaxStop( function () {
-		$.unblockUI();
+		let alert = $( '[role="alert"]' );
+		$.unblockUI( {
+			onUnblock: () => {
+				alert.removeClass( 'loading-content' ).addClass( 'visually-hidden' );
+				let alertMessage = PB_OrganizeToken.updated;
+				alert.children( 'p' ).text( alertMessage );
+			},
+		} );
 	} );
 
 	// Warn of incomplete AJAX
