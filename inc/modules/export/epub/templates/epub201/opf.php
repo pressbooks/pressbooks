@@ -184,6 +184,7 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 		foreach ( $manifest as $key => $value ) {
 			if ( $start_id === $value['ID'] ) {
 				$start_key = $key;
+				break;
 			}
 		}
 
