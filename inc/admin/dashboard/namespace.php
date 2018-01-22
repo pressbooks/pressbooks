@@ -103,7 +103,7 @@ function display_book_widget() {
 	<nav aria-label="<?php _e( 'Table of Contents', 'pressbooks' ); ?>">
 		<ul>
 			<li><h3><strong><?php _e( 'Front Matter', 'pressbooks' ); ?></strong></h3>
-				<ul>
+				<ul class='front-matter'>
 				<?php
 				foreach ( $book_structure['front-matter'] as $component ) {
 					$title = ( ! empty( $component['post_title'] ) ? $component['post_title'] : '&hellip;' );
@@ -128,6 +128,7 @@ function display_book_widget() {
 					);
 				}
 				?>
+				<ul class='chapters'>
 				<?php
 				foreach ( $part['chapters'] as $component ) {
 					$title = ( ! empty( $component['post_title'] ) ? $component['post_title'] : '&hellip;' );
@@ -137,12 +138,13 @@ function display_book_widget() {
 					);
 				}
 				?>
+				</ul>
 			</li>
 			<?php
 			}
 			?>
 			<li><h3><strong><?php _e( 'Back Matter', 'pressbooks' ); ?></strong></h3>
-				<ul>
+				<ul class='back-matter'>
 				<?php
 				foreach ( $book_structure['back-matter'] as $component ) {
 					$title = ( ! empty( $component['post_title'] ) ? $component['post_title'] : '&hellip;' );
