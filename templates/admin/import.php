@@ -131,25 +131,16 @@ $supported_file_extensions = implode( ', ', array_keys( $import_option_types ) )
 
 		<script type="text/javascript">
 			jQuery(function ($) {
-				$('#pb-www').hide();
-
-				$(".pb-html-target").change(
-					function () {
-						var val = $('.pb-html-target').val();
-
-						if (val == 'wxr' || val == 'epub' || val == 'odt' || val == 'docx') {
-							$('#pb-file').show();
-							$('#pb-www').hide();
-							// clear http value at input elem
-							$('.widefat').val('');
-						} else {
-							$('#pb-file').hide();
-							$('#pb-www').show();
-
-						}
-
-					});
-
+				var val = $('#pb-file');
+				val.find('[type="radio"]').on('change', function() {
+					if ( val.find('[type="radio"]:checked').val() === 'file' ) {
+						$( '#import_file' ).removeAttr( 'disabled' ).focus();
+						$( '#import_http' ).val( '' ).attr( 'disabled', true )
+					} else if (val.find('[type="radio"]:checked').val() === 'url' ) {
+						$('#import_http').removeAttr('disabled').focus();
+						$('#import_file').val('').attr('disabled', true);
+					}
+				});
 			});
 		</script>
 		<p>
@@ -167,7 +158,7 @@ $supported_file_extensions = implode( ', ', array_keys( $import_option_types ) )
 						<label for="type_of"><?php _e( 'Type of file', 'pressbooks' ); ?></label>
 					</th>
 					<td>
-						<select id="type_of" name="type_of" class="pb-html-target">
+						<select id="type_of" name="type_of">
 							<?php foreach ( $import_option_types as $option => $label ) { ?>
 								<option value="<?php echo $option; ?>"><?php echo $label; ?></option>
 							<?php } ?>
@@ -179,21 +170,17 @@ $supported_file_extensions = implode( ', ', array_keys( $import_option_types ) )
 						<label for="import_file"><?php _e( 'File', 'pressbooks' ); ?></label>
 					</th>
 					<td id="pb-file">
-						<input type="file" name="import_file" id="import_file">
+						<fieldset>
+							<input name="import_type" type="radio" value="file" checked="checked"/>
+							<label for="type-file">Upload File </label>
+							<input type="file" name="import_file" id="import_file" style="display:block;"/>
+						</fieldset>
+						<fieldset>
+							<input type="radio" name="import_type" value="url"/>
+							<label for="type-url">Import from URL</label>
+							<input type="url" class="widefat" name="import_http" id="import_http" placeholder="https://url-to-import.com" style="display:block;"/>
+						</fieldset>
 					</td>
-					<td id="pb-www">
-						<input type="url" class="widefat" name="import_http" id="import_http" placeholder="https://url-to-import.com">
-					</td>
-					<?php
-					/**
-					 * Allows developers to add a new input type
-					 *
-					 * @since 4.0.0
-					 *
-					 * @param string $value
-					 */
-					echo apply_filters( 'pb_import_table_cell', '' );
-					?>
 				</tr>
 
 				</tbody>

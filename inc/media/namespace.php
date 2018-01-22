@@ -83,3 +83,26 @@ function force_attach_media( $params ) {
 	// @codingStandardsIgnoreEnd
 	return $params;
 }
+
+/**
+ * Detect MIME Content-type for a file.
+ *
+ * @param string $file fullpath
+ *
+ * @return string
+ */
+function mime_type( $file ) {
+
+	if ( function_exists( 'finfo_open' ) ) {
+		$finfo = finfo_open( FILEINFO_MIME );
+		$mime = finfo_file( $finfo, $file );
+		finfo_close( $finfo );
+	} elseif ( function_exists( 'mime_content_type' ) ) {
+		$mime = @mime_content_type( $file ); // Suppress deprecated message @codingStandardsIgnoreLine
+	} else {
+		exec( 'file -i -b ' . escapeshellarg( $file ), $output );
+		$mime = $output[0];
+	}
+
+	return $mime;
+}

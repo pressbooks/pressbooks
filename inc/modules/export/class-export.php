@@ -485,19 +485,7 @@ abstract class Export {
 	 * @return string
 	 */
 	static function mimeType( $file ) {
-
-		if ( function_exists( 'finfo_open' ) ) {
-			$finfo = finfo_open( FILEINFO_MIME );
-			$mime = finfo_file( $finfo, $file );
-			finfo_close( $finfo );
-		} elseif ( function_exists( 'mime_content_type' ) ) {
-			$mime = @mime_content_type( $file ); // Suppress deprecated message @codingStandardsIgnoreLine
-		} else {
-			exec( 'file -i -b ' . escapeshellarg( $file ), $output );
-			$mime = $output[0];
-		}
-
-		return $mime;
+		return \Pressbooks\Media\mime_type( $file );
 	}
 
 
