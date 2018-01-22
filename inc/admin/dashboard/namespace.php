@@ -99,41 +99,72 @@ function replace_dashboard_widgets() {
  */
 function display_book_widget() {
 
-	$book_structure = \Pressbooks\Book::getBookStructure();
-
-	// front-matter
-	echo '<ul><li><h4>' . __( 'Front Matter', 'pressbooks' ) . '</h4></li><ul>';
-	foreach ( $book_structure['front-matter'] as $fm ) {
-		$title = ( ! empty( $fm['post_title'] ) ? $fm['post_title'] : '&hellip;' );
-		echo "<li class='front-matter'><a href='post.php?post=" . $fm['ID'] . "&action=edit'>" . $title . "</a></li>\n";
+	$book_structure = \Pressbooks\Book::getBookStructure(); ?>
+	<nav aria-label="<?php _e( 'Table of Contents', 'pressbooks' ); ?>">
+		<ul>
+			<li><h3><strong><?php _e( 'Front Matter', 'pressbooks' ); ?></strong></h3>
+				<ul>
+				<?php
+				foreach ( $book_structure['front-matter'] as $component ) {
+					$title = ( ! empty( $component['post_title'] ) ? $component['post_title'] : '&hellip;' );
+					printf(
+						"<li>%s</li>\n",
+						current_user_can( 'edit_post', $component['ID'] ) ? sprintf( '<a href="%1$s">%2$s</a>', admin_url( 'post.php?post=' . $component['ID'] . '&action=edit' ), $title ) : $title
+					);
+				}
+				?>
+				</ul>
+			</li>
+			<?php
+			foreach ( $book_structure['part'] as $part ) {
+			?>
+			<li>
+				<?php
+				$title = ( ! empty( $part['post_title'] ) ? $part['post_title'] : '&hellip;' );
+				if ( current_user_can( 'edit_post', $part['ID'] ) ) {
+					printf(
+						"<h3><strong>%s</strong></h3>\n",
+						current_user_can( 'edit_post', $part['ID'] ) ? sprintf( '<a href="%1$s">%2$s</a>', admin_url( 'post.php?post=' . $part['ID'] . '&action=edit' ), $title ) : $title
+					);
+				}
+				?>
+				<?php
+				foreach ( $part['chapters'] as $component ) {
+					$title = ( ! empty( $component['post_title'] ) ? $component['post_title'] : '&hellip;' );
+					printf(
+						"<li>%s</li>\n",
+						current_user_can( 'edit_post', $component['ID'] ) ? sprintf( '<a href="%1$s">%2$s</a>', admin_url( 'post.php?post=' . $component['ID'] . '&action=edit' ), $title ) : $title
+					);
+				}
+				?>
+			</li>
+			<?php
+			}
+			?>
+			<li><h3><strong><?php _e( 'Back Matter', 'pressbooks' ); ?></strong></h3>
+				<ul>
+				<?php
+				foreach ( $book_structure['back-matter'] as $component ) {
+					$title = ( ! empty( $component['post_title'] ) ? $component['post_title'] : '&hellip;' );
+					printf(
+						"<li>%s</li>\n",
+						current_user_can( 'edit_post', $component['ID'] ) ? sprintf( '<a href="%1$s">%2$s</a>', admin_url( 'post.php?post=' . $component['ID'] . '&action=edit' ), $title ) : $title
+					);
+				}
+				?>
+				</ul>
+			</li>
+		</ul>
+	</nav>
+	<?php
+	if ( current_user_can( 'edit_posts' ) ) {
+	?>
+	<div class="part-buttons">
+		<a href="post-new.php?post_type=chapter"><?php _e( 'Add', 'pressbooks' ); ?></a> | <a class="organize" href="<?php echo admin_url( 'admin.php?page=pb_organize' ); ?>"><?php _e( 'Organize', 'pressbooks' ); ?></a>
+	</div>
+	<?php
 	}
-	echo '</ul>';
-
-	// parts
-	foreach ( $book_structure['part'] as $part ) {
-		$title = ( ! empty( $part['post_title'] ) ? $part['post_title'] : '&hellip;' );
-		echo "<ul><li><h4><a href='post.php?post=" . $part['ID'] . "&action=edit'>" . $title . "</a></h4></li><ul>\n";
-		// chapters
-		foreach ( $part['chapters'] as $chapter ) {
-			$title = ( ! empty( $chapter['post_title'] ) ? $chapter['post_title'] : '&hellip;' );
-			echo "<li class='chapter'><a href='post.php?post=" . $chapter['ID'] . "&action=edit'>" . $title . "</a></li>\n";
-		}
-		echo "</ul>\n";
-	}
-
-	// back-matter
-	echo '<li><h4>' . __( 'Back Matter', 'pressbooks' ) . '</h4></li><ul>';
-	foreach ( $book_structure['back-matter'] as $bm ) {
-		$title = ( ! empty( $bm['post_title'] ) ? $bm['post_title'] : '&hellip;' );
-		echo "<li class='back-matter'><a href='post.php?post=" . $bm['ID'] . "&action=edit'>" . $title . "</a></li>\n";
-	}
-	echo '</ul>';
-
-	// add, organize
-	echo "</ul>\n";
-	echo '<div class="part-buttons"><a href="post-new.php?post_type=chapter">' . __( 'Add', 'pressbooks' ) . '</a> | <a class="remove" href="admin.php?page=pb_organize">' . __( 'Organize', 'pressbooks' ) . '</a></div>';
 }
-
 
 /**
  * Displays the Pressbooks Blog RSS as a widget
