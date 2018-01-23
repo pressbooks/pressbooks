@@ -154,7 +154,7 @@ class Cloner {
 	 * @param string $source_url The public URL of the source book.
 	 * @param string $target_url The public URL of the target book.
 	 */
-	public function __construct( $source_url, $target_url ) {
+	public function __construct( $source_url, $target_url = '' ) {
 		// Disable SSL verification for development
 		if ( defined( 'WP_ENV' ) && WP_ENV === 'development' ) {
 			$this->requestArgs['sslverify'] = false;
@@ -181,6 +181,41 @@ class Cloner {
 	}
 
 	/**
+	 * @return string
+	 */
+	public function getSourceBookUrl() {
+		return $this->sourceBookUrl;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getSourceBookId() {
+		return $this->sourceBookId;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getSourceBookStructure() {
+		return $this->sourceBookStructure;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getSourceBookTerms() {
+		return $this->sourceBookTerms;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getSourceBookMetadata() {
+		return $this->sourceBookMetadata;
+	}
+
+	/**
 	 * Clone a book in its entirety.
 	 *
 	 * @since 4.1.0
@@ -188,49 +223,9 @@ class Cloner {
 	 * @return bool
 	 */
 	public function cloneBook() {
-		if ( ! empty( $this->sourceBookId ) ) {
-			// Local book
-			switch_to_blog( $this->sourceBookId );
-		} elseif ( ! $this->isCompatible( $this->sourceBookUrl ) ) {
-			// Remote is not compatible, bail.
-			return false;
-		}
 
-		// Set up $this->sourceBookMetadata
-		$this->sourceBookMetadata = $this->getBookMetadata( $this->sourceBookUrl );
-		if ( empty( $this->sourceBookMetadata ) ) {
-			$_SESSION['pb_errors'][] = sprintf( __( 'Could not retrieve metadata from %s.', 'pressbooks' ), sprintf( '<em>%s</em>', $this->sourceBookUrl ) );
+		if ( ! $this->setupSource() ) {
 			return false;
-		}
-
-		// Verify license or network administrator override
-		if ( ! $this->isBookCloneable() ) {
-			$_SESSION['pb_errors'][] = sprintf( __( '%s is not licensed for cloning.', 'pressbooks' ), sprintf( '<em>%s</em>', $this->sourceBookMetadata['name'] ) );
-			return false;
-		}
-
-		// Set up $this->sourceBookStructure
-		$this->sourceBookStructure = $this->getBookStructure( $this->sourceBookUrl );
-		if ( empty( $this->sourceBookStructure ) ) {
-			$_SESSION['pb_errors'][] = sprintf( __( 'Could not retrieve contents and structure from %s.', 'pressbooks' ), sprintf( '<em>%s</em>', $this->sourceBookMetadata['name'] ) );
-			return false;
-		}
-
-		// Set up $this->sourceBookTerms
-		$this->sourceBookTerms = $this->getBookTerms( $this->sourceBookUrl );
-		if ( empty( $this->sourceBookTerms ) ) {
-			$_SESSION['pb_errors'][] = sprintf( __( 'Could not retrieve taxonomies from %s.', 'pressbooks' ), sprintf( '<em>%s</em>', $this->sourceBookMetadata['name'] ) );
-			return false;
-		}
-
-		$this->knownImages = $this->buildlistOfKnownImages( $this->sourceBookUrl );
-		if ( $this->knownImages === false ) {
-			$_SESSION['pb_errors'][] = sprintf( __( 'Could not retrieve media from %s.', 'pressbooks' ), sprintf( '<em>%s</em>', $this->sourceBookMetadata['name'] ) );
-			return false;
-		}
-
-		if ( ! empty( $this->sourceBookId ) ) {
-			restore_current_blog();
 		}
 
 		// Create Book
@@ -282,6 +277,60 @@ class Cloner {
 
 		wp_defer_term_counting( false ); // Flush
 		restore_current_blog();
+
+		return true;
+	}
+
+	/**
+	 * @since 5.0.0
+	 *
+	 * @return bool
+	 */
+	public function setupSource() {
+		if ( ! empty( $this->sourceBookId ) ) {
+			// Local book
+			switch_to_blog( $this->sourceBookId );
+		} elseif ( ! $this->isCompatible( $this->sourceBookUrl ) ) {
+			// Remote is not compatible, bail.
+			return false;
+		}
+
+		// Set up $this->sourceBookMetadata
+		$this->sourceBookMetadata = $this->getBookMetadata( $this->sourceBookUrl );
+		if ( empty( $this->sourceBookMetadata ) ) {
+			$_SESSION['pb_errors'][] = sprintf( __( 'Could not retrieve metadata from %s.', 'pressbooks' ), sprintf( '<em>%s</em>', $this->sourceBookUrl ) );
+			return false;
+		}
+
+		// Verify license or network administrator override
+		if ( ! $this->isBookCloneable() ) {
+			$_SESSION['pb_errors'][] = sprintf( __( '%s is not licensed for cloning.', 'pressbooks' ), sprintf( '<em>%s</em>', $this->sourceBookMetadata['name'] ) );
+			return false;
+		}
+
+		// Set up $this->sourceBookStructure
+		$this->sourceBookStructure = $this->getBookStructure( $this->sourceBookUrl );
+		if ( empty( $this->sourceBookStructure ) ) {
+			$_SESSION['pb_errors'][] = sprintf( __( 'Could not retrieve contents and structure from %s.', 'pressbooks' ), sprintf( '<em>%s</em>', $this->sourceBookMetadata['name'] ) );
+			return false;
+		}
+
+		// Set up $this->sourceBookTerms
+		$this->sourceBookTerms = $this->getBookTerms( $this->sourceBookUrl );
+		if ( empty( $this->sourceBookTerms ) ) {
+			$_SESSION['pb_errors'][] = sprintf( __( 'Could not retrieve taxonomies from %s.', 'pressbooks' ), sprintf( '<em>%s</em>', $this->sourceBookMetadata['name'] ) );
+			return false;
+		}
+
+		$this->knownImages = $this->buildlistOfKnownImages( $this->sourceBookUrl );
+		if ( $this->knownImages === false ) {
+			$_SESSION['pb_errors'][] = sprintf( __( 'Could not retrieve media from %s.', 'pressbooks' ), sprintf( '<em>%s</em>', $this->sourceBookMetadata['name'] ) );
+			return false;
+		}
+
+		if ( ! empty( $this->sourceBookId ) ) {
+			restore_current_blog();
+		}
 
 		return true;
 	}
@@ -715,7 +764,21 @@ class Cloner {
 		if ( $post_type !== 'part' ) {
 			if ( isset( $section[ "$post_type-type" ] ) ) {
 				foreach ( $section[ "$post_type-type" ] as $key => $term_id ) {
-					$section[ "$post_type-type" ][ $key ] = $this->termMap[ $term_id ];
+					if ( isset( $this->termMap[ $term_id ] ) ) {
+						// Use map
+						$section[ "$post_type-type" ][ $key ] = $this->termMap[ $term_id ];
+					} else {
+						// Try to match an existing term
+						foreach ( $this->sourceBookTerms as $source_term ) {
+							if ( $source_term['id'] === $term_id ) {
+								$term = get_term_by( 'slug', $source_term['slug'], $source_term['taxonomy'] );
+								if ( $term ) {
+									$section[ "$post_type-type" ][ $key ] = $term->term_id;
+								}
+								break;
+							}
+						}
+					}
 				}
 			}
 		}

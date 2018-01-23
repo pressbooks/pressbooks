@@ -318,7 +318,7 @@ class Odt extends Import {
 			'file' => $upload['file'],
 			'url' => $upload['url'] ?? null,
 			'file_type' => $upload['type'],
-			'type_of' => 'odt',
+			'type_of' => self::TYPE_OF,
 			'chapters' => [],
 		];
 

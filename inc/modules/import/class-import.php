@@ -6,6 +6,8 @@
 
 namespace Pressbooks\Modules\Import;
 
+use Pressbooks\Book;
+use Pressbooks\HtmLawed;
 use function \Pressbooks\Utility\getset;
 use function \Pressbooks\Utility\debug_error_log;
 
@@ -30,15 +32,15 @@ abstract class Import {
 	 *
 	 * $upload should look something like:
 	 *     Array (
-	 *       [file] => /home/dac514/public_html/bdolor/wp-content/uploads/sites/2/2013/04/Hello-World-13662149822.epub
-	 *       [url] => http://localhost/~dac514/bdolor/helloworld/wp-content/uploads/sites/2/2013/04/Hello-World-13662149822.epub (optional, can be null)
+	 *       [file] => /home/user/public_html/wp-content/uploads/sites/2/2013/04/Hello-World-13662149822.epub
+	 *       [url] => http://localhost/~user/Hello-World-13662149822.epub (optional, can be null)
 	 *       [type] => application/epub+zip
 	 *     )
 	 *
 	 * 'pressbooks_current_import' should look something like:
 	 *     Array (
-	 *       [file] => '/home/dac514/public_html/bdolor/wp-content/uploads/sites/2/imports/Hello-World-1366214982.epub'
-	 *       [url] => http://localhost/~dac514/bdolor/helloworld/wp-content/uploads/sites/2/2013/04/Hello-World-13662149822.epub (optional, can be null)
+	 *       [file] => '/home/user/public_html/wp-content/uploads/sites/2/imports/Hello-World-1366214982.epub'
+	 *       [url] => http://localhost/~user/Hello-World-13662149822.epub (optional, can be null)
 	 *       [file_type] => 'application/epub+zip'
 	 *       [type_of] => 'epub'
 	 *       [default_post_status] => 'draft'
@@ -47,6 +49,12 @@ abstract class Import {
 	 *         [front-cover] => 'Front Cover'
 	 *         [chapter-001] => 'Some other title'
 	 *       )
+	 *       [post_types] => Array (
+	 *         [some-id] => 'front-matter'
+	 *         [front-cover] => 'chapter'
+	 *         [chapter-001] => 'back-matter' (optional)
+	 *       )
+	 *       [allow_parts] => false,
 	 *     )
 	 *
 	 * @see wp_handle_upload
@@ -86,7 +94,7 @@ abstract class Import {
 			unlink( $current_import['file'] );
 		}
 
-		\Pressbooks\Book::deleteBookObjectCache();
+		Book::deleteBookObjectCache();
 		delete_transient( 'dirsize_cache' );
 		/** @see get_dirsize() */
 
@@ -213,7 +221,7 @@ abstract class Import {
 			'safe' => 1,
 		];
 
-		return \Pressbooks\HtmLawed::filter( $html, $config );
+		return HtmLawed::filter( $html, $config );
 	}
 
 
@@ -289,6 +297,11 @@ abstract class Import {
 				$ok = $importer->import( $current_import );
 				break;
 
+			case Api\Api::TYPE_OF:
+				$importer = new Api\Api();
+				$ok = $importer->import( $current_import );
+				break;
+
 			case Html\Xhtml::TYPE_OF:
 				$importer = new Html\Xhtml();
 				$ok = $importer->import( $current_import );
@@ -319,10 +332,6 @@ abstract class Import {
 					}
 				}
 		}
-
-		$msg = "Tried to import a file of type {$current_import['type_of']} and ";
-		$msg .= ( $ok ) ? 'succeeded :)' : 'failed :(';
-		self::log( $msg, $current_import );
 
 		if ( $ok ) {
 			// Success! Redirect to organize page
@@ -400,9 +409,15 @@ abstract class Import {
 				$ok = $importer->setCurrentImportOption( $upload );
 				break;
 
+			case Api\Api::TYPE_OF:
 			case Html\Xhtml::TYPE_OF:
-				$importer = new Html\Xhtml();
+				$importer = new Api\Api();
 				$ok = $importer->setCurrentImportOption( $upload );
+				if ( ! $ok ) {
+					unset( $_SESSION['pb_errors'] );
+					$importer = new Html\Xhtml();
+					$ok = $importer->setCurrentImportOption( $upload );
+				}
 				break;
 
 			default:
@@ -431,10 +446,6 @@ abstract class Import {
 					}
 				}
 		}
-
-		$msg = "Tried to upload a file of type {$_POST['type_of']} and ";
-		$msg .= ( $ok ) ? 'succeeded :)' : 'failed :(';
-		self::log( $msg, $upload );
 
 		if ( ! $ok ) {
 			// Not ok?

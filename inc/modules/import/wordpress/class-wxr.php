@@ -79,7 +79,7 @@ class Wxr extends Import {
 			'file' => $upload['file'],
 			'url' => $upload['url'] ?? null,
 			'file_type' => $upload['type'],
-			'type_of' => 'wxr',
+			'type_of' => self::TYPE_OF,
 			'chapters' => [],
 			'post_types' => [],
 			'allow_parts' => true,

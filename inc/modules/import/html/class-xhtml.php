@@ -8,10 +8,9 @@
 namespace Pressbooks\Modules\Import\Html;
 
 use Masterminds\HTML5;
+use Pressbooks\Book;
 use Pressbooks\Contributors;
 use Pressbooks\Modules\Import\Import;
-use Pressbooks\Book;
-use function \Pressbooks\Utility\debug_error_log;
 
 class Xhtml extends Import {
 
@@ -451,7 +450,7 @@ class Xhtml extends Import {
 			'file'      => $upload['file'],
 			'url' => $upload['url'] ?? null,
 			'file_type' => $upload['type'],
-			'type_of'   => 'html',
+			'type_of' => self::TYPE_OF,
 			'chapters'  => [],
 		];
 
