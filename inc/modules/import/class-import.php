@@ -327,26 +327,9 @@ abstract class Import {
 		// --------------------------------------------------------------------------------------------------------
 		// Set the 'pressbooks_current_import' option
 
-		/**
-		 * Allows users to append import options to the list of allowed file types.
-		 *
-		 * @since 3.9.6
-		 *
-		 * @param array $value The list of currently allowed file types.
-		 */
-		$allowed_file_types = apply_filters(
-			'pb_import_file_types', [
-				'epub' => 'application/epub+zip',
-				'xml' => 'application/xml',
-				'odt' => 'application/vnd.oasis.opendocument.text',
-				'docx' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-			]
-		);
-
 		$overrides = [
 			'test_form' => false,
 			'test_type' => false,
-			'mimes' => $allowed_file_types,
 		];
 
 		if ( ! function_exists( 'wp_handle_upload' ) ) {
@@ -354,10 +337,16 @@ abstract class Import {
 		}
 
 		if ( getset( '_POST', 'import_type' ) === 'url' ) {
+			$overrides['action'] = 'pb_handle_url_upload';
 			self::createFileFromUrl();
 		}
 
 		if ( empty( $_FILES['import_file']['name'] ) ) {
+			return false;
+		}
+		$bad_extensions = '/\.(php([0-9])?|htaccess|htpasswd|cgi|sh|pl|bat|exe|cmd|dll)$/i';
+		if ( preg_match( $bad_extensions, $_FILES['import_file']['name'] ) ) {
+			$_SESSION['pb_errors'][] = __( 'Sorry, this file type is not permitted for security reasons.' );
 			return false;
 		}
 
@@ -469,14 +458,18 @@ abstract class Import {
 		\Pressbooks\Utility\put_contents( $tmp_file, wp_remote_retrieve_body( $response ) );
 
 		// Basename
-		$basename = explode( '?', basename( $url ) );
-		$basename = array_shift( $basename );
-		$basename = explode( '#', $basename )[0]; // Remove trailing anchors
-		$basename = sanitize_file_name( urldecode( $basename ) );
+		$parsed_url = parse_url( $url );
+		if ( isset( $parsed_url['path'] ) ) {
+			$basename = basename( $parsed_url['path'] );
+		} else {
+			$basename = uniqid( 'import-' );
+		}
+
+		$mime = \Pressbooks\Media\mime_type( $tmp_file );
 
 		$_FILES['import_file'] = [
 			'name' => $basename,
-			'type' => \Pressbooks\Media\mime_type( $tmp_file ),
+			'type' => $mime,
 			'tmp_name' => $tmp_file,
 			'error' => 0,
 			'size' => filesize( $tmp_file ),

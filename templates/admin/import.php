@@ -171,14 +171,14 @@ $supported_file_extensions = implode( ', ', array_keys( $import_option_types ) )
 					</th>
 					<td id="pb-file">
 						<fieldset>
-							<input name="import_type" type="radio" value="file" checked="checked"/>
-							<label for="type-file">Upload File </label>
+							<input id="r1" name="import_type" type="radio" value="file" checked="checked"/>
+							<label for="r1">Upload File </label>
 							<input type="file" name="import_file" id="import_file" style="display:block;"/>
 						</fieldset>
 						<fieldset>
-							<input type="radio" name="import_type" value="url"/>
-							<label for="type-url">Import from URL</label>
-							<input type="url" class="widefat" name="import_http" id="import_http" placeholder="https://url-to-import.com" style="display:block;"/>
+							<input id="r2" type="radio" name="import_type" value="url"/>
+							<label for="r2">Import from URL</label>
+							<input type="url" class="widefat" name="import_http" id="import_http" placeholder="https://url-to-import.com" style="display:block;" disabled/>
 						</fieldset>
 					</td>
 				</tr>
