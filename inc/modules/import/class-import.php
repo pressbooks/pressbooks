@@ -448,6 +448,7 @@ abstract class Import {
 
 	/**
 	 * Tries to download URL in $_POST['import_http'], impersonates $_FILES on success
+	 * Note: Faking the $_FILES array will cause PHP's is_uploaded_file() to fail
 	 *
 	 * @return bool
 	 */
