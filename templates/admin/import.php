@@ -131,12 +131,13 @@ $supported_file_extensions = implode( ', ', array_keys( $import_option_types ) )
 
 		<script type="text/javascript">
 			jQuery(function ($) {
-				var val = $('#pb-file');
-				val.find('[type="radio"]').on('change', function() {
-					if ( val.find('[type="radio"]:checked').val() === 'file' ) {
+				var pb_file = $('#pb-file');
+				pb_file.find('[type="radio"]').on('change', function() {
+					var pb_file_checked = pb_file.find('[type="radio"]:checked').val();
+					if ( pb_file_checked === 'file' ) {
+						$( '#import_http' ).val( '' ).attr( 'disabled', true);
 						$( '#import_file' ).removeAttr( 'disabled' ).focus();
-						$( '#import_http' ).val( '' ).attr( 'disabled', true )
-					} else if (val.find('[type="radio"]:checked').val() === 'url' ) {
+					} else if ( pb_file_checked === 'url' ) {
 						$('#import_http').removeAttr('disabled').focus();
 						$('#import_file').val('').attr('disabled', true);
 					}
