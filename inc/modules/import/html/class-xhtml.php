@@ -34,25 +34,16 @@ class Xhtml extends Import {
 	 */
 	function import( array $current_import ) {
 
-		// fetch the remote content
-		$html = wp_remote_get( $current_import['file'] );
+		$body = \Pressbooks\Utility\get_contents( $current_import['file'] );
 
-		// Something failed
-		if ( is_wp_error( $html ) ) {
-			$redirect_url = get_admin_url( get_current_blog_id(), '/tools.php?page=pb_import' );
-			debug_error_log( '\PressBooks\Import\Html import error, wp_remote_get() ' . $html->get_error_message() );
-			$_SESSION['pb_errors'][] = $html->get_error_message();
-
-			$this->revokeCurrentImport();
-			\Pressbooks\Redirect\location( $redirect_url );
-
-		}
-
-		$url = wp_parse_url( $current_import['file'] );
+		$url = wp_parse_url( $current_import['url'] );
 		// get parent directory (with forward slash e.g. /parent)
 		$path = isset( $url['path'] ) ? dirname( $url['path'] ) : '/';
-
-		$domain = $url['scheme'] . '://' . $url['host'] . $path;
+		if ( isset( $url['scheme'], $url['host'] ) ) {
+			$domain = $url['scheme'] . '://' . $url['host'] . $path;
+		} else {
+			$domain = $path;
+		}
 
 		// get id (there will be only one)
 		$id = array_keys( $current_import['chapters'] );
@@ -61,7 +52,7 @@ class Xhtml extends Import {
 		$post_type = $this->determinePostType( $id[0] );
 		$chapter_parent = $this->getChapterParent();
 
-		$this->kneadAndInsert( $html['body'], $post_type, $chapter_parent, $domain, $current_import['default_post_status'] );
+		$this->kneadAndInsert( $body, $post_type, $chapter_parent, $domain, $current_import['default_post_status'] );
 
 		// Done
 		return $this->revokeCurrentImport();
@@ -366,7 +357,6 @@ class Xhtml extends Import {
 	 * @see media_handle_sideload
 	 *
 	 * @return string $src
-	 * @throws \Exception
 	 */
 	protected function fetchAndSaveUniqueImage( $url ) {
 
@@ -442,31 +432,13 @@ class Xhtml extends Import {
 	 * @return bool
 	 */
 	function setCurrentImportOption( array $upload ) {
-		// GET http request
-		$html = wp_remote_get( $upload['url'] );
 
-		// check for wp error
-		if ( is_wp_error( $html ) ) {
-			$error_message = $html->get_error_message();
-			debug_error_log( '\Pressbooks\Modules\Import\Html::setCurrentImportOption error, wp_remote_get' . $error_message );
-			$_SESSION['pb_errors'][] = $error_message;
-
+		// ensure the media type is HTML (not JSON, or something we can't deal with)
+		if ( false === strpos( $upload['type'], 'text/html' ) && false === strpos( $upload['type'], 'application/xhtml+xml' ) ) {
 			return false;
 		}
 
-		// check for a successful response code on GET request
-		if ( 200 !== $html['response']['code'] ) {
-			$_SESSION['pb_errors'][] = __( 'The website you are attempting to reach is not returning a successful response on a GET request: ', 'pressbooks' ) . $html['response']['code'];
-
-			return false;
-		}
-
-		// just get the body of the array
-		$body = $html['body'];
-
-		// safety check if param (character encoding) with `;` isn't set
-		// @see http://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.7
-		$content_type = ( false === strstr( $html['headers']['content-type'], ';' ) ) ? $html['headers']['content-type'] : strstr( $html['headers']['content-type'], ';', true );
+		$body = \Pressbooks\Utility\get_contents( $upload['file'] );
 
 		// get the title
 		preg_match( '/<title>(.+)<\/title>/', $body, $matches );
@@ -474,8 +446,9 @@ class Xhtml extends Import {
 
 		// set the args
 		$option = [
-			'file'      => $upload['url'],
-			'file_type' => $content_type,
+			'file'      => $upload['file'],
+			'url' => $upload['url'] ?? null,
+			'file_type' => $upload['type'],
 			'type_of'   => 'html',
 			'chapters'  => [],
 		];

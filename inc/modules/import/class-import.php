@@ -26,13 +26,14 @@ abstract class Import {
 	 * $upload should look something like:
 	 *     Array (
 	 *       [file] => /home/dac514/public_html/bdolor/wp-content/uploads/sites/2/2013/04/Hello-World-13662149822.epub
-	 *       [url] => http://localhost/~dac514/bdolor/helloworld/wp-content/uploads/sites/2/2013/04/Hello-World-13662149822.epub
+	 *       [url] => http://localhost/~dac514/bdolor/helloworld/wp-content/uploads/sites/2/2013/04/Hello-World-13662149822.epub (optional, can be null)
 	 *       [type] => application/epub+zip
 	 *     )
 	 *
 	 * 'pressbooks_current_import' should look something like:
 	 *     Array (
 	 *       [file] => '/home/dac514/public_html/bdolor/wp-content/uploads/sites/2/imports/Hello-World-1366214982.epub'
+	 *       [url] => http://localhost/~dac514/bdolor/helloworld/wp-content/uploads/sites/2/2013/04/Hello-World-13662149822.epub (optional, can be null)
 	 *       [file_type] => 'application/epub+zip'
 	 *       [type_of] => 'epub'
 	 *       [default_post_status] => 'draft'
@@ -238,7 +239,7 @@ abstract class Import {
 			\Pressbooks\Redirect\location( $redirect_url );
 		}
 
-		if ( ! empty( $_GET['import'] ) && isset( $_POST['chapters'] ) && is_array( $_POST['chapters'] ) && is_array( $current_import ) && isset( $current_import['file'] ) && check_admin_referer( 'pb-import' ) ) {
+		if ( ! empty( $_GET['import'] ) && isset( $_POST['chapters'] ) && is_array( $_POST['chapters'] ) && is_array( $current_import ) && check_admin_referer( 'pb-import' ) ) {
 			self::doImport( $current_import );
 		} elseif ( isset( $_GET['import'] ) && ! empty( $_POST['import_type'] ) && check_admin_referer( 'pb-import' ) ) {
 			self::setImportOptions();
@@ -349,6 +350,10 @@ abstract class Import {
 		}
 
 		$upload = wp_handle_upload( $_FILES['import_file'], $overrides );
+		$upload['url'] = getset( '_POST', 'import_http' );
+		if ( empty( $upload['type'] ) && ! empty( $_FILES['import_file']['type'] ) ) {
+			$upload['type'] = $_FILES['import_file']['type'];
+		}
 
 		if ( ! empty( $upload['error'] ) ) {
 			// Error, redirect back to form
@@ -415,7 +420,7 @@ abstract class Import {
 	}
 
 	/**
-	 * Tries to download URL in $_POST['import_http'], impersonates $_FILES global on success
+	 * Tries to download URL in $_POST['import_http'], impersonates $_FILES on success
 	 *
 	 * @return bool
 	 */
@@ -442,17 +447,8 @@ abstract class Import {
 		}
 
 		$code = wp_remote_retrieve_response_code( $response );
-		$content_type = wp_remote_retrieve_header( $response, 'content-type' );
-
-		// weebly.com (and likely some others) prevent HEAD requests, but allow GET requests
-		if ( 200 !== $code && 405 !== $code ) {
-			$_SESSION['pb_errors'][] = __( 'The website you are attempting to reach is not returning a successful response header on a HEAD request: ', 'pressbooks' ) . $code;
-			return false;
-		}
-
-		// TODO
-		if ( getset( '_POST', 'type_of' ) === 'html' && false === strpos( $content_type, 'text/html' ) && false === strpos( $content_type, 'application/xhtml+xml' ) ) {
-			$_SESSION['pb_errors'][] = __( 'The website you are attempting to reach is not returning HTML content', 'pressbooks' );
+		if ( $code >= 400 ) {
+			$_SESSION['pb_errors'][] = __( 'The website you are attempting to reach is not returning a successful response code: ', 'pressbooks' ) . $code;
 			return false;
 		}
 
@@ -463,12 +459,16 @@ abstract class Import {
 		$parsed_url = wp_parse_url( $url );
 		if ( isset( $parsed_url['path'] ) ) {
 			$basename = basename( $parsed_url['path'] );
-		} else {
+		}
+		if ( empty( $basename ) ) {
 			$basename = uniqid( 'import-' );
 		}
 
 		// Mime type
 		$mime = \Pressbooks\Media\mime_type( $tmp_file );
+		if ( empty( $mime ) ) {
+			$mime = wp_remote_retrieve_header( $response, 'content-type' );
+		}
 
 		$_FILES['import_file'] = [
 			'name' => $basename,
