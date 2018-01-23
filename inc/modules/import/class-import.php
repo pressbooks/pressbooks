@@ -35,6 +35,7 @@ abstract class Import {
 	 *       [file] => '/home/dac514/public_html/bdolor/wp-content/uploads/sites/2/imports/Hello-World-1366214982.epub'
 	 *       [file_type] => 'application/epub+zip'
 	 *       [type_of] => 'epub'
+	 *       [default_post_status] => 'draft'
 	 *       [chapters] => Array (
 	 *         [some-id] => 'Some title'
 	 *         [front-cover] => 'Front Cover'
@@ -52,7 +53,7 @@ abstract class Import {
 
 
 	/**
-	 * @param array $current_import
+	 * @param array $current_import WP option 'pressbooks_current_import'
 	 *
 	 * @return bool
 	 */
@@ -92,7 +93,6 @@ abstract class Import {
 	 * @return string fullpath
 	 */
 	function createTmpFile() {
-
 		return \Pressbooks\Utility\create_tmp_file();
 	}
 
@@ -249,15 +249,14 @@ abstract class Import {
 	}
 
 	/**
-	 * @param array $current_import
+	 * Do Import
+	 *
+	 * @param array $current_import WP option 'pressbooks_current_import'
 	 */
 	static protected function doImport( array $current_import ) {
 
 		// Set post status
 		$current_import['default_post_status'] = ( isset( $_POST['import_as_drafts'] ) ) ? 'export-only' : 'publish';
-
-		// --------------------------------------------------------------------------------------------------------
-		// Do Import
 
 		@set_time_limit( 300 ); // @codingStandardsIgnoreLine
 
@@ -316,6 +315,8 @@ abstract class Import {
 	}
 
 	/**
+	 *  Look at $_POST and $_FILES, sets 'pressbooks_current_import' option based on submission
+	 *
 	 * @return bool
 	 */
 	static protected function setImportOptions() {
@@ -323,9 +324,6 @@ abstract class Import {
 		if ( ! check_admin_referer( 'pb-import' ) ) {
 			return false;
 		}
-
-		// --------------------------------------------------------------------------------------------------------
-		// Set the 'pressbooks_current_import' option
 
 		$overrides = [
 			'test_form' => false,
@@ -417,6 +415,8 @@ abstract class Import {
 	}
 
 	/**
+	 * Tries to download URL in $_POST['import_http'], impersonates $_FILES global on success
+	 *
 	 * @return bool
 	 */
 	static protected function createFileFromUrl() {
@@ -432,28 +432,30 @@ abstract class Import {
 			return false;
 		}
 
-		// HEAD request, check for a valid response from server
-		$remote_head = wp_remote_head( $url );
+		$response = wp_remote_get( $url );
 
 		// Something failed
-		if ( is_wp_error( $remote_head ) ) {
-			debug_error_log( '\Pressbooks\Modules\Import::formSubmit html import error, wp_remote_head()' . $remote_head->get_error_message() );
-			$_SESSION['pb_errors'][] = $remote_head->get_error_message();
+		if ( is_wp_error( $response ) ) {
+			debug_error_log( '\Pressbooks\Modules\Import::formSubmit html import error, wp_remote_head()' . $response->get_error_message() );
+			$_SESSION['pb_errors'][] = $response->get_error_message();
 			return false;
 		}
+
+		$code = wp_remote_retrieve_response_code( $response );
+		$content_type = wp_remote_retrieve_header( $response, 'content-type' );
 
 		// weebly.com (and likely some others) prevent HEAD requests, but allow GET requests
-		if ( 200 !== $remote_head['response']['code'] && 405 !== $remote_head['response']['code'] ) {
-			$_SESSION['pb_errors'][] = __( 'The website you are attempting to reach is not returning a successful response header on a HEAD request: ', 'pressbooks' ) . $remote_head['response']['code'];
+		if ( 200 !== $code && 405 !== $code ) {
+			$_SESSION['pb_errors'][] = __( 'The website you are attempting to reach is not returning a successful response header on a HEAD request: ', 'pressbooks' ) . $code;
 			return false;
 		}
 
-		if ( getset( '_POST', 'type_of' ) === 'html' && false === strpos( $remote_head['headers']['content-type'], 'text/html' ) && false === strpos( $remote_head['headers']['content-type'], 'application/xhtml+xml' ) ) {
+		// TODO
+		if ( getset( '_POST', 'type_of' ) === 'html' && false === strpos( $content_type, 'text/html' ) && false === strpos( $content_type, 'application/xhtml+xml' ) ) {
 			$_SESSION['pb_errors'][] = __( 'The website you are attempting to reach is not returning HTML content', 'pressbooks' );
 			return false;
 		}
 
-		$response = \Pressbooks\Utility\remote_get_retry( $url, [ 'timeout' => 90 ] );
 		$tmp_file = \Pressbooks\Utility\create_tmp_file();
 		\Pressbooks\Utility\put_contents( $tmp_file, wp_remote_retrieve_body( $response ) );
 
@@ -465,6 +467,7 @@ abstract class Import {
 			$basename = uniqid( 'import-' );
 		}
 
+		// Mime type
 		$mime = \Pressbooks\Media\mime_type( $tmp_file );
 
 		$_FILES['import_file'] = [
