@@ -460,7 +460,7 @@ abstract class Import {
 		\Pressbooks\Utility\put_contents( $tmp_file, wp_remote_retrieve_body( $response ) );
 
 		// Basename
-		$parsed_url = parse_url( $url );
+		$parsed_url = wp_parse_url( $url );
 		if ( isset( $parsed_url['path'] ) ) {
 			$basename = basename( $parsed_url['path'] );
 		} else {
