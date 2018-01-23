@@ -13,6 +13,7 @@ use Pressbooks\Book;
 
 class Epub201 extends Import {
 
+	const TYPE_OF = 'epub';
 
 	/**
 	 * Reference to the object that represents the Epub zip folder
@@ -109,9 +110,7 @@ class Epub201 extends Import {
 			//Check this manifest item exists or not
 			if ( isset( $this->manifest[ $id ] ) ) {
 
-				$type = $this->manifest[ $id ]['type'];
 				$href = $this->manifest[ $id ]['herf'];
-				$title = '';
 
 				//Check manifest item is copyright or not
 				if ( 'OEBPS/copyright.html' === $href ) {
@@ -492,7 +491,6 @@ class Epub201 extends Import {
 	 * @see media_handle_sideload
 	 *
 	 * @return string filename
-	 * @throws \Exception
 	 */
 	protected function fetchAndSaveUniqueImage( $url, $href ) {
 

@@ -12,6 +12,8 @@ use Pressbooks\Book;
 
 class Docx extends Import {
 
+	const TYPE_OF = 'docx';
+
 	/**
 	 * @var \ZipArchive
 	 */

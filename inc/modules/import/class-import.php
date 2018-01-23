@@ -12,6 +12,11 @@ use function \Pressbooks\Utility\debug_error_log;
 abstract class Import {
 
 	/**
+	 * Abstract CONST
+	 */
+	const TYPE_OF = null;
+
+	/**
 	 * Email addresses to send logs.
 	 *
 	 * @deprecated
@@ -264,27 +269,27 @@ abstract class Import {
 		$ok = false;
 		switch ( $current_import['type_of'] ) {
 
-			case 'epub':
+			case Epub\Epub201::TYPE_OF:
 				$importer = new Epub\Epub201();
 				$ok = $importer->import( $current_import );
 				break;
 
-			case 'wxr':
+			case Wordpress\Wxr::TYPE_OF:
 				$importer = new Wordpress\Wxr();
 				$ok = $importer->import( $current_import );
 				break;
 
-			case 'odt':
+			case Odf\Odt::TYPE_OF:
 				$importer = new Odf\Odt();
 				$ok = $importer->import( $current_import );
 				break;
 
-			case 'docx':
+			case Ooxml\Docx::TYPE_OF:
 				$importer = new Ooxml\Docx();
 				$ok = $importer->import( $current_import );
 				break;
 
-			case 'html':
+			case Html\Xhtml::TYPE_OF:
 				$importer = new Html\Xhtml();
 				$ok = $importer->import( $current_import );
 				break;
@@ -297,11 +302,22 @@ abstract class Import {
 				 *
 				 * @param \Pressbooks\Modules\Import\Import $value
 				 */
-				$importer = apply_filters( 'pb_initialize_import', null );
-				if ( is_object( $importer ) ) {
-					$ok = $importer->import( $current_import );
+				$importers = apply_filters( 'pb_initialize_import', [] );
+				if ( ! is_array( $importers ) ) {
+					$importers = [ $importers ];
 				}
-				break;
+				foreach ( $importers as $importer ) {
+					if ( is_object( $importer ) ) {
+						$class = get_class( $importer );
+						if (
+							count( $importers ) === 1 ||
+							defined( "{$class}::TYPE_OF" ) && $class::TYPE_OF === $current_import['type_of']
+						) {
+							$ok = $importer->import( $current_import );
+							break;
+						}
+					}
+				}
 		}
 
 		$msg = "Tried to import a file of type {$current_import['type_of']} and ";
@@ -364,27 +380,27 @@ abstract class Import {
 		$ok = false;
 		switch ( $_POST['type_of'] ) {
 
-			case 'wxr':
+			case Wordpress\Wxr::TYPE_OF:
 				$importer = new Wordpress\Wxr();
 				$ok = $importer->setCurrentImportOption( $upload );
 				break;
 
-			case 'epub':
+			case Epub\Epub201::TYPE_OF:
 				$importer = new Epub\Epub201();
 				$ok = $importer->setCurrentImportOption( $upload );
 				break;
 
-			case 'odt':
+			case Odf\Odt::TYPE_OF:
 				$importer = new Odf\Odt();
 				$ok = $importer->setCurrentImportOption( $upload );
 				break;
 
-			case 'docx':
+			case Ooxml\Docx::TYPE_OF:
 				$importer = new Ooxml\Docx();
 				$ok = $importer->setCurrentImportOption( $upload );
 				break;
 
-			case 'html':
+			case Html\Xhtml::TYPE_OF:
 				$importer = new Html\Xhtml();
 				$ok = $importer->setCurrentImportOption( $upload );
 				break;
@@ -398,10 +414,21 @@ abstract class Import {
 				 *
 				 * @param \Pressbooks\Modules\Import\Import $value
 				 */
-				$importer = apply_filters( 'pb_initialize_import', null );
-				if ( is_object( $importer ) ) {
-					/** @var \Pressbooks\Modules\Import\Import $importer */
-					$ok = $importer->setCurrentImportOption( $upload );
+				$importers = apply_filters( 'pb_initialize_import', [] );
+				if ( ! is_array( $importers ) ) {
+					$importers = [ $importers ];
+				}
+				foreach ( $importers as $importer ) {
+					if ( is_object( $importer ) ) {
+						$class = get_class( $importer );
+						if (
+							count( $importers ) === 1 ||
+							defined( "{$class}::TYPE_OF" ) && $class::TYPE_OF === $_POST['type_of']
+						) {
+							$ok = $importer->setCurrentImportOption( $upload );
+							break;
+						}
+					}
 				}
 		}
 

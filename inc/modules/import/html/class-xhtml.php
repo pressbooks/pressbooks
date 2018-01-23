@@ -15,6 +15,8 @@ use function \Pressbooks\Utility\debug_error_log;
 
 class Xhtml extends Import {
 
+	const TYPE_OF = 'html';
+
 	/**
 	 *
 	 */

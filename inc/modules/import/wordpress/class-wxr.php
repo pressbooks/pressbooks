@@ -9,12 +9,15 @@ namespace Pressbooks\Modules\Import\WordPress;
 use Masterminds\HTML5;
 use Pressbooks\Contributors;
 use Pressbooks\Licensing;
+use Pressbooks\Metadata;
 use Pressbooks\Modules\Import\Import;
 use Pressbooks\Book;
 use function Pressbooks\Image\attachment_id_from_url;
 use function Pressbooks\Image\strip_baseurl;
 
 class Wxr extends Import {
+
+	const TYPE_OF = 'wxr';
 
 	/**
 	 * If Pressbooks generated the WXR file
@@ -367,7 +370,7 @@ class Wxr extends Import {
 	 */
 	protected function bookInfoPid() {
 
-		$post = ( new \Pressbooks\Metadata() )->getMetaPost();
+		$post = ( new Metadata() )->getMetaPost();
 		if ( empty( $post->ID ) ) {
 			$new_post = [
 				'post_title' => __( 'Book Info', 'pressbooks' ),
