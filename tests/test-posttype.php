@@ -52,7 +52,6 @@ class PostTypeTest extends \WP_UnitTestCase {
 
 		register_post_statii();
 		$this->assertArrayHasKey( 'web-only', $wp_post_statuses );
-		$this->assertArrayHasKey( 'export-only', $wp_post_statuses );
 
 		$wp_post_statuses = $wp_post_statuses_old;
 	}
@@ -90,7 +89,7 @@ class PostTypeTest extends \WP_UnitTestCase {
 		$this->assertFalse( can_export( $pid ) );
 		wp_update_post( [ 'ID' => $pid, 'post_status' => 'publish' ] );
 		$this->assertTrue( can_export( $pid ) );
-		wp_update_post( [ 'ID' => $pid, 'post_status' => 'export-only' ] );
+		wp_update_post( [ 'ID' => $pid, 'post_status' => 'private' ] );
 		$this->assertTrue( can_export( $pid ) );
 		wp_update_post( [ 'ID' => $pid, 'post_status' => 'web-only' ] );
 		$this->assertFalse( can_export( $pid ) );

@@ -12,7 +12,7 @@ if ( is_subdomain_install() ) {
 ?>
 <div class="wrap">
 	<h1><?php _e( 'Clone', 'pressbooks' ); ?></h1>
-	<p><?php _e( 'Enter the URL to a Pressbooks book to clone it.', 'pressbooks' ); ?><p>
+	<p><?php _e( 'Enter the URL to a Pressbooks book to clone it.', 'pressbooks' ); ?><span class="spinner"></span><p>
 	<form id="pb-cloner-form" action="" method="post">
 		<?php wp_nonce_field( 'pb-cloner' ); ?>
 		<table class="form-table">
@@ -29,6 +29,5 @@ if ( is_subdomain_install() ) {
 			</tr>
 		</table>
 	</form>
-	<p><input id="pb-cloner-button" class="button button-primary" type="submit" value="<?php _e( 'Clone It!', 'pressbooks' ); ?>" /></p>
-	<p id="loader"><img src="<?php echo PB_PLUGIN_URL; ?>assets/dist/images/loader.gif" alt="Cloning..." width="128" height="15" /></p>
+	<p><input id="pb-cloner-button" class="button button-primary" type="submit" value="<?php _e( 'Clone It!', 'pressbooks' ); ?>" /><span id="loader" class="loading-content"><span class="spinner"></span></span></p>
 </div>

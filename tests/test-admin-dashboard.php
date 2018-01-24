@@ -42,9 +42,9 @@ class Admin_DashboardTest extends \WP_UnitTestCase {
 		ob_start();
 		\Pressbooks\Admin\Dashboard\display_book_widget();
 		$buffer = ob_get_clean();
-		$this->assertContains( "<li class='front-matter'>", $buffer );
-		$this->assertContains( "<li class='chapter'>", $buffer );
-		$this->assertContains( "<li class='back-matter'>", $buffer );
+		$this->assertContains( "<ul class='front-matter'>", $buffer );
+		$this->assertContains( "<ul class='chapters'>", $buffer );
+		$this->assertContains( "<ul class='back-matter'>", $buffer );
 	}
 
 	public function test_display_pressbooks_blog() {

@@ -76,14 +76,33 @@ function replace_book_admin_menu() {
 				wp_localize_script(
 					'pb-organize', 'PB_OrganizeToken', [
 						// Ajax nonces
-						'orderNonce' => wp_create_nonce( 'pb-update-book-order' ),
-						'exportNonce' => wp_create_nonce( 'pb-update-book-export' ),
+						'reorderNonce' => wp_create_nonce( 'pb-organize-reorder' ),
+						'showTitleNonce' => wp_create_nonce( 'pb-organize-showtitle' ),
+						'postVisibilityNonce' => wp_create_nonce( 'pb-organize-visibility' ),
 						'wordCountNonce' => wp_create_nonce( 'pb-update-word-count-for-export' ),
-						'showTitleNonce' => wp_create_nonce( 'pb-update-book-show-title' ),
-						'privacyNonce' => wp_create_nonce( 'pb-update-book-privacy' ),
-						'private' => __( 'Private', 'pressbooks' ),
-						'published' => __( 'Published', 'pressbooks' ),
-						'public' => __( 'Public', 'pressbooks' ),
+						'bookPrivate' => __( 'private', 'pressbooks' ),
+						'bookPublic' => __( 'public', 'pressbooks' ),
+						'updating' => [
+							'book' => __( 'Updating book.', 'pressbooks' ),
+							'chapter' => __( 'Updating chapters.', 'pressbooks' ),
+							'part' => __( 'Updating part.', 'pressbooks' ),
+							'frontmatter' => __( 'Updating front matter.', 'pressbooks' ),
+							'backmatter' => __( 'Updating back matter.', 'pressbooks' ),
+						],
+						'success' => [
+							'book' => __( 'The book has been successfully updated!', 'pressbooks' ),
+							'chapter' => __( 'The chapters has been successfully updated!', 'pressbooks' ),
+							'part' => __( 'The part has been successfully updated!', 'pressbooks' ),
+							'frontmatter' => __( 'The front matter has been successfully updated!', 'pressbooks' ),
+							'backmatter' => __( 'The back matter has been successfully updated!', 'pressbooks' ),
+						],
+						'failure' => [
+							'book' => __( 'Sorry, the book could not be updated.!', 'pressbooks' ),
+							'chapter' => __( 'Sorry, the chapters could not be updated.', 'pressbooks' ),
+							'part' => __( 'Sorry, the part could not be updated.', 'pressbooks' ),
+							'frontmatter' => __( 'Sorry, the front matter could not be updated.', 'pressbooks' ),
+							'backmatter' => __( 'Sorry, the back matter could not be updated.', 'pressbooks' ),
+						],
 					]
 				);
 			}
@@ -792,9 +811,10 @@ function init_css_js() {
 
 	// Enqueue later, on-the-fly, using action: admin_print_scripts-
 	wp_register_script( 'jquery-blockui', $assets->getPath( 'scripts/blockui.js' ), [ 'jquery', 'jquery-ui-core' ] );
-	wp_register_script( 'pb-cloner', $assets->getPath( 'scripts/cloner.js' ), [ 'jquery' ] );
-	wp_register_script( 'pb-export', $assets->getPath( 'scripts/export.js' ), [ 'jquery' ] );
-	wp_register_script( 'pb-organize', $assets->getPath( 'scripts/organize.js' ), [ 'jquery', 'jquery-ui-core', 'jquery-blockui' ] );
+	wp_register_script( 'cssanimations', $assets->getPath( 'scripts/cssanimations.js' ), false );
+	wp_register_script( 'pb-cloner', $assets->getPath( 'scripts/cloner.js' ), [ 'jquery', 'cssanimations' ] );
+	wp_register_script( 'pb-export', $assets->getPath( 'scripts/export.js' ), [ 'jquery', 'cssanimations' ] );
+	wp_register_script( 'pb-organize', $assets->getPath( 'scripts/organize.js' ), [ 'jquery', 'jquery-ui-core', 'jquery-blockui', 'wp-api', 'cssanimations' ] );
 	wp_register_script( 'pb-metadata', $assets->getPath( 'scripts/book-information.js' ), [ 'jquery' ], false, true );
 	wp_register_script( 'pb-import', $assets->getPath( 'scripts/import.js' ), [ 'jquery' ] );
 

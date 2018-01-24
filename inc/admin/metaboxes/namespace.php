@@ -154,6 +154,7 @@ function add_meta_boxes() {
 
 	add_meta_box( 'part-save', __( 'Save Part', 'pressbooks' ), __NAMESPACE__ . '\part_save_box', 'part', 'side', 'high' );
 	add_meta_box( 'metadata-save', __( 'Save Book Information', 'pressbooks' ), __NAMESPACE__ . '\metadata_save_box', 'metadata', 'side', 'high' );
+	add_meta_box( 'status-visibility', __( 'Status & Visibility', 'pressbooks' ), __NAMESPACE__ . '\status_visibility_box', [ 'chapter', 'front-matter', 'back-matter' ], 'side', 'high' );
 
 	// Custom Image Upload
 
@@ -573,40 +574,6 @@ function add_meta_boxes() {
 		]
 	);
 
-	// Export
-
-	x_add_metadata_group(
-		'export', [ 'chapter', 'front-matter', 'back-matter' ], [
-			'label' => __( 'Export Settings', 'pressbooks' ),
-			'context' => 'side',
-			'priority' => 'high',
-		]
-	);
-
-	x_add_metadata_field(
-		'pb_export', [ 'chapter', 'front-matter', 'back-matter' ], [
-			'group' => 'export',
-			'field_type' => 'checkbox',
-			'label' => __( 'Include in exports', 'pressbooks' ),
-		]
-	);
-
-	x_add_metadata_field(
-		'pb_show_title', [ 'chapter', 'front-matter', 'back-matter' ], [
-			'group' => 'export',
-			'field_type' => 'checkbox',
-			'label' => __( 'Show title in exports', 'pressbooks' ),
-		]
-	);
-
-	x_add_metadata_field(
-		'pb_ebook_start', [ 'chapter', 'front-matter', 'back-matter' ], [
-			'group' => 'export',
-			'field_type' => 'checkbox',
-			'label' => __( 'Set as ebook start-point', 'pressbooks' ),
-		]
-	);
-
 	// Front Matter Metadata
 
 	x_add_metadata_group(
@@ -811,6 +778,198 @@ function metadata_save_box( $post ) {
 		<input name="publish" id="publish" type="submit" class="button button-primary button-large" value="Save" tabindex="5" accesskey="p"/>
 	<?php
 }
+}
+
+/**
+ * Replace Publish panel for chapters, front matter, and back matter.
+ *
+ * @since 5.0.0
+ *
+ * @see post_submit_meta_box()
+ *
+ * @param \WP_Post $post
+ */
+function status_visibility_box( $post ) {
+	$action = get_current_screen()->action;
+	$post_type = $post->post_type;
+	$post_type_object = get_post_type_object( $post_type );
+	$can_publish = current_user_can( $post_type_object->cap->publish_posts );
+	$revisions = wp_get_post_revisions( $post->id );
+	$revs = count( $revisions );
+	$latest_rev = array_shift( $revisions );
+
+	if ( in_array( $post->post_status, [ 'web-only', 'publish' ], true ) || $action === 'add' && $can_publish ) {
+		$show_in_web = 1;
+	} else {
+		$show_in_web = 0;
+	}
+	if ( in_array( $post->post_status, [ 'private', 'publish' ], true ) || $action === 'add' && $can_publish ) {
+		$show_in_exports = 1;
+	} else {
+		$show_in_exports = 0;
+	}
+
+	$pb_show_title = ( get_post_meta( $post->ID, 'pb_show_title', true ) ) ? 'on' : '';
+	$show_title = ( $action === 'add' ) ? 'on' : $pb_show_title;
+?>
+<div class="submitbox" id="submitpost">
+	<div id="minor-publishing">
+		<div id="minor-publishing-actions">
+			<div id="preview-action">
+				<?php
+				$preview_link = esc_url( get_preview_post_link( $post ) );
+				$preview_button = sprintf(
+					'%1$s<span class="screen-reader-text"> %2$s</span>',
+					__( 'Preview', 'pressbooks' ),
+					/* translators: accessibility text */
+					__( '(opens in a new window)', 'pressbooks' )
+				);
+				?>
+				<a class="preview button" href="<?php echo $preview_link; ?>" target="wp-preview-<?php echo (int) $post->ID; ?>" id="post-preview"><?php echo $preview_button; ?></a>
+				<input type="hidden" name="wp-preview" id="wp-preview" value="" />
+			</div>
+			<div class="clear"></div>
+			<p>
+				<input type="checkbox" name="web_visibility" id="web_visibility" value="1" <?php checked( $show_in_web, 1 ); ?><?php echo ( $can_publish ) ? '' : ' disabled'; ?>>
+				<label for="web_visibility"><?php _e( 'Show in Web', 'pressbooks' ); ?>
+			</p>
+			<p>
+				<input type="checkbox" name="export_visibility" id="export_visibility" value="1" <?php checked( $show_in_exports, 1 ); ?><?php echo ( $can_publish ) ? '' : ' disabled'; ?>>
+				<label for="export_visibility"><?php _e( 'Show in Exports', 'pressbooks' ); ?>
+			</p>
+			<p>
+				<input type="checkbox" name="pb_show_title" id="show_title" value="on" <?php checked( $show_title, 'on' ); ?>>
+				<label for="show_title"><?php _e( 'Show Title', 'pressbooks' ); ?>
+			</p>
+		</div><!-- #minor-publishing-actions -->
+	</div><!-- #minor-publishing -->
+	<div id="misc-publishing-actions">
+
+	<?php
+	/* translators: Publish box date format, see https://secure.php.net/date */
+	$datef = __( 'M j, Y @ H:i' );
+	if ( $action !== 'add' ) {
+		$stamp = __( 'Created: <b>%1$s</b>' );
+		$date = date_i18n( $datef, strtotime( $post->post_date ) );
+	}
+	if ( ! empty( $revs ) ) :
+	?>
+		<div class="misc-pub-section misc-pub-revisions">
+			<?php
+				/* translators: Post revisions heading. 1: The number of available revisions */
+				printf( __( 'Revisions: %s' ), '<b>' . number_format_i18n( $revs ) . '</b>' );
+			?>
+			<a class="hide-if-no-js" href="<?php echo esc_url( get_edit_post_link( $latest_rev->ID ) ); ?>"><span aria-hidden="true"><?php _ex( 'Browse', 'revisions' ); ?></span> <span class="screen-reader-text"><?php _e( 'Browse revisions' ); ?></span></a>
+		</div>
+	<?php
+	endif;
+	if ( $action !== 'add' ) :
+	?>
+	<div class="misc-pub-section curtime misc-pub-curtime">
+		<span id="timestamp"><?php printf( $stamp, $date ); ?></span>
+	</div>
+	<?php endif; ?>
+
+	</div><!-- #misc-publishing-actions -->
+	<div class="clear"></div>
+
+
+	<div id="major-publishing-actions">
+		<div id="delete-action">
+		<?php
+		if ( current_user_can( 'delete_post', $post->ID ) ) {
+			if ( ! EMPTY_TRASH_DAYS ) {
+				$delete_text = __( 'Delete Permanently' );
+			} else {
+				$delete_text = __( 'Move to Trash' );
+			}
+		?>
+		<a class="submitdelete deletion" href="<?php echo get_delete_post_link( $post->ID ); ?>"><?php echo $delete_text; ?></a>
+														<?php
+		}
+		?>
+		</div>
+
+		<div id="publishing-action">
+		<span class="spinner"></span>
+		<?php
+		if ( $action === 'add' ) {
+			?>
+				<input name="original_publish" type="hidden" id="original_publish" value="<?php esc_attr_e( 'Publish' ); ?>" />
+				<?php submit_button( __( 'Create' ), 'primary large', 'publish', false ); ?>
+			<?php
+		} else {
+		?>
+				<input name="original_publish" type="hidden" id="original_publish" value="<?php esc_attr_e( 'Update' ); ?>" />
+				<input name="save" type="submit" class="button button-primary button-large" id="publish" value="<?php esc_attr_e( 'Save' ); ?>" />
+		<?php
+		}
+		?>
+		</div>
+		<div class="clear"></div>
+	</div>
+	</div>
+<?php
+}
+
+/**
+ * Save custom data from Pressbooks' Status & Visibility panel.
+ *
+ * @since 5.0.0
+ *
+ * @param int $post_id Post ID.
+ * @param \WP_Post $post Post object.
+ * @param bool $update Whether this is an existing post being updated or not.
+ */
+function publish_fields_save( $post_id, $post, $update ) {
+	if ( ! in_array(
+		$post->post_type, [
+			'front-matter',
+			'back-matter',
+			'chapter',
+		], true
+	) ) {
+		return;
+	}
+
+	if ( wp_is_post_revision( $post_id ) ) {
+		return;
+	}
+
+	if ( $post->post_status === 'trash' ) {
+		return;
+	}
+
+	$show_in_web = ( isset( $_POST['web_visibility'] ) && $_POST['web_visibility'] === '1' ) ? true : false;
+	$show_in_exports = ( isset( $_POST['export_visibility'] ) && $_POST['export_visibility'] === '1' ) ? true : false;
+	$show_title = ( isset( $_POST['pb_show_title'] ) && $_POST['pb_show_title'] === 'on' ) ? 'on' : false;
+
+	if ( $show_in_web && $show_in_exports ) {
+		$post_status = 'publish';
+	} elseif ( $show_in_web && ! $show_in_exports ) {
+		$post_status = 'web-only';
+	} elseif ( ! $show_in_web && $show_in_exports && $post->post_status !== 'private' ) {
+		$post_status = 'private';
+	} else {
+		$post_status = 'draft';
+	}
+
+	if ( $show_title ) {
+		update_post_meta( $post_id, 'pb_show_title', 'on' );
+	} else {
+		delete_post_meta( $post_id, 'pb_show_title' );
+	}
+
+	// Unhook this function to prevent an infinite loop.
+	remove_action( 'save_post', '\Pressbooks\Admin\Metaboxes\publish_fields_save' );
+	wp_update_post(
+		[
+			'ID' => $post_id,
+			'post_status' => $post_status,
+		]
+	);
+	// Reattach to hook.
+	add_action( 'save_post', '\Pressbooks\Admin\Metaboxes\publish_fields_save', 10, 3 );
 }
 
 /**

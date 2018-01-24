@@ -176,8 +176,15 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 
 		// First, look if the user has set this themselves.
 		$start_key = false;
-		foreach ( $manifest as $key => $val ) {
-			if ( $val['ID'] > 0 && get_post_meta( $val['ID'], 'pb_ebook_start', true ) ) {
+		$start_id = false;
+		$ebook_options = get_option( 'pressbooks_theme_options_ebook', [] );
+		if ( isset( $ebook_options['ebook_start_point'] ) && ! empty( $ebook_options['ebook_start_point'] ) ) {
+			$start_id = $ebook_options['ebook_start_point'];
+		}
+
+		// Determine the manifest key for the post ID.
+		foreach ( $manifest as $key => $value ) {
+			if ( $start_id === $value['ID'] ) {
 				$start_key = $key;
 				break;
 			}
