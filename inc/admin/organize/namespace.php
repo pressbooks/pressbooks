@@ -56,11 +56,15 @@ function update_post_visibility() {
 					}
 				}
 
-				$result = wp_update_post( [
-					'ID' => $post_id,
-					'post_status' => $post_status,
-				] );
-				clean_post_cache( $id );
+				if ( ! empty( $post_status ) ) {
+					$result = wp_update_post(
+						[
+							'ID' => $post_id,
+							'post_status' => $post_status,
+						]
+					);
+					clean_post_cache( $post_id );
+				}
 			}
 			add_action( 'save_post', '\Pressbooks\Admin\Metaboxes\publish_fields_save' );
 		}
@@ -69,7 +73,9 @@ function update_post_visibility() {
 	}
 	// @see http://codex.wordpress.org/AJAX_in_Plugins#Error_Return_Values
 	// Will append 0 to returned json string if we don't die()
-	die();
+	if ( ! defined( 'WP_TESTS_MULTISITE' ) ) {
+		die();
+	}
 }
 
 /**
@@ -94,7 +100,9 @@ function update_post_title_visibility() {
 	}
 	// @see http://codex.wordpress.org/AJAX_in_Plugins#Error_Return_Values
 	// Will append 0 to returned json string if we don't die()
-	die();
+	if ( ! defined( 'WP_TESTS_MULTISITE' ) ) {
+		die();
+	}
 }
 
 /**
@@ -157,5 +165,7 @@ function reorder() {
 	}
 	// @see http://codex.wordpress.org/AJAX_in_Plugins#Error_Return_Values
 	// Will append 0 to returned json string if we don't die()
-	die();
+	if ( ! defined( 'WP_TESTS_MULTISITE' ) ) {
+		die();
+	}
 }
