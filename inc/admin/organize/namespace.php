@@ -23,6 +23,7 @@ function update_post_visibility() {
 		if ( current_user_can( 'publish_posts' ) ) {
 			remove_action( 'save_post', '\Pressbooks\Admin\Metaboxes\publish_fields_save' );
 			foreach ( $post_ids as $post_id ) {
+				$post_id = (int) $post_id; // Paranoia reasons
 				$current_status = get_post_status( $post_id );
 
 				if ( $format === 'web' ) {
@@ -83,6 +84,7 @@ function update_post_title_visibility() {
 		$pb_show_title = $_POST['show_title'];
 
 		foreach ( $post_ids as $post_id ) {
+			$post_id = (int) $post_id; // Paranoia reasons
 			if ( current_user_can( 'edit_post', $post_id ) ) {
 				update_post_meta( $post_id, 'pb_show_title', $pb_show_title );
 			}
