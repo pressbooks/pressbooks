@@ -1,5 +1,11 @@
 <?php
 
+use Pressbooks\Modules\Import\Epub\Epub201;
+use Pressbooks\Modules\Import\Html\Xhtml;
+use Pressbooks\Modules\Import\Odf\Odt;
+use Pressbooks\Modules\Import\Ooxml\Docx;
+use Pressbooks\Modules\Import\WordPress\Wxr;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -12,16 +18,18 @@ $custom_post_types = apply_filters( 'pb_import_custom_post_types', [] );
 /**
  * Allows users to append import options to the select field.
  *
+ * TODO: Update texts
+ *
  * @since 3.9.6
  *
  * @param array $value The list of current import options in select field.
  */
 $import_option_types = apply_filters( 'pb_select_import_type', [
-	'wxr' => __( 'WXR (WordPress eXtended RSS)', 'pressbooks' ),
-	'epub' => __( 'EPUB (for Nook, iBooks, Kobo etc.)', 'pressbooks' ),
-	'odt' => __( 'ODT (word processing file format of OpenDocument)', 'pressbooks' ),
-	'docx' => __( 'DOCX (word processing file format of Microsoft)', 'pressbooks' ),
-	'html' => __( 'HTML (scrape content from a URL)', 'pressbooks' ),
+	Wxr::TYPE_OF => __( 'WXR (WordPress eXtended RSS)', 'pressbooks' ),
+	Epub201::TYPE_OF => __( 'EPUB (for Nook, iBooks, Kobo etc.)', 'pressbooks' ),
+	Odt::TYPE_OF => __( 'ODT (word processing file format of OpenDocument)', 'pressbooks' ),
+	Docx::TYPE_OF => __( 'DOCX (word processing file format of Microsoft)', 'pressbooks' ),
+	Xhtml::TYPE_OF => __( 'HTML (scrape content from a URL)', 'pressbooks' ),
 ] );
 
 $supported_file_extensions = implode( ', ', array_keys( $import_option_types ) );
@@ -187,7 +195,7 @@ $supported_file_extensions = implode( ', ', array_keys( $import_option_types ) )
 				</tbody>
 			</table>
 
-			<?php submit_button( __( 'Upload file', 'pressbooks' ) ); ?>
+			<?php submit_button( __( 'Submit', 'pressbooks' ) ); ?>
 		</form>
 
 	<?php } ?>
