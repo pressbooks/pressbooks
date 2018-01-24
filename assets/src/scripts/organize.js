@@ -36,8 +36,6 @@ let pb = {
 	},
 };
 
-pb.organize.chapterOptions = Object.assign( pb.organize.sortableOptions, { connectWith: '.chapters' } );
-
 /**
  * Clear a modal using jQuery.unBlockUI()
  *
@@ -308,11 +306,11 @@ $( document ).ready( () => {
 	$( '.allow-bulk-operations #front-matter' )
 		.sortable( pb.organize.sortableOptions )
 		.disableSelection();
-	$( '.allow-bulk-operations table.chapters' )
-		.sortable( pb.organize.chapterOptions )
-		.disableSelection();
 	$( '.allow-bulk-operations table#back-matter' )
 		.sortable( pb.organize.sortableOptions )
+		.disableSelection();
+	$( '.allow-bulk-operations table.chapters' )
+		.sortable( Object.assign( pb.organize.sortableOptions, { connectWith: '.chapters' } ) )
 		.disableSelection();
 
 	// Handle Global Privacy form changes.
