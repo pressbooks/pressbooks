@@ -32,8 +32,6 @@ $import_option_types = apply_filters( 'pb_select_import_type', [
 	Xhtml::TYPE_OF => __( 'Web page or Pressbooks webbook (.html or URL)', 'pressbooks' ),
 ] );
 
-$supported_file_extensions = implode( ', ', array_keys( $import_option_types ) );
-
 ?>
 <div class="wrap">
 
@@ -153,7 +151,6 @@ $supported_file_extensions = implode( ', ', array_keys( $import_option_types ) )
 			});
 		</script>
 		<p>
-			<?php _e( 'Supported file extensions: ', 'pressbooks' ); echo strtoupper( $supported_file_extensions ); ?> <br />
 			<?php _e( 'Maximum file size:', 'pressbooks' );
 			echo ' ' . \Pressbooks\Utility\file_upload_max_size(); ?>
 		</p>
@@ -164,7 +161,7 @@ $supported_file_extensions = implode( ', ', array_keys( $import_option_types ) )
 				<tbody>
 				<tr>
 					<th scope="row">
-						<label for="type_of"><?php _e( 'Type of file', 'pressbooks' ); ?></label>
+						<label for="type_of"><?php _e( 'Import Type', 'pressbooks' ); ?></label>
 					</th>
 					<td>
 						<select id="type_of" name="type_of">
@@ -176,7 +173,7 @@ $supported_file_extensions = implode( ', ', array_keys( $import_option_types ) )
 				</tr>
 				<tr class="pb-input-types">
 					<th scope="row">
-						<label for="import_file"><?php _e( 'File', 'pressbooks' ); ?></label>
+						<label for="import_file"><?php _e( 'Import Source', 'pressbooks' ); ?></label>
 					</th>
 					<td id="pb-file">
 						<fieldset>
@@ -195,7 +192,7 @@ $supported_file_extensions = implode( ', ', array_keys( $import_option_types ) )
 				</tbody>
 			</table>
 
-			<?php submit_button( __( 'Submit', 'pressbooks' ) ); ?>
+			<?php submit_button( __( 'Begin Import', 'pressbooks' ) ); ?>
 		</form>
 
 	<?php } ?>
