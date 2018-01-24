@@ -340,6 +340,7 @@ abstract class Import {
 		}
 	}
 
+
 	/**
 	 *  Look at $_POST and $_FILES, sets 'pressbooks_current_import' option based on submission
 	 *

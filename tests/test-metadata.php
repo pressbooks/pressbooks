@@ -222,7 +222,7 @@ class MetadataTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'does-not-exist', $val );
 
 		$val = $this->metadata->postStatiiConversion( 'draft', true );
-		$this->assertEquals( 'export-only', $val );
+		$this->assertEquals( 'private', $val );
 
 		$val = $this->metadata->postStatiiConversion( 'publish', true );
 		$this->assertEquals( 'publish', $val );

@@ -89,7 +89,7 @@ function options() {
 		<div id="icon-users" class="icon32"><br/></div>
 		<h2><?php _e( 'Pressbooks Network Managers', 'pressbooks' ); ?></h2>
 
-		<p><?php _e( 'Network administrators&rsquo; access to network admininistration menus can be restricted to leave only sites and users visible to them.', 'pressbooks' ); ?></p>
+		<p><?php _e( 'Network administrators&rsquo; access to network administration menus can be restricted to leave only sites and users visible to them.', 'pressbooks' ); ?></p>
 		<?php $superadmins->display(); ?>
 	</div>
 <?php

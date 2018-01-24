@@ -3,6 +3,11 @@
 .admin_page_pb_cloner {
   #loader {
     display: none;
-    margin-bottom: 4em;
+    vertical-align: middle;
+    margin-left: 1em;
+
+    .spinner {
+      margin: 0;
+    }
   }
 }

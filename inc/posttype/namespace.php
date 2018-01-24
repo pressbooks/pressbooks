@@ -192,16 +192,6 @@ function register_meta() {
 	];
 
 	\register_meta(
-		'post', 'pb_export', array_merge(
-			$defaults, [
-				'description' => __( 'Include in exports', 'pressbooks' ),
-				'sanitize_callback' => function( $v ) {
-					return ( $v ? 'on' : null ) ; },
-			]
-		)
-	);
-
-	\register_meta(
 		'post', 'pb_show_title', array_merge(
 			$defaults, [
 				'description' => __( 'Show title in exports', 'pressbooks' ),
@@ -263,11 +253,6 @@ function register_post_statii() {
 		'label'       => _x( 'Web Only', 'post status', 'pressbooks' ),
 		'public'      => true,
 		'label_count' => _n_noop( 'Web Only <span class="count">(%s)</span>', 'Web Only <span class="count">(%s)</span>' ),
-	] );
-	\register_post_status( 'export-only', [
-		'label'       => _x( 'Export Only', 'post status', 'pressbooks' ),
-		'public'      => true,
-		'label_count' => _n_noop( 'Export Only <span class="count">(%s)</span>', 'Export Only <span class="count">(%s)</span>' ),
 	] );
 }
 
@@ -342,7 +327,7 @@ function can_export( $post_id = 0 ) {
 	}
 
 	// Look if info exist in post status (new data model)
-	if ( in_array( get_post_status( $post_id ), [ 'export-only', 'publish' ], true ) ) {
+	if ( in_array( get_post_status( $post_id ), [ 'private', 'publish' ], true ) ) {
 		return true;
 	} else {
 		// Look if info exist in post meta (old data model)

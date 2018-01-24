@@ -527,9 +527,9 @@ class Metadata implements \JsonSerializable {
 		}
 
 		if ( $pb_export ) {
-			// When pb_export = true and post_status = draft, new post_status = export-only
+			// When pb_export = true and post_status = draft, new post_status = private
 			if ( $status === 'draft' ) {
-				return 'export-only';
+				return 'private';
 			}
 			// When pb_export = true and post_status = publish, new post_status = publish
 			if ( $status === 'publish' ) {

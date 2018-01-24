@@ -12,6 +12,9 @@ trait utilsTrait {
 		$blog_id = $this->factory()->blog->create();
 		switch_to_blog( $blog_id );
 		switch_theme( $theme );
+		if ( ! post_type_exists( 'chapter' ) ) {
+			\Pressbooks\PostType\register_post_types();
+		}
 
 		// Export = on
 		$book = \Pressbooks\Book::getInstance();

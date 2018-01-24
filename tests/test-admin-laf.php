@@ -32,9 +32,6 @@ class Admin_LafsTest extends \WP_UnitTestCase {
 
 		// Fake load the admin menu
 		$this->_book();
-		if ( ! post_type_exists( ' chapter' ) ) {
-			\Pressbooks\PostType\register_post_types();
-		}
 		$user_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
 		wp_set_current_user( $user_id );
 		include_once( ABSPATH . '/wp-admin/menu.php' );

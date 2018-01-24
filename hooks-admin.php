@@ -21,6 +21,7 @@ require( PB_PLUGIN_DIR . 'inc/admin/fonts/namespace.php' );
 require( PB_PLUGIN_DIR . 'inc/admin/laf/namespace.php' );
 require( PB_PLUGIN_DIR . 'inc/admin/metaboxes/namespace.php' );
 require( PB_PLUGIN_DIR . 'inc/admin/networkmanagers/namespace.php' );
+require( PB_PLUGIN_DIR . 'inc/admin/organize/namespace.php' );
 require( PB_PLUGIN_DIR . 'inc/admin/plugins/namespace.php' );
 
 // -------------------------------------------------------------------------------------------------------------------
@@ -153,6 +154,9 @@ add_action(
 		remove_meta_box( 'submitdiv', 'metadata', 'normal' );
 		remove_meta_box( 'submitdiv', 'author', 'normal' );
 		remove_meta_box( 'submitdiv', 'part', 'normal' );
+		remove_meta_box( 'submitdiv', 'chapter', 'normal' );
+		remove_meta_box( 'submitdiv', 'front-matter', 'normal' );
+		remove_meta_box( 'submitdiv', 'back-matter', 'normal' );
 	}
 );
 
@@ -166,6 +170,7 @@ if ( $is_book ) {
 	add_action( 'save_post_metadata', '\Pressbooks\Admin\Metaboxes\save_subject_metadata', 10, 2 );
 	add_action( 'contributor_add_form_fields', '\Pressbooks\Admin\Metaboxes\contributor_add_form' );
 	add_action( 'contributor_edit_form_fields', '\Pressbooks\Admin\Metaboxes\contributor_edit_form' );
+	add_action( 'save_post', '\Pressbooks\Admin\Metaboxes\publish_fields_save', 10 , 3 );
 	add_action( 'init', '\Pressbooks\Metadata\register_contributor_meta' );
 	add_action( 'create_term', '\Pressbooks\Admin\Metaboxes\save_contributor_meta', 10, 3 );
 	add_action( 'edit_term', '\Pressbooks\Admin\Metaboxes\save_contributor_meta', 10, 3 );
@@ -192,13 +197,10 @@ if ( $is_book ) {
 // -------------------------------------------------------------------------------------------------------------------
 
 // Book Organize Page
-add_action( 'wp_ajax_pb_update_chapter', '\Pressbooks\Book::updateChapter' );
-add_action( 'wp_ajax_pb_update_front_matter', '\Pressbooks\Book::updateFrontMatter' );
-add_action( 'wp_ajax_pb_update_back_matter', '\Pressbooks\Book::updateBackMatter' );
-add_action( 'wp_ajax_pb_update_export_options', '\Pressbooks\Book::updateExportOptions' );
+add_action( 'wp_ajax_pb_reorder', '\Pressbooks\Admin\Organize\reorder' );
+add_action( 'wp_ajax_pb_update_post_visibility', '\Pressbooks\Admin\Organize\update_post_visibility' );
+add_action( 'wp_ajax_pb_update_post_title_visibility', '\Pressbooks\Admin\Organize\update_post_title_visibility' );
 add_action( 'wp_ajax_pb_update_word_count_for_export', '\Pressbooks\Book::ajaxWordCount' );
-add_action( 'wp_ajax_pb_update_privacy_options', '\Pressbooks\Book::updatePrivacyOptions' );
-add_action( 'wp_ajax_pb_update_show_title_options', '\Pressbooks\Book::updateShowTitleOptions' );
 add_action( 'wp_ajax_pb_update_global_privacy_options', '\Pressbooks\Book::updateGlobalPrivacyOptions' );
 // Book Information Page
 add_action( 'wp_ajax_pb_delete_cover_image', '\Pressbooks\Admin\Metaboxes\delete_cover_image' );

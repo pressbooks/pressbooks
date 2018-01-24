@@ -99,12 +99,12 @@ class GlobalOptions extends \Pressbooks\Options {
 
 			add_settings_field(
 				'pressbooks_global_typography',
-				__( 'Language Support', 'pressbooks' ),
+				__( 'Language & Script Support', 'pressbooks' ),
 				[ $this, 'renderLanguagesField' ],
 				$_page,
 				$_section,
 				[
-					__( 'Include fonts to support the following languages:', 'pressbooks' ),
+					__( 'Include fonts to support the following languages and scripts:', 'pressbooks' ),
 				]
 			);
 
