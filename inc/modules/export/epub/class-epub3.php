@@ -7,6 +7,7 @@
 
 namespace Pressbooks\Modules\Export\Epub;
 
+use Pressbooks\HtmLawed;
 use Pressbooks\Sanitize;
 use function \Pressbooks\Sanitize\sanitize_xml_attribute;
 use function \Pressbooks\Utility\debug_error_log;
@@ -306,7 +307,7 @@ class Epub3 extends Epub201 {
 			$GLOBALS['hl_Ids'] = $this->fixme;
 		}
 
-		$html = \Pressbooks\HtmLawed::filter( $html, $config, $spec );
+		$html = HtmLawed::filter( $html, $config, $spec );
 
 		return $html;
 	}

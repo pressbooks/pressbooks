@@ -12,6 +12,8 @@ use Pressbooks\Book;
 
 class Docx extends Import {
 
+	const TYPE_OF = 'docx';
+
 	/**
 	 * @var \ZipArchive
 	 */
@@ -642,8 +644,9 @@ class Docx extends Import {
 
 		$option = [
 			'file' => $upload['file'],
+			'url' => $upload['url'] ?? null,
 			'file_type' => $upload['type'],
-			'type_of' => 'docx',
+			'type_of' => self::TYPE_OF,
 			'chapters' => [],
 		];
 

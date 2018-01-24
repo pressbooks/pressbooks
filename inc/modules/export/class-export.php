@@ -342,7 +342,6 @@ abstract class Export {
 	 * Create a temporary directory, no trailing slash!
 	 *
 	 * @return string
-	 * @throws \Exception
 	 */
 	protected function createTmpDir() {
 
@@ -350,7 +349,7 @@ abstract class Export {
 		@unlink( $temp_file ); // @codingStandardsIgnoreLine
 		mkdir( $temp_file );
 		if ( ! is_dir( $temp_file ) ) {
-			throw new \Exception( 'Could not create temporary directory.' );
+			return '';
 
 		}
 
@@ -469,11 +468,17 @@ abstract class Export {
 	 * @param array $vars (optional)
 	 *
 	 * @return string
-	 * @throws \Exception
 	 */
 	protected function loadTemplate( $path, array $vars = [] ) {
-
-		return \Pressbooks\Utility\template( $path, $vars );
+		try {
+			return \Pressbooks\Utility\template( $path, $vars );
+		} catch ( \Exception $e ) {
+			if ( WP_DEBUG ) {
+				return "File not found: {$path}";
+			} else {
+				return '';
+			}
+		}
 	}
 
 
@@ -485,19 +490,7 @@ abstract class Export {
 	 * @return string
 	 */
 	static function mimeType( $file ) {
-
-		if ( function_exists( 'finfo_open' ) ) {
-			$finfo = finfo_open( FILEINFO_MIME );
-			$mime = finfo_file( $finfo, $file );
-			finfo_close( $finfo );
-		} elseif ( function_exists( 'mime_content_type' ) ) {
-			$mime = @mime_content_type( $file ); // Suppress deprecated message @codingStandardsIgnoreLine
-		} else {
-			exec( 'file -i -b ' . escapeshellarg( $file ), $output );
-			$mime = $output[0];
-		}
-
-		return $mime;
+		return \Pressbooks\Media\mime_type( $file );
 	}
 
 

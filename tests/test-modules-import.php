@@ -81,10 +81,45 @@ class Modules_ImportTest extends \WP_UnitTestCase {
 		$this->assertInstanceOf( \WP_Term::class, $term );
 
 		$struct = \Pressbooks\Book::getBookStructure();
-		$this->assertEquals( 'CHAPTER I', $struct['part'][1]['chapters'][0]['post_title'] );
-		$this->assertEquals( 'CHAPTER II', $struct['part'][1]['chapters'][1]['post_title'] );
-		$this->assertEquals( 'CHAPTER III', $struct['part'][1]['chapters'][2]['post_title'] );
+		$this->assertEquals( 'CHAPTER I', $struct['part'][2]['chapters'][0]['post_title'] );
+		$this->assertEquals( 'CHAPTER II', $struct['part'][2]['chapters'][1]['post_title'] );
+		$this->assertEquals( 'CHAPTER III', $struct['part'][2]['chapters'][2]['post_title'] );
 	}
 
+
+
+	public function test_Api_Api_SanityCheck() {
+
+		$this->_setupBookApi();
+		$this->_openTextbook();
+		$source = home_url();
+		$this->_book();
+
+		$user_id = $this->factory()->user->create( [ 'role' => 'administrator' ] ); // TODO: Why doesn't contributor work?
+		wp_set_current_user( $user_id );
+
+		// Import
+
+		$importer = new \Pressbooks\Modules\Import\Api\Api();
+		$this->assertTrue( $importer->setCurrentImportOption( [ 'file' => '', 'url' => $source, 'type' => '' ] ) );
+		$options = get_option( 'pressbooks_current_import' );
+		$options['default_post_status'] = 'publish';
+		$post = [];
+		foreach ( $options['chapters'] as $k => $v ) {
+			$post[ $k ] = [
+				'import' => 1,
+				'type' => $options['post_types'][ $k ],
+			];
+		}
+		$_POST['chapters'] = $post;
+
+		$this->assertTrue( $importer->import( $options ) );
+
+		$struct = \Pressbooks\Book::getBookStructure();
+
+		$this->assertTrue( count( $struct['back-matter'] ) > 1 );
+		$this->assertTrue( count( $struct['front-matter'] ) > 1 );
+
+	}
 
 }

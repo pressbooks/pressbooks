@@ -12,6 +12,8 @@ use Pressbooks\Book;
 
 class Odt extends Import {
 
+	const TYPE_OF = 'odt';
+
 	/**
 	 * @var \ZipArchive
 	 */
@@ -204,7 +206,6 @@ class Odt extends Import {
 	 * @see media_handle_sideload
 	 *
 	 * @return string filename
-	 * @throws \Exception
 	 */
 	protected function fetchAndSaveUniqueImage( $href ) {
 
@@ -315,8 +316,9 @@ class Odt extends Import {
 
 		$option = [
 			'file' => $upload['file'],
+			'url' => $upload['url'] ?? null,
 			'file_type' => $upload['type'],
-			'type_of' => 'odt',
+			'type_of' => self::TYPE_OF,
 			'chapters' => [],
 		];
 

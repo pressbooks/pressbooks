@@ -83,4 +83,12 @@ class MediaTest extends \WP_UnitTestCase {
 		$this->assertEquals( $return['post_id'], 42 );
 	}
 
+	public function test_mime_type() {
+		$mime = \Pressbooks\Media\mime_type( __DIR__ . '/data/htmlbook.html' );
+		$this->assertContains( 'html', $mime );
+
+		$mime = \Pressbooks\Media\mime_type( __DIR__ . '/data/mountains.jpg' );
+		$this->assertContains( 'jpeg', $mime );
+	}
+
 }

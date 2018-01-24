@@ -10,10 +10,13 @@
 namespace Pressbooks\Modules\Export\Epub;
 
 use Masterminds\HTML5;
+use Pressbooks\Book;
+use Pressbooks\Contributors;
 use Pressbooks\Modules\Export\Export;
 use Pressbooks\Container;
 use Pressbooks\Sanitize;
 use function \Pressbooks\Sanitize\sanitize_xml_attribute;
+use Pressbooks\Taxonomy;
 use function Pressbooks\Utility\oxford_comma_explode;
 use function \Pressbooks\Utility\str_ends_with;
 use function \Pressbooks\Utility\debug_error_log;
@@ -184,12 +187,12 @@ class Epub201 extends Export {
 	protected $extraCss = null;
 
 	/**
-	 * @var \Pressbooks\Taxonomy
+	 * @var Taxonomy
 	 */
 	protected $taxonomy;
 
 	/**
-	 * @var \Pressbooks\Contributors
+	 * @var Contributors
 	 */
 	protected $contributors;
 
@@ -206,8 +209,8 @@ class Epub201 extends Export {
 
 		// Some defaults
 
-		$this->taxonomy = \Pressbooks\Taxonomy::init();
-		$this->contributors = new \Pressbooks\Contributors();
+		$this->taxonomy = Taxonomy::init();
+		$this->contributors = new Contributors();
 
 		if ( ! class_exists( '\PclZip' ) ) {
 			require_once( ABSPATH . 'wp-admin/includes/class-pclzip.php' );
@@ -265,8 +268,8 @@ class Epub201 extends Export {
 
 		// Convert
 
-		$metadata = \Pressbooks\Book::getBookInformation();
-		$book_contents = $this->preProcessBookContents( \Pressbooks\Book::getBookContents() );
+		$metadata = Book::getBookInformation();
+		$book_contents = $this->preProcessBookContents( Book::getBookContents() );
 
 		// Set two letter language code
 		if ( isset( $metadata['pb_language'] ) ) {
@@ -508,8 +511,6 @@ class Epub201 extends Export {
 
 	/**
 	 * Create a temporary directory
-	 *
-	 * @throws \Exception
 	 */
 	protected function deleteTmpDir() {
 
@@ -1199,10 +1200,10 @@ class Epub201 extends Export {
 			$author = $this->contributors->get( $front_matter_id, 'pb_authors' );
 
 			if ( \Pressbooks\Modules\Export\Export::isParsingSubsections() === true ) {
-				$sections = \Pressbooks\Book::getSubsections( $front_matter_id );
+				$sections = Book::getSubsections( $front_matter_id );
 
 				if ( $sections ) {
-					$content = \Pressbooks\Book::tagSubsections( $content, $front_matter_id );
+					$content = Book::tagSubsections( $content, $front_matter_id );
 				}
 			}
 
@@ -1371,10 +1372,10 @@ class Epub201 extends Export {
 				$author = $this->contributors->get( $chapter_id, 'pb_authors' );
 
 				if ( \Pressbooks\Modules\Export\Export::isParsingSubsections() === true ) {
-					$sections = \Pressbooks\Book::getSubsections( $chapter_id );
+					$sections = Book::getSubsections( $chapter_id );
 
 					if ( $sections ) {
-						$content = \Pressbooks\Book::tagSubsections( $content, $chapter_id );
+						$content = Book::tagSubsections( $content, $chapter_id );
 					}
 				}
 
@@ -1604,10 +1605,10 @@ class Epub201 extends Export {
 			$author = $this->contributors->get( $back_matter_id, 'pb_authors' );
 
 			if ( \Pressbooks\Modules\Export\Export::isParsingSubsections() === true ) {
-				$sections = \Pressbooks\Book::getSubsections( $back_matter_id );
+				$sections = Book::getSubsections( $back_matter_id );
 
 				if ( $sections ) {
-					$content = \Pressbooks\Book::tagSubsections( $content, $back_matter_id );
+					$content = Book::tagSubsections( $content, $back_matter_id );
 				}
 			}
 
@@ -1772,7 +1773,7 @@ class Epub201 extends Export {
 			$html .= '</a>';
 
 			if ( \Pressbooks\Modules\Export\Export::isParsingSubsections() === true ) {
-				$sections = \Pressbooks\Book::getSubsections( $v['ID'] );
+				$sections = Book::getSubsections( $v['ID'] );
 				if ( $sections ) {
 					$html .= '<ul class="sections">';
 					foreach ( $sections as $id => $title ) {
@@ -2001,7 +2002,11 @@ class Epub201 extends Export {
 		if ( $this->compressImages ) {
 			$format = explode( '.', $filename );
 			$format = strtolower( end( $format ) ); // Extension
-			\Pressbooks\Image\resize_down( $format, $tmp_file );
+			try {
+				\Pressbooks\Image\resize_down( $format, $tmp_file );
+			} catch ( \Exception $e ) {
+				return '';
+			}
 		}
 
 		// Check for duplicates, save accordingly
@@ -2236,7 +2241,7 @@ class Epub201 extends Export {
 
 		static $lookup = false; // Cheap cache
 		if ( false === $lookup ) {
-			$lookup = \Pressbooks\Book::getBookStructure();
+			$lookup = Book::getBookStructure();
 		}
 
 		if ( 'part' !== $posttype && ! isset( $lookup['__export_lookup'][ $slug ] ) ) {
