@@ -23,7 +23,7 @@ if ( isset( $ebook_options['ebook_start_point'] ) && ! empty( $ebook_options['eb
 }
 ?>
 
-<div class="wrap">
+<div class="wrap<?php echo ( $can_edit_others_posts ) ? ' allow-bulk-operations' : ''; ?>">
 	<div aria-live="assertive" role="alert" class="visually-hidden">
 		<span class="spinner"></span>
 		<p class="message"></p>
@@ -118,9 +118,9 @@ if ( isset( $ebook_options['ebook_start_point'] ) && ! empty( $ebook_options['eb
 							?>
 								<th><?php _e( 'Comments', 'pressbooks' ); ?></th>
 							<?php endif; ?>
-							<th id="chapter_web_visibility" role="button"><?php _e( 'Show in Web', 'pressbooks' ); ?></th>
-							<th id="chapter_export_visibility" role="button"><?php _e( 'Show in Exports', 'pressbooks' ); ?></th>
-							<th id="chapter_show_title" role="button"><?php _e( 'Show Title', 'pressbooks' ); ?></th>
+							<th id="part_<?php echo $part['ID']; ?>_chapter_web_visibility" role="button"><?php _e( 'Show in Web', 'pressbooks' ); ?></th>
+							<th id="part_<?php echo $part['ID']; ?>_chapter_export_visibility" role="button"><?php _e( 'Show in Exports', 'pressbooks' ); ?></th>
+							<th id="part_<?php echo $part['ID']; ?>_chapter_show_title" role="button"><?php _e( 'Show Title', 'pressbooks' ); ?></th>
 						</tr>
 					</thead>
 
@@ -208,7 +208,7 @@ endif;
 								<input class="web_visibility" type="checkbox" data-id="<?php echo $content['ID']; ?>" name="web_visibility_[<?php echo $content['ID']; ?>]" id="web_visibility_<?php echo $content['ID']; ?>" <?php checked( true, $visibility['web'] ); ?> <?php echo ( $can_publish ) ? '' : 'disabled'; ?>>
 								<label for="web_visibility_<?php echo $content['ID']; ?>"><?php _e( 'Show in Web', 'pressbooks' ); ?></label>
 							</td>
-							<td class="visibility column-exports">
+							<td class="visibility column-export">
 								<input class="export_visibility" type="checkbox" data-id="<?php echo $content['ID']; ?>" name="export_visibility_[<?php echo $content['ID']; ?>]" id="export_visibility_<?php echo $content['ID']; ?>" <?php checked( true, $visibility['export'] ); ?> <?php echo ( $can_publish ) ? '' : 'disabled'; ?>>
 								<label for="export_visibility_<?php echo $content['ID']; ?>"><?php _e( 'Show in Exports', 'pressbooks' ); ?></label>
 							</td>
@@ -257,9 +257,9 @@ endif;
 					<?php if ( false === $disable_comments ) : ?>
 					<th><?php _e( 'Comments', 'pressbooks' ); ?></th>
 					<?php endif; ?>
-					<th role="button"><?php _e( 'Show in Web', 'pressbooks' ); ?></th>
-					<th role="button"><?php _e( 'Show in Exports', 'pressbooks' ); ?></th>
-					<th role="button"><?php _e( 'Show Title', 'pressbooks' ); ?></th>
+					<th role="button" id="<?php echo $slug; ?>_web_visibility"><?php _e( 'Show in Web', 'pressbooks' ); ?></th>
+					<th role="button" id="<?php echo $slug; ?>_export_visibility"><?php _e( 'Show in Exports', 'pressbooks' ); ?></th>
+					<th role="button" id="<?php echo $slug; ?>_show_title"><?php _e( 'Show Title', 'pressbooks' ); ?></th>
 				</tr>
 			</thead>
 
@@ -345,7 +345,7 @@ endif;
 						<input class="web_visibility" type="checkbox" data-id="<?php echo $content['ID']; ?>" name="web_visibility_[<?php echo $content['ID']; ?>]" id="web_visibility_<?php echo $content['ID']; ?>" <?php checked( true, $visibility['web'] ); ?> <?php echo ( $can_publish ) ? '' : 'disabled'; ?>>
 						<label for="web_visibility_<?php echo $content['ID']; ?>"><?php _e( 'Show in Web', 'pressbooks' ); ?></label>
 					</td>
-					<td class="export column-exports">
+					<td class="export column-export">
 						<input class="export_visibility" type="checkbox" data-id="<?php echo $content['ID']; ?>" name="export_visibility_[<?php echo $content['ID']; ?>]" id="export_visibility_<?php echo $content['ID']; ?>" <?php checked( true, $visibility['export'] ); ?> <?php echo ( $can_publish ) ? '' : 'disabled'; ?>>
 						<label for="export_visibility_<?php echo $content['ID']; ?>"><?php _e( 'Show in Exports', 'pressbooks' ); ?></label>
 					</td>

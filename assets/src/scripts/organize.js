@@ -6,6 +6,7 @@ let $ = window.jQuery;
 
 let pb = {
 	organize: {
+		bulkToggle:      [],
 		oldParent:       null,
 		newParent:       null,
 		oldOrder:        null,
@@ -54,7 +55,7 @@ function showModal( item ) {
 	}
 	alert.children( 'p' ).text( alertMessage );
 	alert.addClass( 'loading-content' ).removeClass( 'visually-hidden' );
-	$.blockUI( { message: $( alert ) } );
+	$.blockUI( { message: $( alert ), baseZ: 100000 } );
 }
 
 /**
@@ -304,13 +305,13 @@ function updateTitleVisibility( ids, postType, showTitle ) {
 
 $( document ).ready( () => {
 	// Initialize jQuery.sortable()
-	$( 'table#front-matter' )
+	$( '.allow-bulk-operations #front-matter' )
 		.sortable( pb.organize.sortableOptions )
 		.disableSelection();
-	$( 'table.chapters' )
+	$( '.allow-bulk-operations table.chapters' )
 		.sortable( pb.organize.chapterOptions )
 		.disableSelection();
-	$( 'table#back-matter' )
+	$( '.allow-bulk-operations table#back-matter' )
 		.sortable( pb.organize.sortableOptions )
 		.disableSelection();
 
@@ -428,30 +429,61 @@ $( document ).ready( () => {
 		}
 	} );
 
-	// TODO Handle bulk actions.
-	// let pbOrganizeTdToggle = [];
-	// $( 'table thead th' ).on( 'click', event => {
-	// 	let tdIndex = $( this ).index() + 1;
-	// 	let tableIndex = $( this )
-	// 		.parents( 'table' )
-	// 		.index();
-	// 	let i = tableIndex + '_' + tdIndex;
-	// 	if ( pbOrganizeTdToggle[i] ) {
-	// 		$( this )
-	// 			.parents( 'table' )
-	// 			.find( 'tr td:nth-of-type(' + tdIndex + ')' )
-	// 			.find( 'input[type=checkbox]:checked' )
-	// 			.click();
-	// 		pbOrganizeTdToggle[i] = false;
-	// 	} else {
-	// 		$( this )
-	// 			.parents( 'table' )
-	// 			.find( 'tr td:nth-of-type(' + tdIndex + ')' )
-	// 			.find( 'input[type=checkbox]:not(:checked)' )
-	// 			.click();
-	// 		pbOrganizeTdToggle[i] = true;
-	// 	}
-	// } );
+	$( '.allow-bulk-operations table thead th[id$="show_title"]' ).on(
+		'click',
+		event => {
+			let id = $( event.target ).attr( 'id' );
+			id = id.replace( '-', '' );
+			let table = $( event.target ).parents( 'table' );
+			let postType = table.attr( 'id' ).split( '_' )[0];
+			if ( postType === 'part' ) {
+				postType = 'chapter';
+			}
+			let ids = getIdsInTable( table );
+			if ( pb.organize.bulkToggle[id] ) {
+				table
+					.find( 'tr td.column-showtitle input[type="checkbox"]' )
+					.prop( 'checked', false );
+				pb.organize.bulkToggle[id] = false;
+				updateTitleVisibility( ids.join(), postType, '' );
+			} else {
+				table
+					.find( 'tr td.column-showtitle input[type="checkbox"]' )
+					.prop( 'checked', true );
+				pb.organize.bulkToggle[id] = true;
+				updateTitleVisibility( ids.join(), postType, 'on' );
+			}
+		}
+	);
+
+	$( '.allow-bulk-operations table thead th[id$="visibility"]' ).on(
+		'click',
+		event => {
+			let id = $( event.target ).attr( 'id' );
+			id = id.replace( '-', '' );
+			let format = id.split( '_' );
+			format = format[format.length - 2];
+			let table = $( event.target ).parents( 'table' );
+			let postType = table.attr( 'id' ).split( '_' )[0];
+			if ( postType === 'part' ) {
+				postType = 'chapter';
+			}
+			let ids = getIdsInTable( table );
+			if ( pb.organize.bulkToggle[id] ) {
+				table
+					.find( `tr td.column-${format} input[type=checkbox]` )
+					.prop( 'checked', false );
+				pb.organize.bulkToggle[id] = false;
+				updateVisibility( ids.join(), postType, format, 0 );
+			} else {
+				table
+					.find( `tr td.column-${format} input[type="checkbox"]` )
+					.prop( 'checked', true );
+				pb.organize.bulkToggle[id] = true;
+				updateVisibility( ids.join(), postType, format, 1 );
+			}
+		}
+	);
 
 	// Warn of incomplete AJAX
 	$( window ).on( 'beforeunload', function () {
