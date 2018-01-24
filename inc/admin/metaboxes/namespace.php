@@ -798,12 +798,12 @@ function status_visibility_box( $post ) {
 	$revs = count( $revisions );
 	$latest_rev = array_shift( $revisions );
 
-	if ( in_array( $post->post_status, [ 'web-only', 'publish' ], true ) || $action === 'add' ) {
+	if ( in_array( $post->post_status, [ 'web-only', 'publish' ], true ) || $action === 'add' && $can_publish ) {
 		$show_in_web = 1;
 	} else {
 		$show_in_web = 0;
 	}
-	if ( in_array( $post->post_status, [ 'private', 'publish' ], true ) || $action === 'add' ) {
+	if ( in_array( $post->post_status, [ 'private', 'publish' ], true ) || $action === 'add' && $can_publish ) {
 		$show_in_exports = 1;
 	} else {
 		$show_in_exports = 0;
@@ -830,11 +830,11 @@ function status_visibility_box( $post ) {
 			</div>
 			<div class="clear"></div>
 			<p>
-				<input type="checkbox" name="web_visibility" id="web_visibility" value="1" <?php checked( $show_in_web, 1 ); ?>>
+				<input type="checkbox" name="web_visibility" id="web_visibility" value="1" <?php checked( $show_in_web, 1 ); ?><?php echo ( $can_publish ) ? '' : ' disabled'; ?>>
 				<label for="web_visibility"><?php _e( 'Show in Web', 'pressbooks' ); ?>
 			</p>
 			<p>
-				<input type="checkbox" name="export_visibility" id="export_visibility" value="1" <?php checked( $show_in_exports, 1 ); ?>>
+				<input type="checkbox" name="export_visibility" id="export_visibility" value="1" <?php checked( $show_in_exports, 1 ); ?><?php echo ( $can_publish ) ? '' : ' disabled'; ?>>
 				<label for="export_visibility"><?php _e( 'Show in Exports', 'pressbooks' ); ?>
 			</p>
 			<p>
@@ -894,12 +894,10 @@ function status_visibility_box( $post ) {
 		<span class="spinner"></span>
 		<?php
 		if ( $action === 'add' ) {
-			if ( $can_publish ) :
-				?>
+			?>
 				<input name="original_publish" type="hidden" id="original_publish" value="<?php esc_attr_e( 'Publish' ); ?>" />
 				<?php submit_button( __( 'Create' ), 'primary large', 'publish', false ); ?>
 			<?php
-			endif;
 		} else {
 		?>
 				<input name="original_publish" type="hidden" id="original_publish" value="<?php esc_attr_e( 'Update' ); ?>" />
