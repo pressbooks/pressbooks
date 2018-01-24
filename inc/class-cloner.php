@@ -216,6 +216,13 @@ class Cloner {
 	}
 
 	/**
+	 * @return array
+	 */
+	public function getClonedItems() {
+		return $this->clonedItems;
+	}
+
+	/**
 	 * Clone a book in its entirety.
 	 *
 	 * @since 4.1.0

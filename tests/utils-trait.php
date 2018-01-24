@@ -20,6 +20,7 @@ trait utilsTrait {
 			if ( $key === 'front-matter' || $key === 'back-matter' ) {
 				foreach ( $section as $val ) {
 					update_post_meta( $val['ID'], 'pb_export', 'on' );
+					wp_update_post( [ 'ID' => $val['ID'], 'post_status' => 'publish' ] );
 				}
 			}
 			if ( $key === 'part' ) {
@@ -125,5 +126,48 @@ There are many maths like it but these ones are mine.
 		error_reporting( error_reporting() & ~E_WARNING ); // Suppress warnings
 	}
 
+	/**
+	 * Create CC-BY book
+	 */
+	private function _openTextbook() {
+		$this->_book();
+		update_option( 'blog_public', 1 );
+		$meta_post = ( new \Pressbooks\Metadata() )->getMetaPost();
+		update_post_meta( $meta_post->ID, 'pb_book_license', 'cc-by' );
+		wp_set_object_terms( $meta_post->ID, 'cc-by', \Pressbooks\Licensing::TAXONOMY ); // Link
+		\Pressbooks\Book::deleteBookObjectCache();
+	}
+
+	/**
+	 * @return Spy_REST_Server
+	 */
+	public function _setupBookApi() {
+
+		global $wp_rest_server;
+		$server = $wp_rest_server = new \Spy_REST_Server();
+		$this->_book();
+
+		// PHPUnit is initialized as main site, $is_book hooks are never loaded...
+		\Pressbooks\PostType\register_post_types();
+		\Pressbooks\Metadata\init_book_data_models();
+		remove_action( 'rest_api_init', '\Pressbooks\Api\init_root' );
+		add_action( 'rest_api_init', '\Pressbooks\Api\init_book' );
+		add_filter( 'rest_endpoints', 'Pressbooks\Api\hide_endpoints_from_book' );
+		add_filter( 'rest_url', 'Pressbooks\Api\fix_book_urls', 10, 2 );
+
+		do_action( 'rest_api_init' );
+		return $server;
+	}
+
+	/**
+	 * @return Spy_REST_Server
+	 */
+	public function _setupRootApi() {
+
+		global $wp_rest_server;
+		$server = $wp_rest_server = new \Spy_REST_Server;
+		do_action( 'rest_api_init' );
+		return $server;
+	}
 
 }
