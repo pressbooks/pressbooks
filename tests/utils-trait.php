@@ -16,9 +16,10 @@ trait utilsTrait {
 			\Pressbooks\PostType\register_post_types();
 		}
 
-		// Export = on
+		// Front Matter, First Part & Chapters, Back Matter
 		$book = \Pressbooks\Book::getInstance();
 		$pid = $this->_createChapter();
+		$last_part_menu_order = 0;
 		foreach ( $book::getBookStructure() as $key => $section ) {
 			if ( $key === 'front-matter' || $key === 'back-matter' ) {
 				foreach ( $section as $val ) {
@@ -28,6 +29,9 @@ trait utilsTrait {
 			}
 			if ( $key === 'part' ) {
 				foreach ( $section as $part ) {
+					if ( $part['menu_order'] > $last_part_menu_order ) {
+						$last_part_menu_order = $part['menu_order'];
+					}
 					wp_update_post( [ 'ID' => $part['ID'], 'post_content' => 'Part content...', 'post_status' => 'publish' ] );
 					if ( $pid ) {
 						wp_update_post( [ 'ID' => $pid, 'post_parent' => $part['ID'] ] );
@@ -42,15 +46,28 @@ trait utilsTrait {
 			}
 		}
 
+		// Second Part & Chapter
+		$new_post = [
+			'post_title' => 'Test Part: ' . rand(),
+			'post_type' => 'part',
+			'post_status' => 'publish',
+			'post_content' => 'Part content...',
+			'menu_order' => ( $last_part_menu_order + 1 ),
+		];
+		$pid = $this->factory()->post->create_object( $new_post );
+		$this->_createChapter( $pid );
+
 		$book::deleteBookObjectCache();
 	}
 
 	/**
-	 * Creates chapter (no associated part, is orphan)
+	 * Creates chapter
+	 *
+	 * @param int $post_parent
 	 *
 	 * @return int
 	 */
-	private function _createChapter() {
+	private function _createChapter( $post_parent = 0 ) {
 
 		$content = '<em>Kia ora tatou!</em>
 
@@ -86,6 +103,7 @@ There are many maths like it but these ones are mine.
 			'post_type' => 'chapter',
 			'post_status' => 'publish',
 			'post_content' => trim( $content ),
+			'post_parent' => $post_parent,
 		];
 		$pid = $this->factory()->post->create_object( $new_post );
 		update_post_meta( $pid, 'pb_export', 'on' );

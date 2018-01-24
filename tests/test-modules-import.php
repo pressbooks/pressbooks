@@ -81,9 +81,9 @@ class Modules_ImportTest extends \WP_UnitTestCase {
 		$this->assertInstanceOf( \WP_Term::class, $term );
 
 		$struct = \Pressbooks\Book::getBookStructure();
-		$this->assertEquals( 'CHAPTER I', $struct['part'][1]['chapters'][0]['post_title'] );
-		$this->assertEquals( 'CHAPTER II', $struct['part'][1]['chapters'][1]['post_title'] );
-		$this->assertEquals( 'CHAPTER III', $struct['part'][1]['chapters'][2]['post_title'] );
+		$this->assertEquals( 'CHAPTER I', $struct['part'][2]['chapters'][0]['post_title'] );
+		$this->assertEquals( 'CHAPTER II', $struct['part'][2]['chapters'][1]['post_title'] );
+		$this->assertEquals( 'CHAPTER III', $struct['part'][2]['chapters'][2]['post_title'] );
 	}
 
 
