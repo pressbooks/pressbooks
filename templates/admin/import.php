@@ -25,11 +25,11 @@ $custom_post_types = apply_filters( 'pb_import_custom_post_types', [] );
  * @param array $value The list of current import options in select field.
  */
 $import_option_types = apply_filters( 'pb_select_import_type', [
-	Wxr::TYPE_OF => __( 'WXR (WordPress eXtended RSS)', 'pressbooks' ),
-	Epub201::TYPE_OF => __( 'EPUB (for Nook, iBooks, Kobo etc.)', 'pressbooks' ),
-	Odt::TYPE_OF => __( 'ODT (word processing file format of OpenDocument)', 'pressbooks' ),
-	Docx::TYPE_OF => __( 'DOCX (word processing file format of Microsoft)', 'pressbooks' ),
-	Xhtml::TYPE_OF => __( 'HTML (scrape content from a URL)', 'pressbooks' ),
+	Epub201::TYPE_OF => __( 'EPUB (.epub)', 'pressbooks' ),
+	Docx::TYPE_OF => __( 'Microsoft Word (.docx)', 'pressbooks' ),
+	Odt::TYPE_OF => __( 'OpenOffice (.odt)', 'pressbooks' ),
+	Wxr::TYPE_OF => __( 'Pressbooks/WordPress XML (.wxr or .xml)', 'pressbooks' ),
+	Xhtml::TYPE_OF => __( 'Web page or Pressbooks webbook (.html or URL)', 'pressbooks' ),
 ] );
 
 $supported_file_extensions = implode( ', ', array_keys( $import_option_types ) );
