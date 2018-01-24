@@ -767,7 +767,7 @@ class Cloner {
 					if ( isset( $this->termMap[ $term_id ] ) ) {
 						// Use map
 						$section[ "$post_type-type" ][ $key ] = $this->termMap[ $term_id ];
-					} else {
+					} elseif ( empty( $this->targetBookUrl ) ) {
 						// Try to match an existing term
 						foreach ( $this->sourceBookTerms as $source_term ) {
 							if ( $source_term['id'] === $term_id ) {
