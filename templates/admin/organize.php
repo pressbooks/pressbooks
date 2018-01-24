@@ -26,7 +26,8 @@ if ( isset( $ebook_options['ebook_start_point'] ) && ! empty( $ebook_options['eb
 <div class="wrap">
 	<div aria-live="assertive" role="alert" class="visually-hidden">
 		<span class="spinner"></span>
-	<p class="message"></p></div>
+		<p class="message"></p>
+	</div>
 	<?php if ( $can_manage_options ) : ?>
 	<div id="publicize-panel" class="postbox">
 		<div class="inside">
@@ -117,9 +118,9 @@ if ( isset( $ebook_options['ebook_start_point'] ) && ! empty( $ebook_options['eb
 							?>
 								<th><?php _e( 'Comments', 'pressbooks' ); ?></th>
 							<?php endif; ?>
-							<th role="button"><?php _e( 'Show in Web', 'pressbooks' ); ?></th>
-							<th role="button"><?php _e( 'Show in Exports', 'pressbooks' ); ?></th>
-							<th role="button"><?php _e( 'Show Title', 'pressbooks' ); ?></th>
+							<th id="chapter_web_visibility" role="button"><?php _e( 'Show in Web', 'pressbooks' ); ?></th>
+							<th id="chapter_export_visibility" role="button"><?php _e( 'Show in Exports', 'pressbooks' ); ?></th>
+							<th id="chapter_show_title" role="button"><?php _e( 'Show Title', 'pressbooks' ); ?></th>
 						</tr>
 					</thead>
 
@@ -134,7 +135,7 @@ if ( isset( $ebook_options['ebook_start_point'] ) && ! empty( $ebook_options['eb
 						$can_publish = current_user_can( 'publish_post', $content['ID'] );
 						$can_delete = current_user_can( 'delete_post', $content['ID'] );
 						?>
-						<tr id="<?php echo $slug; ?>_<?php echo $content['ID']; ?>">
+						<tr id="chapter_<?php echo $content['ID']; ?>">
 							<td class="title column-title has-row-actions">
 								<div class="row-title">
 								<?php if ( $can_edit ) { ?>
@@ -349,9 +350,9 @@ endif;
 						<label for="export_visibility_<?php echo $content['ID']; ?>"><?php _e( 'Show in Exports', 'pressbooks' ); ?></label>
 					</td>
 					<td class="export column-showtitle">
-					<input class="show_title" type="checkbox" data-id="<?php echo $content['ID']; ?>" name="show_title_[<?php echo $content['ID']; ?>]" id="show_title_<?php echo $content['ID']; ?>" <?php checked( get_post_meta( $content['ID'], 'pb_show_title', true ), 'on', true ); ?> <?php echo ( $can_edit ) ? '' : 'disabled'; ?>>
-					<label for="show_title_<?php echo $content['ID']; ?>"><?php _e( 'Show Title', 'pressbooks' ); ?></label>
-		</td>
+						<input class="show_title" type="checkbox" data-id="<?php echo $content['ID']; ?>" name="show_title_[<?php echo $content['ID']; ?>]" id="show_title_<?php echo $content['ID']; ?>" <?php checked( get_post_meta( $content['ID'], 'pb_show_title', true ), 'on', true ); ?> <?php echo ( $can_edit ) ? '' : 'disabled'; ?>>
+						<label for="show_title_<?php echo $content['ID']; ?>"><?php _e( 'Show Title', 'pressbooks' ); ?></label>
+					</td>
 				</tr>
 			<?php
 			$s++;

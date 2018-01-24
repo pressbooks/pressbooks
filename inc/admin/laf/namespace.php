@@ -76,22 +76,33 @@ function replace_book_admin_menu() {
 				wp_localize_script(
 					'pb-organize', 'PB_OrganizeToken', [
 						// Ajax nonces
-						'orderNonce' => wp_create_nonce( 'pb-update-book-order' ),
+						'reorderNonce' => wp_create_nonce( 'pb-organize-reorder' ),
+						'showTitleNonce' => wp_create_nonce( 'pb-organize-showtitle' ),
+						'postVisibilityNonce' => wp_create_nonce( 'pb-organize-visibility' ),
 						'wordCountNonce' => wp_create_nonce( 'pb-update-word-count-for-export' ),
-						'privacyNonce' => wp_create_nonce( 'pb-update-book-privacy' ),
-						'updatingChapters' => __( 'Updating chapters.', 'pressbooks' ),
-						'updatingPart' => __( 'Updating part.', 'pressbooks' ),
-						'updatingFrontMatter' => __( 'Updating front matter.', 'pressbooks' ),
-						'updatingBackMatter' => __( 'Updating back matter.', 'pressbooks' ),
-						'updated' => __( 'Update complete!', 'pressbooks' ),
-						'updatedChapters' => __( 'The chapters have been successfully updated!', 'pressbooks' ),
-						'updatedPart' => __( 'The part has been successfully updated!', 'pressbooks' ),
-						'updatedFrontMatter' => __( 'The front matter has been successfully updated!', 'pressbooks' ),
-						'updatedBackMatter' => __( 'Th back matter has been successfully updated!', 'pressbooks' ),
-						'updatingChaptersFailed' => __( 'Sorry, the chapters could not be updated.', 'pressbooks' ),
-						'updatingPartFailed' => __( 'Sorry, the part could not be updated.', 'pressbooks' ),
-						'updatingFrontMatterFailed' => __( 'Sorry, the front matter could not be updated.', 'pressbooks' ),
-						'updatingBackMatterFailed' => __( 'Sorry, the back matter could not be updated.', 'pressbooks' ),
+						'bookPrivate' => __( 'private', 'pressbooks' ),
+						'bookPublic' => __( 'public', 'pressbooks' ),
+						'updating' => [
+							'book' => __( 'Updating book.', 'pressbooks' ),
+							'chapter' => __( 'Updating chapters.', 'pressbooks' ),
+							'part' => __( 'Updating part.', 'pressbooks' ),
+							'frontmatter' => __( 'Updating front matter.', 'pressbooks' ),
+							'backmatter' => __( 'Updating back matter.', 'pressbooks' ),
+						],
+						'success' => [
+							'book' => __( 'The book has been successfully updated!', 'pressbooks' ),
+							'chapter' => __( 'The chapters has been successfully updated!', 'pressbooks' ),
+							'part' => __( 'The part has been successfully updated!', 'pressbooks' ),
+							'frontmatter' => __( 'The front matter has been successfully updated!', 'pressbooks' ),
+							'backmatter' => __( 'The back matter has been successfully updated!', 'pressbooks' ),
+						],
+						'failure' => [
+							'book' => __( 'Sorry, the book could not be updated.!', 'pressbooks' ),
+							'chapter' => __( 'Sorry, the chapters could not be updated.', 'pressbooks' ),
+							'part' => __( 'Sorry, the part could not be updated.', 'pressbooks' ),
+							'frontmatter' => __( 'Sorry, the front matter could not be updated.', 'pressbooks' ),
+							'backmatter' => __( 'Sorry, the back matter could not be updated.', 'pressbooks' ),
+						],
 					]
 				);
 			}

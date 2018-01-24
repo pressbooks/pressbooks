@@ -21,6 +21,7 @@ require( PB_PLUGIN_DIR . 'inc/admin/fonts/namespace.php' );
 require( PB_PLUGIN_DIR . 'inc/admin/laf/namespace.php' );
 require( PB_PLUGIN_DIR . 'inc/admin/metaboxes/namespace.php' );
 require( PB_PLUGIN_DIR . 'inc/admin/networkmanagers/namespace.php' );
+require( PB_PLUGIN_DIR . 'inc/admin/organize/namespace.php' );
 require( PB_PLUGIN_DIR . 'inc/admin/plugins/namespace.php' );
 
 // -------------------------------------------------------------------------------------------------------------------
@@ -196,6 +197,9 @@ if ( $is_book ) {
 // -------------------------------------------------------------------------------------------------------------------
 
 // Book Organize Page
+add_action( 'wp_ajax_pb_reorder', '\Pressbooks\Admin\Organize\reorder' );
+add_action( 'wp_ajax_pb_update_post_visibility', '\Pressbooks\Admin\Organize\update_post_visibility' );
+add_action( 'wp_ajax_pb_update_post_title_visibility', '\Pressbooks\Admin\Organize\update_post_title_visibility' );
 add_action( 'wp_ajax_pb_update_word_count_for_export', '\Pressbooks\Book::ajaxWordCount' );
 add_action( 'wp_ajax_pb_update_global_privacy_options', '\Pressbooks\Book::updateGlobalPrivacyOptions' );
 // Book Information Page
@@ -226,8 +230,6 @@ if ( $is_book ) {
 			}
 		}, 10, 4
 	);
-
-	add_action( 'admin_enqueue_scripts', '\Pressbooks\API\init_client_js' );
 
 	// Init
 	add_action( 'admin_init', '\Pressbooks\Admin\Fonts\fix_missing_font_stacks' );

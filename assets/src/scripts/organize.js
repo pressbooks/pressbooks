@@ -4,61 +4,113 @@ import CountUp from 'countup.js';
 
 let $ = window.jQuery;
 
-function getRowFromAction( el ) {
-	return $( el )
-		.parent()
-		.parent()
-		.parent()
-		.parent()
-		.parent();
-}
+let pb = {
+	organize: {
+		oldParent:       null,
+		newParent:       null,
+		oldOrder:        null,
+		newOrder:        null,
+		sortableOptions: {
+			revert:      true,
+			helper:      'clone',
+			zIndex:      2700,
+			distance:    3,
+			opacity:     0.6,
+			placeholder: 'ui-state-highlight',
+			dropOnEmpty: true,
+			cursor:      'crosshair',
+			items:       'tbody > tr',
+			start:       ( event, ui ) => {
+				pb.organize.oldParent = $( ui.item )
+					.parents( 'table' )
+					.attr( 'id' );
+			},
+			stop: ( event, ui ) => {
+				pb.organize.newParent = $( ui.item )
+					.parents( 'table' )
+					.attr( 'id' );
+				reorder( $( ui.item ) );
+			},
+		},
+	},
+};
 
-function initiateModal( item ) {
+pb.organize.chapterOptions = Object.assign( pb.organize.sortableOptions, { connectWith: '.chapters' } );
+
+/**
+ * Clear a modal using jQuery.unBlockUI()
+ *
+ * @param {string | object} item
+ */
+function showModal( item ) {
 	$.blockUI.defaults.applyPlatformOpacityRules = false;
 	let alert = $( '[role="alert"]' );
 	let alertMessage;
-	if ( item.post_type === 'chapter' ) {
-		alertMessage = PB_OrganizeToken.updatingChapters;
-	} else if ( item.post_type === 'front-matter' ) {
-		alertMessage = PB_OrganizeToken.updatingFrontMatter;
-	} else if ( item.post_type === 'back-matter' ) {
-		alertMessage = PB_OrganizeToken.updatingBackMatter;
-	} else if ( item.post_type === 'part' ) {
-		alertMessage = PB_OrganizeToken.updatingPart;
+	if ( item === 'book' ) {
+		alertMessage = PB_OrganizeToken.updating.book;
+	} else {
+		let postType = item.post_type.replace( '-', '' );
+		alertMessage = PB_OrganizeToken.updating[postType];
 	}
 	alert.children( 'p' ).text( alertMessage );
 	alert.addClass( 'loading-content' ).removeClass( 'visually-hidden' );
 	$.blockUI( { message: $( alert ) } );
 }
 
-function instantiateTypeModel( item ) {
-	let model;
-	if ( item.post_type === 'chapter' ) {
-		model = new wp.api.models.Chapters( { id: item.id } );
-	} else if ( item.post_type === 'front-matter' ) {
-		model = new wp.api.models.FrontMatter( { id: item.id } );
-	} else if ( item.post_type === 'back-matter' ) {
-		model = new wp.api.models.BackMatter( { id: item.id } );
-	} else if ( item.post_type === 'part' ) {
-		model = new wp.api.models.Parts( { id: item.id } );
+/**
+ * Clear a modal using jQuery.unBlockUI()
+ *
+ * @param {string | object} item
+ * @param {string} status
+ */
+function removeModal( item, status ) {
+	let alert = $( '[role="alert"]' );
+	let alertMessage;
+
+	if ( item === 'book' ) {
+		alertMessage = PB_OrganizeToken[status].book;
+	} else {
+		let postType = item.post_type.replace( '-', '' );
+		alertMessage = PB_OrganizeToken[status][postType];
 	}
-	return model;
-}
 
-function updateParent( chapter, part ) {
-	chapter = chapter.attr( 'id' ).split( '_' );
-	chapter = chapter[chapter.length - 1];
-	part = part.attr( 'id' ).split( '_' );
-	part = part[part.length - 1];
-
-	let post = new wp.api.models.Chapters( { id: chapter } );
-	post.fetch( {
-		success: function ( model, response, options ) {
-			post.save( { part: part }, { patch: true } );
+	$.unblockUI( {
+		onUnblock: () => {
+			alert.removeClass( 'loading-content' ).addClass( 'visually-hidden' );
+			alert.children( 'p' ).text( alertMessage );
 		},
 	} );
 }
 
+/**
+ * Update word count for exportable content.
+ */
+function updateWordCountForExport() {
+	const data = {
+		action:      'pb_update_word_count_for_export',
+		_ajax_nonce: PB_OrganizeToken.wordCountNonce,
+	};
+	$.post( ajaxurl, data, function ( response ) {
+		const current_count = parseInt( $( '#wc-selected-for-export' ).text(), 10 );
+		let count_up = new CountUp(
+			'wc-selected-for-export',
+			current_count,
+			response,
+			0,
+			2.5,
+			{ separator: '' }
+		);
+		count_up.start();
+	} );
+}
+
+/**
+ * Get the table before or after the current table.
+ *
+ * @param {jQuery object} table
+ * @param {string} relationship
+ * @returns {jQuery object}
+ */
 function getAdjacentContainer( table, relationship ) {
 	if ( relationship === 'prev' ) {
 		return $( table ).prev( '[id^=part]' );
@@ -67,29 +119,47 @@ function getAdjacentContainer( table, relationship ) {
 	}
 }
 
-function updateIndex( table ) {
+/**
+ * Get data for a table row.
+ *
+ * @param {jQuery object} row
+ * @returns {object}
+ */
+function getRowData( row ) {
+	row = $( row )
+		.attr( 'id' )
+		.split( '_' );
+	const rowData = {
+		id:        row[row.length - 1],
+		post_type: row[0],
+	};
+	return rowData;
+}
+
+/**
+ * Get an array object of IDs in a table.
+ *
+ * @param {jQuery object} table
+ * @returns {array} ids
+ */
+function getIdsInTable( table ) {
+	let ids = [];
 	table
 		.children( 'tbody' )
 		.children( 'tr' )
 		.each( ( i, el ) => {
-			let item = $( el )
-				.attr( 'id' )
-				.split( '_' );
-			item = {
-				id:         item[item.length - 1],
-				post_type:  item[0],
-				menu_order: i,
-			};
-			let post = instantiateTypeModel( item );
-			post.fetch( {
-				success: function ( model, response, options ) {
-					post.save( { menu_order: item.menu_order }, { patch: true } );
-				},
-			} );
-			i++;
+			let row = getRowData( $( el ) );
+			ids.push( row.id );
 		} );
+
+	return ids;
 }
 
+/**
+ * Adjust the reorder controls throughout a table as part of a reorder operation.
+ *
+ * @param {jQuery object} table
+ */
 function updateControls( table ) {
 	table
 		.children( 'tbody' )
@@ -99,14 +169,26 @@ function updateControls( table ) {
 			let up = '<button class="move-up">Move Up</button>';
 			let down = '<button class="move-down">Move Down</button>';
 
-			if ( $( el ).is( 'tr:first-of-type' ) ) {
-				if ( table.prev( '[id^=part]' ).length ) {
+			if ( $( el ).is( 'tr:only-of-type' ) ) {
+				if (
+					table.is( '[id^=part]' ) &&
+					table.prev( '[id^=part]' ).length &&
+					table.next( '[id^=part]' ).length
+				) {
+					controls = ` | ${up} | ${down}`;
+				} else if ( table.is( '[id^=part]' ) && table.next( '[id^=part]' ).length ) {
+					controls = ` | ${down}`;
+				} else if ( table.is( '[id^=part]' ) && table.prev( '[id^=part]' ).length ) {
+					controls = ` | ${up}`;
+				}
+			} else if ( $( el ).is( 'tr:first-of-type' ) ) {
+				if ( table.is( '[id^=part]' ) && table.prev( '[id^=part]' ).length ) {
 					controls = ` | ${up} | ${down}`;
 				} else {
 					controls = ` | ${down}`;
 				}
 			} else if ( $( el ).is( 'tr:last-of-type' ) ) {
-				if ( $( table ).next( '[id^=part]' ).length ) {
+				if ( table.is( '[id^=part]' ) && table.next( '[id^=part]' ).length ) {
 					controls = ` | ${up} | ${down}`;
 				} else {
 					controls = ` | ${up}`;
@@ -124,306 +206,252 @@ function updateControls( table ) {
 		} );
 }
 
-let Pressbooks = {
-	oldPart:        null,
-	newPart:        null,
-	defaultOptions: {
-		revert:      true,
-		helper:      'clone',
-		zIndex:      2700,
-		distance:    3,
-		opacity:     0.6,
-		placeholder: 'ui-state-highlight',
-		connectWith: '.chapters',
-		dropOnEmpty: true,
-		cursor:      'crosshair',
-		items:       'tbody > tr',
-		start:       function ( index, el ) {
-			Pressbooks.oldPart = el.item.parents( 'table' ).attr( 'id' );
-		},
-		stop: function ( index, el ) {
-			Pressbooks.newPart = el.item.parents( 'table' ).attr( 'id' );
-			Pressbooks.update( el.item );
-		},
-	},
-	frontMatterOptions: {
-		revert:      true,
-		helper:      'clone',
-		zIndex:      2700,
-		distance:    3,
-		opacity:     0.6,
-		placeholder: 'ui-state-highlight',
-		dropOnEmpty: true,
-		cursor:      'crosshair',
-		items:       'tbody > tr',
-		start:       function ( index, el ) {},
-		stop:        function ( index, el ) {
-			Pressbooks.fmupdate( el.item );
-		},
-	},
-	backMatterOptions: {
-		revert:      true,
-		helper:      'clone',
-		zIndex:      2700,
-		distance:    3,
-		opacity:     0.6,
-		placeholder: 'ui-state-highlight',
-		dropOnEmpty: true,
-		cursor:      'crosshair',
-		items:       'tbody > tr',
-		start:       function ( index, el ) {},
-		stop:        function ( index, el ) {
-			Pressbooks.bmupdate( el.item );
-		},
-	},
-	update: function ( el ) {
-		initiateModal( { post_type: 'chapter' } );
-		updateParent( el, $( '#' + Pressbooks.newPart ) );
-		updateIndex( $( '#' + Pressbooks.oldPart ) );
-		updateIndex( $( '#' + Pressbooks.newPart ) );
-		updateControls( $( '#' + Pressbooks.oldPart ) );
-		updateControls( $( '#' + Pressbooks.newPart ) );
-	},
+/**
+ * Reorder the contents of a table, optionally moving the target row to a new table.
+ *
+ * @param {jQuery object} row
+ * @param {jQuery object} source
+ * @param {jQuery object} destination
+ */
+function reorder( row ) {
+	let item = getRowData( row );
 
-	fmupdate: function ( el ) {
-		initiateModal( { post_type: 'front-matter' } );
-		updateIndex(
-			$( el )
-				.parent()
-				.parent()
-		);
-		updateControls(
-			$( el )
-				.parent()
-				.parent()
-		);
-	},
+	$.ajax( {
+		url:  ajaxurl,
+		type: 'POST',
+		data: {
+			action:      'pb_reorder',
+			id:          item.id,
+			old_order:   $( `#${pb.organize.oldParent}` ).sortable( 'serialize' ),
+			new_order:   $( `#${pb.organize.newParent}` ).sortable( 'serialize' ),
+			old_parent:  pb.organize.oldParent.replace( /^part_([0-9]+)$/i, '$1' ),
+			new_parent:  pb.organize.newParent.replace( /^part_([0-9]+)$/i, '$1' ),
+			_ajax_nonce: PB_OrganizeToken.reorderNonce,
+		},
+		beforeSend: () => {
+			showModal( item );
+			if ( pb.organize.oldParent !== pb.organize.newParent ) {
+				updateControls( $( `#${pb.organize.oldParent}` ) );
+			}
+			updateControls( $( `#${pb.organize.newParent}` ) );
+		},
+		success: () => {
+			removeModal( item, 'success' );
+		},
+		error: () => {
+			removeModal( item, 'failure' );
+		},
+	} );
+}
 
-	bmupdate: function ( el ) {
-		initiateModal( { post_type: 'back-matter' } );
-		updateIndex(
-			$( el )
-				.parent()
-				.parent()
-		);
-		updateControls(
-			$( el )
-				.parent()
-				.parent()
-		);
-	},
-};
+/**
+ * Update post status for individual or multiple posts.
+ *
+ * @param {string} post_id
+ */
+function updateVisibility( ids, postType, output, visibility ) {
+	let data = {
+		action:      'pb_update_post_visibility',
+		post_ids:    ids,
+		_ajax_nonce: PB_OrganizeToken.postVisibilityNonce,
+	};
 
-// --------------------------------------------------------------------------------------------------------------------
+	$.ajax( {
+		url:        ajaxurl,
+		type:       'POST',
+		data:       Object.assign( data, { [output]: visibility } ),
+		beforeSend: () => {
+			showModal( { post_type: postType } );
+		},
+		success: response => {
+			removeModal( { post_type: postType }, 'success' );
+			updateWordCountForExport();
+		},
+		error: () => {
+			removeModal( { post_type: postType }, 'failure' );
+		},
+	} );
+}
 
-jQuery( document ).ready( function ( $ ) {
-	// Init drag & drop
-	$( 'table.chapters' )
-		.sortable( Pressbooks.defaultOptions )
-		.disableSelection();
+/**
+ * Update title visibility for individual or multiple posts.
+ *
+ * @param {string} ids Comma separated post IDs.
+ * @param {string} postType
+ * @param {bool} showTitle
+ */
+function updateTitleVisibility( ids, postType, showTitle ) {
+	$.ajax( {
+		url:  ajaxurl,
+		type: 'POST',
+		data: {
+			action:      'pb_update_post_title_visibility',
+			post_ids:    ids,
+			show_title:  showTitle,
+			_ajax_nonce: PB_OrganizeToken.showTitleNonce,
+		},
+		beforeSend: () => {
+			showModal( { post_type: postType } );
+		},
+		success: response => {
+			removeModal( { post_type: postType }, 'success' );
+		},
+		error: () => {
+			removeModal( { post_type: postType }, 'failure' );
+		},
+	} );
+}
+
+$( document ).ready( () => {
+	// Initialize jQuery.sortable()
 	$( 'table#front-matter' )
-		.sortable( Pressbooks.frontMatterOptions )
+		.sortable( pb.organize.sortableOptions )
+		.disableSelection();
+	$( 'table.chapters' )
+		.sortable( pb.organize.chapterOptions )
 		.disableSelection();
 	$( 'table#back-matter' )
-		.sortable( Pressbooks.backMatterOptions )
+		.sortable( pb.organize.sortableOptions )
 		.disableSelection();
 
-	// Public/Private form at top of page
-	$( 'input[name=blog_public]' ).change( function () {
-		let blog_public;
-		if ( parseInt( this.value, 10 ) === 1 ) {
-			blog_public = 1;
+	// Handle Global Privacy form changes.
+	$( 'input[name=blog_public]' ).change( event => {
+		const publicizeAlert = $( '.publicize-alert' );
+		const publicizeAlertText = $( '.publicize-alert > span' );
+		let blogPublic;
+		if ( parseInt( event.currentTarget.value, 10 ) === 1 ) {
+			blogPublic = 1;
 		} else {
-			blog_public = 0;
+			blogPublic = 0;
 		}
+
 		$.ajax( {
 			url:  ajaxurl,
 			type: 'POST',
 			data: {
 				action:      'pb_update_global_privacy_options',
-				blog_public: blog_public,
+				blog_public: blogPublic,
 				_ajax_nonce: PB_OrganizeToken.privacyNonce,
 			},
-			beforeSend: function () {
-				if ( blog_public === 0 ) {
-					$( 'h4.publicize-alert > span' ).text( PB_OrganizeToken.private );
-					$( '.publicize-alert' )
-						.removeClass( 'public' )
-						.addClass( 'private' );
-				} else if ( blog_public === 1 ) {
-					$( 'h4.publicize-alert > span' ).text( PB_OrganizeToken.public );
-					$( '.publicize-alert' )
-						.removeClass( 'private' )
-						.addClass( 'public' );
+			beforeSend: () => {
+				showModal( 'book' );
+			},
+			success: () => {
+				if ( blogPublic === 0 ) {
+					publicizeAlert.removeClass( 'public' ).addClass( 'private' );
+					publicizeAlertText.text( PB_OrganizeToken.bookPrivate );
+				} else if ( blogPublic === 1 ) {
+					publicizeAlert.removeClass( 'private' ).addClass( 'public' );
+					publicizeAlertText.text( PB_OrganizeToken.bookPublic );
 				}
+				removeModal( 'book', 'success' );
 			},
-			error: function ( xhr, ajaxOptions, thrownError ) {
-				// TODO, catch error
+			error: () => {
+				removeModal( 'book', 'failure' );
 			},
 		} );
 	} );
 
-	// Chapter switches
-	$( '.web_visibility, .export_visibility' ).change( event => {
-		let row = $( event.target )
-			.parent()
-			.parent();
-		let item = row.attr( 'id' ).split( '_' );
-		item = {
-			id:        item[item.length - 1],
-			post_type: item[0],
-		};
+	// Handle visibility changes.
+	$( '.web_visibility, .export_visibility' ).change( function () {
+		let row = $( this ).parents( 'tr' );
+		let item = getRowData( row );
+		let output;
+		let visibility = 0;
 
-		initiateModal( item );
-		let export_visibility = $( `#export_visibility_${item.id}` );
-		let web_visibility = $( `#web_visibility_${item.id}` );
-
-		let postStatus;
-
-		if ( web_visibility.is( ':checked' ) ) {
-			if ( export_visibility.is( ':checked' ) ) {
-				postStatus = 'publish';
-			} else {
-				postStatus = 'web-only';
-			}
-		} else {
-			if ( export_visibility.is( ':checked' ) ) {
-				postStatus = 'private';
-			} else {
-				postStatus = 'draft';
-			}
+		if ( $( this ).is( ':checked' ) ) {
+			visibility = 1;
 		}
 
-		let post = instantiateTypeModel( item );
-		post.fetch( {
-			success: function ( model, response, options ) {
-				post.save(
-					{ status: postStatus },
-					{
-						patch:   true,
-						success: function () {
-							updateWordCountForExport();
-						},
-					}
-				);
-			},
-		} );
-	} );
-
-	$( '.show_title' ).change( function ( event ) {
-		let target = $( event.target )
-			.parent()
-			.parent()
-			.attr( 'id' );
-		target = target.split( '_' );
-		target = {
-			id:        target[target.length - 1],
-			post_type: target[0],
-		};
-
-		initiateModal( target );
-
-		let showtitle = '';
-
-		if ( $( event.target ).is( ':checked' ) ) {
-			showtitle = 'on';
+		if ( $( this ).is( '[id^="export_visibility"]' ) ) {
+			output = 'export';
+		} else if ( $( this ).is( '[id^="web_visibility"]' ) ) {
+			output = 'web';
 		}
 
-		let post = instantiateTypeModel( target );
-		post.fetch( {
-			success: function ( model, response, options ) {
-				post.save( { meta: { pb_show_title: showtitle } }, { patch: true } );
-			},
-		} );
+		updateVisibility( item.id, item.post_type, output, visibility );
 	} );
 
+	// Handle title visibility changes.
+	$( '.show_title' ).change( event => {
+		let row = $( event.target ).parents( 'tr' );
+		let item = getRowData( row );
+
+		let showTitle = '';
+
+		if ( $( event.currentTarget ).is( ':checked' ) ) {
+			showTitle = 'on';
+		}
+
+		updateTitleVisibility( item.id, item.post_type, showTitle );
+	} );
+
+	// Handle "move up".
 	$( document ).on( 'click', '.move-up', event => {
-		let row = getRowFromAction( event.target );
-		let item = row.attr( 'id' ).split( '_' );
-		initiateModal( { post_type: item[0] } );
-		let table = $( row )
-			.parent()
-			.parent();
+		let row = $( event.target ).parents( 'tr' );
+		let table = $( event.target ).parents( 'table' );
+		pb.organize.oldParent = table.attr( 'id' );
 		if (
-			$( row ).is( 'tr:first-of-type' ) &&
+			row.is( 'tr:first-of-type' ) &&
 			table.is( '[id^=part]' ) &&
 			table.prev( '[id^=part]' ).length
 		) {
 			let targetTable = getAdjacentContainer( table, 'prev' );
+			pb.organize.newParent = targetTable.attr( 'id' );
 			targetTable.append( row );
-			updateParent( row, targetTable );
-			updateIndex( table );
-			updateIndex( targetTable );
-			updateControls( table );
-			updateControls( targetTable );
+			reorder( row );
 		} else {
+			pb.organize.newParent = table.attr( 'id' );
 			row.prev().before( row );
-			updateIndex( table );
-			updateControls( table );
+			reorder( row );
 		}
 	} );
 
+	// Handle "move down".
 	$( document ).on( 'click', '.move-down', event => {
-		let row = getRowFromAction( event.target );
-		let item = row.attr( 'id' ).split( '_' );
-		initiateModal( { post_type: item[0] } );
-		let table = $( row )
-			.parent()
-			.parent();
+		let row = $( event.target ).parents( 'tr' );
+		let table = $( event.target ).parents( 'table' );
+		pb.organize.oldParent = table.attr( 'id' );
 		if (
-			$( row ).is( 'tr:last-of-type' ) &&
+			row.is( 'tr:last-of-type' ) &&
 			table.is( '[id^=part]' ) &&
 			table.next( '[id^=part]' ).length
 		) {
 			let targetTable = getAdjacentContainer( table, 'next' );
+			pb.organize.newParent = targetTable.attr( 'id' );
 			targetTable.prepend( row );
-			updateParent( row, targetTable );
-			updateIndex( table );
-			updateIndex( targetTable );
-			updateControls( table );
-			updateControls( targetTable );
+			reorder( row );
 		} else {
+			pb.organize.newParent = table.attr( 'id' );
 			row.next().after( row );
-			updateIndex( table );
-			updateControls( table );
+			reorder( row );
 		}
 	} );
 
-	// Bulk action
-	let pbOrganizeTdToggle = [];
-	$( 'table thead th' ).click( function () {
-		let tdIndex = $( this ).index() + 1;
-		let tableIndex = $( this )
-			.parents( 'table' )
-			.index();
-		let i = tableIndex + '_' + tdIndex;
-		if ( pbOrganizeTdToggle[i] ) {
-			$( this )
-				.parents( 'table' )
-				.find( 'tr td:nth-of-type(' + tdIndex + ')' )
-				.find( 'input[type=checkbox]:checked' )
-				.click();
-			pbOrganizeTdToggle[i] = false;
-		} else {
-			$( this )
-				.parents( 'table' )
-				.find( 'tr td:nth-of-type(' + tdIndex + ')' )
-				.find( 'input[type=checkbox]:not(:checked)' )
-				.click();
-			pbOrganizeTdToggle[i] = true;
-		}
-	} );
-
-	$( document ).ajaxStop( function () {
-		let alert = $( '[role="alert"]' );
-		$.unblockUI( {
-			onUnblock: () => {
-				alert.removeClass( 'loading-content' ).addClass( 'visually-hidden' );
-				let alertMessage = PB_OrganizeToken.updated;
-				alert.children( 'p' ).text( alertMessage );
-			},
-		} );
-	} );
+	// TODO Handle bulk actions.
+	// let pbOrganizeTdToggle = [];
+	// $( 'table thead th' ).on( 'click', event => {
+	// 	let tdIndex = $( this ).index() + 1;
+	// 	let tableIndex = $( this )
+	// 		.parents( 'table' )
+	// 		.index();
+	// 	let i = tableIndex + '_' + tdIndex;
+	// 	if ( pbOrganizeTdToggle[i] ) {
+	// 		$( this )
+	// 			.parents( 'table' )
+	// 			.find( 'tr td:nth-of-type(' + tdIndex + ')' )
+	// 			.find( 'input[type=checkbox]:checked' )
+	// 			.click();
+	// 		pbOrganizeTdToggle[i] = false;
+	// 	} else {
+	// 		$( this )
+	// 			.parents( 'table' )
+	// 			.find( 'tr td:nth-of-type(' + tdIndex + ')' )
+	// 			.find( 'input[type=checkbox]:not(:checked)' )
+	// 			.click();
+	// 		pbOrganizeTdToggle[i] = true;
+	// 	}
+	// } );
 
 	// Warn of incomplete AJAX
 	$( window ).on( 'beforeunload', function () {
@@ -431,24 +459,4 @@ jQuery( document ).ready( function ( $ ) {
 			return 'Changes you made may not be saved...';
 		}
 	} );
-
-	// Update word count when needed.
-	function updateWordCountForExport() {
-		const data = {
-			action:      'pb_update_word_count_for_export',
-			_ajax_nonce: PB_OrganizeToken.wordCountNonce,
-		};
-		$.post( ajaxurl, data, function ( response ) {
-			const current_count = parseInt( $( '#wc-selected-for-export' ).text(), 10 );
-			let count_up = new CountUp(
-				'wc-selected-for-export',
-				current_count,
-				response,
-				0,
-				2.5,
-				{ separator: '' }
-			);
-			count_up.start();
-		} );
-	}
 } );
