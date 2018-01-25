@@ -4,7 +4,7 @@ namespace Pressbooks\Metadata;
 
 use Pressbooks\Book;
 use Pressbooks\Licensing;
-use Pressbooks\Sanitize;
+use function \Pressbooks\Utility\is_assoc;
 
 /**
  * Returns an html blob of meta elements based on what is set in 'Book Information'
@@ -634,8 +634,29 @@ function schema_to_section_information( $section_schema, $book_schema ) {
 		}
 	}
 
-	if ( $section_schema['author']['name'] !== $book_schema['author']['name'] ) {
-		$section_information['pb_section_author'] = $section_schema['author']['name'];
+	// Authors
+	if ( isset( $section_schema['author'], $book_schema['author'] ) ) {
+		$book_authors = [];
+		if ( is_assoc( $book_schema['author'] ) ) {
+			$book_schema['author'] = [ $book_schema['author'] ];
+		}
+		foreach ( $book_schema['author'] as $book_author ) {
+			if ( isset( $book_author['name'] ) ) {
+				$book_authors[] = $book_author['name'];
+			}
+		}
+		$section_authors = [];
+		if ( is_assoc( $section_schema['author'] ) ) {
+			$section_schema['author'] = [ $section_schema['author'] ];
+		}
+		foreach ( $section_schema['author'] as $section_author ) {
+			if ( isset( $section_author['name'] ) ) {
+				$section_authors[] = $section_author['name'];
+			}
+		}
+		if ( $section_authors !== $book_authors ) {
+			$section_information['pb_authors'] = implode( ', ', $section_authors );
+		}
 	}
 
 	if ( is_array( $book_schema['license'] ) ) {

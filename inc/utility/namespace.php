@@ -1134,3 +1134,20 @@ function get_cache_path() {
 	}
 	return $cache;
 }
+
+/**
+ * Check whether an array is zero-indexed and sequential
+ *
+ * @param mixed $arr
+ *
+ * @return bool
+ */
+function is_assoc( $arr ) {
+	if ( ! is_array( $arr ) ) {
+		return false;
+	}
+	if ( [] === $arr ) {
+		return false;
+	}
+	return array_keys( $arr ) !== range( 0, count( $arr ) - 1 );
+}
