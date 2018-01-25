@@ -79,6 +79,7 @@ function replace_book_admin_menu() {
 						'reorderNonce' => wp_create_nonce( 'pb-organize-reorder' ),
 						'showTitleNonce' => wp_create_nonce( 'pb-organize-showtitle' ),
 						'postVisibilityNonce' => wp_create_nonce( 'pb-organize-visibility' ),
+						'privacyNonce' => wp_create_nonce( 'pb-organize-book-privacy' ),
 						'wordCountNonce' => wp_create_nonce( 'pb-update-word-count-for-export' ),
 						'bookPrivate' => __( 'private', 'pressbooks' ),
 						'bookPublic' => __( 'public', 'pressbooks' ),
