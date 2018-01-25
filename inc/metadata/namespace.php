@@ -347,7 +347,7 @@ function book_information_to_schema( $book_information ) {
 		$book_schema['license']['description'] = $book_information['pb_custom_copyright'];
 	}
 
-	// TODO: educationalAlignment, educationalUse, timeRequired, typicalAgeRange, interactivityType, learningResourceType, isBasedOn, isBasedOnUrl
+	// TODO: educationalAlignment, educationalUse, timeRequired, typicalAgeRange, interactivityType, learningResourceType, isBasedOnUrl
 
 	return $book_schema;
 }
@@ -658,7 +658,7 @@ function section_information_to_schema( $section_information, $book_information 
 		$section_schema['isBasedOn'] = $book_information['pb_is_based_on'];
 	}
 
-	// TODO: educationalAlignment, educationalUse, timeRequired, typicalAgeRange, interactivityType, learningResourceType, isBasedOn, isBasedOnUrl
+	// TODO: educationalAlignment, educationalUse, timeRequired, typicalAgeRange, interactivityType, learningResourceType, isBasedOnUrl
 
 	return $section_schema;
 }
@@ -729,8 +729,10 @@ function schema_to_section_information( $section_schema, $book_schema ) {
 	}
 
 	// Version Tracking
-	if ( isset( $section_schema['isBasedOn'] ) && $section_schema['isBasedOn'] !== $book_schema['isBasedOn'] ) {
-		$section_information['pb_is_based_on'] = $section_schema['isBasedOn'];
+	if ( isset( $section_schema['isBasedOn'] ) ) {
+		if ( empty( $book_schema['isBasedOn'] ) || $section_schema['isBasedOn'] !== $book_schema['isBasedOn'] ) {
+			$section_information['pb_is_based_on'] = $section_schema['isBasedOn'];
+		}
 	}
 
 	return $section_information;
