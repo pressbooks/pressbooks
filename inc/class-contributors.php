@@ -22,7 +22,6 @@ class Contributors {
 		'pb_authors',
 		'pb_editors',
 		'pb_translators',
-		'pb_proofreaders',
 		'pb_reviewers',
 		'pb_illustrators',
 		'pb_contributors',

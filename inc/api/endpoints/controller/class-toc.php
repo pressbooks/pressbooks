@@ -328,7 +328,7 @@ class Toc extends \WP_REST_Controller {
 		// Front-matter
 		$front_matter = [];
 		foreach ( $book_structure['front-matter'] as $old_fm ) {
-			if ( $has_permission || 'publish' === $old_fm['post_status'] ) {
+			if ( $has_permission || in_array( $old_fm['post_status'], [ 'web-only', 'publish' ], true ) ) {
 				$new_fm = [];
 				foreach ( $old_fm as $old_key => $val ) {
 					$new_key = strtr( $old_key, $replacement_keys );
@@ -384,7 +384,7 @@ class Toc extends \WP_REST_Controller {
 			}
 			$chapters = [];
 			foreach ( $new_p['chapters'] as $old_ch ) {
-				if ( $has_permission || 'publish' === $old_ch['post_status'] ) {
+				if ( $has_permission || in_array( $old_ch['post_status'], [ 'web-only', 'publish' ], true ) ) {
 					$new_ch = [];
 					foreach ( $old_ch as $old_key => $val ) {
 						$new_key = strtr( $old_key, $replacement_keys );
@@ -439,7 +439,7 @@ class Toc extends \WP_REST_Controller {
 
 		$back_matter = [];
 		foreach ( $book_structure['back-matter'] as $old_bm ) {
-			if ( $has_permission || 'publish' === $old_bm['post_status'] ) {
+			if ( $has_permission || in_array( $old_bm['post_status'], [ 'web-only', 'publish' ], true ) ) {
 				$new_bm = [];
 				foreach ( $old_bm as $old_key => $val ) {
 					$new_key = strtr( $old_key, $replacement_keys );
