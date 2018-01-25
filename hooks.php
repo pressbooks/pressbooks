@@ -18,6 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 // -------------------------------------------------------------------------------------------------------------------
 
 require( PB_PLUGIN_DIR . 'inc/admin/branding/namespace.php' );
+require( PB_PLUGIN_DIR . 'inc/admin/laf/namespace.php' );
 require( PB_PLUGIN_DIR . 'inc/analytics/namespace.php' );
 require( PB_PLUGIN_DIR . 'inc/api/namespace.php' );
 require( PB_PLUGIN_DIR . 'inc/editor/namespace.php' );
@@ -80,6 +81,7 @@ add_action( 'login_head', '\Pressbooks\Admin\Branding\custom_color_scheme' );
 add_action( 'login_head', '\Pressbooks\Admin\Branding\custom_login_logo' );
 add_filter( 'login_headerurl', '\Pressbooks\Admin\Branding\login_url' );
 add_filter( 'login_headertitle', '\Pressbooks\Admin\Branding\login_title' );
+add_filter( 'login_title', '\Pressbooks\Admin\Laf\admin_title' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Analytics

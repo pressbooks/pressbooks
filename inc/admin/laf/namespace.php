@@ -43,9 +43,6 @@ function admin_title( $admin_title ) {
 /**
  * Removes some default WordPress Admin Sidebar items and adds our own
  */
-/**
- * Removes some default WordPress Admin Sidebar items and adds our own
- */
 function replace_book_admin_menu() {
 
 	// Remove items we don't want the user to see.
