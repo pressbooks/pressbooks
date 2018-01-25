@@ -386,9 +386,21 @@ function schema_to_book_information( $book_schema ) {
 	}
 
 	if ( isset( $book_schema['author'] ) ) {
-		$book_information['pb_author'] = $book_schema['author']['name'];
-		if ( isset( $book_schema['author']['alternateName'] ) ) {
-			$book_information['pb_author_file_as'] = $book_schema['author']['alternateName'];
+		// Pressbooks 5
+		$authors = [];
+		foreach ( $book_schema['author'] as $author ) {
+			if ( isset( $author['name'] ) ) {
+				$authors[] = $author['name'];
+			}
+		}
+		if ( empty( $authors ) && isset( $book_schema['author']['name'] ) ) {
+			// Pressbooks 4
+			$book_information['pb_author'] = $book_schema['author']['name'];
+			if ( isset( $book_schema['author']['alternateName'] ) ) {
+				$book_information['pb_author_file_as'] = $book_schema['author']['alternateName'];
+			}
+		} else {
+			$book_information['pb_author'] = implode( ', ', $authors );
 		}
 	}
 
