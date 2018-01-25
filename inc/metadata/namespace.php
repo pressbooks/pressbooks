@@ -655,7 +655,7 @@ function schema_to_section_information( $section_schema, $book_schema ) {
 			}
 		}
 		if ( $section_authors !== $book_authors ) {
-			$section_information['pb_authors'] = implode( ', ', $section_authors );
+			$section_information['pb_section_author'] = implode( ', ', $section_authors );
 		}
 	}
 
