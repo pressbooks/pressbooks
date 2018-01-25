@@ -8568,9 +8568,9 @@ worker-farm@^1.4.1:
     errno "^0.1.4"
     xtend "^4.0.1"
 
-wp-admin-colors@^4.9.0:
-  version "4.9.0"
-  resolved "https://registry.yarnpkg.com/wp-admin-colors/-/wp-admin-colors-4.9.0.tgz#aa07941c198d93796bb7945fd7f5f9b98c13b41c"
+wp-admin-colors@^4.9.2:
+  version "4.9.2"
+  resolved "https://registry.yarnpkg.com/wp-admin-colors/-/wp-admin-colors-4.9.2.tgz#4fdfcac9f57b4534b4292fb4421ed0e90e3cd0bb"
 
 wp-pot-cli@^1.0.1:
   version "1.0.3"

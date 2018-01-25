@@ -1,10 +1,10 @@
-# Copyright (C) 2017 Pressbooks
+# Copyright (C) 2018 Pressbooks
 # This file is distributed under the same license as the Pressbooks package.
 # Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
-"PO-Revision-Date: 2017-12-06 14:37+0000\n"
+"PO-Revision-Date: 2018-01-25 17:59+0000\n"
 "Last-Translator: Ned Zimmerman\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/pressbooks/pressbooks/language/en_GB/)\n"
 "MIME-Version: 1.0\n"
@@ -2491,22 +2491,26 @@ msgid ""
 "be restricted to leave only sites and users visible to them."
 msgstr ""
 
-#: ../inc/modules/import/class-import.php382,
-#: ../inc/modules/import/class-import.php:446
+#: ../inc/modules/import/class-import.php:340
+msgid "Sorry, this file type is not permitted for security reasons."
+msgstr ""
+
+#: ../inc/modules/import/class-import.php390,
+#: ../inc/modules/import/class-import.php:454
 msgid "Your file does not appear to be a valid %s."
 msgstr ""
 
-#: ../inc/modules/import/class-import.php:390
+#: ../inc/modules/import/class-import.php:398
 msgid "Your URL does not appear to be valid"
 msgstr ""
 
-#: ../inc/modules/import/class-import.php:406
+#: ../inc/modules/import/class-import.php:414
 msgid ""
 "The website you are attempting to reach is not returning a successful "
 "response header on a HEAD request: "
 msgstr ""
 
-#: ../inc/modules/import/class-import.php:416
+#: ../inc/modules/import/class-import.php:424
 msgid "The website you are attempting to reach is not returning HTML content"
 msgstr ""
 
@@ -4177,24 +4181,37 @@ msgstr ""
 msgid "Taxonomy query var \"%s\" is not allowed"
 msgstr ""
 
-#: ../vendor/yahnis-elsts/plugin-update-checker/Puc/v4p2/Plugin/UpdateChecker.php:358
+#: ../vendor/yahnis-elsts/plugin-update-checker/Puc/v4p4/Plugin/UpdateChecker.php:395
 msgid "Check for updates"
 msgstr ""
 
-#: ../vendor/yahnis-elsts/plugin-update-checker/Puc/v4p2/Plugin/UpdateChecker.php:405
+#: ../vendor/yahnis-elsts/plugin-update-checker/Puc/v4p4/Plugin/UpdateChecker.php:432
+msgid "View details"
+msgstr ""
+
+#: ../vendor/yahnis-elsts/plugin-update-checker/Puc/v4p4/Plugin/UpdateChecker.php:455
+msgid "More information about %s"
+msgstr ""
+
+#: ../vendor/yahnis-elsts/plugin-update-checker/Puc/v4p4/Plugin/UpdateChecker.php:548
 msgctxt "the plugin title"
 msgid "The %s plugin is up to date."
 msgstr ""
 
-#: ../vendor/yahnis-elsts/plugin-update-checker/Puc/v4p2/Plugin/UpdateChecker.php:407
+#: ../vendor/yahnis-elsts/plugin-update-checker/Puc/v4p4/Plugin/UpdateChecker.php:550
 msgctxt "the plugin title"
 msgid "A new version of the %s plugin is available."
 msgstr ""
 
-#: ../vendor/yahnis-elsts/plugin-update-checker/Puc/v4p2/Plugin/UpdateChecker.php:409
+#: ../vendor/yahnis-elsts/plugin-update-checker/Puc/v4p4/Plugin/UpdateChecker.php:552
+msgctxt "the plugin title"
+msgid "Could not determine if updates are available for %s."
+msgstr ""
+
+#: ../vendor/yahnis-elsts/plugin-update-checker/Puc/v4p4/Plugin/UpdateChecker.php:558
 msgid "Unknown update checker status \"%s\""
 msgstr ""
 
-#: ../vendor/yahnis-elsts/plugin-update-checker/Puc/v4p2/Vcs/PluginUpdateChecker.php:85
+#: ../vendor/yahnis-elsts/plugin-update-checker/Puc/v4p4/Vcs/PluginUpdateChecker.php:98
 msgid "There is no changelog available."
 msgstr ""
