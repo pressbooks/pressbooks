@@ -27,4 +27,12 @@ class Admin_BrandingTest extends \WP_UnitTestCase {
 		$this->assertNotEmpty( $title );
 	}
 
+	function test_admin_title() {
+
+		$result = \Pressbooks\Admin\Branding\admin_title( 'Hello WordPress!' );
+		$this->assertEquals( $result, 'Hello Pressbooks!' );
+
+		$result = \Pressbooks\Admin\Branding\admin_title( 'Hello World!' );
+		$this->assertEquals( $result, 'Hello World!' );
+	}
 }

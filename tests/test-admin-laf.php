@@ -17,15 +17,6 @@ class Admin_LafsTest extends \WP_UnitTestCase {
 		$this->assertContains( 'Pressbooks', $buffer );
 	}
 
-	function test_admin_title() {
-
-		$result = \Pressbooks\Admin\Laf\admin_title( 'Hello WordPress!' );
-		$this->assertEquals( $result, 'Hello Pressbooks!' );
-
-		$result = \Pressbooks\Admin\Laf\admin_title( 'Hello World!' );
-		$this->assertEquals( $result, 'Hello World!' );
-	}
-
 	function test_replace_book_admin_menu() {
 
 		global $menu, $submenu;

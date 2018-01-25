@@ -1,0 +1,110 @@
+body.pressbooks {
+  font-family: "Karla", sans-serif;
+
+  &.wp-core-ui .button-primary,
+  &.wp-core-ui .button.button-large {
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 3px;
+    background: var(--primary, #b01109);
+    border-color: var(--primary, #b01109);
+    color: var(--primary-fg, #fff);
+    box-shadow: none;
+    display: inline-block;
+    font-family: "Karla", sans-serif;
+    font-weight: 600;
+    height: 59px;
+    width: 100%;
+    font-size: 18px;
+    line-height: 1.5;
+    padding: 0.875rem 3.25rem;
+    vertical-align: middle;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    text-shadow: none;
+    float: none;
+
+    // Share hover and focus styles
+    &:focus,
+    &:hover {
+      text-decoration: none;
+    }
+
+    &:focus,
+    &.focus {
+      outline: 0;
+      // box-shadow: $btn-focus-box-shadow;
+    }
+
+    // Disabled comes first so active can properly restyle
+    &.disabled,
+    &:disabled {
+      opacity: 0.65;
+      box-shadow: none;
+    }
+
+    &:active,
+    &.active {
+      background-image: none;
+      box-shadow: 0 0 0 3px var(--primary, #b01109),
+        inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    }
+  }
+
+  #login form p.forgetmenot {
+    margin-bottom: 2em;
+  }
+
+  &.login form .forgetmenot,
+  &.login form .submit {
+    float: none;
+    display: block;
+  }
+
+  &.login form .input {
+    background: transparent;
+  }
+
+  &.login form label {
+    position: relative;
+    color: var(--primary, #b01109);
+    font-weight: 600;
+    display: block;
+    width: 100%;
+    margin-bottom: 2em;
+
+    input:not([type="checkbox"]) {
+      position: absolute;
+      top: 0;
+    }
+  }
+
+  #nav,
+  #backtoblog {
+    text-align: center;
+    a {
+      color: var(--primary, #b01109);
+      font-weight: 600;
+    }
+  }
+
+  [type="checkbox"] {
+    border: solid 2px var(--primary, #b01109);
+    box-shadow: none;
+
+    &:checked:before {
+      color: var(--primary, #b01109);
+    }
+  }
+
+  [type="text"],
+  [type="password"] {
+    border-top: none;
+    border-right: none;
+    border-bottom: solid 2px var(--primary, #b01109);
+    border-left: none;
+    box-shadow: none;
+    background: #fff;
+  }
+}

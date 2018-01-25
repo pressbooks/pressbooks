@@ -1,9 +1,10 @@
 {
-    "/scripts/anchor.js": "/scripts/anchor.js?id=d6a548126e58288d47aa",
+    "/scripts/anchor.js": "/scripts/anchor.js?id=4edf08e048e25f895a44",
     "/styles/catalog.css": "/styles/catalog.css?id=b4d78714ee50b66c97be",
     "/styles/colors-pb.css": "/styles/colors-pb.css?id=7f1ac692b5f0b15bb5d0",
     "/styles/cloner.css": "/styles/cloner.css?id=11347078e8fedba35238",
     "/styles/export.css": "/styles/export.css?id=051bb75fbdccdfb67f18",
+    "/styles/login.css": "/styles/login.css?id=34979733ec5106d4d3e3",
     "/styles/metadata.css": "/styles/metadata.css?id=0f07ef0ed371a8cd93c5",
     "/styles/network-managers.css": "/styles/network-managers.css?id=77d465c0788f57898bdc",
     "/styles/organize.css": "/styles/organize.css?id=10462c410cda04c15dcb",
@@ -37,5 +38,5 @@
     "/scripts/js-cookie.js": "/scripts/js-cookie.js?id=8ff1c89f24a8ca6f91f7",
     "/scripts/select2.js": "/scripts/select2.js?id=e66208e306a3e3b57128",
     "/scripts/sidr.js": "/scripts/sidr.js?id=32495427b04ceeab5376",
-    "/scripts/table.js": "/scripts/table.js?id=1700d1b04ef7352cde56"
+    "/scripts/table.js": "/scripts/table.js?id=80b1f0cf903a8cbfe8b7"
 }

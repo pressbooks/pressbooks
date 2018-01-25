@@ -24,20 +24,6 @@ function add_footer_link() {
 		__( 'Diagnostics', 'pressbooks' ),
 		__( 'Contact', 'pressbooks' )
 	);
-
-	if ( current_user_can( 'edit_posts' ) ) {
-		// Embed the blog_id in the admin interface so we can debug things more easily
-		global $blog_id;
-		echo "<!-- blog_id: $blog_id -->";
-	}
-}
-
-/**
- * Replaces 'WordPress' with 'Pressbooks' in titles of admin pages.
- */
-function admin_title( $admin_title ) {
-	$title = str_replace( 'WordPress', 'Pressbooks', $admin_title );
-	return $title;
 }
 
 /**

@@ -11,19 +11,27 @@ namespace Pressbooks\Admin\Branding;
 use PressbooksMix\Assets;
 
 /**
+ * Add `pressbooks` to login body class.
+ */
+function login_body_class( $classes ) {
+	$classes[] = 'pressbooks';
+	return $classes;
+}
+
+/**
  * Apply Color Scheme to Login Page
  * To customize this, add a filter to the 'pb_login_color_scheme' hook
  * that returns a string containing a link tag for your own admin color scheme.
  */
 function custom_color_scheme() {
-	$assets = new Assets( 'pressbooks', 'plugin' );
-	$html = '<link rel="stylesheet" type="text/css" href="' . $assets->getPath( 'styles/colors-pb.css' ) . '" media="screen" />';
+	\wp_dequeue_style( 'login' );
+	$style = get_customizer_colors();
 	/**
-	 * Print <link> to a custom color scheme for the login page.
+	 * Print CSS for a custom color scheme for the login page.
 	 *
 	 * @since 4.3.0
 	 */
-	$html = apply_filters(
+	$style = apply_filters(
 		'pb_login_color_scheme',
 		/**
 		 * Print <link> to a custom color scheme for the login page.
@@ -33,9 +41,9 @@ function custom_color_scheme() {
 		 *
 		 * @param string $html
 		 */
-		apply_filters( 'pressbooks_login_color_scheme', $html )
+		apply_filters( 'pressbooks_login_color_scheme', $style )
 	);
-	echo $html;
+	echo $style;
 }
 
 /**
@@ -44,25 +52,15 @@ function custom_color_scheme() {
  * returns a string containing a <link> or <style> tag that supplies your custom logo.
  */
 function custom_login_logo() {
-	$html = '<style type="text/css">
-	.login h1 a {
-  	background-image: url(' . PB_PLUGIN_URL . 'assets/dist//images/PB-logo.svg' . ');
-  	background-size: 276px 40px;
-  	width: 276px;
-  	height: 40px; }
-	.login .message {
-  	border-left: 4px solid #0077cc; }
-	.login #backtoblog a:hover, .login #backtoblog a:active, .login #backtoblog a:focus, .login #nav a:hover, .login #nav a:active, .login #nav a:focus {
-  	color: #d4002d; }
-	.no-svg .login h1 a {
-  	background-image: url(' . PB_PLUGIN_URL . 'assets/dist//images/PB-logo.png' . '; }
-	</style>';
+	$assets = new Assets( 'pressbooks', 'plugin' );
+	$style = '<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karla:400,400i,700|Spectral:400,400i,600" />';
+	$style .= '<link rel="stylesheet" href="' . $assets->getPath( 'styles/login.css' ) . '" />';
 	/**
 	 * Print <link> or <style> tag to add a custom logo for the login page.
 	 *
 	 * @since 4.3.0
 	 */
-	$html = apply_filters(
+	$style = apply_filters(
 		'pb_login_logo',
 		/**
 		 * Print <link> or <style> tag to add a custom logo for the login page.
@@ -72,9 +70,9 @@ function custom_login_logo() {
 		 *
 		 * @param string $html
 		 */
-		apply_filters( 'pressbooks_login_logo', $html )
+		apply_filters( 'pressbooks_login_logo', $style )
 	);
-	echo $html;
+	echo $style;
 }
 
 /**
@@ -89,4 +87,49 @@ function login_url() {
  */
 function login_title() {
 	return get_bloginfo( 'title' ); // changing the title from "Powered by WordPress" to whatever you wish
+}
+
+/**
+ * Replaces 'WordPress' with 'Pressbooks' in titles of admin pages.
+ */
+function admin_title( $admin_title ) {
+	$title = str_replace( 'WordPress', 'Pressbooks', $admin_title );
+	return $title;
+}
+/**
+ *
+ */
+function get_customizer_colors() {
+	$colors = [
+		'primary',
+		'accent',
+		'primary_fg',
+		'accent_fg',
+		'header_text',
+	];
+	$values = [];
+	$root_id = get_network()->site_id;
+	$need_to_switch = ( get_current_blog_id() !== $root_id ) ? true : true;
+	if ( $need_to_switch ) {
+		switch_to_blog( $root_id );
+	}
+	foreach ( $colors as $k ) {
+		$v = get_option( "pb_network_color_$k" );
+		if ( $v ) {
+			$values[ $k ] = $v;
+		}
+	}
+	if ( $need_to_switch ) {
+		restore_current_blog();
+	}
+	$output = '';
+	if ( ! empty( $values ) ) {
+		$output .= '<style type="text/css">:root{';
+		foreach ( $values as $k => $v ) {
+			$k = str_replace( '_', '-', $k );
+			$output .= "--$k:$v;";
+		}
+		$output .= '}</style>';
+	}
+	return $output;
 }

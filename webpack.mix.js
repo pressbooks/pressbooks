@@ -69,6 +69,7 @@ mix
 	.sass( 'assets/src/styles/colors-pb.scss', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/cloner.scss', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/export.scss', 'assets/dist/styles/' )
+	.sass( 'assets/src/styles/login.scss', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/metadata.scss', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/network-managers.scss', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/organize.scss', 'assets/dist/styles/' )
