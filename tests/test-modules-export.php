@@ -34,7 +34,7 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 
 	public function test_getExportStylePath() {
 
-		$this->_book();
+		$this->_book( 'pressbooks-donham' );
 
 		$path = $this->export->getExportStylePath( 'epub' );
 		$this->assertStringEndsWith( '/export/epub/style.scss', $path );
@@ -43,7 +43,7 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 		$this->assertStringEndsWith( '/export/prince/style.scss', $path );
 
 		$path = $this->export->getExportStylePath( 'web' );
-		$this->assertStringEndsWith( '/pressbooks-book/style.scss', $path );
+		$this->assertStringEndsWith( '/pressbooks-donham/style.scss', $path );
 
 		$path = $this->export->getExportStylePath( 'foobar' );
 		$this->assertFalse( $path );
@@ -56,7 +56,7 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 
 	public function test_getExportScriptPath() {
 
-		$this->_book();
+		$this->_book( 'pressbooks-donham' );
 
 		$path = $this->export->getExportScriptPath( 'epub' );
 		$this->assertFalse( $path );
@@ -146,7 +146,7 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 	 */
 	public function test_sanityChecks() {
 
-		$this->_book();
+		$this->_book( 'pressbooks-donham' );
 		$meta_post = ( new \Pressbooks\Metadata() )->getMetaPost();
 		update_post_meta( $meta_post->ID, 'pb_author', 'Zimmerman, Ned' );
 		$user_id = $this->factory()->user->create( [ 'role' => 'contributor' ] );

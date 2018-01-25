@@ -42,7 +42,7 @@ class StylesTest extends \WP_UnitTestCase {
 
 	public function test_pathToScss() {
 		// V1
-		$v1 = wp_get_theme( 'pressbooks-book' );
+		$v1 = wp_get_theme( 'pressbooks-donham' );
 		$this->assertContains( 'style.scss', $this->cs->getPathToWebScss( $v1 ) );
 		$this->assertContains( '/export/', $this->cs->getPathToEpubScss( $v1 ) );
 		$this->assertContains( '/export/', $this->cs->getPathToPrinceScss( $v1 ) );
@@ -55,7 +55,7 @@ class StylesTest extends \WP_UnitTestCase {
 
 	public function test_isCurrentThemeCompatible() {
 		// V1
-		$v1 = wp_get_theme( 'pressbooks-book' );
+		$v1 = wp_get_theme( 'pressbooks-donham' );
 		$this->assertTrue( $this->cs->isCurrentThemeCompatible( 1, $v1 ) );
 		$this->assertFalse( $this->cs->isCurrentThemeCompatible( 2, $v1 ) );
 		$this->assertFalse( $this->cs->isCurrentThemeCompatible( 999, $v1 ) );
@@ -68,7 +68,7 @@ class StylesTest extends \WP_UnitTestCase {
 
 	public function test_applyOverrides() {
 		// V1
-		$this->_book();
+		$this->_book( 'pressbooks-donham' );
 		$result = $this->cs->applyOverrides( '// SCSS.', '// Override.' );
 		$this->assertTrue( strpos( $result, '// SCSS.' ) === 0 );
 		$result = $this->cs->applyOverrides( '// SCSS.', [ '// Override 1.', '// Override 2.' ] );
@@ -85,7 +85,7 @@ class StylesTest extends \WP_UnitTestCase {
 
 	public function test_customize() {
 		// V1
-		$this->_book();
+		$this->_book( 'pressbooks-donham' );
 		$this->assertContains( 'font-size:', $this->cs->customizeWeb() );
 		$this->assertContains( 'font-size:', $this->cs->customizeEpub() );
 		$this->assertContains( 'font-size:', $this->cs->customizePrince() );
