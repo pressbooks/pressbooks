@@ -314,6 +314,8 @@ abstract class Import {
 			/**
 			 * Allows users to append import options to the list of allowed file types.
 			 *
+			 * TODO: Since we set [ test_type = false], this does nothing?
+			 *
 			 * @since 3.9.6
 			 *
 			 * @param array $value The list of currently allowed file types.
@@ -331,6 +333,12 @@ abstract class Import {
 
 			if ( ! function_exists( 'wp_handle_upload' ) ) {
 				require_once( ABSPATH . 'wp-admin/includes/file.php' );
+			}
+
+			$bad_extensions = '/\.(php([0-9])?|htaccess|htpasswd|cgi|sh|pl|bat|exe|cmd|dll)$/i';
+			if ( preg_match( $bad_extensions, $_FILES['import_file']['name'] ) ) {
+				$_SESSION['pb_errors'][] = __( 'Sorry, this file type is not permitted for security reasons.' );
+				return false;
 			}
 
 			$upload = wp_handle_upload( $_FILES['import_file'], $overrides );
