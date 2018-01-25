@@ -578,7 +578,7 @@ class Book {
 	 * WP_Ajax hook. Updates a post's privacy setting (whether the post is published or privately published)
 	 */
 	static function updateGlobalPrivacyOptions() {
-		if ( check_ajax_referer( 'pb-update-book-privacy' ) ) {
+		if ( check_ajax_referer( 'pb-organize-book-privacy' ) ) {
 			$blog_public = absint( $_POST['blog_public'] );
 
 			if ( current_user_can( 'manage_options' ) ) {
