@@ -78,7 +78,7 @@ class ContributorsTest extends \WP_UnitTestCase {
 		$all = $this->contributor->getAll( $post_id );
 		$this->assertEquals( 'Me Too', $all['pb_authors'] );
 		$this->assertEquals( 'Monsieur Fake, Zig Zag, and Miss Real', $all['pb_contributors'] );
-		$this->assertEmpty( $all['pb_proofreaders'] );
+		$this->assertEmpty( $all['pb_reviewers'] );
 	}
 
 
