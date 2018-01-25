@@ -247,16 +247,6 @@ function book_information_to_schema( $book_information ) {
 		}
 	}
 
-	if ( isset( $book_information['pb_contributors'] ) ) {
-		$contributing_authors = oxford_comma_explode( $book_information['pb_contributors'] );
-		foreach ( $contributing_authors as $contributor ) {
-			$book_schema['contributor'][] = [
-				'@type' => 'Person',
-				'name' => $contributor,
-			];
-		}
-	}
-
 	if ( isset( $book_information['pb_editors'] ) ) {
 		$editors = oxford_comma_explode( $book_information['pb_editors'] );
 		foreach ( $editors as $editor ) {
@@ -273,6 +263,36 @@ function book_information_to_schema( $book_information ) {
 			$book_schema['translator'][] = [
 				'@type' => 'Person',
 				'name' => $translator,
+			];
+		}
+	}
+
+	if ( isset( $book_information['pb_reviewers'] ) ) {
+		$reviewers = oxford_comma_explode( $book_information['pb_reviewers'] );
+		foreach ( $reviewers as $reviewer ) {
+			$book_schema['reviewedBy'][] = [
+				'@type' => 'Person',
+				'name' => $reviewer,
+			];
+		}
+	}
+
+	if ( isset( $book_information['pb_illustrators'] ) ) {
+		$illustrators = oxford_comma_explode( $book_information['pb_illustrators'] );
+		foreach ( $illustrators as $illustrator ) {
+			$book_schema['illustrator'][] = [
+				'@type' => 'Person',
+				'name' => $illustrator,
+			];
+		}
+	}
+
+	if ( isset( $book_information['pb_contributors'] ) ) {
+		$contributing_authors = oxford_comma_explode( $book_information['pb_contributors'] );
+		foreach ( $contributing_authors as $contributor ) {
+			$book_schema['contributor'][] = [
+				'@type' => 'Person',
+				'name' => $contributor,
 			];
 		}
 	}
@@ -348,6 +368,7 @@ function schema_to_book_information( $book_schema ) {
 		$book_schema['description'] = html_entity_decode( $book_schema['description'] );
 	}
 
+	// Values expected to be text
 	$mapped_properties = [
 		'name' => 'pb_title',
 		'alternateName' => 'pb_short_title',
@@ -398,14 +419,6 @@ function schema_to_book_information( $book_schema ) {
 		$book_information['pb_authors'] = oxford_comma( $authors );
 	}
 
-	if ( isset( $book_schema['contributor'] ) ) {
-		$contributors = [];
-		foreach ( $book_schema['contributor'] as $contributor ) {
-			$contributors[] = $contributor['name'];
-		}
-		$book_information['pb_contributors'] = oxford_comma( $contributors );
-	}
-
 	if ( isset( $book_schema['editor'] ) ) {
 		$editors = [];
 		foreach ( $book_schema['editor'] as $editor ) {
@@ -422,9 +435,32 @@ function schema_to_book_information( $book_schema ) {
 		$book_information['pb_translators'] = oxford_comma( $translators );
 	}
 
+	if ( isset( $book_schema['reviewedBy'] ) ) {
+		$reviewers = [];
+		foreach ( $book_schema['reviewedBy'] as $reviewer ) {
+			$reviewers[] = $reviewer['name'];
+		}
+		$book_information['pb_reviewers'] = oxford_comma( $reviewers );
+	}
+
+	if ( isset( $book_schema['illustrator'] ) ) {
+		$illustrators = [];
+		foreach ( $book_schema['illustrator'] as $illustrator ) {
+			$illustrators[] = $illustrator['name'];
+		}
+		$book_information['pb_illustrators'] = oxford_comma( $illustrators );
+	}
+
+	if ( isset( $book_schema['contributor'] ) ) {
+		$contributors = [];
+		foreach ( $book_schema['contributor'] as $contributor ) {
+			$contributors[] = $contributor['name'];
+		}
+		$book_information['pb_contributors'] = oxford_comma( $contributors );
+	}
+
 	if ( isset( $book_schema['publisher'] ) ) {
 		$book_information['pb_publisher'] = $book_schema['publisher']['name'];
-
 		if ( isset( $book_schema['publisher']['address'] ) ) {
 			$book_information['pb_publisher_city'] = $book_schema['publisher']['address']['addressLocality'];
 		}
@@ -499,6 +535,7 @@ function section_information_to_schema( $section_information, $book_information 
 		$section_schema['position'] = $section_information['pb_chapter_number'];
 	}
 
+	// Use section, if missing use book
 	$authors = [];
 	if ( isset( $section_information['pb_authors'] ) ) {
 		$authors = oxford_comma_explode( $section_information['pb_authors'] );
@@ -510,16 +547,6 @@ function section_information_to_schema( $section_information, $book_information 
 			'@type' => 'Person',
 			'name' => $author,
 		];
-	}
-
-	if ( isset( $book_information['pb_contributors'] ) ) {
-		$contributing_authors = oxford_comma_explode( $book_information['pb_contributors'] );
-		foreach ( $contributing_authors as $contributor ) {
-			$section_schema['contributor'][] = [
-				'@type' => 'Person',
-				'name' => $contributor,
-			];
-		}
 	}
 
 	if ( isset( $book_information['pb_editors'] ) ) {
@@ -538,6 +565,36 @@ function section_information_to_schema( $section_information, $book_information 
 			$section_schema['translator'][] = [
 				'@type' => 'Person',
 				'name' => $translator,
+			];
+		}
+	}
+
+	if ( isset( $book_information['pb_reviewers'] ) ) {
+		$reviewers = oxford_comma_explode( $book_information['pb_reviewers'] );
+		foreach ( $reviewers as $reviewer ) {
+			$section_schema['reviewedBy'][] = [
+				'@type' => 'Person',
+				'name' => $reviewer,
+			];
+		}
+	}
+
+	if ( isset( $book_information['pb_illustrators'] ) ) {
+		$illustrators = oxford_comma_explode( $book_information['pb_illustrators'] );
+		foreach ( $illustrators as $illustrator ) {
+			$section_schema['illustrator'][] = [
+				'@type' => 'Person',
+				'name' => $illustrator,
+			];
+		}
+	}
+
+	if ( isset( $book_information['pb_contributors'] ) ) {
+		$contributing_authors = oxford_comma_explode( $book_information['pb_contributors'] );
+		foreach ( $contributing_authors as $contributor ) {
+			$section_schema['contributor'][] = [
+				'@type' => 'Person',
+				'name' => $contributor,
 			];
 		}
 	}

@@ -222,16 +222,6 @@ function add_meta_boxes() {
 	);
 
 	x_add_metadata_field(
-		'pb_proofreaders', 'metadata', [
-			'group' => 'general-book-information',
-			'label' => __( 'Proofreader(s)', 'pressbooks' ),
-			'field_type' => 'taxonomy_multi_select',
-			'taxonomy' => Contributors::TAXONOMY,
-			'select2' => true,
-		]
-	);
-
-	x_add_metadata_field(
 		'pb_reviewers', 'metadata', [
 			'group' => 'general-book-information',
 			'label' => __( 'Reviewer(s)', 'pressbooks' ),

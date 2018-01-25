@@ -79,12 +79,12 @@ class MetadataTest extends \WP_UnitTestCase {
 		$schema = [
 			'@context' => 'http://schema.org',
 			'@type' => 'Book',
-			'author' => [
+			'name' => 'Moby Dick',
+			'license' => 'https://creativecommons.org/publicdomain/zero/1.0/',
+			'author' => [ // PB4
 				'@type' => 'Person',
 				'name' => 'Herman Melville',
 			],
-			'name' => 'Moby Dick',
-			'license' => 'https://creativecommons.org/publicdomain/zero/1.0/',
 		];
 
 		$result = \Pressbooks\Metadata\schema_to_book_information( $schema );
@@ -95,23 +95,71 @@ class MetadataTest extends \WP_UnitTestCase {
 		$schema = [
 			'@context' => 'http://schema.org',
 			'@type' => 'Book',
+			'name' => 'Moby Dick',
+			'license' => [
+				'url' => 'https://creativecommons.org/publicdomain/zero/1.0/',
+				'name' => 'Public Domain (No Rights Reserved)',
+				'description' => 'Override copyright.',
+			],
 			'author' => [
 				[
 					'@type' => 'Person',
 					'name' => 'Herman Melville',
 				],
 			],
-			'name' => 'Moby Dick',
-			'license' => [
-				'url' => 'https://creativecommons.org/publicdomain/zero/1.0/',
-				'name' => 'Public Domain (No Rights Reserved)',
-				'description' => 'Call me Ishmael.',
+			'editor' => [
+				[
+					'@type' => 'Person',
+					'name' => 'Test 1',
+				],
+			],
+			'translator' => [
+				[
+					'@type' => 'Person',
+					'name' => 'Test 2',
+				],
+			],
+			'reviewedBy' => [
+				[
+					'@type' => 'Person',
+					'name' => 'Test 3',
+				],
+			],
+			'illustrator' => [
+				[
+					'@type' => 'Person',
+					'name' => 'Test 4',
+				],
+			],
+			'contributor' => [
+				[
+					'@type' => 'Person',
+					'name' => 'Test 5',
+				],
+			],
+			'audience' => [
+				'@type' => 'Audience',
+				'name' => 'adult',
+			],
+			'datePublished' => '2018-01-25',
+			'copyrightHolder' => [
+				'@type' => 'Organization',
+				'name' => 'Test 6',
 			],
 		];
 
 		$result = \Pressbooks\Metadata\schema_to_book_information( $schema );
 		$this->assertEquals( $result['pb_authors'], 'Herman Melville' );
-		$this->assertEquals( $result['pb_custom_copyright'], 'Call me Ishmael.' );
+		$this->assertEquals( $result['pb_book_license'], 'public-domain' );
+		$this->assertEquals( $result['pb_custom_copyright'], 'Override copyright.' );
+		$this->assertEquals( $result['pb_editors'], 'Test 1' );
+		$this->assertEquals( $result['pb_translators'], 'Test 2' );
+		$this->assertEquals( $result['pb_reviewers'], 'Test 3' );
+		$this->assertEquals( $result['pb_illustrators'], 'Test 4' );
+		$this->assertEquals( $result['pb_contributors'], 'Test 5' );
+		$this->assertEquals( $result['pb_audience'], 'adult' );
+		$this->assertEquals( $result['pb_publication_date'], 1516838400 );
+		$this->assertEquals( $result['pb_copyright_holder'], 'Test 6' );
 	}
 
 	public function test_section_information_to_schema() {
