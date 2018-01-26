@@ -12,6 +12,24 @@ let path = require( 'path' );
  |
  */
 
+const assets = 'assets';
+const src = `${assets}/src`;
+const dist = `${assets}/dist`;
+const templates = 'templates';
+
+// BrowserSync
+mix.browserSync( {
+	host:  'localhost',
+	proxy: 'https://pressbooks.test/wp-login.php',
+	port:  3100,
+	files: [
+		'*.php',
+		`${templates}/**/*.php`,
+		`${dist}/styles/*.css`,
+		`${dist}/scripts/*.js`,
+	],
+} );
+
 mix
 	.setPublicPath( path.join( 'assets', 'dist' ) )
 	.js( 'assets/src/scripts/anchor.js', 'assets/dist/scripts/' )

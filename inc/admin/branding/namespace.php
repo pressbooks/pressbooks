@@ -53,8 +53,22 @@ function custom_color_scheme() {
  */
 function custom_login_logo() {
 	$assets = new Assets( 'pressbooks', 'plugin' );
+	if ( has_custom_logo() ) {
+		$custom_logo_id = get_theme_mod( 'custom_logo' );
+		$logo = sprintf(
+			'<style type="text/css">#login h1 a {background-image: url(%s);}</style>',
+			wp_get_attachment_image_src( $custom_logo_id, 'logo' )[0]
+		);
+	} else {
+		$logo = sprintf(
+			'<style type="text/css">#login h1 a {background-image: url(%s);}</style>',
+			$assets->getPath( 'images/PB-logo.svg' )
+		);
+	}
 	$style = '<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karla:400,400i,700|Spectral:400,400i,600" />';
 	$style .= '<link rel="stylesheet" href="' . $assets->getPath( 'styles/login.css' ) . '" />';
+	$style .= $logo;
+
 	/**
 	 * Print <link> or <style> tag to add a custom logo for the login page.
 	 *
@@ -132,4 +146,11 @@ function get_customizer_colors() {
 		$output .= '}</style>';
 	}
 	return $output;
+}
+
+function login_footer() {
+	printf(
+		'<script type="text/javascript">var loginForm = document.getElementById("loginform"); loginForm.insertAdjacentHTML("beforebegin", "<p class=\'subtitle\'>%s</p>");</script>',
+		__( 'Log In', 'pressbooks' )
+	);
 }

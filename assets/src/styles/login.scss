@@ -1,8 +1,11 @@
-body.pressbooks {
+body.pressbooks.login.wp-core-ui {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   font-family: "Karla", sans-serif;
 
-  &.wp-core-ui .button-primary,
-  &.wp-core-ui .button.button-large {
+  .button-primary,
+  .button.button-large {
     border-style: solid;
     border-width: 2px;
     border-radius: 3px;
@@ -12,10 +15,11 @@ body.pressbooks {
     box-shadow: none;
     display: inline-block;
     font-family: "Karla", sans-serif;
-    font-weight: 600;
+    font-weight: 500;
+    letter-spacing: (2 / 18) * 1em;
     height: 59px;
     width: 100%;
-    font-size: 18px;
+    font-size: 16px;
     line-height: 1.5;
     padding: 0.875rem 3.25rem;
     vertical-align: middle;
@@ -34,7 +38,7 @@ body.pressbooks {
     &:focus,
     &.focus {
       outline: 0;
-      // box-shadow: $btn-focus-box-shadow;
+      box-shadow: 0 0 0 3px rgba(#b01109, 0.25);
     }
 
     // Disabled comes first so active can properly restyle
@@ -47,26 +51,93 @@ body.pressbooks {
     &:active,
     &.active {
       background-image: none;
-      box-shadow: 0 0 0 3px var(--primary, #b01109),
+      box-shadow: 0 0 0 3px rgba(#b01109, 0.25),
         inset 0 3px 5px rgba(0, 0, 0, 0.125);
     }
+  }
+
+  #login {
+    width: 600px;
+    height: auto;
+    box-sizing: border-box;
+    padding: 60px 132px 40px;
+    margin: 0 auto;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-shadow: -3px 5px 4px 2px rgba(149, 149, 149, 0.2);
+  }
+
+  h1 {
+    position: absolute;
+    width: 600px;
+    top: calc((100% - 500px) / 2 - 150px);
+    left: calc((100% - 600px) / 2);
+
+    a {
+      width: 300px;
+      height: 100px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+  }
+
+  form {
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+  }
+
+  #login p.subtitle {
+    margin-bottom: 60px;
+    font-size: 1.875rem;
+    font-weight: 600;
+    line-height: 1;
+    text-align: center;
+    text-transform: uppercase;
+    color: var(--primary);
+
+    &::before {
+      content: "";
+      display: block;
+      margin: 0.5rem auto 20px;
+      width: 45px;
+      height: 5px;
+      background: var(--accent);
+
+      @media screen and (min-width: 60rem) {
+        margin-bottom: 20px;
+        width: 75px;
+      }
+    }
+
+    @media screen and (min-width: 768px) {
+      font-size: 2.25rem;
+    }
+  }
+
+  #login form {
+    margin-top: 0;
+    padding: 0;
   }
 
   #login form p.forgetmenot {
     margin-bottom: 2em;
   }
 
-  &.login form .forgetmenot,
-  &.login form .submit {
+  form .forgetmenot,
+  form .submit {
     float: none;
     display: block;
   }
 
-  &.login form .input {
+  form .input {
     background: transparent;
   }
 
-  &.login form label {
+  form label {
     position: relative;
     color: var(--primary, #b01109);
     font-weight: 600;
