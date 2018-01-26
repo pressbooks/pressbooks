@@ -217,7 +217,7 @@ class Element {
 	/**
 	 * @param mixed $attribute
 	 */
-	public function appendAttribute( $attribute ) {
+	public function appendAttributes( $attribute ) {
 		if ( is_array( $attribute ) ) {
 			foreach ( $attribute as $k => $v ) {
 				if ( isset( $this->attributes[ $k ] ) ) {
