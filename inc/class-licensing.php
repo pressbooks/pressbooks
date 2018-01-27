@@ -8,6 +8,11 @@ namespace Pressbooks;
 
 use function \Pressbooks\Utility\debug_error_log;
 
+/**
+ * TODO: Refactor
+ * Custom Licenses don't work with the Creative Commons API. For now we fallback to 'all-rights-reserved'. Instead, the Creative Commons API should be gutted.
+ * An admin can delete Creative Commons taxonomies. Should we let them?
+ */
 class Licensing {
 
 	const TAXONOMY = 'license';
@@ -27,15 +32,17 @@ class Licensing {
 	 *        desc,
 	 *
 	 * @param bool $disable_translation (optional)
+	 * @param bool $disable_custom (optional)
 	 *
 	 * @return array
 	 */
-	public function getSupportedTypes( $disable_translation = false ) {
+	public function getSupportedTypes( $disable_translation = false, $disable_custom = false ) {
 
 		if ( $disable_translation ) {
 			add_filter( 'gettext', [ $this, 'disableTranslation' ], 999, 3 );
 		}
 
+		// Supported
 		$supported = [
 			'public-domain' => [
 				'api' => [
@@ -107,6 +114,27 @@ class Licensing {
 			],
 		];
 
+		// Custom
+		if ( ! $disable_custom ) {
+			$custom = get_terms(
+				[
+					'taxonomy' => self::TAXONOMY,
+					'hide_empty' => false,
+				]
+			);
+			if ( is_array( $custom ) ) {
+				foreach ( $custom as $custom_term ) {
+					if ( ! isset( $supported[ $custom_term->slug ] ) ) {
+						$supported[ $custom_term->slug ] = [
+							'api' => [], // Not supported
+							'url' => "https://choosealicense.com/no-license/#{$custom_term->slug}",
+							'desc' => $custom_term->name,
+						];
+					}
+				}
+			}
+		}
+
 		if ( $disable_translation ) {
 			remove_filter( 'gettext', [ $this, 'disableTranslation' ], 999 );
 		}
@@ -135,7 +163,6 @@ class Licensing {
 	public function isSupportedType( $license ) {
 		return isset( $this->getSupportedTypes()[ $license ] );
 	}
-
 
 	/**
 	 * Will create an html blob of copyright information, returns empty string
@@ -271,9 +298,13 @@ class Licensing {
 		$lang = ( ! empty( $lang ) ) ? substr( $lang, 0, 2 ) : '';
 		$expected = $this->getSupportedTypes();
 
-		// nothing meaningful to hit the api with, so bail
 		if ( ! array_key_exists( $type, $expected ) ) {
+			// nothing meaningful to hit the api with, so bail
 			return '';
+		}
+		if ( $type !== 'all-rights-reserved' && empty( $expected[ $type ]['api'] ) ) {
+			// We don't know what to do with a custom license, use "all-rights-reserved" for now
+			$type = 'all-rights-reserved';
 		}
 
 		switch ( $type ) {

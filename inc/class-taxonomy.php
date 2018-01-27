@@ -408,7 +408,9 @@ class Taxonomy {
 			]
 		);
 
-		foreach ( $this->licensing->getSupportedTypes( true ) as $key => $val ) {
+		$disable_translation = true;
+		$disable_custom = true;
+		foreach ( $this->licensing->getSupportedTypes( $disable_translation, $disable_custom ) as $key => $val ) {
 			wp_insert_term(
 				$val['desc'], Licensing::TAXONOMY, [
 					'slug' => $key,
