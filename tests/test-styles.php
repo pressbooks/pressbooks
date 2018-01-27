@@ -66,6 +66,10 @@ class StylesTest extends \WP_UnitTestCase {
 		$this->assertFalse( $this->cs->isCurrentThemeCompatible( 999, $v2 ) );
 	}
 
+	public function test_getBuckramVersion() {
+		$this->assertGreaterThanOrEqual( 0, version_compare( $this->cs->getBuckramVersion(), '0.2.0' ) );
+	}
+
 	public function test_applyOverrides() {
 		// V1
 		$this->_book( 'pressbooks-donham' );

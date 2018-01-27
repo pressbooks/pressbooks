@@ -347,6 +347,24 @@ class Styles {
 	}
 
 	/**
+	 * Get the version of Buckram for the current install or locked theme.
+	 *
+	 * @since 5.0.0
+	 */
+	public function getBuckramVersion() {
+		$fullpath = realpath( $this->sass->pathToGlobals() . 'buckram.scss' );
+		if ( is_file( $fullpath ) ) {
+			return get_file_data(
+				$fullpath,
+				[
+					'version' => 'Version',
+				]
+			)['version'];
+		}
+		return '0.1.0'; // Old, generally incompatible with fancy new things.
+	}
+
+	/**
 	 * @param array|string $overrides (optional)
 	 *
 	 * @return string
