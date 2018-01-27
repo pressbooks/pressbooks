@@ -92,7 +92,7 @@ class Xhtml11 extends Export {
 		$this->taxonomy = \Pressbooks\Taxonomy::init();
 		$this->contributors = new \Pressbooks\Contributors();
 
-		if ( Container::get( 'Styles' )->isCurrentThemeCompatible( 2 ) && version_compare( Container::get( 'Styles' )->getBuckramVersion(), '0.2.0' ) >= 0 ) {
+		if ( Container::get( 'Styles' )->isCurrentThemeCompatible( 2 ) && version_compare( Container::get( 'Styles' )->getBuckramVersion(), '0.3.0' ) >= 0 ) {
 			$this->wrapHeaderElements = true;
 		}
 
