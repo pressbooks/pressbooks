@@ -650,7 +650,7 @@ class HTMLBook extends Export {
 					]
 				);
 				if ( ! $show_title ) {
-					$h1->appendAttribute(
+					$h1->appendAttributes(
 						[
 							'class' => 'display-none',
 						]
@@ -666,7 +666,7 @@ class HTMLBook extends Export {
 					]
 				);
 				if ( ! $show_title ) {
-					$p->appendAttribute(
+					$p->appendAttributes(
 						[
 							'class' => 'display-none',
 						]
@@ -1198,7 +1198,7 @@ class HTMLBook extends Export {
 				]
 			);
 			if ( ! $show_title ) {
-				$h1->appendAttribute(
+				$h1->appendAttributes(
 					[
 						'class' => 'display-none',
 					]
@@ -1214,7 +1214,7 @@ class HTMLBook extends Export {
 				]
 			);
 			if ( ! $show_title ) {
-				$p->appendAttribute(
+				$p->appendAttributes(
 					[
 						'class' => 'display-none',
 					]
@@ -1305,7 +1305,7 @@ class HTMLBook extends Export {
 					]
 				);
 			}
-			$my_part->appendAttribute(
+			$my_part->appendAttributes(
 				[
 					'id' => $slug,
 				]
@@ -1400,7 +1400,7 @@ class HTMLBook extends Export {
 						]
 					);
 				}
-				$my_chapter->appendAttribute(
+				$my_chapter->appendAttributes(
 					[
 						'id' => $slug,
 					]
@@ -1538,7 +1538,7 @@ class HTMLBook extends Export {
 				]
 			);
 			if ( ! $show_title ) {
-				$h1->appendAttribute(
+				$h1->appendAttributes(
 					[
 						'class' => 'display-none',
 					]
@@ -1554,7 +1554,7 @@ class HTMLBook extends Export {
 				]
 			);
 			if ( ! $show_title ) {
-				$p->appendAttribute(
+				$p->appendAttributes(
 					[
 						'class' => 'display-none',
 					]

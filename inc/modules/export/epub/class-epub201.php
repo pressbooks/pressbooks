@@ -223,7 +223,7 @@ class Epub201 extends Export {
 		$this->tmpDir = $this->createTmpDir();
 		$this->exportStylePath = $this->getExportStylePath( 'epub' );
 
-		if ( get_theme_support( 'buckram' ) || wp_get_theme()->get_stylesheet() === 'pressbooks-book' ) {
+		if ( Container::get( 'Styles' )->isCurrentThemeCompatible( 2 ) && version_compare( Container::get( 'Styles' )->getBuckramVersion(), '0.2.0' ) >= 0 ) {
 			$this->wrapHeaderElements = true;
 		}
 
@@ -1414,7 +1414,7 @@ class Epub201 extends Export {
 					$append_chapter_content .= $this->kneadHtml( $this->tidy( $section_license ), 'chapter', $j );
 				}
 
-				$n = ( strpos( $subclass, 'numberless' ) === false ) ? '' : $c;
+				$n = ( strpos( $subclass, 'numberless' ) === false ) ? $c : '';
 				$vars['post_title'] = $chapter['post_title'];
 				$vars['post_content'] = sprintf(
 					$chapter_printf,
@@ -1614,7 +1614,7 @@ class Epub201 extends Export {
 
 			if ( $author ) {
 				if ( $this->wrapHeaderElements ) {
-					$after_title .= '<h2 class="chapter-author">' . Sanitize\decode( $author ) . '</h2>';
+					$after_title = '<h2 class="chapter-author">' . Sanitize\decode( $author ) . '</h2>' . $after_title;
 				} else {
 					$content = '<h2 class="chapter-author">' . Sanitize\decode( $author ) . '</h2>' . $content;
 				}
@@ -1622,7 +1622,7 @@ class Epub201 extends Export {
 
 			if ( $subtitle ) {
 				if ( $this->wrapHeaderElements ) {
-					$after_title .= '<h2 class="chapter-subtitle">' . Sanitize\decode( $subtitle ) . '</h2>';
+					$after_title = '<h2 class="chapter-subtitle">' . Sanitize\decode( $subtitle ) . '</h2>' . $after_title;
 				} else {
 					$content = '<h2 class="chapter-subtitle">' . Sanitize\decode( $subtitle ) . '</h2>' . $content;
 				}
@@ -1630,7 +1630,7 @@ class Epub201 extends Export {
 
 			if ( $short_title ) {
 				if ( $this->wrapHeaderElements ) {
-					$after_title .= '<h6 class="short-title">' . Sanitize\decode( $short_title ) . '</h6>';
+					$after_title = '<h6 class="short-title">' . Sanitize\decode( $short_title ) . '</h6>' . $after_title;
 				} else {
 					$content = '<h6 class="short-title">' . Sanitize\decode( $short_title ) . '</h6>' . $content;
 				}
