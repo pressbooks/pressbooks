@@ -350,6 +350,10 @@ class Styles {
 	 * Get the version of Buckram for the current install or locked theme.
 	 *
 	 * @since 5.0.0
+	 *
+	 * @see https://github.com/pressbooks/buckram/blob/master/styles/buckram.scss
+	 *
+	 * @return string
 	 */
 	public function getBuckramVersion() {
 		$fullpath = realpath( $this->sass->pathToGlobals() . 'buckram.scss' );
