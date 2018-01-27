@@ -72,6 +72,9 @@ function init_book() {
 			],
 		]
 	);
+
+	// Batch endpoint
+	init_batch();
 }
 
 /**
@@ -87,6 +90,99 @@ function init_root() {
 
 	// Register Search
 	( new Endpoints\Controller\Search() )->register_routes();
+}
+
+/**
+ * Forked from:
+ *
+ * @author Joe Hoyle
+ * @source https://gist.github.com/joehoyle/44a71a2e458b05c22a10
+ *
+ * The endpoint `/wp-json/pressbooks/v2/batch` allows a client to send multiple requests to the
+ * server for processing in a single HTTP request. Each child request can have it's own
+ * HTTP Method, Body, Headers, URL Params and Path.
+ *
+ * If the HTTP Method, Body or Headers are not supplied for each request, they will be
+ * inherited from the HTTP request.
+ *
+ * The client must send an array of "request" objects in the `requests` param, the "request"
+ * object can be a Path for shorthand (enabling the inheritance of HTTP Method, Body and Headers
+ * from the HTTP request.)
+ *
+ * When not supplying only string Paths in the `requests` array, the "request" object must be in the
+ * form of `{ path: '/some/path', headers: [], body: {}, method: 'POST' }`
+ *
+ * Example 1: Fetch all recent posts and all recent pages
+ *
+ * `curl example.com/wp-json/pressbooks/v2/batch?requests[]=/pressbooks/v2/front-matter&requests[]=/pressbooks/v2/back-matter`
+ *
+ * Example 2: Delete 2 posts
+ *
+ * `curl -X DELETE example.com/wp-json/pressbooks/v2/batch?requests[]=/pressbooks/v2/front-matter/1&requests[]=/pressbooks/v2/front-matter/2`
+ *
+ * Responses are in the form of a WP REST API enveloped response object. The HTTP request will return an
+ * array of enveloped response objects in the order the `requests` parameter was passed.
+ */
+function init_batch() {
+	register_rest_route(
+		'pressbooks/v2', 'batch', [
+			'methods' => \WP_REST_Server::ALLMETHODS,
+			'args' => [
+				'requests' => [],
+			],
+			'callback' => __NAMESPACE__ . '\batch_serve_request',
+		]
+	);
+}
+
+/**
+ * @param \WP_REST_Request $request
+ *
+ * @return mixed
+ */
+function batch_serve_request( $request ) {
+	if ( ! is_array( $request['requests'] ) ) {
+		return new \WP_Error(
+			'rest_invalid_param', __( 'Invalid batch parameter(s).', 'pressbooks' ), [
+				'status' => 400,
+			]
+		);
+	}
+	/** @var \WP_REST_Server $wp_rest_server */
+	global $wp_rest_server;
+	$responses = [];
+	foreach ( $request['requests'] as $single_request ) {
+		if ( is_string( $single_request ) ) {
+			$single_request = [
+				'path' => $single_request,
+			];
+		}
+		if ( empty( $single_request['method'] ) ) {
+			$single_request['method'] = $_SERVER['REQUEST_METHOD'];
+		}
+		if ( empty( $single_request['body'] ) ) {
+			$single_request['body'] = $_POST;
+		}
+		if ( empty( $single_request['headers'] ) ) {
+			$single_request['headers'] = $_SERVER;
+		}
+
+		$parsed_url = wp_parse_url( $single_request['path'] );
+		$rest_request = new \WP_REST_Request( $single_request['method'], $parsed_url['path'] );
+		$rest_request->set_headers( $wp_rest_server->get_headers( $single_request['headers'] ) );
+		$rest_request->set_body_params( $single_request['body'] );
+		if ( ! empty( $parsed_url['query'] ) ) {
+			parse_str( $parsed_url['query'], $params );
+			$rest_request->set_query_params( $params );
+		}
+
+		$result = $wp_rest_server->dispatch( $rest_request );
+		$result = rest_ensure_response( $result );
+		$result = apply_filters( 'rest_post_dispatch', rest_ensure_response( $result ), $wp_rest_server, $rest_request );
+		$result = $wp_rest_server->envelope_response( $result, $rest_request->get_param( '_embed' ) );
+		$responses[] = $result;
+	}
+	return $responses;
 }
 
 /**
