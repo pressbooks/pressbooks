@@ -1414,7 +1414,7 @@ class Epub201 extends Export {
 					$append_chapter_content .= $this->kneadHtml( $this->tidy( $section_license ), 'chapter', $j );
 				}
 
-				$n = ( strpos( $subclass, 'numberless' ) === false ) ? '' : $c;
+				$n = ( strpos( $subclass, 'numberless' ) === false ) ? $c : '';
 				$vars['post_title'] = $chapter['post_title'];
 				$vars['post_content'] = sprintf(
 					$chapter_printf,
