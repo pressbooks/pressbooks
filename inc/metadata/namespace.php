@@ -341,7 +341,7 @@ function book_information_to_schema( $book_information ) {
 	$book_schema['license'] = [
 		'@type' => 'CreativeWork',
 		'url' => $licensing->getUrlForLicense( $book_information['pb_book_license'] ),
-		'name' => $licensing->getSupportedTypes()[ $book_information['pb_book_license'] ]['desc'],
+		'name' => $licensing->getSupportedTypes()[ $book_information['pb_book_license'] ]['desc'] ?? 'all-rights-reserved',
 	];
 	if ( isset( $book_information['pb_custom_copyright'] ) ) {
 		$book_schema['license']['description'] = $book_information['pb_custom_copyright'];
@@ -651,7 +651,7 @@ function section_information_to_schema( $section_information, $book_information 
 	$section_schema['license'] = [
 		'@type' => 'CreativeWork',
 		'url' => $licensing->getUrlForLicense( $section_information['pb_section_license'] ),
-		'name' => $licensing->getSupportedTypes()[ $section_information['pb_section_license'] ]['desc'],
+		'name' => $licensing->getSupportedTypes()[ $section_information['pb_section_license'] ]['desc'] ?? 'all-rights-reserved',
 	];
 
 	if ( ! isset( $section_information['pb_is_based_on'] ) && isset( $book_information['pb_is_based_on'] ) ) {
