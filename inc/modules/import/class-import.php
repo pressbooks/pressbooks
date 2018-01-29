@@ -270,7 +270,7 @@ abstract class Import {
 	static protected function doImport( array $current_import ) {
 
 		// Set post status
-		$current_import['default_post_status'] = ( isset( $_POST['import_as_drafts'] ) ) ? 'private' : 'publish';
+		$current_import['default_post_status'] = ( isset( $_POST['show_imports_in_web'] ) ) ? 'publish' : 'private';
 
 		@set_time_limit( 300 ); // @codingStandardsIgnoreLine
 

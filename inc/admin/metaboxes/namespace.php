@@ -912,6 +912,18 @@ function status_visibility_box( $post ) {
  * @param bool $update Whether this is an existing post being updated or not.
  */
 function publish_fields_save( $post_id, $post, $update ) {
+
+	// Sanity checks
+
+	if ( empty( $_POST ) ) {
+		return;
+	}
+
+	global $pagenow;
+	if ( ! in_array( $pagenow, [ 'post.php', 'post-new.php' ], true ) ) {
+		return;
+	}
+
 	if ( ! in_array(
 		$post->post_type, [
 			'front-matter',
@@ -929,6 +941,8 @@ function publish_fields_save( $post_id, $post, $update ) {
 	if ( $post->post_status === 'trash' ) {
 		return;
 	}
+
+	// Save it
 
 	$show_in_web = ( isset( $_POST['web_visibility'] ) && $_POST['web_visibility'] === '1' ) ? true : false;
 	$show_in_exports = ( isset( $_POST['export_visibility'] ) && $_POST['export_visibility'] === '1' ) ? true : false;
