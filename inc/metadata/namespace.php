@@ -826,6 +826,9 @@ function register_contributor_meta() {
  * These should already have been initialized by hooks, but sometimes they are disabled because we don't want them in the root site.
  */
 function init_book_data_models() {
+	if ( ! post_type_exists( 'chapter' ) ) {
+		\Pressbooks\PostType\register_post_types();
+	}
 	if ( get_post_status_object( 'web-only' ) === null ) {
 		\Pressbooks\PostType\register_post_statii();
 	}

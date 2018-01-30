@@ -21,7 +21,6 @@ function update_post_visibility() {
 		$visibility = absint( $_POST[ $format ] );
 
 		if ( current_user_can( 'publish_posts' ) ) {
-			remove_action( 'save_post', '\Pressbooks\Admin\Metaboxes\publish_fields_save' );
 			foreach ( $post_ids as $post_id ) {
 				$post_id = (int) $post_id; // Paranoia reasons
 				$current_status = get_post_status( $post_id );
@@ -66,7 +65,6 @@ function update_post_visibility() {
 					clean_post_cache( $post_id );
 				}
 			}
-			add_action( 'save_post', '\Pressbooks\Admin\Metaboxes\publish_fields_save' );
 		}
 
 		Book::deleteBookObjectCache();

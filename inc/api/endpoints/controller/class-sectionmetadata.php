@@ -420,7 +420,7 @@ class SectionMetadata extends \WP_REST_Controller {
 			[
 				'p' => $request['parent'],
 				'post_type' => $this->post_type,
-				'post_status' => 'any',
+				'post_status' => [ 'web-only', 'publish' ],
 			]
 		);
 		$error = new \WP_Error(
