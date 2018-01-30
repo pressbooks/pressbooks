@@ -944,8 +944,8 @@ function publish_fields_save( $post_id, $post, $update ) {
 
 	// Save it
 
-	$show_in_web = ( isset( $_POST['web_visibility'] ) && $_POST['web_visibility'] === '1' ) ? true : false;
-	$show_in_exports = ( isset( $_POST['export_visibility'] ) && $_POST['export_visibility'] === '1' ) ? true : false;
+	$show_in_web = ( isset( $_POST['web_visibility'] ) && (int) $_POST['web_visibility'] === 1 ) ? true : false;
+	$show_in_exports = ( isset( $_POST['export_visibility'] ) && (int) $_POST['export_visibility'] === 1 ) ? true : false;
 	$show_title = ( isset( $_POST['pb_show_title'] ) && $_POST['pb_show_title'] === 'on' ) ? 'on' : false;
 
 	if ( $show_in_web && $show_in_exports ) {
