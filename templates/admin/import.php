@@ -121,7 +121,7 @@ $import_option_types = apply_filters( 'pb_select_import_type', [
 			</tbody>
 		</table>
 
-		<p><input type='checkbox' id='show_imports_in_web' name='show_imports_in_web' value='1' checked><label for="show_imports_in_web"> <?php _e( 'Show imported content in web', 'pressbooks' ); ?></label></p>
+		<p><input type='checkbox' id='show_imports_in_web' name='show_imports_in_web' value='1'><label for="show_imports_in_web"> <?php _e( 'Show imported content in web', 'pressbooks' ); ?></label></p>
 
 		<p><?php
 			submit_button( __( 'Import Selection', 'pressbooks' ), 'primary', 'submit', false );
