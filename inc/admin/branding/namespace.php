@@ -22,9 +22,10 @@ function login_body_class( $classes ) {
  * Apply Color Scheme to Login Page
  * To customize this, add a filter to the 'pb_login_color_scheme' hook
  * that returns a string containing a link tag for your own admin color scheme.
+ *
+ * TODO: Deprecate & rename. More than just the color scheme now.
  */
 function custom_color_scheme() {
-	\wp_dequeue_style( 'login' );
 	$style = get_customizer_colors();
 	/**
 	 * Print CSS for a custom color scheme for the login page.
@@ -34,7 +35,7 @@ function custom_color_scheme() {
 	$style = apply_filters(
 		'pb_login_color_scheme',
 		/**
-		 * Print <link> to a custom color scheme for the login page.
+		 * Print CSS for a custom color scheme for the login page.
 		 *
 		 * @since 3.5.2
 		 * @deprecated 4.3.0 Use pb_login_color_scheme instead.
@@ -50,18 +51,20 @@ function custom_color_scheme() {
  * Add Custom Login Graphic.
  * To customize this, add a filter to the 'pb_login_logo' hook that
  * returns a string containing a <link> or <style> tag that supplies your custom logo.
+ *
+ * TODO: Deprecate & rename. More than just the login logo now.
  */
 function custom_login_logo() {
 	$assets = new Assets( 'pressbooks', 'plugin' );
 	if ( has_custom_logo() ) {
 		$custom_logo_id = get_theme_mod( 'custom_logo' );
 		$logo = sprintf(
-			'<style type="text/css">#login h1 a {background-image: url(%s);}</style>',
+			'<style type="text/css">.login h1 a {background-image: url(%s);}</style>',
 			wp_get_attachment_image_src( $custom_logo_id, 'logo' )[0]
 		);
 	} else {
 		$logo = sprintf(
-			'<style type="text/css">#login h1 a {background-image: url(%s);}</style>',
+			'<style type="text/css">.login h1 a {background-image: url(%s);}</style>',
 			$assets->getPath( 'images/PB-logo.svg' )
 		);
 	}
@@ -91,9 +94,11 @@ function custom_login_logo() {
 
 /**
  * Changing the login page URL
+ *
+ * @return string
  */
 function login_url() {
-	return home_url(); // changes the url link from wordpress.org to your blog or website's url
+	return home_url(); // Changes the url link from wordpress.org to your blog or website's url
 }
 
 /**
@@ -105,13 +110,21 @@ function login_title() {
 
 /**
  * Replaces 'WordPress' with 'Pressbooks' in titles of admin pages.
+ *
+ * @since 5.0.0
+ *
+ * @param string $admin_title
+ * @return string
  */
 function admin_title( $admin_title ) {
 	$title = str_replace( 'WordPress', 'Pressbooks', $admin_title );
 	return $title;
 }
+
 /**
+ * @since 5.0.0
  *
+ * @return string
  */
 function get_customizer_colors() {
 	$colors = [
@@ -148,9 +161,20 @@ function get_customizer_colors() {
 	return $output;
 }
 
-function login_footer() {
-	printf(
-		'<script type="text/javascript">var loginForm = document.getElementById("loginform"); loginForm.insertAdjacentHTML("beforebegin", "<p class=\'subtitle\'>%s</p>");</script>',
-		__( 'Log In', 'pressbooks' )
-	);
+/**
+ * Print JavaScript to the login footer to handle some things. Good lord this page is hard to customize.
+ *
+ * @since 5.0.0
+ *
+ * @return string
+ */
+function login_scripts() {
+	$assets = new Assets( 'pressbooks', 'plugin' );
+	wp_enqueue_script( 'pressbooks-login', $assets->getPath( 'scripts/login.js' ), false, null );
+	wp_localize_script( 'pressbooks-login', 'PB_Login', [
+		'logInTitle' => __( 'Log In', 'pressbooks' ),
+		'lostPasswordTitle' => __( 'Lost Password', 'pressbooks' ),
+		'resetPasswordTitle' => __( 'Reset Password', 'pressbooks' ),
+		'passwordResetTitle' => __( 'Password Reset', 'pressbooks' ),
+	] );
 }

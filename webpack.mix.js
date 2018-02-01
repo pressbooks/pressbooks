@@ -43,6 +43,7 @@ mix
 	.js( 'assets/src/scripts/footnote.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/ftnref-convert.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/import.js', 'assets/dist/scripts/' )
+	.js( 'assets/src/scripts/login.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/network-managers.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/organize.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/quicktags.js', 'assets/dist/scripts/' )
