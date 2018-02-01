@@ -18,6 +18,13 @@ class LicensingTest extends \WP_UnitTestCase {
 	}
 
 	public function test_getSupportedTypes() {
+		// Insert custom term
+		wp_insert_term(
+			'Fake Records', \Pressbooks\Licensing::TAXONOMY, [
+				'slug' => 'fake-records',
+			]
+		);
+
 		$result = $this->licensing->getSupportedTypes( false );
 		$this->assertTrue( is_array( $result ) );
 		foreach ( $result as $key => $val ) {
@@ -25,6 +32,8 @@ class LicensingTest extends \WP_UnitTestCase {
 			$this->assertArrayHasKey( 'url', $val );
 			$this->assertArrayHasKey( 'desc', $val );
 		}
+		$this->assertArrayHasKey( 'fake-records', $result );
+
 		$result = $this->licensing->getSupportedTypes( true );
 		$this->assertTrue( is_array( $result ) );
 		foreach ( $result as $key => $val ) {
@@ -32,6 +41,12 @@ class LicensingTest extends \WP_UnitTestCase {
 			$this->assertArrayHasKey( 'url', $val );
 			$this->assertArrayHasKey( 'desc', $val );
 		}
+		$this->assertArrayHasKey( 'fake-records', $result );
+
+		$result = $this->licensing->getSupportedTypes( false, true );
+		$this->assertArrayNotHasKey( 'fake-records', $result );
+		$result = $this->licensing->getSupportedTypes( true, true );
+		$this->assertArrayNotHasKey( 'fake-records', $result );
 	}
 
 	public function test_disableTranslation() {

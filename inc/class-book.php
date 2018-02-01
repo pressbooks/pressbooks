@@ -483,6 +483,14 @@ class Book {
 		( new Catalog() )->deleteCacheByBookId( $blog_id );
 		static::$fixDupeSlugs = [];
 		static::$preview = [];
+
+		/**
+		 * @since 5.0.0
+		 *
+		 * @param int $blog_id
+		 */
+		do_action( 'pb_cache_delete', $blog_id );
+		set_transient( 'pb_cache_deleted', time(), DAY_IN_SECONDS );
 	}
 
 	/**
