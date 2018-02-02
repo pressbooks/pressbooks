@@ -76,10 +76,13 @@ if ( $is_book ) {
 // Login screen branding
 // -------------------------------------------------------------------------------------------------------------------
 
+add_filter( 'login_body_class', '\Pressbooks\Admin\Branding\login_body_class' );
 add_action( 'login_head', '\Pressbooks\Admin\Branding\custom_color_scheme' );
 add_action( 'login_head', '\Pressbooks\Admin\Branding\custom_login_logo' );
 add_filter( 'login_headerurl', '\Pressbooks\Admin\Branding\login_url' );
 add_filter( 'login_headertitle', '\Pressbooks\Admin\Branding\login_title' );
+add_filter( 'login_title', '\Pressbooks\Admin\Branding\admin_title' );
+add_action( 'login_footer', '\Pressbooks\Admin\Branding\login_scripts' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Analytics
@@ -175,7 +178,6 @@ if ( $enable_network_api ) {
 add_filter( 'init', '\Pressbooks\Redirect\rewrite_rules_for_format', 1 );
 add_filter( 'init', '\Pressbooks\Redirect\rewrite_rules_for_catalog', 1 );
 add_filter( 'init', '\Pressbooks\Redirect\rewrite_rules_for_open', 1 );
-add_filter( 'login_redirect', '\Pressbooks\Redirect\login', 10, 3 );
 add_action( 'wp_loaded', '\Pressbooks\Redirect\migrate_generated_content' );
 
 // -------------------------------------------------------------------------------------------------------------------

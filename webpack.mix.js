@@ -12,6 +12,24 @@ let path = require( 'path' );
  |
  */
 
+const assets = 'assets';
+const src = `${assets}/src`;
+const dist = `${assets}/dist`;
+const templates = 'templates';
+
+// BrowserSync
+mix.browserSync( {
+	host:  'localhost',
+	proxy: 'https://pressbooks.test/wp-login.php',
+	port:  3100,
+	files: [
+		'*.php',
+		`${templates}/**/*.php`,
+		`${dist}/styles/*.css`,
+		`${dist}/scripts/*.js`,
+	],
+} );
+
 mix
 	.setPublicPath( path.join( 'assets', 'dist' ) )
 	.js( 'assets/src/scripts/anchor.js', 'assets/dist/scripts/' )
@@ -25,6 +43,7 @@ mix
 	.js( 'assets/src/scripts/footnote.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/ftnref-convert.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/import.js', 'assets/dist/scripts/' )
+	.js( 'assets/src/scripts/login.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/network-managers.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/organize.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/quicktags.js', 'assets/dist/scripts/' )
@@ -69,6 +88,7 @@ mix
 	.sass( 'assets/src/styles/colors-pb.scss', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/cloner.scss', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/export.scss', 'assets/dist/styles/' )
+	.sass( 'assets/src/styles/login.scss', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/metadata.scss', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/network-managers.scss', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/organize.scss', 'assets/dist/styles/' )

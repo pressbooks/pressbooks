@@ -120,7 +120,7 @@ if ( ! is_network_admin() ) {
 }
 
 //  Replaces 'WordPress' with 'Pressbooks' in titles of admin pages.
-add_filter( 'admin_title', '\Pressbooks\Admin\Laf\admin_title' );
+add_filter( 'admin_title', '\Pressbooks\Admin\Branding\admin_title' );
 
 // Echo our notices, if any
 add_action( 'admin_notices', '\Pressbooks\Admin\Laf\admin_notices' );

@@ -1,0 +1,246 @@
+body.pressbooks.login {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: auto;
+  width: 100%;
+  margin-top: 4rem;
+  font-family: "Karla", sans-serif;
+
+  @media (min-width: 48rem) {
+    margin-top: 10rem;
+  }
+
+  font {
+    display: none;
+  }
+
+  a {
+    color: var(--primary, #b01109);
+  }
+
+  .button-primary,
+  .button.button-large,
+  .button.button-hero {
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 3px;
+    background: var(--primary, #b01109);
+    border-color: var(--primary, #b01109);
+    color: var(--primary-fg, #fff);
+    box-shadow: none;
+    display: inline-block;
+    font-family: "Karla", sans-serif;
+    font-weight: 500;
+    letter-spacing: (2 / 18) * 1em;
+    height: 59px;
+    width: 100%;
+    font-size: 16px;
+    line-height: 1.5;
+    padding: 0.875rem 3.25rem;
+    vertical-align: middle;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    text-shadow: none;
+    float: none;
+    word-wrap: normal;
+
+    &:focus,
+    &:hover {
+      text-decoration: none;
+    }
+
+    &:focus,
+    &.focus {
+      outline: 0;
+      box-shadow: 0 0 0 3px rgba(#b01109, 0.25);
+    }
+
+    &.disabled,
+    &:disabled,
+    [disabled] {
+      background: var(--primary, #b01109) !important;
+      border-color: var(--primary, #b01109) !important;
+      color: var(--primary-fg, #fff) !important;
+      opacity: 0.65;
+      box-shadow: none;
+    }
+
+    &:active,
+    &.active {
+      background-image: none;
+      box-shadow: 0 0 0 3px var(--primary, #b01109),
+        inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    }
+  }
+
+  h1 {
+    width: 100%;
+    max-width: 600px;
+
+    a {
+      width: 50%;
+      height: 0;
+      padding-bottom: ( 1 / 6 ) * 100%;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+  }
+
+  .oauth {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 100%;
+    margin: 0 auto 1em;
+
+    .button.button-hero {
+      padding: 0.875rem 1rem;
+      line-height: 1.8;
+    }
+  }
+
+  .message,
+  #login_error {
+    margin-bottom: 2rem;
+    background: #eee;
+    box-shadow: none;
+  }
+
+
+  #login {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    box-sizing: border-box;
+    padding: 60px 1rem 40px;
+    margin: 0 auto 4rem;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-shadow: -3px 5px 4px 2px rgba(149, 149, 149, 0.2);
+
+    @media (min-width: 768px) {
+      padding: 60px 132px 40px;
+    }
+
+    p.subtitle {
+      margin-bottom: 1.5rem;
+      font-size: 1.875rem;
+      font-weight: 600;
+      line-height: 1;
+      text-align: center;
+      text-transform: uppercase;
+      color: var(--primary);
+
+      &::before {
+        content: "";
+        display: block;
+        margin: 0.5rem auto 20px;
+        width: 45px;
+        height: 5px;
+        background: var(--accent);
+
+        @media screen and (min-width: 60rem) {
+          margin-bottom: 20px;
+          width: 75px;
+        }
+      }
+
+      @media screen and (min-width: 768px) {
+        font-size: 2.25rem;
+      }
+    }
+
+    form {
+      margin-top: 0;
+      padding: 0;
+      background: transparent;
+      border: 0;
+      box-shadow: none;
+      overflow: visible;
+
+      .forgetmenot,
+      .submit {
+        float: none;
+        display: block;
+      }
+
+      .forgetmenot {
+        margin-bottom: 2em;
+      }
+
+      .input {
+        background: transparent;
+      }
+
+      label {
+        position: relative;
+        color: var(--primary, #b01109);
+        font-weight: 600;
+        display: block;
+        width: 100%;
+        margin-bottom: 1em;
+
+        .user-pass1-wrap & {
+          margin-bottom: 0.5rem;
+        }
+      }
+
+      [type="text"],
+      [type="password"] {
+        padding-left: 0;
+        border-top: none;
+        border-right: none;
+        border-bottom: solid 2px var(--primary, #b01109);
+        border-left: none;
+        background: #fff;
+        font-size: 1rem;
+        box-shadow: none;
+
+        label & {
+          position: absolute;
+          top: 0;
+          margin-top: 1.5rem;
+        }
+      }
+
+      [type="checkbox"] {
+        border: solid 2px var(--primary, #b01109);
+        box-shadow: none;
+
+        &:checked:before {
+          color: var(--primary, #b01109);
+        }
+      }
+
+      .password-input-wrapper {
+        width: 100%;
+      }
+
+      #pass1,
+      #pass1-text {
+        height: 35px;
+        border-bottom: 0;
+      }
+
+      .wp-hide-pw {
+        text-align: center;
+        padding-top: .4rem;
+      }
+    }
+
+    #nav,
+    #backtoblog {
+      text-align: center;
+      a {
+        color: var(--primary, #b01109);
+        font-weight: 600;
+      }
+    }
+  }
+}
