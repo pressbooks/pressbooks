@@ -128,9 +128,9 @@ class Taxonomy {
 				'meta_box' => false,
 				'hierarchical' => false,
 				'capabilities' => [
-					'manage_terms' => 'manage_sites',
-					'edit_terms' => 'manage_sites',
-					'delete_terms' => 'manage_sites',
+					'manage_terms' => 'manage_options',
+					'edit_terms' => 'manage_options',
+					'delete_terms' => 'manage_options',
 					'assign_terms' => 'edit_posts',
 				],
 				'show_in_rest' => true,
