@@ -132,6 +132,10 @@ function get_customizer_colors() {
 		'accent',
 		'primary_fg',
 		'accent_fg',
+		'primary_dark',
+		'accent_dark',
+		'primary_alpha',
+		'accent_alpha',
 		'header_text',
 	];
 	$values = [];
