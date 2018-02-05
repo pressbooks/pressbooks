@@ -1299,7 +1299,7 @@ function rmrdir( $dirname, $only_empty = false ) {
 	}
 	$i_until = ( $only_empty ) ? 1 : 0;
 	for ( $i = count( $darr ) - 1; $i >= $i_until; $i-- ) {
-		if ( ! rmdir( $darr[ $i ] ) ) {
+		if ( ! rmrdir( $darr[ $i ] ) ) {
 			trigger_error( "Warning: There was a problem deleting a temporary file in $dirname", E_USER_WARNING );
 		}
 	}
