@@ -1260,7 +1260,7 @@ function put_contents( $filename, $data ) {
 }
 
 /**
- * Recursively delete all contents of a directory without using `RecursiveDirectoryIterator`
+ * Delete all contents of a directory without using `RecursiveDirectoryIterator`
  * (E_WARNING: Too many open files, @see https://stackoverflow.com/a/37754469 )
  *
  * @since 5.0.0
@@ -1299,7 +1299,7 @@ function rmrdir( $dirname, $only_empty = false ) {
 	}
 	$i_until = ( $only_empty ) ? 1 : 0;
 	for ( $i = count( $darr ) - 1; $i >= $i_until; $i-- ) {
-		if ( ! rmrdir( $darr[ $i ] ) ) {
+		if ( ! rmdir( $darr[ $i ] ) ) {
 			trigger_error( "Warning: There was a problem deleting a temporary file in $dirname", E_USER_WARNING );
 		}
 	}

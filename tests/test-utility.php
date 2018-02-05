@@ -260,6 +260,25 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'Ned', \Pressbooks\Utility\mail_from_name( '' ) );
 	}
 
+	public function test_rmrdir() {
+		$file = \Pressbooks\Utility\create_tmp_file();
+		$dirname = dirname( $file );
+		if ( ! is_dir( "$dirname/one/two/three/four" ) ) {
+			mkdir( "$dirname/one/two/three/four", 0777, true );
+		}
+		if ( ! is_file( "$dirname/one/two/three/four/delete-me.txt" ) ) {
+			file_put_contents( "$dirname/one/two/three/four/delete-me.txt", 'TODO' );
+		}
+		if ( ! is_dir( "$dirname/one/a/b/c" ) ) {
+			mkdir( "$dirname/one/a/b/c", 0777, true );
+		}
+		if ( ! is_file( "$dirname/one/a/b/c/delete-me.txt" ) ) {
+			file_put_contents( "$dirname/one/a/b/c/delete-me.txt", 'TODO' );
+		}
+		\Pressbooks\Utility\rmrdir( "$dirname/one" );
+		$this->assertFalse( is_dir( "$dirname/one" ) );
+	}
+
 	public function test_rcopy() {
 		$uploads = wp_upload_dir();
 
