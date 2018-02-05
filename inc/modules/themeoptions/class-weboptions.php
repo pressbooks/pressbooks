@@ -82,6 +82,19 @@ class WebOptions extends \Pressbooks\Options {
 		);
 
 		add_settings_field(
+			'webbook_width',
+			__( 'Webbook Width', 'pressbooks' ),
+			[ $this, 'renderWebbookWidthField' ],
+			$_page,
+			$_section,
+			[
+				'30em' => __( 'Narrow', 'pressbooks' ),
+				'40em' => __( 'Standard', 'pressbooks' ),
+				'48em' => __( 'Wide', 'pressbooks' ),
+			]
+		);
+
+		add_settings_field(
 			'paragraph_separation',
 			__( 'Paragraph Separation', 'pressbooks' ),
 			[ $this, 'renderParagraphSeparationField' ],
@@ -183,6 +196,23 @@ class WebOptions extends \Pressbooks\Options {
 	}
 
 	/**
+	 * Render the webbook_width dropdown.
+	 *
+	 * @param array $args
+	 */
+	function renderWebbookWidthField( $args ) {
+		$this->renderSelect(
+			[
+				'id' => 'webbook_width',
+				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
+				'option' => 'webbook_width',
+				'value' => ( isset( $this->options['webbook_width'] ) ) ? $this->options['webbook_width'] : $this->defaults['webbook_width'],
+				'choices' => $args,
+			]
+		);
+	}
+
+	/**
 	 * Render the paragraph_separation radio buttons.
 	 *
 	 * @param array $args
@@ -250,6 +280,7 @@ class WebOptions extends \Pressbooks\Options {
 				'social_media' => 1,
 				'paragraph_separation' => 'skiplines',
 				'part_title' => 0,
+				'webbook_width' => '40em',
 			]
 		);
 	}
@@ -350,6 +381,7 @@ class WebOptions extends \Pressbooks\Options {
 		return apply_filters(
 			'pb_theme_options_web_predefined', [
 				'paragraph_separation',
+				'webbook_width',
 			]
 		);
 	}
