@@ -1260,7 +1260,7 @@ function put_contents( $filename, $data ) {
 }
 
 /**
- * Recursively delete all contents of a directory without using `RecursiveDirectoryIterator`
+ * Delete all contents of a directory without using `RecursiveDirectoryIterator`
  * (E_WARNING: Too many open files, @see https://stackoverflow.com/a/37754469 )
  *
  * @since 5.0.0
