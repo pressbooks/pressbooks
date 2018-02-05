@@ -265,12 +265,12 @@ class UtilityTest extends \WP_UnitTestCase {
 
 		$src = trailingslashit( $uploads['path'] ) . 'src';
 		if ( file_exists( $src ) ) {
-			rmrdir( $src );
+			\Pressbooks\Utility\rmrdir( $src );
 		}
 
 		$dest = trailingslashit( $uploads['path'] ) . 'dest';
 		if ( file_exists( $dest ) ) {
-			rmrdir( $dest );
+			\Pressbooks\Utility\rmrdir( $dest );
 		}
 
 		@mkdir( $src );
@@ -290,12 +290,12 @@ class UtilityTest extends \WP_UnitTestCase {
 
 		$src = trailingslashit( $uploads['path'] ) . 'src';
 		if ( file_exists( $src ) ) {
-			rmrdir( $src );
+			\Pressbooks\Utility\rmrdir( $src );
 		}
 
 		$dest = trailingslashit( $uploads['path'] ) . 'dest';
 		if ( file_exists( $dest ) ) {
-			rmrdir( $dest );
+			\Pressbooks\Utility\rmrdir( $dest );
 		}
 
 		@mkdir( $src );
@@ -310,14 +310,14 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'test', file_get_contents( $dest . '/test.txt' ) );
 		$this->assertEquals( 'test', file_get_contents( $dest . '/subdir/test.txt' ) );
 
-		rmrdir( $dest );
+		\Pressbooks\Utility\rmrdir( $dest );
 		$return = \Pressbooks\Utility\rcopy( $src, $dest, [ 'test.txt' ] );
 		$this->assertTrue( $return );
 		$this->assertFalse( file_exists( $dest . '/test.txt' ) );
 		$this->assertFalse( file_exists( $dest . '/subdir/test.txt' ) );
 		$this->assertEquals( 'test', file_get_contents( $dest . '/readme.txt' ) );
 
-		rmrdir( $dest );
+		\Pressbooks\Utility\rmrdir( $dest );
 		$return = \Pressbooks\Utility\rcopy( $src, $dest, [ 'subdir/' ] );
 		$this->assertTrue( $return );
 		$this->assertFalse( file_exists( $dest . '/subdir' ) );
@@ -330,12 +330,12 @@ class UtilityTest extends \WP_UnitTestCase {
 
 		$src = trailingslashit( $uploads['path'] ) . 'src';
 		if ( file_exists( $src ) ) {
-			rmrdir( $src );
+			\Pressbooks\Utility\rmrdir( $src );
 		}
 
 		$dest = trailingslashit( $uploads['path'] ) . 'dest';
 		if ( file_exists( $dest ) ) {
-			rmrdir( $dest );
+			\Pressbooks\Utility\rmrdir( $dest );
 		}
 
 		@mkdir( $src );
@@ -350,7 +350,7 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertFalse( file_exists( $dest . '/test.txt' ) );
 		$this->assertFalse( file_exists( $dest . '/subdir/test.txt' ) );
 
-		rmrdir( $dest );
+		\Pressbooks\Utility\rmrdir( $dest );
 		$return = \Pressbooks\Utility\rcopy( $src, $dest, [ 'test.*' ], [ 'readme.txt' ] );
 		$this->assertTrue( $return );
 		$this->assertTrue( file_exists( $dest . '/readme.txt' ) );
@@ -358,7 +358,7 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertFalse( file_exists( $dest . '/subdir/test.txt' ) );
 		$this->assertEquals( 'test', file_get_contents( $dest . '/readme.txt' ) );
 
-		rmrdir( $dest );
+		\Pressbooks\Utility\rmrdir( $dest );
 		$return = \Pressbooks\Utility\rcopy( $src, $dest, [], [ 'readme.*' ] );
 		$this->assertTrue( $return );
 		$this->assertTrue( file_exists( $dest . '/readme.txt' ) );

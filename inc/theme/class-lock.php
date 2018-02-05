@@ -200,7 +200,7 @@ class Lock {
 	 */
 	public function unlockTheme() {
 		$dir = $this->getLockDir( false );
-		@rmrdir( $dir ); // @codingStandardsIgnoreLine
+		@\Pressbooks\Utility\rmrdir( $dir ); // @codingStandardsIgnoreLine
 		$_SESSION['pb_notices'][] = sprintf( '<strong>%s</strong>', __( 'Your book&rsquo;s theme has been unlocked.', 'pressbooks' ) );
 
 		return wp_get_theme();

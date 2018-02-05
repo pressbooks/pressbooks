@@ -554,3 +554,20 @@ function prettify( $html ) {
 
 	return \Pressbooks\HtmLawed::filter( $html, $config );
 }
+
+/**
+ * Check whether a variable is a unix timestamp
+ *
+ * @since 5.0.0
+ *
+ * @param mixed $timestamp
+ *
+ * @return bool
+ */
+function is_valid_timestamp( $timestamp ) {
+	if ( is_int( $timestamp ) ) {
+		return true;
+	} else {
+		return ( (string) (int) $timestamp === $timestamp ) && ( $timestamp <= PHP_INT_MAX ) && ( $timestamp >= ~PHP_INT_MAX );
+	}
+}

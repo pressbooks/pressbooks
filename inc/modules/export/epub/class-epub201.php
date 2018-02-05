@@ -516,7 +516,7 @@ class Epub201 extends Export {
 
 		// Cleanup temporary directory, if any
 		if ( ! empty( $this->tmpDir ) ) {
-			rmrdir( $this->tmpDir );
+			\Pressbooks\Utility\rmrdir( $this->tmpDir );
 		}
 	}
 

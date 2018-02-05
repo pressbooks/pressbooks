@@ -4,6 +4,7 @@ namespace Pressbooks\Metadata;
 
 use Pressbooks\Book;
 use Pressbooks\Licensing;
+use function \Pressbooks\Sanitize\is_valid_timestamp;
 use function \Pressbooks\Utility\is_assoc;
 use function \Pressbooks\Utility\oxford_comma;
 use function \Pressbooks\Utility\oxford_comma_explode;
@@ -72,9 +73,9 @@ function get_microdata_elements() {
 		}
 	}
 
-	if ( ! array_key_exists( 'pb_copyright_year', $metadata ) && array_key_exists( 'pb_publication_date', $metadata ) ) {
+	if ( ! array_key_exists( 'pb_copyright_year', $metadata ) && array_key_exists( 'pb_publication_date', $metadata ) && is_valid_timestamp( $metadata['pb_publication_date'] ) ) {
 		$itemprop = 'copyrightYear';
-		$content = strftime( '%Y', $metadata['pb_publication_date'] );
+		$content = strftime( '%Y', (int) $metadata['pb_publication_date'] );
 		$html .= "<meta itemprop='" . $itemprop . "' content='" . $content . "' id='" . $itemprop . "'>\n";
 	}
 
@@ -318,11 +319,11 @@ function book_information_to_schema( $book_information ) {
 		];
 	}
 
-	if ( isset( $book_information['pb_publication_date'] ) ) {
-		$book_schema['datePublished'] = strftime( '%F', $book_information['pb_publication_date'] );
+	if ( isset( $book_information['pb_publication_date'] ) && is_valid_timestamp( $book_information['pb_publication_date'] ) ) {
+		$book_schema['datePublished'] = strftime( '%F', (int) $book_information['pb_publication_date'] );
 
 		if ( ! isset( $book_information['pb_copyright_year'] ) ) {
-			$book_schema['copyrightYear'] = strftime( '%Y', $book_information['pb_publication_date'] );
+			$book_schema['copyrightYear'] = strftime( '%Y', (int) $book_information['pb_publication_date'] );
 		}
 	}
 
@@ -620,10 +621,10 @@ function section_information_to_schema( $section_information, $book_information 
 		}
 	}
 
-	if ( isset( $book_information['pb_publication_date'] ) ) {
-		$section_schema['datePublished'] = strftime( '%F', $book_information['pb_publication_date'] );
+	if ( isset( $book_information['pb_publication_date'] ) && is_valid_timestamp( $book_information['pb_publication_date'] ) ) {
+		$section_schema['datePublished'] = strftime( '%F', (int) $book_information['pb_publication_date'] );
 		if ( ! isset( $book_information['pb_copyright_year'] ) ) {
-			$section_schema['copyrightYear'] = strftime( '%Y', $book_information['pb_publication_date'] );
+			$section_schema['copyrightYear'] = strftime( '%Y', (int) $book_information['pb_publication_date'] );
 		}
 	}
 
