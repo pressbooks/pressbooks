@@ -1259,6 +1259,54 @@ function put_contents( $filename, $data ) {
 	return $fs->put_contents( $filename, $data );
 }
 
+/**
+ * Recursively delete all contents of a directory without using `RecursiveDirectoryIterator`
+ * (E_WARNING: Too many open files, @see https://stackoverflow.com/a/37754469 )
+ *
+ * @since 5.0.0
+ *
+ * @param string $dirname
+ * @param bool $only_empty
+ *
+ * @return bool
+ */
+function rmrdir( $dirname, $only_empty = false ) {
+
+	if ( ! is_dir( $dirname ) ) {
+		return false;
+	}
+
+	$dscan = [ realpath( $dirname ) ];
+	$darr = [];
+	while ( ! empty( $dscan ) ) {
+		$dcur = array_pop( $dscan );
+		$darr[] = $dcur;
+		$d = opendir( $dcur );
+		if ( $d ) {
+			while ( $f = readdir( $d ) ) {
+				if ( '.' === $f || '..' === $f ) {
+					continue;
+				}
+				$f = $dcur . '/' . $f;
+				if ( is_dir( $f ) ) {
+					$dscan[] = $f;
+				} else {
+					unlink( $f );
+				}
+			}
+			closedir( $d );
+		}
+	}
+	$i_until = ( $only_empty ) ? 1 : 0;
+	for ( $i = count( $darr ) - 1; $i >= $i_until; $i-- ) {
+		if ( ! rmdir( $darr[ $i ] ) ) {
+			trigger_error( "Warning: There was a problem deleting a temporary file in $dirname", E_USER_WARNING );
+		}
+	}
+
+	return ( ( $only_empty ) ? ( count( scandir( $dirname ) ) <= 2 ) : ( ! is_dir( $dirname ) ) );
+}
+
 
 /**
  * Comma separated, Oxford comma, localized and between the last two items

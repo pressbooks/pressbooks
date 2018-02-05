@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "00f819a0e193c24996eb86db7d5ebdbf",
+    "content-hash": "ff2778b19d4689e4dca1d151784a9ea7",
     "packages": [
         {
             "name": "composer/installers",
@@ -876,48 +876,6 @@
             "time": "2017-09-27T21:40:39+00:00"
         },
         {
-            "name": "perchten/rmrdir",
-            "version": "1.0.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/perchten/php-rmrdir.git",
-                "reference": "ce8b95e509d64f339a10c3475a13ad687f1e6905"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/perchten/php-rmrdir/zipball/ce8b95e509d64f339a10c3475a13ad687f1e6905",
-                "reference": "ce8b95e509d64f339a10c3475a13ad687f1e6905",
-                "shasum": ""
-            },
-            "type": "library",
-            "autoload": {
-                "files": [
-                    "src/rmrdir.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Alastair Brayne",
-                    "email": "al@perchten.co.uk",
-                    "homepage": "http://perchten.co.uk"
-                }
-            ],
-            "description": "Recusrive rmdir for PHP",
-            "homepage": "https://github.com/perchten/php-rmrdir",
-            "keywords": [
-                "dir",
-                "recursive",
-                "rm",
-                "rm -r",
-                "rmdir"
-            ],
-            "time": "2014-05-14T13:49:47+00:00"
-        },
-        {
             "name": "pressbooks/mix",
             "version": "2.1",
             "source": {
@@ -1387,12 +1345,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig-rectified/psr2r-sniffer.git",
-                "reference": "ff4659fdb1ce8832a9e408a6e22aa05bc93efe10"
+                "reference": "b3147b8b54ec413300532284f7cb7e0545b0d2aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig-rectified/psr2r-sniffer/zipball/ff4659fdb1ce8832a9e408a6e22aa05bc93efe10",
-                "reference": "ff4659fdb1ce8832a9e408a6e22aa05bc93efe10",
+                "url": "https://api.github.com/repos/php-fig-rectified/psr2r-sniffer/zipball/b3147b8b54ec413300532284f7cb7e0545b0d2aa",
+                "reference": "b3147b8b54ec413300532284f7cb7e0545b0d2aa",
                 "shasum": ""
             },
             "require": {
@@ -1425,7 +1383,7 @@
                 "codesniffer",
                 "cs"
             ],
-            "time": "2017-08-30T10:00:39+00:00"
+            "time": "2018-01-06T00:08:44+00:00"
         },
         {
             "name": "humanmade/coding-standards",

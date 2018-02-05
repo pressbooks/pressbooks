@@ -316,4 +316,16 @@ PRETTY;
 		$this->assertEquals( trim( $pretty ), trim( $result ) );
 	}
 
+	public function test_is_valid_timestamp() {
+		$this->assertTrue( \Pressbooks\Sanitize\is_valid_timestamp( 1 ) );
+		$this->assertTrue( \Pressbooks\Sanitize\is_valid_timestamp( '1' ) );
+		$this->assertFalse( \Pressbooks\Sanitize\is_valid_timestamp( '1.0' ) );
+		$this->assertFalse( \Pressbooks\Sanitize\is_valid_timestamp( '1.1' ) );
+		$this->assertFalse( \Pressbooks\Sanitize\is_valid_timestamp( '0xFF' ) );
+		$this->assertFalse( \Pressbooks\Sanitize\is_valid_timestamp( '0123' ) );
+		$this->assertFalse( \Pressbooks\Sanitize\is_valid_timestamp( '01090' ) );
+		$this->assertTrue( \Pressbooks\Sanitize\is_valid_timestamp( '-1000000' ) );
+		$this->assertFalse( \Pressbooks\Sanitize\is_valid_timestamp( '+1000000' ) );
+	}
+
 }
