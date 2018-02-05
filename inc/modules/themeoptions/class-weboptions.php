@@ -195,7 +195,7 @@ class WebOptions extends \Pressbooks\Options {
 		);
 	}
 
-/**
+	/**
 	 * Render the webbook_width dropdown.
 	 *
 	 * @param array $args
