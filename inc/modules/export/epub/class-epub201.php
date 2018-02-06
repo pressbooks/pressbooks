@@ -15,11 +15,11 @@ use Pressbooks\Contributors;
 use Pressbooks\Modules\Export\Export;
 use Pressbooks\Container;
 use Pressbooks\Sanitize;
-use function \Pressbooks\Sanitize\sanitize_xml_attribute;
 use Pressbooks\Taxonomy;
+use function Pressbooks\Sanitize\sanitize_xml_attribute;
 use function Pressbooks\Utility\oxford_comma_explode;
-use function \Pressbooks\Utility\str_ends_with;
-use function \Pressbooks\Utility\debug_error_log;
+use function Pressbooks\Utility\str_ends_with;
+use function Pressbooks\Utility\debug_error_log;
 
 class Epub201 extends Export {
 
@@ -2236,6 +2236,12 @@ class Epub201 extends Export {
 		}
 
 		if ( ! $slug ) {
+			return false;
+		}
+
+		// Check if an anchor is considered external, don't change the URL if we find a match
+		$external_anchors = [ \Pressbooks\Interactive\Content::ANCHOR ];
+		if ( in_array( $anchor, $external_anchors, true ) ) {
 			return false;
 		}
 
