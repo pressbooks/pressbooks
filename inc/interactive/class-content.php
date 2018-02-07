@@ -54,13 +54,10 @@ class Content {
 	 * @param Content $obj
 	 */
 	static public function hooks( Content $obj ) {
-
 		add_filter( 'pre_kses', [ $obj, 'deleteIframesNotOnWhitelist' ], 10, 2 );
 		add_filter( 'wp_kses_allowed_html', [ $obj, 'allowIframesInHtml' ], 10, 2 );
-
 		add_filter( 'oembed_providers', [ $obj, 'addExtraOembedProviders' ] );
 		add_action( 'init', [ $obj, 'registerEmbedHandlers' ] );
-
 		add_action( 'pb_pre_export', [ $obj, 'beforeExport' ] );
 	}
 
@@ -81,7 +78,6 @@ class Content {
 	 * @return string
 	 */
 	public function deleteIframesNotOnWhitelist( $content, $allowed_html ) {
-
 		// Check if this is a post, bail if it isn't
 		if ( ! is_array( $allowed_html ) ) {
 			$allowed_html = [ $allowed_html ];
@@ -97,9 +93,9 @@ class Content {
 		$changed = false;
 		$doc = new HTML5();
 		$dom = $doc->loadHTML( wpautop( $content ) );
-		$iframes = $dom->getElementsByTagName( 'iframe' );
-		foreach ( $iframes as $iframe ) {
-			/** @var $iframe \DOMElement */
+		$elements = $dom->getElementsByTagName( 'iframe' );
+		for ( $i = $elements->length; --$i >= 0; ) { // If you're deleting elements from within a loop, you need to loop backwards
+			$iframe = $elements->item( $i );
 			$src = $iframe->getAttribute( 'src' );
 			$parse = wp_parse_url( $src );
 			if ( ! in_array( $parse['host'], $this->whitelistedDomains, true ) ) {
@@ -149,12 +145,11 @@ class Content {
 			]
 		);
 		$fragment = $doc->loadHTMLFragment( $html );
-		$newnode = $dom->importNode( $fragment, true );
 
-		$iframes = $dom->getElementsByTagName( 'iframe' );
-		foreach ( $iframes as $iframe ) {
-			/** @var $iframe \DOMElement */
-			$iframe->parentNode->replaceChild( $newnode, $iframe );
+		$elements = $dom->getElementsByTagName( 'iframe' );
+		for ( $i = $elements->length; --$i >= 0; ) {  // If you're deleting elements from within a loop, you need to loop backwards
+			$iframe = $elements->item( $i );
+			$iframe->parentNode->replaceChild( $dom->importNode( $fragment, true ), $iframe );
 		}
 
 		$s = $doc->saveHTML( $dom );
@@ -203,6 +198,7 @@ class Content {
 	 * @return array
 	 */
 	public function addExtraOembedProviders( $providers ) {
+		// TODO
 		return $providers;
 	}
 
@@ -237,6 +233,7 @@ class Content {
 	 * Override Phet
 	 */
 	protected function overridePhet() {
+		wp_embed_unregister_handler( $this->phet::EMBED_ID );
 		$this->phet->registerEmbedHandlerForExport();
 	}
 
