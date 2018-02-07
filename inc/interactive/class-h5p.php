@@ -14,7 +14,6 @@ namespace Pressbooks\Interactive;
  *
  *  + https://github.com/h5p/h5p-wordpress-plugin/issues/41
  *  + https://github.com/h5p/h5p-wordpress-plugin/issues/64
-
  *
  * Pressbooks can not support H5P cloning until there is significant progress
  * on this issue:
