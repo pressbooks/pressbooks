@@ -70,7 +70,9 @@ class Content {
 
 	/**
 	 * Delete <iframe> sources not on our whitelist
+	 * Content is expected to be raw, e.g. before the_content filters have been run
 	 * Hooked into `pre_kses` filter
+
 	 *
 	 * @param string $content Content to run through kses.
 	 * @param array $allowed_html Allowed HTML elements.
@@ -90,6 +92,13 @@ class Content {
 			return $content;
 		}
 
+		/**
+		 * @param array $value
+		 *
+		 * @since 5.1.0
+		 */
+		$whitelist = apply_filters( 'pb_whitelisted_domains', $this->whitelistedDomains );
+
 		$changed = false;
 		$doc = new HTML5();
 		$dom = $doc->loadHTML( wpautop( $content ) );
@@ -98,7 +107,7 @@ class Content {
 			$iframe = $elements->item( $i );
 			$src = $iframe->getAttribute( 'src' );
 			$parse = wp_parse_url( $src );
-			if ( ! in_array( $parse['host'], $this->whitelistedDomains, true ) ) {
+			if ( ! in_array( $parse['host'], $whitelist, true ) ) {
 				$iframe->parentNode->removeChild( $iframe );
 				$changed = true;
 			}
@@ -121,6 +130,7 @@ class Content {
 
 	/**
 	 * Replace <iframe> with standard text
+	 * Content is expected to be rendered, e.g. after the_content filters have been run
 	 * Hooked into `the_content` filter
 	 *
 	 * @param string $content
@@ -136,7 +146,7 @@ class Content {
 		global $id; // This is the Post ID, [@see WP_Query::setup_postdata, ...]
 
 		$doc = new HTML5();
-		$dom = $doc->loadHTML( wpautop( $content ) );
+		$dom = $doc->loadHTML( $content );
 
 		$html = $this->blade->render(
 			'interactive.shared', [
@@ -338,7 +348,7 @@ class Content {
 			remove_filter( 'wp_kses_allowed_html', [ self::$instance, 'allowIframesInHtml' ] );
 		}
 
-		add_filter( 'the_content', [ $this, 'replaceIframes' ], 999 );
+		add_filter( 'the_content', [ $this, 'replaceIframes' ], 999 ); // Priority equals 999 because this should go last
 
 		global $wp_embed;
 		$wp_embed->usecache = false;
