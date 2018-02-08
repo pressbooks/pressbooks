@@ -5,8 +5,8 @@ Version: 5.0.0-beta.2
 Stable Tag: 4.5.1
 Tags: ebooks, publishing, webbooks
 Requires PHP: 7.0
-Requires at least: 4.9.2
-Tested up to: 4.9.2
+Requires at least: 4.9.4
+Tested up to: 4.9.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
