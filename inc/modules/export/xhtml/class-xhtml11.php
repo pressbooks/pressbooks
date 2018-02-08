@@ -599,6 +599,8 @@ class Xhtml11 extends Export {
 
 		// Make XHTML 1.1 strict using htmlLawed
 
+		$html = \Pressbooks\Interactive\Content::init()->replaceInteractiveTags( $html );
+
 		$config = [
 			'valid_xhtml' => 1,
 			'no_deprecated_attr' => 2,

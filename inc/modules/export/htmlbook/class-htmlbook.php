@@ -582,6 +582,8 @@ class HTMLBook extends Export {
 
 		// HTML5
 
+		$html = \Pressbooks\Interactive\Content::init()->replaceInteractiveTags( $html );
+
 		$config = [
 			'no_deprecated_attr' => 2,
 			'unique_ids' => 'fixme-',

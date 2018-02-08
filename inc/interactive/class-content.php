@@ -127,7 +127,7 @@ class Content {
 	 *
 	 * @return string
 	 */
-	public function replaceIframesWithStandardText( $content ) {
+	public function replaceIframes( $content ) {
 		// Check for iframe HTML code, bail if there isn't any
 		if ( stripos( $content, '<iframe' ) === false ) {
 			return $content;
@@ -196,7 +196,7 @@ class Content {
 	 *
 	 * @return string
 	 */
-	public function replaceOembedHtml( $return, $data, $url ) {
+	public function replaceOembed( $return, $data, $url ) {
 
 		// Check for iframe HTML code, bail if there isn't any
 		if ( stripos( $return, '<iframe' ) === false ) {
@@ -220,6 +220,59 @@ class Content {
 		);
 
 		return $html;
+	}
+
+	/**
+	 * Replace interactive tags such as <audio>, <video>
+	 *
+	 * @param string $html
+	 *
+	 * @return string
+	 */
+	public function replaceInteractiveTags( $html ) {
+
+		$tags = [
+			'audio',
+			'video',
+		];
+
+		// Check for HTML tags, bail if there isn't any
+		$found = false;
+		foreach ( $tags as $tag ) {
+			if ( stripos( $html, "<{$tag}" ) !== false ) {
+				$found = true;
+				break;
+			}
+		}
+		if ( ! $found ) {
+			return $html;
+		}
+
+		global $id; // This is the Post ID, [@see WP_Query::setup_postdata, ...]
+
+		$doc = new HTML5();
+		$dom = $doc->loadHTML( $html );
+		foreach ( $tags as $tag ) {
+			// Load blade template based on $tag
+			$html = $this->blade->render(
+				"interactive.{$tag}", [
+					'title' => get_the_title( $id ),
+					'url' => get_permalink( $id ),
+				]
+			);
+			$fragment = $doc->loadHTMLFragment( $html );
+
+			// Replace
+			$elements = $dom->getElementsByTagName( $tag );
+			for ( $i = $elements->length; --$i >= 0; ) {  // If you're deleting elements from within a loop, you need to loop backwards
+				$iframe = $elements->item( $i );
+				$iframe->parentNode->replaceChild( $dom->importNode( $fragment, true ), $iframe );
+			}
+		}
+
+		$s = $doc->saveHTML( $dom );
+		$s = \Pressbooks\Sanitize\strip_container_tags( $s );
+		return $s;
 	}
 
 	/**
@@ -285,12 +338,12 @@ class Content {
 			remove_filter( 'wp_kses_allowed_html', [ self::$instance, 'allowIframesInHtml' ] );
 		}
 
-		add_filter( 'the_content', [ $this, 'replaceIframesWithStandardText' ], 999 );
+		add_filter( 'the_content', [ $this, 'replaceIframes' ], 999 );
 
 		global $wp_embed;
 		$wp_embed->usecache = false;
 		add_filter( 'oembed_ttl', '__return_zero', 999 );
-		add_filter( 'oembed_dataparse', [ $this, 'replaceOembedHtml' ], 1, 3 );
+		add_filter( 'oembed_dataparse', [ $this, 'replaceOembed' ], 1, 3 );
 	}
 
 }

@@ -210,6 +210,8 @@ class Icml extends Export {
 
 		// Make XHTML 1.1 strict using htmlLawed
 
+		$html = \Pressbooks\Interactive\Content::init()->replaceInteractiveTags( $html );
+
 		$config = [
 			'valid_xhtml' => 1,
 			'unique_ids' => 'fixme-',
