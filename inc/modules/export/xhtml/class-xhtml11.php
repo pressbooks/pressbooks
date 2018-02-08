@@ -11,7 +11,6 @@ use Pressbooks\Container;
 use Pressbooks\Modules\Export\Export;
 use Pressbooks\Sanitize;
 use function Pressbooks\Sanitize\clean_filename;
-use function Pressbooks\Utility\oxford_comma_explode;
 
 class Xhtml11 extends Export {
 
