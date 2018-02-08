@@ -9,7 +9,7 @@ class Phet {
 
 	const EMBED_ID = 'phet_html5';
 
-	const EMBED_URL_REGEX = '#https?://phet.colorado.edu/sims/html/(.+)/?#i';
+	const EMBED_URL_REGEX = '#https?://phet\.colorado\.edu/sims/html/(.+)/?#i';
 
 	/**
 	 * @var \Jenssegers\Blade\Blade
@@ -51,7 +51,7 @@ class Phet {
 				global $id; // This is the Post ID, [@see WP_Query::setup_postdata, ...]
 				$embed = $this->blade->render(
 					'interactive.shared', [
-						'title' => wp_strip_all_tags( get_the_title( $id ) ),
+						'title' => get_the_title( $id ),
 						'url' => get_permalink( $id ),
 					]
 				);

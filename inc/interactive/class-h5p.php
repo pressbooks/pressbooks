@@ -67,7 +67,7 @@ class H5P {
 		global $id; // This is the Post ID, [@see WP_Query::setup_postdata, ...]
 		global $wpdb;
 
-		$h5p_title = wp_strip_all_tags( get_the_title( $id ) );
+		$h5p_title = get_the_title( $id );
 		$h5p_url = get_permalink( $id );
 
 		if ( isset( $atts['slug'] ) ) {

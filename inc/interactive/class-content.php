@@ -54,7 +54,7 @@ class Content {
 	 * @param Content $obj
 	 */
 	static public function hooks( Content $obj ) {
-		add_filter( 'pre_kses', [ $obj, 'deleteIframesNotOnWhitelist' ], 10, 2 );
+		add_filter( 'pre_kses', [ $obj, 'deleteIframesNotOnWhitelist' ], 1, 2 ); // Priority equals one because this should go first
 		add_filter( 'wp_kses_allowed_html', [ $obj, 'allowIframesInHtml' ], 10, 2 );
 		add_filter( 'oembed_providers', [ $obj, 'addExtraOembedProviders' ] );
 		add_action( 'init', [ $obj, 'registerEmbedHandlers' ] );
@@ -70,7 +70,7 @@ class Content {
 
 	/**
 	 * Delete <iframe> sources not on our whitelist
-	 * Hooked into `pre_kses`
+	 * Hooked into `pre_kses` filter
 	 *
 	 * @param string $content Content to run through kses.
 	 * @param array $allowed_html Allowed HTML elements.
@@ -121,7 +121,7 @@ class Content {
 
 	/**
 	 * Replace <iframe> with standard text
-	 * Hooked into `the_content`
+	 * Hooked into `the_content` filter
 	 *
 	 * @param string $content
 	 *
@@ -140,7 +140,7 @@ class Content {
 
 		$html = $this->blade->render(
 			'interactive.shared', [
-				'title' => wp_strip_all_tags( get_the_title( $id ) ),
+				'title' => get_the_title( $id ),
 				'url' => get_permalink( $id ),
 			]
 		);
@@ -187,7 +187,44 @@ class Content {
 	}
 
 	/**
+	 * Filters the returned oEmbed HTML.
+	 * Hooked into `oembed_dataparse` filter
+	 *
+	 * @param string $return The returned oEmbed HTML.
+	 * @param object $data A data object result from an oEmbed provider. See Response Parameters in https://oembed.com/ specification
+	 * @param string $url The URL of the content to be embedded.
+	 *
+	 * @return string
+	 */
+	public function replaceOembedHtml( $return, $data, $url ) {
+
+		// Check for iframe HTML code, bail if there isn't any
+		if ( stripos( $return, '<iframe' ) === false ) {
+			return $return;
+		}
+
+		global $id; // This is the Post ID, [@see WP_Query::setup_postdata, ...]
+
+		$title = get_the_title( $id );
+		$img_src = $data->thumbnail_url ?? null;
+		$provider_name = $data->provider_name ?? null;
+		$url = get_permalink( $id );
+
+		$html = $this->blade->render(
+			'interactive.oembed', [
+				'title' => $title,
+				'img_src' => $img_src,
+				'provider_name' => $provider_name,
+				'url' => $url,
+			]
+		);
+
+		return $html;
+	}
+
+	/**
 	 * Add oEmbed providers
+	 * Hooked into `oembed_providers` filter
 	 *
 	 * @see \WP_oEmbed
 	 * @see https://oembed.com/
@@ -198,7 +235,9 @@ class Content {
 	 * @return array
 	 */
 	public function addExtraOembedProviders( $providers ) {
-		// TODO
+
+		$providers['#https?://mathembed\.com/latex\?inputText=.*#i'] = [ 'http://mathembed.com/oembed', true ];
+
 		return $providers;
 	}
 
@@ -245,7 +284,13 @@ class Content {
 			remove_filter( 'pre_kses', [ self::$instance, 'deleteIframesNotOnWhitelist' ] );
 			remove_filter( 'wp_kses_allowed_html', [ self::$instance, 'allowIframesInHtml' ] );
 		}
+
 		add_filter( 'the_content', [ $this, 'replaceIframesWithStandardText' ], 999 );
+
+		global $wp_embed;
+		$wp_embed->usecache = false;
+		add_filter( 'oembed_ttl', '__return_zero', 999 );
+		add_filter( 'oembed_dataparse', [ $this, 'replaceOembedHtml' ], 1, 3 );
 	}
 
 }
