@@ -1,12 +1,12 @@
 === Pressbooks ===
 
 Contributors: Pressbooks <code@pressbooks.com>
-Version: 4.5.0
-Stable Tag: 4.5.0
+Version: 5.0.0-beta.2
+Stable Tag: 4.5.1
 Tags: ebooks, publishing, webbooks
 Requires PHP: 7.0
-Requires at least: 4.9.1
-Tested up to: 4.9.1
+Requires at least: 4.9.4
+Tested up to: 4.9.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -47,13 +47,17 @@ TK.
 6. Catalog
 
 == Upgrade Notice ==
-= 4.5.0 =
+= 4.5.1 =
 
-Pressbooks now requires [PHP 7.0](https://secure.php.net/supported-versions.php) or greater.
-
-Pressbooks now requires [WordPress 4.9.1](https://wordpress.org/news/2017/11/wordpress-4-9-1-security-and-maintenance-release/).
+Pressbooks >= 4.5.1 requires [WordPress 4.9.2](https://wordpress.org/news/2018/01/wordpress-4-9-2-security-and-maintenance-release/).
 
 == Changelog ==
+= 4.5.1=
+**NOTICE:** Pressbooks >= 4.5.1 requires [WordPress 4.9.2](https://wordpress.org/news/2018/01/wordpress-4-9-2-security-and-maintenance-release/).
+
+* **[FIX]**: Disallow dangerous file types from upload via the Import form ([9bcebf1](https://github.com/pressbooks/pressbooks/commit/9bcebf1))
+* **[FIX]**: Handle `author` objects containing multiple authors during clone operations for forward-compatibility with Pressbooks 5 ([9231ffa](https://github.com/pressbooks/pressbooks/commit/9231ffa), [b0e03c4](https://github.com/pressbooks/pressbooks/commit/b0e03c4), [035c1b9](https://github.com/pressbooks/pressbooks/commit/035c1b9))
+
 = 4.5.0 =
 **NOTICE:** Pressbooks >= 4.5 requires [PHP 7.0](https://secure.php.net/supported-versions.php) or greater.
 **NOTICE:** Pressbooks >= 4.5 requires [WordPress 4.9.1](https://wordpress.org/news/2017/11/wordpress-4-9-1-security-and-maintenance-release/).
