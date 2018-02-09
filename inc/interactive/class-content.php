@@ -54,10 +54,16 @@ class Content {
 	 * @param Content $obj
 	 */
 	static public function hooks( Content $obj ) {
+		// Iframes
 		add_filter( 'pre_kses', [ $obj, 'deleteIframesNotOnWhitelist' ], 1, 2 ); // Priority equals one because this should go first
 		add_filter( 'wp_kses_allowed_html', [ $obj, 'allowIframesInHtml' ], 10, 2 );
-		add_filter( 'oembed_providers', [ $obj, 'addExtraOembedProviders' ] );
+
+		// oEmbed
 		add_action( 'init', [ $obj, 'registerEmbedHandlers' ] );
+		add_filter( 'oembed_providers', [ $obj, 'addExtraOembedProviders' ] );
+		add_action( 'save_post', [ $obj, 'deleteOembedCaches' ] );
+
+		// Export hacks
 		add_action( 'pb_pre_export', [ $obj, 'beforeExport' ] );
 	}
 
@@ -211,7 +217,7 @@ class Content {
 
 		global $id; // This is the Post ID, [@see WP_Query::setup_postdata, ...]
 
-		$title = get_the_title( $id );
+		$title = $data->title ?? get_the_title( $id );
 		$img_src = $data->thumbnail_url ?? null;
 		$provider_name = $data->provider_name ?? null;
 		$url = get_permalink( $id );
@@ -298,6 +304,24 @@ class Content {
 		$providers['#https?://mathembed\.com/latex\?inputText=.*#i'] = [ 'http://mathembed.com/oembed', true ];
 
 		return $providers;
+	}
+
+	/**
+	 * Delete all oEmbed caches
+	 *
+	 * @param int $post_id
+	 */
+	public function deleteOembedCaches( $post_id = 0 ) {
+		if ( $post_id ) {
+			global $wp_embed;
+			$wp_embed->delete_oembed_caches( $post_id );
+		} else {
+			global $wpdb;
+			$post_metas = $wpdb->get_results( "SELECT post_id, meta_key FROM {$wpdb->postmeta} WHERE meta_key LIKE '_oembed_%' " );
+			foreach ( $post_metas as $post_meta ) {
+				delete_post_meta( $post_meta->post_id, $post_meta->meta_key );
+			}
+		}
 	}
 
 	/**

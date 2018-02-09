@@ -90,6 +90,15 @@ class Interactive_Content_Test extends \WP_UnitTestCase {
 		$this->assertNotEmpty( $providers );
 	}
 
+	public function test_deleteOembedCaches() {
+		$this->content->deleteOembedCaches( 1 );
+		$this->content->deleteOembedCaches();
+
+		global $wpdb;
+		$id = $wpdb->get_var( "SELECT meta_id FROM {$wpdb->postmeta} WHERE meta_key LIKE '_oembed_%' " );
+		$this->assertEmpty( $id );
+	}
+
 	public function test_isCloneable() {
 		$content = '[h5p id="1"]';
 		$this->assertFalse( $this->content->isCloneable( $content ) );
