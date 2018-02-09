@@ -18,17 +18,32 @@ class Interactive_H5P_Test extends \WP_UnitTestCase {
 		$this->assertTrue( is_bool( $this->h5p->isActive() ) );
 	}
 
-	public function test_shortcodeHandler() {
-		$this->assertContains( '<div class="pb-interactive-content">', $this->h5p->shortcodeHandler( [] ) );
-		$this->assertContains( '<div class="pb-interactive-content">', $this->h5p->shortcodeHandler( [ 'slug' => 'foo' ] ) );
-		$this->assertContains( '<div class="pb-interactive-content">', $this->h5p->shortcodeHandler( [ 'id' => 999 ] ) );
+	public function test_replaceShortcode() {
+		$this->assertContains( '<div class="pb-interactive-content">', $this->h5p->replaceShortcode( [] ) );
+		$this->assertContains( '<div class="pb-interactive-content">', $this->h5p->replaceShortcode( [ 'slug' => 'foo' ] ) );
+		$this->assertContains( '<div class="pb-interactive-content">', $this->h5p->replaceShortcode( [ 'id' => 999 ] ) );
 	}
 
 	public function test_override() {
 		global $shortcode_tags;
-
 		$this->h5p->override();
 		$this->assertArrayHasKey( 'h5p', $shortcode_tags );
+	}
+
+	public function test_replaceCloneable() {
+		$content = '[h5p id="1"]';
+		$result = $this->h5p->replaceCloneable( $content );
+		$this->assertNotContains( '[h5p ', $result );
+		$this->assertContains( 'The original version of this chapter contained H5P content', $result );
+	}
+
+	public function test_setCloneableWarning() {
+		$this->h5p->setCloneableWarning();
+		$this->h5p->setCloneableWarning();
+		$this->h5p->setCloneableWarning();
+		$this->asserttrue( count( $_SESSION['pb_notices'] ) === 1 );
+		$this->assertContains( 'This book contains H5P content that cannot be cloned', $_SESSION['pb_notices'][0] );
+
 	}
 
 }

@@ -571,3 +571,21 @@ function is_valid_timestamp( $timestamp ) {
 		return ( (string) (int) $timestamp === $timestamp ) && ( $timestamp <= PHP_INT_MAX ) && ( $timestamp >= ~PHP_INT_MAX );
 	}
 }
+
+/**
+ * Reverse wpautop
+ *
+ * @see wpautop
+ *
+ * @param string $s
+ *
+ * @return string
+ */
+function reverse_wpautop( $s ) {
+	$s = shortcode_unautop( $s );
+	$s = str_replace( "\n", '', $s );
+	$s = str_replace( '<p>', '', $s );
+	$s = str_replace( [ '<br />', '<br>', '<br/>' ], "\n", $s );
+	$s = str_replace( '</p>', "\n\n", $s );
+	return $s;
+}

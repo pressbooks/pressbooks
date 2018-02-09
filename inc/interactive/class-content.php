@@ -119,11 +119,7 @@ class Content {
 		} else {
 			$s = $doc->saveHTML( $dom );
 			$s = \Pressbooks\Sanitize\strip_container_tags( $s );
-			// reverse wpautop
-			$s = str_replace( "\n", '', $s );
-			$s = str_replace( '<p>', '', $s );
-			$s = str_replace( [ '<br />', '<br>', '<br/>' ], "\n", $s );
-			$s = str_replace( '</p>', "\n\n", $s );
+			$s = \Pressbooks\Sanitize\reverse_wpautop( $s );
 			return $s;
 		}
 	}
@@ -302,6 +298,37 @@ class Content {
 		$providers['#https?://mathembed\.com/latex\?inputText=.*#i'] = [ 'http://mathembed.com/oembed', true ];
 
 		return $providers;
+	}
+
+	/**
+	 * Is supported when cloning?
+	 *
+	 * @param string $content
+	 *
+	 * @return bool
+	 */
+	public function isCloneable( $content ) {
+
+		// H5P not supported in cloning
+		$tagnames = [ $this->h5p::SHORTCODE ];
+		preg_match_all( '/' . get_shortcode_regex( $tagnames ) . '/', $content, $matches, PREG_SET_ORDER );
+		if ( ! empty( $matches ) ) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Replace unsupported content when cloning
+	 *
+	 * @param string $content
+	 *
+	 * @return string
+	 */
+	public function replaceCloneable( $content ) {
+		$content = $this->h5p->replaceCloneable( $content );
+		return $content;
 	}
 
 	/**

@@ -19,6 +19,12 @@ use function \Pressbooks\Utility\getset;
 use function Pressbooks\Utility\oxford_comma_explode;
 
 class Cloner {
+
+	/**
+	 * @var Interactive\Content
+	 */
+	protected $interactiveContent;
+
 	/**
 	 * The URL of the source book.
 	 *
@@ -178,6 +184,8 @@ class Cloner {
 			require_once( ABSPATH . 'wp-admin/includes/file.php' );
 			require_once( ABSPATH . 'wp-admin/includes/media.php' );
 		}
+
+		$this->interactiveContent = \Pressbooks\Interactive\Content::init();
 	}
 
 	/**
@@ -755,7 +763,10 @@ class Cloner {
 
 		$content = \Pressbooks\Sanitize\strip_container_tags( $content ); // Remove auto-created <html> <body> and <!DOCTYPE> tags.
 		if ( ! empty( $section['content']['raw'] ) ) {
-			$content = shortcode_unautop( $content ); // Ensures that shortcodes are not wrapped in `<p>...</p>`.
+			$content = \Pressbooks\Sanitize\reverse_wpautop( $content );
+			if ( ! $this->interactiveContent->isCloneable( $content ) ) {
+				$content = $this->interactiveContent->replaceCloneable( $content );
+			}
 		}
 
 		// Set title and content

@@ -22,6 +22,8 @@ namespace Pressbooks\Interactive;
  */
 class H5P {
 
+	const SHORTCODE = 'h5p';
+
 	/**
 	 * @var \Jenssegers\Blade\Blade
 	 */
@@ -40,7 +42,7 @@ class H5P {
 	 * @return bool
 	 */
 	public function isActive() {
-		if ( shortcode_exists( 'h5p' ) ) {
+		if ( shortcode_exists( self::SHORTCODE ) ) {
 			return true;
 		}
 		return false;
@@ -50,19 +52,21 @@ class H5P {
 	 * Override H5P shortcode
 	 */
 	public function override() {
-		remove_shortcode( 'h5p' );
-		add_shortcode( 'h5p', [ $this, 'shortcodeHandler' ] );
+		remove_shortcode( self::SHORTCODE );
+		add_shortcode( self::SHORTCODE, [ $this, 'replaceShortcode' ] );
 		add_filter( 'h5p_embed_access', '__return_false' );
 	}
 
 	/**
+	 * Replace [h5p] shortcode with standard text
+	 *
 	 * @see \H5P_Plugin::shortcode
 	 *
 	 * @param array $atts
 	 *
 	 * @return string
 	 */
-	public function shortcodeHandler( $atts ) {
+	public function replaceShortcode( $atts ) {
 
 		global $id; // This is the Post ID, [@see WP_Query::setup_postdata, ...]
 		global $wpdb;
@@ -107,6 +111,38 @@ class H5P {
 		);
 
 		return $html;
+	}
+
+	/**
+	 * Replace imported/cloned [h5p] shortcode with warning
+	 *
+	 * @param string $content
+	 *
+	 * @return bool
+	 */
+	public function replaceCloneable( $content ) {
+		$this->setCloneableWarning();
+		$pattern = get_shortcode_regex( [ self::SHORTCODE ] );
+		$content = preg_replace_callback(
+			"/$pattern/",
+			function ( $m ) {
+				return __( 'The original version of this chapter contained H5P content. This content is not supported in cloned books. You may want to remove or replace this section.', 'pressbooks' );
+			},
+			$content
+		);
+		return $content;
+	}
+
+
+	/**
+	 * When someone clones a book with H5P content, they should receive a warning message that that content has not been cloned
+	 */
+	public function setCloneableWarning() {
+		static $notice_already_set = false;
+		if ( ! $notice_already_set ) {
+			$_SESSION['pb_notices'][] = __( 'This book contains H5P content that cannot be cloned. Please review the cloned version of your text carefully, as missing H5P content will be indicated. You may want to remove or replace these section', 'pressbooks' );
+			$notice_already_set = true;
+		}
 	}
 
 }

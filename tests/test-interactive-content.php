@@ -90,4 +90,12 @@ class Interactive_Content_Test extends \WP_UnitTestCase {
 		$this->assertNotEmpty( $providers );
 	}
 
+	public function test_isCloneable() {
+		$content = '[h5p id="1"]';
+		$this->assertFalse( $this->content->isCloneable( $content ) );
+
+		$content = 'OK then!';
+		$this->assertTrue( $this->content->isCloneable( $content ) );
+	}
+
 }

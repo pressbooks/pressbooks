@@ -328,4 +328,21 @@ PRETTY;
 		$this->assertFalse( \Pressbooks\Sanitize\is_valid_timestamp( '+1000000' ) );
 	}
 
+	public function test_reverse_wpautop() {
+		$raw = <<< RAW
+Hi there!
+
+How's it going?
+
+[shortcode id="1"]Fake[/shortcode]
+
+Ok Bye!
+RAW;
+
+		$var = wpautop( $raw );
+		$var = \Pressbooks\Sanitize\reverse_wpautop( $var );
+
+		$this->assertEquals( trim( $raw ), trim( $var ) );
+	}
+
 }
