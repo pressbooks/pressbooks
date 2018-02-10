@@ -299,6 +299,7 @@ class Cloner {
 			switch_to_blog( $this->sourceBookId );
 		} elseif ( ! $this->isCompatible( $this->sourceBookUrl ) ) {
 			// Remote is not compatible, bail.
+			$_SESSION['pb_errors'][] = __( 'You can only clone from a book hosted by Pressbooks 4.1 or later. Please ensure that your source book meets these requirements.', 'pressbooks' );
 			return false;
 		}
 
@@ -630,14 +631,14 @@ class Cloner {
 
 		$title = $this->sourceBookMetadata['name'];
 		$user_id = get_current_user_id();
-		 // Disable automatic redirect to new book dashboard
+		// Disable automatic redirect to new book dashboard
 		add_filter(
 			'pb_redirect_to_new_book', function () {
 				return false;
 			}
 		);
-		 // Remove default content so that the book only contains the results of the clone operation
-		 add_filter( 'pb_default_book_content', [ $this, 'removeDefaultBookContent' ] );
+		// Remove default content so that the book only contains the results of the clone operation
+		add_filter( 'pb_default_book_content', [ $this, 'removeDefaultBookContent' ] );
 		$result = wpmu_create_blog( $domain, $path, $title, $user_id );
 		remove_all_filters( 'pb_redirect_to_new_book' );
 		remove_filter( 'pb_default_book_content', [ $this, 'removeDefaultBookContent' ] );
@@ -698,6 +699,10 @@ class Cloner {
 				}
 			}
 		}
+
+		// Remove the current user from the author field in Book Info
+		$user_data = get_userdata( get_current_user_id() );
+		$contributors->unlink( $user_data->user_nicename, $metadata_post_id );
 
 		return $metadata_post_id;
 	}
@@ -1153,7 +1158,6 @@ class Cloner {
 			]
 		);
 		if ( is_wp_error( $response ) && in_array( (int) $response->get_error_code(), [ 404 ], true ) ) {
-			$_SESSION['pb_errors'][] = __( 'You can only clone from a book hosted by Pressbooks 4.1 or later. Please ensure that your source book meets these requirements.', 'pressbooks' );
 			return false;
 		}
 
