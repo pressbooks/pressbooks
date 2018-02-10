@@ -471,7 +471,7 @@ abstract class Import {
 		}
 
 		// check if it's a valid url
-		$url = getset( '_POST', 'import_http' );
+		$url = trim( getset( '_POST', 'import_http', '' ) );
 		if ( false === filter_var( $url, FILTER_VALIDATE_URL ) ) {
 			$_SESSION['pb_errors'][] = __( 'Your URL does not appear to be valid', 'pressbooks' );
 			return false;
