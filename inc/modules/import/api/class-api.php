@@ -89,9 +89,12 @@ class Api extends Import {
 			return false;
 		}
 
+		$post_status = $current_import['default_post_status'];
+
 		foreach ( $this->cloner->getSourceBookStructure()['front-matter'] as $frontmatter ) {
 			if ( $this->flaggedForImport( $frontmatter['id'] ) ) {
-				$this->cloner->cloneFrontMatter( $frontmatter['id'] );
+				$fm_id = $this->cloner->cloneFrontMatter( $frontmatter['id'] );
+				$this->updatePostStatus( $fm_id, $post_status );
 			}
 		}
 
@@ -100,22 +103,42 @@ class Api extends Import {
 			$part_id = false;
 			if ( $this->flaggedForImport( $part['id'] ) ) {
 				$part_id = $this->cloner->clonePart( $part['id'] );
+				$this->updatePostStatus( $part_id, $post_status );
 			}
 			foreach ( $this->cloner->getSourceBookStructure()['parts'][ $key ]['chapters'] as $chapter ) {
 				if ( $this->flaggedForImport( $chapter['id'] ) ) {
-					$this->cloner->cloneChapter( $chapter['id'], ( $part_id ? $part_id : $parent_id ) );
+					$ch_id = $this->cloner->cloneChapter( $chapter['id'], ( $part_id ? $part_id : $parent_id ) );
+					$this->updatePostStatus( $ch_id, $post_status );
 				}
 			}
 		}
 
 		foreach ( $this->cloner->getSourceBookStructure()['back-matter'] as $backmatter ) {
 			if ( $this->flaggedForImport( $backmatter['id'] ) ) {
-				$this->cloner->cloneBackMatter( $backmatter['id'] );
+				$bm_id = $this->cloner->cloneBackMatter( $backmatter['id'] );
+				$this->updatePostStatus( $bm_id, $post_status );
 			}
 		}
 
 		// Done
 		return $this->revokeCurrentImport();
+	}
+
+	/**
+	 * Update post status
+	 *
+	 * @param int $post_id
+	 * @param string  $status
+	 */
+	protected function updatePostStatus( $post_id, $status ) {
+		if ( empty( $post_id ) ) {
+			return;
+		}
+		if ( empty( $status ) ) {
+			return;
+		}
+		$post = [ 'ID' => $post_id, 'post_status' => $status ];
+		wp_update_post( $post );
 	}
 
 }
