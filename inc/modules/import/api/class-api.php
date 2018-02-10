@@ -94,7 +94,7 @@ class Api extends Import {
 		foreach ( $this->cloner->getSourceBookStructure()['front-matter'] as $frontmatter ) {
 			if ( $this->flaggedForImport( $frontmatter['id'] ) ) {
 				$fm_id = $this->cloner->cloneFrontMatter( $frontmatter['id'] );
-				$this->updatePostStatus( $fm_id, $post_status );
+				$this->updatePost( $fm_id, $post_status );
 			}
 		}
 
@@ -103,12 +103,12 @@ class Api extends Import {
 			$part_id = false;
 			if ( $this->flaggedForImport( $part['id'] ) ) {
 				$part_id = $this->cloner->clonePart( $part['id'] );
-				$this->updatePostStatus( $part_id, $post_status );
+				$this->updatePost( $part_id, $post_status );
 			}
 			foreach ( $this->cloner->getSourceBookStructure()['parts'][ $key ]['chapters'] as $chapter ) {
 				if ( $this->flaggedForImport( $chapter['id'] ) ) {
 					$ch_id = $this->cloner->cloneChapter( $chapter['id'], ( $part_id ? $part_id : $parent_id ) );
-					$this->updatePostStatus( $ch_id, $post_status );
+					$this->updatePost( $ch_id, $post_status );
 				}
 			}
 		}
@@ -116,7 +116,7 @@ class Api extends Import {
 		foreach ( $this->cloner->getSourceBookStructure()['back-matter'] as $backmatter ) {
 			if ( $this->flaggedForImport( $backmatter['id'] ) ) {
 				$bm_id = $this->cloner->cloneBackMatter( $backmatter['id'] );
-				$this->updatePostStatus( $bm_id, $post_status );
+				$this->updatePost( $bm_id, $post_status );
 			}
 		}
 
@@ -128,17 +128,23 @@ class Api extends Import {
 	 * Update post status
 	 *
 	 * @param int $post_id
-	 * @param string  $status
+	 * @param string $status
 	 */
-	protected function updatePostStatus( $post_id, $status ) {
-		if ( empty( $post_id ) ) {
+	protected function updatePost( $post_id, $status ) {
+
+		$post = get_post( $post_id, 'ARRAY_A' );
+		if ( empty( $post ) ) {
 			return;
 		}
-		if ( empty( $status ) ) {
-			return;
+
+		global $wpdb;
+		$menu_order = $wpdb->get_var( $wpdb->prepare( "SELECT MAX(menu_order) FROM {$wpdb->posts} WHERE post_type = %s AND post_parent = %d ", $post['post_type'], $post['post_parent'] ) );
+		if ( $menu_order !== null ) {
+			$post['menu_order'] = $menu_order + 1;
 		}
-		$post = [ 'ID' => $post_id, 'post_status' => $status ];
+
+		$post['post_status'] = $status;
+
 		wp_update_post( $post );
 	}
-
 }
