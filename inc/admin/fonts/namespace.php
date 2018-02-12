@@ -12,9 +12,9 @@ use Pressbooks\Container;
  * Compile Sass for everything that has to do with dynamically generated font stacks
  */
 function update_font_stacks() {
-
+	$stylesheet = ( pb_is_custom_theme() ) ? 'pressbooks-book' : null;
 	Container::get( 'GlobalTypography' )->updateGlobalTypographyMixin();
-	Container::get( 'Styles' )->updateWebBookStyleSheet();
+	Container::get( 'Styles' )->updateWebBookStyleSheet( $stylesheet );
 	\Pressbooks\Editor\update_editor_style();
 }
 
