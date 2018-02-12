@@ -435,7 +435,12 @@ class Xhtml extends Import {
 	function setCurrentImportOption( array $upload ) {
 
 		// ensure the media type is HTML (not JSON, or something we can't deal with)
-		if ( false === strpos( $upload['type'], 'text/html' ) && false === strpos( $upload['type'], 'application/xhtml+xml' ) ) {
+		$valid_types = [
+			'text/html',
+			'application/xhtml+xml',
+			'application/xml',
+		];
+		if ( str_replace( $valid_types, '', $upload['type'] ) === $upload['type'] ) {
 			return false;
 		}
 

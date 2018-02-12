@@ -316,6 +316,7 @@ class Book {
 
 		$book_structure['__order'] = [];
 		$book_structure['__export_lookup'] = [];
+		$book_structure['__web_lookup'] = [];
 
 		foreach ( $custom_types as $type ) {
 			foreach ( $book_structure[ $type ] as $i => $struct ) {
@@ -327,6 +328,9 @@ class Book {
 					];
 					if ( $struct['export'] ) {
 						$book_structure['__export_lookup'][ $struct['post_name'] ] = $type;
+					}
+					if ( in_array( $struct['post_status'], [ 'web-only', 'publish' ], true ) ) {
+						$book_structure['__web_lookup'][ $struct['post_name'] ] = $type;
 					}
 				} else {
 					foreach ( $struct['chapters'] as $j => $chapter ) {
@@ -343,6 +347,9 @@ class Book {
 						];
 						if ( $chapter['export'] ) {
 							$book_structure['__export_lookup'][ $chapter['post_name'] ] = 'chapter';
+						}
+						if ( in_array( $chapter['post_status'], [ 'web-only', 'publish' ], true ) ) {
+							$book_structure['__web_lookup'][ $chapter['post_name'] ] = 'chapter';
 						}
 					}
 				}
@@ -1006,6 +1013,13 @@ The book object looks something like this:
 			// ...
 		],
 		'__export_lookup' => [
+			'introduction' => 'front-matter',
+			'chapter-1' => 'chapter',
+			'foo-bar' => 'chapter',
+			'appendix' => 'back-matter',
+			// ...
+		],
+		'__web_lookup' => [
 			'introduction' => 'front-matter',
 			'chapter-1' => 'chapter',
 			'foo-bar' => 'chapter',

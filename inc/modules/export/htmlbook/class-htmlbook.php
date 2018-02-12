@@ -224,6 +224,8 @@ class HTMLBook extends Export {
 
 		ob_start();
 
+		echo '<?xml version="1.0" encoding="utf-8"?>' . "\n";
+
 		$this->echoDocType();
 
 		echo "<head>\n";
@@ -604,7 +606,7 @@ class HTMLBook extends Export {
 
 		echo '<!DOCTYPE html>' . "\n";
 		echo '<html xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"' . "\n";
-		echo 'xsi:schemaLocation="http://www.w3.org/1999/xhtml ../schema/htmlbook.xsd"' . "\n";
+		echo 'xsi:schemaLocation="http://www.w3.org/1999/xhtml https://raw.githubusercontent.com/oreillymedia/HTMLBook/master/schema/htmlbook.xsd"' . "\n";
 		echo 'xmlns="http://www.w3.org/1999/xhtml"' . "\n";
 		echo 'lang="' . $this->lang . '">' . "\n";
 	}

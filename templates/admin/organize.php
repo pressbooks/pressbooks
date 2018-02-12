@@ -19,7 +19,7 @@ $contributors = new \Pressbooks\Contributors();
 $start_point = false;
 $ebook_options = get_option( 'pressbooks_theme_options_ebook' );
 if ( isset( $ebook_options['ebook_start_point'] ) && ! empty( $ebook_options['ebook_start_point'] ) ) {
-	$start_point = $ebook_options['ebook_start_point'];
+	$start_point = (int) $ebook_options['ebook_start_point'];
 }
 ?>
 

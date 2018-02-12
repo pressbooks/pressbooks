@@ -714,15 +714,21 @@ function schema_to_section_information( $section_schema, $book_schema ) {
 	}
 
 	// License
-	if ( is_array( $book_schema['license'] ) ) {
-		$book_license = $book_schema['license']['url'];
-	} else {
-		$book_license = $book_schema['license'];
+	$book_license = '';
+	$section_license = '';
+	if ( isset( $book_schema['license'] ) ) {
+		if ( is_array( $book_schema['license'] ) ) {
+			$book_license = $book_schema['license']['url'];
+		} else {
+			$book_license = $book_schema['license'];
+		}
 	}
-	if ( is_array( $section_schema['license'] ) ) {
-		$section_license = $section_schema['license']['url'];
-	} else {
-		$section_license = $section_schema['license'];
+	if ( isset( $section_schema['license'] ) ) {
+		if ( is_array( $section_schema['license'] ) ) {
+			$section_license = $section_schema['license']['url'];
+		} else {
+			$section_license = $section_schema['license'];
+		}
 	}
 	if ( $section_license !== $book_license ) {
 		$licensing = new Licensing;

@@ -7,6 +7,7 @@
 namespace Pressbooks\Modules\Import;
 
 use Pressbooks\Book;
+use Pressbooks\Cloner;
 use Pressbooks\HtmLawed;
 use function \Pressbooks\Utility\getset;
 use function \Pressbooks\Utility\debug_error_log;
@@ -412,9 +413,12 @@ abstract class Import {
 
 			case Api\Api::TYPE_OF:
 			case Html\Xhtml::TYPE_OF:
-				$importer = new Api\Api();
-				$ok = $importer->setCurrentImportOption( $upload );
-				if ( ! $ok ) {
+				if ( ! empty( $upload['url'] ) && self::hasApi( $upload ) ) {
+					// API
+					$importer = new Api\Api();
+					$ok = $importer->setCurrentImportOption( $upload );
+				} else {
+					// HTML
 					unset( $_SESSION['pb_errors'] );
 					$importer = new Html\Xhtml();
 					$ok = $importer->setCurrentImportOption( $upload );
@@ -459,6 +463,21 @@ abstract class Import {
 	}
 
 	/**
+	 * @param array $upload Passed by reference because we want to change the URL
+	 *
+	 * @return bool
+	 */
+	static protected function hasApi( &$upload ) {
+		$cloner = new Cloner( $upload['url'] );
+		$is_compatible = $cloner->isCompatible( $upload['url'] );
+		if ( $is_compatible ) {
+			$upload['url'] = $cloner->getSourceBookUrl();
+			return true;
+		}
+		return false;
+	}
+
+	/**
 	 * Tries to download URL in $_POST['import_http'], impersonates $_FILES on success
 	 * Note: Faking the $_FILES array will cause PHP's is_uploaded_file() to fail
 	 *
@@ -471,7 +490,7 @@ abstract class Import {
 		}
 
 		// check if it's a valid url
-		$url = getset( '_POST', 'import_http' );
+		$url = trim( getset( '_POST', 'import_http', '' ) );
 		if ( false === filter_var( $url, FILTER_VALIDATE_URL ) ) {
 			$_SESSION['pb_errors'][] = __( 'Your URL does not appear to be valid', 'pressbooks' );
 			return false;
