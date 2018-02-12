@@ -442,6 +442,11 @@ class Styles {
 				$scss,
 				$this->sass->defaultIncludePaths( $type )
 			);
+		} elseif ( pb_is_custom_theme() ) {
+			$css = $this->sass->compile(
+				$scss,
+				$this->sass->defaultIncludePaths( $type, wp_get_theme( 'pressbooks-book' ) )
+			);
 		} else {
 			$css = $this->injectHouseStyles( $scss );
 		}
@@ -502,19 +507,19 @@ class Styles {
 	/**
 	 * Update and save the supplementary webBook stylesheet which incorporates user options, etc.
 	 *
+	 * @param string $stylesheet Directory name for the theme. Defaults to current theme.
 	 * @return void
 	 */
-	public function updateWebBookStyleSheet() {
+	public function updateWebBookStyleSheet( $stylesheet = null ) {
+		$theme = wp_get_theme( $stylesheet );
 
 		$overrides = apply_filters( 'pb_web_css_override', '' ) . "\n";
-
 		// Populate $url-base variable so that links to images and other assets remain intact
-		$scss = '$url-base: \'' . get_stylesheet_directory_uri() . "/';\n";
-
+		$scss = '$url-base: \'' . $theme->get_stylesheet_directory_uri() . "/';\n";
 		if ( $this->isCurrentThemeCompatible( 1 ) ) {
-			$scss .= \Pressbooks\Utility\get_contents( realpath( get_stylesheet_directory() . '/style.scss' ) );
-		} elseif ( $this->isCurrentThemeCompatible( 2 ) ) {
-			$scss .= \Pressbooks\Utility\get_contents( realpath( get_stylesheet_directory() . '/assets/styles/web/style.scss' ) );
+			$scss .= \Pressbooks\Utility\get_contents( realpath( $theme->get_stylesheet_directory() . '/style.scss' ) );
+		} elseif ( $this->isCurrentThemeCompatible( 2 ) || pb_is_custom_theme() ) {
+			$scss .= \Pressbooks\Utility\get_contents( realpath( $theme->get_stylesheet_directory() . '/assets/styles/web/style.scss' ) );
 		} else {
 			return;
 		}
