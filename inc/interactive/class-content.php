@@ -154,7 +154,7 @@ class Content {
 
 		$html = $this->blade->render(
 			'interactive.shared', [
-				'title' => get_the_title( $id ),
+				'title' => $this->getTitle( $id ),
 				'url' => get_permalink( $id ),
 			]
 		);
@@ -219,7 +219,7 @@ class Content {
 
 		global $id; // This is the Post ID, [@see WP_Query::setup_postdata, ...]
 
-		$title = $data->title ?? get_the_title( $id );
+		$title = $data->title ?? $this->getTitle( $id );
 		$img_src = $data->thumbnail_url ?? null;
 		$provider_name = $data->provider_name ?? null;
 		$url = get_permalink( $id );
@@ -270,7 +270,7 @@ class Content {
 			// Load blade template based on $tag
 			$html = $this->blade->render(
 				"interactive.{$tag}", [
-					'title' => get_the_title( $id ),
+					'title' => $this->getTitle( $id ),
 					'url' => get_permalink( $id ),
 				]
 			);
@@ -407,6 +407,19 @@ class Content {
 		$wp_embed->usecache = false;
 		add_filter( 'oembed_ttl', '__return_zero', 999 );
 		add_filter( 'oembed_dataparse', [ $this, 'replaceOembed' ], 1, 3 );
+	}
+
+	/**
+	 * @param int $post_id
+	 *
+	 * @return string
+	 */
+	protected function getTitle( $post_id ) {
+		$title = get_the_title( $post_id );
+		if ( empty( $title ) ) {
+			$title = get_bloginfo( 'name' );
+		}
+		return $title;
 	}
 
 }
