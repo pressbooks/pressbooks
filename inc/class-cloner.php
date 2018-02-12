@@ -15,8 +15,10 @@ use function Pressbooks\Image\default_cover_url;
 use function Pressbooks\Image\strip_baseurl;
 use function Pressbooks\Metadata\schema_to_book_information;
 use function Pressbooks\Metadata\schema_to_section_information;
-use function \Pressbooks\Utility\getset;
+use function Pressbooks\Utility\getset;
 use function Pressbooks\Utility\oxford_comma_explode;
+use function Pressbooks\Utility\str_ends_with;
+use function Pressbooks\Utility\str_lreplace;
 
 class Cloner {
 	/**
@@ -1085,7 +1087,7 @@ class Cloner {
 		if ( $this->sameAsSource( $src_old ) && isset( $this->knownImages[ strip_baseurl( $src_old ) ] ) ) {
 			$basename_old = $this->basename( $src_old );
 			$basename_new = $this->basename( $src_new );
-			$maybe_src_new = \Pressbooks\Utility\str_lreplace( $basename_new, $basename_old, $src_new );
+			$maybe_src_new = str_lreplace( $basename_new, $basename_old, $src_new );
 			if ( $attachment_id === attachment_id_from_url( $maybe_src_new ) ) {
 				// Our best guess is that this is a cloned image, use old filename to preserve WP resizing
 				$src_new = $maybe_src_new;
@@ -1144,11 +1146,64 @@ class Cloner {
 	}
 
 	/**
-	 * @param $url
+	 * Discover WordPress API
+	 *
+	 * @see https://developer.wordpress.org/rest-api/using-the-rest-api/discovery/
+	 *
+	 * @param string $url
+	 *
+	 * @return string|false Returns (corrected) URL on success, false on failure
+	 */
+	public function discoverWordPressApi( $url ) {
+
+		// Use redirection because our servers redirect when missing a trailing slash
+		$response = wp_safe_remote_head( $url, [
+			'redirection' => 2,
+		] );
+		if ( is_wp_error( $response ) ) {
+			return false;
+		}
+		$headers = wp_remote_retrieve_headers( $response );
+
+		if ( isset( $headers['link'] ) ) {
+			if ( ! is_array( $headers['link'] ) ) {
+				$headers['link'] = [ $headers['link'] ];
+			}
+			foreach ( $headers['link'] as $link ) {
+				// Parse: <http://example.com/wp-json/>; rel="https://api.w.org/">, <http://example.com/?rest_route=/>; rel="https://api.w.org/"
+				if ( strpos( $link, 'rel="https://api.w.org/"' ) !== true || strpos( $link, "rel='https://api.w.org/'" ) !== true ) {
+					preg_match( '#\<(.*?)\>.*?//api\.w\.org/#', $link, $matches );
+					if ( empty( $matches[1] ) ) {
+						return false;
+					}
+					// Remove REST base
+					if ( str_ends_with( $matches[1], "/{$this->restBase}/" ) ) {
+						$fixed_url = esc_url( str_lreplace( "/{$this->restBase}/", '', $matches[1] ) ); // Ends with slash
+					} elseif ( str_ends_with( $matches[1], "/{$this->restBase}" ) ) {
+						$fixed_url = esc_url( str_lreplace( "/{$this->restBase}", '', $matches[1] ) ); // Doesn't end with slash
+					} else {
+						$fixed_url = esc_url( $matches[1] ); // Could not find rest base, use as is
+					}
+					return untrailingslashit( $fixed_url );
+				}
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * @param string $url
 	 *
 	 * @return bool
 	 */
 	public function isCompatible( $url ) {
+
+		$new_url = $this->discoverWordPressApi( $url );
+		if ( $new_url ) {
+			$url = $new_url;
+			$this->sourceBookUrl = $new_url;
+		}
+
 		// Check for taxonomies introduced in Pressbooks 4.1
 		// We specifically check for 404 Not Found.
 		// If we get another kind of error it will be caught later because we want to know what went wrong.
