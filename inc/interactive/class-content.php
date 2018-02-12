@@ -54,7 +54,9 @@ class Content {
 	 * @param Content $obj
 	 */
 	static public function hooks( Content $obj ) {
+
 		// Iframes
+		// Note to self: admins are not affected by kses
 		add_filter( 'pre_kses', [ $obj, 'deleteIframesNotOnWhitelist' ], 1, 2 ); // Priority equals one because this should go first
 		add_filter( 'wp_kses_allowed_html', [ $obj, 'allowIframesInHtml' ], 10, 2 );
 
