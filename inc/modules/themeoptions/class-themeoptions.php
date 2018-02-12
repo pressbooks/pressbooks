@@ -137,7 +137,7 @@ class ThemeOptions {
 	public function render() {
 		?>
 		<div class="wrap">
-			<h1><?php echo wp_get_theme(); ?><?php _e( 'Theme Options', 'pressbooks' ); ?></h1>
+			<h1><?php echo wp_get_theme(); ?> <?php _e( 'Theme Options', 'pressbooks' ); ?></h1>
 			<?php settings_errors(); ?>
 			<?php $active_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'global'; ?>
 			<h2 class="nav-tab-wrapper">
