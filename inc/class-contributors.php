@@ -212,6 +212,34 @@ class Contributors {
 	}
 
 	/**
+	 * Disassociate a Contributor's Term ID to a Post ID (Taxonomy + Meta)
+	 *
+	 * @param int|string $term_id
+	 * @param int $post_id
+	 * @param string $contributor_type
+	 *
+	 * @return bool
+	 */
+	public function unlink( $term_id, $post_id, $contributor_type = 'pb_authors' ) {
+		if ( ! str_starts_with( $contributor_type, 'pb_' ) ) {
+			$contributor_type = 'pb_' . $contributor_type;
+		}
+		if ( $this->isValid( $contributor_type ) ) {
+			if ( preg_match( '/\d+/', $term_id ) ) {
+				$term = get_term( $term_id, self::TAXONOMY ); // Get slug by Term ID
+			} else {
+				$term = get_term_by( 'slug', $term_id, self::TAXONOMY ); // Verify that slug is valid
+			}
+			if ( $term && ! is_wp_error( $term ) ) {
+				wp_remove_object_terms( $post_id, $term->term_id, self::TAXONOMY );
+				delete_post_meta( $post_id, $contributor_type, $term->slug );
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
 	 * Create a matching Contributor term for a given User ID. Used when a user is added to a blog.
 	 *
 	 * @param int $user_id

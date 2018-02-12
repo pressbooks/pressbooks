@@ -156,6 +156,10 @@ function add_meta_boxes() {
 	add_meta_box( 'metadata-save', __( 'Save Book Information', 'pressbooks' ), __NAMESPACE__ . '\metadata_save_box', 'metadata', 'side', 'high' );
 	add_meta_box( 'status-visibility', __( 'Status & Visibility', 'pressbooks' ), __NAMESPACE__ . '\status_visibility_box', [ 'chapter', 'front-matter', 'back-matter' ], 'side', 'high' );
 
+	// Book info: slug should be not available
+
+	remove_meta_box( 'slugdiv', 'metadata', 'normal' );
+
 	// Custom Image Upload
 
 	add_meta_box( 'covers', __( 'Cover Image', 'pressbooks' ), '\Pressbooks\Image\cover_image_box', 'metadata', 'normal', 'low' );
@@ -198,6 +202,8 @@ function add_meta_boxes() {
 			'field_type' => 'taxonomy_multi_select',
 			'taxonomy' => Contributors::TAXONOMY,
 			'select2' => true,
+			'description' => '<a class="button" href="edit-tags.php?taxonomy=contributor">' . __( 'Create New Author', 'pressbooks' ) . '</a>',
+			'placeholder' => __( 'Choose author(s)...', 'pressbooks' ),
 		]
 	);
 
@@ -208,6 +214,8 @@ function add_meta_boxes() {
 			'field_type' => 'taxonomy_multi_select',
 			'taxonomy' => Contributors::TAXONOMY,
 			'select2' => true,
+			'description' => '<a class="button" href="edit-tags.php?taxonomy=contributor">' . __( 'Create New Editor', 'pressbooks' ) . '</a>',
+			'placeholder' => __( 'Choose editor(s)...', 'pressbooks' ),
 		]
 	);
 
@@ -218,6 +226,8 @@ function add_meta_boxes() {
 			'field_type' => 'taxonomy_multi_select',
 			'taxonomy' => Contributors::TAXONOMY,
 			'select2' => true,
+			'description' => '<a class="button" href="edit-tags.php?taxonomy=contributor">' . __( 'Create New Translator', 'pressbooks' ) . '</a>',
+			'placeholder' => __( 'Choose translator(s)...', 'pressbooks' ),
 		]
 	);
 
@@ -228,6 +238,8 @@ function add_meta_boxes() {
 			'field_type' => 'taxonomy_multi_select',
 			'taxonomy' => Contributors::TAXONOMY,
 			'select2' => true,
+			'description' => '<a class="button" href="edit-tags.php?taxonomy=contributor">' . __( 'Create New Reviewer', 'pressbooks' ) . '</a>',
+			'placeholder' => __( 'Choose reviewer(s)...', 'pressbooks' ),
 		]
 	);
 
@@ -238,6 +250,8 @@ function add_meta_boxes() {
 			'field_type' => 'taxonomy_multi_select',
 			'taxonomy' => Contributors::TAXONOMY,
 			'select2' => true,
+			'description' => '<a class="button" href="edit-tags.php?taxonomy=contributor">' . __( 'Create New Illustrator', 'pressbooks' ) . '</a>',
+			'placeholder' => __( 'Choose illustrator(s)...', 'pressbooks' ),
 		]
 	);
 
@@ -248,6 +262,8 @@ function add_meta_boxes() {
 			'field_type' => 'taxonomy_multi_select',
 			'taxonomy' => Contributors::TAXONOMY,
 			'select2' => true,
+			'description' => '<a class="button" href="edit-tags.php?taxonomy=contributor">' . __( 'Create New Contributor', 'pressbooks' ) . '</a>',
+			'placeholder' => __( 'Choose contributor(s)...', 'pressbooks' ),
 		]
 	);
 
@@ -542,6 +558,8 @@ function add_meta_boxes() {
 			'field_type' => 'taxonomy_multi_select',
 			'taxonomy' => Contributors::TAXONOMY,
 			'select2' => true,
+			'description' => '<a class="button" href="edit-tags.php?taxonomy=contributor">' . __( 'Create New Author', 'pressbooks' ) . '</a>',
+			'placeholder' => __( 'Choose author(s)...', 'pressbooks' ),
 		]
 	);
 
@@ -593,6 +611,8 @@ function add_meta_boxes() {
 			'field_type' => 'taxonomy_multi_select',
 			'taxonomy' => Contributors::TAXONOMY,
 			'select2' => true,
+			'description' => '<a class="button" href="edit-tags.php?taxonomy=contributor">' . __( 'Create New Author', 'pressbooks' ) . '</a>',
+			'placeholder' => __( 'Choose author(s)...', 'pressbooks' ),
 		]
 	);
 
@@ -634,6 +654,8 @@ function add_meta_boxes() {
 			'field_type' => 'taxonomy_multi_select',
 			'taxonomy' => Contributors::TAXONOMY,
 			'select2' => true,
+			'description' => '<a class="button" href="edit-tags.php?taxonomy=contributor">' . __( 'Create New Author', 'pressbooks' ) . '</a>',
+			'placeholder' => __( 'Choose author(s)...', 'pressbooks' ),
 		]
 	);
 
