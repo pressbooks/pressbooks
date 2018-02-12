@@ -156,6 +156,10 @@ function add_meta_boxes() {
 	add_meta_box( 'metadata-save', __( 'Save Book Information', 'pressbooks' ), __NAMESPACE__ . '\metadata_save_box', 'metadata', 'side', 'high' );
 	add_meta_box( 'status-visibility', __( 'Status & Visibility', 'pressbooks' ), __NAMESPACE__ . '\status_visibility_box', [ 'chapter', 'front-matter', 'back-matter' ], 'side', 'high' );
 
+	// Book info: slug should be not available
+
+	remove_meta_box( 'slugdiv', 'metadata', 'normal' );
+
 	// Custom Image Upload
 
 	add_meta_box( 'covers', __( 'Cover Image', 'pressbooks' ), '\Pressbooks\Image\cover_image_box', 'metadata', 'normal', 'low' );
