@@ -460,8 +460,24 @@ function replace_menu_bar_my_sites( $wp_admin_bar ) {
 		return;
 	}
 
-	// Show only when the user has at least one site, or they're a super admin.
-	if ( count( $wp_admin_bar->user->blogs ) < 1 && ! is_super_admin() ) {
+	$show_menu = false;
+	if ( is_super_admin() ) {
+		// Always show menu for super admin
+		$show_menu = true;
+	} else {
+		if ( count( $wp_admin_bar->user->blogs ) >= 1 ) {
+			// Show menu for a user that has books
+			$show_menu = true;
+		} else {
+			// Show menu IF book registration is enabled
+			// The value can be 'all', 'none', 'blog', or 'user', @see wp-signup.php
+			$active_signup = apply_filters( 'wpmu_active_signup', get_site_option( 'registration', 'none' ) );
+			if ( in_array( $active_signup, [ 'blog', 'all' ], true ) ) {
+				$show_menu = true;
+			}
+		}
+	}
+	if ( ! $show_menu ) {
 		return;
 	}
 

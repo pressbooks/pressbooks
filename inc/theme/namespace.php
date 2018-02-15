@@ -111,7 +111,9 @@ function check_upgraded_customcss() {
  * @since 4.0
  */
 function migrate_book_themes() {
-	if ( get_option( 'pressbooks_theme_migration' ) === false ) {
+	$pressbooks_theme_migration = (int) get_option( 'pressbooks_theme_migration', 0 );
+
+	if ( ! $pressbooks_theme_migration ) {
 		$comparisons = [
 			'austen' => 'pressbooks-austenclassic',
 			'clarke' => 'pressbooks-clarke',
@@ -134,24 +136,38 @@ function migrate_book_themes() {
 			}
 		}
 
-		update_option( 'pressbooks_theme_migration', 1 );
+		$pressbooks_theme_migration = 1;
+		update_option( 'pressbooks_theme_migration', $pressbooks_theme_migration );
 	}
-	if ( get_option( 'pressbooks_theme_migration' ) === 1 ) {
+
+	if ( $pressbooks_theme_migration === 1 ) {
 		$theme = wp_get_theme()->get_stylesheet();
 		if ( $theme === 'pressbooks-book' ) {
-			switch_theme( 'pressbooks-luther' );
-
-			$lock = Lock::init();
-			if ( $lock->isLocked() ) {
-				$data = $lock->getLockData();
-				$data['stylesheet'] = 'pressbooks-luther';
-				$json = wp_json_encode( $data );
-				$lockfile = $lock->getLockDir() . '/lock.json';
-				\Pressbooks\Utility\put_contents( $lockfile, $json );
+			if ( wp_get_theme( 'pressbooks-luther' )->exists() ) {
+				switch_theme( 'pressbooks-luther' );
+				$lock = Lock::init();
+				if ( $lock->isLocked() ) {
+					$data = $lock->getLockData();
+					$data['stylesheet'] = 'pressbooks-luther';
+					$json = wp_json_encode( $data );
+					$lockfile = $lock->getLockDir() . '/lock.json';
+					\Pressbooks\Utility\put_contents( $lockfile, $json );
+				}
+			} else {
+				add_action(
+					'admin_notices', function () {
+						/* translators: 1: URL to Luther theme */
+						echo '<div id="message" class="error fade"><p>' . sprintf(
+							__( 'Luther has been replaced with McLuhan as Pressbooks’ default book theme. To continue using Luther for your book, please ensure that the standalone <a href="%1$s">Luther theme</a> is installed and network activated.', 'pressbooks' ),
+							'https://github.com/pressbooks/pressbooks-luther/'
+						) . '</p></div>';
+					}
+				);
 			}
 		}
 
-		update_option( 'pressbooks_theme_migration', 2 );
+		$pressbooks_theme_migration = 2;
+		update_option( 'pressbooks_theme_migration', $pressbooks_theme_migration );
 	}
 }
 

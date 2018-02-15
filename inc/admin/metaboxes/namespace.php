@@ -606,7 +606,7 @@ function add_meta_boxes() {
 
 	x_add_metadata_field(
 		'pb_authors', 'front-matter', [
-			'group' => 'front-matter-metadata-metadata',
+			'group' => 'front-matter-metadata',
 			'label' => __( 'Author(s)', 'pressbooks' ),
 			'field_type' => 'taxonomy_multi_select',
 			'taxonomy' => Contributors::TAXONOMY,
@@ -649,7 +649,7 @@ function add_meta_boxes() {
 
 	x_add_metadata_field(
 		'pb_authors', 'back-matter', [
-			'group' => 'back-matter-metadata-metadata',
+			'group' => 'back-matter-metadata',
 			'label' => __( 'Author(s)', 'pressbooks' ),
 			'field_type' => 'taxonomy_multi_select',
 			'taxonomy' => Contributors::TAXONOMY,
@@ -717,19 +717,20 @@ function override_parent_id( $post ) {
 		$selected = 0;
 	}
 
-	$pages = wp_dropdown_pages(
-		[
-			'post_type' => 'part',
-			'selected' => $selected,
-			'name' => 'parent_id',
-			'sort_column' => 'menu_order',
-			'echo' => 0,
-		]
+	global $wpdb;
+	$sql_args = [ 'draft', 'web-only', 'private', 'publish' ];
+	$results = $wpdb->get_results(
+		$wpdb->prepare( "SELECT ID, post_title FROM {$wpdb->posts} WHERE post_type = 'part' AND post_status IN (%s, %s, %s, %s) ORDER BY menu_order ASC ", $sql_args )
 	);
 
-	if ( ! empty( $pages ) ) {
-		echo $pages;
+	$output = "<select name='parent_id' id='parent_id'>\n";
+	foreach ( $results as $val ) {
+		$selected_html = ( (int) $selected === (int) $val->ID ) ? "selected='selected'" : '';
+		$output .= '<option value="' . esc_attr( $val->ID ) . '" ' . $selected_html . ' >' . esc_attr( $val->post_title ) . "</option>\n";
 	}
+	$output .= "</select>\n";
+
+	echo $output;
 }
 
 /**
@@ -1142,5 +1143,23 @@ function save_contributor_meta( $term_id, $tt_id, $taxonomy ) {
 		delete_term_meta( $term_id, 'contributor_last_name' );
 	} elseif ( $old_last_name !== $new_last_name ) {
 		update_term_meta( $term_id, 'contributor_last_name', $new_last_name );
+	}
+}
+
+/**
+ * Distinguish between front matter/chapter/back matter authors and WP author
+ *
+ * @param string $post_type Post type.
+ */
+function replace_authordiv( $post_type ) {
+	// See: wp-admin/edit-form-advanced.php
+	$post_type_object = get_post_type_object( $post_type );
+	if ( post_type_supports( $post_type, 'author' ) && current_user_can( $post_type_object->cap->edit_others_posts ) ) {
+
+		remove_meta_box( 'authordiv', $post_type, 'normal' );
+		remove_meta_box( 'authordiv', $post_type, 'side' );
+		remove_meta_box( 'authordiv', $post_type, 'advanced' );
+
+		add_meta_box( 'authordiv', __( 'Owner', 'pressbooks' ), 'post_author_meta_box', $post_type );
 	}
 }
