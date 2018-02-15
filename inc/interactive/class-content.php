@@ -304,8 +304,8 @@ class Content {
 	 */
 	public function addExtraOembedProviders( $providers ) {
 
-		$providers['#https?://mathembed\.com/latex\?inputText=.*#i'] = [ 'http://mathembed.com/oembed', true ];
-		$providers['#https?://www\.openassessments\.org/assessments/.*#i'] = [ 'https://www.openassessments.org/oembed.json?url=', true ];
+		$providers['#https?://mathembed\.com/latex\?inputText=.*#i'] = [ 'https://mathembed.com/oembed', true ];
+		$providers['#https?://www\.openassessments\.org/assessments/.*#i'] = [ 'https://www.openassessments.org/oembed.json', true ];
 
 		return $providers;
 	}
