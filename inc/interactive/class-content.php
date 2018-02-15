@@ -22,6 +22,7 @@ class Content {
 	 */
 	protected $whitelistedDomains = [
 		'phet.colorado.edu',
+		'www.openassessments.org',
 	];
 
 	/**
@@ -304,6 +305,7 @@ class Content {
 	public function addExtraOembedProviders( $providers ) {
 
 		$providers['#https?://mathembed\.com/latex\?inputText=.*#i'] = [ 'http://mathembed.com/oembed', true ];
+		$providers['#https?://www\.openassessments\.org/assessments/.*#i'] = [ 'https://www.openassessments.org/oembed.json?url=', true ];
 
 		return $providers;
 	}
