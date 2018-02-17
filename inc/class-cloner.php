@@ -1182,7 +1182,7 @@ class Cloner {
 			}
 			foreach ( $headers['link'] as $link ) {
 				// Parse: <http://example.com/wp-json/>; rel="https://api.w.org/">, <http://example.com/?rest_route=/>; rel="https://api.w.org/"
-				if ( strpos( $link, 'rel="https://api.w.org/"' ) !== true || strpos( $link, "rel='https://api.w.org/'" ) !== true ) {
+				if ( strpos( $link, 'rel="https://api.w.org/"' ) !== false || strpos( $link, "rel='https://api.w.org/'" ) !== false ) {
 					preg_match( '#\<(.*?)\>.*?//api\.w\.org/#', $link, $matches );
 					if ( empty( $matches[1] ) ) {
 						return false;

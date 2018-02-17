@@ -93,6 +93,44 @@ class ClonerTest extends \WP_UnitTestCase {
 		$this->assertEquals( $result, 'example.org/newbook/' );
 	}
 
+	public function test_discoverWordPressApi(){
+
+		// Hook a fake HTTP request response.
+		add_filter(
+			'pre_http_request',
+			function ( $false, $arguments, $url ) {
+				if ( $url === 'https://bad.com' ) {
+					return [
+						'headers' => [ 'link' => 'cannot parse this' ],
+					];
+				}
+				if ( $url === 'https://good.com' ) {
+					return [
+						'headers' => [ 'link' => '<http://example.com/wp-json/>; rel="https://api.w.org/"' ],
+					];
+				}
+				if ( $url === 'https://also-good.com' ) {
+					return [
+						'headers' => [ 'link' => [ "<http://example.com/?rest_route=/>; rel='https://api.w.org/'", 'extra stuff' ] ],
+					];
+				}
+				return false;
+
+			}, 10, 3
+		);
+
+		$cloner = new \Pressbooks\Cloner( home_url() );
+
+		$url = $cloner->discoverWordPressApi( 'https://bad.com' );
+		$this->assertFalse( $url );
+
+		$url = $cloner->discoverWordPressApi( 'https://good.com' );
+		$this->assertEquals( 'http://example.com', $url ); // REST base removed
+
+		$url = $cloner->discoverWordPressApi( 'https://also-good.com' );
+		$this->assertEquals( 'http://example.com/?rest_route=', $url );
+	}
+
 	public function test_sanityCheck() {
 
 		$this->_setupBookApi();
