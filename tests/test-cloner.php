@@ -128,7 +128,7 @@ class ClonerTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'http://example.com', $url ); // REST base removed
 
 		$url = $cloner->discoverWordPressApi( 'https://also-good.com' );
-		$this->assertEquals( 'http://example.com/?rest_route=/', $url );
+		$this->assertEquals( 'http://example.com/?rest_route=', $url );
 	}
 
 	public function test_sanityCheck() {

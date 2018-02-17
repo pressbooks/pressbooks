@@ -1184,10 +1184,7 @@ class Cloner {
 					} else {
 						$fixed_url = esc_url( $matches[1] ); // Could not find rest base, use as is
 					}
-					if ( empty( wp_parse_url( $fixed_url, PHP_URL_QUERY ) ) ) {
-						$fixed_url = untrailingslashit( $fixed_url );
-					}
-					return $fixed_url;
+					return untrailingslashit( $fixed_url );
 				}
 			}
 		}
