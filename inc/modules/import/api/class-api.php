@@ -138,7 +138,14 @@ class Api extends Import {
 		}
 
 		global $wpdb;
-		$menu_order = $wpdb->get_var( $wpdb->prepare( "SELECT MAX(menu_order) FROM {$wpdb->posts} WHERE post_type = %s AND post_parent = %d ", $post['post_type'], $post['post_parent'] ) );
+		$menu_order = $wpdb->get_var(
+			$wpdb->prepare(
+				"SELECT MAX(menu_order) FROM {$wpdb->posts} WHERE post_type = %s AND post_parent = %d AND ID != %d ",
+				$post['post_type'],
+				$post['post_parent'],
+				$post_id
+			)
+		);
 		if ( $menu_order !== null ) {
 			$post['menu_order'] = $menu_order + 1;
 		}

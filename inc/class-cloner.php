@@ -1171,7 +1171,7 @@ class Cloner {
 			}
 			foreach ( $headers['link'] as $link ) {
 				// Parse: <http://example.com/wp-json/>; rel="https://api.w.org/">, <http://example.com/?rest_route=/>; rel="https://api.w.org/"
-				if ( strpos( $link, 'rel="https://api.w.org/"' ) !== true || strpos( $link, "rel='https://api.w.org/'" ) !== true ) {
+				if ( strpos( $link, 'rel="https://api.w.org/"' ) !== false || strpos( $link, "rel='https://api.w.org/'" ) !== false ) {
 					preg_match( '#\<(.*?)\>.*?//api\.w\.org/#', $link, $matches );
 					if ( empty( $matches[1] ) ) {
 						return false;
@@ -1184,7 +1184,10 @@ class Cloner {
 					} else {
 						$fixed_url = esc_url( $matches[1] ); // Could not find rest base, use as is
 					}
-					return untrailingslashit( $fixed_url );
+					if ( empty( wp_parse_url( $fixed_url, PHP_URL_QUERY ) ) ) {
+						$fixed_url = untrailingslashit( $fixed_url );
+					}
+					return $fixed_url;
 				}
 			}
 		}
