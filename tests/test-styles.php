@@ -89,12 +89,12 @@ class StylesTest extends \WP_UnitTestCase {
 
 	public function test_customize() {
 		// V1
-		$this->_book();
+		$this->_book( 'pressbooks-donham' );
 		$this->assertContains( 'font-size:', $this->cs->customizeWeb() );
 		$this->assertContains( 'font-size:', $this->cs->customizeEpub() );
 		$this->assertContains( 'font-size:', $this->cs->customizePrince() );
 		// V2
-		switch_theme( 'pressbooks-clarke' );
+		switch_theme( 'pressbooks-book' );
 		$this->assertContains( 'font-size:', $this->cs->customizeWeb() );
 		$this->assertContains( 'font-size:', $this->cs->customizeEpub() );
 		$this->assertContains( 'font-size:', $this->cs->customizePrince() );
