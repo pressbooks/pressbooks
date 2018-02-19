@@ -424,7 +424,17 @@ abstract class Export {
 		$option = get_option( 'pressbooks_theme_options_global' );
 		if ( ! empty( $option['copyright_license'] ) ) {
 			if ( 1 === absint( $option['copyright_license'] ) ) {
-				return (string) get_post_meta( $post_id, 'pb_section_license', true );
+				$section_license = get_post_meta( $post_id, 'pb_section_license', true );
+				if ( ! empty( $section_license ) ) {
+
+					$licensing = new \Pressbooks\Licensing();
+					$supported_types = $licensing->getSupportedTypes();
+					if ( array_key_exists( $section_license, $supported_types ) ) {
+						return $supported_types[ $section_license ]['desc'];
+					} else {
+						return '';
+					}
+				}
 			} elseif ( 2 === absint( $option['copyright_license'] ) ) {
 				return '';
 			}
