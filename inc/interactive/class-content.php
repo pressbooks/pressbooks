@@ -61,7 +61,8 @@ class Content {
 		add_filter( 'pre_kses', [ $obj, 'deleteIframesNotOnWhitelist' ], 1, 2 ); // Priority equals one because this should go first
 		add_filter( 'wp_kses_allowed_html', [ $obj, 'allowIframesInHtml' ], 10, 2 );
 
-		// oEmbed
+		// Embeds
+		// @see https://codex.wordpress.org/Embeds/
 		add_action( 'init', [ $obj, 'registerEmbedHandlers' ] );
 		add_filter( 'oembed_providers', [ $obj, 'addExtraOembedProviders' ] );
 		add_action( 'save_post', [ $obj, 'deleteOembedCaches' ] );
@@ -304,6 +305,7 @@ class Content {
 	 */
 	public function addExtraOembedProviders( $providers ) {
 
+		// Format (string), Provider (string), Regex (bool)
 		$providers['#https?://mathembed\.com/latex\?inputText=.*#i'] = [ 'https://mathembed.com/oembed', true ];
 		$providers['#https?://www\.openassessments\.org/assessments/.*#i'] = [ 'https://www.openassessments.org/oembed.json', true ];
 
