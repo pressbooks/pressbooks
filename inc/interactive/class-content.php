@@ -377,6 +377,7 @@ class Content {
 		$this->overrideH5P();
 		$this->overridePhet();
 		$this->overrideIframes();
+		$this->overrideEmbeds();
 	}
 
 	/**
@@ -406,10 +407,21 @@ class Content {
 		}
 
 		add_filter( 'the_content', [ $this, 'replaceIframes' ], 999 ); // Priority equals 999 because this should go last
+	}
 
+	/**
+	 * Override WordPress Embeds
+	 */
+	protected function overrideEmbeds() {
 		global $wp_embed;
 		$wp_embed->usecache = false;
 		add_filter( 'oembed_ttl', '__return_zero', 999 );
+		add_filter( 'embed_defaults', function ( $args ) {
+			// Embed cache keys are created by doing `md5( $url . serialize( $attr ) )`
+			// By adding an HTML5 Data Attribute we change the MD5, thereby busting the cache when exporting
+			$args['data-pb-export'] = 'true';
+			return $args;
+		} );
 		add_filter( 'oembed_dataparse', [ $this, 'replaceOembed' ], 1, 3 );
 	}
 
