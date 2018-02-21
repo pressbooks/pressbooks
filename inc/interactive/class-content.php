@@ -416,11 +416,11 @@ class Content {
 		global $wp_embed;
 		$wp_embed->usecache = false;
 		add_filter( 'oembed_ttl', '__return_zero', 999 );
-		add_filter( 'embed_defaults', function ( $args ) {
+		add_filter( 'embed_defaults', function ( $attr ) {
 			// Embed cache keys are created by doing `md5( $url . serialize( $attr ) )`
 			// By adding an HTML5 Data Attribute we change the MD5, thereby busting the cache when exporting
-			$args['data-pb-export'] = 'true';
-			return $args;
+			$attr['data-pb-export'] = 'true';
+			return $attr;
 		} );
 		add_filter( 'oembed_dataparse', [ $this, 'replaceOembed' ], 1, 3 );
 	}
