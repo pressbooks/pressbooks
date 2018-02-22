@@ -201,6 +201,9 @@ i.mce-i-icon {
       font-weight: bold;
     }
   }
+  & + p:empty {
+    display: none;
+  }
 }
 
 .postbox#status-visibility {
