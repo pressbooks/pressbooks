@@ -31,19 +31,10 @@ require( PB_PLUGIN_DIR . 'inc/admin/plugins/namespace.php' );
 $is_book = Book::isBook();
 
 // -------------------------------------------------------------------------------------------------------------------
-// Check for updates
+// Updates
 // -------------------------------------------------------------------------------------------------------------------
 
-if ( ! $is_book ) {
-	$updater = Puc_v4_Factory::buildUpdateChecker(
-		'https://github.com/pressbooks/pressbooks/',
-		__DIR__ . '/pressbooks.php', // Fully qualified path to the main plugin file
-		'pressbooks',
-		24
-	);
-	$updater->setBranch( 'master' );
-	$updater->getVcsApi()->enableReleaseAssets();
-}
+\Pressbooks\Updates::init();
 
 // -------------------------------------------------------------------------------------------------------------------
 // Look & feel of admin interface and Dashboard
