@@ -64,9 +64,7 @@ add_action( 'wp_login', '_pb_session_kill' );
 // Setup some defaults
 // -------------------------------------------------------------------------------------------------------------------
 
-if ( ! defined( 'PB_PLUGIN_VERSION' ) ) {
-	define( 'PB_PLUGIN_VERSION', '5.0.0-rc.1' );
-}
+// Note to developers: `PB_PLUGIN_VERSION` is set later in `pb_meets_minimum_requirements()`
 
 if ( ! defined( 'PB_PLUGIN_DIR' ) ) {
 	define( 'PB_PLUGIN_DIR', ( is_link( WP_PLUGIN_DIR . '/pressbooks' ) ? trailingslashit( WP_PLUGIN_DIR . '/pressbooks' ) : trailingslashit( __DIR__ ) ) ); // Must have trailing slash!

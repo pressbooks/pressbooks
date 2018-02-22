@@ -24,20 +24,21 @@ function pb_meets_minimum_requirements() {
 		return $is_compatible;
 	}
 
-	$is_compatible = true;
-
 	// PHP Version
 	global $pb_minimum_php;
 	$pb_minimum_php = '7.0.0';
+
+	// WordPress Version
+	global $pb_minimum_wp;
+	$pb_minimum_wp = '4.9.4';
+
+	include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+	$is_compatible = true;
 
 	if ( ! version_compare( PHP_VERSION, $pb_minimum_php, '>=' ) ) {
 		add_action( 'admin_notices', '_pb_minimum_php' );
 		$is_compatible = false;
 	}
-
-	// WordPress Version
-	global $pb_minimum_wp;
-	$pb_minimum_wp = '4.9.4';
 
 	$wp_version = get_bloginfo( 'version' );
 	if ( substr_count( $wp_version, '.' ) === 1 ) {
@@ -52,7 +53,6 @@ function pb_meets_minimum_requirements() {
 
 	// Is Pressbooks active?
 	if ( ! defined( 'WP_TESTS_MULTISITE' ) ) {
-		include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 		if ( ! is_plugin_active( 'pressbooks/pressbooks.php' ) ) {
 			add_action( 'admin_notices', '_pb_disabled' );
 			$is_compatible = false;
@@ -60,7 +60,13 @@ function pb_meets_minimum_requirements() {
 	}
 
 	if ( $is_compatible ) {
+		// Init autoloader
 		pb_init_autoloader();
+		// Set current version
+		if ( ! defined( 'PB_PLUGIN_VERSION' ) ) {
+			$info = get_plugin_data( __DIR__ . '/pressbooks.php', false, false );
+			define( 'PB_PLUGIN_VERSION', $info['Version'] );
+		}
 	}
 
 	return $is_compatible;
