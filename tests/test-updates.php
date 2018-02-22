@@ -28,6 +28,11 @@ class UpdatesTest extends \WP_UnitTestCase {
 		unlink( WP_PLUGIN_DIR . '/pressbooks-hello.php' );
 	}
 
+	public function test_init() {
+		$instance = Updates::init();
+		$this->assertTrue( $instance instanceof \Pressbooks\Updates );
+	}
+
 	public function test_gitHubUpdater() {
 		$this->updates->gitHubUpdater();
 		$this->assertTrue( has_filter( 'puc_is_slug_in_use-' ) ); // TODO: https://github.com/YahnisElsts/plugin-update-checker/issues/180
