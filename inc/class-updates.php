@@ -197,7 +197,7 @@ class Updates {
 		$plugins = get_plugins();
 		$matches = [];
 		foreach ( $plugins as $file => $plugin ) {
-			if ( $plugin['Name'] !== 'Pressbooks' && ( stristr( $plugin['Name'], 'pressbooks' ) || stristr( $plugin['Description'], 'pressbooks' ) ) ) {
+			if ( $plugin['Name'] !== 'Pressbooks' && ( stristr( $plugin['Name'], 'pressbooks' ) || stristr( $plugin['Description'], 'pressbooks' ) ) || stristr( $file, 'pressbooks' ) ) {
 				$matches[ $file ] = $plugin;
 			}
 		}

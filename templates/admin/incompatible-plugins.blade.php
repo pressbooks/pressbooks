@@ -14,7 +14,7 @@
         @foreach ( $plugins as $plugin )
             <tr>
                 <td>{{ $plugin['Name'] }}</td>
-                <td>{{ $plugin[\Pressbooks\Updates::VERSION_TESTED_HEADER] ? $plugin[\Pressbooks\Updates::VERSION_TESTED_HEADER] : __( 'Unknown', 'pressbooks' ) }}</td>
+                <td>{{ ! empty( $plugin[\Pressbooks\Updates::VERSION_TESTED_HEADER] ) ? $plugin[\Pressbooks\Updates::VERSION_TESTED_HEADER] : __( 'Unknown', 'pressbooks' ) }}</td>
             </tr>
         @endforeach
         </tbody>
