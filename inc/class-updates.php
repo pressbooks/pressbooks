@@ -181,6 +181,9 @@ class Updates {
 		$plugins = get_plugins();
 		$matches = [];
 		foreach ( $plugins as $file => $plugin ) {
+			if ( $plugin['Name'] === 'Pressbooks' ) {
+				continue; // Fix Pluginception...
+			}
 			if ( ! empty( $plugin[ $header ] ) ) {
 				$matches[ $file ] = $plugin;
 			}
@@ -197,7 +200,10 @@ class Updates {
 		$plugins = get_plugins();
 		$matches = [];
 		foreach ( $plugins as $file => $plugin ) {
-			if ( $plugin['Name'] !== 'Pressbooks' && ( stristr( $plugin['Name'], 'pressbooks' ) || stristr( $plugin['Description'], 'pressbooks' ) ) || stristr( $file, 'pressbooks' ) ) {
+			if ( $plugin['Name'] === 'Pressbooks' ) {
+				continue; // Fix Pluginception...
+			}
+			if ( stristr( $plugin['Name'], 'pressbooks' ) || stristr( $plugin['Description'], 'pressbooks' ) || stristr( $file, 'pressbooks' ) ) {
 				$matches[ $file ] = $plugin;
 			}
 		}
