@@ -32,7 +32,7 @@ class Api extends Import {
 	 *
 	 * @return bool
 	 */
-	function setCurrentImportOption( array $upload ) {
+	public function setCurrentImportOption( array $upload ) {
 
 		if ( empty( $upload['url'] ) ) {
 			return false;
@@ -53,22 +53,30 @@ class Api extends Import {
 		];
 
 		foreach ( $this->cloner->getSourceBookStructure()['front-matter'] as $frontmatter ) {
-			$option['chapters'][ $frontmatter['id'] ] = $frontmatter['title'];
-			$option['post_types'][ $frontmatter['id'] ] = 'front-matter';
+			if ( $this->isSourceCloneable( $frontmatter['id'], 'front-matter' ) ) {
+				$option['chapters'][ $frontmatter['id'] ] = $frontmatter['title'];
+				$option['post_types'][ $frontmatter['id'] ] = 'front-matter';
+			}
 		}
 
 		foreach ( $this->cloner->getSourceBookStructure()['parts'] as $key => $part ) {
-			$option['chapters'][ $part['id'] ] = $part['title'];
-			$option['post_types'][ $part['id'] ] = 'part';
-			foreach ( $this->cloner->getSourceBookStructure()['parts'][ $key ]['chapters'] as $chapter ) {
-				$option['chapters'][ $chapter['id'] ] = $chapter['title'];
-				$option['post_types'][ $chapter['id'] ] = 'chapter';
+			if ( $this->isSourceCloneable( $part['id'], 'part' ) ) {
+				$option['chapters'][ $part['id'] ] = $part['title'];
+				$option['post_types'][ $part['id'] ] = 'part';
+				foreach ( $this->cloner->getSourceBookStructure()['parts'][ $key ]['chapters'] as $chapter ) {
+					if ( $this->isSourceCloneable( $chapter['id'], 'chapter' ) ) {
+						$option['chapters'][ $chapter['id'] ] = $chapter['title'];
+						$option['post_types'][ $chapter['id'] ] = 'chapter';
+					}
+				}
 			}
 		}
 
 		foreach ( $this->cloner->getSourceBookStructure()['back-matter'] as $backmatter ) {
-			$option['chapters'][ $backmatter['id'] ] = $backmatter['title'];
-			$option['post_types'][ $backmatter['id'] ] = 'back-matter';
+			if ( $this->isSourceCloneable( $backmatter['id'], 'back-matter' ) ) {
+				$option['chapters'][ $backmatter['id'] ] = $backmatter['title'];
+				$option['post_types'][ $backmatter['id'] ] = 'back-matter';
+			}
 		}
 
 		return update_option( 'pressbooks_current_import', $option );
@@ -80,7 +88,7 @@ class Api extends Import {
 	 *
 	 * @return bool
 	 */
-	function import( array $current_import ) {
+	public function import( array $current_import ) {
 		if ( empty( $current_import['url'] ) ) {
 			return false;
 		}
@@ -122,6 +130,21 @@ class Api extends Import {
 
 		// Done
 		return $this->revokeCurrentImport();
+	}
+
+	/**
+	 * Is the section license OK?
+	 * The global license is for the 'collection' and within that collection you have have stuff with licenses that differ from the global one...
+	 *
+	 * @param int $section_id The ID of the section within the source book.
+	 * @param string $post_type The post type of the section.
+	 *
+	 * @return bool
+	 */
+	protected function isSourceCloneable( $section_id, $post_type ) {
+		$metadata = $this->cloner->retrieveSectionMetadata( $section_id, $post_type );
+		$is_source_clonable = $this->cloner->isSourceCloneable( $metadata['license'] ?? $this->cloner->getSourceBookMetadata()['license'] );
+		return $is_source_clonable;
 	}
 
 	/**

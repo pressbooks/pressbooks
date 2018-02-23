@@ -260,28 +260,37 @@ class Cloner {
 
 		// Clone Front Matter
 		foreach ( $this->sourceBookStructure['front-matter'] as $frontmatter ) {
-			$this->itemsToClone['front-matter']++;
-			$this->clonedItems['front-matter'][] = $this->cloneFrontMatter( $frontmatter['id'] );
+			$new_frontmatter = $this->cloneFrontMatter( $frontmatter['id'] );
+			if ( $new_frontmatter !== false ) {
+				$this->itemsToClone['front-matter']++;
+				$this->clonedItems['front-matter'][] = $new_frontmatter;
+			}
 		}
 
 		// Clone Parts
 		foreach ( $this->sourceBookStructure['parts'] as $key => $part ) {
-			$this->itemsToClone['parts']++;
 			$new_part = $this->clonePart( $part['id'] );
-			$this->clonedItems['parts'][] = $new_part;
-			if ( $new_part ) {
+			if ( $new_part !== false ) {
+				$this->itemsToClone['parts']++;
+				$this->clonedItems['parts'][] = $new_part;
 				// Clone Chapters
 				foreach ( $this->sourceBookStructure['parts'][ $key ]['chapters'] as $chapter ) {
-					$this->itemsToClone['chapters']++;
-					$this->clonedItems['chapters'][] = $this->cloneChapter( $chapter['id'], $new_part );
+					$new_chapter = $this->cloneChapter( $chapter['id'], $new_part );
+					if ( $new_chapter !== false ) {
+						$this->itemsToClone['chapters']++;
+						$this->clonedItems['chapters'][] = $new_chapter;
+					}
 				}
 			}
 		}
 
 		// Clone Back Matter
 		foreach ( $this->sourceBookStructure['back-matter'] as $backmatter ) {
-			$this->itemsToClone['back-matter']++;
-			$this->clonedItems['back-matter'][] = $this->cloneBackMatter( $backmatter['id'] );
+			$new_backmatter = $this->cloneBackMatter( $backmatter['id'] );
+			if ( $new_backmatter !== false ) {
+				$this->itemsToClone['back-matter']++;
+				$this->clonedItems['back-matter'][] = $new_backmatter;
+			}
 		}
 
 		wp_defer_term_counting( false ); // Flush
@@ -313,7 +322,7 @@ class Cloner {
 		}
 
 		// Verify license or network administrator override
-		if ( ! $this->isBookCloneable() ) {
+		if ( ! $this->isSourceCloneable( $this->sourceBookMetadata['license'] ) ) {
 			$_SESSION['pb_errors'][] = sprintf( __( '%s is not licensed for cloning.', 'pressbooks' ), sprintf( '<em>%s</em>', $this->sourceBookMetadata['name'] ) );
 			return false;
 		}
@@ -585,21 +594,24 @@ class Cloner {
 	 *
 	 * @since 4.1.0
 	 *
+	 * @param mixed $metadata_license
+	 *
 	 * @return bool Whether or not the book is public and licensed for cloning (or true if the current user is a network administrator and the book is in the current network).
 	 */
-	public function isBookCloneable() {
+	public function isSourceCloneable( $metadata_license ) {
 		$restrictive_licenses = [
 			'https://creativecommons.org/licenses/by-nd/4.0/',
 			'https://creativecommons.org/licenses/by-nc-nd/4.0/',
 			'https://choosealicense.com/no-license/',
 		];
 
-		if ( is_array( $this->sourceBookMetadata['license'] ) ) {
-			$license_url = $this->sourceBookMetadata['license']['url'];
+		if ( is_array( $metadata_license ) ) {
+			$license_url = $metadata_license['url'];
 		} else { // Backwards compatibility.
-			$license_url = $this->sourceBookMetadata['license'];
+			$license_url = $metadata_license;
 		}
 
+		$license_url = trailingslashit( trim( $license_url ) );
 		if ( ! empty( $this->sourceBookId ) ) {
 			if ( current_user_can( 'manage_network_options' ) ) {
 				return true; // Network administrators can clone local books no matter how they're licensed
@@ -720,6 +732,15 @@ class Cloner {
 	 * @return bool | int False if the clone failed; the ID of the new section if it succeeded.
 	 */
 	protected function cloneSection( $section_id, $post_type, $parent_id = null ) {
+
+		// Is the section license OK?
+		// The global license is for the 'collection' and within that collection you have have stuff with licenses that differ from the global one...
+		$metadata = $this->retrieveSectionMetadata( $section_id, $post_type );
+		$is_source_clonable = $this->isSourceCloneable( $metadata['license'] ?? $this->sourceBookMetadata['license'] );
+		if ( ! $is_source_clonable ) {
+			return false;
+		}
+
 		// Locate section
 		foreach ( $this->sourceBookStructure['_embedded'][ $post_type ] as $k => $v ) {
 			if ( $v['id'] === absint( $section_id ) ) {
@@ -834,6 +855,35 @@ class Cloner {
 	}
 
 	/**
+	 * Retrieve metadata
+	 *
+	 * @since 5.0.0
+	 *
+	 * @param int $section_id The ID of the section within the source book.
+	 * @param string $post_type The post type of the section.
+	 *
+	 * @return array
+	 */
+	public function retrieveSectionMetadata( $section_id, $post_type ) {
+		if ( in_array( $post_type, [ 'front-matter', 'back-matter' ], true ) ) {
+			foreach ( $this->sourceBookStructure[ $post_type ] as $k => $v ) {
+				if ( $v['id'] === absint( $section_id ) ) {
+					return $v['metadata'];
+				}
+			}
+		} elseif ( $post_type === 'chapter' ) {
+			foreach ( $this->sourceBookStructure['parts'] as $key => $part ) {
+				foreach ( $part['chapters'] as $k => $v ) {
+					if ( $v['id'] === absint( $section_id ) ) {
+						return $v['metadata'];
+					}
+				}
+			}
+		}
+		return []; // Nothing was found
+	}
+
+	/**
 	 * Clone metadata of a section (front matter, part, chapter, back matter) from a source book to a target book.
 	 *
 	 * @since 4.1.0
@@ -844,25 +894,11 @@ class Cloner {
 	 * @return bool False if the clone failed; true if it succeeded.
 	 */
 	protected function cloneSectionMetadata( $section_id, $post_type, $target_id ) {
-		// Retrieve metadata
-		$section_metadata = [];
-		if ( in_array( $post_type, [ 'front-matter', 'back-matter' ], true ) ) {
-			foreach ( $this->sourceBookStructure[ $post_type ] as $k => $v ) {
-				if ( $v['id'] === absint( $section_id ) ) {
-					$section_metadata = $v['metadata'];
-				}
-			}
-		} elseif ( $post_type === 'chapter' ) {
-			foreach ( $this->sourceBookStructure['parts'] as $key => $part ) {
-				foreach ( $part['chapters']  as $k => $v ) {
-					if ( $v['id'] === absint( $section_id ) ) {
-						$section_metadata = $v['metadata'];
-					}
-				}
-			}
-		}
 
-		$section_information = schema_to_section_information( $section_metadata, $this->sourceBookMetadata );
+		$section_information = schema_to_section_information(
+			$this->retrieveSectionMetadata( $section_id, $post_type ),
+			$this->sourceBookMetadata
+		);
 
 		$contributors = new Contributors();
 		foreach ( $section_information as $key => $value ) {

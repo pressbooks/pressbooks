@@ -93,6 +93,21 @@ class ClonerTest extends \WP_UnitTestCase {
 		$this->assertEquals( $result, 'example.org/newbook/' );
 	}
 
+	public function test_isSourceCloneable() {
+		$cloner = new \Pressbooks\Cloner( home_url() );
+
+		$this->assertFalse( $cloner->isSourceCloneable( 'https://creativecommons.org/licenses/by-nd/4.0/' ) );
+		$this->assertFalse( $cloner->isSourceCloneable( 'https://creativecommons.org/licenses/by-nc-nd/4.0/' ) );
+		$this->assertFalse( $cloner->isSourceCloneable( 'https://choosealicense.com/no-license/' ) );
+
+		$this->assertFalse( $cloner->isSourceCloneable( [ 'url' => 'https://creativecommons.org/licenses/by-nd/4.0/' ] ) );
+		$this->assertFalse( $cloner->isSourceCloneable( [ 'url' => 'https://creativecommons.org/licenses/by-nc-nd/4.0/' ] ) );
+		$this->assertFalse( $cloner->isSourceCloneable( [ 'url' => 'https://choosealicense.com/no-license/' ] ) );
+
+		$this->assertTrue( $cloner->isSourceCloneable( 'https://creativecommons.org/licenses/by-sa/4.0/' ) );
+		$this->assertTrue( $cloner->isSourceCloneable( 'http://i-have-no-idea-what-license-this-is/' ) );
+	}
+
 	public function test_discoverWordPressApi(){
 
 		// Hook a fake HTTP request response.
