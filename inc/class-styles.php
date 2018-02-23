@@ -557,7 +557,7 @@ class Styles {
 
 		// Buckram was updated?
 		$current_buckram_version = $this->getBuckramVersion();
-		$last_buckram_version = get_option( 'pressbooks_buckram_version', $current_buckram_version );
+		$last_buckram_version = get_option( 'pressbooks_buckram_version', '0.1.0' );
 		if ( version_compare( $current_buckram_version, $last_buckram_version ) > 0 ) {
 			( new ThemeOptions() )->clearCache();
 			$this->updateWebBookStyleSheet();
