@@ -734,7 +734,7 @@ class Cloner {
 	protected function cloneSection( $section_id, $post_type, $parent_id = null ) {
 
 		// Is the section license OK?
-		// The global license is for the 'collection' and within that collection you have have stuff with licenses that differ from the global one...
+		// The global license is for the 'collection' and within that collection you have stuff with licenses that differ from the global one...
 		$metadata = $this->retrieveSectionMetadata( $section_id, $post_type );
 		$is_source_clonable = $this->isSourceCloneable( $metadata['license'] ?? $this->sourceBookMetadata['license'] );
 		if ( ! $is_source_clonable ) {

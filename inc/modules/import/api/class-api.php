@@ -134,7 +134,7 @@ class Api extends Import {
 
 	/**
 	 * Is the section license OK?
-	 * The global license is for the 'collection' and within that collection you have have stuff with licenses that differ from the global one...
+	 * The global license is for the 'collection' and within that collection you have stuff with licenses that differ from the global one...
 	 *
 	 * @param int $section_id The ID of the section within the source book.
 	 * @param string $post_type The post type of the section.
