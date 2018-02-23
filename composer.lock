@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "faaec3c1074aff9fc84d6425d1b91bae",
+    "content-hash": "46d685d72dfc39a7e013f48ec2cb3713",
     "packages": [
         {
             "name": "composer/installers",
@@ -966,20 +966,17 @@
         },
         {
             "name": "pressbooks/pb-cli",
-            "version": "1.6.0",
+            "version": "1.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pressbooks/pb-cli.git",
-                "reference": "86184d393ea1482b3dcb888a535331c64d9444d2"
+                "reference": "03759c43e0a9f0bc2cc06de161a85ae3857bf740"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pressbooks/pb-cli/zipball/86184d393ea1482b3dcb888a535331c64d9444d2",
-                "reference": "86184d393ea1482b3dcb888a535331c64d9444d2",
+                "url": "https://api.github.com/repos/pressbooks/pb-cli/zipball/03759c43e0a9f0bc2cc06de161a85ae3857bf740",
+                "reference": "03759c43e0a9f0bc2cc06de161a85ae3857bf740",
                 "shasum": ""
-            },
-            "require": {
-                "php": ">=7.0"
             },
             "require-dev": {
                 "behat/behat": "~2.5"
@@ -998,11 +995,11 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "GPL-2.0-or-later"
+                "GPL 2.0+"
             ],
             "description": "A suite of wp-cli commands for Pressbooks.",
             "homepage": "https://github.com/pressbooks/pb-cli/",
-            "time": "2018-02-23T17:14:39+00:00"
+            "time": "2017-07-10T02:49:51+00:00"
         },
         {
             "name": "psr/log",
@@ -1620,16 +1617,16 @@
         },
         {
             "name": "phpspec/prophecy",
-            "version": "1.7.5",
+            "version": "1.7.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpspec/prophecy.git",
-                "reference": "dfd6be44111a7c41c2e884a336cc4f461b3b2401"
+                "reference": "9f901e29c93dae4aa77c0bb161df4276f9c9a1be"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/dfd6be44111a7c41c2e884a336cc4f461b3b2401",
-                "reference": "dfd6be44111a7c41c2e884a336cc4f461b3b2401",
+                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/9f901e29c93dae4aa77c0bb161df4276f9c9a1be",
+                "reference": "9f901e29c93dae4aa77c0bb161df4276f9c9a1be",
                 "shasum": ""
             },
             "require": {
@@ -1679,7 +1676,7 @@
                 "spy",
                 "stub"
             ],
-            "time": "2018-02-19T10:16:54+00:00"
+            "time": "2018-02-11T18:49:29+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -2586,16 +2583,16 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "3.2.3",
+            "version": "3.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "4842476c434e375f9d3182ff7b89059583aa8b27"
+                "reference": "d7c00c3000ac0ce79c96fcbfef86b49a71158cd1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/4842476c434e375f9d3182ff7b89059583aa8b27",
-                "reference": "4842476c434e375f9d3182ff7b89059583aa8b27",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/d7c00c3000ac0ce79c96fcbfef86b49a71158cd1",
+                "reference": "d7c00c3000ac0ce79c96fcbfef86b49a71158cd1",
                 "shasum": ""
             },
             "require": {
@@ -2605,7 +2602,7 @@
                 "php": ">=5.4.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^4.0 || ^5.0 || ^6.0 || ^7.0"
+                "phpunit/phpunit": "^4.0 || ^5.0 || ^6.0"
             },
             "bin": [
                 "bin/phpcs",
@@ -2633,7 +2630,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2018-02-20T21:35:23+00:00"
+            "time": "2017-12-19T21:44:46+00:00"
         },
         {
             "name": "symfony/yaml",
