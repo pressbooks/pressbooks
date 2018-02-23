@@ -895,9 +895,17 @@ class Cloner {
 	 */
 	protected function cloneSectionMetadata( $section_id, $post_type, $target_id ) {
 
+		$book_schema = $this->sourceBookMetadata;
+		if ( empty( $this->targetBookUrl ) ) {
+			// If there's no target then that means this data is going into the current book.
+			// Remove invalid $book_schema values so that $section_schema is used instead.
+			$book_schema['author'] = [];
+			$book_schema['license'] = '';
+		}
+
 		$section_information = schema_to_section_information(
 			$this->retrieveSectionMetadata( $section_id, $post_type ),
-			$this->sourceBookMetadata
+			$book_schema
 		);
 
 		$contributors = new Contributors();
