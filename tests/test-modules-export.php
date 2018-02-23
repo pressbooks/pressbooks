@@ -153,8 +153,8 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 		wp_set_current_user( $user_id );
 
 		$modules[] = '\Pressbooks\Modules\Export\Xhtml\Xhtml11'; // Must be first
-		$modules[] = '\Pressbooks\Modules\Export\Prince\Pdf';
-		$modules[] = '\Pressbooks\Modules\Export\Prince\PrintPdf';
+		// $modules[] = '\Pressbooks\Modules\Export\Prince\Pdf'; // TODO
+		// $modules[] = '\Pressbooks\Modules\Export\Prince\PrintPdf'; // TODO
 		$modules[] = '\Pressbooks\Modules\Export\Epub\Epub201'; // Must be set before MOBI
 		$modules[] = '\Pressbooks\Modules\Export\Epub\Epub3';
 		// $modules[] = '\Pressbooks\Modules\Export\Mobi\Kindlegen'; // Must be set after EPUB // TODO: Download/install Kindlegen in Travis build script
