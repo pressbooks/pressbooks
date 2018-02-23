@@ -123,11 +123,14 @@ abstract class Import {
 
 		$args = [
 			'post_type' => 'part',
-			'post_status' => 'publish',
+			'post_status' => [ 'draft', 'web-only', 'private', 'publish' ],
 			'posts_per_page' => 1,
 			'orderby' => 'menu_order',
 			'order' => 'ASC',
 			'no_found_rows' => true,
+			'cache_results' => false,
+			'update_post_meta_cache' => false,
+			'update_post_term_cache ' => false,
 		];
 
 		$results = $q->query( $args );
