@@ -6,6 +6,7 @@
 
 namespace Pressbooks;
 
+use Pressbooks\Modules\ThemeOptions\ThemeOptions;
 use function \Pressbooks\Utility\debug_error_log;
 
 /**
@@ -543,13 +544,24 @@ class Styles {
 	 * @return bool
 	 */
 	public function maybeUpdateStylesheets() {
+		// Theme was updated?
 		$theme = wp_get_theme();
-		$current_version = $theme->get( 'Version' );
-		$last_version = get_option( 'pressbooks_theme_version', $current_version );
-		if ( version_compare( $current_version, $last_version ) > 0 ) {
-			( new \Pressbooks\Modules\ThemeOptions\ThemeOptions() )->clearCache();
+		$current_theme_version = $theme->get( 'Version' );
+		$last_theme_version = get_option( 'pressbooks_theme_version', $current_theme_version );
+		if ( version_compare( $current_theme_version, $last_theme_version ) > 0 ) {
+			( new ThemeOptions() )->clearCache();
 			$this->updateWebBookStyleSheet();
-			update_option( 'pressbooks_theme_version', $current_version );
+			update_option( 'pressbooks_theme_version', $current_theme_version );
+			return true;
+		}
+
+		// Buckram was updated?
+		$current_buckram_version = $this->getBuckramVersion();
+		$last_buckram_version = get_option( 'pressbooks_buckram_version', '0.1.0' );
+		if ( version_compare( $current_buckram_version, $last_buckram_version ) > 0 ) {
+			( new ThemeOptions() )->clearCache();
+			$this->updateWebBookStyleSheet();
+			update_option( 'pressbooks_buckram_version', $current_buckram_version );
 			return true;
 		}
 

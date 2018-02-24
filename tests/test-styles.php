@@ -116,10 +116,14 @@ class StylesTest extends \WP_UnitTestCase {
 	public function test_maybeUpdateStyleSheets() {
 
 		$this->_book( 'pressbooks-book' );
+
 		$theme = wp_get_theme();
 		$version = $theme->get( 'Version' );
 		update_option( 'pressbooks_theme_version', floatval( $version ) - 0.1 );
+		$result = $this->cs->maybeUpdateStylesheets();
+		$this->assertTrue( $result );
 
+		update_option( 'pressbooks_buckram_version', floatval( $this->cs->getBuckramVersion() ) - 0.1 );
 		$result = $this->cs->maybeUpdateStylesheets();
 		$this->assertTrue( $result );
 
