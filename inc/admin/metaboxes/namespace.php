@@ -966,21 +966,22 @@ function publish_fields_save( $post_id, $post, $update ) {
 	}
 
 	// Save it
-
 	$show_in_web = ( isset( $_POST['web_visibility'] ) && (int) $_POST['web_visibility'] === 1 ) ? true : false;
 	$show_in_exports = ( isset( $_POST['export_visibility'] ) && (int) $_POST['export_visibility'] === 1 ) ? true : false;
 	$show_title = ( isset( $_POST['pb_show_title'] ) && $_POST['pb_show_title'] === 'on' ) ? 'on' : false;
 
-	if ( $show_in_web && $show_in_exports ) {
-		$post_status = 'publish';
-	} elseif ( $show_in_web && ! $show_in_exports ) {
-		$post_status = 'web-only';
-	} elseif ( ! $show_in_web && $show_in_exports && $post->post_status !== 'private' ) {
-		$post_status = 'private';
-	} else {
+	// Content Visibility
+	if ( $show_in_web === false && $show_in_exports === false ) {
 		$post_status = 'draft';
+	} elseif ( $show_in_web === true && $show_in_exports === false ) {
+		$post_status = 'web-only';
+	} elseif ( $show_in_web === false && $show_in_exports === true ) {
+		$post_status = 'private';
+	} elseif ( $show_in_web === true && $show_in_exports === true ) {
+		$post_status = 'publish';
 	}
 
+	// Title
 	if ( $show_title ) {
 		update_post_meta( $post_id, 'pb_show_title', 'on' );
 	} else {
@@ -992,7 +993,7 @@ function publish_fields_save( $post_id, $post, $update ) {
 	wp_update_post(
 		[
 			'ID' => $post_id,
-			'post_status' => $post_status,
+			'post_status' => $post_status ?? 'draft',
 		]
 	);
 	// Reattach to hook.
