@@ -490,11 +490,6 @@ class Taxonomy {
 	 * Is it time to upgrade?
 	 */
 	public function maybeUpgrade() {
-
-		// TODO:
-		// Once upon a time we were updating 'pressbooks_taxonomy_version' with Metadata::VERSION instead of Taxonomy::VERSION
-		// Some books might be in a weird state (bug?)
-
 		$taxonomy_version = get_option( 'pressbooks_taxonomy_version', 0 );
 		if ( $taxonomy_version < self::VERSION ) {
 			$this->upgrade( $taxonomy_version );

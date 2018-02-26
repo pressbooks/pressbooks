@@ -282,4 +282,11 @@ class MetadataTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'web-only', $val );
 	}
 
+	public function test_upgradeToPressbooksFive() {
+		$this->_book();
+		update_option( 'pressbooks_taxonomy_version', \Pressbooks\Taxonomy::VERSION + 999 );
+		$this->metadata->upgradeToPressbooksFive();
+		$this->assertEquals( \Pressbooks\Taxonomy::VERSION, get_option( 'pressbooks_taxonomy_version' ) );
+	}
+
 }
