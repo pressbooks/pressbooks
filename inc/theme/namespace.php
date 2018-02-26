@@ -43,22 +43,6 @@ function check_required_themes() {
 		);
 	}
 
-	if ( PB_ROOT_THEME === 'pressbooks-publisher' ) { // To bypass this check, define PB_ROOT_THEME to the name of your custom root theme in wp-config.php.
-		$theme = wp_get_theme( 'pressbooks-publisher' );
-		if ( ! $theme->exists() ) {
-			wp_die(
-				sprintf(
-					__( 'The Pressbooks Publisher theme is not installed, but Pressbooks needs it in order to function properly. Please visit %s for installation instructions.', 'pressbooks' ),
-					sprintf(
-						'<a href="%1$s">%2$s</a>',
-						'https://github.com/pressbooks/pressbooks-publisher',
-						'GitHub'
-					)
-				)
-			);
-		}
-	}
-
 	$theme = wp_get_theme( 'pressbooks-book' );
 	if ( ! $theme->exists() ) {
 		wp_die(
