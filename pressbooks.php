@@ -11,8 +11,6 @@ License: GPLv2
 Network: True
 */
 
-use function \Pressbooks\Utility\debug_error_log;
-
 if ( ! defined( 'ABSPATH' ) ) {
 	return;
 }
@@ -45,7 +43,7 @@ function _pb_session_start() {
 			);
 			session_start();
 		} else {
-			debug_error_log( 'There was a problem with _pb_session_start(), headers already sent!' );
+			\Pressbooks\Utility\debug_error_log( 'There was a problem with _pb_session_start(), headers already sent!' );
 		}
 	}
 }
@@ -80,10 +78,6 @@ if ( ! defined( 'WP_DEFAULT_THEME' ) ) {
 	} else {
 		define( 'WP_DEFAULT_THEME', 'pressbooks-book' );
 	}
-}
-
-if ( ! defined( 'PB_ROOT_THEME' ) ) {
-	define( 'PB_ROOT_THEME', 'pressbooks-publisher' );
 }
 
 /**

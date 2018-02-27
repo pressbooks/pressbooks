@@ -24,6 +24,9 @@ function pb_meets_minimum_requirements() {
 		return $is_compatible;
 	}
 
+	// Register activation hook *before* is_plugin_active() test, because pressbooks is not active while we are activating it (cue yakety sax...)
+	register_activation_hook( __DIR__ . '/pressbooks.php', 'pb_register_activation_hook' );
+
 	// PHP Version
 	global $pb_minimum_php;
 	$pb_minimum_php = '7.0.0';
@@ -70,6 +73,52 @@ function pb_meets_minimum_requirements() {
 	}
 
 	return $is_compatible;
+}
+
+/**
+ * Activation hook
+ *
+ * You can't call register_activation_hook() inside a function hooked to the 'plugins_loaded' or 'init' hooks (or any other hook).
+ *
+ * @see register_activation_hook()
+ */
+function pb_register_activation_hook() {
+
+	// Apply Pressbooks color scheme
+	update_user_option( get_current_user_id(), 'admin_color', 'pb_colors', true );
+
+	// Prevent overwriting customizations if Pressbooks has been disabled
+	if ( ! get_site_option( 'pressbooks-activated' ) ) {
+
+		/**
+		 * Allow the default description of the root blog to be customized.
+		 *
+		 * @since 3.9.7
+		 *
+		 * @param string $value Default description ('Simple Book Publishing').
+		 */
+		update_blog_option( 1, 'blogdescription', apply_filters( 'pb_root_description', __( 'Simple Book Publishing', 'pressbooks' ) ) );
+
+		if ( defined( 'PB_ROOT_THEME' ) ) {
+			$activate = PB_ROOT_THEME;
+		} else {
+			$theme = wp_get_theme( 'pressbooks-aldine' );
+			if ( $theme->exists() ) {
+				$activate = 'pressbooks-aldine';
+			}
+		}
+		if ( ! empty( $activate ) ) {
+			// Configure root blog theme (PB_ROOT_THEME, defined as 'pressbooks-publisher' by default).
+			update_blog_option( 1, 'template', $activate );
+			update_blog_option( 1, 'stylesheet', $activate );
+			// Remove widgets from root blog.
+			delete_blog_option( 1, 'sidebars_widgets' );
+		}
+
+		// Add "activated" key to enable check above
+		add_site_option( 'pressbooks-activated', true );
+
+	}
 }
 
 /**
