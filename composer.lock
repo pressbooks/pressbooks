@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "46d685d72dfc39a7e013f48ec2cb3713",
+    "content-hash": "c12070485a0360192c4d0ced78a2e301",
     "packages": [
         {
             "name": "composer/installers",
@@ -966,17 +966,20 @@
         },
         {
             "name": "pressbooks/pb-cli",
-            "version": "1.5.1",
+            "version": "1.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pressbooks/pb-cli.git",
-                "reference": "03759c43e0a9f0bc2cc06de161a85ae3857bf740"
+                "reference": "86184d393ea1482b3dcb888a535331c64d9444d2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pressbooks/pb-cli/zipball/03759c43e0a9f0bc2cc06de161a85ae3857bf740",
-                "reference": "03759c43e0a9f0bc2cc06de161a85ae3857bf740",
+                "url": "https://api.github.com/repos/pressbooks/pb-cli/zipball/86184d393ea1482b3dcb888a535331c64d9444d2",
+                "reference": "86184d393ea1482b3dcb888a535331c64d9444d2",
                 "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0"
             },
             "require-dev": {
                 "behat/behat": "~2.5"
@@ -995,11 +998,11 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "GPL 2.0+"
+                "GPL-2.0-or-later"
             ],
             "description": "A suite of wp-cli commands for Pressbooks.",
             "homepage": "https://github.com/pressbooks/pb-cli/",
-            "time": "2017-07-10T02:49:51+00:00"
+            "time": "2018-02-23T17:14:39+00:00"
         },
         {
             "name": "psr/log",

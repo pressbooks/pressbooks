@@ -59,6 +59,8 @@ class MetaboxesTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'publish', $post->post_status );
 		$this->assertEquals( 'on', get_post_meta( $pid, 'pb_show_title', true ) );
 
+		// Web-Only
+
 		$_POST['web_visibility'] = 1;
 		$_POST['export_visibility'] = 0;
 		$_POST['pb_show_title'] = 'off';
@@ -67,6 +69,34 @@ class MetaboxesTest extends \WP_UnitTestCase {
 		$post = get_post( $pid );
 		$this->assertEquals( 'web-only', $post->post_status );
 		$this->assertEmpty( get_post_meta( $pid, 'pb_show_title', true ) );
+
+		// Private
+
+		$_POST['web_visibility'] = 0;
+		$_POST['export_visibility'] = 1;
+
+		\Pressbooks\Admin\Metaboxes\publish_fields_save( $pid, $post, true );
+		$post = get_post( $pid );
+		$this->assertEquals( 'private', $post->post_status );
+
+		// Private again, (when content is set to show in exports only, multiple saves can unpublish it.)
+
+		$_POST['web_visibility'] = 0;
+		$_POST['export_visibility'] = 1;
+
+		\Pressbooks\Admin\Metaboxes\publish_fields_save( $pid, $post, true );
+		$post = get_post( $pid );
+		$this->assertEquals( 'private', $post->post_status );
+
+		// Draft
+
+		$_POST['web_visibility'] = 0;
+		$_POST['export_visibility'] = 0;
+
+		\Pressbooks\Admin\Metaboxes\publish_fields_save( $pid, $post, true );
+		$post = get_post( $pid );
+		$this->assertEquals( 'draft', $post->post_status );
+
 	}
 
 }

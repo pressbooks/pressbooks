@@ -77,7 +77,7 @@ class EbookOptions extends \Pressbooks\Options {
 			$_page,
 			$_section,
 			[
-				__( 'TK: copy explaining feature', 'pressbooks' ),
+				__( 'Note: This designated ebook start book may be overridden by some ereader devices.', 'pressbooks' ),
 			]
 		);
 
@@ -232,6 +232,7 @@ class EbookOptions extends \Pressbooks\Options {
 				'option' => 'ebook_start_point',
 				'value' => ( isset( $this->options['ebook_start_point'] ) ) ? $this->options['ebook_start_point'] : '',
 				'choices' => $options,
+				'description' => $args[0],
 			]
 		);
 	}

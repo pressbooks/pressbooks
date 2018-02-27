@@ -60,7 +60,6 @@ class Activation {
 	 * @param Activation $obj
 	 */
 	static public function hooks( Activation $obj ) {
-		register_activation_hook( realpath( __DIR__ . '/../pressbooks.php' ), [ $obj, 'registerActivationHook' ] );
 		add_action( 'wpmu_new_blog', [ $obj, 'wpmuNewBlog' ], 9, 2 );
 		add_action( 'wp_login', [ $obj, 'forcePbColors' ], 10, 2 );
 		add_action( 'profile_update', [ $obj, 'forcePbColors' ] );
@@ -73,41 +72,6 @@ class Activation {
 	function __construct( $taxonomy ) {
 		$this->taxonomy = $taxonomy;
 	}
-
-	/**
-	 * Activation hook
-	 *
-	 * @see register_activation_hook()
-	 */
-	public function registerActivationHook() {
-
-		// Apply Pressbooks color scheme
-		update_user_option( get_current_user_id(), 'admin_color', 'pb_colors', true );
-
-		// Prevent overwriting customizations if Pressbooks has been disabled
-		if ( ! get_site_option( 'pressbooks-activated' ) ) {
-
-			/**
-			 * Allow the default description of the root blog to be customized.
-			 *
-			 * @since 3.9.7
-			 *
-			 * @param string $value Default description ('Simple Book Publishing').
-			 */
-			update_blog_option( 1, 'blogdescription', apply_filters( 'pb_root_description', __( 'Simple Book Publishing', 'pressbooks' ) ) );
-
-			// Configure root blog theme (PB_ROOT_THEME, defined as 'pressbooks-publisher' by default).
-			update_blog_option( 1, 'template', PB_ROOT_THEME );
-			update_blog_option( 1, 'stylesheet', PB_ROOT_THEME );
-			// Remove widgets from root blog.
-			delete_blog_option( 1, 'sidebars_widgets' );
-
-			// Add "activated" key to enable check above
-			add_site_option( 'pressbooks-activated', true );
-
-		}
-	}
-
 
 	/**
 	 * Runs activation function and sets up default WP options for new blog,

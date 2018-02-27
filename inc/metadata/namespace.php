@@ -408,6 +408,7 @@ function schema_to_book_information( $book_schema ) {
 	}
 
 	if ( isset( $book_schema['author'] ) ) {
+		// Pressbooks 5
 		$authors = [];
 		foreach ( $book_schema['author'] as $author ) {
 			if ( isset( $author['name'] ) ) {
@@ -415,7 +416,13 @@ function schema_to_book_information( $book_schema ) {
 			}
 		}
 		if ( empty( $authors ) && isset( $book_schema['author']['name'] ) ) {
+			// Pressbooks 4
 			$authors[] = $book_schema['author']['name']; // Backwards compatibility with Pressbooks 4
+			if ( isset( $book_schema['author']['alternateName'] ) ) {
+				$book_information['pb_author_file_as'] = $book_schema['author']['alternateName'];
+			}
+		} else {
+			$book_information['pb_author'] = implode( ', ', $authors );
 		}
 		$book_information['pb_authors'] = oxford_comma( $authors );
 	}

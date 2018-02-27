@@ -3,15 +3,13 @@
 Plugin Name: Pressbooks
 Plugin URI: https://pressbooks.com
 Description: Simple Book Production
-Version: 5.0.0-rc.1
+Version: 5.0.0
 Author: Book Oven Inc.
 Author URI: https://pressbooks.com
 Text Domain: pressbooks
 License: GPLv2
 Network: True
 */
-
-use function \Pressbooks\Utility\debug_error_log;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	return;
@@ -45,7 +43,7 @@ function _pb_session_start() {
 			);
 			session_start();
 		} else {
-			debug_error_log( 'There was a problem with _pb_session_start(), headers already sent!' );
+			error_log( 'There was a problem with _pb_session_start(), headers already sent!' ); //  @codingStandardsIgnoreLine
 		}
 	}
 }
@@ -64,9 +62,7 @@ add_action( 'wp_login', '_pb_session_kill' );
 // Setup some defaults
 // -------------------------------------------------------------------------------------------------------------------
 
-if ( ! defined( 'PB_PLUGIN_VERSION' ) ) {
-	define( 'PB_PLUGIN_VERSION', '5.0.0-rc.1' );
-}
+// Note to developers: `PB_PLUGIN_VERSION` is set later in `pb_meets_minimum_requirements()`
 
 if ( ! defined( 'PB_PLUGIN_DIR' ) ) {
 	define( 'PB_PLUGIN_DIR', ( is_link( WP_PLUGIN_DIR . '/pressbooks' ) ? trailingslashit( WP_PLUGIN_DIR . '/pressbooks' ) : trailingslashit( __DIR__ ) ) ); // Must have trailing slash!
@@ -82,10 +78,6 @@ if ( ! defined( 'WP_DEFAULT_THEME' ) ) {
 	} else {
 		define( 'WP_DEFAULT_THEME', 'pressbooks-book' );
 	}
-}
-
-if ( ! defined( 'PB_ROOT_THEME' ) ) {
-	define( 'PB_ROOT_THEME', 'pressbooks-publisher' );
 }
 
 /**
