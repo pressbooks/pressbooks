@@ -111,7 +111,7 @@ function pb_register_activation_hook() {
 			}
 		}
 		if ( ! empty( $activate ) ) {
-			// Configure root blog theme (PB_ROOT_THEME, defined as 'pressbooks-publisher' by default).
+			// Configure root blog theme (PB_ROOT_THEME, usually 'pressbooks-aldine').
 			update_blog_option( 1, 'template', $activate );
 			update_blog_option( 1, 'stylesheet', $activate );
 			// Remove widgets from root blog.
