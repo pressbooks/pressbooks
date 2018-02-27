@@ -365,16 +365,6 @@ abstract class Import {
 			require_once( ABSPATH . 'wp-admin/includes/file.php' );
 		}
 
-			/**
-			 * Allows users to append import options to the list of allowed file types.
-			 *
-			 * TODO: Since we set [ test_type = false], this does nothing?
-			 *
-			 * @since 3.9.6
-			 *
-			 * @param array $value The list of currently allowed file types.
-			 */
-			$allowed_file_types = apply_filters(
 		if ( getset( '_POST', 'import_type' ) === 'url' ) {
 			$overrides['action'] = 'pb_handle_url_upload';
 			self::createFileFromUrl();
