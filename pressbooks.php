@@ -43,7 +43,7 @@ function _pb_session_start() {
 			);
 			session_start();
 		} else {
-			\Pressbooks\Utility\debug_error_log( 'There was a problem with _pb_session_start(), headers already sent!' );
+			error_log( 'There was a problem with _pb_session_start(), headers already sent!' ); //  @codingStandardsIgnoreLine
 		}
 	}
 }
