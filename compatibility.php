@@ -40,6 +40,7 @@ function pb_meets_minimum_requirements() {
 
 	if ( ! version_compare( PHP_VERSION, $pb_minimum_php, '>=' ) ) {
 		add_action( 'admin_notices', '_pb_minimum_php' );
+		add_action( 'network_admin_notices', '_pb_minimum_php' );
 		$is_compatible = false;
 	}
 
@@ -51,6 +52,7 @@ function pb_meets_minimum_requirements() {
 
 	if ( ! is_multisite() || ! version_compare( $wp_version, $pb_minimum_wp, '>=' ) ) {
 		add_action( 'admin_notices', '_pb_minimum_wp' );
+		add_action( 'network_admin_notices', '_pb_minimum_wp' );
 		$is_compatible = false;
 	}
 
@@ -58,6 +60,7 @@ function pb_meets_minimum_requirements() {
 	if ( ! defined( 'WP_TESTS_MULTISITE' ) ) {
 		if ( ! is_plugin_active( 'pressbooks/pressbooks.php' ) ) {
 			add_action( 'admin_notices', '_pb_disabled' );
+			add_action( 'network_admin_notices', '_pb_disabled' );
 			$is_compatible = false;
 		}
 	}
