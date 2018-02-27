@@ -6,6 +6,9 @@
 
 namespace Pressbooks;
 
+use Pressbooks\Modules\ThemeOptions\ThemeOptions;
+use function \Pressbooks\Utility\debug_error_log;
+
 /**
  * Custom Styles Feature(s)
  */
@@ -71,14 +74,18 @@ class Styles {
 			);
 		}
 
-		add_action( 'init', function () {
-			// Admin Menu
-			add_action( 'admin_menu', function () {
-				add_theme_page( __( 'Custom Styles', 'pressbooks' ), __( 'Custom Styles', 'pressbooks' ), 'edit_others_posts', $this::PAGE, [ $this, 'editor' ] );
-			}, 11 );
-			// Register Post Types
-			$this->registerPosts();
-		} );
+		add_action(
+			'init', function () {
+				// Admin Menu
+				add_action(
+					'admin_menu', function () {
+						add_theme_page( __( 'Custom Styles', 'pressbooks' ), __( 'Custom Styles', 'pressbooks' ), 'edit_others_posts', $this::PAGE, [ $this, 'editor' ] );
+					}, 11
+				);
+				// Register Post Types
+				$this->registerPosts();
+			}
+		);
 
 		// Catch form submission
 		add_action( 'init', [ $this, 'formSubmit' ], 50 );
@@ -110,7 +117,10 @@ class Styles {
 			],
 		];
 
-		$post = [ 'post_status' => 'publish', 'post_author' => wp_get_current_user()->ID ];
+		$post = [
+			'post_status' => 'publish',
+			'post_author' => wp_get_current_user()->ID,
+		];
 
 		foreach ( $posts as $item ) {
 			$exists = $wpdb->get_var(
@@ -338,6 +348,28 @@ class Styles {
 	}
 
 	/**
+	 * Get the version of Buckram for the current install or locked theme.
+	 *
+	 * @since 5.0.0
+	 *
+	 * @see https://github.com/pressbooks/buckram/blob/master/styles/buckram.scss
+	 *
+	 * @return string
+	 */
+	public function getBuckramVersion() {
+		$fullpath = realpath( $this->sass->pathToGlobals() . 'buckram.scss' );
+		if ( is_file( $fullpath ) ) {
+			return get_file_data(
+				$fullpath,
+				[
+					'version' => 'Version',
+				]
+			)['version'];
+		}
+		return '0.1.0'; // Old, generally incompatible with fancy new things.
+	}
+
+	/**
 	 * @param array|string $overrides (optional)
 	 *
 	 * @return string
@@ -345,7 +377,7 @@ class Styles {
 	public function customizeWeb( $overrides = [] ) {
 		$path = $this->getPathToWebScss();
 		if ( $path ) {
-			return $this->customize( 'web', file_get_contents( $path ), $overrides );
+			return $this->customize( 'web', \Pressbooks\Utility\get_contents( $path ), $overrides );
 		}
 		return '';
 	}
@@ -358,7 +390,7 @@ class Styles {
 	public function customizePrince( $overrides = [] ) {
 		$path = $this->getPathToPrinceScss();
 		if ( $path ) {
-			return $this->customize( 'prince', file_get_contents( $path ), $overrides );
+			return $this->customize( 'prince', \Pressbooks\Utility\get_contents( $path ), $overrides );
 		}
 		return '';
 	}
@@ -371,7 +403,7 @@ class Styles {
 	public function customizeEpub( $overrides = [] ) {
 		$path = $this->getPathToEpubScss();
 		if ( $path ) {
-			return $this->customize( 'epub', file_get_contents( $path ), $overrides );
+			return $this->customize( 'epub', \Pressbooks\Utility\get_contents( $path ), $overrides );
 		}
 		return '';
 	}
@@ -410,6 +442,11 @@ class Styles {
 			$css = $this->sass->compile(
 				$scss,
 				$this->sass->defaultIncludePaths( $type )
+			);
+		} elseif ( pb_is_custom_theme() ) {
+			$css = $this->sass->compile(
+				$scss,
+				$this->sass->defaultIncludePaths( $type, wp_get_theme( 'pressbooks-book' ) )
 			);
 		} else {
 			$css = $this->injectHouseStyles( $scss );
@@ -461,7 +498,7 @@ class Styles {
 
 		foreach ( $scan as $token => $replace_with ) {
 			if ( is_file( $replace_with ) ) {
-				$css = str_replace( $token, file_get_contents( $replace_with ), $css );
+				$css = str_replace( $token, \Pressbooks\Utility\get_contents( $replace_with ), $css );
 			}
 		}
 
@@ -471,19 +508,19 @@ class Styles {
 	/**
 	 * Update and save the supplementary webBook stylesheet which incorporates user options, etc.
 	 *
+	 * @param string $stylesheet Directory name for the theme. Defaults to current theme.
 	 * @return void
 	 */
-	public function updateWebBookStyleSheet() {
+	public function updateWebBookStyleSheet( $stylesheet = null ) {
+		$theme = wp_get_theme( $stylesheet );
 
 		$overrides = apply_filters( 'pb_web_css_override', '' ) . "\n";
-
 		// Populate $url-base variable so that links to images and other assets remain intact
-		$scss = '$url-base: \'' . get_stylesheet_directory_uri() . "/';\n";
-
+		$scss = '$url-base: \'' . $theme->get_stylesheet_directory_uri() . "/';\n";
 		if ( $this->isCurrentThemeCompatible( 1 ) ) {
-			$scss .= file_get_contents( realpath( get_stylesheet_directory() . '/style.scss' ) );
-		} elseif ( $this->isCurrentThemeCompatible( 2 ) ) {
-			$scss .= file_get_contents( realpath( get_stylesheet_directory() . '/assets/styles/web/style.scss' ) );
+			$scss .= \Pressbooks\Utility\get_contents( realpath( $theme->get_stylesheet_directory() . '/style.scss' ) );
+		} elseif ( $this->isCurrentThemeCompatible( 2 ) || pb_is_custom_theme() ) {
+			$scss .= \Pressbooks\Utility\get_contents( realpath( $theme->get_stylesheet_directory() . '/assets/styles/web/style.scss' ) );
 		} else {
 			return;
 		}
@@ -498,7 +535,7 @@ class Styles {
 		$css = \Pressbooks\Sanitize\normalize_css_urls( $css );
 
 		$css_file = $this->sass->pathToUserGeneratedCss() . '/style.css';
-		file_put_contents( $css_file, $css );
+		\Pressbooks\Utility\put_contents( $css_file, $css );
 	}
 
 	/**
@@ -507,14 +544,24 @@ class Styles {
 	 * @return bool
 	 */
 	public function maybeUpdateStylesheets() {
+		// Theme was updated?
 		$theme = wp_get_theme();
-		$current_version = $theme->get( 'Version' );
-		$last_version = get_option( 'pb_theme_version', $current_version );
-
-		if ( version_compare( $current_version, $last_version ) > 0 ) {
-			( new \Pressbooks\Modules\ThemeOptions\ThemeOptions() )->clearCache();
+		$current_theme_version = $theme->get( 'Version' );
+		$last_theme_version = get_option( 'pressbooks_theme_version', $current_theme_version );
+		if ( version_compare( $current_theme_version, $last_theme_version ) > 0 ) {
+			( new ThemeOptions() )->clearCache();
 			$this->updateWebBookStyleSheet();
-			update_option( 'pb_theme_version', $current_version );
+			update_option( 'pressbooks_theme_version', $current_theme_version );
+			return true;
+		}
+
+		// Buckram was updated?
+		$current_buckram_version = $this->getBuckramVersion();
+		$last_buckram_version = get_option( 'pressbooks_buckram_version', '0.1.0' );
+		if ( version_compare( $current_buckram_version, $last_buckram_version ) > 0 ) {
+			( new ThemeOptions() )->clearCache();
+			$this->updateWebBookStyleSheet();
+			update_option( 'pressbooks_buckram_version', $current_buckram_version );
 			return true;
 		}
 
@@ -554,8 +601,8 @@ class Styles {
 	 * @return string
 	 */
 	public function renderDropdownForSlugs( $slug ) {
-
-		$select_id = $select_name = 'slug';
+		$select_name = 'slug';
+		$select_id = $select_name;
 		$redirect_url = get_admin_url( get_current_blog_id(), '/themes.php?page=' . $this::PAGE . '&slug=' );
 		$html = '';
 
@@ -636,12 +683,12 @@ class Styles {
 			$redirect_url = get_admin_url( get_current_blog_id(), '/themes.php?page=' . $this::PAGE . '&slug=' . $slug );
 
 			if ( ! isset( $_POST['post_id'], $_POST['post_id_integrity'] ) ) {
-				error_log( __METHOD__ . ' error: Missing post ID' );
+				debug_error_log( __METHOD__ . ' error: Missing post ID' );
 				\Pressbooks\Redirect\location( $redirect_url . '&custom_styles_error=true' );
 			}
 			if ( md5( NONCE_KEY . $_POST['post_id'] ) !== $_POST['post_id_integrity'] ) {
 				// A hacker trying to overwrite posts?.
-				error_log( __METHOD__ . ' error: unexpected value for post_id_integrity' );
+				debug_error_log( __METHOD__ . ' error: unexpected value for post_id_integrity' );
 				\Pressbooks\Redirect\location( $redirect_url . '&custom_styles_error=true' );
 			}
 
@@ -659,7 +706,7 @@ class Styles {
 
 			if ( is_wp_error( $response ) ) {
 				// Something went wrong?
-				error_log( __METHOD__ . ' error, wp_update_post(): ' . $response->get_error_message() );
+				debug_error_log( __METHOD__ . ' error, wp_update_post(): ' . $response->get_error_message() );
 				\Pressbooks\Redirect\location( $redirect_url . '&custom_styles_error=true' );
 			}
 

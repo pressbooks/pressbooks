@@ -18,7 +18,7 @@ class Metadata implements \JsonSerializable {
 	 * @see upgrade()
 	 * @var int
 	 */
-	const VERSION = 12;
+	const VERSION = 13;
 
 
 	/**
@@ -35,8 +35,9 @@ class Metadata implements \JsonSerializable {
 	];
 
 
-	function __construct() {
-	}
+	/**
+	*/
+	public function __construct() { }
 
 
 	/**
@@ -44,7 +45,7 @@ class Metadata implements \JsonSerializable {
 	 *
 	 * @return \WP_Post|bool
 	 */
-	function getMetaPost() {
+	public function getMetaPost() {
 
 		$args = [
 			'post_type' => 'metadata',
@@ -71,7 +72,7 @@ class Metadata implements \JsonSerializable {
 	 *
 	 * @return array
 	 */
-	function getMetaPostMetadata() {
+	public function getMetaPostMetadata() {
 
 		$meta_post = $this->getMetaPost();
 
@@ -91,7 +92,7 @@ class Metadata implements \JsonSerializable {
 	 *
 	 * @return int|bool
 	 */
-	function getMidByKey( $post_id, $meta_key ) {
+	public function getMidByKey( $post_id, $meta_key ) {
 
 		/** @var \wpdb $wpdb */
 		global $wpdb;
@@ -130,7 +131,7 @@ class Metadata implements \JsonSerializable {
 	 *
 	 * @param int $version
 	 */
-	function upgrade( $version ) {
+	public function upgrade( $version ) {
 
 		if ( $version < 1 ) {
 			// Upgrade from version 0 (closed source service) to version 1 (initial open source offering)
@@ -154,7 +155,8 @@ class Metadata implements \JsonSerializable {
 			$this->resetLandingPage();
 		}
 		if ( $version < 10 ) {
-			\Pressbooks\Taxonomy::insertTerms();
+			$taxonomy = Taxonomy::init();
+			$taxonomy->insertTerms();
 			flush_rewrite_rules( false );
 		}
 		if ( $version < 11 ) {
@@ -163,13 +165,18 @@ class Metadata implements \JsonSerializable {
 		if ( $version < 12 ) {
 			Container::get( 'Styles' )->initPosts();
 		}
+		if ( $version < 13 ) {
+			$this->upgradeToPressbooksFive();
+		}
 	}
 
 
 	/**
-	 * Upgrade Ecommerce metadata
+	 * Upgrade Ecommerce metadata - from version 0 (closed source) to version 1 (first open source version, february 2013)
+	 *
+	 * @deprecated
 	 */
-	function upgradeEcommerce() {
+	public function upgradeEcommerce() {
 
 		$options = get_option( 'ecomm-url' );
 		$compare = $this->getDeprecatedComparisonTable( 'ecommerce' );
@@ -190,9 +197,11 @@ class Metadata implements \JsonSerializable {
 
 
 	/**
-	 * Upgrade book information.
+	 * Upgrade book information - from version 0 (closed source) to version 1 (first open source version, february 2013)
+	 *
+	 * @deprecated
 	 */
-	function upgradeBookInformation() {
+	public function upgradeBookInformation() {
 
 		// Metadata
 
@@ -235,9 +244,11 @@ class Metadata implements \JsonSerializable {
 
 
 	/**
-	 * Upgrade book metadata.
+	 * Upgrade book metadata - from version 0 (closed source) to version 1 (first open source version, february 2013)
+	 *
+	 * @deprecated
 	 */
-	function upgradeBook() {
+	public function upgradeBook() {
 
 		$book_structure = Book::getBookStructure();
 		foreach ( $book_structure['__order'] as $post_id => $_ ) {
@@ -267,6 +278,8 @@ class Metadata implements \JsonSerializable {
 
 
 	/**
+	 * Upgrade from version 0 (closed source) to version 1 (first open source version, february 2013)
+	 *
 	 * @deprecated
 	 *
 	 * @param string $table
@@ -274,7 +287,7 @@ class Metadata implements \JsonSerializable {
 	 *
 	 * @return array
 	 */
-	function getDeprecatedComparisonTable( $table, $new_as_keys = false ) {
+	public function getDeprecatedComparisonTable( $table, $new_as_keys = false ) {
 		if ( 'chapter' === $table ) {
 			// Chapter
 			$metadata = [
@@ -360,7 +373,7 @@ class Metadata implements \JsonSerializable {
 	 *
 	 * @see \Pressbooks\Pressbooks::registerThemeDirectories
 	 */
-	function fixDoubleSlashBug() {
+	public function fixDoubleSlashBug() {
 
 		$theme = wp_get_theme();
 		if ( ! $theme->exists() || ! $theme->is_allowed() ) {
@@ -374,7 +387,7 @@ class Metadata implements \JsonSerializable {
 	/**
 	 * Change default book cover from PNG to JPG
 	 */
-	function changeDefaultBookCover() {
+	public function changeDefaultBookCover() {
 
 		$post = $this->getMetaPost();
 
@@ -391,7 +404,7 @@ class Metadata implements \JsonSerializable {
 	/**
 	 * Generate thumbnails for a user uploaded cover
 	 */
-	function makeThumbnailsForBookCover() {
+	public function makeThumbnailsForBookCover() {
 
 		$post = $this->getMetaPost();
 		if ( $post ) {
@@ -423,7 +436,7 @@ class Metadata implements \JsonSerializable {
 	/**
 	 * Fix broken landing page
 	 */
-	function resetLandingPage() {
+	public function resetLandingPage() {
 
 		/** @var $wpdb \wpdb */
 		global $wpdb;
@@ -445,7 +458,7 @@ class Metadata implements \JsonSerializable {
 	/**
 	 * Migrate part content to content editor
 	 */
-	function migratePartContentToEditor() {
+	public function migratePartContentToEditor() {
 
 		/** @var $wpdb \wpdb */
 		global $wpdb;
@@ -454,11 +467,13 @@ class Metadata implements \JsonSerializable {
 		foreach ( $parts as $part ) {
 			$pb_part_content = trim( get_post_meta( $part->ID, 'pb_part_content', true ) );
 			if ( $pb_part_content ) {
-				$success = wp_update_post( [
-					'ID' => $part->ID,
-					'post_content' => $pb_part_content,
-					'comment_status' => 'closed',
-				] );
+				$success = wp_update_post(
+					[
+						'ID' => $part->ID,
+						'post_content' => $pb_part_content,
+						'comment_status' => 'closed',
+					]
+				);
 				if ( $success === $part->ID ) {
 					delete_post_meta( $part->ID, 'pb_part_content' );
 				}
@@ -466,6 +481,78 @@ class Metadata implements \JsonSerializable {
 		}
 
 		Book::deleteBookObjectCache();
+	}
+
+	/**
+	 * @since 5.0.0
+	 */
+	public function upgradeToPressbooksFive() {
+		$contributor = new Contributors();
+		// Get all posts in a book
+		global $wpdb;
+		$sql = [ 'front-matter', 'part', 'chapter', 'back-matter' ];
+		$r1 = $wpdb->get_results( $wpdb->prepare( "SELECT ID, post_status FROM {$wpdb->posts} WHERE post_type IN (%s, %s, %s, %s)", $sql ), ARRAY_A );
+		foreach ( $r1 as $val ) {
+			// Get pb_export for single post in a book
+			$r2 = $wpdb->get_row( $wpdb->prepare( "SELECT meta_value FROM {$wpdb->postmeta} WHERE meta_key = %s AND post_id = %d", 'pb_export', $val['ID'] ), ARRAY_A );
+			$status = $val['post_status'];
+			$pb_export = ( isset( $r2['meta_value'] ) && $r2['meta_value'] === 'on' );
+			$new_status = $this->postStatiiConversion( $status, $pb_export );
+			if ( ! $new_status !== $status ) {
+				// Update post_status
+				wp_update_post(
+					[
+						'ID' => $val['ID'],
+						'post_status' => $new_status,
+					]
+				);
+			}
+			$contributor->getAll( $val['ID'] ); // Triggers contributor upgrade
+		}
+		$contributor->getAll( $this->getMetaPost()->ID ); // Triggers contributor upgrade
+
+		// Once upon a time we were updating 'pressbooks_taxonomy_version' with Metadata::VERSION instead of Taxonomy::VERSION
+		// Some books might be in a weird state (bug?) Rerun the Taxonomy upgrade function from version zero, outside of itself, just in-case
+
+		Taxonomy::init()->upgrade( 0 );
+		update_option( 'pressbooks_taxonomy_version', Taxonomy::VERSION );
+	}
+
+	/**
+	 * @since 5.0.0
+	 *
+	 * @param string $status
+	 * @param bool $pb_export
+	 *
+	 * @return string
+	 */
+	public function postStatiiConversion( $status, $pb_export ) {
+
+		if ( ! is_bool( $pb_export ) ) {
+			return $status; // Doing it wrong...
+		}
+
+		if ( $pb_export ) {
+			// When pb_export = true and post_status = draft, new post_status = private
+			if ( $status === 'draft' ) {
+				return 'private';
+			}
+			// When pb_export = true and post_status = publish, new post_status = publish
+			if ( $status === 'publish' ) {
+				return 'publish';
+			}
+		} else {
+			// When pb_export = false and post_status = draft, new post_status = draft
+			if ( $status === 'draft' ) {
+				return 'draft';
+			}
+			// When pb_export = false and post_status = publish, new post_status = web-only
+			if ( $status === 'publish' ) {
+				return 'web-only';
+			}
+		}
+
+		return $status; // No change
 	}
 
 }

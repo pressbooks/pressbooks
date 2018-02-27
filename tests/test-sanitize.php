@@ -304,4 +304,28 @@ TERRIBLE;
 		$this->assertEquals( '\\\A0', \Pressbooks\Sanitize\cleanup_css( $css ) );
 	}
 
+	public function test_prettify() {
+		$val = '<div><p>Hello!</p></div>';
+		$result = \Pressbooks\Sanitize\prettify( $val );
+
+		$pretty = <<< PRETTY
+<div>
+    <p>Hello!</p>
+</div>
+PRETTY;
+		$this->assertEquals( trim( $pretty ), trim( $result ) );
+	}
+
+	public function test_is_valid_timestamp() {
+		$this->assertTrue( \Pressbooks\Sanitize\is_valid_timestamp( 1 ) );
+		$this->assertTrue( \Pressbooks\Sanitize\is_valid_timestamp( '1' ) );
+		$this->assertFalse( \Pressbooks\Sanitize\is_valid_timestamp( '1.0' ) );
+		$this->assertFalse( \Pressbooks\Sanitize\is_valid_timestamp( '1.1' ) );
+		$this->assertFalse( \Pressbooks\Sanitize\is_valid_timestamp( '0xFF' ) );
+		$this->assertFalse( \Pressbooks\Sanitize\is_valid_timestamp( '0123' ) );
+		$this->assertFalse( \Pressbooks\Sanitize\is_valid_timestamp( '01090' ) );
+		$this->assertTrue( \Pressbooks\Sanitize\is_valid_timestamp( '-1000000' ) );
+		$this->assertFalse( \Pressbooks\Sanitize\is_valid_timestamp( '+1000000' ) );
+	}
+
 }

@@ -52,6 +52,12 @@ if ( ! empty( $GLOBALS['PB_PIMPLE_OVERRIDE'] ) ) {
 }
 
 // -------------------------------------------------------------------------------------------------------------------
+// Activation
+// -------------------------------------------------------------------------------------------------------------------
+
+\Pressbooks\Activation::init();
+
+// -------------------------------------------------------------------------------------------------------------------
 // API
 // -------------------------------------------------------------------------------------------------------------------
 
@@ -70,14 +76,19 @@ if ( $is_book ) {
 // Login screen branding
 // -------------------------------------------------------------------------------------------------------------------
 
+add_filter( 'login_body_class', '\Pressbooks\Admin\Branding\login_body_class' );
 add_action( 'login_head', '\Pressbooks\Admin\Branding\custom_color_scheme' );
 add_action( 'login_head', '\Pressbooks\Admin\Branding\custom_login_logo' );
 add_filter( 'login_headerurl', '\Pressbooks\Admin\Branding\login_url' );
 add_filter( 'login_headertitle', '\Pressbooks\Admin\Branding\login_title' );
+add_filter( 'login_title', '\Pressbooks\Admin\Branding\admin_title' );
+add_action( 'login_footer', '\Pressbooks\Admin\Branding\login_scripts' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Analytics
 // -------------------------------------------------------------------------------------------------------------------
+
+add_action( 'init', '\Pressbooks\Analytics\migrate' );
 add_action( 'wp_head', '\Pressbooks\Analytics\print_analytics' );
 
 // -------------------------------------------------------------------------------------------------------------------
@@ -133,9 +144,10 @@ add_filter( 'upload_mimes', '\Pressbooks\Media\add_mime_types' );
 
 if ( $is_book ) {
 	add_action( 'init', '\Pressbooks\PostType\register_post_types' );
+	add_filter( 'comments_open', '\Pressbooks\PostType\comments_open', 10, 2 );
+	\Pressbooks\Taxonomy::init();
 	add_action( 'init', '\Pressbooks\PostType\register_meta' );
-	add_action( 'init', '\Pressbooks\Taxonomy::registerTaxonomies' );
-	add_action( 'post_updated_messages', '\Pressbooks\PostType\post_type_messages' );
+	add_action( 'init', '\Pressbooks\PostType\register_post_statii' );
 	add_filter( 'request', '\Pressbooks\PostType\add_post_types_rss' );
 	add_filter( 'hypothesis_supported_posttypes', '\Pressbooks\PostType\add_posttypes_to_hypothesis' );
 }
@@ -145,27 +157,16 @@ if ( $is_book ) {
 // -------------------------------------------------------------------------------------------------------------------
 
 if ( is_admin() === false ) {
-	add_action( 'init', function () {
-		wp_deregister_script( 'admin-bar' );
-		wp_deregister_style( 'admin-bar' );
-		remove_action( 'init', '_wp_admin_bar_init' );
-		remove_action( 'wp_footer', 'wp_admin_bar_render', 1000 );
-		remove_action( 'admin_footer', 'wp_admin_bar_render', 1000 );
-	}, 0 );
+	add_action(
+		'init', function () {
+			wp_deregister_script( 'admin-bar' );
+			wp_deregister_style( 'admin-bar' );
+			remove_action( 'init', '_wp_admin_bar_init' );
+			remove_action( 'wp_footer', 'wp_admin_bar_render', 1000 );
+			remove_action( 'admin_footer', 'wp_admin_bar_render', 1000 );
+		}, 0
+	);
 }
-
-// -------------------------------------------------------------------------------------------------------------------
-// The following is used when a REGISTERED USER creates a NEW BLOG
-// -------------------------------------------------------------------------------------------------------------------
-
-add_action( 'wpmu_new_blog', function ( $b, $u ) {
-	( new \Pressbooks\Activation() )->wpmuNewBlog( $b, $u );
-}, 9, 2 );
-
-// Force PB colors
-add_action( 'wp_login', '\Pressbooks\Activation::forcePbColors', 10, 2 );
-add_action( 'profile_update', '\Pressbooks\Activation::forcePbColors' );
-add_action( 'user_register', '\Pressbooks\Activation::forcePbColors' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Redirects
@@ -177,7 +178,7 @@ if ( $enable_network_api ) {
 add_filter( 'init', '\Pressbooks\Redirect\rewrite_rules_for_format', 1 );
 add_filter( 'init', '\Pressbooks\Redirect\rewrite_rules_for_catalog', 1 );
 add_filter( 'init', '\Pressbooks\Redirect\rewrite_rules_for_open', 1 );
-add_filter( 'login_redirect', '\Pressbooks\Redirect\login', 10, 3 );
+add_action( 'wp_loaded', '\Pressbooks\Redirect\migrate_generated_content' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Sitemap
@@ -208,42 +209,30 @@ add_filter( 'the_content', 'wpautop' , 12 ); // execute wpautop after shortcode 
 // -------------------------------------------------------------------------------------------------------------------
 
 if ( $is_book ) {
-	add_action( 'init', function () {
-		$meta_version = get_option( 'pressbooks_metadata_version', 0 );
-		if ( $meta_version < \Pressbooks\Metadata::VERSION ) {
-			( new \Pressbooks\Metadata() )->upgrade( $meta_version );
-			update_option( 'pressbooks_metadata_version', \Pressbooks\Metadata::VERSION );
-		}
-	}, 1000 );
-}
-
-// -------------------------------------------------------------------------------------------------------------------
-// Upgrade Taxonomies
-// -------------------------------------------------------------------------------------------------------------------
-
-// TODO: Before this commit, we were updating 'pressbooks_taxonomy_version' with \Pressbooks\Metadata::VERSION (bug)
-
-if ( $is_book ) {
-	add_action( 'init', function () {
-		$taxonomy_version = get_option( 'pressbooks_taxonomy_version', 0 );
-		if ( $taxonomy_version < \Pressbooks\Taxonomy::VERSION ) {
-			( new \Pressbooks\Taxonomy() )->upgrade( $taxonomy_version );
-			update_option( 'pressbooks_taxonomy_version', \Pressbooks\Taxonomy::VERSION );
-		}
-	}, 1000 );
+	add_action(
+		'init', function () {
+			$meta_version = get_option( 'pressbooks_metadata_version', 0 );
+			if ( $meta_version < \Pressbooks\Metadata::VERSION ) {
+				( new \Pressbooks\Metadata() )->upgrade( $meta_version );
+				update_option( 'pressbooks_metadata_version', \Pressbooks\Metadata::VERSION );
+			}
+		}, 1000
+	);
 }
 
 // -------------------------------------------------------------------------------------------------------------------
 // Upgrade Catalog
 // -------------------------------------------------------------------------------------------------------------------
 
-add_action( 'init', function () {
-	$catalog_version = get_site_option( 'pressbooks_catalog_version', 0 );
-	if ( $catalog_version < \Pressbooks\Catalog::VERSION ) {
-		( new \Pressbooks\Catalog() )->upgrade( $catalog_version );
-		update_site_option( 'pressbooks_catalog_version', \Pressbooks\Catalog::VERSION );
-	}
-}, 1000 );
+add_action(
+	'init', function () {
+		$catalog_version = get_site_option( 'pressbooks_catalog_version', 0 );
+		if ( $catalog_version < \Pressbooks\Catalog::VERSION ) {
+			( new \Pressbooks\Catalog() )->upgrade( $catalog_version );
+			update_site_option( 'pressbooks_catalog_version', \Pressbooks\Catalog::VERSION );
+		}
+	}, 1000
+);
 
 // -------------------------------------------------------------------------------------------------------------------
 // Migrate Themes
@@ -256,17 +245,22 @@ add_action( 'init', '\Pressbooks\Theme\update_template_root' );
 // Regenerate stylesheets
 // -------------------------------------------------------------------------------------------------------------------
 
-add_action( 'init', function() {
-	Container::get( 'Styles' )->maybeUpdateStylesheets();
-} );
+add_action(
+	'init', function() {
+		Container::get( 'Styles' )->maybeUpdateStylesheets();
+	}
+);
 
 // -------------------------------------------------------------------------------------------------------------------
 // Force Flush
 // -------------------------------------------------------------------------------------------------------------------
 
 if ( ! empty( $GLOBALS['PB_SECRET_SAUCE']['FORCE_FLUSH'] ) ) {
-	add_action( 'init', function () { flush_rewrite_rules( false );
-	}, 9999 );
+	add_action(
+		'init', function () {
+			flush_rewrite_rules( false );
+		}, 9999
+	);
 } else {
 	add_action( 'init', '\Pressbooks\Redirect\flusher', 9999 );
 }

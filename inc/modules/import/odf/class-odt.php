@@ -12,6 +12,8 @@ use Pressbooks\Book;
 
 class Odt extends Import {
 
+	const TYPE_OF = 'odt';
+
 	/**
 	 * @var \ZipArchive
 	 */
@@ -134,7 +136,6 @@ class Odt extends Import {
 		$pid = wp_insert_post( add_magic_quotes( $new_post ) );
 
 		update_post_meta( $pid, 'pb_show_title', 'on' );
-		update_post_meta( $pid, 'pb_export', 'on' );
 
 		Book::consolidatePost( $pid, get_post( $pid ) ); // Reorder
 	}
@@ -205,7 +206,6 @@ class Odt extends Import {
 	 * @see media_handle_sideload
 	 *
 	 * @return string filename
-	 * @throws \Exception
 	 */
 	protected function fetchAndSaveUniqueImage( $href ) {
 
@@ -240,7 +240,7 @@ class Odt extends Import {
 		}
 
 		$tmp_name = $this->createTmpFile();
-		file_put_contents( $tmp_name, $image_content );
+		\Pressbooks\Utility\put_contents( $tmp_name, $image_content );
 
 		if ( ! \Pressbooks\Image\is_valid_image( $tmp_name, $filename ) ) {
 
@@ -258,7 +258,12 @@ class Odt extends Import {
 			}
 		}
 
-		$pid = media_handle_sideload( [ 'name' => $filename, 'tmp_name' => $tmp_name ], 0 );
+		$pid = media_handle_sideload(
+			[
+				'name' => $filename,
+				'tmp_name' => $tmp_name,
+			], 0
+		);
 		$src = wp_get_attachment_url( $pid );
 		if ( ! $src ) {
 			$src = ''; // Change false to empty string
@@ -311,8 +316,9 @@ class Odt extends Import {
 
 		$option = [
 			'file' => $upload['file'],
+			'url' => $upload['url'] ?? null,
 			'file_type' => $upload['type'],
-			'type_of' => 'odt',
+			'type_of' => self::TYPE_OF,
 			'chapters' => [],
 		];
 

@@ -135,7 +135,7 @@ function truncate_exports( $max, $dir = null ) {
 
 /**
  * Return the full path to the directory containing media
- * Checks for `ms_files_rewriting` site option; uses /wp-content/blogs.dir/ if present, otherwise uses WordPress 3.5+ standard, /wp-content/uploads/sites/
+ * Checks for `ms_files_rewriting` site option; uses /wp-content/blogs.dir/ if present, otherwise uses WordPress 3.5+ standard
  *
  * @return string path
  */
@@ -143,7 +143,7 @@ function get_media_prefix() {
 	if ( get_site_option( 'ms_files_rewriting' ) ) {
 		return WP_CONTENT_DIR . '/blogs.dir/' . get_current_blog_id() . '/files/';
 	} else {
-		return WP_CONTENT_DIR . '/uploads/sites/' . get_current_blog_id() . '/';
+		return trailingslashit( get_generated_content_path( '', false ) );
 	}
 }
 
@@ -157,7 +157,7 @@ function get_media_prefix() {
  */
 function get_media_path( $guid ) {
 
-	$parts = parse_url( $guid );
+	$parts = wp_parse_url( $guid );
 	$path = $parts['path'];
 	$beginning = strpos( $path, 'files' );
 	if ( $beginning ) {
@@ -195,17 +195,18 @@ function latest_exports() {
 	 */
 	$filetypes = apply_filters(
 		'pb_latest_export_filetypes', [
-		'epub3' => '._3.epub',
-		'epub' => '.epub',
-		'pdf' => '.pdf',
-		'print-pdf' => '._print.pdf',
-		'mobi' => '.mobi',
-		'icml' => '.icml',
-		'xhtml' => '.html',
-		'wxr' => '.xml',
-		'vanillawxr' => '._vanilla.xml',
-		'mpdf' => '._oss.pdf',
-		'odf' => '.odt',
+			'epub3' => '._3.epub',
+			'epub' => '.epub',
+			'pdf' => '.pdf',
+			'print-pdf' => '._print.pdf',
+			'mobi' => '.mobi',
+			'icml' => '.icml',
+			'htmlbook' => '.-htmlbook.html',
+			'xhtml' => '.html',
+			'wxr' => '.xml',
+			'vanillawxr' => '._vanilla.xml',
+			'mpdf' => '._oss.pdf',
+			'odf' => '.odt',
 		]
 	);
 
@@ -270,7 +271,7 @@ function do_sitemap() {
  * @return string Path to temporary file
  */
 function create_tmp_file() {
-	$stream = stream_get_meta_data( $GLOBALS[ mt_rand() ] = tmpfile() );
+	$stream = stream_get_meta_data( $GLOBALS[ mt_rand() ] = tmpfile() ); // @codingStandardsIgnoreLine
 
 	return $stream['uri'];
 }
@@ -422,7 +423,7 @@ function check_saxonhe_install() {
 function show_experimental_features( $host = '' ) {
 
 	if ( ! $host ) {
-		$host = parse_url( network_home_url(), PHP_URL_HOST );
+		$host = wp_parse_url( network_home_url(), PHP_URL_HOST );
 	}
 
 	// hosts where experimental features should be hidden
@@ -525,7 +526,11 @@ function disable_comments() {
 	}
 
 	$old_option = get_option( 'disable_comments_options' );
-	$new_option = get_option( 'pressbooks_sharingandprivacy_options', [ 'disable_comments' => 1 ] );
+	$new_option = get_option(
+		'pressbooks_sharingandprivacy_options', [
+			'disable_comments' => 1,
+		]
+	);
 
 	if ( false === (bool) $old_option ) {
 		$retval = (bool) $new_option['disable_comments'];
@@ -611,18 +616,28 @@ function fetch_recommended_plugins() {
 	 *
 	 * @param string $value
 	 */
-	$url = $http_url = apply_filters( 'pb_recommended_plugins_url', 'https://pressbooks-plugins.now.sh' ) . '/api/plugin-recommendations';
+	$http_url = apply_filters( 'pb_recommended_plugins_url', 'https://pressbooks-plugins.now.sh' ) . '/api/plugin-recommendations';
+	$url = $http_url;
 	$ssl = wp_http_supports( [ 'ssl' ] );
 	if ( $ssl ) {
 		$url = set_url_scheme( $url, 'https' );
 	}
-	$request = wp_remote_get( $url, [ 'timeout' => 15 ] );
+	$request = wp_remote_get(
+		$url, [
+			'timeout' => 15,
+		]
+	);
 	if ( $ssl && is_wp_error( $request ) ) {
+		// @codingStandardsIgnoreLine
 		trigger_error(
 			__( 'An unexpected error occurred. Something may be wrong with the plugin recommendations server or your site&#8217;s server&#8217;s configuration.', 'pressbooks' ) . ' ' . __( '(Pressbooks could not establish a secure connection to the plugin recommendations server. Please contact your server administrator.)', 'pressbooks' ),
 			headers_sent() || WP_DEBUG ? E_USER_WARNING : E_USER_NOTICE
 		);
-		$request = wp_remote_get( $http_url, [ 'timeout' => 15 ] );
+		$request = wp_remote_get(
+			$http_url, [
+				'timeout' => 15,
+			]
+		);
 	}
 	if ( is_wp_error( $request ) ) {
 		$res = new \WP_Error(
@@ -731,6 +746,15 @@ function format_bytes( $bytes, $precision = 2 ) {
 	return round( $bytes, $precision ) . ' ' . $units[ $pow ];
 }
 
+/**
+ * @param $message
+ * @param null $message_type
+ */
+function debug_error_log( $message, $message_type = null ) {
+	if ( WP_DEBUG ) {
+		\error_log( $message, $message_type ); // @codingStandardsIgnoreLine
+	}
+}
 
 /**
  * Email error to an array of recipients
@@ -744,7 +768,7 @@ function email_error_log( $emails, $subject, $message ) {
 	// ------------------------------------------------------------------------------------------------------------
 	// Write to generic error log to be safe
 
-	error_log( $subject . "\n" . $message );
+	debug_error_log( $subject . "\n" . $message );
 
 	// ------------------------------------------------------------------------------------------------------------
 	// Email logs
@@ -1012,6 +1036,21 @@ function str_ends_with( $haystack, $needle ) {
 }
 
 /**
+ * Remove a string from the beginning of a string
+ *
+ * @param $haystack
+ * @param $prefix
+ *
+ * @return bool|string
+ */
+function str_remove_prefix( $haystack, $prefix ) {
+	if ( substr( $haystack, 0, strlen( $prefix ) ) === $prefix ) {
+		$haystack = substr( $haystack, strlen( $prefix ) );
+	}
+	return $haystack;
+}
+
+/**
  * Replace last occurrence of a String
  *
  * @param string $search
@@ -1062,7 +1101,7 @@ function absolute_path( $path ) {
 
 	if ( filter_var( $path, FILTER_VALIDATE_URL ) !== false ) {
 		$url = $path;
-		$path = parse_url( $path, PHP_URL_PATH );
+		$path = wp_parse_url( $path, PHP_URL_PATH );
 	}
 
 	$new_path = str_replace( '\\', '/', $path );
@@ -1097,8 +1136,8 @@ function absolute_path( $path ) {
  */
 function urls_have_same_host( $url1, $url2 ) {
 
-	$host1 = parse_url( $url1, PHP_URL_HOST );
-	$host2 = parse_url( $url2, PHP_URL_HOST );
+	$host1 = wp_parse_url( $url1, PHP_URL_HOST );
+	$host2 = wp_parse_url( $url2, PHP_URL_HOST );
 	if ( ! $host1 || ! $host2 ) {
 		return false;
 	}
@@ -1123,16 +1162,238 @@ function urls_have_same_host( $url1, $url2 ) {
 }
 
 /**
+ * Namespace our generated content
+ *
+ * @since 5.0.0
+ *
+ * @param string $suffix (optional)
+ * @param bool $mkdir (optional)
+ *
+ * @return string
+ */
+function get_generated_content_path( $suffix = '', $mkdir = true ) {
+	$path = wp_upload_dir()['basedir'] . '/pressbooks';
+	if ( $suffix ) {
+		$suffix = ltrim( $suffix, '/' );
+		$path = absolute_path( "{$path}/{$suffix}" );
+	}
+	if ( $mkdir && ! file_exists( $path ) ) {
+		wp_mkdir_p( $path );
+	}
+	return $path;
+}
+
+/**
+ * Namespace our generated content
+ *
+ * @since 5.0.0
+ *
+ * @param string $suffix (optional)
+ *
+ * @return string
+ */
+function get_generated_content_url( $suffix = '' ) {
+	$path = wp_get_upload_dir()['baseurl'] . '/pressbooks';
+	if ( $suffix ) {
+		$suffix = ltrim( $suffix, '/' );
+		$path = absolute_path( "{$path}/{$suffix}" );
+	}
+	$path = \Pressbooks\Sanitize\maybe_https( $path );
+	return $path;
+}
+
+/**
  * Blade cache path
  *
  * @return string
  */
 function get_cache_path() {
-	$cache = wp_upload_dir()['basedir'] . '/cache';
-	if ( ! file_exists( $cache ) ) {
-		wp_mkdir_p( $cache );
+	return get_generated_content_path( '/cache' );
+}
+
+/**
+ * @since 5.0.0
+ *
+ * @see \WP_Filesystem
+ * @return \WP_Filesystem_Direct
+ */
+function init_direct_filesystem() {
+	if ( ! class_exists( 'WP_Filesystem_Direct' ) ) {
+		$abstraction_file = apply_filters( 'filesystem_method_file', ABSPATH . 'wp-admin/includes/class-wp-filesystem-direct.php', 'direct' ); // Use for mocks / testing
+		require_once( ABSPATH . 'wp-admin/includes/class-wp-filesystem-base.php' );
+		require_once( $abstraction_file );
+
+		// Set the permission constants if not already set.
+		if ( ! defined( 'FS_CHMOD_DIR' ) ) {
+			define( 'FS_CHMOD_DIR', ( fileperms( ABSPATH ) & 0777 | 0755 ) );
+		}
+		if ( ! defined( 'FS_CHMOD_FILE' ) ) {
+			define( 'FS_CHMOD_FILE', ( fileperms( ABSPATH . 'index.php' ) & 0777 | 0644 ) );
+		}
 	}
-	return $cache;
+	return new \WP_Filesystem_Direct( [] );
+}
+
+/**
+ * @since 5.0.0
+ *
+ * @param string $filename
+ *
+ * @return bool|string
+ */
+function get_contents( $filename ) {
+	$fs = init_direct_filesystem();
+	return $fs->get_contents( $filename );
+}
+
+/**
+ * @since 5.0.0
+ *
+ * @param string $filename
+ * @param mixed $data
+ *
+ * @return bool
+ */
+function put_contents( $filename, $data ) {
+	$fs = init_direct_filesystem();
+	return $fs->put_contents( $filename, $data );
+}
+
+/**
+ * Delete all contents of a directory without using `RecursiveDirectoryIterator`
+ * (E_WARNING: Too many open files, @see https://stackoverflow.com/a/37754469 )
+ *
+ * @since 5.0.0
+ *
+ * @param string $dirname
+ * @param bool $only_empty
+ *
+ * @return bool
+ */
+function rmrdir( $dirname, $only_empty = false ) {
+
+	if ( ! is_dir( $dirname ) ) {
+		return false;
+	}
+
+	$dscan = [ realpath( $dirname ) ];
+	$darr = [];
+	while ( ! empty( $dscan ) ) {
+		$dcur = array_pop( $dscan );
+		$darr[] = $dcur;
+		$d = opendir( $dcur );
+		if ( $d ) {
+			while ( $f = readdir( $d ) ) {
+				if ( '.' === $f || '..' === $f ) {
+					continue;
+				}
+				$f = $dcur . '/' . $f;
+				if ( is_dir( $f ) ) {
+					$dscan[] = $f;
+				} else {
+					unlink( $f );
+				}
+			}
+			closedir( $d );
+		}
+	}
+	$i_until = ( $only_empty ) ? 1 : 0;
+	for ( $i = count( $darr ) - 1; $i >= $i_until; $i-- ) {
+		if ( ! rmdir( $darr[ $i ] ) ) {
+			trigger_error( "Warning: There was a problem deleting a temporary file in $dirname", E_USER_WARNING );
+		}
+	}
+
+	return ( ( $only_empty ) ? ( count( scandir( $dirname ) ) <= 2 ) : ( ! is_dir( $dirname ) ) );
+}
+
+
+/**
+ * Comma separated, Oxford comma, localized and between the last two items
+ *
+ * @since 5.0.0
+ *
+ * @param array $vars
+ *
+ * @return string
+ */
+function oxford_comma( array $vars ) {
+	if ( count( $vars ) === 2 ) {
+		return $vars[0] . ' ' . __( 'and', 'pressbooks' ) . ' ' . $vars[1];
+	} else {
+		$last = array_pop( $vars );
+		$output = implode( ', ', $vars );
+		if ( $output ) {
+			$output .= ', ' . __( 'and', 'pressbooks' ) . ' ';
+		}
+		$output .= $last;
+		return $output;
+	}
+}
+
+/**
+ * Explode an oxford comma seperated list of items
+ *
+ * @param $string
+ *
+ * @return array
+ */
+function oxford_comma_explode( $string ) {
+	$results = [];
+	if ( strpos( $string, ',' ) !== false ) {
+		$items = explode( ',', $string );
+		foreach ( $items as $item ) {
+			$item = trim( $item );
+			$item = str_remove_prefix( $item, __( 'and', 'pressbooks' ) . ' ' );
+			if ( ! empty( $item ) ) {
+				$results[] = $item;
+			}
+		}
+	} else {
+		$items = explode( ' ' . __( 'and', 'pressbooks' ) . ' ', $string );
+		foreach ( $items as $item ) {
+			$item = trim( $item );
+			if ( ! empty( $item ) ) {
+				$results[] = $item;
+			}
+		}
+	}
+	return $results;
+}
+
+
+/**
+ * Check whether an array is zero-indexed and sequential
+ *
+ * @param mixed $arr
+ *
+ * @return bool
+ */
+function is_assoc( $arr ) {
+	if ( ! is_array( $arr ) ) {
+		return false;
+	}
+	if ( [] === $arr ) {
+		return false;
+	}
+	return array_keys( $arr ) !== range( 0, count( $arr ) - 1 );
+}
+
+/**
+ * Like PHP empty(), but also checks if a string is just white space
+ *
+ * @param mixed $var
+ *
+ * @return bool
+ */
+function empty_space( $var ) {
+	if ( is_string( $var ) ) {
+		if ( ctype_space( $var ) ) {
+			$var = '';
+		}
+		$var = trim( $var );
+	}
+	return empty( $var );
 }
 
 /**

@@ -144,6 +144,11 @@
   }
 }
 
+div.taxonomy_multi_select span.description a.button {
+  font-style: normal;
+  margin-top: 0.5em;
+}
+
 // Dashicons
 
 i.mce-i-icon {
@@ -162,4 +167,98 @@ i.mce-i-icon {
 
 .wp-menu-image.dashicons-admin-multisite::before {
   content: '\f330';
+}
+
+.incompatible-plugin-upgrade-notice {
+  margin: 1em;
+  padding: 1em;
+  border: 1px solid #e1e1e1;
+  border-radius: 5px;
+  p {
+    padding: 0 20px;
+    margin: 0;
+    line-height: 1.5em;
+    &::before {
+      content: '' !important;
+      display: none;
+    }
+  }
+  table.incompatible-plugin-details-table {
+    margin: .75em 0 0;
+    tr {
+      background: transparent none !important;
+      border: 0 !important;
+    }
+    th, td {
+      background: transparent none !important;
+      margin: 0;
+      padding: .75em 20px 0;
+      border: 0 !important;
+      font-size: 1em;
+      box-shadow: none;
+    }
+    th {
+      font-weight: bold;
+    }
+  }
+  & + p:empty {
+    display: none;
+  }
+}
+
+.postbox#status-visibility {
+  .inside {
+    padding: 0;
+  }
+
+  #minor-publishing-actions {
+    p {
+      text-align: left;
+    }
+  }
+}
+
+/*!
+ * WordPress CSS Spinner
+ * @license GPL-2.0+
+ * @author kuus <kunderikuus@gmail.com> (http://kunderikuus.net)
+ */
+
+$wp-spinner-bg: #808080;
+$wp-spinner-fg: #fff;
+$wp-spinner-size: 18px;
+$wp-spinner-size-inner: 4px;
+$wp-spinner-anim-duration: 1.08s;
+
+
+@keyframes infinite-spinning {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.cssanimations {
+  .spinner {
+    position: relative;
+    width: $wp-spinner-size;
+    height: $wp-spinner-size;
+    border-radius: $wp-spinner-size;
+    background: $wp-spinner-bg;
+    animation: infinite-spinning $wp-spinner-anim-duration linear infinite;
+
+    &:after {
+      content: "";
+      position: absolute;
+      top: 2px;
+      left: 50%;
+      width: $wp-spinner-size-inner;
+      height: $wp-spinner-size-inner;
+      border-radius: $wp-spinner-size-inner;
+      margin-left: -($wp-spinner-size-inner / 2);
+      background: $wp-spinner-fg;
+    }
+  }
 }

@@ -24,7 +24,7 @@ class CustomCss {
 
 		$path = \Pressbooks\Utility\get_media_prefix() . 'custom-css/';
 		if ( ! file_exists( $path ) ) {
-			mkdir( $path, 0775, true );
+			wp_mkdir_p( $path );
 		}
 
 		return $path;
@@ -68,7 +68,11 @@ class CustomCss {
 		if ( ! file_exists( $filename ) ) {
 			return false;
 		}
-		$theme = get_file_data( $filename, [ 'ThemeURI' => 'Theme URI' ] );
+		$theme = get_file_data(
+			$filename, [
+				'ThemeURI' => 'Theme URI',
+			]
+		);
 		$theme_slug = str_replace( [ 'http://pressbooks.com/themes/', 'https://pressbooks.com/themes/' ], [ '', '' ], $theme['ThemeURI'] );
 
 		return untrailingslashit( $theme_slug );
@@ -104,7 +108,10 @@ class CustomCss {
 			],
 		];
 
-		$post = [ 'post_status' => 'publish', 'post_author' => wp_get_current_user()->ID ];
+		$post = [
+			'post_status' => 'publish',
+			'post_author' => wp_get_current_user()->ID,
+		];
 
 		foreach ( $posts as $item ) {
 			$exists = $wpdb->get_var(

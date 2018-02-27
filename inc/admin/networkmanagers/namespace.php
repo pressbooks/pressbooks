@@ -33,7 +33,7 @@ function admin_enqueues() {
 	wp_enqueue_script( 'pb-network-managers', $assets->getPath( 'scripts/network-managers.js' ), [ 'jquery' ] );
 	wp_localize_script(
 		'pb-network-managers', 'PB_NetworkManagerToken', [
-		'networkManagerNonce' => wp_create_nonce( 'pb-network-managers' ),
+			'networkManagerNonce' => wp_create_nonce( 'pb-network-managers' ),
 		]
 	);
 }
@@ -59,7 +59,8 @@ function update_admin_status() {
 				$restricted[] = $id;
 			}
 		} elseif ( 0 === absint( $_POST['status'] ) ) {
-			if ( ( $key = array_search( absint( $id ), $restricted, true ) ) !== false ) {
+			$key = array_search( absint( $id ), $restricted, true );
+			if ( $key !== false ) {
 				unset( $restricted[ $key ] );
 			}
 		}
@@ -88,10 +89,11 @@ function options() {
 		<div id="icon-users" class="icon32"><br/></div>
 		<h2><?php _e( 'Pressbooks Network Managers', 'pressbooks' ); ?></h2>
 
-		<p><?php _e( 'Network administrators&rsquo; access to network admininistration menus can be restricted to leave only sites and users visible to them.', 'pressbooks' ); ?></p>
+		<p><?php _e( 'Network administrators&rsquo; access to network administration menus can be restricted to leave only sites and users visible to them.', 'pressbooks' ); ?></p>
 		<?php $superadmins->display(); ?>
 	</div>
-<?php }
+<?php
+}
 
 
 /**
@@ -180,7 +182,7 @@ function restrict_access() {
 		$restricted = [];
 	}
 
-	$check_against_url = parse_url( ( is_ssl() ? 'http://' : 'https://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'], PHP_URL_PATH );
+	$check_against_url = wp_parse_url( ( is_ssl() ? 'http://' : 'https://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'], PHP_URL_PATH );
 	$redirect_url = get_site_url() . '/wp-admin/network/';
 
 	// ---------------------------------------------------------------------------------------------------------------

@@ -21,6 +21,7 @@ require( PB_PLUGIN_DIR . 'inc/admin/fonts/namespace.php' );
 require( PB_PLUGIN_DIR . 'inc/admin/laf/namespace.php' );
 require( PB_PLUGIN_DIR . 'inc/admin/metaboxes/namespace.php' );
 require( PB_PLUGIN_DIR . 'inc/admin/networkmanagers/namespace.php' );
+require( PB_PLUGIN_DIR . 'inc/admin/organize/namespace.php' );
 require( PB_PLUGIN_DIR . 'inc/admin/plugins/namespace.php' );
 
 // -------------------------------------------------------------------------------------------------------------------
@@ -30,18 +31,10 @@ require( PB_PLUGIN_DIR . 'inc/admin/plugins/namespace.php' );
 $is_book = Book::isBook();
 
 // -------------------------------------------------------------------------------------------------------------------
-// Check for updates
+// Updates
 // -------------------------------------------------------------------------------------------------------------------
 
-if ( ! $is_book ) {
-	$updater = new \Puc_v4p2_Vcs_PluginUpdateChecker(
-		new \Pressbooks\Updater( 'https://github.com/pressbooks/pressbooks/' ),
-		__DIR__ . '/pressbooks.php', // Fully qualified path to the main plugin file
-		'pressbooks',
-		24
-	);
-	$updater->setBranch( 'master' );
-}
+\Pressbooks\Updates::init();
 
 // -------------------------------------------------------------------------------------------------------------------
 // Look & feel of admin interface and Dashboard
@@ -68,9 +61,10 @@ if ( $is_book ) {
 	add_action( 'after_setup_theme', [ '\Pressbooks\Modules\ThemeOptions\ThemeOptions', 'init' ] );
 	add_action( 'admin_init', '\Pressbooks\Redirect\redirect_away_from_bad_urls' );
 	add_action( 'admin_menu', '\Pressbooks\Admin\Laf\replace_book_admin_menu', 1 );
+	add_filter( 'custom_menu_order', '__return_true' );
+	add_filter( 'menu_order', '\Pressbooks\Admin\Laf\reorder_book_admin_menu' );
 	add_action( 'admin_menu', [ '\Pressbooks\Admin\Delete\Book', 'init' ] );
 	add_filter( 'parent_file', '\Pressbooks\Admin\Laf\fix_parent_file' );
-	add_filter( 'submenu_file', '\Pressbooks\Admin\Laf\fix_submenu_file', 10, 2 );
 	add_action( 'wp_dashboard_setup', '\Pressbooks\Admin\Dashboard\replace_dashboard_widgets' );
 	remove_action( 'welcome_panel', 'wp_welcome_panel' );
 	remove_action( 'try_gutenberg_panel', 'wp_try_gutenberg_panel' );
@@ -104,14 +98,9 @@ add_action( 'edit_form_advanced', '\Pressbooks\Admin\Laf\edit_form_hacks' );
 // Google Analytics
 add_action( 'network_admin_menu', '\Pressbooks\Admin\Analytics\add_network_menu' );
 add_action( 'admin_init', '\Pressbooks\Admin\Analytics\network_analytics_settings_init' );
-if ( $is_book ) {
-	switch_to_blog( 1 );
-	$ga_mu_site_specific_allowed = get_option( 'ga_mu_site_specific_allowed', '' );
-	restore_current_blog();
-	if ( isset( $ga_mu_site_specific_allowed ) && '' !== $ga_mu_site_specific_allowed && '0' !== $ga_mu_site_specific_allowed ) {
-		add_action( 'admin_menu', '\Pressbooks\Admin\Analytics\add_menu' );
-		add_action( 'admin_init', '\Pressbooks\Admin\Analytics\analytics_settings_init' );
-	}
+if ( $is_book && get_site_option( 'ga_mu_site_specific_allowed' ) ) {
+	add_action( 'admin_menu', '\Pressbooks\Admin\Analytics\add_book_menu' );
+	add_action( 'admin_init', '\Pressbooks\Admin\Analytics\book_analytics_settings_init' );
 }
 add_action( 'admin_head', '\Pressbooks\Admin\Analytics\print_admin_analytics' );
 
@@ -122,7 +111,7 @@ if ( ! is_network_admin() ) {
 }
 
 //  Replaces 'WordPress' with 'Pressbooks' in titles of admin pages.
-add_filter( 'admin_title', '\Pressbooks\Admin\Laf\admin_title' );
+add_filter( 'admin_title', '\Pressbooks\Admin\Branding\admin_title' );
 
 // Echo our notices, if any
 add_action( 'admin_notices', '\Pressbooks\Admin\Laf\admin_notices' );
@@ -142,17 +131,25 @@ if ( ! $is_book ) {
 // Posts, Meta Boxes
 // -------------------------------------------------------------------------------------------------------------------
 
-add_action('init', function() { // replace default title filtering with our custom one that allows certain tags
-	remove_filter( 'title_save_pre', 'wp_filter_kses' );
-	add_filter( 'title_save_pre', 'Pressbooks\Sanitize\filter_title' );
-});
+add_action(
+	'init', function() {
+		// replace default title filtering with our custom one that allows certain tags
+		remove_filter( 'title_save_pre', 'wp_filter_kses' );
+		add_filter( 'title_save_pre', 'Pressbooks\Sanitize\filter_title' );
+	}
+);
 
-add_action( 'admin_menu', function () {
-	remove_meta_box( 'pageparentdiv', 'chapter', 'normal' );
-	remove_meta_box( 'submitdiv', 'metadata', 'normal' );
-	remove_meta_box( 'submitdiv', 'author', 'normal' );
-	remove_meta_box( 'submitdiv', 'part', 'normal' );
-} );
+add_action(
+	'admin_menu', function () {
+		remove_meta_box( 'pageparentdiv', 'chapter', 'normal' );
+		remove_meta_box( 'submitdiv', 'metadata', 'normal' );
+		remove_meta_box( 'submitdiv', 'author', 'normal' );
+		remove_meta_box( 'submitdiv', 'part', 'normal' );
+		remove_meta_box( 'submitdiv', 'chapter', 'normal' );
+		remove_meta_box( 'submitdiv', 'front-matter', 'normal' );
+		remove_meta_box( 'submitdiv', 'back-matter', 'normal' );
+	}
+);
 
 add_action( 'custom_metadata_manager_init_metadata', '\Pressbooks\Admin\Metaboxes\add_meta_boxes' );
 
@@ -162,6 +159,12 @@ if ( $is_book ) {
 	add_action( 'save_post_metadata', '\Pressbooks\Admin\Metaboxes\upload_cover_image', 10, 2 );
 	add_action( 'save_post_metadata', '\Pressbooks\Admin\Metaboxes\add_required_data', 20, 2 );
 	add_action( 'save_post_metadata', '\Pressbooks\Admin\Metaboxes\save_subject_metadata', 10, 2 );
+	add_action( 'contributor_add_form_fields', '\Pressbooks\Admin\Metaboxes\contributor_add_form' );
+	add_action( 'contributor_edit_form_fields', '\Pressbooks\Admin\Metaboxes\contributor_edit_form' );
+	add_action( 'save_post', '\Pressbooks\Admin\Metaboxes\publish_fields_save', 10 , 3 );
+	add_action( 'init', '\Pressbooks\Metadata\register_contributor_meta' );
+	add_action( 'create_term', '\Pressbooks\Admin\Metaboxes\save_contributor_meta', 10, 3 );
+	add_action( 'edit_term', '\Pressbooks\Admin\Metaboxes\save_contributor_meta', 10, 3 );
 	add_action( 'added_post_meta', '\Pressbooks\Admin\Metaboxes\title_update', 10, 4 );
 	add_action( 'updated_post_meta', '\Pressbooks\Admin\Metaboxes\title_update', 10, 4 );
 	add_action( 'updated_post_meta', '\Pressbooks\L10n\install_book_locale', 10, 4 );
@@ -178,6 +181,7 @@ if ( $is_book ) {
 	add_filter( 'wp_link_query_args', '\Pressbooks\Editor\customize_wp_link_query_args' );
 	add_filter( 'wp_link_query', '\Pressbooks\Editor\add_anchors_to_wp_link_query', 1, 2 );
 	add_action( 'edit_form_after_title', '\Pressbooks\Metadata\add_expanded_metadata_box' );
+	add_action( 'add_meta_boxes', '\Pressbooks\Admin\Metaboxes\replace_authordiv' );
 }
 
 // -------------------------------------------------------------------------------------------------------------------
@@ -185,13 +189,10 @@ if ( $is_book ) {
 // -------------------------------------------------------------------------------------------------------------------
 
 // Book Organize Page
-add_action( 'wp_ajax_pb_update_chapter', '\Pressbooks\Book::updateChapter' );
-add_action( 'wp_ajax_pb_update_front_matter', '\Pressbooks\Book::updateFrontMatter' );
-add_action( 'wp_ajax_pb_update_back_matter', '\Pressbooks\Book::updateBackMatter' );
-add_action( 'wp_ajax_pb_update_export_options', '\Pressbooks\Book::updateExportOptions' );
+add_action( 'wp_ajax_pb_reorder', '\Pressbooks\Admin\Organize\reorder' );
+add_action( 'wp_ajax_pb_update_post_visibility', '\Pressbooks\Admin\Organize\update_post_visibility' );
+add_action( 'wp_ajax_pb_update_post_title_visibility', '\Pressbooks\Admin\Organize\update_post_title_visibility' );
 add_action( 'wp_ajax_pb_update_word_count_for_export', '\Pressbooks\Book::ajaxWordCount' );
-add_action( 'wp_ajax_pb_update_privacy_options', '\Pressbooks\Book::updatePrivacyOptions' );
-add_action( 'wp_ajax_pb_update_show_title_options', '\Pressbooks\Book::updateShowTitleOptions' );
 add_action( 'wp_ajax_pb_update_global_privacy_options', '\Pressbooks\Book::updateGlobalPrivacyOptions' );
 // Book Information Page
 add_action( 'wp_ajax_pb_delete_cover_image', '\Pressbooks\Admin\Metaboxes\delete_cover_image' );
@@ -213,12 +214,14 @@ if ( $is_book ) {
 	add_action( 'after_switch_theme', '\Pressbooks\Admin\Fonts\update_font_stacks' );
 
 	// Posts, Meta Boxes
-	add_action( 'updated_postmeta', function ( $meta_id, $object_id, $meta_key, $meta_value ) {
-		if ( 'pb_language' === $meta_key ) {
-			\Pressbooks\Book::deleteBookObjectCache();
-			\Pressbooks\Admin\Fonts\update_font_stacks();
-		}
-	}, 10, 4 );
+	add_action(
+		'updated_postmeta', function ( $meta_id, $object_id, $meta_key, $meta_value ) {
+			if ( 'pb_language' === $meta_key ) {
+				\Pressbooks\Book::deleteBookObjectCache();
+				\Pressbooks\Admin\Fonts\update_font_stacks();
+			}
+		}, 10, 4
+	);
 
 	// Init
 	add_action( 'admin_init', '\Pressbooks\Admin\Fonts\fix_missing_font_stacks' );
@@ -245,43 +248,55 @@ add_action( 'init', '\Pressbooks\Cloner::formSubmit', 50 );
 
 if ( $is_book ) {
 
-	add_action( 'post_edit_form_tag', function () {
-		echo ' enctype="multipart/form-data"';
-	} );
+	add_action(
+		'post_edit_form_tag', function () {
+			echo ' enctype="multipart/form-data"';
+		}
+	);
 
 	// Disable all pointers (i.e. tooltips) all the time, see \WP_Internal_Pointers()
-	add_action( 'admin_init', function () {
-		remove_action( 'admin_enqueue_scripts', [ 'WP_Internal_Pointers', 'enqueue_scripts' ] );
-	} );
+	add_action(
+		'admin_init', function () {
+			remove_action( 'admin_enqueue_scripts', [ 'WP_Internal_Pointers', 'enqueue_scripts' ] );
+		}
+	);
 
 	// Fix for "are you sure you want to leave page" message when editing a part
-	add_action( 'admin_enqueue_scripts', function () {
-		if ( 'part' === get_post_type() ) {
-			wp_dequeue_script( 'autosave' );
+	add_action(
+		'admin_enqueue_scripts', function () {
+			if ( 'part' === get_post_type() ) {
+				wp_dequeue_script( 'autosave' );
+			}
 		}
-	} );
+	);
 
 	// Hide welcome screen
-	add_action( 'load-index.php', function () {
-		$user_id = get_current_user_id();
-		if ( get_user_meta( $user_id, 'show_welcome_panel', true ) ) {
-			update_user_meta( $user_id, 'show_welcome_panel', 0 );
+	add_action(
+		'load-index.php', function () {
+			$user_id = get_current_user_id();
+			if ( get_user_meta( $user_id, 'show_welcome_panel', true ) ) {
+				update_user_meta( $user_id, 'show_welcome_panel', 0 );
+			}
 		}
-	} );
+	);
 
 	// Disable live preview
-	add_filter( 'theme_action_links', function ( $actions ) {
-		unset( $actions['preview'] );
-		return $actions;
-	} );
+	add_filter(
+		'theme_action_links', function ( $actions ) {
+			unset( $actions['preview'] );
+			return $actions;
+		}
+	);
 
 }
 
 // Hide WP update nag
-add_action( 'admin_menu', function () {
-	remove_action( 'admin_notices', 'update_nag', 3 );
-	remove_filter( 'update_footer', 'core_update_footer' );
-} );
+add_action(
+	'admin_menu', function () {
+		remove_action( 'admin_notices', 'update_nag', 3 );
+		remove_filter( 'update_footer', 'core_update_footer' );
+	}
+);
 
 // Plugin Recommendations
 add_filter( 'install_plugins_tabs', '\Pressbooks\Utility\install_plugins_tabs' );

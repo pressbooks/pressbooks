@@ -1,8 +1,9 @@
 @import 'partials/colors';
+@import 'partials/mixins';
 
 /* Organize Page */
 
-body.chapter_page_pressbooks {
+.toplevel_page_pb_organize {
   #publicize-panel {
     h4 {
       font-size: 15px;
@@ -36,72 +37,60 @@ body.chapter_page_pressbooks {
           margin-bottom: 10px;
         }
 
-        span.active {
+        input:checked + span {
           font-weight: bold;
         }
       }
     }
   }
 
-  .widefat {
-    margin-top: 10px;
+  table {
+    th {
+      vertical-align: top;
+      padding-top: 8px;
 
-    .delete-link {
-      color: $torch-red;
+      &[id$="show_title"],
+      &[id$="visibility"] {
+        cursor: pointer;
+      }
     }
 
-    .row-actions {
-      font-weight: normal;
-    }
+    td {
+      .row-actions {
+        font-weight: normal;
 
-    thead {
-      tr {
-        th {
-          font-weight: bold;
-
-          &:first-child {
-            width: 20%;
-          }
-        }
-
-        th:nth-child(5),
-        th:nth-child(6),
-        th:nth-child(7) {
+        button {
+          padding: 0;
+          border: 0;
+          color: darken($monza, 5%);
+          background-color: transparent;
           cursor: pointer;
+
+          &:focus,
+          &:hover {
+            color: $monza;
+          }
         }
       }
     }
 
-    tbody {
-      tr {
-        td {
-          vertical-align: top;
-
-          span.comment-count {
-            width: auto !important;
-            float: none;
-          }
-
-          &.column-comments {
-            padding: 8px 10px;
-          }
-
-          &:first-child {
-            width: 20%;
-          }
-        }
-
-        &.ui-state-highlight {
-          background: $mercury;
-          color: $mine-shaft;
-          height: 1.5em;
-          line-height: 1.2em;
-        }
-      }
+    & + table {
+      margin-top: 2em;
     }
   }
 
-  #loader {
-    display: none;
+  [role="alert"] {
+    &.visually-hidden {
+      @include visually-hidden();
+    }
+  }
+}
+
+@media (min-width: 783px) {
+  table {
+    .author-label,
+    input + label {
+      @include visually-hidden();
+    }
   }
 }

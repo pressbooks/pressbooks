@@ -47,7 +47,7 @@ class StylesTest extends \WP_UnitTestCase {
 		$this->assertContains( '/export/', $this->cs->getPathToEpubScss( $v1 ) );
 		$this->assertContains( '/export/', $this->cs->getPathToPrinceScss( $v1 ) );
 		// V2
-		$v2 = wp_get_theme( 'pressbooks-clarke' );
+		$v2 = wp_get_theme( 'pressbooks-book' );
 		$this->assertContains( '/assets/styles/', $this->cs->getPathToWebScss( $v2 ) );
 		$this->assertContains( '/assets/styles/', $this->cs->getPathToEpubScss( $v2 ) );
 		$this->assertContains( '/assets/styles/', $this->cs->getPathToPrinceScss( $v2 ) );
@@ -60,10 +60,14 @@ class StylesTest extends \WP_UnitTestCase {
 		$this->assertFalse( $this->cs->isCurrentThemeCompatible( 2, $v1 ) );
 		$this->assertFalse( $this->cs->isCurrentThemeCompatible( 999, $v1 ) );
 		// V2
-		$v2 = wp_get_theme( 'pressbooks-clarke' );
+		$v2 = wp_get_theme( 'pressbooks-book' );
 		$this->assertFalse( $this->cs->isCurrentThemeCompatible( 1, $v2 ) );
 		$this->assertTrue( $this->cs->isCurrentThemeCompatible( 2, $v2 ) );
 		$this->assertFalse( $this->cs->isCurrentThemeCompatible( 999, $v2 ) );
+	}
+
+	public function test_getBuckramVersion() {
+		$this->assertGreaterThanOrEqual( 0, version_compare( $this->cs->getBuckramVersion(), '0.2.0' ) );
 	}
 
 	public function test_applyOverrides() {
@@ -75,7 +79,7 @@ class StylesTest extends \WP_UnitTestCase {
 		$this->assertTrue( strpos( $result, '// SCSS.' ) === 0 );
 		$this->assertContains( '// Override 2.', $result );
 		// V2
-		switch_theme( 'pressbooks-clarke' );
+		switch_theme( 'pressbooks-book' );
 		$result = $this->cs->applyOverrides( '// SCSS.', '// Override.' );
 		$this->assertTrue( strpos( $result, '// Override.' ) === 0 );
 		$result = $this->cs->applyOverrides( '// SCSS.', [ '// Override 1.', '// Override 2.' ] );
@@ -90,7 +94,7 @@ class StylesTest extends \WP_UnitTestCase {
 		$this->assertContains( 'font-size:', $this->cs->customizeEpub() );
 		$this->assertContains( 'font-size:', $this->cs->customizePrince() );
 		// V2
-		switch_theme( 'pressbooks-clarke' );
+		switch_theme( 'pressbooks-book' );
 		$this->assertContains( 'font-size:', $this->cs->customizeWeb() );
 		$this->assertContains( 'font-size:', $this->cs->customizeEpub() );
 		$this->assertContains( 'font-size:', $this->cs->customizePrince() );
@@ -112,10 +116,14 @@ class StylesTest extends \WP_UnitTestCase {
 	public function test_maybeUpdateStyleSheets() {
 
 		$this->_book( 'pressbooks-book' );
+
 		$theme = wp_get_theme();
 		$version = $theme->get( 'Version' );
-		update_option( 'pb_theme_version', floatval( $version ) - 0.1 );
+		update_option( 'pressbooks_theme_version', floatval( $version ) - 0.1 );
+		$result = $this->cs->maybeUpdateStylesheets();
+		$this->assertTrue( $result );
 
+		update_option( 'pressbooks_buckram_version', floatval( $this->cs->getBuckramVersion() ) - 0.1 );
 		$result = $this->cs->maybeUpdateStylesheets();
 		$this->assertTrue( $result );
 

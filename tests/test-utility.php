@@ -2,6 +2,7 @@
 
 class UtilityTest extends \WP_UnitTestCase {
 
+	use utilsTrait;
 
 	public function test_getset() {
 
@@ -49,9 +50,8 @@ class UtilityTest extends \WP_UnitTestCase {
 	//  }
 
 	public function test_get_media_prefix() {
-
+		switch_to_blog( $this->factory()->blog->create() );
 		$prefix = \Pressbooks\Utility\get_media_prefix();
-
 		$this->assertTrue(
 			false !== strpos( $prefix, '/blogs.dir/' ) || false !== strpos( $prefix, '/uploads/sites/' )
 		);
@@ -68,6 +68,23 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertTrue(
 			false !== strpos( $path, '/blogs.dir/' ) || false !== strpos( $path, '/uploads/sites/' )
 		);
+	}
+
+	public function test_latest_exports() {
+		$this->_book();
+		$user_id = $this->factory()->user->create( [ 'role' => 'contributor' ] );
+		wp_set_current_user( $user_id );
+		foreach ( [
+			'\Pressbooks\Modules\Export\HTMLBook\HTMLBook',
+			'\Pressbooks\Modules\Export\WordPress\Wxr',
+		] as $module ) {
+			/** @var \Pressbooks\Modules\Export\Export $exporter */
+			$exporter = new $module( [] );
+			$exporter->convert();
+		}
+		$latest = \Pressbooks\Utility\latest_exports();
+		$this->assertArrayHasKey( 'htmlbook', $latest );
+		$this->assertArrayHasKey( 'wxr', $latest );
 	}
 
 	public function test_add_sitemap_to_robots_txt_0() {
@@ -160,6 +177,11 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertArrayHasKey( 'a-plugin-that-does-not-exist/foobar.php', $filtered );
 	}
 
+	public function test_install_plugins_tabs() {
+		$tabs = \Pressbooks\Utility\install_plugins_tabs( [] );
+		$this->assertArrayNotHasKey( 'featured', $tabs );
+	}
+
 	public function test_file_upload_max_size() {
 
 		$maxSize = \Pressbooks\Utility\file_upload_max_size();
@@ -220,7 +242,7 @@ class UtilityTest extends \WP_UnitTestCase {
 		try {
 			\Pressbooks\Utility\template( '/tmp/file/does/not/exist' );
 		} catch ( \Exception $e ) {
-			$this->assertTrue( true );
+			$this->assertTrue( true ); // Expected exception was thrown
 			return;
 		}
 		$this->fail();
@@ -238,17 +260,36 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'Ned', \Pressbooks\Utility\mail_from_name( '' ) );
 	}
 
+	public function test_rmrdir() {
+		$file = \Pressbooks\Utility\create_tmp_file();
+		$dirname = dirname( $file );
+		if ( ! is_dir( "$dirname/one/two/three/four" ) ) {
+			mkdir( "$dirname/one/two/three/four", 0777, true );
+		}
+		if ( ! is_file( "$dirname/one/two/three/four/delete-me.txt" ) ) {
+			file_put_contents( "$dirname/one/two/three/four/delete-me.txt", 'TODO' );
+		}
+		if ( ! is_dir( "$dirname/one/a/b/c" ) ) {
+			mkdir( "$dirname/one/a/b/c", 0777, true );
+		}
+		if ( ! is_file( "$dirname/one/a/b/c/delete-me.txt" ) ) {
+			file_put_contents( "$dirname/one/a/b/c/delete-me.txt", 'TODO' );
+		}
+		\Pressbooks\Utility\rmrdir( "$dirname/one" );
+		$this->assertFalse( is_dir( "$dirname/one" ) );
+	}
+
 	public function test_rcopy() {
 		$uploads = wp_upload_dir();
 
 		$src = trailingslashit( $uploads['path'] ) . 'src';
 		if ( file_exists( $src ) ) {
-			rmrdir( $src );
+			\Pressbooks\Utility\rmrdir( $src );
 		}
 
 		$dest = trailingslashit( $uploads['path'] ) . 'dest';
 		if ( file_exists( $dest ) ) {
-			rmrdir( $dest );
+			\Pressbooks\Utility\rmrdir( $dest );
 		}
 
 		@mkdir( $src );
@@ -268,12 +309,12 @@ class UtilityTest extends \WP_UnitTestCase {
 
 		$src = trailingslashit( $uploads['path'] ) . 'src';
 		if ( file_exists( $src ) ) {
-			rmrdir( $src );
+			\Pressbooks\Utility\rmrdir( $src );
 		}
 
 		$dest = trailingslashit( $uploads['path'] ) . 'dest';
 		if ( file_exists( $dest ) ) {
-			rmrdir( $dest );
+			\Pressbooks\Utility\rmrdir( $dest );
 		}
 
 		@mkdir( $src );
@@ -288,14 +329,14 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'test', file_get_contents( $dest . '/test.txt' ) );
 		$this->assertEquals( 'test', file_get_contents( $dest . '/subdir/test.txt' ) );
 
-		rmrdir( $dest );
+		\Pressbooks\Utility\rmrdir( $dest );
 		$return = \Pressbooks\Utility\rcopy( $src, $dest, [ 'test.txt' ] );
 		$this->assertTrue( $return );
 		$this->assertFalse( file_exists( $dest . '/test.txt' ) );
 		$this->assertFalse( file_exists( $dest . '/subdir/test.txt' ) );
 		$this->assertEquals( 'test', file_get_contents( $dest . '/readme.txt' ) );
 
-		rmrdir( $dest );
+		\Pressbooks\Utility\rmrdir( $dest );
 		$return = \Pressbooks\Utility\rcopy( $src, $dest, [ 'subdir/' ] );
 		$this->assertTrue( $return );
 		$this->assertFalse( file_exists( $dest . '/subdir' ) );
@@ -308,12 +349,12 @@ class UtilityTest extends \WP_UnitTestCase {
 
 		$src = trailingslashit( $uploads['path'] ) . 'src';
 		if ( file_exists( $src ) ) {
-			rmrdir( $src );
+			\Pressbooks\Utility\rmrdir( $src );
 		}
 
 		$dest = trailingslashit( $uploads['path'] ) . 'dest';
 		if ( file_exists( $dest ) ) {
-			rmrdir( $dest );
+			\Pressbooks\Utility\rmrdir( $dest );
 		}
 
 		@mkdir( $src );
@@ -328,7 +369,7 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertFalse( file_exists( $dest . '/test.txt' ) );
 		$this->assertFalse( file_exists( $dest . '/subdir/test.txt' ) );
 
-		rmrdir( $dest );
+		\Pressbooks\Utility\rmrdir( $dest );
 		$return = \Pressbooks\Utility\rcopy( $src, $dest, [ 'test.*' ], [ 'readme.txt' ] );
 		$this->assertTrue( $return );
 		$this->assertTrue( file_exists( $dest . '/readme.txt' ) );
@@ -336,7 +377,7 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertFalse( file_exists( $dest . '/subdir/test.txt' ) );
 		$this->assertEquals( 'test', file_get_contents( $dest . '/readme.txt' ) );
 
-		rmrdir( $dest );
+		\Pressbooks\Utility\rmrdir( $dest );
 		$return = \Pressbooks\Utility\rcopy( $src, $dest, [], [ 'readme.*' ] );
 		$this->assertTrue( $return );
 		$this->assertTrue( file_exists( $dest . '/readme.txt' ) );
@@ -353,6 +394,18 @@ class UtilityTest extends \WP_UnitTestCase {
 	public function test_str_ends_with() {
 		$this->assertFalse( \Pressbooks\Utility\str_ends_with( 's0.wp.com', 's0.wp' ) );
 		$this->assertTrue( \Pressbooks\Utility\str_ends_with( 's0.wp.com', 'wp.com' ) );
+	}
+
+	public function test_str_remove_prefix() {
+
+		$result = \Pressbooks\Utility\str_remove_prefix( 'foo foo foo bar', 'foo'  );
+		$this->assertEquals( ' foo foo bar', $result );
+
+		$result = \Pressbooks\Utility\str_remove_prefix( 'foo foo foo bar', 'foo ' );
+		$this->assertEquals( 'foo foo bar', $result );
+
+		$result = \Pressbooks\Utility\str_remove_prefix( 'foo foo foo bar', 'FOO ' );
+		$this->assertEquals( 'foo foo foo bar', $result );
 	}
 
 	public function test_str_lreplace() {
@@ -423,8 +476,39 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertFalse( \Pressbooks\Utility\urls_have_same_host( 'pressbooks.com', 'pressbooks.com' ) ); // Not a fully qualified URL
 	}
 
+	public function get_generated_content_path() {
+		$path = \Pressbooks\Utility\get_generated_content_path();
+		$this->assertStringStartsWith( '/', $path );
+		$this->assertContains( '/pressbooks/', $path );
+	}
+
+	public function get_generated_content_url() {
+		$url = \Pressbooks\Utility\get_generated_content_url();
+		$this->assertStringStartsWith( 'http', $url );
+		$this->assertContains( '/pressbooks/', $url );
+	}
+
 	public function test_get_cache_path() {
 		$this->assertNotEmpty( \Pressbooks\Utility\get_cache_path() );
+	}
+
+	public function test_oxford_comma() {
+		$this->assertEquals( '', \Pressbooks\Utility\oxford_comma( [] ) );
+		$vars[] = 'One Person';
+		$this->assertEquals( 'One Person', \Pressbooks\Utility\oxford_comma( $vars ) );
+		$vars[] = 'Two People';
+		$this->assertEquals( 'One Person and Two People', \Pressbooks\Utility\oxford_comma( $vars ) );
+		$vars[] = 'Three People';
+		$this->assertEquals( 'One Person, Two People, and Three People', \Pressbooks\Utility\oxford_comma( $vars ) );
+		$vars[] = 'Four People';
+		$this->assertEquals( 'One Person, Two People, Three People, and Four People', \Pressbooks\Utility\oxford_comma( $vars ) );
+	}
+
+	public function test_oxford_comma_explode() {
+		$this->assertEmpty( \Pressbooks\Utility\oxford_comma_explode( '' ) );
+		$this->assertEquals( [ 'One Person', 'Two People' ], \Pressbooks\Utility\oxford_comma_explode( 'One Person and Two People' ) );
+		$this->assertEquals( [ 'One Person', 'Two People', 'Three People', 'Four People' ], \Pressbooks\Utility\oxford_comma_explode( 'One Person, Two People, Three People, and Four People' ) );
+		$this->assertEquals( [ 'andy', 'andrew', 'andrea', 'android' ], \Pressbooks\Utility\oxford_comma_explode( 'andy,andrew, andrea,  android' ) );
 	}
 
 	public function test_is_assoc() {
@@ -433,6 +517,15 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertFalse( \Pressbooks\Utility\is_assoc( [ "0" => 'a', "1" => 'b', "2" => 'c' ] ) );
 		$this->assertTrue( \Pressbooks\Utility\is_assoc( [ "1" => 'a', "0" => 'b', "2" => 'c' ] ) );
 		$this->assertTrue( \Pressbooks\Utility\is_assoc( [ "a" => 'a', "b" => 'b', "c" => 'c' ] ) );
+	}
+
+	public function test_empty_space() {
+		$this->assertFalse( \Pressbooks\Utility\empty_space( 'Hi' ) );
+		$this->assertFalse( \Pressbooks\Utility\empty_space( true ) );
+		$this->assertTrue( \Pressbooks\Utility\empty_space( '' ) );
+		$this->assertTrue( \Pressbooks\Utility\empty_space( '  ' ) );
+		$this->assertTrue( \Pressbooks\Utility\empty_space( "\n\r\t" ) );
+		$this->assertTrue( \Pressbooks\Utility\empty_space( false ) );
 	}
 
 }

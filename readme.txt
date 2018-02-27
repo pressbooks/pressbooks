@@ -1,12 +1,12 @@
 === Pressbooks ===
 
 Contributors: Pressbooks <code@pressbooks.com>
-Version: 4.5.1
-Stable Tag: 4.5.1
+Version: 5.0.0
+Stable Tag: 5.0.0
 Tags: ebooks, publishing, webbooks
 Requires PHP: 7.0
-Requires at least: 4.9.2
-Tested up to: 4.9.2
+Requires at least: 4.9.4
+Tested up to: 4.9.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -47,11 +47,77 @@ TK.
 6. Catalog
 
 == Upgrade Notice ==
-= 4.5.1 =
+= 5.0.0 =
 
-Pressbooks >= 4.5.1 requires [WordPress 4.9.2](https://wordpress.org/news/2018/01/wordpress-4-9-2-security-and-maintenance-release/).
+Pressbooks 5.0.0 requires [WordPress 4.9.4](https://wordpress.org/news/2018/02/wordpress-4-9-4-maintenance-release/).
+Pressbooks 5.0.0 requires [Pressbooks Book 2.0.0](https://github.com/pressbooks/pressbooks-book/).
+Pressbooks 5.0.0 requires that users of the Luther book theme install and network activate the standalone [Luther theme](https://github.com/pressbooks/pressbooks-luther/) _before_ upgrading to Pressbooks 5.0. For more information, see the [upgrading instructions](https://docs.pressbooks.org/upgrading/#upgrading-to-pressbooks-5-x).
 
 == Changelog ==
+
+=== 5.0.0 ===
+**NOTICE:** Pressbooks 5.0.0 requires [WordPress 4.9.4](https://wordpress.org/news/2018/02/wordpress-4-9-4-maintenance-release/).
+**NOTICE:** Pressbooks 5.0.0 requires [Pressbooks Book 2.0.0](https://github.com/pressbooks/pressbooks-book/).
+**NOTICE:** Pressbooks 5.0.0 requires that users of the Luther book theme install and network activate the standalone [Luther theme](https://github.com/pressbooks/pressbooks-luther/) _before_ upgrading to Pressbooks 5.0. For more information, see the [upgrading instructions](https://docs.pressbooks.org/upgrading/#upgrading-to-pressbooks-5-x).
+
+==== Key Features ====
+
+===== Contributor Management =====
+
+We’ve added a centralized contributor management tool where you can add contributors who can then be reused throughout your book as authors, editors, translators, reviewers, illustrators, and generic contributors.
+
+===== Changes to the Organize Page & Section Visibility =====
+
+We’ve made a few key changes to the Organize page in this release. The first is to add keyboard navigation, which has been a known shortcoming in the interface, and some improvements for those using screen readers, both for accessibility. We’ve also improved the display on mobile devices.
+
+Included in this is a change to handling chapter/section visibility, both in the Organize page and editing interface. Each chapter now has two simple controls — “Show in Web” and “Show in Exports” — which do exactly what you would expect.
+
+===== Chapter Importing =====
+
+Building on the book cloning feature, we have introduced the ability to easily import individual chapters from Pressbooks webbooks using the import tool. We’ve also added the ability to upload supported files from remote (web-based) sources.
+
+==== Detailed Changelog ====
+
+* **Feature**: Contributors! We’ve added a centralized contributor management tool where you can add contributors who can then be reused throughout your book as authors, editors, translators, reviewers, illustrators, and generic contributors (see [#989](https://github.com/pressbooks/pressbooks/issues/989), [#1017](https://github.com/pressbooks/pressbooks/issues/1017), [#1020](https://github.com/pressbooks/pressbooks/issues/1020), [#1031](https://github.com/pressbooks/pressbooks/issues/1031), [#1033](https://github.com/pressbooks/pressbooks/issues/1033), [#1038](https://github.com/pressbooks/pressbooks/issues/1038), [#1047](https://github.com/pressbooks/pressbooks/issues/1047), [#1060](https://github.com/pressbooks/pressbooks/issues/1060), [#1086](https://github.com/pressbooks/pressbooks/issues/1086), [#1087](https://github.com/pressbooks/pressbooks/issues/1087), [#1088](https://github.com/pressbooks/pressbooks/issues/1088), [#1098](https://github.com/pressbooks/pressbooks/pull/1098), and [#1100](https://github.com/pressbooks/pressbooks/pull/1100)).
+* **Feature**: Re-Organizing! We’ve overhauled the Organize page, improving the display on mobile devices, and improving accessibility for keyboard navigation and screen reader users (see [#305](https://github.com/pressbooks/pressbooks/issues/305), [#1009](https://github.com/pressbooks/pressbooks/issues/1009), [#1046](https://github.com/pressbooks/pressbooks/issues/1046), and [aa75269](https://github.com/pressbooks/pressbooks/commit/aa75269a5c3ee5d369ef3b128028bf49632b96de)).
+* **Feature**: Content Visibility! We’ve made it more intuitive to manage the visibility of your content across web and exports on both the Organize page and the edit screen for individual front matter, chapters and back matter (see [#1017](https://github.com/pressbooks/pressbooks/issues/1017), [#1033](https://github.com/pressbooks/pressbooks/issues/1033), [#1046](https://github.com/pressbooks/pressbooks/issues/1046), [#1060](https://github.com/pressbooks/pressbooks/issues/1060), [#1067](https://github.com/pressbooks/pressbooks/issues/1067), [#1121](https://github.com/pressbooks/pressbooks/issues/1121), and [#1122](https://github.com/pressbooks/pressbooks/pull/1122)).
+* **Feature**: Chapter Importing! We’ve added support for importing individual chapters from Pressbooks webbooks using the Import tool. We’ve also added support for importing all supported file types from local (upload) or remote (web-based) sources (see [#1054](https://github.com/pressbooks/pressbooks/issues/1054), [#1057](https://github.com/pressbooks/pressbooks/issues/1057), [#1089](https://github.com/pressbooks/pressbooks/issues/1089), [#1091](https://github.com/pressbooks/pressbooks/issues/1091), [#1092](https://github.com/pressbooks/pressbooks/issues/1092), [#1093](https://github.com/pressbooks/pressbooks/issues/1093), [#1098](https://github.com/pressbooks/pressbooks/pull/1098), [#1111](https://github.com/pressbooks/pressbooks/pull/1111), [#1117](https://github.com/pressbooks/pressbooks/pull/1117), and [#1119](https://github.com/pressbooks/pressbooks/pull/1119)).
+* **Feature**: HTMLBook! We’ve added a class which describes the [HTMLBook](http://oreillymedia.github.io/HTMLBook/) Draft Specification and a proof-of-concept HTMLBook export module (see [#830](https://github.com/pressbooks/pressbooks/issues/830), [#1002](https://github.com/pressbooks/pressbooks/issues/1002), [#1003](https://github.com/pressbooks/pressbooks/issues/1003), [#1032](https://github.com/pressbooks/pressbooks/issues/1032), [#1042](https://github.com/pressbooks/pressbooks/issues/1042), [#1043](https://github.com/pressbooks/pressbooks/issues/1043), and [#1062](https://github.com/pressbooks/pressbooks/issues/1062)).
+* **Core Enhancement**: When a Pressbooks update is available, you'll also get some information on the compatibility of any installed Pressbooks add-ons with the new version. Plugins can declare compatibility by adding "Pressbooks tested up to: 5.0.0" to the [plugin header](https://developer.wordpress.org/plugins/the-basics/header-requirements/). This feature was inspired by recent improvements to [WooCommerce](https://woocommerce.wordpress.com/2017/08/28/new-version-check-in-woocommerce-3-2/) (see [#955](https://github.com/pressbooks/pressbooks/issues/955) and [#1115](https://github.com/pressbooks/pressbooks/pull/1115)).
+* **Core Enhancement**: We’ve restyled the login screen to better integrate with the Pressbooks look and feel (see [#929](https://github.com/pressbooks/pressbooks/issues/929) and [#1069](https://github.com/pressbooks/pressbooks/issues/1069)).
+* **Core Enhancement**: We’ve moved the Ebook start point setting to the Ebook Theme Options page to ensure that only one front matter, chapter, or back matter can be set as the Ebook start point (see [#1046](https://github.com/pressbooks/pressbooks/issues/1046), [#1053](https://github.com/pressbooks/pressbooks/issues/1053), and [aa75269](https://github.com/pressbooks/pressbooks/commit/aa75269a5c3ee5d369ef3b128028bf49632b96de)).
+* **Core Enhancement**: We’ve renamed the _Language Support_ section in Theme Options to _Language & Script Support_ to better reflect its functionality; we’ve also re-labelled Hindi support to Devanagari, to clarify that the Devanagari script supports Hindi, Sanskrit, and over 120 other languages (see [#1023](https://github.com/pressbooks/pressbooks/issues/1023) and [#1025](https://github.com/pressbooks/pressbooks/issues/1025)).
+* **Core Enhancement**: We’ve moved user generated content to a `/pressbooks` directory within your book’s uploads directory to prevent possible conflicts with other plugins (see [#1013](https://github.com/pressbooks/pressbooks/issues/1013)).
+* **Core Enhancement**: Books using themes built with our Buckram theme library will now use improved markup for front matter, back matter, and chapter headings (see [#1035](https://github.com/pressbooks/pressbooks/issues/1035), [#1045](https://github.com/pressbooks/pressbooks/issues/1045) and [#1063](https://github.com/pressbooks/pressbooks/issues/1063)).
+* **Core Enhancement**: We’ve added a routine to support Luther’s migration to a standalone theme (see [#986](https://github.com/pressbooks/pressbooks/issues/986), [#1016](https://github.com/pressbooks/pressbooks/issues/1016), [#1090](https://github.com/pressbooks/pressbooks/issues/1090), and [#1104](https://github.com/pressbooks/pressbooks/pull/1104)).
+* **Core Enhancement**: We've added a routine to recompile the webbook stylesheet when the bundled version of [Buckram](https://github.com/pressbooks/buckram) is updated (see [#1120](https://github.com/pressbooks/pressbooks/pull/1120)).
+* **Core Enhancement**: We’ve added a debugging routine to prettify XHTML and HTMLBook output for readability (see [#1036](https://github.com/pressbooks/pressbooks/issues/1036)).
+* **Core Enhancement**: We've added an experimental batch endpoint to the Pressbooks REST API, which allows multiple operations to be performed with a single HTTP request (see [#1062](https://github.com/pressbooks/pressbooks/issues/1062)). This is currently not documented or supported and we don't encourage anyone to use it yet.
+* **Core Enhancement**: We've moved license types into a taxonomy (see [#989](https://github.com/pressbooks/pressbooks/issues/989), [#1010](https://github.com/pressbooks/pressbooks/issues/1010), [#1033](https://github.com/pressbooks/pressbooks/issues/1033), [#1040](https://github.com/pressbooks/pressbooks/issues/1040), [#1044](https://github.com/pressbooks/pressbooks/issues/1044), [#1066](https://github.com/pressbooks/pressbooks/issues/1066), [#1112](https://github.com/pressbooks/pressbooks/pull/1112), and [#1123](https://github.com/pressbooks/pressbooks/pull/1123)).
+* **Core Enhancement**: We've added a new action hook, `pb_cache_delete`, which runs when the book object cache is deleted (see [#1066](https://github.com/pressbooks/pressbooks/issues/1066)).
+* **Core Enhancement**: Custom post types and taxonomies are now registered using [@johnbillion](https://github.com/johnbillion)'s excellent Extended CPTs library (see [#989](https://github.com/pressbooks/pressbooks/issues/989), [#1015](https://github.com/pressbooks/pressbooks/issues/1015), and [#1030](https://github.com/pressbooks/pressbooks/issues/1030)).
+* **Core Enhancement**: We’re now using WordPress’ custom_menu_order and menu_order filters to adjust the admin menu instead of custom code (see [#989](https://github.com/pressbooks/pressbooks/issues/989)).
+* **Core Enhancement**: The `getBookStructure()` method now populates a `_web_lookup` array to reflect differences between webbook and export contents (see [#1085](https://github.com/pressbooks/pressbooks/pull/1085)).
+* **Core Enhancement**: The `updateWebbookStylesheet()` method now supports an optional `$stylesheet` parameter to allow the compilation of an arbitrary theme's stylesheet (see [#1099](https://github.com/pressbooks/pressbooks/pull/1099)).
+* **Core Enhancement**: We've updated the Pressbooks CLI to 1.6.0 (see [#1118](https://github.com/pressbooks/pressbooks/pull/1118) and the [release notes](https://github.com/pressbooks/pb-cli/releases/tag/1.6.0)).
+* **Core Enhancement**: We’ve updated to the latest version of the [Human Made Coding Standards](https://github.com/humanmade/coding-standards) and fixed our code for compatibility (see [#1001](https://github.com/pressbooks/pressbooks/issues/1001)).
+* **Core Enhancement**: We’ve updated to version 4.4 of the [plugin-update-checker](https://github.com/yahniselsts/plugin-update-checker) library (see [#1001](https://github.com/pressbooks/pressbooks/issues/1001) and [#1017](https://github.com/pressbooks/pressbooks/issues/1017)).
+* **Core Enhancement**: We’ve updated to version 0.7.5 of the [scssphp](https://github.com/leafo/scssphp) library (see [#1110](https://github.com/pressbooks/pressbooks/pull/1110)).
+* **Fix**: We fixed a bug where internal links would not work in EPUB and MOBI exports if chapter slugs began with a numeric character (see [#1026](https://github.com/pressbooks/pressbooks/issues/1026) and [#1027](https://github.com/pressbooks/pressbooks/issues/1027); props to [@luis-r-izquierdo](https://github.com/luis-r-izquierdo) for the bug report).
+* **Fix**: We fixed a bug where Discussion settings would appear on the Book Information page in the admin interface (see [#1014](https://github.com/pressbooks/pressbooks/issues/1014); props to [@colomet](https://github.com/colomet) for the bug report).
+* **Fix**: We fixed a bug where users without edit permissions would be able to drag and drop front matter, chapter, and back matter on the Organize page (see [#305](https://github.com/pressbooks/pressbooks/issues/305) and [#1046](https://github.com/pressbooks/pressbooks/issues/1046); props to [@pbstudent](https://github.com/pbstudent) for the bug report).
+* **Fix**: We fixed a bug where users without the necessary permissions were able to see the Book Information menu even though they couldn't visit the page (see [#1083](https://github.com/pressbooks/pressbooks/issues/1083) and [1c1889e](https://github.com/pressbooks/pressbooks/commit/1c1889eb3282d1c75a60c72957b621a8d600fd3c); props to [@thomasdumm](https://github.com/thomasdumm/) for the bug report)
+* **Fix**: We fixed a bug where Google Analytics settings for books were not functioning properly for some users (see [#1018](https://github.com/pressbooks/pressbooks/issues/1018) and [#1041](https://github.com/pressbooks/pressbooks/issues/1041)).
+* **Fix**: We fixed a bug where “the kitchen sink” toolbar appeared for rich text fields on the Book Information page (see [#1029](https://github.com/pressbooks/pressbooks/issues/1029)).
+* **Fix**: We switched back to our own directory deletion routine to prevent a "Too many open files" error caused by `RecursiveDirectoryIterator` (see [#1070](https://github.com/pressbooks/pressbooks/issues/1070) and [#1074](https://github.com/pressbooks/pressbooks/issues/1074)).
+* **Fix**: We fixed a JS syntax error on the Book Information page (see [#1072](https://github.com/pressbooks/pressbooks/issues/1072)).
+* **Fix**: We fixed an error that occurred when attempted to parse a date from an invalid timestamp (see [#1070](https://github.com/pressbooks/pressbooks/issues/1070)).
+* **Fix**: We fixed a couple of PHP warnings produced by the Creative Commons license module (see [#1005](https://github.com/pressbooks/pressbooks/issues/1005) and [#1006](https://github.com/pressbooks/pressbooks/issues/1006)).
+* **Fix**: We fixed a few PHP notices related to the API (see [#1034](https://github.com/pressbooks/pressbooks/issues/1034) and [#1037](https://github.com/pressbooks/pressbooks/issues/1037)).
+* **Fix**: We added a link to the registration page from the dashboard for users without books (see [#1102](https://github.com/pressbooks/pressbooks/issues/1102) and [#1106](https://github.com/pressbooks/pressbooks/pull/1106); props to [@thomasdumm](https://github.com/thomasdumm/) for the bug report).
+* **Fix**: We fixed a bug where the part selection dropdown would not appear when editing a chapter (see [#1081](https://github.com/pressbooks/pressbooks/issues/1081) and [7fa5871](https://github.com/pressbooks/pressbooks/commit/7fa58719619fb07a79012b5884c272b19a574852)).
+* **Fix**: We fixed a bug where the slug metabox would appear on the Book Information page (see [#1094](https://github.com/pressbooks/pressbooks/issues/1094) and [#1098](https://github.com/pressbooks/pressbooks/pull/1098)).
+
 = 4.5.1=
 **NOTICE:** Pressbooks >= 4.5.1 requires [WordPress 4.9.2](https://wordpress.org/news/2018/01/wordpress-4-9-2-security-and-maintenance-release/).
 

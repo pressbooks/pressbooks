@@ -78,61 +78,47 @@ function login( $redirect_to, $request_redirect_to, $user ) {
  * Centralize flush_rewrite_rules() in one single function so that rule does not kill the other
  */
 function flusher() {
-
-	$pull_the_lever = false;
-
-	// See \Pressbooks\PostType\register_post_types
-	$set = get_option( 'pressbooks_flushed_post_type' );
-	if ( ! $set ) {
-		$pull_the_lever = true;
-		update_option( 'pressbooks_flushed_post_type', true );
-	}
-
-	// See rewrite_rules_for_format()
-	$set = get_option( 'pressbooks_flushed_format' );
-	if ( ! $set ) {
-		$pull_the_lever = true;
-		update_option( 'pressbooks_flushed_format', true );
-	}
-
-	// See rewrite_rules_for_catalog()
-	$set = get_option( 'pressbooks_flushed_catalog_V4' );
-	if ( ! $set ) {
-		$pull_the_lever = true;
-		update_option( 'pressbooks_flushed_catalog_V4', true );
-	}
-
-	// See rewrite_rules_for_sitemap()
-	$set = get_option( 'pressbooks_flushed_sitemap' );
-	if ( ! $set ) {
-		$pull_the_lever = true;
-		update_option( 'pressbooks_flushed_sitemap', true );
-	}
-
-	// See rewrite_rules_for_upgrade()
-	$set = get_option( 'pressbooks-vip_flushed_upgrade' );
-	if ( ! $set ) {
-		$pull_the_lever = true;
-		update_option( 'pressbooks-vip_flushed_upgrade', true );
-	}
-
-	$set = get_option( 'pressbooks_flushed_api' );
-	if ( ! $set ) {
-		$pull_the_lever = true;
-		update_option( 'pressbooks_flushed_api', true );
-	}
-
-	$set = get_option( 'pressbooks_flushed_open' );
-	if ( ! $set ) {
-		$pull_the_lever = true;
-		update_option( 'pressbooks_flushed_open', true );
-	}
-
-	if ( $pull_the_lever ) {
+	$number = 2; // Increment this number when you need to re-run flush_rewrite_rules()
+	if ( absint( get_option( 'pressbooks_flusher', 1 ) ) < $number ) {
 		flush_rewrite_rules( false );
+		update_option( 'pressbooks_flusher', $number );
 	}
 }
 
+/**
+ * Migrate generated content to namespaced folder
+ *
+ * @since 5.0.0
+ *
+ * @see \Pressbooks\Utility\get_generated_content_path
+ */
+function migrate_generated_content() {
+	$option_name = 'pressbooks_migrated_generated_content';
+	$is_migrated = get_option( $option_name, false );
+	if ( $is_migrated === false ) {
+		$move = [
+			'/cache',
+			'/css',
+			'/custom-css',
+			'/exports',
+			'/lock',
+			'/scss',
+			'/scss-debug',
+		];
+		$source_dir = untrailingslashit( wp_upload_dir()['basedir'] );
+		$dest_dir = untrailingslashit( \Pressbooks\Utility\get_generated_content_path() );
+
+		foreach ( $move as $suffix ) {
+			if ( is_dir( "{$source_dir}/{$suffix}" ) ) {
+				$ok = rename( "{$source_dir}/{$suffix}", "{$dest_dir}/{$suffix}" );
+				if ( ! $ok ) {
+					\Pressbooks\Utility\debug_error_log( "Failed to migrate: {$source_dir}/{$suffix}" );
+				}
+			}
+		}
+		update_option( $option_name, 1 );
+	}
+}
 
 /**
  * Add a rewrite rule for the keyword "format"
@@ -162,6 +148,14 @@ function do_format() {
 
 		$args = [];
 		$foo = new \Pressbooks\Modules\Export\Xhtml\Xhtml11( $args );
+		$foo->transform();
+		exit;
+	}
+
+	if ( 'htmlbook' === $format ) {
+
+		$args = [];
+		$foo = new \Pressbooks\Modules\Export\HTMLBook\HTMLBook( $args );
 		$foo->transform();
 		exit;
 	}
@@ -374,11 +368,16 @@ function do_open() {
 				$book_title_slug = str_replace( [ '+' ], '', $book_title_slug ); // Remove symbols which confuse Apache (Ie. form urlencoded spaces)
 				$book_title_slug = sanitize_file_name( $book_title_slug );
 				if ( ! is_readable( $filepath ) ) {
-					wp_die( __( 'File not found', 'pressbooks' ) . ': ' . $files[ $_GET['type'] ], '', [ 'response' => 404 ] );
+					wp_die(
+						__( 'File not found', 'pressbooks' ) . ': ' . $files[ $_GET['type'] ], '', [
+							'response' => 404,
+						]
+					);
 				}
 
 				// Force download
-				@set_time_limit( 0 ); // @codingStandardsIgnoreLine
+				// @codingStandardsIgnoreStart
+				@set_time_limit( 0 );
 				header( 'Content-Description: File Transfer' );
 				header( 'Content-Type: ' . \Pressbooks\Modules\Export\Export::mimeType( $filepath ) );
 				header( 'Content-Disposition: attachment; filename="' . $book_title_slug . '.' . $file_ext . '"' );
@@ -387,12 +386,13 @@ function do_open() {
 				header( 'Cache-Control: must-revalidate, post-check=0, pre-check=0' );
 				header( 'Pragma: public' );
 				header( 'Content-Length: ' . filesize( $filepath ) );
-				@ob_clean(); // @codingStandardsIgnoreLine
+				@ob_clean();
 				flush();
-				while ( @ob_end_flush() ) { // @codingStandardsIgnoreLine
+				while ( @ob_end_flush() ) {
 					// Fix out-of-memory problem
 				}
 				readfile( $filepath );
+				// @codingStandardsIgnoreEnd
 
 				exit;
 			}
@@ -422,7 +422,7 @@ function redirect_away_from_bad_urls() {
 		return; // Do nothing
 	}
 
-	$check_against_url = parse_url( ( is_ssl() ? 'http://' : 'https://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'], PHP_URL_PATH );
+	$check_against_url = wp_parse_url( ( is_ssl() ? 'http://' : 'https://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'], PHP_URL_PATH );
 	$redirect_url = get_site_url( get_current_blog_id(), '/wp-admin/' );
 	$trash_url = get_site_url( get_current_blog_id(), '/wp-admin/edit.php?post_type=chapter&page=trash' );
 
@@ -446,10 +446,19 @@ function redirect_away_from_bad_urls() {
 	}
 
 	// ---------------------------------------------------------------------------------------------------------------
+	// If user is on edit-tags.php, check for valid taxonomy
+
+	if ( preg_match( '~/wp-admin/edit-tags\.php$~', $check_against_url ) ) {
+		if ( isset( $_REQUEST['taxonomy'] ) && ! in_array( $_REQUEST['taxonomy'], [ 'contributor' ], true ) ) {
+			$_SESSION['pb_notices'][] = __( 'Unsupported taxonomy.', 'pressbooks' );
+			\Pressbooks\Redirect\location( $redirect_url );
+		}
+	}
+
+	// ---------------------------------------------------------------------------------------------------------------
 	// Don't let user go to any of these pages, under any circumstance
 
 	$restricted = [
-		'edit-tags',
 		'export',
 		'import',
 		'link-(manager|add)',

@@ -51,25 +51,30 @@ function init_book() {
 	}
 
 	foreach ( get_taxonomies() as $taxonomy ) {
-		// Override Revisions routes for our custom post types
-		if ( in_array( $taxonomy, [ 'front-matter-type', 'chapter-type', 'back-matter-type' ], true ) ) {
+		// Override custom taxonomy routes
+		if ( in_array( $taxonomy, [ 'front-matter-type', 'chapter-type', 'back-matter-type', 'license', 'contributor' ], true ) ) {
 			( new Endpoints\Controller\Terms( $taxonomy ) )->register_routes();
 		}
 	}
 
 	// Add Part ID to chapters
 	// We disable hierarchical mode but still want to use `post_parent`
-	register_rest_field( 'chapter', 'part', [
-		'get_callback' => function ( $post_arr ) {
-			return (int) get_post( $post_arr['id'] )->post_parent;
-		},
-		'update_callback' => __NAMESPACE__ . '\update_part_id',
-		'schema' => [
-			'description' => __( 'Part ID.', 'pressbooks' ),
-			'type' => 'integer',
-			'context' => [ 'view', 'edit', 'embed' ],
-		],
-	] );
+	register_rest_field(
+		'chapter', 'part', [
+			'get_callback' => function ( $post_arr ) {
+				return (int) get_post( $post_arr['id'] )->post_parent;
+			},
+			'update_callback' => __NAMESPACE__ . '\update_part_id',
+			'schema' => [
+				'description' => __( 'Part ID.', 'pressbooks' ),
+				'type' => 'integer',
+				'context' => [ 'view', 'edit', 'embed' ],
+			],
+		]
+	);
+
+	// Batch endpoint
+	init_batch();
 }
 
 /**
@@ -77,11 +82,107 @@ function init_book() {
  */
 function init_root() {
 
+	// Disabled up to here because we don't want them in the root site Admin UI...
+	\Pressbooks\Metadata\init_book_data_models();
+
 	// Register Books
 	( new Endpoints\Controller\Books() )->register_routes();
 
 	// Register Search
 	( new Endpoints\Controller\Search() )->register_routes();
+}
+
+/**
+ * Forked from:
+ *
+ * @author Joe Hoyle
+ * @source https://gist.github.com/joehoyle/44a71a2e458b05c22a10
+ *
+ * The endpoint `/wp-json/pressbooks/v2/batch` allows a client to send multiple requests to the
+ * server for processing in a single HTTP request. Each child request can have it's own
+ * HTTP Method, Body, Headers, URL Params and Path.
+ *
+ * If the HTTP Method, Body or Headers are not supplied for each request, they will be
+ * inherited from the HTTP request.
+ *
+ * The client must send an array of "request" objects in the `requests` param, the "request"
+ * object can be a Path for shorthand (enabling the inheritance of HTTP Method, Body and Headers
+ * from the HTTP request.)
+ *
+ * When not supplying only string Paths in the `requests` array, the "request" object must be in the
+ * form of `{ path: '/some/path', headers: [], body: {}, method: 'POST' }`
+ *
+ * Example 1: Fetch all recent posts and all recent pages
+ *
+ * `curl example.com/wp-json/pressbooks/v2/batch?requests[]=/pressbooks/v2/front-matter&requests[]=/pressbooks/v2/back-matter`
+ *
+ * Example 2: Delete 2 posts
+ *
+ * `curl -X DELETE example.com/wp-json/pressbooks/v2/batch?requests[]=/pressbooks/v2/front-matter/1&requests[]=/pressbooks/v2/front-matter/2`
+ *
+ * Responses are in the form of a WP REST API enveloped response object. The HTTP request will return an
+ * array of enveloped response objects in the order the `requests` parameter was passed.
+ */
+function init_batch() {
+	register_rest_route(
+		'pressbooks/v2', 'batch', [
+			'methods' => \WP_REST_Server::ALLMETHODS,
+			'args' => [
+				'requests' => [],
+			],
+			'callback' => __NAMESPACE__ . '\batch_serve_request',
+		]
+	);
+}
+
+/**
+ * @param \WP_REST_Request $request
+ *
+ * @return mixed
+ */
+function batch_serve_request( $request ) {
+	if ( ! is_array( $request['requests'] ) ) {
+		return new \WP_Error(
+			'rest_invalid_param', __( 'Invalid batch parameter(s).', 'pressbooks' ), [
+				'status' => 400,
+			]
+		);
+	}
+	/** @var \WP_REST_Server $wp_rest_server */
+	global $wp_rest_server;
+	$responses = [];
+	foreach ( $request['requests'] as $single_request ) {
+		if ( is_string( $single_request ) ) {
+			$single_request = [
+				'path' => $single_request,
+			];
+		}
+		if ( empty( $single_request['method'] ) ) {
+			$single_request['method'] = $_SERVER['REQUEST_METHOD'];
+		}
+		if ( empty( $single_request['body'] ) ) {
+			$single_request['body'] = $_POST;
+		}
+		if ( empty( $single_request['headers'] ) ) {
+			$single_request['headers'] = $_SERVER;
+		}
+
+		$parsed_url = wp_parse_url( $single_request['path'] );
+		$rest_request = new \WP_REST_Request( $single_request['method'], $parsed_url['path'] );
+		$rest_request->set_headers( $wp_rest_server->get_headers( $single_request['headers'] ) );
+		$rest_request->set_body_params( $single_request['body'] );
+		if ( ! empty( $parsed_url['query'] ) ) {
+			parse_str( $parsed_url['query'], $params );
+			$rest_request->set_query_params( $params );
+		}
+
+		$result = $wp_rest_server->dispatch( $rest_request );
+		$result = rest_ensure_response( $result );
+		$result = apply_filters( 'rest_post_dispatch', rest_ensure_response( $result ), $wp_rest_server, $rest_request );
+		$result = $wp_rest_server->envelope_response( $result, $rest_request->get_param( '_embed' ) );
+		$responses[] = $result;
+	}
+	return $responses;
 }
 
 /**
@@ -102,6 +203,8 @@ function hide_endpoints_from_book( $endpoints ) {
 			( strpos( $key, '/wp/v2/front-matter-type' ) === 0 ) ||
 			( strpos( $key, '/wp/v2/chapter-type' ) === 0 ) ||
 			( strpos( $key, '/wp/v2/back-matter-type' ) === 0 ) ||
+			( strpos( $key, '/wp/v2/license' ) === 0 ) ||
+			( strpos( $key, '/wp/v2/contributor' ) === 0 ) ||
 			( strpos( $key, '/wp/v2' ) === 0 && strpos( $key, '/revisions' ) !== false )
 		) {
 			unset( $endpoints[ $key ] );
@@ -125,6 +228,8 @@ function hide_endpoints_from_root( $endpoints ) {
 }
 
 /**
+ * Filter to adjust the url returned by the get_rest_url() function
+ *
  * @param string $url
  * @param string $path
  *
@@ -136,8 +241,9 @@ function fix_book_urls( $url, $path ) {
 	$pbns = 'pressbooks/v2/';
 
 	if ( strpos( $path, $wpns ) !== false ) {
-		foreach ( get_custom_post_types() as $post_type ) {
-			if ( strpos( $path, "{$wpns}{$post_type}" ) !== false ) {
+		$fixes = get_custom_post_types() + [ 'license', 'contributor' ];
+		foreach ( $fixes as $fix ) {
+			if ( strpos( $path, "{$wpns}{$fix}" ) !== false ) {
 				$url = str_replace( $wpns, $pbns, $url );
 				break;
 			}
@@ -159,15 +265,32 @@ function update_part_id( $part_id, $post_obj ) {
 
 	$part = get_post( $part_id );
 	if ( $part === null ) {
-		return new \WP_Error( 'rest_chapter_part_failed', __( 'Part does not exist', 'pressbooks' ), [ 'status' => 500 ] );
+		return new \WP_Error(
+			'rest_chapter_part_failed', __( 'Part does not exist', 'pressbooks' ), [
+				'status' => 500,
+			]
+		);
 	}
 	if ( $part->post_type !== 'part' ) {
-		return new \WP_Error( 'rest_chapter_part_failed', __( 'ID is not a part', 'pressbooks' ), [ 'status' => 500 ] );
+		return new \WP_Error(
+			'rest_chapter_part_failed', __( 'ID is not a part', 'pressbooks' ), [
+				'status' => 500,
+			]
+		);
 	}
 
-	$ret = wp_update_post( [ 'ID' => $post_obj->ID, 'post_parent' => $part_id ] );
+	$ret = wp_update_post(
+		[
+			'ID' => $post_obj->ID,
+			'post_parent' => $part_id,
+		]
+	);
 	if ( false === $ret ) {
-		return new \WP_Error( 'rest_chapter_part_failed', __( 'Failed to update chapter part', 'pressbooks' ), [ 'status' => 500 ] );
+		return new \WP_Error(
+			'rest_chapter_part_failed', __( 'Failed to update chapter part', 'pressbooks' ), [
+				'status' => 500,
+			]
+		);
 	}
 
 	return true;

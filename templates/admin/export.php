@@ -87,6 +87,12 @@ if ( false == get_site_transient( 'pb_odt_compatible' ) && false == \Pressbooks\
 	set_site_transient( 'pb_odt_compatible', true );
 }
 
+if ( false == get_site_transient( 'pb_htmlbook_compatible' ) && false == \Pressbooks\Modules\Export\HTMLBook\HTMLBook::hasDependencies() ) {
+	$dependency_errors['htmlbook'] = 'HTMLBook';
+} else {
+	set_site_transient( 'pb_htmlbook_compatible', true );
+}
+
 if ( $dependency_errors ) {
 	/**
 	 * Filter the array of dependency errors, remove unwanted formats.
@@ -169,9 +175,10 @@ $formats = apply_filters( 'pb_export_formats', [
 		'mobi' => __( 'MOBI (for Kindle)', 'pressbooks' ),
 	],
 	'exotic' => [
-		'epub3' => __( 'EPUB 3 (beta)', 'pressbooks' ),
+		'epub3' => __( 'EPUB 3', 'pressbooks' ),
 		'xhtml' => __( 'XHTML', 'pressbooks' ),
-		'odt' => __( 'OpenDocument (beta)', 'pressbooks' ),
+		'htmlbook' => __( 'HTMLBook', 'pressbooks' ),
+		'odt' => __( 'OpenDocument', 'pressbooks' ),
 		'wxr' => __( 'Pressbooks XML', 'pressbooks' ),
 		'vanillawxr' => __( 'WordPress XML', 'pressbooks' ),
 	],
@@ -179,7 +186,7 @@ $formats = apply_filters( 'pb_export_formats', [
 
 	<form id="pb-export-form" action="<?php echo $export_form_url ?>" method="POST">
 		<fieldset class="standard">
-				<legend><?php _e( 'Standard book formats', 'pressbooks' ); ?>:</legend>
+				<legend><?php _e( 'Supported formats', 'pressbooks' ); ?>:</legend>
 <?php foreach ( $formats['standard'] as $key => $value ) {
 	printf(
 		'<input type="checkbox" id="%1$s" name="export_formats[%1$s]" value="1" %2$s/><label for="%1$s"> %3$s</label><br />',
@@ -219,7 +226,7 @@ $formats = apply_filters( 'pb_export_formats', [
 
 <div class="export-control">
 	<p><input id="pb-export-button" type="button" class="button button-hero button-primary generate" value="<?php esc_attr_e( 'Export Your Book', 'pressbooks' ); ?>" /></p>
-	<p id="loader"><img src="<?php echo PB_PLUGIN_URL; ?>assets/dist/images/loader.gif" alt="Exporting..." width="128" height="15" /></p>
+	<p id="loader" class="loading-content"><span class="spinner"></span></p>
 	<?php
 	$c = 0; // start counter
 	$files = \Pressbooks\Utility\group_exports();
@@ -241,21 +248,26 @@ foreach ( $exports as $file ) {
 		case 'pdf':
 			$pre_suffix = strstr( $file, '._print.pdf' );
 			break;
+		case 'html':
+			$pre_suffix = strstr( $file, '.-htmlbook.html' );
+			break;
 		case 'xml':
 			$pre_suffix = strstr( $file, '._vanilla.xml' );
 			break;
 		default:
 			$pre_suffix = false;
 	}
-	if ( 'html' == $file_extension ) {
+	if ( 'html' === $file_extension && '.-htmlbook.html' === $pre_suffix ) {
+		$file_class = 'htmlbook';
+	} elseif ( 'html' === $file_extension && false === $pre_suffix ) {
 		$file_class = 'xhtml';
-	} elseif ( 'xml' == $file_extension && '._vanilla.xml' == $pre_suffix ) {
+	} elseif ( 'xml' === $file_extension && '._vanilla.xml' === $pre_suffix ) {
 		$file_class = 'vanillawxr';
-	} elseif ( 'xml' == $file_extension && false == $pre_suffix ) {
+	} elseif ( 'xml' === $file_extension && false === $pre_suffix ) {
 		$file_class = 'wxr';
-	} elseif ( 'epub' == $file_extension && '._3.epub' == $pre_suffix ) {
+	} elseif ( 'epub' === $file_extension && '._3.epub' === $pre_suffix ) {
 		$file_class = 'epub3';
-	} elseif ( 'pdf' == $file_extension && '._print.pdf' == $pre_suffix ) {
+	} elseif ( 'pdf' === $file_extension && '._print.pdf' === $pre_suffix ) {
 		$file_class = 'print-pdf';
 	} else {
 		/**

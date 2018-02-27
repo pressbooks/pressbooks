@@ -6,9 +6,18 @@
 
 namespace Pressbooks\Modules\Import;
 
+use Pressbooks\Book;
+use Pressbooks\Cloner;
+use Pressbooks\HtmLawed;
 use function \Pressbooks\Utility\getset;
+use function \Pressbooks\Utility\debug_error_log;
 
 abstract class Import {
+
+	/**
+	 * Abstract CONST
+	 */
+	const TYPE_OF = null;
 
 	/**
 	 * Email addresses to send logs.
@@ -24,21 +33,29 @@ abstract class Import {
 	 *
 	 * $upload should look something like:
 	 *     Array (
-	 *       [file] => /home/dac514/public_html/bdolor/wp-content/uploads/sites/2/2013/04/Hello-World-13662149822.epub
-	 *       [url] => http://localhost/~dac514/bdolor/helloworld/wp-content/uploads/sites/2/2013/04/Hello-World-13662149822.epub
+	 *       [file] => /home/user/public_html/wp-content/uploads/sites/2/2013/04/Hello-World-13662149822.epub
+	 *       [url] => http://localhost/~user/Hello-World-13662149822.epub (optional, can be null)
 	 *       [type] => application/epub+zip
 	 *     )
 	 *
 	 * 'pressbooks_current_import' should look something like:
 	 *     Array (
-	 *       [file] => '/home/dac514/public_html/bdolor/wp-content/uploads/sites/2/imports/Hello-World-1366214982.epub'
+	 *       [file] => '/home/user/public_html/wp-content/uploads/sites/2/imports/Hello-World-1366214982.epub'
+	 *       [url] => http://localhost/~user/Hello-World-13662149822.epub (optional, can be null)
 	 *       [file_type] => 'application/epub+zip'
 	 *       [type_of] => 'epub'
+	 *       [default_post_status] => 'draft'
 	 *       [chapters] => Array (
 	 *         [some-id] => 'Some title'
 	 *         [front-cover] => 'Front Cover'
 	 *         [chapter-001] => 'Some other title'
 	 *       )
+	 *       [post_types] => Array (
+	 *         [some-id] => 'front-matter'
+	 *         [front-cover] => 'chapter'
+	 *         [chapter-001] => 'back-matter' (optional)
+	 *       )
+	 *       [allow_parts] => false,
 	 *     )
 	 *
 	 * @see wp_handle_upload
@@ -51,7 +68,7 @@ abstract class Import {
 
 
 	/**
-	 * @param array $current_import
+	 * @param array $current_import WP option 'pressbooks_current_import'
 	 *
 	 * @return bool
 	 */
@@ -78,7 +95,7 @@ abstract class Import {
 			unlink( $current_import['file'] );
 		}
 
-		\Pressbooks\Book::deleteBookObjectCache();
+		Book::deleteBookObjectCache();
 		delete_transient( 'dirsize_cache' );
 		/** @see get_dirsize() */
 
@@ -91,7 +108,6 @@ abstract class Import {
 	 * @return string fullpath
 	 */
 	function createTmpFile() {
-
 		return \Pressbooks\Utility\create_tmp_file();
 	}
 
@@ -107,11 +123,14 @@ abstract class Import {
 
 		$args = [
 			'post_type' => 'part',
-			'post_status' => 'publish',
+			'post_status' => [ 'draft', 'web-only', 'private', 'publish' ],
 			'posts_per_page' => 1,
 			'orderby' => 'menu_order',
 			'order' => 'ASC',
 			'no_found_rows' => true,
+			'cache_results' => false,
+			'update_post_meta_cache' => false,
+			'update_post_term_cache ' => false,
 		];
 
 		$results = $q->query( $args );
@@ -206,7 +225,7 @@ abstract class Import {
 			'safe' => 1,
 		];
 
-		return \Pressbooks\HtmLawed::filter( $html, $config );
+		return HtmLawed::filter( $html, $config );
 	}
 
 
@@ -237,79 +256,114 @@ abstract class Import {
 			\Pressbooks\Redirect\location( $redirect_url );
 		}
 
-		// only html import uses a url, not a file path
-		if ( 0 !== strcmp( $current_import['type_of'], 'html' ) ) {
-			// Appends 'last part' of the path to the dynamic first part of the path ($upload_dir)
-			$upload_dir = wp_upload_dir();
-			$current_import['file'] = trailingslashit( $upload_dir['path'] ) . basename( $current_import['file'] );
+		if ( ! empty( $_GET['import'] ) && isset( $_POST['chapters'] ) && is_array( $_POST['chapters'] ) && is_array( $current_import ) && check_admin_referer( 'pb-import' ) ) {
+			self::doImport( $current_import );
+		} elseif ( isset( $_GET['import'] ) && ! empty( $_POST['import_type'] ) && check_admin_referer( 'pb-import' ) ) {
+			self::setImportOptions();
 		}
 
-		if ( ! empty( $_GET['import'] ) && isset( $_POST['chapters'] ) && is_array( $_POST['chapters'] ) && is_array( $current_import ) && isset( $current_import['file'] ) && check_admin_referer( 'pb-import' ) ) {
+		// Default, back to form
+		\Pressbooks\Redirect\location( $redirect_url );
+	}
 
-			// Set post status
-			$current_import['default_post_status'] = ( isset( $_POST['import_as_drafts'] ) ) ? 'draft' : 'publish';
+	/**
+	 * Do Import
+	 *
+	 * @param array $current_import WP option 'pressbooks_current_import'
+	 */
+	static protected function doImport( array $current_import ) {
 
-			// --------------------------------------------------------------------------------------------------------
-			// Do Import
+		// Set post status
+		$current_import['default_post_status'] = ( isset( $_POST['show_imports_in_web'] ) ) ? 'publish' : 'private';
 
-			@set_time_limit( 300 ); // @codingStandardsIgnoreLine
+		@set_time_limit( 300 ); // @codingStandardsIgnoreLine
 
-			$ok = false;
-			switch ( $current_import['type_of'] ) {
+		$ok = false;
+		switch ( $current_import['type_of'] ) {
 
-				case 'epub':
-					$importer = new Epub\Epub201();
-					$ok = $importer->import( $current_import );
-					break;
+			case Epub\Epub201::TYPE_OF:
+				$importer = new Epub\Epub201();
+				$ok = $importer->import( $current_import );
+				break;
 
-				case 'wxr':
-					$importer = new Wordpress\Wxr();
-					$ok = $importer->import( $current_import );
-					break;
+			case Wordpress\Wxr::TYPE_OF:
+				$importer = new Wordpress\Wxr();
+				$ok = $importer->import( $current_import );
+				break;
 
-				case 'odt':
-					$importer = new Odf\Odt();
-					$ok = $importer->import( $current_import );
-					break;
+			case Odf\Odt::TYPE_OF:
+				$importer = new Odf\Odt();
+				$ok = $importer->import( $current_import );
+				break;
 
-				case 'docx':
-					$importer = new Ooxml\Docx();
-					$ok = $importer->import( $current_import );
-					break;
+			case Ooxml\Docx::TYPE_OF:
+				$importer = new Ooxml\Docx();
+				$ok = $importer->import( $current_import );
+				break;
 
-				case 'html':
-					$importer = new Html\Xhtml();
-					$ok = $importer->import( $current_import );
-					break;
+			case Api\Api::TYPE_OF:
+				$importer = new Api\Api();
+				$ok = $importer->import( $current_import );
+				break;
 
-				default:
-					/**
-					 * Allows users to add a custom import routine for custom import type.
-					 *
-					 * @since 3.9.6
-					 *
-					 * @param \Pressbooks\Modules\Import\Import $value
-					 */
-					$importer = apply_filters( 'pb_initialize_import', null );
+			case Html\Xhtml::TYPE_OF:
+				$importer = new Html\Xhtml();
+				$ok = $importer->import( $current_import );
+				break;
+
+			default:
+				/**
+				 * Allows users to add a custom import routine for custom import type.
+				 *
+				 * @since 3.9.6
+				 *
+				 * @param \Pressbooks\Modules\Import\Import $value
+				 */
+				$importers = apply_filters( 'pb_initialize_import', [] );
+				if ( ! is_array( $importers ) ) {
+					$importers = [ $importers ];
+				}
+				foreach ( $importers as $importer ) {
 					if ( is_object( $importer ) ) {
-						$ok = $importer->import( $current_import );
+						$class = get_class( $importer );
+						if (
+							count( $importers ) === 1 ||
+							defined( "{$class}::TYPE_OF" ) && $class::TYPE_OF === $current_import['type_of']
+						) {
+							$ok = $importer->import( $current_import );
+							break;
+						}
 					}
-					break;
-			}
+				}
+		}
 
-			$msg = "Tried to import a file of type {$current_import['type_of']} and ";
-			$msg .= ( $ok ) ? 'succeeded :)' : 'failed :(';
-			self::log( $msg, $current_import );
+		if ( $ok ) {
+			// Success! Redirect to organize page
+			$success_url = get_admin_url( get_current_blog_id(), '/admin.php?page=pb_organize' );
+			\Pressbooks\Redirect\location( $success_url );
+		}
+	}
 
-			if ( $ok ) {
-				// Success! Redirect to organize page
-				$success_url = get_admin_url( get_current_blog_id(), '/admin.php?page=pressbooks' );
-				\Pressbooks\Redirect\location( $success_url );
-			}
-		} elseif ( isset( $_GET['import'] ) && ! empty( $_FILES['import_file']['name'] ) && isset( $_POST['type_of'] ) && check_admin_referer( 'pb-import' ) ) {
 
-			// --------------------------------------------------------------------------------------------------------
-			// Set the 'pressbooks_current_import' option
+	/**
+	 *  Look at $_POST and $_FILES, sets 'pressbooks_current_import' option based on submission
+	 *
+	 * @return bool
+	 */
+	static protected function setImportOptions() {
+
+		if ( ! check_admin_referer( 'pb-import' ) ) {
+			return false;
+		}
+
+		$overrides = [
+			'test_form' => false,
+			'test_type' => false,
+		];
+
+		if ( ! function_exists( 'wp_handle_upload' ) ) {
+			require_once( ABSPATH . 'wp-admin/includes/file.php' );
+		}
 
 			/**
 			 * Allows users to append import options to the list of allowed file types.
@@ -321,141 +375,182 @@ abstract class Import {
 			 * @param array $value The list of currently allowed file types.
 			 */
 			$allowed_file_types = apply_filters(
-				'pb_import_file_types', [
-				'epub' => 'application/epub+zip',
-				'xml' => 'application/xml',
-				'odt' => 'application/vnd.oasis.opendocument.text',
-				'docx' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-				]
-			);
+		if ( getset( '_POST', 'import_type' ) === 'url' ) {
+			$overrides['action'] = 'pb_handle_url_upload';
+			self::createFileFromUrl();
+		}
 
-			$overrides = [ 'test_form' => false, 'test_type' => false, 'mimes' => $allowed_file_types ];
+		if ( empty( $_FILES['import_file']['name'] ) ) {
+			return false;
+		}
+		$bad_extensions = '/\.(php([0-9])?|htaccess|htpasswd|cgi|sh|pl|bat|exe|cmd|dll)$/i';
+		if ( preg_match( $bad_extensions, $_FILES['import_file']['name'] ) ) {
+			$_SESSION['pb_errors'][] = __( 'Sorry, this file type is not permitted for security reasons.' );
+			return false;
+		}
 
-			if ( ! function_exists( 'wp_handle_upload' ) ) {
-				require_once( ABSPATH . 'wp-admin/includes/file.php' );
-			}
+		$upload = wp_handle_upload( $_FILES['import_file'], $overrides );
+		$upload['url'] = getset( '_POST', 'import_http' );
+		if ( empty( $upload['type'] ) && ! empty( $_FILES['import_file']['type'] ) ) {
+			$upload['type'] = $_FILES['import_file']['type'];
+		}
 
-			$bad_extensions = '/\.(php([0-9])?|htaccess|htpasswd|cgi|sh|pl|bat|exe|cmd|dll)$/i';
-			if ( preg_match( $bad_extensions, $_FILES['import_file']['name'] ) ) {
-				$_SESSION['pb_errors'][] = __( 'Sorry, this file type is not permitted for security reasons.' );
-				return false;
-			}
+		if ( ! empty( $upload['error'] ) ) {
+			// Error, redirect back to form
+			$_SESSION['pb_notices'][] = $upload['error'];
+			return false;
+		}
 
-			$upload = wp_handle_upload( $_FILES['import_file'], $overrides );
+		$ok = false;
+		switch ( $_POST['type_of'] ) {
 
-			if ( ! empty( $upload['error'] ) ) {
-				// Error, redirect back to form
-				$_SESSION['pb_notices'][] = $upload['error'];
-				\Pressbooks\Redirect\location( $redirect_url );
-			}
+			case Wordpress\Wxr::TYPE_OF:
+				$importer = new Wordpress\Wxr();
+				$ok = $importer->setCurrentImportOption( $upload );
+				break;
 
-			$ok = false;
-			switch ( $_POST['type_of'] ) {
+			case Epub\Epub201::TYPE_OF:
+				$importer = new Epub\Epub201();
+				$ok = $importer->setCurrentImportOption( $upload );
+				break;
 
-				case 'wxr':
-					$importer = new Wordpress\Wxr();
+			case Odf\Odt::TYPE_OF:
+				$importer = new Odf\Odt();
+				$ok = $importer->setCurrentImportOption( $upload );
+				break;
+
+			case Ooxml\Docx::TYPE_OF:
+				$importer = new Ooxml\Docx();
+				$ok = $importer->setCurrentImportOption( $upload );
+				break;
+
+			case Api\Api::TYPE_OF:
+			case Html\Xhtml::TYPE_OF:
+				if ( ! empty( $upload['url'] ) && self::hasApi( $upload ) ) {
+					// API
+					$importer = new Api\Api();
 					$ok = $importer->setCurrentImportOption( $upload );
-					break;
-
-				case 'epub':
-					$importer = new Epub\Epub201();
-					$ok = $importer->setCurrentImportOption( $upload );
-					break;
-
-				case 'odt':
-					$importer = new Odf\Odt();
-					$ok = $importer->setCurrentImportOption( $upload );
-					break;
-
-				case 'docx':
-					$importer = new Ooxml\Docx();
-					$ok = $importer->setCurrentImportOption( $upload );
-					break;
-
-				default:
-					/** This filter is documented above */
-					$importer = apply_filters( 'pb_initialize_import', null );
-					if ( is_object( $importer ) ) {
-						$ok = $importer->setCurrentImportOption( $upload );
-					}
-					break;
-			}
-
-			$msg = "Tried to upload a file of type {$_POST['type_of']} and ";
-			$msg .= ( $ok ) ? 'succeeded :)' : 'failed :(';
-			self::log( $msg, $upload );
-
-			if ( ! $ok ) {
-				// Not ok?
-				$_SESSION['pb_errors'][] = sprintf( __( 'Your file does not appear to be a valid %s.', 'pressbooks' ), strtoupper( $_POST['type_of'] ) );
-				unlink( $upload['file'] );
-			}
-			// handles file uploads via http GET requests
-		} elseif ( isset( $_GET['import'] ) && isset( $_POST['type_of'] ) && ! empty( $_POST['import_http'] ) && check_admin_referer( 'pb-import' ) ) {
-
-			// check if it's a valid url
-			if ( false === filter_var( $_POST['import_http'], FILTER_VALIDATE_URL ) ) {
-				$_SESSION['pb_errors'][] = __( 'Your URL does not appear to be valid', 'pressbooks' );
-				\Pressbooks\Redirect\location( $redirect_url );
-			}
-
-			// HEAD request, check for a valid response from server
-			$remote_head = wp_remote_head( $_POST['import_http'] );
-
-			// Something failed
-			if ( is_wp_error( $remote_head ) ) {
-				error_log( '\Pressbooks\Modules\Import::formSubmit html import error, wp_remote_head()' . $remote_head->get_error_message() );
-				$_SESSION['pb_errors'][] = $remote_head->get_error_message();
-				\Pressbooks\Redirect\location( $redirect_url );
-			}
-
-			// weebly.com (and likely some others) prevent HEAD requests, but allow GET requests
-			if ( 200 !== $remote_head['response']['code'] && 405 !== $remote_head['response']['code'] ) {
-				$_SESSION['pb_errors'][] = __( 'The website you are attempting to reach is not returning a successful response header on a HEAD request: ', 'pressbooks' ) . $remote_head['response']['code'];
-				\Pressbooks\Redirect\location( $redirect_url );
-			}
-
-			$upload = [ 'url' => $_POST['import_http'] ];
-
-			switch ( $_POST['type_of'] ) {
-				case 'html':
-					// ensure the media type is HTML (not JSON, or something we can't deal with)
-					if ( false === strpos( $remote_head['headers']['content-type'], 'text/html' ) && false === strpos( $remote_head['headers']['content-type'], 'application/xhtml+xml' ) ) {
-						$_SESSION['pb_errors'][] = __( 'The website you are attempting to reach is not returning HTML content', 'pressbooks' );
-						\Pressbooks\Redirect\location( $redirect_url );
-					}
-
+				} else {
+					// HTML
+					unset( $_SESSION['pb_errors'] );
 					$importer = new Html\Xhtml();
 					$ok = $importer->setCurrentImportOption( $upload );
+				}
+				break;
 
-					break;
-
-				default:
-					/**
-					 * Allows users to add custom import routine for custom import type
-					 * via HTTP GET requests
-					 *
-					 * @since 4.0.0
-					 *
-					 * @param \Pressbooks\Modules\Import\Import $value
-					 */
-					$importer = apply_filters( 'pb_initialize_import', null );
+			default:
+				/**
+				 * Allows users to add custom import routine for custom import type
+				 * via HTTP GET requests
+				 *
+				 * @since 4.0.0
+				 *
+				 * @param \Pressbooks\Modules\Import\Import $value
+				 */
+				$importers = apply_filters( 'pb_initialize_import', [] );
+				if ( ! is_array( $importers ) ) {
+					$importers = [ $importers ];
+				}
+				foreach ( $importers as $importer ) {
 					if ( is_object( $importer ) ) {
-						$ok = $importer->setCurrentImportOption( $upload );
+						$class = get_class( $importer );
+						if (
+							count( $importers ) === 1 ||
+							defined( "{$class}::TYPE_OF" ) && $class::TYPE_OF === $_POST['type_of']
+						) {
+							$ok = $importer->setCurrentImportOption( $upload );
+							break;
+						}
 					}
-			}
-
-			$msg = "Tried to upload a file of type {$_POST['type_of']} and ";
-			$msg .= ( $ok ) ? 'succeeded :)' : 'failed :(';
-			self::log( $msg, $upload );
-
-			if ( ! $ok ) {
-				// Not ok?
-				$_SESSION['pb_errors'][] = sprintf( __( 'Your file does not appear to be a valid %s.', 'pressbooks' ), strtoupper( $_POST['type_of'] ) );
-			}
+				}
 		}
-		// Default, back to form
-		\Pressbooks\Redirect\location( $redirect_url );
+
+		if ( ! $ok ) {
+			// Not ok?
+			$_SESSION['pb_errors'][] = sprintf( __( 'Your file does not appear to be a valid %s.', 'pressbooks' ), strtoupper( $_POST['type_of'] ) );
+			unlink( $upload['file'] );
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * @param array $upload Passed by reference because we want to change the URL
+	 *
+	 * @return bool
+	 */
+	static protected function hasApi( &$upload ) {
+		$cloner = new Cloner( $upload['url'] );
+		$is_compatible = $cloner->isCompatible( $upload['url'] );
+		if ( $is_compatible ) {
+			$upload['url'] = $cloner->getSourceBookUrl();
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * Tries to download URL in $_POST['import_http'], impersonates $_FILES on success
+	 * Note: Faking the $_FILES array will cause PHP's is_uploaded_file() to fail
+	 *
+	 * @return bool
+	 */
+	static protected function createFileFromUrl() {
+
+		if ( ! check_admin_referer( 'pb-import' ) ) {
+			return false;
+		}
+
+		// check if it's a valid url
+		$url = trim( getset( '_POST', 'import_http', '' ) );
+		if ( false === filter_var( $url, FILTER_VALIDATE_URL ) ) {
+			$_SESSION['pb_errors'][] = __( 'Your URL does not appear to be valid', 'pressbooks' );
+			return false;
+		}
+
+		$response = wp_remote_get( $url );
+
+		// Something failed
+		if ( is_wp_error( $response ) ) {
+			debug_error_log( '\Pressbooks\Modules\Import::formSubmit html import error, wp_remote_head()' . $response->get_error_message() );
+			$_SESSION['pb_errors'][] = $response->get_error_message();
+			return false;
+		}
+
+		$code = wp_remote_retrieve_response_code( $response );
+		if ( $code >= 400 ) {
+			$_SESSION['pb_errors'][] = __( 'The website you are attempting to reach is not returning a successful response code: ', 'pressbooks' ) . $code;
+			return false;
+		}
+
+		$tmp_file = \Pressbooks\Utility\create_tmp_file();
+		\Pressbooks\Utility\put_contents( $tmp_file, wp_remote_retrieve_body( $response ) );
+
+		// Basename
+		$parsed_url = wp_parse_url( $url );
+		if ( isset( $parsed_url['path'] ) ) {
+			$basename = basename( $parsed_url['path'] );
+		}
+		if ( empty( $basename ) ) {
+			$basename = uniqid( 'import-' );
+		}
+
+		// Mime type
+		$mime = \Pressbooks\Media\mime_type( $tmp_file );
+		if ( empty( $mime ) ) {
+			$mime = wp_remote_retrieve_header( $response, 'content-type' );
+		}
+
+		$_FILES['import_file'] = [
+			'name' => $basename,
+			'type' => $mime,
+			'tmp_name' => $tmp_file,
+			'error' => 0,
+			'size' => filesize( $tmp_file ),
+		];
+
+		return true;
 	}
 
 
@@ -511,9 +606,11 @@ abstract class Import {
 			'blog_id' => get_current_blog_id(),
 		];
 
-		$message = print_r( array_merge( $info, $more_info ), true ) . $message;
+		$message = print_r( array_merge( $info, $more_info ), true ) . $message; // @codingStandardsIgnoreLine
 
-		\Pressbooks\Utility\email_error_log( self::$logsEmail, $subject, $message );
+		if ( ! defined( 'WP_TESTS_MULTISITE' ) ) {
+			\Pressbooks\Utility\email_error_log( self::$logsEmail, $subject, $message );
+		}
 	}
 
 

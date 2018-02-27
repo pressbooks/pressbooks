@@ -40,7 +40,7 @@ class GlobalTypography {
 			'ar' => __( 'Arabic', 'pressbooks' ),
 			'he' => __( 'Biblical Hebrew', 'pressbooks' ),
 			'cans' => __( 'Canadian Indigenous Syllabics', 'pressbooks' ),
-			'hi' => __( 'Hindi', 'pressbooks' ),
+			'hi' => __( 'Devanagari (Hindi and Sanskrit)', 'pressbooks' ),
 			'zh_HANS' => __( 'Chinese (Simplified)', 'pressbooks' ),
 			'zh_HANT' => __( 'Chinese (Traditional)', 'pressbooks' ),
 			'cop' => __( 'Coptic', 'pressbooks' ),
@@ -70,7 +70,7 @@ class GlobalTypography {
 		$fullpath = $this->sass->pathToUserGeneratedSass() . "/_font-stack-{$type}.scss";
 
 		if ( is_file( $fullpath ) ) {
-			$return_value = file_get_contents( $fullpath );
+			$return_value = \Pressbooks\Utility\get_contents( $fullpath );
 		}
 
 		return $return_value;
@@ -151,7 +151,8 @@ class GlobalTypography {
 			case 'he': // Biblical Hebrew
 				$lang = 'he';
 				break;
-			case 'hi': // Biblical Hebrew
+			case 'hi': // Hindi
+			case 'sa': // Sanskrit
 				$lang = 'hi';
 				break;
 			case 'zh': // Chinese (Simplified)
@@ -256,7 +257,7 @@ class GlobalTypography {
 
 		$dir = $this->sass->pathToUserGeneratedSass();
 		$file = $dir . "/_font-stack-{$type}.scss";
-		file_put_contents( $file, $scss );
+		\Pressbooks\Utility\put_contents( $file, $scss );
 	}
 
 	/**

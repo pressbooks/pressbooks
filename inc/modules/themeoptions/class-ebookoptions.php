@@ -14,7 +14,7 @@ class EbookOptions extends \Pressbooks\Options {
 	 * @see upgrade()
 	 * @var int
 	 */
-	const VERSION = 1;
+	const VERSION = 2;
 
 	/**
 	 * Web theme options.
@@ -55,7 +55,8 @@ class EbookOptions extends \Pressbooks\Options {
 	 * Configure the ebook options tab using the settings API.
 	 */
 	function init() {
-		$_page = $_option = 'pressbooks_theme_options_' . $this->getSlug();
+		$_option = 'pressbooks_theme_options_' . $this->getSlug();
+		$_page = $_option;
 		$_section = $this->getSlug() . '_options_section';
 
 		if ( false === get_option( $_option ) ) {
@@ -67,6 +68,17 @@ class EbookOptions extends \Pressbooks\Options {
 			$this->getTitle(),
 			[ $this, 'display' ],
 			$_page
+		);
+
+		add_settings_field(
+			'ebook_start_point',
+			__( 'Ebook Start Point', 'pressbooks' ),
+			[ $this, 'renderEbookStartPointField' ],
+			$_page,
+			$_section,
+			[
+				__( 'Note: This designated ebook start book may be overridden by some ereader devices.', 'pressbooks' ),
+			]
 		);
 
 		add_settings_field(
@@ -131,6 +143,9 @@ class EbookOptions extends \Pressbooks\Options {
 		if ( $version < 1 ) {
 			$this->doInitialUpgrade();
 		}
+		if ( $version < 2 ) {
+			$this->setEbookStartPoint();
+		}
 	}
 
 	/**
@@ -147,6 +162,79 @@ class EbookOptions extends \Pressbooks\Options {
 		}
 
 		update_option( 'pressbooks_theme_options_' . $_option, $options );
+	}
+
+	/**
+	 * Update values to human-readable equivalents within Ebook options.
+	 */
+	function setEbookStartPoint() {
+		$_option = $this->getSlug();
+		$options = get_option( 'pressbooks_theme_options_' . $_option, $this->defaults );
+
+		$struct = \Pressbooks\Book::getBookStructure();
+
+		foreach ( $struct['front-matter'] as $k => $v ) {
+			if ( get_post_meta( $v['ID'], 'pb_ebook_start', true ) ) {
+				$options['ebook_start_point'] = $v['ID'];
+				break;
+			}
+		}
+
+		if ( ! isset( $options['ebook_start_point'] ) ) {
+			foreach ( $struct['part'] as $key => $value ) {
+				foreach ( $value['chapters'] as $k => $v ) {
+					if ( get_post_meta( $v['ID'], 'pb_ebook_start', true ) ) {
+						$options['ebook_start_point'] = $v['ID'];
+						break;
+					}
+				}
+			}
+		}
+
+		if ( ! isset( $options['ebook_start_point'] ) ) {
+			foreach ( $struct['back-matter'] as $k => $v ) {
+				if ( get_post_meta( $v['ID'], 'pb_ebook_start', true ) ) {
+					$options['ebook_start_point'] = $v['ID'];
+					break;
+				}
+			}
+		}
+
+		update_option( 'pressbooks_theme_options_' . $_option, $options );
+	}
+
+	/**
+	 * Render the ebook_start_point dropdown.
+	 *
+	 * @param array $args
+	 */
+	function renderEbookStartPointField( $args ) {
+		$options = [
+			'' => '--',
+		];
+		$struct = \Pressbooks\Book::getBookStructure();
+		foreach ( $struct['front-matter'] as $k => $v ) {
+			$options[ $v['ID'] ] = $v['post_title'];
+		}
+		foreach ( $struct['part'] as $key => $value ) {
+			foreach ( $value['chapters'] as $k => $v ) {
+				$options[ $v['ID'] ] = $v['post_title'];
+			}
+		}
+		foreach ( $struct['back-matter'] as $k => $v ) {
+			$options[ $v['ID'] ] = $v['post_title'];
+		}
+
+		$this->renderSelect(
+			[
+				'id' => 'ebook_start_point',
+				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
+				'option' => 'ebook_start_point',
+				'value' => ( isset( $this->options['ebook_start_point'] ) ) ? $this->options['ebook_start_point'] : '',
+				'choices' => $options,
+				'description' => $args[0],
+			]
+		);
 	}
 
 	/**
@@ -214,8 +302,8 @@ class EbookOptions extends \Pressbooks\Options {
 		 */
 		return apply_filters(
 			'pb_theme_options_ebook_defaults', [
-			'ebook_paragraph_separation' => 'indent',
-			'ebook_compress_images' => 0,
+				'ebook_paragraph_separation' => 'indent',
+				'ebook_compress_images' => 0,
 			]
 		);
 	}
@@ -246,7 +334,7 @@ class EbookOptions extends \Pressbooks\Options {
 		 */
 		return apply_filters(
 			'pb_theme_options_ebook_booleans', [
-			'ebook_compress_images',
+				'ebook_compress_images',
 			]
 		);
 	}
@@ -314,7 +402,8 @@ class EbookOptions extends \Pressbooks\Options {
 		 */
 		return apply_filters(
 			'pb_theme_options_ebook_predefined', [
-			'ebook_paragraph_separation',
+				'ebook_paragraph_separation',
+				'ebook_start_point',
 			]
 		);
 	}
@@ -340,9 +429,11 @@ class EbookOptions extends \Pressbooks\Options {
 
 		if ( ! $options['chapter_numbers'] ) {
 			if ( $v2_compatible ) {
-				$styles->getSass()->setVariables( [
-					'chapter-number-display' => 'none',
-				] );
+				$styles->getSass()->setVariables(
+					[
+						'chapter-number-display' => 'none',
+					]
+				);
 			} else {
 				$scss .= "div.part-title-wrap > .part-number, div.chapter-title-wrap > .chapter-number { display: none !important; } \n";
 			}
@@ -356,19 +447,23 @@ class EbookOptions extends \Pressbooks\Options {
 		// Indent paragraphs?
 		if ( 'skiplines' === $options['ebook_paragraph_separation'] ) {
 			if ( $v2_compatible ) {
-				$styles->getSass()->setVariables( [
-					'para-margin-top' => '1em',
-					'para-indent' => '0',
-				] );
+				$styles->getSass()->setVariables(
+					[
+						'para-margin-top' => '1em',
+						'para-indent' => '0',
+					]
+				);
 			} else {
 				$scss .= "p + p, .indent, div.ugc p.indent { text-indent: 0; margin-top: 1em; } \n";
 			}
 		} else {
 			if ( $v2_compatible ) {
-				$styles->getSass()->setVariables( [
-					'para-margin-top' => '0',
-					'para-indent' => '1em',
-				] );
+				$styles->getSass()->setVariables(
+					[
+						'para-margin-top' => '0',
+						'para-indent' => '1em',
+					]
+				);
 			} else {
 				$scss .= "p + p, .indent, div.ugc p.indent { text-indent: 1em; margin-top: 0em; } \n";
 			}

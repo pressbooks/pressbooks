@@ -17,7 +17,7 @@ class EditorTest extends \WP_UnitTestCase {
 
 		global $blog_id;
 
-		$this->assertFileExists( WP_CONTENT_DIR . '/uploads/sites/' . $blog_id . '/css/editor.css' );
+		$this->assertFileExists( WP_CONTENT_DIR . '/uploads/sites/' . $blog_id . '/pressbooks/css/editor.css' );
 	}
 
 	public function test_add_editor_style() {

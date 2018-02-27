@@ -55,7 +55,8 @@ class WebOptions extends \Pressbooks\Options {
 	 * Configure the web options tab using the settings API.
 	 */
 	function init() {
-		$_page = $_option = 'pressbooks_theme_options_' . $this->getSlug();
+		$_option = 'pressbooks_theme_options_' . $this->getSlug();
+		$_page = $_option;
 		$_section = $this->getSlug() . '_options_section';
 
 		if ( false === get_option( $_option ) ) {
@@ -77,6 +78,19 @@ class WebOptions extends \Pressbooks\Options {
 			$_section,
 			[
 				__( 'Add buttons to cover page and each chapter so that readers may share links to your book through social media: Facebook, Twitter, Google+', 'pressbooks' ),
+			]
+		);
+
+		add_settings_field(
+			'webbook_width',
+			__( 'Webbook Width', 'pressbooks' ),
+			[ $this, 'renderWebbookWidthField' ],
+			$_page,
+			$_section,
+			[
+				'30em' => __( 'Narrow', 'pressbooks' ),
+				'40em' => __( 'Standard', 'pressbooks' ),
+				'48em' => __( 'Wide', 'pressbooks' ),
 			]
 		);
 
@@ -182,6 +196,23 @@ class WebOptions extends \Pressbooks\Options {
 	}
 
 	/**
+	 * Render the webbook_width dropdown.
+	 *
+	 * @param array $args
+	 */
+	function renderWebbookWidthField( $args ) {
+		$this->renderSelect(
+			[
+				'id' => 'webbook_width',
+				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
+				'option' => 'webbook_width',
+				'value' => ( isset( $this->options['webbook_width'] ) ) ? $this->options['webbook_width'] : $this->defaults['webbook_width'],
+				'choices' => $args,
+			]
+		);
+	}
+
+	/**
 	 * Render the paragraph_separation radio buttons.
 	 *
 	 * @param array $args
@@ -246,9 +277,10 @@ class WebOptions extends \Pressbooks\Options {
 		 */
 		return apply_filters(
 			'pb_theme_options_web_defaults', [
-			'social_media' => 1,
-			'paragraph_separation' => 'skiplines',
-			'part_title' => 0,
+				'social_media' => 1,
+				'paragraph_separation' => 'skiplines',
+				'part_title' => 0,
+				'webbook_width' => '40em',
 			]
 		);
 	}
@@ -279,8 +311,8 @@ class WebOptions extends \Pressbooks\Options {
 		 */
 		return apply_filters(
 			'pb_theme_options_web_booleans', [
-			'social_media',
-			'part_title',
+				'social_media',
+				'part_title',
 			]
 		);
 	}
@@ -348,7 +380,8 @@ class WebOptions extends \Pressbooks\Options {
 		 */
 		return apply_filters(
 			'pb_theme_options_web_predefined', [
-			'paragraph_separation',
+				'paragraph_separation',
+				'webbook_width',
 			]
 		);
 	}
@@ -372,19 +405,23 @@ class WebOptions extends \Pressbooks\Options {
 		if ( isset( $options['paragraph_separation'] ) ) {
 			if ( 'indent' === $options['paragraph_separation'] ) {
 				if ( $v2_compatible ) {
-					$styles->getSass()->setVariables( [
-						'para-margin-top' => '0',
-						'para-indent' => '1em',
-					] );
+					$styles->getSass()->setVariables(
+						[
+							'para-margin-top' => '0',
+							'para-indent' => '1em',
+						]
+					);
 				} else {
 					$scss .= "* + p { text-indent: 1em; margin-top: 0; margin-bottom: 0; } \n";
 				}
 			} elseif ( 'skiplines' === $options['paragraph_separation'] ) {
 				if ( $v2_compatible ) {
-					$styles->getSass()->setVariables( [
-						'para-margin-top' => '1em',
-						'para-indent' => '0',
-					] );
+					$styles->getSass()->setVariables(
+						[
+							'para-margin-top' => '1em',
+							'para-indent' => '0',
+						]
+					);
 				} else {
 					$scss .= "p + p { text-indent: 0em; margin-top: 1em; } \n";
 				}

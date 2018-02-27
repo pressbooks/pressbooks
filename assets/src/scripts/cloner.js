@@ -1,8 +1,8 @@
 jQuery( function ( $ ) {
-	$( '#pb-cloner-button' ).click( function ( e ) {
-		e.preventDefault();
-		$( '#pb-cloner-button' ).hide();
-		$( '#loader' ).show();
+	$( '#pb-cloner-button' ).click( event => {
+		event.preventDefault();
+		$( '#pb-cloner-button' ).attr( 'disabled', true );
+		$( '#loader' ).css( 'display', 'inline-block' );
 		const submission = function () {
 			$( '#pb-cloner-form' ).submit();
 		};

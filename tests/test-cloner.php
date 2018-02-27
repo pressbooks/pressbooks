@@ -92,4 +92,99 @@ class ClonerTest extends \WP_UnitTestCase {
 		$result = \Pressbooks\Cloner::validateNewBookName( 'newbook' );
 		$this->assertEquals( $result, 'example.org/newbook/' );
 	}
+
+	public function test_isSourceCloneable() {
+		$cloner = new \Pressbooks\Cloner( home_url() );
+
+		$this->assertFalse( $cloner->isSourceCloneable( 'https://creativecommons.org/licenses/by-nd/4.0/' ) );
+		$this->assertFalse( $cloner->isSourceCloneable( 'https://creativecommons.org/licenses/by-nc-nd/4.0/' ) );
+		$this->assertFalse( $cloner->isSourceCloneable( 'https://choosealicense.com/no-license/' ) );
+
+		$this->assertFalse( $cloner->isSourceCloneable( [ 'url' => 'https://creativecommons.org/licenses/by-nd/4.0/' ] ) );
+		$this->assertFalse( $cloner->isSourceCloneable( [ 'url' => 'https://creativecommons.org/licenses/by-nc-nd/4.0/' ] ) );
+		$this->assertFalse( $cloner->isSourceCloneable( [ 'url' => 'https://choosealicense.com/no-license/' ] ) );
+
+		$this->assertTrue( $cloner->isSourceCloneable( 'https://creativecommons.org/licenses/by-sa/4.0/' ) );
+		$this->assertTrue( $cloner->isSourceCloneable( 'http://i-have-no-idea-what-license-this-is/' ) );
+	}
+
+	public function test_discoverWordPressApi(){
+
+		// Hook a fake HTTP request response.
+		add_filter(
+			'pre_http_request',
+			function ( $false, $arguments, $url ) {
+				if ( $url === 'https://bad.com' ) {
+					return [
+						'headers' => [ 'link' => 'cannot parse this' ],
+					];
+				}
+				if ( $url === 'https://good.com' ) {
+					return [
+						'headers' => [ 'link' => '<http://example.com/wp-json/>; rel="https://api.w.org/"' ],
+					];
+				}
+				if ( $url === 'https://also-good.com' ) {
+					return [
+						'headers' => [ 'link' => [ "<http://example.com/?rest_route=/>; rel='https://api.w.org/'", 'extra stuff' ] ],
+					];
+				}
+				return false;
+
+			}, 10, 3
+		);
+
+		$cloner = new \Pressbooks\Cloner( home_url() );
+
+		$url = $cloner->discoverWordPressApi( 'https://bad.com' );
+		$this->assertFalse( $url );
+
+		$url = $cloner->discoverWordPressApi( 'https://good.com' );
+		$this->assertEquals( 'http://example.com', $url ); // REST base removed
+
+		$url = $cloner->discoverWordPressApi( 'https://also-good.com' );
+		$this->assertEquals( 'http://example.com/?rest_route=', $url );
+	}
+
+	public function test_sanityCheck() {
+
+		$this->_setupBookApi();
+		$this->_openTextbook();
+
+		$user_id = $this->factory()->user->create( [ 'role' => 'contributor' ] );
+		wp_set_current_user( $user_id );
+
+		$source = home_url();
+		$target = uniqid( 'clone-' );
+
+		$cloner = new \Pressbooks\Cloner( $source, $target );
+
+		global $wpdb;
+		$suppress = $wpdb->suppress_errors();
+		$this->assertTrue( $cloner->cloneBook() );
+		$wpdb->suppress_errors( $suppress );
+
+		$this->assertEquals( $source, $cloner->getSourceBookUrl() );
+		$this->assertInternalType( 'int', $cloner->getSourceBookId() );
+
+		$structure = $cloner->getSourceBookStructure();
+		$this->assertInternalType( 'array', $structure );
+		$this->assertNotEmpty( $structure );
+
+		$terms = $cloner->getSourceBookTerms();
+		$this->assertInternalType( 'array', $terms );
+		$this->assertNotEmpty( $terms );
+
+		$meta = $cloner->getSourceBookMetadata();
+		$this->assertInternalType( 'array', $meta );
+		$this->assertNotEmpty( $meta );
+		$this->assertEquals( 'CC BY (Attribution)', $meta['license']['name'] );
+
+		$cloned_items = $cloner->getClonedItems();
+
+		$this->assertTrue( count( $cloned_items['chapters'] ) > 0 );
+		$this->assertTrue( count( $cloned_items['back-matter'] ) > 0 );
+		$this->assertTrue( count( $cloned_items['front-matter'] ) > 0 );
+	}
+
 }

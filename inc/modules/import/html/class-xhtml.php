@@ -8,10 +8,13 @@
 namespace Pressbooks\Modules\Import\Html;
 
 use Masterminds\HTML5;
-use Pressbooks\Modules\Import\Import;
 use Pressbooks\Book;
+use Pressbooks\Contributors;
+use Pressbooks\Modules\Import\Import;
 
 class Xhtml extends Import {
+
+	const TYPE_OF = 'html';
 
 	/**
 	 *
@@ -32,25 +35,16 @@ class Xhtml extends Import {
 	 */
 	function import( array $current_import ) {
 
-		// fetch the remote content
-		$html = wp_remote_get( $current_import['file'] );
+		$body = \Pressbooks\Utility\get_contents( $current_import['file'] );
 
-		// Something failed
-		if ( is_wp_error( $html ) ) {
-			$redirect_url = get_admin_url( get_current_blog_id(), '/tools.php?page=pb_import' );
-			error_log( '\PressBooks\Import\Html import error, wp_remote_get() ' . $html->get_error_message() );
-			$_SESSION['pb_errors'][] = $html->get_error_message();
-
-			$this->revokeCurrentImport();
-			\Pressbooks\Redirect\location( $redirect_url );
-
-		}
-
-		$url = parse_url( $current_import['file'] );
+		$url = wp_parse_url( $current_import['url'] );
 		// get parent directory (with forward slash e.g. /parent)
-		$path = dirname( $url['path'] );
-
-		$domain = $url['scheme'] . '://' . $url['host'] . $path;
+		$path = isset( $url['path'] ) ? dirname( $url['path'] ) : '/';
+		if ( isset( $url['scheme'], $url['host'] ) ) {
+			$domain = $url['scheme'] . '://' . $url['host'] . $path;
+		} else {
+			$domain = $path;
+		}
 
 		// get id (there will be only one)
 		$id = array_keys( $current_import['chapters'] );
@@ -59,7 +53,7 @@ class Xhtml extends Import {
 		$post_type = $this->determinePostType( $id[0] );
 		$chapter_parent = $this->getChapterParent();
 
-		$this->kneadAndInsert( $html['body'], $post_type, $chapter_parent, $domain, $current_import['default_post_status'] );
+		$this->kneadAndInsert( $body, $post_type, $chapter_parent, $domain, $current_import['default_post_status'] );
 
 		// Done
 		return $this->revokeCurrentImport();
@@ -115,7 +109,7 @@ class Xhtml extends Import {
 		$pid = wp_insert_post( add_magic_quotes( $new_post ) );
 
 		if ( ! empty( $author ) ) {
-			update_post_meta( $pid, 'pb_section_author', $author );
+			( new Contributors() )->insert( $author, $pid, 'pb_authors' );
 		}
 
 		if ( ! empty( $license ) ) {
@@ -123,7 +117,6 @@ class Xhtml extends Import {
 		}
 
 		update_post_meta( $pid, 'pb_show_title', 'on' );
-		update_post_meta( $pid, 'pb_export', 'on' );
 
 		Book::consolidatePost( $pid, get_post( $pid ) ); // Reorder
 	}
@@ -144,7 +137,7 @@ class Xhtml extends Import {
 			return $license;
 		}
 		// look for creativecommons domain
-		$parts = parse_url( $url );
+		$parts = wp_parse_url( $url );
 
 		if ( 'http' === $parts['scheme'] && 'creativecommons.org' === $parts['host'] ) {
 			// extract the license information from it
@@ -365,7 +358,6 @@ class Xhtml extends Import {
 	 * @see media_handle_sideload
 	 *
 	 * @return string $src
-	 * @throws \Exception
 	 */
 	protected function fetchAndSaveUniqueImage( $url ) {
 
@@ -418,7 +410,12 @@ class Xhtml extends Import {
 			}
 		}
 
-		$pid = media_handle_sideload( [ 'name' => $filename, 'tmp_name' => $tmp_name ], 0 );
+		$pid = media_handle_sideload(
+			[
+				'name' => $filename,
+				'tmp_name' => $tmp_name,
+			], 0
+		);
 		$src = wp_get_attachment_url( $pid );
 		if ( ! $src ) {
 			$src = ''; // Change false to empty string
@@ -436,31 +433,18 @@ class Xhtml extends Import {
 	 * @return bool
 	 */
 	function setCurrentImportOption( array $upload ) {
-		// GET http request
-		$html = wp_remote_get( $upload['url'] );
 
-		// check for wp error
-		if ( is_wp_error( $html ) ) {
-			$error_message = $html->get_error_message();
-			error_log( '\Pressbooks\Modules\Import\Html::setCurrentImportOption error, wp_remote_get' . $error_message );
-			$_SESSION['pb_errors'][] = $error_message;
-
+		// ensure the media type is HTML (not JSON, or something we can't deal with)
+		$valid_types = [
+			'text/html',
+			'application/xhtml+xml',
+			'application/xml',
+		];
+		if ( str_replace( $valid_types, '', $upload['type'] ) === $upload['type'] ) {
 			return false;
 		}
 
-		// check for a successful response code on GET request
-		if ( 200 !== $html['response']['code'] ) {
-			$_SESSION['pb_errors'][] = __( 'The website you are attempting to reach is not returning a successful response on a GET request: ', 'pressbooks' ) . $html['response']['code'];
-
-			return false;
-		}
-
-		// just get the body of the array
-		$body = $html['body'];
-
-		// safety check if param (character encoding) with `;` isn't set
-		// @see http://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.7
-		$content_type = ( false === strstr( $html['headers']['content-type'], ';' ) ) ? $html['headers']['content-type'] : strstr( $html['headers']['content-type'], ';', true );
+		$body = \Pressbooks\Utility\get_contents( $upload['file'] );
 
 		// get the title
 		preg_match( '/<title>(.+)<\/title>/', $body, $matches );
@@ -468,9 +452,10 @@ class Xhtml extends Import {
 
 		// set the args
 		$option = [
-			'file'      => $upload['url'],
-			'file_type' => $content_type,
-			'type_of'   => 'html',
+			'file'      => $upload['file'],
+			'url' => $upload['url'] ?? null,
+			'file_type' => $upload['type'],
+			'type_of' => self::TYPE_OF,
 			'chapters'  => [],
 		];
 

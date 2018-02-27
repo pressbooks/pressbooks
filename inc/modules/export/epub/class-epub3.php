@@ -7,8 +7,11 @@
 
 namespace Pressbooks\Modules\Export\Epub;
 
+use Pressbooks\HtmLawed;
 use Pressbooks\Sanitize;
 use function \Pressbooks\Sanitize\sanitize_xml_attribute;
+use function \Pressbooks\Utility\debug_error_log;
+use function Pressbooks\Utility\oxford_comma_explode;
 
 class Epub3 extends Epub201 {
 
@@ -173,7 +176,7 @@ class Epub3 extends Epub201 {
 	 */
 	protected function getProperties( $html_file ) {
 
-		$html = file_get_contents( $html_file );
+		$html = \Pressbooks\Utility\get_contents( $html_file );
 		$properties = [];
 
 		if ( empty( $html ) ) {
@@ -236,7 +239,7 @@ class Epub3 extends Epub201 {
 				}
 			}
 		} catch ( \Exception $e ) {
-			error_log( $e );
+			debug_error_log( $e );
 		}
 
 		return false;
@@ -304,7 +307,7 @@ class Epub3 extends Epub201 {
 			$GLOBALS['hl_Ids'] = $this->fixme;
 		}
 
-		$html = \Pressbooks\HtmLawed::filter( $html, $config, $spec );
+		$html = HtmLawed::filter( $html, $config, $spec );
 
 		return $html;
 	}
@@ -324,7 +327,11 @@ class Epub3 extends Epub201 {
 			return $this->fetchedMediaCache[ $url ];
 		}
 
-		$response = wp_remote_get( $url, [ 'timeout' => $this->timeout ] );
+		$response = wp_remote_get(
+			$url, [
+				'timeout' => $this->timeout,
+			]
+		);
 
 		// WordPress error?
 		if ( is_wp_error( $response ) ) {
@@ -339,14 +346,17 @@ class Epub3 extends Epub201 {
 						$url = 'http:' . $url;
 					}
 				}
-				$response = wp_remote_get( $url, [ 'timeout' => $this->timeout ] );
+				$response = wp_remote_get(
+					$url, [
+						'timeout' => $this->timeout,
+					]
+				);
 				if ( is_wp_error( $response ) ) {
 					throw new \Exception( 'Bad URL: ' . $url );
 				}
 			} catch ( \Exception $exc ) {
 				$this->fetchedImageCache[ $url ] = '';
-				error_log( '\PressBooks\Export\Epub3\fetchAndSaveUniqueMedia wp_error on wp_remote_get() - ' . $response->get_error_message() . ' - ' . $exc->getMessage() );
-
+				debug_error_log( '\PressBooks\Export\Epub3\fetchAndSaveUniqueMedia wp_error on wp_remote_get() - ' . $response->get_error_message() . ' - ' . $exc->getMessage() );
 				return '';
 			}
 		}
@@ -359,7 +369,7 @@ class Epub3 extends Epub201 {
 		$filename = Sanitize\force_ascii( $filename );
 
 		$tmp_file = \Pressbooks\Utility\create_tmp_file();
-		file_put_contents( $tmp_file, wp_remote_retrieve_body( $response ) );
+		\Pressbooks\Utility\put_contents( $tmp_file, wp_remote_retrieve_body( $response ) );
 
 		if ( ! \Pressbooks\Media\is_valid_media( $tmp_file, $filename ) ) {
 			$this->fetchedMediaCache[ $url ] = '';
@@ -369,7 +379,7 @@ class Epub3 extends Epub201 {
 		// Check for duplicates, save accordingly
 		if ( ! file_exists( "$fullpath/$filename" ) ) {
 			copy( $tmp_file, "$fullpath/$filename" );
-		} elseif ( md5( file_get_contents( $tmp_file ) ) !== md5( file_get_contents( "$fullpath/$filename" ) ) ) {
+		} elseif ( md5( \Pressbooks\Utility\get_contents( $tmp_file ) ) !== md5( \Pressbooks\Utility\get_contents( "$fullpath/$filename" ) ) ) {
 			$filename = wp_unique_filename( $fullpath, $filename );
 			copy( $tmp_file, "$fullpath/$filename" );
 		}
@@ -460,7 +470,7 @@ class Epub3 extends Epub201 {
 		$vars['meta'] = $metadata;
 
 		// Put contents
-		file_put_contents(
+		\Pressbooks\Utility\put_contents(
 			$this->tmpDir . '/book.opf',
 			$this->loadTemplate( $this->dir . '/templates/epub3/opf.php', $vars )
 		);
@@ -482,20 +492,20 @@ class Epub3 extends Epub201 {
 
 		// Sanitize variables for usage in XML template
 		$vars = [
-			'author' => isset( $metadata['pb_author'] ) ? sanitize_xml_attribute( $metadata['pb_author'] ) : '',
+			'author' => ! \Pressbooks\Utility\empty_space( $metadata['pb_authors'] ) ? sanitize_xml_attribute( oxford_comma_explode( $metadata['pb_authors'] )[0] ) : '',
 			'manifest' => $this->manifest,
 			'dtd_uid' => ! empty( $metadata['pb_ebook_isbn'] ) ? sanitize_xml_attribute( $metadata['pb_ebook_isbn'] ) : sanitize_xml_attribute( get_bloginfo( 'url' ) ),
 			'enable_external_identifier' => false,
 			'lang' => $this->lang,
 		];
 
-		file_put_contents(
+		\Pressbooks\Utility\put_contents(
 			$this->tmpDir . '/toc.xhtml',
 			$this->loadTemplate( $this->dir . '/templates/epub3/toc.php', $vars )
 		);
 
 		// For backwards compatibility
-		file_put_contents(
+		\Pressbooks\Utility\put_contents(
 			$this->tmpDir . '/toc.ncx',
 			$this->loadTemplate( $this->dir . '/templates/epub201/ncx.php', $vars )
 		);

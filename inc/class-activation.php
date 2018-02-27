@@ -25,52 +25,53 @@ class Activation {
 	 * @var array The set of default WP options to set up on activation
 	 */
 	private $opts = [
+		'pressbooks_theme_migration' => 2,
 		'show_on_front' => 'page',
 		'rewrite_rules' => '',
 	];
 
-
 	/**
-	 * Constructor
+	 * @var Activation
 	 */
-	function __construct() {
-	}
-
+	protected static $instance = null;
 
 	/**
-	 * Activation hook
+	 * @var Taxonomy
+	 */
+	protected $taxonomy;
+
+	/**
+	 * @since 5.0.0
 	 *
-	 * @see register_activation_hook()
+	 * @return Activation
 	 */
-	function registerActivationHook() {
-
-		// Apply Pressbooks color scheme
-		update_user_option( get_current_user_id(), 'admin_color', 'pb_colors', true );
-
-		// Prevent overwriting customizations if Pressbooks has been disabled
-		if ( ! get_site_option( 'pressbooks-activated' ) ) {
-
-			/**
-			 * Allow the default description of the root blog to be customized.
-			 *
-			 * @since 3.9.7
-			 *
-			 * @param string $value Default description ('Simple Book Publishing').
-			 */
-			update_blog_option( 1, 'blogdescription', apply_filters( 'pb_root_description', __( 'Simple Book Publishing', 'pressbooks' ) ) );
-
-			// Configure root blog theme (PB_ROOT_THEME, defined as 'pressbooks-publisher' by default).
-			update_blog_option( 1, 'template', PB_ROOT_THEME );
-			update_blog_option( 1, 'stylesheet', PB_ROOT_THEME );
-			// Remove widgets from root blog.
-			delete_blog_option( 1, 'sidebars_widgets' );
-
-			// Add "activated" key to enable check above
-			add_site_option( 'pressbooks-activated', true );
-
+	static public function init() {
+		if ( is_null( self::$instance ) ) {
+			$taxonomy = Taxonomy::init();
+			self::$instance = new self( $taxonomy );
+			self::hooks( self::$instance );
 		}
+		return self::$instance;
 	}
 
+	/**
+	 * @since 5.0.0
+	 *
+	 * @param Activation $obj
+	 */
+	static public function hooks( Activation $obj ) {
+		add_action( 'wpmu_new_blog', [ $obj, 'wpmuNewBlog' ], 9, 2 );
+		add_action( 'wp_login', [ $obj, 'forcePbColors' ], 10, 2 );
+		add_action( 'profile_update', [ $obj, 'forcePbColors' ] );
+		add_action( 'user_register', [ $obj, 'forcePbColors' ] );
+	}
+
+	/**
+	 * @param Taxonomy $taxonomy
+	 */
+	function __construct( $taxonomy ) {
+		$this->taxonomy = $taxonomy;
+	}
 
 	/**
 	 * Runs activation function and sets up default WP options for new blog,
@@ -81,13 +82,14 @@ class Activation {
 	 *
 	 * @see add_action( 'wpmu_new_blog', ... )
 	 */
-	function wpmuNewBlog( $blog_id, $user_id ) {
+	public function wpmuNewBlog( $blog_id, $user_id ) {
 
 		$this->blog_id = (int) $blog_id;
 		$this->user_id = (int) $user_id;
 
 		switch_to_blog( $this->blog_id );
 		if ( ! $this->isBookSetup() ) {
+
 			$this->wpmuActivate();
 			array_walk(
 				$this->opts, function ( $v, $k ) {
@@ -98,11 +100,17 @@ class Activation {
 					}
 				}
 			);
+
 			wp_cache_flush();
 		}
 
-		// Set current metadata version to skip redundant upgrade routines
+		// Set current versions to skip redundant upgrade routines
 		update_option( 'pressbooks_metadata_version', \Pressbooks\Metadata::VERSION );
+		update_option( 'pressbooks_taxonomy_version', \Pressbooks\Taxonomy::VERSION );
+		foreach ( ( new \Pressbooks\Modules\ThemeOptions\ThemeOptions() )->getTabs() as $slug => $theme_options_class ) {
+			update_option( "pressbooks_theme_options_{$slug}_version", $theme_options_class::VERSION, false );
+		}
+
 		flush_rewrite_rules( false );
 
 		/**
@@ -174,7 +182,7 @@ class Activation {
 		/** @var $wpdb \wpdb */
 		global $wpdb;
 
-		\Pressbooks\Taxonomy::insertTerms();
+		$this->taxonomy->insertTerms();
 
 		$posts = [
 			// Parts, Chapters, Front-Matter, Back-Matter
@@ -270,8 +278,16 @@ class Activation {
 		 */
 		$posts = apply_filters( 'pb_default_book_content', $posts );
 
-		$part = [ 'post_status' => 'publish', 'comment_status' => 'closed', 'post_author' => $this->user_id ];
-		$post = [ 'post_status' => 'publish', 'comment_status' => 'open', 'post_author' => $this->user_id ];
+		$part = [
+			'post_status' => 'publish',
+			'comment_status' => 'closed',
+			'post_author' => $this->user_id,
+		];
+		$post = [
+			'post_status' => 'publish',
+			'comment_status' => 'open',
+			'post_author' => $this->user_id,
+		];
 		$page = [
 			'post_status' => 'publish',
 			'comment_status' => 'closed',
@@ -279,6 +295,11 @@ class Activation {
 			'post_content' => '<!-- Here be dragons. -->',
 			'post_author' => $this->user_id,
 			'tags_input' => __( 'Default Data', 'pressbooks' ),
+		];
+		$meta = [
+			'post_status' => 'publish',
+			'comment_status' => 'closed',
+			'post_author' => $this->user_id,
 		];
 
 		/**
@@ -300,9 +321,9 @@ class Activation {
 			$exists = $wpdb->get_var(
 				$wpdb->prepare(
 					"SELECT ID FROM {$wpdb->posts} WHERE post_title = %s AND post_type = %s AND post_name = %s AND post_status = 'publish' ", [
-					$item['post_title'],
-					$item['post_type'],
-					$item['post_name'],
+						$item['post_title'],
+						$item['post_type'],
+						$item['post_name'],
 					]
 				)
 			);
@@ -311,6 +332,8 @@ class Activation {
 					$data = array_merge( $item, $page );
 				} elseif ( 'part' === $item['post_type'] ) {
 					$data = array_merge( $item, $part );
+				} elseif ( 'metadata' === $item['post_type'] ) {
+					$data = array_merge( $item, $meta );
 				} else {
 					$data = array_merge( $item, $post );
 				}
@@ -344,15 +367,19 @@ class Activation {
 					} elseif ( 'metadata' === $item['post_type'] ) {
 						$metadata_id = $newpost;
 						if ( 0 !== get_current_user_id() ) {
+							// Add initial contributor
 							$user_info = get_userdata( get_current_user_id() );
-							$name = $user_info->display_name;
-							update_post_meta( $metadata_id, 'pb_author', $name );
+							$contributors = new Contributors();
+							$term = $contributors->addBlogUser( $user_info->ID );
+							if ( $term !== false ) {
+								$contributors->link( $term['term_id'], $metadata_id, 'pb_authors' );
+							}
 						}
 						$locale = get_option( 'WPLANG' );
 						if ( ! empty( $locale ) ) {
 							$locale = array_search( $locale, \Pressbooks\L10n\wplang_codes(), true );
-						} elseif ( $locale = get_site_option( 'WPLANG' ) ) {
-							$locale = array_search( $locale, \Pressbooks\L10n\wplang_codes(), true );
+						} elseif ( get_site_option( 'WPLANG' ) ) {
+							$locale = array_search( get_site_option( 'WPLANG' ), \Pressbooks\L10n\wplang_codes(), true );
 						} else {
 							$locale = 'en';
 						}
@@ -384,14 +411,13 @@ class Activation {
 		refresh_blog_details( $this->blog_id );
 	}
 
-
 	/**
 	 * Never let a user change [ Your Profile > Admin Color Scheme ]
 	 *
 	 * @param int $id
 	 * @param object $user (optional)
 	 */
-	static function forcePbColors( $id, $user = null ) {
+	public function forcePbColors( $id, $user = null ) {
 
 		if ( is_numeric( $id ) ) {
 			$user_id = $id;

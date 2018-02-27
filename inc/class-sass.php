@@ -106,15 +106,7 @@ class Sass {
 	 * @return string
 	 */
 	public function pathToUserGeneratedCss() {
-
-		$wp_upload_dir = wp_upload_dir();
-		$upload_dir = $wp_upload_dir['basedir'] . '/css';
-
-		if ( ! file_exists( $upload_dir ) ) {
-			mkdir( $upload_dir, 0775, true );
-		}
-
-		return $upload_dir;
+		return \Pressbooks\Utility\get_generated_content_path( '/css' );
 	}
 
 
@@ -124,11 +116,7 @@ class Sass {
 	 * @return string
 	 */
 	public function urlToUserGeneratedCss() {
-
-		$wp_upload_dir = wp_upload_dir();
-		$upload_dir = $wp_upload_dir['baseurl'] . '/css';
-		$upload_dir = \Pressbooks\Sanitize\maybe_https( $upload_dir );
-		return $upload_dir;
+		return \Pressbooks\Utility\get_generated_content_url( '/css' );
 	}
 
 
@@ -138,15 +126,7 @@ class Sass {
 	 * @return string
 	 */
 	public function pathToUserGeneratedSass() {
-
-		$wp_upload_dir = wp_upload_dir();
-		$upload_dir = $wp_upload_dir['basedir'] . '/scss';
-
-		if ( ! file_exists( $upload_dir ) ) {
-			mkdir( $upload_dir, 0775, true );
-		}
-
-		return $upload_dir;
+		return \Pressbooks\Utility\get_generated_content_path( '/scss' );
 	}
 
 
@@ -156,15 +136,7 @@ class Sass {
 	 * @return string
 	 */
 	public function pathToDebugDir() {
-
-		$wp_upload_dir = wp_upload_dir();
-		$upload_dir = $wp_upload_dir['basedir'] . '/scss-debug';
-
-		if ( ! file_exists( $upload_dir ) ) {
-			mkdir( $upload_dir, 0775, true );
-		}
-
-		return $upload_dir;
+		return \Pressbooks\Utility\get_generated_content_path( '/scss-debug' );
 	}
 
 
@@ -191,10 +163,11 @@ class Sass {
 			}
 		} catch ( \Exception $e ) {
 
+			$error_message = print_r( $sass->getParsedFiles(), true ); // @codingStandardsIgnoreLine
 			$_SESSION['pb_errors'][] = sprintf(
 				__( 'There was a problem with SASS. Contact your site administrator. Error: %1$s %2$s', 'pressbooks' ),
 				$e->getMessage(),
-				'<pre>' . print_r( $sass->getParsedFiles(), true ) . '</pre>'
+				"<pre>{$error_message}</pre>"
 			);
 
 			$this->logException( $e );
@@ -293,7 +266,7 @@ class Sass {
 			],
 		];
 
-		$message = print_r( array_merge( $info ), true );
+		$message = print_r( array_merge( $info ), true ); // @codingStandardsIgnoreLine
 
 		\Pressbooks\Utility\email_error_log(
 			$this->errorsEmail,
@@ -309,18 +282,16 @@ class Sass {
 	 * @param string $css
 	 * @param string $scss
 	 * @param string $filename
-	 *
-	 * @param string $filename
 	 */
 	public function debug( $css, $scss, $filename ) {
 
 		$debug_dir = $this->pathToDebugDir();
 
 		$css_debug_file = $debug_dir . "/{$filename}.css";
-		file_put_contents( $css_debug_file, $css );
+		\Pressbooks\Utility\put_contents( $css_debug_file, $css );
 
 		$scss_debug_file = $debug_dir . "/{$filename}.scss";
-		file_put_contents( $scss_debug_file, $scss );
+		\Pressbooks\Utility\put_contents( $scss_debug_file, $scss );
 	}
 
 	/**

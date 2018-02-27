@@ -4,40 +4,9 @@ class ApiTest extends \WP_UnitTestCase {
 
 	use utilsTrait;
 
-	/**
-	 * @return Spy_REST_Server
-	 */
-	public function setupBookApi() {
-
-		global $wp_rest_server;
-		$server = $wp_rest_server = new \Spy_REST_Server();
-		$this->_book();
-
-		// PHPUnit is initialized as main site, $is_book hooks are never loaded...
-		\Pressbooks\PostType\register_post_types();
-		remove_action( 'rest_api_init', '\Pressbooks\Api\init_root' );
-		add_action( 'rest_api_init', '\Pressbooks\Api\init_book' );
-		add_filter( 'rest_endpoints', 'Pressbooks\Api\hide_endpoints_from_book' );
-		add_filter( 'rest_url', 'Pressbooks\Api\fix_book_urls', 10, 2 );
-
-		do_action( 'rest_api_init' );
-		return $server;
-	}
-
-	/**
-	 * @return Spy_REST_Server
-	 */
-	public function setupRootApi() {
-
-		global $wp_rest_server;
-		$server = $wp_rest_server = new \Spy_REST_Server;
-		do_action( 'rest_api_init' );
-		return $server;
-	}
-
 	public function test_rootEndpoints() {
 
-		$server = $this->setupRootApi();
+		$server = $this->_setupRootApi();
 
 		// Test that endpoints exist
 		$endpoints = [
@@ -72,7 +41,7 @@ class ApiTest extends \WP_UnitTestCase {
 			'/pressbooks/v2/metadata',
 			'/pressbooks/v2/toc',
 		];
-		$server = $this->setupBookApi();
+		$server = $this->_setupBookApi();
 		foreach ( $endpoints as $endpoint ) {
 			$request = new \WP_REST_Request( 'OPTIONS', $endpoint );
 			$response = $server->dispatch( $request );
@@ -91,7 +60,7 @@ class ApiTest extends \WP_UnitTestCase {
 			'/wp/v2/back-matter-type',
 			'/pressbooks/v2/parts/999/metadata',
 		];
-		$server = $this->setupBookApi();
+		$server = $this->_setupBookApi();
 		foreach ( $incompatible_endpoints as $endpoint ) {
 			$request = new \WP_REST_Request( 'GET', $endpoint );
 			$response = $server->dispatch( $request );
@@ -107,7 +76,7 @@ class ApiTest extends \WP_UnitTestCase {
 		restore_current_blog();
 
 		// Test book metadata search
-		$server = $this->setupRootApi();
+		$server = $this->_setupRootApi();
 		$request = new \WP_REST_Request( 'GET', '/pressbooks/v2/books/search' );
 		$request->set_param( 'name', 'site' );
 		$request->set_param( '@type', 'book' );
@@ -116,7 +85,7 @@ class ApiTest extends \WP_UnitTestCase {
 		$this->assertNotEmpty( $data );
 
 		// Test chapter metadata search
-		$server = $this->setupRootApi();
+		$server = $this->_setupRootApi();
 		$request = new \WP_REST_Request( 'GET', '/pressbooks/v2/books/search' );
 		$request->set_param( 'name', 'appendix' );
 		$request->set_param( '@type', 'chapter' );
@@ -125,7 +94,7 @@ class ApiTest extends \WP_UnitTestCase {
 		$this->assertNotEmpty( $data );
 
 		// Test search with 5 parameters
-		$server = $this->setupRootApi();
+		$server = $this->_setupRootApi();
 		$request = new \WP_REST_Request( 'GET', '/pressbooks/v2/books/search' );
 		$request->set_param( 'name', 'lorem,ipsum,dolor,consectetur,site' );
 		$request->set_param( '@type', 'lorem,ipsum,dolor,consectetur,book' );
@@ -134,7 +103,7 @@ class ApiTest extends \WP_UnitTestCase {
 		$this->assertNotEmpty( $data );
 
 		// Test truncated after 5 parameters
-		$server = $this->setupRootApi();
+		$server = $this->_setupRootApi();
 		$request = new \WP_REST_Request( 'GET', '/pressbooks/v2/books/search' );
 		$request->set_param( 'name', 'lorem,ipsum,dolor,consectetur,adipiscing,site' );
 		$request->set_param( '@type', 'lorem,ipsum,dolor,consectetur,adipiscing,book' );
@@ -143,7 +112,7 @@ class ApiTest extends \WP_UnitTestCase {
 		$this->assertEmpty( $data );
 
 		// Test AND/OR
-		$server = $this->setupRootApi();
+		$server = $this->_setupRootApi();
 		$request = new \WP_REST_Request( 'GET', '/pressbooks/v2/books/search' );
 		$request->set_param( 'name', 'site' );
 		$request->set_param( '@type', 'cake' );
@@ -155,6 +124,77 @@ class ApiTest extends \WP_UnitTestCase {
 	public function test_is_enabled() {
 		$result = \Pressbooks\Api\is_enabled();
 		$this->assertTrue( is_bool( $result ) );
+	}
+
+	/**
+	 * @see \Pressbooks\Api\init_batch for documentation
+	 */
+	public function test_batch() {
+		$server = $this->_setupBookApi();
+
+		// Set admin with site wide permissions
+		$user_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+		wp_set_current_user( $user_id );
+		update_site_option( 'site_admins', [ wp_get_current_user()->user_login ] );
+
+		// Invalid request
+
+		$request = new \WP_REST_Request( 'GET', '/pressbooks/v2/batch' );
+		$response = $server->dispatch( $request );
+		$this->assertEquals( 400, $response->get_status() );
+
+		// URL Format
+
+		$request = new \WP_REST_Request( 'GET', '/pressbooks/v2/batch' );
+		parse_str( 'requests[]=/pressbooks/v2/front-matter&requests[]=/pressbooks/v2/back-matter', $params );
+		$request->set_query_params( $params );
+		$response = $server->dispatch( $request );
+		$data = $response->get_data();
+
+		$this->assertEquals( 2, count( $data ) );
+		$this->assertInstanceOf( '\WP_REST_Response', $data[0] );
+		$this->assertInstanceOf( '\WP_REST_Response', $data[1] );
+		$this->assertEquals( 200, $data[0]->get_data()['status'] );
+		$this->assertEquals( 200, $data[1]->get_data()['status'] );
+		$this->assertEquals( 'Introduction', $data[0]->get_data()['body'][0]['title']['rendered'] );
+		$this->assertEquals( 'Appendix', $data[1]->get_data()['body'][0]['title']['rendered'] );
+
+		// JSON Object Format
+
+		$this->assertFalse( get_user_by( 'slug', 'batchuser001' ) );
+		$this->assertFalse( get_user_by( 'slug', 'batchuser002' ) );
+
+		$post = '
+			{
+				"requests": [
+					{
+						"path": "/wp/v2/users",
+						"headers": [],
+						"body": {"username": "batchuser001", "email": "batchuser001@pressbooks.test", "password": "abcd1234"},
+						"method": "POST"
+					},
+					{
+						"path": "/wp/v2/users",
+						"headers": [],
+						"body": {"username": "batchuser002", "email": "batchuser002@pressbooks.test", "password": "abcd1234"},
+						"method": "POST"
+					}
+				]
+			}';
+
+		$request = new \WP_REST_Request( 'POST', '/pressbooks/v2/batch' );
+		$request->set_body_params( json_decode( $post, true ) );
+		$response = $server->dispatch( $request );
+		$data = $response->get_data();
+
+		$this->assertEquals( 2, count( $data ) );
+		$this->assertInstanceOf( '\WP_REST_Response', $data[0] );
+		$this->assertInstanceOf( '\WP_REST_Response', $data[1] );
+		$this->assertEquals( 201, $data[0]->get_data()['status'] );
+		$this->assertEquals( 201, $data[1]->get_data()['status'] );
+
+		$this->assertInstanceOf( '\WP_User', get_user_by( 'slug', 'batchuser001' ) );
+		$this->assertInstanceOf( '\WP_User', get_user_by( 'slug', 'batchuser002' ) );
 	}
 
 }

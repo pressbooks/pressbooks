@@ -23,12 +23,12 @@ echo '<?xml version="1.0" encoding="utf-8" ?>' . "\n";
 <h1><?php bloginfo( 'name' ); ?></h1>
 
 <h2>by</h2>
-<?php if ( isset( $meta['pb_author'] ) ) {  ?>
-	<h2><?php echo $meta['pb_author']; ?></h2>
+<?php if ( isset( $meta['pb_authors'] ) ) { ?>
+	<h2><?php echo $meta['pb_authors']; ?></h2>
 <?php } ?>
 
-<?php if ( isset( $meta['pb_contributing_authors'] ) ) {  ?>
-	<h3><?php echo $meta['pb_contributing_authors']; ?></h3>
+<?php if ( isset( $meta['pb_contributors'] ) ) { ?>
+	<h3><?php echo $meta['pb_contributors']; ?></h3>
 <?php } ?>
 
 <div class="page">
@@ -44,7 +44,7 @@ echo '<?xml version="1.0" encoding="utf-8" ?>' . "\n";
 		<p class="publisher"><strong>Publisher</strong>: <?php echo $meta['pb_publisher']; ?></p>
 	<?php } ?>
 
-	<?php if ( isset( $meta['pb_copyright_year'] ) || isset( $meta['pb_copyright_holder'] )  ) { ?>
+	<?php if ( isset( $meta['pb_copyright_year'] ) || isset( $meta['pb_copyright_holder'] ) ) { ?>
 		<p class="copyright_notice"><strong>Copyright</strong>:
 			<?php
 			if ( ! empty( $meta['pb_copyright_year'] ) ) {

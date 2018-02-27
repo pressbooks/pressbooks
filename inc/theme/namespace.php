@@ -30,41 +30,31 @@ function check_required_themes() {
 	$theme = wp_get_theme();
 
 	if ( ! $theme->exists() && in_array( $theme->get_stylesheet(), $migrated_book_themes, true ) ) {
-		wp_die( sprintf(
-			__( 'Your theme, %1$s, is not installed. Please visit %2$s for installation instructions.', 'pressbooks' ),
-			$theme->get_stylesheet(),
+		wp_die(
 			sprintf(
-				'<a href="%1$s">%2$s</a>',
-				'https://github.com/pressbooks/' . $theme->get_stylesheet(),
-				'GitHub'
-			)
-		) );
-	}
-
-	if ( PB_ROOT_THEME === 'pressbooks-publisher' ) { // To bypass this check, define PB_ROOT_THEME to the name of your custom root theme in wp-config.php.
-		$theme = wp_get_theme( 'pressbooks-publisher' );
-		if ( ! $theme->exists() ) {
-			wp_die( sprintf(
-				__( 'The Pressbooks Publisher theme is not installed, but Pressbooks needs it in order to function properly. Please visit %s for installation instructions.', 'pressbooks' ),
+				__( 'Your theme, %1$s, is not installed. Please visit %2$s for installation instructions.', 'pressbooks' ),
+				$theme->get_stylesheet(),
 				sprintf(
 					'<a href="%1$s">%2$s</a>',
-					'https://github.com/pressbooks/pressbooks-publisher',
+					'https://github.com/pressbooks/' . $theme->get_stylesheet(),
 					'GitHub'
 				)
-			) );
-		}
+			)
+		);
 	}
 
 	$theme = wp_get_theme( 'pressbooks-book' );
 	if ( ! $theme->exists() ) {
-		wp_die( sprintf(
-			__( 'The Pressbooks Book theme is not installed, but Pressbooks needs it in order to function properly. Please visit %s for installation instructions.', 'pressbooks' ),
+		wp_die(
 			sprintf(
-				'<a href="%1$s">%2$s</a>',
-				'https://github.com/pressbooks/pressbooks-book',
-				'GitHub'
+				__( 'The Pressbooks Book theme is not installed, but Pressbooks needs it in order to function properly. Please visit %s for installation instructions.', 'pressbooks' ),
+				sprintf(
+					'<a href="%1$s">%2$s</a>',
+					'https://github.com/pressbooks/pressbooks-book',
+					'GitHub'
+				)
 			)
-		) );
+		);
 	}
 
 	set_transient( 'pb_has_required_themes', 1 );
@@ -83,14 +73,16 @@ function check_upgraded_customcss() {
 	foreach ( [ 'pressbooks-custom-css', 'pressbooks-customcss' ] as $name ) {
 		$theme = wp_get_theme( $name );
 		if ( $theme->exists() && ! version_compare( $theme->get( 'Version' ), '1.0.0', '>=' ) ) {
-			wp_die( sprintf(
-				__( 'The Pressbooks Custom CSS theme must be upgraded. Please visit %s for installation instructions.', 'pressbooks' ),
+			wp_die(
 				sprintf(
-					'<a href="%1$s">%2$s</a>',
-					'https://github.com/pressbooks/pressbooks-custom-css',
-					'GitHub'
+					__( 'The Pressbooks Custom CSS theme must be upgraded. Please visit %s for installation instructions.', 'pressbooks' ),
+					sprintf(
+						'<a href="%1$s">%2$s</a>',
+						'https://github.com/pressbooks/pressbooks-custom-css',
+						'GitHub'
+					)
 				)
-			) );
+			);
 		}
 	}
 
@@ -103,7 +95,9 @@ function check_upgraded_customcss() {
  * @since 4.0
  */
 function migrate_book_themes() {
-	if ( get_option( 'pressbooks_theme_migration' ) === false ) {
+	$pressbooks_theme_migration = (int) get_option( 'pressbooks_theme_migration', 0 );
+
+	if ( ! $pressbooks_theme_migration ) {
 		$comparisons = [
 			'austen' => 'pressbooks-austenclassic',
 			'clarke' => 'pressbooks-clarke',
@@ -120,13 +114,44 @@ function migrate_book_themes() {
 			if ( $lock->isLocked() ) {
 				$data = $lock->getLockData();
 				$data['stylesheet'] = $comparisons[ $theme ];
-				$json = json_encode( $data );
+				$json = wp_json_encode( $data );
 				$lockfile = $lock->getLockDir( false ) . '/lock.json';
-				file_put_contents( $lockfile, $json );
+				\Pressbooks\Utility\put_contents( $lockfile, $json );
 			}
 		}
 
-		update_option( 'pressbooks_theme_migration', 1 );
+		$pressbooks_theme_migration = 1;
+		update_option( 'pressbooks_theme_migration', $pressbooks_theme_migration );
+	}
+
+	if ( $pressbooks_theme_migration === 1 ) {
+		$theme = wp_get_theme()->get_stylesheet();
+		if ( $theme === 'pressbooks-book' ) {
+			if ( wp_get_theme( 'pressbooks-luther' )->exists() ) {
+				switch_theme( 'pressbooks-luther' );
+				$lock = Lock::init();
+				if ( $lock->isLocked() ) {
+					$data = $lock->getLockData();
+					$data['stylesheet'] = 'pressbooks-luther';
+					$json = wp_json_encode( $data );
+					$lockfile = $lock->getLockDir() . '/lock.json';
+					\Pressbooks\Utility\put_contents( $lockfile, $json );
+				}
+			} else {
+				add_action(
+					'admin_notices', function () {
+						/* translators: 1: URL to Luther theme */
+						echo '<div id="message" class="error fade"><p>' . sprintf(
+							__( 'Luther has been replaced with McLuhan as Pressbooks’ default book theme. To continue using Luther for your book, please ensure that the standalone <a href="%1$s">Luther theme</a> is installed and network activated.', 'pressbooks' ),
+							'https://github.com/pressbooks/pressbooks-luther/'
+						) . '</p></div>';
+					}
+				);
+			}
+		}
+
+		$pressbooks_theme_migration = 2;
+		update_option( 'pressbooks_theme_migration', $pressbooks_theme_migration );
 	}
 }
 

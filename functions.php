@@ -176,7 +176,7 @@ function pb_get_custom_stylesheet_url() {
 }
 
 /**
- * Get "real" chapter number
+ * Get "real" chapter number for Web + REST API
  *
  * @param $post_name
  *
@@ -190,7 +190,7 @@ function pb_get_chapter_number( $post_name ) {
 	}
 
 	$lookup = \Pressbooks\Book::getBookStructure();
-	$lookup = $lookup['__export_lookup'];
+	$lookup = $lookup['__web_lookup'];
 
 	if ( 'chapter' != @$lookup[ $post_name ] ) {
 		return 0;
@@ -199,7 +199,7 @@ function pb_get_chapter_number( $post_name ) {
 	$i = 0;
 	foreach ( $lookup as $key => $val ) {
 		if ( 'chapter' == $val ) {
-			$chapter = get_posts( array( 'name' => $key, 'post_type' => 'chapter', 'post_status' => 'publish', 'numberposts' => 1 ) );
+			$chapter = get_posts( array( 'name' => $key, 'post_type' => 'chapter', 'post_status' => [ 'web-only', 'publish' ], 'numberposts' => 1 ) );
 			if ( isset( $chapter[0] ) ) {
 				$type = pb_get_section_type( $chapter[0] );
 				if ( 'numberless' !== $type ) {
@@ -229,16 +229,17 @@ function pb_get_chapter_number( $post_name ) {
  */
 function pb_get_section_type( $post ) {
 	$type = $post->post_type;
+	$taxonomy = \Pressbooks\Taxonomy::init();
 	switch ( $type ) {
 		case 'chapter':
-			$type = \Pressbooks\Taxonomy::getChapterType( $post->ID );
-		break;
+			$type = $taxonomy->getChapterType( $post->ID );
+			break;
 		case 'front-matter':
-			$type = \Pressbooks\Taxonomy::getFrontMatterType( $post->ID );
-		break;
+			$type = $taxonomy->getFrontMatterType( $post->ID );
+			break;
 		case 'back-matter':
-			$type = \Pressbooks\Taxonomy::getBackMatterType( $post->ID );
-		break;
+			$type = $taxonomy->getBackMatterType( $post->ID );
+			break;
 	}
 
 	return $type;

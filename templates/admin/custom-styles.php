@@ -16,7 +16,7 @@ $slugs_dropdown = $styles->renderDropdownForSlugs( $slug );
 $revisions_table = $styles->renderRevisionsTable( $slug, $style_post->ID );
 $post_id = absint( $style_post->ID );
 $theme = wp_get_theme();
-$theme_styles = $styles->customize( $slug, file_get_contents( $styles->getPathToScss( $slug ) ) );
+$theme_styles = $styles->customize( $slug, \Pressbooks\Utility\get_contents( $styles->getPathToScss( $slug ) ) );
 $your_styles = $style_post->post_content;
 
 // -------------------------------------------------------------------------------------------------------------------

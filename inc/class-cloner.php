@@ -15,7 +15,10 @@ use function Pressbooks\Image\default_cover_url;
 use function Pressbooks\Image\strip_baseurl;
 use function Pressbooks\Metadata\schema_to_book_information;
 use function Pressbooks\Metadata\schema_to_section_information;
-use function \Pressbooks\Utility\getset;
+use function Pressbooks\Utility\getset;
+use function Pressbooks\Utility\oxford_comma_explode;
+use function Pressbooks\Utility\str_ends_with;
+use function Pressbooks\Utility\str_lreplace;
 
 class Cloner {
 	/**
@@ -97,7 +100,13 @@ class Cloner {
 	 *
 	 * @var array
 	 */
-	protected $itemsToClone = [ 'terms' => 0, 'front-matter' => 0, 'back-matter' => 0, 'parts' => 0, 'chapters' => 0 ];
+	protected $itemsToClone = [
+		'terms' => 0,
+		'front-matter' => 0,
+		'back-matter' => 0,
+		'parts' => 0,
+		'chapters' => 0,
+	];
 	/**
 	 * An array of cloned items.
 	 *
@@ -123,7 +132,9 @@ class Cloner {
 	 *
 	 * @var array
 	 */
-	protected $requestArgs = [ 'timeout' => 30 ];
+	protected $requestArgs = [
+		'timeout' => 30,
+	];
 
 	/**
 	 * @var array
@@ -145,7 +156,7 @@ class Cloner {
 	 * @param string $source_url The public URL of the source book.
 	 * @param string $target_url The public URL of the target book.
 	 */
-	public function __construct( $source_url, $target_url ) {
+	public function __construct( $source_url, $target_url = '' ) {
 		// Disable SSL verification for development
 		if ( defined( 'WP_ENV' ) && WP_ENV === 'development' ) {
 			$this->requestArgs['sslverify'] = false;
@@ -172,6 +183,48 @@ class Cloner {
 	}
 
 	/**
+	 * @return string
+	 */
+	public function getSourceBookUrl() {
+		return $this->sourceBookUrl;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getSourceBookId() {
+		return $this->sourceBookId;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getSourceBookStructure() {
+		return $this->sourceBookStructure;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getSourceBookTerms() {
+		return $this->sourceBookTerms;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getSourceBookMetadata() {
+		return $this->sourceBookMetadata;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getClonedItems() {
+		return $this->clonedItems;
+	}
+
+	/**
 	 * Clone a book in its entirety.
 	 *
 	 * @since 4.1.0
@@ -179,11 +232,85 @@ class Cloner {
 	 * @return bool
 	 */
 	public function cloneBook() {
+
+		if ( ! $this->setupSource() ) {
+			return false;
+		}
+
+		// Create Book
+		$this->targetBookId = $this->createBook();
+		$this->targetBookUrl = get_blogaddress_by_id( $this->targetBookId );
+
+		switch_to_blog( $this->targetBookId );
+		wp_defer_term_counting( true );
+
+		// Clone Metadata
+		$this->clonedItems['metadata'] = $this->cloneMetadata();
+
+		// Clone Taxonomy Terms
+		$this->targetBookTerms = $this->getBookTerms( $this->targetBookUrl );
+		foreach ( $this->sourceBookTerms as $term ) {
+			$this->itemsToClone['terms']++;
+			$new_term = $this->cloneTerm( $term['id'] );
+			if ( $new_term ) {
+				$this->termMap[ $term['id'] ] = $new_term;
+				$this->clonedItems['terms'][] = $new_term;
+			}
+		}
+
+		// Clone Front Matter
+		foreach ( $this->sourceBookStructure['front-matter'] as $frontmatter ) {
+			$new_frontmatter = $this->cloneFrontMatter( $frontmatter['id'] );
+			if ( $new_frontmatter !== false ) {
+				$this->itemsToClone['front-matter']++;
+				$this->clonedItems['front-matter'][] = $new_frontmatter;
+			}
+		}
+
+		// Clone Parts
+		foreach ( $this->sourceBookStructure['parts'] as $key => $part ) {
+			$new_part = $this->clonePart( $part['id'] );
+			if ( $new_part !== false ) {
+				$this->itemsToClone['parts']++;
+				$this->clonedItems['parts'][] = $new_part;
+				// Clone Chapters
+				foreach ( $this->sourceBookStructure['parts'][ $key ]['chapters'] as $chapter ) {
+					$new_chapter = $this->cloneChapter( $chapter['id'], $new_part );
+					if ( $new_chapter !== false ) {
+						$this->itemsToClone['chapters']++;
+						$this->clonedItems['chapters'][] = $new_chapter;
+					}
+				}
+			}
+		}
+
+		// Clone Back Matter
+		foreach ( $this->sourceBookStructure['back-matter'] as $backmatter ) {
+			$new_backmatter = $this->cloneBackMatter( $backmatter['id'] );
+			if ( $new_backmatter !== false ) {
+				$this->itemsToClone['back-matter']++;
+				$this->clonedItems['back-matter'][] = $new_backmatter;
+			}
+		}
+
+		wp_defer_term_counting( false ); // Flush
+		restore_current_blog();
+
+		return true;
+	}
+
+	/**
+	 * @since 5.0.0
+	 *
+	 * @return bool
+	 */
+	public function setupSource() {
 		if ( ! empty( $this->sourceBookId ) ) {
 			// Local book
 			switch_to_blog( $this->sourceBookId );
 		} elseif ( ! $this->isCompatible( $this->sourceBookUrl ) ) {
 			// Remote is not compatible, bail.
+			$_SESSION['pb_errors'][] = __( 'You can only clone from a book hosted by Pressbooks 4.1 or later. Please ensure that your source book meets these requirements.', 'pressbooks' );
 			return false;
 		}
 
@@ -195,7 +322,7 @@ class Cloner {
 		}
 
 		// Verify license or network administrator override
-		if ( ! $this->isBookCloneable() ) {
+		if ( ! $this->isSourceCloneable( $this->sourceBookMetadata['license'] ) ) {
 			$_SESSION['pb_errors'][] = sprintf( __( '%s is not licensed for cloning.', 'pressbooks' ), sprintf( '<em>%s</em>', $this->sourceBookMetadata['name'] ) );
 			return false;
 		}
@@ -223,54 +350,6 @@ class Cloner {
 		if ( ! empty( $this->sourceBookId ) ) {
 			restore_current_blog();
 		}
-
-		// Create Book
-		$this->targetBookId = $this->createBook();
-		$this->targetBookUrl = get_blogaddress_by_id( $this->targetBookId );
-
-		switch_to_blog( $this->targetBookId );
-
-		// Clone Metadata
-		$this->clonedItems['metadata'] = $this->cloneMetadata();
-
-		// Clone Taxonomy Terms
-		$this->targetBookTerms = $this->getBookTerms( $this->targetBookUrl );
-		foreach ( $this->sourceBookTerms as $term ) {
-			$this->itemsToClone['terms']++;
-			$new_term = $this->cloneTerm( $term['id'] );
-			if ( $new_term ) {
-				$this->termMap[ $term['id'] ] = $new_term;
-				$this->clonedItems['terms'][] = $new_term;
-			}
-		}
-
-		// Clone Front Matter
-		foreach ( $this->sourceBookStructure['front-matter'] as $frontmatter ) {
-			$this->itemsToClone['front-matter']++;
-			$this->clonedItems['front-matter'][] = $this->cloneFrontMatter( $frontmatter['id'] );
-		}
-
-		// Clone Parts
-		foreach ( $this->sourceBookStructure['parts'] as $key => $part ) {
-			$this->itemsToClone['parts']++;
-			$new_part = $this->clonePart( $part['id'] );
-			$this->clonedItems['parts'][] = $new_part;
-			if ( $new_part ) {
-				// Clone Chapters
-				foreach ( $this->sourceBookStructure['parts'][ $key ]['chapters'] as $chapter ) {
-					$this->itemsToClone['chapters']++;
-					$this->clonedItems['chapters'][] = $this->cloneChapter( $chapter['id'], $new_part );
-				}
-			}
-		}
-
-		// Clone Back Matter
-		foreach ( $this->sourceBookStructure['back-matter'] as $backmatter ) {
-			$this->itemsToClone['back-matter']++;
-			$this->clonedItems['back-matter'][] = $this->cloneBackMatter( $backmatter['id'] );
-		}
-
-		restore_current_blog();
 
 		return true;
 	}
@@ -322,7 +401,7 @@ class Cloner {
 		$response = rest_do_request( $request )->get_data();
 
 		// Inform user of failure, bail
-		if ( is_wp_error( $response ) ) {
+		if ( is_wp_error( $response ) || @$response['data']['status'] >= 400 ) { // @codingStandardsIgnoreLine
 			return false;
 		} else {
 			return $response['id'];
@@ -387,7 +466,10 @@ class Cloner {
 	 */
 	public function buildListOfKnownImages( $url ) {
 		// Handle request (local or global)
-		$params = [ 'media_type' => 'image', 'per_page' => 100 ];
+		$params = [
+			'media_type' => 'image',
+			'per_page' => 100,
+		];
 		$response = $this->handleGetRequest( $url, 'wp/v2', 'media', $params );
 
 		// Handle errors
@@ -448,7 +530,11 @@ class Cloner {
 	 */
 	public function getBookStructure( $url ) {
 		// Handle request (local or global)
-		$response = $this->handleGetRequest( $url , 'pressbooks/v2', 'toc', [ '_embed' => 1 ] );
+		$response = $this->handleGetRequest(
+			$url , 'pressbooks/v2', 'toc', [
+				'_embed' => 1,
+			]
+		);
 
 		// Handle errors
 		if ( is_wp_error( $response ) ) {
@@ -477,7 +563,11 @@ class Cloner {
 
 		foreach ( [ 'front-matter-type', 'chapter-type', 'back-matter-type' ] as $taxonomy ) {
 			// Handle request (local or global)
-			$response = $this->handleGetRequest( $url, 'pressbooks/v2', "$taxonomy", [ 'per_page' => 25 ] );
+			$response = $this->handleGetRequest(
+				$url, 'pressbooks/v2', "$taxonomy", [
+					'per_page' => 25,
+				]
+			);
 
 			// Bail on error
 			if ( is_wp_error( $response ) ) {
@@ -504,21 +594,24 @@ class Cloner {
 	 *
 	 * @since 4.1.0
 	 *
+	 * @param mixed $metadata_license
+	 *
 	 * @return bool Whether or not the book is public and licensed for cloning (or true if the current user is a network administrator and the book is in the current network).
 	 */
-	public function isBookCloneable() {
+	public function isSourceCloneable( $metadata_license ) {
 		$restrictive_licenses = [
 			'https://creativecommons.org/licenses/by-nd/4.0/',
 			'https://creativecommons.org/licenses/by-nc-nd/4.0/',
 			'https://choosealicense.com/no-license/',
 		];
 
-		if ( is_array( $this->sourceBookMetadata['license'] ) ) {
-			$license_url = $this->sourceBookMetadata['license']['url'];
+		if ( is_array( $metadata_license ) ) {
+			$license_url = $metadata_license['url'];
 		} else { // Backwards compatibility.
-			$license_url = $this->sourceBookMetadata['license'];
+			$license_url = $metadata_license;
 		}
 
+		$license_url = trailingslashit( trim( $license_url ) );
 		if ( ! empty( $this->sourceBookId ) ) {
 			if ( current_user_can( 'manage_network_options' ) ) {
 				return true; // Network administrators can clone local books no matter how they're licensed
@@ -552,12 +645,14 @@ class Cloner {
 
 		$title = $this->sourceBookMetadata['name'];
 		$user_id = get_current_user_id();
-		 // Disable automatic redirect to new book dashboard
-		 add_filter( 'pb_redirect_to_new_book', function () {
-			 return false;
-		 } );
-		 // Remove default content so that the book only contains the results of the clone operation
-		 add_filter( 'pb_default_book_content', [ $this, 'removeDefaultBookContent' ] );
+		// Disable automatic redirect to new book dashboard
+		add_filter(
+			'pb_redirect_to_new_book', function () {
+				return false;
+			}
+		);
+		// Remove default content so that the book only contains the results of the clone operation
+		add_filter( 'pb_default_book_content', [ $this, 'removeDefaultBookContent' ] );
 		$result = wpmu_create_blog( $domain, $path, $title, $user_id );
 		remove_all_filters( 'pb_redirect_to_new_book' );
 		remove_filter( 'pb_default_book_content', [ $this, 'removeDefaultBookContent' ] );
@@ -576,14 +671,15 @@ class Cloner {
 	 * @return bool | int False if the creation failed; the ID of the new book's book information post if it succeeded.
 	 */
 	protected function cloneMetadata() {
-		$metadata_id = ( new Metadata )->getMetaPost()->ID;
+		$metadata_post_id = ( new Metadata )->getMetaPost()->ID;
 
-		if ( ! $metadata_id ) {
+		if ( ! $metadata_post_id ) {
 			return false;
 		}
 
 		$book_information = schema_to_book_information( $this->sourceBookMetadata );
-		$book_information['pb_is_based_on'] = $this->sourceBookUrl;
+
+		// Cover image
 		if ( strpos( $book_information['pb_cover_image'], 'plugins/pressbooks/assets/dist/images/default-book-cover.jpg' ) === false ) {
 			$new_cover_id = $this->fetchAndSaveUniqueImage( $book_information['pb_cover_image'] );
 			if ( $new_cover_id ) {
@@ -595,20 +691,34 @@ class Cloner {
 			$book_information['pb_cover_image'] = default_cover_url();
 		}
 
-		$array_values = [ 'pb_keywords_tags', 'pb_bisac_subject', 'pb_contributing_authors', 'pb_editor', 'pb_translator' ];
-
+		// Everything else
+		$book_information['pb_is_based_on'] = $this->sourceBookUrl;
+		$metadata_array_values = [ 'pb_keywords_tags', 'pb_bisac_subject', 'pb_additional_subjects' ];
+		$contributors = new Contributors();
 		foreach ( $book_information as $key => $value ) {
-			if ( in_array( $key, $array_values, true ) ) {
+			if ( $contributors->isValid( $key ) ) {
+				$values = oxford_comma_explode( $value );
+				foreach ( $values as $v ) {
+					$contributors->insert( $v, $metadata_post_id, $key );
+				}
+			} elseif ( in_array( $key, $metadata_array_values, true ) ) {
 				$values = explode( ', ', $value );
 				foreach ( $values as $v ) {
-					add_post_meta( $metadata_id, $key, $v );
+					add_post_meta( $metadata_post_id, $key, $v );
 				}
 			} else {
-				update_post_meta( $metadata_id, $key, $value );
+				update_post_meta( $metadata_post_id, $key, $value );
+				if ( $key === 'pb_book_license' ) {
+					wp_set_object_terms( $metadata_post_id, $value, Licensing::TAXONOMY ); // Link
+				}
 			}
 		}
 
-		return $metadata_id;
+		// Remove the current user from the author field in Book Info
+		$user_data = get_userdata( get_current_user_id() );
+		$contributors->unlink( $user_data->user_nicename, $metadata_post_id );
+
+		return $metadata_post_id;
 	}
 
 	/**
@@ -622,6 +732,15 @@ class Cloner {
 	 * @return bool | int False if the clone failed; the ID of the new section if it succeeded.
 	 */
 	protected function cloneSection( $section_id, $post_type, $parent_id = null ) {
+
+		// Is the section license OK?
+		// The global license is for the 'collection' and within that collection you have stuff with licenses that differ from the global one...
+		$metadata = $this->retrieveSectionMetadata( $section_id, $post_type );
+		$is_source_clonable = $this->isSourceCloneable( $metadata['license'] ?? $this->sourceBookMetadata['license'] );
+		if ( ! $is_source_clonable ) {
+			return false;
+		}
+
 		// Locate section
 		foreach ( $this->sourceBookStructure['_embedded'][ $post_type ] as $k => $v ) {
 			if ( $v['id'] === absint( $section_id ) ) {
@@ -680,7 +799,21 @@ class Cloner {
 		if ( $post_type !== 'part' ) {
 			if ( isset( $section[ "$post_type-type" ] ) ) {
 				foreach ( $section[ "$post_type-type" ] as $key => $term_id ) {
-					$section[ "$post_type-type" ][ $key ] = $this->termMap[ $term_id ];
+					if ( isset( $this->termMap[ $term_id ] ) ) {
+						// Use map
+						$section[ "$post_type-type" ][ $key ] = $this->termMap[ $term_id ];
+					} elseif ( empty( $this->targetBookUrl ) ) {
+						// Try to match an existing term
+						foreach ( $this->sourceBookTerms as $source_term ) {
+							if ( $source_term['id'] === $term_id ) {
+								$term = get_term_by( 'slug', $source_term['slug'], $source_term['taxonomy'] );
+								if ( $term ) {
+									$section[ "$post_type-type" ][ $key ] = $term->term_id;
+								}
+								break;
+							}
+						}
+					}
 				}
 			}
 		}
@@ -688,13 +821,16 @@ class Cloner {
 		// Determine endpoint based on $post_type
 		$endpoint = ( in_array( $post_type, [ 'chapter', 'part' ], true ) ) ? $post_type . 's' : $post_type;
 
+		// Remove items handled by cloneSectionMetadata()
+		unset( $section['meta']['pb_authors'], $section['meta']['pb_section_license'] );
+
 		// POST internal request
 		$request = new \WP_REST_Request( 'POST', "/pressbooks/v2/$endpoint" );
 		$request->set_body_params( $section );
 		$response = rest_do_request( $request )->get_data();
 
 		// Inform user of failure, bail
-		if ( @$response['data']['status'] >= 400 ) { // @codingStandardsIgnoreLine
+		if ( is_wp_error( $response ) || @$response['data']['status'] >= 400 ) { // @codingStandardsIgnoreLine
 			return false;
 		}
 
@@ -707,13 +843,44 @@ class Cloner {
 		}
 
 		foreach ( $attachments as $attachment ) {
-			wp_update_post( [
-				'ID' => $attachment,
-				'post_parent' => $response['id'],
-			] );
+			wp_update_post(
+				[
+					'ID' => $attachment,
+					'post_parent' => $response['id'],
+				]
+			);
 		}
 
 		return $response['id'];
+	}
+
+	/**
+	 * Retrieve metadata
+	 *
+	 * @since 5.0.0
+	 *
+	 * @param int $section_id The ID of the section within the source book.
+	 * @param string $post_type The post type of the section.
+	 *
+	 * @return array
+	 */
+	public function retrieveSectionMetadata( $section_id, $post_type ) {
+		if ( in_array( $post_type, [ 'front-matter', 'back-matter' ], true ) ) {
+			foreach ( $this->sourceBookStructure[ $post_type ] as $k => $v ) {
+				if ( $v['id'] === absint( $section_id ) ) {
+					return $v['metadata'];
+				}
+			}
+		} elseif ( $post_type === 'chapter' ) {
+			foreach ( $this->sourceBookStructure['parts'] as $key => $part ) {
+				foreach ( $part['chapters'] as $k => $v ) {
+					if ( $v['id'] === absint( $section_id ) ) {
+						return $v['metadata'];
+					}
+				}
+			}
+		}
+		return []; // Nothing was found
 	}
 
 	/**
@@ -727,28 +894,33 @@ class Cloner {
 	 * @return bool False if the clone failed; true if it succeeded.
 	 */
 	protected function cloneSectionMetadata( $section_id, $post_type, $target_id ) {
-		// Retrieve metadata
-		$section_metadata = [];
-		if ( in_array( $post_type, [ 'front-matter', 'back-matter' ], true ) ) {
-			foreach ( $this->sourceBookStructure[ $post_type ] as $k => $v ) {
-				if ( $v['id'] === absint( $section_id ) ) {
-					$section_metadata = $v['metadata'];
-				}
-			}
-		} elseif ( $post_type === 'chapter' ) {
-			foreach ( $this->sourceBookStructure['parts'] as $key => $part ) {
-				foreach ( $part['chapters']  as $k => $v ) {
-					if ( $v['id'] === absint( $section_id ) ) {
-						$section_metadata = $v['metadata'];
-					}
-				}
-			}
+
+		$book_schema = $this->sourceBookMetadata;
+		if ( empty( $this->targetBookUrl ) ) {
+			// If there's no target then that means this data is going into the current book.
+			// Remove invalid $book_schema values so that $section_schema is used instead.
+			$book_schema['author'] = [];
+			$book_schema['license'] = '';
 		}
 
-		$section_information = schema_to_section_information( $section_metadata, $this->sourceBookMetadata );
+		$section_information = schema_to_section_information(
+			$this->retrieveSectionMetadata( $section_id, $post_type ),
+			$book_schema
+		);
 
+		$contributors = new Contributors();
 		foreach ( $section_information as $key => $value ) {
-			update_post_meta( $target_id, $key, $value ); // TODO handle errors
+			if ( $contributors->isValid( $key ) ) {
+				$values = oxford_comma_explode( $value );
+				foreach ( $values as $v ) {
+					$contributors->insert( $v, $target_id, $key );
+				}
+			} else {
+				update_post_meta( $target_id, $key, $value );
+				if ( $key === 'pb_section_license' ) {
+					wp_set_object_terms( $target_id, $value, Licensing::TAXONOMY ); // Link
+				}
+			}
 		}
 
 		return true;
@@ -927,7 +1099,12 @@ class Cloner {
 			}
 		}
 
-		$pid = media_handle_sideload( [ 'name' => $filename, 'tmp_name' => $tmp_name ], 0 );
+		$pid = media_handle_sideload(
+			[
+				'name' => $filename,
+				'tmp_name' => $tmp_name,
+			], 0
+		);
 		$src = wp_get_attachment_url( $pid );
 		if ( ! $src ) {
 			$pid = 0;
@@ -954,7 +1131,7 @@ class Cloner {
 		if ( $this->sameAsSource( $src_old ) && isset( $this->knownImages[ strip_baseurl( $src_old ) ] ) ) {
 			$basename_old = $this->basename( $src_old );
 			$basename_new = $this->basename( $src_new );
-			$maybe_src_new = \Pressbooks\Utility\str_lreplace( $basename_new, $basename_old, $src_new );
+			$maybe_src_new = str_lreplace( $basename_new, $basename_old, $src_new );
 			if ( $attachment_id === attachment_id_from_url( $maybe_src_new ) ) {
 				// Our best guess is that this is a cloned image, use old filename to preserve WP resizing
 				$src_new = $maybe_src_new;
@@ -1013,17 +1190,73 @@ class Cloner {
 	}
 
 	/**
-	 * @param $url
+	 * Discover WordPress API
+	 *
+	 * @see https://developer.wordpress.org/rest-api/using-the-rest-api/discovery/
+	 *
+	 * @param string $url
+	 *
+	 * @return string|false Returns (corrected) URL on success, false on failure
+	 */
+	public function discoverWordPressApi( $url ) {
+
+		// Use redirection because our servers redirect when missing a trailing slash
+		$response = wp_safe_remote_head( $url, [
+			'redirection' => 2,
+		] );
+		if ( is_wp_error( $response ) ) {
+			return false;
+		}
+		$headers = wp_remote_retrieve_headers( $response );
+
+		if ( isset( $headers['link'] ) ) {
+			if ( ! is_array( $headers['link'] ) ) {
+				$headers['link'] = [ $headers['link'] ];
+			}
+			foreach ( $headers['link'] as $link ) {
+				// Parse: <http://example.com/wp-json/>; rel="https://api.w.org/">, <http://example.com/?rest_route=/>; rel="https://api.w.org/"
+				if ( strpos( $link, 'rel="https://api.w.org/"' ) !== false || strpos( $link, "rel='https://api.w.org/'" ) !== false ) {
+					preg_match( '#\<(.*?)\>.*?//api\.w\.org/#', $link, $matches );
+					if ( empty( $matches[1] ) ) {
+						return false;
+					}
+					// Remove REST base
+					if ( str_ends_with( $matches[1], "/{$this->restBase}/" ) ) {
+						$fixed_url = esc_url( str_lreplace( "/{$this->restBase}/", '', $matches[1] ) ); // Ends with slash
+					} elseif ( str_ends_with( $matches[1], "/{$this->restBase}" ) ) {
+						$fixed_url = esc_url( str_lreplace( "/{$this->restBase}", '', $matches[1] ) ); // Doesn't end with slash
+					} else {
+						$fixed_url = esc_url( $matches[1] ); // Could not find rest base, use as is
+					}
+					return untrailingslashit( $fixed_url );
+				}
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * @param string $url
 	 *
 	 * @return bool
 	 */
 	public function isCompatible( $url ) {
+
+		$new_url = $this->discoverWordPressApi( $url );
+		if ( $new_url ) {
+			$url = $new_url;
+			$this->sourceBookUrl = $new_url;
+		}
+
 		// Check for taxonomies introduced in Pressbooks 4.1
 		// We specifically check for 404 Not Found.
 		// If we get another kind of error it will be caught later because we want to know what went wrong.
-		$response = $this->handleGetRequest( $url, 'pressbooks/v2', 'chapter-type', [ 'per_page' => 1 ] );
+		$response = $this->handleGetRequest(
+			$url, 'pressbooks/v2', 'chapter-type', [
+				'per_page' => 1,
+			]
+		);
 		if ( is_wp_error( $response ) && in_array( (int) $response->get_error_code(), [ 404 ], true ) ) {
-			$_SESSION['pb_errors'][] = __( 'You can only clone from a book hosted by Pressbooks 4.1 or later. Please ensure that your source book meets these requirements.', 'pressbooks' );
 			return false;
 		}
 

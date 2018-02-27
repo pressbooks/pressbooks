@@ -148,7 +148,7 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 
 		$this->_book( 'pressbooks-donham' );
 		$meta_post = ( new \Pressbooks\Metadata() )->getMetaPost();
-		update_post_meta( $meta_post->ID, 'pb_author', 'Zimmerman, Ned' );
+		( new \Pressbooks\Contributors() )->insert( 'Ned Zimmerman', $meta_post->ID );
 		$user_id = $this->factory()->user->create( [ 'role' => 'contributor' ] );
 		wp_set_current_user( $user_id );
 
@@ -162,6 +162,7 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 		$modules[] = '\Pressbooks\Modules\Export\WordPress\Wxr';
 		$modules[] = '\Pressbooks\Modules\Export\WordPress\VanillaWxr';
 		// $modules[] = '\Pressbooks\Modules\Export\Odt\Odt'; // TODO: Download/install Saxon-HE in Travis build script
+		$modules[] = '\Pressbooks\Modules\Export\HTMLBook\HTMLBook';
 
 		$paths = [];
 		$xhtml_path = null;
@@ -177,7 +178,9 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 			}
 
 			$this->assertTrue( $exporter->convert(), "Could not convert with {$module}" );
-			$this->assertTrue( $exporter->validate(), "Could not validate with {$module}");
+			if ( strpos( $module, '\HTMLBook\HTMLBook' ) === false ) { // TODO
+				$this->assertTrue( $exporter->validate(), "Could not validate with {$module}" );
+			}
 			$paths[] = $exporter->getOutputPath();
 
 			if ( strpos( $module, '\Xhtml\Xhtml11' ) !== false ) {
@@ -191,10 +194,35 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 		$this->assertContains( 'wp.com/latex.php', $xhtml_content );
 		$this->assertContains( ' <div id="attachment_1" ', $xhtml_content );
 		$this->assertContains( '<p><em>Ka kite ano!</em></p>', $xhtml_content );
+		$this->assertContains( 'https://github.com/pressbooks/pressbooks', $xhtml_content );
+		$this->assertContains( '</h2><h2 class="chapter-subtitle">Or, A Chapter to Test</h2></div>', $xhtml_content );
 
 		foreach ( $paths as $path ) {
 			unlink( $path );
 		}
 	}
 
+	public function test_sanityCheckXhtmlWithoutBuckram() {
+
+		$this->_book( 'pressbooks-donham' ); // Use an old book.
+		$meta_post = ( new \Pressbooks\Metadata() )->getMetaPost();
+		( new \Pressbooks\Contributors() )->insert( 'Ned Zimmerman', $meta_post->ID );
+		$user_id = $this->factory()->user->create( [ 'role' => 'contributor' ] );
+		wp_set_current_user( $user_id );
+
+		$exporter = new \Pressbooks\Modules\Export\Xhtml\Xhtml11( [] );
+		$this->assertTrue( $exporter->convert() );
+		$this->assertTrue( $exporter->validate() );
+		$xhtml_content = file_get_contents( $exporter->getOutputPath() );
+
+		$this->assertContains( '<span class="footnote">', $xhtml_content );
+		$this->assertContains( 'wp.com/latex.php', $xhtml_content );
+		$this->assertContains( ' <div id="attachment_1" ', $xhtml_content );
+		$this->assertContains( '<p><em>Ka kite ano!</em></p>', $xhtml_content );
+		$this->assertContains( 'https://github.com/pressbooks/pressbooks', $xhtml_content );
+		// Heading elements should be in a "bad" place.
+		$this->assertContains( '</h2></div><div class="ugc chapter-ugc"><h2 class="chapter-subtitle">Or, A Chapter to Test</h2>', $xhtml_content );
+
+		unlink( $exporter->getOutputPath() );
+	}
 }

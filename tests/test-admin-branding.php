@@ -3,8 +3,8 @@
 class Admin_BrandingTest extends \WP_UnitTestCase {
 
 	public function test_custom_color_scheme() {
-
-		$this->expectOutputRegex( '/<link rel="stylesheet" type="text\/css" href="\S*" media="screen" \/>/' );
+		update_option( 'pb_network_color_primary', '#663399' );
+		$this->expectOutputRegex( '/<style type="text\/css">/' );
 		\Pressbooks\Admin\Branding\custom_color_scheme();
 	}
 
@@ -27,4 +27,18 @@ class Admin_BrandingTest extends \WP_UnitTestCase {
 		$this->assertNotEmpty( $title );
 	}
 
+	function test_admin_title() {
+
+		$result = \Pressbooks\Admin\Branding\admin_title( 'Hello WordPress!' );
+		$this->assertEquals( $result, 'Hello Pressbooks!' );
+
+		$result = \Pressbooks\Admin\Branding\admin_title( 'Hello World!' );
+		$this->assertEquals( $result, 'Hello World!' );
+	}
+
+	function test_get_customizer_colors() {
+		update_option( 'pb_network_color_primary', '#663399' );
+		$result = \Pressbooks\Admin\Branding\get_customizer_colors();
+		$this->assertEquals( $result, '<style type="text/css">:root{--primary:#663399;}</style>' );
+	}
 }

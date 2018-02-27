@@ -12,17 +12,38 @@ let path = require( 'path' );
  |
  */
 
-mix.setPublicPath( path.join( 'assets', 'dist' ) )
+const assets = 'assets';
+const src = `${assets}/src`;
+const dist = `${assets}/dist`;
+const templates = 'templates';
+
+// BrowserSync
+mix.browserSync( {
+	host:  'localhost',
+	proxy: 'https://pressbooks.test/wp-login.php',
+	port:  3100,
+	files: [
+		'*.php',
+		`${templates}/**/*.php`,
+		`${dist}/styles/*.css`,
+		`${dist}/scripts/*.js`,
+	],
+} );
+
+mix
+	.setPublicPath( path.join( 'assets', 'dist' ) )
 	.js( 'assets/src/scripts/anchor.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/applyclass.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/book-information.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/catalog.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/cloner.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/color-picker.js', 'assets/dist/scripts/' )
+	.js( 'assets/src/scripts/cssanimations.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/export.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/footnote.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/ftnref-convert.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/import.js', 'assets/dist/scripts/' )
+	.js( 'assets/src/scripts/login.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/network-managers.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/organize.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/quicktags.js', 'assets/dist/scripts/' )
@@ -31,18 +52,43 @@ mix.setPublicPath( path.join( 'assets', 'dist' ) )
 	.js( 'assets/src/scripts/textboxes.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/theme-lock.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/theme-options.js', 'assets/dist/scripts/' )
-	.scripts( 'node_modules/block-ui/jquery.blockUI.js', 'assets/dist/scripts/blockui.js' )
-	.scripts( 'node_modules/isotope-layout/dist/isotope.pkgd.js', 'assets/dist/scripts/isotope.js' )
-	.scripts( 'node_modules/jquery-match-height/dist/jquery.matchHeight.js', 'assets/dist/scripts/matchheight.js' )
-	.scripts( 'node_modules/jquery-sticky/jquery.sticky.js', 'assets/dist/scripts/sticky.js' )
-	.scripts( 'node_modules/js-cookie/src/js.cookie.js', 'assets/dist/scripts/js-cookie.js' )
-	.scripts( 'node_modules/select2/dist/js/select2.js', 'assets/dist/scripts/select2.js' )
-	.scripts( 'node_modules/sidr/dist/jquery.sidr.js', 'assets/dist/scripts/sidr.js' )
-	.scripts( 'node_modules/tinymce/plugins/table/plugin.js', 'assets/dist/scripts/table.js' )
+	.scripts(
+		'node_modules/block-ui/jquery.blockUI.js',
+		'assets/dist/scripts/blockui.js'
+	)
+	.scripts(
+		'node_modules/isotope-layout/dist/isotope.pkgd.js',
+		'assets/dist/scripts/isotope.js'
+	)
+	.scripts(
+		'node_modules/jquery-match-height/dist/jquery.matchHeight.js',
+		'assets/dist/scripts/matchheight.js'
+	)
+	.scripts(
+		'node_modules/jquery-sticky/jquery.sticky.js',
+		'assets/dist/scripts/sticky.js'
+	)
+	.scripts(
+		'node_modules/js-cookie/src/js.cookie.js',
+		'assets/dist/scripts/js-cookie.js'
+	)
+	.scripts(
+		'node_modules/select2/dist/js/select2.js',
+		'assets/dist/scripts/select2.js'
+	)
+	.scripts(
+		'node_modules/sidr/dist/jquery.sidr.js',
+		'assets/dist/scripts/sidr.js'
+	)
+	.scripts(
+		'node_modules/tinymce/plugins/table/plugin.js',
+		'assets/dist/scripts/table.js'
+	)
 	.sass( 'assets/src/styles/catalog.scss', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/colors-pb.scss', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/cloner.scss', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/export.scss', 'assets/dist/styles/' )
+	.sass( 'assets/src/styles/login.scss', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/metadata.scss', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/network-managers.scss', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/organize.scss', 'assets/dist/styles/' )

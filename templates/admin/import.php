@@ -1,5 +1,11 @@
 <?php
 
+use Pressbooks\Modules\Import\Epub\Epub201;
+use Pressbooks\Modules\Import\Html\Xhtml;
+use Pressbooks\Modules\Import\Odf\Odt;
+use Pressbooks\Modules\Import\Ooxml\Docx;
+use Pressbooks\Modules\Import\WordPress\Wxr;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -12,19 +18,19 @@ $custom_post_types = apply_filters( 'pb_import_custom_post_types', [] );
 /**
  * Allows users to append import options to the select field.
  *
+ * TODO: Update texts
+ *
  * @since 3.9.6
  *
  * @param array $value The list of current import options in select field.
  */
 $import_option_types = apply_filters( 'pb_select_import_type', [
-	'wxr' => __( 'WXR (WordPress eXtended RSS)', 'pressbooks' ),
-	'epub' => __( 'EPUB (for Nook, iBooks, Kobo etc.)', 'pressbooks' ),
-	'odt' => __( 'ODT (word processing file format of OpenDocument)', 'pressbooks' ),
-	'docx' => __( 'DOCX (word processing file format of Microsoft)', 'pressbooks' ),
-	'html' => __( 'HTML (scrape content from a URL)', 'pressbooks' ),
+	Epub201::TYPE_OF => __( 'EPUB (.epub)', 'pressbooks' ),
+	Docx::TYPE_OF => __( 'Microsoft Word (.docx)', 'pressbooks' ),
+	Odt::TYPE_OF => __( 'OpenOffice (.odt)', 'pressbooks' ),
+	Wxr::TYPE_OF => __( 'Pressbooks/WordPress XML (.wxr or .xml)', 'pressbooks' ),
+	Xhtml::TYPE_OF => __( 'Web page or Pressbooks webbook (.html or URL)', 'pressbooks' ),
 ] );
-
-$supported_file_extensions = implode( ', ', array_keys( $import_option_types ) );
 
 ?>
 <div class="wrap">
@@ -115,7 +121,7 @@ $supported_file_extensions = implode( ', ', array_keys( $import_option_types ) )
 			</tbody>
 		</table>
 
-		<p><input type='checkbox' id='import_as_drafts' name='import_as_drafts' value='1' checked><label for="import_as_drafts"> <?php _e( 'Import as drafts', 'pressbooks' ); ?></label></p>
+		<p><input type='checkbox' id='show_imports_in_web' name='show_imports_in_web' value='1'><label for="show_imports_in_web"> <?php _e( 'Show imported content in web', 'pressbooks' ); ?></label></p>
 
 		<p><?php
 			submit_button( __( 'Import Selection', 'pressbooks' ), 'primary', 'submit', false );
@@ -131,29 +137,20 @@ $supported_file_extensions = implode( ', ', array_keys( $import_option_types ) )
 
 		<script type="text/javascript">
 			jQuery(function ($) {
-				$('#pb-www').hide();
-
-				$(".pb-html-target").change(
-					function () {
-						var val = $('.pb-html-target').val();
-
-						if (val == 'wxr' || val == 'epub' || val == 'odt' || val == 'docx') {
-							$('#pb-file').show();
-							$('#pb-www').hide();
-							// clear http value at input elem
-							$('.widefat').val('');
-						} else {
-							$('#pb-file').hide();
-							$('#pb-www').show();
-
-						}
-
-					});
-
+				var pb_file = $('#pb-file');
+				pb_file.find('[type="radio"]').on('change', function() {
+					var pb_file_checked = pb_file.find('[type="radio"]:checked').val();
+					if ( pb_file_checked === 'file' ) {
+						$( '#import_http' ).val( '' ).attr( 'disabled', true);
+						$( '#import_file' ).removeAttr( 'disabled' ).focus();
+					} else if ( pb_file_checked === 'url' ) {
+						$('#import_http').removeAttr('disabled').focus();
+						$('#import_file').val('').attr('disabled', true);
+					}
+				});
 			});
 		</script>
 		<p>
-			<?php _e( 'Supported file extensions: ', 'pressbooks' ); echo strtoupper( $supported_file_extensions ); ?> <br />
 			<?php _e( 'Maximum file size:', 'pressbooks' );
 			echo ' ' . \Pressbooks\Utility\file_upload_max_size(); ?>
 		</p>
@@ -164,10 +161,10 @@ $supported_file_extensions = implode( ', ', array_keys( $import_option_types ) )
 				<tbody>
 				<tr>
 					<th scope="row">
-						<label for="type_of"><?php _e( 'Type of file', 'pressbooks' ); ?></label>
+						<label for="type_of"><?php _e( 'Import Type', 'pressbooks' ); ?></label>
 					</th>
 					<td>
-						<select id="type_of" name="type_of" class="pb-html-target">
+						<select id="type_of" name="type_of">
 							<?php foreach ( $import_option_types as $option => $label ) { ?>
 								<option value="<?php echo $option; ?>"><?php echo $label; ?></option>
 							<?php } ?>
@@ -176,30 +173,26 @@ $supported_file_extensions = implode( ', ', array_keys( $import_option_types ) )
 				</tr>
 				<tr class="pb-input-types">
 					<th scope="row">
-						<label for="import_file"><?php _e( 'File', 'pressbooks' ); ?></label>
+						<label for="import_file"><?php _e( 'Import Source', 'pressbooks' ); ?></label>
 					</th>
 					<td id="pb-file">
-						<input type="file" name="import_file" id="import_file">
+						<fieldset>
+							<input id="r1" name="import_type" type="radio" value="file" checked="checked"/>
+							<label for="r1">Upload File </label>
+							<input type="file" name="import_file" id="import_file" style="display:block;"/>
+						</fieldset>
+						<fieldset>
+							<input id="r2" type="radio" name="import_type" value="url"/>
+							<label for="r2">Import from URL</label>
+							<input type="url" class="widefat" name="import_http" id="import_http" placeholder="https://url-to-import.com" style="display:block;" disabled/>
+						</fieldset>
 					</td>
-					<td id="pb-www">
-						<input type="url" class="widefat" name="import_http" id="import_http" placeholder="https://url-to-import.com">
-					</td>
-					<?php
-					/**
-					 * Allows developers to add a new input type
-					 *
-					 * @since 4.0.0
-					 *
-					 * @param string $value
-					 */
-					echo apply_filters( 'pb_import_table_cell', '' );
-					?>
 				</tr>
 
 				</tbody>
 			</table>
 
-			<?php submit_button( __( 'Upload file', 'pressbooks' ) ); ?>
+			<?php submit_button( __( 'Begin Import', 'pressbooks' ) ); ?>
 		</form>
 
 	<?php } ?>

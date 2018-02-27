@@ -6,7 +6,16 @@
 
 namespace Pressbooks;
 
+use function \Pressbooks\Utility\debug_error_log;
+
+/**
+ * TODO: Refactor
+ * Custom Licenses don't work with the Creative Commons API. For now we fallback to 'all-rights-reserved'. Instead, the Creative Commons API should be gutted.
+ * An admin can delete Creative Commons taxonomies. Should we let them?
+ */
 class Licensing {
+
+	const TAXONOMY = 'license';
 
 	/**
 	 * Wheee!
@@ -22,16 +31,18 @@ class Licensing {
 	 *        url,
 	 *        desc,
 	 *
+	 * @param bool $disable_translation (optional)
+	 * @param bool $disable_custom (optional)
+	 *
 	 * @return array
 	 */
-	public function getSupportedTypes() {
+	public function getSupportedTypes( $disable_translation = false, $disable_custom = false ) {
 
-		// Cheap cache
-		static $supported = null;
-		if ( is_array( $supported ) ) {
-			return $supported;
+		if ( $disable_translation ) {
+			add_filter( 'gettext', [ $this, 'disableTranslation' ], 999, 3 );
 		}
 
+		// Supported
 		$supported = [
 			'public-domain' => [
 				'api' => [
@@ -103,7 +114,45 @@ class Licensing {
 			],
 		];
 
+		// Custom
+		if ( ! $disable_custom ) {
+			$custom = get_terms(
+				[
+					'taxonomy' => self::TAXONOMY,
+					'hide_empty' => false,
+				]
+			);
+			if ( is_array( $custom ) ) {
+				foreach ( $custom as $custom_term ) {
+					if ( ! isset( $supported[ $custom_term->slug ] ) ) {
+						$supported[ $custom_term->slug ] = [
+							'api' => [], // Not supported
+							'url' => "https://choosealicense.com/no-license/#{$custom_term->slug}",
+							'desc' => $custom_term->name,
+						];
+					}
+				}
+			}
+		}
+
+		if ( $disable_translation ) {
+			remove_filter( 'gettext', [ $this, 'disableTranslation' ], 999 );
+		}
+
 		return $supported;
+	}
+
+	/**
+	 * For gettext filter
+	 *
+	 * @param $translated
+	 * @param $original
+	 * @param $domain
+	 *
+	 * @return string
+	 */
+	public function disableTranslation( $translated, $original, $domain ) {
+		return $original;
 	}
 
 	/**
@@ -115,7 +164,6 @@ class Licensing {
 		return isset( $this->getSupportedTypes()[ $license ] );
 	}
 
-
 	/**
 	 * Will create an html blob of copyright information, returns empty string
 	 * if license not supported
@@ -125,7 +173,7 @@ class Licensing {
 	 * @param string $title (optional)
 	 *
 	 * @return string
-	 * @throws \Exception`
+	 * @throws \Exception
 	 */
 	public function doLicense( $metadata, $post_id = 0, $title = '' ) {
 
@@ -139,7 +187,7 @@ class Licensing {
 			$link = get_bloginfo( 'url' );
 		} else {
 			$section_license = get_post_meta( $post_id, 'pb_section_license', true );
-			$section_author = get_post_meta( $post_id, 'pb_section_author', true );
+			$section_author = ( new Contributors() )->get( $post_id, 'pb_authors' );
 			$link = get_permalink( $post_id );
 		}
 
@@ -170,9 +218,9 @@ class Licensing {
 		} elseif ( isset( $metadata['pb_copyright_holder'] ) ) {
 			// book copyright holder higher priority than book author
 			$copyright_holder = $metadata['pb_copyright_holder'];
-		} elseif ( isset( $metadata['pb_author'] ) ) {
+		} elseif ( isset( $metadata['pb_authors'] ) ) {
 			// book author is the fallback, default
-			$copyright_holder = $metadata['pb_author'];
+			$copyright_holder = $metadata['pb_authors'];
 		} else {
 			$copyright_holder = '';
 		}
@@ -214,7 +262,13 @@ class Licensing {
 
 			set_transient(
 				$transient_id,
-				[ $license => $html, $copyright_holder => 1, $title => 1, $lang => 1, $copyright_year => 1 ]
+				[
+					$license => $html,
+					$copyright_holder => 1,
+					$title => 1,
+					$lang => 1,
+					$copyright_year => 1,
+				]
 			);
 
 		} else {
@@ -244,9 +298,13 @@ class Licensing {
 		$lang = ( ! empty( $lang ) ) ? substr( $lang, 0, 2 ) : '';
 		$expected = $this->getSupportedTypes();
 
-		// nothing meaningful to hit the api with, so bail
 		if ( ! array_key_exists( $type, $expected ) ) {
+			// nothing meaningful to hit the api with, so bail
 			return '';
+		}
+		if ( $type !== 'all-rights-reserved' && empty( $expected[ $type ]['api'] ) ) {
+			// We don't know what to do with a custom license, use "all-rights-reserved" for now
+			$type = 'all-rights-reserved';
 		}
 
 		switch ( $type ) {
@@ -268,7 +326,7 @@ class Licensing {
 
 				$url =
 					$endpoint . $key[0] . '/' . $val[0] . '/get?' . $key[1] . '=' . $val[1] . '&' . $key[2] . '=' . $val[2] .
-					'&creator=' . urlencode( $copyright_holder ) . '&attribution_url=' . urlencode( $src_url ) . '&title=' . urlencode( $title ) . '&locale=' . $lang;
+					'&creator=' . rawurlencode( $copyright_holder ) . '&attribution_url=' . rawurlencode( $src_url ) . '&title=' . rawurlencode( $title ) . '&locale=' . $lang;
 				if ( $year ) {
 					$url .= '&year=' . (int) $year;
 				}
@@ -276,15 +334,19 @@ class Licensing {
 				$xml = wp_remote_get( $url );
 				$ok = wp_remote_retrieve_response_code( $xml );
 
-				// if server response is not ok
-				if ( 200 === absint( $ok ) ) {
-					// if remote call went sideways
-					if ( ! is_wp_error( $xml ) ) {
-						$xml = $xml['body'];
+				if ( absint( $ok ) === 200 && is_wp_error( $xml ) === false ) {
+					$xml = $xml['body'];
+				} else {
+					// Something went wrong, try to log it
+					if ( is_wp_error( $xml ) ) {
+						$error_message = $xml->get_error_message();
+					} elseif ( is_array( $xml ) && ! empty( $xml['body'] ) ) {
+						$error_message = wp_strip_all_tags( $xml['body'] );
 					} else {
-						\error_log( '\Pressbooks\Licensing::getLicenseXml() error: ' . $xml->get_error_message() );
-						$xml = '';
+						$error_message = 'An unknown error occurred';
 					}
+					debug_error_log( '\Pressbooks\Licensing::getLicenseXml() error: ' . $error_message );
+					$xml = ''; // Set empty string
 				}
 				break;
 		}
@@ -343,7 +405,7 @@ class Licensing {
 	 *
 	 * @return string
 	 */
-	function getLicenseFromUrl( $url ) {
+	public function getLicenseFromUrl( $url ) {
 		$licenses = $this->getSupportedTypes();
 		foreach ( $licenses as $license => $v ) {
 			if ( $url === $v['url'] ) {

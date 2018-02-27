@@ -50,7 +50,8 @@ class ExportOptions extends \Pressbooks\Options {
 	 * Configure the export options page using the settings API.
 	 */
 	function init() {
-		$_page = $_option = $this->getSlug();
+		$_option = $this->getSlug();
+		$_page = $_option;
 		$_section = $this->getSlug() . '_section';
 
 		add_settings_section(
@@ -104,11 +105,14 @@ class ExportOptions extends \Pressbooks\Options {
 		<div class="wrap">
 			<h1><?php echo $this->getTitle(); ?></h1>
 			<form method="post" action="options.php">
-				<?php settings_fields( $this->getSlug() );
+				<?php
+				settings_fields( $this->getSlug() );
 				do_settings_sections( $this->getSlug() );
-				submit_button(); ?>
+				submit_button();
+				?>
 			</form>
-		</div> <?php
+		</div> 
+		<?php
 	}
 
 	function upgrade( $version ) {

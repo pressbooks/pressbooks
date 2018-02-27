@@ -48,12 +48,6 @@ script:
 - vendor/bin/phpcs --standard=phpcs.ruleset.xml *.php inc/ bin/
 after_success:
 - bash <(curl -s https://codecov.io/bash)
-- pip install virtualenv
-- virtualenv ~/env
-- source ~/env/bin/activate
-- pip install transifex-client
-- sudo echo $'[https://www.transifex.com]\nhostname = https://www.transifex.com\nusername = '"$TRANSIFEX_USER"$'\npassword = '"$TRANSIFEX_PASSWORD"$'\ntoken = '"$TRANSIFEX_API_TOKEN"$'\n' > ~/.transifexrc
-- tx push -s
 before_deploy:
 - export TRAVIS_PROJECT_SLUG="$(basename $TRAVIS_BUILD_DIR)"
 - composer install --no-dev --optimize-autoloader

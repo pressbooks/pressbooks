@@ -24,20 +24,25 @@ function pb_meets_minimum_requirements() {
 		return $is_compatible;
 	}
 
-	$is_compatible = true;
+	// Register activation hook *before* is_plugin_active() test, because pressbooks is not active while we are activating it (cue yakety sax...)
+	register_activation_hook( __DIR__ . '/pressbooks.php', 'pb_register_activation_hook' );
 
 	// PHP Version
 	global $pb_minimum_php;
 	$pb_minimum_php = '7.0.0';
 
-	if ( ! version_compare( PHP_VERSION, $pb_minimum_php, '>=' ) ) {
-		add_action( 'admin_notices', '_pb_minimum_php' );
-		$is_compatible = false;
-	}
-
 	// WordPress Version
 	global $pb_minimum_wp;
-	$pb_minimum_wp = '4.9.2';
+	$pb_minimum_wp = '4.9.4';
+
+	include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+	$is_compatible = true;
+
+	if ( ! version_compare( PHP_VERSION, $pb_minimum_php, '>=' ) ) {
+		add_action( 'admin_notices', '_pb_minimum_php' );
+		add_action( 'network_admin_notices', '_pb_minimum_php' );
+		$is_compatible = false;
+	}
 
 	$wp_version = get_bloginfo( 'version' );
 	if ( substr_count( $wp_version, '.' ) === 1 ) {
@@ -47,23 +52,76 @@ function pb_meets_minimum_requirements() {
 
 	if ( ! is_multisite() || ! version_compare( $wp_version, $pb_minimum_wp, '>=' ) ) {
 		add_action( 'admin_notices', '_pb_minimum_wp' );
+		add_action( 'network_admin_notices', '_pb_minimum_wp' );
 		$is_compatible = false;
 	}
 
 	// Is Pressbooks active?
 	if ( ! defined( 'WP_TESTS_MULTISITE' ) ) {
-		include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 		if ( ! is_plugin_active( 'pressbooks/pressbooks.php' ) ) {
 			add_action( 'admin_notices', '_pb_disabled' );
+			add_action( 'network_admin_notices', '_pb_disabled' );
 			$is_compatible = false;
 		}
 	}
 
 	if ( $is_compatible ) {
+		// Init autoloader
 		pb_init_autoloader();
+		// Set current version
+		if ( ! defined( 'PB_PLUGIN_VERSION' ) ) {
+			$info = get_plugin_data( __DIR__ . '/pressbooks.php', false, false );
+			define( 'PB_PLUGIN_VERSION', $info['Version'] );
+		}
 	}
 
 	return $is_compatible;
+}
+
+/**
+ * Activation hook
+ *
+ * You can't call register_activation_hook() inside a function hooked to the 'plugins_loaded' or 'init' hooks (or any other hook).
+ *
+ * @see register_activation_hook()
+ */
+function pb_register_activation_hook() {
+
+	// Apply Pressbooks color scheme
+	update_user_option( get_current_user_id(), 'admin_color', 'pb_colors', true );
+
+	// Prevent overwriting customizations if Pressbooks has been disabled
+	if ( ! get_site_option( 'pressbooks-activated' ) ) {
+
+		/**
+		 * Allow the default description of the root blog to be customized.
+		 *
+		 * @since 3.9.7
+		 *
+		 * @param string $value Default description ('Simple Book Publishing').
+		 */
+		update_blog_option( 1, 'blogdescription', apply_filters( 'pb_root_description', __( 'Simple Book Publishing', 'pressbooks' ) ) );
+
+		if ( defined( 'PB_ROOT_THEME' ) ) {
+			$activate = PB_ROOT_THEME;
+		} else {
+			$theme = wp_get_theme( 'pressbooks-aldine' );
+			if ( $theme->exists() ) {
+				$activate = 'pressbooks-aldine';
+			}
+		}
+		if ( ! empty( $activate ) ) {
+			// Configure root blog theme (PB_ROOT_THEME, usually 'pressbooks-aldine').
+			update_blog_option( 1, 'template', $activate );
+			update_blog_option( 1, 'stylesheet', $activate );
+			// Remove widgets from root blog.
+			delete_blog_option( 1, 'sidebars_widgets' );
+		}
+
+		// Add "activated" key to enable check above
+		add_site_option( 'pressbooks-activated', true );
+
+	}
 }
 
 /**

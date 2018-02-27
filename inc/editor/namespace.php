@@ -146,7 +146,7 @@ function mce_before_init_insert_formats( $init_array ) {
 
 	$style_formats = apply_filters( 'pressbooks_editor_custom_styles', $style_formats );
 
-	$init_array['style_formats'] = json_encode( $style_formats );
+	$init_array['style_formats'] = wp_json_encode( $style_formats );
 
 	$init_array['table_toolbar'] = false;
 
@@ -167,13 +167,13 @@ function metadata_manager_default_editor_args( $args ) {
 	// Precedence when using the + operator to merge arrays is from left to right
 
 	$args = [
-				'media_buttons' => false,
-				'tinymce' => [
-					'theme_advanced_buttons1' => 'bold,italic,underline,strikethrough,|,link,unlink,|,numlist,bullist,|,undo,redo,pastetext,pasteword,|',
-					'theme_advanced_buttons2' => '',
-					'theme_advanced_buttons3' => '',
-				],
-			] + $args;
+		'media_buttons' => false,
+		'tinymce' => [
+			'toolbar1' => 'bold,italic,underline,strikethrough,|,link,unlink,|,numlist,bullist,|,undo,redo,pastetext,pasteword,|',
+			'toolbar2' => '',
+			'toolbar3' => '',
+		],
+	] + $args;
 
 	return $args;
 }
@@ -239,11 +239,11 @@ function mce_table_editor_options( $settings ) {
 	$row_classes = apply_filters( 'pressbooks_editor_row_classes', $row_classes );
 
 	$settings['table_advtab'] = false;
-	$settings['table_class_list'] = json_encode( $table_classes );
+	$settings['table_class_list'] = wp_json_encode( $table_classes );
 	$settings['table_cell_advtab'] = false;
-	$settings['table_cell_class_list'] = json_encode( $cell_classes );
+	$settings['table_cell_class_list'] = wp_json_encode( $cell_classes );
 	$settings['table_row_advtab'] = false;
-	$settings['table_row_class_list'] = json_encode( $row_classes );
+	$settings['table_row_class_list'] = wp_json_encode( $row_classes );
 	$settings['table_appearance_options'] = false;
 	return $settings;
 }
@@ -258,13 +258,13 @@ function update_editor_style() {
 	$sass = Container::get( 'Sass' );
 
 	if ( $styles->isCurrentThemeCompatible( 1 ) ) {
-		$scss = file_get_contents( $sass->pathToPartials() . '/_editor-with-custom-fonts.scss' );
+		$scss = \Pressbooks\Utility\get_contents( $sass->pathToPartials() . '/_editor-with-custom-fonts.scss' );
 		$css = $styles->customize( 'web', $scss );
 	} elseif ( $styles->isCurrentThemeCompatible( 2 ) ) {
-		$scss = file_get_contents( $sass->pathToGlobals() . '/editor/_editor.scss' );
+		$scss = \Pressbooks\Utility\get_contents( $sass->pathToGlobals() . '/editor/_editor.scss' );
 		$css = $styles->customize( 'web', $scss );
 	} else {
-		$scss = file_get_contents( $sass->pathToPartials() . '/_editor.scss' );
+		$scss = \Pressbooks\Utility\get_contents( $sass->pathToPartials() . '/_editor.scss' );
 		$css = $sass->compile(
 			$scss,
 			[
@@ -279,7 +279,7 @@ function update_editor_style() {
 	$css = normalize_css_urls( $css );
 
 	$output = $sass->pathToUserGeneratedCss() . '/editor.css';
-	file_put_contents( $output, $css );
+	\Pressbooks\Utility\put_contents( $output, $css );
 }
 
 
@@ -327,7 +327,7 @@ function customize_wp_link_query_args( $query ) {
  */
 function add_anchors_to_wp_link_query( $results, $query ) {
 
-	$url = parse_url( $_SERVER['HTTP_REFERER'] );
+	$url = wp_parse_url( $_SERVER['HTTP_REFERER'] );
 	parse_str( $url['query'], $query );
 
 	if ( ! isset( $query['post'] ) ) {

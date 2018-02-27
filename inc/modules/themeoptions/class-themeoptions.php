@@ -6,6 +6,8 @@
 
 namespace Pressbooks\Modules\ThemeOptions;
 
+use function \Pressbooks\Utility\debug_error_log;
+
 /**
  * Not a subclass of \Pressbooks\Options!
  * Handles initialization of Theme Options admin menu
@@ -108,8 +110,8 @@ class ThemeOptions {
 			if ( $tab::VERSION !== null && $version < $tab::VERSION ) {
 				$tab->upgrade( $version );
 				update_option( "pressbooks_theme_options_{$slug}_version", $tab::VERSION, false );
-				if ( WP_DEBUG && ! defined( 'WP_TESTS_MULTISITE' ) ) {
-					error_log( 'Upgraded ' . $slug . ' options from version ' . $version . ' --> ' . $tab::VERSION );
+				if ( ! defined( 'WP_TESTS_MULTISITE' ) ) {
+					debug_error_log( 'Upgraded ' . $slug . ' options from version ' . $version . ' --> ' . $tab::VERSION );
 				}
 			}
 		}
@@ -135,24 +137,33 @@ class ThemeOptions {
 	public function render() {
 		?>
 		<div class="wrap">
-			<h1><?php echo wp_get_theme(); ?><?php _e( 'Theme Options', 'pressbooks' ); ?></h1>
+			<h1><?php echo wp_get_theme(); ?> <?php _e( 'Theme Options', 'pressbooks' ); ?></h1>
 			<?php settings_errors(); ?>
 			<?php $active_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'global'; ?>
 			<h2 class="nav-tab-wrapper">
 				<?php foreach ( $this->getTabs() as $slug => $subclass ) { ?>
-					<a href="<?php echo admin_url( '/themes.php' );
-					?>?page=pressbooks_theme_options&tab=<?php echo $slug;
-					?>" class="nav-tab <?php echo $active_tab === $slug ? 'nav-tab-active' : ''; ?>"><?php echo $subclass::getTitle() ?></a>
+					<a href="
+					<?php
+					echo admin_url( '/themes.php' );
+					?>
+					?page=pressbooks_theme_options&tab=
+					<?php
+					echo $slug;
+					?>
+					" class="nav-tab <?php echo $active_tab === $slug ? 'nav-tab-active' : ''; ?>"><?php echo $subclass::getTitle(); ?></a>
 				<?php } ?>
 			</h2>
 			<form method="post" action="options.php">
-				<?php do_action( 'pb_before_themeoptions_settings_fields' );
+				<?php
+				do_action( 'pb_before_themeoptions_settings_fields' );
 				settings_fields( 'pressbooks_theme_options_' . $active_tab );
 				do_settings_sections( 'pressbooks_theme_options_' . $active_tab );
-				submit_button(); ?>
+				submit_button();
+				?>
 			</form>
 		</div>
-	<?php }
+	<?php
+	}
 
 	/**
 	 * Override saved options with filtered defaults when switching theme

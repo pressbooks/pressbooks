@@ -114,52 +114,65 @@ class Book {
 		// Book Information
 		// ----------------------------------------------------------------------------
 
-		$expected_array = [ 'pb_keywords_tags', 'pb_additional_subjects', 'pb_bisac_subject', 'pb_contributing_authors', 'pb_editor', 'pb_translator' ];
-		$expected_the_content = [ 'pb_custom_copyright', 'pb_about_unlimited' ];
-		$expected_url = [ 'pb_cover_image' ];
-
 		$book_information = [];
 		$meta = new Metadata();
-		$data = $meta->getMetaPostMetadata();
+		$meta_post = $meta->getMetaPost();
 
-		foreach ( $data as $key => $val ) {
+		if ( $meta_post ) {
 
-			// Skip anything not prefixed with pb_
-			if ( ! preg_match( '/^pb_/', $key ) ) {
-				continue;
-			}
+			// Contributors
+			$contributors = new Contributors();
+			foreach ( $contributors->getAll( $meta_post->ID ) as $key => $val ) {
+				$book_information[ $key ] = $val;
+			};
 
-			// We only care about strings
-			if ( is_array( $val ) ) {
-				if ( false !== in_array( $key, $expected_array, true ) ) {
-					$val = implode( ', ', $val );
-				} else {
-					$val = array_values( $val );
-					$val = array_pop( $val );
+			// Post Meta
+			$expected_array = [ 'pb_keywords_tags', 'pb_additional_subjects', 'pb_bisac_subject' ];
+			$expected_the_content = [ 'pb_custom_copyright', 'pb_about_unlimited' ];
+			$expected_url = [ 'pb_cover_image' ];
+			foreach ( get_post_meta( $meta_post->ID ) as $key => $val ) {
+
+				// Skip anything not prefixed with pb_
+				if ( ! preg_match( '/^pb_/', $key ) ) {
+					continue;
 				}
+				// Skip contributor meta (already done, look up)
+				if ( $contributors->isValid( $key ) || $contributors->isDeprecated( $key ) ) {
+					continue;
+				}
+
+				// We only care about strings
+				if ( is_array( $val ) ) {
+					if ( false !== in_array( $key, $expected_array, true ) ) {
+						$val = implode( ', ', $val );
+					} else {
+						$val = array_values( $val );
+						$val = array_pop( $val );
+					}
+				}
+
+				// Skip empty values
+				if ( ! trim( $val ) ) {
+					continue;
+				}
+
+				if ( false !== in_array( $key, $expected_the_content, true ) ) {
+					$val = wptexturize( $val );
+					$val = wpautop( $val );
+				} else {
+					$val = htmlspecialchars( $val, ENT_NOQUOTES | ENT_XHTML, 'UTF-8', false );
+				}
+
+				// Normalize URLs
+				if ( in_array( $key, $expected_url, true ) ) {
+					$val = set_url_scheme( $val );
+				}
+
+				// Remove invisible control characters that break XML
+				$val = \Pressbooks\Sanitize\remove_control_characters( $val );
+
+				$book_information[ $key ] = $val;
 			}
-
-			// Skip empty values
-			if ( ! trim( $val ) ) {
-				continue;
-			}
-
-			if ( false !== in_array( $key, $expected_the_content, true ) ) {
-				$val = wptexturize( $val );
-				$val = wpautop( $val );
-			} else {
-				$val = htmlspecialchars( $val, ENT_NOQUOTES | ENT_XHTML, 'UTF-8', false );
-			}
-
-			// Normalize URLs
-			if ( in_array( $key, $expected_url, true ) ) {
-				$val = set_url_scheme( $val );
-			}
-
-			// Remove invisible control characters that break XML
-			$val = \Pressbooks\Sanitize\remove_control_characters( $val );
-
-			$book_information[ $key ] = $val;
 		}
 
 		// Return our best guess if no book information has been entered.
@@ -169,7 +182,7 @@ class Book {
 				include( ABSPATH . 'wp-includes/pluggable.php' );
 			}
 			$author = get_user_by( 'email', get_bloginfo( 'admin_email' ) );
-			$book_information['pb_author'] = isset( $author->display_name ) ? $author->display_name : '';
+			$book_information['pb_authors'] = isset( $author->display_name ) ? $author->display_name : '';
 			$book_information['pb_cover_image'] = \Pressbooks\Image\default_cover_url();
 		}
 
@@ -303,24 +316,40 @@ class Book {
 
 		$book_structure['__order'] = [];
 		$book_structure['__export_lookup'] = [];
+		$book_structure['__web_lookup'] = [];
 
 		foreach ( $custom_types as $type ) {
 			foreach ( $book_structure[ $type ] as $i => $struct ) {
 				unset( $book_structure[ $type ][ $i ]['post_parent'] );
 				if ( 'part' !== $type ) {
-					$book_structure['__order'][ $struct['ID'] ] = [ 'export' => $struct['export'], 'post_status' => $struct['post_status'] ];
+					$book_structure['__order'][ $struct['ID'] ] = [
+						'export' => $struct['export'],
+						'post_status' => $struct['post_status'],
+					];
 					if ( $struct['export'] ) {
 						$book_structure['__export_lookup'][ $struct['post_name'] ] = $type;
+					}
+					if ( in_array( $struct['post_status'], [ 'web-only', 'publish' ], true ) ) {
+						$book_structure['__web_lookup'][ $struct['post_name'] ] = $type;
 					}
 				} else {
 					foreach ( $struct['chapters'] as $j => $chapter ) {
 						unset( $book_structure[ $type ][ $i ]['chapters'][ $j ]['post_parent'] );
 						if ( $struct['has_post_content'] && get_post_meta( $struct['ID'], 'pb_part_invisible', true ) !== 'on' ) {
-							$book_structure['__order'][ $struct['ID'] ] = [ 'export' => $struct['export'], 'post_status' => $struct['post_status'] ];
+							$book_structure['__order'][ $struct['ID'] ] = [
+								'export' => $struct['export'],
+								'post_status' => $struct['post_status'],
+							];
 						}
-						$book_structure['__order'][ $chapter['ID'] ] = [ 'export' => $chapter['export'], 'post_status' => $chapter['post_status'] ];
+						$book_structure['__order'][ $chapter['ID'] ] = [
+							'export' => $chapter['export'],
+							'post_status' => $chapter['post_status'],
+						];
 						if ( $chapter['export'] ) {
 							$book_structure['__export_lookup'][ $chapter['post_name'] ] = 'chapter';
+						}
+						if ( in_array( $chapter['post_status'], [ 'web-only', 'publish' ], true ) ) {
+							$book_structure['__web_lookup'][ $chapter['post_name'] ] = 'chapter';
 						}
 					}
 				}
@@ -438,7 +467,7 @@ class Book {
 
 
 	/**
-	 * @return int
+	 *
 	 */
 	static function ajaxWordCount() {
 		if ( check_ajax_referer( 'pb-update-word-count-for-export' ) ) {
@@ -459,6 +488,16 @@ class Book {
 		wp_cache_delete( "book-str-$blog_id", 'pb' ); // Delete the cached value for getBookStructure()
 		wp_cache_delete( "book-cnt-$blog_id", 'pb' ); // Delete the cached value for getBookContents()
 		( new Catalog() )->deleteCacheByBookId( $blog_id );
+		static::$fixDupeSlugs = [];
+		static::$preview = [];
+
+		/**
+		 * @since 5.0.0
+		 *
+		 * @param int $blog_id
+		 */
+		do_action( 'pb_cache_delete', $blog_id );
+		set_transient( 'pb_cache_deleted', time(), DAY_IN_SECONDS );
 	}
 
 	/**
@@ -526,7 +565,11 @@ class Book {
 			return false;
 		}
 
-		$doc = new HTML5( [ 'disable_html_ns' => true ] ); // Disable default namespace for \DOMXPath compatibility
+		$doc = new HTML5(
+			[
+				'disable_html_ns' => true,
+			]
+		); // Disable default namespace for \DOMXPath compatibility
 		$dom = $doc->loadHTML( $content );
 		$sections = $dom->getElementsByTagName( 'h1' );
 		foreach ( $sections as $section ) {
@@ -535,7 +578,7 @@ class Book {
 			$section->setAttribute( 'class', 'section-header' );
 		}
 		$xpath = new \DOMXPath( $dom );
-		while ( ( $nodes = $xpath->query( '//*[not(text() or node() or self::br or self::hr or self::img)]' ) ) && $nodes->length > 0 ) {
+		while ( ( $nodes = $xpath->query( '//*[not(text() or node() or self::br or self::hr or self::img)]' ) ) && $nodes->length > 0 ) { // @codingStandardsIgnoreLine
 			foreach ( $nodes as $node ) {
 				/** @var $node \DOMElement */
 				$node->appendChild( new \DOMText( '' ) );
@@ -547,186 +590,10 @@ class Book {
 	}
 
 	/**
-	 * WP_Ajax hook. Updates the menu_order field associated with a chapter post after reordering it
-	 * and update its associated part, if necessary
-	 */
-	static function updateChapter() {
-
-		/** @var $wpdb \wpdb */
-		global $wpdb;
-		$id = absint( $_POST['id'] );
-		if ( current_user_can( 'edit_post', $id ) && check_ajax_referer( 'pb-update-book-order' ) ) {
-
-			parse_str( $_POST['new_part_order'], $new_part_order );
-			parse_str( $_POST['old_part_order'], $old_part_order );
-			$new_part = (int) $_POST['new_part'];
-			$old_part = (int) $_POST['old_part'];
-
-			// if the part for this chapter changed, set new part for chapter
-			// and new order for this part
-			if ( $new_part !== $old_part ) {
-
-				$my_post = [];
-				$my_post['ID'] = $id;
-				$my_post['post_parent'] = $new_part;
-				wp_update_post( $my_post );
-
-				if ( is_array( $new_part_order ) ) {
-					foreach ( $new_part_order as $key => $values ) {
-						if ( 'chapter' === $key ) {
-							foreach ( $values as $position => $id ) {
-								$position += 1; // array is 0-indexed, but we want it to start from 1
-								$wpdb->update( $wpdb->posts, [ 'menu_order' => $position ], [ 'ID' => $id ] );
-								clean_post_cache( $id );
-							}
-						}
-					}
-				}
-			}
-
-			// always update the order of the part this chapter was originally in
-			if ( is_array( $old_part_order ) ) {
-				foreach ( $old_part_order as $key => $values ) {
-					if ( 'chapter' === $key ) {
-						foreach ( $values as $position => $id ) {
-							$position += 1; // array is 0-indexed, but we want it to start from 1
-							$wpdb->update( $wpdb->posts, [ 'menu_order' => $position ], [ 'ID' => $id ] );
-							clean_post_cache( $id );
-						}
-					}
-				}
-			}
-			static::deleteBookObjectCache();
-		}
-
-		// @see http://codex.wordpress.org/AJAX_in_Plugins#Error_Return_Values
-		// Will append 0 to returned json string if we don't die()
-		die();
-	}
-
-
-	/**
-	 * WP_Ajax hook. Updates the menu_order field associated with a front matter post after reordering it
-	 */
-	static function updateFrontMatter() {
-
-		/** @var $wpdb \wpdb */
-		global $wpdb;
-
-		if ( current_user_can( 'edit_posts' ) && check_ajax_referer( 'pb-update-book-order' ) ) {
-
-			parse_str( $_POST['front_matter_order'], $front_matter_order );
-
-			if ( is_array( $front_matter_order ) ) {
-				foreach ( $front_matter_order as $key => $values ) {
-					if ( 'front-matter' === $key ) {
-						foreach ( $values as $position => $id ) {
-							$position += 1;
-							$wpdb->update( $wpdb->posts, [ 'menu_order' => $position ], [ 'ID' => $id ] );
-							clean_post_cache( $id );
-						}
-					}
-				}
-			}
-			static::deleteBookObjectCache();
-		}
-	}
-
-
-	/**
-	 * WP_Ajax hook. Updates the menu_order field associated with a back matter post after reordering it
-	 */
-	static function updateBackMatter() {
-
-		/** @var $wpdb \wpdb */
-		global $wpdb;
-
-		if ( current_user_can( 'edit_posts' ) && check_ajax_referer( 'pb-update-book-order' ) ) {
-
-			parse_str( $_POST['back_matter_order'], $back_matter_order );
-
-			if ( is_array( $back_matter_order ) ) {
-				foreach ( $back_matter_order as $key => $values ) {
-					if ( 'back-matter' === $key ) {
-						foreach ( $values as $position => $id ) {
-							$position += 1;
-							$wpdb->update( $wpdb->posts, [ 'menu_order' => $position ], [ 'ID' => $id ] );
-							clean_post_cache( $id );
-						}
-					}
-				}
-			}
-			static::deleteBookObjectCache();
-		}
-	}
-
-
-	/**
-	 * WP_Ajax hook. Updates a post's "export" setting (export post into book or not)
-	 */
-	static function updateExportOptions() {
-		if ( check_ajax_referer( 'pb-update-book-export' ) ) {
-			$post_id = absint( $_POST['post_id'] );
-			if ( current_user_can( 'edit_post', $post_id ) ) {
-				$valid_meta_keys = [
-					'pb_export',
-				];
-
-				$meta_key = in_array( $_POST['type'], $valid_meta_keys, true ) ? $_POST['type'] : false;
-				if ( $meta_key ) {
-					$meta_value = ( $_POST['chapter_export'] ) ? 'on' : 0;
-					update_post_meta( $post_id, $meta_key, $meta_value );
-					static::deleteBookObjectCache();
-				}
-			}
-		}
-	}
-
-	/**
-	 * WP_Ajax hook. Updates a post's "show title" setting (show title in exports or not)
-	 */
-	static function updateShowTitleOptions() {
-		if ( check_ajax_referer( 'pb-update-book-show-title' ) ) {
-			$post_id = absint( $_POST['post_id'] );
-			if ( current_user_can( 'edit_post', $post_id ) ) {
-				$valid_meta_keys = [
-					'pb_show_title',
-				];
-
-				$meta_key = in_array( $_POST['type'], $valid_meta_keys, true ) ? $_POST['type'] : false;
-				if ( $meta_key ) {
-					$meta_value = ( $_POST['chapter_show_title'] ) ? 'on' : 0;
-					update_post_meta( $post_id, $meta_key, $meta_value );
-					static::deleteBookObjectCache();
-				}
-			}
-		}
-	}
-
-	/**
-	 * WP_Ajax hook. Updates a post's privacy setting (whether the post is published or privately published)
-	 */
-	static function updatePrivacyOptions() {
-		if ( check_ajax_referer( 'pb-update-book-privacy' ) ) {
-			$post_id = absint( $_POST['post_id'] );
-			if ( current_user_can( 'edit_post', $post_id ) ) {
-				$post_status = $_POST['post_status'];
-
-				$my_post = [];
-				$my_post['ID'] = $post_id;
-				$my_post['post_status'] = $post_status;
-
-				wp_update_post( $my_post );
-				static::deleteBookObjectCache();
-			}
-		}
-	}
-
-	/**
 	 * WP_Ajax hook. Updates a post's privacy setting (whether the post is published or privately published)
 	 */
 	static function updateGlobalPrivacyOptions() {
-		if ( check_ajax_referer( 'pb-update-book-privacy' ) ) {
+		if ( check_ajax_referer( 'pb-organize-book-privacy' ) ) {
 			$blog_public = absint( $_POST['blog_public'] );
 
 			if ( current_user_can( 'manage_options' ) ) {
@@ -1035,8 +902,9 @@ class Book {
 		} else {
 			// Export mode
 			global $wpdb;
-			foreach ( $wpdb->get_results( $wpdb->prepare( "SELECT post_id, meta_value FROM {$wpdb->postmeta} WHERE meta_key = %s", 'pb_export' ), ARRAY_A ) as $val ) {
-				$post_ids_to_export[ $val['post_id'] ] = $val['meta_value'];
+			$sql_args = [ 'private', 'publish', 'front-matter', 'part', 'chapter', 'back-matter' ];
+			foreach ( $wpdb->get_results( $wpdb->prepare( "SELECT ID FROM {$wpdb->posts} WHERE post_status IN (%s, %s) AND post_type IN (%s, %s, %s, %s)", $sql_args ), ARRAY_A ) as $val ) {
+				$post_ids_to_export[ $val['ID'] ] = 'on';
 			}
 		}
 
@@ -1145,6 +1013,13 @@ The book object looks something like this:
 			// ...
 		],
 		'__export_lookup' => [
+			'introduction' => 'front-matter',
+			'chapter-1' => 'chapter',
+			'foo-bar' => 'chapter',
+			'appendix' => 'back-matter',
+			// ...
+		],
+		'__web_lookup' => [
 			'introduction' => 'front-matter',
 			'chapter-1' => 'chapter',
 			'foo-bar' => 'chapter',

@@ -211,7 +211,7 @@ abstract class Export {
 			'theme' => '' . wp_get_theme(), // Stringify by appending to empty string
 		];
 
-		$message = print_r( array_merge( $info, $more_info ), true ) . $message;
+		$message = print_r( array_merge( $info, $more_info ), true ) . $message; // @codingStandardsIgnoreLine
 		$exportoptions = get_option( 'pressbooks_export_options' );
 		if ( $current_user->user_email && isset( $exportoptions['email_validation_logs'] ) && 1 === absint( $exportoptions['email_validation_logs'] ) ) {
 			$this->errorsEmail[] = $current_user->user_email;
@@ -342,17 +342,14 @@ abstract class Export {
 	 * Create a temporary directory, no trailing slash!
 	 *
 	 * @return string
-	 * @throws \Exception
 	 */
 	protected function createTmpDir() {
 
 		$temp_file = tempnam( sys_get_temp_dir(), '' );
-		if ( file_exists( $temp_file ) ) {
-			unlink( $temp_file );
-		}
+		@unlink( $temp_file ); // @codingStandardsIgnoreLine
 		mkdir( $temp_file );
 		if ( ! is_dir( $temp_file ) ) {
-			throw new \Exception( 'Could not create temporary directory.' );
+			return '';
 
 		}
 
@@ -400,7 +397,6 @@ abstract class Export {
 	 * @param string $section_author (deprecated)
 	 *
 	 * @return string $html blob
-	 * @throws \Exception
 	 */
 	protected function doCopyrightLicense( $metadata, $title = '', $id = 0, $section_author = '' ) {
 
@@ -428,7 +424,17 @@ abstract class Export {
 		$option = get_option( 'pressbooks_theme_options_global' );
 		if ( ! empty( $option['copyright_license'] ) ) {
 			if ( 1 === absint( $option['copyright_license'] ) ) {
-				return (string) get_post_meta( $post_id, 'pb_section_license', true );
+				$section_license = get_post_meta( $post_id, 'pb_section_license', true );
+				if ( ! empty( $section_license ) ) {
+
+					$licensing = new \Pressbooks\Licensing();
+					$supported_types = $licensing->getSupportedTypes();
+					if ( array_key_exists( $section_license, $supported_types ) ) {
+						return $supported_types[ $section_license ]['desc'];
+					} else {
+						return '';
+					}
+				}
 			} elseif ( 2 === absint( $option['copyright_license'] ) ) {
 				return '';
 			}
@@ -472,11 +478,17 @@ abstract class Export {
 	 * @param array $vars (optional)
 	 *
 	 * @return string
-	 * @throws \Exception
 	 */
 	protected function loadTemplate( $path, array $vars = [] ) {
-
-		return \Pressbooks\Utility\template( $path, $vars );
+		try {
+			return \Pressbooks\Utility\template( $path, $vars );
+		} catch ( \Exception $e ) {
+			if ( WP_DEBUG ) {
+				return "File not found: {$path}";
+			} else {
+				return '';
+			}
+		}
 	}
 
 
@@ -488,19 +500,7 @@ abstract class Export {
 	 * @return string
 	 */
 	static function mimeType( $file ) {
-
-		if ( function_exists( 'finfo_open' ) ) {
-			$finfo = finfo_open( FILEINFO_MIME );
-			$mime = finfo_file( $finfo, $file );
-			finfo_close( $finfo );
-		} elseif ( function_exists( 'mime_content_type' ) ) {
-			$mime = @mime_content_type( $file ); // Suppress deprecated message @codingStandardsIgnoreLine
-		} else {
-			exec( 'file -i -b ' . escapeshellarg( $file ), $output );
-			$mime = $output[0];
-		}
-
-		return $mime;
+		return \Pressbooks\Media\mime_type( $file );
 	}
 
 
@@ -514,13 +514,13 @@ abstract class Export {
 
 		$path = \Pressbooks\Utility\get_media_prefix() . 'exports/';
 		if ( ! file_exists( $path ) ) {
-			mkdir( $path, 0775, true );
+			wp_mkdir_p( $path );
 		}
 
 		$path_to_htaccess = $path . '.htaccess';
 		if ( ! file_exists( $path_to_htaccess ) ) {
 			// Restrict access
-			file_put_contents( $path_to_htaccess, "deny from all\n" );
+			\Pressbooks\Utility\put_contents( $path_to_htaccess, "deny from all\n" );
 		}
 
 		return $path;
@@ -599,6 +599,9 @@ abstract class Export {
 			}
 			if ( isset( $x['odt'] ) ) {
 				$modules[] = '\Pressbooks\Modules\Export\Odt\Odt';
+			}
+			if ( isset( $x['htmlbook'] ) ) {
+				$modules[] = '\Pressbooks\Modules\Export\HTMLBook\HTMLBook';
 			}
 
 			// --------------------------------------------------------------------------------------------------------
@@ -754,11 +757,8 @@ abstract class Export {
 		if ( '__UNSET__' === $loc && function_exists( 'get_available_languages' ) ) {
 
 			$compare_with = get_available_languages( PB_PLUGIN_DIR . '/languages/' );
-
 			$codes = \Pressbooks\L10n\wplang_codes();
-			$metadata = Book::getBookInformation();
-			$book_lang = ( ! empty( $metadata['pb_language'] ) ) ? $metadata['pb_language'] : 'en';
-			$book_lang = $codes[ $book_lang ];
+			$book_lang = $codes[ \Pressbooks\L10n\get_book_language() ];
 
 			foreach ( $compare_with as $compare ) {
 				$compare = str_replace( 'pressbooks-', '', $compare );
@@ -819,11 +819,16 @@ abstract class Export {
 		$filepath = static::getExportFolder() . $filename;
 		if ( ! is_readable( $filepath ) ) {
 			// Cannot read file
-			wp_die( __( 'File not found', 'pressbooks' ) . ": $filename", '', [ 'response' => 404 ] );
+			wp_die(
+				__( 'File not found', 'pressbooks' ) . ": $filename", '', [
+					'response' => 404,
+				]
+			);
 		}
 
 		// Force download
-		@set_time_limit( 0 ); // @codingStandardsIgnoreLine
+		// @codingStandardsIgnoreStart
+		@set_time_limit( 0 );
 		header( 'Content-Description: File Transfer' );
 		header( 'Content-Type: ' . static::mimeType( $filepath ) );
 		if ( $inline ) {
@@ -836,11 +841,12 @@ abstract class Export {
 		header( 'Cache-Control: must-revalidate, post-check=0, pre-check=0' );
 		header( 'Pragma: public' );
 		header( 'Content-Length: ' . filesize( $filepath ) );
-		@ob_clean(); // @codingStandardsIgnoreLine
+		@ob_clean();
 		flush();
-		while ( @ob_end_flush() ) { // @codingStandardsIgnoreLine
+		while ( @ob_end_flush() ) {
 			// Fix out-of-memory problem
 		}
 		readfile( $filepath );
+		// @codingStandardsIgnoreEnd
 	}
 }

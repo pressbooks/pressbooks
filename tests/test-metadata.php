@@ -5,10 +5,23 @@ class MetadataTest extends \WP_UnitTestCase {
 	use utilsTrait;
 
 	/**
+	 * @var \Pressbooks\Metadata
+	 */
+	protected $metadata;
+
+	/**
+	 *
+	 */
+	public function setUp() {
+		parent::setUp();
+		$this->metadata = new \Pressbooks\Metadata();
+	}
+
+	/**
 	 * @see \Pressbooks\Metadata::jsonSerialize
 	 */
 	public function test_Metadata_JsonSerialize() {
-		$result = json_encode( new \Pressbooks\Metadata() );
+		$result = json_encode( $this->metadata );
 		$this->assertJson( $result );
 		$this->assertContains( '{"@context":"http:\/\/schema.org","@type":"Book","name":"Test Blog",', $result );
 
@@ -38,14 +51,14 @@ class MetadataTest extends \WP_UnitTestCase {
 		$book = \Pressbooks\Book::getInstance();
 
 		$this->_book();
-		$meta_post = ( new \Pressbooks\Metadata() )->getMetaPost();
+		$meta_post = $this->metadata->getMetaPost();
 
 		$result = \Pressbooks\Metadata\has_expanded_metadata();
 		$this->assertFalse( $result );
 
 		\Pressbooks\Book::deleteBookObjectCache();
 
-		update_post_meta( $meta_post->ID, 'pb_author_file_as', 'Zimmerman, Ned' );
+		update_post_meta( $meta_post->ID, 'pb_audience', 'Zimmerman, Ned' );
 
 		$result = \Pressbooks\Metadata\has_expanded_metadata();
 		$this->assertTrue( $result );
@@ -53,49 +66,100 @@ class MetadataTest extends \WP_UnitTestCase {
 
 	public function test_book_information_to_schema() {
 		$book_information = [
-			'pb_author' => 'Herman Melville',
+			'pb_authors' => 'Herman Melville',
 			'pb_title' => 'Moby Dick',
 		];
 
 		$result = \Pressbooks\Metadata\book_information_to_schema( $book_information );
 		$this->assertEquals( $result['name'], 'Moby Dick' );
-		$this->assertEquals( $result['author']['name'], 'Herman Melville' );
+		$this->assertEquals( $result['author'][0]['name'], 'Herman Melville' );
 	}
 
 	public function test_schema_to_book_information() {
 		$schema = [
 			'@context' => 'http://schema.org',
 			'@type' => 'Book',
-			'author' => [
+			'name' => 'Moby Dick',
+			'license' => 'https://creativecommons.org/publicdomain/zero/1.0/',
+			'author' => [ // PB4
 				'@type' => 'Person',
 				'name' => 'Herman Melville',
 			],
-			'name' => 'Moby Dick',
-			'license' => 'https://creativecommons.org/publicdomain/zero/1.0/',
 		];
 
 		$result = \Pressbooks\Metadata\schema_to_book_information( $schema );
 		$this->assertEquals( $result['pb_title'], 'Moby Dick' );
-		$this->assertEquals( $result['pb_author'], 'Herman Melville' );
+		$this->assertEquals( $result['pb_authors'], 'Herman Melville' );
 		$this->assertEquals( $result['pb_book_license'], 'public-domain' );
 
 		$schema = [
 			'@context' => 'http://schema.org',
 			'@type' => 'Book',
-			'author' => [
-				'@type' => 'Person',
-				'name' => 'Herman Melville',
-			],
 			'name' => 'Moby Dick',
 			'license' => [
 				'url' => 'https://creativecommons.org/publicdomain/zero/1.0/',
 				'name' => 'Public Domain (No Rights Reserved)',
-				'description' => 'Call me Ishmael.',
+				'description' => 'Override copyright.',
+			],
+			'author' => [
+				[
+					'@type' => 'Person',
+					'name' => 'Herman Melville',
+				],
+			],
+			'editor' => [
+				[
+					'@type' => 'Person',
+					'name' => 'Test 1',
+				],
+			],
+			'translator' => [
+				[
+					'@type' => 'Person',
+					'name' => 'Test 2',
+				],
+			],
+			'reviewedBy' => [
+				[
+					'@type' => 'Person',
+					'name' => 'Test 3',
+				],
+			],
+			'illustrator' => [
+				[
+					'@type' => 'Person',
+					'name' => 'Test 4',
+				],
+			],
+			'contributor' => [
+				[
+					'@type' => 'Person',
+					'name' => 'Test 5',
+				],
+			],
+			'audience' => [
+				'@type' => 'Audience',
+				'name' => 'adult',
+			],
+			'datePublished' => '2018-01-25',
+			'copyrightHolder' => [
+				'@type' => 'Organization',
+				'name' => 'Test 6',
 			],
 		];
 
 		$result = \Pressbooks\Metadata\schema_to_book_information( $schema );
-		$this->assertEquals( $result['pb_custom_copyright'], 'Call me Ishmael.' );
+		$this->assertEquals( $result['pb_authors'], 'Herman Melville' );
+		$this->assertEquals( $result['pb_book_license'], 'public-domain' );
+		$this->assertEquals( $result['pb_custom_copyright'], 'Override copyright.' );
+		$this->assertEquals( $result['pb_editors'], 'Test 1' );
+		$this->assertEquals( $result['pb_translators'], 'Test 2' );
+		$this->assertEquals( $result['pb_reviewers'], 'Test 3' );
+		$this->assertEquals( $result['pb_illustrators'], 'Test 4' );
+		$this->assertEquals( $result['pb_contributors'], 'Test 5' );
+		$this->assertEquals( $result['pb_audience'], 'adult' );
+		$this->assertEquals( $result['pb_publication_date'], 1516838400 );
+		$this->assertEquals( $result['pb_copyright_holder'], 'Test 6' );
 	}
 
 	public function test_section_information_to_schema() {
@@ -105,13 +169,13 @@ class MetadataTest extends \WP_UnitTestCase {
 		];
 
 		$book_information = [
-			'pb_author' => 'Herman Melville',
+			'pb_authors' => 'Herman Melville',
 			'pb_title' => 'Moby Dick',
 		];
 
 		$result = \Pressbooks\Metadata\section_information_to_schema( $section_information, $book_information );
 		$this->assertEquals( $result['name'], 'Loomings' );
-		$this->assertEquals( $result['author']['name'], 'Herman Melville' );
+		$this->assertEquals( $result['author'][0]['name'], 'Herman Melville' );
 		$this->assertEquals( $result['position'], 1 );
 	}
 
@@ -145,7 +209,7 @@ class MetadataTest extends \WP_UnitTestCase {
 		];
 
 		$result = \Pressbooks\Metadata\schema_to_section_information( $section_schema, $book_schema );
-		$this->assertArrayNotHasKey( 'pb_section_author', $result );
+		$this->assertArrayNotHasKey( 'pb_authors', $result );
 		$this->assertArrayNotHasKey( 'pb_section_license', $result );
 
 		$book_schema = [
@@ -197,4 +261,32 @@ class MetadataTest extends \WP_UnitTestCase {
 		$result = \Pressbooks\Metadata\is_bisac( 'ANT123456' );
 		$this->assertTrue( $result );
 	}
+
+	public function test_postStatiiConversion() {
+		$val = $this->metadata->postStatiiConversion( 'wrong', 'wrong' );
+		$this->assertEquals( 'wrong', $val );
+
+		$val = $this->metadata->postStatiiConversion( 'does-not-exist', true );
+		$this->assertEquals( 'does-not-exist', $val );
+
+		$val = $this->metadata->postStatiiConversion( 'draft', true );
+		$this->assertEquals( 'private', $val );
+
+		$val = $this->metadata->postStatiiConversion( 'publish', true );
+		$this->assertEquals( 'publish', $val );
+
+		$val = $this->metadata->postStatiiConversion( 'draft', false );
+		$this->assertEquals( 'draft', $val );
+
+		$val = $this->metadata->postStatiiConversion( 'publish', false );
+		$this->assertEquals( 'web-only', $val );
+	}
+
+	public function test_upgradeToPressbooksFive() {
+		$this->_book();
+		update_option( 'pressbooks_taxonomy_version', \Pressbooks\Taxonomy::VERSION + 999 );
+		$this->metadata->upgradeToPressbooksFive();
+		$this->assertEquals( \Pressbooks\Taxonomy::VERSION, get_option( 'pressbooks_taxonomy_version' ) );
+	}
+
 }

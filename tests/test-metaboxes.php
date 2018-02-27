@@ -34,4 +34,69 @@ class MetaboxesTest extends \WP_UnitTestCase {
 		$this->assertArrayHasKey( 'additional-catalog-information', $c->metadata['metadata'] );
 	}
 
+	public function test_publish_fields_save() {
+
+		\Pressbooks\Metadata\init_book_data_models();
+
+		global $pagenow;
+		$pagenow = 'post.php';
+
+		$_POST['web_visibility'] = '1';
+		$_POST['export_visibility'] = '1';
+		$_POST['pb_show_title'] = 'on';
+
+		$new_post = [
+			'post_title' => 'Test Chapter: ' . rand(),
+			'post_type' => 'front-matter',
+			'post_status' => 'draft',
+			'post_content' => 'Hello World',
+		];
+		$pid = $this->factory()->post->create_object( $new_post );
+		$post = get_post( $pid );
+
+		\Pressbooks\Admin\Metaboxes\publish_fields_save( $pid, $post, true );
+		$post = get_post( $pid );
+		$this->assertEquals( 'publish', $post->post_status );
+		$this->assertEquals( 'on', get_post_meta( $pid, 'pb_show_title', true ) );
+
+		// Web-Only
+
+		$_POST['web_visibility'] = 1;
+		$_POST['export_visibility'] = 0;
+		$_POST['pb_show_title'] = 'off';
+
+		\Pressbooks\Admin\Metaboxes\publish_fields_save( $pid, $post, true );
+		$post = get_post( $pid );
+		$this->assertEquals( 'web-only', $post->post_status );
+		$this->assertEmpty( get_post_meta( $pid, 'pb_show_title', true ) );
+
+		// Private
+
+		$_POST['web_visibility'] = 0;
+		$_POST['export_visibility'] = 1;
+
+		\Pressbooks\Admin\Metaboxes\publish_fields_save( $pid, $post, true );
+		$post = get_post( $pid );
+		$this->assertEquals( 'private', $post->post_status );
+
+		// Private again, (when content is set to show in exports only, multiple saves can unpublish it.)
+
+		$_POST['web_visibility'] = 0;
+		$_POST['export_visibility'] = 1;
+
+		\Pressbooks\Admin\Metaboxes\publish_fields_save( $pid, $post, true );
+		$post = get_post( $pid );
+		$this->assertEquals( 'private', $post->post_status );
+
+		// Draft
+
+		$_POST['web_visibility'] = 0;
+		$_POST['export_visibility'] = 0;
+
+		\Pressbooks\Admin\Metaboxes\publish_fields_save( $pid, $post, true );
+		$post = get_post( $pid );
+		$this->assertEquals( 'draft', $post->post_status );
+
+	}
+
 }

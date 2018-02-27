@@ -55,7 +55,10 @@ function html5_to_xhtml11( $html, $config = [], $spec = [] ) {
 		'wbr',
 	];
 
-	$search_open = $replace_open = $search_closed = $replace_closed = [];
+	$search_open = [];
+	$search_closed = [];
+	$replace_open = [];
+	$replace_closed = [];
 
 	foreach ( $html5 as $tag ) {
 		$search_open[] = '`(<' . $tag . ')([^\w])`i';
@@ -83,7 +86,10 @@ function html5_to_epub3( $html, $config = [], $spec = [] ) {
 	// HTML5 elements we don't want to deal with just yet
 	$html5 = [ 'command', 'embed', 'track' ];
 
-	$search_open = $replace_open = $search_closed = $replace_closed = [];
+	$search_open = [];
+	$search_closed = [];
+	$replace_open = [];
+	$replace_closed = [];
 
 	foreach ( $html5 as $tag ) {
 		$search_open[] = '`(<' . $tag . ')([^\w])`i';
@@ -237,7 +243,9 @@ function strip_br( $slug ) {
 function filter_title( $title ) {
 	$allowed = [
 		'br' => [],
-		'span' => [ 'class' => [] ],
+		'span' => [
+			'class' => [],
+		],
 		'em' => [],
 		'strong' => [],
 		'del' => [],
@@ -272,9 +280,9 @@ function canonicalize_url( $url ) {
 	}
 
 	// protocol and domain to lowercase (but NOT the rest of the URL),
-	$scheme = parse_url( $url, PHP_URL_SCHEME );
+	$scheme = wp_parse_url( $url, PHP_URL_SCHEME );
 	$url = preg_replace( '/' . preg_quote( $scheme ) . '/', mb_strtolower( $scheme ), $url, 1 );
-	$host = parse_url( $url, PHP_URL_HOST );
+	$host = wp_parse_url( $url, PHP_URL_HOST );
 	$url = preg_replace( '/' . preg_quote( $host ) . '/', mb_strtolower( $host ), $url, 1 );
 
 	// Sanitize for good measure
@@ -358,7 +366,8 @@ function normalize_css_urls( $css, $url_path = '' ) {
 			return $matches[0]; // No change
 
 		},
-	$css );
+		$css
+	);
 
 	return $css;
 }
@@ -505,15 +514,16 @@ function strip_container_tags( $html ) {
 function cleanup_css( $css ) {
 
 	$css = stripslashes( $css );
-
-	$css = preg_replace( '/\\\\([0-9a-fA-F]{2,4})/', '\\\\\\\\$1', $prev = $css );
+	$prev = $css;
+	$css = preg_replace( '/\\\\([0-9a-fA-F]{2,4})/', '\\\\\\\\$1', $prev );
 
 	if ( $css !== $prev ) {
 		$warnings[] = 'preg_replace() double escaped unicode escape sequences';
 	}
 
 	$css = str_replace( '<=', '&lt;=', $css ); // Some people put weird stuff in their CSS, KSES tends to be greedy
-	$css = wp_kses_split( $prev = $css, [], [] );
+	$prev = $css;
+	$css = wp_kses_split( $prev, [], [] );
 	$css = str_replace( '&gt;', '>', $css ); // kses replaces lone '>' with &gt;
 	$css = strip_tags( $css );
 
@@ -524,4 +534,40 @@ function cleanup_css( $css ) {
 	// TODO: Something with $warnings[]
 
 	return $css;
+}
+
+/**
+ * Prettify HTML
+ *
+ * @param $html
+ *
+ * @return string
+ */
+function prettify( $html ) {
+
+	// Simplest, allowing all valid HTML markup except uncommon URL schemes like 'whatsapp:', and prettying-up the HTML
+
+	$config = [
+		'tidy' => 5,
+		'unique_ids' => 0,
+	];
+
+	return \Pressbooks\HtmLawed::filter( $html, $config );
+}
+
+/**
+ * Check whether a variable is a unix timestamp
+ *
+ * @since 5.0.0
+ *
+ * @param mixed $timestamp
+ *
+ * @return bool
+ */
+function is_valid_timestamp( $timestamp ) {
+	if ( is_int( $timestamp ) ) {
+		return true;
+	} else {
+		return ( (string) (int) $timestamp === $timestamp ) && ( $timestamp <= PHP_INT_MAX ) && ( $timestamp >= ~PHP_INT_MAX );
+	}
 }

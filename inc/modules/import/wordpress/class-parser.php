@@ -25,13 +25,18 @@ class Parser {
 		// Setup & sanity check
 		// ------------------------------------------------------------------------------------------------------------
 
-		$authors = $posts = $categories = $tags = $terms = [];
+		$authors = [];
+		$posts = [];
+		$categories = [];
+		$tags = [];
+		$terms = [];
+
 		libxml_use_internal_errors( true );
 
 		$old_value = libxml_disable_entity_loader( true );
 		$dom = new \DOMDocument;
 		$dom->recover = true; // Try to parse non-well formed documents
-		$success = $dom->loadXML( file_get_contents( $file ) );
+		$success = $dom->loadXML( \Pressbooks\Utility\get_contents( $file ) );
 		foreach ( $dom->childNodes as $child ) {
 			if ( XML_DOCUMENT_TYPE_NODE === $child->nodeType ) {
 				// Invalid XML: Detected use of disallowed DOCTYPE
@@ -41,17 +46,19 @@ class Parser {
 		}
 		libxml_disable_entity_loader( $old_value );
 
+		// @codingStandardsIgnoreStart
 		if ( ! $success || isset( $dom->doctype ) ) {
 			throw new \Exception( print_r( libxml_get_errors(), true ) );
 		}
 
-		$xml = @simplexml_import_dom( $dom ); // @codingStandardsIgnoreLine
+		$xml = @simplexml_import_dom( $dom );
 		unset( $dom );
 
 		// halt if loading produces an error
 		if ( ! $xml ) {
 			throw new \Exception( print_r( libxml_get_errors(), true ) );
 		}
+		// @codingStandardsIgnoreEnd
 
 		$wxr_version = $xml->xpath( '/rss/channel/wp:wxr_version' );
 		if ( ! $wxr_version ) {
@@ -96,28 +103,46 @@ class Parser {
 		// grab cats, tags and terms
 		foreach ( $xml->xpath( '/rss/channel/wp:category' ) as $term_arr ) {
 			$t = $term_arr->children( $namespaces['wp'] );
-			$categories[] = [
+			$category = [
 				'term_id' => (int) $t->term_id,
 				'category_nicename' => (string) $t->category_nicename,
 				'category_parent' => (string) $t->category_parent,
 				'cat_name' => (string) $t->cat_name,
 				'category_description' => (string) $t->category_description,
 			];
+
+			foreach ( $t->termmeta as $meta ) {
+				$category['termmeta'][] = [
+					'key' => (string) $meta->meta_key,
+					'value' => (string) $meta->meta_value,
+				];
+			}
+
+			$categories[] = $category;
 		}
 
 		foreach ( $xml->xpath( '/rss/channel/wp:tag' ) as $term_arr ) {
 			$t = $term_arr->children( $namespaces['wp'] );
-			$tags[] = [
+			$tag = [
 				'term_id' => (int) $t->term_id,
 				'tag_slug' => (string) $t->tag_slug,
 				'tag_name' => (string) $t->tag_name,
 				'tag_description' => (string) $t->tag_description,
 			];
+
+			foreach ( $t->termmeta as $meta ) {
+				$tag['termmeta'][] = [
+					'key' => (string) $meta->meta_key,
+					'value' => (string) $meta->meta_value,
+				];
+			}
+
+			$tags[] = $tag;
 		}
 
 		foreach ( $xml->xpath( '/rss/channel/wp:term' ) as $term_arr ) {
 			$t = $term_arr->children( $namespaces['wp'] );
-			$terms[] = [
+			$term = [
 				'term_id' => (int) $t->term_id,
 				'term_taxonomy' => (string) $t->term_taxonomy,
 				'slug' => (string) $t->term_slug,
@@ -125,11 +150,19 @@ class Parser {
 				'term_name' => (string) $t->term_name,
 				'term_description' => (string) $t->term_description,
 			];
+
+			foreach ( $t->termmeta as $meta ) {
+				$term['termmeta'][] = [
+					'key' => (string) $meta->meta_key,
+					'value' => (string) $meta->meta_value,
+				];
+			}
+
+			$terms[] = $term;
 		}
 
 		// grab posts
 		foreach ( $xml->channel->item as $item ) {
-			/** @var \SimpleXMLElement $item */
 			$post = [
 				'post_title' => (string) $item->title,
 				'guid' => (string) $item->guid,
@@ -143,7 +176,6 @@ class Parser {
 			$post['post_content'] = (string) $content->encoded;
 			$post['post_excerpt'] = (string) $excerpt->encoded;
 
-			/** @var \WP_Post $wp */
 			$wp = $item->children( $namespaces['wp'] );
 			$post['post_id'] = (int) $wp->post_id;
 			$post['post_date'] = (string) $wp->post_date;

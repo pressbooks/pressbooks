@@ -17,24 +17,12 @@ class Admin_LafsTest extends \WP_UnitTestCase {
 		$this->assertContains( 'Pressbooks', $buffer );
 	}
 
-	function test_admin_title() {
-
-		$result = \Pressbooks\Admin\Laf\admin_title( 'Hello WordPress!' );
-		$this->assertEquals( $result, 'Hello Pressbooks!' );
-
-		$result = \Pressbooks\Admin\Laf\admin_title( 'Hello World!' );
-		$this->assertEquals( $result, 'Hello World!' );
-	}
-
 	function test_replace_book_admin_menu() {
 
 		global $menu, $submenu;
 
 		// Fake load the admin menu
 		$this->_book();
-		if ( ! post_type_exists( ' chapter' ) ) {
-			\Pressbooks\PostType\register_post_types();
-		}
 		$user_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
 		wp_set_current_user( $user_id );
 		include_once( ABSPATH . '/wp-admin/menu.php' );
@@ -44,9 +32,11 @@ class Admin_LafsTest extends \WP_UnitTestCase {
 		$this->assertEquals( $menu[12][0], 'Book Info' );
 		$this->assertEquals( $menu[14][0], 'Export' );
 		$this->assertEquals( $menu[16][0], 'Publish' );
+	}
 
-		$this->assertArrayHasKey( 'edit.php?post_type=part', $submenu );
-		$this->assertArrayHasKey( 'edit.php?post_type=chapter', $submenu );
+	function test_reorder_book_admin_menu() {
+		$order = \Pressbooks\Admin\Laf\reorder_book_admin_menu();
+		$this->assertEquals( $order[4], 'post-new.php?post_type=metadata' );
 	}
 
 	function test_replace_menu_bar_my_sites() {

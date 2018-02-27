@@ -54,24 +54,30 @@ class SectionMetadata extends \WP_REST_Controller {
 	 */
 	public function register_routes() {
 
-		register_rest_route( $this->namespace, '/' . $this->parent_base . '/(?P<parent>[\d]+)/' . $this->rest_base, [
-			'args' => [
-				'parent' => [
-					'required' => true,
-					'description' => __( 'The ID for the parent of the object.' ),
-					'type' => 'integer',
-				],
-			],
-			[
-				'methods' => \WP_REST_Server::READABLE,
-				'callback' => [ $this, 'get_item' ],
-				'permission_callback' => [ $this, 'get_item_permissions_check' ],
+		register_rest_route(
+			$this->namespace, '/' . $this->parent_base . '/(?P<parent>[\d]+)/' . $this->rest_base, [
 				'args' => [
-					'context' => $this->get_context_param( [ 'default' => 'view' ] ),
+					'parent' => [
+						'required' => true,
+						'description' => __( 'The ID for the parent of the object.' ),
+						'type' => 'integer',
+					],
 				],
-			],
-			'schema' => [ $this, 'get_public_item_schema' ],
-		] );
+				[
+					'methods' => \WP_REST_Server::READABLE,
+					'callback' => [ $this, 'get_item' ],
+					'permission_callback' => [ $this, 'get_item_permissions_check' ],
+					'args' => [
+						'context' => $this->get_context_param(
+							[
+								'default' => 'view',
+							]
+						),
+					],
+				],
+				'schema' => [ $this, 'get_public_item_schema' ],
+			]
+		);
 	}
 
 	/**
@@ -410,31 +416,62 @@ class SectionMetadata extends \WP_REST_Controller {
 	 * @return \WP_Error|\WP_REST_Response Response object on success, or WP_Error object on failure.
 	 */
 	public function get_item( $request ) {
-		$posts = get_posts( [ 'p' => $request['parent'], 'post_type' => $this->post_type, 'post_status' => 'any' ] );
-		$error = new \WP_Error( 'rest_post_invalid_id', __( 'Invalid post ID.' ), [ 'status' => 404 ] );
+		$posts = get_posts(
+			[
+				'p' => $request['parent'],
+				'post_type' => $this->post_type,
+				'post_status' => [ 'web-only', 'publish' ],
+			]
+		);
+		$error = new \WP_Error(
+			'rest_post_invalid_id', __( 'Invalid post ID.' ), [
+				'status' => 404,
+			]
+		);
 		if ( empty( $posts ) ) {
 			return $error;
 		}
 
-		$section_meta = get_post_meta( $request['parent'], '', true );
-		$book_meta = Book::getBookInformation();
-		$section_meta['pb_title'] = get_the_title( $request['parent'] );
+		$section_meta = $this->buildMetadata(
+			$this->getSectionInformation( $request['parent'] ),
+			Book::getBookInformation()
+		);
+
+		$response = rest_ensure_response( $section_meta );
+		$this->linkCollector['self'] = [
+			'href' => rest_url( sprintf( '%s/%s/%d/%s', $this->namespace, $this->parent_base, $request['parent'], 'metadata' ) ),
+		];
+		$this->linkCollector[ $this->post_type ] = [
+			'href' => rest_url( sprintf( '%s/%s/%d', $this->namespace, $this->parent_base, $request['parent'] ) ),
+		];
+		$response->add_links( $this->linkCollector );
+
+		return $response;
+	}
+
+	/**
+	 * @param int $post_id
+	 *
+	 * @return array
+	 */
+	protected function getSectionInformation( $post_id ) {
+		$section_meta = get_post_meta( $post_id, '', true );
+		$section_meta['pb_title'] = get_the_title( $post_id );
 		if ( $this->post_type === 'chapter' ) {
-			$section_meta['pb_chapter_number'] = pb_get_chapter_number( get_post_field( 'post_name', $request['parent'] ) );
+			$section_meta['pb_chapter_number'] = pb_get_chapter_number( get_post_field( 'post_name', $post_id ) );
 		}
 		foreach ( $section_meta as $key => $value ) {
 			if ( is_array( $value ) ) {
 				$section_meta[ $key ] = array_pop( $value );
 			}
 		}
-		$section_meta = $this->buildMetadata( $section_meta, $book_meta );
+		// Override Contributors
+		$contributors = new \Pressbooks\Contributors();
+		foreach ( $contributors->getAll( $post_id ) as $key => $val ) {
+			$section_meta[ $key ] = $val;
+		};
 
-		$response = rest_ensure_response( $section_meta );
-		$this->linkCollector['self'] = [ 'href' => rest_url( sprintf( '%s/%s/%d/%s', $this->namespace, $this->parent_base, $request['parent'], 'metadata' ) ) ];
-		$this->linkCollector[ $this->post_type ] = [ 'href' => rest_url( sprintf( '%s/%s/%d', $this->namespace, $this->parent_base, $request['parent'] ) ) ];
-		$response->add_links( $this->linkCollector );
-
-		return $response;
+		return $section_meta;
 	}
 
 	/**
