@@ -184,46 +184,71 @@ function pb_get_custom_stylesheet_url() {
  */
 function pb_get_chapter_number( $post_name ) {
 
+	// Cheap caches using static keyword ahead
+
 	$options = get_option( 'pressbooks_theme_options_global' );
 	if ( ! @$options['chapter_numbers'] ) {
 		return 0;
 	}
 
-	$lookup = \Pressbooks\Book::getBookStructure();
-	$lookup = $lookup['__web_lookup'];
+	static $lookup = null;
+	if ( $lookup === null ) {
+		$lookup = \Pressbooks\Book::getBookStructure();
+		$lookup = $lookup['__web_lookup'];
+	}
 
-	if ( 'chapter' != @$lookup[ $post_name ] ) {
+	if ( 'chapter' !== @$lookup[ $post_name ] ) {
 		return 0;
 	}
 
-	$i = 0;
 	foreach ( $lookup as $key => $val ) {
-		if ( 'chapter' == $val ) {
-			$chapter = get_posts( array( 'name' => $key, 'post_type' => 'chapter', 'post_status' => [ 'web-only', 'publish' ], 'numberposts' => 1 ) );
-			if ( isset( $chapter[0] ) ) {
-				$type = pb_get_section_type( $chapter[0] );
-				if ( 'numberless' !== $type ) {
-					++$i;
-				}
-			} else {
-				return 0;
-			}
-			if ( $key == $post_name ) {
-				break;
-			}
+		if ( 'chapter' === $val ) {
+			$keys[] = $key;
 		}
 	}
 
-	if ( 'numberless' == $type ) {
+	// Get all the posts in a single query
+	static $chapters = null;
+	if ( $chapters === null ) {
+		if ( ! empty( $keys ) ) {
+			global $wpdb;
+			$how_many = count( $keys );
+			$placeholders = array_fill( 0, $how_many, '%s' );
+			$sql = "SELECT ID, post_type, post_name FROM {$wpdb->posts} WHERE post_name IN ( " . implode( ', ', $placeholders ) . " ) AND post_type = 'chapter' AND post_status in ('web-only', 'publish') ORDER BY menu_order ASC";
+			$chapters = $wpdb->get_results( $wpdb->prepare( $sql, $keys ) );
+		} else {
+			$chapters = [];
+		}
+	}
+
+	$i = 0;
+	$type = '';
+	foreach ( $chapters as $pos => $chapter ) {
+		if ( isset( $keys[ $pos ] ) && $keys[ $pos ] === $chapter->post_name ) {
+			$type = pb_get_section_type( $chapter );
+			if ( 'numberless' !== $type ) {
+				++$i;
+			}
+		} else {
+			return 0;
+		}
+		if ( $chapter->post_name === $post_name ) {
+			break;
+		}
+
+	}
+
+	if ( 'numberless' === $type ) {
 		$i = 0;
 	}
+
 	return $i;
 }
 
 /**
  * Get chapter, front or back matter type
  *
- * @param $post
+ * @param WP_Post $post
  *
  * @return string
  */
