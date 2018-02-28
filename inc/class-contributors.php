@@ -112,10 +112,12 @@ class Contributors {
 		// Look if contributors exist as taxonomies (new data model)
 		$contributors = [];
 		$meta = get_post_meta( $post_id, $contributor_type, false );
-		foreach ( $meta as $slug ) {
-			$name = $this->personalName( $slug );
-			if ( $name ) {
-				$contributors[] = $name;
+		if ( is_array( $meta ) ) {
+			foreach ( $meta as $slug ) {
+				$name = $this->personalName( $slug );
+				if ( $name ) {
+					$contributors[] = $name;
+				}
 			}
 		}
 
