@@ -178,7 +178,7 @@ function pb_get_custom_stylesheet_url() {
 /**
  * Get "real" chapter number for Web + REST API
  *
- * @param string$post_name
+ * @param string $post_name
  *
  * @return int
  */
