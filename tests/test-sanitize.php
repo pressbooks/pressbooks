@@ -235,6 +235,10 @@ class SanitizeTest extends \WP_UnitTestCase {
 		// Can't find, no change
 		$css = 'url(/fonts/foo.garbage)';
 		$this->assertEquals( $css, \Pressbooks\Sanitize\normalize_css_urls( $css ) );
+
+		// Image in Buckram
+		$css = 'url(pressbooks-book/assets/book/images/icon-video.svg)';
+		$this->assertContains( $template_directory_uri . '/assets/book/images/icon-video.svg', $css );
 	}
 
 	public function test_allow_post_content() {
