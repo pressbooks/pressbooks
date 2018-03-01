@@ -238,7 +238,7 @@ class SanitizeTest extends \WP_UnitTestCase {
 
 		// Image in Buckram
 		$css = 'url(pressbooks-book/assets/book/images/icon-video.svg)';
-		$this->assertContains( $template_directory_uri . '/assets/book/images/icon-video.svg', $css );
+		$this->assertContains( $template_directory_uri . '/assets/book/images/icon-video.svg', Pressbooks\Sanitize\normalize_css_urls( $css ) );
 	}
 
 	public function test_allow_post_content() {
