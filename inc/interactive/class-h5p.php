@@ -71,7 +71,7 @@ class H5P {
 		global $id; // This is the Post ID, [@see WP_Query::setup_postdata, ...]
 		global $wpdb;
 
-		$h5p_url = get_permalink( $id );
+		$h5p_url = wp_get_shortlink( $id );
 		$h5p_title = get_the_title( $id );
 		if ( empty( $h5p_title ) ) {
 			$h5p_title = get_bloginfo( 'name' );

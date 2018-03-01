@@ -52,7 +52,7 @@ class Phet {
 				$embed = $this->blade->render(
 					'interactive.shared', [
 						'title' => get_the_title( $id ),
-						'url' => get_permalink( $id ),
+						'url' => wp_get_shortlink( $id ),
 					]
 				);
 				return apply_filters( 'embed_' . self::EMBED_ID, $embed, $matches, $attr, $url, $rawattr );

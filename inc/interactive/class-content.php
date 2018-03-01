@@ -157,7 +157,7 @@ class Content {
 		$html = $this->blade->render(
 			'interactive.shared', [
 				'title' => $this->getTitle( $id ),
-				'url' => get_permalink( $id ),
+				'url' => wp_get_shortlink( $id ),
 			]
 		);
 		$fragment = $doc->loadHTMLFragment( $html );
@@ -224,7 +224,7 @@ class Content {
 		$title = $data->title ?? $this->getTitle( $id );
 		$img_src = $data->thumbnail_url ?? null;
 		$provider_name = $data->provider_name ?? null;
-		$url = get_permalink( $id );
+		$url = wp_get_shortlink( $id );
 
 		$html = $this->blade->render(
 			'interactive.oembed', [
@@ -273,7 +273,7 @@ class Content {
 			$html = $this->blade->render(
 				"interactive.{$tag}", [
 					'title' => $this->getTitle( $id ),
-					'url' => get_permalink( $id ),
+					'url' => wp_get_shortlink( $id ),
 				]
 			);
 			$fragment = $doc->loadHTMLFragment( $html );
