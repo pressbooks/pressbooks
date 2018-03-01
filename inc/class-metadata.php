@@ -487,11 +487,13 @@ class Metadata implements \JsonSerializable {
 	 * @since 5.0.0
 	 */
 	public function upgradeToPressbooksFive() {
-		$contributor = new Contributors();
-		// Get all posts in a book
+		// Get all parts from the book
 		global $wpdb;
 		$sql = [ 'front-matter', 'part', 'chapter', 'back-matter' ];
 		$r1 = $wpdb->get_results( $wpdb->prepare( "SELECT ID, post_status FROM {$wpdb->posts} WHERE post_type IN (%s, %s, %s, %s)", $sql ), ARRAY_A );
+
+		// Update post statii
+		$wpdb->query( 'START TRANSACTION' );
 		foreach ( $r1 as $val ) {
 			// Get pb_export for single post in a book
 			$r2 = $wpdb->get_row( $wpdb->prepare( "SELECT meta_value FROM {$wpdb->postmeta} WHERE meta_key = %s AND post_id = %d", 'pb_export', $val['ID'] ), ARRAY_A );
@@ -499,21 +501,21 @@ class Metadata implements \JsonSerializable {
 			$pb_export = ( isset( $r2['meta_value'] ) && $r2['meta_value'] === 'on' );
 			$new_status = $this->postStatiiConversion( $status, $pb_export );
 			if ( ! $new_status !== $status ) {
-				// Update post_status
-				wp_update_post(
-					[
-						'ID' => $val['ID'],
-						'post_status' => $new_status,
-					]
-				);
+				$wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->posts} SET post_status = %s WHERE ID = %d", $new_status, $val['ID'] ) );
 			}
-			$contributor->getAll( $val['ID'] ); // Triggers contributor upgrade
 		}
-		$contributor->getAll( $this->getMetaPost()->ID ); // Triggers contributor upgrade
+		$wpdb->query( 'COMMIT' );
+		wp_cache_flush();
+
+		// Update contributors
+		$contributor = new Contributors();
+		foreach ( $r1 as $val ) {
+			$contributor->getAll( $val['ID'], false ); // Triggers contributor upgrade
+		}
+		$contributor->getAll( $this->getMetaPost()->ID, false ); // Triggers contributor upgrade
 
 		// Once upon a time we were updating 'pressbooks_taxonomy_version' with Metadata::VERSION instead of Taxonomy::VERSION
 		// Some books might be in a weird state (bug?) Rerun the Taxonomy upgrade function from version zero, outside of itself, just in-case
-
 		Taxonomy::init()->upgrade( 0 );
 		update_option( 'pressbooks_taxonomy_version', Taxonomy::VERSION );
 	}

@@ -93,6 +93,10 @@ function flusher() {
  * @see \Pressbooks\Utility\get_generated_content_path
  */
 function migrate_generated_content() {
+	if ( ! \Pressbooks\Book::isBook() ) {
+		return;
+	}
+
 	$option_name = 'pressbooks_migrated_generated_content';
 	$is_migrated = get_option( $option_name, false );
 	if ( $is_migrated === false ) {
@@ -110,7 +114,7 @@ function migrate_generated_content() {
 
 		foreach ( $move as $suffix ) {
 			if ( is_dir( "{$source_dir}/{$suffix}" ) ) {
-				$ok = rename( "{$source_dir}/{$suffix}", "{$dest_dir}/{$suffix}" );
+				$ok = @rename( "{$source_dir}/{$suffix}", "{$dest_dir}/{$suffix}" ); // @codingStandardsIgnoreLine
 				if ( ! $ok ) {
 					\Pressbooks\Utility\debug_error_log( "Failed to migrate: {$source_dir}/{$suffix}" );
 				}
