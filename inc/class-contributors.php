@@ -133,12 +133,14 @@ class Contributors {
 			if ( isset( $map[ $contributor_type ] ) ) {
 				foreach ( $map[ $contributor_type ] as $slug ) {
 					$meta = get_post_meta( $post_id, $slug, false );
-					foreach ( $meta as $name ) {
-						$result = $this->insert( $name );
-						if ( $result !== false ) {
-							$added = $this->link( $result['term_id'], $post_id, $contributor_type );
-							if ( $added !== false ) {
-								$contributors[] = $name;
+					if ( is_array( $meta ) ) {
+						foreach ( $meta as $name ) {
+							$result = $this->insert( $name );
+							if ( $result !== false ) {
+								$added = $this->link( $result['term_id'], $post_id, $contributor_type );
+								if ( $added !== false ) {
+									$contributors[] = $name;
+								}
 							}
 						}
 					}
