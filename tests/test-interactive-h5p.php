@@ -19,9 +19,15 @@ class Interactive_H5P_Test extends \WP_UnitTestCase {
 	}
 
 	public function test_replaceShortcode() {
-		$this->assertContains( '<div class="pb-interactive-content">', $this->h5p->replaceShortcode( [] ) );
-		$this->assertContains( '<div class="pb-interactive-content">', $this->h5p->replaceShortcode( [ 'slug' => 'foo' ] ) );
-		$this->assertContains( '<div class="pb-interactive-content">', $this->h5p->replaceShortcode( [ 'id' => 999 ] ) );
+		$result = $this->h5p->replaceShortcode( [] );
+		$this->assertContains( '<div ', $result );
+		$this->assertContains( 'excluded from this version of the text', $result );
+		$result = $this->h5p->replaceShortcode( [ 'slug' => 'foo' ] );
+		$this->assertContains( '<div ', $result );
+		$this->assertContains( 'excluded from this version of the text', $result );
+		$result = $this->h5p->replaceShortcode( [ 'id' => 999 ] );
+		$this->assertContains( '<div ', $result );
+		$this->assertContains( 'excluded from this version of the text', $result );
 	}
 
 	public function test_override() {
