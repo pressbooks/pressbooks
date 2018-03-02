@@ -378,6 +378,8 @@ class Content {
 		$this->overridePhet();
 		$this->overrideIframes();
 		$this->overrideEmbeds();
+		$this->overrideVideo();
+		$this->overrideAudio();
 	}
 
 	/**
@@ -423,6 +425,40 @@ class Content {
 			return $attr;
 		} );
 		add_filter( 'oembed_dataparse', [ $this, 'replaceOembed' ], 1, 3 );
+	}
+
+	/**
+	 * Override Video
+	 */
+	protected function overrideVideo() {
+		/**
+		 * @param string $output  Video shortcode HTML output.
+		 * @param array  $atts    Array of video shortcode attributes.
+		 * @param string $video   Video file.
+		 */
+		add_filter( 'wp_video_shortcode',  function ( $output, $atts, $video ) {
+			$src = $atts['src'] ?? $video;
+			$type = wp_check_filetype( $src, wp_get_mime_types() )['type'];
+			$output = "<video class='wp-video-shortcode' ><source type='{$type}' src='{$src}' /><a href='{$src}'>{$src}</a></video>";
+			return $output;
+		}, 10, 3 );
+	}
+
+	/**
+	 * Override Audio
+	 */
+	protected function overrideAudio() {
+		/**
+		 * @param string $output  Audio shortcode HTML output.
+		 * @param array  $atts    Array of Audio shortcode attributes.
+		 * @param string $audio   Audio file.
+		 */
+		add_filter( 'wp_audio_shortcode',  function ( $output, $atts, $audio ) {
+			$src = $atts['src'] ?? $audio;
+			$type = wp_check_filetype( $src, wp_get_mime_types() )['type'];
+			$output = "<audio class='wp-audio-shortcode' ><source type='{$type}' src='{$src}' /><a href='{$src}'>{$src}</a></audio>";
+			return $output;
+		}, 10, 3 );
 	}
 
 	/**
