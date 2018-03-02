@@ -305,7 +305,7 @@ class Content {
 	 */
 	public function addExtraOembedProviders( $providers ) {
 
-		// Format (string), Provider (string), Regex (bool)
+		// Format (string), Provider (string), Supports HTTPS? (bool)
 		$providers['#https?://mathembed\.com/latex\?inputText=.*#i'] = [ 'https://mathembed.com/oembed', true ];
 		$providers['#https?://www\.openassessments\.org/assessments/.*#i'] = [ 'https://www.openassessments.org/oembed.json', true ];
 
