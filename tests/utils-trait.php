@@ -20,7 +20,6 @@ trait utilsTrait {
 		$book = \Pressbooks\Book::getInstance();
 		$pid = $this->_createChapter();
 		$last_part_menu_order = 0;
-
 		foreach ( $book::getBookStructure() as $key => $section ) {
 			if ( $key === 'front-matter' || $key === 'back-matter' ) {
 				foreach ( $section as $val ) {
@@ -97,7 +96,6 @@ There are many maths like it but these ones are mine.
 <p><a href="/back-matter/appendix/">Link to another post.</a></p>
 
 <p><a href="https://github.com/pressbooks/pressbooks#hello-world">External link.</a></p>
-
 ';
 
 		$new_post = [
@@ -107,7 +105,6 @@ There are many maths like it but these ones are mine.
 			'post_content' => trim( $content ),
 			'post_parent' => $post_parent,
 		];
-
 		$pid = $this->factory()->post->create_object( $new_post );
 		update_post_meta( $pid, 'pb_export', 'on' );
 		update_post_meta( $pid, 'pb_subtitle', 'Or, A Chapter to Test' );
