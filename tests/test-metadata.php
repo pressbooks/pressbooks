@@ -285,8 +285,17 @@ class MetadataTest extends \WP_UnitTestCase {
 	public function test_upgradeToPressbooksFive() {
 		$this->_book();
 		update_option( 'pressbooks_taxonomy_version', \Pressbooks\Taxonomy::VERSION + 999 );
+		$chapters = get_posts( ['post_type' => 'chapter', 'posts_per_page' => 1 ] );
+		add_filter( 'wp_kses_allowed_html', [ $this, '_allowIframes' ], 10, 2 ); // Allow iframes
+		wp_update_post( [
+			'ID' => $chapters[0]->ID,
+			'post_content' => $chapters[0]->post_content . '<p>There should be an iframe here:<br /><iframe width="560" height="315" src="https://www.youtube.com/embed/JgIhGTpKTwM" frameborder="0"></iframe></p>',
+		] );
+		remove_filter( 'wp_kses_allowed_html', [ $this, '_allowIframes' ] ); // Disallow iframes
 		$this->metadata->upgradeToPressbooksFive();
 		$this->assertEquals( \Pressbooks\Taxonomy::VERSION, get_option( 'pressbooks_taxonomy_version' ) );
+		$chapters = get_posts( ['post_type' => 'chapter', 'posts_per_page' => 1 ] );
+		$this->assertContains( '<iframe width="560" height="315" src="https://www.youtube.com/embed/JgIhGTpKTwM" frameborder="0"></iframe>', $chapters[0]->post_content );
 	}
 
 }

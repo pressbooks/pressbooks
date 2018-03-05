@@ -73,7 +73,7 @@ install_pressbooks_book() {
 		return;
 	fi
 
-	git clone --depth=1 https://github.com/pressbooks/pressbooks-book.git $WP_CORE_DIR/wp-content/themes/pressbooks-book
+	git clone -b master --depth=1 https://github.com/pressbooks/pressbooks-book.git $WP_CORE_DIR/wp-content/themes/pressbooks-book
 }
 
 install_pressbooks_clarke() {
@@ -82,7 +82,7 @@ install_pressbooks_clarke() {
 		return;
 	fi
 
-	git clone --depth=1 https://github.com/pressbooks/pressbooks-clarke.git $WP_CORE_DIR/wp-content/themes/pressbooks-clarke
+	git clone -b master --depth=1 https://github.com/pressbooks/pressbooks-clarke.git $WP_CORE_DIR/wp-content/themes/pressbooks-clarke
 }
 
 install_pressbooks_donham() {
@@ -91,7 +91,7 @@ install_pressbooks_donham() {
 		return;
 	fi
 
-	git clone --depth=1 https://github.com/pressbooks/pressbooks-donham.git $WP_CORE_DIR/wp-content/themes/pressbooks-donham
+	git clone -b master --depth=1 https://github.com/pressbooks/pressbooks-donham.git $WP_CORE_DIR/wp-content/themes/pressbooks-donham
 }
 
 install_book_themes() {
