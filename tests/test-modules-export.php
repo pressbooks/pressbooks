@@ -146,8 +146,7 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 	 */
 	public function test_sanityChecks() {
 
-		$this->_book( 'pressbooks-clarke' );
-		$this->_removeIframes(); // They will break EpubCheck.
+		$this->_book();
 		$meta_post = ( new \Pressbooks\Metadata() )->getMetaPost();
 		( new \Pressbooks\Contributors() )->insert( 'Ned Zimmerman', $meta_post->ID );
 		$user_id = $this->factory()->user->create( [ 'role' => 'contributor' ] );

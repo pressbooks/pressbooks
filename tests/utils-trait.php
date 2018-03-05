@@ -21,8 +21,6 @@ trait utilsTrait {
 		$pid = $this->_createChapter();
 		$last_part_menu_order = 0;
 
-		add_filter( 'wp_kses_allowed_html', [ $this, '_allowIframes' ], 10, 2 ); // Allow iframes
-
 		foreach ( $book::getBookStructure() as $key => $section ) {
 			if ( $key === 'front-matter' || $key === 'back-matter' ) {
 				foreach ( $section as $val ) {
@@ -59,8 +57,6 @@ trait utilsTrait {
 		];
 		$pid = $this->factory()->post->create_object( $new_post );
 		$this->_createChapter( $pid );
-
-		remove_filter( 'wp_kses_allowed_html', [ $this, '_allowIframes' ] ); // Disallow iframes
 
 		$book::deleteBookObjectCache();
 	}
@@ -102,9 +98,6 @@ There are many maths like it but these ones are mine.
 
 <p><a href="https://github.com/pressbooks/pressbooks#hello-world">External link.</a></p>
 
-<p>There should be an iframe here:<br />
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/JgIhGTpKTwM" frameborder="0"></iframe></p>
 ';
 
 		$new_post = [
@@ -115,13 +108,9 @@ There are many maths like it but these ones are mine.
 			'post_parent' => $post_parent,
 		];
 
-		add_filter( 'wp_kses_allowed_html', [ $this, '_allowIframes' ], 10, 2 ); // Allow iframes
-
 		$pid = $this->factory()->post->create_object( $new_post );
 		update_post_meta( $pid, 'pb_export', 'on' );
 		update_post_meta( $pid, 'pb_subtitle', 'Or, A Chapter to Test' );
-
-		remove_filter( 'wp_kses_allowed_html', [ $this, '_allowIframes' ] ); // Disallow iframes
 
 		return $pid;
 
@@ -227,19 +216,6 @@ There are many maths like it but these ones are mine.
 		];
 
 		return $allowed;
-	}
-
-	/**
-	 * Get rid of 'em.
-	 */
-	public function _removeIframes() {
-		$chapters = get_posts();
-		foreach ( $chapters as $chapter ) {
-			wp_update_post( [
-				'ID' => $chapter->ID,
-				'post_content' => str_replace( '<iframe width="560" height="315" src="https://www.youtube.com/embed/JgIhGTpKTwM" frameborder="0"></iframe>', '', $chapter->post_content )
-			] );
-		}
 	}
 
 }
