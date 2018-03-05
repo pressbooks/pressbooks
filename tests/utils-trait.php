@@ -110,7 +110,6 @@ There are many maths like it but these ones are mine.
 		update_post_meta( $pid, 'pb_subtitle', 'Or, A Chapter to Test' );
 
 		return $pid;
-
 	}
 
 
