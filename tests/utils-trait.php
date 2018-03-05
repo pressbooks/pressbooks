@@ -229,4 +229,17 @@ There are many maths like it but these ones are mine.
 		return $allowed;
 	}
 
+	/**
+	 * Get rid of 'em.
+	 */
+	public function _removeIframes() {
+		$chapters = get_posts();
+		foreach ( $chapters as $chapter ) {
+			wp_update_post( [
+				'ID' => $chapter->ID,
+				'post_content' => str_replace( '<iframe width="560" height="315" src="https://www.youtube.com/embed/JgIhGTpKTwM" frameborder="0"></iframe>', '', $chapter->post_content )
+			] );
+		}
+	}
+
 }
