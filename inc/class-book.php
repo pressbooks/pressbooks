@@ -333,6 +333,12 @@ class Book {
 						$book_structure['__web_lookup'][ $struct['post_name'] ] = $type;
 					}
 				} else {
+					if ( $struct['has_post_content'] && get_post_meta( $struct['ID'], 'pb_part_invisible', true ) !== 'on' ) {
+						$book_structure['__order'][ $struct['ID'] ] = [
+							'export' => $struct['export'],
+							'post_status' => $struct['post_status'],
+						];
+					}
 					foreach ( $struct['chapters'] as $j => $chapter ) {
 						unset( $book_structure[ $type ][ $i ]['chapters'][ $j ]['post_parent'] );
 						if ( $struct['has_post_content'] && get_post_meta( $struct['ID'], 'pb_part_invisible', true ) !== 'on' ) {
@@ -622,6 +628,7 @@ class Book {
 		$current_post_id = $post->ID;
 		$book_structure = static::getBookStructure();
 		$order = $book_structure['__order'];
+		xdebug_break();
 		$pos = array_keys( $order );
 
 		$what = ( 'next' === $what ? 'next' : 'prev' );
@@ -639,7 +646,7 @@ class Book {
 		// Get next/previous
 		$what( $pos );
 		while ( $post_id = current( $pos ) ) {
-			if ( 'publish' === $order[ $post_id ]['post_status'] ) {
+			if ( in_array( $order[ $post_id ]['post_status'], [ 'publish', 'web-only' ], true ) ) {
 				break;
 			} elseif ( current_user_can_for_blog( $blog_id, 'read_private_posts' ) ) {
 				break;
