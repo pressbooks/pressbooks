@@ -111,11 +111,12 @@ function pb_register_activation_hook() {
 			}
 		}
 		if ( ! empty( $activate ) ) {
+			switch_to_blog(1);
 			// Configure root blog theme (PB_ROOT_THEME, usually 'pressbooks-aldine').
-			update_blog_option( 1, 'template', $activate );
-			update_blog_option( 1, 'stylesheet', $activate );
+			switch_theme( $activate );
 			// Remove widgets from root blog.
-			delete_blog_option( 1, 'sidebars_widgets' );
+			delete_option( 'sidebars_widgets');
+			restore_current_blog();
 		}
 
 		// Add "activated" key to enable check above
