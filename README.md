@@ -21,7 +21,7 @@ significant changes to:
 * export routines.
 
 Pressbooks is free software, released under the
-[GPL 2.0+](https://www.gnu.org/licenses/gpl-2.0.txt) license.
+[GPL v3.0 or later](https://github.com/pressbooks/pressbooks/blob/master/LICENSE.md) license.
 
 Our web/ebook and [PDF][] exports are all driven by HTML + CSS. XML outputs have
 no styling.

@@ -44,7 +44,7 @@
 	},
 	"keywords": ["ebooks", "publishing", "webbooks"],
 	"author": "Book Oven Inc. <code@pressbooks.com>",
-	"license": "GPL-2.0+",
+	"license": "GPL-3.0-or-later",
 	"bugs": {
 		"url": "https://github.com/pressbooks/pressbooks/issues"
 	},
