@@ -9,7 +9,7 @@
 [![Packagist](https://img.shields.io/packagist/dt/pressbooks/pressbooks.svg)](https://packagist.org/packages/pressbooks/pressbooks)
 
 [Pressbooks](http://pressbooks.org) is a book content management system which
-exports in multiple formats: ebooks, webbooks, print-ready [PDF][], and various
+exports in multiple formats: ebooks, webbooks, print-ready [PDF][pdf], and various
 XML flavours. [Pressbooks](http://pressbooks.org) is built on top of
 [WordPress Multisite](http://codex.wordpress.org/Glossary#Multisite), and makes
 significant changes to:
@@ -23,7 +23,7 @@ significant changes to:
 Pressbooks is free software, released under the
 [GPL v3.0 or later](https://github.com/pressbooks/pressbooks/blob/master/LICENSE.md) license.
 
-Our web/ebook and [PDF][] exports are all driven by HTML + CSS. XML outputs have
+Our web/ebook and [PDF][pdf] exports are all driven by HTML + CSS. XML outputs have
 no styling.
 
 [pdf]: http://pressbooks.com/prince "Note: we use the non-free software PrinceXML for PDF export."
