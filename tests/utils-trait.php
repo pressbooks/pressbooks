@@ -193,4 +193,25 @@ There are many maths like it but these ones are mine.
 		return $server;
 	}
 
+	/**
+	 * Let us add some iframes.
+	 */
+	public function _allowIframes( $allowed, $context ) {
+		if ( $context !== 'post' ) {
+			return $allowed;
+		}
+		$allowed['iframe'] = [
+			'src' => true,
+			'width' => true,
+			'height' => true,
+			'frameborder' => true,
+			'marginwidth' => true,
+			'marginheight' => true,
+			'scrolling' => true,
+			'title' => true,
+		];
+
+		return $allowed;
+	}
+
 }
