@@ -235,6 +235,10 @@ class SanitizeTest extends \WP_UnitTestCase {
 		// Can't find, no change
 		$css = 'url(/fonts/foo.garbage)';
 		$this->assertEquals( $css, \Pressbooks\Sanitize\normalize_css_urls( $css ) );
+
+		// Image in Buckram
+		$css = 'url(pressbooks-book/assets/book/images/icon-video.svg)';
+		$this->assertContains( $template_directory_uri . '/assets/book/images/icon-video.svg', Pressbooks\Sanitize\normalize_css_urls( $css ) );
 	}
 
 	public function test_allow_post_content() {
@@ -326,6 +330,23 @@ PRETTY;
 		$this->assertFalse( \Pressbooks\Sanitize\is_valid_timestamp( '01090' ) );
 		$this->assertTrue( \Pressbooks\Sanitize\is_valid_timestamp( '-1000000' ) );
 		$this->assertFalse( \Pressbooks\Sanitize\is_valid_timestamp( '+1000000' ) );
+	}
+
+	public function test_reverse_wpautop() {
+		$raw = <<< RAW
+Hi there!
+
+How's it going?
+
+[shortcode id="1"]Fake[/shortcode]
+
+Ok Bye!
+RAW;
+
+		$var = wpautop( $raw );
+		$var = \Pressbooks\Sanitize\reverse_wpautop( $var );
+
+		$this->assertEquals( trim( $raw ), trim( $var ) );
 	}
 
 }

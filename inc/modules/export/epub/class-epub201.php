@@ -15,11 +15,11 @@ use Pressbooks\Contributors;
 use Pressbooks\Modules\Export\Export;
 use Pressbooks\Container;
 use Pressbooks\Sanitize;
-use function \Pressbooks\Sanitize\sanitize_xml_attribute;
 use Pressbooks\Taxonomy;
+use function Pressbooks\Sanitize\sanitize_xml_attribute;
 use function Pressbooks\Utility\oxford_comma_explode;
-use function \Pressbooks\Utility\str_ends_with;
-use function \Pressbooks\Utility\debug_error_log;
+use function Pressbooks\Utility\str_ends_with;
+use function Pressbooks\Utility\debug_error_log;
 
 class Epub201 extends Export {
 
@@ -489,6 +489,8 @@ class Epub201 extends Export {
 
 		// Make XHTML 1.1 strict using htmlLawed
 
+		$html = \Pressbooks\Interactive\Content::init()->replaceInteractiveTags( $html );
+
 		$config = [
 			'valid_xhtml' => 1,
 			'no_deprecated_attr' => 2,
@@ -704,12 +706,21 @@ class Epub201 extends Export {
 		$css = preg_replace_callback(
 			$url_regex, function ( $matches ) use ( $scss_dir, $path_to_epub_assets ) {
 
+				$buckram_dir = get_theme_root( 'pressbooks-book' ) . '/pressbooks-book/assets/book/';
 				$typography_dir = get_theme_root( 'pressbooks-book' ) . '/pressbooks-book/assets/book/typography/';
 
 				$url = $matches[3];
 				$filename = sanitize_file_name( basename( $url ) );
 
-				if ( preg_match( '#^images/#', $url ) && substr_count( $url, '/' ) === 1 ) {
+				// Look for images in Buckram
+				if ( preg_match( '#^pressbooks-book/assets/book/images/[a-zA-Z0-9_-]+(' . $this->supportedImageExtensions . ')$#i', $url ) ) {
+					$url = str_replace( 'pressbooks-book/assets/book/', '', $url );
+					$my_image = realpath( $buckram_dir . $url );
+					if ( $my_image ) {
+						copy( $my_image, "$path_to_epub_assets/$filename" );
+						return "url(assets/$filename)";
+					}
+				} elseif ( preg_match( '#^images/#', $url ) && substr_count( $url, '/' ) === 1 ) {
 
 					// Look for "^images/"
 					// Count 1 slash so that we don't touch stuff like "^images/out/of/bounds/"	or "^images/../../denied/"
@@ -2236,6 +2247,12 @@ class Epub201 extends Export {
 		}
 
 		if ( ! $slug ) {
+			return false;
+		}
+
+		// Check if an anchor is considered external, don't change the URL if we find a match
+		$external_anchors = [ \Pressbooks\Interactive\Content::ANCHOR ];
+		if ( in_array( $anchor, $external_anchors, true ) ) {
 			return false;
 		}
 

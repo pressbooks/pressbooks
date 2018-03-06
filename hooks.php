@@ -137,6 +137,7 @@ add_filter( 'plupload_default_params', '\Pressbooks\Media\force_attach_media' );
 // -------------------------------------------------------------------------------------------------------------------
 
 add_filter( 'upload_mimes', '\Pressbooks\Media\add_mime_types' );
+\Pressbooks\Interactive\Content::init();
 
 // -------------------------------------------------------------------------------------------------------------------
 // Custom Post Types and Taxonomies
@@ -300,5 +301,4 @@ add_filter( 'wp_mail_from_name', '\Pressbooks\Utility\mail_from_name' );
 // -------------------------------------------------------------------------------------------------------------------
 
 Container::get( 'Styles' )->init();
-
 

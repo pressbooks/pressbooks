@@ -11,7 +11,6 @@ use Pressbooks\Container;
 use Pressbooks\Modules\Export\Export;
 use Pressbooks\Sanitize;
 use function Pressbooks\Sanitize\clean_filename;
-use function Pressbooks\Utility\oxford_comma_explode;
 
 class Xhtml11 extends Export {
 
@@ -599,6 +598,8 @@ class Xhtml11 extends Export {
 	protected function tidy( $html ) {
 
 		// Make XHTML 1.1 strict using htmlLawed
+
+		$html = \Pressbooks\Interactive\Content::init()->replaceInteractiveTags( $html );
 
 		$config = [
 			'valid_xhtml' => 1,
