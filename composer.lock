@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "faaec3c1074aff9fc84d6425d1b91bae",
+    "content-hash": "af99cffe04924c085b13449b65287e46",
     "packages": [
         {
             "name": "composer/installers",
@@ -966,29 +966,32 @@
         },
         {
             "name": "pressbooks/pb-cli",
-            "version": "1.6.1",
+            "version": "1.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pressbooks/pb-cli.git",
-                "reference": "91a2ed82fa6d4293ea1a53bc28cde1859db83f10"
+                "reference": "d9ebeff0fb2e91eedcc9a043735cdef10afd230d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pressbooks/pb-cli/zipball/91a2ed82fa6d4293ea1a53bc28cde1859db83f10",
-                "reference": "91a2ed82fa6d4293ea1a53bc28cde1859db83f10",
+                "url": "https://api.github.com/repos/pressbooks/pb-cli/zipball/d9ebeff0fb2e91eedcc9a043735cdef10afd230d",
+                "reference": "d9ebeff0fb2e91eedcc9a043735cdef10afd230d",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.0"
             },
             "require-dev": {
-                "behat/behat": "~2.5"
+                "behat/behat": "~2.5",
+                "wp-cli/wp-cli": "^1.5"
             },
             "type": "wp-cli-package",
             "extra": {
                 "commands": [
                     "scaffold book-theme",
-                    "pb issue-template"
+                    "pb issue-template",
+                    "pb theme lock",
+                    "pb theme unlock"
                 ]
             },
             "autoload": {
@@ -1002,7 +1005,7 @@
             ],
             "description": "A suite of wp-cli commands for Pressbooks.",
             "homepage": "https://github.com/pressbooks/pb-cli/",
-            "time": "2018-03-06T20:19:26+00:00"
+            "time": "2018-03-07T14:48:30+00:00"
         },
         {
             "name": "psr/log",
