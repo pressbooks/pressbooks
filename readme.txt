@@ -4,7 +4,7 @@ Tags: ebooks, publishing, webbooks
 Requires at least: 4.9.4
 Tested up to: 4.9.4
 Requires PHP: 7.0
-Stable tag: 5.0.1
+Stable tag: 5.0.2
 License: GPL v3.0 or later
 License URI: https://github.com/pressbooks/pressbooks/blob/master/LICENSE.md
 
@@ -20,6 +20,15 @@ For installation instructions, visit [docs.pressbooks.org/installation](https://
 TK.
 
 == Changelog ==
+= 5.0.2 =
+**NOTICE:** Pressbooks 5.0.2 requires [WordPress 4.9.4](https://wordpress.org/news/2018/02/wordpress-4-9-4-maintenance-release/).
+**NOTICE:** Pressbooks 5.0.2 requires [Pressbooks Book 2.0.0](https://github.com/pressbooks/pressbooks-book/).
+**NOTICE:** Pressbooks 5.0.2 requires that users of the Luther book theme install and network activate the standalone [Luther theme](https://github.com/pressbooks/pressbooks-luther/) _before_ upgrading to Pressbooks 5.0. For more information, see the [upgrading instructions](https://docs.pressbooks.org/upgrading/#upgrading-to-pressbooks-5-x).
+
+**Patches**
+
+* Remove debugging code (props @colomet for reporting): [6a3c9e8](https://github.com/pressbooks/pressbooks/commit/6a3c9e834666928c3a4240908dd964a3e8c02ff7)
+
 = 5.0.1 =
 **NOTICE:** Pressbooks 5.0.1 requires [WordPress 4.9.4](https://wordpress.org/news/2018/02/wordpress-4-9-4-maintenance-release/).
 **NOTICE:** Pressbooks 5.0.1 requires [Pressbooks Book 2.0.0](https://github.com/pressbooks/pressbooks-book/).
