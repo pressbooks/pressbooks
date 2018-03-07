@@ -628,7 +628,6 @@ class Book {
 		$current_post_id = $post->ID;
 		$book_structure = static::getBookStructure();
 		$order = $book_structure['__order'];
-		xdebug_break();
 		$pos = array_keys( $order );
 
 		$what = ( 'next' === $what ? 'next' : 'prev' );
