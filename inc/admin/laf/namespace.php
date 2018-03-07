@@ -97,7 +97,7 @@ function replace_book_admin_menu() {
 		'pb_organize',
 		__( 'Add Part', 'pressbooks' ),
 		__( 'Add Part', 'pressbooks' ),
-		'edit_posts',
+		'edit_pages',
 		'post-new.php?post_type=part'
 	);
 
