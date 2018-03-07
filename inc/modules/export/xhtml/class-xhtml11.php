@@ -1151,13 +1151,13 @@ class Xhtml11 extends Export {
 				if ( count( $book_contents['part'] ) === 1 ) { // only part
 					if ( $part_content ) { // has content
 						if ( ! $this->hasIntroduction ) {
-							$part_printf_changed = str_replace( '<div class="part %s" id=', '<div class="part introduction %s" id=', $part_printf );
+							$part_printf_changed = str_replace( '<div class="part %1$s" id="', '<div class="part introduction %1$s" id="', $part_printf );
 							$this->hasIntroduction = true;
 						}
 					}
 				} elseif ( count( $book_contents['part'] ) > 1 ) { // multiple parts
 					if ( ! $this->hasIntroduction ) {
-						$part_printf_changed = str_replace( '<div class="part %s" id=', '<div class="part introduction %s" id=', $part_printf );
+						$part_printf_changed = str_replace( '<div class="part %1$s" id="', '<div class="part introduction %1$s" id="', $part_printf );
 						$this->hasIntroduction = true;
 					}
 				}
