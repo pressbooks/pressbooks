@@ -202,7 +202,7 @@ function add_meta_boxes() {
 			'field_type' => 'taxonomy_multi_select',
 			'taxonomy' => Contributors::TAXONOMY,
 			'select2' => true,
-			'description' => '<a class="button" href="edit-tags.php?taxonomy=contributor">' . __( 'Create New Author', 'pressbooks' ) . '</a>',
+			'description' => '<a class="button" href="edit-tags.php?taxonomy=contributor">' . __( 'Create New Contributor', 'pressbooks' ) . '</a>',
 			'placeholder' => __( 'Choose author(s)...', 'pressbooks' ),
 		]
 	);
@@ -214,7 +214,7 @@ function add_meta_boxes() {
 			'field_type' => 'taxonomy_multi_select',
 			'taxonomy' => Contributors::TAXONOMY,
 			'select2' => true,
-			'description' => '<a class="button" href="edit-tags.php?taxonomy=contributor">' . __( 'Create New Editor', 'pressbooks' ) . '</a>',
+			'description' => '<a class="button" href="edit-tags.php?taxonomy=contributor">' . __( 'Create New Contributor', 'pressbooks' ) . '</a>',
 			'placeholder' => __( 'Choose editor(s)...', 'pressbooks' ),
 		]
 	);
@@ -226,7 +226,7 @@ function add_meta_boxes() {
 			'field_type' => 'taxonomy_multi_select',
 			'taxonomy' => Contributors::TAXONOMY,
 			'select2' => true,
-			'description' => '<a class="button" href="edit-tags.php?taxonomy=contributor">' . __( 'Create New Translator', 'pressbooks' ) . '</a>',
+			'description' => '<a class="button" href="edit-tags.php?taxonomy=contributor">' . __( 'Create New Contributor', 'pressbooks' ) . '</a>',
 			'placeholder' => __( 'Choose translator(s)...', 'pressbooks' ),
 		]
 	);
@@ -238,7 +238,7 @@ function add_meta_boxes() {
 			'field_type' => 'taxonomy_multi_select',
 			'taxonomy' => Contributors::TAXONOMY,
 			'select2' => true,
-			'description' => '<a class="button" href="edit-tags.php?taxonomy=contributor">' . __( 'Create New Reviewer', 'pressbooks' ) . '</a>',
+			'description' => '<a class="button" href="edit-tags.php?taxonomy=contributor">' . __( 'Create New Contributor', 'pressbooks' ) . '</a>',
 			'placeholder' => __( 'Choose reviewer(s)...', 'pressbooks' ),
 		]
 	);
@@ -250,7 +250,7 @@ function add_meta_boxes() {
 			'field_type' => 'taxonomy_multi_select',
 			'taxonomy' => Contributors::TAXONOMY,
 			'select2' => true,
-			'description' => '<a class="button" href="edit-tags.php?taxonomy=contributor">' . __( 'Create New Illustrator', 'pressbooks' ) . '</a>',
+			'description' => '<a class="button" href="edit-tags.php?taxonomy=contributor">' . __( 'Create New Contributor', 'pressbooks' ) . '</a>',
 			'placeholder' => __( 'Choose illustrator(s)...', 'pressbooks' ),
 		]
 	);
@@ -558,7 +558,7 @@ function add_meta_boxes() {
 			'field_type' => 'taxonomy_multi_select',
 			'taxonomy' => Contributors::TAXONOMY,
 			'select2' => true,
-			'description' => '<a class="button" href="edit-tags.php?taxonomy=contributor">' . __( 'Create New Author', 'pressbooks' ) . '</a>',
+			'description' => '<a class="button" href="edit-tags.php?taxonomy=contributor">' . __( 'Create New Contributor', 'pressbooks' ) . '</a>',
 			'placeholder' => __( 'Choose author(s)...', 'pressbooks' ),
 		]
 	);
@@ -611,7 +611,7 @@ function add_meta_boxes() {
 			'field_type' => 'taxonomy_multi_select',
 			'taxonomy' => Contributors::TAXONOMY,
 			'select2' => true,
-			'description' => '<a class="button" href="edit-tags.php?taxonomy=contributor">' . __( 'Create New Author', 'pressbooks' ) . '</a>',
+			'description' => '<a class="button" href="edit-tags.php?taxonomy=contributor">' . __( 'Create New Contributor', 'pressbooks' ) . '</a>',
 			'placeholder' => __( 'Choose author(s)...', 'pressbooks' ),
 		]
 	);
@@ -654,7 +654,7 @@ function add_meta_boxes() {
 			'field_type' => 'taxonomy_multi_select',
 			'taxonomy' => Contributors::TAXONOMY,
 			'select2' => true,
-			'description' => '<a class="button" href="edit-tags.php?taxonomy=contributor">' . __( 'Create New Author', 'pressbooks' ) . '</a>',
+			'description' => '<a class="button" href="edit-tags.php?taxonomy=contributor">' . __( 'Create New Contributor', 'pressbooks' ) . '</a>',
 			'placeholder' => __( 'Choose author(s)...', 'pressbooks' ),
 		]
 	);
