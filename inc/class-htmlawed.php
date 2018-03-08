@@ -3,7 +3,7 @@
  * Guess we gotta do this ourselves.
  *
  * @author  Pressbooks <code@pressbooks.com>
- * @license GPLv2 (or any later version)
+ * @license GPLv3 (or any later version)
  * @since 3.9.8.2
  */
 

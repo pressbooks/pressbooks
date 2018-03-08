@@ -3,7 +3,7 @@
  * Contains the class for generating and displaying the Pressbooks Network Manager table.
  *
  * @author  Pressbooks <code@pressbooks.com>
- * @license GPLv2 (or any later version)
+ * @license GPLv3 (or any later version)
  */
 
 namespace Pressbooks\Admin;

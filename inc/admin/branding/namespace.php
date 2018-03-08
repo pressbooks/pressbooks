@@ -3,7 +3,7 @@
  * Branding.
  *
  * @author  Pressbooks <code@pressbooks.com>
- * @license GPLv2 (or any later version)
+ * @license GPLv3 (or any later version)
  */
 
 namespace Pressbooks\Admin\Branding;

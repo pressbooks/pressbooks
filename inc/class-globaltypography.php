@@ -3,7 +3,7 @@
  * Contains support for foreign language typography in editor, webBooks, EBOOK and PDF exports.
  *
  * @author  Pressbooks <code@pressbooks.com>
- * @license GPLv2 (or any later version)
+ * @license GPLv3 (or any later version)
  */
 
 namespace Pressbooks;

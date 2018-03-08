@@ -1,7 +1,7 @@
 <?php
 /**
  * @author  Book Oven Inc. <code@pressbooks.com>
- * @license GPLv2+
+ * @license GPLv3+
  */
 
 namespace Pressbooks\Modules\SearchAndReplace;

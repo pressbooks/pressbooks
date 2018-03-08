@@ -3,7 +3,7 @@
  * Shortcuts for template designers who don't use real namespaces, and other helper functions.
  *
  * @author  Pressbooks <code@pressbooks.com>
- * @license GPLv2 (or any later version)
+ * @license GPLv3 (or any later version)
  */
 
 if ( ! function_exists( 'app' ) ) {

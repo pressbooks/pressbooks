@@ -3,7 +3,7 @@
  * Change core WordPress strings using $overrides array.
  *
  * @author  Pressbooks <code@pressbooks.com>
- * @license GPLv2 (or any later version)
+ * @license GPLv3 (or any later version)
  * @see     l10n/namespace.php
  */
 

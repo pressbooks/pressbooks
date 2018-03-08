@@ -1,7 +1,7 @@
 <?php
 /**
  * @author  Pressbooks <code@pressbooks.com>
- * @license GPLv2 (or any later version)
+ * @license GPLv3 (or any later version)
  */
 
 namespace Pressbooks\Admin\Network;
@@ -138,7 +138,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 				submit_button();
 				?>
 			</form>
-		</div> 
+		</div>
 		<?php
 	}
 

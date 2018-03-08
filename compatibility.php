@@ -4,7 +4,7 @@
  *
  * @package Pressbooks
  * @author  Book Oven Inc. <code@pressbooks.com>
- * @license GPLv2 (or any later version)
+ * @license GPLv3 (or any later version)
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

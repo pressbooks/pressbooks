@@ -1,7 +1,7 @@
 <?php
 /**
  * @author  Book Oven Inc. <code@pressbooks.com>
- * @license GPLv2 (or any later version)
+ * @license GPLv3 (or any later version)
  *
  * Adapted from John Godley's Search Regex (https://github.com/johngodley/search-regex)
  */
