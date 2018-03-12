@@ -847,11 +847,11 @@ function status_visibility_box( $post ) {
 			<p>
 				<input type="checkbox" name="web_visibility" id="web_visibility" value="1" <?php checked( $show_in_web, 1 ); ?><?php echo ( $can_publish ) ? '' : ' disabled'; ?>>
 				<label for="web_visibility"><?php _e( 'Show in Web', 'pressbooks' ); ?></label>
-				<div id="pb-password-protected">
-					<input type="checkbox" name="require_password" id="require_password" value="1" <?php checked( $require_password, 1 ); ?><?php echo ( $can_publish ) ? '' : ' disabled'; ?>>
-					<label for="require_password"><?php _e( 'Require a Password', 'pressbooks' ); ?></label>
-					<input type="text" name="post_password" id="post_password" style="text-align:left" value="<?php echo esc_attr( $post->post_password ); ?>" placeholder="<?php esc_attr_e( 'Password...', 'pressbooks' ); ?>" maxlength="255"/>
-				</div>
+			</p>
+			<p id="pb-password-protected">
+				<input type="checkbox" name="require_password" id="require_password" value="1" <?php checked( $require_password, 1 ); ?><?php echo ( $can_publish ) ? '' : ' disabled'; ?>>
+				<label for="require_password"><?php _e( 'Require a Password', 'pressbooks' ); ?></label>
+				<input type="text" name="post_password" id="post_password" style="text-align:left" value="<?php echo esc_attr( $post->post_password ); ?>" placeholder="<?php esc_attr_e( 'Password...', 'pressbooks' ); ?>" maxlength="255"/>
 			</p>
 			<p>
 				<input type="checkbox" name="export_visibility" id="export_visibility" value="1" <?php checked( $show_in_exports, 1 ); ?><?php echo ( $can_publish ) ? '' : ' disabled'; ?>>
