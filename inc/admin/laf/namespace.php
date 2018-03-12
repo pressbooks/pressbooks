@@ -171,7 +171,8 @@ function replace_book_admin_menu() {
 	add_action(
 		'admin_enqueue_scripts', function ( $hook ) use ( $bookinfo_page ) {
 			if ( 'post-new.php' === $hook || 'post.php' === $hook ) {
-				if ( 'metadata' === get_post_type() ) {
+				$post_type = get_post_type();
+				if ( 'metadata' === $post_type ) {
 					wp_enqueue_script( 'pb-metadata' );
 					wp_localize_script(
 						'pb-metadata', 'PB_BookInfoToken', [
@@ -180,6 +181,9 @@ function replace_book_admin_menu() {
 							'selectSubjectsText' => __( 'Choose some subject(s)…', 'pressbooks' ),
 						]
 					);
+				}
+				if ( in_array( get_post_type(), [ 'front-matter', 'chapter', 'back-matter' ], true ) ) {
+					wp_enqueue_script( 'pb-post-visibility' );
 				}
 			}
 		}
@@ -817,6 +821,7 @@ function init_css_js() {
 	wp_register_script( 'pb-organize', $assets->getPath( 'scripts/organize.js' ), [ 'jquery', 'jquery-ui-core', 'jquery-blockui', 'wp-api', 'cssanimations' ] );
 	wp_register_script( 'pb-metadata', $assets->getPath( 'scripts/book-information.js' ), [ 'jquery' ], false, true );
 	wp_register_script( 'pb-import', $assets->getPath( 'scripts/import.js' ), [ 'jquery' ] );
+	wp_register_script( 'pb-post-visibility', $assets->getPath( 'scripts/post-visibility.js' ), [ 'jquery' ], false, true );
 
 	wp_register_style( 'pb-cloner', $assets->getPath( 'styles/cloner.css' ) );
 	wp_register_style( 'pb-export', $assets->getPath( 'styles/export.css' ) );

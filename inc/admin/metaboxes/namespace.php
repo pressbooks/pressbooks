@@ -822,6 +822,8 @@ function status_visibility_box( $post ) {
 		$show_in_exports = 0;
 	}
 
+	$require_password = empty( trim( $post->post_password ) ) === false;
+
 	$pb_show_title = ( get_post_meta( $post->ID, 'pb_show_title', true ) ) ? 'on' : '';
 	$show_title = ( $action === 'add' ) ? 'on' : $pb_show_title;
 ?>
@@ -844,15 +846,20 @@ function status_visibility_box( $post ) {
 			<div class="clear"></div>
 			<p>
 				<input type="checkbox" name="web_visibility" id="web_visibility" value="1" <?php checked( $show_in_web, 1 ); ?><?php echo ( $can_publish ) ? '' : ' disabled'; ?>>
-				<label for="web_visibility"><?php _e( 'Show in Web', 'pressbooks' ); ?>
+				<label for="web_visibility"><?php _e( 'Show in Web', 'pressbooks' ); ?></label>
+				<div id="pb-password-protected">
+					<input type="checkbox" name="require_password" id="require_password" value="1" <?php checked( $require_password, 1 ); ?><?php echo ( $can_publish ) ? '' : ' disabled'; ?>>
+					<label for="require_password"><?php _e( 'Require a Password', 'pressbooks' ); ?></label>
+					<input type="text" name="post_password" id="post_password" style="text-align:left" value="<?php echo esc_attr( $post->post_password ); ?>" placeholder="<?php esc_attr_e( 'Password...', 'pressbooks' ); ?>" maxlength="255"/>
+				</div>
 			</p>
 			<p>
 				<input type="checkbox" name="export_visibility" id="export_visibility" value="1" <?php checked( $show_in_exports, 1 ); ?><?php echo ( $can_publish ) ? '' : ' disabled'; ?>>
-				<label for="export_visibility"><?php _e( 'Show in Exports', 'pressbooks' ); ?>
+				<label for="export_visibility"><?php _e( 'Show in Exports', 'pressbooks' ); ?></label>
 			</p>
 			<p>
 				<input type="checkbox" name="pb_show_title" id="show_title" value="on" <?php checked( $show_title, 'on' ); ?>>
-				<label for="show_title"><?php _e( 'Show Title', 'pressbooks' ); ?>
+				<label for="show_title"><?php _e( 'Show Title', 'pressbooks' ); ?></label>
 			</p>
 		</div><!-- #minor-publishing-actions -->
 	</div><!-- #minor-publishing -->
@@ -970,6 +977,7 @@ function publish_fields_save( $post_id, $post, $update ) {
 
 	// Save it
 	$show_in_web = ( isset( $_POST['web_visibility'] ) && (int) $_POST['web_visibility'] === 1 ) ? true : false;
+	$require_password = ( isset( $_POST['require_password'] ) && (int) $_POST['require_password'] === 1 ) ? true : false;
 	$show_in_exports = ( isset( $_POST['export_visibility'] ) && (int) $_POST['export_visibility'] === 1 ) ? true : false;
 	$show_title = ( isset( $_POST['pb_show_title'] ) && $_POST['pb_show_title'] === 'on' ) ? 'on' : false;
 
@@ -991,12 +999,20 @@ function publish_fields_save( $post_id, $post, $update ) {
 		delete_post_meta( $post_id, 'pb_show_title' );
 	}
 
+	// Password
+	if ( $show_in_web === false || $require_password === false ) {
+		$post_password = null; // Clear the password
+	} else {
+		$post_password = $post->post_password;
+	}
+
 	// Unhook this function to prevent an infinite loop.
 	remove_action( 'save_post', '\Pressbooks\Admin\Metaboxes\publish_fields_save' );
 	wp_update_post(
 		[
 			'ID' => $post_id,
 			'post_status' => $post_status ?? 'draft',
+			'post_password' => $post_password,
 		]
 	);
 	// Reattach to hook.

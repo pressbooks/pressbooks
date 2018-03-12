@@ -8,7 +8,7 @@
     "/styles/metadata.css": "/styles/metadata.css?id=0f07ef0ed371a8cd93c5",
     "/styles/network-managers.css": "/styles/network-managers.css?id=77d465c0788f57898bdc",
     "/styles/organize.css": "/styles/organize.css?id=10462c410cda04c15dcb",
-    "/styles/pressbooks.css": "/styles/pressbooks.css?id=59b286648df02b77dda9",
+    "/styles/pressbooks.css": "/styles/pressbooks.css?id=aaa4857f9b902dde5fc3",
     "/styles/search-and-replace.css": "/styles/search-and-replace.css?id=13cf851ddd3d1ebe12fa",
     "/styles/select2.css": "/styles/select2.css?id=7373e0d2a1e8dabab523",
     "/styles/style-catalog.css": "/styles/style-catalog.css?id=1b990ad0f745d38311a3",
@@ -21,6 +21,7 @@
     "/scripts/small-menu.js": "/scripts/small-menu.js?id=121a3309a7b8ca299115",
     "/scripts/search-and-replace.js": "/scripts/search-and-replace.js?id=8d0993e07d1392fe213d",
     "/scripts/quicktags.js": "/scripts/quicktags.js?id=ca9bcd6c33c575003dd9",
+    "/scripts/post-visibility.js": "/scripts/post-visibility.js?id=e61f92ba05a0b7e4200b",
     "/scripts/network-managers.js": "/scripts/network-managers.js?id=b7636cc65b6f3d3ae515",
     "/scripts/login.js": "/scripts/login.js?id=19e64f4e18467a02926a",
     "/scripts/import.js": "/scripts/import.js?id=b714a1f06a06f03b7140",
@@ -39,5 +40,5 @@
     "/scripts/js-cookie.js": "/scripts/js-cookie.js?id=8ff1c89f24a8ca6f91f7",
     "/scripts/select2.js": "/scripts/select2.js?id=e66208e306a3e3b57128",
     "/scripts/sidr.js": "/scripts/sidr.js?id=32495427b04ceeab5376",
-    "/scripts/table.js": "/scripts/table.js?id=d51d4fcad9815334446b"
+    "/scripts/table.js": "/scripts/table.js?id=d1a1b10c0b62550b2fde"
 }

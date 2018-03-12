@@ -44,6 +44,7 @@ class MetaboxesTest extends \WP_UnitTestCase {
 		$_POST['web_visibility'] = '1';
 		$_POST['export_visibility'] = '1';
 		$_POST['pb_show_title'] = 'on';
+		$_POST['require_password'] = '0';
 
 		$new_post = [
 			'post_title' => 'Test Chapter: ' . rand(),
@@ -97,6 +98,23 @@ class MetaboxesTest extends \WP_UnitTestCase {
 		$post = get_post( $pid );
 		$this->assertEquals( 'draft', $post->post_status );
 
+		// Password
+
+		$_POST['web_visibility'] = '1';
+		$_POST['require_password'] = '1';
+		$post->post_password = 'hello';
+
+		\Pressbooks\Admin\Metaboxes\publish_fields_save( $pid, $post, true );
+		$this->assertEquals( 'hello', $post->post_password );
+
+		// Clear Password
+
+		$_POST['web_visibility'] = 0;
+		$_POST['require_password'] = '0';
+
+		\Pressbooks\Admin\Metaboxes\publish_fields_save( $pid, $post, true );
+		$post = get_post( $pid );
+		$this->assertEmpty( $post->post_password );
 	}
 
 }
