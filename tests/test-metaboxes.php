@@ -34,6 +34,29 @@ class MetaboxesTest extends \WP_UnitTestCase {
 		$this->assertArrayHasKey( 'additional-catalog-information', $c->metadata['metadata'] );
 	}
 
+	public function test_status_visibility_box() {
+		\Pressbooks\Metadata\init_book_data_models();
+
+		$new_post = [
+			'post_title' => 'Test Chapter: ' . rand(),
+			'post_type' => 'front-matter',
+			'post_status' => 'draft',
+			'post_content' => 'Hello World',
+		];
+		$pid = $this->factory()->post->create_object( $new_post );
+		$post = get_post( $pid );
+
+		// Mock Screen
+		global $current_screen;
+		$current_screen = WP_Screen::get( 'front-matter' );
+
+		ob_start();
+		\Pressbooks\Admin\Metaboxes\status_visibility_box( $post );
+		$buffer = ob_get_clean();
+
+		$this->assertContains( '<div id="misc-publishing-actions">', $buffer );
+	}
+
 	public function test_publish_fields_save() {
 
 		\Pressbooks\Metadata\init_book_data_models();
