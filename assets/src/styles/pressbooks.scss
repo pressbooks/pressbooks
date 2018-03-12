@@ -169,6 +169,8 @@ i.mce-i-icon {
   content: '\f330';
 }
 
+// Plugin compatibility
+
 .incompatible-plugin-upgrade-notice {
   margin: 1em;
   padding: 1em;
@@ -206,6 +208,8 @@ i.mce-i-icon {
   }
 }
 
+// Status and visibility
+
 .postbox#status-visibility {
   .inside {
     padding: 0;
@@ -214,6 +218,15 @@ i.mce-i-icon {
   #minor-publishing-actions {
     p {
       text-align: left;
+    }
+    p#pb-password-protected {
+      text-align: left;
+      margin-left: 1em;
+      display: none;
+      #post_password {
+        margin-top: 0.5em;
+        display: none;
+      }
     }
   }
 }
