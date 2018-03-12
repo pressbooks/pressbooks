@@ -881,7 +881,10 @@ function status_visibility_box( $post ) {
 	<div class="misc-pub-section curtime misc-pub-curtime">
 		<span id="timestamp"><?php printf( $stamp, $date ); ?></span>
 	</div>
-	<?php endif; ?>
+	<?php
+	endif;
+	do_action( 'post_submitbox_misc_actions', $post );
+	?>
 
 	</div><!-- #misc-publishing-actions -->
 	<div class="clear"></div>
