@@ -439,7 +439,7 @@ class Content {
 		add_filter( 'wp_video_shortcode',  function ( $output, $atts, $video ) {
 			$src = $atts['src'] ?? $video;
 			$type = wp_check_filetype( $src, wp_get_mime_types() )['type'];
-			$output = "<video class='wp-video-shortcode' ><source type='{$type}' src='{$src}' /><a href='{$src}'>{$src}</a></video>";
+			$output = "<video class='wp-video-shortcode' controls='controls'><source type='{$type}' src='{$src}' /><a href='{$src}'>{$src}</a></video>";
 			return $output;
 		}, 10, 3 );
 	}
@@ -456,7 +456,7 @@ class Content {
 		add_filter( 'wp_audio_shortcode',  function ( $output, $atts, $audio ) {
 			$src = $atts['src'] ?? $audio;
 			$type = wp_check_filetype( $src, wp_get_mime_types() )['type'];
-			$output = "<audio class='wp-audio-shortcode' ><source type='{$type}' src='{$src}' /><a href='{$src}'>{$src}</a></audio>";
+			$output = "<audio class='wp-audio-shortcode' controls='controls'><source type='{$type}' src='{$src}' /><a href='{$src}'>{$src}</a></audio>";
 			return $output;
 		}, 10, 3 );
 	}
