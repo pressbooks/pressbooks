@@ -4,7 +4,7 @@ Tags: ebooks, publishing, webbooks
 Requires at least: 4.9.4
 Tested up to: 4.9.4
 Requires PHP: 7.0
-Stable tag: 5.0.2
+Stable tag: 5.1.0
 License: GPL v3.0 or later
 License URI: https://github.com/pressbooks/pressbooks/blob/master/LICENSE.md
 
@@ -20,6 +20,21 @@ For installation instructions, visit [docs.pressbooks.org/installation](https://
 TK.
 
 == Changelog ==
+**NOTICE:** Pressbooks 5.1.0 requires [WordPress 4.9.4](https://wordpress.org/news/2018/02/wordpress-4-9-4-maintenance-release/).
+**NOTICE:** Pressbooks 5.1.0 requires [McLuhan 2.1.0](https://github.com/pressbooks/pressbooks-book/).
+**NOTICE:** Pressbooks 5.1.0 requires that users of the Luther book theme install and network activate the standalone [Luther theme](https://github.com/pressbooks/pressbooks-luther/) _before_ upgrading to Pressbooks 5.0. For more information, see the [upgrading instructions](https://docs.pressbooks.org/upgrading/#upgrading-to-pressbooks-5-x).
+
+**Minor Changes**
+
+- Add support for interactive content with fallbacks for ebook and PDF exports: [#1135](https://github.com/pressbooks/pressbooks/pull/1135)
+- Restore support for password-protected webbook content: [#1144](https://github.com/pressbooks/pressbooks/pull/1144)
+
+**Patches**
+
+- Hide "Add Part" menu for users who can't edit parts (props [@colomet](https://github.com/colomet) for reporting): [12ab81e](https://github.com/pressbooks/pressbooks/commit/12ab81e0808f049235e3b2647681e38af272685f)
+- Fix an issue where PDF page numbering didn't reset in books without an introduction: [#1141](https://github.com/pressbooks/pressbooks/pull/1141)
+- Fix an issue where ODT exports would fail: (#1146](https://github.com/pressbooks/pressbooks/pull/1146)
+
 = 5.0.2 =
 **NOTICE:** Pressbooks 5.0.2 requires [WordPress 4.9.4](https://wordpress.org/news/2018/02/wordpress-4-9-4-maintenance-release/).
 **NOTICE:** Pressbooks 5.0.2 requires [Pressbooks Book 2.0.0](https://github.com/pressbooks/pressbooks-book/).
@@ -850,8 +865,8 @@ The Pressbooks command line interface is now part of Pressbooks. Want to make yo
 * Ebook theme option to skip line between paragraphs is now honored in all themes.
 
 == Upgrade Notice ==
-= 5.0.1 =
+= 5.1.0 =
 
-Pressbooks 5.0.1 requires [WordPress 4.9.4](https://wordpress.org/news/2018/02/wordpress-4-9-4-maintenance-release/).
-Pressbooks 5.0.1 requires [Pressbooks Book 2.0.0](https://github.com/pressbooks/pressbooks-book/).
-Pressbooks 5.0.1 requires that users of the Luther book theme install and network activate the standalone [Luther theme](https://github.com/pressbooks/pressbooks-luther/) _before_ upgrading to Pressbooks 5.0. For more information, see the [upgrading instructions](https://docs.pressbooks.org/upgrading/#upgrading-to-pressbooks-5-x).
+Pressbooks 5.1.0 requires [WordPress 4.9.4](https://wordpress.org/news/2018/02/wordpress-4-9-4-maintenance-release/).
+Pressbooks 5.1.0 requires [McLuhan 2.1.0](https://github.com/pressbooks/pressbooks-book/).
+Pressbooks 5.1.0 requires that users of the Luther book theme install and network activate the standalone [Luther theme](https://github.com/pressbooks/pressbooks-luther/) _before_ upgrading to Pressbooks 5.0. For more information, see the [upgrading instructions](https://docs.pressbooks.org/upgrading/#upgrading-to-pressbooks-5-x).
