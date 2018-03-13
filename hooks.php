@@ -192,12 +192,14 @@ add_action( 'do_robotstxt', '\Pressbooks\Utility\add_sitemap_to_robots_txt' );
 // Shortcodes
 // -------------------------------------------------------------------------------------------------------------------
 
-remove_filter( 'the_content', 'wpautop' );
-add_filter( 'the_content', 'wpautop' , 12 ); // execute wpautop after shortcode processing
+if ( $is_book ) {
+	remove_filter( 'the_content', 'wpautop' );
+	add_filter( 'the_content', 'wpautop' , 12 ); // execute wpautop after shortcode processing
 
-\Pressbooks\Shortcodes\Footnotes\Footnotes::init();
-\Pressbooks\Shortcodes\Generics\Generics::init();
-\Pressbooks\Shortcodes\WikiPublisher\Glyphs::init();
+	\Pressbooks\Shortcodes\Footnotes\Footnotes::init();
+	\Pressbooks\Shortcodes\Generics\Generics::init();
+	\Pressbooks\Shortcodes\WikiPublisher\Glyphs::init();
+}
 
 // -------------------------------------------------------------------------------------------------------------------
 // Theme Lock
