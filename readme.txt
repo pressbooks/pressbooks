@@ -33,7 +33,7 @@ TK.
 
 - Hide "Add Part" menu for users who can't edit parts (props [@colomet](https://github.com/colomet) for reporting): [12ab81e](https://github.com/pressbooks/pressbooks/commit/12ab81e0808f049235e3b2647681e38af272685f)
 - Fix an issue where PDF page numbering didn't reset in books without an introduction: [#1141](https://github.com/pressbooks/pressbooks/pull/1141)
-- Fix an issue where ODT exports would fail: (#1146](https://github.com/pressbooks/pressbooks/pull/1146)
+- Fix an issue where ODT exports would fail: [#1146](https://github.com/pressbooks/pressbooks/pull/1146)
 
 = 5.0.2 =
 **NOTICE:** Pressbooks 5.0.2 requires [WordPress 4.9.4](https://wordpress.org/news/2018/02/wordpress-4-9-4-maintenance-release/).
