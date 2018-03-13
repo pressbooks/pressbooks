@@ -512,7 +512,7 @@ class Epub201 extends Export {
 
 
 	/**
-	 * Create a temporary directory
+	 * Delete temporary directory
 	 */
 	protected function deleteTmpDir() {
 
