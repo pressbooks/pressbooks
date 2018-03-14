@@ -95,8 +95,9 @@ class PBLatex {
 		 */
 		apply_filters( 'pb_add_latex_config_scripts', $this->options['method'] );
 
-		if ( !$this->options['css'] )
-		return;
+		if ( empty( $this->options['css'] ) ) {
+			return;
+		}
 ?>
 <style type="text/css">
 /* <![CDATA[ */
