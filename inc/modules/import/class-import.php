@@ -499,6 +499,13 @@ abstract class Import {
 			return false;
 		}
 
+		// Check that it's small enough
+		$max_file_size = \Pressbooks\Utility\parse_size( \Pressbooks\Utility\file_upload_max_size() );
+		if ( ! self::isUrlSmallerThanUploadMaxSize( $url, $max_file_size ) ) {
+			$_SESSION['pb_errors'][] = __( 'The URL you are trying to import is bigger than the maximum file size.', 'pressbooks' );
+			return false;
+		}
+
 		$response = wp_remote_get( $url );
 
 		// Something failed
@@ -516,6 +523,13 @@ abstract class Import {
 
 		$tmp_file = \Pressbooks\Utility\create_tmp_file();
 		\Pressbooks\Utility\put_contents( $tmp_file, wp_remote_retrieve_body( $response ) );
+
+		// Double check file size for good measure
+		if ( filesize( $tmp_file ) > $max_file_size ) {
+			$_SESSION['pb_errors'][] = __( 'The URL you are trying to import is bigger than the maximum file size.', 'pressbooks' );
+			unlink( $tmp_file );
+			return false;
+		}
 
 		// Basename
 		$parsed_url = wp_parse_url( $url );
@@ -541,6 +555,26 @@ abstract class Import {
 		];
 
 		return true;
+	}
+
+
+	/**
+	 * Check that a URL is smaller than MAX UPLOAD without downloading the file
+	 *
+	 * @param string $url
+	 * @param int $max
+	 *
+	 * @return bool
+	 */
+	static protected function isUrlSmallerThanUploadMaxSize( $url, $max ) {
+		$response = wp_safe_remote_head( $url, [
+			'redirection' => 2,
+		] );
+		$size = (int) wp_remote_retrieve_header( $response, 'Content-Length' );
+		if ( empty( $size ) ) {
+			return true; // Unable to verify, return true and hope for the best...
+		}
+		return ( $max >= $size );
 	}
 
 
