@@ -38,7 +38,7 @@
 		"masterminds/html5": "^2.3",
 		"pressbooks/mix": "^2.1",
 		"pressbooks/pb-api": "^1.1",
-		"pressbooks/pb-cli": "^1.7",
+		"pressbooks/pb-cli": "^1.8",
 		"sinergi/browser-detector": "^6.1",
 		"vanilla/htmlawed": "^2.2",
 		"yahnis-elsts/plugin-update-checker": "^4.4"

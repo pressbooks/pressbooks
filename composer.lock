@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "af99cffe04924c085b13449b65287e46",
+    "content-hash": "f506bdadac4bbc55dd2c993b940d9dd0",
     "packages": [
         {
             "name": "composer/installers",
@@ -966,16 +966,16 @@
         },
         {
             "name": "pressbooks/pb-cli",
-            "version": "1.7.0",
+            "version": "1.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pressbooks/pb-cli.git",
-                "reference": "d9ebeff0fb2e91eedcc9a043735cdef10afd230d"
+                "reference": "f606bd405138b79a7ea7f07dff5bec54919d0b7e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pressbooks/pb-cli/zipball/d9ebeff0fb2e91eedcc9a043735cdef10afd230d",
-                "reference": "d9ebeff0fb2e91eedcc9a043735cdef10afd230d",
+                "url": "https://api.github.com/repos/pressbooks/pb-cli/zipball/f606bd405138b79a7ea7f07dff5bec54919d0b7e",
+                "reference": "f606bd405138b79a7ea7f07dff5bec54919d0b7e",
                 "shasum": ""
             },
             "require": {
@@ -991,7 +991,8 @@
                     "scaffold book-theme",
                     "pb issue-template",
                     "pb theme lock",
-                    "pb theme unlock"
+                    "pb theme unlock",
+                    "pb clone"
                 ]
             },
             "autoload": {
@@ -1005,7 +1006,7 @@
             ],
             "description": "A suite of wp-cli commands for Pressbooks.",
             "homepage": "https://github.com/pressbooks/pb-cli/",
-            "time": "2018-03-07T14:48:30+00:00"
+            "time": "2018-03-15T18:07:46+00:00"
         },
         {
             "name": "psr/log",
