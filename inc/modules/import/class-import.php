@@ -524,7 +524,7 @@ abstract class Import {
 		$tmp_file = \Pressbooks\Utility\create_tmp_file();
 		\Pressbooks\Utility\put_contents( $tmp_file, wp_remote_retrieve_body( $response ) );
 
-		// Double check file size for good measure
+		// Double check file size
 		if ( filesize( $tmp_file ) > $max_file_size ) {
 			$_SESSION['pb_errors'][] = __( 'The URL you are trying to import is bigger than the maximum file size.', 'pressbooks' );
 			unlink( $tmp_file );

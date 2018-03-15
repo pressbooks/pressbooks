@@ -35,7 +35,17 @@ class Xhtml extends Import {
 	 */
 	function import( array $current_import ) {
 
-		$body = \Pressbooks\Utility\get_contents( $current_import['file'] );
+		$html = \Pressbooks\Utility\get_contents( $current_import['file'] );
+
+		$html_len = strlen( $html );
+		$pcre_limit = ini_get( 'pcre.backtrack_limit' );
+		if ( $html_len > $pcre_limit ) {
+			ini_set( 'pcre.backtrack_limit', min( ( $html_len + 1000000 ), PHP_INT_MAX ) );
+			if ( $html_len > ini_get( 'pcre.backtrack_limit' ) ) {
+				$_SESSION['pb_errors'][] = __( 'The HTML is larger than pcre.backtrack_limit.', 'pressbooks' );
+				return false;
+			}
+		}
 
 		$url = wp_parse_url( $current_import['url'] );
 		// get parent directory (with forward slash e.g. /parent)
@@ -53,7 +63,7 @@ class Xhtml extends Import {
 		$post_type = $this->determinePostType( $id[0] );
 		$chapter_parent = $this->getChapterParent();
 
-		$this->kneadAndInsert( $body, $post_type, $chapter_parent, $domain, $current_import['default_post_status'] );
+		$this->kneadAndInsert( $html, $post_type, $chapter_parent, $domain, $current_import['default_post_status'] );
 
 		// Done
 		return $this->revokeCurrentImport();
@@ -164,7 +174,7 @@ class Xhtml extends Import {
 		$meta = [];
 
 		// get license attribution statement if it exists
-		preg_match( '/(?:<div class="license-attribution[^>]*>)(.*)(<\/div>)/is', $html, $matches );
+		preg_match( '/(?:<div class="license-attribution[^>]*>)(.*)(<\/div>)/isU', $html, $matches );
 
 		if ( ! empty( $matches[1] ) ) {
 
