@@ -7,9 +7,11 @@
 [![Packagist](https://img.shields.io/packagist/v/pressbooks/pressbooks.svg)](https://packagist.org/packages/pressbooks/pressbooks)
 [![PHP from Packagist](https://img.shields.io/packagist/php-v/pressbooks/pressbooks.svg)](https://packagist.org/packages/pressbooks/pressbooks)
 [![Packagist](https://img.shields.io/packagist/dt/pressbooks/pressbooks.svg)](https://packagist.org/packages/pressbooks/pressbooks)
+[![Open Collective](https://opencollective.com/pressbooks/tiers/backer/badge.svg?label=backer&color=brightgreen)](https://opencollective.com/pressbooks/)
+[![Translate Pressbooks](https://img.shields.io/badge/translated-23.97%25-red.svg)](https://www.transifex.com/pressbooks/pressbooks/translate/)
 
 [Pressbooks](http://pressbooks.org) is a book content management system which
-exports in multiple formats: ebooks, webbooks, print-ready [PDF][pdf], and various
+produces multiple formats: ebooks, webbooks, print-ready [PDF][pdf], and various
 XML flavours. [Pressbooks](http://pressbooks.org) is built on top of
 [WordPress Multisite](http://codex.wordpress.org/Glossary#Multisite), and makes
 significant changes to:
