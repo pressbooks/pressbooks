@@ -365,11 +365,16 @@ abstract class Import {
 			require_once( ABSPATH . 'wp-admin/includes/file.php' );
 		}
 
+		// If Import Type is a URL then download and fake $_FILES on success
+		//
+		// This is redundant for a webbook URL (REST API) but we do it anyway because:
+		//  + The select option UI expects us to fallback to the file when not a webbook in the same Submit
+		//  + Sanity check verifies that we can access the website like any other
+		//
 		if ( getset( '_POST', 'import_type' ) === 'url' ) {
 			$overrides['action'] = 'pb_handle_url_upload';
 			self::createFileFromUrl();
 		}
-
 		if ( empty( $_FILES['import_file']['name'] ) ) {
 			return false;
 		}
@@ -379,6 +384,7 @@ abstract class Import {
 			return false;
 		}
 
+		// Handle PHP uploads in WordPress
 		$upload = wp_handle_upload( $_FILES['import_file'], $overrides );
 		$upload['url'] = getset( '_POST', 'import_http' );
 		if ( empty( $upload['type'] ) && ! empty( $_FILES['import_file']['type'] ) ) {

@@ -40,7 +40,7 @@ class Xhtml extends Import {
 		$html_len = strlen( $html );
 		$pcre_limit = ini_get( 'pcre.backtrack_limit' );
 		if ( $html_len > $pcre_limit ) {
-			ini_set( 'pcre.backtrack_limit', min( ( $html_len + 1000000 ), PHP_INT_MAX ) );
+			ini_set( 'pcre.backtrack_limit', min( $html_len, PHP_INT_MAX ) );
 			if ( $html_len > ini_get( 'pcre.backtrack_limit' ) ) {
 				$_SESSION['pb_errors'][] = __( 'The HTML is larger than pcre.backtrack_limit.', 'pressbooks' );
 				return false;
