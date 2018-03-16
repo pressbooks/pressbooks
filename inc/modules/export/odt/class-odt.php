@@ -360,7 +360,7 @@ class Odt extends Export {
 			$filename = \Pressbooks\Sanitize\force_ascii( $filename );
 		}
 
-		// A book with a lot of media can trigger "Fatal Error Too many open files" because tmpfiles are not closed until PHP exits
+		// A book with a lot of images can trigger "Fatal Error Too many open files" because tmpfiles are not closed until PHP exits
 		// Use a $resource_key so we can close the tmpfile ourselves
 		$resource_key = uniqid( 'tmpfile-odt-', true );
 		$tmp_file = \Pressbooks\Utility\create_tmp_file( $resource_key );
