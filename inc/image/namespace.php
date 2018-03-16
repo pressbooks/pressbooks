@@ -64,9 +64,9 @@ function is_valid_image( $file, $filename, $is_stream = false ) {
 
 	if ( $is_stream ) {
 		$tmpfile = tmpfile();
-		$tmp_image_path = stream_get_meta_data( $tmpfile );
-		\Pressbooks\Utility\put_contents( $tmp_image_path['uri'], $file );
-		$file = $tmp_image_path;
+		$tmpfile_meta = stream_get_meta_data( $tmpfile );
+		\Pressbooks\Utility\put_contents( $tmpfile_meta['uri'], $file );
+		$file = $tmpfile_meta['uri'];
 	}
 
 	$type = @exif_imagetype( $file ); // @codingStandardsIgnoreLine
