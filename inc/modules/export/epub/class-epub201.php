@@ -2001,12 +2001,17 @@ class Epub201 extends Export {
 			$filename = Sanitize\force_ascii( $filename );
 		}
 
-		$tmp_file = \Pressbooks\Utility\create_tmp_file();
+		// A book with a lot of images can trigger "Fatal Error Too many open files" because tmpfiles are not closed until PHP exits
+		// Use a $resource_key so we can close the tmpfile ourselves
+		$resource_key = uniqid( 'tmpfile-epub-', true );
+		$tmp_file = \Pressbooks\Utility\create_tmp_file( $resource_key );
+
 		\Pressbooks\Utility\put_contents( $tmp_file, wp_remote_retrieve_body( $response ) );
 
 		if ( ! \Pressbooks\Image\is_valid_image( $tmp_file, $filename ) ) {
 			$this->fetchedImageCache[ $url ] = '';
 			debug_error_log( '\PressBooks\Export\Epub201\fetchAndSaveUniqueImage is_valid_image, not a valid image ' );
+			fclose( $GLOBALS[ $resource_key ] ); // @codingStandardsIgnoreLine
 			return ''; // Not an image
 		}
 
@@ -2027,6 +2032,7 @@ class Epub201 extends Export {
 			$filename = wp_unique_filename( $fullpath, $filename );
 			copy( $tmp_file, "$fullpath/$filename" );
 		}
+		fclose( $GLOBALS[ $resource_key ] ); // @codingStandardsIgnoreLine
 
 		$this->fetchedImageCache[ $url ] = $filename;
 		return $filename;

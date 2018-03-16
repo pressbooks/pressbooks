@@ -368,11 +368,15 @@ class Epub3 extends Epub201 {
 		$filename = sanitize_file_name( urldecode( $filename ) );
 		$filename = Sanitize\force_ascii( $filename );
 
-		$tmp_file = \Pressbooks\Utility\create_tmp_file();
+		// A book with a lot of media can trigger "Fatal Error Too many open files" because tmpfiles are not closed until PHP exits
+		// Use a $resource_key so we can close the tmpfile ourselves
+		$resource_key = uniqid( 'tmpfile-epub-', true );
+		$tmp_file = \Pressbooks\Utility\create_tmp_file( $resource_key );
 		\Pressbooks\Utility\put_contents( $tmp_file, wp_remote_retrieve_body( $response ) );
 
 		if ( ! \Pressbooks\Media\is_valid_media( $tmp_file, $filename ) ) {
 			$this->fetchedMediaCache[ $url ] = '';
+			fclose( $GLOBALS[ $resource_key ] ); // @codingStandardsIgnoreLine
 			return ''; // Not a valid media type
 		}
 
@@ -383,6 +387,7 @@ class Epub3 extends Epub201 {
 			$filename = wp_unique_filename( $fullpath, $filename );
 			copy( $tmp_file, "$fullpath/$filename" );
 		}
+		fclose( $GLOBALS[ $resource_key ] ); // @codingStandardsIgnoreLine
 
 		$this->fetchedMediaCache[ $url ] = $filename;
 		return $filename;

@@ -63,8 +63,9 @@ function is_valid_image( $file, $filename, $is_stream = false ) {
 	}
 
 	if ( $is_stream ) {
-		$tmp_image_path = \Pressbooks\Utility\create_tmp_file();
-		\Pressbooks\Utility\put_contents( $tmp_image_path, $file );
+		$tmpfile = tmpfile();
+		$tmp_image_path = stream_get_meta_data( $tmpfile );
+		\Pressbooks\Utility\put_contents( $tmp_image_path['uri'], $file );
 		$file = $tmp_image_path;
 	}
 
