@@ -10,6 +10,7 @@
 [![Translate Pressbooks](https://img.shields.io/badge/translated-23.97%25-red.svg)](https://www.transifex.com/pressbooks/pressbooks/translate/)
 
 [![Packagist](https://img.shields.io/packagist/dt/pressbooks/pressbooks.svg)](https://packagist.org/packages/pressbooks/pressbooks)
+[![Slack](https://pressbooks-slack.now.sh/badge.svg)](https://pressbooks-slack.now.sh)
 [![Open Collective](https://opencollective.com/pressbooks/tiers/backer/badge.svg?label=backers&color=brightgreen)](https://opencollective.com/pressbooks/)
 
 
