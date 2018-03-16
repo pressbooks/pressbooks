@@ -360,18 +360,26 @@ class Odt extends Export {
 			$filename = \Pressbooks\Sanitize\force_ascii( $filename );
 		}
 
-		$tmp_file = \Pressbooks\Utility\create_tmp_file();
+		// A book with a lot of images can trigger "Fatal Error Too many open files" because tmpfiles are not closed until PHP exits
+		// Use a $resource_key so we can close the tmpfile ourselves
+		$resource_key = uniqid( 'tmpfile-odt-', true );
+		$tmp_file = \Pressbooks\Utility\create_tmp_file( $resource_key );
 		\Pressbooks\Utility\put_contents( $tmp_file, wp_remote_retrieve_body( $response ) );
 
 		if ( ! \Pressbooks\Image\is_valid_image( $tmp_file, $filename ) ) {
 			$already_done[ $url ] = '';
+			fclose( $GLOBALS[ $resource_key ] ); // @codingStandardsIgnoreLine
 			return ''; // Not an image
 		}
 
 		if ( $this->compressImages ) {
 			$format = explode( '.', $filename );
 			$format = strtolower( end( $format ) ); // Extension
-			\Pressbooks\Image\resize_down( $format, $tmp_file );
+			try {
+				\Pressbooks\Image\resize_down( $format, $tmp_file );
+			} catch ( \Exception $e ) {
+				return '';
+			}
 		}
 
 		// Check for duplicates, save accordingly
@@ -381,6 +389,7 @@ class Odt extends Export {
 			$filename = wp_unique_filename( $fullpath, $filename );
 			copy( $tmp_file, "$fullpath/$filename" );
 		}
+		fclose( $GLOBALS[ $resource_key ] ); // @codingStandardsIgnoreLine
 
 		$already_done[ $url ] = $filename;
 		return $filename;

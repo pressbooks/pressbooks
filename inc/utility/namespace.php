@@ -268,11 +268,15 @@ function do_sitemap() {
 /**
  * Create a temporary file that automatically gets deleted when PHP ends.
  *
+ * @param string $resource_key (optional)
+ *
  * @return string Path to temporary file
  */
-function create_tmp_file() {
-	$stream = stream_get_meta_data( $GLOBALS[ mt_rand() ] = tmpfile() ); // @codingStandardsIgnoreLine
-
+function create_tmp_file( $resource_key = '' ) {
+	if ( empty( $resource_key ) ) {
+		$resource_key = uniqid( 'tmpfile-', true );
+	}
+	$stream = stream_get_meta_data( $GLOBALS[ $resource_key ] = tmpfile() ); // @codingStandardsIgnoreLine
 	return $stream['uri'];
 }
 

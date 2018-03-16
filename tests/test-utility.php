@@ -122,6 +122,10 @@ class UtilityTest extends \WP_UnitTestCase {
 
 		file_put_contents( $file, 'Hello world!' );
 		$this->assertEquals( 'Hello world!', file_get_contents( $file ) );
+
+		$file = \Pressbooks\Utility\create_tmp_file( 'my-very-own-resource-key' );
+		$this->assertNotEmpty( $GLOBALS['my-very-own-resource-key'] );
+		fclose( $GLOBALS['my-very-own-resource-key'] );
 	}
 
 	public function test_check_prince_install() {
