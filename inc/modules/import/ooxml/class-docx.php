@@ -99,18 +99,30 @@ class Docx extends Import {
 
 		// process the footnote ids
 		if ( $fn_ids ) {
-			// pass the IDs and get the content
-			$this->fn = $this->getRelationshipPart( $fn_ids );
+			try {
+				// pass the IDs and get the content
+				$this->fn = $this->getRelationshipPart( $fn_ids );
+			} catch ( \Exception $e ) {
+				$_SESSION['pb_notices'][] = $e->getMessage();
+			}
 		}
 
 		// process the endnote ids
 		if ( $en_ids ) {
-			$this->en = $this->getRelationshipPart( $en_ids, 'endnotes' );
+			try {
+				$this->en = $this->getRelationshipPart( $en_ids, 'endnotes' );
+			} catch ( \Exception $e ) {
+				$_SESSION['pb_notices'][] = $e->getMessage();
+			}
 		}
 
 		// process the hyperlink ids
 		if ( $ln_ids ) {
-			$this->ln = $this->getRelationshipPart( $ln_ids, 'hyperlink' );
+			try {
+				$this->ln = $this->getRelationshipPart( $ln_ids, 'hyperlink' );
+			} catch ( \Exception $e ) {
+				$_SESSION['pb_notices'][] = $e->getMessage();
+			}
 		}
 
 		// introduce a stylesheet
