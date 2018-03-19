@@ -12,6 +12,7 @@
 [![Packagist](https://img.shields.io/packagist/dt/pressbooks/pressbooks.svg)](https://packagist.org/packages/pressbooks/pressbooks)
 [![Slack](https://pressbooks-slack.now.sh/badge.svg)](https://pressbooks-slack.now.sh)
 [![Open Collective](https://opencollective.com/pressbooks/tiers/backer/badge.svg?label=backers&color=brightgreen)](https://opencollective.com/pressbooks/)
+[![Open Collective](https://opencollective.com/pressbooks/tiers/sponsor/badge.svg?label=sponsors&color=brightgreen)](https://opencollective.com/pressbooks/)
 
 
 [Pressbooks](http://pressbooks.org) is a book content management system which
