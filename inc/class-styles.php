@@ -6,6 +6,7 @@
 
 namespace Pressbooks;
 
+use Pressbooks\CustomCss;
 use Pressbooks\Modules\ThemeOptions\ThemeOptions;
 use function \Pressbooks\Utility\debug_error_log;
 
@@ -443,7 +444,8 @@ class Styles {
 				$scss,
 				$this->sass->defaultIncludePaths( $type )
 			);
-		} elseif ( pb_is_custom_theme() ) {
+		} elseif ( CustomCss::isCustomCss() ) {
+			// Compile pressbooks-book web stylesheet when using the *DEPRECATED* Custom CSS theme
 			$css = $this->sass->compile(
 				$scss,
 				$this->sass->defaultIncludePaths( $type, wp_get_theme( 'pressbooks-book' ) )
@@ -512,14 +514,20 @@ class Styles {
 	 * @return void
 	 */
 	public function updateWebBookStyleSheet( $stylesheet = null ) {
-		$theme = wp_get_theme( $stylesheet );
+
+		if ( CustomCss::isCustomCss() ) {
+			// Compile pressbooks-book web stylesheet when using the *DEPRECATED* Custom CSS theme
+			$theme = wp_get_theme( 'pressbooks-book' );
+		} else {
+			$theme = wp_get_theme( $stylesheet );
+		}
 
 		$overrides = apply_filters( 'pb_web_css_override', '' ) . "\n";
 		// Populate $url-base variable so that links to images and other assets remain intact
 		$scss = '$url-base: \'' . $theme->get_stylesheet_directory_uri() . "/';\n";
 		if ( $this->isCurrentThemeCompatible( 1 ) ) {
 			$scss .= \Pressbooks\Utility\get_contents( realpath( $theme->get_stylesheet_directory() . '/style.scss' ) );
-		} elseif ( $this->isCurrentThemeCompatible( 2 ) || pb_is_custom_theme() ) {
+		} elseif ( $this->isCurrentThemeCompatible( 2 ) || CustomCss::isCustomCss() ) {
 			$scss .= \Pressbooks\Utility\get_contents( realpath( $theme->get_stylesheet_directory() . '/assets/styles/web/style.scss' ) );
 		} else {
 			return;

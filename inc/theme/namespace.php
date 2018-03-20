@@ -8,6 +8,9 @@
 
 namespace Pressbooks\Theme;
 
+use Pressbooks\Container;
+use Pressbooks\CustomCss;
+
 /**
  * Check for required themes; prompt to install if missing.
  *
@@ -97,6 +100,7 @@ function check_upgraded_customcss() {
 function migrate_book_themes() {
 	$pressbooks_theme_migration = (int) get_option( 'pressbooks_theme_migration', 0 );
 
+	// Upgrade from old slugs (themes included as files inside the pressbooks plugin) to new slugs (separate github repos)
 	if ( ! $pressbooks_theme_migration ) {
 		$comparisons = [
 			'austen' => 'pressbooks-austenclassic',
@@ -124,6 +128,7 @@ function migrate_book_themes() {
 		update_option( 'pressbooks_theme_migration', $pressbooks_theme_migration );
 	}
 
+	// Upgrade to McLuhan, fallback to Luther
 	if ( $pressbooks_theme_migration === 1 ) {
 		$theme = wp_get_theme()->get_stylesheet();
 		if ( $theme === 'pressbooks-book' ) {
@@ -151,6 +156,15 @@ function migrate_book_themes() {
 		}
 
 		$pressbooks_theme_migration = 2;
+		update_option( 'pressbooks_theme_migration', $pressbooks_theme_migration );
+	}
+
+	// Fix badly compiled *DEPRECATED* Custom CSS theme
+	if ( $pressbooks_theme_migration === 2 ) {
+		if ( CustomCss::isCustomCss() ) {
+			Container::get( 'Styles' )->updateWebBookStyleSheet();
+		}
+		$pressbooks_theme_migration = 3;
 		update_option( 'pressbooks_theme_migration', $pressbooks_theme_migration );
 	}
 }
