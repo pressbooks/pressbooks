@@ -71,7 +71,7 @@ function register_post_types() {
 			'capability_type' => 'page',
 			'has_archive' => true,
 			'hierarchical' => true,
-			'supports' => [ 'title', 'editor', 'page-attributes' ],
+			'supports' => [ 'title', 'editor', 'page-attributes', 'revisions' ],
 			'show_in_menu' => false,
 			'show_in_admin_bar' => true,
 			'show_in_rest' => true,
