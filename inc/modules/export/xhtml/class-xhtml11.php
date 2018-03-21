@@ -433,7 +433,11 @@ class Xhtml11 extends Export {
 
 				if ( isset( $val['post_content'] ) ) {
 					$id = $val['ID'];
-					$book_contents[ $type ][ $i ]['post_content'] = $this->preProcessPostContent( $val['post_content'] );
+					if ( $val['export'] ) {
+						$book_contents[ $type ][ $i ]['post_content'] = $this->preProcessPostContent( $val['post_content'] );
+					} else {
+						$book_contents[ $type ][ $i ]['post_content'] = '';
+					}
 				}
 				if ( isset( $val['post_title'] ) ) {
 					$book_contents[ $type ][ $i ]['post_title'] = Sanitize\sanitize_xml_attribute( $val['post_title'] );
