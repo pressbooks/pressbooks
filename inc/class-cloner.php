@@ -334,12 +334,14 @@ class Cloner {
 		$this->sourceBookMetadata = $this->getBookMetadata( $this->sourceBookUrl );
 		if ( empty( $this->sourceBookMetadata ) ) {
 			$_SESSION['pb_errors'][] = sprintf( __( 'Could not retrieve metadata from %s.', 'pressbooks' ), sprintf( '<em>%s</em>', $this->sourceBookUrl ) );
+			$this->maybeRestoreCurrentBlog();
 			return false;
 		}
 
 		// Verify license or network administrator override
 		if ( ! $this->isSourceCloneable( $this->sourceBookMetadata['license'] ) ) {
 			$_SESSION['pb_errors'][] = sprintf( __( '%s is not licensed for cloning.', 'pressbooks' ), sprintf( '<em>%s</em>', $this->sourceBookMetadata['name'] ) );
+			$this->maybeRestoreCurrentBlog();
 			return false;
 		}
 
@@ -347,6 +349,7 @@ class Cloner {
 		$this->sourceBookStructure = $this->getBookStructure( $this->sourceBookUrl );
 		if ( empty( $this->sourceBookStructure ) ) {
 			$_SESSION['pb_errors'][] = sprintf( __( 'Could not retrieve contents and structure from %s.', 'pressbooks' ), sprintf( '<em>%s</em>', $this->sourceBookMetadata['name'] ) );
+			$this->maybeRestoreCurrentBlog();
 			return false;
 		}
 
@@ -354,19 +357,18 @@ class Cloner {
 		$this->sourceBookTerms = $this->getBookTerms( $this->sourceBookUrl );
 		if ( empty( $this->sourceBookTerms ) ) {
 			$_SESSION['pb_errors'][] = sprintf( __( 'Could not retrieve taxonomies from %s.', 'pressbooks' ), sprintf( '<em>%s</em>', $this->sourceBookMetadata['name'] ) );
+			$this->maybeRestoreCurrentBlog();
 			return false;
 		}
 
 		$this->knownImages = $this->buildlistOfKnownImages( $this->sourceBookUrl );
 		if ( $this->knownImages === false ) {
 			$_SESSION['pb_errors'][] = sprintf( __( 'Could not retrieve media from %s.', 'pressbooks' ), sprintf( '<em>%s</em>', $this->sourceBookMetadata['name'] ) );
+			$this->maybeRestoreCurrentBlog();
 			return false;
 		}
 
-		if ( ! empty( $this->sourceBookId ) ) {
-			restore_current_blog();
-		}
-
+		$this->maybeRestoreCurrentBlog();
 		return true;
 	}
 
@@ -640,6 +642,15 @@ class Cloner {
 			return false; // No one can clone global books that are restrictively licensed
 		}
 		return true;
+	}
+
+	/**
+	 * Maybe restore current blog
+	 */
+	protected function maybeRestoreCurrentBlog() {
+		if ( ! empty( $this->sourceBookId ) ) {
+			restore_current_blog();
+		}
 	}
 
 	/**
