@@ -28,6 +28,11 @@ class Cloner {
 	protected $interactiveContent;
 
 	/**
+	 * @var bool
+	 */
+	protected $isSuperAdmin = false;
+
+	/**
 	 * The URL of the source book.
 	 *
 	 * @since 4.1.0
@@ -167,6 +172,9 @@ class Cloner {
 		if ( defined( 'WP_ENV' ) && WP_ENV === 'development' ) {
 			$this->requestArgs['sslverify'] = false;
 		}
+
+		// Has_cap acts weird when we create a new blog. Figure out who we are before starting.
+		$this->isSuperAdmin = current_user_can( 'manage_network_options' );
 
 		// Set up $this->sourceBookUrl
 		$this->sourceBookUrl = esc_url( untrailingslashit( $source_url ) );
@@ -621,7 +629,7 @@ class Cloner {
 
 		$license_url = trailingslashit( trim( $license_url ) );
 		if ( ! empty( $this->sourceBookId ) ) {
-			if ( current_user_can( 'manage_network_options' ) ) {
+			if ( $this->isSuperAdmin ) {
 				return true; // Network administrators can clone local books no matter how they're licensed
 			} elseif ( ! in_array( $license_url, $restrictive_licenses, true ) ) {
 				return true; // Anyone can clone local books that aren't restrictively licensed
