@@ -38,7 +38,7 @@ class Api extends Import {
 			return false;
 		}
 		$this->cloner = new Cloner( $upload['url'] );
-		if ( ! $this->cloner->setupSource() ) {
+		if ( ! $this->cloner->setupSource( false ) ) {
 			return false;
 		}
 
@@ -63,11 +63,11 @@ class Api extends Import {
 			if ( $this->isSourceCloneable( $part['id'], 'part' ) ) {
 				$option['chapters'][ $part['id'] ] = $part['title'];
 				$option['post_types'][ $part['id'] ] = 'part';
-				foreach ( $this->cloner->getSourceBookStructure()['parts'][ $key ]['chapters'] as $chapter ) {
-					if ( $this->isSourceCloneable( $chapter['id'], 'chapter' ) ) {
-						$option['chapters'][ $chapter['id'] ] = $chapter['title'];
-						$option['post_types'][ $chapter['id'] ] = 'chapter';
-					}
+			}
+			foreach ( $this->cloner->getSourceBookStructure()['parts'][ $key ]['chapters'] as $chapter ) {
+				if ( $this->isSourceCloneable( $chapter['id'], 'chapter' ) ) {
+					$option['chapters'][ $chapter['id'] ] = $chapter['title'];
+					$option['post_types'][ $chapter['id'] ] = 'chapter';
 				}
 			}
 		}
@@ -77,6 +77,11 @@ class Api extends Import {
 				$option['chapters'][ $backmatter['id'] ] = $backmatter['title'];
 				$option['post_types'][ $backmatter['id'] ] = 'back-matter';
 			}
+		}
+
+		if ( empty( $option['chapters'] ) ) {
+			$_SESSION['pb_errors'][] = sprintf( __( 'No chapters in %s are licensed for cloning.', 'pressbooks' ), sprintf( '<em>%s</em>', $this->cloner->getSourceBookMetadata()['name'] ) );
+			return false;
 		}
 
 		return update_option( 'pressbooks_current_import', $option );
@@ -93,7 +98,7 @@ class Api extends Import {
 			return false;
 		}
 		$this->cloner = new Cloner( $current_import['url'] );
-		if ( ! $this->cloner->setupSource() ) {
+		if ( ! $this->cloner->setupSource( false ) ) {
 			return false;
 		}
 

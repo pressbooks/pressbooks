@@ -318,9 +318,11 @@ class Cloner {
 	/**
 	 * @since 5.0.0
 	 *
+	 * @param bool $respect_book_license
+	 *
 	 * @return bool
 	 */
-	public function setupSource() {
+	public function setupSource( $respect_book_license = true ) {
 		if ( ! empty( $this->sourceBookId ) ) {
 			// Local book
 			switch_to_blog( $this->sourceBookId );
@@ -338,11 +340,13 @@ class Cloner {
 			return false;
 		}
 
-		// Verify license or network administrator override
-		if ( ! $this->isSourceCloneable( $this->sourceBookMetadata['license'] ) ) {
-			$_SESSION['pb_errors'][] = sprintf( __( '%s is not licensed for cloning.', 'pressbooks' ), sprintf( '<em>%s</em>', $this->sourceBookMetadata['name'] ) );
-			$this->maybeRestoreCurrentBlog();
-			return false;
+		if ( $respect_book_license ) {
+			// Verify license or network administrator override
+			if ( ! $this->isSourceCloneable( $this->sourceBookMetadata['license'] ) ) {
+				$_SESSION['pb_errors'][] = sprintf( __( '%s is not licensed for cloning.', 'pressbooks' ), sprintf( '<em>%s</em>', $this->sourceBookMetadata['name'] ) );
+				$this->maybeRestoreCurrentBlog();
+				return false;
+			}
 		}
 
 		// Set up $this->sourceBookStructure
