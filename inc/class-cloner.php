@@ -28,6 +28,11 @@ class Cloner {
 	protected $interactiveContent;
 
 	/**
+	 * @var bool
+	 */
+	protected $isSuperAdmin = false;
+
+	/**
 	 * The URL of the source book.
 	 *
 	 * @since 4.1.0
@@ -167,6 +172,9 @@ class Cloner {
 		if ( defined( 'WP_ENV' ) && WP_ENV === 'development' ) {
 			$this->requestArgs['sslverify'] = false;
 		}
+
+		// Has_cap acts weird when we create a new blog. Figure out who we are before starting.
+		$this->isSuperAdmin = current_user_can( 'manage_network_options' );
 
 		// Set up $this->sourceBookUrl
 		$this->sourceBookUrl = esc_url( untrailingslashit( $source_url ) );
@@ -310,9 +318,11 @@ class Cloner {
 	/**
 	 * @since 5.0.0
 	 *
+	 * @param bool $respect_book_license
+	 *
 	 * @return bool
 	 */
-	public function setupSource() {
+	public function setupSource( $respect_book_license = true ) {
 		if ( ! empty( $this->sourceBookId ) ) {
 			// Local book
 			switch_to_blog( $this->sourceBookId );
@@ -326,19 +336,24 @@ class Cloner {
 		$this->sourceBookMetadata = $this->getBookMetadata( $this->sourceBookUrl );
 		if ( empty( $this->sourceBookMetadata ) ) {
 			$_SESSION['pb_errors'][] = sprintf( __( 'Could not retrieve metadata from %s.', 'pressbooks' ), sprintf( '<em>%s</em>', $this->sourceBookUrl ) );
+			$this->maybeRestoreCurrentBlog();
 			return false;
 		}
 
-		// Verify license or network administrator override
-		if ( ! $this->isSourceCloneable( $this->sourceBookMetadata['license'] ) ) {
-			$_SESSION['pb_errors'][] = sprintf( __( '%s is not licensed for cloning.', 'pressbooks' ), sprintf( '<em>%s</em>', $this->sourceBookMetadata['name'] ) );
-			return false;
+		if ( $respect_book_license ) {
+			// Verify license or network administrator override
+			if ( ! $this->isSourceCloneable( $this->sourceBookMetadata['license'] ) ) {
+				$_SESSION['pb_errors'][] = sprintf( __( '%s is not licensed for cloning.', 'pressbooks' ), sprintf( '<em>%s</em>', $this->sourceBookMetadata['name'] ) );
+				$this->maybeRestoreCurrentBlog();
+				return false;
+			}
 		}
 
 		// Set up $this->sourceBookStructure
 		$this->sourceBookStructure = $this->getBookStructure( $this->sourceBookUrl );
 		if ( empty( $this->sourceBookStructure ) ) {
 			$_SESSION['pb_errors'][] = sprintf( __( 'Could not retrieve contents and structure from %s.', 'pressbooks' ), sprintf( '<em>%s</em>', $this->sourceBookMetadata['name'] ) );
+			$this->maybeRestoreCurrentBlog();
 			return false;
 		}
 
@@ -346,19 +361,18 @@ class Cloner {
 		$this->sourceBookTerms = $this->getBookTerms( $this->sourceBookUrl );
 		if ( empty( $this->sourceBookTerms ) ) {
 			$_SESSION['pb_errors'][] = sprintf( __( 'Could not retrieve taxonomies from %s.', 'pressbooks' ), sprintf( '<em>%s</em>', $this->sourceBookMetadata['name'] ) );
+			$this->maybeRestoreCurrentBlog();
 			return false;
 		}
 
 		$this->knownImages = $this->buildlistOfKnownImages( $this->sourceBookUrl );
 		if ( $this->knownImages === false ) {
 			$_SESSION['pb_errors'][] = sprintf( __( 'Could not retrieve media from %s.', 'pressbooks' ), sprintf( '<em>%s</em>', $this->sourceBookMetadata['name'] ) );
+			$this->maybeRestoreCurrentBlog();
 			return false;
 		}
 
-		if ( ! empty( $this->sourceBookId ) ) {
-			restore_current_blog();
-		}
-
+		$this->maybeRestoreCurrentBlog();
 		return true;
 	}
 
@@ -621,7 +635,7 @@ class Cloner {
 
 		$license_url = trailingslashit( trim( $license_url ) );
 		if ( ! empty( $this->sourceBookId ) ) {
-			if ( current_user_can( 'manage_network_options' ) ) {
+			if ( $this->isSuperAdmin ) {
 				return true; // Network administrators can clone local books no matter how they're licensed
 			} elseif ( ! in_array( $license_url, $restrictive_licenses, true ) ) {
 				return true; // Anyone can clone local books that aren't restrictively licensed
@@ -632,6 +646,15 @@ class Cloner {
 			return false; // No one can clone global books that are restrictively licensed
 		}
 		return true;
+	}
+
+	/**
+	 * Maybe restore current blog
+	 */
+	protected function maybeRestoreCurrentBlog() {
+		if ( ! empty( $this->sourceBookId ) ) {
+			restore_current_blog();
+		}
 	}
 
 	/**
