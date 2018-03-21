@@ -429,6 +429,8 @@ class Content {
 
 	/**
 	 * Override Video
+	 *
+	 * @see https://codex.wordpress.org/Video_Shortcode
 	 */
 	protected function overrideVideo() {
 		/**
@@ -437,7 +439,16 @@ class Content {
 		 * @param string $video   Video file.
 		 */
 		add_filter( 'wp_video_shortcode',  function ( $output, $atts, $video ) {
-			$src = $atts['src'] ?? $video;
+			$src_attributes = array_merge( [ 'src' ], wp_get_video_extensions() );
+			foreach ( $src_attributes as $attribute ) {
+				if ( ! empty( $atts[ $attribute ] ) ) {
+					$src = $atts[ $attribute ];
+					break;
+				}
+			}
+			if ( empty( $src ) ) {
+				$src = $video;
+			}
 			$type = wp_check_filetype( $src, wp_get_mime_types() )['type'];
 			$output = "<video class='wp-video-shortcode' controls='controls'><source type='{$type}' src='{$src}' /><a href='{$src}'>{$src}</a></video>";
 			return $output;
@@ -446,6 +457,8 @@ class Content {
 
 	/**
 	 * Override Audio
+	 *
+	 * @see https://codex.wordpress.org/Audio_Shortcode
 	 */
 	protected function overrideAudio() {
 		/**
@@ -454,7 +467,16 @@ class Content {
 		 * @param string $audio   Audio file.
 		 */
 		add_filter( 'wp_audio_shortcode',  function ( $output, $atts, $audio ) {
-			$src = $atts['src'] ?? $audio;
+			$src_attributes = array_merge( [ 'src' ], wp_get_audio_extensions() );
+			foreach ( $src_attributes as $attribute ) {
+				if ( ! empty( $atts[ $attribute ] ) ) {
+					$src = $atts[ $attribute ];
+					break;
+				}
+			}
+			if ( empty( $src ) ) {
+				$src = $audio;
+			}
 			$type = wp_check_filetype( $src, wp_get_mime_types() )['type'];
 			$output = "<audio class='wp-audio-shortcode' controls='controls'><source type='{$type}' src='{$src}' /><a href='{$src}'>{$src}</a></audio>";
 			return $output;
