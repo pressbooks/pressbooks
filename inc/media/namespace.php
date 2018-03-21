@@ -19,13 +19,18 @@ namespace Pressbooks\Media;
 function add_mime_types( $existing_mimes = [] ) {
 
 	$add_mimes = [
-		'mp4' => 'video/mp4',
-		'webm' => 'video/webm',
-		'ogv' => 'video/ogg',
-		'ogg' => 'audio/ogg',
-		'mp3' => 'audio/mpeg',
 		'aac' => 'audio/x-aac',
+		'flac' => 'audio/flac',
+		'flv' => 'video/x-flv',
+		'm4a' => 'audio/m4a',
+		'm4v' => 'video/mp4',
+		'mp3' => 'audio/mpeg',
+		'mp4' => 'video/mp4',
+		'ogg' => 'audio/ogg',
+		'ogv' => 'video/ogg',
 		'vorbis' => 'audio/vorbis',
+		'wav' => 'audio/wav',
+		'webm' => 'video/webm',
 	];
 
 	return array_merge( $add_mimes, $existing_mimes );
