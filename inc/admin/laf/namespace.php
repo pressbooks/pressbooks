@@ -1141,20 +1141,20 @@ function edit_screen_navigation( $post ) {
 	global $pagenow;
 	if ( 'post.php' === $pagenow && in_array( $post->post_type, [ 'front-matter', 'part', 'chapter', 'back-matter' ], true ) ) {
 		// We're in the edit screen (not the new post screen because we don't know the position of a new post)
-		echo sprintf( '<nav id="pb-edit-screen-navigation" role="navigation" aria-label="%s">', __( 'Edit previous or next item', 'pressbooks' ) );
+		echo sprintf( '<nav id="pb-edit-screen-navigation" role="navigation" aria-label="%s"><ul>', __( 'Edit previous or next item', 'pressbooks' ) );
 
 		$prev_id = Book::get( 'prev', true, true );
 		if ( $prev_id ) {
 			$prev_url = admin_url( 'post.php?post=' . $prev_id . '&action=edit' );
-			echo "<a href='{$prev_url}' rel='previous'><span aria-hidden='true'>&larr;</span> " . sprintf( __( 'Edit Previous (%s)', 'pressbooks' ), get_post_type_label( get_post_type( $prev_id ) ) ) . '</a>';
+			echo "<li class='previous'><a href='{$prev_url}' rel='previous'><span aria-hidden='true'>&larr;</span> " . sprintf( __( 'Edit Previous (%s)', 'pressbooks' ), get_post_type_label( get_post_type( $prev_id ) ) ) . '</a></li>';
 		}
 
 		$next_id = Book::get( 'next', true, true );
 		if ( $next_id ) {
 			$next_url = admin_url( 'post.php?post=' . $next_id . '&action=edit' );
-			echo "<a href='{$next_url}' rel='next'>" . sprintf( __( 'Edit Next (%s)', 'pressbooks' ), get_post_type_label( get_post_type( $next_id ) ) ) . ' <span aria-hidden="true">&rarr;</span></a>';
+			echo "<li class='next'><a href='{$next_url}' rel='next'>" . sprintf( __( 'Edit Next (%s)', 'pressbooks' ), get_post_type_label( get_post_type( $next_id ) ) ) . ' <span aria-hidden="true">&rarr;</span></a></li>';
 		}
 
-		echo '</nav>';
+		echo '</ul></nav>';
 	}
 }
