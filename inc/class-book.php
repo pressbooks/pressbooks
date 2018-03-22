@@ -612,13 +612,14 @@ class Book {
 	 * Fetch next, previous or first post
 	 *
 	 * @param string $what prev, next or first
+	 * @param bool $return_post_id (optional)
 	 *
-	 * @return string URL of requested post
+	 * @return mixed URL of requested post, or Post ID if $return_post_id is set to true
 	 */
-	static function get( $what = 'next' ) {
+	static function get( $what = 'next', $return_post_id = false ) {
 
 		if ( 'first' === $what ) {
-			return static::getFirst();
+			return static::getFirst( $return_post_id );
 		}
 
 		global $blog_id;
@@ -656,16 +657,22 @@ class Book {
 			}
 		}
 
-		return ( empty( $post_id ) ) ? '/' : get_permalink( $post_id );
+		if ( $return_post_id ) {
+			return (int) $post_id;
+		} else {
+			return ( empty( $post_id ) ) ? '/' : get_permalink( $post_id );
+		}
 	}
 
 
 	/**
 	 * Select the very first post in a book. May be a chapter or a front matter post
 	 *
-	 * @return string permalink of the first post
+	 * @param bool $return_post_id (optional)
+	 *
+	 * @return mixed URL of first post, or Post ID if $return_post_id is set to true
 	 */
-	static function getFirst() {
+	static function getFirst( $return_post_id = false ) {
 
 		global $blog_id;
 
@@ -686,7 +693,11 @@ class Book {
 			}
 		}
 
-		return ( empty( $first_id ) ) ? '/' : get_permalink( $first_id );
+		if ( $return_post_id ) {
+			return (int) $first_id;
+		} else {
+			return ( empty( $first_id ) ) ? '/' : get_permalink( $first_id );
+		}
 
 	}
 

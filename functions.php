@@ -37,6 +37,15 @@ function pb_get_prev() {
 	return \Pressbooks\Book::get( 'prev' );
 }
 
+/**
+ * Shortcut to \Pressbooks\Book::get( 'prev', true );
+ *
+ * @return int|false
+ */
+function pb_get_prev_post_id() {
+
+	return \Pressbooks\Book::get( 'prev', true );
+}
 
 /**
  * Shortcut to \Pressbooks\Book::get( 'next' );
@@ -48,6 +57,15 @@ function pb_get_next() {
 	return \Pressbooks\Book::get( 'next' );
 }
 
+/**
+ * Shortcut to \Pressbooks\Book::get( 'next', true );
+ *
+ * @return int|false
+ */
+function pb_get_next_post_id() {
+
+	return \Pressbooks\Book::get( 'next', true );
+}
 
 /**
  * Shortcut to \Pressbooks\Book::get( 'first' );
@@ -59,6 +77,15 @@ function pb_get_first() {
 	return \Pressbooks\Book::get( 'first' );
 }
 
+/**
+ * Shortcut to \Pressbooks\Book::get( 'first', true );
+ *
+ * @return int|false
+ */
+function pb_get_first_post_id() {
+
+	return \Pressbooks\Book::get( 'first', true );
+}
 
 /**
  * Shortcut to \Pressbooks\Book::getBookInformation();

@@ -194,4 +194,31 @@ class BookTest extends \WP_UnitTestCase {
 		$this->assertEquals( false, $result );
 	}
 
+	public function test_get_position() {
+		$this->_book();
+		$book = \Pressbooks\Book::getInstance();
+
+		$url_1 = $book::getFirst();
+		$this->assertContains( 'example.org/', $url_1 );
+		$post_id = $book::getFirst( true );
+		$this->assertTrue( is_integer( $post_id ) );
+
+		$url_2 = $book::get( 'first' );
+		$this->assertEquals( $url_2, $url_1 );
+		$post_id = $book::get( 'first', true );
+		$this->assertTrue( is_integer( $post_id ) );
+		$this->assertTrue( $post_id > 0 );
+
+		// Set pos to first post
+		global $blog_id, $post;
+		$blog_id = get_current_blog_id();
+		$post = get_post( $post_id );
+
+		$url = $book::get( 'next' );
+		$this->assertContains( 'example.org/', $url );
+		$post_id = $book::get( 'next', true );
+		$this->assertTrue( is_integer( $post_id ) );
+		$this->assertTrue( $post_id > 0 );
+	}
+
 }
