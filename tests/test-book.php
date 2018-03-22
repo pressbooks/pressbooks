@@ -198,10 +198,13 @@ class BookTest extends \WP_UnitTestCase {
 		$this->_book();
 		$book = \Pressbooks\Book::getInstance();
 
+		// Front End Mode
+
 		$url_1 = $book::getFirst();
 		$this->assertContains( 'example.org/', $url_1 );
 		$post_id = $book::getFirst( true );
 		$this->assertTrue( is_integer( $post_id ) );
+		$this->assertTrue( $post_id > 0 );
 
 		$url_2 = $book::get( 'first' );
 		$this->assertEquals( $url_2, $url_1 );
@@ -217,6 +220,35 @@ class BookTest extends \WP_UnitTestCase {
 		$url = $book::get( 'next' );
 		$this->assertContains( 'example.org/', $url );
 		$post_id = $book::get( 'next', true );
+		$this->assertTrue( is_integer( $post_id ) );
+		$this->assertTrue( $post_id > 0 );
+
+		// Admin Mode
+
+		$user_id = $this->factory()->user->create( [ 'role' => 'author' ] );
+		wp_set_current_user( $user_id );
+
+		$post_id = $book::getFirst( true, true );
+		$this->assertEquals( 0, $post_id );
+		$post_id = $book::get( 'next', true, true );
+		$this->assertEquals( 0, $post_id );
+
+		$user_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+		wp_set_current_user( $user_id );
+
+		$url = $book::getFirst( false, true);
+		$this->assertContains( 'example.org/', $url );
+		$post_id = $book::getFirst( true, true );
+		$this->assertTrue( is_integer( $post_id ) );
+		$this->assertTrue( $post_id > 0 );
+
+		global $blog_id, $post;
+		$blog_id = get_current_blog_id();
+		$post = get_post( $post_id );
+
+		$url = $book::get( 'next', false, true );
+		$this->assertContains( 'example.org/', $url );
+		$post_id = $book::get( 'next', true, true );
 		$this->assertTrue( is_integer( $post_id ) );
 		$this->assertTrue( $post_id > 0 );
 	}

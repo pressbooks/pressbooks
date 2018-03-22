@@ -8,6 +8,12 @@
 
 namespace Pressbooks\Admin\Laf;
 
+use Pressbooks\Admin\ExportOptions;
+use Pressbooks\Admin\Network\SharingAndPrivacyOptions;
+use Pressbooks\Admin\PublishOptions;
+use Pressbooks\Book;
+use Pressbooks\Cloner;
+use Pressbooks\Metadata;
 use PressbooksMix\Assets;
 
 /**
@@ -160,7 +166,7 @@ function replace_book_admin_menu() {
 	add_submenu_page( 'pb_organize', __( 'Trash' ), __( 'Trash' ), 'delete_posts', 'pb_trash', __NAMESPACE__ . '\display_trash' );
 
 	// Book Information
-	$metadata = new \Pressbooks\Metadata();
+	$metadata = new Metadata();
 	$meta = $metadata->getMetaPost();
 	if ( ! empty( $meta ) ) {
 		$book_info_url = 'post.php?post=' . absint( $meta->ID ) . '&action=edit';
@@ -201,8 +207,8 @@ function replace_book_admin_menu() {
 	);
 
 	// Publish
-	$option = get_option( 'pressbooks_ecommerce_links', \Pressbooks\Admin\PublishOptions::getDefaults() );
-	$page = new \Pressbooks\Admin\PublishOptions( $option );
+	$option = get_option( 'pressbooks_ecommerce_links', PublishOptions::getDefaults() );
+	$page = new PublishOptions( $option );
 	$page->init();
 	wp_cache_delete( 'pressbooks_ecommerce_links_version', 'options' );
 	$version = get_option( 'pressbooks_ecommerce_links_version', 0 );
@@ -217,8 +223,8 @@ function replace_book_admin_menu() {
 	add_options_page( __( 'Sharing and Privacy Settings', 'pressbooks' ), __( 'Sharing &amp; Privacy', 'pressbooks' ), 'manage_options', 'pressbooks_sharingandprivacy_options', __NAMESPACE__ . '\display_privacy_settings' );
 
 	// Export
-	$option = get_option( 'pressbooks_export_options', \Pressbooks\Admin\ExportOptions::getDefaults() );
-	$page = new \Pressbooks\Admin\ExportOptions( $option );
+	$option = get_option( 'pressbooks_export_options', ExportOptions::getDefaults() );
+	$page = new ExportOptions( $option );
 	$page->init();
 	wp_cache_delete( 'pressbooks_export_options_version', 'options' );
 	$version = get_option( 'pressbooks_export_options_version', 0 );
@@ -240,7 +246,7 @@ function replace_book_admin_menu() {
 	);
 
 	// Clone a Book
-	if ( \Pressbooks\Cloner::isEnabled() ) {
+	if ( Cloner::isEnabled() ) {
 		$cloner_page = add_submenu_page( 'options.php', __( 'Clone a Book', 'pressbooks' ), __( 'Clone a Book', 'pressbooks' ), 'edit_posts', 'pb_cloner', __NAMESPACE__ . '\display_cloner' );
 		add_action(
 			'admin_enqueue_scripts', function ( $hook ) use ( $cloner_page ) {
@@ -264,7 +270,7 @@ function replace_book_admin_menu() {
  * return array
  */
 function reorder_book_admin_menu() {
-	$metadata = new \Pressbooks\Metadata();
+	$metadata = new Metadata();
 	$book_info_url = ( ! empty( $metadata->getMetaPost() ) ) ?
 		'post.php?post=' . $metadata->getMetaPost()->ID . '&action=edit' :
 		'post-new.php?post_type=metadata';
@@ -313,8 +319,8 @@ function fix_parent_file( $file ) {
 }
 
 function network_admin_menu() {
-	$option = get_site_option( 'pressbooks_sharingandprivacy_options', \Pressbooks\Admin\Network\SharingAndPrivacyOptions::getDefaults() );
-	$page = new \Pressbooks\Admin\Network\SharingAndPrivacyOptions( $option );
+	$option = get_site_option( 'pressbooks_sharingandprivacy_options', SharingAndPrivacyOptions::getDefaults() );
+	$page = new SharingAndPrivacyOptions( $option );
 	$page->init();
 	$version = get_site_option( 'pressbooks_sharingandprivacy_options_version', 0 );
 	if ( $version < $page::VERSION ) {
@@ -503,9 +509,9 @@ function replace_menu_bar_my_sites( $wp_admin_bar ) {
 	);
 
 	// Cloner
-	if ( \Pressbooks\Cloner::isEnabled() ) {
+	if ( Cloner::isEnabled() ) {
 		$href = false;
-		if ( ! \Pressbooks\Book::isBook() ) {
+		if ( ! Book::isBook() ) {
 			// Find a book
 			$blogs = get_blogs_of_user( get_current_user_id() );
 			foreach ( $blogs as $blog ) {
@@ -1125,6 +1131,27 @@ function sites_to_books( $translated_text, $untranslated_text, $domain ) {
 	return $translated_text;
 }
 
-function edit_screen_navigation() {
+/**
+ * @param \WP_Post $post Post object.
+ */
+function edit_screen_navigation( $post ) {
+	global $pagenow;
+	if ( 'post.php' === $pagenow && in_array( $post->post_type, [ 'front-matter', 'part', 'chapter', 'back-matter' ], true ) ) {
+		// We're in the edit screen (not the new post screen because we don't know the position of a new post)
+		echo '<div id="pb-edit-screen-navivgation">';
 
+		$prev_id = Book::get( 'prev', true, true );
+		if ( $prev_id ) {
+			$prev_url = admin_url( 'post.php?post=' . $prev_id . '&action=edit' );
+			echo "<a href='{$prev_url}' class='page-title-action'>" . __( 'Edit Previous Section', 'pressbooks' ) . '</a>';
+		}
+
+		$next_id = Book::get( 'next', true, true );
+		if ( $next_id ) {
+			$next_url = admin_url( 'post.php?post=' . $next_id . '&action=edit' );
+			echo "<a href='{$next_url}' class='page-title-action'>" . __( 'Edit Next Section', 'pressbooks' ) . '</a>';
+		}
+
+		echo '</div>';
+	}
 }

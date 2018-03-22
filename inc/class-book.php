@@ -613,13 +613,14 @@ class Book {
 	 *
 	 * @param string $what prev, next or first
 	 * @param bool $return_post_id (optional)
+	 * @param bool $admin_mode (optional)
 	 *
 	 * @return mixed URL of requested post, or Post ID if $return_post_id is set to true
 	 */
-	static function get( $what = 'next', $return_post_id = false ) {
+	static function get( $what = 'next', $return_post_id = false, $admin_mode = false ) {
 
 		if ( 'first' === $what ) {
-			return static::getFirst( $return_post_id );
+			return static::getFirst( $return_post_id, $admin_mode );
 		}
 
 		global $blog_id;
@@ -636,7 +637,7 @@ class Book {
 		// Move internal pointer to correct position
 		reset( $pos );
 		while ( $find_me = current( $pos ) ) {
-			if ( $find_me === $current_post_id ) {
+			if ( (int) $find_me === (int) $current_post_id ) {
 				break;
 			} else {
 				next( $pos );
@@ -646,14 +647,22 @@ class Book {
 		// Get next/previous
 		$what( $pos );
 		while ( $post_id = current( $pos ) ) {
-			if ( in_array( $order[ $post_id ]['post_status'], [ 'publish', 'web-only' ], true ) ) {
-				break;
-			} elseif ( current_user_can_for_blog( $blog_id, 'read_private_posts' ) ) {
-				break;
-			} elseif ( get_option( 'permissive_private_content' ) && current_user_can_for_blog( $blog_id, 'read' ) ) {
-				break;
+			if ( $admin_mode ) {
+				if ( current_user_can( 'edit_post', $post_id ) ) {
+					break;
+				} else {
+					$what( $pos );
+				}
 			} else {
-				$what( $pos );
+				if ( in_array( $order[ $post_id ]['post_status'], [ 'publish', 'web-only' ], true ) ) {
+					break;
+				} elseif ( current_user_can_for_blog( $blog_id, 'read_private_posts' ) ) {
+					break;
+				} elseif ( get_option( 'permissive_private_content' ) && current_user_can_for_blog( $blog_id, 'read' ) ) {
+					break;
+				} else {
+					$what( $pos );
+				}
 			}
 		}
 
@@ -669,10 +678,11 @@ class Book {
 	 * Select the very first post in a book. May be a chapter or a front matter post
 	 *
 	 * @param bool $return_post_id (optional)
+	 * @param bool $admin_mode (optional)
 	 *
 	 * @return mixed URL of first post, or Post ID if $return_post_id is set to true
 	 */
-	static function getFirst( $return_post_id = false ) {
+	static function getFirst( $return_post_id = false, $admin_mode = false ) {
 
 		global $blog_id;
 
@@ -682,14 +692,22 @@ class Book {
 
 		reset( $pos );
 		while ( $first_id = current( $pos ) ) {
-			if ( 'publish' === $order[ $first_id ]['post_status'] ) {
-				break;
-			} elseif ( current_user_can_for_blog( $blog_id, 'read_private_posts' ) ) {
-				break;
-			} elseif ( get_option( 'permissive_private_content' ) && current_user_can_for_blog( $blog_id, 'read' ) ) {
-				break;
+			if ( $admin_mode ) {
+				if ( current_user_can( 'edit_post', $first_id ) ) {
+					break;
+				} else {
+					next( $pos );
+				}
 			} else {
-				next( $pos );
+				if ( in_array( $order[ $first_id ]['post_status'], [ 'publish', 'web-only' ], true ) ) {
+					break;
+				} elseif ( current_user_can_for_blog( $blog_id, 'read_private_posts' ) ) {
+					break;
+				} elseif ( get_option( 'permissive_private_content' ) && current_user_can_for_blog( $blog_id, 'read' ) ) {
+					break;
+				} else {
+					next( $pos );
+				}
 			}
 		}
 

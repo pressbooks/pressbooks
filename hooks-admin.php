@@ -93,7 +93,7 @@ add_action( 'gettext', '\Pressbooks\Admin\Laf\sites_to_books', 3, 20 );
 add_action( 'admin_init', '\Pressbooks\Admin\Laf\init_css_js' );
 
 // Hacks
-
+add_action( 'edit_form_top', '\Pressbooks\Admin\Laf\edit_screen_navigation' );
 
 // Google Analytics
 add_action( 'network_admin_menu', '\Pressbooks\Admin\Analytics\add_network_menu' );
