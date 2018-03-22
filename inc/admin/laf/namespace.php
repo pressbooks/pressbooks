@@ -671,15 +671,6 @@ function remove_menu_bar_new_content( $wp_admin_bar ) {
 
 
 /**
- * Edit form hacks
- */
-function edit_form_hacks() {
-	default_meta_checkboxes();
-	transform_category_selection_box();
-}
-
-
-/**
  * @param \WP_Customize_Manager $wp_customize
  *
  * @see http://codex.wordpress.org/Plugin_API/Action_Reference/customize_register
@@ -690,51 +681,8 @@ function customize_register( $wp_customize ) {
 
 
 /**
- * Default selections for checkboxes created by custom_metadata class.
+ * @return string
  */
-function default_meta_checkboxes() {
-
-	global $pagenow;
-	if ( 'post-new.php' === $pagenow ) {
-		?>
-		<script type="text/javascript">
-			jQuery('#pb_export').attr('checked', 'checked');
-			jQuery('#pb_show_title').attr('checked', 'checked');
-		</script>
-		<?php
-	}
-}
-
-
-/**
- * Transforms the category selection meta box from checkboxes to radio buttons to ensure only one item
- */
-function transform_category_selection_box() {
-	global $pagenow, $typenow;
-
-	if ( in_array( $pagenow, [ 'post-new.php' ], true ) ) {
-		switch ( $typenow ) {
-			case 'chapter':
-				$term = get_term_by( 'slug', 'standard', 'chapter-type' );
-				break;
-			case 'front-matter':
-				$term = get_term_by( 'slug', 'miscellaneous', 'front-matter-type' );
-				break;
-			case 'back-matter':
-				$term = get_term_by( 'slug', 'miscellaneous', 'back-matter-type' );
-				break;
-		}
-	}
-
-	if ( isset( $term ) ) {
-		printf(
-			"<script type='text/javascript'>jQuery('select#%s-typedropdown').val('%d');</script>",
-			$typenow,
-			$term->term_id
-		);
-	}
-}
-
 function disable_customizer() {
 	return 'no-customize-support';
 }
@@ -1175,4 +1123,8 @@ function sites_to_books( $translated_text, $untranslated_text, $domain ) {
 	}
 
 	return $translated_text;
+}
+
+function edit_screen_navigation() {
+
 }
