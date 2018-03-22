@@ -79,9 +79,9 @@ class Admin_LafsTest extends \WP_UnitTestCase {
 		\Pressbooks\Admin\Laf\edit_screen_navigation( $post );
 		$buffer = ob_get_clean();
 
-		$this->assertContains( '<div id="pb-edit-screen-navivgation">', $buffer );
+		$this->assertContains( '<nav id="pb-edit-screen-navigation" role="navigation"', $buffer );
 		$this->assertContains( '<a href', $buffer );
-		$this->assertContains( 'Previous', $buffer );
-		$this->assertContains( 'Next', $buffer );
+		$this->assertContains( 'Edit Previous', $buffer );
+		$this->assertContains( 'Edit Next', $buffer );
 	}
 }

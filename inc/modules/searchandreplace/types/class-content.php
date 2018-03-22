@@ -6,6 +6,8 @@
 
 namespace Pressbooks\Modules\SearchAndReplace\Types;
 
+use function Pressbooks\PostType\get_post_type_label;
+
 class Content extends \Pressbooks\Modules\SearchAndReplace\Search {
 
 	/**
@@ -63,21 +65,7 @@ class Content extends \Pressbooks\Modules\SearchAndReplace\Search {
 	 * @param object $result
 	 */
 	function show( $result ) {
-		$type = '';
-		switch ( get_post_type( $result->id ) ) :
-			case 'part':
-				$type = __( 'Part', 'pressbooks' );
-				break;
-			case 'chapter':
-				$type = __( 'Chapter', 'pressbooks' );
-				break;
-			case 'front-matter':
-				$type = __( 'Front Matter', 'pressbooks' );
-				break;
-			case 'back-matter':
-				$type = __( 'Back Matter', 'pressbooks' );
-				break;
-		endswitch;
+		$type = get_post_type_label( get_post_type( $result->id ) );
 		printf( __( '%1$s ID #%2$d: %3$s', 'pressbooks' ), $type, $result->id, $result->title );
 	}
 

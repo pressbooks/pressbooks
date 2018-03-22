@@ -15,6 +15,7 @@ use Pressbooks\Book;
 use Pressbooks\Cloner;
 use Pressbooks\Metadata;
 use PressbooksMix\Assets;
+use function Pressbooks\PostType\get_post_type_label;
 
 /**
  * Add a custom message in admin footer
@@ -1132,26 +1133,28 @@ function sites_to_books( $translated_text, $untranslated_text, $domain ) {
 }
 
 /**
+ * @since 5.2.0
+ *
  * @param \WP_Post $post Post object.
  */
 function edit_screen_navigation( $post ) {
 	global $pagenow;
 	if ( 'post.php' === $pagenow && in_array( $post->post_type, [ 'front-matter', 'part', 'chapter', 'back-matter' ], true ) ) {
 		// We're in the edit screen (not the new post screen because we don't know the position of a new post)
-		echo '<div id="pb-edit-screen-navivgation">';
+		echo sprintf( '<nav id="pb-edit-screen-navigation" role="navigation" aria-label="%s">', __( 'Edit previous or next item', 'pressbooks' ) );
 
 		$prev_id = Book::get( 'prev', true, true );
 		if ( $prev_id ) {
 			$prev_url = admin_url( 'post.php?post=' . $prev_id . '&action=edit' );
-			echo "<a href='{$prev_url}' class='page-title-action'>" . __( 'Edit Previous Section', 'pressbooks' ) . '</a>';
+			echo "<a href='{$prev_url}' rel='previous'><span aria-hidden='true'>&larr;</span> " . sprintf( __( 'Edit Previous (%s)', 'pressbooks' ), get_post_type_label( get_post_type( $prev_id ) ) ) . '</a>';
 		}
 
 		$next_id = Book::get( 'next', true, true );
 		if ( $next_id ) {
 			$next_url = admin_url( 'post.php?post=' . $next_id . '&action=edit' );
-			echo "<a href='{$next_url}' class='page-title-action'>" . __( 'Edit Next Section', 'pressbooks' ) . '</a>';
+			echo "<a href='{$next_url}' rel='next'>" . sprintf( __( 'Edit Next (%s)', 'pressbooks' ), get_post_type_label( get_post_type( $next_id ) ) ) . ' <span aria-hidden="true">&rarr;</span></a>';
 		}
 
-		echo '</div>';
+		echo '</nav>';
 	}
 }
