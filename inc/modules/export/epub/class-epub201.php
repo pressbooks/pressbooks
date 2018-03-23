@@ -2269,7 +2269,11 @@ class Epub201 extends Export {
 
 		$found = [];
 		foreach ( $lookup['__order'] as $post_id => $val ) {
-			if ( $val['post_type'] === $posttype && $val['post_name'] === $slug ) {
+			if (
+				$val['post_type'] === $posttype &&
+				$val['post_name'] === $slug &&
+				$val['export']
+			) {
 				$found = array_merge( [ 'ID' => $post_id ], $val ); // @codingStandardsIgnoreLine
 			}
 		}
