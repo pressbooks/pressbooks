@@ -5,7 +5,7 @@ Tags: ebooks, publishing, webbooks
 Requires at least: 4.9.4
 Tested up to: 4.9.4
 Requires PHP: 7.0
-Stable tag: 5.1.0
+Stable tag: 5.1.1
 License: GPL v3.0 or later
 License URI: https://github.com/pressbooks/pressbooks/blob/master/LICENSE.md
 
@@ -21,6 +21,25 @@ For installation instructions, visit [docs.pressbooks.org/installation](https://
 TK.
 
 == Changelog ==
+= 5.1.1 =
+**NOTICE:** Pressbooks 5.1.1 requires [WordPress 4.9.4](https://wordpress.org/news/2018/02/wordpress-4-9-4-maintenance-release/).
+**NOTICE:** Pressbooks 5.1.1 requires [McLuhan 2.1.0](https://github.com/pressbooks/pressbooks-book/).
+**NOTICE:** Pressbooks 5.1.1 requires that users of the Luther book theme install and network activate the standalone [Luther theme](https://github.com/pressbooks/pressbooks-luther/) _before_ upgrading to Pressbooks 5.0. For more information, see the [upgrading instructions](https://docs.pressbooks.org/upgrading/#upgrading-to-pressbooks-5-x).
+
+**Patches**
+
+- Fix some bugs in the `Book::get()` method: [6da412c](https://github.com/pressbooks/pressbooks/commit/6da412c)
+- Fix an issue where network administers were not able to clone a restrictively-licensed book within their own network ([#1157](https://github.com/pressbooks/pressbooks/issues/1157)): [#1162](https://github.com/pressbooks/pressbooks/issues/1162)
+- Add support for WordPress `[audio]` and `[video]` source parameters other than `src` ([#1159](https://github.com/pressbooks/pressbooks/issues/1159), props to [Michael Shiflet](https://discourse.pressbooks.org/u/shiflet.16/) on [Discourse](https://discourse.pressbooks.org/t/shortcode-and-fallbacks/439) for reporting): [#1161](https://github.com/pressbooks/pressbooks/issues/1161)
+- Ensure that fallback webbook content styles are generated for books using the deprecated Custom CSS theme: [#1160](https://github.com/pressbooks/pressbooks/issues/1160)
+- Add revisions support to parts (props to [Naomi Salmon](https://discourse.pressbooks.org/u/Naomi_Salmon) on [Discourse](https://discourse.pressbooks.org/t/revision-history-in-parts/440) for reporting): [#1158](https://github.com/pressbooks/pressbooks/issues/1158)
+- Fix an uncaught exception ("Mismatch between length of FootnoteReference array number of footnotes available") when importing Word documents: [#1156](https://github.com/pressbooks/pressbooks/issues/1156)
+- Fix a fatal error ("Too many open files") when exporting books with lots of images to EPUB: [#1155](https://github.com/pressbooks/pressbooks/issues/1155)
+- Update Pressbooks CLI to 1.8.0: [#1154](https://github.com/pressbooks/pressbooks/issues/1154)
+- Fix an issue where importing HTML would result in an empty chapter ([#1148](https://github.com/pressbooks/pressbooks/issues/1148), props to [@josieg](https://github.com/josieg) for reporting): [#1153](https://github.com/pressbooks/pressbooks/issues/1153)
+- Fix a notice ("Undefined index: css in pb-latex.php on line 98") when visiting the webbook of a freshly cloned book: [#1147](https://github.com/pressbooks/pressbooks/issues/1147)
+
+= 5.1.0 =
 **NOTICE:** Pressbooks 5.1.0 requires [WordPress 4.9.4](https://wordpress.org/news/2018/02/wordpress-4-9-4-maintenance-release/).
 **NOTICE:** Pressbooks 5.1.0 requires [McLuhan 2.1.0](https://github.com/pressbooks/pressbooks-book/).
 **NOTICE:** Pressbooks 5.1.0 requires that users of the Luther book theme install and network activate the standalone [Luther theme](https://github.com/pressbooks/pressbooks-luther/) _before_ upgrading to Pressbooks 5.0. For more information, see the [upgrading instructions](https://docs.pressbooks.org/upgrading/#upgrading-to-pressbooks-5-x).
@@ -866,8 +885,8 @@ The Pressbooks command line interface is now part of Pressbooks. Want to make yo
 * Ebook theme option to skip line between paragraphs is now honored in all themes.
 
 == Upgrade Notice ==
-= 5.1.0 =
+= 5.1.1 =
 
-Pressbooks 5.1.0 requires [WordPress 4.9.4](https://wordpress.org/news/2018/02/wordpress-4-9-4-maintenance-release/).
-Pressbooks 5.1.0 requires [McLuhan 2.1.0](https://github.com/pressbooks/pressbooks-book/).
-Pressbooks 5.1.0 requires that users of the Luther book theme install and network activate the standalone [Luther theme](https://github.com/pressbooks/pressbooks-luther/) _before_ upgrading to Pressbooks 5.0. For more information, see the [upgrading instructions](https://docs.pressbooks.org/upgrading/#upgrading-to-pressbooks-5-x).
+Pressbooks 5.1.1 requires [WordPress 4.9.4](https://wordpress.org/news/2018/02/wordpress-4-9-4-maintenance-release/).
+Pressbooks 5.1.1 requires [McLuhan 2.1.0](https://github.com/pressbooks/pressbooks-book/).
+Pressbooks 5.1.1 requires that users of the Luther book theme install and network activate the standalone [Luther theme](https://github.com/pressbooks/pressbooks-luther/) _before_ upgrading to Pressbooks 5.0. For more information, see the [upgrading instructions](https://docs.pressbooks.org/upgrading/#upgrading-to-pressbooks-5-x).
