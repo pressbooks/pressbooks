@@ -7,7 +7,8 @@ use function \Pressbooks\PostType\{
 	register_post_statii,
 	add_post_types_rss,
 	add_posttypes_to_hypothesis,
-	can_export
+	can_export,
+	get_post_type_label
 };
 
 class PostTypeTest extends \WP_UnitTestCase {
@@ -95,4 +96,12 @@ class PostTypeTest extends \WP_UnitTestCase {
 		$this->assertFalse( can_export( $pid ) );
 	}
 
+	function test_get_post_type_label() {
+		$this->assertFalse( get_post_type_label( 'junk-post-type' ) );
+		$this->assertEquals( get_post_type_label( 'metadata' ), 'Book Information' );
+		$this->assertEquals( get_post_type_label( 'part' ), 'Part' );
+		$this->assertEquals( get_post_type_label( 'front-matter' ), 'Front Matter' );
+		$this->assertEquals( get_post_type_label( 'back-matter' ), 'Back Matter' );
+		$this->assertEquals( get_post_type_label( 'chapter' ), 'Chapter' );
+	}
 }

@@ -61,4 +61,27 @@ class Admin_LafsTest extends \WP_UnitTestCase {
 		$result = \Pressbooks\Admin\Laf\sites_to_books( __( 'Sites' ), 'Sites', '' );
 		$this->assertEquals( 'Books', $result );
 	}
+
+	function test_edit_screen_navigation() {
+
+		$this->_book();
+
+		// Mock
+		global $post, $pagenow;
+		$pid1 = \Pressbooks\Book::getFirst( true );
+		$post = get_post( $pid1 );
+		$pid2 = \Pressbooks\Book::get( 'next', true );
+		$post = get_post( $pid2 );
+		$pagenow = 'post.php';
+		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
+
+		ob_start();
+		\Pressbooks\Admin\Laf\edit_screen_navigation( $post );
+		$buffer = ob_get_clean();
+
+		$this->assertContains( '<nav id="pb-edit-screen-navigation" role="navigation"', $buffer );
+		$this->assertContains( '<a href', $buffer );
+		$this->assertContains( 'Edit Previous', $buffer );
+		$this->assertContains( 'Edit Next', $buffer );
+	}
 }

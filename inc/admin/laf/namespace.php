@@ -8,7 +8,14 @@
 
 namespace Pressbooks\Admin\Laf;
 
+use Pressbooks\Admin\ExportOptions;
+use Pressbooks\Admin\Network\SharingAndPrivacyOptions;
+use Pressbooks\Admin\PublishOptions;
+use Pressbooks\Book;
+use Pressbooks\Cloner;
+use Pressbooks\Metadata;
 use PressbooksMix\Assets;
+use function Pressbooks\PostType\get_post_type_label;
 
 /**
  * Add a custom message in admin footer
@@ -160,7 +167,7 @@ function replace_book_admin_menu() {
 	add_submenu_page( 'pb_organize', __( 'Trash' ), __( 'Trash' ), 'delete_posts', 'pb_trash', __NAMESPACE__ . '\display_trash' );
 
 	// Book Information
-	$metadata = new \Pressbooks\Metadata();
+	$metadata = new Metadata();
 	$meta = $metadata->getMetaPost();
 	if ( ! empty( $meta ) ) {
 		$book_info_url = 'post.php?post=' . absint( $meta->ID ) . '&action=edit';
@@ -201,8 +208,8 @@ function replace_book_admin_menu() {
 	);
 
 	// Publish
-	$option = get_option( 'pressbooks_ecommerce_links', \Pressbooks\Admin\PublishOptions::getDefaults() );
-	$page = new \Pressbooks\Admin\PublishOptions( $option );
+	$option = get_option( 'pressbooks_ecommerce_links', PublishOptions::getDefaults() );
+	$page = new PublishOptions( $option );
 	$page->init();
 	wp_cache_delete( 'pressbooks_ecommerce_links_version', 'options' );
 	$version = get_option( 'pressbooks_ecommerce_links_version', 0 );
@@ -217,8 +224,8 @@ function replace_book_admin_menu() {
 	add_options_page( __( 'Sharing and Privacy Settings', 'pressbooks' ), __( 'Sharing &amp; Privacy', 'pressbooks' ), 'manage_options', 'pressbooks_sharingandprivacy_options', __NAMESPACE__ . '\display_privacy_settings' );
 
 	// Export
-	$option = get_option( 'pressbooks_export_options', \Pressbooks\Admin\ExportOptions::getDefaults() );
-	$page = new \Pressbooks\Admin\ExportOptions( $option );
+	$option = get_option( 'pressbooks_export_options', ExportOptions::getDefaults() );
+	$page = new ExportOptions( $option );
 	$page->init();
 	wp_cache_delete( 'pressbooks_export_options_version', 'options' );
 	$version = get_option( 'pressbooks_export_options_version', 0 );
@@ -240,7 +247,7 @@ function replace_book_admin_menu() {
 	);
 
 	// Clone a Book
-	if ( \Pressbooks\Cloner::isEnabled() ) {
+	if ( Cloner::isEnabled() ) {
 		$cloner_page = add_submenu_page( 'options.php', __( 'Clone a Book', 'pressbooks' ), __( 'Clone a Book', 'pressbooks' ), 'edit_posts', 'pb_cloner', __NAMESPACE__ . '\display_cloner' );
 		add_action(
 			'admin_enqueue_scripts', function ( $hook ) use ( $cloner_page ) {
@@ -264,7 +271,7 @@ function replace_book_admin_menu() {
  * return array
  */
 function reorder_book_admin_menu() {
-	$metadata = new \Pressbooks\Metadata();
+	$metadata = new Metadata();
 	$book_info_url = ( ! empty( $metadata->getMetaPost() ) ) ?
 		'post.php?post=' . $metadata->getMetaPost()->ID . '&action=edit' :
 		'post-new.php?post_type=metadata';
@@ -313,8 +320,8 @@ function fix_parent_file( $file ) {
 }
 
 function network_admin_menu() {
-	$option = get_site_option( 'pressbooks_sharingandprivacy_options', \Pressbooks\Admin\Network\SharingAndPrivacyOptions::getDefaults() );
-	$page = new \Pressbooks\Admin\Network\SharingAndPrivacyOptions( $option );
+	$option = get_site_option( 'pressbooks_sharingandprivacy_options', SharingAndPrivacyOptions::getDefaults() );
+	$page = new SharingAndPrivacyOptions( $option );
 	$page->init();
 	$version = get_site_option( 'pressbooks_sharingandprivacy_options_version', 0 );
 	if ( $version < $page::VERSION ) {
@@ -503,9 +510,9 @@ function replace_menu_bar_my_sites( $wp_admin_bar ) {
 	);
 
 	// Cloner
-	if ( \Pressbooks\Cloner::isEnabled() ) {
+	if ( Cloner::isEnabled() ) {
 		$href = false;
-		if ( ! \Pressbooks\Book::isBook() ) {
+		if ( ! Book::isBook() ) {
 			// Find a book
 			$blogs = get_blogs_of_user( get_current_user_id() );
 			foreach ( $blogs as $blog ) {
@@ -671,15 +678,6 @@ function remove_menu_bar_new_content( $wp_admin_bar ) {
 
 
 /**
- * Edit form hacks
- */
-function edit_form_hacks() {
-	default_meta_checkboxes();
-	transform_category_selection_box();
-}
-
-
-/**
  * @param \WP_Customize_Manager $wp_customize
  *
  * @see http://codex.wordpress.org/Plugin_API/Action_Reference/customize_register
@@ -690,51 +688,8 @@ function customize_register( $wp_customize ) {
 
 
 /**
- * Default selections for checkboxes created by custom_metadata class.
+ * @return string
  */
-function default_meta_checkboxes() {
-
-	global $pagenow;
-	if ( 'post-new.php' === $pagenow ) {
-		?>
-		<script type="text/javascript">
-			jQuery('#pb_export').attr('checked', 'checked');
-			jQuery('#pb_show_title').attr('checked', 'checked');
-		</script>
-		<?php
-	}
-}
-
-
-/**
- * Transforms the category selection meta box from checkboxes to radio buttons to ensure only one item
- */
-function transform_category_selection_box() {
-	global $pagenow, $typenow;
-
-	if ( in_array( $pagenow, [ 'post-new.php' ], true ) ) {
-		switch ( $typenow ) {
-			case 'chapter':
-				$term = get_term_by( 'slug', 'standard', 'chapter-type' );
-				break;
-			case 'front-matter':
-				$term = get_term_by( 'slug', 'miscellaneous', 'front-matter-type' );
-				break;
-			case 'back-matter':
-				$term = get_term_by( 'slug', 'miscellaneous', 'back-matter-type' );
-				break;
-		}
-	}
-
-	if ( isset( $term ) ) {
-		printf(
-			"<script type='text/javascript'>jQuery('select#%s-typedropdown').val('%d');</script>",
-			$typenow,
-			$term->term_id
-		);
-	}
-}
-
 function disable_customizer() {
 	return 'no-customize-support';
 }
@@ -1175,4 +1130,30 @@ function sites_to_books( $translated_text, $untranslated_text, $domain ) {
 	}
 
 	return $translated_text;
+}
+
+/**
+ * @since 5.2.0
+ *
+ * @param \WP_Post $post Post object.
+ */
+function edit_screen_navigation( $post ) {
+	global $pagenow;
+	if ( 'post.php' === $pagenow && in_array( $post->post_type, [ 'front-matter', 'part', 'chapter', 'back-matter' ], true ) ) {
+		// We're in the edit screen (not the new post screen because we don't know the position of a new post)
+		echo sprintf( '<nav id="pb-edit-screen-navigation" role="navigation" aria-label="%s">', __( 'Edit previous or next item', 'pressbooks' ) );
+
+		$prev_id = Book::get( 'prev', true, true );
+		if ( $prev_id ) {
+			$prev_url = admin_url( 'post.php?post=' . $prev_id . '&action=edit' );
+			echo "<a href='{$prev_url}' rel='previous'><span aria-hidden='true'>&larr;</span> " . sprintf( __( 'Edit Previous (%s)', 'pressbooks' ), get_post_type_label( get_post_type( $prev_id ) ) ) . '</a>';
+		}
+		$next_id = Book::get( 'next', true, true );
+		if ( $next_id ) {
+			$next_url = admin_url( 'post.php?post=' . $next_id . '&action=edit' );
+			echo "<a href='{$next_url}' rel='next'>" . sprintf( __( 'Edit Next (%s)', 'pressbooks' ), get_post_type_label( get_post_type( $next_id ) ) ) . ' <span aria-hidden="true">&rarr;</span></a>';
+		}
+
+		echo '</nav>';
+	}
 }
