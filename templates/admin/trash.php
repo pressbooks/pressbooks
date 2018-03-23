@@ -1,5 +1,7 @@
 <?php
 
+use function Pressbooks\PostType\get_post_type_label;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -45,20 +47,7 @@ $results = ( new \WP_Query() )->query( $args );
 				echo '<tr>';
 				$post_type_object = get_post_type_object( $post->post_type );
 				$title = esc_html( empty( $post->post_title ) ? __( '(no title)' ) : $post->post_title );
-				switch ( $post->post_type ) {
-					case 'front-matter':
-						$type = __( 'Front Matter', 'pressbooks' );
-						break;
-					case 'part':
-						$type = __( 'Part', 'pressbooks' );
-						break;
-					case 'chapter':
-						$type = __( 'Chapter', 'pressbooks' );
-						break;
-					case 'back-matter':
-						$type = __( 'Back Matter', 'pressbooks' );
-						break;
-				}
+				$type = get_post_type_label( $post->post_type );
 				$date = $post->post_modified;
 				echo "<td>{$title}</td>";
 				echo "<td>{$date}</td>";
