@@ -241,24 +241,20 @@ i.mce-i-icon {
   }
 }
 
-#pb-edit-screen-navigation ul {
-  display: grid;
-  grid-template-columns: 50% 50%;
-  margin: 0;
+#pb-edit-screen-navigation [rel="previous"],
+#pb-edit-screen-navigation [rel="next"] {
+  display: inline-block;
+  margin-bottom: 10px;
 }
 
-#pb-edit-screen-navigation li {
-  margin-bottom: 0;
+#pb-edit-screen-navigation [rel="previous"] {
+  float: left;
 }
 
-#pb-edit-screen-navigation .previous {
-  grid-column: 1;
+#pb-edit-screen-navigation [rel="next"] {
+  float: right;
 }
 
-#pb-edit-screen-navigation .next {
-  grid-column: 2;
-  text-align: right;
-}
 
 /*!
  * WordPress CSS Spinner
