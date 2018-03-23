@@ -369,6 +369,8 @@ abstract class Options {
 	}
 
 	/**
+	 * @since 5.2.0
+	 *
 	 * @param string $option name of the updated option.
 	 */
 	static function deleteCacheAfterUpdate( $option ) {

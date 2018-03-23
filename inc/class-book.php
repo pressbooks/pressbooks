@@ -713,6 +713,8 @@ class Book {
 	}
 
 	/**
+	 * @since 5.2.0
+	 *
 	 * @param $post_id
 	 * @param string $type_of (optional) webbook, exports
 	 *
