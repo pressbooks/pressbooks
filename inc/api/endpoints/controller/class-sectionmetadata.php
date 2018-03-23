@@ -458,7 +458,7 @@ class SectionMetadata extends \WP_REST_Controller {
 		$section_meta = get_post_meta( $post_id, '', true );
 		$section_meta['pb_title'] = get_the_title( $post_id );
 		if ( $this->post_type === 'chapter' ) {
-			$section_meta['pb_chapter_number'] = pb_get_chapter_number( get_post_field( 'post_name', $post_id ) );
+			$section_meta['pb_chapter_number'] = pb_get_chapter_number( $post_id );
 		}
 		foreach ( $section_meta as $key => $value ) {
 			if ( is_array( $value ) ) {

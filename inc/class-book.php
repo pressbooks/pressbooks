@@ -20,6 +20,11 @@ class Book {
 	protected static $instance;
 
 	/**
+	 * @var array
+	 */
+	protected static $__order = [];
+
+	/**
 	 * Array of preview ids
 	 *
 	 * Note: If you set this property, but also set $_REQUEST['preview'], then $_REQUEST['preview'] will override.
@@ -28,15 +33,6 @@ class Book {
 	 * @var array
 	 */
 	static $preview = [];
-
-	/**
-	 * Fix duplicate slugs.
-	 * This can happen if a post is 'draft', 'pending', or 'auto-draft'
-	 *
-	 * @see wp_unique_post_slug()
-	 * @var array
-	 */
-	static $fixDupeSlugs = [];
 
 	/**
 	 * @return Book
@@ -266,18 +262,21 @@ class Book {
 
 		/** @var \WP_Post $post */
 		foreach ( $results as $post ) {
+			// Fix empty slugs
+			$post_name = empty( trim( $post->post_name ) ) ? uniqid( 'slug-' ) : $post->post_name;
+
 			$book_structure[ $post->post_type ][] = [
 				'ID' => $post->ID,
 				'post_title' => $post->post_title,
-				'post_name' => static::fixSlug( $post->post_name ),
+				'post_name' => $post_name,
 				'post_author' => (int) $post->post_author,
 				'comment_count' => (int) $post->comment_count,
 				'menu_order' => $post->menu_order,
 				'post_status' => $post->post_status,
+				'post_parent' => $post->post_parent,
 				'export' => ( isset( $post_ids_to_export[ $post->ID ] ) && 'on' === $post_ids_to_export[ $post->ID ] ) ? true : false,
 				'has_post_content' => ! empty( trim( $post->post_content ) ),
 				'word_count' => \Pressbooks\Utility\word_count( $post->post_content ),
-				'post_parent' => $post->post_parent,
 			];
 		}
 
@@ -311,13 +310,10 @@ class Book {
 		$custom_types = array_diff( $custom_types, [ 'chapter' ] );
 
 		// -----------------------------------------------------------------------------
-		// Create __order and __lookup arrays, remove post_parent
+		// Create __order arrays, remove post_parent
 		// -----------------------------------------------------------------------------
 
 		$book_structure['__order'] = [];
-		$book_structure['__export_lookup'] = [];
-		$book_structure['__web_lookup'] = [];
-
 		foreach ( $custom_types as $type ) {
 			foreach ( $book_structure[ $type ] as $i => $struct ) {
 				unset( $book_structure[ $type ][ $i ]['post_parent'] );
@@ -325,18 +321,16 @@ class Book {
 					$book_structure['__order'][ $struct['ID'] ] = [
 						'export' => $struct['export'],
 						'post_status' => $struct['post_status'],
+						'post_name' => $struct['post_name'],
+						'post_type' => $type,
 					];
-					if ( $struct['export'] ) {
-						$book_structure['__export_lookup'][ $struct['post_name'] ] = $type;
-					}
-					if ( in_array( $struct['post_status'], [ 'web-only', 'publish' ], true ) ) {
-						$book_structure['__web_lookup'][ $struct['post_name'] ] = $type;
-					}
 				} else {
 					if ( $struct['has_post_content'] && get_post_meta( $struct['ID'], 'pb_part_invisible', true ) !== 'on' ) {
 						$book_structure['__order'][ $struct['ID'] ] = [
 							'export' => $struct['export'],
 							'post_status' => $struct['post_status'],
+							'post_name' => $struct['post_name'],
+							'post_type' => 'part',
 						];
 					}
 					foreach ( $struct['chapters'] as $j => $chapter ) {
@@ -345,22 +339,21 @@ class Book {
 							$book_structure['__order'][ $struct['ID'] ] = [
 								'export' => $struct['export'],
 								'post_status' => $struct['post_status'],
+								'post_name' => $struct['post_name'],
+								'post_type' => 'part',
 							];
 						}
 						$book_structure['__order'][ $chapter['ID'] ] = [
 							'export' => $chapter['export'],
 							'post_status' => $chapter['post_status'],
+							'post_name' => $chapter['post_name'],
+							'post_type' => 'chapter',
 						];
-						if ( $chapter['export'] ) {
-							$book_structure['__export_lookup'][ $chapter['post_name'] ] = 'chapter';
-						}
-						if ( in_array( $chapter['post_status'], [ 'web-only', 'publish' ], true ) ) {
-							$book_structure['__web_lookup'][ $chapter['post_name'] ] = 'chapter';
-						}
 					}
 				}
 			}
 		}
+		static::$__order = $book_structure['__order'];
 
 		// -----------------------------------------------------------------------------
 		// Cache & Return
@@ -494,8 +487,8 @@ class Book {
 		wp_cache_delete( "book-str-$blog_id", 'pb' ); // Delete the cached value for getBookStructure()
 		wp_cache_delete( "book-cnt-$blog_id", 'pb' ); // Delete the cached value for getBookContents()
 		( new Catalog() )->deleteCacheByBookId( $blog_id );
-		static::$fixDupeSlugs = [];
 		static::$preview = [];
+		static::$__order = [];
 
 		/**
 		 * @since 5.0.0
@@ -719,6 +712,60 @@ class Book {
 
 	}
 
+	/**
+	 * @since 5.2.0
+	 *
+	 * @param $post_id
+	 * @param string $type_of (optional) webbook, exports
+	 *
+	 * @return int
+	 */
+	static function getChapterNumber( $post_id, $type_of = 'webbook' ) {
+
+		if ( empty( static::$__order ) ) {
+			self::$__order = static::getBookStructure()['__order'];
+		}
+		$lookup = static::$__order;
+
+		if ( $type_of === 'webbook' ) {
+			$post_statii = [ 'web-only', 'publish' ];
+		} else {
+			$post_statii = [ 'private', 'publish' ];
+		}
+
+		// Sometimes the chapter number is zero, these are the reasons:
+		if (
+			empty( get_option( 'pressbooks_theme_options_global', [] )['chapter_numbers'] ) ||
+			empty( $lookup[ $post_id ] ) ||
+			$lookup[ $post_id ]['post_type'] !== 'chapter' ||
+			! in_array( $lookup[ $post_id ]['post_status'], $post_statii, true )
+		) {
+			return 0;
+		}
+
+		// Calculate chapter number
+		$i = 0;
+		$type = 'standard';
+		$found = array_merge( [ 'ID' => $post_id ], $lookup[ $post_id ] ); // @codingStandardsIgnoreLine
+		foreach ( $lookup as $post_id => $val ) {
+			if (
+				$val['post_type'] !== 'chapter' ||
+				! in_array( $val['post_status'], $post_statii, true )
+			) {
+				continue; // Skip
+			}
+			$type = \Pressbooks\Taxonomy::init()->getChapterType( $post_id );
+			if ( 'numberless' !== $type ) {
+				++$i; // Increase real chapter number
+			}
+			if ( $post_id === $found['ID'] ) {
+				break;
+			}
+		}
+
+		return ( $type === 'numberless' ) ? 0 : $i;
+	}
+
 
 	/**
 	 * Ensures this chapter/part/front matter has a "menu_order" when it is saved
@@ -876,45 +923,6 @@ class Book {
 		return $success ? true : false;
 	}
 
-
-	/**
-	 * Fix empty slugs and Fix duplicate slugs.
-	 * This can happen if a post is 'draft', 'pending', or 'auto-draft'
-	 *
-	 * @param string $old_post_name
-	 *
-	 * @return string
-	 */
-	static protected function fixSlug( $old_post_name ) {
-
-		if ( ! trim( $old_post_name ) ) {
-			$old_post_name = uniqid( 'slug-' );
-		}
-
-		if ( isset( static::$fixDupeSlugs[ $old_post_name ] ) ) {
-			$new_post_name = $old_post_name . '-' . static::$fixDupeSlugs[ $old_post_name ];
-			$i = 0;
-			while ( isset( static::$fixDupeSlugs[ $new_post_name ] ) ) {
-				++static::$fixDupeSlugs[ $new_post_name ];
-				++static::$fixDupeSlugs[ $old_post_name ];
-				$new_post_name = $old_post_name . '-' . static::$fixDupeSlugs[ $old_post_name ];
-				if ( $i > 999 ) {
-					break; // Safety
-				}
-				++$i;
-			}
-			$post_name = $new_post_name;
-			static::$fixDupeSlugs[ $new_post_name ] = 1;
-			++static::$fixDupeSlugs[ $old_post_name ];
-		} else {
-
-			$post_name = $old_post_name;
-			static::$fixDupeSlugs[ $old_post_name ] = 1;
-		}
-
-		return $post_name;
-	}
-
 	/**
 	 * Fetch all pb_export meta values for this book
 	 *
@@ -984,10 +992,14 @@ The book object looks something like this:
 		'front-matter' => [
 			0 => [
 				'export' => true,
+				'has_post_content' => true,
+				'word_count' => 999,
 				// key/values from: get_post( $post->ID, ARRAY_A ),
 			],
 			1 => [
 				'export' => false,
+				'has_post_content' => true,
+				'word_count' => 999,
 				// key/values from: get_post( $post->ID, ARRAY_A ),
 			],
 			// ...
@@ -995,14 +1007,20 @@ The book object looks something like this:
 		'part' => [
 			0 => [
 				'export' => true,
+				'has_post_content' => true,
+				'word_count' => 999,
 				// key/values from: get_post( $post->ID, ARRAY_A ),
 				'chapters' => [
 					0 => [
 						'export' => true,
+						'has_post_content' => true,
+						'word_count' => 999,
 						// key/values from: get_post( $post->ID, ARRAY_A ),
 					],
 					1 => [
 						'export' => false,
+						'has_post_content' => true,
+						'word_count' => 999,
 						// key/values from: get_post( $post->ID, ARRAY_A ),
 					],
 					// ...
@@ -1010,14 +1028,20 @@ The book object looks something like this:
 			],
 			1 => [
 				'export' => true,
+				'has_post_content' => true,
+				'word_count' => 999,
 				// key/values from: get_post( $post->ID, ARRAY_A ),
 				'chapters' => [
 					0 => [
 						'export' => true,
+						'has_post_content' => true,
+						'word_count' => 999,
 						// key/values from: get_post( $post->ID, ARRAY_A ),
 					],
 					1 => [
 						'export' => false,
+						'has_post_content' => true,
+						'word_count' => 999,
 						// key/values from: get_post( $post->ID, ARRAY_A ),
 					],
 				],
@@ -1028,10 +1052,14 @@ The book object looks something like this:
 		'back-matter' => [
 			0 => [
 				'export' => true,
+				'has_post_content' => true,
+				'word_count' => 999,
 				// key/values from: get_post( $post->ID, ARRAY_A ),
 			],
 			1 => [
 				'export' => false,
+				'has_post_content' => true,
+				'word_count' => 999,
 				// key/values from: get_post( $post->ID, ARRAY_A ),
 			],
 			// ...
@@ -1040,25 +1068,15 @@ The book object looks something like this:
 			$post->ID => [
 				'export' => true,
 				'post_status' => 'publish',
+				'post_name' => 'introduction',
+				'post_type' => 'front-matter',
 			],
 			$post->ID => [
 				'export' => false,
 				'post_status' => 'publish',
+				'post_name' => 'chapter-1',
+				'post_type' => 'chapter',
 			],
-			// ...
-		],
-		'__export_lookup' => [
-			'introduction' => 'front-matter',
-			'chapter-1' => 'chapter',
-			'foo-bar' => 'chapter',
-			'appendix' => 'back-matter',
-			// ...
-		],
-		'__web_lookup' => [
-			'introduction' => 'front-matter',
-			'chapter-1' => 'chapter',
-			'foo-bar' => 'chapter',
-			'appendix' => 'back-matter',
 			// ...
 		],
 	];

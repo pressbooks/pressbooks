@@ -253,4 +253,32 @@ class BookTest extends \WP_UnitTestCase {
 		$this->assertTrue( $post_id > 0 );
 	}
 
+	public function test_getChapterNumber() {
+
+		$this->_book();
+		update_option( 'pressbooks_theme_options_global', [ 'chapter_numbers' => 1 ] );
+		$book = \Pressbooks\Book::getInstance();
+
+		$struct = $book::getBookStructure();
+		$one = $struct['part'][0]['chapters'][0];
+		$two = $struct['part'][0]['chapters'][1];
+		$this->assertEquals( 1, $book::getChapterNumber( $one['ID'] ) );
+		$this->assertEquals( 2, $book::getChapterNumber( $two['ID'] ) );
+
+		wp_update_post( [ 'ID' => $one['ID'], 'post_status' => 'private' ] );
+		$book::deleteBookObjectCache();
+
+		$this->assertEquals( 0, $book::getChapterNumber( $one['ID'], 'webbook' ) );
+		$this->assertEquals( 1, $book::getChapterNumber( $two['ID'], 'webbook' ) );
+
+		$this->assertEquals( 1, $book::getChapterNumber( $one['ID'], 'exports' ) );
+		$this->assertEquals( 2, $book::getChapterNumber( $two['ID'], 'exports' ) );
+
+		update_option( 'pressbooks_theme_options_global', [ 'chapter_numbers' => 0 ] );
+		$this->assertEquals( 0, $book::getChapterNumber( $one['ID'] ) );
+		$this->assertEquals( 0, $book::getChapterNumber( $two['ID'] ) );
+		$this->assertEquals( 0, $book::getChapterNumber( $one['ID'], 'exports' ) );
+		$this->assertEquals( 0, $book::getChapterNumber( $two['ID'] ), 'exports' );
+	}
+
 }
