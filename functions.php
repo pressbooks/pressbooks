@@ -210,47 +210,8 @@ function pb_get_custom_stylesheet_url() {
  * @return int
  */
 function pb_get_chapter_number( $post_id ) {
-	static $lookup = null; // Cheap cache
-	if ( $lookup === null ) {
-		$lookup = \Pressbooks\Book::getBookStructure()['__order'];
-	}
 
-	// Sometimes the chapter number is zero, these are the reasons:
-	if (
-		empty( get_option( 'pressbooks_theme_options_global', [] )['chapter_numbers'] ) ||
-		empty( $lookup[ $post_id ] ) ||
-		$lookup[ $post_id ]['post_type'] !== 'chapter' ||
-		! in_array( $lookup[ $post_id ]['post_status'], [ 'web-only', 'publish' ], true )
-	) {
-		return 0;
-	}
-
-	// Calculate chapter number
-	$i = 0;
-	$type = 'standard';
-	$found = array_merge( [ 'ID' => $post_id ], $lookup[ $post_id ] );
-	foreach ( $lookup as $post_id => $val ) {
-		if ( 'chapter' !== $val['post_type'] ) {
-			continue; // Skip
-		}
-		if ( ! in_array( $val['post_status'], [ 'web-only', 'publish' ], true ) ) {
-			continue; // Skip
-		}
-		$item = [
-			'ID' => $post_id,
-			'post_name' => $val['post_name'],
-			'post_type' => 'chapter',
-		];
-		$type = pb_get_section_type( (object) $item );
-		if ( 'numberless' !== $type ) {
-			++$i; // Increase real chapter number
-		}
-		if ( $post_id === $found['ID'] ) {
-			break;
-		}
-	}
-
-	return ( $type === 'numberless' ) ? 0 : $i;
+	return \Pressbooks\Book::getChapterNumber( $post_id );
 }
 
 /**

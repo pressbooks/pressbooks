@@ -20,6 +20,11 @@ class Book {
 	protected static $instance;
 
 	/**
+	 * @var array
+	 */
+	protected static $__order = [];
+
+	/**
 	 * Array of preview ids
 	 *
 	 * Note: If you set this property, but also set $_REQUEST['preview'], then $_REQUEST['preview'] will override.
@@ -309,7 +314,6 @@ class Book {
 		// -----------------------------------------------------------------------------
 
 		$book_structure['__order'] = [];
-
 		foreach ( $custom_types as $type ) {
 			foreach ( $book_structure[ $type ] as $i => $struct ) {
 				unset( $book_structure[ $type ][ $i ]['post_parent'] );
@@ -349,6 +353,7 @@ class Book {
 				}
 			}
 		}
+		static::$__order = $book_structure['__order'];
 
 		// -----------------------------------------------------------------------------
 		// Cache & Return
@@ -483,6 +488,7 @@ class Book {
 		wp_cache_delete( "book-cnt-$blog_id", 'pb' ); // Delete the cached value for getBookContents()
 		( new Catalog() )->deleteCacheByBookId( $blog_id );
 		static::$preview = [];
+		static::$__order = [];
 
 		/**
 		 * @since 5.0.0
@@ -704,6 +710,58 @@ class Book {
 			return ( empty( $first_id ) ) ? '/' : get_permalink( $first_id );
 		}
 
+	}
+
+	/**
+	 * @param $post_id
+	 * @param string $type_of (optional) webbook, exports
+	 *
+	 * @return int
+	 */
+	static function getChapterNumber( $post_id, $type_of = 'webbook' ) {
+
+		if ( empty( static::$__order ) ) {
+			self::$__order = static::getBookStructure()['__order'];
+		}
+		$lookup = static::$__order;
+
+		if ( $type_of === 'webbook' ) {
+			$post_statii = [ 'web-only', 'publish' ];
+		} else {
+			$post_statii = [ 'private', 'publish' ];
+		}
+
+		// Sometimes the chapter number is zero, these are the reasons:
+		if (
+			empty( get_option( 'pressbooks_theme_options_global', [] )['chapter_numbers'] ) ||
+			empty( $lookup[ $post_id ] ) ||
+			$lookup[ $post_id ]['post_type'] !== 'chapter' ||
+			! in_array( $lookup[ $post_id ]['post_status'], $post_statii, true )
+		) {
+			return 0;
+		}
+
+		// Calculate chapter number
+		$i = 0;
+		$type = 'standard';
+		$found = array_merge( [ 'ID' => $post_id ], $lookup[ $post_id ] ); // @codingStandardsIgnoreLine
+		foreach ( $lookup as $post_id => $val ) {
+			if (
+				$val['post_type'] !== 'chapter' ||
+				! in_array( $val['post_status'], $post_statii, true )
+			) {
+				continue; // Skip
+			}
+			$type = \Pressbooks\Taxonomy::init()->getChapterType( $post_id );
+			if ( 'numberless' !== $type ) {
+				++$i; // Increase real chapter number
+			}
+			if ( $post_id === $found['ID'] ) {
+				break;
+			}
+		}
+
+		return ( $type === 'numberless' ) ? 0 : $i;
 	}
 
 
