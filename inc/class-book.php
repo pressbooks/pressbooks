@@ -636,7 +636,7 @@ class Book {
 		// Move internal pointer to correct position
 		reset( $pos );
 		while ( $find_me = current( $pos ) ) {
-			if ( $find_me === $current_post_id ) {
+			if ( (int) $find_me === (int) $current_post_id ) {
 				break;
 			} else {
 				next( $pos );
@@ -682,7 +682,7 @@ class Book {
 
 		reset( $pos );
 		while ( $first_id = current( $pos ) ) {
-			if ( 'publish' === $order[ $first_id ]['post_status'] ) {
+			if ( in_array( $order[ $first_id ]['post_status'], [ 'publish', 'web-only' ], true ) ) {
 				break;
 			} elseif ( current_user_can_for_blog( $blog_id, 'read_private_posts' ) ) {
 				break;
