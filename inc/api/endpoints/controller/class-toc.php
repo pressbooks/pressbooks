@@ -266,7 +266,7 @@ class Toc extends \WP_REST_Controller {
 		$this->registerRouteDependencies();
 
 		$struct = Book::getBookStructure();
-		unset( $struct['__order'], $struct['__export_lookup'] );
+		unset( $struct['__order'] );
 		$struct = $this->fixBookStructure( $struct, current_user_can( 'edit_posts' ) );
 
 		$response = rest_ensure_response( $struct );

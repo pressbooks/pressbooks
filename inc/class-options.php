@@ -6,6 +6,8 @@
 
 namespace Pressbooks;
 
+use function Pressbooks\Utility\str_starts_with;
+
 /**
  * @property array booleans
  * @property array strings
@@ -364,5 +366,14 @@ abstract class Options {
 			( ! empty( $args['disabled'] ) ) ? ' disabled' : '',
 			$options
 		);
+	}
+
+	/**
+	 * @param string $option name of the updated option.
+	 */
+	static function deleteCacheAfterUpdate( $option ) {
+		if ( str_starts_with( $option, 'pressbooks_' ) ) {
+			Book::deleteBookObjectCache();
+		}
 	}
 }

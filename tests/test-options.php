@@ -302,4 +302,15 @@ class OptionsTest extends \WP_UnitTestCase {
 		$this->assertEquals( '"blah  blah"', $v );
 	}
 
+	public function test_deleteCacheAfterUpdate() {
+		$now = time() - 60;
+		set_transient( 'pb_cache_deleted', $now, DAY_IN_SECONDS );
+
+		\Pressbooks\Options::deleteCacheAfterUpdate( 'wordpress_foo_bar' );
+		$this->assertEquals( $now, get_transient( 'pb_cache_deleted' ) );
+
+		\Pressbooks\Options::deleteCacheAfterUpdate( 'pressbooks_foo_bar' );
+		$this->assertNotEquals( $now, get_transient( 'pb_cache_deleted' ) );
+	}
+
 }

@@ -2209,7 +2209,7 @@ class Epub201 extends Export {
 
 
 	/**
-	 * Try to determine if a URL is pointing to internal content. TODO: Refactor, for the love of all that is holy.
+	 * Try to determine if a URL is pointing to internal content.
 	 *
 	 * @param $url
 	 * @param int $pos (optional) position of content, used when creating filenames like: chapter-001, chapter-002, ...
@@ -2267,33 +2267,37 @@ class Epub201 extends Export {
 			$lookup = Book::getBookStructure();
 		}
 
-		if ( 'part' !== $posttype && ! isset( $lookup['__export_lookup'][ $slug ] ) ) {
+		$found = [];
+		foreach ( $lookup['__order'] as $post_id => $val ) {
+			if ( $val['post_type'] === $posttype && $val['post_name'] === $slug ) {
+				$found = array_merge( [ 'ID' => $post_id ], $val ); // @codingStandardsIgnoreLine
+			}
+		}
+		if ( empty( $found ) ) {
 			return false;
 		}
 
+		// Create a new url that points to a file in the epub
 		$new_url = '';
-		if ( 'part' !== $posttype && isset( $lookup['__export_lookup'][ $slug ] ) ) {
-			// Handle front/back matter and chapters
-			$new_type = $lookup['__export_lookup'][ $slug ];
-			$new_pos = 0;
-			foreach ( $lookup['__export_lookup'] as $p => $t ) {
-				if ( (string) $t === (string) $new_type ) {
-					++$new_pos;
-				}
-				if ( (string) $p === (string) $slug ) {
-					break;
-				}
-			}
-			$new_url = "$new_type-" . sprintf( '%03s', $new_pos ) . '-' . ( isset( $this->sanitizedSlugs[ $slug ] ) ? $this->sanitizedSlugs[ $slug ] : $slug ) . ".{$this->filext}";
-		} elseif ( 'part' === $posttype && ! isset( $lookup['__export_lookup'][ $slug ] ) ) {
+		if ( 'part' === $posttype ) {
 			// Handle parts
 			foreach ( $lookup['part'] as $key => $part ) {
 				if ( $part['post_name'] === $slug ) {
 					$new_url = 'part-' . sprintf( '%03s', $key + 1 ) . '-' . ( isset( $this->sanitizedSlugs[ $slug ] ) ? $this->sanitizedSlugs[ $slug ] : $slug ) . ".{$this->filext}";
 				}
 			}
+		} else {
+			$new_pos = 0;
+			foreach ( $lookup['__order'] as $post_id => $val ) {
+				if ( (string) $val['post_type'] === (string) $found['post_type'] ) {
+					++$new_pos;
+				}
+				if ( (int) $post_id === (int) $found['ID'] ) {
+					break;
+				}
+			}
+			$new_url = "{$found['post_type']}-" . sprintf( '%03s', $new_pos ) . '-' . ( isset( $this->sanitizedSlugs[ $slug ] ) ? $this->sanitizedSlugs[ $slug ] : $slug ) . ".{$this->filext}";
 		}
-
 		if ( $anchor ) {
 			$new_url .= $anchor;
 		}
