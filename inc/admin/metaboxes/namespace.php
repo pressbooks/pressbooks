@@ -8,6 +8,7 @@ namespace Pressbooks\Admin\Metaboxes;
 
 use Pressbooks\Contributors;
 use Pressbooks\Licensing;
+use Pressbooks\Metadata;
 use PressbooksMix\Assets;
 
 /**
@@ -336,6 +337,22 @@ function add_meta_boxes() {
 			'priority' => 'low',
 		]
 	);
+
+	$meta = new Metadata();
+	$data = $meta->getMetaPostMetadata();
+	$source_url = ( $data['pb_is_based_on'] ) ?? false;
+
+	if ( $source_url ) {
+		x_add_metadata_field(
+			'pb_is_based_on', 'metadata', [
+				'group' => 'copyright',
+				'label' => __( 'Source Book URL', 'pressbooks' ),
+				'readonly' => true,
+				'description' => __( 'This book is a clone of a pre-existing book found at the above URL.', 'pressbooks' ),
+			]
+		);
+
+	}
 
 	if ( $show_expanded_metadata ) {
 		x_add_metadata_field(
