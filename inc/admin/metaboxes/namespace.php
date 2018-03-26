@@ -340,7 +340,7 @@ function add_meta_boxes() {
 
 	$meta = new Metadata();
 	$data = $meta->getMetaPostMetadata();
-	$source_url = ( $data['pb_is_based_on'] ) ?? false;
+	$source_url = $data['pb_is_based_on'] ?? false;
 
 	if ( $source_url ) {
 		x_add_metadata_field(
