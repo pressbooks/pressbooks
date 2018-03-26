@@ -348,7 +348,7 @@ function add_meta_boxes() {
 				'group' => 'copyright',
 				'label' => __( 'Source Book URL', 'pressbooks' ),
 				'readonly' => true,
-				'description' => __( 'This book is a clone of a pre-existing book found at the above URL.', 'pressbooks' ),
+				'description' => __( 'This book was cloned from a pre-existing book at the above URL. This information will be displayed on the webbook homepage.', 'pressbooks' ),
 			]
 		);
 
