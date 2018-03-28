@@ -28,7 +28,7 @@ TK.
 
 **Minor Changes**
 
-- Add book navigation to the edit screen ([#1150](https://github.com/pressbooks/pressbooks/issues/1150)): [#1164](https://github.com/pressbooks/pressbooks/issues/1164)
+- Add book navigation to the edit screen ([#1150](https://github.com/pressbooks/pressbooks/issues/1150); props to [Justin Swapp](https://twitter.com/justinswapp) for the suggestion): [#1164](https://github.com/pressbooks/pressbooks/issues/1164)
 - Add book source URL to Book Info for cloned books ([#1152](https://github.com/pressbooks/pressbooks/issues/1152)): [#1166](https://github.com/pressbooks/pressbooks/issues/1166)
 - Optimize chapter numbering functions: [#1165](https://github.com/pressbooks/pressbooks/issues/1165)
 
