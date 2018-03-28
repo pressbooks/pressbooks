@@ -5,7 +5,7 @@ Tags: ebooks, publishing, webbooks
 Requires at least: 4.9.4
 Tested up to: 4.9.4
 Requires PHP: 7.0
-Stable tag: 5.1.1
+Stable tag: 5.2.0
 License: GPL v3.0 or later
 License URI: https://github.com/pressbooks/pressbooks/blob/master/LICENSE.md
 
@@ -21,6 +21,17 @@ For installation instructions, visit [docs.pressbooks.org/installation](https://
 TK.
 
 == Changelog ==
+= 5.2.0 =
+**NOTICE:** Pressbooks 5.2.0 requires [WordPress 4.9.4](https://wordpress.org/news/2018/02/wordpress-4-9-4-maintenance-release/).
+**NOTICE:** Pressbooks 5.2.0 requires [McLuhan 2.2.0](https://github.com/pressbooks/pressbooks-book/).
+**NOTICE:** Pressbooks 5.2.0 requires that users of the Luther book theme install and network activate the standalone [Luther theme](https://github.com/pressbooks/pressbooks-luther/) _before_ upgrading to Pressbooks 5.0. For more information, see the [upgrading instructions](https://docs.pressbooks.org/upgrading/#upgrading-to-pressbooks-5-x).
+
+**Minor Changes**
+
+- Add book navigation to the edit screen ([#1150](https://github.com/pressbooks/pressbooks/issues/1150)): [#1164](https://github.com/pressbooks/pressbooks/issues/1164)
+- Add book source URL to Book Info for cloned books ([#1152](https://github.com/pressbooks/pressbooks/issues/1152)): [#1166](https://github.com/pressbooks/pressbooks/issues/1166)
+- Optimize chapter numbering functions: [#1165](https://github.com/pressbooks/pressbooks/issues/1165)
+
 = 5.1.1 =
 **NOTICE:** Pressbooks 5.1.1 requires [WordPress 4.9.4](https://wordpress.org/news/2018/02/wordpress-4-9-4-maintenance-release/).
 **NOTICE:** Pressbooks 5.1.1 requires [McLuhan 2.1.0](https://github.com/pressbooks/pressbooks-book/).
