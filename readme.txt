@@ -896,8 +896,8 @@ The Pressbooks command line interface is now part of Pressbooks. Want to make yo
 * Ebook theme option to skip line between paragraphs is now honored in all themes.
 
 == Upgrade Notice ==
-= 5.1.1 =
+= 5.2.0 =
 
-Pressbooks 5.1.1 requires [WordPress 4.9.4](https://wordpress.org/news/2018/02/wordpress-4-9-4-maintenance-release/).
-Pressbooks 5.1.1 requires [McLuhan 2.1.0](https://github.com/pressbooks/pressbooks-book/).
-Pressbooks 5.1.1 requires that users of the Luther book theme install and network activate the standalone [Luther theme](https://github.com/pressbooks/pressbooks-luther/) _before_ upgrading to Pressbooks 5.0. For more information, see the [upgrading instructions](https://docs.pressbooks.org/upgrading/#upgrading-to-pressbooks-5-x).
+Pressbooks 5.2.0 requires [WordPress 4.9.4](https://wordpress.org/news/2018/02/wordpress-4-9-4-maintenance-release/).
+Pressbooks 5.2.0 requires [McLuhan 2.2.0](https://github.com/pressbooks/pressbooks-book/).
+Pressbooks 5.2.0 requires that users of the Luther book theme install and network activate the standalone [Luther theme](https://github.com/pressbooks/pressbooks-luther/) _before_ upgrading to Pressbooks 5.0. For more information, see the [upgrading instructions](https://docs.pressbooks.org/upgrading/#upgrading-to-pressbooks-5-x).
