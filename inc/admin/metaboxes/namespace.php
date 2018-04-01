@@ -28,19 +28,26 @@ function title_update( $meta_id, $post_id, $meta_key, $meta_value ) {
 }
 
 /**
- * If the user leaves certain meta info blank, forcefully fill it with our own
+ * If the user leaves certain metadata blank, forcefully fill it with our own
  *
  * @param int $pid
  * @param \WP_Post $post
  */
 function add_required_data( $pid, $post ) {
+	if ( $post->post_type !== 'metadata' ) {
+		return; // Do nothing
+	}
 	$pb_authors = get_post_meta( $pid, 'pb_authors', true );
 	if ( ! $pb_authors ) {
 		// if pb_authors is missing, set it to the primary book user
-		if ( 0 !== get_current_user_id() ) {
-			$user_info = get_userdata( get_current_user_id() );
+		$user_id = get_current_user_id();
+		if ( $user_id && is_user_member_of_blog( $user_id ) ) {
+			$user_info = get_userdata( $user_id );
 			$contributors = new Contributors();
-			$term = $contributors->addBlogUser( $user_info->ID );
+			$term = get_term_by( 'slug', $user_info->user_nicename, Contributors::TAXONOMY, ARRAY_A );
+			if ( ! $term ) {
+				$term = $contributors->addBlogUser( $user_info->ID );
+			}
 			if ( $term !== false ) {
 				$contributors->link( $term['term_id'], $pid, 'pb_authors' );
 			}
