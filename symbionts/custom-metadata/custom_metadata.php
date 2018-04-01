@@ -126,7 +126,7 @@ class custom_metadata_manager {
 
 		define( 'CUSTOM_METADATA_MANAGER_SELECT2_VERSION', '3.2' ); // version for included select2.js
 		define( 'CUSTOM_METADATA_MANAGER_TIMEPICKER_VERSION', '1.2' ); // version for included timepicker
-		define( 'CUSTOM_METADATA_MANAGER_VERSION', '0.8-dev' );
+		define( 'CUSTOM_METADATA_MANAGER_VERSION', '0.8-dev-20180330' );
 		define( 'CUSTOM_METADATA_MANAGER_URL' , apply_filters( 'custom_metadata_manager_url', trailingslashit( plugins_url( 'pressbooks/symbionts/custom-metadata' ) ) ) );
 
 		$this->init_object_types();
@@ -1339,7 +1339,8 @@ class custom_metadata_manager {
 					$select2 = ( $field->select2 ) ? ' class="custom-metadata-select2" ' : ' ';
 					$select2 .= ( $field->placeholder ) ? ' data-placeholder="'. esc_attr( $field->placeholder ) . '" ' : ' data-placeholder="" ';
 					printf( '<select id="%s" name="%s"%smultiple>', esc_attr( $field_slug ), esc_attr( $field_id ), $select2 );
-					foreach ( $field->values as $value_slug => $value_label ) {
+					$ordered_values = $field->select2 ? $this->_order_multi_select( $field->values, $value ) : $field->values;
+					foreach ( $ordered_values as $value_slug => $value_label ) {
 						printf( '<option value="%s"%s>', esc_attr( $value_slug ), selected( in_array( $value_slug, $value ), true, false ) );
 						echo esc_html( $value_label );
 						echo '</option>';
@@ -1368,7 +1369,8 @@ class custom_metadata_manager {
 					$select2 = ( $field->select2 ) ? ' class="custom-metadata-select2" ' : ' ';
 					$select2 .= ( $field->placeholder ) ? ' data-placeholder="'. esc_attr( $field->placeholder ) . '" ' : ' data-placeholder="" ';
 					printf( '<select name="%s" id="%s"%smultiple>', esc_attr( $field_id ), esc_attr( $field_slug ), $select2 );
-					foreach ( $terms as $term ) {
+					$ordered_terms = $field->select2 ? $this->_order_taxonomy_multi_select( $terms, $value ) : $terms;
+					foreach ( $ordered_terms as $term ) {
 						printf( '<option value="%s"%s>%s</option>', esc_attr( $term->slug ), selected( in_array( $term->slug, $value ), true, false ), esc_html( $term->name ) );
 					}
 					echo '</select>';
@@ -1384,6 +1386,54 @@ class custom_metadata_manager {
 		$this->_display_field_description( $field_slug, $field, $object_type, $object_id, $value );
 
 		echo '</div>';
+	}
+
+	/**
+	 * Fix: In multi-select, selections do not appear in the order in which they were selected
+	 *
+	 * @see https://github.com/select2/select2/issues/3106#issuecomment-339594053
+	 *
+	 * @param array $terms
+	 * @param array $value
+	 *
+	 * @return array
+	 */
+	function _order_multi_select( array $terms, array $value ) {
+		$ordered_terms = [];
+		foreach ( $value as $slug ) {
+			foreach ( $terms as $value_slug => $value_label ) {
+				if ( $value_slug === $slug ) {
+					$ordered_terms[ $value_slug ] = $value_label;
+					unset( $terms[ $value_slug ] );
+					continue;
+				}
+			}
+		}
+		return array_merge( $ordered_terms, $terms );
+	}
+
+	/**
+	 * Fix: In multi-select, selections do not appear in the order in which they were selected
+	 *
+	 * @see https://github.com/select2/select2/issues/3106#issuecomment-339594053
+	 *
+	 * @param \WP_Term[] $terms
+	 * @param array $value
+	 *
+	 * @return array
+	 */
+	function _order_taxonomy_multi_select( array $terms, array $value ) {
+		$ordered_terms = [];
+		foreach ( $value as $slug ) {
+			foreach ( $terms as $i => $term ) {
+				if ( $term->slug === $slug ) {
+					$ordered_terms[] = $term;
+					unset( $terms[ $i ] );
+					continue;
+				}
+			}
+		}
+		return array_merge( $ordered_terms, $terms );
 	}
 
 	function _display_field_description( $field_slug, $field, $object_type, $object_id, $value ) {
