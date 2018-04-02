@@ -74,6 +74,10 @@ div.error {
   color: $white;
 }
 
+#adminmenu li > a.menu-top:focus .wp-menu-image::before {
+  color: $monza;
+}
+
 // Admin Bar
 
 #wpadminbar {
