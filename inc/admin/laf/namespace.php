@@ -15,6 +15,7 @@ use Pressbooks\Book;
 use Pressbooks\Cloner;
 use Pressbooks\Metadata;
 use PressbooksMix\Assets;
+use function Pressbooks\Admin\NetworkManagers\is_restricted;
 use function Pressbooks\PostType\get_post_type_label;
 
 /**
@@ -575,7 +576,7 @@ function replace_menu_bar_my_sites( $wp_admin_bar ) {
 			[
 				'parent' => 'pb-network-admin',
 				'id' => 'pb-network-admin-s',
-				'title' => __( 'Sites', 'pressbooks' ),
+				'title' => __( 'Books', 'pressbooks' ),
 				'href' => network_admin_url( 'sites.php' ),
 			]
 		);
@@ -588,6 +589,26 @@ function replace_menu_bar_my_sites( $wp_admin_bar ) {
 				'href' => network_admin_url( 'users.php' ),
 			]
 		);
+
+		if ( ! is_restricted() ) {
+			$wp_admin_bar->add_menu(
+				[
+					'parent' => 'pb-network-admin',
+					'id' => 'pb-network-admin-t',
+					'title' => __( 'Themes', 'pressbooks' ),
+					'href' => network_admin_url( 'themes.php' ),
+				]
+			);
+
+			$wp_admin_bar->add_menu(
+				[
+					'parent' => 'pb-network-admin',
+					'id' => 'pb-network-admin-p',
+					'title' => __( 'Plugins', 'pressbooks' ),
+					'href' => network_admin_url( 'plugins.php' ),
+				]
+			);
+		}
 
 		$wp_admin_bar->add_menu(
 			[
