@@ -450,10 +450,33 @@ function redirect_away_from_bad_urls() {
 	}
 
 	// ---------------------------------------------------------------------------------------------------------------
-	// If user is on edit-tags.php, check for valid taxonomy
+	// If user is on edit-tags.php, check for valid taxonomy.
+	// Non-super admin users should only be able to edit contributors (third-party taxonomies are allowed).
 
 	if ( preg_match( '~/wp-admin/edit-tags\.php$~', $check_against_url ) ) {
-		if ( isset( $_REQUEST['taxonomy'] ) && ! in_array( $_REQUEST['taxonomy'], [ 'contributor' ], true ) ) {
+
+		if ( isset( $_REQUEST['taxonomy'] ) && in_array(
+			$_REQUEST['taxonomy'],
+			/**
+			 * Add taxonomies to the blacklist array if you want to prevent non-super admin users from editing them.
+			 *
+			 * @since 5.3.0
+			 */
+			apply_filters(
+				'pb_taxonomy_blacklist', [
+					'category',
+					'post_tag',
+					'nav_menu',
+					'link_category',
+					'post_format',
+					'front-matter-type',
+					'back-matter-type',
+					'chapter-type',
+					'license',
+				]
+			),
+			true
+		) ) {
 			$_SESSION['pb_notices'][] = __( 'Unsupported taxonomy.', 'pressbooks' );
 			\Pressbooks\Redirect\location( $redirect_url );
 		}
