@@ -87,20 +87,4 @@ class LicensingTest extends \WP_UnitTestCase {
 		$this->assertEquals( $result, 'public-domain' );
 	}
 
-	public function test_getLicenseXml() {
-
-		$result = $this->licensing->getLicenseXml( 'all-rights-reserved', 'Foo', 'http://pressbooks.dev', 'Bar', 'en', 1970 );
-		$this->assertContains( 'All Rights Reserved', $result );
-		$this->assertContains( '1970', $result );
-		$this->assertContains( '</result>', $result );
-
-		$result = $this->licensing->getLicenseXml( 'cc-by-nc-nd', 'Foo', 'http://pressbooks.dev', 'Bar', 'fr' );
-		$this->assertContains( 'by-nc-nd', $result );
-		$this->assertContains( 'Ceci peut être', $result );
-		$this->assertContains( '</result>', $result );
-
-		$result = $this->licensing->getLicenseXml( 'unsupported-type', 'Foo', 'http://pressbooks.dev', 'Bar', 'fr' );
-		$this->assertEmpty( $result );
-	}
-
 }
