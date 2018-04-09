@@ -17,7 +17,8 @@
 		"lint:styles":
 			"cross-env NODE_ENV=development node_modules/stylelint/bin/stylelint.js \"assets/src/styles/**/*.scss\" --syntax scss",
 		"localize":
-			"wp-pot -s \"**/*.php\" -o languages/_pressbooks.pot -p \"Pressbooks\" -t \"Pressbooks (Book Oven Inc.) <code@pressbooks.com>\""
+			"wp-pot -s \"**/*.php\" -o languages/_pressbooks.pot -p \"Pressbooks\" -t \"Pressbooks (Book Oven Inc.) <code@pressbooks.com>\"",
+		"install": "npm run -s build:production"
 	},
 	"engines": {
 		"node": ">= 6.9.4"
