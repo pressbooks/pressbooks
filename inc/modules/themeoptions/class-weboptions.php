@@ -412,7 +412,7 @@ class WebOptions extends \Pressbooks\Options {
 						]
 					);
 				} else {
-					$scss .= "* + p { text-indent: 1em; margin-top: 0; margin-bottom: 0; } \n";
+					$scss .= "#content * + p { text-indent: 1em; margin-top: 0; margin-bottom: 0; } \n";
 				}
 			} elseif ( 'skiplines' === $options['paragraph_separation'] ) {
 				if ( $v2_compatible ) {
@@ -423,7 +423,7 @@ class WebOptions extends \Pressbooks\Options {
 						]
 					);
 				} else {
-					$scss .= "p + p { text-indent: 0em; margin-top: 1em; } \n";
+					$scss .= "#content p + p { text-indent: 0em; margin-top: 1em; } \n";
 				}
 			}
 		}
