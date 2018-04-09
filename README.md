@@ -62,7 +62,7 @@ you need to install Pressbooks for development, please see the
 
 ## Requirements
 
-Pressbooks works with PHP 7.0 and WordPress 4.9.4. Lower versions are not
+Pressbooks works with PHP 7.0 and WordPress 4.9.5. Lower versions are not
 supported.
 
 ## Disclaimers
