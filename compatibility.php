@@ -131,6 +131,7 @@ function pb_register_activation_hook() {
 function pb_init_autoloader() {
 	static $registered = false;
 	if ( ! $registered ) {
+		require_once( __DIR__ . '/requires.php' );
 		\HM\Autoloader\register_class_path( 'Pressbooks', __DIR__ . '/inc' );
 		$registered = true;
 	}
