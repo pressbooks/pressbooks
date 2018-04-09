@@ -17,21 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Includes
 // -------------------------------------------------------------------------------------------------------------------
 
-require( PB_PLUGIN_DIR . 'inc/admin/branding/namespace.php' );
-require( PB_PLUGIN_DIR . 'inc/analytics/namespace.php' );
-require( PB_PLUGIN_DIR . 'inc/api/namespace.php' );
-require( PB_PLUGIN_DIR . 'inc/editor/namespace.php' );
-require( PB_PLUGIN_DIR . 'inc/image/namespace.php' );
-require( PB_PLUGIN_DIR . 'inc/l10n/namespace.php' );
-require( PB_PLUGIN_DIR . 'inc/media/namespace.php' );
-require( PB_PLUGIN_DIR . 'inc/metadata/namespace.php' );
-require( PB_PLUGIN_DIR . 'inc/posttype/namespace.php' );
-require( PB_PLUGIN_DIR . 'inc/redirect/namespace.php' );
-require( PB_PLUGIN_DIR . 'inc/registration/namespace.php' );
-require( PB_PLUGIN_DIR . 'inc/sanitize/namespace.php' );
-require( PB_PLUGIN_DIR . 'inc/theme/namespace.php' );
-require( PB_PLUGIN_DIR . 'inc/utility/namespace.php' );
-
+require_once( __DIR__ . '/requires.php' );
 include_symbionts();
 
 // -------------------------------------------------------------------------------------------------------------------
