@@ -4716,9 +4716,9 @@ isomorphic-fetch@^2.1.1:
     node-fetch "^1.0.1"
     whatwg-fetch ">=0.10.0"
 
-isotope-layout@^3.0.5:
-  version "3.0.5"
-  resolved "https://registry.yarnpkg.com/isotope-layout/-/isotope-layout-3.0.5.tgz#1ac0058894e4b69f2afadc80d6f49d764dddd420"
+isotope-layout@^3.0.6:
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/isotope-layout/-/isotope-layout-3.0.6.tgz#d5636ec74d68e7e88fa5166fe6396858db00f432"
   dependencies:
     desandro-matches-selector "^2.0.0"
     fizzy-ui-utils "^2.0.4"
