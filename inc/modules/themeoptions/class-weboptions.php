@@ -117,6 +117,17 @@ class WebOptions extends \Pressbooks\Options {
 			]
 		);
 
+		add_settings_field(
+			'collapse_sections',
+			__( 'Collapse Sections', 'pressbooks' ),
+			[ $this, 'renderCollapseSections' ],
+			$_page,
+			$_section,
+			[
+				__( 'Collapse sections within content', 'pressbooks' ),
+			]
+		);
+
 		/**
 		 * Add custom settings fields.
 		 *
@@ -230,7 +241,7 @@ class WebOptions extends \Pressbooks\Options {
 	}
 
 	/**
-	 * Render the social_media checkbox.
+	 * Render the part_title checkbox.
 	 *
 	 * @param array $args
 	 */
@@ -241,6 +252,23 @@ class WebOptions extends \Pressbooks\Options {
 				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
 				'option' => 'part_title',
 				'value' => ( isset( $this->options['part_title'] ) ) ? $this->options['part_title'] : '',
+				'label' => $args[0],
+			]
+		);
+	}
+
+	/**
+	 * Render the collapse_sections checkbox.
+	 *
+	 * @param array $args
+	 */
+	function renderCollapseSections( $args ) {
+		$this->renderCheckbox(
+			[
+				'id' => 'collapse_sections',
+				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
+				'option' => 'collapse_sections',
+				'value' => ( isset( $this->options['part_title'] ) ) ? $this->options['collapse_sections'] : '',
 				'label' => $args[0],
 			]
 		);
@@ -281,6 +309,7 @@ class WebOptions extends \Pressbooks\Options {
 				'paragraph_separation' => 'skiplines',
 				'part_title' => 0,
 				'webbook_width' => '40em',
+				'collapse_sections' => 0,
 			]
 		);
 	}
@@ -313,6 +342,7 @@ class WebOptions extends \Pressbooks\Options {
 			'pb_theme_options_web_booleans', [
 				'social_media',
 				'part_title',
+				'collapse_sections',
 			]
 		);
 	}
