@@ -124,7 +124,7 @@ class WebOptions extends \Pressbooks\Options {
 			$_page,
 			$_section,
 			[
-				__( 'Collapse sections within content', 'pressbooks' ),
+				__( 'Collapse sections within front matter, chapters, and back metter', 'pressbooks' ),
 			]
 		);
 
