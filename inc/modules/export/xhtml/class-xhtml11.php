@@ -11,6 +11,7 @@ use Pressbooks\Container;
 use Pressbooks\Modules\Export\Export;
 use Pressbooks\Sanitize;
 use function Pressbooks\Sanitize\clean_filename;
+use function Pressbooks\Utility\get_generated_content_url;
 
 class Xhtml11 extends Export {
 
@@ -250,6 +251,13 @@ class Xhtml11 extends Export {
 		$this->echoMetaData( $book_contents, $metadata );
 
 		echo '<title>' . get_bloginfo( 'name' ) . "</title>\n";
+
+		if ( WP_DEBUG ) {
+			if ( ! empty( $_GET['debug'] ) ) {
+				$url = get_generated_content_url( '/scss-debug' ) . '/' . clean_filename( $_GET['debug'] ) . '.css';
+				echo "<link rel='stylesheet' href='$url' type='text/css' />\n";
+			}
+		}
 
 		if ( ! empty( $_GET['style'] ) ) {
 			$url = Container::get( 'Sass' )->urlToUserGeneratedCss() . '/' . clean_filename( $_GET['style'] ) . '.css';
