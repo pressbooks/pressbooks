@@ -966,16 +966,16 @@
         },
         {
             "name": "pressbooks/pb-cli",
-            "version": "1.8.1",
+            "version": "1.8.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pressbooks/pb-cli.git",
-                "reference": "62ba5c36b1d8cf8d856e6ab00ec50b2125bddd96"
+                "reference": "71335f06f0a404ecbccf55e2ac8e929a94d744a7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pressbooks/pb-cli/zipball/62ba5c36b1d8cf8d856e6ab00ec50b2125bddd96",
-                "reference": "62ba5c36b1d8cf8d856e6ab00ec50b2125bddd96",
+                "url": "https://api.github.com/repos/pressbooks/pb-cli/zipball/71335f06f0a404ecbccf55e2ac8e929a94d744a7",
+                "reference": "71335f06f0a404ecbccf55e2ac8e929a94d744a7",
                 "shasum": ""
             },
             "require": {
@@ -1006,7 +1006,7 @@
             ],
             "description": "A suite of wp-cli commands for Pressbooks.",
             "homepage": "https://github.com/pressbooks/pb-cli/",
-            "time": "2018-04-12T14:56:12+00:00"
+            "time": "2018-04-12T15:00:10+00:00"
         },
         {
             "name": "psr/log",
