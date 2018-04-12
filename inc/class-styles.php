@@ -371,6 +371,22 @@ class Styles {
 	}
 
 	/**
+	 * Check that the currently active theme uses Buckram (optionally a minimum version of Buckram).
+	 *
+	 * @since 5.3.0
+	 *
+	 * @param int|string $version
+	 *
+	 * @return bool
+	 */
+	public function hasBuckram( $version = 0 ) {
+		if ( $this->isCurrentThemeCompatible( 2 ) && version_compare( $this->getBuckramVersion(), $version ) >= 0 ) {
+			return true;
+		}
+		return false;
+	}
+
+	/**
 	 * @param array|string $overrides (optional)
 	 *
 	 * @return string

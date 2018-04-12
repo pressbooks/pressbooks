@@ -70,6 +70,15 @@ class StylesTest extends \WP_UnitTestCase {
 		$this->assertGreaterThanOrEqual( 0, version_compare( $this->cs->getBuckramVersion(), '0.2.0' ) );
 	}
 
+	public function test_hasBuckram() {
+		$this->_book( 'pressbooks-donham' );
+		$this->assertFalse( $this->cs->hasBuckram() );
+		$this->_book( 'pressbooks-book' );
+		$this->assertTrue( $this->cs->hasBuckram() );
+		$this->assertTrue( $this->cs->hasBuckram( '0.2.0' ) );
+		$this->assertFalse( $this->cs->hasBuckram( 42 ) );
+	}
+
 	public function test_applyOverrides() {
 		// V1
 		$this->_book( 'pressbooks-donham' );
