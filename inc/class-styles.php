@@ -355,7 +355,7 @@ class Styles {
 	 *
 	 * @see https://github.com/pressbooks/buckram/blob/master/styles/buckram.scss
 	 *
-	 * @return string
+	 * @return string|bool
 	 */
 	public function getBuckramVersion() {
 		$fullpath = realpath( $this->sass->pathToGlobals() . 'buckram.scss' );
@@ -367,7 +367,7 @@ class Styles {
 				]
 			)['version'];
 		}
-		return '0.1.0'; // Old, generally incompatible with fancy new things.
+		return false; // No version available.
 	}
 
 	/**
