@@ -22,7 +22,9 @@ use Pressbooks\HTMLBook\Validator;
 use Masterminds\HTML5;
 use Pressbooks\Modules\Export\Export;
 use Pressbooks\Sanitize;
+use function Pressbooks\Sanitize\clean_filename;
 use function Pressbooks\Utility\oxford_comma_explode;
+use function Pressbooks\Utility\get_generated_content_url;
 
 class HTMLBook extends Export {
 
@@ -230,6 +232,14 @@ class HTMLBook extends Export {
 
 		echo "<head>\n";
 		echo '<title>' . get_bloginfo( 'name' ) . "</title>\n";
+
+		if ( WP_DEBUG ) {
+			if ( ! empty( $_GET['debug'] ) ) {
+				$url = get_generated_content_url( '/scss-debug' ) . '/' . clean_filename( $_GET['debug'] ) . '.css';
+				echo "<link rel='stylesheet' href='$url' type='text/css' />\n";
+			}
+		}
+
 		echo "</head>\n";
 
 		$book = new Book();
