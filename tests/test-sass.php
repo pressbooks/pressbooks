@@ -61,16 +61,17 @@ class SassTest extends \WP_UnitTestCase {
 
 	public function test_parseVariables() {
 		$scss = '$red: #d4002d !default;
-		$font-size: 
+		$font-size:
 		    14pt;
 		$body-font-size: (
-			web:   14cm,  
+			web:   14cm,
 		    epub:  medium,
             prince:10.5pt,
         )   !default;
         $var1: $var2 !default;
         $f: xxx(one, two,  three,    four,     five);
-        ignored: becauseKeyHasNoDollarSign;
+		ignored: becauseKeyHasNoDollarSign;
+		$_secret: becauseStartsWithUnderscore
         ';
 
 		$vars = $this->sass->parseVariables( $scss );
@@ -81,6 +82,7 @@ class SassTest extends \WP_UnitTestCase {
 		$this->assertEquals( $vars['var1'], '$var2' );
 		$this->assertEquals( $vars['f'], 'xxx(one, two, three, four, five)' );
 		$this->assertArrayNotHasKey( 'ignored', $vars );
+		$this->assertArrayNotHasKey( '_secret', $vars );
 	}
 
 
