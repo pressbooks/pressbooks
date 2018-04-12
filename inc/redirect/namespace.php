@@ -164,6 +164,13 @@ function do_format() {
 		exit;
 	}
 
+	/**
+	 * @since 5.3.0
+	 *
+	 * @param string $format
+	 */
+	do_action( 'pb_do_format', $format );
+
 	wp_die( __( 'Error: Unknown export format.', 'pressbooks' ) );
 }
 
