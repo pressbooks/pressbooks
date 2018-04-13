@@ -2,6 +2,7 @@
 
 jQuery( function ( $ ) {
 	$( '.select2' ).select2();
+	$( '.color-picker' ).wpColorPicker();
 
 	$( document ).ready( function () {
 		if ( $( '#pdf_page_size' ).val() !== '10' ) {

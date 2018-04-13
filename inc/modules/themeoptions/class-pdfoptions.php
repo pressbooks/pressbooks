@@ -6,6 +6,7 @@
 
 namespace Pressbooks\Modules\ThemeOptions;
 
+use Pressbooks\Container;
 use Pressbooks\CustomCss;
 use function \Pressbooks\Utility\getset;
 
@@ -73,8 +74,8 @@ class PDFOptions extends \Pressbooks\Options {
 			$_page
 		);
 
-		$custom_syles = \Pressbooks\Container::get( 'Styles' );
-		$v2_compatible = $custom_syles->isCurrentThemeCompatible( 2 );
+		$custom_styles = Container::get( 'Styles' );
+		$v2_compatible = $custom_styles->isCurrentThemeCompatible( 2 );
 
 		if ( $v2_compatible ) {
 			add_settings_field(
@@ -1428,7 +1429,7 @@ class PDFOptions extends \Pressbooks\Options {
 		if ( $parsed_sass_variables === false ) {
 			// Order of files matter. If a variable is duplicated in other files then the last one takes precedence
 			$parsed_sass_variables = [];
-			$sass = \Pressbooks\Container::get( 'Sass' );
+			$sass = Container::get( 'Sass' );
 			$path_to_global = $sass->pathToGlobals();
 			$path_to_theme = get_stylesheet_directory();
 			$files = [
@@ -1707,7 +1708,7 @@ class PDFOptions extends \Pressbooks\Options {
 	 */
 	static function scssOverrides( $scss ) {
 
-		$styles = \Pressbooks\Container::get( 'Styles' );
+		$styles = Container::get( 'Styles' );
 		$v2_compatible = $styles->isCurrentThemeCompatible( 2 );
 
 		if ( ! $v2_compatible ) {
@@ -1732,6 +1733,35 @@ class PDFOptions extends \Pressbooks\Options {
 				);
 			} else {
 				$scss .= "div.part-title-wrap > .part-number, div.chapter-title-wrap > .chapter-number, #toc .part a::before, #toc .chapter a::before { display: none !important; } \n";  // TODO: NO
+			}
+		}
+
+		// Textbox colours.
+
+		if ( $v2_compatible ) {
+			foreach ( [
+				'edu_textbox_examples_header_color' => 'examples-header-color',
+				'edu_textbox_examples_header_background' => 'examples-header-background',
+				'edu_textbox_examples_color' => 'examples-color',
+				'edu_textbox_examples_background' => 'examples-background',
+				'edu_textbox_exercises_header_color' => 'exercises-header-color',
+				'edu_textbox_exercises_header_background' => 'exercises-header-background',
+				'edu_textbox_exercises_color' => 'exercises-color',
+				'edu_textbox_exercises_background' => 'exercises-background',
+				'edu_textbox_objectives_header_color' => 'learning-objectives-header-color',
+				'edu_textbox_objectives_header_background' => 'learning-objectives-header-background',
+				'edu_textbox_objectives_color' => 'learning-objectives-color',
+				'edu_textbox_objectives_background' => 'learning-objectives-background',
+				'edu_textbox_takeaways_header_color' => 'key-takeaways-header-color',
+				'edu_textbox_takeaways_header_background' => 'key-takeaways-header-background',
+				'edu_textbox_takeaways_color' => 'key-takeaways-color',
+				'edu_textbox_takeaways_background' => 'key-takeaways-background',
+			] as $option => $variable ) {
+				if ( isset( $options[ $option ] ) ) {
+					$styles->getSass()->setVariables( [
+						"$variable" => $options[ $option ],
+					] );
+				}
 			}
 		}
 

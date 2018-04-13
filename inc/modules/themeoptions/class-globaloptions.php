@@ -66,6 +66,9 @@ class GlobalOptions extends \Pressbooks\Options {
 			add_option( $_option, $this->defaults );
 		}
 
+		$custom_styles = Container::get( 'Styles' );
+		$v2_compatible = $custom_styles->isCurrentThemeCompatible( 2 );
+
 		add_settings_section(
 			$_section,
 			$this->getTitle(),
@@ -128,6 +131,60 @@ class GlobalOptions extends \Pressbooks\Options {
 				2 => __( 'Display section level license at end of chapter in export formats', 'pressbooks' ),
 			]
 		);
+
+		if ( $v2_compatible ) {
+			foreach ( [
+				'examples' => __( 'Examples', 'pressbooks' ),
+				'exercises' => __( 'Exercises', 'pressbooks' ),
+				'takeaways' => __( 'Key Takeaways', 'pressbooks' ),
+				'objectives' => __( 'Learning Objectives', 'pressbooks' ),
+			] as $key => $label ) {
+				add_settings_field(
+					"edu_textbox_{$key}_header_color",
+					sprintf( __( '%s Header Color', 'pressbooks' ), $label ),
+					[ $this, 'renderColorField' ],
+					$_page,
+					$_section,
+					[
+						'key' => "edu_textbox_{$key}_header_color",
+						'description' => sprintf( __( 'The header text color for a %s textbox.', 'pressbooks' ), $label ),
+					]
+				);
+				add_settings_field(
+					"edu_textbox_{$key}_header_background",
+					sprintf( __( '%s Header Background', 'pressbooks' ), $label ),
+					[ $this, 'renderColorField' ],
+					$_page,
+					$_section,
+					[
+						'key' => "edu_textbox_{$key}_header_background",
+						'description' => sprintf( __( 'The header background color for a %s textbox.', 'pressbooks' ), $label ),
+					]
+				);
+				add_settings_field(
+					"edu_textbox_{$key}_color",
+					sprintf( __( '%s Color', 'pressbooks' ), $label ),
+					[ $this, 'renderColorField' ],
+					$_page,
+					$_section,
+					[
+						'key' => "edu_textbox_{$key}_color",
+						'description' => sprintf( __( 'The text color for a %s textbox.', 'pressbooks' ), $label ),
+					]
+				);
+				add_settings_field(
+					"edu_textbox_{$key}_background",
+					sprintf( __( '%s Background', 'pressbooks' ), $label ),
+					[ $this, 'renderColorField' ],
+					$_page,
+					$_section,
+					[
+						'key' => "edu_textbox_{$key}_background",
+						'description' => sprintf( __( 'The background color for a %s textbox.', 'pressbooks' ), $label ),
+					]
+				);
+			}
+		}
 
 		/**
 		 * Add custom settings fields.
@@ -312,6 +369,25 @@ class GlobalOptions extends \Pressbooks\Options {
 	}
 
 	/**
+	 * Render the header color inputs.
+	 *
+	 * @param array $args
+	 */
+	function renderColorField( $args ) {
+		$this->renderField(
+			[
+				'id' => $args['key'],
+				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
+				'option' => $args['key'],
+				'value' => ( isset( $this->options[ $args['key'] ] ) ) ? $this->options[ $args['key'] ] : $this->defaults[ $args['key'] ],
+				'description' => $args['description'],
+				'type' => 'color',
+				'class' => 'color-picker',
+			]
+		);
+	}
+
+	/**
 	 * Get the slug for the global options tab.
 	 *
 	 * @return string $slug
@@ -345,6 +421,22 @@ class GlobalOptions extends \Pressbooks\Options {
 				'chapter_numbers' => 1,
 				'parse_subsections' => 0,
 				'copyright_license' => 0,
+				'edu_textbox_examples_header_color' => '#fff',
+				'edu_textbox_examples_header_background' => '#7a333a',
+				'edu_textbox_examples_color' => '#000',
+				'edu_textbox_examples_background' => '#f3e1e3',
+				'edu_textbox_exercises_header_color' => '#fff',
+				'edu_textbox_exercises_header_background' => '#0b6396',
+				'edu_textbox_exercises_color' => '#000',
+				'edu_textbox_exercises_background' => '#e3eff6',
+				'edu_textbox_objectives_header_color' => '#fff',
+				'edu_textbox_objectives_header_background' => '#111',
+				'edu_textbox_objectives_color' => '#000',
+				'edu_textbox_objectives_background' => '#f7f7f9',
+				'edu_textbox_takeaways_header_color' => '#fff',
+				'edu_textbox_takeaways_header_background' => '#3a7a33',
+				'edu_textbox_takeaways_color' => '#000',
+				'edu_textbox_takeaways_background' => '#eaf5ea',
 			]
 		);
 	}
@@ -357,6 +449,57 @@ class GlobalOptions extends \Pressbooks\Options {
 	 * @return array $defaults
 	 */
 	static function filterDefaults( $defaults ) {
+
+		// SASS => WP
+		$overrides = [
+			'examples-header-color' => 'edu_textbox_examples_header_color',
+			'examples-header-background' => 'edu_textbox_examples_header_background',
+			'examples-color' => 'edu_textbox_examples_color',
+			'examples-background' => 'edu_textbox_examples_background',
+			'exercises-header-color' => 'edu_textbox_exercises_header_color',
+			'exercises-header-background' => 'edu_textbox_exercises_header_background',
+			'exercises-color' => 'edu_textbox_exercises_color',
+			'exercises-background' => 'edu_textbox_exercises_background',
+			'learning-objectives-header-color' => 'edu_textbox_objectives_header_color',
+			'learning-objectives-header-background' => 'edu_textbox_objectives_header_background',
+			'learning-objectives-color' => 'edu_textbox_objectives_color',
+			'learning-objectives-background' => 'edu_textbox_objectives_background',
+			'key-takeaways-header-color' => 'edu_textbox_takeaways_header_color',
+			'key-takeaways-header-background' => 'edu_textbox_takeaways_header_background',
+			'key-takeaways-color' => 'edu_textbox_takeaways_color',
+			'key-takeaways-background' => 'edu_textbox_takeaways_background',
+		];
+
+		$transient_name = 'pressbooks_theme_options_global_parsed_sass_variables';
+		$parsed_sass_variables = get_transient( $transient_name );
+		if ( $parsed_sass_variables === false ) {
+			// Order of files matter. If a variable is duplicated in other files then the last one takes precedence
+			$parsed_sass_variables = [];
+			$sass = Container::get( 'Sass' );
+			$path_to_global = $sass->pathToGlobals();
+			$path_to_theme = get_stylesheet_directory();
+			$files = [
+				$path_to_global . '/variables/_specials.scss',
+				$path_to_theme . '/assets/styles/components/_specials.scss',
+			];
+			foreach ( $files as $file ) {
+				if ( file_exists( $file ) ) {
+					$parsed_sass_variables[] = $sass->parseVariables( \Pressbooks\Utility\get_contents( $file ) );
+				}
+			}
+			set_transient( $transient_name, $parsed_sass_variables );
+		}
+
+		foreach ( $parsed_sass_variables as $parsed_variables ) {
+			foreach ( $overrides as $sass_var => $wp_option ) {
+				if ( isset( $parsed_variables[ $sass_var ] ) ) {
+					if ( ! empty( $parsed_variables[ $sass_var ] ) ) {
+						$defaults[ $wp_option ] = $parsed_variables[ $sass_var ]; // Override default with new value
+					}
+				}
+			}
+		}
+
 		return $defaults;
 	}
 
@@ -394,7 +537,24 @@ class GlobalOptions extends \Pressbooks\Options {
 		 *
 		 * @param array $value
 		 */
-		return apply_filters( 'pb_theme_options_global_strings', [] );
+		return apply_filters( 'pb_theme_options_global_strings', [
+			'edu_textbox_examples_header_color',
+			'edu_textbox_examples_header_background',
+			'edu_textbox_examples_color',
+			'edu_textbox_examples_background',
+			'edu_textbox_exercises_header_color',
+			'edu_textbox_exercises_header_background',
+			'edu_textbox_exercises_color',
+			'edu_textbox_exercises_background',
+			'edu_textbox_objectives_header_color',
+			'edu_textbox_objectives_header_background',
+			'edu_textbox_objectives_color',
+			'edu_textbox_objectives_background',
+			'edu_textbox_takeaways_header_color',
+			'edu_textbox_takeaways_header_background',
+			'edu_textbox_takeaways_color',
+			'edu_textbox_takeaways_background',
+		] );
 	}
 
 	/**
