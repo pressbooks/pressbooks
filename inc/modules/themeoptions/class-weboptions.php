@@ -119,7 +119,7 @@ class WebOptions extends \Pressbooks\Options {
 			]
 		);
 
-		if ( Container::get( 'Styles' )->isCurrentThemeCompatible( 2 ) && version_compare( Container::get( 'Styles' )->getBuckramVersion(), 0 ) > 0 ) {
+		if ( Container::get( 'Styles' )->hasBuckram() ) {
 			add_settings_field(
 				'collapse_sections',
 				__( 'Collapse Sections', 'pressbooks' ),
