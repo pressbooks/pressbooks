@@ -751,10 +751,11 @@ function init_css_js() {
 	}
 
 	if ( isset( $_REQUEST['page'] ) && $_REQUEST['page'] === 'pressbooks_theme_options' ) {
+		wp_enqueue_style( 'wp-color-picker' );
 		wp_enqueue_style( 'select2', $assets->getPath( 'styles/select2.css' ) );
 		wp_enqueue_style( 'theme-options', $assets->getPath( 'styles/theme-options.css' ) );
 		wp_enqueue_script( 'select2-js', $assets->getPath( 'scripts/select2.js' ), [ 'jquery' ] );
-		wp_enqueue_script( 'theme-options-js', $assets->getPath( 'scripts/theme-options.js' ), [ 'jquery' ] );
+		wp_enqueue_script( 'theme-options-js', $assets->getPath( 'scripts/theme-options.js' ), [ 'jquery', 'wp-color-picker' ] );
 	}
 
 	// Upgrade Select2 in Custom Metadata Manager
