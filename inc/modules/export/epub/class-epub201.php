@@ -223,7 +223,7 @@ class Epub201 extends Export {
 		$this->tmpDir = $this->createTmpDir();
 		$this->exportStylePath = $this->getExportStylePath( 'epub' );
 
-		if ( Container::get( 'Styles' )->isCurrentThemeCompatible( 2 ) && version_compare( Container::get( 'Styles' )->getBuckramVersion(), '0.3.0' ) >= 0 ) {
+		if ( Container::get( 'Styles' )->hasBuckram( '0.3.0' ) ) {
 			$this->wrapHeaderElements = true;
 		}
 

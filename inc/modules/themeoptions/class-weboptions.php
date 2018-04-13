@@ -6,6 +6,8 @@
 
 namespace Pressbooks\Modules\ThemeOptions;
 
+use Pressbooks\Container;
+
 class WebOptions extends \Pressbooks\Options {
 
 	/**
@@ -117,16 +119,18 @@ class WebOptions extends \Pressbooks\Options {
 			]
 		);
 
-		add_settings_field(
-			'collapse_sections',
-			__( 'Collapse Sections', 'pressbooks' ),
-			[ $this, 'renderCollapseSections' ],
-			$_page,
-			$_section,
-			[
-				__( 'Collapse sections within front matter, chapters, and back matter', 'pressbooks' ),
-			]
-		);
+		if ( Container::get( 'Styles' )->hasBuckram() ) {
+			add_settings_field(
+				'collapse_sections',
+				__( 'Collapse Sections', 'pressbooks' ),
+				[ $this, 'renderCollapseSections' ],
+				$_page,
+				$_section,
+				[
+					__( 'Collapse sections within front matter, chapters, and back matter', 'pressbooks' ),
+				]
+			);
+		}
 
 		/**
 		 * Add custom settings fields.
