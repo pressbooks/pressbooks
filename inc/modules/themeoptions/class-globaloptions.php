@@ -381,7 +381,7 @@ class GlobalOptions extends \Pressbooks\Options {
 				'option' => $args['key'],
 				'value' => ( isset( $this->options[ $args['key'] ] ) ) ? $this->options[ $args['key'] ] : $this->defaults[ $args['key'] ],
 				'description' => $args['description'],
-				'type' => 'text',
+				'type' => 'color',
 				'class' => 'color-picker',
 			]
 		);
