@@ -1949,10 +1949,17 @@ class Epub201 extends Export {
 			return $this->fetchedImageCache[ $url ];
 		}
 
+		$args = [];
+
+		if ( defined( 'WP_ENV' ) && WP_ENV === 'development' ) {
+			$args['sslverify'] = false;
+		}
+
 		$response = \Pressbooks\Utility\remote_get_retry(
 			$url, [
 				'timeout' => $this->timeout,
-			]
+			],
+			$args
 		);
 
 		// WordPress error?
@@ -1971,7 +1978,8 @@ class Epub201 extends Export {
 				$response = wp_remote_get(
 					$url, [
 						'timeout' => $this->timeout,
-					]
+					],
+					$args
 				);
 				if ( is_wp_error( $response ) ) {
 					throw new \Exception( 'Bad URL: ' . $url );
@@ -2054,10 +2062,17 @@ class Epub201 extends Export {
 			return $this->fetchedFontCache[ $url ];
 		}
 
+		$args = [];
+
+		if ( defined( 'WP_ENV' ) && WP_ENV === 'development' ) {
+			$args['sslverify'] = false;
+		}
+
 		$response = wp_remote_get(
 			$url, [
 				'timeout' => $this->timeout,
-			]
+			],
+			$args
 		);
 
 		// WordPress error?
