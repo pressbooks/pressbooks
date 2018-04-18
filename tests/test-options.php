@@ -302,6 +302,20 @@ class OptionsTest extends \WP_UnitTestCase {
 		$this->assertEquals( '"blah  blah"', $v );
 	}
 
+	public function test_renderColorField() {
+		ob_start();
+		$output = \Pressbooks\Options::renderColorField([
+			'id' => 'test_color',
+			'name' => 'pressbooks_options_test',
+			'option' => 'test_color',
+			'value' => '',
+			'default' => '#c00'
+		]);
+		$buffer = ob_get_clean();
+
+		$this->assertEquals( '<input id="test_color" class="color-picker" name="pressbooks_options_test[test_color]" type="text" data-default-color="#c00" value="" />', $buffer );
+	}
+
 	public function test_deleteCacheAfterUpdate() {
 		$now = time() - 60;
 		set_transient( 'pb_cache_deleted', $now, DAY_IN_SECONDS );

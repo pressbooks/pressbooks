@@ -211,6 +211,51 @@ abstract class Options {
 	}
 
 	/**
+	 * Render a WordPress color picker.
+	 *
+	 * @param array $args {
+	 *     Arguments to render the color picker.
+	 *
+	 * @type string $id The id which will be assigned to the rendered field.
+	 * @type string $name The name of the field.
+	 * @type string $option The name of the option that the field is within.
+	 * @type string $value The stored value of the field as retrieved from the database.
+	 * @type string $default The default value of the field.
+	 * @type string $description A description which will be displayed below the field.
+	 * @type bool $disabled Is the field disabled?
+	 * }
+	 */
+	static function renderColorField( $args ) {
+		$defaults = [
+			'id' => null,
+			'name' => null,
+			'option' => null,
+			'value' => '',
+			'default' => '#000',
+			'description' => null,
+			'disabled' => false,
+		];
+
+		$args = wp_parse_args( $args, $defaults );
+
+		printf(
+			'<input id="%1$s" class="color-picker" name="%2$s[%3$s]" type="text" data-default-color="%4$s" value="%5$s" %6$s/>',
+			$args['id'],
+			$args['name'],
+			$args['option'],
+			$args['default'],
+			$args['value'],
+			( ! empty( $args['disabled'] ) ) ? ' disabled' : ''
+		);
+		if ( isset( $args['description'] ) ) {
+			printf(
+				'<p class="description">%s</p>',
+				$args['description']
+			);
+		}
+	}
+
+	/**
 	 * Render a checkbox.
 	 *
 	 * @param array $args
