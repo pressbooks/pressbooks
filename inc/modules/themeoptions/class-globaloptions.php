@@ -152,7 +152,7 @@ class GlobalOptions extends \Pressbooks\Options {
 
 				add_settings_field(
 					"edu_textbox_{$key}_header_color",
-					__( 'Header Color', 'pressbooks' ),
+					sprintf( '<span class="screen-reader-text">%1$s </span>%2$s', $label, __( 'Header Color', 'pressbooks' ) ),
 					[ $this, 'renderTextboxColorField' ],
 					$_page,
 					$_section,
@@ -163,7 +163,7 @@ class GlobalOptions extends \Pressbooks\Options {
 				);
 				add_settings_field(
 					"edu_textbox_{$key}_header_background",
-					__( 'Header Background', 'pressbooks' ),
+					sprintf( '<span class="screen-reader-text">%1$s </span>%2$s', $label, __( 'Header Background', 'pressbooks' ) ),
 					[ $this, 'renderTextboxColorField' ],
 					$_page,
 					$_section,
@@ -174,7 +174,7 @@ class GlobalOptions extends \Pressbooks\Options {
 				);
 				add_settings_field(
 					"edu_textbox_{$key}_background",
-					__( 'Background', 'pressbooks' ),
+					sprintf( '<span class="screen-reader-text">%1$s </span>%2$s', $label, __( 'Background', 'pressbooks' ) ),
 					[ $this, 'renderTextboxColorField' ],
 					$_page,
 					$_section,
