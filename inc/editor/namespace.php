@@ -234,17 +234,10 @@ function mce_table_editor_options( $settings ) {
 		],
 	];
 
-	$table_classes = apply_filters( 'pressbooks_editor_table_classes', $table_classes );
-	$cell_classes = apply_filters( 'pressbooks_editor_cell_classes', $cell_classes );
-	$row_classes = apply_filters( 'pressbooks_editor_row_classes', $row_classes );
+	$settings['table_class_list'] = wp_json_encode( apply_filters( 'pressbooks_editor_table_classes', $table_classes ) );
+	$settings['table_cell_class_list'] = wp_json_encode( apply_filters( 'pressbooks_editor_cell_classes', $cell_classes ) );
+	$settings['table_row_class_list'] = wp_json_encode( apply_filters( 'pressbooks_editor_row_classes', $row_classes ) );
 
-	$settings['table_advtab'] = false;
-	$settings['table_class_list'] = wp_json_encode( $table_classes );
-	$settings['table_cell_advtab'] = false;
-	$settings['table_cell_class_list'] = wp_json_encode( $cell_classes );
-	$settings['table_row_advtab'] = false;
-	$settings['table_row_class_list'] = wp_json_encode( $row_classes );
-	$settings['table_appearance_options'] = false;
 	return $settings;
 }
 
