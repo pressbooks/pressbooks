@@ -85,6 +85,11 @@ class EditorTest extends \WP_UnitTestCase {
 		$this->assertArrayHasKey( 'table_class_list', $x );
 		$this->assertArrayHasKey( 'table_cell_class_list', $x );
 		$this->assertArrayHasKey( 'table_row_class_list', $x );
+		$this->assertFalse( $x['table_advtab'] );
+		$this->assertFalse( $x['table_cell_advtab'] );
+		$this->assertFalse( $x['table_row_advtab'] );
+		$this->assertTrue( $x['table_responsive_width'] );
+		$this->assertTrue( $x['table_appearance_options'] );
 	}
 
 	public function test_customize_wp_link_query_args() {
