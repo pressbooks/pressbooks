@@ -251,7 +251,7 @@ function init_network_integrations_menu() {
 			__( 'Integrations', 'pressbooks-lti-provider' ),
 			__( 'Integrations', 'pressbooks-lti-provider' ),
 			'manage_network',
-			'pb_network_integrations',
+			$parent_slug,
 			'',
 			'dashicons-networking'
 		);
