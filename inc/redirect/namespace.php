@@ -232,9 +232,8 @@ function rewrite_rules_for_api() {
  * PB API v1
  * Expects the pattern `api/v1/books/{id}`
  *
- * @deprecated
- *
  * @see https://github.com/pressbooks/pb-api
+ * @deprecated
  */
 function do_api() {
 	// Don't do anything and return if `api` isn't part of the URL
@@ -511,4 +510,54 @@ function redirect_away_from_bad_urls() {
 		$_SESSION['pb_notices'][] = __( 'You do not have sufficient permissions to access that URL.', 'pressbooks' );
 		\Pressbooks\Redirect\location( $redirect_url );
 	}
+}
+
+/**
+ * Programmatically logs a user in
+ *
+ * @since 5.3.0
+ *
+ * @param string $username
+ *
+ * @return bool True if the login was successful; false if it wasn't
+ */
+function programmatic_login( $username ) {
+	if ( is_user_logged_in() ) {
+		wp_logout();
+	}
+
+	$credentials = [
+		'user_login' => $username,
+	];
+
+	// In before 20!
+	// Hook in earlier than other callbacks to short-circuit them [ @see wp-includes/default-filters.php ]
+	add_filter( 'authenticate', __NAMESPACE__ . '\allow_programmatic_login', 10, 3 );
+	$user = wp_signon( $credentials );
+	remove_filter( 'authenticate', __NAMESPACE__ . '\allow_programmatic_login', 10 );
+
+	if ( is_a( $user, 'WP_User' ) ) {
+		wp_set_current_user( $user->ID, $user->user_login );
+		if ( is_user_logged_in() ) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
+/**
+ * An 'authenticate' filter callback that authenticates the user using only the username.
+ *
+ * To avoid potential security vulnerabilities, this should only be used in the context of a programmatic login,
+ * and unhooked immediately after it fires.
+ *
+ * @param \WP_User $user
+ * @param string $username
+ * @param string $password
+ *
+ * @return bool|\WP_User a WP_User object if the username matched an existing user, or false if it didn't
+ */
+function allow_programmatic_login( $user, $username, $password ) {
+	return get_user_by( 'login', $username );
 }
