@@ -505,7 +505,7 @@ function filter_plugins( $plugins ) {
 	}
 
 	// Don't include Pressbooks LaTeX if QuickLaTeX is active.
-	if ( in_array( 'wp-quicklatex', $already_active, true ) || array_key_exists( 'wp-quicklatex/wp-quicklatex.php', $network_already_active ) ) {
+	if ( in_array( 'wp-quicklatex/wp-quicklatex.php', $already_active, true ) || array_key_exists( 'wp-quicklatex/wp-quicklatex.php', $network_already_active ) ) {
 		unset( $plugins['pressbooks-latex/pb-latex.php'] );
 	}
 
