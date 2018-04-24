@@ -237,6 +237,17 @@ function replace_book_admin_menu() {
 
 	add_options_page( __( 'Export Settings', 'pressbooks' ), __( 'Export', 'pressbooks' ), 'manage_options', 'pressbooks_export_options', [ $page, 'render' ] );
 
+	// QuickLaTeX
+	if ( function_exists( 'quicklatex_options_do_page' ) ) {
+		add_options_page(
+			__( 'QuickLaTeX', 'pressbooks' ),
+			__( 'QuickLaTeX', 'pressbooks' ),
+			'manage_options',
+			'quicklatex-settings',
+			'quicklatex_options_do_page'
+		);
+	}
+
 	// Import
 	$import_page = add_management_page( __( 'Import', 'pressbooks' ), __( 'Import', 'pressbooks' ), 'edit_posts', 'pb_import', __NAMESPACE__ . '\display_import' );
 	add_action(
