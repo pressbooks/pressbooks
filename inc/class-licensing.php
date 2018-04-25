@@ -177,9 +177,6 @@ class Licensing {
 	 */
 	public function doLicense( $metadata, $post_id = 0, $title = '' ) {
 
-		$transient_id = "license-inf-{$post_id}";
-		$lang = ! empty( $metadata['pb_language'] ) ? $metadata['pb_language'] : 'en';
-
 		// if no post $id given, we default to book copyright
 		if ( empty( $post_id ) ) {
 			$section_license = '';
@@ -233,47 +230,7 @@ class Licensing {
 			$copyright_year = 0;
 		}
 
-		// Check if the user has changed anything about the license
-		$transient = get_transient( $transient_id );
-		$changed = false;
-		if ( is_array( $transient ) ) {
-			foreach ( [ $license, $copyright_holder, $title, $lang, $copyright_year ] as $val ) {
-				if ( ! array_key_exists( $val, $transient ) ) {
-					$changed = true;
-				}
-			}
-		}
-
-		// if the cache has expired, or the user changed something about the license
-		if ( false === $transient || true === $changed ) {
-			// get xml response from API
-			$response = $this->getLicenseXml( $license, $copyright_holder, $link, $title, $lang, $copyright_year );
-
-			// convert to object
-			$result = simplexml_load_string( $response );
-
-			if ( ! false === $result || ! isset( $result->html ) ) {
-				throw new \Exception( 'Creative Commons license API not returning expected results' );
-			} else {
-				// process the response, return html
-				$except_where_otherwise_noted = in_array( $license, [ 'all-rights-reserved' ], true ) ? false : true;
-				$html = $this->getLicenseHtml( $result->html[0], $except_where_otherwise_noted );
-			}
-
-			set_transient(
-				$transient_id,
-				[
-					$license => $html,
-					$copyright_holder => 1,
-					$title => 1,
-					$lang => 1,
-					$copyright_year => 1,
-				]
-			);
-
-		} else {
-			$html = $transient[ $license ];
-		}
+		$html = $this->getLicense( $license, $copyright_holder, $link, $title, $copyright_year );
 
 		return $html;
 	}
@@ -282,6 +239,9 @@ class Licensing {
 	 * Takes a known string from metadata, builds a url to hit an api which returns an xml response
 	 *
 	 * @see https://api.creativecommons.org/docs/readme_15.html
+	 *
+	 * @deprecated 5.3.0
+	 * @deprecated No longer used by internal code and no longer recommended.
 	 *
 	 * @param string $type license type
 	 * @param string $copyright_holder of the page
@@ -357,6 +317,9 @@ class Licensing {
 	/**
 	 * Returns an HTML blob if given an XML object
 	 *
+	 * @deprecated 5.3.0
+	 * @deprecated No longer used by internal code and no longer recommended.
+	 *
 	 * @param \SimpleXMLElement $response
 	 * @param $except_where_otherwise_noted bool (optional)
 	 *
@@ -377,6 +340,66 @@ class Licensing {
 		$html .= '</p></div>';
 
 		return html_entity_decode( $html, ENT_XHTML, 'UTF-8' );
+	}
+
+	/**
+	 * Returns an HTML blob for a supported license.
+	 *
+	 * @since 5.3.0
+	 *
+	 * @param string $type license type
+	 * @param string $copyright_holder of the page
+	 * @param string $src_url of the page
+	 * @param string $title of the page
+	 * @param int $year (optional)
+	 *
+	 * @return string $html License blob.
+	 */
+	public function getLicense( $license, $copyright_holder, $link, $title, $copyright_year ) {
+		if ( ! $this->isSupportedType( $license ) ) {
+			return sprintf(
+				'<div class="license-attribution"><p>%s</p></div>',
+				sprintf(
+					__( '%1$s Copyright &copy;%2$s by %3$s. All Rights Reserved.', 'pressbooks' ),
+					$title,
+					( $copyright_year ) ? ' ' . $copyright_year : '',
+					$copyright_holder
+				)
+			);
+		} elseif ( $this->isSupportedType( $license ) ) {
+			if ( \Pressbooks\Utility\str_starts_with( $license, 'cc' ) ) {
+				return sprintf(
+					'<div class="license-attribution"><p>%1$s</p><p>%2$s</p></div>',
+					'Images go here.', // TODO
+					sprintf(
+						__( '%1$s by %2$s is licensed under a %3$s, except where otherwise noted.', 'pressbooks' ),
+						$title,
+						sprintf( '<a href="%1$s">%2$s</a>', $link, $copyright_holder ),
+						$license // TODO
+					)
+				);
+			} elseif ( $license === 'all-rights-reserved' ) {
+				return sprintf(
+					'<div class="license-attribution"><p>%s</p></div>',
+					sprintf(
+						__( '%1$s Copyright &copy;%2$s by %3$s. All Rights Reserved.', 'pressbooks' ),
+						$title,
+						( $copyright_year ) ? ' ' . $copyright_year : '',
+						$copyright_holder
+					)
+				);
+			} elseif ( $license === 'public-domain' ) {
+				return sprintf(
+					'<div class="license-attribution"><p>%1$s</p><p>%2$s</p></div>',
+					'Images go here.', // TODO
+					sprintf(
+						__( 'To the extent possible under law, %1$s  has waived all copyright and related or neighboring rights to %2$s, except where otherwise noted.', 'pressbooks' ),
+						sprintf( '<a href="%1$s">%2$s</a>', $link, $copyright_holder ),
+						$title
+					)
+				);
+			}
+		}
 	}
 
 	/**
