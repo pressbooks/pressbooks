@@ -61,6 +61,7 @@ class Licensing {
 				],
 				'url' => 'https://creativecommons.org/licenses/by/4.0/',
 				'desc' => __( 'CC BY (Attribution)', 'pressbooks' ),
+				'longdesc' => __( 'Creative Commons Attribution 4.0 International License', 'pressbooks' ),
 			],
 			'cc-by-sa' => [
 				'api' => [
@@ -70,6 +71,7 @@ class Licensing {
 				],
 				'url' => 'https://creativecommons.org/licenses/by-sa/4.0/',
 				'desc' => __( 'CC BY-SA (Attribution ShareAlike)', 'pressbooks' ),
+				'longdesc' => __( 'Creative Commons Attribution-ShareAlike 4.0 International License', 'pressbooks' ),
 			],
 			'cc-by-nd' => [
 				'api' => [
@@ -79,6 +81,7 @@ class Licensing {
 				],
 				'url' => 'https://creativecommons.org/licenses/by-nd/4.0/',
 				'desc' => __( 'CC BY-ND (Attribution NoDerivatives)', 'pressbooks' ),
+				'longdesc' => __( 'Creative Commons Attribution-NoDerivatives 4.0 International License', 'pressbooks' ),
 			],
 			'cc-by-nc' => [
 				'api' => [
@@ -88,6 +91,7 @@ class Licensing {
 				],
 				'url' => 'https://creativecommons.org/licenses/by-nc/4.0/',
 				'desc' => __( 'CC BY-NC (Attribution NonCommercial)', 'pressbooks' ),
+				'longdesc' => __( 'Creative Commons Attribution-NonCommercial 4.0 International License', 'pressbooks' ),
 			],
 			'cc-by-nc-sa' => [
 				'api' => [
@@ -97,6 +101,7 @@ class Licensing {
 				],
 				'url' => 'https://creativecommons.org/licenses/by-nc-sa/4.0/',
 				'desc' => __( 'CC BY-NC-SA (Attribution NonCommercial ShareAlike)', 'pressbooks' ),
+				'longdesc' => __( 'Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License', 'pressbooks' ),
 			],
 			'cc-by-nc-nd' => [
 				'api' => [
@@ -106,6 +111,7 @@ class Licensing {
 				],
 				'url' => 'https://creativecommons.org/licenses/by-nc-nd/4.0/',
 				'desc' => __( 'CC BY-NC-ND (Attribution NonCommercial NoDerivatives)', 'pressbooks' ),
+				'longdesc' => __( 'Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License', 'pressbooks' ),
 			],
 			'all-rights-reserved' => [
 				'api' => [], // Not supported
@@ -367,15 +373,17 @@ class Licensing {
 				)
 			);
 		} elseif ( $this->isSupportedType( $license ) ) {
+			$name = $this->getNameForLicense( $license );
+			$url = $this->getUrlForLicense( $license );
 			if ( \Pressbooks\Utility\str_starts_with( $license, 'cc' ) ) {
 				return sprintf(
 					'<div class="license-attribution"><p>%1$s</p><p>%2$s</p></div>',
-					'Images go here.', // TODO
+					sprintf( '<span class="icon icon--%1$s">%2$s</span>', $license, $name ),
 					sprintf(
 						__( '%1$s by %2$s is licensed under a %3$s, except where otherwise noted.', 'pressbooks' ),
 						$title,
 						sprintf( '<a href="%1$s">%2$s</a>', $link, $copyright_holder ),
-						$license // TODO
+						sprintf( '<a href="%1$s">%2$s</a>', $url, $name )
 					)
 				);
 			} elseif ( $license === 'all-rights-reserved' ) {
@@ -385,15 +393,15 @@ class Licensing {
 						__( '%1$s Copyright &copy;%2$s by %3$s. All Rights Reserved.', 'pressbooks' ),
 						$title,
 						( $copyright_year ) ? ' ' . $copyright_year : '',
-						$copyright_holder
+						sprintf( '<a href="%1$s">%2$s</a>', $link, $copyright_holder )
 					)
 				);
 			} elseif ( $license === 'public-domain' ) {
 				return sprintf(
 					'<div class="license-attribution"><p>%1$s</p><p>%2$s</p></div>',
-					'Images go here.', // TODO
+					sprintf( '<span class="icon icon--%1$s">%2$s</span>', $license, $name ),
 					sprintf(
-						__( 'To the extent possible under law, %1$s  has waived all copyright and related or neighboring rights to %2$s, except where otherwise noted.', 'pressbooks' ),
+						__( 'To the extent possible under law, %1$s has waived all copyright and related or neighboring rights to %2$s, except where otherwise noted.', 'pressbooks' ),
 						sprintf( '<a href="%1$s">%2$s</a>', $link, $copyright_holder ),
 						$title
 					)
@@ -437,5 +445,28 @@ class Licensing {
 		}
 
 		return 'all-rights-reserved';
+	}
+
+	/**
+	 * Returns URL for saved license value.
+	 *
+	 * @since 4.1.0
+	 *
+	 * @param string
+	 *
+	 * @return string
+	 */
+	public function getNameForLicense( $license ) {
+		$types = $this->getSupportedTypes();
+
+		if ( $this->isSupportedType( $license ) ) {
+			if ( isset( $types[ $license ]['longdesc'] ) ) {
+				return $types[ $license ]['longdesc'];
+			} else {
+				return $types[ $license ]['desc'];
+			}
+		} else {
+			return $types['all-rights-reserved']['desc'];
+		}
 	}
 }
