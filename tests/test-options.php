@@ -316,6 +316,20 @@ class OptionsTest extends \WP_UnitTestCase {
 		$this->assertEquals( '<input id="test_color" class="color-picker" name="pressbooks_options_test[test_color]" type="text" data-default-color="#c00" value="" />', $buffer );
 	}
 
+	public function test_renderCheckbox() {
+		ob_start();
+		$output = \Pressbooks\Options::renderCheckbox([
+			'id' => 'test_checkbox',
+			'name' => 'pressbooks_options_test',
+			'option' => 'test_checkbox',
+			'value' => 1,
+			'label' => 'Test Checkbox'
+		]);
+		$buffer = ob_get_clean();
+
+		$this->assertEquals( '<input id="test_checkbox" name="pressbooks_options_test[test_checkbox]" type="checkbox" value="1"  checked=\'checked\'/><label for="test_checkbox">Test Checkbox</label>', $buffer );
+	}
+
 	public function test_deleteCacheAfterUpdate() {
 		$now = time() - 60;
 		set_transient( 'pb_cache_deleted', $now, DAY_IN_SECONDS );
