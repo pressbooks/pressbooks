@@ -2,6 +2,8 @@
 
 class ThemeOptionsTest extends \WP_UnitTestCase {
 
+    use utilsTrait;
+
 	/**
 	 * @var \Pressbooks\Modules\ThemeOptions\ThemeOptions
 	 */
@@ -20,6 +22,8 @@ class ThemeOptionsTest extends \WP_UnitTestCase {
 
 	public function test_loadTabs() {
 		global $wp_registered_settings;
+		$this->_book(); // We need Book Info now :(
+
 		$this->themeOptions->loadTabs();
 		$this->assertArrayHasKey( 'pressbooks_theme_options_ebook', $wp_registered_settings );
 	}

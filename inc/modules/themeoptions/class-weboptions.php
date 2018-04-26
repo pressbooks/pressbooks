@@ -7,6 +7,7 @@
 namespace Pressbooks\Modules\ThemeOptions;
 
 use Pressbooks\Container;
+use Pressbooks\Metadata;
 
 class WebOptions extends \Pressbooks\Options {
 
@@ -60,6 +61,7 @@ class WebOptions extends \Pressbooks\Options {
 		$_option = 'pressbooks_theme_options_' . $this->getSlug();
 		$_page = $_option;
 		$_section = $this->getSlug() . '_options_section';
+		$meta = new Metadata();
 
 		if ( false === get_option( $_option ) ) {
 			add_option( $_option, $this->defaults );
@@ -128,6 +130,20 @@ class WebOptions extends \Pressbooks\Options {
 				$_section,
 				[
 					__( 'Collapse sections within front matter, chapters, and back matter', 'pressbooks' ),
+				]
+			);
+		}
+
+		if ( get_post_meta( $meta->getMetaPost()->ID, 'pb_is_based_on', true ) ) {
+			add_settings_field(
+				'enable_source_comparison',
+				__( 'Enable Source Comparison', 'pressbooks' ),
+				[ $this, 'renderEnableSourceComparison' ],
+				$_page,
+				$_section,
+				[
+					__( 'Add comparison tool to the end of each front matter, part, chapter, and back matter', 'pressbooks' ),
+					__( 'Allows readers to compare content with the original book from which it was cloned.', 'pressbooks' ),
 				]
 			);
 		}
@@ -279,6 +295,24 @@ class WebOptions extends \Pressbooks\Options {
 	}
 
 	/**
+	 * Render the allow_comparison checkbox.
+	 *
+	 * @param array $args
+	 */
+	function renderEnableSourceComparison( $args ) {
+		$this->renderCheckbox(
+			[
+				'id' => 'enable_source_comparison',
+				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
+				'option' => 'enable_source_comparison',
+				'value' => ( isset( $this->options['enable_source_comparison'] ) ) ? $this->options['enable_source_comparison'] : '',
+				'label' => $args[0],
+				'description' => $args[1],
+			]
+		);
+	}
+
+	/**
 	 * Get the slug for the web options tab.
 	 *
 	 * @return string $slug
@@ -314,6 +348,7 @@ class WebOptions extends \Pressbooks\Options {
 				'part_title' => 0,
 				'webbook_width' => '40em',
 				'collapse_sections' => 0,
+				'enable_source_comparison' => 0,
 			]
 		);
 	}
@@ -347,6 +382,7 @@ class WebOptions extends \Pressbooks\Options {
 				'social_media',
 				'part_title',
 				'collapse_sections',
+				'enable_source_comparison',
 			]
 		);
 	}
