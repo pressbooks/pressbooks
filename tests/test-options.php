@@ -198,6 +198,7 @@ class OptionsTest extends \WP_UnitTestCase {
 	}
 
 	public function test_sanityChecks() {
+		$this->_book(); // We need Book Info now :(
 
 		$options[] = '\Pressbooks\Modules\ThemeOptions\EbookOptions';
 		$options[] = '\Pressbooks\Modules\ThemeOptions\GlobalOptions';
