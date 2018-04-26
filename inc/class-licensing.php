@@ -448,9 +448,9 @@ class Licensing {
 	}
 
 	/**
-	 * Returns URL for saved license value.
+	 * Returns long description for saved license value.
 	 *
-	 * @since 4.1.0
+	 * @since 5.3.0
 	 *
 	 * @param string
 	 *
