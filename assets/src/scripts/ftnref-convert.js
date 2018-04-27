@@ -2,16 +2,16 @@
 	tinymce.create( 'tinymce.plugins.ftnref_convert', {
 		init: function ( ed, url ) {
 			ed.addButton( 'ftnref_convert', {
-				title:   PB_FootnotesToken.ftnref_title,
-				icon:    'icon dashicons-screenoptions',
+				title: PB_FootnotesToken.ftnref_title,
+				icon: 'icon dashicons-screenoptions',
 				onclick: function () {
 					jQuery.ajax( {
-						type:     'post',
+						type: 'post',
 						dataType: 'json',
-						url:      ajaxurl,
-						data:     {
-							action:      'pb_ftnref_convert',
-							content:     ed.getContent(),
+						url: ajaxurl,
+						data: {
+							action: 'pb_ftnref_convert',
+							content: ed.getContent(),
 							_ajax_nonce: PB_FootnotesToken.nonce,
 						},
 						beforeSend: function () {

@@ -2,7 +2,7 @@ jQuery( function ( $ ) {
 	let $container = $( '#catalog-content' );
 	$container.isotope( {
 		itemSelector: '.mix',
-		layoutMode:   'fitRows',
+		layoutMode: 'fitRows',
 	} );
 	$( '.mix' ).matchHeight( {} );
 	$.fn.matchHeight._afterUpdate = function ( event, groups ) {
