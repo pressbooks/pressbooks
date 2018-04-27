@@ -64,7 +64,7 @@ jQuery( function ( $ ) {
 		} )
 		.change( function () {
 			Cookies.set( 'pb_' + $( this ).attr( 'name' ), $( this ).prop( 'checked' ), {
-				path:    '/',
+				path: '/',
 				expires: 365,
 			} );
 		} );
