@@ -523,6 +523,8 @@ abstract class Export {
 			\Pressbooks\Utility\put_contents( $path_to_htaccess, "deny from all\n" );
 		}
 
+		$path = apply_filters( 'pb_get_export_folder', $path );
+
 		return $path;
 	}
 
