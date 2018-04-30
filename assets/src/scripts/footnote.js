@@ -2,9 +2,9 @@
 	tinymce.create( 'tinymce.plugins.footnote', {
 		init: function ( ed, url ) {
 			ed.addButton( 'footnote', {
-				title:   PB_FootnotesToken.fn_title,
-				text:    'FN',
-				icon:    false,
+				title: PB_FootnotesToken.fn_title,
+				text: 'FN',
+				icon: false,
 				onclick: function () {
 					let mySelection = ed.selection.getContent();
 					let footNote;

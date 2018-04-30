@@ -965,6 +965,8 @@ class Xhtml11 extends Export {
 					}
 				}
 			} else {
+				$has_intro = false;
+
 				foreach ( $struct as $val ) {
 
 					if ( ! $val['export'] ) {
@@ -984,6 +986,12 @@ class Xhtml11 extends Export {
 							continue; // Skip
 						} else {
 							$typetype = $type . ' ' . $subclass;
+							if ( $has_intro ) {
+								$typetype .= ' post-introduction';
+							}
+							if ( $subclass === 'introduction' ) {
+								$has_intro = true;
+							}
 							$subtitle = trim( get_post_meta( $val['ID'], 'pb_subtitle', true ) );
 							$author = $this->contributors->get( $val['ID'], 'pb_authors' );
 							$license = $this->doTocLicense( $val['ID'] );
@@ -1053,6 +1061,10 @@ class Xhtml11 extends Export {
 
 			if ( 'dedication' === $subclass || 'epigraph' === $subclass || 'title-page' === $subclass || 'before-title' === $subclass ) {
 				continue; // Skip
+			}
+
+			if ( $this->hasIntroduction ) {
+				$subclass .= ' post-introduction';
 			}
 
 			if ( 'introduction' === $subclass ) {

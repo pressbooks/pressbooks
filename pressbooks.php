@@ -50,7 +50,7 @@ function _pb_session_start() {
 
 function _pb_session_kill() {
 	$_SESSION = [];
-	session_destroy();
+	@session_destroy(); // @codingStandardsIgnoreLine
 }
 // @codingStandardsIgnoreEnd
 

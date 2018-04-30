@@ -6,22 +6,22 @@ let $ = window.jQuery;
 
 let pb = {
 	organize: {
-		bulkToggle:      [],
-		oldParent:       null,
-		newParent:       null,
-		oldOrder:        null,
-		newOrder:        null,
+		bulkToggle: [],
+		oldParent: null,
+		newParent: null,
+		oldOrder: null,
+		newOrder: null,
 		sortableOptions: {
-			revert:      true,
-			helper:      'clone',
-			zIndex:      2700,
-			distance:    3,
-			opacity:     0.6,
+			revert: true,
+			helper: 'clone',
+			zIndex: 2700,
+			distance: 3,
+			opacity: 0.6,
 			placeholder: 'ui-state-highlight',
 			dropOnEmpty: true,
-			cursor:      'crosshair',
-			items:       'tbody > tr',
-			start:       ( event, ui ) => {
+			cursor: 'crosshair',
+			items: 'tbody > tr',
+			start: ( event, ui ) => {
 				pb.organize.oldParent = $( ui.item )
 					.parents( 'table' )
 					.attr( 'id' );
@@ -53,7 +53,9 @@ function showModal( item ) {
 	}
 	alert.children( 'p' ).text( alertMessage );
 	alert.addClass( 'loading-content' ).removeClass( 'visually-hidden' );
-	$.blockUI( { message: $( alert ), baseZ: 100000 } );
+	$.blockUI( {
+		message: $( alert ), baseZ: 100000,
+	} );
 }
 
 /**
@@ -86,7 +88,7 @@ function removeModal( item, status ) {
  */
 function updateWordCountForExport() {
 	const data = {
-		action:      'pb_update_word_count_for_export',
+		action: 'pb_update_word_count_for_export',
 		_ajax_nonce: PB_OrganizeToken.wordCountNonce,
 	};
 	$.post( ajaxurl, data, function ( response ) {
@@ -129,7 +131,7 @@ function getRowData( row ) {
 		.attr( 'id' )
 		.split( '_' );
 	const rowData = {
-		id:        row[row.length - 1],
+		id: row[row.length - 1],
 		post_type: row[0],
 	};
 	return rowData;
@@ -216,15 +218,15 @@ function reorder( row ) {
 	let item = getRowData( row );
 
 	$.ajax( {
-		url:  ajaxurl,
+		url: ajaxurl,
 		type: 'POST',
 		data: {
-			action:      'pb_reorder',
-			id:          item.id,
-			old_order:   $( `#${pb.organize.oldParent}` ).sortable( 'serialize' ),
-			new_order:   $( `#${pb.organize.newParent}` ).sortable( 'serialize' ),
-			old_parent:  pb.organize.oldParent.replace( /^part_([0-9]+)$/i, '$1' ),
-			new_parent:  pb.organize.newParent.replace( /^part_([0-9]+)$/i, '$1' ),
+			action: 'pb_reorder',
+			id: item.id,
+			old_order: $( `#${pb.organize.oldParent}` ).sortable( 'serialize' ),
+			new_order: $( `#${pb.organize.newParent}` ).sortable( 'serialize' ),
+			old_parent: pb.organize.oldParent.replace( /^part_([0-9]+)$/i, '$1' ),
+			new_parent: pb.organize.newParent.replace( /^part_([0-9]+)$/i, '$1' ),
 			_ajax_nonce: PB_OrganizeToken.reorderNonce,
 		},
 		beforeSend: () => {
@@ -250,15 +252,15 @@ function reorder( row ) {
  */
 function updateVisibility( ids, postType, output, visibility ) {
 	let data = {
-		action:      'pb_update_post_visibility',
-		post_ids:    ids,
+		action: 'pb_update_post_visibility',
+		post_ids: ids,
 		_ajax_nonce: PB_OrganizeToken.postVisibilityNonce,
 	};
 
 	$.ajax( {
-		url:        ajaxurl,
-		type:       'POST',
-		data:       Object.assign( data, { [output]: visibility } ),
+		url: ajaxurl,
+		type: 'POST',
+		data: Object.assign( data, { [output]: visibility } ),
 		beforeSend: () => {
 			showModal( { post_type: postType } );
 		},
@@ -281,12 +283,12 @@ function updateVisibility( ids, postType, output, visibility ) {
  */
 function updateTitleVisibility( ids, postType, showTitle ) {
 	$.ajax( {
-		url:  ajaxurl,
+		url: ajaxurl,
 		type: 'POST',
 		data: {
-			action:      'pb_update_post_title_visibility',
-			post_ids:    ids,
-			show_title:  showTitle,
+			action: 'pb_update_post_title_visibility',
+			post_ids: ids,
+			show_title: showTitle,
 			_ajax_nonce: PB_OrganizeToken.showTitleNonce,
 		},
 		beforeSend: () => {
@@ -310,7 +312,9 @@ $( document ).ready( () => {
 		.sortable( pb.organize.sortableOptions )
 		.disableSelection();
 	$( '.allow-bulk-operations table.chapters' )
-		.sortable( Object.assign( pb.organize.sortableOptions, { connectWith: '.chapters' } ) )
+		.sortable(
+			Object.assign( pb.organize.sortableOptions, { connectWith: '.chapters' } )
+		)
 		.disableSelection();
 
 	// Handle Global Privacy form changes.
@@ -325,10 +329,10 @@ $( document ).ready( () => {
 		}
 
 		$.ajax( {
-			url:  ajaxurl,
+			url: ajaxurl,
 			type: 'POST',
 			data: {
-				action:      'pb_update_global_privacy_options',
+				action: 'pb_update_global_privacy_options',
 				blog_public: blogPublic,
 				_ajax_nonce: PB_OrganizeToken.privacyNonce,
 			},
