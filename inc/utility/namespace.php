@@ -43,7 +43,7 @@ function scandir_by_date( $dir ) {
 
 	$ignored = [ '.', '..', '.svn', '.git', '.htaccess' ];
 
-	$dir = rtrim( $dir, '/' ) . '/';
+	$dir = untrailingslashit( $dir ) . '/';
 
 	$files = [];
 	foreach ( scandir( $dir ) as $file ) {
