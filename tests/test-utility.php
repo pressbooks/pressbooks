@@ -31,6 +31,7 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertTrue( is_array( $files ) );
 		$this->assertContains( basename( __FILE__ ), $files );
 		$this->assertNotContains( '.htaccess', $files );
+		$this->assertNotContains( 'data', $files );
 	}
 
 
@@ -41,6 +42,7 @@ class UtilityTest extends \WP_UnitTestCase {
 
 		$files = \Pressbooks\Utility\group_exports( __DIR__ );
 		$this->assertNotContains( '.htaccess', $files );
+		$this->assertNotContains( 'data', $files );
 	}
 
 

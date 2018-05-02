@@ -523,6 +523,14 @@ abstract class Export {
 			\Pressbooks\Utility\put_contents( $path_to_htaccess, "deny from all\n" );
 		}
 
+		/**
+		 * @since 5.3.0
+		 *
+		 * Filters the export folder path
+		 * Use this hook to change the location of the export folder.
+		 *
+		 * @param string $path The path to the Pressbooks export folder
+		 */
 		$path = apply_filters( 'pb_get_export_folder', $path );
 
 		return $path;

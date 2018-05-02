@@ -33,7 +33,7 @@ function getset( $arr, $key, $default = null ) {
 }
 
 /**
- * Scan a directory and return the files ordered by date, newest first.
+ * Scan a directory and return the files (not directories!) ordered by date, newest first.
  *
  * @param $dir
  *
