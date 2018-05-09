@@ -30,5 +30,4 @@ jQuery( document ).ready( function ( $ ) {
 			$( '#post_password' ).hide();
 		}
 	} );
-
 } );

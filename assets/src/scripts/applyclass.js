@@ -4,10 +4,10 @@ tinymce.PluginManager.add( 'apply_class', function ( editor ) {
 		let selectedContent = editor.selection.getContent();
 		editor.windowManager.open( {
 			title: editor.getLang( 'strings.applyclass' ),
-			body:  {
-				type:  'textbox',
-				name:  'class',
-				size:  40,
+			body: {
+				type: 'textbox',
+				name: 'class',
+				size: 40,
 				label: editor.getLang( 'strings.classtitle' ),
 			},
 			onsubmit: function ( e ) {
@@ -22,13 +22,13 @@ tinymce.PluginManager.add( 'apply_class', function ( editor ) {
 		} );
 	}
 	editor.addButton( 'apply_class', {
-		icon:    'icon dashicons-art',
+		icon: 'icon dashicons-art',
 		tooltip: editor.getLang( 'strings.applyclass' ),
 		onclick: showDialog,
 	} );
 	editor.addMenuItem( 'apply_class', {
-		icon:    'icon dashicons-art',
-		text:    editor.getLang( 'strings.applyclass' ),
+		icon: 'icon dashicons-art',
+		text: editor.getLang( 'strings.applyclass' ),
 		context: 'insert',
 		onclick: showDialog,
 	} );

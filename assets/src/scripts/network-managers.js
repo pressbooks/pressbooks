@@ -14,12 +14,12 @@ jQuery( function ( $ ) {
 				let unrestrict_string = link.attr( 'data-unrestrict-text' );
 				let change_status_to = link.attr( 'data-restrict' );
 				$.ajax( {
-					url:  ajaxurl,
+					url: ajaxurl,
 					type: 'POST',
 					data: {
-						action:      'pb_update_admin_status',
-						admin_id:    admin_id,
-						status:      change_status_to,
+						action: 'pb_update_admin_status',
+						admin_id: admin_id,
+						status: change_status_to,
 						_ajax_nonce: PB_NetworkManagerToken.networkManagerNonce,
 					},
 					success: function () {
