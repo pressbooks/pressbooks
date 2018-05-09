@@ -1,14 +1,14 @@
 {
     "/scripts/anchor.js": "/scripts/anchor.js?id=a43a4eab92b3c02095b1",
     "/styles/catalog.css": "/styles/catalog.css?id=b4d78714ee50b66c97be",
-    "/styles/colors-pb.css": "/styles/colors-pb.css?id=0cc3227e68e66cf46505",
+    "/styles/colors-pb.css": "/styles/colors-pb.css?id=b82863c8e88bbafb1ab2",
     "/styles/cloner.css": "/styles/cloner.css?id=11347078e8fedba35238",
     "/styles/export.css": "/styles/export.css?id=051bb75fbdccdfb67f18",
     "/styles/login.css": "/styles/login.css?id=629d86a7f1c7eb205b3e",
     "/styles/metadata.css": "/styles/metadata.css?id=0f07ef0ed371a8cd93c5",
     "/styles/network-managers.css": "/styles/network-managers.css?id=77d465c0788f57898bdc",
     "/styles/organize.css": "/styles/organize.css?id=10462c410cda04c15dcb",
-    "/styles/pressbooks.css": "/styles/pressbooks.css?id=f47c15f6842c1c146f6f",
+    "/styles/pressbooks.css": "/styles/pressbooks.css?id=22a615a76103c1f25c62",
     "/styles/search-and-replace.css": "/styles/search-and-replace.css?id=13cf851ddd3d1ebe12fa",
     "/styles/select2.css": "/styles/select2.css?id=7373e0d2a1e8dabab523",
     "/styles/style-catalog.css": "/styles/style-catalog.css?id=1b990ad0f745d38311a3",
@@ -40,5 +40,5 @@
     "/scripts/js-cookie.js": "/scripts/js-cookie.js?id=8ff1c89f24a8ca6f91f7",
     "/scripts/select2.js": "/scripts/select2.js?id=e66208e306a3e3b57128",
     "/scripts/sidr.js": "/scripts/sidr.js?id=32495427b04ceeab5376",
-    "/scripts/table.js": "/scripts/table.js?id=8edc3afad4c34a9313db"
+    "/scripts/table.js": "/scripts/table.js?id=9307d610a2c72a3903cd"
 }

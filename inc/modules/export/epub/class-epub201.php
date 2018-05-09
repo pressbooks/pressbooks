@@ -20,6 +20,7 @@ use function Pressbooks\Sanitize\sanitize_xml_attribute;
 use function Pressbooks\Utility\oxford_comma_explode;
 use function Pressbooks\Utility\str_ends_with;
 use function Pressbooks\Utility\debug_error_log;
+use function Pressbooks\Utility\str_starts_with;
 
 class Epub201 extends Export {
 
@@ -1920,6 +1921,10 @@ class Epub201 extends Export {
 			/** @var \DOMElement $image */
 			// Fetch image, change src
 			$url = $image->getAttribute( 'src' );
+			// Replace Buckram SVGs with PNGs
+			if ( str_starts_with( $url, get_template_directory_uri() . '/assets/book/images' ) && str_ends_with( $url, '.svg' ) ) {
+				$url = str_replace( '.svg', '.png', $url );
+			}
 			$filename = $this->fetchAndSaveUniqueImage( $url, $fullpath );
 			if ( $filename ) {
 				// Replace with new image
@@ -1944,7 +1949,6 @@ class Epub201 extends Export {
 	 * @return string filename
 	 */
 	protected function fetchAndSaveUniqueImage( $url, $fullpath ) {
-
 		if ( isset( $this->fetchedImageCache[ $url ] ) ) {
 			return $this->fetchedImageCache[ $url ];
 		}

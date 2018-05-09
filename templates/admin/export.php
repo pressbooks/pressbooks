@@ -208,6 +208,16 @@ $formats = apply_filters( 'pb_export_formats', [
 	);
 } ?>
 		</fieldset>
+		
+		<?php 
+			/**
+			 * @since 5.3.0
+			 *
+			 * Fires just before the export html form ends
+			 * Use this hook to add additional input UI to the Pressbooks export admin page.
+			 */
+			do_action( 'pb_export_form_end' );
+		?>
 	</form>
 	<div class="clear"></div>
 	<h3><?php _e( 'Your Theme Options', 'pressbooks' ); ?></h3>
@@ -227,6 +237,18 @@ $formats = apply_filters( 'pb_export_formats', [
 <div class="export-control">
 	<p><input id="pb-export-button" type="button" class="button button-hero button-primary generate" value="<?php esc_attr_e( 'Export Your Book', 'pressbooks' ); ?>" /></p>
 	<p id="loader" class="loading-content"><span class="spinner"></span></p>
+	<?php 
+		/**
+		 * @since 5.3.0
+		 *
+		 * Filters whether to show the default export file list.
+		 * Use this hook to disable the default export file list and add your own.
+		 *
+		 * @param bool $value Whether to show the default export file list.
+		 *                    Returning false to the filter will disable the output. Default true.
+		 */
+		if ( apply_filters( 'pb_export_show_files', true ) ) :
+	?>
 	<?php
 	$c = 0; // start counter
 	$files = \Pressbooks\Utility\group_exports();
@@ -310,6 +332,7 @@ foreach ( $exports as $file ) {
 		<input type="hidden" name="delete_all_exports" value="true" />
 		<button class="button" type="submit" name="submit" src="" value="Delete All Exports" onclick="if ( !confirm('<?php esc_attr_e( 'Are you sure you want to delete ALL your current exports?', 'pressbooks' ); ?>' ) ) { return false }"><?php _e( 'Delete All Exports', 'pressbooks' ); ?></button>
 	</form>
+	<?php endif; ?>
 	<?php endif; ?>
 </div> <!-- .export-control -->
 

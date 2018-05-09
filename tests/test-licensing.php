@@ -77,6 +77,15 @@ class LicensingTest extends \WP_UnitTestCase {
 		$this->assertContains( '</div>', $result );
 	}
 
+	public function test_getLicense() {
+		$result = $this->licensing->getLicense( 'public-domain', 'Herman Melville', 'https://mobydick.whale', 'Moby Dick', 1851 );
+		$this->assertEquals( $result, '<div class="license-attribution"><p><img src="' . get_template_directory_uri() . '/assets/book/images/public-domain.svg" alt="Icon for the Public Domain (No Rights Reserved) license" /></p><p>To the extent possible under law, <a href="https://mobydick.whale">Herman Melville</a> has waived all copyright and related or neighboring rights to Moby Dick, except where otherwise noted.</p></div>' );
+		$result = $this->licensing->getLicense( 'all-rights-reserved', 'Herman Melville', 'https://mobydick.whale', 'Moby Dick', 1851 );
+		$this->assertEquals( $result, '<div class="license-attribution"><p>Moby Dick Copyright &copy; 1851 by <a href="https://mobydick.whale">Herman Melville</a>. All Rights Reserved.</p></div>' );
+		$result = $this->licensing->getLicense( 'cc-by', 'Herman Melville', 'https://mobydick.whale', 'Moby Dick', 1851 );
+		$this->assertEquals( $result, '<div class="license-attribution"><p><img src="' . get_template_directory_uri() . '/assets/book/images/cc-by.svg" alt="Icon for the Creative Commons Attribution 4.0 International License" /></p><p>Moby Dick by <a href="https://mobydick.whale">Herman Melville</a> is licensed under a <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>, except where otherwise noted.</p></div>' );
+	}
+
 	public function test_getUrlForLicense() {
 		$result = $this->licensing->getUrlForLicense( 'public-domain' );
 		$this->assertEquals( $result, 'https://creativecommons.org/publicdomain/zero/1.0/' );
@@ -87,4 +96,12 @@ class LicensingTest extends \WP_UnitTestCase {
 		$this->assertEquals( $result, 'public-domain' );
 	}
 
+	public function test_getNameForLicense() {
+		$result = $this->licensing->getNameForLicense( 'public-domain' );
+		$this->assertEquals( $result, 'Public Domain (No Rights Reserved)' );
+		$result = $this->licensing->getNameForLicense( 'cc-by-nc-sa' );
+		$this->assertEquals( $result, 'Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License' );
+		$result = $this->licensing->getNameForLicense( 'made-up-license' );
+		$this->assertEquals( $result, 'All Rights Reserved' );
+	}
 }
