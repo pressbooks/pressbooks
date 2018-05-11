@@ -513,7 +513,10 @@ abstract class Import {
 		}
 
 		$tmp_file = \Pressbooks\Utility\create_tmp_file();
-		$args     = [ 'stream' => true, 'filename' => $tmp_file ];
+		$args = [
+			'stream'   => true,
+			'filename' => $tmp_file
+		];
 
 		$response = wp_remote_get( $url, $args );
 
