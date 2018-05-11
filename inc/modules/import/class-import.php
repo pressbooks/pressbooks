@@ -512,23 +512,25 @@ abstract class Import {
 			return false;
 		}
 
-		$response = wp_remote_get( $url );
+		$tmp_file = \Pressbooks\Utility\create_tmp_file();
+		$args     = [ 'stream' => true, 'filename' => $tmp_file ];
+
+		$response = wp_remote_get( $url, $args );
 
 		// Something failed
 		if ( is_wp_error( $response ) ) {
 			debug_error_log( '\Pressbooks\Modules\Import::formSubmit html import error, wp_remote_head()' . $response->get_error_message() );
 			$_SESSION['pb_errors'][] = $response->get_error_message();
+			unlink( $tmp_file );
 			return false;
 		}
 
 		$code = wp_remote_retrieve_response_code( $response );
 		if ( $code >= 400 ) {
 			$_SESSION['pb_errors'][] = __( 'The website you are attempting to reach is not returning a successful response code: ', 'pressbooks' ) . $code;
+			unlink( $tmp_file );
 			return false;
 		}
-
-		$tmp_file = \Pressbooks\Utility\create_tmp_file();
-		\Pressbooks\Utility\put_contents( $tmp_file, wp_remote_retrieve_body( $response ) );
 
 		// Double check file size
 		if ( filesize( $tmp_file ) > $max_file_size ) {
