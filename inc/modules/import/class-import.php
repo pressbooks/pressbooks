@@ -515,7 +515,7 @@ abstract class Import {
 		$tmp_file = \Pressbooks\Utility\create_tmp_file();
 		$args = [
 			'stream'   => true,
-			'filename' => $tmp_file
+			'filename' => $tmp_file,
 		];
 
 		$response = wp_remote_get( $url, $args );
@@ -578,9 +578,11 @@ abstract class Import {
 	 * @return bool
 	 */
 	static protected function isUrlSmallerThanUploadMaxSize( $url, $max ) {
-		$response = wp_safe_remote_head( $url, [
-			'redirection' => 2,
-		] );
+		$response = wp_safe_remote_head(
+			$url, [
+				'redirection' => 2,
+			]
+		);
 		$size = (int) wp_remote_retrieve_header( $response, 'Content-Length' );
 		if ( empty( $size ) ) {
 			return true; // Unable to verify, return true and hope for the best...
