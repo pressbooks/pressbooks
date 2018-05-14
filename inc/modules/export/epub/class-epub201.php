@@ -2312,7 +2312,7 @@ class Epub201 extends Export {
 		} else {
 			$new_pos = 0;
 			foreach ( $lookup['__order'] as $post_id => $val ) {
-				if ( (string) $val['post_type'] === (string) $found['post_type'] ) {
+				if ( (string) $val['post_type'] === (string) $found['post_type'] && $val['export'] ) {
 					++$new_pos;
 				}
 				if ( (int) $post_id === (int) $found['ID'] ) {
