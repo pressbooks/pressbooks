@@ -90,8 +90,7 @@ function default_cover_path( $size = 'full' ) {
  * @return bool
  */
 function is_default_cover( $compare ) {
-	$pattern = '~' . str_replace( content_url( '/' ), '', default_cover_url() ) . '$~';
-	echo "\n" . $pattern . ' | ' . $compare . "\n";
+	$pattern = '~' . str_replace( plugins_url( '/' ), '', default_cover_url() ) . '$~';
 	$found = preg_match( $pattern, $compare );
 
 	return ( $found ) ? true : false;
