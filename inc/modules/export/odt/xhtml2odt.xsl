@@ -1174,11 +1174,11 @@
 						<xsl:choose>
 							<xsl:when test="@width">
 								<xsl:choose>
-									<xsl:when test="number((@width div 96)) &gt; 6.26806">
+									<xsl:when test="(number(translate(@width, '%', '')) div 96) &gt; 6.26806">
 										<xsl:text>6.26806in</xsl:text>
 									</xsl:when>
 									<xsl:otherwise>
-										<xsl:value-of select="(@width div 96)"/><xsl:text>in</xsl:text>
+										<xsl:value-of select="(number(translate(@width, '%', '')) div 96)"/><xsl:text>in</xsl:text>
 									</xsl:otherwise>
 								</xsl:choose>
 							</xsl:when>
@@ -1191,11 +1191,11 @@
 						<xsl:choose>
 							<xsl:when test="@height">
 								<xsl:choose>
-									<xsl:when test="number(@height div 96) &gt; 4.70139">
+									<xsl:when test="(number(translate(@height, '%', '')) div 96) &gt; 4.70139">
 										<xsl:text>4.70139in</xsl:text>
 									</xsl:when>
 									<xsl:otherwise>
-										<xsl:value-of select="(@height div 96)"/><xsl:text>in</xsl:text>
+										<xsl:value-of select="(number(translate(@height, '%', '')) div 96)"/><xsl:text>in</xsl:text>
 									</xsl:otherwise>
 								</xsl:choose>
 							</xsl:when>
@@ -1224,11 +1224,11 @@
 							<xsl:choose>
 								<xsl:when test="@width">
 									<xsl:choose>
-										<xsl:when test="number((@width div 96)) &gt; 6.26806">
+										<xsl:when test="(number(translate(@width, '%', '')) div 96) &gt; 6.26806">
 											<xsl:text>6.26806in</xsl:text>
 										</xsl:when>
 										<xsl:otherwise>
-											<xsl:value-of select="(@width div 96)"/><xsl:text>in</xsl:text>
+											<xsl:value-of select="(number(translate(@width, '%', '')) div 96)"/><xsl:text>in</xsl:text>
 										</xsl:otherwise>
 									</xsl:choose>
 								</xsl:when>
@@ -1241,11 +1241,11 @@
 							<xsl:choose>
 								<xsl:when test="@height">
 									<xsl:choose>
-										<xsl:when test="number(@height div 96) &gt; 4.70139">
+										<xsl:when test="(number(translate(@height, '%', '')) div 96) &gt; 4.70139">
 											<xsl:text>4.70139in</xsl:text>
 										</xsl:when>
 										<xsl:otherwise>
-											<xsl:value-of select="(@height div 96)"/><xsl:text>in</xsl:text>
+											<xsl:value-of select="(number(translate(@height, '%', '')) div 96)"/><xsl:text>in</xsl:text>
 										</xsl:otherwise>
 									</xsl:choose>
 								</xsl:when>
