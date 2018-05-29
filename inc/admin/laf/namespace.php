@@ -247,6 +247,11 @@ function replace_book_admin_menu() {
 			'quicklatex_options_do_page'
 		);
 	}
+	add_action( 'admin_enqueue_scripts', function ( $hook ) {
+		if ( $hook === 'toplevel_page_quicklatex-settings' ) {
+			wp_enqueue_style( 'pb-quicklatex', 'pb-quicklatex', false, null );
+		}
+	} );
 
 	// Import
 	$import_page = add_management_page( __( 'Import', 'pressbooks' ), __( 'Import', 'pressbooks' ), 'edit_posts', 'pb_import', __NAMESPACE__ . '\display_import' );
@@ -814,6 +819,7 @@ function init_css_js() {
 	wp_register_style( 'pb-cloner', $assets->getPath( 'styles/cloner.css' ) );
 	wp_register_style( 'pb-export', $assets->getPath( 'styles/export.css' ) );
 	wp_register_style( 'pb-organize', $assets->getPath( 'styles/organize.css' ) );
+	wp_register_style( 'pb-quicklatex', $assets->getPath( 'styles/ql.css' ) );
 
 	wp_enqueue_script( 'jquery' );
 	wp_enqueue_script( 'jquery-ui-core' );
