@@ -3153,12 +3153,12 @@ msgstr ""
 msgid "Apply Class"
 msgstr ""
 
-#: pressbooks.php:106
+#: pressbooks.php:107
 #, php-format
 msgid "Pressbooks dependencies are missing. Please make sure that your project&rsquo;s <a href=\"%1$s\">Composer autoload file</a> is being required, or use the <a href=\"%2$s\">latest release</a> instead."
 msgstr ""
 
-#: pressbooks.php:117
+#: pressbooks.php:118
 msgid "Cannot find Pressbooks install."
 msgstr ""
 
