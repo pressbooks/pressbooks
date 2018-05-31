@@ -17,9 +17,10 @@ use Pressbooks\Container;
 use Pressbooks\Sanitize;
 use Pressbooks\Taxonomy;
 use function Pressbooks\Sanitize\sanitize_xml_attribute;
+use function Pressbooks\Utility\debug_error_log;
 use function Pressbooks\Utility\oxford_comma_explode;
 use function Pressbooks\Utility\str_ends_with;
-use function Pressbooks\Utility\debug_error_log;
+use function Pressbooks\Utility\str_lreplace;
 use function Pressbooks\Utility\str_starts_with;
 
 class Epub201 extends Export {
@@ -2250,7 +2251,12 @@ class Epub201 extends Export {
 		}
 
 		$url = trim( $url );
+		// Remove trailing slash
 		$url = rtrim( $url, '/' );
+		// Change /foo/bar/#fragment to /foo/bar#fragment
+		if ( preg_match( '~/#[^/]*$~', $url ) ) {
+			$url = str_lreplace( '/#', '#', $url );
+		}
 
 		$domain = wp_parse_url( $url );
 		$domain = ( isset( $domain['host'] ) ) ? $domain['host'] : false;
