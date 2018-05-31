@@ -2079,10 +2079,13 @@ class Epub201 extends Export {
 		}
 
 		$response = wp_remote_get(
-			$url, [
-				'timeout' => $this->timeout,
-			],
-			$args
+			$url,
+			array_merge(
+				[
+					'timeout' => $this->timeout,
+				],
+				$args
+			)
 		);
 
 		// WordPress error?
