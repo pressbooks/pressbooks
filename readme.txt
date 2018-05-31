@@ -5,7 +5,7 @@ Tags: ebooks, publishing, webbooks
 Requires at least: 4.9.5
 Tested up to: 4.9.5
 Requires PHP: 7.0
-Stable tag: 5.3.1
+Stable tag: 5.3.2
 License: GPL v3.0 or later
 License URI: https://github.com/pressbooks/pressbooks/blob/master/LICENSE.md
 
@@ -21,6 +21,12 @@ For installation instructions, visit [docs.pressbooks.org/installation](https://
 TK.
 
 == Changelog ==
+= 5.3.2 =
+**Patches**
+
+- Fix a bug with `fetchAndSaveUniqueImage` and `fetchAndSaveUniqueFont` methods introduced in [0c84a5d](https://github.com/pressbooks/pressbooks/commit/0c84a5deb5d603d97ddf9745fcf4792275c36bc5): [#1220](https://github.com/pressbooks/pressbooks/pull/1220)
+- Use `wp dist-archive` to build release asset (#1219): [#1221](https://github.com/pressbooks/pressbooks/pull/1221)
+
 = 5.3.1 =
 **Patches**
 
