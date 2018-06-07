@@ -5,7 +5,7 @@ Tags: ebooks, publishing, webbooks
 Requires at least: 4.9.5
 Tested up to: 4.9.5
 Requires PHP: 7.0
-Stable tag: 5.3.2
+Stable tag: 5.3.3
 License: GPL v3.0 or later
 License URI: https://github.com/pressbooks/pressbooks/blob/master/LICENSE.md
 
@@ -21,6 +21,11 @@ For installation instructions, visit [docs.pressbooks.org/installation](https://
 TK.
 
 == Changelog ==
+= 5.3.3 =
+**Patches**
+
+- Fix EPUB internal links by stripping trailing slash before `#`: [#1222](https://github.com/pressbooks/pressbooks/pull/1222)
+
 = 5.3.2 =
 **Patches**
 
