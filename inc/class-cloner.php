@@ -711,7 +711,7 @@ class Cloner {
 		$book_information = schema_to_book_information( $this->sourceBookMetadata );
 
 		// Cover image
-		if ( strpos( $book_information['pb_cover_image'], 'plugins/pressbooks/assets/dist/images/default-book-cover.jpg' ) === false ) {
+		if ( ! \Pressbooks\Image\is_default_cover( $book_information['pb_cover_image'] ) ) {
 			$new_cover_id = $this->fetchAndSaveUniqueImage( $book_information['pb_cover_image'] );
 			if ( $new_cover_id ) {
 				$book_information['pb_cover_image'] = wp_get_attachment_url( $new_cover_id );

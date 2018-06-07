@@ -24,12 +24,11 @@ use PressbooksMix\Assets;
 function _logo_url( $profile ) {
 
 	if ( empty( $profile['pb_catalog_logo'] ) ) {
-		return PB_PLUGIN_URL . 'assets/dist/images/default-book-cover-100x100.jpg';
-
+		return \Pressbooks\Image\default_cover_url( 'thumbnail' );
 	} elseif ( PB_Image\is_default_cover( $profile['pb_catalog_logo'] ) ) {
-		return PB_PLUGIN_URL . 'assets/dist/images/default-book-cover-100x100.jpg';
-
-	} else { return PB_Catalog::thumbnailFromUserId( $profile['users_id'], 'thumbnail' );
+		return \Pressbooks\Image\default_cover_url( 'thumbnail' );
+	} else {
+		return PB_Catalog::thumbnailFromUserId( $profile['users_id'], 'thumbnail' );
 	}
 }
 
@@ -48,8 +47,10 @@ function _cover_height( $cover_url ) {
 
 	if ( preg_match( '/x(\d+)(?=\.(jp?g|png|gif)$)/i', $cover_url, $matches ) ) {
 		$new_cover_height = (int) $matches[1];
-		if ( $new_cover_height < 100 ) { $new_cover_height = $cover_height;
-		} elseif ( $new_cover_height > $cover_height ) { $new_cover_height = $cover_height;
+		if ( $new_cover_height < 100 ) {
+			$new_cover_height = $cover_height;
+		} elseif ( $new_cover_height > $cover_height ) {
+			$new_cover_height = $cover_height;
 		}
 	}
 
