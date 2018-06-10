@@ -1748,8 +1748,7 @@ class Epub201 extends Export {
 					$m++;
 				}
 			} elseif ( preg_match( '/^chapter-/', $k ) ) {
-				$class = 'chapter';
-				$class .= $this->taxonomy->getChapterType( $v['ID'] );
+				$class = implode( ' ', [ 'chapter', $this->taxonomy->getChapterType( $v['ID'] ) ] );
 				$subtitle = trim( get_post_meta( $v['ID'], 'pb_subtitle', true ) );
 				$author = $this->contributors->get( $v['ID'], 'pb_authors' );
 				$license = $this->doTocLicense( $v['ID'] );
