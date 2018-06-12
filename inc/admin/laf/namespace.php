@@ -533,14 +533,6 @@ function replace_menu_bar_my_sites( $wp_admin_bar ) {
 				]
 			);
 		}
-		$wp_admin_bar->add_node(
-			[
-				'parent' => 'pb-network-admin',
-				'id' => 'pb-network-admin-v',
-				'title' => __( 'Visit Network', 'pressbooks' ),
-				'href' => network_home_url(),
-			]
-		);
 	}
 
 
