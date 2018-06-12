@@ -341,6 +341,13 @@ How's it going?
 [shortcode id="1"]Fake[/shortcode]
 
 Ok Bye!
+
+<pre>My
+line
+breaks
+must
+remain
+</pre>
 RAW;
 
 		$var = wpautop( $raw );
