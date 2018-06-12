@@ -112,7 +112,7 @@ function lowly_user() {
 				echo '</p>';
 			} else {
 				$href = network_home_url( 'wp-signup.php' );
-				$text = __( "Create a new book", 'pressbooks' );
+				$text = __( 'Create a new book', 'pressbooks' );
 				echo "<p><a class='button button-hero button-primary' href='{$href}'>{$text}</a></p>";
 			}
 			if ( empty( get_blogs_of_user( get_current_user_id() ) ) ) {

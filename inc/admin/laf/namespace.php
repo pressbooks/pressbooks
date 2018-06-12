@@ -488,7 +488,9 @@ function replace_menu_bar_my_sites( $wp_admin_bar ) {
 				'id' => 'pb-network-admin',
 				'title' => __( 'Network Admin', 'pressbooks' ),
 				'href' => network_admin_url(),
-				'meta' => is_network_admin() ? [ 'class' => 'you-are-here' ] : [],
+				'meta' => is_network_admin() ? [
+					'class' => 'you-are-here',
+				] : [],
 			]
 		);
 		$wp_admin_bar->add_node(
@@ -535,7 +537,6 @@ function replace_menu_bar_my_sites( $wp_admin_bar ) {
 		}
 	}
 
-
 	// Website Admin
 	foreach ( (array) $wp_admin_bar->user->blogs as $blog ) {
 		if ( is_main_site( $blog->userblog_id ) ) {
@@ -547,7 +548,9 @@ function replace_menu_bar_my_sites( $wp_admin_bar ) {
 					'id' => 'pb-site-admin',
 					'title' => $blog->blogname,
 					'href' => $admin_url,
-					'meta' => ( is_main_site() && ! is_network_admin() ) ? [ 'class' => 'you-are-here' ] : [],
+					'meta' => ( is_main_site() && ! is_network_admin() ) ? [
+						'class' => 'you-are-here',
+					] : [],
 				]
 			);
 
@@ -578,7 +581,7 @@ function replace_menu_bar_my_sites( $wp_admin_bar ) {
 		[
 			'id' => 'my-books',
 			'title' => __( 'My Catalog', 'pressbooks' ),
-			'href' => $href = last_book( $wp_admin_bar, 'wp-admin/index.php?page=pb_catalog' ),
+			'href' => last_book( $wp_admin_bar, 'wp-admin/index.php?page=pb_catalog' ),
 		]
 	);
 
