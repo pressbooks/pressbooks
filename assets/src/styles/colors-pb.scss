@@ -141,7 +141,11 @@ div.error {
     }
   }
   .you-are-here {
-    color: darken($monza, 5%);
+    // TODO: Replace me
+    background: #777;
+    a.ab-item {
+      color: white;
+    }
   }
 }
 

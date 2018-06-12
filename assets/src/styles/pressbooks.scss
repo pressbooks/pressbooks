@@ -37,6 +37,12 @@
     content: "\f330" !important;
   }
 
+  #wp-admin-bar-pb-site-admin > .ab-item::before {
+    -webkit-font-smoothing: antialiased;
+    background: none;
+    content: "\f102" !important;
+  }
+
   #wp-admin-bar-wp-logo > .ab-item .ab-icon::before {
     font: 20px/1 "PBFont", sans-serif !important;
     -webkit-font-smoothing: antialiased;

@@ -93,6 +93,44 @@ function replace_dashboard_widgets() {
 
 }
 
+function lowly_user() {
+	add_meta_box(
+		'pb_dashboard_widget_book_permissions',
+		__( 'Book Permissions', 'pressbooks' ),
+		function () {
+			$contact = get_blog_option( get_main_site_id(), 'pb_network_contact_email', get_site_option( 'admin_email' ) );
+			// Values can be 'all', 'none', 'blog', or 'user', @see wp-signup.php
+			$active_signup = apply_filters( 'wpmu_active_signup', get_site_option( 'registration', 'none' ) );
+			if ( in_array( $active_signup, [ 'none', 'user' ], true ) ) {
+				echo '<p>';
+				_e( "This network does not allow users to create new books. To create a new book, please contact the institution's Pressbooks Network Manager", 'pressbooks' );
+				if ( ! empty( $contact ) ) {
+					echo ' ' . __( 'at', 'pressbooks' ) . " $contact";
+				} else {
+					echo '.';
+				}
+				echo '</p>';
+			} else {
+				$href = network_home_url( 'wp-signup.php' );
+				$text = __( "Create a new book", 'pressbooks' );
+				echo "<p><a class='button button-hero button-primary' href='{$href}'>{$text}</a></p>";
+			}
+			if ( empty( get_blogs_of_user( get_current_user_id() ) ) ) {
+				echo '<p>';
+				_e( "You do not have access to any books at the moment. To access books, please contact the book's author or the institution's Pressbooks Network Manager", 'pressbooks' );
+				if ( ! empty( $contact ) ) {
+					echo ' ' . __( 'at', 'pressbooks' ) . " $contact";
+				} else {
+					echo '.';
+				}
+				echo '</p>';
+			}
+		},
+		'dashboard-user',
+		'normal',
+		'high'
+	);
+}
 
 /**
  * Displays a Book widget

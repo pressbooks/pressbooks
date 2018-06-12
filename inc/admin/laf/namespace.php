@@ -15,8 +15,8 @@ use Pressbooks\Book;
 use Pressbooks\Cloner;
 use Pressbooks\Metadata;
 use PressbooksMix\Assets;
-use function Pressbooks\Admin\NetworkManagers\is_restricted;
 use function Pressbooks\PostType\get_post_type_label;
+use function Pressbooks\Admin\NetworkManagers\is_restricted;
 
 /**
  * Add a custom message in admin footer
@@ -477,45 +477,20 @@ function replace_menu_bar_branding( $wp_admin_bar ) {
 function replace_menu_bar_my_sites( $wp_admin_bar ) {
 
 	$wp_admin_bar->remove_menu( 'my-sites' );
-
-	// Don't show for logged out users or single site mode.
-	if ( ! is_user_logged_in() || ! is_multisite() ) {
-		return;
-	}
-
-	$show_menu = false;
-	if ( is_super_admin() ) {
-		// Always show menu for super admin
-		$show_menu = true;
-	} else {
-		if ( count( $wp_admin_bar->user->blogs ) >= 1 ) {
-			// Show menu for a user that has books
-			$show_menu = true;
-		} else {
-			// Show menu IF book registration is enabled
-			// The value can be 'all', 'none', 'blog', or 'user', @see wp-signup.php
-			$active_signup = apply_filters( 'wpmu_active_signup', get_site_option( 'registration', 'none' ) );
-			if ( in_array( $active_signup, [ 'blog', 'all' ], true ) ) {
-				$show_menu = true;
-			}
-		}
-	}
-	if ( ! $show_menu ) {
+	if ( ! show_menu_bar( $wp_admin_bar ) ) {
 		return;
 	}
 
 	// Network Admin
 	if ( is_super_admin() ) {
-
 		$wp_admin_bar->add_menu(
 			[
 				'id' => 'pb-network-admin',
 				'title' => __( 'Network Admin', 'pressbooks' ),
 				'href' => network_admin_url(),
-				'meta' => [ 'class' => 'you-are-here' ], // TODO
+				'meta' => is_network_admin() ? [ 'class' => 'you-are-here' ] : [],
 			]
 		);
-
 		$wp_admin_bar->add_node(
 			[
 				'parent' => 'pb-network-admin',
@@ -524,7 +499,6 @@ function replace_menu_bar_my_sites( $wp_admin_bar ) {
 				'href' => network_admin_url(),
 			]
 		);
-
 		$wp_admin_bar->add_node(
 			[
 				'parent' => 'pb-network-admin',
@@ -533,7 +507,6 @@ function replace_menu_bar_my_sites( $wp_admin_bar ) {
 				'href' => network_admin_url( 'sites.php' ),
 			]
 		);
-
 		$wp_admin_bar->add_node(
 			[
 				'parent' => 'pb-network-admin',
@@ -542,7 +515,24 @@ function replace_menu_bar_my_sites( $wp_admin_bar ) {
 				'href' => network_admin_url( 'users.php' ),
 			]
 		);
-
+		if ( ! is_restricted() ) {
+			$wp_admin_bar->add_node(
+				[
+					'parent' => 'pb-network-admin',
+					'id' => 'pb-network-admin-t',
+					'title' => __( 'Themes', 'pressbooks' ),
+					'href' => network_admin_url( 'themes.php' ),
+				]
+			);
+			$wp_admin_bar->add_node(
+				[
+					'parent' => 'pb-network-admin',
+					'id' => 'pb-network-admin-p',
+					'title' => __( 'Plugins', 'pressbooks' ),
+					'href' => network_admin_url( 'plugins.php' ),
+				]
+			);
+		}
 		$wp_admin_bar->add_node(
 			[
 				'parent' => 'pb-network-admin',
@@ -553,18 +543,19 @@ function replace_menu_bar_my_sites( $wp_admin_bar ) {
 		);
 	}
 
+
 	// Website Admin
 	foreach ( (array) $wp_admin_bar->user->blogs as $blog ) {
 		if ( is_main_site( $blog->userblog_id ) ) {
-
 			$menu_id = 'blog-' . $blog->userblog_id;
 			$admin_url = get_admin_url( $blog->userblog_id );
 
 			$wp_admin_bar->add_menu(
 				[
 					'id' => 'pb-site-admin',
-					'title' => __( 'Website Admin', 'pressbooks' ),
+					'title' => $blog->blogname,
 					'href' => $admin_url,
+					'meta' => ( is_main_site() && ! is_network_admin() ) ? [ 'class' => 'you-are-here' ] : [],
 				]
 			);
 
@@ -595,7 +586,7 @@ function replace_menu_bar_my_sites( $wp_admin_bar ) {
 		[
 			'id' => 'my-books',
 			'title' => __( 'My Catalog', 'pressbooks' ),
-			'href' => admin_url( 'index.php?page=pb_catalog' ),
+			'href' => $href = last_book( $wp_admin_bar, 'wp-admin/index.php?page=pb_catalog' ),
 		]
 	);
 
@@ -603,31 +594,15 @@ function replace_menu_bar_my_sites( $wp_admin_bar ) {
 		[
 			'parent' => 'my-books',
 			'id' => 'add-new-book',
-			'title' => __( 'Add A New Book', 'pressbooks' ),
+			'title' => __( 'Create A New Book', 'pressbooks' ),
 			'href' => network_home_url( 'wp-signup.php' ),
 		]
 	);
 
 	// Cloner
 	if ( Cloner::isEnabled() ) {
-		$href = false;
 		if ( ! Book::isBook() ) {
-			// Find a book
-			$blogs = get_blogs_of_user( get_current_user_id() );
-			foreach ( $blogs as $blog ) {
-				if ( ! is_main_site( $blog->userblog_id ) ) {
-					$href = get_blogaddress_by_id( $blog->userblog_id ) . 'wp-admin/options.php?page=pb_cloner';
-					break;
-				}
-			}
-			if ( ! $href && is_super_admin() ) {
-				// If no book was found, but is a super admin, then redirect to any book
-				global $wpdb;
-				$book = $wpdb->get_results( $wpdb->prepare( "SELECT blog_id AS ID FROM {$wpdb->blogs} WHERE archived = 0 AND spam = 0 AND deleted = 0 AND blog_id != %d LIMIT 1", get_network()->site_id ) );
-				if ( ! empty( $book ) ) {
-					$href = get_blogaddress_by_id( $book[0]->ID ) . 'wp-admin/options.php?page=pb_cloner';
-				}
-			}
+			$href = last_book( $wp_admin_bar, 'wp-admin/options.php?page=pb_cloner' );
 		} else {
 			$href = home_url( 'wp-admin/options.php?page=pb_cloner', 'relative' );
 		}
@@ -660,12 +635,12 @@ function replace_menu_bar_my_sites( $wp_admin_bar ) {
 			continue;
 		}
 
-		$blavatar = '<span class="blavatar"/></span>';
+		$blavatar = '<span class="blavatar"></span>';
 		$blogname = empty( $blog->blogname ) ? $blog->domain : $blog->blogname;
-		$menu_id = 'blog-' . $blog->userblog_id;
+		$menu_id = 'books-' . $blog->userblog_id;
 		$admin_url = get_admin_url( $blog->userblog_id );
 
-		$wp_admin_bar->add_menu(
+		$wp_admin_bar->add_node(
 			[
 				'parent' => 'my-books-list',
 				'id' => $menu_id,
@@ -673,8 +648,7 @@ function replace_menu_bar_my_sites( $wp_admin_bar ) {
 				'href' => $admin_url,
 			]
 		);
-
-		$wp_admin_bar->add_menu(
+		$wp_admin_bar->add_node(
 			[
 				'parent' => $menu_id,
 				'id' => $menu_id . '-d',
@@ -682,8 +656,7 @@ function replace_menu_bar_my_sites( $wp_admin_bar ) {
 				'href' => $admin_url,
 			]
 		);
-
-		$wp_admin_bar->add_menu(
+		$wp_admin_bar->add_node(
 			[
 				'parent' => $menu_id,
 				'id' => $menu_id . '-v',
@@ -693,8 +666,78 @@ function replace_menu_bar_my_sites( $wp_admin_bar ) {
 		);
 	}
 
+	if ( is_main_site() ) {
+		// @see \WP_Admin_Bar::add_menus
+		remove_action( 'admin_bar_menu', 'wp_admin_bar_site_menu', 30 );
+	}
 }
 
+
+/**
+ * @param \WP_Admin_Bar $wp_admin_bar
+ *
+ * @return bool
+ */
+function show_menu_bar( $wp_admin_bar ) {
+	// Don't show for logged out users or single site mode.
+	if ( ! is_user_logged_in() || ! is_multisite() ) {
+		return false;
+	}
+	$show_menu = false;
+	if ( is_super_admin() ) {
+		// Always show menu for super admin
+		$show_menu = true;
+	} else {
+		if ( count( $wp_admin_bar->user->blogs ) >= 1 ) {
+			// Show menu for a user that has books
+			$show_menu = true;
+		} else {
+			// Show menu IF book registration is enabled
+			// The value can be 'all', 'none', 'blog', or 'user', @see wp-signup.php
+			$active_signup = apply_filters( 'wpmu_active_signup', get_site_option( 'registration', 'none' ) );
+			if ( in_array( $active_signup, [ 'blog', 'all' ], true ) ) {
+				$show_menu = true;
+			}
+		}
+	}
+	return $show_menu;
+}
+
+/**
+ * @param \WP_Admin_Bar $wp_admin_bar
+ * @param string $suffix
+ *
+ * @return string Full URL of the blog if found. Empty string if not.
+ */
+function last_book( $wp_admin_bar, $suffix = '' ) {
+	$href = '';
+	if ( isset( $_SESSION['pb_admin_last_book_id'] ) && ( is_super_admin() || is_user_member_of_blog( 0, $_SESSION['pb_admin_last_book_id'] ) ) ) {
+		$href = get_blogaddress_by_id( $_SESSION['pb_admin_last_book_id'] );
+	}
+	if ( ! $href ) {
+		foreach ( $wp_admin_bar->user->blogs as $blog ) {
+			if ( ! is_main_site( $blog->userblog_id ) ) {
+				$href = get_blogaddress_by_id( $blog->userblog_id );
+				break;
+			}
+		}
+	}
+	if ( ! $href && is_super_admin() ) {
+		// If no book was found, but is a super admin, then return any book
+		global $wpdb;
+		$book = $wpdb->get_results( $wpdb->prepare( "SELECT blog_id AS ID FROM {$wpdb->blogs} WHERE archived = 0 AND spam = 0 AND deleted = 0 AND blog_id != %d LIMIT 1", get_network()->site_id ) );
+		if ( ! empty( $book ) ) {
+			$href = get_blogaddress_by_id( $book[0]->ID );
+		}
+	}
+	if ( ! empty( $href ) ) {
+		$href .= $suffix;
+	}
+	if ( Book::isBook() ) {
+		$_SESSION['pb_admin_last_book_id'] = get_current_blog_id();
+	}
+	return $href;
+}
 
 /**
  * Remove Updates item from admin menu
