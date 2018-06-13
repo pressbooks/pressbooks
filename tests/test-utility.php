@@ -534,4 +534,9 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertTrue( \Pressbooks\Utility\empty_space( false ) );
 	}
 
+	public function test_main_contact_email() {
+		$email = \Pressbooks\Utility\main_contact_email();
+		$this->assertContains( '@', $email );
+	}
+
 }

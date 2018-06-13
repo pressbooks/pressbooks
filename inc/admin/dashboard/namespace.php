@@ -116,7 +116,7 @@ function lowly_user_callback() {
 	if ( ! $user_has_books ) {
 		echo '<p>' . __( 'You do not have access to any books at the moment.', 'pressbooks' ) . '</p>';
 	}
-	$contact = get_blog_option( get_main_site_id(), 'pb_network_contact_email', get_site_option( 'admin_email' ) );
+	$contact = \Pressbooks\Utility\main_contact_email();
 	// Values can be 'all', 'none', 'blog', or 'user', @see wp-signup.php
 	$active_signup = apply_filters( 'wpmu_active_signup', get_site_option( 'registration', 'none' ) );
 	if ( in_array( $active_signup, [ 'none', 'user' ], true ) ) {

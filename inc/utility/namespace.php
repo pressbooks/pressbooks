@@ -1406,3 +1406,20 @@ function empty_space( $var ) {
 	}
 	return empty( $var );
 }
+
+/**
+ * Best guess the main contact's email
+ *
+ * @return string
+ */
+function main_contact_email() {
+	$main_site_id = get_main_site_id();
+	$email = get_blog_option( $main_site_id, 'pb_network_contact_email' ); // Aldine
+	if ( empty( $email ) ) {
+		$email = get_blog_option( $main_site_id, 'admin_email' ); // Main Site
+		if ( empty( $email ) ) {
+			$email = get_site_option( 'admin_email' ); // Main Network
+		}
+	}
+	return $email ? $email : '';
+}
