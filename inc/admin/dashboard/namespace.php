@@ -100,7 +100,7 @@ function lowly_user() {
 	add_meta_box(
 		'pb_dashboard_widget_book_permissions',
 		__( 'Book Permissions', 'pressbooks' ),
-		__NAMESPACE__ .'\lowly_user_callback',
+		__NAMESPACE__ . '\lowly_user_callback',
 		'dashboard-user',
 		'normal',
 		'high'
@@ -121,7 +121,7 @@ function lowly_user_callback() {
 	$active_signup = apply_filters( 'wpmu_active_signup', get_site_option( 'registration', 'none' ) );
 	if ( in_array( $active_signup, [ 'none', 'user' ], true ) ) {
 		echo '<p>';
-		_e( "This network does not allow users to create new books. To create a new book, please contact your Pressbooks Network Manager", 'pressbooks' );
+		_e( 'This network does not allow users to create new books. To create a new book, please contact your Pressbooks Network Manager', 'pressbooks' );
 		if ( ! empty( $contact ) ) {
 			echo ' ' . __( 'at', 'pressbooks' ) . " $contact";
 		} else {
