@@ -1,4 +1,4 @@
-@import 'partials/colors';
+@import "partials/colors";
 
 $base-color: $alto;
 $icon-color: $mine-shaft;
@@ -35,7 +35,7 @@ $menu-collapse-focus-icon: $monza;
 $adminbar-avatar-frame: $white;
 $adminbar-input-background: $white;
 
-@import '~wp-admin-colors/dist/admin';
+@import "~wp-admin-colors/dist/admin";
 
 // Core UI
 
@@ -123,7 +123,7 @@ div.error {
       }
     }
 
-    &[aria-expanded='true'] {
+    &[aria-expanded="true"] {
       background: $white;
 
       .ab-icon,
@@ -138,6 +138,12 @@ div.error {
           color: $monza;
         }
       }
+    }
+  }
+  .you-are-here {
+    background: $monza;
+    a.ab-item {
+      color: white;
     }
   }
 }

@@ -31,6 +31,18 @@
     content: "\e600" !important;
   }
 
+  #wp-admin-bar-pb-network-admin > .ab-item::before {
+    -webkit-font-smoothing: antialiased;
+    background: none;
+    content: "\f325" !important;
+  }
+
+  #wp-admin-bar-pb-site-admin > .ab-item::before {
+    -webkit-font-smoothing: antialiased;
+    background: none;
+    content: "\f102" !important;
+  }
+
   #wp-admin-bar-site-name > .ab-item::before {
     -webkit-font-smoothing: antialiased;
     background: none;
@@ -45,7 +57,7 @@
   }
 
   @media screen and (max-width: 782px) {
-    #wp-admin-bar-my-books {
+    #wp-admin-bar-pb-network-admin, #wp-admin-bar-pb-site-admin, #wp-admin-bar-my-books {
       display: block;
 
       a.ab-item {
@@ -69,9 +81,12 @@
           width: 55px;
           -webkit-font-smoothing: antialiased;
           background: none;
-          content: "\f318" !important;
         }
       }
+    }
+
+    #wp-admin-bar-my-books > .ab-item::before {
+      content: "\f318" !important;
     }
 
     .quicklinks li .blavatar::before {
