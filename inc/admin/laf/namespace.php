@@ -776,10 +776,6 @@ function disable_customizer() {
 function init_css_js() {
 	$assets = new Assets( 'pressbooks', 'plugin' );
 
-	// This is to work around JavaScript dependency errors
-	global $concatenate_scripts;
-	$concatenate_scripts = false;
-
 	// Note: Will auto-register a dependency $handle named 'colors'
 	wp_admin_css_color(
 		'pb_colors', 'Pressbooks', $assets->getPath( 'styles/colors-pb.css' ), apply_filters(
@@ -849,7 +845,7 @@ function init_css_js() {
 	wp_register_script( 'cssanimations', $assets->getPath( 'scripts/cssanimations.js' ), false );
 	wp_register_script( 'pb-cloner', $assets->getPath( 'scripts/cloner.js' ), [ 'jquery', 'cssanimations' ] );
 	wp_register_script( 'pb-export', $assets->getPath( 'scripts/export.js' ), [ 'jquery', 'cssanimations' ] );
-	wp_register_script( 'pb-organize', $assets->getPath( 'scripts/organize.js' ), [ 'jquery', 'jquery-ui-core', 'jquery-blockui', 'wp-api', 'cssanimations' ] );
+	wp_register_script( 'pb-organize', $assets->getPath( 'scripts/organize.js' ), [ 'jquery', 'jquery-ui-core', 'jquery-blockui', 'cssanimations' ] );
 	wp_register_script( 'pb-metadata', $assets->getPath( 'scripts/book-information.js' ), [ 'jquery' ], false, true );
 	wp_register_script( 'pb-import', $assets->getPath( 'scripts/import.js' ), [ 'jquery' ] );
 	wp_register_script( 'pb-post-visibility', $assets->getPath( 'scripts/post-visibility.js' ), [ 'jquery' ], false, true );
