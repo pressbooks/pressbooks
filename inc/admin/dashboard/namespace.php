@@ -130,7 +130,7 @@ function lowly_user_callback() {
 		echo '</p>';
 	} else {
 		$href = network_home_url( 'wp-signup.php' );
-		$text = __( 'Create a new book.', 'pressbooks' );
+		$text = __( 'Create A New Book', 'pressbooks' );
 		echo "<p><a class='button button-hero button-primary' href='{$href}'>{$text}</a></p>";
 	}
 	if ( ! $user_has_books ) {

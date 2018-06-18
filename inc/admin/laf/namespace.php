@@ -660,8 +660,18 @@ function replace_menu_bar_my_sites( $wp_admin_bar ) {
 	}
 
 	if ( is_main_site() ) {
-		// @see \WP_Admin_Bar::add_menus
+		// Remove book menu, @see \WP_Admin_Bar::add_menus
 		remove_action( 'admin_bar_menu', 'wp_admin_bar_site_menu', 30 );
+	} else {
+		// Set defaults so book menu appears highlighted, @see $maybe_defaults in \WP_Admin_Bar::add_node
+		$wp_admin_bar->add_node(
+			[
+				'id' => 'site-name',
+				'meta' => [
+					'class' => 'you-are-here',
+				],
+			]
+		);
 	}
 }
 

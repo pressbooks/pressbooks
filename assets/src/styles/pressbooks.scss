@@ -43,6 +43,12 @@
     content: "\f102" !important;
   }
 
+  #wp-admin-bar-my-books > .ab-item::before {
+    -webkit-font-smoothing: antialiased;
+    background: none;
+    content: "\f318" !important;
+  }
+
   #wp-admin-bar-site-name > .ab-item::before {
     -webkit-font-smoothing: antialiased;
     background: none;
@@ -83,10 +89,6 @@
           background: none;
         }
       }
-    }
-
-    #wp-admin-bar-my-books > .ab-item::before {
-      content: "\f318" !important;
     }
 
     .quicklinks li .blavatar::before {
