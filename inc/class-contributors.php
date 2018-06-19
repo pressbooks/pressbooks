@@ -140,6 +140,7 @@ class Contributors {
 								$added = $this->link( $result['term_id'], $post_id, $contributor_type );
 								if ( $added !== false ) {
 									$contributors[] = $name;
+									delete_post_meta( $post_id, $slug, $name );
 								}
 							}
 						}

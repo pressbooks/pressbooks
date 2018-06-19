@@ -188,12 +188,9 @@ class Odt extends Export {
 		$errors = libxml_get_errors(); // TODO: Handle errors gracefully
 		libxml_clear_errors();
 
-		try {
-			$result = exec( PB_SAXON_COMMAND . ' -xsl:' . $xslt . ' -s:' . $source . ' -o:' . $content );
-		} catch ( \Exception $e ) {
-			$this->logError( $e->getMessage() );
-			return false;
-		}
+		$output = [];
+		$command = PB_SAXON_COMMAND . ' -xsl:' . escapeshellcmd( $xslt ) . ' -s:' . escapeshellcmd( $source ) . ' -o:' . escapeshellcmd( $content ) . ' 2>&1';
+		exec( $command, $output );
 
 		$files = [
 			'content' => $content,
@@ -211,7 +208,7 @@ class Odt extends Export {
 		}
 
 		if ( ! empty( $msg ) ) {
-			$this->logError( 'Transformation failed, encountered a problem with' . $msg );
+			$this->logError( "Transformation failed, encountered a problem with $msg \n\n" . implode( "\n", $output ) );
 			return false;
 		}
 

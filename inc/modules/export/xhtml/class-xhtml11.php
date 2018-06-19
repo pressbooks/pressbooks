@@ -11,6 +11,7 @@ use Pressbooks\Container;
 use Pressbooks\Modules\Export\Export;
 use Pressbooks\Sanitize;
 use function Pressbooks\Sanitize\clean_filename;
+use function Pressbooks\Utility\get_generated_content_url;
 
 class Xhtml11 extends Export {
 
@@ -91,7 +92,7 @@ class Xhtml11 extends Export {
 		$this->taxonomy = \Pressbooks\Taxonomy::init();
 		$this->contributors = new \Pressbooks\Contributors();
 
-		if ( Container::get( 'Styles' )->isCurrentThemeCompatible( 2 ) && version_compare( Container::get( 'Styles' )->getBuckramVersion(), '0.3.0' ) >= 0 ) {
+		if ( Container::get( 'Styles' )->hasBuckram( '0.3.0' ) ) {
 			$this->wrapHeaderElements = true;
 		}
 
@@ -250,6 +251,13 @@ class Xhtml11 extends Export {
 		$this->echoMetaData( $book_contents, $metadata );
 
 		echo '<title>' . get_bloginfo( 'name' ) . "</title>\n";
+
+		if ( WP_DEBUG ) {
+			if ( ! empty( $_GET['debug'] ) ) {
+				$url = get_generated_content_url( '/scss-debug' ) . '/' . clean_filename( $_GET['debug'] ) . '.css';
+				echo "<link rel='stylesheet' href='$url' type='text/css' />\n";
+			}
+		}
 
 		if ( ! empty( $_GET['style'] ) ) {
 			$url = Container::get( 'Sass' )->urlToUserGeneratedCss() . '/' . clean_filename( $_GET['style'] ) . '.css';
@@ -686,7 +694,7 @@ class Xhtml11 extends Export {
 					continue; //Skip
 				}
 
-				$slug = $front_matter['post_name'];
+				$slug = "front-matter-{$front_matter['post_name']}";
 				$title = ( get_post_meta( $front_matter_id, 'pb_show_title', true ) ? $front_matter['post_title'] : '<span class="display-none">' . $front_matter['post_title'] . '</span>' ); // Preserve auto-indexing in Prince using hidden span
 				$content = $front_matter['post_content'];
 
@@ -852,7 +860,7 @@ class Xhtml11 extends Export {
 					continue; // Skip
 				}
 
-				$slug = $front_matter['post_name'];
+				$slug = "front-matter-{$front_matter['post_name']}";
 				$title = ( get_post_meta( $front_matter_id, 'pb_show_title', true ) ? $front_matter['post_title'] : '<span class="display-none">' . $front_matter['post_title'] . '</span>' ); // Preserve auto-indexing in Prince using hidden span
 				$content = $front_matter['post_content'];
 
@@ -889,7 +897,7 @@ class Xhtml11 extends Export {
 
 			if ( 'part' === $type ) {
 				foreach ( $struct as $part ) {
-					$slug = $part['post_name'];
+					$slug = "part-{$part['post_name']}";
 					$title = Sanitize\strip_br( $part['post_title'] );
 					$part_content = trim( $part['post_content'] );
 					if ( get_post_meta( $part['ID'], 'pb_part_invisible', true ) !== 'on' ) { // visible
@@ -920,7 +928,7 @@ class Xhtml11 extends Export {
 						}
 
 						$subclass = $this->taxonomy->getChapterType( $chapter['ID'] );
-						$slug = $chapter['post_name'];
+						$slug = "chapter-{$chapter['post_name']}";
 						$title = Sanitize\strip_br( $chapter['post_title'] );
 						$subtitle = trim( get_post_meta( $chapter['ID'], 'pb_subtitle', true ) );
 						$author = $this->contributors->get( $chapter['ID'], 'pb_authors' );
@@ -957,6 +965,8 @@ class Xhtml11 extends Export {
 					}
 				}
 			} else {
+				$has_intro = false;
+
 				foreach ( $struct as $val ) {
 
 					if ( ! $val['export'] ) {
@@ -967,7 +977,7 @@ class Xhtml11 extends Export {
 					$subtitle = '';
 					$author = '';
 					$license = '';
-					$slug = $val['post_name'];
+					$slug = "{$type}-{$val['post_name']}";
 					$title = Sanitize\strip_br( $val['post_title'] );
 
 					if ( 'front-matter' === $type ) {
@@ -976,6 +986,12 @@ class Xhtml11 extends Export {
 							continue; // Skip
 						} else {
 							$typetype = $type . ' ' . $subclass;
+							if ( $has_intro ) {
+								$typetype .= ' post-introduction';
+							}
+							if ( $subclass === 'introduction' ) {
+								$has_intro = true;
+							}
 							$subtitle = trim( get_post_meta( $val['ID'], 'pb_subtitle', true ) );
 							$author = $this->contributors->get( $val['ID'], 'pb_authors' );
 							$license = $this->doTocLicense( $val['ID'] );
@@ -1047,11 +1063,15 @@ class Xhtml11 extends Export {
 				continue; // Skip
 			}
 
+			if ( $this->hasIntroduction ) {
+				$subclass .= ' post-introduction';
+			}
+
 			if ( 'introduction' === $subclass ) {
 				$this->hasIntroduction = true;
 			}
 
-			$slug = $front_matter['post_name'];
+			$slug = "front-matter-{$front_matter['post_name']}";
 			$title = ( get_post_meta( $front_matter_id, 'pb_show_title', true ) ? $front_matter['post_title'] : '<span class="display-none">' . $front_matter['post_title'] . '</span>' ); // Preserve auto-indexing in Prince using hidden span
 			$after_title = '';
 			$content = $front_matter['post_content'];
@@ -1146,7 +1166,7 @@ class Xhtml11 extends Export {
 			$invisibility = ( get_post_meta( $part['ID'], 'pb_part_invisible', true ) === 'on' ) ? 'invisible' : '';
 
 			$part_printf_changed = '';
-			$slug = $part['post_name'];
+			$slug = "part-{$part['post_name']}";
 			$title = $part['post_title'];
 			$part_content = trim( $part['post_content'] );
 
@@ -1195,10 +1215,9 @@ class Xhtml11 extends Export {
 					continue; // Skip
 				}
 
-				$chapter_printf_changed = '';
 				$chapter_id = $chapter['ID'];
 				$subclass = $this->taxonomy->getChapterType( $chapter_id );
-				$slug = $chapter['post_name'];
+				$slug = "chapter-{$chapter['post_name']}";
 				$title = ( get_post_meta( $chapter_id, 'pb_show_title', true ) ? $chapter['post_title'] : '<span class="display-none">' . $chapter['post_title'] . '</span>' ); // Preserve auto-indexing in Prince using hidden span
 				$after_title = '';
 				$content = $chapter['post_content'];
@@ -1317,7 +1336,7 @@ class Xhtml11 extends Export {
 
 			$back_matter_id = $back_matter['ID'];
 			$subclass = $this->taxonomy->getBackMatterType( $back_matter_id );
-			$slug = $back_matter['post_name'];
+			$slug = "back-matter-{$back_matter['post_name']}";
 			$title = ( get_post_meta( $back_matter_id, 'pb_show_title', true ) ? $back_matter['post_title'] : '<span class="display-none">' . $back_matter['post_title'] . '</span>' ); // Preserve auto-indexing in Prince using hidden span
 			$after_title = '';
 			$content = $back_matter['post_content'];

@@ -37,6 +37,19 @@ class Admin_DashboardTest extends \WP_UnitTestCase {
 		$this->assertTrue( isset( $wp_meta_boxes['dashboard']['side']['low']['pb_dashboard_widget_blog'] ) );
 	}
 
+	public function test_lowly_user() {
+		global $wp_meta_boxes;
+		\Pressbooks\Admin\Dashboard\lowly_user();
+		$this->assertTrue( isset( $wp_meta_boxes['dashboard-user']['normal']['high']['pb_dashboard_widget_book_permissions'] ) );
+	}
+
+	public function test_lowly_user_callback() {
+		ob_start();
+		\Pressbooks\Admin\Dashboard\lowly_user_callback();
+		$buffer = ob_get_clean();
+		$this->assertNotEmpty( $buffer );
+	}
+
 	public function test_display_book_widget() {
 		$this->_book();
 		ob_start();
@@ -77,6 +90,11 @@ class Admin_DashboardTest extends \WP_UnitTestCase {
 		global $wp_settings_sections;
 		\Pressbooks\Admin\Dashboard\dashboard_options_init();
 		$this->assertArrayHasKey( 'pb_dashboard', $wp_settings_sections );
+	}
+
+	public function test_init_network_integrations_menu() {
+		$parent_slug = \Pressbooks\Admin\Dashboard\init_network_integrations_menu();
+		$this->assertTrue( ! empty( $parent_slug ) && is_string( $parent_slug ) );
 	}
 
 }

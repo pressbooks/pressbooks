@@ -11,22 +11,74 @@ use Jenssegers\ImageHash\ImageHash;
 /**
  * URL to default cover image
  *
+ * @since 5.4.0
+ * @param $size The size of the cover image to output.
+ *
  * @return string
  */
-function default_cover_url() {
+function default_cover_url( $size = 'full' ) {
 
-	return PB_PLUGIN_URL . 'assets/dist/images/default-book-cover.jpg';
+	switch ( $size ) {
+		case 'thumbnail':
+			$suffix = '-100x100';
+			break;
+		case 'small':
+			$suffix = '-65x0';
+			break;
+		case 'medium':
+			$suffix = '-225x0';
+			break;
+		case 'large':
+		case 'full':
+		default:
+			$suffix = '';
+			break;
+	}
+
+	/**
+	 * Filter the URL of the default cover image.
+	 *
+	 * @since 5.4.0
+	 *
+	 */
+	return apply_filters( 'pb_default_cover_url', PB_PLUGIN_URL . "assets/dist/images/default-book-cover${suffix}.jpg", $suffix );
 }
 
 
 /**
  * Full path to default cover image
  *
+ * @since 5.4.0
+ * @param $size The size of the cover image to output.
+ *
  * @return string
  */
-function default_cover_path() {
+function default_cover_path( $size = 'full' ) {
 
-	return PB_PLUGIN_DIR . 'assets/dist/images/default-book-cover.jpg';
+	switch ( $size ) {
+		case 'thumbnail':
+			$suffix = '-100x100';
+			break;
+		case 'small':
+			$suffix = '-65x0';
+			break;
+		case 'medium':
+			$suffix = '-225x0';
+			break;
+		case 'large':
+		case 'full':
+		default:
+			$suffix = '';
+			break;
+	}
+
+	/**
+	 * Filter the path of the default cover image.
+	 *
+	 * @since 5.4.0
+	 *
+	 */
+	return apply_filters( 'pb_default_cover_path', PB_PLUGIN_DIR . "assets/dist/images/default-book-cover${suffix}.jpg", $suffix );
 }
 
 
@@ -38,8 +90,8 @@ function default_cover_path() {
  * @return bool
  */
 function is_default_cover( $compare ) {
-
-	$found = preg_match( '~assets/dist/images/default-book-cover.jpg$~', $compare );
+	$pattern = '~' . str_replace( plugins_url( '/' ), '', default_cover_url() ) . '$~';
+	$found = preg_match( $pattern, $compare );
 
 	return ( $found ) ? true : false;
 }

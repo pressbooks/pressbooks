@@ -6,6 +6,8 @@
 
 namespace Pressbooks;
 
+use function Pressbooks\Utility\str_starts_with;
+
 /**
  * SCSS Compiler and Build Tools
  */
@@ -216,7 +218,7 @@ class Sass {
 		$parser = new \Leafo\ScssPhp\Parser( null );
 		$tree = $parser->parse( $scss );
 		foreach ( $tree->children as $item ) {
-			if ( $item[0] === \Leafo\ScssPhp\Type::T_ASSIGN && $item[1][0] === \Leafo\ScssPhp\Type::T_VARIABLE ) {
+			if ( $item[0] === \Leafo\ScssPhp\Type::T_ASSIGN && $item[1][0] === \Leafo\ScssPhp\Type::T_VARIABLE && ! str_starts_with( $item[1][1], '_' ) ) {
 				$key = $item[1][1];
 				switch ( $item[2][0] ) {
 					case \Leafo\ScssPhp\Type::T_VARIABLE:

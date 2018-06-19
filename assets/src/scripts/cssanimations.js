@@ -9,18 +9,18 @@
 		animationstring = 'animation', // eslint-disable-line
 		keyframeprefix = '', // eslint-disable-line
 		domPrefixes = 'Webkit Moz O ms Khtml'.split( ' ' ),
-		pfx  = '',
+		pfx = '',
 		docElement = document.documentElement,
 		modElem = document.createElement( 'modernizr' );
 
-	if ( modElem.style.animationName !== undefined )  {
+	if ( modElem.style.animationName !== undefined ) {
 		animation = true;
 	}
 
 	if ( animation === false ) {
 		for ( let i = 0; i < domPrefixes.length; i++ ) {
-			if ( modElem.style[ domPrefixes[i] + 'AnimationName' ] !== undefined ) {
-				pfx = domPrefixes[ i ];
+			if ( modElem.style[domPrefixes[i] + 'AnimationName'] !== undefined ) {
+				pfx = domPrefixes[i];
 				animationstring = pfx + 'Animation';
 				keyframeprefix = '-' + pfx.toLowerCase() + '-';
 				animation = true;

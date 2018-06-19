@@ -23,6 +23,7 @@ function filter_plugins( $plugins ) {
 		$slugs = [
 			'h5p',
 			'hypothesis',
+			'wp-quicklatex',
 		];
 		$approved = [];
 		foreach ( $slugs as $slug ) {

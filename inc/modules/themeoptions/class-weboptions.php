@@ -6,6 +6,9 @@
 
 namespace Pressbooks\Modules\ThemeOptions;
 
+use Pressbooks\Container;
+use Pressbooks\Metadata;
+
 class WebOptions extends \Pressbooks\Options {
 
 	/**
@@ -58,6 +61,7 @@ class WebOptions extends \Pressbooks\Options {
 		$_option = 'pressbooks_theme_options_' . $this->getSlug();
 		$_page = $_option;
 		$_section = $this->getSlug() . '_options_section';
+		$meta = new Metadata();
 
 		if ( false === get_option( $_option ) ) {
 			add_option( $_option, $this->defaults );
@@ -116,6 +120,33 @@ class WebOptions extends \Pressbooks\Options {
 				__( 'Display the Part title on each chapter', 'pressbooks' ),
 			]
 		);
+
+		if ( Container::get( 'Styles' )->hasBuckram() ) {
+			add_settings_field(
+				'collapse_sections',
+				__( 'Collapse Sections', 'pressbooks' ),
+				[ $this, 'renderCollapseSections' ],
+				$_page,
+				$_section,
+				[
+					__( 'Collapse sections within front matter, chapters, and back matter', 'pressbooks' ),
+				]
+			);
+		}
+
+		if ( get_post_meta( $meta->getMetaPost()->ID, 'pb_is_based_on', true ) ) {
+			add_settings_field(
+				'enable_source_comparison',
+				__( 'Enable Source Comparison', 'pressbooks' ),
+				[ $this, 'renderEnableSourceComparison' ],
+				$_page,
+				$_section,
+				[
+					__( 'Add comparison tool to the end of each front matter, part, chapter, and back matter', 'pressbooks' ),
+					__( 'Allows readers to compare content with the original book from which it was cloned.', 'pressbooks' ),
+				]
+			);
+		}
 
 		/**
 		 * Add custom settings fields.
@@ -230,7 +261,7 @@ class WebOptions extends \Pressbooks\Options {
 	}
 
 	/**
-	 * Render the social_media checkbox.
+	 * Render the part_title checkbox.
 	 *
 	 * @param array $args
 	 */
@@ -242,6 +273,41 @@ class WebOptions extends \Pressbooks\Options {
 				'option' => 'part_title',
 				'value' => ( isset( $this->options['part_title'] ) ) ? $this->options['part_title'] : '',
 				'label' => $args[0],
+			]
+		);
+	}
+
+	/**
+	 * Render the collapse_sections checkbox.
+	 *
+	 * @param array $args
+	 */
+	function renderCollapseSections( $args ) {
+		$this->renderCheckbox(
+			[
+				'id' => 'collapse_sections',
+				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
+				'option' => 'collapse_sections',
+				'value' => ( isset( $this->options['part_title'] ) ) ? $this->options['collapse_sections'] : '',
+				'label' => $args[0],
+			]
+		);
+	}
+
+	/**
+	 * Render the allow_comparison checkbox.
+	 *
+	 * @param array $args
+	 */
+	function renderEnableSourceComparison( $args ) {
+		$this->renderCheckbox(
+			[
+				'id' => 'enable_source_comparison',
+				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
+				'option' => 'enable_source_comparison',
+				'value' => ( isset( $this->options['enable_source_comparison'] ) ) ? $this->options['enable_source_comparison'] : '',
+				'label' => $args[0],
+				'description' => $args[1],
 			]
 		);
 	}
@@ -281,6 +347,8 @@ class WebOptions extends \Pressbooks\Options {
 				'paragraph_separation' => 'skiplines',
 				'part_title' => 0,
 				'webbook_width' => '40em',
+				'collapse_sections' => 0,
+				'enable_source_comparison' => 0,
 			]
 		);
 	}
@@ -313,6 +381,8 @@ class WebOptions extends \Pressbooks\Options {
 			'pb_theme_options_web_booleans', [
 				'social_media',
 				'part_title',
+				'collapse_sections',
+				'enable_source_comparison',
 			]
 		);
 	}
@@ -400,6 +470,34 @@ class WebOptions extends \Pressbooks\Options {
 		$styles = \Pressbooks\Container::get( 'Styles' );
 		$v2_compatible = $styles->isCurrentThemeCompatible( 2 );
 
+		// Global Options
+		$options = get_option( 'pressbooks_theme_options_global' );
+
+		// Textbox colours.
+
+		if ( $v2_compatible ) {
+			foreach ( [
+				'edu_textbox_examples_header_color' => 'examples-header-color',
+				'edu_textbox_examples_header_background' => 'examples-header-background',
+				'edu_textbox_examples_background' => 'examples-background',
+				'edu_textbox_exercises_header_color' => 'exercises-header-color',
+				'edu_textbox_exercises_header_background' => 'exercises-header-background',
+				'edu_textbox_exercises_background' => 'exercises-background',
+				'edu_textbox_objectives_header_color' => 'learning-objectives-header-color',
+				'edu_textbox_objectives_header_background' => 'learning-objectives-header-background',
+				'edu_textbox_objectives_background' => 'learning-objectives-background',
+				'edu_textbox_takeaways_header_color' => 'key-takeaways-header-color',
+				'edu_textbox_takeaways_header_background' => 'key-takeaways-header-background',
+				'edu_textbox_takeaways_background' => 'key-takeaways-background',
+			] as $option => $variable ) {
+				if ( isset( $options[ $option ] ) ) {
+					$styles->getSass()->setVariables( [
+						"$variable" => $options[ $option ],
+					] );
+				}
+			}
+		}
+
 		$options = get_option( 'pressbooks_theme_options_web' );
 
 		if ( isset( $options['paragraph_separation'] ) ) {
@@ -412,7 +510,7 @@ class WebOptions extends \Pressbooks\Options {
 						]
 					);
 				} else {
-					$scss .= "* + p { text-indent: 1em; margin-top: 0; margin-bottom: 0; } \n";
+					$scss .= "#content * + p { text-indent: 1em; margin-top: 0; margin-bottom: 0; } \n";
 				}
 			} elseif ( 'skiplines' === $options['paragraph_separation'] ) {
 				if ( $v2_compatible ) {
@@ -423,7 +521,7 @@ class WebOptions extends \Pressbooks\Options {
 						]
 					);
 				} else {
-					$scss .= "p + p { text-indent: 0em; margin-top: 1em; } \n";
+					$scss .= "#content p + p { text-indent: 0em; margin-top: 1em; } \n";
 				}
 			}
 		}

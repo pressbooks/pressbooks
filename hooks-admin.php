@@ -14,15 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Includes
 // -------------------------------------------------------------------------------------------------------------------
 
-require( PB_PLUGIN_DIR . 'inc/admin/analytics/namespace.php' );
-require( PB_PLUGIN_DIR . 'inc/admin/dashboard/namespace.php' );
-require( PB_PLUGIN_DIR . 'inc/admin/diagnostics/namespace.php' );
-require( PB_PLUGIN_DIR . 'inc/admin/fonts/namespace.php' );
-require( PB_PLUGIN_DIR . 'inc/admin/laf/namespace.php' );
-require( PB_PLUGIN_DIR . 'inc/admin/metaboxes/namespace.php' );
-require( PB_PLUGIN_DIR . 'inc/admin/networkmanagers/namespace.php' );
-require( PB_PLUGIN_DIR . 'inc/admin/organize/namespace.php' );
-require( PB_PLUGIN_DIR . 'inc/admin/plugins/namespace.php' );
+require_once( __DIR__ . '/requires-admin.php' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Recycle, reduce, reuse
@@ -54,6 +46,7 @@ add_action( 'admin_init', '\Pressbooks\Admin\Dashboard\dashboard_options_init' )
 add_action( 'network_admin_menu', '\Pressbooks\Admin\Dashboard\add_menu', 2 );
 add_action( 'admin_menu', '\Pressbooks\Admin\Dashboard\add_menu', 1 );
 add_action( 'admin_menu', '\Pressbooks\Admin\Diagnostics\add_menu', 30 );
+add_action( 'wp_user_dashboard_setup', '\Pressbooks\Admin\Dashboard\lowly_user' );
 
 if ( $is_book ) {
 	// Aggressively replace default interface
@@ -157,7 +150,7 @@ if ( $is_book ) {
 	add_action( 'admin_enqueue_scripts', '\Pressbooks\Admin\Metaboxes\add_metadata_styles' );
 	add_action( 'save_post', '\Pressbooks\Book::consolidatePost', 10, 2 );
 	add_action( 'save_post_metadata', '\Pressbooks\Admin\Metaboxes\upload_cover_image', 10, 2 );
-	add_action( 'save_post_metadata', '\Pressbooks\Admin\Metaboxes\add_required_data', 20, 2 );
+	add_action( 'wp_insert_post', '\Pressbooks\Admin\Metaboxes\add_required_data', 10, 2 );
 	add_action( 'save_post_metadata', '\Pressbooks\Admin\Metaboxes\save_subject_metadata', 10, 2 );
 	add_action( 'contributor_add_form_fields', '\Pressbooks\Admin\Metaboxes\contributor_add_form' );
 	add_action( 'contributor_edit_form_fields', '\Pressbooks\Admin\Metaboxes\contributor_edit_form' );
@@ -206,6 +199,7 @@ add_action( 'wp_ajax_pb_delete_catalog_logo', '\Pressbooks\Catalog::deleteLogo' 
 // -------------------------------------------------------------------------------------------------------------------
 
 add_action( 'update_option_pressbooks_global_typography', '\Pressbooks\Admin\Fonts\update_font_stacks' );
+add_action( 'update_option_pressbooks_theme_options_global', '\Pressbooks\Admin\Fonts\update_font_stacks' );
 add_action( 'update_option_pressbooks_theme_options_web', '\Pressbooks\Admin\Fonts\update_font_stacks' );
 add_action( 'updated_option', [ '\Pressbooks\Options', 'deleteCacheAfterUpdate' ] );
 

@@ -225,4 +225,24 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 
 		unlink( $exporter->getOutputPath() );
 	}
+
+	public function test_sanityCheckXhtmlDebug() {
+		$this->_book();
+		$meta_post = ( new \Pressbooks\Metadata() )->getMetaPost();
+		( new \Pressbooks\Contributors() )->insert( 'Ned Zimmerman', $meta_post->ID );
+		$user_id = $this->factory()->user->create( [ 'role' => 'contributor' ] );
+		wp_set_current_user( $user_id );
+		$_GET['debug'] = 'prince';
+		if ( ! defined( 'WP_DEBUG' ) ) {
+			define( 'WP_DEBUG', true );
+		}
+
+		$exporter = new \Pressbooks\Modules\Export\Xhtml\Xhtml11( [] );
+		$this->assertTrue( $exporter->convert() );
+		$this->assertTrue( $exporter->validate() );
+		$xhtml_content = file_get_contents( $exporter->getOutputPath() );
+		$url = network_home_url( sprintf( '/wp-content/uploads/sites/%d/pressbooks/scss-debug/prince.css', get_current_blog_id() ) );
+		$this->assertContains( "<link rel='stylesheet' href='$url' type='text/css' />", $xhtml_content );
+		unlink( $exporter->getOutputPath() );
+	}
 }

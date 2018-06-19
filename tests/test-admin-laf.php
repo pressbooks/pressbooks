@@ -32,6 +32,15 @@ class Admin_LafsTest extends \WP_UnitTestCase {
 		$this->assertEquals( $menu[12][0], 'Book Info' );
 		$this->assertEquals( $menu[14][0], 'Export' );
 		$this->assertEquals( $menu[16][0], 'Publish' );
+		$this->assertNotContains(
+			[
+				'QuickLaTex',
+				'manage_options',
+				'quicklatex-settings',
+				'quicklatex_options_do_page',
+			],
+			$submenu['options-general.php']
+		);
 	}
 
 	function test_reorder_book_admin_menu() {

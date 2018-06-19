@@ -439,6 +439,30 @@ class EbookOptions extends \Pressbooks\Options {
 			}
 		}
 
+		// Textbox colours.
+
+		if ( $v2_compatible ) {
+			foreach ( [
+				'edu_textbox_examples_header_color' => 'examples-header-color',
+				'edu_textbox_examples_header_background' => 'examples-header-background',
+				'edu_textbox_examples_background' => 'examples-background',
+				'edu_textbox_exercises_header_color' => 'exercises-header-color',
+				'edu_textbox_exercises_header_background' => 'exercises-header-background',
+				'edu_textbox_exercises_background' => 'exercises-background',
+				'edu_textbox_objectives_header_color' => 'learning-objectives-header-color',
+				'edu_textbox_objectives_header_background' => 'learning-objectives-header-background',
+				'edu_textbox_objectives_background' => 'learning-objectives-background',
+				'edu_textbox_takeaways_header_color' => 'key-takeaways-header-color',
+				'edu_textbox_takeaways_header_background' => 'key-takeaways-header-background',
+				'edu_textbox_takeaways_background' => 'key-takeaways-background',
+			] as $option => $variable ) {
+				if ( isset( $options[ $option ] ) ) {
+					$styles->getSass()->setVariables( [
+						"$variable" => $options[ $option ],
+					] );
+				}
+			}
+		}
 		// --------------------------------------------------------------------
 		// Ebook Options
 

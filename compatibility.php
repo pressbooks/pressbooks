@@ -33,7 +33,7 @@ function pb_meets_minimum_requirements() {
 
 	// WordPress Version
 	global $pb_minimum_wp;
-	$pb_minimum_wp = '4.9.4';
+	$pb_minimum_wp = '4.9.5';
 
 	include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 	$is_compatible = true;
@@ -131,6 +131,7 @@ function pb_register_activation_hook() {
 function pb_init_autoloader() {
 	static $registered = false;
 	if ( ! $registered ) {
+		require_once( __DIR__ . '/requires.php' );
 		\HM\Autoloader\register_class_path( 'Pressbooks', __DIR__ . '/inc' );
 		$registered = true;
 	}

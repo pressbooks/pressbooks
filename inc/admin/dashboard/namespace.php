@@ -93,6 +93,57 @@ function replace_dashboard_widgets() {
 
 }
 
+/**
+ * A widget for /wp-admin/user/ in case someone without adequate permissions lands here (SSO, atypical config, ...)
+ */
+function lowly_user() {
+	add_meta_box(
+		'pb_dashboard_widget_book_permissions',
+		__( 'Book Permissions', 'pressbooks' ),
+		__NAMESPACE__ . '\lowly_user_callback',
+		'dashboard-user',
+		'normal',
+		'high'
+	);
+}
+
+/**
+ * Callback for /wp-admin/user/ widget
+ */
+function lowly_user_callback() {
+	echo '<p>' . __( 'Welcome to Pressbooks!', 'pressbooks' ) . '</p>';
+	$user_has_books = count( get_blogs_of_user( get_current_user_id() ) ) > 0;
+	if ( ! $user_has_books ) {
+		echo '<p>' . __( 'You do not have access to any books at the moment.', 'pressbooks' ) . '</p>';
+	}
+	$contact = \Pressbooks\Utility\main_contact_email();
+	// Values can be 'all', 'none', 'blog', or 'user', @see wp-signup.php
+	$active_signup = apply_filters( 'wpmu_active_signup', get_site_option( 'registration', 'none' ) );
+	if ( in_array( $active_signup, [ 'none', 'user' ], true ) ) {
+		echo '<p>';
+		_e( 'This network does not allow users to create new books. To create a new book, please contact your Pressbooks Network Manager', 'pressbooks' );
+		if ( ! empty( $contact ) ) {
+			echo ' ' . __( 'at', 'pressbooks' ) . " $contact";
+		} else {
+			echo '.';
+		}
+		echo '</p>';
+	} else {
+		$href = network_home_url( 'wp-signup.php' );
+		$text = __( 'Create A New Book', 'pressbooks' );
+		echo "<p><a class='button button-hero button-primary' href='{$href}'>{$text}</a></p>";
+	}
+	if ( ! $user_has_books ) {
+		echo '<p>';
+		_e( "You can also request access to an existing book by contacting the book's author or the institution's Pressbooks Network Manager", 'pressbooks' );
+		if ( ! empty( $contact ) ) {
+			echo ' ' . __( 'at', 'pressbooks' ) . " $contact";
+		} else {
+			echo '.';
+		}
+		echo '</p>';
+	}
+}
 
 /**
  * Displays a Book widget
@@ -234,6 +285,33 @@ function add_menu() {
 		'pb_dashboard',
 		__NAMESPACE__ . '\options'
 	);
+}
+
+/**
+ * Init pb_network_integrations menu, removes itself from sub-menus
+ *
+ * @since 5.3.0
+ *
+ * @return string
+ */
+function init_network_integrations_menu() {
+	$parent_slug = 'pb_network_integrations';
+	static $init_pb_network_integrations_menu = false;
+	if ( ! $init_pb_network_integrations_menu ) {
+		add_menu_page(
+			__( 'Integrations', 'pressbooks-lti-provider' ),
+			__( 'Integrations', 'pressbooks-lti-provider' ),
+			'manage_network',
+			$parent_slug,
+			'',
+			'dashicons-networking'
+		);
+		add_action( 'admin_bar_init', function () {
+			remove_submenu_page( 'pb_network_integrations', 'pb_network_integrations' );
+		} );
+		$init_pb_network_integrations_menu = true;
+	}
+	return $parent_slug;
 }
 
 /**

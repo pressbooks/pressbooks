@@ -1,8 +1,8 @@
-@import 'partials/colors';
+@import "partials/colors";
 
 $base-color: $alto;
 $icon-color: $mine-shaft;
-$highlight-color: $gallery;
+$highlight-color: $monza;
 $notification-color: $mercury;
 $button-color: $monza;
 $text-color: $mine-shaft;
@@ -35,7 +35,7 @@ $menu-collapse-focus-icon: $monza;
 $adminbar-avatar-frame: $white;
 $adminbar-input-background: $white;
 
-@import '~wp-admin-colors/dist/admin';
+@import "~wp-admin-colors/dist/admin";
 
 // Core UI
 
@@ -72,6 +72,10 @@ div.error {
 #adminmenu li.current:hover div.wp-menu-image::before,
 #adminmenu li.wp-menu-open:hover div.wp-menu-image::before {
   color: $white;
+}
+
+#adminmenu li > a.menu-top:focus .wp-menu-image::before {
+  color: $monza;
 }
 
 // Admin Bar
@@ -119,7 +123,7 @@ div.error {
       }
     }
 
-    &[aria-expanded='true'] {
+    &[aria-expanded="true"] {
       background: $white;
 
       .ab-icon,
@@ -134,6 +138,12 @@ div.error {
           color: $monza;
         }
       }
+    }
+  }
+  .you-are-here {
+    background: $monza;
+    a.ab-item {
+      color: white;
     }
   }
 }

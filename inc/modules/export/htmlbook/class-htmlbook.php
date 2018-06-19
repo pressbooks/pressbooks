@@ -22,7 +22,9 @@ use Pressbooks\HTMLBook\Validator;
 use Masterminds\HTML5;
 use Pressbooks\Modules\Export\Export;
 use Pressbooks\Sanitize;
+use function Pressbooks\Sanitize\clean_filename;
 use function Pressbooks\Utility\oxford_comma_explode;
+use function Pressbooks\Utility\get_generated_content_url;
 
 class HTMLBook extends Export {
 
@@ -230,6 +232,14 @@ class HTMLBook extends Export {
 
 		echo "<head>\n";
 		echo '<title>' . get_bloginfo( 'name' ) . "</title>\n";
+
+		if ( WP_DEBUG ) {
+			if ( ! empty( $_GET['debug'] ) ) {
+				$url = get_generated_content_url( '/scss-debug' ) . '/' . clean_filename( $_GET['debug'] ) . '.css';
+				echo "<link rel='stylesheet' href='$url' type='text/css' />\n";
+			}
+		}
+
 		echo "</head>\n";
 
 		$book = new Book();
@@ -645,7 +655,7 @@ class HTMLBook extends Export {
 				$fm->setAttributes(
 					[
 						'class' => "front-matter {$subclass}",
-						'id' => $front_matter['post_name'],
+						'id' => "front-matter-{$front_matter['post_name']}",
 					]
 				);
 
@@ -861,7 +871,7 @@ class HTMLBook extends Export {
 				$fm->setAttributes(
 					[
 						'class' => "front-matter {$subclass}",
-						'id' => $front_matter['post_name'],
+						'id' => "front-matter-{$front_matter['post_name']}",
 					]
 				);
 
@@ -952,7 +962,7 @@ class HTMLBook extends Export {
 
 			if ( 'part' === $type ) {
 				foreach ( $struct as $part ) {
-					$slug = $part['post_name'];
+					$slug = "part-{$part['post_name']}";
 					$title = Sanitize\strip_br( $part['post_title'] );
 					$part_content = trim( $part['post_content'] );
 
@@ -1018,7 +1028,7 @@ class HTMLBook extends Export {
 						}
 
 						$subclass = $this->taxonomy->getChapterType( $chapter['ID'] );
-						$slug = $chapter['post_name'];
+						$slug = "chapter-{$chapter['post_name']}";
 						$title = Sanitize\strip_br( $chapter['post_title'] );
 						$subtitle = trim( get_post_meta( $chapter['ID'], 'pb_subtitle', true ) );
 						$author = $this->contributors->get( $chapter['ID'], 'pb_authors' );
@@ -1062,6 +1072,8 @@ class HTMLBook extends Export {
 					}
 				}
 			} else {
+				$has_intro = false;
+
 				foreach ( $struct as $val ) {
 
 					if ( ! $val['export'] ) {
@@ -1072,7 +1084,7 @@ class HTMLBook extends Export {
 					$subtitle = '';
 					$author = '';
 					$license = '';
-					$slug = $val['post_name'];
+					$slug = "{$type}-{$val['post_name']}";
 					$title = Sanitize\strip_br( $val['post_title'] );
 
 					if ( 'front-matter' === $type ) {
@@ -1081,6 +1093,12 @@ class HTMLBook extends Export {
 							continue; // Skip
 						} else {
 							$typetype = $type . ' ' . $subclass;
+							if ( $has_intro ) {
+								$typetype .= ' post-introduction';
+							}
+							if ( $subclass === 'introduction' ) {
+								$has_intro = true;
+							}
 							$subtitle = trim( get_post_meta( $val['ID'], 'pb_subtitle', true ) );
 							$author = $this->contributors->get( $val['ID'], 'pb_authors' );
 							$license = $this->doTocLicense( $val['ID'] );
@@ -1157,6 +1175,10 @@ class HTMLBook extends Export {
 				continue; // Skip
 			}
 
+			if ( $this->hasIntroduction ) {
+				$subclass .= ' post-introduction';
+			}
+
 			if ( 'introduction' === $subclass ) {
 				$this->hasIntroduction = true;
 			}
@@ -1193,7 +1215,7 @@ class HTMLBook extends Export {
 			$fm->setAttributes(
 				[
 					'class' => "front-matter {$subclass}",
-					'id' => $front_matter['post_name'],
+					'id' => "front-matter-{$front_matter['post_name']}",
 				]
 			);
 
@@ -1278,7 +1300,7 @@ class HTMLBook extends Export {
 			$my_part = new Part();
 
 			$invisibility = ( get_post_meta( $part['ID'], 'pb_part_invisible', true ) === 'on' ) ? 'invisible' : '';
-			$slug = $part['post_name'];
+			$slug = "part-{$part['post_name']}";
 			$title = $part['post_title'];
 			$part_content = trim( $part['post_content'] );
 
@@ -1361,7 +1383,7 @@ class HTMLBook extends Export {
 
 				$chapter_id = $chapter['ID'];
 				$subclass = $this->taxonomy->getChapterType( $chapter_id );
-				$slug = $chapter['post_name'];
+				$slug = "chapter-{$chapter['post_name']}";
 				$title = ( get_post_meta( $chapter_id, 'pb_show_title', true ) ? $chapter['post_title'] : '<span class="display-none">' . $chapter['post_title'] . '</span>' ); // Preserve auto-indexing in Prince using hidden span
 				$content = $chapter['post_content'];
 				$append_chapter_content = apply_filters( 'pb_append_chapter_content', '', $chapter_id );
@@ -1533,7 +1555,7 @@ class HTMLBook extends Export {
 			$bm->setAttributes(
 				[
 					'class' => "back-matter {$subclass}",
-					'id' => $back_matter['post_name'],
+					'id' => "back-matter-{$back_matter['post_name']}",
 				]
 			);
 

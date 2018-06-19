@@ -198,6 +198,7 @@ class OptionsTest extends \WP_UnitTestCase {
 	}
 
 	public function test_sanityChecks() {
+		$this->_book(); // We need Book Info now :(
 
 		$options[] = '\Pressbooks\Modules\ThemeOptions\EbookOptions';
 		$options[] = '\Pressbooks\Modules\ThemeOptions\GlobalOptions';
@@ -300,6 +301,34 @@ class OptionsTest extends \WP_UnitTestCase {
 
 		$v = PDFOptions::replaceRunningContentTags( 'blah %blank% blah' );
 		$this->assertEquals( '"blah  blah"', $v );
+	}
+
+	public function test_renderColorField() {
+		ob_start();
+		$output = \Pressbooks\Options::renderColorField([
+			'id' => 'test_color',
+			'name' => 'pressbooks_options_test',
+			'option' => 'test_color',
+			'value' => '',
+			'default' => '#c00'
+		]);
+		$buffer = ob_get_clean();
+
+		$this->assertEquals( '<input id="test_color" class="color-picker" name="pressbooks_options_test[test_color]" type="text" data-default-color="#c00" value="" />', $buffer );
+	}
+
+	public function test_renderCheckbox() {
+		ob_start();
+		$output = \Pressbooks\Options::renderCheckbox([
+			'id' => 'test_checkbox',
+			'name' => 'pressbooks_options_test',
+			'option' => 'test_checkbox',
+			'value' => 1,
+			'label' => 'Test Checkbox'
+		]);
+		$buffer = ob_get_clean();
+
+		$this->assertEquals( '<input id="test_checkbox" name="pressbooks_options_test[test_checkbox]" type="checkbox" value="1"  checked=\'checked\'/><label for="test_checkbox">Test Checkbox</label>', $buffer );
 	}
 
 	public function test_deleteCacheAfterUpdate() {

@@ -355,7 +355,7 @@ class Styles {
 	 *
 	 * @see https://github.com/pressbooks/buckram/blob/master/styles/buckram.scss
 	 *
-	 * @return string
+	 * @return string|bool
 	 */
 	public function getBuckramVersion() {
 		$fullpath = realpath( $this->sass->pathToGlobals() . 'buckram.scss' );
@@ -367,7 +367,23 @@ class Styles {
 				]
 			)['version'];
 		}
-		return '0.1.0'; // Old, generally incompatible with fancy new things.
+		return false; // No version available.
+	}
+
+	/**
+	 * Check that the currently active theme uses Buckram (optionally a minimum version of Buckram).
+	 *
+	 * @since 5.3.0
+	 *
+	 * @param int|string $version
+	 *
+	 * @return bool
+	 */
+	public function hasBuckram( $version = 0 ) {
+		if ( $this->isCurrentThemeCompatible( 2 ) && version_compare( $this->getBuckramVersion(), $version ) >= 0 ) {
+			return true;
+		}
+		return false;
 	}
 
 	/**

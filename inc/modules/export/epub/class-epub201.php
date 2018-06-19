@@ -17,9 +17,11 @@ use Pressbooks\Container;
 use Pressbooks\Sanitize;
 use Pressbooks\Taxonomy;
 use function Pressbooks\Sanitize\sanitize_xml_attribute;
+use function Pressbooks\Utility\debug_error_log;
 use function Pressbooks\Utility\oxford_comma_explode;
 use function Pressbooks\Utility\str_ends_with;
-use function Pressbooks\Utility\debug_error_log;
+use function Pressbooks\Utility\str_lreplace;
+use function Pressbooks\Utility\str_starts_with;
 
 class Epub201 extends Export {
 
@@ -223,7 +225,7 @@ class Epub201 extends Export {
 		$this->tmpDir = $this->createTmpDir();
 		$this->exportStylePath = $this->getExportStylePath( 'epub' );
 
-		if ( Container::get( 'Styles' )->isCurrentThemeCompatible( 2 ) && version_compare( Container::get( 'Styles' )->getBuckramVersion(), '0.3.0' ) >= 0 ) {
+		if ( Container::get( 'Styles' )->hasBuckram( '0.3.0' ) ) {
 			$this->wrapHeaderElements = true;
 		}
 
@@ -1746,8 +1748,7 @@ class Epub201 extends Export {
 					$m++;
 				}
 			} elseif ( preg_match( '/^chapter-/', $k ) ) {
-				$class = 'chapter';
-				$class .= $this->taxonomy->getChapterType( $v['ID'] );
+				$class = implode( ' ', [ 'chapter', $this->taxonomy->getChapterType( $v['ID'] ) ] );
 				$subtitle = trim( get_post_meta( $v['ID'], 'pb_subtitle', true ) );
 				$author = $this->contributors->get( $v['ID'], 'pb_authors' );
 				$license = $this->doTocLicense( $v['ID'] );
@@ -1920,6 +1921,10 @@ class Epub201 extends Export {
 			/** @var \DOMElement $image */
 			// Fetch image, change src
 			$url = $image->getAttribute( 'src' );
+			// Replace Buckram SVGs with PNGs
+			if ( str_starts_with( $url, get_template_directory_uri() . '/assets/book/images' ) && str_ends_with( $url, '.svg' ) ) {
+				$url = str_replace( '.svg', '.png', $url );
+			}
 			$filename = $this->fetchAndSaveUniqueImage( $url, $fullpath );
 			if ( $filename ) {
 				// Replace with new image
@@ -1944,15 +1949,24 @@ class Epub201 extends Export {
 	 * @return string filename
 	 */
 	protected function fetchAndSaveUniqueImage( $url, $fullpath ) {
-
 		if ( isset( $this->fetchedImageCache[ $url ] ) ) {
 			return $this->fetchedImageCache[ $url ];
 		}
 
+		$args = [];
+
+		if ( defined( 'WP_ENV' ) && WP_ENV === 'development' ) {
+			$args['sslverify'] = false;
+		}
+
 		$response = \Pressbooks\Utility\remote_get_retry(
-			$url, [
-				'timeout' => $this->timeout,
-			]
+			$url,
+			array_merge(
+				[
+					'timeout' => $this->timeout,
+				],
+				$args
+			)
 		);
 
 		// WordPress error?
@@ -1969,9 +1983,13 @@ class Epub201 extends Export {
 					}
 				}
 				$response = wp_remote_get(
-					$url, [
-						'timeout' => $this->timeout,
-					]
+					$url,
+					array_merge(
+						[
+							'timeout' => $this->timeout,
+						],
+						$args
+					)
 				);
 				if ( is_wp_error( $response ) ) {
 					throw new \Exception( 'Bad URL: ' . $url );
@@ -2054,10 +2072,20 @@ class Epub201 extends Export {
 			return $this->fetchedFontCache[ $url ];
 		}
 
+		$args = [];
+
+		if ( defined( 'WP_ENV' ) && WP_ENV === 'development' ) {
+			$args['sslverify'] = false;
+		}
+
 		$response = wp_remote_get(
-			$url, [
-				'timeout' => $this->timeout,
-			]
+			$url,
+			array_merge(
+				[
+					'timeout' => $this->timeout,
+				],
+				$args
+			)
 		);
 
 		// WordPress error?
@@ -2222,7 +2250,12 @@ class Epub201 extends Export {
 		}
 
 		$url = trim( $url );
+		// Remove trailing slash
 		$url = rtrim( $url, '/' );
+		// Change /foo/bar/#fragment to /foo/bar#fragment
+		if ( preg_match( '~/#[^/]*$~', $url ) ) {
+			$url = str_lreplace( '/#', '#', $url );
+		}
 
 		$domain = wp_parse_url( $url );
 		$domain = ( isset( $domain['host'] ) ) ? $domain['host'] : false;
@@ -2293,7 +2326,7 @@ class Epub201 extends Export {
 		} else {
 			$new_pos = 0;
 			foreach ( $lookup['__order'] as $post_id => $val ) {
-				if ( (string) $val['post_type'] === (string) $found['post_type'] ) {
+				if ( (string) $val['post_type'] === (string) $found['post_type'] && $val['export'] ) {
 					++$new_pos;
 				}
 				if ( (int) $post_id === (int) $found['ID'] ) {

@@ -202,6 +202,14 @@
 		// init the color picker fields
 		$( '.colorpicker' ).find( 'input' ).wpColorPicker();
 
+		// Fix: In multi-select, selections do not appear in the order in which they were selected
+		// @see https://github.com/select2/select2/issues/3106
+		$("select").on('select2:select', function(e){
+			var id = e.params.data.id;
+			var option = $(e.target).children('[value='+id+']');
+			option.detach();
+			$(e.target).append(option).change();
+		});
 
 	});
 })(jQuery);

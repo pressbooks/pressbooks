@@ -31,6 +31,7 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertTrue( is_array( $files ) );
 		$this->assertContains( basename( __FILE__ ), $files );
 		$this->assertNotContains( '.htaccess', $files );
+		$this->assertNotContains( 'data', $files );
 	}
 
 
@@ -41,6 +42,7 @@ class UtilityTest extends \WP_UnitTestCase {
 
 		$files = \Pressbooks\Utility\group_exports( __DIR__ );
 		$this->assertNotContains( '.htaccess', $files );
+		$this->assertNotContains( 'data', $files );
 	}
 
 
@@ -530,6 +532,11 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertTrue( \Pressbooks\Utility\empty_space( '  ' ) );
 		$this->assertTrue( \Pressbooks\Utility\empty_space( "\n\r\t" ) );
 		$this->assertTrue( \Pressbooks\Utility\empty_space( false ) );
+	}
+
+	public function test_main_contact_email() {
+		$email = \Pressbooks\Utility\main_contact_email();
+		$this->assertContains( '@', $email );
 	}
 
 }

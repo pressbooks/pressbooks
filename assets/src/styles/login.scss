@@ -34,11 +34,12 @@ body.pressbooks.login {
     font-family: "Karla", sans-serif;
     font-weight: 500;
     letter-spacing: (2 / 18) * 1em;
-    height: 59px;
+    min-height: 59px;
+    height: auto;
     width: 100%;
     font-size: 16px;
     line-height: 1.5;
-    padding: 0.875rem 3.25rem;
+    padding: 0.875rem;
     vertical-align: middle;
     text-align: center;
     text-decoration: none;
@@ -83,7 +84,7 @@ body.pressbooks.login {
     a {
       width: 50%;
       height: 0;
-      padding-bottom: ( 1 / 6 ) * 100%;
+      padding-bottom: (1 / 6) * 100%;
       background-size: contain;
       background-repeat: no-repeat;
       background-position: center;
@@ -109,7 +110,6 @@ body.pressbooks.login {
     background: #eee;
     box-shadow: none;
   }
-
 
   #login {
     width: 100%;
@@ -230,7 +230,7 @@ body.pressbooks.login {
 
       .wp-hide-pw {
         text-align: center;
-        padding-top: .4rem;
+        padding-top: 0.4rem;
       }
     }
 

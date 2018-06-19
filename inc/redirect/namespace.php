@@ -164,6 +164,13 @@ function do_format() {
 		exit;
 	}
 
+	/**
+	 * @since 5.3.0
+	 *
+	 * @param string $format
+	 */
+	do_action( 'pb_do_format', $format );
+
 	wp_die( __( 'Error: Unknown export format.', 'pressbooks' ) );
 }
 
@@ -177,7 +184,7 @@ function do_format() {
 function rewrite_rules_for_catalog() {
 	global $wp;
 	$wp->add_query_var( 'pb_catalog_user' );
-	add_rewrite_rule( '^catalog/([A-Za-z0-9\-\_]+)$', 'index.php?pagename=pb_catalog&pb_catalog_user=$matches[1]', 'top' );
+	add_rewrite_rule( '^catalog/([A-Za-z0-9@\.\-\_]+)$', 'index.php?pagename=pb_catalog&pb_catalog_user=$matches[1]', 'top' );
 	add_filter( 'template_include', __NAMESPACE__ . '\do_catalog', 999 ); // Must come after \Roots\Sage\Wrapper\SageWrapping (to override)
 }
 
@@ -225,9 +232,8 @@ function rewrite_rules_for_api() {
  * PB API v1
  * Expects the pattern `api/v1/books/{id}`
  *
- * @deprecated
- *
  * @see https://github.com/pressbooks/pb-api
+ * @deprecated
  */
 function do_api() {
 	// Don't do anything and return if `api` isn't part of the URL
@@ -450,10 +456,33 @@ function redirect_away_from_bad_urls() {
 	}
 
 	// ---------------------------------------------------------------------------------------------------------------
-	// If user is on edit-tags.php, check for valid taxonomy
+	// If user is on edit-tags.php, check for valid taxonomy.
+	// Non-super admin users should only be able to edit contributors (third-party taxonomies are allowed).
 
 	if ( preg_match( '~/wp-admin/edit-tags\.php$~', $check_against_url ) ) {
-		if ( isset( $_REQUEST['taxonomy'] ) && ! in_array( $_REQUEST['taxonomy'], [ 'contributor' ], true ) ) {
+
+		if ( isset( $_REQUEST['taxonomy'] ) && in_array(
+			$_REQUEST['taxonomy'],
+			/**
+			 * Add taxonomies to the blacklist array if you want to prevent non-super admin users from editing them.
+			 *
+			 * @since 5.3.0
+			 */
+			apply_filters(
+				'pb_taxonomy_blacklist', [
+					'category',
+					'post_tag',
+					'nav_menu',
+					'link_category',
+					'post_format',
+					'front-matter-type',
+					'back-matter-type',
+					'chapter-type',
+					'license',
+				]
+			),
+			true
+		) ) {
 			$_SESSION['pb_notices'][] = __( 'Unsupported taxonomy.', 'pressbooks' );
 			\Pressbooks\Redirect\location( $redirect_url );
 		}
@@ -481,4 +510,54 @@ function redirect_away_from_bad_urls() {
 		$_SESSION['pb_notices'][] = __( 'You do not have sufficient permissions to access that URL.', 'pressbooks' );
 		\Pressbooks\Redirect\location( $redirect_url );
 	}
+}
+
+/**
+ * Programmatically logs a user in
+ *
+ * @since 5.3.0
+ *
+ * @param string $username
+ *
+ * @return bool True if the login was successful; false if it wasn't
+ */
+function programmatic_login( $username ) {
+	if ( is_user_logged_in() ) {
+		wp_logout();
+	}
+
+	$credentials = [
+		'user_login' => $username,
+	];
+
+	// In before 20!
+	// Hook in earlier than other callbacks to short-circuit them [ @see wp-includes/default-filters.php ]
+	add_filter( 'authenticate', __NAMESPACE__ . '\allow_programmatic_login', 10, 3 );
+	$user = wp_signon( $credentials );
+	remove_filter( 'authenticate', __NAMESPACE__ . '\allow_programmatic_login', 10 );
+
+	if ( is_a( $user, 'WP_User' ) ) {
+		wp_set_current_user( $user->ID, $user->user_login );
+		if ( is_user_logged_in() ) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
+/**
+ * An 'authenticate' filter callback that authenticates the user using only the username.
+ *
+ * To avoid potential security vulnerabilities, this should only be used in the context of a programmatic login,
+ * and unhooked immediately after it fires.
+ *
+ * @param \WP_User $user
+ * @param string $username
+ * @param string $password
+ *
+ * @return bool|\WP_User a WP_User object if the username matched an existing user, or false if it didn't
+ */
+function allow_programmatic_login( $user, $username, $password ) {
+	return get_user_by( 'login', $username );
 }
