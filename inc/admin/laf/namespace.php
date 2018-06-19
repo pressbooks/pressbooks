@@ -47,6 +47,7 @@ function replace_book_admin_menu() {
 	remove_submenu_page( 'options-general.php', 'options-discussion.php' );
 	remove_submenu_page( 'options-general.php', 'options-media.php' );
 	remove_submenu_page( 'options-general.php', 'options-permalink.php' );
+	remove_submenu_page( 'options-general.php', 'privacy.php' );
 
 	remove_menu_page( 'edit.php' );
 	remove_menu_page( 'link-manager.php' );
@@ -55,6 +56,7 @@ function replace_book_admin_menu() {
 	remove_submenu_page( 'tools.php', 'tools.php' );
 	remove_submenu_page( 'tools.php', 'import.php' );
 	remove_submenu_page( 'tools.php', 'export.php' );
+	remove_submenu_page( 'tools.php', 'tools.php' );
 
 	// Organize
 	$organize_page = add_menu_page( __( 'Organize', 'pressbooks' ), __( 'Organize', 'pressbooks' ), 'edit_posts', 'pb_organize', __NAMESPACE__ . '\display_organize', 'dashicons-book' );
