@@ -41,7 +41,8 @@
 		"pressbooks/pb-cli": "^1.8",
 		"sinergi/browser-detector": "^6.1",
 		"vanilla/htmlawed": "^2.2",
-		"yahnis-elsts/plugin-update-checker": "^4.4"
+		"yahnis-elsts/plugin-update-checker": "^4.4",
+		"docraptor/docraptor": "1.3"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "~5.7",
