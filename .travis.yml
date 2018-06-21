@@ -45,7 +45,7 @@ before_script:
 script:
 - yarn run lint
 - yarn run build:production
-- travis_wait vendor/bin/phpunit --configuration phpunit.xml --coverage-clover coverage.xml
+- travis_wait 60 vendor/bin/phpunit --configuration phpunit.xml --coverage-clover coverage.xml
 - vendor/bin/phpcs --standard=phpcs.ruleset.xml *.php inc/ bin/
 after_success:
 - bash <(curl -s https://codecov.io/bash)
