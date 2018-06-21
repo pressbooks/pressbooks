@@ -45,7 +45,7 @@ before_script:
 script:
 - yarn run lint
 - yarn run build:production
-- php -dauto_prepend_file=bin/xdebug_filter.php vendor/bin/phpunit --configuration phpunit.xml --coverage-clover coverage.xml
+- php -dauto_prepend_file=bin/xdebug-filter.php vendor/bin/phpunit --configuration phpunit.xml --coverage-clover coverage.xml
 - vendor/bin/phpcs --standard=phpcs.ruleset.xml *.php inc/ bin/
 after_success:
 - bash <(curl -s https://codecov.io/bash)
