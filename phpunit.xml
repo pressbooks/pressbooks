@@ -15,18 +15,18 @@
 		</testsuite>
 	</testsuites>
 	<filter>
-		<whitelist addUncoveredFilesFromWhitelist="false">
+		<whitelist>
 			<directory suffix=".php">./inc</directory>
 			<exclude>
 				<directory suffix=".php">./inc/modules/export/epub/templates</directory>
 				<directory suffix=".php">./inc/modules/export/indesign/templates</directory>
-				<directory>./assets</directory>
-				<directory>./bin</directory>
-				<directory>./languages</directory>
-				<directory>./node_modules</directory>
-				<directory>./symbionts</directory>
-				<directory>./vendor</directory>
 			</exclude>
 		</whitelist>
 	</filter>
+	<php>
+		<ini name="memory_limit" value="-1" />
+		<ini name="opcache.enable_cli" value="1" />
+		<ini name="opcache.file_cache" value="/tmp/php-opcache" />
+		<ini name="xdebug.default_enable" value="0" />
+	</php>
 </phpunit>
