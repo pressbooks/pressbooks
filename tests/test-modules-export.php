@@ -28,42 +28,25 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 	 *
 	 */
 	public function setUp() {
-
-		error_log( 'TRAVIS CI DEBUG - 1' );
-
 		parent::setUp();
 		$this->export = new \ExportMock();
-
-		error_log( 'TRAVIS CI DEBUG - 2' );
 	}
 
 	public function test_getExportStylePath() {
 
-		error_log( 'TRAVIS CI DEBUG - 3' );
-
 		$this->_book( 'pressbooks-donham' );
-
-		error_log( 'TRAVIS CI DEBUG - 4' );
 
 		$path = $this->export->getExportStylePath( 'epub' );
 		$this->assertStringEndsWith( '/export/epub/style.scss', $path );
 
-		error_log( 'TRAVIS CI DEBUG - 5' );
-
 		$path = $this->export->getExportStylePath( 'prince' );
 		$this->assertStringEndsWith( '/export/prince/style.scss', $path );
-
-		error_log( 'TRAVIS CI DEBUG - 6' );
 
 		$path = $this->export->getExportStylePath( 'web' );
 		$this->assertStringEndsWith( '/pressbooks-donham/style.scss', $path );
 
-		error_log( 'TRAVIS CI DEBUG - 7' );
-
 		$path = $this->export->getExportStylePath( 'foobar' );
 		$this->assertFalse( $path );
-
-		error_log( 'TRAVIS CI DEBUG - 8' );
 	}
 
 	//  public function test_getGlobalTypographyMixinPath() {

@@ -15,11 +15,17 @@
 		</testsuite>
 	</testsuites>
 	<filter>
-		<whitelist>
+		<whitelist addUncoveredFilesFromWhitelist="false">
 			<directory suffix=".php">./inc</directory>
 			<exclude>
 				<directory suffix=".php">./inc/modules/export/epub/templates</directory>
 				<directory suffix=".php">./inc/modules/export/indesign/templates</directory>
+				<directory>./assets</directory>
+				<directory>./bin</directory>
+				<directory>./languages</directory>
+				<directory>./node_modules</directory>
+				<directory>./symbionts</directory>
+				<directory>./vendor</directory>
 			</exclude>
 		</whitelist>
 	</filter>
