@@ -40,12 +40,12 @@ install:
 - yarn
 - composer install
 before_script:
-- phpenv config-rm xdebug.ini
+- if php -v | grep -q 'Xdebug'; then phpenv config-rm xdebug.ini; fi
 - bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
 script:
 - yarn run lint
 - yarn run build:production
-- phpdbg -qrr vendor/bin/phpunit --configuration phpunit.xml --coverage-clover coverage.xml
+- phpdbg -qrr -d memory_limit=-1 vendor/bin/phpunit --configuration phpunit.xml --coverage-clover coverage.xml
 - vendor/bin/phpcs --standard=phpcs.ruleset.xml *.php inc/ bin/
 after_success:
 - bash <(curl -s https://codecov.io/bash)
