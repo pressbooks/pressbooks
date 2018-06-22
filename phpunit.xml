@@ -23,11 +23,4 @@
 			</exclude>
 		</whitelist>
 	</filter>
-	<php>
-		<ini name="memory_limit" value="-1" />
-		<ini name="opcache.enable_cli" value="1" />
-		<ini name="opcache.file_cache" value="/tmp/php-opcache" />
-		<ini name="xdebug.default_enable" value="0" />
-		<ini name="xdebug.remote_enable" value="0" />
-	</php>
 </phpunit>

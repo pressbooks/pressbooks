@@ -8,16 +8,6 @@ trait utilsTrait {
 	 * @param string $theme (optional)
 	 */
 	private function _book( $theme = 'pressbooks-book' ) {
-
-		$code_coverage_started = false;
-		$runtime = new \SebastianBergmann\Environment\Runtime();
-		if ( $runtime->hasXdebug() ) {
-			$code_coverage_started = xdebug_code_coverage_started();
-			if ( $code_coverage_started ) {
-				xdebug_stop_code_coverage();
-			}
-		}
-
 		add_filter( 'pb_redirect_to_new_book', '__return_false' );
 		$blog_id = $this->factory()->blog->create();
 		switch_to_blog( $blog_id );
@@ -68,10 +58,6 @@ trait utilsTrait {
 		$this->_createChapter( $pid );
 
 		$book::deleteBookObjectCache();
-
-		if ( $runtime->hasXdebug() && $code_coverage_started ) {
-			xdebug_start_code_coverage( XDEBUG_CC_UNUSED | XDEBUG_CC_DEAD_CODE );
-		}
 	}
 
 	/**
