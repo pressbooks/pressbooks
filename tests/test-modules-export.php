@@ -167,6 +167,12 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 	 */
 	public function test_sanityChecks() {
 
+		$runtime = new \SebastianBergmann\Environment\Runtime();
+		if ( $runtime->isPHPDBG() ) {
+			$this->markTestIncomplete( 'This test not yet working with phpdbg.' );
+			return;
+		}
+
 		$this->_book();
 		$meta_post = ( new \Pressbooks\Metadata() )->getMetaPost();
 		( new \Pressbooks\Contributors() )->insert( 'Ned Zimmerman', $meta_post->ID );
