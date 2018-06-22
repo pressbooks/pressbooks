@@ -168,10 +168,6 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 	public function test_sanityChecks() {
 
 		$runtime = new \SebastianBergmann\Environment\Runtime();
-		if ( $runtime->isPHPDBG() ) {
-			// $this->markTestIncomplete( 'This test not yet working with phpdbg.' );
-			// return;
-		}
 
 		$this->_book();
 		$meta_post = ( new \Pressbooks\Metadata() )->getMetaPost();
@@ -184,8 +180,8 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 		$modules[] = '\Pressbooks\Modules\Export\Prince\PrintPdf';
 		$modules[] = '\Pressbooks\Modules\Export\Prince\Docraptor';
 		$modules[] = '\Pressbooks\Modules\Export\Prince\DocraptorPrint';
-		// $modules[] = '\Pressbooks\Modules\Export\Epub\Epub201'; // Must be set before MOBI
-		// $modules[] = '\Pressbooks\Modules\Export\Epub\Epub3';
+		$modules[] = '\Pressbooks\Modules\Export\Epub\Epub201'; // Must be set before MOBI
+		$modules[] = '\Pressbooks\Modules\Export\Epub\Epub3';
 		// $modules[] = '\Pressbooks\Modules\Export\Mobi\Kindlegen'; // Must be set after EPUB // TODO: Download/install Kindlegen in Travis build script
 		$modules[] = '\Pressbooks\Modules\Export\InDesign\Icml';
 		$modules[] = '\Pressbooks\Modules\Export\WordPress\Wxr';
@@ -207,7 +203,11 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 			}
 
 			$this->assertTrue( $exporter->convert(), "Could not convert with {$module}" );
-			if ( strpos( $module, '\HTMLBook\HTMLBook' ) === false ) { // TODO
+			if ( strpos( $module, '\HTMLBook\HTMLBook' ) !== false ) {
+				// TODO: HTMLBook is too strict we don't pass the validation
+			} elseif ( $runtime->isPHPDBG() && strpos( $module, '\Epub\Epub' ) !== false ) {
+				// TODO: exec(): Unable to fork [/usr/bin/epubcheck -q /path/to.epub 2>&1]
+			} else {
 				$this->assertTrue( $exporter->validate(), "Could not validate with {$module}" );
 			}
 			$paths[] = $exporter->getOutputPath();
