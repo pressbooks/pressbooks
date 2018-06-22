@@ -209,6 +209,8 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 			if ( strpos( $module, '\Xhtml\Xhtml11' ) !== false ) {
 				$xhtml_path = $exporter->getOutputPath();
 			}
+
+			unset( $exporter );
 		}
 
 		// Verify XHTML content for good measure
