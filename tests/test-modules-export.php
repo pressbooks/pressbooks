@@ -169,8 +169,8 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 
 		$runtime = new \SebastianBergmann\Environment\Runtime();
 		if ( $runtime->isPHPDBG() ) {
-			$this->markTestIncomplete( 'This test not yet working with phpdbg.' );
-			return;
+			// $this->markTestIncomplete( 'This test not yet working with phpdbg.' );
+			// return;
 		}
 
 		$this->_book();
@@ -184,8 +184,8 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 		$modules[] = '\Pressbooks\Modules\Export\Prince\PrintPdf';
 		$modules[] = '\Pressbooks\Modules\Export\Prince\Docraptor';
 		$modules[] = '\Pressbooks\Modules\Export\Prince\DocraptorPrint';
-		$modules[] = '\Pressbooks\Modules\Export\Epub\Epub201'; // Must be set before MOBI
-		$modules[] = '\Pressbooks\Modules\Export\Epub\Epub3';
+		// $modules[] = '\Pressbooks\Modules\Export\Epub\Epub201'; // Must be set before MOBI
+		// $modules[] = '\Pressbooks\Modules\Export\Epub\Epub3';
 		// $modules[] = '\Pressbooks\Modules\Export\Mobi\Kindlegen'; // Must be set after EPUB // TODO: Download/install Kindlegen in Travis build script
 		$modules[] = '\Pressbooks\Modules\Export\InDesign\Icml';
 		$modules[] = '\Pressbooks\Modules\Export\WordPress\Wxr';
