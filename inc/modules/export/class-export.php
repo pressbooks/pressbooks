@@ -738,12 +738,12 @@ abstract class Export {
 			// --------------------------------------------------------------------------------------------------------
 			// Handle errors :(
 
-			if ( count( $conversion_error ) ) {
+			if ( is_countable( $conversion_error ) && count( $conversion_error ) ) {
 				// Conversion error
 				\Pressbooks\Redirect\location( $redirect_url . '&export_error=true' );
 			}
 
-			if ( count( $validation_warning ) ) {
+			if ( is_countable( $validation_warning ) && count( $validation_warning ) ) {
 				// Validation warning
 				\Pressbooks\Redirect\location( $redirect_url . '&export_warning=true' );
 			}
