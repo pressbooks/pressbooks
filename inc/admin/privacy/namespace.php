@@ -20,7 +20,7 @@ function add_privacy_policy_content() {
 		return;
 	}
 
-	$content = __( 'TODO.', 'pressbooks' );
+	$content = ''; // TODO: Add real privacy policy suggestions.
 
 	wp_add_privacy_policy_content( 'Pressbooks', wp_kses_post( wpautop( $content, false ) ) );
 }
