@@ -20,17 +20,19 @@ class SearchAndReplace {
 	/**
 	 * @return SearchAndReplace|null
 	 */
-	static function init() {
-		if ( is_admin() ) {
-			if ( is_null( self::$instance ) ) {
-				$self = new self;
-				add_filter( 'admin_menu', [ $self, 'adminMenu' ] );
-				add_action( 'load-tools_page_pressbooks-search-and-replace', [ $self, 'searchHead' ] );
-				self::$instance = $self;
-			}
-			return self::$instance;
+	static public function init() {
+		if ( is_null( self::$instance ) ) {
+			self::$instance = new self();
+			self::hooks( self::$instance );
 		}
-		return null;
+		return self::$instance;
+	}
+
+	static public function hooks( SearchAndReplace $obj ) {
+		if ( is_admin() ) {
+			add_filter( 'admin_menu', [ $obj, 'adminMenu' ] );
+			add_action( 'load-tools_page_pressbooks-search-and-replace', [ $obj, 'searchHead' ] );
+		}
 	}
 
 	/**

@@ -17,7 +17,7 @@ class Glyphs {
 	/**
 	 * @var Glyphs - Static property to hold our singleton instance
 	 */
-	static $instance = false;
+	static $instance = null;
 
 
 	// ISO-639-3
@@ -34,18 +34,25 @@ class Glyphs {
 	 * @return Glyphs
 	 */
 	public static function init() {
-		if ( ! self::$instance ) {
-			$self = new self;
-			add_shortcode( 'pb_language', [ $self, 'langShortcode' ] );
-			add_filter(
-				'no_texturize_shortcodes', function ( $excluded_shortcodes ) {
-					$excluded_shortcodes[] = 'pb_language';
-					return $excluded_shortcodes;
-				}
-			);
-			self::$instance = $self;
+		if ( is_null( self::$instance ) ) {
+			self::$instance = new self();
+			self::hooks( self::$instance );
 		}
 		return self::$instance;
+	}
+
+	/**
+	 * @param Glyphs $obj
+	 */
+	static public function hooks( Glyphs $obj ) {
+		add_shortcode( 'pb_language', [ $obj, 'langShortcode' ] );
+		add_filter(
+			'no_texturize_shortcodes',
+			function ( $excluded_shortcodes ) {
+				$excluded_shortcodes[] = 'pb_language';
+				return $excluded_shortcodes;
+			}
+		);
 	}
 
 	/**

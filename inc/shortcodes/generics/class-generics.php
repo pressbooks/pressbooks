@@ -11,7 +11,7 @@ class Generics {
 	/**
 	 * @var Generics - Static property to hold our singleton instance
 	 */
-	static $instance = false;
+	static $instance = null;
 
 	/**
 	 * @array Protected array of generic shortcodes as a key => value pair,
@@ -31,15 +31,21 @@ class Generics {
 	/**
 	 * Adds shortcodes based on $self->generics.
 	 */
-	public static function init() {
-		if ( ! self::$instance ) {
-			$self = new self;
-			foreach ( $self->shortcodes as $shortcode => $tag ) {
-				add_shortcode( $shortcode, [ $self, 'shortcodeHandler' ] );
-			}
-			self::$instance = $self;
+	static public function init() {
+		if ( is_null( self::$instance ) ) {
+			self::$instance = new self();
+			self::hooks( self::$instance );
 		}
 		return self::$instance;
+	}
+
+	/**
+	 * @param Generics $obj
+	 */
+	static public function hooks( Generics $obj ) {
+		foreach ( $obj->shortcodes as $shortcode => $tag ) {
+			add_shortcode( $shortcode, [ $obj, 'shortcodeHandler' ] );
+		}
 	}
 
 	public function __construct() {
