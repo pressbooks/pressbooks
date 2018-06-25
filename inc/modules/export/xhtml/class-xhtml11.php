@@ -174,7 +174,7 @@ class Xhtml11 extends Export {
 		exec( $command, $output, $return_var );
 
 		// Is this a valid XHTML?
-		if ( count( $output ) ) {
+		if ( is_countable( $output ) && count( $output ) ) {
 			$this->logError( implode( "\n", $output ) );
 
 			return false;
