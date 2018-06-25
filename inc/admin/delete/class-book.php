@@ -16,20 +16,23 @@ class Book {
 	/**
 	 * @return \Pressbooks\Admin\Delete\Book
 	 */
-	static function init() {
+	static public function init() {
 		if ( is_null( self::$instance ) ) {
-			$self = new self;
-			// Hide from side menu
-			remove_submenu_page( 'tools.php', 'ms-delete-site.php' );
-			// Add to top menu
-			if ( current_user_can( 'delete_site' ) ) {
-				add_action( 'admin_bar_menu', [ $self, 'addMenu' ], 31 );
-			}
-			// Override delete site email
-			add_filter( 'delete_site_email_content', [ $self, 'deleteBookEmailContent' ] );
-			$self::$instance = $self;
+			self::$instance = new self();
+			self::hooks( self::$instance );
 		}
 		return self::$instance;
+	}
+
+	static public function hooks( Book $obj ) {
+		// Hide from side menu
+		remove_submenu_page( 'tools.php', 'ms-delete-site.php' );
+		// Add to top menu
+		if ( current_user_can( 'delete_site' ) ) {
+			add_action( 'admin_bar_menu', [ $obj, 'addMenu' ], 31 );
+		}
+		// Override delete site email
+		add_filter( 'delete_site_email_content', [ $obj, 'deleteBookEmailContent' ] );
 	}
 
 	/**

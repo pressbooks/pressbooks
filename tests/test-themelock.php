@@ -19,9 +19,9 @@ class ThemeLockTest extends \WP_UnitTestCase {
 		$instance = Lock::init();
 		$this->assertTrue( $instance instanceof \Pressbooks\Theme\Lock );
 	}
-	public function test_hooks() {
-		// TODO
-	}
+
+//	public function test_hooks() { // TODO
+//	}
 
 	public function test_getLockDir() {
 
