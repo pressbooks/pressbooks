@@ -69,6 +69,8 @@ if ( $is_book ) {
 } else {
 	// Fix extraneous menus
 	add_action( 'admin_menu', '\Pressbooks\Admin\Laf\fix_root_admin_menu', 1 );
+	// TODO: Add Privacy Policy content
+	// add_action( 'admin_init', '\Pressbooks\Admin\Privacy\add_privacy_policy_content' ); @codingStandardsIgnoreLine
 }
 
 if ( is_network_admin() ) {
