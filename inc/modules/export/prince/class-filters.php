@@ -36,10 +36,15 @@ class Filters {
 		}
 	}
 
+	/**
+	 * @since 5.4.0
+	 */
 	public function __construct() {
 	}
 
 	/**
+	 * @since 5.4.0
+	 *
 	 * @return bool
 	 */
 	public function overridePrince() {
@@ -56,13 +61,15 @@ class Filters {
 	}
 
 	/**
+	 * @since 5.4.0
+	 *
 	 * Add this format to the export page formats list.
 	 *
 	 * @param array $formats a multidimensional array of standard and exotic formats
 	 *
 	 * @return array $formats
 	 */
-	function addToFormats( $formats ) {
+	public function addToFormats( $formats ) {
 		$formats['standard'] =
 			[
 				'docraptor_print' => __( 'PDF (for print)', 'pressbooks-docraptor' ),
@@ -76,26 +83,30 @@ class Filters {
 	}
 
 	/**
+	 * @since 5.4.0
+	 *
 	 * Hide Prince dependency errors if DocRaptor is enabled.
 	 *
 	 * @param array $dependency_errors an array of formats
 	 *
 	 * @return array $dependency_errors
 	 */
-	function hidePrinceErrors( $dependency_errors ) {
+	public function hidePrinceErrors( $dependency_errors ) {
 		unset( $dependency_errors['pdf'] );
 		unset( $dependency_errors['print_pdf'] );
 		return $dependency_errors;
 	}
 
 	/**
+	 * @since 5.4.0
+	 *
 	 * Make sure the PDF options tab is shown even if Prince is not installed.
 	 *
 	 * @param array $tabs And array of tabs, e.g. 'format' => '\Pressbooks\Modules\ThemeOptions\FormatOptions'
 	 *
 	 * @return array $tabs
 	 */
-	function registerPdfOptionsTab( $tabs ) {
+	public function registerPdfOptionsTab( $tabs ) {
 		$tmp = [
 			'global' => '\Pressbooks\Modules\ThemeOptions\GlobalOptions',
 			'web' => '\Pressbooks\Modules\ThemeOptions\WebOptions',
@@ -105,13 +116,15 @@ class Filters {
 	}
 
 	/**
+	 * @since 5.4.0
+	 *
 	 * Add this module to the export batch currently in progress.
 	 *
 	 * @param array $modules an array of active export module classnames
 	 *
 	 * @return array $modules
 	 */
-	function addToModules( $modules ) {
+	public function addToModules( $modules ) {
 		if ( isset( $_POST['export_formats']['docraptor'] ) && check_admin_referer( 'pb-export' ) ) {
 			$modules[] = '\Pressbooks\Modules\Export\Prince\Docraptor';
 		}

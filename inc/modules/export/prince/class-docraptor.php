@@ -10,8 +10,9 @@ use Pressbooks\Container;
 
 class Docraptor extends Pdf {
 
-
 	/**
+	 * @since 5.4.0
+	 *
 	 * Constructor.
 	 *
 	 * @param array $args
@@ -31,6 +32,8 @@ class Docraptor extends Pdf {
 
 
 	/**
+	 * @since 5.4.0
+	 *
 	 * Create $this->outputPath.
 	 *
 	 * @return bool|string
@@ -170,6 +173,8 @@ class Docraptor extends Pdf {
 
 
 	/**
+	 * @since 5.4.0
+	 *
 	 * Dependency check.
 	 *
 	 * @return bool

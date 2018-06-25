@@ -7,7 +7,10 @@
 namespace Pressbooks\Modules\Export\Prince;
 
 class DocraptorPrint extends Docraptor {
+
 	/**
+	 * @since 5.4.0
+	 *
 	 * Constructor.
 	 *
 	 * @param array $args
