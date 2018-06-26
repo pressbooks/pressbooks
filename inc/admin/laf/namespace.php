@@ -56,7 +56,6 @@ function replace_book_admin_menu() {
 	remove_submenu_page( 'tools.php', 'tools.php' );
 	remove_submenu_page( 'tools.php', 'import.php' );
 	remove_submenu_page( 'tools.php', 'export.php' );
-	remove_submenu_page( 'tools.php', 'tools.php' );
 
 	// Organize
 	$organize_page = add_menu_page( __( 'Organize', 'pressbooks' ), __( 'Organize', 'pressbooks' ), 'edit_posts', 'pb_organize', __NAMESPACE__ . '\display_organize', 'dashicons-book' );
@@ -282,6 +281,14 @@ function replace_book_admin_menu() {
 
 	// Catalog
 	add_submenu_page( 'index.php', __( 'My Catalog', 'pressbooks' ), __( 'My Catalog', 'pressbooks' ), 'read', 'pb_catalog', '\Pressbooks\Catalog::addMenu' );
+}
+
+/**
+ * Like replace_book_admin_menu, but goes last instead of first
+ */
+function reduce_book_admin_menu() {
+	remove_submenu_page( 'tools.php', 'export_personal_data' );
+	remove_submenu_page( 'tools.php', 'remove_personal_data' );
 }
 
 /**

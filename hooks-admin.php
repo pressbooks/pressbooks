@@ -53,7 +53,8 @@ if ( $is_book ) {
 	add_action( 'init', [ '\Pressbooks\Modules\SearchAndReplace\SearchAndReplace', 'init' ] );
 	add_action( 'after_setup_theme', [ '\Pressbooks\Modules\ThemeOptions\ThemeOptions', 'init' ] );
 	add_action( 'admin_init', '\Pressbooks\Redirect\redirect_away_from_bad_urls' );
-	add_action( 'admin_menu', '\Pressbooks\Admin\Laf\replace_book_admin_menu', 1 );
+	add_action( 'admin_menu', '\Pressbooks\Admin\Laf\replace_book_admin_menu', 1 ); // Go first
+	add_action( 'admin_menu', '\Pressbooks\Admin\Laf\reduce_book_admin_menu', 1000 ); // Go last
 	add_filter( 'custom_menu_order', '__return_true' );
 	add_filter( 'menu_order', '\Pressbooks\Admin\Laf\reorder_book_admin_menu' );
 	add_action( 'admin_menu', [ '\Pressbooks\Admin\Delete\Book', 'init' ] );
