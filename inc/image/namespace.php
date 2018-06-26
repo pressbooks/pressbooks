@@ -347,6 +347,12 @@ function delete_attachment( $post_id ) {
  */
 function save_attachment( $data, $post_id ) {
 
+	// Temporary Hotfix
+	// https://blog.ripstech.com/2018/wordpress-file-delete-to-code-execution/
+	if ( isset( $data['thumb'] ) ) {
+		$data['thumb'] = basename( $data['thumb'] );
+	}
+
 	if ( empty( $data['file'] ) ) {
 		return $data; // Bail
 	}
