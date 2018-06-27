@@ -27,7 +27,8 @@ class Admin_LafsTest extends \WP_UnitTestCase {
 		wp_set_current_user( $user_id );
 		include_once( ABSPATH . '/wp-admin/menu.php' );
 
-		\Pressbooks\Admin\Laf\replace_book_admin_menu();
+		\Pressbooks\Admin\Laf\replace_book_admin_menu(); // Go first
+		\Pressbooks\Admin\Laf\reduce_book_admin_menu(); // Go last
 
 		$this->assertEquals( $menu[12][0], 'Book Info' );
 		$this->assertEquals( $menu[14][0], 'Export' );
@@ -38,6 +39,8 @@ class Admin_LafsTest extends \WP_UnitTestCase {
 				'manage_options',
 				'quicklatex-settings',
 				'quicklatex_options_do_page',
+				'export_personal_data',
+				'remove_personal_data',
 			],
 			$submenu['options-general.php']
 		);
