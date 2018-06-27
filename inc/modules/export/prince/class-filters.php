@@ -53,7 +53,7 @@ class Filters {
 			// No API key
 			$use_hooks = false;
 		}
-		if ( is_plugin_active( 'pressbooks-pressbooks/pressbooks-docraptor.php' ) ) {
+		if ( is_plugin_active( 'pressbooks-docraptor/pressbooks-docraptor.php' ) ) {
 			// The old, deprecated plugin is active
 			$use_hooks = false;
 		}
