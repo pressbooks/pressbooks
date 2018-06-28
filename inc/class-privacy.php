@@ -6,15 +6,15 @@
 
 namespace Pressbooks;
 
-class Gdpr {
+class Privacy {
 
 	/**
-	 * @var Gdpr
+	 * @var Privacy
 	 */
 	static $instance = null;
 
 	/**
-	 * @return Gdpr
+	 * @return Privacy
 	 */
 	static public function init() {
 		if ( is_null( self::$instance ) ) {
@@ -25,10 +25,10 @@ class Gdpr {
 	}
 
 	/**
-	 * @param Gdpr $obj
+	 * @param Privacy $obj
 	 */
-	static public function hooks( Gdpr $obj ) {
-		add_filter( 'schedule_event', [ $obj, 'reschedulePrivacyDeleteOldExportFiles' ] );
+	static public function hooks( Privacy $obj ) {
+		add_filter( 'schedule_event', [ $obj, 'reschedulePrivacyCron' ] );
 	}
 
 	/**
@@ -42,7 +42,7 @@ class Gdpr {
 	 *
 	 * @return object $event
 	 */
-	public function reschedulePrivacyDeleteOldExportFiles( $event ) {
+	public function reschedulePrivacyCron( $event ) {
 		if ( isset( $event->hook ) && $event->hook === 'wp_privacy_delete_old_export_files' ) {
 			$s = 'twicedaily';
 			$event->schedule = $s;
@@ -52,5 +52,19 @@ class Gdpr {
 			}
 		}
 		return $event;
+	}
+
+	/**
+	 * @since 5.4.0
+	 *
+	 * Suggest text for the Privacy Policy.
+	 *
+	 * @see https://developer.wordpress.org/plugins/privacy/suggesting-text-for-the-site-privacy-policy/
+	 */
+	public function addPrivacyPolicyContent() {
+
+		$content = 'TODO.'; // TODO: Add real privacy policy suggestions.
+
+		wp_add_privacy_policy_content( 'Pressbooks', wp_kses_post( wpautop( $content, false ) ) );
 	}
 }

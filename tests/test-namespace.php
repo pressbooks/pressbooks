@@ -12,7 +12,7 @@ class NamespaceTest extends \WP_UnitTestCase {
 		global $wp_filter;
 		$classes = [
 			'\Pressbooks\Activation',
-			'\Pressbooks\Gdpr',
+			'\Pressbooks\Privacy',
 			'\Pressbooks\Taxonomy',
 			'\Pressbooks\Updates',
 			'\Pressbooks\Admin\Delete\Book',
