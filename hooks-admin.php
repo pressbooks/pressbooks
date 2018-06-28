@@ -70,7 +70,7 @@ if ( $is_book ) {
 	// Fix extraneous menus
 	add_action( 'admin_menu', '\Pressbooks\Admin\Laf\fix_root_admin_menu', 1 );
 	// TODO: Add Privacy Policy content
-	// add_action( 'admin_init', '\Pressbooks\Admin\Privacy\add_privacy_policy_content' ); @codingStandardsIgnoreLine
+	// See Pressbooks\Privacy::addPrivacyPolicyContent() for reference.
 }
 
 if ( is_network_admin() ) {

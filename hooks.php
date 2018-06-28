@@ -290,3 +290,9 @@ add_filter( 'wp_mail_from_name', '\Pressbooks\Utility\mail_from_name' );
 
 Container::get( 'Styles' )->init();
 
+// -------------------------------------------------------------------------------------------------------------------
+// GDPR
+// -------------------------------------------------------------------------------------------------------------------
+
+add_action( 'init', [ '\Pressbooks\Privacy', 'init' ], 9 ); // Must come before `add_action( 'init', 'wp_schedule_delete_old_privacy_export_files' );`
+
