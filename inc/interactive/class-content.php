@@ -118,7 +118,9 @@ class Content {
 			$src = $iframe->getAttribute( 'src' );
 			$parse = wp_parse_url( $src );
 			if ( ! in_array( $parse['host'], $whitelist, true ) ) {
-				$iframe->parentNode->removeChild( $iframe );
+				$src = $iframe->getAttribute( 'src' );
+				$fragment = $doc->loadHTMLFragment( "<p>[embed]{$src}[/embed]</p>" );
+				$iframe->parentNode->replaceChild( $dom->importNode( $fragment, true ), $iframe );
 				$changed = true;
 			}
 		}
