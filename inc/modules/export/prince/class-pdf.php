@@ -127,6 +127,7 @@ class Pdf extends Export {
 		$prince = new \PrinceXMLPhp\PrinceWrapper( PB_PRINCE_COMMAND );
 		$prince->setHTML( true );
 		$prince->setCompress( true );
+		$prince->setHttpTimeout( ini_get( 'max_execution_time' ) );
 		if ( defined( 'WP_ENV' ) && ( WP_ENV === 'development' || WP_ENV === 'staging' ) ) {
 			$prince->setInsecure( true );
 		}
