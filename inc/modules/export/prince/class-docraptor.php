@@ -71,6 +71,7 @@ class Docraptor extends Pdf {
 		$docraptor = new \DocRaptor\DocApi();
 		$prince_options = new \DocRaptor\PrinceOptions();
 		$prince_options->setNoCompress( false );
+		$prince_options->setHttpTimeout( ini_get( 'max_execution_time' ) );
 		$prince_options->setProfile( $this->pdfProfile );
 		$retval = false;
 
