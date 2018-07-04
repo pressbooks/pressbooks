@@ -1,0 +1,208 @@
+// --------------------------------------------------------------------------------------------------------------------
+// Vars
+// --------------------------------------------------------------------------------------------------------------------
+
+$cover-about-font: $font-1 !default;
+$cover-title-font: $font-2 !default;
+$cover-subtitle-font: $font-2 !default;
+$cover-author-font: $font-2 !default;
+$text-transform: uppercase !default;
+
+$trim-width: 6in !default;
+$trim-height: 9in !default;
+$trim-bleed: 0.125in !default;
+
+$spine-width: 0.725in !default;
+$spine-background-color: #fff !default;
+$spine-font-color: #000 !default;
+
+$back-background-color: #fff !default;
+$back-font-color: #000 !default;
+
+$front-background-color: #fff !default;
+$front-font-color: #000 !default;
+
+$isbn-width: 1.83in !default;
+
+// --------------------------------------------------------------------------------------------------------------------
+// Structure
+// --------------------------------------------------------------------------------------------------------------------
+
+// Notes:
+// Minimum Cover Width: Bleed + Back Cover Trim Size + Spine Width + Front Cover Trim Size + Bleed
+// Minimum Cover Height: Bleed + Book Height Trim Size + Bleed
+
+@page cover {
+  margin: 0;
+  padding: 0;
+  size: ($trim-bleed * 2 + $trim-width * 2 + $spine-width) ($trim-bleed * 2 + $trim-height);
+}
+
+.cover {
+  padding: 0;
+  margin: 0;
+  page: cover;
+  page-break-before: always;
+  // scss-lint:disable PropertySpelling
+  prince-page-group: start;
+}
+
+.cover-spine {
+  position: fixed;
+  top: 0;
+  left: $trim-bleed + $trim-width + $spine-width;
+  width: $trim-bleed * 2 + $trim-height;
+  height: $spine-width;
+  color: $spine-font-color;
+  background-color: $spine-background-color;
+  transform: rotate(90deg);
+  transform-origin: 0% 0%;
+}
+
+.cover-front {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: $trim-width + $trim-bleed;
+  height: $trim-height + $trim-bleed * 2;
+  color: $front-font-color;
+  background-color: $front-background-color;
+
+  @if variable-exists(front-background-image) {
+    background: url($front-background-image) no-repeat;
+    background-size: cover;
+    /* stylelint-disable-next-line property-no-unknown */
+    background-image-resolution: 300dpi;
+  }
+}
+
+.cover-back {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: $trim-width + $trim-bleed;
+  height: $trim-height + $trim-bleed * 2;
+  color: $back-font-color;
+  background-color: $back-background-color;
+}
+
+// --------------------------------------------------------------------------------------------------------------------
+// Content
+// --------------------------------------------------------------------------------------------------------------------
+
+.cover-spine .content {
+  line-height: $spine-width;
+
+  .title {
+    position: absolute;
+    left: $trim-bleed * 4;
+    font-family: $cover-title-font;
+    font-size: 0.9em;
+    font-style: normal;
+    font-weight: 900;
+    hyphens: none;
+    letter-spacing: 1px;
+    word-spacing: 2px;
+    color: $spine-font-color;
+    text-transform: $text-transform;
+    font-variant: normal;
+  }
+
+  .author {
+    position: absolute;
+    right: $trim-bleed * 4;
+    font-family: $cover-author-font;
+    font-size: 0.9em;
+    font-style: normal;
+    font-weight: 900;
+    hyphens: none;
+    letter-spacing: 1px;
+    word-spacing: 2px;
+    color: $spine-font-color;
+    text-transform: none;
+    font-variant: normal;
+  }
+}
+
+.cover-front .content {
+  padding: $trim-bleed * 2;
+
+  .title {
+    display: block;
+    margin-top: 2em;
+    font-family: $cover-title-font;
+    font-size: 3em;
+    font-style: normal;
+    font-weight: 900;
+    hyphens: none;
+    letter-spacing: 1px;
+    word-spacing: 2px;
+    color: $front-font-color;
+    text-align: center;
+    text-transform: $text-transform;
+    font-variant: normal;
+  }
+
+  .subtitle {
+    display: block;
+    margin-top: 2em;
+    font-family: $cover-subtitle-font;
+    font-size: 1.5em;
+    font-style: italic;
+    font-weight: normal;
+    hyphens: none;
+    letter-spacing: 1px;
+    word-spacing: 2px;
+    color: $front-font-color;
+    text-align: center;
+    text-transform: none;
+    font-variant: normal;
+  }
+
+  .author {
+    display: block;
+    margin-top: 3em;
+    font-family: $cover-author-font;
+    font-size: 2em;
+    font-style: normal;
+    font-weight: bold;
+    hyphens: none;
+    letter-spacing: 1px;
+    word-spacing: 2px;
+    color: $front-font-color;
+    text-align: center;
+    text-transform: none;
+    font-variant: normal;
+  }
+}
+
+.cover-back .content {
+  height: 100%;
+  padding: $trim-bleed * 2;
+  background-color: $back-background-color;
+
+  .about {
+    margin: 1cm;
+    font-family: $cover-about-font;
+    font-size: 0.8em;
+    font-style: normal;
+    font-weight: normal;
+    hyphens: auto;
+    letter-spacing: normal;
+    word-spacing: normal;
+    color: $back-font-color;
+    text-align: left;
+    text-transform: none;
+    font-variant: normal;
+  }
+
+  .isbn {
+    position: absolute;
+    bottom: $trim-bleed + 0.5in;
+    left: $trim-width / 2 - $isbn-width / 2;
+    width: $isbn-width;
+    height: auto;
+    // scss-lint:disable PropertySpelling
+    prince-image-resolution: 300dpi;
+  }
+}
