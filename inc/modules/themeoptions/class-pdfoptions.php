@@ -1727,8 +1727,13 @@ class PDFOptions extends \Pressbooks\Options {
 					[
 						'chapter-number-display' => 'none',
 						'part-number-display' => 'none',
+						'toc-left-left-gutter' => '0',
 						'toc-chapter-number-display' => 'none',
+						'toc-left-chapter-number-display' => 'none',
+						'toc-center-chapter-number-display' => 'none',
 						'toc-part-number-display' => 'none',
+						'toc-left-part-number-display' => 'none',
+						'toc-center-part-number-display' => 'none',
 					]
 				);
 			} else {
