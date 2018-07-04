@@ -1,0 +1,1044 @@
+%!PS
+
+% Barcode Writer in Pure PostScript - Version 2018-05-20
+% https://bwipp.terryburton.co.uk
+%
+% Copyright (c) 2004-2018 Terry Burton
+%
+% Permission is hereby granted, free of charge, to any
+% person obtaining a copy of this software and associated
+% documentation files (the "Software"), to deal in the
+% Software without restriction, including without
+% limitation the rights to use, copy, modify, merge,
+% publish, distribute, sublicense, and/or sell copies of
+% the Software, and to permit persons to whom the Software
+% is furnished to do so, subject to the following
+% conditions:
+%
+% The above copyright notice and this permission notice
+% shall be included in all copies or substantial portions
+% of the Software.
+%
+% THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY
+% KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO
+% THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+% PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+% THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+% DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
+% CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+% CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+% IN THE SOFTWARE.
+
+%%BeginResource: Category uk.co.terryburton.bwipp 0.0 2018052000 29725 32822
+%%BeginData:          6 ASCII Lines
+currentglobal
+true setglobal
+/Generic /Category findresource dup length 1 add dict copy dup
+/InstanceType /setpacking where {pop /packedarraytype} {/arraytype} ifelse put
+/uk.co.terryburton.bwipp exch /Category defineresource pop
+setglobal
+%%EndData
+%%EndResource
+
+%%BeginResource: uk.co.terryburton.bwipp raiseerror 0.0 2018052000 153316 39839
+%%BeginData:         13 ASCII Lines
+/setpacking where {pop currentpacking true setpacking} if
+1 dict
+begin
+/raiseerror {
+  $error exch /errorinfo exch put
+  $error exch /errorname exch put
+  $error /command null put
+  $error /newerror true put
+  stop
+} bind def
+/raiseerror dup load /uk.co.terryburton.bwipp defineresource pop
+end
+/setpacking where {pop setpacking} if
+%%EndData
+%%EndResource
+
+%%BeginResource: uk.co.terryburton.bwipp renlinear 0.0 2018052000 82223 84795
+%%BeginData:        237 ASCII Lines
+/setpacking where {pop currentpacking true setpacking} if
+1 dict
+dup /raiseerror dup /uk.co.terryburton.bwipp findresource put
+begin
+/renlinear {
+
+    20 dict begin          % Confine variables to local scope
+
+    /args exch def   % We are given some arguments
+
+    % Default options
+    /sbs [] def
+    /bhs [] def
+    /bbs [] def
+    /txt [] def
+    /barcolor (unset) def
+    /includetext false def
+    /textcolor (unset) def
+    /textxalign (unset) def
+    /textyalign (unset) def
+    /textfont (Courier) def
+    /textsize 10 def
+    /textxoffset 0 def
+    /textyoffset 0 def
+    /textgaps 0 def
+    /alttext () def
+    /bordercolor (unset) def
+    /backgroundcolor (unset) def
+    /inkspread 0.15 def
+    /width 0 def
+    /barratio 1 def
+    /spaceratio 1 def
+    /showborder false def
+    /borderleft 10 def
+    /borderright 10 def
+    /bordertop 1 def
+    /borderbottom 1 def
+    /borderwidth 0.5 def
+    /guardwhitespace false def
+    /guardleftpos 0 def
+    /guardleftypos 0 def
+    /guardrightpos 0 def
+    /guardrightypos 0 def
+    /guardwidth 6 def
+    /guardheight 7 def
+    
+    % Apply the renderer options and the user options
+    args {def} forall
+    opt {def} forall 
+
+    /barcolor barcolor cvlit def
+    /textcolor textcolor cvlit def
+    /textxalign textxalign cvlit def
+    /textyalign textyalign cvlit def
+    /textfont textfont cvlit def
+    /textsize textsize cvr def
+    /textxoffset textxoffset cvr def
+    /textyoffset textyoffset cvr def
+    /textgaps textgaps cvr def
+    /alttext alttext cvlit def
+    /bordercolor bordercolor cvlit def
+    /backgroundcolor backgroundcolor cvlit def
+    /inkspread inkspread cvr def
+    /width width cvr def
+    /barratio barratio cvr def
+    /spaceratio spaceratio cvr def
+    /borderleft borderleft cvr def
+    /borderright borderright cvr def
+    /bordertop bordertop cvr def
+    /borderbottom borderbottom cvr def
+    /borderwidth borderwidth cvr def
+    /guardleftpos guardleftpos cvr def
+    /guardleftypos guardleftypos cvr def
+    /guardrightpos guardrightpos cvr def
+    /guardrightypos guardrightypos cvr def
+    /guardwidth guardwidth cvr def
+    /guardheight guardheight cvr def
+    
+    % Create bar elements and put them into the bars array
+    /bars sbs length 1 add 2 idiv array def
+    /x 0.00 def /maxh 0 def
+    0 1 sbs length 1 add 2 idiv 2 mul 2 sub {
+        /i exch def
+        i 2 mod 0 eq {           % i is even
+            /d sbs i get barratio mul barratio sub 1 add def  % d=digit*r-r+1
+            sbs i get 0 ne {
+                /h bhs i 2 idiv get 72 mul def  % Height from bhs
+                /c d 2 div x add def            % Centre of the bar = x + d/2
+                /y bbs i 2 idiv get 72 mul def  % Baseline from bbs
+                /w d inkspread sub def          % bar width = digit - inkspread
+                bars i 2 idiv [h c y w] put     % Add the bar entry
+                h y add maxh gt {/maxh h y add def} if
+            } {
+                bars i 2 idiv -1 put            % Dummy entry
+            } ifelse
+        } {
+            /d sbs i get spaceratio mul spaceratio sub 1 add def  % d=digit*r-r+1 
+        } ifelse
+        /x x d add def  % x+=d
+    } for
+
+    gsave
+
+    currentpoint translate
+
+    % Force symbol to given width
+    width 0 ne {
+        width 72 mul x div 1 scale
+    } if
+
+    % Set RGB or CMYK color depending on length of given hex string
+    /setanycolor {
+        /anycolor exch def
+        anycolor length 6 eq {
+            (<      >) 8 string copy dup 1 anycolor putinterval cvx exec {255 div} forall setrgbcolor
+        } if
+        anycolor length 8 eq {
+            (<        >) 10 string copy dup 1 anycolor putinterval cvx exec {255 div} forall setcmykcolor
+        } if
+    } bind def
+
+    % Display the border and background
+    newpath
+    borderleft neg borderbottom neg moveto
+    x borderleft add borderright add 0 rlineto
+    0 maxh borderbottom add bordertop add rlineto
+    x borderleft add borderright add neg 0 rlineto
+    0 maxh borderbottom add bordertop add neg rlineto    
+    closepath
+    backgroundcolor (unset) ne { gsave backgroundcolor setanycolor fill grestore } if     
+    showborder {
+        gsave
+        bordercolor (unset) ne { bordercolor setanycolor } if
+        borderwidth setlinewidth stroke
+        grestore
+    } if    
+   
+    % Display the bars for elements in the bars array
+    gsave
+    0 setlinecap
+    barcolor (unset) ne { barcolor setanycolor } if
+    bars {
+        dup -1 ne {
+            aload pop newpath setlinewidth moveto 0 exch rlineto stroke
+        } {
+            pop
+        } ifelse
+    } forall
+    grestore
+    
+    % Display the text for elements in the text array
+    textcolor (unset) ne { textcolor setanycolor } if
+    includetext {
+        textxalign (unset) eq textyalign (unset) eq and alttext () eq and {
+            /s 0 def /fn () def
+            txt {
+                {} forall
+                2 copy s ne exch fn ne or {
+                    2 copy /s exch def /fn exch def
+                    selectfont
+                } {
+                    pop pop
+                } ifelse
+                moveto show
+            } forall
+        } {
+            textfont textsize selectfont
+            alttext () eq {
+                /txt [ txt { 0 get {} forall } forall ] def
+                /tstr txt length string def
+                0 1 txt length 1 sub { dup txt exch get tstr 3 1 roll put } for
+            } {
+                /tstr alttext def
+            } ifelse
+
+            % Find true ascent of font
+            tstr length 0 eq {
+                0
+            } {
+                gsave
+                newpath 0 0 moveto (0) false charpath pathbbox
+                4 1 roll pop pop pop
+                grestore
+                currentfont /PaintType known {currentfont /PaintType get 2 eq} {false} ifelse
+                currentfont /StrokeWidth known and {
+                    currentfont /StrokeWidth get 2 div 0 exch
+                    currentfont /FontMatrix get dtransform
+                    dup mul exch dup mul add sqrt
+                    add
+                } if
+            } ifelse
+            /textascent exch def
+            /textwidth tstr stringwidth pop tstr length 1 sub textgaps mul add def
+
+            /textxpos textxoffset x textwidth sub 2 div add def
+            textxalign (left) eq { /textxpos textxoffset def } if
+            textxalign (right) eq { /textxpos x textxoffset sub textwidth sub def } if
+            textxalign (offleft) eq { /textxpos textwidth textxoffset add neg def } if
+            textxalign (offright) eq { /textxpos x textxoffset add def } if
+            textxalign (justify) eq textwidth x lt and {
+                /textxpos 0 def
+                /textgaps x textwidth sub tstr length 1 sub div def
+            } if
+            /textypos textyoffset textascent add 1 add neg def
+            textyalign (above) eq { /textypos textyoffset maxh add 1 add def } if
+            textyalign (center) eq { /textypos textyoffset maxh textascent sub 2 div add def } if
+            textxpos textypos moveto textgaps 0 tstr ashow
+        } ifelse
+    } if    
+
+    % Display the guard elements
+    guardwhitespace {
+        0.75 setlinewidth
+        guardleftpos 0 ne {
+            newpath
+            guardleftpos neg guardwidth add guardleftypos guardwidth 2 div add moveto
+            guardwidth neg guardheight -2 div rlineto
+            guardwidth guardheight -2 div rlineto
+            stroke            
+        } if
+        guardrightpos 0 ne {
+            newpath
+            guardrightpos x add guardwidth sub guardrightypos guardheight 2 div add moveto
+            guardwidth guardheight -2 div rlineto
+            guardwidth neg guardheight -2 div rlineto
+            stroke            
+        } if
+    } if
+    
+    grestore
+    
+    end
+
+} bind def
+/renlinear dup load /uk.co.terryburton.bwipp defineresource pop
+end
+/setpacking where {pop setpacking} if
+%%EndData
+%%EndResource
+
+%%BeginResource: uk.co.terryburton.bwipp ean5 0.0 2018052000 68958 65237
+%%BeginData:        135 ASCII Lines
+/setpacking where {pop currentpacking true setpacking} if
+1 dict
+dup /raiseerror dup /uk.co.terryburton.bwipp findresource put
+dup /renlinear dup /uk.co.terryburton.bwipp findresource put
+begin
+/ean5 {
+
+    20 dict begin
+
+    /options exch def                   % We are given an option string
+    /barcode exch def                   % We are given a barcode string
+
+    /dontdraw false def
+    /includetext false def              % Enable/disable text
+    /textfont /Helvetica def
+    /textsize 12 def
+    /textxoffset 0 def
+    /textyoffset (unset) def
+    /height 0.7 def    
+    
+    % Parse the input options
+    options type /stringtype eq {
+        1 dict begin
+        options {
+            token false eq {exit} if dup length string cvs (=) search
+            true eq {cvlit exch pop exch def} {cvlit true def} ifelse
+        } loop
+        currentdict end /options exch def
+    } if
+    options {def} forall   
+ 
+    /textfont textfont cvlit def
+    /textsize textsize cvr def
+    /height height cvr def
+    /textxoffset textxoffset cvr def
+    textyoffset (unset) eq {
+        /textyoffset height 72 mul 1 add def
+    } {
+        /textyoffset textyoffset cvr def
+    } ifelse
+
+    % Validate input
+    barcode length 5 ne {
+        /bwipp.ean5badLength (EAN-5 add-on must be 5 digits) //raiseerror exec
+    } if
+    barcode {
+        dup 48 lt exch 57 gt or {
+            /bwipp.ean5badCharacter (EAN-5 add-on must contain only digits) //raiseerror exec
+        } if
+    } forall
+ 
+    % Create an array containing the character mappings
+    /encs
+    [ (3211) (2221) (2122) (1411) (1132)
+      (1231) (1114) (1312) (1213) (3112)
+      (112) (11)
+    ] def
+
+    % Create a string of the available characters
+    /barchars (0123456789) def
+
+    % Determine the mirror map based on mod 10 checksum
+    /mirrormaps
+    [ (11000) (10100) (10010) (10001) (01100)
+      (00110) (00011) (01010) (01001) (00101)
+    ] def
+    /checksum 0 def
+    0 1 4 {
+        /i exch def
+        /barchar barcode i get 48 sub def
+        i 2 mod 0 eq {
+            /checksum barchar 3 mul checksum add def
+        } {
+            /checksum barchar 9 mul checksum add def
+        } ifelse
+    } for
+    /checksum checksum 10 mod def
+    /mirrormap mirrormaps checksum get def
+
+    /sbs 31 string def
+    /txt 5 array def
+   
+    0 1 4 {
+        /i exch def
+
+        % Prefix with either a start character or separator character
+        i 0 eq {
+            sbs 0 encs 10 get putinterval
+        } {
+            sbs i 1 sub 6 mul 7 add encs 11 get putinterval
+        } ifelse
+
+        % Lookup the encoding for the barcode character
+        barcode i 1 getinterval barchars exch search
+        pop                     % Discard true leaving pre
+        length /indx exch def   % indx is the length of pre
+        pop pop                 % Discard seek and post
+        /enc encs indx get def  % Get the indxth encoding
+        mirrormap i get 49 eq { % Reverse enc if 1 in this position in mirrormap
+            /enclen enc length def
+            /revenc enclen string def
+            0 1 enclen 1 sub {
+                /j exch def
+                /char enc j get def
+                revenc enclen j sub 1 sub char put
+            } for
+            /enc revenc def
+        } if
+        sbs i 6 mul 3 add enc putinterval   % Put encoded digit into sbs
+        txt i [barcode i 1 getinterval i 1 sub 9 mul 13 add textxoffset add textyoffset textfont textsize] put
+    } for
+
+    % Return the arguments
+    <<
+    /ren //renlinear
+    /sbs [sbs {48 sub} forall]
+    /bhs [16{height}repeat]
+    /bbs [16{0}repeat]
+    includetext {
+        /txt txt
+    } if
+    /opt options
+    /guardrightpos 10
+    /guardrightypos textyoffset 4 add
+    /bordertop 10
+    >>
+
+    dontdraw not //renlinear if
+
+    end
+
+} bind def
+/ean5 dup load /uk.co.terryburton.bwipp defineresource pop
+end
+/setpacking where {pop setpacking} if
+%%EndData
+%%EndResource
+
+%%BeginResource: uk.co.terryburton.bwipp ean2 0.0 2018052000 67275 63499
+%%BeginData:        120 ASCII Lines
+/setpacking where {pop currentpacking true setpacking} if
+1 dict
+dup /raiseerror dup /uk.co.terryburton.bwipp findresource put
+dup /renlinear dup /uk.co.terryburton.bwipp findresource put
+begin
+/ean2 {
+
+    20 dict begin
+
+    /options exch def                   % We are given an options string
+    /barcode exch def                   % We are given a barcode string
+
+    /dontdraw false def
+    /includetext false def               % Enable/disable text
+    /textfont /Helvetica def
+    /textsize 12 def
+    /textxoffset 0 def
+    /textyoffset (unset) def
+    /height 0.7 def
+    
+    % Parse the input options
+    options type /stringtype eq {
+        1 dict begin
+        options {
+            token false eq {exit} if dup length string cvs (=) search
+            true eq {cvlit exch pop exch def} {cvlit true def} ifelse
+        } loop
+        currentdict end /options exch def
+    } if
+    options {def} forall
+ 
+    /textfont textfont cvlit def
+    /textsize textsize cvr def
+    /height height cvr def
+    /textxoffset textxoffset cvr def
+    textyoffset (unset) eq {
+        /textyoffset height 72 mul 1 add def
+    } {
+        /textyoffset textyoffset cvr def
+    } ifelse
+
+    % Validate input
+    barcode length 2 ne {
+      /bwipp.ean2badLength (EAN-2 add-on must be 2 digits) //raiseerror exec
+    } if
+    barcode {
+        dup 48 lt exch 57 gt or {
+            /bwipp.ean2badCharacter (EAN-2 add-on must contain only digits) //raiseerror exec
+        } if
+    } forall
+    
+    % Create an array containing the character mappings
+    /encs
+    [ (3211) (2221) (2122) (1411) (1132)
+      (1231) (1114) (1312) (1213) (3112)
+      (112) (11)
+    ] def
+
+    % Create a string of the available characters
+    /barchars (0123456789) def
+
+    % Determine the mirror map based on mod 4 checksum
+    /mirrormap [(00) (01) (10) (11)] barcode 0 2 getinterval cvi 4 mod get def
+
+    /sbs 13 string def
+    /txt 2 array def
+    
+    0 1 1 {
+        /i exch def
+
+        % Prefix with either a start character or separator character
+        i 0 eq {
+            sbs 0 encs 10 get putinterval
+        } {
+            sbs i 1 sub 6 mul 7 add encs 11 get putinterval
+        } ifelse
+
+        % Lookup the encoding for the barcode character
+        barcode i 1 getinterval barchars exch search
+        pop                     % Discard true leaving pre
+        length /indx exch def   % indx is the length of pre
+        pop pop                 % Discard seek and post
+        /enc encs indx get def  % Get the indxth encoding
+        mirrormap i get 49 eq { % Reverse enc if 1 in this position in mirrormap    
+            /enclen enc length def
+            /revenc enclen string def
+            0 1 enclen 1 sub {
+                /j exch def
+                /char enc j get def
+                revenc enclen j sub 1 sub char put
+            } for
+            /enc revenc def
+        } if
+        sbs i 6 mul 3 add enc putinterval   % Put encoded digit into sbs
+        txt i [barcode i 1 getinterval i 1 sub 9 mul 13 add textxoffset add textyoffset textfont textsize] put
+    } for
+
+    % Return the arguments
+    <<
+    /ren //renlinear
+    /sbs [sbs {48 sub} forall]
+    /bhs [12{height}repeat]
+    /bbs [12{0}repeat]
+    includetext {
+        /txt txt
+    } if
+    /opt options
+    /guardrightpos 10
+    /guardrightypos textyoffset 4 add
+    /bordertop 10
+    >>
+
+    dontdraw not //renlinear if
+
+    end
+
+} bind def
+/ean2 dup load /uk.co.terryburton.bwipp defineresource pop
+end
+/setpacking where {pop setpacking} if
+%%EndData
+%%EndResource
+
+%%BeginResource: uk.co.terryburton.bwipp ean13 0.0 2018052000 95001 91176
+%%BeginData:        215 ASCII Lines
+/setpacking where {pop currentpacking true setpacking} if
+1 dict
+dup /raiseerror dup /uk.co.terryburton.bwipp findresource put
+dup /renlinear dup /uk.co.terryburton.bwipp findresource put
+dup /ean2 dup /uk.co.terryburton.bwipp findresource put
+dup /ean5 dup /uk.co.terryburton.bwipp findresource put
+begin
+/ean13 {
+
+    20 dict begin
+
+    /options exch def                  % We are given an option string
+    /barcode exch def                  % We are given a barcode string
+
+    /dontdraw false def
+    /includetext false def             % Enable/disable text
+    /textfont /Helvetica def
+    /textsize 12 def
+    /textxoffset -10 def
+    /textyoffset -4 def
+    /height 1 def
+    /addongap 12 def
+    /addontextfont (unset) def
+    /addontextsize (unset) def
+    /addontextxoffset (unset) def
+    /addontextyoffset (unset) def
+
+    % Parse the input options, either a string or a dict
+    options type /stringtype eq {
+        1 dict begin
+        options {
+            token false eq {exit} if dup length string cvs (=) search
+            true eq {cvlit exch pop exch def} {cvlit true def} ifelse
+        } loop
+        currentdict end /options exch def
+    } if
+    options {def} forall
+
+    /textfont textfont cvlit def
+    /textsize textsize cvr def
+    /textxoffset textxoffset cvr def
+    /textyoffset textyoffset cvr def
+    /height height cvr def
+    /addongap addongap cvr def   
+    addontextfont (unset) ne {/addontextfont addontextfont cvlit def} if
+    addontextsize (unset) ne {/addontextsize addontextsize cvr def} if
+    addontextxoffset (unset) ne {/addontextxoffset addontextxoffset cvr def} if
+    addontextyoffset (unset) ne {/addontextyoffset addontextyoffset cvr def} if
+
+    % Split off the addon
+    barcode ( ) search {
+        /barcode exch def
+        pop
+        /addon exch def
+    } {
+        pop
+        /addon () def
+    } ifelse
+
+    % Validate the input
+    barcode length 12 ne barcode length 13 ne and {
+        /bwipp.ean13badLength (EAN-13 must be 12 or 13 digits) //raiseerror exec
+    } if
+    barcode {
+        dup 48 lt exch 57 gt or {
+            /bwipp.ean13badCharacter (EAN-13 must contain only digits) //raiseerror exec
+        } if
+    } forall
+    addon length 0 ne addon length 2 ne and addon length 5 ne and {
+        /bwipp.ean13badAddOnLength (Add-on for EAN-13 must be 2 or 5 digits) //raiseerror exec
+    } if
+
+    % Add checksum digit
+    /pad 13 string def
+    /checksum 0 def
+    0 1 11 {
+        /i exch def
+        /barchar barcode i get 48 sub def
+        i 2 mod 0 eq {
+            /checksum barchar checksum add def
+        } {
+            /checksum barchar 3 mul checksum add def
+        } ifelse
+    } for
+    /checksum 10 checksum 10 mod sub 10 mod def
+    barcode length 13 eq {
+        barcode 12 get checksum 48 add ne {
+            /bwipp.ean13badCheckDigit (Incorrect EAN-13 check digit provided) //raiseerror exec
+        } if
+    } if
+    pad 0 barcode putinterval       % Add barcode to the start of the pad
+    pad 12 checksum 48 add put      % Put ascii for checksum at end of pad
+    /barcode pad def
+
+    % Create an array containing the character mappings
+    /encs
+    [ (3211) (2221) (2122) (1411) (1132)
+      (1231) (1114) (1312) (1213) (3112)
+      (111) (11111) (111)
+    ] def
+
+    % Create a string of the available characters
+    /barchars (0123456789) def
+
+    % Digits to mirror on left side
+    /mirrormaps
+    [ (000000) (001011) (001101) (001110) (010011)
+      (011001) (011100) (010101) (010110) (011010)
+    ] def
+
+    /sbs 59 string def
+    /txt 13 array def
+  
+    % Put the start character
+    sbs 0 encs 10 get putinterval
+
+    % First digit - determine mirrormap by this and show before guard bars
+    /mirrormap mirrormaps barcode 0 get 48 sub get def
+    txt 0 [barcode 0 1 getinterval textxoffset textyoffset textfont textsize] put
+
+    % Left side - performs mirroring
+    1 1 6 {
+        % Lookup the encoding for the each barcode character
+        /i exch def
+        barcode i 1 getinterval barchars exch search
+        pop                            % Discard true leaving pre
+        length /indx exch def          % indx is the length of pre
+        pop pop                        % Discard seek and post
+        /enc encs indx get def         % Get the indxth encoding
+        mirrormap i 1 sub get 49 eq {   % Reverse enc if 1 in this position in mirrormap
+            /enclen enc length def
+            /revenc enclen string def
+            0 1 enclen 1 sub {
+                /j exch def
+                /char enc j get def
+                revenc enclen j sub 1 sub char put
+            } for
+            /enc revenc def
+        } if
+        sbs i 1 sub 4 mul 3 add enc putinterval   % Put encoded digit into sbs
+        txt i [barcode i 1 getinterval i 1 sub 7 mul 14 add textxoffset add textyoffset textfont textsize] put
+    } for
+
+    % Put the middle character
+    sbs 7 1 sub 4 mul 3 add encs 11 get putinterval
+
+    % Right side
+    7 1 12 {
+        % Lookup the encoding for the each barcode character
+        /i exch def
+        barcode i 1 getinterval barchars exch search
+        pop                            % Discard true leaving pre
+        length /indx exch def          % indx is the length of pre
+        pop pop                        % Discard seek and post
+        /enc encs indx get def         % Get the indxth encoding
+        sbs i 1 sub 4 mul 8 add enc putinterval  % Put encoded digit into sbs
+        txt i [barcode i 1 getinterval i 1 sub 7 mul 18 add textxoffset add textyoffset textfont textsize] put
+    } for
+
+    % Put the end character
+    sbs 56 encs 12 get putinterval
+
+    /sbs [sbs {48 sub} forall] def
+    includetext {
+        /bhs [height height 12{height .075 sub}repeat height height 12{height .075 sub}repeat height height] def
+        /bbs [0 0 12{.075}repeat 0 0 12{.075}repeat 0 0] def
+    } {
+        /bhs [30{height}repeat] def
+        /bbs [30{0}repeat] def
+        /txt [] def
+    } ifelse
+    /guardrightypos 0 def
+
+    % Append the addon
+    addon () ne {
+        /addopts <<
+            /dontdraw true
+            /includetext true
+            /height height 0.15 sub
+            /textxoffset addontextxoffset (unset) ne {addontextxoffset} {95 addongap add} ifelse
+            addontextyoffset (unset) ne {/textyoffset addontextyoffset} if
+            /textsize addontextsize (unset) ne {addontextsize} {textsize} ifelse
+            /textfont addontextfont (unset) ne {addontextfont} {textfont} ifelse
+        >> def
+        addon length 2 eq {addon addopts //ean2 exec} if
+        addon length 5 eq {addon addopts //ean5 exec} if
+        /addcode exch def
+        /sbs [sbs aload pop addongap addcode (sbs) get aload pop] def
+        /bhs [bhs aload pop addcode (bhs) get {.075 sub} forall] def
+        /bbs [bbs aload pop addcode (bbs) get {.075 add} forall] def
+        /txt [txt aload pop addcode (txt) get aload pop] def
+        /guardrightypos height 72 mul 6 sub def
+    } if 
+   
+    % Return the arguments
+    <<
+    /ren //renlinear
+    /sbs sbs
+    /bhs bhs
+    /bbs bbs
+    /txt txt
+    /opt options
+    /guardrightpos 10
+    /guardrightypos guardrightypos
+    /borderbottom 5
+    >>
+
+    dontdraw not //renlinear if
+
+    end
+
+} bind def
+/ean13 dup load /uk.co.terryburton.bwipp defineresource pop
+end
+/setpacking where {pop setpacking} if
+%%EndData
+%%EndResource
+
+%%BeginResource: uk.co.terryburton.bwipp isbn 0.0 2018052000 104057 106666
+%%BeginData:        252 ASCII Lines
+/setpacking where {pop currentpacking true setpacking} if
+1 dict
+dup /raiseerror dup /uk.co.terryburton.bwipp findresource put
+dup /renlinear dup /uk.co.terryburton.bwipp findresource put
+dup /ean13 dup /uk.co.terryburton.bwipp findresource put
+begin
+/isbn {
+
+    20 dict begin
+
+    /options exch def      % We are given an options string
+    /barcode exch def      % We are given the isbn text with dashes
+
+    /dontdraw false def
+    /includetext false def  % Enable/disable ISBN text
+    /isbntextfont /Courier def
+    /isbntextsize 9 def
+    /isbntextxoffset (unset) def
+    /isbntextyoffset (unset) def
+    /height 1 def
+    /addongap 12 def   
+    /legacy false def
+ 
+    % Parse the input options
+    options type /stringtype eq {
+        1 dict begin
+        options {
+            token false eq {exit} if dup length string cvs (=) search
+            true eq {cvlit exch pop exch def} {cvlit true def} ifelse
+        } loop
+        currentdict end /options exch def
+    } if
+    options {def} forall
+    
+    /isbntextfont isbntextfont cvlit def
+    /isbntextsize isbntextsize cvr def
+    isbntextxoffset (unset) ne {/isbntextxoffset isbntextxoffset cvr def} if
+    isbntextyoffset (unset) ne {/isbntextyoffset isbntextyoffset cvr def} if
+    /height height cvr def
+    /addongap addongap cvr def
+
+    % Split off the addon
+    barcode ( ) search {
+        /barcode exch def
+        pop
+        /addon exch def
+    } {
+        pop
+        /addon () def
+    } ifelse
+
+    % Validate the input
+    barcode length 15 ne barcode length 17 ne and
+    barcode length 11 ne barcode length 13 ne and and {
+        /bwipp.isbnBadLength (ISBN-13 must be 15 or 17 characters including dashes. ISBN-10 must be 11 or 13 characters including dashes) //raiseerror exec
+    } if
+    addon length 0 ne addon length 2 ne and addon length 5 ne and {
+        /bwipp.isbnBadAddOnLength (Add-on for ISBN must be 2 or 5 digits) //raiseerror exec
+    } if
+    barcode length 15 ge {  % ISBN-13
+        barcode 0 4 getinterval dup (978-) ne exch (979-) ne and {
+            /bwipp.isbn13badPrefix (ISBN-13 prefix must be 978- or 979-) //raiseerror exec
+        } if
+        /wasdash false def /numdash 0 def /numdigit 0 def
+        barcode 5 9 getinterval {
+            dup
+            45 eq {
+                wasdash {
+                    /bwipp.isbn13adjacentDashes (ISBN-13 does not permit adjacent dashes) //raiseerror exec
+                } if
+                /wasdash true def
+                /numdash numdash 1 add def
+            } if
+            dup 48 ge exch 57 le and {
+                /wasdash false def
+                /numdigit numdigit 1 add def
+            } if
+        } forall
+        numdash 2 ne numdigit 7 ne or {
+            /bwipp.isbn13numDashesDigits (Incorrect number of dashes and digits for ISBN-13) //raiseerror exec
+        } if
+        barcode 14 get dup 48 lt exch 57 gt or {
+            /bwipp.isbn13character15 (ISBN-13 character 15 must be a digit) //raiseerror exec
+        } if
+        barcode length 17 eq {
+            barcode 15 1 getinterval (-) ne {
+                /bwipp.isbn13character16 (ISBN-13 penultimate character must be a dash) //raiseerror exec
+            } if
+            barcode 16 get dup 48 lt exch 57 gt or {
+                /bwipp.isbn13character17 (ISBN-13 final character must be a digit) //raiseerror exec
+            } if
+        } if
+    } {  % ISBN-10
+        barcode 0 get dup 48 lt exch 57 gt or {
+            /bwipp.isbn10FirstDigit (ISBN-10 first character must be a digit) //raiseerror exec
+        } if
+        /wasdash false def /numdash 0 def /numdigit 0 def
+        barcode 1 9 getinterval {
+            dup
+            45 eq {
+                wasdash {
+                    /bwipp.isbn10adjacentDashes (ISBN-10 does not permit adjacent dashes) //raiseerror exec
+                } if
+                /wasdash true def
+                /numdash numdash 1 add def
+            } if
+            dup 48 ge exch 57 le and {
+                /wasdash false def
+                /numdigit numdigit 1 add def
+            } if
+        } forall
+        numdash 2 ne numdigit 7 ne or {
+            /bwipp.isbn10numDashesDigits (Incorrect number of dashes and digits for ISBN-10) //raiseerror exec
+        } if
+        barcode 10 get dup 48 lt exch 57 gt or {
+            /bwipp.isbn10character11 (ISBN-10 character 11 must be a digit) //raiseerror exec
+        } if
+        barcode length 13 eq {
+            barcode 11 1 getinterval (-) ne {
+                /bwipp.isbn10character12 (ISBN-10 penultimate character must be a dash) //raiseerror exec
+            } if
+            barcode 12 get dup dup 48 lt exch 57 gt or exch 88 ne and {
+                /bwipp.isbn10character13 (ISBN-10 final character must be a digit or X) //raiseerror exec
+            } if
+        } if
+    } ifelse
+
+    /isbntxt barcode def
+
+    % Read the digits from isbntxt and validate checksum for ISBN-10
+    isbntxt length 13 le {
+        /isbn 10 string def
+        /checksum 0 def
+        /i 0 def /n 0 def
+        { % loop
+            /isbnchar isbntxt i get 48 sub def
+            isbnchar -3 ne {     % Ignore dashes
+                isbn n isbnchar 48 add put
+                n 9 lt {
+                    /checksum checksum 10 n sub isbnchar mul add def
+                } if
+                /n n 1 add def
+            } if
+            /i i 1 add def
+            i isbntxt length eq {exit} if
+        } loop
+        /checksum 11 checksum 11 mod sub 11 mod dup 10 eq {pop 40} if 48 add def
+        /isbn isbn 0 9 getinterval def
+        isbntxt length 13 eq {
+            isbntxt 12 get checksum ne {
+                /bwipp.isbn10badCheckDigit (Incorrect ISBN-10 check digit provided) //raiseerror exec
+            } if
+        } if
+    } if
+
+    legacy not isbntxt length 15 ge or {
+
+        % Convert ISBN-10 to ISBN-13
+        isbntxt length 13 le {
+            /pad 15 string def
+            pad 0 (978-) putinterval
+            pad 4 isbntxt 0 11 getinterval putinterval
+            /isbntxt pad def
+        } if
+
+        % Read the digits from isbntxt and validate checksum for ISBN-13
+        /isbn 13 string def
+        /checksum 0 def
+        /i 0 def /n 0 def
+        { % loop
+            /isbnchar isbntxt i get 48 sub def
+            isbnchar -3 ne {     % Ignore dashes
+                isbn n isbnchar 48 add put
+                n 12 lt {
+                    /checksum isbnchar n 2 mod 0 ne {3 mul} if checksum add def
+                } if
+                /n n 1 add def
+            } if
+            /i i 1 add def
+            i isbntxt length eq {exit} if
+        } loop
+        /checksum 10 checksum 10 mod sub 10 mod 48 add def
+        /isbn isbn 0 12 getinterval def
+        isbntxt length 17 eq {
+            isbntxt 16 get checksum ne {
+                /bwipp.isbn13badCheckDigit (Incorrect ISBN-13 check digit provided) //raiseerror exec
+            } if
+        } if
+
+    } if
+
+    % Add the ISBN header to the isbntxt
+    /pad isbn length 12 eq {22} {18} ifelse string def
+    pad 0 (ISBN ) putinterval
+    pad 5 isbntxt putinterval
+    pad pad length 2 sub 45 put
+    pad pad length 1 sub checksum put
+    /isbntxt pad def
+
+    % Convert ISBN digits to EAN-13
+    /barcode 12 string def
+    isbn length 9 eq {        
+        barcode 0 (978) putinterval
+        barcode 3 isbn putinterval
+    } {
+        barcode 0 isbn putinterval
+    } ifelse
+
+    % Append the addon
+    addon () ne {
+        12 addon length add 1 add string 
+        dup 0 barcode putinterval
+        dup 12 ( ) putinterval
+        dup 13 addon putinterval
+        /barcode exch def
+    } if
+
+    % Get the result of encoding with ean13
+    options (dontdraw) true put
+    options (addongap) addongap put 
+    /args barcode options //ean13 exec def
+
+    % Add the ISBN text
+    includetext {
+        isbntextxoffset (unset) eq {
+            /isbntextxoffset isbn length 9 eq {-1} {-12} ifelse def
+        } if
+        isbntextyoffset (unset) eq {
+            /isbntextyoffset height 72 mul 3 add def
+        } if
+        args (txt) known {
+            /txt args (txt) get def
+            /newtxt txt length 1 add array def
+            newtxt 0 txt putinterval
+            newtxt newtxt length 1 sub [isbntxt isbntextxoffset isbntextyoffset isbntextfont isbntextsize] put
+            args (txt) newtxt put
+        } {
+            args (txt) [ [isbntxt isbntextxoffset isbntextyoffset isbntextfont isbntextsize] ] put
+        } ifelse
+    } if
+
+    args (opt) options put
+    args
+
+    dontdraw not //renlinear if
+
+    end
+ 
+} bind def
+/isbn dup load /uk.co.terryburton.bwipp defineresource pop
+end
+/setpacking where {pop setpacking} if
+%%EndData
+%%EndResource
+
