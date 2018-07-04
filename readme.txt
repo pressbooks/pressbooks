@@ -48,6 +48,7 @@ TK.
 * Fix an issue where PDF internal links would not function as expected: [#1245](https://github.com/pressbooks/pressbooks/pull/1245)
 * Lower personal data export cron frequency to twicedaily ([#1242](https://github.com/pressbooks/pressbooks/issues/1242)): [#1246](https://github.com/pressbooks/pressbooks/pull/1246)
 * Increase HTTP timeout for the Prince and DocRaptor PDF export modules to PHP `max_execution_time` (props [@rootl](https://github.com/rootl) for the bug report): [#1248](https://github.com/pressbooks/pressbooks/pull/1248)
+* Fix the suppression of TOC part and chapter numbers for Buckram 1.0 themes: [#1249](https://github.com/pressbooks/pressbooks/pull/1249)
 
 = 5.3.4 =
 **Patches**
