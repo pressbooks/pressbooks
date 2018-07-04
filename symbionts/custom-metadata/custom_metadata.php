@@ -653,6 +653,9 @@ class custom_metadata_manager {
 	}
 
 	function save_post_metadata( $post_id ) {
+		if ( wp_is_post_revision( $post_id ) ) {
+			return;
+		}
 		$post_type = $this->_get_object_type_context();
 		$groups = $this->get_groups_in_object_type( $post_type );
 
@@ -1072,19 +1075,20 @@ class custom_metadata_manager {
 		delete_metadata( $object_type, $object_id, $field_slug, $value );
 	}
 
-	function _sanitize_field_value( $field_slug, $field, $object_type, $object_id, $value ) {
+	function _sanitize_field_value( $field_slug, $field, $object_type, $object_id, $original_value ) {
+		$new_value = $original_value;
 
 		$sanitize_callback = $this->get_sanitize_callback( $field, $object_type );
 
 		// convert date to unix timestamp
 		if ( in_array( $field->field_type, array( 'datepicker', 'datetimepicker', 'timepicker' ) ) ) {
-			$value = strtotime( $value );
+			$new_value = strtotime( $original_value );
 		}
 
 		if ( $sanitize_callback )
-			return call_user_func( $sanitize_callback, $field_slug, $field, $object_type, $object_id, $value );
+			return call_user_func( $sanitize_callback, $field_slug, $field, $object_type, $object_id, $new_value, $original_value );
 
-		return $value;
+		return $new_value;
 	}
 
 	function _metadata_column_content( $field_slug, $field, $object_type, $object_id ) {
@@ -1173,7 +1177,7 @@ class custom_metadata_manager {
 			printf( '<p class="error">%s</p>', __( '<strong>Note:</strong> this field type cannot be multiplied', 'custom-metadata-manager' ) );
 		}
 
-		if ( empty( $field_id ) ) {
+		if ( ! isset( $field_id ) ) {
 			$field_id = ( ! empty( $field->multiple ) || in_array( $field->field_type, $this->_always_multiple_fields ) ) ? $field_slug . '[]' : $field_slug;
 		}
 
