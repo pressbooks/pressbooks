@@ -53,7 +53,8 @@ class Filters {
 			// No API key
 			$use_hooks = false;
 		}
-		if ( is_plugin_active( 'pressbooks-docraptor/pressbooks-docraptor.php' ) ) {
+		$plugin = 'pressbooks-docraptor/pressbooks-docraptor.php';
+		if ( file_exists( WP_PLUGIN_DIR . "/{$plugin}" ) && is_plugin_active( $plugin ) ) {
 			// The old, deprecated plugin is active
 			$use_hooks = false;
 		}
