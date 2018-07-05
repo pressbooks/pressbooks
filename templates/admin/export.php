@@ -208,8 +208,8 @@ $formats = apply_filters( 'pb_export_formats', [
 	);
 } ?>
 		</fieldset>
-		
-		<?php 
+
+		<?php
 			/**
 			 * @since 5.3.0
 			 *
@@ -237,7 +237,7 @@ $formats = apply_filters( 'pb_export_formats', [
 <div class="export-control">
 	<p><input id="pb-export-button" type="button" class="button button-hero button-primary generate" value="<?php esc_attr_e( 'Export Your Book', 'pressbooks' ); ?>" /></p>
 	<p id="loader" class="loading-content"><span class="spinner"></span></p>
-	<?php 
+	<?php
 		/**
 		 * @since 5.3.0
 		 *
