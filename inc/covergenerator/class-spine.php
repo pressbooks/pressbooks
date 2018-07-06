@@ -7,7 +7,7 @@ class Spine {
 	/**
 	 * Constructor
 	 */
-	function __construct() {
+	public function __construct() {
 
 	}
 
@@ -32,7 +32,7 @@ class Spine {
 	 *
 	 * @return float Inches
 	 */
-	function spineWidthCalculator( $pages, $ppi ) {
+	public function spineWidthCalculator( $pages, $ppi ) {
 
 		return round( $pages / $ppi, 4 );
 	}
@@ -48,7 +48,7 @@ class Spine {
 	 *
 	 * @return float Inches
 	 */
-	function spineWidthCalculatorCaliper( $pages, $caliper ) {
+	public function spineWidthCalculatorCaliper( $pages, $caliper ) {
 
 		return $this->spineWidthCalculator( $pages, $this->caliperToPpi( $caliper ) );
 	}
@@ -67,7 +67,7 @@ class Spine {
 	 *
 	 * @return int PPI
 	 */
-	function caliperToPpi( $caliper ) {
+	public function caliperToPpi( $caliper ) {
 
 		return round( 2 / $caliper, 0 );
 	}
@@ -78,7 +78,7 @@ class Spine {
 	 *
 	 * @return int
 	 */
-	function countPagesInMostRecentPdf() {
+	public function countPagesInMostRecentPdf() {
 		$files = \Pressbooks\Utility\group_exports();
 
 		if ( empty( $files ) ) {
@@ -99,7 +99,11 @@ class Spine {
 			return 0;
 		}
 
-		return $this->countPagesInPdf( $path_to_pdf );
+		try {
+			return $this->countPagesInPdf( $path_to_pdf );
+		} catch ( \Exception $e ) {
+			return 0;
+		}
 	}
 
 
@@ -112,7 +116,7 @@ class Spine {
 	 *
 	 * @return int
 	 */
-	function countPagesInPdf( $path_to_pdf ) {
+	public function countPagesInPdf( $path_to_pdf ) {
 		if ( ! file_exists( $path_to_pdf ) ) {
 			throw new \Exception( "File not found: $path_to_pdf" );
 		}

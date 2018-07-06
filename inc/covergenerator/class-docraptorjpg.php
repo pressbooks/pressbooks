@@ -135,13 +135,13 @@ class DocraptorJpg extends Generator {
 	 * Generate HTML for Ebook JPG cover
 	 *
 	 * @return string the generated Html
+	 *
+	 * @throws \Exception
 	 */
 	protected function generateHtml() {
 		$vars = $this->getHtmlTemplateVars();
 		$vars['css'] = apply_filters( 'pb_epub_cover_css_override', $this->generateCss() );
-
 		$html = template( PB_PLUGIN_DIR . 'templates/covergenerator/jpg-cover.php', $vars );
-
 		return $html;
 	}
 

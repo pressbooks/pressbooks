@@ -50,19 +50,14 @@ class Isbn {
 	 *
 	 * @param string $isbn_number
 	 *
-	 * @throws \InvalidArgumentException
 	 * @throws \Exception
 	 *
 	 * @return string
 	 */
-	function createBarcode( $isbn_number ) {
+	public function createBarcode( $isbn_number ) {
 
-		try {
-			if ( ! $this->validateIsbnNumber( $isbn_number ) ) {
-				throw new \InvalidArgumentException( 'Invalid ISBN number.' );
-			}
-		} catch ( \InvalidArgumentException $e ) {
-			$_SESSION['pressbooks_cg_exception'] = $e->getMessage();
+		if ( ! $this->validateIsbnNumber( $isbn_number ) ) {
+			$_SESSION['pb_errors'] = __( 'There was a problem creating the barcode: Invalid ISBN number.', 'pressbooks' );
 			return false;
 		}
 
@@ -118,7 +113,7 @@ class Isbn {
 	 *
 	 * @return bool
 	 */
-	function validateIsbnNumber( $isbn_number ) {
+	public function validateIsbnNumber( $isbn_number ) {
 
 		// Regex to split a string only by the last whitespace character
 		@list( $isbn_number, $addon ) = preg_split( '/\s+(?=\S*+$)/', trim( $isbn_number ) ); // @codingStandardsIgnoreLine
@@ -142,7 +137,7 @@ class Isbn {
 	 *
 	 * @return string
 	 */
-	function fixIsbnNumber( $isbn_number ) {
+	public function fixIsbnNumber( $isbn_number ) {
 
 		// Regex to split a string only by the last whitespace character
 		@list( $isbn_number, $addon ) = preg_split( '/\s+(?=\S*+$)/', trim( $isbn_number ) ); // @codingStandardsIgnoreLine
@@ -172,7 +167,7 @@ class Isbn {
 	 *
 	 * @return string
 	 */
-	function invocation( $isbn, $isbn_text_font, $isbn_text_size, $text_font, $text_size ) {
+	public function invocation( $isbn, $isbn_text_font, $isbn_text_size, $text_font, $text_size ) {
 
 		$ps[] = "50 50 moveto ({$isbn}) (includetext isbntextfont={$isbn_text_font} isbntextsize={$isbn_text_size} textfont={$text_font} textsize={$text_size})";
 		$ps[] = '/isbn /uk.co.terryburton.bwipp findresource exec';
@@ -188,7 +183,7 @@ class Isbn {
 	 *
 	 * @throws \LogicException
 	 */
-	function compile( $path_to_ps ) {
+	public function compile( $path_to_ps ) {
 
 		if ( empty( $this->isbnNumber ) ) {
 			throw new \LogicException( '$this->isbnNumber is not set' );
@@ -219,7 +214,7 @@ class Isbn {
 	 * @param string $output_path_to_png
 	 * @param int $dpi
 	 */
-	function gs( $input_path_to_ps, $output_path_to_png, $dpi ) {
+	public function gs( $input_path_to_ps, $output_path_to_png, $dpi ) {
 
 		$dpi = (int) $dpi;
 		$command = PB_GS_COMMAND . " -dQUIET -dNOPAUSE -dSAFER -dBATCH -sDEVICE=pnggray -r{$dpi} -sOutputFile=" . escapeshellarg( $output_path_to_png ) . ' ' . escapeshellarg( $input_path_to_ps );
@@ -245,7 +240,7 @@ class Isbn {
 	 * @param string $path_to_png
 	 * @param string $border
 	 */
-	function crop( $path_to_png, $border = '20x20' ) {
+	public function crop( $path_to_png, $border = '20x20' ) {
 
 		$command = PB_CONVERT_COMMAND . ' ' . escapeshellarg( $path_to_png ) . " -trim +repage -bordercolor white -border {$border} " . escapeshellarg( $path_to_png );
 

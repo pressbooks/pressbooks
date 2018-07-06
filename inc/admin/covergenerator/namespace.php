@@ -4,10 +4,16 @@ namespace Pressbooks\Admin\Covergenerator;
 
 use PressbooksMix\Assets;
 
+/**
+ * Add menu to pb_export
+ */
 function generator_menu() {
 	add_submenu_page( 'pb_export', __( 'Cover Generator', 'pressbooks' ), __( 'Cover Generator', 'pressbooks' ), 'manage_options', 'pressbooks_cg', __NAMESPACE__ . '\display_generator' );
 }
 
+/**
+ *
+ */
 function display_generator() {
 	require( PB_PLUGIN_DIR . 'templates/admin/covergenerator.php' );
 }
@@ -648,7 +654,6 @@ function pressbooks_cg_options_sanitize( $input ) {
 
 /**
  * Validate image size.
- * @since 1.9
  *
  * @param array $file
  *

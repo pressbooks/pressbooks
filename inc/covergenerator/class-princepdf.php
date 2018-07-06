@@ -145,19 +145,17 @@ class PrincePdf extends Generator {
 		return $css;
 	}
 
-
 	/**
 	 * Generate HTML for PDF print cover
 	 *
 	 * @return string Path to generated CSS Html file
+	 *
+	 * @throws \Exception
 	 */
 	protected function generateHtml() {
-
 		$vars = $this->getHtmlTemplateVars();
 		$vars['css'] = apply_filters( 'pb_pdf_cover_css_override', $this->generateCss() );
-
 		$html = template( PB_PLUGIN_DIR . 'templates/covergenerator/pdf-cover.php', $vars );
-
 		return $html;
 	}
 }

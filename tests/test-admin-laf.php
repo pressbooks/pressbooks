@@ -66,6 +66,14 @@ class Admin_LafsTest extends \WP_UnitTestCase {
 		$this->assertEquals( $node->id, 'clone-a-book' );
 	}
 
+	function test_display_export() {
+		ob_start();
+		\Pressbooks\Admin\Laf\display_export();
+		$buffer = ob_get_clean();
+		$this->assertContains( '<h2>Export', $buffer );
+		$this->assertContains( '<div class="clear"></div>', $buffer );
+	}
+
 	function test_sites_to_books() {
 		$result = \Pressbooks\Admin\Laf\sites_to_books( __( 'Sites' ), 'Sites', '' );
 		$this->assertEquals( 'Books', $result );

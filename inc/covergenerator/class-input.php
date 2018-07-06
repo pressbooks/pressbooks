@@ -2,8 +2,12 @@
 
 namespace Pressbooks\Covergenerator;
 
+/**
+ * Mutator methods (get/set) for all things Input. (Input object is passed as constructor parameter to Generator)
+ *
+ * @see Generator
+ */
 class Input {
-
 
 	/**
 	 * Book title
@@ -153,7 +157,7 @@ class Input {
 	/**
 	 * @return string
 	 */
-	function getTitle() {
+	public function getTitle() {
 		return $this->title;
 	}
 
@@ -163,7 +167,7 @@ class Input {
 	 *
 	 * @return Input
 	 */
-	function setTitle( $title ) {
+	public function setTitle( $title ) {
 		$this->title = $title;
 		return $this;
 	}
@@ -172,7 +176,7 @@ class Input {
 	/**
 	 * @return string
 	 */
-	function getSpineTitle() {
+	public function getSpineTitle() {
 		return $this->spine_title;
 	}
 
@@ -182,7 +186,7 @@ class Input {
 	 *
 	 * @return Input
 	 */
-	function setSpineTitle( $spine_title ) {
+	public function setSpineTitle( $spine_title ) {
 		$this->spine_title = $spine_title;
 		return $this;
 	}
@@ -191,7 +195,7 @@ class Input {
 	/**
 	 * @return string
 	 */
-	function getSubtitle() {
+	public function getSubtitle() {
 		return $this->subtitle;
 	}
 
@@ -201,7 +205,7 @@ class Input {
 	 *
 	 * @return Input
 	 */
-	function setSubtitle( $subtitle ) {
+	public function setSubtitle( $subtitle ) {
 		$this->subtitle = $subtitle;
 		return $this;
 	}
@@ -210,7 +214,7 @@ class Input {
 	/**
 	 * @return string
 	 */
-	function getAuthor() {
+	public function getAuthor() {
 		return $this->author;
 	}
 
@@ -220,7 +224,7 @@ class Input {
 	 *
 	 * @return Input
 	 */
-	function setAuthor( $author ) {
+	public function setAuthor( $author ) {
 		$this->author = $author;
 		return $this;
 	}
@@ -229,7 +233,7 @@ class Input {
 	/**
 	 * @return string
 	 */
-	function getSpineAuthor() {
+	public function getSpineAuthor() {
 		return $this->spine_author;
 	}
 
@@ -239,7 +243,7 @@ class Input {
 	 *
 	 * @return Input
 	 */
-	function setSpineAuthor( $spine_author ) {
+	public function setSpineAuthor( $spine_author ) {
 		$this->spine_author = $spine_author;
 		return $this;
 	}
@@ -248,7 +252,7 @@ class Input {
 	/**
 	 * @return string
 	 */
-	function getAbout() {
+	public function getAbout() {
 		return $this->about;
 	}
 
@@ -258,7 +262,7 @@ class Input {
 	 *
 	 * @return Input
 	 */
-	function setAbout( $about ) {
+	public function setAbout( $about ) {
 		$this->about = $about;
 		return $this;
 	}
@@ -267,7 +271,7 @@ class Input {
 	/**
 	 * @return string
 	 */
-	function getIsbnImage() {
+	public function getIsbnImage() {
 		return $this->isbnImage;
 	}
 
@@ -277,7 +281,7 @@ class Input {
 	 *
 	 * @return Input
 	 */
-	function setIsbnImage( $isbn_image ) {
+	public function setIsbnImage( $isbn_image ) {
 		$this->isbnImage = $isbn_image;
 		return $this;
 	}
@@ -286,7 +290,7 @@ class Input {
 	/**
 	 * @return string
 	 */
-	function getTextTransform() {
+	public function getTextTransform() {
 		return $this->textTransform;
 	}
 
@@ -296,7 +300,7 @@ class Input {
 	 *
 	 * @return Input
 	 */
-	function setTextTransform( $text_transform ) {
+	public function setTextTransform( $text_transform ) {
 		$this->textTransform = $text_transform;
 		return $this;
 	}
@@ -304,7 +308,7 @@ class Input {
 	/**
 	 * @return string
 	 */
-	function getTrimWidth() {
+	public function getTrimWidth() {
 		return $this->trimWidth;
 	}
 
@@ -314,7 +318,7 @@ class Input {
 	 *
 	 * @return Input
 	 */
-	function setTrimWidth( $trim_width ) {
+	public function setTrimWidth( $trim_width ) {
 		$this->trimWidth = $trim_width;
 		return $this;
 	}
@@ -323,7 +327,7 @@ class Input {
 	/**
 	 * @return string
 	 */
-	function getTrimHeight() {
+	public function getTrimHeight() {
 		return $this->trimHeight;
 	}
 
@@ -333,7 +337,7 @@ class Input {
 	 *
 	 * @return Input
 	 */
-	function setTrimHeight( $trim_height ) {
+	public function setTrimHeight( $trim_height ) {
 		$this->trimHeight = $trim_height;
 		return $this;
 	}
@@ -342,7 +346,7 @@ class Input {
 	/**
 	 * @return string
 	 */
-	function getTrimBleed() {
+	public function getTrimBleed() {
 		return $this->trimBleed;
 	}
 
@@ -352,7 +356,7 @@ class Input {
 	 *
 	 * @return Input
 	 */
-	function setTrimBleed( $trim_bleed ) {
+	public function setTrimBleed( $trim_bleed ) {
 		$this->trimBleed = $trim_bleed;
 		return $this;
 	}
@@ -361,7 +365,7 @@ class Input {
 	/**
 	 * @return string
 	 */
-	function getSpineWidth() {
+	public function getSpineWidth() {
 		return $this->spineWidth;
 	}
 
@@ -371,7 +375,7 @@ class Input {
 	 *
 	 * @return Input
 	 */
-	function setSpineWidth( $spine_width ) {
+	public function setSpineWidth( $spine_width ) {
 		$this->spineWidth = $spine_width;
 		return $this;
 	}
@@ -380,7 +384,7 @@ class Input {
 	/**
 	 * @return string
 	 */
-	function getSpineBackgroundColor() {
+	public function getSpineBackgroundColor() {
 		return $this->spineBackgroundColor;
 	}
 
@@ -390,7 +394,7 @@ class Input {
 	 *
 	 * @return Input
 	 */
-	function setSpineBackgroundColor( $spine_background_color ) {
+	public function setSpineBackgroundColor( $spine_background_color ) {
 		$this->spineBackgroundColor = $spine_background_color;
 		return $this;
 	}
@@ -399,7 +403,7 @@ class Input {
 	/**
 	 * @return string
 	 */
-	function getSpineFontColor() {
+	public function getSpineFontColor() {
 		return $this->spineFontColor;
 	}
 
@@ -409,7 +413,7 @@ class Input {
 	 *
 	 * @return Input
 	 */
-	function setSpineFontColor( $spine_font_color ) {
+	public function setSpineFontColor( $spine_font_color ) {
 		$this->spineFontColor = $spine_font_color;
 		return $this;
 	}
@@ -418,7 +422,7 @@ class Input {
 	/**
 	 * @return string
 	 */
-	function getBackBackgroundColor() {
+	public function getBackBackgroundColor() {
 		return $this->backBackgroundColor;
 	}
 
@@ -428,7 +432,7 @@ class Input {
 	 *
 	 * @return Input
 	 */
-	function setBackBackgroundColor( $back_background_color ) {
+	public function setBackBackgroundColor( $back_background_color ) {
 		$this->backBackgroundColor = $back_background_color;
 		return $this;
 	}
@@ -437,7 +441,7 @@ class Input {
 	/**
 	 * @return string
 	 */
-	function getBackFontColor() {
+	public function getBackFontColor() {
 		return $this->backFontColor;
 	}
 
@@ -447,7 +451,7 @@ class Input {
 	 *
 	 * @return Input
 	 */
-	function setBackFontColor( $back_font_color ) {
+	public function setBackFontColor( $back_font_color ) {
 		$this->backFontColor = $back_font_color;
 		return $this;
 	}
@@ -456,7 +460,7 @@ class Input {
 	/**
 	 * @return string
 	 */
-	function getFrontBackgroundImage() {
+	public function getFrontBackgroundImage() {
 		return $this->frontBackgroundImage;
 	}
 
@@ -466,7 +470,7 @@ class Input {
 	 *
 	 * @return Input
 	 */
-	function setFrontBackgroundImage( $front_background_image ) {
+	public function setFrontBackgroundImage( $front_background_image ) {
 		$this->frontBackgroundImage = wp_json_encode( $front_background_image, JSON_UNESCAPED_SLASHES );
 		return $this;
 	}
@@ -475,7 +479,7 @@ class Input {
 	/**
 	 * @return string
 	 */
-	function getFrontBackgroundColor() {
+	public function getFrontBackgroundColor() {
 		return $this->frontBackgroundColor;
 	}
 
@@ -485,7 +489,7 @@ class Input {
 	 *
 	 * @return Input
 	 */
-	function setFrontBackgroundColor( $front_background_color ) {
+	public function setFrontBackgroundColor( $front_background_color ) {
 		$this->frontBackgroundColor = $front_background_color;
 		return $this;
 	}
@@ -494,7 +498,7 @@ class Input {
 	/**
 	 * @return string
 	 */
-	function getFrontFontColor() {
+	public function getFrontFontColor() {
 		return $this->frontFontColor;
 	}
 
@@ -504,7 +508,7 @@ class Input {
 	 *
 	 * @return Input
 	 */
-	function setFrontFontColor( $front_font_color ) {
+	public function setFrontFontColor( $front_font_color ) {
 		$this->frontFontColor = $front_font_color;
 		return $this;
 	}

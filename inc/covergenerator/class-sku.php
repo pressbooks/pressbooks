@@ -33,16 +33,15 @@ class Sku extends Isbn {
 	 *
 	 * @param string $sku
 	 *
-	 * @throws \InvalidArgumentException
 	 * @throws \Exception
 	 *
 	 * @return string
 	 */
-	function createBarcode( $sku ) {
+	public function createBarcode( $sku ) {
 
 		$this->sku = \Pressbooks\Sanitize\force_ascii( $sku );
 		if ( $this->sku !== $sku ) {
-			$_SESSION['pressbooks_cg_exception'] = 'Invalid characters in SKU';
+			$_SESSION['pb_errors'] = __( 'There was a problem creating the barcode: Invalid characters in SKU', 'pressbooks' );
 			return false;
 		}
 
@@ -104,7 +103,7 @@ class Sku extends Isbn {
 	 *
 	 * @return string
 	 */
-	function invocation( $sku, $not_used_1, $not_used_2, $text_font, $text_size ) {
+	public function invocation( $sku, $not_used_1, $not_used_2, $text_font, $text_size ) {
 
 		$ps[] = "50 50 moveto ({$sku}) (includetext textfont={$text_font} textsize={$text_size} height=0.5)";
 		$ps[] = '/code128 /uk.co.terryburton.bwipp findresource exec';
@@ -120,7 +119,7 @@ class Sku extends Isbn {
 	 *
 	 * @throws \LogicException
 	 */
-	function compile( $path_to_ps ) {
+	public function compile( $path_to_ps ) {
 
 		if ( empty( $this->sku ) ) {
 			throw new \LogicException( '$this->sku is not set' );

@@ -61,10 +61,6 @@ if ( $dependency_errors ) {
 
 <div class="wrap">
 	<h1><?php _e( 'Cover Generator', 'pressbooks' ); ?></h1>
-	<?php if ( isset( $_SESSION['pressbooks_cg_exception'] ) ) : ?>
-		<?php printf( '<div class="notice notice-warning"><p>%s</p></div>', $_SESSION['pressbooks_cg_exception'] ); ?>
-		<?php unset( $_SESSION['pressbooks_cg_exception'] ); ?>
-	<?php endif; ?>
 	<?php if ( $is_custom_css ) { ?>
 		<?php printf( '<div class="notice notice-warning"><p>%s</p></div>', __( 'You are currently using the Custom CSS theme. To generate a cover, you will need to switch back to a base theme temporarily. You can then reapply your Custom CSS theme.', 'pressbooks' ) ); ?>
 	<?php } ?>
@@ -143,3 +139,4 @@ if ( $dependency_errors ) {
 		<?php
 	} ?>
 </div>
+<?php date_default_timezone_set( 'UTC' ); // Set back to UTC. @see wp-settings.php ?>

@@ -4,6 +4,11 @@ namespace Pressbooks\Covergenerator;
 
 use function Pressbooks\Utility\create_tmp_file;
 
+/**
+ * Abstract Generator Class
+ *
+ * A class that generates a cover should extend this class
+ */
 abstract class Generator {
 
 	/**
@@ -209,10 +214,14 @@ abstract class Generator {
 			$spine_width = "{$spine_width}in"; // Inches, float to CSS string
 
 			// Either ISBN or SKU, not both
-			if ( isset( $cg_options['pb_print_isbn'] ) && '' !== trim( $cg_options['pb_print_isbn'] ) ) {
-				$isbn_url = ( new Isbn() )->createBarcode( $cg_options['pb_print_isbn'] );
-			} elseif ( isset( $cg_options['pb_print_sku'] ) && '' !== trim( $cg_options['pb_print_sku'] ) ) {
-				$isbn_url = ( new Sku() )->createBarcode( $cg_options['pb_print_sku'] );
+			try {
+				if ( isset( $cg_options['pb_print_isbn'] ) && '' !== trim( $cg_options['pb_print_isbn'] ) ) {
+					$isbn_url = ( new Isbn() )->createBarcode( $cg_options['pb_print_isbn'] );
+				} elseif ( isset( $cg_options['pb_print_sku'] ) && '' !== trim( $cg_options['pb_print_sku'] ) ) {
+					$isbn_url = ( new Sku() )->createBarcode( $cg_options['pb_print_sku'] );
+				}
+			} catch ( \Exception $e ) {
+				wp_die( $e->getMessage() );
 			}
 
 			$input = new Input();
@@ -287,7 +296,7 @@ abstract class Generator {
 					$jpg->generate();
 				}
 			} catch ( \Exception $e ) {
-				die( '<p>ERROR: ' . $e->getMessage() . "</p>\n" );
+				wp_die( $e->getMessage() );
 			}
 		}
 

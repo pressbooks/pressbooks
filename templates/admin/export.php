@@ -339,3 +339,4 @@ foreach ( $exports as $file ) {
 <div class="clear"></div>
 
 </div>
+<?php date_default_timezone_set( 'UTC' ); // Set back to UTC. @see wp-settings.php ?>
