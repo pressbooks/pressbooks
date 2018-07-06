@@ -2,8 +2,6 @@
 
 namespace Pressbooks\Covergenerator;
 
-use Pressbooks\Modules\Export\Export;
-use PrinceXMLPhp\PrinceWrapper;
 use function Pressbooks\Utility\create_tmp_file;
 use function Pressbooks\Utility\template;
 
@@ -66,25 +64,9 @@ class PrinceJpg extends Generator {
 	 * @param Input $input
 	 */
 	public function __construct( Input $input ) {
-
-		$this->pdfProfile = apply_filters( 'pb_pdf_for_digital_profile', 'PDF/X-4' );
-
-		if ( ! defined( 'PB_PRINCE_COMMAND' ) ) {
-			define( 'PB_PRINCE_COMMAND', '/usr/bin/prince' );
-		}
-
-		if ( ! defined( 'PB_CONVERT_COMMAND' ) ) {
-			define( 'PB_CONVERT_COMMAND', '/usr/bin/convert' );
-		}
-
-		if ( ! defined( 'PB_PDFTOPPM_COMMAND' ) ) {
-			define( 'PB_PDFTOPPM_COMMAND', '/usr/bin/pdftoppm' );
-		}
-
 		parent::__construct( $input );
+		$this->pdfProfile = apply_filters( 'pb_pdf_for_digital_profile', 'PDF/X-4' );
 	}
-
-
 
 	/**
 	 * Generate Ebook JPG cover
@@ -92,40 +74,15 @@ class PrinceJpg extends Generator {
 	 * @throws \Exception
 	 */
 	public function generate() {
-
-		$log_file = create_tmp_file();
-		$html_string = $this->generateHtml();
-
 		$tmp_pdf_path = create_tmp_file();
-
-		$prince = new \PrinceXMLPhp\PrinceWrapper( PB_PRINCE_COMMAND );
-		$prince->setHTML( true );
-		$prince->setCompress( false );
-		if ( defined( 'WP_ENV' ) && WP_ENV === 'development' || WP_ENV === 'staging' ) {
-			$prince->setInsecure( true );
-		}
-		$prince->setLog( $log_file );
-
-		$success = $prince->convert_string_to_file( $html_string, $tmp_pdf_path, $msg );
-
-		// Prince XML is very flexible. There could be errors but Prince will still render a PDF.
-		// We want to log those errors but we won't alert the user.
-		if ( is_countable( $msg ) && count( $msg ) ) {
-			// TODO: Email logs like we do in Import/Export modules
-			error_log( \Pressbooks\Utility\get_contents( $log_file ) ); // @codingStandardsIgnoreLine
-		}
-
+		$success = $this->generateWithPrince( null, null, $this->generateHtml(), $tmp_pdf_path );
 		if ( true !== $success ) {
 			throw new \Exception( 'Failed to create PDF file' );
 		}
-
 		$output_path = $this->timestampedFileName( 'jpg' );
-
 		$this->convert( $tmp_pdf_path, $output_path );
-
 		delete_transient( 'dirsize_cache' ); /** @see get_dirsize() */
 	}
-
 
 	/**
 	 * Generate CSS for Ebook JPG cover

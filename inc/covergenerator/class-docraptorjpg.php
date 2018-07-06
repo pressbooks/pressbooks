@@ -2,7 +2,6 @@
 
 namespace Pressbooks\Covergenerator;
 
-use Pressbooks\Modules\Export\Export;
 use function Pressbooks\Utility\create_tmp_file;
 use function Pressbooks\Utility\template;
 
@@ -65,22 +64,8 @@ class DocraptorJpg extends Generator {
 	 * @param Input $input
 	 */
 	public function __construct( Input $input ) {
-
-		$this->pdfProfile = apply_filters( 'pb_pdf_for_digital_profile', 'PDF/X-4' );
-
-		if ( ! defined( 'PB_PRINCE_COMMAND' ) ) {
-			define( 'PB_PRINCE_COMMAND', '/usr/bin/prince' );
-		}
-
-		if ( ! defined( 'PB_CONVERT_COMMAND' ) ) {
-			define( 'PB_CONVERT_COMMAND', '/usr/bin/convert' );
-		}
-
-		if ( ! defined( 'PB_PDFTOPPM_COMMAND' ) ) {
-			define( 'PB_PDFTOPPM_COMMAND', '/usr/bin/pdftoppm' );
-		}
-
 		parent::__construct( $input );
+		$this->pdfProfile = apply_filters( 'pb_pdf_for_digital_profile', 'PDF/X-4' );
 	}
 
 
@@ -91,61 +76,10 @@ class DocraptorJpg extends Generator {
 	 * @throws \Exception
 	 */
 	public function generate() {
-		// Configure service
-		$configuration = \DocRaptor\Configuration::getDefaultConfiguration();
-		if ( defined( 'DOCRAPTOR_API_KEY' ) ) {
-			$configuration->setUsername( DOCRAPTOR_API_KEY );
-		}
-
 		$tmp_pdf_path = create_tmp_file();
-
-		$docraptor = new \DocRaptor\DocApi();
-		$prince_options = new \DocRaptor\PrinceOptions();
-		$prince_options->setProfile( $this->pdfProfile );
-
-		try {
-			$doc = new \DocRaptor\Doc();
-			if ( WP_ENV === 'development' ) {
-				$doc->setTest( true );
-			} else {
-				$doc->setTest( false );
-			}
-			$doc->setDocumentContent( $this->generateHtml() );
-			$doc->setName( get_bloginfo( 'name' ) . ' Cover' );
-			$doc->setPrinceOptions( $prince_options );
-			$create_response = $docraptor->createAsyncDoc( $doc );
-
-			$done = false;
-
-			while ( ! $done ) {
-				$status_response = $docraptor->getAsyncDocStatus( $create_response->getStatusId() );
-				switch ( $status_response->getStatus() ) {
-					case 'completed':
-						$doc_response = $docraptor->getAsyncDoc( $status_response->getDownloadId() );
-						// @codingStandardsIgnoreStart
-						$retval = fopen( $tmp_pdf_path, 'wb' );
-						fwrite( $retval, $doc_response );
-						fclose( $retval );
-						// @codingStandardsIgnoreEnd
-						$done = true;
-						break;
-					case 'failed':
-						wp_die( $status_response );
-						$done = true;
-						break;
-					default:
-						sleep( 1 );
-				}
-			}
-		} catch ( \DocRaptor\ApiException $exception ) {
-			$message = "<h1>{$exception->getMessage()}</h1><p>{$exception->getCode()}</p><p>{$exception->getResponseBody()}</p>";
-			wp_die( $message );
-		}
-
+		$this->generateWithDocraptor( $this->pdfProfile, $this->generateHtml(), $tmp_pdf_path );
 		$output_path = $this->timestampedFileName( 'jpg' );
-
 		$this->convert( $tmp_pdf_path, $output_path );
-
 		delete_transient( 'dirsize_cache' ); /** @see get_dirsize() */
 	}
 

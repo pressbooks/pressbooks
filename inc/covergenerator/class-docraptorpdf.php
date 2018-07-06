@@ -2,8 +2,6 @@
 
 namespace Pressbooks\Covergenerator;
 
-use Pressbooks\Modules\Export\Export;
-use function Pressbooks\Utility\create_tmp_file;
 use function Pressbooks\Utility\template;
 
 class DocraptorPdf extends Generator {
@@ -100,56 +98,7 @@ class DocraptorPdf extends Generator {
 	 * Generate PDF print cover
 	 */
 	public function generate() {
-		// Configure service
-		$configuration = \DocRaptor\Configuration::getDefaultConfiguration();
-		if ( defined( 'DOCRAPTOR_API_KEY' ) ) {
-			$configuration->setUsername( DOCRAPTOR_API_KEY );
-		}
-
-		// Save PDF as file in exports folder
-		$docraptor = new \DocRaptor\DocApi();
-		$prince_options = new \DocRaptor\PrinceOptions();
-		$prince_options->setProfile( $this->pdfProfile );
-
-		try {
-			$doc = new \DocRaptor\Doc();
-			if ( WP_ENV === 'development' ) {
-				$doc->setTest( true );
-			} else {
-				$doc->setTest( false );
-			}
-			$doc->setDocumentContent( $this->generateHtml() );
-			$doc->setName( get_bloginfo( 'name' ) . ' Cover' );
-			$doc->setPrinceOptions( $prince_options );
-			$create_response = $docraptor->createAsyncDoc( $doc );
-
-			$done = false;
-
-			while ( ! $done ) {
-				$status_response = $docraptor->getAsyncDocStatus( $create_response->getStatusId() );
-				switch ( $status_response->getStatus() ) {
-					case 'completed':
-						$doc_response = $docraptor->getAsyncDoc( $status_response->getDownloadId() );
-						// @codingStandardsIgnoreStart
-						$retval = fopen( $this->outputPath, 'wb' );
-						fwrite( $retval, $doc_response );
-						fclose( $retval );
-						// @codingStandardsIgnoreEnd
-						$done = true;
-						break;
-					case 'failed':
-						wp_die( $status_response );
-						$done = true;
-						break;
-					default:
-						sleep( 1 );
-				}
-			}
-		} catch ( \DocRaptor\ApiException $exception ) {
-			$message = "<h1>{$exception->getMessage()}</h1><p>{$exception->getCode()}</p><p>{$exception->getResponseBody()}</p>";
-			wp_die( $message );
-		}
-
+		$this->generateWithDocraptor( $this->pdfProfile, $this->generateHtml(), $this->outputPath );
 		delete_transient( 'dirsize_cache' ); /** @see get_dirsize() */
 	}
 

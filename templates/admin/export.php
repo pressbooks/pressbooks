@@ -39,13 +39,13 @@ if ( $timezone_string ) {
 
 $dependency_errors = [];
 
-if ( false == get_site_transient( 'pb_pdf_compatible' ) && false == \Pressbooks\Modules\Export\Prince\Pdf::hasDependencies() ) {
+if ( false == get_site_transient( 'pb_pdf_compatible' ) && false == \Pressbooks\Modules\Export\Prince\Filters::hasDependencies() ) {
 	$dependency_errors['pdf'] = 'PDF';
 } else {
 	set_site_transient( 'pb_pdf_compatible', true );
 }
 
-if ( false == get_site_transient( 'pb_print_pdf_compatible' ) && false == \Pressbooks\Modules\Export\Prince\PrintPdf::hasDependencies() ) {
+if ( false == get_site_transient( 'pb_print_pdf_compatible' ) && false == \Pressbooks\Modules\Export\Prince\Filters::hasDependencies() ) {
 	$dependency_errors['print_pdf'] = 'Print PDF';
 } else {
 	set_site_transient( 'pb_print_pdf_compatible', true );

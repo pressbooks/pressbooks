@@ -3,11 +3,8 @@
 namespace Pressbooks\Covergenerator;
 
 use function Pressbooks\Utility\create_tmp_file;
-use function Pressbooks\Utility\template;
 
 abstract class Generator {
-
-
 
 	/**
 	 * @var Input
@@ -49,7 +46,6 @@ abstract class Generator {
 	 * @param Input $input
 	 */
 	public function __construct( Input $input ) {
-
 		$this->input = $input;
 	}
 
@@ -191,7 +187,7 @@ abstract class Generator {
 	public static function formSubmit() {
 
 		if ( empty( current_user_can( 'edit_posts' ) ) ) {
-			wp_die( __( 'You do not have sufficient permissions to access this page.', 'pressbooks-cg' ), 403 );
+			wp_die( __( 'You do not have sufficient permissions to access this page.', 'pressbooks' ), 403 );
 		}
 
 		if ( check_admin_referer( 'pb-generate-cover' ) ) {
@@ -200,7 +196,7 @@ abstract class Generator {
 			if ( isset( $cg_options['pdf_pagecount'] ) ) {
 				$pages = $cg_options['pdf_pagecount'];
 			} else {
-				$spine = new \Pressbooks\Covergenerator\Spine;
+				$spine = new Spine;
 				$pages = $spine->countPagesInMostRecentPdf();
 			}
 			if ( isset( $cg_options['ppi'] ) ) {
@@ -208,18 +204,18 @@ abstract class Generator {
 			} else {
 				$ppi = 444;
 			}
-			$spine = new \Pressbooks\Covergenerator\Spine();
+			$spine = new Spine();
 			$spine_width = $spine->spineWidthCalculator( $pages, $ppi );
 			$spine_width = "{$spine_width}in"; // Inches, float to CSS string
 
 			// Either ISBN or SKU, not both
 			if ( isset( $cg_options['pb_print_isbn'] ) && '' !== trim( $cg_options['pb_print_isbn'] ) ) {
-				$isbn_url = ( new \Pressbooks\Covergenerator\Isbn() )->createBarcode( $cg_options['pb_print_isbn'] );
+				$isbn_url = ( new Isbn() )->createBarcode( $cg_options['pb_print_isbn'] );
 			} elseif ( isset( $cg_options['pb_print_sku'] ) && '' !== trim( $cg_options['pb_print_sku'] ) ) {
-				$isbn_url = ( new \Pressbooks\Covergenerator\Sku() )->createBarcode( $cg_options['pb_print_sku'] );
+				$isbn_url = ( new Sku() )->createBarcode( $cg_options['pb_print_sku'] );
 			}
 
-			$input = new \Pressbooks\Covergenerator\Input();
+			$input = new Input();
 			$input->setTitle( $cg_options['pb_title'] );
 			if ( $pages >= 48 ) {
 				if ( isset( $cg_options['pb_title_spine'] ) && '' !== $cg_options['pb_title_spine'] ) {
@@ -278,16 +274,16 @@ abstract class Generator {
 
 			try {
 				if ( 'pdf' === $_POST['format'] && defined( 'DOCRAPTOR_API_KEY' ) ) {
-					$pdf = new \Pressbooks\Covergenerator\DocraptorPdf( $input );
+					$pdf = new DocraptorPdf( $input );
 					$pdf->generate();
 				} elseif ( 'pdf' === $_POST['format'] ) {
-					$pdf = new \Pressbooks\Covergenerator\PrincePdf( $input );
+					$pdf = new PrincePdf( $input );
 					$pdf->generate();
 				} elseif ( 'jpg' === $_POST['format'] && defined( 'DOCRAPTOR_API_KEY' ) ) {
-					$jpg = new \Pressbooks\Covergenerator\DocraptorJpg( $input );
+					$jpg = new DocraptorJpg( $input );
 					$jpg->generate();
 				} elseif ( 'jpg' === $_POST['format'] ) {
-					$jpg = new \Pressbooks\Covergenerator\PrinceJpg( $input );
+					$jpg = new PrinceJpg( $input );
 					$jpg->generate();
 				}
 			} catch ( \Exception $e ) {
@@ -348,38 +344,8 @@ abstract class Generator {
 	 * @param string $filename sanitized $_GET['download_export_file']
 	 */
 	protected static function _downloadCoverFile( $filename ) {
-
 		$filepath = static::getCoversFolder() . $filename;
-		if ( ! is_readable( $filepath ) ) {
-			// Cannot read file
-			wp_die(
-				__( 'File not found', 'pressbooks-cg' ) . ": $filename", '', [
-					'response' => 404,
-				]
-			);
-		}
-
-		// @codingStandardsIgnoreStart
-		// Force download
-		set_time_limit( 0 );
-		header( 'Content-Description: File Transfer' );
-		header( 'Content-Type: ' . \Pressbooks\Modules\Export\Export::mimeType( $filepath ) );
-		header( 'Content-Disposition: attachment; filename="' . $filename . '"' );
-		header( 'Content-Transfer-Encoding: binary' );
-		header( 'Expires: 0' );
-		header( 'Cache-Control: must-revalidate, post-check=0, pre-check=0' );
-		header( 'Pragma: public' );
-		header( 'Content-Length: ' . filesize( $filepath ) );
-		@ob_clean();
-		flush();
-
-		while ( @ob_end_flush() ) {
-			// Fix out-of-memory problem
-		}
-
-		readfile( $filepath );
-		// @codingStandardsIgnoreEnd
-
+		\Pressbooks\Redirect\force_download( $filepath );
 		exit;
 	}
 
@@ -391,8 +357,8 @@ abstract class Generator {
 	 *
 	 * @return string
 	 */
-	function timestampedFileName( $extension, $fullpath = true ) {
-		$book_title = ( get_bloginfo( 'name' ) ) ? get_bloginfo( 'name' ) : __( 'book', 'pressbooks-cg' );
+	public function timestampedFileName( $extension, $fullpath = true ) {
+		$book_title = ( get_bloginfo( 'name' ) ) ? get_bloginfo( 'name' ) : __( 'book', 'pressbooks' );
 		$book_title_slug = sanitize_file_name( $book_title );
 		$book_title_slug = str_replace( [ '+' ], '', $book_title_slug ); // Remove symbols which confuse Apache (Ie. form urlencoded spaces)
 		$book_title_slug = sanitize_file_name( $book_title_slug ); // str_replace() may inadvertently create a new bad filename, sanitize again for good measure.
@@ -407,4 +373,106 @@ abstract class Generator {
 
 		return $filename;
 	}
+
+	/**
+	 * @param string $pdf_profile
+	 * @param $pdf_output_intent
+	 * @param $document_content
+	 * @param $output_path
+	 *
+	 * @return bool
+	 */
+	public function generateWithPrince( $pdf_profile, $pdf_output_intent, $document_content, $output_path ) {
+		$log_file = create_tmp_file();
+		$prince = new \PrinceXMLPhp\PrinceWrapper( PB_PRINCE_COMMAND );
+		$prince->setHTML( true );
+		$prince->setCompress( true );
+		if ( defined( 'WP_ENV' ) && WP_ENV === 'development' || WP_ENV === 'staging' ) {
+			$prince->setInsecure( true );
+		}
+		$prince->setLog( $log_file );
+		$prince->setPDFProfile( $pdf_profile );
+		$prince->setPDFOutputIntent( $pdf_output_intent );
+
+		$success = $prince->convert_string_to_file( $document_content, $output_path, $msg );
+
+		// Prince XML is very flexible. There could be errors but Prince will still render a PDF.
+		// We want to log those errors but we won't alert the user.
+		if ( is_countable( $msg ) && count( $msg ) ) {
+			// TODO: Email logs like we do in Import/Export modules
+			error_log( \Pressbooks\Utility\get_contents( $log_file ) ); // @codingStandardsIgnoreLine
+		}
+
+		return $success;
+	}
+
+	/**
+	 * @param string $pdf_profile
+	 * @param string $document_content
+	 * @param string $output_path
+	 *
+	 * @return bool
+	 */
+	public function generateWithDocraptor( $pdf_profile, $document_content, $output_path ) {
+		// Configure service
+		$configuration = \DocRaptor\Configuration::getDefaultConfiguration();
+		$configuration->setUsername( DOCRAPTOR_API_KEY );
+
+		// Save PDF as file in exports folder
+		$docraptor = new \DocRaptor\DocApi();
+		$prince_options = new \DocRaptor\PrinceOptions();
+		$prince_options->setHttpTimeout( max( ini_get( 'max_execution_time' ), 30 ) );
+		$prince_options->setProfile( $pdf_profile );
+		$retval = false;
+
+		try {
+			$doc = new \DocRaptor\Doc();
+			if ( defined( 'WP_TESTS_MULTISITE' ) ) {
+				// Unit tests
+				$doc->setTest( true );
+			} elseif ( defined( 'WP_ENV' ) && ( WP_ENV === 'development' || WP_ENV === 'staging' ) ) {
+				// Localhost
+				$doc->setTest( true );
+			} else {
+				$doc->setTest( false );
+			}
+			$doc->setDocumentContent( $document_content );
+			$doc->setName( get_bloginfo( 'name' ) . ' Cover' );
+			$doc->setPrinceOptions( $prince_options );
+
+			$create_response = $docraptor->createAsyncDoc( $doc );
+			$done = false;
+			while ( ! $done ) {
+				$status_response = $docraptor->getAsyncDocStatus( $create_response->getStatusId() );
+				switch ( $status_response->getStatus() ) {
+					case 'completed':
+						if ( ! function_exists( 'download_url' ) ) {
+							require_once( ABSPATH . 'wp-admin/includes/file.php' );
+						}
+						$result = \download_url( $status_response->getDownloadUrl() );
+						if ( is_wp_error( $result ) ) {
+							$_SESSION['pb_errors'][] = __( 'Your PDF could not be retrieved.', 'pressbooks-docraptor' );
+						} else {
+							copy( $result, $output_path );
+							unlink( $result );
+							$retval = true;
+						}
+						$done = true;
+						break;
+					case 'failed':
+						wp_die( $status_response );
+						$done = true;
+						break;
+					default:
+						sleep( 1 );
+				}
+			}
+		} catch ( \DocRaptor\ApiException $exception ) {
+			$message = "<h1>{$exception->getMessage()}</h1><p>{$exception->getCode()}</p><p>{$exception->getResponseBody()}</p>";
+			wp_die( $message );
+		}
+
+		return $retval;
+	}
+
 }

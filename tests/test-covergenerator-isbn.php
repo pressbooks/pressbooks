@@ -13,6 +13,7 @@ class CovergeneratorIsbnTest extends \WP_UnitTestCase {
 	 */
 	public function setUp() {
 		parent::setUp();
+		\Pressbooks\Covergenerator\Covergenerator::commandLineDefaults();
 		$this->isbn = new \Pressbooks\Covergenerator\Isbn();
 	}
 

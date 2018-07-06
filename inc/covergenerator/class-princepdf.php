@@ -2,9 +2,6 @@
 
 namespace Pressbooks\Covergenerator;
 
-use Pressbooks\Modules\Export\Export;
-use PrinceXMLPhp\PrinceWrapper;
-use function Pressbooks\Utility\create_tmp_file;
 use function Pressbooks\Utility\template;
 
 class PrincePdf extends Generator {
@@ -83,15 +80,9 @@ class PrincePdf extends Generator {
 	 * @param Input $input
 	 */
 	public function __construct( Input $input ) {
-
-		if ( ! defined( 'PB_PRINCE_COMMAND' ) ) {
-			define( 'PB_PRINCE_COMMAND', '/usr/bin/prince' );
-		}
-
+		parent::__construct( $input );
 		$this->pdfProfile = apply_filters( 'pb_pdf_for_print_profile', 'PDF/X-1a' );
 		$this->pdfOutputIntent = '/usr/lib/prince/icc/USWebCoatedSWOP.icc';
-
-		parent::__construct( $input );
 	}
 
 
@@ -99,35 +90,11 @@ class PrincePdf extends Generator {
 	 * Generate PDF print cover
 	 */
 	public function generate() {
-
-		$log_file = create_tmp_file();
-		$html_string = $this->generateHtml();
-
-		$prince = new \PrinceXMLPhp\PrinceWrapper( PB_PRINCE_COMMAND );
-		$prince->setHTML( true );
-		$prince->setCompress( true );
-		if ( defined( 'WP_ENV' ) && WP_ENV === 'development' || WP_ENV === 'staging' ) {
-			$prince->setInsecure( true );
-		}
-		$prince->setLog( $log_file );
-		$prince->setPDFProfile( $this->pdfProfile );
-		$prince->setPDFOutputIntent( $this->pdfOutputIntent );
-
-		$output_path = $this->timestampedFileName( 'pdf' );
-		$success = $prince->convert_string_to_file( $html_string, $output_path, $msg );
-
-		delete_transient( 'dirsize_cache' ); /** @see get_dirsize() */
-
-		// Prince XML is very flexible. There could be errors but Prince will still render a PDF.
-		// We want to log those errors but we won't alert the user.
-		if ( is_countable( $msg ) && count( $msg ) ) {
-			// TODO: Email logs like we do in Import/Export modules
-			error_log( \Pressbooks\Utility\get_contents( $log_file ) ); // @codingStandardsIgnoreLine
-		}
-
+		$success = $this->generateWithPrince( $this->pdfProfile, $this->pdfOutputIntent, $this->generateHtml(), $this->timestampedFileName( 'pdf' ) );
 		if ( true !== $success ) {
 			throw new \Exception( 'Failed to create PDF file' );
 		}
+		delete_transient( 'dirsize_cache' ); /** @see get_dirsize() */
 	}
 
 

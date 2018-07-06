@@ -12,6 +12,7 @@ class CovergeneratorSpineTest extends \WP_UnitTestCase {
 	 */
 	public function setUp() {
 		parent::setUp();
+		\Pressbooks\Covergenerator\Covergenerator::commandLineDefaults();
 		$this->spine = new \Pressbooks\Covergenerator\Spine();
 	}
 

@@ -58,7 +58,7 @@ class ThemeOptions {
 			'ebook' => '\Pressbooks\Modules\ThemeOptions\EbookOptions',
 		];
 
-		if ( false === get_site_transient( 'pb_pdf_compatible' ) && false === \Pressbooks\Modules\Export\Prince\Pdf::hasDependencies() ) {
+		if ( false === get_site_transient( 'pb_pdf_compatible' ) && false === \Pressbooks\Modules\Export\Prince\Filters::hasDependencies() ) {
 			unset( $tabs['pdf'] );
 		} else {
 			set_site_transient( 'pb_pdf_compatible', true );

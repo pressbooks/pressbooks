@@ -42,15 +42,6 @@ class Isbn {
 	 */
 	function __construct() {
 
-		// Some defaults
-
-		if ( ! defined( 'PB_GS_COMMAND' ) ) {
-			define( 'PB_GS_COMMAND', '/usr/bin/gs' );
-		}
-
-		if ( ! defined( 'PB_CONVERT_COMMAND' ) ) {
-			define( 'PB_CONVERT_COMMAND', '/usr/bin/convert' );
-		}
 	}
 
 

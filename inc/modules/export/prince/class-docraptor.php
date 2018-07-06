@@ -46,10 +46,6 @@ class Docraptor extends Pdf {
 			return false;
 		}
 
-		// Configure service
-		$configuration = \DocRaptor\Configuration::getDefaultConfiguration();
-		$configuration->setUsername( DOCRAPTOR_API_KEY );
-
 		// Set logfile
 		$this->logfile = $this->createTmpFile();
 
@@ -67,6 +63,9 @@ class Docraptor extends Pdf {
 
 		// --------------------------------------------------------------------
 		// Save PDF as file in exports folder
+
+		$configuration = \DocRaptor\Configuration::getDefaultConfiguration();
+		$configuration->setUsername( DOCRAPTOR_API_KEY );
 
 		$docraptor = new \DocRaptor\DocApi();
 		$prince_options = new \DocRaptor\PrinceOptions();
@@ -100,9 +99,9 @@ class Docraptor extends Pdf {
 			}
 			$doc->setName( get_bloginfo( 'name' ) );
 			$doc->setPrinceOptions( $prince_options );
+
 			$create_response = $docraptor->createAsyncDoc( $doc );
 			$done = false;
-
 			while ( ! $done ) {
 				$status_response = $docraptor->getAsyncDocStatus( $create_response->getStatusId() );
 				switch ( $status_response->getStatus() ) {
@@ -113,7 +112,6 @@ class Docraptor extends Pdf {
 						$result = \download_url( $status_response->getDownloadUrl() );
 						if ( is_wp_error( $result ) ) {
 							$_SESSION['pb_errors'][] = __( 'Your PDF could not be retrieved.', 'pressbooks-docraptor' );
-							$retval = false;
 						} else {
 							copy( $result, $this->outputPath );
 							unlink( $result );
@@ -130,7 +128,6 @@ class Docraptor extends Pdf {
 						$msg = $status_response;
 						\Pressbooks\Utility\put_contents( $this->logfile, $msg );
 						$done = true;
-						$retval = false;
 						break;
 					default:
 						sleep( 1 );

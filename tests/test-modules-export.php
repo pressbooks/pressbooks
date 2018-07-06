@@ -142,22 +142,7 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 
 	public function test_filters_useDocraptorInsteadOfPrince() {
 		$filters = new \Pressbooks\Modules\Export\Prince\Filters();
-
 		$this->assertTrue( is_bool( $filters->overridePrince() ) );
-
-		$errors['ignored'] = 1;
-		$errors['pdf'] = 1;
-		$errors['print_pdf'] = 1;
-		$errors = $filters->hidePrinceErrors( $errors );
-		$this->assertArrayHasKey( 'ignored', $errors );
-		$this->assertArrayNotHasKey( 'pdf', $errors );
-		$this->assertArrayNotHasKey( 'print_pdf', $errors );
-
-		$tabs = [ 'one' => 1 ];
-		$tabs = $filters->registerPdfOptionsTab( $tabs );
-		$this->assertArrayHasKey( 'one', $tabs );
-		$this->assertArrayHasKey( 'pdf', $tabs );
-
 		$this->assertTrue( is_array( $filters->addToModules( [] ) ) ); // TODO: This test sucks
 	}
 

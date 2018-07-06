@@ -4,15 +4,11 @@ namespace Pressbooks\Covergenerator;
 
 class Spine {
 
-
 	/**
 	 * Constructor
 	 */
 	function __construct() {
 
-		if ( ! defined( 'PB_PDFINFO_COMMAND' ) ) {
-			define( 'PB_PDFINFO_COMMAND', '/usr/bin/pdfinfo' );
-		}
 	}
 
 

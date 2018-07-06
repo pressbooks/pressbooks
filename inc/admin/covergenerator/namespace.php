@@ -5,11 +5,11 @@ namespace Pressbooks\Admin\Covergenerator;
 use PressbooksMix\Assets;
 
 function generator_menu() {
-	add_submenu_page( 'pb_export', __( 'Cover Generator', 'pressbooks-cg' ), __( 'Cover Generator', 'pressbooks-cg' ), 'manage_options', 'pressbooks_cg', __NAMESPACE__ . '\display_generator' );
+	add_submenu_page( 'pb_export', __( 'Cover Generator', 'pressbooks' ), __( 'Cover Generator', 'pressbooks' ), 'manage_options', 'pressbooks_cg', __NAMESPACE__ . '\display_generator' );
 }
 
 function display_generator() {
-	require( PB_PLUGIN_DIR . 'templates/covergenerator/admin.php' );
+	require( PB_PLUGIN_DIR . 'templates/admin/covergenerator.php' );
 }
 
 function generator_css_js() {
@@ -39,14 +39,14 @@ function cg_options_init() {
 
 	add_settings_section(
 		'pressbooks_cg_text',
-		__( 'Text', 'pressbooks-cg' ),
+		__( 'Text', 'pressbooks' ),
 		__NAMESPACE__ . '\pressbooks_cg_text_callback',
 		$_page
 	);
 
 	add_settings_field(
 		'pb_title',
-		__( 'Title', 'pressbooks-cg' ),
+		__( 'Title', 'pressbooks' ),
 		__NAMESPACE__ . '\pressbooks_cg_title_callback',
 		$_page,
 		'pressbooks_cg_text',
@@ -55,7 +55,7 @@ function cg_options_init() {
 
 	add_settings_field(
 		'pb_title_spine',
-		__( 'Title (Spine)', 'pressbooks-cg' ),
+		__( 'Title (Spine)', 'pressbooks' ),
 		__NAMESPACE__ . '\pressbooks_cg_title_spine_callback',
 		$_page,
 		'pressbooks_cg_text',
@@ -64,7 +64,7 @@ function cg_options_init() {
 
 	add_settings_field(
 		'pb_subtitle',
-		__( 'Subtitle', 'pressbooks-cg' ),
+		__( 'Subtitle', 'pressbooks' ),
 		__NAMESPACE__ . '\pressbooks_cg_subtitle_callback',
 		$_page,
 		'pressbooks_cg_text',
@@ -73,7 +73,7 @@ function cg_options_init() {
 
 	add_settings_field(
 		'pb_author',
-		__( 'Author', 'pressbooks-cg' ),
+		__( 'Author', 'pressbooks' ),
 		__NAMESPACE__ . '\pressbooks_cg_author_callback',
 		$_page,
 		'pressbooks_cg_text',
@@ -82,7 +82,7 @@ function cg_options_init() {
 
 	add_settings_field(
 		'pb_author_spine',
-		__( 'Author (Spine)', 'pressbooks-cg' ),
+		__( 'Author (Spine)', 'pressbooks' ),
 		__NAMESPACE__ . '\pressbooks_cg_author_spine_callback',
 		$_page,
 		'pressbooks_cg_text',
@@ -91,7 +91,7 @@ function cg_options_init() {
 
 	add_settings_field(
 		'pb_about_unlimited',
-		__( 'About', 'pressbooks-cg' ),
+		__( 'About', 'pressbooks' ),
 		__NAMESPACE__ . '\pressbooks_cg_about_callback',
 		$_page,
 		'pressbooks_cg_text',
@@ -100,36 +100,36 @@ function cg_options_init() {
 
 	add_settings_field(
 		'pb_print_isbn',
-		__( 'ISBN', 'pressbooks-cg' ),
+		__( 'ISBN', 'pressbooks' ),
 		__NAMESPACE__ . '\pressbooks_cg_isbn_callback',
 		$_page,
 		'pressbooks_cg_text',
 		[
-			__( 'If you have an ISBN, this will generate a barcode on the back of your print cover. If you do not have an ISBN, you should leave this field blank.', 'pressbooks-cg' ),
+			__( 'If you have an ISBN, this will generate a barcode on the back of your print cover. If you do not have an ISBN, you should leave this field blank.', 'pressbooks' ),
 		]
 	);
 
 	add_settings_field(
 		'pb_print_sku',
-		__( 'or SKU', 'pressbooks-cg' ),
+		__( 'or SKU', 'pressbooks' ),
 		__NAMESPACE__ . '\pressbooks_cg_sku_callback',
 		$_page,
 		'pressbooks_cg_text',
 		[
-			__( 'If you have a 13-digit identifier that is not an ISBN, entering it in this field will generate a barcode with that number on the back of your print cover. If you do not have a non-ISBN identifier, you should leave this field blank.', 'pressbooks-cg' ),
+			__( 'If you have a 13-digit identifier that is not an ISBN, entering it in this field will generate a barcode with that number on the back of your print cover. If you do not have a non-ISBN identifier, you should leave this field blank.', 'pressbooks' ),
 		]
 	);
 
 	add_settings_section(
 		'pressbooks_cg_design',
-		__( 'Design', 'pressbooks-cg' ),
+		__( 'Design', 'pressbooks' ),
 		__NAMESPACE__ . '\pressbooks_cg_design_callback',
 		$_page
 	);
 
 	add_settings_field(
 		'front_background_image',
-		__( 'Front Cover Background Image', 'pressbooks-cg' ),
+		__( 'Front Cover Background Image', 'pressbooks' ),
 		__NAMESPACE__ . '\pressbooks_cg_front_background_image_callback',
 		$_page,
 		'pressbooks_cg_design'
@@ -137,7 +137,7 @@ function cg_options_init() {
 
 	add_settings_field(
 		'text_transform',
-		__( 'Book Title Case', 'pressbooks-cg' ),
+		__( 'Book Title Case', 'pressbooks' ),
 		__NAMESPACE__ . '\pressbooks_cg_text_transform_callback',
 		$_page,
 		'pressbooks_cg_design',
@@ -149,14 +149,14 @@ function cg_options_init() {
 
 	add_settings_section(
 		'pressbooks_cg_spine_size',
-		__( 'Spine Size', 'pressbooks-cg' ),
+		__( 'Spine Size', 'pressbooks' ),
 		__NAMESPACE__ . '\pressbooks_cg_spine_size_callback',
 		$_page
 	);
 
 	add_settings_field(
 		'pdf_pagecount',
-		__( 'Page Count', 'pressbooks-cg' ),
+		__( 'Page Count', 'pressbooks' ),
 		__NAMESPACE__ . '\pressbooks_cg_pdf_pagecount_callback',
 		$_page,
 		'pressbooks_cg_spine_size'
@@ -164,7 +164,7 @@ function cg_options_init() {
 
 	add_settings_field(
 		'ppi',
-		__( 'Paper Type', 'pressbooks-cg' ),
+		__( 'Paper Type', 'pressbooks' ),
 		__NAMESPACE__ . '\pressbooks_cg_ppi_callback',
 		$_page,
 		'pressbooks_cg_spine_size',
@@ -177,7 +177,7 @@ function cg_options_init() {
 
 	add_settings_field(
 		'custom_ppi',
-		__( 'Custom PPI', 'pressbooks-cg' ),
+		__( 'Custom PPI', 'pressbooks' ),
 		__NAMESPACE__ . '\pressbooks_cg_custom_ppi_callback',
 		$_page,
 		'pressbooks_cg_spine_size'
@@ -185,14 +185,14 @@ function cg_options_init() {
 
 	add_settings_section(
 		'pressbooks_cg_colors',
-		__( 'Text and Background Colors', 'pressbooks-cg' ),
+		__( 'Text and Background Colors', 'pressbooks' ),
 		__NAMESPACE__ . '\pressbooks_cg_colors_callback',
 		$_page
 	);
 
 	add_settings_field(
 		'front_cover_text',
-		__( 'Front Cover Text', 'pressbooks-cg' ),
+		__( 'Front Cover Text', 'pressbooks' ),
 		__NAMESPACE__ . '\pressbooks_cg_color_callback',
 		$_page,
 		'pressbooks_cg_colors',
@@ -203,7 +203,7 @@ function cg_options_init() {
 
 	add_settings_field(
 		'front_cover_background',
-		__( 'Front Cover Background', 'pressbooks-cg' ),
+		__( 'Front Cover Background', 'pressbooks' ),
 		__NAMESPACE__ . '\pressbooks_cg_color_callback',
 		$_page,
 		'pressbooks_cg_colors',
@@ -214,7 +214,7 @@ function cg_options_init() {
 
 	add_settings_field(
 		'spine_text',
-		__( 'Spine Text', 'pressbooks-cg' ),
+		__( 'Spine Text', 'pressbooks' ),
 		__NAMESPACE__ . '\pressbooks_cg_color_callback',
 		$_page,
 		'pressbooks_cg_colors',
@@ -225,7 +225,7 @@ function cg_options_init() {
 
 	add_settings_field(
 		'spine_background',
-		__( 'Spine Background', 'pressbooks-cg' ),
+		__( 'Spine Background', 'pressbooks' ),
 		__NAMESPACE__ . '\pressbooks_cg_color_callback',
 		$_page,
 		'pressbooks_cg_colors',
@@ -236,7 +236,7 @@ function cg_options_init() {
 
 	add_settings_field(
 		'back_cover_text',
-		__( 'Back Cover Text', 'pressbooks-cg' ),
+		__( 'Back Cover Text', 'pressbooks' ),
 		__NAMESPACE__ . '\pressbooks_cg_color_callback',
 		$_page,
 		'pressbooks_cg_colors',
@@ -247,7 +247,7 @@ function cg_options_init() {
 
 	add_settings_field(
 		'back_cover_background',
-		__( 'Back Cover Background', 'pressbooks-cg' ),
+		__( 'Back Cover Background', 'pressbooks' ),
 		__NAMESPACE__ . '\pressbooks_cg_color_callback',
 		$_page,
 		'pressbooks_cg_colors',
@@ -278,7 +278,7 @@ function pressbooks_cg_text_callback() {
 		$post = admin_url( 'post-new.php?post_type=metadata' );
 	}
 		/* translators: %s: URL to Book Information page */
-		printf( __( 'The text below is pulled from your <a href="%s">Book Information</a> page, and is used to generate your cover(s). You can reformat the text below as needed. (<strong>IMPORTANT NOTE:</strong> Changes you make here will <strong>NOT</strong> be reflected on the Book Information page.)', 'pressbooks-cg' ), $post );
+		printf( __( 'The text below is pulled from your <a href="%s">Book Information</a> page, and is used to generate your cover(s). You can reformat the text below as needed. (<strong>IMPORTANT NOTE:</strong> Changes you make here will <strong>NOT</strong> be reflected on the Book Information page.)', 'pressbooks' ), $post );
 		?>
 		</p>
 <?php
@@ -383,14 +383,14 @@ function pressbooks_cg_design_callback() {
 	<p>
 	<?php
 		/* translators: %s: URL to Appearance menu */
-		printf( __( 'Below you can make small adjustments to the design of your cover. The look and feel of the cover will echo the theme you have chosen for your book. You can change your book theme in the <a href="%s">Appearance</a> menu.', 'pressbooks-cg' ), admin_url( 'themes.php' ) );
+		printf( __( 'Below you can make small adjustments to the design of your cover. The look and feel of the cover will echo the theme you have chosen for your book. You can change your book theme in the <a href="%s">Appearance</a> menu.', 'pressbooks' ), admin_url( 'themes.php' ) );
 		?>
 		</p>
 	<p>
 	<?php
 		$options = get_option( 'pressbooks_theme_options_pdf' );
 		/* translators: 1: pdf page width, 2: pdf page height, 3: URL to Theme Options page */
-		printf( __( 'Your PDF page size is set to %1$s &times; %2$s, and your PDF cover will be generated with the same dimensions. You can change the PDF page size in the <a href="%3$s">Theme Options</a> menu.', 'pressbooks-cg' ), $options['pdf_page_width'], $options['pdf_page_height'], admin_url( 'themes.php?page=pressbooks_theme_options&tab=pdf' ) );
+		printf( __( 'Your PDF page size is set to %1$s &times; %2$s, and your PDF cover will be generated with the same dimensions. You can change the PDF page size in the <a href="%3$s">Theme Options</a> menu.', 'pressbooks' ), $options['pdf_page_width'], $options['pdf_page_height'], admin_url( 'themes.php?page=pressbooks_theme_options&tab=pdf' ) );
 		?>
 		</p>
 	<div class="theme">
@@ -400,12 +400,12 @@ function pressbooks_cg_design_callback() {
 		<h3 class="theme-name"><?php echo wp_get_theme(); ?></h3>
 		<div class="theme-actions">
 			<a class="button button-primary"
-			   href="<?php echo get_admin_url( get_current_blog_id(), '/themes.php' ); ?>"><?php _e( 'Change Theme', 'pressbooks-cg' ); ?></a>
+			   href="<?php echo get_admin_url( get_current_blog_id(), '/themes.php' ); ?>"><?php _e( 'Change Theme', 'pressbooks' ); ?></a>
 			<a class="button button-secondary"
-			   href="<?php echo get_admin_url( get_current_blog_id(), '/themes.php?page=pressbooks_theme_options' ); ?>"><?php _e( 'Options', 'pressbooks-cg' ); ?></a>
+			   href="<?php echo get_admin_url( get_current_blog_id(), '/themes.php?page=pressbooks_theme_options' ); ?>"><?php _e( 'Options', 'pressbooks' ); ?></a>
 		</div>
 	</div>
-	<p><?php _e( 'You can upload a background image here.', 'pressbooks-cg' ); ?></p>
+	<p><?php _e( 'You can upload a background image here.', 'pressbooks' ); ?></p>
 <?php
 }
 
@@ -439,10 +439,10 @@ function pressbooks_cg_front_background_image_callback( $args ) {
 	$html = '<input id="front_background_image" name="pressbooks_cg_options[front_background_image]" type="hidden" value="' . ( isset( $option['front_background_image'] ) ? $option['front_background_image'] : '' ) . '" />';
 	$html .= '<button class="button front-background-image-upload-button' . ( isset( $option['front_background_image'] ) ? ' hidden' : '' ) . '">Upload Image</button>';
 	/* translators: 1: minimum width, 2: minimum height, 3: aspect ratio width, 4: aspect ratio height */
-	$html .= '<p class="description front-background-image-description' . ( isset( $option['front_background_image'] ) ? ' hidden' : '' ) . '">' . sprintf( __( 'Your image must be at least %1$s pixels in width by %2$s pixels in height, with an aspect ratio of %3$s to %4$s.', 'pressbooks-cg' ), round( $width ), round( $height ), $numeric_width, $numeric_height ) . '</p>';
+	$html .= '<p class="description front-background-image-description' . ( isset( $option['front_background_image'] ) ? ' hidden' : '' ) . '">' . sprintf( __( 'Your image must be at least %1$s pixels in width by %2$s pixels in height, with an aspect ratio of %3$s to %4$s.', 'pressbooks' ), round( $width ), round( $height ), $numeric_width, $numeric_height ) . '</p>';
 	$html .= '<div class="front-background-image-preview-wrap' . ( isset( $option['front_background_image'] ) ? '' : ' hidden' ) . '">';
 	$html .= '<p><img class="front-background-image" src="' . ( isset( $option['front_background_image'] ) ? $option['front_background_image'] : '' ) . '" /></p>';
-	$html .= '<p><input type="button" class="button button-primary delete-front-background-image" value="' . __( 'Delete Background Image', 'pressbooks-cg' ) . '" /></p>';
+	$html .= '<p><input type="button" class="button button-primary delete-front-background-image" value="' . __( 'Delete Background Image', 'pressbooks' ) . '" /></p>';
 	$html .= '</div>';
 	echo $html;
 }
@@ -465,20 +465,20 @@ function pressbooks_cg_text_transform_callback( $args ) {
 
 function pressbooks_cg_spine_size_callback() {
 	?>
-	<p><?php _e( 'Spine size is calculated based on the number of pages in your book, and the weight of the paper used in printing.', 'pressbooks-cg' ); ?></p>
+	<p><?php _e( 'Spine size is calculated based on the number of pages in your book, and the weight of the paper used in printing.', 'pressbooks' ); ?></p>
 	<p>
 	<?php
 	$spine = new \Pressbooks\Covergenerator\Spine;
 		$pages = $spine->countPagesInMostRecentPdf();
 	if ( ! $pages ) {
-		_e( 'You haven\'t exported any PDF copies of your book, so you will need to enter a page count below.', 'pressbooks-cg' );
+		_e( 'You haven\'t exported any PDF copies of your book, so you will need to enter a page count below.', 'pressbooks' );
 	} else {
 		/* translators: %s: number of pages in pdf */
-		printf( __( 'The last PDF you exported has %s pages (you can edit this below if you like).', 'pressbooks-cg' ), $pages );
+		printf( __( 'The last PDF you exported has %s pages (you can edit this below if you like).', 'pressbooks' ), $pages );
 	}
 	?>
 	</p>
-	<p><?php _e( 'We can calculate the spine size based on CreateSpace and Ingram specifications, or you can enter your own custom pages per inch (PPI) defined by your printer.', 'pressbooks-cg' ); ?></p>
+	<p><?php _e( 'We can calculate the spine size based on CreateSpace and Ingram specifications, or you can enter your own custom pages per inch (PPI) defined by your printer.', 'pressbooks' ); ?></p>
 <?php
 }
 
@@ -510,7 +510,7 @@ function pressbooks_cg_ppi_callback( $args ) {
 	if ( ! array_key_exists( $option['ppi'], $args ) ) {
 		$custom .= ' selected';
 	}
-	$html .= "<option value=''" . $custom . '>' . __( 'Custom&hellip;', 'pressbooks-cg' ) . '</option>';
+	$html .= "<option value=''" . $custom . '>' . __( 'Custom&hellip;', 'pressbooks' ) . '</option>';
 	$html .= '<select>';
 	echo $html;
 }
@@ -527,7 +527,7 @@ function pressbooks_cg_custom_ppi_callback( $args ) {
 
 function pressbooks_cg_colors_callback() {
 	?>
-	<p><?php _e( 'Choose text color and background colors below.', 'pressbooks-cg' ); ?></p>
+	<p><?php _e( 'Choose text color and background colors below.', 'pressbooks' ); ?></p>
 <?php
 }
 
@@ -692,7 +692,7 @@ function validate_image_size( $file ) {
 	$image_height = $image[1];
 
 	/* translators: 1: minimum width, 2: minimum height, 3: image width 4: image height */
-	$too_small_txt = __( 'Your image is too small. The image must be %1$d by %2$d pixels. Your image is %3$d by %4$d pixels.', 'pressbooks-cg' );
+	$too_small_txt = __( 'Your image is too small. The image must be %1$d by %2$d pixels. Your image is %3$d by %4$d pixels.', 'pressbooks' );
 	$too_small = sprintf(
 		$too_small_txt,
 		$minimum['width'],
@@ -702,7 +702,7 @@ function validate_image_size( $file ) {
 	);
 
 	/* translators: 1: pdf page width, 2: pdf page height */
-	$aspect_ratio_txt = __( 'Your image is the wrong aspect ratio. The image must have an aspect ratio of %1$s to %2$s.', 'pressbooks-cg' );
+	$aspect_ratio_txt = __( 'Your image is the wrong aspect ratio. The image must have an aspect ratio of %1$s to %2$s.', 'pressbooks' );
 	$aspect_ratio = sprintf(
 		$aspect_ratio_txt,
 		$numeric_width,
