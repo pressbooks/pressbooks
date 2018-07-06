@@ -177,6 +177,8 @@ if ( $is_book ) {
 	add_filter( 'wp_link_query', '\Pressbooks\Editor\add_anchors_to_wp_link_query', 1, 2 );
 	add_action( 'edit_form_after_title', '\Pressbooks\Metadata\add_expanded_metadata_box' );
 	add_action( 'add_meta_boxes', '\Pressbooks\Admin\Metaboxes\replace_authordiv' );
+	add_filter( 'attachment_fields_to_edit', '\Pressbooks\Admin\Attachments\add_metadata_attachment', 10, 2 );
+	add_filter( 'attachment_fields_to_save', '\Pressbooks\Admin\Attachments\save_metadata_attachment', 10, 2 );
 }
 
 // -------------------------------------------------------------------------------------------------------------------
