@@ -19,19 +19,30 @@ function add_metadata_attachment( $form_fields, $post ) {
 	$attributions = get_post_meta( $post->ID, 'pb_attachment_attributions', true );
 	$url          = isset( $attributions['pb_attribution_title_url'] ) ? $attributions['pb_attribution_title_url'] : '';
 
+	$form_fields['pb_attribution'] = [
+		'value' => '',
+		'label' => __( 'ATTRIBUTIONS', 'pressbooks' ),
+		'input' => 'html',
+		'html'  => '<span></span>',
+	];
+
 	$form_fields['pb_attribution_title'] = [
 		'value' => isset( $attributions['pb_attribution_title'] ) ? $attributions['pb_attribution_title'] : '',
-		'label' => __( 'Attribution Title', 'pressbooks' ),
+		'label' => __( 'Title', 'pressbooks' ),
 		'input' => 'text',
-		'helps' => __( 'What is the name of the material?', 'pressbooks' ),
+	];
+
+	$form_fields['pb_attribution_author'] = [
+		'value' => isset( $attributions['pb_attribution_author'] ) ? $attributions['pb_attribution_author'] : '',
+		'label' => __( 'Author', 'pressbooks' ),
+		'input' => 'text',
 	];
 
 	$form_fields['pb_attribution_title_url'] = [
 		'value' => $url,
-		'label' => __( 'Attribution Source', 'pressbooks' ),
+		'label' => __( 'Source', 'pressbooks' ),
 		'input' => 'html',
 		'html'  => "<input type='url' class='text urlfield' name='attachments[$post->ID][pb_attribution_title_url]' value='" . esc_attr( $url ) . "' />",
-		'helps' => __( 'Where can I find it?', 'pressbooks' ),
 	];
 
 	return $form_fields;
@@ -52,9 +63,11 @@ function save_metadata_attachment( $post, $form_fields ) {
 	$expected     = [
 		'pb_attribution_title',
 		'pb_attribution_title_url',
+		'pb_attribution_author'
 	];
 	$attributions = [];
 
+	// take only the ones we care about
 	foreach ( $expected as $key ) {
 		if ( isset( $form_fields[ $key ] ) ) {
 			$attributions[ $key ] = validate_attachment_metadata( $key, $form_fields[ $key ] );
