@@ -2,6 +2,7 @@
 
 namespace Pressbooks\Covergenerator;
 
+use Pressbooks\Container;
 use function Pressbooks\Utility\template;
 
 class PrincePdf extends Generator {
@@ -104,42 +105,36 @@ class PrincePdf extends Generator {
 	 * @return string Path to generated CSS file
 	 */
 	protected function generateCss() {
-
-		$sass = \Pressbooks\Container::get( 'Sass' );
-
+		$styles = Container::get( 'Styles' );
+		$sass = Container::get( 'Sass' );
 		$scss = $this->getScssVars();
 
-		if ( $sass->isCurrentThemeCompatible( 1 ) ) {
+		if ( $styles->isCurrentThemeCompatible( 1 ) ) {
 			$scss .= "@import 'fonts-prince'; \n";
-		} elseif ( $sass->isCurrentThemeCompatible( 2 ) ) {
+		} elseif ( $styles->isCurrentThemeCompatible( 2 ) ) {
 			$scss .= "@import 'fonts'; \n";
 		}
 
 		$scss .= \Pressbooks\Utility\get_contents( PB_PLUGIN_DIR . 'assets/src/styles/partials/_covergenerator-pdf.scss' );
 
-		if ( $sass->isCurrentThemeCompatible( 1 ) ) {
+		if ( $styles->isCurrentThemeCompatible( 1 ) ) {
 			$includes = [
 				$sass->pathToUserGeneratedSass(),
 				$sass->pathToPartials(),
 				$sass->pathToFonts(),
 				get_stylesheet_directory(),
 			];
-		} elseif ( $sass->isCurrentThemeCompatible( 2 ) ) {
+		} elseif ( $styles->isCurrentThemeCompatible( 2 ) ) {
 			$includes = $sass->defaultIncludePaths( 'prince' );
 		} else {
 			$includes = [];
-		}
-
-		if ( \Pressbooks\CustomCss::isCustomCss() ) {
-			$base = \Pressbooks\CustomCss::getBaseTheme( 'prince' );
-			$includes[] = get_theme_root( $base ) . '/' . $base;
 		}
 
 		$css = $sass->compile( $scss, $includes );
 		$css = \Pressbooks\Sanitize\normalize_css_urls( $css );
 
 		if ( WP_DEBUG ) {
-			\Pressbooks\Container::get( 'Sass' )->debug( $css, $scss, 'cover-pdf' );
+			Container::get( 'Sass' )->debug( $css, $scss, 'cover-pdf' );
 		}
 
 		return $css;

@@ -25,8 +25,10 @@ class CovergeneratorGeneratorTest extends \WP_UnitTestCase {
 
 	public function test_generators() {
 
-		$this->_book();
 		\Pressbooks\Covergenerator\Covergenerator::commandLineDefaults();
+
+		// V2
+		$this->_book();
 
 		$g = new \Pressbooks\Covergenerator\DocraptorPdf( $this->input() );
 		$output_path = $g->generate();
@@ -48,6 +50,28 @@ class CovergeneratorGeneratorTest extends \WP_UnitTestCase {
 		$this->assertFileExists( $output_path );
 		$this->assertContains( 'jpeg', \Pressbooks\Media\mime_type( $output_path ) );
 
+		// V1
+		$this->_book( 'pressbooks-donham' );
+
+		$g = new \Pressbooks\Covergenerator\DocraptorPdf( $this->input() );
+		$output_path = $g->generate();
+		$this->assertFileExists( $output_path );
+		$this->assertContains( 'pdf', \Pressbooks\Media\mime_type( $output_path ) );
+
+		$g = new \Pressbooks\Covergenerator\DocraptorJpg( $this->input() );
+		$output_path = $g->generate();
+		$this->assertFileExists( $output_path );
+		$this->assertContains( 'jpeg', \Pressbooks\Media\mime_type( $output_path ) );
+
+		$g = new \Pressbooks\Covergenerator\PrincePdf( $this->input() );
+		$output_path = $g->generate();
+		$this->assertFileExists( $output_path );
+		$this->assertContains( 'pdf', \Pressbooks\Media\mime_type( $output_path ) );
+
+		$g = new \Pressbooks\Covergenerator\PrinceJpg( $this->input() );
+		$output_path = $g->generate();
+		$this->assertFileExists( $output_path );
+		$this->assertContains( 'jpeg', \Pressbooks\Media\mime_type( $output_path ) );
 	}
 
 

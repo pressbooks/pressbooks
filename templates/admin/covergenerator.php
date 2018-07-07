@@ -85,14 +85,15 @@ if ( $dependency_errors ) {
 	<form class="generate-file pdf" action="<?php echo $generate_form_url; ?>" method="post">
 		<input type="hidden" name="format" value="pdf"/>
 	</form>
-	<input type="button" id="generate-pdf" class="button<?php if ( ! $is_custom_css ) { ?> button-primary<?php } ?>" value="<?php _e( 'Make PDF Cover', 'pressbooks' ); ?>"
-			<?php if ( $is_custom_css || $dependency_errors ) { ?>disabled <?php } ?>/>
+	<?php $disabled = ( $is_custom_css || $dependency_errors ) ? true : false; ?>
+	<input type="button" id="generate-pdf" class="button<?php if ( ! $disabled ) { ?> button-primary<?php } ?>" value="<?php _e( 'Make PDF Cover', 'pressbooks' ); ?>"
+			<?php if ( $disabled) { ?>disabled <?php } ?>/>
 
 	<form class="generate-file jpg" action="<?php echo $generate_form_url; ?>" method="post">
 		<input type="hidden" name="format" value="jpg"/>
 	</form>
-	<input type="button" id="generate-jpg" class="button<?php if ( ! $is_custom_css ) { ?> button-primary<?php } ?>" value="<?php _e( 'Make Ebook Cover', 'pressbooks' ); ?>"
-			<?php if ( $is_custom_css || $dependency_errors ) { ?>disabled <?php } ?>/>
+	<input type="button" id="generate-jpg" class="button<?php if ( ! $disabled ) { ?> button-primary<?php } ?>" value="<?php _e( 'Make Ebook Cover', 'pressbooks' ); ?>"
+			<?php if ( $disabled ) { ?>disabled <?php } ?>/>
 	<h3><?php _e( 'Download', 'pressbooks' ); ?></h3>
 	<?php
 	$covers = \Pressbooks\Utility\group_exports( $covers_folder );

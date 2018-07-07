@@ -758,7 +758,7 @@ function format_bytes( $bytes, $precision = 2 ) {
  * @param null $message_type
  */
 function debug_error_log( $message, $message_type = null ) {
-	if ( defined( 'WP_TESTS_MULTISITE' ) === false && defined( 'WP_DEBUG ' ) === true && WP_DEBUG ) {
+	if ( defined( 'WP_TESTS_MULTISITE' ) === false && WP_DEBUG ) {
 		\error_log( $message, $message_type ); // @codingStandardsIgnoreLine
 	}
 }
