@@ -101,7 +101,6 @@ class DocraptorPdf extends Generator {
 	 */
 	protected function generateCss() {
 		$styles = Container::get( 'Styles' );
-		$sass = Container::get( 'Sass' );
 		$scss = $this->getScssVars();
 
 		$icc = $this->pdfOutputIntent;
@@ -113,23 +112,9 @@ class DocraptorPdf extends Generator {
 		} elseif ( $styles->isCurrentThemeCompatible( 2 ) ) {
 			$scss .= "@import 'fonts'; \n";
 		}
-
 		$scss .= \Pressbooks\Utility\get_contents( PB_PLUGIN_DIR . 'assets/src/styles/partials/_covergenerator-pdf.scss' );
 
-		if ( $styles->isCurrentThemeCompatible( 1 ) ) {
-			$includes = [
-				$sass->pathToUserGeneratedSass(),
-				$sass->pathToPartials(),
-				$sass->pathToFonts(),
-				get_stylesheet_directory(),
-			];
-		} elseif ( $styles->isCurrentThemeCompatible( 2 ) ) {
-			$includes = $sass->defaultIncludePaths( 'prince' );
-		} else {
-			$includes = [];
-		}
-
-		$css = $sass->compile( $scss, $includes );
+		$css = $styles->customize( 'prince', $scss );
 		$css = \Pressbooks\Sanitize\normalize_css_urls( $css );
 
 		if ( WP_DEBUG ) {
