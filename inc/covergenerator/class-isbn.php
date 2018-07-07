@@ -2,6 +2,8 @@
 
 namespace Pressbooks\Covergenerator;
 
+use function Pressbooks\Utility\debug_error_log;
+
 /**
  * @see https://github.com/bwipp/postscriptbarcode/wiki/ISBN
  */
@@ -225,10 +227,9 @@ class Isbn {
 		exec( $command, $output, $return_var ); // @codingStandardsIgnoreLine
 
 		if ( ! empty( $output ) ) {
-			// TODO: Throw Exception
 			// @codingStandardsIgnoreStart
-			error_log( $command );
-			error_log( print_r( $output, true ) );
+			debug_error_log( $command );
+			debug_error_log( print_r( $output, true ) );
 			// @codingStandardsIgnoreEnd
 		}
 	}
@@ -250,10 +251,9 @@ class Isbn {
 		exec( $command, $output, $return_var ); // @codingStandardsIgnoreLine
 
 		if ( ! empty( $output ) ) {
-			// TODO: Throw Exception
 			// @codingStandardsIgnoreStart
-			error_log( $command );
-			error_log( print_r( $output, true ) );
+			debug_error_log( $command );
+			debug_error_log( print_r( $output, true ) );
 			// @codingStandardsIgnoreEnd
 		}
 	}

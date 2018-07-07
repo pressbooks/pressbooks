@@ -6,12 +6,6 @@ use function Pressbooks\Utility\template;
 
 class PrincePdf extends Generator {
 
-
-	/**
-	 * @var Input
-	 */
-	protected $input;
-
 	/**
 	 * @var string
 	 */
@@ -88,13 +82,19 @@ class PrincePdf extends Generator {
 
 	/**
 	 * Generate PDF print cover
+	 *
+	 * @throws \Exception
+	 *
+	 * @return string Output path
 	 */
 	public function generate() {
-		$success = $this->generateWithPrince( $this->pdfProfile, $this->pdfOutputIntent, $this->generateHtml(), $this->timestampedFileName( 'pdf' ) );
+		$output_path = $this->timestampedFileName( 'pdf' );
+		$success = $this->generateWithPrince( $this->pdfProfile, $this->pdfOutputIntent, $this->generateHtml(), $output_path );
 		if ( true !== $success ) {
 			throw new \Exception( 'Failed to create PDF file' );
 		}
 		delete_transient( 'dirsize_cache' ); /** @see get_dirsize() */
+		return $output_path;
 	}
 
 
@@ -149,8 +149,6 @@ class PrincePdf extends Generator {
 	 * Generate HTML for PDF print cover
 	 *
 	 * @return string Path to generated CSS Html file
-	 *
-	 * @throws \Exception
 	 */
 	protected function generateHtml() {
 		$vars = $this->getHtmlTemplateVars();

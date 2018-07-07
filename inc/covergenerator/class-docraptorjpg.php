@@ -3,15 +3,11 @@
 namespace Pressbooks\Covergenerator;
 
 use function Pressbooks\Utility\create_tmp_file;
+use function Pressbooks\Utility\debug_error_log;
 use function Pressbooks\Utility\template;
 
 class DocraptorJpg extends Generator {
 
-
-	/**
-	 * @var Input
-	 */
-	protected $input;
 
 	/**
 	 * @var string
@@ -74,6 +70,8 @@ class DocraptorJpg extends Generator {
 	 * Generate Ebook JPG cover
 	 *
 	 * @throws \Exception
+	 *
+	 * @return string Output path
 	 */
 	public function generate() {
 		$tmp_pdf_path = create_tmp_file();
@@ -81,6 +79,7 @@ class DocraptorJpg extends Generator {
 		$output_path = $this->timestampedFileName( 'jpg' );
 		$this->convert( $tmp_pdf_path, $output_path );
 		delete_transient( 'dirsize_cache' ); /** @see get_dirsize() */
+		return $output_path;
 	}
 
 
@@ -135,8 +134,6 @@ class DocraptorJpg extends Generator {
 	 * Generate HTML for Ebook JPG cover
 	 *
 	 * @return string the generated Html
-	 *
-	 * @throws \Exception
 	 */
 	protected function generateHtml() {
 		$vars = $this->getHtmlTemplateVars();
@@ -215,10 +212,9 @@ class DocraptorJpg extends Generator {
 		}
 
 		if ( ! empty( $output ) ) {
-			// TODO: Throw Exception
 			// @codingStandardsIgnoreStart
-			error_log( $command );
-			error_log( print_r( $output, true ) );
+			debug_error_log( $command );
+			debug_error_log( print_r( $output, true ) );
 			// @codingStandardsIgnoreEnd
 		}
 	}

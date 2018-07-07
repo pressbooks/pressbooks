@@ -120,6 +120,14 @@ class CovergeneratorSpineTest extends \WP_UnitTestCase {
 		$this->assertNotEquals( $expected + 1, $this->spine->caliperToPpi( $caliper ) );
 	}
 
+	function test_countPagesInMostRecentPdf() {
+		$dest = \Pressbooks\Modules\Export\Export::getExportFolder() . 'test.pdf';
+		copy( __DIR__ . '/data/test.pdf', $dest );
+		$pages = $this->spine->countPagesInMostRecentPdf();
+		$this->assertEquals( 11, $pages );
+		unlink( $dest );
+	}
+
 
 	/**
 	 *

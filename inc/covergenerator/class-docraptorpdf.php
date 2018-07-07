@@ -6,17 +6,6 @@ use function Pressbooks\Utility\template;
 
 class DocraptorPdf extends Generator {
 
-
-	/**
-	 * @var Input
-	 */
-	protected $input;
-
-	/**
-	 * @var string $outputPath
-	 */
-	protected $outputPath;
-
 	/**
 	 * @var string
 	 */
@@ -85,21 +74,22 @@ class DocraptorPdf extends Generator {
 	 * @param Input $input
 	 */
 	public function __construct( Input $input ) {
-
-		$this->outputPath = $this->timestampedFileName( 'pdf' );
 		$this->pdfProfile = apply_filters( 'pb_pdf_for_print_profile', 'PDF/X-1a:2003' );
 		$this->pdfOutputIntent = plugins_url( 'pressbooks-docraptor/assets/icc/USWebCoatedSWOP.icc' );
-
 		parent::__construct( $input );
 	}
 
 
 	/**
 	 * Generate PDF print cover
+	 *
+	 * @return string Output path
 	 */
 	public function generate() {
-		$this->generateWithDocraptor( $this->pdfProfile, $this->generateHtml(), $this->outputPath );
+		$output_path = $this->timestampedFileName( 'pdf' );
+		$this->generateWithDocraptor( $this->pdfProfile, $this->generateHtml(), $output_path );
 		delete_transient( 'dirsize_cache' ); /** @see get_dirsize() */
+		return $output_path;
 	}
 
 
@@ -159,8 +149,6 @@ class DocraptorPdf extends Generator {
 	 * Generate HTML for PDF print cover
 	 *
 	 * @return string The generated Html
-	 *
-	 * @throws \Exception
 	 */
 	protected function generateHtml() {
 		$vars = $this->getHtmlTemplateVars();

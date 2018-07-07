@@ -3,6 +3,7 @@
 namespace Pressbooks\Covergenerator;
 
 use function Pressbooks\Utility\create_tmp_file;
+use function Pressbooks\Utility\debug_error_log;
 
 /**
  * Abstract Generator Class
@@ -55,7 +56,7 @@ abstract class Generator {
 	}
 
 	/**
-	 * @return void
+	 * @return string Output path
 	 */
 	abstract public function generate();
 
@@ -396,7 +397,7 @@ abstract class Generator {
 		$prince = new \PrinceXMLPhp\PrinceWrapper( PB_PRINCE_COMMAND );
 		$prince->setHTML( true );
 		$prince->setCompress( true );
-		if ( defined( 'WP_ENV' ) && WP_ENV === 'development' || WP_ENV === 'staging' ) {
+		if ( defined( 'WP_ENV' ) && ( WP_ENV === 'development' || WP_ENV === 'staging' ) ) {
 			$prince->setInsecure( true );
 		}
 		$prince->setLog( $log_file );
@@ -408,8 +409,7 @@ abstract class Generator {
 		// Prince XML is very flexible. There could be errors but Prince will still render a PDF.
 		// We want to log those errors but we won't alert the user.
 		if ( is_countable( $msg ) && count( $msg ) ) {
-			// TODO: Email logs like we do in Import/Export modules
-			error_log( \Pressbooks\Utility\get_contents( $log_file ) ); // @codingStandardsIgnoreLine
+			debug_error_log( \Pressbooks\Utility\get_contents( $log_file ) );
 		}
 
 		return $success;

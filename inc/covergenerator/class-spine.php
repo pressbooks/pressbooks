@@ -112,13 +112,11 @@ class Spine {
 	 *
 	 * @param $path_to_pdf
 	 *
-	 * @throws \Exception
-	 *
 	 * @return int
 	 */
 	public function countPagesInPdf( $path_to_pdf ) {
 		if ( ! file_exists( $path_to_pdf ) ) {
-			throw new \Exception( "File not found: $path_to_pdf" );
+			throw new \InvalidArgumentException( "File not found: $path_to_pdf" );
 		}
 
 		$output = [];

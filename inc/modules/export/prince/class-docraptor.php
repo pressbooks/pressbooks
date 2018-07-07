@@ -20,13 +20,6 @@ class Docraptor extends Pdf {
 	public function __construct( array $args ) {
 
 		parent::__construct( $args );
-
-		if ( ! defined( 'DOCRAPTOR_API_KEY' ) ) {
-			// YOUR_API_KEY_HERE is a valid test key
-			// @see: https://docraptor.com/documentation
-			define( 'DOCRAPTOR_API_KEY', 'YOUR_API_KEY_HERE' );
-		}
-
 		$this->url .= '&style=docraptor&script=prince';
 	}
 
