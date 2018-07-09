@@ -98,6 +98,17 @@ class GlobalOptions extends \Pressbooks\Options {
 			]
 		);
 
+		add_settings_field(
+			'attributions',
+			__( 'Attributions', 'pressbooks' ),
+			[ $this, 'renderAttributionsField' ],
+			$_page,
+			$_section,
+			[
+				__( 'Display attributions at the end of a chapter', 'pressbooks' ),
+			]
+		);
+
 		if ( Container::get( 'Styles' )->isCurrentThemeCompatible( 1 ) === true || Container::get( 'Styles' )->isCurrentThemeCompatible( 2 ) === true ) { // we can only enable foreign language typography for themes that use SCSS
 
 			add_settings_field(
@@ -302,6 +313,23 @@ class GlobalOptions extends \Pressbooks\Options {
 	}
 
 	/**
+	 * Render the attributions checkbox.
+	 *
+	 * @param array $args
+	 */
+	function renderAttributionsField( $args ) {
+		$this->renderCheckbox(
+			[
+				'id' => 'attributions',
+				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
+				'option' => 'attributions',
+				'value' => ( isset( $this->options['attributions'] ) ) ? $this->options['attributions'] : '',
+				'label' => $args[0],
+			]
+		);
+	}
+
+	/**
 	 * Render the pressbooks_global_typography select.
 	 *
 	 * @param array $args
@@ -428,6 +456,7 @@ class GlobalOptions extends \Pressbooks\Options {
 			'pb_theme_options_global_defaults', [
 				'chapter_numbers' => 1,
 				'parse_subsections' => 0,
+				'attributions' => 1,
 				'copyright_license' => 0,
 				'edu_textbox_examples_header_color' => '#fff',
 				'edu_textbox_examples_header_background' => '#7a333a',
@@ -520,6 +549,7 @@ class GlobalOptions extends \Pressbooks\Options {
 			'pb_theme_options_global_booleans', [
 				'chapter_numbers',
 				'parse_subsections',
+				'attributions',
 			]
 		);
 	}
