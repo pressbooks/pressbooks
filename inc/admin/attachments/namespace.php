@@ -20,6 +20,7 @@ use Pressbooks\Licensing;
 function add_metadata_attachment( $form_fields, $post ) {
 	$attributions = get_post_meta( $post->ID, 'pb_attachment_attributions', true );
 	$url          = isset( $attributions['pb_attribution_title_url'] ) ? $attributions['pb_attribution_title_url'] : '';
+	$license_meta = isset( $attributions['pb_attribution_license'] ) ? $attributions['pb_attribution_license'] : '';
 
 	$form_fields['pb_attribution'] = [
 		'value' => '',
@@ -48,10 +49,10 @@ function add_metadata_attachment( $form_fields, $post ) {
 	];
 
 	$form_fields['pb_attribution_license'] = [
-		'value' => $url,
+		'value' => $license_meta,
 		'label' => __( 'License', 'pressbooks' ),
 		'input' => 'html',
-		'html'  => render_attachment_license_options( $post->ID ),
+		'html'  => render_attachment_license_options( $post->ID, $license_meta ),
 	];
 
 	return $form_fields;
@@ -110,16 +111,17 @@ function validate_attachment_metadata( $key, $form_field ) {
  * Creates an HTML blob for selecting a valid license type
  *
  * @param $post_id
+ * @param $license_meta
  *
  * @return string
  */
-function render_attachment_license_options( $post_id ) {
+function render_attachment_license_options( $post_id, $license_meta ) {
 	$licenses = ( new Licensing() )->getSupportedTypes();
 	$html     = "<select name='attachments[$post_id][pb_attribution_license]' id='attachments-{$post_id}-pb_attribution_license'>";
 
 	$html .= '<option value=""></option>';
 	foreach ( $licenses as $key => $license ) {
-		$html .= "<option value='{$key}'>{$license['desc']}</option>";
+		$html .= "<option value='{$key}'" . selected( $license_meta, $key, false ) . ">{$license['desc']}</option>";
 	}
 	$html .= '</select>';
 
