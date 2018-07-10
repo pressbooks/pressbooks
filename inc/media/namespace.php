@@ -93,7 +93,8 @@ function add_media_attributions( $content ) {
 
 	// get attachment attributions
 	if ( $attachments ) {
-		$media_attributions = '<ul>';
+		$media_attributions = '<h3>Attributions</h3>';
+		$media_attributions .= '<ul>';
 		foreach ( $attachments as $attachment ) {
 			$attributions = get_post_meta( $attachment->ID, 'pb_attachment_attributions', TRUE );
 			$title        = isset( $attributions['pb_attribution_title'] ) ? $attributions['pb_attribution_title'] : '';
@@ -101,7 +102,7 @@ function add_media_attributions( $content ) {
 			$url          = isset( $attributions['pb_attribution_title_url'] ) ? $attributions['pb_attribution_title_url'] : '';
 			$license_meta = isset( $attributions['pb_attribution_license'] ) ? $attributions['pb_attribution_license'] : '';
 
-			$media_attributions .= $title . ' by ' . $author . ' CC ' . $license_meta;
+			$media_attributions .= '<li>' . $title . ' by ' . $author . ' CC ' . $license_meta . '</li>';
 		}
 		$media_attributions .= '</ul>';
 	}
