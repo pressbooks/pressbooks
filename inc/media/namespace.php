@@ -72,6 +72,44 @@ function force_wrap_images( $content ) {
 }
 
 /**
+ * Get and display attachment attributions
+ *
+ * @param string $content
+ *
+ * @return string
+ */
+function add_media_attributions( $content ) {
+	global $post;
+	$media_attributions = '';
+
+	// get all post attachments
+	$args        = [
+		'post_type'      => 'attachment',
+		'posts_per_page' => - 1,
+		'post_status'    => 'any',
+		'post_parent'    => $post->ID
+	];
+	$attachments = get_posts( $args );
+
+	// get attachment attributions
+	if ( $attachments ) {
+		$media_attributions = '<ul>';
+		foreach ( $attachments as $attachment ) {
+			$attributions = get_post_meta( $attachment->ID, 'pb_attachment_attributions', TRUE );
+			$title        = isset( $attributions['pb_attribution_title'] ) ? $attributions['pb_attribution_title'] : '';
+			$author       = isset( $attributions['pb_attribution_author'] ) ? $attributions['pb_attribution_author'] : '';
+			$url          = isset( $attributions['pb_attribution_title_url'] ) ? $attributions['pb_attribution_title_url'] : '';
+			$license_meta = isset( $attributions['pb_attribution_license'] ) ? $attributions['pb_attribution_license'] : '';
+
+			$media_attributions .= $title . ' by ' . $author . ' CC ' . $license_meta;
+		}
+		$media_attributions .= '</ul>';
+	}
+
+	return $content . $media_attributions;
+}
+
+/**
  * @param array $params
  *
  * @see https://core.trac.wordpress.org/browser/trunk/wp-admin/includes/media.php?rev=22846
