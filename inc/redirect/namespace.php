@@ -199,6 +199,7 @@ function do_catalog( $template ) {
 	if ( get_query_var( 'pagename' ) === 'pb_catalog' ) {
 		$user = get_user_by( 'login', get_query_var( 'pb_catalog_user' ) );
 		if ( $user !== false ) {
+			status_header( 200 );
 			return \Pressbooks\Catalog::getTemplatePath();
 		}
 	}
