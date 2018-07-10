@@ -3,6 +3,8 @@
 namespace Pressbooks\Admin\Attachments;
 
 use Pressbooks\Utility;
+use Pressbooks\Licensing;
+
 
 /**
  * Hooks into 'attachment_fields_to_edit' filter to add custom attachment
@@ -45,6 +47,13 @@ function add_metadata_attachment( $form_fields, $post ) {
 		'html'  => "<input type='url' class='text urlfield' name='attachments[$post->ID][pb_attribution_title_url]' value='" . esc_attr( $url ) . "' />",
 	];
 
+	$form_fields['pb_attribution_license'] = [
+		'value' => $url,
+		'label' => __( 'License', 'pressbooks' ),
+		'input' => 'html',
+		'html'  => render_attachment_license_options( $post->ID ),
+	];
+
 	return $form_fields;
 }
 
@@ -63,7 +72,7 @@ function save_metadata_attachment( $post, $form_fields ) {
 	$expected     = [
 		'pb_attribution_title',
 		'pb_attribution_title_url',
-		'pb_attribution_author'
+		'pb_attribution_author',
 	];
 	$attributions = [];
 
@@ -94,4 +103,24 @@ function validate_attachment_metadata( $key, $form_field ) {
 	}
 
 	return $form_field;
+}
+
+/**
+ * Creates an HTML blob for selecting a valid license type
+ *
+ * @param $post_id
+ *
+ * @return string
+ */
+function render_attachment_license_options( $post_id ) {
+	$licenses = ( new Licensing() )->getSupportedTypes();
+	$html     = "<select name='attachments[$post_id][pb_attribution_license]' id='attachments-{$post_id}-pb_attribution_license'>";
+
+	$html .= '<option value=""></option>';
+	foreach ( $licenses as $key => $license ) {
+		$html .= "<option value='{$key}'>{$license['desc']}</option>";
+	}
+	$html .= '</select>';
+
+	return $html;
 }
