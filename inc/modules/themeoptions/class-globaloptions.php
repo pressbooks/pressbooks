@@ -99,9 +99,9 @@ class GlobalOptions extends \Pressbooks\Options {
 		);
 
 		add_settings_field(
-			'attributions',
-			__( 'Attributions', 'pressbooks' ),
-			[ $this, 'renderAttributionsField' ],
+			'attachment_attributions',
+			__( 'Media Attributions', 'pressbooks' ),
+			[ $this, 'renderAttachmentAttributionsField' ],
 			$_page,
 			$_section,
 			[
@@ -313,17 +313,17 @@ class GlobalOptions extends \Pressbooks\Options {
 	}
 
 	/**
-	 * Render the attributions checkbox.
+	 * Render the attachment_attributions checkbox.
 	 *
 	 * @param array $args
 	 */
-	function renderAttributionsField( $args ) {
+	function renderAttachmentAttributionsField( $args ) {
 		$this->renderCheckbox(
 			[
-				'id' => 'attributions',
+				'id' => 'attachment_attributions',
 				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
-				'option' => 'attributions',
-				'value' => ( isset( $this->options['attributions'] ) ) ? $this->options['attributions'] : '',
+				'option' => 'attachment_attributions',
+				'value' => ( isset( $this->options['attachment_attributions'] ) ) ? $this->options['attachment_attributions'] : '',
 				'label' => $args[0],
 			]
 		);
@@ -456,7 +456,7 @@ class GlobalOptions extends \Pressbooks\Options {
 			'pb_theme_options_global_defaults', [
 				'chapter_numbers' => 1,
 				'parse_subsections' => 0,
-				'attributions' => 1,
+				'attachment_attributions' => 0,
 				'copyright_license' => 0,
 				'edu_textbox_examples_header_color' => '#fff',
 				'edu_textbox_examples_header_background' => '#7a333a',
@@ -549,7 +549,7 @@ class GlobalOptions extends \Pressbooks\Options {
 			'pb_theme_options_global_booleans', [
 				'chapter_numbers',
 				'parse_subsections',
-				'attributions',
+				'attachment_attributions',
 			]
 		);
 	}
