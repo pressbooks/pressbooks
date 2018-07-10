@@ -19,9 +19,9 @@ const templates = 'templates';
 
 // BrowserSync
 mix.browserSync( {
-	host:  'localhost',
+	host: 'localhost',
 	proxy: 'https://pressbooks.test/wp-login.php',
-	port:  3100,
+	port: 3100,
 	files: [
 		'*.php',
 		`${templates}/**/*.php`,
@@ -51,6 +51,7 @@ mix
 	.js( 'assets/src/scripts/search-and-replace.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/small-menu.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/textboxes.js', 'assets/dist/scripts/' )
+	.js( 'assets/src/scripts/textboxes-legacy.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/theme-lock.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/theme-options.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/post-visibility.js', 'assets/dist/scripts/' )
