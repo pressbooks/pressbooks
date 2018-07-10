@@ -73,6 +73,7 @@ function save_metadata_attachment( $post, $form_fields ) {
 		'pb_attribution_title',
 		'pb_attribution_title_url',
 		'pb_attribution_author',
+		'pb_attribution_license',
 	];
 	$attributions = [];
 
