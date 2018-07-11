@@ -184,7 +184,7 @@ function latest_exports() {
 	/**
 	 * Add custom export formats to the latest exports filetype mapping array.
 	 *
-	 * For example, here' how one might add a hypothetical Word export format:
+	 * For example, here's how one might add a hypothetical Word export format:
 	 *
 	 * add_filter( 'pb_latest_export_filetypes', function ( $filetypes ) {
 	 *    $filetypes['word'] = '.docx';
