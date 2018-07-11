@@ -5,6 +5,7 @@
 
 namespace Pressbooks\Shortcodes\Attributions;
 
+use Pressbooks\Licensing;
 
 class Attributions {
 
@@ -80,7 +81,8 @@ class Attributions {
 
 		// get attachment attributions
 		if ( $attachments ) {
-			$media_attributions = '<h3>Attributions</h3>';
+			$media_attributions = '<div class="media-atttributions">';
+			$media_attributions .= '<h3>Attributions</h3>';
 			$media_attributions .= '<ul>';
 			foreach ( $attachments as $attachment ) {
 				$attributions = get_post_meta( $attachment->ID, 'pb_attachment_attributions', TRUE );
@@ -89,9 +91,13 @@ class Attributions {
 				$url          = isset( $attributions['pb_attribution_title_url'] ) ? $attributions['pb_attribution_title_url'] : '';
 				$license_meta = isset( $attributions['pb_attribution_license'] ) ? $attributions['pb_attribution_license'] : '';
 
-				$media_attributions .= '<li>' . $title . ' by ' . $author . ' CC ' . $license_meta . '</li>';
+				$media_attributions .= '<li>' . $title;
+				$media_attributions .= ( $url ) ? ' by ' . '<a rel="dc:creator" href="' . $url . '" property="cc:attributionName">' . $author . '</a>' : ' by ' . $author;
+				$media_attributions .= ' CC ' . '<a rel="license" href="' . ( new Licensing() )->getUrlForLicense( $license_meta ) . '">' . $license_meta . '</a>';
+				$media_attributions .= '</li>';
 			}
 			$media_attributions .= '</ul>';
+			$media_attributions .= '</div>';
 		}
 
 		return $content . $media_attributions;
