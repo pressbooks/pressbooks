@@ -105,9 +105,7 @@ if ( $is_book && use_book_locale() ) {
 // -------------------------------------------------------------------------------------------------------------------
 
 add_action( 'init', '\Pressbooks\Sanitize\allow_post_content' );
-if ( $is_book ) {
-	add_filter( 'the_content', '\Pressbooks\Media\add_media_attributions', 11 ); // display media attributions before footnotes
-}
+
 // -------------------------------------------------------------------------------------------------------------------
 // Images
 // -------------------------------------------------------------------------------------------------------------------
@@ -185,6 +183,7 @@ if ( $is_book ) {
 	add_filter( 'the_content', 'wpautop' , 12 ); // execute wpautop after shortcode processing
 
 	\Pressbooks\Shortcodes\Footnotes\Footnotes::init();
+	\Pressbooks\Shortcodes\Attributions\Attributions::init();
 	\Pressbooks\Shortcodes\Generics\Generics::init();
 	\Pressbooks\Shortcodes\WikiPublisher\Glyphs::init();
 }
