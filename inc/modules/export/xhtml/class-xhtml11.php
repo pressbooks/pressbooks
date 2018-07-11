@@ -6,12 +6,12 @@
 
 namespace Pressbooks\Modules\Export\Xhtml;
 
+use function Pressbooks\Sanitize\clean_filename;
+use function Pressbooks\Utility\get_generated_content_url;
 use Masterminds\HTML5;
 use Pressbooks\Container;
 use Pressbooks\Modules\Export\Export;
 use Pressbooks\Sanitize;
-use function Pressbooks\Sanitize\clean_filename;
-use function Pressbooks\Utility\get_generated_content_url;
 
 class Xhtml11 extends Export {
 

@@ -6,9 +6,9 @@
 
 namespace Pressbooks\Modules\Export\Prince;
 
-use Pressbooks\Modules\Export\Export;
-use Pressbooks\Container;
 use function Pressbooks\Sanitize\normalize_css_urls;
+use Pressbooks\Container;
+use Pressbooks\Modules\Export\Export;
 
 class Pdf extends Export {
 

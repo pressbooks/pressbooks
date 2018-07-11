@@ -6,11 +6,9 @@
 
 namespace Pressbooks\Editor;
 
-use Pressbooks\Container;
-use Pressbooks\Styles;
-use PressbooksMix\Assets;
-
 use function Pressbooks\Sanitize\normalize_css_urls;
+use PressbooksMix\Assets;
+use Pressbooks\Container;
 
 /**
  * Ensure that Word formatting that we like doesn't get filtered out.

@@ -186,7 +186,7 @@ function attachment_id_from_url( $url ) {
 		$wpdb->prepare(
 			"SELECT ID FROM {$wpdb->posts}
 			INNER JOIN {$wpdb->postmeta} ON {$wpdb->posts}.ID = {$wpdb->postmeta}.post_id
-			WHERE {$wpdb->posts}.post_type = 'attachment' AND {$wpdb->postmeta}.meta_key = '_wp_attached_file' AND {$wpdb->postmeta}.meta_value = '%s' ", $attached_file
+			WHERE {$wpdb->posts}.post_type = 'attachment' AND {$wpdb->postmeta}.meta_key = '_wp_attached_file' AND {$wpdb->postmeta}.meta_value = %s ", $attached_file
 		)
 	);
 
@@ -466,7 +466,7 @@ function render_cover_image_box( $form_id, $cover_pid, $image_url, $ajax_action,
 			<?php } ?>
 			<?php
 			if ( $description ) :
-?>
+				?>
 <span class="description"><?php echo $description; ?></span><?php endif; ?>
 		</div>
 	</div>

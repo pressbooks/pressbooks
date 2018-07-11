@@ -106,7 +106,7 @@ function add_password_field( $errors ) {
 	<label for="password_1"><?php _e( 'Password', 'pressbooks' ); ?>:</label>
 	<?php
 	if ( $error ) {
-?>
+		?>
 <p class="error"><?php echo $error; ?></p><?php } ?>
 	<input name="password_1" type="password" id="password_1" value="" autocomplete="off" maxlength="20"/><br/>
 	<?php _e( 'Type in your password.', 'pressbooks' ); ?>
@@ -184,10 +184,10 @@ function add_hidden_password_field() {
 		wp_die( __( 'Please try again.', 'pressbooks' ) );
 	}
 	if ( isset( $_POST['password_1'] ) ) {
-	?>
+		?>
 		<input type="hidden" name="password_1_base64" value="1"/>
 		<input type="hidden" name="password_1" value="<?php echo( isset( $_POST['password_1_base64'] ) ? $_POST['password_1'] : base64_encode( $_POST['password_1'] ) ); ?>"/>
-	<?php
+		<?php
 	}
 }
 
@@ -215,7 +215,7 @@ function override_password_generation( $password ) {
 	}
 
 	// Look for active signup
-	$signup = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $wpdb->signups WHERE activation_key = '%s'", $key ) );
+	$signup = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $wpdb->signups WHERE activation_key = %s", $key ) );
 
 	// Only override filter on wp-activate.php screen
 	if ( strpos( $_SERVER['PHP_SELF'], 'wp-activate.php' ) && null !== $key && ( ! ( empty( $signup ) || $signup->active ) ) ) {

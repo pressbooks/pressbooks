@@ -175,10 +175,12 @@ function get_customizer_colors() {
 function login_scripts() {
 	$assets = new Assets( 'pressbooks', 'plugin' );
 	wp_enqueue_script( 'pressbooks-login', $assets->getPath( 'scripts/login.js' ), false, null );
-	wp_localize_script( 'pressbooks-login', 'PB_Login', [
-		'logInTitle' => __( 'Log In', 'pressbooks' ),
-		'lostPasswordTitle' => __( 'Lost Password', 'pressbooks' ),
-		'resetPasswordTitle' => __( 'Reset Password', 'pressbooks' ),
-		'passwordResetTitle' => __( 'Password Reset', 'pressbooks' ),
-	] );
+	wp_localize_script(
+		'pressbooks-login', 'PB_Login', [
+			'logInTitle' => __( 'Log In', 'pressbooks' ),
+			'lostPasswordTitle' => __( 'Lost Password', 'pressbooks' ),
+			'resetPasswordTitle' => __( 'Reset Password', 'pressbooks' ),
+			'passwordResetTitle' => __( 'Password Reset', 'pressbooks' ),
+		]
+	);
 }

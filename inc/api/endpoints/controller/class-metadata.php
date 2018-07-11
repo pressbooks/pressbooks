@@ -3,7 +3,6 @@
 namespace Pressbooks\Api\Endpoints\Controller;
 
 use Pressbooks\Book;
-use Pressbooks\Metadata as Meta;
 
 class Metadata extends \WP_REST_Controller {
 

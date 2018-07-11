@@ -161,7 +161,7 @@ function batch_serve_request( $request ) {
 			$single_request['method'] = $_SERVER['REQUEST_METHOD'];
 		}
 		if ( empty( $single_request['body'] ) ) {
-			$single_request['body'] = $_POST;
+			$single_request['body'] = $_POST; // @codingStandardsIgnoreLine
 		}
 		if ( empty( $single_request['headers'] ) ) {
 			$single_request['headers'] = $_SERVER;

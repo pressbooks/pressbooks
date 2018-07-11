@@ -482,11 +482,9 @@ class Catalog_List_Table extends \WP_List_Table {
 			<form id="books-search" method="get" action="<?php echo $url; ?>">
 				<?php wp_nonce_field( 'pb_catalog_search', 'pb_catalog_search', false ); ?>
 				<input type="hidden" name="page" value="<?php echo esc_attr( $_REQUEST['page'] ); ?>"/>
-				<?php
-				if ( ! empty( $_REQUEST['user_id'] ) ) :
-?>
-<input type="hidden" name="user_id"
-																										 value="<?php echo esc_attr( $_REQUEST['user_id'] ); ?>" /><?php endif; ?>
+				<?php if ( ! empty( $_REQUEST['user_id'] ) ) : ?>
+					<input type="hidden" name="user_id" value="<?php echo esc_attr( $_REQUEST['user_id'] ); ?>"/>
+				<?php endif; ?>
 				<?php $list_table->search_box( __( 'Search', 'pressbooks' ), 'search_id' ); ?>
 			</form>
 
@@ -494,7 +492,7 @@ class Catalog_List_Table extends \WP_List_Table {
 				<input type="hidden" name="page" value="<?php echo esc_attr( $_REQUEST['page'] ); ?>"/>
 				<?php
 				if ( ! empty( $_REQUEST['user_id'] ) ) :
-?>
+					?>
 <input type="hidden" name="user_id"
 																										 value="<?php echo esc_attr( $_REQUEST['user_id'] ); ?>" /><?php endif; ?>
 				<div id="add-by-url">

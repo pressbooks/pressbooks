@@ -6,14 +6,14 @@
 
 namespace Pressbooks\Modules\Import\WordPress;
 
+use function Pressbooks\Image\attachment_id_from_url;
+use function Pressbooks\Image\strip_baseurl;
 use Masterminds\HTML5;
+use Pressbooks\Book;
 use Pressbooks\Contributors;
 use Pressbooks\Licensing;
 use Pressbooks\Metadata;
 use Pressbooks\Modules\Import\Import;
-use Pressbooks\Book;
-use function Pressbooks\Image\attachment_id_from_url;
-use function Pressbooks\Image\strip_baseurl;
 
 class Wxr extends Import {
 

@@ -6,8 +6,8 @@
 
 namespace Pressbooks\Modules\Export\Odt;
 
-use Pressbooks\Modules\Export\Export;
 use function Pressbooks\Utility\str_ends_with;
+use Pressbooks\Modules\Export\Export;
 
 class Odt extends Export {
 

@@ -9,19 +9,19 @@
 
 namespace Pressbooks\Modules\Export\Epub;
 
-use Masterminds\HTML5;
-use Pressbooks\Book;
-use Pressbooks\Contributors;
-use Pressbooks\Modules\Export\Export;
-use Pressbooks\Container;
-use Pressbooks\Sanitize;
-use Pressbooks\Taxonomy;
 use function Pressbooks\Sanitize\sanitize_xml_attribute;
 use function Pressbooks\Utility\debug_error_log;
 use function Pressbooks\Utility\oxford_comma_explode;
 use function Pressbooks\Utility\str_ends_with;
 use function Pressbooks\Utility\str_lreplace;
 use function Pressbooks\Utility\str_starts_with;
+use Masterminds\HTML5;
+use Pressbooks\Book;
+use Pressbooks\Container;
+use Pressbooks\Contributors;
+use Pressbooks\Modules\Export\Export;
+use Pressbooks\Sanitize;
+use Pressbooks\Taxonomy;
 
 class Epub201 extends Export {
 

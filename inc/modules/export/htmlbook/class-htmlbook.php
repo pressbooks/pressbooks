@@ -6,6 +6,10 @@
 
 namespace Pressbooks\Modules\Export\HTMLBook;
 
+use function Pressbooks\Sanitize\clean_filename;
+use function Pressbooks\Utility\get_generated_content_url;
+use function Pressbooks\Utility\oxford_comma_explode;
+use Masterminds\HTML5;
 use Pressbooks\HTMLBook\Block\Blockquote;
 use Pressbooks\HTMLBook\Block\OrderedLists;
 use Pressbooks\HTMLBook\Block\Paragraph;
@@ -19,12 +23,8 @@ use Pressbooks\HTMLBook\Heading\H1;
 use Pressbooks\HTMLBook\Heading\Header;
 use Pressbooks\HTMLBook\Inline\Footnote;
 use Pressbooks\HTMLBook\Validator;
-use Masterminds\HTML5;
 use Pressbooks\Modules\Export\Export;
 use Pressbooks\Sanitize;
-use function Pressbooks\Sanitize\clean_filename;
-use function Pressbooks\Utility\oxford_comma_explode;
-use function Pressbooks\Utility\get_generated_content_url;
 
 class HTMLBook extends Export {
 

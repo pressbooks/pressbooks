@@ -56,7 +56,7 @@ class Content extends \Pressbooks\Modules\SearchAndReplace\Search {
 	function getOptions( $result ) {
 		$options[] = '<a href="' . get_permalink( $result->id ) . '">' . __( 'view', 'pressbooks' ) . '</a>';
 		if ( current_user_can( 'edit_post', $result->id ) ) {
-			$options[] = '<a href="' . get_bloginfo( 'wpurl' ) . '/wp-admin/post.php?action=edit&amp;post=' . $result->id . '">' . __( 'edit','pressbooks' ) . '</a>';
+			$options[] = '<a href="' . get_bloginfo( 'wpurl' ) . '/wp-admin/post.php?action=edit&amp;post=' . $result->id . '">' . __( 'edit', 'pressbooks' ) . '</a>';
 		}
 		return $options;
 	}

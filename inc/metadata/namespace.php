@@ -2,12 +2,12 @@
 
 namespace Pressbooks\Metadata;
 
-use Pressbooks\Book;
-use Pressbooks\Licensing;
 use function \Pressbooks\Sanitize\is_valid_timestamp;
 use function \Pressbooks\Utility\is_assoc;
 use function \Pressbooks\Utility\oxford_comma;
 use function \Pressbooks\Utility\oxford_comma_explode;
+use Pressbooks\Book;
+use Pressbooks\Licensing;
 
 /**
  * Returns an html blob of meta elements based on what is set in 'Book Information'
