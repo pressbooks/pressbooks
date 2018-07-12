@@ -250,6 +250,18 @@ function register_meta() {
 			]
 		)
 	);
+
+	\register_meta(
+		'post', 'pb_attachment_attributions', array_merge(
+			$defaults, [
+				'description'       => __( 'Media attributions', 'pressbooks' ),
+				'single'            => false,
+//				'sanitize_callback' => function ( $v ) {
+//					return  (json_decode($v)) ;
+//				},
+			]
+		)
+	);
 }
 
 /**

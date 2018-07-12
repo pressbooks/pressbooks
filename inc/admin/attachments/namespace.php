@@ -18,9 +18,10 @@ use Pressbooks\Licensing;
  * @return mixed
  */
 function add_metadata_attachment( $form_fields, $post ) {
-	$attributions = get_post_meta( $post->ID, 'pb_attachment_attributions', true );
-	$url          = isset( $attributions['pb_attribution_title_url'] ) ? $attributions['pb_attribution_title_url'] : '';
-	$license_meta = isset( $attributions['pb_attribution_license'] ) ? $attributions['pb_attribution_license'] : '';
+	$title   = get_post_meta( $post->ID, 'pb_attribution_title', true );
+	$author  = get_post_meta( $post->ID, 'pb_attribution_author', true );
+	$source  = get_post_meta( $post->ID, 'pb_attribution_title_url', true );
+	$license = get_post_meta( $post->ID, 'pb_attribution_license', true );
 
 	$form_fields['pb_attribution'] = [
 		'value' => '',
@@ -30,29 +31,29 @@ function add_metadata_attachment( $form_fields, $post ) {
 	];
 
 	$form_fields['pb_attribution_title'] = [
-		'value' => isset( $attributions['pb_attribution_title'] ) ? $attributions['pb_attribution_title'] : '',
+		'value' => isset( $title ) ? $title : '',
 		'label' => __( 'Title', 'pressbooks' ),
 		'input' => 'text',
 	];
 
 	$form_fields['pb_attribution_author'] = [
-		'value' => isset( $attributions['pb_attribution_author'] ) ? $attributions['pb_attribution_author'] : '',
+		'value' => isset( $author ) ? $author : '',
 		'label' => __( 'Author', 'pressbooks' ),
 		'input' => 'text',
 	];
 
 	$form_fields['pb_attribution_title_url'] = [
-		'value' => $url,
+		'value' => isset( $source ) ? $source : '',
 		'label' => __( 'Source', 'pressbooks' ),
 		'input' => 'html',
-		'html'  => "<input type='url' class='text urlfield' name='attachments[$post->ID][pb_attribution_title_url]' value='" . esc_attr( $url ) . "' />",
+		'html'  => "<input type='url' class='text urlfield' name='attachments[$post->ID][pb_attribution_title_url]' value='" . esc_attr( $source ) . "' />",
 	];
 
 	$form_fields['pb_attribution_license'] = [
-		'value' => $license_meta,
+		'value' => isset( $license ) ? $license : '',
 		'label' => __( 'License', 'pressbooks' ),
 		'input' => 'html',
-		'html'  => render_attachment_license_options( $post->ID, $license_meta ),
+		'html'  => render_attachment_license_options( $post->ID, $license ),
 	];
 
 	return $form_fields;
@@ -72,8 +73,8 @@ function add_metadata_attachment( $form_fields, $post ) {
 function save_metadata_attachment( $post, $form_fields ) {
 	$expected     = [
 		'pb_attribution_title',
-		'pb_attribution_title_url',
 		'pb_attribution_author',
+		'pb_attribution_title_url',
 		'pb_attribution_license',
 	];
 	$attributions = [];
@@ -82,10 +83,9 @@ function save_metadata_attachment( $post, $form_fields ) {
 	foreach ( $expected as $key ) {
 		if ( isset( $form_fields[ $key ] ) ) {
 			$attributions[ $key ] = validate_attachment_metadata( $key, $form_fields[ $key ] );
+			update_post_meta( $post['ID'], $key, $attributions[ $key ] );
 		}
 	}
-
-	update_post_meta( $post['ID'], 'pb_attachment_attributions', $attributions );
 
 	return $post;
 }
@@ -102,6 +102,10 @@ function validate_attachment_metadata( $key, $form_field ) {
 
 	if ( Utility\str_ends_with( $key, '_url' ) && Utility\str_starts_with( $key, 'pb_' ) ) {
 		$form_field = ( wp_http_validate_url( $form_field ) ) ? wp_http_validate_url( $form_field ) : '';
+	}
+
+	if ( Utility\str_starts_with( $key, 'pb_' ) ) {
+		$form_field = sanitize_text_field( $form_field );
 	}
 
 	return $form_field;
