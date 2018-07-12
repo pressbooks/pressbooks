@@ -36,8 +36,6 @@ function render_page() {
 	<div class="wrap">
 		<h1><?php _e( 'Diagnostics', 'pressbooks' ); ?></h1>
 		<p><?php _e( 'Please submit this information with any bug reports.', 'pressbooks' ); ?></p>
-		<textarea style="width: 800px; max-width: 100%; height: 600px; background: #fff; font-family: monospace;" readonly="readonly" onclick="this.focus(); this.select()"
-				title="<?php _e( 'To copy the system info, click below then press Ctrl + C (PC) or Cmd + C (Mac).', 'pressbooks' ); ?>">
 	<?php
 	$output = "### System Information\n\n";
 	if ( \Pressbooks\Book::isBook() ) {
@@ -167,9 +165,9 @@ function render_page() {
 	}
 	$output .= 'imagick: ' . ( extension_loaded( 'imagick' ) ? 'Installed' : 'Not Installed' ) . "\n";
 	$output .= 'xsl: ' . ( extension_loaded( 'xsl' ) ? 'Installed' : 'Not Installed' );
-	echo $output;
 	?>
-</textarea>
+		<textarea style="width: 800px; max-width: 100%; height: 600px; background: #fff; font-family: monospace;" readonly="readonly" onclick="this.focus(); this.select()"
+				title="<?php _e( 'To copy the system info, click below then press Ctrl + C (PC) or Cmd + C (Mac).', 'pressbooks' ); ?>"><?php echo $output; ?></textarea>
 	</div>
 	<?php
 }
