@@ -93,6 +93,7 @@ class Attributions {
 				$media_attributions .= '<li>' . $title;
 				$media_attributions .= ( $source ) ? ' by ' . '<a rel="dc:creator" href="' . $source . '" property="cc:attributionName">' . $author . '</a>' : ' by ' . $author;
 				$media_attributions .= ' CC ' . '<a rel="license" href="' . ( new Licensing() )->getUrlForLicense( $license ) . '">' . $license . '</a>';
+
 				$media_attributions .= '</li>';
 			}
 			$media_attributions .= '</ul>';
