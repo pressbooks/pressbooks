@@ -85,15 +85,14 @@ class Attributions {
 			$media_attributions .= '<h3>Attributions</h3>';
 			$media_attributions .= '<ul>';
 			foreach ( $attachments as $attachment ) {
-				$attributions = get_post_meta( $attachment->ID, 'pb_attachment_attributions', TRUE );
-				$title        = isset( $attributions['pb_attribution_title'] ) ? $attributions['pb_attribution_title'] : '';
-				$author       = isset( $attributions['pb_attribution_author'] ) ? $attributions['pb_attribution_author'] : '';
-				$url          = isset( $attributions['pb_attribution_title_url'] ) ? $attributions['pb_attribution_title_url'] : '';
-				$license_meta = isset( $attributions['pb_attribution_license'] ) ? $attributions['pb_attribution_license'] : '';
+				$title   = get_post_meta( $attachment->ID, 'pb_attribution_title', TRUE );
+				$author  = get_post_meta( $attachment->ID, 'pb_attribution_author', TRUE );
+				$source  = get_post_meta( $attachment->ID, 'pb_attribution_title_url', TRUE );
+				$license = get_post_meta( $attachment->ID, 'pb_attribution_license', TRUE );
 
 				$media_attributions .= '<li>' . $title;
-				$media_attributions .= ( $url ) ? ' by ' . '<a rel="dc:creator" href="' . $url . '" property="cc:attributionName">' . $author . '</a>' : ' by ' . $author;
-				$media_attributions .= ' CC ' . '<a rel="license" href="' . ( new Licensing() )->getUrlForLicense( $license_meta ) . '">' . $license_meta . '</a>';
+				$media_attributions .= ( $source ) ? ' by ' . '<a rel="dc:creator" href="' . $source . '" property="cc:attributionName">' . $author . '</a>' : ' by ' . $author;
+				$media_attributions .= ' CC ' . '<a rel="license" href="' . ( new Licensing() )->getUrlForLicense( $license ) . '">' . $license . '</a>';
 				$media_attributions .= '</li>';
 			}
 			$media_attributions .= '</ul>';
