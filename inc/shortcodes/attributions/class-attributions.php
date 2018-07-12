@@ -43,7 +43,7 @@ class Attributions {
 		);
 		// do_shortcode() is registered as a default filter on 'the_content' with a priority of 11.
 		// We need to run $this->attributionsContent() after this, set to 12
-		add_filter( 'the_content', [ $obj, 'attributionsContent' ], 12 );
+		add_filter( 'the_content', [ $obj, 'getAttributions' ], 12 );
 	}
 
 	/**
@@ -66,9 +66,9 @@ class Attributions {
 	 *
 	 * @return string
 	 */
-	function attributionsContent( $content ) {
+	function getAttributions( $content ) {
 		global $post;
-		$media_attributions = '';
+		$all_attributions = [];
 
 		// get all post attachments
 		$args        = [
@@ -79,27 +79,39 @@ class Attributions {
 		];
 		$attachments = get_posts( $args );
 
-		// get attachment attributions
+		// get attributions for each attachment
 		if ( $attachments ) {
-			$media_attributions = '<div class="media-atttributions">';
-			$media_attributions .= '<h3>Attributions</h3>';
-			$media_attributions .= '<ul>';
 			foreach ( $attachments as $attachment ) {
-				$title   = get_post_meta( $attachment->ID, 'pb_attribution_title', TRUE );
-				$author  = get_post_meta( $attachment->ID, 'pb_attribution_author', TRUE );
-				$source  = get_post_meta( $attachment->ID, 'pb_attribution_title_url', TRUE );
-				$license = get_post_meta( $attachment->ID, 'pb_attribution_license', TRUE );
-
-				$media_attributions .= '<li>' . $title;
-				$media_attributions .= ( $source ) ? ' by ' . '<a rel="dc:creator" href="' . $source . '" property="cc:attributionName">' . $author . '</a>' : ' by ' . $author;
-				$media_attributions .= ' CC ' . '<a rel="license" href="' . ( new Licensing() )->getUrlForLicense( $license ) . '">' . $license . '</a>';
-
-				$media_attributions .= '</li>';
+				$all_attributions[ $attachment->ID ]['title']      = get_post_meta( $attachment->ID, 'pb_attribution_title', TRUE );
+				$all_attributions[ $attachment->ID ]['author']     = get_post_meta( $attachment->ID, 'pb_attribution_author', TRUE );
+				$all_attributions[ $attachment->ID ]['author_url'] = get_post_meta( $attachment->ID, 'pb_attribution_title_url', TRUE );
+				$all_attributions[ $attachment->ID ]['license']    = get_post_meta( $attachment->ID, 'pb_attribution_license', TRUE );
 			}
-			$media_attributions .= '</ul>';
-			$media_attributions .= '</div>';
 		}
 
+		// get the content by applying the attributionsContent() function recursively to every member of $all_attributions array
+		$media_attributions = array_walk_recursive( $all_attributions, [ $this, 'attributionsContent' ] );
+
 		return $content . $media_attributions;
+	}
+
+	/**
+	 * @param $value
+	 * @param $key
+	 */
+	function attributionsContent( $value, $key ) {
+
+		if ( $key === 'title' && isset( $value ) ) {
+			echo $value;
+		}
+		if ( $key === 'author' && isset( $value ) ) {
+			echo ' by ' . $value;
+		}
+		if ( $key === 'author_url' && isset( $value ) ) {
+			echo '<a rel="dc:creator" href="' . $value . '" property="cc:attributionName">' . '[url]' . '</a>';
+		}
+		if ( $key === 'license' && isset( $value ) ) {
+			echo ' CC ' . '<a rel="license" href="' . ( new Licensing() )->getUrlForLicense( $value ) . '">' . $value . '</a>';
+		}
 	}
 }
