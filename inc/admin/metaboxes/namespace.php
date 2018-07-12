@@ -742,9 +742,11 @@ function override_parent_id( $post ) {
 	}
 
 	global $wpdb;
-	$sql_args = [ 'draft', 'web-only', 'private', 'publish' ];
 	$results = $wpdb->get_results(
-		$wpdb->prepare( "SELECT ID, post_title FROM {$wpdb->posts} WHERE post_type = 'part' AND post_status IN (%s, %s, %s, %s) ORDER BY menu_order ASC ", $sql_args )
+		$wpdb->prepare(
+			"SELECT ID, post_title FROM {$wpdb->posts} WHERE post_type = 'part' AND post_status IN (%s, %s, %s, %s) ORDER BY menu_order ASC ",
+			[ 'draft', 'web-only', 'private', 'publish' ]
+		)
 	);
 
 	$output = "<select name='parent_id' id='parent_id'>\n";
@@ -972,7 +974,7 @@ function publish_fields_save( $post_id, $post, $update ) {
 
 	// Sanity checks
 
-	if ( empty( $_POST ) ) {
+	if ( empty( $_POST ) ) { // @codingStandardsIgnoreLine
 		return;
 	}
 
@@ -1000,10 +1002,12 @@ function publish_fields_save( $post_id, $post, $update ) {
 	}
 
 	// Save it
+	// @codingStandardsIgnoreStart
 	$show_in_web = ( isset( $_POST['web_visibility'] ) && (int) $_POST['web_visibility'] === 1 ) ? true : false;
 	$require_password = ( isset( $_POST['require_password'] ) && (int) $_POST['require_password'] === 1 ) ? true : false;
 	$show_in_exports = ( isset( $_POST['export_visibility'] ) && (int) $_POST['export_visibility'] === 1 ) ? true : false;
 	$show_title = ( isset( $_POST['pb_show_title'] ) && $_POST['pb_show_title'] === 'on' ) ? 'on' : false;
+	// @codingStandardsIgnoreEnd
 
 	// Content Visibility
 	if ( $show_in_web === false && $show_in_exports === false ) {

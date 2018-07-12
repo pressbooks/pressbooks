@@ -490,11 +490,9 @@ class Catalog_List_Table extends \WP_List_Table {
 
 			<form id="books-filter" method="post" action="<?php echo $url; ?>">
 				<input type="hidden" name="page" value="<?php echo esc_attr( $_REQUEST['page'] ); ?>"/>
-				<?php
-				if ( ! empty( $_REQUEST['user_id'] ) ) :
-					?>
-<input type="hidden" name="user_id"
-																										 value="<?php echo esc_attr( $_REQUEST['user_id'] ); ?>" /><?php endif; ?>
+				<?php if ( ! empty( $_REQUEST['user_id'] ) ) : ?>
+					<input type="hidden" name="user_id" value="<?php echo esc_attr( $_REQUEST['user_id'] ); ?>"/>
+				<?php endif; ?>
 				<div id="add-by-url">
 					<input type="text" id="add_book_by_url" name="add_book_by_url"/><label for="add_book_by_url">
 						<input type="submit" name="" id="search-submit" class="button" value="<?php esc_attr_e( 'Add By URL', 'pressbooks' ); ?>">

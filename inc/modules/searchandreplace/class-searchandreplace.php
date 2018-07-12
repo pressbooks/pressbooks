@@ -138,9 +138,9 @@ class SearchAndReplace {
 				$this->renderError( $results );
 			} elseif ( isset( $_POST['replace_and_save'] ) ) {
 				?>
-		  <div class="updated" id="message" onclick="this.parentNode.removeChild (this)">
-		   <p><?php printf( _n( '%d occurrence replaced.', '%d occurrences replaced.', count( $results ) ), count( $results ) ); ?></p>
-		  </div>
+				<div class="updated" id="message" onclick="this.parentNode.removeChild (this)">
+					<p><?php printf( _n( '%d occurrence replaced.', '%d occurrences replaced.', count( $results ) ), count( $results ) ); ?></p>
+				</div>
 				<?php
 			}
 			$this->render(
