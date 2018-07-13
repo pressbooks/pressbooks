@@ -83,7 +83,7 @@ class Attributions {
 			foreach ( $attachments as $attachment ) {
 				$all_attributions[ $attachment->ID ]['title']      = get_post_meta( $attachment->ID, 'pb_attribution_title', true );
 				$all_attributions[ $attachment->ID ]['author']     = get_post_meta( $attachment->ID, 'pb_attribution_author', true );
-				$all_attributions[ $attachment->ID ]['author_url'] = get_post_meta( $attachment->ID, 'pb_attribution_title_url', true );
+				$all_attributions[ $attachment->ID ]['title_url'] = get_post_meta( $attachment->ID, 'pb_attribution_title_url', true );
 				$all_attributions[ $attachment->ID ]['license']    = get_post_meta( $attachment->ID, 'pb_attribution_license', true );
 			}
 		}
@@ -115,9 +115,9 @@ class Attributions {
 					// attribution title
 					$media_attributions .= ( ! empty( $attribution['title'] ) ? $attribution['title'] : '' );
 					// attribution author without url
-					$media_attributions .= ( ! empty( $attribution['author'] ) && empty( $attribution['author_url'] ) ) ? ' by ' . $attribution['author'] : '';
+					$media_attributions .= ( ! empty( $attribution['author'] ) && empty( $attribution['title_url'] ) ) ? ' by ' . $attribution['author'] : '';
 					// attribution author with url
-					$media_attributions .= ( ! empty( $attribution['author'] ) && ! empty( $attribution['author_url'] ) ) ? ' by ' . '<a rel="dc:creator" href="' . $attribution['author_url'] . '" property="cc:attributionName">' . $attribution['author'] . '</a>' : '';
+					$media_attributions .= ( ! empty( $attribution['author'] ) && ! empty( $attribution['title_url'] ) ) ? ' by ' . '<a rel="dc:creator" href="' . $attribution['title_url'] . '" property="cc:attributionName">' . $attribution['author'] . '</a>' : '';
 					// attribution license
 					$media_attributions .= ( ! empty( $attribution['license'] ) ) ? ' ' . '<a rel="license" href="' . ( new Licensing() )->getUrlForLicense( $attribution['license'] ) . '">' . ( new Licensing() )->getNameForLicense( $attribution['license'] ). '</a>' : '';
 					$media_attributions .= '</li>';
