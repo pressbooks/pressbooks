@@ -51,7 +51,7 @@ class Footnotes {
 			}
 		);
 		// do_shortcode() is registered as a default filter on 'the_content' with a priority of 11.
-		// We need to run $this->footNoteContent() after this, set to 12
+		// We need to run $this->footNoteContent() after this, and after attributions which is set to 12, set to 13
 		add_filter( 'the_content', [ $obj, 'footnoteContent' ], 12 );
 		add_action( 'init', [ $obj, 'footnoteButton' ] ); // TinyMCE button
 		add_action( 'admin_enqueue_scripts', [ $obj, 'myCustomQuicktags' ] ); // Quicktag button
