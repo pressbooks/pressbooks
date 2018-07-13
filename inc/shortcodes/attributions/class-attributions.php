@@ -108,13 +108,7 @@ class Attributions {
 		if ( $attributions ) {
 			// loop through each attribution, generate appropriate markup for each field
 			foreach ( $attributions as $attribution ) {
-//				$attribution = array_filter( $attribution, 'strlen' );
-//				if ( count( $attribution ) === 4 ) {
-//					$media_attributions .= '<li>';
-//					$media_attributions .= ( new Licensing() )->getLicense( $attribution['license'], $attribution['author'], $attribution['title_url'], $attribution['title'], '' );
-//					$media_attributions .= '</li>';
-//					continue;
-//				}
+				$attribution = array_filter( $attribution, 'strlen' );
 				// only process non-empty values
 				if ( count( $attribution ) > 0 ) {
 					$media_attributions .= '<li>';
@@ -123,7 +117,7 @@ class Attributions {
 					// attribution title without link
 					$media_attributions .= ( ! empty( $attribution['title'] ) && empty( $attribution['title_url'] ) ) ? $attribution['title'] : '';
 					// attribution author
-					$media_attributions .= ( ! empty( $attribution['author'] ) ) ? ' by ' . $attribution['author'] : '';
+					$media_attributions .= ( ! empty( $attribution['author'] ) ) ? ' by ' . $attribution['author'] . '.': '';
 					// attribution license
 					$media_attributions .= ( ! empty( $attribution['license'] ) ) ? ' ' . '<a rel="license" href="' . ( new Licensing() )->getUrlForLicense( $attribution['license'] ) . '">' . ( new Licensing() )->getNameForLicense( $attribution['license'] ) . '</a>' : '';
 					$media_attributions .= '</li>';
