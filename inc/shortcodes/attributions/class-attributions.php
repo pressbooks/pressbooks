@@ -43,7 +43,7 @@ class Attributions {
 		);
 		// do_shortcode() is registered as a default filter on 'the_content' with a priority of 11.
 		// We need to run $this->attributionsContent() after this, set to 12
-		add_filter( 'the_content', [ $obj, 'getAttributions' ], 12 );
+		add_filter( 'the_content', [ $obj, 'getAttributions' ], 11 );
 	}
 
 	/**
@@ -67,6 +67,7 @@ class Attributions {
 	 * @return string
 	 */
 	function getAttributions( $content ) {
+		// don't show unless user options
 		$options = get_option( 'pressbooks_theme_options_global' );
 		if ( 1 !== $options['attachment_attributions'] ) {
 			return $content;
@@ -77,7 +78,7 @@ class Attributions {
 
 		$attachments = get_attached_media( '', $id );
 
-		// get attributions for each attachment
+		// get attribution meta for each attachment
 		if ( $attachments ) {
 			foreach ( $attachments as $attachment ) {
 				$all_attributions[ $attachment->ID ]['title']      = get_post_meta( $attachment->ID, 'pb_attribution_title', true );
@@ -102,15 +103,14 @@ class Attributions {
 	 */
 	function attributionsContent( $attributions ) {
 		$media_attributions = '';
+		$html               = '';
 		// proceed if there's attributions
 		if ( $attributions ) {
-			// make sure there's at least one value in any of the attribution fields
-			if ( ! empty( array_column( $attributions, 'title' ) ) || ! empty( array_column( $attributions, 'author' ) || ! empty( array_column( $attributions, 'license' ) ) ) ) {
-				$media_attributions = '<div class="media-atttributions">';
-				$media_attributions .= '<h3>Attributions</h3>';
-				$media_attributions .= '<ul>';
-				// loop through each attribution, generate appropriate markup for each field, if they aren't empty
-				foreach ( $attributions as $attribution ) {
+			// loop through each attribution, generate appropriate markup for each field
+			foreach ( $attributions as $attribution ) {
+				// only process non-empty values
+				$attribution = array_filter( $attribution, 'strlen' );
+				if ( count( $attribution ) > 0 ) {
 					$media_attributions .= '<li>';
 					// attribution title
 					$media_attributions .= ( ! empty( $attribution['title'] ) ? $attribution['title'] : '' );
@@ -119,14 +119,21 @@ class Attributions {
 					// attribution author with url
 					$media_attributions .= ( ! empty( $attribution['author'] ) && ! empty( $attribution['author_url'] ) ) ? ' by ' . '<a rel="dc:creator" href="' . $attribution['author_url'] . '" property="cc:attributionName">' . $attribution['author'] . '</a>' : '';
 					// attribution license
-					$media_attributions .= ( ! empty( $attribution['license'] ) ) ? ' CC ' . '<a rel="license" href="' . ( new Licensing() )->getUrlForLicense( $attribution['license'] ) . '">' . $attribution['license'] . '</a>' : '';
+					$media_attributions .= ( ! empty( $attribution['license'] ) ) ? ' ' . '<a rel="license" href="' . ( new Licensing() )->getUrlForLicense( $attribution['license'] ) . '">' . ( new Licensing() )->getNameForLicense( $attribution['license'] ). '</a>' : '';
 					$media_attributions .= '</li>';
 				}
-				$media_attributions .= '</ul>';
-				$media_attributions .= '</div>';
 			}
+
+			if ( ! empty( $media_attributions ) ) {
+				$html .= '<div class="media-atttributions">';
+				$html .= '<h3>Media Attributions</h3>';
+				$html .= '<ul>';
+				$html .= $media_attributions;
+				$html .= '</ul></div>';
+			}
+
 		}
 
-		return $media_attributions;
+		return $html;
 	}
 }
