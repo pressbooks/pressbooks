@@ -89,29 +89,46 @@ class Attributions {
 			}
 		}
 
-		// get the content by applying the attributionsContent() function recursively to every member of $all_attributions array
-		$media_attributions = array_walk_recursive( $all_attributions, [ $this, 'attributionsContent' ] );
+		// get the content of the attributions
+		$media_attributions = $this->attributionsContent( $all_attributions );
 
 		return $content . $media_attributions;
 	}
 
 	/**
-	 * @param $value
-	 * @param $key
+	 * Logic and markup for the attribution fields
+	 *
+	 * @param $attributions
+	 *
+	 * @return string
 	 */
-	function attributionsContent( $value, $key ) {
+	function attributionsContent( $attributions ) {
+		$media_attributions = '';
+		// proceed if there's attributions
+		if ( $attributions ) {
+			// make sure there's at least one value in any of the attribution fields
+			if ( ! empty( array_column( $attributions, 'title' ) ) || ! empty( array_column( $attributions, 'author' ) || ! empty( array_column( $attributions, 'license' ) ) ) ) {
+				$media_attributions = '<div class="media-atttributions">';
+				$media_attributions .= '<h3>Attributions</h3>';
+				$media_attributions .= '<ul>';
+				// loop through each attribution, generate appropriate markup for each field, if they aren't empty
+				foreach ( $attributions as $attribution ) {
+					$media_attributions .= '<li>';
+					// attribution title
+					$media_attributions .= ( ! empty( $attribution['title'] ) ? $attribution['title'] : '' );
+					// attribution author without url
+					$media_attributions .= ( ! empty( $attribution['author'] ) && empty( $attribution['author_url'] ) ) ? ' by ' . $attribution['author'] : '';
+					// attribution author with url
+					$media_attributions .= ( ! empty( $attribution['author'] ) && ! empty( $attribution['author_url'] ) ) ? ' by ' . '<a rel="dc:creator" href="' . $attribution['author_url'] . '" property="cc:attributionName">' . $attribution['author'] . '</a>' : '';
+					// attribution license
+					$media_attributions .= ( ! empty( $attribution['license'] ) ) ? ' CC ' . '<a rel="license" href="' . ( new Licensing() )->getUrlForLicense( $attribution['license'] ) . '">' . $attribution['license'] . '</a>' : '';
+					$media_attributions .= '</li>';
+				}
+				$media_attributions .= '</ul>';
+				$media_attributions .= '</div>';
+			}
+		}
 
-		if ( $key === 'title' && isset( $value ) ) {
-			echo $value;
-		}
-		if ( $key === 'author' && isset( $value ) ) {
-			echo ' by ' . $value;
-		}
-		if ( $key === 'author_url' && isset( $value ) ) {
-			echo '<a rel="dc:creator" href="' . $value . '" property="cc:attributionName">' . '[url]' . '</a>';
-		}
-		if ( $key === 'license' && isset( $value ) ) {
-			echo ' CC ' . '<a rel="license" href="' . ( new Licensing() )->getUrlForLicense( $value ) . '">' . $value . '</a>';
-		}
+		return $media_attributions;
 	}
 }
