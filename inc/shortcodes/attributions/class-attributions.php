@@ -67,25 +67,23 @@ class Attributions {
 	 * @return string
 	 */
 	function getAttributions( $content ) {
-		global $post;
+		$options = get_option( 'pressbooks_theme_options_global' );
+		if ( 1 !== $options['attachment_attributions'] ) {
+			return $content;
+		}
+
+		global $id;
 		$all_attributions = [];
 
-		// get all post attachments
-		$args        = [
-			'post_type'      => 'attachment',
-			'posts_per_page' => - 1,
-			'post_status'    => 'any',
-			'post_parent'    => $post->ID
-		];
-		$attachments = get_posts( $args );
+		$attachments = get_attached_media( '', $id );
 
 		// get attributions for each attachment
 		if ( $attachments ) {
 			foreach ( $attachments as $attachment ) {
-				$all_attributions[ $attachment->ID ]['title']      = get_post_meta( $attachment->ID, 'pb_attribution_title', TRUE );
-				$all_attributions[ $attachment->ID ]['author']     = get_post_meta( $attachment->ID, 'pb_attribution_author', TRUE );
-				$all_attributions[ $attachment->ID ]['author_url'] = get_post_meta( $attachment->ID, 'pb_attribution_title_url', TRUE );
-				$all_attributions[ $attachment->ID ]['license']    = get_post_meta( $attachment->ID, 'pb_attribution_license', TRUE );
+				$all_attributions[ $attachment->ID ]['title']      = get_post_meta( $attachment->ID, 'pb_attribution_title', true );
+				$all_attributions[ $attachment->ID ]['author']     = get_post_meta( $attachment->ID, 'pb_attribution_author', true );
+				$all_attributions[ $attachment->ID ]['author_url'] = get_post_meta( $attachment->ID, 'pb_attribution_title_url', true );
+				$all_attributions[ $attachment->ID ]['license']    = get_post_meta( $attachment->ID, 'pb_attribution_license', true );
 			}
 		}
 
