@@ -12,7 +12,7 @@ class Attributions {
 	/**
 	 * @var Attributions
 	 */
-	static $instance = NULL;
+	static $instance = null;
 
 	/**
 	 * Function to init our class, set filters & hooks, set a singleton instance
@@ -81,10 +81,10 @@ class Attributions {
 		// get attribution meta for each attachment
 		if ( $attachments ) {
 			foreach ( $attachments as $attachment ) {
-				$all_attributions[ $attachment->ID ]['title']      = get_post_meta( $attachment->ID, 'pb_attribution_title', true );
-				$all_attributions[ $attachment->ID ]['author']     = get_post_meta( $attachment->ID, 'pb_attribution_author', true );
+				$all_attributions[ $attachment->ID ]['title']     = get_post_meta( $attachment->ID, 'pb_attribution_title', true );
+				$all_attributions[ $attachment->ID ]['author']    = get_post_meta( $attachment->ID, 'pb_attribution_author', true );
 				$all_attributions[ $attachment->ID ]['title_url'] = get_post_meta( $attachment->ID, 'pb_attribution_title_url', true );
-				$all_attributions[ $attachment->ID ]['license']    = get_post_meta( $attachment->ID, 'pb_attribution_license', true );
+				$all_attributions[ $attachment->ID ]['license']   = get_post_meta( $attachment->ID, 'pb_attribution_license', true );
 			}
 		}
 
@@ -119,7 +119,7 @@ class Attributions {
 					// attribution author with url
 					$media_attributions .= ( ! empty( $attribution['author'] ) && ! empty( $attribution['title_url'] ) ) ? ' by ' . '<a rel="dc:creator" href="' . $attribution['title_url'] . '" property="cc:attributionName">' . $attribution['author'] . '</a>' : '';
 					// attribution license
-					$media_attributions .= ( ! empty( $attribution['license'] ) ) ? ' ' . '<a rel="license" href="' . ( new Licensing() )->getUrlForLicense( $attribution['license'] ) . '">' . ( new Licensing() )->getNameForLicense( $attribution['license'] ). '</a>' : '';
+					$media_attributions .= ( ! empty( $attribution['license'] ) ) ? ' ' . '<a rel="license" href="' . ( new Licensing() )->getUrlForLicense( $attribution['license'] ) . '">' . ( new Licensing() )->getNameForLicense( $attribution['license'] ) . '</a>' : '';
 					$media_attributions .= '</li>';
 				}
 			}
@@ -131,7 +131,6 @@ class Attributions {
 				$html .= $media_attributions;
 				$html .= '</ul></div>';
 			}
-
 		}
 
 		return $html;
