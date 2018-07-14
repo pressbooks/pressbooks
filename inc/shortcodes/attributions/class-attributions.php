@@ -42,7 +42,6 @@ class Attributions {
 			}
 		);
 		// do_shortcode() is registered as a default filter on 'the_content' with a priority of 11.
-		// We need to run $this->attributionsContent() after this, set to 12
 		add_filter( 'the_content', [ $obj, 'getAttributions' ], 11 );
 	}
 
@@ -97,39 +96,46 @@ class Attributions {
 	/**
 	 * Logic and markup for the attribution fields
 	 *
-	 * @param $attributions
+	 * @param array $attributions
 	 *
 	 * @return string
 	 */
 	function attributionsContent( $attributions ) {
 		$media_attributions = '';
 		$html               = '';
-		// proceed if there's attributions
+
 		if ( $attributions ) {
-			// loop through each attribution, generate appropriate markup for each field
+			// generate appropriate markup for each field
 			foreach ( $attributions as $attribution ) {
+
+				// unset empty arrays
 				$attribution = array_filter( $attribution, 'strlen' );
-				// only process non-empty values
+
+				// if we have enough arguments, use built in PB function
+//				if ( count( $attribution ) === 4 ) {
+//					$media_attributions .= sprintf( '<li>%s</li>',
+//						( new Licensing() )->getLicense( $attribution['license'], $attribution['author'], $attribution['title_url'], $attribution['title'], '', false )
+//					);
+//					continue;
+//				}
+
+				// only process if non-empty
 				if ( count( $attribution ) > 0 ) {
-					$media_attributions .= '<li>';
-					// attribution title with link
-					$media_attributions .= ( ! empty( $attribution['title'] ) && ! empty( $attribution['title_url'] ) ) ? '<a rel="cc:attributionURL" href="' . $attribution['title_url'] . '" property="dc:title">' . $attribution['title'] . '</a>' : '';
-					// attribution title without link
-					$media_attributions .= ( ! empty( $attribution['title'] ) && empty( $attribution['title_url'] ) ) ? $attribution['title'] : '';
-					// attribution author
-					$media_attributions .= ( ! empty( $attribution['author'] ) ) ? ' by ' . $attribution['author'] . '.': '';
-					// attribution license
-					$media_attributions .= ( ! empty( $attribution['license'] ) ) ? ' ' . '<a rel="license" href="' . ( new Licensing() )->getUrlForLicense( $attribution['license'] ) . '">' . ( new Licensing() )->getNameForLicense( $attribution['license'] ) . '</a>' : '';
-					$media_attributions .= '</li>';
+					$media_attributions .= sprintf( '<li>%1$s %2$s %3$s</li>',
+						sprintf( '<a rel="cc:attributionURL" href="%1$s" property="dc:title">%2$s</a>',
+							( isset( $attribution['title_url'] ) ) ? $attribution['title_url'] : '#',
+							( isset( $attribution['title'] ) ) ? $attribution['title'] : '' ),
+						sprintf( '%1$s<span property="cc:attributionName">%2$s</span>',
+							( isset( $attribution['author'] ) ) ? ' by ' : '',
+							( isset( $attribution['author'] ) ) ? $attribution['author'] . '.' : '' ),
+						sprintf( '<a rel="license" href="%1$s">%2$s</a>',
+							( isset( $attribution['license'] ) ) ? ( new Licensing() )->getUrlForLicense( $attribution['license'] ) : '#',
+							( isset ( $attribution['license'] ) ) ? ( new Licensing() )->getNameForLicense( $attribution['license'] ) : '' )
+					);
 				}
 			}
-
 			if ( ! empty( $media_attributions ) ) {
-				$html .= '<div class="media-atttributions">';
-				$html .= '<h3>Media Attributions</h3>';
-				$html .= '<ul>';
-				$html .= $media_attributions;
-				$html .= '</ul></div>';
+				$html = sprintf( '<div class="media-atttributions"><h3>Media Attributions</h3><ul>%s</ul></div>', $media_attributions );
 			}
 		}
 
