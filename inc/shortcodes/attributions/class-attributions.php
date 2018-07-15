@@ -203,7 +203,7 @@ class Attributions {
 				continue;
 			}
 			preg_match( '/wp-image-([0-9]+)/i', $matches[0][0], $class_id );
-			$attachment_id = absint( $class_id[1] );
+			$attachment_id = ( isset( $class_id[1] ) ) ? absint( $class_id[1] ) : '';
 
 			preg_match( '/src=[\'"](.*?)[\'"]/i', $matches[0][0], $source );
 			$attachment_url = $source[1];
