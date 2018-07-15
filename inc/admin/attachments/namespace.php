@@ -18,10 +18,10 @@ use Pressbooks\Licensing;
  * @return mixed
  */
 function add_metadata_attachment( $form_fields, $post ) {
-	$title   = get_post_meta( $post->ID, 'pb_attribution_title', true );
-	$author  = get_post_meta( $post->ID, 'pb_attribution_author', true );
-	$source  = get_post_meta( $post->ID, 'pb_attribution_title_url', true );
-	$license = get_post_meta( $post->ID, 'pb_attribution_license', true );
+	$title   = get_post_meta( $post->ID, 'pb_media_attribution_title', true );
+	$author  = get_post_meta( $post->ID, 'pb_media_attribution_author', true );
+	$source  = get_post_meta( $post->ID, 'pb_media_attribution_title_url', true );
+	$license = get_post_meta( $post->ID, 'pb_media_attribution_license', true );
 
 	$form_fields['pb_attribution'] = [
 		'value' => '',
@@ -30,26 +30,26 @@ function add_metadata_attachment( $form_fields, $post ) {
 		'html'  => '<span></span>',
 	];
 
-	$form_fields['pb_attribution_title'] = [
+	$form_fields['pb_media_attribution_title'] = [
 		'value' => isset( $title ) ? $title : '',
 		'label' => __( 'Title', 'pressbooks' ),
 		'input' => 'text',
 	];
 
-	$form_fields['pb_attribution_author'] = [
+	$form_fields['pb_media_attribution_author'] = [
 		'value' => isset( $author ) ? $author : '',
 		'label' => __( 'Author', 'pressbooks' ),
 		'input' => 'text',
 	];
 
-	$form_fields['pb_attribution_title_url'] = [
+	$form_fields['pb_media_attribution_title_url'] = [
 		'value' => isset( $source ) ? $source : '',
 		'label' => __( 'Source', 'pressbooks' ),
 		'input' => 'html',
-		'html'  => "<input type='url' class='text urlfield' name='attachments[$post->ID][pb_attribution_title_url]' value='" . esc_attr( $source ) . "' />",
+		'html'  => "<input type='url' class='text urlfield' name='attachments[$post->ID][pb_media_attribution_title_url]' value='" . esc_attr( $source ) . "' />",
 	];
 
-	$form_fields['pb_attribution_license'] = [
+	$form_fields['pb_media_attribution_license'] = [
 		'value' => isset( $license ) ? $license : '',
 		'label' => __( 'License', 'pressbooks' ),
 		'input' => 'html',
@@ -72,10 +72,10 @@ function add_metadata_attachment( $form_fields, $post ) {
  */
 function save_metadata_attachment( $post, $form_fields ) {
 	$expected     = [
-		'pb_attribution_title',
-		'pb_attribution_author',
-		'pb_attribution_title_url',
-		'pb_attribution_license',
+		'pb_media_attribution_title',
+		'pb_media_attribution_author',
+		'pb_media_attribution_title_url',
+		'pb_media_attribution_license',
 	];
 	$attributions = [];
 
@@ -121,7 +121,7 @@ function validate_attachment_metadata( $key, $form_field ) {
  */
 function render_attachment_license_options( $post_id, $license_meta ) {
 	$licenses = ( new Licensing() )->getSupportedTypes();
-	$html     = "<select name='attachments[$post_id][pb_attribution_license]' id='attachments-{$post_id}-pb_attribution_license'>";
+	$html     = "<select name='attachments[$post_id][pb_media_attribution_license]' id='attachments-{$post_id}-pb_media_attribution_license'>";
 
 	$html .= '<option value=""></option>';
 	foreach ( $licenses as $key => $license ) {

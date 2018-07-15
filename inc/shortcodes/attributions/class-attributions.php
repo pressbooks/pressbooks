@@ -12,7 +12,12 @@ class Attributions {
 	/**
 	 * @var Attributions
 	 */
-	static $instance = null;
+	static $instance = NULL;
+
+	/**
+	 * @var array
+	 */
+	static $book_media = [];
 
 	/**
 	 * Function to init our class, set filters & hooks, set a singleton instance
@@ -23,6 +28,7 @@ class Attributions {
 		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
 			self::hooks( self::$instance );
+			self::setBookMedia();
 		}
 
 		return self::$instance;
@@ -32,17 +38,35 @@ class Attributions {
 	 * @param Attributions $obj
 	 */
 	static public function hooks( Attributions $obj ) {
-		add_shortcode( 'attributions', [ $obj, 'shortcodeHandler' ] );
+
+		add_shortcode( 'media_attributions', [ $obj, 'shortcodeHandler' ] );
+
+		// prevent further processing of formatted strings
 		add_filter(
 			'no_texturize_shortcodes',
 			function ( $excluded_shortcodes ) {
-				$excluded_shortcodes[] = 'attributions';
+				$excluded_shortcodes[] = 'media_attributions';
 
 				return $excluded_shortcodes;
 			}
 		);
-		// do_shortcode() is registered as a default filter on 'the_content' with a priority of 11.
-		add_filter( 'the_content', [ $obj, 'getAttributions' ], 11 );
+
+		// add img tag when searching for media
+		add_filter( 'media_embedded_in_content_allowed_types', function ( $allowed_media_types ) {
+			if ( ! in_array( 'img', $allowed_media_types ) ) {
+				array_push( $allowed_media_types, 'img' );
+			}
+
+			return $allowed_media_types;
+		} );
+
+		// don't show unless user options
+		$options = get_option( 'pressbooks_theme_options_global' );
+
+		if ( 1 === $options['attachment_attributions'] ) {
+			add_filter( 'the_content', [ $obj, 'getAttributions' ], 11 );
+		}
+
 	}
 
 	/**
@@ -66,24 +90,32 @@ class Attributions {
 	 * @return string
 	 */
 	function getAttributions( $content ) {
-		// don't show unless user options
-		$options = get_option( 'pressbooks_theme_options_global' );
-		if ( 1 !== $options['attachment_attributions'] ) {
+		global $id;
+		$all_attributions = [];
+		$media_in_page    = get_media_embedded_in_content( $content );
+
+		// these are not the droids you're looking for
+		if ( empty( $media_in_page ) ) {
 			return $content;
 		}
 
-		global $id;
-		$all_attributions = [];
+		// get all book attachments
+		if ( self::$book_media ) {
+			$media_ids = $this->extractIdFromMedia( $media_in_page );
 
-		$attachments = get_attached_media( '', $id );
+			// intersect media_ids found in page with found in book
+			$unique_ids = $this->intersectMediaIds( $media_ids, self::$book_media );
+		} else {
+			return $content;
+		}
 
 		// get attribution meta for each attachment
-		if ( $attachments ) {
-			foreach ( $attachments as $attachment ) {
-				$all_attributions[ $attachment->ID ]['title']     = get_post_meta( $attachment->ID, 'pb_attribution_title', true );
-				$all_attributions[ $attachment->ID ]['author']    = get_post_meta( $attachment->ID, 'pb_attribution_author', true );
-				$all_attributions[ $attachment->ID ]['title_url'] = get_post_meta( $attachment->ID, 'pb_attribution_title_url', true );
-				$all_attributions[ $attachment->ID ]['license']   = get_post_meta( $attachment->ID, 'pb_attribution_license', true );
+		if ( $unique_ids ) {
+			foreach ( $unique_ids as $id ) {
+				$all_attributions[ $id ]['title']     = get_post_meta( $id, 'pb_media_attribution_title', true );
+				$all_attributions[ $id ]['author']    = get_post_meta( $id, 'pb_media_attribution_author', true );
+				$all_attributions[ $id ]['title_url'] = get_post_meta( $id, 'pb_media_attribution_title_url', true );
+				$all_attributions[ $id ]['license']   = get_post_meta( $id, 'pb_media_attribution_license', true );
 			}
 		}
 
@@ -111,14 +143,6 @@ class Attributions {
 				// unset empty arrays
 				$attribution = array_filter( $attribution, 'strlen' );
 
-				// if we have enough arguments, use built in PB function
-//				if ( count( $attribution ) === 4 ) {
-//					$media_attributions .= sprintf( '<li>%s</li>',
-//						( new Licensing() )->getLicense( $attribution['license'], $attribution['author'], $attribution['title_url'], $attribution['title'], '', false )
-//					);
-//					continue;
-//				}
-
 				// only process if non-empty
 				if ( count( $attribution ) > 0 ) {
 					$media_attributions .= sprintf( '<li>%1$s %2$s %3$s</li>',
@@ -141,4 +165,90 @@ class Attributions {
 
 		return $html;
 	}
+
+	/**
+	 * @return void $book_media
+	 */
+	private static function setBookMedia() {
+		$book_media = [];
+		$args = [
+			'post_type'      => 'attachment',
+			'posts_per_page' => - 1,
+			'post_status'    => 'inherit',
+		];
+
+		$attached_media = get_posts( $args );
+
+		foreach ( $attached_media as $media ) {
+			$book_media[ $media->ID ] = $media->guid;
+		}
+
+		self::$book_media = $book_media;
+	}
+
+	/**
+	 * @param $media
+	 *
+	 * @return array
+	 */
+	private function extractIdFromMedia( $media ) {
+		$result = [];
+		if ( empty( $media ) ) {
+			return $result;
+		}
+
+		// only look for images, for now
+		foreach ( $media as $img ) {
+			if ( ! preg_match_all( '/<img [^>]+>/', $img, $matches ) ) {
+				continue;
+			}
+			preg_match( '/wp-image-([0-9]+)/i', $matches[0][0], $class_id );
+			$attachment_id = absint( $class_id[1] );
+
+			preg_match( '/src=[\'"](.*?)[\'"]/i', $matches[0][0], $source );
+			$attachment_url = $source[1];
+
+			$result[ $attachment_id ] = $attachment_url;
+		}
+
+		return $result;
+	}
+
+	/**
+	 *
+	 * @param $media_ids_in_page
+	 * @param $media_ids_found_in_book
+	 *
+	 * @return array
+	 */
+	private function intersectMediaIds( $media_ids_in_page, $media_ids_found_in_book ) {
+		$ids   = [];
+		$found = array_intersect_key( $media_ids_in_page, $media_ids_found_in_book );
+
+		foreach ( $found as $k => $v ) {
+			$src       = wp_parse_url( $v );
+			$guid      = wp_parse_url( $media_ids_found_in_book[ $k ] );
+			$src_info  = pathinfo( $src['path'] );
+			$guid_info = pathinfo( $guid['path'] );
+
+			// must be from the same host
+			if ( 0 !== strcmp( $src['host'], $guid['host'] ) ) {
+				continue;
+			}
+			// must be same file extension
+			if ( 0 !== strcmp( $src_info['extension'], $guid_info['extension'] ) ) {
+				continue;
+			}
+			// must have same directory
+			if ( 0 !== strcmp( $src_info['dirname'], $guid_info['dirname'] ) ) {
+				continue;
+			}
+
+			$ids[] = $k;
+
+		}
+
+		return $ids;
+	}
+
 }

@@ -252,7 +252,7 @@ function register_meta() {
 	);
 
 	\register_meta(
-		'post', 'pb_attribution_title', array_merge(
+		'post', 'pb_media_attribution_title', array_merge(
 			$defaults, [
 				'description' => __( 'Media attribution title', 'pressbooks' ),
 			]
@@ -260,7 +260,7 @@ function register_meta() {
 	);
 
 	\register_meta(
-		'post', 'pb_attribution_author', array_merge(
+		'post', 'pb_media_attribution_author', array_merge(
 			$defaults, [
 				'description' => __( 'Media attribution author', 'pressbooks' ),
 			]
@@ -268,7 +268,7 @@ function register_meta() {
 	);
 
 	\register_meta(
-		'post', 'pb_attribution_title_url', array_merge(
+		'post', 'pb_media_attribution_title_url', array_merge(
 			$defaults, [
 				'description' => __( 'Media attribution source url', 'pressbooks' ),
 			]
@@ -276,7 +276,7 @@ function register_meta() {
 	);
 
 	\register_meta(
-		'post', 'pb_attribution_license', array_merge(
+		'post', 'pb_media_attribution_license', array_merge(
 			$defaults, [
 				'description' => __( 'Media attribution license', 'pressbooks' ),
 			]
