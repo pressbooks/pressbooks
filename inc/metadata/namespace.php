@@ -8,6 +8,7 @@ use function \Pressbooks\Sanitize\is_valid_timestamp;
 use function \Pressbooks\Utility\is_assoc;
 use function \Pressbooks\Utility\oxford_comma;
 use function \Pressbooks\Utility\oxford_comma_explode;
+use function Pressbooks\L10n\get_locale;
 
 /**
  * Returns an html blob of meta elements based on what is set in 'Book Information'
@@ -759,11 +760,16 @@ function schema_to_section_information( $section_schema, $book_schema ) {
  * @since 4.4.0
  *
  * @param bool $include_qualifiers Whether or not the Theme subject qualifiers should be included.
- * @param string $language The translation to load
  *.
  * @return array
  */
-function get_thema_subjects( $include_qualifiers = false, $lang = 'en' ) {
+function get_thema_subjects( $include_qualifiers = false ) {
+	if ( \Pressbooks\Book::isBook() ) {
+		$locale = substr( \Pressbooks\L10n\get_book_language(), 0, 2 );
+	} else {
+		$locale = substr( \Pressbooks\L10n\get_locale(), 0, 2 );
+	}
+	$lang = ( in_array( $locale, [ 'de', 'en', 'es', 'fr', 'pt' ], true ) ) ? $locale : 'en';
 	$json = \Pressbooks\Utility\get_contents( PB_PLUGIN_DIR . "symbionts/thema/thema-${lang}.json" );
 	$values = json_decode( $json );
 	$subjects = [];
