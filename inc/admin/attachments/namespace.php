@@ -24,11 +24,14 @@ function add_metadata_attachment( $form_fields, $post ) {
 
 	if ( substr( $post->post_mime_type, 0, 5 ) == 'image' ) {
 
-		$title   = get_post_meta( $post->ID, 'pb_media_attribution_title', true );
-		$author  = get_post_meta( $post->ID, 'pb_media_attribution_author', true );
-		$source  = get_post_meta( $post->ID, 'pb_media_attribution_title_url', true );
-		$license = get_post_meta( $post->ID, 'pb_media_attribution_license', true );
-
+		$title       = get_post_meta( $post->ID, 'pb_media_attribution_title', true );
+		$author      = get_post_meta( $post->ID, 'pb_media_attribution_author', true );
+		$author_url  = get_post_meta( $post->ID, 'pb_media_attribution_author_url', true );
+		$source      = get_post_meta( $post->ID, 'pb_media_attribution_title_url', true );
+		$license     = get_post_meta( $post->ID, 'pb_media_attribution_license', true );
+		$figure      = get_post_meta( $post->ID, 'pb_media_attribution_figure', true );
+		$adapted     = get_post_meta( $post->ID, 'pb_media_attribution_adapted', true );
+		$adapted_url = get_post_meta( $post->ID, 'pb_media_attribution_adapted_url', true );
 
 		$form_fields['pb_attribution'] = [
 			'value' => '',
@@ -37,10 +40,23 @@ function add_metadata_attachment( $form_fields, $post ) {
 			'html'  => '<span></span>',
 		];
 
+		$form_fields['pb_media_attribution_figure'] = [
+			'value' => isset( $figure ) ? $figure : '',
+			'label' => __( 'Figure', 'pressbooks' ),
+			'input' => 'text',
+		];
+
 		$form_fields['pb_media_attribution_title'] = [
 			'value' => isset( $title ) ? $title : '',
 			'label' => __( 'Title', 'pressbooks' ),
 			'input' => 'text',
+		];
+
+		$form_fields['pb_media_attribution_title_url'] = [
+			'value' => isset( $source ) ? $source : '',
+			'label' => __( 'Source', 'pressbooks' ),
+			'input' => 'html',
+			'html'  => "<input type='url' class='text urlfield' placeholder='https://creativecommons.org/' name='attachments[$post->ID][pb_media_attribution_title_url]' value='" . esc_attr( $source ) . "' />",
 		];
 
 		$form_fields['pb_media_attribution_author'] = [
@@ -49,11 +65,24 @@ function add_metadata_attachment( $form_fields, $post ) {
 			'input' => 'text',
 		];
 
-		$form_fields['pb_media_attribution_title_url'] = [
-			'value' => isset( $source ) ? $source : '',
-			'label' => __( 'Source', 'pressbooks' ),
+		$form_fields['pb_media_attribution_author_url'] = [
+			'value' => isset( $author_url ) ? $author_url : '',
+			'label' => __( 'Author URL', 'pressbooks' ),
 			'input' => 'html',
-			'html'  => "<input type='url' class='text urlfield' name='attachments[$post->ID][pb_media_attribution_title_url]' value='" . esc_attr( $source ) . "' />",
+			'html'  => "<input type='url' class='text urlfield' placeholder='https://creativecommons.org/' name='attachments[$post->ID][pb_media_attribution_author_url]' value='" . esc_attr( $author_url ) . "' />",
+		];
+
+		$form_fields['pb_media_attribution_adapted'] = [
+			'value' => isset( $adapted ) ? $adapted : '',
+			'label' => __( 'Adapted by', 'pressbooks' ),
+			'input' => 'text',
+		];
+
+		$form_fields['pb_media_attribution_adapted_url'] = [
+			'value' => isset( $adapted_url ) ? $adapted_url : '',
+			'label' => __( 'Adapted by URL', 'pressbooks' ),
+			'input' => 'html',
+			'html'  => "<input type='url' class='text urlfield' placeholder='https://creativecommons.org/' name='attachments[$post->ID][pb_media_attribution_adapted_url]' value='" . esc_attr( $adapted_url ) . "' />",
 		];
 
 		$form_fields['pb_media_attribution_license'] = [
@@ -80,8 +109,12 @@ function add_metadata_attachment( $form_fields, $post ) {
  */
 function save_metadata_attachment( $post, $form_fields ) {
 	$expected     = [
+		'pb_media_attribution_figure',
 		'pb_media_attribution_title',
 		'pb_media_attribution_author',
+		'pb_media_attribution_author_url',
+		'pb_media_attribution_adapted',
+		'pb_media_attribution_adapted_url',
 		'pb_media_attribution_title_url',
 		'pb_media_attribution_license',
 	];
