@@ -402,11 +402,9 @@ class Wxr extends Import {
 			'post_title' => wp_strip_all_tags( $p['post_title'] ),
 			'post_type' => $post_type,
 			'post_status' => ( 'part' === $post_type ) ? 'publish' : $post_status,
+			'post_content' => $html,
 		];
 
-		if ( 'part' !== $post_type ) {
-			$new_post['post_content'] = $html;
-		}
 		if ( 'chapter' === $post_type ) {
 			$new_post['post_parent'] = $chapter_parent;
 		}
