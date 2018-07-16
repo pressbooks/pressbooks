@@ -825,38 +825,7 @@ abstract class Export {
 	 * @param bool $inline
 	 */
 	protected static function downloadExportFile( $filename, $inline ) {
-
 		$filepath = static::getExportFolder() . $filename;
-		if ( ! is_readable( $filepath ) ) {
-			// Cannot read file
-			wp_die(
-				__( 'File not found', 'pressbooks' ) . ": $filename", '', [
-					'response' => 404,
-				]
-			);
-		}
-
-		// Force download
-		// @codingStandardsIgnoreStart
-		@set_time_limit( 0 );
-		header( 'Content-Description: File Transfer' );
-		header( 'Content-Type: ' . static::mimeType( $filepath ) );
-		if ( $inline ) {
-			header( 'Content-Disposition: inline; filename="' . $filename . '"' );
-		} else {
-			header( 'Content-Disposition: attachment; filename="' . $filename . '"' );
-		}
-		header( 'Content-Transfer-Encoding: binary' );
-		header( 'Expires: 0' );
-		header( 'Cache-Control: must-revalidate, post-check=0, pre-check=0' );
-		header( 'Pragma: public' );
-		header( 'Content-Length: ' . filesize( $filepath ) );
-		@ob_clean();
-		flush();
-		while ( @ob_end_flush() ) {
-			// Fix out-of-memory problem
-		}
-		readfile( $filepath );
-		// @codingStandardsIgnoreEnd
+		\Pressbooks\Redirect\force_download( $filepath, $inline );
 	}
 }

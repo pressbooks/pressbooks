@@ -16,6 +16,7 @@ class NamespaceTest extends \WP_UnitTestCase {
 			'\Pressbooks\Taxonomy',
 			'\Pressbooks\Updates',
 			'\Pressbooks\Admin\Delete\Book',
+			'\Pressbooks\Covergenerator\Covergenerator',
 			'\Pressbooks\Interactive\Content',
 			'\Pressbooks\Modules\Export\Prince\Filters',
 			'\Pressbooks\Modules\SearchAndReplace\SearchAndReplace',

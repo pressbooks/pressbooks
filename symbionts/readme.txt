@@ -13,8 +13,8 @@ should not be directly modified by Pressbooks developers.
 
 Operative verb is "should," the following libs have been patched/forked by Pressbooks:
 
-* custom-metadata (https://github.com/pressbooks/custom-metadata/commit/98c2aa204a8a1078b3e4f532690b35951641b246)
-* pressbooks-latex (https://github.com/pressbooks/pressbooks-latex/commit/33aadff95e0cb944d324d1a77d316a6a2e29d271)
+* custom-metadata
+* pressbooks-latex
 
 ------------------------------------------------------------------------------
 
