@@ -64,7 +64,7 @@ class Attributions {
 		$options = get_option( 'pressbooks_theme_options_global' );
 
 		if ( 1 === $options['attachment_attributions'] ) {
-			add_filter( 'the_content', [ $obj, 'getAttributions' ], 11 );
+			add_filter( 'the_content', [ $obj, 'getAttributions' ], 12 );
 		}
 
 	}
@@ -90,7 +90,6 @@ class Attributions {
 	 * @return string
 	 */
 	function getAttributions( $content ) {
-		global $id;
 		$all_attributions = [];
 		$media_in_page    = get_media_embedded_in_content( $content );
 
@@ -171,7 +170,7 @@ class Attributions {
 	 */
 	private static function setBookMedia() {
 		$book_media = [];
-		$args = [
+		$args       = [
 			'post_type'      => 'attachment',
 			'posts_per_page' => - 1,
 			'post_status'    => 'inherit',
