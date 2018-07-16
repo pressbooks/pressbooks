@@ -134,6 +134,8 @@ class Attributions {
 	function attributionsContent( $attributions ) {
 		$media_attributions = '';
 		$html               = '';
+		$licensing          = new Licensing();
+		$supported          = $licensing->getSupportedTypes();
 
 		if ( $attributions ) {
 			// generate appropriate markup for each field
@@ -152,8 +154,8 @@ class Attributions {
 							( isset( $attribution['author'] ) ) ? ' by ' : '',
 							( isset( $attribution['author'] ) ) ? $attribution['author'] . '.' : '' ),
 						sprintf( '<a rel="license" href="%1$s">%2$s</a>',
-							( isset( $attribution['license'] ) ) ? ( new Licensing() )->getUrlForLicense( $attribution['license'] ) : '#',
-							( isset ( $attribution['license'] ) ) ? ( new Licensing() )->getNameForLicense( $attribution['license'] ) : '' )
+							( isset( $attribution['license'] ) ) ? $licensing->getUrlForLicense( $attribution['license'] ) : '#',
+							( isset ( $attribution['license'] ) ) ? $supported[ $attribution['license'] ]['desc'] : '' )
 					);
 				}
 			}
