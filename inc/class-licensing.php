@@ -353,11 +353,11 @@ class Licensing {
 	 *
 	 * @since 5.3.0
 	 *
-	 * @param string $type license type
+	 * @param string $license license type
 	 * @param string $copyright_holder of the page
-	 * @param string $src_url of the page
+	 * @param string $link of the page
 	 * @param string $title of the page
-	 * @param int $year (optional)
+	 * @param int $copyright_year (optional)
 	 *
 	 * @return string $html License blob.
 	 */
@@ -374,16 +374,16 @@ class Licensing {
 			);
 		} elseif ( $this->isSupportedType( $license ) ) {
 			$name = $this->getNameForLicense( $license );
-			$url = $this->getUrlForLicense( $license );
+			$url  = $this->getUrlForLicense( $license );
 			if ( \Pressbooks\Utility\str_starts_with( $license, 'cc' ) ) {
 				return sprintf(
 					'<div class="license-attribution"><p>%1$s</p><p>%2$s</p></div>',
 					sprintf( '<img src="%1$s" alt="%2$s" />', get_template_directory_uri() . '/assets/book/images/' . $license . '.svg', sprintf( __( 'Icon for the %s', 'pressbooks' ), $name ) ),
 					sprintf(
 						__( '%1$s by %2$s is licensed under a %3$s, except where otherwise noted.', 'pressbooks' ),
-						$title,
-						sprintf( '<a href="%1$s">%2$s</a>', $link, $copyright_holder ),
-						sprintf( '<a href="%1$s">%2$s</a>', $url, $name )
+						sprintf( '<a rel="cc:attributionURL" href="%1$s" property="dc:title">%2$s</a>', $link, $title ),
+						sprintf( '<span property="cc:attributionName">%1$s</span>', $copyright_holder ),
+						sprintf( '<a rel="license" href="%1$s">%2$s</a>', $url, $name )
 					)
 				);
 			} elseif ( $license === 'all-rights-reserved' ) {
@@ -391,9 +391,9 @@ class Licensing {
 					'<div class="license-attribution"><p>%s</p></div>',
 					sprintf(
 						__( '%1$s Copyright &copy;%2$s by %3$s. All Rights Reserved.', 'pressbooks' ),
-						$title,
+						sprintf( '<a href="%1$s" property="dc:title">%2$s</a>', $link, $title ),
 						( $copyright_year ) ? ' ' . $copyright_year : '',
-						sprintf( '<a href="%1$s">%2$s</a>', $link, $copyright_holder )
+						$copyright_holder
 					)
 				);
 			} elseif ( $license === 'public-domain' ) {
@@ -402,8 +402,8 @@ class Licensing {
 					sprintf( '<img src="%1$s" alt="%2$s" />', get_template_directory_uri() . '/assets/book/images/' . $license . '.svg', sprintf( __( 'Icon for the %s license', 'pressbooks' ), $name ) ),
 					sprintf(
 						__( 'To the extent possible under law, %1$s has waived all copyright and related or neighboring rights to %2$s, except where otherwise noted.', 'pressbooks' ),
-						sprintf( '<a href="%1$s">%2$s</a>', $link, $copyright_holder ),
-						$title
+						$copyright_holder,
+						sprintf( '<a href="%1$s">%2$s</a>', $link, $title )
 					)
 				);
 			}
