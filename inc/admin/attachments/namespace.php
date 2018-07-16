@@ -8,9 +8,12 @@ use Pressbooks\Licensing;
 
 /**
  * Hooks into 'attachment_fields_to_edit' filter to add custom attachment
- * metadata
+ * metadata. Currently, on the display side of capturing this metadata
+ * unlike images, there is no easy way to determine an audio or video post id
+ * from the markup that's generated: (wp-image-33), therefore this can only
+ * apply to images, for now
  *
- * @since 5.4.0
+ * @since 5.5.0
  *
  * @param $form_fields
  * @param $post
@@ -18,43 +21,48 @@ use Pressbooks\Licensing;
  * @return mixed
  */
 function add_metadata_attachment( $form_fields, $post ) {
-	$title   = get_post_meta( $post->ID, 'pb_media_attribution_title', true );
-	$author  = get_post_meta( $post->ID, 'pb_media_attribution_author', true );
-	$source  = get_post_meta( $post->ID, 'pb_media_attribution_title_url', true );
-	$license = get_post_meta( $post->ID, 'pb_media_attribution_license', true );
 
-	$form_fields['pb_attribution'] = [
-		'value' => '',
-		'label' => __( 'ATTRIBUTIONS', 'pressbooks' ),
-		'input' => 'html',
-		'html'  => '<span></span>',
-	];
+	if ( substr( $post->post_mime_type, 0, 5 ) == 'image' ) {
 
-	$form_fields['pb_media_attribution_title'] = [
-		'value' => isset( $title ) ? $title : '',
-		'label' => __( 'Title', 'pressbooks' ),
-		'input' => 'text',
-	];
+		$title   = get_post_meta( $post->ID, 'pb_media_attribution_title', true );
+		$author  = get_post_meta( $post->ID, 'pb_media_attribution_author', true );
+		$source  = get_post_meta( $post->ID, 'pb_media_attribution_title_url', true );
+		$license = get_post_meta( $post->ID, 'pb_media_attribution_license', true );
 
-	$form_fields['pb_media_attribution_author'] = [
-		'value' => isset( $author ) ? $author : '',
-		'label' => __( 'Author', 'pressbooks' ),
-		'input' => 'text',
-	];
 
-	$form_fields['pb_media_attribution_title_url'] = [
-		'value' => isset( $source ) ? $source : '',
-		'label' => __( 'Source', 'pressbooks' ),
-		'input' => 'html',
-		'html'  => "<input type='url' class='text urlfield' name='attachments[$post->ID][pb_media_attribution_title_url]' value='" . esc_attr( $source ) . "' />",
-	];
+		$form_fields['pb_attribution'] = [
+			'value' => '',
+			'label' => __( 'ATTRIBUTIONS', 'pressbooks' ),
+			'input' => 'html',
+			'html'  => '<span></span>',
+		];
 
-	$form_fields['pb_media_attribution_license'] = [
-		'value' => isset( $license ) ? $license : '',
-		'label' => __( 'License', 'pressbooks' ),
-		'input' => 'html',
-		'html'  => render_attachment_license_options( $post->ID, $license ),
-	];
+		$form_fields['pb_media_attribution_title'] = [
+			'value' => isset( $title ) ? $title : '',
+			'label' => __( 'Title', 'pressbooks' ),
+			'input' => 'text',
+		];
+
+		$form_fields['pb_media_attribution_author'] = [
+			'value' => isset( $author ) ? $author : '',
+			'label' => __( 'Author', 'pressbooks' ),
+			'input' => 'text',
+		];
+
+		$form_fields['pb_media_attribution_title_url'] = [
+			'value' => isset( $source ) ? $source : '',
+			'label' => __( 'Source', 'pressbooks' ),
+			'input' => 'html',
+			'html'  => "<input type='url' class='text urlfield' name='attachments[$post->ID][pb_media_attribution_title_url]' value='" . esc_attr( $source ) . "' />",
+		];
+
+		$form_fields['pb_media_attribution_license'] = [
+			'value' => isset( $license ) ? $license : '',
+			'label' => __( 'License', 'pressbooks' ),
+			'input' => 'html',
+			'html'  => render_attachment_license_options( $post->ID, $license ),
+		];
+	}
 
 	return $form_fields;
 }
@@ -63,7 +71,7 @@ function add_metadata_attachment( $form_fields, $post ) {
  * Hooks into 'attachment_fields_to_save' filter to save custom attachment
  * metadata
  *
- * @since 5.4.0
+ * @since 5.5.0
  *
  * @param $post
  * @param $form_fields

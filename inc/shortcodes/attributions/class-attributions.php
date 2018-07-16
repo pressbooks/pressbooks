@@ -6,6 +6,7 @@
 namespace Pressbooks\Shortcodes\Attributions;
 
 use Pressbooks\Licensing;
+use Pressbooks\Media;
 
 class Attributions {
 
@@ -100,10 +101,10 @@ class Attributions {
 
 		// get all book attachments
 		if ( self::$book_media ) {
-			$media_ids = $this->extractIdFromMedia( $media_in_page );
+			$media_ids = Media\extract_id_from_media( $media_in_page );
 
 			// intersect media_ids found in page with found in book
-			$unique_ids = $this->intersectMediaIds( $media_ids, self::$book_media );
+			$unique_ids = Media\intersect_media_ids( $media_ids, self::$book_media );
 		} else {
 			return $content;
 		}
@@ -185,71 +186,6 @@ class Attributions {
 		}
 
 		self::$book_media = $book_media;
-	}
-
-	/**
-	 * @param $media
-	 *
-	 * @return array
-	 */
-	private function extractIdFromMedia( $media ) {
-		$result = [];
-		if ( empty( $media ) ) {
-			return $result;
-		}
-
-		// only look for images, for now
-		foreach ( $media as $img ) {
-			if ( ! preg_match_all( '/<img [^>]+>/', $img, $matches ) ) {
-				continue;
-			}
-			preg_match( '/wp-image-([0-9]+)/i', $matches[0][0], $class_id );
-			$attachment_id = ( isset( $class_id[1] ) ) ? absint( $class_id[1] ) : '';
-
-			preg_match( '/src=[\'"](.*?)[\'"]/i', $matches[0][0], $source );
-			$attachment_url = $source[1];
-
-			$result[ $attachment_id ] = $attachment_url;
-		}
-
-		return $result;
-	}
-
-	/**
-	 *
-	 * @param $media_ids_in_page
-	 * @param $media_ids_found_in_book
-	 *
-	 * @return array
-	 */
-	private function intersectMediaIds( $media_ids_in_page, $media_ids_found_in_book ) {
-		$ids   = [];
-		$found = array_intersect_key( $media_ids_in_page, $media_ids_found_in_book );
-
-		foreach ( $found as $k => $v ) {
-			$src       = wp_parse_url( $v );
-			$guid      = wp_parse_url( $media_ids_found_in_book[ $k ] );
-			$src_info  = pathinfo( $src['path'] );
-			$guid_info = pathinfo( $guid['path'] );
-
-			// must be from the same host
-			if ( 0 !== strcmp( $src['host'], $guid['host'] ) ) {
-				continue;
-			}
-			// must be same file extension
-			if ( 0 !== strcmp( $src_info['extension'], $guid_info['extension'] ) ) {
-				continue;
-			}
-			// must have same directory
-			if ( 0 !== strcmp( $src_info['dirname'], $guid_info['dirname'] ) ) {
-				continue;
-			}
-
-			$ids[] = $k;
-
-		}
-
-		return $ids;
 	}
 
 }
