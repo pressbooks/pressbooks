@@ -2,9 +2,8 @@
 
 namespace Pressbooks\Admin\Attachments;
 
-use Pressbooks\Utility;
 use Pressbooks\Licensing;
-
+use Pressbooks\Utility;
 
 /**
  * Hooks into 'attachment_fields_to_edit' filter to add custom attachment
@@ -22,7 +21,7 @@ use Pressbooks\Licensing;
  */
 function add_metadata_attachment( $form_fields, $post ) {
 
-	if ( substr( $post->post_mime_type, 0, 5 ) == 'image' ) {
+	if ( substr( $post->post_mime_type, 0, 5 ) === 'image' ) {
 
 		$title       = get_post_meta( $post->ID, 'pb_media_attribution_title', true );
 		$author      = get_post_meta( $post->ID, 'pb_media_attribution_author', true );

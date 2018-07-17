@@ -13,7 +13,7 @@ class Attachments {
 	/**
 	 * @var Attachments
 	 */
-	static $instance = NULL;
+	static $instance = null;
 
 	/**
 	 * @var array
@@ -53,13 +53,15 @@ class Attachments {
 		);
 
 		// add img tag when searching for media
-		add_filter( 'media_embedded_in_content_allowed_types', function ( $allowed_media_types ) {
-			if ( ! in_array( 'img', $allowed_media_types ) ) {
-				array_push( $allowed_media_types, 'img' );
-			}
+		add_filter(
+			'media_embedded_in_content_allowed_types', function ( $allowed_media_types ) {
+				if ( ! in_array( 'img', $allowed_media_types, true ) ) {
+					array_push( $allowed_media_types, 'img' );
+				}
 
-			return $allowed_media_types;
-		} );
+				return $allowed_media_types;
+			}
+		);
 
 		// don't show unless user options
 		$options = get_option( 'pressbooks_theme_options_global' );
@@ -178,43 +180,52 @@ class Attachments {
 					$title          = isset( $attribution['title'] ) ? $attribution['title'] : '';
 					$adapted_author = isset( $attribution['adapted'] ) ? $attribution['adapted'] : '';
 
-					$media_attributions .= sprintf( '<li %1$s>%2$s %3$s %4$s %5$s %6$s</li>',
+					$media_attributions .= sprintf(
+						'<li %1$s>%2$s %3$s %4$s %5$s %6$s</li>',
 						// about attribute
 						( isset( $attribution['title_url'] ) ) ?
-							sprintf( 'about="%s"',
+							sprintf(
+								'about="%s"',
 								$attribution['title_url']
 							) : '',
 						// figure attribution
 						( isset( $attribution['figure'] ) ) ? $attribution['figure'] : '',
 						// title attribution
 						( isset( $attribution['title_url'] ) ) ?
-							sprintf( '<a rel="cc:attributionURL" href="%1$s" property="dc:title">%2$s</a>',
+							sprintf(
+								'<a rel="cc:attributionURL" href="%1$s" property="dc:title">%2$s</a>',
 								$attribution['title_url'],
 								$title
 							) : $title,
 						// author attribution
-						sprintf( '%1$s %2$s',
+						sprintf(
+							'%1$s %2$s',
 							$author_byline,
 							( isset( $attribution['author_url'] ) ) ?
-								sprintf( '<a rel="dc:creator" href="%1$s" property="cc:attributionName">%2$s</a>',
+								sprintf(
+									'<a rel="dc:creator" href="%1$s" property="cc:attributionName">%2$s</a>',
 									$attribution['author_url'],
 									$author
 								) : $author
 						),
 						// adapted attribution
-						sprintf( '%1$s %2$s',
+						sprintf(
+							'%1$s %2$s',
 							$adapted_byline,
 							( isset( $attribution['adapted_url'] ) ) ?
-								sprintf( '<a rel="dc:source" href="%1$s">%2$s</a>',
+								sprintf(
+									'<a rel="dc:source" href="%1$s">%2$s</a>',
 									$attribution['adapted_url'],
 									$adapted_author
 								) : $adapted_author
 						),
 						// license attribution
-						sprintf( '%1$s %2$s',
+						sprintf(
+							'%1$s %2$s',
 							$license_prefix,
 							( isset( $attribution['license'] ) ) ?
-								sprintf( '<a rel="license" href="%1$s">%2$s</a>',
+								sprintf(
+									'<a rel="license" href="%1$s">%2$s</a>',
 									$licensing->getUrlForLicense( $attribution['license'] ),
 									$supported[ $attribution['license'] ]['desc']
 								) : $supported[ $attribution['license'] ]['desc']
@@ -223,7 +234,8 @@ class Attachments {
 				}
 			}
 			if ( ! empty( $media_attributions ) ) {
-				$html = sprintf( '<div class="media-atttributions license-attribution" prefix:cc="http://creativecommons.org/ns#" prefix:dc="http://purl.org/dc/terms/"><h3>' . __( 'Media Attributions', 'pressbooks' ) . '</h3><ul>%s</ul></div>',
+				$html = sprintf(
+					'<div class="media-atttributions license-attribution" prefix:cc="http://creativecommons.org/ns#" prefix:dc="http://purl.org/dc/terms/"><h3>' . __( 'Media Attributions', 'pressbooks' ) . '</h3><ul>%s</ul></div>',
 					$media_attributions
 				);
 			}
