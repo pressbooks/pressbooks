@@ -5,7 +5,7 @@ Tags: ebooks, publishing, webbooks
 Requires at least: 4.9.7
 Tested up to: 4.9.7
 Requires PHP: 7.0
-Stable tag: 5.4.0
+Stable tag: 5.4.1
 License: GPL v3.0 or later
 License URI: https://github.com/pressbooks/pressbooks/blob/master/LICENSE.md
 
@@ -21,6 +21,20 @@ For installation instructions, visit [docs.pressbooks.org/installation](https://
 TK.
 
 == Changelog ==
+= 5.4.1 =
+
+* Pressbooks 5.4.1 requires [WordPress 4.9.7](https://wordpress.org/news/2018/07/wordpress-4-9-7-security-and-maintenance-release/).
+* Pressbooks 5.4.1 requires [McLuhan >= 2.4.0](https://github.com/pressbooks/pressbooks-book/).
+
+**Patches**
+
+* Convert iframes to `[embed]` shortcodes rather than deleting them if the user lacks permissions: [#1247](https://github.com/pressbooks/pressbooks/pull/1247)
+* Resolve issue where PDF dependencies were incorrectly reported as missing ([#1253](https://github.com/pressbooks/pressbooks/issues/1253)): [#1254](https://github.com/pressbooks/pressbooks/pull/1254)
+* Ensure that themes which don't support the new textbox markup use the old textbox markup: [#1252](https://github.com/pressbooks/pressbooks/pull/1252)
+* Remove hotfix for WordPress core vulnerability that was patched in WordPress 4.9.7 ([#1255](https://github.com/pressbooks/pressbooks/issues/1255)): [#1258](https://github.com/pressbooks/pressbooks/pull/1258) 
+* Resolve issue where part content would not be imported from Pressbooks XML files ([#1259](https://github.com/pressbooks/pressbooks/issues/1259)): [#1260](https://github.com/pressbooks/pressbooks/pull/1260)
+* Resolve issue where visiting a user catalog would return a 404 status code instead of the correct 200 status code: [#1261](https://github.com/pressbooks/pressbooks/pull/1261)
+
 = 5.4.0 =
 
 * Pressbooks 5.4.0 requires [WordPress 4.9.6](https://wordpress.org/news/2018/05/wordpress-4-9-6-privacy-and-maintenance-release/).
@@ -107,7 +121,7 @@ TK.
 - Prevent slug collisions in XHTML and HTMLBook outputs ([#1174](https://github.com/pressbooks/pressbooks/issues/1174)): [#1175](https://github.com/pressbooks/pressbooks/pull/1175)
 
 == Upgrade Notice ==
-= 5.4.0 =
+= 5.4.1 =
 
-* Pressbooks 5.4.0 requires [WordPress 4.9.6](https://wordpress.org/news/2018/05/wordpress-4-9-6-privacy-and-maintenance-release/).
-* Pressbooks 5.4.0 requires [McLuhan >= 2.4.0](https://github.com/pressbooks/pressbooks-book/).
+* Pressbooks 5.4.1 requires [WordPress 4.9.7](https://wordpress.org/news/2018/07/wordpress-4-9-7-security-and-maintenance-release/).
+* Pressbooks 5.4.1 requires [McLuhan >= 2.4.0](https://github.com/pressbooks/pressbooks-book/).
