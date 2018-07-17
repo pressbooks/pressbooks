@@ -71,6 +71,26 @@ class Attributions {
 	}
 
 	/**
+	 * @return void $book_media
+	 */
+	private static function setBookMedia() {
+		$book_media = [];
+		$args       = [
+			'post_type'      => 'attachment',
+			'posts_per_page' => - 1,
+			'post_status'    => 'inherit',
+		];
+
+		$attached_media = get_posts( $args );
+
+		foreach ( $attached_media as $media ) {
+			$book_media[ $media->ID ] = $media->guid;
+		}
+
+		self::$book_media = $book_media;
+	}
+
+	/**
 	 * Pre-process attributions shortcode
 	 *
 	 * @param array $atts
@@ -112,10 +132,14 @@ class Attributions {
 		// get attribution meta for each attachment
 		if ( $unique_ids ) {
 			foreach ( $unique_ids as $id ) {
-				$all_attributions[ $id ]['title']     = get_post_meta( $id, 'pb_media_attribution_title', true );
-				$all_attributions[ $id ]['author']    = get_post_meta( $id, 'pb_media_attribution_author', true );
-				$all_attributions[ $id ]['title_url'] = get_post_meta( $id, 'pb_media_attribution_title_url', true );
-				$all_attributions[ $id ]['license']   = get_post_meta( $id, 'pb_media_attribution_license', true );
+				$all_attributions[ $id ]['title']       = get_post_meta( $id, 'pb_media_attribution_title', TRUE );
+				$all_attributions[ $id ]['title_url']   = get_post_meta( $id, 'pb_media_attribution_title_url', TRUE );
+				$all_attributions[ $id ]['figure']      = get_post_meta( $id, 'pb_media_attribution_figure', TRUE );
+				$all_attributions[ $id ]['author']      = get_post_meta( $id, 'pb_media_attribution_author', TRUE );
+				$all_attributions[ $id ]['author_url']  = get_post_meta( $id, 'pb_media_attribution_author_url', TRUE );
+				$all_attributions[ $id ]['adapted']     = get_post_meta( $id, 'pb_media_attribution_adapted', TRUE );
+				$all_attributions[ $id ]['adapted_url'] = get_post_meta( $id, 'pb_media_attribution_adapted_url', TRUE );
+				$all_attributions[ $id ]['license']     = get_post_meta( $id, 'pb_media_attribution_license', TRUE );
 			}
 		}
 
@@ -147,45 +171,60 @@ class Attributions {
 
 				// only process if non-empty
 				if ( count( $attribution ) > 0 ) {
-					$media_attributions .= sprintf( '<li>%1$s %2$s %3$s</li>',
-						sprintf( '<a rel="cc:attributionURL" href="%1$s" property="dc:title">%2$s</a>',
-							( isset( $attribution['title_url'] ) ) ? $attribution['title_url'] : '#',
-							( isset( $attribution['title'] ) ) ? $attribution['title'] : '' ),
-						sprintf( '%1$s<span property="cc:attributionName">%2$s</span>',
-							( isset( $attribution['author'] ) ) ? ' by ' : '',
-							( isset( $attribution['author'] ) ) ? $attribution['author'] . '.' : '' ),
-						sprintf( '<a rel="license" href="%1$s">%2$s</a>',
-							( isset( $attribution['license'] ) ) ? $licensing->getUrlForLicense( $attribution['license'] ) : '#',
-							( isset ( $attribution['license'] ) ) ? $supported[ $attribution['license'] ]['desc'] : '' )
+					$author_byline  = isset( $attribution['author'] ) ? __( ' by ', 'pressbooks' ) : '';
+					$adapted_byline = isset( $attribution['adapted'] ) ? __( ' adapted by ', 'pressbooks' ) : '';
+					$license_prefix = isset( $attribution['license'] ) ? ' &copy; ' : '';
+					$author         = isset( $attribution['author'] ) ? $attribution['author'] : '';
+					$title          = isset( $attribution['title'] ) ? $attribution['title'] : '';
+					$adapted_author = isset( $attribution['adapted'] ) ? $attribution['adapted'] : '';
+
+					$media_attributions .= sprintf( '<li>%1$s %2$s %3$s %4$s %5$s</li>',
+						// figure attribution
+						( isset( $attribution['figure'] ) ) ? $attribution['figure'] : '',
+						// title attribution
+						( isset( $attribution['title_url'] ) ) ?
+							sprintf( '<a rel="cc:attributionURL" href="%1$s" property="dc:title">%2$s</a>',
+								$attribution['title_url'],
+								$title
+							) : $title,
+						// author attribution
+						sprintf( '%1$s %2$s',
+							$author_byline,
+							( isset( $attribution['author_url'] ) ) ?
+								sprintf( '<a rel="dc:creator" href="%1$s" property="cc:attributionName">%2$s</a>',
+									$attribution['author_url'],
+									$author
+								) : $author
+						),
+						// adapted attribution
+						sprintf( '%1$s %2$s',
+							$adapted_byline,
+							( isset( $attribution['adapted_url'] ) ) ?
+								sprintf( '<a rel="dc:source" href="%1$s">%2$s</a>',
+									$attribution['adapted_url'],
+									$adapted_author
+								) : $adapted_author
+						),
+						// license attribution
+						sprintf( '%1$s %2$s',
+							$license_prefix,
+							( isset( $attribution['license'] ) ) ?
+								sprintf( '<a rel="license" href="%1$s">%2$s</a>',
+									$licensing->getUrlForLicense( $attribution['license'] ),
+									$supported[ $attribution['license'] ]['desc']
+								) : $supported[ $attribution['license'] ]['desc']
+						)
 					);
 				}
 			}
 			if ( ! empty( $media_attributions ) ) {
-				$html = sprintf( '<div class="media-atttributions"><h3>Media Attributions</h3><ul>%s</ul></div>', $media_attributions );
+				$html = sprintf( '<div class="media-atttributions license-attribution" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/terms/"><h3>' . __( 'Media Attributions', 'pressbooks') . '</h3><ul>%s</ul></div>',
+					$media_attributions
+				);
 			}
 		}
 
 		return $html;
-	}
-
-	/**
-	 * @return void $book_media
-	 */
-	private static function setBookMedia() {
-		$book_media = [];
-		$args       = [
-			'post_type'      => 'attachment',
-			'posts_per_page' => - 1,
-			'post_status'    => 'inherit',
-		];
-
-		$attached_media = get_posts( $args );
-
-		foreach ( $attached_media as $media ) {
-			$book_media[ $media->ID ] = $media->guid;
-		}
-
-		self::$book_media = $book_media;
 	}
 
 }
