@@ -6,10 +6,9 @@
 
 namespace Pressbooks\Modules\Export;
 
-use Pressbooks\Book;
-use Pressbooks\CustomCss;
-use Pressbooks\Container;
 use function \Pressbooks\Utility\getset;
+use Pressbooks\Container;
+use Pressbooks\CustomCss;
 
 // IMPORTANT! if this isn't set correctly before include, with a trailing slash, PclZip will fail.
 if ( ! defined( 'PCLZIP_TEMPORARY_DIR' ) ) {

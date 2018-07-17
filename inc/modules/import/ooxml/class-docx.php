@@ -7,8 +7,8 @@
 
 namespace Pressbooks\Modules\Import\Ooxml;
 
-use Pressbooks\Modules\Import\Import;
 use Pressbooks\Book;
+use Pressbooks\Modules\Import\Import;
 
 class Docx extends Import {
 

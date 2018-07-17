@@ -8,8 +8,8 @@
 namespace Pressbooks\Modules\Import\Epub;
 
 use Masterminds\HTML5;
-use Pressbooks\Modules\Import\Import;
 use Pressbooks\Book;
+use Pressbooks\Modules\Import\Import;
 
 class Epub201 extends Import {
 

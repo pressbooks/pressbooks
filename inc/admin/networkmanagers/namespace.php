@@ -92,7 +92,7 @@ function options() {
 		<p><?php _e( 'Network administrators&rsquo; access to network administration menus can be restricted to leave only sites and users visible to them.', 'pressbooks' ); ?></p>
 		<?php $superadmins->display(); ?>
 	</div>
-<?php
+	<?php
 }
 
 

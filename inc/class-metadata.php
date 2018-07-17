@@ -489,8 +489,12 @@ class Metadata implements \JsonSerializable {
 	public function upgradeToPressbooksFive() {
 		// Get all parts from the book
 		global $wpdb;
-		$sql = [ 'front-matter', 'part', 'chapter', 'back-matter' ];
-		$r1 = $wpdb->get_results( $wpdb->prepare( "SELECT ID, post_status FROM {$wpdb->posts} WHERE post_type IN (%s, %s, %s, %s)", $sql ), ARRAY_A );
+		$r1 = $wpdb->get_results(
+			$wpdb->prepare(
+				"SELECT ID, post_status FROM {$wpdb->posts} WHERE post_type IN (%s, %s, %s, %s)",
+				[ 'front-matter', 'part', 'chapter', 'back-matter' ]
+			), ARRAY_A
+		);
 
 		// Update post statii
 		$wpdb->query( 'START TRANSACTION' );

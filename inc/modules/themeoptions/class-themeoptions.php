@@ -160,7 +160,7 @@ class ThemeOptions {
 				?>
 			</form>
 		</div>
-	<?php
+		<?php
 	}
 
 	/**

@@ -6,9 +6,9 @@
 
 namespace Pressbooks\Modules\ThemeOptions;
 
+use function \Pressbooks\Utility\getset;
 use Pressbooks\Container;
 use Pressbooks\CustomCss;
-use function \Pressbooks\Utility\getset;
 
 class PDFOptions extends \Pressbooks\Options {
 
@@ -808,7 +808,7 @@ class PDFOptions extends \Pressbooks\Options {
 		<p>
 			<strong><?php _e( 'IMPORTANT: If you plan to use a print-on-demand service, margins under 2cm on any side can cause your file to be rejected.', 'pressbooks' ); ?></strong>
 		</p>
-	<?php
+		<?php
 	}
 
 	/**
@@ -1052,7 +1052,7 @@ class PDFOptions extends \Pressbooks\Options {
 	function renderRunningContentField( $args ) {
 		?>
 		<p class="description"><?php echo $args[0]; ?></p>
-	<?php
+		<?php
 	}
 
 	/**
@@ -1759,9 +1759,11 @@ class PDFOptions extends \Pressbooks\Options {
 				'edu_textbox_takeaways_background' => 'key-takeaways-background',
 			] as $option => $variable ) {
 				if ( isset( $options[ $option ] ) ) {
-					$styles->getSass()->setVariables( [
-						"$variable" => $options[ $option ],
-					] );
+					$styles->getSass()->setVariables(
+						[
+							"$variable" => $options[ $option ],
+						]
+					);
 				}
 			}
 		}

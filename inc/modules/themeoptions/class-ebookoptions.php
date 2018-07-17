@@ -457,9 +457,11 @@ class EbookOptions extends \Pressbooks\Options {
 				'edu_textbox_takeaways_background' => 'key-takeaways-background',
 			] as $option => $variable ) {
 				if ( isset( $options[ $option ] ) ) {
-					$styles->getSass()->setVariables( [
-						"$variable" => $options[ $option ],
-					] );
+					$styles->getSass()->setVariables(
+						[
+							"$variable" => $options[ $option ],
+						]
+					);
 				}
 			}
 		}
