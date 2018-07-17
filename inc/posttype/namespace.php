@@ -38,27 +38,27 @@ function list_post_types() {
 function register_post_types() {
 	register_extended_post_type(
 		'chapter', [
-		'admin_cols'            => [
-			'chapter_type' => [
-				'taxonomy' => 'chapter-type',
+			'admin_cols'            => [
+				'chapter_type' => [
+					'taxonomy' => 'chapter-type',
+				],
+			],
+			'quick_edit'            => false,
+			'capability_type'       => 'post',
+			'has_archive'           => true,
+			'hierarchical'          => false,
+			'menu_icon'             => 'dashicons-book',
+			'supports'              => [ 'title', 'editor', 'author', 'comments', 'page-attributes', 'revisions' ],
+			'show_in_menu'          => false,
+			'show_in_admin_bar'     => true,
+			'show_in_rest'          => true,
+			'rest_base'             => 'chapters',
+			'rest_controller_class' => '\Pressbooks\Api\Endpoints\Controller\Posts',
+			'rewrite'               => [
+				'slug'       => 'chapter',
+				'with_front' => false,
 			],
 		],
-		'quick_edit'            => false,
-		'capability_type'       => 'post',
-		'has_archive'           => true,
-		'hierarchical'          => false,
-		'menu_icon'             => 'dashicons-book',
-		'supports'              => [ 'title', 'editor', 'author', 'comments', 'page-attributes', 'revisions' ],
-		'show_in_menu'          => false,
-		'show_in_admin_bar'     => true,
-		'show_in_rest'          => true,
-		'rest_base'             => 'chapters',
-		'rest_controller_class' => '\Pressbooks\Api\Endpoints\Controller\Posts',
-		'rewrite'               => [
-			'slug'       => 'chapter',
-			'with_front' => false,
-		],
-	],
 		[
 			'singular' => __( 'Chapter', 'pressbooks' ),
 			'plural'   => __( 'Chapters', 'pressbooks' ),
@@ -204,7 +204,7 @@ function register_meta() {
 			$defaults, [
 				'description'       => __( 'Show title in exports', 'pressbooks' ),
 				'sanitize_callback' => function ( $v ) {
-					return ( $v ? 'on' : NULL );
+					return ( $v ? 'on' : null );
 				},
 			]
 		)
@@ -215,7 +215,7 @@ function register_meta() {
 			$defaults, [
 				'description'       => __( 'Set as ebook start-point', 'pressbooks' ),
 				'sanitize_callback' => function ( $v ) {
-					return ( $v ? 'on' : NULL );
+					return ( $v ? 'on' : null );
 				},
 			]
 		)
@@ -315,11 +315,13 @@ function register_meta() {
  * @since 5.0.0
  */
 function register_post_statii() {
-	\register_post_status( 'web-only', [
-		'label'       => _x( 'Web Only', 'post status', 'pressbooks' ),
-		'public'      => true,
-		'label_count' => _n_noop( 'Web Only <span class="count">(%s)</span>', 'Web Only <span class="count">(%s)</span>' ),
-	] );
+	\register_post_status(
+		'web-only', [
+			'label'       => _x( 'Web Only', 'post status', 'pressbooks' ),
+			'public'      => true,
+			'label_count' => _n_noop( 'Web Only <span class="count">(%s)</span>', 'Web Only <span class="count">(%s)</span>' ),
+		]
+	);
 }
 
 /**
