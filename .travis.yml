@@ -9,6 +9,7 @@ notifications:
 branches:
   only:
   - dev
+  - fivepointfive
   - "/\\d+\\.\\d+(\\.\\d+)?(-\\S*)?$/"
 php:
 - 7.0.8
@@ -16,7 +17,7 @@ php:
 - 7.2
 - nightly
 env:
-- WP_VERSION=latest WP_MULTISITE=1 TRAVIS_NODE_VERSION="6"
+- WP_VERSION=4.9.7 WP_MULTISITE=1 TRAVIS_NODE_VERSION="6"
 matrix:
   fast_finish: true
   allow_failures:
@@ -29,7 +30,7 @@ cache:
   - vendor
 before_install:
 - sudo apt-get -qq update
-- sudo apt-get install -y epubcheck libxml2-utils
+- sudo apt-get install -y epubcheck libxml2-utils ghostscript imagemagick poppler-utils
 - wget https://www.princexml.com/download/prince_11.3-1_ubuntu14.04_amd64.deb
 - sudo dpkg -i prince_11.3-1_ubuntu14.04_amd64.deb
 - rm prince_11.3-1_ubuntu14.04_amd64.deb

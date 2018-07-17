@@ -6,10 +6,10 @@
 
 namespace Pressbooks\Admin\Metaboxes;
 
+use PressbooksMix\Assets;
 use Pressbooks\Contributors;
 use Pressbooks\Licensing;
 use Pressbooks\Metadata;
-use PressbooksMix\Assets;
 
 /**
  * If the user updates the book's title, then also update the blog name
@@ -742,9 +742,11 @@ function override_parent_id( $post ) {
 	}
 
 	global $wpdb;
-	$sql_args = [ 'draft', 'web-only', 'private', 'publish' ];
 	$results = $wpdb->get_results(
-		$wpdb->prepare( "SELECT ID, post_title FROM {$wpdb->posts} WHERE post_type = 'part' AND post_status IN (%s, %s, %s, %s) ORDER BY menu_order ASC ", $sql_args )
+		$wpdb->prepare(
+			"SELECT ID, post_title FROM {$wpdb->posts} WHERE post_type = 'part' AND post_status IN (%s, %s, %s, %s) ORDER BY menu_order ASC ",
+			[ 'draft', 'web-only', 'private', 'publish' ]
+		)
 	);
 
 	$output = "<select name='parent_id' id='parent_id'>\n";
@@ -795,7 +797,7 @@ function part_save_box( $post ) {
 	<?php } else { ?>
 		<input name="original_publish" type="hidden" id="original_publish" value="Publish"/>
 		<input name="publish" id="publish" type="submit" class="button button-primary button-large" value="Save" tabindex="5" accesskey="p"/>
-	<?php
+		<?php
 }
 }
 
@@ -807,13 +809,13 @@ function part_save_box( $post ) {
  */
 function metadata_save_box( $post ) {
 	if ( 'publish' === $post->post_status ) {
-	?>
+		?>
 		<input name="original_publish" type="hidden" id="original_publish" value="Update"/>
 		<input name="save" type="submit" class="button button-primary button-large" id="publish" accesskey="p" value="Save"/>
 	<?php } else { ?>
 		<input name="original_publish" type="hidden" id="original_publish" value="Publish"/>
 		<input name="publish" id="publish" type="submit" class="button button-primary button-large" value="Save" tabindex="5" accesskey="p"/>
-	<?php
+		<?php
 }
 }
 
@@ -850,7 +852,7 @@ function status_visibility_box( $post ) {
 
 	$pb_show_title = ( get_post_meta( $post->ID, 'pb_show_title', true ) ) ? 'on' : '';
 	$show_title = ( $action === 'add' ) ? 'on' : $pb_show_title;
-?>
+	?>
 <div class="submitbox" id="submitpost">
 	<div id="minor-publishing">
 		<div id="minor-publishing-actions">
@@ -897,7 +899,7 @@ function status_visibility_box( $post ) {
 		$date = date_i18n( $datef, strtotime( $post->post_date ) );
 	}
 	if ( ! empty( $revs ) ) :
-	?>
+		?>
 		<div class="misc-pub-section misc-pub-revisions">
 			<?php
 				/* translators: Post revisions heading. 1: The number of available revisions */
@@ -905,14 +907,14 @@ function status_visibility_box( $post ) {
 			?>
 			<a class="hide-if-no-js" href="<?php echo esc_url( get_edit_post_link( $latest_rev->ID ) ); ?>"><span aria-hidden="true"><?php _ex( 'Browse', 'revisions' ); ?></span> <span class="screen-reader-text"><?php _e( 'Browse revisions' ); ?></span></a>
 		</div>
-	<?php
+		<?php
 	endif;
 	if ( $action !== 'add' ) :
-	?>
+		?>
 	<div class="misc-pub-section curtime misc-pub-curtime">
 		<span id="timestamp"><?php printf( $stamp, $date ); ?></span>
 	</div>
-	<?php
+		<?php
 	endif;
 	do_action( 'post_submitbox_misc_actions', $post );
 	?>
@@ -930,7 +932,7 @@ function status_visibility_box( $post ) {
 			} else {
 				$delete_text = __( 'Move to Trash' );
 			}
-		?>
+			?>
 		<a class="submitdelete deletion" href="<?php echo get_delete_post_link( $post->ID ); ?>"><?php echo $delete_text; ?></a>
 														<?php
 		}
@@ -946,17 +948,17 @@ function status_visibility_box( $post ) {
 				<?php submit_button( __( 'Create' ), 'primary large', 'publish', false ); ?>
 			<?php
 		} else {
-		?>
+			?>
 				<input name="original_publish" type="hidden" id="original_publish" value="<?php esc_attr_e( 'Update' ); ?>" />
 				<input name="save" type="submit" class="button button-primary button-large" id="publish" value="<?php esc_attr_e( 'Save' ); ?>" />
-		<?php
+			<?php
 		}
 		?>
 		</div>
 		<div class="clear"></div>
 	</div>
 	</div>
-<?php
+	<?php
 }
 
 /**
@@ -972,7 +974,7 @@ function publish_fields_save( $post_id, $post, $update ) {
 
 	// Sanity checks
 
-	if ( empty( $_POST ) ) {
+	if ( empty( $_POST ) ) { // @codingStandardsIgnoreLine
 		return;
 	}
 
@@ -1000,10 +1002,12 @@ function publish_fields_save( $post_id, $post, $update ) {
 	}
 
 	// Save it
+	// @codingStandardsIgnoreStart
 	$show_in_web = ( isset( $_POST['web_visibility'] ) && (int) $_POST['web_visibility'] === 1 ) ? true : false;
 	$require_password = ( isset( $_POST['require_password'] ) && (int) $_POST['require_password'] === 1 ) ? true : false;
 	$show_in_exports = ( isset( $_POST['export_visibility'] ) && (int) $_POST['export_visibility'] === 1 ) ? true : false;
 	$show_title = ( isset( $_POST['pb_show_title'] ) && $_POST['pb_show_title'] === 'on' ) ? 'on' : false;
+	// @codingStandardsIgnoreEnd
 
 	// Content Visibility
 	if ( $show_in_web === false && $show_in_exports === false ) {
@@ -1086,7 +1090,7 @@ function metadata_subject_box( $post ) {
 		</select>
 		<span class="description"><?php printf( __( 'This appears on the web homepage of your book. Use %s to determine which additional subject categories are appropriate for your book.', 'pressbooks' ), sprintf( '<a href="%1$s">%2$s</a>', 'http://www.editeur.org/files/Thema/20160601%20Thema%20v1.2%20Basic%20instructions.pdf', __( 'these instructions', 'pressbooks' ) ) ); ?></span>
 	</div>
-<?php
+	<?php
 }
 
 /**
@@ -1125,7 +1129,7 @@ function save_subject_metadata( $post_id ) {
  */
 function contributor_add_form() {
 	wp_nonce_field( 'contributor-meta', 'contributor_meta_nonce' );
-?>
+	?>
 	<div class="form-field contributor-first-name-wrap">
 		<label for="contributor_first_name"><?php _e( 'First Name', 'pressbooks' ); ?></label>
 		<input type="text" name="contributor_first_name" id="contributor-first-name" value="" class="contributor-first-name-field" />
@@ -1147,7 +1151,7 @@ function contributor_edit_form( $term ) {
 	if ( ! $lastname ) {
 		$lastname = '';
 	}
-?>
+	?>
 	<tr class="form-field contributor-first-name-wrap">
 		<th scope="row"><label for="contributor_first_name"><?php _e( 'First Name', 'pressbooks' ); ?></label></th>
 		<td>
@@ -1161,7 +1165,7 @@ function contributor_edit_form( $term ) {
 			<input type="text" name="contributor_last_name" id="contributor-last-name" value="<?php echo esc_attr( $lastname ); ?>" class="contributor-last-name-field"  />
 		</td>
 	</tr>
-<?php
+	<?php
 }
 
 /**

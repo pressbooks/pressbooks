@@ -1,61 +1,28 @@
 <?xml version="1.0"?>
 <ruleset>
-    <!-- Scan only PHP files -->
-    <arg name="extensions" value="php"/>
-
-    <!-- Show colors in console -->
-    <arg value="-colors"/>
-
-    <!-- Show progress -->
-    <arg value="p"/>
-
-	<!-- Be quiet -->
-    <arg value="q"/>
-
-    <!-- Use HM Coding Standards -->
-    <rule ref="vendor/humanmade/coding-standards">
-        <!-- Disable all ESLint checks: -->
-        <exclude name="HM.Debug.ESLint"/>
-        <!-- Disable rules Pressbooks disagrees with: -->
-        <exclude name="WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid"/>
-        <exclude name="WordPress.NamingConventions.ValidVariableName.MemberNotSnakeCase"/>
-        <exclude name="WordPress.NamingConventions.ValidVariableName.NotSnakeCaseMemberVar"/>
-        <exclude name="WordPress.VIP.SessionVariableUsage"/>
-        <exclude name="WordPress.VIP.SessionFunctionsUsage"/>
-        <exclude name="WordPress.PHP.DiscouragedPHPFunctions.system_calls_exec"/>
-        <exclude name="WordPress.PHP.DiscouragedPHPFunctions.runtime_configuration_ini_set"/>
-        <exclude name="WordPress.PHP.DiscouragedPHPFunctions.runtime_configuration_putenv"/>
-        <exclude name="WordPress.PHP.DevelopmentFunctions.error_log_trigger_error"/>
-        <!-- Disable LayoutOrder until humanmade/coding-standards#5 is fixed: -->
-        <exclude name="HM.Layout.Order.WrongOrder"/>
-        <!-- Temporary, these should be enabled someday soon: -->
-        <exclude name="WordPress.CSRF.NonceVerification.NoNonceVerification"/>
+    <!-- Use Pressbooks Coding Standards -->
+    <rule ref="vendor/pressbooks/coding-standards">
+        <!-- TODO: This should be enabled sooner than later... -->
         <exclude name="WordPress.WP.I18n.MissingTranslatorsComment"/>
     </rule>
-
-    <!-- Re-enable rules Pressbooks agrees with -->
-    <rule ref="Generic.NamingConventions.UpperCaseConstantName"/>
-    <rule ref="PSR1.Methods.CamelCapsMethodName" >
-        <!-- Except for classes that override WP Core -->
+    <rule ref="PSR1.Methods.CamelCapsMethodName">
+        <!-- Exclude classes that override WP Core: -->
         <exclude-pattern>/inc/admin/class-catalog-list-table.php</exclude-pattern>
         <exclude-pattern>/inc/admin/class-network-managers-list-table.php</exclude-pattern>
         <exclude-pattern>/api/endpoints/controller/*</exclude-pattern>
     </rule>
-
-    <!-- Disable Side Effects rule for bootstrapping file, extends WordPress core, cron scripts -->
+    <!-- Disable Side Effects and MissingNamespace rules for bootstrapping files: -->
     <rule ref="PSR1.Files.SideEffects">
         <exclude-pattern>/pressbooks.php</exclude-pattern>
-        <exclude-pattern>/bin/*</exclude-pattern>
+        <exclude-pattern>/functions.php</exclude-pattern>
+        <exclude-pattern>/compatibility.php</exclude-pattern>
     </rule>
-
-    <!-- Disable Namespaced Functions for cron scripts -->
-    <rule ref="HM.Functions.NamespacedFunctions">
-        <exclude-pattern>/bin/*</exclude-pattern>
+    <rule ref="HM.Functions.NamespacedFunctions.MissingNamespace">
+        <exclude-pattern>/pressbooks.php</exclude-pattern>
+        <exclude-pattern>/functions.php</exclude-pattern>
+        <exclude-pattern>/compatibility.php</exclude-pattern>
     </rule>
-
+    <!-- Disable all rules for these files: -->
     <exclude-pattern>/hm-autoloader.php</exclude-pattern>
-    <exclude-pattern>/compatibility.php</exclude-pattern>
-    <exclude-pattern>/functions.php</exclude-pattern>
     <exclude-pattern>*.blade.php</exclude-pattern>
-
 </ruleset>

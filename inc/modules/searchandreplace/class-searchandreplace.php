@@ -90,7 +90,7 @@ class SearchAndReplace {
 		$replace_pattern = '';
 
 		if ( isset( $_POST['search_pattern'] ) ) {
-			$search_pattern  = stripslashes( $_POST['search_pattern'] );
+			$search_pattern = stripslashes( $_POST['search_pattern'] );
 		}
 
 		if ( isset( $_POST['replace_pattern'] ) ) {
@@ -105,7 +105,7 @@ class SearchAndReplace {
 			$orderby = 'desc';
 		}
 
-		$limit  = isset( $_POST['limit'] ) ? intval( $_POST['limit'] ) : 0;
+		$limit = isset( $_POST['limit'] ) ? intval( $_POST['limit'] ) : 0;
 
 		$offset = 0;
 
@@ -137,11 +137,11 @@ class SearchAndReplace {
 			if ( ! is_array( $results ) ) {
 				$this->renderError( $results );
 			} elseif ( isset( $_POST['replace_and_save'] ) ) {
-	?>
-		  <div class="updated" id="message" onclick="this.parentNode.removeChild (this)">
-		   <p><?php printf( _n( '%d occurrence replaced.', '%d occurrences replaced.', count( $results ) ), count( $results ) ); ?></p>
-		  </div>
-<?php
+				?>
+				<div class="updated" id="message" onclick="this.parentNode.removeChild (this)">
+					<p><?php printf( _n( '%d occurrence replaced.', '%d occurrences replaced.', count( $results ) ), count( $results ) ); ?></p>
+				</div>
+				<?php
 			}
 			$this->render(
 				'search', [
@@ -186,6 +186,6 @@ class SearchAndReplace {
 	<div class="fade error" id="message">
 		<p><?php echo $message; ?></p>
 	</div>
-	<?php
+		<?php
 	}
 }

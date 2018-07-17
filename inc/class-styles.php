@@ -6,9 +6,9 @@
 
 namespace Pressbooks;
 
+use function \Pressbooks\Utility\debug_error_log;
 use Pressbooks\CustomCss;
 use Pressbooks\Modules\ThemeOptions\ThemeOptions;
-use function \Pressbooks\Utility\debug_error_log;
 
 /**
  * Custom Styles Feature(s)

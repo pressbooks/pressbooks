@@ -26,6 +26,12 @@ class GdprTest extends \WP_UnitTestCase {
 	}
 
 	public function test_addPrivacyPolicyContent() {
+		// Doing it right
+		global $current_screen;
+		$current_screen = WP_Screen::get( 'front-matter' ); // is_admin
+		global $wp_current_filter;
+		$wp_current_filter = [ 'admin_init' ]; // doing_action
+
 		$this->privacy->addPrivacyPolicyContent();
 		$policies = WP_Privacy_Policy_Content::get_suggested_policy_text();
 		$result = false;

@@ -6,8 +6,8 @@
 
 namespace Pressbooks\Modules\ThemeOptions;
 
-use Pressbooks\Container;
 use function \Pressbooks\Utility\getset;
+use Pressbooks\Container;
 
 class GlobalOptions extends \Pressbooks\Options {
 
@@ -567,20 +567,22 @@ class GlobalOptions extends \Pressbooks\Options {
 		 *
 		 * @param array $value
 		 */
-		return apply_filters( 'pb_theme_options_global_strings', [
-			'edu_textbox_examples_header_color',
-			'edu_textbox_examples_header_background',
-			'edu_textbox_examples_background',
-			'edu_textbox_exercises_header_color',
-			'edu_textbox_exercises_header_background',
-			'edu_textbox_exercises_background',
-			'edu_textbox_objectives_header_color',
-			'edu_textbox_objectives_header_background',
-			'edu_textbox_objectives_background',
-			'edu_textbox_takeaways_header_color',
-			'edu_textbox_takeaways_header_background',
-			'edu_textbox_takeaways_background',
-		] );
+		return apply_filters(
+			'pb_theme_options_global_strings', [
+				'edu_textbox_examples_header_color',
+				'edu_textbox_examples_header_background',
+				'edu_textbox_examples_background',
+				'edu_textbox_exercises_header_color',
+				'edu_textbox_exercises_header_background',
+				'edu_textbox_exercises_background',
+				'edu_textbox_objectives_header_color',
+				'edu_textbox_objectives_header_background',
+				'edu_textbox_objectives_background',
+				'edu_textbox_takeaways_header_color',
+				'edu_textbox_takeaways_header_background',
+				'edu_textbox_takeaways_background',
+			]
+		);
 	}
 
 	/**

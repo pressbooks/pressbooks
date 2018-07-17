@@ -26,7 +26,8 @@ class Interactive_Content_Test extends \WP_UnitTestCase {
 		$this->assertEquals( 1, substr_count( $result, '<iframe' ) );
 		$this->assertContains( 'Test One', $result );
 		$this->assertContains( 'Test Two', $result );
-		$this->assertContains( 'phet.colorado.edu', $result );
+		$this->assertContains( '<iframe src="https://phet.colorado.edu/', $result );
+		$this->assertContains( '[embed]https://garbage.com/bad.html[/embed]', $result );
 		$this->assertNotContains( '<p>', $result ); // reverse wpautop
 	}
 

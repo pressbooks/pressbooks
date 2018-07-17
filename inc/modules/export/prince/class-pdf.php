@@ -6,9 +6,9 @@
 
 namespace Pressbooks\Modules\Export\Prince;
 
-use Pressbooks\Modules\Export\Export;
-use Pressbooks\Container;
 use function Pressbooks\Sanitize\normalize_css_urls;
+use Pressbooks\Container;
+use Pressbooks\Modules\Export\Export;
 
 class Pdf extends Export {
 
@@ -323,15 +323,4 @@ class Pdf extends Export {
 		}
 	}
 
-	/**
-	 * Dependency check.
-	 *
-	 * @return bool
-	 */
-	static function hasDependencies() {
-		if ( false !== \Pressbooks\Utility\check_prince_install() && false !== \Pressbooks\Utility\check_xmllint_install() ) {
-			return true;
-		}
-		return false;
-	}
 }

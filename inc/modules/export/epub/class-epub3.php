@@ -7,11 +7,11 @@
 
 namespace Pressbooks\Modules\Export\Epub;
 
-use Pressbooks\HtmLawed;
-use Pressbooks\Sanitize;
+use function Pressbooks\Utility\oxford_comma_explode;
 use function \Pressbooks\Sanitize\sanitize_xml_attribute;
 use function \Pressbooks\Utility\debug_error_log;
-use function Pressbooks\Utility\oxford_comma_explode;
+use Pressbooks\HtmLawed;
+use Pressbooks\Sanitize;
 
 class Epub3 extends Epub201 {
 

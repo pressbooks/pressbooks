@@ -156,7 +156,7 @@ if ( $is_book ) {
 	add_action( 'save_post_metadata', '\Pressbooks\Admin\Metaboxes\save_subject_metadata', 10, 2 );
 	add_action( 'contributor_add_form_fields', '\Pressbooks\Admin\Metaboxes\contributor_add_form' );
 	add_action( 'contributor_edit_form_fields', '\Pressbooks\Admin\Metaboxes\contributor_edit_form' );
-	add_action( 'save_post', '\Pressbooks\Admin\Metaboxes\publish_fields_save', 10 , 3 );
+	add_action( 'save_post', '\Pressbooks\Admin\Metaboxes\publish_fields_save', 10, 3 );
 	add_action( 'init', '\Pressbooks\Metadata\register_contributor_meta' );
 	add_action( 'create_term', '\Pressbooks\Admin\Metaboxes\save_contributor_meta', 10, 3 );
 	add_action( 'edit_term', '\Pressbooks\Admin\Metaboxes\save_contributor_meta', 10, 3 );
@@ -246,6 +246,12 @@ add_action( 'init', '\Pressbooks\Modules\Export\Export::formSubmit', 50 );
 add_action( 'init', '\Pressbooks\Modules\Import\Import::formSubmit', 50 );
 add_action( 'init', '\Pressbooks\Catalog::formSubmit', 50 );
 add_action( 'init', '\Pressbooks\Cloner::formSubmit', 50 );
+
+// -------------------------------------------------------------------------------------------------------------------
+// Cover Generator
+// -------------------------------------------------------------------------------------------------------------------
+
+add_action( 'init', [ '\Pressbooks\Covergenerator\Covergenerator', 'init' ] );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Leftovers

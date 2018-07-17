@@ -33,7 +33,7 @@ function pb_meets_minimum_requirements() {
 
 	// WordPress Version
 	global $pb_minimum_wp;
-	$pb_minimum_wp = '4.9.6';
+	$pb_minimum_wp = '4.9.7';
 
 	include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 	$is_compatible = true;
@@ -111,11 +111,11 @@ function pb_register_activation_hook() {
 			}
 		}
 		if ( ! empty( $activate ) ) {
-			switch_to_blog(1);
+			switch_to_blog( 1 );
 			// Configure root blog theme (PB_ROOT_THEME, usually 'pressbooks-aldine').
 			switch_theme( $activate );
 			// Remove widgets from root blog.
-			delete_option( 'sidebars_widgets');
+			delete_option( 'sidebars_widgets' );
 			restore_current_blog();
 		}
 

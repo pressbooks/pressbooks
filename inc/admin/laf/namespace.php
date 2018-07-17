@@ -8,15 +8,15 @@
 
 namespace Pressbooks\Admin\Laf;
 
+use function Pressbooks\Admin\NetworkManagers\is_restricted;
+use function Pressbooks\PostType\get_post_type_label;
+use PressbooksMix\Assets;
 use Pressbooks\Admin\ExportOptions;
 use Pressbooks\Admin\Network\SharingAndPrivacyOptions;
 use Pressbooks\Admin\PublishOptions;
 use Pressbooks\Book;
 use Pressbooks\Cloner;
 use Pressbooks\Metadata;
-use PressbooksMix\Assets;
-use function Pressbooks\PostType\get_post_type_label;
-use function Pressbooks\Admin\NetworkManagers\is_restricted;
 
 /**
  * Add a custom message in admin footer
@@ -835,6 +835,12 @@ function init_css_js() {
 		}
 	);
 	add_filter(
+		'custom_metadata_manager_select2_js_version',
+		function ( $version ) {
+			return get_bloginfo( 'version' );
+		}
+	);
+	add_filter(
 		'custom_metadata_manager_select2_css',
 		function ( $path ) use ( $assets ) {
 			return $assets->getPath( 'styles/select2.css' );
@@ -1004,7 +1010,7 @@ function privacy_permissive_private_content_callback( $args ) {
 		<input type="radio" id="permissive-private-content" name="permissive_private_content" value="1" <?php checked( $permissive_private_content, 1 ); ?>/>
 		<label for="permissive-private-content"><?php _e( 'All logged in users including subscribers.', 'pressbooks' ); ?></label>
 	</fieldgroup>
-<?php
+	<?php
 }
 
 /**

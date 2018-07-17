@@ -19,9 +19,9 @@ const templates = 'templates';
 
 // BrowserSync
 mix.browserSync( {
-	host:  'localhost',
+	host: 'localhost',
 	proxy: 'https://pressbooks.test/wp-login.php',
-	port:  3100,
+	port: 3100,
 	files: [
 		'*.php',
 		`${templates}/**/*.php`,
@@ -36,6 +36,7 @@ mix
 	.js( 'assets/src/scripts/applyclass.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/book-information.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/catalog.js', 'assets/dist/scripts/' )
+	.js( 'assets/src/scripts/covergenerator.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/cloner.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/color-picker.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/cssanimations.js', 'assets/dist/scripts/' )
@@ -50,6 +51,7 @@ mix
 	.js( 'assets/src/scripts/search-and-replace.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/small-menu.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/textboxes.js', 'assets/dist/scripts/' )
+	.js( 'assets/src/scripts/textboxes-legacy.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/theme-lock.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/theme-options.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/post-visibility.js', 'assets/dist/scripts/' )
@@ -87,6 +89,7 @@ mix
 	)
 	.sass( 'assets/src/styles/catalog.scss', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/colors-pb.scss', 'assets/dist/styles/' )
+	.sass( 'assets/src/styles/covergenerator.scss', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/cloner.scss', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/export.scss', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/login.scss', 'assets/dist/styles/' )
