@@ -173,6 +173,7 @@ class Attributions {
 				if ( count( $attribution ) > 0 ) {
 					$author_byline  = isset( $attribution['author'] ) ? ' by ' : '';
 					$adapted_byline = isset( $attribution['adapted'] ) ? ' adapted by ' : '';
+					$license_prefix = isset( $attribution['license'] ) ? ' Licensed ' : '';
 
 					$media_attributions .= sprintf( '<li>%1$s %2$s %3$s %4$s %5$s</li>',
 						// figure attribution
@@ -191,7 +192,7 @@ class Attributions {
 							( isset( $attribution['adapted_url'] ) ) ? $attribution['adapted_url'] : '#',
 							( isset( $attribution['adapted'] ) ) ? $attribution['adapted'] : '' ),
 						// license attribution
-						sprintf( '<a rel="license" href="%1$s">%2$s</a>',
+						sprintf( $license_prefix . '<a rel="license" href="%1$s">%2$s</a>',
 							( isset( $attribution['license'] ) ) ? $licensing->getUrlForLicense( $attribution['license'] ) : '#',
 							( isset ( $attribution['license'] ) ) ? $supported[ $attribution['license'] ]['desc'] : '' )
 					);
