@@ -8,10 +8,10 @@ namespace Pressbooks\Shortcodes\Attributions;
 use Pressbooks\Licensing;
 use Pressbooks\Media;
 
-class Attributions {
+class Attachments {
 
 	/**
-	 * @var Attributions
+	 * @var Attachments
 	 */
 	static $instance = NULL;
 
@@ -23,7 +23,7 @@ class Attributions {
 	/**
 	 * Function to init our class, set filters & hooks, set a singleton instance
 	 *
-	 * @return Attributions
+	 * @return Attachments
 	 */
 	static public function init() {
 		if ( is_null( self::$instance ) ) {
@@ -36,9 +36,9 @@ class Attributions {
 	}
 
 	/**
-	 * @param Attributions $obj
+	 * @param Attachments $obj
 	 */
-	static public function hooks( Attributions $obj ) {
+	static public function hooks( Attachments $obj ) {
 
 		add_shortcode( 'media_attributions', [ $obj, 'shortcodeHandler' ] );
 
