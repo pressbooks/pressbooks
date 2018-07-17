@@ -178,7 +178,12 @@ class Attributions {
 					$title          = isset( $attribution['title'] ) ? $attribution['title'] : '';
 					$adapted_author = isset( $attribution['adapted'] ) ? $attribution['adapted'] : '';
 
-					$media_attributions .= sprintf( '<li>%1$s %2$s %3$s %4$s %5$s</li>',
+					$media_attributions .= sprintf( '<li %1$s>%2$s %3$s %4$s %5$s %6$s</li>',
+						// about attribute
+						( isset( $attribution['title_url'] ) ) ?
+							sprintf( 'about="%s"',
+								$attribution['title_url']
+							) : '',
 						// figure attribution
 						( isset( $attribution['figure'] ) ) ? $attribution['figure'] : '',
 						// title attribution
