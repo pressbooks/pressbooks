@@ -132,14 +132,14 @@ class Attributions {
 		// get attribution meta for each attachment
 		if ( $unique_ids ) {
 			foreach ( $unique_ids as $id ) {
-				$all_attributions[ $id ]['title']       = get_post_meta( $id, 'pb_media_attribution_title', TRUE );
-				$all_attributions[ $id ]['title_url']   = get_post_meta( $id, 'pb_media_attribution_title_url', TRUE );
-				$all_attributions[ $id ]['figure']      = get_post_meta( $id, 'pb_media_attribution_figure', TRUE );
-				$all_attributions[ $id ]['author']      = get_post_meta( $id, 'pb_media_attribution_author', TRUE );
-				$all_attributions[ $id ]['author_url']  = get_post_meta( $id, 'pb_media_attribution_author_url', TRUE );
-				$all_attributions[ $id ]['adapted']     = get_post_meta( $id, 'pb_media_attribution_adapted', TRUE );
-				$all_attributions[ $id ]['adapted_url'] = get_post_meta( $id, 'pb_media_attribution_adapted_url', TRUE );
-				$all_attributions[ $id ]['license']     = get_post_meta( $id, 'pb_media_attribution_license', TRUE );
+				$all_attributions[ $id ]['title']       = get_post_meta( $id, 'pb_media_attribution_title', true );
+				$all_attributions[ $id ]['title_url']   = get_post_meta( $id, 'pb_media_attribution_title_url', true );
+				$all_attributions[ $id ]['figure']      = get_post_meta( $id, 'pb_media_attribution_figure', true );
+				$all_attributions[ $id ]['author']      = get_post_meta( $id, 'pb_media_attribution_author', true );
+				$all_attributions[ $id ]['author_url']  = get_post_meta( $id, 'pb_media_attribution_author_url', true );
+				$all_attributions[ $id ]['adapted']     = get_post_meta( $id, 'pb_media_attribution_adapted', true );
+				$all_attributions[ $id ]['adapted_url'] = get_post_meta( $id, 'pb_media_attribution_adapted_url', true );
+				$all_attributions[ $id ]['license']     = get_post_meta( $id, 'pb_media_attribution_license', true );
 			}
 		}
 
@@ -218,7 +218,7 @@ class Attributions {
 				}
 			}
 			if ( ! empty( $media_attributions ) ) {
-				$html = sprintf( '<div class="media-atttributions license-attribution" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/terms/"><h3>' . __( 'Media Attributions', 'pressbooks') . '</h3><ul>%s</ul></div>',
+				$html = sprintf( '<div class="media-atttributions license-attribution" prefix:cc="http://creativecommons.org/ns#" prefix:dc="http://purl.org/dc/terms/"><h3>' . __( 'Media Attributions', 'pressbooks' ) . '</h3><ul>%s</ul></div>',
 					$media_attributions
 				);
 			}
