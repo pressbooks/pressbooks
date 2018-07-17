@@ -183,6 +183,7 @@ if ( $is_book ) {
 	add_filter( 'the_content', 'wpautop' , 12 ); // execute wpautop after shortcode processing
 
 	\Pressbooks\Shortcodes\Footnotes\Footnotes::init();
+	\Pressbooks\Shortcodes\Attributions\Attributions::init();
 	\Pressbooks\Shortcodes\Generics\Generics::init();
 	\Pressbooks\Shortcodes\WikiPublisher\Glyphs::init();
 }

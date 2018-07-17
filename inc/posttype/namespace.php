@@ -250,6 +250,70 @@ function register_meta() {
 			]
 		)
 	);
+
+	\register_meta(
+		'post', 'pb_media_attribution_title', array_merge(
+			$defaults, [
+				'description' => __( 'Media attribution title', 'pressbooks' ),
+			]
+		)
+	);
+
+	\register_meta(
+		'post', 'pb_media_attribution_figure', array_merge(
+			$defaults, [
+				'description' => __( 'Media attribution figure', 'pressbooks' ),
+			]
+		)
+	);
+
+	\register_meta(
+		'post', 'pb_media_attribution_title_url', array_merge(
+			$defaults, [
+				'description' => __( 'Media attribution source url', 'pressbooks' ),
+			]
+		)
+	);
+
+	\register_meta(
+		'post', 'pb_media_attribution_author', array_merge(
+			$defaults, [
+				'description' => __( 'Media attribution author', 'pressbooks' ),
+			]
+		)
+	);
+
+	\register_meta(
+		'post', 'pb_media_attribution_author_url', array_merge(
+			$defaults, [
+				'description' => __( 'Media attribution author url', 'pressbooks' ),
+			]
+		)
+	);
+
+	\register_meta(
+		'post', 'pb_media_attribution_adapted', array_merge(
+			$defaults, [
+				'description' => __( 'Media attribution adapted by', 'pressbooks' ),
+			]
+		)
+	);
+
+	\register_meta(
+		'post', 'pb_media_attribution_adapted_url', array_merge(
+			$defaults, [
+				'description' => __( 'Media attribution adapted by url', 'pressbooks' ),
+			]
+		)
+	);
+
+	\register_meta(
+		'post', 'pb_media_attribution_license', array_merge(
+			$defaults, [
+				'description' => __( 'Media attribution license', 'pressbooks' ),
+			]
+		)
+	);
 }
 
 /**
