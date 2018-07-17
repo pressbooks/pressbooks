@@ -255,9 +255,9 @@ function register_meta() {
 	);
 
 	\register_meta(
-		'post', 'pb_media_attribution_title', array_merge(
+		'post', 'pb_media_attribution_title_url', array_merge(
 			$defaults, [
-				'description' => __( 'Media attribution title', 'pressbooks' ),
+				'description' => __( 'Media attribution source url', 'pressbooks' ),
 			]
 		)
 	);
