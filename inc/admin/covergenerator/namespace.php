@@ -285,9 +285,9 @@ function pressbooks_cg_text_callback() {
 	}
 		/* translators: %s: URL to Book Information page */
 		printf( __( 'The text below is pulled from your <a href="%s">Book Information</a> page, and is used to generate your cover(s). You can reformat the text below as needed. (<strong>IMPORTANT NOTE:</strong> Changes you make here will <strong>NOT</strong> be reflected on the Book Information page.)', 'pressbooks' ), $post );
-		?>
+	?>
 		</p>
-<?php
+	<?php
 }
 
 function pressbooks_cg_title_callback( $args ) {
@@ -390,14 +390,14 @@ function pressbooks_cg_design_callback() {
 	<?php
 		/* translators: %s: URL to Appearance menu */
 		printf( __( 'Below you can make small adjustments to the design of your cover. The look and feel of the cover will echo the theme you have chosen for your book. You can change your book theme in the <a href="%s">Appearance</a> menu.', 'pressbooks' ), admin_url( 'themes.php' ) );
-		?>
+	?>
 		</p>
 	<p>
 	<?php
 		$options = get_option( 'pressbooks_theme_options_pdf' );
 		/* translators: 1: pdf page width, 2: pdf page height, 3: URL to Theme Options page */
 		printf( __( 'Your PDF page size is set to %1$s &times; %2$s, and your PDF cover will be generated with the same dimensions. You can change the PDF page size in the <a href="%3$s">Theme Options</a> menu.', 'pressbooks' ), $options['pdf_page_width'], $options['pdf_page_height'], admin_url( 'themes.php?page=pressbooks_theme_options&tab=pdf' ) );
-		?>
+	?>
 		</p>
 	<div class="theme">
 		<div class="theme-screenshot">
@@ -405,14 +405,12 @@ function pressbooks_cg_design_callback() {
 		</div>
 		<h3 class="theme-name"><?php echo wp_get_theme(); ?></h3>
 		<div class="theme-actions">
-			<a class="button button-primary"
-			   href="<?php echo get_admin_url( get_current_blog_id(), '/themes.php' ); ?>"><?php _e( 'Change Theme', 'pressbooks' ); ?></a>
-			<a class="button button-secondary"
-			   href="<?php echo get_admin_url( get_current_blog_id(), '/themes.php?page=pressbooks_theme_options' ); ?>"><?php _e( 'Options', 'pressbooks' ); ?></a>
+			<a class="button button-primary" href="<?php echo get_admin_url( get_current_blog_id(), '/themes.php' ); ?>"><?php _e( 'Change Theme', 'pressbooks' ); ?></a>
+			<a class="button button-secondary" href="<?php echo get_admin_url( get_current_blog_id(), '/themes.php?page=pressbooks_theme_options' ); ?>"><?php _e( 'Options', 'pressbooks' ); ?></a>
 		</div>
 	</div>
 	<p><?php _e( 'You can upload a background image here.', 'pressbooks' ); ?></p>
-<?php
+	<?php
 }
 
 function pressbooks_cg_front_background_image_callback( $args ) {
@@ -485,7 +483,7 @@ function pressbooks_cg_spine_size_callback() {
 	?>
 	</p>
 	<p><?php _e( 'We can calculate the spine size based on CreateSpace and Ingram specifications, or you can enter your own custom pages per inch (PPI) defined by your printer.', 'pressbooks' ); ?></p>
-<?php
+	<?php
 }
 
 function pressbooks_cg_pdf_pagecount_callback( $args ) {
@@ -534,7 +532,7 @@ function pressbooks_cg_custom_ppi_callback( $args ) {
 function pressbooks_cg_colors_callback() {
 	?>
 	<p><?php _e( 'Choose text color and background colors below.', 'pressbooks' ); ?></p>
-<?php
+	<?php
 }
 
 function pressbooks_cg_color_callback( $args ) {

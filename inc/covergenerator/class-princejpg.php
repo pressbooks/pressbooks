@@ -2,10 +2,10 @@
 
 namespace Pressbooks\Covergenerator;
 
-use Pressbooks\Container;
 use function Pressbooks\Utility\create_tmp_file;
 use function Pressbooks\Utility\debug_error_log;
 use function Pressbooks\Utility\template;
+use Pressbooks\Container;
 
 class PrinceJpg extends Generator {
 
