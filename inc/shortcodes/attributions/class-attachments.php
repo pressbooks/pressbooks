@@ -132,7 +132,7 @@ class Attachments {
 		// get attribution meta for each attachment
 		if ( $unique_ids ) {
 			foreach ( $unique_ids as $id ) {
-				$all_attributions[ $id ]['title']       = get_post_meta( $id, 'pb_media_attribution_title', true );
+				$all_attributions[ $id ]['title']       = get_the_title( $id );
 				$all_attributions[ $id ]['title_url']   = get_post_meta( $id, 'pb_media_attribution_title_url', true );
 				$all_attributions[ $id ]['figure']      = get_post_meta( $id, 'pb_media_attribution_figure', true );
 				$all_attributions[ $id ]['author']      = get_post_meta( $id, 'pb_media_attribution_author', true );
