@@ -218,7 +218,7 @@ class Attributions {
 				}
 			}
 			if ( ! empty( $media_attributions ) ) {
-				$html = sprintf( '<div class="media-atttributions license-attribution"><h3>' . __( 'Media Attributions', 'pressbooks') . '</h3><ul>%s</ul></div>',
+				$html = sprintf( '<div class="media-atttributions license-attribution" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/terms/"><h3>' . __( 'Media Attributions', 'pressbooks') . '</h3><ul>%s</ul></div>',
 					$media_attributions
 				);
 			}
