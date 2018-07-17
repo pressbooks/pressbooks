@@ -8,8 +8,8 @@
 
 namespace Pressbooks;
 
-use function \Pressbooks\Utility\getset;
 use function Pressbooks\Utility\oxford_comma_explode;
+use function \Pressbooks\Utility\getset;
 
 class Catalog {
 

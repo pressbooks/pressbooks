@@ -8,8 +8,6 @@
 
 namespace Pressbooks;
 
-use Masterminds\HTML5;
-use Pressbooks\Admin\Network\SharingAndPrivacyOptions;
 use function Pressbooks\Image\attachment_id_from_url;
 use function Pressbooks\Image\default_cover_url;
 use function Pressbooks\Image\strip_baseurl;
@@ -19,6 +17,8 @@ use function Pressbooks\Utility\getset;
 use function Pressbooks\Utility\oxford_comma_explode;
 use function Pressbooks\Utility\str_ends_with;
 use function Pressbooks\Utility\str_lreplace;
+use Masterminds\HTML5;
+use Pressbooks\Admin\Network\SharingAndPrivacyOptions;
 
 class Cloner {
 
@@ -553,7 +553,7 @@ class Cloner {
 	public function getBookStructure( $url ) {
 		// Handle request (local or global)
 		$response = $this->handleGetRequest(
-			$url , 'pressbooks/v2', 'toc', [
+			$url, 'pressbooks/v2', 'toc', [
 				'_embed' => 1,
 			]
 		);
@@ -1235,9 +1235,11 @@ class Cloner {
 	public function discoverWordPressApi( $url ) {
 
 		// Use redirection because our servers redirect when missing a trailing slash
-		$response = wp_safe_remote_head( $url, [
-			'redirection' => 2,
-		] );
+		$response = wp_safe_remote_head(
+			$url, [
+				'redirection' => 2,
+			]
+		);
 		if ( is_wp_error( $response ) ) {
 			return false;
 		}
@@ -1331,8 +1333,8 @@ class Cloner {
 
 	public static function getBookId( $url ) {
 		return get_blog_id_from_url(
-			wp_parse_url( $url , PHP_URL_HOST ),
-			trailingslashit( wp_parse_url( $url , PHP_URL_PATH ) )
+			wp_parse_url( $url, PHP_URL_HOST ),
+			trailingslashit( wp_parse_url( $url, PHP_URL_PATH ) )
 		);
 	}
 

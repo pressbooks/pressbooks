@@ -6,9 +6,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-use HumanNameParser\Parser;
-use HumanNameParser\Exception\NameParsingException;
 use function \Pressbooks\Utility\oxford_comma_explode;
+use HumanNameParser\Exception\NameParsingException;
+use HumanNameParser\Parser;
 
 echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 ?>
@@ -147,7 +147,7 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 		<item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml" />
 		<?php
 		if ( ! empty( $stylesheet ) ) :
-?>
+			?>
 <item id="stylesheet" href="OEBPS/<?php echo $stylesheet; ?>"  media-type="text/css" /><?php endif; ?>
 	</manifest>
 

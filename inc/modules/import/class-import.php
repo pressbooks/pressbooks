@@ -6,11 +6,11 @@
 
 namespace Pressbooks\Modules\Import;
 
+use function \Pressbooks\Utility\debug_error_log;
+use function \Pressbooks\Utility\getset;
 use Pressbooks\Book;
 use Pressbooks\Cloner;
 use Pressbooks\HtmLawed;
-use function \Pressbooks\Utility\getset;
-use function \Pressbooks\Utility\debug_error_log;
 
 abstract class Import {
 
@@ -274,7 +274,7 @@ abstract class Import {
 	static protected function doImport( array $current_import ) {
 
 		// Set post status
-		$current_import['default_post_status'] = ( isset( $_POST['show_imports_in_web'] ) ) ? 'publish' : 'private';
+		$current_import['default_post_status'] = ( isset( $_POST['show_imports_in_web'] ) ) ? 'publish' : 'private'; // @codingStandardsIgnoreLine
 
 		@set_time_limit( 300 ); // @codingStandardsIgnoreLine
 

@@ -4,10 +4,10 @@
  * @license GPLv3 (or any later version)
  */
 
-use Pressbooks\Book;
-use Pressbooks\Container;
 use function \Pressbooks\l10n\use_book_locale;
 use function \Pressbooks\Utility\include_plugins as include_symbionts;
+use Pressbooks\Book;
+use Pressbooks\Container;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -180,7 +180,7 @@ add_action( 'do_robotstxt', '\Pressbooks\Utility\add_sitemap_to_robots_txt' );
 
 if ( $is_book ) {
 	remove_filter( 'the_content', 'wpautop' );
-	add_filter( 'the_content', 'wpautop' , 12 ); // execute wpautop after shortcode processing
+	add_filter( 'the_content', 'wpautop', 12 ); // execute wpautop after shortcode processing
 
 	\Pressbooks\Shortcodes\Footnotes\Footnotes::init();
 	\Pressbooks\Shortcodes\Generics\Generics::init();

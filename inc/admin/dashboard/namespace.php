@@ -168,7 +168,7 @@ function display_book_widget() {
 			</li>
 			<?php
 			foreach ( $book_structure['part'] as $part ) {
-			?>
+				?>
 			<li>
 				<?php
 				$title = ( ! empty( $part['post_title'] ) ? $part['post_title'] : '&hellip;' );
@@ -191,7 +191,7 @@ function display_book_widget() {
 				?>
 				</ul>
 			</li>
-			<?php
+				<?php
 			}
 			?>
 			<li><h3><strong><?php _e( 'Back Matter', 'pressbooks' ); ?></strong></h3>
@@ -211,11 +211,11 @@ function display_book_widget() {
 	</nav>
 	<?php
 	if ( current_user_can( 'edit_posts' ) ) {
-	?>
+		?>
 	<div class="part-buttons">
 		<a href="post-new.php?post_type=chapter"><?php _e( 'Add', 'pressbooks' ); ?></a> | <a class="organize" href="<?php echo admin_url( 'admin.php?page=pb_organize' ); ?>"><?php _e( 'Organize', 'pressbooks' ); ?></a>
 	</div>
-	<?php
+		<?php
 	}
 }
 
@@ -306,9 +306,11 @@ function init_network_integrations_menu() {
 			'',
 			'dashicons-networking'
 		);
-		add_action( 'admin_bar_init', function () {
-			remove_submenu_page( 'pb_network_integrations', 'pb_network_integrations' );
-		} );
+		add_action(
+			'admin_bar_init', function () {
+				remove_submenu_page( 'pb_network_integrations', 'pb_network_integrations' );
+			}
+		);
 		$init_pb_network_integrations_menu = true;
 	}
 	return $parent_slug;
@@ -381,7 +383,7 @@ function dashboard_options_init() {
 function dashboard_feed_callback( $args ) {
 	?>
 	<p><?php __( 'Adjust settings for your dashboard RSS feed widget below.', 'pressbooks' ); ?></p>
-<?php
+	<?php
 }
 
 function display_feed_callback( $args ) {

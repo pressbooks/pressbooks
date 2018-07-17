@@ -522,8 +522,12 @@ class Taxonomy {
 	 */
 	protected function upgradeLicenses() {
 		global $wpdb;
-		$sql_args = [ 'pb_section_license', 'pb_book_license' ];
-		$results = $wpdb->get_results( $wpdb->prepare( "SELECT post_id, meta_value FROM {$wpdb->postmeta} WHERE meta_key IN (%s, %s)", $sql_args ), ARRAY_A );
+		$results = $wpdb->get_results(
+			$wpdb->prepare(
+				"SELECT post_id, meta_value FROM {$wpdb->postmeta} WHERE meta_key IN (%s, %s)",
+				[ 'pb_section_license', 'pb_book_license' ]
+			), ARRAY_A
+		);
 		foreach ( $results as $val ) {
 			wp_set_object_terms( $val['post_id'], $val['meta_value'], Licensing::TAXONOMY );
 		}

@@ -203,7 +203,8 @@ function register_meta() {
 			$defaults, [
 				'description' => __( 'Show title in exports', 'pressbooks' ),
 				'sanitize_callback' => function( $v ) {
-					return ( $v ? 'on' : null ) ; },
+					return ( $v ? 'on' : null );
+				},
 			]
 		)
 	);
@@ -213,7 +214,8 @@ function register_meta() {
 			$defaults, [
 				'description' => __( 'Set as ebook start-point', 'pressbooks' ),
 				'sanitize_callback' => function( $v ) {
-					return ( $v ? 'on' : null ) ; },
+					return ( $v ? 'on' : null );
+				},
 			]
 		)
 	);
@@ -256,11 +258,13 @@ function register_meta() {
  * @since 5.0.0
  */
 function register_post_statii() {
-	\register_post_status( 'web-only', [
-		'label'       => _x( 'Web Only', 'post status', 'pressbooks' ),
-		'public'      => true,
-		'label_count' => _n_noop( 'Web Only <span class="count">(%s)</span>', 'Web Only <span class="count">(%s)</span>' ),
-	] );
+	\register_post_status(
+		'web-only', [
+			'label'       => _x( 'Web Only', 'post status', 'pressbooks' ),
+			'public'      => true,
+			'label_count' => _n_noop( 'Web Only <span class="count">(%s)</span>', 'Web Only <span class="count">(%s)</span>' ),
+		]
+	);
 }
 
 /**
