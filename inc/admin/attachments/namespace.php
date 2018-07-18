@@ -23,7 +23,6 @@ function add_metadata_attachment( $form_fields, $post ) {
 
 	if ( substr( $post->post_mime_type, 0, 5 ) === 'image' ) {
 
-		$title       = get_post_meta( $post->ID, 'pb_media_attribution_title', true );
 		$author      = get_post_meta( $post->ID, 'pb_media_attribution_author', true );
 		$author_url  = get_post_meta( $post->ID, 'pb_media_attribution_author_url', true );
 		$source      = get_post_meta( $post->ID, 'pb_media_attribution_title_url', true );
@@ -42,12 +41,6 @@ function add_metadata_attachment( $form_fields, $post ) {
 		$form_fields['pb_media_attribution_figure'] = [
 			'value' => isset( $figure ) ? $figure : '',
 			'label' => __( 'Figure #', 'pressbooks' ),
-			'input' => 'text',
-		];
-
-		$form_fields['pb_media_attribution_title'] = [
-			'value' => isset( $title ) ? $title : '',
-			'label' => __( 'Title', 'pressbooks' ),
 			'input' => 'text',
 		];
 
@@ -110,7 +103,6 @@ function add_metadata_attachment( $form_fields, $post ) {
 function save_metadata_attachment( $post, $form_fields ) {
 	$expected     = [
 		'pb_media_attribution_figure',
-		'pb_media_attribution_title',
 		'pb_media_attribution_author',
 		'pb_media_attribution_author_url',
 		'pb_media_attribution_adapted',
