@@ -2,7 +2,7 @@
 
 class Shortcodes_Attributions_Attachments extends \WP_UnitTestCase {
 
-	use utitsTrait;
+	use utilsTrait;
 
 	protected $att;
 
