@@ -23,6 +23,8 @@ class Attachments {
 	/**
 	 * Function to init our class, set filters & hooks, set a singleton instance
 	 *
+	 * @since 5.5.0
+	 *
 	 * @return Attachments
 	 */
 	static public function init() {
@@ -36,6 +38,9 @@ class Attachments {
 	}
 
 	/**
+	 *
+	 * @since 5.5.0
+	 *
 	 * @param Attachments $obj
 	 */
 	static public function hooks( Attachments $obj ) {
@@ -73,6 +78,9 @@ class Attachments {
 	}
 
 	/**
+	 *
+	 * @since 5.5.0
+	 *
 	 * @return void $book_media
 	 */
 	private static function setBookMedia() {
@@ -95,6 +103,8 @@ class Attachments {
 	/**
 	 * Pre-process attributions shortcode
 	 *
+	 * @since 5.5.0
+	 *
 	 * @param array $atts
 	 * @param string $content
 	 *
@@ -107,6 +117,8 @@ class Attachments {
 
 	/**
 	 * Post-process attributions shortcode
+	 *
+	 * @since 5.5.0
 	 *
 	 * @param $content
 	 *
@@ -153,6 +165,8 @@ class Attachments {
 
 	/**
 	 * Logic and markup for the attribution fields
+	 *
+	 * @since 5.5.0
 	 *
 	 * @param array $attributions
 	 *

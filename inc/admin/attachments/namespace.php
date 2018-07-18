@@ -126,6 +126,8 @@ function save_metadata_attachment( $post, $form_fields ) {
 /**
  * Validates custom attachment metadata input fields
  *
+ * @since 5.5.0
+ *
  * @param $key
  * @param $form_field
  *
@@ -144,6 +146,8 @@ function validate_attachment_metadata( $key, $form_field ) {
 
 /**
  * Creates an HTML blob for selecting a valid license type
+ *
+ * @since 5.5.0
  *
  * @param $post_id
  * @param $license_meta

@@ -315,6 +315,8 @@ class GlobalOptions extends \Pressbooks\Options {
 	/**
 	 * Render the attachment_attributions checkbox.
 	 *
+	 * @since 5.5.0
+	 *
 	 * @param array $args
 	 */
 	function renderAttachmentAttributionsField( $args ) {
