@@ -143,9 +143,7 @@ function validate_attachment_metadata( $key, $form_field ) {
 
 	if ( Utility\str_ends_with( $key, '_url' ) && Utility\str_starts_with( $key, 'pb_' ) ) {
 		$form_field = ( wp_http_validate_url( $form_field ) ) ? wp_http_validate_url( $form_field ) : '';
-	}
-
-	if ( Utility\str_starts_with( $key, 'pb_' ) ) {
+	} elseif ( Utility\str_starts_with( $key, 'pb_' ) ) {
 		$form_field = sanitize_text_field( $form_field );
 	}
 
