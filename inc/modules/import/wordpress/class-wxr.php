@@ -400,6 +400,7 @@ class Wxr extends Import {
 
 		$new_post = [
 			'post_title' => wp_strip_all_tags( $p['post_title'] ),
+			'post_name' => $p['post_name'],
 			'post_type' => $post_type,
 			'post_status' => ( 'part' === $post_type ) ? 'publish' : $post_status,
 			'post_content' => $html,
