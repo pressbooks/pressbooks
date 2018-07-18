@@ -188,3 +188,9 @@ div.error {
 .mce-menu-item:focus .mce-ico {
   color: $white !important; // Ugh.
 }
+
+.mce-menu-item:hover .mce-menu-shortcut,
+.mce-menu-item.mce-selected .mce-menu-shortcut,
+.mce-menu-item:focus .mce-menu-shortcut {
+  color: $white !important; // Ugh.
+}
