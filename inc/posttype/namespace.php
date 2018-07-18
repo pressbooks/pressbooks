@@ -202,8 +202,8 @@ function register_meta() {
 	\register_meta(
 		'post', 'pb_show_title', array_merge(
 			$defaults, [
-				'description'       => __( 'Show title in exports', 'pressbooks' ),
-				'sanitize_callback' => function ( $v ) {
+				'description' => __( 'Show title in exports', 'pressbooks' ),
+				'sanitize_callback' => function( $v ) {
 					return ( $v ? 'on' : null );
 				},
 			]
@@ -213,8 +213,8 @@ function register_meta() {
 	\register_meta(
 		'post', 'pb_ebook_start', array_merge(
 			$defaults, [
-				'description'       => __( 'Set as ebook start-point', 'pressbooks' ),
-				'sanitize_callback' => function ( $v ) {
+				'description' => __( 'Set as ebook start-point', 'pressbooks' ),
+				'sanitize_callback' => function( $v ) {
 					return ( $v ? 'on' : null );
 				},
 			]
