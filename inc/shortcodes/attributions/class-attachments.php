@@ -38,132 +38,6 @@ class Attachments {
 	}
 
 	/**
-	 *
-	 * @since 5.5.0
-	 *
-	 * @param Attachments $obj
-	 */
-	static public function hooks( Attachments $obj ) {
-
-		add_shortcode( 'media_attributions', [ $obj, 'shortcodeHandler' ] );
-
-		// prevent further processing of formatted strings
-		add_filter(
-			'no_texturize_shortcodes',
-			function ( $excluded_shortcodes ) {
-				$excluded_shortcodes[] = 'media_attributions';
-
-				return $excluded_shortcodes;
-			}
-		);
-
-		// add img tag when searching for media
-		add_filter(
-			'media_embedded_in_content_allowed_types', function ( $allowed_media_types ) {
-				if ( ! in_array( 'img', $allowed_media_types, true ) ) {
-					array_push( $allowed_media_types, 'img' );
-				}
-
-				return $allowed_media_types;
-			}
-		);
-
-		// don't show unless user options
-		$options = get_option( 'pressbooks_theme_options_global' );
-
-		if ( 1 === $options['attachment_attributions'] ) {
-			add_filter( 'the_content', [ $obj, 'getAttributions' ], 12 );
-		}
-
-	}
-
-	/**
-	 *
-	 * @since 5.5.0
-	 *
-	 * @return void $book_media
-	 */
-	private static function setBookMedia() {
-		$book_media = [];
-		$args       = [
-			'post_type'      => 'attachment',
-			'posts_per_page' => - 1,
-			'post_status'    => 'inherit',
-		];
-
-		$attached_media = get_posts( $args );
-
-		foreach ( $attached_media as $media ) {
-			$book_media[ $media->ID ] = $media->guid;
-		}
-
-		self::$book_media = $book_media;
-	}
-
-	/**
-	 * Pre-process attributions shortcode
-	 *
-	 * @since 5.5.0
-	 *
-	 * @param array $atts
-	 * @param string $content
-	 *
-	 * @return string
-	 */
-	function shortcodeHandler( $atts, $content = '' ) {
-		//todo: Make the shortcode do something cool with attributes
-		return;
-	}
-
-	/**
-	 * Post-process attributions shortcode
-	 *
-	 * @since 5.5.0
-	 *
-	 * @param $content
-	 *
-	 * @return string
-	 */
-	function getAttributions( $content ) {
-		$all_attributions = [];
-		$media_in_page    = get_media_embedded_in_content( $content );
-
-		// these are not the droids you're looking for
-		if ( empty( $media_in_page ) ) {
-			return $content;
-		}
-
-		// get all book attachments
-		if ( self::$book_media ) {
-			$media_ids = Media\extract_id_from_media( $media_in_page );
-
-			// intersect media_ids found in page with found in book
-			$unique_ids = Media\intersect_media_ids( $media_ids, self::$book_media );
-		} else {
-			return $content;
-		}
-
-		// get attribution meta for each attachment
-		if ( $unique_ids ) {
-			foreach ( $unique_ids as $id ) {
-				$all_attributions[ $id ]['title']       = get_the_title( $id );
-				$all_attributions[ $id ]['title_url']   = get_post_meta( $id, 'pb_media_attribution_title_url', true );
-				$all_attributions[ $id ]['figure']      = get_post_meta( $id, 'pb_media_attribution_figure', true );
-				$all_attributions[ $id ]['author']      = get_post_meta( $id, 'pb_media_attribution_author', true );
-				$all_attributions[ $id ]['author_url']  = get_post_meta( $id, 'pb_media_attribution_author_url', true );
-				$all_attributions[ $id ]['adapted']     = get_post_meta( $id, 'pb_media_attribution_adapted', true );
-				$all_attributions[ $id ]['adapted_url'] = get_post_meta( $id, 'pb_media_attribution_adapted_url', true );
-				$all_attributions[ $id ]['license']     = get_post_meta( $id, 'pb_media_attribution_license', true );
-			}
-		}
-
-		// get the content of the attributions
-		$media_attributions = $this->attributionsContent( $all_attributions );
-
-		return $content . $media_attributions;
-	}
-
-	/**
 	 * Logic and markup for the attribution fields
 	 *
 	 * @since 5.5.0
@@ -256,6 +130,132 @@ class Attachments {
 		}
 
 		return $html;
+	}
+
+	/**
+	 * Post-process attributions shortcode
+	 *
+	 * @since 5.5.0
+	 *
+	 * @param $content
+	 *
+	 * @return string
+	 */
+	function getAttributions( $content ) {
+		$all_attributions = [];
+		$media_in_page    = get_media_embedded_in_content( $content );
+
+		// these are not the droids you're looking for
+		if ( empty( $media_in_page ) ) {
+			return $content;
+		}
+
+		// get all book attachments
+		if ( self::$book_media ) {
+			$media_ids = Media\extract_id_from_media( $media_in_page );
+
+			// intersect media_ids found in page with found in book
+			$unique_ids = Media\intersect_media_ids( $media_ids, self::$book_media );
+		} else {
+			return $content;
+		}
+
+		// get attribution meta for each attachment
+		if ( $unique_ids ) {
+			foreach ( $unique_ids as $id ) {
+				$all_attributions[ $id ]['title']       = get_the_title( $id );
+				$all_attributions[ $id ]['title_url']   = get_post_meta( $id, 'pb_media_attribution_title_url', true );
+				$all_attributions[ $id ]['figure']      = get_post_meta( $id, 'pb_media_attribution_figure', true );
+				$all_attributions[ $id ]['author']      = get_post_meta( $id, 'pb_media_attribution_author', true );
+				$all_attributions[ $id ]['author_url']  = get_post_meta( $id, 'pb_media_attribution_author_url', true );
+				$all_attributions[ $id ]['adapted']     = get_post_meta( $id, 'pb_media_attribution_adapted', true );
+				$all_attributions[ $id ]['adapted_url'] = get_post_meta( $id, 'pb_media_attribution_adapted_url', true );
+				$all_attributions[ $id ]['license']     = get_post_meta( $id, 'pb_media_attribution_license', true );
+			}
+		}
+
+		// get the content of the attributions
+		$media_attributions = $this->attributionsContent( $all_attributions );
+
+		return $content . $media_attributions;
+	}
+
+	/**
+	 *
+	 * @since 5.5.0
+	 *
+	 * @param Attachments $obj
+	 */
+	static public function hooks( Attachments $obj ) {
+
+		add_shortcode( 'media_attributions', [ $obj, 'shortcodeHandler' ] );
+
+		// prevent further processing of formatted strings
+		add_filter(
+			'no_texturize_shortcodes',
+			function ( $excluded_shortcodes ) {
+				$excluded_shortcodes[] = 'media_attributions';
+
+				return $excluded_shortcodes;
+			}
+		);
+
+		// add img tag when searching for media
+		add_filter(
+			'media_embedded_in_content_allowed_types', function ( $allowed_media_types ) {
+				if ( ! in_array( 'img', $allowed_media_types, true ) ) {
+					array_push( $allowed_media_types, 'img' );
+				}
+
+				return $allowed_media_types;
+			}
+		);
+
+		// don't show unless user options
+		$options = get_option( 'pressbooks_theme_options_global' );
+
+		if ( 1 === $options['attachment_attributions'] ) {
+			add_filter( 'the_content', [ $obj, 'getAttributions' ], 12 );
+		}
+
+	}
+
+	/**
+	 *
+	 * @since 5.5.0
+	 *
+	 * @return void $book_media
+	 */
+	private static function setBookMedia() {
+		$book_media = [];
+		$args       = [
+			'post_type'      => 'attachment',
+			'posts_per_page' => - 1,
+			'post_status'    => 'inherit',
+		];
+
+		$attached_media = get_posts( $args );
+
+		foreach ( $attached_media as $media ) {
+			$book_media[ $media->ID ] = $media->guid;
+		}
+
+		self::$book_media = $book_media;
+	}
+
+	/**
+	 * Pre-process attributions shortcode
+	 *
+	 * @since 5.5.0
+	 *
+	 * @param array $atts
+	 * @param string $content
+	 *
+	 * @return string
+	 */
+	function shortcodeHandler( $atts, $content = '' ) {
+		//todo: Make the shortcode do something cool with attributes
+		return;
 	}
 
 }

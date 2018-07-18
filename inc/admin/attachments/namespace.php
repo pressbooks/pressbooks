@@ -90,6 +90,29 @@ function add_metadata_attachment( $form_fields, $post ) {
 }
 
 /**
+ * Creates an HTML blob for selecting a valid license type
+ *
+ * @since 5.5.0
+ *
+ * @param $post_id
+ * @param $license_meta
+ *
+ * @return string
+ */
+function render_attachment_license_options( $post_id, $license_meta ) {
+	$licenses = ( new Licensing() )->getSupportedTypes();
+	$html     = "<select name='attachments[$post_id][pb_media_attribution_license]' id='attachments-{$post_id}-pb_media_attribution_license'>";
+
+	$html .= '<option value=""></option>';
+	foreach ( $licenses as $key => $license ) {
+		$html .= "<option value='{$key}'" . selected( $license_meta, $key, false ) . ">{$license['desc']}</option>";
+	}
+	$html .= '</select>';
+
+	return $html;
+}
+
+/**
  * Hooks into 'attachment_fields_to_save' filter to save custom attachment
  * metadata
  *
@@ -142,27 +165,4 @@ function validate_attachment_metadata( $key, $form_field ) {
 	}
 
 	return $form_field;
-}
-
-/**
- * Creates an HTML blob for selecting a valid license type
- *
- * @since 5.5.0
- *
- * @param $post_id
- * @param $license_meta
- *
- * @return string
- */
-function render_attachment_license_options( $post_id, $license_meta ) {
-	$licenses = ( new Licensing() )->getSupportedTypes();
-	$html     = "<select name='attachments[$post_id][pb_media_attribution_license]' id='attachments-{$post_id}-pb_media_attribution_license'>";
-
-	$html .= '<option value=""></option>';
-	foreach ( $licenses as $key => $license ) {
-		$html .= "<option value='{$key}'" . selected( $license_meta, $key, false ) . ">{$license['desc']}</option>";
-	}
-	$html .= '</select>';
-
-	return $html;
 }
