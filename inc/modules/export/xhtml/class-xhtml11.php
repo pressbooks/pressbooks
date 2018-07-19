@@ -12,7 +12,6 @@ use Masterminds\HTML5;
 use Pressbooks\Container;
 use Pressbooks\Modules\Export\Export;
 use Pressbooks\Sanitize;
-use SebastianBergmann\CodeCoverage\Driver\Xdebug;
 
 class Xhtml11 extends Export {
 
