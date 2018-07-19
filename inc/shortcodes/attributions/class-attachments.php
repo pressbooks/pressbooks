@@ -223,12 +223,12 @@ class Attachments {
 		// add img tag when searching for media
 		add_filter(
 			'media_embedded_in_content_allowed_types', function ( $allowed_media_types ) {
-			if ( ! in_array( 'img', $allowed_media_types, true ) ) {
-				array_push( $allowed_media_types, 'img' );
-			}
+				if ( ! in_array( 'img', $allowed_media_types, true ) ) {
+					array_push( $allowed_media_types, 'img' );
+				}
 
-			return $allowed_media_types;
-		}
+				return $allowed_media_types;
+			}
 		);
 
 		// don't show unless user options
