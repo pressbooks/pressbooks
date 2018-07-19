@@ -1,5 +1,6 @@
 <?php
 /**
+ * @author   Brad Payne, Alex Paredes
  * @license  GPLv3 (or any later version)
  */
 
@@ -38,7 +39,8 @@ class Attachments {
 	}
 
 	/**
-	 * Logic and markup for the attribution fields
+	 * Produces an html blob of attribution statements for the array
+	 * of attachment ids it's given.
 	 *
 	 * @since 5.5.0
 	 *
@@ -123,7 +125,7 @@ class Attachments {
 			}
 			if ( ! empty( $media_attributions ) ) {
 				$html = sprintf(
-					'<div class="media-atttributions license-attribution" prefix:cc="http://creativecommons.org/ns#" prefix:dc="http://purl.org/dc/terms/"><h3>' . __( 'Media Attributions', 'pressbooks' ) . '</h3><ul>%s</ul></div>',
+					'<div class="media-atttributions" prefix:cc="http://creativecommons.org/ns#" prefix:dc="http://purl.org/dc/terms/"><h3>' . __( 'Media Attributions', 'pressbooks' ) . '</h3><ul>%s</ul></div>',
 					$media_attributions
 				);
 			}
@@ -133,7 +135,9 @@ class Attachments {
 	}
 
 	/**
-	 * Post-process attributions shortcode
+	 * Produces a list of media attributions if they are
+	 * found in the current page and part of the media library
+	 * appends said list to the end of the content
 	 *
 	 * @since 5.5.0
 	 *
@@ -142,8 +146,7 @@ class Attachments {
 	 * @return string
 	 */
 	function getAttributions( $content ) {
-		$all_attributions = [];
-		$media_in_page    = get_media_embedded_in_content( $content );
+		$media_in_page = get_media_embedded_in_content( $content );
 
 		// these are not the droids you're looking for
 		if ( empty( $media_in_page ) ) {
@@ -161,8 +164,27 @@ class Attachments {
 		}
 
 		// get attribution meta for each attachment
-		if ( $unique_ids ) {
-			foreach ( $unique_ids as $id ) {
+		$all_attributions = $this->getAttributionsMeta( $unique_ids );
+
+		// get the content of the attributions
+		$media_attributions = $this->attributionsContent( $all_attributions );
+
+		return $content . $media_attributions;
+	}
+
+	/**
+	 * Returns the gamut of attribution metadata that can be associated with an
+	 * attachment
+	 *
+	 * @param array $ids of attachments
+	 *
+	 * @return array all attribution metadata
+	 */
+	public function getAttributionsMeta( $ids ) {
+		$all_attributions = [];
+
+		if ( $ids ) {
+			foreach ( $ids as $id ) {
 				$all_attributions[ $id ]['title']       = get_the_title( $id );
 				$all_attributions[ $id ]['title_url']   = get_post_meta( $id, 'pb_media_attribution_title_url', true );
 				$all_attributions[ $id ]['figure']      = get_post_meta( $id, 'pb_media_attribution_figure', true );
@@ -174,13 +196,11 @@ class Attachments {
 			}
 		}
 
-		// get the content of the attributions
-		$media_attributions = $this->attributionsContent( $all_attributions );
-
-		return $content . $media_attributions;
+		return $all_attributions;
 	}
 
 	/**
+	 * Hooks our bits into the machine
 	 *
 	 * @since 5.5.0
 	 *
@@ -203,12 +223,12 @@ class Attachments {
 		// add img tag when searching for media
 		add_filter(
 			'media_embedded_in_content_allowed_types', function ( $allowed_media_types ) {
-				if ( ! in_array( 'img', $allowed_media_types, true ) ) {
-					array_push( $allowed_media_types, 'img' );
-				}
-
-				return $allowed_media_types;
+			if ( ! in_array( 'img', $allowed_media_types, true ) ) {
+				array_push( $allowed_media_types, 'img' );
 			}
+
+			return $allowed_media_types;
+		}
 		);
 
 		// don't show unless user options
@@ -221,6 +241,8 @@ class Attachments {
 	}
 
 	/**
+	 * Gets all attachments currently in the database, returns as an array of
+	 * key = ID, value = guid. Sets an instance variable
 	 *
 	 * @since 5.5.0
 	 *
@@ -244,7 +266,8 @@ class Attachments {
 	}
 
 	/**
-	 * Pre-process attributions shortcode
+	 * If shortcode is present [media_attributions id='33']
+	 * returns the one attribution statement for that attachment
 	 *
 	 * @since 5.5.0
 	 *
@@ -254,8 +277,20 @@ class Attachments {
 	 * @return string
 	 */
 	function shortcodeHandler( $atts, $content = '' ) {
-		//todo: Make the shortcode do something cool with attributes
-		return;
+		$retval = '';
+
+		$a = shortcode_atts(
+			[
+				'id' => '',
+			], $atts
+		);
+
+		if ( ! empty( $a ) ) {
+			$meta   = $this->getAttributionsMeta( $a );
+			$retval = $this->attributionsContent( $meta );
+		}
+
+		return $retval;
 	}
 
 }

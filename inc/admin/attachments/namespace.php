@@ -1,4 +1,8 @@
 <?php
+/**
+ * @author Brad Payne, Alex Paredes
+ * @license  GPLv3 (or any later version)
+ */
 
 namespace Pressbooks\Admin\Attachments;
 

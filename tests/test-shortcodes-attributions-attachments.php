@@ -4,6 +4,9 @@ class Shortcodes_Attributions_Attachments extends \WP_UnitTestCase {
 
 	use utilsTrait;
 
+	/**
+	 * @var \Pressbooks\Shortcodes\Attributions\Attachments
+	 */
 	protected $att;
 
 	public function setUp() {
@@ -14,6 +17,7 @@ class Shortcodes_Attributions_Attachments extends \WP_UnitTestCase {
 		                  ->disableOriginalConstructor()
 		                  ->getMock();
 	}
+
 
 	private function _createAttachment() {
 
@@ -29,6 +33,7 @@ class Shortcodes_Attributions_Attachments extends \WP_UnitTestCase {
 		return $pid;
 	}
 
+
 	public function test_getInstance() {
 
 		$val = $this->att->init();
@@ -42,16 +47,29 @@ class Shortcodes_Attributions_Attachments extends \WP_UnitTestCase {
 
 	public function test_getAttributions() {
 
+		$result = $this->att->getAttributions( 'I have no <b>images</b>' );
+		$this->assertEquals( 'I have no <b>images</b>', $result );
+
+	}
+
+	public function test_getAttributionsMeta(){
 		$pid          = $this->_createAttachment();
 		$url          = get_post_meta( $pid, 'pb_media_attribution_title_url', true );
 		$license_meta = get_post_meta( $pid, 'pb_media_attribution_license', true );
 		$author       = get_post_meta( $pid, 'pb_media_attribution_author', true );
+
 		$this->assertEquals( 'https://sourceoforiginal.com', $url );
 		$this->assertEquals( 'cc-by', $license_meta );
 		$this->assertEquals( 'Original Author', $author );
 
-		$result = $this->att->getAttributions( 'I have no <b>images</b>' );
-		$this->assertEquals( 'I have no <b>images</b>', $result );
+		$id     = [ $pid ];
+		$result = $this->att->getAttributionsMeta( $id );
+
+		$this->assertArrayHasKey( $pid, $result );
+		$this->assertNonEmptyMultidimensionalArray( $result );
+		$this->assertEquals( 'https://sourceoforiginal.com', $result[ $pid ]['title_url'] );
+		$this->assertEquals( 'cc-by', $result[ $pid ]['license'] );
+		$this->assertEquals( 'Original Author', $result[ $pid ]['author'] );
 
 	}
 
@@ -80,7 +98,7 @@ class Shortcodes_Attributions_Attachments extends \WP_UnitTestCase {
 		];
 
 		$html = $this->att->attributionsContent( $attributions );
-		$this->assertContains( '<div class="media-atttributions license-attribution" prefix:cc="http://creativecommons.org/ns#" prefix:dc="http://purl.org/dc/terms/"><h3>Media Attributions</h3><ul><li about="https://sourceoforiginal.com">2.1 <a rel="cc:attributionURL" href="https://sourceoforiginal.com" property="dc:title">skates</a>  by  <a rel="dc:creator" href="https://authorurl.ca" property="cc:attributionName">Original Author</a>  adapted by  <a rel="dc:source" href="https://adaptingauthorurl.ca">Adapted Author</a>  &copy;  <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">CC BY (Attribution)</a></li><li about="https://source.com">Figure 2.2 <a rel="cc:attributionURL" href="https://source.com" property="dc:title">running downhills a lot</a>  by  amanda c    &copy;  <a rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC (Attribution NonCommercial)</a></li></ul></div>', $html );
+		$this->assertContains( '<div class="media-atttributions" prefix:cc="http://creativecommons.org/ns#" prefix:dc="http://purl.org/dc/terms/"><h3>Media Attributions</h3><ul><li about="https://sourceoforiginal.com">2.1 <a rel="cc:attributionURL" href="https://sourceoforiginal.com" property="dc:title">skates</a>  by  <a rel="dc:creator" href="https://authorurl.ca" property="cc:attributionName">Original Author</a>  adapted by  <a rel="dc:source" href="https://adaptingauthorurl.ca">Adapted Author</a>  &copy;  <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">CC BY (Attribution)</a></li><li about="https://source.com">Figure 2.2 <a rel="cc:attributionURL" href="https://source.com" property="dc:title">running downhills a lot</a>  by  amanda c    &copy;  <a rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC (Attribution NonCommercial)</a></li></ul></div>', $html );
 
 		$html = $this->att->attributionsContent( [] );
 		$this->assertEquals( '', $html );
