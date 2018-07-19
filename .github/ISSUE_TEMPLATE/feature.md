@@ -1,5 +1,7 @@
 ---
 name: Suggest a Feature
+about: Share your ideas for how to make Pressbooks better.
+
 ---
 
 ### Feature Description

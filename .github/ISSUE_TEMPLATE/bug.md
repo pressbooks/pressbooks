@@ -1,5 +1,7 @@
 ---
 name: Report a Bug
+about: Let us know if something isn't working as expected.
+
 ---
 
 ### Prerequisites
