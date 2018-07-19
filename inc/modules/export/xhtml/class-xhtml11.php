@@ -12,6 +12,7 @@ use Masterminds\HTML5;
 use Pressbooks\Container;
 use Pressbooks\Modules\Export\Export;
 use Pressbooks\Sanitize;
+use SebastianBergmann\CodeCoverage\Driver\Xdebug;
 
 class Xhtml11 extends Export {
 
@@ -252,7 +253,7 @@ class Xhtml11 extends Export {
 
 		echo '<title>' . get_bloginfo( 'name' ) . "</title>\n";
 
-		if ( WP_DEBUG || is_super_admin() ) {
+		if ( is_super_admin( get_current_user_id() ) || WP_DEBUG ) {
 			if ( ! empty( $_GET['debug'] ) ) {
 				$url = get_generated_content_url( '/scss-debug' ) . '/' . clean_filename( $_GET['debug'] ) . '.css';
 				echo "<link rel='stylesheet' href='$url' type='text/css' />\n";
