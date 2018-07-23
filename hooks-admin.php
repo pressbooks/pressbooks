@@ -252,11 +252,11 @@ if ( is_plugin_active( 'tablepress/tablepress.php' ) ) {
 		}
 	);
 	add_filter(
-		'tablepress_edit_link_below_table', function ( $actions ) {
+		'tablepress_edit_link_below_table', function ( $show ) {
 			if ( \Pressbooks\Modules\Export\Export::isFormSubmission() ) {
 				return false;
 			}
-			return $actions;
+			return $show;
 		}
 	);
 	// TODO: Other filters are available: tablepress_table_render_options, tablepress_table_js_options, ... @see \TablePress_Frontend_Controller::shortcode_table
