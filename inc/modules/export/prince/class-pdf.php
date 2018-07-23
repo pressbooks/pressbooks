@@ -128,7 +128,7 @@ class Pdf extends Export {
 		$prince->setHTML( true );
 		$prince->setCompress( true );
 		$prince->setHttpTimeout( max( ini_get( 'max_execution_time' ), 30 ) );
-		if ( defined( 'WP_ENV' ) && ( WP_ENV === 'development' || WP_ENV === 'staging' ) ) {
+		if ( defined( 'WP_ENV' ) && ( WP_ENV === 'development' ) ) {
 			$prince->setInsecure( true );
 		}
 		if ( $this->pdfProfile && $this->pdfOutputIntent ) {
