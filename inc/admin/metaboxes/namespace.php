@@ -1160,7 +1160,7 @@ function contributor_edit_form( $term ) {
 		</td>
 	</tr>
 	<tr class="form-field contributor-last-name-wrap">
-		<th scope="row"><label for="contributor_last_name"><?php _e( 'First Name', 'pressbooks' ); ?></label></th>
+		<th scope="row"><label for="contributor_last_name"><?php _e( 'Last Name', 'pressbooks' ); ?></label></th>
 		<td>
 			<input type="text" name="contributor_last_name" id="contributor-last-name" value="<?php echo esc_attr( $lastname ); ?>" class="contributor-last-name-field"  />
 		</td>
