@@ -54,7 +54,8 @@ function showModal( item ) {
 	alert.children( 'p' ).text( alertMessage );
 	alert.addClass( 'loading-content' ).removeClass( 'visually-hidden' );
 	$.blockUI( {
-		message: $( alert ), baseZ: 100000,
+		message: $( alert ),
+		baseZ: 100000,
 	} );
 }
 

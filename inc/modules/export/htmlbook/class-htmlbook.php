@@ -233,7 +233,7 @@ class HTMLBook extends Export {
 		echo "<head>\n";
 		echo '<title>' . get_bloginfo( 'name' ) . "</title>\n";
 
-		if ( WP_DEBUG ) {
+		if ( is_super_admin( get_current_user_id() ) || WP_DEBUG ) {
 			if ( ! empty( $_GET['debug'] ) ) {
 				$url = get_generated_content_url( '/scss-debug' ) . '/' . clean_filename( $_GET['debug'] ) . '.css';
 				echo "<link rel='stylesheet' href='$url' type='text/css' />\n";
