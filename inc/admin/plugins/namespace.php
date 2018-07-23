@@ -23,6 +23,7 @@ function filter_plugins( $plugins ) {
 		$slugs = [
 			'h5p',
 			'hypothesis',
+			'tablepress',
 			'wp-quicklatex',
 		];
 		$approved = [];
