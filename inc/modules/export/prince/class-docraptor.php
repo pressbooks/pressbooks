@@ -82,7 +82,7 @@ class Docraptor extends Pdf {
 				$document_content = str_replace( '</head>', "<style>$css</style></head>", \Pressbooks\Utility\get_contents( $this->url ) );
 				$doc->setTest( true );
 				$doc->setDocumentContent( $document_content );
-			} elseif ( defined( 'WP_ENV' ) && ( WP_ENV === 'development' || WP_ENV === 'staging' ) ) {
+			} elseif ( defined( 'WP_ENV' ) && ( WP_ENV === 'development' ) ) {
 				// Localhost
 				$args['sslverify'] = false;
 				$response = wp_remote_get( $this->url, $args );
