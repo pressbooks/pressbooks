@@ -251,6 +251,12 @@ add_action( 'init', '\Pressbooks\Cloner::formSubmit', 50 );
 
 if ( $is_book ) {
 
+	// Load TablePress shortcodes.
+	if ( is_plugin_active( 'tablepress/tablepress.php' ) && ! class_exists( 'TablePress' ) ) {
+		require_once WP_PLUGIN_DIR . '/tablepress/tablepress.php';
+		TablePress::load_controller( 'frontend' );
+	}
+
 	add_action(
 		'post_edit_form_tag', function () {
 			echo ' enctype="multipart/form-data"';
