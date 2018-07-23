@@ -194,3 +194,10 @@ div.error {
 .mce-menu-item:focus .mce-menu-shortcut {
   color: $white !important; // Ugh.
 }
+
+.mce-btn.mce-active button,
+.mce-btn.mce-active:hover button,
+.mce-btn.mce-active i,
+.mce-btn.mce-active:hover i {
+  color: $mine-shaft !important; // Ugh
+}
