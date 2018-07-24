@@ -99,9 +99,8 @@ function render_page() {
 	}
 	$output .= "\n#### Network Active Plugins\n\n";
 	$plugins = get_plugins();
-	$network_active_plugins = get_site_option( 'active_sitewide_plugins', [] );
 	foreach ( $plugins as $plugin_path => $plugin ) {
-		if ( ! array_key_exists( $plugin_path, $network_active_plugins ) ) {
+		if ( ! is_plugin_active_for_network( $plugin_path ) ) {
 			continue;
 		}
 		$output .= $plugin['Name'] . ': ' . $plugin['Version'] . "\n";
@@ -112,16 +111,15 @@ function render_page() {
 		$output .= "\n#### Root Blog Active Plugins\n\n";
 	}
 	$plugins = get_plugins();
-	$active_plugins = get_option( 'active_plugins', [] );
 	foreach ( $plugins as $plugin_path => $plugin ) {
-		if ( ! in_array( $plugin_path, $active_plugins, true ) ) {
+		if ( ! is_plugin_active( $plugin_path ) ) {
 			continue;
 		}
 		$output .= $plugin['Name'] . ': ' . $plugin['Version'] . "\n";
 	}
 	$output .= "\n#### Inactive Plugins\n\n";
 	foreach ( $plugins as $plugin_path => $plugin ) {
-		if ( array_key_exists( $plugin_path, $network_active_plugins ) || in_array( $plugin_path, $active_plugins, true ) ) {
+		if ( is_plugin_active_for_network( $plugin_path ) || is_plugin_active( $plugin_path ) ) {
 			continue;
 		}
 		$output .= $plugin['Name'] . ': ' . $plugin['Version'] . "\n";

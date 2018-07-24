@@ -226,7 +226,7 @@ class custom_metadata_manager {
 		wp_enqueue_script( 'wplink' );
 		wp_enqueue_script( 'wpdialogs-popup' );
 		wp_enqueue_style( 'wp-jquery-ui-dialog' );
-		wp_enqueue_script( 'select2', apply_filters( 'custom_metadata_manager_select2_js', CUSTOM_METADATA_MANAGER_URL .'js/select2.min.js' ), array( 'jquery' ), CUSTOM_METADATA_MANAGER_SELECT2_VERSION, true );
+		wp_enqueue_script( 'select2', apply_filters( 'custom_metadata_manager_select2_js', CUSTOM_METADATA_MANAGER_URL . 'js/select2.min.js' ), array( 'jquery' ), apply_filters( 'custom_metadata_manager_select2_js_version', CUSTOM_METADATA_MANAGER_SELECT2_VERSION ), true );
 		wp_enqueue_script( 'timepicker', apply_filters( 'custom_metadata_manager_timepicker_js', CUSTOM_METADATA_MANAGER_URL .'js/jquery-ui-timepicker.min.js' ), array( 'jquery', 'jquery-ui-datepicker' ), CUSTOM_METADATA_MANAGER_TIMEPICKER_VERSION, true );
 		wp_enqueue_script( 'custom-metadata-manager-js', apply_filters( 'custom_metadata_manager_default_js', CUSTOM_METADATA_MANAGER_URL .'js/custom-metadata-manager.js' ), array( 'jquery', 'jquery-ui-datepicker', 'select2' ), CUSTOM_METADATA_MANAGER_VERSION, true );
 		wp_enqueue_script( 'wp-color-picker' );
@@ -237,7 +237,7 @@ class custom_metadata_manager {
 		wp_enqueue_style( 'editor-buttons' );
 		wp_enqueue_style( 'custom-metadata-manager-css', apply_filters( 'custom_metadata_manager_default_css', CUSTOM_METADATA_MANAGER_URL .'css/custom-metadata-manager.css' ), array(), CUSTOM_METADATA_MANAGER_VERSION );
 		wp_enqueue_style( 'jquery-ui-datepicker', apply_filters( 'custom_metadata_manager_jquery_ui_css', CUSTOM_METADATA_MANAGER_URL .'css/jquery-ui-smoothness.css' ), array(), CUSTOM_METADATA_MANAGER_VERSION );
-		wp_enqueue_style( 'select2', apply_filters( 'custom_metadata_manager_select2_css', CUSTOM_METADATA_MANAGER_URL .'css/select2.css' ), array(), CUSTOM_METADATA_MANAGER_SELECT2_VERSION );
+		wp_enqueue_style( 'select2', apply_filters( 'custom_metadata_manager_select2_css', CUSTOM_METADATA_MANAGER_URL .'css/select2.css' ), array(), apply_filters( 'custom_metadata_manager_select2_js_version', CUSTOM_METADATA_MANAGER_SELECT2_VERSION ) );
 		wp_enqueue_style( 'wp-color-picker' );
 	}
 
@@ -653,6 +653,9 @@ class custom_metadata_manager {
 	}
 
 	function save_post_metadata( $post_id ) {
+		if ( wp_is_post_revision( $post_id ) ) {
+			return;
+		}
 		$post_type = $this->_get_object_type_context();
 		$groups = $this->get_groups_in_object_type( $post_type );
 
@@ -1072,19 +1075,20 @@ class custom_metadata_manager {
 		delete_metadata( $object_type, $object_id, $field_slug, $value );
 	}
 
-	function _sanitize_field_value( $field_slug, $field, $object_type, $object_id, $value ) {
+	function _sanitize_field_value( $field_slug, $field, $object_type, $object_id, $original_value ) {
+		$new_value = $original_value;
 
 		$sanitize_callback = $this->get_sanitize_callback( $field, $object_type );
 
 		// convert date to unix timestamp
 		if ( in_array( $field->field_type, array( 'datepicker', 'datetimepicker', 'timepicker' ) ) ) {
-			$value = strtotime( $value );
+			$new_value = strtotime( $original_value );
 		}
 
 		if ( $sanitize_callback )
-			return call_user_func( $sanitize_callback, $field_slug, $field, $object_type, $object_id, $value );
+			return call_user_func( $sanitize_callback, $field_slug, $field, $object_type, $object_id, $new_value, $original_value );
 
-		return $value;
+		return $new_value;
 	}
 
 	function _metadata_column_content( $field_slug, $field, $object_type, $object_id ) {
@@ -1173,7 +1177,7 @@ class custom_metadata_manager {
 			printf( '<p class="error">%s</p>', __( '<strong>Note:</strong> this field type cannot be multiplied', 'custom-metadata-manager' ) );
 		}
 
-		if ( empty( $field_id ) ) {
+		if ( ! isset( $field_id ) ) {
 			$field_id = ( ! empty( $field->multiple ) || in_array( $field->field_type, $this->_always_multiple_fields ) ) ? $field_slug . '[]' : $field_slug;
 		}
 

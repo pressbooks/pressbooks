@@ -58,7 +58,7 @@ class ThemeOptions {
 			'ebook' => '\Pressbooks\Modules\ThemeOptions\EbookOptions',
 		];
 
-		if ( false === get_site_transient( 'pb_pdf_compatible' ) && false === \Pressbooks\Modules\Export\Prince\Pdf::hasDependencies() ) {
+		if ( false === get_site_transient( 'pb_pdf_compatible' ) && false === \Pressbooks\Modules\Export\Prince\Filters::hasDependencies() ) {
 			unset( $tabs['pdf'] );
 		} else {
 			set_site_transient( 'pb_pdf_compatible', true );
@@ -110,9 +110,7 @@ class ThemeOptions {
 			if ( $tab::VERSION !== null && $version < $tab::VERSION ) {
 				$tab->upgrade( $version );
 				update_option( "pressbooks_theme_options_{$slug}_version", $tab::VERSION, false );
-				if ( ! defined( 'WP_TESTS_MULTISITE' ) ) {
-					debug_error_log( 'Upgraded ' . $slug . ' options from version ' . $version . ' --> ' . $tab::VERSION );
-				}
+				debug_error_log( 'Upgraded ' . $slug . ' options from version ' . $version . ' --> ' . $tab::VERSION );
 			}
 		}
 	}

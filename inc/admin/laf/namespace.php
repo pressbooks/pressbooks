@@ -835,6 +835,12 @@ function init_css_js() {
 		}
 	);
 	add_filter(
+		'custom_metadata_manager_select2_js_version',
+		function ( $version ) {
+			return get_bloginfo( 'version' );
+		}
+	);
+	add_filter(
 		'custom_metadata_manager_select2_css',
 		function ( $path ) use ( $assets ) {
 			return $assets->getPath( 'styles/select2.css' );

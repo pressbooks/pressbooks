@@ -2,7 +2,10 @@
 
 namespace Pressbooks\Metadata;
 
+use function \Pressbooks\L10n\get_book_language;
+use function \Pressbooks\L10n\get_locale;
 use function \Pressbooks\Sanitize\is_valid_timestamp;
+use function \Pressbooks\Utility\get_contents;
 use function \Pressbooks\Utility\is_assoc;
 use function \Pressbooks\Utility\oxford_comma;
 use function \Pressbooks\Utility\oxford_comma_explode;
@@ -759,14 +762,20 @@ function schema_to_section_information( $section_schema, $book_schema ) {
  * @since 4.4.0
  *
  * @param bool $include_qualifiers Whether or not the Theme subject qualifiers should be included.
- *
+ *.
  * @return array
  */
 function get_thema_subjects( $include_qualifiers = false ) {
-	$json = \Pressbooks\Utility\get_contents( PB_PLUGIN_DIR . 'symbionts/thema/Thema_v1.2_en.json' );
+	if ( \Pressbooks\Book::isBook() ) {
+		$locale = substr( get_book_language(), 0, 2 );
+	} else {
+		$locale = substr( get_locale(), 0, 2 );
+	}
+	$lang = ( in_array( $locale, [ 'de', 'en', 'es', 'fr', 'pt' ], true ) ) ? $locale : 'en';
+	$json = get_contents( PB_PLUGIN_DIR . "symbionts/thema/thema-${lang}.json" );
 	$values = json_decode( $json );
 	$subjects = [];
-	foreach ( $values->CodeList->Code as $code ) {
+	foreach ( $values->CodeList->ThemaCodes->Code as $code ) {
 		if ( ctype_alpha( substr( $code->CodeValue, 0, 1 ) ) || $include_qualifiers && ctype_digit( substr( $code->CodeValue, 0, 1 ) ) ) {
 			if ( strlen( $code->CodeValue ) === 1 ) {
 				$subjects[ $code->CodeValue ] = [

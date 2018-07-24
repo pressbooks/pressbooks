@@ -758,7 +758,7 @@ function format_bytes( $bytes, $precision = 2 ) {
  * @param null $message_type
  */
 function debug_error_log( $message, $message_type = null ) {
-	if ( WP_DEBUG ) {
+	if ( defined( 'WP_TESTS_MULTISITE' ) === false && WP_DEBUG ) {
 		\error_log( $message, $message_type ); // @codingStandardsIgnoreLine
 	}
 }
@@ -814,12 +814,11 @@ function email_error_log( $emails, $subject, $message ) {
  * @param array $vars (optional)
  *
  * @return string
- * @throws \Exception
  */
 function template( $path, array $vars = [] ) {
 
 	if ( ! file_exists( $path ) ) {
-		throw new \Exception( "File not found: $path" );
+		throw new \InvalidArgumentException( "File not found: $path" );
 	}
 
 	ob_start();
