@@ -233,9 +233,12 @@ class Attachments {
 
 		// don't show unless user options
 		$options = get_option( 'pressbooks_theme_options_global' );
-
-		if ( 1 === $options['attachment_attributions'] ) {
-			add_filter( 'the_content', [ $obj, 'getAttributions' ], 12 );
+		// check it's set
+		if ( isset( $options['attachment_attributions'] ) ) {
+			// check it's turned on
+			if ( 1 === $options['attachment_attributions'] ) {
+				add_filter( 'the_content', [ $obj, 'getAttributions' ], 12 );
+			}
 		}
 
 	}
