@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5eb54b97ba23fbf63886176206b986a3",
+    "content-hash": "73d0d799e0bf1c3b094b6ec1ae0ead06",
     "packages": [
         {
             "name": "composer/installers",
@@ -2286,12 +2286,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/pressbooks/coding-standards.git",
-                "reference": "0a52c4080e92a3f6adcff95f2a83cb5088049371"
+                "reference": "f09f0ba4dd3d20c2acb63c13b28a14bfe86ed229"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pressbooks/coding-standards/zipball/0a52c4080e92a3f6adcff95f2a83cb5088049371",
-                "reference": "0a52c4080e92a3f6adcff95f2a83cb5088049371",
+                "url": "https://api.github.com/repos/pressbooks/coding-standards/zipball/f09f0ba4dd3d20c2acb63c13b28a14bfe86ed229",
+                "reference": "f09f0ba4dd3d20c2acb63c13b28a14bfe86ed229",
                 "shasum": ""
             },
             "require": {
@@ -2307,7 +2307,7 @@
             "license": [
                 "GPL-3.0-or-later"
             ],
-            "time": "2018-07-11T20:53:18+00:00"
+            "time": "2018-07-13T14:56:39+00:00"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",
@@ -3058,10 +3058,10 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=7.0"
+        "php": ">=7.1"
     },
     "platform-dev": [],
     "platform-overrides": {
-        "php": "7.0.27"
+        "php": "7.1"
     }
 }

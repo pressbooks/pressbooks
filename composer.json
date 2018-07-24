@@ -22,11 +22,11 @@
 	},
 	"config": {
 		"platform": {
-			"php": "7.0.27"
+			"php": "7.1"
 		}
 	},
 	"require": {
-		"php": ">=7.0",
+		"php": ">=7.1",
 		"composer/installers": "~1.0",
 		"davidgorges/human-name-parser": "^0.2.1",
 		"gridonic/princexml-php": "^1.2",
