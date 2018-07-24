@@ -5,7 +5,7 @@ Tags: ebooks, publishing, webbooks
 Requires at least: 4.9.7
 Tested up to: 4.9.7
 Requires PHP: 7.0
-Stable tag: 5.4.1
+Stable tag: 5.4.2
 License: GPL v3.0 or later
 License URI: https://github.com/pressbooks/pressbooks/blob/master/LICENSE.md
 
@@ -21,6 +21,20 @@ For installation instructions, visit [docs.pressbooks.org/installation](https://
 TK.
 
 == Changelog ==
+= 5.4.2 =
+
+* Pressbooks 5.4.2 requires [WordPress 4.9.7](https://wordpress.org/news/2018/07/wordpress-4-9-7-security-and-maintenance-release/).
+* Pressbooks 5.4.2 requires [McLuhan >= 2.4.0](https://github.com/pressbooks/pressbooks-book/).
+
+* Update the TinyMCE table plugin to apply some [upstream bugfixes](https://github.com/tinymce/tinymce-dist/blob/master/changelog.txt#L3-L4): [#1262](https://github.com/pressbooks/pressbooks/pull/1262)
+* Improve colour contrast contrast for some TinyMCE buttons and menus ([#1250](https://github.com/pressbooks/pressbooks/issues/1250)): [#1273](https://github.com/pressbooks/pressbooks/pull/1273)
+* Restore correct chapter subtitle and author order in EPUB/MOBI exports ([#1271](https://github.com/pressbooks/pressbooks/issues/1271)): [#1274](https://github.com/pressbooks/pressbooks/pull/1274)
+* Grant access to the style debugging tool to super admins regardless of `WP_DEBUG` status ([#1272](https://github.com/pressbooks/pressbooks/issues/1272)): [#1275](https://github.com/pressbooks/pressbooks/pull/1275)
+* Retain original slug of chapters with differing title and slug during WXR import ([#1276](https://github.com/pressbooks/pressbooks/issues/1276)): [#1277](https://github.com/pressbooks/pressbooks/pull/1277)
+* Only force DocRaptor into test mode when in development environments ([#1289](https://github.com/pressbooks/pressbooks/issues/1289)): [#1290](https://github.com/pressbooks/pressbooks/pull/1290)
+* Correct the label for the contributor last name field ([#1291](https://github.com/pressbooks/pressbooks/issues/1291)): [#1292](https://github.com/pressbooks/pressbooks/pull/1292)
+* Rebuild editor stylesheet on Buckram updates ([#1278](https://github.com/pressbooks/pressbooks/issues/1278), props [@beckej13820](https://github.com/beckej13820) for the bug report): [#1294](https://github.com/pressbooks/pressbooks/pull/1294)
+
 = 5.4.1 =
 
 * Pressbooks 5.4.1 requires [WordPress 4.9.7](https://wordpress.org/news/2018/07/wordpress-4-9-7-security-and-maintenance-release/).
@@ -31,7 +45,7 @@ TK.
 * Convert iframes to `[embed]` shortcodes rather than deleting them if the user lacks permissions: [#1247](https://github.com/pressbooks/pressbooks/pull/1247)
 * Resolve issue where PDF dependencies were incorrectly reported as missing ([#1253](https://github.com/pressbooks/pressbooks/issues/1253)): [#1254](https://github.com/pressbooks/pressbooks/pull/1254)
 * Ensure that themes which don't support the new textbox markup use the old textbox markup: [#1252](https://github.com/pressbooks/pressbooks/pull/1252)
-* Remove hotfix for WordPress core vulnerability that was patched in WordPress 4.9.7 ([#1255](https://github.com/pressbooks/pressbooks/issues/1255)): [#1258](https://github.com/pressbooks/pressbooks/pull/1258) 
+* Remove hotfix for WordPress core vulnerability that was patched in WordPress 4.9.7 ([#1255](https://github.com/pressbooks/pressbooks/issues/1255)): [#1258](https://github.com/pressbooks/pressbooks/pull/1258)
 * Resolve issue where part content would not be imported from Pressbooks XML files ([#1259](https://github.com/pressbooks/pressbooks/issues/1259)): [#1260](https://github.com/pressbooks/pressbooks/pull/1260)
 * Resolve issue where visiting a user catalog would return a 404 status code instead of the correct 200 status code: [#1261](https://github.com/pressbooks/pressbooks/pull/1261)
 
@@ -121,7 +135,7 @@ TK.
 - Prevent slug collisions in XHTML and HTMLBook outputs ([#1174](https://github.com/pressbooks/pressbooks/issues/1174)): [#1175](https://github.com/pressbooks/pressbooks/pull/1175)
 
 == Upgrade Notice ==
-= 5.4.1 =
+= 5.4.2 =
 
-* Pressbooks 5.4.1 requires [WordPress 4.9.7](https://wordpress.org/news/2018/07/wordpress-4-9-7-security-and-maintenance-release/).
-* Pressbooks 5.4.1 requires [McLuhan >= 2.4.0](https://github.com/pressbooks/pressbooks-book/).
+* Pressbooks 5.4.2 requires [WordPress 4.9.7](https://wordpress.org/news/2018/07/wordpress-4-9-7-security-and-maintenance-release/).
+* Pressbooks 5.4.2 requires [McLuhan >= 2.4.0](https://github.com/pressbooks/pressbooks-book/).
