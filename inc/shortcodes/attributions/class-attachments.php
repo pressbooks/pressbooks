@@ -78,8 +78,6 @@ class Attachments {
 								'about="%s"',
 								$attribution['title_url']
 							) : '',
-						// figure attribution
-						( isset( $attribution['figure'] ) ) ? $attribution['figure'] : '',
 						// title attribution
 						( isset( $attribution['title_url'] ) ) ?
 							sprintf(
@@ -187,7 +185,6 @@ class Attachments {
 			foreach ( $ids as $id ) {
 				$all_attributions[ $id ]['title']       = get_the_title( $id );
 				$all_attributions[ $id ]['title_url']   = get_post_meta( $id, 'pb_media_attribution_title_url', true );
-				$all_attributions[ $id ]['figure']      = get_post_meta( $id, 'pb_media_attribution_figure', true );
 				$all_attributions[ $id ]['author']      = get_post_meta( $id, 'pb_media_attribution_author', true );
 				$all_attributions[ $id ]['author_url']  = get_post_meta( $id, 'pb_media_attribution_author_url', true );
 				$all_attributions[ $id ]['adapted']     = get_post_meta( $id, 'pb_media_attribution_adapted', true );

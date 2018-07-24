@@ -31,7 +31,6 @@ function add_metadata_attachment( $form_fields, $post ) {
 		$author_url  = get_post_meta( $post->ID, 'pb_media_attribution_author_url', true );
 		$source_url  = get_post_meta( $post->ID, 'pb_media_attribution_title_url', true );
 		$license     = get_post_meta( $post->ID, 'pb_media_attribution_license', true );
-		$figure      = get_post_meta( $post->ID, 'pb_media_attribution_figure', true );
 		$adapted     = get_post_meta( $post->ID, 'pb_media_attribution_adapted', true );
 		$adapted_url = get_post_meta( $post->ID, 'pb_media_attribution_adapted_url', true );
 
@@ -40,12 +39,6 @@ function add_metadata_attachment( $form_fields, $post ) {
 			'label' => __( 'ATTRIBUTIONS', 'pressbooks' ),
 			'input' => 'html',
 			'html'  => '<span></span>',
-		];
-
-		$form_fields['pb_media_attribution_figure'] = [
-			'value' => isset( $figure ) ? $figure : '',
-			'label' => __( 'Figure #', 'pressbooks' ),
-			'input' => 'text',
 		];
 
 		$form_fields['pb_media_attribution_title_url'] = [
@@ -132,7 +125,6 @@ function render_attachment_license_options( $post_id, $license_meta ) {
  */
 function save_metadata_attachment( $post, $form_fields ) {
 	$expected     = [
-		'pb_media_attribution_figure',
 		'pb_media_attribution_author',
 		'pb_media_attribution_author_url',
 		'pb_media_attribution_adapted',

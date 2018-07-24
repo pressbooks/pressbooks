@@ -262,14 +262,6 @@ function register_meta() {
 	);
 
 	\register_meta(
-		'post', 'pb_media_attribution_figure', array_merge(
-			$defaults, [
-				'description' => __( 'Media attribution figure', 'pressbooks' ),
-			]
-		)
-	);
-
-	\register_meta(
 		'post', 'pb_media_attribution_author', array_merge(
 			$defaults, [
 				'description' => __( 'Media attribution author', 'pressbooks' ),
