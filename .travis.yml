@@ -9,7 +9,7 @@ notifications:
 branches:
   only:
   - dev
-  - fivepointfive
+  - next
   - "/\\d+\\.\\d+(\\.\\d+)?(-\\S*)?$/"
 php:
 - 7.0.8
