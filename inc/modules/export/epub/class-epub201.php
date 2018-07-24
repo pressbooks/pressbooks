@@ -1222,7 +1222,7 @@ class Epub201 extends Export {
 
 			if ( $author ) {
 				if ( $this->wrapHeaderElements ) {
-					$after_title .= '<h2 class="chapter-author">' . Sanitize\decode( $author ) . '</h2>';
+					$after_title = '<h2 class="chapter-author">' . Sanitize\decode( $author ) . '</h2>' . $after_title;
 				} else {
 					$content = '<h2 class="chapter-author">' . Sanitize\decode( $author ) . '</h2>' . $content;
 				}
@@ -1230,7 +1230,7 @@ class Epub201 extends Export {
 
 			if ( $subtitle ) {
 				if ( $this->wrapHeaderElements ) {
-					$after_title .= '<h2 class="chapter-subtitle">' . Sanitize\decode( $subtitle ) . '</h2>';
+					$after_title = '<h2 class="chapter-subtitle">' . Sanitize\decode( $subtitle ) . '</h2>' . $after_title;
 				} else {
 					$content = '<h2 class="chapter-subtitle">' . Sanitize\decode( $subtitle ) . '</h2>' . $content;
 				}
@@ -1238,7 +1238,7 @@ class Epub201 extends Export {
 
 			if ( $short_title ) {
 				if ( $this->wrapHeaderElements ) {
-					$after_title .= '<h6 class="short-title">' . Sanitize\decode( $short_title ) . '</h6>';
+					$after_title = '<h6 class="short-title">' . Sanitize\decode( $short_title ) . '</h6>' . $after_title;
 				} else {
 					$content = '<h6 class="short-title">' . Sanitize\decode( $short_title ) . '</h6>' . $content;
 				}
@@ -1394,7 +1394,7 @@ class Epub201 extends Export {
 
 				if ( $author ) {
 					if ( $this->wrapHeaderElements ) {
-						$after_title .= '<h2 class="chapter-author">' . Sanitize\decode( $author ) . '</h2>';
+						$after_title = '<h2 class="chapter-author">' . Sanitize\decode( $author ) . '</h2>' . $after_title;
 					} else {
 						$content = '<h2 class="chapter-author">' . Sanitize\decode( $author ) . '</h2>' . $content;
 					}
@@ -1402,7 +1402,7 @@ class Epub201 extends Export {
 
 				if ( $subtitle ) {
 					if ( $this->wrapHeaderElements ) {
-						$after_title .= '<h2 class="chapter-subtitle">' . Sanitize\decode( $subtitle ) . '</h2>';
+						$after_title = '<h2 class="chapter-subtitle">' . Sanitize\decode( $subtitle ) . '</h2>' . $after_title;
 					} else {
 						$content = '<h2 class="chapter-subtitle">' . Sanitize\decode( $subtitle ) . '</h2>' . $content;
 					}
@@ -1410,7 +1410,7 @@ class Epub201 extends Export {
 
 				if ( $short_title ) {
 					if ( $this->wrapHeaderElements ) {
-						$after_title .= '<h6 class="short-title">' . Sanitize\decode( $short_title ) . '</h6>';
+						$after_title = '<h6 class="short-title">' . Sanitize\decode( $short_title ) . '</h6>' . $after_title;
 					} else {
 						$content = '<h6 class="short-title">' . Sanitize\decode( $short_title ) . '</h6>' . $content;
 					}

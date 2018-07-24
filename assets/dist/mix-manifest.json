@@ -1,7 +1,7 @@
 {
     "/scripts/anchor.js": "/scripts/anchor.js?id=b2cfec4ae2c6878c7083",
     "/styles/catalog.css": "/styles/catalog.css?id=b4d78714ee50b66c97be",
-    "/styles/colors-pb.css": "/styles/colors-pb.css?id=1ebc4b74b8ef69a0198e",
+    "/styles/colors-pb.css": "/styles/colors-pb.css?id=c0853bc29e98317812aa",
     "/styles/covergenerator.css": "/styles/covergenerator.css?id=ff7959394e65a69d3c1a",
     "/styles/cloner.css": "/styles/cloner.css?id=11347078e8fedba35238",
     "/styles/export.css": "/styles/export.css?id=051bb75fbdccdfb67f18",
@@ -43,5 +43,5 @@
     "/scripts/js-cookie.js": "/scripts/js-cookie.js?id=8ff1c89f24a8ca6f91f7",
     "/scripts/select2.js": "/scripts/select2.js?id=e66208e306a3e3b57128",
     "/scripts/sidr.js": "/scripts/sidr.js?id=32495427b04ceeab5376",
-    "/scripts/table.js": "/scripts/table.js?id=e6da33dfd9d96ac61124"
+    "/scripts/table.js": "/scripts/table.js?id=562dc88e1f89868c8c5c"
 }

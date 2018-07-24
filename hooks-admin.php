@@ -242,10 +242,16 @@ add_action( 'init', [ '\Pressbooks\Modules\Export\Prince\Filters', 'init' ] );
 // "Catch-all" routines, must come after taxonomies and friends
 // -------------------------------------------------------------------------------------------------------------------
 
-add_action( 'init', '\Pressbooks\Modules\Export\Export::formSubmit', 50 );
-add_action( 'init', '\Pressbooks\Modules\Import\Import::formSubmit', 50 );
-add_action( 'init', '\Pressbooks\Catalog::formSubmit', 50 );
-add_action( 'init', '\Pressbooks\Cloner::formSubmit', 50 );
+add_action( 'init', [ '\Pressbooks\Modules\Export\Export', 'formSubmit' ], 50 );
+add_action( 'init', [ '\Pressbooks\Modules\Import\Import', 'formSubmit' ], 50 );
+add_action( 'init', [ '\Pressbooks\Catalog', 'formSubmit' ], 50 );
+add_action( 'init', [ '\Pressbooks\Cloner', 'formSubmit' ], 50 );
+
+// -------------------------------------------------------------------------------------------------------------------
+// Cover Generator
+// -------------------------------------------------------------------------------------------------------------------
+
+add_action( 'init', [ '\Pressbooks\Covergenerator\Covergenerator', 'init' ] );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Cover Generator

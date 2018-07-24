@@ -186,6 +186,7 @@ if ( $is_book ) {
 	\Pressbooks\Shortcodes\Attributions\Attachments::init();
 	\Pressbooks\Shortcodes\Generics\Generics::init();
 	\Pressbooks\Shortcodes\WikiPublisher\Glyphs::init();
+	\Pressbooks\Shortcodes\TablePress::init();
 }
 
 // -------------------------------------------------------------------------------------------------------------------
