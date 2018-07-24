@@ -240,28 +240,6 @@ add_action( 'init', [ '\Pressbooks\Modules\Export\Prince\Filters', 'init' ] );
 // "Catch-all" routines, must come after taxonomies and friends
 // -------------------------------------------------------------------------------------------------------------------
 
-// TODO: I don't like this. Mentions tablepress right in the middle of our core admin code. Can we carve out a new place to deal with plugin hacks? H5P is in \Pressbooks\Interactive\H5P for example...
-if ( is_plugin_active( 'tablepress/tablepress.php' ) ) {
-	add_action(
-		'tablepress_run', function () {
-			if ( \Pressbooks\Modules\Export\Export::isFormSubmission() ) {
-				TablePress::$model_options = TablePress::load_model( 'options' );
-				TablePress::$model_table = TablePress::load_model( 'table' );
-				$GLOBALS['tablepress_frontend_controller'] = TablePress::load_controller( 'frontend' );
-			}
-		}
-	);
-	add_filter(
-		'tablepress_edit_link_below_table', function ( $show ) {
-			if ( \Pressbooks\Modules\Export\Export::isFormSubmission() ) {
-				return false;
-			}
-			return $show;
-		}
-	);
-	// TODO: Other filters are available: tablepress_table_render_options, tablepress_table_js_options, ... @see \TablePress_Frontend_Controller::shortcode_table
-}
-
 add_action( 'init', [ '\Pressbooks\Modules\Export\Export', 'formSubmit' ], 50 );
 add_action( 'init', [ '\Pressbooks\Modules\Import\Import', 'formSubmit' ], 50 );
 add_action( 'init', [ '\Pressbooks\Catalog', 'formSubmit' ], 50 );
