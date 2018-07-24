@@ -23,7 +23,8 @@ TK.
 == Changelog ==
 = 5.5.0 =
 
-* Pressbooks 5.5.0 requires requires [WordPress 4.9.7](https://wordpress.org/news/2018/07/wordpress-4-9-7-security-and-maintenance-release/).
+* Pressbooks 5.5.0 requires PHP >= 7.1.
+* Pressbooks 5.5.0 requires [WordPress 4.9.7](https://wordpress.org/news/2018/07/wordpress-4-9-7-security-and-maintenance-release/).
 * Pressbooks 5.5.0 requires [McLuhan >= 2.5.0](https://github.com/pressbooks/pressbooks-book/).
 
 **Minor Changes**
@@ -40,5 +41,6 @@ TK.
 == Upgrade Notice ==
 = 5.5.0 =
 
-* Pressbooks 5.5.0 requires requires [WordPress 4.9.7](https://wordpress.org/news/2018/07/wordpress-4-9-7-security-and-maintenance-release/).
+* Pressbooks 5.5.0 requires PHP >= 7.1.
+* Pressbooks 5.5.0 requires [WordPress 4.9.7](https://wordpress.org/news/2018/07/wordpress-4-9-7-security-and-maintenance-release/).
 * Pressbooks 5.5.0 requires [McLuhan >= 2.5.0](https://github.com/pressbooks/pressbooks-book/).
