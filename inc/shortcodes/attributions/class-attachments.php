@@ -71,7 +71,7 @@ class Attachments {
 					$adapted_author = isset( $attribution['adapted'] ) ? $attribution['adapted'] : '';
 
 					$media_attributions .= sprintf(
-						'<li %1$s>%2$s %3$s %4$s %5$s %6$s</li>',
+						'<li %1$s>%2$s %3$s %4$s %5$s</li>',
 						// about attribute
 						( isset( $attribution['title_url'] ) ) ?
 							sprintf(

@@ -23,7 +23,6 @@ class Shortcodes_Attributions_Attachments extends \WP_UnitTestCase {
 
 		$pid = $this->factory()->attachment->create_upload_object( __DIR__ . '/data/skates.jpg' );
 		update_post_meta( $pid, 'pb_media_attribution_title_url', 'https://sourceoforiginal.com' );
-		update_post_meta( $pid, 'pb_media_attribution_figure', '2.1' );
 		update_post_meta( $pid, 'pb_media_attribution_author', 'Original Author' );
 		update_post_meta( $pid, 'pb_media_attribution_author_url', 'https://authorurl.ca' );
 		update_post_meta( $pid, 'pb_media_attribution_adapted', 'Adapting Author' );
@@ -78,7 +77,6 @@ class Shortcodes_Attributions_Attachments extends \WP_UnitTestCase {
 			33 => [
 				'title'       => 'skates',
 				'title_url'   => 'https://sourceoforiginal.com',
-				'figure'      => '2.1',
 				'author'      => 'Original Author',
 				'author_url'  => 'https://authorurl.ca',
 				'adapted'     => 'Adapted Author',
@@ -88,7 +86,6 @@ class Shortcodes_Attributions_Attachments extends \WP_UnitTestCase {
 			78 => [
 				'title'       => 'running downhills a lot',
 				'title_url'   => 'https://source.com',
-				'figure'      => 'Figure 2.2',
 				'author'      => 'amanda c',
 				'author_url'  => '',
 				'adapted'     => '',
@@ -98,7 +95,7 @@ class Shortcodes_Attributions_Attachments extends \WP_UnitTestCase {
 		];
 
 		$html = $this->att->attributionsContent( $attributions );
-		$this->assertContains( '<div class="media-atttributions" prefix:cc="http://creativecommons.org/ns#" prefix:dc="http://purl.org/dc/terms/"><h3>Media Attributions</h3><ul><li about="https://sourceoforiginal.com">2.1 <a rel="cc:attributionURL" href="https://sourceoforiginal.com" property="dc:title">skates</a>  by  <a rel="dc:creator" href="https://authorurl.ca" property="cc:attributionName">Original Author</a>  adapted by  <a rel="dc:source" href="https://adaptingauthorurl.ca">Adapted Author</a>  &copy;  <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">CC BY (Attribution)</a></li><li about="https://source.com">Figure 2.2 <a rel="cc:attributionURL" href="https://source.com" property="dc:title">running downhills a lot</a>  by  amanda c    &copy;  <a rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC (Attribution NonCommercial)</a></li></ul></div>', $html );
+		$this->assertContains( '<div class="media-atttributions" prefix:cc="http://creativecommons.org/ns#" prefix:dc="http://purl.org/dc/terms/"><h3>Media Attributions</h3><ul><li about="https://sourceoforiginal.com"><a rel="cc:attributionURL" href="https://sourceoforiginal.com" property="dc:title">skates</a>  by  <a rel="dc:creator" href="https://authorurl.ca" property="cc:attributionName">Original Author</a>  adapted by  <a rel="dc:source" href="https://adaptingauthorurl.ca">Adapted Author</a>  &copy;  <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">CC BY (Attribution)</a></li><li about="https://source.com"><a rel="cc:attributionURL" href="https://source.com" property="dc:title">running downhills a lot</a>  by  amanda c    &copy;  <a rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC (Attribution NonCommercial)</a></li></ul></div>', $html );
 
 		$html = $this->att->attributionsContent( [] );
 		$this->assertEquals( '', $html );
