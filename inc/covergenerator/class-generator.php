@@ -439,7 +439,7 @@ abstract class Generator {
 			if ( defined( 'WP_TESTS_MULTISITE' ) ) {
 				// Unit tests
 				$doc->setTest( true );
-			} elseif ( defined( 'WP_ENV' ) && ( WP_ENV === 'development' || WP_ENV === 'staging' ) ) {
+			} elseif ( defined( 'WP_ENV' ) && ( WP_ENV === 'development' ) ) {
 				// Localhost
 				$doc->setTest( true );
 			} else {
