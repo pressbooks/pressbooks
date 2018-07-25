@@ -13,11 +13,48 @@ class Shortcodes_Attributions_Attachments extends \WP_UnitTestCase {
 		parent::setUp();
 
 		$this->att = $this->getMockBuilder( '\Pressbooks\Shortcodes\Attributions\Attachments' )
-		                  ->setMethods( null )
-		                  ->disableOriginalConstructor()
-		                  ->getMock();
+						  ->setMethods( null )
+						  ->disableOriginalConstructor()
+						  ->getMock();
 	}
 
+	public function test_getInstance() {
+
+		$val = $this->att->init();
+
+		$this->assertTrue( $val instanceof \Pressbooks\Shortcodes\Attributions\Attachments );
+
+		global $shortcode_tags;
+		$this->assertArrayHasKey( 'media_attributions', $shortcode_tags );
+	}
+
+	public function test_getAttributions() {
+
+		$result = $this->att->getAttributions( 'I have no <b>images</b>' );
+		$this->assertEquals( 'I have no <b>images</b>', $result );
+
+	}
+
+	public function test_getAttributionsMeta() {
+		$pid = $this->_createAttachment();
+		$url = get_post_meta( $pid, 'pb_media_attribution_title_url', true );
+		$license_meta = get_post_meta( $pid, 'pb_media_attribution_license', true );
+		$author = get_post_meta( $pid, 'pb_media_attribution_author', true );
+
+		$this->assertEquals( 'https://sourceoforiginal.com', $url );
+		$this->assertEquals( 'cc-by', $license_meta );
+		$this->assertEquals( 'Original Author', $author );
+
+		$id = [ $pid ];
+		$result = $this->att->getAttributionsMeta( $id );
+
+		$this->assertArrayHasKey( $pid, $result );
+		$this->assertNonEmptyMultidimensionalArray( $result );
+		$this->assertEquals( 'https://sourceoforiginal.com', $result[ $pid ]['title_url'] );
+		$this->assertEquals( 'cc-by', $result[ $pid ]['license'] );
+		$this->assertEquals( 'Original Author', $result[ $pid ]['author'] );
+
+	}
 
 	private function _createAttachment() {
 
@@ -32,46 +69,6 @@ class Shortcodes_Attributions_Attachments extends \WP_UnitTestCase {
 		return $pid;
 	}
 
-
-	public function test_getInstance() {
-
-		$val = $this->att->init();
-
-		$this->assertTrue( $val instanceof \Pressbooks\Shortcodes\Attributions\Attachments );
-
-		global $shortcode_tags;
-		$this->assertArrayHasKey( 'media_attributions', $shortcode_tags );
-	}
-
-
-	public function test_getAttributions() {
-
-		$result = $this->att->getAttributions( 'I have no <b>images</b>' );
-		$this->assertEquals( 'I have no <b>images</b>', $result );
-
-	}
-
-	public function test_getAttributionsMeta(){
-		$pid          = $this->_createAttachment();
-		$url          = get_post_meta( $pid, 'pb_media_attribution_title_url', true );
-		$license_meta = get_post_meta( $pid, 'pb_media_attribution_license', true );
-		$author       = get_post_meta( $pid, 'pb_media_attribution_author', true );
-
-		$this->assertEquals( 'https://sourceoforiginal.com', $url );
-		$this->assertEquals( 'cc-by', $license_meta );
-		$this->assertEquals( 'Original Author', $author );
-
-		$id     = [ $pid ];
-		$result = $this->att->getAttributionsMeta( $id );
-
-		$this->assertArrayHasKey( $pid, $result );
-		$this->assertNonEmptyMultidimensionalArray( $result );
-		$this->assertEquals( 'https://sourceoforiginal.com', $result[ $pid ]['title_url'] );
-		$this->assertEquals( 'cc-by', $result[ $pid ]['license'] );
-		$this->assertEquals( 'Original Author', $result[ $pid ]['author'] );
-
-	}
-
 	public function test_attributionsContent() {
 		$attributions = [
 			33 => [
@@ -81,7 +78,7 @@ class Shortcodes_Attributions_Attachments extends \WP_UnitTestCase {
 				'author_url'  => 'https://authorurl.ca',
 				'adapted'     => 'Adapted Author',
 				'adapted_url' => 'https://adaptingauthorurl.ca',
-				'license'     => 'cc-by'
+				'license'     => 'cc-by',
 			],
 			78 => [
 				'title'       => 'running downhills a lot',
@@ -90,8 +87,8 @@ class Shortcodes_Attributions_Attachments extends \WP_UnitTestCase {
 				'author_url'  => '',
 				'adapted'     => '',
 				'adapted_url' => '',
-				'license'     => 'cc-by-nc'
-			]
+				'license'     => 'cc-by-nc',
+			],
 		];
 
 		$html = $this->att->attributionsContent( $attributions );

@@ -27,11 +27,11 @@ function add_metadata_attachment( $form_fields, $post ) {
 
 	if ( substr( $post->post_mime_type, 0, 5 ) === 'image' ) {
 
-		$author      = get_post_meta( $post->ID, 'pb_media_attribution_author', true );
-		$author_url  = get_post_meta( $post->ID, 'pb_media_attribution_author_url', true );
-		$source_url  = get_post_meta( $post->ID, 'pb_media_attribution_title_url', true );
-		$license     = get_post_meta( $post->ID, 'pb_media_attribution_license', true );
-		$adapted     = get_post_meta( $post->ID, 'pb_media_attribution_adapted', true );
+		$author = get_post_meta( $post->ID, 'pb_media_attribution_author', true );
+		$author_url = get_post_meta( $post->ID, 'pb_media_attribution_author_url', true );
+		$source_url = get_post_meta( $post->ID, 'pb_media_attribution_title_url', true );
+		$license = get_post_meta( $post->ID, 'pb_media_attribution_license', true );
+		$adapted = get_post_meta( $post->ID, 'pb_media_attribution_adapted', true );
 		$adapted_url = get_post_meta( $post->ID, 'pb_media_attribution_adapted_url', true );
 
 		$form_fields['pb_attribution'] = [
@@ -101,7 +101,7 @@ function add_metadata_attachment( $form_fields, $post ) {
  */
 function render_attachment_license_options( $post_id, $license_meta ) {
 	$licenses = ( new Licensing() )->getSupportedTypes();
-	$html     = "<select name='attachments[$post_id][pb_media_attribution_license]' id='attachments-{$post_id}-pb_media_attribution_license'>";
+	$html = "<select name='attachments[$post_id][pb_media_attribution_license]' id='attachments-{$post_id}-pb_media_attribution_license'>";
 
 	$html .= '<option value=""></option>';
 	foreach ( $licenses as $key => $license ) {
@@ -124,7 +124,7 @@ function render_attachment_license_options( $post_id, $license_meta ) {
  * @return mixed
  */
 function save_metadata_attachment( $post, $form_fields ) {
-	$expected     = [
+	$expected = [
 		'pb_media_attribution_author',
 		'pb_media_attribution_author_url',
 		'pb_media_attribution_adapted',
