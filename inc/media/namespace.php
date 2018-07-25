@@ -111,3 +111,84 @@ function mime_type( $file ) {
 
 	return $mime;
 }
+
+/**
+ * Purpose is to reliably determine the value of post_id for an image (only)
+ * from an html string. Expects an array of html strings the likes of which can be
+ * got from a function such as `get_media_embedded_in_content()`.
+ *
+ * @since 5.5.0
+ * @author Brad Payne
+ *
+ * @param array $media html strings
+ *
+ * @return array $result post_id as key, guid as value
+ */
+function extract_id_from_media( $media ) {
+	$result = [];
+	if ( empty( $media ) ) {
+		return $result;
+	}
+
+	// only look for images, for now
+	foreach ( $media as $img ) {
+		if ( ! preg_match_all( '/<img [^>]+>/', $img, $matches ) ) {
+			continue;
+		}
+		preg_match( '/wp-image-([0-9]+)/i', $matches[0][0], $class_id );
+		$attachment_id = ( isset( $class_id[1] ) ) ? absint( $class_id[1] ) : '';
+
+		preg_match( '/src=[\'"](.*?)[\'"]/i', $matches[0][0], $source );
+		$attachment_url = $source[1];
+
+		$result[ $attachment_id ] = $attachment_url;
+	}
+
+	return $result;
+}
+
+/**
+ * Seeks to reconcile the potential difference between media ids found in a
+ * chapter with what is known to be available in the database. False media ids
+ * could be left over from a cloning or import operation, for instance.
+ * Comparing everything except filename (which is different in the page due
+ * to size) gives assurance that there are enough similar attributes to
+ * accept them as 'equal' or intersecting.
+ *
+ * @since 5.5.0
+ * @author Brad Payne
+ *
+ * @param array $media_ids_in_page key is post_id, value is url
+ * @param array $media_ids_found_in_book key is post_id, value is guid
+ *
+ * @return array
+ */
+function intersect_media_ids( $media_ids_in_page, $media_ids_found_in_book ) {
+	$ids   = [];
+	$found = array_intersect_key( $media_ids_in_page, $media_ids_found_in_book );
+
+	foreach ( $found as $k => $v ) {
+		$src       = wp_parse_url( $v );
+		$guid      = wp_parse_url( $media_ids_found_in_book[ $k ] );
+		$src_info  = pathinfo( $src['path'] );
+		$guid_info = pathinfo( $guid['path'] );
+
+		// must be from the same host
+		if ( 0 !== strcmp( $src['host'], $guid['host'] ) ) {
+			continue;
+		}
+		// must be same file extension
+		if ( 0 !== strcmp( $src_info['extension'], $guid_info['extension'] ) ) {
+			continue;
+		}
+		// must have same directory
+		if ( 0 !== strcmp( $src_info['dirname'], $guid_info['dirname'] ) ) {
+			continue;
+		}
+
+		$ids[] = $k;
+
+	}
+
+	return $ids;
+}

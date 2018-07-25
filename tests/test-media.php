@@ -91,4 +91,42 @@ class MediaTest extends \WP_UnitTestCase {
 		$this->assertContains( 'jpeg', $mime );
 	}
 
+	public function test_extract_id_from_media() {
+		$media_img = [
+			0 => '<img src="https://pressbooks.test/app/uploads/sites/2/2018/06/IMG_5863-e1530742020691-225x300.jpg" alt="" width="225" height="300" class="wp-image-33 size-medium" srcset="https://pressbooks.test/app/uploads/sites/2/2018/06/IMG_5863-e1530742020691-225x300.jpg 225w, https://pressbooks.test/app/uploads/sites/2/2018/06/IMG_5863-e1530742020691-65x87.jpg 65w, https://pressbooks.test/app/uploads/sites/2/2018/06/IMG_5863-e1530742020691-350x467.jpg 350w, https://pressbooks.test/app/uploads/sites/2/2018/06/IMG_5863-e1530742020691.jpg 480w" sizes="(max-width: 225px) 100vw, 225px" />',
+			1 => '<img src="https://pressbooks.test/app/uploads/sites/2/2018/06/photo-2-300x224.jpg" alt="" width="300" height="224" class="alignnone size-medium wp-image-75" srcset="https://pressbooks.test/app/uploads/sites/2/2018/06/photo-2-300x224.jpg 300w, https://pressbooks.test/app/uploads/sites/2/2018/06/photo-2-768x574.jpg 768w, https://pressbooks.test/app/uploads/sites/2/2018/06/photo-2-1024x765.jpg 1024w, https://pressbooks.test/app/uploads/sites/2/2018/06/photo-2-65x49.jpg 65w, https://pressbooks.test/app/uploads/sites/2/2018/06/photo-2-225x168.jpg 225w, https://pressbooks.test/app/uploads/sites/2/2018/06/photo-2-350x261.jpg 350w, https://pressbooks.test/app/uploads/sites/2/2018/06/photo-2.jpg 1296w" sizes="(max-width: 300px) 100vw, 300px" />',
+		];
+		$media_audio = [
+			0 => '<audio class="wp-audio-shortcode" id="audio-5-1" preload="none" style="width: 100%;" controls="controls"><source type="audio/mpeg" src="https://pressbooks.test/app/uploads/sites/2/2018/06/snap.m4a?_=1" /><a href="https://pressbooks.test/app/uploads/sites/2/2018/06/snap.m4a">https://pressbooks.test/app/uploads/sites/2/2018/06/snap.m4a</a></audio>',
+		];
+
+		$result = \Pressbooks\Media\extract_id_from_media( $media_img );
+		$this->assertEquals( [
+			33 => 'https://pressbooks.test/app/uploads/sites/2/2018/06/IMG_5863-e1530742020691-225x300.jpg',
+			75 => 'https://pressbooks.test/app/uploads/sites/2/2018/06/photo-2-300x224.jpg',
+		], $result );
+		$result = \Pressbooks\Media\extract_id_from_media( $media_audio );
+		$this->assertEquals( [], $result );
+	}
+
+	public function test_intersect_media_ids() {
+		$book_media    = [
+			90 => 'https://pressbooks.test/app/uploads/sites/2/2018/07/Movie-on-2018-07-16-at-2.19-PM.mp4',
+			87 => 'https://pressbooks.test/app/uploads/sites/2/2018/07/Movie-on-2018-07-16-at-2.19-PM.mov',
+			78 => 'https://pressbooks.test/app/uploads/sites/2/2018/06/photo-3.jpg',
+			75 => 'https://pressbooks.test/app/uploads/sites/2/2018/06/photo-2.jpg',
+			39 => 'https://pressbooks.test/app/uploads/sites/2/2018/06/snap.m4a',
+			33 => 'https://pressbooks.test/app/uploads/sites/2/2018/06/IMG_5863.jpg',
+		];
+		$page_media    = [
+			33 => 'https://pressbooks.test/app/uploads/sites/2/2018/06/IMG_5863-e1530742020691-225x300.jpg',
+			75 => 'https://pressbooks.test/app/uploads/sites/2/2018/06/photo-2-300x224.jpg',
+		];
+		$no_page_media = [];
+
+		$result = \Pressbooks\Media\intersect_media_ids( $page_media, $book_media );
+		$this->assertEquals( [ 33, 75 ], $result );
+		$result = \Pressbooks\Media\intersect_media_ids( $no_page_media, $book_media );
+		$this->assertEquals( [], $result );
+	}
 }
