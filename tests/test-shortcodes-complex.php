@@ -48,6 +48,10 @@ class Shortcodes_Complex extends \WP_UnitTestCase {
 		$content = $this->complex->anchorShortCodeHandler( [ 'id' => 'my-anchor-with-a-title' ], 'My anchor', 'anchor' );
 		$this->assertEquals( '<a id="my-anchor-with-a-title" title="My anchor"></a>', $content );
 
+		// Test an anchor with an optional class.
+		$content = $this->complex->anchorShortCodeHandler( [ 'id' => 'my-anchor', 'class' => 'admiralty' ], '', 'anchor' );
+		$this->assertEquals( '<a id="my-anchor" class="admiralty"></a>', $content );
+
 		$this->assertEmpty( $this->complex->anchorShortCodeHandler( [], '', 'anchor' ) );
 	}
 

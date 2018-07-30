@@ -51,9 +51,19 @@ class Complex {
 			return;
 		}
 
+		$atts = shortcode_atts(
+			[
+				'class' => null,
+				'id' => null
+			],
+			$atts,
+			$shortcode
+		);
+
 		return sprintf(
-			'<a id="%1$s"%2$s></a>',
+			'<a id="%1$s"%2$s%3$s></a>',
 			sanitize_title( $atts['id'] ),
+			( isset( $atts['class'] ) ) ? sprintf( ' class="%s"', $atts['class'] ) : '',
 			( $content ) ? sprintf( ' title="%s"', $content ) : ''
 		);
 	}
@@ -72,9 +82,8 @@ class Complex {
 				'count' => 2
 			],
 			$atts,
-			'columns'
+			$shortcode
 		);
-
 
 		$classes = $atts['class'] ?? '';
 
@@ -100,7 +109,35 @@ class Complex {
 	 * Shortcode handler for [email].
 	 */
 	public function emailShortCodeHandler( $atts, $content = '', $shortcode ) {
-		return $content; // TODO: Build the shortcode.
+		$atts = shortcode_atts(
+			[
+				'class' => null,
+				'address' => null
+			],
+			$atts,
+			$shortcode
+		);
+
+		$address = $atts['address'] ?? $content;
+
+		if ( ! is_email( $address ) ) {
+			return;
+		}
+
+		if ( $address === $content ) {
+			return sprintf(
+				'<a href="mailto:%1$s"%2$s>%1$s</a>',
+				antispambot( $address ),
+				( isset( $atts['class'] ) ) ? sprintf( ' class="%s"', $atts['class'] ) : ''
+			);
+		} else {
+			return sprintf(
+				'<a href="mailto:%1$s"%2$s>%3$s</a>',
+				antispambot( $address ),
+				( isset( $atts['class'] ) ) ? sprintf( ' class="%s"', $atts['class'] ) : '',
+				$content
+			);
+		}
 	}
 
 	/**
