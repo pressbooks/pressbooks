@@ -135,7 +135,7 @@ class Complex {
 				'<a href="mailto:%1$s"%2$s>%3$s</a>',
 				antispambot( $address ),
 				( isset( $atts['class'] ) ) ? sprintf( ' class="%s"', $atts['class'] ) : '',
-				$content
+				( $content ) ? $content : antispambot( $address )
 			);
 		}
 	}

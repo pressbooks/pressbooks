@@ -88,4 +88,30 @@ class Shortcodes_Complex extends \WP_UnitTestCase {
 
 		$this->assertEmpty( $this->complex->columnsShortCodeHandler( [], '', 'columns' ) );
 	}
+
+	public function test_emailShortcodeHandler() {
+		// Test an email with no content.
+		$content = $this->complex->emailShortCodeHandler( [ 'address' => 'me@here.com' ], '', 'email' );
+		$this->assertEquals( '<a href="mailto:me@here.com">me@here.com</a>', wp_kses_decode_entities( $content ) );
+
+		// Test an email with content.
+		$content = $this->complex->emailShortCodeHandler( [ 'address' => 'me@here.com' ], 'my email', 'email' );
+		$this->assertEquals( '<a href="mailto:me@here.com">my email</a>', wp_kses_decode_entities( $content ) );
+
+		// Test an email with identical address and content.
+		$content = $this->complex->emailShortCodeHandler( [ 'address' => 'me@here.com' ], 'me@here.com', 'email' );
+		$this->assertEquals( '<a href="mailto:me@here.com">me@here.com</a>', wp_kses_decode_entities( $content ) );
+
+		// Test an email with an optional class.
+		$content = $this->complex->emailShortCodeHandler( [ 'address' => 'me@here.com', 'class' => 'envelope' ], '', 'email' );
+		$this->assertEquals( '<a href="mailto:me@here.com" class="envelope">me@here.com</a>', wp_kses_decode_entities( $content ) );
+
+		// Test an email with an invalid address and content.
+		$this->assertEmpty( $this->complex->emailShortCodeHandler( [ 'address' => 'mehere.com' ], 'hi there', 'email' ) );
+
+		// Test an email with an invalid content and no address.
+		$this->assertEmpty( $this->complex->emailShortCodeHandler( [], 'hi there', 'email' ) );
+
+		$this->assertEmpty( $this->complex->emailShortCodeHandler( [], '', 'email' ) );
+	}
 }
