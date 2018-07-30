@@ -47,14 +47,39 @@ class Complex {
 	 * Shortcode handler for [anchor].
 	 */
 	public function anchorShortCodeHandler( $atts, $content = '', $shortcode ) {
-		return $content; // TODO: Build the shortcode.
+		if ( ! isset( $atts['id'] ) ) {
+			return '';
+		}
+
+		return sprintf(
+			'<a id="%1$s"%2$s></a>',
+			sanitize_title( $atts['id'] ),
+			( $content ) ? sprintf( ' title="%s"', $content ) : ''
+		);
 	}
 
 	/**
 	 * Shortcode handler for [columns].
 	 */
 	public function columnsShortCodeHandler( $atts, $content = '', $shortcode ) {
-		return $content; // TODO: Build the shortcode.
+		if ( ! $content ) {
+			return '';
+		}
+
+		$atts = shortcode_atts(
+			[ 'count' => 2 ],
+			$atts,
+			'columns'
+		);
+
+		switch ( $atts['count'] ) {
+			case 2:
+				return sprintf( '<div class="twocolumn">%s</div>', wpautop( trim( $content ) ) );
+				break;
+			case 3:
+				return sprintf( '<div class="threecolumn">%s</div>', wpautop( trim( $content ) ) );
+				break;
+		}
 	}
 
 	/**
