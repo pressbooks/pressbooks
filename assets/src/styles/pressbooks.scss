@@ -327,3 +327,7 @@ $wp-spinner-anim-duration: 1.08s;
 #toplevel_page_quicklatex-settings {
   display: none;
 }
+
+.compat-attachment-fields th {
+  vertical-align: top;
+}
