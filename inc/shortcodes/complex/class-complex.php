@@ -48,7 +48,7 @@ class Complex {
 	 */
 	public function anchorShortCodeHandler( $atts, $content = '', $shortcode ) {
 		if ( ! isset( $atts['id'] ) ) {
-			return '';
+			return;
 		}
 
 		return sprintf(
@@ -63,23 +63,37 @@ class Complex {
 	 */
 	public function columnsShortCodeHandler( $atts, $content = '', $shortcode ) {
 		if ( ! $content ) {
-			return '';
+			return;
 		}
 
 		$atts = shortcode_atts(
-			[ 'count' => 2 ],
+			[
+				'class' => null,
+				'count' => 2
+			],
 			$atts,
 			'columns'
 		);
 
+
+		$classes = $atts['class'] ?? '';
+
 		switch ( $atts['count'] ) {
 			case 2:
-				return sprintf( '<div class="twocolumn">%s</div>', wpautop( trim( $content ) ) );
+				$classes .= ' twocolumn';
 				break;
 			case 3:
-				return sprintf( '<div class="threecolumn">%s</div>', wpautop( trim( $content ) ) );
+				$classes .= ' threecolumn';
 				break;
+			default:
+				$classes .= ' twocolumn';
 		}
+
+		return sprintf(
+			'<div class="%1$s">%2$s</div>',
+			trim( $classes ),
+			wpautop( trim( $content ) )
+		);
 	}
 
 	/**

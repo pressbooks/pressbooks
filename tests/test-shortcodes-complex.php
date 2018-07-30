@@ -36,7 +36,6 @@ class Shortcodes_Complex extends \WP_UnitTestCase {
 	}
 
 	public function test_anchorShortcodeHandler() {
-
 		// Test an anchor with an ID.
 		$content = $this->complex->anchorShortCodeHandler( [ 'id' => 'my-anchor' ], '', 'anchor' );
 		$this->assertEquals( '<a id="my-anchor"></a>', $content );
@@ -49,6 +48,40 @@ class Shortcodes_Complex extends \WP_UnitTestCase {
 		$content = $this->complex->anchorShortCodeHandler( [ 'id' => 'my-anchor-with-a-title' ], 'My anchor', 'anchor' );
 		$this->assertEquals( '<a id="my-anchor-with-a-title" title="My anchor"></a>', $content );
 
-		$this->assertEmpty( $this->generics->anchorShortCodeHandler( [], '', 'anchor' ) );
+		$this->assertEmpty( $this->complex->anchorShortCodeHandler( [], '', 'anchor' ) );
+	}
+
+	public function test_columnsShortcodeHandler() {
+		// Test a column with no attributes.
+		$content = $this->complex->columnsShortCodeHandler( [], 'Call me Ishmael.', 'columns' );
+		$this->assertEquals( '<div class="twocolumn"><p>Call me Ishmael.</p>
+</div>', $content );
+
+		// Test an column with a count parameter of 2.
+		$content = $this->complex->columnsShortCodeHandler( [ 'count' => 2 ], 'Call me Ishmael.', 'columns' );
+		$this->assertEquals( '<div class="twocolumn"><p>Call me Ishmael.</p>
+</div>', $content );
+
+		// Test an column with a count parameter of 3.
+		$content = $this->complex->columnsShortCodeHandler( [ 'count' => 3 ], 'Call me Ishmael.', 'columns' );
+		$this->assertEquals( '<div class="threecolumn"><p>Call me Ishmael.</p>
+</div>', $content );
+
+		// Test an column with an invalid count parameter.
+		$content = $this->complex->columnsShortCodeHandler( [ 'count' => 'bad' ], 'Call me Ishmael.', 'columns' );
+		$this->assertEquals( '<div class="twocolumn"><p>Call me Ishmael.</p>
+</div>', $content );
+
+		// Test a column with a class attribute.
+		$content = $this->complex->columnsShortCodeHandler( [ 'class' => 'my-class' ], 'Call me Ishmael.', 'columns' );
+		$this->assertEquals( '<div class="my-class twocolumn"><p>Call me Ishmael.</p>
+</div>', $content );
+
+		// Test a column with class and count attributes.
+		$content = $this->complex->columnsShortCodeHandler( [ 'count' => 3, 'class' => 'my-class' ], 'Call me Ishmael.', 'columns' );
+		$this->assertEquals( '<div class="my-class threecolumn"><p>Call me Ishmael.</p>
+</div>', $content );
+
+		$this->assertEmpty( $this->complex->columnsShortCodeHandler( [], '', 'columns' ) );
 	}
 }
