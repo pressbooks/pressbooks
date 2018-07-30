@@ -54,7 +54,7 @@ class Complex {
 		$atts = shortcode_atts(
 			[
 				'class' => null,
-				'id' => null
+				'id' => null,
 			],
 			$atts,
 			$shortcode
@@ -79,7 +79,7 @@ class Complex {
 		$atts = shortcode_atts(
 			[
 				'class' => null,
-				'count' => 2
+				'count' => 2,
 			],
 			$atts,
 			$shortcode
@@ -112,7 +112,7 @@ class Complex {
 		$atts = shortcode_atts(
 			[
 				'class' => null,
-				'address' => null
+				'address' => null,
 			],
 			$atts,
 			$shortcode
