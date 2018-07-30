@@ -6,6 +6,7 @@
 
 namespace Pressbooks;
 
+use function Pressbooks\Metadata\init_book_data_models;
 use function Pressbooks\Utility\oxford_comma_explode;
 use function Pressbooks\Utility\str_starts_with;
 
@@ -335,6 +336,7 @@ class Contributors {
 	 * @return string
 	 */
 	public function personalName( $slug ) {
+		init_book_data_models();
 		$name = '';
 		$term = get_term_by( 'slug', $slug, self::TAXONOMY );
 		if ( $term ) {
