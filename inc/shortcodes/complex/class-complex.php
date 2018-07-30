@@ -144,7 +144,27 @@ class Complex {
 	 * Shortcode handler for [equation].
 	 */
 	public function equationShortCodeHandler( $atts, $content = '', $shortcode ) {
-		return $content; // TODO: Build the shortcode.
+		if ( ! $content ) {
+			return;
+		}
+		$atts = shortcode_atts( [
+			'size' => 0,
+			'color' => false,
+			'background' => false,
+		], $atts );
+		return apply_filters(
+			'the_content',
+			sprintf(
+				'[latex%1$s]%2$s[/latex]',
+				sprintf(
+					' size="%1$s" color="%2$s" background="%3$s"',
+					$atts['size'],
+					$atts['color'],
+					$atts['background']
+				),
+				$content
+			)
+		);
 	}
 
 	/**
