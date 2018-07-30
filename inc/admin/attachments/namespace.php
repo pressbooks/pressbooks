@@ -46,7 +46,7 @@ function add_metadata_attachment( $form_fields, $post ) {
 			'label' => __( 'Source URL', 'pressbooks' ),
 			'input' => 'html',
 			'helps' => 'Please enter a valid URL: https://example.com',
-			'html'  => "<input type='url' class='text urlfield' name='attachments[$post->ID][pb_media_attribution_title_url]' value='" . esc_attr( $source_url ) . "' />",
+			'html'  => "<input type='url' class='text urlfield' id='attachments-$post->ID-pb_media_attribution_title_url' name='attachments[$post->ID][pb_media_attribution_title_url]' value='" . esc_attr( $source_url ) . "' />",
 		];
 
 		$form_fields['pb_media_attribution_author'] = [
@@ -60,7 +60,7 @@ function add_metadata_attachment( $form_fields, $post ) {
 			'label' => __( 'Author URL', 'pressbooks' ),
 			'input' => 'html',
 			'helps' => 'Please enter a valid URL: https://example.com',
-			'html'  => "<input type='url' class='text urlfield' name='attachments[$post->ID][pb_media_attribution_author_url]' value='" . esc_attr( $author_url ) . "' />",
+			'html'  => "<input type='url' class='text urlfield' id='attachments-$post->ID-pb_media_attribution_author_url' name='attachments[$post->ID][pb_media_attribution_author_url]' value='" . esc_attr( $author_url ) . "' />",
 		];
 
 		$form_fields['pb_media_attribution_license'] = [
@@ -81,7 +81,7 @@ function add_metadata_attachment( $form_fields, $post ) {
 			'label' => __( 'Adapted by URL', 'pressbooks' ),
 			'input' => 'html',
 			'helps' => 'Please enter a valid URL: https://example.com',
-			'html'  => "<input type='url' class='text urlfield' name='attachments[$post->ID][pb_media_attribution_adapted_url]' value='" . esc_attr( $adapted_url ) . "' />",
+			'html'  => "<input type='url' class='text urlfield' id='attachments-$post->ID-pb_media_attribution_adapted_url' name='attachments[$post->ID][pb_media_attribution_adapted_url]' value='" . esc_attr( $adapted_url ) . "' />",
 		];
 
 	}
