@@ -240,7 +240,6 @@ class Book {
 			'part',
 			'chapter',
 			'back-matter',
-			'glossary',
 		];
 
 		$book_structure = [];
