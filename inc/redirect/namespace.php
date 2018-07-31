@@ -78,7 +78,7 @@ function login( $redirect_to, $request_redirect_to, $user ) {
  * Centralize flush_rewrite_rules() in one single function so that rule does not kill the other
  */
 function flusher() {
-	$number = 2; // Increment this number when you need to re-run flush_rewrite_rules()
+	$number = 3; // Increment this number when you need to re-run flush_rewrite_rules()
 	if ( absint( get_option( 'pressbooks_flusher', 1 ) ) < $number ) {
 		flush_rewrite_rules( false );
 		update_option( 'pressbooks_flusher', $number );
@@ -490,6 +490,7 @@ function redirect_away_from_bad_urls() {
 					'front-matter-type',
 					'back-matter-type',
 					'chapter-type',
+					'glossary-type',
 					'license',
 				]
 			),

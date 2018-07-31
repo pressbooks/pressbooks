@@ -28,6 +28,7 @@ function list_post_types() {
 			'front-matter',
 			'back-matter',
 			'custom-css',
+			'glossary',
 		]
 	);
 }
@@ -163,6 +164,34 @@ function register_post_types() {
 		[
 			'singular' => __( 'Book Information', 'pressbooks' ),
 			'plural' => __( 'Book Information', 'pressbooks' ),
+		]
+	);
+	register_extended_post_type(
+		'glossary',
+		[
+			'admin_cols' => [
+				'glossary_type' => [
+					'taxonomy' => 'glossary-type',
+				],
+			],
+			'quick_edit' => true,
+			'capability_type' => 'post',
+			'has_archive' => true,
+			'hierarchical' => false,
+			'supports' => [ 'title', 'editor', 'author', 'revisions', 'page-attributes' ],
+			'show_in_menu' => false,
+			'show_in_admin_bar' => true,
+			'show_in_rest' => true,
+			'rest_base' => 'glossary',
+			'rest_controller_class' => '\Pressbooks\Api\Endpoints\Controller\Posts',
+			'rewrite' => [
+				'slug' => 'glossary',
+				'with_front' => false,
+			],
+		],
+		[
+			'singular' => __( 'Glossary Term', 'pressbooks' ),
+			'plural' => __( 'Glossary Terms', 'pressbooks' ),
 		]
 	);
 }
@@ -357,6 +386,7 @@ function add_posttypes_to_hypothesis( $posttypes ) {
 		'chapter' => __( 'chapters', 'pressbooks' ),
 		'front-matter' => __( 'front matter', 'pressbooks' ),
 		'back-matter' => __( 'back matter', 'pressbooks' ),
+		'glossary' => __( 'glossary', 'pressbooks' ),
 	];
 
 	return $posttypes;
@@ -417,6 +447,9 @@ function get_post_type_label( $posttype ) {
 			break;
 		case 'back-matter':
 			$label = __( 'Back Matter', 'pressbooks' );
+			break;
+		case 'glossary':
+			$label = __( 'Glossary', 'pressbooks' );
 			break;
 		default:
 			$label = false;

@@ -8,7 +8,7 @@ use Pressbooks\Admin\Network\SharingAndPrivacyOptions;
  * @return array
  */
 function get_custom_post_types() {
-	return [ 'front-matter', 'back-matter', 'part', 'chapter' ];
+	return [ 'front-matter', 'back-matter', 'part', 'chapter', 'glossary' ];
 }
 
 /**
@@ -52,7 +52,7 @@ function init_book() {
 
 	foreach ( get_taxonomies() as $taxonomy ) {
 		// Override custom taxonomy routes
-		if ( in_array( $taxonomy, [ 'front-matter-type', 'chapter-type', 'back-matter-type', 'license', 'contributor' ], true ) ) {
+		if ( in_array( $taxonomy, [ 'front-matter-type', 'chapter-type', 'back-matter-type', 'glossary-type', 'license', 'contributor' ], true ) ) {
 			( new Endpoints\Controller\Terms( $taxonomy ) )->register_routes();
 		}
 	}

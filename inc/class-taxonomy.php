@@ -153,6 +153,20 @@ class Taxonomy {
 			]
 		);
 
+		register_extended_taxonomy(
+			'glossary-type',
+			'glossary',
+			[
+				'meta_box' => 'dropdown',
+				'capabilities' => [
+					'manage_terms' => 'manage_sites',
+					'edit_terms' => 'manage_sites',
+					'delete_terms' => 'manage_sites',
+					'assign_terms' => 'edit_posts',
+				],
+				'show_in_rest' => true,
+			]
+		);
 	}
 
 	/**
@@ -408,6 +422,13 @@ class Taxonomy {
 			]
 		);
 
+		// Glossary
+		wp_insert_term(
+			'Miscellaneous', 'glossary-type', [
+				'slug' => 'miscellaneous',
+			]
+		);
+
 		$disable_translation = true;
 		$disable_custom = true;
 		foreach ( $this->licensing->getSupportedTypes( $disable_translation, $disable_custom ) as $key => $val ) {
@@ -480,7 +501,24 @@ class Taxonomy {
 		return 'standard';
 	}
 
+	/**
+	 * Return the first (and only) glossary-type for a specific post
+	 *
+	 * @param $id
+	 *
+	 * @return string
+	 */
+	public function getGlossaryType( $id ) {
 
+		$terms = get_the_terms( $id, 'glossary-type' );
+		if ( $terms && ! is_wp_error( $terms ) ) {
+			foreach ( $terms as $term ) {
+				return $term->slug;
+			}
+		}
+
+		return 'miscellaneous';
+	}
 
 	// ----------------------------------------------------------------------------------------------------------------
 	// Upgrades
