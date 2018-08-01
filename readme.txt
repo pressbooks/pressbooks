@@ -5,7 +5,7 @@ Tags: ebooks, publishing, webbooks
 Requires at least: 4.9.7
 Tested up to: 4.9.7
 Requires PHP: 7.0
-Stable tag: 5.4.3
+Stable tag: 5.4.4
 License: GPL v3.0 or later
 License URI: https://github.com/pressbooks/pressbooks/blob/master/LICENSE.md
 
@@ -21,6 +21,16 @@ For installation instructions, visit [docs.pressbooks.org/installation](https://
 TK.
 
 == Changelog ==
+= 5.4.4 =
+
+* Pressbooks 5.4.4 requires [WordPress 4.9.7](https://wordpress.org/news/2018/07/wordpress-4-9-7-security-and-maintenance-release/).
+* Pressbooks 5.4.4 requires [McLuhan >= 2.4.0](https://github.com/pressbooks/pressbooks-book/).
+
+**Patches**
+
+* Restore missing ICC profile file: [#1304](https://github.com/pressbooks/pressbooks/pull/1304)
+* Fix links to Thema guides ([#1302](https://github.com/pressbooks/pressbooks/issues/1302)): [#1305](https://github.com/pressbooks/pressbooks/pull/1305)
+
 = 5.4.3 =
 
 * Pressbooks 5.4.3 requires [WordPress 4.9.7](https://wordpress.org/news/2018/07/wordpress-4-9-7-security-and-maintenance-release/).
@@ -146,7 +156,7 @@ TK.
 - Prevent slug collisions in XHTML and HTMLBook outputs ([#1174](https://github.com/pressbooks/pressbooks/issues/1174)): [#1175](https://github.com/pressbooks/pressbooks/pull/1175)
 
 == Upgrade Notice ==
-= 5.4.3 =
+= 5.4.4 =
 
-* Pressbooks 5.4.3 requires [WordPress 4.9.7](https://wordpress.org/news/2018/07/wordpress-4-9-7-security-and-maintenance-release/).
-* Pressbooks 5.4.3 requires [McLuhan >= 2.4.0](https://github.com/pressbooks/pressbooks-book/).
+* Pressbooks 5.4.4 requires [WordPress 4.9.7](https://wordpress.org/news/2018/07/wordpress-4-9-7-security-and-maintenance-release/).
+* Pressbooks 5.4.4 requires [McLuhan >= 2.4.0](https://github.com/pressbooks/pressbooks-book/).
