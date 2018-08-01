@@ -143,6 +143,7 @@ add_action(
 		remove_meta_box( 'submitdiv', 'chapter', 'normal' );
 		remove_meta_box( 'submitdiv', 'front-matter', 'normal' );
 		remove_meta_box( 'submitdiv', 'back-matter', 'normal' );
+		remove_meta_box( 'submitdiv', 'glossary', 'normal' );
 	}
 );
 
