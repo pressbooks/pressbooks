@@ -162,7 +162,7 @@ function add_meta_boxes() {
 
 	add_meta_box( 'part-save', __( 'Save Part', 'pressbooks' ), __NAMESPACE__ . '\part_save_box', 'part', 'side', 'high' );
 	add_meta_box( 'metadata-save', __( 'Save Book Information', 'pressbooks' ), __NAMESPACE__ . '\metadata_save_box', 'metadata', 'side', 'high' );
-	add_meta_box( 'status-visibility', __( 'Status & Visibility', 'pressbooks' ), __NAMESPACE__ . '\status_visibility_box', [ 'chapter', 'front-matter', 'back-matter' ], 'side', 'high' );
+	add_meta_box( 'status-visibility', __( 'Status & Visibility', 'pressbooks' ), __NAMESPACE__ . '\status_visibility_box', [ 'chapter', 'front-matter', 'back-matter', 'glossary' ], 'side', 'high' );
 
 	// Book info: slug should be not available
 
@@ -988,6 +988,7 @@ function publish_fields_save( $post_id, $post, $update ) {
 			'front-matter',
 			'back-matter',
 			'chapter',
+			'glossary',
 		], true
 	) ) {
 		return;

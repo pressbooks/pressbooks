@@ -178,7 +178,7 @@ function register_post_types() {
 			'capability_type' => 'post',
 			'has_archive' => true,
 			'hierarchical' => false,
-			'supports' => [ 'title', 'editor', 'author', 'revisions', 'page-attributes' ],
+			'supports' => [ 'title', 'editor', 'author', 'revisions' ],
 			'show_in_menu' => false,
 			'show_in_admin_bar' => true,
 			'show_in_rest' => true,
