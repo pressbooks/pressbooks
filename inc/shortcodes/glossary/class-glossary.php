@@ -146,7 +146,7 @@ class Glossary {
 
 		if ( count( $terms ) > 0 ) {
 			foreach ( $terms as $key => $value ) {
-				$glossary .= sprintf( '< data-type="glossterm"><dfn>%1$s</dfn></dt><dd data-type="glossdef">%2$s</dd>', $key, trim( $value['content'] ) );
+				$glossary .= sprintf( '<dt data-type="glossterm"><dfn>%1$s</dfn></dt><dd data-type="glossdef">%2$s</dd>', $key, trim( $value['content'] ) );
 			}
 		}
 		if ( ! empty( $glossary ) ) {
