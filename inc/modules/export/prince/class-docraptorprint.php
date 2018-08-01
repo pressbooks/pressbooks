@@ -45,7 +45,7 @@ class DocraptorPrint extends Docraptor {
 	 * @return string
 	 */
 	protected function getPdfOutputIntent() {
-		return plugins_url( 'pressbooks-docraptor/assets/icc/USWebCoatedSWOP.icc' );
+		return PB_PLUGIN_URL . 'assets/icc/USWebCoatedSWOP.icc';
 	}
 
 
