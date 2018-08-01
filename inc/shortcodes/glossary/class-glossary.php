@@ -48,9 +48,6 @@ class Glossary {
 				return $excluded_shortcodes;
 			}
 		);
-		// do_shortcode() is registered as a default filter on 'the_content' with a priority of 11.
-		// We need to run $this->glossaryContent() after this, and after attributions which is set to 12, set to 13
-		add_filter( 'the_content', [ $obj, 'glossaryContent' ], 13 );
 		add_action( 'init', [ $obj, 'glossaryButton' ] ); // TinyMCE button
 	}
 
@@ -99,10 +96,10 @@ class Glossary {
 			], $atts
 		);
 
-		if ( ! empty( $a ) ) {
-			$retval = $this->termContent( $a );
+		if ( ! empty( $a['id'] ) ) {
+			$retval = $this->glossaryTooltip( $a );
 		} else {
-			$retval = $this->glossaryContent();
+			$retval = $this->glossaryTerms();
 		}
 
 		return $retval;
@@ -118,7 +115,7 @@ class Glossary {
 	 *
 	 * @return string
 	 */
-	function termContent( $term_id ) {
+	function glossaryTooltip( $term_id ) {
 		$glossary_terms = '';
 		$html = '';
 
@@ -130,15 +127,29 @@ class Glossary {
 	}
 
 	/**
-	 * Returns the HTML for a list of all glossary terms
+	 * Returns the HTML <dl> description list of all glossary terms
+	 *
 	 * @since 5.5.0
+	 *
+	 * @return string
 	 */
-	function glossaryContent() {
-		$html = '';
+	function glossaryTerms() {
 
-		//todo: generate appropriate tooltip markup for list of terms
+		$terms = self::$glossary_terms;
 
-		return $html;
+		// make sure they are sorted in alphabetical order
+		ksort( $terms );
+
+		if ( count( $terms ) > 0 ) {
+			$output = '<dl ="glossary-terms">';
+			foreach ( $terms as $key => $value ) {
+				$output .= '<dt>' . $key . '<dt>';
+				$output .= '<dd><em>' . $value['content'] . '</em></dd>';
+			}
+			$output .= '</ul>';
+		}
+
+		return $output;
 	}
 
 	/**
@@ -162,6 +173,7 @@ class Glossary {
 						'nonce'              => wp_create_nonce( 'pb-glossary' ),
 						'glossary_title'     => __( 'Insert Glossary Term', 'pressbooks' ),
 						'glossary_all_title' => __( 'Insert Glossary List', 'pressbooks' ),
+						'glossary_terms'     => __( json_encode( self::$glossary_terms ), 'pressbooks' ),
 					]
 				);
 			}
