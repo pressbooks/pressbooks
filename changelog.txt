@@ -1,4 +1,14 @@
 == Changelog ==
+= 5.4.4 =
+
+* Pressbooks 5.4.4 requires [WordPress 4.9.7](https://wordpress.org/news/2018/07/wordpress-4-9-7-security-and-maintenance-release/).
+* Pressbooks 5.4.4 requires [McLuhan >= 2.4.0](https://github.com/pressbooks/pressbooks-book/).
+
+**Patches**
+
+* Restore missing ICC profile file: [#1304](https://github.com/pressbooks/pressbooks/pull/1304)
+* Fix links to Thema guides ([#1302](https://github.com/pressbooks/pressbooks/issues/1302)): [#1305](https://github.com/pressbooks/pressbooks/pull/1305)
+
 = 5.4.3 =
 
 * Pressbooks 5.4.3 requires [WordPress 4.9.7](https://wordpress.org/news/2018/07/wordpress-4-9-7-security-and-maintenance-release/).
