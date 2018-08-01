@@ -1074,7 +1074,7 @@ function metadata_subject_box( $post ) {
 			</optgroup>
 			<?php } ?>
 		</select>
-		<span class="description"><?php printf( __( 'This appears on the web homepage of your book and helps categorize it in your network catalog (if applicable). Use %s to determine which subject category is best for your book.', 'pressbooks' ), sprintf( '<a href="%1$s">%2$s</a>', 'http://www.editeur.org/files/Thema/20160601%20Thema%20v1.2%20Basic%20instructions.pdf', __( 'these instructions', 'pressbooks' ) ) ); ?></span>
+		<span class="description"><?php printf( __( 'This appears on the web homepage of your book and helps categorize it in your network catalog (if applicable). Use %s to determine which subject category is best for your book.', 'pressbooks' ), sprintf( '<a href="%1$s">%2$s</a>', 'https://www.editeur.org/151/Thema', __( 'these instructions', 'pressbooks' ) ) ); ?></span>
 	</div>
 	<div class="custom-metadata-field select">
 		<label for="pb_additional_subjects"><?php _e( 'Additional Subject(s)', 'pressbooks' ); ?></label>
@@ -1088,7 +1088,7 @@ function metadata_subject_box( $post ) {
 			</optgroup>
 			<?php } ?>
 		</select>
-		<span class="description"><?php printf( __( 'This appears on the web homepage of your book. Use %s to determine which additional subject categories are appropriate for your book.', 'pressbooks' ), sprintf( '<a href="%1$s">%2$s</a>', 'http://www.editeur.org/files/Thema/20160601%20Thema%20v1.2%20Basic%20instructions.pdf', __( 'these instructions', 'pressbooks' ) ) ); ?></span>
+		<span class="description"><?php printf( __( 'This appears on the web homepage of your book. Use %s to determine which additional subject categories are appropriate for your book.', 'pressbooks' ), sprintf( '<a href="%1$s">%2$s</a>', 'https://www.editeur.org/151/Thema', __( 'these instructions', 'pressbooks' ) ) ); ?></span>
 	</div>
 	<?php
 }
