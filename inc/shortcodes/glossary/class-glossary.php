@@ -73,7 +73,10 @@ class Glossary {
 		$terms = get_posts( $args );
 
 		foreach ( $terms as $term ) {
-			$glossary_terms[ $term->post_title ] = [ 'id' => $term->ID, 'content' => $term->post_content ];
+			$glossary_terms[ $term->post_title ] = [
+				'id' => $term->ID,
+				'content' => $term->post_content,
+			];
 		}
 
 		self::$glossary_terms = $glossary_terms;
@@ -122,7 +125,7 @@ class Glossary {
 		$glossary_terms = '';
 		$html = '';
 
-		if ( ! empty ( $term_id ) ) {
+		if ( ! empty( $term_id ) ) {
 			//todo: generate appropriate tooltip markup for singular glossary term
 		}
 
@@ -157,14 +160,14 @@ class Glossary {
 
 			add_action(
 				'admin_enqueue_scripts', function () {
-				wp_localize_script(
-					'editor', 'PB_GlossaryToken', [
-						'nonce'              => wp_create_nonce( 'pb-glossary' ),
-						'glossary_title'     => __( 'Insert Glossary Term', 'pressbooks' ),
-						'glossary_all_title' => __( 'Insert Glossary List', 'pressbooks' ),
-					]
-				);
-			}
+					wp_localize_script(
+						'editor', 'PB_GlossaryToken', [
+							'nonce'              => wp_create_nonce( 'pb-glossary' ),
+							'glossary_title'     => __( 'Insert Glossary Term', 'pressbooks' ),
+							'glossary_all_title' => __( 'Insert Glossary List', 'pressbooks' ),
+						]
+					);
+				}
 			);
 
 			add_filter( 'mce_external_plugins', [ $this, 'addGlossaryPlugin' ] );
