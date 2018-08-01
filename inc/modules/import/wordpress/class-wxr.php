@@ -92,7 +92,7 @@ class Wxr extends Import {
 		 *
 		 * @param array $value
 		 */
-		$supported_post_types = apply_filters( 'pb_import_custom_post_types', [ 'post', 'page', 'front-matter', 'chapter', 'part', 'back-matter', 'metadata' ] );
+		$supported_post_types = apply_filters( 'pb_import_custom_post_types', [ 'post', 'page', 'front-matter', 'chapter', 'part', 'back-matter', 'metadata', 'glossary' ] );
 
 		if ( $this->isPbWxr ) {
 			//put the posts in correct part / menu_order order
@@ -161,9 +161,9 @@ class Wxr extends Import {
 		 *
 		 * @param array $value
 		 */
-		$taxonomies = apply_filters( 'pb_import_custom_taxonomies', [ 'front-matter-type', 'chapter-type', 'back-matter-type' ] );
+		$taxonomies = apply_filters( 'pb_import_custom_taxonomies', [ 'front-matter-type', 'chapter-type', 'back-matter-type', 'glossary-type' ] );
 
-		$custom_post_types = apply_filters( 'pb_import_custom_post_types', [ 'post', 'page', 'front-matter', 'chapter', 'part', 'back-matter', 'metadata' ] );
+		$custom_post_types = apply_filters( 'pb_import_custom_post_types', [ 'post', 'page', 'front-matter', 'chapter', 'part', 'back-matter', 'metadata', 'glossary' ] );
 
 		// set custom terms...
 		$terms = apply_filters( 'pb_import_custom_terms', $xml['terms'] );
@@ -321,6 +321,13 @@ class Wxr extends Import {
 			if ( 'metadata' === $p['post_type'] ) {
 				$array[] = $p;
 				break;
+			}
+		}
+
+		// Glossary
+		foreach ( $xml as $p ) {
+			if ( 'glossary' === $p['post_type'] ) {
+				$array[] = $p;
 			}
 		}
 
