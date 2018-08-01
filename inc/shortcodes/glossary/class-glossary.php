@@ -80,8 +80,8 @@ class Glossary {
 	}
 
 	/**
-	 * If short-code argument is present [pb_glossary id='33']
-	 * returns the term with that ID, otherwise returns a list of all terms
+	 * Gets the tooltip if the param contains the post id,
+	 * or a list of terms if it's just the short-code
 	 *
 	 * @since 5.5.0
 	 *
@@ -110,7 +110,7 @@ class Glossary {
 
 
 	/**
-	 * Returns the HTML for a term if the ID is provided
+	 * Returns the HTML for a term if the param contains the post id
 	 *
 	 * @since 5.5.0
 	 *
@@ -138,6 +138,7 @@ class Glossary {
 	 */
 	function glossaryTerms() {
 
+		$output = '';
 		$terms = self::$glossary_terms;
 
 		// make sure they are sorted in alphabetical order
