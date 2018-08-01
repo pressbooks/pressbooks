@@ -137,20 +137,20 @@ class Glossary {
 	 * @return string
 	 */
 	function glossaryTerms() {
-
 		$output = '';
+		$glossary = '';
 		$terms = self::$glossary_terms;
 
 		// make sure they are sorted in alphabetical order
-		ksort( $terms );
+		ksort( $terms, SORT_LOCALE_STRING );
 
 		if ( count( $terms ) > 0 ) {
-			$output = '<dl ="glossary-terms">';
 			foreach ( $terms as $key => $value ) {
-				$output .= '<dt>' . $key . '<dt>';
-				$output .= '<dd><em>' . $value['content'] . '</em></dd>';
+				$glossary .= sprintf( '<dt data-type="glossterm"><dfn>%1$s</dfn><dt><dd data-type="glossdef">%2$s</dd>', $key, trim( $value['content'] ) );
 			}
-			$output .= '</ul>';
+		}
+		if ( ! empty( $glossary ) ) {
+			$output = sprintf( '<section data-type="glossary"><h1>Glossary</h1><dl data-type="glossary">%1$s</dl></section>', $glossary );
 		}
 
 		return $output;
@@ -172,15 +172,15 @@ class Glossary {
 
 			add_action(
 				'admin_enqueue_scripts', function () {
-				wp_localize_script(
-					'editor', 'PB_GlossaryToken', [
-						'nonce'              => wp_create_nonce( 'pb-glossary' ),
-						'glossary_title'     => __( 'Insert Glossary Term', 'pressbooks' ),
-						'glossary_all_title' => __( 'Insert Glossary List', 'pressbooks' ),
-						'glossary_terms'     => __( json_encode( self::$glossary_terms ), 'pressbooks' ),
-					]
-				);
-			}
+					wp_localize_script(
+						'editor', 'PB_GlossaryToken', [
+							'nonce'              => wp_create_nonce( 'pb-glossary' ),
+							'glossary_title'     => __( 'Insert Glossary Term', 'pressbooks' ),
+							'glossary_all_title' => __( 'Insert Glossary List', 'pressbooks' ),
+							'glossary_terms'     => __( wp_json_encode( self::$glossary_terms ), 'pressbooks' ),
+						]
+					);
+				}
 			);
 
 			add_filter( 'mce_external_plugins', [ $this, 'addGlossaryPlugin' ] );
