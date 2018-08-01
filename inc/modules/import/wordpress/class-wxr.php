@@ -152,6 +152,7 @@ class Wxr extends Import {
 			'chapter' => 0,
 			'part' => 0,
 			'back-matter' => 0,
+			'glossary' => 0,
 		];
 
 		/**
@@ -255,11 +256,12 @@ class Wxr extends Import {
 		$_SESSION['pb_notices'][] =
 
 			sprintf(
-				_x( 'Imported %1$s, %2$s, %3$s, and %4$s.', 'String which tells user how many front matter, parts, chapters and back matter were imported.', 'pressbooks' ),
+				_x( 'Imported %1$s, %2$s, %3$s, %4$s, and %5$s.', 'String which tells user how many front matter, parts, chapters and back matter were imported.', 'pressbooks' ),
 				$totals['front-matter'] . ' ' . __( 'front matter', 'pressbooks' ),
 				( 1 === $totals['part'] ) ? $totals['part'] . ' ' . __( 'part', 'pressbooks' ) : $totals['part'] . ' ' . __( 'parts', 'pressbooks' ),
 				( 1 === $totals['chapter'] ) ? $totals['chapter'] . ' ' . __( 'chapter', 'pressbooks' ) : $totals['chapter'] . ' ' . __( 'chapters', 'pressbooks' ),
-				$totals['back-matter'] . ' ' . __( 'back matter', 'pressbooks' )
+				$totals['back-matter'] . ' ' . __( 'back matter', 'pressbooks' ),
+				( 1 === $totals['glossary'] ) ? $totals['glossary'] . ' ' . __( 'glossary term', 'pressbooks' ) : $totals['glossary'] . ' ' . __( 'glossary terms', 'pressbooks' )
 			);
 		return $this->revokeCurrentImport();
 	}
