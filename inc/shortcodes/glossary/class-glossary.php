@@ -70,7 +70,10 @@ class Glossary {
 		$terms = get_posts( $args );
 
 		foreach ( $terms as $term ) {
-			$glossary_terms[ $term->post_title ] = [ 'id' => $term->ID, 'content' => $term->post_content ];
+			$glossary_terms[ $term->post_title ] = [
+				'id' => $term->ID,
+				'content' => $term->post_content,
+			];
 		}
 
 		self::$glossary_terms = $glossary_terms;
@@ -119,7 +122,7 @@ class Glossary {
 		$glossary_terms = '';
 		$html = '';
 
-		if ( ! empty ( $term_id ) ) {
+		if ( ! empty( $term_id ) ) {
 			//todo: generate appropriate tooltip markup for singular glossary term
 		}
 
