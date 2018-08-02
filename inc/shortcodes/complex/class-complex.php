@@ -48,6 +48,10 @@ class Complex {
 
 	/**
 	 * Shortcode handler for [anchor].
+	 *
+	 * @param array $atts Shortcode attributes.
+	 * @param string $content Shortcode content.
+	 * @param string $shortcode Shortcode name.
 	 */
 	public function anchorShortCodeHandler( $atts, $content = '', $shortcode ) {
 		if ( ! isset( $atts['id'] ) ) {
@@ -73,6 +77,10 @@ class Complex {
 
 	/**
 	 * Shortcode handler for [columns].
+	 *
+	 * @param array $atts Shortcode attributes.
+	 * @param string $content Shortcode content.
+	 * @param string $shortcode Shortcode name.
 	 */
 	public function columnsShortCodeHandler( $atts, $content = '', $shortcode ) {
 		if ( ! $content ) {
@@ -110,6 +118,10 @@ class Complex {
 
 	/**
 	 * Shortcode handler for [email].
+	 *
+	 * @param array $atts Shortcode attributes.
+	 * @param string $content Shortcode content.
+	 * @param string $shortcode Shortcode name.
 	 */
 	public function emailShortCodeHandler( $atts, $content = '', $shortcode ) {
 		$atts = shortcode_atts(
@@ -145,6 +157,10 @@ class Complex {
 
 	/**
 	 * Shortcode handler for [equation].
+	 *
+	 * @param array $atts Shortcode attributes.
+	 * @param string $content Shortcode content.
+	 * @param string $shortcode Shortcode name.
 	 */
 	public function equationShortCodeHandler( $atts, $content = '', $shortcode ) {
 		if ( ! $content ) {
@@ -172,6 +188,10 @@ class Complex {
 
 	/**
 	 * Shortcode handler for [image].
+	 *
+	 * @param array $atts Shortcode attributes.
+	 * @param string $content Shortcode content.
+	 * @param string $shortcode Shortcode name.
 	 */
 	public function imageShortCodeHandler( $atts, $content = '', $shortcode ) {
 		if ( ! $content ) {
@@ -208,9 +228,13 @@ class Complex {
 			} elseif ( filter_var( $atts['link'], FILTER_VALIDATE_URL ) ) {
 				$href = $atts['link'];
 			}
-			$link = $dom->createElement( 'a' );
-			$link->setAttribute( 'href', $href );
-			$link->appendChild( $img );
+			if ( $href ) {
+				$link = $dom->createElement( 'a' );
+				$link->setAttribute( 'href', $href );
+				$link->appendChild( $img );
+			}
+		} else {
+			$link = false;
 		}
 
 		if ( $atts['caption'] ) {
@@ -226,18 +250,31 @@ class Complex {
 			$figcaption = $dom->createElement( 'figcaption' );
 			$figcaption->setAttribute( 'class', 'wp-caption-text' );
 			$figcaption->nodeValue = $atts['caption'];
-			$append = $link ?? $img;
+			$append = ( $link ) ? $link : $img;
 			$figure->appendChild( $append );
 			$figure->appendChild( $figcaption );
 			$dom->appendChild( $figure );
+		} else {
+			$figure = false;
 		}
 
-		$content = $dom->saveHTML( $figure );
+		if ( $figure ) {
+			$content = $dom->saveHTML( $figure );
+		} elseif ( $link ) {
+			$content = $dom->saveHTML( $link );
+		} else {
+			$content = $dom->saveHtml( $img );
+		}
+
 		return $content;
 	}
 
 	/**
 	 * Shortcode handler for [media].
+	 *
+	 * @param array $atts Shortcode attributes.
+	 * @param string $content Shortcode content.
+	 * @param string $shortcode Shortcode name.
 	 */
 	public function mediaShortCodeHandler( $atts, $content = '', $shortcode ) {
 		$atts = shortcode_atts( [
