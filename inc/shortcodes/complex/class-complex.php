@@ -6,6 +6,8 @@
 
 namespace Pressbooks\Shortcodes\Complex;
 
+use Masterminds\HTML5;
+
 class Complex {
 
 	/**
@@ -34,6 +36,7 @@ class Complex {
 		add_shortcode( 'columns', [ $obj, 'columnsShortCodeHandler' ] );
 		add_shortcode( 'email', [ $obj, 'emailShortCodeHandler' ] );
 		add_shortcode( 'equation', [ $obj, 'equationShortCodeHandler' ] );
+		add_shortcode( 'image', [ $obj, 'imageShortCodeHandler' ] );
 		add_shortcode( 'media', [ $obj, 'mediaShortCodeHandler' ] );
 	}
 
@@ -168,9 +171,75 @@ class Complex {
 	}
 
 	/**
+	 * Shortcode handler for [image].
+	 */
+	public function imageShortCodeHandler( $atts, $content = '', $shortcode ) {
+		if ( ! $content ) {
+			return;
+		}
+		$atts = shortcode_atts( [
+			'caption' => null,
+			'alt' => null,
+		], $atts );
+
+		$html5 = new HTML5(
+			[
+				'disable_html_ns' => true,
+			]
+		);
+		$dom = $html5->loadHTML( $content );
+		$tags = $dom->getElementsByTagName( 'img' );
+		if ( empty( $tags ) ) {
+			return;
+		}
+		$img = $tags[0];
+		$classes = $img->getAttribute( 'class' );
+		$id = preg_match( '/wp-image-([0-9]+)/i', $classes, $class_id );
+		$attachment_id = ( isset( $class_id[1] ) ) ? absint( $class_id[1] ) : '';
+
+		if ( isset( $atts['caption'] ) ) {
+			$classes .= ' wp-caption';
+			$figure = $dom->createElement( 'figure' );
+			$figure->setAttribute( 'id', "attachment_$attachment_id" );
+			$figure->setAttribute( 'style', sprintf(
+				'width: %spx',
+				$img->getAttribute( 'width' )
+			) );
+			$figure->setAttribute( 'class', $classes );
+			$figcaption = $dom->createElement( 'figcaption' );
+			$figcaption->setAttribute( 'class', 'wp-caption-text' );
+			$figcaption->nodeValue = $atts['caption'];
+			$figure->appendChild( $img );
+			$figure->appendChild( $figcaption );
+			$dom->appendChild( $figure );
+		}
+		if ( isset( $atts['alt'] ) ) {
+			$img->setAttribute( 'alt', $atts['alt'] );
+		}
+		$content = $dom->saveHTML( $figure );
+		return $content;
+	}
+
+	/**
 	 * Shortcode handler for [media].
 	 */
 	public function mediaShortCodeHandler( $atts, $content = '', $shortcode ) {
-		return $content; // TODO: Build the shortcode.
+		$atts = shortcode_atts( [
+			'caption' => null,
+			'src' => null,
+		], $atts );
+		$src = $atts['src'] ?? $content;
+		$src = esc_url_raw( $src );
+		if ( ! filter_var( $src, FILTER_VALIDATE_URL ) ) {
+			return;
+		}
+		if ( $atts['caption'] ) {
+			return sprintf(
+				'<figure class="embed">%1$s<figcaption>%2$s</figcaption></figure>',
+				str_replace( [ '<p>', '</p>' ], '', apply_filters( 'the_content', sprintf( '[embed src="%s"]', $src ) ) ),
+				$atts['caption']
+			);
+		}
+		return apply_filters( 'the_content', sprintf( '[embed src="%s"]', $src ) );
 	}
 }
