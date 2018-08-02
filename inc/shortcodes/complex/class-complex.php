@@ -180,6 +180,7 @@ class Complex {
 		$atts = shortcode_atts( [
 			'caption' => null,
 			'alt' => null,
+			'link' => null,
 		], $atts );
 
 		$html5 = new HTML5(
@@ -197,7 +198,22 @@ class Complex {
 		$id = preg_match( '/wp-image-([0-9]+)/i', $classes, $class_id );
 		$attachment_id = ( isset( $class_id[1] ) ) ? absint( $class_id[1] ) : '';
 
-		if ( isset( $atts['caption'] ) ) {
+		if ( $atts['alt'] ) {
+			$img->setAttribute( 'alt', $atts['alt'] );
+		}
+
+		if ( $atts['link'] ) {
+			if ( $atts['link'] === 'original' ) {
+				$href = wp_get_attachment_url( $attachment_id );
+			} elseif ( filter_var( $atts['link'], FILTER_VALIDATE_URL ) ) {
+				$href = $atts['link'];
+			}
+			$link = $dom->createElement( 'a' );
+			$link->setAttribute( 'href', $href );
+			$link->appendChild( $img );
+		}
+
+		if ( $atts['caption'] ) {
 			$classes .= ' wp-caption';
 			$figure = $dom->createElement( 'figure' );
 			$figure->setAttribute( 'id', "attachment_$attachment_id" );
@@ -210,13 +226,12 @@ class Complex {
 			$figcaption = $dom->createElement( 'figcaption' );
 			$figcaption->setAttribute( 'class', 'wp-caption-text' );
 			$figcaption->nodeValue = $atts['caption'];
-			$figure->appendChild( $img );
+			$append = $link ?? $img;
+			$figure->appendChild( $append );
 			$figure->appendChild( $figcaption );
 			$dom->appendChild( $figure );
 		}
-		if ( isset( $atts['alt'] ) ) {
-			$img->setAttribute( 'alt', $atts['alt'] );
-		}
+
 		$content = $dom->saveHTML( $figure );
 		return $content;
 	}
