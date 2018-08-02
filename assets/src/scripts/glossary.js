@@ -1,6 +1,18 @@
 ( function () {
     tinymce.create( 'tinymce.plugins.glossary', {
         init: function ( ed, url ) {
+
+            // This button adds the glossary short-code that generates a list of all terms
+            ed.addButton( 'glossary_all', {
+                title: PB_GlossaryToken.glossary_all_title,
+                text: 'Glossary',
+                icon: false,
+                onclick: function () {
+                    ed.selection.setContent( '[pb_glossary]' );
+                },
+            } );
+
+            // This button adds the single glossary term short-code with the corresponding term id as an attribute
             ed.addButton( 'glossary', {
                 title: PB_GlossaryToken.glossary_title,
                 text: 'GL',
@@ -55,5 +67,6 @@
             return null;
         },
     } );
+    tinymce.PluginManager.add( 'glossary_all', tinymce.plugins.glossary.all );
     tinymce.PluginManager.add( 'glossary', tinymce.plugins.glossary );
 } )();
