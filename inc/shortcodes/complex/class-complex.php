@@ -201,9 +201,10 @@ class Complex {
 			$classes .= ' wp-caption';
 			$figure = $dom->createElement( 'figure' );
 			$figure->setAttribute( 'id', "attachment_$attachment_id" );
+			$width = str_replace( 'px', '', $img->getAttribute( 'width' ) );
 			$figure->setAttribute( 'style', sprintf(
 				'width: %spx',
-				$img->getAttribute( 'width' )
+				$width
 			) );
 			$figure->setAttribute( 'class', $classes );
 			$figcaption = $dom->createElement( 'figcaption' );
