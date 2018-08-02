@@ -6,10 +6,12 @@
                 text: 'GL',
                 icon: false,
                 onclick: function () {
-                    // make sure we clea
+                    // make sure we clean up the data
                     let json_str = PB_GlossaryToken.glossary_terms.replace(/&quot;/g, '"');
                     let terms = jQuery.parseJSON(json_str);
+                    // get the highlighted selection
                     let mySelection = ed.selection.getContent();
+                    // placeholder for our term
                     let glossaryTerm;
 
                     // if there was a highlighted selection, check for it's existence and get the value of the ID
@@ -26,7 +28,7 @@
                         });
                         // display the UI to lookup and select an existing term
                         glossaryTerm = prompt(
-                            'Glossary Content',
+                            'Glossary Terms',
                             mySelection
                         );
                         // insert the short-code with the id as an attribute
