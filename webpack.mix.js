@@ -55,6 +55,7 @@ mix
 	.js( 'assets/src/scripts/theme-lock.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/theme-options.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/post-visibility.js', 'assets/dist/scripts/' )
+	.js( 'assets/src/scripts/glossary.js', 'assets/dist/scripts/' )
 	.scripts(
 		'node_modules/block-ui/jquery.blockUI.js',
 		'assets/dist/scripts/blockui.js'
