@@ -148,7 +148,7 @@ class Glossary {
 			foreach ( $terms as $key => $value ) {
 				$glossary .= sprintf(
 					'<dt data-type="glossterm"><dfn id="%1$s">%2$s</dfn></dt><dd data-type="glossdef">%3$s</dd>',
-					sprintf( '#dfn-%s', \Pressbooks\Utility\str_lowercase_dash( $key ) ), $key, trim( $value['content'] )
+					sprintf( 'dfn-%s', \Pressbooks\Utility\str_lowercase_dash( $key ) ), $key, trim( $value['content'] )
 				);
 			}
 		}
