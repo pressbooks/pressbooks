@@ -1374,6 +1374,8 @@ function oxford_comma_explode( $string ) {
 /**
  * Converts a space separated string, to lowercase separated by dashes
  *
+ * @since 5.5.0
+ *
  * @param $string
  *
  * @return string
