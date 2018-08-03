@@ -1,26 +1,55 @@
-( function () {
-    tinymce.create( 'tinymce.plugins.glossary', {
-        init: function ( ed, url ) {
+(function () {
+    tinymce.create('tinymce.plugins.glossary', {
+        init: function (ed, url) {
+
+            // get and clean up the data
+            let json_str = PB_GlossaryToken.glossary_terms.replace(/&quot;/g, '"');
+            let terms = jQuery.parseJSON(json_str);
+
+            // get the keys
+            let keys = Object.keys(terms);
+
+            // Test data, this is what line 86 expects
+            function testListData() {
+                let test;
+                test = [{text: 'Apple', value: 'Apple'}, {text: 'Banana', value: 'Banana'}, {text: 'Orange', value: 'Orange'}];
+                return test;
+            }
+
+            console.log(testListData());
+
+            // get values for the select list on line 86
+            function getListTerms() {
+                let terms = [];
+                let termlist = {};
+
+                // this loop iterates the correct number of times, but adds the same property value instead of iterating, needs to be fixed
+                for (let i = 0; i < keys.length; i++) {
+                    termlist['text'] = keys[i];
+                    termlist['value'] = keys[i];
+                    terms.push(termlist);
+                }
+                return terms;
+            }
+
+            console.log(getListTerms());
 
             // This button adds the glossary short-code that generates a list of all terms
-            ed.addButton( 'glossary_all', {
+            ed.addButton('glossary_all', {
                 title: PB_GlossaryToken.glossary_all_title,
                 text: 'Glossary',
                 icon: false,
                 onclick: function () {
-                    ed.selection.setContent( '[pb_glossary]' );
+                    ed.selection.setContent('[pb_glossary]');
                 },
-            } );
+            });
 
             // This button adds the single glossary term short-code with the corresponding term id as an attribute
-            ed.addButton( 'glossary', {
+            ed.addButton('glossary', {
                 title: PB_GlossaryToken.glossary_title,
                 text: 'GL',
                 icon: false,
                 onclick: function () {
-                    // make sure we clean up the data
-                    let json_str = PB_GlossaryToken.glossary_terms.replace(/&quot;/g, '"');
-                    let terms = jQuery.parseJSON(json_str);
                     // get the highlighted selection
                     let mySelection = ed.selection.getContent();
                     // placeholder for our term
@@ -39,10 +68,31 @@
                             return terms[key]['id']
                         });
                         // display the UI to lookup and select an existing term
-                        glossaryTerm = prompt(
-                            'Glossary Terms',
-                            mySelection
-                        );
+                        tinymce.activeEditor.windowManager.open({
+                            title: 'Glossary terms',
+                            buttons: [{
+                                text: 'Accept',
+                                subtype: 'primary',
+                                onclick: 'submit'
+                            },
+                                {
+                                    text: 'Close',
+                                    onclick: 'close'
+                                }
+                            ],
+
+                            body: [
+                                {
+                                    type: 'listbox',
+                                    name: 'Terms',
+                                    label: 'Select a Term',
+                                    values: getListTerms(),
+                                },
+                            ],
+
+                            width: 400,
+                            height: 80,
+                        },);
                         // insert the short-code with the id as an attribute
                         ed.selection.setContent('[pb_glossary' + ' id="' + matchingID[0] + '"]' + glossaryTerm + '[/pb_glossary]');
 
@@ -52,7 +102,7 @@
                             'Glossary Content',
                             'Enter your glossary content here.'
                         );
-                        if ( glossaryTerm !== '' ) {
+                        if (glossaryTerm !== '') {
                             ed.execCommand(
                                 'mceInsertContent',
                                 false,
@@ -61,12 +111,12 @@
                         }
                     }
                 },
-            } );
+            });
         },
-        createControl: function ( n, cm ) {
+        createControl: function (n, cm) {
             return null;
         },
-    } );
-    tinymce.PluginManager.add( 'glossary_all', tinymce.plugins.glossary.all );
-    tinymce.PluginManager.add( 'glossary', tinymce.plugins.glossary );
-} )();
+    });
+    tinymce.PluginManager.add('glossary_all', tinymce.plugins.glossary.all);
+    tinymce.PluginManager.add('glossary', tinymce.plugins.glossary);
+})();
