@@ -237,6 +237,7 @@ class HTMLBook extends Export {
 			if ( ! empty( $_GET['debug'] ) ) {
 				$url = get_generated_content_url( '/scss-debug' ) . '/' . clean_filename( $_GET['debug'] ) . '.css';
 				echo "<link rel='stylesheet' href='$url' type='text/css' />\n";
+				echo "<script src='https://unpkg.com/pagedjs/dist/paged.polyfill.js'></script>\n";
 			}
 		}
 
