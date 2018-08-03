@@ -237,7 +237,6 @@ class Complex {
 				$link->setAttribute( 'href', $href );
 				$link->appendChild( $img );
 			}
-
 		} else {
 			$link = false;
 
