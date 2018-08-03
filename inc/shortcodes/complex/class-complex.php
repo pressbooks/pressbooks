@@ -224,7 +224,11 @@ class Complex {
 
 		if ( $atts['link'] ) {
 			if ( $atts['link'] === 'original' ) {
-				$href = wp_get_attachment_url( $attachment_id );
+				if ( $attachment_id ) {
+					$href = wp_get_attachment_url( $attachment_id );
+				} else {
+					$href = $img->getAttribute( 'src' );
+				}
 			} elseif ( filter_var( $atts['link'], FILTER_VALIDATE_URL ) ) {
 				$href = $atts['link'];
 			}
@@ -233,14 +237,18 @@ class Complex {
 				$link->setAttribute( 'href', $href );
 				$link->appendChild( $img );
 			}
+
 		} else {
 			$link = false;
+
 		}
 
 		if ( $atts['caption'] ) {
 			$classes .= ' wp-caption';
 			$figure = $dom->createElement( 'figure' );
-			$figure->setAttribute( 'id', "attachment_$attachment_id" );
+			if ( $attachment_id ) {
+				$figure->setAttribute( 'id', "attachment_$attachment_id" );
+			}
 			$width = str_replace( 'px', '', $img->getAttribute( 'width' ) );
 			$figure->setAttribute( 'style', sprintf(
 				'width: %spx',
