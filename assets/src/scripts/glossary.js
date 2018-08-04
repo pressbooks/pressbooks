@@ -9,30 +9,20 @@
             // get the keys
             let keys = Object.keys(terms);
 
-            // Test data, this is what line 86 expects
-            function testListData() {
-                let test;
-                test = [{text: 'Apple', value: 'Apple'}, {text: 'Banana', value: 'Banana'}, {text: 'Orange', value: 'Orange'}];
-                return test;
-            }
-
-            console.log(testListData());
-
-            // get values for the select list on line 86
+            // get values for the combobox
             function getListTerms() {
                 let terms = [];
                 let termlist = {};
 
-                // this loop iterates the correct number of times, but adds the same property value instead of iterating, needs to be fixed
                 for (let i = 0; i < keys.length; i++) {
+                    termlist = {};
                     termlist['text'] = keys[i];
                     termlist['value'] = keys[i];
                     terms.push(termlist);
                 }
+
                 return terms;
             }
-
-            console.log(getListTerms());
 
             // This button adds the glossary short-code that generates a list of all terms
             ed.addButton('glossary_all', {
@@ -83,7 +73,7 @@
 
                             body: [
                                 {
-                                    type: 'listbox',
+                                    type: 'combobox',
                                     name: 'Terms',
                                     label: 'Select a Term',
                                     values: getListTerms(),
