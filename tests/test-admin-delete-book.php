@@ -2,6 +2,11 @@
 
 class Admin_DeleteBookTest extends \WP_UnitTestCase {
 
+	public function test_init() {
+		$class = \Pressbooks\Admin\Delete\Book::init();
+		$this->assertInstanceOf( '\Pressbooks\Admin\Delete\Book', $class );
+	}
+
 	public function test_deleteBookEmailContent() {
 		$delete_book = new \Pressbooks\Admin\Delete\Book();
 		$content = $delete_book->deleteBookEmailContent( 'WordPress' );

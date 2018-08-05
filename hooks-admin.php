@@ -32,6 +32,9 @@ $is_book = Book::isBook();
 // Look & feel of admin interface and Dashboard
 // -------------------------------------------------------------------------------------------------------------------
 
+// Remove the Try Gutenberg panel
+remove_action( 'try_gutenberg_panel', 'wp_try_gutenberg_panel' );
+
 // PressBook-ify the admin bar
 add_action( 'admin_bar_menu', '\Pressbooks\Admin\Laf\replace_menu_bar_branding', 11 );
 add_action( 'admin_bar_menu', '\Pressbooks\Admin\Laf\replace_menu_bar_my_sites', 21 );
@@ -46,6 +49,7 @@ add_action( 'admin_init', '\Pressbooks\Admin\Dashboard\dashboard_options_init' )
 add_action( 'network_admin_menu', '\Pressbooks\Admin\Dashboard\add_menu', 2 );
 add_action( 'admin_menu', '\Pressbooks\Admin\Dashboard\add_menu', 1 );
 add_action( 'admin_menu', '\Pressbooks\Admin\Diagnostics\add_menu', 30 );
+add_action( 'wp_user_dashboard_setup', '\Pressbooks\Admin\Dashboard\lowly_user' );
 
 if ( $is_book ) {
 	// Aggressively replace default interface
@@ -59,7 +63,6 @@ if ( $is_book ) {
 	add_filter( 'parent_file', '\Pressbooks\Admin\Laf\fix_parent_file' );
 	add_action( 'wp_dashboard_setup', '\Pressbooks\Admin\Dashboard\replace_dashboard_widgets' );
 	remove_action( 'welcome_panel', 'wp_welcome_panel' );
-	remove_action( 'try_gutenberg_panel', 'wp_try_gutenberg_panel' );
 	add_action( 'customize_register', '\Pressbooks\Admin\Laf\customize_register', 1000 );
 	add_filter( 'all_plugins', '\Pressbooks\Admin\Plugins\filter_plugins', 10 );
 	// Disable theme customizer
@@ -68,6 +71,8 @@ if ( $is_book ) {
 } else {
 	// Fix extraneous menus
 	add_action( 'admin_menu', '\Pressbooks\Admin\Laf\fix_root_admin_menu', 1 );
+	// TODO: Add Privacy Policy content
+	// See Pressbooks\Privacy::addPrivacyPolicyContent() for reference.
 }
 
 if ( is_network_admin() ) {
@@ -153,7 +158,7 @@ if ( $is_book ) {
 	add_action( 'save_post_metadata', '\Pressbooks\Admin\Metaboxes\save_subject_metadata', 10, 2 );
 	add_action( 'contributor_add_form_fields', '\Pressbooks\Admin\Metaboxes\contributor_add_form' );
 	add_action( 'contributor_edit_form_fields', '\Pressbooks\Admin\Metaboxes\contributor_edit_form' );
-	add_action( 'save_post', '\Pressbooks\Admin\Metaboxes\publish_fields_save', 10 , 3 );
+	add_action( 'save_post', '\Pressbooks\Admin\Metaboxes\publish_fields_save', 10, 3 );
 	add_action( 'init', '\Pressbooks\Metadata\register_contributor_meta' );
 	add_action( 'create_term', '\Pressbooks\Admin\Metaboxes\save_contributor_meta', 10, 3 );
 	add_action( 'edit_term', '\Pressbooks\Admin\Metaboxes\save_contributor_meta', 10, 3 );
@@ -174,6 +179,8 @@ if ( $is_book ) {
 	add_filter( 'wp_link_query', '\Pressbooks\Editor\add_anchors_to_wp_link_query', 1, 2 );
 	add_action( 'edit_form_after_title', '\Pressbooks\Metadata\add_expanded_metadata_box' );
 	add_action( 'add_meta_boxes', '\Pressbooks\Admin\Metaboxes\replace_authordiv' );
+	add_filter( 'attachment_fields_to_edit', '\Pressbooks\Admin\Attachments\add_metadata_attachment', 10, 2 );
+	add_filter( 'attachment_fields_to_save', '\Pressbooks\Admin\Attachments\save_metadata_attachment', 10, 2 );
 }
 
 // -------------------------------------------------------------------------------------------------------------------
@@ -228,13 +235,31 @@ if ( $is_book ) {
 }
 
 // -------------------------------------------------------------------------------------------------------------------
+// Use DocRaptor instead of Prince?
+// -------------------------------------------------------------------------------------------------------------------
+
+add_action( 'init', [ '\Pressbooks\Modules\Export\Prince\Filters', 'init' ] );
+
+// -------------------------------------------------------------------------------------------------------------------
 // "Catch-all" routines, must come after taxonomies and friends
 // -------------------------------------------------------------------------------------------------------------------
 
-add_action( 'init', '\Pressbooks\Modules\Export\Export::formSubmit', 50 );
-add_action( 'init', '\Pressbooks\Modules\Import\Import::formSubmit', 50 );
-add_action( 'init', '\Pressbooks\Catalog::formSubmit', 50 );
-add_action( 'init', '\Pressbooks\Cloner::formSubmit', 50 );
+add_action( 'init', [ '\Pressbooks\Modules\Export\Export', 'formSubmit' ], 50 );
+add_action( 'init', [ '\Pressbooks\Modules\Import\Import', 'formSubmit' ], 50 );
+add_action( 'init', [ '\Pressbooks\Catalog', 'formSubmit' ], 50 );
+add_action( 'init', [ '\Pressbooks\Cloner', 'formSubmit' ], 50 );
+
+// -------------------------------------------------------------------------------------------------------------------
+// Cover Generator
+// -------------------------------------------------------------------------------------------------------------------
+
+add_action( 'init', [ '\Pressbooks\Covergenerator\Covergenerator', 'init' ] );
+
+// -------------------------------------------------------------------------------------------------------------------
+// Cover Generator
+// -------------------------------------------------------------------------------------------------------------------
+
+add_action( 'init', [ '\Pressbooks\Covergenerator\Covergenerator', 'init' ] );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Leftovers

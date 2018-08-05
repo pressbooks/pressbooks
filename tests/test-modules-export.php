@@ -140,11 +140,19 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 		$this->assertStringStartsWith( 'deny from all', file_get_contents( $path . '.htaccess' ) );
 	}
 
+	public function test_filters_useDocraptorInsteadOfPrince() {
+		$filters = new \Pressbooks\Modules\Export\Prince\Filters();
+		$this->assertTrue( is_bool( $filters->overridePrince() ) );
+		$this->assertTrue( is_array( $filters->addToModules( [] ) ) ); // TODO: This test sucks
+	}
+
 	/**
 	 * Sanity check that exports run without obvious errors
 	 * Verify XHTML content for good measure
 	 */
 	public function test_sanityChecks() {
+
+		$runtime = new \SebastianBergmann\Environment\Runtime();
 
 		$this->_book();
 		$meta_post = ( new \Pressbooks\Metadata() )->getMetaPost();
@@ -155,6 +163,8 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 		$modules[] = '\Pressbooks\Modules\Export\Xhtml\Xhtml11'; // Must be first! Other tests depend on this. Never comment out, never change position.
 		$modules[] = '\Pressbooks\Modules\Export\Prince\Pdf';
 		$modules[] = '\Pressbooks\Modules\Export\Prince\PrintPdf';
+		$modules[] = '\Pressbooks\Modules\Export\Prince\Docraptor';
+		$modules[] = '\Pressbooks\Modules\Export\Prince\DocraptorPrint';
 		$modules[] = '\Pressbooks\Modules\Export\Epub\Epub201'; // Must be set before MOBI
 		$modules[] = '\Pressbooks\Modules\Export\Epub\Epub3';
 		// $modules[] = '\Pressbooks\Modules\Export\Mobi\Kindlegen'; // Must be set after EPUB // TODO: Download/install Kindlegen in Travis build script
@@ -178,7 +188,11 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 			}
 
 			$this->assertTrue( $exporter->convert(), "Could not convert with {$module}" );
-			if ( strpos( $module, '\HTMLBook\HTMLBook' ) === false ) { // TODO
+			if ( strpos( $module, '\HTMLBook\HTMLBook' ) !== false ) {
+				// TODO: HTMLBook is too strict we don't pass the validation
+			} elseif ( $runtime->isPHPDBG() && strpos( $module, '\Epub\Epub' ) !== false ) {
+				// TODO: exec(): Unable to fork [/usr/bin/epubcheck -q /path/to.epub 2>&1]
+			} else {
 				$this->assertTrue( $exporter->validate(), "Could not validate with {$module}" );
 			}
 			$paths[] = $exporter->getOutputPath();
@@ -186,6 +200,8 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 			if ( strpos( $module, '\Xhtml\Xhtml11' ) !== false ) {
 				$xhtml_path = $exporter->getOutputPath();
 			}
+
+			unset( $exporter );
 		}
 
 		// Verify XHTML content for good measure

@@ -13,7 +13,7 @@ class Footnotes {
 	/**
 	 * @var Footnotes
 	 */
-	static $instance = false;
+	static $instance = null;
 
 	/**
 	 * @var array
@@ -30,24 +30,31 @@ class Footnotes {
 	 *
 	 * @return Footnotes
 	 */
-	public static function init() {
-		if ( ! self::$instance ) {
-			$self = new self;
-			add_shortcode( 'footnote', [ $self, 'shortcodeHandler' ] );
-			add_filter(
-				'no_texturize_shortcodes', function ( $excluded_shortcodes ) {
-					$excluded_shortcodes[] = 'footnote';
-					return $excluded_shortcodes;
-				}
-			);
-			// do_shortcode() is registered as a default filter on 'the_content' with a priority of 11.
-			// We need to run $this->footNoteContent() after this, set to 12
-			add_filter( 'the_content', [ $self, 'footnoteContent' ], 12 );
-			add_action( 'init', [ $self, 'footnoteButton' ] ); // TinyMCE button
-			add_action( 'admin_enqueue_scripts', [ $self, 'myCustomQuicktags' ] ); // Quicktag button
-			self::$instance = $self;
+	static public function init() {
+		if ( is_null( self::$instance ) ) {
+			self::$instance = new self();
+			self::hooks( self::$instance );
 		}
 		return self::$instance;
+	}
+
+	/**
+	 * @param Footnotes $obj
+	 */
+	static public function hooks( Footnotes $obj ) {
+		add_shortcode( 'footnote', [ $obj, 'shortcodeHandler' ] );
+		add_filter(
+			'no_texturize_shortcodes',
+			function ( $excluded_shortcodes ) {
+				$excluded_shortcodes[] = 'footnote';
+				return $excluded_shortcodes;
+			}
+		);
+		// do_shortcode() is registered as a default filter on 'the_content' with a priority of 11.
+		// We need to run $this->footNoteContent() after this, and after attributions which is set to 12, set to 13
+		add_filter( 'the_content', [ $obj, 'footnoteContent' ], 13 );
+		add_action( 'init', [ $obj, 'footnoteButton' ] ); // TinyMCE button
+		add_action( 'admin_enqueue_scripts', [ $obj, 'myCustomQuicktags' ] ); // Quicktag button
 	}
 
 	/**

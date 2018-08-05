@@ -81,9 +81,9 @@ class L10nTest extends \WP_UnitTestCase {
 		$this->assertEquals( $output, false );
 	}
 
-	public function test_update_user_locale() {
-		// TODO
-	}
+
+//	public function test_update_user_locale() { // TODO
+//	}
 
 	public function test_use_book_locale() {
 

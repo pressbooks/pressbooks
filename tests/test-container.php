@@ -90,15 +90,17 @@ class ContainerTest extends \WP_UnitTestCase {
 		$this->assertTrue( 'test4' == $var5 );
 	}
 
+	/**
+	 * @expectedException \LogicException
+	 */
 	public function test_getException() {
-
-		$this->setExpectedException( '\LogicException', null );
 		$var = Container::get( 'foo' );
 	}
 
+	/**
+	 * @expectedException \LogicException
+	 */
 	public function test_setException() {
-
-		$this->setExpectedException( '\LogicException', null );
 		Container::set( 'foo', 'bar' );
 	}
 

@@ -33,7 +33,7 @@ function getset( $arr, $key, $default = null ) {
 }
 
 /**
- * Scan a directory and return the files ordered by date, newest first.
+ * Scan a directory and return the files (not directories!) ordered by date, newest first.
  *
  * @param $dir
  *
@@ -43,12 +43,14 @@ function scandir_by_date( $dir ) {
 
 	$ignored = [ '.', '..', '.svn', '.git', '.htaccess' ];
 
+	$dir = untrailingslashit( $dir ) . '/';
+
 	$files = [];
 	foreach ( scandir( $dir ) as $file ) {
-		if ( in_array( $file, $ignored, true ) ) {
+		if ( in_array( $file, $ignored, true ) || is_dir( $dir . $file ) ) {
 			continue;
 		}
-		$files[ $file ] = filemtime( $dir . '/' . $file );
+		$files[ $file ] = filemtime( $dir . $file );
 	}
 	arsort( $files );
 	$files = array_keys( $files );
@@ -76,7 +78,7 @@ function group_exports( $dir = null ) {
 
 	$files = [];
 	foreach ( scandir( $dir ) as $file ) {
-		if ( in_array( $file, $ignored, true ) ) {
+		if ( in_array( $file, $ignored, true ) || is_dir( $dir . $file ) ) {
 			continue;
 		}
 		$files[ $file ] = filemtime( $dir . $file );
@@ -217,12 +219,13 @@ function latest_exports() {
 	// group by extension, sort by date newest first
 	foreach ( \Pressbooks\Utility\scandir_by_date( $dir ) as $file ) {
 		// only interested in the part of filename starting with the timestamp
-		preg_match( '/-\d{10,11}(.*)/', $file, $matches );
+		if ( preg_match( '/-\d{10,11}(.*)/', $file, $matches ) ) {
 
-		// grab the first captured parenthisized subpattern
-		$ext = $matches[1];
+			// grab the first captured parenthisized subpattern
+			$ext = $matches[1];
 
-		$files[ $ext ][] = $file;
+			$files[ $ext ][] = $file;
+		}
 	}
 
 	// get only one of the latest of each type
@@ -755,7 +758,7 @@ function format_bytes( $bytes, $precision = 2 ) {
  * @param null $message_type
  */
 function debug_error_log( $message, $message_type = null ) {
-	if ( WP_DEBUG ) {
+	if ( defined( 'WP_TESTS_MULTISITE' ) === false && WP_DEBUG ) {
 		\error_log( $message, $message_type ); // @codingStandardsIgnoreLine
 	}
 }
@@ -811,12 +814,11 @@ function email_error_log( $emails, $subject, $message ) {
  * @param array $vars (optional)
  *
  * @return string
- * @throws \Exception
  */
 function template( $path, array $vars = [] ) {
 
 	if ( ! file_exists( $path ) ) {
-		throw new \Exception( "File not found: $path" );
+		throw new \InvalidArgumentException( "File not found: $path" );
 	}
 
 	ob_start();
@@ -1402,4 +1404,21 @@ function empty_space( $var ) {
 		$var = trim( $var );
 	}
 	return empty( $var );
+}
+
+/**
+ * Best guess the main contact's email
+ *
+ * @return string
+ */
+function main_contact_email() {
+	$main_site_id = get_main_site_id();
+	$email = get_blog_option( $main_site_id, 'pb_network_contact_email' ); // Aldine
+	if ( empty( $email ) ) {
+		$email = get_blog_option( $main_site_id, 'admin_email' ); // Main Site
+		if ( empty( $email ) ) {
+			$email = get_site_option( 'admin_email' ); // Main Network
+		}
+	}
+	return $email ? $email : '';
 }

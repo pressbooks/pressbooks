@@ -6,8 +6,9 @@
 
 namespace Pressbooks;
 
-use function Pressbooks\Utility\str_starts_with;
+use function Pressbooks\Metadata\init_book_data_models;
 use function Pressbooks\Utility\oxford_comma_explode;
+use function Pressbooks\Utility\str_starts_with;
 
 class Contributors {
 
@@ -262,9 +263,11 @@ class Contributors {
 					$name = $slug;
 				}
 			}
-			$results = wp_insert_term( $name, self::TAXONOMY, [
-				'slug' => $slug,
-			] );
+			$results = wp_insert_term(
+				$name, self::TAXONOMY, [
+					'slug' => $slug,
+				]
+			);
 			if ( is_array( $results ) ) {
 				add_term_meta( $results['term_id'], 'contributor_first_name', $user->first_name, true );
 				add_term_meta( $results['term_id'], 'contributor_last_name', $user->last_name, true );
@@ -333,6 +336,7 @@ class Contributors {
 	 * @return string
 	 */
 	public function personalName( $slug ) {
+		init_book_data_models();
 		$name = '';
 		$term = get_term_by( 'slug', $slug, self::TAXONOMY );
 		if ( $term ) {

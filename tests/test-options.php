@@ -215,7 +215,8 @@ class OptionsTest extends \WP_UnitTestCase {
 			$opt->init();
 			$opt->display();
 			$opt->render();
-			$this->assertNotEmpty( ob_get_clean() );
+			$buffer = ob_get_clean();
+			$this->assertNotEmpty( $buffer );
 
 			$slug = $opt::getSlug();
 			$this->assertTrue( is_string( $slug ) );

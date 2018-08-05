@@ -184,7 +184,7 @@ function do_format() {
 function rewrite_rules_for_catalog() {
 	global $wp;
 	$wp->add_query_var( 'pb_catalog_user' );
-	add_rewrite_rule( '^catalog/([A-Za-z0-9\-\_]+)$', 'index.php?pagename=pb_catalog&pb_catalog_user=$matches[1]', 'top' );
+	add_rewrite_rule( '^catalog/([A-Za-z0-9@\.\-\_]+)$', 'index.php?pagename=pb_catalog&pb_catalog_user=$matches[1]', 'top' );
 	add_filter( 'template_include', __NAMESPACE__ . '\do_catalog', 999 ); // Must come after \Roots\Sage\Wrapper\SageWrapping (to override)
 }
 
@@ -199,6 +199,7 @@ function do_catalog( $template ) {
 	if ( get_query_var( 'pagename' ) === 'pb_catalog' ) {
 		$user = get_user_by( 'login', get_query_var( 'pb_catalog_user' ) );
 		if ( $user !== false ) {
+			status_header( 200 );
 			return \Pressbooks\Catalog::getTemplatePath();
 		}
 	}
@@ -372,44 +373,55 @@ function do_open() {
 			$files = \Pressbooks\Utility\latest_exports();
 			if ( isset( $files[ $_GET['type'] ] ) ) {
 				$filepath = \Pressbooks\Modules\Export\Export::getExportFolder() . $files[ $_GET['type'] ];
-				$file_ext = pathinfo( $filepath, PATHINFO_EXTENSION );
-				$book_title = ( get_bloginfo( 'name' ) ) ? get_bloginfo( 'name' ) : __( 'book', 'pressbooks' );
-				$book_title_slug = sanitize_file_name( $book_title );
-				$book_title_slug = str_replace( [ '+' ], '', $book_title_slug ); // Remove symbols which confuse Apache (Ie. form urlencoded spaces)
-				$book_title_slug = sanitize_file_name( $book_title_slug );
-				if ( ! is_readable( $filepath ) ) {
-					wp_die(
-						__( 'File not found', 'pressbooks' ) . ': ' . $files[ $_GET['type'] ], '', [
-							'response' => 404,
-						]
-					);
-				}
-
-				// Force download
-				// @codingStandardsIgnoreStart
-				@set_time_limit( 0 );
-				header( 'Content-Description: File Transfer' );
-				header( 'Content-Type: ' . \Pressbooks\Modules\Export\Export::mimeType( $filepath ) );
-				header( 'Content-Disposition: attachment; filename="' . $book_title_slug . '.' . $file_ext . '"' );
-				header( 'Content-Transfer-Encoding: binary' );
-				header( 'Expires: 0' );
-				header( 'Cache-Control: must-revalidate, post-check=0, pre-check=0' );
-				header( 'Pragma: public' );
-				header( 'Content-Length: ' . filesize( $filepath ) );
-				@ob_clean();
-				flush();
-				while ( @ob_end_flush() ) {
-					// Fix out-of-memory problem
-				}
-				readfile( $filepath );
-				// @codingStandardsIgnoreEnd
-
+				force_download( $filepath );
 				exit;
 			}
 		}
 	}
 
 	wp_die( __( 'Error: Unknown export format.', 'pressbooks' ) );
+}
+
+
+/**
+ * Force download
+ *
+ * @param string $filepath fullpath to a file
+ * @param bool $inline
+ */
+function force_download( $filepath, $inline = false ) {
+	$filename = basename( $filepath );
+	if ( ! is_readable( $filepath ) ) {
+		// Cannot read file
+		wp_die(
+			__( 'File not found', 'pressbooks' ) . ": $filename", '', [
+				'response' => 404,
+			]
+		);
+	}
+
+	// Force download
+	// @codingStandardsIgnoreStart
+	@set_time_limit( 0 );
+	header( 'Content-Description: File Transfer' );
+	header( 'Content-Type: ' . \Pressbooks\Media\mime_type( $filepath ) );
+	if ( $inline ) {
+		header( 'Content-Disposition: inline; filename="' . $filename . '"' );
+	} else {
+		header( 'Content-Disposition: attachment; filename="' . $filename . '"' );
+	}
+	header( 'Content-Transfer-Encoding: binary' );
+	header( 'Expires: 0' );
+	header( 'Cache-Control: must-revalidate, post-check=0, pre-check=0' );
+	header( 'Pragma: public' );
+	header( 'Content-Length: ' . filesize( $filepath ) );
+	@ob_clean();
+	flush();
+	while ( @ob_end_flush() ) {
+		// Fix out-of-memory problem
+	}
+	readfile( $filepath );
+	// @codingStandardsIgnoreEnd
 }
 
 /**

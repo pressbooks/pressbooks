@@ -1,23 +1,15 @@
 {
 	"name": "@pressbooks/pressbooks",
-	"description":
-		"Pressbooks is an open source book publishing tool built on a WordPress multisite platform. Pressbooks outputs books in multiple formats, including PDF, EPUB, MOBI, web, and a variety of XML flavours, using a theming/templating system, driven by CSS.",
+	"description": "Pressbooks is an open source book publishing tool built on a WordPress multisite platform. Pressbooks outputs books in multiple formats, including PDF, EPUB, MOBI, web, and a variety of XML flavours, using a theming/templating system, driven by CSS.",
 	"scripts": {
-		"build":
-			"cross-env NODE_ENV=development webpack --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-		"watch":
-			"cross-env NODE_ENV=development webpack --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-		"hot":
-			"cross-env NODE_ENV=development webpack-dev-server --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
-		"build:production":
-			"cross-env NODE_ENV=production webpack --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+		"build": "cross-env NODE_ENV=development webpack --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+		"watch": "cross-env NODE_ENV=development webpack --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+		"hot": "cross-env NODE_ENV=development webpack-dev-server --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
+		"build:production": "cross-env NODE_ENV=production webpack --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
 		"lint": "npm run -s lint:scripts && npm run -s lint:styles",
-		"lint:scripts":
-			"cross-env NODE_ENV=development node_modules/eslint/bin/eslint.js \"assets/src/scripts/*.js\"",
-		"lint:styles":
-			"cross-env NODE_ENV=development node_modules/stylelint/bin/stylelint.js \"assets/src/styles/**/*.scss\" --syntax scss",
-		"localize":
-			"wp-pot -s \"**/*.php\" -o languages/_pressbooks.pot -p \"Pressbooks\" -t \"Pressbooks (Book Oven Inc.) <code@pressbooks.com>\"",
+		"lint:scripts": "cross-env NODE_ENV=development node_modules/eslint/bin/eslint.js \"assets/src/scripts/*.js\"",
+		"lint:styles": "cross-env NODE_ENV=development node_modules/stylelint/bin/stylelint.js \"assets/src/styles/**/*.scss\" --syntax scss",
+		"localize": "wp-pot -s \"**/*.php\" -o languages/_pressbooks.pot -p \"Pressbooks\" -t \"Pressbooks (Book Oven Inc.) <code@pressbooks.com>\"",
 		"install": "npm run -s build:production"
 	},
 	"engines": {
@@ -32,18 +24,22 @@
 		"js-cookie": "^2.1.4",
 		"select2": "^4.0.3",
 		"sidr": "^2.2.1",
-		"tinymce": "^4.7.11",
+		"tinymce": "^4.8.0",
 		"wp-admin-colors": "^4.9.5",
 		"wpapi": "^1.1.2"
 	},
 	"devDependencies": {
-		"pressbooks-build-tools": "^0.12.0"
+		"pressbooks-build-tools": "^0.13.0"
 	},
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/pressbooks/pressbooks.git"
 	},
-	"keywords": ["ebooks", "publishing", "webbooks"],
+	"keywords": [
+		"ebooks",
+		"publishing",
+		"webbooks"
+	],
 	"author": "Book Oven Inc. <code@pressbooks.com>",
 	"license": "GPL-3.0-or-later",
 	"bugs": {

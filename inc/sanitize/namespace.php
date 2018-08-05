@@ -123,7 +123,7 @@ function fix_audio_shortcode() {
  * Sanitize XML attribute
  *
  * Here's what is allowed in an XML attribute value:
- *     '"' ([^<&"] | Reference)* '"'  |  "'" ([^<&'] | Reference)* "'"
+ * '"' ([^<&"] | Reference)* '"'  |  "'" ([^<&'] | Reference)* "'"
  *
  * So, you can't have:
  *  + the same character that opens/closes the attribute value (either ' or ")
@@ -586,15 +586,47 @@ function is_valid_timestamp( $timestamp ) {
  *
  * @see wpautop
  *
- * @param string $s
+ * @param string $pee
  *
  * @return string
  */
-function reverse_wpautop( $s ) {
-	$s = shortcode_unautop( $s );
-	$s = str_replace( "\n", '', $s );
-	$s = str_replace( '<p>', '', $s );
-	$s = str_replace( [ '<br />', '<br>', '<br/>' ], "\n", $s );
-	$s = str_replace( '</p>', "\n\n", $s );
-	return $s;
+function reverse_wpautop( $pee ) {
+	// Pre tags shouldn't be touched by autop. Replace pre tags with placeholders and bring them back after autop.
+	if ( strpos( $pee, '<pre' ) !== false ) {
+		$pee_parts = explode( '</pre>', $pee );
+		$last_pee = array_pop( $pee_parts );
+		$pee = '';
+		$i = 0;
+
+		foreach ( $pee_parts as $pee_part ) {
+			$start = strpos( $pee_part, '<pre' );
+
+			// Malformed html?
+			if ( $start === false ) {
+				$pee .= $pee_part;
+				continue;
+			}
+
+			$name = "<pre wp-pre-tag-$i></pre>";
+			$pre_tags[ $name ] = substr( $pee_part, $start ) . '</pre>';
+
+			$pee .= substr( $pee_part, 0, $start ) . $name;
+			$i++;
+		}
+
+		$pee .= $last_pee;
+	}
+
+	$pee = shortcode_unautop( $pee );
+	$pee = str_replace( "\n", '', $pee );
+	$pee = str_replace( '<p>', '', $pee );
+	$pee = str_replace( [ '<br />', '<br>', '<br/>' ], "\n", $pee );
+	$pee = str_replace( '</p>', "\n\n", $pee );
+
+	// Replace placeholder <pre> tags with their original content.
+	if ( ! empty( $pre_tags ) ) {
+		$pee = str_replace( array_keys( $pre_tags ), array_values( $pre_tags ), $pee );
+	}
+
+	return $pee;
 }

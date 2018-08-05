@@ -1,0 +1,108 @@
+// --------------------------------------------------------------------------------------------------------------------
+// Vars
+// --------------------------------------------------------------------------------------------------------------------
+
+$cover-title-font: $font-2 !default;
+$cover-subtitle-font: $font-2 !default;
+$cover-author-font: $font-2 !default;
+$text-transform: uppercase !default;
+
+$trim-bleed: 12px !default;
+$front-background-color: #fff !default;
+$front-font-color: #000 !default;
+
+// Ebook JPEG cover is 2500 x 3750 Pixels (Aspect ratio 2:3) but Prince PDF works better with Inches
+// so we hard code some sensible / "close enough" values here:
+
+$trim-width: 6in;
+$trim-height: 9in;
+
+// --------------------------------------------------------------------------------------------------------------------
+// Structure
+// --------------------------------------------------------------------------------------------------------------------
+
+@page cover {
+  margin: 0;
+  padding: 0;
+  size: $trim-width $trim-height;
+}
+
+.cover {
+  padding: 0;
+  margin: 0;
+  page: cover;
+  page-break-before: always;
+  // scss-lint:disable PropertySpelling
+  prince-page-group: start;
+}
+
+.cover-front {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: $trim-width;
+  height: $trim-height;
+  color: $front-font-color;
+  background-color: $front-background-color;
+
+  @if variable-exists(front-background-image) {
+    background: url($front-background-image) no-repeat;
+    background-size: cover;
+  }
+}
+
+// --------------------------------------------------------------------------------------------------------------------
+// Content
+// --------------------------------------------------------------------------------------------------------------------
+
+.cover-front .content {
+  padding: $trim-bleed * 2;
+
+  .title {
+    display: block;
+    margin-top: 2em;
+    font-family: $cover-title-font;
+    font-size: 3em;
+    font-style: normal;
+    font-weight: 900;
+    hyphens: none;
+    letter-spacing: 1px;
+    word-spacing: 2px;
+    color: $front-font-color;
+    text-align: center;
+    text-transform: $text-transform;
+    font-variant: normal;
+  }
+
+  .subtitle {
+    display: block;
+    margin-top: 2em;
+    font-family: $cover-subtitle-font;
+    font-size: 1.5em;
+    font-style: italic;
+    font-weight: normal;
+    hyphens: none;
+    letter-spacing: 1px;
+    word-spacing: 2px;
+    color: $front-font-color;
+    text-align: center;
+    text-transform: none;
+    font-variant: normal;
+  }
+
+  .author {
+    display: block;
+    margin-top: 3em;
+    font-family: $cover-author-font;
+    font-size: 2em;
+    font-style: normal;
+    font-weight: bold;
+    hyphens: none;
+    letter-spacing: 1px;
+    word-spacing: 2px;
+    color: $front-font-color;
+    text-align: center;
+    text-transform: none;
+    font-variant: normal;
+  }
+}

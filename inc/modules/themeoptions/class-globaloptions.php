@@ -6,8 +6,8 @@
 
 namespace Pressbooks\Modules\ThemeOptions;
 
-use Pressbooks\Container;
 use function \Pressbooks\Utility\getset;
+use Pressbooks\Container;
 
 class GlobalOptions extends \Pressbooks\Options {
 
@@ -95,6 +95,17 @@ class GlobalOptions extends \Pressbooks\Options {
 			$_section,
 			[
 				__( 'Enable two-level table of contents (displays headings under chapter titles)', 'pressbooks' ),
+			]
+		);
+
+		add_settings_field(
+			'attachment_attributions',
+			__( 'Media Attributions', 'pressbooks' ),
+			[ $this, 'renderAttachmentAttributionsField' ],
+			$_page,
+			$_section,
+			[
+				__( 'Display attributions at the end of a chapter', 'pressbooks' ),
 			]
 		);
 
@@ -302,6 +313,25 @@ class GlobalOptions extends \Pressbooks\Options {
 	}
 
 	/**
+	 * Render the attachment_attributions checkbox.
+	 *
+	 * @since 5.5.0
+	 *
+	 * @param array $args
+	 */
+	function renderAttachmentAttributionsField( $args ) {
+		$this->renderCheckbox(
+			[
+				'id' => 'attachment_attributions',
+				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
+				'option' => 'attachment_attributions',
+				'value' => ( isset( $this->options['attachment_attributions'] ) ) ? $this->options['attachment_attributions'] : '',
+				'label' => $args[0],
+			]
+		);
+	}
+
+	/**
 	 * Render the pressbooks_global_typography select.
 	 *
 	 * @param array $args
@@ -428,6 +458,7 @@ class GlobalOptions extends \Pressbooks\Options {
 			'pb_theme_options_global_defaults', [
 				'chapter_numbers' => 1,
 				'parse_subsections' => 0,
+				'attachment_attributions' => 0,
 				'copyright_license' => 0,
 				'edu_textbox_examples_header_color' => '#fff',
 				'edu_textbox_examples_header_background' => '#7a333a',
@@ -520,6 +551,7 @@ class GlobalOptions extends \Pressbooks\Options {
 			'pb_theme_options_global_booleans', [
 				'chapter_numbers',
 				'parse_subsections',
+				'attachment_attributions',
 			]
 		);
 	}
@@ -537,20 +569,22 @@ class GlobalOptions extends \Pressbooks\Options {
 		 *
 		 * @param array $value
 		 */
-		return apply_filters( 'pb_theme_options_global_strings', [
-			'edu_textbox_examples_header_color',
-			'edu_textbox_examples_header_background',
-			'edu_textbox_examples_background',
-			'edu_textbox_exercises_header_color',
-			'edu_textbox_exercises_header_background',
-			'edu_textbox_exercises_background',
-			'edu_textbox_objectives_header_color',
-			'edu_textbox_objectives_header_background',
-			'edu_textbox_objectives_background',
-			'edu_textbox_takeaways_header_color',
-			'edu_textbox_takeaways_header_background',
-			'edu_textbox_takeaways_background',
-		] );
+		return apply_filters(
+			'pb_theme_options_global_strings', [
+				'edu_textbox_examples_header_color',
+				'edu_textbox_examples_header_background',
+				'edu_textbox_examples_background',
+				'edu_textbox_exercises_header_color',
+				'edu_textbox_exercises_header_background',
+				'edu_textbox_exercises_background',
+				'edu_textbox_objectives_header_color',
+				'edu_textbox_objectives_header_background',
+				'edu_textbox_objectives_background',
+				'edu_textbox_takeaways_header_color',
+				'edu_textbox_takeaways_header_background',
+				'edu_textbox_takeaways_background',
+			]
+		);
 	}
 
 	/**

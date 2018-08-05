@@ -45,13 +45,13 @@ class UpdatesTest extends \WP_UnitTestCase {
 		$this->assertContains( '<thead>', $buffer );
 	}
 
-	public function test_coreUpgradePreamble() {
-		// TODO: How do we fake that there's a newer version of Pressbooks available?
-		// ob_start();
-		// $this->updates->coreUpgradePreamble();
-		// $buffer = ob_get_clean();
-		// $this->assertContains( '<thead>', $buffer );
-	}
+//	public function test_coreUpgradePreamble() {
+//		// TODO: How do we fake that there's a newer version of Pressbooks available?
+//		// ob_start();
+//		// $this->updates->coreUpgradePreamble();
+//		// $buffer = ob_get_clean();
+//		// $this->assertContains( '<thead>', $buffer );
+//	}
 
 	public function test_getBaseName() {
 		$basename = $this->updates->getBaseName();

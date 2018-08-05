@@ -8,15 +8,15 @@
 
 namespace Pressbooks\Admin\Laf;
 
+use function Pressbooks\Admin\NetworkManagers\is_restricted;
+use function Pressbooks\PostType\get_post_type_label;
+use PressbooksMix\Assets;
 use Pressbooks\Admin\ExportOptions;
 use Pressbooks\Admin\Network\SharingAndPrivacyOptions;
 use Pressbooks\Admin\PublishOptions;
 use Pressbooks\Book;
 use Pressbooks\Cloner;
 use Pressbooks\Metadata;
-use PressbooksMix\Assets;
-use function Pressbooks\Admin\NetworkManagers\is_restricted;
-use function Pressbooks\PostType\get_post_type_label;
 
 /**
  * Add a custom message in admin footer
@@ -47,6 +47,7 @@ function replace_book_admin_menu() {
 	remove_submenu_page( 'options-general.php', 'options-discussion.php' );
 	remove_submenu_page( 'options-general.php', 'options-media.php' );
 	remove_submenu_page( 'options-general.php', 'options-permalink.php' );
+	remove_submenu_page( 'options-general.php', 'privacy.php' );
 
 	remove_menu_page( 'edit.php' );
 	remove_menu_page( 'link-manager.php' );
@@ -55,6 +56,7 @@ function replace_book_admin_menu() {
 	remove_submenu_page( 'tools.php', 'tools.php' );
 	remove_submenu_page( 'tools.php', 'import.php' );
 	remove_submenu_page( 'tools.php', 'export.php' );
+	remove_submenu_page( 'tools.php', 'tools.php' );
 
 	// Organize
 	$organize_page = add_menu_page( __( 'Organize', 'pressbooks' ), __( 'Organize', 'pressbooks' ), 'edit_posts', 'pb_organize', __NAMESPACE__ . '\display_organize', 'dashicons-book' );
@@ -221,8 +223,15 @@ function replace_book_admin_menu() {
 
 	add_menu_page( __( 'Publish', 'pressbooks' ), __( 'Publish', 'pressbooks' ), 'edit_posts', 'pb_publish', [ $page, 'render' ], 'dashicons-products', 16 );
 
-	// Privacy
-	add_options_page( __( 'Sharing and Privacy Settings', 'pressbooks' ), __( 'Sharing &amp; Privacy', 'pressbooks' ), 'manage_options', 'pressbooks_sharingandprivacy_options', __NAMESPACE__ . '\display_privacy_settings' );
+	/**
+	 * Filter the ability to manage webbook privacy and related settings (default true).
+	 *
+	 * @since 5.4.0
+	 */
+	if ( apply_filters( 'pb_permissive_webbooks', true ) ) {
+		// Privacy
+		add_options_page( __( 'Sharing and Privacy Settings', 'pressbooks' ), __( 'Sharing &amp; Privacy', 'pressbooks' ), 'manage_options', 'pressbooks_sharingandprivacy_options', __NAMESPACE__ . '\display_privacy_settings' );
+	}
 
 	// Export
 	$option = get_option( 'pressbooks_export_options', ExportOptions::getDefaults() );
@@ -477,12 +486,215 @@ function replace_menu_bar_branding( $wp_admin_bar ) {
 function replace_menu_bar_my_sites( $wp_admin_bar ) {
 
 	$wp_admin_bar->remove_menu( 'my-sites' );
-
-	// Don't show for logged out users or single site mode.
-	if ( ! is_user_logged_in() || ! is_multisite() ) {
+	if ( ! show_menu_bar( $wp_admin_bar ) ) {
 		return;
 	}
 
+	// Network Admin
+	if ( is_super_admin() ) {
+		$wp_admin_bar->add_menu(
+			[
+				'id' => 'pb-network-admin',
+				'title' => __( 'Network Admin', 'pressbooks' ),
+				'href' => network_admin_url(),
+				'meta' => is_network_admin() ? [
+					'class' => 'you-are-here',
+				] : [],
+			]
+		);
+		$wp_admin_bar->add_node(
+			[
+				'parent' => 'pb-network-admin',
+				'id' => 'pb-network-admin-d',
+				'title' => __( 'Dashboard', 'pressbooks' ),
+				'href' => network_admin_url(),
+			]
+		);
+		$wp_admin_bar->add_node(
+			[
+				'parent' => 'pb-network-admin',
+				'id' => 'pb-network-admin-s',
+				'title' => __( 'Books', 'pressbooks' ),
+				'href' => network_admin_url( 'sites.php' ),
+			]
+		);
+		$wp_admin_bar->add_node(
+			[
+				'parent' => 'pb-network-admin',
+				'id' => 'pb-network-admin-u',
+				'title' => __( 'Users', 'pressbooks' ),
+				'href' => network_admin_url( 'users.php' ),
+			]
+		);
+		if ( ! is_restricted() ) {
+			$wp_admin_bar->add_node(
+				[
+					'parent' => 'pb-network-admin',
+					'id' => 'pb-network-admin-t',
+					'title' => __( 'Themes', 'pressbooks' ),
+					'href' => network_admin_url( 'themes.php' ),
+				]
+			);
+			$wp_admin_bar->add_node(
+				[
+					'parent' => 'pb-network-admin',
+					'id' => 'pb-network-admin-p',
+					'title' => __( 'Plugins', 'pressbooks' ),
+					'href' => network_admin_url( 'plugins.php' ),
+				]
+			);
+		}
+	}
+
+	// Website Admin
+	$show_website_admin = false;
+	foreach ( (array) $wp_admin_bar->user->blogs as $blog ) {
+		if ( is_main_site( $blog->userblog_id ) ) {
+			$show_website_admin = true;
+			break;
+		}
+	}
+	if ( $show_website_admin || is_super_admin() ) {
+		$website_id = get_main_site_id();
+		$menu_id = 'blog-' . $website_id;
+		$admin_url = get_admin_url( $website_id );
+
+		$wp_admin_bar->add_menu(
+			[
+				'id' => 'pb-site-admin',
+				'title' => get_blog_option( $website_id, 'blogname' ),
+				'href' => $admin_url,
+				'meta' => ( is_main_site() && ! is_network_admin() ) ? [
+					'class' => 'you-are-here',
+				] : [],
+			]
+		);
+		$wp_admin_bar->add_menu(
+			[
+				'parent' => 'pb-site-admin',
+				'id' => $menu_id . '-d',
+				'title' => __( 'Dashboard', 'pressbooks' ),
+				'href' => $admin_url,
+			]
+		);
+		$wp_admin_bar->add_menu(
+			[
+				'parent' => 'pb-site-admin',
+				'id' => $menu_id . '-v',
+				'title' => __( 'Visit Website', 'pressbooks' ),
+				'href' => get_home_url( $website_id, '/' ),
+			]
+		);
+	}
+
+	// Books Admin
+	$wp_admin_bar->add_menu(
+		[
+			'id' => 'my-books',
+			'title' => __( 'My Catalog', 'pressbooks' ),
+			'href' => last_book( $wp_admin_bar, 'wp-admin/index.php?page=pb_catalog' ),
+		]
+	);
+	$wp_admin_bar->add_node(
+		[
+			'parent' => 'my-books',
+			'id' => 'add-new-book',
+			'title' => __( 'Create A New Book', 'pressbooks' ),
+			'href' => network_home_url( 'wp-signup.php' ),
+		]
+	);
+
+	// Cloner
+	if ( Cloner::isEnabled() ) {
+		if ( ! Book::isBook() ) {
+			$href = last_book( $wp_admin_bar, 'wp-admin/options.php?page=pb_cloner' );
+		} else {
+			$href = home_url( 'wp-admin/options.php?page=pb_cloner', 'relative' );
+		}
+		if ( $href ) {
+			$wp_admin_bar->add_node(
+				[
+					'parent' => 'my-books',
+					'id' => 'clone-a-book',
+					'title' => __( 'Clone A Book', 'pressbooks' ),
+					'href' => $href,
+				]
+			);
+		}
+	}
+
+	// Add book links
+	$wp_admin_bar->add_group(
+		[
+			'parent' => 'my-books',
+			'id' => 'my-books-list',
+			'meta' => [
+				'class' => is_super_admin() ? 'ab-sub-secondary' : '',
+			],
+		]
+	);
+	foreach ( (array) $wp_admin_bar->user->blogs as $blog ) {
+		if ( is_main_site( $blog->userblog_id ) ) {
+			continue; // Skip main website
+		}
+		$blavatar = '<span class="blavatar"></span>';
+		$blogname = empty( $blog->blogname ) ? $blog->domain : $blog->blogname;
+		$menu_id = 'books-' . $blog->userblog_id;
+		$admin_url = get_admin_url( $blog->userblog_id );
+
+		$wp_admin_bar->add_node(
+			[
+				'parent' => 'my-books-list',
+				'id' => $menu_id,
+				'title' => $blavatar . $blogname,
+				'href' => $admin_url,
+			]
+		);
+		$wp_admin_bar->add_node(
+			[
+				'parent' => $menu_id,
+				'id' => $menu_id . '-d',
+				'title' => __( 'Dashboard', 'pressbooks' ),
+				'href' => $admin_url,
+			]
+		);
+		$wp_admin_bar->add_node(
+			[
+				'parent' => $menu_id,
+				'id' => $menu_id . '-v',
+				'title' => __( 'Visit Book', 'pressbooks' ),
+				'href' => get_home_url( $blog->userblog_id, '/' ),
+			]
+		);
+	}
+
+	if ( is_main_site() ) {
+		// Remove book menu, @see \WP_Admin_Bar::add_menus
+		remove_action( 'admin_bar_menu', 'wp_admin_bar_site_menu', 30 );
+	} else {
+		// Set defaults so book menu appears highlighted, @see $maybe_defaults in \WP_Admin_Bar::add_node
+		$wp_admin_bar->add_node(
+			[
+				'id' => 'site-name',
+				'meta' => [
+					'class' => 'you-are-here',
+				],
+			]
+		);
+	}
+}
+
+
+/**
+ * @param \WP_Admin_Bar $wp_admin_bar
+ *
+ * @return bool
+ */
+function show_menu_bar( $wp_admin_bar ) {
+	// Don't show for logged out users or single site mode.
+	if ( ! is_user_logged_in() || ! is_multisite() ) {
+		return false;
+	}
 	$show_menu = false;
 	if ( is_super_admin() ) {
 		// Always show menu for super admin
@@ -500,194 +712,44 @@ function replace_menu_bar_my_sites( $wp_admin_bar ) {
 			}
 		}
 	}
-	if ( ! $show_menu ) {
-		return;
-	}
-
-	$wp_admin_bar->add_menu(
-		[
-			'id' => 'my-books',
-			'title' => __( 'My Catalog', 'pressbooks' ),
-			'href' => admin_url( 'index.php?page=pb_catalog' ),
-		]
-	);
-
-	$wp_admin_bar->add_node(
-		[
-			'parent' => 'my-books',
-			'id' => 'add-new-book',
-			'title' => __( 'Add A New Book', 'pressbooks' ),
-			'href' => network_home_url( 'wp-signup.php' ),
-		]
-	);
-
-	// Cloner
-	if ( Cloner::isEnabled() ) {
-		$href = false;
-		if ( ! Book::isBook() ) {
-			// Find a book
-			$blogs = get_blogs_of_user( get_current_user_id() );
-			foreach ( $blogs as $blog ) {
-				if ( ! is_main_site( $blog->userblog_id ) ) {
-					$href = get_blogaddress_by_id( $blog->userblog_id ) . 'wp-admin/options.php?page=pb_cloner';
-					break;
-				}
-			}
-			if ( ! $href && is_super_admin() ) {
-				// If no book was found, but is a super admin, then redirect to any book
-				global $wpdb;
-				$book = $wpdb->get_results( $wpdb->prepare( "SELECT blog_id AS ID FROM {$wpdb->blogs} WHERE archived = 0 AND spam = 0 AND deleted = 0 AND blog_id != %d LIMIT 1", get_network()->site_id ) );
-				if ( ! empty( $book ) ) {
-					$href = get_blogaddress_by_id( $book[0]->ID ) . 'wp-admin/options.php?page=pb_cloner';
-				}
-			}
-		} else {
-			$href = home_url( 'wp-admin/options.php?page=pb_cloner', 'relative' );
-		}
-		if ( $href ) {
-			$wp_admin_bar->add_node(
-				[
-					'parent' => 'my-books',
-					'id' => 'clone-a-book',
-					'title' => __( 'Clone A Book', 'pressbooks' ),
-					'href' => $href,
-				]
-			);
-		}
-	}
-
-	if ( is_super_admin() ) {
-
-		$wp_admin_bar->add_group(
-			[
-				'parent' => 'my-books',
-				'id' => 'my-books-super-admin',
-			]
-		);
-
-		$wp_admin_bar->add_menu(
-			[
-				'parent' => 'my-books-super-admin',
-				'id' => 'pb-network-admin',
-				'title' => __( 'Network Admin', 'pressbooks' ),
-				'href' => network_admin_url(),
-			]
-		);
-
-		$wp_admin_bar->add_menu(
-			[
-				'parent' => 'pb-network-admin',
-				'id' => 'pb-network-admin-d',
-				'title' => __( 'Dashboard', 'pressbooks' ),
-				'href' => network_admin_url(),
-			]
-		);
-
-		$wp_admin_bar->add_menu(
-			[
-				'parent' => 'pb-network-admin',
-				'id' => 'pb-network-admin-s',
-				'title' => __( 'Books', 'pressbooks' ),
-				'href' => network_admin_url( 'sites.php' ),
-			]
-		);
-
-		$wp_admin_bar->add_menu(
-			[
-				'parent' => 'pb-network-admin',
-				'id' => 'pb-network-admin-u',
-				'title' => __( 'Users', 'pressbooks' ),
-				'href' => network_admin_url( 'users.php' ),
-			]
-		);
-
-		if ( ! is_restricted() ) {
-			$wp_admin_bar->add_menu(
-				[
-					'parent' => 'pb-network-admin',
-					'id' => 'pb-network-admin-t',
-					'title' => __( 'Themes', 'pressbooks' ),
-					'href' => network_admin_url( 'themes.php' ),
-				]
-			);
-
-			$wp_admin_bar->add_menu(
-				[
-					'parent' => 'pb-network-admin',
-					'id' => 'pb-network-admin-p',
-					'title' => __( 'Plugins', 'pressbooks' ),
-					'href' => network_admin_url( 'plugins.php' ),
-				]
-			);
-		}
-
-		$wp_admin_bar->add_menu(
-			[
-				'parent' => 'pb-network-admin',
-				'id' => 'pb-network-admin-v',
-				'title' => __( 'Visit Network', 'pressbooks' ),
-				'href' => network_home_url(),
-			]
-		);
-	}
-
-	// Add site links
-	$wp_admin_bar->add_group(
-		[
-			'parent' => 'my-books',
-			'id' => 'my-books-list',
-			'meta' => [
-				'class' => is_super_admin() ? 'ab-sub-secondary' : '',
-			],
-		]
-	);
-
-	foreach ( (array) $wp_admin_bar->user->blogs as $blog ) {
-
-		$blavatar = '<span class="blavatar"/></span>';
-
-		$blogname = empty( $blog->blogname ) ? $blog->domain : $blog->blogname;
-		$menu_id = 'blog-' . $blog->userblog_id;
-
-		$admin_url = get_admin_url( $blog->userblog_id );
-
-		$wp_admin_bar->add_menu(
-			[
-				'parent' => 'my-books-list',
-				'id' => $menu_id,
-				'title' => $blavatar . $blogname,
-				'href' => $admin_url,
-			]
-		);
-
-		$wp_admin_bar->add_menu(
-			[
-				'parent' => $menu_id,
-				'id' => $menu_id . '-d',
-				'title' => __( 'Dashboard', 'pressbooks' ),
-				'href' => $admin_url,
-			]
-		);
-
-		if ( current_user_can_for_blog( $blog->userblog_id, 'edit_posts' ) ) {
-			$wp_admin_bar->remove_menu( $menu_id . '-n' );
-			$wp_admin_bar->remove_menu( $menu_id . '-c' );
-		}
-
-		$title = ( is_main_site( $blog->userblog_id ) ) ? __( 'Visit Site', 'pressbooks' ) : __( 'Visit Book', 'pressbooks' );
-
-		$wp_admin_bar->add_menu(
-			[
-				'parent' => $menu_id,
-				'id' => $menu_id . '-v',
-				'title' => $title,
-				'href' => get_home_url( $blog->userblog_id, '/' ),
-			]
-		);
-	}
-
+	return $show_menu;
 }
 
+/**
+ * @param \WP_Admin_Bar $wp_admin_bar
+ * @param string $suffix
+ *
+ * @return string Full URL of the blog if found. Empty string if not.
+ */
+function last_book( $wp_admin_bar, $suffix = '' ) {
+	$href = '';
+	if ( isset( $_SESSION['pb_admin_last_book_id'] ) && ( is_super_admin() || is_user_member_of_blog( 0, $_SESSION['pb_admin_last_book_id'] ) ) ) {
+		$href = get_blogaddress_by_id( $_SESSION['pb_admin_last_book_id'] );
+	}
+	if ( ! $href ) {
+		foreach ( $wp_admin_bar->user->blogs as $blog ) {
+			if ( ! is_main_site( $blog->userblog_id ) ) {
+				$href = get_blogaddress_by_id( $blog->userblog_id );
+				break;
+			}
+		}
+	}
+	if ( ! $href && is_super_admin() ) {
+		// If no book was found, but is a super admin, then return any book
+		global $wpdb;
+		$book = $wpdb->get_results( $wpdb->prepare( "SELECT blog_id AS ID FROM {$wpdb->blogs} WHERE archived = 0 AND spam = 0 AND deleted = 0 AND blog_id != %d LIMIT 1", get_network()->site_id ) );
+		if ( ! empty( $book ) ) {
+			$href = get_blogaddress_by_id( $book[0]->ID );
+		}
+	}
+	if ( ! empty( $href ) ) {
+		$href .= $suffix;
+	}
+	if ( Book::isBook() ) {
+		$_SESSION['pb_admin_last_book_id'] = get_current_blog_id();
+	}
+	return $href;
+}
 
 /**
  * Remove Updates item from admin menu
@@ -733,10 +795,6 @@ function disable_customizer() {
 function init_css_js() {
 	$assets = new Assets( 'pressbooks', 'plugin' );
 
-	// This is to work around JavaScript dependency errors
-	global $concatenate_scripts;
-	$concatenate_scripts = false;
-
 	// Note: Will auto-register a dependency $handle named 'colors'
 	wp_admin_css_color(
 		'pb_colors', 'Pressbooks', $assets->getPath( 'styles/colors-pb.css' ), apply_filters(
@@ -777,6 +835,12 @@ function init_css_js() {
 		}
 	);
 	add_filter(
+		'custom_metadata_manager_select2_js_version',
+		function ( $version ) {
+			return get_bloginfo( 'version' );
+		}
+	);
+	add_filter(
 		'custom_metadata_manager_select2_css',
 		function ( $path ) use ( $assets ) {
 			return $assets->getPath( 'styles/select2.css' );
@@ -806,7 +870,7 @@ function init_css_js() {
 	wp_register_script( 'cssanimations', $assets->getPath( 'scripts/cssanimations.js' ), false );
 	wp_register_script( 'pb-cloner', $assets->getPath( 'scripts/cloner.js' ), [ 'jquery', 'cssanimations' ] );
 	wp_register_script( 'pb-export', $assets->getPath( 'scripts/export.js' ), [ 'jquery', 'cssanimations' ] );
-	wp_register_script( 'pb-organize', $assets->getPath( 'scripts/organize.js' ), [ 'jquery', 'jquery-ui-core', 'jquery-blockui', 'wp-api', 'cssanimations' ] );
+	wp_register_script( 'pb-organize', $assets->getPath( 'scripts/organize.js' ), [ 'jquery', 'jquery-ui-core', 'jquery-blockui', 'cssanimations' ] );
 	wp_register_script( 'pb-metadata', $assets->getPath( 'scripts/book-information.js' ), [ 'jquery' ], false, true );
 	wp_register_script( 'pb-import', $assets->getPath( 'scripts/import.js' ), [ 'jquery' ] );
 	wp_register_script( 'pb-post-visibility', $assets->getPath( 'scripts/post-visibility.js' ), [ 'jquery' ], false, true );
@@ -946,7 +1010,7 @@ function privacy_permissive_private_content_callback( $args ) {
 		<input type="radio" id="permissive-private-content" name="permissive_private_content" value="1" <?php checked( $permissive_private_content, 1 ); ?>/>
 		<label for="permissive-private-content"><?php _e( 'All logged in users including subscribers.', 'pressbooks' ); ?></label>
 	</fieldgroup>
-<?php
+	<?php
 }
 
 /**

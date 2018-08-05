@@ -1,8 +1,8 @@
-@import 'partials/colors';
+@import "partials/colors";
 
 $base-color: $alto;
 $icon-color: $mine-shaft;
-$highlight-color: $gallery;
+$highlight-color: $monza;
 $notification-color: $mercury;
 $button-color: $monza;
 $text-color: $mine-shaft;
@@ -35,7 +35,7 @@ $menu-collapse-focus-icon: $monza;
 $adminbar-avatar-frame: $white;
 $adminbar-input-background: $white;
 
-@import '~wp-admin-colors/dist/admin';
+@import "~wp-admin-colors/dist/admin";
 
 // Core UI
 
@@ -123,7 +123,7 @@ div.error {
       }
     }
 
-    &[aria-expanded='true'] {
+    &[aria-expanded="true"] {
       background: $white;
 
       .ab-icon,
@@ -138,6 +138,12 @@ div.error {
           color: $monza;
         }
       }
+    }
+  }
+  .you-are-here {
+    background: $monza;
+    a.ab-item {
+      color: white;
     }
   }
 }
@@ -172,4 +178,26 @@ div.error {
   color: $white;
   background-color: $link-focus;
   border-color: $link;
+}
+
+// TinyMCE
+
+.mce-menu-item:hover .mce-text,
+.mce-menu-item:focus .mce-text,
+.mce-menu-item:hover .mce-ico,
+.mce-menu-item:focus .mce-ico {
+  color: $white !important; // Ugh.
+}
+
+.mce-menu-item:hover .mce-menu-shortcut,
+.mce-menu-item.mce-selected .mce-menu-shortcut,
+.mce-menu-item:focus .mce-menu-shortcut {
+  color: $white !important; // Ugh.
+}
+
+.mce-btn.mce-active button,
+.mce-btn.mce-active:hover button,
+.mce-btn.mce-active i,
+.mce-btn.mce-active:hover i {
+  color: $mine-shaft !important; // Ugh
 }

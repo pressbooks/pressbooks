@@ -151,9 +151,12 @@ function register_post_types() {
 			],
 			'quick_edit' => false,
 			'capability_type' => 'post',
+			'exclude_from_search' => true,
 			'hierarchical' => false,
+			'publicly_queryable' => false,
 			'rewrite' => false,
 			'show_in_menu' => false,
+			'show_in_nav_menus' => false,
 			'supports' => false,
 			'menu_icon' => 'dashicons-info',
 		],
@@ -200,7 +203,8 @@ function register_meta() {
 			$defaults, [
 				'description' => __( 'Show title in exports', 'pressbooks' ),
 				'sanitize_callback' => function( $v ) {
-					return ( $v ? 'on' : null ) ; },
+					return ( $v ? 'on' : null );
+				},
 			]
 		)
 	);
@@ -210,7 +214,8 @@ function register_meta() {
 			$defaults, [
 				'description' => __( 'Set as ebook start-point', 'pressbooks' ),
 				'sanitize_callback' => function( $v ) {
-					return ( $v ? 'on' : null ) ; },
+					return ( $v ? 'on' : null );
+				},
 			]
 		)
 	);
@@ -247,17 +252,67 @@ function register_meta() {
 			]
 		)
 	);
+
+	\register_meta(
+		'post', 'pb_media_attribution_title_url', array_merge(
+			$defaults, [
+				'description' => __( 'Media attribution source url', 'pressbooks' ),
+			]
+		)
+	);
+
+	\register_meta(
+		'post', 'pb_media_attribution_author', array_merge(
+			$defaults, [
+				'description' => __( 'Media attribution author', 'pressbooks' ),
+			]
+		)
+	);
+
+	\register_meta(
+		'post', 'pb_media_attribution_author_url', array_merge(
+			$defaults, [
+				'description' => __( 'Media attribution author url', 'pressbooks' ),
+			]
+		)
+	);
+
+	\register_meta(
+		'post', 'pb_media_attribution_adapted', array_merge(
+			$defaults, [
+				'description' => __( 'Media attribution adapted by', 'pressbooks' ),
+			]
+		)
+	);
+
+	\register_meta(
+		'post', 'pb_media_attribution_adapted_url', array_merge(
+			$defaults, [
+				'description' => __( 'Media attribution adapted by url', 'pressbooks' ),
+			]
+		)
+	);
+
+	\register_meta(
+		'post', 'pb_media_attribution_license', array_merge(
+			$defaults, [
+				'description' => __( 'Media attribution license', 'pressbooks' ),
+			]
+		)
+	);
 }
 
 /**
  * @since 5.0.0
  */
 function register_post_statii() {
-	\register_post_status( 'web-only', [
-		'label'       => _x( 'Web Only', 'post status', 'pressbooks' ),
-		'public'      => true,
-		'label_count' => _n_noop( 'Web Only <span class="count">(%s)</span>', 'Web Only <span class="count">(%s)</span>' ),
-	] );
+	\register_post_status(
+		'web-only', [
+			'label'       => _x( 'Web Only', 'post status', 'pressbooks' ),
+			'public'      => true,
+			'label_count' => _n_noop( 'Web Only <span class="count">(%s)</span>', 'Web Only <span class="count">(%s)</span>' ),
+		]
+	);
 }
 
 /**

@@ -165,7 +165,7 @@ function display_network_analytics_settings() {
 	<div class="wrap">
 		<h2><?php _e( 'Google Analytics', 'pressbooks' ); ?></h2>
 		<?php
-		$nonce = ( ! empty( $_REQUEST['_wpnonce'] ) ) ? $_REQUEST['_wpnonce'] : '';
+		$nonce = ( ! empty( $_REQUEST['_wpnonce'] ) ) ? $_REQUEST['_wpnonce'] : ''; // @codingStandardsIgnoreLine
 		if ( ! empty( $_POST ) ) {
 			if ( ! wp_verify_nonce( $nonce, 'pb_network_analytics-options' ) ) {
 				wp_die( 'Security check' );

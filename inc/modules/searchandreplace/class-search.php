@@ -205,7 +205,7 @@ abstract class Search {
 				$left = ltrim( substr( $content, $start, $found[1] - $start ), " \t," );
 				$right = rtrim( substr( $content, $found[1] + strlen( $found[0] ), $end ), " \t," );
 				$result->left = $start;
-				$result->left_length = strlen( $found[0] ) + ( $found[1] - $start) + $end;
+				$result->left_length = strlen( $found[0] ) + ( $found[1] - $start ) + $end;
 				if ( 0 !== $start ) {
 					$result->search = '&hellip;';
 				}

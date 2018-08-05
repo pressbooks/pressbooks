@@ -1,4 +1,4 @@
-@import 'partials/colors';
+@import "partials/colors";
 
 // TODO: Use our colors!
 
@@ -13,39 +13,57 @@
 /* Admin Bar */
 
 @font-face {
-  font-family: 'PBFont';
-  src: url('../fonts/PBFont.eot');
-  src: url('../fonts/PBFont.eot?#iefix') format('embedded-opentype'),
-    url('../fonts/PBFont.ttf') format('truetype'),
-    url('../fonts/PBFont.woff') format('woff'),
-    url('../fonts/PBFont.svg#PBFont') format('svg');
+  font-family: "PBFont";
+  src: url("../fonts/PBFont.eot");
+  src: url("../fonts/PBFont.eot?#iefix") format("embedded-opentype"),
+    url("../fonts/PBFont.ttf") format("truetype"),
+    url("../fonts/PBFont.woff") format("woff"),
+    url("../fonts/PBFont.svg#PBFont") format("svg");
   font-weight: normal;
   font-style: normal;
 }
 
 #wpadminbar {
   .quicklinks li .blavatar::before {
-    font: 14px/1 'PBFont', sans-serif !important;
+    font: 14px/1 "PBFont", sans-serif !important;
     -webkit-font-smoothing: antialiased;
     background: none;
-    content: '\e600' !important;
+    content: "\e600" !important;
+  }
+
+  #wp-admin-bar-pb-network-admin > .ab-item::before {
+    -webkit-font-smoothing: antialiased;
+    background: none;
+    content: "\f325" !important;
+  }
+
+  #wp-admin-bar-pb-site-admin > .ab-item::before {
+    -webkit-font-smoothing: antialiased;
+    background: none;
+    content: "\f102" !important;
+  }
+
+  #wp-admin-bar-my-books > .ab-item::before {
+    -webkit-font-smoothing: antialiased;
+    background: none;
+    content: "\f318" !important;
   }
 
   #wp-admin-bar-site-name > .ab-item::before {
     -webkit-font-smoothing: antialiased;
     background: none;
-    content: '\f330' !important;
+    content: "\f330" !important;
   }
 
   #wp-admin-bar-wp-logo > .ab-item .ab-icon::before {
-    font: 20px/1 'PBFont', sans-serif !important;
+    font: 20px/1 "PBFont", sans-serif !important;
     -webkit-font-smoothing: antialiased;
     background: none;
-    content: '\e600' !important;
+    content: "\e600" !important;
   }
 
   @media screen and (max-width: 782px) {
-    #wp-admin-bar-my-books {
+    #wp-admin-bar-pb-network-admin, #wp-admin-bar-pb-site-admin, #wp-admin-bar-my-books {
       display: block;
 
       a.ab-item {
@@ -62,14 +80,13 @@
         position: relative;
 
         &::before {
-          font: 400 34px/1 'dashicons', sans-serif !important;
+          font: 400 34px/1 "dashicons", sans-serif !important;
           text-align: center;
           text-indent: 0;
           top: 7px;
           width: 55px;
           -webkit-font-smoothing: antialiased;
           background: none;
-          content: '\f318' !important;
         }
       }
     }
@@ -79,7 +96,7 @@
     }
 
     #wp-admin-bar-wp-logo > .ab-item .ab-icon::before {
-      font: 28px/1 'PBFont', sans-serif !important;
+      font: 28px/1 "PBFont", sans-serif !important;
     }
   }
 }
@@ -154,7 +171,7 @@ div.taxonomy_multi_select span.description a.button {
 i.mce-i-icon {
   padding: 0 2px 0 0;
   margin-left: -2px;
-  font: 400 20px/1 'dashicons', sans-serif;
+  font: 400 20px/1 "dashicons", sans-serif;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   vertical-align: top;
@@ -166,7 +183,7 @@ i.mce-i-icon {
 }
 
 .wp-menu-image.dashicons-admin-multisite::before {
-  content: '\f330';
+  content: "\f330";
 }
 
 // Plugin compatibility
@@ -181,20 +198,21 @@ i.mce-i-icon {
     margin: 0;
     line-height: 1.5em;
     &::before {
-      content: '' !important;
+      content: "" !important;
       display: none;
     }
   }
   table.incompatible-plugin-details-table {
-    margin: .75em 0 0;
+    margin: 0.75em 0 0;
     tr {
       background: transparent none !important;
       border: 0 !important;
     }
-    th, td {
+    th,
+    td {
       background: transparent none !important;
       margin: 0;
-      padding: .75em 20px 0;
+      padding: 0.75em 20px 0;
       border: 0 !important;
       font-size: 1em;
       box-shadow: none;
@@ -239,6 +257,13 @@ i.mce-i-icon {
   @media (min-width: 851px) {
     margin-right: 300px;
   }
+
+  &:after {
+    /* clearfix */
+    content: "";
+    display: table;
+    clear: both;
+  }
 }
 
 #pb-edit-screen-navigation [rel="previous"],
@@ -255,7 +280,6 @@ i.mce-i-icon {
   float: right;
 }
 
-
 /*!
  * WordPress CSS Spinner
  * @license GPL-2.0+
@@ -267,7 +291,6 @@ $wp-spinner-fg: #fff;
 $wp-spinner-size: 18px;
 $wp-spinner-size-inner: 4px;
 $wp-spinner-anim-duration: 1.08s;
-
 
 @keyframes infinite-spinning {
   from {
@@ -303,4 +326,8 @@ $wp-spinner-anim-duration: 1.08s;
 
 #toplevel_page_quicklatex-settings {
   display: none;
+}
+
+.compat-attachment-fields th {
+  vertical-align: top;
 }

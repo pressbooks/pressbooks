@@ -6,14 +6,14 @@
 
 namespace Pressbooks\Modules\Import\WordPress;
 
+use function Pressbooks\Image\attachment_id_from_url;
+use function Pressbooks\Image\strip_baseurl;
 use Masterminds\HTML5;
+use Pressbooks\Book;
 use Pressbooks\Contributors;
 use Pressbooks\Licensing;
 use Pressbooks\Metadata;
 use Pressbooks\Modules\Import\Import;
-use Pressbooks\Book;
-use function Pressbooks\Image\attachment_id_from_url;
-use function Pressbooks\Image\strip_baseurl;
 
 class Wxr extends Import {
 
@@ -400,13 +400,12 @@ class Wxr extends Import {
 
 		$new_post = [
 			'post_title' => wp_strip_all_tags( $p['post_title'] ),
+			'post_name' => $p['post_name'],
 			'post_type' => $post_type,
 			'post_status' => ( 'part' === $post_type ) ? 'publish' : $post_status,
+			'post_content' => $html,
 		];
 
-		if ( 'part' !== $post_type ) {
-			$new_post['post_content'] = $html;
-		}
 		if ( 'chapter' === $post_type ) {
 			$new_post['post_parent'] = $chapter_parent;
 		}

@@ -28,7 +28,13 @@ if ( isset( $ebook_options['ebook_start_point'] ) && ! empty( $ebook_options['eb
 		<span class="spinner"></span>
 		<p class="message"></p>
 	</div>
-	<?php if ( $can_manage_options ) : ?>
+	<?php
+	/**
+	 * Filter the ability to manage webbook privacy and related settings (default true).
+	 *
+	 * @since 5.4.0
+	 */
+	if ( apply_filters( 'pb_permissive_webbooks', true ) && $can_manage_options ) : ?>
 	<div id="publicize-panel" class="postbox">
 		<div class="inside">
 			<?php if ( $book_is_public ) { ?>

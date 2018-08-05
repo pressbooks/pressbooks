@@ -6,9 +6,9 @@
 
 namespace Pressbooks\Modules\Export\Prince;
 
-use Pressbooks\Modules\Export\Export;
-use Pressbooks\Container;
 use function Pressbooks\Sanitize\normalize_css_urls;
+use Pressbooks\Container;
+use Pressbooks\Modules\Export\Export;
 
 class Pdf extends Export {
 
@@ -127,7 +127,8 @@ class Pdf extends Export {
 		$prince = new \PrinceXMLPhp\PrinceWrapper( PB_PRINCE_COMMAND );
 		$prince->setHTML( true );
 		$prince->setCompress( true );
-		if ( defined( 'WP_ENV' ) && ( WP_ENV === 'development' || WP_ENV === 'staging' ) ) {
+		$prince->setHttpTimeout( max( ini_get( 'max_execution_time' ), 30 ) );
+		if ( defined( 'WP_ENV' ) && ( WP_ENV === 'development' ) ) {
 			$prince->setInsecure( true );
 		}
 		if ( $this->pdfProfile && $this->pdfOutputIntent ) {
@@ -144,7 +145,7 @@ class Pdf extends Export {
 
 		// Prince XML is very flexible. There could be errors but Prince will still render a PDF.
 		// We want to log those errors but we won't alert the user.
-		if ( count( $msg ) ) {
+		if ( is_countable( $msg ) && count( $msg ) ) {
 			$this->logError( \Pressbooks\Utility\get_contents( $this->logfile ) );
 		}
 
@@ -322,15 +323,4 @@ class Pdf extends Export {
 		}
 	}
 
-	/**
-	 * Dependency check.
-	 *
-	 * @return bool
-	 */
-	static function hasDependencies() {
-		if ( false !== \Pressbooks\Utility\check_prince_install() && false !== \Pressbooks\Utility\check_xmllint_install() ) {
-			return true;
-		}
-		return false;
-	}
 }

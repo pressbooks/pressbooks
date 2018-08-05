@@ -410,7 +410,7 @@ class Metadata implements \JsonSerializable {
 		if ( $post ) {
 
 			$pb_cover_image = get_post_meta( $post->ID, 'pb_cover_image', true );
-			if ( $pb_cover_image && ! preg_match( '~assets/dist/images/default-book-cover\.jpg$~', $pb_cover_image ) ) {
+			if ( $pb_cover_image && ! \Pressbooks\Image\is_default_cover( $pb_cover_image ) ) {
 
 				$path = \Pressbooks\Utility\get_media_path( $pb_cover_image );
 				$type = wp_check_filetype( $path );
@@ -489,8 +489,12 @@ class Metadata implements \JsonSerializable {
 	public function upgradeToPressbooksFive() {
 		// Get all parts from the book
 		global $wpdb;
-		$sql = [ 'front-matter', 'part', 'chapter', 'back-matter' ];
-		$r1 = $wpdb->get_results( $wpdb->prepare( "SELECT ID, post_status FROM {$wpdb->posts} WHERE post_type IN (%s, %s, %s, %s)", $sql ), ARRAY_A );
+		$r1 = $wpdb->get_results(
+			$wpdb->prepare(
+				"SELECT ID, post_status FROM {$wpdb->posts} WHERE post_type IN (%s, %s, %s, %s)",
+				[ 'front-matter', 'part', 'chapter', 'back-matter' ]
+			), ARRAY_A
+		);
 
 		// Update post statii
 		$wpdb->query( 'START TRANSACTION' );

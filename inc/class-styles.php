@@ -6,9 +6,10 @@
 
 namespace Pressbooks;
 
+use function \Pressbooks\Editor\update_editor_style;
+use function \Pressbooks\Utility\debug_error_log;
 use Pressbooks\CustomCss;
 use Pressbooks\Modules\ThemeOptions\ThemeOptions;
-use function \Pressbooks\Utility\debug_error_log;
 
 /**
  * Custom Styles Feature(s)
@@ -585,6 +586,7 @@ class Styles {
 		if ( version_compare( $current_buckram_version, $last_buckram_version ) > 0 ) {
 			( new ThemeOptions() )->clearCache();
 			$this->updateWebBookStyleSheet();
+			update_editor_style();
 			update_option( 'pressbooks_buckram_version', $current_buckram_version );
 			return true;
 		}

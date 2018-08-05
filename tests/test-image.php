@@ -1,6 +1,25 @@
 <?php
 
+use function \Pressbooks\Utility\str_ends_with;
+
 class ImageTest extends \WP_UnitTestCase {
+	public function test_default_cover_url() {
+		$this->assertTrue( str_ends_with( \Pressbooks\Image\default_cover_url( 'thumbnail' ), 'default-book-cover-100x100.jpg' ) );
+		$this->assertTrue( str_ends_with( \Pressbooks\Image\default_cover_url( 'small' ), 'default-book-cover-65x0.jpg' ) );
+		$this->assertTrue( str_ends_with( \Pressbooks\Image\default_cover_url( 'medium' ), 'default-book-cover-225x0.jpg' ) );
+		$this->assertTrue( str_ends_with( \Pressbooks\Image\default_cover_url(), 'default-book-cover.jpg' ) );
+		$this->assertTrue( str_ends_with( \Pressbooks\Image\default_cover_url( 'large' ), 'default-book-cover.jpg' ) );
+		$this->assertTrue( str_ends_with( \Pressbooks\Image\default_cover_url( 'full' ), 'default-book-cover.jpg' ) );
+	}
+
+	public function test_default_cover_path() {
+		$this->assertTrue( str_ends_with( \Pressbooks\Image\default_cover_path( 'thumbnail' ), 'default-book-cover-100x100.jpg' ) );
+		$this->assertTrue( str_ends_with( \Pressbooks\Image\default_cover_path( 'small' ), 'default-book-cover-65x0.jpg' ) );
+		$this->assertTrue( str_ends_with( \Pressbooks\Image\default_cover_path( 'medium' ), 'default-book-cover-225x0.jpg' ) );
+		$this->assertTrue( str_ends_with( \Pressbooks\Image\default_cover_path(), 'default-book-cover.jpg' ) );
+		$this->assertTrue( str_ends_with( \Pressbooks\Image\default_cover_path( 'large' ), 'default-book-cover.jpg' ) );
+		$this->assertTrue( str_ends_with( \Pressbooks\Image\default_cover_path( 'full' ), 'default-book-cover.jpg' ) );
+	}
 
 	public function test_is_default_cover() {
 		$url = \Pressbooks\Image\default_cover_url();

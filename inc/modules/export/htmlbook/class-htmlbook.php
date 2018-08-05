@@ -6,6 +6,10 @@
 
 namespace Pressbooks\Modules\Export\HTMLBook;
 
+use function Pressbooks\Sanitize\clean_filename;
+use function Pressbooks\Utility\get_generated_content_url;
+use function Pressbooks\Utility\oxford_comma_explode;
+use Masterminds\HTML5;
 use Pressbooks\HTMLBook\Block\Blockquote;
 use Pressbooks\HTMLBook\Block\OrderedLists;
 use Pressbooks\HTMLBook\Block\Paragraph;
@@ -19,12 +23,8 @@ use Pressbooks\HTMLBook\Heading\H1;
 use Pressbooks\HTMLBook\Heading\Header;
 use Pressbooks\HTMLBook\Inline\Footnote;
 use Pressbooks\HTMLBook\Validator;
-use Masterminds\HTML5;
 use Pressbooks\Modules\Export\Export;
 use Pressbooks\Sanitize;
-use function Pressbooks\Sanitize\clean_filename;
-use function Pressbooks\Utility\oxford_comma_explode;
-use function Pressbooks\Utility\get_generated_content_url;
 
 class HTMLBook extends Export {
 
@@ -233,7 +233,7 @@ class HTMLBook extends Export {
 		echo "<head>\n";
 		echo '<title>' . get_bloginfo( 'name' ) . "</title>\n";
 
-		if ( WP_DEBUG ) {
+		if ( is_super_admin( get_current_user_id() ) || WP_DEBUG ) {
 			if ( ! empty( $_GET['debug'] ) ) {
 				$url = get_generated_content_url( '/scss-debug' ) . '/' . clean_filename( $_GET['debug'] ) . '.css';
 				echo "<link rel='stylesheet' href='$url' type='text/css' />\n";
@@ -506,11 +506,11 @@ class HTMLBook extends Export {
 	protected function fixInternalLinks( $content ) {
 		// takes care of PB subdirectory installations of PB
 		$content = preg_replace( '/href\="\/([a-z0-9]*)\/(front\-matter|chapter|back\-matter|part)\/([a-z0-9\-]*)([\/]?)(\#[a-z0-9\-]*)"/', 'href="$5"', $content );
-		$content = preg_replace( '/href\="\/([a-z0-9]*)\/(front\-matter|chapter|back\-matter|part)\/([a-z0-9\-]*)([\/]?)"/', 'href="#$3"', $content );
+		$content = preg_replace( '/href\="\/([a-z0-9]*)\/(front\-matter|chapter|back\-matter|part)\/([a-z0-9\-]*)([\/]?)"/', 'href="#$2-$3"', $content );
 
 		// takes care of PB subdomain installations of PB
 		$content = preg_replace( '/href\="\/(front\-matter|chapter|back\-matter|part)\/([a-z0-9\-]*)([\/]?)(\#[a-z0-9\-]*)"/', 'href="$4"', $content );
-		$output = preg_replace( '/href\="\/(front\-matter|chapter|back\-matter|part)\/([a-z0-9\-]*)([\/]?)"/', 'href="#$2"', $content );
+		$output = preg_replace( '/href\="\/(front\-matter|chapter|back\-matter|part)\/([a-z0-9\-]*)([\/]?)"/', 'href="#$1-$2"', $content );
 
 		return $output;
 	}

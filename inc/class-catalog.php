@@ -8,8 +8,8 @@
 
 namespace Pressbooks;
 
-use function \Pressbooks\Utility\getset;
 use function Pressbooks\Utility\oxford_comma_explode;
+use function \Pressbooks\Utility\getset;
 
 class Catalog {
 
@@ -154,10 +154,10 @@ class Catalog {
 		// ----------------------------------------------------------------------------
 
 		$cover_sizes = [
-			'thumbnail' => PB_PLUGIN_URL . 'assets/dist/images/default-book-cover-100x100.jpg',
-			'pb_cover_small' => PB_PLUGIN_URL . 'assets/dist/images/default-book-cover-65x0.jpg',
-			'pb_cover_medium' => PB_PLUGIN_URL . 'assets/dist/images/default-book-cover-225x0.jpg',
-			'pb_cover_large' => PB_PLUGIN_URL . 'assets/dist/images/default-book-cover.jpg',
+			'thumbnail' => \Pressbooks\Image\default_cover_url( 'thumbnail' ),
+			'pb_cover_small' => \Pressbooks\Image\default_cover_url( 'small' ),
+			'pb_cover_medium' => \Pressbooks\Image\default_cover_url( 'medium' ),
+			'pb_cover_large' => \Pressbooks\Image\default_cover_url(),
 		];
 
 		$catalog = $this->get();
@@ -199,11 +199,11 @@ class Catalog {
 
 				// Cover Full
 				if ( $meta_version < 7 ) {
-					$cover = PB_PLUGIN_URL . 'assets/dist/images/default-book-cover.jpg';
+					$cover = \Pressbooks\Image\default_cover_url();
 				} elseif ( empty( $metadata['pb_cover_image'] ) ) {
-					$cover = PB_PLUGIN_URL . 'assets/dist/images/default-book-cover.jpg';
+					$cover = \Pressbooks\Image\default_cover_url();
 				} elseif ( \Pressbooks\Image\is_default_cover( $metadata['pb_cover_image'] ) ) {
-					$cover = PB_PLUGIN_URL . 'assets/dist/images/default-book-cover.jpg';
+					$cover = \Pressbooks\Image\default_cover_url();
 				} else {
 					$cover = \Pressbooks\Image\thumbnail_from_url( $metadata['pb_cover_image'], 'full' );
 				}
@@ -284,11 +284,11 @@ class Catalog {
 
 			// Cover Full
 			if ( $meta_version < 7 ) {
-				$cover = PB_PLUGIN_URL . 'assets/dist/images/default-book-cover.jpg';
+				$cover = \Pressbooks\Image\default_cover_url();
 			} elseif ( empty( $metadata['pb_cover_image'] ) ) {
-				$cover = PB_PLUGIN_URL . 'assets/dist/images/default-book-cover.jpg';
+				$cover = \Pressbooks\Image\default_cover_url();
 			} elseif ( \Pressbooks\Image\is_default_cover( $metadata['pb_cover_image'] ) ) {
-				$cover = PB_PLUGIN_URL . 'assets/dist/images/default-book-cover.jpg';
+				$cover = \Pressbooks\Image\default_cover_url();
 			} else {
 				$cover = \Pressbooks\Image\thumbnail_from_url( $metadata['pb_cover_image'], 'full' );
 			}

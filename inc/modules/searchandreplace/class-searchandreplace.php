@@ -20,17 +20,19 @@ class SearchAndReplace {
 	/**
 	 * @return SearchAndReplace|null
 	 */
-	static function init() {
-		if ( is_admin() ) {
-			if ( is_null( self::$instance ) ) {
-				$self = new self;
-				add_filter( 'admin_menu', [ $self, 'adminMenu' ] );
-				add_action( 'load-tools_page_pressbooks-search-and-replace', [ $self, 'searchHead' ] );
-				self::$instance = $self;
-			}
-			return self::$instance;
+	static public function init() {
+		if ( is_null( self::$instance ) ) {
+			self::$instance = new self();
+			self::hooks( self::$instance );
 		}
-		return null;
+		return self::$instance;
+	}
+
+	static public function hooks( SearchAndReplace $obj ) {
+		if ( is_admin() ) {
+			add_filter( 'admin_menu', [ $obj, 'adminMenu' ] );
+			add_action( 'load-tools_page_pressbooks-search-and-replace', [ $obj, 'searchHead' ] );
+		}
 	}
 
 	/**
@@ -88,7 +90,7 @@ class SearchAndReplace {
 		$replace_pattern = '';
 
 		if ( isset( $_POST['search_pattern'] ) ) {
-			$search_pattern  = stripslashes( $_POST['search_pattern'] );
+			$search_pattern = stripslashes( $_POST['search_pattern'] );
 		}
 
 		if ( isset( $_POST['replace_pattern'] ) ) {
@@ -103,7 +105,7 @@ class SearchAndReplace {
 			$orderby = 'desc';
 		}
 
-		$limit  = isset( $_POST['limit'] ) ? intval( $_POST['limit'] ) : 0;
+		$limit = isset( $_POST['limit'] ) ? intval( $_POST['limit'] ) : 0;
 
 		$offset = 0;
 
@@ -135,11 +137,11 @@ class SearchAndReplace {
 			if ( ! is_array( $results ) ) {
 				$this->renderError( $results );
 			} elseif ( isset( $_POST['replace_and_save'] ) ) {
-	?>
-		  <div class="updated" id="message" onclick="this.parentNode.removeChild (this)">
-		   <p><?php printf( _n( '%d occurrence replaced.', '%d occurrences replaced.', count( $results ) ), count( $results ) ); ?></p>
-		  </div>
-<?php
+				?>
+				<div class="updated" id="message" onclick="this.parentNode.removeChild (this)">
+					<p><?php printf( _n( '%d occurrence replaced.', '%d occurrences replaced.', count( $results ) ), count( $results ) ); ?></p>
+				</div>
+				<?php
 			}
 			$this->render(
 				'search', [
@@ -184,6 +186,6 @@ class SearchAndReplace {
 	<div class="fade error" id="message">
 		<p><?php echo $message; ?></p>
 	</div>
-	<?php
+		<?php
 	}
 }

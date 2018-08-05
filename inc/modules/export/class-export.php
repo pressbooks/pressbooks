@@ -6,10 +6,9 @@
 
 namespace Pressbooks\Modules\Export;
 
-use Pressbooks\Book;
-use Pressbooks\CustomCss;
-use Pressbooks\Container;
 use function \Pressbooks\Utility\getset;
+use Pressbooks\Container;
+use Pressbooks\CustomCss;
 
 // IMPORTANT! if this isn't set correctly before include, with a trailing slash, PclZip will fail.
 if ( ! defined( 'PCLZIP_TEMPORARY_DIR' ) ) {
@@ -523,6 +522,16 @@ abstract class Export {
 			\Pressbooks\Utility\put_contents( $path_to_htaccess, "deny from all\n" );
 		}
 
+		/**
+		 * @since 5.3.0
+		 *
+		 * Filters the export folder path
+		 * Use this hook to change the location of the export folder.
+		 *
+		 * @param string $path The path to the Pressbooks export folder
+		 */
+		$path = apply_filters( 'pb_get_export_folder', $path );
+
 		return $path;
 	}
 
@@ -728,12 +737,12 @@ abstract class Export {
 			// --------------------------------------------------------------------------------------------------------
 			// Handle errors :(
 
-			if ( count( $conversion_error ) ) {
+			if ( is_countable( $conversion_error ) && count( $conversion_error ) ) {
 				// Conversion error
 				\Pressbooks\Redirect\location( $redirect_url . '&export_error=true' );
 			}
 
-			if ( count( $validation_warning ) ) {
+			if ( is_countable( $validation_warning ) && count( $validation_warning ) ) {
 				// Validation warning
 				\Pressbooks\Redirect\location( $redirect_url . '&export_warning=true' );
 			}
@@ -815,38 +824,7 @@ abstract class Export {
 	 * @param bool $inline
 	 */
 	protected static function downloadExportFile( $filename, $inline ) {
-
 		$filepath = static::getExportFolder() . $filename;
-		if ( ! is_readable( $filepath ) ) {
-			// Cannot read file
-			wp_die(
-				__( 'File not found', 'pressbooks' ) . ": $filename", '', [
-					'response' => 404,
-				]
-			);
-		}
-
-		// Force download
-		// @codingStandardsIgnoreStart
-		@set_time_limit( 0 );
-		header( 'Content-Description: File Transfer' );
-		header( 'Content-Type: ' . static::mimeType( $filepath ) );
-		if ( $inline ) {
-			header( 'Content-Disposition: inline; filename="' . $filename . '"' );
-		} else {
-			header( 'Content-Disposition: attachment; filename="' . $filename . '"' );
-		}
-		header( 'Content-Transfer-Encoding: binary' );
-		header( 'Expires: 0' );
-		header( 'Cache-Control: must-revalidate, post-check=0, pre-check=0' );
-		header( 'Pragma: public' );
-		header( 'Content-Length: ' . filesize( $filepath ) );
-		@ob_clean();
-		flush();
-		while ( @ob_end_flush() ) {
-			// Fix out-of-memory problem
-		}
-		readfile( $filepath );
-		// @codingStandardsIgnoreEnd
+		\Pressbooks\Redirect\force_download( $filepath, $inline );
 	}
 }
