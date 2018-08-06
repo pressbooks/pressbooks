@@ -798,19 +798,39 @@ class Cloner {
 		// Load HTML snippet into DOMDocument
 		$html5 = new HTML5();
 		if ( ! empty( $section['content']['raw'] ) ) {
-			$dom = $html5->loadHTML( wpautop( $section['content']['raw'] ) );
+			$source_content = wpautop( $section['content']['raw'] );
+
 		} else {
-			$dom = $html5->loadHTML( $section['content']['rendered'] );
+			$source_content = $section['content']['rendered'];
 		}
+
+		// According to the html5 spec section 8.3: https://www.w3.org/TR/2013/CR-html5-20130806/syntax.html#serializing-html-fragments
+		// We should replace any occurrences of the U+00A0 NO-BREAK SPACE character (aka "\xc2\xa0") by the string "&nbsp;" when serializing HTML5
+		// When cloning, we don't want to modify whitespaces, so we hide them from the parser.
+		$whitespaces_to_keep = [ "\xc2\xa0" ];
+		foreach ( $whitespaces_to_keep as $c ) {
+			$md5 = md5( $c );
+			$source_content = str_replace( $c, "<!-- pb_{$md5} -->", $source_content );
+		}
+
+		// Load source content
+		$dom = $html5->loadHTML( $source_content );
 
 		// Download images, change image paths
 		$media = $this->scrapeAndKneadImages( $dom );
 		$dom = $media['dom'];
 		$attachments = $media['attachments'];
 
+		// Save the destination content
 		$content = $html5->saveHTML( $dom );
 
-		unset( $html5, $dom, $media ); // premature optimization, try to free up memory
+		// Put back the hidden whitespaces
+		foreach ( $whitespaces_to_keep as $c ) {
+			$md5 = md5( $c );
+			$content = str_replace( "<!-- pb_{$md5} -->", $c, $content );
+		}
+
+		unset( $html5, $source_content, $dom, $media ); // premature optimization, try to free up memory
 
 		$content = \Pressbooks\Sanitize\strip_container_tags( $content ); // Remove auto-created <html> <body> and <!DOCTYPE> tags.
 		if ( ! empty( $section['content']['raw'] ) ) {
