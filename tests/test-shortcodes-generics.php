@@ -31,25 +31,50 @@ class Shortcodes_Generics extends \WP_UnitTestCase {
 		$this->assertArrayHasKey( 'blockquote', $shortcode_tags );
 	}
 
-	public function test_shortcodeHandler() {
+	public function test_blockShortcodeHandler() {
 
 		// Test a straightforward tag.
-		$content = $this->generics->shortcodeHandler( [], 'A normal blockquote', 'blockquote' );
+		$content = $this->generics->blockShortcodeHandler( [], 'A heading', 'heading' );
+		$this->assertEquals( "<h1>A heading</h1>", $content );
+
+		// Test a tag with a class attribute.
+		$content = $this->generics->blockShortcodeHandler( [ 'class' => 'special' ], 'A heading', 'heading' );
+		$this->assertEquals( "<h1 class=\"special\">A heading</h1>", $content );
+
+		$this->assertEmpty( $this->generics->blockShortcodeHandler( [], '', 'heading' ) );
+	}
+
+	public function test_multilineBlockShortcodeHandler() {
+
+		// Test a straightforward tag.
+		$content = $this->generics->multilineBlockShortcodeHandler( [], 'A normal blockquote', 'blockquote' );
 		$this->assertEquals( "<blockquote><p>A normal blockquote</p>\n</blockquote>", $content );
 
 		// Test a tag with a class attribute.
-		$content = $this->generics->shortcodeHandler( [ 'class' => 'special' ], 'A special blockquote', 'blockquote' );
+		$content = $this->generics->multilineBlockShortcodeHandler( [ 'class' => 'special' ], 'A special blockquote', 'blockquote' );
 		$this->assertEquals( "<blockquote class=\"special\"><p>A special blockquote</p>\n</blockquote>", $content );
 
 		// Test a tag which applies a class automatically.
-		$content = $this->generics->shortcodeHandler( [], 'A normal textbox', 'textbox' );
+		$content = $this->generics->multilineBlockShortcodeHandler( [], 'A normal textbox', 'textbox' );
 		$this->assertEquals( "<div class=\"textbox\"><p>A normal textbox</p>\n</div>", $content );
 
 		// Test a tag which applies a class automatically, with an additional class attribute.
-		$content = $this->generics->shortcodeHandler( [ 'class' => 'special' ], 'A special textbox', 'textbox' );
+		$content = $this->generics->multilineBlockShortcodeHandler( [ 'class' => 'special' ], 'A special textbox', 'textbox' );
 		$this->assertEquals( "<div class=\"textbox special\"><p>A special textbox</p>\n</div>", $content );
 
-		$this->assertEmpty( $this->generics->shortcodeHandler( [], '', 'blockquote' ) );
+		$this->assertEmpty( $this->generics->multilineBlockShortcodeHandler( [], '', 'blockquote' ) );
 	}
 
+	public function test_inlineShortcodeHandler() {
+
+		// Test a straightforward tag.
+		$content = $this->generics->inlineShortcodeHandler( [], 'WHY ARE YOU SHOUTING', 'strong' );
+		$this->assertEquals( "<strong>WHY ARE YOU SHOUTING</strong>", $content );
+
+		// Test a tag with a class attribute.
+		$content = $this->generics->inlineShortcodeHandler( [ 'class' => 'loud' ], 'WHY ARE YOU SHOUTING', 'strong' );
+		$this->assertEquals( "<strong class=\"loud\">WHY ARE YOU SHOUTING</strong>", $content );
+
+		$this->assertEmpty( $this->generics->inlineShortcodeHandler( [], '', 'strong' ) );
+	}
 }
