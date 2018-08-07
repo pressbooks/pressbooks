@@ -502,29 +502,29 @@ class WebOptions extends \Pressbooks\Options {
 
 		$options = get_option( 'pressbooks_theme_options_web' );
 
-		if ( isset( $options['paragraph_separation'] ) ) {
-			if ( 'indent' === $options['paragraph_separation'] ) {
-				if ( $v2_compatible ) {
-					$styles->getSass()->setVariables(
-						[
-							'para-margin-top' => '0',
-							'para-indent' => '1em',
-						]
-					);
-				} else {
-					$scss .= "#content * + p { text-indent: 1em; margin-top: 0; margin-bottom: 0; } \n";
-				}
-			} elseif ( 'skiplines' === $options['paragraph_separation'] ) {
-				if ( $v2_compatible ) {
-					$styles->getSass()->setVariables(
-						[
-							'para-margin-top' => '1em',
-							'para-indent' => '0',
-						]
-					);
-				} else {
-					$scss .= "#content p + p { text-indent: 0em; margin-top: 1em; } \n";
-				}
+		$paragraph_separation = $options['paragraph_separation'] ?? 'skiplines';
+
+		if ( 'indent' === $options['paragraph_separation'] ) {
+			if ( $v2_compatible ) {
+				$styles->getSass()->setVariables(
+					[
+						'para-margin-top' => '0',
+						'para-indent' => '1em',
+					]
+				);
+			} else {
+				$scss .= "#content * + p { text-indent: 1em; margin-top: 0; margin-bottom: 0; } \n";
+			}
+		} elseif ( 'skiplines' === $options['paragraph_separation'] ) {
+			if ( $v2_compatible ) {
+				$styles->getSass()->setVariables(
+					[
+						'para-margin-top' => '1em',
+						'para-indent' => '0',
+					]
+				);
+			} else {
+				$scss .= "#content p + p { text-indent: 0em; margin-top: 1em; } \n";
 			}
 		}
 

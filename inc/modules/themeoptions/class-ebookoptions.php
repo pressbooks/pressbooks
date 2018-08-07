@@ -471,7 +471,8 @@ class EbookOptions extends \Pressbooks\Options {
 		$options = get_option( 'pressbooks_theme_options_ebook' );
 
 		// Indent paragraphs?
-		if ( 'skiplines' === $options['ebook_paragraph_separation'] ) {
+		$paragraph_separation = $options['ebook_paragraph_separation'] ?? 'indent';
+		if ( 'skiplines' === $paragraph_separation ) {
 			if ( $v2_compatible ) {
 				$styles->getSass()->setVariables(
 					[
@@ -482,7 +483,7 @@ class EbookOptions extends \Pressbooks\Options {
 			} else {
 				$scss .= "p + p, .indent, div.ugc p.indent { text-indent: 0; margin-top: 1em; } \n";
 			}
-		} else {
+		} elseif ( 'indent' === $paragraph_separation ) {
 			if ( $v2_compatible ) {
 				$styles->getSass()->setVariables(
 					[
