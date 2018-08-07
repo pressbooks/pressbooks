@@ -140,7 +140,7 @@ function replace_book_admin_menu() {
 		__( 'Add Glossary Term', 'pressbooks' ),
 		__( 'Add Glossary Term', 'pressbooks' ),
 		'edit_posts',
-		'post-new.php?post_type=glossary'
+		'edit.php?post_type=glossary'
 	);
 
 	add_submenu_page(
@@ -173,14 +173,6 @@ function replace_book_admin_menu() {
 		__( 'Glossary Types', 'pressbooks' ),
 		'manage_network',
 		'edit-tags.php?taxonomy=glossary-type&post_type=glossary'
-	);
-
-	add_submenu_page(
-		'pb_organize',
-		__( 'Glossary Terms', 'pressbooks' ),
-		__( 'Glossary Terms', 'pressbooks' ),
-		'edit_posts',
-		'edit.php?post_type=glossary'
 	);
 
 	add_submenu_page(
