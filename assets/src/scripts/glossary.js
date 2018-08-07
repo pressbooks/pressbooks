@@ -24,6 +24,38 @@
                 return terms;
             }
 
+            // checks if the term exists, returns false if not found in glossary
+            function termMatch(mySelection) {
+
+                matchingKeys = keys.filter(function (key) {
+                    return key.indexOf(mySelection) !== -1
+                });
+                if (typeof matchingKeys[0] === 'undefined') {
+                    return false;
+                } else {
+                    return matchingKeys[0];
+                }
+            }
+
+            // gets the ID of a term in the glossary
+            function termID(mySelection) {
+
+                // check if mySelection matches an existing term
+                matchingKeys = keys.filter(function (key) {
+                    return key.indexOf(mySelection) !== -1
+                });
+
+                // get the id for the match, returns an empty array if none found
+                matchingID = matchingKeys.map(function (key) {
+                    return terms[key]['id']
+                });
+
+                // check if matchingID array does not exist, is not an array, or is empty
+                if (Array.isArray(matchingID) || matchingID.length) {
+                    return matchingID[0];
+                }
+            }
+
             // This button adds the glossary short-code that generates a list of all terms
             ed.addButton('glossary_all', {
                 title: PB_GlossaryToken.glossary_all_title,
@@ -42,64 +74,55 @@
                 onclick: function () {
                     // get the highlighted selection
                     let mySelection = ed.selection.getContent();
-                    // placeholder for our term
-                    let glossaryTerm;
+                    // placeholder for our default listbox value
+                    let listValue = '';
+                    // placeholder for our term doesn't exist message
+                    let termExists = '';
 
-                    // if there was a highlighted selection, check for it's existence and get the value of the ID
-                    if (mySelection !== '') {
-                        // get the keys
-                        let myKeys = Object.keys(terms);
-                        // check if mySelection exists
-                        let matchingKeys = myKeys.filter(function (key) {
-                            return key.indexOf(mySelection) !== -1
-                        });
-                        // get the value of the id for the match
-                        let matchingID = matchingKeys.map(function (key) {
-                            return terms[key]['id']
-                        });
-                        // display the UI to lookup and select an existing term
-                        tinymce.activeEditor.windowManager.open({
-                            title: 'Glossary terms',
-                            buttons: [{
-                                text: 'Accept',
-                                subtype: 'primary',
-                                onclick: 'submit'
-                            },
-                                {
-                                    text: 'Close',
-                                    onclick: 'close'
-                                }
-                            ],
-
-                            body: [
-                                {
-                                    type: 'combobox',
-                                    name: 'Terms',
-                                    label: 'Select a Term',
-                                    values: getListTerms(),
-                                },
-                            ],
-
-                            width: 400,
-                            height: 80,
-                        },);
-                        // insert the short-code with the id as an attribute
-                        ed.selection.setContent('[pb_glossary' + ' id="' + matchingID[0] + '"]' + glossaryTerm + '[/pb_glossary]');
-
-                        // if there was no highlighted selection, display the UI to lookup and select an existing term
+                    // if the selection matches an existing term, let's set it so we can use it as our default listbox value
+                    if (termMatch(mySelection) !== false) {
+                        listValue = termMatch(mySelection);
                     } else {
-                        glossaryTerm = prompt(
-                            'Glossary Content',
-                            'Enter your glossary content here.'
-                        );
-                        if (glossaryTerm !== '') {
-                            ed.execCommand(
-                                'mceInsertContent',
-                                false,
-                                '[pb_glossary]' + glossaryTerm + '[/pb_glossary]'
-                            );
-                        }
+                        termExists = 'Glossary term <b>"' + mySelection + '"</b> not found.<br />Please create it, or select a term from the list below:';
                     }
+
+                    // display the UI
+                    tinymce.activeEditor.windowManager.open({
+                        title: 'Glossary terms',
+                        buttons: [{
+                            text: 'Insert',
+                            subtype: 'primary',
+                            onclick: 'submit',
+                        },
+                            {
+                                text: 'Close',
+                                onclick: 'close'
+                            }
+                        ],
+
+                        body: [
+                            {
+                                type: 'container',
+                                name: 'container',
+                                html: termExists
+                            },
+                            {
+                                type: 'listbox',
+                                name: 'terms',
+                                label: 'Select a Term',
+                                values: getListTerms(),
+                                value: listValue
+                            },
+                        ],
+                        onsubmit: function () {
+                            // set the shortcode value to whatever the value of the listbox is when inserted
+                            ed.selection.setContent('[pb_glossary' + ' id="' + termID(mySelection) + '"]' + listValue + '[/pb_glossary]');
+                        },
+                        width: 500,
+                        height: 100,
+                    },);
+
+                    // insert the short-code with the id as an attribute
                 },
             });
         },
