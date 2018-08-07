@@ -1,6 +1,6 @@
 <?php
 /**
- * Theme utilities.
+ * Theme handling.
  *
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv3 (or any later version)
