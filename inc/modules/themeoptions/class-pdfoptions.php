@@ -1857,7 +1857,8 @@ class PDFOptions extends \Pressbooks\Options {
 		}
 
 		// Indent paragraphs?
-		if ( 'skiplines' === $options['pdf_paragraph_separation'] ) {
+		$paragraph_separation = $options['pdf_paragraph_separation'] ?? 'indent';
+		if ( 'skiplines' === $paragraph_separation ) {
 			if ( $v2_compatible ) {
 				$styles->getSass()->setVariables(
 					[
@@ -1868,7 +1869,7 @@ class PDFOptions extends \Pressbooks\Options {
 			} else {
 				$scss .= "p + p { text-indent: 0em; margin-top: 1em; } \n";
 			}
-		} else {
+		} elseif ( 'indent' === $paragraph_separation ) {
 			if ( $v2_compatible ) {
 				$styles->getSass()->setVariables(
 					[
