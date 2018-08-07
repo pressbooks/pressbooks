@@ -153,7 +153,7 @@ class Glossary {
 			}
 		}
 		if ( ! empty( $glossary ) ) {
-			$output = sprintf( '<section data-type="glossary"><header><h2>Glossary Terms</h2></header><dl data-type="glossary">%1$s</dl></section>', $glossary );
+			$output = sprintf( '<section data-type="glossary"><header><h2>%1$s</h2></header><dl data-type="glossary">%2$s</dl></section>', __( 'Glossary Terms', 'pressbooks' ), $glossary );
 		}
 
 		return $output;
