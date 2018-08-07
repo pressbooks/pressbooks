@@ -14,10 +14,10 @@
                 let terms = [];
                 let termlist = {};
 
-                for (let i = 0; i < keys.length; i++) {
+                for (let i of keys) {
                     termlist = {};
-                    termlist['text'] = keys[i];
-                    termlist['value'] = keys[i];
+                    termlist['text'] = i;
+                    termlist['value'] = i;
                     terms.push(termlist);
                 }
 
