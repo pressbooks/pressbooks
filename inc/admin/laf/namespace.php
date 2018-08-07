@@ -137,8 +137,8 @@ function replace_book_admin_menu() {
 
 	add_submenu_page(
 		'pb_organize',
-		__( 'Add Glossary Term', 'pressbooks' ),
-		__( 'Add Glossary Term', 'pressbooks' ),
+		__( 'Glossary Terms', 'pressbooks' ),
+		__( 'Glossary Terms', 'pressbooks' ),
 		'edit_posts',
 		'edit.php?post_type=glossary'
 	);
