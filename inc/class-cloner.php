@@ -871,7 +871,8 @@ class Cloner {
 	 */
 	protected function retrieveSectionContent( $section ) {
 		if ( ! empty( $section['content']['raw'] ) ) {
-			$source_content = wpautop( $section['content']['raw'] );
+			// Wrap in fake span tags so that we can parse it
+			$source_content = '<span><!-- pb_fixme -->' . $section['content']['raw'] . '<!-- pb_fixme --></span>';
 		} else {
 			$source_content = $section['content']['rendered'];
 		}
@@ -905,13 +906,13 @@ class Cloner {
 
 		$content = \Pressbooks\Sanitize\strip_container_tags( $content ); // Remove auto-created <html> <body> and <!DOCTYPE> tags.
 		if ( ! empty( $section['content']['raw'] ) ) {
-			$content = \Pressbooks\Sanitize\reverse_wpautop( $content );
+			$content = str_replace( [ '<span><!-- pb_fixme -->', '<!-- pb_fixme --></span>' ], '', $content ); // Remove fake span tags
 			if ( ! $this->interactiveContent->isCloneable( $content ) ) {
 				$content = $this->interactiveContent->replaceCloneable( $content );
 			}
 		}
 
-		return [ $content, $attachments ];
+		return [ trim( $content ), $attachments ];
 	}
 
 	/**

@@ -664,7 +664,7 @@ function reverse_wpautop( $pee ) {
 	// Reverses "If a <blockquote> is wrapped with a <p>, move it inside the <blockquote>."
 	$pee = str_replace( '</p></blockquote>', '</blockquote></p>', $pee );
 
-	// And finally, the first hit in Google search basics...
+	// Cheap and barely good enough...
 	$pee = str_replace( "\n", '', $pee );
 	$pee = str_replace( '<p>', '', $pee );
 	$pee = str_replace( [ '<br />', '<br>', '<br/>' ], "\n", $pee );
