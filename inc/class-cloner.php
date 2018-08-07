@@ -871,7 +871,7 @@ class Cloner {
 	 */
 	protected function retrieveSectionContent( $section ) {
 		if ( ! empty( $section['content']['raw'] ) ) {
-			// Wrap in fake span tags so that we can parse it
+			// Wrap in fake div tags so that we can parse it
 			$source_content = '<div><!-- pb_fixme -->' . $section['content']['raw'] . '<!-- pb_fixme --></div>';
 		} else {
 			$source_content = $section['content']['rendered'];
@@ -906,7 +906,7 @@ class Cloner {
 
 		$content = \Pressbooks\Sanitize\strip_container_tags( $content ); // Remove auto-created <html> <body> and <!DOCTYPE> tags.
 		if ( ! empty( $section['content']['raw'] ) ) {
-			$content = str_replace( [ '<div><!-- pb_fixme -->', '<!-- pb_fixme --></div>' ], '', $content ); // Remove fake span tags
+			$content = str_replace( [ '<div><!-- pb_fixme -->', '<!-- pb_fixme --></div>' ], '', $content ); // Remove fake div tags
 			if ( ! $this->interactiveContent->isCloneable( $content ) ) {
 				$content = $this->interactiveContent->replaceCloneable( $content );
 			}
