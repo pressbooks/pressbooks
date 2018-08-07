@@ -820,6 +820,9 @@ class Cloner {
 			}
 		}
 
+		// Fix internal links
+		$content = $this->fixInternalLinks( $content );
+
 		// Set title and content
 		$section['title'] = $section['title']['rendered'];
 		$section['content'] = $content;
@@ -1221,6 +1224,31 @@ class Cloner {
 	 */
 	protected function sameAsSource( $url ) {
 		return \Pressbooks\Utility\urls_have_same_host( $this->sourceBookUrl, $url );
+	}
+
+	/**
+	 * @param string $content
+	 *
+	 * @return $string
+	 */
+	protected function fixInternalLinks( $content ) {
+		// Fix relative URLs based on network type
+		if ( is_subdomain_install() ) {
+			// Remove book path if source book is in a subdirectory install and target book is in a subdomain install.
+			$content = preg_replace( '/href\="\/([a-z0-9]*)\/(front\-matter|chapter|back\-matter|part)/', 'href="/$2', $content );
+		} else {
+			// Get the directory path for the target book.
+			$subdirectory = $this->getSubdomainOrSubDirectory( $this->targetBookUrl );
+			// Update book path if source and target books are in subdirectory installs.
+			$content = preg_replace( '/href\="\/([a-z0-9]*)\/(front\-matter|chapter|back\-matter|part)/', 'href="/' . $subdirectory . '/$2', $content );
+			// Add book path if source book is in a subdomain install and target book is in a subdirectory install.
+			$content = preg_replace( '/href\="\/(front\-matter|chapter|back\-matter|part)/', 'href="/' . $subdirectory . '/$1', $content );
+		}
+
+		// Fix absolute URLs
+		$content = str_replace( 'href="' . untrailingslashit( $this->sourceBookUrl ), 'href="' . untrailingslashit( $this->targetBookUrl ), $content );
+
+		return $content;
 	}
 
 	/**
