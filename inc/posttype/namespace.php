@@ -198,8 +198,8 @@ function register_meta() {
 		'type' => 'string',
 	];
 
-	foreach( [ 'front-matter', 'chapter', 'back-matter' ] as $post_type ) {
-		\register_post_meta(
+	foreach ( [ 'front-matter', 'chapter', 'back-matter' ] as $post_type ) {
+		\register_meta(
 			'post', 'pb_show_title', array_merge(
 				$defaults, [
 					'object_subtype' => $post_type,
@@ -257,7 +257,7 @@ function register_meta() {
 				'type' => 'boolean',
 			]
 		)
-			);
+	);
 
 	\register_meta(
 		'post', 'pb_media_attribution_title_url', array_merge(
