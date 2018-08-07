@@ -184,6 +184,7 @@ if ( $is_book ) {
 
 	\Pressbooks\Shortcodes\Footnotes\Footnotes::init();
 	\Pressbooks\Shortcodes\Attributions\Attachments::init();
+	\Pressbooks\Shortcodes\Complex\Complex::init();
 	\Pressbooks\Shortcodes\Generics\Generics::init();
 	\Pressbooks\Shortcodes\WikiPublisher\Glyphs::init();
 	\Pressbooks\Shortcodes\TablePress::init();

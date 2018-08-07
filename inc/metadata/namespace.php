@@ -839,8 +839,8 @@ function register_contributor_meta() {
 	$args = [
 		'sanitize_callback' => 'sanitize_text_field',
 	];
-	register_meta( 'term', 'contributor_first_name', $args );
-	register_meta( 'term', 'contributor_last_name', $args );
+	register_term_meta( 'contributor', 'contributor_first_name', $args );
+	register_term_meta( 'contributor', 'contributor_last_name', $args );
 }
 
 /**
