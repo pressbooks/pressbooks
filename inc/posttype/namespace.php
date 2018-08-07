@@ -198,57 +198,63 @@ function register_meta() {
 		'type' => 'string',
 	];
 
-	\register_meta(
-		'post', 'pb_show_title', array_merge(
-			$defaults, [
-				'description' => __( 'Show title in exports', 'pressbooks' ),
-				'sanitize_callback' => function( $v ) {
-					return ( $v ? 'on' : null );
-				},
-			]
-		)
-	);
+	foreach ( [ 'front-matter', 'chapter', 'back-matter' ] as $post_type ) {
+		\register_meta(
+			'post', 'pb_show_title', array_merge(
+				$defaults, [
+					'object_subtype' => $post_type,
+					'description' => __( 'Show title in exports', 'pressbooks' ),
+					'sanitize_callback' => function( $v ) {
+						return ( $v ? 'on' : null );
+					},
+				]
+			)
+		);
+
+		\register_meta(
+			'post', 'pb_short_title', array_merge(
+				$defaults, [
+					'object_subtype' => $post_type,
+					'description' => __( 'Chapter Short Title (appears in the PDF running header)', 'pressbooks' ),
+				]
+			)
+		);
+
+		\register_meta(
+			'post', 'pb_subtitle', array_merge(
+				$defaults, [
+					'object_subtype' => $post_type,
+					'description' => __( 'Chapter Subtitle (appears in the Web/ebook/PDF output)', 'pressbooks' ),
+				]
+			)
+		);
+
+		\register_meta(
+			'post', 'pb_authors', array_merge(
+				$defaults, [
+					'object_subtype' => $post_type,
+					'single' => false,
+					'description' => __( 'Chapter Author (appears in Web/ebook/PDF output)', 'pressbooks' ),
+				]
+			)
+		);
+
+		\register_meta(
+			'post', 'pb_section_license', array_merge(
+				$defaults, [
+					'object_subtype' => $post_type,
+					'description' => __( 'Chapter Copyright License (overrides book license on this page)', 'pressbooks' ),
+				]
+			)
+		);
+	}
 
 	\register_meta(
-		'post', 'pb_ebook_start', array_merge(
+		'post', 'pb_part_invisible', array_merge(
 			$defaults, [
-				'description' => __( 'Set as ebook start-point', 'pressbooks' ),
-				'sanitize_callback' => function( $v ) {
-					return ( $v ? 'on' : null );
-				},
-			]
-		)
-	);
-
-	\register_meta(
-		'post', 'pb_short_title', array_merge(
-			$defaults, [
-				'description' => __( 'Chapter Short Title (appears in the PDF running header)', 'pressbooks' ),
-			]
-		)
-	);
-
-	\register_meta(
-		'post', 'pb_subtitle', array_merge(
-			$defaults, [
-				'description' => __( 'Chapter Subtitle (appears in the Web/ebook/PDF output)', 'pressbooks' ),
-			]
-		)
-	);
-
-	\register_meta(
-		'post', 'pb_authors', array_merge(
-			$defaults, [
-				'single' => false,
-				'description' => __( 'Chapter Author (appears in Web/ebook/PDF output)', 'pressbooks' ),
-			]
-		)
-	);
-
-	\register_meta(
-		'post', 'pb_section_license', array_merge(
-			$defaults, [
-				'description' => __( 'Chapter Copyright License (overrides book license on this page)', 'pressbooks' ),
+				'object_subtype' => 'part',
+				'description' => __( 'Whether or not the part is shown in the table of contents', 'pressbooks' ),
+				'type' => 'boolean',
 			]
 		)
 	);
@@ -256,6 +262,7 @@ function register_meta() {
 	\register_meta(
 		'post', 'pb_media_attribution_title_url', array_merge(
 			$defaults, [
+				'object_subtype' => 'attachment',
 				'description' => __( 'Media attribution source url', 'pressbooks' ),
 			]
 		)
@@ -264,6 +271,7 @@ function register_meta() {
 	\register_meta(
 		'post', 'pb_media_attribution_author', array_merge(
 			$defaults, [
+				'object_subtype' => 'attachment',
 				'description' => __( 'Media attribution author', 'pressbooks' ),
 			]
 		)
@@ -272,6 +280,7 @@ function register_meta() {
 	\register_meta(
 		'post', 'pb_media_attribution_author_url', array_merge(
 			$defaults, [
+				'object_subtype' => 'attachment',
 				'description' => __( 'Media attribution author url', 'pressbooks' ),
 			]
 		)
@@ -280,6 +289,7 @@ function register_meta() {
 	\register_meta(
 		'post', 'pb_media_attribution_adapted', array_merge(
 			$defaults, [
+				'object_subtype' => 'attachment',
 				'description' => __( 'Media attribution adapted by', 'pressbooks' ),
 			]
 		)
@@ -288,6 +298,7 @@ function register_meta() {
 	\register_meta(
 		'post', 'pb_media_attribution_adapted_url', array_merge(
 			$defaults, [
+				'object_subtype' => 'attachment',
 				'description' => __( 'Media attribution adapted by url', 'pressbooks' ),
 			]
 		)
@@ -296,6 +307,7 @@ function register_meta() {
 	\register_meta(
 		'post', 'pb_media_attribution_license', array_merge(
 			$defaults, [
+				'object_subtype' => 'attachment',
 				'description' => __( 'Media attribution license', 'pressbooks' ),
 			]
 		)
