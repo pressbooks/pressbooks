@@ -1,5 +1,6 @@
 <?php
 
+use Pressbooks\Container;
 
 class ExportMock extends \Pressbooks\Modules\Export\Export {
 
@@ -140,6 +141,117 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 		$this->assertStringStartsWith( 'deny from all', file_get_contents( $path . '.htaccess' ) );
 	}
 
+	public function test_getLatestExportStylePath() {
+
+		$this->_book();
+
+		$i = $this->export;
+
+		$css = '/* Silence is golden. */';
+
+		$css_files = [];
+
+		$timestamp1 = time();
+		$css_file1 = Container::get( 'Sass' )->pathToUserGeneratedCss() . "/prince-$timestamp1.css";
+		\Pressbooks\Utility\put_contents( $css_file1, $css );
+		$css_files[] = $css_file1;
+
+		$timestamp2 = time();
+		$css_file2 = Container::get( 'Sass' )->pathToUserGeneratedCss() . "/prince-$timestamp2.css";
+		\Pressbooks\Utility\put_contents( $css_file1, $css );
+		$css_files[] = $css_file2;
+
+		$latest = $i->getLatestExportStylePath( 'prince' );
+		$this->assertEquals( Container::get( 'Sass' )->pathToUserGeneratedCss() . '/prince-' . $timestamp2 . '.css', $latest );
+
+		foreach ( $css_files as $file ) {
+			if ( file_exists( $file ) ) {
+				unlink( $file );
+			}
+		}
+	}
+
+	public function test_getLatestExportStyleUrl() {
+
+		$this->_book();
+
+		$i = $this->export;
+
+		$css = '/* Silence is golden. */';
+
+		$css_files = [];
+
+		$timestamp1 = time();
+		$css_file1 = Container::get( 'Sass' )->pathToUserGeneratedCss() . "/prince-$timestamp1.css";
+		\Pressbooks\Utility\put_contents( $css_file1, $css );
+		$css_files[] = $css_file1;
+
+		$timestamp2 = time();
+		$css_file2 = Container::get( 'Sass' )->pathToUserGeneratedCss() . "/prince-$timestamp2.css";
+		\Pressbooks\Utility\put_contents( $css_file2, $css );
+		$css_files[] = $css_file2;
+
+		$latest = $i->getLatestExportStyleUrl( 'prince' );
+		$this->assertEquals( network_home_url( sprintf( '/wp-content/uploads/sites/%d/pressbooks/css/prince-%d.css', get_current_blog_id(), $timestamp2 ) ), $latest );
+
+		foreach ( $css_files as $file ) {
+			if ( file_exists( $file ) ) {
+				unlink( $file );
+			}
+		}
+	}
+
+	public function test_truncateExportStylesheets() {
+
+		$this->_book();
+
+		$i = $this->export;
+
+		$css = '/* Silence is golden. */';
+
+		$css_files = [];
+
+		$timestamp1 = time();
+		$css_file1 = Container::get( 'Sass' )->pathToUserGeneratedCss() . "/prince-$timestamp1.css";
+		\Pressbooks\Utility\put_contents( $css_file1, $css );
+		$css_files[] = $css_file1;
+
+		$timestamp2 = time();
+		$css_file2 = Container::get( 'Sass' )->pathToUserGeneratedCss() . "/prince-$timestamp2.css";
+		\Pressbooks\Utility\put_contents( $css_file2, $css );
+		$css_files[] = $css_file2;
+
+		$timestamp3 = time();
+		$css_file3 = Container::get( 'Sass' )->pathToUserGeneratedCss() . "/prince-$timestamp3.css";
+		\Pressbooks\Utility\put_contents( $css_file3, $css );
+		$css_files[] = $css_file3;
+
+		$timestamps = [ $timestamp1, $timestamp2, $timestamp3 ];
+		rsort( $timestamps );
+
+		$files = scandir( Container::get( 'Sass' )->pathToUserGeneratedCss() );
+
+		$i->truncateExportStylesheets( 'prince' );
+
+		$files = scandir( Container::get( 'Sass' )->pathToUserGeneratedCss() );
+
+		for ( $i = 0; $i < 3; $i++ ) {
+			$t = $timestamps[ $i ];
+			if ( $i == 0 ) {
+				$this->assertTrue( in_array( "prince-$t.css", $files, true ) );
+			} else {
+				$this->assertTrue( in_array( "prince-$t.css", $files, true ) );
+			}
+		}
+
+		foreach ( $css_files as $file ) {
+			if ( file_exists( $file ) ) {
+				unlink( $file );
+			}
+		}
+	}
+
+
 	public function test_filters_useDocraptorInsteadOfPrince() {
 		$filters = new \Pressbooks\Modules\Export\Prince\Filters();
 		$this->assertTrue( is_bool( $filters->overridePrince() ) );
@@ -254,7 +366,7 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 		}
 		$timestamp = time();
 		$css = '/* Silence is golden. */';
-		$css_file = \Pressbooks\Container::get( 'Sass' )->pathToUserGeneratedCss() . "/prince-$timestamp.css";
+		$css_file = Container::get( 'Sass' )->pathToUserGeneratedCss() . "/prince-$timestamp.css";
 		\Pressbooks\Utility\put_contents( $css_file, $css );
 
 		$exporter = new \Pressbooks\Modules\Export\Xhtml\Xhtml11( [] );
