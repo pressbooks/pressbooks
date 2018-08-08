@@ -1281,7 +1281,7 @@ class Cloner {
 				foreach ( [ 'front-matter', 'part', 'chapter', 'back-matter' ] as $post_type ) {
 					// Add book path (cloning from subdomain to subdirectory)
 					if ( str_starts_with( $href, "/$post_type/" ) ) {
-						$href = str_replace( "/$post_type/", "/$target_path/$post_type/" , $href );
+						$href = str_replace( "/$post_type/", "/$target_path/$post_type/", $href );
 					}
 				}
 			}
