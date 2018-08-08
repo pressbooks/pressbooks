@@ -118,7 +118,7 @@ class Pdf extends Export {
 
 		// CSS File
 		$css = $this->kneadCss();
-		$css_file = \Pressbooks\Container::get( 'Sass' )->pathToUserGeneratedCss() . '/pdf.css';
+		$css_file = \Pressbooks\Container::get( 'Sass' )->pathToUserGeneratedCss() . '/prince.css';
 		\Pressbooks\Utility\put_contents( $css_file, $css );
 
 		// --------------------------------------------------------------------

@@ -20,7 +20,7 @@ class Docraptor extends Pdf {
 	public function __construct( array $args ) {
 
 		parent::__construct( $args );
-		$this->url .= '&style=docraptor&script=prince';
+		$this->url .= '&style=prince&script=prince';
 	}
 
 
@@ -51,7 +51,7 @@ class Docraptor extends Pdf {
 
 		// CSS
 		$css = $this->kneadCss();
-		$css_file = \Pressbooks\Container::get( 'Sass' )->pathToUserGeneratedCss() . '/pdf.css';
+		$css_file = \Pressbooks\Container::get( 'Sass' )->pathToUserGeneratedCss() . '/prince.css';
 		\Pressbooks\Utility\put_contents( $css_file, $css );
 
 		// --------------------------------------------------------------------
