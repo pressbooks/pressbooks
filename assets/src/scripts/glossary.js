@@ -90,7 +90,6 @@
                     tinymce.activeEditor.windowManager.open({
 
                         title: 'Glossary terms',
-                        data: {},
                         width: 500,
                         height: 100,
 
@@ -119,9 +118,15 @@
                                 value: listValue
                             },
                         ],
+                        // insert the short-code with the associated term ID
                         onsubmit: function (e) {
-                            // insert the shortcode with the corresponsding term ID
-                            ed.selection.setContent('[pb_glossary' + ' id="' + termID(e.data.terms) + '"]' + e.data.terms + '[/pb_glossary]');
+                            // if term exists, replace their selection with the short-code
+                            if (mySelection === e.data.terms) {
+                                ed.selection.setContent('[pb_glossary' + ' id="' + termID(e.data.terms) + '"]' + e.data.terms + '[/pb_glossary]');
+                            } else {
+                                // prepend the short-code with their selection to avoid over-writing it
+                                ed.selection.setContent(mySelection + ' [pb_glossary' + ' id="' + termID(e.data.terms) + '"]' + e.data.terms + '[/pb_glossary]');
+                            }
                         },
                     },);
 
