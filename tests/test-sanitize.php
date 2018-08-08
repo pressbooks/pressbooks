@@ -356,4 +356,39 @@ RAW;
 		$this->assertEquals( trim( $raw ), trim( $var ) );
 	}
 
+	public function test_reverse_wpautop_accuracy() {
+		$raw = <<< RAW
+<strong>media attribution needs to be turned on in the Theme options.</strong>
+
+This leads to a footnote[footnote]This is the footnote content. [/footnote].
+
+This leads to another footnote[footnote]This is footnote number two. [/footnote].
+
+[caption id="attachment_154" align="alignnone" width="300"]<img class="wp-image-154 size-medium" src="https://textopress.com/app/uploads/sites/24/2018/06/image1-300x88.png" alt="" width="300" height="88" /> Testing caption added on Edit Image Details box from the visual editor[/caption]
+
+<img class="size-medium wp-image-68 alignnone" src="https://textopress.com/app/uploads/sites/24/2018/03/IMG_20171121_123034975_HDR-300x225.jpg" alt="" width="300" height="225" />
+
+[caption id="attachment_34" align="alignnone" width="300"]<img class="size-medium wp-image-34" src="https://textopress.com/app/uploads/sites/24/2018/03/photo6012480574452771640-300x225.jpg" alt="Image alt text goes here" width="300" height="225" /> This is the image caption[/caption]
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer rutrum risus eu eros dapibus, eu tempor ligula tempus. Suspendisse viverra accumsan ipsum, nec suscipit justo semper imperdiet. Integer a mattis ipsum. Vivamus eu porttitor tellus. Praesent convallis ultrices lobortis. Sed at justo ullamcorper, accumsan orci vel, condimentum lacus. Praesent dictum erat pretium auctor tempus. Nulla tempus efficitur viverra. Nulla vel pulvinar dui. Sed id pretium ex.
+<blockquote>Curabitur quis sapien eleifend, hendrerit arcu at, consequat justo. Etiam pretium, enim ac sodales ultrices, eros risus condimentum elit, et ornare ipsum purus eu eros. Aenean dolor ante, dapibus quis tempor vitae, bibendum et risus. Duis sit amet odio sed tellus tempor pretium imperdiet eget odio. Curabitur ac eleifend nisi. [footnote]<strong>Issue regarding styling/size of footnotes inside blockquotes</strong>. Suspendisse vel lacus egestas, elementum ante sit amet, finibus elit. Cras non leo eleifend, dapibus mauris in, porttitor risus. Sed a leo id nisi vulputate auctor ac in nisi. Nullam ultricies, ex at ornare placerat, sapien augue eleifend ex, a ullamcorper dolor risus vel lorem.[/footnote]</blockquote>
+Quisque pulvinar in dolor vitae pharetra. Vestibulum condimentum ligula ac arcu fringilla efficitur. Fusce nec odio a tortor rutrum tristique. Ut pretium imperdiet urna, non viverra eros pulvinar non. [footnote]More footnotes. Donec tristique purus nec sollicitudin placerat. Donec bibendum mi ut massa vehicula gravida. Nullam sit amet diam ex.[/footnote]
+
+[media_attributions id='34']
+
+[media_attributions id='68']
+
+<strong>2 media attribution shortcodes right above this line.</strong>
+
+[media_attributions id='154']
+
+<strong>1 Media attribution shortcode right above this line.</strong>
+
+Nulla mollis neque vel nibh auctor dignissim. Proin in lacinia quam. Aliquam erat volutpat. Maecenas tincidunt, eros quis faucibus posuere, metus urna rutrum dui, sed suscipit diam odio quis neque. Vestibulum gravida justo sit amet nulla vestibulum, eget tincidunt leo bibendum.
+RAW;
+
+		$reversed = \Pressbooks\Sanitize\reverse_wpautop( wpautop( $raw ) );
+		$this->assertEquals( normalize_whitespace( $raw ), normalize_whitespace( $reversed ) );
+	}
+
 }
