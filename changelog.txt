@@ -1,4 +1,13 @@
 == Changelog ==
+= 5.4.5 =
+
+* Pressbooks 5.4.5 requires [WordPress 4.9.7](https://wordpress.org/news/2018/07/wordpress-4-9-7-security-and-maintenance-release/).
+* Pressbooks 5.4.5 requires [McLuhan >= 2.4.0](https://github.com/pressbooks/pressbooks-book/).
+
+**Patches**
+
+* Ensure that default paragraph separation is respected in webbooks ([#1303](https://github.com/pressbooks/pressbooks/issues/1303)): [742e8b9](https://github.com/pressbooks/pressbooks/commit/742e8b973aae5088dfe6b674e6a76ad34ff8b462)
+
 = 5.4.4 =
 
 * Pressbooks 5.4.4 requires [WordPress 4.9.7](https://wordpress.org/news/2018/07/wordpress-4-9-7-security-and-maintenance-release/).

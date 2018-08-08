@@ -225,7 +225,6 @@ class Glossary {
 	function addGlossaryPlugin( $plugin_array ) {
 		$assets = new Assets( 'pressbooks', 'plugin' );
 		$plugin_array['glossary'] = $assets->getPath( 'scripts/glossary.js' );
-		$plugin_array['glossary_all'] = $assets->getPath( 'scripts/glossary_all.js' );
 
 		return $plugin_array;
 	}

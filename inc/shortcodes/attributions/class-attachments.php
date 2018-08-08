@@ -249,7 +249,7 @@ class Attachments {
 									'<a rel="license" href="%1$s">%2$s</a>',
 									$licensing->getUrlForLicense( $attribution['license'] ),
 									$supported[ $attribution['license'] ]['desc']
-								) : $supported[ $attribution['license'] ]['desc']
+								) : ''
 						)
 					);
 				}
