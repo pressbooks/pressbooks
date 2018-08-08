@@ -39,6 +39,10 @@ class ApiTest extends \WP_UnitTestCase {
 			'/pressbooks/v2/back-matter/999/metadata',
 			'/pressbooks/v2/back-matter/999/revisions',
 			'/pressbooks/v2/metadata',
+			'/pressbooks/v2/glossary',
+			'/pressbooks/v2/glossary-type',
+			'/pressbooks/v2/glossary/999/metadata',
+			'/pressbooks/v2/glossary/999/revisions',
 			'/pressbooks/v2/toc',
 		];
 		$server = $this->_setupBookApi();
@@ -58,6 +62,7 @@ class ApiTest extends \WP_UnitTestCase {
 			'/wp/v2/front-matter-type',
 			'/wp/v2/chapter-type',
 			'/wp/v2/back-matter-type',
+			'/wp/v2/glossary-type',
 			'/pressbooks/v2/parts/999/metadata',
 		];
 		$server = $this->_setupBookApi();

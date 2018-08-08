@@ -204,6 +204,7 @@ function hide_endpoints_from_book( $endpoints ) {
 			( strpos( $key, '/wp/v2/front-matter-type' ) === 0 ) ||
 			( strpos( $key, '/wp/v2/chapter-type' ) === 0 ) ||
 			( strpos( $key, '/wp/v2/back-matter-type' ) === 0 ) ||
+			( strpos( $key, '/wp/v2/glossary-type' ) === 0 ) ||
 			( strpos( $key, '/wp/v2/license' ) === 0 ) ||
 			( strpos( $key, '/wp/v2/contributor' ) === 0 ) ||
 			( strpos( $key, '/wp/v2' ) === 0 && strpos( $key, '/revisions' ) !== false )

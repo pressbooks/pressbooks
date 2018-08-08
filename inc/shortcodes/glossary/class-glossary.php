@@ -141,10 +141,14 @@ class Glossary {
 		$glossary = '';
 		$terms = self::$glossary_terms;
 
-		// make sure they are sorted in alphabetical order
-		ksort( $terms, SORT_LOCALE_STRING );
+		if ( empty( $terms ) ) {
+			return '';
+		}
 
-		if ( count( $terms ) > 0 ) {
+		// make sure they are sorted in alphabetical order
+		$ok = ksort( $terms, SORT_LOCALE_STRING );
+
+		if ( true === $ok && count( $terms ) > 0 ) {
 			foreach ( $terms as $key => $value ) {
 				$glossary .= sprintf(
 					'<dt data-type="glossterm"><dfn id="%1$s">%2$s</dfn></dt><dd data-type="glossdef">%3$s</dd>',

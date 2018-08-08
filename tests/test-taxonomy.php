@@ -55,6 +55,7 @@ class TaxonomyTest extends \WP_UnitTestCase {
 			'front-matter-type',
 			'back-matter-type',
 			'chapter-type',
+			'glossary-type',
 			'contributor',
 			'license',
 		];
@@ -86,6 +87,7 @@ class TaxonomyTest extends \WP_UnitTestCase {
 	public function test_getters() {
 		$this->assertEquals( 'miscellaneous', $this->taxonomy->getFrontMatterType( 999 ) );
 		$this->assertEquals( 'miscellaneous', $this->taxonomy->getBackMatterType( 999 ) );
+		$this->assertEquals( 'miscellaneous', $this->taxonomy->getGlossaryType( 999 ) );
 		$this->assertEquals( 'standard', $this->taxonomy->getChapterType( 999 ) );
 	}
 
