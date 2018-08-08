@@ -1269,6 +1269,7 @@ class Cloner {
 		// Get links, loop through
 		$links = $dom->getElementsByTagName( 'a' );
 		foreach ( $links as $link ) {
+			/** @var \DOMElement $link */
 			$href = $link->getAttribute( 'href' );
 			if ( is_subdomain_install() && str_starts_with( $href, "/$source_path/" ) ) {
 				// Remove book path (cloning from subdirectory to subdomain)
