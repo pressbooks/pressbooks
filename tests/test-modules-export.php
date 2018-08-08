@@ -252,6 +252,10 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 		if ( ! defined( 'WP_DEBUG' ) ) {
 			define( 'WP_DEBUG', true );
 		}
+		$timestamp = time();
+		$css = '/* Silence is golden. */';
+		$css_file = \Pressbooks\Container::get( 'Sass' )->pathToUserGeneratedCss() . "/prince-$timestamp.css";
+		\Pressbooks\Utility\put_contents( $css_file, $css );
 
 		$exporter = new \Pressbooks\Modules\Export\Xhtml\Xhtml11( [] );
 		$this->assertTrue( $exporter->convert() );
