@@ -248,7 +248,7 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 		( new \Pressbooks\Contributors() )->insert( 'Ned Zimmerman', $meta_post->ID );
 		$user_id = $this->factory()->user->create( [ 'role' => 'contributor' ] );
 		wp_set_current_user( $user_id );
-		$_GET['debug'] = 'prince';
+		$_GET['debug'] = 'pdf';
 		if ( ! defined( 'WP_DEBUG' ) ) {
 			define( 'WP_DEBUG', true );
 		}
@@ -257,7 +257,7 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 		$this->assertTrue( $exporter->convert() );
 		$this->assertTrue( $exporter->validate() );
 		$xhtml_content = file_get_contents( $exporter->getOutputPath() );
-		$url = network_home_url( sprintf( '/wp-content/uploads/sites/%d/pressbooks/scss-debug/prince.css', get_current_blog_id() ) );
+		$url = network_home_url( sprintf( '/wp-content/uploads/sites/%d/pressbooks/css/pdf.css', get_current_blog_id() ) );
 		$this->assertContains( "<link rel='stylesheet' href='$url' type='text/css' />", $xhtml_content );
 		unlink( $exporter->getOutputPath() );
 	}

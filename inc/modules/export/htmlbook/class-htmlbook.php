@@ -237,7 +237,7 @@ class HTMLBook extends Export {
 		if ( is_super_admin( get_current_user_id() ) || WP_DEBUG ) {
 			if ( ! empty( $_GET['debug'] ) ) {
 				$assets = new Assets( 'pressbooks', 'plugin' );
-				$css = get_generated_content_url( '/scss-debug' ) . '/' . clean_filename( $_GET['debug'] ) . '.css';
+				$css = Container::get( 'Sass' )->urlToUserGeneratedCss() . '/' . clean_filename( $_GET['debug'] ) . '.css';
 				$js = $assets->getPath( 'scripts/paged.polyfill.js' );
 				echo "<link rel='stylesheet' href='$css' type='text/css' />\n";
 				echo "<script src='$js'></script>\n";

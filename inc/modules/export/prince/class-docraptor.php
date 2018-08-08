@@ -51,7 +51,7 @@ class Docraptor extends Pdf {
 
 		// CSS
 		$css = $this->kneadCss();
-		$css_file = \Pressbooks\Container::get( 'Sass' )->pathToUserGeneratedCss() . '/docraptor.css';
+		$css_file = \Pressbooks\Container::get( 'Sass' )->pathToUserGeneratedCss() . '/pdf.css';
 		\Pressbooks\Utility\put_contents( $css_file, $css );
 
 		// --------------------------------------------------------------------
