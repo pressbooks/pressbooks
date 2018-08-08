@@ -88,7 +88,12 @@
 
                     // display the UI
                     tinymce.activeEditor.windowManager.open({
+
                         title: 'Glossary terms',
+                        data: {},
+                        width: 500,
+                        height: 100,
+
                         buttons: [{
                             text: 'Insert',
                             subtype: 'primary',
@@ -114,12 +119,10 @@
                                 value: listValue
                             },
                         ],
-                        onsubmit: function () {
-                            // set the shortcode value to whatever the value of the listbox is when inserted
-                            ed.selection.setContent('[pb_glossary' + ' id="' + termID(mySelection) + '"]' + listValue + '[/pb_glossary]');
+                        onsubmit: function (e) {
+                            // insert the shortcode with the corresponsding term ID
+                            ed.selection.setContent('[pb_glossary' + ' id="' + termID(e.data.terms) + '"]' + e.data.terms + '[/pb_glossary]');
                         },
-                        width: 500,
-                        height: 100,
                     },);
 
                     // insert the short-code with the id as an attribute
