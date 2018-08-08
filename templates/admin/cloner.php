@@ -22,12 +22,15 @@ if ( is_subdomain_install() ) {
 			</tr>
 			<tr>
 				<th scope=row><?php _e( 'Target Book URL', 'pressbooks' ); ?></th>
-				<td><?php printf(
-					$template_string,
-					'<input class="regular-text code" name="target_book_url" />'
-				); ?></td>
+				<td>
+					<?php
+					printf(
+						$template_string,
+						'<input class="regular-text code" name="target_book_url" />'
+					);
+				?></td>
 			</tr>
 		</table>
+		<p><input id="pb-cloner-button" class="button button-primary" type="submit" value="<?php _e( 'Clone It!', 'pressbooks' ); ?>" /><span id="loader" class="loading-content"><span class="spinner"></span></span></p>
 	</form>
-	<p><input id="pb-cloner-button" class="button button-primary" type="submit" value="<?php _e( 'Clone It!', 'pressbooks' ); ?>" /><span id="loader" class="loading-content"><span class="spinner"></span></span></p>
 </div>

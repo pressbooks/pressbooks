@@ -17,6 +17,9 @@ use function Pressbooks\Utility\getset;
 use function Pressbooks\Utility\oxford_comma_explode;
 use function Pressbooks\Utility\str_ends_with;
 use function Pressbooks\Utility\str_lreplace;
+use function Pressbooks\Utility\str_remove_prefix;
+use function Pressbooks\Utility\str_starts_with;
+
 use Masterminds\HTML5;
 use Pressbooks\Admin\Network\SharingAndPrivacyOptions;
 
@@ -895,6 +898,9 @@ class Cloner {
 		$dom = $media['dom'];
 		$attachments = $media['attachments'];
 
+		// Fix internal links
+		$dom = $this->fixInternalLinks( $dom );
+
 		// Save the destination content
 		$content = $html5->saveHTML( $dom );
 
@@ -1248,6 +1254,45 @@ class Cloner {
 	 */
 	protected function sameAsSource( $url ) {
 		return \Pressbooks\Utility\urls_have_same_host( $this->sourceBookUrl, $url );
+	}
+
+	/**
+	 * @param \DOMDocument $dom
+	 *
+	 * @return \DOMDocument
+	 */
+	protected function fixInternalLinks( $dom ) {
+		// Setup
+		$source_path = $this->getSubdomainOrSubdirectory( $this->sourceBookUrl );
+		$target_path = $this->getSubdomainOrSubdirectory( $this->targetBookUrl );
+
+		// Get links, loop through
+		$links = $dom->getElementsByTagName( 'a' );
+		foreach ( $links as $link ) {
+			$href = $link->getAttribute( 'href' );
+			if ( is_subdomain_install() && str_starts_with( $href, "/$source_path/" ) ) {
+				// Remove book path (cloning from subdirectory to subdomain)
+				$href = str_remove_prefix( $href, "/$source_path" );
+			} else {
+				if ( str_starts_with( $href, "/$source_path/" ) ) {
+					// Replace book path (cloning from subdirectory to subdirectory)
+					$href = str_replace( "/$source_path/", "/$target_path/", $href );
+				}
+				foreach ( [ 'front-matter', 'part', 'chapter', 'back-matter' ] as $post_type ) {
+					// Add book path (cloning from subdomain to subdirectory)
+					if ( str_starts_with( $href, "/$post_type/" ) ) {
+						$href = str_replace( "/$post_type/", "/$target_path/$post_type/", $href );
+					}
+				}
+			}
+			// Fix absolute URLs
+			$href = str_replace( untrailingslashit( $this->sourceBookUrl ), untrailingslashit( $this->targetBookUrl ), $href );
+
+			// Update href attribute with new href
+			$link->setAttribute( 'href', $href );
+		}
+
+		return $dom;
 	}
 
 	/**
