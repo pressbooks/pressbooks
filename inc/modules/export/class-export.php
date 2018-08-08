@@ -7,6 +7,7 @@
 namespace Pressbooks\Modules\Export;
 
 use function \Pressbooks\Utility\getset;
+use function \Pressbooks\Utility\scandir_by_date;
 use Pressbooks\Container;
 use Pressbooks\CustomCss;
 
@@ -114,6 +115,59 @@ abstract class Export {
 		return $fullpath;
 	}
 
+	/**
+	 * Return the fullpath to an export format's latest compiled stylesheet.
+	 *
+	 * @param string $type
+	 *
+	 * @return string
+	 */
+	function getLatestExportStylePath( $type ) {
+		foreach ( scandir_by_date( Container::get( 'Sass' )->pathToUserGeneratedCss() ) as $file ) {
+			if ( preg_match( '/(' . $type . ')-([0-9]*)/', $file, $matches ) ) {
+				return Container::get( 'Sass' )->pathToUserGeneratedCss() . "/$type-{$matches[2]}.css";
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * Return the URL to an export format's latest compiled stylesheet.
+	 *
+	 * @param string $type
+	 *
+	 * @return string
+	 */
+	function getLatestExportStyleUrl( $type ) {
+		foreach ( scandir_by_date( Container::get( 'Sass' )->pathToUserGeneratedCss() ) as $file ) {
+			if ( preg_match( '/(' . $type . ')-([0-9]*)/', $file, $matches ) ) {
+				return Container::get( 'Sass' )->urlToUserGeneratedCss() . "/$type-{$matches[2]}.css";
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * Remove all but the most recent compiled stylesheet.
+	 *
+	 * @param string $type
+	 * @param int $max
+	 */
+	function truncateExportStylesheets( $type, $max = 1 ) {
+		$stylesheets = scandir_by_date( Container::get( 'Sass' )->pathToUserGeneratedCss() );
+		$max = absint( $max );
+		$i = 1;
+		foreach ( $stylesheets as $stylesheet ) {
+			if ( preg_match( '/(' . $type . ')-([0-9]*)/', $stylesheet, $matches ) ) {
+				if ( $i > $max ) {
+					unlink( Container::get( 'Sass' )->pathToUserGeneratedCss() . '/' . $stylesheet );
+				}
+				$i++;
+			}
+		}
+	}
 
 	/**
 	 * Return the fullpath to an export module's Javascript file.

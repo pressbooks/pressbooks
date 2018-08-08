@@ -257,8 +257,8 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 		$this->assertTrue( $exporter->convert() );
 		$this->assertTrue( $exporter->validate() );
 		$xhtml_content = file_get_contents( $exporter->getOutputPath() );
-		$url = network_home_url( sprintf( '/wp-content/uploads/sites/%d/pressbooks/css/prince.css', get_current_blog_id() ) );
-		$this->assertContains( "<link rel='stylesheet' href='$url' type='text/css' />", $xhtml_content );
+		$url = network_home_url( sprintf( '/wp-content/uploads/sites/%d/pressbooks/css/prince-', get_current_blog_id() ) );
+		$this->assertContains( "<link rel='stylesheet' href='$url", $xhtml_content );
 		unlink( $exporter->getOutputPath() );
 	}
 }
