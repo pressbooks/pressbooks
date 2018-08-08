@@ -32,6 +32,9 @@ $is_book = Book::isBook();
 // Look & feel of admin interface and Dashboard
 // -------------------------------------------------------------------------------------------------------------------
 
+// Remove the Try Gutenberg panel
+remove_action( 'try_gutenberg_panel', 'wp_try_gutenberg_panel' );
+
 // PressBook-ify the admin bar
 add_action( 'admin_bar_menu', '\Pressbooks\Admin\Laf\replace_menu_bar_branding', 11 );
 add_action( 'admin_bar_menu', '\Pressbooks\Admin\Laf\replace_menu_bar_my_sites', 21 );
@@ -60,7 +63,6 @@ if ( $is_book ) {
 	add_filter( 'parent_file', '\Pressbooks\Admin\Laf\fix_parent_file' );
 	add_action( 'wp_dashboard_setup', '\Pressbooks\Admin\Dashboard\replace_dashboard_widgets' );
 	remove_action( 'welcome_panel', 'wp_welcome_panel' );
-	remove_action( 'try_gutenberg_panel', 'wp_try_gutenberg_panel' );
 	add_action( 'customize_register', '\Pressbooks\Admin\Laf\customize_register', 1000 );
 	add_filter( 'all_plugins', '\Pressbooks\Admin\Plugins\filter_plugins', 10 );
 	// Disable theme customizer

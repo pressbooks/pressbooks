@@ -146,11 +146,14 @@ class Glossary {
 
 		if ( count( $terms ) > 0 ) {
 			foreach ( $terms as $key => $value ) {
-				$glossary .= sprintf( '<dt data-type="glossterm"><dfn>%1$s</dfn></dt><dd data-type="glossdef">%2$s</dd>', $key, trim( $value['content'] ) );
+				$glossary .= sprintf(
+					'<dt data-type="glossterm"><dfn id="%1$s">%2$s</dfn></dt><dd data-type="glossdef">%3$s</dd>',
+					sprintf( 'dfn-%s', \Pressbooks\Utility\str_lowercase_dash( $key ) ), $key, trim( $value['content'] )
+				);
 			}
 		}
 		if ( ! empty( $glossary ) ) {
-			$output = sprintf( '<section data-type="glossary"><h1>Glossary</h1><dl data-type="glossary">%1$s</dl></section>', $glossary );
+			$output = sprintf( '<section data-type="glossary"><header><h2>%1$s</h2></header><dl data-type="glossary">%2$s</dl></section>', __( 'Glossary Terms', 'pressbooks' ), $glossary );
 		}
 
 		return $output;

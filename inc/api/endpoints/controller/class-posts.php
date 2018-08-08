@@ -70,7 +70,7 @@ class Posts extends \WP_REST_Posts_Controller {
 			$response->add_link( 'part', trailingslashit( rest_url( sprintf( '%s/%s', $this->namespace, 'parts' ) ) ) . $post->post_parent );
 		}
 
-		if ( in_array( $post->post_type, [ 'front-matter', 'chapter', 'back-matter' ], true ) ) {
+		if ( in_array( $post->post_type, [ 'front-matter', 'chapter', 'back-matter', 'glossary' ], true ) ) {
 			// Add rest link to metadata
 			$response->add_link( 'metadata', trailingslashit( rest_url( sprintf( '%s/%s/%d/metadata', $this->namespace, $this->rest_base, $post->ID ) ) ) );
 		}
@@ -180,7 +180,7 @@ class Posts extends \WP_REST_Posts_Controller {
 		if ( isset( $schema['properties']['meta'] ) ) {
 			$schema['properties']['meta']['context'][] = 'embed';
 		}
-		foreach ( [ 'front-matter-type', 'chapter-type', 'back-matter-type' ] as $taxonomy ) {
+		foreach ( [ 'front-matter-type', 'chapter-type', 'back-matter-type', 'glossary-type' ] as $taxonomy ) {
 			if ( isset( $schema['properties'][ $taxonomy ] ) ) {
 				$schema['properties'][ $taxonomy ]['context'][] = 'embed';
 			}

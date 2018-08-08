@@ -42,6 +42,7 @@ function init_book() {
 	( new Endpoints\Controller\SectionMetadata( 'front-matter' ) )->register_routes();
 	( new Endpoints\Controller\SectionMetadata( 'back-matter' ) )->register_routes();
 	( new Endpoints\Controller\SectionMetadata( 'chapter' ) )->register_routes();
+	( new Endpoints\Controller\SectionMetadata( 'glossary' ) )->register_routes();
 
 	foreach ( get_custom_post_types() as $post_type ) {
 		// Override Revisions routes for our custom post types

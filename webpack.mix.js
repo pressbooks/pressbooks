@@ -56,7 +56,10 @@ mix
 	.js( 'assets/src/scripts/theme-options.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/post-visibility.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/glossary.js', 'assets/dist/scripts/' )
-	.js( 'node_modules/pagedjs/lib/polyfill/polyfill.js', 'assets/dist/scripts/paged.polyfill.js' )
+	.js(
+		'node_modules/pagedjs/lib/polyfill/polyfill.js',
+		'assets/dist/scripts/paged.polyfill.js'
+	)
 	.scripts(
 		'node_modules/block-ui/jquery.blockUI.js',
 		'assets/dist/scripts/blockui.js'
@@ -77,6 +80,7 @@ mix
 		'node_modules/js-cookie/src/js.cookie.js',
 		'assets/dist/scripts/js-cookie.js'
 	)
+
 	.scripts(
 		'node_modules/select2/dist/js/select2.js',
 		'assets/dist/scripts/select2.js'
