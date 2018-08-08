@@ -24,31 +24,41 @@
                 return terms;
             }
 
-            // checks if the term exists, returns value or false if not found in glossary
-            function termMatch(mySelection) {
+            // compares the term to an existing key for a match, converts both to lowercase to be case insensitive
+            function termCompare(term) {
+                match = keys.filter(item => item.toLowerCase().indexOf(term.toLowerCase()) !== -1);
+                return match;
+            }
 
-                const matchingKeys = keys.filter(item => item.toLowerCase().indexOf(mySelection.toLowerCase()) !== -1);
+            // checks if the term exists, returns the value or false if not found
+            function termMatch(termname) {
 
-                if (typeof matchingKeys[0] === 'undefined') {
+                matchresults = termCompare(termname);
+
+                if (typeof matchresults[0] === 'undefined') {
                     return false;
                 } else {
-                    return matchingKeys[0];
+                    return matchresults[0];
                 }
             }
 
-            // gets the ID of a term in the glossary
-            function termID(mySelection) {
+            // returns the ID of a term in the glossary
+            function termID(termvalue) {
 
-                const matchingKeys = keys.filter(item => item.toLowerCase().indexOf(mySelection.toLowerCase()) !== -1);
+                match = termCompare(termvalue);
 
-                // get the id for the match, returns an empty array if none found
-                matchingID = matchingKeys.map(function (key) {
-                    return terms[key]['id']
-                });
+                if (typeof match[0] === 'undefined') {
+                    return '';
+                } else {
+                    // get the id for the match, returns an empty array if none found
+                    matchingID = match.map(function (key) {
+                        return terms[key]['id']
+                    });
 
-                // check if matchingID array does not exist, is not an array, or is empty
-                if (Array.isArray(matchingID) || matchingID.length) {
-                    return matchingID[0];
+                    // check if matchingID array does not exist, is not an array, or is empty
+                    if (Array.isArray(matchingID) || matchingID.length) {
+                        return matchingID[0];
+                    }
                 }
             }
 
