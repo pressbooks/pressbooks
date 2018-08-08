@@ -10,16 +10,15 @@
 			// get the keys
 			let keys = Object.keys( terms );
 
-			// get values for the combobox
+			// get values for the listbox
 			function getListTerms() {
 				let terms = [];
-				let termlist = {};
 
 				for ( let i of keys ) {
-					termlist = {};
-					termlist['text'] = i;
-					termlist['value'] = i;
-					terms.push( termlist );
+					let termList = {}
+					termList['text'] = i;
+					termList['value'] = i;
+					terms.push( termList );
 				}
 
 				return terms;
@@ -27,26 +26,26 @@
 
 			// compares the term to an existing key for a match, converts both to lowercase to be case insensitive
 			function termCompare( term ) {
-				let match = keys.filter( item => item.toLowerCase().indexOf( term.toLowerCase() ) !== -1 );
+				let match = keys.filter( item => item.toLowerCase().indexOf( term.toLowerCase().trim() ) !== -1 );
 				return match;
 			}
 
 			// checks if the term exists, returns the value or false if not found
-			function termMatch( termname ) {
+			function termMatch( termName ) {
 
-				let matchresults = termCompare( termname );
+				let matchResults = termCompare( termName );
 
-				if ( typeof matchresults[0] === 'undefined' ) {
+				if ( typeof matchResults[0] === 'undefined' ) {
 					return false;
 				} else {
-					return matchresults[0];
+					return matchResults[0];
 				}
 			}
 
 			// returns the ID of a term in the glossary
-			function termID( termvalue ) {
+			function termID( termValue ) {
 
-				let matches = termCompare( termvalue );
+				let matches = termCompare( termValue );
 
 				if ( typeof matches[0] === 'undefined' ) {
 					return '';
