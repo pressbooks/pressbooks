@@ -15,7 +15,7 @@
 				let terms = [];
 
 				for ( let i of keys ) {
-					let termList = {}
+					let termList = {};
 					termList['text'] = i;
 					termList['value'] = i;
 					terms.push( termList );
