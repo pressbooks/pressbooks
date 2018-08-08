@@ -17,6 +17,9 @@ use function Pressbooks\Utility\getset;
 use function Pressbooks\Utility\oxford_comma_explode;
 use function Pressbooks\Utility\str_ends_with;
 use function Pressbooks\Utility\str_lreplace;
+use function Pressbooks\Utility\str_remove_prefix;
+use function Pressbooks\Utility\str_starts_with;
+
 use Masterminds\HTML5;
 use Pressbooks\Admin\Network\SharingAndPrivacyOptions;
 
@@ -795,32 +798,8 @@ class Cloner {
 		// Set status
 		$section['status'] = 'publish';
 
-		// Load HTML snippet into DOMDocument
-		$html5 = new HTML5();
-		if ( ! empty( $section['content']['raw'] ) ) {
-			$dom = $html5->loadHTML( wpautop( $section['content']['raw'] ) );
-		} else {
-			$dom = $html5->loadHTML( $section['content']['rendered'] );
-		}
-
-		// Download images, change image paths
-		$media = $this->scrapeAndKneadImages( $dom );
-		$dom = $media['dom'];
-		$attachments = $media['attachments'];
-
-		$content = $html5->saveHTML( $dom );
-
-		unset( $html5, $dom, $media ); // premature optimization, try to free up memory
-
-		$content = \Pressbooks\Sanitize\strip_container_tags( $content ); // Remove auto-created <html> <body> and <!DOCTYPE> tags.
-		if ( ! empty( $section['content']['raw'] ) ) {
-			$content = \Pressbooks\Sanitize\reverse_wpautop( $content );
-			if ( ! $this->interactiveContent->isCloneable( $content ) ) {
-				$content = $this->interactiveContent->replaceCloneable( $content );
-			}
-		}
-
 		// Set title and content
+		list( $content, $attachments ) = $this->retrieveSectionContent( $section );
 		$section['title'] = $section['title']['rendered'];
 		$section['content'] = $content;
 
@@ -886,6 +865,60 @@ class Cloner {
 		}
 
 		return $response['id'];
+	}
+
+	/**
+	 * @param array $section
+	 *
+	 * @return array{content: string, attachments: array}
+	 */
+	protected function retrieveSectionContent( $section ) {
+		if ( ! empty( $section['content']['raw'] ) ) {
+			// Wrap in fake div tags so that we can parse it
+			$source_content = '<div><!-- pb_fixme -->' . $section['content']['raw'] . '<!-- pb_fixme --></div>';
+		} else {
+			$source_content = $section['content']['rendered'];
+		}
+
+		// According to the html5 spec section 8.3: https://www.w3.org/TR/2013/CR-html5-20130806/syntax.html#serializing-html-fragments
+		// We should replace any occurrences of the U+00A0 NO-BREAK SPACE character (aka "\xc2\xa0") by the string "&nbsp;" when serializing HTML5
+		// When cloning, we don't want to modify whitespaces, so we hide them from the parser.
+		$characters_to_keep = [ "\xc2\xa0" ];
+		foreach ( $characters_to_keep as $c ) {
+			$md5 = md5( $c );
+			$source_content = str_replace( $c, "<!-- pb_fixme_{$md5} -->", $source_content );
+		}
+
+		// Load source content
+		$html5 = new HTML5();
+		$dom = $html5->loadHTML( $source_content );
+
+		// Download images, change image paths
+		$media = $this->scrapeAndKneadImages( $dom );
+		$dom = $media['dom'];
+		$attachments = $media['attachments'];
+
+		// Fix internal links
+		$dom = $this->fixInternalLinks( $dom );
+
+		// Save the destination content
+		$content = $html5->saveHTML( $dom );
+
+		// Put back the hidden characters
+		foreach ( $characters_to_keep as $c ) {
+			$md5 = md5( $c );
+			$content = str_replace( "<!-- pb_fixme_{$md5} -->", $c, $content );
+		}
+
+		$content = \Pressbooks\Sanitize\strip_container_tags( $content ); // Remove auto-created <html> <body> and <!DOCTYPE> tags.
+		if ( ! empty( $section['content']['raw'] ) ) {
+			$content = str_replace( [ '<div><!-- pb_fixme -->', '<!-- pb_fixme --></div>' ], '', $content ); // Remove fake div tags
+			if ( ! $this->interactiveContent->isCloneable( $content ) ) {
+				$content = $this->interactiveContent->replaceCloneable( $content );
+			}
+		}
+
+		return [ trim( $content ), $attachments ];
 	}
 
 	/**
@@ -1221,6 +1254,46 @@ class Cloner {
 	 */
 	protected function sameAsSource( $url ) {
 		return \Pressbooks\Utility\urls_have_same_host( $this->sourceBookUrl, $url );
+	}
+
+	/**
+	 * @param \DOMDocument $dom
+	 *
+	 * @return \DOMDocument
+	 */
+	protected function fixInternalLinks( $dom ) {
+		// Setup
+		$source_path = $this->getSubdomainOrSubdirectory( $this->sourceBookUrl );
+		$target_path = $this->getSubdomainOrSubdirectory( $this->targetBookUrl );
+
+		// Get links, loop through
+		$links = $dom->getElementsByTagName( 'a' );
+		foreach ( $links as $link ) {
+			/** @var \DOMElement $link */
+			$href = $link->getAttribute( 'href' );
+			if ( is_subdomain_install() && str_starts_with( $href, "/$source_path/" ) ) {
+				// Remove book path (cloning from subdirectory to subdomain)
+				$href = str_remove_prefix( $href, "/$source_path" );
+			} else {
+				if ( str_starts_with( $href, "/$source_path/" ) ) {
+					// Replace book path (cloning from subdirectory to subdirectory)
+					$href = str_replace( "/$source_path/", "/$target_path/", $href );
+				}
+				foreach ( [ 'front-matter', 'part', 'chapter', 'back-matter' ] as $post_type ) {
+					// Add book path (cloning from subdomain to subdirectory)
+					if ( str_starts_with( $href, "/$post_type/" ) ) {
+						$href = str_replace( "/$post_type/", "/$target_path/$post_type/", $href );
+					}
+				}
+			}
+			// Fix absolute URLs
+			$href = str_replace( untrailingslashit( $this->sourceBookUrl ), untrailingslashit( $this->targetBookUrl ), $href );
+
+			// Update href attribute with new href
+			$link->setAttribute( 'href', $href );
+		}
+
+		return $dom;
 	}
 
 	/**

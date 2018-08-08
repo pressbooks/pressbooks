@@ -585,6 +585,7 @@ function is_valid_timestamp( $timestamp ) {
  * Reverse wpautop
  *
  * @see wpautop
+ * @see shortcode_unautop
  *
  * @param string $pee
  *
@@ -617,7 +618,53 @@ function reverse_wpautop( $pee ) {
 		$pee .= $last_pee;
 	}
 
-	$pee = shortcode_unautop( $pee );
+	// Code is the same as shortcode_unautop() but instead of ensuring shortcodes are not wrapped in `<p>...</p>`, we keep the trailing </p> for later
+	// @codingStandardsIgnoreStart
+	global $shortcode_tags;
+	if ( is_array( $shortcode_tags ) ) {
+		$tagregexp = join( '|', array_map( 'preg_quote', array_keys( $shortcode_tags ) ) );
+		$spaces = wp_spaces_regexp();
+
+		$pattern =
+			'/'
+			. '<p>'                              // Opening paragraph
+			. '(?:' . $spaces . ')*+'            // Optional leading whitespace
+			. '('                                // 1: The shortcode
+			.     '\\['                          // Opening bracket
+			.     "($tagregexp)"                 // 2: Shortcode name
+			.     '(?![\\w-])'                   // Not followed by word character or hyphen
+			// Unroll the loop: Inside the opening shortcode tag
+			.     '[^\\]\\/]*'                   // Not a closing bracket or forward slash
+			.     '(?:'
+			.         '\\/(?!\\])'               // A forward slash not followed by a closing bracket
+			.         '[^\\]\\/]*'               // Not a closing bracket or forward slash
+			.     ')*?'
+			.     '(?:'
+			.         '\\/\\]'                   // Self closing tag and closing bracket
+			.     '|'
+			.         '\\]'                      // Closing bracket
+			.         '(?:'                      // Unroll the loop: Optionally, anything between the opening and closing shortcode tags
+			.             '[^\\[]*+'             // Not an opening bracket
+			.             '(?:'
+			.                 '\\[(?!\\/\\2\\])' // An opening bracket not followed by the closing shortcode tag
+			.                 '[^\\[]*+'         // Not an opening bracket
+			.             ')*+'
+			.             '\\[\\/\\2\\]'         // Closing shortcode tag
+			.         ')?'
+			.     ')'
+			. ')'
+			. '(?:' . $spaces . ')*+'            // optional trailing whitespace
+			. '<\\/p>'                           // closing paragraph
+			. '/';
+
+		$pee = preg_replace( $pattern, '$1</p>', $pee );
+	}
+	// @codingStandardsIgnoreEnd
+
+	// Reverses "If a <blockquote> is wrapped with a <p>, move it inside the <blockquote>."
+	$pee = str_replace( '</p></blockquote>', '</blockquote></p>', $pee );
+
+	// Cheap and barely good enough...
 	$pee = str_replace( "\n", '', $pee );
 	$pee = str_replace( '<p>', '', $pee );
 	$pee = str_replace( [ '<br />', '<br>', '<br/>' ], "\n", $pee );
