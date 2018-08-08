@@ -24,12 +24,11 @@
                 return terms;
             }
 
-            // checks if the term exists, returns false if not found in glossary
+            // checks if the term exists, returns value or false if not found in glossary
             function termMatch(mySelection) {
 
-                matchingKeys = keys.filter(function (key) {
-                    return key.indexOf(mySelection) !== -1
-                });
+                const matchingKeys = keys.filter(item => item.toLowerCase().indexOf(mySelection.toLowerCase()) !== -1);
+
                 if (typeof matchingKeys[0] === 'undefined') {
                     return false;
                 } else {
@@ -40,10 +39,7 @@
             // gets the ID of a term in the glossary
             function termID(mySelection) {
 
-                // check if mySelection matches an existing term
-                matchingKeys = keys.filter(function (key) {
-                    return key.indexOf(mySelection) !== -1
-                });
+                const matchingKeys = keys.filter(item => item.toLowerCase().indexOf(mySelection.toLowerCase()) !== -1);
 
                 // get the id for the match, returns an empty array if none found
                 matchingID = matchingKeys.map(function (key) {
@@ -121,7 +117,7 @@
                         // insert the short-code with the associated term ID
                         onsubmit: function (e) {
                             // if term exists, replace their selection with the short-code
-                            if (mySelection === e.data.terms) {
+                            if (termMatch(mySelection) !== false) {
                                 ed.selection.setContent('[pb_glossary' + ' id="' + termID(e.data.terms) + '"]' + e.data.terms + '[/pb_glossary]');
                             } else {
                                 // prepend the short-code with their selection to avoid over-writing it
