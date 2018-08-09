@@ -6,8 +6,6 @@
 
 namespace Pressbooks\Modules\Export\HTMLBook;
 
-use function Pressbooks\Sanitize\clean_filename;
-use function Pressbooks\Utility\get_generated_content_url;
 use function Pressbooks\Utility\oxford_comma_explode;
 use Masterminds\HTML5;
 use PressbooksMix\Assets;
@@ -237,9 +235,11 @@ class HTMLBook extends Export {
 		if ( is_super_admin( get_current_user_id() ) || WP_DEBUG ) {
 			if ( ! empty( $_GET['debug'] ) ) {
 				$assets = new Assets( 'pressbooks', 'plugin' );
-				$css = get_generated_content_url( '/scss-debug' ) . '/' . clean_filename( $_GET['debug'] ) . '.css';
+				$css = ( $_GET['debug'] === 'prince' ) ? $this->getLatestExportStyleUrl( 'prince' ) : false;
 				$js = $assets->getPath( 'scripts/paged.polyfill.js' );
-				echo "<link rel='stylesheet' href='$css' type='text/css' />\n";
+				if ( $css ) {
+					echo "<link rel='stylesheet' href='$css' type='text/css' />\n";
+				}
 				echo "<script src='$js'></script>\n";
 			}
 		}
