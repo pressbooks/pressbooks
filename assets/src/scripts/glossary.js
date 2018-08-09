@@ -89,7 +89,7 @@
 					if ( termMatch( mySelection ) !== false ) {
 						listValue = termMatch( mySelection );
 					} else {
-						termExists = 'Glossary term <b>"' + mySelection + '"</b> not found.<br />Please create it, or select a term from the list below:';
+						termExists = 'Glossary term <b>"' + mySelection + '"</b> not found.<br />Please create it, or select a term from the list below to use that definition:';
 					}
 
 					// display the UI
@@ -124,14 +124,14 @@
 								value: listValue,
 							},
 						],
-						// insert the short-code with the associated term ID
+						// insert the short-code with the associated term ID as an attribute
 						onsubmit: function ( e ) {
-							// if term exists, replace their selection with the short-code
-							if ( termMatch( mySelection ) !== false ) {
-								ed.selection.setContent( '[pb_glossary id="' + termID( e.data.terms ) + '"]' + e.data.terms + '[/pb_glossary]' );
+							if ( mySelection !== '' ) {
+								// if there's a highlighted selection, use that as the text
+								ed.selection.setContent( '[pb_glossary id="' + termID( e.data.terms ) + '"]' + mySelection + '[/pb_glossary]' );
 							} else {
-								// prepend the short-code with their selection to avoid over-writing it
-								ed.selection.setContent( mySelection + ' [pb_glossary id="' + termID( e.data.terms ) + '"]' + e.data.terms + '[/pb_glossary]' );
+								// otherwise, use the value of the listbox as the text
+								ed.selection.setContent( '[pb_glossary id="' + termID( e.data.terms ) + '"]' + e.data.terms + '[/pb_glossary]' );
 							}
 						},
 					}, );
