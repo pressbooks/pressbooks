@@ -156,11 +156,11 @@ class Sass {
 
 		try {
 			$css = '/* Silence is golden. */'; // If no SCSS input was passed, prevent file write errors by putting a comment in the CSS output.
-			$sass = new \Leafo\ScssPhp\Compiler;
+			$scssphp = new \Leafo\ScssPhp\Compiler;
 			if ( ! empty( $scss ) || ! empty( $this->vars ) ) {
-				$sass->setVariables( $this->vars );
-				$sass->setImportPaths( $includes );
-				$css = $sass->compile( $scss );
+				$scssphp->setVariables( $this->vars );
+				$scssphp->setImportPaths( $includes );
+				$css = $scssphp->compile( $scss );
 				$this->vars = []; // Reset
 			}
 		} catch ( \Exception $e ) {
