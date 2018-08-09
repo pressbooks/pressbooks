@@ -326,13 +326,6 @@ class Wxr extends Import {
 			}
 		}
 
-		// Glossary
-		foreach ( $xml as $p ) {
-			if ( 'glossary' === $p['post_type'] ) {
-				$array[] = $p;
-			}
-		}
-
 		//now, list all front matter
 		foreach ( $xml as $p ) {
 			if ( 'front-matter' === $p['post_type'] ) {
@@ -355,6 +348,13 @@ class Wxr extends Import {
 		//now, list all back matter
 		foreach ( $xml as $p ) {
 			if ( 'back-matter' === $p['post_type'] ) {
+				$array[] = $p;
+			}
+		}
+
+		// Glossary
+		foreach ( $xml as $p ) {
+			if ( 'glossary' === $p['post_type'] ) {
 				$array[] = $p;
 			}
 		}

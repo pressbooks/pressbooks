@@ -86,6 +86,7 @@ $import_option_types = apply_filters( 'pb_select_import_type', [
 				<th style="width:10%;"><?php _e( 'Part', 'pressbooks' ); ?></th>
 				<?php } ?>
 				<th style="width:10%;"><?php _e( 'Back Matter', 'pressbooks' ); ?></th>
+				<th style="width:10%;"><?php _e( 'Glossary', 'pressbooks' ); ?></th>
 				<?php if ( has_filter( 'pb_import_custom_post_types' ) ) { ?>
 				<th style="width:10%;"><?php _e( 'Other', 'pressbooks' ); ?></th>
 				<?php } ?>
@@ -102,10 +103,6 @@ $import_option_types = apply_filters( 'pb_select_import_type', [
 						<td><label for="selective_import_<?php echo $i; ?>"><em>(<?php echo __( 'Book Information', 'pressbooks' ); ?>)</em></label></td>
 						<td colspan="<?php echo $colspan; ?>"><input type="hidden" name='chapters[<?php echo $key; ?>][type]' value="metadata" /></td>
 					<?php }
-					elseif ( isset( $current_import['post_types'][ $key ] ) && 'glossary' == $current_import['post_types'][ $key ] ) { ?>
-					<td><label for="selective_import_<?php echo $i; ?>"><em>(<?php echo __( 'Glossary', 'pressbooks' ); ?>)</em></label></td>
-					<td colspan="<?php echo $colspan; ?>"><input type="hidden" name='chapters[<?php echo $key; ?>][type]' value="glossary" /></td>
-					<?php }
 					else { ?>
 						<td><label for="selective_import_<?php echo $i; ?>"><?php echo $chapter; ?></label></td>
 						<td><input type='radio' name='chapters[<?php echo $key; ?>][type]' value='front-matter' <?php checked( isset( $current_import['post_types'][ $key ] ) && 'front-matter' == $current_import['post_types'][ $key ] );?>></td>
@@ -114,6 +111,7 @@ $import_option_types = apply_filters( 'pb_select_import_type', [
 						<td><input type='radio' name='chapters[<?php echo $key; ?>][type]' value='part' <?php checked( isset( $current_import['post_types'][ $key ] ) && 'part' == $current_import['post_types'][ $key ] );?>></td>
 						<?php } ?>
 						<td><input type='radio' name='chapters[<?php echo $key; ?>][type]' value='back-matter' <?php checked( isset( $current_import['post_types'][ $key ] ) && 'back-matter' == $current_import['post_types'][ $key ] );?>></td>
+						<td><input type='radio' name='chapters[<?php echo $key; ?>][type]' value='glossary' <?php checked( isset( $current_import['post_types'][ $key ] ) && 'glossary' == $current_import['post_types'][ $key ] );?>></td>
 						<?php if ( has_filter( 'pb_import_custom_post_types' ) ) { ?>
 						<td><input type='radio' name='chapters[<?php echo $key; ?>][type]' value='<?php echo $current_import['post_types'][ $key ] ?>' <?php checked( isset( $current_import['post_types'][ $key ] ) && in_array( $current_import['post_types'][ $key ], $custom_post_types ) );?>></td>
 						<?php } ?>
