@@ -288,10 +288,15 @@ add_filter( 'wp_mail_from', '\Pressbooks\Utility\mail_from' );
 add_filter( 'wp_mail_from_name', '\Pressbooks\Utility\mail_from_name' );
 
 // -------------------------------------------------------------------------------------------------------------------
-// Custom Styles
+// (Custom) Styles
 // -------------------------------------------------------------------------------------------------------------------
 
 Container::get( 'Styles' )->init();
+
+if ( $is_book ) {
+	// Overrides (sometimes a web stylesheet update will be triggered by a visitor so this filter needs to be active outside of the admin)
+	add_filter( 'pb_web_css_override', [ '\Pressbooks\Modules\ThemeOptions\WebOptions', 'scssOverrides' ] );
+}
 
 // -------------------------------------------------------------------------------------------------------------------
 // GDPR
