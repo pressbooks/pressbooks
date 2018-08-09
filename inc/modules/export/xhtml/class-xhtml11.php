@@ -272,8 +272,10 @@ class Xhtml11 extends Export {
 		}
 
 		if ( ! empty( $_GET['style'] ) ) {
-			$url = Container::get( 'Sass' )->urlToUserGeneratedCss() . '/' . clean_filename( $_GET['style'] ) . '.css';
-			echo "<link rel='stylesheet' href='$url' type='text/css' />\n";
+			$url = ( $_GET['style'] === 'prince' ) ? $this->getLatestExportStyleUrl( 'prince' ) : false;
+			if ( $url ) {
+				echo "<link rel='stylesheet' href='$url' type='text/css' />\n";
+			}
 		}
 
 		if ( ! empty( $_GET['script'] ) ) {
