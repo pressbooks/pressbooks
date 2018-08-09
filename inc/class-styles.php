@@ -575,8 +575,9 @@ class Styles {
 		// Theme was updated?
 		$theme = wp_get_theme();
 		$current_theme_version = $theme->get( 'Version' );
-		$last_theme_version = get_option( 'pressbooks_theme_version', 0 );
+		$last_theme_version = get_option( 'pressbooks_theme_version' );
 		if ( version_compare( $current_theme_version, $last_theme_version ) > 0 ) {
+			xdebug_break();
 			( new ThemeOptions() )->clearCache();
 			$this->updateWebBookStyleSheet();
 			update_editor_style();
@@ -586,7 +587,7 @@ class Styles {
 
 		// Buckram was updated?
 		$current_buckram_version = $this->getBuckramVersion();
-		$last_buckram_version = get_option( 'pressbooks_buckram_version', 0 );
+		$last_buckram_version = get_option( 'pressbooks_buckram_version' );
 		if ( version_compare( $current_buckram_version, $last_buckram_version ) > 0 ) {
 			( new ThemeOptions() )->clearCache();
 			$this->updateWebBookStyleSheet();
