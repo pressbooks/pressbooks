@@ -6,6 +6,7 @@
 
 namespace Pressbooks\Admin\Fonts;
 
+use function Pressbooks\Editor\update_editor_style;
 use Pressbooks\Container;
 
 /**
@@ -14,7 +15,7 @@ use Pressbooks\Container;
 function update_font_stacks() {
 	Container::get( 'GlobalTypography' )->updateGlobalTypographyMixin();
 	Container::get( 'Styles' )->updateWebBookStyleSheet();
-	\Pressbooks\Editor\update_editor_style();
+	update_editor_style();
 }
 
 
@@ -34,6 +35,6 @@ function fix_missing_font_stacks() {
 	}
 
 	if ( ! is_file( $sass->pathToUserGeneratedCss() . '/editor.css' ) ) {
-		\Pressbooks\Editor\update_editor_style();
+		update_editor_style();
 	}
 }
