@@ -196,10 +196,13 @@ class Glossary {
 			// glossary buttons means less chance of needing to untangle the labyrinth
 			global $typenow;
 
-			if ( empty( $typenow ) && ! empty( $_GET['post'] ) ) {
-				$post = get_post( $_GET['post'] );
+			if ( empty( $typenow ) && ! empty( $_GET['post'] ) && 'edit' === $_GET['action'] ) {
+				$post    = get_post( $_GET['post'] );
 				$typenow = $post->post_type;
+			} elseif ( ! empty( $_GET['post_type'] ) ) {
+				$typenow = $_GET['post_type'];
 			}
+
 			if ( 'glossary' !== $typenow ) {
 				add_filter(
 					'mce_buttons_3', [
