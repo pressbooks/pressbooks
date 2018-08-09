@@ -123,9 +123,12 @@ abstract class Export {
 	 * @return string
 	 */
 	function getLatestExportStylePath( $type ) {
-		foreach ( scandir_by_date( Container::get( 'Sass' )->pathToUserGeneratedCss() ) as $file ) {
-			if ( preg_match( '/(' . $type . ')-([0-9]*)/', $file, $matches ) ) {
-				return Container::get( 'Sass' )->pathToUserGeneratedCss() . "/$type-{$matches[2]}.css";
+		// This method only supports Prince stylesheets at the moment.
+		if ( in_array( $type, [ 'prince' ], true ) ) {
+			foreach ( scandir_by_date( Container::get( 'Sass' )->pathToUserGeneratedCss() ) as $file ) {
+				if ( preg_match( '/(' . $type . ')-([0-9]*)/', $file, $matches ) ) {
+					return Container::get( 'Sass' )->pathToUserGeneratedCss() . "/$type-{$matches[2]}.css";
+				}
 			}
 		}
 
@@ -140,9 +143,12 @@ abstract class Export {
 	 * @return string
 	 */
 	function getLatestExportStyleUrl( $type ) {
-		foreach ( scandir_by_date( Container::get( 'Sass' )->pathToUserGeneratedCss() ) as $file ) {
-			if ( preg_match( '/(' . $type . ')-([0-9]*)/', $file, $matches ) ) {
-				return Container::get( 'Sass' )->urlToUserGeneratedCss() . "/$type-{$matches[2]}.css";
+		// This method only supports Prince stylesheets at the moment.
+		if ( in_array( $type, [ 'prince' ], true ) ) {
+			foreach ( scandir_by_date( Container::get( 'Sass' )->pathToUserGeneratedCss() ) as $file ) {
+				if ( preg_match( '/(' . $type . ')-([0-9]*)/', $file, $matches ) ) {
+					return Container::get( 'Sass' )->urlToUserGeneratedCss() . "/$type-{$matches[2]}.css";
+				}
 			}
 		}
 
@@ -156,15 +162,18 @@ abstract class Export {
 	 * @param int $max
 	 */
 	function truncateExportStylesheets( $type, $max = 1 ) {
-		$stylesheets = scandir_by_date( Container::get( 'Sass' )->pathToUserGeneratedCss() );
-		$max = absint( $max );
-		$i = 1;
-		foreach ( $stylesheets as $stylesheet ) {
-			if ( preg_match( '/(' . $type . ')-([0-9]*)/', $stylesheet, $matches ) ) {
-				if ( $i > $max ) {
-					unlink( Container::get( 'Sass' )->pathToUserGeneratedCss() . '/' . $stylesheet );
+		// This method only supports Prince stylesheets at the moment.
+		if ( in_array( $type, [ 'prince' ], true ) ) {
+			$stylesheets = scandir_by_date( Container::get( 'Sass' )->pathToUserGeneratedCss() );
+			$max = absint( $max );
+			$i = 1;
+			foreach ( $stylesheets as $stylesheet ) {
+				if ( preg_match( '/(' . $type . ')-([0-9]*)/', $stylesheet, $matches ) ) {
+					if ( $i > $max ) {
+						unlink( Container::get( 'Sass' )->pathToUserGeneratedCss() . '/' . $stylesheet );
+					}
+					$i++;
 				}
-				$i++;
 			}
 		}
 	}

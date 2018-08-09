@@ -164,6 +164,12 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 		$latest = $i->getLatestExportStylePath( 'prince' );
 		$this->assertEquals( Container::get( 'Sass' )->pathToUserGeneratedCss() . '/prince-' . $timestamp2 . '.css', $latest );
 
+		$latest = $i->getLatestExportStylePath( 'garbage' );
+		$this->assertFalse( $latest );
+
+		$latest = $i->getLatestExportStylePath( '*.*' );
+		$this->assertFalse( $latest );
+
 		foreach ( $css_files as $file ) {
 			if ( file_exists( $file ) ) {
 				unlink( $file );
@@ -194,6 +200,12 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 		$latest = $i->getLatestExportStyleUrl( 'prince' );
 		$this->assertEquals( network_home_url( sprintf( '/wp-content/uploads/sites/%d/pressbooks/css/prince-%d.css', get_current_blog_id(), $timestamp2 ) ), $latest );
 
+		$latest = $i->getLatestExportStyleUrl( 'garbage' );
+		$this->assertFalse( $latest );
+
+		$latest = $i->getLatestExportStyleUrl( '*.*' );
+		$this->assertFalse( $latest );
+
 		foreach ( $css_files as $file ) {
 			if ( file_exists( $file ) ) {
 				unlink( $file );
@@ -210,6 +222,9 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 		$css = '/* Silence is golden. */';
 
 		$css_files = [];
+
+		$webbook_css = Container::get( 'Sass' )->pathToUserGeneratedCss() . '/style.css';
+		\Pressbooks\Utility\put_contents( $webbook_css, $css );
 
 		$timestamp1 = time();
 		$css_file1 = Container::get( 'Sass' )->pathToUserGeneratedCss() . "/prince-$timestamp1.css";
@@ -233,7 +248,11 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 
 		$i->truncateExportStylesheets( 'prince' );
 
+		$i->truncateExportStylesheets( 'style' );
+
 		$files = scandir( Container::get( 'Sass' )->pathToUserGeneratedCss() );
+
+		$this->assertTrue( in_array( 'style.css', $files, true ) );
 
 		for ( $i = 0; $i < 3; $i++ ) {
 			$t = $timestamps[ $i ];
