@@ -7,6 +7,7 @@
 namespace Pressbooks;
 
 use function \Pressbooks\Editor\update_editor_style;
+use function \Pressbooks\Sanitize\normalize_css_urls;
 use function \Pressbooks\Utility\debug_error_log;
 use Pressbooks\CustomCss;
 use Pressbooks\Modules\ThemeOptions\ThemeOptions;
@@ -436,7 +437,6 @@ class Styles {
 	 * @return string
 	 */
 	public function customize( $type, $scss, $overrides = [] ) {
-
 		$scss = $this->applyOverrides( $scss, $overrides );
 
 		// Apply Theme Options
@@ -532,6 +532,9 @@ class Styles {
 	 */
 	public function updateWebBookStyleSheet( $stylesheet = null ) {
 
+		$styles = Container::get( 'Styles' );
+		$sass = Container::get( 'Sass' );
+
 		if ( CustomCss::isCustomCss() ) {
 			// Compile pressbooks-book web stylesheet when using the *DEPRECATED* Custom CSS theme
 			$theme = wp_get_theme( 'pressbooks-book' );
@@ -539,13 +542,12 @@ class Styles {
 			$theme = wp_get_theme( $stylesheet );
 		}
 
-		$overrides = apply_filters( 'pb_web_css_override', '' ) . "\n";
 		// Populate $url-base variable so that links to images and other assets remain intact
-		$scss = '$url-base: \'' . $theme->get_stylesheet_directory_uri() . "/';\n";
+		$overrides = [ '$url-base: "' . $theme->get_stylesheet_directory_uri() . '";' ];
 		if ( $this->isCurrentThemeCompatible( 1 ) ) {
-			$scss .= \Pressbooks\Utility\get_contents( realpath( $theme->get_stylesheet_directory() . '/style.scss' ) );
+			$scss = \Pressbooks\Utility\get_contents( realpath( $theme->get_stylesheet_directory() . '/style.scss' ) );
 		} elseif ( $this->isCurrentThemeCompatible( 2 ) || CustomCss::isCustomCss() ) {
-			$scss .= \Pressbooks\Utility\get_contents( realpath( $theme->get_stylesheet_directory() . '/assets/styles/web/style.scss' ) );
+			$scss = \Pressbooks\Utility\get_contents( realpath( $theme->get_stylesheet_directory() . '/assets/styles/web/style.scss' ) );
 		} else {
 			return;
 		}
@@ -557,7 +559,8 @@ class Styles {
 		}
 
 		$css = $this->customize( 'web', $scss, $overrides );
-		$css = \Pressbooks\Sanitize\normalize_css_urls( $css );
+
+		$css = normalize_css_urls( $css );
 
 		$css_file = $this->sass->pathToUserGeneratedCss() . '/style.css';
 		\Pressbooks\Utility\put_contents( $css_file, $css );
@@ -572,17 +575,18 @@ class Styles {
 		// Theme was updated?
 		$theme = wp_get_theme();
 		$current_theme_version = $theme->get( 'Version' );
-		$last_theme_version = get_option( 'pressbooks_theme_version', $current_theme_version );
+		$last_theme_version = get_option( 'pressbooks_theme_version' );
 		if ( version_compare( $current_theme_version, $last_theme_version ) > 0 ) {
 			( new ThemeOptions() )->clearCache();
 			$this->updateWebBookStyleSheet();
+			update_editor_style();
 			update_option( 'pressbooks_theme_version', $current_theme_version );
 			return true;
 		}
 
 		// Buckram was updated?
 		$current_buckram_version = $this->getBuckramVersion();
-		$last_buckram_version = get_option( 'pressbooks_buckram_version', '0.1.0' );
+		$last_buckram_version = get_option( 'pressbooks_buckram_version' );
 		if ( version_compare( $current_buckram_version, $last_buckram_version ) > 0 ) {
 			( new ThemeOptions() )->clearCache();
 			$this->updateWebBookStyleSheet();
