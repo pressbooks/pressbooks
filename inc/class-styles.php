@@ -577,7 +577,6 @@ class Styles {
 		$current_theme_version = $theme->get( 'Version' );
 		$last_theme_version = get_option( 'pressbooks_theme_version' );
 		if ( version_compare( $current_theme_version, $last_theme_version ) > 0 ) {
-			xdebug_break();
 			( new ThemeOptions() )->clearCache();
 			$this->updateWebBookStyleSheet();
 			update_editor_style();
