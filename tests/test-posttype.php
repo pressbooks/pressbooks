@@ -105,6 +105,5 @@ class PostTypeTest extends \WP_UnitTestCase {
 		$this->assertEquals( get_post_type_label( 'back-matter' ), 'Back Matter' );
 		$this->assertEquals( get_post_type_label( 'chapter' ), 'Chapter' );
 		$this->assertEquals( get_post_type_label( 'glossary' ), 'Glossary' );
-
 	}
 }
