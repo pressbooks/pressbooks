@@ -13,7 +13,7 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 		parent::setUp();
 
 		$this->gl = $this->getMockBuilder( '\Pressbooks\Shortcodes\Glossary\Glossary' )
-		                 ->setMethods( NULL )
+		                 ->setMethods( null )
 		                 ->disableOriginalConstructor()
 		                 ->getMock();
 
