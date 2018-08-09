@@ -184,14 +184,30 @@ class Glossary {
 							'nonce'              => wp_create_nonce( 'pb-glossary' ),
 							'glossary_title'     => __( 'Insert Glossary Term', 'pressbooks' ),
 							'glossary_all_title' => __( 'Insert Glossary List', 'pressbooks' ),
-							'glossary_terms'     => __( wp_json_encode( self::$glossary_terms ), 'pressbooks' ),
+							'glossary_terms'     => wp_json_encode( self::$glossary_terms ),
 						]
 					);
 				}
 			);
 
 			add_filter( 'mce_external_plugins', [ $this, 'addGlossaryPlugin' ] );
-			add_filter( 'mce_buttons_3', [ $this, 'registerGlossaryButtons' ] );
+
+			// to avoid 'inception' like glossary within a glossary, restricting
+			// glossary buttons means less chance of needing to untangle the labyrinth
+			global $typenow;
+
+			if ( empty( $typenow ) && ! empty( $_GET['post'] ) ) {
+				$post = get_post( $_GET['post'] );
+				$typenow = $post->post_type;
+			}
+			if ( 'glossary' !== $typenow ) {
+				add_filter(
+					'mce_buttons_3', [
+						$this,
+						'registerGlossaryButtons',
+					]
+				);
+			}
 		}
 
 	}
