@@ -13,7 +13,7 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 		parent::setUp();
 
 		$this->gl = $this->getMockBuilder( '\Pressbooks\Shortcodes\Glossary\Glossary' )
-		                 ->setMethods( null )
+		                 ->setMethods( NULL )
 		                 ->disableOriginalConstructor()
 		                 ->getMock();
 
@@ -33,8 +33,20 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 			'post_content' => 'A computer system modeled on the <b>human brain</b> and <a href="https://en.wikipedia.org/wiki/Nervous_system" target="_blank">nervous system</a>.',
 		];
 
-		$this->factory()->post->create( $args1 );
-		$this->factory()->post->create( $args2 );
+		$this->factory()->post->create_object( $args1 );
+		$this->factory()->post->create_object( $args2 );
+	}
+
+	private function _createGlossaryPost() {
+		$args = [
+			'post_type'    => 'glossary',
+			'post_title'   => 'Neural Network',
+			'post_content' => 'A computer system modeled on the <b>human brain</b> and <a href="https://en.wikipedia.org/wiki/Nervous_system" target="_blank">nervous system</a>.',
+		];
+
+		$pid = $this->factory()->post->create_object( $args );
+
+		return $pid;
 	}
 
 	public function test_getInstance() {
@@ -80,6 +92,14 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 		];
 		$this->assertEquals( $result, $glossary_plugin );
 
+	}
+
+	public function test_glossaryTooltip() {
+		$pid = $this->_createGlossaryPost();
+
+		$result = $this->gl->glossaryTooltip( $pid, 'Neural Network' );
+
+		$this->assertEquals( '<a href="javascript:void(0);" class="tooltip" title="A computer system modeled on the human brain and nervous system.">Neural Network</a>', $result );
 	}
 
 }

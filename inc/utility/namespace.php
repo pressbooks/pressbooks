@@ -1384,7 +1384,7 @@ function str_lowercase_dash( $string ) {
 	$low = '';
 
 	if ( ! empty( $string ) ) {
-		$low = strtolower( $string );
+		$low = strtolower( trim( $string ) );
 		$results = explode( ' ', $low );
 
 		if ( count( $results ) > 1 ) {
