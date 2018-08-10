@@ -165,7 +165,7 @@ class Glossary {
 		// use our post instead of the global $post object
 		setup_postdata( $terms );
 
-		$html = '<a href="#" class="tooltip" title="' . get_the_excerpt( $term_id['id'] ) . '">' . $content . '</a>';
+		$html = '<a href="javascript:void(0);" class="tooltip" title="' . get_the_excerpt( $term_id['id'] ) . '">' . $content . '</a>';
 
 		// reset post data
 		wp_reset_postdata();
