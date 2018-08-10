@@ -261,22 +261,19 @@ function update_editor_style() {
 
 	if ( $styles->isCurrentThemeCompatible( 1 ) ) {
 		$scss = \Pressbooks\Utility\get_contents( $sass->pathToPartials() . '/_editor-with-custom-fonts.scss' );
-		$css = $styles->customize( 'web', $scss );
 	} elseif ( $styles->isCurrentThemeCompatible( 2 ) ) {
 		$scss = \Pressbooks\Utility\get_contents( $sass->pathToGlobals() . '/editor/_editor.scss' );
-		$css = $styles->customize( 'web', $scss );
 	} else {
 		$scss = \Pressbooks\Utility\get_contents( $sass->pathToPartials() . '/_editor.scss' );
-		$css = $sass->compile(
-			$scss,
-			[
-				$sass->pathToUserGeneratedSass(),
-				$sass->pathToPartials(),
-				$sass->pathToFonts(),
-				get_stylesheet_directory(),
-			]
-		);
 	}
+
+	$custom_styles = $styles->getWebPost();
+	if ( $custom_styles && ! empty( $custom_styles->post_content ) ) {
+		// Append the user's custom styles to the editor stylesheet prior to compilation
+		$scss .= "\n" . $custom_styles->post_content;
+	}
+
+	$css = $styles->customize( 'web', $scss );
 
 	$css = normalize_css_urls( $css );
 

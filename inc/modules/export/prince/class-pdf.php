@@ -116,9 +116,11 @@ class Pdf extends Export {
 		// Fonts
 		Container::get( 'GlobalTypography' )->getFonts();
 
-		// CSS File
+		// CSS
+		$this->truncateExportStylesheets( 'prince' );
+		$timestamp = time();
 		$css = $this->kneadCss();
-		$css_file = $this->createTmpFile();
+		$css_file = \Pressbooks\Container::get( 'Sass' )->pathToUserGeneratedCss() . "/prince-$timestamp.css";
 		\Pressbooks\Utility\put_contents( $css_file, $css );
 
 		// --------------------------------------------------------------------
