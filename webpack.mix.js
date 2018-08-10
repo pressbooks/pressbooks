@@ -56,6 +56,7 @@ mix
 	.js( 'assets/src/scripts/theme-options.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/post-visibility.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/glossary.js', 'assets/dist/scripts/' )
+    .js( 'assets/src/scripts/tooltip.js', 'assets/dist/scripts/' )
 	.js(
 		'node_modules/pagedjs/lib/polyfill/polyfill.js',
 		'assets/dist/scripts/paged.polyfill.js'
