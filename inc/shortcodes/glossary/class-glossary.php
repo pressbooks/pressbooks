@@ -49,6 +49,7 @@ class Glossary {
 			}
 		);
 		add_action( 'init', [ $obj, 'glossaryButton' ] ); // TinyMCE button
+		add_action( 'init', [ $obj, 'addTooltipScripts' ] );
 	}
 
 	/**
@@ -71,7 +72,7 @@ class Glossary {
 
 		foreach ( $terms as $term ) {
 			$glossary_terms[ $term->post_title ] = [
-				'id' => $term->ID,
+				'id'      => $term->ID,
 				'content' => $term->post_content,
 			];
 		}
@@ -90,7 +91,7 @@ class Glossary {
 	 *
 	 * @return string
 	 */
-	function shortcodeHandler( $atts, $content = '' ) {
+	function shortcodeHandler( $atts, $content ) {
 		$retval = '';
 
 		$a = shortcode_atts(
@@ -100,9 +101,9 @@ class Glossary {
 		);
 
 		if ( ! empty( $a['id'] ) ) {
-			$retval = $this->glossaryTooltip( $a );
+			$retval = $this->glossaryTooltip( $a, $content );
 		} else {
-			$retval = $this->glossaryTerms();
+			$retval = $this->glossaryTerms( $content );
 		}
 
 		return $retval;
@@ -110,7 +111,7 @@ class Glossary {
 
 
 	/**
-	 * Returns the HTML for a term if the param contains the post id
+	 * Returns the tooltip markup and content
 	 *
 	 * @since 5.5.0
 	 *
@@ -118,13 +119,18 @@ class Glossary {
 	 *
 	 * @return string
 	 */
-	function glossaryTooltip( $term_id ) {
-		$glossary_terms = '';
-		$html = '';
+	function glossaryTooltip( $term_id, $content ) {
 
-		if ( ! empty( $term_id ) ) {
-			//todo: generate appropriate tooltip markup for singular glossary term
-		}
+		// get the glossary post object the ID belongs to
+		$terms = get_post( $term_id['id'] );
+
+		// use our post instead of the global $post object
+		setup_postdata( $terms );
+
+		$html = '<a href="#" class="tooltip" title="' . get_the_excerpt() . '">' . $content . '</a>';
+
+		// reset post data
+		wp_reset_postdata();
 
 		return $html;
 	}
@@ -179,15 +185,15 @@ class Glossary {
 
 			add_action(
 				'admin_enqueue_scripts', function () {
-					wp_localize_script(
-						'editor', 'PB_GlossaryToken', [
-							'nonce'              => wp_create_nonce( 'pb-glossary' ),
-							'glossary_title'     => __( 'Insert Glossary Term', 'pressbooks' ),
-							'glossary_all_title' => __( 'Insert Glossary List', 'pressbooks' ),
-							'glossary_terms'     => wp_json_encode( self::$glossary_terms ),
-						]
-					);
-				}
+				wp_localize_script(
+					'editor', 'PB_GlossaryToken', [
+						'nonce'              => wp_create_nonce( 'pb-glossary' ),
+						'glossary_title'     => __( 'Insert Glossary Term', 'pressbooks' ),
+						'glossary_all_title' => __( 'Insert Glossary List', 'pressbooks' ),
+						'glossary_terms'     => wp_json_encode( self::$glossary_terms ),
+					]
+				);
+			}
 			);
 
 			add_filter( 'mce_external_plugins', [ $this, 'addGlossaryPlugin' ] );
@@ -197,7 +203,7 @@ class Glossary {
 			global $typenow;
 
 			if ( empty( $typenow ) && ! empty( $_GET['post'] ) && 'edit' === $_GET['action'] ) {
-				$post    = get_post( $_GET['post'] );
+				$post = get_post( $_GET['post'] );
 				$typenow = $post->post_type;
 			} elseif ( ! empty( $_GET['post_type'] ) ) {
 				$typenow = $_GET['post_type'];
@@ -246,5 +252,17 @@ class Glossary {
 		$plugin_array['glossary'] = $assets->getPath( 'scripts/glossary.js' );
 
 		return $plugin_array;
+	}
+
+	/**
+	 * Add JavaScript for the tooltip
+	 *
+	 * * @since 5.5.0
+	 *
+	 */
+	function addTooltipScripts() {
+		$assets = new Assets( 'pressbooks', 'plugin' );
+		wp_enqueue_script( 'jquery-ui-tooltip' );
+		wp_enqueue_script( 'tooltip', $assets->getPath( 'scripts/tooltip.js' ), [ 'jquery' ] );
 	}
 }
