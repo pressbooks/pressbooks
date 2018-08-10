@@ -185,15 +185,15 @@ class Glossary {
 
 			add_action(
 				'admin_enqueue_scripts', function () {
-				wp_localize_script(
-					'editor', 'PB_GlossaryToken', [
-						'nonce'              => wp_create_nonce( 'pb-glossary' ),
-						'glossary_title'     => __( 'Insert Glossary Term', 'pressbooks' ),
-						'glossary_all_title' => __( 'Insert Glossary List', 'pressbooks' ),
-						'glossary_terms'     => wp_json_encode( self::$glossary_terms ),
-					]
-				);
-			}
+					wp_localize_script(
+						'editor', 'PB_GlossaryToken', [
+							'nonce'              => wp_create_nonce( 'pb-glossary' ),
+							'glossary_title'     => __( 'Insert Glossary Term', 'pressbooks' ),
+							'glossary_all_title' => __( 'Insert Glossary List', 'pressbooks' ),
+							'glossary_terms'     => wp_json_encode( self::$glossary_terms ),
+						]
+					);
+				}
 			);
 
 			add_filter( 'mce_external_plugins', [ $this, 'addGlossaryPlugin' ] );
@@ -262,7 +262,7 @@ class Glossary {
 	 */
 	function addTooltipScripts() {
 		$assets = new Assets( 'pressbooks', 'plugin' );
-		wp_enqueue_script( 'jquery-ui-tooltip' );
-		wp_enqueue_script( 'tooltip', $assets->getPath( 'scripts/tooltip.js' ), [ 'jquery' ] );
+		wp_enqueue_script( 'glossary-tooltip', $assets->getPath( 'scripts/tooltip.js' ), [ 'jquery-ui-tooltip' ], false, true );
 	}
+
 }
