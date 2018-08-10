@@ -1,14 +1,29 @@
 // This script is loaded when a user is on a books web view
 
 ( function () {
-	//todo: modify so it shows on click, not on hover
 
-	// make tooltip faster by disabling the show/hide animations
-	jQuery( 'a.tooltip' ).addClass( 'no-hover' ).tooltip( {
-		show: false,
-		hide: false,
-	} ).click( function () {
-		jQuery( this ).tooltip();
+// Show the tooltip
+	jQuery( document ).on( 'click', '.tooltip', function () {
+		jQuery( this ).addClass( 'on' );
+		jQuery( this ).tooltip( {
+			items: '.tooltip.on',
+			show: false,
+			hide: false,
+			position: {
+				my: 'center bottom',
+				at: 'center top',
+			},
+		} );
+		jQuery( this ).trigger( 'mouseenter' );
+	} );
+	// Hide the tooltip
+	jQuery( document ).on( 'click', '.tooltip.on', function () {
+		jQuery( this ).tooltip( 'close' );
+		jQuery( this ).removeClass( 'on' );
+	} );
+	//prevent mouseout and other related events from firing their handlers
+	jQuery( '.tooltip' ).on( 'mouseout', function ( e ) {
+		e.stopImmediatePropagation();
 	} );
 
 } )();

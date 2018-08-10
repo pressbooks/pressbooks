@@ -36,6 +36,144 @@ class Glossary {
 	}
 
 	/**
+	 * Some JavaScript for our TinyMCE buttons
+	 *
+	 * @since 5.5.0
+	 *
+	 * @param $plugin_array
+	 *
+	 * @return mixed
+	 */
+	function addGlossaryPlugin( $plugin_array ) {
+		$assets = new Assets( 'pressbooks', 'plugin' );
+		$plugin_array['glossary'] = $assets->getPath( 'scripts/glossary.js' );
+
+		return $plugin_array;
+	}
+
+	/**
+	 * Add JavaScript for the tooltip
+	 *
+	 * * @since 5.5.0
+	 *
+	 */
+	function addTooltipScripts() {
+		$assets = new Assets( 'pressbooks', 'plugin' );
+		wp_enqueue_script( 'glossary-tooltip', $assets->getPath( 'scripts/tooltip.js' ), [ 'jquery-ui-tooltip' ], false, true );
+	}
+
+	/**
+	 * Register our plugin with TinyMCE
+	 *
+	 * @since 5.5.0
+	 *
+	 */
+	function glossaryButton() {
+
+		if ( ! current_user_can( 'edit_posts' ) && ! current_user_can( 'edit_pages' ) ) {
+			return;
+		}
+
+		if ( get_user_option( 'rich_editing' ) ) {
+
+			add_action(
+				'admin_enqueue_scripts', function () {
+					wp_localize_script(
+						'editor', 'PB_GlossaryToken', [
+							'nonce'              => wp_create_nonce( 'pb-glossary' ),
+							'glossary_title'     => __( 'Insert Glossary Term', 'pressbooks' ),
+							'glossary_all_title' => __( 'Insert Glossary List', 'pressbooks' ),
+							'glossary_terms'     => wp_json_encode( self::$glossary_terms ),
+						]
+					);
+				}
+			);
+
+			add_filter( 'mce_external_plugins', [ $this, 'addGlossaryPlugin' ] );
+
+			// to avoid 'inception' like glossary within a glossary, restricting
+			// glossary buttons means less chance of needing to untangle the labyrinth
+			global $typenow;
+
+			if ( empty( $typenow ) && ! empty( $_GET['post'] ) && 'edit' === $_GET['action'] ) {
+				$post = get_post( $_GET['post'] );
+				$typenow = $post->post_type;
+			} elseif ( ! empty( $_GET['post_type'] ) ) {
+				$typenow = $_GET['post_type'];
+			}
+
+			if ( 'glossary' !== $typenow ) {
+				add_filter(
+					'mce_buttons_3', [
+						$this,
+						'registerGlossaryButtons',
+					]
+				);
+			}
+		}
+
+	}
+
+	/**
+	 * Returns the HTML <dl> description list of all glossary terms
+	 *
+	 * @since 5.5.0
+	 *
+	 * @return string
+	 */
+	function glossaryTerms() {
+		$output = '';
+		$glossary = '';
+		$terms = self::$glossary_terms;
+
+		if ( empty( $terms ) ) {
+			return '';
+		}
+
+		// make sure they are sorted in alphabetical order
+		$ok = ksort( $terms, SORT_LOCALE_STRING );
+
+		if ( true === $ok && count( $terms ) > 0 ) {
+			foreach ( $terms as $key => $value ) {
+				$glossary .= sprintf(
+					'<dt data-type="glossterm"><dfn id="%1$s">%2$s</dfn></dt><dd data-type="glossdef">%3$s</dd>',
+					sprintf( 'dfn-%s', \Pressbooks\Utility\str_lowercase_dash( $key ) ), $key, trim( $value['content'] )
+				);
+			}
+		}
+		if ( ! empty( $glossary ) ) {
+			$output = sprintf( '<section data-type="glossary"><header><h2>%1$s</h2></header><dl data-type="glossary">%2$s</dl></section>', __( 'Glossary Terms', 'pressbooks' ), $glossary );
+		}
+
+		return $output;
+	}
+
+	/**
+	 * Returns the tooltip markup and content
+	 *
+	 * @since 5.5.0
+	 *
+	 * @param $term_id
+	 *
+	 * @return string
+	 */
+	function glossaryTooltip( $term_id, $content ) {
+
+		// get the glossary post object the ID belongs to
+		$terms = get_post( $term_id['id'] );
+
+		// use our post instead of the global $post object
+		setup_postdata( $terms );
+
+		$html = '<a href="#" class="tooltip" title="' . get_the_excerpt( $term_id['id'] ) . '">' . $content . '</a>';
+
+		// reset post data
+		wp_reset_postdata();
+
+		return $html;
+	}
+
+	/**
 	 * @param Glossary $obj
 	 */
 	static public function hooks( Glossary $obj ) {
@@ -50,6 +188,22 @@ class Glossary {
 		);
 		add_action( 'init', [ $obj, 'glossaryButton' ] ); // TinyMCE button
 		add_action( 'init', [ $obj, 'addTooltipScripts' ] );
+	}
+
+	/**
+	 * Add buttons to TinyMCE interface
+	 *
+	 * @since 5.5.0
+	 *
+	 * @param $buttons
+	 *
+	 * @return array
+	 */
+	function registerGlossaryButtons( $buttons ) {
+		$buttons[] = 'glossary';
+		$buttons[] = 'glossary_all';
+
+		return $buttons;
 	}
 
 	/**
@@ -109,162 +263,6 @@ class Glossary {
 		}
 
 		return $retval;
-	}
-
-
-	/**
-	 * Returns the tooltip markup and content
-	 *
-	 * @since 5.5.0
-	 *
-	 * @param $term_id
-	 *
-	 * @return string
-	 */
-	function glossaryTooltip( $term_id, $content ) {
-
-		// get the glossary post object the ID belongs to
-		$terms = get_post( $term_id['id'] );
-
-		// use our post instead of the global $post object
-		setup_postdata( $terms );
-
-		$html = '<a href="#" class="tooltip" title="' . get_the_excerpt($term_id['id']) . '">' . $content . '</a>';
-
-		// reset post data
-		wp_reset_postdata();
-
-		return $html;
-	}
-
-	/**
-	 * Returns the HTML <dl> description list of all glossary terms
-	 *
-	 * @since 5.5.0
-	 *
-	 * @return string
-	 */
-	function glossaryTerms() {
-		$output = '';
-		$glossary = '';
-		$terms = self::$glossary_terms;
-
-		if ( empty( $terms ) ) {
-			return '';
-		}
-
-		// make sure they are sorted in alphabetical order
-		$ok = ksort( $terms, SORT_LOCALE_STRING );
-
-		if ( true === $ok && count( $terms ) > 0 ) {
-			foreach ( $terms as $key => $value ) {
-				$glossary .= sprintf(
-					'<dt data-type="glossterm"><dfn id="%1$s">%2$s</dfn></dt><dd data-type="glossdef">%3$s</dd>',
-					sprintf( 'dfn-%s', \Pressbooks\Utility\str_lowercase_dash( $key ) ), $key, trim( $value['content'] )
-				);
-			}
-		}
-		if ( ! empty( $glossary ) ) {
-			$output = sprintf( '<section data-type="glossary"><header><h2>%1$s</h2></header><dl data-type="glossary">%2$s</dl></section>', __( 'Glossary Terms', 'pressbooks' ), $glossary );
-		}
-
-		return $output;
-	}
-
-	/**
-	 * Register our plugin with TinyMCE
-	 *
-	 * @since 5.5.0
-	 *
-	 */
-	function glossaryButton() {
-
-		if ( ! current_user_can( 'edit_posts' ) && ! current_user_can( 'edit_pages' ) ) {
-			return;
-		}
-
-		if ( get_user_option( 'rich_editing' ) ) {
-
-			add_action(
-				'admin_enqueue_scripts', function () {
-					wp_localize_script(
-						'editor', 'PB_GlossaryToken', [
-							'nonce'              => wp_create_nonce( 'pb-glossary' ),
-							'glossary_title'     => __( 'Insert Glossary Term', 'pressbooks' ),
-							'glossary_all_title' => __( 'Insert Glossary List', 'pressbooks' ),
-							'glossary_terms'     => wp_json_encode( self::$glossary_terms ),
-						]
-					);
-				}
-			);
-
-			add_filter( 'mce_external_plugins', [ $this, 'addGlossaryPlugin' ] );
-
-			// to avoid 'inception' like glossary within a glossary, restricting
-			// glossary buttons means less chance of needing to untangle the labyrinth
-			global $typenow;
-
-			if ( empty( $typenow ) && ! empty( $_GET['post'] ) && 'edit' === $_GET['action'] ) {
-				$post = get_post( $_GET['post'] );
-				$typenow = $post->post_type;
-			} elseif ( ! empty( $_GET['post_type'] ) ) {
-				$typenow = $_GET['post_type'];
-			}
-
-			if ( 'glossary' !== $typenow ) {
-				add_filter(
-					'mce_buttons_3', [
-						$this,
-						'registerGlossaryButtons',
-					]
-				);
-			}
-		}
-
-	}
-
-	/**
-	 * Add buttons to TinyMCE interface
-	 *
-	 * @since 5.5.0
-	 *
-	 * @param $buttons
-	 *
-	 * @return array
-	 */
-	function registerGlossaryButtons( $buttons ) {
-		$buttons[] = 'glossary';
-		$buttons[] = 'glossary_all';
-
-		return $buttons;
-	}
-
-
-	/**
-	 * Some JavaScript for our TinyMCE buttons
-	 *
-	 * @since 5.5.0
-	 *
-	 * @param $plugin_array
-	 *
-	 * @return mixed
-	 */
-	function addGlossaryPlugin( $plugin_array ) {
-		$assets = new Assets( 'pressbooks', 'plugin' );
-		$plugin_array['glossary'] = $assets->getPath( 'scripts/glossary.js' );
-
-		return $plugin_array;
-	}
-
-	/**
-	 * Add JavaScript for the tooltip
-	 *
-	 * * @since 5.5.0
-	 *
-	 */
-	function addTooltipScripts() {
-		$assets = new Assets( 'pressbooks', 'plugin' );
-		wp_enqueue_script( 'glossary-tooltip', $assets->getPath( 'scripts/tooltip.js' ), [ 'jquery-ui-tooltip' ], false, true );
 	}
 
 }
