@@ -102,8 +102,10 @@ class Glossary {
 
 		if ( ! empty( $a['id'] ) ) {
 			$retval = $this->glossaryTooltip( $a, $content );
-		} else {
+		} elseif ( empty( $content ) && empty( $a['id'] ) ) {
 			$retval = $this->glossaryTerms( $content );
+		} else {
+			return $content;
 		}
 
 		return $retval;
