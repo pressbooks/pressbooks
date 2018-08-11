@@ -13,7 +13,7 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 		parent::setUp();
 
 		$this->gl = $this->getMockBuilder( '\Pressbooks\Shortcodes\Glossary\Glossary' )
-		                 ->setMethods( NULL )
+		                 ->setMethods( null )
 		                 ->disableOriginalConstructor()
 		                 ->getMock();
 
@@ -25,12 +25,14 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 			'post_type'    => 'glossary',
 			'post_title'   => 'Support Vector Machine',
 			'post_content' => 'An <i>algorithm</i> that uses a nonlinear mapping to transform the original training data into a higher dimension',
+			'post_status'  => 'publish',
 		];
 
 		$args2 = [
 			'post_type'    => 'glossary',
 			'post_title'   => 'Neural Network',
 			'post_content' => 'A computer system modeled on the <b>human brain</b> and <a href="https://en.wikipedia.org/wiki/Nervous_system" target="_blank">nervous system</a>.',
+			'post_status'  => 'publish',
 		];
 
 		$this->factory()->post->create_object( $args1 );
@@ -38,13 +40,14 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 	}
 
 	private function _createGlossaryPost() {
+
 		$args = [
 			'post_type'    => 'glossary',
 			'post_title'   => 'Neural Network',
-			'post_content' => 'A computer system modeled on the <b>human brain</b> and <a href="https://en.wikipedia.org/wiki/Nervous_system" target="_blank">nervous system</a>.',
+			'post_excerpt' => 'A computer system modeled on the human brain and nervous system.',
+			'post_status'  => 'publish',
 		];
-
-		$pid = $this->factory()->post->create_object( $args );
+		$pid  = $this->factory()->post->create_object( $args );
 
 		return $pid;
 	}
@@ -97,7 +100,7 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 	public function test_glossaryTooltip() {
 		$pid = $this->_createGlossaryPost();
 
-		$result = $this->gl->glossaryTooltip( $pid, 'Neural Network' );
+		$result = $this->gl->glossaryTooltip( [ 'id' => $pid ], 'Neural Network' );
 
 		$this->assertEquals( '<a href="javascript:void(0);" class="tooltip" title="A computer system modeled on the human brain and nervous system.">Neural Network</a>', $result );
 	}
