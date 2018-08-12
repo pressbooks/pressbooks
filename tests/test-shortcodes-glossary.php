@@ -105,4 +105,11 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 		$this->assertEquals( '<a href="javascript:void(0);" class="tooltip" title="A computer system modeled on the human brain and nervous system.">Neural Network</a>', $result );
 	}
 
+	public function test_getGlossaryTerms() {
+		$this->gl->setGlossaryTerms();
+		$terms = $this->gl->getGlossaryTerms();
+		$this->assertEquals( 2, count( $terms ) );
+		$this->assertEquals( 'A computer system modeled on the <b>human brain</b> and <a href="https://en.wikipedia.org/wiki/Nervous_system" target="_blank">nervous system</a>.', $terms['Neural Network']['content'] );
+	}
+
 }

@@ -18,7 +18,7 @@ class Glossary {
 	/**
 	 * @var array
 	 */
-	static $glossary_terms = [];
+	private $glossary_terms = [];
 
 	/**
 	 * Function to init our class, set filters & hooks, set a singleton instance
@@ -29,7 +29,6 @@ class Glossary {
 		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
 			self::hooks( self::$instance );
-			self::setGlossaryTerms();
 		}
 
 		return self::$instance;
@@ -54,12 +53,31 @@ class Glossary {
 	/**
 	 * Add JavaScript for the tooltip
 	 *
-	 * * @since 5.5.0
+	 * @since 5.5.0
 	 *
 	 */
 	function addTooltipScripts() {
 		$assets = new Assets( 'pressbooks', 'plugin' );
 		wp_enqueue_script( 'glossary-tooltip', $assets->getPath( 'scripts/tooltip.js' ), [ 'jquery-ui-tooltip' ], false, true );
+	}
+
+	/**
+	 * Gets the instance variable of glossary terms
+	 *
+	 * @since 5.5.0
+	 *
+	 * @return array|null
+	 */
+	function getGlossaryTerms() {
+		// Cheap cache
+		static $terms = null;
+		if ( null !== $terms ) {
+			return $terms;
+		} else {
+			$terms = $this->glossary_terms;
+		}
+
+		return $terms;
 	}
 
 	/**
@@ -73,8 +91,8 @@ class Glossary {
 		if ( ! current_user_can( 'edit_posts' ) && ! current_user_can( 'edit_pages' ) ) {
 			return;
 		}
-
 		if ( get_user_option( 'rich_editing' ) ) {
+			$this->setGlossaryTerms();
 
 			add_action(
 				'admin_enqueue_scripts', function () {
@@ -83,7 +101,7 @@ class Glossary {
 							'nonce'              => wp_create_nonce( 'pb-glossary' ),
 							'glossary_title'     => __( 'Insert Glossary Term', 'pressbooks' ),
 							'glossary_all_title' => __( 'Insert Glossary List', 'pressbooks' ),
-							'glossary_terms'     => wp_json_encode( self::$glossary_terms ),
+							'glossary_terms'     => wp_json_encode( $this->getGlossaryTerms() ),
 						]
 					);
 				}
@@ -124,7 +142,8 @@ class Glossary {
 	function glossaryTerms() {
 		$output = '';
 		$glossary = '';
-		$terms = self::$glossary_terms;
+		$this->setGlossaryTerms();
+		$terms = $this->getGlossaryTerms();
 
 		if ( empty( $terms ) ) {
 			return '';
@@ -207,14 +226,14 @@ class Glossary {
 	}
 
 	/**
-	 * Gets all glossary terms currently in the database, returns as an array of
+	 * Sets all glossary terms currently in the database, returns as an array of
 	 * key = post_title, id = post ID, content = post_content. Sets an instance variable
 	 *
 	 * @since 5.5.0
 	 *
 	 * @return void $glossary_terms
 	 */
-	private static function setGlossaryTerms() {
+	function setGlossaryTerms() {
 		$glossary_terms = [];
 		$args = [
 			'post_type'      => 'glossary',
@@ -231,7 +250,7 @@ class Glossary {
 			];
 		}
 
-		self::$glossary_terms = $glossary_terms;
+		$this->glossary_terms = $glossary_terms;
 	}
 
 	/**
@@ -246,7 +265,7 @@ class Glossary {
 	 * @return string
 	 */
 	function shortcodeHandler( $atts, $content ) {
-		$retval = '';
+		$ret_val = '';
 
 		$a = shortcode_atts(
 			[
@@ -255,14 +274,14 @@ class Glossary {
 		);
 
 		if ( ! empty( $a['id'] ) ) {
-			$retval = $this->glossaryTooltip( $a, $content );
+			$ret_val = $this->glossaryTooltip( $a, $content );
 		} elseif ( empty( $content ) && empty( $a['id'] ) ) {
-			$retval = $this->glossaryTerms( $content );
+			$ret_val = $this->glossaryTerms( $content );
 		} else {
 			return $content;
 		}
 
-		return $retval;
+		return $ret_val;
 	}
 
 }
