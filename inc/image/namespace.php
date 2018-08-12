@@ -111,7 +111,18 @@ function is_valid_image( $file, $filename, $is_stream = false ) {
 	$format = explode( '.', $filename );
 	$format = strtolower( end( $format ) ); // Extension
 	if ( ! ( 'jpg' === $format || 'jpeg' === $format || 'gif' === $format || 'png' === $format ) ) {
-		return false;
+
+		/**
+		 * @since 5.5.0
+		 *
+		 * Filters if a image has a valid extension
+		 *
+		 * @param boolean $valid if is valid
+		 * @param string $extension the extension of the file
+		 */
+		if ( ! apply_filters( 'pb_is_valid_image_extension', false, $format ) ) {
+			return false;
+		}
 	}
 
 	if ( $is_stream ) {
@@ -125,7 +136,16 @@ function is_valid_image( $file, $filename, $is_stream = false ) {
 	if ( IMAGETYPE_JPEG === $type || IMAGETYPE_GIF === $type || IMAGETYPE_PNG === $type ) {
 		return true;
 	} else {
-		return false;
+		/**
+		 * @since 5.5.0
+		 *
+		 * Filters if a image is a valid image type
+		 *
+		 * @param boolean $valid if is valid
+		 * @param string $type the type of the image
+		 * @param file	$file	the file
+		 */
+		return apply_filters( 'pb_is_valid_image_type', false, $type, $file );
 	}
 }
 

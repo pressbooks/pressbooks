@@ -2013,10 +2013,22 @@ class Epub201 extends Export {
 			$type = array_pop( $type );
 			$filename = $filename . '.' . $type;
 		} else {
+			$ori_filename = $filename;
 			$filename = array_shift( $filename );
 			$filename = explode( '#', $filename )[0]; // Remove trailing anchors
 			$filename = sanitize_file_name( urldecode( $filename ) );
 			$filename = Sanitize\force_ascii( $filename );
+
+			/**
+			 * @since 5.5.0
+			 *
+			 * Filters the filename of a unique image
+			 *
+			 * @param string $filename the filename
+			 * @param string $ori_filename the original filename
+			 * @param object $response the response
+			 */
+			$filename = apply_filters( 'pb_epub201_fetchAndSaveUniqueImage_filename', $filename, $ori_filename, $response );
 		}
 
 		// A book with a lot of images can trigger "Fatal Error Too many open files" because tmpfiles are not closed until PHP exits
@@ -2034,12 +2046,22 @@ class Epub201 extends Export {
 		}
 
 		if ( $this->compressImages ) {
-			$format = explode( '.', $filename );
-			$format = strtolower( end( $format ) ); // Extension
-			try {
-				\Pressbooks\Image\resize_down( $format, $tmp_file );
-			} catch ( \Exception $e ) {
-				return '';
+			/**
+			 * @since 5.5.0
+			 *
+			 * Filters if a image should be compressed
+			 *
+			 * @param boolean $compress should it be compressed
+			 * @param file $tmp_file the temp file
+			 */
+			if ( apply_filters( 'pb_epub201_fetchAndSaveUniqueImage_compress', true, $tmp_file ) ) {
+				$format = explode( '.', $filename );
+				$format = strtolower( end( $format ) ); // Extension
+				try {
+					\Pressbooks\Image\resize_down( $format, $tmp_file );
+				} catch ( \Exception $e ) {
+					return '';
+				}
 			}
 		}
 
