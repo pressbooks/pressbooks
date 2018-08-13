@@ -82,7 +82,7 @@ class Attachments {
 	}
 
 	/**
-	 *
+	 * Returns the array of attachments set in the instance variable
 	 *
 	 * @since 5.5.0
 	 *
