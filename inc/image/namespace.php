@@ -143,7 +143,7 @@ function is_valid_image( $file, $filename, $is_stream = false ) {
 		 *
 		 * @param boolean $valid if is valid
 		 * @param string $type the type of the image
-		 * @param file	$file	the file
+		 * @param file $file the file
 		 */
 		return apply_filters( 'pb_is_valid_image_type', false, $type, $file );
 	}

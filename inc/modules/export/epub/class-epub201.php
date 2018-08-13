@@ -2014,9 +2014,9 @@ class Epub201 extends Export {
 		 * @param object $response the response
 		 * @param string $url the url
 		 */
-		$unique_filename = apply_filters( 'pb_epub201_fetchAndSaveUniqueImage_filename', '', $filename, $response, $url );
+		$unique_filename = apply_filters( 'pb_epub201_fetchandsaveuniqueimage_filename', '', $filename, $response, $url );
 
-		if ( '' != $unique_filename ) {
+		if ( '' !== $unique_filename ) {
 			$filename = $unique_filename;
 		} else {
 			// isolate latex image service from WP, add file extension
@@ -2058,7 +2058,7 @@ class Epub201 extends Export {
 			 * @param boolean $compress should it be compressed
 			 * @param file $tmp_file the temp file
 			 */
-			if ( apply_filters( 'pb_epub201_fetchAndSaveUniqueImage_compress', true, $tmp_file ) ) {
+			if ( apply_filters( 'pb_epub201_fetchandsaveuniqueimage_compress', true, $tmp_file ) ) {
 				$format = explode( '.', $filename );
 				$format = strtolower( end( $format ) ); // Extension
 				try {
