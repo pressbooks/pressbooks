@@ -97,4 +97,16 @@ class Shortcodes_Attributions_Attachments extends \WP_UnitTestCase {
 		$html = $this->att->attributionsContent( [] );
 		$this->assertEquals( '', $html );
 	}
+
+	public function test_getBookMedia() {
+		$pid = $this->_createAttachment();
+		$this->att->setBookMedia();
+
+		$result = $this->att->getBookMedia();
+
+		$this->assertEquals( 1, count( $result ) );
+		$this->assertArrayHasKey( $pid, $result );
+		$this->assertContains( 'http://example.org/wp-content/uploads', $result[ $pid ] );
+	}
+
 }
