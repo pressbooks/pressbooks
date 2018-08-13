@@ -2004,31 +2004,35 @@ class Epub201 extends Export {
 		// Basename without query string
 		$filename = explode( '?', basename( $url ) );
 
-		// isolate latex image service from WP, add file extension
-		$host = wp_parse_url( $url, PHP_URL_HOST );
-		if ( ( str_ends_with( $host, 'wordpress.com' ) || str_ends_with( $host, 'wp.com' ) ) && 'latex.php' === $filename[0] ) {
-			$filename = md5( array_pop( $filename ) );
-			// content-type = 'image/png'
-			$type = explode( '/', $response['headers']['content-type'] );
-			$type = array_pop( $type );
-			$filename = $filename . '.' . $type;
-		} else {
-			$ori_filename = $filename;
-			$filename = array_shift( $filename );
-			$filename = explode( '#', $filename )[0]; // Remove trailing anchors
-			$filename = sanitize_file_name( urldecode( $filename ) );
-			$filename = Sanitize\force_ascii( $filename );
+		/**
+		 * @since 5.5.0
+		 *
+		 * Filters the filename of a unique image
+		 *
+		 * @param string $filename the filename
+		 * @param array $ori_filename the original filename
+		 * @param object $response the response
+		 * @param string $url the url
+		 */
+		$unique_filename = apply_filters( 'pb_epub201_fetchAndSaveUniqueImage_filename', '', $filename, $response, $url );
 
-			/**
-			 * @since 5.5.0
-			 *
-			 * Filters the filename of a unique image
-			 *
-			 * @param string $filename the filename
-			 * @param string $ori_filename the original filename
-			 * @param object $response the response
-			 */
-			$filename = apply_filters( 'pb_epub201_fetchAndSaveUniqueImage_filename', $filename, $ori_filename, $response );
+		if ( '' != $unique_filename ) {
+			$filename = $unique_filename;
+		} else {
+			// isolate latex image service from WP, add file extension
+			$host = wp_parse_url( $url, PHP_URL_HOST );
+			if ( ( str_ends_with( $host, 'wordpress.com' ) || str_ends_with( $host, 'wp.com' ) ) && 'latex.php' === $filename[0] ) {
+				$filename = md5( array_pop( $filename ) );
+				// content-type = 'image/png'
+				$type = explode( '/', $response['headers']['content-type'] );
+				$type = array_pop( $type );
+				$filename = $filename . '.' . $type;
+			} else {
+				$filename = array_shift( $filename );
+				$filename = explode( '#', $filename )[0]; // Remove trailing anchors
+				$filename = sanitize_file_name( urldecode( $filename ) );
+				$filename = Sanitize\force_ascii( $filename );
+			}
 		}
 
 		// A book with a lot of images can trigger "Fatal Error Too many open files" because tmpfiles are not closed until PHP exits
