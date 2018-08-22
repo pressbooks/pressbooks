@@ -5,7 +5,7 @@ Tags: ebooks, publishing, webbooks
 Requires at least: 4.9.7
 Tested up to: 4.9.7
 Requires PHP: 7.0
-Stable tag: 5.4.5
+Stable tag: 5.4.6
 License: GPL v3.0 or later
 License URI: https://github.com/pressbooks/pressbooks/blob/master/LICENSE.md
 
@@ -21,6 +21,15 @@ For installation instructions, visit [docs.pressbooks.org/installation](https://
 TK.
 
 == Changelog ==
+= 5.4.6 =
+
+* Pressbooks 5.4.6 requires [WordPress 4.9.7](https://wordpress.org/news/2018/07/wordpress-4-9-7-security-and-maintenance-release/).
+* Pressbooks 5.4.6 requires [McLuhan >= 2.4.0](https://github.com/pressbooks/pressbooks-book/).
+
+**Patches**
+
+* Resolve additional bugs related to default paragraph separation ([#1303](https://github.com/pressbooks/pressbooks/issues/1303)): [#1318](https://github.com/pressbooks/pressbooks/pull/1318)
+
 = 5.4.5 =
 
 * Pressbooks 5.4.5 requires [WordPress 4.9.7](https://wordpress.org/news/2018/07/wordpress-4-9-7-security-and-maintenance-release/).
@@ -165,7 +174,7 @@ TK.
 - Prevent slug collisions in XHTML and HTMLBook outputs ([#1174](https://github.com/pressbooks/pressbooks/issues/1174)): [#1175](https://github.com/pressbooks/pressbooks/pull/1175)
 
 == Upgrade Notice ==
-= 5.4.5 =
+= 5.4.6 =
 
-* Pressbooks 5.4.5 requires [WordPress 4.9.7](https://wordpress.org/news/2018/07/wordpress-4-9-7-security-and-maintenance-release/).
-* Pressbooks 5.4.5 requires [McLuhan >= 2.4.0](https://github.com/pressbooks/pressbooks-book/).
+* Pressbooks 5.4.6 requires [WordPress 4.9.7](https://wordpress.org/news/2018/07/wordpress-4-9-7-security-and-maintenance-release/).
+* Pressbooks 5.4.6 requires [McLuhan >= 2.4.0](https://github.com/pressbooks/pressbooks-book/).
