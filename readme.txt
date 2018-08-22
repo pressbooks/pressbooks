@@ -21,10 +21,10 @@ For installation instructions, visit [docs.pressbooks.org/installation](https://
 TK.
 
 == Changelog ==
-= 5.4.6 =
+= 5.4.7 =
 
-* Pressbooks 5.4.6 requires [WordPress 4.9.7](https://wordpress.org/news/2018/07/wordpress-4-9-7-security-and-maintenance-release/).
-* Pressbooks 5.4.6 requires [McLuhan >= 2.4.0](https://github.com/pressbooks/pressbooks-book/).
+* Pressbooks 5.4.7 requires [WordPress 4.9.7](https://wordpress.org/news/2018/07/wordpress-4-9-7-security-and-maintenance-release/).
+* Pressbooks 5.4.7 requires [McLuhan >= 2.4.0](https://github.com/pressbooks/pressbooks-book/).
 
 **Patches**
 
