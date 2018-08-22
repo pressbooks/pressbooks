@@ -175,9 +175,15 @@ class Complex {
 			'the_content',
 			sprintf(
 				'[latex%1$s]%2$s[/latex]',
-				sprintf(
+				( $atts['size'] !== 0 )
+				? sprintf(
 					' size="%1$s" color="%2$s" background="%3$s"',
 					$atts['size'],
+					$atts['color'],
+					$atts['background']
+				)
+				: sprintf(
+					' color="%1$s" background="%2$s"',
 					$atts['color'],
 					$atts['background']
 				),
