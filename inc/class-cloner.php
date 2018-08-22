@@ -1265,15 +1265,18 @@ class Cloner {
 		// Setup
 		$source_path = $this->getSubdomainOrSubdirectory( $this->sourceBookUrl );
 		$target_path = $this->getSubdomainOrSubdirectory( $this->targetBookUrl );
+		$is_subdomain_install = is_subdomain_install();
 
 		// Get links, loop through
 		$links = $dom->getElementsByTagName( 'a' );
 		foreach ( $links as $link ) {
 			/** @var \DOMElement $link */
 			$href = $link->getAttribute( 'href' );
-			if ( is_subdomain_install() && str_starts_with( $href, "/$source_path/" ) ) {
-				// Remove book path (cloning from subdirectory to subdomain)
-				$href = str_remove_prefix( $href, "/$source_path" );
+			if ( $is_subdomain_install ) {
+				if ( str_starts_with( $href, "/$source_path/" ) ) {
+					// Remove book path (cloning from subdirectory to subdomain)
+					$href = str_remove_prefix( $href, "/$source_path" );
+				}
 			} else {
 				if ( str_starts_with( $href, "/$source_path/" ) ) {
 					// Replace book path (cloning from subdirectory to subdirectory)
