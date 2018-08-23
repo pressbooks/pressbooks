@@ -2314,6 +2314,8 @@ class Epub201 extends Export {
 			return false;
 		}
 
+		$order = $this->fixOrder( $lookup['__order'] );
+
 		// Create a new url that points to a file in the epub
 		$new_url = '';
 		if ( 'part' === $posttype ) {
@@ -2325,15 +2327,22 @@ class Epub201 extends Export {
 			}
 		} else {
 			$new_pos = 0;
-			foreach ( $lookup['__order'] as $post_id => $val ) {
+			foreach ( $order as $post_id => $val ) {
 				if ( (string) $val['post_type'] === (string) $found['post_type'] && $val['export'] ) {
-					++$new_pos;
+					if ( $this->taxonomy->getFrontMatterType( $post_id ) !== 'title-page' ) {
+						// Custom title pages aren't numbered.
+						++$new_pos;
+					}
 				}
 				if ( (int) $post_id === (int) $found['ID'] ) {
 					break;
 				}
 			}
-			$new_url = "{$found['post_type']}-" . sprintf( '%03s', $new_pos ) . '-' . ( isset( $this->sanitizedSlugs[ $slug ] ) ? $this->sanitizedSlugs[ $slug ] : $slug ) . ".{$this->filext}";
+			if ( $val['post_type'] === 'front-matter' && $this->taxonomy->getFrontMatterType( $post_id ) === 'title-page' ) {
+				$new_url = "title-page.{$this->filext}";
+			} else {
+				$new_url = "{$found['post_type']}-" . sprintf( '%03s', $new_pos ) . '-' . ( isset( $this->sanitizedSlugs[ $slug ] ) ? $this->sanitizedSlugs[ $slug ] : $slug ) . ".{$this->filext}";
+			}
 		}
 		if ( $anchor ) {
 			$new_url .= $anchor;
@@ -2342,6 +2351,42 @@ class Epub201 extends Export {
 		return $new_url;
 	}
 
+	/**
+	 * Reorder the book structure to conform to Chicago Style, so that the
+	 * book begins with Before Title, Title Page, Dedication, Epigraph.
+	 *
+	 * @param array $order
+	 * @return array
+	 */
+	protected function fixOrder( $order ) {
+		$fixed = [];
+		$fm = [];
+		foreach ( $order as $post_id => $val ) {
+			if ( $val['post_type'] === 'front-matter' ) {
+				$type = $this->taxonomy->getFrontMatterType( $post_id );
+				if ( ! in_array( $type, [ 'before-title', 'title-page', 'dedication', 'epigraph' ], true ) ) {
+					// Add front matter that isn't being reorderd without intervention.
+					$fixed[ $post_id ] = $val;
+				} else {
+					// Add front matter that is being reordered to temporary array.
+					$fm[ $post_id ] = array_merge( $val, [ 'type' => $type ] );
+				}
+			} else {
+				// Add parts, chapters, and back matter without intervention.
+				$fixed[ $post_id ] = $val;
+			}
+		}
+		// Work our way backwards, starting with epigraph
+		foreach ( [ 'epigraph', 'dedication', 'title-page', 'before-title' ] as $type ) {
+			foreach ( $fm as $post_id => $val ) {
+				if ( $val['type'] === $type ) {
+					$fixed = [ $post_id => $val ] + $fixed;
+					break;
+				}
+			}
+		}
+		return $fixed;
+	}
 
 	/**
 	 * Create OPF File.
