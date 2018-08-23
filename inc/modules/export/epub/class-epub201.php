@@ -2295,9 +2295,12 @@ class Epub201 extends Export {
 			return false;
 		}
 
-		static $lookup = false; // Cheap cache
-		if ( false === $lookup ) {
+		// Cheap cache
+		static $lookup = false;
+		static $order = false;
+		if ( $lookup === false && $order === false ) {
 			$lookup = Book::getBookStructure();
+			$order = $this->fixOrder( $lookup['__order'] );
 		}
 
 		$found = [];
@@ -2313,8 +2316,6 @@ class Epub201 extends Export {
 		if ( empty( $found ) ) {
 			return false;
 		}
-
-		$order = $this->fixOrder( $lookup['__order'] );
 
 		// Create a new url that points to a file in the epub
 		$new_url = '';
