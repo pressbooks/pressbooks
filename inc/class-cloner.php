@@ -919,6 +919,11 @@ class Cloner {
 		$dom = $media['dom'];
 		$attachments = $media['attachments'];
 
+		// Download media, change media paths
+		$media = $this->scrapeAndKneadMedia( $dom, $html5 );
+		$dom = $media['dom'];
+		$attachments = array_merge( $attachments, $media['attachments'] );
+
 		// Fix internal links
 		$dom = $this->fixInternalLinks( $dom );
 
@@ -1106,11 +1111,9 @@ class Cloner {
 			/** @var \DOMElement $image */
 			// Fetch image, change src
 			$src_old = $image->getAttribute( 'src' );
-
 			$attachment_id = $this->fetchAndSaveUniqueImage( $src_old );
-
 			if ( $attachment_id === -1 ) {
-				// Do nothing because this image is not hosted on the source Pb network
+				// Do nothing because image is not hosted on the source Pb network
 			} elseif ( $attachment_id ) {
 				$image->setAttribute( 'src', $this->replaceImage( $attachment_id, $src_old, $image ) );
 				$attachments[] = $attachment_id;
@@ -1128,7 +1131,7 @@ class Cloner {
 
 	/**
 	 * Load remote url of image into WP using media_handle_sideload()
-	 * Will return 0 if something went wrong.
+	 * Will return -1 if image is not hosted on the source Pb network, or 0 if something went wrong.
 	 *
 	 * @since 4.1.0
 	 *
@@ -1255,6 +1258,120 @@ class Cloner {
 		}
 
 		return $src_new;
+	}
+
+
+	/**
+	 * Parse HTML snippet, save all found media using media_handle_sideload(), return the HTML with changed URLs.
+	 *
+	 * Because we clone using WordPress raw format, we have to brute force against the text because the DOM
+	 * can't see shortcodes, text urls, hrefs with no identifying info, etc.
+	 *
+	 * @since 4.1.0
+	 *
+	 * @param \DOMDocument $dom
+	 * @param HTML5 $html5
+	 *
+	 * @return array An array containing the \DOMDocument and the IDs of created attachments
+	 */
+	protected function scrapeAndKneadMedia( \DOMDocument $dom, $html5 ) {
+
+		$dom_as_string = $html5->saveHTML( $dom );
+		$dom_as_string = \Pressbooks\Sanitize\strip_container_tags( $dom_as_string );
+
+		// Sort an array by the length of its values for better search and replace
+		$known_media_sorted = $this->knownMedia;
+		uasort( $known_media_sorted, function ( $a, $b ) {
+			return strlen( $b ) <=> strlen( $a );
+		} );
+
+		$attachments = [];
+		$changed = false;
+		foreach ( $known_media_sorted as $trailing => $url ) {
+			if ( strpos( $dom_as_string, $url ) !== false ) {
+				$src_old = $url;
+				$attachment_id = $this->fetchAndSaveUniqueMedia( $src_old );
+				if ( $attachment_id === -1 ) {
+					// Do nothing because media is not hosted on the source Pb network
+				} elseif ( $attachment_id ) {
+					$dom_as_string = str_replace( $src_old, wp_get_attachment_url( $attachment_id ), $dom_as_string );
+					$attachments[] = $attachment_id;
+					$changed = true;
+				} else {
+					// Tag broken media
+					$dom_as_string = str_replace( $src_old, "{$src_old}#fixme", $dom_as_string );
+					$changed = true;
+				}
+			}
+		}
+
+		return [
+			'dom' => $changed ? $html5->loadHTML( $dom_as_string ) : $dom,
+			'attachments' => $attachments,
+		];
+	}
+
+	/**
+	 * Load remote media into WP using media_handle_sideload()
+	 * Will return -1 if media is not hosted on the source Pb network, or 0 if something went wrong.
+	 *
+	 * @since 4.1.0
+	 *
+	 * @param string $url
+	 *
+	 * @see media_handle_sideload
+	 *
+	 * @return int attachment ID, -1 if media is not hosted on the source Pb network, or 0 if import failed
+	 */
+	protected function fetchAndSaveUniqueMedia( $url ) {
+		if ( ! filter_var( $url, FILTER_VALIDATE_URL ) ) {
+			return 0;
+		}
+		if ( ! $this->sameAsSource( $url ) ) {
+			return -1;
+		}
+
+		$filename = $this->basename( $url );
+		$attached_file = media_strip_baseurl( $url );
+
+		if ( isset( $this->knownMedia[ $attached_file ] ) ) {
+			$remote_media_location = $this->knownMedia[ $attached_file ];
+			$filename = basename( $this->knownMedia[ $attached_file ] );
+		} else {
+			$remote_media_location = $url;
+		}
+
+		// Cheap cache
+		static $already_done = [];
+		if ( isset( $already_done[ $remote_media_location ] ) ) {
+			return $already_done[ $remote_media_location ];
+		}
+
+		/* Process */
+
+		$tmp_name = download_url( $remote_media_location );
+		if ( is_wp_error( $tmp_name ) ) {
+			// Download failed
+			$already_done[ $remote_media_location ] = 0;
+			return 0;
+		}
+
+		$pid = media_handle_sideload(
+			[
+				'name' => $filename,
+				'tmp_name' => $tmp_name,
+			], 0
+		);
+		$src = wp_get_attachment_url( $pid );
+		if ( ! $src ) {
+			$pid = 0;
+		} else {
+			$this->clonedItems['media'][] = $pid;
+			$already_done[ $remote_media_location ] = $pid;
+		}
+		@unlink( $tmp_name ); // @codingStandardsIgnoreLine
+
+		return $pid;
 	}
 
 	/**
