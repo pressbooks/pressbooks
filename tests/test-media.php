@@ -129,4 +129,22 @@ class MediaTest extends \WP_UnitTestCase {
 		$result = \Pressbooks\Media\intersect_media_ids( $no_page_media, $book_media );
 		$this->assertEquals( [], $result );
 	}
+
+	public function test_strip_baseurl() {
+		$test = 'https://pressbooks.dev/upload/2017/08/foo-bar.mp3';
+		$result = \Pressbooks\Media\strip_baseurl( $test );
+		$this->assertEquals( '2017/08/foo-bar.mp3', $result );
+
+		$test = 'https://pressbooks.dev/upload/2017/08/foo-bar-300x225.mp4';
+		$result = \Pressbooks\Media\strip_baseurl( $test );
+		$this->assertEquals( '2017/08/foo-bar-300x225.mp4', $result );
+
+		$test = 'https://pressbooks.dev/upload/zig/zag/foo-bar.mp3';
+		$result = \Pressbooks\Media\strip_baseurl( $test );
+		$this->assertEquals( 'https://pressbooks.dev/upload/zig/zag/foo-bar.mp3', $result );
+
+		$test = 'https://pressbooks.dev/upload/2017/08/foo-bar.invalid_extension';
+		$result = \Pressbooks\Media\strip_baseurl( $test );
+		$this->assertEquals( 'https://pressbooks.dev/upload/2017/08/foo-bar.invalid_extension', $result );
+	}
 }

@@ -10,7 +10,8 @@ namespace Pressbooks;
 
 use function Pressbooks\Image\attachment_id_from_url;
 use function Pressbooks\Image\default_cover_url;
-use function Pressbooks\Image\strip_baseurl;
+use function Pressbooks\Image\strip_baseurl as image_strip_baseurl;
+use function Pressbooks\Media\strip_baseurl as media_strip_baseurl;
 use function Pressbooks\Metadata\schema_to_book_information;
 use function Pressbooks\Metadata\schema_to_section_information;
 use function Pressbooks\Utility\getset;
@@ -156,6 +157,20 @@ class Cloner {
 	protected $targetBookTerms = [];
 
 	/**
+	 * Array of known media, format: [ Truncated Source URL (ie. 2017/08/foo.mp3) ] => [ Source URL ], ...
+	 *
+	 * @var array
+	 */
+	protected $knownMedia = [];
+
+	/**
+	 * Regular expression for image extensions that Pressbooks knows how to resize, analyse, etc.
+	 *
+	 * @var string
+	 */
+	protected $pregSupportedImageExtensions = '/\.(jpe?g|gif|png)$/i';
+
+	/**
 	 * Array of known images, format: [ 2017/08/foo-bar-300x225.png ] => [ Fullsize URL ], ...
 	 *
 	 * @var array
@@ -171,11 +186,6 @@ class Cloner {
 	 * @param string $target_url The public URL of the target book.
 	 */
 	public function __construct( $source_url, $target_url = '' ) {
-		// Disable SSL verification for development
-		if ( defined( 'WP_ENV' ) && WP_ENV === 'development' ) {
-			$this->requestArgs['sslverify'] = false;
-		}
-
 		// Has_cap acts weird when we create a new blog. Figure out who we are before starting.
 		$this->isSuperAdmin = current_user_can( 'manage_network_options' );
 
@@ -368,11 +378,18 @@ class Cloner {
 			return false;
 		}
 
-		$this->knownImages = $this->buildlistOfKnownImages( $this->sourceBookUrl );
-		if ( $this->knownImages === false ) {
+		$this->knownMedia = $this->buildListOfKnownMedia( $this->sourceBookUrl );
+		if ( $this->knownMedia === false ) {
 			$_SESSION['pb_errors'][] = sprintf( __( 'Could not retrieve media from %s.', 'pressbooks' ), sprintf( '<em>%s</em>', $this->sourceBookMetadata['name'] ) );
 			$this->maybeRestoreCurrentBlog();
 			return false;
+		}
+		// Split images out of the media because we get maximum sizes using hack foo
+		foreach ( $this->knownMedia as $alternative => $source ) {
+			if ( preg_match( $this->pregSupportedImageExtensions, $source ) ) {
+				$this->knownImages[ $alternative ] = $source;
+				unset( $this->knownMedia[ $alternative ] );
+			}
 		}
 
 		$this->maybeRestoreCurrentBlog();
@@ -483,16 +500,15 @@ class Cloner {
 	}
 
 	/**
-	 * Use media endpoint to build an array of known images
+	 * Use media endpoint to build an array of known media
 	 *
 	 * @param string $url The URL of the book.
 	 *
 	 * @return bool | array False if the operation failed; known images array if succeeded.
 	 */
-	public function buildListOfKnownImages( $url ) {
+	public function buildListOfKnownMedia( $url ) {
 		// Handle request (local or global)
 		$params = [
-			'media_type' => 'image',
 			'per_page' => 100,
 		];
 		$response = $this->handleGetRequest( $url, 'wp/v2', 'media', $params );
@@ -507,16 +523,21 @@ class Cloner {
 			return false;
 		}
 
-		$known_images = [];
+		$known_media = [];
 		foreach ( $response as $item ) {
 			$fullsize = $item['source_url'];
-			foreach ( $item['media_details']['sizes'] as $size => $info ) {
-				$attached_file = strip_baseurl( $info['source_url'] ); // 2017/08/foo-bar-300x225.png
-				$known_images[ $attached_file ] = $fullsize;
+			if ( $item['media_type'] === 'image' ) {
+				foreach ( $item['media_details']['sizes'] as $size => $info ) {
+					$attached_file = image_strip_baseurl( $info['source_url'] ); // 2017/08/foo-bar-300x225.png
+					$known_media[ $attached_file ] = $fullsize;
+				}
+			} else {
+				$attached_file = media_strip_baseurl( $fullsize ); // 2017/08/foo-bar.ext
+				$known_media[ $attached_file ] = $fullsize;
 			}
 		}
 
-		return $known_images;
+		return $known_media;
 	}
 
 	/**
@@ -716,7 +737,7 @@ class Cloner {
 		// Cover image
 		if ( ! \Pressbooks\Image\is_default_cover( $book_information['pb_cover_image'] ) ) {
 			$new_cover_id = $this->fetchAndSaveUniqueImage( $book_information['pb_cover_image'] );
-			if ( $new_cover_id ) {
+			if ( $new_cover_id > 0 ) {
 				$book_information['pb_cover_image'] = wp_get_attachment_url( $new_cover_id );
 			} else {
 				$book_information['pb_cover_image'] = default_cover_url();
@@ -1088,7 +1109,9 @@ class Cloner {
 
 			$attachment_id = $this->fetchAndSaveUniqueImage( $src_old );
 
-			if ( $attachment_id ) {
+			if ( $attachment_id === -1 ) {
+				// Do nothing because this image is not hosted on the source Pb network
+			} elseif ( $attachment_id ) {
 				$image->setAttribute( 'src', $this->replaceImage( $attachment_id, $src_old, $image ) );
 				$attachments[] = $attachment_id;
 			} else {
@@ -1113,17 +1136,20 @@ class Cloner {
 	 *
 	 * @see media_handle_sideload
 	 *
-	 * @return int attachment ID or 0 if import failed
+	 * @return int attachment ID, -1 if image is not hosted on the source Pb network, or 0 if import failed
 	 */
 	protected function fetchAndSaveUniqueImage( $url ) {
 		if ( ! filter_var( $url, FILTER_VALIDATE_URL ) ) {
 			return 0;
 		}
+		if ( ! $this->sameAsSource( $url ) ) {
+			return -1;
+		}
 
 		$filename = $this->basename( $url );
-		$attached_file = strip_baseurl( $url );
+		$attached_file = image_strip_baseurl( $url );
 
-		if ( $this->sameAsSource( $url ) && isset( $this->knownImages[ $attached_file ] ) ) {
+		if ( isset( $this->knownImages[ $attached_file ] ) ) {
 			$remote_img_location = $this->knownImages[ $attached_file ];
 			$filename = basename( $this->knownImages[ $attached_file ] );
 		} else {
@@ -1138,7 +1164,7 @@ class Cloner {
 
 		/* Process */
 
-		if ( ! preg_match( '/\.(jpe?g|gif|png)$/i', $filename ) ) {
+		if ( ! preg_match( $this->pregSupportedImageExtensions, $filename ) ) {
 			// Unsupported image type
 			$already_done[ $remote_img_location ] = 0;
 			return 0;
@@ -1195,7 +1221,7 @@ class Cloner {
 
 		$src_new = wp_get_attachment_url( $attachment_id );
 
-		if ( $this->sameAsSource( $src_old ) && isset( $this->knownImages[ strip_baseurl( $src_old ) ] ) ) {
+		if ( $this->sameAsSource( $src_old ) && isset( $this->knownImages[ image_strip_baseurl( $src_old ) ] ) ) {
 			$basename_old = $this->basename( $src_old );
 			$basename_new = $this->basename( $src_new );
 			$maybe_src_new = str_lreplace( $basename_new, $basename_old, $src_new );
