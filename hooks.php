@@ -41,6 +41,12 @@ if ( ! empty( $GLOBALS['PB_PIMPLE_OVERRIDE'] ) ) {
 // Activation
 // -------------------------------------------------------------------------------------------------------------------
 
+// Disable SSL verification for development
+if ( defined( 'WP_ENV' ) && WP_ENV === 'development' ) {
+	add_filter( 'https_local_ssl_verify', '__return_false' );
+	add_filter( 'https_ssl_verify', '__return_false' );
+}
+
 \Pressbooks\Activation::init();
 
 // -------------------------------------------------------------------------------------------------------------------
