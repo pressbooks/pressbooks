@@ -1028,10 +1028,12 @@ class Cloner {
 	 * @param string $namespace The namespace for the request, e.g. 'pressbooks/v2'
 	 * @param string $endpoint The endpoint for the request, e.g. 'toc'
 	 * @param array $params URL parameters
+	 * @param bool $paginate (optional, if results are paginated then get next page)
+	 * @param array $previous_results (optional, used recursively for when results are paginated)
 	 *
 	 * @return array|\WP_Error
 	 */
-	protected function handleGetRequest( $url, $namespace, $endpoint, $params = [] ) {
+	protected function handleGetRequest( $url, $namespace, $endpoint, $params = [], $paginate = true, $previous_results = [] ) {
 		global $blog_id;
 
 		// Is the book local? If so, is it the current book? If not, switch to it.
@@ -1050,9 +1052,6 @@ class Cloner {
 			}
 			$response = rest_do_request( $request );
 
-			// TODO: WordPress shows only 10-100 results. We need to paginate on $response->headers['Link']
-			// Format: <http://pressbooks.dev/pdfimages/wp-json/wp/v2/media?media_type=image&page=2>; rel="next"
-
 			if ( $switch ) {
 				restore_current_blog();
 			}
@@ -1061,7 +1060,7 @@ class Cloner {
 			if ( is_wp_error( $response ) ) {
 				return $response;
 			} else {
-				return rest_get_server()->response_to_data( $response, true );
+				$results = rest_get_server()->response_to_data( $response, true );
 			}
 		} else {
 			// Build request URL
@@ -1087,9 +1086,76 @@ class Cloner {
 			} elseif ( isset( $response['response']['code'] ) && $response['response']['code'] >= 400 ) {
 				return new \WP_Error( $response['response']['code'], $response['response']['message'] );
 			} else {
-				return json_decode( $response['body'], true );
+				$results = json_decode( $response['body'], true );
 			}
 		}
+
+		if ( ! empty( $previous_results ) ) {
+			$results = array_merge( $previous_results, $results );
+		}
+
+		if ( $paginate ) {
+			$next_url = $this->nextWebLink( $response );
+			if ( $next_url ) {
+				parse_str( wp_parse_url( $next_url, PHP_URL_QUERY ), $next_params );
+				$next_url = strtok( $next_url, '?' );
+				return $this->handleGetRequest( $next_url, $namespace, $endpoint, $next_params, $paginate, $results );
+			}
+		}
+
+		return $results;
+	}
+
+	/**
+	 * Format: <http://pressbooks.dev/test/wp-json/wp/v2/media?media_type=image&page=2>; rel="next"
+	 * Or: <http://pressbooks.dev/test/wp-json/wp/v2/media?media_type=image&page=1>; rel="prev", <http://pressbooks.dev/test/wp-json/wp/v2/media?media_type=image&page=3>; rel="next"
+	 *
+	 * @param mixed $response
+	 *
+	 * @return string|false
+	 */
+	protected function nextWebLink( $response ) {
+		if ( is_object( $response ) ) {
+			$header = @$response->headers['Link']; // @codingStandardsIgnoreLine
+		} elseif ( isset( $response['headers']['Link'] ) ) {
+			$header = @$response['headers']['Link']; // @codingStandardsIgnoreLine
+		} else {
+			return false;
+		}
+
+		$links = explode( ',', $header );
+		foreach ( $links as $link ) {
+			$link = $this->parseLinkHeader( $link );
+			if ( isset( $link['rel'] ) && strtolower( $link['rel'] ) === 'next' ) {
+				return $link['href'];
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * Parse a Link header into attributes.
+	 *
+	 * @param string $link Link header from the response.
+	 *
+	 * @return array Map of attribute key => attribute value, with link href in `href` key.
+	 */
+	protected function parseLinkHeader( $link ) {
+		$parts = explode( ';', $link );
+		$attrs = [
+			'href' => trim( array_shift( $parts ), '<>' ),
+		];
+		foreach ( $parts as $part ) {
+			if ( ! strpos( $part, '=' ) ) {
+				continue;
+			}
+			list( $key, $value ) = explode( '=', $part, 2 );
+			$key = trim( $key );
+			$value = trim( $value, '" ' );
+			$attrs[ $key ] = $value;
+		}
+		return $attrs;
 	}
 
 	/**
@@ -1506,11 +1572,7 @@ class Cloner {
 		// Check for taxonomies introduced in Pressbooks 4.1
 		// We specifically check for 404 Not Found.
 		// If we get another kind of error it will be caught later because we want to know what went wrong.
-		$response = $this->handleGetRequest(
-			$url, 'pressbooks/v2', 'chapter-type', [
-				'per_page' => 1,
-			]
-		);
+		$response = $this->handleGetRequest( $url, 'pressbooks/v2', 'chapter-type', [ 'per_page' => 1 ], false );
 		if ( is_wp_error( $response ) && in_array( (int) $response->get_error_code(), [ 404 ], true ) ) {
 			return false;
 		}
