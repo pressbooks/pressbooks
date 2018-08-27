@@ -178,6 +178,11 @@ class Cloner {
 	protected $knownImages = [];
 
 	/**
+	 * @var \Pressbooks\Contributors;
+	 */
+	protected $contributors;
+
+	/**
 	 * Constructor.
 	 *
 	 * @since 4.1.0
@@ -209,6 +214,7 @@ class Cloner {
 		}
 
 		$this->interactiveContent = \Pressbooks\Interactive\Content::init();
+		$this->contributors = new Contributors();
 	}
 
 	/**
@@ -749,12 +755,11 @@ class Cloner {
 		// Everything else
 		$book_information['pb_is_based_on'] = $this->sourceBookUrl;
 		$metadata_array_values = [ 'pb_keywords_tags', 'pb_bisac_subject', 'pb_additional_subjects' ];
-		$contributors = new Contributors();
 		foreach ( $book_information as $key => $value ) {
-			if ( $contributors->isValid( $key ) ) {
+			if ( $this->contributors->isValid( $key ) ) {
 				$values = oxford_comma_explode( $value );
 				foreach ( $values as $v ) {
-					$contributors->insert( $v, $metadata_post_id, $key );
+					$this->contributors->insert( $v, $metadata_post_id, $key );
 				}
 			} elseif ( in_array( $key, $metadata_array_values, true ) ) {
 				$values = explode( ', ', $value );
@@ -771,7 +776,7 @@ class Cloner {
 
 		// Remove the current user from the author field in Book Info
 		$user_data = get_userdata( get_current_user_id() );
-		$contributors->unlink( $user_data->user_nicename, $metadata_post_id );
+		$this->contributors->unlink( $user_data->user_nicename, $metadata_post_id );
 
 		return $metadata_post_id;
 	}
@@ -876,6 +881,7 @@ class Cloner {
 			$this->cloneSectionMetadata( $section_id, $post_type, $response['id'] );
 		}
 
+		// Attach attachments to post
 		foreach ( $attachments as $attachment ) {
 			wp_update_post(
 				[
@@ -1001,12 +1007,11 @@ class Cloner {
 			$book_schema
 		);
 
-		$contributors = new Contributors();
 		foreach ( $section_information as $key => $value ) {
-			if ( $contributors->isValid( $key ) ) {
+			if ( $this->contributors->isValid( $key ) ) {
 				$values = oxford_comma_explode( $value );
 				foreach ( $values as $v ) {
-					$contributors->insert( $v, $target_id, $key );
+					$this->contributors->insert( $v, $target_id, $key );
 				}
 			} else {
 				update_post_meta( $target_id, $key, $value );
@@ -1177,7 +1182,6 @@ class Cloner {
 	protected function scrapeAndKneadImages( \DOMDocument $dom ) {
 
 		$images = $dom->getElementsByTagName( 'img' );
-
 		$attachments = [];
 
 		foreach ( $images as $image ) {
@@ -1189,7 +1193,7 @@ class Cloner {
 				// Do nothing because image is not hosted on the source Pb network
 			} elseif ( $attachment_id ) {
 				$image->setAttribute( 'src', $this->replaceImage( $attachment_id, $src_old, $image ) );
-				$attachments[] = $attachment_id;
+
 			} else {
 				// Tag broken image
 				$image->setAttribute( 'src', "{$src_old}#fixme" );
