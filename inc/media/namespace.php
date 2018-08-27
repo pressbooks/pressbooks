@@ -192,3 +192,20 @@ function intersect_media_ids( $media_ids_in_page, $media_ids_found_in_book ) {
 
 	return $ids;
 }
+
+/**
+ * Returns the upload path and basename from attachment URL (ie. 2017/08/foo-bar.ext), or unchanged if no match is found.
+ *
+ * @param string $url
+ *
+ * @return string
+ */
+function strip_baseurl( $url ) {
+	$extensions = implode( '|', array_keys( get_allowed_mime_types() ) );
+	$preg = '#(19|20)\d\d/(0[1-9]|1[012])/.+\.(' . $extensions . ')$#i'; # YYYY/MM/foo-bar.ext
+	if ( preg_match( $preg, $url, $matches ) ) {
+		$url = $matches[0];
+	}
+
+	return $url;
+}

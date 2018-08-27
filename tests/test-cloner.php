@@ -149,7 +149,7 @@ class ClonerTest extends \WP_UnitTestCase {
 	public function test_sanityCheck() {
 
 		$this->_setupBookApi();
-		$this->_openTextbook();
+		$this->_openTextbook( true );
 
 		$user_id = $this->factory()->user->create( [ 'role' => 'contributor' ] );
 		wp_set_current_user( $user_id );
@@ -182,9 +182,18 @@ class ClonerTest extends \WP_UnitTestCase {
 
 		$cloned_items = $cloner->getClonedItems();
 
+		$this->assertTrue( count( $cloned_items['terms'] ) > 0 );
+		$this->assertTrue( count( $cloned_items['front-matter'] ) > 0 );
+		$this->assertTrue( count( $cloned_items['parts'] ) > 0 );
 		$this->assertTrue( count( $cloned_items['chapters'] ) > 0 );
 		$this->assertTrue( count( $cloned_items['back-matter'] ) > 0 );
-		$this->assertTrue( count( $cloned_items['front-matter'] ) > 0 );
+
+		// TODO
+		// Our source book contains HTML that looks like:
+		// [video]http://example.org/wp-content/uploads/sites/3/2018/08/monkey-10.mp4[/video]
+		// <img width="150" height="150" src="http://example.org/wp-content/uploads/sites/3/2018/08/mountains-9-150x150.jpg" class="attachment-thumbnail size-thumbnail" alt="">
+		// But our tests can't download from http://example.org/ because it's not a real server. Markup gets tagged as #fixme
+		// $this->assertTrue( count( $cloned_items['media'] ) > 0 );
 	}
 
 }
