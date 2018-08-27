@@ -1110,19 +1110,12 @@ class Cloner {
 	 * Format: <http://pressbooks.dev/test/wp-json/wp/v2/media?media_type=image&page=2>; rel="next"
 	 * Or: <http://pressbooks.dev/test/wp-json/wp/v2/media?media_type=image&page=1>; rel="prev", <http://pressbooks.dev/test/wp-json/wp/v2/media?media_type=image&page=3>; rel="next"
 	 *
-	 * @param mixed $response
+	 * @param \WP_REST_Response|array $response
 	 *
 	 * @return string|false
 	 */
 	protected function nextWebLink( $response ) {
-		if ( is_object( $response ) ) {
-			$header = @$response->headers['Link']; // @codingStandardsIgnoreLine
-		} elseif ( isset( $response['headers']['Link'] ) ) {
-			$header = @$response['headers']['Link']; // @codingStandardsIgnoreLine
-		} else {
-			return false;
-		}
-
+		$header = $this->extractLinkHeader( $response );
 		$links = explode( ',', $header );
 		foreach ( $links as $link ) {
 			$link = $this->parseLinkHeader( $link );
@@ -1130,8 +1123,22 @@ class Cloner {
 				return $link['href'];
 			}
 		}
-
 		return false;
+	}
+
+	/**
+	 * @param \WP_REST_Response|array $response
+	 *
+	 * @return string
+	 */
+	protected function extractLinkHeader( $response ) {
+		if ( is_object( $response ) && property_exists( $response, 'headers' ) && is_array( $response->headers ) && isset( $response->headers['Link'] ) ) {
+			return $response->headers['Link'];
+		}
+		if ( is_array( $response ) && isset( $response['headers'], $response['headers']['Link'] ) ) {
+			return $response['headers']['Link'];
+		}
+		return '';
 	}
 
 	/**
