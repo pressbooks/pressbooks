@@ -895,6 +895,8 @@ class Cloner {
 	}
 
 	/**
+	 * Download media found in a section's `post_content` node, change the href links to point to newly downloaded media, etc
+	 *
 	 * @param array $section
 	 *
 	 * @return array{content: string, attachments: array}
