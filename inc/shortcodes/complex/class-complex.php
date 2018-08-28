@@ -6,8 +6,6 @@
 
 namespace Pressbooks\Shortcodes\Complex;
 
-use Masterminds\HTML5;
-
 class Complex {
 
 	/**
@@ -36,7 +34,6 @@ class Complex {
 		add_shortcode( 'columns', [ $obj, 'columnsShortCodeHandler' ] );
 		add_shortcode( 'email', [ $obj, 'emailShortCodeHandler' ] );
 		add_shortcode( 'equation', [ $obj, 'equationShortCodeHandler' ] );
-		add_shortcode( 'image', [ $obj, 'imageShortCodeHandler' ] );
 		add_shortcode( 'media', [ $obj, 'mediaShortCodeHandler' ] );
 	}
 
@@ -190,96 +187,6 @@ class Complex {
 				$content
 			)
 		);
-	}
-
-	/**
-	 * Shortcode handler for [image].
-	 *
-	 * @param array $atts Shortcode attributes.
-	 * @param string $content Shortcode content.
-	 * @param string $shortcode Shortcode name.
-	 */
-	public function imageShortCodeHandler( $atts, $content = '', $shortcode ) {
-		if ( ! $content ) {
-			return;
-		}
-		$atts = shortcode_atts( [
-			'caption' => null,
-			'alt' => null,
-			'link' => null,
-		], $atts );
-
-		$html5 = new HTML5(
-			[
-				'disable_html_ns' => true,
-			]
-		);
-		$dom = $html5->loadHTML( $content );
-		$tags = $dom->getElementsByTagName( 'img' );
-		if ( empty( $tags ) ) {
-			return;
-		}
-		$img = $tags[0];
-		$classes = $img->getAttribute( 'class' );
-		$id = preg_match( '/wp-image-([0-9]+)/i', $classes, $class_id );
-		$attachment_id = ( isset( $class_id[1] ) ) ? absint( $class_id[1] ) : '';
-
-		if ( $atts['alt'] ) {
-			$img->setAttribute( 'alt', $atts['alt'] );
-		}
-
-		if ( $atts['link'] ) {
-			if ( $atts['link'] === 'original' ) {
-				if ( $attachment_id ) {
-					$href = wp_get_attachment_url( $attachment_id );
-				} else {
-					$href = $img->getAttribute( 'src' );
-				}
-			} elseif ( filter_var( $atts['link'], FILTER_VALIDATE_URL ) ) {
-				$href = $atts['link'];
-			}
-			if ( $href ) {
-				$link = $dom->createElement( 'a' );
-				$link->setAttribute( 'href', $href );
-				$link->appendChild( $img );
-			}
-		} else {
-			$link = false;
-
-		}
-
-		if ( $atts['caption'] ) {
-			$classes .= ' wp-caption';
-			$figure = $dom->createElement( 'figure' );
-			if ( $attachment_id ) {
-				$figure->setAttribute( 'id', "attachment_$attachment_id" );
-			}
-			$width = str_replace( 'px', '', $img->getAttribute( 'width' ) );
-			$figure->setAttribute( 'style', sprintf(
-				'width: %spx',
-				$width
-			) );
-			$figure->setAttribute( 'class', $classes );
-			$figcaption = $dom->createElement( 'figcaption' );
-			$figcaption->setAttribute( 'class', 'wp-caption-text' );
-			$figcaption->nodeValue = $atts['caption'];
-			$append = ( $link ) ? $link : $img;
-			$figure->appendChild( $append );
-			$figure->appendChild( $figcaption );
-			$dom->appendChild( $figure );
-		} else {
-			$figure = false;
-		}
-
-		if ( $figure ) {
-			$content = $dom->saveHTML( $figure );
-		} elseif ( $link ) {
-			$content = $dom->saveHTML( $link );
-		} else {
-			$content = $dom->saveHtml( $img );
-		}
-
-		return $content;
 	}
 
 	/**
