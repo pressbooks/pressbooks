@@ -6,8 +6,6 @@
 
 namespace Pressbooks\Shortcodes\Complex;
 
-use Masterminds\HTML5;
-
 class Complex {
 
 	/**
