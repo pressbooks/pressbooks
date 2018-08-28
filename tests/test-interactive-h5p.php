@@ -49,7 +49,7 @@ class Interactive_H5P_Test extends \WP_UnitTestCase {
 		$this->h5p->setCloneableWarning();
 		$this->asserttrue( count( $_SESSION['pb_notices'] ) === 1 );
 		$this->assertContains( 'This book contains H5P content that cannot be cloned', $_SESSION['pb_notices'][0] );
-
+		unset( $_SESSION['pb_notices'] );
 	}
 
 }

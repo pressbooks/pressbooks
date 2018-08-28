@@ -301,7 +301,7 @@ class Wxr extends Import {
 
 		// Done
 		$_SESSION['pb_notices'][] = sprintf(
-			_x( 'Imported %1$s, %2$s, %3$s,%4$s, and %5$s.', 'String which tells user how many front matter, parts, chapters and back matter were imported.', 'pressbooks' ),
+			_x( 'Imported %1$s, %2$s, %3$s, %4$s, and %5$s.', 'String which tells user how many front matter, parts, chapters and back matter were imported.', 'pressbooks' ),
 			sprintf( _n( '%s front matter', '%s front matter', $totals['front-matter'], 'pressbooks' ), $totals['front-matter'] ),
 			sprintf( _n( '%s part', '%s parts', $totals['part'], 'pressbooks' ), $totals['part'] ),
 			sprintf( _n( '%s chapter', '%s chapters', $totals['chapter'], 'pressbooks' ), $totals['chapter'] ),

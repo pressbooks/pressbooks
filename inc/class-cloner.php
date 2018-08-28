@@ -280,7 +280,7 @@ class Cloner {
 		wp_defer_term_counting( true );
 
 		// Clone Metadata
-		$this->clonedItems['metadata'] = $this->cloneMetadata();
+		$this->clonedItems['metadata'][] = $this->cloneMetadata();
 
 		// Clone Taxonomy Terms
 		$this->targetBookTerms = $this->getBookTerms( $this->targetBookUrl );
