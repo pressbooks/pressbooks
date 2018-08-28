@@ -1953,21 +1953,11 @@ class Epub201 extends Export {
 			return $this->fetchedImageCache[ $url ];
 		}
 
-		$args = [];
+		$args = [
+			'timeout' => $this->timeout,
+		];
 
-		if ( defined( 'WP_ENV' ) && WP_ENV === 'development' ) {
-			$args['sslverify'] = false;
-		}
-
-		$response = \Pressbooks\Utility\remote_get_retry(
-			$url,
-			array_merge(
-				[
-					'timeout' => $this->timeout,
-				],
-				$args
-			)
-		);
+		$response = \Pressbooks\Utility\remote_get_retry( $url, $args );
 
 		// WordPress error?
 		if ( is_wp_error( $response ) ) {
@@ -1982,15 +1972,7 @@ class Epub201 extends Export {
 						$url = 'http:' . $url;
 					}
 				}
-				$response = wp_remote_get(
-					$url,
-					array_merge(
-						[
-							'timeout' => $this->timeout,
-						],
-						$args
-					)
-				);
+				$response = wp_remote_get( $url, $args );
 				if ( is_wp_error( $response ) ) {
 					throw new \Exception( 'Bad URL: ' . $url );
 				}

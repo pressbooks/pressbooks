@@ -6,8 +6,9 @@ trait utilsTrait {
 	 * Create and switch to a new test book
 	 *
 	 * @param string $theme (optional)
+	 * @param bool $with_media
 	 */
-	private function _book( $theme = 'pressbooks-book' ) {
+	private function _book( $theme = 'pressbooks-book', $with_media = false ) {
 		add_filter( 'pb_redirect_to_new_book', '__return_false' );
 		$blog_id = $this->factory()->blog->create();
 		switch_to_blog( $blog_id );
@@ -18,7 +19,7 @@ trait utilsTrait {
 
 		// Front Matter, First Part & Chapters, Back Matter
 		$book = \Pressbooks\Book::getInstance();
-		$pid = $this->_createChapter();
+		$pid = $this->_createChapter( 0, $with_media );
 		$last_part_menu_order = 0;
 		foreach ( $book::getBookStructure() as $key => $section ) {
 			if ( $key === 'front-matter' || $key === 'back-matter' ) {
@@ -55,7 +56,7 @@ trait utilsTrait {
 			'menu_order' => ( $last_part_menu_order + 1 ),
 		];
 		$pid = $this->factory()->post->create_object( $new_post );
-		$this->_createChapter( $pid );
+		$this->_createChapter( $pid, $with_media );
 
 		$book::deleteBookObjectCache();
 	}
@@ -64,10 +65,11 @@ trait utilsTrait {
 	 * Creates chapter
 	 *
 	 * @param int $post_parent
+	 * @param bool $with_media
 	 *
 	 * @return int
 	 */
-	private function _createChapter( $post_parent = 0 ) {
+	private function _createChapter( $post_parent = 0, $with_media = false ) {
 
 		$content = '<em>Kia ora tatou!</em>
 
@@ -97,6 +99,34 @@ There are many maths like it but these ones are mine.
 
 <p><a href="https://github.com/pressbooks/pressbooks#hello-world">External link.</a></p>
 ';
+
+		if ( $with_media ) {
+			$temp = tempnam( sys_get_temp_dir(), 'TMP_' );
+			file_put_contents( $temp, file_get_contents( __DIR__ . '/data/monkey.mp4' ) );
+			$pid = media_handle_sideload(
+				[
+					'name' => 'monkey.mp4',
+					'tmp_name' => $temp,
+				], 0
+			);
+			$video_url = wp_get_attachment_url( $pid );
+
+			$temp = tempnam( sys_get_temp_dir(), 'TMP_' );
+			file_put_contents( $temp, file_get_contents( __DIR__ . '/data/mountains.jpg' ) );
+			$pid = media_handle_sideload(
+				[
+					'name' => 'mountains.jpg',
+					'tmp_name' => $temp,
+				], 0
+			);
+			$thumbnail_html = wp_get_attachment_image( $pid, 'thumbnail' );
+
+			$content .= "
+[video]{$video_url}[/video]
+
+{$thumbnail_html}		
+";
+		}
 
 		$new_post = [
 			'post_title' => 'Test Chapter: ' . rand(),
@@ -149,9 +179,11 @@ There are many maths like it but these ones are mine.
 
 	/**
 	 * Create CC-BY book
+	 *
+	 * @param bool $with_media
 	 */
-	private function _openTextbook() {
-		$this->_book();
+	private function _openTextbook( $with_media = false ) {
+		$this->_book( 'pressbooks-book', $with_media );
 		update_option( 'blog_public', 1 );
 		$meta_post = ( new \Pressbooks\Metadata() )->getMetaPost();
 		update_post_meta( $meta_post->ID, 'pb_book_license', 'cc-by' );

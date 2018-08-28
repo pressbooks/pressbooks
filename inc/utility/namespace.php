@@ -842,10 +842,6 @@ function template( $path, array $vars = [] ) {
  * @return array|\WP_Error
  */
 function remote_get_retry( $url, $args, $retry = 3, $attempts = 0, $response = [] ) {
-	if ( defined( 'WP_ENV' ) && WP_ENV === 'development' ) {
-		$args['sslverify'] = false;
-	}
-
 	$completed = false;
 
 	if ( $attempts >= $retry ) {

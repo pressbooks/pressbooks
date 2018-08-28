@@ -141,10 +141,15 @@ class H5P {
 	 * When someone clones a book with H5P content, they should receive a warning message that that content has not been cloned
 	 */
 	public function setCloneableWarning() {
-		static $notice_already_set = false;
+		$notice = __( 'This book contains H5P content that cannot be cloned. Please review the cloned version of your text carefully, as missing H5P content will be indicated. You may want to remove or replace these sections.', 'pressbooks' );
+
+		$notice_already_set = false;
+		if ( isset( $_SESSION['pb_notices'] ) && is_array( $_SESSION['pb_notices'] ) && in_array( $notice, $_SESSION['pb_notices'], true ) ) {
+			$notice_already_set = true;
+		}
+
 		if ( ! $notice_already_set ) {
 			$_SESSION['pb_notices'][] = __( 'This book contains H5P content that cannot be cloned. Please review the cloned version of your text carefully, as missing H5P content will be indicated. You may want to remove or replace these sections.', 'pressbooks' );
-			$notice_already_set = true;
 		}
 	}
 
