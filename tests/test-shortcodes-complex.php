@@ -120,45 +120,6 @@ class Shortcodes_Complex extends \WP_UnitTestCase {
 		$this->assertEquals( "<p><img src='http://s0.wp.com/latex.php?latex=e%5E%7B%5Ci+%5Cpi%7D+%2B+1+%3D+0&#038;bg=ffffff&#038;fg=000000&#038;s=0&#038;zoom=1' alt='e^{\i \pi} + 1 = 0' title='e^{\i \pi} + 1 = 0' class='latex' /></p>\n", $content );
 	}
 
-	public function test_imageShortcodeHandler() {
-		// Test image with an alt tag
-		$content = $this->complex->imageShortCodeHandler( [ 'alt' => 'My alt tag!' ], '<img class="wp-nocaption wp-image-42 size-full" src="https://pressbooks.com/img.jpg" alt="garbage" />', 'image' );
-		$this->assertContains( 'alt="My alt tag!"', $content );
-
-		// Test image with a link
-		$content = $this->complex->imageShortCodeHandler( [ 'link' => 'https://pressbooks.org' ], '<img class="wp-nocaption wp-image-42 size-full" src="https://pressbooks.com/img.jpg" alt="garbage" />', 'image' );
-		$this->assertContains( '<a href="https://pressbooks.org"', $content );
-
-		// Test image with a caption
-		$content = $this->complex->imageShortCodeHandler( [ 'caption' => 'My nice caption.' ], '<img class="wp-nocaption wp-image-42 size-full" src="https://pressbooks.com/img.jpg" alt="garbage" />', 'image' );
-		$this->assertContains( '<figure id="attachment_42', $content );
-		$this->assertContains( '<figcaption class="wp-caption-text">My nice caption.</figcaption>', $content );
-
-		// Test image with an alt tag and a link
-		$content = $this->complex->imageShortCodeHandler( [ 'alt' => 'My alt tag!', 'link' => 'https://pressbooks.org' ], '<img class="wp-nocaption wp-image-42 size-full" src="https://pressbooks.com/img.jpg" alt="garbage" />', 'image' );
-		$this->assertContains( '<a href="https://pressbooks.org"', $content );
-		$this->assertContains( 'alt="My alt tag!"', $content );
-
-		// Test image with an alt tag and a caption
-		$content = $this->complex->imageShortCodeHandler( [ 'alt' => 'My alt tag!', 'caption' => 'My nice caption.' ], '<img class="wp-nocaption wp-image-42 size-full" src="https://pressbooks.com/img.jpg" alt="garbage" />', 'image' );
-		$this->assertContains( '<figure id="attachment_42', $content );
-		$this->assertContains( '<figcaption class="wp-caption-text">My nice caption.</figcaption>', $content );
-		$this->assertContains( 'alt="My alt tag!"', $content );
-
-		// Test image with a link and a caption
-		$content = $this->complex->imageShortCodeHandler( [ 'link' => 'https://pressbooks.org', 'caption' => 'My nice caption.' ], '<img class="wp-nocaption wp-image-42 size-full" src="https://pressbooks.com/img.jpg" alt="garbage" />', 'image' );
-		$this->assertContains( '<figure id="attachment_42', $content );
-		$this->assertContains( '<figcaption class="wp-caption-text">My nice caption.</figcaption>', $content );
-		$this->assertContains( '<a href="https://pressbooks.org"', $content );
-
-		// Test image with an alt tag, a link, and a caption
-		$content = $this->complex->imageShortCodeHandler( [ 'link' => 'https://pressbooks.org', 'alt' => 'My alt tag!', 'caption' => 'My nice caption.' ], '<img class="wp-nocaption wp-image-42 size-full" src="https://pressbooks.com/img.jpg" alt="garbage" />', 'image' );
-		$this->assertContains( '<figure id="attachment_42', $content );
-		$this->assertContains( '<figcaption class="wp-caption-text">My nice caption.</figcaption>', $content );
-		$this->assertContains( 'alt="My alt tag!"', $content );
-		$this->assertContains( '<a href="https://pressbooks.org"', $content );
-	}
-
 	public function test_mediaShortcodeHandler() {
 		// Test a YouTube embed as a src attribute
 		$content = $this->complex->mediaShortCodeHandler( [ 'src' => 'https://www.youtube.com/watch?v=JgIhGTpKTwM' ], '', 'embed' );
