@@ -1228,9 +1228,11 @@ class Cloner {
 		$attached_file = image_strip_baseurl( $url );
 
 		if ( isset( $this->knownMedia[ $attached_file ] ) ) {
+			$remote_img_metadata = $this->knownMedia[ $attached_file ]->meta;
 			$remote_img_location = $this->knownMedia[ $attached_file ]->sourceUrl;
 			$filename = basename( $remote_img_location );
 		} else {
+			$remote_img_metadata = [];
 			$remote_img_location = $url;
 		}
 
@@ -1280,6 +1282,9 @@ class Cloner {
 		if ( ! $src ) {
 			$pid = 0;
 		} else {
+			foreach ( $remote_img_metadata as $meta_key => $meta_value ) {
+				update_post_meta( $pid, $meta_key, $meta_value );
+			}
 			$this->clonedItems['media'][] = $pid;
 			$already_done[ $remote_img_location ] = $pid;
 		}
@@ -1404,9 +1409,11 @@ class Cloner {
 		$attached_file = media_strip_baseurl( $url );
 
 		if ( isset( $this->knownMedia[ $attached_file ] ) ) {
+			$remote_media_metadata = $this->knownMedia[ $attached_file ]->meta;
 			$remote_media_location = $this->knownMedia[ $attached_file ]->sourceUrl;
 			$filename = basename( $remote_media_location );
 		} else {
+			$remote_media_metadata = [];
 			$remote_media_location = $url;
 		}
 
@@ -1435,6 +1442,9 @@ class Cloner {
 		if ( ! $src ) {
 			$pid = 0;
 		} else {
+			foreach ( $remote_media_metadata as $meta_key => $meta_value ) {
+				update_post_meta( $pid, $meta_key, $meta_value );
+			}
 			$this->clonedItems['media'][] = $pid;
 			$already_done[ $remote_media_location ] = $pid;
 		}
