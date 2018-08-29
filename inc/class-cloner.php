@@ -157,9 +157,9 @@ class Cloner {
 	protected $targetBookTerms = [];
 
 	/**
-	 * Array of known media, format: [ Truncated Source URL (ie. 2017/08/foo.mp3) ] => [ Source URL ], ...
+	 * Array of known media
 	 *
-	 * @var array
+	 * @var \Pressbooks\Entities\Cloner\Media[]
 	 */
 	protected $knownMedia = [];
 
@@ -169,13 +169,6 @@ class Cloner {
 	 * @var string
 	 */
 	protected $pregSupportedImageExtensions = '/\.(jpe?g|gif|png)$/i';
-
-	/**
-	 * Array of known images, format: [ 2017/08/foo-bar-300x225.png ] => [ Fullsize URL ], ...
-	 *
-	 * @var array
-	 */
-	protected $knownImages = [];
 
 	/**
 	 * @var \Pressbooks\Contributors;
@@ -390,13 +383,12 @@ class Cloner {
 			$this->maybeRestoreCurrentBlog();
 			return false;
 		}
-		// Split images out of the media because we get maximum sizes using hack foo
-		foreach ( $this->knownMedia as $alternative => $source ) {
-			if ( preg_match( $this->pregSupportedImageExtensions, $source ) ) {
-				$this->knownImages[ $alternative ] = $source;
-				unset( $this->knownMedia[ $alternative ] );
-			}
-		}
+		// Sort by the length of sourceUrls for better search and replace
+		$known_media_sorted = $this->knownMedia;
+		uasort( $known_media_sorted, function ( $a, $b ) {
+			return strlen( $b->sourceUrl ) <=> strlen( $a->sourceUrl );
+		} );
+		$this->knownMedia = $known_media_sorted;
 
 		$this->maybeRestoreCurrentBlog();
 		return true;
@@ -510,7 +502,7 @@ class Cloner {
 	 *
 	 * @param string $url The URL of the book.
 	 *
-	 * @return bool | array False if the operation failed; known images array if succeeded.
+	 * @return bool |\Pressbooks\Entities\Cloner\Media[] False if the operation failed; known images array if succeeded.
 	 */
 	public function buildListOfKnownMedia( $url ) {
 		// Handle request (local or global)
@@ -531,15 +523,19 @@ class Cloner {
 
 		$known_media = [];
 		foreach ( $response as $item ) {
-			$fullsize = $item['source_url'];
+			$m = new \Pressbooks\Entities\Cloner\Media();
+			$m->sourceUrl = $item['source_url'];
+			if ( isset( $item['meta'] ) ) {
+				$m->meta = $item['meta'];
+			}
 			if ( $item['media_type'] === 'image' ) {
 				foreach ( $item['media_details']['sizes'] as $size => $info ) {
 					$attached_file = image_strip_baseurl( $info['source_url'] ); // 2017/08/foo-bar-300x225.png
-					$known_media[ $attached_file ] = $fullsize;
+					$known_media[ $attached_file ] = $m;
 				}
 			} else {
-				$attached_file = media_strip_baseurl( $fullsize ); // 2017/08/foo-bar.ext
-				$known_media[ $attached_file ] = $fullsize;
+				$attached_file = media_strip_baseurl( $m->sourceUrl ); // 2017/08/foo-bar.ext
+				$known_media[ $attached_file ] = $m;
 			}
 		}
 
@@ -1231,9 +1227,9 @@ class Cloner {
 		$filename = $this->basename( $url );
 		$attached_file = image_strip_baseurl( $url );
 
-		if ( isset( $this->knownImages[ $attached_file ] ) ) {
-			$remote_img_location = $this->knownImages[ $attached_file ];
-			$filename = basename( $this->knownImages[ $attached_file ] );
+		if ( isset( $this->knownMedia[ $attached_file ] ) ) {
+			$remote_img_location = $this->knownMedia[ $attached_file ]->sourceUrl;
+			$filename = basename( $remote_img_location );
 		} else {
 			$remote_img_location = $url;
 		}
@@ -1303,7 +1299,7 @@ class Cloner {
 
 		$src_new = wp_get_attachment_url( $attachment_id );
 
-		if ( $this->sameAsSource( $src_old ) && isset( $this->knownImages[ image_strip_baseurl( $src_old ) ] ) ) {
+		if ( $this->sameAsSource( $src_old ) && isset( $this->knownMedia[ image_strip_baseurl( $src_old ) ] ) ) {
 			$basename_old = $this->basename( $src_old );
 			$basename_new = $this->basename( $src_new );
 			$maybe_src_new = str_lreplace( $basename_new, $basename_old, $src_new );
@@ -1358,17 +1354,11 @@ class Cloner {
 		$dom_as_string = $html5->saveHTML( $dom );
 		$dom_as_string = \Pressbooks\Sanitize\strip_container_tags( $dom_as_string );
 
-		// Sort an array by the length of its values for better search and replace
-		$known_media_sorted = $this->knownMedia;
-		uasort( $known_media_sorted, function ( $a, $b ) {
-			return strlen( $b ) <=> strlen( $a );
-		} );
-
 		$attachments = [];
 		$changed = false;
-		foreach ( $known_media_sorted as $trailing => $url ) {
-			if ( strpos( $dom_as_string, $url ) !== false ) {
-				$src_old = $url;
+		foreach ( $this->knownMedia as $alt => $media ) {
+			if ( strpos( $dom_as_string, $media->sourceUrl ) !== false ) {
+				$src_old = $media->sourceUrl;
 				$attachment_id = $this->fetchAndSaveUniqueMedia( $src_old );
 				if ( $attachment_id === -1 ) {
 					// Do nothing because media is not hosted on the source Pb network
@@ -1414,8 +1404,8 @@ class Cloner {
 		$attached_file = media_strip_baseurl( $url );
 
 		if ( isset( $this->knownMedia[ $attached_file ] ) ) {
-			$remote_media_location = $this->knownMedia[ $attached_file ];
-			$filename = basename( $this->knownMedia[ $attached_file ] );
+			$remote_media_location = $this->knownMedia[ $attached_file ]->sourceUrl;
+			$filename = basename( $remote_media_location );
 		} else {
 			$remote_media_location = $url;
 		}
