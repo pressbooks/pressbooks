@@ -622,7 +622,7 @@ class Wxr extends Import {
 					}
 				}
 			}
-			if ( preg_match( '/\.(jpe?g|gif|png)$/i', $m->sourceUrl ) ) {
+			if ( preg_match( $this->pregSupportedImageExtensions, $m->sourceUrl ) ) {
 				$prefix = str_replace( $this->basename( $m->sourceUrl ), '', $x['file'] ); // 2017/08
 				foreach ( $x['sizes'] as $size => $info ) {
 					$attached_file = $prefix . $info['file']; // 2017/08/foo-bar-300x225.png
