@@ -9,6 +9,7 @@ namespace Pressbooks\Modules\Import\WordPress;
 use function Pressbooks\Image\attachment_id_from_url;
 use function Pressbooks\Image\strip_baseurl as image_strip_baseurl;
 use function Pressbooks\Media\strip_baseurl as media_strip_baseurl;
+use function Pressbooks\Utility\str_starts_with;
 use Masterminds\HTML5;
 use Pressbooks\Book;
 use Pressbooks\Contributors;
@@ -35,9 +36,9 @@ class Wxr extends Import {
 	protected $sourceBookUrl;
 
 	/**
-	 * Array of known media, format: [ Truncated Source URL (ie. 2017/08/foo.mp3) ] => [ Source URL ], ...
+	 * Array of known media
 	 *
-	 * @var array
+	 * @var \Pressbooks\Entities\Cloner\Media[]
 	 */
 	protected $knownMedia = [];
 
@@ -47,13 +48,6 @@ class Wxr extends Import {
 	 * @var string
 	 */
 	protected $pregSupportedImageExtensions = '/\.(jpe?g|gif|png)$/i';
-
-	/**
-	 * Array of known images, format: [ 2017/08/foo-bar-300x225.png ] => [ Fullsize URL ], ...
-	 *
-	 * @var array
-	 */
-	protected $knownImages = [];
 
 	/**
 	 * @var \Pressbooks\Contributors;
@@ -155,13 +149,12 @@ class Wxr extends Import {
 
 		$this->sourceBookUrl = $xml['base_url'];
 		$this->knownMedia = $this->buildListOfKnownMedia( $xml );
-		// Split images out of the media because we get maximum sizes using hack foo
-		foreach ( $this->knownMedia as $alternative => $source ) {
-			if ( preg_match( $this->pregSupportedImageExtensions, $source ) ) {
-				$this->knownImages[ $alternative ] = $source;
-				unset( $this->knownMedia[ $alternative ] );
-			}
-		}
+		// Sort by the length of sourceUrls for better search and replace
+		$known_media_sorted = $this->knownMedia;
+		uasort( $known_media_sorted, function ( $a, $b ) {
+			return strlen( $b->sourceUrl ) <=> strlen( $a->sourceUrl );
+		} );
+		$this->knownMedia = $known_media_sorted;
 
 		if ( $this->isPbWxr ) {
 			$xml['posts'] = $this->customNestedSort( $xml['posts'] );
@@ -599,7 +592,7 @@ class Wxr extends Import {
 	 *
 	 * @param array $xml
 	 *
-	 * @return array
+	 * @return \Pressbooks\Entities\Cloner\Media[]
 	 */
 	public function buildListOfKnownMedia( $xml ) {
 
@@ -620,16 +613,24 @@ class Wxr extends Import {
 				continue; // Something went wrong, skip
 			}
 
-			$fullsize = $item['attachment_url'];
-			if ( preg_match( '/\.(jpe?g|gif|png)$/i', $item['attachment_url'] ) ) {
-				$prefix = str_replace( $this->basename( $fullsize ), '', $x['file'] ); // 2017/08
+			$m = new \Pressbooks\Entities\Cloner\Media();
+			$m->sourceUrl = $item['attachment_url'];
+			if ( isset( $item['postmeta'] ) && is_array( $item['postmeta'] ) ) {
+				foreach ( $item['postmeta'] as $meta ) {
+					if ( str_starts_with( $meta['key'], '_' ) === false ) {
+						$m->meta[ $meta['key'] ] = $meta['value'];
+					}
+				}
+			}
+			if ( preg_match( '/\.(jpe?g|gif|png)$/i', $m->sourceUrl ) ) {
+				$prefix = str_replace( $this->basename( $m->sourceUrl ), '', $x['file'] ); // 2017/08
 				foreach ( $x['sizes'] as $size => $info ) {
 					$attached_file = $prefix . $info['file']; // 2017/08/foo-bar-300x225.png
-					$known_media[ $attached_file ] = $fullsize;
+					$known_media[ $attached_file ] = $m;
 				}
 			} else {
-				$attached_file = media_strip_baseurl( $fullsize ); // 2017/08/foo-bar.ext
-				$known_media[ $attached_file ] = $fullsize;
+				$attached_file = media_strip_baseurl( $m->sourceUrl ); // 2017/08/foo-bar.ext
+				$known_media[ $attached_file ] = $m;
 			}
 		}
 
@@ -716,10 +717,12 @@ class Wxr extends Import {
 		$filename = $this->basename( $url );
 		$attached_file = image_strip_baseurl( $url );
 
-		if ( isset( $this->knownImages[ $attached_file ] ) ) {
-			$remote_img_location = $this->knownImages[ $attached_file ];
-			$filename = basename( $this->knownImages[ $attached_file ] );
+		if ( isset( $this->knownMedia[ $attached_file ] ) ) {
+			$remote_img_metadata = $this->knownMedia[ $attached_file ]->meta;
+			$remote_img_location = $this->knownMedia[ $attached_file ]->sourceUrl;
+			$filename = basename( $remote_img_location );
 		} else {
+			$remote_img_metadata = [];
 			$remote_img_location = $url;
 		}
 
@@ -769,8 +772,12 @@ class Wxr extends Import {
 		$src = wp_get_attachment_url( $pid );
 		if ( ! $src ) {
 			$pid = 0;
+		} else {
+			foreach ( $remote_img_metadata as $meta_key => $meta_value ) {
+				update_post_meta( $pid, $meta_key, $meta_value );
+			}
+			$already_done[ $remote_img_location ] = $pid;
 		}
-		$already_done[ $remote_img_location ] = $pid;
 		@unlink( $tmp_name ); // @codingStandardsIgnoreLine
 
 		return $pid;
@@ -787,7 +794,7 @@ class Wxr extends Import {
 
 		$src_new = wp_get_attachment_url( $attachment_id );
 
-		if ( $this->sameAsSource( $src_old ) && isset( $this->knownImages[ image_strip_baseurl( $src_old ) ] ) ) {
+		if ( $this->sameAsSource( $src_old ) && isset( $this->knownMedia[ image_strip_baseurl( $src_old ) ] ) ) {
 			$basename_old = $this->basename( $src_old );
 			$basename_new = $this->basename( $src_new );
 			$maybe_src_new = \Pressbooks\Utility\str_lreplace( $basename_new, $basename_old, $src_new );
@@ -841,17 +848,11 @@ class Wxr extends Import {
 		$dom_as_string = $html5->saveHTML( $dom );
 		$dom_as_string = \Pressbooks\Sanitize\strip_container_tags( $dom_as_string );
 
-		// Sort an array by the length of its values for better search and replace
-		$known_media_sorted = $this->knownMedia;
-		uasort( $known_media_sorted, function ( $a, $b ) {
-			return strlen( $b ) <=> strlen( $a );
-		} );
-
 		$attachments = [];
 		$changed = false;
-		foreach ( $known_media_sorted as $trailing => $url ) {
-			if ( strpos( $dom_as_string, $url ) !== false ) {
-				$src_old = $url;
+		foreach ( $this->knownMedia as $alt => $media ) {
+			if ( strpos( $dom_as_string, $media->sourceUrl ) !== false ) {
+				$src_old = $media->sourceUrl;
 				$attachment_id = $this->fetchAndSaveUniqueMedia( $src_old );
 				if ( $attachment_id === -1 ) {
 					// Do nothing because media is not hosted on the source Pb network
@@ -897,9 +898,11 @@ class Wxr extends Import {
 		$attached_file = media_strip_baseurl( $url );
 
 		if ( isset( $this->knownMedia[ $attached_file ] ) ) {
-			$remote_media_location = $this->knownMedia[ $attached_file ];
-			$filename = basename( $this->knownMedia[ $attached_file ] );
+			$remote_media_metadata = $this->knownMedia[ $attached_file ]->meta;
+			$remote_media_location = $this->knownMedia[ $attached_file ]->sourceUrl;
+			$filename = basename( $remote_media_location );
 		} else {
+			$remote_media_metadata = [];
 			$remote_media_location = $url;
 		}
 
@@ -928,13 +931,15 @@ class Wxr extends Import {
 		if ( ! $src ) {
 			$pid = 0;
 		} else {
+			foreach ( $remote_media_metadata as $meta_key => $meta_value ) {
+				update_post_meta( $pid, $meta_key, $meta_value );
+			}
 			$already_done[ $remote_media_location ] = $pid;
 		}
 		@unlink( $tmp_name ); // @codingStandardsIgnoreLine
 
 		return $pid;
 	}
-
 
 	/**
 	 * For backwards-compatibility, some PB5 field names are pluralized so that any third-party code that looks for the old fields will still be able to retrieve them.

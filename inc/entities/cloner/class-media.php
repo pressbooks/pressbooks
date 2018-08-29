@@ -11,10 +11,10 @@ class Media {
 	/**
 	 * @var string
 	 */
-	public $sourceUrl;
+	public $sourceUrl = '';
 
 	/**
 	 * @var array
 	 */
-	public $meta;
+	public $meta = [];
 }
