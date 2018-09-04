@@ -112,6 +112,11 @@ if ( $is_book && use_book_locale() ) {
 
 add_action( 'init', '\Pressbooks\Sanitize\allow_post_content' );
 
+// Support QuickLaTeX in TablePress
+if ( function_exists( 'quicklatex_parser' ) ) {
+	add_filter( 'tablepress_cell_content', 'quicklatex_parser' );
+}
+
 // -------------------------------------------------------------------------------------------------------------------
 // Images
 // -------------------------------------------------------------------------------------------------------------------
