@@ -1362,6 +1362,10 @@ class Cloner {
 		$attachments = [];
 		$changed = false;
 		foreach ( $this->knownMedia as $alt => $media ) {
+			if ( preg_match( $this->pregSupportedImageExtensions, $this->basename( $media->sourceUrl ) ) ) {
+				// Skip images, these have already been done
+				continue;
+			}
 			if ( strpos( $dom_as_string, $media->sourceUrl ) !== false ) {
 				$src_old = $media->sourceUrl;
 				$attachment_id = $this->fetchAndSaveUniqueMedia( $src_old );
