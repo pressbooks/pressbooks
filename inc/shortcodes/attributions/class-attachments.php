@@ -19,7 +19,7 @@ class Attachments {
 	/**
 	 * @var array
 	 */
-	static $book_media = [];
+	private $book_media = [];
 
 	/**
 	 * Function to init our class, set filters & hooks, set a singleton instance
@@ -32,7 +32,6 @@ class Attachments {
 		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
 			self::hooks( self::$instance );
-			self::setBookMedia();
 		}
 
 		return self::$instance;
@@ -83,14 +82,33 @@ class Attachments {
 	}
 
 	/**
-	 * Gets all attachments currently in the database, returns as an array of
+	 * Returns the array of attachments set in the instance variable
+	 *
+	 * @since 5.5.0
+	 *
+	 * @return array|null
+	 */
+	function getBookMedia() {
+		// Cheap cache
+		static $media = null;
+		if ( null !== $media ) {
+			return $media;
+		} else {
+			$media = $this->book_media;
+		}
+
+		return $media;
+	}
+
+	/**
+	 * Sets all attachments currently in the database, returns as an array of
 	 * key = ID, value = guid. Sets an instance variable
 	 *
 	 * @since 5.5.0
 	 *
 	 * @return void $book_media
 	 */
-	private static function setBookMedia() {
+	function setBookMedia() {
 		$book_media = [];
 		$args = [
 			'post_type'      => 'attachment',
@@ -104,7 +122,7 @@ class Attachments {
 			$book_media[ $media->ID ] = $media->guid;
 		}
 
-		self::$book_media = $book_media;
+		$this->book_media = $book_media;
 	}
 
 	/**
@@ -126,12 +144,14 @@ class Attachments {
 			return $content;
 		}
 
+		$this->setBookMedia();
+
 		// get all book attachments
-		if ( self::$book_media ) {
+		if ( $this->getBookMedia() ) {
 			$media_ids = Media\extract_id_from_media( $media_in_page );
 
 			// intersect media_ids found in page with found in book
-			$unique_ids = Media\intersect_media_ids( $media_ids, self::$book_media );
+			$unique_ids = Media\intersect_media_ids( $media_ids, $this->getBookMedia() );
 		} else {
 			return $content;
 		}
