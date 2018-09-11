@@ -82,47 +82,35 @@ class Attachments {
 	}
 
 	/**
-	 * Returns the array of attachments set in the instance variable
+	 * Returns the array of attachments set in the instance variable.
+	 *
+	 * @param bool $reset (optional, default is false)
 	 *
 	 * @since 5.5.0
 	 *
 	 * @return array|null
 	 */
-	function getBookMedia() {
+	function getBookMedia( $reset = false ) {
 		// Cheap cache
-		static $media = null;
-		if ( null !== $media ) {
-			return $media;
-		} else {
-			$media = $this->book_media;
+		static $book_media = null;
+		if ( $reset || $book_media === null ) {
+			$book_media = [];
+			$args = [
+				'post_type' => 'attachment',
+				'posts_per_page' => -1,  // @codingStandardsIgnoreLine
+				'post_status' => 'inherit',
+				'no_found_rows' => true,
+			];
+
+			$attached_media = get_posts( $args );
+
+			foreach ( $attached_media as $media ) {
+				$book_media[ $media->ID ] = $media->guid;
+			}
+			$this->book_media = $book_media;
 		}
 
-		return $media;
-	}
-
-	/**
-	 * Sets all attachments currently in the database, returns as an array of
-	 * key = ID, value = guid. Sets an instance variable
-	 *
-	 * @since 5.5.0
-	 *
-	 * @return void $book_media
-	 */
-	function setBookMedia() {
-		$book_media = [];
-		$args = [
-			'post_type'      => 'attachment',
-			'posts_per_page' => - 1,
-			'post_status'    => 'inherit',
-		];
-
-		$attached_media = get_posts( $args );
-
-		foreach ( $attached_media as $media ) {
-			$book_media[ $media->ID ] = $media->guid;
-		}
-
-		$this->book_media = $book_media;
+		return $this->book_media;
 	}
 
 	/**
@@ -144,14 +132,12 @@ class Attachments {
 			return $content;
 		}
 
-		$this->setBookMedia();
-
 		// get all book attachments
-		if ( $this->getBookMedia() ) {
+		$book_media = $this->getBookMedia();
+		if ( ! empty( $book_media ) ) {
 			$media_ids = Media\extract_id_from_media( $media_in_page );
-
 			// intersect media_ids found in page with found in book
-			$unique_ids = Media\intersect_media_ids( $media_ids, $this->getBookMedia() );
+			$unique_ids = Media\intersect_media_ids( $media_ids, $book_media );
 		} else {
 			return $content;
 		}
