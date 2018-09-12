@@ -139,15 +139,18 @@ class EditorTest extends \WP_UnitTestCase {
 		*/
 		$query = [];
 
-		// Post ID 999+ not in results or does not have anchors
-		$_SERVER['HTTP_REFERER'] = 'https://pressbooks.test/book/wp-admin/post.php?post=' . ( $post_id + 999 ) . '&action=edit';
-		$new_results = \Pressbooks\Editor\add_anchors_to_wp_link_query( $results, $query );
-		$this->assertEquals( $new_results, $results );
 
+		// Relative to self
 		$_SERVER['HTTP_REFERER'] = "https://pressbooks.test/book/wp-admin/post.php?post={$post_id}&action=edit";
 		$new_results = \Pressbooks\Editor\add_anchors_to_wp_link_query( $results, $query );
 		$this->assertEquals( $new_results[1]['permalink'], '#anchor1' );
 		$this->assertEquals( $new_results[2]['permalink'], '#anchor2' );
+
+		// Link to another chapter
+		$_SERVER['HTTP_REFERER'] = "https://pressbooks.test/book/wp-admin/post.php?post=" . ( $post_id + 999 ) . "&action=edit";
+		$new_results = \Pressbooks\Editor\add_anchors_to_wp_link_query( $results, $query );
+		$this->assertEquals( $new_results[1]['permalink'], 'https://pressbooks.test/book/chapter/anchor#anchor1' );
+		$this->assertEquals( $new_results[2]['permalink'], 'https://pressbooks.test/book/chapter/anchor#anchor2' );
 
 		// An empty results array should not be modified
 		$new_results = \Pressbooks\Editor\add_anchors_to_wp_link_query( [], $query );

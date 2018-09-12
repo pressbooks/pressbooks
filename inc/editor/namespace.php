@@ -320,59 +320,43 @@ function customize_wp_link_query_args( $query ) {
  * Add anchors to link insertion modal query results.
  *
  * @param array $results
- * @param array $parent_query
+ * @param array $query
  *
  * @return array
  */
-function add_anchors_to_wp_link_query( $results, $parent_query ) {
-
+function add_anchors_to_wp_link_query( $results, $query ) {
 	$url = wp_parse_url( $_SERVER['HTTP_REFERER'] );
 	parse_str( $url['query'], $query );
-
-	if ( ! isset( $query['post'] ) ) {
-		return $results;
-	}
-
-	// Find the position of the current post in $results
-	$offset = false;
-	foreach ( $results as $key => $result ) {
-		if ( (int) $results[ $key ]['ID'] === (int) $query['post'] ) {
-			$offset = $key + 1;
-			break;
-		}
-	}
-	if ( $offset === false ) {
-		// If we could not find the position of the current post in $results, then do nothing.
-		// The $results are paginated. If the user scrolls down more ajax calls will happen. We wait until we see our post to insert $anchors.
-		return $results;
-	}
-
-	$anchors = [];
-
-	$post = get_post( $query['post'] );
-
-	libxml_use_internal_errors( true );
-
-	$content = mb_convert_encoding( apply_filters( 'the_content', $post->post_content ), 'HTML-ENTITIES', 'UTF-8' );
-
-	if ( ! empty( $content ) ) {
-		$doc = new \DOMDocument();
-		$doc->loadHTML( $content );
-
-		/** @var \DOMElement $node */
-		foreach ( $doc->getElementsByTagName( 'a' ) as $node ) {
-			if ( $node->hasAttribute( 'id' ) ) {
-				$anchors[] = [
-					'ID' => $post->ID,
-					'title' => '#' . $node->getAttribute( 'id' ) . ' (' . $post->post_title . ')',
-					'permalink' => '#' . $node->getAttribute( 'id' ),
-					'info' => __( 'Internal Link', 'pressbooks' ),
-				];
+	$current_post_id = isset( $query['post'] ) ? $query['post'] : 0;
+	$new_results = [];
+	foreach ( $results as $result ) {
+		$new_results[] = $result;
+		$url = rtrim( $result['permalink'], '/' );
+		$post_id = $result['ID'];
+		$post = get_post( $post_id );
+		if ( $post ) {
+			$content = mb_convert_encoding( apply_filters( 'the_content', $post->post_content ), 'HTML-ENTITIES', 'UTF-8' );
+			if ( ! empty( $content ) ) {
+				libxml_use_internal_errors( true );
+				$doc = new \DOMDocument();
+				$doc->loadHTML( $content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD );
+				/** @var \DOMElement $node */
+				foreach ( $doc->getElementsByTagName( 'a' ) as $node ) {
+					if ( $node->hasAttribute( 'id' ) ) {
+						$permalink = ( (int) $current_post_id !== (int) $post->ID ) ? $url : '';
+						$permalink .= '#' . $node->getAttribute( 'id' );
+						$new_results[] = [
+							'ID' => $post->ID,
+							'title' => '#' . $node->getAttribute( 'id' ) . ' (' . $post->post_title . ')',
+							'permalink' => $permalink,
+							'info' => __( 'Internal Link', 'pressbooks' ),
+						];
+					}
+				}
+				$errors = libxml_get_errors(); // TODO: Handle errors gracefully
+				libxml_clear_errors();
 			}
 		}
 	}
-
-	// Put array of anchors right after our post (ie. put array one in the middle of array two)
-	array_splice( $results, $offset, 0, $anchors );
-	return $results;
+	return $new_results;
 }
