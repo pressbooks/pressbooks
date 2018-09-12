@@ -333,6 +333,20 @@ function add_anchors_to_wp_link_query( $results, $parent_query ) {
 		return $results;
 	}
 
+	// Find the position of the current post in $results
+	$offset = false;
+	foreach ( $results as $key => $result ) {
+		if ( (int) $results[ $key ]['ID'] === (int) $query['post'] ) {
+			$offset = $key + 1;
+			break;
+		}
+	}
+	if ( $offset === false ) {
+		// If we could not find the position of the current post in $results, then do nothing.
+		// The $results are paginated. If the user scrolls down more ajax calls will happen. We wait until we see our post to insert $anchors.
+		return $results;
+	}
+
 	$anchors = [];
 
 	$post = get_post( $query['post'] );
@@ -358,20 +372,7 @@ function add_anchors_to_wp_link_query( $results, $parent_query ) {
 		}
 	}
 
-	// Find the position of the current post in $results, put array of anchors right after that post (ie. put array one in the middle of array two)
-	$offset = false;
-	foreach ( $results as $key => $result ) {
-		if ( (int) $results[ $key ]['ID'] === (int) $query['post'] ) {
-			$offset = $key + 1;
-			break;
-		}
-	}
-	if ( $offset === false ) {
-		// If we could not find the position of the current post in $results, then do nothing.
-		// The $results are paginated. If the user scrolls down more ajax calls will happen. We wait until we see our post to insert $anchors.
-		return $results;
-	} else {
-		array_splice( $results, $offset, 0, $anchors );
-		return $results;
-	}
+	// Put array of anchors right after our post (ie. put array one in the middle of array two)
+	array_splice( $results, $offset, 0, $anchors );
+	return $results;
 }
