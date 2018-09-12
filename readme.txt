@@ -21,6 +21,21 @@ For installation instructions, visit [docs.pressbooks.org/installation](https://
 TK.
 
 == Changelog ==
+= 5.6.0 =
+
+* Pressbooks 5.6.0 requires PHP >= 7.1.
+* Pressbooks 5.6.0 requires [WordPress 4.9.8](https://wordpress.org/news/2018/08/wordpress-4-9-8-maintenance-release/).
+* Pressbooks 5.6.0 requires [McLuhan >= 2.6.0](https://github.com/pressbooks/pressbooks-book/).
+
+**Minor Changes**
+
+* Scan full book contents for anchors in link insertion tool: [#1345](https://github.com/pressbooks/pressbooks/pulls/1345)
+* Add support for glossary term management and display (props [@alex-418](https://github.com/alex-418) and [@bdolor](https://github.com/bdolor)): [#1320](https://github.com/pressbooks/pressbooks/pulls/1320)
+
+**Patches**
+
+* Fix duplication of anchors in link insertion tool: [#1345](https://github.com/pressbooks/pressbooks/pulls/#1345)
+
 = 5.5.0 =
 
 * Pressbooks 5.5.0 requires PHP >= 7.1.
@@ -58,8 +73,8 @@ TK.
 * Improve session handling to prevent session locking: [#1335](https://github.com/pressbooks/pressbooks/issues/1335)
 
 == Upgrade Notice ==
-= 5.5.0 =
+= 5.6.0 =
 
-* Pressbooks 5.5.0 requires PHP >= 7.1.
-* Pressbooks 5.5.0 requires [WordPress 4.9.8](https://wordpress.org/news/2018/08/wordpress-4-9-8-maintenance-release/).
-* Pressbooks 5.5.0 requires [McLuhan >= 2.5.0](https://github.com/pressbooks/pressbooks-book/).
+* Pressbooks 5.6.0 requires PHP >= 7.1.
+* Pressbooks 5.6.0 requires [WordPress 4.9.8](https://wordpress.org/news/2018/08/wordpress-4-9-8-maintenance-release/).
+* Pressbooks 5.6.0 requires [McLuhan >= 2.6.0](https://github.com/pressbooks/pressbooks-book/).
