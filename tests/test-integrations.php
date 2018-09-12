@@ -116,7 +116,7 @@ class IntegrationsTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'Hosted Video', $struct['part'][3]['chapters'][0]['post_title'] );
 
 		$this->asserttrue( count( $_SESSION['pb_notices'] ) === 1 );
-		$this->assertContains( 'Imported 2 front matter, 2 parts, 6 chapters, 2 back matter, and 2 media attachments.', $_SESSION['pb_notices'][0] );
+		$this->assertContains( 'Imported 2 front matter, 2 parts, 6 chapters, 2 back matter, 2 media attachments, and 0 glossary terms.', $_SESSION['pb_notices'][0] );
 		unset( $_SESSION['pb_notices'] );
 	}
 
