@@ -137,6 +137,14 @@ function replace_book_admin_menu() {
 
 	add_submenu_page(
 		'pb_organize',
+		__( 'Glossary Terms', 'pressbooks' ),
+		__( 'Glossary Terms', 'pressbooks' ),
+		'edit_posts',
+		'edit.php?post_type=glossary'
+	);
+
+	add_submenu_page(
+		'pb_organize',
 		__( 'Chapter Types', 'pressbooks' ),
 		__( 'Chapter Types', 'pressbooks' ),
 		'manage_network',
@@ -157,6 +165,14 @@ function replace_book_admin_menu() {
 		__( 'Back Matter Types', 'pressbooks' ),
 		'manage_network',
 		'edit-tags.php?taxonomy=back-matter-type&post_type=back-matter'
+	);
+
+	add_submenu_page(
+		'pb_organize',
+		__( 'Glossary Types', 'pressbooks' ),
+		__( 'Glossary Types', 'pressbooks' ),
+		'manage_network',
+		'edit-tags.php?taxonomy=glossary-type&post_type=glossary'
 	);
 
 	add_submenu_page(
@@ -368,6 +384,7 @@ function fix_root_admin_menu() {
 	remove_menu_page( 'edit.php?post_type=front-matter' );
 	remove_menu_page( 'edit.php?post_type=back-matter' );
 	remove_menu_page( 'edit.php?post_type=metadata' );
+	remove_menu_page( 'edit.php?post_type=glossary' );
 
 	// Catalog
 	add_submenu_page( 'index.php', __( 'My Catalog', 'pressbooks' ), __( 'My Catalog', 'pressbooks' ), 'read', 'pb_catalog', '\Pressbooks\Catalog::addMenu' );

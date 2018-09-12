@@ -29,6 +29,7 @@ class PostTypeTest extends \WP_UnitTestCase {
 		$this->assertArrayHasKey( 'chapter', $wp_post_types );
 		$this->assertArrayHasKey( 'back-matter', $wp_post_types );
 		$this->assertArrayHasKey( 'metadata', $wp_post_types );
+		$this->assertArrayHasKey( 'glossary', $wp_post_types );
 
 		$wp_post_types = $wp_post_types_old;
 	}
@@ -103,5 +104,6 @@ class PostTypeTest extends \WP_UnitTestCase {
 		$this->assertEquals( get_post_type_label( 'front-matter' ), 'Front Matter' );
 		$this->assertEquals( get_post_type_label( 'back-matter' ), 'Back Matter' );
 		$this->assertEquals( get_post_type_label( 'chapter' ), 'Chapter' );
+		$this->assertEquals( get_post_type_label( 'glossary' ), 'Glossary' );
 	}
 }

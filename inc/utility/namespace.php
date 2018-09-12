@@ -1367,6 +1367,29 @@ function oxford_comma_explode( $string ) {
 	return $results;
 }
 
+/**
+ * Converts a space separated string, to lowercase separated by dashes
+ *
+ * @since 5.5.0
+ *
+ * @param $string
+ *
+ * @return string
+ */
+function str_lowercase_dash( $string ) {
+	$low = '';
+
+	if ( ! empty( $string ) ) {
+		$low = strtolower( trim( $string ) );
+		$results = explode( ' ', $low );
+
+		if ( count( $results ) > 1 ) {
+			$low = implode( '-', $results );
+		}
+	}
+
+	return $low;
+}
 
 /**
  * Check whether an array is zero-indexed and sequential

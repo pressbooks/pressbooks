@@ -1,0 +1,287 @@
+<?php
+/**
+ * @author   Brad Payne, Alex Paredes
+ * @license  GPLv3 (or any later version)
+ */
+
+namespace Pressbooks\Shortcodes\Glossary;
+
+use PressbooksMix\Assets;
+
+class Glossary {
+
+	/**
+	 * @var Glossary
+	 */
+	static $instance = null;
+
+	/**
+	 * @var array
+	 */
+	private $glossary_terms = [];
+
+	/**
+	 * Function to init our class, set filters & hooks, set a singleton instance
+	 *
+	 * @return Glossary
+	 */
+	static public function init() {
+		if ( is_null( self::$instance ) ) {
+			self::$instance = new self();
+			self::hooks( self::$instance );
+		}
+
+		return self::$instance;
+	}
+
+	/**
+	 * Some JavaScript for our TinyMCE buttons
+	 *
+	 * @since 5.5.0
+	 *
+	 * @param $plugin_array
+	 *
+	 * @return mixed
+	 */
+	function addGlossaryPlugin( $plugin_array ) {
+		$assets = new Assets( 'pressbooks', 'plugin' );
+		$plugin_array['glossary'] = $assets->getPath( 'scripts/glossary.js' );
+
+		return $plugin_array;
+	}
+
+	/**
+	 * Add JavaScript for the tooltip
+	 *
+	 * @since 5.5.0
+	 *
+	 */
+	function addTooltipScripts() {
+		$assets = new Assets( 'pressbooks', 'plugin' );
+		wp_enqueue_script( 'glossary-tooltip', $assets->getPath( 'scripts/tooltip.js' ), [ 'jquery-ui-tooltip' ], false, true );
+	}
+
+	/**
+	 * Gets the instance variable of glossary terms
+	 *
+	 * @since 5.5.0
+	 *
+	 * @return array|null
+	 */
+	function getGlossaryTerms() {
+		// Cheap cache
+		static $terms = null;
+		if ( null !== $terms ) {
+			return $terms;
+		} else {
+			$terms = $this->glossary_terms;
+		}
+
+		return $terms;
+	}
+
+	/**
+	 * Register our plugin with TinyMCE
+	 *
+	 * @since 5.5.0
+	 *
+	 */
+	function glossaryButton() {
+
+		if ( ! current_user_can( 'edit_posts' ) && ! current_user_can( 'edit_pages' ) ) {
+			return;
+		}
+		if ( get_user_option( 'rich_editing' ) ) {
+			$this->setGlossaryTerms();
+
+			add_action(
+				'admin_enqueue_scripts', function () {
+					wp_localize_script(
+						'editor', 'PB_GlossaryToken', [
+							'nonce'              => wp_create_nonce( 'pb-glossary' ),
+							'glossary_title'     => __( 'Insert Glossary Term', 'pressbooks' ),
+							'glossary_all_title' => __( 'Insert Glossary List', 'pressbooks' ),
+							'glossary_terms'     => wp_json_encode( $this->getGlossaryTerms() ),
+						]
+					);
+				}
+			);
+
+			add_filter( 'mce_external_plugins', [ $this, 'addGlossaryPlugin' ] );
+
+			// to avoid 'inception' like glossary within a glossary, restricting
+			// glossary buttons means less chance of needing to untangle the labyrinth
+			global $typenow;
+
+			if ( empty( $typenow ) && ! empty( $_GET['post'] ) && 'edit' === $_GET['action'] ) {
+				$post = get_post( $_GET['post'] );
+				$typenow = $post->post_type;
+			} elseif ( ! empty( $_GET['post_type'] ) ) {
+				$typenow = $_GET['post_type'];
+			}
+
+			if ( 'glossary' !== $typenow ) {
+				add_filter(
+					'mce_buttons_3', [
+						$this,
+						'registerGlossaryButtons',
+					]
+				);
+			}
+		}
+
+	}
+
+	/**
+	 * Returns the HTML <dl> description list of all glossary terms
+	 *
+	 * @since 5.5.0
+	 *
+	 * @return string
+	 */
+	function glossaryTerms() {
+		$output = '';
+		$glossary = '';
+		$this->setGlossaryTerms();
+		$terms = $this->getGlossaryTerms();
+
+		if ( empty( $terms ) ) {
+			return '';
+		}
+
+		// make sure they are sorted in alphabetical order
+		$ok = ksort( $terms, SORT_LOCALE_STRING );
+
+		if ( true === $ok && count( $terms ) > 0 ) {
+			foreach ( $terms as $key => $value ) {
+				$glossary .= sprintf(
+					'<dt data-type="glossterm"><dfn id="%1$s">%2$s</dfn></dt><dd data-type="glossdef">%3$s</dd>',
+					sprintf( 'dfn-%s', \Pressbooks\Utility\str_lowercase_dash( $key ) ), $key, trim( $value['content'] )
+				);
+			}
+		}
+		if ( ! empty( $glossary ) ) {
+			$output = sprintf( '<section data-type="glossary"><header><h2>%1$s</h2></header><dl data-type="glossary">%2$s</dl></section>', __( 'Glossary Terms', 'pressbooks' ), $glossary );
+		}
+
+		return $output;
+	}
+
+	/**
+	 * Returns the tooltip markup and content
+	 *
+	 * @since 5.5.0
+	 *
+	 * @param $term_id
+	 *
+	 * @return string
+	 */
+	function glossaryTooltip( $term_id, $content ) {
+
+		// get the glossary post object the ID belongs to
+		$terms = get_post( $term_id['id'] );
+
+		// use our post instead of the global $post object
+		setup_postdata( $terms );
+
+		$html = '<a href="javascript:void(0);" class="tooltip" title="' . get_the_excerpt( $term_id['id'] ) . '">' . $content . '</a>';
+
+		// reset post data
+		wp_reset_postdata();
+
+		return $html;
+	}
+
+	/**
+	 * @param Glossary $obj
+	 */
+	static public function hooks( Glossary $obj ) {
+		add_shortcode( 'pb_glossary', [ $obj, 'shortcodeHandler' ] );
+		add_filter(
+			'no_texturize_shortcodes',
+			function ( $excluded_shortcodes ) {
+				$excluded_shortcodes[] = 'pb_glossary';
+
+				return $excluded_shortcodes;
+			}
+		);
+		add_action( 'init', [ $obj, 'glossaryButton' ] ); // TinyMCE button
+		add_action( 'init', [ $obj, 'addTooltipScripts' ] );
+	}
+
+	/**
+	 * Add buttons to TinyMCE interface
+	 *
+	 * @since 5.5.0
+	 *
+	 * @param $buttons
+	 *
+	 * @return array
+	 */
+	function registerGlossaryButtons( $buttons ) {
+		$buttons[] = 'glossary';
+		$buttons[] = 'glossary_all';
+
+		return $buttons;
+	}
+
+	/**
+	 * Sets all glossary terms currently in the database, returns as an array of
+	 * key = post_title, id = post ID, content = post_content. Sets an instance variable
+	 *
+	 * @since 5.5.0
+	 *
+	 * @return void $glossary_terms
+	 */
+	function setGlossaryTerms() {
+		$glossary_terms = [];
+		$args = [
+			'post_type'      => 'glossary',
+			'posts_per_page' => - 1,
+			'post_status'    => 'publish',
+		];
+
+		$terms = get_posts( $args );
+
+		foreach ( $terms as $term ) {
+			$glossary_terms[ $term->post_title ] = [
+				'id'      => $term->ID,
+				'content' => $term->post_content,
+			];
+		}
+
+		$this->glossary_terms = $glossary_terms;
+	}
+
+	/**
+	 * Gets the tooltip if the param contains the post id,
+	 * or a list of terms if it's just the short-code
+	 *
+	 * @since 5.5.0
+	 *
+	 * @param array $atts
+	 * @param string $content
+	 *
+	 * @return string
+	 */
+	function shortcodeHandler( $atts, $content ) {
+		$ret_val = '';
+
+		$a = shortcode_atts(
+			[
+				'id' => '',
+			], $atts
+		);
+
+		if ( ! empty( $a['id'] ) ) {
+			$ret_val = $this->glossaryTooltip( $a, $content );
+		} elseif ( empty( $content ) && empty( $a['id'] ) ) {
+			$ret_val = $this->glossaryTerms( $content );
+		} else {
+			return $content;
+		}
+
+		return $ret_val;
+	}
+
+}

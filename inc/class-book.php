@@ -947,8 +947,8 @@ class Book {
 			global $wpdb;
 			$results = $wpdb->get_results(
 				$wpdb->prepare(
-					"SELECT ID FROM {$wpdb->posts} WHERE post_status IN (%s, %s) AND post_type IN (%s, %s, %s, %s)",
-					[ 'private', 'publish', 'front-matter', 'part', 'chapter', 'back-matter' ]
+					"SELECT ID FROM {$wpdb->posts} WHERE post_status IN (%s, %s) AND post_type IN (%s, %s, %s, %s, %s)",
+					[ 'private', 'publish', 'front-matter', 'part', 'chapter', 'back-matter', 'glossary' ]
 				), ARRAY_A
 			);
 			foreach ( $results as $val ) {

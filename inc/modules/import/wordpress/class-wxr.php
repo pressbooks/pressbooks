@@ -101,7 +101,7 @@ class Wxr extends Import {
 		 *
 		 * @param array $value
 		 */
-		$supported_post_types = apply_filters( 'pb_import_custom_post_types', [ 'post', 'page', 'front-matter', 'chapter', 'part', 'back-matter', 'metadata' ] );
+		$supported_post_types = apply_filters( 'pb_import_custom_post_types', [ 'post', 'page', 'front-matter', 'chapter', 'part', 'back-matter', 'metadata', 'glossary' ] );
 
 		if ( $this->isPbWxr ) {
 			//put the posts in correct part / menu_order order
@@ -167,6 +167,7 @@ class Wxr extends Import {
 			'chapter' => 0,
 			'part' => 0,
 			'back-matter' => 0,
+			'glossary' => 0,
 			'media' => 0,
 		];
 
@@ -177,9 +178,9 @@ class Wxr extends Import {
 		 *
 		 * @param array $value
 		 */
-		$taxonomies = apply_filters( 'pb_import_custom_taxonomies', [ 'front-matter-type', 'chapter-type', 'back-matter-type' ] );
+		$taxonomies = apply_filters( 'pb_import_custom_taxonomies', [ 'front-matter-type', 'chapter-type', 'back-matter-type', 'glossary-type' ] );
 
-		$custom_post_types = apply_filters( 'pb_import_custom_post_types', [ 'post', 'page', 'front-matter', 'chapter', 'part', 'back-matter', 'metadata' ] );
+		$custom_post_types = apply_filters( 'pb_import_custom_post_types', [ 'post', 'page', 'front-matter', 'chapter', 'part', 'back-matter', 'metadata', 'glossary' ] );
 
 		// set custom terms...
 		$terms = apply_filters( 'pb_import_custom_terms', $xml['terms'] );
@@ -294,12 +295,13 @@ class Wxr extends Import {
 
 		// Done
 		$_SESSION['pb_notices'][] = sprintf(
-			_x( 'Imported %1$s, %2$s, %3$s, %4$s, and %5$s.', 'String which tells user how many front matter, parts, chapters and back matter were imported.', 'pressbooks' ),
+			_x( 'Imported %1$s, %2$s, %3$s, %4$s, %5$s, and %6$s.', 'String which tells user how many front matter, parts, chapters, back matter, media attachments, and glossary terms were imported.', 'pressbooks' ),
 			sprintf( _n( '%s front matter', '%s front matter', $totals['front-matter'], 'pressbooks' ), $totals['front-matter'] ),
 			sprintf( _n( '%s part', '%s parts', $totals['part'], 'pressbooks' ), $totals['part'] ),
 			sprintf( _n( '%s chapter', '%s chapters', $totals['chapter'], 'pressbooks' ), $totals['chapter'] ),
 			sprintf( _n( '%s back matter', '%s back matter', $totals['back-matter'], 'pressbooks' ), $totals['back-matter'] ),
-			sprintf( _n( '%s media attachment', '%s media attachments', $totals['media'], 'pressbooks' ), $totals['media'] )
+			sprintf( _n( '%s media attachment', '%s media attachments', $totals['media'], 'pressbooks' ), $totals['media'] ),
+			sprintf( _n( '%s glossary term', '%s glossary terms', $totals['glossary'], 'pressbooks' ), $totals['glossary'] )
 		);
 
 		return $this->revokeCurrentImport();
@@ -387,6 +389,13 @@ class Wxr extends Import {
 		//now, list all back matter
 		foreach ( $xml as $p ) {
 			if ( 'back-matter' === $p['post_type'] ) {
+				$array[] = $p;
+			}
+		}
+
+		// Glossary
+		foreach ( $xml as $p ) {
+			if ( 'glossary' === $p['post_type'] ) {
 				$array[] = $p;
 			}
 		}

@@ -8,7 +8,7 @@ use Pressbooks\Admin\Network\SharingAndPrivacyOptions;
  * @return array
  */
 function get_custom_post_types() {
-	return [ 'front-matter', 'back-matter', 'part', 'chapter' ];
+	return [ 'front-matter', 'back-matter', 'part', 'chapter', 'glossary' ];
 }
 
 /**
@@ -42,6 +42,7 @@ function init_book() {
 	( new Endpoints\Controller\SectionMetadata( 'front-matter' ) )->register_routes();
 	( new Endpoints\Controller\SectionMetadata( 'back-matter' ) )->register_routes();
 	( new Endpoints\Controller\SectionMetadata( 'chapter' ) )->register_routes();
+	( new Endpoints\Controller\SectionMetadata( 'glossary' ) )->register_routes();
 
 	foreach ( get_custom_post_types() as $post_type ) {
 		// Override Revisions routes for our custom post types
@@ -52,7 +53,7 @@ function init_book() {
 
 	foreach ( get_taxonomies() as $taxonomy ) {
 		// Override custom taxonomy routes
-		if ( in_array( $taxonomy, [ 'front-matter-type', 'chapter-type', 'back-matter-type', 'license', 'contributor' ], true ) ) {
+		if ( in_array( $taxonomy, [ 'front-matter-type', 'chapter-type', 'back-matter-type', 'glossary-type', 'license', 'contributor' ], true ) ) {
 			( new Endpoints\Controller\Terms( $taxonomy ) )->register_routes();
 		}
 	}
@@ -203,6 +204,7 @@ function hide_endpoints_from_book( $endpoints ) {
 			( strpos( $key, '/wp/v2/front-matter-type' ) === 0 ) ||
 			( strpos( $key, '/wp/v2/chapter-type' ) === 0 ) ||
 			( strpos( $key, '/wp/v2/back-matter-type' ) === 0 ) ||
+			( strpos( $key, '/wp/v2/glossary-type' ) === 0 ) ||
 			( strpos( $key, '/wp/v2/license' ) === 0 ) ||
 			( strpos( $key, '/wp/v2/contributor' ) === 0 ) ||
 			( strpos( $key, '/wp/v2' ) === 0 && strpos( $key, '/revisions' ) !== false )

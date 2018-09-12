@@ -539,4 +539,10 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertContains( '@', $email );
 	}
 
+	public function test_str_lowercase_dash() {
+		$this->assertEquals( 'neural-networks', \Pressbooks\Utility\str_lowercase_dash( 'Neural Networks' ) );
+		$this->assertEmpty( \Pressbooks\Utility\str_lowercase_dash( '') );
+		$this->assertEquals( 'support--vector--machines', \Pressbooks\Utility\str_lowercase_dash( ' Support  Vector  MachINEs    ') );
+	}
+
 }

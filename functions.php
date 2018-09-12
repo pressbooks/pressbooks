@@ -234,7 +234,9 @@ function pb_get_section_type( $post ) {
 		case 'back-matter':
 			$type = $taxonomy->getBackMatterType( $post->ID );
 			break;
-	}
+		case 'glossary':
+			$type = $taxonomy->getGlossaryType( $post->ID );
+			break;  }
 
 	return $type;
 }
