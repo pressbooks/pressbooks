@@ -325,6 +325,7 @@ function customize_wp_link_query_args( $query ) {
  * @return array
  */
 function add_anchors_to_wp_link_query( $results, $query ) {
+	// Note to future-self: $results are paginated. If the user scrolls down, ajax is triggered, more function calls will happen.
 	$url = wp_parse_url( $_SERVER['HTTP_REFERER'] );
 	parse_str( $url['query'], $query );
 	$current_post_id = isset( $query['post'] ) ? $query['post'] : 0;
@@ -343,11 +344,12 @@ function add_anchors_to_wp_link_query( $results, $query ) {
 				/** @var \DOMElement $node */
 				foreach ( $doc->getElementsByTagName( 'a' ) as $node ) {
 					if ( $node->hasAttribute( 'id' ) ) {
+						$id_attribute = $node->getAttribute( 'id' );
 						$permalink = ( (int) $current_post_id !== (int) $post->ID ) ? $url : '';
-						$permalink .= '#' . $node->getAttribute( 'id' );
+						$permalink .= "#{$id_attribute}";
 						$new_results[] = [
 							'ID' => $post->ID,
-							'title' => '#' . $node->getAttribute( 'id' ) . ' (' . $post->post_title . ')',
+							'title' => '#' . $id_attribute . ' (' . $post->post_title . ')',
 							'permalink' => $permalink,
 							'info' => __( 'Internal Link', 'pressbooks' ),
 						];
