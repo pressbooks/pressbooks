@@ -325,47 +325,40 @@ function customize_wp_link_query_args( $query ) {
  * @return array
  */
 function add_anchors_to_wp_link_query( $results, $query ) {
-
+	// Note to future-self: $results are paginated. If the user scrolls down, ajax is triggered, more function calls will happen.
 	$url = wp_parse_url( $_SERVER['HTTP_REFERER'] );
 	parse_str( $url['query'], $query );
-
-	if ( ! isset( $query['post'] ) ) {
-		return $results;
-	}
-
-	$anchors = [];
-
-	$post = get_post( $query['post'] );
-
-	libxml_use_internal_errors( true );
-
-	$content = mb_convert_encoding( apply_filters( 'the_content', $post->post_content ), 'HTML-ENTITIES', 'UTF-8' );
-
-	if ( ! empty( $content ) ) {
-		$doc = new \DOMDocument();
-		$doc->loadHTML( $content );
-
-		foreach ( $doc->getElementsByTagName( 'a' ) as $node ) {
-			if ( $node->hasAttribute( 'id' ) ) {
-				$anchors[] = [
-					'ID' => $post->ID,
-					'title' => '#' . $node->getAttribute( 'id' ) . ' (' . $post->post_title . ')',
-					'permalink' => '#' . $node->getAttribute( 'id' ),
-					'info' => __( 'Internal Link', 'pressbooks' ),
-				];
+	$current_post_id = isset( $query['post'] ) ? $query['post'] : 0;
+	$new_results = [];
+	foreach ( $results as $result ) {
+		$new_results[] = $result;
+		$url = rtrim( $result['permalink'], '/' );
+		$post_id = $result['ID'];
+		$post = get_post( $post_id );
+		if ( $post ) {
+			$content = mb_convert_encoding( apply_filters( 'the_content', $post->post_content ), 'HTML-ENTITIES', 'UTF-8' );
+			if ( ! empty( $content ) ) {
+				libxml_use_internal_errors( true );
+				$doc = new \DOMDocument();
+				$doc->loadHTML( $content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD );
+				/** @var \DOMElement $node */
+				foreach ( $doc->getElementsByTagName( 'a' ) as $node ) {
+					if ( $node->hasAttribute( 'id' ) ) {
+						$id_attribute = $node->getAttribute( 'id' );
+						$permalink = ( (int) $current_post_id !== (int) $post->ID ) ? $url : '';
+						$permalink .= "#{$id_attribute}";
+						$new_results[] = [
+							'ID' => $post->ID,
+							'title' => '#' . $id_attribute . ' (' . $post->post_title . ')',
+							'permalink' => $permalink,
+							'info' => __( 'Internal Link', 'pressbooks' ),
+						];
+					}
+				}
+				$errors = libxml_get_errors(); // TODO: Handle errors gracefully
+				libxml_clear_errors();
 			}
 		}
 	}
-
-	$offset = count( $results ) + 1;
-
-	foreach ( $results as $key => $result ) {
-		if ( $results[ $key ]['ID'] === $query['post'] ) {
-			$offset = $key + 1;
-		}
-	}
-
-	array_splice( $results, $offset, 0, $anchors );
-
-	return $results;
+	return $new_results;
 }
