@@ -10,7 +10,8 @@ namespace Pressbooks;
 
 use function Pressbooks\Image\attachment_id_from_url;
 use function Pressbooks\Image\default_cover_url;
-use function Pressbooks\Image\strip_baseurl;
+use function Pressbooks\Image\strip_baseurl as image_strip_baseurl;
+use function Pressbooks\Media\strip_baseurl as media_strip_baseurl;
 use function Pressbooks\Metadata\schema_to_book_information;
 use function Pressbooks\Metadata\schema_to_section_information;
 use function Pressbooks\Utility\getset;
@@ -156,11 +157,23 @@ class Cloner {
 	protected $targetBookTerms = [];
 
 	/**
-	 * Array of known images, format: [ 2017/08/foo-bar-300x225.png ] => [ Fullsize URL ], ...
+	 * Array of known media
 	 *
-	 * @var array
+	 * @var \Pressbooks\Entities\Cloner\Media[]
 	 */
-	protected $knownImages = [];
+	protected $knownMedia = [];
+
+	/**
+	 * Regular expression for image extensions that Pressbooks knows how to resize, analyse, etc.
+	 *
+	 * @var string
+	 */
+	protected $pregSupportedImageExtensions = '/\.(jpe?g|gif|png)$/i';
+
+	/**
+	 * @var \Pressbooks\Contributors;
+	 */
+	protected $contributors;
 
 	/**
 	 * Constructor.
@@ -171,11 +184,6 @@ class Cloner {
 	 * @param string $target_url The public URL of the target book.
 	 */
 	public function __construct( $source_url, $target_url = '' ) {
-		// Disable SSL verification for development
-		if ( defined( 'WP_ENV' ) && WP_ENV === 'development' ) {
-			$this->requestArgs['sslverify'] = false;
-		}
-
 		// Has_cap acts weird when we create a new blog. Figure out who we are before starting.
 		$this->isSuperAdmin = current_user_can( 'manage_network_options' );
 
@@ -199,6 +207,7 @@ class Cloner {
 		}
 
 		$this->interactiveContent = \Pressbooks\Interactive\Content::init();
+		$this->contributors = new Contributors();
 	}
 
 	/**
@@ -264,7 +273,7 @@ class Cloner {
 		wp_defer_term_counting( true );
 
 		// Clone Metadata
-		$this->clonedItems['metadata'] = $this->cloneMetadata();
+		$this->clonedItems['metadata'][] = $this->cloneMetadata();
 
 		// Clone Taxonomy Terms
 		$this->targetBookTerms = $this->getBookTerms( $this->targetBookUrl );
@@ -368,12 +377,18 @@ class Cloner {
 			return false;
 		}
 
-		$this->knownImages = $this->buildlistOfKnownImages( $this->sourceBookUrl );
-		if ( $this->knownImages === false ) {
+		$this->knownMedia = $this->buildListOfKnownMedia( $this->sourceBookUrl );
+		if ( $this->knownMedia === false ) {
 			$_SESSION['pb_errors'][] = sprintf( __( 'Could not retrieve media from %s.', 'pressbooks' ), sprintf( '<em>%s</em>', $this->sourceBookMetadata['name'] ) );
 			$this->maybeRestoreCurrentBlog();
 			return false;
 		}
+		// Sort by the length of sourceUrls for better search and replace
+		$known_media_sorted = $this->knownMedia;
+		uasort( $known_media_sorted, function ( $a, $b ) {
+			return strlen( $b->sourceUrl ) <=> strlen( $a->sourceUrl );
+		} );
+		$this->knownMedia = $known_media_sorted;
 
 		$this->maybeRestoreCurrentBlog();
 		return true;
@@ -483,16 +498,15 @@ class Cloner {
 	}
 
 	/**
-	 * Use media endpoint to build an array of known images
+	 * Use media endpoint to build an array of known media
 	 *
 	 * @param string $url The URL of the book.
 	 *
-	 * @return bool | array False if the operation failed; known images array if succeeded.
+	 * @return bool |\Pressbooks\Entities\Cloner\Media[] False if the operation failed; known images array if succeeded.
 	 */
-	public function buildListOfKnownImages( $url ) {
+	public function buildListOfKnownMedia( $url ) {
 		// Handle request (local or global)
 		$params = [
-			'media_type' => 'image',
 			'per_page' => 100,
 		];
 		$response = $this->handleGetRequest( $url, 'wp/v2', 'media', $params );
@@ -507,16 +521,25 @@ class Cloner {
 			return false;
 		}
 
-		$known_images = [];
+		$known_media = [];
 		foreach ( $response as $item ) {
-			$fullsize = $item['source_url'];
-			foreach ( $item['media_details']['sizes'] as $size => $info ) {
-				$attached_file = strip_baseurl( $info['source_url'] ); // 2017/08/foo-bar-300x225.png
-				$known_images[ $attached_file ] = $fullsize;
+			$m = new \Pressbooks\Entities\Cloner\Media();
+			$m->sourceUrl = $item['source_url'];
+			if ( isset( $item['meta'] ) ) {
+				$m->meta = $item['meta'];
+			}
+			if ( $item['media_type'] === 'image' ) {
+				foreach ( $item['media_details']['sizes'] as $size => $info ) {
+					$attached_file = image_strip_baseurl( $info['source_url'] ); // 2017/08/foo-bar-300x225.png
+					$known_media[ $attached_file ] = $m;
+				}
+			} else {
+				$attached_file = media_strip_baseurl( $m->sourceUrl ); // 2017/08/foo-bar.ext
+				$known_media[ $attached_file ] = $m;
 			}
 		}
 
-		return $known_images;
+		return $known_media;
 	}
 
 	/**
@@ -716,7 +739,7 @@ class Cloner {
 		// Cover image
 		if ( ! \Pressbooks\Image\is_default_cover( $book_information['pb_cover_image'] ) ) {
 			$new_cover_id = $this->fetchAndSaveUniqueImage( $book_information['pb_cover_image'] );
-			if ( $new_cover_id ) {
+			if ( $new_cover_id > 0 ) {
 				$book_information['pb_cover_image'] = wp_get_attachment_url( $new_cover_id );
 			} else {
 				$book_information['pb_cover_image'] = default_cover_url();
@@ -728,12 +751,11 @@ class Cloner {
 		// Everything else
 		$book_information['pb_is_based_on'] = $this->sourceBookUrl;
 		$metadata_array_values = [ 'pb_keywords_tags', 'pb_bisac_subject', 'pb_additional_subjects' ];
-		$contributors = new Contributors();
 		foreach ( $book_information as $key => $value ) {
-			if ( $contributors->isValid( $key ) ) {
+			if ( $this->contributors->isValid( $key ) ) {
 				$values = oxford_comma_explode( $value );
 				foreach ( $values as $v ) {
-					$contributors->insert( $v, $metadata_post_id, $key );
+					$this->contributors->insert( $v, $metadata_post_id, $key );
 				}
 			} elseif ( in_array( $key, $metadata_array_values, true ) ) {
 				$values = explode( ', ', $value );
@@ -750,7 +772,7 @@ class Cloner {
 
 		// Remove the current user from the author field in Book Info
 		$user_data = get_userdata( get_current_user_id() );
-		$contributors->unlink( $user_data->user_nicename, $metadata_post_id );
+		$this->contributors->unlink( $user_data->user_nicename, $metadata_post_id );
 
 		return $metadata_post_id;
 	}
@@ -855,6 +877,7 @@ class Cloner {
 			$this->cloneSectionMetadata( $section_id, $post_type, $response['id'] );
 		}
 
+		// Attach attachments to post
 		foreach ( $attachments as $attachment ) {
 			wp_update_post(
 				[
@@ -868,6 +891,8 @@ class Cloner {
 	}
 
 	/**
+	 * Download media found in a section's `post_content` node, change the href links to point to newly downloaded media, etc
+	 *
 	 * @param array $section
 	 *
 	 * @return array{content: string, attachments: array}
@@ -897,6 +922,11 @@ class Cloner {
 		$media = $this->scrapeAndKneadImages( $dom );
 		$dom = $media['dom'];
 		$attachments = $media['attachments'];
+
+		// Download media, change media paths
+		$media = $this->scrapeAndKneadMedia( $dom, $html5 );
+		$dom = $media['dom'];
+		$attachments = array_merge( $attachments, $media['attachments'] );
 
 		// Fix internal links
 		$dom = $this->fixInternalLinks( $dom );
@@ -975,12 +1005,11 @@ class Cloner {
 			$book_schema
 		);
 
-		$contributors = new Contributors();
 		foreach ( $section_information as $key => $value ) {
-			if ( $contributors->isValid( $key ) ) {
+			if ( $this->contributors->isValid( $key ) ) {
 				$values = oxford_comma_explode( $value );
 				foreach ( $values as $v ) {
-					$contributors->insert( $v, $target_id, $key );
+					$this->contributors->insert( $v, $target_id, $key );
 				}
 			} else {
 				update_post_meta( $target_id, $key, $value );
@@ -1002,10 +1031,12 @@ class Cloner {
 	 * @param string $namespace The namespace for the request, e.g. 'pressbooks/v2'
 	 * @param string $endpoint The endpoint for the request, e.g. 'toc'
 	 * @param array $params URL parameters
+	 * @param bool $paginate (optional, if results are paginated then get next page)
+	 * @param array $previous_results (optional, used recursively for when results are paginated)
 	 *
 	 * @return array|\WP_Error
 	 */
-	protected function handleGetRequest( $url, $namespace, $endpoint, $params = [] ) {
+	protected function handleGetRequest( $url, $namespace, $endpoint, $params = [], $paginate = true, $previous_results = [] ) {
 		global $blog_id;
 
 		// Is the book local? If so, is it the current book? If not, switch to it.
@@ -1024,9 +1055,6 @@ class Cloner {
 			}
 			$response = rest_do_request( $request );
 
-			// TODO: WordPress shows only 10-100 results. We need to paginate on $response->headers['Link']
-			// Format: <http://pressbooks.dev/pdfimages/wp-json/wp/v2/media?media_type=image&page=2>; rel="next"
-
 			if ( $switch ) {
 				restore_current_blog();
 			}
@@ -1035,7 +1063,7 @@ class Cloner {
 			if ( is_wp_error( $response ) ) {
 				return $response;
 			} else {
-				return rest_get_server()->response_to_data( $response, true );
+				$results = rest_get_server()->response_to_data( $response, true );
 			}
 		} else {
 			// Build request URL
@@ -1061,9 +1089,83 @@ class Cloner {
 			} elseif ( isset( $response['response']['code'] ) && $response['response']['code'] >= 400 ) {
 				return new \WP_Error( $response['response']['code'], $response['response']['message'] );
 			} else {
-				return json_decode( $response['body'], true );
+				$results = json_decode( $response['body'], true );
 			}
 		}
+
+		if ( ! empty( $previous_results ) ) {
+			$results = array_merge( $previous_results, $results );
+		}
+
+		if ( $paginate ) {
+			$next_url = $this->nextWebLink( $response );
+			if ( $next_url ) {
+				parse_str( wp_parse_url( $next_url, PHP_URL_QUERY ), $next_params );
+				$next_url = strtok( $next_url, '?' );
+				return $this->handleGetRequest( $next_url, $namespace, $endpoint, $next_params, $paginate, $results );
+			}
+		}
+
+		return $results;
+	}
+
+	/**
+	 * Format: <http://pressbooks.dev/test/wp-json/wp/v2/media?media_type=image&page=2>; rel="next"
+	 * Or: <http://pressbooks.dev/test/wp-json/wp/v2/media?media_type=image&page=1>; rel="prev", <http://pressbooks.dev/test/wp-json/wp/v2/media?media_type=image&page=3>; rel="next"
+	 *
+	 * @param \WP_REST_Response|array $response
+	 *
+	 * @return string|false
+	 */
+	protected function nextWebLink( $response ) {
+		$header = $this->extractLinkHeader( $response );
+		$links = explode( ',', $header );
+		foreach ( $links as $link ) {
+			$link = $this->parseLinkHeader( $link );
+			if ( isset( $link['rel'] ) && strtolower( $link['rel'] ) === 'next' ) {
+				return $link['href'];
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * @param \WP_REST_Response|array $response
+	 *
+	 * @return string
+	 */
+	protected function extractLinkHeader( $response ) {
+		if ( is_object( $response ) && property_exists( $response, 'headers' ) && is_array( $response->headers ) && isset( $response->headers['Link'] ) ) {
+			return $response->headers['Link'];
+		}
+		if ( is_array( $response ) && isset( $response['headers'], $response['headers']['Link'] ) ) {
+			return $response['headers']['Link'];
+		}
+		return '';
+	}
+
+	/**
+	 * Parse a Link header into attributes.
+	 *
+	 * @param string $link Link header from the response.
+	 *
+	 * @return array Map of attribute key => attribute value, with link href in `href` key.
+	 */
+	protected function parseLinkHeader( $link ) {
+		$parts = explode( ';', $link );
+		$attrs = [
+			'href' => trim( array_shift( $parts ), '<>' ),
+		];
+		foreach ( $parts as $part ) {
+			if ( ! strpos( $part, '=' ) ) {
+				continue;
+			}
+			list( $key, $value ) = explode( '=', $part, 2 );
+			$key = trim( $key );
+			$value = trim( $value, '" ' );
+			$attrs[ $key ] = $value;
+		}
+		return $attrs;
 	}
 
 	/**
@@ -1078,19 +1180,18 @@ class Cloner {
 	protected function scrapeAndKneadImages( \DOMDocument $dom ) {
 
 		$images = $dom->getElementsByTagName( 'img' );
-
 		$attachments = [];
 
 		foreach ( $images as $image ) {
 			/** @var \DOMElement $image */
 			// Fetch image, change src
 			$src_old = $image->getAttribute( 'src' );
-
 			$attachment_id = $this->fetchAndSaveUniqueImage( $src_old );
-
-			if ( $attachment_id ) {
+			if ( $attachment_id === -1 ) {
+				// Do nothing because image is not hosted on the source Pb network
+			} elseif ( $attachment_id ) {
 				$image->setAttribute( 'src', $this->replaceImage( $attachment_id, $src_old, $image ) );
-				$attachments[] = $attachment_id;
+
 			} else {
 				// Tag broken image
 				$image->setAttribute( 'src', "{$src_old}#fixme" );
@@ -1105,7 +1206,7 @@ class Cloner {
 
 	/**
 	 * Load remote url of image into WP using media_handle_sideload()
-	 * Will return 0 if something went wrong.
+	 * Will return -1 if image is not hosted on the source Pb network, or 0 if something went wrong.
 	 *
 	 * @since 4.1.0
 	 *
@@ -1113,20 +1214,25 @@ class Cloner {
 	 *
 	 * @see media_handle_sideload
 	 *
-	 * @return int attachment ID or 0 if import failed
+	 * @return int attachment ID, -1 if image is not hosted on the source Pb network, or 0 if import failed
 	 */
 	protected function fetchAndSaveUniqueImage( $url ) {
 		if ( ! filter_var( $url, FILTER_VALIDATE_URL ) ) {
 			return 0;
 		}
+		if ( ! $this->sameAsSource( $url ) ) {
+			return -1;
+		}
 
 		$filename = $this->basename( $url );
-		$attached_file = strip_baseurl( $url );
+		$attached_file = image_strip_baseurl( $url );
 
-		if ( $this->sameAsSource( $url ) && isset( $this->knownImages[ $attached_file ] ) ) {
-			$remote_img_location = $this->knownImages[ $attached_file ];
-			$filename = basename( $this->knownImages[ $attached_file ] );
+		if ( isset( $this->knownMedia[ $attached_file ] ) ) {
+			$remote_img_metadata = $this->knownMedia[ $attached_file ]->meta;
+			$remote_img_location = $this->knownMedia[ $attached_file ]->sourceUrl;
+			$filename = basename( $remote_img_location );
 		} else {
+			$remote_img_metadata = [];
 			$remote_img_location = $url;
 		}
 
@@ -1138,7 +1244,7 @@ class Cloner {
 
 		/* Process */
 
-		if ( ! preg_match( '/\.(jpe?g|gif|png)$/i', $filename ) ) {
+		if ( ! preg_match( $this->pregSupportedImageExtensions, $filename ) ) {
 			// Unsupported image type
 			$already_done[ $remote_img_location ] = 0;
 			return 0;
@@ -1176,6 +1282,9 @@ class Cloner {
 		if ( ! $src ) {
 			$pid = 0;
 		} else {
+			foreach ( $remote_img_metadata as $meta_key => $meta_value ) {
+				update_post_meta( $pid, $meta_key, $meta_value );
+			}
 			$this->clonedItems['media'][] = $pid;
 			$already_done[ $remote_img_location ] = $pid;
 		}
@@ -1195,7 +1304,7 @@ class Cloner {
 
 		$src_new = wp_get_attachment_url( $attachment_id );
 
-		if ( $this->sameAsSource( $src_old ) && isset( $this->knownImages[ strip_baseurl( $src_old ) ] ) ) {
+		if ( $this->sameAsSource( $src_old ) && isset( $this->knownMedia[ image_strip_baseurl( $src_old ) ] ) ) {
 			$basename_old = $this->basename( $src_old );
 			$basename_new = $this->basename( $src_new );
 			$maybe_src_new = str_lreplace( $basename_new, $basename_old, $src_new );
@@ -1229,6 +1338,123 @@ class Cloner {
 		}
 
 		return $src_new;
+	}
+
+
+	/**
+	 * Parse HTML snippet, save all found media using media_handle_sideload(), return the HTML with changed URLs.
+	 *
+	 * Because we clone using WordPress raw format, we have to brute force against the text because the DOM
+	 * can't see shortcodes, text urls, hrefs with no identifying info, etc.
+	 *
+	 * @since 4.1.0
+	 *
+	 * @param \DOMDocument $dom
+	 * @param HTML5 $html5
+	 *
+	 * @return array An array containing the \DOMDocument and the IDs of created attachments
+	 */
+	protected function scrapeAndKneadMedia( \DOMDocument $dom, $html5 ) {
+
+		$dom_as_string = $html5->saveHTML( $dom );
+		$dom_as_string = \Pressbooks\Sanitize\strip_container_tags( $dom_as_string );
+
+		$attachments = [];
+		$changed = false;
+		foreach ( $this->knownMedia as $alt => $media ) {
+			if ( preg_match( $this->pregSupportedImageExtensions, $this->basename( $media->sourceUrl ) ) ) {
+				// Skip images, these have already been done
+				continue;
+			}
+			if ( strpos( $dom_as_string, $media->sourceUrl ) !== false ) {
+				$src_old = $media->sourceUrl;
+				$attachment_id = $this->fetchAndSaveUniqueMedia( $src_old );
+				if ( $attachment_id === -1 ) {
+					// Do nothing because media is not hosted on the source Pb network
+				} elseif ( $attachment_id ) {
+					$dom_as_string = str_replace( $src_old, wp_get_attachment_url( $attachment_id ), $dom_as_string );
+					$attachments[] = $attachment_id;
+					$changed = true;
+				} else {
+					// Tag broken media
+					$dom_as_string = str_replace( $src_old, "{$src_old}#fixme", $dom_as_string );
+					$changed = true;
+				}
+			}
+		}
+
+		return [
+			'dom' => $changed ? $html5->loadHTML( $dom_as_string ) : $dom,
+			'attachments' => $attachments,
+		];
+	}
+
+	/**
+	 * Load remote media into WP using media_handle_sideload()
+	 * Will return -1 if media is not hosted on the source Pb network, or 0 if something went wrong.
+	 *
+	 * @since 4.1.0
+	 *
+	 * @param string $url
+	 *
+	 * @see media_handle_sideload
+	 *
+	 * @return int attachment ID, -1 if media is not hosted on the source Pb network, or 0 if import failed
+	 */
+	protected function fetchAndSaveUniqueMedia( $url ) {
+		if ( ! filter_var( $url, FILTER_VALIDATE_URL ) ) {
+			return 0;
+		}
+		if ( ! $this->sameAsSource( $url ) ) {
+			return -1;
+		}
+
+		$filename = $this->basename( $url );
+		$attached_file = media_strip_baseurl( $url );
+
+		if ( isset( $this->knownMedia[ $attached_file ] ) ) {
+			$remote_media_metadata = $this->knownMedia[ $attached_file ]->meta;
+			$remote_media_location = $this->knownMedia[ $attached_file ]->sourceUrl;
+			$filename = basename( $remote_media_location );
+		} else {
+			$remote_media_metadata = [];
+			$remote_media_location = $url;
+		}
+
+		// Cheap cache
+		static $already_done = [];
+		if ( isset( $already_done[ $remote_media_location ] ) ) {
+			return $already_done[ $remote_media_location ];
+		}
+
+		/* Process */
+
+		$tmp_name = download_url( $remote_media_location );
+		if ( is_wp_error( $tmp_name ) ) {
+			// Download failed
+			$already_done[ $remote_media_location ] = 0;
+			return 0;
+		}
+
+		$pid = media_handle_sideload(
+			[
+				'name' => $filename,
+				'tmp_name' => $tmp_name,
+			], 0
+		);
+		$src = wp_get_attachment_url( $pid );
+		if ( ! $src ) {
+			$pid = 0;
+		} else {
+			foreach ( $remote_media_metadata as $meta_key => $meta_value ) {
+				update_post_meta( $pid, $meta_key, $meta_value );
+			}
+			$this->clonedItems['media'][] = $pid;
+			$already_done[ $remote_media_location ] = $pid;
+		}
+		@unlink( $tmp_name ); // @codingStandardsIgnoreLine
+
+		return $pid;
 	}
 
 	/**
@@ -1265,15 +1491,18 @@ class Cloner {
 		// Setup
 		$source_path = $this->getSubdomainOrSubdirectory( $this->sourceBookUrl );
 		$target_path = $this->getSubdomainOrSubdirectory( $this->targetBookUrl );
+		$is_subdomain_install = is_subdomain_install();
 
 		// Get links, loop through
 		$links = $dom->getElementsByTagName( 'a' );
 		foreach ( $links as $link ) {
 			/** @var \DOMElement $link */
 			$href = $link->getAttribute( 'href' );
-			if ( is_subdomain_install() && str_starts_with( $href, "/$source_path/" ) ) {
-				// Remove book path (cloning from subdirectory to subdomain)
-				$href = str_remove_prefix( $href, "/$source_path" );
+			if ( $is_subdomain_install ) {
+				if ( str_starts_with( $href, "/$source_path/" ) ) {
+					// Remove book path (cloning from subdirectory to subdomain)
+					$href = str_remove_prefix( $href, "/$source_path" );
+				}
 			} else {
 				if ( str_starts_with( $href, "/$source_path/" ) ) {
 					// Replace book path (cloning from subdirectory to subdirectory)
@@ -1360,11 +1589,7 @@ class Cloner {
 		// Check for taxonomies introduced in Pressbooks 4.1
 		// We specifically check for 404 Not Found.
 		// If we get another kind of error it will be caught later because we want to know what went wrong.
-		$response = $this->handleGetRequest(
-			$url, 'pressbooks/v2', 'chapter-type', [
-				'per_page' => 1,
-			]
-		);
+		$response = $this->handleGetRequest( $url, 'pressbooks/v2', 'chapter-type', [ 'per_page' => 1 ], false );
 		if ( is_wp_error( $response ) && in_array( (int) $response->get_error_code(), [ 404 ], true ) ) {
 			return false;
 		}

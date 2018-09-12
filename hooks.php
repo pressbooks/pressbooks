@@ -41,6 +41,12 @@ if ( ! empty( $GLOBALS['PB_PIMPLE_OVERRIDE'] ) ) {
 // Activation
 // -------------------------------------------------------------------------------------------------------------------
 
+// Disable SSL verification for development
+if ( defined( 'WP_ENV' ) && WP_ENV === 'development' ) {
+	add_filter( 'https_local_ssl_verify', '__return_false' );
+	add_filter( 'https_ssl_verify', '__return_false' );
+}
+
 \Pressbooks\Activation::init();
 
 // -------------------------------------------------------------------------------------------------------------------
@@ -189,6 +195,11 @@ if ( $is_book ) {
 	\Pressbooks\Shortcodes\Generics\Generics::init();
 	\Pressbooks\Shortcodes\WikiPublisher\Glyphs::init();
 	\Pressbooks\Shortcodes\TablePress::init();
+}
+
+// Support QuickLaTeX in TablePress
+if ( is_plugin_active_for_network( 'wp-quicklatex/wp-quicklatex.php' ) || is_plugin_active( 'wp-quicklatex/wp-quicklatex.php' ) ) {
+	add_filter( 'tablepress_cell_content', 'quicklatex_parser' );
 }
 
 // -------------------------------------------------------------------------------------------------------------------

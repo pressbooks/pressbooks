@@ -19,7 +19,7 @@ class Attachments {
 	/**
 	 * @var array
 	 */
-	static $book_media = [];
+	private $book_media = [];
 
 	/**
 	 * Function to init our class, set filters & hooks, set a singleton instance
@@ -32,7 +32,6 @@ class Attachments {
 		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
 			self::hooks( self::$instance );
-			self::setBookMedia();
 		}
 
 		return self::$instance;
@@ -83,28 +82,35 @@ class Attachments {
 	}
 
 	/**
-	 * Gets all attachments currently in the database, returns as an array of
-	 * key = ID, value = guid. Sets an instance variable
+	 * Returns the array of attachments set in the instance variable.
+	 *
+	 * @param bool $reset (optional, default is false)
 	 *
 	 * @since 5.5.0
 	 *
-	 * @return void $book_media
+	 * @return array|null
 	 */
-	private static function setBookMedia() {
-		$book_media = [];
-		$args = [
-			'post_type'      => 'attachment',
-			'posts_per_page' => - 1,
-			'post_status'    => 'inherit',
-		];
+	function getBookMedia( $reset = false ) {
+		// Cheap cache
+		static $book_media = null;
+		if ( $reset || $book_media === null ) {
+			$book_media = [];
+			$args = [
+				'post_type' => 'attachment',
+				'posts_per_page' => -1,  // @codingStandardsIgnoreLine
+				'post_status' => 'inherit',
+				'no_found_rows' => true,
+			];
 
-		$attached_media = get_posts( $args );
+			$attached_media = get_posts( $args );
 
-		foreach ( $attached_media as $media ) {
-			$book_media[ $media->ID ] = $media->guid;
+			foreach ( $attached_media as $media ) {
+				$book_media[ $media->ID ] = $media->guid;
+			}
+			$this->book_media = $book_media;
 		}
 
-		self::$book_media = $book_media;
+		return $this->book_media;
 	}
 
 	/**
@@ -127,11 +133,11 @@ class Attachments {
 		}
 
 		// get all book attachments
-		if ( self::$book_media ) {
+		$book_media = $this->getBookMedia();
+		if ( ! empty( $book_media ) ) {
 			$media_ids = Media\extract_id_from_media( $media_in_page );
-
 			// intersect media_ids found in page with found in book
-			$unique_ids = Media\intersect_media_ids( $media_ids, self::$book_media );
+			$unique_ids = Media\intersect_media_ids( $media_ids, $book_media );
 		} else {
 			return $content;
 		}

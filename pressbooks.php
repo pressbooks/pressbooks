@@ -3,7 +3,7 @@
 Plugin Name: Pressbooks
 Plugin URI: https://pressbooks.org
 Description: Simple Book Production
-Version: 5.5.0-dev
+Version: 5.5.0
 Author: Pressbooks (Book Oven Inc.)
 Author URI: https://pressbooks.org
 Text Domain: pressbooks
@@ -25,24 +25,29 @@ function _pb_session_start() {
 		if ( ! headers_sent() ) {
 			ini_set( 'session.use_only_cookies', true );
 			ini_set( 'session.cookie_domain', COOKIE_DOMAIN );
+
+			$options = [];
+			if (
+				wp_doing_ajax() ||
+				is_admin() === false && in_array( $GLOBALS['pagenow'], [ 'wp-login.php', 'wp-register.php', 'wp-signup.php' ], true ) === false
+			) {
+				// PHP Sessions are allowed but they are "READ ONLY" for ajax and webbook.
+				// It reads the session data and immediately releases the lock so other scripts won't block on it.
+				$options['read_and_close'] = true;
+			}
+
 			/**
 			 * Adjust session configuration as needed.
 			 *
-			 * @since 4.3.0.
+			 * @since 5.5.0
+			 *
+			 * @param array $options
 			 */
-			apply_filters(
-				'pb_session_configuration',
-				/**
-				 * Adjust session configuration as needed.
-				 *
-				 * @since 3.9.4.2
-				 * @deprecated 4.3.0 Use pb_session_configuration instead.
-				 *
-				 * @param bool $value
-				 */
-				apply_filters( 'pressbooks_session_configuration', false )
-			);
-			session_start();
+			$override_options = apply_filters( 'pb_session_configuration', $options );
+			if ( is_array( $override_options ) ) {
+				$options = $override_options;
+			}
+			session_start( $options );
 		} else {
 			error_log( 'There was a problem with _pb_session_start(), headers already sent!' ); //  @codingStandardsIgnoreLine
 		}

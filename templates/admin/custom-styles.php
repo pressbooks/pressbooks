@@ -13,6 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 $styles = \Pressbooks\Container::get( 'Styles' );
 $custom_form_url = wp_nonce_url( get_admin_url( get_current_blog_id(), '/themes.php?page=' . $styles::PAGE . '&custom_styles=yes' ), 'pb-custom-styles' );
 $slugs_dropdown = $styles->renderDropdownForSlugs( $slug );
+$current_label = ( $styles->supported[ $slug ] !== 'Web' ) ? $styles->supported[ $slug ] : __( 'Web', 'pressbooks' );
 $revisions_table = $styles->renderRevisionsTable( $slug, $style_post->ID );
 $post_id = absint( $style_post->ID );
 $theme = wp_get_theme();
@@ -40,9 +41,9 @@ if ( ! empty( $_GET['custom_styles_error'] ) ) {
 			<input type="hidden" name="post_id" value="<?php echo $post_id; ?>"/>
 			<input type="hidden" name="post_id_integrity" value="<?php echo md5( NONCE_KEY . $post_id ); ?>"/>
 			<div><?php echo __( 'You are currently editing styles for', 'pressbooks' ) . ': ' . $slugs_dropdown; ?></div>
-			<h3><?php printf( __( 'Theme Styles (%s)', 'pressbooks' ),  $theme ); ?></h3>
+			<h3><?php printf( __( 'Theme %1$s Styles (%2$s)', 'pressbooks' ), $current_label, $theme ); ?></h3>
 			<textarea readonly id="theme_styles" name="theme_styles"><?php echo esc_textarea( $theme_styles ); ?></textarea>
-			<h3><?php _e( 'Your Styles', 'pressbooks' ); ?></h3>
+			<h3><?php printf( __( 'Your %s Styles', 'pressbooks' ), $current_label ); ?></h3>
 			<textarea id="your_styles" name="your_styles"><?php echo esc_textarea( $your_styles ); ?></textarea>
 			<?php submit_button( __( 'Save', 'pressbooks' ), 'primary', 'save' ); ?>
 		</form>

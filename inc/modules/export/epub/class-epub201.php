@@ -1953,21 +1953,11 @@ class Epub201 extends Export {
 			return $this->fetchedImageCache[ $url ];
 		}
 
-		$args = [];
+		$args = [
+			'timeout' => $this->timeout,
+		];
 
-		if ( defined( 'WP_ENV' ) && WP_ENV === 'development' ) {
-			$args['sslverify'] = false;
-		}
-
-		$response = \Pressbooks\Utility\remote_get_retry(
-			$url,
-			array_merge(
-				[
-					'timeout' => $this->timeout,
-				],
-				$args
-			)
-		);
+		$response = \Pressbooks\Utility\remote_get_retry( $url, $args );
 
 		// WordPress error?
 		if ( is_wp_error( $response ) ) {
@@ -1982,15 +1972,7 @@ class Epub201 extends Export {
 						$url = 'http:' . $url;
 					}
 				}
-				$response = wp_remote_get(
-					$url,
-					array_merge(
-						[
-							'timeout' => $this->timeout,
-						],
-						$args
-					)
-				);
+				$response = wp_remote_get( $url, $args );
 				if ( is_wp_error( $response ) ) {
 					throw new \Exception( 'Bad URL: ' . $url );
 				}
@@ -2004,19 +1986,35 @@ class Epub201 extends Export {
 		// Basename without query string
 		$filename = explode( '?', basename( $url ) );
 
-		// isolate latex image service from WP, add file extension
-		$host = wp_parse_url( $url, PHP_URL_HOST );
-		if ( ( str_ends_with( $host, 'wordpress.com' ) || str_ends_with( $host, 'wp.com' ) ) && 'latex.php' === $filename[0] ) {
-			$filename = md5( array_pop( $filename ) );
-			// content-type = 'image/png'
-			$type = explode( '/', $response['headers']['content-type'] );
-			$type = array_pop( $type );
-			$filename = $filename . '.' . $type;
+		/**
+		 * @since 5.5.0
+		 *
+		 * Filters the filename of a unique image
+		 *
+		 * @param string $filename the filename
+		 * @param array $ori_filename the original filename
+		 * @param object $response the response
+		 * @param string $url the url
+		 */
+		$unique_filename = apply_filters( 'pb_epub201_fetchandsaveuniqueimage_filename', '', $filename, $response, $url );
+
+		if ( '' !== $unique_filename ) {
+			$filename = $unique_filename;
 		} else {
-			$filename = array_shift( $filename );
-			$filename = explode( '#', $filename )[0]; // Remove trailing anchors
-			$filename = sanitize_file_name( urldecode( $filename ) );
-			$filename = Sanitize\force_ascii( $filename );
+			// isolate latex image service from WP, add file extension
+			$host = wp_parse_url( $url, PHP_URL_HOST );
+			if ( ( str_ends_with( $host, 'wordpress.com' ) || str_ends_with( $host, 'wp.com' ) ) && 'latex.php' === $filename[0] ) {
+				$filename = md5( array_pop( $filename ) );
+				// content-type = 'image/png'
+				$type = explode( '/', $response['headers']['content-type'] );
+				$type = array_pop( $type );
+				$filename = $filename . '.' . $type;
+			} else {
+				$filename = array_shift( $filename );
+				$filename = explode( '#', $filename )[0]; // Remove trailing anchors
+				$filename = sanitize_file_name( urldecode( $filename ) );
+				$filename = Sanitize\force_ascii( $filename );
+			}
 		}
 
 		// A book with a lot of images can trigger "Fatal Error Too many open files" because tmpfiles are not closed until PHP exits
@@ -2034,12 +2032,22 @@ class Epub201 extends Export {
 		}
 
 		if ( $this->compressImages ) {
-			$format = explode( '.', $filename );
-			$format = strtolower( end( $format ) ); // Extension
-			try {
-				\Pressbooks\Image\resize_down( $format, $tmp_file );
-			} catch ( \Exception $e ) {
-				return '';
+			/**
+			 * @since 5.5.0
+			 *
+			 * Filters if a image should be compressed
+			 *
+			 * @param boolean $compress should it be compressed
+			 * @param file $tmp_file the temp file
+			 */
+			if ( apply_filters( 'pb_epub201_fetchandsaveuniqueimage_compress', true, $tmp_file ) ) {
+				$format = explode( '.', $filename );
+				$format = strtolower( end( $format ) ); // Extension
+				try {
+					\Pressbooks\Image\resize_down( $format, $tmp_file );
+				} catch ( \Exception $e ) {
+					return '';
+				}
 			}
 		}
 
@@ -2295,9 +2303,12 @@ class Epub201 extends Export {
 			return false;
 		}
 
-		static $lookup = false; // Cheap cache
-		if ( false === $lookup ) {
+		// Cheap cache
+		static $lookup = false;
+		static $order = false;
+		if ( $lookup === false && $order === false ) {
 			$lookup = Book::getBookStructure();
+			$order = $this->fixOrder( $lookup['__order'] );
 		}
 
 		$found = [];
@@ -2325,15 +2336,22 @@ class Epub201 extends Export {
 			}
 		} else {
 			$new_pos = 0;
-			foreach ( $lookup['__order'] as $post_id => $val ) {
+			foreach ( $order as $post_id => $val ) {
 				if ( (string) $val['post_type'] === (string) $found['post_type'] && $val['export'] ) {
-					++$new_pos;
+					if ( $this->taxonomy->getFrontMatterType( $post_id ) !== 'title-page' ) {
+						// Custom title pages aren't numbered.
+						++$new_pos;
+					}
 				}
 				if ( (int) $post_id === (int) $found['ID'] ) {
 					break;
 				}
 			}
-			$new_url = "{$found['post_type']}-" . sprintf( '%03s', $new_pos ) . '-' . ( isset( $this->sanitizedSlugs[ $slug ] ) ? $this->sanitizedSlugs[ $slug ] : $slug ) . ".{$this->filext}";
+			if ( $val['post_type'] === 'front-matter' && $this->taxonomy->getFrontMatterType( $post_id ) === 'title-page' ) {
+				$new_url = "title-page.{$this->filext}";
+			} else {
+				$new_url = "{$found['post_type']}-" . sprintf( '%03s', $new_pos ) . '-' . ( isset( $this->sanitizedSlugs[ $slug ] ) ? $this->sanitizedSlugs[ $slug ] : $slug ) . ".{$this->filext}";
+			}
 		}
 		if ( $anchor ) {
 			$new_url .= $anchor;
@@ -2342,6 +2360,42 @@ class Epub201 extends Export {
 		return $new_url;
 	}
 
+	/**
+	 * Reorder the book structure to conform to Chicago Style, so that the
+	 * book begins with Before Title, Title Page, Dedication, Epigraph.
+	 *
+	 * @param array $order
+	 * @return array
+	 */
+	protected function fixOrder( $order ) {
+		$fixed = [];
+		$fm = [];
+		foreach ( $order as $post_id => $val ) {
+			if ( $val['post_type'] === 'front-matter' ) {
+				$type = $this->taxonomy->getFrontMatterType( $post_id );
+				if ( ! in_array( $type, [ 'before-title', 'title-page', 'dedication', 'epigraph' ], true ) ) {
+					// Add front matter that isn't being reorderd without intervention.
+					$fixed[ $post_id ] = $val;
+				} else {
+					// Add front matter that is being reordered to temporary array.
+					$fm[ $post_id ] = array_merge( $val, [ 'type' => $type ] );
+				}
+			} else {
+				// Add parts, chapters, and back matter without intervention.
+				$fixed[ $post_id ] = $val;
+			}
+		}
+		// Work our way backwards, starting with epigraph
+		foreach ( [ 'epigraph', 'dedication', 'title-page', 'before-title' ] as $type ) {
+			foreach ( $fm as $post_id => $val ) {
+				if ( $val['type'] === $type ) {
+					$fixed = [ $post_id => $val ] + $fixed;
+					break;
+				}
+			}
+		}
+		return $fixed;
+	}
 
 	/**
 	 * Create OPF File.

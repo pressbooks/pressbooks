@@ -31,7 +31,7 @@ class BookTest extends \WP_UnitTestCase {
 
 		// Returns export value
 		$this->_book();
-		$this->_createChapter();
+		$this->_createChapter(); // Create orphan
 		$structure = $book::getBookStructure();
 
 		$this->assertTrue( count( $structure['__orphans'] ) === 1 ); // In __orphans because doesn't belong to a part
@@ -70,7 +70,7 @@ class BookTest extends \WP_UnitTestCase {
 
 		// Returns export value
 		$this->_book();
-		$this->_createChapter();
+		$this->_createChapter(); // Create orphan
 		$contents = $book::getBookContents();
 		$this->assertTrue( count( $contents['__orphans'] ) === 1 ); // In __orphans because doesn't belong to a part
 		$vals = array_values( $contents['__orphans'] );

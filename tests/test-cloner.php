@@ -146,45 +146,4 @@ class ClonerTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'http://example.com/?rest_route=', $url );
 	}
 
-	public function test_sanityCheck() {
-
-		$this->_setupBookApi();
-		$this->_openTextbook();
-
-		$user_id = $this->factory()->user->create( [ 'role' => 'contributor' ] );
-		wp_set_current_user( $user_id );
-
-		$source = home_url();
-		$target = uniqid( 'clone-' );
-
-		$cloner = new \Pressbooks\Cloner( $source, $target );
-
-		global $wpdb;
-		$suppress = $wpdb->suppress_errors();
-		$this->assertTrue( $cloner->cloneBook() );
-		$wpdb->suppress_errors( $suppress );
-
-		$this->assertEquals( $source, $cloner->getSourceBookUrl() );
-		$this->assertInternalType( 'int', $cloner->getSourceBookId() );
-
-		$structure = $cloner->getSourceBookStructure();
-		$this->assertInternalType( 'array', $structure );
-		$this->assertNotEmpty( $structure );
-
-		$terms = $cloner->getSourceBookTerms();
-		$this->assertInternalType( 'array', $terms );
-		$this->assertNotEmpty( $terms );
-
-		$meta = $cloner->getSourceBookMetadata();
-		$this->assertInternalType( 'array', $meta );
-		$this->assertNotEmpty( $meta );
-		$this->assertEquals( 'CC BY (Attribution)', $meta['license']['name'] );
-
-		$cloned_items = $cloner->getClonedItems();
-
-		$this->assertTrue( count( $cloned_items['chapters'] ) > 0 );
-		$this->assertTrue( count( $cloned_items['back-matter'] ) > 0 );
-		$this->assertTrue( count( $cloned_items['front-matter'] ) > 0 );
-	}
-
 }

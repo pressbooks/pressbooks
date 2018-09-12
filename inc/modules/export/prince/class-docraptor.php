@@ -77,9 +77,8 @@ class Docraptor extends Pdf {
 				$doc->setTest( true );
 				$doc->setDocumentContent( $document_content );
 			} elseif ( defined( 'WP_ENV' ) && ( WP_ENV === 'development' ) ) {
-				// Localhost
-				$args['sslverify'] = false;
-				$response = wp_remote_get( $this->url, $args );
+				// Instead of a localhost URL that DocRaptor can't see, send a document
+				$response = wp_remote_get( $this->url );
 				if ( is_wp_error( $response ) ) {
 					$this->logError( $response->get_error_message() );
 					return false;

@@ -7,7 +7,9 @@
 namespace Pressbooks\Modules\Import\WordPress;
 
 use function Pressbooks\Image\attachment_id_from_url;
-use function Pressbooks\Image\strip_baseurl;
+use function Pressbooks\Image\strip_baseurl as image_strip_baseurl;
+use function Pressbooks\Media\strip_baseurl as media_strip_baseurl;
+use function Pressbooks\Utility\str_starts_with;
 use Masterminds\HTML5;
 use Pressbooks\Book;
 use Pressbooks\Contributors;
@@ -34,11 +36,18 @@ class Wxr extends Import {
 	protected $sourceBookUrl;
 
 	/**
-	 * Array of known images, format: [ 2017/08/foo-bar-300x225.png ] => [ Fullsize URL ], ...
+	 * Array of known media
 	 *
-	 * @var array
+	 * @var \Pressbooks\Entities\Cloner\Media[]
 	 */
-	protected $knownImages = [];
+	protected $knownMedia = [];
+
+	/**
+	 * Regular expression for image extensions that Pressbooks knows how to resize, analyse, etc.
+	 *
+	 * @var string
+	 */
+	protected $pregSupportedImageExtensions = '/\.(jpe?g|gif|png)$/i';
 
 	/**
 	 * @var \Pressbooks\Contributors;
@@ -139,7 +148,13 @@ class Wxr extends Import {
 		$this->pbCheck( $xml );
 
 		$this->sourceBookUrl = $xml['base_url'];
-		$this->knownImages = $this->buildListOfKnownImages( $xml );
+		$this->knownMedia = $this->buildListOfKnownMedia( $xml );
+		// Sort by the length of sourceUrls for better search and replace
+		$known_media_sorted = $this->knownMedia;
+		uasort( $known_media_sorted, function ( $a, $b ) {
+			return strlen( $b->sourceUrl ) <=> strlen( $a->sourceUrl );
+		} );
+		$this->knownMedia = $known_media_sorted;
 
 		if ( $this->isPbWxr ) {
 			$xml['posts'] = $this->customNestedSort( $xml['posts'] );
@@ -153,6 +168,7 @@ class Wxr extends Import {
 			'part' => 0,
 			'back-matter' => 0,
 			'glossary' => 0,
+			'media' => 0,
 		];
 
 		/**
@@ -202,14 +218,28 @@ class Wxr extends Import {
 			// Insert
 			$post_type = $this->determinePostType( $p['post_id'] );
 
+			// Wrap in fake div tags so that we can parse it
+			$html = '<div><!-- pb_fixme -->' . $p['post_content'] . '<!-- pb_fixme --></div>';
+
 			$doc = new HTML5();
-			$html = $this->tidy( wpautop( $p['post_content'] ) );
 			$dom = $doc->loadHtml( $html );
-			$dom = $this->scrapeAndKneadImages( $dom );
+
+			// Download images, change image paths
+			$media = $this->scrapeAndKneadImages( $dom );
+			$dom = $media['dom'];
+			$attachments = $media['attachments'];
+
+			// Download media, change media paths
+			$media = $this->scrapeAndKneadMedia( $dom, $doc );
+			$dom = $media['dom'];
+			$attachments = array_merge( $attachments, $media['attachments'] );
+
+			// TODO? We should probably do the same thing as seen in Cloner::fixInternalLinks( $dom )
+
 			$html = $doc->saveHTML( $dom );
 
 			$html = \Pressbooks\Sanitize\strip_container_tags( $html ); // Remove auto-created <html> <body> and <!DOCTYPE> tags.
-			$html = shortcode_unautop( $html ); // Ensures that shortcodes are not wrapped in `<p>...</p>`.
+			$html = str_replace( [ '<div><!-- pb_fixme -->', '<!-- pb_fixme --></div>' ], '', $html ); // Remove fake div tags
 
 			if ( 'metadata' === $post_type ) {
 				$pid = $this->bookInfoPid();
@@ -248,21 +278,32 @@ class Wxr extends Import {
 			if ( 'metadata' !== $post_type ) {
 				++$totals[ $post_type ];
 			}
+
+			// Attach attachments to post
+			foreach ( $attachments as $attachment ) {
+				wp_update_post(
+					[
+						'ID' => $attachment,
+						'post_parent' => $pid,
+					]
+				);
+			}
+			$totals['media'] = $totals['media'] + count( $attachments );
 		}
 
 		wp_defer_term_counting( false ); // Flush
 
 		// Done
-		$_SESSION['pb_notices'][] =
+		$_SESSION['pb_notices'][] = sprintf(
+			_x( 'Imported %1$s, %2$s, %3$s, %4$s, %5$s, and %6$s.', 'String which tells user how many front matter, parts, chapters, back matter, media attachments, and glossary terms were imported.', 'pressbooks' ),
+			sprintf( _n( '%s front matter', '%s front matter', $totals['front-matter'], 'pressbooks' ), $totals['front-matter'] ),
+			sprintf( _n( '%s part', '%s parts', $totals['part'], 'pressbooks' ), $totals['part'] ),
+			sprintf( _n( '%s chapter', '%s chapters', $totals['chapter'], 'pressbooks' ), $totals['chapter'] ),
+			sprintf( _n( '%s back matter', '%s back matter', $totals['back-matter'], 'pressbooks' ), $totals['back-matter'] ),
+			sprintf( _n( '%s media attachment', '%s media attachments', $totals['media'], 'pressbooks' ), $totals['media'] ),
+			sprintf( _n( '%s glossary term', '%s glossary terms', $totals['glossary'], 'pressbooks' ), $totals['glossary'] )
+		);
 
-			sprintf(
-				_x( 'Imported %1$s, %2$s, %3$s, %4$s, and %5$s.', 'String which tells user how many front matter, parts, chapters and back matter were imported.', 'pressbooks' ),
-				$totals['front-matter'] . ' ' . __( 'front matter', 'pressbooks' ),
-				( 1 === $totals['part'] ) ? $totals['part'] . ' ' . __( 'part', 'pressbooks' ) : $totals['part'] . ' ' . __( 'parts', 'pressbooks' ),
-				( 1 === $totals['chapter'] ) ? $totals['chapter'] . ' ' . __( 'chapter', 'pressbooks' ) : $totals['chapter'] . ' ' . __( 'chapters', 'pressbooks' ),
-				$totals['back-matter'] . ' ' . __( 'back matter', 'pressbooks' ),
-				( 1 === $totals['glossary'] ) ? $totals['glossary'] . ' ' . __( 'glossary term', 'pressbooks' ) : $totals['glossary'] . ' ' . __( 'glossary terms', 'pressbooks' )
-			);
 		return $this->revokeCurrentImport();
 	}
 
@@ -556,55 +597,20 @@ class Wxr extends Import {
 	}
 
 	/**
-	 * Parse HTML snippet, save all found <img> tags using media_handle_sideload(), return the HTML with changed <img> paths.
-	 *
-	 * @param \DOMDocument $doc
-	 *
-	 * @return \DOMDocument
-	 */
-	protected function scrapeAndKneadImages( \DOMDocument $doc ) {
-
-		$images = $doc->getElementsByTagName( 'img' );
-
-		foreach ( $images as $image ) {
-			/** @var \DOMElement $image */
-			// Fetch image, change src
-			$src_old = $image->getAttribute( 'src' );
-
-			$attachment_id = $this->fetchAndSaveUniqueImage( $src_old );
-
-			if ( $attachment_id ) {
-				$image->setAttribute( 'src', $this->replaceImage( $attachment_id, $src_old, $image ) );
-			} else {
-				// Tag broken image
-				$image->setAttribute( 'src', "{$src_old}#fixme" );
-			}
-		}
-
-		return $doc;
-	}
-
-
-	/**
 	 * Parse XML to build an array of known images
 	 *
 	 * @param array $xml
 	 *
-	 * @return array
+	 * @return \Pressbooks\Entities\Cloner\Media[]
 	 */
-	public function buildListOfKnownImages( $xml ) {
+	public function buildListOfKnownMedia( $xml ) {
 
-		$known_images = [];
+		$known_media = [];
 
 		foreach ( $xml['posts'] as $item ) {
-
 			if ( $item['post_type'] !== 'attachment' ) {
 				continue; // Not an attachment, skip
 			}
-			if ( ! preg_match( '/\.(jpe?g|gif|png)$/i', $item['attachment_url'] ) ) {
-				continue; // Not a supported image, skip
-			}
-
 			$x = [];
 			foreach ( $item['postmeta'] as $meta ) {
 				if ( $meta['key'] === '_wp_attachment_metadata' ) {
@@ -616,15 +622,28 @@ class Wxr extends Import {
 				continue; // Something went wrong, skip
 			}
 
-			$fullsize = $item['attachment_url'];
-			$prefix = str_replace( $this->basename( $fullsize ), '', $x['file'] );
-			foreach ( $x['sizes'] as $size => $info ) {
-				$attached_file = $prefix . $info['file'];
-				$known_images[ $attached_file ] = $fullsize;
+			$m = new \Pressbooks\Entities\Cloner\Media();
+			$m->sourceUrl = $item['attachment_url'];
+			if ( isset( $item['postmeta'] ) && is_array( $item['postmeta'] ) ) {
+				foreach ( $item['postmeta'] as $meta ) {
+					if ( str_starts_with( $meta['key'], '_' ) === false ) {
+						$m->meta[ $meta['key'] ] = $meta['value'];
+					}
+				}
+			}
+			if ( preg_match( $this->pregSupportedImageExtensions, $m->sourceUrl ) ) {
+				$prefix = str_replace( $this->basename( $m->sourceUrl ), '', $x['file'] ); // 2017/08
+				foreach ( $x['sizes'] as $size => $info ) {
+					$attached_file = $prefix . $info['file']; // 2017/08/foo-bar-300x225.png
+					$known_media[ $attached_file ] = $m;
+				}
+			} else {
+				$attached_file = media_strip_baseurl( $m->sourceUrl ); // 2017/08/foo-bar.ext
+				$known_media[ $attached_file ] = $m;
 			}
 		}
 
-		return $known_images;
+		return $known_media;
 	}
 
 	/**
@@ -653,27 +672,66 @@ class Wxr extends Import {
 	}
 
 	/**
+	 * Parse HTML snippet, save all found <img> tags using media_handle_sideload(), return the HTML with changed <img> paths.
+	 *
+	 * @param \DOMDocument $dom
+	 *
+	 * @return array An array containing the \DOMDocument and the IDs of created attachments
+	 */
+	protected function scrapeAndKneadImages( \DOMDocument $dom ) {
+
+		$images = $dom->getElementsByTagName( 'img' );
+		$attachments = [];
+
+		foreach ( $images as $image ) {
+			/** @var \DOMElement $image */
+			// Fetch image, change src
+			$src_old = $image->getAttribute( 'src' );
+			$attachment_id = $this->fetchAndSaveUniqueImage( $src_old );
+			if ( $attachment_id === -1 ) {
+				// Do nothing because image is not hosted on the source Pb network
+			} elseif ( $attachment_id ) {
+				$image->setAttribute( 'src', $this->replaceImage( $attachment_id, $src_old, $image ) );
+				$attachments[] = $attachment_id;
+			} else {
+				// Tag broken image
+				$image->setAttribute( 'src', "{$src_old}#fixme" );
+			}
+		}
+
+		return [
+			'dom' => $dom,
+			'attachments' => $attachments,
+		];
+	}
+
+	/**
 	 * Load remote url of image into WP using media_handle_sideload()
-	 * Will return an empty string if something went wrong.
+	 * Will return -1 if image is not hosted on the source Pb network, or 0 if something went wrong.
 	 *
 	 * @param string $url
 	 *
 	 * @see media_handle_sideload
 	 *
-	 * @return int attachment ID or 0 if import failed
+	 * @return int attachment ID, -1 if image is not hosted on the source Pb network, or 0 if import failed
 	 */
 	protected function fetchAndSaveUniqueImage( $url ) {
 		if ( ! filter_var( $url, FILTER_VALIDATE_URL ) ) {
 			return 0;
 		}
+		if ( ! $this->sameAsSource( $url ) ) {
+			return -1;
+		}
 
 		$filename = $this->basename( $url );
-		$attached_file = strip_baseurl( $url );
+		$attached_file = image_strip_baseurl( $url );
 
-		if ( $this->sameAsSource( $url ) && isset( $this->knownImages[ $attached_file ] ) ) {
-			$remote_img_location = $this->knownImages[ $attached_file ];
-			$filename = basename( $this->knownImages[ $attached_file ] );
+		if ( isset( $this->knownMedia[ $attached_file ] ) ) {
+			$remote_img_metadata = $this->knownMedia[ $attached_file ]->meta;
+			$remote_img_location = $this->knownMedia[ $attached_file ]->sourceUrl;
+			$filename = basename( $remote_img_location );
 		} else {
+			$remote_img_metadata = [];
 			$remote_img_location = $url;
 		}
 
@@ -685,7 +743,7 @@ class Wxr extends Import {
 
 		/* Process */
 
-		if ( ! preg_match( '/\.(jpe?g|gif|png)$/i', $filename ) ) {
+		if ( ! preg_match( $this->pregSupportedImageExtensions, $filename ) ) {
 			// Unsupported image type
 			$already_done[ $remote_img_location ] = '';
 			return 0;
@@ -723,8 +781,12 @@ class Wxr extends Import {
 		$src = wp_get_attachment_url( $pid );
 		if ( ! $src ) {
 			$pid = 0;
+		} else {
+			foreach ( $remote_img_metadata as $meta_key => $meta_value ) {
+				update_post_meta( $pid, $meta_key, $meta_value );
+			}
+			$already_done[ $remote_img_location ] = $pid;
 		}
-		$already_done[ $remote_img_location ] = $pid;
 		@unlink( $tmp_name ); // @codingStandardsIgnoreLine
 
 		return $pid;
@@ -741,7 +803,7 @@ class Wxr extends Import {
 
 		$src_new = wp_get_attachment_url( $attachment_id );
 
-		if ( $this->sameAsSource( $src_old ) && isset( $this->knownImages[ strip_baseurl( $src_old ) ] ) ) {
+		if ( $this->sameAsSource( $src_old ) && isset( $this->knownMedia[ image_strip_baseurl( $src_old ) ] ) ) {
 			$basename_old = $this->basename( $src_old );
 			$basename_new = $this->basename( $src_new );
 			$maybe_src_new = \Pressbooks\Utility\str_lreplace( $basename_new, $basename_old, $src_new );
@@ -775,6 +837,121 @@ class Wxr extends Import {
 		}
 
 		return $src_new;
+	}
+
+	/**
+	 * Parse HTML snippet, save all found media using media_handle_sideload(), return the HTML with changed URLs.
+	 *
+	 * Because we clone using WordPress raw format, we have to brute force against the text because the DOM
+	 * can't see shortcodes, text urls, hrefs with no identifying info, etc.
+	 *
+	 * @since 4.1.0
+	 *
+	 * @param \DOMDocument $dom
+	 * @param HTML5 $html5
+	 *
+	 * @return array An array containing the \DOMDocument and the IDs of created attachments
+	 */
+	protected function scrapeAndKneadMedia( \DOMDocument $dom, $html5 ) {
+
+		$dom_as_string = $html5->saveHTML( $dom );
+		$dom_as_string = \Pressbooks\Sanitize\strip_container_tags( $dom_as_string );
+
+		$attachments = [];
+		$changed = false;
+		foreach ( $this->knownMedia as $alt => $media ) {
+			if ( preg_match( $this->pregSupportedImageExtensions, $this->basename( $media->sourceUrl ) ) ) {
+				// Skip images, these have already been done
+				continue;
+			}
+			if ( strpos( $dom_as_string, $media->sourceUrl ) !== false ) {
+				$src_old = $media->sourceUrl;
+				$attachment_id = $this->fetchAndSaveUniqueMedia( $src_old );
+				if ( $attachment_id === -1 ) {
+					// Do nothing because media is not hosted on the source Pb network
+				} elseif ( $attachment_id ) {
+					$dom_as_string = str_replace( $src_old, wp_get_attachment_url( $attachment_id ), $dom_as_string );
+					$attachments[] = $attachment_id;
+					$changed = true;
+				} else {
+					// Tag broken media
+					$dom_as_string = str_replace( $src_old, "{$src_old}#fixme", $dom_as_string );
+					$changed = true;
+				}
+			}
+		}
+
+		return [
+			'dom' => $changed ? $html5->loadHTML( $dom_as_string ) : $dom,
+			'attachments' => $attachments,
+		];
+	}
+
+	/**
+	 * Load remote media into WP using media_handle_sideload()
+	 * Will return -1 if media is not hosted on the source Pb network, or 0 if something went wrong.
+	 *
+	 * @since 4.1.0
+	 *
+	 * @param string $url
+	 *
+	 * @see media_handle_sideload
+	 *
+	 * @return int attachment ID, -1 if media is not hosted on the source Pb network, or 0 if import failed
+	 */
+	protected function fetchAndSaveUniqueMedia( $url ) {
+		if ( ! filter_var( $url, FILTER_VALIDATE_URL ) ) {
+			return 0;
+		}
+		if ( ! $this->sameAsSource( $url ) ) {
+			return -1;
+		}
+
+		$filename = $this->basename( $url );
+		$attached_file = media_strip_baseurl( $url );
+
+		if ( isset( $this->knownMedia[ $attached_file ] ) ) {
+			$remote_media_metadata = $this->knownMedia[ $attached_file ]->meta;
+			$remote_media_location = $this->knownMedia[ $attached_file ]->sourceUrl;
+			$filename = basename( $remote_media_location );
+		} else {
+			$remote_media_metadata = [];
+			$remote_media_location = $url;
+		}
+
+		// Cheap cache
+		static $already_done = [];
+		if ( isset( $already_done[ $remote_media_location ] ) ) {
+			return $already_done[ $remote_media_location ];
+		}
+
+		/* Process */
+
+		$tmp_name = download_url( $remote_media_location );
+		if ( is_wp_error( $tmp_name ) ) {
+			// Download failed
+			$already_done[ $remote_media_location ] = 0;
+			return 0;
+		}
+
+		$pid = media_handle_sideload(
+			[
+				'name' => $filename,
+				'tmp_name' => $tmp_name,
+			], 0
+		);
+		$src = wp_get_attachment_url( $pid );
+		if ( ! $src ) {
+			$pid = 0;
+		} else {
+			foreach ( $remote_media_metadata as $meta_key => $meta_value ) {
+				update_post_meta( $pid, $meta_key, $meta_value );
+			}
+			$already_done[ $remote_media_location ] = $pid;
+		}
+		@unlink( $tmp_name ); // @codingStandardsIgnoreLine
+
+		return $pid;
 	}
 
 	/**
