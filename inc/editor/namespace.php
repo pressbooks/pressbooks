@@ -320,11 +320,11 @@ function customize_wp_link_query_args( $query ) {
  * Add anchors to link insertion modal query results.
  *
  * @param array $results
- * @param array $query
+ * @param array $parent_query
  *
  * @return array
  */
-function add_anchors_to_wp_link_query( $results, $query ) {
+function add_anchors_to_wp_link_query( $results, $parent_query ) {
 
 	$url = wp_parse_url( $_SERVER['HTTP_REFERER'] );
 	parse_str( $url['query'], $query );
@@ -345,6 +345,7 @@ function add_anchors_to_wp_link_query( $results, $query ) {
 		$doc = new \DOMDocument();
 		$doc->loadHTML( $content );
 
+		/** @var \DOMElement $node */
 		foreach ( $doc->getElementsByTagName( 'a' ) as $node ) {
 			if ( $node->hasAttribute( 'id' ) ) {
 				$anchors[] = [
@@ -357,15 +358,20 @@ function add_anchors_to_wp_link_query( $results, $query ) {
 		}
 	}
 
-	$offset = count( $results ) + 1;
-
+	// Find the position of the current post in $results, put array of anchors right after that post (ie. put array one in the middle of array two)
+	$offset = false;
 	foreach ( $results as $key => $result ) {
-		if ( $results[ $key ]['ID'] === $query['post'] ) {
+		if ( (int) $results[ $key ]['ID'] === (int) $query['post'] ) {
 			$offset = $key + 1;
+			break;
 		}
 	}
-
-	array_splice( $results, $offset, 0, $anchors );
-
-	return $results;
+	if ( $offset === false ) {
+		// If we could not find the position of the current post in $results, then do nothing.
+		// The $results are paginated. If the user scrolls down more ajax calls will happen. We wait until we see our post to insert $anchors.
+		return $results;
+	} else {
+		array_splice( $results, $offset, 0, $anchors );
+		return $results;
+	}
 }
