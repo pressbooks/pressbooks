@@ -157,4 +157,9 @@ class EditorTest extends \WP_UnitTestCase {
 		$this->assertEmpty( $new_results );
 	}
 
+	public function test_show_kitchen_sink() {
+		$result = \Pressbooks\Editor\show_kitchen_sink( [] );
+		$this->assertFalse( $result['wordpress_adv_hidden'] );
+	}
+
 }

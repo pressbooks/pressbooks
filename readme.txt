@@ -29,6 +29,7 @@ TK.
 
 **Minor Changes**
 
+* Show advanced editor toolbars by default: [#1352](https://github.com/pressbooks/pressbooks/pull/1352)
 * Move the Contributors page under the Book Info menu: [#1351](https://github.com/pressbooks/pressbooks/pull/1351)
 * Allow a new title to be entered when cloning a book: [#1348](https://github.com/pressbooks/pressbooks/pull/1348)
 * Scan full book contents for anchors in link insertion tool: [#1345](https://github.com/pressbooks/pressbooks/pull/1345)
