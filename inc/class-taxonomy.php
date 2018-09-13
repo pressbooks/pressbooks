@@ -59,6 +59,7 @@ class Taxonomy {
 			add_action( 'profile_update', [ $obj->contributors, 'updateBlogUser' ], 10, 2 );
 			add_action( 'added_post_meta', [ $obj, 'upgradeToContributorTaxonomy' ], 10, 4 );
 			add_action( 'updated_postmeta', [ $obj, 'upgradeToContributorTaxonomy' ], 10, 4 );
+			add_filter( 'contributor_row_actions', [ $obj, 'removeContributorViewLink' ], 10, 2 );
 		}
 	}
 
@@ -621,5 +622,17 @@ class Taxonomy {
 	 */
 	public function upgradeToContributorTaxonomy( $meta_id, $object_id, $meta_key, $meta_value ) {
 		return $this->contributors->convert( $meta_key, $meta_value, $object_id );
+	}
+
+	/**
+	 * Remove the "View" link from the Contributors taxonomy.
+	 *
+	 * @param array $actions The default actions.
+	 * @param WP_Term $tag The term object.
+	 * @return array
+	 */
+	public function removeContributorViewLink( $actions, $tag ) {
+		unset( $actions['view'] );
+		return $actions;
 	}
 }
