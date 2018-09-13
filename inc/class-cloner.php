@@ -91,6 +91,15 @@ class Cloner {
 	protected $targetBookUrl;
 
 	/**
+	 * The title of the target book.
+	 *
+	 * @since 5.6.0
+	 *
+	 * @var string
+	 */
+	protected $targetBookTitle;
+
+	/**
 	 * The ID of the target book.
 	 *
 	 * @since 4.1.0
@@ -182,8 +191,9 @@ class Cloner {
 	 *
 	 * @param string $source_url The public URL of the source book.
 	 * @param string $target_url The public URL of the target book.
+	 * @param string $target_title The title of the target book.
 	 */
-	public function __construct( $source_url, $target_url = '' ) {
+	public function __construct( $source_url, $target_url = '', $target_title = '' ) {
 		// Has_cap acts weird when we create a new blog. Figure out who we are before starting.
 		$this->isSuperAdmin = current_user_can( 'manage_network_options' );
 
@@ -197,6 +207,11 @@ class Cloner {
 		if ( $target_url ) {
 			$this->targetBookUrl = esc_url( untrailingslashit( $target_url ) );
 			$this->targetBookId = $this->getBookId( $target_url );
+		}
+
+		// Set up $this->targetBookTitle if set
+		if ( $target_title ) {
+			$this->targetBookTitle = esc_attr( $target_title );
 		}
 
 		// Include media utilities
@@ -700,7 +715,10 @@ class Cloner {
 			$path = '/' . $this->getSubdomainOrSubDirectory( $this->targetBookUrl );
 		}
 
-		$title = $this->sourceBookMetadata['name'];
+		if ( ! $this->targetBookTitle ) {
+			$this->targetBookTitle = $this->sourceBookMetadata['name'];
+		}
+
 		$user_id = get_current_user_id();
 		// Disable automatic redirect to new book dashboard
 		add_filter(
@@ -710,7 +728,7 @@ class Cloner {
 		);
 		// Remove default content so that the book only contains the results of the clone operation
 		add_filter( 'pb_default_book_content', [ $this, 'removeDefaultBookContent' ] );
-		$result = wpmu_create_blog( $domain, $path, $title, $user_id );
+		$result = wpmu_create_blog( $domain, $path, $this->targetBookTitle, $user_id );
 		remove_all_filters( 'pb_redirect_to_new_book' );
 		remove_filter( 'pb_default_book_content', [ $this, 'removeDefaultBookContent' ] );
 		if ( ! is_wp_error( $result ) ) {
@@ -762,6 +780,8 @@ class Cloner {
 				foreach ( $values as $v ) {
 					add_post_meta( $metadata_post_id, $key, $v );
 				}
+			} elseif ( $key === 'pb_title' ) {
+				update_post_meta( $metadata_post_id, $key, $this->targetBookTitle );
 			} else {
 				update_post_meta( $metadata_post_id, $key, $value );
 				if ( $key === 'pb_book_license' ) {
@@ -1748,11 +1768,12 @@ class Cloner {
 		if ( isset( $_POST['_wpnonce'] ) && wp_verify_nonce( $_POST['_wpnonce'], 'pb-cloner' ) ) {
 			if ( isset( $_POST['source_book_url'] ) && ! empty( $_POST['source_book_url'] ) && isset( $_POST['target_book_url'] ) && ! empty( $_POST['target_book_url'] ) ) {
 				$bookname = \Pressbooks\Cloner::validateNewBookName( $_POST['target_book_url'] );
+				$booktitle = $_POST['target_book_title'] ?? '';
 				if ( is_wp_error( $bookname ) ) {
 					$_SESSION['pb_errors'][] = $bookname->get_error_message();
 				} else {
 					@set_time_limit( 300 ); // @codingStandardsIgnoreLine
-					$cloner = new Cloner( esc_url( $_POST['source_book_url'] ), $bookname );
+					$cloner = new Cloner( esc_url( $_POST['source_book_url'] ), $bookname, $booktitle );
 					if ( $cloner->cloneBook() ) {
 						$_SESSION['pb_notices'][] = sprintf(
 							__( 'Cloning succeeded! Cloned %1$s, %2$s, %3$s, %4$s, %5$s, and %6$s to %7$s.', 'pressbooks' ),
@@ -1762,7 +1783,7 @@ class Cloner {
 							sprintf( _n( '%s chapter', '%s chapters', count( getset( $cloner->clonedItems, 'chapters', [] ) ), 'pressbooks' ), count( getset( $cloner->clonedItems, 'chapters', [] ) ) ),
 							sprintf( _n( '%s back matter', '%s back matter', count( getset( $cloner->clonedItems, 'back-matter', [] ) ), 'pressbooks' ), count( getset( $cloner->clonedItems, 'back-matter', [] ) ) ),
 							sprintf( _n( '%s media attachment', '%s media attachments', count( getset( $cloner->clonedItems, 'media', [] ) ), 'pressbooks' ), count( getset( $cloner->clonedItems, 'media', [] ) ) ),
-							sprintf( '<a href="%1$s"><em>%2$s</em></a>', trailingslashit( $cloner->targetBookUrl ) . 'wp-admin/', $cloner->sourceBookMetadata['name'] )
+							sprintf( '<a href="%1$s"><em>%2$s</em></a>', trailingslashit( $cloner->targetBookUrl ) . 'wp-admin/', $cloner->targetBookTitle )
 						);
 					} elseif ( empty( $_SESSION['pb_errors'] ) ) {
 						$_SESSION['pb_errors'][] = __( 'Cloning failed.', 'pressbooks' );

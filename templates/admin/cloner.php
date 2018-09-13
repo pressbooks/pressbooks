@@ -28,7 +28,15 @@ if ( is_subdomain_install() ) {
 						$template_string,
 						'<input class="regular-text code" name="target_book_url" />'
 					);
-				?></td>
+					?>
+				</td>
+			</tr>
+			<tr>
+				<th scope=row><?php _e( 'Target Book Title', 'pressbooks' ); ?></th>
+				<td>
+					<input class="regular-text" name="target_book_title" type="text" />
+					<p class="description"><?php _e( 'Optional. If you leave this blank, the title of the source book will be used.', 'pressbooks' ); ?></p>
+				</td>
 			</tr>
 		</table>
 		<p><input id="pb-cloner-button" class="button button-primary" type="submit" value="<?php _e( 'Clone It!', 'pressbooks' ); ?>" /><span id="loader" class="loading-content"><span class="spinner"></span></span></p>
