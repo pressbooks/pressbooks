@@ -29,6 +29,7 @@ TK.
 
 **Minor Changes**
 
+* Allow a new title to be entered when cloning a book: [#1348](https://github.com/pressbooks/pressbooks/pulls/1348)
 * Scan full book contents for anchors in link insertion tool: [#1345](https://github.com/pressbooks/pressbooks/pulls/1345)
 * Add support for glossary term management and display (props [@alex-418](https://github.com/alex-418) and [@bdolor](https://github.com/bdolor)): [#1320](https://github.com/pressbooks/pressbooks/pulls/1320)
 
