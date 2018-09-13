@@ -106,10 +106,22 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 	}
 
 	public function test_getGlossaryTerms() {
-		$this->gl->setGlossaryTerms();
 		$terms = $this->gl->getGlossaryTerms();
 		$this->assertEquals( 2, count( $terms ) );
 		$this->assertEquals( 'A computer system modeled on the <b>human brain</b> and <a href="https://en.wikipedia.org/wiki/Nervous_system" target="_blank">nervous system</a>.', $terms['Neural Network']['content'] );
+
+		// Test cache (and cache reset)
+		$args = [
+			'post_type' => 'glossary',
+			'post_title' => 'Cache Test',
+			'post_content' => 'Cache Test',
+			'post_status' => 'publish',
+		];
+		$this->factory()->post->create_object( $args );
+		$terms = $this->gl->getGlossaryTerms();
+		$this->assertArrayNotHasKey( 'Cache Test', $terms );
+		$terms = $this->gl->getGlossaryTerms( true );
+		$this->assertArrayHasKey( 'Cache Test', $terms );
 	}
 
 }

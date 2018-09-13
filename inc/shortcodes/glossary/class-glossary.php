@@ -16,11 +16,6 @@ class Glossary {
 	static $instance = null;
 
 	/**
-	 * @var array
-	 */
-	private $glossary_terms = [];
-
-	/**
 	 * Function to init our class, set filters & hooks, set a singleton instance
 	 *
 	 * @return Glossary
@@ -62,22 +57,36 @@ class Glossary {
 	}
 
 	/**
-	 * Gets the instance variable of glossary terms
+	 * Gets the instance variable of glossary terms, returns as an array of
+	 * key = post_title, id = post ID, content = post_content. Sets an instance variable
+	 *
+	 * @param bool $reset (optional, default is false)
 	 *
 	 * @since 5.5.0
 	 *
-	 * @return array|null
+	 * @return array
 	 */
-	function getGlossaryTerms() {
+	function getGlossaryTerms( $reset = false ) {
 		// Cheap cache
-		static $terms = null;
-		if ( null !== $terms ) {
-			return $terms;
-		} else {
-			$terms = $this->glossary_terms;
-		}
+		static $glossary_terms = null;
+		if ( $reset || $glossary_terms === null ) {
+			$glossary_terms = [];
+			$args = [
+				'post_type' => 'glossary',
+				'posts_per_page' => -1, // @codingStandardsIgnoreLine
+				'post_status' => 'publish',
+			];
 
-		return $terms;
+			$terms = get_posts( $args );
+
+			foreach ( $terms as $term ) {
+				$glossary_terms[ $term->post_title ] = [
+					'id' => $term->ID,
+					'content' => $term->post_content,
+				];
+			}
+		}
+		return $glossary_terms;
 	}
 
 	/**
@@ -92,7 +101,6 @@ class Glossary {
 			return;
 		}
 		if ( get_user_option( 'rich_editing' ) ) {
-			$this->setGlossaryTerms();
 
 			add_action(
 				'admin_enqueue_scripts', function () {
@@ -142,7 +150,6 @@ class Glossary {
 	function glossaryTerms() {
 		$output = '';
 		$glossary = '';
-		$this->setGlossaryTerms();
 		$terms = $this->getGlossaryTerms();
 
 		if ( empty( $terms ) ) {
@@ -226,34 +233,6 @@ class Glossary {
 	}
 
 	/**
-	 * Sets all glossary terms currently in the database, returns as an array of
-	 * key = post_title, id = post ID, content = post_content. Sets an instance variable
-	 *
-	 * @since 5.5.0
-	 *
-	 * @return void $glossary_terms
-	 */
-	function setGlossaryTerms() {
-		$glossary_terms = [];
-		$args = [
-			'post_type'      => 'glossary',
-			'posts_per_page' => - 1,
-			'post_status'    => 'publish',
-		];
-
-		$terms = get_posts( $args );
-
-		foreach ( $terms as $term ) {
-			$glossary_terms[ $term->post_title ] = [
-				'id'      => $term->ID,
-				'content' => $term->post_content,
-			];
-		}
-
-		$this->glossary_terms = $glossary_terms;
-	}
-
-	/**
 	 * Gets the tooltip if the param contains the post id,
 	 * or a list of terms if it's just the short-code
 	 *
@@ -276,7 +255,7 @@ class Glossary {
 		if ( ! empty( $a['id'] ) ) {
 			$ret_val = $this->glossaryTooltip( $a, $content );
 		} elseif ( empty( $content ) && empty( $a['id'] ) ) {
-			$ret_val = $this->glossaryTerms( $content );
+			$ret_val = $this->glossaryTerms();
 		} else {
 			return $content;
 		}
