@@ -5,7 +5,7 @@ Tags: ebooks, publishing, webbooks
 Requires at least: 4.9.8
 Tested up to: 4.9.8
 Requires PHP: 7.1
-Stable tag: 5.5.0
+Stable tag: 5.5.1
 License: GPL v3.0 or later
 License URI: https://github.com/pressbooks/pressbooks/blob/master/LICENSE.md
 
@@ -36,6 +36,16 @@ TK.
 **Patches**
 
 * Fix duplication of anchors in link insertion tool: [#1345](https://github.com/pressbooks/pressbooks/pulls/#1345)
+
+= 5.5.1 =
+
+* Pressbooks 5.5.1 requires PHP >= 7.1.
+* Pressbooks 5.5.1 requires [WordPress 4.9.8](https://wordpress.org/news/2018/08/wordpress-4-9-8-maintenance-release/).
+* Pressbooks 5.5.1 requires [McLuhan >= 2.5.0](https://github.com/pressbooks/pressbooks-book/).
+
+**Patches**
+
+* Fixed an issue where cover generator stylesheets were missing from the release package: [#1349](https://github.com/pressbooks/pressbooks/pull/1349)
 
 = 5.5.0 =
 

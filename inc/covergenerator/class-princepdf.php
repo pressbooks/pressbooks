@@ -113,7 +113,7 @@ class PrincePdf extends Generator {
 		} elseif ( $styles->isCurrentThemeCompatible( 2 ) ) {
 			$scss .= "@import 'fonts'; \n";
 		}
-		$scss .= \Pressbooks\Utility\get_contents( PB_PLUGIN_DIR . 'assets/src/styles/partials/_covergenerator-pdf.scss' );
+		$scss .= \Pressbooks\Utility\get_contents( PB_PLUGIN_DIR . 'assets/covergenerator/_pdf.scss' );
 
 		$css = $styles->customize( 'prince', $scss );
 		$css = \Pressbooks\Sanitize\normalize_css_urls( $css );
