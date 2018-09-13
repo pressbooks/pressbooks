@@ -362,3 +362,16 @@ function add_anchors_to_wp_link_query( $results, $query ) {
 	}
 	return $new_results;
 }
+
+/**
+ * Show the Kitchen Sink by default.
+ *
+ * @since 5.6.0
+ *
+ * @param array $args
+ * @return array
+ */
+function show_kitchen_sink( $args ) {
+	$args['wordpress_adv_hidden'] = false;
+	return $args;
+}

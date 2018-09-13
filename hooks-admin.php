@@ -174,6 +174,7 @@ if ( $is_book ) {
 	add_filter( 'tiny_mce_before_init', '\Pressbooks\Editor\mce_before_init_insert_formats' );
 	add_filter( 'tiny_mce_before_init', '\Pressbooks\Editor\mce_valid_word_elements' );
 	add_filter( 'tiny_mce_before_init', '\Pressbooks\Editor\mce_table_editor_options' );
+	add_filter( 'tiny_mce_before_init', '\Pressbooks\Editor\show_kitchen_sink' );
 	add_filter( 'mce_external_plugins', '\Pressbooks\Editor\mce_button_scripts' );
 	add_filter( 'mce_buttons_2', '\Pressbooks\Editor\mce_buttons_2' );
 	add_filter( 'mce_buttons_3', '\Pressbooks\Editor\mce_buttons_3', 11 );
