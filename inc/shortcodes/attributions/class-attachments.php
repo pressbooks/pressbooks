@@ -17,11 +17,6 @@ class Attachments {
 	static $instance = null;
 
 	/**
-	 * @var array
-	 */
-	private $book_media = [];
-
-	/**
 	 * Function to init our class, set filters & hooks, set a singleton instance
 	 *
 	 * @since 5.5.0
@@ -107,10 +102,8 @@ class Attachments {
 			foreach ( $attached_media as $media ) {
 				$book_media[ $media->ID ] = $media->guid;
 			}
-			$this->book_media = $book_media;
 		}
-
-		return $this->book_media;
+		return $book_media;
 	}
 
 	/**
