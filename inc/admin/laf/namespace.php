@@ -10,6 +10,7 @@ namespace Pressbooks\Admin\Laf;
 
 use function Pressbooks\Admin\NetworkManagers\is_restricted;
 use function Pressbooks\PostType\get_post_type_label;
+use function Pressbooks\Utility\str_starts_with;
 use PressbooksMix\Assets;
 use Pressbooks\Admin\ExportOptions;
 use Pressbooks\Admin\Network\SharingAndPrivacyOptions;
@@ -38,6 +39,9 @@ function add_footer_link() {
  * Removes some default WordPress Admin Sidebar items and adds our own
  */
 function replace_book_admin_menu() {
+
+	// Note:
+	// If $menu_slug is a URL and the URL has an ampersand in it make sure you use &amp; (and not simply &) so that aria-current works
 
 	// Remove items we don't want the user to see.
 	remove_submenu_page( 'index.php', 'my-sites.php' );
@@ -148,7 +152,7 @@ function replace_book_admin_menu() {
 		__( 'Chapter Types', 'pressbooks' ),
 		__( 'Chapter Types', 'pressbooks' ),
 		'manage_network',
-		'edit-tags.php?taxonomy=chapter-type&post_type=chapter'
+		'edit-tags.php?taxonomy=chapter-type&amp;post_type=chapter'
 	);
 
 	add_submenu_page(
@@ -156,7 +160,7 @@ function replace_book_admin_menu() {
 		__( 'Front Matter Types', 'pressbooks' ),
 		__( 'Front Matter Types', 'pressbooks' ),
 		'manage_network',
-		'edit-tags.php?taxonomy=front-matter-type&post_type=front-matter'
+		'edit-tags.php?taxonomy=front-matter-type&amp;post_type=front-matter'
 	);
 
 	add_submenu_page(
@@ -164,7 +168,7 @@ function replace_book_admin_menu() {
 		__( 'Back Matter Types', 'pressbooks' ),
 		__( 'Back Matter Types', 'pressbooks' ),
 		'manage_network',
-		'edit-tags.php?taxonomy=back-matter-type&post_type=back-matter'
+		'edit-tags.php?taxonomy=back-matter-type&amp;post_type=back-matter'
 	);
 
 	add_submenu_page(
@@ -172,27 +176,13 @@ function replace_book_admin_menu() {
 		__( 'Glossary Types', 'pressbooks' ),
 		__( 'Glossary Types', 'pressbooks' ),
 		'manage_network',
-		'edit-tags.php?taxonomy=glossary-type&post_type=glossary'
-	);
-
-	add_submenu_page(
-		'pb_organize',
-		__( 'Contributors', 'pressbooks' ),
-		__( 'Contributors', 'pressbooks' ),
-		'manage_options',
-		'edit-tags.php?taxonomy=contributor'
+		'edit-tags.php?taxonomy=glossary-type&amp;post_type=glossary'
 	);
 
 	add_submenu_page( 'pb_organize', __( 'Trash' ), __( 'Trash' ), 'delete_posts', 'pb_trash', __NAMESPACE__ . '\display_trash' );
 
 	// Book Information
-	$metadata = new Metadata();
-	$meta = $metadata->getMetaPost();
-	if ( ! empty( $meta ) ) {
-		$book_info_url = 'post.php?post=' . absint( $meta->ID ) . '&action=edit';
-	} else {
-		$book_info_url = 'post-new.php?post_type=metadata';
-	}
+	$book_info_url = book_info_slug();
 	$bookinfo_page = add_menu_page( __( 'Book Info', 'pressbooks' ), __( 'Book Info', 'pressbooks' ), 'manage_options', $book_info_url, '', 'dashicons-info', 12 );
 	add_action(
 		'admin_enqueue_scripts', function ( $hook ) use ( $bookinfo_page ) {
@@ -213,6 +203,14 @@ function replace_book_admin_menu() {
 				}
 			}
 		}
+	);
+
+	add_submenu_page(
+		$book_info_url,
+		__( 'Contributors', 'pressbooks' ),
+		__( 'Contributors', 'pressbooks' ),
+		'manage_options',
+		'edit-tags.php?taxonomy=contributor'
 	);
 
 	// Export
@@ -305,19 +303,16 @@ function replace_book_admin_menu() {
  *
  * @since 5.0.0
  *
- * return array
+ * @param  array $menu_order An ordered array of menu items
+ * @return array
  */
-function reorder_book_admin_menu() {
-	$metadata = new Metadata();
-	$book_info_url = ( ! empty( $metadata->getMetaPost() ) ) ?
-		'post.php?post=' . $metadata->getMetaPost()->ID . '&action=edit' :
-		'post-new.php?post_type=metadata';
+function reorder_book_admin_menu( $menu_order = [] ) {
 	return [
 		'index.php',
 		'separator1',
 		'pb_organize',
 		'post.php',
-		$book_info_url,
+		book_info_slug(),
 		'themes.php',
 		'pb_export',
 		'pb_publish',
@@ -332,6 +327,19 @@ function reorder_book_admin_menu() {
 }
 
 /**
+ * The slug we use for Book Info menu is a variable URL
+ *
+ * @return string
+ */
+function book_info_slug() {
+	$metadata = new Metadata();
+	$book_info_slug = ( ! empty( $metadata->getMetaPost() ) ) ?
+		'post.php?post=' . $metadata->getMetaPost()->ID . '&amp;action=edit' :
+		'post-new.php?post_type=metadata';
+	return $book_info_slug;
+}
+
+/**
  * Menu output hacks
  *
  * @see \_wp_menu_output
@@ -343,14 +351,35 @@ function reorder_book_admin_menu() {
  */
 function fix_parent_file( $file ) {
 	global $submenu_file;
+
+	// Move these sub menus under Organize
 	$haystack = [
 		'edit-tags.php?taxonomy=front-matter-type',
 		'edit-tags.php?taxonomy=chapter-type',
 		'edit-tags.php?taxonomy=back-matter-type',
+		'edit-tags.php?taxonomy=glossary-type',
+	];
+	foreach ( $haystack as $i ) {
+		if ( str_starts_with( $submenu_file, $i ) ) {
+			return 'pb_organize';
+		}
+	}
+
+	// Move these sub menus under Book Info
+	$book_info_slug = book_info_slug();
+	$haystack = [
 		'edit-tags.php?taxonomy=contributor',
 	];
-	if ( in_array( $submenu_file, $haystack, true ) ) {
-		$file = 'pb_organize';
+	foreach ( $haystack as $i ) {
+		if ( str_starts_with( $submenu_file, $i ) ) {
+			return $book_info_slug;
+		}
+	}
+
+	// wp-admin/post.php changes Book Info menu, put it back to how it was
+	if ( $file === 'edit.php?post_type=metadata' ) {
+		$submenu_file = $book_info_slug;
+		return $book_info_slug;
 	}
 
 	return $file;
