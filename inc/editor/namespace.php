@@ -336,11 +336,11 @@ function add_anchors_to_wp_link_query( $results, $query ) {
 		$post_id = $result['ID'];
 		$post = get_post( $post_id );
 		if ( $post ) {
-			$content = mb_convert_encoding( apply_filters( 'the_content', $post->post_content ), 'HTML-ENTITIES', 'UTF-8' );
-			if ( ! empty( $content ) ) {
+			$content = mb_convert_encoding( $post->post_content, 'HTML-ENTITIES', 'UTF-8' );
+			if ( ! empty( trim( $content ) ) ) {
 				libxml_use_internal_errors( true );
 				$doc = new \DOMDocument();
-				$doc->loadHTML( $content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD );
+				$doc->loadHTML( "<div>{$content}</div>", LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD );
 				/** @var \DOMElement $node */
 				foreach ( $doc->getElementsByTagName( 'a' ) as $node ) {
 					if ( $node->hasAttribute( 'id' ) ) {
