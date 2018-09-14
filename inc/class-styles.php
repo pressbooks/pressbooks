@@ -532,9 +532,6 @@ class Styles {
 	 */
 	public function updateWebBookStyleSheet( $stylesheet = null ) {
 
-		$styles = Container::get( 'Styles' );
-		$sass = Container::get( 'Sass' );
-
 		if ( CustomCss::isCustomCss() ) {
 			// Compile pressbooks-book web stylesheet when using the *DEPRECATED* Custom CSS theme
 			$theme = wp_get_theme( 'pressbooks-book' );
@@ -572,6 +569,11 @@ class Styles {
 	 * @return bool
 	 */
 	public function maybeUpdateStylesheets() {
+		// If this is ajax/cron, don't update right now
+		if ( wp_doing_ajax() || wp_doing_cron() ) {
+			return false;
+		}
+
 		// Theme was updated?
 		$theme = wp_get_theme();
 		$current_theme_version = $theme->get( 'Version' );
