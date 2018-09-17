@@ -59,7 +59,12 @@ class Taxonomy {
 			add_action( 'profile_update', [ $obj->contributors, 'updateBlogUser' ], 10, 2 );
 			add_action( 'added_post_meta', [ $obj, 'upgradeToContributorTaxonomy' ], 10, 4 );
 			add_action( 'updated_postmeta', [ $obj, 'upgradeToContributorTaxonomy' ], 10, 4 );
-			add_filter( 'contributor_row_actions', [ $obj, 'removeContributorViewLink' ], 10, 2 );
+			add_filter( 'front-matter-type_row_actions', [ $obj, 'removeTaxonomyViewLinks' ], 10, 2 );
+			add_filter( 'back-matter-type_row_actions', [ $obj, 'removeTaxonomyViewLinks' ], 10, 2 );
+			add_filter( 'chapter-type_row_actions', [ $obj, 'removeTaxonomyViewLinks' ], 10, 2 );
+			add_filter( 'glossary-type_row_actions', [ $obj, 'removeTaxonomyViewLinks' ], 10, 2 );
+			add_filter( 'license_row_actions', [ $obj, 'removeTaxonomyViewLinks' ], 10, 2 );
+			add_filter( 'contributor_row_actions', [ $obj, 'removeTaxonomyViewLinks' ], 10, 2 );
 		}
 	}
 
@@ -88,6 +93,7 @@ class Taxonomy {
 					'delete_terms' => 'manage_sites',
 					'assign_terms' => 'edit_posts',
 				],
+				'show_in_menu' => false,
 				'show_in_rest' => true,
 			]
 		);
@@ -103,6 +109,7 @@ class Taxonomy {
 					'delete_terms' => 'manage_sites',
 					'assign_terms' => 'edit_posts',
 				],
+				'show_in_menu' => false,
 				'show_in_rest' => true,
 			]
 		);
@@ -118,6 +125,7 @@ class Taxonomy {
 					'delete_terms' => 'manage_sites',
 					'assign_terms' => 'edit_posts',
 				],
+				'show_in_menu' => false,
 				'show_in_rest' => true,
 			]
 		);
@@ -134,6 +142,7 @@ class Taxonomy {
 					'delete_terms' => 'manage_options',
 					'assign_terms' => 'edit_posts',
 				],
+				'show_in_menu' => false,
 				'show_in_rest' => true,
 			]
 		);
@@ -150,6 +159,7 @@ class Taxonomy {
 					'delete_terms' => 'manage_sites',
 					'assign_terms' => 'edit_posts',
 				],
+				'show_in_menu' => false,
 				'show_in_rest' => true,
 			]
 		);
@@ -165,6 +175,7 @@ class Taxonomy {
 					'delete_terms' => 'manage_sites',
 					'assign_terms' => 'edit_posts',
 				],
+				'show_in_menu' => false,
 				'show_in_rest' => true,
 			]
 		);
@@ -625,13 +636,13 @@ class Taxonomy {
 	}
 
 	/**
-	 * Remove the "View" link from the Contributors taxonomy.
+	 * Remove the "View" link from the taxonomies.
 	 *
 	 * @param array $actions The default actions.
 	 * @param \WP_Term $tag The term object.
 	 * @return array
 	 */
-	public function removeContributorViewLink( $actions, $tag ) {
+	public function removeTaxonomyViewLinks( $actions, $tag ) {
 		unset( $actions['view'] );
 		return $actions;
 	}
