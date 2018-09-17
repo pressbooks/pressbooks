@@ -2,8 +2,8 @@
 
 namespace Pressbooks\Interactive;
 
-use Masterminds\HTML5;
 use Pressbooks\Container;
+use Pressbooks\HtmlParser;
 
 class Content {
 
@@ -112,8 +112,8 @@ class Content {
 		$whitelist = apply_filters( 'pb_whitelisted_domains', $this->whitelistedDomains );
 
 		$changed = false;
-		$doc = new HTML5();
-		$dom = $doc->loadHTML( wpautop( $content ) );
+		$html5 = new HtmlParser();
+		$dom = $html5->loadHTML( $content );
 		$elements = $dom->getElementsByTagName( 'iframe' );
 		for ( $i = $elements->length; --$i >= 0; ) { // If you're deleting elements from within a loop, you need to loop backwards
 			$iframe = $elements->item( $i );
@@ -121,7 +121,7 @@ class Content {
 			$parse = wp_parse_url( $src );
 			if ( ! in_array( $parse['host'], $whitelist, true ) ) {
 				$src = $iframe->getAttribute( 'src' );
-				$fragment = $doc->loadHTMLFragment( "<p>[embed]{$src}[/embed]</p>" );
+				$fragment = $html5->parser->loadHTMLFragment( "[embed]{$src}[/embed]" );
 				$iframe->parentNode->replaceChild( $dom->importNode( $fragment, true ), $iframe );
 				$changed = true;
 			}
@@ -131,9 +131,7 @@ class Content {
 			// Nothing was changed, return as is
 			return $content;
 		} else {
-			$s = $doc->saveHTML( $dom );
-			$s = \Pressbooks\Sanitize\strip_container_tags( $s );
-			$s = \Pressbooks\Sanitize\reverse_wpautop( $s );
+			$s = $html5->saveHTML( $dom );
 			return $s;
 		}
 	}
@@ -155,8 +153,8 @@ class Content {
 
 		global $id; // This is the Post ID, [@see WP_Query::setup_postdata, ...]
 
-		$doc = new HTML5();
-		$dom = $doc->loadHTML( $content );
+		$html5 = new HtmlParser();
+		$dom = $html5->loadHTML( $content );
 
 		$html = $this->blade->render(
 			'interactive.shared', [
@@ -164,7 +162,7 @@ class Content {
 				'url' => wp_get_shortlink( $id ),
 			]
 		);
-		$fragment = $doc->loadHTMLFragment( $html );
+		$fragment = $html5->parser->loadHTMLFragment( $html );
 
 		$elements = $dom->getElementsByTagName( 'iframe' );
 		for ( $i = $elements->length; --$i >= 0; ) {  // If you're deleting elements from within a loop, you need to loop backwards
@@ -172,8 +170,7 @@ class Content {
 			$iframe->parentNode->replaceChild( $dom->importNode( $fragment, true ), $iframe );
 		}
 
-		$s = $doc->saveHTML( $dom );
-		$s = \Pressbooks\Sanitize\strip_container_tags( $s );
+		$s = $html5->saveHTML( $dom );
 		return $s;
 	}
 
@@ -270,8 +267,8 @@ class Content {
 
 		global $id; // This is the Post ID, [@see WP_Query::setup_postdata, ...]
 
-		$doc = new HTML5();
-		$dom = $doc->loadHTML( $html );
+		$html5 = new HtmlParser();
+		$dom = $html5->loadHTML( $html );
 		foreach ( $tags as $tag ) {
 			// Load blade template based on $tag
 			$html = $this->blade->render(
@@ -280,7 +277,7 @@ class Content {
 					'url' => wp_get_shortlink( $id ),
 				]
 			);
-			$fragment = $doc->loadHTMLFragment( $html );
+			$fragment = $html5->parser->loadHTMLFragment( $html );
 
 			// Replace
 			$elements = $dom->getElementsByTagName( $tag );
@@ -290,8 +287,7 @@ class Content {
 			}
 		}
 
-		$s = $doc->saveHTML( $dom );
-		$s = \Pressbooks\Sanitize\strip_container_tags( $s );
+		$s = $html5->saveHTML( $dom );
 		return $s;
 	}
 

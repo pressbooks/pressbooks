@@ -15,10 +15,10 @@ use function Pressbooks\Utility\oxford_comma_explode;
 use function Pressbooks\Utility\str_ends_with;
 use function Pressbooks\Utility\str_lreplace;
 use function Pressbooks\Utility\str_starts_with;
-use Masterminds\HTML5;
 use Pressbooks\Book;
 use Pressbooks\Container;
 use Pressbooks\Contributors;
+use Pressbooks\HtmlParser;
 use Pressbooks\Modules\Export\Export;
 use Pressbooks\Sanitize;
 use Pressbooks\Taxonomy;
@@ -1858,12 +1858,8 @@ class Epub201 extends Export {
 	 */
 	protected function kneadHtml( $html, $type, $pos = 0 ) {
 
-		$doc = new HTML5(
-			[
-				'disable_html_ns' => true,
-			]
-		); // Disable default namespace for \DOMXPath compatibility
-		$dom = $doc->loadHTML( $html );
+		$html5 = new HtmlParser( [ 'disable_html_ns' => true ] ); // Disable default namespace for \DOMXPath compatibility
+		$dom = $html5->loadHTML( $html );
 
 		// Download images, change to relative paths
 		$dom = $this->scrapeAndKneadImages( $dom );

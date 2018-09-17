@@ -21,7 +21,6 @@ use function Pressbooks\Utility\str_lreplace;
 use function Pressbooks\Utility\str_remove_prefix;
 use function Pressbooks\Utility\str_starts_with;
 
-use Masterminds\HTML5;
 use Pressbooks\Admin\Network\SharingAndPrivacyOptions;
 
 class Cloner {
@@ -400,9 +399,11 @@ class Cloner {
 		}
 		// Sort by the length of sourceUrls for better search and replace
 		$known_media_sorted = $this->knownMedia;
-		uasort( $known_media_sorted, function ( $a, $b ) {
-			return strlen( $b->sourceUrl ) <=> strlen( $a->sourceUrl );
-		} );
+		uasort(
+			$known_media_sorted, function ( $a, $b ) {
+				return strlen( $b->sourceUrl ) <=> strlen( $a->sourceUrl );
+			}
+		);
 		$this->knownMedia = $known_media_sorted;
 
 		$this->maybeRestoreCurrentBlog();
@@ -920,7 +921,7 @@ class Cloner {
 	protected function retrieveSectionContent( $section ) {
 		if ( ! empty( $section['content']['raw'] ) ) {
 			// Wrap in fake div tags so that we can parse it
-			$source_content = '<div><!-- pb_fixme -->' . $section['content']['raw'] . '<!-- pb_fixme --></div>';
+			$source_content = $section['content']['raw'];
 		} else {
 			$source_content = $section['content']['rendered'];
 		}
@@ -935,7 +936,7 @@ class Cloner {
 		}
 
 		// Load source content
-		$html5 = new HTML5();
+		$html5 = new HtmlParser();
 		$dom = $html5->loadHTML( $source_content );
 
 		// Download images, change image paths
@@ -944,7 +945,7 @@ class Cloner {
 		$attachments = $media['attachments'];
 
 		// Download media, change media paths
-		$media = $this->scrapeAndKneadMedia( $dom, $html5 );
+		$media = $this->scrapeAndKneadMedia( $dom, $html5->parser );
 		$dom = $media['dom'];
 		$attachments = array_merge( $attachments, $media['attachments'] );
 
@@ -960,9 +961,7 @@ class Cloner {
 			$content = str_replace( "<!-- pb_fixme_{$md5} -->", $c, $content );
 		}
 
-		$content = \Pressbooks\Sanitize\strip_container_tags( $content ); // Remove auto-created <html> <body> and <!DOCTYPE> tags.
 		if ( ! empty( $section['content']['raw'] ) ) {
-			$content = str_replace( [ '<div><!-- pb_fixme -->', '<!-- pb_fixme --></div>' ], '', $content ); // Remove fake div tags
 			if ( ! $this->interactiveContent->isCloneable( $content ) ) {
 				$content = $this->interactiveContent->replaceCloneable( $content );
 			}

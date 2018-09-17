@@ -10,9 +10,9 @@ use function Pressbooks\Image\attachment_id_from_url;
 use function Pressbooks\Image\strip_baseurl as image_strip_baseurl;
 use function Pressbooks\Media\strip_baseurl as media_strip_baseurl;
 use function Pressbooks\Utility\str_starts_with;
-use Masterminds\HTML5;
 use Pressbooks\Book;
 use Pressbooks\Contributors;
+use Pressbooks\HtmlParser;
 use Pressbooks\Licensing;
 use Pressbooks\Metadata;
 use Pressbooks\Modules\Import\Import;
@@ -151,9 +151,11 @@ class Wxr extends Import {
 		$this->knownMedia = $this->buildListOfKnownMedia( $xml );
 		// Sort by the length of sourceUrls for better search and replace
 		$known_media_sorted = $this->knownMedia;
-		uasort( $known_media_sorted, function ( $a, $b ) {
-			return strlen( $b->sourceUrl ) <=> strlen( $a->sourceUrl );
-		} );
+		uasort(
+			$known_media_sorted, function ( $a, $b ) {
+				return strlen( $b->sourceUrl ) <=> strlen( $a->sourceUrl );
+			}
+		);
 		$this->knownMedia = $known_media_sorted;
 
 		if ( $this->isPbWxr ) {
@@ -218,11 +220,8 @@ class Wxr extends Import {
 			// Insert
 			$post_type = $this->determinePostType( $p['post_id'] );
 
-			// Wrap in fake div tags so that we can parse it
-			$html = '<div><!-- pb_fixme -->' . $p['post_content'] . '<!-- pb_fixme --></div>';
-
-			$doc = new HTML5();
-			$dom = $doc->loadHtml( $html );
+			$html5 = new HtmlParser();
+			$dom = $html5->loadHtml( $p['post_content'] );
 
 			// Download images, change image paths
 			$media = $this->scrapeAndKneadImages( $dom );
@@ -230,16 +229,13 @@ class Wxr extends Import {
 			$attachments = $media['attachments'];
 
 			// Download media, change media paths
-			$media = $this->scrapeAndKneadMedia( $dom, $doc );
+			$media = $this->scrapeAndKneadMedia( $dom, $html5->parser );
 			$dom = $media['dom'];
 			$attachments = array_merge( $attachments, $media['attachments'] );
 
 			// TODO? We should probably do the same thing as seen in Cloner::fixInternalLinks( $dom )
 
-			$html = $doc->saveHTML( $dom );
-
-			$html = \Pressbooks\Sanitize\strip_container_tags( $html ); // Remove auto-created <html> <body> and <!DOCTYPE> tags.
-			$html = str_replace( [ '<div><!-- pb_fixme -->', '<!-- pb_fixme --></div>' ], '', $html ); // Remove fake div tags
+			$html = $html5->saveHTML( $dom );
 
 			if ( 'metadata' === $post_type ) {
 				$pid = $this->bookInfoPid();
