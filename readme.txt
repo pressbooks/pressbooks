@@ -29,6 +29,8 @@ TK.
 
 **Minor Changes**
 
+* Update TinyMCE table editor plugin to 4.8.3: [#1354](https://github.com/pressbooks/pressbooks/pull/1354)
+* Process absolute internal links in XHTML and HTMLBook exporters ([#1347](https://github.com/pressbooks/pressbooks/issues/1347)): [#1353](https://github.com/pressbooks/pressbooks/pull/1353)
 * Show advanced editor toolbars by default: [#1352](https://github.com/pressbooks/pressbooks/pull/1352)
 * Move the Contributors page under the Book Info menu: [#1351](https://github.com/pressbooks/pressbooks/pull/1351)
 * Allow a new title to be entered when cloning a book: [#1348](https://github.com/pressbooks/pressbooks/pull/1348)
@@ -37,6 +39,7 @@ TK.
 
 **Patches**
 
+* Eliminate race condition when rebuilding webbook stylesheets: [#1355](https://github.com/pressbooks/pressbooks/pull/1355)
 * Hide the "View" link when editing contributors (props [@colomet](https://github.com/colomet) for the idea): [#1351](https://github.com/pressbooks/pressbooks/pull/1351)
 * Fix duplication of anchors in link insertion tool: [#1345](https://github.com/pressbooks/pressbooks/pull/#1345)
 
