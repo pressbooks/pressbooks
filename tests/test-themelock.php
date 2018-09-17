@@ -74,7 +74,7 @@ class ThemeLockTest extends \WP_UnitTestCase {
 
 	public function test_copyAssets() {
 		// Delete all files in the lock directory before testing
-		array_map( 'unlink', glob( $this->lock->getLockDir() . '/*' ) );
+		array_map( 'unlink', array_filter( glob( $this->lock->getLockDir() . '/*' ), 'is_file' ) );
 
 		$return = $this->lock->copyAssets();
 
