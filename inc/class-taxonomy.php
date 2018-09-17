@@ -628,7 +628,7 @@ class Taxonomy {
 	 * Remove the "View" link from the Contributors taxonomy.
 	 *
 	 * @param array $actions The default actions.
-	 * @param WP_Term $tag The term object.
+	 * @param \WP_Term $tag The term object.
 	 * @return array
 	 */
 	public function removeContributorViewLink( $actions, $tag ) {

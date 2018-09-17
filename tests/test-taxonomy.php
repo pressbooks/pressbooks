@@ -105,4 +105,11 @@ class TaxonomyTest extends \WP_UnitTestCase {
 		$this->assertEquals( 999, $results['term_taxonomy_id'] );
 	}
 
+	public function test_removeContributorViewLink() {
+		$arr = [ 'view' => 1, 'something_else' => 2 ];
+		$res = $this->taxonomy->removeContributorViewLink( $arr, null );
+		$this->assertArrayNotHasKey( 'view', $res );
+		$this->assertEquals( 2, $res['something_else'] );
+	}
+
 }

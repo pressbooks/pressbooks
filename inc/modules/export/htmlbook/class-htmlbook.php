@@ -7,6 +7,7 @@
 namespace Pressbooks\Modules\Export\HTMLBook;
 
 use function Pressbooks\Utility\oxford_comma_explode;
+use function Pressbooks\Utility\str_starts_with;
 use Masterminds\HTML5;
 use PressbooksMix\Assets;
 use Pressbooks\HTMLBook\Block\Blockquote;
@@ -494,7 +495,7 @@ class HTMLBook extends Export {
 	 *
 	 * @param string $content The section content.
 	 *
-	 * @returns string
+	 * @return string
 	 */
 	protected function switchLaTexFormat( $content ) {
 		$content = preg_replace( '/(quicklatex.com-[a-f0-9]{32}_l3.)(png)/i', '$1svg', $content );
@@ -503,20 +504,53 @@ class HTMLBook extends Export {
 	}
 
 	/**
-	 * @param string $content
+	 * @param string $source_content
 	 *
 	 * @return string
 	 */
-	protected function fixInternalLinks( $content ) {
-		// takes care of PB subdirectory installations of PB
-		$content = preg_replace( '/href\="\/([a-z0-9]*)\/(front\-matter|chapter|back\-matter|part)\/([a-z0-9\-]*)([\/]?)(\#[a-z0-9\-]*)"/', 'href="$5"', $content );
-		$content = preg_replace( '/href\="\/([a-z0-9]*)\/(front\-matter|chapter|back\-matter|part)\/([a-z0-9\-]*)([\/]?)"/', 'href="#$2-$3"', $content );
+	protected function fixInternalLinks( $source_content ) {
 
-		// takes care of PB subdomain installations of PB
-		$content = preg_replace( '/href\="\/(front\-matter|chapter|back\-matter|part)\/([a-z0-9\-]*)([\/]?)(\#[a-z0-9\-]*)"/', 'href="$4"', $content );
-		$output = preg_replace( '/href\="\/(front\-matter|chapter|back\-matter|part)\/([a-z0-9\-]*)([\/]?)"/', 'href="#$1-$2"', $content );
+		if ( stripos( $source_content, '<a' ) === false ) {
+			// There are no <a> tags to look at, skip this
+			return $source_content;
+		}
 
-		return $output;
+		$home_url = rtrim( home_url(), '/' );
+		$content = '<div><!-- pb_fixme -->' . $source_content . '<!-- pb_fixme --></div>';
+		$html5 = new HTML5();
+		$dom = $html5->loadHTML( $content );
+		$links = $dom->getElementsByTagName( 'a' );
+
+		$changed = false;
+		foreach ( $links as $link ) {
+			/** @var \DOMElement $link */
+			$href = $link->getAttribute( 'href' );
+			if ( str_starts_with( $href, '/' ) || str_starts_with( $href, $home_url ) ) {
+				$pos = strpos( $href, '#' );
+				if ( $pos !== false ) {
+					// Use the #fragment
+					$fragment = substr( $href, strpos( $href, '#' ) + 1 );
+				} elseif ( preg_match( '%(front\-matter|chapter|back\-matter|part)/([a-z0-9\-]*)([/]?)%', $href, $matches ) ) {
+					// Convert type + slug to #fragment
+					$fragment = "{$matches[1]}-{$matches[2]}";
+				} else {
+					$fragment = false;
+				}
+				if ( $fragment ) {
+					$link->setAttribute( 'href', "#{$fragment}" );
+					$changed = true;
+				}
+			}
+		}
+
+		if ( ! $changed ) {
+			return $source_content;
+		} else {
+			$content = $html5->saveHTML( $dom );
+			$content = \Pressbooks\Sanitize\strip_container_tags( $content ); // Remove auto-created <html> <body> and <!DOCTYPE> tags.
+			$content = str_replace( [ '<div><!-- pb_fixme -->', '<!-- pb_fixme --></div>' ], '', $content ); // Remove fake div tags
+			return $content;
+		}
 	}
 
 	/**
