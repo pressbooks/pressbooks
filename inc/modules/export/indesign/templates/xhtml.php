@@ -22,9 +22,13 @@ echo '<?xml version="1.0" encoding="utf-8" ?>' . "\n";
 <!-- title page -->
 <h1><?php bloginfo( 'name' ); ?></h1>
 
-<h2>by</h2>
-<?php if ( isset( $meta['pb_authors'] ) ) { ?>
-	<h2><?php echo $meta['pb_authors']; ?></h2>
+<?php if ( isset( $meta['pb_credit_override'] ) ) { ?>
+	<h2><?php echo $meta['pb_credit_override']; ?></h2>
+<?php } else { ?>
+	<h2>by</h2>
+	<?php if ( isset( $meta['pb_authors'] ) ) { ?>
+		<h2><?php echo $meta['pb_authors']; ?></h2>
+	<?php } ?>
 <?php } ?>
 
 <?php if ( isset( $meta['pb_contributors'] ) ) { ?>

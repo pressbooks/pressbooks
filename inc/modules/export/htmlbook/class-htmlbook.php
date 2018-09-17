@@ -767,7 +767,11 @@ class HTMLBook extends Export {
 		if ( ! $content ) {
 			$content .= sprintf( '<h1 class="title">%s</h1>', get_bloginfo( 'name' ) );
 			$content .= sprintf( '<p class="subtitle">%s</p>', ( isset( $metadata['pb_subtitle'] ) ) ? $metadata['pb_subtitle'] : '' );
-			if ( isset( $metadata['pb_authors'] ) ) {
+			if ( isset( $metadata['pb_credit_override'] ) ) {
+				$author = $metadata['pb_credit_override'];
+				$content .= sprintf( '<p class="author">%s</p>', $author );
+			}
+			elseif ( isset( $metadata['pb_authors'] ) ) {
 				$authors = oxford_comma_explode( $metadata['pb_authors'] );
 				foreach ( $authors as $author ) {
 					$content .= sprintf( '<p class="author">%s</p>', $author );

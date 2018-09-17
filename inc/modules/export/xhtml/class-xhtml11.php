@@ -776,7 +776,10 @@ class Xhtml11 extends Export {
 		} else {
 			printf( '<h1 class="title">%s</h1>', get_bloginfo( 'name' ) );
 			printf( '<h2 class="subtitle">%s</h2>', ( isset( $metadata['pb_subtitle'] ) ) ? $metadata['pb_subtitle'] : '' );
-			if ( isset( $metadata['pb_authors'] ) ) {
+			if ( isset( $metadata['pb_credit_override'] ) ) {
+				printf( '<h3 class="author">%s</h3>', $metadata['pb_credit_override'] );
+			}
+			elseif ( isset( $metadata['pb_authors'] ) ) {
 				printf( '<h3 class="author">%s</h3>', $metadata['pb_authors'] );
 			}
 			if ( isset( $metadata['pb_contributors'] ) ) {
