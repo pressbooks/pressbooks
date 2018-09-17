@@ -89,7 +89,7 @@ class IntegrationsTest extends \WP_UnitTestCase {
 
 		$importer = new \Pressbooks\Modules\Import\WordPress\Wxr();
 		$file = $importer->createTmpFile();
-		file_put_contents( $file, file_get_contents( __DIR__ . '/data/Pressbooks-Integration-Testing-1535463018.xml' ) );
+		file_put_contents( $file, file_get_contents( __DIR__ . '/data/Pressbooks-Integration-Testing-1537214020.xml' ) );
 		$this->assertTrue( $importer->setCurrentImportOption( [ 'file' => $file, 'type' => '' ] ) );
 
 		$options = get_option( 'pressbooks_current_import' );
