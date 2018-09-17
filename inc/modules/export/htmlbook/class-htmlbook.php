@@ -770,8 +770,7 @@ class HTMLBook extends Export {
 			if ( isset( $metadata['pb_credit_override'] ) ) {
 				$author = $metadata['pb_credit_override'];
 				$content .= sprintf( '<p class="author">%s</p>', $author );
-			}
-			elseif ( isset( $metadata['pb_authors'] ) ) {
+			} elseif ( isset( $metadata['pb_authors'] ) ) {
 				$authors = oxford_comma_explode( $metadata['pb_authors'] );
 				foreach ( $authors as $author ) {
 					$content .= sprintf( '<p class="author">%s</p>', $author );
