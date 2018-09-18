@@ -67,6 +67,7 @@ class Content {
 		// @see https://codex.wordpress.org/Embeds/
 		add_action( 'init', [ $obj, 'registerEmbedHandlers' ] );
 		add_filter( 'oembed_providers', [ $obj, 'addExtraOembedProviders' ] );
+		add_filter( 'oembed_result', [ $obj, 'adjustOembeds' ], 10, 3 );
 		add_action( 'save_post', [ $obj, 'deleteOembedCaches' ] );
 
 		// Export hacks
@@ -506,4 +507,17 @@ class Content {
 		return $title;
 	}
 
+	/**
+	 * @param string $html
+	 * @param string $url
+	 * @param array $args
+	 *
+	 * @return string
+	 */
+	public function adjustOembeds( $html, $url, $args ) {
+		if ( ! strpos( $html, 'youtube' ) === false ) {
+			return str_replace( '?feature=oembed', '?feature=oembed&rel=0', $html );
+		}
+		return $html;
+	}
 }
