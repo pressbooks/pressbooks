@@ -331,3 +331,14 @@ $wp-spinner-anim-duration: 1.08s;
 .compat-attachment-fields th {
   vertical-align: top;
 }
+
+.taxonomy-front-matter-type,
+.taxonomy-chapter-type,
+.taxonomy-back-matter-type,
+.taxonomy-contributor,
+.taxonomy-license,
+.taxonomy-glossary-type {
+  #wpadminbar #wp-admin-bar-view {
+    display: none;
+  }
+}

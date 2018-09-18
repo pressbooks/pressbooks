@@ -93,7 +93,6 @@ class Taxonomy {
 					'delete_terms' => 'manage_sites',
 					'assign_terms' => 'edit_posts',
 				],
-				'show_in_menu' => false,
 				'show_in_rest' => true,
 			]
 		);
@@ -109,7 +108,6 @@ class Taxonomy {
 					'delete_terms' => 'manage_sites',
 					'assign_terms' => 'edit_posts',
 				],
-				'show_in_menu' => false,
 				'show_in_rest' => true,
 			]
 		);
@@ -125,7 +123,6 @@ class Taxonomy {
 					'delete_terms' => 'manage_sites',
 					'assign_terms' => 'edit_posts',
 				],
-				'show_in_menu' => false,
 				'show_in_rest' => true,
 			]
 		);
@@ -142,7 +139,6 @@ class Taxonomy {
 					'delete_terms' => 'manage_options',
 					'assign_terms' => 'edit_posts',
 				],
-				'show_in_menu' => false,
 				'show_in_rest' => true,
 			]
 		);
@@ -159,7 +155,6 @@ class Taxonomy {
 					'delete_terms' => 'manage_sites',
 					'assign_terms' => 'edit_posts',
 				],
-				'show_in_menu' => false,
 				'show_in_rest' => true,
 			]
 		);
@@ -175,7 +170,6 @@ class Taxonomy {
 					'delete_terms' => 'manage_sites',
 					'assign_terms' => 'edit_posts',
 				],
-				'show_in_menu' => false,
 				'show_in_rest' => true,
 			]
 		);
