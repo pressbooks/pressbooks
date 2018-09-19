@@ -567,7 +567,7 @@ class Cloner {
 	/**
 	 * @param array $item
 	 *
-	 * @return Entities\Cloner\Media
+	 * @return \Pressbooks\Entities\Cloner\Media
 	 */
 	protected function createMediaEntity( $item ) {
 		$m = new Entities\Cloner\Media();

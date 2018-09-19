@@ -55,6 +55,16 @@ class Wxr extends Import {
 	protected $contributors;
 
 	/**
+	 * @var array
+	 */
+	private $imageWasAlreadyDownloaded = [];
+
+	/**
+	 * @var array
+	 */
+	private $mediaWasAlreadyDownloaded = [];
+
+	/**
 	 *
 	 */
 	function __construct() {
@@ -618,15 +628,7 @@ class Wxr extends Import {
 				continue; // Something went wrong, skip
 			}
 
-			$m = new \Pressbooks\Entities\Cloner\Media();
-			$m->sourceUrl = $item['attachment_url'];
-			if ( isset( $item['postmeta'] ) && is_array( $item['postmeta'] ) ) {
-				foreach ( $item['postmeta'] as $meta ) {
-					if ( str_starts_with( $meta['key'], '_' ) === false ) {
-						$m->meta[ $meta['key'] ] = $meta['value'];
-					}
-				}
-			}
+			$m = $this->createMediaEntity( $item );
 			if ( preg_match( $this->pregSupportedImageExtensions, $m->sourceUrl ) ) {
 				$prefix = str_replace( $this->basename( $m->sourceUrl ), '', $x['file'] ); // 2017/08
 				foreach ( $x['sizes'] as $size => $info ) {
@@ -640,6 +642,34 @@ class Wxr extends Import {
 		}
 
 		return $known_media;
+	}
+
+	/**
+	 * @param array $item
+	 *
+	 * @return \Pressbooks\Entities\Cloner\Media
+	 */
+	protected function createMediaEntity( $item ) {
+		$m = new \Pressbooks\Entities\Cloner\Media();
+
+		$m->title = $item['post_title'];
+		$m->description = $item['post_content'];
+		$m->caption = $item['post_excerpt'];
+
+		if ( isset( $item['postmeta'] ) && is_array( $item['postmeta'] ) ) {
+			foreach ( $item['postmeta'] as $meta ) {
+				if ( str_starts_with( $meta['key'], '_' ) === false ) {
+					$m->meta[ $meta['key'] ] = $meta['value'];
+				}
+				if ( $meta['key'] === '_wp_attachment_image_alt' ) {
+					$m->altText = $meta['value'];
+				}
+			}
+		}
+
+		$m->sourceUrl = $item['attachment_url'];
+
+		return $m;
 	}
 
 	/**
@@ -723,32 +753,28 @@ class Wxr extends Import {
 		$attached_file = image_strip_baseurl( $url );
 
 		if ( isset( $this->knownMedia[ $attached_file ] ) ) {
-			$remote_img_metadata = $this->knownMedia[ $attached_file ]->meta;
 			$remote_img_location = $this->knownMedia[ $attached_file ]->sourceUrl;
 			$filename = basename( $remote_img_location );
 		} else {
-			$remote_img_metadata = [];
 			$remote_img_location = $url;
 		}
 
-		// Cheap cache
-		static $already_done = [];
-		if ( isset( $already_done[ $remote_img_location ] ) ) {
-			return $already_done[ $remote_img_location ];
+		if ( isset( $this->imageWasAlreadyDownloaded[ $remote_img_location ] ) ) {
+			return $this->imageWasAlreadyDownloaded[ $remote_img_location ];
 		}
 
 		/* Process */
 
 		if ( ! preg_match( $this->pregSupportedImageExtensions, $filename ) ) {
 			// Unsupported image type
-			$already_done[ $remote_img_location ] = '';
+			$this->imageWasAlreadyDownloaded[ $remote_img_location ] = '';
 			return 0;
 		}
 
 		$tmp_name = download_url( $remote_img_location );
 		if ( is_wp_error( $tmp_name ) ) {
 			// Download failed
-			$already_done[ $remote_img_location ] = '';
+			$this->imageWasAlreadyDownloaded[ $remote_img_location ] = '';
 			return 0;
 		}
 
@@ -762,7 +788,7 @@ class Wxr extends Import {
 				}
 			} catch ( \Exception $exc ) {
 				// Garbage, don't import
-				$already_done[ $remote_img_location ] = '';
+				$this->imageWasAlreadyDownloaded[ $remote_img_location ] = '';
 				unlink( $tmp_name );
 				return 0;
 			}
@@ -778,10 +804,20 @@ class Wxr extends Import {
 		if ( ! $src ) {
 			$pid = 0;
 		} else {
-			foreach ( $remote_img_metadata as $meta_key => $meta_value ) {
+			$m = $this->knownMedia[ $attached_file ];
+			wp_update_post(
+				[
+					'ID' => $pid,
+					'post_title' => $m->title,
+					'post_content' => $m->description,
+					'post_excerpt' => $m->caption,
+				]
+			);
+			update_post_meta( $pid, '_wp_attachment_image_alt', $m->altText );
+			foreach ( $m->meta as $meta_key => $meta_value ) {
 				update_post_meta( $pid, $meta_key, $meta_value );
 			}
-			$already_done[ $remote_img_location ] = $pid;
+			$this->imageWasAlreadyDownloaded[ $remote_img_location ] = $pid;
 		}
 		@unlink( $tmp_name ); // @codingStandardsIgnoreLine
 
@@ -907,18 +943,14 @@ class Wxr extends Import {
 		$attached_file = media_strip_baseurl( $url );
 
 		if ( isset( $this->knownMedia[ $attached_file ] ) ) {
-			$remote_media_metadata = $this->knownMedia[ $attached_file ]->meta;
 			$remote_media_location = $this->knownMedia[ $attached_file ]->sourceUrl;
 			$filename = basename( $remote_media_location );
 		} else {
-			$remote_media_metadata = [];
 			$remote_media_location = $url;
 		}
 
-		// Cheap cache
-		static $already_done = [];
-		if ( isset( $already_done[ $remote_media_location ] ) ) {
-			return $already_done[ $remote_media_location ];
+		if ( isset( $this->mediaWasAlreadyDownloaded[ $remote_media_location ] ) ) {
+			return $this->mediaWasAlreadyDownloaded[ $remote_media_location ];
 		}
 
 		/* Process */
@@ -926,7 +958,7 @@ class Wxr extends Import {
 		$tmp_name = download_url( $remote_media_location );
 		if ( is_wp_error( $tmp_name ) ) {
 			// Download failed
-			$already_done[ $remote_media_location ] = 0;
+			$this->mediaWasAlreadyDownloaded[ $remote_media_location ] = 0;
 			return 0;
 		}
 
@@ -940,10 +972,19 @@ class Wxr extends Import {
 		if ( ! $src ) {
 			$pid = 0;
 		} else {
-			foreach ( $remote_media_metadata as $meta_key => $meta_value ) {
+			$m = $this->knownMedia[ $attached_file ];
+			wp_update_post(
+				[
+					'ID' => $pid,
+					'post_title' => $m->title,
+					'post_content' => $m->description,
+					'post_excerpt' => $m->caption,
+				]
+			);
+			foreach ( $m->meta as $meta_key => $meta_value ) {
 				update_post_meta( $pid, $meta_key, $meta_value );
 			}
-			$already_done[ $remote_media_location ] = $pid;
+			$this->mediaWasAlreadyDownloaded[ $remote_media_location ] = $pid;
 		}
 		@unlink( $tmp_name ); // @codingStandardsIgnoreLine
 
