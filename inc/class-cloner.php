@@ -539,11 +539,7 @@ class Cloner {
 
 		$known_media = [];
 		foreach ( $response as $item ) {
-			$m = new \Pressbooks\Entities\Cloner\Media();
-			$m->sourceUrl = $item['source_url'];
-			if ( isset( $item['meta'] ) ) {
-				$m->meta = $item['meta'];
-			}
+			$m = $this->createMediaEntity( $item );
 			if ( $item['media_type'] === 'image' ) {
 				foreach ( $item['media_details']['sizes'] as $size => $info ) {
 					$attached_file = image_strip_baseurl( $info['source_url'] ); // 2017/08/foo-bar-300x225.png
@@ -556,6 +552,34 @@ class Cloner {
 		}
 
 		return $known_media;
+	}
+
+	/**
+	 * @param array $item
+	 *
+	 * @return Entities\Cloner\Media
+	 */
+	protected function createMediaEntity( $item ) {
+		$m = new Entities\Cloner\Media();
+		if ( isset( $item['title'], $item['title']['raw'] ) ) {
+			$m->title = $item['title']['raw'];
+		}
+		if ( isset( $item['description'], $item['description']['raw'] ) ) {
+			$m->description = $item['description']['raw'];
+		}
+		if ( isset( $item['caption'], $item['caption']['raw'] ) ) {
+			$m->caption = $item['caption']['raw'];
+		}
+		if ( isset( $item['meta'] ) ) {
+			$m->meta = $item['meta'];
+		}
+		if ( isset( $item['alt_text'] ) ) {
+			$m->altText = $item['alt_text'];
+		}
+		if ( isset( $item['source_url'] ) ) {
+			$m->sourceUrl = $item['source_url'];
+		}
+		return $m;
 	}
 
 	/**
@@ -1247,11 +1271,11 @@ class Cloner {
 		$attached_file = image_strip_baseurl( $url );
 
 		if ( isset( $this->knownMedia[ $attached_file ] ) ) {
-			$remote_img_metadata = $this->knownMedia[ $attached_file ]->meta;
+			$patch = $this->createMediaPatch( $this->knownMedia[ $attached_file ] );
 			$remote_img_location = $this->knownMedia[ $attached_file ]->sourceUrl;
 			$filename = basename( $remote_img_location );
 		} else {
-			$remote_img_metadata = [];
+			$patch = [];
 			$remote_img_location = $url;
 		}
 
@@ -1301,8 +1325,10 @@ class Cloner {
 		if ( ! $src ) {
 			$pid = 0;
 		} else {
-			foreach ( $remote_img_metadata as $meta_key => $meta_value ) {
-				update_post_meta( $pid, $meta_key, $meta_value );
+			if ( ! empty( $patch ) ) {
+				$request = new \WP_REST_Request( 'PATCH', "/wp/v2/media/{$pid}" );
+				$request->set_body_params( $patch );
+				rest_do_request( $request );
 			}
 			$this->clonedItems['media'][] = $pid;
 			$already_done[ $remote_img_location ] = $pid;
@@ -1310,6 +1336,21 @@ class Cloner {
 		@unlink( $tmp_name ); // @codingStandardsIgnoreLine
 
 		return $pid;
+	}
+
+	/**
+	 * @param \Pressbooks\Entities\Cloner\Media $media
+	 *
+	 * @return array
+	 */
+	protected function createMediaPatch( $media ) {
+		return [
+			'title' => $media->title,
+			'meta' => $media->meta,
+			'description' => $media->description,
+			'caption' => $media->caption,
+			'alt_text' => $media->altText,
+		];
 	}
 
 	/**
@@ -1369,7 +1410,7 @@ class Cloner {
 	 * @since 4.1.0
 	 *
 	 * @param \DOMDocument $dom
-	 * @param HTML5 $html5
+	 * @param \Masterminds\HTML5 $html5
 	 *
 	 * @return array An array containing the \DOMDocument and the IDs of created attachments
 	 */
@@ -1432,11 +1473,11 @@ class Cloner {
 		$attached_file = media_strip_baseurl( $url );
 
 		if ( isset( $this->knownMedia[ $attached_file ] ) ) {
-			$remote_media_metadata = $this->knownMedia[ $attached_file ]->meta;
+			$patch = $this->createMediaPatch( $this->knownMedia[ $attached_file ] );
 			$remote_media_location = $this->knownMedia[ $attached_file ]->sourceUrl;
 			$filename = basename( $remote_media_location );
 		} else {
-			$remote_media_metadata = [];
+			$patch = [];
 			$remote_media_location = $url;
 		}
 
@@ -1465,8 +1506,10 @@ class Cloner {
 		if ( ! $src ) {
 			$pid = 0;
 		} else {
-			foreach ( $remote_media_metadata as $meta_key => $meta_value ) {
-				update_post_meta( $pid, $meta_key, $meta_value );
+			if ( ! empty( $patch ) ) {
+				$request = new \WP_REST_Request( 'PATCH', "/wp/v2/media/{$pid}" );
+				$request->set_body_params( $patch );
+				rest_do_request( $request );
 			}
 			$this->clonedItems['media'][] = $pid;
 			$already_done[ $remote_media_location ] = $pid;
