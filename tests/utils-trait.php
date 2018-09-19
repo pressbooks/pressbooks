@@ -210,6 +210,9 @@ There are many maths like it but these ones are mine.
 		if ( ! post_type_exists( 'chapter' ) ) {
 			\Pressbooks\PostType\register_post_types();
 		}
+		if ( ! registered_meta_key_exists( 'post', 'pb_media_attribution_author', 'attachment' ) ) {
+			\Pressbooks\PostType\register_meta();
+		}
 		\Pressbooks\Metadata\init_book_data_models();
 		remove_action( 'rest_api_init', '\Pressbooks\Api\init_root' );
 		add_action( 'rest_api_init', '\Pressbooks\Api\init_book' );

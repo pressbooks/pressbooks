@@ -184,6 +184,16 @@ class Cloner {
 	protected $contributors;
 
 	/**
+	 * @var array
+	 */
+	private $imageWasAlreadyDownloaded = [];
+
+	/**
+	 * @var array
+	 */
+	private $mediaWasAlreadyDownloaded = [];
+
+	/**
 	 * Constructor.
 	 *
 	 * @since 4.1.0
@@ -1279,24 +1289,22 @@ class Cloner {
 			$remote_img_location = $url;
 		}
 
-		// Cheap cache
-		static $already_done = [];
-		if ( isset( $already_done[ $remote_img_location ] ) ) {
-			return $already_done[ $remote_img_location ];
+		if ( isset( $this->imageWasAlreadyDownloaded[ $remote_img_location ] ) ) {
+			return $this->imageWasAlreadyDownloaded[ $remote_img_location ];
 		}
 
 		/* Process */
 
 		if ( ! preg_match( $this->pregSupportedImageExtensions, $filename ) ) {
 			// Unsupported image type
-			$already_done[ $remote_img_location ] = 0;
+			$this->imageWasAlreadyDownloaded[ $remote_img_location ] = 0;
 			return 0;
 		}
 
 		$tmp_name = download_url( $remote_img_location );
 		if ( is_wp_error( $tmp_name ) ) {
 			// Download failed
-			$already_done[ $remote_img_location ] = 0;
+			$this->imageWasAlreadyDownloaded[ $remote_img_location ] = 0;
 			return 0;
 		}
 
@@ -1309,7 +1317,7 @@ class Cloner {
 				}
 			} catch ( \Exception $exc ) {
 				// Garbage, don't import
-				$already_done[ $remote_img_location ] = 0;
+				$this->imageWasAlreadyDownloaded[ $remote_img_location ] = 0;
 				@unlink( $tmp_name ); // @codingStandardsIgnoreLine
 				return 0;
 			}
@@ -1331,7 +1339,7 @@ class Cloner {
 				rest_do_request( $request );
 			}
 			$this->clonedItems['media'][] = $pid;
-			$already_done[ $remote_img_location ] = $pid;
+			$this->imageWasAlreadyDownloaded[ $remote_img_location ] = $pid;
 		}
 		@unlink( $tmp_name ); // @codingStandardsIgnoreLine
 
@@ -1481,10 +1489,8 @@ class Cloner {
 			$remote_media_location = $url;
 		}
 
-		// Cheap cache
-		static $already_done = [];
-		if ( isset( $already_done[ $remote_media_location ] ) ) {
-			return $already_done[ $remote_media_location ];
+		if ( isset( $this->mediaWasAlreadyDownloaded[ $remote_media_location ] ) ) {
+			return $this->mediaWasAlreadyDownloaded[ $remote_media_location ];
 		}
 
 		/* Process */
@@ -1492,7 +1498,7 @@ class Cloner {
 		$tmp_name = download_url( $remote_media_location );
 		if ( is_wp_error( $tmp_name ) ) {
 			// Download failed
-			$already_done[ $remote_media_location ] = 0;
+			$this->mediaWasAlreadyDownloaded[ $remote_media_location ] = 0;
 			return 0;
 		}
 
@@ -1512,7 +1518,7 @@ class Cloner {
 				rest_do_request( $request );
 			}
 			$this->clonedItems['media'][] = $pid;
-			$already_done[ $remote_media_location ] = $pid;
+			$this->mediaWasAlreadyDownloaded[ $remote_media_location ] = $pid;
 		}
 		@unlink( $tmp_name ); // @codingStandardsIgnoreLine
 
