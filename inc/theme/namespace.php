@@ -167,6 +167,27 @@ function migrate_book_themes() {
 		$pressbooks_theme_migration = 3;
 		update_option( 'pressbooks_theme_migration', $pressbooks_theme_migration );
 	}
+
+	// Substitute Dillard Classic for Dillard
+	if ( $pressbooks_theme_migration === 3 ) {
+		$theme = wp_get_theme()->get_stylesheet();
+		if ( $theme === 'pressbooks-dillard' ) {
+			if ( wp_get_theme( 'pressbooks-dillardclassic' )->exists() ) {
+				switch_theme( 'pressbooks-dillardclassic' );
+				$lock = Lock::init();
+				if ( $lock->isLocked() ) {
+					$data = $lock->getLockData();
+					$data['stylesheet'] = 'pressbooks-dillardclassic';
+					$json = wp_json_encode( $data );
+					$lockfile = $lock->getLockDir() . '/lock.json';
+					\Pressbooks\Utility\put_contents( $lockfile, $json );
+				}
+			}
+		}
+
+		$pressbooks_theme_migration = 4;
+		update_option( 'pressbooks_theme_migration', $pressbooks_theme_migration );
+	}
 }
 
 /**
