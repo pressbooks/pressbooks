@@ -5,7 +5,7 @@ Tags: ebooks, publishing, webbooks
 Requires at least: 4.9.8
 Tested up to: 4.9.8
 Requires PHP: 7.1
-Stable tag: 5.5.1
+Stable tag: 5.5.2
 License: GPL v3.0 or later
 License URI: https://github.com/pressbooks/pressbooks/blob/master/LICENSE.md
 
@@ -21,6 +21,24 @@ For installation instructions, visit [docs.pressbooks.org/installation](https://
 TK.
 
 == Changelog ==
+
+= 5.5.2 =
+
+* Pressbooks 5.5.2 requires PHP >= 7.1.
+* Pressbooks 5.5.2 requires [WordPress 4.9.8](https://wordpress.org/news/2018/08/wordpress-4-9-8-maintenance-release/).
+* Pressbooks 5.5.2 requires [McLuhan >= 2.5.1](https://github.com/pressbooks/pressbooks-book/).
+
+**Patches**
+
+* Scan full book contents for anchors in link insertion tool: [#1345](https://github.com/pressbooks/pressbooks/pull/1345)
+* Fix duplication of anchors in link insertion tool: [#1345](https://github.com/pressbooks/pressbooks/pull/#1345)
+* Ensure processing of absolute internal links in XHTML and HTMLBook modules ([#1347](https://github.com/pressbooks/pressbooks/issues/1347)): [#1353](https://github.com/pressbooks/pressbooks/pull/1353)
+* Eliminate race condition when rebuilding webbook stylesheets: [#1355](https://github.com/pressbooks/pressbooks/pull/1355)
+* Disable related videos in YouTube OEmbeds ([#1358](https://github.com/pressbooks/pressbooks/issues/1358)): [#1359](https://github.com/pressbooks/pressbooks/issues/1359)
+* Handle Dillard (Plain) 1.x to 2.0 upgrade: [#1361](https://github.com/pressbooks/pressbooks/pull/1361)
+* Hide "Welcome to WordPress" everywhere ([#1364](https://github.com/pressbooks/pressbooks/issues/#1364)): [#1365](https://github.com/pressbooks/pressbooks/pull/1365)
+* Use a file that is guaranteed to remain available for HTMLBook validation: [#1366](https://github.com/pressbooks/pressbooks/issues/1366)
+
 = 5.5.1 =
 
 * Pressbooks 5.5.1 requires PHP >= 7.1.
@@ -68,8 +86,8 @@ TK.
 * Improve session handling to prevent session locking: [#1335](https://github.com/pressbooks/pressbooks/issues/1335)
 
 == Upgrade Notice ==
-= 5.5.1 =
+= 5.5.2 =
 
-* Pressbooks 5.5.1 requires PHP >= 7.1.
-* Pressbooks 5.5.1 requires [WordPress 4.9.8](https://wordpress.org/news/2018/08/wordpress-4-9-8-maintenance-release/).
-* Pressbooks 5.5.1 requires [McLuhan >= 2.5.0](https://github.com/pressbooks/pressbooks-book/).
+* Pressbooks 5.5.2 requires PHP >= 7.1.
+* Pressbooks 5.5.2 requires [WordPress 4.9.8](https://wordpress.org/news/2018/08/wordpress-4-9-8-maintenance-release/).
+* Pressbooks 5.5.2 requires [McLuhan >= 2.5.1](https://github.com/pressbooks/pressbooks-book/).
