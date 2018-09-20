@@ -325,7 +325,7 @@ function customize_wp_link_query_args( $query ) {
  * @return array
  */
 function add_anchors_to_wp_link_query( $results, $query ) {
-
+	// Note to future-self: $results are paginated. If the user scrolls down, ajax is triggered, more function calls will happen.
 	$url = wp_parse_url( $_SERVER['HTTP_REFERER'] );
 	parse_str( $url['query'], $query );
 	$current_post_id = isset( $query['post'] ) ? $query['post'] : 0;
@@ -336,11 +336,11 @@ function add_anchors_to_wp_link_query( $results, $query ) {
 		$post_id = $result['ID'];
 		$post = get_post( $post_id );
 		if ( $post ) {
-			$content = mb_convert_encoding( $post->post_content, 'HTML-ENTITIES', 'UTF-8' );
-			if ( ! empty( trim( $content ) ) ) {
+			$content = mb_convert_encoding( apply_filters( 'the_content', $post->post_content ), 'HTML-ENTITIES', 'UTF-8' );
+			if ( ! empty( $content ) ) {
 				libxml_use_internal_errors( true );
 				$doc = new \DOMDocument();
-				$doc->loadHTML( "<div>{$content}</div>", LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD );
+				$doc->loadHTML( $content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD );
 				/** @var \DOMElement $node */
 				foreach ( $doc->getElementsByTagName( 'a' ) as $node ) {
 					if ( $node->hasAttribute( 'id' ) ) {
@@ -360,16 +360,5 @@ function add_anchors_to_wp_link_query( $results, $query ) {
 			}
 		}
 	}
-
-	$offset = count( $results ) + 1;
-
-	foreach ( $results as $key => $result ) {
-		if ( $results[ $key ]['ID'] === $query['post'] ) {
-			$offset = $key + 1;
-		}
-	}
-
-	array_splice( $results, $offset, 0, $anchors );
-
-	return $results;
+	return $new_results;
 }

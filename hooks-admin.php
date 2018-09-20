@@ -112,6 +112,7 @@ add_filter( 'admin_title', '\Pressbooks\Admin\Branding\admin_title' );
 
 // Echo our notices, if any
 add_action( 'admin_notices', '\Pressbooks\Admin\Laf\admin_notices' );
+add_action( 'network_admin_notices', '\Pressbooks\Admin\Laf\admin_notices' );
 
 // Network Manager routines
 add_filter( 'admin_body_class', '\Pressbooks\Admin\NetworkManagers\admin_body_class' );
