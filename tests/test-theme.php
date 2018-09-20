@@ -8,7 +8,7 @@ class ThemeTest extends \WP_UnitTestCase
         $this->_book();
         delete_option( 'pressbooks_theme_migration' );
         \Pressbooks\Theme\migrate_book_themes();
-        $this->assertEquals( 3, get_option( 'pressbooks_theme_migration' ) );
+        $this->assertEquals( 4, get_option( 'pressbooks_theme_migration' ) );
     }
 
     public function test_update_template_root() {
