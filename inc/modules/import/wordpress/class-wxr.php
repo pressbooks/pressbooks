@@ -10,9 +10,9 @@ use function Pressbooks\Image\attachment_id_from_url;
 use function Pressbooks\Image\strip_baseurl as image_strip_baseurl;
 use function Pressbooks\Media\strip_baseurl as media_strip_baseurl;
 use function Pressbooks\Utility\str_starts_with;
+use Masterminds\HTML5;
 use Pressbooks\Book;
 use Pressbooks\Contributors;
-use Pressbooks\HtmlParser;
 use Pressbooks\Licensing;
 use Pressbooks\Metadata;
 use Pressbooks\Modules\Import\Import;
@@ -53,16 +53,6 @@ class Wxr extends Import {
 	 * @var \Pressbooks\Contributors;
 	 */
 	protected $contributors;
-
-	/**
-	 * @var array
-	 */
-	private $imageWasAlreadyDownloaded = [];
-
-	/**
-	 * @var array
-	 */
-	private $mediaWasAlreadyDownloaded = [];
 
 	/**
 	 *
@@ -161,11 +151,9 @@ class Wxr extends Import {
 		$this->knownMedia = $this->buildListOfKnownMedia( $xml );
 		// Sort by the length of sourceUrls for better search and replace
 		$known_media_sorted = $this->knownMedia;
-		uasort(
-			$known_media_sorted, function ( $a, $b ) {
-				return strlen( $b->sourceUrl ) <=> strlen( $a->sourceUrl );
-			}
-		);
+		uasort( $known_media_sorted, function ( $a, $b ) {
+			return strlen( $b->sourceUrl ) <=> strlen( $a->sourceUrl );
+		} );
 		$this->knownMedia = $known_media_sorted;
 
 		if ( $this->isPbWxr ) {
@@ -229,8 +217,11 @@ class Wxr extends Import {
 			// Insert
 			$post_type = $this->determinePostType( $p['post_id'] );
 
-			$html5 = new HtmlParser();
-			$dom = $html5->loadHtml( $p['post_content'] );
+			// Wrap in fake div tags so that we can parse it
+			$html = '<div><!-- pb_fixme -->' . $p['post_content'] . '<!-- pb_fixme --></div>';
+
+			$doc = new HTML5();
+			$dom = $doc->loadHtml( $html );
 
 			// Download images, change image paths
 			$media = $this->scrapeAndKneadImages( $dom );
@@ -238,13 +229,16 @@ class Wxr extends Import {
 			$attachments = $media['attachments'];
 
 			// Download media, change media paths
-			$media = $this->scrapeAndKneadMedia( $dom, $html5->parser );
+			$media = $this->scrapeAndKneadMedia( $dom, $doc );
 			$dom = $media['dom'];
 			$attachments = array_merge( $attachments, $media['attachments'] );
 
 			// TODO? We should probably do the same thing as seen in Cloner::fixInternalLinks( $dom )
 
-			$html = $html5->saveHTML( $dom );
+			$html = $doc->saveHTML( $dom );
+
+			$html = \Pressbooks\Sanitize\strip_container_tags( $html ); // Remove auto-created <html> <body> and <!DOCTYPE> tags.
+			$html = str_replace( [ '<div><!-- pb_fixme -->', '<!-- pb_fixme --></div>' ], '', $html ); // Remove fake div tags
 
 			if ( 'metadata' === $post_type ) {
 				$pid = $this->bookInfoPid();
@@ -619,7 +613,15 @@ class Wxr extends Import {
 				continue; // Something went wrong, skip
 			}
 
-			$m = $this->createMediaEntity( $item );
+			$m = new \Pressbooks\Entities\Cloner\Media();
+			$m->sourceUrl = $item['attachment_url'];
+			if ( isset( $item['postmeta'] ) && is_array( $item['postmeta'] ) ) {
+				foreach ( $item['postmeta'] as $meta ) {
+					if ( str_starts_with( $meta['key'], '_' ) === false ) {
+						$m->meta[ $meta['key'] ] = $meta['value'];
+					}
+				}
+			}
 			if ( preg_match( $this->pregSupportedImageExtensions, $m->sourceUrl ) ) {
 				$prefix = str_replace( $this->basename( $m->sourceUrl ), '', $x['file'] ); // 2017/08
 				foreach ( $x['sizes'] as $size => $info ) {
@@ -633,34 +635,6 @@ class Wxr extends Import {
 		}
 
 		return $known_media;
-	}
-
-	/**
-	 * @param array $item
-	 *
-	 * @return \Pressbooks\Entities\Cloner\Media
-	 */
-	protected function createMediaEntity( $item ) {
-		$m = new \Pressbooks\Entities\Cloner\Media();
-
-		$m->title = $item['post_title'];
-		$m->description = $item['post_content'];
-		$m->caption = $item['post_excerpt'];
-
-		if ( isset( $item['postmeta'] ) && is_array( $item['postmeta'] ) ) {
-			foreach ( $item['postmeta'] as $meta ) {
-				if ( str_starts_with( $meta['key'], '_' ) === false ) {
-					$m->meta[ $meta['key'] ] = $meta['value'];
-				}
-				if ( $meta['key'] === '_wp_attachment_image_alt' ) {
-					$m->altText = $meta['value'];
-				}
-			}
-		}
-
-		$m->sourceUrl = $item['attachment_url'];
-
-		return $m;
 	}
 
 	/**
@@ -744,28 +718,32 @@ class Wxr extends Import {
 		$attached_file = image_strip_baseurl( $url );
 
 		if ( isset( $this->knownMedia[ $attached_file ] ) ) {
+			$remote_img_metadata = $this->knownMedia[ $attached_file ]->meta;
 			$remote_img_location = $this->knownMedia[ $attached_file ]->sourceUrl;
 			$filename = basename( $remote_img_location );
 		} else {
+			$remote_img_metadata = [];
 			$remote_img_location = $url;
 		}
 
-		if ( isset( $this->imageWasAlreadyDownloaded[ $remote_img_location ] ) ) {
-			return $this->imageWasAlreadyDownloaded[ $remote_img_location ];
+		// Cheap cache
+		static $already_done = [];
+		if ( isset( $already_done[ $remote_img_location ] ) ) {
+			return $already_done[ $remote_img_location ];
 		}
 
 		/* Process */
 
 		if ( ! preg_match( $this->pregSupportedImageExtensions, $filename ) ) {
 			// Unsupported image type
-			$this->imageWasAlreadyDownloaded[ $remote_img_location ] = '';
+			$already_done[ $remote_img_location ] = '';
 			return 0;
 		}
 
 		$tmp_name = download_url( $remote_img_location );
 		if ( is_wp_error( $tmp_name ) ) {
 			// Download failed
-			$this->imageWasAlreadyDownloaded[ $remote_img_location ] = '';
+			$already_done[ $remote_img_location ] = '';
 			return 0;
 		}
 
@@ -779,7 +757,7 @@ class Wxr extends Import {
 				}
 			} catch ( \Exception $exc ) {
 				// Garbage, don't import
-				$this->imageWasAlreadyDownloaded[ $remote_img_location ] = '';
+				$already_done[ $remote_img_location ] = '';
 				unlink( $tmp_name );
 				return 0;
 			}
@@ -795,20 +773,10 @@ class Wxr extends Import {
 		if ( ! $src ) {
 			$pid = 0;
 		} else {
-			$m = $this->knownMedia[ $attached_file ];
-			wp_update_post(
-				[
-					'ID' => $pid,
-					'post_title' => $m->title,
-					'post_content' => $m->description,
-					'post_excerpt' => $m->caption,
-				]
-			);
-			update_post_meta( $pid, '_wp_attachment_image_alt', $m->altText );
-			foreach ( $m->meta as $meta_key => $meta_value ) {
+			foreach ( $remote_img_metadata as $meta_key => $meta_value ) {
 				update_post_meta( $pid, $meta_key, $meta_value );
 			}
-			$this->imageWasAlreadyDownloaded[ $remote_img_location ] = $pid;
+			$already_done[ $remote_img_location ] = $pid;
 		}
 		@unlink( $tmp_name ); // @codingStandardsIgnoreLine
 
@@ -934,14 +902,18 @@ class Wxr extends Import {
 		$attached_file = media_strip_baseurl( $url );
 
 		if ( isset( $this->knownMedia[ $attached_file ] ) ) {
+			$remote_media_metadata = $this->knownMedia[ $attached_file ]->meta;
 			$remote_media_location = $this->knownMedia[ $attached_file ]->sourceUrl;
 			$filename = basename( $remote_media_location );
 		} else {
+			$remote_media_metadata = [];
 			$remote_media_location = $url;
 		}
 
-		if ( isset( $this->mediaWasAlreadyDownloaded[ $remote_media_location ] ) ) {
-			return $this->mediaWasAlreadyDownloaded[ $remote_media_location ];
+		// Cheap cache
+		static $already_done = [];
+		if ( isset( $already_done[ $remote_media_location ] ) ) {
+			return $already_done[ $remote_media_location ];
 		}
 
 		/* Process */
@@ -949,7 +921,7 @@ class Wxr extends Import {
 		$tmp_name = download_url( $remote_media_location );
 		if ( is_wp_error( $tmp_name ) ) {
 			// Download failed
-			$this->mediaWasAlreadyDownloaded[ $remote_media_location ] = 0;
+			$already_done[ $remote_media_location ] = 0;
 			return 0;
 		}
 
@@ -963,19 +935,10 @@ class Wxr extends Import {
 		if ( ! $src ) {
 			$pid = 0;
 		} else {
-			$m = $this->knownMedia[ $attached_file ];
-			wp_update_post(
-				[
-					'ID' => $pid,
-					'post_title' => $m->title,
-					'post_content' => $m->description,
-					'post_excerpt' => $m->caption,
-				]
-			);
-			foreach ( $m->meta as $meta_key => $meta_value ) {
+			foreach ( $remote_media_metadata as $meta_key => $meta_value ) {
 				update_post_meta( $pid, $meta_key, $meta_value );
 			}
-			$this->mediaWasAlreadyDownloaded[ $remote_media_location ] = $pid;
+			$already_done[ $remote_media_location ] = $pid;
 		}
 		@unlink( $tmp_name ); // @codingStandardsIgnoreLine
 

@@ -8,9 +8,9 @@ namespace Pressbooks\Modules\Export\Xhtml;
 
 use function Pressbooks\Sanitize\clean_filename;
 use function Pressbooks\Utility\str_starts_with;
+use Masterminds\HTML5;
 use PressbooksMix\Assets;
 use Pressbooks\Container;
-use Pressbooks\HtmlParser;
 use Pressbooks\Modules\Export\Export;
 use Pressbooks\Sanitize;
 
@@ -539,8 +539,9 @@ class Xhtml11 extends Export {
 		}
 
 		$home_url = rtrim( home_url(), '/' );
-		$html5 = new HtmlParser();
-		$dom = $html5->loadHTML( $source_content );
+		$content = '<div><!-- pb_fixme -->' . $source_content . '<!-- pb_fixme --></div>';
+		$html5 = new HTML5();
+		$dom = $html5->loadHTML( $content );
 		$links = $dom->getElementsByTagName( 'a' );
 
 		$changed = false;
@@ -569,6 +570,8 @@ class Xhtml11 extends Export {
 			return $source_content;
 		} else {
 			$content = $html5->saveHTML( $dom );
+			$content = \Pressbooks\Sanitize\strip_container_tags( $content ); // Remove auto-created <html> <body> and <!DOCTYPE> tags.
+			$content = str_replace( [ '<div><!-- pb_fixme -->', '<!-- pb_fixme --></div>' ], '', $content ); // Remove fake div tags
 			return $content;
 		}
 	}
@@ -583,7 +586,7 @@ class Xhtml11 extends Export {
 	 * @return string
 	 */
 	protected function removeAttributionLink( $content ) {
-		$html5 = new HtmlParser();
+		$html5 = new HTML5();
 		$dom = $html5->loadHTML( $content );
 
 		$urls = $dom->getElementsByTagName( 'a' );
@@ -599,6 +602,8 @@ class Xhtml11 extends Export {
 		}
 
 		$content = $html5->saveHTML( $dom );
+		$content = \Pressbooks\Sanitize\strip_container_tags( $content );
+
 		return $content;
 	}
 
@@ -615,7 +620,7 @@ class Xhtml11 extends Export {
 		static $already_done = [];
 
 		$changed = false;
-		$html5 = new HtmlParser();
+		$html5 = new HTML5();
 		$dom = $html5->loadHTML( $content );
 
 		$images = $dom->getElementsByTagName( 'img' );
@@ -637,6 +642,7 @@ class Xhtml11 extends Export {
 
 		if ( $changed ) {
 			$content = $html5->saveHTML( $dom );
+			$content = \Pressbooks\Sanitize\strip_container_tags( $content );
 		}
 
 		return $content;

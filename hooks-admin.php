@@ -132,7 +132,7 @@ add_action(
 	'init', function() {
 		// replace default title filtering with our custom one that allows certain tags
 		remove_filter( 'title_save_pre', 'wp_filter_kses' );
-		add_filter( 'title_save_pre', '\Pressbooks\Sanitize\filter_title' );
+		add_filter( 'title_save_pre', 'Pressbooks\Sanitize\filter_title' );
 	}
 );
 

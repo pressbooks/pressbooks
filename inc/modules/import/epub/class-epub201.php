@@ -7,8 +7,8 @@
 
 namespace Pressbooks\Modules\Import\Epub;
 
+use Masterminds\HTML5;
 use Pressbooks\Book;
-use Pressbooks\HtmlParser;
 use Pressbooks\Modules\Import\Import;
 
 class Epub201 extends Import {
@@ -380,8 +380,8 @@ class Epub201 extends Import {
 	 */
 	protected function kneadHtml( $html, $type, $href ) {
 
-		$html5 = new HtmlParser();
-		$dom = $html5->loadHTML( $html );
+		$doc = new HTML5();
+		$dom = $doc->loadHTML( $html );
 
 		// Download images, change to relative paths
 		$dom = $this->scrapeAndKneadImages( $dom, $href );
@@ -389,7 +389,7 @@ class Epub201 extends Import {
 		// Deal with <a href="">, <a href=''>, and other mutations
 		$dom = $this->kneadHref( $dom, $type, $href );
 
-		$html = $html5->saveHTML( $dom );
+		$html = $doc->saveHTML( $dom );
 
 		// Clean up html
 		$html = $this->regexSearchReplace( $html );
@@ -405,7 +405,10 @@ class Epub201 extends Import {
 	 * @return string
 	 */
 	protected function regexSearchReplace( $html ) {
-		$result = $html;
+
+		// Remove auto-created <html> <body> and <!DOCTYPE> tags.
+		$result = \Pressbooks\Sanitize\strip_container_tags( $html );
+
 		if ( true === $this->isPbEpub ) {
 			// Remove PB created div id (on EPUB201 Export) that will generate a princexml error on re-export
 			// @see createPartsAndChapters() in export/epub/class-pb-epub201.php
