@@ -50,6 +50,7 @@ add_action( 'network_admin_menu', '\Pressbooks\Admin\Dashboard\add_menu', 2 );
 add_action( 'admin_menu', '\Pressbooks\Admin\Dashboard\add_menu', 1 );
 add_action( 'admin_menu', '\Pressbooks\Admin\Diagnostics\add_menu', 30 );
 add_action( 'wp_user_dashboard_setup', '\Pressbooks\Admin\Dashboard\lowly_user' );
+remove_action( 'welcome_panel', 'wp_welcome_panel' );
 
 if ( $is_book ) {
 	// Aggressively replace default interface
@@ -62,7 +63,6 @@ if ( $is_book ) {
 	add_action( 'admin_menu', [ '\Pressbooks\Admin\Delete\Book', 'init' ] );
 	add_filter( 'parent_file', '\Pressbooks\Admin\Laf\fix_parent_file' );
 	add_action( 'wp_dashboard_setup', '\Pressbooks\Admin\Dashboard\replace_dashboard_widgets' );
-	remove_action( 'welcome_panel', 'wp_welcome_panel' );
 	add_action( 'customize_register', '\Pressbooks\Admin\Laf\customize_register', 1000 );
 	add_filter( 'all_plugins', '\Pressbooks\Admin\Plugins\filter_plugins', 10 );
 	// Disable theme customizer
