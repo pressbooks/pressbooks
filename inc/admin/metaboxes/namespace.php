@@ -299,6 +299,13 @@ function add_meta_boxes() {
 			'description' => __( 'This is added to the metadata in your ebook.', 'pressbooks' ),
 		]
 	);
+	
+	x_add_metadata_field(
+		'pb_edition', 'metadata', [
+			'group' => 'general-book-information',
+			'label' => __( 'Edition', 'pressbooks' ),
+		]
+	);
 
 	if ( $show_expanded_metadata ) {
 		x_add_metadata_field(
