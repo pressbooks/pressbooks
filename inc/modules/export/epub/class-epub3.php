@@ -11,6 +11,7 @@ use function Pressbooks\Utility\oxford_comma_explode;
 use function \Pressbooks\Sanitize\sanitize_xml_attribute;
 use function \Pressbooks\Utility\debug_error_log;
 use Pressbooks\HtmLawed;
+use Pressbooks\HtmlParser;
 use Pressbooks\Sanitize;
 
 class Epub3 extends Epub201 {
@@ -229,8 +230,8 @@ class Epub3 extends Epub201 {
 		}
 
 		try {
-			$doc = new \DOMDocument();
-			$doc->loadHTML( $html );
+			$html5 = new HtmlParser( true );
+			$doc = $html5->loadHTML( $html );
 			foreach ( $doc->getElementsByTagname( '*' ) as $element ) {
 				foreach ( iterator_to_array( $element->attributes ) as $name => $attribute ) {
 					if ( in_array( $name, $this->javaScriptEvents, true ) ) {

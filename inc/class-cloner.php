@@ -21,7 +21,6 @@ use function Pressbooks\Utility\str_lreplace;
 use function Pressbooks\Utility\str_remove_prefix;
 use function Pressbooks\Utility\str_starts_with;
 
-use Masterminds\HTML5;
 use Pressbooks\Admin\Network\SharingAndPrivacyOptions;
 
 class Cloner {
@@ -183,6 +182,16 @@ class Cloner {
 	 * @var \Pressbooks\Contributors;
 	 */
 	protected $contributors;
+
+	/**
+	 * @var array
+	 */
+	private $imageWasAlreadyDownloaded = [];
+
+	/**
+	 * @var array
+	 */
+	private $mediaWasAlreadyDownloaded = [];
 
 	/**
 	 * Constructor.
@@ -400,9 +409,11 @@ class Cloner {
 		}
 		// Sort by the length of sourceUrls for better search and replace
 		$known_media_sorted = $this->knownMedia;
-		uasort( $known_media_sorted, function ( $a, $b ) {
-			return strlen( $b->sourceUrl ) <=> strlen( $a->sourceUrl );
-		} );
+		uasort(
+			$known_media_sorted, function ( $a, $b ) {
+				return strlen( $b->sourceUrl ) <=> strlen( $a->sourceUrl );
+			}
+		);
 		$this->knownMedia = $known_media_sorted;
 
 		$this->maybeRestoreCurrentBlog();
@@ -538,11 +549,7 @@ class Cloner {
 
 		$known_media = [];
 		foreach ( $response as $item ) {
-			$m = new \Pressbooks\Entities\Cloner\Media();
-			$m->sourceUrl = $item['source_url'];
-			if ( isset( $item['meta'] ) ) {
-				$m->meta = $item['meta'];
-			}
+			$m = $this->createMediaEntity( $item );
 			if ( $item['media_type'] === 'image' ) {
 				foreach ( $item['media_details']['sizes'] as $size => $info ) {
 					$attached_file = image_strip_baseurl( $info['source_url'] ); // 2017/08/foo-bar-300x225.png
@@ -555,6 +562,34 @@ class Cloner {
 		}
 
 		return $known_media;
+	}
+
+	/**
+	 * @param array $item
+	 *
+	 * @return \Pressbooks\Entities\Cloner\Media
+	 */
+	protected function createMediaEntity( $item ) {
+		$m = new Entities\Cloner\Media();
+		if ( isset( $item['title'], $item['title']['raw'] ) ) {
+			$m->title = $item['title']['raw'];
+		}
+		if ( isset( $item['description'], $item['description']['raw'] ) ) {
+			$m->description = $item['description']['raw'];
+		}
+		if ( isset( $item['caption'], $item['caption']['raw'] ) ) {
+			$m->caption = $item['caption']['raw'];
+		}
+		if ( isset( $item['meta'] ) ) {
+			$m->meta = $item['meta'];
+		}
+		if ( isset( $item['alt_text'] ) ) {
+			$m->altText = $item['alt_text'];
+		}
+		if ( isset( $item['source_url'] ) ) {
+			$m->sourceUrl = $item['source_url'];
+		}
+		return $m;
 	}
 
 	/**
@@ -920,7 +955,7 @@ class Cloner {
 	protected function retrieveSectionContent( $section ) {
 		if ( ! empty( $section['content']['raw'] ) ) {
 			// Wrap in fake div tags so that we can parse it
-			$source_content = '<div><!-- pb_fixme -->' . $section['content']['raw'] . '<!-- pb_fixme --></div>';
+			$source_content = $section['content']['raw'];
 		} else {
 			$source_content = $section['content']['rendered'];
 		}
@@ -935,7 +970,7 @@ class Cloner {
 		}
 
 		// Load source content
-		$html5 = new HTML5();
+		$html5 = new HtmlParser();
 		$dom = $html5->loadHTML( $source_content );
 
 		// Download images, change image paths
@@ -944,7 +979,7 @@ class Cloner {
 		$attachments = $media['attachments'];
 
 		// Download media, change media paths
-		$media = $this->scrapeAndKneadMedia( $dom, $html5 );
+		$media = $this->scrapeAndKneadMedia( $dom, $html5->parser );
 		$dom = $media['dom'];
 		$attachments = array_merge( $attachments, $media['attachments'] );
 
@@ -960,9 +995,7 @@ class Cloner {
 			$content = str_replace( "<!-- pb_fixme_{$md5} -->", $c, $content );
 		}
 
-		$content = \Pressbooks\Sanitize\strip_container_tags( $content ); // Remove auto-created <html> <body> and <!DOCTYPE> tags.
 		if ( ! empty( $section['content']['raw'] ) ) {
-			$content = str_replace( [ '<div><!-- pb_fixme -->', '<!-- pb_fixme --></div>' ], '', $content ); // Remove fake div tags
 			if ( ! $this->interactiveContent->isCloneable( $content ) ) {
 				$content = $this->interactiveContent->replaceCloneable( $content );
 			}
@@ -1248,32 +1281,30 @@ class Cloner {
 		$attached_file = image_strip_baseurl( $url );
 
 		if ( isset( $this->knownMedia[ $attached_file ] ) ) {
-			$remote_img_metadata = $this->knownMedia[ $attached_file ]->meta;
+			$patch = $this->createMediaPatch( $this->knownMedia[ $attached_file ] );
 			$remote_img_location = $this->knownMedia[ $attached_file ]->sourceUrl;
 			$filename = basename( $remote_img_location );
 		} else {
-			$remote_img_metadata = [];
+			$patch = [];
 			$remote_img_location = $url;
 		}
 
-		// Cheap cache
-		static $already_done = [];
-		if ( isset( $already_done[ $remote_img_location ] ) ) {
-			return $already_done[ $remote_img_location ];
+		if ( isset( $this->imageWasAlreadyDownloaded[ $remote_img_location ] ) ) {
+			return $this->imageWasAlreadyDownloaded[ $remote_img_location ];
 		}
 
 		/* Process */
 
 		if ( ! preg_match( $this->pregSupportedImageExtensions, $filename ) ) {
 			// Unsupported image type
-			$already_done[ $remote_img_location ] = 0;
+			$this->imageWasAlreadyDownloaded[ $remote_img_location ] = 0;
 			return 0;
 		}
 
 		$tmp_name = download_url( $remote_img_location );
 		if ( is_wp_error( $tmp_name ) ) {
 			// Download failed
-			$already_done[ $remote_img_location ] = 0;
+			$this->imageWasAlreadyDownloaded[ $remote_img_location ] = 0;
 			return 0;
 		}
 
@@ -1286,7 +1317,7 @@ class Cloner {
 				}
 			} catch ( \Exception $exc ) {
 				// Garbage, don't import
-				$already_done[ $remote_img_location ] = 0;
+				$this->imageWasAlreadyDownloaded[ $remote_img_location ] = 0;
 				@unlink( $tmp_name ); // @codingStandardsIgnoreLine
 				return 0;
 			}
@@ -1302,15 +1333,32 @@ class Cloner {
 		if ( ! $src ) {
 			$pid = 0;
 		} else {
-			foreach ( $remote_img_metadata as $meta_key => $meta_value ) {
-				update_post_meta( $pid, $meta_key, $meta_value );
+			if ( ! empty( $patch ) ) {
+				$request = new \WP_REST_Request( 'PATCH', "/wp/v2/media/{$pid}" );
+				$request->set_body_params( $patch );
+				rest_do_request( $request );
 			}
 			$this->clonedItems['media'][] = $pid;
-			$already_done[ $remote_img_location ] = $pid;
+			$this->imageWasAlreadyDownloaded[ $remote_img_location ] = $pid;
 		}
 		@unlink( $tmp_name ); // @codingStandardsIgnoreLine
 
 		return $pid;
+	}
+
+	/**
+	 * @param \Pressbooks\Entities\Cloner\Media $media
+	 *
+	 * @return array
+	 */
+	protected function createMediaPatch( $media ) {
+		return [
+			'title' => $media->title,
+			'meta' => $media->meta,
+			'description' => $media->description,
+			'caption' => $media->caption,
+			'alt_text' => $media->altText,
+		];
 	}
 
 	/**
@@ -1370,7 +1418,7 @@ class Cloner {
 	 * @since 4.1.0
 	 *
 	 * @param \DOMDocument $dom
-	 * @param HTML5 $html5
+	 * @param \Masterminds\HTML5 $html5
 	 *
 	 * @return array An array containing the \DOMDocument and the IDs of created attachments
 	 */
@@ -1433,18 +1481,16 @@ class Cloner {
 		$attached_file = media_strip_baseurl( $url );
 
 		if ( isset( $this->knownMedia[ $attached_file ] ) ) {
-			$remote_media_metadata = $this->knownMedia[ $attached_file ]->meta;
+			$patch = $this->createMediaPatch( $this->knownMedia[ $attached_file ] );
 			$remote_media_location = $this->knownMedia[ $attached_file ]->sourceUrl;
 			$filename = basename( $remote_media_location );
 		} else {
-			$remote_media_metadata = [];
+			$patch = [];
 			$remote_media_location = $url;
 		}
 
-		// Cheap cache
-		static $already_done = [];
-		if ( isset( $already_done[ $remote_media_location ] ) ) {
-			return $already_done[ $remote_media_location ];
+		if ( isset( $this->mediaWasAlreadyDownloaded[ $remote_media_location ] ) ) {
+			return $this->mediaWasAlreadyDownloaded[ $remote_media_location ];
 		}
 
 		/* Process */
@@ -1452,7 +1498,7 @@ class Cloner {
 		$tmp_name = download_url( $remote_media_location );
 		if ( is_wp_error( $tmp_name ) ) {
 			// Download failed
-			$already_done[ $remote_media_location ] = 0;
+			$this->mediaWasAlreadyDownloaded[ $remote_media_location ] = 0;
 			return 0;
 		}
 
@@ -1466,11 +1512,13 @@ class Cloner {
 		if ( ! $src ) {
 			$pid = 0;
 		} else {
-			foreach ( $remote_media_metadata as $meta_key => $meta_value ) {
-				update_post_meta( $pid, $meta_key, $meta_value );
+			if ( ! empty( $patch ) ) {
+				$request = new \WP_REST_Request( 'PATCH', "/wp/v2/media/{$pid}" );
+				$request->set_body_params( $patch );
+				rest_do_request( $request );
 			}
 			$this->clonedItems['media'][] = $pid;
-			$already_done[ $remote_media_location ] = $pid;
+			$this->mediaWasAlreadyDownloaded[ $remote_media_location ] = $pid;
 		}
 		@unlink( $tmp_name ); // @codingStandardsIgnoreLine
 

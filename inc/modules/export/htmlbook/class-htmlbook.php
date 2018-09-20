@@ -8,7 +8,6 @@ namespace Pressbooks\Modules\Export\HTMLBook;
 
 use function Pressbooks\Utility\oxford_comma_explode;
 use function Pressbooks\Utility\str_starts_with;
-use Masterminds\HTML5;
 use PressbooksMix\Assets;
 use Pressbooks\HTMLBook\Block\Blockquote;
 use Pressbooks\HTMLBook\Block\OrderedLists;
@@ -23,6 +22,7 @@ use Pressbooks\HTMLBook\Heading\H1;
 use Pressbooks\HTMLBook\Heading\Header;
 use Pressbooks\HTMLBook\Inline\Footnote;
 use Pressbooks\HTMLBook\Validator;
+use Pressbooks\HtmlParser;
 use Pressbooks\Modules\Export\Export;
 use Pressbooks\Sanitize;
 
@@ -516,9 +516,8 @@ class HTMLBook extends Export {
 		}
 
 		$home_url = rtrim( home_url(), '/' );
-		$content = '<div><!-- pb_fixme -->' . $source_content . '<!-- pb_fixme --></div>';
-		$html5 = new HTML5();
-		$dom = $html5->loadHTML( $content );
+		$html5 = new HtmlParser();
+		$dom = $html5->loadHTML( $source_content );
 		$links = $dom->getElementsByTagName( 'a' );
 
 		$changed = false;
@@ -547,8 +546,6 @@ class HTMLBook extends Export {
 			return $source_content;
 		} else {
 			$content = $html5->saveHTML( $dom );
-			$content = \Pressbooks\Sanitize\strip_container_tags( $content ); // Remove auto-created <html> <body> and <!DOCTYPE> tags.
-			$content = str_replace( [ '<div><!-- pb_fixme -->', '<!-- pb_fixme --></div>' ], '', $content ); // Remove fake div tags
 			return $content;
 		}
 	}
@@ -563,7 +560,7 @@ class HTMLBook extends Export {
 	 * @return string
 	 */
 	protected function removeAttributionLink( $content ) {
-		$html5 = new HTML5();
+		$html5 = new HtmlParser();
 		$dom = $html5->loadHTML( $content );
 
 		$urls = $dom->getElementsByTagName( 'a' );
@@ -579,7 +576,6 @@ class HTMLBook extends Export {
 		}
 
 		$content = $html5->saveHTML( $dom );
-		$content = \Pressbooks\Sanitize\strip_container_tags( $content );
 
 		return $content;
 	}
@@ -597,7 +593,7 @@ class HTMLBook extends Export {
 		static $already_done = [];
 
 		$changed = false;
-		$html5 = new HTML5();
+		$html5 = new HtmlParser();
 		$dom = $html5->loadHTML( $content );
 
 		$images = $dom->getElementsByTagName( 'img' );
@@ -619,7 +615,6 @@ class HTMLBook extends Export {
 
 		if ( $changed ) {
 			$content = $html5->saveHTML( $dom );
-			$content = \Pressbooks\Sanitize\strip_container_tags( $content );
 		}
 
 		return $content;

@@ -217,10 +217,6 @@ function comments_open( $open, $post_id ) {
  * Register meta keys for our custom post types (used by REST API)
  */
 function register_meta() {
-
-	// TODO Change from 'post' to 'chapter,etc' when this bug is fixed:
-	// @see https://core.trac.wordpress.org/ticket/38323
-
 	$defaults = [
 		'show_in_rest' => true,
 		'single' => true,
