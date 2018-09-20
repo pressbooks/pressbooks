@@ -16,7 +16,7 @@
 <!-- 7. WordPress will then import each of the posts, pages, comments, categories, etc. -->
 <!--    contained in this file into your site. -->
 
-<!-- generator="WordPress/4.9.7" created="2018-08-28 13:30" -->
+<!-- generator="WordPress/4.9.8" created="2018-09-17 19:53" -->
 <rss version="2.0"
 	xmlns:excerpt="http://wordpress.org/export/1.2/excerpt/"
 	xmlns:content="http://purl.org/rss/1.0/modules/content/"
@@ -29,7 +29,7 @@
 	<title>Pressbooks Integration Testing</title>
 	<link>http://pbtest.pressbooks.com</link>
 	<description>Simple Book Publishing</description>
-	<pubDate>Tue, 28 Aug 2018 13:30:18 +0000</pubDate>
+	<pubDate>Mon, 17 Sep 2018 19:53:40 +0000</pubDate>
 	<language>en-US</language>
 	<wp:wxr_version>1.2</wp:wxr_version>
 	<wp:base_site_url>http://pressbooks.com/</wp:base_site_url>
@@ -196,21 +196,6 @@
 		<wp:term_slug><![CDATA[conclusion]]></wp:term_slug>
 		<wp:term_parent><![CDATA[]]></wp:term_parent>
 		<wp:term_name><![CDATA[Conclusion]]></wp:term_name>
-	</wp:term>
-	<wp:term>
-		<wp:term_id><![CDATA[57]]></wp:term_id>
-		<wp:term_taxonomy><![CDATA[contributor]]></wp:term_taxonomy>
-		<wp:term_slug><![CDATA[connerbw]]></wp:term_slug>
-		<wp:term_parent><![CDATA[]]></wp:term_parent>
-		<wp:term_name><![CDATA[connerbw]]></wp:term_name>
-		<wp:termmeta>
-			<wp:meta_key><![CDATA[contributor_first_name]]></wp:meta_key>
-			<wp:meta_value><![CDATA[]]></wp:meta_value>
-		</wp:termmeta>
-		<wp:termmeta>
-			<wp:meta_key><![CDATA[contributor_last_name]]></wp:meta_key>
-			<wp:meta_value><![CDATA[]]></wp:meta_value>
-		</wp:termmeta>
 	</wp:term>
 	<wp:term>
 		<wp:term_id><![CDATA[34]]></wp:term_id>
@@ -451,7 +436,7 @@
 		<wp:term_name><![CDATA[Title Page]]></wp:term_name>
 	</wp:term>
 
-	<generator>https://wordpress.org/?v=4.9.7</generator>
+	<generator>https://wordpress.org/?v=4.9.8</generator>
 
 	<item>
 		<title>Main Body</title>
@@ -765,14 +750,14 @@
 		</wp:postmeta>
 	</item>
 	<item>
-		<title>monkey</title>
+		<title>Test Video</title>
 		<link>http://pbtest.pressbooks.com/chapter/hosted-video/monkey/</link>
 		<pubDate>Tue, 28 Aug 2018 13:07:02 +0000</pubDate>
 		<dc:creator><![CDATA[connerbw]]></dc:creator>
 		<guid isPermaLink="false">https://pressbooks.com/app/uploads/sites/109504/2018/08/monkey.mp4</guid>
 		<description></description>
-		<content:encoded><![CDATA[]]></content:encoded>
-		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+		<content:encoded><![CDATA[Test video description.]]></content:encoded>
+		<excerpt:encoded><![CDATA[Test Video Caption]]></excerpt:encoded>
 		<wp:post_id>23</wp:post_id>
 		<wp:post_date><![CDATA[2018-08-28 13:07:02]]></wp:post_date>
 		<wp:post_date_gmt><![CDATA[2018-08-28 13:07:02]]></wp:post_date_gmt>
@@ -796,14 +781,14 @@
 		</wp:postmeta>
 	</item>
 	<item>
-		<title>4tatoos</title>
+		<title>Test Image</title>
 		<link>http://pbtest.pressbooks.com/chapter/hosted-image/4tatoos/</link>
 		<pubDate>Tue, 28 Aug 2018 13:07:07 +0000</pubDate>
 		<dc:creator><![CDATA[connerbw]]></dc:creator>
 		<guid isPermaLink="false">https://pressbooks.com/app/uploads/sites/109504/2018/08/4tatoos.jpg</guid>
 		<description></description>
-		<content:encoded><![CDATA[]]></content:encoded>
-		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+		<content:encoded><![CDATA[Test image description.]]></content:encoded>
+		<excerpt:encoded><![CDATA[Test Image Caption]]></excerpt:encoded>
 		<wp:post_id>24</wp:post_id>
 		<wp:post_date><![CDATA[2018-08-28 13:07:07]]></wp:post_date>
 		<wp:post_date_gmt><![CDATA[2018-08-28 13:07:07]]></wp:post_date_gmt>
@@ -824,6 +809,34 @@
 		<wp:postmeta>
 			<wp:meta_key><![CDATA[_wp_attachment_metadata]]></wp:meta_key>
 			<wp:meta_value><![CDATA[a:5:{s:5:"width";i:1024;s:6:"height";i:681;s:4:"file";s:19:"2018/08/4tatoos.jpg";s:5:"sizes";a:7:{s:9:"thumbnail";a:4:{s:4:"file";s:19:"4tatoos-150x150.jpg";s:5:"width";i:150;s:6:"height";i:150;s:9:"mime-type";s:10:"image/jpeg";}s:6:"medium";a:4:{s:4:"file";s:19:"4tatoos-300x200.jpg";s:5:"width";i:300;s:6:"height";i:200;s:9:"mime-type";s:10:"image/jpeg";}s:12:"medium_large";a:4:{s:4:"file";s:19:"4tatoos-768x511.jpg";s:5:"width";i:768;s:6:"height";i:511;s:9:"mime-type";s:10:"image/jpeg";}s:5:"large";a:4:{s:4:"file";s:20:"4tatoos-1024x681.jpg";s:5:"width";i:1024;s:6:"height";i:681;s:9:"mime-type";s:10:"image/jpeg";}s:14:"pb_cover_small";a:4:{s:4:"file";s:17:"4tatoos-65x43.jpg";s:5:"width";i:65;s:6:"height";i:43;s:9:"mime-type";s:10:"image/jpeg";}s:15:"pb_cover_medium";a:4:{s:4:"file";s:19:"4tatoos-225x150.jpg";s:5:"width";i:225;s:6:"height";i:150;s:9:"mime-type";s:10:"image/jpeg";}s:14:"pb_cover_large";a:4:{s:4:"file";s:19:"4tatoos-350x233.jpg";s:5:"width";i:350;s:6:"height";i:233;s:9:"mime-type";s:10:"image/jpeg";}}s:10:"image_meta";a:12:{s:8:"aperture";s:3:"2.8";s:6:"credit";s:0:"";s:6:"camera";s:7:"DMC-LX1";s:7:"caption";s:0:"";s:17:"created_timestamp";s:10:"1446594299";s:9:"copyright";s:0:"";s:12:"focal_length";s:3:"6.3";s:3:"iso";s:3:"200";s:13:"shutter_speed";s:3:"0.1";s:5:"title";s:0:"";s:11:"orientation";s:1:"0";s:8:"keywords";a:0:{}}}]]></wp:meta_value>
+		</wp:postmeta>
+		<wp:postmeta>
+			<wp:meta_key><![CDATA[_wp_attachment_image_alt]]></wp:meta_key>
+			<wp:meta_value><![CDATA[Test Image Alt Text]]></wp:meta_value>
+		</wp:postmeta>
+		<wp:postmeta>
+			<wp:meta_key><![CDATA[pb_media_attribution_author]]></wp:meta_key>
+			<wp:meta_value><![CDATA[Test Image Author]]></wp:meta_value>
+		</wp:postmeta>
+		<wp:postmeta>
+			<wp:meta_key><![CDATA[pb_media_attribution_author_url]]></wp:meta_key>
+			<wp:meta_value><![CDATA[https://github.com/connerbw]]></wp:meta_value>
+		</wp:postmeta>
+		<wp:postmeta>
+			<wp:meta_key><![CDATA[pb_media_attribution_adapted]]></wp:meta_key>
+			<wp:meta_value><![CDATA[Adapted By]]></wp:meta_value>
+		</wp:postmeta>
+		<wp:postmeta>
+			<wp:meta_key><![CDATA[pb_media_attribution_adapted_url]]></wp:meta_key>
+			<wp:meta_value><![CDATA[https://pressbooks.education/]]></wp:meta_value>
+		</wp:postmeta>
+		<wp:postmeta>
+			<wp:meta_key><![CDATA[pb_media_attribution_title_url]]></wp:meta_key>
+			<wp:meta_value><![CDATA[https://pressbooks.org]]></wp:meta_value>
+		</wp:postmeta>
+		<wp:postmeta>
+			<wp:meta_key><![CDATA[pb_media_attribution_license]]></wp:meta_key>
+			<wp:meta_value><![CDATA[public-domain]]></wp:meta_value>
 		</wp:postmeta>
 	</item>
 	<item>

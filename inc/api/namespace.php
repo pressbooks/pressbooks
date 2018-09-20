@@ -254,6 +254,39 @@ function fix_book_urls( $url, $path ) {
 }
 
 /**
+ * @param \WP_REST_Response $response The response object.
+ * @param \WP_Post $post The original attachment post.
+ * @param \WP_REST_Request $request Request used to generate the response.
+ *
+ * @return \WP_REST_Response
+ */
+function fix_attachment( $response, $post, $request ) {
+	// This filter is called twice in a single request.
+	// The 1st time by `apply_filters( "rest_prepare_{$this->post_type}" ...` in parent class WP_REST_Posts_Controller::prepare_item_for_response
+	// The 2nd time by `apply_filters( 'rest_prepare_attachment' ...` in child class WP_REST_Attachments_Controller::prepare_item_for_response
+	if ( ! isset( $response->data['media_type'] ) ) {
+		// Was called by the 1st, is not an attachment (yet), so bail
+		return $response;
+	}
+
+	// Add raw data to view/embed contexts so that we can use it when cloning over REST API
+	$context = ! empty( $request['context'] ) ? $request['context'] : 'view';
+	if ( $context === 'view' || $context === 'embed' ) {
+		if ( isset( $response->data['title'] ) && ! isset( $response->data['title']['raw'] ) ) {
+			$response->data['title']['raw'] = $post->post_title;
+		}
+		if ( isset( $response->data['description'] ) && ! isset( $response->data['description']['raw'] ) ) {
+			$response->data['description']['raw'] = $post->post_content;
+		}
+		if ( isset( $response->data['caption'] ) && ! isset( $response->data['caption']['raw'] ) ) {
+			$response->data['caption']['raw'] = $post->post_excerpt;
+		}
+	}
+
+	return $response;
+}
+
+/**
  * Update part ID callback function
  *
  * @param int $part_id

@@ -11,10 +11,30 @@ class Media {
 	/**
 	 * @var string
 	 */
-	public $sourceUrl = '';
+	public $title = '';
 
 	/**
 	 * @var array
 	 */
 	public $meta = [];
+
+	/**
+	 * @var string
+	 */
+	public $description = '';
+
+	/**
+	 * @var string
+	 */
+	public $caption = '';
+
+	/**
+	 * @var string
+	 */
+	public $altText = '';
+
+	/**
+	 * @var string
+	 */
+	public $sourceUrl = '';
 }

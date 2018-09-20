@@ -7,9 +7,9 @@
 
 namespace Pressbooks\Modules\Import\Html;
 
-use Masterminds\HTML5;
 use Pressbooks\Book;
 use Pressbooks\Contributors;
+use Pressbooks\HtmlParser;
 use Pressbooks\Modules\Import\Import;
 
 class Xhtml extends Import {
@@ -177,10 +177,8 @@ class Xhtml extends Import {
 		preg_match( '/(?:<div class="license-attribution[^>]*>)(.*)(<\/div>)/isU', $html, $matches );
 
 		if ( ! empty( $matches[1] ) ) {
-
-			$doc = new HTML5();
-			$dom = $doc->loadHTML( $matches[1] );
-
+			$html5 = new HtmlParser();
+			$dom = $html5->loadHTML( $matches[1] );
 			$meta = $this->scrapeAndKneadMeta( $dom );
 		}
 		return $meta;
@@ -277,17 +275,13 @@ class Xhtml extends Import {
 	 */
 	function kneadHtml( $html, $type, $domain ) {
 
-		$doc = new HTML5();
-		$dom = $doc->loadHTML( $html );
+		$html5 = new HtmlParser();
+		$dom = $html5->loadHTML( $html );
 
 		// Download images, change relative paths to absolute
 		$dom = $this->scrapeAndKneadImages( $dom, $domain );
 
-		$html = $doc->saveHTML( $dom );
-
-		// Remove auto-created <html> <body> and <!DOCTYPE> tags.
-		$html = \Pressbooks\Sanitize\strip_container_tags( $html );
-
+		$html = $html5->saveHTML( $dom );
 		return $html;
 	}
 

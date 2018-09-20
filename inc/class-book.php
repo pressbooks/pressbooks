@@ -517,14 +517,12 @@ class Book {
 		$s = 1;
 
 		$content = wptexturize( $parent->post_content );
-		$content = wpautop( $content );
-		$content = mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' );
 
 		if ( stripos( $content, '<h1' ) === false ) {
 			return false;
 		}
 
-		$doc = new HTML5();
+		$doc = new HtmlParser( true ); // Because we are not saving, use internal parser to speed up load time
 		$dom = $doc->loadHTML( strip_tags( $content, '<h1>' ) ); // Strip everything except h1 to speed up load time
 		$sections = $dom->getElementsByTagName( 'h1' );
 		foreach ( $sections as $section ) {
@@ -557,18 +555,13 @@ class Book {
 		$type = $parent->post_type;
 
 		// Fix unusual HTML that tends to break our DOM transform (issues/228)
-		$content = mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' );
 		$content = str_ireplace( [ '<b></b>', '<i></i>', '<strong></strong>', '<em></em>' ], '', $content );
 
 		if ( stripos( $content, '<h1' ) === false ) {
 			return false;
 		}
 
-		$doc = new HTML5(
-			[
-				'disable_html_ns' => true,
-			]
-		); // Disable default namespace for \DOMXPath compatibility
+		$doc = new HTML5( [ 'disable_html_ns' => true ] ); // Disable default namespace for \DOMXPath compatibility
 		$dom = $doc->loadHTML( $content );
 		$sections = $dom->getElementsByTagName( 'h1' );
 		foreach ( $sections as $section ) {

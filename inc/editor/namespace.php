@@ -9,6 +9,7 @@ namespace Pressbooks\Editor;
 use function Pressbooks\Sanitize\normalize_css_urls;
 use PressbooksMix\Assets;
 use Pressbooks\Container;
+use Pressbooks\HtmlParser;
 
 /**
  * Ensure that Word formatting that we like doesn't get filtered out.
@@ -335,28 +336,22 @@ function add_anchors_to_wp_link_query( $results, $query ) {
 		$url = rtrim( $result['permalink'], '/' );
 		$post_id = $result['ID'];
 		$post = get_post( $post_id );
-		if ( $post ) {
-			$content = mb_convert_encoding( $post->post_content, 'HTML-ENTITIES', 'UTF-8' );
-			if ( ! empty( trim( $content ) ) ) {
-				libxml_use_internal_errors( true );
-				$doc = new \DOMDocument();
-				$doc->loadHTML( "<div>{$content}</div>", LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD );
-				/** @var \DOMElement $node */
-				foreach ( $doc->getElementsByTagName( 'a' ) as $node ) {
-					if ( $node->hasAttribute( 'id' ) ) {
-						$id_attribute = $node->getAttribute( 'id' );
-						$permalink = ( (int) $current_post_id !== (int) $post->ID ) ? $url : '';
-						$permalink .= "#{$id_attribute}";
-						$new_results[] = [
-							'ID' => $post->ID,
-							'title' => '#' . $id_attribute . ' (' . $post->post_title . ')',
-							'permalink' => $permalink,
-							'info' => __( 'Internal Link', 'pressbooks' ),
-						];
-					}
+		if ( $post && ! empty( trim( $post->post_content ) ) ) {
+			$html5 = new HtmlParser( true );
+			$doc = $html5->loadHTML( $post->post_content );
+			/** @var \DOMElement $node */
+			foreach ( $doc->getElementsByTagName( 'a' ) as $node ) {
+				if ( $node->hasAttribute( 'id' ) ) {
+					$id_attribute = $node->getAttribute( 'id' );
+					$permalink = ( (int) $current_post_id !== (int) $post->ID ) ? $url : '';
+					$permalink .= "#{$id_attribute}";
+					$new_results[] = [
+						'ID' => $post->ID,
+						'title' => '#' . $id_attribute . ' (' . $post->post_title . ')',
+						'permalink' => $permalink,
+						'info' => __( 'Internal Link', 'pressbooks' ),
+					];
 				}
-				$errors = libxml_get_errors(); // TODO: Handle errors gracefully
-				libxml_clear_errors();
 			}
 		}
 	}
