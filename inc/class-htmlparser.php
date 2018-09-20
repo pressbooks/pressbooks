@@ -4,6 +4,13 @@ namespace Pressbooks;
 
 use Masterminds\HTML5;
 
+/**
+ * This class wraps all our weird HTML parser hacks in one place
+ *
+ *  Use this parser when we:
+ *   + loadHTML
+ *   + do not saveXML
+ */
 class HtmlParser {
 
 	/**
