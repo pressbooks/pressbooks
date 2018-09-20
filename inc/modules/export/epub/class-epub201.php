@@ -962,7 +962,9 @@ class Epub201 extends Export {
 		} else {
 			$html .= sprintf( '<h1 class="title">%s</h1>', get_bloginfo( 'name' ) );
 			$html .= sprintf( '<h2 class="subtitle">%s</h2>', ( isset( $metadata['pb_subtitle'] ) ) ? $metadata['pb_subtitle'] : '' );
-			if ( isset( $metadata['pb_authors'] ) ) {
+			if ( isset( $metadata['pb_credit_override'] ) ) {
+				$html .= sprintf( '<h3 class="author">%s</h3>', $metadata['pb_credit_override'] );
+			} elseif ( isset( $metadata['pb_authors'] ) ) {
 				$html .= sprintf( '<h3 class="author">%s</h3>', $metadata['pb_authors'] );
 			}
 			if ( isset( $metadata['pb_contributors'] ) ) {
@@ -2493,7 +2495,7 @@ class Epub201 extends Export {
 
 		// Sanitize variables for usage in XML template
 		$vars = [
-			'author' => ! \Pressbooks\Utility\empty_space( $metadata['pb_authors'] ) ? sanitize_xml_attribute( oxford_comma_explode( $metadata['pb_authors'] )[0] ) : '',
+			'author' => ! \Pressbooks\Utility\empty_space( $metadata['pb_credit_override'] ) ? sanitize_xml_attribute( $metadata['pb_credit_override'] ) : ! \Pressbooks\Utility\empty_space( $metadata['pb_authors'] ) ? sanitize_xml_attribute( oxford_comma_explode( $metadata['pb_authors'] )[0] ) : '',
 			'manifest' => $this->manifest,
 			'dtd_uid' => ! empty( $metadata['pb_ebook_isbn'] ) ? sanitize_xml_attribute( $metadata['pb_ebook_isbn'] ) : sanitize_xml_attribute( get_bloginfo( 'url' ) ),
 			'enable_external_identifier' => true,

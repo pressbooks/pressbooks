@@ -498,7 +498,7 @@ class Epub3 extends Epub201 {
 
 		// Sanitize variables for usage in XML template
 		$vars = [
-			'author' => ! \Pressbooks\Utility\empty_space( $metadata['pb_authors'] ) ? sanitize_xml_attribute( oxford_comma_explode( $metadata['pb_authors'] )[0] ) : '',
+			'author' => ! \Pressbooks\Utility\empty_space( $metadata['pb_credit_override'] ) ? sanitize_xml_attribute( $metadata['pb_credit_override'] ) : ! \Pressbooks\Utility\empty_space( $metadata['pb_authors'] ) ? sanitize_xml_attribute( oxford_comma_explode( $metadata['pb_authors'] )[0] ) : '',
 			'manifest' => $this->manifest,
 			'dtd_uid' => ! empty( $metadata['pb_ebook_isbn'] ) ? sanitize_xml_attribute( $metadata['pb_ebook_isbn'] ) : sanitize_xml_attribute( get_bloginfo( 'url' ) ),
 			'enable_external_identifier' => false,

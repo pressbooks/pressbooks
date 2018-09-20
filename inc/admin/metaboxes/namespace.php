@@ -276,6 +276,14 @@ function add_meta_boxes() {
 	);
 
 	x_add_metadata_field(
+		'pb_credit_override', 'metadata', [
+			'group' => 'general-book-information',
+			'label' => __( 'Credit Attribution (override)', 'pressbooks' ),
+			'description' => __( 'This text will override author credits, and will appear on the title page of your book.', 'pressbooks' ),
+		]
+	);
+
+	x_add_metadata_field(
 		'pb_publisher', 'metadata', [
 			'group' => 'general-book-information',
 			'label' => __( 'Publisher', 'pressbooks' ),

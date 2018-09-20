@@ -181,7 +181,7 @@ class Catalog {
 				$data[ $i ]['featured'] = $val['featured'];
 				$data[ $i ]['deleted'] = 0;
 				$data[ $i ]['title'] = ! empty( $metadata['pb_title'] ) ? $metadata['pb_title'] : get_bloginfo( 'name' );
-				$data[ $i ]['author'] = ( ! \Pressbooks\Utility\empty_space( $metadata['pb_authors'] ) ) ? oxford_comma_explode( $metadata['pb_authors'] )[0] : '';
+				$data[ $i ]['author'] = empty( $metadata['pb_credit_override'] ) ? ( ( ! \Pressbooks\Utility\empty_space( $metadata['pb_authors'] ) ) ? oxford_comma_explode( $metadata['pb_authors'] )[0] : '' ) : $metadata['pb_credit_override'];
 				$data[ $i ]['pub_date'] = ! empty( $metadata['pb_publication_date'] ) ? date( 'Y-m-d', (int) $metadata['pb_publication_date'] ) : '';
 				$data[ $i ]['private'] = ( ! empty( get_option( 'blog_public' ) ) ? 0 : 1 );
 
@@ -266,7 +266,7 @@ class Catalog {
 			$data[ $i ]['featured'] = 0;
 			$data[ $i ]['deleted'] = 1;
 			$data[ $i ]['title'] = ! empty( $metadata['pb_title'] ) ? $metadata['pb_title'] : get_bloginfo( 'name' );
-			$data[ $i ]['author'] = ( ! \Pressbooks\Utility\empty_space( $metadata['pb_authors'] ) ) ? oxford_comma_explode( $metadata['pb_authors'] )[0] : '';
+			$data[ $i ]['author'] = empty( $metadata['pb_credit_override'] ) ? ( ( ! \Pressbooks\Utility\empty_space( $metadata['pb_authors'] ) ) ? oxford_comma_explode( $metadata['pb_authors'] )[0] : '' ) : $metadata['pb_credit_override'];
 			$data[ $i ]['pub_date'] = ! empty( $metadata['pb_publication_date'] ) ? date( 'Y-m-d', (int) $metadata['pb_publication_date'] ) : '';
 			$data[ $i ]['private'] = ( ! empty( get_option( 'blog_public' ) ) ? 0 : 1 );
 
