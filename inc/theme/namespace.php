@@ -172,14 +172,14 @@ function migrate_book_themes() {
 	if ( $pressbooks_theme_migration === 3 ) {
 		$theme = wp_get_theme()->get_stylesheet();
 		if ( $theme === 'pressbooks-dillard' ) {
-			// Turn on title decoration
+			// Enable title decoration for Dillard 2.0
 			$options = get_option( 'pressbooks_theme_options_global' );
 			$options['enable_title_decoration'] = 1;
 			update_option( 'pressbooks_theme_options_global', $options );
 		}
 
 		if ( $theme === 'pressbooks-dillardplain' ) {
-			// Migrate to Dillard 2.0
+			// Switch theme to Dillard 2.0 with title decoration disabled
 			switch_theme( 'pressbooks-dillard' );
 			$lock = Lock::init();
 			if ( $lock->isLocked() ) {
