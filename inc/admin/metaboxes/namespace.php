@@ -300,6 +300,13 @@ function add_meta_boxes() {
 		]
 	);
 
+	x_add_metadata_field(
+		'pb_edition', 'metadata', [
+			'group' => 'general-book-information',
+			'label' => __( 'Edition', 'pressbooks' ),
+		]
+	);
+
 	if ( $show_expanded_metadata ) {
 		x_add_metadata_field(
 			'pb_onsale_date', 'metadata', [
