@@ -1403,7 +1403,7 @@ class HTMLBook extends Export {
 			$my_part->setContent(
 				[
 					$header,
-					$this->preProcessPostContent( $part_content ),
+					$part_content,
 				]
 			);
 
