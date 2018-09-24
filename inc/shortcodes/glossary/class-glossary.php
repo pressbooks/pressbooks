@@ -144,6 +144,7 @@ class Glossary {
 	 * Returns the HTML <dl> description list of all glossary terms
 	 *
 	 * @since 5.5.0
+	 * @see \Pressbooks\HTMLBook\Component\Glossary
 	 *
 	 * @return string
 	 */
@@ -244,8 +245,6 @@ class Glossary {
 	 * @return string
 	 */
 	function shortcodeHandler( $atts, $content ) {
-		$ret_val = '';
-
 		$a = shortcode_atts(
 			[
 				'id' => '',
@@ -257,7 +256,7 @@ class Glossary {
 		} elseif ( empty( $content ) && empty( $a['id'] ) ) {
 			$ret_val = $this->glossaryTerms();
 		} else {
-			return $content;
+			$ret_val = $content;
 		}
 
 		return $ret_val;

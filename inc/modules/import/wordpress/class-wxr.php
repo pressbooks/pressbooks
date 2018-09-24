@@ -880,7 +880,7 @@ class Wxr extends Import {
 	 * @since 4.1.0
 	 *
 	 * @param \DOMDocument $dom
-	 * @param HTML5 $html5
+	 * @param \Masterminds\HTML5 $html5
 	 *
 	 * @return array An array containing the \DOMDocument and the IDs of created attachments
 	 */
