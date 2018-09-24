@@ -10,6 +10,8 @@ use PressbooksMix\Assets;
 
 class Glossary {
 
+	const SHORTCODE = 'pb_glossary';
+
 	/**
 	 * @var Glossary
 	 */
@@ -204,11 +206,11 @@ class Glossary {
 	 * @param Glossary $obj
 	 */
 	static public function hooks( Glossary $obj ) {
-		add_shortcode( 'pb_glossary', [ $obj, 'shortcodeHandler' ] );
+		add_shortcode( self::SHORTCODE, [ $obj, 'shortcodeHandler' ] );
 		add_filter(
 			'no_texturize_shortcodes',
 			function ( $excluded_shortcodes ) {
-				$excluded_shortcodes[] = 'pb_glossary';
+				$excluded_shortcodes[] = Glossary::SHORTCODE;
 
 				return $excluded_shortcodes;
 			}

@@ -186,12 +186,12 @@ class Cloner {
 	/**
 	 * @var array
 	 */
-	private $imageWasAlreadyDownloaded = [];
+	protected $imageWasAlreadyDownloaded = [];
 
 	/**
 	 * @var array
 	 */
-	private $mediaWasAlreadyDownloaded = [];
+	protected $mediaWasAlreadyDownloaded = [];
 
 	/**
 	 * Constructor.

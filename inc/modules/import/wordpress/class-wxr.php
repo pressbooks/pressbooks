@@ -55,14 +55,24 @@ class Wxr extends Import {
 	protected $contributors;
 
 	/**
-	 * @var array
+	 * @var \Pressbooks\Entities\Cloner\Transition[]
 	 */
-	private $imageWasAlreadyDownloaded = [];
+	protected $transitions;
+
+	/**
+	 * @var int[]
+	 */
+	protected $postsWithGlossaryShortcodesToFix = [];
 
 	/**
 	 * @var array
 	 */
-	private $mediaWasAlreadyDownloaded = [];
+	protected $imageWasAlreadyDownloaded = [];
+
+	/**
+	 * @var array
+	 */
+	protected $mediaWasAlreadyDownloaded = [];
 
 	/**
 	 *
@@ -217,6 +227,10 @@ class Wxr extends Import {
 			}
 		}
 
+		// -----------------------------------------------------------------------------
+		// Import posts, start!
+		// -----------------------------------------------------------------------------
+
 		foreach ( $xml['posts'] as $p ) {
 
 			// Skip
@@ -254,6 +268,10 @@ class Wxr extends Import {
 				if ( 'part' === $post_type ) {
 					$chapter_parent = $pid;
 				}
+			}
+
+			if ( has_shortcode( $html, \Pressbooks\Shortcodes\Glossary\Glossary::SHORTCODE ) ) {
+				$this->postsWithGlossaryShortcodesToFix[] = $pid;
 			}
 
 			// if this is a custom post type,
@@ -295,7 +313,19 @@ class Wxr extends Import {
 				);
 			}
 			$totals['media'] = $totals['media'] + count( $attachments );
+
+			$transition = new \Pressbooks\Entities\Cloner\Transition();
+			$transition->type = $post_type;
+			$transition->oldId = $p['post_id'];
+			$transition->newId = $pid;
+			$this->transitions[] = $transition;
 		}
+
+		$this->fixInternalShortcodes();
+
+		// -----------------------------------------------------------------------------
+		// Import posts, done!
+		// -----------------------------------------------------------------------------
 
 		wp_defer_term_counting( false ); // Flush
 
@@ -311,6 +341,28 @@ class Wxr extends Import {
 		);
 
 		return $this->revokeCurrentImport();
+	}
+
+	/**
+	 * Fix shortcodes with references to internal IDs
+	 */
+	protected function fixInternalShortcodes() {
+		// Glossary
+		foreach ( $this->postsWithGlossaryShortcodesToFix as $post_id ) {
+			$post = get_post( $post_id );
+			foreach ( $this->transitions as $transition ) {
+				if ( $transition->type === 'glossary' ) {
+					$post->post_content = \Pressbooks\Utility\shortcode_att_replace(
+						$post->post_content,
+						\Pressbooks\Shortcodes\Glossary\Glossary::SHORTCODE,
+						'id',
+						$transition->oldId,
+						$transition->newId
+					);
+				}
+			}
+			wp_update_post( $post );
+		}
 	}
 
 	/**
