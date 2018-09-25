@@ -275,9 +275,6 @@ class Wxr extends Import {
 				}
 			}
 
-			// Shortcode hacker, no ease up tonight.
-			$this->checkInternalShortcodes( $html, $pid );
-
 			// if this is a custom post type,
 			// and it has terms associated with it...
 			if ( ( in_array( $post_type, $custom_post_types, true ) && isset( $p['terms'] ) ) ) {
@@ -317,6 +314,9 @@ class Wxr extends Import {
 				);
 			}
 			$totals['media'] = $totals['media'] + count( $attachments );
+
+			// Shortcode hacker, no ease up tonight.
+			$this->checkInternalShortcodes( $html, $pid );
 
 			// Store a transitional state
 			$this->transitions[] = $this->createTransition( $post_type, $p['post_id'], $pid );

@@ -312,6 +312,9 @@ class Cloner {
 		switch_to_blog( $this->targetBookId );
 		wp_defer_term_counting( true );
 
+		// Pre-processor
+		$this->clonePreProcess();
+
 		// Clone Metadata
 		$this->clonedItems['metadata'][] = $this->cloneMetadata();
 
@@ -360,6 +363,9 @@ class Cloner {
 				$this->clonedItems['back-matter'][] = $new_backmatter;
 			}
 		}
+
+		// Post-processor
+		$this->clonePostProcess();
 
 		wp_defer_term_counting( false ); // Flush
 		restore_current_blog();
@@ -434,6 +440,13 @@ class Cloner {
 
 		$this->maybeRestoreCurrentBlog();
 		return true;
+	}
+
+	/**
+	 * Pre-processor
+	 */
+	public function clonePreProcess() {
+		// TODO
 	}
 
 	/**
@@ -537,6 +550,13 @@ class Cloner {
 	 */
 	public function cloneBackMatter( $id ) {
 		return $this->cloneSection( $id, 'back-matter' );
+	}
+
+	/**
+	 * Post-processor
+	 */
+	public function clonePostProcess() {
+		$this->fixInternalShortcodes();
 	}
 
 	/**
@@ -1045,6 +1065,12 @@ class Cloner {
 				]
 			);
 		}
+
+		// Shortcode hacker, no ease up tonight.
+		$this->checkInternalShortcodes( $section['content'], $section_id );
+
+		// Store a transitional state
+		$this->transitions[] = $this->createTransition( $post_type, $section_id, $response['id'] );
 
 		return $response['id'];
 	}

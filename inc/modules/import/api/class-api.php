@@ -97,12 +97,16 @@ class Api extends Import {
 		if ( empty( $current_import['url'] ) ) {
 			return false;
 		}
+
+		$post_status = $current_import['default_post_status'];
+
 		$this->cloner = new Cloner( $current_import['url'] );
 		if ( ! $this->cloner->setupSource( false ) ) {
 			return false;
 		}
 
-		$post_status = $current_import['default_post_status'];
+		// Pre-processor
+		$this->cloner->clonePreProcess();
 
 		foreach ( $this->cloner->getSourceBookStructure()['front-matter'] as $frontmatter ) {
 			if ( $this->flaggedForImport( $frontmatter['id'] ) ) {
@@ -132,6 +136,9 @@ class Api extends Import {
 				$this->updatePost( $bm_id, $post_status );
 			}
 		}
+
+		// Post-processor
+		$this->cloner->clonePostProcess();
 
 		// Done
 		return $this->revokeCurrentImport();
