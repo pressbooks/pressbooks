@@ -725,7 +725,7 @@ class Wxr extends Import {
 	 * @param int $post_id
 	 * @param string $html
 	 */
-	protected function checkInternalShortcodes( $post_id, $html  ) {
+	protected function checkInternalShortcodes( $post_id, $html ) {
 		// Glossary
 		if ( has_shortcode( $html, \Pressbooks\Shortcodes\Glossary\Glossary::SHORTCODE ) ) {
 			$this->postsWithGlossaryShortcodesToFix[] = $post_id;
