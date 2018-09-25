@@ -65,6 +65,11 @@ class Wxr extends Import {
 	protected $postsWithGlossaryShortcodesToFix = [];
 
 	/**
+	 * @var int[]
+	 */
+	protected $postsWithAttachmentsShortcodesToFix = [];
+
+	/**
 	 * @var array
 	 */
 	protected $imageWasAlreadyDownloaded = [];
@@ -270,9 +275,8 @@ class Wxr extends Import {
 				}
 			}
 
-			if ( has_shortcode( $html, \Pressbooks\Shortcodes\Glossary\Glossary::SHORTCODE ) ) {
-				$this->postsWithGlossaryShortcodesToFix[] = $pid;
-			}
+			// Shortcode hacker, no ease up tonight.
+			$this->checkInternalShortcodes( $html, $pid );
 
 			// if this is a custom post type,
 			// and it has terms associated with it...
@@ -314,11 +318,8 @@ class Wxr extends Import {
 			}
 			$totals['media'] = $totals['media'] + count( $attachments );
 
-			$transition = new \Pressbooks\Entities\Cloner\Transition();
-			$transition->type = $post_type;
-			$transition->oldId = $p['post_id'];
-			$transition->newId = $pid;
-			$this->transitions[] = $transition;
+			// Store a transitional state
+			$this->transitions[] = $this->createTransition( $post_type, $p['post_id'], $pid );
 		}
 
 		$this->fixInternalShortcodes();
@@ -344,6 +345,23 @@ class Wxr extends Import {
 	}
 
 	/**
+	 * Check if post content contains shortcodes with references to internal IDs that we will need to fix
+	 *
+	 * @param string $html
+	 * @param int $pid
+	 */
+	protected function checkInternalShortcodes( $html, $pid ) {
+		// Glossary
+		if ( has_shortcode( $html, \Pressbooks\Shortcodes\Glossary\Glossary::SHORTCODE ) ) {
+			$this->postsWithGlossaryShortcodesToFix[] = $pid;
+		}
+		// Attachments
+		if ( has_shortcode( $html, \Pressbooks\Shortcodes\Attributions\Attachments::SHORTCODE ) ) {
+			$this->postsWithAttachmentsShortcodesToFix[] = $pid;
+		}
+	}
+
+	/**
 	 * Fix shortcodes with references to internal IDs
 	 */
 	protected function fixInternalShortcodes() {
@@ -355,6 +373,22 @@ class Wxr extends Import {
 					$post->post_content = \Pressbooks\Utility\shortcode_att_replace(
 						$post->post_content,
 						\Pressbooks\Shortcodes\Glossary\Glossary::SHORTCODE,
+						'id',
+						$transition->oldId,
+						$transition->newId
+					);
+				}
+			}
+			wp_update_post( $post );
+		}
+		// Attachments
+		foreach ( $this->postsWithAttachmentsShortcodesToFix as $post_id ) {
+			$post = get_post( $post_id );
+			foreach ( $this->transitions as $transition ) {
+				if ( $transition->type === 'attachment' ) {
+					$post->post_content = \Pressbooks\Utility\shortcode_att_replace(
+						$post->post_content,
+						\Pressbooks\Shortcodes\Attributions\Attachments::SHORTCODE,
 						'id',
 						$transition->oldId,
 						$transition->newId
@@ -704,6 +738,7 @@ class Wxr extends Import {
 	protected function createMediaEntity( $item ) {
 		$m = new \Pressbooks\Entities\Cloner\Media();
 
+		$m->id = $item['post_id'];
 		$m->title = $item['post_title'];
 		$m->description = $item['post_content'];
 		$m->caption = $item['post_excerpt'];
@@ -722,6 +757,21 @@ class Wxr extends Import {
 		$m->sourceUrl = $item['attachment_url'];
 
 		return $m;
+	}
+
+	/**
+	 * @param string $type
+	 * @param int $old_id
+	 * @param int $new_id
+	 *
+	 * @return \Pressbooks\Entities\Cloner\Transition
+	 */
+	protected function createTransition( $type, $old_id, $new_id ) {
+		$transition = new \Pressbooks\Entities\Cloner\Transition();
+		$transition->type = $type;
+		$transition->oldId = $old_id;
+		$transition->newId = $new_id;
+		return $transition;
 	}
 
 	/**
@@ -869,6 +919,9 @@ class Wxr extends Import {
 			foreach ( $m->meta as $meta_key => $meta_value ) {
 				update_post_meta( $pid, $meta_key, $meta_value );
 			}
+			// Store a transitional state
+			$this->transitions[] = $this->createTransition( 'attachment', $m->id, $pid );
+			// Don't download the same file again
 			$this->imageWasAlreadyDownloaded[ $remote_img_location ] = $pid;
 		}
 		@unlink( $tmp_name ); // @codingStandardsIgnoreLine
@@ -1036,6 +1089,9 @@ class Wxr extends Import {
 			foreach ( $m->meta as $meta_key => $meta_value ) {
 				update_post_meta( $pid, $meta_key, $meta_value );
 			}
+			// Store a transitional state
+			$this->transitions[] = $this->createTransition( 'attachment', $m->id, $pid );
+			// Don't download the same file again
 			$this->mediaWasAlreadyDownloaded[ $remote_media_location ] = $pid;
 		}
 		@unlink( $tmp_name ); // @codingStandardsIgnoreLine

@@ -13,6 +13,11 @@ namespace Pressbooks\Entities\Cloner;
 class Media {
 
 	/**
+	 * @var int
+	 */
+	public $id = 0;
+
+	/**
 	 * @var string
 	 */
 	public $title = '';

@@ -20,10 +20,10 @@ class Transition {
 	/**
 	 * @var int
 	 */
-	public $newId = 0;
+	public $oldId = 0;
 
 	/**
 	 * @var int
 	 */
-	public $oldId = 0;
+	public $newId = 0;
 }
