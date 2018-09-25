@@ -184,6 +184,22 @@ class Cloner {
 	protected $contributors;
 
 	/**
+	 * @var \Pressbooks\Entities\Cloner\Transition[]
+	 */
+	protected $transitions;
+
+	/**
+	 * @var int[]
+	 */
+	protected $postsWithGlossaryShortcodesToFix = [];
+
+	/**
+	 * @var int[]
+	 */
+	protected $postsWithAttachmentsShortcodesToFix = [];
+
+
+	/**
 	 * @var array
 	 */
 	protected $imageWasAlreadyDownloaded = [];
@@ -565,12 +581,30 @@ class Cloner {
 	}
 
 	/**
+	 * @param string $type
+	 * @param int $old_id
+	 * @param int $new_id
+	 *
+	 * @return \Pressbooks\Entities\Cloner\Transition
+	 */
+	protected function createTransition( $type, $old_id, $new_id ) {
+		$transition = new  Entities\Cloner\Transition();
+		$transition->type = $type;
+		$transition->oldId = $old_id;
+		$transition->newId = $new_id;
+		return $transition;
+	}
+
+	/**
 	 * @param array $item
 	 *
 	 * @return \Pressbooks\Entities\Cloner\Media
 	 */
 	protected function createMediaEntity( $item ) {
 		$m = new Entities\Cloner\Media();
+		if ( isset( $item['id'] ) ) {
+			$m->id = $item['id'];
+		}
 		if ( isset( $item['title'], $item['title']['raw'] ) ) {
 			$m->title = $item['title']['raw'];
 		}
@@ -590,6 +624,76 @@ class Cloner {
 			$m->sourceUrl = $item['source_url'];
 		}
 		return $m;
+	}
+
+	/**
+	 * @param \Pressbooks\Entities\Cloner\Media $media
+	 *
+	 * @return array
+	 */
+	protected function createMediaPatch( $media ) {
+		return [
+			'title' => $media->title,
+			'meta' => $media->meta,
+			'description' => $media->description,
+			'caption' => $media->caption,
+			'alt_text' => $media->altText,
+		];
+	}
+
+	/**
+	 * Check if post content contains shortcodes with references to internal IDs that we will need to fix
+	 *
+	 * @param string $html
+	 * @param int $pid
+	 */
+	protected function checkInternalShortcodes( $html, $pid ) {
+		// Glossary
+		if ( has_shortcode( $html, Shortcodes\Glossary\Glossary::SHORTCODE ) ) {
+			$this->postsWithGlossaryShortcodesToFix[] = $pid;
+		}
+		// Attachments
+		if ( has_shortcode( $html, Shortcodes\Attributions\Attachments::SHORTCODE ) ) {
+			$this->postsWithAttachmentsShortcodesToFix[] = $pid;
+		}
+	}
+
+	/**
+	 * Fix shortcodes with references to internal IDs
+	 */
+	protected function fixInternalShortcodes() {
+		// Glossary
+		foreach ( $this->postsWithGlossaryShortcodesToFix as $post_id ) {
+			$post = get_post( $post_id );
+			foreach ( $this->transitions as $transition ) {
+				if ( $transition->type === 'glossary' ) {
+					$post->post_content = \Pressbooks\Utility\shortcode_att_replace(
+						$post->post_content,
+						Shortcodes\Glossary\Glossary::SHORTCODE,
+						'id',
+						$transition->oldId,
+						$transition->newId
+					);
+				}
+			}
+			wp_update_post( $post );
+		}
+		// Attachments
+		foreach ( $this->postsWithAttachmentsShortcodesToFix as $post_id ) {
+			$post = get_post( $post_id );
+			foreach ( $this->transitions as $transition ) {
+				if ( $transition->type === 'attachment' ) {
+					$post->post_content = \Pressbooks\Utility\shortcode_att_replace(
+						$post->post_content,
+						Shortcodes\Attributions\Attachments::SHORTCODE,
+						'id',
+						$transition->oldId,
+						$transition->newId
+					);
+				}
+			}
+			wp_update_post( $post );
+		}
 	}
 
 	/**
@@ -1281,11 +1385,9 @@ class Cloner {
 		$attached_file = image_strip_baseurl( $url );
 
 		if ( isset( $this->knownMedia[ $attached_file ] ) ) {
-			$patch = $this->createMediaPatch( $this->knownMedia[ $attached_file ] );
 			$remote_img_location = $this->knownMedia[ $attached_file ]->sourceUrl;
 			$filename = basename( $remote_img_location );
 		} else {
-			$patch = [];
 			$remote_img_location = $url;
 		}
 
@@ -1333,32 +1435,23 @@ class Cloner {
 		if ( ! $src ) {
 			$pid = 0;
 		} else {
-			if ( ! empty( $patch ) ) {
+			if ( isset( $this->knownMedia[ $attached_file ] ) ) {
+				// Patch
+				$m = $this->knownMedia[ $attached_file ];
 				$request = new \WP_REST_Request( 'PATCH', "/wp/v2/media/{$pid}" );
-				$request->set_body_params( $patch );
+				$request->set_body_params( $this->createMediaPatch( $m ) );
 				rest_do_request( $request );
+				// Store a transitional state
+				$this->transitions[] = $this->createTransition( 'attachment', $m->id, $pid );
 			}
-			$this->clonedItems['media'][] = $pid;
+			// Don't download the same file again
 			$this->imageWasAlreadyDownloaded[ $remote_img_location ] = $pid;
+			// Counter
+			$this->clonedItems['media'][] = $pid;
 		}
 		@unlink( $tmp_name ); // @codingStandardsIgnoreLine
 
 		return $pid;
-	}
-
-	/**
-	 * @param \Pressbooks\Entities\Cloner\Media $media
-	 *
-	 * @return array
-	 */
-	protected function createMediaPatch( $media ) {
-		return [
-			'title' => $media->title,
-			'meta' => $media->meta,
-			'description' => $media->description,
-			'caption' => $media->caption,
-			'alt_text' => $media->altText,
-		];
 	}
 
 	/**
@@ -1481,11 +1574,9 @@ class Cloner {
 		$attached_file = media_strip_baseurl( $url );
 
 		if ( isset( $this->knownMedia[ $attached_file ] ) ) {
-			$patch = $this->createMediaPatch( $this->knownMedia[ $attached_file ] );
 			$remote_media_location = $this->knownMedia[ $attached_file ]->sourceUrl;
 			$filename = basename( $remote_media_location );
 		} else {
-			$patch = [];
 			$remote_media_location = $url;
 		}
 
@@ -1512,13 +1603,19 @@ class Cloner {
 		if ( ! $src ) {
 			$pid = 0;
 		} else {
-			if ( ! empty( $patch ) ) {
+			if ( isset( $this->knownMedia[ $attached_file ] ) ) {
+				// Patch
+				$m = $this->knownMedia[ $attached_file ];
 				$request = new \WP_REST_Request( 'PATCH', "/wp/v2/media/{$pid}" );
-				$request->set_body_params( $patch );
+				$request->set_body_params( $this->createMediaPatch( $m ) );
 				rest_do_request( $request );
+				// Store a transitional state
+				$this->transitions[] = $this->createTransition( 'attachment', $m->id, $pid );
 			}
-			$this->clonedItems['media'][] = $pid;
+			// Don't download the same file again
 			$this->mediaWasAlreadyDownloaded[ $remote_media_location ] = $pid;
+			// Counter
+			$this->clonedItems['media'][] = $pid;
 		}
 		@unlink( $tmp_name ); // @codingStandardsIgnoreLine
 
