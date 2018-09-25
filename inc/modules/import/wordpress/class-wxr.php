@@ -316,7 +316,7 @@ class Wxr extends Import {
 			$totals['media'] = $totals['media'] + count( $attachments );
 
 			// Shortcode hacker, no ease up tonight.
-			$this->checkInternalShortcodes( $html, $pid );
+			$this->checkInternalShortcodes( $pid, $html );
 
 			// Store a transitional state
 			$this->transitions[] = $this->createTransition( $post_type, $p['post_id'], $pid );
@@ -722,17 +722,17 @@ class Wxr extends Import {
 	/**
 	 * Check if post content contains shortcodes with references to internal IDs that we will need to fix
 	 *
+	 * @param int $post_id
 	 * @param string $html
-	 * @param int $pid
 	 */
-	protected function checkInternalShortcodes( $html, $pid ) {
+	protected function checkInternalShortcodes( $post_id, $html  ) {
 		// Glossary
 		if ( has_shortcode( $html, \Pressbooks\Shortcodes\Glossary\Glossary::SHORTCODE ) ) {
-			$this->postsWithGlossaryShortcodesToFix[] = $pid;
+			$this->postsWithGlossaryShortcodesToFix[] = $post_id;
 		}
 		// Attachments
 		if ( has_shortcode( $html, \Pressbooks\Shortcodes\Attributions\Attachments::SHORTCODE ) ) {
-			$this->postsWithAttachmentsShortcodesToFix[] = $pid;
+			$this->postsWithAttachmentsShortcodesToFix[] = $post_id;
 		}
 	}
 
