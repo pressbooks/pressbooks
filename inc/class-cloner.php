@@ -54,7 +54,7 @@ class Cloner {
 	protected $sourceBookId;
 
 	/**
-	 * The structure and contents of the source book as returned by the Pressbooks REST API v2.
+	 * The structure and contents of the source book (TOC) as returned by the Pressbooks REST API v2.
 	 *
 	 * @since 4.1.0
 	 *
@@ -70,6 +70,15 @@ class Cloner {
 	 * @var array
 	 */
 	protected $sourceBookTerms;
+
+	/**
+	 * The glossary posts as returned by the Pressbooks REST API v2.
+	 *
+	 * @since 5.6.0
+	 *
+	 * @var array
+	 */
+	protected $sourceBookGlossary;
 
 	/**
 	 * The metadata of the source book as returned by the Pressbooks REST API v2.
@@ -116,20 +125,6 @@ class Cloner {
 	 */
 	protected $termMap = [];
 
-	/**
-	 * An array with the quantity of items to be cloned.
-	 *
-	 * @since 4.1.0
-	 *
-	 * @var array
-	 */
-	protected $itemsToClone = [
-		'terms' => 0,
-		'front-matter' => 0,
-		'back-matter' => 0,
-		'parts' => 0,
-		'chapters' => 0,
-	];
 	/**
 	 * An array of cloned items.
 	 *
@@ -265,6 +260,8 @@ class Cloner {
 	}
 
 	/**
+	 *  /wp-json/pressbooks/v2/toc
+	 *
 	 * @return array
 	 */
 	public function getSourceBookStructure() {
@@ -272,6 +269,8 @@ class Cloner {
 	}
 
 	/**
+	 * /wp-json/pressbooks/v2/<post>-type
+	 *
 	 * @return array
 	 */
 	public function getSourceBookTerms() {
@@ -279,6 +278,17 @@ class Cloner {
 	}
 
 	/**
+	 * /wp-json/pressbooks/v2/glossary
+	 *
+	 * @return array
+	 */
+	public function getSourceBookGlossary() {
+		return $this->sourceBookGlossary;
+	}
+
+	/**
+	 * /wp-json/pressbooks/v2/metadata
+	 *
 	 * @return array
 	 */
 	public function getSourceBookMetadata() {
@@ -321,7 +331,6 @@ class Cloner {
 		// Clone Taxonomy Terms
 		$this->targetBookTerms = $this->getBookTerms( $this->targetBookUrl );
 		foreach ( $this->sourceBookTerms as $term ) {
-			$this->itemsToClone['terms']++;
 			$new_term = $this->cloneTerm( $term['id'] );
 			if ( $new_term ) {
 				$this->termMap[ $term['id'] ] = $new_term;
@@ -333,7 +342,6 @@ class Cloner {
 		foreach ( $this->sourceBookStructure['front-matter'] as $frontmatter ) {
 			$new_frontmatter = $this->cloneFrontMatter( $frontmatter['id'] );
 			if ( $new_frontmatter !== false ) {
-				$this->itemsToClone['front-matter']++;
 				$this->clonedItems['front-matter'][] = $new_frontmatter;
 			}
 		}
@@ -342,13 +350,11 @@ class Cloner {
 		foreach ( $this->sourceBookStructure['parts'] as $key => $part ) {
 			$new_part = $this->clonePart( $part['id'] );
 			if ( $new_part !== false ) {
-				$this->itemsToClone['parts']++;
 				$this->clonedItems['parts'][] = $new_part;
 				// Clone Chapters
 				foreach ( $this->sourceBookStructure['parts'][ $key ]['chapters'] as $chapter ) {
 					$new_chapter = $this->cloneChapter( $chapter['id'], $new_part );
 					if ( $new_chapter !== false ) {
-						$this->itemsToClone['chapters']++;
 						$this->clonedItems['chapters'][] = $new_chapter;
 					}
 				}
@@ -359,8 +365,15 @@ class Cloner {
 		foreach ( $this->sourceBookStructure['back-matter'] as $backmatter ) {
 			$new_backmatter = $this->cloneBackMatter( $backmatter['id'] );
 			if ( $new_backmatter !== false ) {
-				$this->itemsToClone['back-matter']++;
 				$this->clonedItems['back-matter'][] = $new_backmatter;
+			}
+		}
+
+		// Clone Glossary
+		foreach ( $this->sourceBookGlossary as $glossary ) {
+			$new_glossary = $this->cloneGlossary( $glossary['id'] );
+			if ( $new_glossary !== false ) {
+				$this->clonedItems['glossary'][] = $new_glossary;
 			}
 		}
 
@@ -437,6 +450,9 @@ class Cloner {
 			}
 		);
 		$this->knownMedia = $known_media_sorted;
+
+		// Set up $this->sourceBookGlossary
+		$this->sourceBookGlossary = $this->getBookGlossary( $this->sourceBookUrl );
 
 		$this->maybeRestoreCurrentBlog();
 		return true;
@@ -550,6 +566,18 @@ class Cloner {
 	 */
 	public function cloneBackMatter( $id ) {
 		return $this->cloneSection( $id, 'back-matter' );
+	}
+
+	/**
+	 * Clone glossary from a source book to a target book.
+	 *
+	 * @since 4.1.0
+	 *
+	 * @param int $id The ID of the back matter within the source book.
+	 * @return bool | int False if the clone failed; the ID of the new back matter if it succeeded.
+	 */
+	public function cloneGlossary( $id ) {
+		return $this->cloneSection( $id, 'glossary' );
 	}
 
 	/**
@@ -783,7 +811,7 @@ class Cloner {
 	public function getBookTerms( $url ) {
 		$terms = [];
 
-		foreach ( [ 'front-matter-type', 'chapter-type', 'back-matter-type' ] as $taxonomy ) {
+		foreach ( [ 'front-matter-type', 'chapter-type', 'back-matter-type', 'glossary-type' ] as $taxonomy ) {
 			// Handle request (local or global)
 			$response = $this->handleGetRequest(
 				$url, 'pressbooks/v2', "$taxonomy", [
@@ -791,14 +819,8 @@ class Cloner {
 				]
 			);
 
-			// Bail on error
 			if ( is_wp_error( $response ) ) {
-				$_SESSION['pb_errors'][] = sprintf(
-					'<p>%1$s</p><p>%2$s</p>',
-					__( 'The source book&rsquo;s taxonomies could not be read.', 'pressbooks' ),
-					$response->get_error_message()
-				);
-				return [];
+				continue;
 			}
 
 			// Remove links
@@ -808,7 +830,34 @@ class Cloner {
 			$terms = array_merge( $terms, $response );
 		}
 
+		if ( empty( $terms ) ) {
+			$_SESSION['pb_errors'][] = sprintf( '<p>%1$s</p>', __( 'The source book&rsquo;s taxonomies could not be read.', 'pressbooks' ) );
+		}
+
 		return $terms;
+	}
+
+	/**
+	 * @since 5.6.0
+	 *
+	 * @param $url
+	 *
+	 * @return array
+	 */
+	public function getBookGlossary( $url ) {
+		// Handle request (local or global)
+		$response = $this->handleGetRequest(
+			$url, 'pressbooks/v2', 'glossary', [
+				'per_page' => 100,
+			]
+		);
+
+		// Handle errors
+		if ( is_wp_error( $response ) ) {
+			return [];
+		} else {
+			return $response;
+		}
 	}
 
 	/**
@@ -957,7 +1006,7 @@ class Cloner {
 	}
 
 	/**
-	 * Clone a section (front matter, part, chapter, back matter) of a source book to a target book.
+	 * Clone a section (front matter, part, chapter, back matter, glossary) of a source book to a target book.
 	 *
 	 * @since 4.1.0
 	 *
@@ -976,13 +1025,10 @@ class Cloner {
 			return false;
 		}
 
-		// Locate section
-		foreach ( $this->sourceBookStructure['_embedded'][ $post_type ] as $k => $v ) {
-			if ( $v['id'] === absint( $section_id ) ) {
-				$section = $this->sourceBookStructure['_embedded'][ $post_type ][ $k ];
-				break;
-			}
-		};
+		$section = $this->locateSection( $section_id, $post_type );
+		if ( $section === false ) {
+			return false;
+		}
 
 		// _links key needs to be removed, pop it out into an ignored variable
 		$_links = array_pop( $section );
@@ -1010,22 +1056,20 @@ class Cloner {
 		}
 
 		// Set mapped term ID
-		if ( $post_type !== 'part' ) {
-			if ( isset( $section[ "$post_type-type" ] ) ) {
-				foreach ( $section[ "$post_type-type" ] as $key => $term_id ) {
-					if ( isset( $this->termMap[ $term_id ] ) ) {
-						// Use map
-						$section[ "$post_type-type" ][ $key ] = $this->termMap[ $term_id ];
-					} elseif ( empty( $this->targetBookUrl ) ) {
-						// Try to match an existing term
-						foreach ( $this->sourceBookTerms as $source_term ) {
-							if ( $source_term['id'] === $term_id ) {
-								$term = get_term_by( 'slug', $source_term['slug'], $source_term['taxonomy'] );
-								if ( $term ) {
-									$section[ "$post_type-type" ][ $key ] = $term->term_id;
-								}
-								break;
+		if ( isset( $section[ "$post_type-type" ] ) ) {
+			foreach ( $section[ "$post_type-type" ] as $key => $term_id ) {
+				if ( isset( $this->termMap[ $term_id ] ) ) {
+					// Use map
+					$section[ "$post_type-type" ][ $key ] = $this->termMap[ $term_id ];
+				} elseif ( empty( $this->targetBookUrl ) ) {
+					// Try to match an existing term
+					foreach ( $this->sourceBookTerms as $source_term ) {
+						if ( $source_term['id'] === $term_id ) {
+							$term = get_term_by( 'slug', $source_term['slug'], $source_term['taxonomy'] );
+							if ( $term ) {
+								$section[ "$post_type-type" ][ $key ] = $term->term_id;
 							}
+							break;
 						}
 					}
 				}
@@ -1067,12 +1111,35 @@ class Cloner {
 		}
 
 		// Shortcode hacker, no ease up tonight.
-		$this->checkInternalShortcodes( $section['content'], $section_id );
+		$this->checkInternalShortcodes( $section['content'], $response['id'] );
 
 		// Store a transitional state
 		$this->transitions[] = $this->createTransition( $post_type, $section_id, $response['id'] );
 
 		return $response['id'];
+	}
+
+	/**
+	 * @param int $section_id
+	 * @param string $post_type
+	 *
+	 * @return mixed
+	 */
+	protected function locateSection( $section_id, $post_type ) {
+		if ( $post_type === 'glossary' ) {
+			foreach ( $this->sourceBookGlossary as $k => $v ) {
+				if ( $v['id'] === absint( $section_id ) ) {
+					return $this->sourceBookGlossary[ $k ];
+				}
+			}
+		} else {
+			foreach ( $this->sourceBookStructure['_embedded'][ $post_type ] as $k => $v ) {
+				if ( $v['id'] === absint( $section_id ) ) {
+					return $this->sourceBookStructure['_embedded'][ $post_type ][ $k ];
+				}
+			};
+		}
+		return false;
 	}
 
 	/**
@@ -1157,6 +1224,12 @@ class Cloner {
 					if ( $v['id'] === absint( $section_id ) ) {
 						return $v['metadata'];
 					}
+				}
+			}
+		} elseif ( $post_type === 'glossary ' ) {
+			foreach ( $this->sourceBookGlossary as $k => $v ) {
+				if ( $v['id'] === absint( $section_id ) ) {
+					return $v['metadata'];
 				}
 			}
 		}
@@ -1947,13 +2020,14 @@ class Cloner {
 					$cloner = new Cloner( esc_url( $_POST['source_book_url'] ), $bookname, $booktitle );
 					if ( $cloner->cloneBook() ) {
 						$_SESSION['pb_notices'][] = sprintf(
-							__( 'Cloning succeeded! Cloned %1$s, %2$s, %3$s, %4$s, %5$s, and %6$s to %7$s.', 'pressbooks' ),
+							__( 'Cloning succeeded! Cloned %1$s, %2$s, %3$s, %4$s, %5$s, %6$s, and %7$s to %8$s.', 'pressbooks' ),
 							sprintf( _n( '%s term', '%s terms', count( getset( $cloner->clonedItems, 'terms', [] ) ), 'pressbooks' ), count( getset( $cloner->clonedItems, 'terms', [] ) ) ),
 							sprintf( _n( '%s front matter', '%s front matter', count( getset( $cloner->clonedItems, 'front-matter', [] ) ), 'pressbooks' ), count( getset( $cloner->clonedItems, 'front-matter', [] ) ) ),
 							sprintf( _n( '%s part', '%s parts', count( getset( $cloner->clonedItems, 'parts', [] ) ), 'pressbooks' ), count( getset( $cloner->clonedItems, 'parts', [] ) ) ),
 							sprintf( _n( '%s chapter', '%s chapters', count( getset( $cloner->clonedItems, 'chapters', [] ) ), 'pressbooks' ), count( getset( $cloner->clonedItems, 'chapters', [] ) ) ),
 							sprintf( _n( '%s back matter', '%s back matter', count( getset( $cloner->clonedItems, 'back-matter', [] ) ), 'pressbooks' ), count( getset( $cloner->clonedItems, 'back-matter', [] ) ) ),
 							sprintf( _n( '%s media attachment', '%s media attachments', count( getset( $cloner->clonedItems, 'media', [] ) ), 'pressbooks' ), count( getset( $cloner->clonedItems, 'media', [] ) ) ),
+							sprintf( _n( '%s glossary term', '%s glossary terms', count( getset( $cloner->clonedItems, 'glossary', [] ) ), 'pressbooks' ), count( getset( $cloner->clonedItems, 'glossary', [] ) ) ),
 							sprintf( '<a href="%1$s"><em>%2$s</em></a>', trailingslashit( $cloner->targetBookUrl ) . 'wp-admin/', $cloner->targetBookTitle )
 						);
 					} elseif ( empty( $_SESSION['pb_errors'] ) ) {

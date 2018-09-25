@@ -79,6 +79,11 @@ class Api extends Import {
 			}
 		}
 
+		foreach ( $this->cloner->getSourceBookGlossary() as $glossary ) {
+			$option['chapters'][ $glossary['id'] ] = $glossary['title']['rendered'];
+			$option['post_types'][ $glossary['id'] ] = 'glossary';
+		}
+
 		if ( empty( $option['chapters'] ) ) {
 			$_SESSION['pb_errors'][] = sprintf( __( 'No chapters in %s are licensed for cloning.', 'pressbooks' ), sprintf( '<em>%s</em>', $this->cloner->getSourceBookMetadata()['name'] ) );
 			return false;
@@ -134,6 +139,13 @@ class Api extends Import {
 			if ( $this->flaggedForImport( $backmatter['id'] ) ) {
 				$bm_id = $this->cloner->cloneBackMatter( $backmatter['id'] );
 				$this->updatePost( $bm_id, $post_status );
+			}
+		}
+
+		foreach ( $this->cloner->getSourceBookGlossary() as $glossary ) {
+			if ( $this->flaggedForImport( $glossary['id'] ) ) {
+				$gl_id = $this->cloner->cloneGlossary( $glossary['id'] );
+				$this->updatePost( $gl_id, $post_status );
 			}
 		}
 

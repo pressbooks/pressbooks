@@ -153,12 +153,12 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 
 		$timestamp1 = time();
 		$css_file1 = Container::get( 'Sass' )->pathToUserGeneratedCss() . "/prince-$timestamp1.css";
-		\Pressbooks\Utility\put_contents( $css_file1, $css );
+		$this->assertTrue( \Pressbooks\Utility\put_contents( $css_file1, $css ) );
 		$css_files[] = $css_file1;
 
 		$timestamp2 = time();
 		$css_file2 = Container::get( 'Sass' )->pathToUserGeneratedCss() . "/prince-$timestamp2.css";
-		\Pressbooks\Utility\put_contents( $css_file1, $css );
+		$this->assertTrue( \Pressbooks\Utility\put_contents( $css_file1, $css ) );
 		$css_files[] = $css_file2;
 
 		$latest = $i->getLatestExportStylePath( 'prince' );
