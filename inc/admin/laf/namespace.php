@@ -237,15 +237,8 @@ function replace_book_admin_menu() {
 
 	add_menu_page( __( 'Publish', 'pressbooks' ), __( 'Publish', 'pressbooks' ), 'edit_posts', 'pb_publish', [ $page, 'render' ], 'dashicons-products', 16 );
 
-	/**
-	 * Filter the ability to manage webbook privacy and related settings (default true).
-	 *
-	 * @since 5.4.0
-	 */
-	if ( apply_filters( 'pb_permissive_webbooks', true ) ) {
-		// Privacy
-		add_options_page( __( 'Sharing and Privacy Settings', 'pressbooks' ), __( 'Sharing &amp; Privacy', 'pressbooks' ), 'manage_options', 'pressbooks_sharingandprivacy_options', __NAMESPACE__ . '\display_privacy_settings' );
-	}
+	// Privacy
+	add_options_page( __( 'Sharing and Privacy Settings', 'pressbooks' ), __( 'Sharing &amp; Privacy', 'pressbooks' ), 'manage_options', 'pressbooks_sharingandprivacy_options', __NAMESPACE__ . '\display_privacy_settings' );
 
 	// Export
 	$option = get_option( 'pressbooks_export_options', ExportOptions::getDefaults() );
@@ -944,13 +937,20 @@ function privacy_settings_init() {
 		__NAMESPACE__ . '\privacy_settings_section_callback',
 		'privacy_settings'
 	);
-	add_settings_field(
-		'blog_public',
-		__( 'Book Visibility', 'pressbooks' ),
-		__NAMESPACE__ . '\privacy_blog_public_callback',
-		'privacy_settings',
-		'privacy_settings_section'
-	);
+	/**
+	 * Filter the ability to manage webbook privacy and related settings (default true).
+	 *
+	 * @since 5.4.0
+	 */
+	if ( apply_filters( 'pb_permissive_webbooks', true ) ) {
+		add_settings_field(
+			'blog_public',
+			__( 'Book Visibility', 'pressbooks' ),
+			__NAMESPACE__ . '\privacy_blog_public_callback',
+			'privacy_settings',
+			'privacy_settings_section'
+		);
+	}
 	add_settings_field(
 		'permissive_private_content',
 		__( 'Private Content', 'pressbooks' ),
