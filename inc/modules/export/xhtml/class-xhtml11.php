@@ -1231,7 +1231,6 @@ class Xhtml11 extends Export {
 
 			// Inject part content?
 			if ( $part_content ) {
-				$part_content = $this->preProcessPostContent( $part_content );
 				if ( $part_printf_changed ) {
 					$part_printf_changed = str_replace( '</h1></div>%s</div>', '</h1></div><div class="ugc part-ugc">%s</div></div>', $part_printf_changed );
 				} else {
