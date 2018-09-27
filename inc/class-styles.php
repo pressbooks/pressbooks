@@ -453,7 +453,7 @@ class Styles {
 					$this->sass->pathToUserGeneratedSass(),
 					$this->sass->pathToPartials(),
 					$this->sass->pathToFonts(),
-					get_stylesheet_directory(),
+					$this->getDir(),
 				]
 			);
 		} elseif ( $this->isCurrentThemeCompatible( 2 ) ) {
