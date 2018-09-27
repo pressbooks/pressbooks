@@ -70,7 +70,7 @@ class ApiTest extends \WP_UnitTestCase {
 			$request = new \WP_REST_Request( 'GET', $endpoint );
 			$response = $server->dispatch( $request );
 			$status = $response->get_status();
-			$this->assertEquals( $status, 404 );
+			$this->assertEquals( 404, $status );
 		}
 	}
 
