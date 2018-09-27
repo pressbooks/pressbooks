@@ -6319,9 +6319,9 @@ package-json@^4.0.0:
     registry-url "^3.0.3"
     semver "^5.1.0"
 
-pagedjs@^0.1.14:
-  version "0.1.14"
-  resolved "https://registry.yarnpkg.com/pagedjs/-/pagedjs-0.1.14.tgz#ce424a70962e015d653c3b1de7f864e32cf882af"
+pagedjs@^0.1.15:
+  version "0.1.15"
+  resolved "https://registry.yarnpkg.com/pagedjs/-/pagedjs-0.1.15.tgz#5ffe2d0f4542baf6952ecc04f31552be9e1186da"
   dependencies:
     css-tree "1.0.0-alpha.29"
     event-emitter "^0.3.5"
