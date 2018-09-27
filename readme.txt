@@ -38,6 +38,7 @@ TK.
 * Handle Dillard (Plain) 1.x to 2.0 upgrade: [#1361](https://github.com/pressbooks/pressbooks/pull/1361)
 * Hide "Welcome to WordPress" everywhere ([#1364](https://github.com/pressbooks/pressbooks/issues/#1364)): [#1365](https://github.com/pressbooks/pressbooks/pull/1365)
 * Use a file that is guaranteed to remain available for HTMLBook validation: [#1366](https://github.com/pressbooks/pressbooks/issues/1366)
+* Always use the filtered stylesheet directory in `\Pressbooks\Styles->customize()`: [#1372](https://github.com/pressbooks/pressbooks/pull/1372)
 
 = 5.5.1 =
 
