@@ -545,4 +545,29 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'support--vector--machines', \Pressbooks\Utility\str_lowercase_dash( ' Support  Vector  MachINEs    ') );
 	}
 
+	public function test_shortcode_att_replace() {
+
+		$c = '<h1>Test</h1><p>[pb_glossary hello=world id=111 foo=bar]Skatboards[/pb_glossary], not [pb_glossary hello=world id=222 foo=bar]death[/pb_glossary].</p><p>[some id=222]other shortcode[/some]</p>';
+		$x = \Pressbooks\Utility\shortcode_att_replace( $c, 'pb_glossary', 'id', 222, 999 );
+		$this->assertEquals( "<h1>Test</h1><p>[pb_glossary hello=world id=111 foo=bar]Skatboards[/pb_glossary], not [pb_glossary hello=world id=999 foo=bar]death[/pb_glossary].</p><p>[some id=222]other shortcode[/some]</p>", $x );
+
+		$c = '<h1>Test</h1><p>[pb_glossary hello="world" id="111" foo="bar"]Skatboards[/pb_glossary], not [pb_glossary hello="world" id="222" foo="bar"]death[/pb_glossary].</p><p>[some id="222"]other shortcode[/some]</p>';
+		$x = \Pressbooks\Utility\shortcode_att_replace( $c, 'pb_glossary', 'id', 222, 999 );
+		$this->assertEquals( '<h1>Test</h1><p>[pb_glossary hello="world" id="111" foo="bar"]Skatboards[/pb_glossary], not [pb_glossary hello="world" id="999" foo="bar"]death[/pb_glossary].</p><p>[some id="222"]other shortcode[/some]</p>', $x );
+
+		$c = "<h1>Test</h1><p>[pb_glossary hello='world' id='111' foo='bar']Skatboards[/pb_glossary], not [pb_glossary hello='world' id='222' foo='bar']death[/pb_glossary].</p><p>[some id='222']other shortcode[/some]</p>";
+		$x = \Pressbooks\Utility\shortcode_att_replace( $c, 'pb_glossary', 'id', 222, 999 );
+		$this->assertEquals( "<h1>Test</h1><p>[pb_glossary hello='world' id='111' foo='bar']Skatboards[/pb_glossary], not [pb_glossary hello='world' id='999' foo='bar']death[/pb_glossary].</p><p>[some id='222']other shortcode[/some]</p>", $x );
+
+		// Don't be greedy
+		$c = '[pb_glossary id=222 foo=111]Zig[/pb_glossary]';
+		$x = \Pressbooks\Utility\shortcode_att_replace( $c, 'pb_glossary', 'id', 111, 999 );
+		$this->assertEquals( '[pb_glossary id=222 foo=111]Zig[/pb_glossary]', $x );
+
+		// Complete junk? No problem!
+		$c = '[pb_glossary hello=world id=&quot;111&quot; foo="111"]Skatboards[/pb_glossary][pb_glossary broken=\'pebkac\']Yes[/pb_glossary]';
+		$x = \Pressbooks\Utility\shortcode_att_replace( $c, 'pb_glossary', 'id', 111, 999 );
+		$this->assertEquals( '[pb_glossary hello=world id=&quot;999&quot; foo="111"]Skatboards[/pb_glossary][pb_glossary broken=\'pebkac\']Yes[/pb_glossary]', $x );
+	}
+
 }

@@ -11,6 +11,8 @@ use Pressbooks\Media;
 
 class Attachments {
 
+	const SHORTCODE = 'media_attributions';
+
 	/**
 	 * @var Attachments
 	 */
@@ -41,13 +43,13 @@ class Attachments {
 	 */
 	static public function hooks( Attachments $obj ) {
 
-		add_shortcode( 'media_attributions', [ $obj, 'shortcodeHandler' ] );
+		add_shortcode( self::SHORTCODE, [ $obj, 'shortcodeHandler' ] );
 
 		// prevent further processing of formatted strings
 		add_filter(
 			'no_texturize_shortcodes',
 			function ( $excluded_shortcodes ) {
-				$excluded_shortcodes[] = 'media_attributions';
+				$excluded_shortcodes[] = Attachments::SHORTCODE;
 
 				return $excluded_shortcodes;
 			}

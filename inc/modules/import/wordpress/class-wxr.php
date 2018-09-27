@@ -55,14 +55,29 @@ class Wxr extends Import {
 	protected $contributors;
 
 	/**
-	 * @var array
+	 * @var \Pressbooks\Entities\Cloner\Transition[]
 	 */
-	private $imageWasAlreadyDownloaded = [];
+	protected $transitions;
+
+	/**
+	 * @var int[]
+	 */
+	protected $postsWithGlossaryShortcodesToFix = [];
+
+	/**
+	 * @var int[]
+	 */
+	protected $postsWithAttachmentsShortcodesToFix = [];
 
 	/**
 	 * @var array
 	 */
-	private $mediaWasAlreadyDownloaded = [];
+	protected $imageWasAlreadyDownloaded = [];
+
+	/**
+	 * @var array
+	 */
+	protected $mediaWasAlreadyDownloaded = [];
 
 	/**
 	 *
@@ -217,6 +232,10 @@ class Wxr extends Import {
 			}
 		}
 
+		// -----------------------------------------------------------------------------
+		// Import posts, start!
+		// -----------------------------------------------------------------------------
+
 		foreach ( $xml['posts'] as $p ) {
 
 			// Skip
@@ -295,7 +314,19 @@ class Wxr extends Import {
 				);
 			}
 			$totals['media'] = $totals['media'] + count( $attachments );
+
+			// Shortcode hacker, no ease up tonight.
+			$this->checkInternalShortcodes( $pid, $html );
+
+			// Store a transitional state
+			$this->transitions[] = $this->createTransition( $post_type, $p['post_id'], $pid );
 		}
+
+		$this->fixInternalShortcodes();
+
+		// -----------------------------------------------------------------------------
+		// Import posts, done!
+		// -----------------------------------------------------------------------------
 
 		wp_defer_term_counting( false ); // Flush
 
@@ -652,6 +683,7 @@ class Wxr extends Import {
 	protected function createMediaEntity( $item ) {
 		$m = new \Pressbooks\Entities\Cloner\Media();
 
+		$m->id = $item['post_id'];
 		$m->title = $item['post_title'];
 		$m->description = $item['post_content'];
 		$m->caption = $item['post_excerpt'];
@@ -670,6 +702,76 @@ class Wxr extends Import {
 		$m->sourceUrl = $item['attachment_url'];
 
 		return $m;
+	}
+
+	/**
+	 * @param string $type
+	 * @param int $old_id
+	 * @param int $new_id
+	 *
+	 * @return \Pressbooks\Entities\Cloner\Transition
+	 */
+	protected function createTransition( $type, $old_id, $new_id ) {
+		$transition = new \Pressbooks\Entities\Cloner\Transition();
+		$transition->type = $type;
+		$transition->oldId = $old_id;
+		$transition->newId = $new_id;
+		return $transition;
+	}
+
+	/**
+	 * Check if post content contains shortcodes with references to internal IDs that we will need to fix
+	 *
+	 * @param int $post_id
+	 * @param string $html
+	 */
+	protected function checkInternalShortcodes( $post_id, $html ) {
+		// Glossary
+		if ( has_shortcode( $html, \Pressbooks\Shortcodes\Glossary\Glossary::SHORTCODE ) ) {
+			$this->postsWithGlossaryShortcodesToFix[] = $post_id;
+		}
+		// Attachments
+		if ( has_shortcode( $html, \Pressbooks\Shortcodes\Attributions\Attachments::SHORTCODE ) ) {
+			$this->postsWithAttachmentsShortcodesToFix[] = $post_id;
+		}
+	}
+
+	/**
+	 * Fix shortcodes with references to internal IDs
+	 */
+	protected function fixInternalShortcodes() {
+		// Glossary
+		foreach ( $this->postsWithGlossaryShortcodesToFix as $post_id ) {
+			$post = get_post( $post_id );
+			foreach ( $this->transitions as $transition ) {
+				if ( $transition->type === 'glossary' ) {
+					$post->post_content = \Pressbooks\Utility\shortcode_att_replace(
+						$post->post_content,
+						\Pressbooks\Shortcodes\Glossary\Glossary::SHORTCODE,
+						'id',
+						$transition->oldId,
+						$transition->newId
+					);
+				}
+			}
+			wp_update_post( $post );
+		}
+		// Attachments
+		foreach ( $this->postsWithAttachmentsShortcodesToFix as $post_id ) {
+			$post = get_post( $post_id );
+			foreach ( $this->transitions as $transition ) {
+				if ( $transition->type === 'attachment' ) {
+					$post->post_content = \Pressbooks\Utility\shortcode_att_replace(
+						$post->post_content,
+						\Pressbooks\Shortcodes\Attributions\Attachments::SHORTCODE,
+						'id',
+						$transition->oldId,
+						$transition->newId
+					);
+				}
+			}
+			wp_update_post( $post );
+		}
 	}
 
 	/**
@@ -804,19 +906,24 @@ class Wxr extends Import {
 		if ( ! $src ) {
 			$pid = 0;
 		} else {
-			$m = $this->knownMedia[ $attached_file ];
-			wp_update_post(
-				[
-					'ID' => $pid,
-					'post_title' => $m->title,
-					'post_content' => $m->description,
-					'post_excerpt' => $m->caption,
-				]
-			);
-			update_post_meta( $pid, '_wp_attachment_image_alt', $m->altText );
-			foreach ( $m->meta as $meta_key => $meta_value ) {
-				update_post_meta( $pid, $meta_key, $meta_value );
+			if ( isset( $this->knownMedia[ $attached_file ] ) ) {
+				$m = $this->knownMedia[ $attached_file ];
+				wp_update_post(
+					[
+						'ID' => $pid,
+						'post_title' => $m->title,
+						'post_content' => $m->description,
+						'post_excerpt' => $m->caption,
+					]
+				);
+				update_post_meta( $pid, '_wp_attachment_image_alt', $m->altText );
+				foreach ( $m->meta as $meta_key => $meta_value ) {
+					update_post_meta( $pid, $meta_key, $meta_value );
+				}
+				// Store a transitional state
+				$this->transitions[] = $this->createTransition( 'attachment', $m->id, $pid );
 			}
+			// Don't download the same file again
 			$this->imageWasAlreadyDownloaded[ $remote_img_location ] = $pid;
 		}
 		@unlink( $tmp_name ); // @codingStandardsIgnoreLine
@@ -880,7 +987,7 @@ class Wxr extends Import {
 	 * @since 4.1.0
 	 *
 	 * @param \DOMDocument $dom
-	 * @param HTML5 $html5
+	 * @param \Masterminds\HTML5 $html5
 	 *
 	 * @return array An array containing the \DOMDocument and the IDs of created attachments
 	 */
@@ -972,18 +1079,23 @@ class Wxr extends Import {
 		if ( ! $src ) {
 			$pid = 0;
 		} else {
-			$m = $this->knownMedia[ $attached_file ];
-			wp_update_post(
-				[
-					'ID' => $pid,
-					'post_title' => $m->title,
-					'post_content' => $m->description,
-					'post_excerpt' => $m->caption,
-				]
-			);
-			foreach ( $m->meta as $meta_key => $meta_value ) {
-				update_post_meta( $pid, $meta_key, $meta_value );
+			if ( isset( $this->knownMedia[ $attached_file ] ) ) {
+				$m = $this->knownMedia[ $attached_file ];
+				wp_update_post(
+					[
+						'ID' => $pid,
+						'post_title' => $m->title,
+						'post_content' => $m->description,
+						'post_excerpt' => $m->caption,
+					]
+				);
+				foreach ( $m->meta as $meta_key => $meta_value ) {
+					update_post_meta( $pid, $meta_key, $meta_value );
+				}
+				// Store a transitional state
+				$this->transitions[] = $this->createTransition( 'attachment', $m->id, $pid );
 			}
+			// Don't download the same file again
 			$this->mediaWasAlreadyDownloaded[ $remote_media_location ] = $pid;
 		}
 		@unlink( $tmp_name ); // @codingStandardsIgnoreLine

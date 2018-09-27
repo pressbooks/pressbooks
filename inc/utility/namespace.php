@@ -1441,3 +1441,50 @@ function main_contact_email() {
 	}
 	return $email ? $email : '';
 }
+
+/**
+ * Find a shortcode in content, look for an attribute in that shortcode, if value matches $from, change it to $to, return fixed content.
+ *
+ * @param string $content
+ * @param string $tag
+ * @param string $att
+ * @param string $from
+ * @param string $to
+ *
+ * @return string
+ */
+function shortcode_att_replace( $content, $tag, $att, $from, $to ) {
+	$fixed_content = $content;
+	$regex = get_shortcode_regex( [ $tag ] );
+	if ( preg_match_all( '/' . $regex . '/s', $content, $matches, PREG_SET_ORDER ) ) {
+		foreach ( $matches as $shortcode ) {
+			$shortcode_attrs = shortcode_parse_atts( $shortcode[3] );
+			if ( ! is_array( $shortcode_attrs ) ) {
+				$shortcode_attrs = [];
+			}
+			if ( isset( $shortcode_attrs[ $att ] ) ) {
+				if ( $shortcode_attrs[ $att ] === "&quot;{$from}&quot;" ) {
+					$preg_from = "&quot;{$from}&quot;";
+					$preg_to = "&quot;{$to}&quot;";
+				} elseif ( $shortcode_attrs[ $att ] === '"' . $from . '"' ) {
+					$preg_from = '"' . $from . '"';
+					$preg_to = '"' . $to . '"';
+				} elseif ( $shortcode_attrs[ $att ] === "'{$from}'" ) {
+					$preg_from = "'{$from}'";
+					$preg_to = "'{$to}'";
+				} elseif ( (string) $shortcode_attrs[ $att ] === (string) $from ) {
+					$preg_from = $from;
+					$preg_to = $to;
+				} else {
+					continue;
+				}
+				$preg_from = '/(' . preg_quote( $att, '/' ) . '\s*=.*?)' . preg_quote( $preg_from, '/' ) . '/';
+				$preg_to = '${1}' . $preg_to;
+				$fixed_shortcode = preg_replace( $preg_from, $preg_to, $shortcode[0] );
+				$fixed_content = str_replace( $shortcode[0], $fixed_shortcode, $fixed_content );
+			}
+		}
+	}
+	return $fixed_content;
+}
+

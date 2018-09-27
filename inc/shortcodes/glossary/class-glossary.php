@@ -10,6 +10,8 @@ use PressbooksMix\Assets;
 
 class Glossary {
 
+	const SHORTCODE = 'pb_glossary';
+
 	/**
 	 * @var Glossary
 	 */
@@ -144,6 +146,7 @@ class Glossary {
 	 * Returns the HTML <dl> description list of all glossary terms
 	 *
 	 * @since 5.5.0
+	 * @see \Pressbooks\HTMLBook\Component\Glossary
 	 *
 	 * @return string
 	 */
@@ -203,11 +206,11 @@ class Glossary {
 	 * @param Glossary $obj
 	 */
 	static public function hooks( Glossary $obj ) {
-		add_shortcode( 'pb_glossary', [ $obj, 'shortcodeHandler' ] );
+		add_shortcode( self::SHORTCODE, [ $obj, 'shortcodeHandler' ] );
 		add_filter(
 			'no_texturize_shortcodes',
 			function ( $excluded_shortcodes ) {
-				$excluded_shortcodes[] = 'pb_glossary';
+				$excluded_shortcodes[] = Glossary::SHORTCODE;
 
 				return $excluded_shortcodes;
 			}
@@ -244,8 +247,6 @@ class Glossary {
 	 * @return string
 	 */
 	function shortcodeHandler( $atts, $content ) {
-		$ret_val = '';
-
 		$a = shortcode_atts(
 			[
 				'id' => '',
@@ -257,7 +258,7 @@ class Glossary {
 		} elseif ( empty( $content ) && empty( $a['id'] ) ) {
 			$ret_val = $this->glossaryTerms();
 		} else {
-			return $content;
+			$ret_val = $content;
 		}
 
 		return $ret_val;
