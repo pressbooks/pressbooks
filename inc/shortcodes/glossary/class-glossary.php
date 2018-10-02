@@ -172,7 +172,7 @@ class Glossary {
 
 		if ( true === $ok && count( $terms ) > 0 ) {
 			foreach ( $terms as $key => $value ) {
-				if ( ! empty( $type ) && ! $this->typeSearch( $type, $value['type'] ) ) {
+				if ( ! empty( $type ) && ! $this->commaDelimitedStringSearch( $type, $value['type'] ) ) {
 					// Type was not found. Skip this glossary term.
 					continue;
 				}
@@ -195,12 +195,14 @@ class Glossary {
 	 *
 	 * @return bool
 	 */
-	protected function typeSearch( $needle, $haystack ) {
-		if ( strpos( $haystack, ',' ) !== false ) {
-			return ( strpos( $haystack, "{$needle}," ) !== false );
-		} else {
-			return $needle === $haystack;
+	public function commaDelimitedStringSearch( $needle, $haystack ) {
+		$haystack = explode( ',', $haystack );
+		foreach ( $haystack as $hay ) {
+			if ( trim( $needle ) === trim( $hay ) ) {
+				return true;
+			}
 		}
+		return false;
 	}
 
 	/**
