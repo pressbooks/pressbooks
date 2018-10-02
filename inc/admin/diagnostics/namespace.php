@@ -166,6 +166,14 @@ function render_page() {
 	?>
 		<textarea style="width: 800px; max-width: 100%; height: 600px; background: #fff; font-family: monospace;" readonly="readonly" onclick="this.focus(); this.select()"
 				title="<?php _e( 'To copy the system info, click below then press Ctrl + C (PC) or Cmd + C (Mac).', 'pressbooks' ); ?>"><?php echo $output; ?></textarea>
+		<h2><?php _e( 'View Source', 'pressbooks' ); ?></h2>
+		<p>
+		<?php
+		$home_url = home_url();
+		$source_url = ( is_super_admin() ) ? $home_url . '/format/xhtml?debug=prince' : $home_url . '/format/xhtml';
+		printf( __( '<a href="%s">View the XHTML source</a> for PDF exports to diagnose any output issues you are encountering.', 'pressbooks' ), $source_url );
+		?>
+		</p>
 	</div>
 	<?php
 }
