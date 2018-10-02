@@ -65,10 +65,12 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 	}
 
 	public function test_glossaryTerms() {
-		$dl = $this->gl->glossaryTerms();
-
 		// assures alphabetical listing and format
+		$dl = $this->gl->glossaryTerms();
 		$this->assertEquals( '<section data-type="glossary"><header><h2>Glossary Terms</h2></header><dl data-type="glossary"><dt data-type="glossterm"><dfn id="dfn-neural-network">Neural Network</dfn></dt><dd data-type="glossdef">A computer system modeled on the <b>human brain</b> and <a href="https://en.wikipedia.org/wiki/Nervous_system" target="_blank">nervous system</a>.</dd><dt data-type="glossterm"><dfn id="dfn-support-vector-machine">Support Vector Machine</dfn></dt><dd data-type="glossdef">An <i>algorithm</i> that uses a nonlinear mapping to transform the original training data into a higher dimension</dd></dl></section>', $dl );
+		// assures empty (because this type is not found)
+		$dl = $this->gl->glossaryTerms( 'nothing-to-find' );
+		$this->assertEmpty( $dl );
 
 	}
 
@@ -109,6 +111,7 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 		$terms = $this->gl->getGlossaryTerms();
 		$this->assertEquals( 2, count( $terms ) );
 		$this->assertEquals( 'A computer system modeled on the <b>human brain</b> and <a href="https://en.wikipedia.org/wiki/Nervous_system" target="_blank">nervous system</a>.', $terms['Neural Network']['content'] );
+		$this->assertArrayHasKey( 'type', $terms['Neural Network'] );
 
 		// Test cache (and cache reset)
 		$args = [
