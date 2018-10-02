@@ -287,7 +287,7 @@ class Epub3 extends Epub201 {
 		$spec .= 'colgroup=-align,-char,-charoff,-valign,-width;';
 		$spec .= 'div=-align;';
 		$spec .= 'iframe=-align,-frameborder,-longdesc,-marginheight,-marginwidth,-scrolling;';
-		$spec .= 'img=-longdesc;';
+		$spec .= 'img=-longdesc,-srcset;';
 		$spec .= 'link=-charset,-rev,-target;';
 		$spec .= 'menu=-compact;';
 		$spec .= 'object=-archive,-classid,-codebase,-codetype,-declare,-standby;';
