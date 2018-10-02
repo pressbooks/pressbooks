@@ -154,7 +154,7 @@ class Glossary {
 	 * @since 5.5.0
 	 * @see \Pressbooks\HTMLBook\Component\Glossary
 	 *
-	 * @param string $type
+	 * @param string $type The slug of an entry in the Glossary Types taxonomy
 	 *
 	 * @return string
 	 */
@@ -172,7 +172,7 @@ class Glossary {
 
 		if ( true === $ok && count( $terms ) > 0 ) {
 			foreach ( $terms as $key => $value ) {
-				if ( ! empty( $type ) && ! $this->commaDelimitedStringSearch( $type, $value['type'] ) ) {
+				if ( ! empty( $type ) && ! \Pressbooks\Utility\comma_delimited_string_search( $value['type'], $type ) ) {
 					// Type was not found. Skip this glossary term.
 					continue;
 				}
@@ -187,22 +187,6 @@ class Glossary {
 		}
 
 		return $output;
-	}
-
-	/**
-	 * @param string $needle
-	 * @param string $haystack
-	 *
-	 * @return bool
-	 */
-	public function commaDelimitedStringSearch( $needle, $haystack ) {
-		$haystack = explode( ',', $haystack );
-		foreach ( $haystack as $hay ) {
-			if ( trim( $needle ) === trim( $hay ) ) {
-				return true;
-			}
-		}
-		return false;
 	}
 
 	/**

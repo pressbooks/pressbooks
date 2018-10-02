@@ -79,21 +79,6 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 
 	}
 
-	public function test_commaDelimitedStringSearch() {
-		$this->assertTrue( $this->gl->commaDelimitedStringSearch( 'foo', 'foo' ) );
-		$this->assertTrue( $this->gl->commaDelimitedStringSearch( 'foo', 'foo,' ) );
-		$this->assertTrue( $this->gl->commaDelimitedStringSearch( 'foo', 'foo ' ) );
-		$this->assertTrue( $this->gl->commaDelimitedStringSearch( 'foo', 'one,two,three,foo' ) );
-		$this->assertTrue( $this->gl->commaDelimitedStringSearch( 'foo', 'one,two,three,foo,' ) );
-		$this->assertTrue( $this->gl->commaDelimitedStringSearch( 'foo', 'one,two,three,foo ' ) );
-		$this->assertFalse( $this->gl->commaDelimitedStringSearch( 'bar', 'foo' ) );
-		$this->assertFalse( $this->gl->commaDelimitedStringSearch( 'bar', 'foo,' ) );
-		$this->assertFalse( $this->gl->commaDelimitedStringSearch( 'bar', 'foo ' ) );
-		$this->assertFalse( $this->gl->commaDelimitedStringSearch( 'bar', 'one,two,three,foo' ) );
-		$this->assertFalse( $this->gl->commaDelimitedStringSearch( 'bar', 'one,two,three,foo,' ) );
-		$this->assertFalse( $this->gl->commaDelimitedStringSearch( 'bar', 'one,two,three,foo ' ) );
-	}
-
 	public function test_registerGlossaryButtons() {
 		$args = [ 'bold', 'italics', 'underline' ];
 

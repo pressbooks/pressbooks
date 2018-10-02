@@ -423,6 +423,21 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'foo foo foo bar', $result );
 	}
 
+	public function test_commaDelimitedStringSearch() {
+		$this->assertTrue( \Pressbooks\Utility\comma_delimited_string_search( 'foo', 'foo' ) );
+		$this->assertTrue( \Pressbooks\Utility\comma_delimited_string_search( 'foo,', 'foo' ) );
+		$this->assertTrue( \Pressbooks\Utility\comma_delimited_string_search( 'foo ', 'foo' ) );
+		$this->assertTrue( \Pressbooks\Utility\comma_delimited_string_search( 'one,two,three,foo', 'foo' ) );
+		$this->assertTrue( \Pressbooks\Utility\comma_delimited_string_search( 'one,two,three,foo,', 'foo' ) );
+		$this->assertTrue( \Pressbooks\Utility\comma_delimited_string_search( 'one,two,three,foo ', 'foo' ) );
+		$this->assertFalse( \Pressbooks\Utility\comma_delimited_string_search( 'foo', 'bar' ) );
+		$this->assertFalse( \Pressbooks\Utility\comma_delimited_string_search( 'foo,', 'bar' ) );
+		$this->assertFalse( \Pressbooks\Utility\comma_delimited_string_search( 'foo ', 'bar' ) );
+		$this->assertFalse( \Pressbooks\Utility\comma_delimited_string_search( 'one,two,three,foo', 'bar' ) );
+		$this->assertFalse( \Pressbooks\Utility\comma_delimited_string_search( 'one,two,three,foo,', 'bar' ) );
+		$this->assertFalse( \Pressbooks\Utility\comma_delimited_string_search( 'one,two,three,foo ', 'bar' ) );
+	}
+
 	public function test_word_count() {
 
 		$content = 'This is four words.';

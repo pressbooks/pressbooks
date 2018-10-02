@@ -1074,6 +1074,24 @@ function str_lreplace( $search, $replace, $subject ) {
 }
 
 /**
+ * Search a comma delimited string for a match
+ *
+ * @param string $haystack
+ * @param string $needle
+ *
+ * @return bool
+ */
+function comma_delimited_string_search( $haystack, $needle ) {
+	$haystack = explode( ',', $haystack );
+	foreach ( $haystack as $hay ) {
+		if ( trim( $needle ) === trim( $hay ) ) {
+			return true;
+		}
+	}
+	return false;
+}
+
+/**
  * @param string $content
  *
  * @return int
