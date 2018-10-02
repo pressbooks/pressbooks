@@ -78,13 +78,19 @@ class Glossary {
 				'posts_per_page' => -1, // @codingStandardsIgnoreLine
 				'post_status' => 'publish',
 			];
-
-			$terms = get_posts( $args );
-
-			foreach ( $terms as $term ) {
-				$glossary_terms[ $term->post_title ] = [
-					'id' => $term->ID,
-					'content' => $term->post_content,
+			$posts = get_posts( $args );
+			foreach ( $posts as $post ) {
+				$type = '';
+				$terms = get_the_terms( $post->ID, 'glossary-type' );
+				if ( $terms && ! is_wp_error( $terms ) ) {
+					foreach ( $terms as $term ) {
+						$type .= "{$term->slug},";
+					}
+				}
+				$glossary_terms[ $post->post_title ] = [
+					'id' => $post->ID,
+					'content' => $post->post_content,
+					'type' => rtrim( $type, ',' ),
 				];
 			}
 		}
@@ -148,9 +154,11 @@ class Glossary {
 	 * @since 5.5.0
 	 * @see \Pressbooks\HTMLBook\Component\Glossary
 	 *
+	 * @param string $type The slug of an entry in the Glossary Types taxonomy
+	 *
 	 * @return string
 	 */
-	function glossaryTerms() {
+	function glossaryTerms( $type = '' ) {
 		$output = '';
 		$glossary = '';
 		$terms = $this->getGlossaryTerms();
@@ -164,6 +172,10 @@ class Glossary {
 
 		if ( true === $ok && count( $terms ) > 0 ) {
 			foreach ( $terms as $key => $value ) {
+				if ( ! empty( $type ) && ! \Pressbooks\Utility\comma_delimited_string_search( $value['type'], $type ) ) {
+					// Type was not found. Skip this glossary term.
+					continue;
+				}
 				$glossary .= sprintf(
 					'<dt data-type="glossterm"><dfn id="%1$s">%2$s</dfn></dt><dd data-type="glossdef">%3$s</dd>',
 					sprintf( 'dfn-%s', \Pressbooks\Utility\str_lowercase_dash( $key ) ), $key, trim( $value['content'] )
@@ -182,7 +194,8 @@ class Glossary {
 	 *
 	 * @since 5.5.0
 	 *
-	 * @param $term_id
+	 * @param array $term_id
+	 * @param string $content
 	 *
 	 * @return string
 	 */
@@ -250,18 +263,21 @@ class Glossary {
 		$a = shortcode_atts(
 			[
 				'id' => '',
+				'type' => '',
 			], $atts
 		);
 
-		if ( ! empty( $a['id'] ) ) {
-			$ret_val = $this->glossaryTooltip( $a, $content );
-		} elseif ( empty( $content ) && empty( $a['id'] ) ) {
-			$ret_val = $this->glossaryTerms();
+		if ( ! empty( $content ) ) {
+			// This is a tooltip
+			if ( $a['id'] ) {
+				return $this->glossaryTooltip( $a, $content );
+			}
 		} else {
-			$ret_val = $content;
+			// This is a list of glossary terms
+			return $this->glossaryTerms( $a['type'] );
 		}
 
-		return $ret_val;
+		return $content;
 	}
 
 }
