@@ -84,7 +84,7 @@ class Glossary {
 				$terms = get_the_terms( $post->ID, 'glossary-type' );
 				if ( $terms && ! is_wp_error( $terms ) ) {
 					foreach ( $terms as $term ) {
-						$type = "{$term->slug},";
+						$type .= "{$term->slug},";
 					}
 				}
 				$glossary_terms[ $post->post_title ] = [
