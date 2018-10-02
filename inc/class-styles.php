@@ -9,7 +9,6 @@ namespace Pressbooks;
 use function \Pressbooks\Editor\update_editor_style;
 use function \Pressbooks\Sanitize\normalize_css_urls;
 use function \Pressbooks\Utility\debug_error_log;
-use Pressbooks\CustomCss;
 use Pressbooks\Modules\ThemeOptions\ThemeOptions;
 
 /**
@@ -43,6 +42,13 @@ class Styles {
 	 */
 	public function __construct( $sass ) {
 		$this->sass = $sass;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getSupported() {
+		return $this->supported;
 	}
 
 	/**

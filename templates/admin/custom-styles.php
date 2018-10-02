@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 $styles = \Pressbooks\Container::get( 'Styles' );
 $custom_form_url = wp_nonce_url( get_admin_url( get_current_blog_id(), '/themes.php?page=' . $styles::PAGE . '&custom_styles=yes' ), 'pb-custom-styles' );
 $slugs_dropdown = $styles->renderDropdownForSlugs( $slug );
-$current_label = ( $styles->supported[ $slug ] !== 'Web' ) ? $styles->supported[ $slug ] : __( 'Web', 'pressbooks' );
+$current_label = ( $styles->getSupported()[ $slug ] !== 'Web' ) ? $styles->getSupported()[ $slug ] : __( 'Web', 'pressbooks' );
 $revisions_table = $styles->renderRevisionsTable( $slug, $style_post->ID );
 $post_id = absint( $style_post->ID );
 $theme = wp_get_theme();
