@@ -497,11 +497,14 @@ class Epub201 extends Export {
 			'valid_xhtml' => 1,
 			'no_deprecated_attr' => 2,
 			'unique_ids' => 'fixme-',
-			'deny_attribute' => 'itemscope,itemtype,itemref,itemprop',
+			'deny_attribute' => 'itemscope,itemtype,itemref,itemprop,data*,aria*',
 			'hook' => '\Pressbooks\Sanitize\html5_to_xhtml11',
 			'tidy' => -1,
 			'comment' => 1,
 		];
+
+		$spec = '';
+		$spec .= 'img=-longdesc,-srcset;';
 
 		// Reset on each htmLawed invocation
 		unset( $GLOBALS['hl_Ids'] );
@@ -509,7 +512,7 @@ class Epub201 extends Export {
 			$GLOBALS['hl_Ids'] = $this->fixme;
 		}
 
-		return \Pressbooks\HtmLawed::filter( $html, $config );
+		return \Pressbooks\HtmLawed::filter( $html, $config, $spec );
 	}
 
 
@@ -1858,8 +1861,8 @@ class Epub201 extends Export {
 	 */
 	protected function kneadHtml( $html, $type, $pos = 0 ) {
 
-		$html5 = new HtmlParser( [ 'disable_html_ns' => true ] ); // Disable default namespace for \DOMXPath compatibility
-		$dom = $html5->loadHTML( $html );
+		$html5 = new HtmlParser();
+		$dom = $html5->loadHTML( $html, [ 'disable_html_ns' => true ] ); // Disable default namespace for \DOMXPath compatibility
 
 		// Download images, change to relative paths
 		$dom = $this->scrapeAndKneadImages( $dom );
@@ -1877,13 +1880,6 @@ class Epub201 extends Export {
 				/** @var \DOMElement $node */
 				$node->appendChild( new \DOMText( '' ) );
 			}
-		}
-
-		// Remove srcset attributes because responsive images aren't a thing in the EPUB world.
-		$srcsets = $xpath->query( '//img[@srcset]' );
-		foreach ( $srcsets as $srcset ) {
-			/** @var \DOMElement $srcset */
-			$srcset->removeAttribute( 'srcset' );
 		}
 
 		// If you are storing multi-byte characters in XML, then saving the XML using saveXML() will create problems.
