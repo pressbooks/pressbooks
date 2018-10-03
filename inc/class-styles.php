@@ -598,6 +598,7 @@ class Styles {
 				if ( $theme_updated ) {
 					update_option( 'pressbooks_theme_version', $current_theme_version );
 				}
+				delete_transient( 'pressbooks_updating_stylesheet' );
 				return true;
 			}
 		}
