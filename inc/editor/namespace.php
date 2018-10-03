@@ -10,6 +10,7 @@ use function Pressbooks\Sanitize\normalize_css_urls;
 use PressbooksMix\Assets;
 use Pressbooks\Container;
 use Pressbooks\HtmlParser;
+use Pressbooks\Shortcodes\Glossary\Glossary;
 
 /**
  * Ensure that Word formatting that we like doesn't get filtered out.
@@ -27,6 +28,10 @@ function mce_valid_word_elements( $init_array ) {
 
 /**
  * Localize TinyMCE plugins.
+ *
+ * @param array $array
+ *
+ * @return array
  */
 function add_languages( $array ) {
 	$array[] = PB_PLUGIN_DIR . 'languages/tinymce.php';
@@ -35,28 +40,82 @@ function add_languages( $array ) {
 
 /**
  * Adds style select dropdown, textbox and background color buttons to the MCE buttons array.
+ *
+ * @param array $buttons
+ *
+ * @return array
  */
 function mce_buttons_2( $buttons ) {
-
-	array_splice( $buttons, 0, 0, 'styleselect' );
-	$p = array_search( 'styleselect', $buttons, true );
-	array_splice( $buttons, $p + 1, 0, 'textboxes' );
-	$p = array_search( 'textboxes', $buttons, true );
-	array_splice( $buttons, $p + 1, 0, 'underline' );
+	// Prepend elements to the beginning of array
+	array_unshift( $buttons, 'styleselect', 'textboxes', 'underline' );
+	// Insert after hr button
 	$p = array_search( 'hr', $buttons, true );
 	array_splice( $buttons, $p + 1, 0, 'alignjustify' );
+	// Insert after forecolor button
 	$p = array_search( 'forecolor', $buttons, true );
 	array_splice( $buttons, $p + 1, 0, 'backcolor' );
+
 	return $buttons;
 }
 
 /**
  * Adds anchor, superscript and subscript buttons to the MCE buttons array.
+ *
+ * @param array $buttons
+ *
+ * @return array
  */
 function mce_buttons_3( $buttons ) {
+	// Prepend element to the beginning of array
 	array_unshift( $buttons, 'table' );
+	// Push elements onto the end of array
 	array_push( $buttons, 'apply_class', 'anchor', 'superscript', 'subscript' );
+	// Footnotes
+	array_push( $buttons, 'footnote', 'ftnref_convert' );
+	// Glossary
+	// to avoid 'inception' like glossary within a glossary, restricting
+	// glossary buttons means less chance of needing to untangle the labyrinth
+	global $typenow;
+	if ( empty( $typenow ) && ! empty( $_GET['post'] ) && 'edit' === $_GET['action'] ) {
+		$post = get_post( $_GET['post'] );
+		$typenow = $post->post_type;
+	} elseif ( ! empty( $_GET['post_type'] ) ) {
+		$typenow = $_GET['post_type'];
+	}
+	if ( 'glossary' !== $typenow ) {
+		array_push( $buttons, 'glossary', 'glossary_all' );
+	}
+
 	return $buttons;
+}
+
+/**
+ * @param string $hook
+ */
+function admin_enqueue_scripts( $hook ) {
+	$assets = new Assets( 'pressbooks', 'plugin' );
+
+	// Footnotes
+	wp_localize_script(
+		'editor', 'PB_FootnotesToken', [
+			'nonce' => wp_create_nonce( 'pb-footnote-convert' ),
+			'fn_title' => __( 'Insert Footnote', 'pressbooks' ),
+			'ftnref_title' => __( 'Convert MS Word Footnotes', 'pressbooks' ),
+		]
+	);
+	if ( 'post-new.php' === $hook || 'post.php' === $hook ) {
+		wp_enqueue_script( 'my_custom_quicktags', $assets->getPath( 'scripts/quicktags.js' ), [ 'quicktags' ] );
+	}
+
+	// Glossary
+	wp_localize_script(
+		'editor', 'PB_GlossaryToken', [
+			'nonce'              => wp_create_nonce( 'pb-glossary' ),
+			'glossary_title'     => __( 'Insert Glossary Term', 'pressbooks' ),
+			'glossary_all_title' => __( 'Insert Glossary List', 'pressbooks' ),
+			'glossary_terms'     => wp_json_encode( Glossary::init()->getGlossaryTerms() ),
+		]
+	);
 }
 
 
@@ -80,11 +139,20 @@ function mce_button_scripts( $plugin_array ) {
 	$plugin_array['anchor'] = $assets->getPath( 'scripts/anchor.js' );
 	$plugin_array['table'] = $assets->getPath( 'scripts/table.js' );
 
+	// Footnotes
+	$plugin_array['footnote'] = $assets->getPath( 'scripts/footnote.js' );
+	$plugin_array['ftnref_convert'] = $assets->getPath( 'scripts/ftnref-convert.js' );
+
+	// Glossary
+	$plugin_array['glossary'] = $assets->getPath( 'scripts/glossary.js' );
+
 	return $plugin_array;
 }
 
 /**
  * Adds Pressbooks custom CSS classes to the style select dropdown initiated above.
+ *
+ * @see https://codex.wordpress.org/TinyMCE_Custom_Styles#Enabling_styleselect
  *
  * @param array $init_array
  *
