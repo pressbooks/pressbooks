@@ -105,7 +105,7 @@ class ThemeOptions {
 			/** @var \Pressbooks\Options $tab */
 			$tab = new $subclass( $options );
 			$tab->init();
-			wp_cache_delete( "pressbooks_theme_options_{$slug}_version", 'options' );
+			wp_cache_delete( "pressbooks_theme_options_{$slug}_version", 'options' ); // WordPress Core caches this key in the "options" group
 			$version = get_option( "pressbooks_theme_options_{$slug}_version", 0 );
 			if ( $tab::VERSION !== null && $version < $tab::VERSION ) {
 				$tab->upgrade( $version );
@@ -182,7 +182,7 @@ class ThemeOptions {
 	 */
 	public function clearCache() {
 		foreach ( $this->getTabs() as $slug => $subclass ) {
-			wp_cache_delete( "pressbooks_theme_options_{$slug}_version", 'options' );
+			wp_cache_delete( "pressbooks_theme_options_{$slug}_version", 'options' );  // WordPress Core caches this key in the "options" group
 			delete_transient( "pressbooks_theme_options_{$slug}_parsed_sass_variables" );
 		}
 	}
