@@ -260,7 +260,7 @@ class Xhtml11 extends Export {
 
 		echo '<title>' . get_bloginfo( 'name' ) . "</title>\n";
 
-		if ( is_super_admin( get_current_user_id() ) || WP_DEBUG ) {
+		if ( current_user_can( 'edit_posts' ) ) {
 			if ( ! empty( $_GET['debug'] ) ) {
 				$assets = new Assets( 'pressbooks', 'plugin' );
 				$css = ( $_GET['debug'] === 'prince' ) ? $this->getLatestExportStyleUrl( 'prince' ) : false;
