@@ -110,30 +110,6 @@ class Shortcodes_Footnotes_Footnotes extends \WP_UnitTestCase {
 	}
 
 
-	public function test_myCustomQuicktags() {
-
-		$this->fn->myCustomQuicktags();
-
-		$this->assertTrue( wp_script_is( 'my_custom_quicktags', 'queue' ) );
-	}
-
-
-	public function test_registerFootnoteButtons() {
-
-		$buttons = $this->fn->registerFootnoteButtons( [] );
-
-		$this->assertNotEmpty( $buttons );
-	}
-
-
-	public function test_addFootnotePlugin() {
-
-		$val = $this->fn->addFootnotePlugin( [] );
-
-		$this->assertNotEmpty( $val );
-	}
-
-
 	public function test_ajaxFailure() {
 
 		$old_error_reporting = $this->_fakeAjax();

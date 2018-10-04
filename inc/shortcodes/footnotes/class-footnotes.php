@@ -6,8 +6,6 @@
 
 namespace Pressbooks\Shortcodes\Footnotes;
 
-use PressbooksMix\Assets;
-
 class Footnotes {
 
 	/**
@@ -53,8 +51,6 @@ class Footnotes {
 		// do_shortcode() is registered as a default filter on 'the_content' with a priority of 11.
 		// We need to run $this->footNoteContent() after this, and after attributions which is set to 12, set to 13
 		add_filter( 'the_content', [ $obj, 'footnoteContent' ], 13 );
-		add_action( 'init', [ $obj, 'footnoteButton' ] ); // TinyMCE button
-		add_action( 'admin_enqueue_scripts', [ $obj, 'myCustomQuicktags' ] ); // Quicktag button
 	}
 
 	/**
@@ -161,77 +157,6 @@ class Footnotes {
 
 		return $content;
 	}
-
-
-	/**
-	 * Register our plugin with TinyMCE
-	 */
-	function footnoteButton() {
-
-		if ( ! current_user_can( 'edit_posts' ) && ! current_user_can( 'edit_pages' ) ) {
-			return;
-		}
-
-		if ( get_user_option( 'rich_editing' ) ) {
-
-			add_action(
-				'admin_enqueue_scripts', function () {
-					wp_localize_script(
-						'editor', 'PB_FootnotesToken', [
-							'nonce' => wp_create_nonce( 'pb-footnote-convert' ),
-							'fn_title' => __( 'Insert Footnote', 'pressbooks' ),
-							'ftnref_title' => __( 'Convert MS Word Footnotes', 'pressbooks' ),
-						]
-					);
-				}
-			);
-
-			add_filter( 'mce_external_plugins', [ $this, 'addFootnotePlugin' ] );
-			add_filter( 'mce_buttons_3', [ $this, 'registerFootnoteButtons' ] );
-		}
-
-	}
-
-
-	/**
-	 * Quicktag buttons for text mode editor
-	 */
-	function myCustomQuicktags() {
-		$assets = new Assets( 'pressbooks', 'plugin' );
-		wp_enqueue_script( 'my_custom_quicktags', $assets->getPath( 'scripts/quicktags.js' ), [ 'quicktags' ] );
-	}
-
-
-	/**
-	 * Add buttons to TinyMCE interface
-	 *
-	 * @param $buttons
-	 *
-	 * @return array
-	 */
-	function registerFootnoteButtons( $buttons ) {
-		$buttons[] = 'footnote';
-		$buttons[] = 'ftnref_convert';
-
-		return $buttons;
-	}
-
-
-	/**
-	 * Some JavaScript for our TinyMCE buttons
-	 *
-	 * @param $plugin_array
-	 *
-	 * @return mixed
-	 */
-	function addFootnotePlugin( $plugin_array ) {
-		$assets = new Assets( 'pressbooks', 'plugin' );
-		$plugin_array['footnote'] = $assets->getPath( 'scripts/footnote.js' );
-		$plugin_array['ftnref_convert'] = $assets->getPath( 'scripts/ftnref-convert.js' );
-
-		return $plugin_array;
-	}
-
 
 	/**
 	 * Echo a failure message for jQuery then die

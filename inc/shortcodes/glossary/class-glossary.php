@@ -32,30 +32,31 @@ class Glossary {
 	}
 
 	/**
-	 * Some JavaScript for our TinyMCE buttons
-	 *
-	 * @since 5.5.0
-	 *
-	 * @param $plugin_array
-	 *
-	 * @return mixed
+	 * @param Glossary $obj
 	 */
-	function addGlossaryPlugin( $plugin_array ) {
-		$assets = new Assets( 'pressbooks', 'plugin' );
-		$plugin_array['glossary'] = $assets->getPath( 'scripts/glossary.js' );
+	static public function hooks( Glossary $obj ) {
+		add_shortcode( self::SHORTCODE, [ $obj, 'shortcodeHandler' ] );
+		add_filter(
+			'no_texturize_shortcodes',
+			function ( $excluded_shortcodes ) {
+				$excluded_shortcodes[] = Glossary::SHORTCODE;
 
-		return $plugin_array;
+				return $excluded_shortcodes;
+			}
+		);
+		add_action( 'init', [ $obj, 'addTooltipScripts' ] );
 	}
 
 	/**
 	 * Add JavaScript for the tooltip
 	 *
 	 * @since 5.5.0
-	 *
 	 */
-	function addTooltipScripts() {
-		$assets = new Assets( 'pressbooks', 'plugin' );
-		wp_enqueue_script( 'glossary-tooltip', $assets->getPath( 'scripts/tooltip.js' ), [ 'jquery-ui-tooltip' ], false, true );
+	public function addTooltipScripts() {
+		if ( ! is_admin() ) {
+			$assets = new Assets( 'pressbooks', 'plugin' );
+			wp_enqueue_script( 'glossary-tooltip', $assets->getPath( 'scripts/glossary-tooltip.js' ), [ 'jquery-ui-tooltip' ], false, true );
+		}
 	}
 
 	/**
@@ -68,7 +69,7 @@ class Glossary {
 	 *
 	 * @return array
 	 */
-	function getGlossaryTerms( $reset = false ) {
+	public function getGlossaryTerms( $reset = false ) {
 		// Cheap cache
 		static $glossary_terms = null;
 		if ( $reset || $glossary_terms === null ) {
@@ -98,57 +99,6 @@ class Glossary {
 	}
 
 	/**
-	 * Register our plugin with TinyMCE
-	 *
-	 * @since 5.5.0
-	 *
-	 */
-	function glossaryButton() {
-
-		if ( ! current_user_can( 'edit_posts' ) && ! current_user_can( 'edit_pages' ) ) {
-			return;
-		}
-		if ( get_user_option( 'rich_editing' ) ) {
-
-			add_action(
-				'admin_enqueue_scripts', function () {
-					wp_localize_script(
-						'editor', 'PB_GlossaryToken', [
-							'nonce'              => wp_create_nonce( 'pb-glossary' ),
-							'glossary_title'     => __( 'Insert Glossary Term', 'pressbooks' ),
-							'glossary_all_title' => __( 'Insert Glossary List', 'pressbooks' ),
-							'glossary_terms'     => wp_json_encode( $this->getGlossaryTerms() ),
-						]
-					);
-				}
-			);
-
-			add_filter( 'mce_external_plugins', [ $this, 'addGlossaryPlugin' ] );
-
-			// to avoid 'inception' like glossary within a glossary, restricting
-			// glossary buttons means less chance of needing to untangle the labyrinth
-			global $typenow;
-
-			if ( empty( $typenow ) && ! empty( $_GET['post'] ) && 'edit' === $_GET['action'] ) {
-				$post = get_post( $_GET['post'] );
-				$typenow = $post->post_type;
-			} elseif ( ! empty( $_GET['post_type'] ) ) {
-				$typenow = $_GET['post_type'];
-			}
-
-			if ( 'glossary' !== $typenow ) {
-				add_filter(
-					'mce_buttons_3', [
-						$this,
-						'registerGlossaryButtons',
-					]
-				);
-			}
-		}
-
-	}
-
-	/**
 	 * Returns the HTML <dl> description list of all glossary terms
 	 *
 	 * @since 5.5.0
@@ -158,7 +108,7 @@ class Glossary {
 	 *
 	 * @return string
 	 */
-	function glossaryTerms( $type = '' ) {
+	public function glossaryTerms( $type = '' ) {
 		$output = '';
 		$glossary = '';
 		$terms = $this->getGlossaryTerms();
@@ -199,7 +149,7 @@ class Glossary {
 	 *
 	 * @return string
 	 */
-	function glossaryTooltip( $term_id, $content ) {
+	public function glossaryTooltip( $term_id, $content ) {
 
 		// get the glossary post object the ID belongs to
 		$terms = get_post( $term_id['id'] );
@@ -216,39 +166,6 @@ class Glossary {
 	}
 
 	/**
-	 * @param Glossary $obj
-	 */
-	static public function hooks( Glossary $obj ) {
-		add_shortcode( self::SHORTCODE, [ $obj, 'shortcodeHandler' ] );
-		add_filter(
-			'no_texturize_shortcodes',
-			function ( $excluded_shortcodes ) {
-				$excluded_shortcodes[] = Glossary::SHORTCODE;
-
-				return $excluded_shortcodes;
-			}
-		);
-		add_action( 'init', [ $obj, 'glossaryButton' ] ); // TinyMCE button
-		add_action( 'init', [ $obj, 'addTooltipScripts' ] );
-	}
-
-	/**
-	 * Add buttons to TinyMCE interface
-	 *
-	 * @since 5.5.0
-	 *
-	 * @param $buttons
-	 *
-	 * @return array
-	 */
-	function registerGlossaryButtons( $buttons ) {
-		$buttons[] = 'glossary';
-		$buttons[] = 'glossary_all';
-
-		return $buttons;
-	}
-
-	/**
 	 * Gets the tooltip if the param contains the post id,
 	 * or a list of terms if it's just the short-code
 	 *
@@ -259,7 +176,7 @@ class Glossary {
 	 *
 	 * @return string
 	 */
-	function shortcodeHandler( $atts, $content ) {
+	public function shortcodeHandler( $atts, $content ) {
 		$a = shortcode_atts(
 			[
 				'id' => '',

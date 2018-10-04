@@ -55,6 +55,15 @@ class EditorTest extends \WP_UnitTestCase {
 		$buttons = Pressbooks\Editor\mce_buttons_3( [] );
 
 		$this->assertContains( 'anchor', $buttons );
+		$this->assertContains( 'footnote', $buttons );
+		$this->assertContains( 'ftnref_convert', $buttons );
+		$this->assertContains( 'glossary', $buttons );
+		$this->assertContains( 'glossary_all', $buttons );
+	}
+
+	public function test_admin_enqueue_scripts() {
+		\Pressbooks\Editor\admin_enqueue_scripts( 'post.php' );
+		$this->assertTrue( wp_script_is( 'my_custom_quicktags', 'queue' ) );
 	}
 
 	public function test_mce_button_scripts() {
@@ -62,6 +71,9 @@ class EditorTest extends \WP_UnitTestCase {
 		$x = Pressbooks\Editor\mce_button_scripts( [] );
 
 		$this->assertArrayHasKey( 'table', $x );
+		$this->assertArrayHasKey( 'footnote', $x );
+		$this->assertArrayHasKey( 'ftnref_convert', $x );
+		$this->assertArrayHasKey( 'glossary', $x );
 	}
 
 	public function test_mce_before_init_insert_formats() {

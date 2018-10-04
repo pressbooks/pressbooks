@@ -18,6 +18,7 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 		                 ->getMock();
 
 		$this->_createGlossaryTerms();
+		$this->gl->getGlossaryTerms( true ); // Reset cache
 	}
 
 	private function _createGlossaryTerms() {
@@ -76,31 +77,6 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 		// assures empty (because this type is not found)
 		$dl = $this->gl->glossaryTerms( 'nothing-to-find' );
 		$this->assertEmpty( $dl );
-
-	}
-
-	public function test_registerGlossaryButtons() {
-		$args = [ 'bold', 'italics', 'underline' ];
-
-		$buttons = $this->gl->registerGlossaryButtons( $args );
-
-		$this->assertEquals( [
-			'bold',
-			'italics',
-			'underline',
-			'glossary',
-			'glossary_all',
-		], $buttons );
-	}
-
-	public function test_addGlossaryPlugin() {
-		$plugin_array    = [ 'footnotes' => 'http://example.org/wp-content/plugins/pressbooks/assets/src/scripts/footnote.js' ];
-		$glossary_plugin = $this->gl->addGlossaryPlugin( $plugin_array );
-		$result          = [
-			'footnotes' => 'http://example.org/wp-content/plugins/pressbooks/assets/src/scripts/footnote.js',
-			'glossary'  => 'http://example.org/wp-content/plugins/pressbooks/assets/src/scripts/glossary.js',
-		];
-		$this->assertEquals( $result, $glossary_plugin );
 
 	}
 

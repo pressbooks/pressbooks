@@ -170,6 +170,17 @@ if ( $is_book ) {
 	add_action( 'save_post', '\Pressbooks\Book::deleteBookObjectCache', 1000 );
 	add_action( 'wp_trash_post', '\Pressbooks\Book::deletePost' );
 	add_action( 'wp_trash_post', '\Pressbooks\Book::deleteBookObjectCache', 1000 );
+	add_action( 'edit_form_after_title', '\Pressbooks\Metadata\add_expanded_metadata_box' );
+	add_action( 'add_meta_boxes', '\Pressbooks\Admin\Metaboxes\replace_authordiv' );
+	add_filter( 'attachment_fields_to_edit', '\Pressbooks\Admin\Attachments\add_metadata_attachment', 10, 2 );
+	add_filter( 'attachment_fields_to_save', '\Pressbooks\Admin\Attachments\save_metadata_attachment', 10, 2 );
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+// Tinymce
+// -------------------------------------------------------------------------------------------------------------------
+
+if ( $is_book ) {
 	add_filter( 'mce_external_languages', '\Pressbooks\Editor\add_languages' );
 	add_filter( 'tiny_mce_before_init', '\Pressbooks\Editor\mce_before_init_insert_formats' );
 	add_filter( 'tiny_mce_before_init', '\Pressbooks\Editor\mce_valid_word_elements' );
@@ -180,10 +191,8 @@ if ( $is_book ) {
 	add_filter( 'mce_buttons_3', '\Pressbooks\Editor\mce_buttons_3', 11 );
 	add_filter( 'wp_link_query_args', '\Pressbooks\Editor\customize_wp_link_query_args' );
 	add_filter( 'wp_link_query', '\Pressbooks\Editor\add_anchors_to_wp_link_query', 1, 2 );
-	add_action( 'edit_form_after_title', '\Pressbooks\Metadata\add_expanded_metadata_box' );
-	add_action( 'add_meta_boxes', '\Pressbooks\Admin\Metaboxes\replace_authordiv' );
-	add_filter( 'attachment_fields_to_edit', '\Pressbooks\Admin\Attachments\add_metadata_attachment', 10, 2 );
-	add_filter( 'attachment_fields_to_save', '\Pressbooks\Admin\Attachments\save_metadata_attachment', 10, 2 );
+	add_action( 'admin_enqueue_scripts', '\Pressbooks\Editor\admin_enqueue_scripts' );
+	add_action( 'admin_init', '\Pressbooks\Editor\add_editor_style' );
 }
 
 // -------------------------------------------------------------------------------------------------------------------
@@ -229,7 +238,6 @@ if ( $is_book ) {
 
 	// Init
 	add_action( 'admin_init', '\Pressbooks\Admin\Fonts\fix_missing_font_stacks' );
-	add_action( 'admin_init', '\Pressbooks\Editor\add_editor_style' );
 
 	// Overrides
 	add_filter( 'pb_epub_css_override', [ '\Pressbooks\Modules\ThemeOptions\EbookOptions', 'scssOverrides' ] );
@@ -279,15 +287,6 @@ if ( $is_book ) {
 	add_action(
 		'admin_init', function () {
 			remove_action( 'admin_enqueue_scripts', [ 'WP_Internal_Pointers', 'enqueue_scripts' ] );
-		}
-	);
-
-	// Fix for "are you sure you want to leave page" message when editing a part
-	add_action(
-		'admin_enqueue_scripts', function () {
-			if ( 'part' === get_post_type() ) {
-				wp_dequeue_script( 'autosave' );
-			}
 		}
 	);
 
