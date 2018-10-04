@@ -169,7 +169,7 @@ function render_page() {
 		<h2><?php _e( 'View Source', 'pressbooks' ); ?></h2>
 		<p>
 		<?php
-		printf( __( '<a href="%s">View the XHTML source</a> for PDF exports to diagnose any output issues you are encountering.', 'pressbooks' ), home_url() . '/format/xhtml?debug=prince' );
+		printf( __( '<a href="%s">View your book&rsquo;s XHTML source</a> to diagnose issues you may be encountering with your PDF exports.', 'pressbooks' ), home_url() . '/format/xhtml?debug=prince' );
 		?>
 		</p>
 	</div>
