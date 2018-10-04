@@ -8,10 +8,10 @@ supportLabel: support
 supportComment: >
   We use GitHub exclusively for bug reports and feature requests.
   However, this issue appears to be a support request. Please use our
-  [support forum](http://discourse.pressbooks.org) to get help with Pressbooks.
+  [community forum](http://discourse.pressbooks.org) to get help with Pressbooks.
 
 # Close issues marked as support requests
 close: true
 
 # Lock issues marked as support requests
-lock: false
+lock: true
