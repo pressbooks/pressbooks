@@ -214,7 +214,7 @@ function replace_book_admin_menu() {
 	$option = get_option( 'pressbooks_ecommerce_links', PublishOptions::getDefaults() );
 	$page = new PublishOptions( $option );
 	$page->init();
-	wp_cache_delete( 'pressbooks_ecommerce_links_version', 'options' );
+	wp_cache_delete( 'pressbooks_ecommerce_links_version', 'options' ); // WordPress Core caches this key in the "options" group
 	$version = get_option( 'pressbooks_ecommerce_links_version', 0 );
 	if ( $version < $page::VERSION ) {
 		$page->upgrade( $version );
@@ -237,7 +237,7 @@ function replace_book_admin_menu() {
 	$option = get_option( 'pressbooks_export_options', ExportOptions::getDefaults() );
 	$page = new ExportOptions( $option );
 	$page->init();
-	wp_cache_delete( 'pressbooks_export_options_version', 'options' );
+	wp_cache_delete( 'pressbooks_export_options_version', 'options' );  // WordPress Core caches this key in the "options" group
 	$version = get_option( 'pressbooks_export_options_version', 0 );
 	if ( $version < $page::VERSION ) {
 		$page->upgrade( $version );

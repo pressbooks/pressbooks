@@ -182,12 +182,12 @@ class BookTest extends \WP_UnitTestCase {
 		$id = $book::getBookStructure()['front-matter'][0]['ID'];
 		$result = $book::tagSubsections( $test, $id );
 		$this->assertContains( "<h1 id=\"front-matter-{$id}-section-1", $result );
-		$this->assertNotContains( '<b></b>', $result );
+		$this->assertContains( '<b></b>', $result );
 
 		$test = "<H1 style='font-size:small;'>Hi there!<B></B></H1><P>How are you?.</P>"; // ALL CAPS
 		$result = $book::tagSubsections( $test, $id );
 		$this->assertContains( "<h1 style=\"font-size:small;\" id=\"front-matter-{$id}-section-1\" class=\"section-header\"" , $result );
-		$this->assertNotContains( '<b></b>', $result );
+		$this->assertContains( '<b></b>', $result );
 
 		$test = "<h2>Hi there!<b></b></h2><p>How are you?</p>"; // H2
 		$result = $book::tagSubsections( $test, $id );
