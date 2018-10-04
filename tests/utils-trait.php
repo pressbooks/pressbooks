@@ -93,7 +93,7 @@ There are many maths like it but these ones are mine.
 
 [caption id="attachment_1" align="aligncenter" width="225"]<img class="wp-image-1 size-full" src="https://pressbooks.com/wp-content/uploads/2015/04/open-book-7-225x161.png" alt="Open Book" width="225" height="161" /> Like an open book.[/caption]
 
-<em>Ka kite ano!</em>
+<em>Ka kite ano!</em><b></b>
 
 <p><a href="/back-matter/appendix/">Link to another post.</a></p>
 

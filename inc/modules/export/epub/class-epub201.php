@@ -473,6 +473,7 @@ class Epub201 extends Export {
 	protected function preProcessPostContent( $content ) {
 
 		$content = apply_filters( 'the_content', $content );
+		$content = str_ireplace( [ '<b></b>', '<i></i>', '<strong></strong>', '<em></em>' ], '', $content );
 		$content = $this->fixAnnoyingCharacters( $content );
 		$content = $this->tidy( $content );
 
@@ -1216,10 +1217,9 @@ class Epub201 extends Export {
 			$author = $this->contributors->get( $front_matter_id, 'pb_authors' );
 
 			if ( Export::isParsingSubsections() === true ) {
-				$sections = Book::getSubsections( $front_matter_id );
-
-				if ( $sections ) {
+				if ( Book::getSubsections( $front_matter_id ) !== false ) {
 					$content = Book::tagSubsections( $content, $front_matter_id );
+					$content = \Pressbooks\HtmLawed::filter( $content, [ 'valid_xhtml' => 1 ] );
 				}
 			}
 
@@ -1388,10 +1388,9 @@ class Epub201 extends Export {
 				$author = $this->contributors->get( $chapter_id, 'pb_authors' );
 
 				if ( Export::isParsingSubsections() === true ) {
-					$sections = Book::getSubsections( $chapter_id );
-
-					if ( $sections ) {
+					if ( Book::getSubsections( $chapter_id ) !== false ) {
 						$content = Book::tagSubsections( $content, $chapter_id );
+						$content = \Pressbooks\HtmLawed::filter( $content, [ 'valid_xhtml' => 1 ] );
 					}
 				}
 
@@ -1621,10 +1620,9 @@ class Epub201 extends Export {
 			$author = $this->contributors->get( $back_matter_id, 'pb_authors' );
 
 			if ( Export::isParsingSubsections() === true ) {
-				$sections = Book::getSubsections( $back_matter_id );
-
-				if ( $sections ) {
+				if ( Book::getSubsections( $back_matter_id ) !== false ) {
 					$content = Book::tagSubsections( $content, $back_matter_id );
+					$content = \Pressbooks\HtmLawed::filter( $content, [ 'valid_xhtml' => 1 ] );
 				}
 			}
 
