@@ -479,6 +479,7 @@ class HTMLBook extends Export {
 	protected function preProcessPostContent( $content ) {
 
 		$content = apply_filters( 'the_content', $content );
+		$content = str_ireplace( [ '<b></b>', '<i></i>', '<strong></strong>', '<em></em>' ], '', $content );
 		$content = $this->fixAnnoyingCharacters( $content ); // is this used?
 		$content = $this->fixInternalLinks( $content );
 		$content = $this->switchLaTexFormat( $content );

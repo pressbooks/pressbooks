@@ -502,6 +502,7 @@ class Xhtml11 extends Export {
 	protected function preProcessPostContent( $content ) {
 
 		$content = apply_filters( 'the_content', $content );
+		$content = str_ireplace( [ '<b></b>', '<i></i>', '<strong></strong>', '<em></em>' ], '', $content );
 		$content = $this->fixAnnoyingCharacters( $content ); // is this used?
 		$content = $this->fixInternalLinks( $content );
 		$content = $this->switchLaTexFormat( $content );
@@ -1129,9 +1130,9 @@ class Xhtml11 extends Export {
 			$author = $this->contributors->get( $front_matter_id, 'pb_authors' );
 
 			if ( \Pressbooks\Modules\Export\Export::isParsingSubsections() === true ) {
-				$sections = \Pressbooks\Book::getSubsections( $front_matter_id );
-				if ( $sections ) {
+				if ( \Pressbooks\Book::getSubsections( $front_matter_id ) !== false ) {
 					$content = \Pressbooks\Book::tagSubsections( $content, $front_matter_id );
+					$content = \Pressbooks\HtmLawed::filter( $content, [ 'valid_xhtml' => 1 ] );
 				}
 			}
 
@@ -1275,9 +1276,9 @@ class Xhtml11 extends Export {
 				$author = $this->contributors->get( $chapter_id, 'pb_authors' );
 
 				if ( \Pressbooks\Modules\Export\Export::isParsingSubsections() === true ) {
-					$sections = \Pressbooks\Book::getSubsections( $chapter_id );
-					if ( $sections ) {
+					if ( \Pressbooks\Book::getSubsections( $chapter_id ) !== false ) {
 						$content = \Pressbooks\Book::tagSubsections( $content, $chapter_id );
+						$content = \Pressbooks\HtmLawed::filter( $content, [ 'valid_xhtml' => 1 ] );
 					}
 				}
 
@@ -1394,9 +1395,9 @@ class Xhtml11 extends Export {
 			$author = $this->contributors->get( $back_matter_id, 'pb_authors' );
 
 			if ( \Pressbooks\Modules\Export\Export::isParsingSubsections() === true ) {
-				$sections = \Pressbooks\Book::getSubsections( $back_matter_id );
-				if ( $sections ) {
+				if ( \Pressbooks\Book::getSubsections( $back_matter_id ) !== false ) {
 					$content = \Pressbooks\Book::tagSubsections( $content, $back_matter_id );
+					$content = \Pressbooks\HtmLawed::filter( $content, [ 'valid_xhtml' => 1 ] );
 				}
 			}
 

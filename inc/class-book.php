@@ -10,8 +10,6 @@
 
 namespace Pressbooks;
 
-use Masterminds\HTML5;
-
 class Book {
 
 	/**
@@ -512,19 +510,15 @@ class Book {
 		if ( empty( $parent ) ) {
 			return false;
 		}
+		if ( stripos( $parent->post_content, '<h1' ) === false ) {
+			return false;
+		}
 		$type = $parent->post_type;
+		$content = $parent->post_content;
 		$output = [];
 		$s = 1;
 
-		$content = wptexturize( $parent->post_content );
-		$content = wpautop( $content );
-		$content = mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' );
-
-		if ( stripos( $content, '<h1' ) === false ) {
-			return false;
-		}
-
-		$doc = new HTML5();
+		$doc = new HtmlParser( true ); // Because we are not saving, use internal parser to speed up load time
 		$dom = $doc->loadHTML( strip_tags( $content, '<h1>' ) ); // Strip everything except h1 to speed up load time
 		$sections = $dom->getElementsByTagName( 'h1' );
 		foreach ( $sections as $section ) {
@@ -549,26 +543,18 @@ class Book {
 	 */
 	static function tagSubsections( $content, $id ) {
 
-		$s = 1;
 		$parent = get_post( $id );
 		if ( empty( $parent ) ) {
 			return false;
 		}
-		$type = $parent->post_type;
-
-		// Fix unusual HTML that tends to break our DOM transform (issues/228)
-		$content = mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' );
-		$content = str_ireplace( [ '<b></b>', '<i></i>', '<strong></strong>', '<em></em>' ], '', $content );
-
 		if ( stripos( $content, '<h1' ) === false ) {
 			return false;
 		}
 
-		$doc = new HTML5(
-			[
-				'disable_html_ns' => true,
-			]
-		); // Disable default namespace for \DOMXPath compatibility
+		$type = $parent->post_type;
+		$s = 1;
+
+		$doc = new HtmlParser();
 		$dom = $doc->loadHTML( $content );
 		$sections = $dom->getElementsByTagName( 'h1' );
 		foreach ( $sections as $section ) {
@@ -576,16 +562,8 @@ class Book {
 			$section->setAttribute( 'id', $type . '-' . $id . '-section-' . $s++ );
 			$section->setAttribute( 'class', 'section-header' );
 		}
-		$xpath = new \DOMXPath( $dom );
-		while ( ( $nodes = $xpath->query( '//*[not(text() or node() or self::br or self::hr or self::img)]' ) ) && $nodes->length > 0 ) { // @codingStandardsIgnoreLine
-			foreach ( $nodes as $node ) {
-				/** @var $node \DOMElement */
-				$node->appendChild( new \DOMText( '' ) );
-			}
-		}
-		$html = $dom->saveXML( $dom->documentElement );
 
-		return \Pressbooks\Sanitize\strip_container_tags( $html );
+		return $doc->saveHTML( $dom );
 	}
 
 	/**
