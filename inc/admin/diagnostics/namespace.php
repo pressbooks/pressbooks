@@ -19,7 +19,7 @@ function add_menu() {
 		'options.php',
 		__( 'Diagnostics', 'pressbooks' ),
 		__( 'Diagnostics', 'pressbooks' ),
-		'manage_options',
+		'edit_posts',
 		'pressbooks_diagnostics',
 		__NAMESPACE__ . '\render_page'
 	);
@@ -169,9 +169,7 @@ function render_page() {
 		<h2><?php _e( 'View Source', 'pressbooks' ); ?></h2>
 		<p>
 		<?php
-		$home_url = home_url();
-		$source_url = ( is_super_admin() ) ? $home_url . '/format/xhtml?debug=prince' : $home_url . '/format/xhtml';
-		printf( __( '<a href="%s">View the XHTML source</a> for PDF exports to diagnose any output issues you are encountering.', 'pressbooks' ), $source_url );
+		printf( __( '<a href="%s">View the XHTML source</a> for PDF exports to diagnose any output issues you are encountering.', 'pressbooks' ), home_url() . '/format/xhtml?debug=prince' );
 		?>
 		</p>
 	</div>
