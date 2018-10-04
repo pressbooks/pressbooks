@@ -10,6 +10,8 @@
 
 namespace Pressbooks;
 
+use Pressbooks\Modules\Export\Xhtml\Xhtml11;
+
 class Book {
 
 	/**
@@ -481,12 +483,18 @@ class Book {
 
 		global $blog_id;
 
+		// Book Object
 		wp_cache_delete( "book-inf-$blog_id", 'pb' ); // Delete the cached value for getBookInfo()
 		wp_cache_delete( "book-str-$blog_id", 'pb' ); // Delete the cached value for getBookStructure()
 		wp_cache_delete( "book-cnt-$blog_id", 'pb' ); // Delete the cached value for getBookContents()
-		( new Catalog() )->deleteCacheByBookId( $blog_id );
 		static::$preview = [];
 		static::$__order = [];
+
+		// User Catalog
+		( new Catalog() )->deleteCacheByBookId( $blog_id );
+
+		// Output buffers
+		delete_transient( Xhtml11::TRANSIENT );
 
 		/**
 		 * @since 5.0.0
@@ -505,7 +513,6 @@ class Book {
 	 * @return array|false
 	 */
 	static function getSubsections( $id ) {
-
 		$parent = get_post( $id );
 		if ( empty( $parent ) ) {
 			return false;
@@ -513,6 +520,7 @@ class Book {
 		if ( stripos( $parent->post_content, '<h1' ) === false ) {
 			return false;
 		}
+
 		$type = $parent->post_type;
 		$content = $parent->post_content;
 		$output = [];
@@ -522,6 +530,7 @@ class Book {
 		$dom = $doc->loadHTML( strip_tags( $content, '<h1>' ) ); // Strip everything except h1 to speed up load time
 		$sections = $dom->getElementsByTagName( 'h1' );
 		foreach ( $sections as $section ) {
+			/** @var $section \DOMElement */
 			$output[ $type . '-' . $id . '-section-' . $s ] = $section->textContent;
 			$s++;
 		}
@@ -542,7 +551,6 @@ class Book {
 	 * @return string|false
 	 */
 	static function tagSubsections( $content, $id ) {
-
 		$parent = get_post( $id );
 		if ( empty( $parent ) ) {
 			return false;

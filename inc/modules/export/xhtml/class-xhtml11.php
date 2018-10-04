@@ -16,6 +16,8 @@ use Pressbooks\Sanitize;
 
 class Xhtml11 extends Export {
 
+	const TRANSIENT = 'pressbooks_export_xhtml_buffer_inner_html';
+
 	/**
 	 * Prettify HTML
 	 *
@@ -247,6 +249,9 @@ class Xhtml11 extends Export {
 			list( $this->lang ) = explode( '-', $metadata['pb_language'] );
 		}
 
+		// ------------------------------------------------------------------------------------------------------------
+		// Buffer for Outer XHTML
+
 		ob_start();
 
 		$this->echoDocType( $book_contents, $metadata );
@@ -278,7 +283,6 @@ class Xhtml11 extends Export {
 				echo "<link rel='stylesheet' href='$url' type='text/css' />\n";
 			}
 		}
-
 		if ( ! empty( $_GET['script'] ) ) {
 			$url = $this->getExportScriptUrl( clean_filename( $_GET['script'] ) ) . '/script.js';
 			if ( $url ) {
@@ -291,51 +295,66 @@ class Xhtml11 extends Export {
 		echo $replace_token;
 		echo "\n</body>\n</html>";
 
-		$buffer_outter_html = ob_get_clean();
-		ob_start();
+		$buffer_outer_html = ob_get_clean();
 
-		// Before Title Page
-		$this->echoBeforeTitle( $book_contents, $metadata );
+		// ------------------------------------------------------------------------------------------------------------
+		// Buffer for Inner XHTML
 
-		// Half-title
-		$this->echoHalfTitle( $book_contents, $metadata );
+		$my_get = $_GET;
+		unset( $my_get['timestamp'], $my_get['hashkey'] );
+		$cache = get_transient( self::TRANSIENT );
+		if ( is_array( $cache ) && isset( $cache[0] ) && $cache[0] === md5( wp_json_encode( $my_get ) ) ) {
+			// The $_GET parameters haven't changed since the last request so the output will be the same
+			$buffer_inner_html = $cache[1];
+		} else {
+			ob_start();
 
-		// Cover
-		$this->echoCover( $book_contents, $metadata );
+			// Before Title Page
+			$this->echoBeforeTitle( $book_contents, $metadata );
 
-		// Title
-		$this->echoTitle( $book_contents, $metadata );
+			// Half-title
+			$this->echoHalfTitle( $book_contents, $metadata );
 
-		// Copyright
-		$this->echoCopyright( $book_contents, $metadata );
+			// Cover
+			$this->echoCover( $book_contents, $metadata );
 
-		// Dedication and Epigraph (In that order!)
-		$this->echoDedicationAndEpigraph( $book_contents, $metadata );
+			// Title
+			$this->echoTitle( $book_contents, $metadata );
 
-		// Table of contents
-		$this->echoToc( $book_contents, $metadata );
+			// Copyright
+			$this->echoCopyright( $book_contents, $metadata );
 
-		// Front-matter
-		$this->echoFrontMatter( $book_contents, $metadata );
+			// Dedication and Epigraph (In that order!)
+			$this->echoDedicationAndEpigraph( $book_contents, $metadata );
 
-		// Promo
-		$this->createPromo( $book_contents, $metadata );
+			// Table of contents
+			$this->echoToc( $book_contents, $metadata );
 
-		// Parts, Chapters
-		$this->echoPartsAndChapters( $book_contents, $metadata );
+			// Front-matter
+			$this->echoFrontMatter( $book_contents, $metadata );
 
-		// Back-matter
-		$this->echoBackMatter( $book_contents, $metadata );
+			// Promo
+			$this->createPromo( $book_contents, $metadata );
 
-		$buffer_inner_html = ob_get_clean();
+			// Parts, Chapters
+			$this->echoPartsAndChapters( $book_contents, $metadata );
 
-		if ( $this->tidy ) {
-			$buffer_inner_html = Sanitize\prettify( $buffer_inner_html );
+			// Back-matter
+			$this->echoBackMatter( $book_contents, $metadata );
+
+			$buffer_inner_html = ob_get_clean();
+
+			if ( $this->tidy ) {
+				$buffer_inner_html = Sanitize\prettify( $buffer_inner_html );
+			}
+
+			// Put the $_GET parameters and the buffer in a transient
+			set_transient( self::TRANSIENT, [ md5( wp_json_encode( $my_get ) ), $buffer_inner_html ] );
 		}
 
 		// Put inner HTML inside outer HTML
-		$pos = strpos( $buffer_outter_html, $replace_token );
-		$buffer = substr_replace( $buffer_outter_html, $buffer_inner_html, $pos, strlen( $replace_token ) );
+		$pos = strpos( $buffer_outer_html, $replace_token );
+		$buffer = substr_replace( $buffer_outer_html, $buffer_inner_html, $pos, strlen( $replace_token ) );
 
 		if ( $return ) {
 			return $buffer;
