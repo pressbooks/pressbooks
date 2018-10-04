@@ -3,7 +3,7 @@
 use Pressbooks\HtmlParser;
 
 
-class HtmlParrserTest extends \WP_UnitTestCase {
+class HtmlParserTest extends \WP_UnitTestCase {
 
 
 	public function test_externalParser() {
