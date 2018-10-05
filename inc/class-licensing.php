@@ -53,7 +53,7 @@ class Licensing {
 				'url' => 'https://creativecommons.org/publicdomain/mark/1.0/',
 				'desc' => __( 'Public Domain', 'pressbooks' ),
 			],
-			'cc0' => [
+			'cc-zero' => [
 				'api' => [
 					'license' => 'zero',
 					'commercial' => 'y',
