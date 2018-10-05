@@ -71,5 +71,11 @@ class GlobaltypographyTest extends \WP_UnitTestCase {
 		$this->assertTrue( $result );
 		$this->assertFileExists( WP_CONTENT_DIR . '/uploads/assets/fonts/NotoSansCJKkr-Regular.otf' );
 		$this->assertFileExists( WP_CONTENT_DIR . '/uploads/assets/fonts/NotoSansCJKkr-Bold.otf' );
+		$result = $this->gt->getFonts( [ 'ml' ] );
+		$this->assertTrue( $result );
+		$this->assertFileExists( WP_CONTENT_DIR . '/uploads/assets/fonts/NotoSansMalayalam-Regular.ttf' );
+		$this->assertFileExists( WP_CONTENT_DIR . '/uploads/assets/fonts/NotoSansMalayalam-Bold.ttf' );
+		$this->assertFileExists( WP_CONTENT_DIR . '/uploads/assets/fonts/NotoSerifMalayalam-Regular.ttf' );
+		$this->assertFileExists( WP_CONTENT_DIR . '/uploads/assets/fonts/NotoSerifMalayalam-Bold.ttf' );
 	}
 }

@@ -299,7 +299,7 @@ class GlobalTypography {
 		// List fonts
 		$fontpacks = [
 			'bn' => [
-				'baseurl' => 'https://github.com/googlei18n/noto-fonts/raw/master/unhinted',
+				'baseurl' => 'https://github.com/googlei18n/noto-fonts/raw/master/unhinted/',
 				'files' => [
 					'NotoSansBengali-Bold.ttf',
 					'NotoSansBengali-Regular.ttf',
@@ -331,7 +331,7 @@ class GlobalTypography {
 				],
 			],
 			'kn' => [
-				'baseurl' => 'https://github.com/googlei18n/noto-fonts/raw/master/unhinted',
+				'baseurl' => 'https://github.com/googlei18n/noto-fonts/raw/master/unhinted/',
 				'files' => [
 					'NotoSansKannada-Bold.ttf',
 					'NotoSansKannada-Regular.ttf',
@@ -347,7 +347,7 @@ class GlobalTypography {
 				],
 			],
 			'ml' => [
-				'baseurl' => 'https://github.com/googlei18n/noto-fonts/raw/master/unhinted',
+				'baseurl' => 'https://github.com/googlei18n/noto-fonts/raw/master/unhinted/',
 				'files' => [
 					'NotoSansMalayalam-Bold.ttf',
 					'NotoSansMalayalam-Regular.ttf',
@@ -356,14 +356,14 @@ class GlobalTypography {
 				],
 			],
 			'or' => [
-				'baseurl' => 'https://github.com/googlei18n/noto-fonts/raw/master/hinted',
+				'baseurl' => 'https://github.com/googlei18n/noto-fonts/raw/master/hinted/',
 				'files' => [
 					'NotoSansOriya-Bold.ttf',
 					'NotoSansOriya-Regular.ttf',
 				],
 			],
 			'te' => [
-				'baseurl' => 'https://github.com/googlei18n/noto-fonts/raw/master/unhinted',
+				'baseurl' => 'https://github.com/googlei18n/noto-fonts/raw/master/unhinted/',
 				'files' => [
 					'NotoSansTelugu-Bold.ttf',
 					'NotoSansTelugu-Regular.ttf',
@@ -402,7 +402,8 @@ class GlobalTypography {
 							$_SESSION['pb_errors'][] = sprintf( __( 'Your %1$s font could not be downloaded from %2$s.', 'pressbooks' ), $language_names[ $language ], '<code>' . $val['baseurl'] . $font . '</code>' ) . '<br /><pre>' . $result->get_error_message() . '</pre>';
 							return false;
 						} else {
-							rename( $result, $basepath . $font );
+							copy( $result, $basepath . $font );
+							unlink( $result );
 						}
 					}
 				}
