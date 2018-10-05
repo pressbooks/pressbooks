@@ -157,14 +157,14 @@ class BookTest extends \WP_UnitTestCase {
 		$this->assertArrayHasKey( "front-matter-{$id}-section-1", $result );
 		$this->assertEquals( 'Hi there!', $result["front-matter-{$id}-section-1"] );
 
-		$test = "<H1 style='font-size:small;'>Hi there!<B></B></H1><P>How are you?</P>"; // ALL CAPS
+		$test = "<H1 style='font-size:small;'>Hi there! Hope you're doing good.<B></B></H1><P>How are you?</P>"; // ALL CAPS, texturized
 		$id = $book::getBookStructure()['front-matter'][0]['ID'];
 		$this->factory()->post->update_object( $id, [ 'post_content' => $test ] );
 		$result = $book::getSubsections( $id );
 		$this->assertArrayHasKey( "front-matter-{$id}-section-1", $result );
-		$this->assertEquals( 'Hi there!', $result["front-matter-{$id}-section-1"] );
+		$this->assertEquals( 'Hi there! Hope you&#8217;re doing good.', $result["front-matter-{$id}-section-1"] );
 
-		$test = "<h2>Hi there!<b></b></h2><p>How are you?</p>"; // H2
+		$test = "<h2>Hi there! Hope you're doing good.<b></b></h2><p>How are you?</p>"; // H2
 		$this->factory()->post->update_object( $id, [ 'post_content' => $test ] );
 		$result = $book::getSubsections( $id );
 		$this->assertEquals( false, $result );
@@ -186,8 +186,12 @@ class BookTest extends \WP_UnitTestCase {
 
 		$test = "<H1 style='font-size:small;'>Hi there!<B></B></H1><P>How are you?.</P>"; // ALL CAPS
 		$result = $book::tagSubsections( $test, $id );
-		$this->assertContains( "<h1 style=\"font-size:small;\" id=\"front-matter-{$id}-section-1\" class=\"section-header\"" , $result );
+		$this->assertContains( "<h1 style=\"font-size:small;\" id=\"front-matter-{$id}-section-1\" class=\"section-header\"", $result );
 		$this->assertContains( '<b></b>', $result );
+
+		$test = "<h1 class='foo' id='bar'>Hi there!<b></b></h1><p>How are you?.</p>"; // existing class and id
+		$result = $book::tagSubsections( $test, $id );
+		$this->assertContains( "<h1 class=\"section-header foo bar\" id=\"front-matter-{$id}-section-1\"", $result );
 
 		$test = "<h2>Hi there!<b></b></h2><p>How are you?</p>"; // H2
 		$result = $book::tagSubsections( $test, $id );
