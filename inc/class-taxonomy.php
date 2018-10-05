@@ -18,7 +18,7 @@ class Taxonomy {
 	 * @see upgrade()
 	 * @var int
 	 */
-	const VERSION = 3;
+	const VERSION = 4;
 
 	/**
 	 * @var Taxonomy
@@ -435,9 +435,7 @@ class Taxonomy {
 			]
 		);
 
-		$disable_translation = true;
-		$disable_custom = true;
-		foreach ( $this->licensing->getSupportedTypes( $disable_translation, $disable_custom ) as $key => $val ) {
+		foreach ( $this->licensing->getSupportedTypes( true, true ) as $key => $val ) {
 			wp_insert_term(
 				$val['desc'], Licensing::TAXONOMY, [
 					'slug' => $key,
@@ -559,6 +557,9 @@ class Taxonomy {
 		if ( $version < 3 ) {
 			$this->upgradeLicenses();
 		}
+		if ( $version < 4 ) {
+			$this->differentiatePublicDomain();
+		}
 	}
 
 	/**
@@ -574,6 +575,27 @@ class Taxonomy {
 		);
 		foreach ( $results as $val ) {
 			wp_set_object_terms( $val['post_id'], $val['meta_value'], Licensing::TAXONOMY );
+		}
+	}
+
+	/**
+	 *
+	 */
+	protected function differentiatePublicDomain() {
+		foreach ( $this->licensing->getSupportedTypes( true, true ) as $key => $val ) {
+			if ( $key === 'public-domain' ) {
+				$public_domain = get_term_by( 'slug', $key, Licensing::TAXONOMY );
+				wp_update_term( $public_domain->term_id, Licensing::TAXONOMY, [
+					'name' => $val['desc'],
+				] );
+			}
+			if ( $key === 'cc-zero' ) {
+				wp_insert_term(
+					$val['desc'], Licensing::TAXONOMY, [
+						'slug' => $key,
+					]
+				);
+			}
 		}
 	}
 

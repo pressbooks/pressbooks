@@ -46,12 +46,21 @@ class Licensing {
 		$supported = [
 			'public-domain' => [
 				'api' => [
+					'license' => 'mark',
+					'commercial' => 'y',
+					'derivatives' => 'y',
+				],
+				'url' => 'https://creativecommons.org/publicdomain/mark/1.0/',
+				'desc' => __( 'Public Domain', 'pressbooks' ),
+			],
+			'cc0' => [
+				'api' => [
 					'license' => 'zero',
 					'commercial' => 'y',
 					'derivatives' => 'y',
 				],
 				'url' => 'https://creativecommons.org/publicdomain/zero/1.0/',
-				'desc' => __( 'Public Domain (No Rights Reserved)', 'pressbooks' ),
+				'desc' => __( 'CC0 (Creative Commons Zero)', 'pressbooks' ),
 			],
 			'cc-by' => [
 				'api' => [
@@ -375,7 +384,7 @@ class Licensing {
 		} elseif ( $this->isSupportedType( $license ) ) {
 			$name = $this->getNameForLicense( $license );
 			$url  = $this->getUrlForLicense( $license );
-			if ( \Pressbooks\Utility\str_starts_with( $license, 'cc' ) ) {
+			if ( \Pressbooks\Utility\str_starts_with( $license, 'cc' ) && $license !== 'cc-zero' ) {
 				return sprintf(
 					'<div class="license-attribution"><p>%1$s</p><p>%2$s</p></div>',
 					sprintf( '<img src="%1$s" alt="%2$s" />', get_template_directory_uri() . '/assets/book/images/' . $license . '.svg', sprintf( __( 'Icon for the %s', 'pressbooks' ), $name ) ),
@@ -397,6 +406,16 @@ class Licensing {
 					)
 				);
 			} elseif ( $license === 'public-domain' ) {
+				return sprintf(
+					'<div class="license-attribution"><p>%1$s</p><p>%2$s</p></div>',
+					sprintf( '<img src="%1$s" alt="%2$s" />', get_template_directory_uri() . '/assets/book/images/' . $license . '.svg', sprintf( __( 'Icon for the %s license', 'pressbooks' ), $name ) ),
+					sprintf(
+						__( 'This work (%1$s by %2$s) is free of known copyright restrictions.', 'pressbooks' ),
+						sprintf( '<a href="%1$s">%2$s</a>', $link, $title ),
+						$copyright_holder
+					)
+				);
+			} elseif ( $license === 'cc-zero' ) {
 				return sprintf(
 					'<div class="license-attribution"><p>%1$s</p><p>%2$s</p></div>',
 					sprintf( '<img src="%1$s" alt="%2$s" />', get_template_directory_uri() . '/assets/book/images/' . $license . '.svg', sprintf( __( 'Icon for the %s license', 'pressbooks' ), $name ) ),
