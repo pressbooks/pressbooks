@@ -80,7 +80,7 @@ class MetadataTest extends \WP_UnitTestCase {
 			'@context' => 'http://schema.org',
 			'@type' => 'Book',
 			'name' => 'Moby Dick',
-			'license' => 'https://creativecommons.org/publicdomain/zero/1.0/',
+			'license' => 'https://creativecommons.org/publicdomain/mark/1.0/',
 			'author' => [ // PB4
 				'@type' => 'Person',
 				'name' => 'Herman Melville',
@@ -97,8 +97,8 @@ class MetadataTest extends \WP_UnitTestCase {
 			'@type' => 'Book',
 			'name' => 'Moby Dick',
 			'license' => [
-				'url' => 'https://creativecommons.org/publicdomain/zero/1.0/',
-				'name' => 'Public Domain (No Rights Reserved)',
+				'url' => 'https://creativecommons.org/publicdomain/mark/1.0/',
+				'name' => 'Public Domain',
 				'description' => 'Override copyright.',
 			],
 			'author' => [
