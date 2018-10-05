@@ -38,6 +38,7 @@ class GlobalTypography {
 		return [
 			'grc' => __( 'Ancient Greek', 'pressbooks' ),
 			'ar' => __( 'Arabic', 'pressbooks' ),
+			'bn' => __( 'Bengali', 'pressbooks' ),
 			'he' => __( 'Biblical Hebrew', 'pressbooks' ),
 			'cans' => __( 'Canadian Indigenous Syllabics', 'pressbooks' ),
 			'hi' => __( 'Devanagari (Hindi and Sanskrit)', 'pressbooks' ),
@@ -47,9 +48,13 @@ class GlobalTypography {
 			'gu' => __( 'Gujarati', 'pressbooks' ),
 			'pan' => __( 'Punjabi (Gurmukhi)', 'pressbooks' ),
 			'ja' => __( 'Japanese', 'pressbooks' ),
+			'kn' => __( 'Kannada', 'pressbooks' ),
 			'ko' => __( 'Korean', 'pressbooks' ),
+			'ml' => __( 'Malayalam', 'pressbooks' ),
+			'or' => __( 'Odia', 'pressbooks' ),
 			'syr' => __( 'Syriac', 'pressbooks' ),
 			'ta' => __( 'Tamil', 'pressbooks' ),
+			'te' => __( 'Telugu', 'pressbooks' ),
 			'bo' => __( 'Tibetan', 'pressbooks' ),
 			'tr' => __( 'Turkish', 'pressbooks' ),
 		];
@@ -148,12 +153,24 @@ class GlobalTypography {
 			case 'ar-ye':
 				$lang = 'ar';
 				break;
+			case 'bn': // Bengali
+				$lang = 'bn';
+				break;
 			case 'he': // Biblical Hebrew
 				$lang = 'he';
 				break;
 			case 'hi': // Hindi
 			case 'sa': // Sanskrit
 				$lang = 'hi';
+				break;
+			case 'kn': // Kannada
+				$lang = 'kn';
+				break;
+			case 'ml': // Malayalam
+				$lang = 'ml';
+				break;
+			case 'or': // Odia
+				$lang = 'or';
 				break;
 			case 'zh': // Chinese (Simplified)
 			case 'zh-cn':
@@ -175,6 +192,9 @@ class GlobalTypography {
 				break;
 			case 'ta': // Tamil
 				$lang = 'ta';
+				break;
+			case 'te': // Telugu
+				$lang = 'te';
 				break;
 			case 'tr': // Turkish
 				$lang = 'tr';
@@ -278,6 +298,15 @@ class GlobalTypography {
 
 		// List fonts
 		$fontpacks = [
+			'bn' => [
+				'baseurl' => 'https://github.com/googlei18n/noto-fonts/raw/master/unhinted/',
+				'files' => [
+					'NotoSansBengali-Bold.ttf',
+					'NotoSansBengali-Regular.ttf',
+					'NotoSerifBengali-Bold.ttf',
+					'NotoSerifBengali-Regular.ttf',
+				],
+			],
 			'cans' => [
 				'baseurl' => 'https://github.com/googlei18n/noto-fonts/raw/master/unhinted/',
 				'files' => [
@@ -301,11 +330,45 @@ class GlobalTypography {
 					'NotoSansCJKjp-Bold.otf',
 				],
 			],
+			'kn' => [
+				'baseurl' => 'https://github.com/googlei18n/noto-fonts/raw/master/unhinted/',
+				'files' => [
+					'NotoSansKannada-Bold.ttf',
+					'NotoSansKannada-Regular.ttf',
+					'NotoSerifKannada-Bold.ttf',
+					'NotoSerifKannada-Regular.ttf',
+				],
+			],
 			'ko' => [
 				'baseurl' => 'https://github.com/googlei18n/noto-cjk/raw/master/',
 				'files' => [
 					'NotoSansCJKkr-Regular.otf',
 					'NotoSansCJKkr-Bold.otf',
+				],
+			],
+			'ml' => [
+				'baseurl' => 'https://github.com/googlei18n/noto-fonts/raw/master/unhinted/',
+				'files' => [
+					'NotoSansMalayalam-Bold.ttf',
+					'NotoSansMalayalam-Regular.ttf',
+					'NotoSerifMalayalam-Bold.ttf',
+					'NotoSerifMalayalam-Regular.ttf',
+				],
+			],
+			'or' => [
+				'baseurl' => 'https://github.com/googlei18n/noto-fonts/raw/master/hinted/',
+				'files' => [
+					'NotoSansOriya-Bold.ttf',
+					'NotoSansOriya-Regular.ttf',
+				],
+			],
+			'te' => [
+				'baseurl' => 'https://github.com/googlei18n/noto-fonts/raw/master/unhinted/',
+				'files' => [
+					'NotoSansTelugu-Bold.ttf',
+					'NotoSansTelugu-Regular.ttf',
+					'NotoSerifTelugu-Bold.ttf',
+					'NotoSerifTelugu-Regular.ttf',
 				],
 			],
 			'zh_HANS' => [
@@ -339,7 +402,8 @@ class GlobalTypography {
 							$_SESSION['pb_errors'][] = sprintf( __( 'Your %1$s font could not be downloaded from %2$s.', 'pressbooks' ), $language_names[ $language ], '<code>' . $val['baseurl'] . $font . '</code>' ) . '<br /><pre>' . $result->get_error_message() . '</pre>';
 							return false;
 						} else {
-							rename( $result, $basepath . $font );
+							copy( $result, $basepath . $font );
+							unlink( $result );
 						}
 					}
 				}
