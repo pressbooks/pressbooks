@@ -522,16 +522,16 @@ class Book {
 		}
 
 		$type = $parent->post_type;
-		$content = $parent->post_content;
+		$content = strip_tags( $parent->post_content, '<h1>' );  // Strip everything except h1 to speed up load time
 		$output = [];
 		$s = 1;
 
 		$doc = new HtmlParser( true ); // Because we are not saving, use internal parser to speed up load time
-		$dom = $doc->loadHTML( strip_tags( $content, '<h1>' ) ); // Strip everything except h1 to speed up load time
+		$dom = $doc->loadHTML( $content );
 		$sections = $dom->getElementsByTagName( 'h1' );
 		foreach ( $sections as $section ) {
 			/** @var $section \DOMElement */
-			$output[ $type . '-' . $id . '-section-' . $s ] = $section->textContent;
+			$output[ $type . '-' . $id . '-section-' . $s ] = wptexturize( $section->textContent );
 			$s++;
 		}
 
@@ -567,8 +567,12 @@ class Book {
 		$sections = $dom->getElementsByTagName( 'h1' );
 		foreach ( $sections as $section ) {
 			/** @var $section \DOMElement */
-			$section->setAttribute( 'id', $type . '-' . $id . '-section-' . $s++ );
-			$section->setAttribute( 'class', 'section-header' );
+			$old_id = $section->getAttribute( 'id' );
+			$old_class = $section->getAttribute( 'class' );
+			$new_id = "{$type}-{$id}-section-" . $s++;
+			$new_class = trim( "section-header {$old_class} {$old_id}" );
+			$section->setAttribute( 'id', $new_id );
+			$section->setAttribute( 'class', $new_class );
 		}
 
 		return $doc->saveHTML( $dom );
