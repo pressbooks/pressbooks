@@ -198,7 +198,7 @@ function rewrite_rules_for_catalog() {
 function do_catalog( $template ) {
 	if ( get_query_var( 'pagename' ) === 'pb_catalog' ) {
 		$user = get_user_by( 'login', get_query_var( 'pb_catalog_user' ) );
-		if ( $user !== false ) {
+		if ( $user !== false && is_user_spammy( $user ) === false ) {
 			status_header( 200 );
 			return \Pressbooks\Catalog::getTemplatePath();
 		}
@@ -572,5 +572,9 @@ function programmatic_login( $username ) {
  * @return bool|\WP_User a WP_User object if the username matched an existing user, or false if it didn't
  */
 function allow_programmatic_login( $user, $username, $password ) {
-	return get_user_by( 'login', $username );
+	$user = get_user_by( 'login', $username );
+	if ( $user !== false && is_user_spammy( $user ) === false ) {
+		return $user;
+	}
+	return false;
 }
