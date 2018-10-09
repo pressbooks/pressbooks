@@ -594,7 +594,7 @@ class Xhtml11 extends Export {
 	}
 
 	/**
-	 * Removes the CC attribution link.
+	 * Removes the CC attribution link. Returns valid xhtml.
 	 *
 	 * @since 4.1
 	 *
@@ -603,7 +603,13 @@ class Xhtml11 extends Export {
 	 * @return string
 	 */
 	protected function removeAttributionLink( $content ) {
-		$html5 = new HtmlParser();
+		if ( stripos( $content, '<a' ) === false ) {
+			// There are no <a> tags to look at, skip this
+			return $content;
+		}
+
+		$changed = false;
+		$html5 = new HtmlParser( true );
 		$dom = $html5->loadHTML( $content );
 
 		$urls = $dom->getElementsByTagName( 'a' );
@@ -615,11 +621,17 @@ class Xhtml11 extends Export {
 					$dom->createTextNode( $url->nodeValue ),
 					$url
 				);
+				$changed = true;
 			}
 		}
 
-		$content = $html5->saveHTML( $dom );
-		return $content;
+		if ( ! $changed ) {
+			return $content;
+		} else {
+			$content = $html5->saveHTML( $dom );
+			$content = \Pressbooks\HtmLawed::filter( $content, [ 'valid_xhtml' => 1 ] );
+			return $content;
+		}
 	}
 
 	/**
