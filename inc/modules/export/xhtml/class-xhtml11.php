@@ -609,7 +609,7 @@ class Xhtml11 extends Export {
 		}
 
 		$changed = false;
-		$html5 = new HtmlParser( true );
+		$html5 = new HtmlParser();
 		$dom = $html5->loadHTML( $content );
 
 		$urls = $dom->getElementsByTagName( 'a' );
