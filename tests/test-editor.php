@@ -174,4 +174,12 @@ class EditorTest extends \WP_UnitTestCase {
 		$this->assertFalse( $result['wordpress_adv_hidden'] );
 	}
 
+	public function test_force_classic_editor_mode() {
+		update_option( 'classic-editor-replace', 'no-replace' );
+		$this->assertEquals( 'no-replace', get_option( 'classic-editor-replace' ) );
+		\Pressbooks\Editor\hide_gutenberg();
+		$this->assertFalse( is_plugin_active( 'gutenberg/gutenberg.php' ) );
+		$this->assertEquals( 'replace', get_option( 'classic-editor-replace' ) );
+	}
+
 }

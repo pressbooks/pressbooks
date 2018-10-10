@@ -438,3 +438,28 @@ function show_kitchen_sink( $args ) {
 	$args['wordpress_adv_hidden'] = false;
 	return $args;
 }
+
+/**
+ * Force classic editor mode
+ */
+function hide_gutenberg() {
+	// 4.9.X and below
+	deactivate_plugins( [ 'gutenberg/gutenberg.php' ] );
+
+	// 5.X and up
+	if ( ! function_exists( 'classic_editor_init_actions' ) ) {
+		// TODO: Install "Classic Editor" plugin?
+		// https://en-ca.wordpress.org/plugins/classic-editor/
+	}
+
+	// Hide "Classic Editor" Settings page, because we don't want people turning Gutenberg back on
+	remove_filter( 'plugin_action_links', 'classic_editor_add_settings_link' );
+	remove_action( 'admin_init', 'classic_editor_admin_init' );
+
+	// Short circuit the classic-editor-replace option, always replace
+	add_filter(
+		'pre_option_classic-editor-replace', function () {
+			return 'replace';
+		}
+	);
+}

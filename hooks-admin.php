@@ -64,7 +64,7 @@ if ( $is_book ) {
 	add_filter( 'parent_file', '\Pressbooks\Admin\Laf\fix_parent_file' );
 	add_action( 'wp_dashboard_setup', '\Pressbooks\Admin\Dashboard\replace_dashboard_widgets' );
 	add_action( 'customize_register', '\Pressbooks\Admin\Laf\customize_register', 1000 );
-	add_filter( 'all_plugins', '\Pressbooks\Admin\Plugins\filter_plugins', 10 );
+	add_filter( 'all_plugins', '\Pressbooks\Admin\Plugins\filter_plugins' );
 	// Disable theme customizer
 	add_action( 'admin_body_class', '\Pressbooks\Admin\Laf\disable_customizer' );
 
@@ -177,7 +177,7 @@ if ( $is_book ) {
 }
 
 // -------------------------------------------------------------------------------------------------------------------
-// Tinymce
+// Tinymce (ie. Classic Editor)
 // -------------------------------------------------------------------------------------------------------------------
 
 if ( $is_book ) {
@@ -193,6 +193,12 @@ if ( $is_book ) {
 	add_filter( 'wp_link_query', '\Pressbooks\Editor\add_anchors_to_wp_link_query', 1, 2 );
 	add_action( 'admin_enqueue_scripts', '\Pressbooks\Editor\admin_enqueue_scripts' );
 	add_action( 'admin_init', '\Pressbooks\Editor\add_editor_style' );
+}
+
+if ( ! defined( 'PB_GUTENBERG_TESTING' ) || ! PB_GUTENBERG_TESTING ) {
+	// Hide Gutenberg
+	add_action( 'plugins_loaded', '\Pressbooks\Editor\hide_gutenberg', 1000 );
+	add_filter( 'all_plugins', '\Pressbooks\Admin\Plugins\hide_gutenberg', 1000 );
 }
 
 // -------------------------------------------------------------------------------------------------------------------

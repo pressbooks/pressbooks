@@ -15,7 +15,7 @@ namespace Pressbooks\Admin\Plugins;
  *
  * @param array $plugins
  *
- * @return array $plugins
+ * @return array
  */
 
 function filter_plugins( $plugins ) {
@@ -37,5 +37,15 @@ function filter_plugins( $plugins ) {
 		}
 	}
 
+	return $plugins;
+}
+
+/**
+ * @param array $plugins
+ *
+ * @return array
+ */
+function hide_gutenberg( $plugins ) {
+	unset( $plugins['gutenberg/gutenberg.php'] );
 	return $plugins;
 }
