@@ -26,7 +26,7 @@
 		"select2": "^4.0.3",
 		"sidr": "^2.2.1",
 		"tinymce": "^4.8.3",
-		"wp-admin-colors": "^4.9.5",
+		"wp-admin-colors": "^4.9.8",
 		"wpapi": "^1.1.2"
 	},
 	"devDependencies": {
