@@ -22,6 +22,7 @@ class Content {
 	 */
 	protected $whitelistedDomains = [
 		'phet.colorado.edu',
+		'cdn.knightlab.com',
 		'www.openassessments.org',
 		'players.brightcove.net',
 		'preview-players.brightcove.net',
