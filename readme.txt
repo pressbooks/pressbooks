@@ -5,7 +5,7 @@ Tags: ebooks, publishing, webbooks
 Requires at least: 4.9.8
 Tested up to: 4.9.8
 Requires PHP: 7.1
-Stable tag: 5.5.2
+Stable tag: 5.5.3
 License: GPL v3.0 or later
 License URI: https://github.com/pressbooks/pressbooks/blob/master/LICENSE.md
 
@@ -38,6 +38,17 @@ TK.
 **Patches**
 
 * Hide the "View" link when editing taxonomies (props [@colomet](https://github.com/colomet) for the idea): [#1351](https://github.com/pressbooks/pressbooks/pull/1351)
+
+= 5.5.3 =
+
+* Pressbooks 5.5.3 requires PHP >= 7.1.
+* Pressbooks 5.5.3 requires [WordPress 4.9.8](https://wordpress.org/news/2018/08/wordpress-4-9-8-maintenance-release/).
+* Pressbooks 5.5.3 requires [McLuhan >= 2.5.2](https://github.com/pressbooks/pressbooks-book/).
+
+**Patches**
+
+* Optimize TOC and XHTML generation: [#1389](https://github.com/pressbooks/pressbooks/pull/1389), [#1396](https://github.com/pressbooks/pressbooks/pull/1396)
+* Prevent stylesheet rebuild stampede ([#1383](https://github.com/pressbooks/pressbooks/issues/1383)): [#1384](https://github.com/pressbooks/pressbooks/pull/1384)
 
 = 5.5.2 =
 
