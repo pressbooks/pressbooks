@@ -7,6 +7,7 @@
 namespace Pressbooks;
 
 use function \Pressbooks\Utility\debug_error_log;
+use function \Pressbooks\Utility\oxford_comma_explode;
 
 /**
  * TODO: Refactor
@@ -420,7 +421,15 @@ class Licensing {
 					'<div class="license-attribution"><p>%1$s</p><p>%2$s</p></div>',
 					sprintf( '<img src="%1$s" alt="%2$s" />', get_template_directory_uri() . '/assets/book/images/' . $license . '.svg', sprintf( __( 'Icon for the %s license', 'pressbooks' ), $name ) ),
 					sprintf(
-						__( 'To the extent possible under law, %1$s has waived all copyright and related or neighboring rights to %2$s, except where otherwise noted.', 'pressbooks' ),
+						translate_nooped_plural(
+							_n_noop(
+								'To the extent possible under law, %1$s has waived all copyright and related or neighboring rights to %2$s, except where otherwise noted.',
+								'To the extent possible under law, %1$s have waived all copyright and related or neighboring rights to %2$s, except where otherwise noted.',
+								'pressbooks-book'
+							),
+							count( oxford_comma_explode( $copyright_holder ) ),
+							'pressbooks'
+						),
 						$copyright_holder,
 						sprintf( '<a href="%1$s">%2$s</a>', $link, $title )
 					)
