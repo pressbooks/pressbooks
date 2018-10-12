@@ -517,12 +517,14 @@ class Book {
 		if ( empty( $parent ) ) {
 			return false;
 		}
-		if ( stripos( $parent->post_content, '<h1' ) === false ) {
+		$has_shortcode = has_shortcode( $parent->post_content, 'heading' );
+		if ( stripos( $parent->post_content, '<h1' ) === false && $has_shortcode === false ) { // No <h1> or [heading] shortcode
 			return false;
 		}
 
 		$type = $parent->post_type;
-		$content = strip_tags( $parent->post_content, '<h1>' );  // Strip everything except h1 to speed up load time
+		$content = ( $has_shortcode ) ? apply_filters( 'the_content', $parent->post_content ) : $parent->post_content; // Only render shortcodes if we have to
+		$content = strip_tags( $content, '<h1>' );  // Strip everything except h1 to speed up load time
 		$output = [];
 		$s = 1;
 

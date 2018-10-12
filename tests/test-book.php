@@ -145,6 +145,7 @@ class BookTest extends \WP_UnitTestCase {
 
 	public function test_getSubsections() {
 		$this->_book();
+		$this->_shortcodes();
 		$book = \Pressbooks\Book::getInstance();
 
 		$result = $book::getSubsections( 0 );
@@ -158,11 +159,16 @@ class BookTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'Hi there!', $result["front-matter-{$id}-section-1"] );
 
 		$test = "<H1 style='font-size:small;'>Hi there! Hope you're doing good.<B></B></H1><P>How are you?</P>"; // ALL CAPS, texturized
-		$id = $book::getBookStructure()['front-matter'][0]['ID'];
 		$this->factory()->post->update_object( $id, [ 'post_content' => $test ] );
 		$result = $book::getSubsections( $id );
 		$this->assertArrayHasKey( "front-matter-{$id}-section-1", $result );
 		$this->assertEquals( 'Hi there! Hope you&#8217;re doing good.', $result["front-matter-{$id}-section-1"] );
+
+		$test = '[heading]Whoa, a shortcode![/heading]<p>Some other stuff.</p>'; // A [heading] shortcode
+		$this->factory()->post->update_object( $id, [ 'post_content' => $test ] );
+		$result = $book::getSubsections( $id );
+		$this->assertArrayHasKey( "front-matter-{$id}-section-1", $result );
+		$this->assertEquals( 'Whoa, a shortcode!', $result["front-matter-{$id}-section-1"] );
 
 		$test = "<h2>Hi there! Hope you're doing good.<b></b></h2><p>How are you?</p>"; // H2
 		$this->factory()->post->update_object( $id, [ 'post_content' => $test ] );
