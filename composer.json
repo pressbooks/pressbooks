@@ -32,7 +32,7 @@
 		"gridonic/princexml-php": "^1.2",
 		"illuminate/container": "5.4.*",
 		"jenssegers/blade": "^1.1",
-		"jenssegers/imagehash": "^0.4.2",
+		"jenssegers/imagehash": "^0.5.0",
 		"johnbillion/extended-cpts": "^4.2",
 		"leafo/scssphp": "^0.7.6",
 		"masterminds/html5": "^2.3",
