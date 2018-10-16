@@ -46,7 +46,7 @@
 		"fale/isbn": "^3.0"
 	},
 	"require-dev": {
-		"phpunit/phpunit": "6.5.8",
+		"phpunit/phpunit": "7.4.0",
 		"pressbooks/coding-standards": "dev-master"
 	},
 	"suggest": {
