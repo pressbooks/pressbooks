@@ -257,20 +257,14 @@ There are many maths like it but these ones are mine.
 	}
 
 	/**
-	 * Set up shortcodes.
+	 * Set up generic shortcodes.
 	 * @see hooks.php
 	 */
 	public function _shortcodes() {
 		remove_filter( 'the_content', 'wpautop' );
 		add_filter( 'the_content', 'wpautop', 12 ); // execute wpautop after shortcode processing
 
-		\Pressbooks\Shortcodes\Footnotes\Footnotes::init();
-		\Pressbooks\Shortcodes\Attributions\Attachments::init();
-		\Pressbooks\Shortcodes\Glossary\Glossary::init();
-		\Pressbooks\Shortcodes\Complex\Complex::init();
 		\Pressbooks\Shortcodes\Generics\Generics::init();
-		\Pressbooks\Shortcodes\WikiPublisher\Glyphs::init();
-		\Pressbooks\Shortcodes\TablePress::init();
 	}
 
 }
