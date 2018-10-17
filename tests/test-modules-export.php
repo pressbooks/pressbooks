@@ -341,8 +341,6 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 			}
 
 			unset( $exporter );
-
-			gc_collect_cycles();
 		}
 
 		// Verify XHTML content for good measure

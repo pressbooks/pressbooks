@@ -23,4 +23,7 @@
 			</exclude>
 		</whitelist>
 	</filter>
+	 <listeners>
+        <listener class="\MyBuilder\PhpunitAccelerator\TestListener"/>
+    </listeners>
 </phpunit>

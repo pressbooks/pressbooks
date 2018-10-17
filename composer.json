@@ -46,7 +46,8 @@
 		"fale/isbn": "^3.0"
 	},
 	"require-dev": {
-		"phpunit/phpunit": "6.5.13",
+		"mybuilder/phpunit-accelerator": "^2.0",
+		"phpunit/phpunit": "^6.5",
 		"pressbooks/coding-standards": "dev-master"
 	},
 	"suggest": {
