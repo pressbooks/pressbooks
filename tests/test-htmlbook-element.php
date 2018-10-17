@@ -1,6 +1,6 @@
 <?php
 
-class HTMLBookElementTest extends \WP_UnitTestCase {
+class HTMLBook_ElementTest extends \WP_UnitTestCase {
 
 	public function test_isInline() {
 		$e = new \Pressbooks\HTMLBook\Element();

@@ -1,6 +1,6 @@
 <?php
 
-class ShortcodesAttributionsAttachments extends \WP_UnitTestCase {
+class Shortcodes_Attributions_Attachments extends \WP_UnitTestCase {
 
 	use utilsTrait;
 

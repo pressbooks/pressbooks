@@ -1,6 +1,6 @@
 <?php
 
-class InteractivePhetTest extends \WP_UnitTestCase {
+class Interactive_PhetTest extends \WP_UnitTestCase {
 
 	/**
 	 * @var \Pressbooks\Interactive\Phet

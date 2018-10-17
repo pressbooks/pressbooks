@@ -1,6 +1,6 @@
 <?php
 
-class ShortcodesGlossary extends \WP_UnitTestCase {
+class Shortcodes_Glossary extends \WP_UnitTestCase {
 
 	use utilsTrait;
 

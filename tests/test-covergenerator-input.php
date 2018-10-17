@@ -1,6 +1,6 @@
 <?php
 
-class CovergeneratorInputTest extends \WP_UnitTestCase {
+class CoverGenerator_InputTest extends \WP_UnitTestCase {
 
 	/**
 	 * @var \Pressbooks\Covergenerator\Input

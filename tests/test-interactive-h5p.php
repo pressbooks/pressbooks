@@ -1,6 +1,6 @@
 <?php
 
-class InteractiveH5PTest extends \WP_UnitTestCase {
+class Interactive_H5PTest extends \WP_UnitTestCase {
 
 	/**
 	 * @var \Pressbooks\Interactive\H5P

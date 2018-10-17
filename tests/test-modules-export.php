@@ -14,8 +14,7 @@ class ExportMock extends \Pressbooks\Modules\Export\Export {
 	}
 }
 
-
-class ModulesExportTest extends \WP_UnitTestCase {
+class Modules_ExportTest extends \WP_UnitTestCase {
 
 	use utilsTrait;
 
@@ -24,6 +23,15 @@ class ModulesExportTest extends \WP_UnitTestCase {
 	 */
 	protected $export;
 
+	public function moduleProvider()
+    {
+        return [
+            [0, 0, 0],
+            [0, 1, 1],
+            [1, 0, 1],
+            [1, 1, 3]
+        ];
+    }
 
 	/**
 	 *

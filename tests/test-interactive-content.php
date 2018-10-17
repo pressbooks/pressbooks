@@ -1,6 +1,6 @@
 <?php
 
-class InteractiveContentTest extends \WP_UnitTestCase {
+class Interactive_ContentTest extends \WP_UnitTestCase {
 
 	/**
 	 * @var \Pressbooks\Interactive\Content

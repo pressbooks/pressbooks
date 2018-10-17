@@ -1,6 +1,6 @@
 <?php
 
-class HTMLBookValidatorTest extends \WP_UnitTestCase {
+class HTMLBook_ValidatorTest extends \WP_UnitTestCase {
 
 
 	public function test_validate() {
