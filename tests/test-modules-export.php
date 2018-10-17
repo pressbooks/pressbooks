@@ -289,73 +289,75 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 	 * Sanity check that exports run without obvious errors
 	 * Verify XHTML content for good measure
 	 */
-	// public function test_sanityChecks() {
+	public function test_sanityChecks() {
 
-	// 	$runtime = new \SebastianBergmann\Environment\Runtime();
+		$runtime = new \SebastianBergmann\Environment\Runtime();
 
-	// 	$this->_book();
-	// 	$meta_post = ( new \Pressbooks\Metadata() )->getMetaPost();
-	// 	( new \Pressbooks\Contributors() )->insert( 'Ned Zimmerman', $meta_post->ID );
-	// 	$user_id = $this->factory()->user->create( [ 'role' => 'contributor' ] );
-	// 	wp_set_current_user( $user_id );
+		$this->_book();
+		$meta_post = ( new \Pressbooks\Metadata() )->getMetaPost();
+		( new \Pressbooks\Contributors() )->insert( 'Ned Zimmerman', $meta_post->ID );
+		$user_id = $this->factory()->user->create( [ 'role' => 'contributor' ] );
+		wp_set_current_user( $user_id );
 
-	// 	$modules[] = '\Pressbooks\Modules\Export\Xhtml\Xhtml11'; // Must be first! Other tests depend on this. Never comment out, never change position.
-	// 	$modules[] = '\Pressbooks\Modules\Export\Prince\Pdf';
-	// 	$modules[] = '\Pressbooks\Modules\Export\Prince\PrintPdf';
-	// 	$modules[] = '\Pressbooks\Modules\Export\Prince\Docraptor';
-	// 	$modules[] = '\Pressbooks\Modules\Export\Prince\DocraptorPrint';
-	// 	$modules[] = '\Pressbooks\Modules\Export\Epub\Epub201'; // Must be set before MOBI
-	// 	$modules[] = '\Pressbooks\Modules\Export\Epub\Epub3';
-	// 	// $modules[] = '\Pressbooks\Modules\Export\Mobi\Kindlegen'; // Must be set after EPUB // TODO: Download/install Kindlegen in Travis build script
-	// 	$modules[] = '\Pressbooks\Modules\Export\InDesign\Icml';
-	// 	$modules[] = '\Pressbooks\Modules\Export\WordPress\Wxr';
-	// 	$modules[] = '\Pressbooks\Modules\Export\WordPress\VanillaWxr';
-	// 	// $modules[] = '\Pressbooks\Modules\Export\Odt\Odt'; // TODO: Download/install Saxon-HE in Travis build script
-	// 	$modules[] = '\Pressbooks\Modules\Export\HTMLBook\HTMLBook';
+		$modules[] = '\Pressbooks\Modules\Export\Xhtml\Xhtml11'; // Must be first! Other tests depend on this. Never comment out, never change position.
+		$modules[] = '\Pressbooks\Modules\Export\Prince\Pdf';
+		$modules[] = '\Pressbooks\Modules\Export\Prince\PrintPdf';
+		$modules[] = '\Pressbooks\Modules\Export\Prince\Docraptor';
+		$modules[] = '\Pressbooks\Modules\Export\Prince\DocraptorPrint';
+		$modules[] = '\Pressbooks\Modules\Export\Epub\Epub201'; // Must be set before MOBI
+		$modules[] = '\Pressbooks\Modules\Export\Epub\Epub3';
+		// $modules[] = '\Pressbooks\Modules\Export\Mobi\Kindlegen'; // Must be set after EPUB // TODO: Download/install Kindlegen in Travis build script
+		$modules[] = '\Pressbooks\Modules\Export\InDesign\Icml';
+		$modules[] = '\Pressbooks\Modules\Export\WordPress\Wxr';
+		$modules[] = '\Pressbooks\Modules\Export\WordPress\VanillaWxr';
+		// $modules[] = '\Pressbooks\Modules\Export\Odt\Odt'; // TODO: Download/install Saxon-HE in Travis build script
+		$modules[] = '\Pressbooks\Modules\Export\HTMLBook\HTMLBook';
 
-	// 	$paths = [];
-	// 	$xhtml_path = null;
-	// 	foreach ( $modules as $module ) {
-	// 		/** @var \Pressbooks\Modules\Export\Export $exporter */
-	// 		$exporter = new $module( [] );
+		$paths = [];
+		$xhtml_path = null;
+		foreach ( $modules as $module ) {
+			/** @var \Pressbooks\Modules\Export\Export $exporter */
+			$exporter = new $module( [] );
 
-	// 		if (
-	// 			strpos( $module, '\Prince\\' ) !== false ||
-	// 			strpos( $module, '\Odt\\' ) !== false
-	// 		) {
-	// 			$exporter->url = $xhtml_path;
-	// 		}
+			if (
+				strpos( $module, '\Prince\\' ) !== false ||
+				strpos( $module, '\Odt\\' ) !== false
+			) {
+				$exporter->url = $xhtml_path;
+			}
 
-	// 		$this->assertTrue( $exporter->convert(), "Could not convert with {$module}" );
-	// 		if ( strpos( $module, '\HTMLBook\HTMLBook' ) !== false ) {
-	// 			// TODO: HTMLBook is too strict we don't pass the validation
-	// 		} elseif ( $runtime->isPHPDBG() && strpos( $module, '\Epub\Epub' ) !== false ) {
-	// 			// TODO: exec(): Unable to fork [/usr/bin/epubcheck -q /path/to.epub 2>&1]
-	// 		} else {
-	// 			$this->assertTrue( $exporter->validate(), "Could not validate with {$module}" );
-	// 		}
-	// 		$paths[] = $exporter->getOutputPath();
+			$this->assertTrue( $exporter->convert(), "Could not convert with {$module}" );
+			if ( strpos( $module, '\HTMLBook\HTMLBook' ) !== false ) {
+				// TODO: HTMLBook is too strict we don't pass the validation
+			} elseif ( $runtime->isPHPDBG() && strpos( $module, '\Epub\Epub' ) !== false ) {
+				// TODO: exec(): Unable to fork [/usr/bin/epubcheck -q /path/to.epub 2>&1]
+			} else {
+				$this->assertTrue( $exporter->validate(), "Could not validate with {$module}" );
+			}
+			$paths[] = $exporter->getOutputPath();
 
-	// 		if ( strpos( $module, '\Xhtml\Xhtml11' ) !== false ) {
-	// 			$xhtml_path = $exporter->getOutputPath();
-	// 		}
+			if ( strpos( $module, '\Xhtml\Xhtml11' ) !== false ) {
+				$xhtml_path = $exporter->getOutputPath();
+			}
 
-	// 		unset( $exporter );
-	// 	}
+			unset( $exporter );
 
-	// 	// Verify XHTML content for good measure
-	// 	$xhtml_content = file_get_contents( ( $xhtml_path ) );
-	// 	$this->assertContains( '<span class="footnote">', $xhtml_content );
-	// 	$this->assertContains( 'wp.com/latex.php', $xhtml_content );
-	// 	$this->assertContains( ' <div id="attachment_1" ', $xhtml_content );
-	// 	$this->assertContains( '<p><em>Ka kite ano!</em></p>', $xhtml_content );
-	// 	$this->assertContains( 'https://github.com/pressbooks/pressbooks', $xhtml_content );
-	// 	$this->assertContains( '</h2><h2 class="chapter-subtitle">Or, A Chapter to Test</h2></div>', $xhtml_content );
+			gc_collect_cycles();
+		}
 
-	// 	foreach ( $paths as $path ) {
-	// 		unlink( $path );
-	// 	}
-	// }
+		// Verify XHTML content for good measure
+		$xhtml_content = file_get_contents( ( $xhtml_path ) );
+		$this->assertContains( '<span class="footnote">', $xhtml_content );
+		$this->assertContains( 'wp.com/latex.php', $xhtml_content );
+		$this->assertContains( ' <div id="attachment_1" ', $xhtml_content );
+		$this->assertContains( '<p><em>Ka kite ano!</em></p>', $xhtml_content );
+		$this->assertContains( 'https://github.com/pressbooks/pressbooks', $xhtml_content );
+		$this->assertContains( '</h2><h2 class="chapter-subtitle">Or, A Chapter to Test</h2></div>', $xhtml_content );
+
+		foreach ( $paths as $path ) {
+			unlink( $path );
+		}
+	}
 
 	public function test_sanityCheckXhtmlWithoutBuckram() {
 
