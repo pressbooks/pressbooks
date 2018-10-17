@@ -2,7 +2,7 @@
 
 require_once( PB_PLUGIN_DIR . 'inc/admin/covergenerator/namespace.php' );
 
-class Admin_CovergeneratorTest extends \WP_UnitTestCase {
+class Admin_CoverGeneratorTest extends \WP_UnitTestCase {
 
 	use utilsTrait;
 

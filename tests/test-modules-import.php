@@ -13,7 +13,7 @@ class ImportMock extends \Pressbooks\Modules\Import\Import {
 }
 
 
-class Modules_ImportTest extends \WP_UnitTestCase {
+class ModulesImportTest extends \WP_UnitTestCase {
 
 	use utilsTrait;
 

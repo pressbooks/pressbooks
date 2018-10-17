@@ -3,7 +3,7 @@
 use \Pressbooks\GlobalTypography;
 use \Pressbooks\Container;
 
-class GlobaltypographyTest extends \WP_UnitTestCase {
+class GlobalTypographyTest extends \WP_UnitTestCase {
 
 	use utilsTrait;
 

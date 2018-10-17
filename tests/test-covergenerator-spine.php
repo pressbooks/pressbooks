@@ -1,6 +1,6 @@
 <?php
 
-class CovergeneratorSpineTest extends \WP_UnitTestCase {
+class CoverGeneratorSpineTest extends \WP_UnitTestCase {
 
 	/**
 	 * @var \Pressbooks\Covergenerator\Spine

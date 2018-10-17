@@ -2,7 +2,7 @@
 
 require_once( PB_PLUGIN_DIR . 'inc/admin/organize/namespace.php' );
 
-class Admin_OranizeTest extends \WP_UnitTestCase {
+class Admin_OrganizeTest extends \WP_UnitTestCase {
 
 	use utilsTrait;
 

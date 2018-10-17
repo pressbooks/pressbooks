@@ -1,6 +1,6 @@
 <?php
 
-class CovergeneratorSkuTest extends \WP_UnitTestCase {
+class CoverGeneratorSkuTest extends \WP_UnitTestCase {
 
 
 	/**

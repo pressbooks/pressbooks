@@ -15,7 +15,7 @@ class ExportMock extends \Pressbooks\Modules\Export\Export {
 }
 
 
-class Modules_ExportTest extends \WP_UnitTestCase {
+class ModulesExportTest extends \WP_UnitTestCase {
 
 	use utilsTrait;
 

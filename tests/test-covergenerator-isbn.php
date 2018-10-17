@@ -1,6 +1,6 @@
 <?php
 
-class CovergeneratorIsbnTest extends \WP_UnitTestCase {
+class CoverGeneratorIsbnTest extends \WP_UnitTestCase {
 
 
 	/**

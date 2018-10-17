@@ -1,6 +1,6 @@
 <?php
 
-class CovergeneratorGeneratorTest extends \WP_UnitTestCase {
+class CoverGeneratorGeneratorTest extends \WP_UnitTestCase {
 
 	use utilsTrait;
 

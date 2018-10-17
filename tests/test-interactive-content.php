@@ -1,6 +1,6 @@
 <?php
 
-class Interactive_Content_Test extends \WP_UnitTestCase {
+class InteractiveContentTest extends \WP_UnitTestCase {
 
 	/**
 	 * @var \Pressbooks\Interactive\Content
@@ -16,9 +16,9 @@ class Interactive_Content_Test extends \WP_UnitTestCase {
 	public function test_deleteIframesNotOnWhitelist() {
 		$raw = '
 		Test One
-		<iframe src="https://phet.colorado.edu/sims/html/balancing-act/latest/balancing-act_en.html" width="800" height="600" scrolling="no" allowfullscreen></iframe>	
-		Test Two		
-		 <iframe src="https://garbage.com/bad.html" width="800" height="600" scrolling="no" allowfullscreen></iframe> 
+		<iframe src="https://phet.colorado.edu/sims/html/balancing-act/latest/balancing-act_en.html" width="800" height="600" scrolling="no" allowfullscreen></iframe>
+		Test Two
+		 <iframe src="https://garbage.com/bad.html" width="800" height="600" scrolling="no" allowfullscreen></iframe>
 		';
 
 		$result = $this->content->deleteIframesNotOnWhitelist( $raw, [ 'post' ] );
@@ -33,8 +33,8 @@ class Interactive_Content_Test extends \WP_UnitTestCase {
 
 	public function test_replaceIframes() {
 		$html = '
-		<p>Test</p>							
-		<iframe src="https://this-is-fine.com/meh.html" width="800" height="600" scrolling="no" allowfullscreen></iframe> 
+		<p>Test</p>
+		<iframe src="https://this-is-fine.com/meh.html" width="800" height="600" scrolling="no" allowfullscreen></iframe>
 		';
 
 		$result = $this->content->replaceIframes( $html );
@@ -58,8 +58,8 @@ class Interactive_Content_Test extends \WP_UnitTestCase {
 		$data->provider_name = 'Localhost';
 		$data->thumbnail_url = 'http://localhost/image.png';
 
-		$html = '							
-		<iframe src="https://this-is-fine.com/meh.html" width="800" height="600" scrolling="no" allowfullscreen></iframe> 
+		$html = '
+		<iframe src="https://this-is-fine.com/meh.html" width="800" height="600" scrolling="no" allowfullscreen></iframe>
 		';
 
 		$result = $this->content->replaceOembed( $html, $data, null );
