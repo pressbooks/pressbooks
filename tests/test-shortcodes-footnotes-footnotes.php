@@ -1,7 +1,7 @@
 <?php
 
 
-class Shortcodes_Footnotes_Footnotes extends \WP_UnitTestCase {
+class ShortcodesFootnotes extends \WP_UnitTestCase {
 
 	use utilsTrait;
 

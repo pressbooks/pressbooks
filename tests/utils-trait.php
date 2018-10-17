@@ -255,4 +255,15 @@ There are many maths like it but these ones are mine.
 
 		return $allowed;
 	}
+
+	/**
+	 * Set up generic shortcodes.
+	 * @see hooks.php
+	 */
+	public function _shortcodes() {
+		remove_filter( 'the_content', 'wpautop' );
+		add_filter( 'the_content', 'wpautop', 12 ); // execute wpautop after shortcode processing
+
+		\Pressbooks\Shortcodes\Generics\Generics::init();
+	}
 }

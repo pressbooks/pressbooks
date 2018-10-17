@@ -1,6 +1,6 @@
 <?php
 
-class Remote_Get_RetryTest extends \WP_UnitTestCase {
+class RemoteGetRetryTest extends \WP_UnitTestCase {
 
 	public function setUp() {
 		parent::setUp();
