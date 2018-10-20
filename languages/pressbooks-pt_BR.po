@@ -2,12 +2,13 @@
 # This file is distributed under the same license as the Pressbooks plugin.
 # Translators:
 # Claudio de Souza Soares <claudio@obliqpress.com>, 2014
+# Hugh McGuire <hugh@pressbooks.com>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks\n"
 "POT-Creation-Date: 2018-09-11 17:05-0300\n"
-"PO-Revision-Date: 2018-09-11 20:05+0000\n"
+"PO-Revision-Date: 2018-10-20 20:55+0000\n"
 "Last-Translator: Hugh McGuire <hugh@pressbooks.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/pressbooks/pressbooks/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -297,7 +298,7 @@ msgstr ""
 #: inc/posttype/namespace.php:63 inc/posttype/namespace.php:425
 #: templates/admin/import.php:84 templates/admin/organize.php:83
 msgid "Chapter"
-msgstr "Capítulos"
+msgstr "Capítulo"
 
 #: inc/class-sass.php:66 inc/admin/metaboxes/namespace.php:159
 #: inc/admin/metaboxes/namespace.php:603
