@@ -1,5 +1,7 @@
 ( function () {
 
+	// TODO: Language localisation, we can use PB_GlossaryToken
+
 	tinymce.create( 'tinymce.plugins.glossary', {
 		init: function ( ed, url ) {
 
@@ -22,6 +24,10 @@
 				}
 
 				// sort the array of objects alphabetically
+				terms.push( {
+					text: '-- Select --',
+					value: '',
+				} );
 				terms.sort( function ( a, b ) {
 					return ( a.text > b.text ) ? 1 : ( ( b.text > a.text ) ? -1 : 0 );
 				} );
@@ -86,62 +92,97 @@
 					// get the highlighted selection
 					let mySelection = ed.selection.getContent();
 					// placeholder for our default listbox value
-					let listValue = '';
+					let listValue = termMatch( mySelection );
 					// placeholder for our term doesn't exist message
 					let termExists = '';
 
 					// if the selection matches an existing term, let's set it so we can use it as our default listbox value
-					if ( termMatch( mySelection ) !== false ) {
-						listValue = termMatch( mySelection );
+					let myActiveTab;
+					if ( listValue !== false ) {
+						myActiveTab = 1;
 					} else {
-						termExists = 'Glossary term <b>"' + mySelection + '"</b> not found.<br />Please create it, or select a term from the list below to use that definition:';
+						termExists = 'Glossary term <b>"' + mySelection + '"</b> not found. Please create it.';
+						myActiveTab = 0;
 					}
 
 					// display the UI
-					tinymce.activeEditor.windowManager.open( {
+					let myWindow = tinymce.activeEditor.windowManager.open( {
 
-						title: 'Glossary terms',
-						width: 500,
-						height: 100,
-
-						buttons: [ {
-							text: 'Insert',
-							subtype: 'primary',
-							onclick: 'submit',
-						},
-						{
-							text: 'Close',
-							onclick: 'close',
-						},
-						],
+						title: 'Glossary Terms',
+						bodyType: 'tabpanel',
 
 						body: [
 							{
-								type: 'container',
-								name: 'container',
-								html: termExists,
+								title: 'Create and Insert Term',
+								type: 'form',
+								items: [
+									{
+										type: 'container',
+										name: 'container',
+										html: termExists,
+									},
+									{
+										name: 'title',
+										type: 'textbox',
+										label: 'Title',
+									},
+									{
+										name: 'body',
+										type: 'textbox',
+										label: 'Description',
+										multiline: true,
+										minHeight: 100,
+									},
+								],
 							},
 							{
-								type: 'listbox',
-								name: 'terms',
-								label: 'Select a Term',
-								values: getListTerms(),
-								value: listValue,
+								title: 'Choose Existing Term',
+								type: 'form',
+								items: [
+									{
+										type: 'listbox',
+										name: 'term',
+										label: 'Select a Term',
+										values: getListTerms(),
+										value: listValue,
+									},
+								],
 							},
 						],
-						// insert the short-code with the associated term ID as an attribute
-						onsubmit: function ( e ) {
-							if ( mySelection !== '' ) {
-								// if there's a highlighted selection, use that as the text
-								ed.selection.setContent( '[pb_glossary id="' + termID( e.data.terms ) + '"]' + mySelection + '[/pb_glossary]' );
+
+						buttons: [
+							{
+								text: 'Cancel',
+								onclick: 'close',
+							},
+							{
+								text: 'Insert',
+								subtype: 'primary',
+								onclick: 'submit',
+							},
+						],
+
+						onsubmit: function ( event ) {
+							let mySubmittedTabId = this.find( 'tabpanel' )[ 0 ].activeTabId;
+							if ( mySubmittedTabId === 't0' ) {
+								// Create and Insert Term
+								alert( 'TODO: Create and Insert Term' );
 							} else {
-								// otherwise, use the value of the listbox as the text
-								ed.selection.setContent( '[pb_glossary id="' + termID( e.data.terms ) + '"]' + e.data.terms + '[/pb_glossary]' );
+								// Choose Existing Term
+								if ( ! event.data.term || event.data.term.length === 0 ) {
+									alert( 'A term was not selected?' );
+									return false;
+								} else if ( mySelection !== '' ) {
+									// if there's a highlighted selection, use that as the text
+									ed.selection.setContent( '[pb_glossary id="' + termID( event.data.term ) + '"]' + mySelection + '[/pb_glossary]' );
+								} else {
+									// otherwise, use the value of the listbox as the text
+									ed.selection.setContent( '[pb_glossary id="' + termID( event.data.term ) + '"]' + event.data.term + '[/pb_glossary]' );
+								}
 							}
 						},
 					}, );
-
-					// insert the short-code with the id as an attribute
+					myWindow.find( 'tabpanel' )[ 0 ].activateTab( myActiveTab );
 				},
 			} );
 		},
