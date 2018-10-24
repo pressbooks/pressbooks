@@ -110,10 +110,10 @@ function admin_enqueue_scripts( $hook ) {
 	// Glossary
 	wp_localize_script(
 		'editor', 'PB_GlossaryToken', [
-			'nonce'              => wp_create_nonce( 'pb-glossary' ),
-			'glossary_title'     => __( 'Insert Glossary Term', 'pressbooks' ),
+			'nonce' => wp_create_nonce( 'pb-glossary' ),
+			'glossary_title' => __( 'Insert Glossary Term', 'pressbooks' ),
 			'glossary_all_title' => __( 'Insert Glossary List', 'pressbooks' ),
-			'glossary_terms'     => wp_json_encode( Glossary::init()->getGlossaryTerms() ),
+			'glossary_terms' => Glossary::init()->getGlossaryTermsListbox(),
 		]
 	);
 }

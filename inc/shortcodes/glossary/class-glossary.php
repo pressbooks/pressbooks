@@ -99,6 +99,22 @@ class Glossary {
 	}
 
 	/**
+	 * For tiny mce
+	 *
+	 * @param bool $reset (optional, default is false)
+	 *
+	 * @return string
+	 */
+	public function getGlossaryTermsListbox( $reset = false ) {
+		$values[] = [ 'text' => '-- ' . __( 'Select', 'pressbooks' ) . ' --', 'value' => '' ];
+		$terms = $this->getGlossaryTerms( $reset );
+		foreach ( $terms as $title => $term ) {
+			$values[] = [ 'text' => \Pressbooks\Sanitize\decode( $title ), 'value' => (int) $term['id'] ];
+		}
+		return wp_json_encode( $values );
+	}
+
+	/**
 	 * Returns the HTML <dl> description list of all glossary terms
 	 *
 	 * @since 5.5.0

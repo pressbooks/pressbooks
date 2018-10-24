@@ -4,73 +4,28 @@
 
 	tinymce.create( 'tinymce.plugins.glossary', {
 		init: function ( ed, url ) {
+			let glossaryTermValues = jQuery.parseJSON( PB_GlossaryToken.glossary_terms );
 
-			// get and clean up the data
-			let json_str = PB_GlossaryToken.glossary_terms.replace( /&quot;/g, '"' );
-			let terms = jQuery.parseJSON( json_str );
-
-			// get the keys
-			let keys = Object.keys( terms );
-
-			// get values for the listbox
-			function getListTerms() {
-				let terms = [];
-
-				for ( let i of keys ) {
-					let termList = {};
-					termList['text'] = i;
-					termList['value'] = i;
-					terms.push( termList );
-				}
-
-				// sort the array of objects alphabetically
-				terms.push( {
-					text: '-- Select --',
-					value: '',
-				} );
-				terms.sort( function ( a, b ) {
-					return ( a.text > b.text ) ? 1 : ( ( b.text > a.text ) ? -1 : 0 );
-				} );
-
-				return terms;
-			}
-
-			// compares the term to an existing key for a match, converts both to lowercase to be case insensitive
-			function termCompare( term ) {
-				let match = keys.filter( item => item.toLowerCase().indexOf( term.toLowerCase().trim() ) !== -1 );
-				return match;
-			}
-
-			// checks if the term exists, returns the value or false if not found
-			function termMatch( termName ) {
-
-				let matchResults = termCompare( termName );
-
-				if ( typeof matchResults[0] === 'undefined' ) {
-					return false;
-				} else {
-					return matchResults[0];
-				}
-			}
-
-			// returns the ID of a term in the glossary
-			function termID( termValue ) {
-
-				let matches = termCompare( termValue );
-
-				if ( typeof matches[0] === 'undefined' ) {
-					return '';
-				} else {
-					// get the id for the match, returns an empty array if none found
-					let matchingID = matches.map( function ( key ) {
-						return terms[key]['id']
-					} );
-
-					// check if matchingID array does not exist, is not an array, or is empty
-					if ( Array.isArray( matchingID ) || matchingID.length ) {
-						return matchingID[0];
+			function termValue( name ) {
+				for ( let key in glossaryTermValues ) {
+					if ( glossaryTermValues.hasOwnProperty( key ) ) {
+						if ( glossaryTermValues[ key ].text.toLowerCase().trim() === name.toLowerCase().trim() ) {
+							return glossaryTermValues[ key ].value;
+						}
 					}
 				}
+				return '';
+			}
+
+			function termName( value ) {
+				for ( let key in glossaryTermValues ) {
+					if ( glossaryTermValues.hasOwnProperty( key ) ) {
+						if ( glossaryTermValues[ key ].value === value ) {
+							return glossaryTermValues[ key ].text;
+						}
+					}
+				}
+				return '';
 			}
 
 			// This button adds the glossary short-code that generates a list of all terms
@@ -89,20 +44,22 @@
 				text: 'GL',
 				icon: false,
 				onclick: function () {
-					// get the highlighted selection
+					// get the user highlighted selection from the TinyMCE editor
 					let mySelection = ed.selection.getContent();
 					// placeholder for our default listbox value
-					let listValue = termMatch( mySelection );
+					let listValue = termValue( mySelection );
 					// placeholder for our term doesn't exist message
 					let termExists = '';
 
 					// if the selection matches an existing term, let's set it so we can use it as our default listbox value
 					let myActiveTab;
-					if ( listValue !== false ) {
+					if ( listValue ) {
 						myActiveTab = 1;
 					} else {
-						termExists = 'Glossary term <b>"' + mySelection + '"</b> not found. Please create it.';
 						myActiveTab = 0;
+						if ( mySelection ) {
+							termExists = 'Glossary term <b>"' + mySelection + '"</b> not found. Please create it.';
+						}
 					}
 
 					// display the UI
@@ -143,7 +100,7 @@
 										type: 'listbox',
 										name: 'term',
 										label: 'Select a Term',
-										values: getListTerms(),
+										values: glossaryTermValues,
 										value: listValue,
 									},
 								],
@@ -174,10 +131,10 @@
 									return false;
 								} else if ( mySelection !== '' ) {
 									// if there's a highlighted selection, use that as the text
-									ed.selection.setContent( '[pb_glossary id="' + termID( event.data.term ) + '"]' + mySelection + '[/pb_glossary]' );
+									ed.selection.setContent( '[pb_glossary id="' + event.data.term + '"]' + mySelection + '[/pb_glossary]' );
 								} else {
 									// otherwise, use the value of the listbox as the text
-									ed.selection.setContent( '[pb_glossary id="' + termID( event.data.term ) + '"]' + event.data.term + '[/pb_glossary]' );
+									ed.selection.setContent( '[pb_glossary id="' + event.data.term + '"]' + termName( event.data.term ) + '[/pb_glossary]' );
 								}
 							}
 						},
