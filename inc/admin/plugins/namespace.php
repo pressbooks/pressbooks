@@ -28,15 +28,12 @@ function filter_plugins( $plugins ) {
 			'wp-quicklatex',
 		];
 		$approved = [];
-		foreach ( $slugs as $slug ) {
-			$approved[] = $slug . '/' . $slug . '.php';
-		}
 		foreach ( $plugins as $slug => $value ) {
-			if ( false === strpos( $slug, 'pressbooks-' ) && ! in_array( $slug, $approved, true ) ) {
-				unset( $plugins[ $slug ] );
+			if ( strpos( $slug, 'pressbooks-' ) !== false || in_array( explode( '/', $slug )[0], $slugs, true ) ) {
+				$approved[ $slug ] = $value;
 			}
 		}
 	}
 
-	return $plugins;
+	return $approved;
 }
