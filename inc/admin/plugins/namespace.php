@@ -33,7 +33,8 @@ function filter_plugins( $plugins ) {
 				$approved[ $slug ] = $value;
 			}
 		}
+		return $approved;
 	}
 
-	return $approved;
+	return $plugins;
 }
