@@ -58,7 +58,7 @@
 					} else {
 						myActiveTab = 0;
 						if ( mySelection ) {
-							termExists = 'Glossary term <b>"' + mySelection + '"</b> not found. Please create it.';
+							termExists = 'Glossary term <b>"' + mySelection.trim() + '"</b> not found. Please create it.';
 						}
 					}
 
@@ -123,7 +123,16 @@
 							let mySubmittedTabId = this.find( 'tabpanel' )[ 0 ].activeTabId;
 							if ( mySubmittedTabId === 't0' ) {
 								// Create and Insert Term
-								alert( 'TODO: Create and Insert Term' );
+								wp.api.loadPromise.done( function () {
+									let glossary = new wp.api.models.Glossary( {
+										title: event.data.title,
+										content: event.data.body,
+										status: 'publish',
+									} );
+									glossary.save().done( function () {
+										ed.selection.setContent( '[pb_glossary id="' + glossary.id + '"]' + event.data.title + '[/pb_glossary]' );
+									} );
+								} );
 							} else {
 								// Choose Existing Term
 								if ( ! event.data.term || event.data.term.length === 0 ) {

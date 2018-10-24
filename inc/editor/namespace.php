@@ -103,9 +103,6 @@ function admin_enqueue_scripts( $hook ) {
 			'ftnref_title' => __( 'Convert MS Word Footnotes', 'pressbooks' ),
 		]
 	);
-	if ( 'post-new.php' === $hook || 'post.php' === $hook ) {
-		wp_enqueue_script( 'my_custom_quicktags', $assets->getPath( 'scripts/quicktags.js' ), [ 'quicktags' ] );
-	}
 
 	// Glossary
 	wp_localize_script(
@@ -116,6 +113,11 @@ function admin_enqueue_scripts( $hook ) {
 			'glossary_terms' => Glossary::init()->getGlossaryTermsListbox(),
 		]
 	);
+
+	if ( 'post-new.php' === $hook || 'post.php' === $hook ) {
+		wp_enqueue_script( 'my_custom_quicktags', $assets->getPath( 'scripts/quicktags.js' ), [ 'quicktags' ] );
+		wp_enqueue_script( 'wp-api' );
+	}
 }
 
 
