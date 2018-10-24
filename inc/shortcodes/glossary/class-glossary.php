@@ -106,10 +106,16 @@ class Glossary {
 	 * @return string
 	 */
 	public function getGlossaryTermsListbox( $reset = false ) {
-		$values[] = [ 'text' => '-- ' . __( 'Select', 'pressbooks' ) . ' --', 'value' => '' ];
+		$values[] = [
+			'text' => '-- ' . __( 'Select', 'pressbooks' ) . ' --',
+			'value' => '',
+		];
 		$terms = $this->getGlossaryTerms( $reset );
 		foreach ( $terms as $title => $term ) {
-			$values[] = [ 'text' => \Pressbooks\Sanitize\decode( $title ), 'value' => (int) $term['id'] ];
+			$values[] = [
+				'text' => \Pressbooks\Sanitize\decode( $title ),
+				'value' => (int) $term['id'],
+			];
 		}
 		return wp_json_encode( $values );
 	}
