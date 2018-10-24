@@ -5,7 +5,7 @@ Tags: ebooks, publishing, webbooks
 Requires at least: 4.9.8
 Tested up to: 4.9.8
 Requires PHP: 7.1
-Stable tag: 5.5.4
+Stable tag: 5.5.5
 License: GPL v3.0 or later
 License URI: https://github.com/pressbooks/pressbooks/blob/master/LICENSE.md
 
@@ -21,6 +21,16 @@ For installation instructions, visit [docs.pressbooks.org/installation](https://
 TK.
 
 == Changelog ==
+= 5.5.5 =
+* Pressbooks 5.5.5 requires PHP >= 7.1.
+* Pressbooks 5.5.5 requires [WordPress 4.9.8](https://wordpress.org/news/2018/08/wordpress-4-9-8-maintenance-release/).
+* Pressbooks 5.5.5 requires [McLuhan >= 2.5.2](https://github.com/pressbooks/pressbooks-book/).
+
+**Patches**
+
+- Ensure that \Pressbooks\Admin\Plugins\filter_plugins() supports plugins with differing directory and main file names: [#1419](https://github.com/pressbooks/pressbooks/pull/1419)
+
+
 = 5.5.4 =
 * Pressbooks 5.5.4 requires PHP >= 7.1.
 * Pressbooks 5.5.4 requires [WordPress 4.9.8](https://wordpress.org/news/2018/08/wordpress-4-9-8-maintenance-release/).
@@ -106,8 +116,8 @@ TK.
 * Improve session handling to prevent session locking: [#1335](https://github.com/pressbooks/pressbooks/issues/1335)
 
 == Upgrade Notice ==
-= 5.5.4 =
+= 5.5.5 =
 
-* Pressbooks 5.5.4 requires PHP >= 7.1.
-* Pressbooks 5.5.4 requires [WordPress 4.9.8](https://wordpress.org/news/2018/08/wordpress-4-9-8-maintenance-release/).
-* Pressbooks 5.5.4 requires [McLuhan >= 2.5.2](https://github.com/pressbooks/pressbooks-book/).
+* Pressbooks 5.5.5 requires PHP >= 7.1.
+* Pressbooks 5.5.5 requires [WordPress 4.9.8](https://wordpress.org/news/2018/08/wordpress-4-9-8-maintenance-release/).
+* Pressbooks 5.5.5 requires [McLuhan >= 2.5.2](https://github.com/pressbooks/pressbooks-book/).
