@@ -1,10 +1,7 @@
 ( function () {
-
-	// TODO: Language localisation, we can use PB_GlossaryToken
-
 	tinymce.create( 'tinymce.plugins.glossary', {
 		init: function ( ed, url ) {
-			let glossaryTermValues = jQuery.parseJSON( PB_GlossaryToken.glossary_terms );
+			let glossaryTermValues = jQuery.parseJSON( PB_GlossaryToken.listbox_values );
 
 			function termValue( name ) {
 				for ( let key in glossaryTermValues ) {
@@ -30,8 +27,8 @@
 
 			// This button adds the glossary short-code that generates a list of all terms
 			ed.addButton( 'glossary_all', {
-				title: PB_GlossaryToken.glossary_all_title,
-				text: 'Glossary',
+				title: PB_GlossaryToken.glossary_all_button_title,
+				text: 'GL-All',
 				icon: false,
 				onclick: function () {
 					ed.selection.setContent( '[pb_glossary]' );
@@ -40,7 +37,7 @@
 
 			// This button adds the single glossary term short-code with the corresponding term id as an attribute
 			ed.addButton( 'glossary', {
-				title: PB_GlossaryToken.glossary_title,
+				title: PB_GlossaryToken.glossary_button_title,
 				text: 'GL',
 				icon: false,
 				onclick: function () {
@@ -58,19 +55,20 @@
 					} else {
 						myActiveTab = 0;
 						if ( mySelection ) {
-							termExists = 'Glossary term <b>"' + mySelection.trim() + '"</b> not found. Please create it.';
+							let templateString1 = mySelection.trim();
+							termExists = eval( PB_GlossaryToken.not_found );
 						}
 					}
 
 					// display the UI
 					let myWindow = tinymce.activeEditor.windowManager.open( {
 
-						title: 'Glossary Terms',
+						title: PB_GlossaryToken.window_title,
 						bodyType: 'tabpanel',
 
 						body: [
 							{
-								title: 'Create and Insert Term',
+								title: PB_GlossaryToken.tab0_title,
 								type: 'form',
 								items: [
 									{
@@ -81,25 +79,25 @@
 									{
 										name: 'title',
 										type: 'textbox',
-										label: 'Title',
+										label: PB_GlossaryToken.title,
 									},
 									{
 										name: 'body',
 										type: 'textbox',
-										label: 'Description',
+										label: PB_GlossaryToken.description,
 										multiline: true,
 										minHeight: 100,
 									},
 								],
 							},
 							{
-								title: 'Choose Existing Term',
+								title: PB_GlossaryToken.tab1_title,
 								type: 'form',
 								items: [
 									{
 										type: 'listbox',
 										name: 'term',
-										label: 'Select a Term',
+										label: PB_GlossaryToken.select_a_term,
 										values: glossaryTermValues,
 										value: listValue,
 									},
@@ -109,11 +107,11 @@
 
 						buttons: [
 							{
-								text: 'Cancel',
+								text: PB_GlossaryToken.cancel,
 								onclick: 'close',
 							},
 							{
-								text: 'Insert',
+								text: PB_GlossaryToken.insert,
 								subtype: 'primary',
 								onclick: 'submit',
 							},
@@ -136,7 +134,7 @@
 							} else {
 								// Choose Existing Term
 								if ( ! event.data.term || event.data.term.length === 0 ) {
-									alert( 'A term was not selected?' );
+									alert( PB_GlossaryToken.term_not_selected );
 									return false;
 								} else if ( mySelection !== '' ) {
 									// if there's a highlighted selection, use that as the text

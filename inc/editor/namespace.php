@@ -107,10 +107,19 @@ function admin_enqueue_scripts( $hook ) {
 	// Glossary
 	wp_localize_script(
 		'editor', 'PB_GlossaryToken', [
-			'nonce' => wp_create_nonce( 'pb-glossary' ),
-			'glossary_title' => __( 'Insert Glossary Term', 'pressbooks' ),
-			'glossary_all_title' => __( 'Insert Glossary List', 'pressbooks' ),
-			'glossary_terms' => Glossary::init()->getGlossaryTermsListbox(),
+			'cancel' => __( 'Cancel', 'pressbooks' ),
+			'description' => __( 'Description', 'pressbooks' ),
+			'glossary_all_button_title' => __( 'Insert Glossary List', 'pressbooks' ),
+			'glossary_button_title' => __( 'Insert Glossary Term', 'pressbooks' ),
+			'insert' => __( 'Insert', 'pressbooks' ),
+			'listbox_values' => Glossary::init()->getGlossaryTermsListbox(),
+			'not_found' => _x( '`Glossary term <b>${templateString1}</b> not found. Please create it.`', 'JS template string', 'pressbooks' ),
+			'select_a_term' => __( 'Select a Term', 'pressbooks' ),
+			'tab0_title' => __( 'Create and Insert Term', 'pressbooks' ),
+			'tab1_title' => __( 'Choose Existing Term', 'pressbooks' ),
+			'term_not_selected' => __( 'A term was not selected?', 'pressbooks' ),
+			'title' => __( 'Title', 'pressbooks' ),
+			'window_title' => __( 'Glossary Terms', 'pressbooks' ),
 		]
 	);
 
