@@ -498,7 +498,7 @@ class Epub201 extends Export {
 			'valid_xhtml' => 1,
 			'no_deprecated_attr' => 2,
 			'unique_ids' => 'fixme-',
-			'deny_attribute' => 'itemscope,itemtype,itemref,itemprop,data*,aria*,border',
+			'deny_attribute' => 'itemscope,itemtype,itemref,itemprop,data*,aria*',
 			'hook' => '\Pressbooks\Sanitize\html5_to_xhtml11',
 			'tidy' => -1,
 			'comment' => 1,
@@ -506,6 +506,7 @@ class Epub201 extends Export {
 
 		$spec = '';
 		$spec .= 'img=-longdesc,-srcset;';
+		$spec .= 'table=-border;';
 
 		// Reset on each htmLawed invocation
 		unset( $GLOBALS['hl_Ids'] );

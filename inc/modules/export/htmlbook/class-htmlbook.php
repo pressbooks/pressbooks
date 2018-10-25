@@ -636,12 +636,14 @@ class HTMLBook extends Export {
 
 		$config = [
 			'no_deprecated_attr' => 2,
-			'deny_attribute' => 'border',
 			'unique_ids' => 'fixme-',
 			'tidy' => -1,
 		];
 
-		return \Pressbooks\HtmLawed::filter( $html, $config );
+		$spec = '';
+		$spec .= 'table=-border;';
+
+		return \Pressbooks\HtmLawed::filter( $html, $config, $spec );
 	}
 
 
