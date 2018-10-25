@@ -160,6 +160,7 @@ class Complex {
 	 * @param string $shortcode Shortcode name.
 	 */
 	public function equationShortCodeHandler( $atts, $content = '', $shortcode ) {
+		remove_filter( 'the_content', '\Pressbooks\Sanitize\sanitize_webbook_content' );
 		if ( ! $content ) {
 			return;
 		}
@@ -199,6 +200,7 @@ class Complex {
 	 * @param string $shortcode Shortcode name.
 	 */
 	public function mediaShortCodeHandler( $atts, $content = '', $shortcode ) {
+		remove_filter( 'the_content', '\Pressbooks\Sanitize\sanitize_webbook_content' );
 		$atts = shortcode_atts(
 			[
 				'caption' => null,

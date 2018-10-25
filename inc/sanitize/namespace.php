@@ -677,3 +677,17 @@ function reverse_wpautop( $pee ) {
 
 	return $pee;
 }
+
+/**
+ * Sanitize post content for webbook output.
+ *
+ * @param string $content
+ * @return string $content
+ */
+
+function sanitize_webbook_content( $content ) {
+	$spec = '';
+	$spec .= 'table=-border;';
+
+	return \Pressbooks\HtmLawed::filter( $content, null, $spec );
+}
