@@ -176,7 +176,7 @@ function register_post_types() {
 			],
 			'quick_edit' => true,
 			'capability_type' => 'post',
-			'has_archive' => true,
+			'has_archive' => false,
 			'hierarchical' => false,
 			'supports' => [ 'title', 'editor', 'author', 'revisions' ],
 			'show_in_menu' => false,

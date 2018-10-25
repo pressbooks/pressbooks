@@ -1,76 +1,34 @@
 ( function () {
-
 	tinymce.create( 'tinymce.plugins.glossary', {
 		init: function ( ed, url ) {
+			let glossaryTermValues = jQuery.parseJSON( PB_GlossaryToken.listbox_values );
 
-			// get and clean up the data
-			let json_str = PB_GlossaryToken.glossary_terms.replace( /&quot;/g, '"' );
-			let terms = jQuery.parseJSON( json_str );
-
-			// get the keys
-			let keys = Object.keys( terms );
-
-			// get values for the listbox
-			function getListTerms() {
-				let terms = [];
-
-				for ( let i of keys ) {
-					let termList = {};
-					termList['text'] = i;
-					termList['value'] = i;
-					terms.push( termList );
-				}
-
-				// sort the array of objects alphabetically
-				terms.sort( function ( a, b ) {
-					return ( a.text > b.text ) ? 1 : ( ( b.text > a.text ) ? -1 : 0 );
-				} );
-
-				return terms;
-			}
-
-			// compares the term to an existing key for a match, converts both to lowercase to be case insensitive
-			function termCompare( term ) {
-				let match = keys.filter( item => item.toLowerCase().indexOf( term.toLowerCase().trim() ) !== -1 );
-				return match;
-			}
-
-			// checks if the term exists, returns the value or false if not found
-			function termMatch( termName ) {
-
-				let matchResults = termCompare( termName );
-
-				if ( typeof matchResults[0] === 'undefined' ) {
-					return false;
-				} else {
-					return matchResults[0];
-				}
-			}
-
-			// returns the ID of a term in the glossary
-			function termID( termValue ) {
-
-				let matches = termCompare( termValue );
-
-				if ( typeof matches[0] === 'undefined' ) {
-					return '';
-				} else {
-					// get the id for the match, returns an empty array if none found
-					let matchingID = matches.map( function ( key ) {
-						return terms[key]['id']
-					} );
-
-					// check if matchingID array does not exist, is not an array, or is empty
-					if ( Array.isArray( matchingID ) || matchingID.length ) {
-						return matchingID[0];
+			function termValue( name ) {
+				for ( let key in glossaryTermValues ) {
+					if ( glossaryTermValues.hasOwnProperty( key ) ) {
+						if ( glossaryTermValues[ key ].text.toLowerCase().trim() === name.toLowerCase().trim() ) {
+							return glossaryTermValues[ key ].value;
+						}
 					}
 				}
+				return '';
+			}
+
+			function termName( value ) {
+				for ( let key in glossaryTermValues ) {
+					if ( glossaryTermValues.hasOwnProperty( key ) ) {
+						if ( glossaryTermValues[ key ].value === value ) {
+							return glossaryTermValues[ key ].text;
+						}
+					}
+				}
+				return '';
 			}
 
 			// This button adds the glossary short-code that generates a list of all terms
 			ed.addButton( 'glossary_all', {
-				title: PB_GlossaryToken.glossary_all_title,
-				text: 'Glossary',
+				title: PB_GlossaryToken.glossary_all_button_title,
+				text: 'GL-All',
 				icon: false,
 				onclick: function () {
 					ed.selection.setContent( '[pb_glossary]' );
@@ -79,69 +37,132 @@
 
 			// This button adds the single glossary term short-code with the corresponding term id as an attribute
 			ed.addButton( 'glossary', {
-				title: PB_GlossaryToken.glossary_title,
+				title: PB_GlossaryToken.glossary_button_title,
 				text: 'GL',
 				icon: false,
 				onclick: function () {
-					// get the highlighted selection
+					// get the user highlighted selection from the TinyMCE editor
 					let mySelection = ed.selection.getContent();
 					// placeholder for our default listbox value
-					let listValue = '';
+					let listValue = termValue( mySelection );
 					// placeholder for our term doesn't exist message
 					let termExists = '';
 
 					// if the selection matches an existing term, let's set it so we can use it as our default listbox value
-					if ( termMatch( mySelection ) !== false ) {
-						listValue = termMatch( mySelection );
+					let myActiveTab;
+					if ( listValue ) {
+						myActiveTab = 1;
 					} else {
-						termExists = 'Glossary term <b>"' + mySelection + '"</b> not found.<br />Please create it, or select a term from the list below to use that definition:';
+						myActiveTab = 0;
+						if ( mySelection ) {
+							let templateString1 = mySelection.trim(); // eslint-disable-line no-unused-vars
+							termExists = eval( '`' + PB_GlossaryToken.not_found.replace( /`/g, '' ) + '`' ); // eslint-disable-line no-eval
+						}
 					}
 
 					// display the UI
-					tinymce.activeEditor.windowManager.open( {
+					let myWindow = tinymce.activeEditor.windowManager.open( {
 
-						title: 'Glossary terms',
-						width: 500,
-						height: 100,
-
-						buttons: [ {
-							text: 'Insert',
-							subtype: 'primary',
-							onclick: 'submit',
-						},
-						{
-							text: 'Close',
-							onclick: 'close',
-						},
-						],
+						title: PB_GlossaryToken.window_title,
+						bodyType: 'tabpanel',
 
 						body: [
 							{
-								type: 'container',
-								name: 'container',
-								html: termExists,
+								title: PB_GlossaryToken.tab0_title,
+								type: 'form',
+								items: [
+									{
+										type: 'container',
+										name: 'container',
+										html: termExists,
+									},
+									{
+										name: 'title',
+										type: 'textbox',
+										label: PB_GlossaryToken.title,
+									},
+									{
+										name: 'body',
+										type: 'textbox',
+										label: PB_GlossaryToken.description,
+										multiline: true,
+										minHeight: 100,
+									},
+								],
 							},
 							{
-								type: 'listbox',
-								name: 'terms',
-								label: 'Select a Term',
-								values: getListTerms(),
-								value: listValue,
+								title: PB_GlossaryToken.tab1_title,
+								type: 'form',
+								items: [
+									{
+										type: 'listbox',
+										name: 'term',
+										label: PB_GlossaryToken.select_a_term,
+										values: glossaryTermValues,
+										value: listValue,
+									},
+								],
 							},
 						],
-						// insert the short-code with the associated term ID as an attribute
-						onsubmit: function ( e ) {
-							if ( mySelection !== '' ) {
-								// if there's a highlighted selection, use that as the text
-								ed.selection.setContent( '[pb_glossary id="' + termID( e.data.terms ) + '"]' + mySelection + '[/pb_glossary]' );
+
+						buttons: [
+							{
+								text: PB_GlossaryToken.cancel,
+								onclick: 'close',
+							},
+							{
+								text: PB_GlossaryToken.insert,
+								subtype: 'primary',
+								onclick: 'submit',
+							},
+						],
+
+						onsubmit: function ( event ) {
+							let mySubmittedTabId = this.find( 'tabpanel' )[ 0 ].activeTabId;
+							if ( mySubmittedTabId === 't0' ) {
+								// Create and Insert Term
+								if ( ! event.data.title || event.data.title.length === 0 ) {
+									alert( PB_GlossaryToken.term_is_empty );
+									return false;
+								}
+								if ( termValue( event.data.title ) ) {
+									alert( PB_GlossaryToken.term_already_exists );
+									return false;
+								}
+								wp.api.loadPromise.done( function () {
+									let glossary = new wp.api.models.Glossary( {
+										title: event.data.title,
+										content: event.data.body,
+										status: 'publish',
+									} );
+									glossary.save().done( function () {
+										if ( mySelection ) {
+											ed.selection.setContent( '[pb_glossary id="' + glossary.id + '"]' + mySelection + '[/pb_glossary]' );
+										} else {
+											ed.selection.setContent( '[pb_glossary id="' + glossary.id + '"]' + event.data.title + '[/pb_glossary]' );
+										}
+										glossaryTermValues.push( {
+											text: event.data.title,
+											value: glossary.id,
+										} );
+									} );
+								} );
 							} else {
-								// otherwise, use the value of the listbox as the text
-								ed.selection.setContent( '[pb_glossary id="' + termID( e.data.terms ) + '"]' + e.data.terms + '[/pb_glossary]' );
+								// Choose Existing Term
+								if ( ! event.data.term || event.data.term.length === 0 ) {
+									alert( PB_GlossaryToken.term_not_selected );
+									return false;
+								} else if ( mySelection ) {
+									// if there's a highlighted selection, use that as the text
+									ed.selection.setContent( '[pb_glossary id="' + event.data.term + '"]' + mySelection + '[/pb_glossary]' );
+								} else {
+									// otherwise, use the value of the listbox as the text
+									ed.selection.setContent( '[pb_glossary id="' + event.data.term + '"]' + termName( event.data.term ) + '[/pb_glossary]' );
+								}
 							}
 						},
 					}, );
-
-					// insert the short-code with the id as an attribute
+					myWindow.find( 'tabpanel' )[ 0 ].activateTab( myActiveTab );
 				},
 			} );
 		},

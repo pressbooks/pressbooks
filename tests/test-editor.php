@@ -64,6 +64,7 @@ class EditorTest extends \WP_UnitTestCase {
 	public function test_admin_enqueue_scripts() {
 		\Pressbooks\Editor\admin_enqueue_scripts( 'post.php' );
 		$this->assertTrue( wp_script_is( 'my_custom_quicktags', 'queue' ) );
+		$this->assertTrue( wp_script_is( 'wp-api', 'queue' ) );
 	}
 
 	public function test_mce_button_scripts() {
