@@ -690,6 +690,7 @@ class Xhtml11 extends Export {
 		$config = [
 			'valid_xhtml' => 1,
 			'no_deprecated_attr' => 2,
+			'deny_attribute' => 'border',
 			'unique_ids' => 'fixme-',
 			'hook' => '\Pressbooks\Sanitize\html5_to_xhtml11',
 			'tidy' => -1,
