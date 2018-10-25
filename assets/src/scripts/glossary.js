@@ -55,8 +55,8 @@
 					} else {
 						myActiveTab = 0;
 						if ( mySelection ) {
-							let templateString1 = mySelection.trim();
-							termExists = eval( PB_GlossaryToken.not_found );
+							let templateString1 = mySelection.trim(); // eslint-disable-line no-unused-vars
+							termExists = eval( '`' + PB_GlossaryToken.not_found.replace( /`/g, '' ) + '`' ); // eslint-disable-line no-eval
 						}
 					}
 
@@ -121,6 +121,14 @@
 							let mySubmittedTabId = this.find( 'tabpanel' )[ 0 ].activeTabId;
 							if ( mySubmittedTabId === 't0' ) {
 								// Create and Insert Term
+								if ( ! event.data.title || event.data.title.length === 0 ) {
+									alert( PB_GlossaryToken.term_is_empty );
+									return false;
+								}
+								if ( termValue( event.data.title ) ) {
+									alert( PB_GlossaryToken.term_already_exists );
+									return false;
+								}
 								wp.api.loadPromise.done( function () {
 									let glossary = new wp.api.models.Glossary( {
 										title: event.data.title,
@@ -128,7 +136,15 @@
 										status: 'publish',
 									} );
 									glossary.save().done( function () {
-										ed.selection.setContent( '[pb_glossary id="' + glossary.id + '"]' + event.data.title + '[/pb_glossary]' );
+										if ( mySelection ) {
+											ed.selection.setContent( '[pb_glossary id="' + glossary.id + '"]' + mySelection + '[/pb_glossary]' );
+										} else {
+											ed.selection.setContent( '[pb_glossary id="' + glossary.id + '"]' + event.data.title + '[/pb_glossary]' );
+										}
+										glossaryTermValues.push( {
+											text: event.data.title,
+											value: glossary.id,
+										} );
 									} );
 								} );
 							} else {
@@ -136,7 +152,7 @@
 								if ( ! event.data.term || event.data.term.length === 0 ) {
 									alert( PB_GlossaryToken.term_not_selected );
 									return false;
-								} else if ( mySelection !== '' ) {
+								} else if ( mySelection ) {
 									// if there's a highlighted selection, use that as the text
 									ed.selection.setContent( '[pb_glossary id="' + event.data.term + '"]' + mySelection + '[/pb_glossary]' );
 								} else {
