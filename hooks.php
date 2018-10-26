@@ -113,6 +113,7 @@ if ( $is_book && use_book_locale() ) {
 
 add_action( 'init', '\Pressbooks\Sanitize\allow_post_content' );
 add_filter( 'the_content', '\Pressbooks\Sanitize\sanitize_webbook_content' );
+add_filter( 'the_export_content', '\Pressbooks\Sanitize\filter_export_content' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Images

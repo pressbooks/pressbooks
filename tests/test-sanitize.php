@@ -406,4 +406,19 @@ RAW;
 		$this->assertContains( '<table>', $result );
 
 	}
+
+	public function test_filter_export_content() {
+		$content = <<< RAW
+<table border="1">
+	<tbody>
+		<tr >
+			<td>Row 1</td>
+		</tr>
+	</tbody>
+</table>
+RAW;
+		$result = \Pressbooks\Sanitize\filter_export_content( $content );
+		$this->assertContains( '<table border="1">', $result );
+
+	}
 }

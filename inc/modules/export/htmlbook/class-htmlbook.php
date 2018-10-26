@@ -477,8 +477,7 @@ class HTMLBook extends Export {
 	 * @return string
 	 */
 	protected function preProcessPostContent( $content ) {
-		remove_filter( 'the_content', '\Pressbooks\Sanitize\sanitize_webbook_content' );
-		$content = apply_filters( 'the_content', $content );
+		$content = apply_filters( 'the_export_content', $content );
 		$content = str_ireplace( [ '<b></b>', '<i></i>', '<strong></strong>', '<em></em>' ], '', $content );
 		$content = $this->fixAnnoyingCharacters( $content ); // is this used?
 		$content = $this->fixInternalLinks( $content );
