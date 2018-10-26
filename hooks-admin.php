@@ -125,6 +125,11 @@ if ( ! $is_book ) {
 	add_action( 'network_admin_menu', '\Pressbooks\Admin\NetworkManagers\hide_network_menus' );
 }
 
+// Interfaces around Custom Post Types and Taxonomies
+add_filter( 'post_row_actions', '\Pressbooks\PostType\row_actions', 10, 2 );
+add_filter( 'page_row_actions', '\Pressbooks\PostType\row_actions', 10, 2 );
+add_filter( 'disable_months_dropdown', '\Pressbooks\PostType\disable_months_dropdown', 10, 2 );
+
 // -------------------------------------------------------------------------------------------------------------------
 // Posts, Meta Boxes
 // -------------------------------------------------------------------------------------------------------------------
