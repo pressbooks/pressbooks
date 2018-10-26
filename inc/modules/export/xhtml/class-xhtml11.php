@@ -519,8 +519,7 @@ class Xhtml11 extends Export {
 	 * @return string
 	 */
 	protected function preProcessPostContent( $content ) {
-
-		$content = apply_filters( 'the_content', $content );
+		$content = apply_filters( 'the_export_content', $content );
 		$content = str_ireplace( [ '<b></b>', '<i></i>', '<strong></strong>', '<em></em>' ], '', $content );
 		$content = $this->fixAnnoyingCharacters( $content ); // is this used?
 		$content = $this->fixInternalLinks( $content );
@@ -695,7 +694,10 @@ class Xhtml11 extends Export {
 			'tidy' => -1,
 		];
 
-		return \Pressbooks\HtmLawed::filter( $html, $config );
+		$spec = '';
+		$spec .= 'table=-border;';
+
+		return \Pressbooks\HtmLawed::filter( $html, $config, $spec );
 	}
 
 

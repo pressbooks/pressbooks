@@ -471,8 +471,7 @@ class Epub201 extends Export {
 	 * @return string
 	 */
 	protected function preProcessPostContent( $content ) {
-
-		$content = apply_filters( 'the_content', $content );
+		$content = apply_filters( 'the_export_content', $content );
 		$content = str_ireplace( [ '<b></b>', '<i></i>', '<strong></strong>', '<em></em>' ], '', $content );
 		$content = $this->fixAnnoyingCharacters( $content );
 		$content = $this->tidy( $content );
@@ -506,6 +505,7 @@ class Epub201 extends Export {
 
 		$spec = '';
 		$spec .= 'img=-longdesc,-srcset;';
+		$spec .= 'table=-border;';
 
 		// Reset on each htmLawed invocation
 		unset( $GLOBALS['hl_Ids'] );

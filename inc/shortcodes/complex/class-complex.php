@@ -171,7 +171,7 @@ class Complex {
 			], $atts
 		);
 		return apply_filters(
-			'the_content',
+			'the_export_content',
 			sprintf(
 				'[latex%1$s]%2$s[/latex]',
 				( $atts['size'] !== 0 )
@@ -213,10 +213,10 @@ class Complex {
 		if ( $atts['caption'] ) {
 			return sprintf(
 				'<figure class="embed">%1$s<figcaption>%2$s</figcaption></figure>',
-				str_replace( [ '<p>', '</p>' ], '', apply_filters( 'the_content', sprintf( '[embed src="%s"]', $src ) ) ),
+				str_replace( [ '<p>', '</p>' ], '', apply_filters( 'the_export_content', sprintf( '[embed src="%s"]', $src ) ) ),
 				$atts['caption']
 			);
 		}
-		return apply_filters( 'the_content', sprintf( '[embed src="%s"]', $src ) );
+		return apply_filters( 'the_export_content', sprintf( '[embed src="%s"]', $src ) );
 	}
 }

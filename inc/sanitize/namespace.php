@@ -677,3 +677,35 @@ function reverse_wpautop( $pee ) {
 
 	return $pee;
 }
+
+/**
+ * Sanitize post content for webbook output.
+ *
+ * @since 5.6.0
+ *
+ * @param string $content
+ * @return string
+ */
+
+function sanitize_webbook_content( $content ) {
+	$spec = '';
+	$spec .= 'table=-border;';
+
+	return \Pressbooks\HtmLawed::filter( $content, null, $spec );
+}
+
+/**
+ * Apply the_content filters minus webbook-specific ones.
+ *
+ * @since 5.6.0
+ *
+ * @param string $content Input content
+ * @return string
+ */
+
+function filter_export_content( $content ) {
+	remove_filter( 'the_content', '\Pressbooks\Sanitize\sanitize_webbook_content' );
+	$content = apply_filters( 'the_content', $content );
+	add_filter( 'the_content', '\Pressbooks\Sanitize\sanitize_webbook_content' );
+	return $content;
+}

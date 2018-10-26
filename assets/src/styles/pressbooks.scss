@@ -342,3 +342,12 @@ $wp-spinner-anim-duration: 1.08s;
     display: none;
   }
 }
+
+
+.mce-window[aria-label="Table properties"] .mce-formitem:nth-child(6) {
+  display: none;
+}
+
+.mce-window[aria-label="Table properties"] .mce-formitem:nth-child(7) {
+  left: 0 !important;
+}
