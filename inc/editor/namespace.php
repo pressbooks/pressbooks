@@ -312,6 +312,7 @@ function mce_table_editor_options( $settings ) {
 	$settings['table_cell_advtab'] = false; // Hides border and background colour options.
 	$settings['table_row_advtab'] = false; // Hides border and background colour options.
 	$settings['table_responsive_width'] = true; // Forces percentage width when resizing.
+	$settings['table_default_attributes'] = wp_json_encode( [ 'border' => 0 ] ); // Set border to 0 for accurate editor display
 	$settings['table_class_list'] = wp_json_encode( apply_filters( 'pressbooks_editor_table_classes', $table_classes ) );
 	$settings['table_cell_class_list'] = wp_json_encode( apply_filters( 'pressbooks_editor_cell_classes', $cell_classes ) );
 	$settings['table_row_class_list'] = wp_json_encode( apply_filters( 'pressbooks_editor_row_classes', $row_classes ) );
