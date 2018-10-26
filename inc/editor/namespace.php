@@ -464,6 +464,7 @@ function hide_gutenberg() {
 	if ( ! function_exists( 'classic_editor_init_actions' ) ) {
 		// TODO: Install "Classic Editor" plugin?
 		// https://en-ca.wordpress.org/plugins/classic-editor/
+		// https://github.com/azaozz/classic-editor
 	}
 
 	// Hide "Classic Editor" Settings page, because we don't want people turning Gutenberg back on
