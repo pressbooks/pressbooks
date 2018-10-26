@@ -103,19 +103,32 @@ function admin_enqueue_scripts( $hook ) {
 			'ftnref_title' => __( 'Convert MS Word Footnotes', 'pressbooks' ),
 		]
 	);
-	if ( 'post-new.php' === $hook || 'post.php' === $hook ) {
-		wp_enqueue_script( 'my_custom_quicktags', $assets->getPath( 'scripts/quicktags.js' ), [ 'quicktags' ] );
-	}
 
 	// Glossary
 	wp_localize_script(
 		'editor', 'PB_GlossaryToken', [
-			'nonce'              => wp_create_nonce( 'pb-glossary' ),
-			'glossary_title'     => __( 'Insert Glossary Term', 'pressbooks' ),
-			'glossary_all_title' => __( 'Insert Glossary List', 'pressbooks' ),
-			'glossary_terms'     => wp_json_encode( Glossary::init()->getGlossaryTerms() ),
+			'cancel' => __( 'Cancel', 'pressbooks' ),
+			'description' => __( 'Description', 'pressbooks' ),
+			'glossary_all_button_title' => __( 'Insert Glossary List', 'pressbooks' ),
+			'glossary_button_title' => __( 'Insert Glossary Term', 'pressbooks' ),
+			'insert' => __( 'Insert', 'pressbooks' ),
+			'listbox_values' => Glossary::init()->getGlossaryTermsListbox(),
+			'not_found' => _x( 'Glossary term <b>${templateString1}</b> not found. Please create it.', 'JS template string', 'pressbooks' ),
+			'select_a_term' => __( 'Select a Term', 'pressbooks' ),
+			'tab0_title' => __( 'Create and Insert Term', 'pressbooks' ),
+			'tab1_title' => __( 'Choose Existing Term', 'pressbooks' ),
+			'term_already_exists' => __( 'Glossary term already exists.', 'pressbooks' ),
+			'term_is_empty' => __( 'Cannot submit empty Glossary term.', 'pressbooks' ),
+			'term_not_selected' => __( 'A term was not selected?', 'pressbooks' ),
+			'title' => __( 'Title', 'pressbooks' ),
+			'window_title' => __( 'Glossary Terms', 'pressbooks' ),
 		]
 	);
+
+	if ( 'post-new.php' === $hook || 'post.php' === $hook ) {
+		wp_enqueue_script( 'my_custom_quicktags', $assets->getPath( 'scripts/quicktags.js' ), [ 'quicktags' ] );
+		wp_enqueue_script( 'wp-api' );
+	}
 }
 
 
