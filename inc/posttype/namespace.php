@@ -178,6 +178,7 @@ function register_post_types() {
 			'capability_type' => 'post',
 			'has_archive' => false,
 			'hierarchical' => false,
+			'publicly_queryable' => false,
 			'supports' => [ 'title', 'editor', 'author', 'revisions' ],
 			'show_in_menu' => false,
 			'show_in_admin_bar' => false,
@@ -221,6 +222,29 @@ function disable_months_dropdown( $disable, $post_type ) {
 		return true;
 	}
 	return $disable;
+}
+
+/**
+ * @param \WP_Post $post
+ */
+function after_title( $post ) {
+	if ( $post->post_type === 'glossary' ) {
+		echo '<p>';
+		_e( 'HTML and shortcodes are not supported in glossary terms.', 'pressbooks' );
+		echo '</p>';
+	}
+}
+
+
+function wp_editor_settings( $settings ) {
+	if ( get_post_type() === 'glossary' ) {
+		$settings['wpautop'] = false;
+		$settings['media_buttons'] = false;
+		$settings['tinymce'] = false;
+		$settings['quicktags'] = false;
+		$settings['editor_css'] = '<style>.wp-editor-area { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif; font-size: 14px; }</style>';
+	}
+	return $settings;
 }
 
 /**

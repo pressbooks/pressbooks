@@ -5,6 +5,8 @@ use function \Pressbooks\PostType\{
 	register_post_types,
 	row_actions,
 	disable_months_dropdown,
+	after_title,
+	wp_editor_settings,
 	register_meta,
 	register_post_statii,
 	add_post_types_rss,
@@ -58,6 +60,39 @@ class PostTypeTest extends \WP_UnitTestCase {
 
 		$this->assertTrue( disable_months_dropdown( true, 'imaginary-post-type' ) );
 		$this->assertFalse( disable_months_dropdown( false, 'imaginary-post-type' ) );
+	}
+
+	function test_after_title() {
+		$x = new \StdClass();
+
+		$x->post_type = 'imaginary-post-type';
+		ob_start();
+		after_title( $x );
+		$buffer = ob_get_clean();
+		$this->assertEmpty( $buffer );
+
+		$x->post_type = 'glossary';
+		ob_start();
+		after_title( $x );
+		$buffer = ob_get_clean();
+		$this->assertContains( 'not supported', $buffer );
+	}
+
+	function test_wp_editor_settings() {
+
+		global $post;
+		$settings['tinymce'] = true;
+
+		$settings2 = wp_editor_settings( $settings );
+		$this->assertEquals( $settings, $settings2 );
+
+		$x = new \StdClass();
+		$x->post_type = 'glossary';
+		$post = $x;
+
+		$settings2 = wp_editor_settings( $settings );
+		$this->assertNotEquals( $settings, $settings2 );
+		$this->assertTrue( $settings2['tinymce'] === false );
 	}
 
 	function test_register_meta() {
