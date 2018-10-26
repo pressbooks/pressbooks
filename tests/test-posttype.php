@@ -3,6 +3,8 @@
 use function \Pressbooks\PostType\{
 	list_post_types,
 	register_post_types,
+	row_actions,
+	disable_months_dropdown,
 	register_meta,
 	register_post_statii,
 	add_post_types_rss,
@@ -32,6 +34,30 @@ class PostTypeTest extends \WP_UnitTestCase {
 		$this->assertArrayHasKey( 'glossary', $wp_post_types );
 
 		$wp_post_types = $wp_post_types_old;
+	}
+
+	function test_row_actions() {
+		$actions['do-not-touch'] = 1;
+		$actions['view'] = 1;
+		$actions['inline hide-if-no-js'] = 1;
+
+		$x = new \StdClass();
+		$x->post_type = 'imaginary-post-type';
+		$actions2 = row_actions( $actions, $x );
+		$this->assertEquals( $actions, $actions2 );
+
+		$x->post_type = 'glossary';
+		$actions2 = row_actions( $actions, $x );
+		$this->assertNotEquals( $actions, $actions2 );
+		$this->assertArrayNotHasKey( 'view', $actions2 );
+		$this->assertArrayNotHasKey( 'inline hide-if-no-js', $actions2 );
+	}
+
+	function test_disable_months_dropdown() {
+		$this->assertTrue( disable_months_dropdown( false, 'glossary' ) );
+
+		$this->assertTrue( disable_months_dropdown( true, 'imaginary-post-type' ) );
+		$this->assertFalse( disable_months_dropdown( false, 'imaginary-post-type' ) );
 	}
 
 	function test_register_meta() {

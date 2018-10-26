@@ -140,6 +140,9 @@ add_filter( 'upload_mimes', '\Pressbooks\Media\add_mime_types' );
 
 if ( $is_book ) {
 	add_action( 'init', '\Pressbooks\PostType\register_post_types' );
+	add_filter( 'post_row_actions', '\Pressbooks\PostType\row_actions', 10, 2 );
+	add_filter( 'page_row_actions', '\Pressbooks\PostType\row_actions', 10, 2 );
+	add_filter( 'disable_months_dropdown', '\Pressbooks\PostType\disable_months_dropdown', 10, 2 );
 	add_filter( 'comments_open', '\Pressbooks\PostType\comments_open', 10, 2 );
 	\Pressbooks\Taxonomy::init();
 	add_action( 'init', '\Pressbooks\PostType\register_meta' );
