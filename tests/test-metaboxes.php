@@ -37,6 +37,7 @@ class MetaboxesTest extends \WP_UnitTestCase {
 	public function test_status_visibility_box() {
 		\Pressbooks\Metadata\init_book_data_models();
 
+		// Create front-matter post
 		$new_post = [
 			'post_title' => 'Test Chapter: ' . rand(),
 			'post_type' => 'front-matter',
@@ -46,15 +47,34 @@ class MetaboxesTest extends \WP_UnitTestCase {
 		$pid = $this->factory()->post->create_object( $new_post );
 		$post = get_post( $pid );
 
-		// Mock Screen
+		// Mock Screen for front-matter
 		global $current_screen;
 		$current_screen = WP_Screen::get( 'front-matter' );
-
 		ob_start();
 		\Pressbooks\Admin\Metaboxes\status_visibility_box( $post );
 		$buffer = ob_get_clean();
-
 		$this->assertContains( '<div id="misc-publishing-actions">', $buffer );
+		$this->assertContains( '<input type="checkbox" name="export_visibility"', $buffer );
+		$this->assertNotContains( '<input type="checkbox" name="glossary_visibility" id="glossary_visibility"', $buffer );
+
+		// Create glossary post
+		$new_post = [
+			'post_title' => 'Test Glossary: ' . rand(),
+			'post_type' => 'glossary',
+			'post_status' => 'private',
+			'post_content' => 'Hello World',
+		];
+		$pid = $this->factory()->post->create_object( $new_post );
+		$post = get_post( $pid );
+
+		// Mock Screen for glossary
+		$current_screen = WP_Screen::get( 'glossary' );
+		ob_start();
+		\Pressbooks\Admin\Metaboxes\status_visibility_box( $post );
+		$buffer = ob_get_clean();
+		$this->assertContains( '<div id="misc-publishing-actions">', $buffer );
+		$this->assertNotContains( '<input type="checkbox" name="export_visibility"', $buffer );
+		$this->assertContains( '<input type="checkbox" name="glossary_visibility" id="glossary_visibility"', $buffer );
 	}
 
 	public function test_publish_fields_save() {
@@ -69,6 +89,7 @@ class MetaboxesTest extends \WP_UnitTestCase {
 		$_POST['pb_show_title'] = 'on';
 		$_POST['require_password'] = '0';
 
+		// Create front-matter post
 		$new_post = [
 			'post_title' => 'Test Chapter: ' . rand(),
 			'post_type' => 'front-matter',
@@ -138,6 +159,26 @@ class MetaboxesTest extends \WP_UnitTestCase {
 		\Pressbooks\Admin\Metaboxes\publish_fields_save( $pid, $post, true );
 		$post = get_post( $pid );
 		$this->assertEmpty( $post->post_password );
+
+		// Create glossary post
+		$new_post = [
+			'post_title' => 'Test Glossary: ' . rand(),
+			'post_type' => 'glossary',
+			'post_status' => 'private',
+			'post_content' => 'Hello World',
+		];
+		$pid = $this->factory()->post->create_object( $new_post );
+		$post = get_post( $pid );
+
+		$_POST['glossary_visibility'] = 1;
+		\Pressbooks\Admin\Metaboxes\publish_fields_save( $pid, $post, true );
+		$post = get_post( $pid );
+		$this->assertEquals( 'publish', $post->post_status );
+
+		$_POST['glossary_visibility'] = 0;
+		\Pressbooks\Admin\Metaboxes\publish_fields_save( $pid, $post, true );
+		$post = get_post( $pid );
+		$this->assertEquals( 'private', $post->post_status );
 	}
 
 }

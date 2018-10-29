@@ -235,7 +235,11 @@ function after_title( $post ) {
 	}
 }
 
-
+/**
+ * @param array $settings
+ *
+ * @return array
+ */
 function wp_editor_settings( $settings ) {
 	if ( get_post_type() === 'glossary' ) {
 		$settings['wpautop'] = false;
