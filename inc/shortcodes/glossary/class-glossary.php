@@ -77,9 +77,10 @@ class Glossary {
 			$args = [
 				'post_type' => 'glossary',
 				'posts_per_page' => -1, // @codingStandardsIgnoreLine
-				'post_status' => 'publish',
+				'post_status' => [ 'private', 'publish' ],
 			];
 			$posts = get_posts( $args );
+			/** @var \WP_Post $post */
 			foreach ( $posts as $post ) {
 				$type = '';
 				$terms = get_the_terms( $post->ID, 'glossary-type' );
@@ -92,6 +93,7 @@ class Glossary {
 					'id' => $post->ID,
 					'content' => $post->post_content,
 					'type' => rtrim( $type, ',' ),
+					'status' => $post->post_status,
 				];
 			}
 		}
@@ -100,6 +102,7 @@ class Glossary {
 
 	/**
 	 * For tiny mce
+	 * Get both published and private terms
 	 *
 	 * @param bool $reset (optional, default is false)
 	 *
@@ -121,7 +124,7 @@ class Glossary {
 	}
 
 	/**
-	 * Returns the HTML <dl> description list of all glossary terms
+	 * Returns the HTML <dl> description list of all !published! glossary terms
 	 *
 	 * @since 5.5.0
 	 * @see \Pressbooks\HTMLBook\Component\Glossary
@@ -144,6 +147,9 @@ class Glossary {
 
 		if ( true === $ok && count( $terms ) > 0 ) {
 			foreach ( $terms as $key => $value ) {
+				if ( $value['status'] !== 'publish' ) {
+					continue;
+				}
 				if ( ! empty( $type ) && ! \Pressbooks\Utility\comma_delimited_string_search( $value['type'], $type ) ) {
 					// Type was not found. Skip this glossary term.
 					continue;

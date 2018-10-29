@@ -28,18 +28,25 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 			'post_content' => 'An <i>algorithm</i> that uses a nonlinear mapping to transform the original training data into a higher dimension',
 			'post_status'  => 'publish',
 		];
-
 		$args2 = [
 			'post_type'    => 'glossary',
 			'post_title'   => 'Neural Network',
 			'post_content' => 'A computer system modeled on the <b>human brain</b> and <a href="https://en.wikipedia.org/wiki/Nervous_system" target="_blank">nervous system</a>.',
 			'post_status'  => 'publish',
 		];
+		$args3 = [
+			'post_type'    => 'glossary',
+			'post_title'   => 'Not done',
+			'post_content' => 'This term is not done so the status is private.',
+			'post_status'  => 'private',
+		];
 
 		$p1 = $this->factory()->post->create_object( $args1 );
 		wp_set_object_terms( $p1, 'definitions', 'glossary-type' );
 		$p2 = $this->factory()->post->create_object( $args2 );
 		wp_set_object_terms( $p2, [ 'something', 'else' ], 'glossary-type' );
+		$p3 = $this->factory()->post->create_object( $args3 );
+		wp_set_object_terms( $p3, 'definitions', 'glossary-type' );
 	}
 
 	private function _createGlossaryPost() {
@@ -90,22 +97,24 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 
 	public function test_getGlossaryTerms() {
 		$terms = $this->gl->getGlossaryTerms();
-		$this->assertEquals( 2, count( $terms ) );
+		$this->assertEquals( 3, count( $terms ) );
 		$this->assertEquals( 'A computer system modeled on the <b>human brain</b> and <a href="https://en.wikipedia.org/wiki/Nervous_system" target="_blank">nervous system</a>.', $terms['Neural Network']['content'] );
 		$this->assertEquals( 'else,something', $terms['Neural Network']['type'] );
+		$this->assertEquals( 'publish', $terms['Neural Network']['status'] );
 
 		// Test cache (and cache reset)
 		$args = [
 			'post_type' => 'glossary',
 			'post_title' => 'Cache Test',
 			'post_content' => 'Cache Test',
-			'post_status' => 'publish',
+			'post_status' => 'private',
 		];
 		$this->factory()->post->create_object( $args );
 		$terms = $this->gl->getGlossaryTerms();
 		$this->assertArrayNotHasKey( 'Cache Test', $terms );
 		$terms = $this->gl->getGlossaryTerms( true );
 		$this->assertArrayHasKey( 'Cache Test', $terms );
+		$this->assertEquals( 'private', $terms['Cache Test']['status'] );
 	}
 
 }
