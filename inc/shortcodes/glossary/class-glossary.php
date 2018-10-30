@@ -182,15 +182,23 @@ class Glossary {
 
 		// get the glossary post object the ID belongs to
 		$terms = get_post( $term_id['id'] );
+		if ( ! $terms ) {
+			return $content;
+		}
 
 		// use our post instead of the global $post object
 		setup_postdata( $terms );
 
-		$content = wp_strip_all_tags( $content );
-		$html = '<a href="javascript:void(0);" class="tooltip" title="' . get_the_excerpt( $term_id['id'] ) . '">' . $content . '</a>';
+		// setup_postdata() sets up every global for the post except ...drumroll... $post /fail horn
+		global $post;
+		$old_global_post = $post;
+		$post = $terms;
+
+		$html = '<a href="javascript:void(0);" class="tooltip" title="' . get_the_excerpt( $terms ) . '">' . $content . '</a>';
 
 		// reset post data
 		wp_reset_postdata();
+		$post = $old_global_post;
 
 		return $html;
 	}
