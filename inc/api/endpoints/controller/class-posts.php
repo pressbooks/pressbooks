@@ -180,6 +180,9 @@ class Posts extends \WP_REST_Posts_Controller {
 		if ( isset( $schema['properties']['meta'] ) ) {
 			$schema['properties']['meta']['context'][] = 'embed';
 		}
+		if ( isset( $schema['properties']['menu_order'] ) ) {
+			$schema['properties']['menu_order']['context'][] = 'embed';
+		}
 		foreach ( [ 'front-matter-type', 'chapter-type', 'back-matter-type', 'glossary-type' ] as $taxonomy ) {
 			if ( isset( $schema['properties'][ $taxonomy ] ) ) {
 				$schema['properties'][ $taxonomy ]['context'][] = 'embed';
