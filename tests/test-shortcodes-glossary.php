@@ -17,6 +17,9 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 		                 ->disableOriginalConstructor()
 		                 ->getMock();
 
+		// Add the filter that tests no HTML ever gets saved
+		add_filter( 'wp_insert_post_data', [ $this->gl, 'sanitizeGlossaryTerm' ] );
+
 		$this->_createGlossaryTerms();
 		$this->gl->getGlossaryTerms( true ); // Reset cache
 	}
@@ -53,8 +56,8 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 
 		$args = [
 			'post_type'    => 'glossary',
-			'post_title'   => 'Neural Network',
-			'post_excerpt' => 'A computer system modeled on the human brain and nervous system.',
+			'post_title'   => 'PHP',
+			'post_excerpt' => 'A popular general-purpose <script>scripting</script> language that is especially suited to web development.',
 			'post_status'  => 'publish',
 		];
 		$pid  = $this->factory()->post->create_object( $args );
@@ -77,10 +80,10 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 	public function test_glossaryTerms() {
 		// assures alphabetical listing and format
 		$dl = $this->gl->glossaryTerms();
-		$this->assertEquals( '<section data-type="glossary"><header><h2>Glossary Terms</h2></header><dl data-type="glossary"><dt data-type="glossterm"><dfn id="dfn-neural-network">Neural Network</dfn></dt><dd data-type="glossdef">A computer system modeled on the <b>human brain</b> and <a href="https://en.wikipedia.org/wiki/Nervous_system" target="_blank">nervous system</a>.</dd><dt data-type="glossterm"><dfn id="dfn-support-vector-machine">Support Vector Machine</dfn></dt><dd data-type="glossdef">An <i>algorithm</i> that uses a nonlinear mapping to transform the original training data into a higher dimension</dd></dl></section>', $dl );
+		$this->assertEquals( '<section data-type="glossary"><header><h2>Glossary Terms</h2></header><dl data-type="glossary"><dt data-type="glossterm"><dfn id="dfn-neural-network">Neural Network</dfn></dt><dd data-type="glossdef">A computer system modeled on the human brain and nervous system.</dd><dt data-type="glossterm"><dfn id="dfn-support-vector-machine">Support Vector Machine</dfn></dt><dd data-type="glossdef">An algorithm that uses a nonlinear mapping to transform the original training data into a higher dimension</dd></dl></section>', $dl );
 		// assures found by type
 		$dl = $this->gl->glossaryTerms( 'definitions' );
-		$this->assertEquals( '<section data-type="glossary"><header><h2>Glossary Terms</h2></header><dl data-type="glossary"><dt data-type="glossterm"><dfn id="dfn-support-vector-machine">Support Vector Machine</dfn></dt><dd data-type="glossdef">An <i>algorithm</i> that uses a nonlinear mapping to transform the original training data into a higher dimension</dd></dl></section>', $dl );
+		$this->assertEquals( '<section data-type="glossary"><header><h2>Glossary Terms</h2></header><dl data-type="glossary"><dt data-type="glossterm"><dfn id="dfn-support-vector-machine">Support Vector Machine</dfn></dt><dd data-type="glossdef">An algorithm that uses a nonlinear mapping to transform the original training data into a higher dimension</dd></dl></section>', $dl );
 		// assures empty (because this type is not found)
 		$dl = $this->gl->glossaryTerms( 'nothing-to-find' );
 		$this->assertEmpty( $dl );
@@ -90,15 +93,15 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 	public function test_glossaryTooltip() {
 		$pid = $this->_createGlossaryPost();
 
-		$result = $this->gl->glossaryTooltip( [ 'id' => $pid ], 'Neural Network' );
+		$result = $this->gl->glossaryTooltip( [ 'id' => $pid ], 'PHP' );
 
-		$this->assertEquals( '<a href="javascript:void(0);" class="tooltip" title="A computer system modeled on the human brain and nervous system.">Neural Network</a>', $result );
+		$this->assertEquals( '<a href="javascript:void(0);" class="tooltip" title="A popular general-purpose scripting language that is especially suited to web development.">PHP</a>', $result );
 	}
 
 	public function test_getGlossaryTerms() {
 		$terms = $this->gl->getGlossaryTerms();
 		$this->assertEquals( 3, count( $terms ) );
-		$this->assertEquals( 'A computer system modeled on the <b>human brain</b> and <a href="https://en.wikipedia.org/wiki/Nervous_system" target="_blank">nervous system</a>.', $terms['Neural Network']['content'] );
+		$this->assertEquals( 'A computer system modeled on the human brain and nervous system.', $terms['Neural Network']['content'] );
 		$this->assertEquals( 'else,something', $terms['Neural Network']['type'] );
 		$this->assertEquals( 'publish', $terms['Neural Network']['status'] );
 
@@ -115,6 +118,17 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 		$terms = $this->gl->getGlossaryTerms( true );
 		$this->assertArrayHasKey( 'Cache Test', $terms );
 		$this->assertEquals( 'private', $terms['Cache Test']['status'] );
+	}
+
+	public function test_sanitizeGlossaryTerm() {
+		$data['post_type'] = 'imaginary-post-type';
+		$data['post_content'] = 'All is <strong>good.</strong>';
+		$results = $this->gl->sanitizeGlossaryTerm( $data );
+		$this->assertEquals( $data['post_content'], $results['post_content'] );
+
+		$data['post_type'] = 'glossary';
+		$results = $this->gl->sanitizeGlossaryTerm( $data );
+		$this->assertEquals( 'All is good.', $results['post_content'] );
 	}
 
 }
