@@ -1055,6 +1055,13 @@ class Cloner {
 			$section['part'] = $parent_id;
 		}
 
+		// Set menu order
+		static $menu_order_guess = 1;
+		if ( ! isset( $section['menu_order'] ) ) {
+			$section['menu_order'] = $menu_order_guess;
+			$menu_order_guess++;
+		}
+
 		// Set mapped term ID
 		if ( isset( $section[ "$post_type-type" ] ) ) {
 			foreach ( $section[ "$post_type-type" ] as $key => $term_id ) {
