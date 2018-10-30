@@ -45,6 +45,7 @@ class Glossary {
 			}
 		);
 		add_action( 'init', [ $obj, 'addTooltipScripts' ] );
+		add_filter( 'wp_insert_post_data', [ $obj, 'sanitizeGlossaryTerm' ] );
 	}
 
 	/**
@@ -77,9 +78,10 @@ class Glossary {
 			$args = [
 				'post_type' => 'glossary',
 				'posts_per_page' => -1, // @codingStandardsIgnoreLine
-				'post_status' => 'publish',
+				'post_status' => [ 'private', 'publish' ],
 			];
 			$posts = get_posts( $args );
+			/** @var \WP_Post $post */
 			foreach ( $posts as $post ) {
 				$type = '';
 				$terms = get_the_terms( $post->ID, 'glossary-type' );
@@ -92,6 +94,7 @@ class Glossary {
 					'id' => $post->ID,
 					'content' => $post->post_content,
 					'type' => rtrim( $type, ',' ),
+					'status' => $post->post_status,
 				];
 			}
 		}
@@ -100,6 +103,7 @@ class Glossary {
 
 	/**
 	 * For tiny mce
+	 * Get both published and private terms
 	 *
 	 * @param bool $reset (optional, default is false)
 	 *
@@ -121,7 +125,7 @@ class Glossary {
 	}
 
 	/**
-	 * Returns the HTML <dl> description list of all glossary terms
+	 * Returns the HTML <dl> description list of all !published! glossary terms
 	 *
 	 * @since 5.5.0
 	 * @see \Pressbooks\HTMLBook\Component\Glossary
@@ -144,13 +148,16 @@ class Glossary {
 
 		if ( true === $ok && count( $terms ) > 0 ) {
 			foreach ( $terms as $key => $value ) {
+				if ( $value['status'] !== 'publish' ) {
+					continue;
+				}
 				if ( ! empty( $type ) && ! \Pressbooks\Utility\comma_delimited_string_search( $value['type'], $type ) ) {
 					// Type was not found. Skip this glossary term.
 					continue;
 				}
 				$glossary .= sprintf(
 					'<dt data-type="glossterm"><dfn id="%1$s">%2$s</dfn></dt><dd data-type="glossdef">%3$s</dd>',
-					sprintf( 'dfn-%s', \Pressbooks\Utility\str_lowercase_dash( $key ) ), $key, trim( $value['content'] )
+					sprintf( 'dfn-%s', \Pressbooks\Utility\str_lowercase_dash( $key ) ), $key, wp_strip_all_tags( $value['content'] )
 				);
 			}
 		}
@@ -179,6 +186,7 @@ class Glossary {
 		// use our post instead of the global $post object
 		setup_postdata( $terms );
 
+		$content = wp_strip_all_tags( $content );
 		$html = '<a href="javascript:void(0);" class="tooltip" title="' . get_the_excerpt( $term_id['id'] ) . '">' . $content . '</a>';
 
 		// reset post data
@@ -217,6 +225,18 @@ class Glossary {
 		}
 
 		return $content;
+	}
+
+	/**
+	 * @param array $data An array of slashed post data.
+	 *
+	 * @return mixed
+	 */
+	public function sanitizeGlossaryTerm( $data ) {
+		if ( isset( $data['post_type'], $data['post_content'] ) && $data['post_type'] === 'glossary' ) {
+			$data['post_content'] = wp_strip_all_tags( $data['post_content'] );
+		}
+		return $data;
 	}
 
 }

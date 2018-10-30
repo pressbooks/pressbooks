@@ -62,6 +62,7 @@ if ( $is_book ) {
 	add_filter( 'menu_order', '\Pressbooks\Admin\Laf\reorder_book_admin_menu' );
 	add_action( 'admin_menu', [ '\Pressbooks\Admin\Delete\Book', 'init' ] );
 	add_filter( 'parent_file', '\Pressbooks\Admin\Laf\fix_parent_file' );
+	add_filter( 'submenu_file', '\Pressbooks\Admin\Laf\fix_submenu_file', 10, 2 );
 	add_action( 'wp_dashboard_setup', '\Pressbooks\Admin\Dashboard\replace_dashboard_widgets' );
 	add_action( 'customize_register', '\Pressbooks\Admin\Laf\customize_register', 1000 );
 	add_filter( 'all_plugins', '\Pressbooks\Admin\Plugins\filter_plugins' );
@@ -124,6 +125,14 @@ add_action( 'admin_bar_menu', '\Pressbooks\Admin\NetworkManagers\hide_admin_bar_
 if ( ! $is_book ) {
 	add_action( 'network_admin_menu', '\Pressbooks\Admin\NetworkManagers\hide_network_menus' );
 }
+
+// Interfaces around Custom Post Types and Taxonomies
+add_filter( 'post_row_actions', '\Pressbooks\PostType\row_actions', 10, 2 );
+add_filter( 'page_row_actions', '\Pressbooks\PostType\row_actions', 10, 2 );
+add_filter( 'disable_months_dropdown', '\Pressbooks\PostType\disable_months_dropdown', 10, 2 );
+add_action( 'edit_form_after_title', '\Pressbooks\PostType\after_title' );
+add_filter( 'wp_editor_settings', '\Pressbooks\PostType\wp_editor_settings' );
+add_filter( 'display_post_states', '\Pressbooks\PostType\display_post_states', 10, 2 );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Posts, Meta Boxes
