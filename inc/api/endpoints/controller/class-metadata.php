@@ -402,6 +402,13 @@ class Metadata extends \WP_REST_Controller {
 					'context' => [ 'view' ],
 					'readonly' => true,
 				],
+				'sameAs' => [
+					'type' => 'string',
+					'format' => 'uri',
+					'description' => __( 'URL of a reference Web page that unambiguously indicates the item\'s identity.', 'pressbooks' ),
+					'context' => [ 'view' ],
+					'readonly' => true,
+				],
 			],
 		];
 
