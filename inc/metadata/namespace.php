@@ -352,6 +352,11 @@ function book_information_to_schema( $book_information ) {
 	}
 
 	if ( isset( $book_information['pb_book_doi'] ) ) {
+		$book_schema['identifier'] = [
+			'@type' => 'PropertyValue',
+			'propertyID' => 'DOI',
+			'value' => $book_information['pb_book_doi'],
+		];
 		/**
 		 * Filter the DOI resolver service URL (default: https://dx.doi.org).
 		 *
@@ -690,6 +695,11 @@ function section_information_to_schema( $section_information, $book_information 
 	}
 
 	if ( isset( $section_information['pb_section_doi'] ) ) {
+		$section_schema['identifier'] = [
+			'@type' => 'PropertyValue',
+			'propertyID' => 'DOI',
+			'value' => $section_information['pb_book_doi'],
+		];
 		/**
 		 * Filter the DOI resolver service URL (default: https://dx.doi.org).
 		 *
