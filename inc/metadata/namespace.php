@@ -698,7 +698,7 @@ function section_information_to_schema( $section_information, $book_information 
 		$section_schema['identifier'] = [
 			'@type' => 'PropertyValue',
 			'propertyID' => 'DOI',
-			'value' => $section_information['pb_book_doi'],
+			'value' => $section_information['pb_section_doi'],
 		];
 		/**
 		 * Filter the DOI resolver service URL (default: https://dx.doi.org).
