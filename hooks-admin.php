@@ -132,6 +132,7 @@ add_filter( 'page_row_actions', '\Pressbooks\PostType\row_actions', 10, 2 );
 add_filter( 'disable_months_dropdown', '\Pressbooks\PostType\disable_months_dropdown', 10, 2 );
 add_action( 'edit_form_after_title', '\Pressbooks\PostType\after_title' );
 add_filter( 'wp_editor_settings', '\Pressbooks\PostType\wp_editor_settings' );
+add_filter( 'display_post_states', '\Pressbooks\PostType\display_post_states', 10, 2 );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Posts, Meta Boxes

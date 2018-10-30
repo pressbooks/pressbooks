@@ -252,6 +252,19 @@ function wp_editor_settings( $settings ) {
 }
 
 /**
+ * @param array $post_states An array of post display states.
+ * @param \WP_Post $post The current post object.
+ *
+ * @return array
+ */
+function display_post_states( $post_states, $post ) {
+	if ( $post->post_type === 'glossary' && isset( $post_states['private'] ) ) {
+		$post_states['private'] = __( 'Unlisted', 'pressbooks' );
+	}
+	return $post_states;
+}
+
+/**
  * Disable comments for Metadata
  *
  * @param bool $open Whether the current post is open for comments.

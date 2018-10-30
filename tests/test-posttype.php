@@ -7,6 +7,7 @@ use function \Pressbooks\PostType\{
 	disable_months_dropdown,
 	after_title,
 	wp_editor_settings,
+	display_post_states,
 	register_meta,
 	register_post_statii,
 	add_post_types_rss,
@@ -93,6 +94,19 @@ class PostTypeTest extends \WP_UnitTestCase {
 		$settings2 = wp_editor_settings( $settings );
 		$this->assertNotEquals( $settings, $settings2 );
 		$this->assertTrue( $settings2['tinymce'] === false );
+	}
+
+	function test_display_post_states() {
+		$x = new \StdClass();
+
+		$post_states['private'] = 'Private';
+		$x->post_type = 'imaginary-post-type';
+		$post_states = display_post_states( $post_states, $x );
+		$this->assertEquals( 'Private', $post_states['private'] );
+
+		$x->post_type = 'glossary';
+		$post_states = display_post_states( $post_states, $x );
+		$this->assertEquals( 'Unlisted', $post_states['private'] );
 	}
 
 	function test_register_meta() {
