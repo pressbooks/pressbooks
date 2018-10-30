@@ -79,7 +79,7 @@
 									{
 										name: 'title',
 										type: 'textbox',
-										label: PB_GlossaryToken.title,
+										label: PB_GlossaryToken.term_title,
 									},
 									{
 										name: 'body',
