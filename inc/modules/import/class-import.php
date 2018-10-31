@@ -276,7 +276,19 @@ abstract class Import {
 		// Set post status
 		$current_import['default_post_status'] = ( isset( $_POST['show_imports_in_web'] ) ) ? 'publish' : 'private'; // @codingStandardsIgnoreLine
 
-		@set_time_limit( 300 ); // @codingStandardsIgnoreLine
+		/**
+		 * Maximum execution time, in seconds. If set to zero, no time limit
+		 * Overrides PHP's max_execution_time of a Nginx->PHP-FPM->PHP configuration
+		 * See also request_terminate_timeout (PHP-FPM) and fastcgi_read_timeout (Nginx)
+		 *
+		 * @since 5.6.0
+		 *
+		 * @param int $seconds
+		 * @param string $some_action
+		 *
+		 * @return int
+		 */
+		@set_time_limit( apply_filters( 'pb_set_time_limit', 600, 'import' ) ); // @codingStandardsIgnoreLine
 
 		$ok = false;
 		switch ( $current_import['type_of'] ) {

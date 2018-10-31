@@ -402,7 +402,19 @@ function force_download( $filepath, $inline = false ) {
 
 	// Force download
 	// @codingStandardsIgnoreStart
-	@set_time_limit( 0 );
+	/**
+	 * Maximum execution time, in seconds. If set to zero, no time limit
+	 * Overrides PHP's max_execution_time of a Nginx->PHP-FPM->PHP configuration
+	 * See also request_terminate_timeout (PHP-FPM) and fastcgi_read_timeout (Nginx)
+	 *
+	 * @since 5.6.0
+	 *
+	 * @param int $seconds
+	 * @param string $some_action
+	 *
+	 * @return int
+	 */
+	@set_time_limit( apply_filters( 'pb_set_time_limit', 0, 'download' ) );
 	header( 'Content-Description: File Transfer' );
 	header( 'Content-Type: ' . \Pressbooks\Media\mime_type( $filepath ) );
 	if ( $inline ) {
