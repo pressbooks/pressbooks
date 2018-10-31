@@ -442,6 +442,13 @@ function add_meta_boxes() {
 		);
 
 		x_add_metadata_field(
+			'pb_book_doi', 'metadata', [
+				'group' => 'additional-catalog-information',
+				'label' => __( 'Digital Object Identifier (DOI)', 'pressbooks' ),
+			]
+		);
+
+		x_add_metadata_field(
 			'pb_series_title', 'metadata', [
 				'group' => 'additional-catalog-information',
 				'label' => __( 'Series Title', 'pressbooks' ),
@@ -553,48 +560,61 @@ function add_meta_boxes() {
 		);
 	}
 
-	// Chapter Metadata
+	// Front Matter, Back Matter, and Chapter Metadata
 
-	x_add_metadata_group(
-		'chapter-metadata', 'chapter', [
-			'label' => __( 'Chapter Metadata', 'pressbooks' ),
-		]
-	);
+	foreach ( [
+		'front-matter' => __( 'Front Matter', 'pressbooks' ),
+		'chapter' => __( 'Chapter', 'pressbooks' ),
+		'back-matter' => __( 'Back Matter', 'pressbooks' ),
+	] as $slug => $label ) {
+		x_add_metadata_group(
+			'section-metadata', $slug, [
+				'label' => sprintf( __( '%s Metadata', 'pressbooks' ), $label ),
+			]
+		);
 
-	x_add_metadata_field(
-		'pb_short_title', 'chapter', [
-			'group' => 'chapter-metadata',
-			'label' => __( 'Chapter Short Title (appears in the PDF running header)', 'pressbooks' ),
-		]
-	);
+		x_add_metadata_field(
+			'pb_short_title', $slug, [
+				'group' => 'section-metadata',
+				'label' => sprintf( __( '%s Short Title (appears in the PDF running header)', 'pressbooks' ), $label ),
+			]
+		);
 
-	x_add_metadata_field(
-		'pb_subtitle', 'chapter', [
-			'group' => 'chapter-metadata',
-			'label' => __( 'Chapter Subtitle (appears in the Web/ebook/PDF output)', 'pressbooks' ),
-		]
-	);
+		x_add_metadata_field(
+			'pb_subtitle', $slug, [
+				'group' => 'section-metadata',
+				'label' => sprintf( __( '%s Subtitle (appears in the Web/ebook/PDF output)', 'pressbooks' ), $label ),
+			]
+		);
 
-	x_add_metadata_field(
-		'pb_authors', 'chapter', [
-			'group' => 'chapter-metadata',
-			'label' => __( 'Author(s)', 'pressbooks' ),
-			'field_type' => 'taxonomy_multi_select',
-			'taxonomy' => Contributors::TAXONOMY,
-			'select2' => true,
-			'description' => '<a class="button" href="edit-tags.php?taxonomy=contributor">' . __( 'Create New Contributor', 'pressbooks' ) . '</a>',
-			'placeholder' => __( 'Choose author(s)...', 'pressbooks' ),
-		]
-	);
+		x_add_metadata_field(
+			'pb_authors', $slug, [
+				'group' => 'section-metadata',
+				'label' => sprintf( __( '%s Author(s)', 'pressbooks' ), $label ),
+				'field_type' => 'taxonomy_multi_select',
+				'taxonomy' => Contributors::TAXONOMY,
+				'select2' => true,
+				'description' => '<a class="button" href="edit-tags.php?taxonomy=contributor">' . __( 'Create New Contributor', 'pressbooks' ) . '</a>',
+				'placeholder' => __( 'Choose author(s)...', 'pressbooks' ),
+			]
+		);
 
-	x_add_metadata_field(
-		'pb_section_license', 'chapter', [
-			'group' => 'chapter-metadata',
-			'field_type' => 'taxonomy_select',
-			'taxonomy' => Licensing::TAXONOMY,
-			'label' => __( 'Chapter Copyright License (overrides book license on this page)', 'pressbooks' ),
-		]
-	);
+		x_add_metadata_field(
+			'pb_section_license', $slug, [
+				'group' => 'section-metadata',
+				'field_type' => 'taxonomy_select',
+				'taxonomy' => Licensing::TAXONOMY,
+				'label' => sprintf( __( '%s Copyright License (overrides book license on this page)', 'pressbooks' ), $label ),
+			]
+		);
+
+		x_add_metadata_field(
+			'pb_section_doi', $slug, [
+				'group' => 'section-metadata',
+				'label' => sprintf( __( '%s Digital Object Identifier (DOI)', 'pressbooks' ), $label ),
+			]
+		);
+	}
 
 	// Chapter Parent
 
@@ -603,92 +623,6 @@ function add_meta_boxes() {
 			'label' => __( 'Part', 'pressbooks' ),
 			'context' => 'side',
 			'priority' => 'high',
-		]
-	);
-
-	// Front Matter Metadata
-
-	x_add_metadata_group(
-		'front-matter-metadata', 'front-matter', [
-			'label' => __( 'Front Matter Metadata', 'pressbooks' ),
-		]
-	);
-
-	x_add_metadata_field(
-		'pb_short_title', 'front-matter', [
-			'group' => 'front-matter-metadata',
-			'label' => __( 'Front Matter Short Title (appears in the PDF running header)', 'pressbooks' ),
-		]
-	);
-
-	x_add_metadata_field(
-		'pb_subtitle', 'front-matter', [
-			'group' => 'front-matter-metadata',
-			'label' => __( 'Front Matter Subtitle (appears in the Web/ebook/PDF output)', 'pressbooks' ),
-		]
-	);
-
-	x_add_metadata_field(
-		'pb_authors', 'front-matter', [
-			'group' => 'front-matter-metadata',
-			'label' => __( 'Author(s)', 'pressbooks' ),
-			'field_type' => 'taxonomy_multi_select',
-			'taxonomy' => Contributors::TAXONOMY,
-			'select2' => true,
-			'description' => '<a class="button" href="edit-tags.php?taxonomy=contributor">' . __( 'Create New Contributor', 'pressbooks' ) . '</a>',
-			'placeholder' => __( 'Choose author(s)...', 'pressbooks' ),
-		]
-	);
-
-	x_add_metadata_field(
-		'pb_section_license', 'front-matter', [
-			'group' => 'front-matter-metadata',
-			'field_type' => 'taxonomy_select',
-			'taxonomy' => Licensing::TAXONOMY,
-			'label' => __( 'Front Matter Copyright License (overrides book license on this page)', 'pressbooks' ),
-		]
-	);
-
-	// Back Matter Metadata
-
-	x_add_metadata_group(
-		'back-matter-metadata', 'back-matter', [
-			'label' => __( 'Back Matter Metadata', 'pressbooks' ),
-		]
-	);
-
-	x_add_metadata_field(
-		'pb_short_title', 'back-matter', [
-			'group' => 'back-matter-metadata',
-			'label' => __( 'Back Matter Short Title (appears in the PDF running header)', 'pressbooks' ),
-		]
-	);
-
-	x_add_metadata_field(
-		'pb_subtitle', 'back-matter', [
-			'group' => 'back-matter-metadata',
-			'label' => __( 'Back Matter Subtitle (appears in the Web/ebook/PDF output)', 'pressbooks' ),
-		]
-	);
-
-	x_add_metadata_field(
-		'pb_authors', 'back-matter', [
-			'group' => 'back-matter-metadata',
-			'label' => __( 'Author(s)', 'pressbooks' ),
-			'field_type' => 'taxonomy_multi_select',
-			'taxonomy' => Contributors::TAXONOMY,
-			'select2' => true,
-			'description' => '<a class="button" href="edit-tags.php?taxonomy=contributor">' . __( 'Create New Contributor', 'pressbooks' ) . '</a>',
-			'placeholder' => __( 'Choose author(s)...', 'pressbooks' ),
-		]
-	);
-
-	x_add_metadata_field(
-		'pb_section_license', 'back-matter', [
-			'group' => 'back-matter-metadata',
-			'field_type' => 'taxonomy_select',
-			'taxonomy' => Licensing::TAXONOMY,
-			'label' => __( 'Back Matter Copyright License (overrides book license on this page)', 'pressbooks' ),
 		]
 	);
 
@@ -720,7 +654,6 @@ function add_meta_boxes() {
 		]
 	);
 }
-
 
 /**
  * Render "Part" meta box
