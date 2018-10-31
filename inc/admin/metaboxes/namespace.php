@@ -328,6 +328,13 @@ function add_meta_boxes() {
 	);
 
 	x_add_metadata_field(
+		'pb_book_doi', 'metadata', [
+			'group' => 'general-book-information',
+			'label' => __( 'Digital Object Identifier (DOI)', 'pressbooks' ),
+		]
+	);
+
+	x_add_metadata_field(
 		'pb_language', 'metadata', [
 			'group' => 'general-book-information',
 			'field_type' => 'select',
@@ -438,13 +445,6 @@ function add_meta_boxes() {
 			'additional-catalog-information', 'metadata', [
 				'label' => __( 'Additional Catalog Information', 'pressbooks' ),
 				'priority' => 'low',
-			]
-		);
-
-		x_add_metadata_field(
-			'pb_book_doi', 'metadata', [
-				'group' => 'additional-catalog-information',
-				'label' => __( 'Digital Object Identifier (DOI)', 'pressbooks' ),
 			]
 		);
 
