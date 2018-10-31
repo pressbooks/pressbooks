@@ -118,7 +118,7 @@ abstract class Search {
 			/**
 			 * Maximum execution time, in seconds. If set to zero, no time limit
 			 * Overrides PHP's max_execution_time of a Nginx->PHP-FPM->PHP configuration
-			 * See also request_terminate_timeout (PHP-FPM) and request_terminate_timeout (Nginx)
+			 * See also request_terminate_timeout (PHP-FPM) and fastcgi_read_timeout (Nginx)
 			 *
 			 * @since 5.6.0
 			 *
