@@ -717,7 +717,19 @@ abstract class Export {
 			// --------------------------------------------------------------------------------------------------------
 			// Do Export
 
-			@set_time_limit( 300 ); // @codingStandardsIgnoreLine
+			/**
+			 * Maximum execution time, in seconds. If set to zero, no time limit
+			 * Overrides PHP's max_execution_time of a Nginx->PHP-FPM->PHP configuration
+			 * See also request_terminate_timeout (PHP-FPM) and request_terminate_timeout (Nginx)
+			 *
+			 * @since 5.6.0
+			 *
+			 * @param int $seconds
+			 * @param string $some_action
+			 *
+			 * @return int
+			 */
+			@set_time_limit( apply_filters( 'pb_set_time_limit', 600, 'export' ) ); // @codingStandardsIgnoreLine
 
 			$redirect_url = get_admin_url( get_current_blog_id(), '/admin.php?page=pb_export' );
 			$conversion_error = [];

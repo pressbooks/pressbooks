@@ -2023,7 +2023,19 @@ class Cloner {
 				if ( is_wp_error( $bookname ) ) {
 					$_SESSION['pb_errors'][] = $bookname->get_error_message();
 				} else {
-					@set_time_limit( 300 ); // @codingStandardsIgnoreLine
+					/**
+					 * Maximum execution time, in seconds. If set to zero, no time limit
+					 * Overrides PHP's max_execution_time of a Nginx->PHP-FPM->PHP configuration
+					 * See also request_terminate_timeout (PHP-FPM) and request_terminate_timeout (Nginx)
+					 *
+					 * @since 5.6.0
+					 *
+					 * @param int $seconds
+					 * @param string $some_action
+					 *
+					 * @return int
+					 */
+					@set_time_limit( apply_filters( 'pb_set_time_limit', 600, 'clone' ) ); // @codingStandardsIgnoreLine
 					$cloner = new Cloner( esc_url( $_POST['source_book_url'] ), $bookname, $booktitle );
 					if ( $cloner->cloneBook() ) {
 						$_SESSION['pb_notices'][] = sprintf(
