@@ -88,17 +88,6 @@ class GlobalOptions extends \Pressbooks\Options {
 		);
 
 		add_settings_field(
-			'front_matter_label',
-			__( 'Front Matter Label', 'pressbooks' ),
-			[ $this, 'renderFrontMatterLabelField' ],
-			$_page,
-			$_section,
-			[
-				__( 'Customize the label for front matter used in exports and webbook navigation cues.', 'pressbooks' ),
-			]
-		);
-
-		add_settings_field(
 			'part_label',
 			__( 'Part Label', 'pressbooks' ),
 			[ $this, 'renderPartLabelField' ],
@@ -117,17 +106,6 @@ class GlobalOptions extends \Pressbooks\Options {
 			$_section,
 			[
 				__( 'Customize the label for chapters used in exports and webbook navigation cues.', 'pressbooks' ),
-			]
-		);
-
-		add_settings_field(
-			'back_matter_label',
-			__( 'Back Matter Label', 'pressbooks' ),
-			[ $this, 'renderBackMatterLabelField' ],
-			$_page,
-			$_section,
-			[
-				__( 'Customize the label for back matter used in exports and webbook navigation cues.', 'pressbooks' ),
 			]
 		);
 
@@ -470,25 +448,6 @@ class GlobalOptions extends \Pressbooks\Options {
 	}
 
 	/**
-	 * Render the front_matter_label input.
-	 *
-	 * @param array $args
-	 */
-	function renderFrontMatterLabelField( $args ) {
-		$this->renderField(
-			[
-				'id' => 'front_matter_label',
-				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
-				'option' => 'front_matter_label',
-				'value' => getset( $this->options, 'front_matter_label' ),
-				'description' => $args[0],
-				'type' => 'text',
-				'class' => 'regular-text',
-			]
-		);
-	}
-
-	/**
 	 * Render the part_label input.
 	 *
 	 * @param array $args
@@ -519,25 +478,6 @@ class GlobalOptions extends \Pressbooks\Options {
 				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
 				'option' => 'chapter_label',
 				'value' => getset( $this->options, 'chapter_label' ),
-				'description' => $args[0],
-				'type' => 'text',
-				'class' => 'regular-text',
-			]
-		);
-	}
-
-	/**
-	 * Render the back_matter_label input.
-	 *
-	 * @param array $args
-	 */
-	function renderBackMatterLabelField( $args ) {
-		$this->renderField(
-			[
-				'id' => 'back_matter_label',
-				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
-				'option' => 'back_matter_label',
-				'value' => getset( $this->options, 'back_matter_label' ),
 				'description' => $args[0],
 				'type' => 'text',
 				'class' => 'regular-text',
@@ -578,10 +518,8 @@ class GlobalOptions extends \Pressbooks\Options {
 			'pb_theme_options_global_defaults', [
 				'chapter_numbers' => 1,
 				'parse_subsections' => 0,
-				'front_matter_label' => __( 'Front Matter', 'pressbooks' ),
 				'part_label' => __( 'Part', 'pressbooks' ),
 				'chapter_label' => __( 'Chapter', 'pressbooks' ),
-				'back_matter_label' => __( 'Back Matter', 'pressbooks' ),
 				'attachment_attributions' => 0,
 				'copyright_license' => 0,
 				'edu_textbox_examples_header_color' => '#fff',
@@ -707,10 +645,8 @@ class GlobalOptions extends \Pressbooks\Options {
 				'edu_textbox_takeaways_header_color',
 				'edu_textbox_takeaways_header_background',
 				'edu_textbox_takeaways_background',
-				'front_matter_label',
 				'part_label',
 				'chapter_label',
-				'back_matter_label',
 			]
 		);
 	}

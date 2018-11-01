@@ -545,7 +545,7 @@ function get_post_type_label( $posttype ) {
  */
 
 function filter_post_type_label( $label, $args ) {
-	if ( isset( $args['post_type'] ) && in_array( $args['post_type'], [ 'front-matter', 'part', 'chapter', 'back-matter' ], true ) ) {
+	if ( isset( $args['post_type'] ) && in_array( $args['post_type'], [ 'part', 'chapter' ], true ) ) {
 		$options = get_option( 'pressbooks_theme_options_global', GlobalOptions::getDefaults() );
 		$post_type = str_replace( '-', '_', $args['post_type'] );
 		return $options[ "{$post_type}_label" ];

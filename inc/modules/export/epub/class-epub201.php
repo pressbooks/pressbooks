@@ -1745,7 +1745,17 @@ class Epub201 extends Export {
 				if ( get_post_meta( $v['ID'], 'pb_part_invisible', true ) === 'on' ) {
 					$class .= ' display-none';
 				} else {
-					$title = ( $this->numbered ? __( 'Part', 'pressbooks' ) . ' ' . \Pressbooks\L10n\romanize( $m ) . '. ' : '' ) . $title;
+					/**
+					 * Filter the label used for post types (front matter/parts/chapters/back matter) in the TOC and section headings.
+					 *
+					 * @since 5.6.0
+					 *
+					 * @param string $label
+					 * @param array $args
+					 *
+					 * @return string Filtered label
+					 */
+					$title = ( $this->numbered ? apply_filters( 'pb_post_type_label', __( 'Part', 'pressbooks' ), [ 'post_type' => 'part' ] ) . ' ' . \Pressbooks\L10n\romanize( $m ) . '. ' : '' ) . $title;
 					$m++;
 				}
 			} elseif ( preg_match( '/^chapter-/', $k ) ) {
