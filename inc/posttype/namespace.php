@@ -6,6 +6,8 @@
 
 namespace Pressbooks\PostType;
 
+use Pressbooks\Modules\ThemeOptions\GlobalOptions;
+
 /**
  * List our post_types
  *
@@ -530,5 +532,23 @@ function get_post_type_label( $posttype ) {
 		default:
 			$label = false;
 	endswitch;
+	return $label;
+}
+
+/**
+ * @since 5.6.0
+ *
+ * @param string $label The post type label
+ * @param array $args
+ *
+ * @return string
+ */
+
+function filter_post_type_label( $label, $args ) {
+	if ( isset( $args['post_type'] ) && in_array( $args['post_type'], [ 'front-matter', 'part', 'chapter', 'back-matter' ], true ) ) {
+		$options = get_option( 'pressbooks_theme_options_global', GlobalOptions::getDefaults() );
+		$post_type = str_replace( '-', '_', $args['post_type'] );
+		return $options[ "{$post_type}_label" ];
+	}
 	return $label;
 }

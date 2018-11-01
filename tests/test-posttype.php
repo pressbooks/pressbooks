@@ -13,7 +13,8 @@ use function \Pressbooks\PostType\{
 	add_post_types_rss,
 	add_posttypes_to_hypothesis,
 	can_export,
-	get_post_type_label
+	get_post_type_label,
+	filter_post_type_label
 };
 
 class PostTypeTest extends \WP_UnitTestCase {
@@ -180,5 +181,11 @@ class PostTypeTest extends \WP_UnitTestCase {
 		$this->assertEquals( get_post_type_label( 'back-matter' ), 'Back Matter' );
 		$this->assertEquals( get_post_type_label( 'chapter' ), 'Chapter' );
 		$this->assertEquals( get_post_type_label( 'glossary' ), 'Glossary' );
+	}
+
+	function test_filter_post_type_label() {
+		$this->assertEquals( filter_post_type_label( 'Chapter', [ 'post_type' => 'chapter' ] ), 'Chapter' );
+		update_option( 'pressbooks_theme_options_global', [ 'chapter_label' => 'Section' ] );
+		$this->assertEquals( filter_post_type_label( 'Chapter', [ 'post_type' => 'chapter' ] ), 'Section' );
 	}
 }
