@@ -43,10 +43,14 @@ mix
 	.js( 'assets/src/scripts/export.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/footnote.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/ftnref-convert.js', 'assets/dist/scripts/' )
+	.js( 'assets/src/scripts/glossary.js', 'assets/dist/scripts/' )
+	.js( 'assets/src/scripts/glossary-tooltip.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/import.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/login.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/network-managers.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/organize.js', 'assets/dist/scripts/' )
+	.js( 'assets/src/scripts/post-back-matter.js', 'assets/dist/scripts/' )
+	.js( 'assets/src/scripts/post-visibility.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/quicktags.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/search-and-replace.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/small-menu.js', 'assets/dist/scripts/' )
@@ -54,9 +58,6 @@ mix
 	.js( 'assets/src/scripts/textboxes-legacy.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/theme-lock.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/theme-options.js', 'assets/dist/scripts/' )
-	.js( 'assets/src/scripts/post-visibility.js', 'assets/dist/scripts/' )
-	.js( 'assets/src/scripts/glossary.js', 'assets/dist/scripts/' )
-	.js( 'assets/src/scripts/glossary-tooltip.js', 'assets/dist/scripts/' )
 	.js(
 		'node_modules/pagedjs/lib/polyfill/polyfill.js',
 		'assets/dist/scripts/paged.polyfill.js'

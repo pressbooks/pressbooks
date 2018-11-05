@@ -131,4 +131,28 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 		$this->assertEquals( 'All is good.', $results['post_content'] );
 	}
 
+	public function test_backMatterAutoDisplay() {
+		// No change
+		$content = 'Hello';
+		$this->assertEquals( 'Hello', $this->gl->backMatterAutoDisplay( $content ) );
+
+		// No change
+		global $post;
+		$args = [
+			'post_title' => 'Test Glossary: ' . rand(),
+			'post_type' => 'back-matter',
+			'post_status' => 'publish',
+			'post_content' => 'Not empty',
+		];
+		$pid = $this->factory()->post->create_object( $args );
+		wp_set_object_terms( $pid, 'glossary', 'back-matter-type' );
+		$post = get_post( $pid );
+		$this->assertEquals( 'Not empty', $this->gl->backMatterAutoDisplay( $post->post_content ) );
+
+		// Yes, changed
+		$pid = $this->factory()->post->update_object( $pid, [ 'post_content' => ' &nbsp;    ' ] );
+		$post = get_post( $pid );
+		$this->assertContains( '<section data-type="glossary">', $this->gl->backMatterAutoDisplay( $post->post_content ) );
+	}
+
 }

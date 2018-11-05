@@ -46,6 +46,7 @@ class Glossary {
 		);
 		add_action( 'init', [ $obj, 'addTooltipScripts' ] );
 		add_filter( 'wp_insert_post_data', [ $obj, 'sanitizeGlossaryTerm' ] );
+		add_filter( 'the_content', [ $obj, 'backMatterAutoDisplay' ] );
 	}
 
 	/**
@@ -245,6 +246,42 @@ class Glossary {
 			$data['post_content'] = wp_strip_all_tags( $data['post_content'] );
 		}
 		return $data;
+	}
+
+	/**
+	 * Automatically display shortcode list in Glossary back matter if content is empty
+	 *
+	 * @param string $content
+	 *
+	 * @return string
+	 */
+	public function backMatterAutoDisplay( $content ) {
+		$post = get_post();
+		if ( ! $post ) {
+			// Try to find using deprecated means
+			global $id;
+			$post = get_post( $id );
+		}
+		if ( ! $post ) {
+			// Unknown post
+			return $content;
+		}
+		if ( $post->post_type !== 'back-matter' ) {
+			// Post is not a back-matter
+			return $content;
+		}
+		$taxonomy = \Pressbooks\Taxonomy::init();
+		if ( $taxonomy->getBackMatterType( $post->ID ) !== 'glossary' ) {
+			// Post is not a glossary
+			return $content;
+		}
+
+		if ( ! \Pressbooks\Utility\empty_space( \Pressbooks\Sanitize\decode( str_replace( '&nbsp;', '', $content ) ) ) ) {
+			// Content is not empty
+			return $content;
+		}
+
+		return $this->glossaryTerms();
 	}
 
 }

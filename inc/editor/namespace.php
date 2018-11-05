@@ -105,11 +105,16 @@ function admin_enqueue_scripts( $hook ) {
 	);
 
 	// Glossary
+	$glossary_term = get_term_by( 'slug', 'glossary', 'back-matter-type' );
+	if ( $glossary_term ) {
+		$glossary_term_id = $glossary_term->term_id;
+	} else {
+		$glossary_term_id = 0;
+	}
 	wp_localize_script(
 		'editor', 'PB_GlossaryToken', [
 			'cancel' => __( 'Cancel', 'pressbooks' ),
 			'description' => __( 'Description', 'pressbooks' ),
-			'glossary_all_button_title' => __( 'Insert Glossary List', 'pressbooks' ),
 			'glossary_button_title' => __( 'Insert Glossary Term', 'pressbooks' ),
 			'insert' => __( 'Insert', 'pressbooks' ),
 			'listbox_values' => Glossary::init()->getGlossaryTermsListbox(),
@@ -118,8 +123,10 @@ function admin_enqueue_scripts( $hook ) {
 			'tab0_title' => __( 'Create and Insert Term', 'pressbooks' ),
 			'tab1_title' => __( 'Choose Existing Term', 'pressbooks' ),
 			'term_already_exists' => __( 'Glossary term already exists.', 'pressbooks' ),
+			'term_id' => $glossary_term_id,
 			'term_is_empty' => __( 'Cannot submit empty Glossary term.', 'pressbooks' ),
 			'term_not_selected' => __( 'A term was not selected?', 'pressbooks' ),
+			'term_notice' => __( "To display a list of glossary terms, leave this back matter's content blank.", 'pressbooks' ),
 			'term_title' => __( 'Term', 'pressbooks' ),
 			'window_title' => __( 'Glossary Terms', 'pressbooks' ),
 		]
