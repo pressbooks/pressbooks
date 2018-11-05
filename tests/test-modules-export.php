@@ -329,17 +329,16 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 			}
 
 			$this->assertTrue( $exporter->convert(), "Could not convert with {$module}" );
+			$paths[] = $exporter->getOutputPath();
+			if ( strpos( $format, '\Xhtml\Xhtml11' ) !== false ) {
+				$xhtml_path = $exporter->getOutputPath();
+			}
 			if ( strpos( $format, '\HTMLBook\HTMLBook' ) !== false ) {
 				// TODO: HTMLBook is too strict we don't pass the validation
 			} elseif ( $runtime->isPHPDBG() && strpos( $format, '\Epub\Epub' ) !== false ) {
 				// TODO: exec(): Unable to fork [/usr/bin/epubcheck -q /path/to.epub 2>&1]
 			} else {
 				$this->assertTrue( $exporter->validate(), "Could not validate with {$format}" );
-			}
-			$paths[] = $exporter->getOutputPath();
-
-			if ( strpos( $format, '\Xhtml\Xhtml11' ) !== false ) {
-				$xhtml_path = $exporter->getOutputPath();
 			}
 
 			unset( $exporter );
@@ -369,9 +368,10 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 		$user_id = $this->factory()->user->create( [ 'role' => 'contributor' ] );
 		wp_set_current_user( $user_id );
 
-		$exporter = new \Pressbooks\Modules\Export\Xhtml\Xhtml11( [] );
-		$this->assertTrue( $exporter->convert() );
-		$this->assertTrue( $exporter->validate() );
+		$module = '\Pressbooks\Modules\Export\Xhtml\Xhtml11';
+		$exporter = new $module( [] );
+		$this->assertTrue( $exporter->convert(), "Could not convert with {$module}" );
+		$this->assertTrue( $exporter->validate(), "Could not validate with {$module}" );
 		$xhtml_content = file_get_contents( $exporter->getOutputPath() );
 
 		$this->assertContains( '<span class="footnote">', $xhtml_content );
@@ -400,9 +400,10 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 		$css_file = Container::get( 'Sass' )->pathToUserGeneratedCss() . "/prince-$timestamp.css";
 		\Pressbooks\Utility\put_contents( $css_file, $css );
 
-		$exporter = new \Pressbooks\Modules\Export\Xhtml\Xhtml11( [] );
-		$this->assertTrue( $exporter->convert() );
-		$this->assertTrue( $exporter->validate() );
+		$module = '\Pressbooks\Modules\Export\Xhtml\Xhtml11';
+		$exporter = new $module( [] );
+		$this->assertTrue( $exporter->convert(), "Could not convert with {$module}" );
+		$this->assertTrue( $exporter->validate(), "Could not validate with {$module}" );
 		$xhtml_content = file_get_contents( $exporter->getOutputPath() );
 		$url = network_home_url( sprintf( '/wp-content/uploads/sites/%d/pressbooks/css/prince-', get_current_blog_id() ) );
 		$this->assertContains( "<link rel='stylesheet' href='$url", $xhtml_content );
