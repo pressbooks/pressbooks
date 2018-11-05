@@ -136,7 +136,7 @@ There are many maths like it but these ones are mine.
 			'post_parent' => $post_parent,
 		];
 		$pid = $this->factory()->post->create_object( $new_post );
-		update_post_meta( $val['ID'], 'pb_export', 'on' );
+		update_post_meta( $pid, 'pb_export', 'on' );
 		update_post_meta( $pid, 'pb_subtitle', 'Or, A Chapter to Test' );
 
 		return $pid;
