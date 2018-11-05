@@ -109,7 +109,6 @@ function admin_enqueue_scripts( $hook ) {
 		'editor', 'PB_GlossaryToken', [
 			'cancel' => __( 'Cancel', 'pressbooks' ),
 			'description' => __( 'Description', 'pressbooks' ),
-			'glossary_all_button_title' => __( 'Insert Glossary List', 'pressbooks' ),
 			'glossary_button_title' => __( 'Insert Glossary Term', 'pressbooks' ),
 			'insert' => __( 'Insert', 'pressbooks' ),
 			'listbox_values' => Glossary::init()->getGlossaryTermsListbox(),
