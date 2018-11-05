@@ -88,6 +88,28 @@ class GlobalOptions extends \Pressbooks\Options {
 		);
 
 		add_settings_field(
+			'part_label',
+			__( 'Part Label', 'pressbooks' ),
+			[ $this, 'renderPartLabelField' ],
+			$_page,
+			$_section,
+			[
+				__( 'Customize the label for parts used in exports and the webbook.', 'pressbooks' ),
+			]
+		);
+
+		add_settings_field(
+			'chapter_label',
+			__( 'Chapter Label', 'pressbooks' ),
+			[ $this, 'renderChapterLabelField' ],
+			$_page,
+			$_section,
+			[
+				__( 'Customize the label for chapters used in exports and the webbook.', 'pressbooks' ),
+			]
+		);
+
+		add_settings_field(
 			'parse_subsections',
 			__( 'Two-Level TOC', 'pressbooks' ),
 			[ $this, 'renderTwoLevelTOCField' ],
@@ -426,6 +448,44 @@ class GlobalOptions extends \Pressbooks\Options {
 	}
 
 	/**
+	 * Render the part_label input.
+	 *
+	 * @param array $args
+	 */
+	function renderPartLabelField( $args ) {
+		$this->renderField(
+			[
+				'id' => 'part_label',
+				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
+				'option' => 'part_label',
+				'value' => getset( $this->options, 'part_label' ),
+				'description' => $args[0],
+				'type' => 'text',
+				'class' => 'regular-text',
+			]
+		);
+	}
+
+	/**
+	 * Render the chapter_label input.
+	 *
+	 * @param array $args
+	 */
+	function renderChapterLabelField( $args ) {
+		$this->renderField(
+			[
+				'id' => 'chapter_label',
+				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
+				'option' => 'chapter_label',
+				'value' => getset( $this->options, 'chapter_label' ),
+				'description' => $args[0],
+				'type' => 'text',
+				'class' => 'regular-text',
+			]
+		);
+	}
+
+	/**
 	 * Get the slug for the global options tab.
 	 *
 	 * @return string $slug
@@ -458,6 +518,8 @@ class GlobalOptions extends \Pressbooks\Options {
 			'pb_theme_options_global_defaults', [
 				'chapter_numbers' => 1,
 				'parse_subsections' => 0,
+				'part_label' => __( 'Part', 'pressbooks' ),
+				'chapter_label' => __( 'Chapter', 'pressbooks' ),
 				'attachment_attributions' => 0,
 				'copyright_license' => 0,
 				'edu_textbox_examples_header_color' => '#fff',
@@ -583,6 +645,8 @@ class GlobalOptions extends \Pressbooks\Options {
 				'edu_textbox_takeaways_header_color',
 				'edu_textbox_takeaways_header_background',
 				'edu_textbox_takeaways_background',
+				'part_label',
+				'chapter_label',
 			]
 		);
 	}

@@ -576,7 +576,7 @@ function add_meta_boxes() {
 		x_add_metadata_field(
 			'pb_short_title', $slug, [
 				'group' => 'section-metadata',
-				'label' => sprintf( __( '%s Short Title (appears in the PDF running header)', 'pressbooks' ), $label ),
+				'label' => sprintf( __( '%s Short Title (appears in the PDF running header and webbook navigation)', 'pressbooks' ), $label ),
 			]
 		);
 
