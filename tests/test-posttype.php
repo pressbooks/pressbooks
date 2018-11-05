@@ -3,12 +3,18 @@
 use function \Pressbooks\PostType\{
 	list_post_types,
 	register_post_types,
+	row_actions,
+	disable_months_dropdown,
+	after_title,
+	wp_editor_settings,
+	display_post_states,
 	register_meta,
 	register_post_statii,
 	add_post_types_rss,
 	add_posttypes_to_hypothesis,
 	can_export,
-	get_post_type_label
+	get_post_type_label,
+	filter_post_type_label
 };
 
 class PostTypeTest extends \WP_UnitTestCase {
@@ -32,6 +38,83 @@ class PostTypeTest extends \WP_UnitTestCase {
 		$this->assertArrayHasKey( 'glossary', $wp_post_types );
 
 		$wp_post_types = $wp_post_types_old;
+	}
+
+	function test_row_actions() {
+		$actions['do-not-touch'] = 1;
+		$actions['view'] = 1;
+		$actions['inline hide-if-no-js'] = 1;
+
+		$x = new \StdClass();
+		$x->post_type = 'imaginary-post-type';
+		$actions2 = row_actions( $actions, $x );
+		$this->assertEquals( $actions, $actions2 );
+
+		$x->post_type = 'glossary';
+		$actions2 = row_actions( $actions, $x );
+		$this->assertNotEquals( $actions, $actions2 );
+		$this->assertArrayNotHasKey( 'view', $actions2 );
+		$this->assertArrayNotHasKey( 'inline hide-if-no-js', $actions2 );
+	}
+
+	function test_disable_months_dropdown() {
+		$this->assertTrue( disable_months_dropdown( false, 'glossary' ) );
+
+		$this->assertTrue( disable_months_dropdown( true, 'imaginary-post-type' ) );
+		$this->assertFalse( disable_months_dropdown( false, 'imaginary-post-type' ) );
+	}
+
+	function test_after_title() {
+		$x = new \StdClass();
+
+		$x->post_type = 'imaginary-post-type';
+		ob_start();
+		after_title( $x );
+		$buffer = ob_get_clean();
+		$this->assertEmpty( $buffer );
+
+		$x->post_type = 'glossary';
+		ob_start();
+		after_title( $x );
+		$buffer = ob_get_clean();
+		$this->assertContains( 'not supported', $buffer );
+
+		$x->post_type = 'back-matter';
+		$x->ID = 0;
+		ob_start();
+		after_title( $x );
+		$buffer = ob_get_clean();
+		$this->assertContains( 'id="pb-post-type-notice"', $buffer );
+	}
+
+	function test_wp_editor_settings() {
+
+		global $post;
+		$settings['tinymce'] = true;
+
+		$settings2 = wp_editor_settings( $settings );
+		$this->assertEquals( $settings, $settings2 );
+
+		$x = new \StdClass();
+		$x->post_type = 'glossary';
+		$post = $x;
+
+		$settings2 = wp_editor_settings( $settings );
+		$this->assertNotEquals( $settings, $settings2 );
+		$this->assertTrue( $settings2['tinymce'] === false );
+	}
+
+	function test_display_post_states() {
+		$x = new \StdClass();
+
+		$post_states['private'] = 'Private';
+		$x->post_type = 'imaginary-post-type';
+		$post_states = display_post_states( $post_states, $x );
+		$this->assertEquals( 'Private', $post_states['private'] );
+
+		$x->post_type = 'glossary';
+		$post_states = display_post_states( $post_states, $x );
+		$this->assertEquals( 'Unlisted', $post_states['private'] );
 	}
 
 	function test_register_meta() {
@@ -105,5 +188,11 @@ class PostTypeTest extends \WP_UnitTestCase {
 		$this->assertEquals( get_post_type_label( 'back-matter' ), 'Back Matter' );
 		$this->assertEquals( get_post_type_label( 'chapter' ), 'Chapter' );
 		$this->assertEquals( get_post_type_label( 'glossary' ), 'Glossary' );
+	}
+
+	function test_filter_post_type_label() {
+		$this->assertEquals( filter_post_type_label( 'Chapter', [ 'post_type' => 'chapter' ] ), 'Chapter' );
+		update_option( 'pressbooks_theme_options_global', [ 'chapter_label' => 'Section' ] );
+		$this->assertEquals( filter_post_type_label( 'Chapter', [ 'post_type' => 'chapter' ] ), 'Section' );
 	}
 }

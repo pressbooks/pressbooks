@@ -69,6 +69,15 @@ class Xhtml11 extends Export {
 	protected $wrapHeaderElements = false;
 
 	/**
+	 * Should the short title be output in a hidden element? Requires a theme based on Buckram 1.2.0 or greater.
+	 *
+	 * @see https://github.com/pressbooks/buckram/
+	 *
+	 * @var bool
+	 */
+	protected $outputShortTitle = true;
+
+	/**
 	 * Main language of document, two letter code
 	 *
 	 * @var string
@@ -104,6 +113,10 @@ class Xhtml11 extends Export {
 
 		if ( Container::get( 'Styles' )->hasBuckram( '0.3.0' ) ) {
 			$this->wrapHeaderElements = true;
+		}
+
+		if ( Container::get( 'Styles' )->hasBuckram( '1.2.0' ) ) {
+			$this->outputShortTitle = false;
 		}
 
 		if ( ! defined( 'PB_XMLLINT_COMMAND' ) ) {
@@ -696,6 +709,7 @@ class Xhtml11 extends Export {
 
 		$spec = '';
 		$spec .= 'table=-border;';
+		$spec .= 'div=title;';
 
 		return \Pressbooks\HtmLawed::filter( $html, $config, $spec );
 	}
@@ -1120,9 +1134,9 @@ class Xhtml11 extends Export {
 	 * @param array $metadata
 	 */
 	protected function echoFrontMatter( $book_contents, $metadata ) {
-		$front_matter_printf = '<div class="front-matter %1$s" id="%2$s">';
-		$front_matter_printf .= '<div class="front-matter-title-wrap"><h3 class="front-matter-number">%3$s</h3><h1 class="front-matter-title">%4$s</h1>%5$s</div>';
-		$front_matter_printf .= '<div class="ugc front-matter-ugc">%6$s</div>%7$s%8$s';
+		$front_matter_printf = '<div class="front-matter %1$s" id="%2$s" title="%3$s">';
+		$front_matter_printf .= '<div class="front-matter-title-wrap"><h3 class="front-matter-number">%4$s</h3><h1 class="front-matter-title">%5$s</h1>%6$s</div>';
+		$front_matter_printf .= '<div class="ugc front-matter-ugc">%7$s</div>%8$s%9$s';
 		$front_matter_printf .= '</div>';
 
 		$i = $this->frontMatterPos;
@@ -1179,7 +1193,7 @@ class Xhtml11 extends Export {
 				}
 			}
 
-			if ( $short_title ) {
+			if ( $short_title && $this->outputShortTitle ) {
 				if ( $this->wrapHeaderElements ) {
 					$after_title = '<h6 class="short-title">' . Sanitize\decode( $short_title ) . '</h6>' . $after_title;
 				} else {
@@ -1193,6 +1207,7 @@ class Xhtml11 extends Export {
 				$front_matter_printf,
 				$subclass,
 				$slug,
+				( $short_title ) ? $short_title : $front_matter['post_title'],
 				$i,
 				Sanitize\decode( $title ),
 				$after_title,
@@ -1230,9 +1245,9 @@ class Xhtml11 extends Export {
 		$part_printf .= '<div class="part-title-wrap"><h3 class="part-number">%3$s</h3><h1 class="part-title">%4$s</h1></div>%5$s';
 		$part_printf .= '</div>';
 
-		$chapter_printf = '<div class="chapter %1$s" id="%2$s">';
-		$chapter_printf .= '<div class="chapter-title-wrap"><h3 class="chapter-number">%3$s</h3><h2 class="chapter-title">%4$s</h2>%5$s</div>';
-		$chapter_printf .= '<div class="ugc chapter-ugc">%6$s</div>%7$s%8$s';
+		$chapter_printf = '<div class="chapter %1$s" id="%2$s" title="%3$s">';
+		$chapter_printf .= '<div class="chapter-title-wrap"><h3 class="chapter-number">%4$s</h3><h2 class="chapter-title">%5$s</h2>%6$s</div>';
+		$chapter_printf .= '<div class="ugc chapter-ugc">%7$s</div>%8$s%9$s';
 		$chapter_printf .= '</div>';
 
 		$i = 1;
@@ -1324,7 +1339,7 @@ class Xhtml11 extends Export {
 					}
 				}
 
-				if ( $short_title ) {
+				if ( $short_title && $this->outputShortTitle ) {
 					if ( $this->wrapHeaderElements ) {
 						$after_title = '<h6 class="short-title">' . Sanitize\decode( $short_title ) . '</h6>' . $after_title;
 					} else {
@@ -1345,6 +1360,7 @@ class Xhtml11 extends Export {
 					$chapter_printf,
 					$subclass,
 					$slug,
+					( $short_title ) ? $short_title : $chapter['post_title'],
 					$n,
 					Sanitize\decode( $title ),
 					$after_title,
@@ -1397,9 +1413,9 @@ class Xhtml11 extends Export {
 	 * @param array $metadata
 	 */
 	protected function echoBackMatter( $book_contents, $metadata ) {
-		$back_matter_printf = '<div class="back-matter %1$s" id="%2$s">';
-		$back_matter_printf .= '<div class="back-matter-title-wrap"><h3 class="back-matter-number">%3$s</h3><h1 class="back-matter-title">%4$s</h1>%5$s</div>';
-		$back_matter_printf .= '<div class="ugc back-matter-ugc">%6$s</div>%7$s%8$s';
+		$back_matter_printf = '<div class="back-matter %1$s" id="%2$s" title="%3$s">';
+		$back_matter_printf .= '<div class="back-matter-title-wrap"><h3 class="back-matter-number">%4$s</h3><h1 class="back-matter-title">%5$s</h1>%6$s</div>';
+		$back_matter_printf .= '<div class="ugc back-matter-ugc">%7$s</div>%8$s%9$s';
 		$back_matter_printf .= '</div>';
 
 		$i = 1;
@@ -1443,7 +1459,7 @@ class Xhtml11 extends Export {
 				}
 			}
 
-			if ( $short_title ) {
+			if ( $short_title && $this->outputShortTitle ) {
 				if ( $this->wrapHeaderElements ) {
 					$after_title = '<h6 class="short-title">' . Sanitize\decode( $short_title ) . '</h6>' . $after_title;
 				} else {
@@ -1457,6 +1473,7 @@ class Xhtml11 extends Export {
 				$back_matter_printf,
 				$subclass,
 				$slug,
+				( $short_title ) ? $short_title : $back_matter['post_title'],
 				$i,
 				Sanitize\decode( $title ),
 				$after_title,

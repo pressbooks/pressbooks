@@ -45,6 +45,8 @@ class Glossary {
 			}
 		);
 		add_action( 'init', [ $obj, 'addTooltipScripts' ] );
+		add_filter( 'wp_insert_post_data', [ $obj, 'sanitizeGlossaryTerm' ] );
+		add_filter( 'the_content', [ $obj, 'backMatterAutoDisplay' ] );
 	}
 
 	/**
@@ -77,9 +79,10 @@ class Glossary {
 			$args = [
 				'post_type' => 'glossary',
 				'posts_per_page' => -1, // @codingStandardsIgnoreLine
-				'post_status' => 'publish',
+				'post_status' => [ 'private', 'publish' ],
 			];
 			$posts = get_posts( $args );
+			/** @var \WP_Post $post */
 			foreach ( $posts as $post ) {
 				$type = '';
 				$terms = get_the_terms( $post->ID, 'glossary-type' );
@@ -92,6 +95,7 @@ class Glossary {
 					'id' => $post->ID,
 					'content' => $post->post_content,
 					'type' => rtrim( $type, ',' ),
+					'status' => $post->post_status,
 				];
 			}
 		}
@@ -100,6 +104,7 @@ class Glossary {
 
 	/**
 	 * For tiny mce
+	 * Get both published and private terms
 	 *
 	 * @param bool $reset (optional, default is false)
 	 *
@@ -121,7 +126,7 @@ class Glossary {
 	}
 
 	/**
-	 * Returns the HTML <dl> description list of all glossary terms
+	 * Returns the HTML <dl> description list of all !published! glossary terms
 	 *
 	 * @since 5.5.0
 	 * @see \Pressbooks\HTMLBook\Component\Glossary
@@ -144,13 +149,16 @@ class Glossary {
 
 		if ( true === $ok && count( $terms ) > 0 ) {
 			foreach ( $terms as $key => $value ) {
+				if ( $value['status'] !== 'publish' ) {
+					continue;
+				}
 				if ( ! empty( $type ) && ! \Pressbooks\Utility\comma_delimited_string_search( $value['type'], $type ) ) {
 					// Type was not found. Skip this glossary term.
 					continue;
 				}
 				$glossary .= sprintf(
 					'<dt data-type="glossterm"><dfn id="%1$s">%2$s</dfn></dt><dd data-type="glossdef">%3$s</dd>',
-					sprintf( 'dfn-%s', \Pressbooks\Utility\str_lowercase_dash( $key ) ), $key, trim( $value['content'] )
+					sprintf( 'dfn-%s', \Pressbooks\Utility\str_lowercase_dash( $key ) ), $key, wp_strip_all_tags( $value['content'] )
 				);
 			}
 		}
@@ -175,14 +183,23 @@ class Glossary {
 
 		// get the glossary post object the ID belongs to
 		$terms = get_post( $term_id['id'] );
+		if ( ! $terms ) {
+			return $content;
+		}
 
 		// use our post instead of the global $post object
 		setup_postdata( $terms );
 
-		$html = '<a href="javascript:void(0);" class="tooltip" title="' . get_the_excerpt( $term_id['id'] ) . '">' . $content . '</a>';
+		// setup_postdata() sets up every global for the post except ...drumroll... $post /fail horn
+		global $post;
+		$old_global_post = $post;
+		$post = $terms;
+
+		$html = '<a href="javascript:void(0);" class="tooltip" title="' . get_the_excerpt( $terms ) . '">' . $content . '</a>';
 
 		// reset post data
 		wp_reset_postdata();
+		$post = $old_global_post;
 
 		return $html;
 	}
@@ -217,6 +234,54 @@ class Glossary {
 		}
 
 		return $content;
+	}
+
+	/**
+	 * @param array $data An array of slashed post data.
+	 *
+	 * @return mixed
+	 */
+	public function sanitizeGlossaryTerm( $data ) {
+		if ( isset( $data['post_type'], $data['post_content'] ) && $data['post_type'] === 'glossary' ) {
+			$data['post_content'] = wp_strip_all_tags( $data['post_content'] );
+		}
+		return $data;
+	}
+
+	/**
+	 * Automatically display shortcode list in Glossary back matter if content is empty
+	 *
+	 * @param string $content
+	 *
+	 * @return string
+	 */
+	public function backMatterAutoDisplay( $content ) {
+		$post = get_post();
+		if ( ! $post ) {
+			// Try to find using deprecated means
+			global $id;
+			$post = get_post( $id );
+		}
+		if ( ! $post ) {
+			// Unknown post
+			return $content;
+		}
+		if ( $post->post_type !== 'back-matter' ) {
+			// Post is not a back-matter
+			return $content;
+		}
+		$taxonomy = \Pressbooks\Taxonomy::init();
+		if ( $taxonomy->getBackMatterType( $post->ID ) !== 'glossary' ) {
+			// Post is not a glossary
+			return $content;
+		}
+
+		if ( ! \Pressbooks\Utility\empty_space( \Pressbooks\Sanitize\decode( str_replace( '&nbsp;', '', $content ) ) ) ) {
+			// Content is not empty
+			return $content;
+		}
+
+		return $this->glossaryTerms();
 	}
 
 }

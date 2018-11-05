@@ -1236,9 +1236,6 @@ class HTMLBook extends Export {
 			if ( $subtitle ) {
 				$content = '<h2 class="chapter-subtitle">' . Sanitize\decode( $subtitle ) . '</h2>' . $content;
 			}
-			if ( $short_title ) {
-				$content = '<h6 class="short-title">' . Sanitize\decode( $short_title ) . '</h6>' . $content;
-			}
 
 			$append_front_matter_content .= $this->removeAttributionLink( $this->doSectionLevelLicense( $metadata, $front_matter_id ) );
 
@@ -1251,6 +1248,7 @@ class HTMLBook extends Export {
 				[
 					'class' => "front-matter {$subclass}",
 					'id' => "front-matter-{$front_matter['post_name']}",
+					'title' => $short_title ? $short_title : $front_matter['post_title'],
 				]
 			);
 
@@ -1438,9 +1436,6 @@ class HTMLBook extends Export {
 				if ( $subtitle ) {
 					$content = '<h2 class="chapter-subtitle">' . Sanitize\decode( $subtitle ) . '</h2>' . $content;
 				}
-				if ( $short_title ) {
-					$content = '<h6 class="short-title">' . Sanitize\decode( $short_title ) . '</h6>' . $content;
-				}
 
 				// Inject introduction class?
 				if ( ! $this->hasIntroduction ) {
@@ -1467,6 +1462,7 @@ class HTMLBook extends Export {
 				$my_chapter->appendAttributes(
 					[
 						'id' => $slug,
+						'title' => $short_title ? $short_title : $chapter['post_title'],
 					]
 				);
 
@@ -1574,9 +1570,6 @@ class HTMLBook extends Export {
 			if ( $subtitle ) {
 				$content = '<h2 class="chapter-subtitle">' . Sanitize\decode( $subtitle ) . '</h2>' . $content;
 			}
-			if ( $short_title ) {
-				$content = '<h6 class="short-title">' . Sanitize\decode( $short_title ) . '</h6>' . $content;
-			}
 
 			$append_back_matter_content .= $this->removeAttributionLink( $this->doSectionLevelLicense( $metadata, $back_matter_id ) );
 
@@ -1589,6 +1582,7 @@ class HTMLBook extends Export {
 				[
 					'class' => "back-matter {$subclass}",
 					'id' => "back-matter-{$back_matter['post_name']}",
+					'title' => $short_title ? $short_title : $back_matter['post_title'],
 				]
 			);
 

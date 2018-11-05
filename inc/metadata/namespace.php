@@ -351,6 +351,21 @@ function book_information_to_schema( $book_information ) {
 		$book_schema['license']['description'] = $book_information['pb_custom_copyright'];
 	}
 
+	if ( isset( $book_information['pb_book_doi'] ) ) {
+		$book_schema['identifier'] = [
+			'@type' => 'PropertyValue',
+			'propertyID' => 'DOI',
+			'value' => $book_information['pb_book_doi'],
+		];
+		/**
+		 * Filter the DOI resolver service URL (default: https://dx.doi.org).
+		 *
+		 * @since 5.6.0
+		 */
+		$doi_resolver = apply_filters( 'pb_doi_resolver', 'https://dx.doi.org' );
+		$book_schema['sameAs'] = trailingslashit( $doi_resolver ) . $book_information['pb_book_doi'];
+	}
+
 	// TODO: educationalAlignment, educationalUse, timeRequired, typicalAgeRange, interactivityType, learningResourceType, isBasedOnUrl
 
 	return $book_schema;
@@ -497,6 +512,16 @@ function schema_to_book_information( $book_schema ) {
 		}
 	} else {
 		$book_information['pb_book_license'] = $licensing->getLicenseFromUrl( $book_schema['license'] );
+	}
+
+	if ( isset( $book_schema['sameAs'] ) ) {
+		/**
+		 * Filter the DOI resolver service URL (default: https://dx.doi.org).
+		 *
+		 * @since 5.6.0
+		 */
+		$doi_resolver = apply_filters( 'pb_doi_resolver', 'https://dx.doi.org' );
+		$book_information['pb_book_doi'] = str_replace( trailingslashit( $doi_resolver ), '', $book_schema['sameAs'] );
 	}
 
 	return $book_information;
@@ -669,6 +694,21 @@ function section_information_to_schema( $section_information, $book_information 
 		$section_schema['isBasedOn'] = $book_information['pb_is_based_on'];
 	}
 
+	if ( isset( $section_information['pb_section_doi'] ) ) {
+		$section_schema['identifier'] = [
+			'@type' => 'PropertyValue',
+			'propertyID' => 'DOI',
+			'value' => $section_information['pb_section_doi'],
+		];
+		/**
+		 * Filter the DOI resolver service URL (default: https://dx.doi.org).
+		 *
+		 * @since 5.6.0
+		 */
+		$doi_resolver = apply_filters( 'pb_doi_resolver', 'https://dx.doi.org' );
+		$section_schema['sameAs'] = trailingslashit( $doi_resolver ) . $section_information['pb_section_doi'];
+	}
+
 	// TODO: educationalAlignment, educationalUse, timeRequired, typicalAgeRange, interactivityType, learningResourceType, isBasedOnUrl
 
 	return $section_schema;
@@ -750,6 +790,16 @@ function schema_to_section_information( $section_schema, $book_schema ) {
 		if ( empty( $book_schema['isBasedOn'] ) || $section_schema['isBasedOn'] !== $book_schema['isBasedOn'] ) {
 			$section_information['pb_is_based_on'] = $section_schema['isBasedOn'];
 		}
+	}
+
+	if ( isset( $section_schema['sameAs'] ) ) {
+		/**
+		 * Filter the DOI resolver service URL (default: https://dx.doi.org).
+		 *
+		 * @since 5.6.0
+		 */
+		$doi_resolver = apply_filters( 'pb_doi_resolver', 'https://dx.doi.org' );
+		$section_information['pb_section_doi'] = str_replace( trailingslashit( $doi_resolver ), '', $section_schema['sameAs'] );
 	}
 
 	return $section_information;

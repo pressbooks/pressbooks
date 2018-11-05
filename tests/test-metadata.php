@@ -68,11 +68,14 @@ class MetadataTest extends \WP_UnitTestCase {
 		$book_information = [
 			'pb_authors' => 'Herman Melville',
 			'pb_title' => 'Moby Dick',
+			'pb_book_doi' => 'my_doi'
 		];
 
 		$result = \Pressbooks\Metadata\book_information_to_schema( $book_information );
 		$this->assertEquals( $result['name'], 'Moby Dick' );
 		$this->assertEquals( $result['author'][0]['name'], 'Herman Melville' );
+		$this->assertEquals( $result['sameAs'], 'https://dx.doi.org/my_doi' );
+		$this->assertEquals( $result['identifier']['value'], 'my_doi' );
 	}
 
 	public function test_schema_to_book_information() {
@@ -85,12 +88,14 @@ class MetadataTest extends \WP_UnitTestCase {
 				'@type' => 'Person',
 				'name' => 'Herman Melville',
 			],
+			'sameAs' => 'https://dx.doi.org/my_doi',
 		];
 
 		$result = \Pressbooks\Metadata\schema_to_book_information( $schema );
 		$this->assertEquals( $result['pb_title'], 'Moby Dick' );
 		$this->assertEquals( $result['pb_authors'], 'Herman Melville' );
 		$this->assertEquals( $result['pb_book_license'], 'public-domain' );
+		$this->assertEquals( $result['pb_book_doi'], 'my_doi' );
 
 		$schema = [
 			'@context' => 'http://schema.org',
@@ -166,6 +171,7 @@ class MetadataTest extends \WP_UnitTestCase {
 		$section_information = [
 			'pb_title' => 'Loomings',
 			'pb_chapter_number' => 1,
+			'pb_section_doi' => 'my_doi',
 		];
 
 		$book_information = [
@@ -177,6 +183,7 @@ class MetadataTest extends \WP_UnitTestCase {
 		$this->assertEquals( $result['name'], 'Loomings' );
 		$this->assertEquals( $result['author'][0]['name'], 'Herman Melville' );
 		$this->assertEquals( $result['position'], 1 );
+		$this->assertEquals( $result['identifier']['value'], 'my_doi' );
 	}
 
 	public function test_schema_to_section_information() {
@@ -206,11 +213,13 @@ class MetadataTest extends \WP_UnitTestCase {
 				'url' => 'https://creativecommons.org/publicdomain/zero/1.0/',
 				'name' => 'Public Domain (No Rights Reserved)',
 			],
+			'sameAs' => 'https://dx.doi.org/my_doi',
 		];
 
 		$result = \Pressbooks\Metadata\schema_to_section_information( $section_schema, $book_schema );
 		$this->assertArrayNotHasKey( 'pb_authors', $result );
 		$this->assertArrayNotHasKey( 'pb_section_license', $result );
+		$this->assertEquals( $result['pb_section_doi'], 'my_doi' );
 
 		$book_schema = [
 			'@context' => 'http://schema.org',

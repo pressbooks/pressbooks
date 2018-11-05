@@ -384,6 +384,45 @@ class SectionMetadata extends \WP_REST_Controller {
 					'context' => [ 'view' ],
 					'readonly' => true,
 				],
+				'identifier' => [
+					'type' => 'object',
+					'description' => __( 'The identifier property represents any kind of identifier for any kind of Thing, such as ISBNs, GTIN codes, UUIDs etc.' ),
+					'properties' => [
+						'@type' => [
+							'type' => 'string',
+							'enum' => [
+								'PropertyValue',
+							],
+							'description' => __( 'The type of the thing.' ),
+							'context' => [ 'view' ],
+							'readonly' => true,
+						],
+						'propertyID' => [
+							'type' => 'string',
+							'enum' => [
+								'DOI',
+							],
+							'description' => __( 'A commonly used identifier for the characteristic represented by the property.' ),
+							'context' => [ 'view' ],
+							'readonly' => true,
+						],
+						'value' => [
+							'type' => 'string',
+							'description' => __( 'The value of the property value node.' ),
+							'context' => [ 'view' ],
+							'readonly' => true,
+						],
+					],
+					'context' => [ 'view' ],
+					'readonly' => true,
+				],
+				'sameAs' => [
+					'type' => 'string',
+					'format' => 'uri',
+					'description' => __( 'URL of a reference Web page that unambiguously indicates the item\'s identity.', 'pressbooks' ),
+					'context' => [ 'view' ],
+					'readonly' => true,
+				],
 			],
 		];
 

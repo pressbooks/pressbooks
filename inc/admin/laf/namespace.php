@@ -181,6 +181,22 @@ function replace_book_admin_menu() {
 
 	add_submenu_page( 'pb_organize', __( 'Trash' ), __( 'Trash' ), 'delete_posts', 'pb_trash', __NAMESPACE__ . '\display_trash' );
 
+	add_action(
+		'admin_enqueue_scripts', function ( $hook ) {
+			if ( 'post-new.php' === $hook || 'post.php' === $hook ) {
+				$post_type = get_post_type();
+				if ( in_array( $post_type, [ 'front-matter', 'chapter', 'back-matter' ], true ) ) {
+					// post-visibility.js
+					wp_enqueue_script( 'pb-post-visibility' );
+				}
+				if ( in_array( $post_type, [ 'back-matter' ], true ) ) {
+					// post-back-matter.js
+					wp_enqueue_script( 'pb-post-back-matter' );
+				}
+			}
+		}
+	);
+
 	// Book Information
 	$book_info_url = book_info_slug();
 	$bookinfo_page = add_menu_page( __( 'Book Info', 'pressbooks' ), __( 'Book Info', 'pressbooks' ), 'manage_options', $book_info_url, '', 'dashicons-info', 12 );
@@ -197,9 +213,6 @@ function replace_book_admin_menu() {
 							'selectSubjectsText' => __( 'Choose some subject(s)…', 'pressbooks' ),
 						]
 					);
-				}
-				if ( in_array( get_post_type(), [ 'front-matter', 'chapter', 'back-matter' ], true ) ) {
-					wp_enqueue_script( 'pb-post-visibility' );
 				}
 			}
 		}
@@ -351,6 +364,11 @@ function fix_parent_file( $file ) {
 		'edit-tags.php?taxonomy=chapter-type',
 		'edit-tags.php?taxonomy=back-matter-type',
 		'edit-tags.php?taxonomy=glossary-type',
+		'edit.php?post_type=front-matter',
+		'edit.php?post_type=part',
+		'edit.php?post_type=chapter',
+		'edit.php?post_type=back-matter',
+		'edit.php?post_type=glossary',
 	];
 	foreach ( $haystack as $i ) {
 		if ( str_starts_with( $submenu_file, $i ) ) {
@@ -376,6 +394,30 @@ function fix_parent_file( $file ) {
 	}
 
 	return $file;
+}
+
+/**
+ * More menu output hacks
+ *
+ * @param string $submenu_file The submenu file.
+ * @param string $parent_file The submenu item's parent file.
+ *
+ * @return mixed
+ */
+function fix_submenu_file( $submenu_file, $parent_file ) {
+	$haystack = [
+		'edit.php?post_type=front-matter',
+		'edit.php?post_type=part',
+		'edit.php?post_type=chapter',
+		'edit.php?post_type=back-matter',
+	];
+	foreach ( $haystack as $i ) {
+		if ( str_starts_with( $submenu_file, $i ) ) {
+			return 'pb_organize';
+		}
+	}
+
+	return $submenu_file;
 }
 
 function network_admin_menu() {
@@ -913,6 +955,7 @@ function init_css_js() {
 	wp_register_script( 'pb-metadata', $assets->getPath( 'scripts/book-information.js' ), [ 'jquery' ], false, true );
 	wp_register_script( 'pb-import', $assets->getPath( 'scripts/import.js' ), [ 'jquery' ] );
 	wp_register_script( 'pb-post-visibility', $assets->getPath( 'scripts/post-visibility.js' ), [ 'jquery' ], false, true );
+	wp_register_script( 'pb-post-back-matter', $assets->getPath( 'scripts/post-back-matter.js' ), [ 'jquery', 'editor' ], false, true );
 
 	wp_register_style( 'pb-cloner', $assets->getPath( 'styles/cloner.css' ) );
 	wp_register_style( 'pb-export', $assets->getPath( 'styles/export.css' ) );

@@ -6,6 +6,8 @@
 
 namespace Pressbooks\PostType;
 
+use Pressbooks\Modules\ThemeOptions\GlobalOptions;
+
 /**
  * List our post_types
  *
@@ -174,13 +176,14 @@ function register_post_types() {
 					'taxonomy' => 'glossary-type',
 				],
 			],
-			'quick_edit' => true,
+			'quick_edit' => false,
 			'capability_type' => 'post',
 			'has_archive' => false,
 			'hierarchical' => false,
+			'publicly_queryable' => false,
 			'supports' => [ 'title', 'editor', 'author', 'revisions' ],
 			'show_in_menu' => false,
-			'show_in_admin_bar' => true,
+			'show_in_admin_bar' => false,
 			'show_in_rest' => true,
 			'rest_base' => 'glossary',
 			'rest_controller_class' => '\Pressbooks\Api\Endpoints\Controller\Posts',
@@ -194,6 +197,83 @@ function register_post_types() {
 			'plural' => __( 'Glossary Terms', 'pressbooks' ),
 		]
 	);
+}
+
+/**
+ * @param array $actions
+ * @param \WP_Post $post
+ *
+ * @return array
+ */
+function row_actions( $actions, $post ) {
+	if ( $post->post_type === 'glossary' ) {
+		unset( $actions['view'] );
+		unset( $actions['inline hide-if-no-js'] );
+	}
+	return $actions;
+}
+
+/**
+ * @param bool $disable
+ * @param string $post_type
+ *
+ * @return bool
+ */
+function disable_months_dropdown( $disable, $post_type ) {
+	if ( $post_type === 'glossary' ) {
+		return true;
+	}
+	return $disable;
+}
+
+/**
+ * @param \WP_Post $post
+ */
+function after_title( $post ) {
+	if ( $post->post_type === 'glossary' ) {
+		echo '<p>';
+		_e( 'HTML and shortcodes are not supported in glossary terms.', 'pressbooks' );
+		echo '</p>';
+	}
+	if ( $post->post_type === 'back-matter' ) {
+		$taxonomy = \Pressbooks\Taxonomy::init();
+		if ( $taxonomy->getBackMatterType( $post->ID ) === 'glossary' ) {
+			echo '<div id="pb-post-type-notice" class="notice notice-info" aria-live="assertive"><p>';
+			_e( "To display a list of glossary terms, leave this back matter's content blank.", 'pressbooks' );
+			echo '</p></div>';
+		} else {
+			echo '<div id="pb-post-type-notice" class="notice notice-info" style="display:none;" aria-live="assertive"></div>'; // Placeholder
+		}
+	}
+}
+
+/**
+ * @param array $settings
+ *
+ * @return array
+ */
+function wp_editor_settings( $settings ) {
+	if ( get_post_type() === 'glossary' ) {
+		$settings['wpautop'] = false;
+		$settings['media_buttons'] = false;
+		$settings['tinymce'] = false;
+		$settings['quicktags'] = false;
+		$settings['editor_css'] = '<style>.wp-editor-area { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif; font-size: 14px; }</style>';
+	}
+	return $settings;
+}
+
+/**
+ * @param array $post_states An array of post display states.
+ * @param \WP_Post $post The current post object.
+ *
+ * @return array
+ */
+function display_post_states( $post_states, $post ) {
+	if ( $post->post_type === 'glossary' && isset( $post_states['private'] ) ) {
+		$post_states['private'] = __( 'Unlisted', 'pressbooks' );
+	}
+	return $post_states;
 }
 
 /**
@@ -462,5 +542,23 @@ function get_post_type_label( $posttype ) {
 		default:
 			$label = false;
 	endswitch;
+	return $label;
+}
+
+/**
+ * @since 5.6.0
+ *
+ * @param string $label The post type label
+ * @param array $args
+ *
+ * @return string
+ */
+
+function filter_post_type_label( $label, $args ) {
+	if ( isset( $args['post_type'] ) && in_array( $args['post_type'], [ 'part', 'chapter' ], true ) ) {
+		$options = get_option( 'pressbooks_theme_options_global', GlobalOptions::getDefaults() );
+		$post_type = str_replace( '-', '_', $args['post_type'] );
+		return $options[ "{$post_type}_label" ];
+	}
 	return $label;
 }

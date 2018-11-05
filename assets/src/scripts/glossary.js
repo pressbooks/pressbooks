@@ -25,16 +25,6 @@
 				return '';
 			}
 
-			// This button adds the glossary short-code that generates a list of all terms
-			ed.addButton( 'glossary_all', {
-				title: PB_GlossaryToken.glossary_all_button_title,
-				text: 'GL-All',
-				icon: false,
-				onclick: function () {
-					ed.selection.setContent( '[pb_glossary]' );
-				},
-			} );
-
 			// This button adds the single glossary term short-code with the corresponding term id as an attribute
 			ed.addButton( 'glossary', {
 				title: PB_GlossaryToken.glossary_button_title,
@@ -46,7 +36,11 @@
 					// placeholder for our default listbox value
 					let listValue = termValue( mySelection );
 					// placeholder for our term doesn't exist message
-					let termExists = '';
+					let termExistsMessage = '';
+					// Does the term exist?
+					let termExists = ( listValue !== '' ) ? true : false;
+					// Autofill the term name if the term does not exist
+					let termAutofillValue = ( termExists ) ? '' : mySelection;
 
 					// if the selection matches an existing term, let's set it so we can use it as our default listbox value
 					let myActiveTab;
@@ -56,7 +50,7 @@
 						myActiveTab = 0;
 						if ( mySelection ) {
 							let templateString1 = mySelection.trim(); // eslint-disable-line no-unused-vars
-							termExists = eval( '`' + PB_GlossaryToken.not_found.replace( /`/g, '' ) + '`' ); // eslint-disable-line no-eval
+							termExistsMessage = eval( '`' + PB_GlossaryToken.not_found.replace( /`/g, '' ) + '`' ); // eslint-disable-line no-eval
 						}
 					}
 
@@ -74,12 +68,13 @@
 									{
 										type: 'container',
 										name: 'container',
-										html: termExists,
+										html: termExistsMessage,
 									},
 									{
 										name: 'title',
 										type: 'textbox',
 										label: PB_GlossaryToken.term_title,
+										value: termAutofillValue,
 									},
 									{
 										name: 'body',
@@ -170,6 +165,5 @@
 			return null;
 		},
 	} );
-	tinymce.PluginManager.add( 'glossary_all', tinymce.plugins.glossary.all );
 	tinymce.PluginManager.add( 'glossary', tinymce.plugins.glossary );
 } )();

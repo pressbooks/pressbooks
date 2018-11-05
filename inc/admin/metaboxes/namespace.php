@@ -328,6 +328,13 @@ function add_meta_boxes() {
 	);
 
 	x_add_metadata_field(
+		'pb_book_doi', 'metadata', [
+			'group' => 'general-book-information',
+			'label' => __( 'Digital Object Identifier (DOI)', 'pressbooks' ),
+		]
+	);
+
+	x_add_metadata_field(
 		'pb_language', 'metadata', [
 			'group' => 'general-book-information',
 			'field_type' => 'select',
@@ -553,48 +560,61 @@ function add_meta_boxes() {
 		);
 	}
 
-	// Chapter Metadata
+	// Front Matter, Back Matter, and Chapter Metadata
 
-	x_add_metadata_group(
-		'chapter-metadata', 'chapter', [
-			'label' => __( 'Chapter Metadata', 'pressbooks' ),
-		]
-	);
+	foreach ( [
+		'front-matter' => __( 'Front Matter', 'pressbooks' ),
+		'chapter' => __( 'Chapter', 'pressbooks' ),
+		'back-matter' => __( 'Back Matter', 'pressbooks' ),
+	] as $slug => $label ) {
+		x_add_metadata_group(
+			'section-metadata', $slug, [
+				'label' => sprintf( __( '%s Metadata', 'pressbooks' ), $label ),
+			]
+		);
 
-	x_add_metadata_field(
-		'pb_short_title', 'chapter', [
-			'group' => 'chapter-metadata',
-			'label' => __( 'Chapter Short Title (appears in the PDF running header)', 'pressbooks' ),
-		]
-	);
+		x_add_metadata_field(
+			'pb_short_title', $slug, [
+				'group' => 'section-metadata',
+				'label' => sprintf( __( '%s Short Title (appears in the PDF running header and webbook navigation)', 'pressbooks' ), $label ),
+			]
+		);
 
-	x_add_metadata_field(
-		'pb_subtitle', 'chapter', [
-			'group' => 'chapter-metadata',
-			'label' => __( 'Chapter Subtitle (appears in the Web/ebook/PDF output)', 'pressbooks' ),
-		]
-	);
+		x_add_metadata_field(
+			'pb_subtitle', $slug, [
+				'group' => 'section-metadata',
+				'label' => sprintf( __( '%s Subtitle (appears in the Web/ebook/PDF output)', 'pressbooks' ), $label ),
+			]
+		);
 
-	x_add_metadata_field(
-		'pb_authors', 'chapter', [
-			'group' => 'chapter-metadata',
-			'label' => __( 'Author(s)', 'pressbooks' ),
-			'field_type' => 'taxonomy_multi_select',
-			'taxonomy' => Contributors::TAXONOMY,
-			'select2' => true,
-			'description' => '<a class="button" href="edit-tags.php?taxonomy=contributor">' . __( 'Create New Contributor', 'pressbooks' ) . '</a>',
-			'placeholder' => __( 'Choose author(s)...', 'pressbooks' ),
-		]
-	);
+		x_add_metadata_field(
+			'pb_authors', $slug, [
+				'group' => 'section-metadata',
+				'label' => sprintf( __( '%s Author(s)', 'pressbooks' ), $label ),
+				'field_type' => 'taxonomy_multi_select',
+				'taxonomy' => Contributors::TAXONOMY,
+				'select2' => true,
+				'description' => '<a class="button" href="edit-tags.php?taxonomy=contributor">' . __( 'Create New Contributor', 'pressbooks' ) . '</a>',
+				'placeholder' => __( 'Choose author(s)...', 'pressbooks' ),
+			]
+		);
 
-	x_add_metadata_field(
-		'pb_section_license', 'chapter', [
-			'group' => 'chapter-metadata',
-			'field_type' => 'taxonomy_select',
-			'taxonomy' => Licensing::TAXONOMY,
-			'label' => __( 'Chapter Copyright License (overrides book license on this page)', 'pressbooks' ),
-		]
-	);
+		x_add_metadata_field(
+			'pb_section_license', $slug, [
+				'group' => 'section-metadata',
+				'field_type' => 'taxonomy_select',
+				'taxonomy' => Licensing::TAXONOMY,
+				'label' => sprintf( __( '%s Copyright License (overrides book license on this page)', 'pressbooks' ), $label ),
+			]
+		);
+
+		x_add_metadata_field(
+			'pb_section_doi', $slug, [
+				'group' => 'section-metadata',
+				'label' => sprintf( __( '%s Digital Object Identifier (DOI)', 'pressbooks' ), $label ),
+			]
+		);
+	}
 
 	// Chapter Parent
 
@@ -603,92 +623,6 @@ function add_meta_boxes() {
 			'label' => __( 'Part', 'pressbooks' ),
 			'context' => 'side',
 			'priority' => 'high',
-		]
-	);
-
-	// Front Matter Metadata
-
-	x_add_metadata_group(
-		'front-matter-metadata', 'front-matter', [
-			'label' => __( 'Front Matter Metadata', 'pressbooks' ),
-		]
-	);
-
-	x_add_metadata_field(
-		'pb_short_title', 'front-matter', [
-			'group' => 'front-matter-metadata',
-			'label' => __( 'Front Matter Short Title (appears in the PDF running header)', 'pressbooks' ),
-		]
-	);
-
-	x_add_metadata_field(
-		'pb_subtitle', 'front-matter', [
-			'group' => 'front-matter-metadata',
-			'label' => __( 'Front Matter Subtitle (appears in the Web/ebook/PDF output)', 'pressbooks' ),
-		]
-	);
-
-	x_add_metadata_field(
-		'pb_authors', 'front-matter', [
-			'group' => 'front-matter-metadata',
-			'label' => __( 'Author(s)', 'pressbooks' ),
-			'field_type' => 'taxonomy_multi_select',
-			'taxonomy' => Contributors::TAXONOMY,
-			'select2' => true,
-			'description' => '<a class="button" href="edit-tags.php?taxonomy=contributor">' . __( 'Create New Contributor', 'pressbooks' ) . '</a>',
-			'placeholder' => __( 'Choose author(s)...', 'pressbooks' ),
-		]
-	);
-
-	x_add_metadata_field(
-		'pb_section_license', 'front-matter', [
-			'group' => 'front-matter-metadata',
-			'field_type' => 'taxonomy_select',
-			'taxonomy' => Licensing::TAXONOMY,
-			'label' => __( 'Front Matter Copyright License (overrides book license on this page)', 'pressbooks' ),
-		]
-	);
-
-	// Back Matter Metadata
-
-	x_add_metadata_group(
-		'back-matter-metadata', 'back-matter', [
-			'label' => __( 'Back Matter Metadata', 'pressbooks' ),
-		]
-	);
-
-	x_add_metadata_field(
-		'pb_short_title', 'back-matter', [
-			'group' => 'back-matter-metadata',
-			'label' => __( 'Back Matter Short Title (appears in the PDF running header)', 'pressbooks' ),
-		]
-	);
-
-	x_add_metadata_field(
-		'pb_subtitle', 'back-matter', [
-			'group' => 'back-matter-metadata',
-			'label' => __( 'Back Matter Subtitle (appears in the Web/ebook/PDF output)', 'pressbooks' ),
-		]
-	);
-
-	x_add_metadata_field(
-		'pb_authors', 'back-matter', [
-			'group' => 'back-matter-metadata',
-			'label' => __( 'Author(s)', 'pressbooks' ),
-			'field_type' => 'taxonomy_multi_select',
-			'taxonomy' => Contributors::TAXONOMY,
-			'select2' => true,
-			'description' => '<a class="button" href="edit-tags.php?taxonomy=contributor">' . __( 'Create New Contributor', 'pressbooks' ) . '</a>',
-			'placeholder' => __( 'Choose author(s)...', 'pressbooks' ),
-		]
-	);
-
-	x_add_metadata_field(
-		'pb_section_license', 'back-matter', [
-			'group' => 'back-matter-metadata',
-			'field_type' => 'taxonomy_select',
-			'taxonomy' => Licensing::TAXONOMY,
-			'label' => __( 'Back Matter Copyright License (overrides book license on this page)', 'pressbooks' ),
 		]
 	);
 
@@ -720,7 +654,6 @@ function add_meta_boxes() {
 		]
 	);
 }
-
 
 /**
  * Render "Part" meta box
@@ -839,8 +772,10 @@ function status_visibility_box( $post ) {
 
 	if ( in_array( $post->post_status, [ 'web-only', 'publish' ], true ) || $action === 'add' && $can_publish ) {
 		$show_in_web = 1;
+		$show_in_glossary_lists = 1;
 	} else {
 		$show_in_web = 0;
+		$show_in_glossary_lists = 0;
 	}
 	if ( in_array( $post->post_status, [ 'private', 'publish' ], true ) || $action === 'add' && $can_publish ) {
 		$show_in_exports = 1;
@@ -853,44 +788,58 @@ function status_visibility_box( $post ) {
 	$pb_show_title = ( get_post_meta( $post->ID, 'pb_show_title', true ) ) ? 'on' : '';
 	$show_title = ( $action === 'add' ) ? 'on' : $pb_show_title;
 	?>
-<div class="submitbox" id="submitpost">
-	<div id="minor-publishing">
-		<div id="minor-publishing-actions">
-			<div id="preview-action">
+	<div class="submitbox" id="submitpost">
+		<div id="minor-publishing">
+			<div id="minor-publishing-actions">
 				<?php
-				$preview_link = esc_url( get_preview_post_link( $post ) );
-				$preview_button = sprintf(
-					'%1$s<span class="screen-reader-text"> %2$s</span>',
-					__( 'Preview', 'pressbooks' ),
-					/* translators: accessibility text */
-					__( '(opens in a new window)', 'pressbooks' )
-				);
+				// <!-- Glossary -->
+				if ( $post_type === 'glossary' ) {
+					?>
+					<p>
+						<input type="checkbox" name="glossary_visibility" id="glossary_visibility" value="1" <?php checked( $show_in_glossary_lists, 1 ); ?><?php echo ( $can_publish ) ? '' : ' disabled'; ?>>
+						<label for="glossary_visibility"><?php _e( 'Show in Glossary Lists', 'pressbooks' ); ?></label>
+					</p>
+					<?php
+					// <!-- Every other post_type -->
+				} else {
+					?>
+					<div id="preview-action">
+						<?php
+						$preview_link = esc_url( get_preview_post_link( $post ) );
+						$preview_button = sprintf(
+							'%1$s<span class="screen-reader-text"> %2$s</span>',
+							__( 'Preview', 'pressbooks' ),
+							/* translators: accessibility text */
+							__( '(opens in a new window)', 'pressbooks' )
+						);
+						?>
+						<a class="preview button" href="<?php echo $preview_link; ?>" target="wp-preview-<?php echo (int) $post->ID; ?>" id="post-preview"><?php echo $preview_button; ?></a>
+						<input type="hidden" name="wp-preview" id="wp-preview" value=""/>
+					</div>
+					<div class="clear"></div>
+					<p>
+						<input type="checkbox" name="web_visibility" id="web_visibility" value="1" <?php checked( $show_in_web, 1 ); ?><?php echo ( $can_publish ) ? '' : ' disabled'; ?>>
+						<label for="web_visibility"><?php _e( 'Show in Web', 'pressbooks' ); ?></label>
+					</p>
+					<p id="pb-password-protected">
+						<input type="checkbox" name="require_password" id="require_password" value="1" <?php checked( $require_password, 1 ); ?><?php echo ( $can_publish ) ? '' : ' disabled'; ?>>
+						<label for="require_password"><?php _e( 'Require a Password', 'pressbooks' ); ?></label><br/>
+						<input type="text" name="post_password" id="post_password" style="text-align:left" value="<?php echo esc_attr( $post->post_password ); ?>" placeholder="<?php esc_attr_e( 'Password...', 'pressbooks' ); ?>" maxlength="255"/>
+					</p>
+					<p>
+						<input type="checkbox" name="export_visibility" id="export_visibility" value="1" <?php checked( $show_in_exports, 1 ); ?><?php echo ( $can_publish ) ? '' : ' disabled'; ?>>
+						<label for="export_visibility"><?php _e( 'Show in Exports', 'pressbooks' ); ?></label>
+					</p>
+					<p>
+						<input type="checkbox" name="pb_show_title" id="show_title" value="on" <?php checked( $show_title, 'on' ); ?>>
+						<label for="show_title"><?php _e( 'Show Title', 'pressbooks' ); ?></label>
+					</p>
+					<?php
+				}
 				?>
-				<a class="preview button" href="<?php echo $preview_link; ?>" target="wp-preview-<?php echo (int) $post->ID; ?>" id="post-preview"><?php echo $preview_button; ?></a>
-				<input type="hidden" name="wp-preview" id="wp-preview" value="" />
-			</div>
-			<div class="clear"></div>
-			<p>
-				<input type="checkbox" name="web_visibility" id="web_visibility" value="1" <?php checked( $show_in_web, 1 ); ?><?php echo ( $can_publish ) ? '' : ' disabled'; ?>>
-				<label for="web_visibility"><?php _e( 'Show in Web', 'pressbooks' ); ?></label>
-			</p>
-			<p id="pb-password-protected">
-				<input type="checkbox" name="require_password" id="require_password" value="1" <?php checked( $require_password, 1 ); ?><?php echo ( $can_publish ) ? '' : ' disabled'; ?>>
-				<label for="require_password"><?php _e( 'Require a Password', 'pressbooks' ); ?></label><br />
-				<input type="text" name="post_password" id="post_password" style="text-align:left" value="<?php echo esc_attr( $post->post_password ); ?>" placeholder="<?php esc_attr_e( 'Password...', 'pressbooks' ); ?>" maxlength="255"/>
-			</p>
-			<p>
-				<input type="checkbox" name="export_visibility" id="export_visibility" value="1" <?php checked( $show_in_exports, 1 ); ?><?php echo ( $can_publish ) ? '' : ' disabled'; ?>>
-				<label for="export_visibility"><?php _e( 'Show in Exports', 'pressbooks' ); ?></label>
-			</p>
-			<p>
-				<input type="checkbox" name="pb_show_title" id="show_title" value="on" <?php checked( $show_title, 'on' ); ?>>
-				<label for="show_title"><?php _e( 'Show Title', 'pressbooks' ); ?></label>
-			</p>
-		</div><!-- #minor-publishing-actions -->
-	</div><!-- #minor-publishing -->
-	<div id="misc-publishing-actions">
-
+			</div><!-- #minor-publishing-actions -->
+		</div><!-- #minor-publishing -->
+		<div id="misc-publishing-actions">
 	<?php
 	/* translators: Publish box date format, see https://secure.php.net/date */
 	$datef = __( 'M j, Y @ H:i' );
@@ -956,8 +905,8 @@ function status_visibility_box( $post ) {
 		?>
 		</div>
 		<div class="clear"></div>
-	</div>
-	</div>
+	</div><!-- #major-publishing-actions -->
+	</div><!-- #misc-publishing-actions -->
 	<?php
 }
 
@@ -971,18 +920,14 @@ function status_visibility_box( $post ) {
  * @param bool $update Whether this is an existing post being updated or not.
  */
 function publish_fields_save( $post_id, $post, $update ) {
-
 	// Sanity checks
-
 	if ( empty( $_POST ) ) { // @codingStandardsIgnoreLine
 		return;
 	}
-
 	global $pagenow;
 	if ( ! in_array( $pagenow, [ 'post.php', 'post-new.php' ], true ) ) {
 		return;
 	}
-
 	if ( ! in_array(
 		$post->post_type, [
 			'front-matter',
@@ -993,59 +938,66 @@ function publish_fields_save( $post_id, $post, $update ) {
 	) ) {
 		return;
 	}
-
 	if ( wp_is_post_revision( $post_id ) ) {
 		return;
 	}
-
 	if ( $post->post_status === 'trash' ) {
 		return;
 	}
 
-	// Save it
-	// @codingStandardsIgnoreStart
-	$show_in_web = ( isset( $_POST['web_visibility'] ) && (int) $_POST['web_visibility'] === 1 ) ? true : false;
-	$require_password = ( isset( $_POST['require_password'] ) && (int) $_POST['require_password'] === 1 ) ? true : false;
-	$show_in_exports = ( isset( $_POST['export_visibility'] ) && (int) $_POST['export_visibility'] === 1 ) ? true : false;
-	$show_title = ( isset( $_POST['pb_show_title'] ) && $_POST['pb_show_title'] === 'on' ) ? 'on' : false;
-	// @codingStandardsIgnoreEnd
+	// Set a static variable to fix infinite hook loop
+	static $recursion = false;
+	if ( ! $recursion ) {
+		$recursion = true;
 
-	// Content Visibility
-	if ( $show_in_web === false && $show_in_exports === false ) {
-		$post_status = 'draft';
-	} elseif ( $show_in_web === true && $show_in_exports === false ) {
-		$post_status = 'web-only';
-	} elseif ( $show_in_web === false && $show_in_exports === true ) {
-		$post_status = 'private';
-	} elseif ( $show_in_web === true && $show_in_exports === true ) {
-		$post_status = 'publish';
+		// @codingStandardsIgnoreStart
+		$show_in_glossary_lists = ( isset( $_POST['glossary_visibility'] ) && (int) $_POST['glossary_visibility'] === 1 ) ? true : false;
+		$show_in_web = ( isset( $_POST['web_visibility'] ) && (int) $_POST['web_visibility'] === 1 ) ? true : false;
+		$require_password = ( isset( $_POST['require_password'] ) && (int) $_POST['require_password'] === 1 ) ? true : false;
+		$show_in_exports = ( isset( $_POST['export_visibility'] ) && (int) $_POST['export_visibility'] === 1 ) ? true : false;
+		$show_title = ( isset( $_POST['pb_show_title'] ) && $_POST['pb_show_title'] === 'on' ) ? 'on' : false;
+		// @codingStandardsIgnoreEnd
+
+		// Content Visibility
+		if ( $post->post_type === 'glossary' ) {
+			// Glossary
+			$post_status = $show_in_glossary_lists ? 'publish' : 'private';
+		} else {
+			// Every other post_type
+			if ( $show_in_web === false && $show_in_exports === false ) {
+				$post_status = 'draft';
+			} elseif ( $show_in_web === true && $show_in_exports === false ) {
+				$post_status = 'web-only';
+			} elseif ( $show_in_web === false && $show_in_exports === true ) {
+				$post_status = 'private';
+			} elseif ( $show_in_web === true && $show_in_exports === true ) {
+				$post_status = 'publish';
+			}
+		}
+
+		// Title
+		if ( $show_title ) {
+			update_post_meta( $post_id, 'pb_show_title', 'on' );
+		} else {
+			delete_post_meta( $post_id, 'pb_show_title' );
+		}
+
+		// Password
+		if ( $show_in_web === false || $require_password === false ) {
+			$post_password = null; // Clear the password
+		} else {
+			$post_password = $post->post_password;
+		}
+
+		wp_update_post(
+			[
+				'ID' => $post_id,
+				'post_status' => $post_status ?? 'draft',
+				'post_password' => $post_password,
+			]
+		);
+		$recursion = false;
 	}
-
-	// Title
-	if ( $show_title ) {
-		update_post_meta( $post_id, 'pb_show_title', 'on' );
-	} else {
-		delete_post_meta( $post_id, 'pb_show_title' );
-	}
-
-	// Password
-	if ( $show_in_web === false || $require_password === false ) {
-		$post_password = null; // Clear the password
-	} else {
-		$post_password = $post->post_password;
-	}
-
-	// Unhook this function to prevent an infinite loop.
-	remove_action( 'save_post', '\Pressbooks\Admin\Metaboxes\publish_fields_save' );
-	wp_update_post(
-		[
-			'ID' => $post_id,
-			'post_status' => $post_status ?? 'draft',
-			'post_password' => $post_password,
-		]
-	);
-	// Reattach to hook.
-	add_action( 'save_post', '\Pressbooks\Admin\Metaboxes\publish_fields_save', 10, 3 );
 }
 
 /**
