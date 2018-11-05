@@ -77,6 +77,13 @@ class PostTypeTest extends \WP_UnitTestCase {
 		after_title( $x );
 		$buffer = ob_get_clean();
 		$this->assertContains( 'not supported', $buffer );
+
+		$x->post_type = 'back-matter';
+		$x->ID = 0;
+		ob_start();
+		after_title( $x );
+		$buffer = ob_get_clean();
+		$this->assertContains( 'id="pb-post-type-notice"', $buffer );
 	}
 
 	function test_wp_editor_settings() {
