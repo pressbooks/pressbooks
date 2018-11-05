@@ -24,6 +24,7 @@ trait utilsTrait {
 		foreach ( $book::getBookStructure() as $key => $section ) {
 			if ( $key === 'front-matter' || $key === 'back-matter' ) {
 				foreach ( $section as $val ) {
+					update_post_meta( $val['ID'], 'pb_export', 'on' );
 					wp_update_post( [ 'ID' => $val['ID'], 'post_status' => 'publish' ] );
 				}
 			}
@@ -39,6 +40,7 @@ trait utilsTrait {
 						$pid = false;
 					}
 					foreach ( $part['chapters'] as $val ) {
+						update_post_meta( $val['ID'], 'pb_export', 'on' );
 						wp_update_post( [ 'ID' => $val['ID'], 'post_status' => 'publish' ] );
 					}
 				}
@@ -134,6 +136,7 @@ There are many maths like it but these ones are mine.
 			'post_parent' => $post_parent,
 		];
 		$pid = $this->factory()->post->create_object( $new_post );
+		update_post_meta( $val['ID'], 'pb_export', 'on' );
 		update_post_meta( $pid, 'pb_subtitle', 'Or, A Chapter to Test' );
 
 		return $pid;
