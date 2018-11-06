@@ -179,6 +179,7 @@ class EditorTest extends \WP_UnitTestCase {
 		update_option( 'classic-editor-replace', 'no-replace' );
 		$this->assertEquals( 'no-replace', get_option( 'classic-editor-replace' ) );
 		\Pressbooks\Editor\hide_gutenberg();
+		$this->assertTrue( has_filter( 'use_block_editor_for_post_type' ) );
 		$this->assertFalse( is_plugin_active( 'gutenberg/gutenberg.php' ) );
 		$this->assertEquals( 'replace', get_option( 'classic-editor-replace' ) );
 	}
