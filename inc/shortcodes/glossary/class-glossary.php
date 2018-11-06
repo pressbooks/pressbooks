@@ -35,15 +35,17 @@ class Glossary {
 	 * @param Glossary $obj
 	 */
 	static public function hooks( Glossary $obj ) {
-		add_shortcode( self::SHORTCODE, [ $obj, 'shortcodeHandler' ] );
-		add_filter(
-			'no_texturize_shortcodes',
-			function ( $excluded_shortcodes ) {
-				$excluded_shortcodes[] = Glossary::SHORTCODE;
-
-				return $excluded_shortcodes;
-			}
-		);
+		// Webbook shortcode
+		add_shortcode( self::SHORTCODE, [ $obj, 'webShortcodeHandler' ] );
+		add_action( 'pb_pre_export', function () use ( $obj ) {
+			// Override webbook shortcode when exporting
+			remove_shortcode( self::SHORTCODE );
+			add_shortcode( self::SHORTCODE, [ $obj, 'exportShortcodeHandler' ] );
+		} );
+		add_filter( 'no_texturize_shortcodes', function ( $excluded_shortcodes ) {
+			$excluded_shortcodes[] = Glossary::SHORTCODE;
+			return $excluded_shortcodes;
+		} );
 		add_action( 'init', [ $obj, 'addTooltipScripts' ] );
 		add_filter( 'wp_insert_post_data', [ $obj, 'sanitizeGlossaryTerm' ] );
 		add_filter( 'the_content', [ $obj, 'backMatterAutoDisplay' ] );
@@ -205,6 +207,7 @@ class Glossary {
 	}
 
 	/**
+	 * Webbook shortcode
 	 * Gets the tooltip if the param contains the post id,
 	 * or a list of terms if it's just the short-code
 	 *
@@ -215,7 +218,7 @@ class Glossary {
 	 *
 	 * @return string
 	 */
-	public function shortcodeHandler( $atts, $content ) {
+	public function webShortcodeHandler( $atts, $content ) {
 		$a = shortcode_atts(
 			[
 				'id' => '',
@@ -233,6 +236,18 @@ class Glossary {
 			return $this->glossaryTerms( $a['type'] );
 		}
 
+		return $content;
+	}
+
+	/**
+	 * Export shortcode
+	 *
+	 * @param array $atts
+	 * @param string $content
+	 *
+	 * @return string
+	 */
+	public function exportShortcodeHandler( $atts, $content ) {
 		return $content;
 	}
 
