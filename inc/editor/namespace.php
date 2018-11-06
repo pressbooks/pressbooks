@@ -467,12 +467,16 @@ function hide_gutenberg() {
 	// 4.9.X and below
 	deactivate_plugins( [ 'gutenberg/gutenberg.php' ] );
 
-	// 5.X and up
+	// 5.X and up, Classic Editor not present
 	if ( ! function_exists( 'classic_editor_init_actions' ) ) {
-		// TODO: Install "Classic Editor" plugin?
-		// https://en-ca.wordpress.org/plugins/classic-editor/
-		// https://github.com/azaozz/classic-editor
+
+		// Don't use block editor for any post types
+		add_filter( 'use_block_editor_for_post_type', function ( $use_block_editor, $post_type ) {
+			return false;
+		}, 10, 2 );
 	}
+
+	// 5.x and up, Classic Editor present
 
 	// Hide "Classic Editor" Settings page, because we don't want people turning Gutenberg back on
 	remove_filter( 'plugin_action_links', 'classic_editor_add_settings_link' );
