@@ -92,10 +92,12 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 
 	public function test_glossaryTooltip() {
 		$pid = $this->_createGlossaryPost();
-
 		$result = $this->gl->glossaryTooltip( [ 'id' => $pid ], 'PHP' );
-
 		$this->assertEquals( '<a href="javascript:void(0);" class="tooltip" title="A popular general-purpose scripting language that is especially suited to web development.">PHP</a>', $result );
+
+		$this->factory()->post->update_object( $pid, [ 'post_status' => 'trash' ] );
+		$result = $this->gl->glossaryTooltip( [ 'id' => $pid ], 'PHP' );
+		$this->assertEquals( 'PHP', $result );
 	}
 
 	public function test_getGlossaryTerms() {

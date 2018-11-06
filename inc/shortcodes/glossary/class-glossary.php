@@ -188,6 +188,9 @@ class Glossary {
 		if ( ! $terms ) {
 			return $content;
 		}
+		if ( $terms->post_status === 'trash' ) {
+			return $content;
+		}
 
 		// use our post instead of the global $post object
 		setup_postdata( $terms );
