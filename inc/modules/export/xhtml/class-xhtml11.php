@@ -85,13 +85,6 @@ class Xhtml11 extends Export {
 	protected $lang = 'en';
 
 	/**
-	 * Body class for the document
-	 *
-	 * @var string
-	 */
-	protected $bodyClass = '';
-
-	/**
 	 * @var \Pressbooks\Taxonomy
 	 */
 	protected $taxonomy;
@@ -133,11 +126,7 @@ class Xhtml11 extends Export {
 		$md5 = $this->nonce( $timestamp );
 		$this->url = home_url() . "/format/xhtml?timestamp={$timestamp}&hashkey={$md5}";
 		if ( ! empty( $_REQUEST['preview'] ) ) {
-			$this->url .= '&' . http_build_query(
-				[
-					'preview' => $_REQUEST['preview'],
-				]
-			);
+			$this->url .= '&preview=1';
 		}
 
 		// Append endnotes to URL?
@@ -210,7 +199,7 @@ class Xhtml11 extends Export {
 	/**
 	 * Procedure for "format/xhtml" rewrite rule.
 	 *
-	 * Supported http params:
+	 * Supported http (aka $_GET) params:
 	 *
 	 *   + timestamp: (int) combines with `hashkey` to allow a 3rd party service temporary access
 	 *   + hashkey: (string) combines with `timestamp` to allow a 3rd party service temporary access
@@ -218,15 +207,12 @@ class Xhtml11 extends Export {
 	 *   + style: (string) name of a user generated stylesheet you want included in the header
 	 *   + script: (string) name of javascript file you you want included in the header
 	 *   + preview: (bool) Use `Content-Disposition: inline` instead of `Content-Disposition: attachment` when passing through Export::formSubmit
-	 *   + fullsize-images: (bool) replace images with originals when possible
+	 *   + optimize-for-print: (bool) Replace images with originals when possible, add class="print" to <body>, and other print specific tweaks
 	 *
 	 * @see \Pressbooks\Redirect\do_format
 	 *
-	 * @param bool $return (optional)
-	 * If you would like to capture the output of transform,
-	 * use the return parameter. If this parameter is set
-	 * to true, transform will return its output, instead of
-	 * printing it.
+	 * @param bool $return (optional) If you would like to capture the output of transform, use the return parameter. If this parameter is set
+	 * to true, transform will return its output, instead of printing it.
 	 *
 	 * @return mixed
 	 */
@@ -303,7 +289,11 @@ class Xhtml11 extends Export {
 			}
 		}
 
-		echo "</head>\n<body lang='{$this->lang}'>\n";
+		echo "</head>\n<body lang='{$this->lang}' ";
+		if ( ! empty( $_GET['optimize-for-print'] ) ) {
+			echo "class='print' ";
+		}
+		echo ">\n";
 		$replace_token = uniqid( 'PB_REPLACE_INNER_HTML_', true );
 		echo $replace_token;
 		echo "\n</body>\n</html>";
@@ -537,7 +527,7 @@ class Xhtml11 extends Export {
 		$content = $this->fixAnnoyingCharacters( $content ); // is this used?
 		$content = $this->fixInternalLinks( $content );
 		$content = $this->switchLaTexFormat( $content );
-		if ( ! empty( $_GET['fullsize-images'] ) ) {
+		if ( ! empty( $_GET['optimize-for-print'] ) ) {
 			$content = $this->fixImages( $content );
 		}
 		$content = $this->tidy( $content );

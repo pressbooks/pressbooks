@@ -98,11 +98,7 @@ class HTMLBook extends Export {
 		$md5 = $this->nonce( $timestamp );
 		$this->url = home_url() . "/format/htmlbook?timestamp={$timestamp}&hashkey={$md5}";
 		if ( ! empty( $_REQUEST['preview'] ) ) {
-			$this->url .= '&' . http_build_query(
-				[
-					'preview' => $_REQUEST['preview'],
-				]
-			);
+			$this->url .= '&preview=1';
 		}
 
 		// Append endnotes to URL?
@@ -172,7 +168,7 @@ class HTMLBook extends Export {
 	/**
 	 * Procedure for "format/htmlbook" rewrite rule.
 	 *
-	 * Supported http params:
+	 * Supported http (aka $_GET) params:
 	 *
 	 *   + timestamp: (int) combines with `hashkey` to allow a 3rd party service temporary access
 	 *   + hashkey: (string) combines with `timestamp` to allow a 3rd party service temporary access
@@ -180,15 +176,12 @@ class HTMLBook extends Export {
 	 *   + style: (string) name of a user generated stylesheet you want included in the header
 	 *   + script: (string) name of javascript file you you want included in the header
 	 *   + preview: (bool) Use `Content-Disposition: inline` instead of `Content-Disposition: attachment` when passing through Export::formSubmit
-	 *   + fullsize-images: (bool) replace images with originals when possible
+	 *   + optimize-for-print: (bool) replace images with originals when possible, add class="print" to <body>, and other print specific features
 	 *
 	 * @see \Pressbooks\Redirect\do_format
 	 *
-	 * @param bool $return (optional)
-	 * If you would like to capture the output of transform,
-	 * use the return parameter. If this parameter is set
-	 * to true, transform will return its output, instead of
-	 * printing it.
+	 * @param bool $return (optional) If you would like to capture the output of transform, use the return parameter. If this parameter is set
+	 * to true, transform will return its output, instead of printing it.
 	 *
 	 * @return mixed
 	 */
@@ -248,6 +241,13 @@ class HTMLBook extends Export {
 		echo "</head>\n";
 
 		$book = new Book();
+		if ( ! empty( $_GET['optimize-for-print'] ) ) {
+			$book->setAttributes(
+				[
+					'class' => 'print',
+				]
+			);
+		}
 
 		// Before Title Page
 		$this->beforeTitle( $book, $book_contents );
@@ -482,7 +482,7 @@ class HTMLBook extends Export {
 		$content = $this->fixAnnoyingCharacters( $content ); // is this used?
 		$content = $this->fixInternalLinks( $content );
 		$content = $this->switchLaTexFormat( $content );
-		if ( ! empty( $_GET['fullsize-images'] ) ) {
+		if ( ! empty( $_GET['optimize-for-print'] ) ) {
 			$content = $this->fixImages( $content );
 		}
 		$content = $this->tidy( $content );

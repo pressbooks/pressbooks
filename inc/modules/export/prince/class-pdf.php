@@ -309,10 +309,10 @@ class Pdf extends Export {
 	 */
 	protected function fixLatexDpi() {
 		$fix = false;
-		if ( ! $fix && ! empty( $_GET['fullsize-images'] ) ) {
+		if ( ! $fix && ! empty( $_GET['optimize-for-print'] ) ) {
 			$fix = true;
 		}
-		if ( ! $fix && strpos( $this->url, 'fullsize-images=1' ) !== false ) {
+		if ( ! $fix && strpos( $this->url, 'optimize-for-print=1' ) !== false ) {
 			$fix = true;
 		}
 		if ( ! $fix && stripos( get_class( $this ), 'print' ) !== false ) {
