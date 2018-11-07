@@ -42,7 +42,7 @@ class StylesTest extends \WP_UnitTestCase {
 
 	public function test_pathToScss() {
 		// V1
-		$v1 = wp_get_theme( 'pressbooks-donham' );
+		$v1 = wp_get_theme( 'pressbooks-luther' );
 		$this->assertContains( 'style.scss', $this->cs->getPathToWebScss( $v1 ) );
 		$this->assertContains( '/export/', $this->cs->getPathToEpubScss( $v1 ) );
 		$this->assertContains( '/export/', $this->cs->getPathToPrinceScss( $v1 ) );
@@ -55,7 +55,7 @@ class StylesTest extends \WP_UnitTestCase {
 
 	public function test_isCurrentThemeCompatible() {
 		// V1
-		$v1 = wp_get_theme( 'pressbooks-donham' );
+		$v1 = wp_get_theme( 'pressbooks-luther' );
 		$this->assertTrue( $this->cs->isCurrentThemeCompatible( 1, $v1 ) );
 		$this->assertFalse( $this->cs->isCurrentThemeCompatible( 2, $v1 ) );
 		$this->assertFalse( $this->cs->isCurrentThemeCompatible( 999, $v1 ) );
