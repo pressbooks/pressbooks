@@ -495,7 +495,7 @@ class Book {
 		static::$__order = [];
 
 		// Subsections
-		delete_transient( \Pressbooks\Book::SUBSECTIONS_TRANSIENT );
+		delete_transient( static::SUBSECTIONS_TRANSIENT );
 
 		// User Catalog
 		( new Catalog() )->deleteCacheByBookId( $blog_id );
