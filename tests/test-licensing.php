@@ -79,11 +79,11 @@ class LicensingTest extends \WP_UnitTestCase {
 
 	public function test_getLicense() {
 		$result = $this->licensing->getLicense( 'public-domain', 'Herman Melville', 'https://mobydick.whale', 'Moby Dick', 1851 );
-		$this->assertEquals( $result, '<div class="license-attribution"><p><img src="' . get_template_directory_uri() . '/assets/book/images/public-domain.svg" alt="Icon for the Public Domain license" /></p><p>This work (<a href="https://mobydick.whale">Moby Dick</a> by Herman Melville) is free of known copyright restrictions.</p></div>' );
+		$this->assertEquals( $result, '<div class="license-attribution"><p><img src="' . get_template_directory_uri() . '/packages/buckram/assets/images/public-domain.svg" alt="Icon for the Public Domain license" /></p><p>This work (<a href="https://mobydick.whale">Moby Dick</a> by Herman Melville) is free of known copyright restrictions.</p></div>' );
 		$result = $this->licensing->getLicense( 'all-rights-reserved', 'Herman Melville', 'https://mobydick.whale', 'Moby Dick', 1851 );
 		$this->assertEquals( $result, '<div class="license-attribution"><p><a href="https://mobydick.whale" property="dc:title">Moby Dick</a> Copyright &copy; 1851 by Herman Melville. All Rights Reserved.</p></div>' );
 		$result = $this->licensing->getLicense( 'cc-by', 'Herman Melville', 'https://mobydick.whale', 'Moby Dick', 1851 );
-		$this->assertEquals( $result, '<div class="license-attribution"><p><img src="' . get_template_directory_uri() . '/assets/book/images/cc-by.svg" alt="Icon for the Creative Commons Attribution 4.0 International License" /></p><p><a rel="cc:attributionURL" href="https://mobydick.whale" property="dc:title">Moby Dick</a> by <span property="cc:attributionName">Herman Melville</span> is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>, except where otherwise noted.</p></div>' );
+		$this->assertEquals( $result, '<div class="license-attribution"><p><img src="' . get_template_directory_uri() . '/packages/buckram/assets/images/cc-by.svg" alt="Icon for the Creative Commons Attribution 4.0 International License" /></p><p><a rel="cc:attributionURL" href="https://mobydick.whale" property="dc:title">Moby Dick</a> by <span property="cc:attributionName">Herman Melville</span> is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>, except where otherwise noted.</p></div>' );
 	}
 
 	public function test_getUrlForLicense() {

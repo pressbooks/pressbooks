@@ -336,7 +336,7 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 			if ( strpos( $format, '\HTMLBook\HTMLBook' ) !== false ) {
 				// TODO: HTMLBook is too strict we don't pass the validation
 			} elseif ( $runtime->isPHPDBG() && strpos( $format, '\Epub\Epub' ) !== false ) {
-				// TODO: exec(): Unable to fork [/usr/bin/epubcheck -q /path/to.epub 2>&1]
+				// TODO: exec(): Unable to fork [/usr/bin/java -jar /opt/epubcheck/epubcheck.jar -q /path/to.epub 2>&1]
 			} else {
 				$this->assertTrue( $exporter->validate(), "Could not validate with {$format}" );
 			}
