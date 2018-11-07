@@ -219,7 +219,7 @@ class Epub201 extends Export {
 		}
 
 		if ( ! defined( 'PB_EPUBCHECK_COMMAND' ) ) {
-			define( 'PB_EPUBCHECK_COMMAND', '/usr/bin/epubcheck' );
+			define( 'PB_EPUBCHECK_COMMAND', '/usr/bin/java -jar /opt/epubcheck/epubcheck.jar' );
 		}
 
 		$this->tmpDir = $this->createTmpDir();
@@ -329,6 +329,7 @@ class Epub201 extends Export {
 		// Is this a valid Epub?
 		if ( ! empty( $output ) ) {
 			$this->logError( implode( "\n", $output ) );
+			echo implode( "\n", $output );
 
 			return false;
 		}
