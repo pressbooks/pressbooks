@@ -54,7 +54,7 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 
 	public function test_getExportStylePath() {
 
-		$this->_book( 'pressbooks-donham' );
+		$this->_book( 'pressbooks-luther' );
 
 		$path = $this->export->getExportStylePath( 'epub' );
 		$this->assertStringEndsWith( '/export/epub/style.scss', $path );
@@ -76,7 +76,7 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 
 	public function test_getExportScriptPath() {
 
-		$this->_book( 'pressbooks-donham' );
+		$this->_book( 'pressbooks-luther' );
 
 		$path = $this->export->getExportScriptPath( 'epub' );
 		$this->assertFalse( $path );
@@ -362,7 +362,7 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 
 	public function test_sanityCheckXhtmlWithoutBuckram() {
 
-		$this->_book( 'pressbooks-donham' ); // Use an old book.
+		$this->_book( 'pressbooks-luther' ); // Use an old book.
 		$meta_post = ( new \Pressbooks\Metadata() )->getMetaPost();
 		( new \Pressbooks\Contributors() )->insert( 'Ned Zimmerman', $meta_post->ID );
 		$user_id = $this->factory()->user->create( [ 'role' => 'contributor' ] );

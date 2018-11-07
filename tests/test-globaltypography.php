@@ -41,7 +41,7 @@ class GlobalTypographyTest extends \WP_UnitTestCase {
 
 	public function test_getThemeFontStacks() {
 
-		$this->_book( 'pressbooks-clarke' ); // Pick a theme with some built-in $supported_languages
+		$this->_book( 'pressbooks-jacobs' ); // Pick a theme with some built-in $supported_languages
 
 		$this->gt->updateGlobalTypographyMixin();
 		$this->assertNotEmpty( $this->gt->getThemeFontStacks( 'epub' ) );
