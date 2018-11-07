@@ -80,10 +80,10 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 	public function test_glossaryTerms() {
 		// assures alphabetical listing and format
 		$dl = $this->gl->glossaryTerms();
-		$this->assertEquals( '<section data-type="glossary"><header><h2>Glossary Terms</h2></header><dl data-type="glossary"><dt data-type="glossterm"><dfn id="dfn-neural-network">Neural Network</dfn></dt><dd data-type="glossdef">A computer system modeled on the human brain and nervous system.</dd><dt data-type="glossterm"><dfn id="dfn-support-vector-machine">Support Vector Machine</dfn></dt><dd data-type="glossdef">An algorithm that uses a nonlinear mapping to transform the original training data into a higher dimension</dd></dl></section>', $dl );
+		$this->assertEquals( '<dl data-type="glossary"><dt data-type="glossterm"><dfn id="dfn-neural-network">Neural Network</dfn></dt><dd data-type="glossdef">A computer system modeled on the human brain and nervous system.</dd><dt data-type="glossterm"><dfn id="dfn-support-vector-machine">Support Vector Machine</dfn></dt><dd data-type="glossdef">An algorithm that uses a nonlinear mapping to transform the original training data into a higher dimension</dd></dl>', $dl );
 		// assures found by type
 		$dl = $this->gl->glossaryTerms( 'definitions' );
-		$this->assertEquals( '<section data-type="glossary"><header><h2>Glossary Terms</h2></header><dl data-type="glossary"><dt data-type="glossterm"><dfn id="dfn-support-vector-machine">Support Vector Machine</dfn></dt><dd data-type="glossdef">An algorithm that uses a nonlinear mapping to transform the original training data into a higher dimension</dd></dl></section>', $dl );
+		$this->assertEquals( '<dl data-type="glossary"><dt data-type="glossterm"><dfn id="dfn-support-vector-machine">Support Vector Machine</dfn></dt><dd data-type="glossdef">An algorithm that uses a nonlinear mapping to transform the original training data into a higher dimension</dd></dl>', $dl );
 		// assures empty (because this type is not found)
 		$dl = $this->gl->glossaryTerms( 'nothing-to-find' );
 		$this->assertEmpty( $dl );
@@ -92,10 +92,12 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 
 	public function test_glossaryTooltip() {
 		$pid = $this->_createGlossaryPost();
-
 		$result = $this->gl->glossaryTooltip( [ 'id' => $pid ], 'PHP' );
-
 		$this->assertEquals( '<a href="javascript:void(0);" class="tooltip" title="A popular general-purpose scripting language that is especially suited to web development.">PHP</a>', $result );
+
+		$this->factory()->post->update_object( $pid, [ 'post_status' => 'trash' ] );
+		$result = $this->gl->glossaryTooltip( [ 'id' => $pid ], 'PHP' );
+		$this->assertEquals( 'PHP', $result );
 	}
 
 	public function test_getGlossaryTerms() {
@@ -152,7 +154,7 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 		// Yes, changed
 		$pid = $this->factory()->post->update_object( $pid, [ 'post_content' => ' &nbsp;    ' ] );
 		$post = get_post( $pid );
-		$this->assertContains( '<section data-type="glossary">', $this->gl->backMatterAutoDisplay( $post->post_content ) );
+		$this->assertContains( '<dl data-type="glossary">', $this->gl->backMatterAutoDisplay( $post->post_content ) );
 	}
 
 }

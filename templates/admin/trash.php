@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 $args = [
-	'post_type' => [ 'front-matter', 'part', 'chapter', 'back-matter' ],
+	'post_type' => [ 'front-matter', 'part', 'chapter', 'back-matter', 'glossary' ],
 	'posts_per_page' => -1, // @codingStandardsIgnoreLine
 	'post_status' => 'trash',
 	'orderby' => 'post_modified',
@@ -18,7 +18,7 @@ $results = ( new \WP_Query() )->query( $args );
 ?>
 <div class="wrap">
 	<h1><?php _e( 'Trash' ); ?></h1>
-	<p><?php _e( 'Restore deleted chapters, parts, front and back matter.', 'pressbooks' ); ?></p>
+	<p><?php _e( 'Restore deleted chapters, parts, front and back matter, and glossary terms', 'pressbooks' ); ?></p>
 	<p><?php printf( __( '<strong>NOTE</strong>: Items in the trash will be permanently deleted after %d days.', 'pressbooks' ), EMPTY_TRASH_DAYS ); ?></p>
 
 	<?php
