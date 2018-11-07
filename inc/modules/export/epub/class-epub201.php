@@ -329,7 +329,6 @@ class Epub201 extends Export {
 		// Is this a valid Epub?
 		if ( ! empty( $output ) ) {
 			$this->logError( implode( "\n", $output ) );
-			echo implode( "\n", $output );
 
 			return false;
 		}
