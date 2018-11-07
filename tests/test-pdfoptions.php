@@ -4,7 +4,7 @@ class PDFOptionsTest extends \WP_UnitTestCase {
 	use utilsTrait;
 
 	public function test_scssOverrides() {
-		$this->_book( 'pressbooks-luther' );
+		$this->_book( 'pressbooks-donham' );
 
 		update_option( 'pressbooks_theme_options_global', [
 			'chapter_numbers' => 0,

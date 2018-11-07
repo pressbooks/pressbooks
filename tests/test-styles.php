@@ -71,7 +71,7 @@ class StylesTest extends \WP_UnitTestCase {
 	}
 
 	public function test_hasBuckram() {
-		$this->_book( 'pressbooks-luther' );
+		$this->_book( 'pressbooks-donham' );
 		$this->assertFalse( $this->cs->hasBuckram() );
 		$this->_book( 'pressbooks-book' );
 		$this->assertTrue( $this->cs->hasBuckram() );
@@ -81,7 +81,7 @@ class StylesTest extends \WP_UnitTestCase {
 
 	public function test_applyOverrides() {
 		// V1
-		$this->_book( 'pressbooks-luther' );
+		$this->_book( 'pressbooks-donham' );
 		$result = $this->cs->applyOverrides( '// SCSS.', '// Override.' );
 		$this->assertTrue( strpos( $result, '// SCSS.' ) === 0 );
 		$result = $this->cs->applyOverrides( '// SCSS.', [ '// Override 1.', '// Override 2.' ] );
@@ -98,7 +98,7 @@ class StylesTest extends \WP_UnitTestCase {
 
 	public function test_customize() {
 		// V1
-		$this->_book( 'pressbooks-luther' );
+		$this->_book( 'pressbooks-donham' );
 		$this->assertContains( 'font-size:', $this->cs->customizeWeb() );
 		$this->assertContains( 'font-size:', $this->cs->customizeEpub() );
 		$this->assertContains( 'font-size:', $this->cs->customizePrince() );
@@ -112,7 +112,7 @@ class StylesTest extends \WP_UnitTestCase {
 
 	public function test_updateWebBookStyleSheet() {
 
-		$this->_book( 'pressbooks-jacobs' ); // Pick a theme with some built-in $supported_languages
+		$this->_book( 'pressbooks-clarke' ); // Pick a theme with some built-in $supported_languages
 
 		$this->cs->updateWebBookStyleSheet();
 

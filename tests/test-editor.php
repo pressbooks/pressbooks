@@ -12,7 +12,7 @@ class EditorTest extends \WP_UnitTestCase {
 	}
 
 	public function test_update_editor_style() {
-		$this->_book( 'pressbooks-jacobs' );
+		$this->_book( 'pressbooks-clarke' );
 		Pressbooks\Editor\update_editor_style();
 
 		global $blog_id;
@@ -21,7 +21,7 @@ class EditorTest extends \WP_UnitTestCase {
 	}
 
 	public function test_add_editor_style() {
-		$this->_book( 'pressbooks-jacobs' );
+		$this->_book( 'pressbooks-clarke' );
 
 		$file = \Pressbooks\Container::get( 'Sass' )->pathToUserGeneratedCss() . '/editor.css';
 		if ( file_exists( $file ) ) {

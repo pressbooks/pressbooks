@@ -51,7 +51,7 @@ class CoverGenerator_GeneratorTest extends \WP_UnitTestCase {
 		$this->assertContains( 'jpeg', \Pressbooks\Media\mime_type( $output_path ) );
 
 		// V1
-		$this->_book( 'pressbooks-luther' );
+		$this->_book( 'pressbooks-donham' );
 
 		$g = new \Pressbooks\Covergenerator\DocraptorPdf( $this->input() );
 		$output_path = $g->generate();
