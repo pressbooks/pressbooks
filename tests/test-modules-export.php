@@ -42,6 +42,17 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 			// [ '\Pressbooks\Modules\Export\Odt\Odt', false ], // TODO: Download/install Saxon-HE in Travis build script
 			[ '\Pressbooks\Modules\Export\HTMLBook\HTMLBook', false ],
 		];
+
+	}
+
+	/**
+	 *
+	 */
+	public function moduleProviderHtml() {
+		return [
+			[ '\Pressbooks\Modules\Export\Xhtml\Xhtml11', false ],
+			[ '\Pressbooks\Modules\Export\HTMLBook\HTMLBook', false ],
+		];
 	}
 
 	/**
@@ -408,5 +419,45 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 		$url = network_home_url( sprintf( '/wp-content/uploads/sites/%d/pressbooks/css/prince-', get_current_blog_id() ) );
 		$this->assertContains( "<link rel='stylesheet' href='$url", $xhtml_content );
 		unlink( $exporter->getOutputPath() );
+	}
+
+	/**
+	 * @dataProvider moduleProviderHtml
+	 */
+	public function test_sanityCheckOptimizeForPrint( $module, $prerequisite ) {
+		$this->_book();
+		$meta_post = ( new \Pressbooks\Metadata() )->getMetaPost();
+		( new \Pressbooks\Contributors() )->insert( 'Ned Zimmerman', $meta_post->ID );
+		$user_id = $this->factory()->user->create( [ 'role' => 'contributor' ] );
+		wp_set_current_user( $user_id );
+		$modules = ( $prerequisite ) ? [ $prerequisite, $module ] : [ $module ];
+
+		$_GET['optimize-for-print'] = 1;
+		foreach ( $modules as $format ) {
+			/** @var \Pressbooks\Modules\Export\Export $exporter */
+			$exporter = new $format( [] );
+			$this->assertTrue( $exporter->convert(), "Could not convert with {$module}" );
+			$dom = new \DOMDocument();
+			libxml_use_internal_errors( true );
+			$dom->loadHTMLFile( $exporter->getOutputPath(), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD );
+			libxml_clear_errors();
+			$sections = $dom->getElementsByTagName( 'body' );
+			$this->assertContains( 'print', $sections[0]->getAttribute( 'class' ) );
+			unlink( $exporter->getOutputPath() );
+		}
+
+		$_GET['optimize-for-print'] = 0;
+		foreach ( $modules as $format ) {
+			/** @var \Pressbooks\Modules\Export\Export $exporter */
+			$exporter = new $format( [] );
+			$this->assertTrue( $exporter->convert(), "Could not convert with {$module}" );
+			$dom = new \DOMDocument();
+			libxml_use_internal_errors( true );
+			$dom->loadHTMLFile( $exporter->getOutputPath(), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD );
+			libxml_clear_errors();
+			$sections = $dom->getElementsByTagName( 'body' );
+			$this->assertNotContains( 'print', $sections[0]->getAttribute( 'class' ) );
+			unlink( $exporter->getOutputPath() );
+		}
 	}
 }
