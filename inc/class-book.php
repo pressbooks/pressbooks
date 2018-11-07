@@ -10,9 +10,13 @@
 
 namespace Pressbooks;
 
+use Pressbooks\Modules\Export\Export;
 use Pressbooks\Modules\Export\Xhtml\Xhtml11;
 
 class Book {
+
+	const SUBSECTIONS_TRANSIENT = 'pb_book_subsections';
+	const SUBSECTION_PROCESSING_TRANSIENT = 'pb_getting_all_subsections';
 
 	/**
 	 * @var Book
@@ -490,6 +494,9 @@ class Book {
 		static::$preview = [];
 		static::$__order = [];
 
+		// Subsections
+		delete_transient( static::SUBSECTIONS_TRANSIENT );
+
 		// User Catalog
 		( new Catalog() )->deleteCacheByBookId( $blog_id );
 
@@ -542,6 +549,52 @@ class Book {
 		}
 
 		return $output;
+	}
+
+	/**
+	 * Returns an array of front matter, chapters, and back matter which contain subsections.
+	 *
+	 * @param array $book_structure The book structure from getBookStructure()
+	 * @return array The subsections, grouped by parent post type
+	 */
+	static function getAllSubsections( $book_structure ) {
+		if ( Export::shouldParseSubsections() ) {
+			$book_subsections_transient = \Pressbooks\Book::SUBSECTIONS_TRANSIENT;
+			$subsection_processing_transient = \Pressbooks\Book::SUBSECTION_PROCESSING_TRANSIENT;
+			$book_subsections = get_transient( $book_subsections_transient );
+			if ( ! $book_subsections ) {
+				$book_subsections = [];
+				if ( ! get_transient( $subsection_processing_transient ) ) {
+					set_transient( $subsection_processing_transient, 1, 5 * MINUTE_IN_SECONDS );
+					foreach ( $book_structure['front-matter'] as $section ) {
+						$subsections = \Pressbooks\Book::getSubsections( $section['ID'] );
+						if ( $subsections ) {
+							$book_subsections['front-matter'][ $section['ID'] ] = $subsections;
+						}
+					}
+					foreach ( $book_structure['part'] as $key => $part ) {
+						if ( ! empty( $part['chapters'] ) ) {
+							foreach ( $part['chapters'] as $section ) {
+								$subsections = \Pressbooks\Book::getSubsections( $section['ID'] );
+								if ( $subsections ) {
+									$book_subsections['chapters'][ $section['ID'] ] = $subsections;
+								}
+							}
+						}
+					}
+					foreach ( $book_structure['back-matter'] as $section ) {
+						$subsections = \Pressbooks\Book::getSubsections( $section['ID'] );
+						if ( $subsections ) {
+							$book_subsections['back-matter'][ $section['ID'] ] = $subsections;
+						}
+					}
+					delete_transient( $subsection_processing_transient );
+				}
+			}
+			set_transient( $book_subsections_transient, $book_subsections );
+			return $book_subsections;
+		}
+		return [];
 	}
 
 	/**

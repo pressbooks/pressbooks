@@ -1092,7 +1092,7 @@ class HTMLBook extends Export {
 
 						$li->appendContent( $li_href );
 
-						if ( \Pressbooks\Modules\Export\Export::isParsingSubsections() === true ) {
+						if ( \Pressbooks\Modules\Export\Export::shouldParseSubsections() === true ) {
 							$sections = \Pressbooks\Book::getSubsections( $chapter['ID'] );
 							if ( $sections ) {
 								$li_sections = '<ol class="sections">';
@@ -1168,7 +1168,7 @@ class HTMLBook extends Export {
 
 					$li->appendContent( $li_href );
 
-					if ( \Pressbooks\Modules\Export\Export::isParsingSubsections() === true ) {
+					if ( \Pressbooks\Modules\Export\Export::shouldParseSubsections() === true ) {
 						$sections = \Pressbooks\Book::getSubsections( $val['ID'] );
 						if ( $sections ) {
 							$li_sections = '<ol class="sections">';
@@ -1225,7 +1225,7 @@ class HTMLBook extends Export {
 			$subtitle = trim( get_post_meta( $front_matter_id, 'pb_subtitle', true ) );
 			$author = trim( get_post_meta( $front_matter_id, 'pb_section_author', true ) );
 
-			if ( \Pressbooks\Modules\Export\Export::isParsingSubsections() === true ) {
+			if ( \Pressbooks\Modules\Export\Export::shouldParseSubsections() === true ) {
 				if ( \Pressbooks\Book::getSubsections( $front_matter_id ) !== false ) {
 					$content = \Pressbooks\Book::tagSubsections( $content, $front_matter_id );
 				}
@@ -1424,7 +1424,7 @@ class HTMLBook extends Export {
 				$subtitle = trim( get_post_meta( $chapter_id, 'pb_subtitle', true ) );
 				$author = $this->contributors->get( $chapter_id, 'pb_authors' );
 
-				if ( \Pressbooks\Modules\Export\Export::isParsingSubsections() === true ) {
+				if ( \Pressbooks\Modules\Export\Export::shouldParseSubsections() === true ) {
 					if ( \Pressbooks\Book::getSubsections( $chapter_id ) !== false ) {
 						$content = \Pressbooks\Book::tagSubsections( $content, $chapter_id );
 					}
@@ -1559,7 +1559,7 @@ class HTMLBook extends Export {
 			$subtitle = trim( get_post_meta( $back_matter_id, 'pb_subtitle', true ) );
 			$author = $this->contributors->get( $back_matter_id, 'pb_authors' );
 
-			if ( \Pressbooks\Modules\Export\Export::isParsingSubsections() === true ) {
+			if ( \Pressbooks\Modules\Export\Export::shouldParseSubsections() === true ) {
 				if ( \Pressbooks\Book::getSubsections( $back_matter_id ) !== false ) {
 					$content = \Pressbooks\Book::tagSubsections( $content, $back_matter_id );
 				}

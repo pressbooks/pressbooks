@@ -1222,7 +1222,7 @@ class Epub201 extends Export {
 			$subtitle = trim( get_post_meta( $front_matter_id, 'pb_subtitle', true ) );
 			$author = $this->contributors->get( $front_matter_id, 'pb_authors' );
 
-			if ( Export::isParsingSubsections() === true ) {
+			if ( Export::shouldParseSubsections() === true ) {
 				if ( Book::getSubsections( $front_matter_id ) !== false ) {
 					$content = Book::tagSubsections( $content, $front_matter_id );
 					$content = \Pressbooks\HtmLawed::filter( $content, [ 'valid_xhtml' => 1 ] );
@@ -1393,7 +1393,7 @@ class Epub201 extends Export {
 				$subtitle = trim( get_post_meta( $chapter_id, 'pb_subtitle', true ) );
 				$author = $this->contributors->get( $chapter_id, 'pb_authors' );
 
-				if ( Export::isParsingSubsections() === true ) {
+				if ( Export::shouldParseSubsections() === true ) {
 					if ( Book::getSubsections( $chapter_id ) !== false ) {
 						$content = Book::tagSubsections( $content, $chapter_id );
 						$content = \Pressbooks\HtmLawed::filter( $content, [ 'valid_xhtml' => 1 ] );
@@ -1625,7 +1625,7 @@ class Epub201 extends Export {
 			$subtitle = trim( get_post_meta( $back_matter_id, 'pb_subtitle', true ) );
 			$author = $this->contributors->get( $back_matter_id, 'pb_authors' );
 
-			if ( Export::isParsingSubsections() === true ) {
+			if ( Export::shouldParseSubsections() === true ) {
 				if ( Book::getSubsections( $back_matter_id ) !== false ) {
 					$content = Book::tagSubsections( $content, $back_matter_id );
 					$content = \Pressbooks\HtmLawed::filter( $content, [ 'valid_xhtml' => 1 ] );
@@ -1801,7 +1801,7 @@ class Epub201 extends Export {
 
 			$html .= '</a>';
 
-			if ( Export::isParsingSubsections() === true && $class !== 'part' ) {
+			if ( Export::shouldParseSubsections() === true && $class !== 'part' ) {
 				$sections = Book::getSubsections( $v['ID'] );
 				if ( $sections ) {
 					$html .= '<ul class="sections">';

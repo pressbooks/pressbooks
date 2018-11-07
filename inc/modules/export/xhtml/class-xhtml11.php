@@ -1030,7 +1030,7 @@ class Xhtml11 extends Export {
 
 						echo '</a>';
 
-						if ( \Pressbooks\Modules\Export\Export::isParsingSubsections() === true ) {
+						if ( \Pressbooks\Modules\Export\Export::shouldParseSubsections() === true ) {
 							$sections = \Pressbooks\Book::getSubsections( $chapter['ID'] );
 							if ( $sections ) {
 								echo '<ul class="sections">';
@@ -1099,7 +1099,7 @@ class Xhtml11 extends Export {
 
 					echo '</a>';
 
-					if ( \Pressbooks\Modules\Export\Export::isParsingSubsections() === true ) {
+					if ( \Pressbooks\Modules\Export\Export::shouldParseSubsections() === true ) {
 						$sections = \Pressbooks\Book::getSubsections( $val['ID'] );
 						if ( $sections ) {
 							echo '<ul class="sections">';
@@ -1160,7 +1160,7 @@ class Xhtml11 extends Export {
 			$subtitle = trim( get_post_meta( $front_matter_id, 'pb_subtitle', true ) );
 			$author = $this->contributors->get( $front_matter_id, 'pb_authors' );
 
-			if ( \Pressbooks\Modules\Export\Export::isParsingSubsections() === true ) {
+			if ( \Pressbooks\Modules\Export\Export::shouldParseSubsections() === true ) {
 				if ( \Pressbooks\Book::getSubsections( $front_matter_id ) !== false ) {
 					$content = \Pressbooks\Book::tagSubsections( $content, $front_matter_id );
 					$content = \Pressbooks\HtmLawed::filter( $content, [ 'valid_xhtml' => 1 ] );
@@ -1306,7 +1306,7 @@ class Xhtml11 extends Export {
 				$subtitle = trim( get_post_meta( $chapter_id, 'pb_subtitle', true ) );
 				$author = $this->contributors->get( $chapter_id, 'pb_authors' );
 
-				if ( \Pressbooks\Modules\Export\Export::isParsingSubsections() === true ) {
+				if ( \Pressbooks\Modules\Export\Export::shouldParseSubsections() === true ) {
 					if ( \Pressbooks\Book::getSubsections( $chapter_id ) !== false ) {
 						$content = \Pressbooks\Book::tagSubsections( $content, $chapter_id );
 						$content = \Pressbooks\HtmLawed::filter( $content, [ 'valid_xhtml' => 1 ] );
@@ -1426,7 +1426,7 @@ class Xhtml11 extends Export {
 			$subtitle = trim( get_post_meta( $back_matter_id, 'pb_subtitle', true ) );
 			$author = $this->contributors->get( $back_matter_id, 'pb_authors' );
 
-			if ( \Pressbooks\Modules\Export\Export::isParsingSubsections() === true ) {
+			if ( \Pressbooks\Modules\Export\Export::shouldParseSubsections() === true ) {
 				if ( \Pressbooks\Book::getSubsections( $back_matter_id ) !== false ) {
 					$content = \Pressbooks\Book::tagSubsections( $content, $back_matter_id );
 					$content = \Pressbooks\HtmLawed::filter( $content, [ 'valid_xhtml' => 1 ] );

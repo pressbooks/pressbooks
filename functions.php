@@ -263,13 +263,25 @@ function pb_get_sections( $id ) {
 	return pb_get_subsections( $id );
 }
 
+
+
+/**
+ * Returns an array of all subsections in the book, grouped by content type.
+ *
+ * @param array $book_structure The book structure from getBookStructure()
+ * @return array The subsections, grouped by parent post type
+ */
+function pb_get_all_subsections( $book_structure ) {
+	return \Pressbooks\Book::getAllSubsections( $book_structure );
+}
+
 /**
  * Is the parse sections option true?
  *
  * @return boolean
  */
 function pb_should_parse_subsections() {
-	return \Pressbooks\Modules\Export\Export::isParsingSubsections();
+	return \Pressbooks\Modules\Export\Export::shouldParseSubsections();
 }
 
 /**
