@@ -281,7 +281,7 @@ function pb_get_all_subsections( $book_structure ) {
  * @return boolean
  */
 function pb_should_parse_subsections() {
-	return \Pressbooks\Modules\Export\Export::isParsingSubsections();
+	return \Pressbooks\Modules\Export\Export::shouldParseSubsections();
 }
 
 /**

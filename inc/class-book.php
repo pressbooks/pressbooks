@@ -558,7 +558,7 @@ class Book {
 	 * @return array The subsections, grouped by parent post type
 	 */
 	static function getAllSubsections( $book_structure ) {
-		if ( Export::isParsingSubsections() ) {
+		if ( Export::shouldParseSubsections() ) {
 			$book_subsections_transient = \Pressbooks\Book::SUBSECTIONS_TRANSIENT;
 			$subsection_processing_transient = \Pressbooks\Book::SUBSECTION_PROCESSING_TRANSIENT;
 			$book_subsections = get_transient( $book_subsections_transient );

@@ -241,7 +241,7 @@ abstract class Export {
 	 *
 	 * @return bool
 	 */
-	static function isParsingSubsections() {
+	static function shouldParseSubsections() {
 
 		$options = get_option( 'pressbooks_theme_options_global' );
 

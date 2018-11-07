@@ -88,9 +88,9 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 		$this->assertFalse( $path );
 	}
 
-	public function test_isParsingSubsections() {
+	public function test_shouldParseSubsections() {
 
-		$val = $this->export->isParsingSubsections();
+		$val = $this->export->shouldParseSubsections();
 		$this->assertInternalType( 'bool', $val );
 	}
 
