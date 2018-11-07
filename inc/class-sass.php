@@ -108,7 +108,7 @@ class Sass {
 		 *
 		 * @since 4.4.0
 		 */
-		return apply_filters( 'pb_global_components_path', get_theme_root( 'pressbooks-book' ) . '/pressbooks-book/assets/book/styles/' );
+		return apply_filters( 'pb_global_components_path', get_theme_root( 'pressbooks-book' ) . '/pressbooks-book/packages/buckram/assets/styles/' );
 	}
 
 

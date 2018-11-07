@@ -324,7 +324,7 @@ function normalize_css_urls( $css, $url_path = '' ) {
 	$css = preg_replace_callback(
 		$url_regex, function ( $matches ) use ( $url_path, $root_theme ) {
 
-			$buckram_dir = get_theme_root( 'pressbooks-book' ) . '/pressbooks-book/assets/book/';
+			$buckram_dir = get_theme_root( 'pressbooks-book' ) . '/pressbooks-book/packages/buckram/assets/';
 			$typography_dir = get_theme_root( 'pressbooks-book' ) . '/pressbooks-book/assets/book/typography/';
 
 			$url = $matches[3];
@@ -356,7 +356,14 @@ function normalize_css_urls( $css, $url_path = '' ) {
 				$url = str_replace( 'pressbooks-book/assets/book/', '', $url );
 				$my_asset = realpath( $buckram_dir . $url );
 				if ( $my_asset ) {
-					return 'url(' . $root_theme . '/assets/book/' . $url . ')';
+					return 'url(' . $root_theme . '/packages/buckram/assets/' . $url . ')';
+				}
+			}
+
+			if ( preg_match( '#^images/[a-zA-Z0-9_-]+(\.svg|\.png)$#i', $url ) ) {
+				$my_asset = realpath( $buckram_dir . $url );
+				if ( $my_asset ) {
+					return 'url(' . $root_theme . '/packages/buckram/assets/' . $url . ')';
 				}
 			}
 

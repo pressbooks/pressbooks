@@ -388,7 +388,7 @@ class Licensing {
 			if ( \Pressbooks\Utility\str_starts_with( $license, 'cc' ) && $license !== 'cc-zero' ) {
 				return sprintf(
 					'<div class="license-attribution"><p>%1$s</p><p>%2$s</p></div>',
-					sprintf( '<img src="%1$s" alt="%2$s" />', get_template_directory_uri() . '/assets/book/images/' . $license . '.svg', sprintf( __( 'Icon for the %s', 'pressbooks' ), $name ) ),
+					sprintf( '<img src="%1$s" alt="%2$s" />', get_template_directory_uri() . '/packages/buckram/assets/images/' . $license . '.svg', sprintf( __( 'Icon for the %s', 'pressbooks' ), $name ) ),
 					sprintf(
 						__( '%1$s by %2$s is licensed under a %3$s, except where otherwise noted.', 'pressbooks' ),
 						sprintf( '<a rel="cc:attributionURL" href="%1$s" property="dc:title">%2$s</a>', $link, $title ),
@@ -409,7 +409,7 @@ class Licensing {
 			} elseif ( $license === 'public-domain' ) {
 				return sprintf(
 					'<div class="license-attribution"><p>%1$s</p><p>%2$s</p></div>',
-					sprintf( '<img src="%1$s" alt="%2$s" />', get_template_directory_uri() . '/assets/book/images/' . $license . '.svg', sprintf( __( 'Icon for the %s license', 'pressbooks' ), $name ) ),
+					sprintf( '<img src="%1$s" alt="%2$s" />', get_template_directory_uri() . '/packages/buckram/assets/images/' . $license . '.svg', sprintf( __( 'Icon for the %s license', 'pressbooks' ), $name ) ),
 					sprintf(
 						__( 'This work (%1$s by %2$s) is free of known copyright restrictions.', 'pressbooks' ),
 						sprintf( '<a href="%1$s">%2$s</a>', $link, $title ),
@@ -419,7 +419,7 @@ class Licensing {
 			} elseif ( $license === 'cc-zero' ) {
 				return sprintf(
 					'<div class="license-attribution"><p>%1$s</p><p>%2$s</p></div>',
-					sprintf( '<img src="%1$s" alt="%2$s" />', get_template_directory_uri() . '/assets/book/images/' . $license . '.svg', sprintf( __( 'Icon for the %s license', 'pressbooks' ), $name ) ),
+					sprintf( '<img src="%1$s" alt="%2$s" />', get_template_directory_uri() . '/packages/buckram/assets/images/' . $license . '.svg', sprintf( __( 'Icon for the %s license', 'pressbooks' ), $name ) ),
 					sprintf(
 						translate_nooped_plural(
 							_n_noop(

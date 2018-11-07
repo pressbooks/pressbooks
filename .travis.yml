@@ -29,7 +29,11 @@ cache:
   - vendor
 before_install:
 - sudo apt-get -qq update
-- sudo apt-get install -y epubcheck libxml2-utils ghostscript imagemagick poppler-utils
+- sudo apt-get install -y default-jdk libxml2-utils ghostscript imagemagick poppler-utils unzip
+- wget https://github.com/IDPF/epubcheck/releases/download/v4.0.2/epubcheck-4.0.2.zip
+- unzip epubcheck-4.0.2.zip -d /opt/
+- mv /opt/epubcheck-4.0.2 /opt/epubcheck
+- rm epubcheck-4.0.2.zip
 - wget https://www.princexml.com/download/prince_11.3-1_ubuntu14.04_amd64.deb
 - sudo dpkg -i prince_11.3-1_ubuntu14.04_amd64.deb
 - rm prince_11.3-1_ubuntu14.04_amd64.deb
