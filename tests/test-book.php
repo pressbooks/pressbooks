@@ -169,6 +169,17 @@ class BookTest extends \WP_UnitTestCase {
 		$this->assertEquals( false, $result );
 	}
 
+	public function test_getAllSubsections() {
+		$this->_book();
+		$book = \Pressbooks\Book::getInstance();
+		update_option( 'pressbooks_theme_options_global', [ 'parse_subsections' => 1 ] );
+
+		$id = $book::getBookStructure()['part'][0]['chapters'][0]['ID'];
+		$result = $book::getAllSubsections( $book::getBookStructure() );
+		$this->assertArrayHasKey( 'chapters', $result );
+		$this->assertInternalType( 'array', $result['chapters'][ $id ] );
+	}
+
 	public function test_tagSubsections() {
 
 		$this->_book();
