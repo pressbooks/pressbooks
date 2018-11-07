@@ -1928,7 +1928,7 @@ class Epub201 extends Export {
 			// Fetch image, change src
 			$url = $image->getAttribute( 'src' );
 			// Replace Buckram SVGs with PNGs
-			if ( str_starts_with( $url, get_template_directory_uri() . '/assets/book/images' ) && str_ends_with( $url, '.svg' ) ) {
+			if ( str_starts_with( $url, get_template_directory_uri() . '/packages/buckram/assets/images' ) && str_ends_with( $url, '.svg' ) ) {
 				$url = str_replace( '.svg', '.png', $url );
 			}
 			$filename = $this->fetchAndSaveUniqueImage( $url, $fullpath );
