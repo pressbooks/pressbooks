@@ -313,7 +313,6 @@ class Cloner {
 		try {
 			foreach ( $this->cloneBookGenerator() as $percentage => $info ) {
 				// Do nothing, this is a compatibility wrapper
-				// var_dump( print_r( [ $percentage => $info ], true ) );
 			}
 		} catch ( \Exception $e ) {
 			return false;
@@ -426,13 +425,20 @@ class Cloner {
 		$this->clonedItems['metadata'][] = $this->cloneMetadata();
 
 		// Clone Taxonomy Terms
-		yield 30  => __( 'Cloning taxonomies', 'pressbooks' );
+		yield 30 => __( 'Cloning taxonomies', 'pressbooks' );
+		$i = 0;
+		$j = 30;
+		$total = count( $this->sourceBookTerms );
+		$chunks = max( round( $total / 10 ), 1 );
 		$this->targetBookTerms = $this->getBookTerms( $this->targetBookUrl );
 		foreach ( $this->sourceBookTerms as $term ) {
 			$new_term = $this->cloneTerm( $term['id'] );
 			if ( $new_term ) {
 				$this->termMap[ $term['id'] ] = $new_term;
 				$this->clonedItems['terms'][] = $new_term;
+			}
+			if ( $i++ % $chunks === 0 ) {
+				yield $j++ => sprintf( __( 'Cloning taxonomies (%1$d of %2$d)', 'pressbooks' ), $i, $total );
 			}
 		}
 
@@ -448,12 +454,12 @@ class Cloner {
 				$this->clonedItems['front-matter'][] = $new_frontmatter;
 			}
 			if ( $i++ % $chunks === 0 ) {
-				yield $j++ => __( 'Cloning front-matter', 'pressbooks' );
+				yield $j++ => sprintf( __( 'Cloning front-matter (%1$d of %2$d)', 'pressbooks' ), $i, $total );
 			}
 		}
 
 		// Clone Parts and chapters
-		yield 50 => __( 'Cloning parts and Chapters', 'pressbooks' );
+		yield 50 => __( 'Cloning parts and chapters', 'pressbooks' );
 		$i = 0;
 		$j = 50;
 		$total = 0;
@@ -473,7 +479,7 @@ class Cloner {
 						$this->clonedItems['chapters'][] = $new_chapter;
 					}
 					if ( $i++ % $chunks === 0 ) {
-						yield $j++ => __( 'Cloning parts and Chapters', 'pressbooks' );
+						yield $j++ => sprintf( __( 'Cloning parts and chapters (%1$d of %2$d)', 'pressbooks' ), $i, $total );
 					}
 				}
 			}
@@ -491,7 +497,7 @@ class Cloner {
 				$this->clonedItems['back-matter'][] = $new_backmatter;
 			}
 			if ( $i++ % $chunks === 0 ) {
-				yield $j++ => __( 'Cloning back-matter', 'pressbooks' );
+				yield $j++ => sprintf( __( 'Cloning back-matter (%1$d of %2$d)', 'pressbooks' ), $i, $total );
 			}
 		}
 
@@ -507,7 +513,7 @@ class Cloner {
 				$this->clonedItems['glossary'][] = $new_glossary;
 			}
 			if ( $i++ % $chunks === 0 ) {
-				yield $j++ => __( 'Cloning glossary', 'pressbooks' );
+				yield $j++ => sprintf( __( 'Cloning glossary (%1$d of %2$d)', 'pressbooks' ), $i, $total );
 			}
 		}
 
