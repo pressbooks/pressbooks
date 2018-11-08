@@ -310,12 +310,108 @@ class Cloner {
 	 * @return bool
 	 */
 	public function cloneBook() {
-
-		if ( ! $this->setupSource() ) {
+		try {
+			foreach ( $this->cloneBookGenerator() as $percentage => $info ) {
+				// Do nothing, this is a compatibility wrapper
+				// var_dump( print_r( [ $percentage => $info ], true ) );
+			}
+		} catch ( \Exception $e ) {
 			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Clone a book in its entirety, send event-stream responses (SSE) between 0-100 back to browser so that progress can be tracked.
+	 *
+	 * @since 5.7.0
+	 */
+	public function cloneBookStream() {
+		// TODO: add_action( 'wp_ajax_clone', [ $this, 'cloneBookStream' ] );
+
+		// Turn off PHP output compression
+		ini_set( 'output_buffering', 'off' );
+		ini_set( 'zlib.output_compression', false );
+
+		if ( $GLOBALS['is_nginx'] ) {
+			// Setting this header instructs Nginx to disable fastcgi_buffering
+			// and disable gzip for this request.
+			header( 'X-Accel-Buffering: no' );
+			header( 'Content-Encoding: none' );
+		}
+
+		// Start the event stream.
+		header( 'Content-Type: text/event-stream' );
+
+		// 2KB padding for IE
+		echo ':' . str_repeat( ' ', 2048 ) . "\n\n";
+
+		// Time to run the clone!
+		ignore_user_abort( true );
+		set_time_limit( apply_filters( 'pb_set_time_limit', 0, 'stream' ) );
+
+		// Ensure we're not buffered.
+		wp_ob_end_flush_all();
+		flush();
+
+		$complete = [
+			'action' => 'complete',
+			'error' => false,
+		];
+
+		try {
+			foreach ( $this->cloneBookGenerator() as $percentage => $info ) {
+				$data = [
+					'action' => 'updateStatusBar',
+					'percentage' => $percentage,
+					'info' => $info,
+				];
+				$this->emitMessage( $data );
+			}
+		} catch ( \Exception $e ) {
+			$complete['error'] = $e->getMessage();
+		}
+
+		flush();
+		$this->emitMessage( $complete );
+
+		if ( ! defined( 'WP_TESTS_MULTISITE' ) ) {
+			exit;
+		}
+	}
+
+	/**
+	 * Emit a Server-Sent Events message.
+	 *
+	 * @param mixed $data Data to be JSON-encoded and sent in the message.
+	 */
+	protected function emitMessage( $data ) {
+		echo "event: message\n";
+		echo 'data: ' . wp_json_encode( $data ) . "\n\n";
+
+		// Extra padding.
+		echo ':' . str_repeat( ' ', 2048 ) . "\n\n";
+
+		flush();
+	}
+
+
+	/**
+	 * Generator that yields values between 0-100, represents the percentage of progress when cloning a book in its entirety
+	 *
+	 * @since 5.7.0
+	 * @throws \Exception
+	 * @return \Generator
+	 */
+	public function cloneBookGenerator() {
+
+		yield 1 => __( 'Setting up source', 'pressbooks' );
+		if ( ! $this->setupSource() ) {
+			throw new \Exception( ! empty( $_SESSION['pb_errors'][0] ) ? $_SESSION['pb_errors'][0] : '' );
 		}
 
 		// Create Book
+		yield 10  => __( 'Creating destination book', 'pressbooks' );
 		$this->targetBookId = $this->createBook();
 		$this->targetBookUrl = get_blogaddress_by_id( $this->targetBookId );
 
@@ -326,9 +422,11 @@ class Cloner {
 		$this->clonePreProcess();
 
 		// Clone Metadata
+		yield 20  => __( 'Cloning metadata', 'pressbooks' );
 		$this->clonedItems['metadata'][] = $this->cloneMetadata();
 
 		// Clone Taxonomy Terms
+		yield 30  => __( 'Cloning taxonomies', 'pressbooks' );
 		$this->targetBookTerms = $this->getBookTerms( $this->targetBookUrl );
 		foreach ( $this->sourceBookTerms as $term ) {
 			$new_term = $this->cloneTerm( $term['id'] );
@@ -339,41 +437,77 @@ class Cloner {
 		}
 
 		// Clone Front Matter
+		yield 40 => __( 'Cloning front-matter', 'pressbooks' );
+		$i = 0;
+		$j = 40;
+		$total = count( $this->sourceBookStructure['front-matter'] );
+		$chunks = max( round( $total / 10 ), 1 );
 		foreach ( $this->sourceBookStructure['front-matter'] as $frontmatter ) {
 			$new_frontmatter = $this->cloneFrontMatter( $frontmatter['id'] );
 			if ( $new_frontmatter !== false ) {
 				$this->clonedItems['front-matter'][] = $new_frontmatter;
 			}
+			if ( $i++ % $chunks === 0 ) {
+				yield $j++ => __( 'Cloning front-matter', 'pressbooks' );
+			}
 		}
 
-		// Clone Parts
+		// Clone Parts and chapters
+		yield 50 => __( 'Cloning parts and Chapters', 'pressbooks' );
+		$i = 0;
+		$j = 50;
+		$total = 0;
+		foreach ( $this->sourceBookStructure['parts'] as $key => $part ) {
+			foreach ( $this->sourceBookStructure['parts'][ $key ]['chapters'] as $chapter ) {
+				$total++;
+			}
+		}
+		$chunks = max( round( $total / 30 ), 1 );
 		foreach ( $this->sourceBookStructure['parts'] as $key => $part ) {
 			$new_part = $this->clonePart( $part['id'] );
 			if ( $new_part !== false ) {
 				$this->clonedItems['parts'][] = $new_part;
-				// Clone Chapters
 				foreach ( $this->sourceBookStructure['parts'][ $key ]['chapters'] as $chapter ) {
 					$new_chapter = $this->cloneChapter( $chapter['id'], $new_part );
 					if ( $new_chapter !== false ) {
 						$this->clonedItems['chapters'][] = $new_chapter;
+					}
+					if ( $i++ % $chunks === 0 ) {
+						yield $j++ => __( 'Cloning parts and Chapters', 'pressbooks' );
 					}
 				}
 			}
 		}
 
 		// Clone Back Matter
+		yield 80 => __( 'Cloning back-matter', 'pressbooks' );
+		$i = 0;
+		$j = 80;
+		$total = count( $this->sourceBookStructure['back-matter'] );
+		$chunks = max( round( $total / 10 ), 1 );
 		foreach ( $this->sourceBookStructure['back-matter'] as $backmatter ) {
 			$new_backmatter = $this->cloneBackMatter( $backmatter['id'] );
 			if ( $new_backmatter !== false ) {
 				$this->clonedItems['back-matter'][] = $new_backmatter;
 			}
+			if ( $i++ % $chunks === 0 ) {
+				yield $j++ => __( 'Cloning back-matter', 'pressbooks' );
+			}
 		}
 
 		// Clone Glossary
+		yield 90 => __( 'Cloning glossary', 'pressbooks' );
+		$i = 0;
+		$j = 90;
+		$total = count( $this->sourceBookGlossary );
+		$chunks = max( round( $total / 10 ), 1 );
 		foreach ( $this->sourceBookGlossary as $glossary ) {
 			$new_glossary = $this->cloneGlossary( $glossary['id'] );
 			if ( $new_glossary !== false ) {
 				$this->clonedItems['glossary'][] = $new_glossary;
+			}
+			if ( $i++ % $chunks === 0 ) {
+				yield $j++ => __( 'Cloning glossary', 'pressbooks' );
 			}
 		}
 
@@ -383,7 +517,7 @@ class Cloner {
 		wp_defer_term_counting( false ); // Flush
 		restore_current_blog();
 
-		return true;
+		yield 100 => __( 'Done', 'pressbooks' );
 	}
 
 	/**
