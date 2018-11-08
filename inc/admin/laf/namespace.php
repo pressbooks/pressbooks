@@ -949,7 +949,12 @@ function init_css_js() {
 	// Enqueue later, on-the-fly, using action: admin_print_scripts-
 	wp_register_script( 'jquery-blockui', $assets->getPath( 'scripts/blockui.js' ), [ 'jquery', 'jquery-ui-core' ] );
 	wp_register_script( 'cssanimations', $assets->getPath( 'scripts/cssanimations.js' ), false );
-	wp_register_script( 'pb-cloner', $assets->getPath( 'scripts/cloner.js' ), [ 'jquery', 'cssanimations' ] );
+
+	// TODO: This loads jquery UI everywhere, enqueue it correctly so that it's loaded only when needed...
+	wp_register_script( 'pb-cloner', $assets->getPath( 'scripts/cloner.js' ), [ 'jquery', 'jquery-ui-progressbar', 'cssanimations' ] );
+	$wp_scripts = wp_scripts();
+	wp_enqueue_style( 'pb-cloner', 'https://ajax.googleapis.com/ajax/libs/jqueryui/' . $wp_scripts->registered['jquery-ui-core']->ver . '/themes/smoothness/jquery-ui.css' );
+
 	wp_register_script( 'pb-export', $assets->getPath( 'scripts/export.js' ), [ 'jquery', 'cssanimations' ] );
 	wp_register_script( 'pb-organize', $assets->getPath( 'scripts/organize.js' ), [ 'jquery', 'jquery-ui-core', 'jquery-blockui', 'cssanimations' ] );
 	wp_register_script( 'pb-metadata', $assets->getPath( 'scripts/book-information.js' ), [ 'jquery' ], false, true );

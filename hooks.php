@@ -320,3 +320,8 @@ if ( $is_book ) {
 
 add_action( 'init', [ '\Pressbooks\Privacy', 'init' ], 9 ); // Must come before `add_action( 'init', 'wp_schedule_delete_old_privacy_export_files' );`
 
+// TODO: This hardcodes cloning. `cloneBookStream` needs to be separate from cloner class because the constructor expects source & dest params
+add_action( 'init', function() {
+	$demo = new \Pressbooks\Cloner( esc_url( 'https://theproblemofphilosophy.pressbooks.com/' ), 'demo' . rand() );
+	add_action( 'wp_ajax_clone', [ $demo, 'cloneBookStream' ] );
+} );

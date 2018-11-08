@@ -406,7 +406,7 @@ class Cloner {
 
 		yield 1 => __( 'Setting up source', 'pressbooks' );
 		if ( ! $this->setupSource() ) {
-			throw new \Exception( ! empty( $_SESSION['pb_errors'][0] ) ? $_SESSION['pb_errors'][0] : '' );
+			throw new \Exception( ! empty( $_SESSION['pb_errors'][0] ) ? $_SESSION['pb_errors'][0] : __( 'Failed to setup source', 'pressbooks' ) );
 		}
 
 		// Create Book
