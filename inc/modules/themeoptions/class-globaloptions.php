@@ -94,7 +94,7 @@ class GlobalOptions extends \Pressbooks\Options {
 			$_page,
 			$_section,
 			[
-				__( 'Customize the label for parts used in exports and the webbook.', 'pressbooks' ),
+				__( 'The "part" label is used in the table of contents and in part titles in your webbook and exports.', 'pressbooks' ),
 			]
 		);
 
@@ -105,7 +105,7 @@ class GlobalOptions extends \Pressbooks\Options {
 			$_page,
 			$_section,
 			[
-				__( 'Customize the label for chapters used in exports and the webbook.', 'pressbooks' ),
+				__( 'The "chapter" label is used in the table of contents and in chapter titles in your webbook and exports.', 'pressbooks' ),
 			]
 		);
 
