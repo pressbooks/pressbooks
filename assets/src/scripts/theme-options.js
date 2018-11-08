@@ -3,8 +3,36 @@
 jQuery( function ( $ ) {
 	$( '.select2' ).select2();
 	$( '.color-picker' ).wpColorPicker();
+	let chapter_numbers = $( '#chapter_numbers' );
 
 	$( document ).ready( function () {
+		// Init
+		if ( chapter_numbers.is( ':checked' ) ) {
+			$( '#part_label, #chapter_label' )
+				.parent()
+				.parent()
+				.show();
+		} else {
+			$( '#part_label, #chapter_label' )
+				.parent()
+				.parent()
+				.hide();
+		}
+
+		// On change
+		chapter_numbers.change( function () {
+			if ( this.checked ) {
+				$( '#part_label, #chapter_label' )
+					.parent()
+					.parent()
+					.show();
+			} else {
+				$( '#part_label, #chapter_label' )
+					.parent()
+					.parent()
+					.hide();
+			}
+		} );
 		if ( $( '#pdf_page_size' ).val() !== '10' ) {
 			$( '#pdf_page_width, #pdf_page_height' )
 				.parent()
