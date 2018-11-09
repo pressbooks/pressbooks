@@ -364,7 +364,7 @@ class Cloner {
 
 		// Clone Taxonomy Terms
 		yield 30 => __( 'Cloning taxonomies', 'pressbooks' );
-		$i = 0; // Number of taxonomies cloned
+		$i = 1; // Number of taxonomies cloned
 		$j = 30; // Estimated progress of execution
 		$total = count( $this->sourceBookTerms );
 		$chunks = max( round( $total / 10 ), 1 );
@@ -376,14 +376,14 @@ class Cloner {
 				$this->termMap[ $term['id'] ] = $new_term;
 				$this->clonedItems['terms'][] = $new_term;
 			}
-			if ( $i++ % $chunks === 0 ) {
-				$j++;
+			if ( ++$i % $chunks === 0 ) {
+				++$j;
 			}
 		}
 
 		// Clone Front Matter
 		yield 40 => __( 'Cloning front-matter', 'pressbooks' );
-		$i = 0; // Number of front-matter cloned
+		$i = 1; // Number of front-matter cloned
 		$j = 40; // Estimated progress of execution
 		$total = count( $this->sourceBookStructure['front-matter'] );
 		$chunks = max( round( $total / 10 ), 1 );
@@ -393,14 +393,14 @@ class Cloner {
 			if ( $new_frontmatter !== false ) {
 				$this->clonedItems['front-matter'][] = $new_frontmatter;
 			}
-			if ( $i++ % $chunks === 0 ) {
-				$j++;
+			if ( ++$i % $chunks === 0 ) {
+				++$j;
 			}
 		}
 
 		// Clone Parts and chapters
 		yield 50 => __( 'Cloning parts and chapters', 'pressbooks' );
-		$i = 0; // Number of parts and chapters cloned
+		$i = 1; // Number of parts and chapters cloned
 		$j = 50; // Estimated progress of execution
 		$total = 0;
 		foreach ( $this->sourceBookStructure['parts'] as $key => $part ) {
@@ -421,8 +421,8 @@ class Cloner {
 					if ( $new_chapter !== false ) {
 						$this->clonedItems['chapters'][] = $new_chapter;
 					}
-					if ( $i++ % $chunks === 0 ) {
-						$j++;
+					if ( ++$i % $chunks === 0 ) {
+						++$j;
 					}
 				}
 			}
@@ -430,7 +430,7 @@ class Cloner {
 
 		// Clone Back Matter
 		yield 80 => __( 'Cloning back-matter', 'pressbooks' );
-		$i = 0; // Number of back-matter cloned
+		$i = 1; // Number of back-matter cloned
 		$j = 80; // Estimated progress of execution
 		$total = count( $this->sourceBookStructure['back-matter'] );
 		$chunks = max( round( $total / 10 ), 1 );
@@ -440,14 +440,14 @@ class Cloner {
 			if ( $new_backmatter !== false ) {
 				$this->clonedItems['back-matter'][] = $new_backmatter;
 			}
-			if ( $i++ % $chunks === 0 ) {
-				$j++;
+			if ( ++$i % $chunks === 0 ) {
+				++$j;
 			}
 		}
 
 		// Clone Glossary
 		yield 90 => __( 'Cloning glossary terms', 'pressbooks' );
-		$i = 0; // Number of glossary terms cloned
+		$i = 1; // Number of glossary terms cloned
 		$j = 90; // Estimated progress of execution
 		$total = count( $this->sourceBookGlossary );
 		$chunks = max( round( $total / 10 ), 1 );
@@ -457,8 +457,8 @@ class Cloner {
 			if ( $new_glossary !== false ) {
 				$this->clonedItems['glossary'][] = $new_glossary;
 			}
-			if ( $i++ % $chunks === 0 ) {
-				$j++;
+			if ( ++$i % $chunks === 0 ) {
+				++$j;
 			}
 		}
 
