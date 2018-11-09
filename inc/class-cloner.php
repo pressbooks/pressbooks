@@ -14,7 +14,6 @@ use function Pressbooks\Image\strip_baseurl as image_strip_baseurl;
 use function Pressbooks\Media\strip_baseurl as media_strip_baseurl;
 use function Pressbooks\Metadata\schema_to_book_information;
 use function Pressbooks\Metadata\schema_to_section_information;
-use function Pressbooks\Utility\getset;
 use function Pressbooks\Utility\oxford_comma_explode;
 use function Pressbooks\Utility\str_ends_with;
 use function Pressbooks\Utility\str_lreplace;
@@ -300,6 +299,20 @@ class Cloner {
 	 */
 	public function getClonedItems() {
 		return $this->clonedItems;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getTargetBookUrl() {
+		return $this->targetBookUrl;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getTargetBookTitle() {
+		return $this->targetBookTitle;
 	}
 
 	/**
@@ -2058,77 +2071,4 @@ class Cloner {
 		return (bool) $enable_cloning;
 	}
 
-	/**
-	 * Check if a user submitted something to options.php?page=pb_cloner
-	 *
-	 * @return bool
-	 */
-	public static function isFormSubmission() {
-
-		if ( empty( $_REQUEST['page'] ) ) {
-			return false;
-		}
-
-		if ( 'pb_cloner' !== $_REQUEST['page'] ) {
-			return false;
-		}
-
-		if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
-			return true;
-		}
-
-		return false;
-	}
-
-	/**
-	 * Handle form submission.
-	 */
-	public static function formSubmit() {
-		if ( ! static::isFormSubmission() ) {
-			return;
-		}
-
-		if ( isset( $_POST['_wpnonce'] ) && wp_verify_nonce( $_POST['_wpnonce'], 'pb-cloner' ) ) {
-			if ( isset( $_POST['source_book_url'] ) && ! empty( $_POST['source_book_url'] ) && isset( $_POST['target_book_url'] ) && ! empty( $_POST['target_book_url'] ) ) {
-				$bookname = \Pressbooks\Cloner::validateNewBookName( $_POST['target_book_url'] );
-				$booktitle = $_POST['target_book_title'] ?? '';
-				if ( is_wp_error( $bookname ) ) {
-					$_SESSION['pb_errors'][] = $bookname->get_error_message();
-				} else {
-					/**
-					 * Maximum execution time, in seconds. If set to zero, no time limit
-					 * Overrides PHP's max_execution_time of a Nginx->PHP-FPM->PHP configuration
-					 * See also request_terminate_timeout (PHP-FPM) and fastcgi_read_timeout (Nginx)
-					 *
-					 * @since 5.6.0
-					 *
-					 * @param int $seconds
-					 * @param string $some_action
-					 *
-					 * @return int
-					 */
-					@set_time_limit( apply_filters( 'pb_set_time_limit', 600, 'clone' ) ); // @codingStandardsIgnoreLine
-					$cloner = new Cloner( esc_url( $_POST['source_book_url'] ), $bookname, $booktitle );
-					if ( $cloner->cloneBook() ) {
-						$_SESSION['pb_notices'][] = sprintf(
-							__( 'Cloning succeeded! Cloned %1$s, %2$s, %3$s, %4$s, %5$s, %6$s, and %7$s to %8$s.', 'pressbooks' ),
-							sprintf( _n( '%s term', '%s terms', count( getset( $cloner->clonedItems, 'terms', [] ) ), 'pressbooks' ), count( getset( $cloner->clonedItems, 'terms', [] ) ) ),
-							sprintf( _n( '%s front matter', '%s front matter', count( getset( $cloner->clonedItems, 'front-matter', [] ) ), 'pressbooks' ), count( getset( $cloner->clonedItems, 'front-matter', [] ) ) ),
-							sprintf( _n( '%s part', '%s parts', count( getset( $cloner->clonedItems, 'parts', [] ) ), 'pressbooks' ), count( getset( $cloner->clonedItems, 'parts', [] ) ) ),
-							sprintf( _n( '%s chapter', '%s chapters', count( getset( $cloner->clonedItems, 'chapters', [] ) ), 'pressbooks' ), count( getset( $cloner->clonedItems, 'chapters', [] ) ) ),
-							sprintf( _n( '%s back matter', '%s back matter', count( getset( $cloner->clonedItems, 'back-matter', [] ) ), 'pressbooks' ), count( getset( $cloner->clonedItems, 'back-matter', [] ) ) ),
-							sprintf( _n( '%s media attachment', '%s media attachments', count( getset( $cloner->clonedItems, 'media', [] ) ), 'pressbooks' ), count( getset( $cloner->clonedItems, 'media', [] ) ) ),
-							sprintf( _n( '%s glossary term', '%s glossary terms', count( getset( $cloner->clonedItems, 'glossary', [] ) ), 'pressbooks' ), count( getset( $cloner->clonedItems, 'glossary', [] ) ) ),
-							sprintf( '<a href="%1$s"><em>%2$s</em></a>', trailingslashit( $cloner->targetBookUrl ) . 'wp-admin/', $cloner->targetBookTitle )
-						);
-					} elseif ( empty( $_SESSION['pb_errors'] ) ) {
-						$_SESSION['pb_errors'][] = __( 'Cloning failed.', 'pressbooks' );
-					}
-				}
-				\Pressbooks\Redirect\location( admin_url( 'options.php?page=pb_cloner' ) );
-			} else {
-				$_SESSION['pb_errors'][] = __( 'You must enter a valid URL for a book on a Pressbooks network running Pressbooks 4.1 or greater as well as a new URL for your cloned book.', 'pressbooks' );
-			}
-		}
-	}
 }

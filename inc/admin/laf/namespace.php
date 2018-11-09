@@ -295,7 +295,8 @@ function replace_book_admin_menu() {
 				if ( $hook === $cloner_page ) {
 					wp_localize_script(
 						'pb-cloner', 'PB_ClonerToken', [
-							'url' => wp_nonce_url( admin_url( 'admin-ajax.php?action=clone-book' ), 'pb-cloner' ),
+							'ajaxUrl' => wp_nonce_url( admin_url( 'admin-ajax.php?action=clone-book' ), 'pb-cloner' ),
+							'redirectUrl' => admin_url( 'options.php?page=pb_cloner' ),
 						]
 					);
 					wp_enqueue_style( 'jquery-ui' );
@@ -1238,30 +1239,54 @@ function display_privacy_settings() {
  */
 function admin_notices() {
 
+	$errors_to_print = [];
 	if ( ! empty( $_SESSION['pb_errors'] ) ) {
 		// Array-ify the error(s).
 		if ( ! is_array( $_SESSION['pb_errors'] ) ) {
 			$_SESSION['pb_errors'] = [ $_SESSION['pb_errors'] ];
 		}
-		// Print the error(s).
-		foreach ( $_SESSION['pb_errors'] as $msg ) {
-			echo '<div class="error"><p>' . $msg . '</p></div>';
-		}
+		$errors_to_print = array_merge( $errors_to_print, $_SESSION['pb_errors'] );
 		// Destroy the session.
 		unset( $_SESSION['pb_errors'] );
 	}
+	$errors_transient = get_transient( 'pb_errors' . get_current_user_id() );
+	if ( ! empty( $errors_transient ) ) {
+		// Array-ify the error(s).
+		if ( ! is_array( $errors_transient ) ) {
+			$errors_transient = [ $errors_transient ];
+		}
+		$errors_to_print = array_merge( $errors_to_print, $errors_transient );
+		// Destroy the transient.
+		delete_transient( 'pb_errors' . get_current_user_id() );
+	}
+	// Print the error(s).
+	foreach ( $errors_to_print as $msg ) {
+		echo '<div class="error"><p>' . $msg . '</p></div>';
+	}
 
+	$notices_to_print = [];
 	if ( ! empty( $_SESSION['pb_notices'] ) ) {
 		// Array-ify the notice(s).
 		if ( ! is_array( $_SESSION['pb_notices'] ) ) {
 			$_SESSION['pb_notices'] = [ $_SESSION['pb_notices'] ];
 		}
-		// Print the notice(s).
-		foreach ( $_SESSION['pb_notices'] as $msg ) {
-			echo '<div class="updated"><p>' . $msg . '</p></div>';
-		}
+		$notices_to_print = array_merge( $notices_to_print, $_SESSION['pb_notices'] );
 		// Destroy the session.
 		unset( $_SESSION['pb_notices'] );
+	}
+	$notices_transient = get_transient( 'pb_notices' . get_current_user_id() );
+	if ( ! empty( $notices_transient ) ) {
+		// Array-ify the error(s).
+		if ( ! is_array( $notices_transient ) ) {
+			$notices_transient = [ $notices_transient ];
+		}
+		$notices_to_print = array_merge( $notices_to_print, $notices_transient );
+		// Destroy the transient.
+		delete_transient( 'pb_notices' . get_current_user_id() );
+	}
+	// Print the notice(s).
+	foreach ( $notices_to_print as $msg ) {
+		echo '<div class="updated"><p>' . $msg . '</p></div>';
 	}
 }
 

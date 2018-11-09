@@ -74,6 +74,35 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		$this->assertContains( '<div class="clear"></div>', $buffer );
 	}
 
+	function test_admin_notices() {
+		$_SESSION['pb_errors'] = 'One';
+		set_transient( 'pb_errors' . get_current_user_id(), 'Two' );
+		$_SESSION['pb_notices'] = 'Three';
+		set_transient( 'pb_notices' . get_current_user_id(), 'Four' );
+
+		ob_start();
+		\Pressbooks\Admin\Laf\admin_notices();
+		$buffer = ob_get_clean();
+		$this->assertEquals( '<div class="error"><p>One</p></div><div class="error"><p>Two</p></div><div class="updated"><p>Three</p></div><div class="updated"><p>Four</p></div>', $buffer );
+
+		$_SESSION['pb_errors'][] = 'One';
+		$_SESSION['pb_errors'][] = 'Two';
+		set_transient( 'pb_errors' . get_current_user_id(), [ 'Three', 'Four' ] );
+		$_SESSION['pb_notices'][] = 'Five';
+		$_SESSION['pb_notices'][] = 'Six';
+		set_transient( 'pb_notices' . get_current_user_id(), [ 'Seven', 'Eight' ] );
+
+		ob_start();
+		\Pressbooks\Admin\Laf\admin_notices();
+		$buffer = ob_get_clean();
+		$this->assertEquals( '<div class="error"><p>One</p></div><div class="error"><p>Two</p></div><div class="error"><p>Three</p></div><div class="error"><p>Four</p></div><div class="updated"><p>Five</p></div><div class="updated"><p>Six</p></div><div class="updated"><p>Seven</p></div><div class="updated"><p>Eight</p></div>', $buffer );
+
+		ob_start();
+		\Pressbooks\Admin\Laf\admin_notices();
+		$buffer = ob_get_clean();
+		$this->assertEmpty( $buffer );
+	}
+
 	function test_sites_to_books() {
 		$result = \Pressbooks\Admin\Laf\sites_to_books( __( 'Sites' ), 'Sites', '' );
 		$this->assertEquals( 'Books', $result );
