@@ -7303,10 +7303,10 @@ package-json@^4.0.0:
     registry-url "^3.0.3"
     semver "^5.1.0"
 
-pagedjs@^0.1.22:
-  version "0.1.22"
-  resolved "https://registry.yarnpkg.com/pagedjs/-/pagedjs-0.1.22.tgz#b2e3db3b61bdb25e96cd3f0dea1b6aca2ed9d894"
-  integrity sha512-GjP21l2Q0Bly2a3auyujrKz0XGOOvhCW7brCxo9JziuWGTbS+WTmCfpsdnnEitDmCFIyLd6RnwLfRMPE6qjvmQ==
+pagedjs@^0.1.23:
+  version "0.1.23"
+  resolved "https://registry.yarnpkg.com/pagedjs/-/pagedjs-0.1.23.tgz#347fbc96f89f1a6cff7a8b056581f735f0eddfaf"
+  integrity sha512-QFQB0C6O/bmvZJrXH8fArKVPSeNpL6oHjw3+ShtQIC6eru1fIMDMeouGCt/KnlZnM5LIt5QBL730Sdd3x9tmiQ==
   dependencies:
     css-tree "1.0.0-alpha.29"
     event-emitter "^0.3.5"
