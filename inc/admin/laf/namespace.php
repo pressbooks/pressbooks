@@ -293,6 +293,12 @@ function replace_book_admin_menu() {
 		add_action(
 			'admin_enqueue_scripts', function ( $hook ) use ( $cloner_page ) {
 				if ( $hook === $cloner_page ) {
+					wp_localize_script(
+						'pb-cloner', 'PB_ClonerToken', [
+							'url' => wp_nonce_url( admin_url( 'admin-ajax.php?action=clone-book' ), 'pb-cloner' ),
+						]
+					);
+					wp_enqueue_style( 'jquery-ui' );
 					wp_enqueue_style( 'pb-cloner' );
 					wp_enqueue_script( 'pb-cloner' );
 				}
@@ -946,29 +952,26 @@ function init_css_js() {
 		}
 	);
 
-	// Enqueue later, on-the-fly, using action: admin_print_scripts-
+	// Register scripts for later, on-the-fly, using action: admin_print_scripts- (or other tricks of the shade)
 	wp_register_script( 'jquery-blockui', $assets->getPath( 'scripts/blockui.js' ), [ 'jquery', 'jquery-ui-core' ] );
 	wp_register_script( 'cssanimations', $assets->getPath( 'scripts/cssanimations.js' ), false );
-
-	// TODO: This loads jquery UI everywhere, enqueue it correctly so that it's loaded only when needed...
 	wp_register_script( 'pb-cloner', $assets->getPath( 'scripts/cloner.js' ), [ 'jquery', 'jquery-ui-progressbar', 'cssanimations' ] );
-	$wp_scripts = wp_scripts();
-	wp_enqueue_style( 'pb-cloner', 'https://ajax.googleapis.com/ajax/libs/jqueryui/' . $wp_scripts->registered['jquery-ui-core']->ver . '/themes/smoothness/jquery-ui.css' );
-
 	wp_register_script( 'pb-export', $assets->getPath( 'scripts/export.js' ), [ 'jquery', 'cssanimations' ] );
-	wp_register_script( 'pb-organize', $assets->getPath( 'scripts/organize.js' ), [ 'jquery', 'jquery-ui-core', 'jquery-blockui', 'cssanimations' ] );
+	wp_register_script( 'pb-organize', $assets->getPath( 'scripts/organize.js' ), [ 'jquery', 'jquery-ui-core', 'jquery-ui-sortable', 'jquery-blockui', 'cssanimations' ] );
 	wp_register_script( 'pb-metadata', $assets->getPath( 'scripts/book-information.js' ), [ 'jquery' ], false, true );
 	wp_register_script( 'pb-import', $assets->getPath( 'scripts/import.js' ), [ 'jquery' ] );
 	wp_register_script( 'pb-post-visibility', $assets->getPath( 'scripts/post-visibility.js' ), [ 'jquery' ], false, true );
 	wp_register_script( 'pb-post-back-matter', $assets->getPath( 'scripts/post-back-matter.js' ), [ 'jquery', 'editor' ], false, true );
 
+	// Register styles for later, on-the-fly, using action: admin_print_scripts- (or other tricks of the shade)
 	wp_register_style( 'pb-cloner', $assets->getPath( 'styles/cloner.css' ) );
 	wp_register_style( 'pb-export', $assets->getPath( 'styles/export.css' ) );
 	wp_register_style( 'pb-organize', $assets->getPath( 'styles/organize.css' ) );
+	wp_register_style( 'jquery-ui', 'https://ajax.googleapis.com/ajax/libs/jqueryui/' . wp_scripts()->registered['jquery-ui-core']->ver . '/themes/smoothness/jquery-ui.css' );
 
+	// Always enqueue jquery and jquery-ui-core because we use them all over the place
 	wp_enqueue_script( 'jquery' );
 	wp_enqueue_script( 'jquery-ui-core' );
-	wp_enqueue_script( 'jquery-ui-sortable' );
 }
 
 /* ------------------------------------------------------------------------ *

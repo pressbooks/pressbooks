@@ -1,31 +1,42 @@
 jQuery( function ( $ ) {
-	$( '#pb-cloner-button' ).click( event => {
-		event.preventDefault();
+	$( '#pb-cloner-form' ).on( 'submit', function ( e ) {
+		e.preventDefault();
 		$( '#pb-cloner-button' ).attr( 'disabled', true );
-		/*
-		$( '#loader' ).css( 'display', 'inline-block' );
-		const submission = function () {
-			$( '#pb-cloner-form' ).submit();
+		let form = $( '#pb-cloner-form' );
+		let params = {
+			'sourceUrl': form.find( 'input[name="source_book_url"]' ).val(),
+			'targetUrl': form.find( 'input[name="target_book_url"]' ).val(),
+			'targetTitle': form.find( 'input[name="target_book_title"]' ).val(),
 		};
-		setTimeout( submission, 0 );
-		*/
-
-		let evtSource = new EventSource( 'https://pressbooks.test/test1/wp-admin/admin-ajax.php?action=clone' );
-		evtSource.onmessage = function( message ) {
+		let eventSourceUrl = PB_ClonerToken.url + '&' + jQuery.param( params );
+		let evtSource = new EventSource( eventSourceUrl );
+		evtSource.onopen = function () {
+			$( '#pb-cloner-button' ).hide();
+		};
+		evtSource.onmessage = function ( message ) {
 			let data = JSON.parse( message.data );
 			switch ( data.action ) {
 				case 'updateStatusBar':
-					$( "#pb-cloner-progressbar" ).progressbar( {
-						value: parseInt( data.percentage, 10 )
-					} );
-					$( "#pb-cloner-progressbar-info" ).html( data.info );
+					$( '#pb-sse-progressbar' ).progressbar( { value: parseInt( data.percentage, 10 ) } );
+					$( '#pb-sse-info' ).html( data.info );
 					break;
 				case 'complete':
 					evtSource.close();
-					alert('OMG THIS ACTUALLY WORKS?!')
+					if ( data.error ) {
+						$( '#pb-sse-progressbar' ).progressbar( { value: false } );
+						$( '#pb-sse-info' ).html( data.error );
+					} else {
+						// TODO: Redirect somewhere?
+					}
+					break;
+				default:
 					break;
 			}
-		}
-
+		};
+		evtSource.onerror = function () {
+			evtSource.close();
+			$( '#pb-sse-progressbar' ).progressbar( { value: false } );
+			$( '#pb-sse-info' ).html( '500 Internal Server Error' );
+		};
 	} );
 } );

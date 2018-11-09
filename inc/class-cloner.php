@@ -312,7 +312,7 @@ class Cloner {
 	public function cloneBook() {
 		try {
 			foreach ( $this->cloneBookGenerator() as $percentage => $info ) {
-				// Do nothing, this is a compatibility wrapper
+				// Do nothing, this is a compatibility wrapper that makes the generator work like a regular function
 			}
 		} catch ( \Exception $e ) {
 			return false;
@@ -321,82 +321,7 @@ class Cloner {
 	}
 
 	/**
-	 * Clone a book in its entirety, send event-stream responses (SSE) between 0-100 back to browser so that progress can be tracked.
-	 *
-	 * @since 5.7.0
-	 */
-	public function cloneBookStream() {
-		// TODO: add_action( 'wp_ajax_clone', [ $this, 'cloneBookStream' ] );
-
-		// Turn off PHP output compression
-		ini_set( 'output_buffering', 'off' );
-		ini_set( 'zlib.output_compression', false );
-
-		if ( $GLOBALS['is_nginx'] ) {
-			// Setting this header instructs Nginx to disable fastcgi_buffering
-			// and disable gzip for this request.
-			header( 'X-Accel-Buffering: no' );
-			header( 'Content-Encoding: none' );
-		}
-
-		// Start the event stream.
-		header( 'Content-Type: text/event-stream' );
-
-		// 2KB padding for IE
-		echo ':' . str_repeat( ' ', 2048 ) . "\n\n";
-
-		// Time to run the clone!
-		ignore_user_abort( true );
-		set_time_limit( apply_filters( 'pb_set_time_limit', 0, 'stream' ) );
-
-		// Ensure we're not buffered.
-		wp_ob_end_flush_all();
-		flush();
-
-		$complete = [
-			'action' => 'complete',
-			'error' => false,
-		];
-
-		try {
-			foreach ( $this->cloneBookGenerator() as $percentage => $info ) {
-				$data = [
-					'action' => 'updateStatusBar',
-					'percentage' => $percentage,
-					'info' => $info,
-				];
-				$this->emitMessage( $data );
-			}
-		} catch ( \Exception $e ) {
-			$complete['error'] = $e->getMessage();
-		}
-
-		flush();
-		$this->emitMessage( $complete );
-
-		if ( ! defined( 'WP_TESTS_MULTISITE' ) ) {
-			exit;
-		}
-	}
-
-	/**
-	 * Emit a Server-Sent Events message.
-	 *
-	 * @param mixed $data Data to be JSON-encoded and sent in the message.
-	 */
-	protected function emitMessage( $data ) {
-		echo "event: message\n";
-		echo 'data: ' . wp_json_encode( $data ) . "\n\n";
-
-		// Extra padding.
-		echo ':' . str_repeat( ' ', 2048 ) . "\n\n";
-
-		flush();
-	}
-
-
-	/**
-	 * Generator that yields values between 0-100, represents the percentage of progress when cloning a book in its entirety
+	 * Generator that yields values between 1-100, represents the percentage of progress when cloning a book in its entirety
 	 *
 	 * @since 5.7.0
 	 * @throws \Exception
@@ -404,13 +329,13 @@ class Cloner {
 	 */
 	public function cloneBookGenerator() {
 
-		yield 1 => __( 'Setting up source', 'pressbooks' );
+		yield 1 => __( 'Looking up the source book', 'pressbooks' );
 		if ( ! $this->setupSource() ) {
 			throw new \Exception( ! empty( $_SESSION['pb_errors'][0] ) ? $_SESSION['pb_errors'][0] : __( 'Failed to setup source', 'pressbooks' ) );
 		}
 
 		// Create Book
-		yield 10  => __( 'Creating destination book', 'pressbooks' );
+		yield 10  => __( 'Creating the target book', 'pressbooks' );
 		$this->targetBookId = $this->createBook();
 		$this->targetBookUrl = get_blogaddress_by_id( $this->targetBookId );
 
@@ -426,60 +351,65 @@ class Cloner {
 
 		// Clone Taxonomy Terms
 		yield 30 => __( 'Cloning taxonomies', 'pressbooks' );
-		$i = 0;
-		$j = 30;
+		$i = 0; // Number of taxonomies cloned
+		$j = 30; // Estimated progress of execution
 		$total = count( $this->sourceBookTerms );
 		$chunks = max( round( $total / 10 ), 1 );
 		$this->targetBookTerms = $this->getBookTerms( $this->targetBookUrl );
 		foreach ( $this->sourceBookTerms as $term ) {
+			yield $j => sprintf( __( 'Cloning taxonomies (%1$d of %2$d)', 'pressbooks' ), $i, $total );
 			$new_term = $this->cloneTerm( $term['id'] );
 			if ( $new_term ) {
 				$this->termMap[ $term['id'] ] = $new_term;
 				$this->clonedItems['terms'][] = $new_term;
 			}
 			if ( $i++ % $chunks === 0 ) {
-				yield $j++ => sprintf( __( 'Cloning taxonomies (%1$d of %2$d)', 'pressbooks' ), $i, $total );
+				$j++;
 			}
 		}
 
 		// Clone Front Matter
 		yield 40 => __( 'Cloning front-matter', 'pressbooks' );
-		$i = 0;
-		$j = 40;
+		$i = 0; // Number of front-matter cloned
+		$j = 40; // Estimated progress of execution
 		$total = count( $this->sourceBookStructure['front-matter'] );
 		$chunks = max( round( $total / 10 ), 1 );
 		foreach ( $this->sourceBookStructure['front-matter'] as $frontmatter ) {
+			yield $j => sprintf( __( 'Cloning front-matter (%1$d of %2$d)', 'pressbooks' ), $i, $total );
 			$new_frontmatter = $this->cloneFrontMatter( $frontmatter['id'] );
 			if ( $new_frontmatter !== false ) {
 				$this->clonedItems['front-matter'][] = $new_frontmatter;
 			}
 			if ( $i++ % $chunks === 0 ) {
-				yield $j++ => sprintf( __( 'Cloning front-matter (%1$d of %2$d)', 'pressbooks' ), $i, $total );
+				$j++;
 			}
 		}
 
 		// Clone Parts and chapters
 		yield 50 => __( 'Cloning parts and chapters', 'pressbooks' );
-		$i = 0;
-		$j = 50;
+		$i = 0; // Number of parts and chapters cloned
+		$j = 50; // Estimated progress of execution
 		$total = 0;
 		foreach ( $this->sourceBookStructure['parts'] as $key => $part ) {
+			$total++;
 			foreach ( $this->sourceBookStructure['parts'][ $key ]['chapters'] as $chapter ) {
 				$total++;
 			}
 		}
 		$chunks = max( round( $total / 30 ), 1 );
 		foreach ( $this->sourceBookStructure['parts'] as $key => $part ) {
+			yield $j => sprintf( __( 'Cloning parts and chapters (%1$d of %2$d)', 'pressbooks' ), $i, $total );
 			$new_part = $this->clonePart( $part['id'] );
 			if ( $new_part !== false ) {
 				$this->clonedItems['parts'][] = $new_part;
 				foreach ( $this->sourceBookStructure['parts'][ $key ]['chapters'] as $chapter ) {
+					yield $j => sprintf( __( 'Cloning parts and chapters (%1$d of %2$d)', 'pressbooks' ), $i, $total );
 					$new_chapter = $this->cloneChapter( $chapter['id'], $new_part );
 					if ( $new_chapter !== false ) {
 						$this->clonedItems['chapters'][] = $new_chapter;
 					}
 					if ( $i++ % $chunks === 0 ) {
-						yield $j++ => sprintf( __( 'Cloning parts and chapters (%1$d of %2$d)', 'pressbooks' ), $i, $total );
+						$j++;
 					}
 				}
 			}
@@ -487,33 +417,35 @@ class Cloner {
 
 		// Clone Back Matter
 		yield 80 => __( 'Cloning back-matter', 'pressbooks' );
-		$i = 0;
-		$j = 80;
+		$i = 0; // Number of back-matter cloned
+		$j = 80; // Estimated progress of execution
 		$total = count( $this->sourceBookStructure['back-matter'] );
 		$chunks = max( round( $total / 10 ), 1 );
 		foreach ( $this->sourceBookStructure['back-matter'] as $backmatter ) {
+			yield $j => sprintf( __( 'Cloning back-matter (%1$d of %2$d)', 'pressbooks' ), $i, $total );
 			$new_backmatter = $this->cloneBackMatter( $backmatter['id'] );
 			if ( $new_backmatter !== false ) {
 				$this->clonedItems['back-matter'][] = $new_backmatter;
 			}
 			if ( $i++ % $chunks === 0 ) {
-				yield $j++ => sprintf( __( 'Cloning back-matter (%1$d of %2$d)', 'pressbooks' ), $i, $total );
+				$j++;
 			}
 		}
 
 		// Clone Glossary
-		yield 90 => __( 'Cloning glossary', 'pressbooks' );
-		$i = 0;
-		$j = 90;
+		yield 90 => __( 'Cloning glossary terms', 'pressbooks' );
+		$i = 0; // Number of glossary terms cloned
+		$j = 90; // Estimated progress of execution
 		$total = count( $this->sourceBookGlossary );
 		$chunks = max( round( $total / 10 ), 1 );
 		foreach ( $this->sourceBookGlossary as $glossary ) {
+			yield $j => sprintf( __( 'Cloning glossary terms (%1$d of %2$d)', 'pressbooks' ), $i, $total );
 			$new_glossary = $this->cloneGlossary( $glossary['id'] );
 			if ( $new_glossary !== false ) {
 				$this->clonedItems['glossary'][] = $new_glossary;
 			}
 			if ( $i++ % $chunks === 0 ) {
-				yield $j++ => sprintf( __( 'Cloning glossary (%1$d of %2$d)', 'pressbooks' ), $i, $total );
+				$j++;
 			}
 		}
 
