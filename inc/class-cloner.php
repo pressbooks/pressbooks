@@ -413,6 +413,7 @@ class Cloner {
 		foreach ( $this->sourceBookStructure['parts'] as $key => $part ) {
 			yield $j => sprintf( __( 'Cloning parts and chapters (%1$d of %2$d)', 'pressbooks' ), $i, $total );
 			$new_part = $this->clonePart( $part['id'] );
+			++$i;
 			if ( $new_part !== false ) {
 				$this->clonedItems['parts'][] = $new_part;
 				foreach ( $this->sourceBookStructure['parts'][ $key ]['chapters'] as $chapter ) {
