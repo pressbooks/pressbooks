@@ -59,6 +59,10 @@ mix
 	.js( 'assets/src/scripts/theme-lock.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/theme-options.js', 'assets/dist/scripts/' )
 	.js(
+		'node_modules/event-source-polyfill/src/eventsource.js',
+		'assets/dist/scripts/eventsource.polyfill.js'
+	)
+	.js(
 		'node_modules/pagedjs/lib/polyfill/polyfill.js',
 		'assets/dist/scripts/paged.polyfill.js'
 	)

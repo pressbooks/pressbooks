@@ -953,10 +953,13 @@ function init_css_js() {
 		}
 	);
 
+	// Polyfills
+	wp_register_script( 'eventsource-polyfill', $assets->getPath( 'scripts/eventsource.polyfill.js' ) );
+
 	// Register scripts for later, on-the-fly, using action: admin_print_scripts- (or other tricks of the shade)
 	wp_register_script( 'jquery-blockui', $assets->getPath( 'scripts/blockui.js' ), [ 'jquery', 'jquery-ui-core' ] );
 	wp_register_script( 'cssanimations', $assets->getPath( 'scripts/cssanimations.js' ), false );
-	wp_register_script( 'pb-cloner', $assets->getPath( 'scripts/cloner.js' ), [ 'jquery', 'jquery-ui-progressbar', 'cssanimations' ] );
+	wp_register_script( 'pb-cloner', $assets->getPath( 'scripts/cloner.js' ), [ 'jquery', 'jquery-ui-progressbar', 'cssanimations', 'eventsource-polyfill' ] );
 	wp_register_script( 'pb-export', $assets->getPath( 'scripts/export.js' ), [ 'jquery', 'cssanimations' ] );
 	wp_register_script( 'pb-organize', $assets->getPath( 'scripts/organize.js' ), [ 'jquery', 'jquery-ui-core', 'jquery-ui-sortable', 'jquery-blockui', 'cssanimations' ] );
 	wp_register_script( 'pb-metadata', $assets->getPath( 'scripts/book-information.js' ), [ 'jquery' ], false, true );
