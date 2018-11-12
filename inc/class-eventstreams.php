@@ -85,7 +85,7 @@ class EventStreams {
 	 *
 	 * @param mixed $data Data to be JSON-encoded and sent in the message.
 	 */
-	public function emitMessage( $data ) {
+	protected function emitMessage( $data ) {
 		echo "event: message\n";
 		echo 'data: ' . wp_json_encode( $data ) . "\n\n";
 		echo ':' . str_repeat( ' ', 2048 ) . "\n\n"; // Extra padding.
@@ -93,7 +93,11 @@ class EventStreams {
 	}
 
 	/**
-	 * @param string $error
+	 * Emit an error, one time, complete with headers.
+	 * Useful when you want to tell `EventSource` to abort before staring anything, such as failing form validation.
+	 *
+	 * @param $error
+	 * @param bool $setup_headers
 	 */
 	public function emitOneTimeError( $error ) {
 		$this->setupHeaders();
@@ -109,16 +113,17 @@ class EventStreams {
 	 *
 	 */
 	protected function setupHeaders() {
+		// @codingStandardsIgnoreStart
 		// Turn off PHP output compression
-		ini_set( 'output_buffering', 'off' );
-		ini_set( 'zlib.output_compression', false );
+		@ini_set( 'output_buffering', 'off' );
+		@ini_set( 'zlib.output_compression', false );
 		if ( $GLOBALS['is_nginx'] ) {
-			header( 'X-Accel-Buffering: no' );
-			header( 'Content-Encoding: none' );
+			@header( 'X-Accel-Buffering: no' );
+			@header( 'Content-Encoding: none' );
 		}
-
 		// Start the event stream
-		header( 'Content-Type: text/event-stream' );
+		@header( 'Content-Type: text/event-stream' );
+		// @codingStandardsIgnoreEnd
 
 		// 2KB padding for IE
 		echo ':' . str_repeat( ' ', 2048 ) . "\n\n";
@@ -127,8 +132,10 @@ class EventStreams {
 		ignore_user_abort( true );
 		set_time_limit( apply_filters( 'pb_set_time_limit', 0, 'sse' ) );
 
-		// Ensure we're not buffered
-		wp_ob_end_flush_all();
+		// Flush and end all output buffer
+		if ( ! defined( 'WP_TESTS_MULTISITE' ) ) {
+			wp_ob_end_flush_all();
+		}
 		flush();
 	}
 
