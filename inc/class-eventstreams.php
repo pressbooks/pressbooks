@@ -136,18 +136,17 @@ class EventStreams {
 	 * Clone a book
 	 */
 	public function cloneBook() {
-
 		check_admin_referer( 'pb-cloner' );
 
-		$source_url = $_GET['sourceUrl'] ?? '';
+		$source_url = $_GET['source_book_url'] ?? '';
 
-		$target_url = \Pressbooks\Cloner::validateNewBookName( $_GET['targetUrl'] );
+		$target_url = \Pressbooks\Cloner::validateNewBookName( $_GET['target_book_url'] );
 		if ( is_wp_error( $target_url ) ) {
 			$this->emitOneTimeError( $target_url->get_error_message() );
 			return;
 		}
 
-		$target_title = $_GET['targetTitle'] ?? '';
+		$target_title = $_GET['target_book_title'] ?? '';
 
 		$cloner = new \Pressbooks\Cloner( $source_url, $target_url, $target_title );
 		$everything_ok = $this->emit( $cloner->cloneBookGenerator() );
