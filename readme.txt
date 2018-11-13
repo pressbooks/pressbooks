@@ -34,6 +34,7 @@ TK.
 * Move the Contributors page under the Book Info menu: [#1351](https://github.com/pressbooks/pressbooks/pull/1351)
 * Allow a new title to be entered when cloning a book: [#1348](https://github.com/pressbooks/pressbooks/pull/1348)
 * Add support for glossary term management and display (props [@alex-418](https://github.com/alex-418) and [@bdolor](https://github.com/bdolor)): [#1320](https://github.com/pressbooks/pressbooks/pull/1320), [#1350](https://github.com/pressbooks/pressbooks/pull/1350)
+* 
 
 **Patches**
 

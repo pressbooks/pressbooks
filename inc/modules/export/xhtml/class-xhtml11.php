@@ -1345,13 +1345,13 @@ class Xhtml11 extends Export {
 
 				$append_chapter_content .= $this->removeAttributionLink( $this->doSectionLevelLicense( $metadata, $chapter_id ) );
 
-				$n = ( strpos( $subclass, 'numberless' ) === false ) ? $j : '';
+				$my_chapter_number = ( strpos( $subclass, 'numberless' ) === false ) ? $j : '';
 				$my_chapters .= sprintf(
 					$chapter_printf,
 					$subclass,
 					$slug,
 					( $short_title ) ? $short_title : $chapter['post_title'],
-					$n,
+					$my_chapter_number,
 					Sanitize\decode( $title ),
 					$after_title,
 					$content,
@@ -1359,7 +1359,7 @@ class Xhtml11 extends Export {
 					$this->doEndnotes( $chapter_id )
 				) . "\n";
 
-				if ( 'numberless' !== $subclass ) {
+				if ( $my_chapter_number !== '' ) {
 					++$j;
 				}
 			}
