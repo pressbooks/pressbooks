@@ -1481,8 +1481,8 @@ class HTMLBook extends Export {
 						'class' => 'chapter-number',
 					]
 				);
-				$n = ( 'numberless' === $subclass ) ? '' : $j;
-				$p->setContent( $n );
+				$my_chapter_number = ( strpos( $subclass, 'numberless' ) === false ) ? $j : '';
+				$p->setContent( $my_chapter_number );
 
 				$header = new Header();
 				$header->setContent(
@@ -1503,7 +1503,7 @@ class HTMLBook extends Export {
 				$my_part->appendContent( $my_chapter );
 				$my_chapters[] = $my_chapter;
 
-				if ( 'numberless' !== $subclass ) {
+				if ( $my_chapter_number !== '' ) {
 					++$j;
 				}
 			}
