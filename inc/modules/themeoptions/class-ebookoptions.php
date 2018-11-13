@@ -432,6 +432,7 @@ class EbookOptions extends \Pressbooks\Options {
 				$styles->getSass()->setVariables(
 					[
 						'chapter-number-display' => 'none',
+						'part-number-display' => 'none',
 					]
 				);
 			} else {
