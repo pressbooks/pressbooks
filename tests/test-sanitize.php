@@ -403,10 +403,11 @@ RAW;
 		</tr>
 	</tbody>
 </table>
+<p style="text-align: center">This should be centered.</p>
 RAW;
 		$result = \Pressbooks\Sanitize\sanitize_webbook_content( $content );
 		$this->assertContains( '<table>', $result );
-
+		$this->assertContains( '<p style="text-align: center">This should be centered.</p>', $result );
 	}
 
 	public function test_filter_export_content() {
