@@ -45,7 +45,7 @@ function add_footer_link() {
 			 *
 			 * @since 5.6.0
 			 */
-			apply_filters( 'pb_help_link', 'https://pressbooks.com/help/' ),
+			apply_filters( 'pb_help_link', 'https://pressbooks.community/' ),
 			__( 'Help', 'pressbooks' )
 		),
 		sprintf(
@@ -60,7 +60,7 @@ function add_footer_link() {
 			 *
 			 * @since 5.6.0
 			 */
-			apply_filters( 'pb_contact_link', 'https://pressbooks.com/contact/' ),
+			apply_filters( 'pb_contact_link', 'https://pressbooks.org/get-involved/' ),
 			__( 'Contact', 'pressbooks' )
 		)
 	);
@@ -579,7 +579,7 @@ function replace_menu_bar_branding( $wp_admin_bar ) {
 			 *
 			 * @since 5.6.0
 			 */
-			'href' => apply_filters( 'pb_help_link', 'https://pressbooks.com/help/' ),
+			'href' => apply_filters( 'pb_help_link', 'https://pressbooks.community/' ),
 		]
 	);
 
@@ -594,7 +594,7 @@ function replace_menu_bar_branding( $wp_admin_bar ) {
 			 *
 			 * @since 5.6.0
 			 */
-			'href' => apply_filters( 'pb_contact_link', 'https://pressbooks.com/contact/' ),
+			'href' => apply_filters( 'pb_contact_link', 'https://pressbooks.org/get-involved/' ),
 		]
 	);
 
