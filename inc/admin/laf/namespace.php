@@ -23,15 +23,46 @@ use Pressbooks\Metadata;
  * Add a custom message in admin footer
  */
 function add_footer_link() {
-
 	printf(
-		'<p id="footer-left" class="alignleft"><span id="footer-thankyou">%s <a href="http://pressbooks.com">Pressbooks</a></span> &bull; <a href="http://pressbooks.com/about">%s</a> &bull; <a href="http://pressbooks.com/help">%s</a> &bull; <a href="%s">%s</a> &bull; <a href="http://pressbooks.com/contact">%s</a></p>',
-		__( 'Powered by', 'pressbooks' ),
-		__( 'About', 'pressbooks' ),
-		__( 'Help', 'pressbooks' ),
-		admin_url( 'options.php?page=pressbooks_diagnostics' ),
-		__( 'Diagnostics', 'pressbooks' ),
-		__( 'Contact', 'pressbooks' )
+		'<p id="footer-left" class="alignleft"><span id="footer-thankyou">%1$s</span> &bull; %2$s &bull; %3$s &bull; %4$s &bull; %5$s</p>',
+		sprintf(
+			__( 'Powered by %s', 'pressbooks' ),
+			sprintf(
+				'<a href="%1$s">%2$s</a>',
+				'https://pressbooks.com/',
+				'Pressbooks'
+			)
+		),
+		sprintf(
+			'<a href="%1$s">%2$s</a>',
+			'https://pressbooks.com/about/',
+			__( 'About', 'pressbooks' )
+		),
+		sprintf(
+			'<a href="%1$s">%2$s</a>',
+			/**
+			 * Filter the "Help" link.
+			 *
+			 * @since 5.7.0
+			 */
+			apply_filters( 'pb_help_link', 'https://pressbooks.com/help/' ),
+			__( 'Help', 'pressbooks' )
+		),
+		sprintf(
+			'<a href="%1$s">%2$s</a>',
+			admin_url( 'options.php?page=pressbooks_diagnostics' ),
+			__( 'Diagnostics', 'pressbooks' )
+		),
+		sprintf(
+			'<a href="%1$s">%2$s</a>',
+			/**
+			 * Filter the "Contact" link.
+			 *
+			 * @since 5.7.0
+			 */
+			apply_filters( 'pb_contact_link', 'https://pressbooks.com/contact/' ),
+			__( 'Contact', 'pressbooks' )
+		)
 	);
 }
 
@@ -508,7 +539,7 @@ function replace_menu_bar_branding( $wp_admin_bar ) {
 		[
 			'id' => 'wp-logo',
 			'title' => '<span class="ab-icon"></span>',
-			'href' => ( 'https://pressbooks.com/about' ),
+			'href' => ( 'https://pressbooks.com/about/' ),
 			'meta' => [
 				'title' => __( 'About Pressbooks', 'pressbooks' ),
 			],
@@ -522,7 +553,7 @@ function replace_menu_bar_branding( $wp_admin_bar ) {
 				'parent' => 'wp-logo',
 				'id' => 'about',
 				'title' => __( 'About Pressbooks', 'pressbooks' ),
-				'href' => 'https://pressbooks.com/about',
+				'href' => 'https://pressbooks.com/about/',
 			]
 		);
 	}
@@ -533,7 +564,7 @@ function replace_menu_bar_branding( $wp_admin_bar ) {
 			'parent' => 'wp-logo-external',
 			'id' => 'wporg',
 			'title' => __( 'Pressbooks.com', 'pressbooks' ),
-			'href' => 'https://pressbooks.com',
+			'href' => 'https://pressbooks.com/',
 		]
 	);
 
@@ -543,7 +574,12 @@ function replace_menu_bar_branding( $wp_admin_bar ) {
 			'parent' => 'wp-logo-external',
 			'id' => 'support-forums',
 			'title' => __( 'Help', 'pressbooks' ),
-			'href' => 'https://pressbooks.com/help',
+			/**
+			 * Filter the "Help" link.
+			 *
+			 * @since 5.7.0
+			 */
+			'href' => apply_filters( 'pb_help_link', 'https://pressbooks.com/help/' ),
 		]
 	);
 
@@ -553,7 +589,12 @@ function replace_menu_bar_branding( $wp_admin_bar ) {
 			'parent' => 'wp-logo-external',
 			'id' => 'contact',
 			'title' => __( 'Contact', 'pressbooks' ),
-			'href' => 'https://pressbooks.com/contact',
+			/**
+			 * Filter the "Contact" link.
+			 *
+			 * @since 5.7.0
+			 */
+			'href' => apply_filters( 'pb_contact_link', 'https://pressbooks.com/contact/' ),
 		]
 	);
 
