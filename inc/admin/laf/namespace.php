@@ -43,7 +43,7 @@ function add_footer_link() {
 			/**
 			 * Filter the "Help" link.
 			 *
-			 * @since 5.7.0
+			 * @since 5.6.0
 			 */
 			apply_filters( 'pb_help_link', 'https://pressbooks.com/help/' ),
 			__( 'Help', 'pressbooks' )
@@ -58,7 +58,7 @@ function add_footer_link() {
 			/**
 			 * Filter the "Contact" link.
 			 *
-			 * @since 5.7.0
+			 * @since 5.6.0
 			 */
 			apply_filters( 'pb_contact_link', 'https://pressbooks.com/contact/' ),
 			__( 'Contact', 'pressbooks' )
@@ -577,7 +577,7 @@ function replace_menu_bar_branding( $wp_admin_bar ) {
 			/**
 			 * Filter the "Help" link.
 			 *
-			 * @since 5.7.0
+			 * @since 5.6.0
 			 */
 			'href' => apply_filters( 'pb_help_link', 'https://pressbooks.com/help/' ),
 		]
@@ -592,7 +592,7 @@ function replace_menu_bar_branding( $wp_admin_bar ) {
 			/**
 			 * Filter the "Contact" link.
 			 *
-			 * @since 5.7.0
+			 * @since 5.6.0
 			 */
 			'href' => apply_filters( 'pb_contact_link', 'https://pressbooks.com/contact/' ),
 		]
