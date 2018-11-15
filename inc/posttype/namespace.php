@@ -556,9 +556,10 @@ function get_post_type_label( $posttype ) {
 
 function filter_post_type_label( $label, $args ) {
 	if ( isset( $args['post_type'] ) && in_array( $args['post_type'], [ 'part', 'chapter' ], true ) ) {
-		$options = get_option( 'pressbooks_theme_options_global', GlobalOptions::getDefaults() );
+		$defaults = GlobalOptions::getDefaults();
+		$options = get_option( 'pressbooks_theme_options_global', $defaults );
 		$post_type = str_replace( '-', '_', $args['post_type'] );
-		return $options[ "{$post_type}_label" ];
+		return $options[ "{$post_type}_label" ] ?? $defaults[ "{$post_type}_label" ];
 	}
 	return $label;
 }

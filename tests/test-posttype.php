@@ -194,5 +194,7 @@ class PostTypeTest extends \WP_UnitTestCase {
 		$this->assertEquals( filter_post_type_label( 'Chapter', [ 'post_type' => 'chapter' ] ), 'Chapter' );
 		update_option( 'pressbooks_theme_options_global', [ 'chapter_label' => 'Section' ] );
 		$this->assertEquals( filter_post_type_label( 'Chapter', [ 'post_type' => 'chapter' ] ), 'Section' );
+		update_option( 'pressbooks_theme_options_global', [ 'part_label' => 'Unit' ] );
+		$this->assertEquals( filter_post_type_label( 'Chapter', [ 'post_type' => 'chapter' ] ), 'Chapter' );
 	}
 }

@@ -698,7 +698,7 @@ function sanitize_webbook_content( $content ) {
 	$spec = '';
 	$spec .= 'table=-border;';
 
-	return \Pressbooks\HtmLawed::filter( $content, null, $spec );
+	return \Pressbooks\HtmLawed::filter( $content, [], $spec );
 }
 
 /**
