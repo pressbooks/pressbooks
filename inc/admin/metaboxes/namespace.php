@@ -833,7 +833,7 @@ function status_visibility_box( $post ) {
 	$post_type = $post->post_type;
 	$post_type_object = get_post_type_object( $post_type );
 	$can_publish = current_user_can( $post_type_object->cap->publish_posts );
-	$revisions = wp_get_post_revisions( $post->id );
+	$revisions = wp_get_post_revisions( $post->id, [ 'fields' => 'ids' ] );
 	$revs = count( $revisions );
 	$latest_rev = array_shift( $revisions );
 
@@ -905,7 +905,7 @@ function status_visibility_box( $post ) {
 				/* translators: Post revisions heading. 1: The number of available revisions */
 				printf( __( 'Revisions: %s' ), '<b>' . number_format_i18n( $revs ) . '</b>' );
 			?>
-			<a class="hide-if-no-js" href="<?php echo esc_url( get_edit_post_link( $latest_rev->ID ) ); ?>"><span aria-hidden="true"><?php _ex( 'Browse', 'revisions' ); ?></span> <span class="screen-reader-text"><?php _e( 'Browse revisions' ); ?></span></a>
+			<a class="hide-if-no-js" href="<?php echo esc_url( get_edit_post_link( $latest_rev ) ); ?>"><span aria-hidden="true"><?php _ex( 'Browse', 'revisions' ); ?></span> <span class="screen-reader-text"><?php _e( 'Browse revisions' ); ?></span></a>
 		</div>
 		<?php
 	endif;
