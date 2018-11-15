@@ -5,7 +5,7 @@ Tags: ebooks, publishing, webbooks
 Requires at least: 4.9.8
 Tested up to: 4.9.8
 Requires PHP: 7.1
-Stable tag: 5.5.5
+Stable tag: 5.5.6
 License: GPL v3.0 or later
 License URI: https://github.com/pressbooks/pressbooks/blob/master/LICENSE.md
 
@@ -34,11 +34,20 @@ TK.
 * Move the Contributors page under the Book Info menu: [#1351](https://github.com/pressbooks/pressbooks/pull/1351)
 * Allow a new title to be entered when cloning a book: [#1348](https://github.com/pressbooks/pressbooks/pull/1348)
 * Add support for glossary term management and display (props [@alex-418](https://github.com/alex-418) and [@bdolor](https://github.com/bdolor)): [#1320](https://github.com/pressbooks/pressbooks/pull/1320), [#1350](https://github.com/pressbooks/pressbooks/pull/1350)
-* 
+*
 
 **Patches**
 
 * Hide the "View" link when editing taxonomies (props [@colomet](https://github.com/colomet) for the idea): [#1351](https://github.com/pressbooks/pressbooks/pull/1351)
+
+= 5.5.6 =
+* Pressbooks 5.5.6 requires PHP >= 7.1.
+* Pressbooks 5.5.6 requires [WordPress 4.9.8](https://wordpress.org/news/2018/08/wordpress-4-9-8-maintenance-release/).
+* Pressbooks 5.5.6 requires [McLuhan >= 2.5.2](https://github.com/pressbooks/pressbooks-book/).
+
+**Patches**
+
+- Only fetch revision IDs for status and visibility metabox ([#1458](https://github.com/pressbooks/pressbooks/issues/1458), props [@pbstudent](https://github.com/pbstudent) for the bug report): [#1465](https://github.com/pressbooks/pressbooks/pull/1465)
 
 = 5.5.5 =
 * Pressbooks 5.5.5 requires PHP >= 7.1.
@@ -134,8 +143,16 @@ TK.
 * Improve session handling to prevent session locking: [#1335](https://github.com/pressbooks/pressbooks/issues/1335)
 
 == Upgrade Notice ==
+<<<<<<< HEAD
 = 5.6.0 =
 
 * Pressbooks 5.6.0 requires PHP >= 7.1.
 * Pressbooks 5.6.0 requires [WordPress 4.9.8](https://wordpress.org/news/2018/08/wordpress-4-9-8-maintenance-release/).
 * Pressbooks 5.6.0 requires [McLuhan >= 2.6.0](https://github.com/pressbooks/pressbooks-book/).
+=======
+= 5.5.6 =
+
+* Pressbooks 5.5.6 requires PHP >= 7.1.
+* Pressbooks 5.5.6 requires [WordPress 4.9.8](https://wordpress.org/news/2018/08/wordpress-4-9-8-maintenance-release/).
+* Pressbooks 5.5.6 requires [McLuhan >= 2.5.2](https://github.com/pressbooks/pressbooks-book/).
+>>>>>>> hotfix
