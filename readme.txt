@@ -29,130 +29,49 @@ TK.
 
 **Minor Changes**
 
-* Update TinyMCE table editor plugin to 4.8.3: [#1354](https://github.com/pressbooks/pressbooks/pull/1354)
-* Show advanced editor toolbars by default: [#1352](https://github.com/pressbooks/pressbooks/pull/1352)
+* Add filters for default contact and help links: [#1464](https://github.com/pressbooks/pressbooks/pull/1464)
+* Update PagedJS to to 0.1.24: [#1463](https://github.com/pressbooks/pressbooks/pull/1463)
+* Add subsection caching to `\Pressbooks\Book` class: [#1453](https://github.com/pressbooks/pressbooks/issues/1453)
+* Add `print` class to (X)HTML source for print PDF ([#1437](https://github.com/pressbooks/pressbooks/issues/1437)): [#1454](https://github.com/pressbooks/pressbooks/pull/1454)
+* Update path to Buckram components: [#1452](https://github.com/pressbooks/pressbooks/pull/1452)
+* Add title attribute to section `<div>` elements: [#1441](https://github.com/pressbooks/pressbooks/pull/1441)
+* Allow customization of part and chapter labels in exports: [#1440](https://github.com/pressbooks/pressbooks/pull/1440), [#1455](https://github.com/pressbooks/pressbooks/pull/1455)
+* Update the [TinyMCE](https://www.npmjs.com/package/tinymce) table editor to 4.8.5: [#1439](https://github.com/pressbooks/pressbooks/pull/1439)
+* Increase `max_execution_time` from 5 to 10 minutes for import, export, and clone operations: [#1431](https://github.com/pressbooks/pressbooks/pull/1431)
+* Add Digital Object Identifier (DOI) support at book and section level, exposed via metadata API: [#1429](https://github.com/pressbooks/pressbooks/pull/1429), [#1436](https://github.com/pressbooks/pressbooks/pull/1436)
+* Add `the_export_content` filter hook and `sanitize_webbook_content()` function: [#1422](https://github.com/pressbooks/pressbooks/pull/1422), [#1462](https://github.com/pressbooks/pressbooks/pull/1462)
+* Update [johnbillion/extended-cpts](https://packagist.org/packages/johnbillion/extended-cpts) to 4.2.1: [#1410](https://github.com/pressbooks/pressbooks/pull/1410)
+* Add support for embedding [Knight Lab timelines](https://timeline.knightlab.com/): [#1400](https://github.com/pressbooks/pressbooks/pull/1400)
+* Update [wp-admin-colors](https://www.npmjs.com/package/wp-admin-colors) to to 4.9.8: [#1398](https://github.com/pressbooks/pressbooks/pull/1398)
+* Differentiate CC0 and public domain licenses ([#1331](https://github.com/pressbooks/pressbooks/issues/1331), props to [@philbarker](https://github.com/philbarker) for the suggestion): [#1392](https://github.com/pressbooks/pressbooks/pull/1392), [#1399](https://github.com/pressbooks/pressbooks/pull/1399)
+* Add Bengali, Kannada, Malayalam, Odia, and Telugu languages (props to [@johnpeterm](https://github.com/johnpeterm) for the suggestion): [#1390](https://github.com/pressbooks/pressbooks/pull/1390)
+* Add a link to the XHTML source preview to the diagnostics page: [#1378](https://github.com/pressbooks/pressbooks/pull/1378)
+* Add a unique class to `<hr>` before footnotes: [#1377](https://github.com/pressbooks/pressbooks/pull/1377)
+* Add support for testing [Gutenberg](https://wordpress.org/gutenberg) with Pressbooks, disabled by default: [#1373](https://github.com/pressbooks/pressbooks/pull/1373), [#1401](https://github.com/pressbooks/pressbooks/pull/1401), [#1451](https://github.com/pressbooks/pressbooks/pull/1451)
+* Show the advanced editor toolbars by default: [#1352](https://github.com/pressbooks/pressbooks/pull/1352)
 * Move the Contributors page under the Book Info menu: [#1351](https://github.com/pressbooks/pressbooks/pull/1351)
 * Allow a new title to be entered when cloning a book: [#1348](https://github.com/pressbooks/pressbooks/pull/1348)
-* Add support for glossary term management and display (props [@alex-418](https://github.com/alex-418) and [@bdolor](https://github.com/bdolor)): [#1320](https://github.com/pressbooks/pressbooks/pull/1320), [#1350](https://github.com/pressbooks/pressbooks/pull/1350)
-*
+* Add support for glossary term management and display (props [@alex-418](https://github.com/alex-418) and [@bdolor](https://github.com/bdolor) of [BCcampus](https://github.com/BCcampus) for contributing the first version of this feature): [#1320](https://github.com/pressbooks/pressbooks/pull/1320), [#1350](https://github.com/pressbooks/pressbooks/pull/1350), [#1370](https://github.com/pressbooks/pressbooks/pull/1370), [#1382](https://github.com/pressbooks/pressbooks/pull/1382), [#1385](https://github.com/pressbooks/pressbooks/pull/1385), [#1420](https://github.com/pressbooks/pressbooks/pull/1420), [#1423](https://github.com/pressbooks/pressbooks/pull/1423), [#1426](https://github.com/pressbooks/pressbooks/pull/1426), [#1427](https://github.com/pressbooks/pressbooks/pull/1427), [#1428](https://github.com/pressbooks/pressbooks/pull/1428), [#1442](https://github.com/pressbooks/pressbooks/pull/1442), [#1449](https://github.com/pressbooks/pressbooks/pull/1449), [#1450](https://github.com/pressbooks/pressbooks/pull/1450)
 
 **Patches**
 
-* Hide the "View" link when editing taxonomies (props [@colomet](https://github.com/colomet) for the idea): [#1351](https://github.com/pressbooks/pressbooks/pull/1351)
-
-= 5.5.6 =
-* Pressbooks 5.5.6 requires PHP >= 7.1.
-* Pressbooks 5.5.6 requires [WordPress 4.9.8](https://wordpress.org/news/2018/08/wordpress-4-9-8-maintenance-release/).
-* Pressbooks 5.5.6 requires [McLuhan >= 2.5.2](https://github.com/pressbooks/pressbooks-book/).
-
-**Patches**
-
-- Only fetch revision IDs for status and visibility metabox ([#1458](https://github.com/pressbooks/pressbooks/issues/1458), props [@pbstudent](https://github.com/pbstudent) for the bug report): [#1465](https://github.com/pressbooks/pressbooks/pull/1465)
-
-= 5.5.5 =
-* Pressbooks 5.5.5 requires PHP >= 7.1.
-* Pressbooks 5.5.5 requires [WordPress 4.9.8](https://wordpress.org/news/2018/08/wordpress-4-9-8-maintenance-release/).
-* Pressbooks 5.5.5 requires [McLuhan >= 2.5.2](https://github.com/pressbooks/pressbooks-book/).
-
-**Patches**
-
-- Ensure that \Pressbooks\Admin\Plugins\filter_plugins() supports plugins with differing directory and main file names: [#1419](https://github.com/pressbooks/pressbooks/pull/1419)
-
-= 5.5.4 =
-* Pressbooks 5.5.4 requires PHP >= 7.1.
-* Pressbooks 5.5.4 requires [WordPress 4.9.8](https://wordpress.org/news/2018/08/wordpress-4-9-8-maintenance-release/).
-* Pressbooks 5.5.4 requires [McLuhan >= 2.5.2](https://github.com/pressbooks/pressbooks-book/).
-
-**Patches**
-
-- Allow book admins to enable Parsedown Party from Plugins page: [#1417](https://github.com/pressbooks/pressbooks/pull/1417)
-
-= 5.5.3 =
-
-* Pressbooks 5.5.3 requires PHP >= 7.1.
-* Pressbooks 5.5.3 requires [WordPress 4.9.8](https://wordpress.org/news/2018/08/wordpress-4-9-8-maintenance-release/).
-* Pressbooks 5.5.3 requires [McLuhan >= 2.5.2](https://github.com/pressbooks/pressbooks-book/).
-
-**Patches**
-
-* Optimize TOC and XHTML generation: [#1389](https://github.com/pressbooks/pressbooks/pull/1389), [#1396](https://github.com/pressbooks/pressbooks/pull/1396)
-* Prevent stylesheet rebuild stampede ([#1383](https://github.com/pressbooks/pressbooks/issues/1383)): [#1384](https://github.com/pressbooks/pressbooks/pull/1384)
-
-= 5.5.2 =
-
-* Pressbooks 5.5.2 requires PHP >= 7.1.
-* Pressbooks 5.5.2 requires [WordPress 4.9.8](https://wordpress.org/news/2018/08/wordpress-4-9-8-maintenance-release/).
-* Pressbooks 5.5.2 requires [McLuhan >= 2.5.1](https://github.com/pressbooks/pressbooks-book/).
-
-**Patches**
-
-* Scan full book contents for anchors in link insertion tool: [#1345](https://github.com/pressbooks/pressbooks/pull/1345)
-* Fix duplication of anchors in link insertion tool: [#1345](https://github.com/pressbooks/pressbooks/pull/#1345)
-* Ensure processing of absolute internal links in XHTML and HTMLBook modules ([#1347](https://github.com/pressbooks/pressbooks/issues/1347)): [#1353](https://github.com/pressbooks/pressbooks/pull/1353)
-* Eliminate race condition when rebuilding webbook stylesheets: [#1355](https://github.com/pressbooks/pressbooks/pull/1355)
-* Disable related videos in YouTube OEmbeds ([#1358](https://github.com/pressbooks/pressbooks/issues/1358)): [#1359](https://github.com/pressbooks/pressbooks/issues/1359)
-* Handle Dillard (Plain) 1.x to 2.0 upgrade: [#1361](https://github.com/pressbooks/pressbooks/pull/1361)
-* Hide "Welcome to WordPress" everywhere ([#1364](https://github.com/pressbooks/pressbooks/issues/#1364)): [#1365](https://github.com/pressbooks/pressbooks/pull/1365)
-* Use a file that is guaranteed to remain available for HTMLBook validation: [#1366](https://github.com/pressbooks/pressbooks/issues/1366)
-* Always use the filtered stylesheet directory in `\Pressbooks\Styles->customize()` ([#1361](https://github.com/pressbooks/pressbooks/issues/1361)): [#1372](https://github.com/pressbooks/pressbooks/pull/1372)
-
-= 5.5.1 =
-
-* Pressbooks 5.5.1 requires PHP >= 7.1.
-* Pressbooks 5.5.1 requires [WordPress 4.9.8](https://wordpress.org/news/2018/08/wordpress-4-9-8-maintenance-release/).
-* Pressbooks 5.5.1 requires [McLuhan >= 2.5.0](https://github.com/pressbooks/pressbooks-book/).
-
-**Patches**
-
-* Fixed an issue where cover generator stylesheets were missing from the release package: [#1349](https://github.com/pressbooks/pressbooks/pull/1349)
-
-= 5.5.0 =
-
-* Pressbooks 5.5.0 requires PHP >= 7.1.
-* Pressbooks 5.5.0 requires [WordPress 4.9.8](https://wordpress.org/news/2018/08/wordpress-4-9-8-maintenance-release/).
-* Pressbooks 5.5.0 requires [McLuhan >= 2.5.0](https://github.com/pressbooks/pressbooks-book/).
-
-**Minor Changes**
-
-* Increase minimum PHP to 7.1 ([#1231](https://github.com/pressbooks/pressbooks/issues/1231)): [15f946b](https://github.com/pressbooks/pressbooks/commit/15f946b1a976bf0082d50bbcc33047f2a9be0679)
-* Add Cover Generator to core: [#1257](https://github.com/pressbooks/pressbooks/pull/1257)
-* Update Thema codes to 1.3.0, use localized labels ([#1265](https://github.com/pressbooks/pressbooks/issues/1265), [#1302](https://github.com/pressbooks/pressbooks/issues/1302)): [#1266](https://github.com/pressbooks/pressbooks/pull/1266)
-* Improve license output markup (props [@bdolor](https://github.com/bdolor)): [#1268](https://github.com/pressbooks/pressbooks/pull/1268)
-* Add support for cloning registered media metadata ([#1280](https://github.com/pressbooks/pressbooks/issues/1280)): [#1337](https://github.com/pressbooks/pressbooks/issues/1337)
-* Add support for all media attachments in cloning operations ([#1281](https://github.com/pressbooks/pressbooks/issues/1281)): [#1334](https://github.com/pressbooks/pressbooks/issues/1334), [#1339](https://github.com/pressbooks/pressbooks/issues/1339)
-* Improve cloner accuracy ([#1283](https://github.com/pressbooks/pressbooks/issues/1283)): [#1312](https://github.com/pressbooks/pressbooks/issues/1312)
-* Add attribution to images (props [@alex-418](https://github.com/alex-418) and [@bdolor](https://github.com/bdolor)): [#1287](https://github.com/pressbooks/pressbooks/issues/1287), [#1299](https://github.com/pressbooks/pressbooks/issues/1299), [#1321](https://github.com/pressbooks/pressbooks/issues/1321), [#1343](https://github.com/pressbooks/pressbooks/issues/1343)
-* Enable TablePress for EPUB/MOBI: [#1293](https://github.com/pressbooks/pressbooks/pull/1293)
-* Remove the "Try Gutenberg" panel ([#1296](https://github.com/pressbooks/pressbooks/issues/1296)): [#1308](https://github.com/pressbooks/pressbooks/issues/1308)
-* Add new shortcodes to facilitate authoring and import ([#1297](https://github.com/pressbooks/pressbooks/issues/1297)): [#1301](https://github.com/pressbooks/pressbooks/issues/1301), [#1325](https://github.com/pressbooks/pressbooks/issues/1325), [#1336](https://github.com/pressbooks/pressbooks/issues/1336)
-* Add the [PagedJS polyfill](https://gitlab.pagedmedia.org/tools/pagedjs) to the PDF debug view: [#1307](https://github.com/pressbooks/pressbooks/issues/1307)
-* Improve `register_meta()` usage with object subtypes: [#1309](https://github.com/pressbooks/pressbooks/issues/1309)
-* Update TinyMCE to 4.8.2: [#1319](https://github.com/pressbooks/pressbooks/issues/1319)
-* Add filters to support SVG in EPUB (props [@lukaiser](https://github.com/lukaiser)): [#1322](https://github.com/pressbooks/pressbooks/issues/1322)
-* Add support for QuickLaTeX rendering within TablePress tables (props [@steelwagstaff](https://github.com/steelwagstaff)): [#1340](https://github.com/pressbooks/pressbooks/issues/1340)
-
-**Patches**
-
-* Fix internal links when cloning ([#1279](https://github.com/pressbooks/pressbooks/issues/1279)): [#1310](https://github.com/pressbooks/pressbooks/issues/1310), [#1324](https://github.com/pressbooks/pressbooks/issues/1324)
-* Ensure that contributor taxonomies are always registered when needed: [#1300](https://github.com/pressbooks/pressbooks/pull/1300)
-* Fix CSS overwriting during simultaneous digital/print PDF export ([#1313](https://github.com/pressbooks/pressbooks/issues/1313)): [#1314](https://github.com/pressbooks/pressbooks/issues/1314)
-* Remove multilevel TOC processing for parts: [#1315](https://github.com/pressbooks/pressbooks/issues/1315)
-* Fix undefined index in `inc/shortcodes/attributions/class-attachments.php` ([#1316](https://github.com/pressbooks/pressbooks/issues/1316)): [a304925](https://github.com/pressbooks/pressbooks/commit/a30492540e9abdb90a99c2fdf91139969c660166)
-* Fix broken internal links in EPUB/MOBI when front matter is automatically reordered ([#1327](https://github.com/pressbooks/pressbooks/issues/1327)): [#1328](https://github.com/pressbooks/pressbooks/issues/1328)
-* Fix confusing interaction between browser navigation and Custom Styles page: [#1329](https://github.com/pressbooks/pressbooks/issues/1329)
-* Improve session handling to prevent session locking: [#1335](https://github.com/pressbooks/pressbooks/issues/1335)
+* Redirect users to Organize page after clicking "Move to Trash": [#1466](https://github.com/pressbooks/pressbooks/pull/1466)
+* Hide the "Part" prefix in EPUB exports when part and chapter numbering is disabled ([#1459](https://github.com/pressbooks/pressbooks/issues/1459)): [#1461](https://github.com/pressbooks/pressbooks/pull/1461)
+* Fix issue where a numberless chapter at the beginning of a book can cause chapter numbering errors in subsequent chapters: [#1460](https://github.com/pressbooks/pressbooks/pull/1460)
+* Preserve `menu_order` when cloning: [#1430](https://github.com/pressbooks/pressbooks/pull/1430)
+* Process `[heading]` shortcode in `\Pressbooks\Book::getSubsections()` ([#1403](https://github.com/pressbooks/pressbooks/issues/1403)): [#1404](https://github.com/pressbooks/pressbooks/pull/1404)
+* Return self-closing image tags in license attributions ([#1395](https://github.com/pressbooks/pressbooks/issues/1395), props to [@thomasdumm](https://github.com/thomasdumm) for the bug report): [#1397](https://github.com/pressbooks/pressbooks/pull/1397)
+* Check if user is spammy before displaying user catalog: [#1394](https://github.com/pressbooks/pressbooks/pull/1394)
+* Don't strip custom `<h1>` class attributes when building two-level table of contents ([#1386](https://github.com/pressbooks/pressbooks/issues/1386), props to [@thomasdumm](https://github.com/thomasdumm) for the bug report): [#1393](https://github.com/pressbooks/pressbooks/pull/1393)
+* Fix HTML sanitization to ensure that srcset attributes are removed from EPUB source ([#1379](https://github.com/pressbooks/pressbooks/issues/1379)): [#1381](https://github.com/pressbooks/pressbooks/pull/1381)
+* When `pb_permissive_webbooks` filter returns true, only hide the book privacy setting: [#1371](https://github.com/pressbooks/pressbooks/pull/1371)
+* Only pre-process part contents once ([#1367](https://github.com/pressbooks/pressbooks/issues/1367), props [@thomasdumm](https://github.com/thomasdumm) for the bug report): [#1368](https://github.com/pressbooks/pressbooks/pull/1368)
+* Assign original alt tag, title, description, and caption to cloned attachments ([#1344](https://github.com/pressbooks/pressbooks/issues/1344)): [#1362](https://github.com/pressbooks/pressbooks/pull/1362)
+* Hide the "View" link when editing taxonomies (props [@colomet](https://github.com/colomet) for the suggestion): [#1351](https://github.com/pressbooks/pressbooks/issues/1351), [#1356](https://github.com/pressbooks/pressbooks/issues/1356), [#1360](https://github.com/pressbooks/pressbooks/issues/1360)
 
 == Upgrade Notice ==
-<<<<<<< HEAD
 = 5.6.0 =
 
 * Pressbooks 5.6.0 requires PHP >= 7.1.
 * Pressbooks 5.6.0 requires [WordPress 4.9.8](https://wordpress.org/news/2018/08/wordpress-4-9-8-maintenance-release/).
 * Pressbooks 5.6.0 requires [McLuhan >= 2.6.0](https://github.com/pressbooks/pressbooks-book/).
-=======
-= 5.5.6 =
-
-* Pressbooks 5.5.6 requires PHP >= 7.1.
-* Pressbooks 5.5.6 requires [WordPress 4.9.8](https://wordpress.org/news/2018/08/wordpress-4-9-8-maintenance-release/).
-* Pressbooks 5.5.6 requires [McLuhan >= 2.5.2](https://github.com/pressbooks/pressbooks-book/).
->>>>>>> hotfix
