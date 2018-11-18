@@ -59,6 +59,7 @@ TK.
 * Hide the "Part" prefix in EPUB exports when part and chapter numbering is disabled ([#1459](https://github.com/pressbooks/pressbooks/issues/1459)): [#1461](https://github.com/pressbooks/pressbooks/pull/1461)
 * Fix issue where a numberless chapter at the beginning of a book can cause chapter numbering errors in subsequent chapters: [#1460](https://github.com/pressbooks/pressbooks/pull/1460)
 * Preserve `menu_order` when cloning: [#1430](https://github.com/pressbooks/pressbooks/pull/1430)
+* Remove deprecated border attribute from tables: [#1422](https://github.com/pressbooks/pressbooks/pull/1422)
 * Process `[heading]` shortcode in `\Pressbooks\Book::getSubsections()` ([#1403](https://github.com/pressbooks/pressbooks/issues/1403)): [#1404](https://github.com/pressbooks/pressbooks/pull/1404)
 * Return self-closing image tags in license attributions ([#1395](https://github.com/pressbooks/pressbooks/issues/1395), props to [@thomasdumm](https://github.com/thomasdumm) for the bug report): [#1397](https://github.com/pressbooks/pressbooks/pull/1397)
 * Check if user is spammy before displaying user catalog: [#1394](https://github.com/pressbooks/pressbooks/pull/1394)
