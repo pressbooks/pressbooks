@@ -59,6 +59,7 @@ class EditorTest extends \WP_UnitTestCase {
 		$this->assertContains( 'ftnref_convert', $buttons );
 		$this->assertContains( 'glossary', $buttons );
 		$this->assertContains( 'glossary_all', $buttons );
+		$this->assertContains( 'wp_code', $buttons );
 	}
 
 	public function test_admin_enqueue_scripts() {

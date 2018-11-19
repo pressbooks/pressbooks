@@ -69,7 +69,7 @@ function mce_buttons_3( $buttons ) {
 	// Prepend element to the beginning of array
 	array_unshift( $buttons, 'table' );
 	// Push elements onto the end of array
-	array_push( $buttons, 'apply_class', 'anchor', 'superscript', 'subscript' );
+	array_push( $buttons, 'apply_class', 'anchor', 'superscript', 'subscript', 'wp_code' );
 	// Footnotes
 	array_push( $buttons, 'footnote', 'ftnref_convert' );
 	// Glossary
