@@ -29,8 +29,9 @@ TK.
 
 **Minor Changes**
 
+* Update [pagedjs](https://gitlab.pagedmedia.org/tools/pagedjs) to to 0.1.25: [#1469](https://github.com/pressbooks/pressbooks/pull/1469)
+* Update [masterminds/html5](https://packagist.org/packages/masterminds/html5) to 2.4.0: [#1468](https://github.com/pressbooks/pressbooks/pull/1468)
 * Add filters for default contact and help links: [#1464](https://github.com/pressbooks/pressbooks/pull/1464)
-* Update PagedJS to to 0.1.24: [#1463](https://github.com/pressbooks/pressbooks/pull/1463)
 * Add subsection caching to `\Pressbooks\Book` class: [#1453](https://github.com/pressbooks/pressbooks/issues/1453)
 * Add `print` class to (X)HTML source for print PDF ([#1437](https://github.com/pressbooks/pressbooks/issues/1437)): [#1454](https://github.com/pressbooks/pressbooks/pull/1454)
 * Update path to Buckram components: [#1452](https://github.com/pressbooks/pressbooks/pull/1452)
@@ -41,6 +42,9 @@ TK.
 * Add Digital Object Identifier (DOI) support at book and section level, exposed via metadata API: [#1429](https://github.com/pressbooks/pressbooks/pull/1429), [#1436](https://github.com/pressbooks/pressbooks/pull/1436)
 * Add `the_export_content` filter hook and `sanitize_webbook_content()` function: [#1422](https://github.com/pressbooks/pressbooks/pull/1422), [#1462](https://github.com/pressbooks/pressbooks/pull/1462)
 * Update [johnbillion/extended-cpts](https://packagist.org/packages/johnbillion/extended-cpts) to 4.2.1: [#1410](https://github.com/pressbooks/pressbooks/pull/1410)
+* Update [composer/installers](https://packagist.org/packages/composer/installers) to 1.6.0: [#1408](https://github.com/pressbooks/pressbooks/pull/1408)
+* Update [jenssegers/imagehash](https://packagist.org/packages/jenssegers/imagehash) to 0.5.0: [#1407](https://github.com/pressbooks/pressbooks/pull/1407)
+* Update [leafo/scssphp](https://packagist.org/packages/leafo/scssphp) to 0.7.7: [#1406](https://github.com/pressbooks/pressbooks/pull/1406)
 * Add support for embedding [Knight Lab timelines](https://timeline.knightlab.com/): [#1400](https://github.com/pressbooks/pressbooks/pull/1400)
 * Update [wp-admin-colors](https://www.npmjs.com/package/wp-admin-colors) to to 4.9.8: [#1398](https://github.com/pressbooks/pressbooks/pull/1398)
 * Differentiate CC0 and public domain licenses ([#1331](https://github.com/pressbooks/pressbooks/issues/1331), props to [@philbarker](https://github.com/philbarker) for the suggestion): [#1392](https://github.com/pressbooks/pressbooks/pull/1392), [#1399](https://github.com/pressbooks/pressbooks/pull/1399)
@@ -55,11 +59,13 @@ TK.
 
 **Patches**
 
+* Lower version numbers for cover generator dependencies to improve RHEL compatibility (props [@bdolor](https://github.com/bdolor)): [#1467](https://github.com/pressbooks/pressbooks/pull/1467)
 * Redirect users to Organize page after clicking "Move to Trash": [#1466](https://github.com/pressbooks/pressbooks/pull/1466)
 * Hide the "Part" prefix in EPUB exports when part and chapter numbering is disabled ([#1459](https://github.com/pressbooks/pressbooks/issues/1459)): [#1461](https://github.com/pressbooks/pressbooks/pull/1461)
 * Fix issue where a numberless chapter at the beginning of a book can cause chapter numbering errors in subsequent chapters: [#1460](https://github.com/pressbooks/pressbooks/pull/1460)
 * Preserve `menu_order` when cloning: [#1430](https://github.com/pressbooks/pressbooks/pull/1430)
 * Remove deprecated border attribute from tables: [#1422](https://github.com/pressbooks/pressbooks/pull/1422)
+* Improve unit testing for export modules: [#1414](https://github.com/pressbooks/pressbooks/pull/1414)
 * Process `[heading]` shortcode in `\Pressbooks\Book::getSubsections()` ([#1403](https://github.com/pressbooks/pressbooks/issues/1403)): [#1404](https://github.com/pressbooks/pressbooks/pull/1404)
 * Return self-closing image tags in license attributions ([#1395](https://github.com/pressbooks/pressbooks/issues/1395), props to [@thomasdumm](https://github.com/thomasdumm) for the bug report): [#1397](https://github.com/pressbooks/pressbooks/pull/1397)
 * Check if user is spammy before displaying user catalog: [#1394](https://github.com/pressbooks/pressbooks/pull/1394)
