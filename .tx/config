@@ -6,4 +6,4 @@ source_file = languages/_pressbooks.pot
 source_lang = en
 type = PO
 file_filter = languages/pressbooks-<lang>.po
-lang_map = de:de_DE, es:es_ES, fr:fr_FR, gl:gl_ES, nb:nb_NO, it:it_IT, ka:ka_GE, ru:ru_RU, ta:ta_LK
+lang_map = de:de_DE, es:es_ES, fr:fr_FR, gl:gl_ES, nb:nb_NO, it:it_IT, ka:ka_GE, ru:ru_RU, ta:ta_LK, pa:pa_IN

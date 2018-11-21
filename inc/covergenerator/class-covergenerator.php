@@ -75,10 +75,10 @@ class Covergenerator {
 	 */
 	function hasDependencies() {
 		$commands = [
-			PB_CONVERT_COMMAND . ' --version' => '6.8.9',
-			PB_GS_COMMAND . ' --version' => '9.18',
-			PB_PDFINFO_COMMAND . ' -v' => '0.41.0',
-			PB_PDFTOPPM_COMMAND . ' -v' => '0.41.0',
+			PB_CONVERT_COMMAND . ' --version' => '6.7',
+			PB_GS_COMMAND . ' --version' => '8.7',
+			PB_PDFINFO_COMMAND . ' -v' => '0.12.4',
+			PB_PDFTOPPM_COMMAND . ' -v' => '0.12.4',
 		];
 
 		$not_found = [];

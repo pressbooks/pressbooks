@@ -6,12 +6,12 @@ msgstr ""
 "POT-Creation-Date: 2018-11-18 18:33-0500\n"
 "PO-Revision-Date: 2018-11-18 23:33+0000\n"
 "Last-Translator: Hugh McGuire <hugh@pressbooks.com>\n"
-"Language-Team: Chinese (Taiwan) (http://www.transifex.com/pressbooks/pressbooks/language/zh_TW/)\n"
+"Language-Team: Panjabi (Punjabi) (http://www.transifex.com/pressbooks/pressbooks/language/pa/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: zh_TW\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Language: pa\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.0.9\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
@@ -107,7 +107,7 @@ msgstr ""
 #: inc/admin/class-catalog-list-table.php:173
 #: inc/admin/covergenerator/namespace.php:82
 msgid "Author"
-msgstr "作者"
+msgstr ""
 
 #: inc/admin/attachments/namespace.php:60
 msgid "Author URL"
@@ -172,7 +172,7 @@ msgstr ""
 #: inc/admin/class-catalog-list-table.php:171 inc/class-activation.php:223
 #: inc/modules/export/epub/class-epub201.php:847
 msgid "Cover"
-msgstr "封面"
+msgstr ""
 
 #: inc/admin/class-catalog-list-table.php:172
 #: inc/admin/covergenerator/namespace.php:55 templates/admin/import.php:82
@@ -259,7 +259,7 @@ msgstr ""
 
 #: inc/admin/class-catalog-list-table.php:488 templates/admin/search.php:81
 msgid "Search"
-msgstr "搜尋"
+msgstr ""
 
 #: inc/admin/class-catalog-list-table.php:498
 msgid "Add By URL"
@@ -281,7 +281,7 @@ msgstr ""
 
 #: inc/admin/class-exportoptions.php:71
 msgid "No. Ignore validation errors."
-msgstr "忽略驗證產生的錯誤。"
+msgstr ""
 
 #: inc/admin/class-exportoptions.php:72
 msgid "Yes."
@@ -311,7 +311,7 @@ msgstr ""
 
 #: inc/admin/class-exportoptions.php:186 inc/admin/laf/namespace.php:298
 msgid "Export Settings"
-msgstr "製書設定"
+msgstr ""
 
 #: inc/admin/class-network-managers-list-table.php:76
 #: inc/admin/class-network-managers-list-table.php:80
@@ -325,7 +325,7 @@ msgstr ""
 
 #: inc/admin/class-publishoptions.php:66
 msgid "Amazon URL"
-msgstr "Amazon 連結"
+msgstr ""
 
 #: inc/admin/class-publishoptions.php:74
 msgid "O'Reilly URL"
@@ -333,19 +333,19 @@ msgstr ""
 
 #: inc/admin/class-publishoptions.php:82
 msgid "Barnes and Noble URL"
-msgstr "Barnes and Noble 連結"
+msgstr ""
 
 #: inc/admin/class-publishoptions.php:90
 msgid "Kobo URL"
-msgstr "Kobo 連結"
+msgstr ""
 
 #: inc/admin/class-publishoptions.php:98
 msgid "iBooks URL"
-msgstr "iBooks 連結"
+msgstr ""
 
 #: inc/admin/class-publishoptions.php:106
 msgid "Other Service URL"
-msgstr "其他電子書平台連結"
+msgstr ""
 
 #: inc/admin/class-publishoptions.php:124
 msgid ""
@@ -418,7 +418,7 @@ msgstr ""
 #: inc/admin/covergenerator/namespace.php:73
 #: inc/admin/metaboxes/namespace.php:202
 msgid "Subtitle"
-msgstr "副標題"
+msgstr ""
 
 #: inc/admin/covergenerator/namespace.php:91
 msgid "Author (Spine)"
@@ -427,7 +427,7 @@ msgstr ""
 #: inc/admin/covergenerator/namespace.php:100 inc/admin/laf/namespace.php:39
 #: inc/class-activation.php:233 templates/admin/catalog.php:98
 msgid "About"
-msgstr "關於"
+msgstr ""
 
 #: inc/admin/covergenerator/namespace.php:109
 msgid "ISBN"
@@ -538,7 +538,7 @@ msgstr ""
 
 #: inc/admin/covergenerator/namespace.php:408 templates/admin/export.php:230
 msgid "Change Theme"
-msgstr "改變版面"
+msgstr ""
 
 #: inc/admin/covergenerator/namespace.php:409 templates/admin/export.php:231
 msgid "Options"
@@ -634,7 +634,7 @@ msgstr ""
 
 #: inc/admin/dashboard/namespace.php:82 inc/admin/laf/namespace.php:647
 msgid "Users"
-msgstr "用戶"
+msgstr ""
 
 #: inc/admin/dashboard/namespace.php:102
 msgid "Book Permissions"
@@ -674,7 +674,7 @@ msgstr ""
 #: inc/modules/export/epub/templates/epub3/toc.php:26
 #: inc/modules/themeoptions/class-pdfoptions.php:243
 msgid "Table of Contents"
-msgstr "目錄"
+msgstr ""
 
 #: inc/admin/dashboard/namespace.php:156 inc/admin/metaboxes/namespace.php:566
 #: inc/api/endpoints/controller/class-toc.php:192
@@ -682,7 +682,7 @@ msgstr "目錄"
 #: inc/posttype/namespace.php:534 templates/admin/import.php:83
 #: templates/admin/organize.php:58 templates/admin/organize.php:81
 msgid "Front Matter"
-msgstr "書前資訊"
+msgstr ""
 
 #: inc/admin/dashboard/namespace.php:197 inc/admin/metaboxes/namespace.php:568
 #: inc/api/endpoints/controller/class-toc.php:225
@@ -690,23 +690,23 @@ msgstr "書前資訊"
 #: inc/posttype/namespace.php:537 templates/admin/import.php:88
 #: templates/admin/organize.php:60 templates/admin/organize.php:89
 msgid "Back Matter"
-msgstr "書後資訊"
+msgstr ""
 
 #: inc/admin/dashboard/namespace.php:216 inc/admin/dashboard/namespace.php:273
 #: templates/admin/organize.php:246 templates/admin/organize.php:382
 msgid "Add"
-msgstr "添加"
+msgstr ""
 
 #: inc/admin/dashboard/namespace.php:216 inc/admin/dashboard/namespace.php:273
 #: inc/admin/laf/namespace.php:97
 msgid "Organize"
-msgstr "組織內文"
+msgstr ""
 
 #: inc/admin/dashboard/namespace.php:282 inc/admin/dashboard/namespace.php:283
 #: inc/admin/laf/namespace.php:631 inc/admin/laf/namespace.php:698
 #: inc/admin/laf/namespace.php:779
 msgid "Dashboard"
-msgstr "控制台"
+msgstr ""
 
 #: inc/admin/dashboard/namespace.php:302 inc/admin/dashboard/namespace.php:303
 msgid "Integrations"
@@ -793,11 +793,11 @@ msgstr ""
 
 #: inc/admin/laf/namespace.php:49 inc/admin/laf/namespace.php:576
 msgid "Help"
-msgstr "幫助"
+msgstr ""
 
 #: inc/admin/laf/namespace.php:64 inc/admin/laf/namespace.php:591
 msgid "Contact"
-msgstr "聯繫"
+msgstr ""
 
 #: inc/admin/laf/namespace.php:112
 msgid "private"
@@ -870,22 +870,22 @@ msgstr ""
 #: inc/admin/laf/namespace.php:143 inc/admin/laf/namespace.php:144
 #: templates/admin/organize.php:68 templates/admin/organize.php:257
 msgid "Add Part"
-msgstr "添加書篇"
+msgstr ""
 
 #: inc/admin/laf/namespace.php:151 inc/admin/laf/namespace.php:152
 #: templates/admin/organize.php:67
 msgid "Add Chapter"
-msgstr "添加章節"
+msgstr ""
 
 #: inc/admin/laf/namespace.php:159 inc/admin/laf/namespace.php:160
 #: templates/admin/organize.php:65
 msgid "Add Front Matter"
-msgstr "添加書前資訊"
+msgstr ""
 
 #: inc/admin/laf/namespace.php:167 inc/admin/laf/namespace.php:168
 #: templates/admin/organize.php:66
 msgid "Add Back Matter"
-msgstr "添加書後資訊"
+msgstr ""
 
 #: inc/admin/laf/namespace.php:175 inc/admin/laf/namespace.php:176
 #: inc/editor/namespace.php:131 inc/posttype/namespace.php:197
@@ -898,11 +898,11 @@ msgstr ""
 
 #: inc/admin/laf/namespace.php:191 inc/admin/laf/namespace.php:192
 msgid "Front Matter Types"
-msgstr "書前資訊類型"
+msgstr ""
 
 #: inc/admin/laf/namespace.php:199 inc/admin/laf/namespace.php:200
 msgid "Back Matter Types"
-msgstr "書後資訊類型"
+msgstr ""
 
 #: inc/admin/laf/namespace.php:207 inc/admin/laf/namespace.php:208
 msgid "Glossary Types"
@@ -918,7 +918,7 @@ msgstr ""
 #: inc/modules/import/wordpress/class-wxr.php:463
 #: inc/posttype/namespace.php:153
 msgid "Book Info"
-msgstr "書籍資訊"
+msgstr ""
 
 #: inc/admin/laf/namespace.php:243
 msgid "Choose a subject…"
@@ -935,7 +935,7 @@ msgstr ""
 #: inc/admin/laf/namespace.php:261 inc/admin/laf/namespace.php:298
 #: templates/admin/export.php:147 templates/admin/organize.php:64
 msgid "Export"
-msgstr "製書"
+msgstr ""
 
 #: inc/admin/laf/namespace.php:285 inc/admin/laf/namespace.php:465
 #: inc/admin/laf/namespace.php:1249
@@ -970,7 +970,7 @@ msgstr ""
 
 #: inc/admin/laf/namespace.php:620
 msgid "Network Admin"
-msgstr "出版基地管理"
+msgstr ""
 
 #: inc/admin/laf/namespace.php:639 inc/admin/laf/namespace.php:1317
 #: inc/admin/laf/namespace.php:1327
@@ -1023,12 +1023,12 @@ msgstr ""
 
 #: inc/admin/laf/namespace.php:1109
 msgid "Public. I would like this book to be visible to everyone."
-msgstr "公開，我希望讓每個人都能閱讀這本書。"
+msgstr ""
 
 #: inc/admin/laf/namespace.php:1115
 msgid ""
 "Private. I would like this book to be accessible only to people I invite."
-msgstr "私密，只有我邀請的讀者才能閱讀此書。"
+msgstr ""
 
 #: inc/admin/laf/namespace.php:1139
 msgid "Who can see private front matter, chapters and back matter?"
@@ -1147,15 +1147,15 @@ msgstr ""
 #: inc/posttype/namespace.php:89 inc/posttype/namespace.php:528
 #: templates/admin/import.php:86
 msgid "Part"
-msgstr "篇"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:163
 msgid "Save Part"
-msgstr "儲存本篇"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:164
 msgid "Save Book Information"
-msgstr "儲存書籍資訊"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:165
 msgid "Status & Visibility"
@@ -1163,17 +1163,17 @@ msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:179
 msgid "General Book Information"
-msgstr "書籍基本資訊"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:194
 msgid "Short Title"
-msgstr "簡短書名"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:195
 msgid ""
 "In case of long titles that might be truncated in running heads in the PDF "
 "export."
-msgstr "提供簡短書名，可以避免在製作 PDF 時，完整書名被截斷的問題"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:209
 msgid "Author(s)"
@@ -1232,7 +1232,7 @@ msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:281
 msgid "Publisher"
-msgstr "出版者"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:282 inc/admin/metaboxes/namespace.php:290
 msgid "This text appears on the title page of your book."
@@ -1240,11 +1240,11 @@ msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:289
 msgid "Publisher City"
-msgstr "出版者所在城市"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:298
 msgid "Publication Date"
-msgstr "出版日期"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:299 inc/admin/metaboxes/namespace.php:309
 msgid "This is added to the metadata in your ebook."
@@ -1252,11 +1252,11 @@ msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:308
 msgid "On-Sale Date"
-msgstr "開始販售日期"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:317
 msgid "Ebook ISBN"
-msgstr "電子書 ISBN"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:318
 msgid ""
@@ -1267,13 +1267,13 @@ msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:325
 msgid "Print ISBN"
-msgstr "紙本書 ISBN"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:326
 msgid ""
 "ISBN is the International Standard Book Number, and you'll need one if you "
 "want to sell your book in online and physical book stores."
-msgstr "ISBN 是「國際標準書號」，部分線上與實體書店只接受擁有 ISBN 的書籍上架販售。"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:333
 msgid "Digital Object Identifier (DOI)"
@@ -1281,7 +1281,7 @@ msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:342
 msgid "Language"
-msgstr "語言別"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:343
 msgid ""
@@ -1302,7 +1302,7 @@ msgstr ""
 #: inc/modules/export/htmlbook/class-htmlbook.php:862
 #: inc/modules/export/xhtml/class-xhtml11.php:899
 msgid "Copyright"
-msgstr "版權"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:363 templates/admin/cloner.php:20
 msgid "Source Book URL"
@@ -1316,7 +1316,7 @@ msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:375
 msgid "Copyright Year"
-msgstr "版權年份"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:376
 msgid "Year that the book is/was published."
@@ -1324,7 +1324,7 @@ msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:384
 msgid "Copyright Holder"
-msgstr "版權擁有者"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:385
 msgid "Name of the copyright holder."
@@ -1340,7 +1340,7 @@ msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:403
 msgid "Copyright Notice"
-msgstr "版權註記"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:404
 msgid ""
@@ -1353,30 +1353,30 @@ msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:418
 msgid "Book Tagline"
-msgstr "書籍介紹標語"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:419
 msgid ""
 "A very short description of your book. It should fit in a Twitter post, and "
 "encapsulate your book in the briefest sentence."
-msgstr "書籍的介紹標語。這應該能在一則推特訊息中呈現（少於140字），試著以最精煉的語句描述你的書籍。"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:427
 msgid "Short Description"
-msgstr "簡短書介"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:428
 msgid ""
 "A short paragraph about your book, for catalogs, reviewers etc. to quote."
-msgstr "一段精要的書籍介紹，通常用於型錄、評介的呈現，最好是易於被摘錄的長度。"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:436
 msgid "Long Description"
-msgstr "詳細書介"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:437
 msgid "The full description of your book."
-msgstr "書籍的完整介紹與描述。"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:441
 msgid "Subject(s)"
@@ -1388,7 +1388,7 @@ msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:454
 msgid "Series Title"
-msgstr "書系名稱"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:455 inc/admin/metaboxes/namespace.php:463
 msgid "Add if your book is part of a series."
@@ -1396,11 +1396,11 @@ msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:462
 msgid "Series Number"
-msgstr "書系編號"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:470
 msgid "Keywords"
-msgstr "關鍵字"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:472
 msgid ""
@@ -1410,7 +1410,7 @@ msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:479
 msgid "Hashtag"
-msgstr "話題標籤"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:480
 msgid ""
@@ -1420,7 +1420,7 @@ msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:487
 msgid "List Price (Print)"
-msgstr "紙本書定價"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:488
 msgid "The list price of your book in print."
@@ -1428,7 +1428,7 @@ msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:495
 msgid "List Price (PDF)"
-msgstr "PDF 定價"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:496
 msgid "The list price of your book in PDF format."
@@ -1436,7 +1436,7 @@ msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:503
 msgid "List Price (ebook)"
-msgstr "電子書定價"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:504
 msgid "The list price of your book in Ebook formats."
@@ -1444,7 +1444,7 @@ msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:511
 msgid "List Price (Web)"
-msgstr "線上閱讀版本定價"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:512
 msgid "The list price of your webbook."
@@ -2024,47 +2024,47 @@ msgstr ""
 
 #: inc/class-activation.php:190
 msgid "Main Body"
-msgstr "主文"
+msgstr ""
 
 #: inc/class-activation.php:196
 msgid "Introduction"
-msgstr "介紹"
+msgstr ""
 
 #: inc/class-activation.php:198
 msgid "This is where you can write your introduction."
-msgstr "你可以撰寫簡短的介紹文字"
+msgstr ""
 
 #: inc/class-activation.php:203
 msgid "Chapter 1"
-msgstr "第一章"
+msgstr ""
 
 #: inc/class-activation.php:205
 msgid ""
 "This is the first chapter in the main body of the text. You can change the "
 "text, rename the chapter, add new chapters, and add new parts."
-msgstr "這是書籍主文的第一章。你可以修改內文、變更章節名稱、添加新的章節，以及添加組織章節的篇（Parts）。"
+msgstr ""
 
 #: inc/class-activation.php:210
 msgid "Appendix"
-msgstr "附錄"
+msgstr ""
 
 #: inc/class-activation.php:212
 msgid "This is where you can add appendices or other back matter."
-msgstr "你可以在此添加附錄，或是其他各種書後資訊。"
+msgstr ""
 
 #: inc/class-activation.php:218 templates/admin/organize.php:123
 #: templates/admin/organize.php:190 templates/admin/organize.php:264
 #: templates/admin/organize.php:328
 msgid "Authors"
-msgstr "作者"
+msgstr ""
 
 #: inc/class-activation.php:238
 msgid "Buy"
-msgstr "購買"
+msgstr ""
 
 #: inc/class-activation.php:243
 msgid "Access Denied"
-msgstr "拒絕存取"
+msgstr ""
 
 #: inc/class-activation.php:245
 msgid ""
@@ -2090,11 +2090,11 @@ msgstr ""
 #: inc/posttype/namespace.php:168 inc/posttype/namespace.php:525
 #: templates/admin/import.php:103
 msgid "Book Information"
-msgstr "書籍基本資料"
+msgstr ""
 
 #: inc/class-activation.php:297
 msgid "Default Data"
-msgstr "預設日期"
+msgstr ""
 
 #: inc/class-catalog.php:818
 msgid "Catalog Logo"
@@ -2172,6 +2172,7 @@ msgstr ""
 msgid "Your book URL must be at least %s character."
 msgid_plural "Your book URL must be at least %s characters."
 msgstr[0] ""
+msgstr[1] ""
 
 #: inc/class-cloner.php:1973
 msgid "Sorry, you may not use that book URL."
@@ -2193,42 +2194,49 @@ msgstr ""
 msgid "%s term"
 msgid_plural "%s terms"
 msgstr[0] ""
+msgstr[1] ""
 
 #: inc/class-cloner.php:2044 inc/modules/import/wordpress/class-wxr.php:336
 #, php-format
 msgid "%s front matter"
 msgid_plural "%s front matter"
 msgstr[0] ""
+msgstr[1] ""
 
 #: inc/class-cloner.php:2045 inc/modules/import/wordpress/class-wxr.php:337
 #, php-format
 msgid "%s part"
 msgid_plural "%s parts"
 msgstr[0] ""
+msgstr[1] ""
 
 #: inc/class-cloner.php:2046 inc/modules/import/wordpress/class-wxr.php:338
 #, php-format
 msgid "%s chapter"
 msgid_plural "%s chapters"
 msgstr[0] ""
+msgstr[1] ""
 
 #: inc/class-cloner.php:2047 inc/modules/import/wordpress/class-wxr.php:339
 #, php-format
 msgid "%s back matter"
 msgid_plural "%s back matter"
 msgstr[0] ""
+msgstr[1] ""
 
 #: inc/class-cloner.php:2048 inc/modules/import/wordpress/class-wxr.php:340
 #, php-format
 msgid "%s media attachment"
 msgid_plural "%s media attachments"
 msgstr[0] ""
+msgstr[1] ""
 
 #: inc/class-cloner.php:2049 inc/modules/import/wordpress/class-wxr.php:341
 #, php-format
 msgid "%s glossary term"
 msgid_plural "%s glossary terms"
 msgstr[0] ""
+msgstr[1] ""
 
 #: inc/class-cloner.php:2053
 msgid "Cloning failed."
@@ -2400,7 +2408,7 @@ msgstr ""
 #: inc/modules/export/htmlbook/class-htmlbook.php:871
 #: inc/modules/export/xhtml/class-xhtml11.php:908
 msgid "by"
-msgstr "由"
+msgstr ""
 
 #: inc/class-licensing.php:352
 msgid "except where otherwise noted."
@@ -2440,6 +2448,7 @@ msgid_plural ""
 "To the extent possible under law, %1$s have waived all copyright and related"
 " or neighboring rights to %2$s, except where otherwise noted."
 msgstr[0] ""
+msgstr[1] ""
 
 #: inc/class-sass.php:190
 #, php-format
@@ -2507,11 +2516,11 @@ msgstr ""
 
 #: inc/editor/namespace.php:102
 msgid "Insert Footnote"
-msgstr "插入註腳"
+msgstr ""
 
 #: inc/editor/namespace.php:103
 msgid "Convert MS Word Footnotes"
-msgstr "轉換 MS Word 註腳"
+msgstr ""
 
 #: inc/editor/namespace.php:116 templates/admin/import.php:132
 msgid "Cancel"
@@ -2642,11 +2651,11 @@ msgstr ""
 #: inc/image/namespace.php:447 templates/admin/covergenerator.php:120
 #: templates/admin/export.php:321
 msgid "Are you sure you want to delete this?"
-msgstr "確定要刪除嗎？"
+msgstr ""
 
 #: inc/image/namespace.php:479
 msgid "Delete"
-msgstr "刪除"
+msgstr ""
 
 #: inc/interactive/class-h5p.php:132
 msgid ""
@@ -2695,7 +2704,7 @@ msgstr ""
 
 #: inc/modules/export/epub/class-epub201.php:992
 msgid "Title Page"
-msgstr "書名頁"
+msgstr ""
 
 #: inc/modules/export/epub/class-epub201.php:1308
 msgid "Make your own books using Pressbooks.com"
@@ -2703,13 +2712,13 @@ msgstr ""
 
 #: inc/modules/export/epub/class-epub201.php:1718
 msgid "Table Of Contents"
-msgstr "目錄"
+msgstr ""
 
 #: inc/modules/export/epub/class-epub201.php:1733
 #: inc/modules/export/htmlbook/class-htmlbook.php:988
 #: inc/modules/export/xhtml/class-xhtml11.php:971
 msgid "Contents"
-msgstr "內容"
+msgstr ""
 
 #: inc/modules/export/epub/templates/epub201/opf.php:52
 #: inc/modules/export/epub/templates/epub3/opf.php:56
@@ -2720,7 +2729,7 @@ msgstr ""
 #: inc/modules/export/wordpress/class-wxr.php:81
 #: inc/modules/export/xhtml/class-xhtml11.php:227
 msgid "Invalid permission error"
-msgstr "權限錯誤"
+msgstr ""
 
 #: inc/modules/export/prince/class-filters.php:74
 #: templates/admin/export.php:172
@@ -2740,7 +2749,7 @@ msgstr ""
 
 #: inc/modules/export/xhtml/class-xhtml11.php:444
 msgid "Notes"
-msgstr "記事"
+msgstr ""
 
 #: inc/modules/import/api/class-api.php:88
 #, php-format
@@ -2820,6 +2829,7 @@ msgstr ""
 msgid "%d occurrence replaced."
 msgid_plural "%d occurrences replaced."
 msgstr[0] ""
+msgstr[1] ""
 
 #: inc/modules/searchandreplace/types/class-content.php:57
 msgid "view"
@@ -2852,19 +2862,19 @@ msgstr ""
 #: inc/modules/themeoptions/class-pdfoptions.php:218
 #: inc/modules/themeoptions/class-weboptions.php:103
 msgid "Paragraph Separation"
-msgstr "段落區隔"
+msgstr ""
 
 #: inc/modules/themeoptions/class-ebookoptions.php:91
 #: inc/modules/themeoptions/class-pdfoptions.php:223
 #: inc/modules/themeoptions/class-weboptions.php:108
 msgid "Indent paragraphs"
-msgstr "縮進段落"
+msgstr ""
 
 #: inc/modules/themeoptions/class-ebookoptions.php:92
 #: inc/modules/themeoptions/class-pdfoptions.php:224
 #: inc/modules/themeoptions/class-weboptions.php:109
 msgid "Skip lines between paragraphs"
-msgstr "忽略段落之間的空行"
+msgstr ""
 
 #: inc/modules/themeoptions/class-ebookoptions.php:98
 msgid "Compress Images"
@@ -2880,7 +2890,7 @@ msgstr ""
 
 #: inc/modules/themeoptions/class-ebookoptions.php:289
 msgid "Ebook Options"
-msgstr "電子書選項"
+msgstr ""
 
 #: inc/modules/themeoptions/class-globaloptions.php:81
 msgid "Part and Chapter Numbers"
@@ -3026,7 +3036,7 @@ msgstr ""
 
 #: inc/modules/themeoptions/class-globaloptions.php:503
 msgid "Global Options"
-msgstr "通用選項"
+msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:83
 msgid "Body Font Size"
@@ -3044,19 +3054,19 @@ msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:108
 msgid "Page Size"
-msgstr "頁面尺寸"
+msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:113
 msgid "Digest (5.5&quot; &times; 8.5&quot;)"
-msgstr "Digest (5.5&quot; &times; 8.5&quot;)"
+msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:114
 msgid "US Trade (6&quot; &times; 9&quot;)"
-msgstr "US Trade (6&quot; &times; 9&quot;)"
+msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:115
 msgid "US Letter (8.5&quot; &times; 11&quot;)"
-msgstr "US Letter (8.5&quot; &times; 11&quot;)"
+msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:116
 msgid "Custom (8.5&quot; &times; 9.25&quot;)"
@@ -3165,7 +3175,7 @@ msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:248
 msgid "Display table of contents"
-msgstr "顯示目錄"
+msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:254
 msgid "Crop Marks"
@@ -3189,7 +3199,7 @@ msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:283
 msgid "Regular footnotes"
-msgstr "一般附註"
+msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:284
 msgid "Display as chapter endnotes"
@@ -3386,13 +3396,13 @@ msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:1350
 msgid "PDF Options"
-msgstr "PDF 選項"
+msgstr ""
 
 #: inc/modules/themeoptions/class-themeoptions.php:88
 #: inc/modules/themeoptions/class-themeoptions.php:89
 #: inc/modules/themeoptions/class-themeoptions.php:138
 msgid "Theme Options"
-msgstr "佈景主題選項"
+msgstr ""
 
 #: inc/modules/themeoptions/class-weboptions.php:79
 msgid "Enable Social Media"
@@ -3458,11 +3468,11 @@ msgstr ""
 
 #: inc/posttype/namespace.php:67 templates/admin/organize.php:59
 msgid "Chapters"
-msgstr "章節"
+msgstr ""
 
 #: inc/posttype/namespace.php:90 templates/admin/organize.php:61
 msgid "Parts"
-msgstr "書篇"
+msgstr ""
 
 #: inc/posttype/namespace.php:196
 msgid "Glossary Term"
@@ -3482,15 +3492,15 @@ msgstr ""
 
 #: inc/posttype/namespace.php:323
 msgid "Chapter Short Title (appears in the PDF running header)"
-msgstr "章節簡要標題（出現於 PDF 的目錄標題）"
+msgstr ""
 
 #: inc/posttype/namespace.php:332
 msgid "Chapter Subtitle (appears in the Web/ebook/PDF output)"
-msgstr "章節副標題（製作 Web/EPUB/PDF 時使用）"
+msgstr ""
 
 #: inc/posttype/namespace.php:342
 msgid "Chapter Author (appears in Web/ebook/PDF output)"
-msgstr "章節作者（製作 Web/EPUB/PDF 時使用）"
+msgstr ""
 
 #: inc/posttype/namespace.php:351
 msgid "Chapter Copyright License (overrides book license on this page)"
@@ -3534,6 +3544,7 @@ msgstr ""
 msgid "Web Only <span class=\"count\">(%s)</span>"
 msgid_plural "Web Only <span class=\"count\">(%s)</span>"
 msgstr[0] ""
+msgstr[1] ""
 
 #: inc/posttype/namespace.php:473
 msgid "parts"
@@ -3566,7 +3577,7 @@ msgstr ""
 
 #: inc/redirect/namespace.php:399
 msgid "File not found"
-msgstr "找不到檔案"
+msgstr ""
 
 #: inc/redirect/namespace.php:486
 msgid "Unsupported post type."
@@ -3719,7 +3730,7 @@ msgstr ""
 
 #: inc/shortcodes/footnotes/class-footnotes.php:184
 msgid "Invalid permissions."
-msgstr "權限不符。"
+msgstr ""
 
 #: inc/shortcodes/glossary/class-glossary.php:117
 msgid "Select"
@@ -4031,15 +4042,15 @@ msgstr ""
 
 #: templates/admin/export.php:120
 msgid "Error: The export failed. See logs for more details."
-msgstr "錯誤訊息：製作書籍失敗。請檢視系統紀錄，找出問題之所在。"
+msgstr ""
 
 #: templates/admin/export.php:126
 msgid "Warning: The export has validation errors. See logs for more details."
-msgstr "警示：製作書籍無法通過驗證。請檢視系統記錄，找出問題之所在。"
+msgstr ""
 
 #: templates/admin/export.php:127
 msgid "Emailed to:"
-msgstr "寄送給："
+msgstr ""
 
 #: templates/admin/export.php:148
 #, php-format
@@ -4050,19 +4061,19 @@ msgstr ""
 
 #: templates/admin/export.php:153
 msgid "Your Export Format Options"
-msgstr "製書格式選項"
+msgstr ""
 
 #: templates/admin/export.php:154
 msgid "Select which formats you want to export"
-msgstr "選擇要製作哪些書籍格式"
+msgstr ""
 
 #: templates/admin/export.php:174
 msgid "EPUB (for Nook, iBooks, Kobo etc.)"
-msgstr "EPUB（讓 Nook, iBooks, Kobo 等服務可以閱讀）"
+msgstr ""
 
 #: templates/admin/export.php:175
 msgid "MOBI (for Kindle)"
-msgstr "MOBI（在 Kindle 閱讀）"
+msgstr ""
 
 #: templates/admin/export.php:178
 msgid "EPUB 3"
@@ -4070,7 +4081,7 @@ msgstr ""
 
 #: templates/admin/export.php:179
 msgid "XHTML"
-msgstr "XHTML"
+msgstr ""
 
 #: templates/admin/export.php:180
 msgid "HTMLBook"
@@ -4086,7 +4097,7 @@ msgstr ""
 
 #: templates/admin/export.php:183
 msgid "WordPress XML"
-msgstr "WordPress XML"
+msgstr ""
 
 #: templates/admin/export.php:189
 msgid "Supported formats"
@@ -4102,11 +4113,11 @@ msgstr ""
 
 #: templates/admin/export.php:238
 msgid "Export Your Book"
-msgstr "製作書籍"
+msgstr ""
 
 #: templates/admin/export.php:258
 msgid "Latest Export"
-msgstr "最近的製書記錄"
+msgstr ""
 
 #: templates/admin/export.php:258 templates/admin/export.php:261
 #, php-format
@@ -4116,7 +4127,7 @@ msgstr ""
 
 #: templates/admin/export.php:261
 msgid "Exported"
-msgstr "已製作的書籍"
+msgstr ""
 
 #: templates/admin/export.php:333
 msgid "Are you sure you want to delete ALL your current exports?"
@@ -4218,7 +4229,7 @@ msgstr ""
 #: templates/admin/organize.php:117 templates/admin/organize.php:163
 #: templates/admin/organize.php:300
 msgid "Edit"
-msgstr "編輯"
+msgstr ""
 
 #: templates/admin/organize.php:120 templates/admin/organize.php:166
 #: templates/admin/organize.php:303
@@ -4227,7 +4238,7 @@ msgstr ""
 
 #: templates/admin/organize.php:127 templates/admin/organize.php:266
 msgid "Comments"
-msgstr "註記"
+msgstr ""
 
 #: templates/admin/organize.php:152 templates/admin/organize.php:157
 #: templates/admin/organize.php:289 templates/admin/organize.php:294
@@ -4364,7 +4375,7 @@ msgstr ""
 
 #: templates/pb-catalog.php:187
 msgid "Admin"
-msgstr "管理"
+msgstr ""
 
 #: templates/pb-catalog.php:239
 msgid "Catalog"
