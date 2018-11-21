@@ -166,6 +166,13 @@ class Cloner {
 	protected $knownMedia = [];
 
 	/**
+	 * Array of known H5P
+	 *
+	 * @var \Pressbooks\Entities\Cloner\H5P[]
+	 */
+	protected $knownH5P = [];
+
+	/**
 	 * Regular expression for image extensions that Pressbooks knows how to resize, analyse, etc.
 	 *
 	 * @var string
@@ -192,6 +199,10 @@ class Cloner {
 	 */
 	protected $postsWithAttachmentsShortcodesToFix = [];
 
+	/**
+	 * @var int[]
+	 */
+	protected $postsWithH5PShortcodesToFix = [];
 
 	/**
 	 * @var array
@@ -387,10 +398,7 @@ class Cloner {
 		// Clone Parts and chapters
 		$ticks = 0;
 		foreach ( $this->sourceBookStructure['parts'] as $key => $part ) {
-			$ticks++;
-			foreach ( $this->sourceBookStructure['parts'][ $key ]['chapters'] as $chapter ) {
-				$ticks++;
-			}
+			$ticks = $ticks + 1 + count( $this->sourceBookStructure['parts'][ $key ]['chapters'] );
 		}
 		$y = new PercentageYield( 50, 80, $ticks );
 		foreach ( $this->sourceBookStructure['parts'] as $key => $part ) {
@@ -501,6 +509,9 @@ class Cloner {
 			}
 		);
 		$this->knownMedia = $known_media_sorted;
+
+		// H5P
+		$this->knownH5P = $this->buildListOfKnownH5P( $this->sourceBookUrl );
 
 		// Set up $this->sourceBookGlossary
 		$this->sourceBookGlossary = $this->getBookGlossary( $this->sourceBookUrl );
@@ -643,7 +654,7 @@ class Cloner {
 	 *
 	 * @param string $url The URL of the book.
 	 *
-	 * @return bool |\Pressbooks\Entities\Cloner\Media[] False if the operation failed; known images array if succeeded.
+	 * @return bool|\Pressbooks\Entities\Cloner\Media[] False if the operation failed; known images array if succeeded.
 	 */
 	public function buildListOfKnownMedia( $url ) {
 		// Handle request (local or global)
@@ -677,6 +688,24 @@ class Cloner {
 		}
 
 		return $known_media;
+	}
+
+	/**
+	 * @param $url
+	 *
+	 * @return array
+	 */
+	public function buildListOfKnownH5P( $url ) {
+		$response = $this->handleGetRequest( $url, 'h5p/v1', 'all' );
+		if ( is_wp_error( $response ) ) {
+			return [];
+		}
+
+		$known_h5p = [];
+		foreach ( $response as $item ) {
+			$known_h5p[] = $this->createH5PEntity( $item );
+		}
+		return $known_h5p;
 	}
 
 	/**
@@ -726,6 +755,22 @@ class Cloner {
 	}
 
 	/**
+	 * @param array $item
+	 *
+	 * @return Entities\Cloner\H5P
+	 */
+	protected function createH5PEntity( $item ) {
+		$h5p = new Entities\Cloner\H5P();
+		if ( isset( $item['id'] ) ) {
+			$h5p->id = $item['id'];
+		}
+		if ( isset( $item['url'] ) ) {
+			$h5p->url = $item['url'];
+		}
+		return $h5p;
+	}
+
+	/**
 	 * @param \Pressbooks\Entities\Cloner\Media $media
 	 *
 	 * @return array
@@ -755,6 +800,10 @@ class Cloner {
 		if ( has_shortcode( $html, Shortcodes\Attributions\Attachments::SHORTCODE ) ) {
 			$this->postsWithAttachmentsShortcodesToFix[] = $post_id;
 		}
+		// H5P
+		if ( has_shortcode( $html, Interactive\H5P::SHORTCODE ) ) {
+			$this->postsWithH5PShortcodesToFix[] = $post_id;
+		}
 	}
 
 	/**
@@ -763,36 +812,37 @@ class Cloner {
 	protected function fixInternalShortcodes() {
 		// Glossary
 		foreach ( $this->postsWithGlossaryShortcodesToFix as $post_id ) {
-			$post = get_post( $post_id );
-			foreach ( $this->transitions as $transition ) {
-				if ( $transition->type === 'glossary' ) {
-					$post->post_content = \Pressbooks\Utility\shortcode_att_replace(
-						$post->post_content,
-						Shortcodes\Glossary\Glossary::SHORTCODE,
-						'id',
-						$transition->oldId,
-						$transition->newId
-					);
-				}
-			}
-			wp_update_post( $post );
+			$this->_fixInternalShortcodes( $post_id, 'glossary', Shortcodes\Glossary\Glossary::SHORTCODE );
 		}
 		// Attachments
 		foreach ( $this->postsWithAttachmentsShortcodesToFix as $post_id ) {
-			$post = get_post( $post_id );
-			foreach ( $this->transitions as $transition ) {
-				if ( $transition->type === 'attachment' ) {
-					$post->post_content = \Pressbooks\Utility\shortcode_att_replace(
-						$post->post_content,
-						Shortcodes\Attributions\Attachments::SHORTCODE,
-						'id',
-						$transition->oldId,
-						$transition->newId
-					);
-				}
-			}
-			wp_update_post( $post );
+			$this->_fixInternalShortcodes( $post_id, 'attachment', Shortcodes\Attributions\Attachments::SHORTCODE );
 		}
+		// H5P
+		foreach ( $this->postsWithH5PShortcodesToFix as $post_id ) {
+			$this->_fixInternalShortcodes( $post_id, 'h5p', Interactive\H5P::SHORTCODE );
+		}
+	}
+
+	/**
+	 * @param int $post_id
+	 * @param string $transition_type
+	 * @param string $shortcode
+	 */
+	protected function _fixInternalShortcodes( $post_id, $transition_type, $shortcode ) {
+		$post = get_post( $post_id );
+		foreach ( $this->transitions as $transition ) {
+			if ( $transition->type === $transition_type ) {
+				$post->post_content = \Pressbooks\Utility\shortcode_att_replace(
+					$post->post_content,
+					$shortcode,
+					'id',
+					$transition->oldId,
+					$transition->newId
+				);
+			}
+		}
+		wp_update_post( $post );
 	}
 
 	/**
@@ -1698,6 +1748,21 @@ class Cloner {
 					$dom_as_string = str_replace( $src_old, "{$src_old}#fixme", $dom_as_string );
 					$changed = true;
 				}
+			}
+		}
+
+		// H5P
+		// TODO: This is wrong. We need to check if post has an H5P sortcode in it. This is simply just downloading everything
+		foreach ( $this->knownH5P as $h5p ) {
+			try {
+				// TODO: This doesn't work because the default behaviour, on a new book is that H5P is disabled, therefore the tables aren't created?
+				$plugin = \H5P_Plugin::get_instance();
+				$new_h5p_id = $plugin->fetch_h5p( $h5p->url );
+				if ( $new_h5p_id ) {
+					$this->createTransition( 'h5p', $h5p->id, $new_h5p_id );
+				}
+			} catch ( \Exception $e ) {
+				// TODO: Cleanup failed download?
 			}
 		}
 

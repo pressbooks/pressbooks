@@ -80,6 +80,11 @@ function init_book() {
 
 	// Gutenberg hack
 	gutenberg_hack();
+
+	// H5P
+	if ( get_option( 'blog_public' ) ) {
+		add_filter( 'h5p_rest_api_all_permission', '__return_true' );
+	}
 }
 
 /**
