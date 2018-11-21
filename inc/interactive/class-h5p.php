@@ -58,7 +58,7 @@ class H5P {
 	}
 
 	/**
-	 * Replace [h5p] shortcode with standard text
+	 * Replace [h5p] shortcode with standard text (used in exports)
 	 *
 	 * @see \H5P_Plugin::shortcode
 	 *
@@ -151,6 +151,30 @@ class H5P {
 		if ( ! $notice_already_set ) {
 			$_SESSION['pb_notices'][] = __( 'This book contains H5P content that cannot be cloned. Please review the cloned version of your text carefully, as missing H5P content will be indicated. You may want to remove or replace these sections.', 'pressbooks' );
 		}
+	}
+
+	/**
+	 * @param string $content
+	 *
+	 * @return int[]
+	 */
+	public function findAllShortcodeIds( $content ) {
+		// TODO: This is crappy code, it could be improved to get_shortcode_regex([self::SHORTCODE])
+		$ids = [];
+		$matches = [];
+		$pattern = get_shortcode_regex();
+		if ( preg_match_all( '/' . $pattern . '/s', $content, $matches ) && array_key_exists( 2, $matches ) && in_array( 'h5p', $matches[2] ) ) {
+			foreach ( $matches[2] as $key => $type ) {
+				if ( $type !== 'h5p' ) {
+					continue;
+				}
+				$attr = shortcode_parse_atts( $matches[3][ $key ] );
+				if ( intval( $attr['id'] ) == $attr['id'] ) {
+					$ids[] = $attr['id'];
+				}
+			}
+		}
+		return $ids;
 	}
 
 }

@@ -83,6 +83,20 @@ class Content {
 	}
 
 	/**
+	 * @return H5P
+	 */
+	public function getH5P() {
+		return $this->h5p;
+	}
+
+	/**
+	 * @return Phet
+	 */
+	public function getPhet() {
+		return $this->phet;
+	}
+
+	/**
 	 * Delete <iframe> sources not on our whitelist
 	 * Content is expected to be raw, e.g. before the_content filters have been run
 	 * Hooked into `pre_kses` filter

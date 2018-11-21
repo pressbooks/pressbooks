@@ -524,7 +524,10 @@ class Cloner {
 	 * Pre-processor
 	 */
 	public function clonePreProcess() {
-		// TODO
+		// H5P
+		if ( ! empty( $this->knownH5P ) ) {
+			activate_plugin( 'h5p/h5p.php' );
+		}
 	}
 
 	/**
@@ -1040,11 +1043,11 @@ class Cloner {
 		$result = wpmu_create_blog( $domain, $path, $this->targetBookTitle, $user_id );
 		remove_all_filters( 'pb_redirect_to_new_book' );
 		remove_filter( 'pb_default_book_content', [ $this, 'removeDefaultBookContent' ] );
-		if ( ! is_wp_error( $result ) ) {
-			return $result;
+		if ( is_wp_error( $result ) ) {
+			return false;
 		}
 
-		return false;
+		return $result;
 	}
 
 	/**
@@ -1294,17 +1297,39 @@ class Cloner {
 		// Save the destination content
 		$content = $html5->saveHTML( $dom );
 
+		// H5P
+		$h5p_ids = $this->interactiveContent->getH5P()->findAllShortcodeIds( $content );
+		foreach ( $h5p_ids as $h5p_id ) {
+			foreach ( $this->knownH5P as $h5p ) {
+				if ( absint( $h5p->id ) === absint( $h5p_id ) ) {
+					try {
+						$plugin = \H5P_Plugin::get_instance();
+						$new_h5p_id = $plugin->fetch_h5p( $h5p->url );
+						if ( $new_h5p_id ) {
+							$this->createTransition( 'h5p', $h5p->id, $new_h5p_id );
+						}
+					} catch ( \Exception $e ) {
+						// TODO: Cleanup failed download?
+					}
+					continue 2;
+				}
+			}
+		}
+
 		// Put back the hidden characters
 		foreach ( $characters_to_keep as $c ) {
 			$md5 = md5( $c );
 			$content = str_replace( "<!-- pb_fixme_{$md5} -->", $c, $content );
 		}
 
+		// TODO: H5P cloning only works with new versions of the plugin, what do we do about this?
+		/*
 		if ( ! empty( $section['content']['raw'] ) ) {
 			if ( ! $this->interactiveContent->isCloneable( $content ) ) {
 				$content = $this->interactiveContent->replaceCloneable( $content );
 			}
 		}
+		*/
 
 		return [ trim( $content ), $attachments ];
 	}
@@ -1748,21 +1773,6 @@ class Cloner {
 					$dom_as_string = str_replace( $src_old, "{$src_old}#fixme", $dom_as_string );
 					$changed = true;
 				}
-			}
-		}
-
-		// H5P
-		// TODO: This is wrong. We need to check if post has an H5P sortcode in it. This is simply just downloading everything
-		foreach ( $this->knownH5P as $h5p ) {
-			try {
-				// TODO: This doesn't work because the default behaviour, on a new book is that H5P is disabled, therefore the tables aren't created?
-				$plugin = \H5P_Plugin::get_instance();
-				$new_h5p_id = $plugin->fetch_h5p( $h5p->url );
-				if ( $new_h5p_id ) {
-					$this->createTransition( 'h5p', $h5p->id, $new_h5p_id );
-				}
-			} catch ( \Exception $e ) {
-				// TODO: Cleanup failed download?
 			}
 		}
 
