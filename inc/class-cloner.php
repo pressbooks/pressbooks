@@ -19,8 +19,8 @@ use function Pressbooks\Utility\str_ends_with;
 use function Pressbooks\Utility\str_lreplace;
 use function Pressbooks\Utility\str_remove_prefix;
 use function Pressbooks\Utility\str_starts_with;
-
 use Pressbooks\Admin\Network\SharingAndPrivacyOptions;
+use Pressbooks\Utility\PercentageYield;
 
 class Cloner {
 
@@ -363,103 +363,68 @@ class Cloner {
 		$this->clonedItems['metadata'][] = $this->cloneMetadata();
 
 		// Clone Taxonomy Terms
-		yield 30 => __( 'Cloning taxonomies', 'pressbooks' );
-		$i = 1; // Number of taxonomies cloned
-		$j = 30; // Estimated progress of execution
-		$total = count( $this->sourceBookTerms );
-		$chunks = max( round( $total / 10 ), 1 );
+		$y = new PercentageYield( 30, 40, count( $this->sourceBookTerms ) );
 		$this->targetBookTerms = $this->getBookTerms( $this->targetBookUrl );
 		foreach ( $this->sourceBookTerms as $term ) {
-			yield $j => sprintf( __( 'Cloning taxonomies (%1$d of %2$d)', 'pressbooks' ), $i, $total );
+			yield from $y->tick( __( 'Cloning taxonomies', 'pressbooks' ) );
 			$new_term = $this->cloneTerm( $term['id'] );
 			if ( $new_term ) {
 				$this->termMap[ $term['id'] ] = $new_term;
 				$this->clonedItems['terms'][] = $new_term;
 			}
-			if ( ++$i % $chunks === 0 ) {
-				++$j;
-			}
 		}
 
 		// Clone Front Matter
-		yield 40 => __( 'Cloning front-matter', 'pressbooks' );
-		$i = 1; // Number of front-matter cloned
-		$j = 40; // Estimated progress of execution
-		$total = count( $this->sourceBookStructure['front-matter'] );
-		$chunks = max( round( $total / 10 ), 1 );
+		$y = new PercentageYield( 40, 50, count( $this->sourceBookStructure['front-matter'] ) );
 		foreach ( $this->sourceBookStructure['front-matter'] as $frontmatter ) {
-			yield $j => sprintf( __( 'Cloning front-matter (%1$d of %2$d)', 'pressbooks' ), $i, $total );
+			yield from $y->tick( __( 'Cloning front-matter', 'pressbooks' ) );
 			$new_frontmatter = $this->cloneFrontMatter( $frontmatter['id'] );
 			if ( $new_frontmatter !== false ) {
 				$this->clonedItems['front-matter'][] = $new_frontmatter;
 			}
-			if ( ++$i % $chunks === 0 ) {
-				++$j;
-			}
 		}
 
 		// Clone Parts and chapters
-		yield 50 => __( 'Cloning parts and chapters', 'pressbooks' );
-		$i = 1; // Number of parts and chapters cloned
-		$j = 50; // Estimated progress of execution
-		$total = 0;
+		$ticks = 0;
 		foreach ( $this->sourceBookStructure['parts'] as $key => $part ) {
-			$total++;
+			$ticks++;
 			foreach ( $this->sourceBookStructure['parts'][ $key ]['chapters'] as $chapter ) {
-				$total++;
+				$ticks++;
 			}
 		}
-		$chunks = max( round( $total / 30 ), 1 );
+		$y = new PercentageYield( 50, 80, $ticks );
 		foreach ( $this->sourceBookStructure['parts'] as $key => $part ) {
-			yield $j => sprintf( __( 'Cloning parts and chapters (%1$d of %2$d)', 'pressbooks' ), $i, $total );
+			yield from $y->tick( __( 'Cloning parts and chapters', 'pressbooks' ) );
 			$new_part = $this->clonePart( $part['id'] );
-			++$i;
 			if ( $new_part !== false ) {
 				$this->clonedItems['parts'][] = $new_part;
 				foreach ( $this->sourceBookStructure['parts'][ $key ]['chapters'] as $chapter ) {
-					yield $j => sprintf( __( 'Cloning parts and chapters (%1$d of %2$d)', 'pressbooks' ), $i, $total );
+					yield from $y->tick( __( 'Cloning parts and chapters', 'pressbooks' ) );
 					$new_chapter = $this->cloneChapter( $chapter['id'], $new_part );
 					if ( $new_chapter !== false ) {
 						$this->clonedItems['chapters'][] = $new_chapter;
-					}
-					if ( ++$i % $chunks === 0 ) {
-						++$j;
 					}
 				}
 			}
 		}
 
 		// Clone Back Matter
-		yield 80 => __( 'Cloning back-matter', 'pressbooks' );
-		$i = 1; // Number of back-matter cloned
-		$j = 80; // Estimated progress of execution
-		$total = count( $this->sourceBookStructure['back-matter'] );
-		$chunks = max( round( $total / 10 ), 1 );
+		$y = new PercentageYield( 80, 90, count( $this->sourceBookStructure['back-matter'] ) );
 		foreach ( $this->sourceBookStructure['back-matter'] as $backmatter ) {
-			yield $j => sprintf( __( 'Cloning back-matter (%1$d of %2$d)', 'pressbooks' ), $i, $total );
+			yield from $y->tick( __( 'Cloning back-matter', 'pressbooks' ) );
 			$new_backmatter = $this->cloneBackMatter( $backmatter['id'] );
 			if ( $new_backmatter !== false ) {
 				$this->clonedItems['back-matter'][] = $new_backmatter;
 			}
-			if ( ++$i % $chunks === 0 ) {
-				++$j;
-			}
 		}
 
 		// Clone Glossary
-		yield 90 => __( 'Cloning glossary terms', 'pressbooks' );
-		$i = 1; // Number of glossary terms cloned
-		$j = 90; // Estimated progress of execution
-		$total = count( $this->sourceBookGlossary );
-		$chunks = max( round( $total / 10 ), 1 );
+		$y = new PercentageYield( 90, 100, count( $this->sourceBookGlossary ) );
 		foreach ( $this->sourceBookGlossary as $glossary ) {
-			yield $j => sprintf( __( 'Cloning glossary terms (%1$d of %2$d)', 'pressbooks' ), $i, $total );
+			yield from $y->tick( __( 'Cloning glossary terms' ) );
 			$new_glossary = $this->cloneGlossary( $glossary['id'] );
 			if ( $new_glossary !== false ) {
 				$this->clonedItems['glossary'][] = $new_glossary;
-			}
-			if ( ++$i % $chunks === 0 ) {
-				++$j;
 			}
 		}
 
