@@ -215,6 +215,11 @@ class Cloner {
 	protected $mediaWasAlreadyDownloaded = [];
 
 	/**
+	 * @var array
+	 */
+	protected $H5PWasAlreadyDownloaded = [];
+
+	/**
 	 * Constructor.
 	 *
 	 * @since 4.1.0
@@ -715,15 +720,13 @@ class Cloner {
 	 * @param string $type
 	 * @param int $old_id
 	 * @param int $new_id
-	 *
-	 * @return \Pressbooks\Entities\Cloner\Transition
 	 */
 	protected function createTransition( $type, $old_id, $new_id ) {
 		$transition = new  Entities\Cloner\Transition();
 		$transition->type = $type;
 		$transition->oldId = $old_id;
 		$transition->newId = $new_id;
-		return $transition;
+		$this->transitions[] = $transition;
 	}
 
 	/**
@@ -1225,7 +1228,7 @@ class Cloner {
 		$this->checkInternalShortcodes( $response['id'], $section['content'] );
 
 		// Store a transitional state
-		$this->transitions[] = $this->createTransition( $post_type, $section_id, $response['id'] );
+		$this->createTransition( $post_type, $section_id, $response['id'] );
 
 		return $response['id'];
 	}
@@ -1297,25 +1300,6 @@ class Cloner {
 		// Save the destination content
 		$content = $html5->saveHTML( $dom );
 
-		// H5P
-		$h5p_ids = $this->interactiveContent->getH5P()->findAllShortcodeIds( $content );
-		foreach ( $h5p_ids as $h5p_id ) {
-			foreach ( $this->knownH5P as $h5p ) {
-				if ( absint( $h5p->id ) === absint( $h5p_id ) ) {
-					try {
-						$plugin = \H5P_Plugin::get_instance();
-						$new_h5p_id = $plugin->fetch_h5p( $h5p->url );
-						if ( $new_h5p_id ) {
-							$this->createTransition( 'h5p', $h5p->id, $new_h5p_id );
-						}
-					} catch ( \Exception $e ) {
-						// TODO: Cleanup failed download?
-					}
-					continue 2;
-				}
-			}
-		}
-
 		// Put back the hidden characters
 		foreach ( $characters_to_keep as $c ) {
 			$md5 = md5( $c );
@@ -1330,6 +1314,7 @@ class Cloner {
 			}
 		}
 		*/
+		$content = $this->fetchH5P( $content );
 
 		return [ trim( $content ), $attachments ];
 	}
@@ -1674,7 +1659,7 @@ class Cloner {
 				$request->set_body_params( $this->createMediaPatch( $m ) );
 				rest_do_request( $request );
 				// Store a transitional state
-				$this->transitions[] = $this->createTransition( 'attachment', $m->id, $pid );
+				$this->createTransition( 'attachment', $m->id, $pid );
 			}
 			// Don't download the same file again
 			$this->imageWasAlreadyDownloaded[ $remote_img_location ] = $pid;
@@ -1842,7 +1827,7 @@ class Cloner {
 				$request->set_body_params( $this->createMediaPatch( $m ) );
 				rest_do_request( $request );
 				// Store a transitional state
-				$this->transitions[] = $this->createTransition( 'attachment', $m->id, $pid );
+				$this->createTransition( 'attachment', $m->id, $pid );
 			}
 			// Don't download the same file again
 			$this->mediaWasAlreadyDownloaded[ $remote_media_location ] = $pid;
@@ -1852,6 +1837,35 @@ class Cloner {
 		@unlink( $tmp_name ); // @codingStandardsIgnoreLine
 
 		return $pid;
+	}
+
+	/**
+	 * @param $content
+	 *
+	 * @return mixed
+	 */
+	protected function fetchH5P( $content ) {
+		$h5p_ids = $this->interactiveContent->getH5P()->findAllShortcodeIds( $content );
+		foreach ( $h5p_ids as $h5p_id ) {
+			if ( ! isset( $this->H5PWasAlreadyDownloaded[ $h5p_id ] ) ) {
+				foreach ( $this->knownH5P as $h5p ) {
+					if ( absint( $h5p->id ) === absint( $h5p_id ) ) {
+						try {
+							$plugin = \H5P_Plugin::get_instance();
+							$new_h5p_id = $plugin->fetch_h5p( $h5p->url );
+							if ( $new_h5p_id ) {
+								$this->createTransition( 'h5p', $h5p_id, $new_h5p_id );
+								$this->H5PWasAlreadyDownloaded[ $h5p_id ] = $new_h5p_id;
+							}
+						} catch ( \Exception $e ) {
+							// TODO: Cleanup failed download?
+						}
+						continue 2;
+					}
+				}
+			}
+		}
+		return $content;
 	}
 
 	/**

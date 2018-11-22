@@ -159,17 +159,17 @@ class H5P {
 	 * @return int[]
 	 */
 	public function findAllShortcodeIds( $content ) {
-		// TODO: This is crappy code, it could be improved to get_shortcode_regex([self::SHORTCODE])
+		// TODO: This code could be improved to use get_shortcode_regex([self::SHORTCODE]), and other smells
 		$ids = [];
 		$matches = [];
 		$pattern = get_shortcode_regex();
-		if ( preg_match_all( '/' . $pattern . '/s', $content, $matches ) && array_key_exists( 2, $matches ) && in_array( 'h5p', $matches[2] ) ) {
+		if ( preg_match_all( '/' . $pattern . '/s', $content, $matches ) && array_key_exists( 2, $matches ) && in_array( 'h5p', $matches[2] ) )  // @codingStandardsIgnoreLine{
 			foreach ( $matches[2] as $key => $type ) {
 				if ( $type !== 'h5p' ) {
 					continue;
 				}
 				$attr = shortcode_parse_atts( $matches[3][ $key ] );
-				if ( intval( $attr['id'] ) == $attr['id'] ) {
+				if ( intval( $attr['id'] ) == $attr['id'] ) { // @codingStandardsIgnoreLine
 					$ids[] = $attr['id'];
 				}
 			}
