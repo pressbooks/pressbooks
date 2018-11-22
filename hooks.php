@@ -65,6 +65,12 @@ if ( $is_book ) {
 	add_filter( 'rest_endpoints', '\Pressbooks\Api\hide_endpoints_from_root' );
 }
 
+// TODO: The H5P API doesn't work reliably unless their plugin is loaded. But, we don't want to load H5P on every book. Dilemma.
+if ( is_file( __DIR__ . '/../h5p/autoloader.php' ) ) {
+	require_once( __DIR__ . '/../h5p/autoloader.php' );
+	\H5P_Plugin::get_instance();
+}
+
 // -------------------------------------------------------------------------------------------------------------------
 // Login screen branding
 // -------------------------------------------------------------------------------------------------------------------

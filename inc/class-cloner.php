@@ -700,7 +700,7 @@ class Cloner {
 	 */
 	public function buildListOfKnownH5P( $url ) {
 		$response = $this->handleGetRequest( $url, 'h5p/v1', 'all' );
-		if ( is_wp_error( $response ) ) {
+		if ( is_wp_error( $response ) || @$response['data']['status'] >= 400 ) { // @codingStandardsIgnoreLine
 			return [];
 		}
 
