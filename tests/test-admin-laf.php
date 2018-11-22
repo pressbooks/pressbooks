@@ -15,6 +15,21 @@ class Admin_LafTest extends \WP_UnitTestCase {
 
 		$this->assertContains( 'Powered by', $buffer );
 		$this->assertContains( 'Pressbooks', $buffer );
+
+		add_filter( 'pb_help_link', function() {
+			return 'https://pressbooks.community/';
+		} );
+
+		add_filter( 'pb_contact_link', function() {
+			return 'https://pressbooks.org/contact';
+		} );
+
+		ob_start();
+		\Pressbooks\Admin\Laf\add_footer_link();
+		$buffer = ob_get_clean();
+
+		$this->assertContains( 'https://pressbooks.community/', $buffer );
+		$this->assertContains( 'https://pressbooks.org/contact', $buffer );
 	}
 
 	function test_replace_book_admin_menu() {
