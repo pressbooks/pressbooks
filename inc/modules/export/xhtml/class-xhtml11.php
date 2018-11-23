@@ -11,10 +11,11 @@ use function Pressbooks\Utility\str_starts_with;
 use PressbooksMix\Assets;
 use Pressbooks\Container;
 use Pressbooks\HtmlParser;
-use Pressbooks\Modules\Export\Export;
+use Pressbooks\Modules\Export\ExportGenerator;
 use Pressbooks\Sanitize;
+use Pressbooks\Utility\PercentageYield;
 
-class Xhtml11 extends Export {
+class Xhtml11 extends ExportGenerator {
 
 	const TRANSIENT = 'pressbooks_export_xhtml_buffer_inner_html';
 
@@ -32,6 +33,10 @@ class Xhtml11 extends Export {
 	 */
 	public $url;
 
+	/**
+	 * @var string
+	 */
+	public $transformOutput;
 
 	/**
 	 * Endnotes storage container.
@@ -97,7 +102,7 @@ class Xhtml11 extends Export {
 	/**
 	 * @param array $args
 	 */
-	function __construct( array $args ) {
+	public function __construct( array $args ) {
 
 		// Some defaults
 
@@ -144,38 +149,68 @@ class Xhtml11 extends Export {
 		}
 	}
 
-
 	/**
 	 * Create $this->outputPath
 	 *
 	 * @return bool
 	 */
-	function convert() {
-
-		// Get XHTML
-
-		$output = $this->transform( true );
-
-		if ( ! $output ) {
+	public function convert() {
+		try {
+			foreach ( $this->convertGenerator() as $percentage => $info ) {
+				// Do nothing, this is a compatibility wrapper that makes the generator work like a regular function
+			}
+		} catch ( \Exception $e ) {
 			return false;
 		}
-
-		// Save XHTML as file in exports folder
-
-		$filename = $this->timestampedFileName( '.html' );
-		\Pressbooks\Utility\put_contents( $filename, $output );
-		$this->outputPath = $filename;
-
 		return true;
 	}
 
+	/**
+	 * 1 to 80
+	 *
+	 * @return \Generator
+	 * @throws \Exception
+	 */
+	public function convertGenerator(): \Generator {
+		yield 1 => __( 'Exporting XHTML', 'pressbooks' );
+
+		yield from $this->transformGenerator();
+
+		if ( ! $this->transformOutput ) {
+			throw new \Exception();
+		}
+
+		yield 75 => __( 'Saving XHTML in exports folder', 'pressbooks' );
+		$filename = $this->timestampedFileName( '.html' );
+		\Pressbooks\Utility\put_contents( $filename, $this->transformOutput );
+		$this->outputPath = $filename;
+		yield 80 => __( 'Exporting XHTML was successful', 'pressbooks' );
+	}
 
 	/**
 	 * Check the sanity of $this->outputPath
 	 *
 	 * @return bool
 	 */
-	function validate() {
+	public function validate() {
+		try {
+			foreach ( $this->validateGenerator() as $percentage => $info ) {
+				// Do nothing, this is a compatibility wrapper that makes the generator work like a regular function
+			}
+		} catch ( \Exception $e ) {
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * 80 to 100
+	 *
+	 * @return \Generator
+	 * @throws \Exception
+	 */
+	public function validateGenerator(): \Generator {
+		yield 80 => __( 'Validating XHTML', 'pressbooks' );
 
 		// Xmllint params
 		$command = PB_XMLLINT_COMMAND . ' --html --valid --noout ' . escapeshellcmd( $this->outputPath ) . ' 2>&1';
@@ -188,11 +223,10 @@ class Xhtml11 extends Export {
 		// Is this a valid XHTML?
 		if ( is_countable( $output ) && count( $output ) ) {
 			$this->logError( implode( "\n", $output ) );
-
-			return false;
+			throw new \Exception();
 		}
 
-		return true;
+		yield 100 => __( 'Validating XHTML was successful', 'pressbooks' );
 	}
 
 
@@ -216,7 +250,7 @@ class Xhtml11 extends Export {
 	 *
 	 * @return mixed
 	 */
-	function transform( $return = false ) {
+	public function transform( $return = false ) {
 
 		// Check permissions
 
@@ -227,6 +261,30 @@ class Xhtml11 extends Export {
 				wp_die( __( 'Invalid permission error', 'pressbooks' ) );
 			}
 		}
+
+		try {
+			foreach ( $this->transformGenerator() as $percentage => $info ) {
+				// Do nothing, this is a compatibility wrapper that makes the generator work like a regular function
+			}
+		} catch ( \Exception $e ) {
+			return null;
+		}
+
+		if ( $return ) {
+			return $this->transformOutput;
+		} else {
+			echo $this->transformOutput;
+			return null;
+		}
+	}
+
+	/**
+	 * 10 to 75
+	 *
+	 * @return \Generator
+	 * @throws \Exception
+	 */
+	public function transformGenerator() {
 
 		do_action( 'pb_pre_export' );
 
@@ -313,37 +371,47 @@ class Xhtml11 extends Export {
 			ob_start();
 
 			// Before Title Page
+			yield 10 => __( 'Before Title', 'pressbooks' );
 			$this->echoBeforeTitle( $book_contents, $metadata );
 
 			// Half-title
+			yield 15 => __( 'Half Title', 'pressbooks' );
 			$this->echoHalfTitle( $book_contents, $metadata );
 
 			// Cover
+			yield 20 => __( 'Cover', 'pressbooks' );
 			$this->echoCover( $book_contents, $metadata );
 
 			// Title
+			yield 25 => __( 'Title', 'pressbooks' );
 			$this->echoTitle( $book_contents, $metadata );
 
 			// Copyright
+			yield 30 => __( 'Copyright', 'pressbooks' );
 			$this->echoCopyright( $book_contents, $metadata );
 
 			// Dedication and Epigraph (In that order!)
+			yield 35 => __( 'Dedication and Epigraph', 'pressbooks' );
 			$this->echoDedicationAndEpigraph( $book_contents, $metadata );
 
 			// Table of contents
+			yield 40 => __( 'Table of contents', 'pressbooks' );
 			$this->echoToc( $book_contents, $metadata );
 
 			// Front-matter
-			$this->echoFrontMatter( $book_contents, $metadata );
+			yield 50 => __( 'Front-matter', 'pressbooks' );
+			yield from $this->echoFrontMatterGenerator( $book_contents, $metadata );
 
 			// Promo
 			$this->createPromo( $book_contents, $metadata );
 
 			// Parts, Chapters
-			$this->echoPartsAndChapters( $book_contents, $metadata );
+			yield 60 => __( 'Parts and chapters', 'pressbooks' );
+			yield from $this->echoPartsAndChaptersGenerator( $book_contents, $metadata );
 
 			// Back-matter
-			$this->echoBackMatter( $book_contents, $metadata );
+			yield 70 => __( 'Back Matter', 'pressbooks' );
+			yield from $this->echoBackMatterGenerator( $book_contents, $metadata );
 
 			$buffer_inner_html = ob_get_clean();
 
@@ -359,12 +427,7 @@ class Xhtml11 extends Export {
 		$pos = strpos( $buffer_outer_html, $replace_token );
 		$buffer = substr_replace( $buffer_outer_html, $buffer_inner_html, $pos, strlen( $replace_token ) );
 
-		if ( $return ) {
-			return $buffer;
-		} else {
-			echo $buffer;
-			return null;
-		}
+		$this->transformOutput = $buffer;
 	}
 
 
@@ -1120,17 +1183,23 @@ class Xhtml11 extends Export {
 
 
 	/**
+	 * 50 to 60
+	 *
 	 * @param array $book_contents
 	 * @param array $metadata
+	 * @return \Generator
 	 */
-	protected function echoFrontMatter( $book_contents, $metadata ) {
+	protected function echoFrontMatterGenerator( $book_contents, $metadata ) {
 		$front_matter_printf = '<div class="front-matter %1$s" id="%2$s" title="%3$s">';
 		$front_matter_printf .= '<div class="front-matter-title-wrap"><h3 class="front-matter-number">%4$s</h3><h1 class="front-matter-title">%5$s</h1>%6$s</div>';
 		$front_matter_printf .= '<div class="ugc front-matter-ugc">%7$s</div>%8$s%9$s';
 		$front_matter_printf .= '</div>';
 
+		$y = new PercentageYield( 50, 60, count( $book_contents['front-matter'] ) );
+
 		$i = $this->frontMatterPos;
 		foreach ( $book_contents['front-matter'] as $front_matter ) {
+			yield from $y->tick( 'Front-matter' );
 
 			if ( ! $front_matter['export'] ) {
 				continue; // Skip
@@ -1227,10 +1296,13 @@ class Xhtml11 extends Export {
 
 
 	/**
+	 * 60 to 70
+	 *
 	 * @param array $book_contents
 	 * @param array $metadata
+	 * @return \Generator
 	 */
-	protected function echoPartsAndChapters( $book_contents, $metadata ) {
+	protected function echoPartsAndChaptersGenerator( $book_contents, $metadata ) {
 		$part_printf = '<div class="part %1$s" id="%2$s">';
 		$part_printf .= '<div class="part-title-wrap"><h3 class="part-number">%3$s</h3><h1 class="part-title">%4$s</h1></div>%5$s';
 		$part_printf .= '</div>';
@@ -1240,9 +1312,16 @@ class Xhtml11 extends Export {
 		$chapter_printf .= '<div class="ugc chapter-ugc">%7$s</div>%8$s%9$s';
 		$chapter_printf .= '</div>';
 
+		$ticks = 0;
+		foreach ( $book_contents['part'] as $key => $part ) {
+			$ticks = $ticks + 1 + count( $book_contents['part'][ $key ]['chapters'] );
+		}
+		$y = new PercentageYield( 60, 70, $ticks );
+
 		$i = 1;
 		$j = 1;
 		foreach ( $book_contents['part'] as $part ) {
+			yield from $y->tick( 'Parts and chapters' );
 
 			$invisibility = ( get_post_meta( $part['ID'], 'pb_part_invisible', true ) === 'on' ) ? 'invisible' : '';
 
@@ -1290,6 +1369,7 @@ class Xhtml11 extends Export {
 			$my_chapters = '';
 
 			foreach ( $part['chapters'] as $chapter ) {
+				yield from $y->tick( 'Parts and chapters' );
 
 				if ( ! $chapter['export'] ) {
 					continue; // Skip
@@ -1399,17 +1479,23 @@ class Xhtml11 extends Export {
 
 
 	/**
+	 * 70 to 80
+	 *
 	 * @param array $book_contents
 	 * @param array $metadata
+	 * @return \Generator
 	 */
-	protected function echoBackMatter( $book_contents, $metadata ) {
+	protected function echoBackMatterGenerator( $book_contents, $metadata ) {
 		$back_matter_printf = '<div class="back-matter %1$s" id="%2$s" title="%3$s">';
 		$back_matter_printf .= '<div class="back-matter-title-wrap"><h3 class="back-matter-number">%4$s</h3><h1 class="back-matter-title">%5$s</h1>%6$s</div>';
 		$back_matter_printf .= '<div class="ugc back-matter-ugc">%7$s</div>%8$s%9$s';
 		$back_matter_printf .= '</div>';
 
+		$y = new PercentageYield( 70, 80, count( $book_contents['back-matter'] ) );
+
 		$i = 1;
 		foreach ( $book_contents['back-matter'] as $back_matter ) {
+			yield from $y->tick( 'Back-matter' );
 
 			if ( ! $back_matter['export'] ) {
 				continue;
