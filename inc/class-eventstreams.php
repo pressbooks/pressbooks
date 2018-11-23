@@ -7,6 +7,7 @@
 namespace Pressbooks;
 
 use function Pressbooks\Utility\getset;
+use Pressbooks\Modules\Export\Export;
 
 class EventStreams {
 
@@ -31,6 +32,7 @@ class EventStreams {
 	 */
 	static public function hooks( EventStreams $obj ) {
 		add_action( 'wp_ajax_clone-book', [ $obj, 'cloneBook' ] );
+		add_action( 'wp_ajax_export-book', [ $obj, 'exportBook' ] );
 	}
 
 	/**
@@ -173,6 +175,33 @@ class EventStreams {
 			);
 			set_transient( 'pb_notices' . get_current_user_id(), $pb_notices, 5 * MINUTE_IN_SECONDS );
 		}
+
+		// Tell the browser to stop reconnecting.
+		status_header( 204 );
+
+		if ( ! defined( 'WP_TESTS_MULTISITE' ) ) {
+			exit; // Short circuit wp_die(0);
+		}
+	}
+
+	/**
+	 * Export book
+	 */
+	public function exportBook() {
+		check_admin_referer( 'pb-export' );
+
+		if ( ! is_array( getset( '_GET', 'export_formats' ) ) ) {
+			return;
+		}
+
+		// Backwards compatibility with older plugins
+		foreach ( $_GET['export_formats'] as $k => $v ) {
+			$_POST['export_formats'][ $k ] = $v;
+		}
+
+		Export::preExport();
+		$this->emit( Export::exportGenerator( Export::modules() ) );
+		Export::postExport();
 
 		// Tell the browser to stop reconnecting.
 		status_header( 204 );

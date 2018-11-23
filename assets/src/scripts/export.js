@@ -4,17 +4,50 @@ import Cookies from 'js-cookie';
 
 jQuery( function ( $ ) {
 	/* Swap out and animate the 'Export Your Book' button */
+	$( '#pb-export-form' ).on( 'submit', function ( e ) {
+		e.preventDefault();
+		$( '#pb-export-button' ).attr( 'disabled', true );
+		let form = $( '#pb-export-form' );
+		let eventSourceUrl = PB_ExportToken.ajaxUrl + (PB_ExportToken.ajaxUrl.includes( '?' ) ? '&' : '?') + $.param( form.find( ':checked' ) );
+		let evtSource = new EventSource( eventSourceUrl );
+		evtSource.onopen = function () {
+			$( '#pb-export-button' ).hide();
+		};
+		evtSource.onmessage = function ( message ) {
+			let bar = $( '#pb-sse-progressbar' );
+			let info = $( '#pb-sse-info' );
+			let data = JSON.parse( message.data );
+			switch ( data.action ) {
+				case 'updateStatusBar':
+					bar.progressbar( { value: parseInt( data.percentage, 10 ) } );
+					info.html( data.info );
+					break;
+				case 'complete':
+					evtSource.close();
+					if ( data.error ) {
+						bar.progressbar( { value: false } );
+						info.html( data.error );
+					} else {
+						window.location = PB_ExportToken.redirectUrl;
+					}
+					break;
+				default:
+					break;
+			}
+		};
+		evtSource.onerror = function () {
+			evtSource.close();
+			$( '#pb-sse-progressbar' ).progressbar( { value: false } );
+			$( '#pb-sse-info' ).html( 'EventStream Connection Error' );
+		};
+	} );
 	$( '#pb-export-button' ).click( function ( e ) {
 		e.preventDefault();
 		$( '.export-file-container' ).unbind( 'mouseenter mouseleave' ); // Disable Download & Delete Buttons
 		$( '.export-control button' ).prop( 'disabled', true );
-		$( '#pb-export-button' ).hide();
-		$( '#loader' ).show();
-		const submission = function () {
-			$( '#pb-export-form' ).submit();
-		};
-		setTimeout( submission, 0 );
+		$( '#pb-export-form' ).submit();
 	} );
+
 	/* Show and hide download & delete button */
 	$( '.export-file-container' ).hover(
 		function () {

@@ -368,6 +368,7 @@ class Xhtml11 extends ExportGenerator {
 			// The $_GET parameters haven't changed since the last request so the output will be the same
 			$buffer_inner_html = $cache[1];
 		} else {
+			// TODO Our event streams don't work with ob_start(), the event stream ends up in the content
 			ob_start();
 
 			// Before Title Page
@@ -1199,6 +1200,7 @@ class Xhtml11 extends ExportGenerator {
 
 		$i = $this->frontMatterPos;
 		foreach ( $book_contents['front-matter'] as $front_matter ) {
+			sleep( 1 ); // TODO: Remove after demo
 			yield from $y->tick( 'Front-matter' );
 
 			if ( ! $front_matter['export'] ) {
@@ -1321,6 +1323,7 @@ class Xhtml11 extends ExportGenerator {
 		$i = 1;
 		$j = 1;
 		foreach ( $book_contents['part'] as $part ) {
+			sleep( 1 ); // TODO: Remove after demo
 			yield from $y->tick( 'Parts and chapters' );
 
 			$invisibility = ( get_post_meta( $part['ID'], 'pb_part_invisible', true ) === 'on' ) ? 'invisible' : '';
@@ -1369,6 +1372,7 @@ class Xhtml11 extends ExportGenerator {
 			$my_chapters = '';
 
 			foreach ( $part['chapters'] as $chapter ) {
+				sleep( 1 ); // TODO: Remove after demo
 				yield from $y->tick( 'Parts and chapters' );
 
 				if ( ! $chapter['export'] ) {
@@ -1495,6 +1499,7 @@ class Xhtml11 extends ExportGenerator {
 
 		$i = 1;
 		foreach ( $book_contents['back-matter'] as $back_matter ) {
+			sleep( 1 ); // TODO: Remove after demo
 			yield from $y->tick( 'Back-matter' );
 
 			if ( ! $back_matter['export'] ) {
