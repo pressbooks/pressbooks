@@ -17,6 +17,11 @@ class EventStreams {
 	private static $instance = null;
 
 	/**
+	 * @var array
+	 */
+	private $msgStack = [];
+
+	/**
 	 * @return EventStreams
 	 */
 	static public function init() {
@@ -38,6 +43,13 @@ class EventStreams {
 	/**
 	 */
 	public function __construct() {
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getMsgStack() {
+		return $this->msgStack;
 	}
 
 	/**
@@ -87,11 +99,24 @@ class EventStreams {
 	 *
 	 * @param mixed $data Data to be JSON-encoded and sent in the message.
 	 */
-	protected function emitMessage( $data ) {
-		echo "event: message\n";
-		echo 'data: ' . wp_json_encode( $data ) . "\n\n";
-		echo ':' . str_repeat( ' ', 2048 ) . "\n\n"; // Extra padding.
-		flush();
+	private function emitMessage( $data ) {
+		$msg = "event: message\n";
+		$msg .= 'data: ' . wp_json_encode( $data ) . "\n\n";
+		$msg .= ':' . str_repeat( ' ', 2048 ) . "\n\n";
+		// Buffers are nested. While one buffer is active, flushes from child buffers are not really sent to the output,
+		// but rather to the parent buffer. Only when there is no parent buffer are contents sent to the browser.
+		if ( ! ob_get_level() ) {
+			// Flush to browser
+			foreach ( $this->msgStack as $stack ) {
+				echo $stack;
+			}
+			$this->msgStack = [];
+			echo $msg;
+			flush();
+		} else {
+			// Keep for later
+			$this->msgStack[] = $msg;
+		}
 	}
 
 	/**
@@ -99,7 +124,6 @@ class EventStreams {
 	 * Useful when you want to tell `EventSource` to abort before staring anything, such as failing form validation.
 	 *
 	 * @param $error
-	 * @param bool $setup_headers
 	 */
 	public function emitOneTimeError( $error ) {
 		$this->setupHeaders();
@@ -114,7 +138,7 @@ class EventStreams {
 	/**
 	 *
 	 */
-	protected function setupHeaders() {
+	private function setupHeaders() {
 		// @codingStandardsIgnoreStart
 		// Turn off PHP output compression
 		@ini_set( 'output_buffering', 'off' );
@@ -139,6 +163,7 @@ class EventStreams {
 			wp_ob_end_flush_all();
 		}
 		flush();
+		$this->msgStack = [];
 	}
 
 	/**

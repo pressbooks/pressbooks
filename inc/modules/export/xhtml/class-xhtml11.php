@@ -1200,7 +1200,6 @@ class Xhtml11 extends ExportGenerator {
 
 		$i = $this->frontMatterPos;
 		foreach ( $book_contents['front-matter'] as $front_matter ) {
-			sleep( 1 ); // TODO: Remove after demo
 			yield from $y->tick( 'Front-matter' );
 
 			if ( ! $front_matter['export'] ) {
@@ -1323,7 +1322,6 @@ class Xhtml11 extends ExportGenerator {
 		$i = 1;
 		$j = 1;
 		foreach ( $book_contents['part'] as $part ) {
-			sleep( 1 ); // TODO: Remove after demo
 			yield from $y->tick( 'Parts and chapters' );
 
 			$invisibility = ( get_post_meta( $part['ID'], 'pb_part_invisible', true ) === 'on' ) ? 'invisible' : '';
@@ -1372,7 +1370,6 @@ class Xhtml11 extends ExportGenerator {
 			$my_chapters = '';
 
 			foreach ( $part['chapters'] as $chapter ) {
-				sleep( 1 ); // TODO: Remove after demo
 				yield from $y->tick( 'Parts and chapters' );
 
 				if ( ! $chapter['export'] ) {
@@ -1499,7 +1496,6 @@ class Xhtml11 extends ExportGenerator {
 
 		$i = 1;
 		foreach ( $book_contents['back-matter'] as $back_matter ) {
-			sleep( 1 ); // TODO: Remove after demo
 			yield from $y->tick( 'Back-matter' );
 
 			if ( ! $back_matter['export'] ) {
