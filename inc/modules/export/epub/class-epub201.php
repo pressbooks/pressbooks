@@ -309,7 +309,7 @@ class Epub201 extends ExportGenerator {
 			throw new \Exception();
 		}
 
-		yield 75 => __( 'Saving XHTML in exports folder', 'pressbooks' );
+		yield 75 => __( 'Saving EPUB in exports folder', 'pressbooks' );
 		$filename = $this->timestampedFileName( $this->suffix );
 		if ( ! $this->zipEpub( $filename ) ) {
 			throw new \Exception();
