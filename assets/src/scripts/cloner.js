@@ -3,7 +3,7 @@ jQuery( function ( $ ) {
 		e.preventDefault();
 		$( '#pb-cloner-button' ).attr( 'disabled', true );
 		let form = $( '#pb-cloner-form' );
-		let eventSourceUrl = PB_ClonerToken.ajaxUrl + (PB_ClonerToken.ajaxUrl.includes( '?' ) ? '&' : '?') + $.param( form.find( ':input' ) );
+		let eventSourceUrl = PB_ClonerToken.ajaxUrl + ( PB_ClonerToken.ajaxUrl.includes( '?' ) ? '&' : '?' ) + $.param( form.find( ':input' ) );
 		let evtSource = new EventSource( eventSourceUrl );
 		evtSource.onopen = function () {
 			$( '#pb-cloner-button' ).hide();
@@ -33,7 +33,7 @@ jQuery( function ( $ ) {
 		evtSource.onerror = function () {
 			evtSource.close();
 			$( '#pb-sse-progressbar' ).progressbar( { value: false } );
-			$( '#pb-sse-info' ).html( 'EventStream Connection Error' + ' ' + PB_ClonerToken.reloadSnippet );
+			$( '#pb-sse-info' ).html( 'EventStream Connection Error ' + PB_ClonerToken.reloadSnippet );
 		};
 	} );
 } );

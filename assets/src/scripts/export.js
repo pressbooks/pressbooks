@@ -8,7 +8,7 @@ jQuery( function ( $ ) {
 		e.preventDefault();
 		$( '#pb-export-button' ).attr( 'disabled', true );
 		let form = $( '#pb-export-form' );
-		let eventSourceUrl = PB_ExportToken.ajaxUrl + (PB_ExportToken.ajaxUrl.includes( '?' ) ? '&' : '?') + $.param( form.find( ':checked' ) );
+		let eventSourceUrl = PB_ExportToken.ajaxUrl + ( PB_ExportToken.ajaxUrl.includes( '?' ) ? '&' : '?' ) + $.param( form.find( ':checked' ) );
 		let evtSource = new EventSource( eventSourceUrl );
 		evtSource.onopen = function () {
 			$( '#pb-export-button' ).hide();
@@ -38,7 +38,7 @@ jQuery( function ( $ ) {
 		evtSource.onerror = function () {
 			evtSource.close();
 			$( '#pb-sse-progressbar' ).progressbar( { value: false } );
-			$( '#pb-sse-info' ).html( 'EventStream Connection Error' + ' ' + PB_ExportToken.reloadSnippet );
+			$( '#pb-sse-info' ).html( 'EventStream Connection Error ' + PB_ExportToken.reloadSnippet );
 		};
 	} );
 	$( '#pb-export-button' ).click( function ( e ) {
