@@ -57,7 +57,7 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 		$args = [
 			'post_type'    => 'glossary',
 			'post_title'   => 'PHP',
-			'post_excerpt' => 'A popular general-purpose <script>scripting</script> language that is especially suited to web development.',
+			'post_content' => 'A popular general-purpose <script>scripting</script> language that is especially suited to web development.',
 			'post_status'  => 'publish',
 		];
 		$pid  = $this->factory()->post->create_object( $args );
