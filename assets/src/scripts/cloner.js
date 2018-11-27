@@ -7,6 +7,19 @@ jQuery( function ( $ ) {
 		let evtSource = new EventSource( eventSourceUrl );
 		evtSource.onopen = function () {
 			$( '#pb-cloner-button' ).hide();
+			// count up timer
+			let sec = 0;
+			let seconds = $( '#pb-sse-seconds' );
+			let minutes = $( '#pb-sse-minutes' );
+			seconds.html( '00' );
+			minutes.html( '00:' );
+			function pad( val ) {
+				return val > 9 ? val : '0' + val;
+			}
+			setInterval( function () {
+				seconds.html( pad( ++sec % 60 ) );
+				minutes.html( pad( parseInt( sec / 60, 10 ) ) + ':' );
+			}, 1000 );
 		};
 		evtSource.onmessage = function ( message ) {
 			let bar = $( '#pb-sse-progressbar' );
