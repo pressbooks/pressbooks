@@ -46,8 +46,8 @@ class EventStreamsTest extends \WP_UnitTestCase {
 		ob_start();
 		$result = $this->eventStreams->emit( $this->generator() );
 		ob_end_clean();
-		$this->assertCount( 8, $this->eventStreams->getMsgStack() );
-		$buffer = implode( '', $this->eventStreams->getMsgStack() );
+		$this->assertCount( 8, $this->eventStreams->msgStack );
+		$buffer = implode( '', $this->eventStreams->msgStack );
 		$this->assertTrue( $result );
 		$this->assertContains( 'event: message', $buffer );
 		$this->assertContains( 'data: {"action":"updateStatusBar","percentage":1,"info":"a"}', $buffer );
@@ -58,8 +58,8 @@ class EventStreamsTest extends \WP_UnitTestCase {
 		ob_start();
 		$result = $this->eventStreams->emit( $this->generatorWithError() );
 		ob_end_clean();
-		$this->assertCount( 2, $this->eventStreams->getMsgStack() );
-		$buffer = implode( '', $this->eventStreams->getMsgStack() );
+		$this->assertCount( 2, $this->eventStreams->msgStack );
+		$buffer = implode( '', $this->eventStreams->msgStack );
 		$this->assertFalse( $result );
 		$this->assertContains( 'event: message', $buffer );
 		$this->assertContains( 'data: {"action":"updateStatusBar","percentage":1,"info":"a"}', $buffer );
@@ -70,8 +70,8 @@ class EventStreamsTest extends \WP_UnitTestCase {
 		ob_start();
 		$this->eventStreams->emitOneTimeError( 'Nooooooooooooooo, again!' );
 		ob_end_clean();
-		$this->assertCount( 1, $this->eventStreams->getMsgStack() );
-		$buffer = implode( '', $this->eventStreams->getMsgStack() );
+		$this->assertCount( 1, $this->eventStreams->msgStack );
+		$buffer = implode( '', $this->eventStreams->msgStack );
 
 		$this->assertContains( 'event: message', $buffer );
 		$this->assertContains( 'data: {"action":"complete","error":"Nooooooooooooooo, again!"}', $buffer );

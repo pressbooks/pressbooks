@@ -19,7 +19,7 @@ class EventStreams {
 	/**
 	 * @var array
 	 */
-	private $msgStack = [];
+	public $msgStack = [];
 
 	/**
 	 * @return EventStreams
@@ -43,13 +43,6 @@ class EventStreams {
 	/**
 	 */
 	public function __construct() {
-	}
-
-	/**
-	 * @return array
-	 */
-	public function getMsgStack() {
-		return $this->msgStack;
 	}
 
 	/**
@@ -113,7 +106,7 @@ class EventStreams {
 			foreach ( $this->msgStack as $stack ) {
 				echo $stack;
 			}
-			$this->msgStack = [];
+			$this->msgStack = []; // Reset
 			echo $msg;
 			flush();
 		}
@@ -163,7 +156,7 @@ class EventStreams {
 			wp_ob_end_flush_all();
 		}
 		flush();
-		$this->msgStack = [];
+		$this->msgStack = []; // Reset
 	}
 
 	/**
