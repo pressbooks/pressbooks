@@ -8,9 +8,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
-"POT-Creation-Date: 2018-11-18 18:33-0500\n"
-"PO-Revision-Date: 2018-11-18 23:33+0000\n"
-"Last-Translator: Hugh McGuire <hugh@pressbooks.com>\n"
+"POT-Creation-Date: 2018-11-27 11:58-0400\n"
+"PO-Revision-Date: 2018-11-25 12:14+0000\n"
+"Last-Translator: Antonio Devís <colomet@hotmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/pressbooks/pressbooks/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -950,7 +950,7 @@ msgstr "Настройки обмена и конфиденциальности"
 
 #: inc/admin/laf/namespace.php:285 inc/admin/laf/namespace.php:465
 msgid "Sharing &amp; Privacy"
-msgstr ""
+msgstr "Делёж и приватность"
 
 #: inc/admin/laf/namespace.php:303 inc/admin/laf/namespace.php:304
 msgid "QuickLaTeX"
@@ -1282,7 +1282,7 @@ msgstr "ISBN — это Международный стандартный ном
 
 #: inc/admin/metaboxes/namespace.php:333
 msgid "Digital Object Identifier (DOI)"
-msgstr ""
+msgstr "Идентификатор цифрового объекта (DOI)"
 
 #: inc/admin/metaboxes/namespace.php:342
 msgid "Language"
@@ -1553,7 +1553,7 @@ msgstr "Скрыть из содержания и нумерации часте�
 
 #: inc/admin/metaboxes/namespace.php:800
 msgid "Show in Glossary Lists"
-msgstr ""
+msgstr "Показать в списке глоссариев"
 
 #: inc/admin/metaboxes/namespace.php:811
 msgid "Preview"
@@ -1945,19 +1945,19 @@ msgstr "Источник, использованный для создания �
 msgid ""
 "A commonly used identifier for the characteristic represented by the "
 "property."
-msgstr ""
+msgstr "Общеиспользуемый идентификатор для характеристик, представленных собственностью."
 
 #: inc/api/endpoints/controller/class-metadata.php:429
 #: inc/api/endpoints/controller/class-sectionmetadata.php:411
 msgid "The value of the property value node."
-msgstr ""
+msgstr "Ценность узла значения свойств."
 
 #: inc/api/endpoints/controller/class-metadata.php:440
 #: inc/api/endpoints/controller/class-sectionmetadata.php:422
 msgid ""
 "URL of a reference Web page that unambiguously indicates the item's "
 "identity."
-msgstr ""
+msgstr "Ссылка на справочную интернет-страницу, которая однозначно указывает на идентификатор элемента."
 
 #: inc/api/endpoints/controller/class-search.php:44
 msgid "Any meta key, comma separated values, limit of 5."
@@ -2368,7 +2368,7 @@ msgstr "CC0 (Нулевая лицензия творческого объеди
 
 #: inc/class-licensing.php:73
 msgid "CC BY (Attribution)"
-msgstr "CC BY (C указанием авторства)"
+msgstr "CC BY (Лицензия творческого объединения с указанием авторства)"
 
 #: inc/class-licensing.php:74
 msgid "Creative Commons Attribution 4.0 International License"
@@ -2376,7 +2376,7 @@ msgstr "Международная лицензия творческого об�
 
 #: inc/class-licensing.php:83
 msgid "CC BY-SA (Attribution ShareAlike)"
-msgstr "CC BY-SA  (С указанием авторства на тех же условиях)"
+msgstr "CC BY-SA  (Лицензия творческого объединения с указанием авторства на тех же условиях)"
 
 #: inc/class-licensing.php:84
 msgid "Creative Commons Attribution-ShareAlike 4.0 International License"
@@ -2384,7 +2384,7 @@ msgstr "Международная лицензия творческого об�
 
 #: inc/class-licensing.php:93
 msgid "CC BY-ND (Attribution NoDerivatives)"
-msgstr "CC BY-ND (С указанием авторства без производных)"
+msgstr "CC BY-ND (Лицензия творческого объединения с указанием авторства без производных)"
 
 #: inc/class-licensing.php:94
 msgid "Creative Commons Attribution-NoDerivatives 4.0 International License"
@@ -2392,7 +2392,7 @@ msgstr "Международная лицензия творческого об�
 
 #: inc/class-licensing.php:103
 msgid "CC BY-NC (Attribution NonCommercial)"
-msgstr "CC BY-NC (С указанием авторства некоммерческая)"
+msgstr "CC BY-NC (Лицензия творческого объединения с указанием авторства некоммерческая)"
 
 #: inc/class-licensing.php:104
 msgid "Creative Commons Attribution-NonCommercial 4.0 International License"
@@ -2400,7 +2400,7 @@ msgstr "Международная лицензия творческого об�
 
 #: inc/class-licensing.php:113
 msgid "CC BY-NC-SA (Attribution NonCommercial ShareAlike)"
-msgstr "CC BY-NC-SA (С указанием авторства некоммерческая на тех же условиях)"
+msgstr "CC BY-NC-SA (Лицензия творческого объединения с указанием авторства некоммерческая на тех же условиях)"
 
 #: inc/class-licensing.php:114
 msgid ""
@@ -2410,7 +2410,7 @@ msgstr "Международная лицензия творческого об�
 
 #: inc/class-licensing.php:123
 msgid "CC BY-NC-ND (Attribution NonCommercial NoDerivatives)"
-msgstr "CC BY-NC-ND (С указанием авторства некоммерческая без производных)"
+msgstr "CC BY-NC-ND (Лицензия творческого объединения с указанием авторства некоммерческая без производных)"
 
 #: inc/class-licensing.php:124
 msgid ""
@@ -2527,7 +2527,7 @@ msgstr "книга"
 #: inc/covergenerator/class-generator.php:463
 #: inc/modules/export/prince/class-docraptor.php:108
 msgid "Your PDF could not be retrieved."
-msgstr "Ваш файл в формате PDF не может быть извлечён."
+msgstr "Ваш файл в формате PDF не может быть обновлён."
 
 #: inc/covergenerator/class-isbn.php:62
 msgid "There was a problem creating the barcode: Invalid ISBN number."
@@ -2539,11 +2539,11 @@ msgstr "Возникла проблема с созданием штрих-ко�
 
 #: inc/editor/namespace.php:102
 msgid "Insert Footnote"
-msgstr "Вставить нижний колонтитул"
+msgstr "Вставить заметку"
 
 #: inc/editor/namespace.php:103
 msgid "Convert MS Word Footnotes"
-msgstr "Перевести в нижний колонтитул документа MS Word"
+msgstr "Перевести в заметки документа MS Word"
 
 #: inc/editor/namespace.php:116 templates/admin/import.php:132
 msgid "Cancel"
@@ -2551,7 +2551,7 @@ msgstr "Отмена"
 
 #: inc/editor/namespace.php:117
 msgid "Description"
-msgstr ""
+msgstr "Описание"
 
 #: inc/editor/namespace.php:118
 msgid "Insert Glossary Term"
@@ -2559,7 +2559,7 @@ msgstr "Вставить термин из глоссария"
 
 #: inc/editor/namespace.php:119
 msgid "Insert"
-msgstr ""
+msgstr "Вставить"
 
 #: inc/editor/namespace.php:121
 msgctxt "JS template string"
@@ -2568,36 +2568,36 @@ msgstr ""
 
 #: inc/editor/namespace.php:122
 msgid "Select a Term"
-msgstr ""
+msgstr "Выбрать термин"
 
 #: inc/editor/namespace.php:123
 msgid "Create and Insert Term"
-msgstr ""
+msgstr "Создать и вставить термин"
 
 #: inc/editor/namespace.php:124
 msgid "Choose Existing Term"
-msgstr ""
+msgstr "Выбрать существующий термин"
 
 #: inc/editor/namespace.php:125
 msgid "Glossary term already exists."
-msgstr ""
+msgstr "Термин глоссария уже существует"
 
 #: inc/editor/namespace.php:127
 msgid "Cannot submit empty Glossary term."
-msgstr ""
+msgstr "Нельзя добавить пустой термин в глоссарий."
 
 #: inc/editor/namespace.php:128
 msgid "A term was not selected?"
-msgstr ""
+msgstr "Термин не был выбран?"
 
 #: inc/editor/namespace.php:129 inc/posttype/namespace.php:242
 msgid ""
 "To display a list of glossary terms, leave this back matter's content blank."
-msgstr ""
+msgstr "Для отображения списка терминов глоссария оставьте содержание этой заключительной части пустым."
 
 #: inc/editor/namespace.php:130
 msgid "Term"
-msgstr ""
+msgstr "Термин"
 
 #: inc/editor/namespace.php:185
 msgid "Indent"
@@ -2643,11 +2643,11 @@ msgstr "Стандарт"
 
 #: inc/editor/namespace.php:289
 msgid "No lines"
-msgstr "Строки отсутствуют"
+msgstr "Без линий"
 
 #: inc/editor/namespace.php:293
 msgid "Lines"
-msgstr "Строки"
+msgstr "Линии"
 
 #: inc/editor/namespace.php:297 inc/editor/namespace.php:311
 #: inc/editor/namespace.php:325 languages/tinymce.php:10
@@ -2731,7 +2731,7 @@ msgstr "Титульная страница"
 
 #: inc/modules/export/epub/class-epub201.php:1308
 msgid "Make your own books using Pressbooks.com"
-msgstr "Создайте свою собственную книгу, используя Pressbooks.com"
+msgstr "Создайте свои собственные книги, используя Pressbooks.com"
 
 #: inc/modules/export/epub/class-epub201.php:1718
 msgid "Table Of Contents"
@@ -2781,7 +2781,7 @@ msgstr ""
 
 #: inc/modules/import/class-import.php:395
 msgid "Sorry, this file type is not permitted for security reasons."
-msgstr "Извините, этот файл недоступен по соображениям безопасности."
+msgstr "Извините, этот тип файла недоступен по соображениям безопасности."
 
 #: inc/modules/import/class-import.php:478
 #, php-format
@@ -2790,7 +2790,7 @@ msgstr ""
 
 #: inc/modules/import/class-import.php:516
 msgid "Your URL does not appear to be valid"
-msgstr "Ваш URL-адрес не соответствует действительности."
+msgstr "Ваш URL-адрес не соответствует действительности"
 
 #: inc/modules/import/class-import.php:523
 #: inc/modules/import/class-import.php:552
@@ -2893,7 +2893,7 @@ msgstr "Разделение параграфа"
 #: inc/modules/themeoptions/class-pdfoptions.php:223
 #: inc/modules/themeoptions/class-weboptions.php:108
 msgid "Indent paragraphs"
-msgstr "Отступ абзацев"
+msgstr "Отступ параграфов"
 
 #: inc/modules/themeoptions/class-ebookoptions.php:92
 #: inc/modules/themeoptions/class-pdfoptions.php:224
@@ -2927,23 +2927,23 @@ msgstr "Отображение номеров частей и глав"
 
 #: inc/modules/themeoptions/class-globaloptions.php:92
 msgid "Part Label"
-msgstr ""
+msgstr "Ярлык части"
 
 #: inc/modules/themeoptions/class-globaloptions.php:97
 msgid ""
 "The \"part\" label is used in the table of contents and in part titles in "
 "your webbook and exports."
-msgstr ""
+msgstr "Ярлык «части» используется в содержании и заголовках частей Ваших онлайн книг и файлов экспорта."
 
 #: inc/modules/themeoptions/class-globaloptions.php:103
 msgid "Chapter Label"
-msgstr ""
+msgstr "Ярлык главы"
 
 #: inc/modules/themeoptions/class-globaloptions.php:108
 msgid ""
 "The \"chapter\" label is used in the table of contents and in chapter titles"
 " in your webbook and exports."
-msgstr ""
+msgstr "Ярлык «главы» используется в содержании и заголовках частей Ваших онлайн книг и файлов экспорта."
 
 #: inc/modules/themeoptions/class-globaloptions.php:114
 msgid "Two-Level TOC"
@@ -2965,15 +2965,15 @@ msgstr "Отображать указание авторства в конце �
 
 #: inc/modules/themeoptions/class-globaloptions.php:138
 msgid "Language & Script Support"
-msgstr "Поддержка языка и набора символов"
+msgstr "Поддержка языка и скрипта"
 
 #: inc/modules/themeoptions/class-globaloptions.php:143
 msgid "Include fonts to support the following languages and scripts:"
-msgstr "Включает в себя шрифты, для поддержки следующих языков и наборов символов:"
+msgstr "Включает в себя шрифты для поддержки следующих языков и наборов символов:"
 
 #: inc/modules/themeoptions/class-globaloptions.php:157
 msgid "Chapter Licenses"
-msgstr "Лицензия главы"
+msgstr "Лицензии главы"
 
 #: inc/modules/themeoptions/class-globaloptions.php:162
 msgid "Do not display section level copyright license"
@@ -3041,7 +3041,7 @@ msgstr ""
 
 #: inc/modules/themeoptions/class-globaloptions.php:243
 msgid "These options apply universally to webbook, PDF and ebook exports."
-msgstr "Эти параметры универсальны экспортируемых файлов форматов онлайн книги, PDF и электронной книги."
+msgstr "Эти параметры универсальны для экспортируемых файлов форматов онлайн книги, PDF и электронной книги."
 
 #: inc/modules/themeoptions/class-globaloptions.php:383
 #: inc/utility/namespace.php:1346 inc/utility/namespace.php:1351
@@ -3061,7 +3061,7 @@ msgstr ""
 
 #: inc/modules/themeoptions/class-globaloptions.php:503
 msgid "Global Options"
-msgstr "Составные опции"
+msgstr "Составные параметры"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:83
 msgid "Body Font Size"
@@ -3204,11 +3204,11 @@ msgstr "Отобразить содержание"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:254
 msgid "Crop Marks"
-msgstr "Угловые метки"
+msgstr "Метки для разрезки"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:259
 msgid "Display crop marks"
-msgstr "Отобразить угловые метки"
+msgstr "Отобразить метки для разрезки"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:266
 msgid "Romanize Part Numbers"
@@ -3220,7 +3220,7 @@ msgstr "Перевести номера частей в римские цифр�
 
 #: inc/modules/themeoptions/class-pdfoptions.php:278
 msgid "Footnote Style"
-msgstr "Стиль нижнего колонтитула"
+msgstr "Стиль примечаний"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:283
 msgid "Regular footnotes"
@@ -3246,7 +3246,7 @@ msgstr "Верхние и нижние колонтитулы"
 msgid ""
 "Running content appears in either running heads or running feet (at the top "
 "or bottom of the page) depending on your theme."
-msgstr "В зависимости от Вашей темы, содержания появится либо в верхнем, либо в нижнем колонтитуле (вверху или внизу страницы)."
+msgstr "В зависимости от Вашей темы, содержание появится либо в верхнем, либо в нижнем колонтитуле (вверху или внизу страницы)."
 
 #: inc/modules/themeoptions/class-pdfoptions.php:318
 msgid "Front Matter Left Page Running Content"
@@ -3417,7 +3417,7 @@ msgstr "Эти параметры применяются для экспорта
 msgid ""
 "IMPORTANT: If you plan to use a print-on-demand service, margins under 2cm "
 "on any side can cause your file to be rejected."
-msgstr "ВАЖНО: если вы планируете воспользоваться системой издания по заказу, поля размером меньше 2 см на каждой стороне могут заблокировать файл."
+msgstr "ВАЖНО: Если вы планируете воспользоваться системой издания по заказу, поля размером меньше 2 см на каждой стороне могут заблокировать файл."
 
 #: inc/modules/themeoptions/class-pdfoptions.php:1350
 msgid "PDF Options"
@@ -3481,7 +3481,7 @@ msgstr "Добавить опцию сравнения в конец каждо�
 msgid ""
 "Allows readers to compare content with the original book from which it was "
 "cloned."
-msgstr "Позволяет читателям сравнивать содержание с оригинальной книги, с которой было клонировано содержание."
+msgstr "Позволяет читателям сравнивать содержание с оригинальной книгой, с которой было клонировано содержание."
 
 #: inc/modules/themeoptions/class-weboptions.php:172
 msgid "These options apply to the webbook."
@@ -3505,11 +3505,11 @@ msgstr "Термин глоссария"
 
 #: inc/posttype/namespace.php:235
 msgid "HTML and shortcodes are not supported in glossary terms."
-msgstr ""
+msgstr "Термины глоссариев не поддерживают язык HTML и короткие коды."
 
 #: inc/posttype/namespace.php:274
 msgid "Unlisted"
-msgstr ""
+msgstr "Не внесённые в список"
 
 #: inc/posttype/namespace.php:311
 msgid "Show title in exports"
@@ -3591,7 +3591,7 @@ msgstr "заключительная часть"
 
 #: inc/posttype/namespace.php:477
 msgid "glossary"
-msgstr "глоассарий"
+msgstr "глоссарий"
 
 #: inc/posttype/namespace.php:540 templates/admin/import.php:89
 #: templates/admin/organize.php:62
@@ -3737,7 +3737,7 @@ msgstr "Введите пароль ещё раз."
 #: inc/registration/namespace.php:129 inc/registration/namespace.php:162
 #: inc/registration/namespace.php:184 inc/registration/namespace.php:203
 msgid "Please try again."
-msgstr "Пожалуйста попробуйте снова."
+msgstr "Пожалуйста, попробуйте снова."
 
 #: inc/registration/namespace.php:139
 msgid "You have to enter a password."
@@ -3761,7 +3761,7 @@ msgstr "Недействительное разрешение."
 
 #: inc/shortcodes/glossary/class-glossary.php:117
 msgid "Select"
-msgstr ""
+msgstr "Выбрать"
 
 #: inc/theme/class-lock.php:97
 #, php-format
@@ -4233,7 +4233,7 @@ msgstr "Перед тем как прорекламировать Вашу кн�
 msgid ""
 "Only users you invite can see your book, regardless of individual chapter "
 "visibility below."
-msgstr "Только пользователи, которых Вы пригласили, могут видеть Вашу книгу, вне зависимости от индивидуальных настроек отображения ниже."
+msgstr "Только пользователи, которых Вы пригласили, могут видеть Вашу книгу, вне зависимости от индивидуальных настроек отображения отдельных глав ниже."
 
 #: templates/admin/organize.php:69
 msgid "Add Glossary Term"
@@ -4313,7 +4313,7 @@ msgstr "Искать в"
 
 #: templates/admin/search.php:41
 msgid "Result Order"
-msgstr "Заказ результата"
+msgstr "Порядок результатов"
 
 #: templates/admin/search.php:50
 msgid "Ascending"
@@ -4329,7 +4329,7 @@ msgstr "Искать"
 
 #: templates/admin/search.php:62
 msgid "Replace With"
-msgstr "Заменить"
+msgstr "Заменить на"
 
 #: templates/admin/search.php:69
 msgid "Regex"
