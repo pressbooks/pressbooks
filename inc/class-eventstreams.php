@@ -209,6 +209,7 @@ class EventStreams {
 		check_admin_referer( 'pb-export' );
 
 		if ( ! is_array( getset( '_GET', 'export_formats' ) ) ) {
+			$this->emitOneTimeError( __( 'No export format was selected.', 'pressbooks' ) );
 			return;
 		}
 
