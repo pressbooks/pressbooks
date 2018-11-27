@@ -115,19 +115,6 @@ if ( $dependency_errors ) {
 	}
 }
 
-if ( ! empty( $_GET['export_error'] ) ) {
-	// Conversion failed
-	printf( '<div class="error"><p>%s</p></div>', __( 'Error: The export failed. See logs for more details.', 'pressbooks' ) );
-}
-$exportoptions = get_option( 'pressbooks_export_options' );
-if ( ! empty( $_GET['export_warning'] ) && ( 1 == $exportoptions['email_validation_logs']  || is_super_admin() ) ) {
-	// Validation warnings
-	printf( '<div class="error"><p>%s</p>%s</div>',
-		__( 'Warning: The export has validation errors. See logs for more details.', 'pressbooks' ),
-		( isset( $exportoptions['email_validation_logs'] ) && 1 == $exportoptions['email_validation_logs'] ) ? '<p>' . __( 'Emailed to:', 'pressbooks' ) . ' ' . wp_get_current_user()->user_email . '</p>' : ''
-	);
-}
-
 ?>
 <div class="wrap">
 

@@ -266,6 +266,7 @@ function replace_book_admin_menu() {
 					'pb-export', 'PB_ExportToken', [
 						'ajaxUrl' => wp_nonce_url( admin_url( 'admin-ajax.php?action=export-book' ), 'pb-export' ),
 						'redirectUrl' => admin_url( 'options.php?page=pb_export' ),
+						'reloadSnippet' => '<em>(<a href="javascript:window.location.reload(true)">' . __( 'Reload', 'pressbooks' ) . '</a>)</em>',
 					]
 				);
 				wp_enqueue_style( 'jquery-ui' );
@@ -335,6 +336,7 @@ function replace_book_admin_menu() {
 						'pb-cloner', 'PB_ClonerToken', [
 							'ajaxUrl' => wp_nonce_url( admin_url( 'admin-ajax.php?action=clone-book' ), 'pb-cloner' ),
 							'redirectUrl' => admin_url( 'options.php?page=pb_cloner' ),
+							'reloadSnippet' => '<em>(<a href="javascript:window.location.reload(true)">' . __( 'Reload', 'pressbooks' ) . '</a>)</em>',
 						]
 					);
 					wp_enqueue_style( 'jquery-ui' );

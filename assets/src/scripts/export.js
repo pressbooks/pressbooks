@@ -26,7 +26,7 @@ jQuery( function ( $ ) {
 					evtSource.close();
 					if ( data.error ) {
 						bar.progressbar( { value: false } );
-						info.html( data.error );
+						info.html( data.error + ' ' + PB_ExportToken.reloadSnippet );
 					} else {
 						window.location = PB_ExportToken.redirectUrl;
 					}
@@ -38,7 +38,7 @@ jQuery( function ( $ ) {
 		evtSource.onerror = function () {
 			evtSource.close();
 			$( '#pb-sse-progressbar' ).progressbar( { value: false } );
-			$( '#pb-sse-info' ).html( 'EventStream Connection Error' );
+			$( '#pb-sse-info' ).html( 'EventStream Connection Error' + ' ' + PB_ExportToken.reloadSnippet );
 		};
 	} );
 	$( '#pb-export-button' ).click( function ( e ) {

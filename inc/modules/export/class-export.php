@@ -824,8 +824,6 @@ abstract class Export {
 
 		delete_transient( 'dirsize_cache' ); /** @see get_dirsize() */
 
-		// $redirect_url = get_admin_url( get_current_blog_id(), '/admin.php?page=pb_export' );
-
 		// --------------------------------------------------------------------------------------------------------
 		// MOBI cleanup
 
@@ -838,7 +836,13 @@ abstract class Export {
 
 		if ( empty( $conversion_error ) && empty( $validation_warning ) ) {
 			if ( ! empty( $_REQUEST['preview'] ) && count( $outputs ) === 1 ) {
+
 				// TODO: How can we make this preview feature work again?
+				// Maybe we should just get rid of it because I don't remember how to use it without searching the code.
+				// It originally had a UX component when editing a chapter. A user could preview that one chapter in the browser.
+				// It kind of sucked so the UX was removed, but the backend code remains, a bit all over, a bit of a mess...
+				// @see \Pressbooks\Book::$preview
+
 				/*
 				// Preview the file, then delete it
 				$filename_fullpath = array_values( $outputs );
@@ -878,15 +882,21 @@ abstract class Export {
 
 		if ( is_countable( $conversion_error ) && count( $conversion_error ) ) {
 			// Conversion error
-			// TODO: Redirection is handled by JS, how do we pass this to the browser?
-			// \Pressbooks\Redirect\location( $redirect_url . '&export_error=true' );
-
+			$export_error = __( 'The export failed. See logs for more details.', 'pressbooks' );
+			set_transient( 'pb_errors' . get_current_user_id(), $export_error, 5 * MINUTE_IN_SECONDS );
 		}
 
 		if ( is_countable( $validation_warning ) && count( $validation_warning ) ) {
 			// Validation warning
-			// TODO: Redirection is handled by JS, how do we pass this to the browser?
-			// \Pressbooks\Redirect\location( $redirect_url . '&export_warning=true' );
+			$exportoptions = get_option( 'pressbooks_export_options' );
+			if ( 1 === (int) $exportoptions['email_validation_logs'] || is_super_admin() ) {
+				$export_warning = sprintf(
+					'<p>%s</p>%s',
+					__( 'Warning: The export has validation errors. See logs for more details.', 'pressbooks' ),
+					( isset( $exportoptions['email_validation_logs'] ) && 1 === (int) $exportoptions['email_validation_logs'] ) ? '<p>' . __( 'Emailed to:', 'pressbooks' ) . ' ' . wp_get_current_user()->user_email . '</p>' : ''
+				);
+				set_transient( 'pb_notices' . get_current_user_id(), $export_warning, 5 * MINUTE_IN_SECONDS );
+			}
 		}
 	}
 
