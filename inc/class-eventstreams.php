@@ -103,9 +103,12 @@ class EventStreams {
 		$msg = "event: message\n";
 		$msg .= 'data: ' . wp_json_encode( $data ) . "\n\n";
 		$msg .= ':' . str_repeat( ' ', 2048 ) . "\n\n";
-		// Buffers are nested. While one buffer is active, flushes from child buffers are not really sent to the output,
+		// Buffers are nested. While one buffer is active, flushing from child buffers are not really sent to the browser,
 		// but rather to the parent buffer. Only when there is no parent buffer are contents sent to the browser.
-		if ( ! ob_get_level() ) {
+		if ( ob_get_level() ) {
+			// Keep for later
+			$this->msgStack[] = $msg;
+		} else {
 			// Flush to browser
 			foreach ( $this->msgStack as $stack ) {
 				echo $stack;
@@ -113,9 +116,6 @@ class EventStreams {
 			$this->msgStack = [];
 			echo $msg;
 			flush();
-		} else {
-			// Keep for later
-			$this->msgStack[] = $msg;
 		}
 	}
 
