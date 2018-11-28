@@ -7323,10 +7323,10 @@ package-json@^4.0.0:
     registry-url "^3.0.3"
     semver "^5.1.0"
 
-pagedjs@^0.1.25:
-  version "0.1.25"
-  resolved "https://registry.yarnpkg.com/pagedjs/-/pagedjs-0.1.25.tgz#f12e5c3c3796bb32635fa05d735061efd446746f"
-  integrity sha512-KwcAWKKqyqRI84OrKCGkHGO/DH6Ff6cuZd9puE7cYl6d+4qWW3p29oNMEWK5q7q4GKvaVQ/se6NNCdlLXrqK/g==
+pagedjs@^0.1.26:
+  version "0.1.26"
+  resolved "https://registry.yarnpkg.com/pagedjs/-/pagedjs-0.1.26.tgz#5ffdd52c7ef5c07b5aca922d8db8e85cdaa6a3b3"
+  integrity sha512-FD/lXI6ACufq96koQPGEaYq6gRU0X07GBPdbnZFOCHcsLgk80MYsASLy4+rnWS9l7CdA9PQYSfSFp9dcMwIv7g==
   dependencies:
     "@babel/polyfill" "^7.0.0"
     "@babel/runtime" "^7.1.5"
