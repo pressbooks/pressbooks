@@ -272,6 +272,7 @@ function replace_book_admin_menu() {
 				wp_enqueue_style( 'jquery-ui' );
 				wp_enqueue_style( 'pb-export' );
 				wp_enqueue_script( 'pb-export' );
+				wp_deregister_script( 'heartbeat' );
 			}
 		}
 	);
@@ -322,6 +323,7 @@ function replace_book_admin_menu() {
 		'admin_enqueue_scripts', function ( $hook ) use ( $import_page ) {
 			if ( $hook === $import_page ) {
 				wp_enqueue_script( 'pb-import' );
+				wp_deregister_script( 'heartbeat' );
 			}
 		}
 	);
@@ -342,6 +344,7 @@ function replace_book_admin_menu() {
 					wp_enqueue_style( 'jquery-ui' );
 					wp_enqueue_style( 'pb-cloner' );
 					wp_enqueue_script( 'pb-cloner' );
+					wp_deregister_script( 'heartbeat' );
 				}
 			}
 		);
