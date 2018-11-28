@@ -30,6 +30,7 @@ TK.
 **Patches**
 
 * Improve sanitization of glossary term content: [#1480](https://github.com/pressbooks/pressbooks/pull/1480)
+* Ignore deleted posts when importing from WXR: [#1471](https://github.com/pressbooks/pressbooks/pull/1471)
 
 = 5.6.0 =
 
