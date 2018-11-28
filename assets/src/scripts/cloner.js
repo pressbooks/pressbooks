@@ -34,15 +34,15 @@ jQuery( function ( $ ) {
 				case 'updateStatusBar':
 					bar.progressbar( { value: parseInt( data.percentage, 10 ) } );
 					info.html( data.info );
-					if ( clock ) {
-						clearInterval( clock );
-					}
 					break;
 				case 'complete':
 					evtSource.close();
 					if ( data.error ) {
 						bar.progressbar( { value: false } );
 						info.html( data.error + ' ' + PB_ClonerToken.reloadSnippet );
+						if ( clock ) {
+							clearInterval( clock );
+						}
 					} else {
 						window.location = PB_ClonerToken.redirectUrl;
 					}
