@@ -34,7 +34,7 @@ class IntegrationsTest extends \WP_UnitTestCase {
 		$meta = $cloner->getSourceBookMetadata();
 		$this->assertInternalType( 'array', $meta );
 		$this->assertNotEmpty( $meta );
-		$this->assertEquals( 'Public Domain (No Rights Reserved)', $meta['license']['name'] );
+		$this->assertEquals( 'Public Domain', $meta['license']['name'] );
 
 		$cloned_items = $cloner->getClonedItems();
 
