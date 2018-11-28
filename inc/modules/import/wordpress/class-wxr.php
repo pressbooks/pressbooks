@@ -140,6 +140,11 @@ class Wxr extends Import {
 				continue;
 			}
 
+			// Skip deleted post types.
+			if ( $p['status'] === 'trash' ) {
+				continue;
+			}
+
 			// Skip webbook required pages.
 			if ( '<!-- Here be dragons.-->' === $p['post_content'] || '<!-- Here be dragons. -->' === $p['post_content'] ) {
 				continue;
