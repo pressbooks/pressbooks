@@ -5,23 +5,28 @@ import Cookies from 'js-cookie';
 jQuery( function ( $ ) {
 	/* Swap out and animate the 'Export Your Book' button */
 	$( '#pb-export-form' ).on( 'submit', function ( e ) {
+		// Stop form from submitting
 		e.preventDefault();
 		$( '#pb-export-button' ).attr( 'disabled', true );
+		// Init Clock
+		let clock = null;
+		let seconds = $( '#pb-sse-seconds' );
+		let minutes = $( '#pb-sse-minutes' );
+		function pad( val ) {
+			return val > 9 ? val : '0' + val;
+		}
+		// Init Event Data
 		let form = $( '#pb-export-form' );
 		let eventSourceUrl = PB_ExportToken.ajaxUrl + ( PB_ExportToken.ajaxUrl.includes( '?' ) ? '&' : '?' ) + $.param( form.find( ':checked' ) );
 		let evtSource = new EventSource( eventSourceUrl );
 		evtSource.onopen = function () {
+			// Hide button
 			$( '#pb-export-button' ).hide();
-			// count up timer
+			// Start Clock
 			let sec = 0;
-			let seconds = $( '#pb-sse-seconds' );
-			let minutes = $( '#pb-sse-minutes' );
 			seconds.html( '00' );
 			minutes.html( '00:' );
-			function pad( val ) {
-				return val > 9 ? val : '0' + val;
-			}
-			setInterval( function () {
+			clock = setInterval( function () {
 				seconds.html( pad( ++sec % 60 ) );
 				minutes.html( pad( parseInt( sec / 60, 10 ) ) + ':' );
 			}, 1000 );
@@ -40,6 +45,9 @@ jQuery( function ( $ ) {
 					if ( data.error ) {
 						bar.progressbar( { value: false } );
 						info.html( data.error + ' ' + PB_ExportToken.reloadSnippet );
+						if ( clock ) {
+							clearInterval( clock );
+						}
 					} else {
 						window.location = PB_ExportToken.redirectUrl;
 					}
@@ -52,6 +60,9 @@ jQuery( function ( $ ) {
 			evtSource.close();
 			$( '#pb-sse-progressbar' ).progressbar( { value: false } );
 			$( '#pb-sse-info' ).html( 'EventStream Connection Error ' + PB_ExportToken.reloadSnippet );
+			if ( clock ) {
+				clearInterval( clock );
+			}
 		};
 	} );
 	$( '#pb-export-button' ).click( function ( e ) {
