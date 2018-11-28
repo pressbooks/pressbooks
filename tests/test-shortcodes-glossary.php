@@ -57,7 +57,7 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 		$args = [
 			'post_type'    => 'glossary',
 			'post_title'   => 'PHP',
-			'post_content' => 'A popular general-purpose <script>scripting</script> language that is <em>especially</em> suited to web development.',
+			'post_content' => 'A "popular" general-purpose <script>scripting</script> language that is <em>especially</em> suited to web development.',
 			'post_status'  => 'publish',
 		];
 		$pid  = $this->factory()->post->create_object( $args );
@@ -93,7 +93,7 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 	public function test_glossaryTooltip() {
 		$pid = $this->_createGlossaryPost();
 		$result = $this->gl->glossaryTooltip( [ 'id' => $pid ], 'PHP' );
-		$this->assertEquals( '<a href="javascript:void(0);" class="tooltip" title="A popular general-purpose scripting language that is especially suited to web development.">PHP</a>', $result );
+		$this->assertEquals( '<a href="javascript:void(0);" class="tooltip" title="A &quot;popular&quot; general-purpose scripting language that is especially suited to web development.">PHP</a>', $result );
 
 		$this->factory()->post->update_object( $pid, [ 'post_status' => 'trash' ] );
 		$result = $this->gl->glossaryTooltip( [ 'id' => $pid ], 'PHP' );
