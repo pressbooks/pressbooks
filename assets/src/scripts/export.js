@@ -30,6 +30,12 @@ jQuery( function ( $ ) {
 				seconds.html( pad( ++sec % 60 ) );
 				minutes.html( pad( parseInt( sec / 60, 10 ) ) + ':' );
 			}, 1000 );
+			// Warn the user if they navigate away
+			$( window ).on( 'beforeunload', function () {
+				// In some browsers, the return value of the event is displayed in this dialog. Starting with Firefox 44, Chrome 51, Opera 38 and Safari 9.1, a generic string not under the control of the webpage will be shown.
+				// @see https://developer.mozilla.org/en-US/docs/Web/API/WindowEventHandlers/onbeforeunload#Notes
+				return PB_ExportToken.unloadWarning;
+			} );
 		};
 		evtSource.onmessage = function ( message ) {
 			let bar = $( '#pb-sse-progressbar' );
@@ -42,6 +48,7 @@ jQuery( function ( $ ) {
 					break;
 				case 'complete':
 					evtSource.close();
+					$( window ).unbind( 'beforeunload' );
 					if ( data.error ) {
 						bar.progressbar( { value: false } );
 						info.html( data.error + ' ' + PB_ExportToken.reloadSnippet );
@@ -60,6 +67,7 @@ jQuery( function ( $ ) {
 			evtSource.close();
 			$( '#pb-sse-progressbar' ).progressbar( { value: false } );
 			$( '#pb-sse-info' ).html( 'EventStream Connection Error ' + PB_ExportToken.reloadSnippet );
+			$( window ).unbind( 'beforeunload' );
 			if ( clock ) {
 				clearInterval( clock );
 			}
