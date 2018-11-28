@@ -5,7 +5,7 @@ Tags: ebooks, publishing, webbooks
 Requires at least: 4.9.8
 Tested up to: 4.9.8
 Requires PHP: 7.1
-Stable tag: 5.6.1
+Stable tag: 5.6.2
 License: GPL v3.0 or later
 License URI: https://github.com/pressbooks/pressbooks/blob/master/LICENSE.md
 
@@ -21,6 +21,16 @@ For installation instructions, visit [docs.pressbooks.org/installation](https://
 TK.
 
 == Changelog ==
+= 5.6.2 =
+
+* Pressbooks 5.6.2 requires PHP >= 7.1.
+* Pressbooks 5.6.2 requires [WordPress 4.9.8](https://wordpress.org/news/2018/08/wordpress-4-9-8-maintenance-release/).
+* Pressbooks 5.6.2 requires [McLuhan >= 2.6.0](https://github.com/pressbooks/pressbooks-book/).
+
+**Patches**
+
+* Escape quotes in glossary term content ([#1481](https://github.com/pressbooks/pressbooks/issues/1481), props [@pbstudent](https://github.com/pbstudent) for the bug report): [#1482](https://github.com/pressbooks/pressbooks/pull/1482)
+
 = 5.6.1 =
 
 * Pressbooks 5.6.1 requires PHP >= 7.1.
@@ -88,8 +98,8 @@ TK.
 * Hide the "View" link when editing taxonomies (props [@colomet](https://github.com/colomet) for the suggestion): [#1351](https://github.com/pressbooks/pressbooks/issues/1351), [#1356](https://github.com/pressbooks/pressbooks/issues/1356), [#1360](https://github.com/pressbooks/pressbooks/issues/1360)
 
 == Upgrade Notice ==
-= 5.6.1 =
+= 5.6.2 =
 
-* Pressbooks 5.6.1 requires PHP >= 7.1.
-* Pressbooks 5.6.1 requires [WordPress 4.9.8](https://wordpress.org/news/2018/08/wordpress-4-9-8-maintenance-release/).
-* Pressbooks 5.6.1 requires [McLuhan >= 2.6.0](https://github.com/pressbooks/pressbooks-book/).
+* Pressbooks 5.6.2 requires PHP >= 7.1.
+* Pressbooks 5.6.2 requires [WordPress 4.9.8](https://wordpress.org/news/2018/08/wordpress-4-9-8-maintenance-release/).
+* Pressbooks 5.6.2 requires [McLuhan >= 2.6.0](https://github.com/pressbooks/pressbooks-book/).
