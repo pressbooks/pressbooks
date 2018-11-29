@@ -7,6 +7,7 @@
 namespace Pressbooks;
 
 use function Pressbooks\Utility\getset;
+use Pressbooks\Modules\Export\Export;
 
 class EventStreams {
 
@@ -14,6 +15,11 @@ class EventStreams {
 	 * @var EventStreams
 	 */
 	private static $instance = null;
+
+	/**
+	 * @var array
+	 */
+	public $msgStack = [];
 
 	/**
 	 * @return EventStreams
@@ -31,6 +37,7 @@ class EventStreams {
 	 */
 	static public function hooks( EventStreams $obj ) {
 		add_action( 'wp_ajax_clone-book', [ $obj, 'cloneBook' ] );
+		add_action( 'wp_ajax_export-book', [ $obj, 'exportBook' ] );
 	}
 
 	/**
@@ -85,11 +92,24 @@ class EventStreams {
 	 *
 	 * @param mixed $data Data to be JSON-encoded and sent in the message.
 	 */
-	protected function emitMessage( $data ) {
-		echo "event: message\n";
-		echo 'data: ' . wp_json_encode( $data ) . "\n\n";
-		echo ':' . str_repeat( ' ', 2048 ) . "\n\n"; // Extra padding.
-		flush();
+	private function emitMessage( $data ) {
+		$msg = "event: message\n";
+		$msg .= 'data: ' . wp_json_encode( $data ) . "\n\n";
+		$msg .= ':' . str_repeat( ' ', 2048 ) . "\n\n";
+		// Buffers are nested. While one buffer is active, flushing from child buffers are not really sent to the browser,
+		// but rather to the parent buffer. Only when there is no parent buffer are contents sent to the browser.
+		if ( ob_get_level() ) {
+			// Keep for later
+			$this->msgStack[] = $msg;
+		} else {
+			// Flush to browser
+			foreach ( $this->msgStack as $stack ) {
+				echo $stack;
+			}
+			$this->msgStack = []; // Reset
+			echo $msg;
+			flush();
+		}
 	}
 
 	/**
@@ -97,7 +117,6 @@ class EventStreams {
 	 * Useful when you want to tell `EventSource` to abort before staring anything, such as failing form validation.
 	 *
 	 * @param $error
-	 * @param bool $setup_headers
 	 */
 	public function emitOneTimeError( $error ) {
 		$this->setupHeaders();
@@ -112,7 +131,7 @@ class EventStreams {
 	/**
 	 *
 	 */
-	protected function setupHeaders() {
+	private function setupHeaders() {
 		// @codingStandardsIgnoreStart
 		// Turn off PHP output compression
 		@ini_set( 'output_buffering', 'off' );
@@ -137,6 +156,7 @@ class EventStreams {
 			wp_ob_end_flush_all();
 		}
 		flush();
+		$this->msgStack = []; // Reset
 	}
 
 	/**
@@ -173,6 +193,34 @@ class EventStreams {
 			);
 			set_transient( 'pb_notices' . get_current_user_id(), $pb_notices, 5 * MINUTE_IN_SECONDS );
 		}
+
+		// Tell the browser to stop reconnecting.
+		status_header( 204 );
+
+		if ( ! defined( 'WP_TESTS_MULTISITE' ) ) {
+			exit; // Short circuit wp_die(0);
+		}
+	}
+
+	/**
+	 * Export book
+	 */
+	public function exportBook() {
+		check_admin_referer( 'pb-export' );
+
+		if ( ! is_array( getset( '_GET', 'export_formats' ) ) ) {
+			$this->emitOneTimeError( __( 'No export format was selected.', 'pressbooks' ) );
+			return;
+		}
+
+		// Backwards compatibility with older plugins
+		foreach ( $_GET['export_formats'] as $k => $v ) {
+			$_POST['export_formats'][ $k ] = $v;
+		}
+
+		Export::preExport();
+		$this->emit( Export::exportGenerator( Export::modules() ) );
+		Export::postExport();
 
 		// Tell the browser to stop reconnecting.
 		status_header( 204 );
