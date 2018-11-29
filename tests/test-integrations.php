@@ -34,7 +34,7 @@ class IntegrationsTest extends \WP_UnitTestCase {
 		$meta = $cloner->getSourceBookMetadata();
 		$this->assertInternalType( 'array', $meta );
 		$this->assertNotEmpty( $meta );
-		$this->assertEquals( 'Public Domain (No Rights Reserved)', $meta['license']['name'] );
+		$this->assertEquals( 'Public Domain', $meta['license']['name'] );
 
 		$cloned_items = $cloner->getClonedItems();
 
@@ -125,7 +125,7 @@ class IntegrationsTest extends \WP_UnitTestCase {
 		$this->assertTrue( $importer->import( $options ) );
 
 		$this->asserttrue( count( $_SESSION['pb_notices'] ) === 1 );
-		$this->assertContains( 'Imported 2 front matter, 2 parts, 6 chapters, 2 back matter, 2 media attachments, and 0 glossary terms.', $_SESSION['pb_notices'][0] );
+		$this->assertContains( 'Imported 1 front matter, 2 parts, 5 chapters, 1 back matter, 2 media attachments, and 0 glossary terms.', $_SESSION['pb_notices'][0] );
 		unset( $_SESSION['pb_notices'] );
 
 		$info = \Pressbooks\Book::getBookInformation();

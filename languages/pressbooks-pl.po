@@ -1,13 +1,14 @@
 # 
 # Translators:
 # Antonio Devís <colomet@hotmail.com>, 2017
+# Robert Szmurło <szmurlor@gmail.com>, 2018
 # Zoe Wake Hyde <zoe@pressbooks.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
-"POT-Creation-Date: 2018-11-18 18:33-0500\n"
-"PO-Revision-Date: 2018-11-18 23:33+0000\n"
-"Last-Translator: Hugh McGuire <hugh@pressbooks.com>\n"
+"POT-Creation-Date: 2018-11-27 11:58-0400\n"
+"PO-Revision-Date: 2018-11-27 11:48+0000\n"
+"Last-Translator: Robert Szmurło <szmurlor@gmail.com>\n"
 "Language-Team: Polish (http://www.transifex.com/pressbooks/pressbooks/language/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1738,7 +1739,7 @@ msgstr ""
 #: inc/api/endpoints/controller/class-toc.php:164
 #: inc/api/endpoints/controller/class-toc.php:177
 msgid "Metadata"
-msgstr ""
+msgstr "Metadane"
 
 #: inc/api/endpoints/controller/class-books.php:156
 msgid "ID offset, overrides page."
@@ -2119,7 +2120,7 @@ msgstr ""
 #: inc/class-cloner.php:409
 #, php-format
 msgid "Could not retrieve metadata from %s."
-msgstr ""
+msgstr "Nie mogę pobrać metadanych z  %s."
 
 #: inc/class-cloner.php:417
 #, php-format
@@ -3970,7 +3971,7 @@ msgstr ""
 
 #: templates/admin/cloner.php:35
 msgid "Target Book Title"
-msgstr ""
+msgstr "Docelowy tytuł książki"
 
 #: templates/admin/cloner.php:38
 msgid ""
@@ -4374,7 +4375,7 @@ msgstr ""
 
 #: templates/admin/trash.php:49
 msgid "(no title)"
-msgstr ""
+msgstr "(brak tytułu)"
 
 #: templates/admin/trash.php:58
 #, php-format
