@@ -55,7 +55,7 @@ remove_action( 'welcome_panel', 'wp_welcome_panel' );
 if ( $is_book ) {
 	// Aggressively replace default interface
 	add_action( 'init', [ '\Pressbooks\Modules\SearchAndReplace\SearchAndReplace', 'init' ] );
-	add_action( 'after_setup_theme', [ '\Pressbooks\Modules\ThemeOptions\ThemeOptions', 'init' ] );
+	add_action( 'after_setup_theme', [ '\Pressbooks\Modules\ThemeOptions\Admin', 'init' ] );
 	add_action( 'admin_init', '\Pressbooks\Redirect\redirect_away_from_bad_urls' );
 	add_action( 'admin_menu', '\Pressbooks\Admin\Laf\replace_book_admin_menu', 1 );
 	add_filter( 'custom_menu_order', '__return_true' );

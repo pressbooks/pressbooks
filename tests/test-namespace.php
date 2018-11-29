@@ -12,7 +12,6 @@ class NamespaceTest extends \WP_UnitTestCase {
 		global $wp_filter;
 		$classes = [
 			'\Pressbooks\Activation',
-			'\Pressbooks\Privacy',
 			'\Pressbooks\Taxonomy',
 			'\Pressbooks\Updates',
 			'\Pressbooks\Admin\Delete\Book',
@@ -20,7 +19,8 @@ class NamespaceTest extends \WP_UnitTestCase {
 			'\Pressbooks\Interactive\Content',
 			'\Pressbooks\Modules\Export\Prince\Filters',
 			'\Pressbooks\Modules\SearchAndReplace\SearchAndReplace',
-			'\Pressbooks\Modules\ThemeOptions\ThemeOptions',
+			'\Pressbooks\Modules\ThemeOptions\Admin',
+			'\Pressbooks\Privacy',
 			'\Pressbooks\Shortcodes\Footnotes\Footnotes',
 			'\Pressbooks\Shortcodes\Generics\Generics',
 			'\Pressbooks\Shortcodes\Wikipublisher\Glyphs',
