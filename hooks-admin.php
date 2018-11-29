@@ -252,7 +252,7 @@ if ( $is_book ) {
 	);
 
 	// Init
-	add_action( 'admin_init', '\Pressbooks\Admin\Fonts\fix_missing_font_stacks' );
+	add_action( 'admin_init', '\Pressbooks\Admin\Fonts\maybe_update_font_stacks' );
 
 	// Overrides
 	add_filter( 'pb_epub_css_override', [ '\Pressbooks\Modules\ThemeOptions\EbookOptions', 'scssOverrides' ] );

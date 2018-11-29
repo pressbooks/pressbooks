@@ -65,7 +65,7 @@ class Admin_FontsTest extends \WP_UnitTestCase {
 	public function test_fix_missing_font_stacks() {
 
 		$this->_book( 'pressbooks-donham' );
-		\Pressbooks\Admin\Fonts\fix_missing_font_stacks();
+		\Pressbooks\Admin\Fonts\maybe_update_font_stacks();
 		$this->assertTrue( true ); // Did not crash
 		$this->assertFalse( get_transient( 'pressbooks_updating_font_stacks' ) );
 	}
