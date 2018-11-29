@@ -592,6 +592,7 @@ class Styles {
 
 		// If either Buckram or the theme were updated, rebuild the web and editor stylesheets.
 		if ( $buckram_updated || $theme_updated ) {
+			// Try to stop a Cache Stampede, Dog-Pile, Cascading Failure...
 			if ( ! get_transient( 'pressbooks_updating_stylesheet' ) ) {
 				set_transient( 'pressbooks_updating_stylesheet', 1, 5 * MINUTE_IN_SECONDS );
 				( new Modules\ThemeOptions\Admin() )->clearCache();
