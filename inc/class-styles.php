@@ -9,7 +9,6 @@ namespace Pressbooks;
 use function \Pressbooks\Editor\update_editor_style;
 use function \Pressbooks\Sanitize\normalize_css_urls;
 use function \Pressbooks\Utility\debug_error_log;
-use Pressbooks\Modules\ThemeOptions\ThemeOptions;
 
 /**
  * Custom Styles Feature(s)
@@ -593,9 +592,10 @@ class Styles {
 
 		// If either Buckram or the theme were updated, rebuild the web and editor stylesheets.
 		if ( $buckram_updated || $theme_updated ) {
+			// Try to stop a Cache Stampede, Dog-Pile, Cascading Failure...
 			if ( ! get_transient( 'pressbooks_updating_stylesheet' ) ) {
 				set_transient( 'pressbooks_updating_stylesheet', 1, 5 * MINUTE_IN_SECONDS );
-				( new ThemeOptions() )->clearCache();
+				( new Modules\ThemeOptions\Admin() )->clearCache();
 				$this->updateWebBookStyleSheet();
 				update_editor_style();
 				if ( $buckram_updated ) {
