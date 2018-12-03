@@ -39,7 +39,7 @@ $import_option_types = apply_filters( 'pb_select_import_type', [
 
 	<?php if ( is_array( $current_import ) && isset( $current_import['file'] ) ) { ?>
 
-	<!-- Import in progress -->
+	<!-- STEP 2: Import in progress -->
 
 		<p><?php printf( __( 'Import in progress: %s', 'pressbooks' ) , basename( $current_import['file'] ) ); ?></p>
 
@@ -73,7 +73,7 @@ $import_option_types = apply_filters( 'pb_select_import_type', [
 		// ]]>
 	</script>
 
-	<form id="pb-import-form" action="<?php echo $import_form_url ?>" method="post">
+	<form id="pb-import-form-step-2" action="<?php echo $import_form_url ?>" method="post">
 		<?php $colspan = ! empty( $current_import['allow_parts'] ) ? 5 : 4; ?>
 		<table class="wp-list-table widefat">
 			<thead>
@@ -131,12 +131,14 @@ $import_option_types = apply_filters( 'pb_select_import_type', [
 			echo ' &nbsp; ';
 			submit_button( __( 'Cancel', 'pressbooks' ), 'delete', 'abort_button', false );
 		?></p>
+		<div id="pb-sse-progressbar"></div>
+		<p><b><span id="pb-sse-minutes"></span><span id="pb-sse-seconds"></span></b> <span id="pb-sse-info"></span></p>
 
 	</form>
 
 	<?php } else { ?>
 
-		<!-- Start by uploading a file -->
+		<!-- STEP 1: Start by uploading a file -->
 
 		<script type="text/javascript">
 			jQuery(function ($) {
@@ -158,7 +160,7 @@ $import_option_types = apply_filters( 'pb_select_import_type', [
 			echo ' ' . \Pressbooks\Utility\file_upload_max_size(); ?>
 		</p>
 
-		<form id="pb-import-form" action="<?php echo $import_form_url ?>" enctype="multipart/form-data" method="post">
+		<form id="pb-import-form-step-1" action="<?php echo $import_form_url ?>" enctype="multipart/form-data" method="post">
 
 			<table class="form-table">
 				<tbody>

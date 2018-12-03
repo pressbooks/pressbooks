@@ -38,6 +38,7 @@ class EventStreams {
 	static public function hooks( EventStreams $obj ) {
 		add_action( 'wp_ajax_clone-book', [ $obj, 'cloneBook' ] );
 		add_action( 'wp_ajax_export-book', [ $obj, 'exportBook' ] );
+		add_action( 'wp_ajax_import-book', [ $obj, 'importBook' ] );
 	}
 
 	/**
@@ -221,6 +222,35 @@ class EventStreams {
 		Export::preExport();
 		$this->emit( Export::exportGenerator( Export::modules() ) );
 		Export::postExport();
+
+		// Tell the browser to stop reconnecting.
+		status_header( 204 );
+
+		if ( ! defined( 'WP_TESTS_MULTISITE' ) ) {
+			exit; // Short circuit wp_die(0);
+		}
+	}
+
+	/**
+	 * Import book
+	 */
+	public function importBook() {
+		check_admin_referer( 'pb-import' );
+
+		// Backwards compatibility with older plugins
+		$at_least_one = false;
+		foreach ( $_GET['chapters'] as $k => $v ) {
+			$_POST['chapters'][ $k ] = $v;
+			if ( is_array( $v ) && ! empty( $v['import'] ) ) {
+				$at_least_one = true;
+			}
+		}
+		$_POST['show_imports_in_web'] = $_GET['show_imports_in_web'] ?? 0;
+
+		if ( ! $at_least_one ) {
+			$this->emitOneTimeError( __( 'No chapters were selected for import.', 'pressbooks' ) );
+			return;
+		}
 
 		// Tell the browser to stop reconnecting.
 		status_header( 204 );

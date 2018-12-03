@@ -323,6 +323,15 @@ function replace_book_admin_menu() {
 	add_action(
 		'admin_enqueue_scripts', function ( $hook ) use ( $import_page ) {
 			if ( $hook === $import_page ) {
+				wp_localize_script(
+					'pb-import', 'PB_ImportToken', [
+						'ajaxUrl' => wp_nonce_url( admin_url( 'admin-ajax.php?action=import-book' ), 'pb-import' ),
+						'redirectUrl' => admin_url( 'tools.php?page=pb_import' ),
+						'unloadWarning' => __( 'Imports are not done. Leaving this page, now, will cause problems. Are you sure?', 'pressbooks' ),
+						'reloadSnippet' => '<em>(<a href="javascript:window.location.reload(true)">' . __( 'Reload', 'pressbooks' ) . '</a>)</em>',
+					]
+				);
+				wp_enqueue_style( 'jquery-ui' );
 				wp_enqueue_script( 'pb-import' );
 				wp_deregister_script( 'heartbeat' );
 			}

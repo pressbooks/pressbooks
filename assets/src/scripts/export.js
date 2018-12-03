@@ -3,8 +3,8 @@
 import Cookies from 'js-cookie';
 
 jQuery( function ( $ ) {
-	/* Swap out and animate the 'Export Your Book' button */
-	$( '#pb-export-form' ).on( 'submit', function ( e ) {
+	let myExportForm = $( '#pb-export-form' );
+	myExportForm.on( 'submit', function ( e ) {
 		// Stop form from submitting
 		e.preventDefault();
 		$( '#pb-export-button' ).attr( 'disabled', true );
@@ -16,8 +16,7 @@ jQuery( function ( $ ) {
 			return val > 9 ? val : '0' + val;
 		}
 		// Init Event Data
-		let form = $( '#pb-export-form' );
-		let eventSourceUrl = PB_ExportToken.ajaxUrl + ( PB_ExportToken.ajaxUrl.includes( '?' ) ? '&' : '?' ) + $.param( form.find( ':checked' ) );
+		let eventSourceUrl = PB_ExportToken.ajaxUrl + ( PB_ExportToken.ajaxUrl.includes( '?' ) ? '&' : '?' ) + $.param( myExportForm.find( ':checked' ) );
 		let evtSource = new EventSource( eventSourceUrl );
 		evtSource.onopen = function () {
 			// Hide button
@@ -77,7 +76,7 @@ jQuery( function ( $ ) {
 		e.preventDefault();
 		$( '.export-file-container' ).unbind( 'mouseenter mouseleave' ); // Disable Download & Delete Buttons
 		$( '.export-control button' ).prop( 'disabled', true );
-		$( '#pb-export-form' ).submit();
+		myExportForm.submit();
 	} );
 
 	/* Show and hide download & delete button */
@@ -95,7 +94,7 @@ jQuery( function ( $ ) {
 	);
 
 	/* Remember User Checkboxes */
-	$( '#pb-export-form' )
+	myExportForm
 		.find( 'input' )
 		.each( function () {
 			let name = $( this ).attr( 'name' );
