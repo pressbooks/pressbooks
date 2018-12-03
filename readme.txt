@@ -110,8 +110,8 @@ TK.
 * Hide the "View" link when editing taxonomies (props [@colomet](https://github.com/colomet) for the suggestion): [#1351](https://github.com/pressbooks/pressbooks/issues/1351), [#1356](https://github.com/pressbooks/pressbooks/issues/1356), [#1360](https://github.com/pressbooks/pressbooks/issues/1360)
 
 == Upgrade Notice ==
-= 5.6.2 =
+= 5.6.3 =
 
-* Pressbooks 5.6.2 requires PHP >= 7.1.
-* Pressbooks 5.6.2 requires [WordPress 4.9.8](https://wordpress.org/news/2018/08/wordpress-4-9-8-maintenance-release/).
-* Pressbooks 5.6.2 requires [McLuhan >= 2.6.0](https://github.com/pressbooks/pressbooks-book/).
+* Pressbooks 5.6.3 requires PHP >= 7.1.
+* Pressbooks 5.6.3 requires [WordPress 4.9.8](https://wordpress.org/news/2018/08/wordpress-4-9-8-maintenance-release/).
+* Pressbooks 5.6.3 requires [McLuhan >= 2.6.0](https://github.com/pressbooks/pressbooks-book/).
