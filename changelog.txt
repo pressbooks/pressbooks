@@ -1,4 +1,15 @@
 == Changelog ==
+= 5.6.3 =
+
+* Pressbooks 5.6.3 requires PHP >= 7.1.
+* Pressbooks 5.6.3 requires [WordPress 4.9.8](https://wordpress.org/news/2018/08/wordpress-4-9-8-maintenance-release/).
+* Pressbooks 5.6.3 requires [McLuhan >= 2.6.0](https://github.com/pressbooks/pressbooks-book/).
+
+**Patches**
+
+* Remove HTML tags from running content title strings ([#1491](https://github.com/pressbooks/pressbooks/issues/1491)): [#1492](https://github.com/pressbooks/pressbooks/pull/1492)
+* Handle locked themes in `Styles::updateWebBookStylesheet()` ([#1487](https://github.com/pressbooks/pressbooks/issues/1487)): [#1488](https://github.com/pressbooks/pressbooks/pull/1488)
+
 = 5.6.2 =
 
 * Pressbooks 5.6.2 requires PHP >= 7.1.
