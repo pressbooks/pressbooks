@@ -5,13 +5,13 @@ class ThemeOptionsTest extends \WP_UnitTestCase {
     use utilsTrait;
 
 	/**
-	 * @var \Pressbooks\Modules\ThemeOptions\ThemeOptions
+	 * @var \Pressbooks\Modules\ThemeOptions\Admin
 	 */
 	protected $themeOptions;
 
 	public function setUp() {
 		parent::setUp();
-		$this->themeOptions = new \Pressbooks\Modules\ThemeOptions\ThemeOptions();
+		$this->themeOptions = new \Pressbooks\Modules\ThemeOptions\Admin();
 	}
 
 	public function test_getTabs() {

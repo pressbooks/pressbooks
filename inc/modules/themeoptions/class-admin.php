@@ -12,15 +12,15 @@ use function \Pressbooks\Utility\debug_error_log;
  * Not a subclass of \Pressbooks\Options!
  * Handles initialization of Theme Options admin menu
  */
-class ThemeOptions {
+class Admin {
 
 	/**
-	 * @var ThemeOptions
+	 * @var Admin
 	 */
 	private static $instance = null;
 
 	/**
-	 * @return ThemeOptions
+	 * @return Admin
 	 */
 	static public function init() {
 		if ( is_null( self::$instance ) ) {
@@ -31,9 +31,9 @@ class ThemeOptions {
 	}
 
 	/**
-	 * @param ThemeOptions $obj
+	 * @param Admin $obj
 	 */
-	static public function hooks( ThemeOptions $obj ) {
+	static public function hooks( Admin $obj ) {
 		add_action( 'admin_init', [ $obj, 'loadTabs' ] );
 		add_filter( 'admin_menu', [ $obj, 'adminMenu' ] );
 		add_action( 'after_switch_theme', [ $obj, 'afterSwitchTheme' ] );
