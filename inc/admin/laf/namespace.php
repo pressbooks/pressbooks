@@ -326,7 +326,7 @@ function replace_book_admin_menu() {
 				wp_localize_script(
 					'pb-import', 'PB_ImportToken', [
 						'ajaxUrl' => wp_nonce_url( admin_url( 'admin-ajax.php?action=import-book' ), 'pb-import' ),
-						'redirectUrl' => admin_url( 'tools.php?page=pb_import' ),
+						'redirectUrl' => admin_url( 'admin.php?page=pb_organize' ),
 						'unloadWarning' => __( 'Imports are not done. Leaving this page, now, will cause problems. Are you sure?', 'pressbooks' ),
 						'reloadSnippet' => '<em>(<a href="javascript:window.location.reload(true)">' . __( 'Reload', 'pressbooks' ) . '</a>)</em>',
 					]

@@ -8,6 +8,7 @@ namespace Pressbooks;
 
 use function Pressbooks\Utility\getset;
 use Pressbooks\Modules\Export\Export;
+use Pressbooks\Modules\Import\Import;
 
 class EventStreams {
 
@@ -250,6 +251,13 @@ class EventStreams {
 		if ( ! $at_least_one ) {
 			$this->emitOneTimeError( __( 'No chapters were selected for import.', 'pressbooks' ) );
 			return;
+		}
+
+		$current_import = get_option( 'pressbooks_current_import' );
+		if ( is_array( $current_import ) ) {
+			Import::preImport();
+			$this->emit( Import::importGenerator( $current_import ) );
+			Import::postImport();
 		}
 
 		// Tell the browser to stop reconnecting.
