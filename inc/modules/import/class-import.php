@@ -278,7 +278,7 @@ abstract class Import {
 	 *
 	 * @return \Generator
 	 */
-	static function importGenerator( array $current_import ) {
+	static function doImportGenerator( array $current_import ) {
 
 		// Set post status
 		$current_import['default_post_status'] = ( isset( $_POST['show_imports_in_web'] ) ) ? 'publish' : 'private'; // @codingStandardsIgnoreLine

@@ -9,9 +9,10 @@ namespace Pressbooks\Modules\Import\Epub;
 
 use Pressbooks\Book;
 use Pressbooks\HtmlParser;
-use Pressbooks\Modules\Import\Import;
+use Pressbooks\Modules\Import\ImportGenerator;
+use Pressbooks\Utility\PercentageYield;
 
-class Epub201 extends Import {
+class Epub201 extends ImportGenerator {
 
 	const TYPE_OF = 'epub';
 
@@ -131,29 +132,47 @@ class Epub201 extends Import {
 		return update_option( 'pressbooks_current_import', $option );
 	}
 
-
 	/**
 	 * @param array $current_import
 	 *
 	 * @return bool
 	 */
 	function import( array $current_import ) {
-
 		try {
-			$this->setCurrentZip( $current_import['file'] );
+			foreach ( $this->importGenerator( $current_import ) as $percentage => $info ) {
+				// Do nothing, this is a compatibility wrapper that makes the generator work like a regular function
+			}
 		} catch ( \Exception $e ) {
 			return false;
 		}
+		return true;
+	}
+
+
+	/**
+	 * @param array $current_import
+	 *
+	 * @throws \Exception
+	 * @return \Generator
+	 */
+	function importGenerator( array $current_import ) : \Generator {
+		yield 10 => __( 'Opening epub file', 'pressbooks' );
+		$this->setCurrentZip( $current_import['file'] );
 
 		$xml = $this->getOpf();
 		$match_ids = array_flip( array_keys( $current_import['chapters'] ) );
 		$chapter_parent = $this->getChapterParent();
 
+		yield 30 => __( 'Reading metadata', 'pressbooks' );
 		$this->parseMetadata( $xml );
-		$this->parseManifest( $xml, $match_ids, $chapter_parent, $current_import );
+
+		yield from $this->parseManifestGenerator( $xml, $match_ids, $chapter_parent, $current_import );
 
 		// Done
-		return $this->revokeCurrentImport();
+		yield 95 => __( 'Deleting temporary files', 'pressbooks' );
+		if ( ! $this->revokeCurrentImport() ) {
+			throw new \Exception();
+		}
 	}
 
 
@@ -183,20 +202,26 @@ class Epub201 extends Import {
 
 	/**
 	 * Parse OPF manifest nodes
+	 * 40-95
 	 *
 	 * @param \SimpleXMLElement $xml
 	 * @param array $match_ids
 	 * @param $chapter_parent
 	 * @param array $current_import
+	 *
+	 * @return \Generator
 	 */
-	protected function parseManifest( \SimpleXMLElement $xml, array $match_ids, $chapter_parent, $current_import ) {
+	protected function parseManifestGenerator( \SimpleXMLElement $xml, array $match_ids, $chapter_parent, $current_import ) : \Generator {
 
 		//Format manifest to array
 		$this->parseManifestToArray( $xml );
 		$total = 0;
 
 		//Iterate each spine and get each manifest item in the order of spine
+		$y = new PercentageYield( 40, 95, count( $xml->spine->children() ) );
 		foreach ( $xml->spine->children() as $item ) {
+			yield from $y->tick( __( 'Importing', 'pressbooks' ) );
+
 			/** @var \SimpleXMLElement $item */
 			// Get attributes
 			$id = '';

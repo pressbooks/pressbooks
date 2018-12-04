@@ -256,7 +256,7 @@ class EventStreams {
 		$current_import = get_option( 'pressbooks_current_import' );
 		if ( is_array( $current_import ) ) {
 			Import::preImport();
-			$this->emit( Import::importGenerator( $current_import ) );
+			$this->emit( Import::doImportGenerator( $current_import ) );
 			Import::postImport();
 		}
 
