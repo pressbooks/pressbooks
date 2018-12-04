@@ -329,15 +329,4 @@ class Sass {
 	public function isCurrentThemeCompatible( $version = 1, $theme = null ) {
 		return Container::get( 'Styles' )->isCurrentThemeCompatible( $version, $theme );
 	}
-
-	/**
-	 * Update and save the supplementary webBook stylesheet which incorporates user options, etc.
-	 *
-	 * @deprecated Use the same function found in Styles instead
-	 *
-	 * @return void
-	 */
-	public function updateWebBookStyleSheet() {
-		Container::get( 'Styles' )->updateWebBookStyleSheet();
-	}
 }

@@ -1,5 +1,6 @@
 jQuery( function ( $ ) {
-	$( '#pb-cloner-form' ).on( 'submit', function ( e ) {
+	let myClonerForm = $( '#pb-cloner-form' );
+	myClonerForm.on( 'submit', function ( e ) {
 		// Stop form from submitting
 		e.preventDefault();
 		$( '#pb-cloner-button' ).attr( 'disabled', true );
@@ -11,8 +12,7 @@ jQuery( function ( $ ) {
 			return val > 9 ? val : '0' + val;
 		}
 		// Init Event Data
-		let form = $( '#pb-cloner-form' );
-		let eventSourceUrl = PB_ClonerToken.ajaxUrl + ( PB_ClonerToken.ajaxUrl.includes( '?' ) ? '&' : '?' ) + $.param( form.find( ':input' ) );
+		let eventSourceUrl = PB_ClonerToken.ajaxUrl + ( PB_ClonerToken.ajaxUrl.includes( '?' ) ? '&' : '?' ) + $.param( myClonerForm.find( ':input' ) );
 		let evtSource = new EventSource( eventSourceUrl );
 		evtSource.onopen = function () {
 			// Hide button

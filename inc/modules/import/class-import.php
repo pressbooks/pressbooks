@@ -233,6 +233,7 @@ abstract class Import {
 	 * Catch form submissions
 	 *
 	 * @see pressbooks/templates/admin/import.php
+	 * @see \Pressbooks\EventStreams::importBook
 	 */
 	static public function formSubmit() {
 
@@ -248,7 +249,6 @@ abstract class Import {
 		// Determine at what stage of the import we are and do something about it
 
 		$redirect_url = get_admin_url( get_current_blog_id(), '/tools.php?page=pb_import' );
-		$current_import = get_option( 'pressbooks_current_import' );
 
 		// Revoke
 		if ( ! empty( $_GET['revoke'] ) && check_admin_referer( 'pb-revoke-import' ) ) {
@@ -256,10 +256,8 @@ abstract class Import {
 			\Pressbooks\Redirect\location( $redirect_url );
 		}
 
-		if ( ! empty( $_GET['import'] ) && isset( $_POST['chapters'] ) && is_array( $_POST['chapters'] ) && is_array( $current_import ) && check_admin_referer( 'pb-import' ) ) {
-			self::doImport( $current_import );
-		} elseif ( isset( $_GET['import'] ) && ! empty( $_POST['import_type'] ) && check_admin_referer( 'pb-import' ) ) {
-			self::setImportOptions();
+		if ( isset( $_GET['import'] ) && ! empty( $_POST['import_type'] ) && check_admin_referer( 'pb-import' ) ) {
+			self::setImportOptions(); // STEP 1
 		}
 
 		// Default, back to form
@@ -267,11 +265,20 @@ abstract class Import {
 	}
 
 	/**
+	 * Pre-Import
+	 */
+	static function preImport() {
+		// TODO
+	}
+
+	/**
 	 * Do Import
 	 *
 	 * @param array $current_import WP option 'pressbooks_current_import'
+	 *
+	 * @return \Generator
 	 */
-	static protected function doImport( array $current_import ) {
+	static function importGenerator( array $current_import ) {
 
 		// Set post status
 		$current_import['default_post_status'] = ( isset( $_POST['show_imports_in_web'] ) ) ? 'publish' : 'private'; // @codingStandardsIgnoreLine
@@ -290,37 +297,31 @@ abstract class Import {
 		 */
 		@set_time_limit( apply_filters( 'pb_set_time_limit', 600, 'import' ) ); // @codingStandardsIgnoreLine
 
-		$ok = false;
+		$importer = null;
 		switch ( $current_import['type_of'] ) {
 
 			case Epub\Epub201::TYPE_OF:
 				$importer = new Epub\Epub201();
-				$ok = $importer->import( $current_import );
 				break;
 
 			case Wordpress\Wxr::TYPE_OF:
 				$importer = new Wordpress\Wxr();
-				$ok = $importer->import( $current_import );
 				break;
 
 			case Odf\Odt::TYPE_OF:
 				$importer = new Odf\Odt();
-				$ok = $importer->import( $current_import );
 				break;
 
 			case Ooxml\Docx::TYPE_OF:
 				$importer = new Ooxml\Docx();
-				$ok = $importer->import( $current_import );
 				break;
 
 			case Api\Api::TYPE_OF:
 				$importer = new Api\Api();
-				$ok = $importer->import( $current_import );
 				break;
 
 			case Html\Xhtml::TYPE_OF:
 				$importer = new Html\Xhtml();
-				$ok = $importer->import( $current_import );
 				break;
 
 			default:
@@ -335,27 +336,42 @@ abstract class Import {
 				if ( ! is_array( $importers ) ) {
 					$importers = [ $importers ];
 				}
-				foreach ( $importers as $importer ) {
-					if ( is_object( $importer ) ) {
-						$class = get_class( $importer );
+				foreach ( $importers as $i ) {
+					if ( is_object( $i ) ) {
+						$class = get_class( $i );
 						if (
 							count( $importers ) === 1 ||
 							defined( "{$class}::TYPE_OF" ) && $class::TYPE_OF === $current_import['type_of']
 						) {
-							$ok = $importer->import( $current_import );
+							$importer = $i;
 							break;
 						}
 					}
 				}
 		}
 
-		if ( $ok ) {
-			// Success! Redirect to organize page
-			$success_url = get_admin_url( get_current_blog_id(), '/admin.php?page=pb_organize' );
-			\Pressbooks\Redirect\location( $success_url );
+		if ( $importer !== null ) {
+			if ( is_subclass_of( $importer, '\Pressbooks\Modules\Import\ImportGenerator' ) ) {
+				/** @var \Pressbooks\Modules\Import\ImportGenerator $importer */
+				try {
+					yield from $importer->importGenerator( $current_import );
+				} catch ( \Exception $e ) {
+
+				}
+			} else {
+				/** @var \Pressbooks\Modules\Import\Import $importer */
+				yield 10 => __( 'Importing', 'pressbooks' );
+				$ok = $importer->import( $current_import );
+			}
 		}
 	}
 
+	/**
+	 * Post Export
+	 */
+	static function postImport() {
+		// TODO
+	}
 
 	/**
 	 *  Look at $_POST and $_FILES, sets 'pressbooks_current_import' option based on submission
