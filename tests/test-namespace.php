@@ -18,6 +18,7 @@ class NamespaceTest extends \WP_UnitTestCase {
 			'\Pressbooks\Interactive\Content',
 			'\Pressbooks\Modules\Export\Prince\Filters',
 			'\Pressbooks\Modules\SearchAndReplace\SearchAndReplace',
+			'\Pressbooks\Modules\ThemeOptions\Admin',
 			'\Pressbooks\Modules\ThemeOptions\ThemeOptions',
 			'\Pressbooks\Privacy',
 			'\Pressbooks\Shortcodes\Footnotes\Footnotes',

@@ -61,7 +61,7 @@ remove_action( 'welcome_panel', 'wp_welcome_panel' );
 if ( $is_book ) {
 	// Aggressively replace default interface
 	add_action( 'init', [ '\Pressbooks\Modules\SearchAndReplace\SearchAndReplace', 'init' ] );
-	add_action( 'after_setup_theme', [ '\Pressbooks\Modules\ThemeOptions\ThemeOptions', 'init' ] );
+	add_action( 'after_setup_theme', [ '\Pressbooks\Modules\ThemeOptions\Admin', 'init' ] );
 	add_action( 'admin_init', '\Pressbooks\Redirect\redirect_away_from_bad_urls' );
 	add_action( 'admin_menu', '\Pressbooks\Admin\Laf\replace_book_admin_menu', 1 );
 	add_filter( 'custom_menu_order', '__return_true' );
@@ -258,7 +258,7 @@ if ( $is_book ) {
 	);
 
 	// Init
-	add_action( 'admin_init', '\Pressbooks\Admin\Fonts\fix_missing_font_stacks' );
+	add_action( 'admin_init', '\Pressbooks\Admin\Fonts\maybe_update_font_stacks' );
 
 	// Overrides
 	add_filter( 'pb_epub_css_override', [ '\Pressbooks\Modules\ThemeOptions\EbookOptions', 'scssOverrides' ] );

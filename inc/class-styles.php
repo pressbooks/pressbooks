@@ -9,7 +9,6 @@ namespace Pressbooks;
 use function \Pressbooks\Editor\update_editor_style;
 use function \Pressbooks\Sanitize\normalize_css_urls;
 use function \Pressbooks\Utility\debug_error_log;
-use Pressbooks\Modules\ThemeOptions\ThemeOptions;
 
 /**
  * Custom Styles Feature(s)
@@ -548,9 +547,9 @@ class Styles {
 		// Populate $url-base variable so that links to images and other assets remain intact
 		$overrides = [ '$url-base: "' . $theme->get_stylesheet_directory_uri() . '";' ];
 		if ( $this->isCurrentThemeCompatible( 1 ) ) {
-			$scss = \Pressbooks\Utility\get_contents( realpath( $theme->get_stylesheet_directory() . '/style.scss' ) );
+			$scss = \Pressbooks\Utility\get_contents( realpath( $this->getDir( $theme ) . '/style.scss' ) );
 		} elseif ( $this->isCurrentThemeCompatible( 2 ) || CustomCss::isCustomCss() ) {
-			$scss = \Pressbooks\Utility\get_contents( realpath( $theme->get_stylesheet_directory() . '/assets/styles/web/style.scss' ) );
+			$scss = \Pressbooks\Utility\get_contents( realpath( $this->getDir( $theme ) . '/assets/styles/web/style.scss' ) );
 		} else {
 			return;
 		}
@@ -593,9 +592,10 @@ class Styles {
 
 		// If either Buckram or the theme were updated, rebuild the web and editor stylesheets.
 		if ( $buckram_updated || $theme_updated ) {
+			// Try to stop a Cache Stampede, Dog-Pile, Cascading Failure...
 			if ( ! get_transient( 'pressbooks_updating_stylesheet' ) ) {
 				set_transient( 'pressbooks_updating_stylesheet', 1, 5 * MINUTE_IN_SECONDS );
-				( new ThemeOptions() )->clearCache();
+				( new Modules\ThemeOptions\Admin() )->clearCache();
 				$this->updateWebBookStyleSheet();
 				update_editor_style();
 				if ( $buckram_updated ) {

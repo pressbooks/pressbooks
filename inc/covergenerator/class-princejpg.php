@@ -151,6 +151,24 @@ class PrinceJpg extends Generator {
 		$return_var = 0;
 		exec( $command, $output, $return_var ); // @codingStandardsIgnoreLine
 
+		// Fail safe routine converts png to jpeg
+		if ( 0 !== $return_var && ! file_exists( $path_to_jpg ) ) {
+			$command = PB_PDFTOPPM_COMMAND . ' -png -scale-to-x ' . (int) $x . ' -scale-to-y ' . (int) $y . ' ' . escapeshellarg( $path_to_pdf ) . ' ' . escapeshellarg( $path_to_jpg );
+			unset( $output );
+			unset( $return_var );
+			exec( $command, $output, $return_var ); // @codingStandardsIgnoreLine
+
+			$png_to_jpeg_command = PB_CONVERT_COMMAND . ' ' . $path_to_jpg . '-1.png ' . $path_to_jpg . '.jpg';
+			unset( $output );
+			unset( $return_var );
+			exec( $png_to_jpeg_command, $output, $return_var ); // @codingStandardsIgnoreLine
+
+			// imagemagick leaves behind a copy which we don't need
+			if ( file_exists( $path_to_jpg . '.jpg' ) && file_exists( $path_to_jpg . '-1.png' ) ) {
+				unlink( $path_to_jpg . '-1.png' );
+			}
+		}
+
 		$post = ( new \Pressbooks\Metadata() )->getMetaPost();
 
 		if ( $post ) {
@@ -177,8 +195,7 @@ class PrinceJpg extends Generator {
 			);
 			if ( is_wp_error( $pid ) ) {
 				throw new \Exception(
-					$pid->get_error_message(),
-					$pid->get_error_code()
+					$pid->get_error_message()
 				);
 			}
 
