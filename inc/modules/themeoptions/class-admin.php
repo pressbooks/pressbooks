@@ -181,6 +181,7 @@ class Admin {
 	 * Clear caches in one fell swoop
 	 */
 	public function clearCache() {
+		wp_cache_delete( 'alloptions', 'options' );
 		foreach ( $this->getTabs() as $slug => $subclass ) {
 			wp_cache_delete( "pressbooks_theme_options_{$slug}_version", 'options' );  // WordPress Core caches this key in the "options" group
 			delete_transient( "pressbooks_theme_options_{$slug}_parsed_sass_variables" );

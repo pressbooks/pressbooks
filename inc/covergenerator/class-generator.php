@@ -195,6 +195,8 @@ abstract class Generator {
 	 * @throws \Exception
 	 */
 	public static function formGenerator( $format ) {
+		wp_cache_delete( 'pressbooks_cg_options', 'options' ); // WordPress Core caches this key in the "options" group
+		wp_cache_delete( 'alloptions', 'options' );
 		$cg_options = get_option( 'pressbooks_cg_options' );
 
 		yield 20 => __( 'Calculating spine width', 'pressbooks' );
