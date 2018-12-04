@@ -187,121 +187,114 @@ abstract class Generator {
 
 	/**
 	 * Generate cover
+	 * 20 - 100
 	 *
 	 * @see pressbooks/templates/admin/generator.php
+	 *
+	 * @return \Generator
+	 * @throws \Exception
 	 */
-	public static function formSubmit() {
+	public static function formGenerator( $format ) {
+		$cg_options = get_option( 'pressbooks_cg_options' );
 
-		if ( empty( current_user_can( 'edit_posts' ) ) ) {
-			wp_die( __( 'You do not have sufficient permissions to access this page.', 'pressbooks' ), 403 );
+		yield 20 => __( 'Calculating spine width', 'pressbooks' );
+		if ( isset( $cg_options['pdf_pagecount'] ) ) {
+			$pages = $cg_options['pdf_pagecount'];
+		} else {
+			$spine = new Spine;
+			$pages = $spine->countPagesInMostRecentPdf();
+		}
+		if ( isset( $cg_options['ppi'] ) ) {
+			$ppi = $cg_options['ppi'];
+		} else {
+			$ppi = 444;
+		}
+		$spine = new Spine();
+		$spine_width = $spine->spineWidthCalculator( $pages, $ppi );
+		$spine_width = "{$spine_width}in"; // Inches, float to CSS string
+
+		yield 30 => __( 'Creating barcode', 'pressbooks' );
+		// Either ISBN or SKU, not both
+		if ( isset( $cg_options['pb_print_isbn'] ) && '' !== trim( $cg_options['pb_print_isbn'] ) ) {
+			$isbn_url = ( new Isbn() )->createBarcode( $cg_options['pb_print_isbn'] );
+		} elseif ( isset( $cg_options['pb_print_sku'] ) && '' !== trim( $cg_options['pb_print_sku'] ) ) {
+			$isbn_url = ( new Sku() )->createBarcode( $cg_options['pb_print_sku'] );
 		}
 
-		if ( check_admin_referer( 'pb-generate-cover' ) ) {
-			$cg_options = get_option( 'pressbooks_cg_options' );
-
-			if ( isset( $cg_options['pdf_pagecount'] ) ) {
-				$pages = $cg_options['pdf_pagecount'];
+		yield 40 => __( 'Setting variables', 'pressbooks' );
+		$input = new Input();
+		$input->setTitle( $cg_options['pb_title'] );
+		if ( $pages >= 48 ) {
+			if ( isset( $cg_options['pb_title_spine'] ) && '' !== $cg_options['pb_title_spine'] ) {
+				$input->setSpineTitle( $cg_options['pb_title_spine'] );
 			} else {
-				$spine = new Spine;
-				$pages = $spine->countPagesInMostRecentPdf();
-			}
-			if ( isset( $cg_options['ppi'] ) ) {
-				$ppi = $cg_options['ppi'];
-			} else {
-				$ppi = 444;
-			}
-			$spine = new Spine();
-			$spine_width = $spine->spineWidthCalculator( $pages, $ppi );
-			$spine_width = "{$spine_width}in"; // Inches, float to CSS string
-
-			// Either ISBN or SKU, not both
-			try {
-				if ( isset( $cg_options['pb_print_isbn'] ) && '' !== trim( $cg_options['pb_print_isbn'] ) ) {
-					$isbn_url = ( new Isbn() )->createBarcode( $cg_options['pb_print_isbn'] );
-				} elseif ( isset( $cg_options['pb_print_sku'] ) && '' !== trim( $cg_options['pb_print_sku'] ) ) {
-					$isbn_url = ( new Sku() )->createBarcode( $cg_options['pb_print_sku'] );
-				}
-			} catch ( \Exception $e ) {
-				wp_die( $e->getMessage() );
-			}
-
-			$input = new Input();
-			$input->setTitle( $cg_options['pb_title'] );
-			if ( $pages >= 48 ) {
-				if ( isset( $cg_options['pb_title_spine'] ) && '' !== $cg_options['pb_title_spine'] ) {
-					$input->setSpineTitle( $cg_options['pb_title_spine'] );
-				} else {
-					$input->setSpineTitle( $cg_options['pb_title'] );
-				}
-			}
-			if ( isset( $cg_options['pb_subtitle'] ) && '' !== $cg_options['pb_subtitle'] ) {
-				$input->setSubtitle( $cg_options['pb_subtitle'] );
-			}
-			$input->setAuthor( $cg_options['pb_author'] );
-			if ( $pages >= 48 ) {
-				if ( isset( $cg_options['pb_author_spine'] ) && '' !== $cg_options['pb_author_spine'] ) {
-					$input->setSpineAuthor( $cg_options['pb_author_spine'] );
-				} else {
-					$input->setSpineAuthor( $cg_options['pb_author'] );
-				}
-			}
-			if ( isset( $cg_options['pb_about_unlimited'] ) && '' !== $cg_options['pb_about_unlimited'] ) {
-				$input->setAbout( $cg_options['pb_about_unlimited'] );
-			}
-			if ( isset( $cg_options['text_transform'] ) && '' !== $cg_options['text_transform'] ) {
-				$input->setTextTransform( $cg_options['text_transform'] );
-			}
-
-			$pdf_options = get_option( 'pressbooks_theme_options_pdf' );
-
-			$input->setTrimHeight( $pdf_options['pdf_page_height'] );
-			$input->setTrimWidth( $pdf_options['pdf_page_width'] );
-			$input->setSpineWidth( $spine_width );
-			if ( isset( $cg_options['front_cover_text'] ) ) {
-				$input->setFrontFontColor( $cg_options['front_cover_text'] );
-			}
-			if ( isset( $cg_options['front_cover_background'] ) ) {
-				$input->setFrontBackgroundColor( $cg_options['front_cover_background'] );
-			}
-			if ( isset( $cg_options['spine_text'] ) ) {
-				$input->setSpineFontColor( $cg_options['spine_text'] );
-			}
-			if ( isset( $cg_options['spine_background'] ) ) {
-				$input->setSpineBackgroundColor( $cg_options['spine_background'] );
-			}
-			if ( isset( $cg_options['back_cover_text'] ) ) {
-				$input->setBackFontColor( $cg_options['back_cover_text'] );
-			}
-			if ( isset( $cg_options['back_cover_background'] ) ) {
-				$input->setBackBackgroundColor( $cg_options['back_cover_background'] );
-			}
-			if ( isset( $cg_options['front_background_image'] ) ) {
-				$input->setFrontBackgroundImage( \Pressbooks\Sanitize\maybe_https( $cg_options['front_background_image'] ) );
-			}
-			if ( isset( $isbn_url ) ) {
-				$input->setIsbnImage( $isbn_url );
-			}
-
-			try {
-				if ( 'pdf' === $_POST['format'] && defined( 'DOCRAPTOR_API_KEY' ) ) {
-					$pdf = new DocraptorPdf( $input );
-					$pdf->generate();
-				} elseif ( 'pdf' === $_POST['format'] ) {
-					$pdf = new PrincePdf( $input );
-					$pdf->generate();
-				} elseif ( 'jpg' === $_POST['format'] && defined( 'DOCRAPTOR_API_KEY' ) ) {
-					$jpg = new DocraptorJpg( $input );
-					$jpg->generate();
-				} elseif ( 'jpg' === $_POST['format'] ) {
-					$jpg = new PrinceJpg( $input );
-					$jpg->generate();
-				}
-			} catch ( \Exception $e ) {
-				wp_die( $e->getMessage() );
+				$input->setSpineTitle( $cg_options['pb_title'] );
 			}
 		}
+		if ( isset( $cg_options['pb_subtitle'] ) && '' !== $cg_options['pb_subtitle'] ) {
+			$input->setSubtitle( $cg_options['pb_subtitle'] );
+		}
+		$input->setAuthor( $cg_options['pb_author'] );
+		if ( $pages >= 48 ) {
+			if ( isset( $cg_options['pb_author_spine'] ) && '' !== $cg_options['pb_author_spine'] ) {
+				$input->setSpineAuthor( $cg_options['pb_author_spine'] );
+			} else {
+				$input->setSpineAuthor( $cg_options['pb_author'] );
+			}
+		}
+		if ( isset( $cg_options['pb_about_unlimited'] ) && '' !== $cg_options['pb_about_unlimited'] ) {
+			$input->setAbout( $cg_options['pb_about_unlimited'] );
+		}
+		if ( isset( $cg_options['text_transform'] ) && '' !== $cg_options['text_transform'] ) {
+			$input->setTextTransform( $cg_options['text_transform'] );
+		}
 
-		\Pressbooks\Redirect\location( admin_url( 'admin.php?page=pressbooks_cg' ) );
+		$pdf_options = get_option( 'pressbooks_theme_options_pdf' );
+
+		$input->setTrimHeight( $pdf_options['pdf_page_height'] );
+		$input->setTrimWidth( $pdf_options['pdf_page_width'] );
+		$input->setSpineWidth( $spine_width );
+		if ( isset( $cg_options['front_cover_text'] ) ) {
+			$input->setFrontFontColor( $cg_options['front_cover_text'] );
+		}
+		if ( isset( $cg_options['front_cover_background'] ) ) {
+			$input->setFrontBackgroundColor( $cg_options['front_cover_background'] );
+		}
+		if ( isset( $cg_options['spine_text'] ) ) {
+			$input->setSpineFontColor( $cg_options['spine_text'] );
+		}
+		if ( isset( $cg_options['spine_background'] ) ) {
+			$input->setSpineBackgroundColor( $cg_options['spine_background'] );
+		}
+		if ( isset( $cg_options['back_cover_text'] ) ) {
+			$input->setBackFontColor( $cg_options['back_cover_text'] );
+		}
+		if ( isset( $cg_options['back_cover_background'] ) ) {
+			$input->setBackBackgroundColor( $cg_options['back_cover_background'] );
+		}
+		if ( isset( $cg_options['front_background_image'] ) ) {
+			$input->setFrontBackgroundImage( \Pressbooks\Sanitize\maybe_https( $cg_options['front_background_image'] ) );
+		}
+		if ( isset( $isbn_url ) ) {
+			$input->setIsbnImage( $isbn_url );
+		}
+
+		yield 50 => __( 'Generating cover', 'pressbooks' );
+		if ( 'pdf' === $format && defined( 'DOCRAPTOR_API_KEY' ) ) {
+			$pdf = new DocraptorPdf( $input );
+			$pdf->generate();
+		} elseif ( 'pdf' === $format ) {
+			$pdf = new PrincePdf( $input );
+			$pdf->generate();
+		} elseif ( 'jpg' === $format && defined( 'DOCRAPTOR_API_KEY' ) ) {
+			$jpg = new DocraptorJpg( $input );
+			$jpg->generate();
+		} elseif ( 'jpg' === $format ) {
+			$jpg = new PrinceJpg( $input );
+			$jpg->generate();
+		}
+
+		yield 100 => __( 'Done', 'pressbooks' );
 	}
 
 
@@ -460,7 +453,7 @@ abstract class Generator {
 						}
 						$result = \download_url( $status_response->getDownloadUrl() );
 						if ( is_wp_error( $result ) ) {
-							$_SESSION['pb_errors'][] = __( 'Your PDF could not be retrieved.', 'pressbooks-docraptor' );
+							\Pressbooks\add_error( __( 'Your PDF could not be retrieved.', 'pressbooks' ) );
 						} else {
 							copy( $result, $output_path );
 							unlink( $result );

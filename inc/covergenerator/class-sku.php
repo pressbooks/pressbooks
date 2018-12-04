@@ -41,7 +41,7 @@ class Sku extends Isbn {
 
 		$this->sku = \Pressbooks\Sanitize\force_ascii( $sku );
 		if ( $this->sku !== $sku ) {
-			$_SESSION['pb_errors'] = __( 'There was a problem creating the barcode: Invalid characters in SKU', 'pressbooks' );
+			\Pressbooks\add_error( __( 'There was a problem creating the barcode: Invalid characters in SKU', 'pressbooks' ) );
 			return false;
 		}
 

@@ -16,7 +16,7 @@ class Admin_CoverGeneratorTest extends \WP_UnitTestCase {
 	function test_generator_css_js() {
 		global $wp_scripts, $wp_styles;
 		$_REQUEST['page'] = 'pressbooks_cg';
-		\Pressbooks\Admin\Covergenerator\generator_css_js();
+		\Pressbooks\Admin\Covergenerator\generator_css_js( 'export_page_pressbooks_cg' );
 		$this->assertContains( 'cg/js', $wp_scripts->queue );
 		$this->assertContains( 'cg/css', $wp_styles->queue );
 	}

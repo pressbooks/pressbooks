@@ -1305,56 +1305,19 @@ function display_privacy_settings() {
  * @global array $_SESSION ['pb_notices']
  */
 function admin_notices() {
-
-	$errors_to_print = [];
-	if ( ! empty( $_SESSION['pb_errors'] ) ) {
-		// Array-ify the error(s).
-		if ( ! is_array( $_SESSION['pb_errors'] ) ) {
-			$_SESSION['pb_errors'] = [ $_SESSION['pb_errors'] ];
-		}
-		$errors_to_print = array_merge( $errors_to_print, $_SESSION['pb_errors'] );
-		// Destroy the session.
-		unset( $_SESSION['pb_errors'] );
-	}
-	$errors_transient = get_transient( 'pb_errors' . get_current_user_id() );
-	if ( ! empty( $errors_transient ) ) {
-		// Array-ify the error(s).
-		if ( ! is_array( $errors_transient ) ) {
-			$errors_transient = [ $errors_transient ];
-		}
-		$errors_to_print = array_merge( $errors_to_print, $errors_transient );
-		// Destroy the transient.
-		delete_transient( 'pb_errors' . get_current_user_id() );
-	}
 	// Print the error(s).
+	$errors_to_print = \Pressbooks\get_all_errors();
 	foreach ( $errors_to_print as $msg ) {
 		echo '<div class="error"><p>' . $msg . '</p></div>';
 	}
+	\Pressbooks\flush_all_errors();
 
-	$notices_to_print = [];
-	if ( ! empty( $_SESSION['pb_notices'] ) ) {
-		// Array-ify the notice(s).
-		if ( ! is_array( $_SESSION['pb_notices'] ) ) {
-			$_SESSION['pb_notices'] = [ $_SESSION['pb_notices'] ];
-		}
-		$notices_to_print = array_merge( $notices_to_print, $_SESSION['pb_notices'] );
-		// Destroy the session.
-		unset( $_SESSION['pb_notices'] );
-	}
-	$notices_transient = get_transient( 'pb_notices' . get_current_user_id() );
-	if ( ! empty( $notices_transient ) ) {
-		// Array-ify the error(s).
-		if ( ! is_array( $notices_transient ) ) {
-			$notices_transient = [ $notices_transient ];
-		}
-		$notices_to_print = array_merge( $notices_to_print, $notices_transient );
-		// Destroy the transient.
-		delete_transient( 'pb_notices' . get_current_user_id() );
-	}
 	// Print the notice(s).
+	$notices_to_print = \Pressbooks\get_all_notices();
 	foreach ( $notices_to_print as $msg ) {
 		echo '<div class="updated"><p>' . $msg . '</p></div>';
 	}
+	\Pressbooks\flush_all_notices();
 }
 
 /**

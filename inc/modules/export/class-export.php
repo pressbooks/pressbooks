@@ -882,8 +882,7 @@ abstract class Export {
 
 		if ( is_countable( $conversion_error ) && count( $conversion_error ) ) {
 			// Conversion error
-			$export_error = __( 'The export failed. See logs for more details.', 'pressbooks' );
-			set_transient( 'pb_errors' . get_current_user_id(), $export_error, 5 * MINUTE_IN_SECONDS );
+			\Pressbooks\add_error( __( 'The export failed. See logs for more details.', 'pressbooks' ) );
 		}
 
 		if ( is_countable( $validation_warning ) && count( $validation_warning ) ) {
@@ -895,7 +894,7 @@ abstract class Export {
 					__( 'Warning: The export has validation errors. See logs for more details.', 'pressbooks' ),
 					( isset( $exportoptions['email_validation_logs'] ) && 1 === (int) $exportoptions['email_validation_logs'] ) ? '<p>' . __( 'Emailed to:', 'pressbooks' ) . ' ' . wp_get_current_user()->user_email . '</p>' : ''
 				);
-				set_transient( 'pb_notices' . get_current_user_id(), $export_warning, 5 * MINUTE_IN_SECONDS );
+				\Pressbooks\add_notice( $export_warning );
 			}
 		}
 	}

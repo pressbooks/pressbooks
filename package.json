@@ -58,6 +58,7 @@
 			"edButtons": true,
 			"PB_BookInfoToken": true,
 			"PB_ClonerToken": true,
+			"PB_CoverGeneratorToken": true,
 			"PB_ExportToken": true,
 			"PB_ImportToken": true,
 			"PB_FootnotesToken": true,
