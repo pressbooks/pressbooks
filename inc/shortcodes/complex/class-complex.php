@@ -224,7 +224,7 @@ class Complex {
 		if ( ! filter_var( $src, FILTER_VALIDATE_URL ) ) {
 			return '';
 		}
-		// Can't use `do_shortcode_by_tags because` because the default callback for 'embed' is `__return_false` - @see \WP_Embed::__construct
+		// Can't use `do_shortcode_by_tags` because the default callback for 'embed' is `__return_false` - @see \WP_Embed::__construct
 		$e = $wp_embed->run_shortcode( sprintf( '[embed src="%s"]', $src ) );
 		if ( $atts['caption'] ) {
 			return sprintf(
