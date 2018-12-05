@@ -1248,7 +1248,7 @@ class HTMLBook extends Export {
 				[
 					'class' => "front-matter {$subclass}",
 					'id' => "front-matter-{$front_matter['post_name']}",
-					'title' => $short_title ? $short_title : wp_strip_all_tags( $front_matter['post_title'] ),
+					'title' => $short_title ? $short_title : wp_strip_all_tags( Sanitize\decode( $front_matter['post_title'] ) ),
 				]
 			);
 
@@ -1462,7 +1462,7 @@ class HTMLBook extends Export {
 				$my_chapter->appendAttributes(
 					[
 						'id' => $slug,
-						'title' => $short_title ? $short_title : wp_strip_all_tags( $chapter['post_title'] ),
+						'title' => $short_title ? $short_title : wp_strip_all_tags( Sanitize\decode( $chapter['post_title'] ) ),
 					]
 				);
 
@@ -1582,7 +1582,7 @@ class HTMLBook extends Export {
 				[
 					'class' => "back-matter {$subclass}",
 					'id' => "back-matter-{$back_matter['post_name']}",
-					'title' => $short_title ? $short_title : wp_strip_all_tags( $back_matter['post_title'] ),
+					'title' => $short_title ? $short_title : wp_strip_all_tags( Sanitize\decode( $back_matter['post_title'] ) ),
 				]
 			);
 

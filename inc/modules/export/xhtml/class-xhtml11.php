@@ -1197,7 +1197,7 @@ class Xhtml11 extends Export {
 				$front_matter_printf,
 				$subclass,
 				$slug,
-				( $short_title ) ? $short_title : wp_strip_all_tags( $front_matter['post_title'] ),
+				( $short_title ) ? $short_title : wp_strip_all_tags( Sanitize\decode( $front_matter['post_title'] ) ),
 				$i,
 				Sanitize\decode( $title ),
 				$after_title,
@@ -1290,7 +1290,6 @@ class Xhtml11 extends Export {
 			$my_chapters = '';
 
 			foreach ( $part['chapters'] as $chapter ) {
-
 				if ( ! $chapter['export'] ) {
 					continue; // Skip
 				}
@@ -1350,7 +1349,7 @@ class Xhtml11 extends Export {
 					$chapter_printf,
 					$subclass,
 					$slug,
-					( $short_title ) ? $short_title : wp_strip_all_tags( $chapter['post_title'] ),
+					( $short_title ) ? $short_title : wp_strip_all_tags( Sanitize\decode( $chapter['post_title'] ) ),
 					$my_chapter_number,
 					Sanitize\decode( $title ),
 					$after_title,
@@ -1463,7 +1462,7 @@ class Xhtml11 extends Export {
 				$back_matter_printf,
 				$subclass,
 				$slug,
-				( $short_title ) ? $short_title : wp_strip_all_tags( $back_matter['post_title'] ),
+				( $short_title ) ? $short_title : wp_strip_all_tags( Sanitize\decode( $back_matter['post_title'] ) ),
 				$i,
 				Sanitize\decode( $title ),
 				$after_title,
