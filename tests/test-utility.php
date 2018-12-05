@@ -585,4 +585,17 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertEquals( '[pb_glossary hello=world id=&quot;999&quot; foo="111"]Skatboards[/pb_glossary][pb_glossary broken=\'pebkac\']Yes[/pb_glossary]', $x );
 	}
 
+	public function test_do_shortcode_by_tags() {
+		$content = '[latex]e^{\i \pi} + 1 = 0[/latex][embed]https://image.png[/embed]';
+
+		$expected = "<img src='http://s0.wp.com/latex.php?latex=e%5E%7B%5Ci+%5Cpi%7D+%2B+1+%3D+0&#038;bg=ffffff&#038;fg=000000&#038;s=0&#038;zoom=1' alt='e^{\i \pi} + 1 = 0' title='e^{\i \pi} + 1 = 0' class='latex' />[embed]https://image.png[/embed]";
+		$this->assertEquals( $expected, \Pressbooks\Utility\do_shortcode_by_tags( $content, [ 'latex' ] ) );
+
+		$expected = "[latex]e^{\i \pi} + 1 = 0[/latex]";
+		$this->assertEquals( $expected, \Pressbooks\Utility\do_shortcode_by_tags( $content, [ 'embed' ] ) );
+
+		$expected = "<img src='http://s0.wp.com/latex.php?latex=e%5E%7B%5Ci+%5Cpi%7D+%2B+1+%3D+0&#038;bg=ffffff&#038;fg=000000&#038;s=0&#038;zoom=1' alt='e^{\i \pi} + 1 = 0' title='e^{\i \pi} + 1 = 0' class='latex' />";
+		$this->assertEquals( $expected, \Pressbooks\Utility\do_shortcode_by_tags( $content, [ 'latex', 'embed' ] ) );
+	}
+
 }

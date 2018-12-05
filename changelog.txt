@@ -7,6 +7,7 @@
 
 **Patches**
 
+* Fix conflict between footnote and media shortcodes ([#1472](https://github.com/pressbooks/pressbooks/issues/1472)): [#1497](https://github.com/pressbooks/pressbooks/pull/1497)
 * Fix import of chapters with more than one URL from Word ([#1475](https://github.com/pressbooks/pressbooks/issues/1475)): [#1495](https://github.com/pressbooks/pressbooks/pull/1495)
 * Remove HTML tags from running content title strings ([#1491](https://github.com/pressbooks/pressbooks/issues/1491)): [#1492](https://github.com/pressbooks/pressbooks/pull/1492), [#1496](https://github.com/pressbooks/pressbooks/pull/1496)
 * Handle locked themes in `Styles::updateWebBookStylesheet()` ([#1487](https://github.com/pressbooks/pressbooks/issues/1487)): [#1488](https://github.com/pressbooks/pressbooks/pull/1488)

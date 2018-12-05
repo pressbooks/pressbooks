@@ -6,6 +6,8 @@
 
 namespace Pressbooks\Shortcodes\Complex;
 
+use function \Pressbooks\Utility\do_shortcode_by_tags;
+
 class Complex {
 
 	/**
@@ -49,10 +51,12 @@ class Complex {
 	 * @param array $atts Shortcode attributes.
 	 * @param string $content Shortcode content.
 	 * @param string $shortcode Shortcode name.
+	 *
+	 * @return string
 	 */
-	public function anchorShortCodeHandler( $atts, $content = '', $shortcode ) {
+	public function anchorShortCodeHandler( $atts, $content, $shortcode ) {
 		if ( ! isset( $atts['id'] ) ) {
-			return;
+			return '';
 		}
 
 		$atts = shortcode_atts(
@@ -78,10 +82,12 @@ class Complex {
 	 * @param array $atts Shortcode attributes.
 	 * @param string $content Shortcode content.
 	 * @param string $shortcode Shortcode name.
+	 *
+	 * @return string
 	 */
-	public function columnsShortCodeHandler( $atts, $content = '', $shortcode ) {
+	public function columnsShortCodeHandler( $atts, $content, $shortcode ) {
 		if ( ! $content ) {
-			return;
+			return '';
 		}
 
 		$atts = shortcode_atts(
@@ -119,8 +125,10 @@ class Complex {
 	 * @param array $atts Shortcode attributes.
 	 * @param string $content Shortcode content.
 	 * @param string $shortcode Shortcode name.
+	 *
+	 * @return string
 	 */
-	public function emailShortCodeHandler( $atts, $content = '', $shortcode ) {
+	public function emailShortCodeHandler( $atts, $content, $shortcode ) {
 		$atts = shortcode_atts(
 			[
 				'class' => null,
@@ -133,7 +141,7 @@ class Complex {
 		$address = $atts['address'] ?? $content;
 
 		if ( ! is_email( $address ) ) {
-			return;
+			return '';
 		}
 
 		if ( $address === $content ) {
@@ -158,10 +166,12 @@ class Complex {
 	 * @param array $atts Shortcode attributes.
 	 * @param string $content Shortcode content.
 	 * @param string $shortcode Shortcode name.
+	 *
+	 * @return string
 	 */
-	public function equationShortCodeHandler( $atts, $content = '', $shortcode ) {
+	public function equationShortCodeHandler( $atts, $content, $shortcode ) {
 		if ( ! $content ) {
-			return;
+			return '';
 		}
 		$atts = shortcode_atts(
 			[
@@ -170,10 +180,10 @@ class Complex {
 				'background' => false,
 			], $atts
 		);
-		return apply_filters(
-			'the_export_content',
+
+		return do_shortcode_by_tags(
 			sprintf(
-				'[latex%1$s]%2$s[/latex]',
+				'<p>[latex%1$s]%2$s[/latex]' . "</p>\n",
 				( $atts['size'] !== 0 )
 				? sprintf(
 					' size="%1$s" color="%2$s" background="%3$s"',
@@ -187,7 +197,8 @@ class Complex {
 					$atts['background']
 				),
 				$content
-			)
+			),
+			[ 'latex' ]
 		);
 	}
 
@@ -197,8 +208,11 @@ class Complex {
 	 * @param array $atts Shortcode attributes.
 	 * @param string $content Shortcode content.
 	 * @param string $shortcode Shortcode name.
+	 *
+	 * @return string
 	 */
-	public function mediaShortCodeHandler( $atts, $content = '', $shortcode ) {
+	public function mediaShortCodeHandler( $atts, $content, $shortcode ) {
+		global $wp_embed;
 		$atts = shortcode_atts(
 			[
 				'caption' => null,
@@ -208,15 +222,18 @@ class Complex {
 		$src = $atts['src'] ?? $content;
 		$src = esc_url_raw( $src );
 		if ( ! filter_var( $src, FILTER_VALIDATE_URL ) ) {
-			return;
+			return '';
 		}
+		// Can't use `do_shortcode_by_tags` because the default callback for 'embed' is `__return_false` - @see \WP_Embed::__construct
+		$e = $wp_embed->run_shortcode( sprintf( '[embed src="%s"]', $src ) );
 		if ( $atts['caption'] ) {
 			return sprintf(
 				'<figure class="embed">%1$s<figcaption>%2$s</figcaption></figure>',
-				str_replace( [ '<p>', '</p>' ], '', apply_filters( 'the_export_content', sprintf( '[embed src="%s"]', $src ) ) ),
+				str_replace( [ '<p>', '</p>' ], '', $e ),
 				$atts['caption']
 			);
+		} else {
+			return $e;
 		}
-		return apply_filters( 'the_export_content', sprintf( '[embed src="%s"]', $src ) );
 	}
 }
