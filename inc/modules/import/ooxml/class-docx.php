@@ -83,7 +83,7 @@ class Docx extends Import {
 		// get the paths to content
 		$doc_path = $this->getTargetPath( self::DOCUMENT_SCHEMA );
 		$meta_path = $this->getTargetPath( self::METADATA_SCHEMA );
-		$styles_path = $this->getTargetPath( self::STYLESHEET_SCHEMA, true );
+		$styles_path = $this->getTargetPath( self::STYLESHEET_SCHEMA, '_styles' );
 
 		// get the content
 		$xml = $this->getZipContent( $doc_path );
@@ -740,8 +740,6 @@ class Docx extends Import {
 	 * @return string|array
 	 */
 	protected function getTargetPath( $schema, $id = '' ) {
-		$path = '';
-
 		// The subfolder name "_rels", the file extension ".rels" are
 		// reserved names in an OPC package
 		if ( empty( $id ) ) {
@@ -754,20 +752,23 @@ class Docx extends Import {
 			$this->zip->getFromName( $path_to_rel_doc )
 		);
 
+		$path = ( $id === 'hyperlink' ) ? [] : '';
 		foreach ( $relations->Relationship as $rel ) {
 			// must be cast as a string to avoid returning SimpleXml Object.
 			$rel_type = (string) $rel['Type'];
 			$rel_id = (string) $rel['Id'];
 			$rel_target = (string) $rel['Target'];
 			if ( $rel_type === $schema ) {
-				switch ( $id ) {
+				switch ( (string) $id ) {
+					// Array
+					case 'hyperlink':
+						$path[ $rel_id ] = $rel_target;
+						break;
+					// String
 					case 'footnotes':
 					case 'endnotes':
+					case '_styles':
 						$path = 'word/' . $rel_target;
-						break;
-					case 'hyperlink':
-						$path = [];
-						$path[ $rel_id ] = $rel_target;
 						break;
 					default:
 						if ( $rel_type === self::IMAGE_SCHEMA ) {
