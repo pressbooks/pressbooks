@@ -7,6 +7,7 @@
 namespace Pressbooks\Shortcodes\Complex;
 
 use function \Pressbooks\Utility\do_shortcode_by_tags;
+use function \Pressbooks\Utility\str_starts_with;
 
 class Complex {
 
@@ -220,6 +221,9 @@ class Complex {
 			], $atts
 		);
 		$src = $atts['src'] ?? $content;
+		if ( str_starts_with( $src, '“' ) || str_starts_with( $src, '”' ) || str_starts_with( $src, '‘' ) || str_starts_with( $src, '’' ) ) {
+			$src = trim( $src, '“”‘’' ); // Trim fancy quotes, for MS-Word compatibility
+		}
 		$src = esc_url_raw( $src );
 		if ( ! filter_var( $src, FILTER_VALIDATE_URL ) ) {
 			return '';
