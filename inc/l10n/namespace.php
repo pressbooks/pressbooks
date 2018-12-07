@@ -490,17 +490,18 @@ function install_book_locale( $meta_id, $post_id, $meta_key, $meta_value ) {
 	if ( '' !== $locale && 'en_US' !== $locale ) {
 		require_once( ABSPATH . '/wp-admin/includes/translation-install.php' );
 		$result = \wp_download_language_pack( $locale );
-		if ( false === $result ) {
+		if ( $result ) {
+			if ( ! empty( $GLOBALS['wp_locale_switcher'] ) ) {
+				// We have a new language, reset locale switcher so that it knows the new language is available
+				// @see wp-settings.php
+				$GLOBALS['wp_locale_switcher'] = new \WP_Locale_Switcher();
+				$GLOBALS['wp_locale_switcher']->init();
+			}
+			return $result;
+		} else {
 			$supported_languages = supported_languages();
 			$_SESSION['pb_errors'][] = sprintf( __( 'Please contact your system administrator if you would like them to install extended %s language support for the Pressbooks interface.', 'pressbooks' ), $supported_languages[ $meta_value ] );
 		}
-		if ( ! empty( $GLOBALS['wp_locale_switcher'] ) ) {
-			// We have a new language, reset locale switcher so that it knows the new language is available
-			// @see wp-settings.php
-			$GLOBALS['wp_locale_switcher'] = new \WP_Locale_Switcher();
-			$GLOBALS['wp_locale_switcher']->init();
-		}
-		return $result;
 	}
 
 	return false;
