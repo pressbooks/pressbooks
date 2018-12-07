@@ -48,9 +48,15 @@ class MetadataTest extends \WP_UnitTestCase {
 	}
 
 	public function test_has_expanded_metadata() {
-		$book = \Pressbooks\Book::getInstance();
+		$meta_post_id = $this->metadata->getMetaPostId();
+		$this->assertEquals( 0, $meta_post_id );
 
 		$this->_book();
+
+		$meta_post_id = $this->metadata->getMetaPostId();
+		$this->assertNotEmpty( $meta_post_id );
+		$this->assertTrue( $meta_post_id > 0 );
+
 		$meta_post = $this->metadata->getMetaPost();
 
 		$result = \Pressbooks\Metadata\has_expanded_metadata();

@@ -6,8 +6,6 @@
 
 namespace Pressbooks\L10n;
 
-use function \Pressbooks\Utility\getset;
-
 /**
  * KindleGen is based on Mobipocket Creator and apparently supports only the following language codes.
  * This populates the language dropdown on the Book Info page.
@@ -323,29 +321,50 @@ function wplang_codes() {
 /**
  * Override get_locale
  * For performance reasons, we only want functions in this namespace to call WP get_locale once.
+ * (avoid triggering `apply_filters( 'locale', $locale )` ad nausea)
  *
  * @return string
  */
 function get_locale() {
-
-	// Cheap cache
-	static $locale = null;
-
-	if ( empty( $locale ) ) {
-		$locale = \get_locale();
+	global $locale;
+	if ( ! empty( $locale ) ) {
+		return $locale;
 	}
-
-	return $locale;
+	return \get_locale();
 }
 
 /**
  * When multiple mo-files are loaded for the same domain, the first found translation will be used. To allow for easier
  * customization we load from the WordPress languages directory by default then fallback on our own, if any.
+ *
+ * @see \load_plugin_textdomain
+ * @see \Translations::merge_with
+ *
+ * @param string $locale (optional)
  */
-function load_plugin_textdomain() {
-	$locale = apply_filters( 'plugin_locale', get_locale(), 'pressbooks' );
-	load_textdomain( 'pressbooks', WP_LANG_DIR . '/pressbooks/pressbooks-' . $locale . '.mo' );
-	\load_plugin_textdomain( 'pressbooks', false, 'pressbooks/languages' );
+function load_plugin_textdomain( $locale = '' ) {
+	if ( empty( $locale ) ) {
+		$locale = get_locale();
+	}
+	$domain = 'pressbooks';
+	$locale = apply_filters( 'plugin_locale', $locale, $domain );
+	$mofile = $domain . '-' . $locale . '.mo';
+
+	// Start by unloading all translations
+	unload_textdomain( $domain );
+
+	// Find, merge the translations we want
+	$path = WP_LANG_DIR . '/pressbooks/' . $mofile;
+	load_textdomain( $domain, $path );
+
+	$path = WP_LANG_DIR . '/plugins/' . $mofile;
+	load_textdomain( $domain, $path );
+
+	$path = WP_PLUGIN_DIR . '/pressbooks/languages/' . $mofile;
+	if ( ! load_textdomain( $domain, $path ) ) {
+		$path = __DIR__ . '/../../languages/' . $mofile;
+		load_textdomain( $domain, $path );
+	}
 }
 
 
@@ -475,6 +494,12 @@ function install_book_locale( $meta_id, $post_id, $meta_key, $meta_value ) {
 			$supported_languages = supported_languages();
 			$_SESSION['pb_errors'][] = sprintf( __( 'Please contact your system administrator if you would like them to install extended %s language support for the Pressbooks interface.', 'pressbooks' ), $supported_languages[ $meta_value ] );
 		}
+		if ( ! empty( $GLOBALS['wp_locale_switcher'] ) ) {
+			// We have a new language, reset locale switcher so that it knows the new language is available
+			// @see wp-settings.php
+			$GLOBALS['wp_locale_switcher'] = new \WP_Locale_Switcher();
+			$GLOBALS['wp_locale_switcher']->init();
+		}
 		return $result;
 	}
 
@@ -557,10 +582,9 @@ function romanize( $integer ) {
  */
 function get_book_language() {
 	// Book Language
-	$meta = new \Pressbooks\Metadata();
-	$meta_post = $meta->getMetaPost();
-	if ( $meta_post ) {
-		$book_lang = get_post_meta( $meta_post->ID, 'pb_language', true );
+	$meta_post_id = ( new \Pressbooks\Metadata() )->getMetaPostId();
+	if ( $meta_post_id ) {
+		$book_lang = get_post_meta( $meta_post_id, 'pb_language', true );
 	}
 	if ( empty( $book_lang ) ) {
 		$book_lang = 'en';
@@ -568,21 +592,3 @@ function get_book_language() {
 	return $book_lang;
 }
 
-/**
- * Use the book locale to load POT translations?
- *
- * @return bool
- */
-function use_book_locale() {
-
-	if ( \Pressbooks\Modules\Export\Export::isFormSubmission() && is_array( getset( '_POST', 'export_formats' ) ) ) {
-		return true;
-	}
-
-	$uri = $_SERVER['REQUEST_URI'];
-	if ( strpos( $uri, '/format/xhtml' ) !== false ) {
-		return true;
-	}
-
-	return false;
-}
