@@ -522,18 +522,25 @@ class Docx extends Import {
 	protected function addHyperlinks( \DOMDocument $chapter ) {
 		$ln = $chapter->getElementsByTagName( 'a' );
 
-		if ( $ln->length > 0 ) {
-			foreach ( $ln as $link ) {
-				/** @var \DOMElement $link */
-				if ( $link->hasAttribute( 'class' ) ) {
-					$ln_id = $link->getAttribute( 'class' );
-
-					if ( array_key_exists( $ln_id, $this->ln ) ) {
-						$link->setAttribute( 'href', $this->ln[ $ln_id ] );
-					}
+		for ( $i = $ln->length; --$i >= 0; ) {  // If you're deleting elements from within a loop, you need to loop backwards
+			$link = $ln->item( $i );
+			if (
+				$link->hasAttribute( 'name' ) &&
+				in_array( $link->getAttribute( 'name' ), [ '_GoBack' ], true )
+			) {
+				// Delete hidden Shift+F5 editing bookmark
+				$link->parentNode->removeChild( $link );
+				continue;
+			}
+			if ( $link->hasAttribute( 'class' ) ) {
+				$ln_id = $link->getAttribute( 'class' );
+				if ( array_key_exists( $ln_id, $this->ln ) ) {
+					// Add external hyperlink
+					$link->setAttribute( 'href', $this->ln[ $ln_id ] );
 				}
 			}
 		}
+
 		return $chapter;
 	}
 
