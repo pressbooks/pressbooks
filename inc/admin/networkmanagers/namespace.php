@@ -121,6 +121,16 @@ function is_restricted() {
 }
 
 /**
+ * @return array
+ */
+function permitted_setting_menus() {
+	return [
+		'pb_analytics',
+		'pb_whitelabel_settings',
+	];
+}
+
+/**
  * @param \WP_Admin_Bar $wp_admin_bar
  */
 function hide_admin_bar_menus( $wp_admin_bar ) {
@@ -158,12 +168,31 @@ function hide_network_menus() {
 	if ( is_restricted() ) {
 		remove_menu_page( 'themes.php' );
 		remove_menu_page( 'plugins.php' );
-		remove_menu_page( 'settings.php' );
 		remove_submenu_page( 'index.php', 'update-core.php' );
 		remove_submenu_page( 'index.php', 'upgrade.php' );
 		remove_menu_page( 'admin.php?page=pb_stats' );
 		remove_action( 'network_admin_notices', 'update_nag', 3 );
 		remove_action( 'network_admin_notices', 'site_admin_notice' );
+
+		$keepers = [
+			'settings.php' => permitted_setting_menus(),
+		];
+		global $submenu;
+		foreach ( $keepers as $menu_slug => $submenu_slugs_to_keep ) {
+			$something_was_kept = false;
+			if ( isset( $submenu[ $menu_slug ] ) ) {
+				foreach ( $submenu[ $menu_slug ] as $i => $item ) {
+					if ( ! in_array( $item[2], $submenu_slugs_to_keep, true ) ) {
+						unset( $submenu[ $menu_slug ][ $i ] );
+					} else {
+						$something_was_kept = true;
+					}
+				}
+			}
+			if ( ! $something_was_kept ) {
+				remove_menu_page( $menu_slug );
+			}
+		}
 	}
 }
 
@@ -193,7 +222,6 @@ function restrict_access() {
 		'theme-(install|editor)',
 		'plugins',
 		'plugin-(install|editor)',
-		'settings',
 		'update-core',
 		'upgrade',
 	];
@@ -203,4 +231,20 @@ function restrict_access() {
 		\Pressbooks\Redirect\location( $redirect_url );
 	}
 
+	// ---------------------------------------------------------------------------------------------------------------
+	// Settings
+
+	$expr = '~/wp-admin/network/settings.php~';
+	if ( preg_match( $expr, $check_against_url ) ) {
+		$ok = false;
+		foreach ( permitted_setting_menus() as $submenu_slug_to_keep ) {
+			if ( isset( $_GET['page'] ) && $_GET['page'] === $submenu_slug_to_keep ) {
+				$ok = true;
+				break;
+			}
+		}
+		if ( ! $ok ) {
+			\Pressbooks\Redirect\location( $redirect_url );
+		}
+	}
 }
