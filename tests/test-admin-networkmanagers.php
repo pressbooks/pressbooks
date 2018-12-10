@@ -18,7 +18,7 @@ class Admin_NetworkManagers extends \WP_UnitTestCase {
 	}
 
 
-	public function test_update_admin_status_AND_is_restricted() {
+	public function test_update_admin_status_AND_is_restricted_AND_hide_network_menus() {
 		$user_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
 		grant_super_admin( $user_id );
 		wp_set_current_user( $user_id );
@@ -28,6 +28,48 @@ class Admin_NetworkManagers extends \WP_UnitTestCase {
 		$_POST['status'] = '1';
 		\Pressbooks\Admin\NetworkManagers\update_admin_status();
 		$this->assertTrue( \Pressbooks\Admin\NetworkManagers\is_restricted() );
+
+		$my_menu[] = [
+			'Plugins',
+			'manage_network_plugins',
+			'plugins.php',
+			'',
+			'menu-top menu-icon-plugins',
+			'menu-plugins',
+			'dashicons-admin-plugins',
+		];
+		$my_menu[] = [
+			'Settings',
+			'manage_network_options',
+			'settings.php',
+			'',
+			'menu-top menu-icon-settings menu-top-last',
+			'menu-settings',
+			'dashicons-admin-settings',
+		];
+		$my_submenu['settings.php'][] = [
+			'Network Setup',
+			'setup_network',
+			'setup.php',
+		];
+		$my_submenu['settings.php'][] = [
+			'Google Analytics',
+			'manage_network_options',
+			'pb_analytics',
+			'Google Analytics',
+		];
+
+		global $menu, $submenu;
+		$menu = $my_menu;
+		\Pressbooks\Admin\NetworkManagers\hide_network_menus();
+		$this->assertEmpty( $menu );
+		$menu = $my_menu;
+		$submenu = $my_submenu;
+		\Pressbooks\Admin\NetworkManagers\hide_network_menus();
+		$this->assertCount( 1, $menu );
+		$this->assertEquals( 'settings.php', $menu[1][2] );
+		$this->assertCount( 1, $submenu['settings.php'] );
+		$this->assertEquals( 'pb_analytics', $submenu['settings.php'][1][2] );
 
 		$_POST['status'] = '0';
 		\Pressbooks\Admin\NetworkManagers\update_admin_status();
@@ -41,5 +83,4 @@ class Admin_NetworkManagers extends \WP_UnitTestCase {
 		$this->assertContains( 'pb_analytics', $allowed );
 		$this->assertContains( 'pb_whitelabel_settings', $allowed );
 	}
-
 }
