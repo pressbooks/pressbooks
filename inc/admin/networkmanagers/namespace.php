@@ -210,6 +210,10 @@ function restrict_access() {
 	} else {
 		$restricted = [];
 	}
+	if ( ! in_array( $user->ID, $restricted, true ) ) {
+		// This user doesn't have any restrictions. Bail.
+		return;
+	}
 
 	$check_against_url = wp_parse_url( ( is_ssl() ? 'http://' : 'https://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'], PHP_URL_PATH );
 	$redirect_url = get_site_url() . '/wp-admin/network/';
@@ -227,7 +231,7 @@ function restrict_access() {
 	];
 
 	$expr = '~/wp-admin/network/(' . implode( '|', $restricted_urls ) . ')\.php$~';
-	if ( in_array( $user->ID, $restricted, true ) && preg_match( $expr, $check_against_url ) ) {
+	if ( preg_match( $expr, $check_against_url ) ) {
 		\Pressbooks\Redirect\location( $redirect_url );
 	}
 
