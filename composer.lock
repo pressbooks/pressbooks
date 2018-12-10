@@ -910,16 +910,16 @@
         },
         {
             "name": "johnbillion/extended-cpts",
-            "version": "4.2.2",
+            "version": "4.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnbillion/extended-cpts.git",
-                "reference": "d64d9c977faf7d3c0d80b3289030b6d0632903fd"
+                "reference": "89ba13fa10c66b77f21aacdfb794ef3607814ed5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnbillion/extended-cpts/zipball/d64d9c977faf7d3c0d80b3289030b6d0632903fd",
-                "reference": "d64d9c977faf7d3c0d80b3289030b6d0632903fd",
+                "url": "https://api.github.com/repos/johnbillion/extended-cpts/zipball/89ba13fa10c66b77f21aacdfb794ef3607814ed5",
+                "reference": "89ba13fa10c66b77f21aacdfb794ef3607814ed5",
                 "shasum": ""
             },
             "require": {
@@ -954,7 +954,7 @@
             ],
             "description": "A library which provides extended functionality to WordPress custom post types and taxonomies.",
             "homepage": "https://github.com/johnbillion/extended-cpts/",
-            "time": "2018-12-06T18:54:40+00:00"
+            "time": "2018-12-08T15:16:49+00:00"
         },
         {
             "name": "leafo/scssphp",
