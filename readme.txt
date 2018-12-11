@@ -29,10 +29,13 @@ TK.
 
 **Patches**
 
+* Delete hidden anchor from Word imports ([#1473](https://github.com/pressbooks/pressbooks/issues/1473)): [#1502](https://github.com/pressbooks/pressbooks/pull/1502)
+* Update [johnbillion/extended-cpts](https://packagist.org/packages/johnbillion/extended-cpts) to 4.2.3: [#1499](https://github.com/pressbooks/pressbooks/pull/1499), [#1503](https://github.com/pressbooks/pressbooks/pull/1503)
 * Remove fancy quotes around media shortcode attributes ([#1493](https://github.com/pressbooks/pressbooks/issues/1493)): [#1498](https://github.com/pressbooks/pressbooks/pull/1498)
 * Fix conflict between footnote and media shortcodes ([#1472](https://github.com/pressbooks/pressbooks/issues/1472)): [#1497](https://github.com/pressbooks/pressbooks/pull/1497)
 * Fix import of chapters with more than one URL from Word ([#1475](https://github.com/pressbooks/pressbooks/issues/1475)): [#1495](https://github.com/pressbooks/pressbooks/pull/1495)
 * Remove HTML tags from running content title strings ([#1491](https://github.com/pressbooks/pressbooks/issues/1491)): [#1492](https://github.com/pressbooks/pressbooks/pull/1492), [#1496](https://github.com/pressbooks/pressbooks/pull/1496)
+* Update [pagedjs](https://gitlab.pagedmedia.org/tools/pagedjs) to 0.1.28: [#1490](https://github.com/pressbooks/pressbooks/pull/1490)
 * Handle locked themes in `Styles::updateWebBookStylesheet()` ([#1487](https://github.com/pressbooks/pressbooks/issues/1487)): [#1488](https://github.com/pressbooks/pressbooks/pull/1488)
 * Use PNG to JPG conversion as failsafe in cover generator (props [@bdolor](https://github.com/bdolor)): [#1474](https://github.com/pressbooks/pressbooks/pull/1474)
 
@@ -65,7 +68,7 @@ TK.
 
 **Minor Changes**
 
-* Update [pagedjs](https://gitlab.pagedmedia.org/tools/pagedjs) to to 0.1.25: [#1469](https://github.com/pressbooks/pressbooks/pull/1469)
+* Update [pagedjs](https://gitlab.pagedmedia.org/tools/pagedjs) to 0.1.25: [#1469](https://github.com/pressbooks/pressbooks/pull/1469)
 * Update [masterminds/html5](https://packagist.org/packages/masterminds/html5) to 2.4.0: [#1468](https://github.com/pressbooks/pressbooks/pull/1468)
 * Add filters for default contact and help links: [#1464](https://github.com/pressbooks/pressbooks/pull/1464)
 * Add subsection caching to `\Pressbooks\Book` class: [#1453](https://github.com/pressbooks/pressbooks/issues/1453)
