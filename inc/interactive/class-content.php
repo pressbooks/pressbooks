@@ -70,6 +70,7 @@ class Content {
 		add_filter( 'oembed_providers', [ $obj, 'addExtraOembedProviders' ] );
 		add_filter( 'oembed_result', [ $obj, 'adjustOembeds' ], 10, 3 );
 		add_action( 'save_post', [ $obj, 'deleteOembedCaches' ] );
+		add_filter( 'mejs_settings', [ $obj, 'mediaElementConfiguration' ] );
 
 		// Export hacks
 		add_action( 'pb_pre_export', [ $obj, 'beforeExport' ] );
@@ -516,5 +517,25 @@ class Content {
 			return str_replace( '?feature=oembed', '?feature=oembed&rel=0', $html );
 		}
 		return $html;
+	}
+
+	/**
+	 * Override the default MediaElement configuration settings
+	 *
+	 * @see https://github.com/mediaelement/mediaelement/blob/master/docs/api.md#mediaelementplayer
+	 * @see WP_Scripts::localize
+	 *
+	 * @param array $mejs_settings
+	 *
+	 * @return array
+	 */
+	public function mediaElementConfiguration( $mejs_settings ) {
+
+		// 'autoRewind' is supposed to be boolean
+		// WP_Scripts::localize() encodes false as "" and true as "1"
+		// Still works! Dumb...
+		$mejs_settings['autoRewind'] = false;
+
+		return $mejs_settings;
 	}
 }
