@@ -29,6 +29,7 @@ TK.
 
 **Patches**
 
+* Ensure that uninstalled themes are excluded from allowed theme list: [#1507](https://github.com/pressbooks/pressbooks/pull/1507)
 * Clarify copy on import content selection screen ([#1504](https://github.com/pressbooks/pressbooks/issues/1504)): [#1506](https://github.com/pressbooks/pressbooks/pull/1506)
 * Delete hidden anchor from Word imports ([#1473](https://github.com/pressbooks/pressbooks/issues/1473)): [#1502](https://github.com/pressbooks/pressbooks/pull/1502)
 * Update [johnbillion/extended-cpts](https://packagist.org/packages/johnbillion/extended-cpts) to 4.2.3: [#1499](https://github.com/pressbooks/pressbooks/pull/1499), [#1503](https://github.com/pressbooks/pressbooks/pull/1503)
