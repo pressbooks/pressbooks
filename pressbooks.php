@@ -78,13 +78,16 @@ if ( ! defined( 'PB_PLUGIN_URL' ) ) {
 	define( 'PB_PLUGIN_URL', trailingslashit( plugins_url( 'pressbooks' ) ) ); // Must have trailing slash!
 }
 
-if ( ! defined( 'WP_DEFAULT_THEME' ) ) {
-	if ( defined( 'PB_BOOK_THEME' ) ) {
-		define( 'WP_DEFAULT_THEME', PB_BOOK_THEME );
-	} else {
-		define( 'WP_DEFAULT_THEME', 'pressbooks-book' );
+function _pb_default_theme() {
+	if ( ! defined( 'WP_DEFAULT_THEME' ) ) {
+		if ( defined( 'PB_BOOK_THEME' ) ) {
+			define( 'WP_DEFAULT_THEME', PB_BOOK_THEME );
+		} else {
+			define( 'WP_DEFAULT_THEME', get_site_option( 'pressbooks_default_book_theme', 'pressbooks-book' ) );
+		}
 	}
 }
+add_action( 'setup_theme', '_pb_default_theme', 1 );
 
 /**
  * Set locale to UTF8 so escapeshellcmd() doesn't strip valid characters
