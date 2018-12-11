@@ -29,7 +29,11 @@ TK.
 
 **Minor Changes**
 
+* Expose additional settings screens to network managers ([#1485](https://github.com/pressbooks/pressbooks/issues/1485)): [#1505](https://github.com/pressbooks/pressbooks/pull/1505)
+
 **Patches**
+
+* Prevent stylesheet compilation in AJAX calls: [#1483](https://github.com/pressbooks/pressbooks/pull/1483)
 
 = 5.6.3 =
 
