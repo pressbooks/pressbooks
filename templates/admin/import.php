@@ -41,7 +41,8 @@ $import_option_types = apply_filters( 'pb_select_import_type', [
 
 	<!-- Import in progress -->
 
-		<p><?php printf( __( 'Import in progress: %s', 'pressbooks' ) , basename( $current_import['file'] ) ); ?></p>
+		<p><?php _e( 'Select content below for import into Pressbooks.', 'pressbooks' ); ?></p>
+		<p><?php _e( 'Source:', 'pressbooks' ); ?> <code><?php echo basename( $current_import['file'] ); ?></code></p>
 
 		<script type="text/javascript">
 		// <![CDATA[
