@@ -3,7 +3,7 @@ Contributors: Pressbooks <code@pressbooks.com>
 Donate link: https://opencollective.com/pressbooks
 Tags: ebooks, publishing, webbooks
 Requires at least: 4.9.8
-Tested up to: 4.9.8
+Tested up to: 5.0.0
 Requires PHP: 7.1
 Stable tag: 5.6.2
 License: GPL v3.0 or later
