@@ -78,7 +78,7 @@ if ( ! defined( 'PB_PLUGIN_URL' ) ) {
 	define( 'PB_PLUGIN_URL', trailingslashit( plugins_url( 'pressbooks' ) ) ); // Must have trailing slash!
 }
 
-function _pb_default_theme() {
+function _pb_default_book_theme() {
 	if ( ! defined( 'WP_DEFAULT_THEME' ) ) {
 		if ( defined( 'PB_BOOK_THEME' ) ) {
 			define( 'WP_DEFAULT_THEME', PB_BOOK_THEME );
@@ -87,7 +87,7 @@ function _pb_default_theme() {
 		}
 	}
 }
-add_action( 'setup_theme', '_pb_default_theme', 1 );
+add_action( 'setup_theme', '_pb_default_book_theme', 1 );
 
 /**
  * Set locale to UTF8 so escapeshellcmd() doesn't strip valid characters
