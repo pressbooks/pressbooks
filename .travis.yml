@@ -9,7 +9,7 @@ notifications:
 branches:
   only:
   - dev
-  - next
+  - hotfix
   - "/\\d+\\.\\d+(\\.\\d+)?(-\\S*)?$/"
 php:
 - 7.1

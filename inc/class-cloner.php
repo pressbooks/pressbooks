@@ -1061,7 +1061,7 @@ class Cloner {
 	 * @return bool | int False if the creation failed; the ID of the new book's book information post if it succeeded.
 	 */
 	protected function cloneMetadata() {
-		$metadata_post_id = ( new Metadata )->getMetaPost()->ID;
+		$metadata_post_id = ( new Metadata )->getMetaPostId();
 
 		if ( ! $metadata_post_id ) {
 			return false;

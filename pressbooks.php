@@ -16,55 +16,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // -------------------------------------------------------------------------------------------------------------------
-// Turn on $_SESSION
-// -------------------------------------------------------------------------------------------------------------------
-
-// @codingStandardsIgnoreStart
-function _pb_session_start() {
-	if ( ! session_id() ) {
-		if ( ! headers_sent() ) {
-			ini_set( 'session.use_only_cookies', true );
-			ini_set( 'session.cookie_domain', COOKIE_DOMAIN );
-
-			$options = [];
-			if (
-				wp_doing_ajax() ||
-				is_admin() === false && in_array( $GLOBALS['pagenow'], [ 'wp-login.php', 'wp-register.php', 'wp-signup.php' ], true ) === false
-			) {
-				// PHP Sessions are allowed but they are "READ ONLY" for ajax and webbook.
-				// It reads the session data and immediately releases the lock so other scripts won't block on it.
-				$options['read_and_close'] = true;
-			}
-
-			/**
-			 * Adjust session configuration as needed.
-			 *
-			 * @since 5.5.0
-			 *
-			 * @param array $options
-			 */
-			$override_options = apply_filters( 'pb_session_configuration', $options );
-			if ( is_array( $override_options ) ) {
-				$options = $override_options;
-			}
-			session_start( $options );
-		} else {
-			error_log( 'There was a problem with _pb_session_start(), headers already sent!' ); //  @codingStandardsIgnoreLine
-		}
-	}
-}
-
-function _pb_session_kill() {
-	$_SESSION = [];
-	@session_destroy(); // @codingStandardsIgnoreLine
-}
-// @codingStandardsIgnoreEnd
-
-add_action( 'plugins_loaded', '_pb_session_start', 1 );
-add_action( 'wp_logout', '_pb_session_kill' );
-add_action( 'wp_login', '_pb_session_kill' );
-
-// -------------------------------------------------------------------------------------------------------------------
 // Setup some defaults
 // -------------------------------------------------------------------------------------------------------------------
 
@@ -78,13 +29,16 @@ if ( ! defined( 'PB_PLUGIN_URL' ) ) {
 	define( 'PB_PLUGIN_URL', trailingslashit( plugins_url( 'pressbooks' ) ) ); // Must have trailing slash!
 }
 
-if ( ! defined( 'WP_DEFAULT_THEME' ) ) {
-	if ( defined( 'PB_BOOK_THEME' ) ) {
-		define( 'WP_DEFAULT_THEME', PB_BOOK_THEME );
-	} else {
-		define( 'WP_DEFAULT_THEME', 'pressbooks-book' );
+function _pb_default_book_theme() {
+	if ( ! defined( 'WP_DEFAULT_THEME' ) ) {
+		if ( defined( 'PB_BOOK_THEME' ) ) {
+			define( 'WP_DEFAULT_THEME', PB_BOOK_THEME );
+		} else {
+			define( 'WP_DEFAULT_THEME', get_site_option( 'pressbooks_default_book_theme', 'pressbooks-book' ) );
+		}
 	}
 }
+add_action( 'setup_theme', '_pb_default_book_theme', 1 );
 
 /**
  * Set locale to UTF8 so escapeshellcmd() doesn't strip valid characters
@@ -98,6 +52,15 @@ if ( ! defined( 'WP_DEFAULT_THEME' ) ) {
 $pb_lc_ctype = apply_filters( 'pb_lc_ctype', 'en_US.UTF-8' );
 setlocale( LC_CTYPE, 'UTF8', $pb_lc_ctype );
 putenv( "LC_CTYPE={$pb_lc_ctype}" );
+
+// -------------------------------------------------------------------------------------------------------------------
+// Turn on $_SESSION
+// -------------------------------------------------------------------------------------------------------------------
+
+require_once( PB_PLUGIN_DIR . 'inc/namespace.php' );
+add_action( 'plugins_loaded', '\Pressbooks\session_start', 1 );
+add_action( 'wp_logout', '\Pressbooks\session_kill' );
+add_action( 'wp_login', '\Pressbooks\session_kill' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Composer autoloader (if needed)

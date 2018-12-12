@@ -18,18 +18,34 @@ function display_generator() {
 	require( PB_PLUGIN_DIR . 'templates/admin/covergenerator.php' );
 }
 
-function generator_css_js() {
-	$assets = new Assets( 'pressbooks', 'plugin' );
-	if ( 'pressbooks_cg' === esc_attr( isset( $_REQUEST['page'] ) ? $_REQUEST['page'] : null ) ) { // @codingStandardsIgnoreLine
+/**
+ * @param string $hooks_suffix
+ */
+function generator_css_js( $hooks_suffix ) {
+	if ( $hooks_suffix === 'export_page_pressbooks_cg' ) {
+		$assets = new Assets( 'pressbooks', 'plugin' );
 		wp_enqueue_media();
+		wp_enqueue_style( 'jquery-ui' );
+		wp_enqueue_style( 'cg/css', $assets->getPath( 'styles/covergenerator.css' ), [ 'wp-color-picker' ], null );
 		wp_enqueue_script(
 			'cg/js', $assets->getPath( 'scripts/covergenerator.js' ), [
 				'jquery',
 				'jquery-form',
 				'wp-color-picker',
+				'jquery-ui-progressbar',
+				'eventsource-polyfill',
 			], null
 		);
-		wp_enqueue_style( 'cg/css', $assets->getPath( 'styles/covergenerator.css' ), [ 'wp-color-picker' ], null );
+		wp_localize_script(
+			'cg/js', 'PB_CoverGeneratorToken', [
+				'ajaxSubmitMsg' => __( 'Submitting form', 'pressbooks' ),
+				'ajaxUrl' => wp_nonce_url( admin_url( 'admin-ajax.php?action=cover-generator' ), 'pb-generate-cover' ),
+				'redirectUrl' => admin_url( 'admin.php?page=pressbooks_cg' ),
+				'unloadWarning' => __( 'Cover generation is not done. Leaving this page, now, will cause problems. Are you sure?', 'pressbooks' ),
+				'reloadSnippet' => '<em>(<a href="javascript:window.location.reload(true)">' . __( 'Reload', 'pressbooks' ) . '</a>)</em>',
+			]
+		);
+		wp_deregister_script( 'heartbeat' );
 	}
 }
 

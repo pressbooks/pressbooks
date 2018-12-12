@@ -19,6 +19,12 @@ use function \Pressbooks\PostType\{
 
 class PostTypeTest extends \WP_UnitTestCase {
 
+	function onNotSuccessfulTest( Throwable $t ) {
+		// Switch back to english for other tests
+		unload_textdomain( 'pressbooks' );
+		parent::onNotSuccessfulTest( $t );
+	}
+
 	function test_list_post_types() {
 		$v = list_post_types();
 		$this->assertTrue( is_array( $v ) );
@@ -191,10 +197,27 @@ class PostTypeTest extends \WP_UnitTestCase {
 	}
 
 	function test_filter_post_type_label() {
+		$this->assertEquals( filter_post_type_label( 'Whatever I want', [ 'post_type' => 'unfiltered' ] ), 'Whatever I want' );
 		$this->assertEquals( filter_post_type_label( 'Chapter', [ 'post_type' => 'chapter' ] ), 'Chapter' );
+
 		update_option( 'pressbooks_theme_options_global', [ 'chapter_label' => 'Section' ] );
 		$this->assertEquals( filter_post_type_label( 'Chapter', [ 'post_type' => 'chapter' ] ), 'Section' );
+
 		update_option( 'pressbooks_theme_options_global', [ 'part_label' => 'Unit' ] );
 		$this->assertEquals( filter_post_type_label( 'Chapter', [ 'post_type' => 'chapter' ] ), 'Chapter' );
+
+		// Translations
+
+		update_option( 'pressbooks_theme_options_global', [ 'part_label' => 'Part' ] );
+		\Pressbooks\L10n\load_plugin_textdomain( 'fr_FR' );
+		$this->assertEquals( filter_post_type_label( 'This does not matter because it will be loaded from the database...', [ 'post_type' => 'part' ] ), 'Partie' );
+
+		update_option( 'pressbooks_theme_options_global', [] );
+		$this->assertEquals( filter_post_type_label( __( 'Part', 'pressbooks' ), [ 'post_type' => 'part' ] ), 'Partie' );
+
+		update_option( 'pressbooks_theme_options_global', [ 'part_label' => 'Partie' ] );
+		$this->assertEquals( filter_post_type_label( 'This does not matter because it will be loaded from the database...', [ 'post_type' => 'part' ] ), 'Partie' );
+
+		unload_textdomain( 'pressbooks' );
 	}
 }

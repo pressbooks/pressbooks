@@ -13,5 +13,5 @@ abstract class ImportGenerator extends Import {
 	 *
 	 * @return \Generator
 	 */
-	abstract function importGenerator( array $current_import ): \Generator;
+	abstract public function importGenerator( array $current_import ): \Generator;
 }

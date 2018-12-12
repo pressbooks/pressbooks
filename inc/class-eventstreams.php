@@ -40,6 +40,7 @@ class EventStreams {
 		add_action( 'wp_ajax_clone-book', [ $obj, 'cloneBook' ] );
 		add_action( 'wp_ajax_export-book', [ $obj, 'exportBook' ] );
 		add_action( 'wp_ajax_import-book', [ $obj, 'importBook' ] );
+		add_action( 'wp_ajax_cover-generator', [ $obj, 'coverGenerator' ] );
 	}
 
 	/**
@@ -182,7 +183,7 @@ class EventStreams {
 
 		if ( $everything_ok ) {
 			$cloned_items = $cloner->getClonedItems();
-			$pb_notices = sprintf(
+			$notice = sprintf(
 				__( 'Cloning succeeded! Cloned %1$s, %2$s, %3$s, %4$s, %5$s, %6$s, and %7$s to %8$s.', 'pressbooks' ),
 				sprintf( _n( '%s term', '%s terms', count( getset( $cloned_items, 'terms', [] ) ), 'pressbooks' ), count( getset( $cloned_items, 'terms', [] ) ) ),
 				sprintf( _n( '%s front matter', '%s front matter', count( getset( $cloned_items, 'front-matter', [] ) ), 'pressbooks' ), count( getset( $cloned_items, 'front-matter', [] ) ) ),
@@ -193,7 +194,7 @@ class EventStreams {
 				sprintf( _n( '%s glossary term', '%s glossary terms', count( getset( $cloned_items, 'glossary', [] ) ), 'pressbooks' ), count( getset( $cloned_items, 'glossary', [] ) ) ),
 				sprintf( '<a href="%1$s"><em>%2$s</em></a>', trailingslashit( $cloner->getTargetBookUrl() ) . 'wp-admin/', $cloner->getTargetBookTitle() )
 			);
-			set_transient( 'pb_notices' . get_current_user_id(), $pb_notices, 5 * MINUTE_IN_SECONDS );
+			\Pressbooks\add_notice( $notice );
 		}
 
 		// Tell the browser to stop reconnecting.
@@ -256,9 +257,28 @@ class EventStreams {
 		$current_import = get_option( 'pressbooks_current_import' );
 		if ( is_array( $current_import ) ) {
 			Import::preImport();
-			$this->emit( Import::importGenerator( $current_import ) );
+			$this->emit( Import::doImportGenerator( $current_import ) );
 			Import::postImport();
 		}
+
+		// Tell the browser to stop reconnecting.
+		status_header( 204 );
+
+		if ( ! defined( 'WP_TESTS_MULTISITE' ) ) {
+			exit; // Short circuit wp_die(0);
+		}
+	}
+
+	public function coverGenerator() {
+		check_admin_referer( 'pb-generate-cover' );
+
+		if ( empty( current_user_can( 'edit_posts' ) ) ) {
+			$this->emitOneTimeError( __( 'You do not have sufficient permissions to access this page.', 'pressbooks' ) );
+			return;
+		}
+
+		$format = $_GET['format'] ?? '';
+		$this->emit( \Pressbooks\Covergenerator\Generator::formGenerator( $format ) );
 
 		// Tell the browser to stop reconnecting.
 		status_header( 204 );
