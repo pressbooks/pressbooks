@@ -11,8 +11,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
-"POT-Creation-Date: 2018-11-18 18:33-0500\n"
-"PO-Revision-Date: 2018-11-18 23:33+0000\n"
+"POT-Creation-Date: 2018-12-12 16:14-0400\n"
+"PO-Revision-Date: 2018-12-12 20:16+0000\n"
 "Last-Translator: Hugh McGuire <hugh@pressbooks.com>\n"
 "Language-Team: Tamil (http://www.transifex.com/pressbooks/pressbooks/language/ta/)\n"
 "MIME-Version: 1.0\n"
@@ -183,7 +183,7 @@ msgid "Cover"
 msgstr "மேல் அட்டை"
 
 #: inc/admin/class-catalog-list-table.php:172
-#: inc/admin/covergenerator/namespace.php:55 templates/admin/import.php:82
+#: inc/admin/covergenerator/namespace.php:55 templates/admin/import.php:83
 #: templates/admin/trash.php:36
 msgid "Title"
 msgstr "தலைப்பு"
@@ -686,16 +686,16 @@ msgstr "பொருளடக்கம்"
 
 #: inc/admin/dashboard/namespace.php:156 inc/admin/metaboxes/namespace.php:566
 #: inc/api/endpoints/controller/class-toc.php:192
-#: inc/posttype/namespace.php:117 inc/posttype/namespace.php:118
-#: inc/posttype/namespace.php:534 templates/admin/import.php:83
+#: inc/posttype/namespace.php:115 inc/posttype/namespace.php:116
+#: inc/posttype/namespace.php:532 templates/admin/import.php:84
 #: templates/admin/organize.php:58 templates/admin/organize.php:81
 msgid "Front Matter"
 msgstr "முன்பகுதி"
 
 #: inc/admin/dashboard/namespace.php:197 inc/admin/metaboxes/namespace.php:568
 #: inc/api/endpoints/controller/class-toc.php:225
-#: inc/posttype/namespace.php:145 inc/posttype/namespace.php:146
-#: inc/posttype/namespace.php:537 templates/admin/import.php:88
+#: inc/posttype/namespace.php:143 inc/posttype/namespace.php:144
+#: inc/posttype/namespace.php:535 templates/admin/import.php:89
 #: templates/admin/organize.php:60 templates/admin/organize.php:89
 msgid "Back Matter"
 msgstr "பிற்பகுதி"
@@ -896,7 +896,7 @@ msgid "Add Back Matter"
 msgstr "பிற்பகுதியைச் சேர்"
 
 #: inc/admin/laf/namespace.php:175 inc/admin/laf/namespace.php:176
-#: inc/editor/namespace.php:131 inc/posttype/namespace.php:197
+#: inc/editor/namespace.php:131 inc/posttype/namespace.php:195
 msgid "Glossary Terms"
 msgstr ""
 
@@ -923,8 +923,8 @@ msgid "Trash"
 msgstr "குப்பை"
 
 #: inc/admin/laf/namespace.php:233
-#: inc/modules/import/wordpress/class-wxr.php:463
-#: inc/posttype/namespace.php:153
+#: inc/modules/import/wordpress/class-wxr.php:468
+#: inc/posttype/namespace.php:151
 msgid "Book Info"
 msgstr "நூல் விவரங்கள்"
 
@@ -960,7 +960,7 @@ msgid "QuickLaTeX"
 msgstr ""
 
 #: inc/admin/laf/namespace.php:312 templates/admin/import.php:38
-#: templates/admin/import.php:81
+#: templates/admin/import.php:82
 msgid "Import"
 msgstr "இறக்குமதி"
 
@@ -1144,16 +1144,16 @@ msgid "Your cover image (%s) is too big. It should be no more than 2MB."
 msgstr "உங்கள் அட்டைப்படம் மிகவும் பெரிதாக  (%s) உள்ளது \n2MBக்கு மேல்.இருக்க கூடாது"
 
 #: inc/admin/metaboxes/namespace.php:116 inc/admin/metaboxes/namespace.php:173
-#: inc/class-metadata.php:422
+#: inc/class-metadata.php:449
 msgid "Cover Image"
 msgstr "அட்டைப்படம்"
 
 #: inc/admin/metaboxes/namespace.php:159 inc/admin/metaboxes/namespace.php:623
-#: inc/api/endpoints/controller/class-toc.php:202 inc/class-sass.php:86
+#: inc/api/endpoints/controller/class-toc.php:202 inc/class-sass.php:87
 #: inc/modules/export/epub/class-epub201.php:1764
 #: inc/modules/themeoptions/class-globaloptions.php:521
-#: inc/posttype/namespace.php:89 inc/posttype/namespace.php:528
-#: templates/admin/import.php:86
+#: inc/posttype/namespace.php:87 inc/posttype/namespace.php:526
+#: inc/posttype/namespace.php:564 templates/admin/import.php:87
 msgid "Part"
 msgstr "பாகம்"
 
@@ -1503,10 +1503,11 @@ msgid ""
 msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:567
-#: inc/api/endpoints/controller/class-toc.php:209 inc/class-sass.php:75
+#: inc/api/endpoints/controller/class-toc.php:209 inc/class-sass.php:76
 #: inc/modules/themeoptions/class-globaloptions.php:522
-#: inc/posttype/namespace.php:66 inc/posttype/namespace.php:531
-#: templates/admin/import.php:84 templates/admin/organize.php:85
+#: inc/posttype/namespace.php:64 inc/posttype/namespace.php:529
+#: inc/posttype/namespace.php:568 templates/admin/import.php:85
+#: templates/admin/organize.php:85
 msgid "Chapter"
 msgstr "அதிகாரம்"
 
@@ -2094,9 +2095,9 @@ msgstr "PDFக்கான தனி CSS "
 msgid "Custom CSS for Web"
 msgstr "இணையத்திற்கான தனி CSS"
 
-#: inc/class-activation.php:266 inc/posttype/namespace.php:167
-#: inc/posttype/namespace.php:168 inc/posttype/namespace.php:525
-#: templates/admin/import.php:103
+#: inc/class-activation.php:266 inc/posttype/namespace.php:165
+#: inc/posttype/namespace.php:166 inc/posttype/namespace.php:523
+#: templates/admin/import.php:104
 msgid "Book Information"
 msgstr "நூல் பற்றிய விவரங்கள்"
 
@@ -2204,42 +2205,42 @@ msgid_plural "%s terms"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/class-cloner.php:2044 inc/modules/import/wordpress/class-wxr.php:336
+#: inc/class-cloner.php:2044 inc/modules/import/wordpress/class-wxr.php:341
 #, php-format
 msgid "%s front matter"
 msgid_plural "%s front matter"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/class-cloner.php:2045 inc/modules/import/wordpress/class-wxr.php:337
+#: inc/class-cloner.php:2045 inc/modules/import/wordpress/class-wxr.php:342
 #, php-format
 msgid "%s part"
 msgid_plural "%s parts"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/class-cloner.php:2046 inc/modules/import/wordpress/class-wxr.php:338
+#: inc/class-cloner.php:2046 inc/modules/import/wordpress/class-wxr.php:343
 #, php-format
 msgid "%s chapter"
 msgid_plural "%s chapters"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/class-cloner.php:2047 inc/modules/import/wordpress/class-wxr.php:339
+#: inc/class-cloner.php:2047 inc/modules/import/wordpress/class-wxr.php:344
 #, php-format
 msgid "%s back matter"
 msgid_plural "%s back matter"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/class-cloner.php:2048 inc/modules/import/wordpress/class-wxr.php:340
+#: inc/class-cloner.php:2048 inc/modules/import/wordpress/class-wxr.php:345
 #, php-format
 msgid "%s media attachment"
 msgid_plural "%s media attachments"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/class-cloner.php:2049 inc/modules/import/wordpress/class-wxr.php:341
+#: inc/class-cloner.php:2049 inc/modules/import/wordpress/class-wxr.php:346
 #, php-format
 msgid "%s glossary term"
 msgid_plural "%s glossary terms"
@@ -2458,14 +2459,14 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/class-sass.php:190
+#: inc/class-sass.php:197
 #, php-format
 msgid ""
 "There was a problem with SASS. Contact your site administrator. Error: %1$s "
 "%2$s"
 msgstr ""
 
-#: inc/class-sass.php:272
+#: inc/class-sass.php:279
 msgid "SASS Error"
 msgstr ""
 
@@ -2530,7 +2531,7 @@ msgstr "அடிக்குறிப்பைச் செருகவும�
 msgid "Convert MS Word Footnotes"
 msgstr "மைக்ரோசாப்ட் வேர்டு அடிக்குறிப்புகளை மாற்றுக"
 
-#: inc/editor/namespace.php:116 templates/admin/import.php:132
+#: inc/editor/namespace.php:116 templates/admin/import.php:133
 msgid "Cancel"
 msgstr "நீக்கு"
 
@@ -2575,7 +2576,7 @@ msgstr ""
 msgid "A term was not selected?"
 msgstr ""
 
-#: inc/editor/namespace.php:129 inc/posttype/namespace.php:242
+#: inc/editor/namespace.php:129 inc/posttype/namespace.php:240
 msgid ""
 "To display a list of glossary terms, leave this back matter's content blank."
 msgstr ""
@@ -2679,7 +2680,7 @@ msgid ""
 "indicated. You may want to remove or replace these sections."
 msgstr ""
 
-#: inc/l10n/namespace.php:476 inc/l10n/namespace.php:501
+#: inc/l10n/namespace.php:503 inc/l10n/namespace.php:527
 #, php-format
 msgid ""
 "Please contact your system administrator if you would like them to install "
@@ -2803,7 +2804,7 @@ msgid ""
 "This does not appear to be a WXR file, missing/invalid WXR version number"
 msgstr "இது ஒரு WXR கோப்பா என அறியமுடியவில்லை. WXR பதிப்பு எண் சரியாக இல்லை அல்லது அகப்படவில்லை.  "
 
-#: inc/modules/import/wordpress/class-wxr.php:335
+#: inc/modules/import/wordpress/class-wxr.php:340
 #, php-format
 msgctxt ""
 "String which tells user how many front matter, parts, chapters, back matter,"
@@ -3474,128 +3475,128 @@ msgstr ""
 msgid "Web Options"
 msgstr ""
 
-#: inc/posttype/namespace.php:67 templates/admin/organize.php:59
+#: inc/posttype/namespace.php:65 templates/admin/organize.php:59
 msgid "Chapters"
 msgstr "அதிகாரங்கள்"
 
-#: inc/posttype/namespace.php:90 templates/admin/organize.php:61
+#: inc/posttype/namespace.php:88 templates/admin/organize.php:61
 msgid "Parts"
 msgstr "பாகங்கள் "
 
-#: inc/posttype/namespace.php:196
+#: inc/posttype/namespace.php:194
 msgid "Glossary Term"
 msgstr ""
 
-#: inc/posttype/namespace.php:235
+#: inc/posttype/namespace.php:233
 msgid "HTML and shortcodes are not supported in glossary terms."
 msgstr ""
 
-#: inc/posttype/namespace.php:274
+#: inc/posttype/namespace.php:272
 msgid "Unlisted"
 msgstr ""
 
-#: inc/posttype/namespace.php:311
+#: inc/posttype/namespace.php:309
 msgid "Show title in exports"
 msgstr "தலைப்பை ஏற்றுமதியில் காட்டுக"
 
-#: inc/posttype/namespace.php:323
+#: inc/posttype/namespace.php:321
 msgid "Chapter Short Title (appears in the PDF running header)"
 msgstr "அதிகாரக் குறுந்தலைப்பு (PDF running headerக்காக)"
 
-#: inc/posttype/namespace.php:332
+#: inc/posttype/namespace.php:330
 msgid "Chapter Subtitle (appears in the Web/ebook/PDF output)"
 msgstr "அதிகாரக் குறுந்தலைப்பு (Web/மின்னூல்/PDF வெளியீட்டிற்காக)"
 
-#: inc/posttype/namespace.php:342
+#: inc/posttype/namespace.php:340
 msgid "Chapter Author (appears in Web/ebook/PDF output)"
 msgstr "அதிகார ஆசிரியர் (Web/மின்னூல்/PDF வெளியீட்டிற்காக)"
 
-#: inc/posttype/namespace.php:351
+#: inc/posttype/namespace.php:349
 msgid "Chapter Copyright License (overrides book license on this page)"
 msgstr ""
 
-#: inc/posttype/namespace.php:361
+#: inc/posttype/namespace.php:359
 msgid "Whether or not the part is shown in the table of contents"
 msgstr ""
 
-#: inc/posttype/namespace.php:371
+#: inc/posttype/namespace.php:369
 msgid "Media attribution source url"
 msgstr ""
 
-#: inc/posttype/namespace.php:380
+#: inc/posttype/namespace.php:378
 msgid "Media attribution author"
 msgstr ""
 
-#: inc/posttype/namespace.php:389
+#: inc/posttype/namespace.php:387
 msgid "Media attribution author url"
 msgstr ""
 
-#: inc/posttype/namespace.php:398
+#: inc/posttype/namespace.php:396
 msgid "Media attribution adapted by"
 msgstr ""
 
-#: inc/posttype/namespace.php:407
+#: inc/posttype/namespace.php:405
 msgid "Media attribution adapted by url"
 msgstr ""
 
-#: inc/posttype/namespace.php:416
+#: inc/posttype/namespace.php:414
 msgid "Media attribution license"
 msgstr ""
 
-#: inc/posttype/namespace.php:428
+#: inc/posttype/namespace.php:426
 msgctxt "post status"
 msgid "Web Only"
 msgstr "வலைதலித்தில் மட்டும்"
 
-#: inc/posttype/namespace.php:430
+#: inc/posttype/namespace.php:428
 #, php-format
 msgid "Web Only <span class=\"count\">(%s)</span>"
 msgid_plural "Web Only <span class=\"count\">(%s)</span>"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/posttype/namespace.php:473
+#: inc/posttype/namespace.php:471
 msgid "parts"
 msgstr "பகுதி "
 
-#: inc/posttype/namespace.php:474
+#: inc/posttype/namespace.php:472
 msgid "chapters"
 msgstr "அதிகாரங்கள்"
 
-#: inc/posttype/namespace.php:475
+#: inc/posttype/namespace.php:473
 msgid "front matter"
 msgstr "முன்னட்டை செய்தி"
 
-#: inc/posttype/namespace.php:476
+#: inc/posttype/namespace.php:474
 msgid "back matter"
 msgstr "பின் அட்டை செய்திகள் "
 
-#: inc/posttype/namespace.php:477
+#: inc/posttype/namespace.php:475
 msgid "glossary"
 msgstr ""
 
-#: inc/posttype/namespace.php:540 templates/admin/import.php:89
+#: inc/posttype/namespace.php:538 templates/admin/import.php:90
 #: templates/admin/organize.php:62
 msgid "Glossary"
 msgstr ""
 
-#: inc/redirect/namespace.php:176 inc/redirect/namespace.php:384
+#: inc/redirect/namespace.php:184 inc/redirect/namespace.php:392
 msgid "Error: Unknown export format."
 msgstr "பிழை : எமக்குத் தெரியாத ஏற்றுமதி வடிவம்"
 
-#: inc/redirect/namespace.php:399
+#: inc/redirect/namespace.php:407
 msgid "File not found"
 msgstr "கோப்பு கிடைக்கவில்லை"
 
-#: inc/redirect/namespace.php:486
+#: inc/redirect/namespace.php:494
 msgid "Unsupported post type."
 msgstr "ஆதரவற்ற பதிவு வகை."
 
-#: inc/redirect/namespace.php:520
+#: inc/redirect/namespace.php:528
 msgid "Unsupported taxonomy."
 msgstr ""
 
-#: inc/redirect/namespace.php:544
+#: inc/redirect/namespace.php:552
 msgid "You do not have sufficient permissions to access that URL."
 msgstr "உங்களுக்கு இந்தத் தளமுகவரியை அணுக, போதிய அனுமதி இல்லை."
 
@@ -4166,39 +4167,42 @@ msgid "Web page or Pressbooks webbook (.html or URL)"
 msgstr ""
 
 #: templates/admin/import.php:44
-#, php-format
-msgid "Import in progress: %s"
-msgstr "%s இறக்குமதியாகி இருக்கிறது"
+msgid "Select content below for import into Pressbooks."
+msgstr ""
 
-#: templates/admin/import.php:64
+#: templates/admin/import.php:45
+msgid "Source:"
+msgstr ""
+
+#: templates/admin/import.php:65
 msgid "Are you sure you want to abort the import?"
 msgstr "இறக்குமதியை நிறுத்த ஒத்துக்கொள்கிறீர்களா?"
 
-#: templates/admin/import.php:91
+#: templates/admin/import.php:92
 msgid "Other"
 msgstr "மற்றவை"
 
-#: templates/admin/import.php:127
+#: templates/admin/import.php:128
 msgid "Show imported content in web"
 msgstr "இறக்குமதி செய்தவற்றை வலைப்பதிவில் காண்பிக்க"
 
-#: templates/admin/import.php:130
+#: templates/admin/import.php:131
 msgid "Import Selection"
 msgstr "இறக்குமதி தேர்ந்தெடு "
 
-#: templates/admin/import.php:157
+#: templates/admin/import.php:158
 msgid "Maximum file size:"
 msgstr "கோப்பின் உச்ச அளவு"
 
-#: templates/admin/import.php:167
+#: templates/admin/import.php:168
 msgid "Import Type"
 msgstr "இறக்குமதி வகை"
 
-#: templates/admin/import.php:179
+#: templates/admin/import.php:180
 msgid "Import Source"
 msgstr "இறக்குமதி மூலம்"
 
-#: templates/admin/import.php:198
+#: templates/admin/import.php:199
 msgid "Begin Import"
 msgstr "இறக்குமதிசெய்ய ஆரம்பிக்கவும்"
 
