@@ -74,28 +74,20 @@ class L10nTest extends \WP_UnitTestCase {
 
 		// Test for incorrect meta_key
 		$output = \Pressbooks\L10n\install_book_locale( 1, 1, 'pb_authors', 'Some Guy' );
-		$this->assertEquals( $output, false );
+		$this->assertEquals( false, $output );
 
-		// Test for default or installed language
+		// Test that we don't download anything for english
 		$output = \Pressbooks\L10n\install_book_locale( 1, 1, 'pb_language', 'en-us' );
-		$this->assertEquals( $output, false );
+		$this->assertEquals( false, $output );
+
+		// Test that we can download chinese
+		$output = \Pressbooks\L10n\install_book_locale( 1, 1, 'pb_language', 'zh-cn' );
+		$this->assertEquals( 'zh_CN', $output );
 	}
 
 
 //	public function test_update_user_locale() { // TODO
 //	}
-
-	public function test_use_book_locale() {
-
-		$this->assertFalse( \Pressbooks\L10n\use_book_locale() );
-
-		$timestamp = time();
-		$md5 = md5( $timestamp );
-		$_SERVER['REQUEST_URI'] = home_url() . "/format/xhtml?timestamp={$timestamp}&hashkey={$md5}";
-
-		$this->assertTrue( \Pressbooks\L10n\use_book_locale() );
-
-	}
 
 	public function test_get_book_language() {
 		$lang = \Pressbooks\L10n\get_book_language();

@@ -6,8 +6,6 @@
 
 namespace Pressbooks\PostType;
 
-use Pressbooks\Modules\ThemeOptions\GlobalOptions;
-
 /**
  * List our post_types
  *
@@ -286,7 +284,7 @@ function display_post_states( $post_states, $post ) {
  */
 function comments_open( $open, $post_id ) {
 	if ( $open ) {
-		if ( ( new \Pressbooks\Metadata() )->getMetaPost()->ID === $post_id ) {
+		if ( ( new \Pressbooks\Metadata() )->getMetaPostId() === $post_id ) {
 			return false;
 		}
 	}
@@ -548,18 +546,28 @@ function get_post_type_label( $posttype ) {
 /**
  * @since 5.6.0
  *
- * @param string $label The post type label
+ * @param string $default_label The post type label
  * @param array $args
  *
  * @return string
  */
 
-function filter_post_type_label( $label, $args ) {
+function filter_post_type_label( $default_label, $args ) {
 	if ( isset( $args['post_type'] ) && in_array( $args['post_type'], [ 'part', 'chapter' ], true ) ) {
-		$defaults = GlobalOptions::getDefaults();
-		$options = get_option( 'pressbooks_theme_options_global', $defaults );
+		$options = get_option( 'pressbooks_theme_options_global', [] );
 		$post_type = str_replace( '-', '_', $args['post_type'] );
-		return $options[ "{$post_type}_label" ] ?? $defaults[ "{$post_type}_label" ];
+		$custom_label = $options[ "{$post_type}_label" ] ?? '';
+		if ( empty( $custom_label ) ) {
+			$custom_label = $default_label;
+		} elseif ( strcasecmp( $custom_label, 'Part' ) === 0 ) {
+			// Assume user saved defaults to database, changed language, and now wants translation
+			$custom_label = __( 'Part', 'pressbooks' );
+
+		} elseif ( strcasecmp( $custom_label, 'Chapter' ) === 0 ) {
+			// Assume user saved defaults to database, changed language, and now wants translation
+			$custom_label = __( 'Chapter', 'pressbooks' );
+		}
+		return $custom_label;
 	}
-	return $label;
+	return $default_label;
 }
