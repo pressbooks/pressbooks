@@ -60,8 +60,9 @@ class Sass {
 	 * @return array
 	 */
 	public function getStringsToLocalize() {
+		$switched_locale = switch_to_locale( Modules\Export\Export::locale() );
 
-		return [
+		$localized = [
 			/**
 			 * Filter the label used for post types (front matter/parts/chapters/back matter) in the TOC and section headings.
 			 *
@@ -85,6 +86,12 @@ class Sass {
 			 */
 			'part' => apply_filters( 'pb_post_type_label', __( 'Part', 'pressbooks' ), [ 'post_type' => 'part' ] ),
 		];
+
+		if ( $switched_locale ) {
+			restore_previous_locale();
+		}
+
+		return $localized;
 
 	}
 

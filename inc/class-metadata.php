@@ -41,6 +41,33 @@ class Metadata implements \JsonSerializable {
 
 
 	/**
+	 * Returns the latest "metadata" post ID. There should be only one per book.
+	 *
+	 * @return int
+	 */
+	public function getMetaPostId() {
+		$args = [
+			'post_type' => 'metadata',
+			'posts_per_page' => 1,
+			'post_status' => 'publish',
+			'orderby' => 'modified',
+			'no_found_rows' => true,
+			'cache_results' => true,
+			'fields' => 'ids',
+		];
+
+		$q = new \WP_Query();
+		$results = $q->query( $args );
+
+		if ( empty( $results ) ) {
+			return 0;
+		}
+
+		return $results[0];
+	}
+
+
+	/**
 	 * Returns the latest "metadata" post. There should be only one per book.
 	 *
 	 * @return \WP_Post|bool
@@ -516,7 +543,7 @@ class Metadata implements \JsonSerializable {
 		foreach ( $r1 as $val ) {
 			$contributor->getAll( $val['ID'], false ); // Triggers contributor upgrade
 		}
-		$contributor->getAll( $this->getMetaPost()->ID, false ); // Triggers contributor upgrade
+		$contributor->getAll( $this->getMetaPostId(), false ); // Triggers contributor upgrade
 
 		// Once upon a time we were updating 'pressbooks_taxonomy_version' with Metadata::VERSION instead of Taxonomy::VERSION
 		// Some books might be in a weird state (bug?) Rerun the Taxonomy upgrade function from version zero, outside of itself, just in-case

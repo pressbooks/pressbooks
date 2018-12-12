@@ -27,6 +27,11 @@ if ( ! defined( 'PCLZIP_TEMPORARY_DIR' ) ) {
 abstract class Export {
 
 	/**
+	 * @var bool
+	 */
+	static $switchedLocale;
+
+	/**
 	 * @var array
 	 */
 	static $exportConversionError = [];
@@ -667,6 +672,8 @@ abstract class Export {
 			\Pressbooks\Book::deleteBookObjectCache();
 			update_option( 'pressbooks_last_export', time() );
 		}
+
+		static::$switchedLocale = switch_to_locale( self::locale() );
 	}
 
 	/**
@@ -824,6 +831,10 @@ abstract class Export {
 
 		delete_transient( 'dirsize_cache' ); /** @see get_dirsize() */
 
+		if ( static::$switchedLocale ) {
+			restore_previous_locale();
+		}
+
 		// --------------------------------------------------------------------------------------------------------
 		// MOBI cleanup
 
@@ -901,23 +912,14 @@ abstract class Export {
 
 
 	/**
-	 * Hook for add_filter('locale ', ...), change the book language
-	 *
-	 * @param string $lang
-	 *
 	 * @return string
 	 */
-	static function setLocale( $lang ) {
-
-		// Cheap cache
-		static $loc = '__UNSET__';
-
-		if ( '__UNSET__' === $loc && function_exists( 'get_available_languages' ) ) {
-
+	static function locale() {
+		$loc = 'en_US';
+		if ( function_exists( 'get_available_languages' ) ) {
 			$compare_with = get_available_languages( PB_PLUGIN_DIR . '/languages/' );
 			$codes = \Pressbooks\L10n\wplang_codes();
 			$book_lang = $codes[ \Pressbooks\L10n\get_book_language() ];
-
 			foreach ( $compare_with as $compare ) {
 				$compare = str_replace( 'pressbooks-', '', $compare );
 				if ( strpos( $book_lang, $compare ) === 0 ) {
@@ -925,17 +927,8 @@ abstract class Export {
 					break;
 				}
 			}
-			if ( '__UNSET__' === $loc ) {
-				$loc = 'en_US'; // No match found, default to english
-			}
 		}
-
-		// Return the language
-		if ( '__UNSET__' === $loc ) {
-			return $lang;
-		} else {
-			return ( $loc ? $loc : $lang );
-		}
+		return $loc;
 	}
 
 

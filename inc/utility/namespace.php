@@ -1506,3 +1506,25 @@ function shortcode_att_replace( $content, $tag, $att, $from, $to ) {
 	return $fixed_content;
 }
 
+/**
+ * This works by filtering the global $shortcode_tags, running do_shortcode(), then putting everything back as it was before.
+ *
+ * @since 5.6.3
+ *
+ * @param string $content
+ * @param array $tags
+ *
+ * @return string
+ */
+function do_shortcode_by_tags( $content, array $tags ) {
+	global $shortcode_tags;
+	$_tags = $shortcode_tags;
+	foreach ( $_tags as $tag => $callback ) {
+		if ( ! in_array( $tag, $tags, true ) ) {
+			unset( $shortcode_tags[ $tag ] );
+		}
+	}
+	$shortcoded = do_shortcode( $content );
+	$shortcode_tags = $_tags;
+	return $shortcoded;
+}

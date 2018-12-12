@@ -66,9 +66,8 @@ class Pressbooks {
 	 * @return array
 	 */
 	function allowedBookThemes( $themes ) {
-
 		$compare = search_theme_directories();
-
+		$themes = array_intersect_key( $themes, $compare );
 		foreach ( $compare as $key => $val ) {
 			$stylesheet = str_replace( 'style.css', '', $val['theme_file'] );
 			$theme = wp_get_theme( $stylesheet, $val['theme_root'] );
@@ -91,7 +90,7 @@ class Pressbooks {
 	 */
 	function allowedRootThemes( $themes ) {
 		$compare = search_theme_directories();
-
+		$themes = array_intersect_key( $themes, $compare );
 		foreach ( $compare as $key => $val ) {
 			$stylesheet = str_replace( 'style.css', '', $val['theme_file'] );
 			$theme = wp_get_theme( $stylesheet, $val['theme_root'] );

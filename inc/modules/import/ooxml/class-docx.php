@@ -83,7 +83,7 @@ class Docx extends Import {
 		// get the paths to content
 		$doc_path = $this->getTargetPath( self::DOCUMENT_SCHEMA );
 		$meta_path = $this->getTargetPath( self::METADATA_SCHEMA );
-		$styles_path = $this->getTargetPath( self::STYLESHEET_SCHEMA, true );
+		$styles_path = $this->getTargetPath( self::STYLESHEET_SCHEMA, '_styles' );
 
 		// get the content
 		$xml = $this->getZipContent( $doc_path );
@@ -522,18 +522,25 @@ class Docx extends Import {
 	protected function addHyperlinks( \DOMDocument $chapter ) {
 		$ln = $chapter->getElementsByTagName( 'a' );
 
-		if ( $ln->length > 0 ) {
-			foreach ( $ln as $link ) {
-				/** @var \DOMElement $link */
-				if ( $link->hasAttribute( 'class' ) ) {
-					$ln_id = $link->getAttribute( 'class' );
-
-					if ( array_key_exists( $ln_id, $this->ln ) ) {
-						$link->setAttribute( 'href', $this->ln[ $ln_id ] );
-					}
+		for ( $i = $ln->length; --$i >= 0; ) {  // If you're deleting elements from within a loop, you need to loop backwards
+			$link = $ln->item( $i );
+			if (
+				$link->hasAttribute( 'name' ) &&
+				in_array( $link->getAttribute( 'name' ), [ '_GoBack' ], true )
+			) {
+				// Delete hidden Shift+F5 editing bookmark
+				$link->parentNode->removeChild( $link );
+				continue;
+			}
+			if ( $link->hasAttribute( 'class' ) ) {
+				$ln_id = $link->getAttribute( 'class' );
+				if ( array_key_exists( $ln_id, $this->ln ) ) {
+					// Add external hyperlink
+					$link->setAttribute( 'href', $this->ln[ $ln_id ] );
 				}
 			}
 		}
+
 		return $chapter;
 	}
 
@@ -740,8 +747,6 @@ class Docx extends Import {
 	 * @return string|array
 	 */
 	protected function getTargetPath( $schema, $id = '' ) {
-		$path = '';
-
 		// The subfolder name "_rels", the file extension ".rels" are
 		// reserved names in an OPC package
 		if ( empty( $id ) ) {
@@ -754,20 +759,23 @@ class Docx extends Import {
 			$this->zip->getFromName( $path_to_rel_doc )
 		);
 
+		$path = ( $id === 'hyperlink' ) ? [] : '';
 		foreach ( $relations->Relationship as $rel ) {
 			// must be cast as a string to avoid returning SimpleXml Object.
 			$rel_type = (string) $rel['Type'];
 			$rel_id = (string) $rel['Id'];
 			$rel_target = (string) $rel['Target'];
 			if ( $rel_type === $schema ) {
-				switch ( $id ) {
+				switch ( (string) $id ) {
+					// Array
+					case 'hyperlink':
+						$path[ $rel_id ] = $rel_target;
+						break;
+					// String
 					case 'footnotes':
 					case 'endnotes':
+					case '_styles':
 						$path = 'word/' . $rel_target;
-						break;
-					case 'hyperlink':
-						$path = [];
-						$path[ $rel_id ] = $rel_target;
 						break;
 					default:
 						if ( $rel_type === self::IMAGE_SCHEMA ) {

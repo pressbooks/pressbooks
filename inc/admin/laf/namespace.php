@@ -399,9 +399,9 @@ function reorder_book_admin_menu( $menu_order = [] ) {
  * @return string
  */
 function book_info_slug() {
-	$metadata = new Metadata();
-	$book_info_slug = ( ! empty( $metadata->getMetaPost() ) ) ?
-		'post.php?post=' . $metadata->getMetaPost()->ID . '&amp;action=edit' :
+	$metadata_post_id = ( new Metadata )->getMetaPostId();
+	$book_info_slug = ( ! empty( $metadata_post_id ) ) ?
+		'post.php?post=' . $metadata_post_id . '&amp;action=edit' :
 		'post-new.php?post_type=metadata';
 	return $book_info_slug;
 }
