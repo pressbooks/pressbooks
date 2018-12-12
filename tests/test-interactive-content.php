@@ -108,4 +108,12 @@ class Interactive_ContentTest extends \WP_UnitTestCase {
 		$this->assertTrue( $this->content->isCloneable( $content ) );
 	}
 
+	public function test_mediaElementConfiguration() {
+		$s['_foo'] = 'bar';
+		$s['autoRewind'] = true;
+		$s = $this->content->mediaElementConfiguration( $s );
+		$this->assertEquals( 'bar', $s['_foo'] );
+		$this->assertFalse( $s['autoRewind'] );
+	}
+
 }
