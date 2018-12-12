@@ -134,7 +134,7 @@ class WebOptions extends \Pressbooks\Options {
 			);
 		}
 
-		if ( get_post_meta( $meta->getMetaPost()->ID, 'pb_is_based_on', true ) ) {
+		if ( get_post_meta( $meta->getMetaPostId(), 'pb_is_based_on', true ) ) {
 			add_settings_field(
 				'enable_source_comparison',
 				__( 'Enable Source Comparison', 'pressbooks' ),

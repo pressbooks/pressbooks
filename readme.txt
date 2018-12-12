@@ -46,6 +46,7 @@ TK.
 * Ensure that uninstalled themes are excluded from allowed theme list: [#1507](https://github.com/pressbooks/pressbooks/pull/1507)
 * Clarify copy on import content selection screen ([#1504](https://github.com/pressbooks/pressbooks/issues/1504)): [#1506](https://github.com/pressbooks/pressbooks/pull/1506)
 * Delete hidden anchor from Word imports ([#1473](https://github.com/pressbooks/pressbooks/issues/1473)): [#1502](https://github.com/pressbooks/pressbooks/pull/1502)
+* Ensure that book language is used for part/chapter labels ([#1486](https://github.com/pressbooks/pressbooks/issues/1486)): [#1501](https://github.com/pressbooks/pressbooks/pull/1501)
 * Update [johnbillion/extended-cpts](https://packagist.org/packages/johnbillion/extended-cpts) to 4.2.3: [#1499](https://github.com/pressbooks/pressbooks/pull/1499), [#1503](https://github.com/pressbooks/pressbooks/pull/1503)
 * Remove fancy quotes around media shortcode attributes ([#1493](https://github.com/pressbooks/pressbooks/issues/1493)): [#1498](https://github.com/pressbooks/pressbooks/pull/1498)
 * Fix conflict between footnote and media shortcodes ([#1472](https://github.com/pressbooks/pressbooks/issues/1472)): [#1497](https://github.com/pressbooks/pressbooks/pull/1497)

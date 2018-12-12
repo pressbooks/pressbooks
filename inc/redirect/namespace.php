@@ -153,16 +153,24 @@ function do_format() {
 	if ( 'xhtml' === $format ) {
 
 		$args = [];
+		$switched_locale = switch_to_locale( \Pressbooks\Modules\Export\Export::locale() );
 		$foo = new \Pressbooks\Modules\Export\Xhtml\Xhtml11( $args );
 		$foo->transform();
+		if ( $switched_locale ) {
+			restore_previous_locale();
+		}
 		exit;
 	}
 
 	if ( 'htmlbook' === $format ) {
 
 		$args = [];
+		$switched_locale = switch_to_locale( \Pressbooks\Modules\Export\Export::locale() );
 		$foo = new \Pressbooks\Modules\Export\HTMLBook\HTMLBook( $args );
 		$foo->transform();
+		if ( $switched_locale ) {
+			restore_previous_locale();
+		}
 		exit;
 	}
 
