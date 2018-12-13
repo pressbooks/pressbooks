@@ -55,18 +55,22 @@ abstract class Search {
 		$error_handler = function( $errno, $errstr, $errfile, $errline ) use ( &$regex_error ) {
 			$regex_error = preg_replace( '/(.*?):/', '', $errstr, 1 );
 		};
+		// detect possibility to execute code:
+		// https://bitquark.co.uk/blog/2013/07/23/the_unexpected_dangers_of_preg_replace
+		if ( false !== strpos( $expr, "\0" ) ) {
+			return 'Null byte in regex';
+		}
 		// @codingStandardsIgnoreStart
 		set_error_handler( $error_handler );
 		$valid = @preg_match( $expr, null, $matches );
 		restore_error_handler();
 		// @codingStandardsIgnoreEnd
 		if ( false === $valid ) {
+			if ( strpos( $regex_error, '/e modifier is no longer supported' ) !== false ) {
+				// Print the same error for PHP 7.2 and 7.3
+				return 'Unknown modifier \'e\'';
+			}
 			return $regex_error;
-		}
-		// detect possibility to execute code:
-		// https://bitquark.co.uk/blog/2013/07/23/the_unexpected_dangers_of_preg_replace
-		if ( false !== strpos( $expr, "\0" ) ) {
-			return 'Null byte in regex';
 		}
 		$modifiers = preg_replace( '/^.*[^\\w\\s]([\\w\\s]*)$/s', '$1', $expr );
 		if ( false !== strpos( $modifiers, 'e' ) ) {
