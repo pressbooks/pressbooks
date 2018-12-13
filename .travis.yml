@@ -50,7 +50,7 @@ script:
 - npm run lint
 - npm run build:production
 - if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.1" ]]; then phpdbg -qrr -d memory_limit=-1 vendor/bin/phpunit --configuration phpunit.xml --coverage-clover coverage.xml; fi
-- if [[ ${TRAVIS_PHP_VERSION:0:3} != "7.1" ]]; then vendor/bin/phpunit --configuration phpunit.xml; fi
+- if [[ ${TRAVIS_PHP_VERSION:0:3} != "7.1" ]]; then vendor/bin/phpunit --configuration phpunit.xml --verbose; fi
 - vendor/bin/phpcs --standard=phpcs.ruleset.xml *.php inc/ bin/
 after_success:
 - bash <(curl -s https://codecov.io/bash)
