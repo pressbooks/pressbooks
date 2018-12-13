@@ -255,6 +255,8 @@ abstract class Export {
 	/**
 	 * Log errors using wp_mail() and error_log(), include useful WordPress info.
 	 *
+	 * @throws \Exception (unit tests only)
+	 *
 	 * @param string $message
 	 * @param array $more_info
 	 */
@@ -280,9 +282,9 @@ abstract class Export {
 		}
 
 		if ( defined( 'WP_TESTS_MULTISITE' ) ) {
-			// Unit tests, use --debug to see
+			// Unit tests
 			if ( ! empty( $info['warning'] ) ) {
-				fwrite( STDERR, "\n{$subject}\n{$message}\n" );
+				throw new \Exception( "{$subject}\n{$message}" );
 			}
 		} else {
 			\Pressbooks\Utility\email_error_log( $this->errorsEmail, $subject, $message );
