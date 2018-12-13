@@ -281,10 +281,9 @@ abstract class Export {
 
 		if ( defined( 'WP_TESTS_MULTISITE' ) ) {
 			// Unit tests
-			// if ( ! empty( $info['warning'] ) ) {
-				fwrite( STDOUT, "\nGAH: {$subject}\n{$message}\n" );
-				flush();
-			// }
+			if ( ! empty( $more_info['warning'] ) ) {
+				error_log( "\n{$subject}\n{$message}\n" );
+			}
 		} else {
 			\Pressbooks\Utility\email_error_log( $this->errorsEmail, $subject, $message );
 		}
