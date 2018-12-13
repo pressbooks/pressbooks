@@ -280,9 +280,9 @@ abstract class Export {
 		}
 
 		if ( defined( 'WP_TESTS_MULTISITE' ) ) {
-			// Unit tests
+			// Unit tests, use --debug to see
 			if ( ! empty( $info['warning'] ) ) {
-				var_dump( "\n{$subject}\n{$message}\n" ); // @codingStandardsIgnoreLine
+				fwrite( STDERR, "\n{$subject}\n{$message}\n" );
 			}
 		} else {
 			\Pressbooks\Utility\email_error_log( $this->errorsEmail, $subject, $message );
