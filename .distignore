@@ -13,7 +13,7 @@ tests
 .travis.yml
 codecov.yml
 coverage.xml
+package-lock.json
 phpcs.ruleset.xml
 phpunit.xml
 webpack.mix.js
-yarn.lock

@@ -358,6 +358,9 @@ class Epub201 extends ExportGenerator {
 			} elseif ( strpos( $v, 'non-standard font type application/x-font-ttf' ) !== false ) {
 				// @see https://github.com/IDPF/epubcheck/issues/586, https://github.com/IDPF/epubcheck/pull/633
 				unset( $output[ $k ] );
+			} elseif ( strpos( $v, 'non-standard font type application/font-sfnt' ) !== false ) {
+				// @see https://github.com/w3c/epubcheck/issues/339
+				unset( $output[ $k ] );
 			}
 		}
 

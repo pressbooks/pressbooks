@@ -308,9 +308,11 @@ class Content {
 	 */
 	public function addExtraOembedProviders( $providers ) {
 
-		// Format (string), Provider (string), Supports HTTPS? (bool)
+		// Format (string), Provider (string), Is format a regular expression? (bool)
 		$providers['#https?://mathembed\.com/latex\?inputText=.*#i'] = [ 'https://mathembed.com/oembed', true ];
 		$providers['#https?://www\.openassessments\.org/assessments/.*#i'] = [ 'https://www.openassessments.org/oembed.json', true ];
+		$providers['://cdn.knightlab.com/libs/timeline*'] = [ 'https://oembed.knightlab.com/timeline/', false ];
+		$providers['://uploads.knightlab.com/storymapjs/*/index.html'] = [ 'https://oembed.knightlab.com/storymap/', false ];
 
 		return $providers;
 	}

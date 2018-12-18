@@ -304,9 +304,7 @@ class HTMLBook extends Export {
 	 */
 	public function logError( $message, array $more_info = [] ) {
 
-		$more_info = [
-			'url' => $this->url,
-		];
+		$more_info['url'] = $this->url;
 
 		parent::logError( $message, $more_info );
 	}
