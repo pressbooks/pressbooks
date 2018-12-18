@@ -440,9 +440,7 @@ class Xhtml11 extends ExportGenerator {
 	 */
 	function logError( $message, array $more_info = [] ) {
 
-		$more_info = [
-			'url' => $this->url,
-		];
+		$more_info['url'] = $this->url;
 
 		parent::logError( $message, $more_info );
 	}

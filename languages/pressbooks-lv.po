@@ -4,9 +4,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
-"POT-Creation-Date: 2018-11-27 11:58-0400\n"
-"PO-Revision-Date: 2018-11-21 15:19+0000\n"
-"Last-Translator: Antonio Devís <colomet@hotmail.com>\n"
+"POT-Creation-Date: 2018-12-12 16:14-0400\n"
+"PO-Revision-Date: 2018-12-12 20:16+0000\n"
+"Last-Translator: Hugh McGuire <hugh@pressbooks.com>\n"
 "Language-Team: Latvian (http://www.transifex.com/pressbooks/pressbooks/language/lv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -176,7 +176,7 @@ msgid "Cover"
 msgstr "Vāks"
 
 #: inc/admin/class-catalog-list-table.php:172
-#: inc/admin/covergenerator/namespace.php:55 templates/admin/import.php:82
+#: inc/admin/covergenerator/namespace.php:55 templates/admin/import.php:83
 #: templates/admin/trash.php:36
 msgid "Title"
 msgstr "Virsraksts "
@@ -679,16 +679,16 @@ msgstr "Saturs"
 
 #: inc/admin/dashboard/namespace.php:156 inc/admin/metaboxes/namespace.php:566
 #: inc/api/endpoints/controller/class-toc.php:192
-#: inc/posttype/namespace.php:117 inc/posttype/namespace.php:118
-#: inc/posttype/namespace.php:534 templates/admin/import.php:83
+#: inc/posttype/namespace.php:115 inc/posttype/namespace.php:116
+#: inc/posttype/namespace.php:532 templates/admin/import.php:84
 #: templates/admin/organize.php:58 templates/admin/organize.php:81
 msgid "Front Matter"
 msgstr "Sākuma papildinformācija"
 
 #: inc/admin/dashboard/namespace.php:197 inc/admin/metaboxes/namespace.php:568
 #: inc/api/endpoints/controller/class-toc.php:225
-#: inc/posttype/namespace.php:145 inc/posttype/namespace.php:146
-#: inc/posttype/namespace.php:537 templates/admin/import.php:88
+#: inc/posttype/namespace.php:143 inc/posttype/namespace.php:144
+#: inc/posttype/namespace.php:535 templates/admin/import.php:89
 #: templates/admin/organize.php:60 templates/admin/organize.php:89
 msgid "Back Matter"
 msgstr "Beigu papildinformācija"
@@ -889,7 +889,7 @@ msgid "Add Back Matter"
 msgstr "Pievienot beigu papildinforāciju"
 
 #: inc/admin/laf/namespace.php:175 inc/admin/laf/namespace.php:176
-#: inc/editor/namespace.php:131 inc/posttype/namespace.php:197
+#: inc/editor/namespace.php:131 inc/posttype/namespace.php:195
 msgid "Glossary Terms"
 msgstr "Glosārija termini"
 
@@ -916,8 +916,8 @@ msgid "Trash"
 msgstr "Miskaste"
 
 #: inc/admin/laf/namespace.php:233
-#: inc/modules/import/wordpress/class-wxr.php:463
-#: inc/posttype/namespace.php:153
+#: inc/modules/import/wordpress/class-wxr.php:468
+#: inc/posttype/namespace.php:151
 msgid "Book Info"
 msgstr "Informācija par grāmatu"
 
@@ -953,7 +953,7 @@ msgid "QuickLaTeX"
 msgstr "QuickLaTeX"
 
 #: inc/admin/laf/namespace.php:312 templates/admin/import.php:38
-#: templates/admin/import.php:81
+#: templates/admin/import.php:82
 msgid "Import"
 msgstr "Imports"
 
@@ -1137,16 +1137,16 @@ msgid "Your cover image (%s) is too big. It should be no more than 2MB."
 msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:116 inc/admin/metaboxes/namespace.php:173
-#: inc/class-metadata.php:422
+#: inc/class-metadata.php:449
 msgid "Cover Image"
 msgstr "Vāka bilde"
 
 #: inc/admin/metaboxes/namespace.php:159 inc/admin/metaboxes/namespace.php:623
-#: inc/api/endpoints/controller/class-toc.php:202 inc/class-sass.php:86
+#: inc/api/endpoints/controller/class-toc.php:202 inc/class-sass.php:87
 #: inc/modules/export/epub/class-epub201.php:1764
 #: inc/modules/themeoptions/class-globaloptions.php:521
-#: inc/posttype/namespace.php:89 inc/posttype/namespace.php:528
-#: templates/admin/import.php:86
+#: inc/posttype/namespace.php:87 inc/posttype/namespace.php:526
+#: inc/posttype/namespace.php:564 templates/admin/import.php:87
 msgid "Part"
 msgstr "Daļa"
 
@@ -1496,10 +1496,11 @@ msgid ""
 msgstr "BISAC reģionālās tēmas palīdz bibliotēkām un (elektronisko) grāmatu veikaliem pareizi klasificēt Jūsu grāmatu."
 
 #: inc/admin/metaboxes/namespace.php:567
-#: inc/api/endpoints/controller/class-toc.php:209 inc/class-sass.php:75
+#: inc/api/endpoints/controller/class-toc.php:209 inc/class-sass.php:76
 #: inc/modules/themeoptions/class-globaloptions.php:522
-#: inc/posttype/namespace.php:66 inc/posttype/namespace.php:531
-#: templates/admin/import.php:84 templates/admin/organize.php:85
+#: inc/posttype/namespace.php:64 inc/posttype/namespace.php:529
+#: inc/posttype/namespace.php:568 templates/admin/import.php:85
+#: templates/admin/organize.php:85
 msgid "Chapter"
 msgstr "Nodaļa"
 
@@ -2087,9 +2088,9 @@ msgstr "Lietotāja CSS PDF formāta failiem"
 msgid "Custom CSS for Web"
 msgstr "Lietotāja CSS tiešsaistes grāmatai"
 
-#: inc/class-activation.php:266 inc/posttype/namespace.php:167
-#: inc/posttype/namespace.php:168 inc/posttype/namespace.php:525
-#: templates/admin/import.php:103
+#: inc/class-activation.php:266 inc/posttype/namespace.php:165
+#: inc/posttype/namespace.php:166 inc/posttype/namespace.php:523
+#: templates/admin/import.php:104
 msgid "Book Information"
 msgstr "Informācija par grāmatu"
 
@@ -2199,7 +2200,7 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: inc/class-cloner.php:2044 inc/modules/import/wordpress/class-wxr.php:336
+#: inc/class-cloner.php:2044 inc/modules/import/wordpress/class-wxr.php:341
 #, php-format
 msgid "%s front matter"
 msgid_plural "%s front matter"
@@ -2207,7 +2208,7 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: inc/class-cloner.php:2045 inc/modules/import/wordpress/class-wxr.php:337
+#: inc/class-cloner.php:2045 inc/modules/import/wordpress/class-wxr.php:342
 #, php-format
 msgid "%s part"
 msgid_plural "%s parts"
@@ -2215,7 +2216,7 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: inc/class-cloner.php:2046 inc/modules/import/wordpress/class-wxr.php:338
+#: inc/class-cloner.php:2046 inc/modules/import/wordpress/class-wxr.php:343
 #, php-format
 msgid "%s chapter"
 msgid_plural "%s chapters"
@@ -2223,7 +2224,7 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: inc/class-cloner.php:2047 inc/modules/import/wordpress/class-wxr.php:339
+#: inc/class-cloner.php:2047 inc/modules/import/wordpress/class-wxr.php:344
 #, php-format
 msgid "%s back matter"
 msgid_plural "%s back matter"
@@ -2231,7 +2232,7 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: inc/class-cloner.php:2048 inc/modules/import/wordpress/class-wxr.php:340
+#: inc/class-cloner.php:2048 inc/modules/import/wordpress/class-wxr.php:345
 #, php-format
 msgid "%s media attachment"
 msgid_plural "%s media attachments"
@@ -2239,7 +2240,7 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: inc/class-cloner.php:2049 inc/modules/import/wordpress/class-wxr.php:341
+#: inc/class-cloner.php:2049 inc/modules/import/wordpress/class-wxr.php:346
 #, php-format
 msgid "%s glossary term"
 msgid_plural "%s glossary terms"
@@ -2460,14 +2461,14 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: inc/class-sass.php:190
+#: inc/class-sass.php:197
 #, php-format
 msgid ""
 "There was a problem with SASS. Contact your site administrator. Error: %1$s "
 "%2$s"
 msgstr ""
 
-#: inc/class-sass.php:272
+#: inc/class-sass.php:279
 msgid "SASS Error"
 msgstr "SASS kļūda"
 
@@ -2532,7 +2533,7 @@ msgstr "Ievadīt zemteksta piezīmi"
 msgid "Convert MS Word Footnotes"
 msgstr "Konvertēt MS Word zemteksta piezīmēs"
 
-#: inc/editor/namespace.php:116 templates/admin/import.php:132
+#: inc/editor/namespace.php:116 templates/admin/import.php:133
 msgid "Cancel"
 msgstr "Atcelt"
 
@@ -2577,7 +2578,7 @@ msgstr "Nevar iesniegt tukšo glosārija terminu."
 msgid "A term was not selected?"
 msgstr "Vai termins tika izvēlēts?"
 
-#: inc/editor/namespace.php:129 inc/posttype/namespace.php:242
+#: inc/editor/namespace.php:129 inc/posttype/namespace.php:240
 msgid ""
 "To display a list of glossary terms, leave this back matter's content blank."
 msgstr "Lai attēlotu glosārija terminu sarakstu, atstājiet šī beigu papildinformācijas lauku tukšu."
@@ -2681,7 +2682,7 @@ msgid ""
 "indicated. You may want to remove or replace these sections."
 msgstr "Šī grāmata satur H5P saturu, kas nevar būt klonēts. Lūdzu, uzmanīgi pārskatiet Jūsu teksta klonēto versiju, jo trūkstošs H5P saturs būs norādīts. Šo sadaļu var noņemt vai aizstāt."
 
-#: inc/l10n/namespace.php:476 inc/l10n/namespace.php:501
+#: inc/l10n/namespace.php:503 inc/l10n/namespace.php:527
 #, php-format
 msgid ""
 "Please contact your system administrator if you would like them to install "
@@ -2805,7 +2806,7 @@ msgid ""
 "This does not appear to be a WXR file, missing/invalid WXR version number"
 msgstr "Šķiet, tas nav WXR fails, nepietiek/nepareizs WXR versijas numurs"
 
-#: inc/modules/import/wordpress/class-wxr.php:335
+#: inc/modules/import/wordpress/class-wxr.php:340
 #, php-format
 msgctxt ""
 "String which tells user how many front matter, parts, chapters, back matter,"
@@ -3477,80 +3478,80 @@ msgstr "Šī iespējas piemīt tikai tiešsaistes grāmatai."
 msgid "Web Options"
 msgstr "Tiešsaistes grāmatu iespējas."
 
-#: inc/posttype/namespace.php:67 templates/admin/organize.php:59
+#: inc/posttype/namespace.php:65 templates/admin/organize.php:59
 msgid "Chapters"
 msgstr "Nodaļas"
 
-#: inc/posttype/namespace.php:90 templates/admin/organize.php:61
+#: inc/posttype/namespace.php:88 templates/admin/organize.php:61
 msgid "Parts"
 msgstr "Daļas"
 
-#: inc/posttype/namespace.php:196
+#: inc/posttype/namespace.php:194
 msgid "Glossary Term"
 msgstr "Glosārija termini"
 
-#: inc/posttype/namespace.php:235
+#: inc/posttype/namespace.php:233
 msgid "HTML and shortcodes are not supported in glossary terms."
 msgstr "Glosāriju termini neatbalsta HTML valodu un īsus kodus."
 
-#: inc/posttype/namespace.php:274
+#: inc/posttype/namespace.php:272
 msgid "Unlisted"
 msgstr "Neuzskaitīts"
 
-#: inc/posttype/namespace.php:311
+#: inc/posttype/namespace.php:309
 msgid "Show title in exports"
 msgstr "Rādīt virsrakstus eksporta failos"
 
-#: inc/posttype/namespace.php:323
+#: inc/posttype/namespace.php:321
 msgid "Chapter Short Title (appears in the PDF running header)"
 msgstr "Nodaļas īsais virsraksts (tiks rādīts PDF formāta faila galvenē)"
 
-#: inc/posttype/namespace.php:332
+#: inc/posttype/namespace.php:330
 msgid "Chapter Subtitle (appears in the Web/ebook/PDF output)"
 msgstr "Nodaļas apakšvirsraksts (tiks rādīts tiešsaistes/elektroniskā grāmatā, kā arī PDF formāta failos)"
 
-#: inc/posttype/namespace.php:342
+#: inc/posttype/namespace.php:340
 msgid "Chapter Author (appears in Web/ebook/PDF output)"
 msgstr "Nodaļas autors (tiks rādīts tiešsaistes/elektroniskā grāmatā, kā arī PDF formāta failos)"
 
-#: inc/posttype/namespace.php:351
+#: inc/posttype/namespace.php:349
 msgid "Chapter Copyright License (overrides book license on this page)"
 msgstr "Nodaļas autortiesību licence (aizstāvēs grāmatas licenci šajā lapaspusē)"
 
-#: inc/posttype/namespace.php:361
+#: inc/posttype/namespace.php:359
 msgid "Whether or not the part is shown in the table of contents"
 msgstr "Vai daļa tiek rādīta saturā"
 
-#: inc/posttype/namespace.php:371
+#: inc/posttype/namespace.php:369
 msgid "Media attribution source url"
 msgstr "Plašsaziņas līdzekļa ar autorības norādi avota tīmekļa adrese"
 
-#: inc/posttype/namespace.php:380
+#: inc/posttype/namespace.php:378
 msgid "Media attribution author"
 msgstr "Plašsaziņas līdzekļa ar autorības norādi autors"
 
-#: inc/posttype/namespace.php:389
+#: inc/posttype/namespace.php:387
 msgid "Media attribution author url"
 msgstr "Plašsaziņas līdzekļa ar autorības norādi autora tīmekļa adrese"
 
-#: inc/posttype/namespace.php:398
+#: inc/posttype/namespace.php:396
 msgid "Media attribution adapted by"
 msgstr "Plašsaziņas līdzekļi ar autorības norādi adaptēja"
 
-#: inc/posttype/namespace.php:407
+#: inc/posttype/namespace.php:405
 msgid "Media attribution adapted by url"
 msgstr "Plašsaziņas līdzekļa ar autorības norādi adoptētāja tīmekļa adrese"
 
-#: inc/posttype/namespace.php:416
+#: inc/posttype/namespace.php:414
 msgid "Media attribution license"
 msgstr "Plašsaziņas līdzekļa ar autorības norādi licence "
 
-#: inc/posttype/namespace.php:428
+#: inc/posttype/namespace.php:426
 msgctxt "post status"
 msgid "Web Only"
 msgstr "Tikai tiešsaistei"
 
-#: inc/posttype/namespace.php:430
+#: inc/posttype/namespace.php:428
 #, php-format
 msgid "Web Only <span class=\"count\">(%s)</span>"
 msgid_plural "Web Only <span class=\"count\">(%s)</span>"
@@ -3558,48 +3559,48 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: inc/posttype/namespace.php:473
+#: inc/posttype/namespace.php:471
 msgid "parts"
 msgstr "daļas"
 
-#: inc/posttype/namespace.php:474
+#: inc/posttype/namespace.php:472
 msgid "chapters"
 msgstr "nodaļas"
 
-#: inc/posttype/namespace.php:475
+#: inc/posttype/namespace.php:473
 msgid "front matter"
 msgstr "sākuma papildinformācija"
 
-#: inc/posttype/namespace.php:476
+#: inc/posttype/namespace.php:474
 msgid "back matter"
 msgstr "beigu papildinformācija"
 
-#: inc/posttype/namespace.php:477
+#: inc/posttype/namespace.php:475
 msgid "glossary"
 msgstr "glosārijs "
 
-#: inc/posttype/namespace.php:540 templates/admin/import.php:89
+#: inc/posttype/namespace.php:538 templates/admin/import.php:90
 #: templates/admin/organize.php:62
 msgid "Glossary"
 msgstr "Glosārijs"
 
-#: inc/redirect/namespace.php:176 inc/redirect/namespace.php:384
+#: inc/redirect/namespace.php:184 inc/redirect/namespace.php:392
 msgid "Error: Unknown export format."
 msgstr "Kļūda: Nezināms eksporta faila formāts."
 
-#: inc/redirect/namespace.php:399
+#: inc/redirect/namespace.php:407
 msgid "File not found"
 msgstr "Fails nebija atrasts"
 
-#: inc/redirect/namespace.php:486
+#: inc/redirect/namespace.php:494
 msgid "Unsupported post type."
 msgstr "Neatbalstīts publikācijas tips."
 
-#: inc/redirect/namespace.php:520
+#: inc/redirect/namespace.php:528
 msgid "Unsupported taxonomy."
 msgstr "Neatbalstīta taksonomija."
 
-#: inc/redirect/namespace.php:544
+#: inc/redirect/namespace.php:552
 msgid "You do not have sufficient permissions to access that URL."
 msgstr "Jums nav atbilstošas atļaujas pieejai šitai tīmekļa adresei."
 
@@ -4170,39 +4171,42 @@ msgid "Web page or Pressbooks webbook (.html or URL)"
 msgstr "Tiešsaistes vietne vai Pressbooks tiešsaistes grāmata (.html vai tīmekļa adrese)"
 
 #: templates/admin/import.php:44
-#, php-format
-msgid "Import in progress: %s"
+msgid "Select content below for import into Pressbooks."
 msgstr ""
 
-#: templates/admin/import.php:64
+#: templates/admin/import.php:45
+msgid "Source:"
+msgstr ""
+
+#: templates/admin/import.php:65
 msgid "Are you sure you want to abort the import?"
 msgstr "Vai esat droši, ka gribējāt nodzēst visus importa failus?"
 
-#: templates/admin/import.php:91
+#: templates/admin/import.php:92
 msgid "Other"
 msgstr "Cits"
 
-#: templates/admin/import.php:127
+#: templates/admin/import.php:128
 msgid "Show imported content in web"
 msgstr "Rādīt importētu saturu tiešsaistē"
 
-#: templates/admin/import.php:130
+#: templates/admin/import.php:131
 msgid "Import Selection"
 msgstr "Importēt atlasīšanu"
 
-#: templates/admin/import.php:157
+#: templates/admin/import.php:158
 msgid "Maximum file size:"
 msgstr "Maksimāls faila izmērs:"
 
-#: templates/admin/import.php:167
+#: templates/admin/import.php:168
 msgid "Import Type"
 msgstr "Importa tips"
 
-#: templates/admin/import.php:179
+#: templates/admin/import.php:180
 msgid "Import Source"
 msgstr "Importa avots"
 
-#: templates/admin/import.php:198
+#: templates/admin/import.php:199
 msgid "Begin Import"
 msgstr "Sākt importēšanu "
 

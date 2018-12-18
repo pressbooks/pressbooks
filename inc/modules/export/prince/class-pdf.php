@@ -148,7 +148,7 @@ class Pdf extends Export {
 		// Prince XML is very flexible. There could be errors but Prince will still render a PDF.
 		// We want to log those errors but we won't alert the user.
 		if ( is_countable( $msg ) && count( $msg ) ) {
-			$this->logError( \Pressbooks\Utility\get_contents( $this->logfile ) );
+			$this->logError( \Pressbooks\Utility\get_contents( $this->logfile ), [ 'warning' => 1 ] );
 		}
 
 		return $retval;
@@ -177,9 +177,7 @@ class Pdf extends Export {
 	 */
 	function logError( $message, array $more_info = [] ) {
 
-		$more_info = [
-			'url' => $this->url,
-		];
+		$more_info['url'] = $this->url;
 
 		parent::logError( $message, $more_info );
 	}

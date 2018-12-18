@@ -9,8 +9,7 @@
 		"lint": "npm run -s lint:scripts && npm run -s lint:styles",
 		"lint:scripts": "cross-env NODE_ENV=development node_modules/eslint/bin/eslint.js \"assets/src/scripts/*.js\"",
 		"lint:styles": "cross-env NODE_ENV=development node_modules/stylelint/bin/stylelint.js \"assets/src/styles/**/*.scss\" --syntax scss",
-		"localize": "wp-pot -s \"**/*.php\" -o languages/_pressbooks.pot -p \"Pressbooks\" -t \"Pressbooks (Book Oven Inc.) <code@pressbooks.com>\"",
-		"install": "npm run -s build:production"
+		"localize": "wp-pot -s \"**/*.php\" -o languages/pressbooks.pot -p \"Pressbooks\" -t \"Pressbooks (Book Oven Inc.) <code@pressbooks.com>\""
 	},
 	"engines": {
 		"node": ">= 6.9.4"
@@ -26,8 +25,8 @@
 		"pagedjs": "^0.1.28",
 		"select2": "^4.0.3",
 		"sidr": "^2.2.1",
-		"tinymce": "^4.8.5",
-		"wp-admin-colors": "^4.9.8",
+		"tinymce": "^4.9.2",
+		"wp-admin-colors": "^5.0.1",
 		"wpapi": "^1.1.2"
 	},
 	"devDependencies": {

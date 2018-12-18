@@ -88,9 +88,7 @@ class Icml extends Export {
 	 */
 	function logError( $message, array $more_info = [] ) {
 
-		$more_info = [
-			'path' => $this->outputPath,
-		];
+		$more_info['path'] = $this->outputPath;
 
 		parent::logError( $message, $more_info );
 	}

@@ -131,9 +131,32 @@ function pb_register_activation_hook() {
 function pb_init_autoloader() {
 	static $registered = false;
 	if ( ! $registered ) {
+		_pb_copy_autoloader();
 		require_once( __DIR__ . '/requires.php' );
 		\HM\Autoloader\register_class_path( 'Pressbooks', __DIR__ . '/inc' );
 		$registered = true;
+	}
+}
+
+/**
+ * Copy Pressbooks’ autoloader file
+ */
+function _pb_copy_autoloader() {
+	$mu_plugin_dir = defined( 'WPMU_PLUGIN_DIR' ) ? WPMU_PLUGIN_DIR : trailingslashit( WP_CONTENT_DIR ) . 'mu-plugins';
+	if ( ! file_exists( $mu_plugin_dir ) ) {
+		if ( ! wp_mkdir_p( $mu_plugin_dir ) ) {
+			die( sprintf( __( 'Pressbooks could not create the mu-plugins folder. Please create the following directory: %s', 'pressbooks' ), $mu_plugin_dir ) );
+		}
+	}
+	$dest = $mu_plugin_dir . '/hm-autoloader.php';
+	if ( ! file_exists( $dest ) ) {
+		$source = __DIR__ . '/hm-autoloader.php';
+		if ( ! @copy( $source, $dest ) ) { // @codingStandardsIgnoreLine
+			die( sprintf( __( 'Pressbooks could not copy the autoloader from %1$s to %2$s. Please copy the file manually.', 'pressbooks' ), $source, $dest ) );
+		}
+		if ( ! function_exists( '\HM\Autoloader\register_class_path' ) ) {
+			require_once( $dest );
+		}
 	}
 }
 

@@ -1,7 +1,7 @@
 // This script is loaded when a user is on a books web view
 ( function () {
 
-// Show the tooltip
+	// Show the tooltip
 	jQuery( document ).on( 'click', '.tooltip', function () {
 		jQuery( '.tooltip.on' ).tooltip( 'close' ).removeClass( 'on' );
 		jQuery( this ).addClass( 'on' );

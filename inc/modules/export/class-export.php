@@ -299,7 +299,12 @@ abstract class Export {
 			$this->errorsEmail[] = $current_user->user_email;
 		}
 
-		if ( ! defined( 'WP_TESTS_MULTISITE' ) ) {
+		if ( defined( 'WP_TESTS_MULTISITE' ) ) {
+			// Unit tests
+			if ( empty( $more_info['warning'] ) ) {
+				error_log( "\n{$subject}\n{$message}\n" ); // @codingStandardsIgnoreLine
+			}
+		} else {
 			\Pressbooks\Utility\email_error_log( $this->errorsEmail, $subject, $message );
 		}
 	}
