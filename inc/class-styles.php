@@ -157,6 +157,7 @@ class Styles {
 			'label' => 'Custom Style',
 			'can_export' => false,
 			'rewrite' => false,
+			'capability_type' => 'page',
 			'capabilities' => [
 				'edit_post' => 'edit_others_posts',
 				'read_post' => 'read',
