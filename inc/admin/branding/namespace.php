@@ -184,3 +184,16 @@ function login_scripts() {
 		]
 	);
 }
+
+/**
+ * Favicon
+ */
+function favicon() {
+	// Specify 'pressbooks-book' because when in network or main site, WordPress uses Aldine.
+	$href = get_theme_root_uri( 'pressbooks-book' ) . '/pressbooks-book';
+	?>
+	<link rel="icon" type="image/png" sizes="32x32" href="<?php echo $href; ?>/dist/images/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="<?php echo $href; ?>/dist/images/favicon-16x16.png">
+	<link rel="shortcut icon" href="<?php echo $href; ?>/dist/images/favicon.ico">
+	<?php
+}
