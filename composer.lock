@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
     "content-hash": "206c595ca4a5f878bab5885fc4732c70",
@@ -1588,16 +1588,16 @@
         },
         {
             "name": "yahnis-elsts/plugin-update-checker",
-            "version": "v4.4",
+            "version": "v4.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/YahnisElsts/plugin-update-checker.git",
-                "reference": "da4286343601e1f5c01836e1d51e1c57cedb0f6d"
+                "reference": "d98d6bc6caac4b46b61186447a947323a466a021"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/YahnisElsts/plugin-update-checker/zipball/da4286343601e1f5c01836e1d51e1c57cedb0f6d",
-                "reference": "da4286343601e1f5c01836e1d51e1c57cedb0f6d",
+                "url": "https://api.github.com/repos/YahnisElsts/plugin-update-checker/zipball/d98d6bc6caac4b46b61186447a947323a466a021",
+                "reference": "d98d6bc6caac4b46b61186447a947323a466a021",
                 "shasum": ""
             },
             "require": {
@@ -1629,7 +1629,7 @@
                 "theme updates",
                 "wordpress"
             ],
-            "time": "2017-12-22T10:39:11+00:00"
+            "time": "2018-12-30T10:38:32+00:00"
         }
     ],
     "packages-dev": [
@@ -2585,7 +2585,7 @@
                 "squizlabs/php_codesniffer": "3.3.2"
             },
             "require-dev": {
-                "phpunit/phpunit": "6.5.8"
+                "phpunit/phpunit": "6.5.13"
             },
             "type": "project",
             "notification-url": "https://packagist.org/downloads/",
