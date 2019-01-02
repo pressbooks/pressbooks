@@ -299,7 +299,7 @@ class Xhtml11 extends ExportGenerator {
 		// XHTML, Start!
 
 		$metadata = \Pressbooks\Book::getBookInformation();
-		$book_contents = $this->preProcessBookContents( \Pressbooks\Book::getBookContents() );
+		$_unused = [];
 
 		// Set two letter language code
 		if ( isset( $metadata['pb_language'] ) ) {
@@ -311,14 +311,14 @@ class Xhtml11 extends ExportGenerator {
 
 		ob_start();
 
-		$this->echoDocType( $book_contents, $metadata );
+		$this->echoDocType( $_unused, $_unused );
 
 		echo "<head>\n";
 		echo '<meta content="text/html; charset=UTF-8" http-equiv="content-type" />' . "\n";
 		echo '<meta http-equiv="Content-Language" content="' . $this->lang . '" />' . "\n";
 		echo '<meta name="generator" content="Pressbooks ' . PB_PLUGIN_VERSION . '" />' . "\n";
 
-		$this->echoMetaData( $book_contents, $metadata );
+		$this->echoMetaData( $_unused, $metadata );
 
 		echo '<title>' . get_bloginfo( 'name' ) . "</title>\n";
 
@@ -368,16 +368,16 @@ class Xhtml11 extends ExportGenerator {
 			// The $_GET parameters haven't changed since the last request so the output will be the same
 			$buffer_inner_html = $cache[1];
 		} else {
-			// TODO Our event streams don't work with ob_start(), the event stream ends up in the content
+			$book_contents = $this->preProcessBookContents( \Pressbooks\Book::getBookContents() );
 			ob_start();
 
 			// Before Title Page
 			yield 10 => __( 'Before Title', 'pressbooks' );
-			$this->echoBeforeTitle( $book_contents, $metadata );
+			$this->echoBeforeTitle( $book_contents, $_unused );
 
 			// Half-title
 			yield 15 => __( 'Half Title', 'pressbooks' );
-			$this->echoHalfTitle( $book_contents, $metadata );
+			$this->echoHalfTitle( $_unused, $_unused );
 
 			// Cover
 			yield 20 => __( 'Cover', 'pressbooks' );
@@ -389,22 +389,22 @@ class Xhtml11 extends ExportGenerator {
 
 			// Copyright
 			yield 30 => __( 'Copyright', 'pressbooks' );
-			$this->echoCopyright( $book_contents, $metadata );
+			$this->echoCopyright( $_unused, $metadata );
 
 			// Dedication and Epigraph (In that order!)
 			yield 35 => __( 'Dedication and Epigraph', 'pressbooks' );
-			$this->echoDedicationAndEpigraph( $book_contents, $metadata );
+			$this->echoDedicationAndEpigraph( $book_contents, $_unused );
 
 			// Table of contents
 			yield 40 => __( 'Table of contents', 'pressbooks' );
-			$this->echoToc( $book_contents, $metadata );
+			$this->echoToc( $book_contents, $_unused );
 
 			// Front-matter
 			yield 50 => __( 'Front-matter', 'pressbooks' );
 			yield from $this->echoFrontMatterGenerator( $book_contents, $metadata );
 
 			// Promo
-			$this->createPromo( $book_contents, $metadata );
+			$this->createPromo( $_unused, $_unused );
 
 			// Parts, Chapters
 			yield 60 => __( 'Parts and chapters', 'pressbooks' );

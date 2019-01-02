@@ -155,7 +155,7 @@ $_current_user_id = $catalog->getUserId();
 <!--[if (gt IE 9)|!(IE)]><!--><html <?php language_attributes(); ?> class="no-js"> <!--<![endif]-->
 <head>
 	<meta http-equiv="Content-Type" content="<?php bloginfo( 'html_type' ); ?>; charset=<?php bloginfo( 'charset' ); ?>" />
-	<link rel="shortcut icon" href="<?php bloginfo( 'stylesheet_directory' ); ?>/favicon.ico" />
+	<?php \Pressbooks\Admin\Branding\favicon(); ?>
 	<title><?php echo ucfirst( get_userdata( $pb_user_id )->user_login );
 	_e( '\'s Catalog Page', 'pressbooks' ); ?> | Pressbooks</title>
  	<?php // @codingStandardsIgnoreStart ?>

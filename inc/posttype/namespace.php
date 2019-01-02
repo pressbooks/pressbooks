@@ -151,7 +151,7 @@ function register_post_types() {
 				'menu_name' => __( 'Book Info', 'pressbooks' ),
 			],
 			'quick_edit' => false,
-			'capability_type' => 'post',
+			'capability_type' => 'page',
 			'exclude_from_search' => true,
 			'hierarchical' => false,
 			'publicly_queryable' => false,
