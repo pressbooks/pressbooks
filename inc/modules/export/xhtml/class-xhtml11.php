@@ -241,7 +241,7 @@ class Xhtml11 extends Export {
 		// XHTML, Start!
 
 		$metadata = \Pressbooks\Book::getBookInformation();
-		$book_contents = $this->preProcessBookContents( \Pressbooks\Book::getBookContents() );
+		$_unused = [];
 
 		// Set two letter language code
 		if ( isset( $metadata['pb_language'] ) ) {
@@ -253,14 +253,14 @@ class Xhtml11 extends Export {
 
 		ob_start();
 
-		$this->echoDocType( $book_contents, $metadata );
+		$this->echoDocType( $_unused, $_unused );
 
 		echo "<head>\n";
 		echo '<meta content="text/html; charset=UTF-8" http-equiv="content-type" />' . "\n";
 		echo '<meta http-equiv="Content-Language" content="' . $this->lang . '" />' . "\n";
 		echo '<meta name="generator" content="Pressbooks ' . PB_PLUGIN_VERSION . '" />' . "\n";
 
-		$this->echoMetaData( $book_contents, $metadata );
+		$this->echoMetaData( $_unused, $metadata );
 
 		echo '<title>' . get_bloginfo( 'name' ) . "</title>\n";
 
@@ -310,13 +310,15 @@ class Xhtml11 extends Export {
 			// The $_GET parameters haven't changed since the last request so the output will be the same
 			$buffer_inner_html = $cache[1];
 		} else {
+			$book_contents = $this->preProcessBookContents( \Pressbooks\Book::getBookContents() );
+
 			ob_start();
 
 			// Before Title Page
-			$this->echoBeforeTitle( $book_contents, $metadata );
+			$this->echoBeforeTitle( $book_contents, $_unused );
 
 			// Half-title
-			$this->echoHalfTitle( $book_contents, $metadata );
+			$this->echoHalfTitle( $_unused, $_unused );
 
 			// Cover
 			$this->echoCover( $book_contents, $metadata );
@@ -325,19 +327,19 @@ class Xhtml11 extends Export {
 			$this->echoTitle( $book_contents, $metadata );
 
 			// Copyright
-			$this->echoCopyright( $book_contents, $metadata );
+			$this->echoCopyright( $_unused, $metadata );
 
 			// Dedication and Epigraph (In that order!)
-			$this->echoDedicationAndEpigraph( $book_contents, $metadata );
+			$this->echoDedicationAndEpigraph( $book_contents, $_unused );
 
 			// Table of contents
-			$this->echoToc( $book_contents, $metadata );
+			$this->echoToc( $book_contents, $_unused );
 
 			// Front-matter
 			$this->echoFrontMatter( $book_contents, $metadata );
 
 			// Promo
-			$this->createPromo( $book_contents, $metadata );
+			$this->createPromo( $_unused, $_unused );
 
 			// Parts, Chapters
 			$this->echoPartsAndChapters( $book_contents, $metadata );
