@@ -75,6 +75,7 @@ if ( is_file( __DIR__ . '/../h5p/autoloader.php' ) ) {
 // -------------------------------------------------------------------------------------------------------------------
 
 add_filter( 'login_body_class', '\Pressbooks\Admin\Branding\login_body_class' );
+add_action( 'login_head', '\Pressbooks\Admin\Branding\favicon' );
 add_action( 'login_head', '\Pressbooks\Admin\Branding\custom_color_scheme' );
 add_action( 'login_head', '\Pressbooks\Admin\Branding\custom_login_logo' );
 add_filter( 'login_headerurl', '\Pressbooks\Admin\Branding\login_url' );

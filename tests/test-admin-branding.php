@@ -41,4 +41,11 @@ class Admin_BrandingTest extends \WP_UnitTestCase {
 		$result = \Pressbooks\Admin\Branding\get_customizer_colors();
 		$this->assertEquals( $result, '<style type="text/css">:root{--primary:#663399;}</style>' );
 	}
+
+	public function test_favicon() {
+		ob_start();
+		\Pressbooks\Admin\Branding\favicon();
+		$buffer = ob_get_clean();
+		$this->assertContains( '<link rel="shortcut icon"', $buffer );
+	}
 }
