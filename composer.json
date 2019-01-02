@@ -48,7 +48,7 @@
 	"require-dev": {
 		"mybuilder/phpunit-accelerator": "^2.0",
 		"phpunit/phpunit": "^6.5",
-		"pressbooks/coding-standards": "dev-master"
+		"pressbooks/coding-standards": "^1.0"
 	},
 	"suggest": {
 		"pressbooks/pressbooks-book":
