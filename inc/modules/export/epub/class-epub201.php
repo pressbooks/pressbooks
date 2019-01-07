@@ -734,6 +734,13 @@ class Epub201 extends Export {
 					if ( $my_image ) {
 						copy( $my_image, "$path_to_epub_assets/$filename" );
 						return "url(assets/$filename)";
+					} else {
+						// This is not a Buckram theme, maybe.
+						$my_legacy_image = realpath( $scss_dir . '/' . $url );
+						if ( $my_legacy_image ) {
+							copy( $my_legacy_image, "$path_to_epub_assets/$filename" );
+							return "url(assets/$filename)";
+						}
 					}
 				} elseif ( preg_match( '#^images/#', $url ) && substr_count( $url, '/' ) === 1 ) {
 
