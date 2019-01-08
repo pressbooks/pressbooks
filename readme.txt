@@ -3,9 +3,9 @@ Contributors: Pressbooks <code@pressbooks.com>
 Donate link: https://opencollective.com/pressbooks
 Tags: ebooks, publishing, webbooks
 Requires at least: 4.9.8
-Tested up to: 5.0.0
+Tested up to: 5.0.2
 Requires PHP: 7.1
-Stable tag: 5.6.3
+Stable tag: 5.6.4
 License: GPL v3.0 or later
 License URI: https://github.com/pressbooks/pressbooks/blob/master/LICENSE.md
 
@@ -21,6 +21,16 @@ For installation instructions, visit [docs.pressbooks.org/installation](https://
 TK.
 
 == Changelog ==
+= 5.6.4 =
+
+* Pressbooks 5.6.4 requires PHP >= 7.1.
+* Pressbooks 5.6.4 requires [WordPress 4.9.8](https://wordpress.org/news/2018/08/wordpress-4-9-8-maintenance-release/).
+* Pressbooks 5.6.4 requires [McLuhan >= 2.6.0](https://github.com/pressbooks/pressbooks-book/).
+
+**Patches**
+
+* Handle missing legacy images: [#1542](https://github.com/pressbooks/pressbooks/pull/1542)
+
 = 5.6.3 =
 
 * Pressbooks 5.6.3 requires PHP >= 7.1.
@@ -119,8 +129,8 @@ TK.
 * Hide the "View" link when editing taxonomies (props [@colomet](https://github.com/colomet) for the suggestion): [#1351](https://github.com/pressbooks/pressbooks/issues/1351), [#1356](https://github.com/pressbooks/pressbooks/issues/1356), [#1360](https://github.com/pressbooks/pressbooks/issues/1360)
 
 == Upgrade Notice ==
-= 5.6.3 =
+= 5.6.4 =
 
-* Pressbooks 5.6.3 requires PHP >= 7.1.
-* Pressbooks 5.6.3 requires [WordPress 4.9.8](https://wordpress.org/news/2018/08/wordpress-4-9-8-maintenance-release/).
-* Pressbooks 5.6.3 requires [McLuhan >= 2.6.0](https://github.com/pressbooks/pressbooks-book/).
+* Pressbooks 5.6.4 requires PHP >= 7.1.
+* Pressbooks 5.6.4 requires [WordPress 4.9.8](https://wordpress.org/news/2018/08/wordpress-4-9-8-maintenance-release/).
+* Pressbooks 5.6.4 requires [McLuhan >= 2.6.0](https://github.com/pressbooks/pressbooks-book/).
