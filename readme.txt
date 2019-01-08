@@ -2,10 +2,10 @@
 Contributors: Pressbooks <code@pressbooks.com>
 Donate link: https://opencollective.com/pressbooks
 Tags: ebooks, publishing, webbooks
-Requires at least: 5.0.0
-Tested up to: 5.0.0
+Requires at least: 5.0.2
+Tested up to: 5.0.2
 Requires PHP: 7.1
-Stable tag: 5.6.3
+Stable tag: 5.6.4
 License: GPL v3.0 or later
 License URI: https://github.com/pressbooks/pressbooks/blob/master/LICENSE.md
 
@@ -34,6 +34,16 @@ TK.
 **Patches**
 
 * Prevent stylesheet compilation in AJAX calls: [#1483](https://github.com/pressbooks/pressbooks/pull/1483)
+
+= 5.6.4 =
+
+* Pressbooks 5.6.4 requires PHP >= 7.1.
+* Pressbooks 5.6.4 requires [WordPress 4.9.8](https://wordpress.org/news/2018/08/wordpress-4-9-8-maintenance-release/).
+* Pressbooks 5.6.4 requires [McLuhan >= 2.6.0](https://github.com/pressbooks/pressbooks-book/).
+
+**Patches**
+
+* Handle missing legacy images: [#1542](https://github.com/pressbooks/pressbooks/pull/1542)
 
 = 5.6.3 =
 
@@ -136,5 +146,5 @@ TK.
 = 5.7.0 =
 
 * Pressbooks 5.7.0 requires PHP >= 7.1.
-* Pressbooks 5.7.0 requires [WordPress 5.0.0](https://wordpress.org/news/2018/12/bebo/).
+* Pressbooks 5.7.0 requires [WordPress 5.0.2](https://wordpress.org/news/2018/12/bebo/).
 * Pressbooks 5.7.0 requires [McLuhan >= 2.7.0](https://github.com/pressbooks/pressbooks-book/).
