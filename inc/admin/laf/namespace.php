@@ -507,7 +507,13 @@ function display_trash() {
  * Displays the Export Admin Page
  */
 function display_export() {
-	require( PB_PLUGIN_DIR . 'templates/admin/export.php' );
+	// require( PB_PLUGIN_DIR . 'templates/admin/export.php' );
+	$blade = \Pressbooks\Container::get( 'Blade' );
+	echo $blade->render(
+		'admin.export', [
+			'TODO' => 'todo',
+		]
+	);
 }
 
 /**

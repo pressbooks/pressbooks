@@ -82,6 +82,7 @@ class Admin_LafTest extends \WP_UnitTestCase {
 	}
 
 	function test_display_export() {
+		$GLOBALS['hook_suffix'] = 'mock';
 		ob_start();
 		\Pressbooks\Admin\Laf\display_export();
 		$buffer = ob_get_clean();
