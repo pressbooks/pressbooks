@@ -168,7 +168,6 @@ do_action( 'pressbooks_top_of_export_page' );
  * } );
  *
  */
-
 $formats = apply_filters( 'pb_export_formats', [
 	'standard' => [
 		'print_pdf' => __( 'PDF (for print)', 'pressbooks' ),

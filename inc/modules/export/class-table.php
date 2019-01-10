@@ -40,7 +40,7 @@ class Table extends \WP_List_Table {
 	 * @return string
 	 */
 	function column_cb( $item ) {
-		return sprintf( '<input type="checkbox" name=ID[]" value="%s" />', $item['ID'] );
+		return sprintf( '<input type="checkbox" name="ID[]" value="%s" />', $item['ID'] );
 	}
 
 	/**
@@ -49,8 +49,17 @@ class Table extends \WP_List_Table {
 	 * @return string Text to be placed inside the column <td>
 	 */
 	function column_file( $item ) {
-		$html = $this->getIcon( $item['file'] );
-		$html .= esc_html( $item['file'] );
+		$html = '<div class="export-file">';
+		$html .= $this->getIcon( $item['file'] );
+		$html .= '<div class="export-file-name">' . esc_html( $item['file'] ) . '</div>';
+		$html .= '</div>';
+
+		$delete_link = '#';
+		$actions['delete'] = '<a href="' . $delete_link . '">' . __( 'Delete', 'pressbooks' ) . '</a>';
+		$download_link = get_admin_url( get_current_blog_id(), "/admin.php?page=pb_export&download_export_file={$item['file']}" );
+		$actions['download'] = '<a href="' . $download_link . '">' . __( 'Download', 'pressbooks' ) . '</a>';
+		$html .= $this->row_actions( $actions );
+
 		return $html;
 	}
 
@@ -60,7 +69,7 @@ class Table extends \WP_List_Table {
 	 * @return string Text to be placed inside the column <td>
 	 */
 	function column_pin( $item ) {
-		$html = "<input type='checkbox' " . checked( $item['pin'] ) . "/>";
+		$html = "<input type='checkbox' name='pin[{$item['ID']}]' value='1' " . checked( $item['pin'] ) . "/>";
 		return $html;
 	}
 
@@ -114,15 +123,17 @@ class Table extends \WP_List_Table {
 		$sortable = $this->get_sortable_columns();
 		$this->_column_headers = [ $columns, $hidden, $sortable ];
 
+		// Data
+		$data = $this->getLatestExports();
+
 		// Pagination
 		$per_page = $this->get_items_per_page( 'pb_export_files', 50 );
 		$current_page = $this->get_pagenum();
-		$total_items = 0;
+		$total_items = count( $data );
+		$orderby = ( ! empty( $_REQUEST['orderby'] ) ) ? $_REQUEST['orderby'] : 'exported';
+		$order = ( ! empty( $_REQUEST['order'] ) ) ? $_REQUEST['order'] : 'desc';
 
-		// Data
-		$data = $this->getLatestExports();
-		$orderby = ( ! empty( $_REQUEST['orderby'] ) ) ? $_REQUEST['orderby'] : 'file';
-		$order = ( ! empty( $_REQUEST['order'] ) ) ? $_REQUEST['order'] : 'asc';
+		// Data slice
 		$data = wp_list_sort( $data, $orderby, $order );
 		$data = array_slice( $data, ( ( $current_page - 1 ) * $per_page ), $per_page );
 		$this->items = $data;
@@ -156,7 +167,7 @@ class Table extends \WP_List_Table {
 				'format' => $this->getFormat( $file ),
 				'size' => \Pressbooks\Utility\format_bytes( $stat['size'] ),
 				'pin' => 0,
-				'exported' => date_i18n( $dateformatstring, $stat['mtime'] ),
+				'exported' => date_i18n( 'Y-m-d H:i', $stat['mtime'] ),
 			];
 		}
 		return $files;
@@ -218,7 +229,7 @@ class Table extends \WP_List_Table {
 			$file_class = apply_filters( 'pb_get_export_file_class', $file_extension );
 		}
 
-		$html = "<span class='export-file-icon {$size} {$file_class}' title='" . esc_attr( $file ) . "'></span>";
+		$html = "<div class='export-file-icon {$size} {$file_class}' title='" . esc_attr( $file ) . "'></div>";
 		return $html;
 	}
 

@@ -9,11 +9,14 @@
     <h2>{{ __( 'Export', 'pressbooks') }}</h2>
     <p>{{ __( 'You can select multiple formats below. Pressbooks keeps your last three exports in each export format. You can pin specific files to make sure they don\'t get deleted', 'pressbooks') }}</p>
     <div class="postbox">
+
+        <!-- TODO -->
         <h2 style="border-bottom: 1px solid #eee; font-size: 14px; padding: 8px 12px; margin: 0; line-height: 1.4;text-align: right;"><span
                     class="dashicons dashicons-arrow-up"></span><!--<span class="dashicons dashicons-arrow-down"></span>--></h2>
+
         <div class="inside">
-            <div class="grid">
-                <form id="pb-export-form" action="{{ $export_form_url }}" method="POST">
+            <form id="pb-export-form" action="{{ $export_form_url }}" method="POST">
+                <div class="grid">
                     {{-- COLUMN 1 --}}
                     <div class="column">
                         <fieldset class="standard">
@@ -34,29 +37,31 @@
                             @endforeach
                         </fieldset>
                     </div>
-					<?php
-					/**
-					 * @since 5.3.0
-					 *
-					 * Fires just before the export html form ends
-					 * Use this hook to add additional input UI to the Pressbooks export admin page.
-					 */
-					?>
+			        <?php
+			        /**
+			         * @since 5.3.0
+			         *
+			         * Fires just before the export html form ends
+			         * Use this hook to add additional input UI to the Pressbooks export admin page.
+			         */
+			        ?>
                     {!! do_action( 'pb_export_form_end' ) !!}
-                </form>
-                {{-- COLUMN 3 --}}
-                <div class="column">
-                    <div class="theme-screenshot">
-                        <img src="{{ apply_filters( 'pb_stylesheet_directory_uri', get_stylesheet_directory_uri() ) }}/screenshot.png" alt="">
+                    {{-- COLUMN 3 --}}
+                    <div class="column">
+                        <div class="theme">
+                            <div class="theme-screenshot">
+                                <img src="{{ apply_filters( 'pb_stylesheet_directory_uri', get_stylesheet_directory_uri() ) }}/screenshot.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    {{-- COLUMN 4 --}}
+                    <div class="column">
+                        <p><b>{{  __( 'Your Theme', 'pressbooks' ) }}:</b> {!! $theme_name !!}</p>
+                        <p><a class="button button-primary" href="{{ get_bloginfo( 'url' ) }}/wp-admin/themes.php">{{  __( 'Change Theme', 'pressbooks' ) }}</a></p>
+                        <p><a class="" href="{{ get_bloginfo( 'url' ) }}/wp-admin/themes.php?page=pressbooks_theme_options">{{ __( 'Theme Options', 'pressbooks' ) }}</a></p>
                     </div>
                 </div>
-                {{-- COLUMN 4 --}}
-                <div class="column">
-                    <p><b>{{  __( 'Your Theme', 'pressbooks' ) }}:</b> {!! $theme_name !!}</p>
-                    <p><a class="button button-primary" href="{{ get_bloginfo( 'url' ) }}/wp-admin/themes.php">{{  __( 'Change Theme', 'pressbooks' ) }}</a></p>
-                    <p><a class="" href="{{ get_bloginfo( 'url' ) }}/wp-admin/themes.php?page=pressbooks_theme_options">{{ __( 'Theme Options', 'pressbooks' ) }}</a></p>
-                </div>
-            </div>
+            </form>
         </div>
     </div>
     <div class="export-control">
