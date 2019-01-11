@@ -37,6 +37,13 @@
     }
   }
 
+  #pb-export-hndle {
+    &:hover,
+    &:focus {
+      cursor: pointer;
+    }
+  }
+
   input {
     margin-right: 7px;
 
@@ -288,11 +295,6 @@
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-
-    &:hover,
-    &:focus {
-      cursor: pointer;
-    }
 
     /* Has a fixed aspect ratio of 1.5 to 1 regardless of screenshot size */
     .theme-screenshot {

@@ -287,12 +287,14 @@ class Table extends \WP_List_Table {
 	}
 
 	/**
+	 * Using the smallest hash because we want these to fit in a cookie. (max 4096 Bytes)
+	 *
 	 * @param string $file
 	 *
 	 * @return string
 	 */
 	protected function getFileId( $file ) {
-		return md5( NONCE_KEY . $file );
+		return hash( 'crc32b', $file );
 	}
 
 	/**

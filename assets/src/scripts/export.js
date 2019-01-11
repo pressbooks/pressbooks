@@ -4,10 +4,17 @@ import Cookies from 'js-cookie';
 
 jQuery( function ( $ ) {
 
-	let cookie_key = 'pb_export';
-	let cookie_json = Cookies.getJSON( cookie_key );
-	if ( typeof cookie_json === 'undefined' ) {
-		cookie_json = {};
+	/* JSON Cookie. Remember to keep key/values short because max 4096 Bytes */
+	let json_cookie_key = 'pb_export';
+	let json_cookie = Cookies.getJSON( json_cookie_key );
+	if ( typeof json_cookie === 'undefined' ) {
+		json_cookie = {};
+	}
+	function update_json_cookie() {
+		Cookies.set( json_cookie_key, json_cookie, {
+			path: '/',
+			expires: 365,
+		} );
 	}
 
 	/* Collapsible form */
@@ -42,8 +49,9 @@ jQuery( function ( $ ) {
 		.find( 'input' )
 		.each( function () {
 			let name = $( this ).attr( 'name' );
+			let shorter_name = name.replace( 'export_formats[', 'ef[' );
 			// Defaults
-			if ( jQuery.isEmptyObject( cookie_json ) ) {
+			if ( jQuery.isEmptyObject( json_cookie ) ) {
 				// Defaults
 				if (
 					name === 'export_formats[pdf]' ||
@@ -57,8 +65,8 @@ jQuery( function ( $ ) {
 				}
 			} else {
 				let val = 0;
-				if ( cookie_json.hasOwnProperty( name ) ) {
-					val = cookie_json[ name ];
+				if ( json_cookie.hasOwnProperty( shorter_name ) ) {
+					val = json_cookie[ shorter_name ];
 				}
 				$( this ).prop( 'checked', !! val );
 			}
@@ -67,16 +75,14 @@ jQuery( function ( $ ) {
 			}
 		} )
 		.change( function () {
-			let my_json_key = $( this ).attr( 'name' );
+			let name = $( this ).attr( 'name' );
+			let shorter_name = name.replace( 'export_formats[', 'ef[' );
 			let my_json_value = $( this ).prop( 'checked' );
 			if ( my_json_value ) {
-				cookie_json[ my_json_key ] = 1;
+				json_cookie[ shorter_name ] = 1;
 			} else {
-				delete cookie_json[ my_json_key ];
+				delete json_cookie[ shorter_name ];
 			}
-			Cookies.set( cookie_key, cookie_json, {
-				path: '/',
-				expires: 365,
-			} );
+			update_json_cookie();
 		} );
 } );
