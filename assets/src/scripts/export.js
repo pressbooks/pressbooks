@@ -3,6 +3,20 @@
 import Cookies from 'js-cookie';
 
 jQuery( function ( $ ) {
+	/* Collapsible form */
+	$( '#pb-export-hndle' ).click( function( e ) {
+		let hndle = $( '#pb-export-hndle' );
+		if ( hndle.hasClass( 'dashicons-arrow-up' ) ) {
+			hndle.removeClass( 'dashicons-arrow-up' );
+			hndle.addClass( 'dashicons-arrow-down' );
+			$( '.wrap .postbox .inside' ).hide();
+		} else {
+			hndle.removeClass( 'dashicons-arrow-down' );
+			hndle.addClass( 'dashicons-arrow-up' );
+			$( '.wrap .postbox .inside' ).show();
+		}
+	} );
+
 	/* Swap out and animate the 'Export Your Book' button */
 	$( '#pb-export-button' ).click( function ( e ) {
 		e.preventDefault();
@@ -15,19 +29,6 @@ jQuery( function ( $ ) {
 		};
 		setTimeout( submission, 0 );
 	} );
-	/* Show and hide download & delete button */
-	$( '.export-file-container' ).hover(
-		function () {
-			$( this )
-				.children( '.file-actions' )
-				.css( 'visibility', 'visible' );
-		},
-		function () {
-			$( this )
-				.children( '.file-actions' )
-				.css( 'visibility', 'hidden' );
-		}
-	);
 
 	/* Remember User Checkboxes */
 	$( '#pb-export-form' )

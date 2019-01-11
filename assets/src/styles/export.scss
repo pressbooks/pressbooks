@@ -19,6 +19,15 @@
   }
 
   .postbox {
+    h2:first-child {
+      border-bottom: 1px solid #eee;
+      font-size: 14px;
+      padding: 8px 12px;
+      margin: 0;
+      line-height: 1.4;
+      text-align: right;
+    }
+
     .inside {
       margin-bottom: 0;
 
