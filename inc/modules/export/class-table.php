@@ -54,10 +54,27 @@ class Table extends \WP_List_Table {
 		$html .= '<div class="export-file-name">' . esc_html( $item['file'] ) . '</div>';
 		$html .= '</div>';
 
-		$delete_link = '#';
-		$actions['delete'] = '<a href="' . $delete_link . '">' . __( 'Delete', 'pressbooks' ) . '</a>';
-		$download_link = get_admin_url( get_current_blog_id(), "/admin.php?page=pb_export&download_export_file={$item['file']}" );
-		$actions['download'] = '<a href="' . $download_link . '">' . __( 'Download', 'pressbooks' ) . '</a>';
+		$delete_url = sprintf( '/admin.php?page=%s&action=%s&ID=%s', $_REQUEST['page'], 'delete', $item['ID'] );
+		$delete_url = get_admin_url( get_current_blog_id(), $delete_url );
+		$delete_url = esc_url( add_query_arg( '_wpnonce', wp_create_nonce( 'bulk-files' ), $delete_url ) );
+		$onclick = 'onclick="if ( !confirm(\'' . esc_attr( __( 'Are you sure you want to delete this?', 'pressbooks' ) ) . '\') ) { return false }"';
+		$actions['delete'] = sprintf(
+			'<a href="%s" aria-label="%s" ' . $onclick . '>%s</a>',
+			$delete_url,
+			/* translators: %s: filename */
+			esc_attr( sprintf( __( 'Delete &#8220;%s&#8221;' ), $item['file'] ) ),
+			_x( 'Delete', 'verb' )
+		);
+
+		$download_url = get_admin_url( get_current_blog_id(), "/admin.php?page=pb_export&download_export_file={$item['file']}" );
+		$actions['download'] = sprintf(
+			'<a href="%s" aria-label="%s" >%s</a>',
+			$download_url,
+			/* translators: %s: filename */
+			esc_attr( sprintf( __( 'Download &#8220;%s&#8221;' ), $item['file'] ) ),
+			_x( 'Download', 'verb' )
+		);
+
 		$html .= $this->row_actions( $actions );
 
 		return $html;
@@ -69,7 +86,7 @@ class Table extends \WP_List_Table {
 	 * @return string Text to be placed inside the column <td>
 	 */
 	function column_pin( $item ) {
-		$html = "<input type='checkbox' name='pin[{$item['ID']}]' value='1' " . checked( $item['pin'] ) . "/>";
+		$html = "<input type='checkbox' name='pin[{$item['ID']}]' value='1' " . checked( $item['pin'] ) . '/>';
 		return $html;
 	}
 
@@ -147,7 +164,6 @@ class Table extends \WP_List_Table {
 		);
 	}
 
-
 	/**
 	 * @return array
 	 */
@@ -155,14 +171,13 @@ class Table extends \WP_List_Table {
 		$dir = untrailingslashit( Export::getExportFolder() );
 		$ignored = [ '.', '..', '.svn', '.git', '.htaccess' ];
 		$files = [];
-		$dateformatstring = get_option( 'date_format' );
 		foreach ( scandir( $dir ) as $file ) {
 			if ( in_array( $file, $ignored, true ) || is_dir( "$dir/$file" ) ) {
 				continue;
 			}
 			$stat = stat( "$dir/$file" );
 			$files[] = [
-				'ID' => md5( "$dir/$file" ),
+				'ID' => $this->getFileId( $file ),
 				'file' => $file,
 				'format' => $this->getFormat( $file ),
 				'size' => \Pressbooks\Utility\format_bytes( $stat['size'] ),
@@ -175,11 +190,10 @@ class Table extends \WP_List_Table {
 
 	/**
 	 * @param string $file
-	 * @param string $size
 	 *
 	 * @return string
 	 */
-	public function getIcon( $file, $size = 'large' ) {
+	protected function getCssClass( $file ) {
 		$file_extension = substr( strrchr( $file, '.' ), 1 );
 		switch ( $file_extension ) {
 			case 'epub':
@@ -228,7 +242,17 @@ class Table extends \WP_List_Table {
 			 */
 			$file_class = apply_filters( 'pb_get_export_file_class', $file_extension );
 		}
+		return $file_class;
+	}
 
+	/**
+	 * @param string $file
+	 * @param string $size
+	 *
+	 * @return string
+	 */
+	protected function getIcon( $file, $size = 'large' ) {
+		$file_class = $this->getCssClass( $file );
 		$html = "<div class='export-file-icon {$size} {$file_class}' title='" . esc_attr( $file ) . "'></div>";
 		return $html;
 	}
@@ -239,8 +263,8 @@ class Table extends \WP_List_Table {
 	 * @return string
 	 */
 	protected function getFormat( $file ) {
-		$file_extension = substr( strrchr( $file, '.' ), 1 );
-		return $file_extension;
+		$file_class = $this->getCssClass( $file );
+		return ucfirst( $file_class );
 	}
 
 	/**
@@ -254,9 +278,32 @@ class Table extends \WP_List_Table {
 				$ids = [ $ids ];
 			}
 			if ( ! empty( $ids ) ) {
+				$latest_exports = $this->getLatestExports();
 				foreach ( $ids as $id ) {
-					// TODO: Delete files by ID
+					$this->deleteFileById( $id, $latest_exports );
 				}
+			}
+		}
+	}
+
+	/**
+	 * @param string $file
+	 *
+	 * @return string
+	 */
+	protected function getFileId( $file ) {
+		return md5( NONCE_KEY . $file );
+	}
+
+	/**
+	 * @param string $id
+	 * @param array $latest_exports
+	 */
+	protected function deleteFileById( $id, $latest_exports ) {
+		foreach ( $latest_exports as $latest_export ) {
+			if ( hash_equals( $latest_export['ID'], $id ) ) {
+				unlink( trailingslashit( Export::getExportFolder() ) . $latest_export['file'] );
+				break;
 			}
 		}
 	}
