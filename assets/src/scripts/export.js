@@ -117,20 +117,25 @@ jQuery( function ( $ ) {
 			let format = tr.attr( 'data-format' );
 			let cb = $( `input[name='ID[]'][value='${id}']` );
 			if ( $( this ).prop( 'checked' ) ) {
+				// Up to five files can be pinned at once.
+				if ( $( 'td.column-pin input[type="checkbox"]:checked' ).length > 5 ) {
+					alert( PB_ExportToken.maximumFilesWarning );
+					$( this ).prop( 'checked', false );
+					return false;
+				}
+				json_cookie[ shorter_name ] = format;
 				// If the user has pinned three files of a given export type and they then try to pin an additional file of that type,
 				// an error should be displayed instructing them to deselect one of the pinned files before attempting to pin another.
 				if ( Object.entries( json_cookie ).filter( function ( arr ) {
-					return ( arr[0].indexOf( 'p[' ) === 0 && arr[1] === format )
-				} ).length >= 3 ) {
+					return arr[ 0 ].indexOf( 'p[' ) === 0 && arr[ 1 ] === format;
+				} ).length > 3 ) {
 					alert( PB_ExportToken.maximumFileTypeWarning );
+					delete json_cookie[ shorter_name ];
 					$( this ).prop( 'checked', false );
 					return false;
-				} else {
-					cb.prop( 'checked', false );
-					cb.prop( 'disabled', true );
-					json_cookie[ shorter_name ] = format;
-
 				}
+				cb.prop( 'checked', false );
+				cb.prop( 'disabled', true );
 			} else {
 				cb.prop( 'disabled', false );
 				delete json_cookie[ shorter_name ];

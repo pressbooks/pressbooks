@@ -264,6 +264,7 @@ function replace_book_admin_menu() {
 			if ( $hook === $export_page ) {
 				wp_localize_script(
 					'pb-export', 'PB_ExportToken', [
+						'maximumFilesWarning' => __( 'Up to five files can be pinned at once.', 'pressbooks' ),
 						'maximumFileTypeWarning' => __( 'Cannot pin more than 3 of the same file type.', 'pressbooks' ),
 					]
 				);
