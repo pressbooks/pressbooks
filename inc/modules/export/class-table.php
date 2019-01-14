@@ -18,6 +18,18 @@ class Table extends \WP_List_Table {
 	}
 
 	/**
+	 * Override
+	 *
+	 * @param object $item The current item
+	 */
+	public function single_row( $item ) {
+		$format = $this->getTinyHash( $item['format'] );
+		echo "<tr data-id='{$item['ID']}' data-format='{$format}'>";
+		$this->single_row_columns( $item );
+		echo '</tr>';
+	}
+
+	/**
 	 * This method is called when the parent class can't find a method
 	 * for a given column. For example, if the class needs to process a column
 	 * named 'title', it would first see if a method named $this->column_title()
@@ -39,7 +51,7 @@ class Table extends \WP_List_Table {
 	 *
 	 * @return string
 	 */
-	function column_cb( $item ) {
+	public function column_cb( $item ) {
 		return sprintf( '<input type="checkbox" name="ID[]" value="%s" />', $item['ID'] );
 	}
 
@@ -48,7 +60,7 @@ class Table extends \WP_List_Table {
 	 *
 	 * @return string Text to be placed inside the column <td>
 	 */
-	function column_file( $item ) {
+	public function column_file( $item ) {
 		$html = '<div class="export-file">';
 		$html .= $this->getIcon( $item['file'] );
 		$html .= '<div class="export-file-name">' . esc_html( $item['file'] ) . '</div>';
@@ -85,7 +97,7 @@ class Table extends \WP_List_Table {
 	 *
 	 * @return string Text to be placed inside the column <td>
 	 */
-	function column_pin( $item ) {
+	public function column_pin( $item ) {
 		$html = "<input type='checkbox' name='pin[{$item['ID']}]' value='1' " . checked( $item['pin'] ) . '/>';
 		return $html;
 	}
@@ -177,7 +189,7 @@ class Table extends \WP_List_Table {
 			}
 			$stat = stat( "$dir/$file" );
 			$files[] = [
-				'ID' => $this->getFileId( $file ),
+				'ID' => $this->getTinyHash( $file ),
 				'file' => $file,
 				'format' => $this->getFormat( $file ),
 				'size' => \Pressbooks\Utility\format_bytes( $stat['size'] ),
@@ -287,14 +299,14 @@ class Table extends \WP_List_Table {
 	}
 
 	/**
-	 * Using the smallest hash because we want these to fit in a cookie. (max 4096 Bytes)
+	 * Using the smallest hash because we want these to fit in a cookie. (A cookie has max 4096 bytes)
 	 *
-	 * @param string $file
+	 * @param string $s
 	 *
 	 * @return string
 	 */
-	protected function getFileId( $file ) {
-		return hash( 'crc32b', $file );
+	protected function getTinyHash( $s ) {
+		return hash( 'crc32b', $s );
 	}
 
 	/**
