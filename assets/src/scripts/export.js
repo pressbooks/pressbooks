@@ -17,7 +17,7 @@ jQuery( function ( $ ) {
 		} );
 	}
 
-	/* Collapsible Export Formats form */
+	/* Collapsible form */
 	$( '#pb-export-hndle' ).click( function ( e ) {
 		let hndle = $( '#pb-export-hndle' );
 		if ( hndle.hasClass( 'dashicons-arrow-up' ) ) {
@@ -44,7 +44,7 @@ jQuery( function ( $ ) {
 		setTimeout( submission, 0 );
 	} );
 
-	/* Export Formats: Remember User Checkboxes */
+	/* Export Formats */
 	$( '#pb-export-form' )
 		.find( 'input' )
 		.each( function () {
@@ -64,13 +64,14 @@ jQuery( function ( $ ) {
 					$( this ).prop( 'checked', false );
 				}
 			} else {
-				let val = 0;
+				// Initialize checkboxes from cookie
+				let was_checked = 0;
 				if ( json_cookie.hasOwnProperty( shorter_name ) ) {
-					val = json_cookie[ shorter_name ];
+					was_checked = json_cookie[ shorter_name ];
 				}
-				$( this ).prop( 'checked', !! val );
+				$( this ).prop( 'checked', !! was_checked );
 			}
-			// If there's a dependency error, then don't let the user check the box
+			// If there's a dependency error, then forcibly uncheck
 			if ( $( this ).attr( 'disabled' ) ) {
 				$( this ).prop( 'checked', false );
 			}
@@ -78,8 +79,7 @@ jQuery( function ( $ ) {
 		.change( function () {
 			let name = $( this ).attr( 'name' );
 			let shorter_name = name.replace( 'export_formats[', 'ef[' );
-			let my_json_value = $( this ).prop( 'checked' );
-			if ( my_json_value ) {
+			if ( $( this ).prop( 'checked' ) ) {
 				json_cookie[ shorter_name ] = 1;
 			} else {
 				delete json_cookie[ shorter_name ];
@@ -94,29 +94,45 @@ jQuery( function ( $ ) {
 			let name = $( this ).attr( 'name' );
 			let shorter_name = name.replace( 'pin[', 'p[' );
 			if ( ! jQuery.isEmptyObject( json_cookie ) ) {
-				let val = 0;
+				// Initialize checkboxes from cookie
+				let was_checked = 0;
 				if ( json_cookie.hasOwnProperty( shorter_name ) ) {
-					val = json_cookie[ shorter_name ];
+					was_checked = json_cookie[ shorter_name ];
 				}
-				$( this ).prop( 'checked', !! val );
+				if ( was_checked ) {
+					let tr = $( this ).closest( 'tr' );
+					let id = tr.attr( 'data-id' );
+					let cb = $( `input[name='ID[]'][value='${id}']` );
+					$( this ).prop( 'checked', true );
+					cb.prop( 'checked', false );
+					cb.prop( 'disabled', true );
+				}
 			}
 		} )
 		.change( function () {
 			let name = $( this ).attr( 'name' );
 			let shorter_name = name.replace( 'pin[', 'p[' );
 			let tr = $( this ).closest( 'tr' );
+			let id = tr.attr( 'data-id' );
 			let format = tr.attr( 'data-format' );
-			let my_json_value = $( this ).prop( 'checked' );
-			if ( my_json_value ) {
+			let cb = $( `input[name='ID[]'][value='${id}']` );
+			if ( $( this ).prop( 'checked' ) ) {
+				// If the user has pinned three files of a given export type and they then try to pin an additional file of that type,
+				// an error should be displayed instructing them to deselect one of the pinned files before attempting to pin another.
 				if ( Object.entries( json_cookie ).filter( function ( arr ) {
 					return ( arr[0].indexOf( 'p[' ) === 0 && arr[1] === format )
 				} ).length >= 3 ) {
-					alert( 'Cannot pin more than 3 of the same file type' );
+					alert( PB_ExportToken.maximumFileTypeWarning );
 					$( this ).prop( 'checked', false );
 					return false;
+				} else {
+					cb.prop( 'checked', false );
+					cb.prop( 'disabled', true );
+					json_cookie[ shorter_name ] = format;
+
 				}
-				json_cookie[ shorter_name ] = format;
 			} else {
+				cb.prop( 'disabled', false );
 				delete json_cookie[ shorter_name ];
 			}
 			update_json_cookie();

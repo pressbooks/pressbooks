@@ -262,6 +262,11 @@ function replace_book_admin_menu() {
 	add_action(
 		'admin_enqueue_scripts', function ( $hook ) use ( $export_page ) {
 			if ( $hook === $export_page ) {
+				wp_localize_script(
+					'pb-export', 'PB_ExportToken', [
+						'maximumFileTypeWarning' => __( 'Cannot pin more than 3 of the same file type.', 'pressbooks' ),
+					]
+				);
 				wp_enqueue_style( 'pb-export' );
 				wp_enqueue_script( 'pb-export' );
 			}
