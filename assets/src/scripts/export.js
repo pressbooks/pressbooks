@@ -100,7 +100,7 @@ jQuery( function ( $ ) {
 			let name = $( this ).attr( 'name' );
 			let shorter_name = name.replace( 'export_formats[', 'ef[' );
 			if ( $( this ).prop( 'checked' ) ) {
-				// Syntax: 'ef[<format>]': 1
+				// Cookie syntax: 'ef[<format>]': 1
 				// I.e: 'ef[print_pdf]': 1
 				json_cookie[ shorter_name ] = 1;
 			} else {
@@ -128,6 +128,7 @@ jQuery( function ( $ ) {
 					$( this ).prop( 'checked', true );
 					cb.prop( 'checked', false );
 					cb.prop( 'disabled', true );
+					tr.find( 'td.column-file span.delete' ).hide();
 				}
 			}
 		} )
@@ -139,7 +140,7 @@ jQuery( function ( $ ) {
 			let format = tr.attr( 'data-format' );
 			let cb = $( `input[name='ID[]'][value='${id}']` );
 			if ( $( this ).prop( 'checked' ) ) {
-				// Syntax: 'p[<crc32-filename-td>]': '<crc32-format-td>'
+				// Cookie syntax: 'p[<crc32-filename-td>]': '<crc32-format-td>'
 				// I.e: 'p[579e13ce]': '857408ec'
 				json_cookie[ shorter_name ] = format;
 				// Up to five files can be pinned at once.
@@ -165,8 +166,10 @@ jQuery( function ( $ ) {
 				}
 				cb.prop( 'checked', false );
 				cb.prop( 'disabled', true );
+				tr.find( 'td.column-file span.delete' ).hide();
 			} else {
 				cb.prop( 'disabled', false );
+				tr.find( 'td.column-file span.delete' ).show();
 				delete json_cookie[ shorter_name ];
 			}
 			update_json_cookie();
