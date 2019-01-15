@@ -265,7 +265,7 @@ function replace_book_admin_menu() {
 				add_screen_option(
 					'per_page', [
 						'default' => 50,
-						'option' => 'pb_export_files_per_page',
+						'option' => 'pb_export_per_page',
 					]
 				);
 				wp_localize_script(
@@ -358,7 +358,7 @@ function replace_book_admin_menu() {
  * @return mixed
  */
 function custom_screen_options( $default, $option, $value ) {
-	if ( 'pb_export_files_per_page' === $option ) {
+	if ( 'pb_export_per_page' === $option ) {
 		return (int) $value;
 	}
 	return $default;
