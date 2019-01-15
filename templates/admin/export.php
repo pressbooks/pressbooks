@@ -4,7 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-// TODO: Delete me
+// TODO: Delete this file, it's no longer being used
 
 /* Outputs the content for the Export page for a book */
 

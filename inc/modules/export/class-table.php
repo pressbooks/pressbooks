@@ -18,22 +18,6 @@ class Table extends \WP_List_Table {
 	}
 
 	/**
-	 * @return string
-	 */
-	public function inlineJs() {
-		$filetypes = \Pressbooks\Modules\Export\filetypes();
-		$map = [];
-		foreach ( $filetypes as $k => $v ) {
-			$map[ "export_formats[{$k}]" ] = $this->getTinyHash( $this->getFormat( $v ) );
-		}
-
-		$map = wp_json_encode( $map );
-		return "var _pb_export_formats_map = {$map};";
-	}
-
-	/**
-	 * Override
-	 *
 	 * @param object $item The current item
 	 */
 	public function single_row( $item ) {
@@ -157,9 +141,6 @@ class Table extends \WP_List_Table {
 	 */
 	public function prepare_items() {
 
-		// Process any actions first
-		$this->processBulkActions();
-
 		// Define Columns
 		$columns = $this->get_columns();
 		$hidden = [];
@@ -191,9 +172,43 @@ class Table extends \WP_List_Table {
 	}
 
 	/**
+	 * Inline JavaScript to be echoed in template before <table>
+	 * Process any actions the table needs to do in here
+	 *
+	 * @return string
+	 */
+	public function inlineJs() {
+		// Process any actions first
+		$this->processBulkActions();
+		$this->truncateExports();
+		$js = '';
+
+		// Map the export form to equivalents in latest exports table
+		$filetypes = \Pressbooks\Modules\Export\filetypes();
+		$map = [];
+		foreach ( $filetypes as $k => $v ) {
+			$map[ "export_formats[{$k}]" ] = $this->getTinyHash( $this->getFormat( $v ) );
+		}
+		$map = wp_json_encode( $map );
+		$js .= "var _pb_export_formats_map = {$map}; ";
+
+		// Keep an inventory of all available pins. If files are deleted, then fix the cookie
+		$pins = [];
+		foreach ( $this->getFiles() as $filepath ) {
+			$file = basename( $filepath );
+			$key = 'p[' . $this->getTinyHash( $file ) . ']';
+			$pins[ $key ] = $this->getTinyHash( $this->getFormat( $file ) );
+		}
+		$pins = wp_json_encode( $pins );
+		$js .= "var _pb_export_pins_inventory = {$pins}; ";
+
+		return $js;
+	}
+
+	/**
 	 * @return array
 	 */
-	protected function getLatestExports() {
+	protected function getFiles() {
 		$dir = untrailingslashit( Export::getExportFolder() );
 		$ignored = [ '.', '..', '.svn', '.git', '.htaccess' ];
 		$files = [];
@@ -201,7 +216,51 @@ class Table extends \WP_List_Table {
 			if ( in_array( $file, $ignored, true ) || is_dir( "$dir/$file" ) ) {
 				continue;
 			}
-			$stat = stat( "$dir/$file" );
+			$files[] = "{$dir}/{$file}";
+		}
+		return $files;
+	}
+
+	/**
+	 * Keep the last three of each specific export format
+	 *
+	 * @param int $keep_the_last (optional)
+	 */
+	public function truncateExports( $keep_the_last = 3 ) {
+		// Sort files by modification time
+		$files = [];
+		foreach ( $this->getFiles() as $filepath ) {
+			$files[ $filepath ] = filemtime( $filepath );
+		}
+		arsort( $files );
+
+		// Group sorted files by format
+		$groups = [];
+		foreach ( $files as $filepath => $timestamp ) {
+			$format = $this->getFormat( $filepath );
+			$groups[ $format ][] = $filepath;
+		}
+
+		// Delete files in group bigger than $keep_the_last
+		foreach ( $groups as $group ) {
+			$i = 1;
+			foreach ( $group as $filepath ) {
+				if ( $i > $keep_the_last ) {
+					unlink( $filepath );
+				}
+				++$i;
+			}
+		}
+	}
+
+	/**
+	 * @return array
+	 */
+	protected function getLatestExports() {
+		$files = [];
+		foreach ( $this->getFiles() as $filepath ) {
+			$stat = stat( $filepath );
+			$file = basename( $filepath );
 			$files[] = [
 				'ID' => $this->getTinyHash( $file ),
 				'file' => $file,

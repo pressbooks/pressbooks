@@ -10,6 +10,15 @@ jQuery( function ( $ ) {
 	if ( typeof json_cookie === 'undefined' ) {
 		json_cookie = {};
 	}
+	Object.keys( json_cookie ).forEach( function ( k ) {
+		// key starts with p[ (for pin)
+		if ( k.indexOf( 'p[' ) === 0 ) {
+			// If files have been deleted, then fix the cookie
+			if ( ! _pb_export_pins_inventory.hasOwnProperty( k ) ) { // eslint-disable-line no-undef
+				delete json_cookie[ k ];
+			}
+		}
+	} );
 	function update_json_cookie() {
 		Cookies.set( json_cookie_key, json_cookie, {
 			path: '/',
