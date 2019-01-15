@@ -156,7 +156,7 @@ class Table extends \WP_List_Table {
 		$data = $this->getLatestExports();
 
 		// Pagination
-		$per_page = $this->get_items_per_page( 'pb_export_files', 50 );
+		$per_page = $this->get_items_per_page( 'pb_export_files_per_page', 50 );
 		$current_page = $this->get_pagenum();
 		$total_items = count( $data );
 		$orderby = ( ! empty( $_REQUEST['orderby'] ) ) ? $_REQUEST['orderby'] : 'exported';

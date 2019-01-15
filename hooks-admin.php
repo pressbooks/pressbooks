@@ -67,6 +67,7 @@ if ( $is_book ) {
 	add_action( 'wp_dashboard_setup', '\Pressbooks\Admin\Dashboard\replace_dashboard_widgets' );
 	add_action( 'customize_register', '\Pressbooks\Admin\Laf\customize_register', 1000 );
 	add_filter( 'all_plugins', '\Pressbooks\Admin\Plugins\filter_plugins' );
+	add_filter( 'set-screen-option', '\Pressbooks\Admin\Laf\custom_screen_options', 10, 3 );
 	// Disable theme customizer
 	add_action( 'admin_body_class', '\Pressbooks\Admin\Laf\disable_customizer' );
 
