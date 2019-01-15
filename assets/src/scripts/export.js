@@ -34,6 +34,26 @@ jQuery( function ( $ ) {
 	/* Swap out and animate the 'Export Your Book' button */
 	$( '#pb-export-button' ).click( function ( e ) {
 		e.preventDefault();
+		// If the user has pinned three files of a given export type and then tries to export that format,
+		// the export job should be stopped and an error should be displayed instructing them to deselect
+		// one of the pinned files before attempting to export.
+		let tooManyExports = false;
+		let myLabel = '';
+		$( '#pb-export-form input:checked' ).each( function () {
+			myLabel = $( "label[for='" + $( this ).attr( 'id' ) + "']" ).text().trim(); // eslint-disable-line quotes
+			let myMatch = _pb_export_formats_map[ this.name ]; // eslint-disable-line no-undef
+			if ( Object.entries( json_cookie ).filter( function ( arr ) {
+				// key starts with p[ (for pin) AND value matches <crc32-format-td>
+				return arr[ 0 ].indexOf( 'p[' ) === 0 && arr[ 1 ] === myMatch;
+			} ).length >= 3 ) {
+				tooManyExports = true;
+				return false; // Use return false to break out of each() loops early
+			}
+		} );
+		if ( tooManyExports ) {
+			alert( myLabel + ': ' + PB_ExportToken.tooManyExportsWarning );
+			return false;
+		}
 		$( '.export-file-container' ).unbind( 'mouseenter mouseleave' ); // Disable Download & Delete Buttons
 		$( '.export-control button' ).prop( 'disabled', true );
 		$( '#pb-export-button' ).hide();
@@ -80,6 +100,8 @@ jQuery( function ( $ ) {
 			let name = $( this ).attr( 'name' );
 			let shorter_name = name.replace( 'export_formats[', 'ef[' );
 			if ( $( this ).prop( 'checked' ) ) {
+				// Syntax: 'ef[<format>]': 1
+				// I.e: 'ef[print_pdf]': 1
 				json_cookie[ shorter_name ] = 1;
 			} else {
 				delete json_cookie[ shorter_name ];
@@ -117,9 +139,12 @@ jQuery( function ( $ ) {
 			let format = tr.attr( 'data-format' );
 			let cb = $( `input[name='ID[]'][value='${id}']` );
 			if ( $( this ).prop( 'checked' ) ) {
+				// Syntax: 'p[<crc32-filename-td>]': '<crc32-format-td>'
+				// I.e: 'p[579e13ce]': '857408ec'
 				json_cookie[ shorter_name ] = format;
 				// Up to five files can be pinned at once.
 				if ( Object.entries( json_cookie ).filter( function ( arr ) {
+					// key starts with p[ (for pin)
 					return arr[ 0 ].indexOf( 'p[' ) === 0;
 				} ).length > 5 ) {
 					delete json_cookie[ shorter_name ];
@@ -130,6 +155,7 @@ jQuery( function ( $ ) {
 				// If the user has pinned three files of a given export type and they then try to pin an additional file of that type,
 				// an error should be displayed instructing them to deselect one of the pinned files before attempting to pin another.
 				if ( Object.entries( json_cookie ).filter( function ( arr ) {
+					// key starts with p[ (for pin) AND value matches <crc32-format-td>
 					return arr[ 0 ].indexOf( 'p[' ) === 0 && arr[ 1 ] === format;
 				} ).length > 3 ) {
 					delete json_cookie[ shorter_name ];

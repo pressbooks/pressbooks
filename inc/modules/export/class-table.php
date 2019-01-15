@@ -18,6 +18,20 @@ class Table extends \WP_List_Table {
 	}
 
 	/**
+	 * @return string
+	 */
+	public function inlineJs() {
+		$filetypes = \Pressbooks\Modules\Export\filetypes();
+		$map = [];
+		foreach ( $filetypes as $k => $v ) {
+			$map[ "export_formats[{$k}]" ] = $this->getTinyHash( $this->getFormat( $v ) );
+		}
+
+		$map = wp_json_encode( $map );
+		return "var _pb_export_formats_map = {$map};";
+	}
+
+	/**
 	 * Override
 	 *
 	 * @param object $item The current item

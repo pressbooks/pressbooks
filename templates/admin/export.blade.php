@@ -80,6 +80,11 @@
     @if ( apply_filters( 'pb_export_show_files', true ) )
         @inject('table', '\Pressbooks\Modules\Export\Table')
 		<?php /** @var \Pressbooks\Modules\Export\Table $table */ ?>
+        <script type='text/javascript'>
+			/* <![CDATA[ */
+            {!! $table->inlineJs() !!}
+			/* ]]> */
+        </script>
         {!! $table->prepare_items() !!}
         <form method="POST">
             {!! $table->display() !!}

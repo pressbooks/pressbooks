@@ -137,6 +137,43 @@ function formats() {
 /**
  * @return array
  */
+function filetypes() {
+	/**
+	 * Add custom export formats to the latest exports filetype mapping array.
+	 *
+	 * For example, here's how one might add a hypothetical Word export format:
+	 *
+	 * add_filter( 'pb_latest_export_filetypes', function ( $filetypes ) {
+	 *    $filetypes['word'] = '.docx';
+	 *    return $filetypes;
+	 * } );
+	 *
+	 * @since 3.9.8
+	 *
+	 * @param array $value
+	 */
+	$filetypes = apply_filters(
+		'pb_latest_export_filetypes', [
+			'epub3' => '._3.epub',
+			'epub' => '.epub',
+			'pdf' => '.pdf',
+			'print_pdf' => '._print.pdf',
+			'mobi' => '.mobi',
+			'icml' => '.icml',
+			'htmlbook' => '.-htmlbook.html',
+			'xhtml' => '.html',
+			'wxr' => '.xml',
+			'vanillawxr' => '._vanilla.xml',
+			'mpdf' => '._oss.pdf',
+			'odf' => '.odt',
+		]
+	);
+	return $filetypes;
+}
+
+/**
+ * @return array
+ */
 function template_data() {
 	$export_form_url = wp_nonce_url( get_admin_url( get_current_blog_id(), '/admin.php?page=pb_export&export=yes' ), 'pb-export' );
 
