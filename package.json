@@ -64,8 +64,11 @@
 			"pb_sr": true,
 			"post_status": true,
 			"tinymce": true
-		}
-	},
+    },
+    "rules": {
+      "jquery": "off"
+    }
+  },
 	"stylelint": {
 		"extends": "./node_modules/pressbooks-build-tools/config/stylelint.js",
 		"rules": {
