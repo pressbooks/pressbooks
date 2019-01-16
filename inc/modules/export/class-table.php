@@ -96,7 +96,7 @@ class Table extends \WP_List_Table {
 	 * @return string Text to be placed inside the column <td>
 	 */
 	public function column_pin( $item ) {
-		$html = "<input type='checkbox' name='pin[{$item['ID']}]' value='1' " . checked( $item['pin'] ) . '/>';
+		$html = "<input type='checkbox' name='pin[{$item['ID']}]' value='1' />";
 		return $html;
 	}
 
@@ -226,7 +226,7 @@ class Table extends \WP_List_Table {
 	 *
 	 * @param int $keep_the_last (optional)
 	 */
-	public function truncateExports( $keep_the_last = 3 ) {
+	protected function truncateExports( $keep_the_last = 3 ) {
 		// Sort files by modification time
 		$files = [];
 		foreach ( $this->getFiles() as $filepath ) {
@@ -266,7 +266,7 @@ class Table extends \WP_List_Table {
 				'file' => $file,
 				'format' => $this->getFormat( $file ),
 				'size' => \Pressbooks\Utility\format_bytes( $stat['size'] ),
-				'pin' => 0,
+				'pin' => 0, // Not used
 				'exported' => date_i18n( 'Y-m-d H:i', $stat['mtime'] ),
 			];
 		}
