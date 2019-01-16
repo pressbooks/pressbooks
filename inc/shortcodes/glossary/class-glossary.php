@@ -176,31 +176,31 @@ class Glossary {
 	 *
 	 * @since 5.5.0
 	 *
-	 * @param array $term_id
+	 * @param int $gloss_id
 	 * @param string $content
 	 *
 	 * @return string
 	 */
-	public function glossaryTooltip( $term_id, $content ) {
+	public function glossaryTooltip( $gloss_id, $content ) {
 
-		// get the glossary post object the ID belongs to
-		$terms = get_post( $term_id['id'] );
-		if ( ! $terms ) {
+		// Get the glossary post object the ID belongs to
+		$gloss = get_post( $gloss_id );
+		if ( ! $gloss ) {
 			return $content;
 		}
-		if ( $terms->post_status === 'trash' ) {
+		if ( $gloss->post_status === 'trash' ) {
 			return $content;
 		}
 
 		// use our post instead of the global $post object
-		setup_postdata( $terms );
+		setup_postdata( $gloss );
 
 		// setup_postdata() sets up every global for the post except ...drumroll... $post /fail horn
 		global $post;
 		$old_global_post = $post;
-		$post = $terms;
+		$post = $gloss;
 
-		$html = '<a href="javascript:void(0);" class="tooltip" title="' . esc_attr( wp_strip_all_tags( $terms->post_content ) ) . '">' . $content . '</a>';
+		$html = '<a href="javascript:void(0);" class="tooltip" title="' . esc_attr( wp_strip_all_tags( $gloss->post_content ) ) . '">' . $content . '</a>';
 
 		// reset post data
 		wp_reset_postdata();
@@ -232,7 +232,7 @@ class Glossary {
 		if ( ! empty( $content ) ) {
 			// This is a tooltip
 			if ( $a['id'] ) {
-				return $this->glossaryTooltip( $a, $content );
+				return $this->glossaryTooltip( $a['id'], $content );
 			}
 		} else {
 			// This is a list of glossary terms
