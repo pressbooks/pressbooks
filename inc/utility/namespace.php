@@ -298,8 +298,7 @@ function check_epubcheck_install() {
 	exec( PB_EPUBCHECK_COMMAND . ' -h 2>&1', $output, $return_val );
 
 	$output = $output[0];
-	if ( false !== stripos( $output, 'EPUBCheck' ) ) { // Command found.
-		preg_match( '/(?:EPUBCheck\sv)*(([0-9]+.?)+)/i', $output, $matches );
+	if ( preg_match( '/(?:EPUBCheck\sv)*(([0-9]+.?)+)/i', $output, $matches ) ) { // Command found.
 		$version = $matches[1];
 		if ( version_compare( $version, '4.0.0' ) >= 0 ) {
 			return true;
