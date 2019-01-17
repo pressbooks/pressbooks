@@ -252,7 +252,7 @@ function after_title( $post ) {
  */
 function wp_editor_settings( $settings ) {
 	if ( get_post_type() === 'glossary' ) {
-		$settings['wpautop'] = false;
+		$settings['wpautop'] = true;
 		$settings['media_buttons'] = false;
 		$settings['tinymce'] = [
 			'toolbar1' => 'bold,italic,|,link,unlink,|,undo,redo',
