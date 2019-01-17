@@ -270,8 +270,9 @@ function replace_book_admin_menu() {
 				);
 				wp_localize_script(
 					'pb-export', 'PB_ExportToken', [
+						'pinsNonce' => wp_create_nonce( 'pb-export-pins' ),
 						'tooManyExportsWarning' => __( 'Too many pinned files. Deselect one of the pinned files before attempting to export.', 'pressbooks' ),
-						'maximumFilesWarning' => __( 'Up to five files can be pinned at once.', 'pressbooks' ),
+						'maximumFilesWarning' => __( 'Up to 5 files can be pinned at once.', 'pressbooks' ),
 						'maximumFileTypeWarning' => __( 'Cannot pin more than 3 of the same file type.', 'pressbooks' ),
 					]
 				);

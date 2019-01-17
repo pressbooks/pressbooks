@@ -190,3 +190,12 @@ function template_data() {
 		'theme_name' => $theme_name,
 	];
 }
+
+function update_pins() {
+	check_ajax_referer( 'pb-export-pins' );
+	$pins = json_decode( stripcslashes( $_POST['pins'] ), true );
+	if ( is_array( $pins ) ) {
+		set_transient( Table::PIN, $pins );
+	}
+	wp_send_json_success();
+}

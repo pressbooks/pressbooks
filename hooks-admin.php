@@ -228,6 +228,8 @@ add_action( 'wp_ajax_pb_delete_cover_image', '\Pressbooks\Admin\Metaboxes\delete
 add_action( 'wp_ajax_pb_ftnref_convert', [ '\Pressbooks\Shortcodes\Footnotes\Footnotes', 'convertWordFootnotes' ] );
 // User Catalog Page
 add_action( 'wp_ajax_pb_delete_catalog_logo', [ '\Pressbooks\Catalog', 'deleteLogo' ] );
+// Export page
+add_action( 'wp_ajax_pb_update_pins', '\Pressbooks\Modules\Export\update_pins' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // SASS

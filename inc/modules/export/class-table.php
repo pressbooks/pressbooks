@@ -8,6 +8,10 @@ namespace Pressbooks\Modules\Export;
 
 class Table extends \WP_List_Table {
 
+	const PIN = 'pb_export_pins';
+
+	private $_pins = [];
+
 	public function __construct( $args = [] ) {
 		$args = [
 			'singular' => 'file',
@@ -96,7 +100,8 @@ class Table extends \WP_List_Table {
 	 * @return string Text to be placed inside the column <td>
 	 */
 	public function column_pin( $item ) {
-		$html = "<input type='checkbox' name='pin[{$item['ID']}]' value='1' />";
+		$format = $this->getTinyHash( $item['format'] );
+		$html = "<input type='checkbox' name='pin[{$item['ID']}]' value='{$format}' " . checked( $item['pin'], true, false ) . '/>';
 		return $html;
 	}
 
@@ -189,17 +194,26 @@ class Table extends \WP_List_Table {
 		foreach ( $filetypes as $k => $v ) {
 			$map[ "export_formats[{$k}]" ] = $this->getTinyHash( $this->getFormat( $v ) );
 		}
-		$map = wp_json_encode( $map );
+		$map = wp_json_encode( $map, JSON_FORCE_OBJECT );
 		$js .= "var _pb_export_formats_map = {$map}; ";
 
-		// Keep an inventory of all available pins. If files are deleted, then fix the cookie
-		$pins = [];
+		// Pins
+		$all_possible_pins = [];
 		foreach ( $this->getFiles() as $filepath ) {
 			$file = basename( $filepath );
-			$key = 'p[' . $this->getTinyHash( $file ) . ']';
-			$pins[ $key ] = $this->getTinyHash( $this->getFormat( $file ) );
+			$key = 'pin[' . $this->getTinyHash( $file ) . ']';
+			$all_possible_pins[ $key ] = $this->getTinyHash( $this->getFormat( $file ) );
 		}
-		$pins = wp_json_encode( $pins );
+		$pins = get_transient( self::PIN );
+		if ( ! is_array( $pins ) ) {
+			$pins = [];
+		}
+		foreach ( $pins as $k => $v ) {
+			if ( ! isset( $all_possible_pins[ $k ] ) ) {
+				unset( $pins[ $k ] );
+			}
+		}
+		$pins = wp_json_encode( $pins, JSON_FORCE_OBJECT );
 		$js .= "var _pb_export_pins_inventory = {$pins}; ";
 
 		return $js;
@@ -222,23 +236,33 @@ class Table extends \WP_List_Table {
 	}
 
 	/**
+	 * @param bool $reset
+	 *
 	 * @return array
 	 */
-	protected function getPins() {
-		$pinned = [];
-		if ( isset( $_COOKIE['pb_export'] ) ) {
-			$cookie = json_decode( stripcslashes( $_COOKIE['pb_export'] ), true );
-			if ( is_array( $cookie ) ) {
-				foreach ( $cookie as $k => $v ) {
-					if ( \Pressbooks\Utility\str_starts_with( $k, 'p[' ) ) {
-						$k = \Pressbooks\Utility\str_remove_prefix( $k, 'p[' );
-						$k = \Pressbooks\Utility\str_lreplace( ']', '', $k );
-						$pinned[] = $k;
-					}
-				}
-			}
+	protected function getPins( $reset = false ) {
+		if ( $reset ) {
+			$this->_pins = [];
 		}
-		return $pinned;
+		if ( empty( $this->_pins ) ) {
+			$pins = get_transient( self::PIN );
+			if ( ! is_array( $pins ) ) {
+				$pins = [];
+			}
+			$this->_pins = $pins;
+		}
+		return $this->_pins;
+	}
+
+	/**
+	 * @param string $id
+	 *
+	 * @return bool
+	 */
+	protected function hasPin( $id ) {
+		$pins = $this->getPins();
+		$name = "pin[{$id}]";
+		return isset( $pins[ $name ] );
 	}
 
 	/**
@@ -257,10 +281,9 @@ class Table extends \WP_List_Table {
 		// Group sorted files by format
 		// Start with/prioritize pins, to to reduce likelihood of deletion
 		$groups = [];
-		$pins = $this->getPins();
 		foreach ( $files as $filepath => $timestamp ) {
-			$hash = $this->getTinyHash( basename( $filepath ) );
-			if ( in_array( $hash, $pins, true ) ) {
+			$ID = $this->getTinyHash( basename( $filepath ) );
+			if ( $this->hasPin( $ID ) ) {
 				$format = $this->getFormat( $filepath );
 				$groups[ $format ][] = $filepath;
 				unset( $files[ $filepath ] );
@@ -291,12 +314,13 @@ class Table extends \WP_List_Table {
 		foreach ( $this->getFiles() as $filepath ) {
 			$stat = stat( $filepath );
 			$file = basename( $filepath );
+			$id = $this->getTinyHash( $file );
 			$files[] = [
-				'ID' => $this->getTinyHash( $file ),
+				'ID' => $id,
 				'file' => $file,
 				'format' => $this->getFormat( $file ),
 				'size' => \Pressbooks\Utility\format_bytes( $stat['size'] ),
-				'pin' => 0, // Not used
+				'pin' => $this->hasPin( $id ) ? 1 : 0,
 				'exported' => date_i18n( 'Y-m-d H:i', $stat['mtime'] ),
 			];
 		}
