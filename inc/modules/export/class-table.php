@@ -222,6 +222,26 @@ class Table extends \WP_List_Table {
 	}
 
 	/**
+	 * @return array
+	 */
+	protected function getPins() {
+		$pinned = [];
+		if ( isset( $_COOKIE['pb_export'] ) ) {
+			$cookie = json_decode( stripcslashes( $_COOKIE['pb_export'] ), true );
+			if ( is_array( $cookie ) ) {
+				foreach ( $cookie as $k => $v ) {
+					if ( \Pressbooks\Utility\str_starts_with( $k, 'p[' ) ) {
+						$k = \Pressbooks\Utility\str_remove_prefix( $k, 'p[' );
+						$k = \Pressbooks\Utility\str_lreplace( ']', '', $k );
+						$pinned[] = $k;
+					}
+				}
+			}
+		}
+		return $pinned;
+	}
+
+	/**
 	 * Keep the last three of each specific export format
 	 *
 	 * @param int $keep_the_last (optional)
@@ -235,7 +255,17 @@ class Table extends \WP_List_Table {
 		arsort( $files );
 
 		// Group sorted files by format
+		// Start with/prioritize pins, to to reduce likelihood of deletion
 		$groups = [];
+		$pins = $this->getPins();
+		foreach ( $files as $filepath => $timestamp ) {
+			$hash = $this->getTinyHash( basename( $filepath ) );
+			if ( in_array( $hash, $pins, true ) ) {
+				$format = $this->getFormat( $filepath );
+				$groups[ $format ][] = $filepath;
+				unset( $files[ $filepath ] );
+			}
+		}
 		foreach ( $files as $filepath => $timestamp ) {
 			$format = $this->getFormat( $filepath );
 			$groups[ $format ][] = $filepath;
