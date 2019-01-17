@@ -113,7 +113,7 @@ jQuery( function ( $ ) {
 	$( 'td.column-pin' )
 		.find( 'input' )
 		.each( function () {
-			if ( this.checked ) {
+			if ( $( this ).prop( 'checked' ) ) {
 				let tr = $( this ).closest( 'tr' );
 				let id = tr.attr( 'data-id' );
 				let cb = $( `input[name='ID[]'][value='${id}']` );
