@@ -22,6 +22,7 @@
 		"jquery-sticky": "^1.0.4",
 		"js-cookie": "^2.1.4",
 		"pagedjs": "^0.1.30",
+		"popper.js": "^1.14.6",
 		"select2": "^4.0.3",
 		"sidr": "^2.2.1",
 		"tinymce": "^4.9.2",
@@ -61,7 +62,8 @@
 			"PB_NetworkManagerToken": true,
 			"PB_OrganizeToken": true,
 			"PB_ThemeLockToken": true,
-			"pb_sr": true,
+      "pb_sr": true,
+      "Popper": true,
 			"post_status": true,
 			"tinymce": true
 		}

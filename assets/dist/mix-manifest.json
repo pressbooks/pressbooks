@@ -1,11 +1,12 @@
 {
-    "/scripts/paged.polyfill.js": "/scripts/paged.polyfill.js?id=97ab8aebc0418a0c4ab8",
-    "/scripts/anchor.js": "/scripts/anchor.js?id=b8cbd932cb1338511465",
+    "/scripts/paged.polyfill.js": "/scripts/paged.polyfill.js?id=4cb63836865b2cc2d63c",
+    "/scripts/anchor.js": "/scripts/anchor.js?id=9b9d37dd70c8649aace9",
     "/styles/catalog.css": "/styles/catalog.css?id=b4d78714ee50b66c97be",
     "/styles/colors-pb.css": "/styles/colors-pb.css?id=c0853bc29e98317812aa",
     "/styles/covergenerator.css": "/styles/covergenerator.css?id=ff7959394e65a69d3c1a",
     "/styles/cloner.css": "/styles/cloner.css?id=11347078e8fedba35238",
     "/styles/export.css": "/styles/export.css?id=051bb75fbdccdfb67f18",
+    "/styles/glossary-tooltip.css": "/styles/glossary-tooltip.css?id=d3cf964e5d1fe8f8be72",
     "/styles/login.css": "/styles/login.css?id=539978d230546b2521f2",
     "/styles/metadata.css": "/styles/metadata.css?id=0f07ef0ed371a8cd93c5",
     "/styles/network-managers.css": "/styles/network-managers.css?id=77d465c0788f57898bdc",
@@ -15,6 +16,7 @@
     "/styles/select2.css": "/styles/select2.css?id=7373e0d2a1e8dabab523",
     "/styles/style-catalog.css": "/styles/style-catalog.css?id=1b990ad0f745d38311a3",
     "/styles/theme-options.css": "/styles/theme-options.css?id=4e6fd1be2be2d103379e",
+    "/scripts/glossary-tooltip.js": "/scripts/glossary-tooltip.js?id=6d1f9850a9927ad26324",
     "/scripts/organize.js": "/scripts/organize.js?id=df95b40494cab7109b4e",
     "/scripts/export.js": "/scripts/export.js?id=0daf81009d0086d5d6dd",
     "/scripts/theme-options.js": "/scripts/theme-options.js?id=3cebcca56542c658186e",
@@ -30,7 +32,6 @@
     "/scripts/login.js": "/scripts/login.js?id=b8f4cfa8ac326a1f7e65",
     "/scripts/import.js": "/scripts/import.js?id=1092d2d0f6a357f46625",
     "/scripts/glossary.js": "/scripts/glossary.js?id=5b1b0f37c318b8e7301e",
-    "/scripts/glossary-tooltip.js": "/scripts/glossary-tooltip.js?id=1096491e53b4c75cd927",
     "/scripts/ftnref-convert.js": "/scripts/ftnref-convert.js?id=2a34ca0b1ff4ccb1b2b9",
     "/scripts/footnote.js": "/scripts/footnote.js?id=984e4e5689c865079271",
     "/scripts/cssanimations.js": "/scripts/cssanimations.js?id=6e82f5550b9fa18a4018",
@@ -47,5 +48,5 @@
     "/scripts/js-cookie.js": "/scripts/js-cookie.js?id=8ff1c89f24a8ca6f91f7",
     "/scripts/select2.js": "/scripts/select2.js?id=e66208e306a3e3b57128",
     "/scripts/sidr.js": "/scripts/sidr.js?id=32495427b04ceeab5376",
-    "/scripts/table.js": "/scripts/table.js?id=8ce4adb1715708fce4f3"
+    "/scripts/table.js": "/scripts/table.js?id=73bdb14ca3e0dd2434c7"
 }

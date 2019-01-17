@@ -179,7 +179,6 @@ function mce_button_scripts( $plugin_array ) {
  * @return array
  */
 function mce_before_init_insert_formats( $init_array ) {
-
 	$style_formats = [
 		[
 			'title' => __( 'Indent', 'pressbooks' ),
@@ -456,7 +455,12 @@ function add_anchors_to_wp_link_query( $results, $query ) {
  * @return array
  */
 function show_kitchen_sink( $args ) {
-	$args['wordpress_adv_hidden'] = false;
+	global $post;
+	$post_type = get_post_type( $post->ID );
+
+	if ( $post_type !== 'glossary' ) {
+		$args['wordpress_adv_hidden'] = false;
+	}
 	return $args;
 }
 

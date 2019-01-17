@@ -1,29 +1,29 @@
-// This script is loaded when a user is on a books web view
-( function () {
+window.Popper = require( 'popper.js' ).default;
 
-	// Show the tooltip
-	jQuery( document ).on( 'click', '.tooltip', function () {
-		jQuery( '.tooltip.on' ).tooltip( 'close' ).removeClass( 'on' );
-		jQuery( this ).addClass( 'on' );
-		jQuery( this ).tooltip( {
-			items: '.tooltip.on',
-			show: false,
-			hide: false,
-			position: {
-				my: 'center bottom',
-				at: 'center top',
-			},
+document.addEventListener( 'DOMContentLoaded', function () {
+	const glossTerms = document.querySelectorAll(
+		'#content .glossary-term'
+	);
+
+	Array.prototype.forEach.call( glossTerms, glossTerm => {
+		const glossTermId = glossTerm.getAttribute( 'aria-describedby' );
+		const glossDefinition = document.getElementById( glossTermId );
+		new Popper( glossTerm, glossDefinition, {} );
+
+		glossTerm.onfocus = showDefinition;
+
+		function showDefinition() {
+			glossDefinition.hidden = false;
+		}
+
+		function hideDefinition() {
+			glossDefinition.hidden = true;
+		}
+
+		document.addEventListener( 'click', event => {
+			if ( ! glossDefinition.contains( event.target ) && ! glossTerm.contains( event.target ) ) {
+				hideDefinition();
+			}
 		} );
-		jQuery( this ).trigger( 'mouseenter' );
 	} );
-	// Hide the tooltip
-	jQuery( document ).on( 'click', '.tooltip.on', function () {
-		jQuery( this ).tooltip( 'close' );
-		jQuery( this ).removeClass( 'on' );
-	} );
-	//prevent mouseout and other related events from firing their handlers
-	jQuery( '.tooltip' ).on( 'mouseout', function ( e ) {
-		e.stopImmediatePropagation();
-	} );
-
-} )();
+} );
