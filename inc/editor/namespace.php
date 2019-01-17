@@ -133,9 +133,11 @@ function admin_enqueue_scripts( $hook ) {
 		]
 	);
 
-	if ( 'post-new.php' === $hook || 'post.php' === $hook && $post->post_type !== 'glossary' ) {
-		wp_enqueue_script( 'my_custom_quicktags', $assets->getPath( 'scripts/quicktags.js' ), [ 'quicktags' ] );
-		wp_enqueue_script( 'wp-api' );
+	if ( 'post-new.php' === $hook || 'post.php' === $hook ) {
+		if ( ! is_object( $post ) || $post->post_type !== 'glossary' ) {
+			wp_enqueue_script( 'my_custom_quicktags', $assets->getPath( 'scripts/quicktags.js' ), [ 'quicktags' ] );
+			wp_enqueue_script( 'wp-api' );
+		}
 	}
 }
 
@@ -456,12 +458,8 @@ function add_anchors_to_wp_link_query( $results, $query ) {
  * @return array
  */
 function show_kitchen_sink( $args ) {
-	global $post;
-	$post_type = get_post_type( $post->ID );
+	$args['wordpress_adv_hidden'] = false;
 
-	if ( $post_type !== 'glossary' ) {
-		$args['wordpress_adv_hidden'] = false;
-	}
 	return $args;
 }
 

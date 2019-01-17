@@ -16,10 +16,11 @@
 
   &:hover {
     background: transparent;
-    border-bottom-color: var(--primary-dark);
+    border-color: transparent transparent var(--primary-dark);
     color: var(--primary-dark);
   }
 
+  &:active,
   &:focus {
     background: transparent;
     border-color: var(--primary-dark);

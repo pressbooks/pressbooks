@@ -26,6 +26,8 @@ document.addEventListener( 'DOMContentLoaded', function () {
 				&& ! glossaryDefinition.contains( event.target )
 			) {
 				hideDefinition();
+			} else if ( event.target === glossaryTerm ) {
+				showDefinition();
 			}
 		} );
 

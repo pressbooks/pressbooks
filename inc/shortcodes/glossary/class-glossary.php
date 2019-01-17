@@ -202,7 +202,7 @@ class Glossary {
 		// Get the glossary post object the glossary term ID belongs to
 		$glossary_term = get_post( $glossary_term_id );
 		if ( ! $glossary_term ) {
-			return $content;
+			return $content . 'no post';
 		}
 		if ( $glossary_term->post_status === 'trash' ) {
 			return $content;

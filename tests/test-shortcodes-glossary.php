@@ -91,19 +91,21 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 	}
 
 	public function test_glossaryTooltip() {
+		global $id;
+		$id = 42; // Fake it!
 		$pid = $this->_createGlossaryPost();
-		$result = $this->gl->glossaryTooltip( [ 'id' => $pid ], 'PHP' );
-		$this->assertEquals( '<a href="javascript:void(0);" class="tooltip" title="A &quot;popular&quot; general-purpose scripting language that is especially suited to web development.">PHP</a>', $result );
+		$result = $this->gl->glossaryTooltip( $pid, 'PHP' );
+		$this->assertEquals( '<button class="glossary-term" aria-describedby="42-' . $pid . '">PHP</button>', $result );
 
 		$this->factory()->post->update_object( $pid, [ 'post_status' => 'trash' ] );
-		$result = $this->gl->glossaryTooltip( [ 'id' => $pid ], 'PHP' );
+		$result = $this->gl->glossaryTooltip( $pid, 'PHP' );
 		$this->assertEquals( 'PHP', $result );
 	}
 
 	public function test_getGlossaryTerms() {
 		$terms = $this->gl->getGlossaryTerms();
 		$this->assertEquals( 3, count( $terms ) );
-		$this->assertEquals( 'A computer system modeled on the human brain and nervous system.', $terms['Neural Network']['content'] );
+		$this->assertEquals( 'A computer system modeled on the human brain and <a href="https://en.wikipedia.org/wiki/Nervous_system" target="_blank">nervous system</a>.', $terms['Neural Network']['content'] );
 		$this->assertEquals( 'else,something', $terms['Neural Network']['type'] );
 		$this->assertEquals( 'publish', $terms['Neural Network']['status'] );
 
@@ -122,6 +124,10 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 		$this->assertEquals( 'private', $terms['Cache Test']['status'] );
 	}
 
+	// public function test_tooltipContent() {
+	// 	// TODO
+	// }
+
 	public function test_sanitizeGlossaryTerm() {
 		$data['post_type'] = 'imaginary-post-type';
 		$data['post_content'] = 'All is <strong>good.</strong>';
@@ -130,7 +136,7 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 
 		$data['post_type'] = 'glossary';
 		$results = $this->gl->sanitizeGlossaryTerm( $data );
-		$this->assertEquals( 'All is good.', $results['post_content'] );
+		$this->assertEquals( 'All is <strong>good.</strong>', $results['post_content'] );
 	}
 
 	public function test_backMatterAutoDisplay() {
