@@ -46,6 +46,8 @@ class Glossary {
 			// Override webbook shortcode when exporting
 			remove_shortcode( self::SHORTCODE );
 			add_shortcode( self::SHORTCODE, [ $obj, 'exportShortcodeHandler' ] );
+			remove_filter( 'the_content', [ $obj, 'tooltipContent' ], 13 ); // Only for the webbook!
+
 		} );
 		add_filter(
 			'no_texturize_shortcodes',
@@ -59,7 +61,7 @@ class Glossary {
 		add_filter( 'the_content', [ $obj, 'backMatterAutoDisplay' ] );
 		// do_shortcode() is registered as a default filter on 'the_content' with a priority of 11.
 		// We need to run $this->tooltipContent() after this, and after footnotes and attributions which are set to 12 and 13 respectively
-		add_filter( 'the_content', [ $obj, 'tooltipContent' ], 13 ); // TODO: Only for the webbook!
+		add_filter( 'the_content', [ $obj, 'tooltipContent' ], 13 );
 	}
 
 	/**
@@ -190,11 +192,12 @@ class Glossary {
 	 *
 	 * @param int $glossary_term_id
 	 * @param string $content
-	 * @param string $identifier
 	 *
 	 * @return string
 	 */
-	public function glossaryTooltip( $glossary_term_id, $content, $identifier ) {
+	public function glossaryTooltip( $glossary_term_id, $content ) {
+
+		global $id; // This is the Post ID, [@see WP_Query::setup_postdata, ...]
 
 		// Get the glossary post object the glossary term ID belongs to
 		$glossary_term = get_post( $glossary_term_id );
@@ -205,7 +208,7 @@ class Glossary {
 			return $content;
 		}
 
-		$html = '<button class="glossary-term" aria-describedby="' . $identifier . '">' . $content . '</button>';
+		$html = '<button class="glossary-term" aria-describedby="' . $id . '-' . $glossary_term_id . '">' . $content . '</button>';
 
 		return $html;
 	}
@@ -240,11 +243,10 @@ class Glossary {
 					$this->glossaryTerms[ $id ] = [];
 				}
 
-				$this->glossaryTerms[ $id ][] = get_post_field( 'post_content', $a['id'] );
-				$glossary_terms = $this->glossaryTerms[ $id ];
-				$num = count( $glossary_terms );
-				$identifier = "$id-$num";
-				return $this->glossaryTooltip( $a['id'], $content, $identifier );
+				if ( ! isset( $this->glossaryTerms[ $id ][ $a['id'] ] ) ) {
+					$this->glossaryTerms[ $id ][ $a['id'] ] = get_post_field( 'post_content', $a['id'] );
+				}
+				return $this->glossaryTooltip( $a['id'], $content );
 			}
 		} else {
 			// This is a list of glossary terms
@@ -273,9 +275,8 @@ class Glossary {
 
 		$content .= '<div class="glossary">';
 
-		foreach ( $glossary_terms as $num => $glossary_term ) {
-			$num++;
-			$identifier = "$id-$num";
+		foreach ( $glossary_terms as $glossary_term_id => $glossary_term ) {
+			$identifier = "$id-$glossary_term_id";
 			$content .= '<div class="glossary__tooltip" id="' . $identifier . '" hidden>' . wpautop( $glossary_term ) . '</div>';
 		}
 

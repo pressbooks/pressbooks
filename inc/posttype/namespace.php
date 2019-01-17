@@ -259,7 +259,9 @@ function wp_editor_settings( $settings ) {
 			'toolbar2' => '',
 			'toolbar3' => '',
 		];
-		$settings['quicktags'] = false;
+		$settings['quicktags'] = [
+			'buttons' => 'strong,em,link,close',
+		];
 		$settings['editor_css'] = '<style>.wp-editor-area { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif; font-size: 14px; }</style>';
 	}
 	return $settings;

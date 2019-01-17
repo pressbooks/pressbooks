@@ -93,6 +93,7 @@ function mce_buttons_3( $buttons ) {
  * @param string $hook
  */
 function admin_enqueue_scripts( $hook ) {
+	global $post;
 	$assets = new Assets( 'pressbooks', 'plugin' );
 
 	// Footnotes
@@ -132,7 +133,7 @@ function admin_enqueue_scripts( $hook ) {
 		]
 	);
 
-	if ( 'post-new.php' === $hook || 'post.php' === $hook ) {
+	if ( 'post-new.php' === $hook || 'post.php' === $hook && $post->post_type !== 'glossary' ) {
 		wp_enqueue_script( 'my_custom_quicktags', $assets->getPath( 'scripts/quicktags.js' ), [ 'quicktags' ] );
 		wp_enqueue_script( 'wp-api' );
 	}
