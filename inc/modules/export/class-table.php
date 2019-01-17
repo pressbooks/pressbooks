@@ -282,8 +282,8 @@ class Table extends \WP_List_Table {
 		// Start with/prioritize pins, to to reduce likelihood of deletion
 		$groups = [];
 		foreach ( $files as $filepath => $timestamp ) {
-			$ID = $this->getTinyHash( basename( $filepath ) );
-			if ( $this->hasPin( $ID ) ) {
+			$id = $this->getTinyHash( basename( $filepath ) );
+			if ( $this->hasPin( $id ) ) {
 				$format = $this->getFormat( $filepath );
 				$groups[ $format ][] = $filepath;
 				unset( $files[ $filepath ] );
