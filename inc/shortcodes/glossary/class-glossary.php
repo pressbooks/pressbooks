@@ -304,7 +304,19 @@ class Glossary {
 	 */
 	public function sanitizeGlossaryTerm( $data ) {
 		if ( isset( $data['post_type'], $data['post_content'] ) && $data['post_type'] === 'glossary' ) {
-			$data['post_content'] = strip_tags( $data['post_content'], '<a><strong><em><p><br>' );
+			$data['post_content'] = wp_kses(
+				$data['post_content'],
+				[
+					'a' => [
+						'href' => [],
+						'target' => [],
+					],
+					'br' => [],
+					'em' => [],
+					'p' => [],
+					'strong' => [],
+				]
+			);
 		}
 		return $data;
 	}

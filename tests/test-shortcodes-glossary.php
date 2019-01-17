@@ -13,9 +13,9 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 		parent::setUp();
 
 		$this->gl = $this->getMockBuilder( '\Pressbooks\Shortcodes\Glossary\Glossary' )
-		                 ->setMethods( null )
-		                 ->disableOriginalConstructor()
-		                 ->getMock();
+			->setMethods( null )
+			->disableOriginalConstructor()
+			->getMock();
 
 		// Add the filter that tests no HTML ever gets saved
 		add_filter( 'wp_insert_post_data', [ $this->gl, 'sanitizeGlossaryTerm' ] );
@@ -124,19 +124,53 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 		$this->assertEquals( 'private', $terms['Cache Test']['status'] );
 	}
 
-	// public function test_tooltipContent() {
-	// 	// TODO
-	// }
+	public function test_tooltipContent() {
+		// $glossary = $this->gl->init();
+		$terms = $this->gl->getGlossaryTerms();
+		// $post_content = sprintf(
+		// 	'This is a story about [pb_glossary id="%s"]neural networks[/pb_glossary] and [pb_glossary id="%s"]support vector machines[/pb_glossary].',
+		// 	$terms['Neural Network']['id'],
+		// 	$terms['Support Vector Machine']['id']
+		// );
+
+		// global $post;
+		// global $id;
+		// $args = [
+		// 	'post_title' => 'Test Chapter: ' . rand(),
+		// 	'post_type' => 'chapter',
+		// 	'post_status' => 'publish',
+		// 	'post_content' => $post_content,
+		// ];
+		// $pid = $this->factory()->post->create_object( $args );
+		// $post = get_post( $pid );
+		// $id = $pid;
+		// $content = apply_filters( 'the_content', $post->post_content );
+		global $id;
+		$id = 1;
+
+		$definitions = [];
+
+		// First, add some terms
+		foreach ( $terms as $term ) {
+			$_ = $this->gl->webShortCodeHandler( [ 'id' => $term['id'] ], 'First.' );
+			$definitions[] = $term['content'];
+		}
+
+		$content = $this->gl->tooltipContent( 'Hello World' );
+		$this->assertContains( '<div class="glossary">', $content );
+		$this->assertContains( $definitions[0], $content );
+		$this->assertContains( $definitions[1], $content );
+	}
 
 	public function test_sanitizeGlossaryTerm() {
 		$data['post_type'] = 'imaginary-post-type';
-		$data['post_content'] = 'All is <strong>good.</strong>';
+		$data['post_content'] = '<a href="https://google.com" onclick="event.preventDefault(); alert(\'evil!\');">All</a> is <strong>good.</strong>';
 		$results = $this->gl->sanitizeGlossaryTerm( $data );
 		$this->assertEquals( $data['post_content'], $results['post_content'] );
 
 		$data['post_type'] = 'glossary';
 		$results = $this->gl->sanitizeGlossaryTerm( $data );
-		$this->assertEquals( 'All is <strong>good.</strong>', $results['post_content'] );
+		$this->assertEquals( '<a href="https://google.com">All</a> is <strong>good.</strong>', $results['post_content'] );
 	}
 
 	public function test_backMatterAutoDisplay() {
