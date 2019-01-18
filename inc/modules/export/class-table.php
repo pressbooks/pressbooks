@@ -26,7 +26,8 @@ class Table extends \WP_List_Table {
 	 */
 	public function single_row( $item ) {
 		$format = $this->getTinyHash( $item['format'] );
-		echo "<tr data-id='{$item['ID']}' data-format='{$format}'>";
+		$file = esc_attr( $item['file'] );
+		echo "<tr data-id='{$item['ID']}' data-format='{$format}' data-file='{$file}'>";
 		$this->single_row_columns( $item );
 		echo '</tr>';
 	}
@@ -75,7 +76,7 @@ class Table extends \WP_List_Table {
 		$actions['delete'] = sprintf(
 			'<a href="%s" aria-label="%s" ' . $onclick . '>%s</a>',
 			$delete_url,
-			/* translators: %s: filename */
+			/* translators: %s: file */
 			esc_attr( sprintf( __( 'Delete &#8220;%s&#8221;' ), $item['file'] ) ),
 			_x( 'Delete', 'verb' )
 		);
@@ -84,7 +85,7 @@ class Table extends \WP_List_Table {
 		$actions['download'] = sprintf(
 			'<a href="%s" aria-label="%s" >%s</a>',
 			$download_url,
-			/* translators: %s: filename */
+			/* translators: %s: file */
 			esc_attr( sprintf( __( 'Download &#8220;%s&#8221;' ), $item['file'] ) ),
 			_x( 'Download', 'verb' )
 		);
@@ -97,11 +98,21 @@ class Table extends \WP_List_Table {
 	/**
 	 * @param array $item A singular item (one full row's worth of data)
 	 *
+	 * @return string
+	 */
+	public function column_size( $item ) {
+		return \Pressbooks\Utility\format_bytes( $item['size'] );
+	}
+
+	/**
+	 * @param array $item A singular item (one full row's worth of data)
+	 *
 	 * @return string Text to be placed inside the column <td>
 	 */
 	public function column_pin( $item ) {
 		$format = $this->getTinyHash( $item['format'] );
-		$html = "<input type='checkbox' name='pin[{$item['ID']}]' value='{$format}' " . checked( $item['pin'], true, false ) . '/>';
+		$html = "<input type='checkbox' id='pin[{$item['ID']}]' name='pin[{$item['ID']}]' value='{$format}' " . checked( $item['pin'], true, false ) . '/>';
+		$html .= "<label for='pin[{$item['ID']}]'>Pin this file</label>";
 		return $html;
 	}
 
@@ -114,7 +125,7 @@ class Table extends \WP_List_Table {
 			'file' => __( 'File', 'pressbooks' ),
 			'format' => __( 'Format', 'pressbooks' ),
 			'size' => __( 'Size', 'pressbooks' ),
-			'pin' => '📌', // <span class="dashicons dashicons-admin-post"></span> or 📌
+			'pin' => __( 'Pin', 'pressbooks' ),
 			'exported' => __( 'Exported', 'pressbooks' ),
 		];
 	}
@@ -126,6 +137,7 @@ class Table extends \WP_List_Table {
 		$sortable_columns = [
 			'file' => [ 'file', true ],
 			'format' => [ 'format', true ],
+			'size' => [ 'size', true ],
 			'pin' => [ 'pin', true ],
 			'exported' => [ 'exported', true ],
 		];
@@ -319,7 +331,7 @@ class Table extends \WP_List_Table {
 				'ID' => $id,
 				'file' => $file,
 				'format' => $this->getFormat( $file ),
-				'size' => \Pressbooks\Utility\format_bytes( $stat['size'] ),
+				'size' => $stat['size'],
 				'pin' => $this->hasPin( $id ) ? 1 : 0,
 				'exported' => date_i18n( 'Y-m-d H:i', $stat['mtime'] ),
 			];
@@ -403,7 +415,7 @@ class Table extends \WP_List_Table {
 	 */
 	protected function getFormat( $file ) {
 		$file_class = $this->getCssClass( $file );
-		return ucfirst( $file_class );
+		return \Pressbooks\Modules\Export\get_name_for_filetype( $file_class );
 	}
 
 	/**

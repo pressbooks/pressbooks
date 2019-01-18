@@ -129,7 +129,9 @@ jQuery( function ( $ ) {
 			let id = tr.attr( 'data-id' );
 			let cb = $( `input[name='ID[]'][value='${id}']` );
 			let format = tr.attr( 'data-format' );
-			if ( $( this ).prop( 'checked' ) ) {
+			let file = tr.attr( 'data-file' );
+			let pinned = $( this ).prop( 'checked' ) ? 1 : 0;
+			if ( pinned ) {
 				_pb_export_pins_inventory[ name ] = format;
 				// Up to five files can be pinned at once.
 				if ( Object.keys( _pb_export_pins_inventory ).length > 5 ) {
@@ -165,7 +167,14 @@ jQuery( function ( $ ) {
 				data: {
 					action: 'pb_update_pins',
 					pins: JSON.stringify( _pb_export_pins_inventory ),
+					file: file,
+					pinned: pinned,
 					_ajax_nonce: PB_ExportToken.pinsNonce,
+				},
+				success: response => {
+					let pinNotifications = $( '#pin-notifications' );
+					pinNotifications.html( response.data.message );
+					pinNotifications.fadeIn().delay( 3000 ).fadeOut();
 				},
 			} );
 		} );

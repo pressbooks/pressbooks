@@ -14,7 +14,7 @@ class Modules_Export_TableTest extends \WP_UnitTestCase {
 		'ID' => '43761d21',
 		'file' => 'Test-1547581888.pdf',
 		'format' => 'Pdf',
-		'size' => '502.01 KB',
+		'size' => 999999,
 		'pin' => 0,
 		'exported' => '2019-01-15 19:51',
 	];

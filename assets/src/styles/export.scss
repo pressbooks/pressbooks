@@ -286,6 +286,10 @@
     margin-left: 58px;
   }
 
+  td.column-pin label {
+    @include visually-hidden();
+  }
+
   .theme {
     border: 1px solid #dedede;
     width: 325px;

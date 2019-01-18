@@ -30,6 +30,13 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 		}
 	}
 
+	public function get_name_for_filetype() {
+		$type = \Pressbooks\Modules\Export\get_name_for_filetype( 'print-pdf' );
+		$this->assertEquals( 'Print PDF', $type );
+		$type = \Pressbooks\Modules\Export\get_name_for_filetype( 'wtfbbq' );
+		$this->assertEquals( 'Wtfbbq', $type );
+	}
+
 	public function test_template_data() {
 		$data = \Pressbooks\Modules\Export\template_data();
 		$this->assertArrayHasKey( 'export_form_url', $data );

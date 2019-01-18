@@ -119,7 +119,7 @@ function formats() {
 		'standard' => [
 			'print_pdf' => __( 'PDF (for print)', 'pressbooks' ),
 			'pdf' => __( 'PDF (for digital distribution)', 'pressbooks' ),
-			'epub' => __( 'EPUB (for Nook, iBooks, Kobo etc.)', 'pressbooks' ),
+			'epub' => __( 'EPUB (for Nook, Apple Books, Kobo etc.)', 'pressbooks' ),
 			'mobi' => __( 'MOBI (for Kindle)', 'pressbooks' ),
 		],
 		'exotic' => [
@@ -172,6 +172,38 @@ function filetypes() {
 }
 
 /**
+ * Return a human-readable filetype for a given filetype slug.
+ *
+ * @since 2.0.0
+ *
+ * @param string $filetype The filetype slug.
+ *
+ * @return string A human-readable filetype.
+ */
+function get_name_for_filetype( $filetype ) {
+	/**
+	 * Add custom export file types to the array of human-readable file types.
+	 * @since 2.0.0
+	 */
+	$formats = apply_filters(
+		'pb_export_filetype_names', [
+			'print-pdf' => __( 'Print PDF', 'pressbooks-book' ),
+			'pdf' => __( 'Digital PDF', 'pressbooks-book' ),
+			'mpdf' => __( 'Digital PDF', 'pressbooks-book' ),
+			'htmlbook' => __( 'HTMLBook', 'pressbooks-book' ),
+			'epub' => __( 'EPUB', 'pressbooks-book' ),
+			'mobi' => __( 'MOBI', 'pressbooks-book' ),
+			'epub3' => __( 'EPUB3', 'pressbooks-book' ),
+			'xhtml' => __( 'XHTML', 'presbooks-book' ),
+			'odf' => __( 'OpenDocument', 'pressbooks-book' ),
+			'wxr' => __( 'Pressbooks XML', 'pressbooks-book' ),
+			'vanillawxr' => __( 'WordPress XML', 'pressbooks' ),
+		]
+	);
+	return isset( $formats[ $filetype ] ) ? $formats[ $filetype ] : ucfirst( $filetype );
+}
+
+/**
  * @return array
  */
 function template_data() {
@@ -191,11 +223,21 @@ function template_data() {
 	];
 }
 
+/**
+ * WP_Ajax
+ */
 function update_pins() {
 	check_ajax_referer( 'pb-export-pins' );
 	$pins = json_decode( stripcslashes( $_POST['pins'] ), true );
 	if ( is_array( $pins ) ) {
 		set_transient( Table::PIN, $pins );
+		$data = [
+			'message' => sprintf(
+				__( 'The file %1$s has been %2$s successfully.', 'pressbooks' ),
+				$_POST['file'],
+				$_POST['pinned'] ? __( 'pinned', 'pressbooks' ) : __( 'unpinned', 'pressbooks' )
+			),
+		];
+		wp_send_json_success( $data );
 	}
-	wp_send_json_success();
 }

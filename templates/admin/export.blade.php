@@ -6,7 +6,7 @@
 	 */
 	?>
     {!! do_action( 'pb_top_of_export_page' ) !!}
-    <h2>{{ __( 'Export', 'pressbooks') }}</h2>
+    <h1>{{ __( 'Export', 'pressbooks') }}</h1>
     <p>{{ __( 'You can select multiple formats below. Pressbooks keeps your last three exports in each export format. You can pin specific files to make sure they don\'t get deleted', 'pressbooks') }}</p>
     <div class="postbox">
         <h2><span id="pb-export-hndle" class="dashicons dashicons-arrow-up"></span></h2>
@@ -65,7 +65,8 @@
         <p id="loader" class="loading-content"><span class="spinner"></span></p>
     </div>
     <div class="clear"></div>
-    <h2>{{ __( 'Latest Exports', 'pressbooks') }}</h2>
+    <h1>{{ __( 'Latest Exports', 'pressbooks') }}</h1>
+    <div id="pin-notifications" aria-live="assertive"></div>
 	<?php
 	/**
 	 * @since 5.3.0

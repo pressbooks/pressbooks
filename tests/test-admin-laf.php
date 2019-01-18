@@ -139,7 +139,7 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		ob_start();
 		\Pressbooks\Admin\Laf\display_export();
 		$buffer = ob_get_clean();
-		$this->assertContains( '<h2>Export', $buffer );
+		$this->assertContains( '<h1>Export', $buffer );
 		$this->assertContains( '<div class="clear"></div>', $buffer );
 	}
 
