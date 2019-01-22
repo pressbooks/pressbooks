@@ -32,7 +32,7 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		$this->assertContains( 'https://pressbooks.org/contact', $buffer );
 	}
 
-	function test_replace_book_admin_menu() {
+	function test_replace_book_admin_menu_AND_init_css_js() {
 
 		global $menu, $submenu;
 
@@ -56,6 +56,59 @@ class Admin_LafTest extends \WP_UnitTestCase {
 			],
 			$submenu['options-general.php']
 		);
+
+		// -------------------------------------------------------------------
+		// Enqueue tests
+		// -------------------------------------------------------------------
+
+		global $wp_scripts, $wp_styles;
+		\Pressbooks\Admin\Laf\init_css_js();
+
+		$new_post['post_type'] = 'chapter';
+		$GLOBALS['post'] = get_post( $this->factory()->post->create_object( $new_post ) );
+		$GLOBALS['current_screen'] = WP_Screen::get( 'chapter' );
+		do_action( 'admin_enqueue_scripts', 'post.php' );
+		$this->assertContains( 'pb-post-visibility', $wp_scripts->queue );
+
+		$new_post['post_type'] = 'back-matter';
+		$GLOBALS['post'] =  get_post( $this->factory()->post->create_object( $new_post ) );
+		$GLOBALS['current_screen'] = WP_Screen::get( 'back-matter' );
+		do_action( 'admin_enqueue_scripts', 'post.php' );
+		$this->assertContains( 'pb-post-back-matter', $wp_scripts->queue );
+
+		$GLOBALS['post'] = ( new \Pressbooks\Metadata )->getMetaPost();
+		$GLOBALS['current_screen'] = WP_Screen::get( 'metadata' );
+		do_action( 'admin_enqueue_scripts', 'post.php' );
+		$this->assertContains( 'pb-metadata', $wp_scripts->queue );
+
+		$new_post['post_type'] = 'post';
+		$GLOBALS['post'] =  get_post( $this->factory()->post->create_object( $new_post ) );
+		$GLOBALS['current_screen'] = WP_Screen::get( 'post' );
+		do_action( 'admin_enqueue_scripts', 'toplevel_page_pb_organize' );
+		$this->assertContains( 'pb-organize', $wp_scripts->queue );
+		$this->assertContains( 'pb-organize', $wp_styles->queue );
+
+		do_action( 'admin_enqueue_scripts', 'toplevel_page_pb_export' );
+		$this->assertContains( 'pb-export', $wp_scripts->queue );
+		$this->assertContains( 'pb-export', $wp_styles->queue );
+
+		do_action( 'admin_enqueue_scripts', 'admin_page_pb_import' );
+		$this->assertContains( 'pb-import', $wp_scripts->queue );
+
+		do_action( 'admin_enqueue_scripts', 'admin_page_pb_cloner' );
+		$this->assertContains( 'pb-cloner', $wp_scripts->queue );
+		$this->assertContains( 'pb-cloner', $wp_styles->queue );
+	}
+
+	function test_custom_screen_options() {
+		$x = \Pressbooks\Admin\Laf\custom_screen_options( false, 'pb_export_per_page', 9 );
+		$this->assertEquals( $x, 9 );
+		$x = \Pressbooks\Admin\Laf\custom_screen_options( false, 'pb_export_per_page', '9' );
+		$this->assertEquals( $x, 9 );
+		$x = \Pressbooks\Admin\Laf\custom_screen_options( false, 'pb_export_per_page', 'int' );
+		$this->assertEquals( $x, 0 );
+		$x = \Pressbooks\Admin\Laf\custom_screen_options( false, 'fake_records', 9 );
+		$this->assertTrue( $x === false );
 	}
 
 	function test_reorder_book_admin_menu() {
@@ -82,10 +135,11 @@ class Admin_LafTest extends \WP_UnitTestCase {
 	}
 
 	function test_display_export() {
+		$GLOBALS['hook_suffix'] = 'mock';
 		ob_start();
 		\Pressbooks\Admin\Laf\display_export();
 		$buffer = ob_get_clean();
-		$this->assertContains( '<h2>Export', $buffer );
+		$this->assertContains( '<h1>Export', $buffer );
 		$this->assertContains( '<div class="clear"></div>', $buffer );
 	}
 

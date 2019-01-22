@@ -55,6 +55,7 @@
 			"edButton": true,
 			"edButtons": true,
 			"PB_BookInfoToken": true,
+			"PB_ExportToken": true,
 			"PB_FootnotesToken": true,
 			"PB_GlossaryToken": true,
 			"PB_Login": true,
