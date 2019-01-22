@@ -125,26 +125,8 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 	}
 
 	public function test_tooltipContent() {
-		// $glossary = $this->gl->init();
 		$terms = $this->gl->getGlossaryTerms();
-		// $post_content = sprintf(
-		// 	'This is a story about [pb_glossary id="%s"]neural networks[/pb_glossary] and [pb_glossary id="%s"]support vector machines[/pb_glossary].',
-		// 	$terms['Neural Network']['id'],
-		// 	$terms['Support Vector Machine']['id']
-		// );
 
-		// global $post;
-		// global $id;
-		// $args = [
-		// 	'post_title' => 'Test Chapter: ' . rand(),
-		// 	'post_type' => 'chapter',
-		// 	'post_status' => 'publish',
-		// 	'post_content' => $post_content,
-		// ];
-		// $pid = $this->factory()->post->create_object( $args );
-		// $post = get_post( $pid );
-		// $id = $pid;
-		// $content = apply_filters( 'the_content', $post->post_content );
 		global $id;
 		$id = 1;
 
