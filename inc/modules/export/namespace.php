@@ -174,7 +174,7 @@ function filetypes() {
 /**
  * Return a human-readable filetype for a given filetype slug.
  *
- * @since 2.0.0
+ * @since 5.7.0
  *
  * @param string $filetype The filetype slug.
  *
@@ -183,7 +183,7 @@ function filetypes() {
 function get_name_for_filetype( $filetype ) {
 	/**
 	 * Add custom export file types to the array of human-readable file types.
-	 * @since 2.0.0
+	 * @since 5.7.0
 	 */
 	$formats = apply_filters(
 		'pb_export_filetype_names', [

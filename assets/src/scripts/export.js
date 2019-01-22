@@ -19,18 +19,17 @@ jQuery( function ( $ ) {
 	}
 
 	/* Collapsible form */
-	$( '#pb-export-hndle' ).click( function ( evt ) {
-		let hndle = $( '#pb-export-hndle' );
-		if ( hndle.hasClass( 'dashicons-arrow-up' ) ) {
-			hndle.removeClass( 'dashicons-arrow-up' );
-			hndle.addClass( 'dashicons-arrow-down' );
-			$( '.wrap .postbox .inside' ).hide();
+	const optionsPanel = document.getElementById( 'export-options' );
+	const toggleButton = optionsPanel.querySelector( '.handlediv' );
+	toggleButton.onclick = () => {
+		let expanded = toggleButton.getAttribute( 'aria-expanded' ) === 'true' || false;
+		toggleButton.setAttribute( 'aria-expanded', ! expanded );
+		if ( expanded ) {
+			optionsPanel.classList.add( 'closed' );
 		} else {
-			hndle.removeClass( 'dashicons-arrow-down' );
-			hndle.addClass( 'dashicons-arrow-up' );
-			$( '.wrap .postbox .inside' ).show();
+			optionsPanel.classList.remove( 'closed' );
 		}
-	} );
+	}
 
 	/* Swap out and animate the 'Export Your Book' button */
 	$( '#pb-export-button' ).click( function ( e ) {
@@ -174,7 +173,6 @@ jQuery( function ( $ ) {
 				success: response => {
 					let pinNotifications = $( '#pin-notifications' );
 					pinNotifications.html( response.data.message );
-					pinNotifications.fadeIn().delay( 3000 ).fadeOut();
 				},
 			} );
 		} );

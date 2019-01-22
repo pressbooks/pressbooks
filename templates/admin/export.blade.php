@@ -8,44 +8,53 @@
     {!! do_action( 'pb_top_of_export_page' ) !!}
     <h1>{{ __( 'Export', 'pressbooks') }}</h1>
     <p>{{ __( 'You can select multiple formats below. Pressbooks keeps your last three exports in each export format. You can pin specific files to make sure they don\'t get deleted', 'pressbooks') }}</p>
-    <div class="postbox">
-        <h2><span id="pb-export-hndle" class="dashicons dashicons-arrow-up"></span></h2>
+    <div id="export-options" class="postbox">
+		<button type="button" class="handlediv" aria-expanded="true">
+			<span class="screen-reader-text">{{ __( 'Toggle panel: Export Options', 'pressbooks') }}</span>
+			<span class="toggle-indicator" aria-hidden="true"></span>
+		</button>
+        <h2>
+			<span>{{ __( 'Export Options', 'pressbooks') }}</span>
+		</h2>
         <div class="inside">
             <form id="pb-export-form" action="{{ $export_form_url }}" method="POST">
                 <div class="grid">
-                    {{-- COLUMN 1 --}}
-                    <div class="column">
-                        <fieldset class="standard">
-                            <legend>{{ __( 'Supported formats', 'pressbooks' ) }}:</legend>
-                            @foreach($formats['standard'] as $key => $value)
-                                <input type="checkbox" id="{{$key}}" name="export_formats[{{$key}}]" value="1" {{isset( $dependency_errors[ $key ] ) ? 'disabled' : ''}}/><label
-                                        for="{{$key}}"> {{$value}}</label><br/>
-                            @endforeach
-                        </fieldset>
-                    </div>
-                    {{-- COLUMN 2 --}}
-                    <div class="column">
-                        <fieldset class="exotic">
-                            <legend>{{ __( 'Other formats', 'pressbooks' ) }}:</legend>
-                            @foreach($formats['exotic'] as $key => $value)
-                                <input type="checkbox" id="{{$key}}" name="export_formats[{{$key}}]" value="1" {{isset( $dependency_errors[ $key ] ) ? 'disabled' : ''}}/><label
-                                        for="{{$key}}"> {{$value}}</label><br/>
-                            @endforeach
-                        </fieldset>
-                    </div>
-                    {{-- COLUMN 3 --}}
-                    <div class="column">
+					<div class="formats">
+						{{-- Supported Formats --}}
+						<div class="supported-formats">
+							<fieldset class="standard">
+								<legend>{{ __( 'Supported formats', 'pressbooks' ) }}:</legend>
+								@foreach($formats['standard'] as $key => $value)
+									<input type="checkbox" id="{{$key}}" name="export_formats[{{$key}}]" value="1" {{isset( $dependency_errors[ $key ] ) ? 'disabled' : ''}}/><label
+											for="{{$key}}"> {{$value}}</label><br/>
+								@endforeach
+							</fieldset>
+						</div>
+						{{-- Other Formats --}}
+						<div class="other-formats">
+							<fieldset class="exotic">
+								<legend>{{ __( 'Other formats', 'pressbooks' ) }}:</legend>
+								@foreach($formats['exotic'] as $key => $value)
+									<input type="checkbox" id="{{$key}}" name="export_formats[{{$key}}]" value="1" {{isset( $dependency_errors[ $key ] ) ? 'disabled' : ''}}/><label
+											for="{{$key}}"> {{$value}}</label><br/>
+								@endforeach
+							</fieldset>
+						</div>
+					</div>
+                    {{-- Theme --}}
+                    <div class="themes">
+                    	{{-- Theme --}}
                         <div class="theme">
                             <div class="theme-screenshot">
                                 <img src="{{ apply_filters( 'pb_stylesheet_directory_uri', get_stylesheet_directory_uri() ) }}/screenshot.png" alt="">
                             </div>
                         </div>
-                    </div>
-                    {{-- COLUMN 4 --}}
-                    <div class="column">
-                        <p><b>{{  __( 'Your Theme', 'pressbooks' ) }}:</b> {!! $theme_name !!}</p>
-                        <p><a class="button button-primary" href="{{ get_bloginfo( 'url' ) }}/wp-admin/themes.php">{{  __( 'Change Theme', 'pressbooks' ) }}</a></p>
-                        <p><a class="" href="{{ get_bloginfo( 'url' ) }}/wp-admin/themes.php?page=pressbooks_theme_options">{{ __( 'Theme Options', 'pressbooks' ) }}</a></p>
+						{{-- Theme Controls --}}
+						<div class="theme-controls">
+							<p><b>{{  __( 'Your Theme', 'pressbooks' ) }}:</b> {!! $theme_name !!}</p>
+							<p><a class="button button-primary" href="{{ get_bloginfo( 'url' ) }}/wp-admin/themes.php">{{  __( 'Change Theme', 'pressbooks' ) }}</a></p>
+							<p><a class="" href="{{ get_bloginfo( 'url' ) }}/wp-admin/themes.php?page=pressbooks_theme_options">{{ __( 'Theme Options', 'pressbooks' ) }}</a></p>
+						</div>
                     </div>
                 </div>
 				<?php
@@ -66,7 +75,7 @@
     </div>
     <div class="clear"></div>
     <h1>{{ __( 'Latest Exports', 'pressbooks') }}</h1>
-    <div id="pin-notifications" aria-live="assertive"></div>
+    <div id="pin-notifications" class="screen-reader-text" aria-live="assertive"></div>
 	<?php
 	/**
 	 * @since 5.3.0
