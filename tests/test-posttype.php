@@ -83,7 +83,7 @@ class PostTypeTest extends \WP_UnitTestCase {
 		ob_start();
 		after_title( $x );
 		$buffer = ob_get_clean();
-		$this->assertContains( 'not supported', $buffer );
+		$this->assertContains( 'supported in glossary terms', $buffer );
 
 		$x->post_type = 'back-matter';
 		$x->ID = 0;
@@ -107,7 +107,7 @@ class PostTypeTest extends \WP_UnitTestCase {
 
 		$settings2 = wp_editor_settings( $settings );
 		$this->assertNotEquals( $settings, $settings2 );
-		$this->assertTrue( $settings2['tinymce'] === false );
+		$this->assertTrue( $settings2['media_buttons'] === false );
 	}
 
 	function test_display_post_states() {
