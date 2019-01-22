@@ -262,6 +262,20 @@ function replace_book_admin_menu() {
 	add_action(
 		'admin_enqueue_scripts', function ( $hook ) use ( $export_page ) {
 			if ( $hook === $export_page ) {
+				add_screen_option(
+					'per_page', [
+						'default' => 50,
+						'option' => 'pb_export_per_page',
+					]
+				);
+				wp_localize_script(
+					'pb-export', 'PB_ExportToken', [
+						'pinsNonce' => wp_create_nonce( 'pb-export-pins' ),
+						'tooManyExportsWarning' => __( 'Too many pinned files. Deselect one of the pinned files before attempting to export.', 'pressbooks' ),
+						'maximumFilesWarning' => __( 'Up to 5 files can be pinned at once.', 'pressbooks' ),
+						'maximumFileTypeWarning' => __( 'Cannot pin more than 3 of the same file type.', 'pressbooks' ),
+					]
+				);
 				wp_enqueue_style( 'pb-export' );
 				wp_enqueue_script( 'pb-export' );
 			}
@@ -333,6 +347,23 @@ function replace_book_admin_menu() {
 
 	// Catalog
 	add_submenu_page( 'index.php', __( 'My Catalog', 'pressbooks' ), __( 'My Catalog', 'pressbooks' ), 'read', 'pb_catalog', '\Pressbooks\Catalog::addMenu' );
+}
+
+/**
+ * Filters a screen option value before it is set.
+ * Returning false to the filter will skip saving the current option.
+ *
+ * @param bool $default
+ * @param $option
+ * @param $value
+ *
+ * @return mixed
+ */
+function custom_screen_options( $default, $option, $value ) {
+	if ( 'pb_export_per_page' === $option ) {
+		return (int) $value;
+	}
+	return $default;
 }
 
 /**
@@ -507,7 +538,11 @@ function display_trash() {
  * Displays the Export Admin Page
  */
 function display_export() {
-	require( PB_PLUGIN_DIR . 'templates/admin/export.php' );
+	$blade = \Pressbooks\Container::get( 'Blade' );
+	echo $blade->render(
+		'admin.export',
+		\Pressbooks\Modules\Export\template_data()
+	);
 }
 
 /**
