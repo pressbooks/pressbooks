@@ -18,6 +18,11 @@ class Glossary {
 	static $instance = null;
 
 	/**
+	 * @var array
+	 */
+	var $glossaryTerms = [];
+
+	/**
 	 * Function to init our class, set filters & hooks, set a singleton instance
 	 *
 	 * @return Glossary
@@ -41,14 +46,22 @@ class Glossary {
 			// Override webbook shortcode when exporting
 			remove_shortcode( self::SHORTCODE );
 			add_shortcode( self::SHORTCODE, [ $obj, 'exportShortcodeHandler' ] );
+			remove_filter( 'the_content', [ $obj, 'tooltipContent' ], 13 ); // Only for the webbook!
+
 		} );
-		add_filter( 'no_texturize_shortcodes', function ( $excluded_shortcodes ) {
-			$excluded_shortcodes[] = Glossary::SHORTCODE;
-			return $excluded_shortcodes;
-		} );
+		add_filter(
+			'no_texturize_shortcodes',
+			function ( $excluded_shortcodes ) {
+				$excluded_shortcodes[] = Glossary::SHORTCODE;
+				return $excluded_shortcodes;
+			}
+		);
 		add_action( 'init', [ $obj, 'addTooltipScripts' ] );
 		add_filter( 'wp_insert_post_data', [ $obj, 'sanitizeGlossaryTerm' ] );
 		add_filter( 'the_content', [ $obj, 'backMatterAutoDisplay' ] );
+		// do_shortcode() is registered as a default filter on 'the_content' with a priority of 11.
+		// We need to run $this->tooltipContent() after this, and after footnotes and attributions which are set to 12 and 13 respectively
+		add_filter( 'the_content', [ $obj, 'tooltipContent' ], 13 );
 	}
 
 	/**
@@ -59,7 +72,8 @@ class Glossary {
 	public function addTooltipScripts() {
 		if ( ! is_admin() ) {
 			$assets = new Assets( 'pressbooks', 'plugin' );
-			wp_enqueue_script( 'glossary-tooltip', $assets->getPath( 'scripts/glossary-tooltip.js' ), [ 'jquery-ui-tooltip' ], false, true );
+			wp_enqueue_script( 'glossary-tooltip', $assets->getPath( 'scripts/glossary-tooltip.js' ), false, null, true );
+			wp_enqueue_style( 'glossary-tooltip', $assets->getPath( 'styles/glossary-tooltip.css' ), false, null );
 		}
 	}
 
@@ -176,35 +190,25 @@ class Glossary {
 	 *
 	 * @since 5.5.0
 	 *
-	 * @param array $term_id
+	 * @param int $glossary_term_id
 	 * @param string $content
 	 *
 	 * @return string
 	 */
-	public function glossaryTooltip( $term_id, $content ) {
+	public function glossaryTooltip( $glossary_term_id, $content ) {
 
-		// get the glossary post object the ID belongs to
-		$terms = get_post( $term_id['id'] );
-		if ( ! $terms ) {
+		global $id; // This is the Post ID, [@see WP_Query::setup_postdata, ...]
+
+		// Get the glossary post object the glossary term ID belongs to
+		$glossary_term = get_post( $glossary_term_id );
+		if ( ! $glossary_term ) {
+			return $content . 'no post';
+		}
+		if ( $glossary_term->post_status === 'trash' ) {
 			return $content;
 		}
-		if ( $terms->post_status === 'trash' ) {
-			return $content;
-		}
 
-		// use our post instead of the global $post object
-		setup_postdata( $terms );
-
-		// setup_postdata() sets up every global for the post except ...drumroll... $post /fail horn
-		global $post;
-		$old_global_post = $post;
-		$post = $terms;
-
-		$html = '<a href="javascript:void(0);" class="tooltip" title="' . esc_attr( wp_strip_all_tags( $terms->post_content ) ) . '">' . $content . '</a>';
-
-		// reset post data
-		wp_reset_postdata();
-		$post = $old_global_post;
+		$html = '<button class="glossary-term" aria-describedby="' . $id . '-' . $glossary_term_id . '">' . $content . '</button>';
 
 		return $html;
 	}
@@ -222,6 +226,9 @@ class Glossary {
 	 * @return string
 	 */
 	public function webShortcodeHandler( $atts, $content ) {
+
+		global $id; // This is the Post ID, [@see WP_Query::setup_postdata, ...]
+
 		$a = shortcode_atts(
 			[
 				'id' => '',
@@ -232,12 +239,48 @@ class Glossary {
 		if ( ! empty( $content ) ) {
 			// This is a tooltip
 			if ( $a['id'] ) {
-				return $this->glossaryTooltip( $a, $content );
+				if ( ! isset( $this->glossaryTerms[ $id ] ) ) {
+					$this->glossaryTerms[ $id ] = [];
+				}
+
+				if ( ! isset( $this->glossaryTerms[ $id ][ $a['id'] ] ) ) {
+					$this->glossaryTerms[ $id ][ $a['id'] ] = get_post_field( 'post_content', $a['id'] );
+				}
+				return $this->glossaryTooltip( $a['id'], $content );
 			}
 		} else {
 			// This is a list of glossary terms
 			return $this->glossaryTerms( $a['type'] );
 		}
+
+		return $content;
+	}
+
+	/**
+	 * Post-process glossary shortcode, creating content for tooltips
+	 *
+	 * @param $content
+	 *
+	 * @return string
+	 */
+	function tooltipContent( $content ) {
+
+		global $id; // This is the Post ID, [@see WP_Query::setup_postdata, ...]
+
+		if ( ! empty( $this->glossaryTerms ) && isset( $this->glossaryTerms[ $id ] ) ) {
+			$glossary_terms = $this->glossaryTerms[ $id ];
+		} else {
+			return $content;
+		}
+
+		$content .= '<div class="glossary">';
+
+		foreach ( $glossary_terms as $glossary_term_id => $glossary_term ) {
+			$identifier = "$id-$glossary_term_id";
+			$content .= '<div class="glossary__tooltip" id="' . $identifier . '" hidden>' . wpautop( $glossary_term ) . '</div>';
+		}
+
+		$content .= '</div>';
 
 		return $content;
 	}
@@ -261,7 +304,19 @@ class Glossary {
 	 */
 	public function sanitizeGlossaryTerm( $data ) {
 		if ( isset( $data['post_type'], $data['post_content'] ) && $data['post_type'] === 'glossary' ) {
-			$data['post_content'] = wp_strip_all_tags( $data['post_content'] );
+			$data['post_content'] = wp_kses(
+				$data['post_content'],
+				[
+					'a' => [
+						'href' => [],
+						'target' => [],
+					],
+					'br' => [],
+					'em' => [],
+					'p' => [],
+					'strong' => [],
+				]
+			);
 		}
 		return $data;
 	}

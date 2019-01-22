@@ -4,6 +4,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+// TODO: Delete this file, it's no longer being used
+
 /* Outputs the content for the Export page for a book */
 
 // -------------------------------------------------------------------------------------------------------------------
@@ -153,7 +155,6 @@ do_action( 'pressbooks_top_of_export_page' );
  * } );
  *
  */
-
 $formats = apply_filters( 'pb_export_formats', [
 	'standard' => [
 		'print_pdf' => __( 'PDF (for print)', 'pressbooks' ),

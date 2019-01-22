@@ -748,9 +748,9 @@ class Epub201 extends ExportGenerator {
 	/**
 	 * Search for all possible permutations of CSS url syntax -- url("*"), url('*'), and url(*) -- and update URLs as needed.
 	 *
-	 * @param string $css
-	 * @param string $scss_dir
-	 * @param string $path_to_epub_assets
+	 * @param string $css The EPUB's (S)CSS content.
+	 * @param string $scss_dir The directory which contains the theme's SCSS files. No trailing slash.
+	 * @param string $path_to_epub_assets The EPUB's assets directory. No trailing slash,
 	 *
 	 * @return string
 	 */
@@ -759,8 +759,8 @@ class Epub201 extends ExportGenerator {
 		$css = preg_replace_callback(
 			$url_regex, function ( $matches ) use ( $scss_dir, $path_to_epub_assets ) {
 
-				$buckram_dir = get_theme_root( 'pressbooks-book' ) . '/pressbooks-book/packages/buckram/assets/';
-				$typography_dir = get_theme_root( 'pressbooks-book' ) . '/pressbooks-book/assets/book/typography/';
+				$buckram_dir = get_theme_root( 'pressbooks-book' ) . '/pressbooks-book/packages/buckram/assets';
+				$typography_dir = get_theme_root( 'pressbooks-book' ) . '/pressbooks-book/assets/book/typography';
 
 				$url = $matches[3];
 				$filename = sanitize_file_name( basename( $url ) );
@@ -768,16 +768,23 @@ class Epub201 extends ExportGenerator {
 				// Look for images in Buckram
 				if ( preg_match( '#^pressbooks-book/assets/book/images/[a-zA-Z0-9_-]+(' . $this->supportedImageExtensions . ')$#i', $url ) ) {
 					$url = str_replace( 'pressbooks-book/assets/book/', '', $url );
-					$my_image = realpath( $buckram_dir . $url );
+					$my_image = realpath( "$buckram_dir/$url" );
 					if ( $my_image ) {
 						copy( $my_image, "$path_to_epub_assets/$filename" );
 						return "url(assets/$filename)";
 					}
 				} elseif ( preg_match( '#^images/[a-zA-Z0-9_-]+(' . $this->supportedImageExtensions . ')$#i', $url ) ) {
-					$my_image = realpath( $buckram_dir . $url );
+					$my_image = realpath( "$buckram_dir/$url" );
 					if ( $my_image ) {
 						copy( $my_image, "$path_to_epub_assets/$filename" );
 						return "url(assets/$filename)";
+					} else {
+						// This is not a Buckram theme, maybe.
+						$my_legacy_image = realpath( "$scss_dir/$url" );
+						if ( $my_legacy_image ) {
+							copy( $my_legacy_image, "$path_to_epub_assets/$filename" );
+							return "url(assets/$filename)";
+						}
 					}
 				} elseif ( preg_match( '#^images/#', $url ) && substr_count( $url, '/' ) === 1 ) {
 
@@ -810,7 +817,7 @@ class Epub201 extends ExportGenerator {
 				} elseif ( preg_match( '#^themes-book/pressbooks-book/fonts/[a-zA-Z0-9_-]+(' . $this->supportedFontExtensions . ')$#i', $url ) ) {
 
 					// Update themes-book/pressbooks-book/fonts/*.ttf (or .otf) path to new location, copy into our Epub
-					$url = str_replace( 'themes-book/pressbooks-book/', $typography_dir, $url );
+					$url = str_replace( 'themes-book/pressbooks-book/', trailingslashit( $typography_dir ), $url );
 					$my_font = realpath( $url );
 
 					if ( $my_font ) {
@@ -821,7 +828,7 @@ class Epub201 extends ExportGenerator {
 
 					// Look for wp-content/themes/pressbooks-book/assets/typography/fonts/*.ttf (or .otf), copy into our Epub
 
-					$my_font = realpath( $typography_dir . $url );
+					$my_font = realpath( "$typography_dir/$url" );
 					if ( $my_font ) {
 						copy( $my_font, "$path_to_epub_assets/$filename" );
 						return "url(assets/$filename)";

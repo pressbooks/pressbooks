@@ -13,9 +13,9 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 		parent::setUp();
 
 		$this->gl = $this->getMockBuilder( '\Pressbooks\Shortcodes\Glossary\Glossary' )
-		                 ->setMethods( null )
-		                 ->disableOriginalConstructor()
-		                 ->getMock();
+			->setMethods( null )
+			->disableOriginalConstructor()
+			->getMock();
 
 		// Add the filter that tests no HTML ever gets saved
 		add_filter( 'wp_insert_post_data', [ $this->gl, 'sanitizeGlossaryTerm' ] );
@@ -91,19 +91,21 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 	}
 
 	public function test_glossaryTooltip() {
+		global $id;
+		$id = 42; // Fake it!
 		$pid = $this->_createGlossaryPost();
-		$result = $this->gl->glossaryTooltip( [ 'id' => $pid ], 'PHP' );
-		$this->assertEquals( '<a href="javascript:void(0);" class="tooltip" title="A &quot;popular&quot; general-purpose scripting language that is especially suited to web development.">PHP</a>', $result );
+		$result = $this->gl->glossaryTooltip( $pid, 'PHP' );
+		$this->assertEquals( '<button class="glossary-term" aria-describedby="42-' . $pid . '">PHP</button>', $result );
 
 		$this->factory()->post->update_object( $pid, [ 'post_status' => 'trash' ] );
-		$result = $this->gl->glossaryTooltip( [ 'id' => $pid ], 'PHP' );
+		$result = $this->gl->glossaryTooltip( $pid, 'PHP' );
 		$this->assertEquals( 'PHP', $result );
 	}
 
 	public function test_getGlossaryTerms() {
 		$terms = $this->gl->getGlossaryTerms();
 		$this->assertEquals( 3, count( $terms ) );
-		$this->assertEquals( 'A computer system modeled on the human brain and nervous system.', $terms['Neural Network']['content'] );
+		$this->assertEquals( 'A computer system modeled on the human brain and <a href="https://en.wikipedia.org/wiki/Nervous_system" target="_blank">nervous system</a>.', $terms['Neural Network']['content'] );
 		$this->assertEquals( 'else,something', $terms['Neural Network']['type'] );
 		$this->assertEquals( 'publish', $terms['Neural Network']['status'] );
 
@@ -122,15 +124,35 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 		$this->assertEquals( 'private', $terms['Cache Test']['status'] );
 	}
 
+	public function test_tooltipContent() {
+		$terms = $this->gl->getGlossaryTerms();
+
+		global $id;
+		$id = 1;
+
+		$definitions = [];
+
+		// First, add some terms
+		foreach ( $terms as $term ) {
+			$_ = $this->gl->webShortCodeHandler( [ 'id' => $term['id'] ], 'First.' );
+			$definitions[] = $term['content'];
+		}
+
+		$content = $this->gl->tooltipContent( 'Hello World' );
+		$this->assertContains( '<div class="glossary">', $content );
+		$this->assertContains( $definitions[0], $content );
+		$this->assertContains( $definitions[1], $content );
+	}
+
 	public function test_sanitizeGlossaryTerm() {
 		$data['post_type'] = 'imaginary-post-type';
-		$data['post_content'] = 'All is <strong>good.</strong>';
+		$data['post_content'] = '<a href="https://google.com" onclick="event.preventDefault(); alert(\'evil!\');">All</a> is <strong>good.</strong>';
 		$results = $this->gl->sanitizeGlossaryTerm( $data );
 		$this->assertEquals( $data['post_content'], $results['post_content'] );
 
 		$data['post_type'] = 'glossary';
 		$results = $this->gl->sanitizeGlossaryTerm( $data );
-		$this->assertEquals( 'All is good.', $results['post_content'] );
+		$this->assertEquals( '<a href="https://google.com">All</a> is <strong>good.</strong>', $results['post_content'] );
 	}
 
 	public function test_backMatterAutoDisplay() {

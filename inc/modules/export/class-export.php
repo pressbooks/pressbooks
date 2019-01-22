@@ -645,16 +645,6 @@ abstract class Export {
 			static::downloadExportFile( $filename, false );
 			exit;
 		}
-
-		// Delete
-		if ( isset( $_POST['delete_export_file'] ) && isset( $_POST['filename'] ) && check_admin_referer( 'pb-delete-export' ) ) {
-			$filename = sanitize_file_name( $_POST['filename'] );
-			unlink( static::getExportFolder() . $filename );
-			delete_transient( 'dirsize_cache' ); /** @see get_dirsize() */
-			\Pressbooks\Redirect\location( get_admin_url( get_current_blog_id(), '/admin.php?page=pb_export' ) );
-			exit;
-		}
-
 	}
 
 	/**
