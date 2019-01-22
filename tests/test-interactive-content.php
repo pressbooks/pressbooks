@@ -18,16 +18,29 @@ class Interactive_ContentTest extends \WP_UnitTestCase {
 		Test One
 		<iframe src="https://phet.colorado.edu/sims/html/balancing-act/latest/balancing-act_en.html" width="800" height="600" scrolling="no" allowfullscreen></iframe>
 		Test Two
-		 <iframe src="https://garbage.com/bad.html" width="800" height="600" scrolling="no" allowfullscreen></iframe>
+		<iframe src="https://garbage.com/bad.html" width="800" height="600" scrolling="no" allowfullscreen></iframe>
 		';
-
 		$result = $this->content->deleteIframesNotOnWhitelist( $raw, [ 'post' ] );
-
 		$this->assertEquals( 1, substr_count( $result, '<iframe' ) );
 		$this->assertContains( 'Test One', $result );
 		$this->assertContains( 'Test Two', $result );
 		$this->assertContains( '<iframe src="https://phet.colorado.edu/', $result );
 		$this->assertContains( '[embed]https://garbage.com/bad.html[/embed]', $result );
+		$this->assertNotContains( '<p>', $result );
+
+
+		$raw = '
+		Test Three
+		<iframe src="https://docs.google.com/forms/d/e/xxx/viewform?embedded=true" width="640" height="398" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
+		Test Four
+		<iframe src="https://docs.google.com/garbage/d/e/xxx/viewform?embedded=true" width="640" height="398" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
+		';
+		$result = $this->content->deleteIframesNotOnWhitelist( $raw, [ 'post' ] );
+		$this->assertEquals( 1, substr_count( $result, '<iframe' ) );
+		$this->assertContains( 'Test Three', $result );
+		$this->assertContains( 'Test Four', $result );
+		$this->assertContains( '<iframe src="https://docs.google.com/forms/d/e/xxx/viewform?embedded=true', $result );
+		$this->assertContains( '[embed]https://docs.google.com/garbage/d/e/xxx/viewform?embedded=true[/embed]', $result );
 		$this->assertNotContains( '<p>', $result );
 	}
 

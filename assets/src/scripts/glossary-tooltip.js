@@ -1,29 +1,51 @@
-// This script is loaded when a user is on a books web view
-( function () {
+window.Popper = require( 'popper.js' ).default;
 
-	// Show the tooltip
-	jQuery( document ).on( 'click', '.tooltip', function () {
-		jQuery( '.tooltip.on' ).tooltip( 'close' ).removeClass( 'on' );
-		jQuery( this ).addClass( 'on' );
-		jQuery( this ).tooltip( {
-			items: '.tooltip.on',
-			show: false,
-			hide: false,
-			position: {
-				my: 'center bottom',
-				at: 'center top',
-			},
+document.addEventListener( 'DOMContentLoaded', function () {
+	const glossaryTerms = document.querySelectorAll(
+		'#content .glossary-term'
+	);
+
+	const glossary = document.querySelector(
+		'#content .glossary'
+	);
+
+	Array.prototype.forEach.call( glossaryTerms, glossaryTerm => {
+		const glossaryTermId = glossaryTerm.getAttribute( 'aria-describedby' );
+		const glossaryDefinition = document.getElementById( glossaryTermId );
+
+		glossaryTerm.onfocus = showDefinition;
+		glossaryTerm.addEventListener( 'keydown', function ( e ) {
+			if ( ( e.keyCode || e.which ) === 27 )
+				hideDefinition();
 		} );
-		jQuery( this ).trigger( 'mouseenter' );
-	} );
-	// Hide the tooltip
-	jQuery( document ).on( 'click', '.tooltip.on', function () {
-		jQuery( this ).tooltip( 'close' );
-		jQuery( this ).removeClass( 'on' );
-	} );
-	//prevent mouseout and other related events from firing their handlers
-	jQuery( '.tooltip' ).on( 'mouseout', function ( e ) {
-		e.stopImmediatePropagation();
-	} );
 
-} )();
+		document.addEventListener( 'click', event => {
+			if (
+				event.target !== glossaryTerm
+				&& event.target.getAttribute( 'aria-describedby' ) !== glossaryTermId
+				&& ! glossaryDefinition.contains( event.target )
+			) {
+				hideDefinition();
+			} else if ( event.target === glossaryTerm ) {
+				showDefinition();
+			}
+		} );
+
+		function showDefinition() {
+			new Popper( glossaryTerm, glossaryDefinition, {} );
+			glossaryDefinition.classList.add( 'glossary__tooltip--visible' );
+			glossaryDefinition.hidden = false;
+			Array.prototype.forEach.call( glossary.childNodes, dfn => {
+				if ( dfn.getAttribute( 'id' ) !== glossaryTermId ) {
+					dfn.classList.remove( 'glossary__tooltip--visible' );
+					dfn.hidden = true;
+				}
+			} );
+		}
+
+		function hideDefinition() {
+			glossaryDefinition.hidden = true;
+			glossaryDefinition.classList.remove( 'glossary__tooltip--visible' );
+		}
+	} );
+} );

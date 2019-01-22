@@ -181,39 +181,8 @@ function get_media_path( $guid ) {
  * @return array
  */
 function latest_exports() {
-	/**
-	 * Add custom export formats to the latest exports filetype mapping array.
-	 *
-	 * For example, here's how one might add a hypothetical Word export format:
-	 *
-	 * add_filter( 'pb_latest_export_filetypes', function ( $filetypes ) {
-	 *    $filetypes['word'] = '.docx';
-	 *    return $filetypes;
-	 * } );
-	 *
-	 * @since 3.9.8
-	 *
-	 * @param array $value
-	 */
-	$filetypes = apply_filters(
-		'pb_latest_export_filetypes', [
-			'epub3' => '._3.epub',
-			'epub' => '.epub',
-			'pdf' => '.pdf',
-			'print-pdf' => '._print.pdf',
-			'mobi' => '.mobi',
-			'icml' => '.icml',
-			'htmlbook' => '.-htmlbook.html',
-			'xhtml' => '.html',
-			'wxr' => '.xml',
-			'vanillawxr' => '._vanilla.xml',
-			'mpdf' => '._oss.pdf',
-			'odf' => '.odt',
-		]
-	);
-
+	$filetypes = \Pressbooks\Modules\Export\filetypes();
 	$dir = \Pressbooks\Modules\Export\Export::getExportFolder();
-
 	$files = [];
 
 	// group by extension, sort by date newest first
@@ -298,8 +267,7 @@ function check_epubcheck_install() {
 	exec( PB_EPUBCHECK_COMMAND . ' -h 2>&1', $output, $return_val );
 
 	$output = $output[0];
-	if ( false !== stripos( $output, 'EPUBCheck' ) ) { // Command found.
-		preg_match( '/(?:EPUBCheck\sv)*(([0-9]+.?)+)/i', $output, $matches );
+	if ( preg_match( '/(?:EPUBCheck\sv)*(([0-9]+.?)+)/i', $output, $matches ) ) { // Command found.
 		$version = $matches[1];
 		if ( version_compare( $version, '4.0.0' ) >= 0 ) {
 			return true;

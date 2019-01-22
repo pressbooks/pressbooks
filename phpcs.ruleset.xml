@@ -10,6 +10,7 @@
         <exclude-pattern>/inc/admin/class-catalog-list-table.php</exclude-pattern>
         <exclude-pattern>/inc/admin/class-network-managers-list-table.php</exclude-pattern>
         <exclude-pattern>/api/endpoints/controller/*</exclude-pattern>
+        <exclude-pattern>/inc/modules/export/class-table.php</exclude-pattern>
     </rule>
     <!-- Disable Side Effects and MissingNamespace rules for bootstrapping files: -->
     <rule ref="PSR1.Files.SideEffects">

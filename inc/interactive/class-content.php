@@ -2,6 +2,7 @@
 
 namespace Pressbooks\Interactive;
 
+use function Pressbooks\Utility\str_starts_with;
 use Pressbooks\Container;
 use Pressbooks\HtmlParser;
 
@@ -26,6 +27,7 @@ class Content {
 		'www.openassessments.org',
 		'players.brightcove.net',
 		'preview-players.brightcove.net',
+		'//docs.google.com/forms/',
 	];
 
 	/**
@@ -135,8 +137,21 @@ class Content {
 		for ( $i = $elements->length; --$i >= 0; ) { // If you're deleting elements from within a loop, you need to loop backwards
 			$iframe = $elements->item( $i );
 			$src = $iframe->getAttribute( 'src' );
-			$parse = wp_parse_url( $src );
-			if ( ! in_array( $parse['host'], $whitelist, true ) ) {
+			$iframe_url = wp_parse_url( $src );
+			$is_in_whitelist = false;
+			foreach ( $whitelist as $wl ) {
+				if ( str_starts_with( $wl, '//' ) ) {
+					$wl_url = wp_parse_url( $wl );
+					if ( $iframe_url['host'] === $wl_url['host'] && str_starts_with( $iframe_url['path'], $wl_url['path'] ) ) {
+						$is_in_whitelist = true;
+						break;
+					}
+				} elseif ( $iframe_url['host'] === $wl ) {
+					$is_in_whitelist = true;
+					break;
+				}
+			}
+			if ( ! $is_in_whitelist ) {
 				$src = $iframe->getAttribute( 'src' );
 				$fragment = $html5->parser->loadHTMLFragment( "[embed]{$src}[/embed]" );
 				$iframe->parentNode->replaceChild( $dom->importNode( $fragment, true ), $iframe );
