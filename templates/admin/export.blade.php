@@ -1,4 +1,4 @@
-{!! $dedependency_errors_msg or '' !!}
+{!! $dependency_errors_msg or '' !!}
 <div class="wrap">
 	<?php
 	/**
