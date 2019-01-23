@@ -305,15 +305,6 @@ if ( $is_book ) {
 		}
 	);
 
-	// Fix for "are you sure you want to leave page" message when editing a part
-	add_action(
-		'admin_enqueue_scripts', function () {
-			if ( 'part' === get_post_type() ) {
-				wp_dequeue_script( 'autosave' );
-			}
-		}
-	);
-
 	// Hide welcome screen
 	add_action(
 		'load-index.php', function () {
