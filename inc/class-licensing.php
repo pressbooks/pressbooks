@@ -186,7 +186,7 @@ class Licensing {
 	 *
 	 * @param array $metadata \Pressbooks\Book::getBookInformation
 	 * @param int $post_id (optional)
-	 * @param string $title (@deprectaed)
+	 * @param string $title (@deprecated)
 	 *
 	 * @return string
 	 */
@@ -200,7 +200,6 @@ class Licensing {
 			// if no post $id given, set empty strings
 			$section_license = '';
 			$section_author = '';
-			$link = get_bloginfo( 'url' );
 		} else {
 			$section_license = get_post_meta( $post_id, 'pb_section_license', true );
 			$section_author = ( new Contributors() )->get( $post_id, 'pb_authors' );
@@ -223,12 +222,15 @@ class Licensing {
 		}
 
 		// Unless section is licensed differently, it should display the book license statement
-		if ( $section_license === $book_license ) {
+		if ( $section_license === $book_license || empty( $section_license ) ) {
 			$title = get_bloginfo( 'name' );
+			$link = get_bloginfo( 'url' );
 		} else {
 			$post = get_post( $post_id );
 			$title = $post ? $post->post_title : get_bloginfo( 'name' );
+			$link = get_permalink( $post_id );
 		}
+
 
 		// Copyright holder, set in order of precedence
 		if ( ! empty( $section_author ) ) {
