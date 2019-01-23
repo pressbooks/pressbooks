@@ -230,7 +230,6 @@ class Licensing {
 			$link = get_permalink( $post_id );
 		}
 
-
 		// Copyright holder, set in order of precedence
 		if ( ! empty( $section_author ) ) {
 			// section author higher priority than book author, copyrightholder
