@@ -35,7 +35,7 @@ class UpdatesTest extends \WP_UnitTestCase {
 
 	public function test_gitHubUpdater() {
 		$this->updates->gitHubUpdater();
-		$this->assertTrue( has_filter( 'puc_is_slug_in_use-' ) ); // TODO: https://github.com/YahnisElsts/plugin-update-checker/issues/180
+		$this->assertTrue( has_filter( 'puc_is_slug_in_use-pressbooks' ) );
 	}
 
 	public function test_inPluginUpdateMessage() {
