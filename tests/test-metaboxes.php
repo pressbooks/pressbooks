@@ -181,4 +181,20 @@ class MetaboxesTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'private', $post->post_status );
 	}
 
+	public function test_part_save_box() {
+		$post = [ 'post_status' => 'draft'];
+		ob_start();
+		\Pressbooks\Admin\Metaboxes\part_save_box( (object) $post );
+		$buffer = ob_get_clean();
+		$this->assertContains( '<div class="submitbox" id="submitpost">', $buffer );
+		$this->assertContains( '<input name="publish"', $buffer ); //
+
+		$post = [ 'post_status' => 'publish'];
+		ob_start();
+		\Pressbooks\Admin\Metaboxes\part_save_box( (object) $post );
+		$buffer = ob_get_clean();
+		$this->assertContains( '<div class="submitbox" id="submitpost">', $buffer );
+		$this->assertContains( '<input name="save"', $buffer ); //
+	}
+
 }
