@@ -257,18 +257,31 @@ function display_users_widget() {
 	/** @var $wpdb \wpdb */
 	global $wpdb;
 
-	$users = $wpdb->get_results( $wpdb->prepare( "SELECT user_id, meta_value FROM {$wpdb->usermeta} WHERE meta_key = %s ", $wpdb->get_blog_prefix( get_current_blog_id() ) . 'capabilities' ) );
+	$users = $wpdb->get_results( $wpdb->prepare( "SELECT SQL_CALC_FOUND_ROWS user_id, meta_value FROM {$wpdb->usermeta} WHERE meta_key = %s LIMIT 50", $wpdb->get_blog_prefix( get_current_blog_id() ) . 'capabilities' ) );
 
+	$displayed = 0;
 	echo '<table>';
 	foreach ( $users as $user ) {
 		$meta = unserialize( $user->meta_value ); // @codingStandardsIgnoreLine
 		if ( is_object( $meta ) ) {
 			continue; // Hack attempt?
 		}
+		$capability = ucfirst( key( $meta ) );
+		if ( $capability === 'Subscriber' ) {
+			continue; // Hide subscribers
+		}
 		$u = get_userdata( $user->user_id );
-		echo '<tr><td>' . get_avatar( $user->user_id, 32 ) . '</td><td>' . $u->display_name . ' - ' . ucfirst( key( $meta ) ) . '</td></tr>';
+		echo '<tr><td>' . get_avatar( $user->user_id, 32 ) . '</td><td>' . $u->display_name . ' - ' . $capability . '</td></tr>';
+		$displayed++;
 	}
 	echo '</table>';
+
+	$total = $wpdb->get_var( 'SELECT FOUND_ROWS()' );
+	if ( $displayed < $total ) {
+		echo '<p>';
+		printf( __( '%1$s total users.', 'pressbooks' ), $total );
+		echo '</p>';
+	}
 
 	echo '<div class="part-buttons"> <a href="user-new.php">' . __( 'Add', 'pressbooks' ) . '</a> | <a class="remove" href="users.php">' . __( 'Organize', 'pressbooks' ) . '</a></div>';
 }
