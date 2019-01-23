@@ -284,20 +284,17 @@ function display_users_widget() {
 	}
 	echo '</table>';
 
-	$total_users = count( $users );
-	if ( $displayed < $total_users ) {
-		echo '<p>';
-		printf( __( '%1$s total users: ', 'pressbooks' ), $total_users );
-		$types_of_totals = [];
-		foreach ( $types_of_users as $capability => $count ) {
-			if ( $count > 1 ) {
-				$capability .= 's'; // Plural
-			}
-			$types_of_totals[] = "{$count} {$capability}";
+	echo '<p>';
+	printf( __( '%1$s total users: ', 'pressbooks' ), count( $users ) );
+	$types_of_totals = [];
+	foreach ( $types_of_users as $capability => $count ) {
+		if ( $count > 1 ) {
+			$capability .= 's'; // Plural
 		}
-		echo \Pressbooks\Utility\oxford_comma( $types_of_totals );
-		echo '.</p>';
+		$types_of_totals[] = "{$count} {$capability}";
 	}
+	echo \Pressbooks\Utility\oxford_comma( $types_of_totals );
+	echo '.</p>';
 
 	echo '<div class="part-buttons"> <a href="user-new.php">' . __( 'Add', 'pressbooks' ) . '</a> | <a class="remove" href="users.php">' . __( 'Organize', 'pressbooks' ) . '</a></div>';
 }

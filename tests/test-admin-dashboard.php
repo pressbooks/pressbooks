@@ -85,7 +85,7 @@ class Admin_DashboardTest extends \WP_UnitTestCase {
 		\Pressbooks\Admin\Dashboard\display_users_widget();
 		$buffer = ob_get_clean();
 		$this->assertContains( '</table>', $buffer );
-		$this->assertNotContains( 'total users', $buffer );
+		$this->assertContains( '0 total users:', $buffer );
 
 		$user_id = $this->factory()->user->create( [ 'role' => 'subscriber' ] );
 		add_user_to_blog( get_current_blog_id(), $user_id, 'subscriber' );
