@@ -80,10 +80,29 @@ class Admin_DashboardTest extends \WP_UnitTestCase {
 	}
 
 	public function test_display_users_widget() {
+		$this->_book();
 		ob_start();
 		\Pressbooks\Admin\Dashboard\display_users_widget();
 		$buffer = ob_get_clean();
 		$this->assertContains( '</table>', $buffer );
+		$this->assertNotContains( 'total users', $buffer );
+
+		$user_id = $this->factory()->user->create( [ 'role' => 'subscriber' ] );
+		add_user_to_blog( get_current_blog_id(), $user_id, 'subscriber' );
+		ob_start();
+		\Pressbooks\Admin\Dashboard\display_users_widget();
+		$buffer = ob_get_clean();
+		$this->assertContains( '</table>', $buffer );
+		$this->assertContains( '1 total users: 1 subscriber.', $buffer );
+
+		$user_id = $this->factory()->user->create( [ 'role' => 'subscriber' ] );
+		add_user_to_blog( get_current_blog_id(), $user_id, 'subscriber' );
+		ob_start();
+		\Pressbooks\Admin\Dashboard\display_users_widget();
+		$buffer = ob_get_clean();
+		$this->assertContains( '</table>', $buffer );
+		$this->assertContains( '2 total users: 2 subscribers.', $buffer );
+
 	}
 
 	public function test_dashboard_options_init() {
