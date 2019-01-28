@@ -27,7 +27,7 @@
 		"sidr": "^2.2.1",
 		"tinymce": "^4.9.2",
 		"wp-admin-colors": "^5.0.3",
-		"wpapi": "^1.1.2"
+		"wpapi": "^1.2.1"
 	},
 	"devDependencies": {
 		"pressbooks-build-tools": "^1.2.1"
