@@ -1,4 +1,4 @@
-inc/class-cloner.php<?php
+<?php
 /**
  * Handles cloning content via the Pressbooks REST API v2.
  *
@@ -1310,12 +1310,14 @@ class Cloner {
 		}
 
 		// TODO: H5P cloning only works with new versions of the plugin, what do we do about this?
+		// @codingStandardsIgnoreStart
 		/*
 		if ( ! empty( $section['content']['raw'] ) ) {
 			if ( ! $this->interactiveContent->isCloneable( $content ) ) {
 				$content = $this->interactiveContent->replaceCloneable( $content );
 			}
 		}
+		// @codingStandardsIgnoreEnd
 		*/
 		$content = $this->fetchH5P( $content );
 
