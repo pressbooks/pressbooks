@@ -1,4 +1,4 @@
-// This script is loaded when a user is on the [ Text → Organize ] page
+/* global PB_OrganizeToken */
 
 import CountUp from 'countup.js';
 

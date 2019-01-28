@@ -1,4 +1,4 @@
-// This script is loaded when a user is on the [ Book Information ] page
+/* global PB_BookInfoToken */
 
 jQuery( document ).ready( function ( $ ) {
 	$( '#primary-subject' ).select2( {
