@@ -1,3 +1,5 @@
+/* global PB_CoverGeneratorToken */
+
 jQuery( function ( $ ) {
 	// Media
 	$( document ).ready( function (){

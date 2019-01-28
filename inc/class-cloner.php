@@ -1,4 +1,4 @@
-<?php
+inc/class-cloner.php<?php
 /**
  * Handles cloning content via the Pressbooks REST API v2.
  *
@@ -403,7 +403,10 @@ class Cloner {
 		// Clone Parts and chapters
 		$ticks = 0;
 		foreach ( $this->sourceBookStructure['parts'] as $key => $part ) {
-			$ticks = $ticks + 1 + count( $this->sourceBookStructure['parts'][ $key ]['chapters'] );
+			$ticks++;
+			foreach ( $this->sourceBookStructure['parts'][ $key ]['chapters'] as $chapter ) {
+				$ticks++;
+			}
 		}
 		$y = new PercentageYield( 50, 80, $ticks );
 		foreach ( $this->sourceBookStructure['parts'] as $key => $part ) {

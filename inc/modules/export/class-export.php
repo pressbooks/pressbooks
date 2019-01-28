@@ -842,7 +842,7 @@ abstract class Export {
 
 		if ( empty( $conversion_error ) && empty( $validation_warning ) ) {
 			if ( ! empty( $_REQUEST['preview'] ) && count( $outputs ) === 1 ) {
-
+				// @codingStandardsIgnoreStart
 				// TODO: How can we make this preview feature work again?
 				// Maybe we should just get rid of it because I don't remember how to use it without searching the code.
 				// It originally had a UX component when editing a chapter. A user could preview that one chapter in the browser.
@@ -857,6 +857,7 @@ abstract class Export {
 				static::downloadExportFile( $filename, true );
 				unlink( $filename_fullpath );
 				*/
+				// @codingStandardsIgnoreEnd
 			}
 			// Redirect the user back to the form
 			return;

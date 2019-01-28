@@ -1,3 +1,5 @@
+/* global PB_ImportToken */
+
 jQuery( function ( $ ) {
 	// STEP 1
 	$( '#pb-import-form-step-1' ).on( 'submit', function () {

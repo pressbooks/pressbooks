@@ -1,3 +1,5 @@
+/* global PB_ClonerToken */
+
 jQuery( function ( $ ) {
 	let myClonerForm = $( '#pb-cloner-form' );
 	myClonerForm.on( 'submit', function ( e ) {

@@ -1,3 +1,5 @@
+/* global PB_FootnotesToken */
+
 ( function () {
 	tinymce.create( 'tinymce.plugins.footnote', {
 		init: function ( ed, url ) {

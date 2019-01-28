@@ -52,21 +52,10 @@
 		"extends": "./node_modules/pressbooks-build-tools/config/eslint.js",
 		"globals": {
 			"ajaxurl": true,
-			"chapter_export": true,
-			"chapter_show_title": true,
 			"edButton": true,
 			"edButtons": true,
-			"PB_BookInfoToken": true,
-			"PB_ExportToken": true,
-			"PB_FootnotesToken": true,
-			"PB_GlossaryToken": true,
-			"PB_Login": true,
-			"PB_NetworkManagerToken": true,
-			"PB_OrganizeToken": true,
-			"PB_ThemeLockToken": true,
 			"pb_sr": true,
 			"Popper": true,
-			"post_status": true,
 			"tinymce": true
 		},
 		"plugins": [
