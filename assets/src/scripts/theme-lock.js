@@ -1,3 +1,5 @@
+/* global PB_ThemeLockToken */
+
 jQuery( function ( $ ) {
 	$( '#theme_lock' ).change( function () {
 		if ( ! this.checked ) {

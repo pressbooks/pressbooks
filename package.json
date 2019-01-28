@@ -17,6 +17,7 @@
 	"dependencies": {
 		"block-ui": "^2.70.1",
 		"countup.js": "^1.8.5",
+		"event-source-polyfill": "^1.0.5",
 		"isotope-layout": "^3.0.6",
 		"jquery-match-height": "^0.7.2",
 		"jquery-sticky": "^1.0.4",
@@ -30,7 +31,7 @@
 		"wpapi": "^1.2.1"
 	},
 	"devDependencies": {
-		"pressbooks-build-tools": "^1.2.1"
+		"pressbooks-build-tools": "^1.3.0"
 	},
 	"repository": {
 		"type": "git",
@@ -51,21 +52,10 @@
 		"extends": "./node_modules/pressbooks-build-tools/config/eslint.js",
 		"globals": {
 			"ajaxurl": true,
-			"chapter_export": true,
-			"chapter_show_title": true,
 			"edButton": true,
 			"edButtons": true,
-			"PB_BookInfoToken": true,
-			"PB_ExportToken": true,
-			"PB_FootnotesToken": true,
-			"PB_GlossaryToken": true,
-			"PB_Login": true,
-			"PB_NetworkManagerToken": true,
-			"PB_OrganizeToken": true,
-			"PB_ThemeLockToken": true,
 			"pb_sr": true,
 			"Popper": true,
-			"post_status": true,
 			"tinymce": true
 		},
 		"plugins": [

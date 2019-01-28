@@ -27,6 +27,26 @@ if ( ! defined( 'PCLZIP_TEMPORARY_DIR' ) ) {
 abstract class Export {
 
 	/**
+	 * @var bool
+	 */
+	static $switchedLocale;
+
+	/**
+	 * @var array
+	 */
+	static $exportConversionError = [];
+
+	/**
+	 * @var array
+	 */
+	static $exportValidationWarning = [];
+
+	/**
+	 * @var []
+	 */
+	static $exportOutputs = [];
+
+	/**
 	 * Email addresses to send log errors.
 	 *
 	 * @var array
@@ -625,15 +645,45 @@ abstract class Export {
 			static::downloadExportFile( $filename, false );
 			exit;
 		}
+	}
 
-		// Export
-		if ( 'yes' === getset( '_GET', 'export' ) && is_array( getset( '_REQUEST', 'export_formats' ) ) && check_admin_referer( 'pb-export' ) ) {
+	/**
+	 * Pre-Export
+	 */
+	static function preExport() {
+		/**
+		 * Let other plugins tweak things before exporting
+		 *
+		 * @since 4.4.0
+		 */
+		do_action( 'pb_pre_export' );
+
+		// --------------------------------------------------------------------------------------------------------
+		// Clear cache? Range is 1 hour.
+
+		$last_export = get_option( 'pressbooks_last_export' );
+		$within_range = time() - $last_export;
+		if ( $within_range > ( HOUR_IN_SECONDS ) ) {
+			\Pressbooks\Book::deleteBookObjectCache();
+			update_option( 'pressbooks_last_export', time() );
+		}
+
+		static::$switchedLocale = switch_to_locale( self::locale() );
+	}
+
+	/**
+	 * Define modules
+	 *
+	 * @return array
+	 */
+	static function modules() {
+		$modules = [];
+		if ( is_array( getset( '_GET', 'export_formats' ) ) && check_admin_referer( 'pb-export' ) ) {
 
 			// --------------------------------------------------------------------------------------------------------
 			// Define modules
 
-			$x = $_REQUEST['export_formats'];
-			$modules = [];
+			$x = $_GET['export_formats'];
 
 			if ( isset( $x['pdf'] ) ) {
 				$modules[] = '\Pressbooks\Modules\Export\Prince\Pdf';
@@ -692,139 +742,169 @@ abstract class Export {
 			 * @param array $modules
 			 */
 			$modules = apply_filters( 'pb_active_export_modules', $modules );
-
-			/**
-			 * Let other plugins tweak things before exporting
-			 *
-			 * @since 4.4.0
-			 */
-			do_action( 'pb_pre_export' );
-
-			// --------------------------------------------------------------------------------------------------------
-			// Clear cache? Range is 1 hour.
-
-			$last_export = get_option( 'pressbooks_last_export' );
-			$within_range = time() - $last_export;
-			if ( $within_range > ( HOUR_IN_SECONDS ) ) {
-				\Pressbooks\Book::deleteBookObjectCache();
-				update_option( 'pressbooks_last_export', time() );
-			}
-
-			// --------------------------------------------------------------------------------------------------------
-			// Do Export
-
-			$switched_locale = switch_to_locale( self::locale() );
-
-			/**
-			 * Maximum execution time, in seconds. If set to zero, no time limit
-			 * Overrides PHP's max_execution_time of a Nginx->PHP-FPM->PHP configuration
-			 * See also request_terminate_timeout (PHP-FPM) and fastcgi_read_timeout (Nginx)
-			 *
-			 * @since 5.6.0
-			 *
-			 * @param int $seconds
-			 * @param string $some_action
-			 *
-			 * @return int
-			 */
-			@set_time_limit( apply_filters( 'pb_set_time_limit', 600, 'export' ) ); // @codingStandardsIgnoreLine
-
-			$redirect_url = get_admin_url( get_current_blog_id(), '/admin.php?page=pb_export' );
-			$conversion_error = [];
-			$validation_warning = [];
-			$outputs = [];
-
-			foreach ( $modules as $module ) {
-
-				/** @var \Pressbooks\Modules\Export\Export $exporter */
-				$exporter = new $module( [] );
-
-				if ( ! $exporter->convert() ) {
-					$conversion_error[ $module ] = $exporter->getOutputPath();
-				} else {
-					if ( ! $exporter->validate() ) {
-						$validation_warning[ $module ] = $exporter->getOutputPath();
-					}
-				}
-
-				// Add to outputs array
-
-				$outputs[ $module ] = $exporter->getOutputPath();
-
-				/**
-				 * Stats hook
-				 *
-				 * @param string
-				 */
-				do_action( 'pressbooks_track_export', substr( strrchr( $module, '\\' ), 1 ) );
-			}
-
-			delete_transient( 'dirsize_cache' ); /** @see get_dirsize() */
-
-			if ( $switched_locale ) {
-				restore_previous_locale();
-			}
-
-			// --------------------------------------------------------------------------------------------------------
-			// MOBI cleanup
-
-			if ( isset( $x['mobi'] ) && ! isset( $x['epub'] ) ) {
-				unlink( $outputs['\Pressbooks\Modules\Export\Epub\Epub201'] );
-			}
-
-			// --------------------------------------------------------------------------------------------------------
-			// No errors?
-
-			if ( empty( $conversion_error ) && empty( $validation_warning ) ) {
-				if ( ! empty( $_REQUEST['preview'] ) && count( $outputs ) === 1 ) {
-					// Preview the file, then delete it
-					$filename_fullpath = array_values( $outputs );
-					$filename_fullpath = array_shift( $filename_fullpath );
-					$filename = basename( $filename_fullpath );
-					static::downloadExportFile( $filename, true );
-					unlink( $filename_fullpath );
-				} else {
-					// Redirect the user back to the form
-					\Pressbooks\Redirect\location( $redirect_url );
-				}
-				exit;
-			}
-
-			// --------------------------------------------------------------------------------------------------------
-			// Error exceptions
-
-			if ( isset( $validation_warning['\Pressbooks\Modules\Export\Prince\Pdf'] ) ) {
-
-				// The PDF is garbage and we don't want the user to have it.
-				// Delete file. Report error instead of warning.
-				unlink( $validation_warning['\Pressbooks\Modules\Export\Prince\Pdf'] );
-				$conversion_error['\Pressbooks\Modules\Export\Prince\Pdf'] = $validation_warning['\Pressbooks\Modules\Export\Prince\Pdf'];
-				unset( $validation_warning['\Pressbooks\Modules\Export\Prince\Pdf'] );
-			}
-
-			if ( isset( $validation_warning['\Pressbooks\Modules\Export\Prince\PrintPdf'] ) ) {
-
-				// The PDF is garbage and we don't want the user to have it.
-				// Delete file. Report error instead of warning.
-				unlink( $validation_warning['\Pressbooks\Modules\Export\Prince\PrintPdf'] );
-				$conversion_error['\Pressbooks\Modules\Export\Prince\PrintPdf'] = $validation_warning['\Pressbooks\Modules\Export\Prince\PrintPdf'];
-				unset( $validation_warning['\Pressbooks\Modules\Export\Prince\PrintPdf'] );
-			}
-
-			// --------------------------------------------------------------------------------------------------------
-			// Handle errors :(
-
-			if ( is_countable( $conversion_error ) && count( $conversion_error ) ) {
-				// Conversion error
-				\Pressbooks\Redirect\location( $redirect_url . '&export_error=true' );
-			}
-
-			if ( is_countable( $validation_warning ) && count( $validation_warning ) ) {
-				// Validation warning
-				\Pressbooks\Redirect\location( $redirect_url . '&export_warning=true' );
-			}
 		}
 
+		return $modules;
+	}
+
+	/**
+	 * @param array $modules
+	 *
+	 * @return \Generator
+	 */
+	static function exportGenerator( $modules ) {
+		/**
+		 * Maximum execution time, in seconds. If set to zero, no time limit
+		 * Overrides PHP's max_execution_time of a Nginx->PHP-FPM->PHP configuration
+		 * See also request_terminate_timeout (PHP-FPM) and fastcgi_read_timeout (Nginx)
+		 *
+		 * @since 5.6.0
+		 *
+		 * @param int $seconds
+		 * @param string $some_action
+		 *
+		 * @return int
+		 */
+		@set_time_limit( apply_filters( 'pb_set_time_limit', 600, 'export' ) ); // @codingStandardsIgnoreLine
+
+		static::$exportConversionError = [];
+		static::$exportValidationWarning = [];
+		static::$exportOutputs = [];
+
+		foreach ( $modules as $module ) {
+			$exporter = new $module( [] );
+			if ( is_subclass_of( $exporter, '\Pressbooks\Modules\Export\ExportGenerator' ) ) {
+				/** @var \Pressbooks\Modules\Export\ExportGenerator $exporter */
+				try {
+					yield from $exporter->convertGenerator();
+					try {
+						yield from $exporter->validateGenerator();
+					} catch ( \Exception $e ) {
+						static::$exportValidationWarning[ $module ] = $exporter->getOutputPath();
+					}
+				} catch ( \Exception $e ) {
+					static::$exportConversionError[ $module ] = $exporter->getOutputPath();
+				}
+			} else {
+				/** @var \Pressbooks\Modules\Export\Export $exporter */
+				$short_module_name = substr( strrchr( $module, '\\' ), 1 );
+				$msg = __( 'Exporting', 'pressbooks' ) . ": {$short_module_name}";
+				yield 10 => $msg;
+				if ( ! $exporter->convert() ) {
+					static::$exportConversionError[ $module ] = $exporter->getOutputPath();
+				} else {
+					$msg = __( 'Validating', 'pressbooks' ) . ": {$short_module_name}";
+					yield 70 => $msg;
+					if ( ! $exporter->validate() ) {
+						static::$exportValidationWarning[ $module ] = $exporter->getOutputPath();
+					}
+				}
+				$msg = __( 'Completed', 'pressbooks' ) . ": {$short_module_name}";
+				yield 100 => $msg;
+			}
+
+			// Add to outputs array
+			static::$exportOutputs[ $module ] = $exporter->getOutputPath();
+
+			/**
+			 * Stats hook
+			 *
+			 * @param string
+			 */
+			do_action( 'pressbooks_track_export', substr( strrchr( $module, '\\' ), 1 ) );
+		}
+	}
+
+	/**
+	 * Post Export
+	 */
+	static function postExport() {
+
+		$conversion_error = static::$exportConversionError;
+		$validation_warning = static::$exportValidationWarning;
+		$outputs = static::$exportOutputs;
+
+		delete_transient( 'dirsize_cache' ); /** @see get_dirsize() */
+
+		if ( static::$switchedLocale ) {
+			restore_previous_locale();
+		}
+
+		// --------------------------------------------------------------------------------------------------------
+		// MOBI cleanup
+
+		if ( isset( $x['mobi'] ) && ! isset( $x['epub'] ) ) {
+			unlink( $outputs['\Pressbooks\Modules\Export\Epub\Epub201'] );
+		}
+
+		// --------------------------------------------------------------------------------------------------------
+		// No errors?
+
+		if ( empty( $conversion_error ) && empty( $validation_warning ) ) {
+			if ( ! empty( $_REQUEST['preview'] ) && count( $outputs ) === 1 ) {
+
+				// @codingStandardsIgnoreStart
+				// TODO: How can we make this preview feature work again?
+				// Maybe we should just get rid of it because I don't remember how to use it without searching the code.
+				// It originally had a UX component when editing a chapter. A user could preview that one chapter in the browser.
+				// It kind of sucked so the UX was removed, but the backend code remains, a bit all over, a bit of a mess...
+				// @see \Pressbooks\Book::$preview
+
+				/*
+				// Preview the file, then delete it
+				$filename_fullpath = array_values( $outputs );
+				$filename_fullpath = array_shift( $filename_fullpath );
+				$filename = basename( $filename_fullpath );
+				static::downloadExportFile( $filename, true );
+				unlink( $filename_fullpath );
+				*/
+				// @codingStandardsIgnoreEnd
+			}
+			// Redirect the user back to the form
+			return;
+		}
+
+		// --------------------------------------------------------------------------------------------------------
+		// Error exceptions
+
+		if ( isset( $validation_warning['\Pressbooks\Modules\Export\Prince\Pdf'] ) ) {
+
+			// The PDF is garbage and we don't want the user to have it.
+			// Delete file. Report error instead of warning.
+			unlink( $validation_warning['\Pressbooks\Modules\Export\Prince\Pdf'] );
+			$conversion_error['\Pressbooks\Modules\Export\Prince\Pdf'] = $validation_warning['\Pressbooks\Modules\Export\Prince\Pdf'];
+			unset( $validation_warning['\Pressbooks\Modules\Export\Prince\Pdf'] );
+		}
+
+		if ( isset( $validation_warning['\Pressbooks\Modules\Export\Prince\PrintPdf'] ) ) {
+
+			// The PDF is garbage and we don't want the user to have it.
+			// Delete file. Report error instead of warning.
+			unlink( $validation_warning['\Pressbooks\Modules\Export\Prince\PrintPdf'] );
+			$conversion_error['\Pressbooks\Modules\Export\Prince\PrintPdf'] = $validation_warning['\Pressbooks\Modules\Export\Prince\PrintPdf'];
+			unset( $validation_warning['\Pressbooks\Modules\Export\Prince\PrintPdf'] );
+		}
+
+		// --------------------------------------------------------------------------------------------------------
+		// Handle errors :(
+
+		if ( is_countable( $conversion_error ) && count( $conversion_error ) ) {
+			// Conversion error
+			\Pressbooks\add_error( __( 'The export failed. See logs for more details.', 'pressbooks' ) );
+		}
+
+		if ( is_countable( $validation_warning ) && count( $validation_warning ) ) {
+			// Validation warning
+			$exportoptions = get_option( 'pressbooks_export_options' );
+			if ( 1 === (int) $exportoptions['email_validation_logs'] || is_super_admin() ) {
+				$export_warning = sprintf(
+					'<p>%s</p>%s',
+					__( 'Warning: The export has validation errors. See logs for more details.', 'pressbooks' ),
+					( isset( $exportoptions['email_validation_logs'] ) && 1 === (int) $exportoptions['email_validation_logs'] ) ? '<p>' . __( 'Emailed to:', 'pressbooks' ) . ' ' . wp_get_current_user()->user_email . '</p>' : ''
+				);
+				\Pressbooks\add_notice( $export_warning );
+			}
+		}
 	}
 
 

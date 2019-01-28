@@ -117,19 +117,6 @@ if ( $dependency_errors ) {
 	}
 }
 
-if ( ! empty( $_GET['export_error'] ) ) {
-	// Conversion failed
-	printf( '<div class="error"><p>%s</p></div>', __( 'Error: The export failed. See logs for more details.', 'pressbooks' ) );
-}
-$exportoptions = get_option( 'pressbooks_export_options' );
-if ( ! empty( $_GET['export_warning'] ) && ( 1 == $exportoptions['email_validation_logs']  || is_super_admin() ) ) {
-	// Validation warnings
-	printf( '<div class="error"><p>%s</p>%s</div>',
-		__( 'Warning: The export has validation errors. See logs for more details.', 'pressbooks' ),
-		( isset( $exportoptions['email_validation_logs'] ) && 1 == $exportoptions['email_validation_logs'] ) ? '<p>' . __( 'Emailed to:', 'pressbooks' ) . ' ' . wp_get_current_user()->user_email . '</p>' : ''
-	);
-}
-
 ?>
 <div class="wrap">
 
@@ -237,7 +224,8 @@ $formats = apply_filters( 'pb_export_formats', [
 
 <div class="export-control">
 	<p><input id="pb-export-button" type="button" class="button button-hero button-primary generate" value="<?php esc_attr_e( 'Export Your Book', 'pressbooks' ); ?>" /></p>
-	<p id="loader" class="loading-content"><span class="spinner"></span></p>
+	<div id="pb-sse-progressbar"></div>
+	<p><b><span id="pb-sse-minutes"></span><span id="pb-sse-seconds"></span></b> <span id="pb-sse-info"></span></p>
 	<?php
 		/**
 		 * @since 5.3.0

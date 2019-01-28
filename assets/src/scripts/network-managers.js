@@ -1,3 +1,5 @@
+/* global PB_NetworkManagerToken */
+
 jQuery( function ( $ ) {
 	$( document ).ready( function () {
 		$( 'div.row-actions .restrict a, div.row-actions .unrestrict a' ).on(

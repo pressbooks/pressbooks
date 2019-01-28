@@ -12,13 +12,13 @@ if ( is_subdomain_install() ) {
 ?>
 <div class="wrap">
 	<h1><?php _e( 'Clone', 'pressbooks' ); ?></h1>
-	<p><?php _e( 'Enter the URL to a Pressbooks book to clone it.', 'pressbooks' ); ?><span class="spinner"></span><p>
+	<p><?php _e( 'Enter the URL to a Pressbooks book to clone it.', 'pressbooks' ); ?><p>
 	<form id="pb-cloner-form" action="" method="post">
 		<?php wp_nonce_field( 'pb-cloner' ); ?>
 		<table class="form-table">
 			<tr>
 				<th scope=row><?php _e( 'Source Book URL', 'pressbooks' ); ?></th>
-				<td><input class="regular-text code" name="source_book_url" type="url" /></td>
+				<td><input class="regular-text code" name="source_book_url" type="url" required /></td>
 			</tr>
 			<tr>
 				<th scope=row><?php _e( 'Target Book URL', 'pressbooks' ); ?></th>
@@ -26,7 +26,7 @@ if ( is_subdomain_install() ) {
 					<?php
 					printf(
 						$template_string,
-						'<input class="regular-text code" name="target_book_url" />'
+						'<input class="regular-text code" name="target_book_url" type="text" required />'
 					);
 					?>
 				</td>
@@ -39,6 +39,8 @@ if ( is_subdomain_install() ) {
 				</td>
 			</tr>
 		</table>
-		<p><input id="pb-cloner-button" class="button button-primary" type="submit" value="<?php _e( 'Clone It!', 'pressbooks' ); ?>" /><span id="loader" class="loading-content"><span class="spinner"></span></span></p>
+		<p><input id="pb-cloner-button" class="button button-primary" type="submit" value="<?php _e( 'Clone It!', 'pressbooks' ); ?>" /><span id="loader" class="loading-content"></span></p>
+		<div id="pb-sse-progressbar"></div>
+		<p><b><span id="pb-sse-minutes"></span><span id="pb-sse-seconds"></span></b> <span id="pb-sse-info"></span></p>
 	</form>
 </div>

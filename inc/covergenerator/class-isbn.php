@@ -59,7 +59,7 @@ class Isbn {
 	public function createBarcode( $isbn_number ) {
 
 		if ( ! $this->validateIsbnNumber( $isbn_number ) ) {
-			$_SESSION['pb_errors'] = __( 'There was a problem creating the barcode: Invalid ISBN number.', 'pressbooks' );
+			\Pressbooks\add_error( __( 'There was a problem creating the barcode: Invalid ISBN number.', 'pressbooks' ) );
 			return false;
 		}
 

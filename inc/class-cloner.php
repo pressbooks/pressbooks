@@ -14,14 +14,13 @@ use function Pressbooks\Image\strip_baseurl as image_strip_baseurl;
 use function Pressbooks\Media\strip_baseurl as media_strip_baseurl;
 use function Pressbooks\Metadata\schema_to_book_information;
 use function Pressbooks\Metadata\schema_to_section_information;
-use function Pressbooks\Utility\getset;
 use function Pressbooks\Utility\oxford_comma_explode;
 use function Pressbooks\Utility\str_ends_with;
 use function Pressbooks\Utility\str_lreplace;
 use function Pressbooks\Utility\str_remove_prefix;
 use function Pressbooks\Utility\str_starts_with;
-
 use Pressbooks\Admin\Network\SharingAndPrivacyOptions;
+use Pressbooks\Utility\PercentageYield;
 
 class Cloner {
 
@@ -303,6 +302,20 @@ class Cloner {
 	}
 
 	/**
+	 * @return string
+	 */
+	public function getTargetBookUrl() {
+		return $this->targetBookUrl;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getTargetBookTitle() {
+		return $this->targetBookTitle;
+	}
+
+	/**
 	 * Clone a book in its entirety.
 	 *
 	 * @since 4.1.0
@@ -310,12 +323,32 @@ class Cloner {
 	 * @return bool
 	 */
 	public function cloneBook() {
-
-		if ( ! $this->setupSource() ) {
+		try {
+			foreach ( $this->cloneBookGenerator() as $percentage => $info ) {
+				// Do nothing, this is a compatibility wrapper that makes the generator work like a regular function
+			}
+		} catch ( \Exception $e ) {
 			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Generator that yields values between 1-100, represents the percentage of progress when cloning a book in its entirety
+	 *
+	 * @since 5.7.0
+	 * @throws \Exception
+	 * @return \Generator
+	 */
+	public function cloneBookGenerator() {
+
+		yield 1 => __( 'Looking up the source book', 'pressbooks' );
+		if ( ! $this->setupSource() ) {
+			throw new \Exception( ! empty( $_SESSION['pb_errors'][0] ) ? $_SESSION['pb_errors'][0] : __( 'Failed to setup source', 'pressbooks' ) );
 		}
 
 		// Create Book
+		yield 10  => __( 'Creating the target book', 'pressbooks' );
 		$this->targetBookId = $this->createBook();
 		$this->targetBookUrl = get_blogaddress_by_id( $this->targetBookId );
 
@@ -326,11 +359,14 @@ class Cloner {
 		$this->clonePreProcess();
 
 		// Clone Metadata
+		yield 20  => __( 'Cloning metadata', 'pressbooks' );
 		$this->clonedItems['metadata'][] = $this->cloneMetadata();
 
 		// Clone Taxonomy Terms
+		$y = new PercentageYield( 30, 40, count( $this->sourceBookTerms ) );
 		$this->targetBookTerms = $this->getBookTerms( $this->targetBookUrl );
 		foreach ( $this->sourceBookTerms as $term ) {
+			yield from $y->tick( __( 'Cloning taxonomies', 'pressbooks' ) );
 			$new_term = $this->cloneTerm( $term['id'] );
 			if ( $new_term ) {
 				$this->termMap[ $term['id'] ] = $new_term;
@@ -339,20 +375,31 @@ class Cloner {
 		}
 
 		// Clone Front Matter
+		$y = new PercentageYield( 40, 50, count( $this->sourceBookStructure['front-matter'] ) );
 		foreach ( $this->sourceBookStructure['front-matter'] as $frontmatter ) {
+			yield from $y->tick( __( 'Cloning front-matter', 'pressbooks' ) );
 			$new_frontmatter = $this->cloneFrontMatter( $frontmatter['id'] );
 			if ( $new_frontmatter !== false ) {
 				$this->clonedItems['front-matter'][] = $new_frontmatter;
 			}
 		}
 
-		// Clone Parts
+		// Clone Parts and chapters
+		$ticks = 0;
 		foreach ( $this->sourceBookStructure['parts'] as $key => $part ) {
+			$ticks++;
+			foreach ( $this->sourceBookStructure['parts'][ $key ]['chapters'] as $chapter ) {
+				$ticks++;
+			}
+		}
+		$y = new PercentageYield( 50, 80, $ticks );
+		foreach ( $this->sourceBookStructure['parts'] as $key => $part ) {
+			yield from $y->tick( __( 'Cloning parts and chapters', 'pressbooks' ) );
 			$new_part = $this->clonePart( $part['id'] );
 			if ( $new_part !== false ) {
 				$this->clonedItems['parts'][] = $new_part;
-				// Clone Chapters
 				foreach ( $this->sourceBookStructure['parts'][ $key ]['chapters'] as $chapter ) {
+					yield from $y->tick( __( 'Cloning parts and chapters', 'pressbooks' ) );
 					$new_chapter = $this->cloneChapter( $chapter['id'], $new_part );
 					if ( $new_chapter !== false ) {
 						$this->clonedItems['chapters'][] = $new_chapter;
@@ -362,7 +409,9 @@ class Cloner {
 		}
 
 		// Clone Back Matter
+		$y = new PercentageYield( 80, 90, count( $this->sourceBookStructure['back-matter'] ) );
 		foreach ( $this->sourceBookStructure['back-matter'] as $backmatter ) {
+			yield from $y->tick( __( 'Cloning back-matter', 'pressbooks' ) );
 			$new_backmatter = $this->cloneBackMatter( $backmatter['id'] );
 			if ( $new_backmatter !== false ) {
 				$this->clonedItems['back-matter'][] = $new_backmatter;
@@ -370,7 +419,9 @@ class Cloner {
 		}
 
 		// Clone Glossary
+		$y = new PercentageYield( 90, 100, count( $this->sourceBookGlossary ) );
 		foreach ( $this->sourceBookGlossary as $glossary ) {
+			yield from $y->tick( __( 'Cloning glossary terms' ) );
 			$new_glossary = $this->cloneGlossary( $glossary['id'] );
 			if ( $new_glossary !== false ) {
 				$this->clonedItems['glossary'][] = $new_glossary;
@@ -383,7 +434,7 @@ class Cloner {
 		wp_defer_term_counting( false ); // Flush
 		restore_current_blog();
 
-		return true;
+		yield 100 => __( 'Done', 'pressbooks' );
 	}
 
 	/**
@@ -1986,77 +2037,4 @@ class Cloner {
 		return (bool) $enable_cloning;
 	}
 
-	/**
-	 * Check if a user submitted something to options.php?page=pb_cloner
-	 *
-	 * @return bool
-	 */
-	public static function isFormSubmission() {
-
-		if ( empty( $_REQUEST['page'] ) ) {
-			return false;
-		}
-
-		if ( 'pb_cloner' !== $_REQUEST['page'] ) {
-			return false;
-		}
-
-		if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
-			return true;
-		}
-
-		return false;
-	}
-
-	/**
-	 * Handle form submission.
-	 */
-	public static function formSubmit() {
-		if ( ! static::isFormSubmission() ) {
-			return;
-		}
-
-		if ( isset( $_POST['_wpnonce'] ) && wp_verify_nonce( $_POST['_wpnonce'], 'pb-cloner' ) ) {
-			if ( isset( $_POST['source_book_url'] ) && ! empty( $_POST['source_book_url'] ) && isset( $_POST['target_book_url'] ) && ! empty( $_POST['target_book_url'] ) ) {
-				$bookname = \Pressbooks\Cloner::validateNewBookName( $_POST['target_book_url'] );
-				$booktitle = $_POST['target_book_title'] ?? '';
-				if ( is_wp_error( $bookname ) ) {
-					$_SESSION['pb_errors'][] = $bookname->get_error_message();
-				} else {
-					/**
-					 * Maximum execution time, in seconds. If set to zero, no time limit
-					 * Overrides PHP's max_execution_time of a Nginx->PHP-FPM->PHP configuration
-					 * See also request_terminate_timeout (PHP-FPM) and fastcgi_read_timeout (Nginx)
-					 *
-					 * @since 5.6.0
-					 *
-					 * @param int $seconds
-					 * @param string $some_action
-					 *
-					 * @return int
-					 */
-					@set_time_limit( apply_filters( 'pb_set_time_limit', 600, 'clone' ) ); // @codingStandardsIgnoreLine
-					$cloner = new Cloner( esc_url( $_POST['source_book_url'] ), $bookname, $booktitle );
-					if ( $cloner->cloneBook() ) {
-						$_SESSION['pb_notices'][] = sprintf(
-							__( 'Cloning succeeded! Cloned %1$s, %2$s, %3$s, %4$s, %5$s, %6$s, and %7$s to %8$s.', 'pressbooks' ),
-							sprintf( _n( '%s term', '%s terms', count( getset( $cloner->clonedItems, 'terms', [] ) ), 'pressbooks' ), count( getset( $cloner->clonedItems, 'terms', [] ) ) ),
-							sprintf( _n( '%s front matter', '%s front matter', count( getset( $cloner->clonedItems, 'front-matter', [] ) ), 'pressbooks' ), count( getset( $cloner->clonedItems, 'front-matter', [] ) ) ),
-							sprintf( _n( '%s part', '%s parts', count( getset( $cloner->clonedItems, 'parts', [] ) ), 'pressbooks' ), count( getset( $cloner->clonedItems, 'parts', [] ) ) ),
-							sprintf( _n( '%s chapter', '%s chapters', count( getset( $cloner->clonedItems, 'chapters', [] ) ), 'pressbooks' ), count( getset( $cloner->clonedItems, 'chapters', [] ) ) ),
-							sprintf( _n( '%s back matter', '%s back matter', count( getset( $cloner->clonedItems, 'back-matter', [] ) ), 'pressbooks' ), count( getset( $cloner->clonedItems, 'back-matter', [] ) ) ),
-							sprintf( _n( '%s media attachment', '%s media attachments', count( getset( $cloner->clonedItems, 'media', [] ) ), 'pressbooks' ), count( getset( $cloner->clonedItems, 'media', [] ) ) ),
-							sprintf( _n( '%s glossary term', '%s glossary terms', count( getset( $cloner->clonedItems, 'glossary', [] ) ), 'pressbooks' ), count( getset( $cloner->clonedItems, 'glossary', [] ) ) ),
-							sprintf( '<a href="%1$s"><em>%2$s</em></a>', trailingslashit( $cloner->targetBookUrl ) . 'wp-admin/', $cloner->targetBookTitle )
-						);
-					} elseif ( empty( $_SESSION['pb_errors'] ) ) {
-						$_SESSION['pb_errors'][] = __( 'Cloning failed.', 'pressbooks' );
-					}
-				}
-				\Pressbooks\Redirect\location( admin_url( 'options.php?page=pb_cloner' ) );
-			} else {
-				$_SESSION['pb_errors'][] = __( 'You must enter a valid URL for a book on a Pressbooks network running Pressbooks 4.1 or greater as well as a new URL for your cloned book.', 'pressbooks' );
-			}
-		}
-	}
 }

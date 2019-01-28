@@ -319,4 +319,3 @@ if ( $is_book ) {
 // -------------------------------------------------------------------------------------------------------------------
 
 add_action( 'init', [ '\Pressbooks\Privacy', 'init' ], 9 ); // Must come before `add_action( 'init', 'wp_schedule_delete_old_privacy_export_files' );`
-

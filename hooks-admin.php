@@ -29,6 +29,12 @@ $is_book = Book::isBook();
 \Pressbooks\Updates::init();
 
 // -------------------------------------------------------------------------------------------------------------------
+// Event Streams (SSE)
+// -------------------------------------------------------------------------------------------------------------------
+
+\Pressbooks\EventStreams::init();
+
+// -------------------------------------------------------------------------------------------------------------------
 // Look & feel of admin interface and Dashboard
 // -------------------------------------------------------------------------------------------------------------------
 
@@ -276,7 +282,6 @@ add_action( 'init', [ '\Pressbooks\Modules\Export\Prince\Filters', 'init' ] );
 add_action( 'init', [ '\Pressbooks\Modules\Export\Export', 'formSubmit' ], 50 );
 add_action( 'init', [ '\Pressbooks\Modules\Import\Import', 'formSubmit' ], 50 );
 add_action( 'init', [ '\Pressbooks\Catalog', 'formSubmit' ], 50 );
-add_action( 'init', [ '\Pressbooks\Cloner', 'formSubmit' ], 50 );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Cover Generator
