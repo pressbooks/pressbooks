@@ -253,11 +253,12 @@ function display_pressbooks_blog() {
  * Displays a Users widget
  */
 function display_users_widget() {
-
 	/** @var $wpdb \wpdb */
 	global $wpdb;
-
-	$users = $wpdb->get_results( $wpdb->prepare( "SELECT user_id, meta_value FROM {$wpdb->usermeta} WHERE meta_key = %s ", $wpdb->get_blog_prefix( get_current_blog_id() ) . 'capabilities' ) );
+	$users = $wpdb->get_results( $wpdb->prepare( "SELECT user_id, meta_value FROM {$wpdb->usermeta} WHERE meta_key = %s", $wpdb->get_blog_prefix( get_current_blog_id() ) . 'capabilities' ) );
+	$types_of_users = [];
+	$displayed = 0;
+	$limit = 50;
 
 	echo '<table>';
 	foreach ( $users as $user ) {
@@ -265,10 +266,35 @@ function display_users_widget() {
 		if ( is_object( $meta ) ) {
 			continue; // Hack attempt?
 		}
-		$u = get_userdata( $user->user_id );
-		echo '<tr><td>' . get_avatar( $user->user_id, 32 ) . '</td><td>' . $u->display_name . ' - ' . ucfirst( key( $meta ) ) . '</td></tr>';
+
+		$capability = key( $meta );
+		if ( isset( $types_of_users[ $capability ] ) ) {
+			$types_of_users[ $capability ]++;
+		} else {
+			$types_of_users[ $capability ] = 1;
+		}
+		if ( $capability === 'subscriber' ) {
+			continue; // Hide subscribers
+		}
+
+		if ( $displayed < $limit ) {
+			echo '<tr><td>' . get_avatar( $user->user_id, 32 ) . '</td><td>' . get_userdata( $user->user_id )->display_name . ' - ' . ucfirst( $capability ) . '</td></tr>';
+			$displayed++;
+		}
 	}
 	echo '</table>';
+
+	echo '<p>';
+	printf( __( '%1$s total users: ', 'pressbooks' ), count( $users ) );
+	$types_of_totals = [];
+	foreach ( $types_of_users as $capability => $count ) {
+		if ( $count > 1 ) {
+			$capability .= 's'; // Plural
+		}
+		$types_of_totals[] = "{$count} {$capability}";
+	}
+	echo \Pressbooks\Utility\oxford_comma( $types_of_totals );
+	echo '.</p>';
 
 	echo '<div class="part-buttons"> <a href="user-new.php">' . __( 'Add', 'pressbooks' ) . '</a> | <a class="remove" href="users.php">' . __( 'Organize', 'pressbooks' ) . '</a></div>';
 }
