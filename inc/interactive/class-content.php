@@ -365,37 +365,6 @@ class Content {
 	}
 
 	/**
-	 * Is supported when cloning?
-	 *
-	 * @param string $content
-	 *
-	 * @return bool
-	 */
-	public function isCloneable( $content ) {
-
-		// H5P not supported in cloning
-		$tagnames = [ $this->h5p::SHORTCODE ];
-		preg_match_all( '/' . get_shortcode_regex( $tagnames ) . '/', $content, $matches, PREG_SET_ORDER );
-		if ( ! empty( $matches ) ) {
-			return false;
-		}
-
-		return true;
-	}
-
-	/**
-	 * Replace unsupported content when cloning
-	 *
-	 * @param string $content
-	 *
-	 * @return string
-	 */
-	public function replaceCloneable( $content ) {
-		$content = $this->h5p->replaceCloneable( $content );
-		return $content;
-	}
-
-	/**
 	 * Used for sites that do not support oEmbed
 	 *
 	 * @see wp_embed_register_handler

@@ -14,11 +14,6 @@ namespace Pressbooks\Interactive;
  *
  *  + https://github.com/h5p/h5p-wordpress-plugin/issues/41
  *  + https://github.com/h5p/h5p-wordpress-plugin/issues/64
- *
- * Pressbooks can not support H5P cloning until there is significant progress
- * on this issue:
- *
- *  + https://github.com/h5p/h5p-wordpress-plugin/issues/63
  */
 class H5P {
 
@@ -94,13 +89,11 @@ class H5P {
 		// H5P Content
 		if ( $h5p_id ) {
 			try {
-				if ( class_exists( '\H5P_Plugin' ) ) {
-					$content = \H5P_Plugin::get_instance()->get_content( $h5p_id );
-					if ( is_array( $content ) && ! empty( $content['title'] ) ) {
-						$h5p_title = $content['title'];
-					}
+				$content = \H5P_Plugin::get_instance()->get_content( $h5p_id );
+				if ( is_array( $content ) && ! empty( $content['title'] ) ) {
+					$h5p_title = $content['title'];
 				}
-			} catch ( \Exception $e ) {
+			} catch ( \Throwable $e ) {
 				// Do nothing
 			}
 		}
@@ -124,33 +117,15 @@ class H5P {
 	 * @return bool
 	 */
 	public function replaceCloneable( $content ) {
-		$this->setCloneableWarning();
 		$pattern = get_shortcode_regex( [ self::SHORTCODE ] );
 		$content = preg_replace_callback(
 			"/$pattern/",
 			function ( $m ) {
-				return __( 'The original version of this chapter contained H5P content. This content is not supported in cloned books. You may want to remove or replace this section.', 'pressbooks' );
+				return __( 'The original version of this chapter contained H5P content. You may want to remove or replace this section.', 'pressbooks' );
 			},
 			$content
 		);
 		return $content;
-	}
-
-
-	/**
-	 * When someone clones a book with H5P content, they should receive a warning message that that content has not been cloned
-	 */
-	public function setCloneableWarning() {
-		$notice = __( 'This book contains H5P content that cannot be cloned. Please review the cloned version of your text carefully, as missing H5P content will be indicated. You may want to remove or replace these sections.', 'pressbooks' );
-
-		$notice_already_set = false;
-		if ( isset( $_SESSION['pb_notices'] ) && is_array( $_SESSION['pb_notices'] ) && in_array( $notice, $_SESSION['pb_notices'], true ) ) {
-			$notice_already_set = true;
-		}
-
-		if ( ! $notice_already_set ) {
-			$_SESSION['pb_notices'][] = __( 'This book contains H5P content that cannot be cloned. Please review the cloned version of your text carefully, as missing H5P content will be indicated. You may want to remove or replace these sections.', 'pressbooks' );
-		}
 	}
 
 	/**
@@ -159,18 +134,19 @@ class H5P {
 	 * @return int[]
 	 */
 	public function findAllShortcodeIds( $content ) {
-		// TODO: This code could be improved to use get_shortcode_regex([self::SHORTCODE]), and other smells
 		$ids = [];
 		$matches = [];
-		$pattern = get_shortcode_regex();
-		if ( preg_match_all( '/' . $pattern . '/s', $content, $matches ) && array_key_exists( 2, $matches ) && in_array( 'h5p', $matches[2] ) ) { // @codingStandardsIgnoreLine{
-			foreach ( $matches[2] as $key => $type ) {
-				if ( $type !== 'h5p' ) {
-					continue;
-				}
-				$attr = shortcode_parse_atts( $matches[3][ $key ] );
-				if ( intval( $attr['id'] ) == $attr['id'] ) { // @codingStandardsIgnoreLine
-					$ids[] = $attr['id'];
+		$regex = get_shortcode_regex( [ self::SHORTCODE ] );
+		if ( preg_match_all( '/' . $regex . '/s', $content, $matches, PREG_SET_ORDER ) ) {
+			foreach ( $matches as $shortcode ) {
+				$shortcode_attrs = shortcode_parse_atts( $shortcode[3] );
+				if ( is_array( $shortcode_attrs ) && isset( $shortcode_attrs['id'] ) ) {
+					// Remove quotes, return just the integer
+					$my_id = $shortcode_attrs['id'];
+					$my_id = trim( $my_id, "'" );
+					$my_id = trim( $my_id, '"' );
+					$my_id = str_replace( '&quot;', '', $my_id );
+					$ids[] = (int) $my_id;
 				}
 			}
 		}

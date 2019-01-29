@@ -82,8 +82,15 @@ function init_book() {
 	gutenberg_hack();
 
 	// H5P
-	if ( get_option( 'blog_public' ) ) {
-		add_filter( 'h5p_rest_api_all_permission', '__return_true' );
+	try {
+		if ( ! is_plugin_active( 'h5p/h5p.php' ) ) {
+			\H5P_Plugin::get_instance()->rest_api_init();
+		}
+		if ( get_option( 'blog_public' ) ) {
+			add_filter( 'h5p_rest_api_all_permission', '__return_true' );
+		}
+	} catch ( \Throwable $e ) {
+		// A compatible version of H5P is not installed
 	}
 }
 

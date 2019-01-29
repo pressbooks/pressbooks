@@ -159,11 +159,29 @@ class Cloner {
 	protected $targetBookTerms = [];
 
 	/**
-	 * Array of known media
+	 * Associative array of known media
+	 * Key: Relative/truncated sourceUrl
+	 * Value: \Pressbooks\Entities\Cloner\Media
+	 * Sorted by the length of \Pressbooks\Entities\Cloner\Media()->sourceUrl (for better, left to right, search and replace loops)
 	 *
 	 * @var \Pressbooks\Entities\Cloner\Media[]
 	 */
 	protected $knownMedia = [];
+
+	/**
+	 * @var bool
+	 */
+	protected $sourceHasH5pApi = false;
+
+	/**
+	 * @var bool
+	 */
+	protected $sourceHasH5p = false;
+
+	/**
+	 * @var bool
+	 */
+	protected $targetHasH5pApi = false;
 
 	/**
 	 * Array of known H5P
@@ -256,7 +274,7 @@ class Cloner {
 			require_once( ABSPATH . 'wp-admin/includes/media.php' );
 		}
 
-		$this->interactiveContent = \Pressbooks\Interactive\Content::init();
+		$this->interactiveContent = Interactive\Content::init();
 		$this->contributors = new Contributors();
 	}
 
@@ -503,13 +521,14 @@ class Cloner {
 			return false;
 		}
 
+		// Media
 		$this->knownMedia = $this->buildListOfKnownMedia( $this->sourceBookUrl );
 		if ( $this->knownMedia === false ) {
 			$_SESSION['pb_errors'][] = sprintf( __( 'Could not retrieve media from %s.', 'pressbooks' ), sprintf( '<em>%s</em>', $this->sourceBookMetadata['name'] ) );
 			$this->maybeRestoreCurrentBlog();
 			return false;
 		}
-		// Sort by the length of sourceUrls for better search and replace
+		// Sort by the length of sourceUrls for better, left to right, search and replace loops
 		$known_media_sorted = $this->knownMedia;
 		uasort(
 			$known_media_sorted, function ( $a, $b ) {
@@ -520,6 +539,12 @@ class Cloner {
 
 		// H5P
 		$this->knownH5P = $this->buildListOfKnownH5P( $this->sourceBookUrl );
+		if ( $this->knownH5P === false ) {
+			// No H5P endpoint was found
+			$this->knownH5P = [];
+		} else {
+			$this->sourceHasH5pApi = true;
+		}
 
 		// Set up $this->sourceBookGlossary
 		$this->sourceBookGlossary = $this->getBookGlossary( $this->sourceBookUrl );
@@ -533,8 +558,14 @@ class Cloner {
 	 */
 	public function clonePreProcess() {
 		// H5P
-		if ( ! empty( $this->knownH5P ) ) {
-			activate_plugin( 'h5p/h5p.php' );
+		if ( $this->sourceHasH5pApi ) {
+			$h5p_plugin = 'h5p/h5p.php';
+			if ( is_file( WP_PLUGIN_DIR . "/{$h5p_plugin}" ) ) {
+				$result = activate_plugin( $h5p_plugin );
+				if ( is_wp_error( $result ) === false && method_exists( '\H5P_Plugin', 'fetch_h5p' ) === true ) {
+					$this->targetHasH5pApi = true;
+				}
+			}
 		}
 	}
 
@@ -658,6 +689,11 @@ class Cloner {
 	 */
 	public function clonePostProcess() {
 		$this->fixInternalShortcodes();
+		// H5P
+		if ( $this->sourceHasH5p === true && ( $this->sourceHasH5pApi === false || $this->targetHasH5pApi === false ) ) {
+			// Add a notice to the user indicating that the H5P could not be cloned
+			$_SESSION['pb_notices'][] = __( 'This book contains H5P content that could not be cloned. Please review the cloned version of your text carefully, as missing H5P content will be indicated. You may want to remove or replace these sections.', 'pressbooks' );
+		}
 	}
 
 	/**
@@ -665,7 +701,7 @@ class Cloner {
 	 *
 	 * @param string $url The URL of the book.
 	 *
-	 * @return bool|\Pressbooks\Entities\Cloner\Media[] False if the operation failed; known images array if succeeded.
+	 * @return bool|\Pressbooks\Entities\Cloner\Media[] False if the operation failed; known images assoc array if succeeded.
 	 */
 	public function buildListOfKnownMedia( $url ) {
 		// Handle request (local or global)
@@ -704,12 +740,12 @@ class Cloner {
 	/**
 	 * @param $url
 	 *
-	 * @return array
+	 * @return bool|Entities\Cloner\H5P[]  False if the operation failed; known H5P array if succeeded.
 	 */
 	public function buildListOfKnownH5P( $url ) {
 		$response = $this->handleGetRequest( $url, 'h5p/v1', 'all' );
 		if ( is_wp_error( $response ) || @$response['data']['status'] >= 400 ) { // @codingStandardsIgnoreLine
-			return [];
+			return false;
 		}
 
 		$known_h5p = [];
@@ -812,6 +848,7 @@ class Cloner {
 		// H5P
 		if ( has_shortcode( $html, Interactive\H5P::SHORTCODE ) ) {
 			$this->postsWithH5PShortcodesToFix[] = $post_id;
+			$this->sourceHasH5p = true;
 		}
 	}
 
@@ -1272,7 +1309,6 @@ class Cloner {
 	 */
 	protected function retrieveSectionContent( $section ) {
 		if ( ! empty( $section['content']['raw'] ) ) {
-			// Wrap in fake div tags so that we can parse it
 			$source_content = $section['content']['raw'];
 		} else {
 			$source_content = $section['content']['rendered'];
@@ -1313,18 +1349,12 @@ class Cloner {
 			$content = str_replace( "<!-- pb_fixme_{$md5} -->", $c, $content );
 		}
 
-		// TODO:
-		//  H5P cloning only works with new versions of the plugin, what do we do about this?
-		// @codingStandardsIgnoreStart
-		/*
-		if ( ! empty( $section['content']['raw'] ) ) {
-			if ( ! $this->interactiveContent->isCloneable( $content ) ) {
-				$content = $this->interactiveContent->replaceCloneable( $content );
-			}
+		// H5P
+		if ( $this->sourceHasH5pApi && $this->targetHasH5pApi ) {
+			$content = $this->fetchH5P( $content );
+		} else {
+			$content = $this->interactiveContent->getH5P()->replaceCloneable( $content );
 		}
-		// @codingStandardsIgnoreEnd
-		*/
-		$content = $this->fetchH5P( $content );
 
 		return [ trim( $content ), $attachments ];
 	}
@@ -1850,9 +1880,9 @@ class Cloner {
 	}
 
 	/**
-	 * @param $content
+	 * @param string $content
 	 *
-	 * @return mixed
+	 * @return string mixed
 	 */
 	protected function fetchH5P( $content ) {
 		$h5p_ids = $this->interactiveContent->getH5P()->findAllShortcodeIds( $content );
@@ -1861,14 +1891,13 @@ class Cloner {
 				foreach ( $this->knownH5P as $h5p ) {
 					if ( absint( $h5p->id ) === absint( $h5p_id ) ) {
 						try {
-							$plugin = \H5P_Plugin::get_instance();
-							$new_h5p_id = $plugin->fetch_h5p( $h5p->url );
+							$new_h5p_id = \H5P_Plugin::get_instance()->fetch_h5p( $h5p->url );
 							if ( $new_h5p_id ) {
 								$this->createTransition( 'h5p', $h5p_id, $new_h5p_id );
 								$this->H5PWasAlreadyDownloaded[ $h5p_id ] = $new_h5p_id;
 							}
-						} catch ( \Exception $e ) {
-							// TODO: Cleanup failed download?
+						} catch ( \Throwable $e ) {
+							// Do nothing
 						}
 						continue 2;
 					}
