@@ -3,9 +3,9 @@ Contributors: Pressbooks <code@pressbooks.com>
 Donate link: https://opencollective.com/pressbooks
 Tags: ebooks, publishing, webbooks
 Requires at least: 4.9.8
-Tested up to: 5.0.2
+Tested up to: 5.0.3
 Requires PHP: 7.1
-Stable tag: 5.6.4
+Stable tag: 5.6.5
 License: GPL v3.0 or later
 License URI: https://github.com/pressbooks/pressbooks/blob/master/LICENSE.md
 
@@ -21,6 +21,18 @@ For installation instructions, visit [docs.pressbooks.org/installation](https://
 TK.
 
 == Changelog ==
+= 5.6.5 =
+
+* Pressbooks 5.6.5 requires PHP >= 7.1.
+* Pressbooks 5.6.5 requires [WordPress 4.9.8](https://wordpress.org/news/2018/08/wordpress-4-9-8-maintenance-release/).
+* Pressbooks 5.6.5 requires [McLuhan >= 2.7.0](https://github.com/pressbooks/pressbooks-book/).
+
+**Patches**
+
+* Prevent unnecessary alert while saving parts ([#1555](pressbooks/pressbooks/issues/1555), props [@josieg](https://github.com/josieg) for the bug report): [#1562](https://github.com/pressbooks/pressbooks/pull/1562)
+* Add support for EPUBCheck 4.1 (props [@bdolor](https://github.com/bdolor)): [#1524](https://github.com/pressbooks/pressbooks/pull/1524), [#1556](https://github.com/pressbooks/pressbooks/pull/1556)
+* Prevent SCSS compilation during AJAX calls: [#1483](https://github.com/pressbooks/pressbooks/pull/1483)
+
 = 5.6.4 =
 
 * Pressbooks 5.6.4 requires PHP >= 7.1.
@@ -129,8 +141,8 @@ TK.
 * Hide the "View" link when editing taxonomies (props [@colomet](https://github.com/colomet) for the suggestion): [#1351](https://github.com/pressbooks/pressbooks/issues/1351), [#1356](https://github.com/pressbooks/pressbooks/issues/1356), [#1360](https://github.com/pressbooks/pressbooks/issues/1360)
 
 == Upgrade Notice ==
-= 5.6.4 =
+= 5.6.5 =
 
-* Pressbooks 5.6.4 requires PHP >= 7.1.
-* Pressbooks 5.6.4 requires [WordPress 4.9.8](https://wordpress.org/news/2018/08/wordpress-4-9-8-maintenance-release/).
-* Pressbooks 5.6.4 requires [McLuhan >= 2.6.0](https://github.com/pressbooks/pressbooks-book/).
+* Pressbooks 5.6.5 requires PHP >= 7.1.
+* Pressbooks 5.6.5 requires [WordPress 4.9.8](https://wordpress.org/news/2018/08/wordpress-4-9-8-maintenance-release/).
+* Pressbooks 5.6.5 requires [McLuhan >= 2.7.0](https://github.com/pressbooks/pressbooks-book/).
