@@ -6,6 +6,15 @@
 
 namespace Pressbooks\Admin\Diagnostics;
 
+use function Pressbooks\Utility\check_epubcheck_install;
+use function Pressbooks\Utility\check_kindlegen_install;
+use function Pressbooks\Utility\check_prince_install;
+use function Pressbooks\Utility\check_saxonhe_install;
+use function Pressbooks\Utility\check_xmllint_install;
+use Pressbooks\Book;
+use Pressbooks\Container;
+use Pressbooks\Modules\ThemeOptions\Admin;
+use Pressbooks\Theme\Lock;
 use Sinergi\BrowserDetector\Browser;
 use Sinergi\BrowserDetector\Os;
 use Sinergi\BrowserDetector\UserAgent;
@@ -32,13 +41,12 @@ function render_page() {
 	global $wpdb;
 	$browser = new Browser;
 	$os = new Os;
-	$user_agent = new UserAgent; ?>
-	<div class="wrap">
-		<h1><?php _e( 'Diagnostics', 'pressbooks' ); ?></h1>
-		<p><?php _e( 'Please submit this information with any bug reports.', 'pressbooks' ); ?></p>
-	<?php
+	$user_agent = new UserAgent;
+	$is_book = Book::isBook();
+	$lock = Lock::init();
+	$regenerate_webbook_stylesheet_url = wp_nonce_url( get_admin_url( get_current_blog_id(), '/admin-post.php?action=pb_regenerate_webbook_stylesheet' ), 'pb-regenerate-webbook-stylesheet' );
 	$output = "### System Information\n\n";
-	if ( \Pressbooks\Book::isBook() ) {
+	if ( Book::isBook() ) {
 		$output .= "#### Book Info\n\n";
 		$output .= 'Book ID: ' . get_current_blog_id() . "\n";
 		$output .= 'Book URL: ' . trailingslashit( get_bloginfo( 'url' ) ) . "\n";
@@ -63,11 +71,10 @@ function render_page() {
 	$output .= 'Memory Limit: ' . WP_MEMORY_LIMIT . "\n\n";
 	$output .= "#### Pressbooks Configuration\n\n";
 	$output .= 'Version: ' . PB_PLUGIN_VERSION . "\n";
-	if ( \Pressbooks\Book::isBook() ) {
+	if ( $is_book ) {
 		switch_to_blog( $GLOBALS['current_site']->blog_id );
 		$root_theme = wp_get_theme();
 		restore_current_blog();
-		$lock = \Pressbooks\Theme\Lock::init();
 		if ( $lock->isLocked() ) {
 			$theme = wp_get_theme();
 			$data = $lock->getLockData();
@@ -85,11 +92,11 @@ function render_page() {
 	$output .= 'Root Theme: ' . $root_theme->get( 'Name' ) . "\n";
 	$output .= 'Root Theme Version: ' . $root_theme->get( 'Version' ) . "\n\n";
 	$output .= "#### Pressbooks Dependencies\n\n";
-	$output .= 'Epubcheck: ' . ( \Pressbooks\Utility\check_epubcheck_install() ? 'Installed' : 'Not Installed' ) . "\n"; // TODO: version
-	$output .= 'Kindlegen: ' . ( \Pressbooks\Utility\check_kindlegen_install() ? 'Installed' : 'Not Installed' ) . "\n"; // TODO: version
-	$output .= 'xmllint: ' . ( \Pressbooks\Utility\check_xmllint_install() ? 'Installed' : 'Not Installed' ) . "\n"; // TODO: version
-	$output .= 'PrinceXML: ' . ( \Pressbooks\Utility\check_prince_install() ? 'Installed' : 'Not Installed' ) . "\n"; // TODO: version
-	$output .= 'Saxon-HE: ' . ( \Pressbooks\Utility\check_saxonhe_install() ? 'Installed' : 'Not Installed' ) . "\n\n"; // TODO: version
+	$output .= 'Epubcheck: ' . ( check_epubcheck_install() ? 'Installed' : 'Not Installed' ) . "\n"; // TODO: version
+	$output .= 'Kindlegen: ' . ( check_kindlegen_install() ? 'Installed' : 'Not Installed' ) . "\n"; // TODO: version
+	$output .= 'xmllint: ' . ( check_xmllint_install() ? 'Installed' : 'Not Installed' ) . "\n"; // TODO: version
+	$output .= 'PrinceXML: ' . ( check_prince_install() ? 'Installed' : 'Not Installed' ) . "\n"; // TODO: version
+	$output .= 'Saxon-HE: ' . ( check_saxonhe_install() ? 'Installed' : 'Not Installed' ) . "\n\n"; // TODO: version
 	$muplugins = get_mu_plugins();
 	if ( count( $muplugins ) > 0 ) {
 		$output .= '#### Must-Use Plugins' . "\n\n";
@@ -105,7 +112,7 @@ function render_page() {
 		}
 		$output .= $plugin['Name'] . ': ' . $plugin['Version'] . "\n";
 	}
-	if ( \Pressbooks\Book::isBook() ) {
+	if ( $is_book ) {
 		$output .= "\n#### Book Active Plugins\n\n";
 	} else {
 		$output .= "\n#### Root Blog Active Plugins\n\n";
@@ -163,15 +170,31 @@ function render_page() {
 	}
 	$output .= 'imagick: ' . ( extension_loaded( 'imagick' ) ? 'Installed' : 'Not Installed' ) . "\n";
 	$output .= 'xsl: ' . ( extension_loaded( 'xsl' ) ? 'Installed' : 'Not Installed' );
-	?>
-		<textarea style="width: 800px; max-width: 100%; height: 600px; background: #fff; font-family: monospace;" readonly="readonly" onclick="this.focus(); this.select()"
-				title="<?php _e( 'To copy the system info, click below then press Ctrl + C (PC) or Cmd + C (Mac).', 'pressbooks' ); ?>"><?php echo $output; ?></textarea>
-		<h2><?php _e( 'View Source', 'pressbooks' ); ?></h2>
-		<p>
-		<?php
-		printf( __( '<a href="%s">View your book&rsquo;s XHTML source</a> to diagnose issues you may be encountering with your PDF exports.', 'pressbooks' ), home_url() . '/format/xhtml?debug=prince' );
-		?>
-		</p>
-	</div>
-	<?php
+	$blade = \Pressbooks\Container::get( 'Blade' );
+	echo $blade->render(
+		'admin.diagnostics',
+		[
+			'output' => $output,
+			'regenerate_webbook_stylesheet_url' => $regenerate_webbook_stylesheet_url,
+			'is_book' => $is_book,
+		]
+	);
+}
+
+/**
+ * @since 5.7.0
+ *
+ * Handle form submission on the diagnostics page which triggers regeneration of the webbook stylesheet.
+ *
+ * @return null
+ */
+function handle_stylesheet_regeneration() {
+	if ( check_admin_referer( 'pb-regenerate-webbook-stylesheet' ) ) {
+		( new Admin() )->clearCache();
+		Container::get( 'Styles' )->updateWebBookStyleSheet();
+
+		// Ok!
+		$_SESSION['pb_notices'][] = __( 'Stylesheet regenerated.', 'pressbooks' );
+	}
+	\Pressbooks\Redirect\location( admin_url( 'options.php?page=pressbooks_diagnostics' ) );
 }
