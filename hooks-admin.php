@@ -300,6 +300,7 @@ add_action( 'init', [ '\Pressbooks\Covergenerator\Covergenerator', 'init' ] );
 // -------------------------------------------------------------------------------------------------------------------
 
 if ( $is_book ) {
+	add_action( 'admin_post_pb_regenerate_webbook_stylesheet', '\Pressbooks\Admin\Diagnostics\handle_stylesheet_regeneration' );
 
 	add_action(
 		'post_edit_form_tag', function () {
