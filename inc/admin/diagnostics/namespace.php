@@ -194,7 +194,7 @@ function handle_stylesheet_regeneration() {
 		Container::get( 'Styles' )->updateWebBookStyleSheet();
 
 		// Ok!
-		$_SESSION['pb_notices'][] = __( 'Stylesheet regenerated.', 'pressbooks' );
+		\Pressbooks\add_notice( __( 'Stylesheet regenerated.', 'pressbooks' ) );
 	}
 	\Pressbooks\Redirect\location( admin_url( 'options.php?page=pressbooks_diagnostics' ) );
 }
