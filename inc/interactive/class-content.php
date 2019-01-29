@@ -28,6 +28,7 @@ class Content {
 		'players.brightcove.net',
 		'preview-players.brightcove.net',
 		'//docs.google.com/forms/',
+		'//www.google.com/maps/',
 	];
 
 	/**
