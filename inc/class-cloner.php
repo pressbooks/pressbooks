@@ -819,39 +819,43 @@ class Cloner {
 	 * Fix shortcodes with references to internal IDs
 	 */
 	protected function fixInternalShortcodes() {
+		// Because $fix replaces left to right, it might replace a previously inserted value when doing multiple replacements.
+		// Solved by creating a placeholder that can't possibly fall into the replacement order gotcha (famous last words)
+		$fix = function ( $post_id, $transition_type, $shortcode ) {
+			$replace_pairs = [];
+			$post = get_post( $post_id );
+			foreach ( $this->transitions as $transition ) {
+				if ( $transition->type === $transition_type ) {
+					$md5 = md5( $transition->oldId . $transition->newId . rand() );
+					$to = "<!-- pb_fixme_{$md5} -->";
+					$replace_pairs[ $to ] = $transition->newId;
+					$post->post_content = \Pressbooks\Utility\shortcode_att_replace(
+						$post->post_content,
+						$shortcode,
+						'id',
+						$transition->oldId,
+						$to
+					);
+				}
+			}
+			if ( ! empty( $replace_pairs ) ) {
+				$post->post_content = strtr( $post->post_content, $replace_pairs );
+				wp_update_post( $post );
+			}
+		};
+
 		// Glossary
 		foreach ( $this->postsWithGlossaryShortcodesToFix as $post_id ) {
-			$this->_fixInternalShortcodes( $post_id, 'glossary', Shortcodes\Glossary\Glossary::SHORTCODE );
+			$fix( $post_id, 'glossary', Shortcodes\Glossary\Glossary::SHORTCODE );
 		}
 		// Attachments
 		foreach ( $this->postsWithAttachmentsShortcodesToFix as $post_id ) {
-			$this->_fixInternalShortcodes( $post_id, 'attachment', Shortcodes\Attributions\Attachments::SHORTCODE );
+			$fix( $post_id, 'attachment', Shortcodes\Attributions\Attachments::SHORTCODE );
 		}
 		// H5P
 		foreach ( $this->postsWithH5PShortcodesToFix as $post_id ) {
-			$this->_fixInternalShortcodes( $post_id, 'h5p', Interactive\H5P::SHORTCODE );
+			$fix( $post_id, 'h5p', Interactive\H5P::SHORTCODE );
 		}
-	}
-
-	/**
-	 * @param int $post_id
-	 * @param string $transition_type
-	 * @param string $shortcode
-	 */
-	protected function _fixInternalShortcodes( $post_id, $transition_type, $shortcode ) {
-		$post = get_post( $post_id );
-		foreach ( $this->transitions as $transition ) {
-			if ( $transition->type === $transition_type ) {
-				$post->post_content = \Pressbooks\Utility\shortcode_att_replace(
-					$post->post_content,
-					$shortcode,
-					'id',
-					$transition->oldId,
-					$transition->newId
-				);
-			}
-		}
-		wp_update_post( $post );
 	}
 
 	/**
@@ -1309,7 +1313,8 @@ class Cloner {
 			$content = str_replace( "<!-- pb_fixme_{$md5} -->", $c, $content );
 		}
 
-		// TODO: H5P cloning only works with new versions of the plugin, what do we do about this?
+		// TODO:
+		//  H5P cloning only works with new versions of the plugin, what do we do about this?
 		// @codingStandardsIgnoreStart
 		/*
 		if ( ! empty( $section['content']['raw'] ) ) {

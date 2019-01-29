@@ -745,37 +745,38 @@ class Wxr extends Import {
 	 * Fix shortcodes with references to internal IDs
 	 */
 	protected function fixInternalShortcodes() {
-		// Glossary
-		foreach ( $this->postsWithGlossaryShortcodesToFix as $post_id ) {
+		// Because $fix replaces left to right, it might replace a previously inserted value when doing multiple replacements.
+		// Solved by creating a placeholder that can't possibly fall into the replacement order gotcha (famous last words)
+		$fix = function ( $post_id, $transition_type, $shortcode ) {
+			$replace_pairs = [];
 			$post = get_post( $post_id );
 			foreach ( $this->transitions as $transition ) {
-				if ( $transition->type === 'glossary' ) {
+				if ( $transition->type === $transition_type ) {
+					$md5 = md5( $transition->oldId . $transition->newId . rand() );
+					$to = "<!-- pb_fixme_{$md5} -->";
+					$replace_pairs[ $to ] = $transition->newId;
 					$post->post_content = \Pressbooks\Utility\shortcode_att_replace(
 						$post->post_content,
-						\Pressbooks\Shortcodes\Glossary\Glossary::SHORTCODE,
+						$shortcode,
 						'id',
 						$transition->oldId,
-						$transition->newId
+						$to
 					);
 				}
 			}
-			wp_update_post( $post );
+			if ( ! empty( $replace_pairs ) ) {
+				$post->post_content = strtr( $post->post_content, $replace_pairs );
+				wp_update_post( $post );
+			}
+		};
+
+		// Glossary
+		foreach ( $this->postsWithGlossaryShortcodesToFix as $post_id ) {
+			$fix( $post_id, 'glossary', \Pressbooks\Shortcodes\Glossary\Glossary::SHORTCODE );
 		}
 		// Attachments
 		foreach ( $this->postsWithAttachmentsShortcodesToFix as $post_id ) {
-			$post = get_post( $post_id );
-			foreach ( $this->transitions as $transition ) {
-				if ( $transition->type === 'attachment' ) {
-					$post->post_content = \Pressbooks\Utility\shortcode_att_replace(
-						$post->post_content,
-						\Pressbooks\Shortcodes\Attributions\Attachments::SHORTCODE,
-						'id',
-						$transition->oldId,
-						$transition->newId
-					);
-				}
-			}
-			wp_update_post( $post );
+			$fix( $post_id, 'attachment', \Pressbooks\Shortcodes\Attributions\Attachments::SHORTCODE );
 		}
 	}
 
