@@ -34,14 +34,17 @@ class Interactive_ContentTest extends \WP_UnitTestCase {
 		<iframe src="https://docs.google.com/forms/d/e/xxx/viewform?embedded=true" width="640" height="398" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
 		Test Four
 		<iframe src="https://docs.google.com/garbage/d/e/xxx/viewform?embedded=true" width="640" height="398" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
+		Test Five
+		<iframe src="https://www.google.com/maps/d/embed?mid=xxx" width="640" height="480" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
 		';
 		$result = $this->content->deleteIframesNotOnWhitelist( $raw, [ 'post' ] );
-		$this->assertEquals( 1, substr_count( $result, '<iframe' ) );
+		$this->assertEquals( 2, substr_count( $result, '<iframe' ) );
 		$this->assertContains( 'Test Three', $result );
 		$this->assertContains( 'Test Four', $result );
 		$this->assertContains( '<iframe src="https://docs.google.com/forms/d/e/xxx/viewform?embedded=true', $result );
 		$this->assertContains( '[embed]https://docs.google.com/garbage/d/e/xxx/viewform?embedded=true[/embed]', $result );
-		$this->assertNotContains( '<p>', $result );
+		$this->assertContains( '<iframe src="https://www.google.com/maps/d/embed?mid=xxx', $result );
+			$this->assertNotContains( '<p>', $result );
 	}
 
 	public function test_replaceIframes() {
