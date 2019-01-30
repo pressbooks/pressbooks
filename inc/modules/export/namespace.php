@@ -115,22 +115,24 @@ function formats() {
 	 * } );
 	 *
 	 */
-	$formats = apply_filters( 'pb_export_formats', [
-		'standard' => [
-			'print_pdf' => __( 'PDF (for print)', 'pressbooks' ),
-			'pdf' => __( 'PDF (for digital distribution)', 'pressbooks' ),
-			'epub' => __( 'EPUB (for Nook, Apple Books, Kobo etc.)', 'pressbooks' ),
-			'mobi' => __( 'MOBI (for Kindle)', 'pressbooks' ),
-		],
-		'exotic' => [
-			'epub3' => __( 'EPUB 3', 'pressbooks' ),
-			'xhtml' => __( 'XHTML', 'pressbooks' ),
-			'htmlbook' => __( 'HTMLBook', 'pressbooks' ),
-			'odt' => __( 'OpenDocument', 'pressbooks' ),
-			'wxr' => __( 'Pressbooks XML', 'pressbooks' ),
-			'vanillawxr' => __( 'WordPress XML', 'pressbooks' ),
-		],
-	] );
+	$formats = apply_filters(
+		'pb_export_formats', [
+			'standard' => [
+				'print_pdf' => __( 'PDF (for print)', 'pressbooks' ),
+				'pdf' => __( 'PDF (for digital distribution)', 'pressbooks' ),
+				'epub' => __( 'EPUB (for Nook, Apple Books, Kobo etc.)', 'pressbooks' ),
+				'mobi' => __( 'MOBI (for Kindle)', 'pressbooks' ),
+			],
+			'exotic' => [
+				'epub3' => __( 'EPUB 3', 'pressbooks' ),
+				'xhtml' => __( 'XHTML', 'pressbooks' ),
+				'htmlbook' => __( 'HTMLBook', 'pressbooks' ),
+				'odt' => __( 'OpenDocument', 'pressbooks' ),
+				'wxr' => __( 'Pressbooks XML', 'pressbooks' ),
+				'vanillawxr' => __( 'WordPress XML', 'pressbooks' ),
+			],
+		]
+	);
 	return $formats;
 }
 

@@ -42,13 +42,15 @@ class Glossary {
 	static public function hooks( Glossary $obj ) {
 		// Webbook shortcode
 		add_shortcode( self::SHORTCODE, [ $obj, 'webShortcodeHandler' ] );
-		add_action( 'pb_pre_export', function () use ( $obj ) {
-			// Override webbook shortcode when exporting
-			remove_shortcode( self::SHORTCODE );
-			add_shortcode( self::SHORTCODE, [ $obj, 'exportShortcodeHandler' ] );
-			remove_filter( 'the_content', [ $obj, 'tooltipContent' ], 13 ); // Only for the webbook!
+		add_action(
+			'pb_pre_export', function () use ( $obj ) {
+				// Override webbook shortcode when exporting
+				remove_shortcode( self::SHORTCODE );
+				add_shortcode( self::SHORTCODE, [ $obj, 'exportShortcodeHandler' ] );
+				remove_filter( 'the_content', [ $obj, 'tooltipContent' ], 13 ); // Only for the webbook!
 
-		} );
+			}
+		);
 		add_filter(
 			'no_texturize_shortcodes',
 			function ( $excluded_shortcodes ) {

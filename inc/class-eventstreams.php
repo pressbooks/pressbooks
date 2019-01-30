@@ -7,6 +7,7 @@
 namespace Pressbooks;
 
 use function Pressbooks\Utility\getset;
+use Pressbooks\Cloner\Cloner;
 use Pressbooks\Modules\Export\Export;
 use Pressbooks\Modules\Import\Import;
 
@@ -170,7 +171,7 @@ class EventStreams {
 
 		$source_url = $_GET['source_book_url'] ?? '';
 
-		$target_url = \Pressbooks\Cloner\Cloner::validateNewBookName( $_GET['target_book_url'] );
+		$target_url = Cloner::validateNewBookName( $_GET['target_book_url'] );
 		if ( is_wp_error( $target_url ) ) {
 			$this->emitOneTimeError( $target_url->get_error_message() );
 			return;
@@ -178,19 +179,20 @@ class EventStreams {
 
 		$target_title = $_GET['target_book_title'] ?? '';
 
-		$cloner = new \Pressbooks\Cloner\Cloner( $source_url, $target_url, $target_title );
+		$cloner = new Cloner( $source_url, $target_url, $target_title );
 		$everything_ok = $this->emit( $cloner->cloneBookGenerator() );
 
 		if ( $everything_ok ) {
 			$cloned_items = $cloner->getClonedItems();
 			$notice = sprintf(
-				__( 'Cloning succeeded! Cloned %1$s, %2$s, %3$s, %4$s, %5$s, %6$s, and %7$s to %8$s.', 'pressbooks' ),
+				__( 'Cloning succeeded! Cloned %1$s, %2$s, %3$s, %4$s, %5$s, %6$s, %7$s, and %8$s to %9$s.', 'pressbooks' ),
 				sprintf( _n( '%s term', '%s terms', count( getset( $cloned_items, 'terms', [] ) ), 'pressbooks' ), count( getset( $cloned_items, 'terms', [] ) ) ),
 				sprintf( _n( '%s front matter', '%s front matter', count( getset( $cloned_items, 'front-matter', [] ) ), 'pressbooks' ), count( getset( $cloned_items, 'front-matter', [] ) ) ),
 				sprintf( _n( '%s part', '%s parts', count( getset( $cloned_items, 'parts', [] ) ), 'pressbooks' ), count( getset( $cloned_items, 'parts', [] ) ) ),
 				sprintf( _n( '%s chapter', '%s chapters', count( getset( $cloned_items, 'chapters', [] ) ), 'pressbooks' ), count( getset( $cloned_items, 'chapters', [] ) ) ),
 				sprintf( _n( '%s back matter', '%s back matter', count( getset( $cloned_items, 'back-matter', [] ) ), 'pressbooks' ), count( getset( $cloned_items, 'back-matter', [] ) ) ),
 				sprintf( _n( '%s media attachment', '%s media attachments', count( getset( $cloned_items, 'media', [] ) ), 'pressbooks' ), count( getset( $cloned_items, 'media', [] ) ) ),
+				sprintf( _n( '%s H5P element', '%s H5P elements', count( getset( $cloned_items, 'h5p', [] ) ), 'pressbooks' ), count( getset( $cloned_items, 'h5p', [] ) ) ),
 				sprintf( _n( '%s glossary term', '%s glossary terms', count( getset( $cloned_items, 'glossary', [] ) ), 'pressbooks' ), count( getset( $cloned_items, 'glossary', [] ) ) ),
 				sprintf( '<a href="%1$s"><em>%2$s</em></a>', trailingslashit( $cloner->getTargetBookUrl() ) . 'wp-admin/', $cloner->getTargetBookTitle() )
 			);

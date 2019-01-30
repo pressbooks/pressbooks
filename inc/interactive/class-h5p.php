@@ -167,9 +167,9 @@ class H5P {
 	 *
 	 * @param string $content
 	 *
-	 * @return bool
+	 * @return string
 	 */
-	public function replaceCloneable( $content ) {
+	public function replaceUncloneable( $content ) {
 		$pattern = get_shortcode_regex( [ self::SHORTCODE ] );
 		$content = preg_replace_callback(
 			"/$pattern/",
