@@ -154,27 +154,27 @@ class Glossary {
 	public function glossaryTerms( $type = '' ) {
 		$output = '';
 		$glossary = '';
-		$terms = $this->getGlossaryTerms();
+		$glossary_terms = $this->getGlossaryTerms();
 
-		if ( empty( $terms ) ) {
+		if ( empty( $glossary_terms ) ) {
 			return '';
 		}
 
 		// make sure they are sorted in alphabetical order
-		$ok = ksort( $terms, SORT_LOCALE_STRING );
+		$ok = ksort( $glossary_terms, SORT_LOCALE_STRING );
 
-		if ( true === $ok && count( $terms ) > 0 ) {
-			foreach ( $terms as $key => $value ) {
-				if ( $value['status'] !== 'publish' ) {
+		if ( true === $ok && count( $glossary_terms ) > 0 ) {
+			foreach ( $glossary_terms as $glossary_term_id => $glossary_term ) {
+				if ( $glossary_term['status'] !== 'publish' ) {
 					continue;
 				}
-				if ( ! empty( $type ) && ! \Pressbooks\Utility\comma_delimited_string_search( $value['type'], $type ) ) {
+				if ( ! empty( $type ) && ! \Pressbooks\Utility\comma_delimited_string_search( $glossary_term['type'], $type ) ) {
 					// Type was not found. Skip this glossary term.
 					continue;
 				}
 				$glossary .= sprintf(
 					'<dt data-type="glossterm"><dfn id="%1$s">%2$s</dfn></dt><dd data-type="glossdef">%3$s</dd>',
-					sprintf( 'dfn-%s', \Pressbooks\Utility\str_lowercase_dash( $key ) ), $key, wp_strip_all_tags( $value['content'] )
+					sprintf( 'dfn-%s', \Pressbooks\Utility\str_lowercase_dash( $glossary_term_id ) ), $glossary_term_id, wpautop( $glossary_term['content'] )
 				);
 			}
 		}

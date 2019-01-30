@@ -15,7 +15,7 @@ document.addEventListener( 'DOMContentLoaded', function () {
 
 		glossaryTerm.onfocus = showDefinition;
 		glossaryTerm.addEventListener( 'keydown', function ( e ) {
-			if ( ( e.keyCode || e.which ) === 27 )
+			if ( e.key === 'Escape' )
 				hideDefinition();
 		} );
 
