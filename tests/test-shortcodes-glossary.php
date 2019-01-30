@@ -80,10 +80,13 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 	public function test_glossaryTerms() {
 		// assures alphabetical listing and format
 		$dl = $this->gl->glossaryTerms();
-		$this->assertEquals( '<dl data-type="glossary"><dt data-type="glossterm"><dfn id="dfn-neural-network">Neural Network</dfn></dt><dd data-type="glossdef">A computer system modeled on the human brain and nervous system.</dd><dt data-type="glossterm"><dfn id="dfn-support-vector-machine">Support Vector Machine</dfn></dt><dd data-type="glossdef">An algorithm that uses a nonlinear mapping to transform the original training data into a higher dimension</dd></dl>', $dl );
+		$this->assertEquals( '<dl data-type="glossary"><dt data-type="glossterm"><dfn id="dfn-neural-network">Neural Network</dfn></dt><dd data-type="glossdef"><p>A computer system modeled on the human brain and <a href="https://en.wikipedia.org/wiki/Nervous_system" target="_blank">nervous system</a>.</p>
+</dd><dt data-type="glossterm"><dfn id="dfn-support-vector-machine">Support Vector Machine</dfn></dt><dd data-type="glossdef"><p>An algorithm that uses a nonlinear mapping to transform the original training data into a higher dimension</p>
+</dd></dl>', $dl );
 		// assures found by type
 		$dl = $this->gl->glossaryTerms( 'definitions' );
-		$this->assertEquals( '<dl data-type="glossary"><dt data-type="glossterm"><dfn id="dfn-support-vector-machine">Support Vector Machine</dfn></dt><dd data-type="glossdef">An algorithm that uses a nonlinear mapping to transform the original training data into a higher dimension</dd></dl>', $dl );
+		$this->assertEquals( '<dl data-type="glossary"><dt data-type="glossterm"><dfn id="dfn-support-vector-machine">Support Vector Machine</dfn></dt><dd data-type="glossdef"><p>An algorithm that uses a nonlinear mapping to transform the original training data into a higher dimension</p>
+</dd></dl>', $dl );
 		// assures empty (because this type is not found)
 		$dl = $this->gl->glossaryTerms( 'nothing-to-find' );
 		$this->assertEmpty( $dl );
