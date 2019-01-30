@@ -141,7 +141,7 @@ add_action( 'plugins_loaded', [ '\Pressbooks\Interactive\Content', 'init' ] );
 if ( $is_book ) {
 	add_action( 'init', '\Pressbooks\PostType\register_post_types' );
 	add_filter( 'comments_open', '\Pressbooks\PostType\comments_open', 10, 2 );
-
+	add_action( 'plugins_loaded', [ '\Pressbooks\Taxonomy', 'init' ] );
 	add_action( 'init', '\Pressbooks\PostType\register_meta' );
 	add_action( 'init', '\Pressbooks\PostType\register_post_statii' );
 	add_filter( 'request', '\Pressbooks\PostType\add_post_types_rss' );
