@@ -44,6 +44,7 @@ class Updates {
 			add_action( 'core_upgrade_preamble', [ $obj, 'coreUpgradePreamble' ] );
 		}
 		add_filter( 'extra_plugin_headers', [ $obj, 'extraPluginHeaders' ] );
+		add_action( 'admin_init', [ $obj, 'translationsUpdater' ] );
 	}
 
 	/**
@@ -210,4 +211,22 @@ class Updates {
 		return $matches;
 	}
 
+	/**
+	 * Get Pressbooks translations from separate repository.
+	 * Hooked into action `admin_init`.
+	 *
+	 * @see https://github.com/afragen/translations-updater
+	 *
+	 * @return void
+	 */
+	public function translationsUpdater() {
+		$config = [
+			'git'       => 'github',
+			'type'      => 'plugin',
+			'slug'      => 'pressbooks',
+			'version'   => PB_PLUGIN_VERSION,
+			'languages' => 'https://my-path-to/language-packs',
+		];
+		( new \Fragen\Translations_Updater\Init() )->run( $config );
+	}
 }

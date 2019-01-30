@@ -43,7 +43,8 @@
 		"vanilla/htmlawed": "^2.2",
 		"yahnis-elsts/plugin-update-checker": "^4.4",
 		"docraptor/docraptor": "1.3",
-		"fale/isbn": "^3.0"
+		"fale/isbn": "^3.0",
+		"afragen/translations-updater": "dev-master"
 	},
 	"require-dev": {
 		"mybuilder/phpunit-accelerator": "^2.0",
