@@ -39,7 +39,7 @@ class Updates {
 	 */
 	static public function hooks( Updates $obj ) {
 		if ( Book::isBook() === false ) {
-			add_action( 'plugins_loaded', [ $obj, 'gitHubUpdater' ] );
+			$obj->gitHubUpdater();
 			add_action( 'in_plugin_update_message-pressbooks/pressbooks.php', [ $obj, 'inPluginUpdateMessage' ] );
 			add_action( 'core_upgrade_preamble', [ $obj, 'coreUpgradePreamble' ] );
 		}
