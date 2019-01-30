@@ -13,7 +13,7 @@ class IntegrationsTest extends \WP_UnitTestCase {
 		$user_id = $this->factory()->user->create( [ 'role' => 'contributor' ] );
 		wp_set_current_user( $user_id );
 
-		$cloner = new \Pressbooks\Cloner( $source, $target );
+		$cloner = new \Pressbooks\Cloner\Cloner( $source, $target );
 
 		global $wpdb;
 		$suppress = $wpdb->suppress_errors();

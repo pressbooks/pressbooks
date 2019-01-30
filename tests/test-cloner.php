@@ -49,7 +49,7 @@ class ClonerTest extends \WP_UnitTestCase {
 				'post_type' => 'page',
 			],
 		];
-		$result = \Pressbooks\Cloner::removeDefaultBookContent( $posts );
+		$result = \Pressbooks\Cloner\Cloner::removeDefaultBookContent( $posts );
 		$this->assertArrayNotHasKey( 'main-body', $result );
 		$this->assertArrayNotHasKey( 'introduction', $result );
 		$this->assertArrayNotHasKey( 'chapter-1', $result );
@@ -64,37 +64,37 @@ class ClonerTest extends \WP_UnitTestCase {
 
 		$this->_book();
 
-		$result = \Pressbooks\Cloner::getBookId( home_url( '/' ) );
+		$result = \Pressbooks\Cloner\Cloner::getBookId( home_url( '/' ) );
 		$this->assertEquals( $result, $blog_id );
 	}
 
 	public function test_getSubdomainOrSubDirectory() {
-		$result = \Pressbooks\Cloner::getSubdomainOrSubDirectory( 'https://sub.domain.com/path/' );
+		$result = \Pressbooks\Cloner\Cloner::getSubdomainOrSubDirectory( 'https://sub.domain.com/path/' );
 		$this->assertEquals( $result, 'path' );
-		$result = \Pressbooks\Cloner::getSubdomainOrSubDirectory( 'https://sub.domain.com/path' );
+		$result = \Pressbooks\Cloner\Cloner::getSubdomainOrSubDirectory( 'https://sub.domain.com/path' );
 		$this->assertEquals( $result, 'path' );
-		$result = \Pressbooks\Cloner::getSubdomainOrSubDirectory( 'https://sub.domain.com/' );
+		$result = \Pressbooks\Cloner\Cloner::getSubdomainOrSubDirectory( 'https://sub.domain.com/' );
 		$this->assertEquals( $result, 'sub' );
-		$result = \Pressbooks\Cloner::getSubdomainOrSubDirectory( 'https://sub.domain.com' );
+		$result = \Pressbooks\Cloner\Cloner::getSubdomainOrSubDirectory( 'https://sub.domain.com' );
 		$this->assertEquals( $result, 'sub' );
 	}
 
 	public function test_isEnabled() {
-		$result = \Pressbooks\Cloner::isEnabled();
+		$result = \Pressbooks\Cloner\Cloner::isEnabled();
 		$this->assertTrue( is_bool( $result ) );
 	}
 
 	public function test_validateNewBookName() {
-		$result = \Pressbooks\Cloner::validateNewBookName( '12345' );
+		$result = \Pressbooks\Cloner\Cloner::validateNewBookName( '12345' );
 		$this->assertTrue( is_wp_error( $result ) );
-		$result = \Pressbooks\Cloner::validateNewBookName( 'bad-name' );
+		$result = \Pressbooks\Cloner\Cloner::validateNewBookName( 'bad-name' );
 		$this->assertTrue( is_wp_error( $result ) );
-		$result = \Pressbooks\Cloner::validateNewBookName( 'newbook' );
+		$result = \Pressbooks\Cloner\Cloner::validateNewBookName( 'newbook' );
 		$this->assertEquals( $result, 'example.org/newbook/' );
 	}
 
 	public function test_isSourceCloneable() {
-		$cloner = new \Pressbooks\Cloner( home_url() );
+		$cloner = new \Pressbooks\Cloner\Cloner( home_url() );
 
 		$this->assertFalse( $cloner->isSourceCloneable( 'https://creativecommons.org/licenses/by-nd/4.0/' ) );
 		$this->assertFalse( $cloner->isSourceCloneable( 'https://creativecommons.org/licenses/by-nc-nd/4.0/' ) );
@@ -134,7 +134,7 @@ class ClonerTest extends \WP_UnitTestCase {
 			}, 10, 3
 		);
 
-		$cloner = new \Pressbooks\Cloner( home_url() );
+		$cloner = new \Pressbooks\Cloner\Cloner( home_url() );
 
 		$url = $cloner->discoverWordPressApi( 'https://bad.com' );
 		$this->assertFalse( $url );

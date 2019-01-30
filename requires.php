@@ -19,8 +19,3 @@ require_once( __DIR__ . '/inc/registration/namespace.php' );
 require_once( __DIR__ . '/inc/sanitize/namespace.php' );
 require_once( __DIR__ . '/inc/theme/namespace.php' );
 require_once( __DIR__ . '/inc/utility/namespace.php' );
-
-// H5P
-if ( is_file( WP_PLUGIN_DIR . '/h5p/autoloader.php' ) ) {
-	require_once( WP_PLUGIN_DIR . '/h5p/autoloader.php' );
-}

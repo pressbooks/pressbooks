@@ -9,7 +9,7 @@ namespace Pressbooks\Modules\Import;
 use function \Pressbooks\Utility\debug_error_log;
 use function \Pressbooks\Utility\getset;
 use Pressbooks\Book;
-use Pressbooks\Cloner;
+use Pressbooks\Cloner\Cloner;
 use Pressbooks\HtmLawed;
 
 abstract class Import {

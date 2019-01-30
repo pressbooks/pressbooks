@@ -170,7 +170,7 @@ class EventStreams {
 
 		$source_url = $_GET['source_book_url'] ?? '';
 
-		$target_url = \Pressbooks\Cloner::validateNewBookName( $_GET['target_book_url'] );
+		$target_url = \Pressbooks\Cloner\Cloner::validateNewBookName( $_GET['target_book_url'] );
 		if ( is_wp_error( $target_url ) ) {
 			$this->emitOneTimeError( $target_url->get_error_message() );
 			return;
@@ -178,7 +178,7 @@ class EventStreams {
 
 		$target_title = $_GET['target_book_title'] ?? '';
 
-		$cloner = new \Pressbooks\Cloner( $source_url, $target_url, $target_title );
+		$cloner = new \Pressbooks\Cloner\Cloner( $source_url, $target_url, $target_title );
 		$everything_ok = $this->emit( $cloner->cloneBookGenerator() );
 
 		if ( $everything_ok ) {

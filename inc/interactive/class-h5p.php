@@ -29,6 +29,9 @@ class H5P {
 	 */
 	public function __construct( $blade ) {
 		$this->blade = $blade;
+		if ( is_file( WP_PLUGIN_DIR . '/h5p/autoloader.php' ) ) {
+			require_once( WP_PLUGIN_DIR . '/h5p/autoloader.php' );
+		}
 	}
 
 	/**
@@ -41,6 +44,56 @@ class H5P {
 			return true;
 		}
 		return false;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function activate() {
+		$h5p_plugin = 'h5p/h5p.php';
+		if ( is_file( WP_PLUGIN_DIR . "/{$h5p_plugin}" ) ) {
+			$result = activate_plugin( $h5p_plugin );
+			if ( is_wp_error( $result ) === false && method_exists( '\H5P_Plugin', 'fetch_h5p' ) === true ) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+
+	/**
+	 * Defines REST API callbacks
+	 *
+	 * @return bool
+	 */
+	public function apiInit() {
+		try {
+			if ( ! is_plugin_active( 'h5p/h5p.php' ) ) {
+				\H5P_Plugin::get_instance()->rest_api_init();
+			}
+			if ( get_option( 'blog_public' ) ) {
+				add_filter( 'h5p_rest_api_all_permission', '__return_true' );
+			}
+		} catch ( \Throwable $e ) {
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Download and add H5P content from given url.
+	 *
+	 * @param string $url
+	 *
+	 * @return int
+	 */
+	public function fetch( $url ) {
+		try {
+			$new_h5p_id = \H5P_Plugin::get_instance()->fetch_h5p( $url );
+		} catch ( \Throwable $e ) {
+			$new_h5p_id = 0;
+		}
+		return $new_h5p_id;
 	}
 
 	/**

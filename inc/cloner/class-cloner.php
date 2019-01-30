@@ -6,7 +6,7 @@
  * @license GPLv3 (or any later version)
  */
 
-namespace Pressbooks;
+namespace Pressbooks\Cloner;
 
 use function Pressbooks\Image\attachment_id_from_url;
 use function Pressbooks\Image\default_cover_url;
@@ -23,11 +23,6 @@ use Pressbooks\Admin\Network\SharingAndPrivacyOptions;
 use Pressbooks\Utility\PercentageYield;
 
 class Cloner {
-
-	/**
-	 * @var Interactive\Content
-	 */
-	protected $interactiveContent;
 
 	/**
 	 * @var bool
@@ -169,28 +164,6 @@ class Cloner {
 	protected $knownMedia = [];
 
 	/**
-	 * @var bool
-	 */
-	protected $sourceHasH5pApi = false;
-
-	/**
-	 * @var bool
-	 */
-	protected $sourceHasH5p = false;
-
-	/**
-	 * @var bool
-	 */
-	protected $targetHasH5pApi = false;
-
-	/**
-	 * Array of known H5P
-	 *
-	 * @var \Pressbooks\Entities\Cloner\H5P[]
-	 */
-	protected $knownH5P = [];
-
-	/**
 	 * Regular expression for image extensions that Pressbooks knows how to resize, analyse, etc.
 	 *
 	 * @var string
@@ -231,6 +204,33 @@ class Cloner {
 	 * @var array
 	 */
 	protected $mediaWasAlreadyDownloaded = [];
+
+	/**
+	 * @var \Pressbooks\Interactive\H5P
+	 */
+	protected $h5p;
+
+	/**
+	 * @var bool
+	 */
+	protected $sourceHasH5pApi = false;
+
+	/**
+	 * @var bool
+	 */
+	protected $sourceHasH5p = false;
+
+	/**
+	 * @var bool
+	 */
+	protected $targetHasH5pApi = false;
+
+	/**
+	 * Array of known H5P
+	 *
+	 * @var \Pressbooks\Entities\Cloner\H5P[]
+	 */
+	protected $knownH5P = [];
 
 	/**
 	 * @var array
@@ -274,8 +274,8 @@ class Cloner {
 			require_once( ABSPATH . 'wp-admin/includes/media.php' );
 		}
 
-		$this->interactiveContent = Interactive\Content::init();
-		$this->contributors = new Contributors();
+		$this->h5p = \Pressbooks\Interactive\Content::init()->getH5P();
+		$this->contributors = new \Pressbooks\Contributors();
 	}
 
 	/**
@@ -559,13 +559,7 @@ class Cloner {
 	public function clonePreProcess() {
 		// H5P
 		if ( $this->sourceHasH5pApi ) {
-			$h5p_plugin = 'h5p/h5p.php';
-			if ( is_file( WP_PLUGIN_DIR . "/{$h5p_plugin}" ) ) {
-				$result = activate_plugin( $h5p_plugin );
-				if ( is_wp_error( $result ) === false && method_exists( '\H5P_Plugin', 'fetch_h5p' ) === true ) {
-					$this->targetHasH5pApi = true;
-				}
-			}
+			$this->targetHasH5pApi = $this->h5p->activate();
 		}
 	}
 
@@ -740,7 +734,7 @@ class Cloner {
 	/**
 	 * @param $url
 	 *
-	 * @return bool|Entities\Cloner\H5P[]  False if the operation failed; known H5P array if succeeded.
+	 * @return bool|\Pressbooks\Entities\Cloner\H5P[]  False if the operation failed; known H5P array if succeeded.
 	 */
 	public function buildListOfKnownH5P( $url ) {
 		$response = $this->handleGetRequest( $url, 'h5p/v1', 'all' );
@@ -761,7 +755,7 @@ class Cloner {
 	 * @param int $new_id
 	 */
 	protected function createTransition( $type, $old_id, $new_id ) {
-		$transition = new  Entities\Cloner\Transition();
+		$transition = new  \Pressbooks\Entities\Cloner\Transition();
 		$transition->type = $type;
 		$transition->oldId = $old_id;
 		$transition->newId = $new_id;
@@ -774,7 +768,7 @@ class Cloner {
 	 * @return \Pressbooks\Entities\Cloner\Media
 	 */
 	protected function createMediaEntity( $item ) {
-		$m = new Entities\Cloner\Media();
+		$m = new \Pressbooks\Entities\Cloner\Media();
 		if ( isset( $item['id'] ) ) {
 			$m->id = $item['id'];
 		}
@@ -802,10 +796,10 @@ class Cloner {
 	/**
 	 * @param array $item
 	 *
-	 * @return Entities\Cloner\H5P
+	 * @return \Pressbooks\Entities\Cloner\H5P
 	 */
 	protected function createH5PEntity( $item ) {
-		$h5p = new Entities\Cloner\H5P();
+		$h5p = new \Pressbooks\Entities\Cloner\H5P();
 		if ( isset( $item['id'] ) ) {
 			$h5p->id = $item['id'];
 		}
@@ -838,15 +832,15 @@ class Cloner {
 	 */
 	protected function checkInternalShortcodes( $post_id, $html ) {
 		// Glossary
-		if ( has_shortcode( $html, Shortcodes\Glossary\Glossary::SHORTCODE ) ) {
+		if ( has_shortcode( $html, \Pressbooks\Shortcodes\Glossary\Glossary::SHORTCODE ) ) {
 			$this->postsWithGlossaryShortcodesToFix[] = $post_id;
 		}
 		// Attachments
-		if ( has_shortcode( $html, Shortcodes\Attributions\Attachments::SHORTCODE ) ) {
+		if ( has_shortcode( $html, \Pressbooks\Shortcodes\Attributions\Attachments::SHORTCODE ) ) {
 			$this->postsWithAttachmentsShortcodesToFix[] = $post_id;
 		}
 		// H5P
-		if ( has_shortcode( $html, Interactive\H5P::SHORTCODE ) ) {
+		if ( has_shortcode( $html, \Pressbooks\Interactive\H5P::SHORTCODE ) ) {
 			$this->postsWithH5PShortcodesToFix[] = $post_id;
 			$this->sourceHasH5p = true;
 		}
@@ -883,15 +877,15 @@ class Cloner {
 
 		// Glossary
 		foreach ( $this->postsWithGlossaryShortcodesToFix as $post_id ) {
-			$fix( $post_id, 'glossary', Shortcodes\Glossary\Glossary::SHORTCODE );
+			$fix( $post_id, 'glossary', \Pressbooks\Shortcodes\Glossary\Glossary::SHORTCODE );
 		}
 		// Attachments
 		foreach ( $this->postsWithAttachmentsShortcodesToFix as $post_id ) {
-			$fix( $post_id, 'attachment', Shortcodes\Attributions\Attachments::SHORTCODE );
+			$fix( $post_id, 'attachment', \Pressbooks\Shortcodes\Attributions\Attachments::SHORTCODE );
 		}
 		// H5P
 		foreach ( $this->postsWithH5PShortcodesToFix as $post_id ) {
-			$fix( $post_id, 'h5p', Interactive\H5P::SHORTCODE );
+			$fix( $post_id, 'h5p', \Pressbooks\Interactive\H5P::SHORTCODE );
 		}
 	}
 
@@ -1105,7 +1099,7 @@ class Cloner {
 	 * @return bool | int False if the creation failed; the ID of the new book's book information post if it succeeded.
 	 */
 	protected function cloneMetadata() {
-		$metadata_post_id = ( new Metadata )->getMetaPostId();
+		$metadata_post_id = ( new \Pressbooks\Metadata )->getMetaPostId();
 
 		if ( ! $metadata_post_id ) {
 			return false;
@@ -1144,7 +1138,7 @@ class Cloner {
 			} else {
 				update_post_meta( $metadata_post_id, $key, $value );
 				if ( $key === 'pb_book_license' ) {
-					wp_set_object_terms( $metadata_post_id, $value, Licensing::TAXONOMY ); // Link
+					wp_set_object_terms( $metadata_post_id, $value, \Pressbooks\Licensing::TAXONOMY ); // Link
 				}
 			}
 		}
@@ -1324,7 +1318,7 @@ class Cloner {
 		}
 
 		// Load source content
-		$html5 = new HtmlParser();
+		$html5 = new \Pressbooks\HtmlParser();
 		$dom = $html5->loadHTML( $source_content );
 
 		// Download images, change image paths
@@ -1351,9 +1345,9 @@ class Cloner {
 
 		// H5P
 		if ( $this->sourceHasH5pApi && $this->targetHasH5pApi ) {
-			$content = $this->fetchH5P( $content );
+			$content = $this->fetchAndSaveUniqueH5P( $content );
 		} else {
-			$content = $this->interactiveContent->getH5P()->replaceCloneable( $content );
+			$content = $this->h5p->replaceCloneable( $content );
 		}
 
 		return [ trim( $content ), $attachments ];
@@ -1428,7 +1422,7 @@ class Cloner {
 			} else {
 				update_post_meta( $target_id, $key, $value );
 				if ( $key === 'pb_section_license' ) {
-					wp_set_object_terms( $target_id, $value, Licensing::TAXONOMY ); // Link
+					wp_set_object_terms( $target_id, $value, \Pressbooks\Licensing::TAXONOMY ); // Link
 				}
 			}
 		}
@@ -1884,20 +1878,16 @@ class Cloner {
 	 *
 	 * @return string mixed
 	 */
-	protected function fetchH5P( $content ) {
-		$h5p_ids = $this->interactiveContent->getH5P()->findAllShortcodeIds( $content );
+	protected function fetchAndSaveUniqueH5P( $content ) {
+		$h5p_ids = $this->h5p->findAllShortcodeIds( $content );
 		foreach ( $h5p_ids as $h5p_id ) {
 			if ( ! isset( $this->H5PWasAlreadyDownloaded[ $h5p_id ] ) ) {
 				foreach ( $this->knownH5P as $h5p ) {
 					if ( absint( $h5p->id ) === absint( $h5p_id ) ) {
-						try {
-							$new_h5p_id = \H5P_Plugin::get_instance()->fetch_h5p( $h5p->url );
-							if ( $new_h5p_id ) {
-								$this->createTransition( 'h5p', $h5p_id, $new_h5p_id );
-								$this->H5PWasAlreadyDownloaded[ $h5p_id ] = $new_h5p_id;
-							}
-						} catch ( \Throwable $e ) {
-							// Do nothing
+						$new_h5p_id = $this->h5p->fetch( $h5p->url );
+						if ( $new_h5p_id ) {
+							$this->createTransition( 'h5p', $h5p_id, $new_h5p_id );
+							$this->H5PWasAlreadyDownloaded[ $h5p_id ] = $new_h5p_id;
 						}
 						continue 2;
 					}
