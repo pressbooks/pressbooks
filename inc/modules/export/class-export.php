@@ -833,8 +833,11 @@ abstract class Export {
 		// --------------------------------------------------------------------------------------------------------
 		// MOBI cleanup
 
-		if ( isset( $x['mobi'] ) && ! isset( $x['epub'] ) ) {
-			unlink( $outputs['\Pressbooks\Modules\Export\Epub\Epub201'] );
+		if ( is_array( getset( '_GET', 'export_formats' ) ) && check_admin_referer( 'pb-export' ) ) {
+			$x = $_GET['export_formats'];
+			if ( isset( $x['mobi'] ) && ! isset( $x['epub'] ) ) {
+				unlink( $outputs['\Pressbooks\Modules\Export\Epub\Epub201'] );
+			}
 		}
 
 		// --------------------------------------------------------------------------------------------------------
