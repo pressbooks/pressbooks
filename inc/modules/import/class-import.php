@@ -205,7 +205,7 @@ abstract class Import {
 	 * @return string - modified filename if the extension did not match the mimetype,
 	 * otherwise returns the filename that was passed to it
 	 */
-	protected function properImageExtension( $path_to_file, $filename ) {
+	public function properImageExtension( $path_to_file, $filename ) {
 		return \Pressbooks\Image\proper_image_extension( $path_to_file, $filename );
 	}
 

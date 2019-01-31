@@ -1,29 +1,23 @@
 <?php
 /**
- * Download images, videos, h5p...
+ * Download images, videos...
  *
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv3 (or any later version)
  */
 
-namespace Pressbooks\Cloner;
+namespace Pressbooks\Modules\Import\WordPress;
 
 use function Pressbooks\Image\attachment_id_from_url;
 use function Pressbooks\Image\strip_baseurl as image_strip_baseurl;
 use function Pressbooks\Media\strip_baseurl as media_strip_baseurl;
-use function Pressbooks\Utility\str_lreplace;
 
 class Downloads {
 
 	/**
-	 * @var Cloner
+	 * @var Wxr
 	 */
-	protected $cloner;
-
-	/**
-	 * @var \Pressbooks\Interactive\H5P
-	 */
-	protected $h5p;
+	protected $wxr;
 
 	/**
 	 * Regular expression for image extensions that Pressbooks knows how to resize, analyse, etc.
@@ -42,18 +36,12 @@ class Downloads {
 	 */
 	protected $mediaWasAlreadyDownloaded = [];
 
-	/**
-	 * @var array
-	 */
-	protected $H5PWasAlreadyDownloaded = [];
 
 	/**
-	 * @param Cloner $cloner
-	 * @param \Pressbooks\Interactive\H5P $h5p
+	 * @param Wxr $wxr
 	 */
-	public function __construct( $cloner, $h5p ) {
-		$this->cloner = $cloner;
-		$this->h5p = $h5p;
+	public function __construct( $wxr ) {
+		$this->wxr = $wxr;
 	}
 
 	/**
@@ -68,9 +56,7 @@ class Downloads {
 	 *
 	 * @param \DOMDocument $dom
 	 *
-	 * @see \Pressbooks\Cloner\Cloner::$knownMedia
-	 *
-	 * @return array{dom: \DOMDocument, attachments: int[]}
+	 * @return array An array containing the \DOMDocument and the IDs of created attachments
 	 */
 	public function scrapeAndKneadImages( \DOMDocument $dom ) {
 
@@ -105,7 +91,6 @@ class Downloads {
 	 *
 	 * @param string $url
 	 *
-	 * @see \Pressbooks\Cloner\Cloner::$knownMedia
 	 * @see media_handle_sideload
 	 *
 	 * @return int attachment ID, -1 if image is not hosted on the source Pb network, or 0 if import failed
@@ -118,7 +103,7 @@ class Downloads {
 			return -1;
 		}
 
-		$known_media = $this->cloner->getKnownMedia();
+		$known_media = $this->wxr->getKnownMedia();
 		$filename = $this->basename( $url );
 		$attached_file = image_strip_baseurl( $url );
 
@@ -137,28 +122,29 @@ class Downloads {
 
 		if ( ! preg_match( $this->pregSupportedImageExtensions, $filename ) ) {
 			// Unsupported image type
-			$this->imageWasAlreadyDownloaded[ $remote_img_location ] = 0;
+			$this->imageWasAlreadyDownloaded[ $remote_img_location ] = '';
 			return 0;
 		}
 
 		$tmp_name = download_url( $remote_img_location );
 		if ( is_wp_error( $tmp_name ) ) {
 			// Download failed
-			$this->imageWasAlreadyDownloaded[ $remote_img_location ] = 0;
+			$this->imageWasAlreadyDownloaded[ $remote_img_location ] = '';
 			return 0;
 		}
 
 		if ( ! \Pressbooks\Image\is_valid_image( $tmp_name, $filename ) ) {
 
 			try { // changing the file name so that extension matches the mime type
-				$filename = \Pressbooks\Image\proper_image_extension( $tmp_name, $filename );
+				$filename = $this->wxr->properImageExtension( $tmp_name, $filename );
+
 				if ( ! \Pressbooks\Image\is_valid_image( $tmp_name, $filename ) ) {
 					throw new \Exception( 'Image is corrupt, and file extension matches the mime type' );
 				}
 			} catch ( \Exception $exc ) {
 				// Garbage, don't import
-				$this->imageWasAlreadyDownloaded[ $remote_img_location ] = 0;
-				@unlink( $tmp_name ); // @codingStandardsIgnoreLine
+				$this->imageWasAlreadyDownloaded[ $remote_img_location ] = '';
+				unlink( $tmp_name );
 				return 0;
 			}
 		}
@@ -174,13 +160,21 @@ class Downloads {
 			$pid = 0;
 		} else {
 			if ( isset( $known_media[ $attached_file ] ) ) {
-				// Patch
 				$m = $known_media[ $attached_file ];
-				$request = new \WP_REST_Request( 'PATCH', "/wp/v2/media/{$pid}" );
-				$request->set_body_params( $this->createMediaPatch( $m ) );
-				rest_do_request( $request );
+				wp_update_post(
+					[
+						'ID' => $pid,
+						'post_title' => $m->title,
+						'post_content' => $m->description,
+						'post_excerpt' => $m->caption,
+					]
+				);
+				update_post_meta( $pid, '_wp_attachment_image_alt', $m->altText );
+				foreach ( $m->meta as $meta_key => $meta_value ) {
+					update_post_meta( $pid, $meta_key, $meta_value );
+				}
 				// Store a transitional state
-				$this->cloner->createTransition( 'attachment', $m->id, $pid );
+				$this->wxr->createTransition( 'attachment', $m->id, $pid );
 			}
 			// Don't download the same file again
 			$this->imageWasAlreadyDownloaded[ $remote_img_location ] = $pid;
@@ -191,63 +185,21 @@ class Downloads {
 	}
 
 	/**
-	 * @param $url
-	 *
-	 * @return bool
-	 */
-	public function sameAsSource( $url ) {
-		return \Pressbooks\Utility\urls_have_same_host( $this->cloner->getSourceBookUrl(), $url );
-	}
-
-	/**
-	 * Get sanitized basename without query string or anchors
-	 *
-	 * @param $url
-	 *
-	 * @return array|mixed|string
-	 */
-	public function basename( $url ) {
-		$filename = explode( '?', basename( $url ) );
-		$filename = array_shift( $filename );
-		$filename = explode( '#', $filename )[0]; // Remove trailing anchors
-		$filename = sanitize_file_name( urldecode( $filename ) );
-
-		return $filename;
-	}
-
-	/**
-	 * @param \Pressbooks\Entities\Cloner\Media $media
-	 *
-	 * @return array
-	 */
-	public function createMediaPatch( $media ) {
-		return [
-			'title' => $media->title,
-			'meta' => $media->meta,
-			'description' => $media->description,
-			'caption' => $media->caption,
-			'alt_text' => $media->altText,
-		];
-	}
-
-	/**
 	 * @param int $attachment_id
 	 * @param string $src_old
 	 * @param \DOMElement $image
-	 *
-	 * @see \Pressbooks\Cloner\Cloner::$knownMedia
 	 *
 	 * @return string
 	 */
 	public function replaceImage( $attachment_id, $src_old, $image ) {
 
+		$known_media = $this->wxr->getKnownMedia();
 		$src_new = wp_get_attachment_url( $attachment_id );
-		$known_media = $this->cloner->getKnownMedia();
 
 		if ( $this->sameAsSource( $src_old ) && isset( $known_media[ image_strip_baseurl( $src_old ) ] ) ) {
 			$basename_old = $this->basename( $src_old );
 			$basename_new = $this->basename( $src_new );
-			$maybe_src_new = str_lreplace( $basename_new, $basename_old, $src_new );
+			$maybe_src_new = \Pressbooks\Utility\str_lreplace( $basename_new, $basename_old, $src_new );
 			if ( $attachment_id === attachment_id_from_url( $maybe_src_new ) ) {
 				// Our best guess is that this is a cloned image, use old filename to preserve WP resizing
 				$src_new = $maybe_src_new;
@@ -280,6 +232,7 @@ class Downloads {
 		return $src_new;
 	}
 
+
 	/**
 	 * Parse HTML snippet, save all found media using media_handle_sideload(), return the HTML with changed URLs.
 	 *
@@ -289,13 +242,11 @@ class Downloads {
 	 * @param \DOMDocument $dom
 	 * @param \Masterminds\HTML5 $html5
 	 *
-	 * @see \Pressbooks\Cloner\Cloner::$knownMedia
-	 *
-	 * @return array{dom: \DOMDocument, attachments: int[]}
+	 * @return array An array containing the \DOMDocument and the IDs of created attachments
 	 */
 	public function scrapeAndKneadMedia( \DOMDocument $dom, $html5 ) {
 
-		$known_media = $this->cloner->getKnownMedia();
+		$known_media = $this->wxr->getKnownMedia();
 		$dom_as_string = $html5->saveHTML( $dom );
 		$dom_as_string = \Pressbooks\Sanitize\strip_container_tags( $dom_as_string );
 
@@ -335,7 +286,6 @@ class Downloads {
 	 *
 	 * @param string $url
 	 *
-	 * @see \Pressbooks\Cloner\Cloner::$knownMedia
 	 * @see media_handle_sideload
 	 *
 	 * @return int attachment ID, -1 if media is not hosted on the source Pb network, or 0 if import failed
@@ -348,7 +298,7 @@ class Downloads {
 			return -1;
 		}
 
-		$known_media = $this->cloner->getKnownMedia();
+		$known_media = $this->wxr->getKnownMedia();
 		$filename = $this->basename( $url );
 		$attached_file = media_strip_baseurl( $url );
 
@@ -383,13 +333,20 @@ class Downloads {
 			$pid = 0;
 		} else {
 			if ( isset( $known_media[ $attached_file ] ) ) {
-				// Patch
 				$m = $known_media[ $attached_file ];
-				$request = new \WP_REST_Request( 'PATCH', "/wp/v2/media/{$pid}" );
-				$request->set_body_params( $this->createMediaPatch( $m ) );
-				rest_do_request( $request );
+				wp_update_post(
+					[
+						'ID' => $pid,
+						'post_title' => $m->title,
+						'post_content' => $m->description,
+						'post_excerpt' => $m->caption,
+					]
+				);
+				foreach ( $m->meta as $meta_key => $meta_value ) {
+					update_post_meta( $pid, $meta_key, $meta_value );
+				}
 				// Store a transitional state
-				$this->cloner->createTransition( 'attachment', $m->id, $pid );
+				$this->wxr->createTransition( 'attachment', $m->id, $pid );
 			}
 			// Don't download the same file again
 			$this->mediaWasAlreadyDownloaded[ $remote_media_location ] = $pid;
@@ -400,34 +357,28 @@ class Downloads {
 	}
 
 	/**
-	 * Parse HTML snippet, download all found H5P, save transition states to change shortcodes in post processing step
+	 * Get sanitized basename without query string or anchors
 	 *
-	 * @param string $content
+	 * @param $url
 	 *
-	 * @see \Pressbooks\Cloner\Cloner::$knownH5P
-	 *
-	 * @return int[]
+	 * @return array|mixed|string
 	 */
-	public function h5p( $content ) {
-		$known_h5p = $this->cloner->getKnownH5P();
-		$new_h5p_ids = [];
-		$h5p_ids = $this->h5p->findAllShortcodeIds( $content );
-		foreach ( $h5p_ids as $h5p_id ) {
-			if ( ! isset( $this->H5PWasAlreadyDownloaded[ $h5p_id ] ) ) {
-				foreach ( $known_h5p as $h5p ) {
-					if ( absint( $h5p->id ) === absint( $h5p_id ) ) {
-						$new_h5p_id = $this->h5p->fetch( $h5p->url );
-						if ( $new_h5p_id ) {
-							$new_h5p_ids[] = $new_h5p_id;
-							$this->cloner->createTransition( 'h5p', $h5p_id, $new_h5p_id );
-							$this->H5PWasAlreadyDownloaded[ $h5p_id ] = $new_h5p_id;
-						}
-						continue 2;
-					}
-				}
-			}
-		}
-		return $new_h5p_ids;
+	public function basename( $url ) {
+		$filename = explode( '?', basename( $url ) );
+		$filename = array_shift( $filename );
+		$filename = explode( '#', $filename )[0]; // Remove trailing anchors
+		$filename = sanitize_file_name( urldecode( $filename ) );
+
+		return $filename;
+	}
+
+	/**
+	 * @param $url
+	 *
+	 * @return bool
+	 */
+	public function sameAsSource( $url ) {
+		return \Pressbooks\Utility\urls_have_same_host( $this->wxr->getSourceBookUrl(), $url );
 	}
 
 }
