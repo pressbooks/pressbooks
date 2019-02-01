@@ -174,7 +174,7 @@ class H5P {
 		$content = preg_replace_callback(
 			"/$pattern/",
 			function ( $m ) {
-				return __( 'The original version of this chapter contained H5P content. You may want to remove or replace this section.', 'pressbooks' );
+				return __( 'The original version of this chapter contained H5P content. You may want to remove or replace this element.', 'pressbooks' );
 			},
 			$content
 		);
