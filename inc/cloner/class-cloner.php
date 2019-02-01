@@ -697,7 +697,7 @@ class Cloner {
 		// H5P
 		if ( $this->sourceHasH5p === true && ( $this->sourceHasH5pApi === false || $this->targetHasH5pApi === false ) ) {
 			// Add a notice to the user indicating that the H5P could not be cloned
-			$_SESSION['pb_notices'][] = __( 'This book contains H5P content that could not be cloned. Please review the cloned version of your text carefully, as missing H5P content will be indicated. You may want to remove or replace these sections.', 'pressbooks' );
+			$_SESSION['pb_notices'][] = __( 'The source book contained H5P content that could not be cloned. Please review the cloned version of your book carefully, as missing H5P content will be indicated. You may want to remove or replace these elements.', 'pressbooks' );
 		}
 	}
 
