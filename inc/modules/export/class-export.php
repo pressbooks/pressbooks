@@ -845,7 +845,6 @@ abstract class Export {
 
 		if ( empty( $conversion_error ) && empty( $validation_warning ) ) {
 			if ( ! empty( $_REQUEST['preview'] ) && count( $outputs ) === 1 ) {
-
 				// @codingStandardsIgnoreStart
 				// TODO: How can we make this preview feature work again?
 				// Maybe we should just get rid of it because I don't remember how to use it without searching the code.

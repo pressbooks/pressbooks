@@ -87,6 +87,20 @@ class Content {
 	}
 
 	/**
+	 * @return H5P
+	 */
+	public function getH5P() {
+		return $this->h5p;
+	}
+
+	/**
+	 * @return Phet
+	 */
+	public function getPhet() {
+		return $this->phet;
+	}
+
+	/**
 	 * Delete <iframe> sources not on our whitelist
 	 * Content is expected to be raw, e.g. before the_content filters have been run
 	 * Hooked into `pre_kses` filter
@@ -349,37 +363,6 @@ class Content {
 				delete_post_meta( $post_meta->post_id, $post_meta->meta_key );
 			}
 		}
-	}
-
-	/**
-	 * Is supported when cloning?
-	 *
-	 * @param string $content
-	 *
-	 * @return bool
-	 */
-	public function isCloneable( $content ) {
-
-		// H5P not supported in cloning
-		$tagnames = [ $this->h5p::SHORTCODE ];
-		preg_match_all( '/' . get_shortcode_regex( $tagnames ) . '/', $content, $matches, PREG_SET_ORDER );
-		if ( ! empty( $matches ) ) {
-			return false;
-		}
-
-		return true;
-	}
-
-	/**
-	 * Replace unsupported content when cloning
-	 *
-	 * @param string $content
-	 *
-	 * @return string
-	 */
-	public function replaceCloneable( $content ) {
-		$content = $this->h5p->replaceCloneable( $content );
-		return $content;
 	}
 
 	/**

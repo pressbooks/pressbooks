@@ -474,9 +474,11 @@ function hide_gutenberg() {
 	if ( ! function_exists( 'classic_editor_init_actions' ) ) {
 
 		// Don't use block editor for any post types
-		add_filter( 'use_block_editor_for_post_type', function ( $use_block_editor, $post_type ) {
-			return false;
-		}, 10, 2 );
+		add_filter(
+			'use_block_editor_for_post_type', function ( $use_block_editor, $post_type ) {
+				return false;
+			}, 10, 2
+		);
 	}
 
 	// 5.x and up, Classic Editor present

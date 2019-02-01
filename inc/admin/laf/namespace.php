@@ -16,7 +16,7 @@ use Pressbooks\Admin\ExportOptions;
 use Pressbooks\Admin\Network\SharingAndPrivacyOptions;
 use Pressbooks\Admin\PublishOptions;
 use Pressbooks\Book;
-use Pressbooks\Cloner;
+use Pressbooks\Cloner\Cloner;
 use Pressbooks\Metadata;
 
 /**

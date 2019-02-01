@@ -39,7 +39,7 @@ class Updates {
 	 */
 	static public function hooks( Updates $obj ) {
 		if ( Book::isBook() === false ) {
-			add_action( 'plugins_loaded', [ $obj, 'gitHubUpdater' ] );
+			$obj->gitHubUpdater();
 			add_action( 'in_plugin_update_message-pressbooks/pressbooks.php', [ $obj, 'inPluginUpdateMessage' ] );
 			add_action( 'core_upgrade_preamble', [ $obj, 'coreUpgradePreamble' ] );
 		}
@@ -59,14 +59,17 @@ class Updates {
 	 * @see https://github.com/YahnisElsts/plugin-update-checker
 	 */
 	public function gitHubUpdater() {
-		$updater = \Puc_v4_Factory::buildUpdateChecker(
-			'https://github.com/pressbooks/pressbooks/',
-			untrailingslashit( PB_PLUGIN_DIR ) . '/pressbooks.php', // Fully qualified path to the main plugin file
-			'pressbooks',
-			24
-		);
-		$updater->setBranch( 'master' );
-		$updater->getVcsApi()->enableReleaseAssets();
+		static $updater = null;
+		if ( $updater === null ) {
+			$updater = \Puc_v4_Factory::buildUpdateChecker(
+				'https://github.com/pressbooks/pressbooks/',
+				untrailingslashit( PB_PLUGIN_DIR ) . '/pressbooks.php', // Fully qualified path to the main plugin file
+				'pressbooks',
+				24
+			);
+			$updater->setBranch( 'master' );
+			$updater->getVcsApi()->enableReleaseAssets();
+		}
 	}
 
 	/**

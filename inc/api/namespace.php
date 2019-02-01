@@ -80,6 +80,9 @@ function init_book() {
 
 	// Gutenberg hack
 	gutenberg_hack();
+
+	// H5P
+	\Pressbooks\Interactive\Content::init()->getH5P()->apiInit();
 }
 
 /**

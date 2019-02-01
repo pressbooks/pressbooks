@@ -7,7 +7,7 @@
 
 namespace Pressbooks\Modules\Import\Api;
 
-use Pressbooks\Cloner;
+use Pressbooks\Cloner\Cloner;
 use Pressbooks\Modules\Import\ImportGenerator;
 use Pressbooks\Utility\PercentageYield;
 

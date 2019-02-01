@@ -9,7 +9,7 @@ namespace Pressbooks\Modules\Import;
 use function \Pressbooks\Utility\debug_error_log;
 use function \Pressbooks\Utility\getset;
 use Pressbooks\Book;
-use Pressbooks\Cloner;
+use Pressbooks\Cloner\Cloner;
 use Pressbooks\HtmLawed;
 
 abstract class Import {
@@ -205,7 +205,7 @@ abstract class Import {
 	 * @return string - modified filename if the extension did not match the mimetype,
 	 * otherwise returns the filename that was passed to it
 	 */
-	protected function properImageExtension( $path_to_file, $filename ) {
+	public function properImageExtension( $path_to_file, $filename ) {
 		return \Pressbooks\Image\proper_image_extension( $path_to_file, $filename );
 	}
 

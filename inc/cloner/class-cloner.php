@@ -6,9 +6,8 @@
  * @license GPLv3 (or any later version)
  */
 
-namespace Pressbooks;
+namespace Pressbooks\Cloner;
 
-use function Pressbooks\Image\attachment_id_from_url;
 use function Pressbooks\Image\default_cover_url;
 use function Pressbooks\Image\strip_baseurl as image_strip_baseurl;
 use function Pressbooks\Media\strip_baseurl as media_strip_baseurl;
@@ -23,11 +22,6 @@ use Pressbooks\Admin\Network\SharingAndPrivacyOptions;
 use Pressbooks\Utility\PercentageYield;
 
 class Cloner {
-
-	/**
-	 * @var Interactive\Content
-	 */
-	protected $interactiveContent;
 
 	/**
 	 * @var bool
@@ -159,18 +153,14 @@ class Cloner {
 	protected $targetBookTerms = [];
 
 	/**
-	 * Array of known media
+	 * Associative array of known media
+	 * Key: Relative/truncated sourceUrl
+	 * Value: \Pressbooks\Entities\Cloner\Media
+	 * Sorted by the length of \Pressbooks\Entities\Cloner\Media()->sourceUrl (for better, left to right, search and replace loops)
 	 *
 	 * @var \Pressbooks\Entities\Cloner\Media[]
 	 */
 	protected $knownMedia = [];
-
-	/**
-	 * Regular expression for image extensions that Pressbooks knows how to resize, analyse, etc.
-	 *
-	 * @var string
-	 */
-	protected $pregSupportedImageExtensions = '/\.(jpe?g|gif|png)$/i';
 
 	/**
 	 * @var \Pressbooks\Contributors;
@@ -192,16 +182,42 @@ class Cloner {
 	 */
 	protected $postsWithAttachmentsShortcodesToFix = [];
 
+	/**
+	 * @var int[]
+	 */
+	protected $postsWithH5PShortcodesToFix = [];
 
 	/**
-	 * @var array
+	 * @var Downloads
 	 */
-	protected $imageWasAlreadyDownloaded = [];
+	protected $downloads;
 
 	/**
-	 * @var array
+	 * @var \Pressbooks\Interactive\H5P
 	 */
-	protected $mediaWasAlreadyDownloaded = [];
+	protected $h5p;
+
+	/**
+	 * @var bool
+	 */
+	protected $sourceHasH5pApi = false;
+
+	/**
+	 * @var bool
+	 */
+	protected $sourceHasH5p = false;
+
+	/**
+	 * @var bool
+	 */
+	protected $targetHasH5pApi = false;
+
+	/**
+	 * Array of known H5P
+	 *
+	 * @var \Pressbooks\Entities\Cloner\H5P[]
+	 */
+	protected $knownH5P = [];
 
 	/**
 	 * Constructor.
@@ -240,8 +256,20 @@ class Cloner {
 			require_once( ABSPATH . 'wp-admin/includes/media.php' );
 		}
 
-		$this->interactiveContent = \Pressbooks\Interactive\Content::init();
-		$this->contributors = new Contributors();
+		$this->dependencies();
+	}
+
+	/**
+	 * For testing, ability to mock objects
+	 *
+	 * @param null \Pressbooks\Interactive\H5P $h5p
+	 * @param null Downloads $downloads
+	 * @param null \Pressbooks\Contributors $contributors
+	 */
+	public function dependencies( $h5p = null, $downloads = null, $contributors = null ) {
+		$this->h5p = $h5p ? $h5p : \Pressbooks\Interactive\Content::init()->getH5P();
+		$this->downloads = $downloads ? $downloads : new Downloads( $this, $this->h5p );
+		$this->contributors = $contributors ? $contributors : new \Pressbooks\Contributors();
 	}
 
 	/**
@@ -316,6 +344,20 @@ class Cloner {
 	}
 
 	/**
+	 * @return \Pressbooks\Entities\Cloner\Media[]
+	 */
+	public function getKnownMedia() {
+		return $this->knownMedia;
+	}
+
+	/**
+	 * @return \Pressbooks\Entities\Cloner\H5P[]
+	 */
+	public function getKnownH5P() {
+		return $this->knownH5P;
+	}
+
+	/**
 	 * Clone a book in its entirety.
 	 *
 	 * @since 4.1.0
@@ -348,7 +390,7 @@ class Cloner {
 		}
 
 		// Create Book
-		yield 10  => __( 'Creating the target book', 'pressbooks' );
+		yield 10 => __( 'Creating the target book', 'pressbooks' );
 		$this->targetBookId = $this->createBook();
 		$this->targetBookUrl = get_blogaddress_by_id( $this->targetBookId );
 
@@ -359,7 +401,7 @@ class Cloner {
 		$this->clonePreProcess();
 
 		// Clone Metadata
-		yield 20  => __( 'Cloning metadata', 'pressbooks' );
+		yield 20 => __( 'Cloning metadata', 'pressbooks' );
 		$this->clonedItems['metadata'][] = $this->cloneMetadata();
 
 		// Clone Taxonomy Terms
@@ -387,10 +429,7 @@ class Cloner {
 		// Clone Parts and chapters
 		$ticks = 0;
 		foreach ( $this->sourceBookStructure['parts'] as $key => $part ) {
-			$ticks++;
-			foreach ( $this->sourceBookStructure['parts'][ $key ]['chapters'] as $chapter ) {
-				$ticks++;
-			}
+			$ticks += 1 + count( $this->sourceBookStructure['parts'][ $key ]['chapters'] );
 		}
 		$y = new PercentageYield( 50, 80, $ticks );
 		foreach ( $this->sourceBookStructure['parts'] as $key => $part ) {
@@ -487,13 +526,14 @@ class Cloner {
 			return false;
 		}
 
+		// Media
 		$this->knownMedia = $this->buildListOfKnownMedia( $this->sourceBookUrl );
 		if ( $this->knownMedia === false ) {
 			$_SESSION['pb_errors'][] = sprintf( __( 'Could not retrieve media from %s.', 'pressbooks' ), sprintf( '<em>%s</em>', $this->sourceBookMetadata['name'] ) );
 			$this->maybeRestoreCurrentBlog();
 			return false;
 		}
-		// Sort by the length of sourceUrls for better search and replace
+		// Sort by the length of sourceUrls for better, left to right, search and replace loops
 		$known_media_sorted = $this->knownMedia;
 		uasort(
 			$known_media_sorted, function ( $a, $b ) {
@@ -501,6 +541,15 @@ class Cloner {
 			}
 		);
 		$this->knownMedia = $known_media_sorted;
+
+		// H5P
+		$this->knownH5P = $this->buildListOfKnownH5P( $this->sourceBookUrl );
+		if ( $this->knownH5P === false ) {
+			// No H5P endpoint was found
+			$this->knownH5P = [];
+		} else {
+			$this->sourceHasH5pApi = true;
+		}
 
 		// Set up $this->sourceBookGlossary
 		$this->sourceBookGlossary = $this->getBookGlossary( $this->sourceBookUrl );
@@ -513,7 +562,10 @@ class Cloner {
 	 * Pre-processor
 	 */
 	public function clonePreProcess() {
-		// TODO
+		// H5P
+		if ( $this->sourceHasH5pApi ) {
+			$this->targetHasH5pApi = $this->h5p->activate();
+		}
 	}
 
 	/**
@@ -522,6 +574,7 @@ class Cloner {
 	 * @since 4.1.0
 	 *
 	 * @param int $term_id The ID of the term within the source book.
+	 *
 	 * @return bool | int False if creating a new term failed; the ID of the new term if it the clone succeeded or the ID of a matching term if it exists.
 	 */
 	public function cloneTerm( $term_id ) {
@@ -576,6 +629,7 @@ class Cloner {
 	 * @since 4.1.0
 	 *
 	 * @param int $id The ID of the front matter within the source book.
+	 *
 	 * @return bool | int False if the clone failed; the ID of the new front matter if it succeeded.
 	 */
 	public function cloneFrontMatter( $id ) {
@@ -588,6 +642,7 @@ class Cloner {
 	 * @since 4.1.0
 	 *
 	 * @param int $id The ID of the part within the source book.
+	 *
 	 * @return bool | int False if the clone failed; the ID of the new part if it succeeded.
 	 */
 	public function clonePart( $id ) {
@@ -601,6 +656,7 @@ class Cloner {
 	 *
 	 * @param int $id The ID of the chapter within the source book.
 	 * @param int $part_id The ID of the part to which the chapter should be added within the target book.
+	 *
 	 * @return bool | int False if the clone failed; the ID of the new chapter if it succeeded.
 	 */
 	public function cloneChapter( $id, $part_id ) {
@@ -613,6 +669,7 @@ class Cloner {
 	 * @since 4.1.0
 	 *
 	 * @param int $id The ID of the back matter within the source book.
+	 *
 	 * @return bool | int False if the clone failed; the ID of the new back matter if it succeeded.
 	 */
 	public function cloneBackMatter( $id ) {
@@ -625,6 +682,7 @@ class Cloner {
 	 * @since 4.1.0
 	 *
 	 * @param int $id The ID of the back matter within the source book.
+	 *
 	 * @return bool | int False if the clone failed; the ID of the new back matter if it succeeded.
 	 */
 	public function cloneGlossary( $id ) {
@@ -636,6 +694,11 @@ class Cloner {
 	 */
 	public function clonePostProcess() {
 		$this->fixInternalShortcodes();
+		// H5P
+		if ( $this->sourceHasH5p === true && ( $this->sourceHasH5pApi === false || $this->targetHasH5pApi === false ) ) {
+			// Add a notice to the user indicating that the H5P could not be cloned
+			$_SESSION['pb_notices'][] = __( 'The source book contained H5P content that could not be cloned. Please review the cloned version of your book carefully, as missing H5P content will be indicated. You may want to remove or replace these elements.', 'pressbooks' );
+		}
 	}
 
 	/**
@@ -643,7 +706,7 @@ class Cloner {
 	 *
 	 * @param string $url The URL of the book.
 	 *
-	 * @return bool |\Pressbooks\Entities\Cloner\Media[] False if the operation failed; known images array if succeeded.
+	 * @return bool|\Pressbooks\Entities\Cloner\Media[] False if the operation failed; known images assoc array if succeeded.
 	 */
 	public function buildListOfKnownMedia( $url ) {
 		// Handle request (local or global)
@@ -680,119 +743,37 @@ class Cloner {
 	}
 
 	/**
+	 * @param $url
+	 *
+	 * @return bool|\Pressbooks\Entities\Cloner\H5P[]  False if the operation failed; known H5P array if succeeded.
+	 */
+	public function buildListOfKnownH5P( $url ) {
+		$response = $this->handleGetRequest( $url, 'h5p/v1', 'all' );
+		if ( is_wp_error( $response ) || @$response['data']['status'] >= 400 ) { // @codingStandardsIgnoreLine
+			return false;
+		}
+
+		$known_h5p = [];
+		foreach ( $response as $item ) {
+			$known_h5p[] = $this->createH5PEntity( $item );
+		}
+		return $known_h5p;
+	}
+
+	/**
+	 * When cloning from one book to another, the IDs change
+	 * Use this method to add a transition, that we can do something with later, if needed
+	 *
 	 * @param string $type
 	 * @param int $old_id
 	 * @param int $new_id
-	 *
-	 * @return \Pressbooks\Entities\Cloner\Transition
 	 */
-	protected function createTransition( $type, $old_id, $new_id ) {
-		$transition = new  Entities\Cloner\Transition();
+	public function createTransition( $type, $old_id, $new_id ) {
+		$transition = new  \Pressbooks\Entities\Cloner\Transition();
 		$transition->type = $type;
 		$transition->oldId = $old_id;
 		$transition->newId = $new_id;
-		return $transition;
-	}
-
-	/**
-	 * @param array $item
-	 *
-	 * @return \Pressbooks\Entities\Cloner\Media
-	 */
-	protected function createMediaEntity( $item ) {
-		$m = new Entities\Cloner\Media();
-		if ( isset( $item['id'] ) ) {
-			$m->id = $item['id'];
-		}
-		if ( isset( $item['title'], $item['title']['raw'] ) ) {
-			$m->title = $item['title']['raw'];
-		}
-		if ( isset( $item['description'], $item['description']['raw'] ) ) {
-			$m->description = $item['description']['raw'];
-		}
-		if ( isset( $item['caption'], $item['caption']['raw'] ) ) {
-			$m->caption = $item['caption']['raw'];
-		}
-		if ( isset( $item['meta'] ) ) {
-			$m->meta = $item['meta'];
-		}
-		if ( isset( $item['alt_text'] ) ) {
-			$m->altText = $item['alt_text'];
-		}
-		if ( isset( $item['source_url'] ) ) {
-			$m->sourceUrl = $item['source_url'];
-		}
-		return $m;
-	}
-
-	/**
-	 * @param \Pressbooks\Entities\Cloner\Media $media
-	 *
-	 * @return array
-	 */
-	protected function createMediaPatch( $media ) {
-		return [
-			'title' => $media->title,
-			'meta' => $media->meta,
-			'description' => $media->description,
-			'caption' => $media->caption,
-			'alt_text' => $media->altText,
-		];
-	}
-
-	/**
-	 * Check if post content contains shortcodes with references to internal IDs that we will need to fix
-	 *
-	 * @param int $post_id
-	 * @param string $html
-	 */
-	protected function checkInternalShortcodes( $post_id, $html ) {
-		// Glossary
-		if ( has_shortcode( $html, Shortcodes\Glossary\Glossary::SHORTCODE ) ) {
-			$this->postsWithGlossaryShortcodesToFix[] = $post_id;
-		}
-		// Attachments
-		if ( has_shortcode( $html, Shortcodes\Attributions\Attachments::SHORTCODE ) ) {
-			$this->postsWithAttachmentsShortcodesToFix[] = $post_id;
-		}
-	}
-
-	/**
-	 * Fix shortcodes with references to internal IDs
-	 */
-	protected function fixInternalShortcodes() {
-		// Glossary
-		foreach ( $this->postsWithGlossaryShortcodesToFix as $post_id ) {
-			$post = get_post( $post_id );
-			foreach ( $this->transitions as $transition ) {
-				if ( $transition->type === 'glossary' ) {
-					$post->post_content = \Pressbooks\Utility\shortcode_att_replace(
-						$post->post_content,
-						Shortcodes\Glossary\Glossary::SHORTCODE,
-						'id',
-						$transition->oldId,
-						$transition->newId
-					);
-				}
-			}
-			wp_update_post( $post );
-		}
-		// Attachments
-		foreach ( $this->postsWithAttachmentsShortcodesToFix as $post_id ) {
-			$post = get_post( $post_id );
-			foreach ( $this->transitions as $transition ) {
-				if ( $transition->type === 'attachment' ) {
-					$post->post_content = \Pressbooks\Utility\shortcode_att_replace(
-						$post->post_content,
-						Shortcodes\Attributions\Attachments::SHORTCODE,
-						'id',
-						$transition->oldId,
-						$transition->newId
-					);
-				}
-			}
-			wp_update_post( $post );
-		}
+		$this->transitions[] = $transition;
 	}
 
 	/**
@@ -801,6 +782,7 @@ class Cloner {
 	 * @since 4.1.0
 	 *
 	 * @param string $url The URL of the book.
+	 *
 	 * @return bool | array False if the operation failed; the metadata array if it succeeded.
 	 */
 	public function getBookMetadata( $url ) {
@@ -827,6 +809,7 @@ class Cloner {
 	 * @since 4.1.0
 	 *
 	 * @param string $url The URL of the book.
+	 *
 	 * @return bool | array False if the operation failed; the structure and contents array if it succeeded.
 	 */
 	public function getBookStructure( $url ) {
@@ -857,6 +840,7 @@ class Cloner {
 	 * @since 4.1.0
 	 *
 	 * @param string $url The URL of the book.
+	 *
 	 * @return array
 	 */
 	public function getBookTerms( $url ) {
@@ -949,6 +933,290 @@ class Cloner {
 	}
 
 	/**
+	 * Retrieve metadata
+	 *
+	 * @since 5.0.0
+	 *
+	 * @param int $section_id The ID of the section within the source book.
+	 * @param string $post_type The post type of the section.
+	 *
+	 * @return array
+	 */
+	public function retrieveSectionMetadata( $section_id, $post_type ) {
+		if ( in_array( $post_type, [ 'front-matter', 'back-matter' ], true ) ) {
+			foreach ( $this->sourceBookStructure[ $post_type ] as $k => $v ) {
+				if ( $v['id'] === absint( $section_id ) ) {
+					return $v['metadata'];
+				}
+			}
+		} elseif ( $post_type === 'chapter' ) {
+			foreach ( $this->sourceBookStructure['parts'] as $key => $part ) {
+				foreach ( $part['chapters'] as $k => $v ) {
+					if ( $v['id'] === absint( $section_id ) ) {
+						return $v['metadata'];
+					}
+				}
+			}
+		} elseif ( $post_type === 'glossary ' ) {
+			foreach ( $this->sourceBookGlossary as $k => $v ) {
+				if ( $v['id'] === absint( $section_id ) ) {
+					return $v['metadata'];
+				}
+			}
+		}
+		return []; // Nothing was found
+	}
+
+	/**
+	 * Discover WordPress API
+	 *
+	 * @see https://developer.wordpress.org/rest-api/using-the-rest-api/discovery/
+	 *
+	 * @param string $url
+	 *
+	 * @return string|false Returns (corrected) URL on success, false on failure
+	 */
+	public function discoverWordPressApi( $url ) {
+
+		// Use redirection because our servers redirect when missing a trailing slash
+		$response = wp_safe_remote_head(
+			$url, [
+				'redirection' => 2,
+			]
+		);
+		if ( is_wp_error( $response ) ) {
+			return false;
+		}
+		$headers = wp_remote_retrieve_headers( $response );
+
+		if ( isset( $headers['link'] ) ) {
+			if ( ! is_array( $headers['link'] ) ) {
+				$headers['link'] = [ $headers['link'] ];
+			}
+			foreach ( $headers['link'] as $link ) {
+				// Parse: <http://example.com/wp-json/>; rel="https://api.w.org/">, <http://example.com/?rest_route=/>; rel="https://api.w.org/"
+				if ( strpos( $link, 'rel="https://api.w.org/"' ) !== false || strpos( $link, "rel='https://api.w.org/'" ) !== false ) {
+					preg_match( '#\<(.*?)\>.*?//api\.w\.org/#', $link, $matches );
+					if ( empty( $matches[1] ) ) {
+						return false;
+					}
+					// Remove REST base
+					if ( str_ends_with( $matches[1], "/{$this->restBase}/" ) ) {
+						$fixed_url = esc_url( str_lreplace( "/{$this->restBase}/", '', $matches[1] ) ); // Ends with slash
+					} elseif ( str_ends_with( $matches[1], "/{$this->restBase}" ) ) {
+						$fixed_url = esc_url( str_lreplace( "/{$this->restBase}", '', $matches[1] ) ); // Doesn't end with slash
+					} else {
+						$fixed_url = esc_url( $matches[1] ); // Could not find rest base, use as is
+					}
+					return untrailingslashit( $fixed_url );
+				}
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * @param string $url
+	 *
+	 * @return bool
+	 */
+	public function isCompatible( $url ) {
+
+		$new_url = $this->discoverWordPressApi( $url );
+		if ( $new_url ) {
+			$url = $new_url;
+			$this->sourceBookUrl = $new_url;
+		}
+
+		// Check for taxonomies introduced in Pressbooks 4.1
+		// We specifically check for 404 Not Found.
+		// If we get another kind of error it will be caught later because we want to know what went wrong.
+		$response = $this->handleGetRequest( $url, 'pressbooks/v2', 'chapter-type', [ 'per_page' => 1 ], false );
+		if ( is_wp_error( $response ) && in_array( (int) $response->get_error_code(), [ 404 ], true ) ) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Get a book ID from its URL.
+	 *
+	 * @since 4.1.0
+	 *
+	 * @param string $url
+	 *
+	 * @return int 0 of no blog was found, or the ID of the matched book.
+	 */
+	public function getBookId( $url ) {
+		return get_blog_id_from_url(
+			wp_parse_url( $url, PHP_URL_HOST ),
+			trailingslashit( wp_parse_url( $url, PHP_URL_PATH ) )
+		);
+	}
+
+	/**
+	 * Given a URL, get the subdomain or subdirectory (depending on the type of multisite install).
+	 *
+	 * @since 4.1.0
+	 *
+	 * @param string $url
+	 *
+	 * @return string
+	 */
+	public function getSubdomainOrSubDirectory( $url ) {
+		$url = untrailingslashit( $url );
+		$host = wp_parse_url( $url, PHP_URL_HOST );
+		$path = wp_parse_url( $url, PHP_URL_PATH );
+		if ( $path ) {
+			return ltrim( $path, '/\\' );
+		} else {
+			$host = explode( '.', $host );
+			$subdomain = array_shift( $host );
+			return $subdomain;
+		}
+	}
+
+	/**
+	 * When creating a new book as the target of a clone operation, this function removes
+	 * default front matter, parts, chapters and back matter from the book creation routines.
+	 *
+	 * @since 4.1.0
+	 * @see apply_filters( 'pb_default_book_content', ... )
+	 *
+	 * @param array $contents The default book contents
+	 *
+	 * @return array The filtered book contents
+	 */
+	public function removeDefaultBookContent( $contents ) {
+		foreach (
+			[
+				'introduction',
+				'main-body',
+				'chapter-1',
+				'appendix',
+			] as $post
+		) {
+			unset( $contents[ $post ] );
+		}
+		return $contents;
+	}
+
+
+	/**
+	 * @param array $item
+	 *
+	 * @return \Pressbooks\Entities\Cloner\Media
+	 */
+	protected function createMediaEntity( $item ) {
+		$m = new \Pressbooks\Entities\Cloner\Media();
+		if ( isset( $item['id'] ) ) {
+			$m->id = $item['id'];
+		}
+		if ( isset( $item['title'], $item['title']['raw'] ) ) {
+			$m->title = $item['title']['raw'];
+		}
+		if ( isset( $item['description'], $item['description']['raw'] ) ) {
+			$m->description = $item['description']['raw'];
+		}
+		if ( isset( $item['caption'], $item['caption']['raw'] ) ) {
+			$m->caption = $item['caption']['raw'];
+		}
+		if ( isset( $item['meta'] ) ) {
+			$m->meta = $item['meta'];
+		}
+		if ( isset( $item['alt_text'] ) ) {
+			$m->altText = $item['alt_text'];
+		}
+		if ( isset( $item['source_url'] ) ) {
+			$m->sourceUrl = $item['source_url'];
+		}
+		return $m;
+	}
+
+	/**
+	 * @param array $item
+	 *
+	 * @return \Pressbooks\Entities\Cloner\H5P
+	 */
+	protected function createH5PEntity( $item ) {
+		$h5p = new \Pressbooks\Entities\Cloner\H5P();
+		if ( isset( $item['id'] ) ) {
+			$h5p->id = $item['id'];
+		}
+		if ( isset( $item['url'] ) ) {
+			$h5p->url = $item['url'];
+		}
+		return $h5p;
+	}
+
+	/**
+	 * Check if post content contains shortcodes with references to internal IDs that we will need to fix
+	 *
+	 * @param int $post_id
+	 * @param string $html
+	 */
+	protected function checkInternalShortcodes( $post_id, $html ) {
+		// Glossary
+		if ( has_shortcode( $html, \Pressbooks\Shortcodes\Glossary\Glossary::SHORTCODE ) ) {
+			$this->postsWithGlossaryShortcodesToFix[] = $post_id;
+		}
+		// Attachments
+		if ( has_shortcode( $html, \Pressbooks\Shortcodes\Attributions\Attachments::SHORTCODE ) ) {
+			$this->postsWithAttachmentsShortcodesToFix[] = $post_id;
+		}
+		// H5P
+		if ( has_shortcode( $html, \Pressbooks\Interactive\H5P::SHORTCODE ) ) {
+			$this->postsWithH5PShortcodesToFix[] = $post_id;
+			$this->sourceHasH5p = true;
+		}
+	}
+
+	/**
+	 * Fix shortcodes with references to internal IDs
+	 */
+	protected function fixInternalShortcodes() {
+		// Because $fix replaces left to right, it might replace a previously inserted value when doing multiple replacements.
+		// Solved by creating a placeholder that can't possibly fall into the replacement order gotcha (famous last words)
+		$fix = function ( $post_id, $transition_type, $shortcode ) {
+			$replace_pairs = [];
+			$post = get_post( $post_id );
+			foreach ( $this->transitions as $transition ) {
+				if ( $transition->type === $transition_type ) {
+					$md5 = md5( $transition->oldId . $transition->newId . rand() );
+					$to = "<!-- pb_fixme_{$md5} -->";
+					$replace_pairs[ $to ] = $transition->newId;
+					$post->post_content = \Pressbooks\Utility\shortcode_att_replace(
+						$post->post_content,
+						$shortcode,
+						'id',
+						$transition->oldId,
+						$to
+					);
+				}
+			}
+			if ( ! empty( $replace_pairs ) ) {
+				$post->post_content = strtr( $post->post_content, $replace_pairs );
+				wp_update_post( $post );
+			}
+		};
+
+		// Glossary
+		foreach ( $this->postsWithGlossaryShortcodesToFix as $post_id ) {
+			$fix( $post_id, 'glossary', \Pressbooks\Shortcodes\Glossary\Glossary::SHORTCODE );
+		}
+		// Attachments
+		foreach ( $this->postsWithAttachmentsShortcodesToFix as $post_id ) {
+			$fix( $post_id, 'attachment', \Pressbooks\Shortcodes\Attributions\Attachments::SHORTCODE );
+		}
+		// H5P
+		foreach ( $this->postsWithH5PShortcodesToFix as $post_id ) {
+			$fix( $post_id, 'h5p', \Pressbooks\Interactive\H5P::SHORTCODE );
+		}
+	}
+
+
+	/**
 	 * Maybe restore current blog
 	 */
 	protected function maybeRestoreCurrentBlog() {
@@ -990,11 +1258,11 @@ class Cloner {
 		$result = wpmu_create_blog( $domain, $path, $this->targetBookTitle, $user_id );
 		remove_all_filters( 'pb_redirect_to_new_book' );
 		remove_filter( 'pb_default_book_content', [ $this, 'removeDefaultBookContent' ] );
-		if ( ! is_wp_error( $result ) ) {
-			return $result;
+		if ( is_wp_error( $result ) ) {
+			return false;
 		}
 
-		return false;
+		return $result;
 	}
 
 	/**
@@ -1005,7 +1273,7 @@ class Cloner {
 	 * @return bool | int False if the creation failed; the ID of the new book's book information post if it succeeded.
 	 */
 	protected function cloneMetadata() {
-		$metadata_post_id = ( new Metadata )->getMetaPostId();
+		$metadata_post_id = ( new \Pressbooks\Metadata )->getMetaPostId();
 
 		if ( ! $metadata_post_id ) {
 			return false;
@@ -1015,8 +1283,9 @@ class Cloner {
 
 		// Cover image
 		if ( ! \Pressbooks\Image\is_default_cover( $book_information['pb_cover_image'] ) ) {
-			$new_cover_id = $this->fetchAndSaveUniqueImage( $book_information['pb_cover_image'] );
+			$new_cover_id = $this->downloads->fetchAndSaveUniqueImage( $book_information['pb_cover_image'] );
 			if ( $new_cover_id > 0 ) {
+				$this->clonedItems['media'][] = $new_cover_id; // Counter
 				$book_information['pb_cover_image'] = wp_get_attachment_url( $new_cover_id );
 			} else {
 				$book_information['pb_cover_image'] = default_cover_url();
@@ -1044,7 +1313,7 @@ class Cloner {
 			} else {
 				update_post_meta( $metadata_post_id, $key, $value );
 				if ( $key === 'pb_book_license' ) {
-					wp_set_object_terms( $metadata_post_id, $value, Licensing::TAXONOMY ); // Link
+					wp_set_object_terms( $metadata_post_id, $value, \Pressbooks\Licensing::TAXONOMY ); // Link
 				}
 			}
 		}
@@ -1064,6 +1333,7 @@ class Cloner {
 	 * @param int $section_id The ID of the section within the source book.
 	 * @param string $post_type The post type of the section.
 	 * @param int $parent_id The ID of the part to which the chapter should be added (only required for chapters) within the target book.
+	 *
 	 * @return bool | int False if the clone failed; the ID of the new section if it succeeded.
 	 */
 	protected function cloneSection( $section_id, $post_type, $parent_id = null ) {
@@ -1096,8 +1366,12 @@ class Cloner {
 		// Set status
 		$section['status'] = 'publish';
 
-		// Set title and content
+		// Download media (images, videos, `select * from wp_posts where post_type = 'attachment'` ... )
 		list( $content, $attachments ) = $this->retrieveSectionContent( $section );
+		// Download H5P
+		$content = $this->retrieveH5P( $content );
+
+		// Set title and content
 		$section['title'] = $section['title']['rendered'];
 		$section['content'] = $content;
 
@@ -1172,7 +1446,7 @@ class Cloner {
 		$this->checkInternalShortcodes( $response['id'], $section['content'] );
 
 		// Store a transitional state
-		$this->transitions[] = $this->createTransition( $post_type, $section_id, $response['id'] );
+		$this->createTransition( $post_type, $section_id, $response['id'] );
 
 		return $response['id'];
 	}
@@ -1209,7 +1483,6 @@ class Cloner {
 	 */
 	protected function retrieveSectionContent( $section ) {
 		if ( ! empty( $section['content']['raw'] ) ) {
-			// Wrap in fake div tags so that we can parse it
 			$source_content = $section['content']['raw'];
 		} else {
 			$source_content = $section['content']['rendered'];
@@ -1225,16 +1498,16 @@ class Cloner {
 		}
 
 		// Load source content
-		$html5 = new HtmlParser();
+		$html5 = new \Pressbooks\HtmlParser();
 		$dom = $html5->loadHTML( $source_content );
 
 		// Download images, change image paths
-		$media = $this->scrapeAndKneadImages( $dom );
+		$media = $this->downloads->scrapeAndKneadImages( $dom );
 		$dom = $media['dom'];
 		$attachments = $media['attachments'];
 
 		// Download media, change media paths
-		$media = $this->scrapeAndKneadMedia( $dom, $html5->parser );
+		$media = $this->downloads->scrapeAndKneadMedia( $dom, $html5->parser );
 		$dom = $media['dom'];
 		$attachments = array_merge( $attachments, $media['attachments'] );
 
@@ -1250,48 +1523,31 @@ class Cloner {
 			$content = str_replace( "<!-- pb_fixme_{$md5} -->", $c, $content );
 		}
 
-		if ( ! empty( $section['content']['raw'] ) ) {
-			if ( ! $this->interactiveContent->isCloneable( $content ) ) {
-				$content = $this->interactiveContent->replaceCloneable( $content );
-			}
+		// Count attachments
+		foreach ( $attachments as $pid ) {
+			$this->clonedItems['media'][] = $pid;
 		}
 
 		return [ trim( $content ), $attachments ];
 	}
 
 	/**
-	 * Retrieve metadata
+	 * @param string $content
 	 *
-	 * @since 5.0.0
-	 *
-	 * @param int $section_id The ID of the section within the source book.
-	 * @param string $post_type The post type of the section.
-	 *
-	 * @return array
+	 * @return string
 	 */
-	public function retrieveSectionMetadata( $section_id, $post_type ) {
-		if ( in_array( $post_type, [ 'front-matter', 'back-matter' ], true ) ) {
-			foreach ( $this->sourceBookStructure[ $post_type ] as $k => $v ) {
-				if ( $v['id'] === absint( $section_id ) ) {
-					return $v['metadata'];
-				}
+	protected function retrieveH5P( $content ) {
+		if ( $this->sourceHasH5pApi && $this->targetHasH5pApi ) {
+			// Download H5P
+			$h5p_ids = $this->downloads->h5p( $content );
+			foreach ( $h5p_ids as $h5p_id ) {
+				$this->clonedItems['h5p'][] = $h5p_id;
 			}
-		} elseif ( $post_type === 'chapter' ) {
-			foreach ( $this->sourceBookStructure['parts'] as $key => $part ) {
-				foreach ( $part['chapters'] as $k => $v ) {
-					if ( $v['id'] === absint( $section_id ) ) {
-						return $v['metadata'];
-					}
-				}
-			}
-		} elseif ( $post_type === 'glossary ' ) {
-			foreach ( $this->sourceBookGlossary as $k => $v ) {
-				if ( $v['id'] === absint( $section_id ) ) {
-					return $v['metadata'];
-				}
-			}
+		} else {
+			// Remove H5P
+			$content = $this->h5p->replaceUncloneable( $content );
 		}
-		return []; // Nothing was found
+		return $content;
 	}
 
 	/**
@@ -1302,6 +1558,7 @@ class Cloner {
 	 * @param int $section_id The ID of the section within the source book.
 	 * @param string $post_type The post type of the section.
 	 * @param int $target_id The ID of the section within the target book.
+	 *
 	 * @return bool False if the clone failed; true if it succeeded.
 	 */
 	protected function cloneSectionMetadata( $section_id, $post_type, $target_id ) {
@@ -1328,7 +1585,7 @@ class Cloner {
 			} else {
 				update_post_meta( $target_id, $key, $value );
 				if ( $key === 'pb_section_license' ) {
-					wp_set_object_terms( $target_id, $value, Licensing::TAXONOMY ); // Link
+					wp_set_object_terms( $target_id, $value, \Pressbooks\Licensing::TAXONOMY ); // Link
 				}
 			}
 		}
@@ -1483,328 +1740,6 @@ class Cloner {
 	}
 
 	/**
-	 * Parse HTML snippet, save all found <img> tags using media_handle_sideload(), return the HTML with changed <img> paths.
-	 *
-	 * @since 4.1.0
-	 *
-	 * @param \DOMDocument $dom
-	 *
-	 * @return array An array containing the \DOMDocument and the IDs of created attachments
-	 */
-	protected function scrapeAndKneadImages( \DOMDocument $dom ) {
-
-		$images = $dom->getElementsByTagName( 'img' );
-		$attachments = [];
-
-		foreach ( $images as $image ) {
-			/** @var \DOMElement $image */
-			// Fetch image, change src
-			$src_old = $image->getAttribute( 'src' );
-			$attachment_id = $this->fetchAndSaveUniqueImage( $src_old );
-			if ( $attachment_id === -1 ) {
-				// Do nothing because image is not hosted on the source Pb network
-			} elseif ( $attachment_id ) {
-				$image->setAttribute( 'src', $this->replaceImage( $attachment_id, $src_old, $image ) );
-
-			} else {
-				// Tag broken image
-				$image->setAttribute( 'src', "{$src_old}#fixme" );
-			}
-		}
-
-		return [
-			'dom' => $dom,
-			'attachments' => $attachments,
-		];
-	}
-
-	/**
-	 * Load remote url of image into WP using media_handle_sideload()
-	 * Will return -1 if image is not hosted on the source Pb network, or 0 if something went wrong.
-	 *
-	 * @since 4.1.0
-	 *
-	 * @param string $url
-	 *
-	 * @see media_handle_sideload
-	 *
-	 * @return int attachment ID, -1 if image is not hosted on the source Pb network, or 0 if import failed
-	 */
-	protected function fetchAndSaveUniqueImage( $url ) {
-		if ( ! filter_var( $url, FILTER_VALIDATE_URL ) ) {
-			return 0;
-		}
-		if ( ! $this->sameAsSource( $url ) ) {
-			return -1;
-		}
-
-		$filename = $this->basename( $url );
-		$attached_file = image_strip_baseurl( $url );
-
-		if ( isset( $this->knownMedia[ $attached_file ] ) ) {
-			$remote_img_location = $this->knownMedia[ $attached_file ]->sourceUrl;
-			$filename = basename( $remote_img_location );
-		} else {
-			$remote_img_location = $url;
-		}
-
-		if ( isset( $this->imageWasAlreadyDownloaded[ $remote_img_location ] ) ) {
-			return $this->imageWasAlreadyDownloaded[ $remote_img_location ];
-		}
-
-		/* Process */
-
-		if ( ! preg_match( $this->pregSupportedImageExtensions, $filename ) ) {
-			// Unsupported image type
-			$this->imageWasAlreadyDownloaded[ $remote_img_location ] = 0;
-			return 0;
-		}
-
-		$tmp_name = download_url( $remote_img_location );
-		if ( is_wp_error( $tmp_name ) ) {
-			// Download failed
-			$this->imageWasAlreadyDownloaded[ $remote_img_location ] = 0;
-			return 0;
-		}
-
-		if ( ! \Pressbooks\Image\is_valid_image( $tmp_name, $filename ) ) {
-
-			try { // changing the file name so that extension matches the mime type
-				$filename = \Pressbooks\Image\proper_image_extension( $tmp_name, $filename );
-				if ( ! \Pressbooks\Image\is_valid_image( $tmp_name, $filename ) ) {
-					throw new \Exception( 'Image is corrupt, and file extension matches the mime type' );
-				}
-			} catch ( \Exception $exc ) {
-				// Garbage, don't import
-				$this->imageWasAlreadyDownloaded[ $remote_img_location ] = 0;
-				@unlink( $tmp_name ); // @codingStandardsIgnoreLine
-				return 0;
-			}
-		}
-
-		$pid = media_handle_sideload(
-			[
-				'name' => $filename,
-				'tmp_name' => $tmp_name,
-			], 0
-		);
-		$src = wp_get_attachment_url( $pid );
-		if ( ! $src ) {
-			$pid = 0;
-		} else {
-			if ( isset( $this->knownMedia[ $attached_file ] ) ) {
-				// Patch
-				$m = $this->knownMedia[ $attached_file ];
-				$request = new \WP_REST_Request( 'PATCH', "/wp/v2/media/{$pid}" );
-				$request->set_body_params( $this->createMediaPatch( $m ) );
-				rest_do_request( $request );
-				// Store a transitional state
-				$this->transitions[] = $this->createTransition( 'attachment', $m->id, $pid );
-			}
-			// Don't download the same file again
-			$this->imageWasAlreadyDownloaded[ $remote_img_location ] = $pid;
-			// Counter
-			$this->clonedItems['media'][] = $pid;
-		}
-		@unlink( $tmp_name ); // @codingStandardsIgnoreLine
-
-		return $pid;
-	}
-
-	/**
-	 * @param int $attachment_id
-	 * @param string $src_old
-	 * @param \DOMElement $image
-	 *
-	 * @return string
-	 */
-	protected function replaceImage( $attachment_id, $src_old, $image ) {
-
-		$src_new = wp_get_attachment_url( $attachment_id );
-
-		if ( $this->sameAsSource( $src_old ) && isset( $this->knownMedia[ image_strip_baseurl( $src_old ) ] ) ) {
-			$basename_old = $this->basename( $src_old );
-			$basename_new = $this->basename( $src_new );
-			$maybe_src_new = str_lreplace( $basename_new, $basename_old, $src_new );
-			if ( $attachment_id === attachment_id_from_url( $maybe_src_new ) ) {
-				// Our best guess is that this is a cloned image, use old filename to preserve WP resizing
-				$src_new = $maybe_src_new;
-				// Update image class to new id to preserve WP Size dropdown
-				if ( $image->hasAttribute( 'class' ) ) {
-					$image->setAttribute( 'class', preg_replace( '/wp-image-\d+/', "wp-image-{$attachment_id}", $image->getAttribute( 'class' ) ) );
-				}
-				// Update wrapper IDs
-				if ( $image->parentNode->tagName === 'div' && strpos( $image->parentNode->getAttribute( 'id' ), 'attachment_' ) !== false ) {
-					// <div> id
-					$image->parentNode->setAttribute( 'id', preg_replace( '/attachment_\d+/', "attachment_{$attachment_id}", $image->parentNode->getAttribute( 'id' ) ) );
-				}
-				foreach ( $image->parentNode->childNodes as $child ) {
-					if ( $child instanceof \DOMText &&
-						strpos( $child->nodeValue, '[caption ' ) !== false &&
-						strpos( $child->nodeValue, 'attachment_' ) !== false
-					) {
-						// [caption] id
-						$child->nodeValue = preg_replace( '/attachment_\d+/', "attachment_{$attachment_id}", $child->nodeValue );
-					}
-				}
-			}
-		}
-
-		// Update srcset URLs
-		if ( $image->hasAttribute( 'srcset' ) ) {
-			$image->setAttribute( 'srcset', wp_get_attachment_image_srcset( $attachment_id ) );
-		}
-
-		return $src_new;
-	}
-
-
-	/**
-	 * Parse HTML snippet, save all found media using media_handle_sideload(), return the HTML with changed URLs.
-	 *
-	 * Because we clone using WordPress raw format, we have to brute force against the text because the DOM
-	 * can't see shortcodes, text urls, hrefs with no identifying info, etc.
-	 *
-	 * @since 4.1.0
-	 *
-	 * @param \DOMDocument $dom
-	 * @param \Masterminds\HTML5 $html5
-	 *
-	 * @return array An array containing the \DOMDocument and the IDs of created attachments
-	 */
-	protected function scrapeAndKneadMedia( \DOMDocument $dom, $html5 ) {
-
-		$dom_as_string = $html5->saveHTML( $dom );
-		$dom_as_string = \Pressbooks\Sanitize\strip_container_tags( $dom_as_string );
-
-		$attachments = [];
-		$changed = false;
-		foreach ( $this->knownMedia as $alt => $media ) {
-			if ( preg_match( $this->pregSupportedImageExtensions, $this->basename( $media->sourceUrl ) ) ) {
-				// Skip images, these have already been done
-				continue;
-			}
-			if ( strpos( $dom_as_string, $media->sourceUrl ) !== false ) {
-				$src_old = $media->sourceUrl;
-				$attachment_id = $this->fetchAndSaveUniqueMedia( $src_old );
-				if ( $attachment_id === -1 ) {
-					// Do nothing because media is not hosted on the source Pb network
-				} elseif ( $attachment_id ) {
-					$dom_as_string = str_replace( $src_old, wp_get_attachment_url( $attachment_id ), $dom_as_string );
-					$attachments[] = $attachment_id;
-					$changed = true;
-				} else {
-					// Tag broken media
-					$dom_as_string = str_replace( $src_old, "{$src_old}#fixme", $dom_as_string );
-					$changed = true;
-				}
-			}
-		}
-
-		return [
-			'dom' => $changed ? $html5->loadHTML( $dom_as_string ) : $dom,
-			'attachments' => $attachments,
-		];
-	}
-
-	/**
-	 * Load remote media into WP using media_handle_sideload()
-	 * Will return -1 if media is not hosted on the source Pb network, or 0 if something went wrong.
-	 *
-	 * @since 4.1.0
-	 *
-	 * @param string $url
-	 *
-	 * @see media_handle_sideload
-	 *
-	 * @return int attachment ID, -1 if media is not hosted on the source Pb network, or 0 if import failed
-	 */
-	protected function fetchAndSaveUniqueMedia( $url ) {
-		if ( ! filter_var( $url, FILTER_VALIDATE_URL ) ) {
-			return 0;
-		}
-		if ( ! $this->sameAsSource( $url ) ) {
-			return -1;
-		}
-
-		$filename = $this->basename( $url );
-		$attached_file = media_strip_baseurl( $url );
-
-		if ( isset( $this->knownMedia[ $attached_file ] ) ) {
-			$remote_media_location = $this->knownMedia[ $attached_file ]->sourceUrl;
-			$filename = basename( $remote_media_location );
-		} else {
-			$remote_media_location = $url;
-		}
-
-		if ( isset( $this->mediaWasAlreadyDownloaded[ $remote_media_location ] ) ) {
-			return $this->mediaWasAlreadyDownloaded[ $remote_media_location ];
-		}
-
-		/* Process */
-
-		$tmp_name = download_url( $remote_media_location );
-		if ( is_wp_error( $tmp_name ) ) {
-			// Download failed
-			$this->mediaWasAlreadyDownloaded[ $remote_media_location ] = 0;
-			return 0;
-		}
-
-		$pid = media_handle_sideload(
-			[
-				'name' => $filename,
-				'tmp_name' => $tmp_name,
-			], 0
-		);
-		$src = wp_get_attachment_url( $pid );
-		if ( ! $src ) {
-			$pid = 0;
-		} else {
-			if ( isset( $this->knownMedia[ $attached_file ] ) ) {
-				// Patch
-				$m = $this->knownMedia[ $attached_file ];
-				$request = new \WP_REST_Request( 'PATCH', "/wp/v2/media/{$pid}" );
-				$request->set_body_params( $this->createMediaPatch( $m ) );
-				rest_do_request( $request );
-				// Store a transitional state
-				$this->transitions[] = $this->createTransition( 'attachment', $m->id, $pid );
-			}
-			// Don't download the same file again
-			$this->mediaWasAlreadyDownloaded[ $remote_media_location ] = $pid;
-			// Counter
-			$this->clonedItems['media'][] = $pid;
-		}
-		@unlink( $tmp_name ); // @codingStandardsIgnoreLine
-
-		return $pid;
-	}
-
-	/**
-	 * Get sanitized basename without query string or anchors
-	 *
-	 * @param $url
-	 *
-	 * @return array|mixed|string
-	 */
-	protected function basename( $url ) {
-		$filename = explode( '?', basename( $url ) );
-		$filename = array_shift( $filename );
-		$filename = explode( '#', $filename )[0]; // Remove trailing anchors
-		$filename = sanitize_file_name( urldecode( $filename ) );
-
-		return $filename;
-	}
-
-	/**
-	 * @param $url
-	 *
-	 * @return bool
-	 */
-	protected function sameAsSource( $url ) {
-		return \Pressbooks\Utility\urls_have_same_host( $this->sourceBookUrl, $url );
-	}
-
-	/**
 	 * @param \DOMDocument $dom
 	 *
 	 * @return \DOMDocument
@@ -1845,139 +1780,6 @@ class Cloner {
 		}
 
 		return $dom;
-	}
-
-	/**
-	 * Discover WordPress API
-	 *
-	 * @see https://developer.wordpress.org/rest-api/using-the-rest-api/discovery/
-	 *
-	 * @param string $url
-	 *
-	 * @return string|false Returns (corrected) URL on success, false on failure
-	 */
-	public function discoverWordPressApi( $url ) {
-
-		// Use redirection because our servers redirect when missing a trailing slash
-		$response = wp_safe_remote_head(
-			$url, [
-				'redirection' => 2,
-			]
-		);
-		if ( is_wp_error( $response ) ) {
-			return false;
-		}
-		$headers = wp_remote_retrieve_headers( $response );
-
-		if ( isset( $headers['link'] ) ) {
-			if ( ! is_array( $headers['link'] ) ) {
-				$headers['link'] = [ $headers['link'] ];
-			}
-			foreach ( $headers['link'] as $link ) {
-				// Parse: <http://example.com/wp-json/>; rel="https://api.w.org/">, <http://example.com/?rest_route=/>; rel="https://api.w.org/"
-				if ( strpos( $link, 'rel="https://api.w.org/"' ) !== false || strpos( $link, "rel='https://api.w.org/'" ) !== false ) {
-					preg_match( '#\<(.*?)\>.*?//api\.w\.org/#', $link, $matches );
-					if ( empty( $matches[1] ) ) {
-						return false;
-					}
-					// Remove REST base
-					if ( str_ends_with( $matches[1], "/{$this->restBase}/" ) ) {
-						$fixed_url = esc_url( str_lreplace( "/{$this->restBase}/", '', $matches[1] ) ); // Ends with slash
-					} elseif ( str_ends_with( $matches[1], "/{$this->restBase}" ) ) {
-						$fixed_url = esc_url( str_lreplace( "/{$this->restBase}", '', $matches[1] ) ); // Doesn't end with slash
-					} else {
-						$fixed_url = esc_url( $matches[1] ); // Could not find rest base, use as is
-					}
-					return untrailingslashit( $fixed_url );
-				}
-			}
-		}
-		return false;
-	}
-
-	/**
-	 * @param string $url
-	 *
-	 * @return bool
-	 */
-	public function isCompatible( $url ) {
-
-		$new_url = $this->discoverWordPressApi( $url );
-		if ( $new_url ) {
-			$url = $new_url;
-			$this->sourceBookUrl = $new_url;
-		}
-
-		// Check for taxonomies introduced in Pressbooks 4.1
-		// We specifically check for 404 Not Found.
-		// If we get another kind of error it will be caught later because we want to know what went wrong.
-		$response = $this->handleGetRequest( $url, 'pressbooks/v2', 'chapter-type', [ 'per_page' => 1 ], false );
-		if ( is_wp_error( $response ) && in_array( (int) $response->get_error_code(), [ 404 ], true ) ) {
-			return false;
-		}
-
-		return true;
-	}
-
-	/**
-	 * When creating a new book as the target of a clone operation, this function removes
-	 * default front matter, parts, chapters and back matter from the book creation routines.
-	 *
-	 * @since 4.1.0
-	 * @see apply_filters( 'pb_default_book_content', ... )
-	 *
-	 * @param array $contents The default book contents
-	 * @return array The filtered book contents
-	 */
-	public static function removeDefaultBookContent( $contents ) {
-		foreach ( [
-			'introduction',
-			'main-body',
-			'chapter-1',
-			'appendix',
-		] as $post ) {
-			unset( $contents[ $post ] );
-		}
-		return $contents;
-	}
-
-	/**
-	 * Get a book ID from its URL.
-	 *
-	 * @since 4.1.0
-	 *
-	 * @param string $url
-	 *
-	 * @return int 0 of no blog was found, or the ID of the matched book.
-	 */
-
-	public static function getBookId( $url ) {
-		return get_blog_id_from_url(
-			wp_parse_url( $url, PHP_URL_HOST ),
-			trailingslashit( wp_parse_url( $url, PHP_URL_PATH ) )
-		);
-	}
-
-	/**
-	 * Given a URL, get the subdomain or subdirectory (depending on the type of multisite install).
-	 *
-	 * @since 4.1.0
-	 *
-	 * @param string $url
-	 *
-	 * @return string
-	 */
-	public static function getSubdomainOrSubDirectory( $url ) {
-		$url = untrailingslashit( $url );
-		$host = wp_parse_url( $url, PHP_URL_HOST );
-		$path = wp_parse_url( $url, PHP_URL_PATH );
-		if ( $path ) {
-			return ltrim( $path, '/\\' );
-		} else {
-			$host = explode( '.', $host );
-			$subdomain = array_shift( $host );
-			return $subdomain;
-		}
 	}
 
 	/**
@@ -2029,6 +1831,8 @@ class Cloner {
 	}
 
 	/**
+	 * Is clonning feature enabled for this network?
+	 *
 	 * @return bool
 	 */
 	public static function isEnabled() {

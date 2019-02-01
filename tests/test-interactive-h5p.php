@@ -38,18 +38,9 @@ class Interactive_H5PTest extends \WP_UnitTestCase {
 
 	public function test_replaceCloneable() {
 		$content = '[h5p id="1"]';
-		$result = $this->h5p->replaceCloneable( $content );
+		$result = $this->h5p->replaceUncloneable( $content );
 		$this->assertNotContains( '[h5p ', $result );
 		$this->assertContains( 'The original version of this chapter contained H5P content', $result );
-	}
-
-	public function test_setCloneableWarning() {
-		$this->h5p->setCloneableWarning();
-		$this->h5p->setCloneableWarning();
-		$this->h5p->setCloneableWarning();
-		$this->asserttrue( count( $_SESSION['pb_notices'] ) === 1 );
-		$this->assertContains( 'This book contains H5P content that cannot be cloned', $_SESSION['pb_notices'][0] );
-		unset( $_SESSION['pb_notices'] );
 	}
 
 }

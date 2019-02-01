@@ -8,6 +8,7 @@ class PercentageYieldTest extends \WP_UnitTestCase {
 	public function validRanges() {
 		return [
 			[ 1, 100, 100 ],
+			[ 1, 100, 50 ],
 			[ 1, 50, 100 ],
 			[ 90, 100, 5 ],
 			[ 51, 62, 789 ],

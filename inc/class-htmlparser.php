@@ -70,7 +70,12 @@ class HtmlParser {
 		}
 
 		$html = \Pressbooks\Sanitize\strip_container_tags( $html );
-		$html = str_replace( [ '<div><!-- pb_fixme -->', '<!-- pb_fixme --></div>' ], '', $html );
+
+		$replace_pairs = [
+			'<div><!-- pb_fixme -->' => '',
+			'<!-- pb_fixme --></div>' => '',
+		];
+		$html = strtr( $html, $replace_pairs );
 
 		return $html;
 	}

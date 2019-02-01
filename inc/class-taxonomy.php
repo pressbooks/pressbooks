@@ -585,9 +585,11 @@ class Taxonomy {
 		foreach ( $this->licensing->getSupportedTypes( true, true ) as $key => $val ) {
 			if ( $key === 'public-domain' ) {
 				$public_domain = get_term_by( 'slug', $key, Licensing::TAXONOMY );
-				wp_update_term( $public_domain->term_id, Licensing::TAXONOMY, [
-					'name' => $val['desc'],
-				] );
+				wp_update_term(
+					$public_domain->term_id, Licensing::TAXONOMY, [
+						'name' => $val['desc'],
+					]
+				);
 			}
 			if ( $key === 'cc-zero' ) {
 				wp_insert_term(
