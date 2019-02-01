@@ -844,24 +844,6 @@ abstract class Export {
 		// No errors?
 
 		if ( empty( $conversion_error ) && empty( $validation_warning ) ) {
-			if ( ! empty( $_REQUEST['preview'] ) && count( $outputs ) === 1 ) {
-				// @codingStandardsIgnoreStart
-				// TODO: How can we make this preview feature work again?
-				// Maybe we should just get rid of it because I don't remember how to use it without searching the code.
-				// It originally had a UX component when editing a chapter. A user could preview that one chapter in the browser.
-				// It kind of sucked so the UX was removed, but the backend code remains, a bit all over, a bit of a mess...
-				// @see \Pressbooks\Book::$preview
-
-				/*
-				// Preview the file, then delete it
-				$filename_fullpath = array_values( $outputs );
-				$filename_fullpath = array_shift( $filename_fullpath );
-				$filename = basename( $filename_fullpath );
-				static::downloadExportFile( $filename, true );
-				unlink( $filename_fullpath );
-				*/
-				// @codingStandardsIgnoreEnd
-			}
 			// Redirect the user back to the form
 			return;
 		}

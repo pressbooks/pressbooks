@@ -97,9 +97,6 @@ class HTMLBook extends Export {
 		$timestamp = time();
 		$md5 = $this->nonce( $timestamp );
 		$this->url = home_url() . "/format/htmlbook?timestamp={$timestamp}&hashkey={$md5}";
-		if ( ! empty( $_REQUEST['preview'] ) ) {
-			$this->url .= '&preview=1';
-		}
 
 		// Append endnotes to URL?
 		if ( $r['endnotes'] ) {

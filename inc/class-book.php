@@ -29,16 +29,6 @@ class Book {
 	protected static $__order = [];
 
 	/**
-	 * Array of preview ids
-	 *
-	 * Note: If you set this property, but also set $_REQUEST['preview'], then $_REQUEST['preview'] will override.
-	 * Request format: ?preview[0]=111&preview[1]=222&preview[2]=333...
-	 *
-	 * @var array
-	 */
-	static $preview = [];
-
-	/**
 	 * @return Book
 	 */
 	public static function getInstance() {
@@ -491,7 +481,6 @@ class Book {
 		wp_cache_delete( "book-inf-$blog_id", 'pb' ); // Delete the cached value for getBookInfo()
 		wp_cache_delete( "book-str-$blog_id", 'pb' ); // Delete the cached value for getBookStructure()
 		wp_cache_delete( "book-cnt-$blog_id", 'pb' ); // Delete the cached value for getBookContents()
-		static::$preview = [];
 		static::$__order = [];
 
 		// Subsections
@@ -977,28 +966,15 @@ class Book {
 
 		$post_ids_to_export = [];
 
-		if ( ! empty( $_REQUEST['preview'] ) ) {
-			static::$preview = $_REQUEST['preview'];
-		}
-
-		if ( ! empty( static::$preview ) ) {
-			// Preview mode
-			$preview = is_array( static::$preview ) ? static::$preview : (array) static::$preview;
-			foreach ( $preview as $id ) {
-				$post_ids_to_export[ (int) $id ] = 'on';
-			}
-		} else {
-			// Export mode
-			global $wpdb;
-			$results = $wpdb->get_results(
-				$wpdb->prepare(
-					"SELECT ID FROM {$wpdb->posts} WHERE post_status IN (%s, %s) AND post_type IN (%s, %s, %s, %s, %s)",
-					[ 'private', 'publish', 'front-matter', 'part', 'chapter', 'back-matter', 'glossary' ]
-				), ARRAY_A
-			);
-			foreach ( $results as $val ) {
-				$post_ids_to_export[ $val['ID'] ] = 'on';
-			}
+		global $wpdb;
+		$results = $wpdb->get_results(
+			$wpdb->prepare(
+				"SELECT ID FROM {$wpdb->posts} WHERE post_status IN (%s, %s) AND post_type IN (%s, %s, %s, %s, %s)",
+				[ 'private', 'publish', 'front-matter', 'part', 'chapter', 'back-matter', 'glossary' ]
+			), ARRAY_A
+		);
+		foreach ( $results as $val ) {
+			$post_ids_to_export[ $val['ID'] ] = 'on';
 		}
 
 		return $post_ids_to_export;
@@ -1010,15 +986,7 @@ class Book {
 	 * @return bool
 	 */
 	static protected function useCache() {
-
-		if ( ! empty( static::$preview ) ) {
-			return false;
-		}
-
-		if ( ! empty( $_REQUEST['preview'] ) ) {
-			return false;
-		}
-
+		// Placeholder for a reason to skip cache. Example: a preview feature.
 		return true;
 	}
 
