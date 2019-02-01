@@ -14,10 +14,6 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		const glossaryDefinition = document.getElementById( glossaryTermId );
 
 		glossaryTerm.onfocus = showDefinition;
-		glossaryTerm.addEventListener( 'keydown', function ( e ) {
-			if ( e.key === 'Escape' )
-				hideDefinition();
-		} );
 
 		document.addEventListener( 'click', event => {
 			if (
@@ -28,6 +24,15 @@ document.addEventListener( 'DOMContentLoaded', function () {
 				hideDefinition();
 			} else if ( event.target === glossaryTerm ) {
 				showDefinition();
+			}
+		} );
+
+		document.addEventListener( 'keydown', function ( e ) {
+			if ( e.key === 'Escape' ) {
+				Array.prototype.forEach.call( glossary.childNodes, dfn => {
+					dfn.classList.remove( 'glossary__tooltip--visible' );
+					dfn.hidden = true;
+				} );
 			}
 		} );
 
