@@ -1122,7 +1122,7 @@ class Epub201 extends ExportGenerator {
 		// Copyright
 		// Please be kind, help Pressbooks grow by leaving this on!
 		if ( empty( $GLOBALS['PB_SECRET_SAUCE']['TURN_OFF_FREEBIE_NOTICES_EPUB'] ) ) {
-			$freebie_notice = 'This book was produced using <a href="http://pressbooks.com/">Pressbooks</a>.';
+			$freebie_notice = 'This book was produced with <a href="http://pressbooks.com/">Pressbooks</a>.';
 			$html .= "<p>$freebie_notice</p>";
 		}
 

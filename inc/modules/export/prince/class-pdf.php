@@ -281,7 +281,7 @@ class Pdf extends Export {
 		// Copyright
 		// Please be kind, help Pressbooks grow by leaving this on!
 		if ( empty( $GLOBALS['PB_SECRET_SAUCE']['TURN_OFF_FREEBIE_NOTICES_PDF'] ) ) {
-			$freebie_notice = __( 'This book was produced using Pressbooks (https://pressbooks.com), with PDF rendering by PrinceXML.', 'pressbooks' );
+			$freebie_notice = __( 'This book was produced with Pressbooks (https://pressbooks.com) and rendered with Prince.', 'pressbooks' );
 			$scss .= '#copyright-page .ugc > p:last-of-type::after { display:block; margin-top: 1em; content: "' . $freebie_notice . '" }' . "\n";
 		}
 
