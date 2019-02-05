@@ -126,7 +126,7 @@ class Table extends \WP_List_Table {
 			'format' => __( 'Format', 'pressbooks' ),
 			'size' => __( 'Size', 'pressbooks' ),
 			'pin' => __( 'Pin', 'pressbooks' ),
-			'exported' => __( 'Exported', 'pressbooks' ),
+			'exported' => __( 'Date Exported', 'pressbooks' ),
 		];
 	}
 
