@@ -52,7 +52,7 @@
 						{{-- Theme Controls --}}
 						<div class="theme-controls">
 							<p><b>{{  __( 'Your Theme', 'pressbooks' ) }}:</b> {!! $theme_name !!}</p>
-							<p><a class="button button-primary" href="{{ get_bloginfo( 'url' ) }}/wp-admin/themes.php">{{  __( 'Change Theme', 'pressbooks' ) }}</a></p>
+							<p><a class="button" href="{{ get_bloginfo( 'url' ) }}/wp-admin/themes.php">{{  __( 'Change Theme', 'pressbooks' ) }}</a></p>
 							<p><a class="" href="{{ get_bloginfo( 'url' ) }}/wp-admin/themes.php?page=pressbooks_theme_options">{{ __( 'Theme Options', 'pressbooks' ) }}</a></p>
 						</div>
                     </div>
