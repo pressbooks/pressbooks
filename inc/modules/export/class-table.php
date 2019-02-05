@@ -175,7 +175,8 @@ class Table extends \WP_List_Table {
 		$order = ( ! empty( $_REQUEST['order'] ) ) ? $_REQUEST['order'] : 'desc';
 
 		// Data slice
-		$data = wp_list_sort( $data, $orderby, $order );
+		$sort = ( $orderby === 'exported' ) ? [ $orderby => $order ] : [ $orderby => $order, 'exported' => 'desc' ];
+		$data = wp_list_sort( $data, $sort );
 		$data = array_slice( $data, ( ( $current_page - 1 ) * $per_page ), $per_page );
 		$this->items = $data;
 
