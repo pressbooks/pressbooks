@@ -213,6 +213,15 @@ class Cloner {
 	protected $targetHasH5pApi = false;
 
 	/**
+	 * Flag if we had problems with fetching H5P
+	 * Assume true until proven otherwise
+	 * Ie. A source with zero H5P will result in a target that has successfully fetched zero H5P...
+	 *
+	 * @var bool
+	 */
+	protected $targetHasFetchedAllTheH5p = true;
+
+	/**
 	 * Array of known H5P
 	 *
 	 * @var \Pressbooks\Entities\Cloner\H5P[]
@@ -695,9 +704,9 @@ class Cloner {
 	public function clonePostProcess() {
 		$this->fixInternalShortcodes();
 		// H5P
-		if ( $this->sourceHasH5p === true && ( $this->sourceHasH5pApi === false || $this->targetHasH5pApi === false ) ) {
-			// Add a notice to the user indicating that the H5P could not be cloned
-			$_SESSION['pb_notices'][] = __( 'The source book contained H5P content that could not be cloned. Please review the cloned version of your book carefully, as missing H5P content will be indicated. You may want to remove or replace these elements.', 'pressbooks' );
+		if ( $this->sourceHasH5p === true && ( $this->sourceHasH5pApi === false || $this->targetHasH5pApi === false || $this->targetHasFetchedAllTheH5p === false ) ) {
+			// Add a notice to the user indicating that the H5P could not be cloned //
+			\Pressbooks\add_notice( __( 'The source book contained H5P content that could not be cloned. Please review the cloned version of your book carefully, as missing H5P content will be indicated. You may want to remove or replace these elements.', 'pressbooks' ) );
 		}
 	}
 
@@ -1541,10 +1550,17 @@ class Cloner {
 			// Download H5P
 			$h5p_ids = $this->downloads->h5p( $content );
 			foreach ( $h5p_ids as $h5p_id ) {
-				$this->clonedItems['h5p'][] = $h5p_id;
+				if ( str_starts_with( $h5p_id, '#fixme' ) ) {
+					// Flag problem, remove broken H5P shortcode
+					$this->targetHasFetchedAllTheH5p = false;
+					$h5p_id = str_remove_prefix( $h5p_id, '#fixme' );
+					$content = $this->h5p->replaceUncloneable( $content, $h5p_id );
+				} else {
+					$this->clonedItems['h5p'][] = $h5p_id;
+				}
 			}
 		} else {
-			// Remove H5P
+			// Remove all H5P shortcodes
 			$content = $this->h5p->replaceUncloneable( $content );
 		}
 		return $content;

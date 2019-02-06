@@ -406,7 +406,7 @@ class Downloads {
 	 *
 	 * @see \Pressbooks\Cloner\Cloner::$knownH5P
 	 *
-	 * @return int[]
+	 * @return array
 	 */
 	public function h5p( $content ) {
 		$known_h5p = $this->cloner->getKnownH5P();
@@ -421,6 +421,9 @@ class Downloads {
 							$new_h5p_ids[] = $new_h5p_id;
 							$this->cloner->createTransition( 'h5p', $h5p_id, $new_h5p_id );
 							$this->H5PWasAlreadyDownloaded[ $h5p_id ] = $new_h5p_id;
+						} else {
+							// An id of 0 means there was a problem. We have to replace the broken H5P shortcode with a warning
+							$new_h5p_ids[] = "#fixme{$h5p->id}";
 						}
 						continue 2;
 					}

@@ -163,19 +163,37 @@ class H5P {
 	}
 
 	/**
-	 * Replace imported/cloned [h5p] shortcode with warning
+	 * Replace imported/cloned [h5p] shortcodes with warning
 	 *
 	 * @param string $content
+	 * @param int[]|int $ids (optional)
 	 *
 	 * @return string
 	 */
-	public function replaceUncloneable( $content ) {
+	public function replaceUncloneable( $content, $ids = [] ) {
 		$pattern = get_shortcode_regex( [ self::SHORTCODE ] );
+		$callback = function ( $shortcode ) use ( $ids ) {
+			$warning = __( 'The original version of this chapter contained H5P content. You may want to remove or replace this element.', 'pressbooks' );
+			if ( empty( $ids ) ) {
+				return $warning;
+			} else {
+				$shortcode_attrs = shortcode_parse_atts( $shortcode[3] );
+				if ( is_array( $shortcode_attrs ) && isset( $shortcode_attrs['id'] ) ) {
+					// Remove quotes, return just the integer
+					$my_id = $shortcode_attrs['id'];
+					$my_id = trim( $my_id, "'" );
+					$my_id = trim( $my_id, '"' );
+					$my_id = str_replace( '&quot;', '', $my_id );
+					if ( in_array( $my_id, (array) $ids, false ) ) { // @codingStandardsIgnoreLine
+						return $warning;
+					}
+				}
+			}
+			return $shortcode[0];
+		};
 		$content = preg_replace_callback(
 			"/$pattern/",
-			function ( $m ) {
-				return __( 'The original version of this chapter contained H5P content. You may want to remove or replace this element.', 'pressbooks' );
-			},
+			$callback,
 			$content
 		);
 		return $content;
