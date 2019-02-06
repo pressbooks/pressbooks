@@ -190,7 +190,7 @@ class EventStreams {
 
 		$cloner = new Cloner( $source_url, $target_url, $target_title );
 		$everything_ok = $this->emit( $cloner->cloneBookGenerator() );
-		// TODO: Race condition
+
 		if ( $everything_ok ) {
 			$cloned_items = $cloner->getClonedItems();
 			$notice = sprintf(
