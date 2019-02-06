@@ -271,6 +271,7 @@ function replace_book_admin_menu() {
 				wp_localize_script(
 					'pb-export', 'PB_ExportToken', [
 						'ajaxUrl' => wp_nonce_url( admin_url( 'admin-ajax.php?action=export-book' ), 'pb-export' ),
+						'bulkDeleteWarning' => __( 'Are you sure you want to delete these export files?', 'pressbooks' ),
 						'maximumFilesWarning' => __( 'Up to 5 files can be pinned at once.', 'pressbooks' ),
 						'maximumFileTypeWarning' => __( 'Cannot pin more than 3 of the same file type.', 'pressbooks' ),
 						'pinsNonce' => wp_create_nonce( 'pb-export-pins' ),
