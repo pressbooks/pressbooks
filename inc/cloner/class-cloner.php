@@ -705,7 +705,7 @@ class Cloner {
 		$this->fixInternalShortcodes();
 		// H5P
 		if ( $this->sourceHasH5p === true && ( $this->sourceHasH5pApi === false || $this->targetHasH5pApi === false || $this->targetHasFetchedAllTheH5p === false ) ) {
-			// Add a notice to the user indicating that the H5P could not be cloned //
+			// Add a notice to the user indicating that the H5P could not be cloned
 			\Pressbooks\add_notice( __( 'The source book contained H5P content that could not be cloned. Please review the cloned version of your book carefully, as missing H5P content will be indicated. You may want to remove or replace these elements.', 'pressbooks' ) );
 		}
 	}
