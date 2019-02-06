@@ -56,16 +56,11 @@ class EventStreams {
 	 * Emits event-stream responses (SSE)
 	 *
 	 * @param \Generator $generator
+	 * @param bool $auto_complete
 	 * @return bool
 	 */
-	public function emit( \Generator $generator ) {
+	public function emit( \Generator $generator, $auto_complete = false ) {
 		$this->setupHeaders();
-
-		$complete = [
-			'action' => 'complete',
-			'error' => false,
-		];
-
 		try {
 			foreach ( $generator as $percentage => $info ) {
 				$data = [
@@ -76,19 +71,22 @@ class EventStreams {
 				$this->emitMessage( $data );
 			}
 		} catch ( \Exception $e ) {
-			$complete['error'] = $e->getMessage();
+			$error = [
+				'action' => 'complete',
+				'error' => $e->getMessage(),
+			];
 		}
 
 		flush();
-		$this->emitMessage( $complete );
-
-		if ( $complete['error'] === false ) {
-			// No errors
-			return true;
-		} else {
+		if ( ! empty( $error ) ) {
 			// Something went wrong
+			$this->emitMessage( $error );
 			return false;
+		} elseif ( $auto_complete ) {
+			$this->emitComplete();
 		}
+		// No errors
+		return true;
 	}
 
 	/**
@@ -130,6 +128,17 @@ class EventStreams {
 				'error' => $error,
 			]
 		);
+	}
+
+	/**
+	 * Emit successful complete message
+	 */
+	public function emitComplete() {
+		$complete = [
+			'action' => 'complete',
+			'error' => false,
+		];
+		$this->emitMessage( $complete );
 	}
 
 	/**
@@ -200,6 +209,7 @@ class EventStreams {
 		}
 
 		// Tell the browser to stop reconnecting.
+		$this->emitComplete();
 		status_header( 204 );
 
 		if ( ! defined( 'WP_TESTS_MULTISITE' ) ) {
@@ -228,6 +238,7 @@ class EventStreams {
 		Export::postExport();
 
 		// Tell the browser to stop reconnecting.
+		$this->emitComplete();
 		status_header( 204 );
 
 		if ( ! defined( 'WP_TESTS_MULTISITE' ) ) {
@@ -264,6 +275,7 @@ class EventStreams {
 		}
 
 		// Tell the browser to stop reconnecting.
+		$this->emitComplete();
 		status_header( 204 );
 
 		if ( ! defined( 'WP_TESTS_MULTISITE' ) ) {
@@ -280,7 +292,7 @@ class EventStreams {
 		}
 
 		$format = $_GET['format'] ?? '';
-		$this->emit( \Pressbooks\Covergenerator\Generator::formGenerator( $format ) );
+		$this->emit( \Pressbooks\Covergenerator\Generator::formGenerator( $format ), true );
 
 		// Tell the browser to stop reconnecting.
 		status_header( 204 );

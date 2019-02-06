@@ -44,7 +44,7 @@ class EventStreamsTest extends \WP_UnitTestCase {
 	 */
 	public function test_emit() {
 		ob_start();
-		$result = $this->eventStreams->emit( $this->generator() );
+		$result = $this->eventStreams->emit( $this->generator(), true );
 		ob_end_clean();
 		$this->assertCount( 8, $this->eventStreams->msgStack );
 		$buffer = implode( '', $this->eventStreams->msgStack );
@@ -75,6 +75,15 @@ class EventStreamsTest extends \WP_UnitTestCase {
 
 		$this->assertContains( 'event: message', $buffer );
 		$this->assertContains( 'data: {"action":"complete","error":"Nooooooooooooooo, again!"}', $buffer );
+	}
+
+	public function test_emitComplete() {
+		ob_start();
+		$this->eventStreams->emitComplete();
+		ob_end_clean();
+		$this->assertCount( 1, $this->eventStreams->msgStack );
+		$buffer = implode( '', $this->eventStreams->msgStack );
+		$this->assertContains( 'data: {"action":"complete","error":false}', $buffer );
 	}
 
 }
