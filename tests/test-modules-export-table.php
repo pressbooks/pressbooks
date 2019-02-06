@@ -60,6 +60,7 @@ class Modules_Export_TableTest extends \WP_UnitTestCase {
 		$this->assertArrayHasKey( 'size', $x );
 		$this->assertArrayHasKey( 'pin', $x );
 		$this->assertArrayHasKey( 'exported', $x );
+		$this->assertEquals( 'Date Exported', $x['exported'] );
 	}
 
 	public function test_get_sortable_columns() {
