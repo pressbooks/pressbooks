@@ -39,8 +39,8 @@ if ( is_subdomain_install() ) {
 				</td>
 			</tr>
 		</table>
-		<p><input id="pb-cloner-button" class="button button-primary" type="submit" value="<?php _e( 'Clone It!', 'pressbooks' ); ?>" /><span id="loader" class="loading-content"></span></p>
-		<div id="pb-sse-progressbar"></div>
+		<p><input id="pb-cloner-button" class="button button-primary" type="submit" value="<?php _e( 'Clone It!', 'pressbooks' ); ?>" /></p>
+		<progress id="pb-sse-progressbar" max="100"></progress>
 		<p><b><span id="pb-sse-minutes"></span><span id="pb-sse-seconds"></span></b> <span id="pb-sse-info"></span></p>
 	</form>
 </div>

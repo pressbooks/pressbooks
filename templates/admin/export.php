@@ -224,7 +224,7 @@ $formats = apply_filters( 'pb_export_formats', [
 
 <div class="export-control">
 	<p><input id="pb-export-button" type="button" class="button button-hero button-primary generate" value="<?php esc_attr_e( 'Export Your Book', 'pressbooks' ); ?>" /></p>
-	<div id="pb-sse-progressbar"></div>
+	<progress id="pb-sse-progressbar" max="100"></progress>
 	<p><b><span id="pb-sse-minutes"></span><span id="pb-sse-seconds"></span></b> <span id="pb-sse-info"></span></p>
 	<?php
 		/**

@@ -71,7 +71,7 @@
     </div>
     <div class="export-control">
         <p><input id="pb-export-button" type="button" class="button button-hero button-primary generate" value="{{ __( 'Export Your Book', 'pressbooks' ) }}"/></p>
-		<div id="pb-sse-progressbar"></div>
+		<progress id="pb-sse-progressbar" max="100"></progress>
 		<p><b><span id="pb-sse-minutes"></span><span id="pb-sse-seconds"></span></b> <span id="pb-sse-info"></span></p>
     </div>
     <div class="clear"></div>

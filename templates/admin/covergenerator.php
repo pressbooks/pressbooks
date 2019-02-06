@@ -78,7 +78,7 @@ if ( $dependency_errors ) {
 
 	<h3><?php _e( 'Make Your Cover', 'pressbooks' ); ?></h3>
 
-	<div id="pb-sse-progressbar"></div>
+	<progress id="pb-sse-progressbar" max="100"></progress>
 	<p><b><span id="pb-sse-minutes"></span><span id="pb-sse-seconds"></span></b> <span id="pb-sse-info"></span></p>
 
 	<?php if ( $is_custom_css ) { ?>

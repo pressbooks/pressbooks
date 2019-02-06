@@ -3,35 +3,37 @@
 /* global _pb_export_pins_inventory */
 
 import Cookies from 'js-cookie';
+import startClock from './utils/startClock';
 
 jQuery( function ( $ ) {
+
 	/* SSE powered progress bar */
-	let myExportForm = $( '#pb-export-form' );
-	myExportForm.on( 'submit', function ( e ) {
+	const exportForm = $( '#pb-export-form' );
+	exportForm.on( 'submit', function ( e ) {
 		// Stop form from submitting
 		e.preventDefault();
-		$( '#pb-export-button' ).attr( 'disabled', true );
-		// Init Clock
+
+		// Set element variables
+		const button = $( '#pb-export-button' );
+		const bar = $( '#pb-sse-progressbar' );
+		const info = $( '#pb-sse-info' );
+
+		// Init clock
 		let clock = null;
-		let seconds = $( '#pb-sse-seconds' );
-		let minutes = $( '#pb-sse-minutes' );
-		function pad( val ) {
-			return val > 9 ? val : '0' + val;
-		}
-		// Init Event Data
-		let eventSourceUrl = PB_ExportToken.ajaxUrl + ( PB_ExportToken.ajaxUrl.includes( '?' ) ? '&' : '?' ) + $.param( myExportForm.find( ':checked' ) );
-		let evtSource = new EventSource( eventSourceUrl );
+
+		// Show bar, hide button
+		bar.val( 0 ).show();
+		button.attr( 'disabled', true ).hide();
+
+		// Initialize event data
+		const eventSourceUrl = PB_ExportToken.ajaxUrl + ( PB_ExportToken.ajaxUrl.includes( '?' ) ? '&' : '?' ) + $.param( exportForm.find( ':checked' ) );
+		const evtSource = new EventSource( eventSourceUrl );
+
+		// Handle open
 		evtSource.onopen = function () {
-			// Hide button
-			$( '#pb-export-button' ).hide();
-			// Start Clock
-			let sec = 0;
-			seconds.html( '00' );
-			minutes.html( '00:' );
-			clock = setInterval( function () {
-				seconds.html( pad( ++sec % 60 ) );
-				minutes.html( pad( parseInt( sec / 60, 10 ) ) + ':' );
-			}, 1000 );
+			// Start clock
+			startClock( clock );
+
 			// Warn the user if they navigate away
 			$( window ).on( 'beforeunload', function () {
 				// In some browsers, the return value of the event is displayed in this dialog. Starting with Firefox 44, Chrome 51, Opera 38 and Safari 9.1, a generic string not under the control of the webpage will be shown.
@@ -39,20 +41,20 @@ jQuery( function ( $ ) {
 				return PB_ExportToken.unloadWarning;
 			} );
 		};
+
+		// Handle message
 		evtSource.onmessage = function ( message ) {
-			let bar = $( '#pb-sse-progressbar' );
-			let info = $( '#pb-sse-info' );
-			let data = JSON.parse( message.data );
+			const data = JSON.parse( message.data );
 			switch ( data.action ) {
 				case 'updateStatusBar':
-					bar.progressbar( { value: parseInt( data.percentage, 10 ) } );
+					bar.val( parseInt( data.percentage, 10 ) );
 					info.html( data.info );
 					break;
 				case 'complete':
 					evtSource.close();
 					$( window ).unbind( 'beforeunload' );
 					if ( data.error ) {
-						bar.progressbar( { value: false } );
+						bar.removeAttr( 'value' );
 						info.html( data.error + ' ' + PB_ExportToken.reloadSnippet );
 						if ( clock ) {
 							clearInterval( clock );
@@ -65,10 +67,12 @@ jQuery( function ( $ ) {
 					break;
 			}
 		};
+
+		// Handle error
 		evtSource.onerror = function () {
 			evtSource.close();
-			$( '#pb-sse-progressbar' ).progressbar( { value: false } );
-			$( '#pb-sse-info' ).html( 'EventStream Connection Error ' + PB_ExportToken.reloadSnippet );
+			bar.removeAttr( 'value' );
+			info.html( 'EventStream Connection Error ' + PB_ExportToken.reloadSnippet );
 			$( window ).unbind( 'beforeunload' );
 			if ( clock ) {
 				clearInterval( clock );
