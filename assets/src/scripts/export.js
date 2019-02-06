@@ -102,6 +102,23 @@ jQuery( function ( $ ) {
 		}
 	}
 
+	/* Bulk Action Handler */
+	const bulkActionsTop = document.getElementById( 'bulk-action-selector-top' );
+	const bulkActionsBottom = document.getElementById( 'bulk-action-selector-bottom' );
+	const bulkForm = document.querySelector( '.wp-list-table' ).parentNode;
+	bulkForm.addEventListener( 'submit', event => {
+		event.preventDefault();
+		if ( bulkActionsTop.value === 'delete' || bulkActionsBottom.value === 'delete' ) {
+			if ( ! confirm( PB_ExportToken.bulkDeleteWarning ) ) { // eslint-disable-line
+				return false;
+			}
+		}
+		const bulkSubmission = function () {
+			bulkForm.submit();
+		};
+		setTimeout( bulkSubmission, 0 );
+	} );
+
 	/* Swap out and animate the 'Export Your Book' button */
 	$( '#pb-export-button' ).click( function ( e ) {
 		e.preventDefault();
