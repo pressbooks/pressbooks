@@ -7,7 +7,7 @@
 	?>
     {!! do_action( 'pb_top_of_export_page' ) !!}
     <h1>{{ __( 'Export', 'pressbooks') }}</h1>
-    <p>{{ __( 'You can select multiple formats below. Pressbooks keeps the last three exports of each file format. You can pin specific files to make sure they don\'t get deleted.', 'pressbooks') }}</p>
+    <p>{{ __( 'You can select multiple formats below. Pressbooks keeps the last 3 exports of each file format. You can pin specific files to make sure they don\'t get deleted.', 'pressbooks') }}</p>
     <div id="export-options" class="postbox">
 		<button type="button" class="handlediv" aria-expanded="true">
 			<span class="screen-reader-text">{{ __( 'Toggle panel: Export Options', 'pressbooks') }}</span>
