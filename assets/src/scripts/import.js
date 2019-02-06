@@ -1,5 +1,7 @@
 /* global PB_ImportToken */
 
+import displayNotice from './utils/displayNotice';
+import resetClock from './utils/resetClock';
 import startClock from './utils/startClock';
 
 jQuery( function ( $ ) {
@@ -18,6 +20,7 @@ jQuery( function ( $ ) {
 		const button = $( 'input[type=submit]' );
 		const bar = $( '#pb-sse-progressbar' );
 		const info = $( '#pb-sse-info' );
+		const notices = $( '.notice' );
 
 		// Init clock
 		let clock = null;
@@ -25,6 +28,7 @@ jQuery( function ( $ ) {
 		// Show bar, hide button
 		bar.val( 0 ).show();
 		button.attr( 'disabled', true );
+		notices.remove();
 
 		// Initialize event data
 		// TODO: There's a maximum $_GET and we are probably exceeding it
@@ -34,7 +38,7 @@ jQuery( function ( $ ) {
 		// Handle open
 		evtSource.onopen = function () {
 			// Start clock
-			startClock( clock );
+			clock = startClock();
 			// Warn the user if they navigate away
 			$( window ).on( 'beforeunload', function () {
 				// In some browsers, the return value of the event is displayed in this dialog. Starting with Firefox 44, Chrome 51, Opera 38 and Safari 9.1, a generic string not under the control of the webpage will be shown.
@@ -55,10 +59,11 @@ jQuery( function ( $ ) {
 					evtSource.close();
 					$( window ).unbind( 'beforeunload' );
 					if ( data.error ) {
-						bar.removeAttr( 'value' );
-						info.html( data.error + ' ' + PB_ImportToken.reloadSnippet );
+						bar.val( 0 ).hide();
+						button.attr( 'disabled', false ).show();
+						displayNotice( 'error', data.error, true );
 						if ( clock ) {
-							clearInterval( clock );
+							resetClock( clock );
 						}
 					} else {
 						window.location = PB_ImportToken.redirectUrl;
@@ -76,7 +81,7 @@ jQuery( function ( $ ) {
 			info.html( 'EventStream Connection Error ' + PB_ImportToken.reloadSnippet );
 			$( window ).unbind( 'beforeunload' );
 			if ( clock ) {
-				clearInterval( clock );
+				resetClock( clock );
 			}
 		};
 	} );

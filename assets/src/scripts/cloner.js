@@ -1,5 +1,7 @@
 /* global PB_ClonerToken */
 
+import displayNotice from './utils/displayNotice';
+import resetClock from './utils/resetClock';
 import startClock from './utils/startClock';
 
 jQuery( function ( $ ) {
@@ -12,6 +14,7 @@ jQuery( function ( $ ) {
 		const button = $( '#pb-cloner-button' );
 		const bar = $( '#pb-sse-progressbar' );
 		const info = $( '#pb-sse-info' );
+		const notices = $( '.notice' );
 
 		// Init clock
 		let clock = null;
@@ -19,6 +22,7 @@ jQuery( function ( $ ) {
 		// Show bar, hide button
 		bar.val( 0 ).show();
 		button.attr( 'disabled', true ).hide();
+		notices.remove();
 
 		// Initialize event data
 		const eventSourceUrl = PB_ClonerToken.ajaxUrl + ( PB_ClonerToken.ajaxUrl.includes( '?' ) ? '&' : '?' ) + $.param( clonerForm.find( ':input' ) );
@@ -27,7 +31,7 @@ jQuery( function ( $ ) {
 		// Handle open
 		evtSource.onopen = function () {
 			// Start clock
-			startClock( clock );
+			clock = startClock();
 
 			// Warn the user if they navigate away
 			$( window ).on( 'beforeunload', function () {
@@ -49,10 +53,11 @@ jQuery( function ( $ ) {
 					evtSource.close();
 					$( window ).unbind( 'beforeunload' );
 					if ( data.error ) {
-						bar.removeAttr( 'value' );
-						info.html( data.error + ' ' + PB_ClonerToken.reloadSnippet );
+						bar.val( 0 ).hide();
+						button.attr( 'disabled', false ).show();
+						displayNotice( 'error', data.error, true );
 						if ( clock ) {
-							clearInterval( clock );
+							resetClock( clock );
 						}
 					} else {
 						window.location = PB_ClonerToken.redirectUrl;
@@ -70,7 +75,7 @@ jQuery( function ( $ ) {
 			$( '#pb-sse-info' ).html( 'EventStream Connection Error ' + PB_ClonerToken.reloadSnippet );
 			$( window ).unbind( 'beforeunload' );
 			if ( clock ) {
-				clearInterval( clock );
+				resetClock( clock );
 			}
 		};
 	} );

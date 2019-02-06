@@ -1,5 +1,7 @@
 /* global PB_CoverGeneratorToken */
 
+import displayNotice from './utils/displayNotice';
+import resetClock from './utils/resetClock';
 import startClock from './utils/startClock';
 
 jQuery( function ( $ ) {
@@ -57,6 +59,7 @@ jQuery( function ( $ ) {
 	const makeEbookButton = $( '#generate-jpg' );
 	const bar = $( '#pb-sse-progressbar' );
 	const info = $( '#pb-sse-info' );
+	const notices = $( '.notice' );
 
 	// Initialize clock
 	let clock = null;
@@ -88,10 +91,12 @@ jQuery( function ( $ ) {
 					evtSource.close();
 					$( window ).unbind( 'beforeunload' );
 					if ( data.error ) {
-						bar.removeAttr( 'value' );
-						info.html( data.error + ' ' + PB_CoverGeneratorToken.reloadSnippet );
+						bar.val( 0 ).hide();
+						makePdfButton.attr( 'disabled', false ).show();
+						makeEbookButton.attr( 'disabled', false ).show();
+						displayNotice( 'error', data.error, true );
 						if ( clock ) {
-							clearInterval( clock );
+							resetClock( clock );
 						}
 					} else {
 						window.location = PB_CoverGeneratorToken.redirectUrl;
@@ -107,7 +112,7 @@ jQuery( function ( $ ) {
 			info.html( 'EventStream Connection Error ' + PB_CoverGeneratorToken.reloadSnippet );
 			$( window ).unbind( 'beforeunload' );
 			if ( clock ) {
-				clearInterval( clock );
+				resetClock( clock );
 			}
 		};
 	};
@@ -116,7 +121,9 @@ jQuery( function ( $ ) {
 		makePdfButton.hide();
 		makeEbookButton.hide();
 		bar.val( 0 ).show();
-		startClock( clock );
+		notices.remove();
+
+		clock = startClock();
 		info.html( PB_CoverGeneratorToken.ajaxSubmitMsg );
 
 		// Save the WP options and WP Media before triggering the generator

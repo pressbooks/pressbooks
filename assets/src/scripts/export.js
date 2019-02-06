@@ -3,6 +3,8 @@
 /* global _pb_export_pins_inventory */
 
 import Cookies from 'js-cookie';
+import displayNotice from './utils/displayNotice';
+import resetClock from './utils/resetClock';
 import startClock from './utils/startClock';
 
 jQuery( function ( $ ) {
@@ -17,6 +19,7 @@ jQuery( function ( $ ) {
 		const button = $( '#pb-export-button' );
 		const bar = $( '#pb-sse-progressbar' );
 		const info = $( '#pb-sse-info' );
+		const notices = $( '.notice' );
 
 		// Init clock
 		let clock = null;
@@ -24,6 +27,7 @@ jQuery( function ( $ ) {
 		// Show bar, hide button
 		bar.val( 0 ).show();
 		button.attr( 'disabled', true ).hide();
+		notices.remove();
 
 		// Initialize event data
 		const eventSourceUrl = PB_ExportToken.ajaxUrl + ( PB_ExportToken.ajaxUrl.includes( '?' ) ? '&' : '?' ) + $.param( exportForm.find( ':checked' ) );
@@ -32,7 +36,7 @@ jQuery( function ( $ ) {
 		// Handle open
 		evtSource.onopen = function () {
 			// Start clock
-			startClock( clock );
+			clock = startClock();
 
 			// Warn the user if they navigate away
 			$( window ).on( 'beforeunload', function () {
@@ -54,10 +58,11 @@ jQuery( function ( $ ) {
 					evtSource.close();
 					$( window ).unbind( 'beforeunload' );
 					if ( data.error ) {
-						bar.removeAttr( 'value' );
-						info.html( data.error + ' ' + PB_ExportToken.reloadSnippet );
+						bar.val( 0 ).hide();
+						button.attr( 'disabled', false ).show();
+						displayNotice( 'error', data.error, true );
 						if ( clock ) {
-							clearInterval( clock );
+							resetClock( clock );
 						}
 					} else {
 						window.location = PB_ExportToken.redirectUrl;
@@ -75,7 +80,7 @@ jQuery( function ( $ ) {
 			info.html( 'EventStream Connection Error ' + PB_ExportToken.reloadSnippet );
 			$( window ).unbind( 'beforeunload' );
 			if ( clock ) {
-				clearInterval( clock );
+				resetClock( clock );
 			}
 		};
 	} );
