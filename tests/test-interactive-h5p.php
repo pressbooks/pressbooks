@@ -37,9 +37,23 @@ class Interactive_H5PTest extends \WP_UnitTestCase {
 	}
 
 	public function test_replaceCloneable() {
-		$content = '[h5p id="1"]';
+		$content = '[h5p id="1"][h5p id=\'2\' something="else"][h5p id=3]';
 		$result = $this->h5p->replaceUncloneable( $content );
 		$this->assertNotContains( '[h5p ', $result );
+		$this->assertContains( 'The original version of this chapter contained H5P content', $result );
+
+		$content = '[h5p id="1"][h5p id=\'2\' something="else"][h5p id=3]';
+		$result = $this->h5p->replaceUncloneable( $content, [ 1, "2" ] );
+		$this->assertNotContains( '[h5p id="1', $result );
+		$this->assertNotContains( '[h5p id=\'2', $result );
+		$this->assertContains( '[h5p id=3]', $result );
+		$this->assertContains( 'The original version of this chapter contained H5P content', $result );
+
+		$content = '[h5p id="1"][h5p id=\'2\' something="else"][h5p id=3]';
+		$result = $this->h5p->replaceUncloneable( $content, 3 );
+		$this->assertNotContains( '[h5p id=3', $result );
+		$this->assertContains( '[h5p id="1', $result );
+		$this->assertContains( '[h5p id=\'2', $result );
 		$this->assertContains( 'The original version of this chapter contained H5P content', $result );
 	}
 
