@@ -72,7 +72,7 @@ class Table extends \WP_List_Table {
 		$delete_url = sprintf( '/admin.php?page=%s&action=%s&ID=%s', $_REQUEST['page'], 'delete', $item['ID'] );
 		$delete_url = get_admin_url( get_current_blog_id(), $delete_url );
 		$delete_url = esc_url( add_query_arg( '_wpnonce', wp_create_nonce( 'bulk-files' ), $delete_url ) );
-		$onclick = 'onclick="if ( !confirm(\'' . esc_attr( __( 'Are you sure you want to delete this?', 'pressbooks' ) ) . '\') ) { return false }"';
+		$onclick = 'onclick="if ( !confirm(\'' . esc_attr( __( 'Are you sure you want to delete this export file?', 'pressbooks' ) ) . '\') ) { return false }"';
 		$actions['delete'] = sprintf(
 			'<a href="%s" aria-label="%s" ' . $onclick . '>%s</a>',
 			$delete_url,
@@ -126,7 +126,7 @@ class Table extends \WP_List_Table {
 			'format' => __( 'Format', 'pressbooks' ),
 			'size' => __( 'Size', 'pressbooks' ),
 			'pin' => __( 'Pin', 'pressbooks' ),
-			'exported' => __( 'Exported', 'pressbooks' ),
+			'exported' => __( 'Date Exported', 'pressbooks' ),
 		];
 	}
 
@@ -175,7 +175,11 @@ class Table extends \WP_List_Table {
 		$order = ( ! empty( $_REQUEST['order'] ) ) ? $_REQUEST['order'] : 'desc';
 
 		// Data slice
-		$data = wp_list_sort( $data, $orderby, $order );
+		$sort = ( $orderby === 'exported' ) ? [ $orderby => $order ] : [
+			$orderby => $order,
+			'exported' => 'desc',
+		];
+		$data = wp_list_sort( $data, $sort );
 		$data = array_slice( $data, ( ( $current_page - 1 ) * $per_page ), $per_page );
 		$this->items = $data;
 
