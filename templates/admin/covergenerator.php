@@ -79,7 +79,7 @@ if ( $dependency_errors ) {
 	<h3><?php _e( 'Make Your Cover', 'pressbooks' ); ?></h3>
 
 	<progress id="pb-sse-progressbar" max="100"></progress>
-	<p><b><span id="pb-sse-minutes"></span><span id="pb-sse-seconds"></span></b> <span id="pb-sse-info"></span></p>
+	<p><b><span id="pb-sse-minutes"></span><span id="pb-sse-seconds"></span></b> <span id="pb-sse-info" aria-live="polite"></span></p>
 
 	<?php if ( $is_custom_css ) { ?>
 		<?php printf( '<p><em>%s</em></p>', __( 'You are currently using the Custom CSS theme. To generate a cover, you will need to switch back to a base theme temporarily. You can then reapply your Custom CSS theme.', 'pressbooks' ) ); ?>
