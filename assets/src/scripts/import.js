@@ -1,37 +1,44 @@
 /* global PB_ImportToken */
 
+import displayNotice from './utils/displayNotice';
+import resetClock from './utils/resetClock';
+import startClock from './utils/startClock';
+
 jQuery( function ( $ ) {
-	// STEP 1
+	// Step 1: Upload or sideload import data prior to selecting content for import.
 	$( '#pb-import-form-step-1' ).on( 'submit', function () {
 		$( 'input[type=submit]' ).attr( 'disabled', true );
 	} );
-	// STEP 2
-	let myImportForm = $( '#pb-import-form-step-2' );
-	myImportForm.on( 'submit', function ( e ) {
+
+	// Step 2: Create posts from selected content.
+	const importForm = $( '#pb-import-form-step-2' );
+	importForm.on( 'submit', function ( e ) {
+		// Stop form from submitting
 		e.preventDefault();
-		$( 'input[type=submit]' ).attr( 'disabled', true );
-		// Init Clock
+
+		// Set element variables
+		const button = $( 'input[type=submit]' );
+		const bar = $( '#pb-sse-progressbar' );
+		const info = $( '#pb-sse-info' );
+		const notices = $( '.notice' );
+
+		// Init clock
 		let clock = null;
-		let seconds = $( '#pb-sse-seconds' );
-		let minutes = $( '#pb-sse-minutes' );
-		function pad( val ) {
-			return val > 9 ? val : '0' + val;
-		}
-		// Init Event Data
+
+		// Show bar, hide button
+		bar.val( 0 ).show();
+		button.attr( 'disabled', true );
+		notices.remove();
+
+		// Initialize event data
 		// TODO: There's a maximum $_GET and we are probably exceeding it
-		let eventSourceUrl = PB_ImportToken.ajaxUrl + ( PB_ImportToken.ajaxUrl.includes( '?' ) ? '&' : '?' ) + $.param( myImportForm.find( ':checked' ) );
-		let evtSource = new EventSource( eventSourceUrl );
+		const eventSourceUrl = PB_ImportToken.ajaxUrl + ( PB_ImportToken.ajaxUrl.includes( '?' ) ? '&' : '?' ) + $.param( importForm.find( ':checked' ) );
+		const evtSource = new EventSource( eventSourceUrl );
+
+		// Handle open
 		evtSource.onopen = function () {
-			// Hide button
-			$( 'input[type=submit]' ).hide();
-			// Start Clock
-			let sec = 0;
-			seconds.html( '00' );
-			minutes.html( '00:' );
-			clock = setInterval( function () {
-				seconds.html( pad( ++sec % 60 ) );
-				minutes.html( pad( parseInt( sec / 60, 10 ) ) + ':' );
-			}, 1000 );
+			// Start clock
+			clock = startClock();
 			// Warn the user if they navigate away
 			$( window ).on( 'beforeunload', function () {
 				// In some browsers, the return value of the event is displayed in this dialog. Starting with Firefox 44, Chrome 51, Opera 38 and Safari 9.1, a generic string not under the control of the webpage will be shown.
@@ -39,23 +46,24 @@ jQuery( function ( $ ) {
 				return PB_ImportToken.unloadWarning;
 			} );
 		};
+
+		// Handle message
 		evtSource.onmessage = function ( message ) {
-			let bar = $( '#pb-sse-progressbar' );
-			let info = $( '#pb-sse-info' );
-			let data = JSON.parse( message.data );
+			const data = JSON.parse( message.data );
 			switch ( data.action ) {
 				case 'updateStatusBar':
-					bar.progressbar( { value: parseInt( data.percentage, 10 ) } );
+					bar.val( parseInt( data.percentage, 10 ) );
 					info.html( data.info );
 					break;
 				case 'complete':
 					evtSource.close();
 					$( window ).unbind( 'beforeunload' );
 					if ( data.error ) {
-						bar.progressbar( { value: false } );
-						info.html( data.error + ' ' + PB_ImportToken.reloadSnippet );
+						bar.val( 0 ).hide();
+						button.attr( 'disabled', false ).show();
+						displayNotice( 'error', data.error, true );
 						if ( clock ) {
-							clearInterval( clock );
+							resetClock( clock );
 						}
 					} else {
 						window.location = PB_ImportToken.redirectUrl;
@@ -65,13 +73,15 @@ jQuery( function ( $ ) {
 					break;
 			}
 		};
+
+		// Handle error
 		evtSource.onerror = function () {
 			evtSource.close();
-			$( '#pb-sse-progressbar' ).progressbar( { value: false } );
-			$( '#pb-sse-info' ).html( 'EventStream Connection Error ' + PB_ImportToken.reloadSnippet );
+			bar.removeAttr( 'value' );
+			info.html( 'EventStream Connection Error ' + PB_ImportToken.reloadSnippet );
 			$( window ).unbind( 'beforeunload' );
 			if ( clock ) {
-				clearInterval( clock );
+				resetClock( clock );
 			}
 		};
 	} );

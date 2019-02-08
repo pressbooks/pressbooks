@@ -30,11 +30,18 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 		}
 	}
 
-	public function get_name_for_filetype() {
-		$type = \Pressbooks\Modules\Export\get_name_for_filetype( 'print-pdf' );
+	public function test_get_name_from_filetype_slug() {
+		$type = \Pressbooks\Modules\Export\get_name_from_filetype_slug( 'print-pdf' );
 		$this->assertEquals( 'Print PDF', $type );
-		$type = \Pressbooks\Modules\Export\get_name_for_filetype( 'wtfbbq' );
+		$type = \Pressbooks\Modules\Export\get_name_from_filetype_slug( 'wtfbbq' );
 		$this->assertEquals( 'Wtfbbq', $type );
+	}
+
+	public function test_get_name_from_module_classname() {
+		$type = \Pressbooks\Modules\Export\get_name_from_module_classname( '\Pressbooks\Modules\Export\Prince\Pdf' );
+		$this->assertEquals( 'Digital PDF', $type );
+		$type = \Pressbooks\Modules\Export\get_name_from_module_classname( '\Pressbooks\Modules\Export\Word\Docx' );
+		$this->assertEquals( 'Docx', $type );
 	}
 
 	public function test_template_data() {

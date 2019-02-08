@@ -97,7 +97,6 @@ class Admin_LafTest extends \WP_UnitTestCase {
 
 		do_action( 'admin_enqueue_scripts', 'admin_page_pb_cloner' );
 		$this->assertContains( 'pb-cloner', $wp_scripts->queue );
-		$this->assertContains( 'pb-cloner', $wp_styles->queue );
 	}
 
 	function test_custom_screen_options() {

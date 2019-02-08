@@ -182,27 +182,60 @@ function filetypes() {
  *
  * @return string A human-readable filetype.
  */
-function get_name_for_filetype( $filetype ) {
+function get_name_from_filetype_slug( $filetype ) {
 	/**
-	 * Add custom export file types to the array of human-readable file types.
+	 * Add custom export file type slugs to the array of file type slugs and corresponding human-readable filetypes.
 	 * @since 5.7.0
 	 */
 	$formats = apply_filters(
 		'pb_export_filetype_names', [
-			'print-pdf' => __( 'Print PDF', 'pressbooks-book' ),
-			'pdf' => __( 'Digital PDF', 'pressbooks-book' ),
-			'mpdf' => __( 'Digital PDF', 'pressbooks-book' ),
-			'htmlbook' => __( 'HTMLBook', 'pressbooks-book' ),
-			'epub' => __( 'EPUB', 'pressbooks-book' ),
-			'mobi' => __( 'MOBI', 'pressbooks-book' ),
-			'epub3' => __( 'EPUB3', 'pressbooks-book' ),
-			'xhtml' => __( 'XHTML', 'presbooks-book' ),
-			'odf' => __( 'OpenDocument', 'pressbooks-book' ),
-			'wxr' => __( 'Pressbooks XML', 'pressbooks-book' ),
+			'print-pdf' => __( 'Print PDF', 'pressbooks' ),
+			'pdf' => __( 'Digital PDF', 'pressbooks' ),
+			'mpdf' => __( 'Digital PDF', 'pressbooks' ),
+			'htmlbook' => __( 'HTMLBook', 'pressbooks' ),
+			'epub' => __( 'EPUB', 'pressbooks' ),
+			'mobi' => __( 'MOBI', 'pressbooks' ),
+			'epub3' => __( 'EPUB3', 'pressbooks' ),
+			'xhtml' => __( 'XHTML', 'presbooks' ),
+			'odf' => __( 'OpenDocument', 'pressbooks' ),
+			'wxr' => __( 'Pressbooks XML', 'pressbooks' ),
 			'vanillawxr' => __( 'WordPress XML', 'pressbooks' ),
 		]
 	);
 	return isset( $formats[ $filetype ] ) ? $formats[ $filetype ] : ucfirst( $filetype );
+}
+
+/**
+ * Return a human-readable filetype for a given export module classname.
+ *
+ * @since 5.7.0
+ *
+ * @param string $classname The export module classname.
+ *
+ * @return string A human-readable filetype.
+ */
+function get_name_from_module_classname( $classname ) {
+	/**
+	 * Add custom export module classnames to the array of export module classnames and corresponding human-readable filetypes.
+	 * @since 5.7.0
+	 */
+	$formats = apply_filters(
+		'pb_export_module_classnames', [
+			'\Pressbooks\Modules\Export\Prince\DocraptorPrint' => __( 'Print PDF', 'pressbooks' ),
+			'\Pressbooks\Modules\Export\Prince\Docraptor' => __( 'Digital PDF', 'pressbooks' ),
+			'\Pressbooks\Modules\Export\Prince\PrintPdf' => __( 'Print PDF', 'pressbooks' ),
+			'\Pressbooks\Modules\Export\Prince\Pdf' => __( 'Digital PDF', 'pressbooks' ),
+			'\Pressbooks\Modules\Export\HTMLBook\HTMLBook' => __( 'HTMLBook', 'pressbooks' ),
+			'\Pressbooks\Modules\Export\Epub\Epub201' => __( 'EPUB', 'pressbooks' ),
+			'\Pressbooks\Modules\Export\Mobi\Kindlegen' => __( 'MOBI', 'pressbooks' ),
+			'\Pressbooks\Modules\Export\Epub\Epub3' => __( 'EPUB3', 'pressbooks' ),
+			'\Pressbooks\Modules\Export\Xhtml\Xhtml11' => __( 'XHTML', 'presbooks' ),
+			'\Pressbooks\Modules\Export\Odt\Odt' => __( 'OpenDocument', 'pressbooks' ),
+			'\Pressbooks\Modules\Export\WordPress\Wxr' => __( 'Pressbooks XML', 'pressbooks' ),
+			'\Pressbooks\Modules\Export\WordPress\VanillaWxr' => __( 'WordPress XML', 'pressbooks' ),
+		]
+	);
+	return isset( $formats[ $classname ] ) ? $formats[ $classname ] : substr( strrchr( $classname, '\\' ), 1 );
 }
 
 /**

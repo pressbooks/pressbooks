@@ -419,7 +419,7 @@ class Table extends \WP_List_Table {
 	 */
 	protected function getFormat( $file ) {
 		$file_class = $this->getCssClass( $file );
-		return \Pressbooks\Modules\Export\get_name_for_filetype( $file_class );
+		return \Pressbooks\Modules\Export\get_name_from_filetype_slug( $file_class );
 	}
 
 	/**

@@ -787,7 +787,7 @@ abstract class Export {
 				}
 			} else {
 				/** @var \Pressbooks\Modules\Export\Export $exporter */
-				$short_module_name = substr( strrchr( $module, '\\' ), 1 );
+				$short_module_name = \Pressbooks\Modules\Export\get_name_from_module_classname( $module );
 				$msg = __( 'Exporting', 'pressbooks' ) . ": {$short_module_name}";
 				yield 10 => $msg;
 				if ( ! $exporter->convert() ) {

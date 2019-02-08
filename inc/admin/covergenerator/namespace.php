@@ -25,14 +25,12 @@ function generator_css_js( $hooks_suffix ) {
 	if ( $hooks_suffix === 'export_page_pressbooks_cg' ) {
 		$assets = new Assets( 'pressbooks', 'plugin' );
 		wp_enqueue_media();
-		wp_enqueue_style( 'jquery-ui' );
 		wp_enqueue_style( 'cg/css', $assets->getPath( 'styles/covergenerator.css' ), [ 'wp-color-picker' ], null );
 		wp_enqueue_script(
 			'cg/js', $assets->getPath( 'scripts/covergenerator.js' ), [
 				'jquery',
 				'jquery-form',
 				'wp-color-picker',
-				'jquery-ui-progressbar',
 				'eventsource-polyfill',
 			], null
 		);

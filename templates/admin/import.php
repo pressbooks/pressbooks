@@ -127,8 +127,8 @@ $import_option_types = apply_filters( 'pb_select_import_type', [
 
 		<p><input type='checkbox' id='show_imports_in_web' name='show_imports_in_web' value='1'><label for="show_imports_in_web"> <?php _e( 'Show imported content in web', 'pressbooks' ); ?></label></p>
 
-		<div id="pb-sse-progressbar"></div>
-		<p><b><span id="pb-sse-minutes"></span><span id="pb-sse-seconds"></span></b> <span id="pb-sse-info"></span></p>
+		<progress id="pb-sse-progressbar" max="100"></progress>
+		<p><b><span id="pb-sse-minutes"></span><span id="pb-sse-seconds"></span></b> <span id="pb-sse-info" aria-live="polite"></span></p>
 		<p><?php
 			submit_button( __( 'Import Selection', 'pressbooks' ), 'primary', 'submit', false );
 			echo ' &nbsp; ';

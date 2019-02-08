@@ -102,7 +102,6 @@ mix
 	.sass( 'assets/src/styles/catalog.scss', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/colors-pb.scss', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/covergenerator.scss', 'assets/dist/styles/' )
-	.sass( 'assets/src/styles/cloner.scss', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/export.scss', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/glossary-tooltip.scss', 'assets/dist/styles' )
 	.sass( 'assets/src/styles/login.scss', 'assets/dist/styles/' )

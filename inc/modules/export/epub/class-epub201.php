@@ -287,7 +287,7 @@ class Epub201 extends ExportGenerator {
 		}
 
 		// Convert
-		yield 2 => __( 'Preparing book', 'pressbooks' );
+		yield 2 => __( 'Preparing book contents', 'pressbooks' );
 		$metadata = Book::getBookInformation();
 		$book_contents = $this->preProcessBookContents( Book::getBookContents() );
 
@@ -298,7 +298,7 @@ class Epub201 extends ExportGenerator {
 
 		try {
 
-			yield 5 => __( 'Creating container', 'pressbooks' );
+			yield 5 => __( 'Creating EPUB container', 'pressbooks' );
 			$this->createContainer();
 			yield from $this->createOEBPSGenerator( $book_contents, $metadata );
 			$this->createOPF( $book_contents, $metadata );
@@ -309,7 +309,7 @@ class Epub201 extends ExportGenerator {
 			throw new \Exception();
 		}
 
-		yield 75 => __( 'Saving EPUB in exports folder', 'pressbooks' );
+		yield 75 => __( 'Saving EPUB to exports folder', 'pressbooks' );
 		$filename = $this->timestampedFileName( $this->suffix );
 		if ( ! $this->zipEpub( $filename ) ) {
 			throw new \Exception();
