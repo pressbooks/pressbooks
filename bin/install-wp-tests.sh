@@ -85,19 +85,19 @@ install_pressbooks_clarke() {
 	git clone --depth=1 https://github.com/pressbooks/pressbooks-clarke.git $WP_CORE_DIR/wp-content/themes/pressbooks-clarke
 }
 
-install_pressbooks_donham() {
-	if [ -d $WP_CORE_DIR/wp-content/themes/pressbooks-donham ]; then
-		cd $WP_CORE_DIR/wp-content/themes/pressbooks-donham && git pull
+install_pressbooks_luther() {
+	if [ -d $WP_CORE_DIR/wp-content/themes/pressbooks-luther ]; then
+		cd $WP_CORE_DIR/wp-content/themes/pressbooks-luther && git pull
 		return;
 	fi
 
-	git clone --depth=1 https://github.com/pressbooks/pressbooks-donham.git $WP_CORE_DIR/wp-content/themes/pressbooks-donham
+	git clone --depth=1 https://github.com/pressbooks/pressbooks-luther.git $WP_CORE_DIR/wp-content/themes/pressbooks-luther
 }
 
 install_book_themes() {
 	install_pressbooks_book
 	install_pressbooks_clarke
-	install_pressbooks_donham
+	install_pressbooks_luther
 }
 
 install_test_suite() {
