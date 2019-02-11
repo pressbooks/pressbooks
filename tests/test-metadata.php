@@ -315,4 +315,21 @@ class MetadataTest extends \WP_UnitTestCase {
 		$content = get_post_field( 'post_content', $pid );
 		$this->assertContains( '<iframe width="560" height="315" src="https://www.youtube.com/embed/JgIhGTpKTwM" frameborder="0"></iframe>', $content );
 	}
+
+	public function test_get_section_information() {
+		$this->_book();
+		$chapters = get_posts( ['post_type' => 'chapter', 'posts_per_page' => 1 ] );
+		$section_information = \Pressbooks\Metadata\get_section_information( $chapters[0]->ID );
+		$this->assertInternalType( 'array', $section_information );
+		$this->assertStringStartsWith( 'Test Chapter: ', $section_information['pb_title'] );
+		$this->assertEquals( 'Or, A Chapter to Test', $section_information['pb_subtitle'] );
+	}
+
+	public function test_add_json_ld_metadata() {
+		$this->_book();
+		ob_start();
+		\Pressbooks\Metadata\add_json_ld_metadata();
+		$buffer = ob_get_clean();
+		$this->assertStringStartsWith( '<script type="application/ld+json">{"@context":"http:\/\/schema.org","@type":"Book"', $buffer );
+	}
 }
