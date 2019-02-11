@@ -640,8 +640,14 @@ class Xhtml11 extends ExportGenerator {
 					$fragment = false;
 				}
 				if ( $fragment ) {
-					$link->setAttribute( 'href', "#{$fragment}" );
-					$changed = true;
+					// Check if a fragment is considered external, don't change the URL if we find a match
+					$external_anchors = [ \Pressbooks\Interactive\Content::ANCHOR ];
+					if ( in_array( "#{$fragment}", $external_anchors, true ) ) {
+						continue;
+					} else {
+						$link->setAttribute( 'href', "#{$fragment}" );
+						$changed = true;
+					}
 				}
 			}
 		}
