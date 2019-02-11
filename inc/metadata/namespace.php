@@ -909,3 +909,32 @@ function init_book_data_models() {
 		\Pressbooks\Taxonomy::init()->registerTaxonomies();
 	}
 }
+
+/**
+ * Get the section metadata for a given ID.
+ *
+ * @since 5.7.0
+ *
+ * @param int $post_id
+ *
+ * @return array
+ */
+function get_section_information( $post_id ) {
+	$section_meta = get_post_meta( $post_id, '', true );
+	$section_meta['pb_title'] = get_the_title( $post_id );
+	if ( get_post_type( $post_id ) === 'chapter' ) {
+		$section_meta['pb_chapter_number'] = pb_get_chapter_number( $post_id );
+	}
+	foreach ( $section_meta as $key => $value ) {
+		if ( is_array( $value ) ) {
+			$section_meta[ $key ] = array_pop( $value );
+		}
+	}
+	// Override Contributors
+	$contributors = new \Pressbooks\Contributors();
+	foreach ( $contributors->getAll( $post_id ) as $key => $val ) {
+		$section_meta[ $key ] = $val;
+	};
+
+	return $section_meta;
+}
