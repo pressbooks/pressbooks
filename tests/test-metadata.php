@@ -324,4 +324,12 @@ class MetadataTest extends \WP_UnitTestCase {
 		$this->assertStringStartsWith( 'Test Chapter: ', $section_information['pb_title'] );
 		$this->assertEquals( 'Or, A Chapter to Test', $section_information['pb_subtitle'] );
 	}
+
+	public function test_add_json_ld_metadata() {
+		$this->_book();
+		ob_start();
+		\Pressbooks\Metadata\add_json_ld_metadata();
+		$buffer = ob_get_clean();
+		$this->assertStringStartsWith( '<script type="application/ld+json">{"@context":"http:\/\/schema.org","@type":"Book"', $buffer );
+	}
 }

@@ -11,6 +11,7 @@ use function \Pressbooks\Utility\oxford_comma;
 use function \Pressbooks\Utility\oxford_comma_explode;
 use Pressbooks\Book;
 use Pressbooks\Licensing;
+use Pressbooks\Metadata;
 
 /**
  * Returns an html blob of meta elements based on what is set in 'Book Information'
@@ -573,9 +574,9 @@ function section_information_to_schema( $section_information, $book_information 
 
 	// Use section, if missing use book
 	$authors = [];
-	if ( isset( $section_information['pb_authors'] ) ) {
+	if ( ! empty( $section_information['pb_authors'] ) ) {
 		$authors = oxford_comma_explode( $section_information['pb_authors'] );
-	} elseif ( isset( $book_information['pb_authors'] ) ) {
+	} elseif ( ! empty( $book_information['pb_authors'] ) ) {
 		$authors = oxford_comma_explode( $book_information['pb_authors'] );
 	}
 	foreach ( $authors as $author ) {
@@ -938,3 +939,25 @@ function get_section_information( $post_id ) {
 
 	return $section_meta;
 }
+
+
+/**
+ * Echo the JSON-LD metadata tag for a book or section.
+ *
+ * @since 5.7.0
+ *
+ * @return null
+ */
+function add_json_ld_metadata() {
+	$context = is_singular( [ 'front-matter', 'part', 'chapter', 'back-matter' ] ) ? 'section' : 'book';
+	if ( $context === 'section' ) {
+		global $post_id;
+		$section_information = get_section_information( $post_id );
+		$book_information = Book::getBookInformation();
+		$metadata = section_information_to_schema( $section_information, $book_information );
+	} else {
+		$metadata = new Metadata();
+	}
+	printf( '<script type="application/ld+json">%s</script>', wp_json_encode( $metadata ) );
+}
+
