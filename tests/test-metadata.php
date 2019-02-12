@@ -332,4 +332,13 @@ class MetadataTest extends \WP_UnitTestCase {
 		$buffer = ob_get_clean();
 		$this->assertStringStartsWith( '<script type="application/ld+json">{"@context":"http:\/\/schema.org","@type":"Book"', $buffer );
 	}
+
+	public function test_add_citation_metadata() {
+		$this->_book();
+		ob_start();
+		\Pressbooks\Metadata\add_citation_metadata();
+		$buffer = ob_get_clean();
+		$this->assertStringStartsWith( '<meta name="og:type" content="book"', $buffer );
+		// TODO: More tests!
+	}
 }

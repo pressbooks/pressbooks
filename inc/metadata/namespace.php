@@ -16,6 +16,8 @@ use Pressbooks\Metadata;
 /**
  * Returns an html blob of meta elements based on what is set in 'Book Information'
  *
+ * @deprecated 5.7.0
+ *
  * @return string
  */
 function get_seo_meta_elements() {
@@ -41,6 +43,8 @@ function get_seo_meta_elements() {
 
 /**
  * Returns an html blob of microdata elements based on what is set in 'Book Information'
+ *
+ * @deprecated 5.7.0
  *
  * @return string
  */
@@ -553,6 +557,7 @@ function section_information_to_schema( $section_information, $book_information 
 
 	$mapped_book_properties = [
 		'pb_language' => 'inLanguage',
+		'pb_title' => 'isPartOf',
 		'pb_copyright_year' => 'copyrightYear',
 	];
 
@@ -961,3 +966,67 @@ function add_json_ld_metadata() {
 	printf( '<script type="application/ld+json">%s</script>', wp_json_encode( $metadata ) );
 }
 
+/**
+ * Echo HighWire Press-compatible meta tags for Google Scholar and Zotero integration.
+ *
+ * @since 5.7.0
+ *
+ * @return null
+ */
+function add_citation_metadata() {
+	$context = is_singular( [ 'front-matter', 'part', 'chapter', 'back-matter' ] ) ? 'section' : 'book';
+	$book_information = Book::getBookInformation();
+	$tags = [];
+
+	$map = [
+		'citation_book_title' => 'isPartOf',
+		'citation_title' => 'name',
+		'citation_year' => 'copyrightYear',
+		'citation_publication_date' => 'datePublished',
+		'citation_language' => 'inLanguage',
+		'citation_keywords' => 'keywords',
+		'citation_publisher' => 'publisher.name',
+		'citation_isbn' => 'isbn',
+		'citation_doi' => 'identifier.value',
+	];
+
+	if ( $context === 'section' ) {
+		global $post_id;
+		$section_information = get_section_information( $post_id );
+		$metadata = section_information_to_schema( $section_information, $book_information );
+		foreach ( $map as $to => $from ) {
+			if ( strpos( $from, '.' ) ) {
+				$pieces = explode( '.', $from );
+				if ( isset( $metadata[ $pieces[0] ][ $pieces[1] ] ) && ! empty( $metadata[ $pieces[0] ][ $pieces[1] ] ) ) {
+					$tags[] = sprintf( '<meta name="%1$s" content="%2$s">', $to, $metadata[ $pieces[0] ][ $pieces[1] ] );
+				}
+			} else {
+				if ( isset( $metadata[ $from ] ) && ! empty( $metadata[ $from ] ) ) {
+					$tags[] = sprintf( '<meta name="%1$s" content="%2$s">', $to, $metadata[ $from ] );
+				}
+			}
+		}
+		foreach ( $metadata['author'] as $author ) {
+			$tags[] = sprintf( '<meta name="%1$s" content="%2$s">', 'citation_author', $author['name'] );
+		}
+	} else {
+		$metadata = book_information_to_schema( $book_information );
+		$tags[] = sprintf( '<meta name="%1$s" content="%2$s">', 'og:type', 'book' );
+		foreach ( $map as $to => $from ) {
+			if ( strpos( $from, '.' ) ) {
+				$pieces = explode( '.', $from );
+				if ( isset( $metadata[ $pieces[0] ][ $pieces[1] ] ) && ! empty( $metadata[ $pieces[0] ][ $pieces[1] ] ) ) {
+					$tags[] = sprintf( '<meta name="%1$s" content="%2$s">', $to, $metadata[ $pieces[0] ][ $pieces[1] ] );
+				}
+			} else {
+				if ( isset( $metadata[ $from ] ) && ! empty( $metadata[ $from ] ) ) {
+					$tags[] = sprintf( '<meta name="%1$s" content="%2$s">', $to, $metadata[ $from ] );
+				}
+			}
+		}
+		foreach ( $metadata['author'] as $author ) {
+			$tags[] = sprintf( '<meta name="%1$s" content="%2$s">', 'citation_author', $author['name'] );
+		}
+	}
+	echo implode( "\n", $tags );
+}
