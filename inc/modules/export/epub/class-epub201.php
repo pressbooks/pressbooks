@@ -2380,7 +2380,7 @@ class Epub201 extends ExportGenerator {
 			return false;
 		}
 
-		// Check if an anchor is considered external, don't change the URL if we find a match
+		// Check if an anchor (ie. #fragment) is considered external, don't change the URL if we find a match
 		$external_anchors = [ \Pressbooks\Interactive\Content::ANCHOR ];
 		if ( in_array( $anchor, $external_anchors, true ) ) {
 			return false;
