@@ -1006,8 +1006,10 @@ function add_citation_metadata() {
 				}
 			}
 		}
-		foreach ( $metadata['author'] as $author ) {
-			$tags[] = sprintf( '<meta name="%1$s" content="%2$s">', 'citation_author', $author['name'] );
+		if ( isset( $metadata['author'] ) ) {
+			foreach ( $metadata['author'] as $author ) {
+				$tags[] = sprintf( '<meta name="%1$s" content="%2$s">', 'citation_author', $author['name'] );
+			}
 		}
 	} else {
 		$metadata = book_information_to_schema( $book_information );
@@ -1024,8 +1026,10 @@ function add_citation_metadata() {
 				}
 			}
 		}
-		foreach ( $metadata['author'] as $author ) {
-			$tags[] = sprintf( '<meta name="%1$s" content="%2$s">', 'citation_author', $author['name'] );
+		if ( isset( $metadata['author'] ) ) {
+			foreach ( $metadata['author'] as $author ) {
+				$tags[] = sprintf( '<meta name="%1$s" content="%2$s">', 'citation_author', $author['name'] );
+			}
 		}
 	}
 	echo implode( "\n", $tags );
