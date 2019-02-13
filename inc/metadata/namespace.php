@@ -954,10 +954,11 @@ function get_section_information( $post_id ) {
  * @return null
  */
 function add_json_ld_metadata() {
+
 	$context = is_singular( [ 'front-matter', 'part', 'chapter', 'back-matter' ] ) ? 'section' : 'book';
 	if ( $context === 'section' ) {
-		global $post_id;
-		$section_information = get_section_information( $post_id );
+		global $post;
+		$section_information = get_section_information( $post->ID );
 		$book_information = Book::getBookInformation();
 		$metadata = section_information_to_schema( $section_information, $book_information );
 	} else {
@@ -991,8 +992,8 @@ function add_citation_metadata() {
 	];
 
 	if ( $context === 'section' ) {
-		global $post_id;
-		$section_information = get_section_information( $post_id );
+		global $post;
+		$section_information = get_section_information( $post->ID );
 		$metadata = section_information_to_schema( $section_information, $book_information );
 		foreach ( $map as $to => $from ) {
 			if ( strpos( $from, '.' ) ) {

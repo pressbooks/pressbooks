@@ -376,5 +376,24 @@ class MetadataTest extends \WP_UnitTestCase {
 		$this->assertContains( '<meta name="citation_publication_date" content="' . strftime( '%F', $time ) . '">', $buffer );
 		$this->assertContains( '<meta name="citation_publisher" content="Book Oven Inc.">', $buffer );
 		$this->assertContains( '<meta name="citation_author" content="Some Author">', $buffer );
+
+		$chapters = get_posts( ['post_type' => 'chapter', 'posts_per_page' => 1 ] );
+		$this->go_to( get_permalink( $chapters[0]->ID ) );
+		global $post;
+		setup_postdata( $post );
+		$section_title = $post->post_title;
+
+		ob_start();
+		\Pressbooks\Metadata\add_citation_metadata();
+		$buffer = ob_get_clean();
+
+		$this->assertNotContains( '<meta name="og:type" content="book"', $buffer );
+		$this->assertContains( '<meta name="citation_book_title" content="Some Book">', $buffer );
+		$this->assertContains( '<meta name="citation_title" content="' . $section_title . '">', $buffer );
+		$this->assertContains( '<meta name="citation_language" content="en-ca">', $buffer );
+		$this->assertContains( '<meta name="citation_year" content="' . strftime( '%Y', $time ) . '">', $buffer );
+		$this->assertContains( '<meta name="citation_publication_date" content="' . strftime( '%F', $time ) . '">', $buffer );
+		$this->assertContains( '<meta name="citation_publisher" content="Book Oven Inc.">', $buffer );
+		$this->assertContains( '<meta name="citation_author" content="Some Author">', $buffer );
 	}
 }
