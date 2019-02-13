@@ -223,7 +223,7 @@ abstract class Generator {
 			$isbn_url = ( new Sku() )->createBarcode( $cg_options['pb_print_sku'] );
 		}
 
-		yield 40 => __( 'Setting variables', 'pressbooks' );
+		yield 40 => __( 'Loading metadata', 'pressbooks' );
 		$input = new Input();
 		$input->setTitle( $cg_options['pb_title'] );
 		if ( $pages >= 48 ) {
@@ -296,7 +296,7 @@ abstract class Generator {
 			$jpg->generate();
 		}
 
-		yield 100 => __( 'Done', 'pressbooks' );
+		yield 100 => __( 'Finishing up', 'pressbooks' );
 	}
 
 

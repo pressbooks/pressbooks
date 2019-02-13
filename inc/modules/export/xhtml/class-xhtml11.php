@@ -90,6 +90,11 @@ class Xhtml11 extends ExportGenerator {
 	protected $lang = 'en';
 
 	/**
+	 * @var string
+	 */
+	protected $generatorPrefix;
+
+	/**
 	 * @var \Pressbooks\Taxonomy
 	 */
 	protected $taxonomy;
@@ -144,6 +149,8 @@ class Xhtml11 extends ExportGenerator {
 		if ( isset( $fixme ) ) {
 			$GLOBALS['hl_Ids'] = $fixme;
 		}
+
+		$this->generatorPrefix = __( 'XHTML: ', 'pressbooks' );
 	}
 
 	/**
@@ -169,7 +176,7 @@ class Xhtml11 extends ExportGenerator {
 	 * @throws \Exception
 	 */
 	public function convertGenerator(): \Generator {
-		yield 1 => __( 'Exporting XHTML', 'pressbooks' );
+		yield 1 => $this->generatorPrefix . __( 'Initializing', 'pressbooks' );
 
 		yield from $this->transformGenerator();
 
@@ -177,11 +184,11 @@ class Xhtml11 extends ExportGenerator {
 			throw new \Exception();
 		}
 
-		yield 75 => __( 'Saving XHTML in exports folder', 'pressbooks' );
+		yield 75 => $this->generatorPrefix . __( 'Saving file to exports folder', 'pressbooks' );
 		$filename = $this->timestampedFileName( '.html' );
 		\Pressbooks\Utility\put_contents( $filename, $this->transformOutput );
 		$this->outputPath = $filename;
-		yield 80 => __( 'Exporting XHTML was successful', 'pressbooks' );
+		yield 80 => $this->generatorPrefix . __( 'Export successful', 'pressbooks' );
 	}
 
 	/**
@@ -207,7 +214,7 @@ class Xhtml11 extends ExportGenerator {
 	 * @throws \Exception
 	 */
 	public function validateGenerator(): \Generator {
-		yield 80 => __( 'Validating XHTML', 'pressbooks' );
+		yield 80 => $this->generatorPrefix . __( 'Validating file', 'pressbooks' );
 
 		// Xmllint params
 		$command = PB_XMLLINT_COMMAND . ' --html --valid --noout ' . escapeshellcmd( $this->outputPath ) . ' 2>&1';
@@ -223,7 +230,7 @@ class Xhtml11 extends ExportGenerator {
 			throw new \Exception();
 		}
 
-		yield 100 => __( 'Validating XHTML was successful', 'pressbooks' );
+		yield 100 => $this->generatorPrefix . __( 'Validation successful', 'pressbooks' );
 	}
 
 
@@ -369,46 +376,46 @@ class Xhtml11 extends ExportGenerator {
 			ob_start();
 
 			// Before Title Page
-			yield 10 => __( 'Before Title', 'pressbooks' );
+			yield 10 => $this->generatorPrefix . __( 'Creating before title page', 'pressbooks' );
 			$this->echoBeforeTitle( $book_contents, $_unused );
 
 			// Half-title
-			yield 15 => __( 'Half Title', 'pressbooks' );
+			yield 15 => $this->generatorPrefix . __( 'Creating half title page', 'pressbooks' );
 			$this->echoHalfTitle( $_unused, $_unused );
 
 			// Cover
-			yield 20 => __( 'Cover', 'pressbooks' );
+			yield 20 => $this->generatorPrefix . __( 'Creating cover', 'pressbooks' );
 			$this->echoCover( $book_contents, $metadata );
 
 			// Title
-			yield 25 => __( 'Title', 'pressbooks' );
+			yield 25 => $this->generatorPrefix . __( 'Creating title page', 'pressbooks' );
 			$this->echoTitle( $book_contents, $metadata );
 
 			// Copyright
-			yield 30 => __( 'Copyright', 'pressbooks' );
+			yield 30 => $this->generatorPrefix . __( 'Creating copyright page', 'pressbooks' );
 			$this->echoCopyright( $_unused, $metadata );
 
 			// Dedication and Epigraph (In that order!)
-			yield 35 => __( 'Dedication and Epigraph', 'pressbooks' );
+			yield 35 => $this->generatorPrefix . __( 'Creating dedication and epigraph', 'pressbooks' );
 			$this->echoDedicationAndEpigraph( $book_contents, $_unused );
 
 			// Table of contents
-			yield 40 => __( 'Table of contents', 'pressbooks' );
+			yield 40 => $this->generatorPrefix . __( 'Creating table of contents', 'pressbooks' );
 			$this->echoToc( $book_contents, $_unused );
 
 			// Front-matter
-			yield 50 => __( 'Front-matter', 'pressbooks' );
+			yield 50 => $this->generatorPrefix . __( 'Exporting front matter', 'pressbooks' );
 			yield from $this->echoFrontMatterGenerator( $book_contents, $metadata );
 
 			// Promo
 			$this->createPromo( $_unused, $_unused );
 
 			// Parts, Chapters
-			yield 60 => __( 'Parts and chapters', 'pressbooks' );
+			yield 60 => $this->generatorPrefix . __( 'Exporting parts and chapters', 'pressbooks' );
 			yield from $this->echoPartsAndChaptersGenerator( $book_contents, $metadata );
 
 			// Back-matter
-			yield 70 => __( 'Back Matter', 'pressbooks' );
+			yield 70 => $this->generatorPrefix . __( 'Exporting back matter', 'pressbooks' );
 			yield from $this->echoBackMatterGenerator( $book_contents, $metadata );
 
 			$buffer_inner_html = ob_get_clean();
@@ -1201,7 +1208,7 @@ class Xhtml11 extends ExportGenerator {
 
 		$i = $this->frontMatterPos;
 		foreach ( $book_contents['front-matter'] as $front_matter ) {
-			yield from $y->tick( __( 'Front-matter', 'pressbooks' ) );
+			yield from $y->tick( $this->generatorPrefix . __( 'Exporting front matter', 'pressbooks' ) );
 
 			if ( ! $front_matter['export'] ) {
 				continue; // Skip
@@ -1323,7 +1330,7 @@ class Xhtml11 extends ExportGenerator {
 		$i = 1;
 		$j = 1;
 		foreach ( $book_contents['part'] as $part ) {
-			yield from $y->tick( __( 'Parts and chapters', 'pressbooks' ) );
+			yield from $y->tick( $this->generatorPrefix . __( 'Exporting parts and chapters', 'pressbooks' ) );
 
 			$invisibility = ( get_post_meta( $part['ID'], 'pb_part_invisible', true ) === 'on' ) ? 'invisible' : '';
 
@@ -1371,7 +1378,7 @@ class Xhtml11 extends ExportGenerator {
 			$my_chapters = '';
 
 			foreach ( $part['chapters'] as $chapter ) {
-				yield from $y->tick( __( 'Parts and chapters', 'pressbooks' ) );
+				yield from $y->tick( $this->generatorPrefix . __( 'Exporting parts and chapters', 'pressbooks' ) );
 
 				if ( ! $chapter['export'] ) {
 					continue; // Skip
@@ -1497,7 +1504,7 @@ class Xhtml11 extends ExportGenerator {
 
 		$i = 1;
 		foreach ( $book_contents['back-matter'] as $back_matter ) {
-			yield from $y->tick( __( 'Back-matter', 'pressbooks' ) );
+			yield from $y->tick( $this->generatorPrefix . __( 'Exporting back matter', 'pressbooks' ) );
 
 			if ( ! $back_matter['export'] ) {
 				continue;
