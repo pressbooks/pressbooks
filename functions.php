@@ -164,21 +164,23 @@ function pb_is_scss( $version = 1 ) {
 /**
  * Shortcut to \Pressbooks\Metadata\get_seo_meta_elements();
  *
+ * @deprecated 5.7.0
+ *
  * @return string
  */
 function pb_get_seo_meta_elements() {
-
-	return \Pressbooks\Metadata\get_seo_meta_elements();
+	_deprecated_function( 'pb_get_seo_meta_elements', '5.7.0' );
 }
 
 /**
  * Shortcut to \Pressbooks\Metadata\get_microdata_elements();
  *
+ * @deprecated 5.7.0
+ *
  * @return string
  */
 function pb_get_microdata_elements() {
-
-	return \Pressbooks\Metadata\get_microdata_elements();
+	_deprecated_function( 'pb_get_microdata_elements', '5.7.0' );
 }
 
 /**
