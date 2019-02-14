@@ -65,14 +65,13 @@ class Sku extends Isbn {
 
 		$pid = media_handle_sideload(
 			[
-				'name' => "{$sku}.png",
+				'name' => "{$this->sku}.png",
 				'tmp_name' => $png,
 			], 0
 		);
 		if ( is_wp_error( $pid ) ) {
 			throw new \Exception(
-				$pid->get_error_message(),
-				$pid->get_error_code()
+				$pid->get_error_message()
 			);
 		}
 
