@@ -172,7 +172,7 @@ class Network_Managers_List_Table extends \WP_List_Table {
 		$network_managers = get_network_option( null, 'pressbooks_network_managers', [] );
 		$tmp = [];
 		foreach ( $network_admins as $id => $username ) {
-			$user = get_user_by( 'slug', $username );
+			$user = get_user_by( 'login', $username );
 			$user = $user->data;
 			$is_restricted = ( in_array( absint( $user->ID ), $network_managers, true ) ) ? true : false; // Determine admin's restricted status
 			$tmp[ $id ] = [
