@@ -206,6 +206,20 @@ jQuery( function ( $ ) {
 		} );
 
 	/* Pins */
+	const adjustBulkActions = () => {
+		let totalCount = $( 'td.column-pin input' ).length;
+		let checkedCount = $( 'td.column-pin input:checked' ).length;
+		if ( checkedCount === totalCount ) {
+			$( '#cb-select-all-1, #cb-select-all-2, #bulk-action-selector-top, #bulk-action-selector-bottom, #doaction, #doaction2' )
+				.attr( 'disabled', true );
+		} else {
+			$( '#cb-select-all-1, #cb-select-all-2, #bulk-action-selector-top, #bulk-action-selector-bottom, #doaction, #doaction2' )
+				.removeAttr( 'disabled' );
+		}
+	}
+
+	adjustBulkActions();
+
 	$( 'td.column-pin' )
 		.find( 'input' )
 		.each( function () {
@@ -220,6 +234,7 @@ jQuery( function ( $ ) {
 			}
 		} )
 		.change( function () {
+			adjustBulkActions();
 			let name =  $( this ).attr( 'name' );
 			let tr = $( this ).closest( 'tr' );
 			let id = tr.attr( 'data-id' );
