@@ -362,6 +362,7 @@ abstract class Import {
 				/** @var \Pressbooks\Modules\Import\Import $importer */
 				yield 10 => __( 'Importing', 'pressbooks' );
 				$ok = $importer->import( $current_import );
+				yield 100 => __( 'Finishing up', 'pressbooks' );
 			}
 		}
 	}

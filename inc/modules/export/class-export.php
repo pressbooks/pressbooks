@@ -788,18 +788,25 @@ abstract class Export {
 			} else {
 				/** @var \Pressbooks\Modules\Export\Export $exporter */
 				$short_module_name = \Pressbooks\Modules\Export\get_name_from_module_classname( $module );
-				$msg = __( 'Exporting', 'pressbooks' ) . ": {$short_module_name}";
+				$msg = sprintf( __( '%s: Initializing', 'pressbooks' ), $short_module_name );
+				yield 1 => $msg;
+				$msg = sprintf( __( '%s: Exporting', 'pressbooks' ), $short_module_name );
 				yield 10 => $msg;
 				if ( ! $exporter->convert() ) {
 					static::$exportConversionError[ $module ] = $exporter->getOutputPath();
 				} else {
-					$msg = __( 'Validating', 'pressbooks' ) . ": {$short_module_name}";
+					$msg = sprintf( __( '%s: Export successful', 'pressbooks' ), $short_module_name );
 					yield 70 => $msg;
+					$msg = sprintf( __( '%s: Validating file', 'pressbooks' ), $short_module_name );
+					yield 80 => $msg;
 					if ( ! $exporter->validate() ) {
 						static::$exportValidationWarning[ $module ] = $exporter->getOutputPath();
+					} else {
+						$msg = sprintf( __( '%s: Validation successful', 'pressbooks' ), $short_module_name );
+						yield 90 => $msg;
 					}
 				}
-				$msg = __( 'Completed', 'pressbooks' ) . ": {$short_module_name}";
+				$msg = sprintf( __( '%s: Finishing up', 'pressbooks' ), $short_module_name );
 				yield 100 => $msg;
 			}
 

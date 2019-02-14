@@ -24,6 +24,11 @@ class Epub3 extends Epub201 {
 	/**
 	 * @var string
 	 */
+	protected $version = '3';
+
+	/**
+	 * @var string
+	 */
 	protected $filext = 'xhtml';
 
 	/**

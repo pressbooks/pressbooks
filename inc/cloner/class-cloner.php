@@ -417,7 +417,7 @@ class Cloner {
 		$y = new PercentageYield( 30, 40, count( $this->sourceBookTerms ) );
 		$this->targetBookTerms = $this->getBookTerms( $this->targetBookUrl );
 		foreach ( $this->sourceBookTerms as $term ) {
-			yield from $y->tick( __( 'Cloning taxonomies', 'pressbooks' ) );
+			yield from $y->tick( __( 'Cloning contributors and licenses', 'pressbooks' ) );
 			$new_term = $this->cloneTerm( $term['id'] );
 			if ( $new_term ) {
 				$this->termMap[ $term['id'] ] = $new_term;
@@ -428,7 +428,7 @@ class Cloner {
 		// Clone Front Matter
 		$y = new PercentageYield( 40, 50, count( $this->sourceBookStructure['front-matter'] ) );
 		foreach ( $this->sourceBookStructure['front-matter'] as $frontmatter ) {
-			yield from $y->tick( __( 'Cloning front-matter', 'pressbooks' ) );
+			yield from $y->tick( __( 'Cloning front matter', 'pressbooks' ) );
 			$new_frontmatter = $this->cloneFrontMatter( $frontmatter['id'] );
 			if ( $new_frontmatter !== false ) {
 				$this->clonedItems['front-matter'][] = $new_frontmatter;
@@ -459,7 +459,7 @@ class Cloner {
 		// Clone Back Matter
 		$y = new PercentageYield( 80, 90, count( $this->sourceBookStructure['back-matter'] ) );
 		foreach ( $this->sourceBookStructure['back-matter'] as $backmatter ) {
-			yield from $y->tick( __( 'Cloning back-matter', 'pressbooks' ) );
+			yield from $y->tick( __( 'Cloning back matter', 'pressbooks' ) );
 			$new_backmatter = $this->cloneBackMatter( $backmatter['id'] );
 			if ( $new_backmatter !== false ) {
 				$this->clonedItems['back-matter'][] = $new_backmatter;
@@ -482,7 +482,7 @@ class Cloner {
 		wp_defer_term_counting( false ); // Flush
 		restore_current_blog();
 
-		yield 100 => __( 'Done', 'pressbooks' );
+		yield 100 => __( 'Finishing up', 'pressbooks' );
 	}
 
 	/**

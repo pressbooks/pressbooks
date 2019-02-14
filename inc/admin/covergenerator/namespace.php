@@ -36,7 +36,7 @@ function generator_css_js( $hooks_suffix ) {
 		);
 		wp_localize_script(
 			'cg/js', 'PB_CoverGeneratorToken', [
-				'ajaxSubmitMsg' => __( 'Submitting form', 'pressbooks' ),
+				'ajaxSubmitMsg' => __( 'Saving settings', 'pressbooks' ),
 				'ajaxUrl' => wp_nonce_url( admin_url( 'admin-ajax.php?action=cover-generator' ), 'pb-generate-cover' ),
 				'redirectUrl' => admin_url( 'admin.php?page=pressbooks_cg' ),
 				'unloadWarning' => __( 'Cover generation is not done. Leaving this page, now, will cause problems. Are you sure?', 'pressbooks' ),

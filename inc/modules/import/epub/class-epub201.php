@@ -156,7 +156,7 @@ class Epub201 extends ImportGenerator {
 	 * @return \Generator
 	 */
 	function importGenerator( array $current_import ) : \Generator {
-		yield 10 => __( 'Opening epub file', 'pressbooks' );
+		yield 10 => __( 'Opening EPUB file', 'pressbooks' );
 		$this->setCurrentZip( $current_import['file'] );
 
 		$xml = $this->getOpf();

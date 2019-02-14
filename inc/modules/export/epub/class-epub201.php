@@ -45,7 +45,6 @@ class Epub201 extends ExportGenerator {
 	 */
 	public $timeout = 90;
 
-
 	/**
 	 * @var string
 	 */
@@ -149,6 +148,16 @@ class Epub201 extends ExportGenerator {
 	/**
 	 * @var string
 	 */
+	protected $version = '2.0.1';
+
+	/**
+	 * @var string
+	 */
+	protected $generatorPrefix;
+
+	/**
+	 * @var string
+	 */
 	protected $filext = 'html';
 
 
@@ -237,6 +246,8 @@ class Epub201 extends ExportGenerator {
 		foreach ( $this->reservedIds as $val ) {
 			$this->fixme[ $val ] = 1;
 		}
+
+		$this->generatorPrefix = sprintf( __( 'EPUB %s: ', 'pressbooks' ), $this->version );
 	}
 
 
@@ -272,7 +283,7 @@ class Epub201 extends ExportGenerator {
 	 */
 	function convertGenerator(): \Generator {
 
-		yield 1 => __( 'Exporting EPUB', 'pressbooks' );
+		yield 1 => $this->generatorPrefix . __( 'Initializing', 'pressbooks' );
 
 		// Sanity check
 
@@ -287,7 +298,7 @@ class Epub201 extends ExportGenerator {
 		}
 
 		// Convert
-		yield 2 => __( 'Preparing book contents', 'pressbooks' );
+		yield 2 => $this->generatorPrefix . __( 'Preparing book contents', 'pressbooks' );
 		$metadata = Book::getBookInformation();
 		$book_contents = $this->preProcessBookContents( Book::getBookContents() );
 
@@ -298,7 +309,7 @@ class Epub201 extends ExportGenerator {
 
 		try {
 
-			yield 5 => __( 'Creating EPUB container', 'pressbooks' );
+			yield 5 => $this->generatorPrefix . __( 'Creating container', 'pressbooks' );
 			$this->createContainer();
 			yield from $this->createOEBPSGenerator( $book_contents, $metadata );
 			$this->createOPF( $book_contents, $metadata );
@@ -309,13 +320,13 @@ class Epub201 extends ExportGenerator {
 			throw new \Exception();
 		}
 
-		yield 75 => __( 'Saving EPUB to exports folder', 'pressbooks' );
+		yield 75 => $this->generatorPrefix . __( 'Saving file to exports folder', 'pressbooks' );
 		$filename = $this->timestampedFileName( $this->suffix );
 		if ( ! $this->zipEpub( $filename ) ) {
 			throw new \Exception();
 		}
 		$this->outputPath = $filename;
-		yield 80 => __( 'Exporting EPUB was successful', 'pressbooks' );
+		yield 80 => $this->generatorPrefix . __( 'Export successful', 'pressbooks' );
 	}
 
 	/**
@@ -341,7 +352,7 @@ class Epub201 extends ExportGenerator {
 	 * @throws \Exception
 	 */
 	function validateGenerator(): \Generator {
-		yield 80 => __( 'Validating EPUB', 'pressbooks' );
+		yield 80 => $this->generatorPrefix . __( 'Validating file', 'pressbooks' );
 
 		// Epubcheck command, (quiet flag requires version 3.0.1+)
 		$command = PB_EPUBCHECK_COMMAND . ' -q ' . escapeshellcmd( $this->outputPath ) . ' 2>&1';
@@ -370,7 +381,8 @@ class Epub201 extends ExportGenerator {
 			throw new \Exception();
 		}
 
-		yield 100 => __( 'Validating EPUB was successful', 'pressbooks' );
+		yield 90 => $this->generatorPrefix . __( 'Validation successful', 'pressbooks' );
+		yield 100 => $this->generatorPrefix . __( 'Finishing up', 'pressbooks' );
 	}
 
 
@@ -641,7 +653,7 @@ class Epub201 extends ExportGenerator {
 	protected function createOEBPSGenerator( $book_contents, $metadata ) {
 
 		// First, setup and affect $this->stylesheet
-		yield 10 => __( 'Compiling styles', 'pressbooks' );
+		yield 10 => $this->generatorPrefix . __( 'Compiling styles', 'pressbooks' );
 		$this->createStylesheet();
 
 		// Reset manifest
@@ -650,42 +662,42 @@ class Epub201 extends ExportGenerator {
 		/* Note: order affects $this->manifest */
 
 		// Cover
-		yield 15 => __( 'Cover', 'pressbooks' );
+		yield 15 => $this->generatorPrefix . __( 'Creating cover', 'pressbooks' );
 		$this->createCover( $book_contents, $metadata );
 
 		// Before Title Page
 		$this->createBeforeTitle( $book_contents, $metadata );
 
 		// Title
-		yield 20 => __( 'Title', 'pressbooks' );
+		yield 20 => $this->generatorPrefix . __( 'Creating title page', 'pressbooks' );
 		$this->createTitle( $book_contents, $metadata );
 
 		// Copyright
-		yield 20 => __( 'Copyright', 'pressbooks' );
+		yield 20 => $this->generatorPrefix . __( 'Creating copyright page', 'pressbooks' );
 		$this->createCopyright( $book_contents, $metadata );
 
 		// Dedication and Epigraph (In that order!)
-		yield 35 => __( 'Dedication and Epigraph', 'pressbooks' );
+		yield 25 => $this->generatorPrefix . __( 'Exporting dedication and epigraph', 'pressbooks' );
 		$this->createDedicationAndEpigraph( $book_contents, $metadata );
 
 		// Front-matter
-		yield 30 => __( 'Front-matter', 'pressbooks' );
+		yield 30 => $this->generatorPrefix . __( 'Exporting front matter', 'pressbooks' );
 		yield from $this->createFrontMatterGenerator( $book_contents, $metadata );
 
 		// Promo
 		$this->createPromo( $book_contents, $metadata );
 
 		// Parts, Chapters
-		yield 40 => __( 'Parts and chapters', 'pressbooks' );
+		yield 40 => $this->generatorPrefix . __( 'Exporting parts and chapters', 'pressbooks' );
 		yield from $this->createPartsAndChaptersGenerator( $book_contents, $metadata );
 
 		// Back-matter
-		yield 50 => __( 'Back Matter', 'pressbooks' );
+		yield 50 => $this->generatorPrefix . __( 'Exporting back matter', 'pressbooks' );
 		yield from $this->createBackMatterGenerator( $book_contents, $metadata );
 
 		// Table of contents
 		// IMPORTANT: Do this last! Uses $this->manifest to generate itself
-		yield 70 => __( 'Table of contents', 'pressbooks' );
+		yield 70 => $this->generatorPrefix . __( 'Creating table of contents', 'pressbooks' );
 		$this->createToc( $book_contents, $metadata );
 	}
 
@@ -1256,7 +1268,7 @@ class Epub201 extends ExportGenerator {
 
 		$i = $this->frontMatterPos;
 		foreach ( $book_contents['front-matter'] as $front_matter ) {
-			yield from $y->tick( __( 'Front-matter', 'pressbooks' ) );
+			yield from $y->tick( $this->generatorPrefix . __( 'Exporting front matter', 'pressbooks' ) );
 
 			if ( ! $front_matter['export'] ) {
 				continue; // Skip
@@ -1365,7 +1377,7 @@ class Epub201 extends ExportGenerator {
 			$filename = "{$file_id}.{$this->filext}";
 
 			$vars = [
-				'post_title' => __( 'Make your own books using Pressbooks.com', 'pressbooks' ),
+				'post_title' => __( 'Make your own books using Pressbooks', 'pressbooks' ),
 				'stylesheet' => $this->stylesheet,
 				'post_content' => $this->kneadHtml( $promo_html, 'custom' ),
 				'isbn' => ( isset( $metadata['pb_ebook_isbn'] ) ) ? $metadata['pb_ebook_isbn'] : '',
@@ -1424,7 +1436,7 @@ class Epub201 extends ExportGenerator {
 		$c = 1;
 		$p = 1;
 		foreach ( $book_contents['part'] as $part ) {
-			yield from $y->tick( __( 'Parts and chapters', 'pressbooks' ) );
+			yield from $y->tick( $this->generatorPrefix . __( 'Exporting parts and chapters', 'pressbooks' ) );
 
 			$invisibility = ( get_post_meta( $part['ID'], 'pb_part_invisible', true ) === 'on' ) ? 'invisible' : '';
 
@@ -1446,7 +1458,7 @@ class Epub201 extends ExportGenerator {
 			}
 
 			foreach ( $part['chapters'] as $chapter ) {
-				yield from $y->tick( __( 'Parts and chapters', 'pressbooks' ) );
+				yield from $y->tick( $this->generatorPrefix . __( 'Exporting parts and chapters', 'pressbooks' ) );
 
 				if ( ! $chapter['export'] ) {
 					continue; // Skip
@@ -1685,7 +1697,7 @@ class Epub201 extends ExportGenerator {
 
 		$i = 1;
 		foreach ( $book_contents['back-matter'] as $back_matter ) {
-			yield from $y->tick( __( 'Back-matter', 'pressbooks' ) );
+			yield from $y->tick( $this->generatorPrefix . __( 'Exporting back matter', 'pressbooks' ) );
 
 			if ( ! $back_matter['export'] ) {
 				continue; // Skip
