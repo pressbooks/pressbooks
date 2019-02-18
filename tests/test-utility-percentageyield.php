@@ -91,4 +91,30 @@ class PercentageYieldTest extends \WP_UnitTestCase {
 			$this->assertEquals( 1, $loops );
 		}
 	}
+
+	public function test_not_everything_is_yielded() {
+		// Nothing emitted
+		$loops = 0;
+		$ticks = 100;
+		$y = new \Pressbooks\Utility\PercentageYield( 1, 100, $ticks );
+		for ( $i = 1; $i <= $ticks; ++$i ) {
+			foreach ( $y->tick( 'Test', false ) as $percentage => $msg ) {
+				++$loops;
+			}
+		}
+		$this->assertEquals( 0, $loops );
+
+		// Half emitted
+		$loops = 0;
+		$ticks = 100;
+		$y = new \Pressbooks\Utility\PercentageYield( 1, 100, $ticks );
+		for ( $i = 1; $i <= $ticks; ++$i ) {
+			$emit = ( $i % 2 === 0 ) ? true : false;
+			foreach ( $y->tick( 'Test', $emit ) as $percentage => $msg ) {
+				$this->assertTrue( $percentage % 2 === 0 );
+				++$loops;
+			}
+		}
+		$this->assertEquals( 50, $loops );
+	}
 }

@@ -73,11 +73,15 @@ class PercentageYield {
 	}
 
 	/**
+	 * Automatically append something like (3 of 20) to $msg when yielding [$percentage => $msg]
+	 * Automatically do calculations
+	 *
 	 * @param string $msg
+	 * @param bool $emit (optional, default is true)
 	 *
 	 * @return \Generator
 	 */
-	public function tick( $msg ) {
+	public function tick( $msg, $emit = true ) {
 		$percentage = $this->j;
 		if ( $percentage < $this->start ) {
 			$percentage = $this->start;
@@ -85,7 +89,9 @@ class PercentageYield {
 			$percentage = $this->end;
 		}
 		$msg = trim( $msg ) . sprintf( __( ' (%1$d of %2$d)', 'pressbooks' ), $this->i, $this->total );
-		yield $percentage => $msg;
+		if ( $emit ) {
+			yield $percentage => $msg;
+		}
 		++$this->i;
 		if ( $this->i % $this->chunks === 0 ) {
 			++$this->j;
