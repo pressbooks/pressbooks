@@ -213,19 +213,17 @@ class Epub201 extends ImportGenerator {
 	 */
 	protected function parseManifestGenerator( \SimpleXMLElement $xml, array $match_ids, $chapter_parent, $current_import ) : \Generator {
 
-		//Format manifest to array
+		// Format manifest to array
 		$this->parseManifestToArray( $xml );
 		$total = 0;
 
-		//Iterate each spine and get each manifest item in the order of spine
+		// Iterate each spine and get each manifest item in the order of spine
+		$emit_msg = __( 'Importing', 'pressbooks' );
 		$y = new PercentageYield( 40, 95, count( $xml->spine->children() ) );
 		foreach ( $xml->spine->children() as $item ) {
-			yield from $y->tick( __( 'Importing', 'pressbooks' ) );
-
 			/** @var \SimpleXMLElement $item */
 			// Get attributes
 			$id = '';
-
 			foreach ( $item->attributes() as $key => $val ) {
 				if ( 'idref' === $key ) {
 					$id = (string) $val;
@@ -234,6 +232,8 @@ class Epub201 extends ImportGenerator {
 
 			//Check this manifest item exists or not
 			if ( isset( $this->manifest[ $id ] ) ) {
+				yield from $y->tick( $emit_msg );
+
 				$href = $this->manifest[ $id ]['herf'];
 
 				if ( 'OEBPS/copyright.html' === $href ) {
@@ -253,6 +253,8 @@ class Epub201 extends ImportGenerator {
 				// Insert
 				$this->kneadAndInsert( $href, $this->determinePostType( $id ), $chapter_parent, $current_import['default_post_status'] );
 				++$total;
+			} else {
+				yield from $y->tick( $emit_msg, false );
 			}
 		}
 

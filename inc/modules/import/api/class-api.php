@@ -136,10 +136,13 @@ class Api extends ImportGenerator {
 
 		$y = new PercentageYield( 40, 50, count( $this->cloner->getSourceBookStructure()['front-matter'] ) );
 		foreach ( $this->cloner->getSourceBookStructure()['front-matter'] as $frontmatter ) {
-			yield from $y->tick( __( 'Importing front matter', 'pressbooks' ) );
+			$fm_emit_msg = __( 'Importing front matter', 'pressbooks' );
 			if ( $this->flaggedForImport( $frontmatter['id'] ) ) {
+				yield from $y->tick( $fm_emit_msg );
 				$fm_id = $this->cloner->cloneFrontMatter( $frontmatter['id'] );
 				$this->updatePost( $fm_id, $post_status );
+			} else {
+				yield from $y->tick( $fm_emit_msg, false );
 			}
 		}
 
@@ -153,36 +156,47 @@ class Api extends ImportGenerator {
 		$y = new PercentageYield( 50, 80, $ticks );
 		$parent_id = $this->getChapterParent();
 		foreach ( $this->cloner->getSourceBookStructure()['parts'] as $key => $part ) {
-			yield from $y->tick( __( 'Importing parts and chapters', 'pressbooks' ) );
+			$ch_emit_msg = __( 'Importing parts and chapters', 'pressbooks' );
 			$part_id = false;
 			if ( $this->flaggedForImport( $part['id'] ) ) {
+				yield from $y->tick( $ch_emit_msg );
 				$part_id = $this->cloner->clonePart( $part['id'] );
 				$this->updatePost( $part_id, $post_status );
+			} else {
+				yield from $y->tick( $ch_emit_msg, false );
 			}
 			foreach ( $this->cloner->getSourceBookStructure()['parts'][ $key ]['chapters'] as $chapter ) {
-				yield from $y->tick( __( 'Importing parts and chapters', 'pressbooks' ) );
 				if ( $this->flaggedForImport( $chapter['id'] ) ) {
+					yield from $y->tick( $ch_emit_msg );
 					$ch_id = $this->cloner->cloneChapter( $chapter['id'], ( $part_id ? $part_id : $parent_id ) );
 					$this->updatePost( $ch_id, $post_status );
+				} else {
+					yield from $y->tick( $ch_emit_msg, false );
 				}
 			}
 		}
 
 		$y = new PercentageYield( 80, 90, count( $this->cloner->getSourceBookStructure()['back-matter'] ) );
 		foreach ( $this->cloner->getSourceBookStructure()['back-matter'] as $backmatter ) {
-			yield from $y->tick( __( 'Importing back matter', 'pressbooks' ) );
+			$bm_emit_msg = __( 'Importing back matter', 'pressbooks' );
 			if ( $this->flaggedForImport( $backmatter['id'] ) ) {
+				yield from $y->tick( $bm_emit_msg );
 				$bm_id = $this->cloner->cloneBackMatter( $backmatter['id'] );
 				$this->updatePost( $bm_id, $post_status );
+			} else {
+				yield from $y->tick( $bm_emit_msg, false );
 			}
 		}
 
 		$y = new PercentageYield( 90, 100, count( $this->cloner->getSourceBookGlossary() ) );
 		foreach ( $this->cloner->getSourceBookGlossary() as $glossary ) {
-			yield from $y->tick( __( 'Importing glossary terms' ) );
+			$gl_emit_msg = __( 'Importing glossary terms', 'pressbooks' );
 			if ( $this->flaggedForImport( $glossary['id'] ) ) {
+				yield from $y->tick( $gl_emit_msg );
 				$gl_id = $this->cloner->cloneGlossary( $glossary['id'] );
 				$this->updatePost( $gl_id, $post_status );
+			} else {
+				yield from $y->tick( $gl_emit_msg, false );
 			}
 		}
 
