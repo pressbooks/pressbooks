@@ -194,6 +194,26 @@ function migrate_book_themes() {
 		$pressbooks_theme_migration = 4;
 		update_option( 'pressbooks_theme_migration', $pressbooks_theme_migration );
 	}
+
+	// Rename Austen Two to Austen
+	if ( $pressbooks_theme_migration === 4 ) {
+		$theme = wp_get_theme()->get_stylesheet();
+		if ( $theme === 'pressbooks-austentwo' ) {
+			// Switch theme to Austen 3.0
+			switch_theme( 'pressbooks-austen' );
+			$lock = Lock::init();
+			if ( $lock->isLocked() ) {
+				$data = $lock->getLockData();
+				$data['stylesheet'] = 'pressbooks-austen';
+				$json = wp_json_encode( $data );
+				$lockfile = $lock->getLockDir() . '/lock.json';
+				\Pressbooks\Utility\put_contents( $lockfile, $json );
+			}
+		}
+
+		$pressbooks_theme_migration = 5;
+		update_option( 'pressbooks_theme_migration', $pressbooks_theme_migration );
+	}
 }
 
 /**
