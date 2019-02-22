@@ -6,18 +6,25 @@ class Shortcodes_Attributions_Attachments extends \WP_UnitTestCase {
 
 	/**
 	 * @var \Pressbooks\Shortcodes\Attributions\Attachments
+	 * @group attributions
 	 */
 	protected $att;
 
+	/**
+	 * @group attributions
+	 */
 	public function setUp() {
 		parent::setUp();
 
 		$this->att = $this->getMockBuilder( '\Pressbooks\Shortcodes\Attributions\Attachments' )
-						  ->setMethods( null )
-						  ->disableOriginalConstructor()
-						  ->getMock();
+						->setMethods( null )
+						->disableOriginalConstructor()
+						->getMock();
 	}
 
+	/**
+	 * @group attributions
+	 */
 	public function test_getInstance() {
 
 		$val = $this->att->init();
@@ -28,6 +35,9 @@ class Shortcodes_Attributions_Attachments extends \WP_UnitTestCase {
 		$this->assertArrayHasKey( 'media_attributions', $shortcode_tags );
 	}
 
+	/**
+	 * @group attributions
+	 */
 	public function test_getAttributions() {
 
 		$result = $this->att->getAttributions( 'I have no <b>images</b>' );
@@ -35,6 +45,9 @@ class Shortcodes_Attributions_Attachments extends \WP_UnitTestCase {
 
 	}
 
+	/**
+	 * @group attributions
+	 */
 	public function test_getAttributionsMeta() {
 		$pid = $this->_createAttachment();
 		$url = get_post_meta( $pid, 'pb_media_attribution_title_url', true );
@@ -56,6 +69,9 @@ class Shortcodes_Attributions_Attachments extends \WP_UnitTestCase {
 
 	}
 
+	/**
+	 * @group attributions
+	 */
 	private function _createAttachment() {
 
 		$pid = $this->factory()->attachment->create_upload_object( __DIR__ . '/data/skates.jpg' );
@@ -69,6 +85,9 @@ class Shortcodes_Attributions_Attachments extends \WP_UnitTestCase {
 		return $pid;
 	}
 
+	/**
+	 * @group attributions
+	 */
 	public function test_attributionsContent() {
 		$attributions = [
 			33 => [
@@ -98,6 +117,9 @@ class Shortcodes_Attributions_Attachments extends \WP_UnitTestCase {
 		$this->assertEquals( '', $html );
 	}
 
+	/**
+	 * @group attributions
+	 */
 	public function test_getBookMedia() {
 		$this->assertEmpty( $this->att->getBookMedia() );
 		$pid = $this->_createAttachment();

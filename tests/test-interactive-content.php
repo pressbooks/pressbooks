@@ -4,15 +4,21 @@ class Interactive_ContentTest extends \WP_UnitTestCase {
 
 	/**
 	 * @var \Pressbooks\Interactive\Content
+	 * @group interactivecontent
 	 */
 	protected $content;
 
+	/**
+	 * @group interactivecontent
+	 */
 	public function setUp() {
 		parent::setUp();
 		$this->content = new \Pressbooks\Interactive\Content();
 	}
 
-
+	/**
+	 * @group interactivecontent
+	 */
 	public function test_deleteIframesNotOnWhitelist() {
 		$raw = '
 		Test One
@@ -47,6 +53,9 @@ class Interactive_ContentTest extends \WP_UnitTestCase {
 			$this->assertNotContains( '<p>', $result );
 	}
 
+	/**
+	 * @group interactivecontent
+	 */
 	public function test_replaceIframes() {
 		$html = '
 		<p>Test</p>
@@ -61,6 +70,9 @@ class Interactive_ContentTest extends \WP_UnitTestCase {
 		$this->assertContains( 'excluded from this version of the text', $result );
 	}
 
+	/**
+	 * @group interactivecontent
+	 */
 	public function test_allowIframesInHtml() {
 		$user_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
 		wp_set_current_user( $user_id );
@@ -68,6 +80,9 @@ class Interactive_ContentTest extends \WP_UnitTestCase {
 		$this->assertTrue( ! empty( $allowed['iframe'] ) );
 	}
 
+	/**
+	 * @group interactivecontent
+	 */
 	public function test_replaceOembed() {
 
 		$data = new \StdClass();
@@ -87,6 +102,9 @@ class Interactive_ContentTest extends \WP_UnitTestCase {
 		$this->assertContains( 'excluded from this version of the text', $result );
 	}
 
+	/**
+	 * @group interactivecontent
+	 */
 	public function test_replaceInteractiveTags() {
 
 		$html = '
@@ -102,11 +120,17 @@ class Interactive_ContentTest extends \WP_UnitTestCase {
 		$this->assertContains( 'excluded from this version of the text', $result );
 	}
 
+	/**
+	 * @group interactivecontent
+	 */
 	public function test_addExtraOembedProviders() {
 		$providers = $this->content->addExtraOembedProviders( [] );
 		$this->assertNotEmpty( $providers );
 	}
 
+	/**
+	 * @group interactivecontent
+	 */
 	public function test_deleteOembedCaches() {
 		$this->content->deleteOembedCaches( 1 );
 		$this->content->deleteOembedCaches();
@@ -116,6 +140,9 @@ class Interactive_ContentTest extends \WP_UnitTestCase {
 		$this->assertEmpty( $id );
 	}
 
+	/**
+	 * @group interactivecontent
+	 */
 	public function test_mediaElementConfiguration() {
 		$s['_foo'] = 'bar';
 		$s['autoRewind'] = true;

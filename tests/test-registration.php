@@ -2,6 +2,9 @@
 
 class Registration extends \WP_UnitTestCase {
 
+	/**
+	 * @group registration
+	 */
 	function setUp() {
 		parent::setUp();
 		global $pagenow;
@@ -9,16 +12,26 @@ class Registration extends \WP_UnitTestCase {
 		add_filter( 'gettext', '\Pressbooks\Registration\custom_signup_text', 20, 3 );
 	}
 
+	/**
+	 * @group registration
+	 */
 	function tearDown() {
 		parent::tearDown();
 		remove_filter( 'gettext', '\Pressbooks\Registration\custom_signup_text' );
 	}
 
+
+	/**
+	 * @group registration
+	 */
 	public function test_custom_signup_text() {
 		$output = __( 'Create Site', 'pressbooks' );
 		$this->assertEquals( 'Create Book', $output );
 	}
 
+	/**
+	 * @group registration
+	 */
 	public function test_add_password_field() {
 
 		// Test for field label in output
@@ -28,6 +41,9 @@ class Registration extends \WP_UnitTestCase {
 		\Pressbooks\Registration\add_password_field( $e );
 	}
 
+	/**
+	 * @group registration
+	 */
 	public function test_validate_passwords() {
 
 		global $_POST;
@@ -64,6 +80,9 @@ class Registration extends \WP_UnitTestCase {
 		$this->assertEquals( 'Passwords do not match.', $content['errors']->get_error_message( 'password_1' ) );
 	}
 
+	/**
+	 * @group registration
+	 */
 	public function test_add_temporary_password() {
 
 		global $_POST;
@@ -83,6 +102,9 @@ class Registration extends \WP_UnitTestCase {
 		$this->assertArrayNotHasKey( 'password', $meta );
 	}
 
+	/**
+	 * @group registration
+	 */
 	public function test_add_hidden_password_field() {
 
 		global $_POST;

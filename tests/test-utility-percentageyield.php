@@ -4,6 +4,7 @@ class PercentageYieldTest extends \WP_UnitTestCase {
 
 	/**
 	 * @return array
+	 * @group utility
 	 */
 	public function validRanges() {
 		return [
@@ -21,6 +22,7 @@ class PercentageYieldTest extends \WP_UnitTestCase {
 	 * @param int $start
 	 * @param int $end
 	 * @param int $ticks
+	 * @group utility
 	 */
 	public function test_tick( $start, $end, $ticks ) {
 		$chunks = (int) max( round( $ticks / ( $end - $start ) ), 1 );
@@ -41,6 +43,9 @@ class PercentageYieldTest extends \WP_UnitTestCase {
 		}
 	}
 
+	/**
+	 * @group utility
+	 */
 	public function test_tick_invalid_range() {
 		$ticks = 100;
 		$y = new \Pressbooks\Utility\PercentageYield( -999, 999, $ticks );
@@ -55,6 +60,9 @@ class PercentageYieldTest extends \WP_UnitTestCase {
 		}
 	}
 
+	/**
+	 * @group utility
+	 */
 	public function test_tick_dumb_range() {
 		$ticks = 100;
 		$y = new \Pressbooks\Utility\PercentageYield( 99, 99, $ticks );
@@ -69,6 +77,9 @@ class PercentageYieldTest extends \WP_UnitTestCase {
 		}
 	}
 
+	/**
+	 * @group utility
+	 */
 	public function test_yield_more_than_we_estimated() {
 		$ticks = 100;
 		$y = new \Pressbooks\Utility\PercentageYield( 1, 100, $ticks );
@@ -92,6 +103,9 @@ class PercentageYieldTest extends \WP_UnitTestCase {
 		}
 	}
 
+	/**
+	 * @group utility
+	 */
 	public function test_not_everything_is_yielded() {
 		// Nothing emitted
 		$loops = 0;

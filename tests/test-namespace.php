@@ -6,6 +6,7 @@ class NamespaceTest extends \WP_UnitTestCase {
 
 	/**
 	 * Test PB style class initializations
+	 * @group namespace
 	 */
 	public function test_classInitConventions() {
 		$this->_book();

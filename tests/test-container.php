@@ -13,6 +13,7 @@ class ContainerTest extends \WP_UnitTestCase {
 
 
 	/**
+	 * @group container
 	 * WP Unit test framework auto initializes our Container but we don't want this, clear it  before running tests
 	 */
 	public function setUp() {
@@ -22,6 +23,7 @@ class ContainerTest extends \WP_UnitTestCase {
 	}
 
 	/**
+	 * @group container
 	 * Put back Container to the way it was
 	 */
 	public function tearDown() {
@@ -30,6 +32,9 @@ class ContainerTest extends \WP_UnitTestCase {
 		parent::tearDown();
 	}
 
+	/**
+	 * @group container
+	 */
 	public function test_initSetGet() {
 
 		Container::setInstance( new FakeContainer() );
@@ -39,6 +44,9 @@ class ContainerTest extends \WP_UnitTestCase {
 		$this->assertTrue( Container::getInstance() instanceof AnotherFakeContainer );
 	}
 
+	/**
+	 * @group container
+	 */
 	public function test_getSet() {
 
 		Container::init( new FakeContainer() );
@@ -92,6 +100,7 @@ class ContainerTest extends \WP_UnitTestCase {
 
 	/**
 	 * @expectedException \LogicException
+	 * @group container
 	 */
 	public function test_getException() {
 		$var = Container::get( 'foo' );
@@ -99,6 +108,7 @@ class ContainerTest extends \WP_UnitTestCase {
 
 	/**
 	 * @expectedException \LogicException
+	 * @group container
 	 */
 	public function test_setException() {
 		Container::set( 'foo', 'bar' );

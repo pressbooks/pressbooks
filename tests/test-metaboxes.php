@@ -5,6 +5,9 @@ require_once( PB_PLUGIN_DIR . 'inc/admin/metaboxes/namespace.php' );
 
 class MetaboxesTest extends \WP_UnitTestCase {
 
+	/**
+	 * @group metaboxes
+	 */
 	public function test_title_update() {
 
 		$title = get_option( 'blogname' );
@@ -18,6 +21,9 @@ class MetaboxesTest extends \WP_UnitTestCase {
 		$this->assertEquals( $option, $title );
 	}
 
+	/**
+	 * @group metaboxes
+	 */
 	public function test_add_meta_boxes() {
 
 		global $wp_meta_boxes;
@@ -34,6 +40,9 @@ class MetaboxesTest extends \WP_UnitTestCase {
 		$this->assertArrayHasKey( 'additional-catalog-information', $c->metadata['metadata'] );
 	}
 
+	/**
+	 * @group metaboxes
+	 */
 	public function test_status_visibility_box() {
 		\Pressbooks\Metadata\init_book_data_models();
 
@@ -77,6 +86,9 @@ class MetaboxesTest extends \WP_UnitTestCase {
 		$this->assertContains( '<input type="checkbox" name="glossary_visibility" id="glossary_visibility"', $buffer );
 	}
 
+	/**
+	 * @group metaboxes
+	 */
 	public function test_publish_fields_save() {
 
 		\Pressbooks\Metadata\init_book_data_models();
@@ -181,6 +193,9 @@ class MetaboxesTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'private', $post->post_status );
 	}
 
+	/**
+	 * @group metaboxes
+	 */
 	public function test_part_save_box() {
 		$post = [ 'post_status' => 'draft'];
 		ob_start();
@@ -197,6 +212,9 @@ class MetaboxesTest extends \WP_UnitTestCase {
 		$this->assertContains( '<input name="save" id="publish" type="submit"', $buffer );
 	}
 
+	/**
+	 * @group metaboxes
+	 */
 	public function test_metadata_save_box() {
 		$post = [ 'post_status' => 'draft'];
 		ob_start();

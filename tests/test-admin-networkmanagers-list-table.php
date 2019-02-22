@@ -11,10 +11,16 @@ class Admin_Network_Managers_List_Table extends \WP_UnitTestCase {
 	 */
 	protected $table;
 
+	/**
+	 * @group networkmanagers
+	 */
 	public function setUp() {
 		$this->table = new Network_Managers_List_Table();
 	}
 
+	/**
+	 * @group networkmanagers
+	 */
 	public function test_prepare_items() {
 		$user_id = $this->factory->user->create( [ 'user_login' => 'me@here.com' ] );
 		grant_super_admin( $user_id );

@@ -8,11 +8,12 @@ class TaxonomyTest extends \WP_UnitTestCase {
 
 	/**
 	 * @var \Pressbooks\Taxonomy
+	 * @group taxonomies
 	 */
 	protected $taxonomy;
 
 	/**
-	 *
+	 * @group taxonomies
 	 */
 	public function setUp() {
 		parent::setUp();
@@ -34,18 +35,26 @@ class TaxonomyTest extends \WP_UnitTestCase {
 		$this->taxonomy = new Taxonomy( $stub1, $stub2 );
 	}
 
+	/**
+	 * @group taxonomies
+	 */
 	public function test_init() {
 		$instance = Taxonomy::init();
 		$this->assertTrue( $instance instanceof Taxonomy );
 	}
 
+	/**
+	 * @group taxonomies
+	 */
 	public function test_hooks() {
 		$this->_book();
 		$this->taxonomy->hooks( $this->taxonomy );
 		$this->assertEquals( 1000, has_filter( 'init', [ $this->taxonomy, 'maybeUpgrade' ] ) );
 	}
 
-
+	/**
+	 * @group taxonomies
+	 */
 	public function test_registerTaxonomies() {
 		global $wp_taxonomies;
 		$wp_taxonomies_old = $wp_taxonomies;
@@ -74,6 +83,9 @@ class TaxonomyTest extends \WP_UnitTestCase {
 		$wp_taxonomies = $wp_taxonomies_old;
 	}
 
+	/**
+	 * @group taxonomies
+	 */
 	public function test_insertTerms() {
 		if ( $exists = get_term_by( 'slug', 'standard', 'chapter-type' ) ) {
 			wp_delete_term( $exists->term_id, 'chapter-type' );
@@ -84,6 +96,9 @@ class TaxonomyTest extends \WP_UnitTestCase {
 		$this->assertInstanceOf( '\WP_Term', get_term_by( 'slug', 'standard', 'chapter-type' ) );
 	}
 
+	/**
+	 * @group taxonomies
+	 */
 	public function test_getters() {
 		$this->assertEquals( 'miscellaneous', $this->taxonomy->getFrontMatterType( 999 ) );
 		$this->assertEquals( 'miscellaneous', $this->taxonomy->getBackMatterType( 999 ) );
@@ -91,6 +106,9 @@ class TaxonomyTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'standard', $this->taxonomy->getChapterType( 999 ) );
 	}
 
+	/**
+	 * @group taxonomies
+	 */
 	public function test_convertMetaToTerm() {
 		$this->taxonomy->registerTaxonomies();
 
@@ -105,6 +123,9 @@ class TaxonomyTest extends \WP_UnitTestCase {
 		$this->assertEquals( 999, $results['term_taxonomy_id'] );
 	}
 
+	/**
+	 * @group taxonomies
+	 */
 	public function test_removeTaxonomyViewLinks() {
 		$arr = [ 'view' => 1, 'something_else' => 2 ];
 		$res = $this->taxonomy->removeTaxonomyViewLinks( $arr, null );

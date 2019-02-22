@@ -7,22 +7,26 @@ class Shortcodes_Footnotes extends \WP_UnitTestCase {
 
 	/**
 	 * @var \Pressbooks\Shortcodes\Footnotes\Footnotes
+	 * @group footnotes
 	 */
 	protected $fn;
 
 
 	/**
-	 *
+	 * @group footnotes
 	 */
 	public function setUp() {
 		parent::setUp();
 
 		$this->fn = $this->getMockBuilder( '\Pressbooks\Shortcodes\Footnotes\footnotes' )
-						 ->setMethods( null )// pass null to setMethods() to avoid mocking any method
-						 ->disableOriginalConstructor()// disable private constructor
-						 ->getMock();
+						->setMethods( null )// pass null to setMethods() to avoid mocking any method
+						->disableOriginalConstructor()// disable private constructor
+						->getMock();
 	}
 
+	/**
+	 * @group footnotes
+	 */
 	public function test_getInstance() {
 
 		$val = $this->fn->init();
@@ -33,6 +37,10 @@ class Shortcodes_Footnotes extends \WP_UnitTestCase {
 		$this->assertArrayHasKey( 'footnote', $shortcode_tags );
 	}
 
+
+	/**
+	 * @group footnotes
+	 */
 	public function test_shortcodeHandler_numbered() {
 
 		global $id;
@@ -52,6 +60,10 @@ class Shortcodes_Footnotes extends \WP_UnitTestCase {
 		$this->assertEmpty( $this->fn->shortcodeHandler( [] ) );
 	}
 
+
+	/**
+	 * @group footnotes
+	 */
 	public function test_shortcodeHandler_notNumbered() {
 
 		global $id;
@@ -70,6 +82,9 @@ class Shortcodes_Footnotes extends \WP_UnitTestCase {
 	}
 
 
+	/**
+	 * @group footnotes
+	 */
 	public function test_footnoteContent_numbered() {
 
 		global $id;
@@ -90,6 +105,9 @@ class Shortcodes_Footnotes extends \WP_UnitTestCase {
 	}
 
 
+	/**
+	 * @group footnotes
+	 */
 	public function test_footnoteContent_notNumbered() {
 
 		global $id;
@@ -110,6 +128,9 @@ class Shortcodes_Footnotes extends \WP_UnitTestCase {
 	}
 
 
+	/**
+	 * @group footnotes
+	 */
 	public function test_ajaxFailure() {
 
 		$old_error_reporting = $this->_fakeAjax();
@@ -122,6 +143,10 @@ class Shortcodes_Footnotes extends \WP_UnitTestCase {
 		$this->_fakeAjaxDone( $old_error_reporting );
 	}
 
+
+	/**
+	 * @group footnotes
+	 */
 	public function test_convertWordFootnotes() {
 
 		$old_error_reporting = $this->_fakeAjax();

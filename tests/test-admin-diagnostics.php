@@ -6,7 +6,10 @@ class Admin_DiagnosticsTest extends \WP_UnitTestCase {
 
 	use utilsTrait;
 
-	function test_render_page() {
+	/**
+	 * @group diagnostics
+	 */
+	public function test_render_page() {
 		ob_start();
 		\Pressbooks\Admin\Diagnostics\render_page();
 		$buffer = ob_get_clean();
