@@ -31,19 +31,22 @@ class ThemeTest extends \WP_UnitTestCase {
 		update_option( 'template_root', $old ); // Put back to normal
 	}
 
+	/**
+	 * @group themes
+	 */
 	public function test_update_lock_file() {
 		$this->_book();
-		$lock = $this->lock::init();
-		$old_lock = $lock->lockTheme();
+		$old_lock = $this->lock->generateLock( time() );
 		$this->assertArrayHasKey( 'stylesheet', $old_lock );
 		$this->assertEquals( $old_lock['stylesheet'], get_stylesheet() );
 		$new_data = [ 'stylesheet' => '' ];
 		\Pressbooks\Theme\update_lock_file( $new_data );
-		$new_lock = $lock->getLockData();
+		$new_lock = $this->lock->getLockData();
 		$this->assertEquals( $old_lock, $new_lock );
-		$new_data = [ 'stylesheet' => 'pressbooks-what' ];
-		\Pressbooks\Theme\update_lock_file( $new_data );
-		$new_lock = $lock->getLockData();
-		$this->assertEquals( 'pressbooks-what', $new_lock['stylesheet'] );
+		$new_data = [ 'stylesheet' => 'pressbooks-newtheme' ];
+		$result = \Pressbooks\Theme\update_lock_file( $new_data );
+		$this->assertTrue( $result );
+		$new_lock = $this->lock->getLockData();
+		$this->assertEquals( 'pressbooks-newtheme', $new_lock['stylesheet'] );
 	}
 }
