@@ -144,9 +144,9 @@ class Admin_LafTest extends \WP_UnitTestCase {
 
 	function test_admin_notices() {
 		$_SESSION['pb_errors'] = 'One';
-		set_transient( 'pb_errors' . get_current_user_id(), 'Two' );
+		set_site_transient( 'pb_errors' . get_current_user_id(), 'Two' );
 		$_SESSION['pb_notices'] = 'Three';
-		set_transient( 'pb_notices' . get_current_user_id(), 'Four' );
+		set_site_transient( 'pb_notices' . get_current_user_id(), 'Four' );
 		ob_start();
 		\Pressbooks\Admin\Laf\admin_notices();
 		$buffer = ob_get_clean();
@@ -154,10 +154,10 @@ class Admin_LafTest extends \WP_UnitTestCase {
 
 		$_SESSION['pb_errors'][] = 'One';
 		$_SESSION['pb_errors'][] = 'Two';
-		set_transient( 'pb_errors' . get_current_user_id(), [ 'Three', 'Four' ] );
+		set_site_transient( 'pb_errors' . get_current_user_id(), [ 'Three', 'Four' ] );
 		$_SESSION['pb_notices'][] = 'Five';
 		$_SESSION['pb_notices'][] = 'Six';
-		set_transient( 'pb_notices' . get_current_user_id(), [ 'Seven', 'Eight' ] );
+		set_site_transient( 'pb_notices' . get_current_user_id(), [ 'Seven', 'Eight' ] );
 		ob_start();
 		\Pressbooks\Admin\Laf\admin_notices();
 		$buffer = ob_get_clean();
