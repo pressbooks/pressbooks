@@ -16,7 +16,7 @@ php:
 - 7.2
 - nightly
 env:
-- WP_VERSION=5.0.3 WP_MULTISITE=1 TRAVIS_NODE_VERSION="8"
+- WP_VERSION=latest WP_MULTISITE=1 TRAVIS_NODE_VERSION="8"
 matrix:
   fast_finish: true
   allow_failures:
