@@ -5,18 +5,22 @@ class PressbooksTest extends \WP_UnitTestCase {
 
 	/**
 	 * @var \Pressbooks\Pressbooks()
+	 * @group plugin
 	 */
 	protected $pb;
 
 
 	/**
-	 *
+	 * @group plugin
 	 */
 	public function setUp() {
 		parent::setUp();
 		$this->pb = new \Pressbooks\Pressbooks();
 	}
 
+	/**
+	 * @group plugin
+	 */
 	public function test_allowedBookThemes() {
 		$result = $this->pb->allowedBookThemes( [ 'pressbooks-book' => true, 'pressbooks-clarke' => true, 'pressbooks-fake' => true, 'twentyseventeen' => true ] );
 		$this->assertTrue( is_array( $result ) );
@@ -25,6 +29,9 @@ class PressbooksTest extends \WP_UnitTestCase {
 		$this->assertArrayHasKey( 'pressbooks-clarke', $result );
 	}
 
+	/**
+	 * @group plugin
+	 */
 	public function test_allowedRootThemes() {
 		$result = $this->pb->allowedRootThemes( [ 'pressbooks-book' => true, 'pressbooks-clarke' => true, 'pressbooks-fake' => true, 'twentyseventeen' => true ] );
 		$this->assertTrue( is_array( $result ) );

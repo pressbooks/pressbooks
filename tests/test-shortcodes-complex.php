@@ -7,11 +7,12 @@ class Shortcodes_Complex extends \WP_UnitTestCase {
 
 	/**
 	 * @var \Pressbooks\Shortcodes\Complex\Complex
+	 * @group shortcodes
 	 */
 	protected $complex;
 
 	/**
-	 *
+	 * @group shortcodes
 	 */
 	public function setUp() {
 		parent::setUp();
@@ -22,6 +23,9 @@ class Shortcodes_Complex extends \WP_UnitTestCase {
 			->getMock();
 	}
 
+	/**
+	 * @group shortcodes
+	 */
 	public function test_getInstance() {
 		$val = $this->complex->init();
 
@@ -35,6 +39,9 @@ class Shortcodes_Complex extends \WP_UnitTestCase {
 		$this->assertArrayHasKey( 'media', $shortcode_tags );
 	}
 
+	/**
+	 * @group shortcodes
+	 */
 	public function test_anchorShortcodeHandler() {
 		// Test an anchor with an ID.
 		$content = $this->complex->anchorShortCodeHandler( [ 'id' => 'my-anchor' ], '', 'anchor' );
@@ -55,6 +62,9 @@ class Shortcodes_Complex extends \WP_UnitTestCase {
 		$this->assertEmpty( $this->complex->anchorShortCodeHandler( [], '', 'anchor' ) );
 	}
 
+	/**
+	 * @group shortcodes
+	 */
 	public function test_columnsShortcodeHandler() {
 		// Test a column with no attributes.
 		$content = $this->complex->columnsShortCodeHandler( [], 'Call me Ishmael.', 'columns' );
@@ -89,6 +99,9 @@ class Shortcodes_Complex extends \WP_UnitTestCase {
 		$this->assertEmpty( $this->complex->columnsShortCodeHandler( [], '', 'columns' ) );
 	}
 
+	/**
+	 * @group shortcodes
+	 */
 	public function test_emailShortcodeHandler() {
 		// Test an email with no content.
 		$content = $this->complex->emailShortCodeHandler( [ 'address' => 'me@here.com' ], '', 'email' );
@@ -115,11 +128,17 @@ class Shortcodes_Complex extends \WP_UnitTestCase {
 		$this->assertEmpty( $this->complex->emailShortCodeHandler( [], '', 'email' ) );
 	}
 
+	/**
+	 * @group shortcodes
+	 */
 	public function test_equationShortcodeHandler() {
 		$content = $this->complex->equationShortCodeHandler( [], 'e^{\i \pi} + 1 = 0', 'equation' );
 		$this->assertEquals( "<p><img src='http://s0.wp.com/latex.php?latex=e%5E%7B%5Ci+%5Cpi%7D+%2B+1+%3D+0&#038;bg=ffffff&#038;fg=000000&#038;s=0&#038;zoom=1' alt='e^{\i \pi} + 1 = 0' title='e^{\i \pi} + 1 = 0' class='latex' /></p>\n", $content );
 	}
 
+	/**
+	 * @group shortcodes
+	 */
 	public function test_mediaShortcodeHandler() {
 		// Test a YouTube embed as a src attribute
 		$content = $this->complex->mediaShortCodeHandler( [ 'src' => 'https://www.youtube.com/watch?v=JgIhGTpKTwM' ], '', 'embed' );

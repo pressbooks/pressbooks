@@ -7,13 +7,20 @@ class ThemeTest extends \WP_UnitTestCase {
 
 	/**
 	 * @var \Pressbooks\Theme\Lock
+	 * @group themes
 	 */
 	protected $lock;
 
+	/**
+	 * @group themes
+	 */
 	public function setUp() {
 		$this->lock = new \Pressbooks\Theme\Lock();
 	}
 
+	/**
+	 * @group themes
+	 */
 	public function test_migrate_book_themes() {
 		$this->_book();
 		delete_option( 'pressbooks_theme_migration' );
@@ -21,6 +28,9 @@ class ThemeTest extends \WP_UnitTestCase {
 		$this->assertEquals( 5, get_option( 'pressbooks_theme_migration' ) );
 	}
 
+	/**
+	 * @group themes
+	 */
 	public function test_update_template_root() {
 		$old = get_option( 'template_root' );
 

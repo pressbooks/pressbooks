@@ -7,6 +7,9 @@ class Admin_LafTest extends \WP_UnitTestCase {
 
 	use utilsTrait;
 
+	/**
+	 * @group branding
+	 */
 	function test_add_footer_link() {
 
 		ob_start();
@@ -32,6 +35,9 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		$this->assertContains( 'https://pressbooks.org/contact', $buffer );
 	}
 
+	/**
+	 * @group branding
+	 */
 	function test_replace_book_admin_menu_AND_init_css_js() {
 
 		global $menu, $submenu;
@@ -99,6 +105,9 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		$this->assertContains( 'pb-cloner', $wp_scripts->queue );
 	}
 
+	/**
+	 * @group branding
+	 */
 	function test_custom_screen_options() {
 		$x = \Pressbooks\Admin\Laf\custom_screen_options( false, 'pb_export_per_page', 9 );
 		$this->assertEquals( $x, 9 );
@@ -110,11 +119,17 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		$this->assertTrue( $x === false );
 	}
 
+	/**
+	 * @group branding
+	 */
 	function test_reorder_book_admin_menu() {
 		$order = \Pressbooks\Admin\Laf\reorder_book_admin_menu();
 		$this->assertEquals( $order[4], 'post-new.php?post_type=metadata' );
 	}
 
+	/**
+	 * @group branding
+	 */
 	function test_replace_menu_bar_my_sites() {
 		$this->_book();
 		$user_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
@@ -133,6 +148,9 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		$this->assertEquals( $node->id, 'clone-a-book' );
 	}
 
+	/**
+	 * @group branding
+	 */
 	function test_display_export() {
 		$GLOBALS['hook_suffix'] = 'mock';
 		ob_start();
@@ -142,6 +160,9 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		$this->assertContains( '<div class="clear"></div>', $buffer );
 	}
 
+	/**
+	 * @group branding
+	 */
 	function test_admin_notices() {
 		$_SESSION['pb_errors'] = 'One';
 		set_transient( 'pb_errors' . get_current_user_id(), 'Two' );
@@ -178,11 +199,17 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		$this->assertEmpty( $buffer );
 	}
 
+	/**
+	 * @group branding
+	 */
 	function test_sites_to_books() {
 		$result = \Pressbooks\Admin\Laf\sites_to_books( __( 'Sites' ), 'Sites', '' );
 		$this->assertEquals( 'Books', $result );
 	}
 
+	/**
+	 * @group branding
+	 */
 	function test_edit_screen_navigation() {
 
 		$this->_book();

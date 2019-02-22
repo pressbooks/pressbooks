@@ -5,11 +5,12 @@ class CoverGenerator_SkuTest extends \WP_UnitTestCase {
 
 	/**
 	 * @var \Pressbooks\Covergenerator\Sku
+	 * @group covergenerator
 	 */
 	public $sku;
 
 	/**
-	 *
+	 * @group covergenerator
 	 */
 	public function setUp() {
 		parent::setUp();
@@ -17,7 +18,9 @@ class CoverGenerator_SkuTest extends \WP_UnitTestCase {
 		$this->sku = new \Pressbooks\Covergenerator\Sku();
 	}
 
-
+	/**
+	 * @group covergenerator
+	 */
 	public function test_createBarcode() {
 		$sku = "1234567890123";
 		$url = $this->sku->createBarcode( $sku );

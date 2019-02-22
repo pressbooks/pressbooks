@@ -3,6 +3,10 @@
 use function \Pressbooks\Utility\str_ends_with;
 
 class ImageTest extends \WP_UnitTestCase {
+
+	/**
+	 * @group media
+	 */
 	public function test_default_cover_url() {
 		$this->assertTrue( str_ends_with( \Pressbooks\Image\default_cover_url( 'thumbnail' ), 'default-book-cover-100x100.jpg' ) );
 		$this->assertTrue( str_ends_with( \Pressbooks\Image\default_cover_url( 'small' ), 'default-book-cover-65x0.jpg' ) );
@@ -12,6 +16,9 @@ class ImageTest extends \WP_UnitTestCase {
 		$this->assertTrue( str_ends_with( \Pressbooks\Image\default_cover_url( 'full' ), 'default-book-cover.jpg' ) );
 	}
 
+	/**
+	 * @group media
+	 */
 	public function test_default_cover_path() {
 		$this->assertTrue( str_ends_with( \Pressbooks\Image\default_cover_path( 'thumbnail' ), 'default-book-cover-100x100.jpg' ) );
 		$this->assertTrue( str_ends_with( \Pressbooks\Image\default_cover_path( 'small' ), 'default-book-cover-65x0.jpg' ) );
@@ -21,6 +28,9 @@ class ImageTest extends \WP_UnitTestCase {
 		$this->assertTrue( str_ends_with( \Pressbooks\Image\default_cover_path( 'full' ), 'default-book-cover.jpg' ) );
 	}
 
+	/**
+	 * @group media
+	 */
 	public function test_is_default_cover() {
 		$url = \Pressbooks\Image\default_cover_url();
 		$path = \Pressbooks\Image\default_cover_path();
@@ -29,6 +39,9 @@ class ImageTest extends \WP_UnitTestCase {
 		$this->assertFalse( \Pressbooks\Image\is_default_cover( 'https://pressbooks.com/wp-content/uploads/2015/04/hero-image-4.png' ) );
 	}
 
+	/**
+	 * @group media
+	 */
 	public function test_is_valid_image() {
 		$this->assertTrue( \Pressbooks\Image\is_valid_image( __DIR__ . '/data/pb.png', 'pb.png' ) );
 		$this->assertFalse( \Pressbooks\Image\is_valid_image( 'binary', 'pb.png', true ) );
@@ -36,6 +49,9 @@ class ImageTest extends \WP_UnitTestCase {
 		$this->assertFalse( \Pressbooks\Image\is_valid_image( __DIR__ . '/data/template.php', 'pb.png' ) );
 	}
 
+	/**
+	 * @group media
+	 */
 	public function test_thumbify() {
 		$thumb = '_zigzag';
 		$path = '/2017/08/foo-bar.jpeg';
@@ -48,6 +64,9 @@ class ImageTest extends \WP_UnitTestCase {
 		$this->assertEquals( '/2017/08/foo-bar.unknown', $result );
 	}
 
+	/**
+	 * @group media
+	 */
 	public function test_strip_baseurl() {
 		$test = 'https://pressbooks.dev/upload/2017/08/foo-bar.png';
 		$result = \Pressbooks\Image\strip_baseurl( $test );
@@ -62,6 +81,9 @@ class ImageTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'https://pressbooks.dev/upload/zig/zag/foo-bar.png', $result );
 	}
 
+	/**
+	 * @group media
+	 */
 	public function test_fudge_factor() {
 		$before = (int) ini_get( 'memory_limit' );
 		$format = 'png';
@@ -72,6 +94,9 @@ class ImageTest extends \WP_UnitTestCase {
 		ini_set( 'memory_limit', $before );
 	}
 
+	/**
+	 * @group media
+	 */
 	public function test_proper_image_extension() {
 		$file = __DIR__ . '/data/pb.png';
 		$result = \Pressbooks\Image\proper_image_extension( $file, 'pb.jpg' );
@@ -81,6 +106,9 @@ class ImageTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'pb.unknown', $result );
 	}
 
+	/**
+	 * @group media
+	 */
 	public function test_get_dpi() {
 
 		$file = __DIR__ . '/data/template.php';
@@ -108,6 +136,9 @@ class ImageTest extends \WP_UnitTestCase {
 		$this->assertEquals( 72, $dpi );
 	}
 
+	/**
+	 * @group media
+	 */
 	public function test_get_aspect_ratio() {
 
 		$file = __DIR__ . '/data/template.php';
@@ -135,6 +166,9 @@ class ImageTest extends \WP_UnitTestCase {
 		$this->assertEquals( '1024:685', $aspect_ratio );
 	}
 
+	/**
+	 * @group media
+	 */
 	public function test_differences() {
 
 		$file1 = __DIR__ . '/data/template.php';
@@ -152,6 +186,9 @@ class ImageTest extends \WP_UnitTestCase {
 		$this->assertTrue( $distance > 0 );
 	}
 
+	/**
+	 * @group media
+	 */
 	public function test_is_bigger_version() {
 
 		$mountains = __DIR__ . '/data/mountains.jpg';
@@ -165,6 +202,9 @@ class ImageTest extends \WP_UnitTestCase {
 		$this->assertTrue( \Pressbooks\Image\is_bigger_version( $file3, $mountains ) );
 	}
 
+	/**
+	 * @group media
+	 */
 	public function test_maybe_swap_with_bigger() {
 		$id = $this->factory()->attachment->create_upload_object( __DIR__ . '/data/mountains.jpg' );
 
@@ -180,6 +220,9 @@ class ImageTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'blah-blah-blah', $new );
 	}
 
+	/**
+	 * @group media
+	 */
 	public function test_same_aspect_ratio() {
 
 		$file1 = __DIR__ . '/data/DosenmoorBirken1.jpg';

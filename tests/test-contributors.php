@@ -8,16 +8,18 @@ class ContributorsTest extends \WP_UnitTestCase {
 
 	/**
 	 * @var \Pressbooks\Taxonomy
+	 * @group contributors
 	 */
 	protected $taxonomy;
 
 	/**
 	 * @var \Pressbooks\Contributors
+	 * @group contributors
 	 */
 	protected $contributor;
 
 	/**
-	 *
+	 * @group contributors
 	 */
 	public function setUp() {
 		parent::setUp();
@@ -28,6 +30,9 @@ class ContributorsTest extends \WP_UnitTestCase {
 		);
 	}
 
+	/**
+	 * @group contributors
+	 */
 	public function test_insert() {
 		$this->taxonomy->registerTaxonomies();
 
@@ -40,7 +45,9 @@ class ContributorsTest extends \WP_UnitTestCase {
 		$this->assertEquals( $results, $results2 );
 	}
 
-
+	/**
+	 * @group contributors
+	 */
 	public function test_getContributors() {
 		$this->taxonomy->registerTaxonomies();
 		$post_id = $this->_createChapter();
@@ -81,7 +88,9 @@ class ContributorsTest extends \WP_UnitTestCase {
 		$this->assertEmpty( $all['pb_reviewers'] );
 	}
 
-
+	/**
+	 * @group contributors
+	 */
 	public function test_add() {
 		$this->taxonomy->registerTaxonomies();
 
@@ -113,6 +122,9 @@ class ContributorsTest extends \WP_UnitTestCase {
 		$this->assertFalse( $this->contributor->addBlogUser( $user_id ) );
 	}
 
+	/**
+	 * @group contributors
+	 */
 	public function test_update() {
 		$this->taxonomy->registerTaxonomies();
 
@@ -148,11 +160,17 @@ class ContributorsTest extends \WP_UnitTestCase {
 		$this->assertEquals( $term->name, $old_user_data->display_name );
 	}
 
+	/**
+	 * @group contributors
+	 */
 	public function test_maybeUpgradeSlug() {
 		$this->assertEquals( 'pb_authors', $this->contributor->maybeUpgradeSlug( 'pb_section_author' ) );
 		$this->assertEquals( 'garbage', $this->contributor->maybeUpgradeSlug( 'garbage' ) );
 	}
 
+	/**
+	 * @group contributors
+	 */
 	public function test_upgradeMetaToTerm() {
 		$this->taxonomy->registerTaxonomies();
 		$post_id = $this->_createChapter();

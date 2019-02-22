@@ -6,17 +6,21 @@ class LicensingTest extends \WP_UnitTestCase {
 
 	/**
 	 * @var \Pressbooks\Licensing()
+	 * @group licensing
 	 */
 	protected $licensing;
 
 	/**
-	 *
+	 * @group licensing
 	 */
 	public function setUp() {
 		parent::setUp();
 		$this->licensing = new \Pressbooks\Licensing();
 	}
 
+	/**
+	 * @group licensing
+	 */
 	public function test_getSupportedTypes() {
 		// Insert custom term
 		wp_insert_term(
@@ -49,11 +53,17 @@ class LicensingTest extends \WP_UnitTestCase {
 		$this->assertArrayNotHasKey( 'fake-records', $result );
 	}
 
+	/**
+	 * @group licensing
+	 */
 	public function test_disableTranslation() {
 		$var = $this->licensing->disableTranslation( 'a', 'b', 'c' );
 		$this->assertEquals( 'b', $var );
 	}
 
+	/**
+	 * @group licensing
+	 */
 	public function test_doLicense() {
 		$new_post = [
 			'post_title' => 'Test Chapter',
@@ -97,6 +107,7 @@ class LicensingTest extends \WP_UnitTestCase {
 
 	/**
 	 * @expectedIncorrectUsage Pressbooks\Licensing::doLicense
+	 * @group licensing
 	 */
 	public function test_doLicenseDeprecrated() {
 		$result = $this->licensing->doLicense( [], 0, 'Hello World!' );
@@ -105,6 +116,9 @@ class LicensingTest extends \WP_UnitTestCase {
 		$this->assertContains( 'Test Blog', $result ); // Book name
 	}
 
+	/**
+	 * @group licensing
+	 */
 	public function test_getWebLicenseHtml() {
 
 		$xml = new \SimpleXMLElement( '<book><title>Hello World!</title></book>' );
@@ -122,6 +136,9 @@ class LicensingTest extends \WP_UnitTestCase {
 		$this->assertContains( '</div>', $result );
 	}
 
+	/**
+	 * @group licensing
+	 */
 	public function test_getLicense() {
 		$result = $this->licensing->getLicense( 'public-domain', 'Herman Melville', 'https://mobydick.whale', 'Moby Dick', 1851 );
 		$this->assertEquals( $result, '<div class="license-attribution"><p><img src="' . get_template_directory_uri() . '/packages/buckram/assets/images/public-domain.svg" alt="Icon for the Public Domain license" /></p><p>This work (<a href="https://mobydick.whale">Moby Dick</a> by Herman Melville) is free of known copyright restrictions.</p></div>' );
@@ -131,16 +148,25 @@ class LicensingTest extends \WP_UnitTestCase {
 		$this->assertEquals( $result, '<div class="license-attribution"><p><img src="' . get_template_directory_uri() . '/packages/buckram/assets/images/cc-by.svg" alt="Icon for the Creative Commons Attribution 4.0 International License" /></p><p><a rel="cc:attributionURL" href="https://mobydick.whale" property="dc:title">Moby Dick</a> by <span property="cc:attributionName">Herman Melville</span> is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>, except where otherwise noted.</p></div>' );
 	}
 
+	/**
+	 * @group licensing
+	 */
 	public function test_getUrlForLicense() {
 		$result = $this->licensing->getUrlForLicense( 'public-domain' );
 		$this->assertEquals( $result, 'https://creativecommons.org/publicdomain/mark/1.0/' );
 	}
 
+	/**
+	 * @group licensing
+	 */
 	public function test_getLicenseFromUrl() {
 		$result = $this->licensing->getLicenseFromUrl( 'https://creativecommons.org/publicdomain/mark/1.0/' );
 		$this->assertEquals( $result, 'public-domain' );
 	}
 
+	/**
+	 * @group licensing
+	 */
 	public function test_getNameForLicense() {
 		$result = $this->licensing->getNameForLicense( 'public-domain' );
 		$this->assertEquals( $result, 'Public Domain' );

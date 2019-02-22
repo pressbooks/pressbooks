@@ -19,17 +19,26 @@ use function \Pressbooks\PostType\{
 
 class PostTypeTest extends \WP_UnitTestCase {
 
+	/**
+	 * @group posttypes
+	 */
 	function onNotSuccessfulTest( Throwable $t ) {
 		// Switch back to english for other tests
 		unload_textdomain( 'pressbooks' );
 		parent::onNotSuccessfulTest( $t );
 	}
 
+	/**
+	 * @group posttypes
+	 */
 	function test_list_post_types() {
 		$v = list_post_types();
 		$this->assertTrue( is_array( $v ) );
 	}
 
+	/**
+	 * @group posttypes
+	 */
 	function test_register_post_types() {
 		global $wp_post_types;
 		$wp_post_types_old = $wp_post_types;
@@ -46,6 +55,9 @@ class PostTypeTest extends \WP_UnitTestCase {
 		$wp_post_types = $wp_post_types_old;
 	}
 
+	/**
+	 * @group posttypes
+	 */
 	function test_row_actions() {
 		$actions['do-not-touch'] = 1;
 		$actions['view'] = 1;
@@ -63,6 +75,9 @@ class PostTypeTest extends \WP_UnitTestCase {
 		$this->assertArrayNotHasKey( 'inline hide-if-no-js', $actions2 );
 	}
 
+	/**
+	 * @group posttypes
+	 */
 	function test_disable_months_dropdown() {
 		$this->assertTrue( disable_months_dropdown( false, 'glossary' ) );
 
@@ -70,6 +85,9 @@ class PostTypeTest extends \WP_UnitTestCase {
 		$this->assertFalse( disable_months_dropdown( false, 'imaginary-post-type' ) );
 	}
 
+	/**
+	 * @group posttypes
+	 */
 	function test_after_title() {
 		$x = new \StdClass();
 
@@ -93,6 +111,9 @@ class PostTypeTest extends \WP_UnitTestCase {
 		$this->assertContains( 'id="pb-post-type-notice"', $buffer );
 	}
 
+	/**
+	 * @group posttypes
+	 */
 	function test_wp_editor_settings() {
 
 		global $post;
@@ -110,6 +131,9 @@ class PostTypeTest extends \WP_UnitTestCase {
 		$this->assertTrue( $settings2['media_buttons'] === false );
 	}
 
+	/**
+	 * @group posttypes
+	 */
 	function test_display_post_states() {
 		$x = new \StdClass();
 
@@ -123,6 +147,9 @@ class PostTypeTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'Unlisted', $post_states['private'] );
 	}
 
+	/**
+	 * @group posttypes
+	 */
 	function test_register_meta() {
 		global $wp_meta_keys;
 		$wp_meta_keys_old = $wp_meta_keys;
@@ -136,6 +163,9 @@ class PostTypeTest extends \WP_UnitTestCase {
 		$wp_meta_keys = $wp_meta_keys_old;
 	}
 
+	/**
+	 * @group posttypes
+	 */
 	function test_register_post_statii() {
 		global $wp_post_statuses;
 		$wp_post_statuses_old = $wp_post_statuses;
@@ -147,6 +177,9 @@ class PostTypeTest extends \WP_UnitTestCase {
 		$wp_post_statuses = $wp_post_statuses_old;
 	}
 
+	/**
+	 * @group posttypes
+	 */
 	function test_add_post_types_rss() {
 		$args['feed'] = true;
 		$args = add_post_types_rss( $args );
@@ -155,6 +188,9 @@ class PostTypeTest extends \WP_UnitTestCase {
 		$this->assertTrue( is_array( $args['post_type'] ) );
 	}
 
+	/**
+	 * @group posttypes
+	 */
 	function test_add_posttypes_to_hypothesis() {
 		$posttypes = add_posttypes_to_hypothesis(
 			[
@@ -167,6 +203,9 @@ class PostTypeTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'chapters', $posttypes['chapter'] );
 	}
 
+	/**
+	 * @group posttypes
+	 */
 	function test_can_export() {
 		\Pressbooks\PostType\register_post_statii();
 		$pid = $this->factory()->post->create();
@@ -186,6 +225,9 @@ class PostTypeTest extends \WP_UnitTestCase {
 		$this->assertFalse( can_export( $pid ) );
 	}
 
+	/**
+	 * @group posttypes
+	 */
 	function test_get_post_type_label() {
 		$this->assertFalse( get_post_type_label( 'junk-post-type' ) );
 		$this->assertEquals( get_post_type_label( 'metadata' ), 'Book Information' );
@@ -196,6 +238,9 @@ class PostTypeTest extends \WP_UnitTestCase {
 		$this->assertEquals( get_post_type_label( 'glossary' ), 'Glossary' );
 	}
 
+	/**
+	 * @group posttypes
+	 */
 	function test_filter_post_type_label() {
 		$this->assertEquals( filter_post_type_label( 'Whatever I want', [ 'post_type' => 'unfiltered' ] ), 'Whatever I want' );
 		$this->assertEquals( filter_post_type_label( 'Chapter', [ 'post_type' => 'chapter' ] ), 'Chapter' );

@@ -9,6 +9,9 @@ class RedirectTest extends \WP_UnitTestCase {
 
 	use utilsTrait;
 
+	/**
+	 * @group redirect
+	 */
 	public function test_redirect() {
 		global $_pb_redirect_location;
 		$_pb_redirect_location = null;
@@ -18,18 +21,27 @@ class RedirectTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'https://pressbooks.com', $_pb_redirect_location );
 	}
 
+	/**
+	 * @group redirect
+	 */
 	public function test_flusher() {
 		delete_option( 'pressbooks_flusher' );
 		flusher();
 		$this->assertTrue( absint( get_option( 'pressbooks_flusher', 1 ) ) > 1 );
 	}
 
+	/**
+	 * @group redirect
+	 */
 	public function test_migrate_generated_content() {
 		$this->_book();
 		migrate_generated_content();
 		$this->assertTrue( true ); // Did not crash
 	}
 
+	/**
+	 * @group redirect
+	 */
 	public function test_trim_value() {
 		// Trim by reference
 		$val = '   test    ';
@@ -37,6 +49,9 @@ class RedirectTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'test', $val );
 	}
 
+	/**
+	 * @group redirect
+	 */
 	public function test_redirect_away_from_bad_urls() {
 		global $_pb_redirect_location;
 		$_pb_redirect_location = null;
@@ -106,6 +121,9 @@ class RedirectTest extends \WP_UnitTestCase {
 		$_pb_redirect_location = null;
 	}
 
+	/**
+	 * @group redirect
+	 */
 	public function test_programmatic_login() {
 		$this->assertFalse( \Pressbooks\Redirect\programmatic_login( 'nobody' ) );
 

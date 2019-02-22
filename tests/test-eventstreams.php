@@ -4,11 +4,12 @@ class EventStreamsTest extends \WP_UnitTestCase {
 
 	/**
 	 * @var \Pressbooks\EventStreams
+	 * @group eventstreams
 	 */
 	protected $eventStreams;
 
 	/**
-	 *
+	 * @group eventstreams
 	 */
 	public function setUp() {
 		parent::setUp();
@@ -18,6 +19,7 @@ class EventStreamsTest extends \WP_UnitTestCase {
 
 	/**
 	 * @return Generator
+	 * @group eventstreams
 	 */
 	protected function generator() {
 		yield 1 => 'a';
@@ -33,6 +35,7 @@ class EventStreamsTest extends \WP_UnitTestCase {
 	/**
 	 * @return Generator
 	 * @throws Exception
+	 * @group eventstreams
 	 */
 	protected function generatorWithError() {
 		yield 1 => 'a';
@@ -40,7 +43,7 @@ class EventStreamsTest extends \WP_UnitTestCase {
 	}
 
 	/**
-	 *
+	 * @group eventstreams
 	 */
 	public function test_emit() {
 		ob_start();
@@ -66,6 +69,9 @@ class EventStreamsTest extends \WP_UnitTestCase {
 		$this->assertContains( 'data: {"action":"complete","error":"Nooooooooooooooo!"}', $buffer );
 	}
 
+	/**
+	 * @group eventstreams
+	 */
 	public function test_emitOneTimeError() {
 		ob_start();
 		$this->eventStreams->emitOneTimeError( 'Nooooooooooooooo, again!' );
@@ -77,6 +83,9 @@ class EventStreamsTest extends \WP_UnitTestCase {
 		$this->assertContains( 'data: {"action":"complete","error":"Nooooooooooooooo, again!"}', $buffer );
 	}
 
+	/**
+	 * @group eventstreams
+	 */
 	public function test_emitComplete() {
 		ob_start();
 		$this->eventStreams->emitComplete();

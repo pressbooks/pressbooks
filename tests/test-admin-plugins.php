@@ -4,6 +4,9 @@ require_once( PB_PLUGIN_DIR . 'inc/admin/plugins/namespace.php' );
 
 class Admin_PluginsTest extends \WP_UnitTestCase {
 
+	/**
+	 * @group plugins
+	 */
 	public function test_filter_plugins() {
 		$plugins = [
 			'hello-dolly/hello.php' => [],
@@ -19,8 +22,10 @@ class Admin_PluginsTest extends \WP_UnitTestCase {
 
 	}
 
+	/**
+	 * @group plugins
+	 */
 	public function test_hide_gutenberg() {
-
 		$plugins = [
 			'hello-dolly/hello.php' => [
 				'Name' => 'Hello Dolly',

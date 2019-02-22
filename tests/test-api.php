@@ -4,6 +4,9 @@ class ApiTest extends \WP_UnitTestCase {
 
 	use utilsTrait;
 
+	/**
+	 * @group api
+	 */
 	public function test_rootEndpoints() {
 
 		$server = $this->_setupRootApi();
@@ -21,6 +24,9 @@ class ApiTest extends \WP_UnitTestCase {
 		}
 	}
 
+	/**
+	 * @group api
+	 */
 	public function test_BookEndpoints() {
 
 		// Test that endpoints exist
@@ -74,6 +80,9 @@ class ApiTest extends \WP_UnitTestCase {
 		}
 	}
 
+	/**
+	 * @group api
+	 */
 	public function test_bookSearch() {
 
 		$this->_book();
@@ -126,6 +135,9 @@ class ApiTest extends \WP_UnitTestCase {
 		$this->assertEmpty( $data );
 	}
 
+	/**
+	 * @group api
+	 */
 	public function test_is_enabled() {
 		$result = \Pressbooks\Api\is_enabled();
 		$this->assertTrue( is_bool( $result ) );
@@ -133,6 +145,7 @@ class ApiTest extends \WP_UnitTestCase {
 
 	/**
 	 * @see \Pressbooks\Api\init_batch for documentation
+	 * @group api
 	 */
 	public function test_batch() {
 		$server = $this->_setupBookApi();

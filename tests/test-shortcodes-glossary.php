@@ -6,9 +6,13 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 
 	/**
 	 * @var \Pressbooks\Shortcodes\Glossary\Glossary
+	 * @group glossary
 	 */
 	protected $gl;
 
+	/**
+	 * @group glossary
+	 */
 	public function setUp() {
 		parent::setUp();
 
@@ -23,7 +27,9 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 		$this->_createGlossaryTerms();
 		$this->gl->getGlossaryTerms( true ); // Reset cache
 	}
-
+	/**
+	 * @group glossary
+	 */
 	private function _createGlossaryTerms() {
 		$args1 = [
 			'post_type'    => 'glossary',
@@ -51,7 +57,9 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 		$p3 = $this->factory()->post->create_object( $args3 );
 		wp_set_object_terms( $p3, 'definitions', 'glossary-type' );
 	}
-
+	/**
+	 * @group glossary
+	 */
 	private function _createGlossaryPost() {
 
 		$args = [
@@ -64,7 +72,9 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 
 		return $pid;
 	}
-
+	/**
+	 * @group glossary
+	 */
 	public function test_getInstance() {
 
 		$val = $this->gl->init();
@@ -76,7 +86,9 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 		$this->assertArrayHasKey( 'pb_glossary', $shortcode_tags );
 
 	}
-
+	/**
+	 * @group glossary
+	 */
 	public function test_glossaryTerms() {
 		// assures alphabetical listing and format
 		$dl = $this->gl->glossaryTerms();
@@ -92,7 +104,9 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 		$this->assertEmpty( $dl );
 
 	}
-
+	/**
+	 * @group glossary
+	 */
 	public function test_glossaryTooltip() {
 		global $id;
 		$id = 42; // Fake it!
@@ -104,7 +118,9 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 		$result = $this->gl->glossaryTooltip( $pid, 'PHP' );
 		$this->assertEquals( 'PHP', $result );
 	}
-
+	/**
+	 * @group glossary
+	 */
 	public function test_getGlossaryTerms() {
 		$terms = $this->gl->getGlossaryTerms();
 		$this->assertEquals( 3, count( $terms ) );
@@ -127,6 +143,9 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 		$this->assertEquals( 'private', $terms['Cache Test']['status'] );
 	}
 
+	/**
+	 * @group glossary
+	 */
 	public function test_tooltipContent() {
 		$terms = $this->gl->getGlossaryTerms();
 
@@ -146,7 +165,9 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 		$this->assertContains( $definitions[0], $content );
 		$this->assertContains( $definitions[1], $content );
 	}
-
+	/**
+	 * @group glossary
+	 */
 	public function test_sanitizeGlossaryTerm() {
 		$data['post_type'] = 'imaginary-post-type';
 		$data['post_content'] = '<a href="https://google.com" onclick="event.preventDefault(); alert(\'evil!\');">All</a> is <strong>good.</strong>';
@@ -157,7 +178,9 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 		$results = $this->gl->sanitizeGlossaryTerm( $data );
 		$this->assertEquals( '<a href="https://google.com">All</a> is <strong>good.</strong>', $results['post_content'] );
 	}
-
+	/**
+	 * @group glossary
+	 */
 	public function test_backMatterAutoDisplay() {
 		// No change
 		$content = 'Hello';
