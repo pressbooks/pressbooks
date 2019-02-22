@@ -8,18 +8,22 @@ class SassTest extends \WP_UnitTestCase {
 
 	/**
 	 * @var \Pressbooks\Sass
+	 * @group styles
 	 */
 	protected $sass;
 
 
 	/**
-	 *
+	 * @group styles
 	 */
 	public function setUp() {
 		parent::setUp();
 		$this->sass = Container::get( 'Sass' );
 	}
 
+	/**
+	 * @group styles
+	 */
 	public function test_paths() {
 
 		$this->assertNotEmpty( $this->sass->pathToPartials() );
@@ -35,6 +39,9 @@ class SassTest extends \WP_UnitTestCase {
 		$this->assertNotEmpty( $paths );
 	}
 
+	/**
+	 * @group styles
+	 */
 	public function test_getStringsToLocalize() {
 
 		$result = $this->sass->getStringsToLocalize();
@@ -47,6 +54,9 @@ class SassTest extends \WP_UnitTestCase {
 
 	}
 
+	/**
+	 * @group styles
+	 */
 	public function test_prependLocalizedVars() {
 
 		$scss = '/* Silence is golden. */';
@@ -59,6 +69,9 @@ class SassTest extends \WP_UnitTestCase {
 
 	}
 
+	/**
+	 * @group styles
+	 */
 	public function test_parseVariables() {
 		$scss = '$red: #d4002d !default;
 		$font-size:
@@ -85,7 +98,9 @@ class SassTest extends \WP_UnitTestCase {
 		$this->assertArrayNotHasKey( '_secret', $vars );
 	}
 
-
+	/**
+	 * @group styles
+	 */
 	public function test_compile() {
 		$scss = 'p { font-size: $foo }';
 		$this->sass->setVariables( [ 'foo' => 999 ] );

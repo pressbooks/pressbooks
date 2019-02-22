@@ -1,7 +1,9 @@
 <?php
 
 class MediaTest extends \WP_UnitTestCase {
-
+	/**
+	 * @group media
+	 */
 	public function test_add_mime_types() {
 
 		$supportedFileExtensions = [ 'mp4', 'webm', 'ogv', 'ogg', 'mp3', 'aac', 'vorbis' ];
@@ -19,6 +21,9 @@ class MediaTest extends \WP_UnitTestCase {
 		$this->assertArrayNotHasKey( 'baz', $mimes );
 	}
 
+	/**
+	 * @group media
+	 */
 	public function test_is_valid_media() {
 
 		$goodFiles = [
@@ -51,6 +56,7 @@ class MediaTest extends \WP_UnitTestCase {
 
 
 	/**
+	 * @group media
 	 * @see https://github.com/pressbooks/pressbooks/issues/263
 	 */
 	public function test_force_wrap_images() {
@@ -74,6 +80,9 @@ class MediaTest extends \WP_UnitTestCase {
 		$this->assertStringEndsWith( '</a></div>', $converted );
 	}
 
+	/**
+	 * @group media
+	 */
 	public function test_force_attach_media() {
 		global $post_ID;
 		$post_ID = '42';
@@ -83,6 +92,9 @@ class MediaTest extends \WP_UnitTestCase {
 		$this->assertEquals( $return['post_id'], 42 );
 	}
 
+	/**
+	 * @group media
+	 */
 	public function test_mime_type() {
 		$mime = \Pressbooks\Media\mime_type( __DIR__ . '/data/htmlbook.html' );
 		$this->assertContains( 'html', $mime );
@@ -91,6 +103,9 @@ class MediaTest extends \WP_UnitTestCase {
 		$this->assertContains( 'jpeg', $mime );
 	}
 
+	/**
+	 * @group media
+	 */
 	public function test_extract_id_from_media() {
 		$media_img = [
 			0 => '<img src="https://pressbooks.test/app/uploads/sites/2/2018/06/IMG_5863-e1530742020691-225x300.jpg" alt="" width="225" height="300" class="wp-image-33 size-medium" srcset="https://pressbooks.test/app/uploads/sites/2/2018/06/IMG_5863-e1530742020691-225x300.jpg 225w, https://pressbooks.test/app/uploads/sites/2/2018/06/IMG_5863-e1530742020691-65x87.jpg 65w, https://pressbooks.test/app/uploads/sites/2/2018/06/IMG_5863-e1530742020691-350x467.jpg 350w, https://pressbooks.test/app/uploads/sites/2/2018/06/IMG_5863-e1530742020691.jpg 480w" sizes="(max-width: 225px) 100vw, 225px" />',
@@ -109,6 +124,9 @@ class MediaTest extends \WP_UnitTestCase {
 		$this->assertEquals( [], $result );
 	}
 
+	/**
+	 * @group media
+	 */
 	public function test_intersect_media_ids() {
 		$book_media    = [
 			90 => 'https://pressbooks.test/app/uploads/sites/2/2018/07/Movie-on-2018-07-16-at-2.19-PM.mp4',
@@ -130,6 +148,9 @@ class MediaTest extends \WP_UnitTestCase {
 		$this->assertEquals( [], $result );
 	}
 
+	/**
+	 * @group media
+	 */
 	public function test_strip_baseurl() {
 		$test = 'https://pressbooks.dev/upload/2017/08/foo-bar.mp3';
 		$result = \Pressbooks\Media\strip_baseurl( $test );

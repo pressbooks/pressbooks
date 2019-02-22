@@ -4,11 +4,17 @@ use Pressbooks\Container;
 
 class ExportMock extends \Pressbooks\Modules\Export\Export {
 
+	/**
+	 * @group export
+	 */
 	function convert() {
 		$this->outputPath = \Pressbooks\Utility\create_tmp_file();
 		return true;
 	}
 
+	/**
+	 * @group export
+	 */
 	function validate() {
 		return file_exists( $this->outputPath );
 	}
@@ -20,11 +26,12 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 
 	/**
 	 * @var \ExportMock
+	 * @group export
 	 */
 	protected $export;
 
 	/**
-	 *
+	 * @group export
 	 */
 	public function moduleProvider() {
 		return [
@@ -46,7 +53,7 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 	}
 
 	/**
-	 *
+	 * @group export
 	 */
 	public function moduleProviderHtml() {
 		return [
@@ -56,7 +63,7 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 	}
 
 	/**
-	 *
+	 * @group export
 	 */
 	public function setUp() {
 		parent::setUp();
@@ -64,6 +71,9 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 		do_action( 'pb_pre_export' );
 	}
 
+	/**
+	 * @group export
+	 */
 	public function test_getExportStylePath() {
 
 		$this->_book( 'pressbooks-luther' );
@@ -86,6 +96,9 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 	//      $this->markTestIncomplete();
 	//  }
 
+	/**
+	 * @group export
+	 */
 	public function test_getExportScriptPath() {
 
 		$this->_book( 'pressbooks-luther' );
@@ -100,6 +113,9 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 		$this->assertFalse( $path );
 	}
 
+	/**
+	 * @group export
+	 */
 	public function test_shouldParseSubsections() {
 
 		$val = $this->export->shouldParseSubsections();
@@ -111,6 +127,9 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 	//      $this->markTestIncomplete();
 	//  }
 
+	/**
+	 * @group export
+	 */
 	public function test_createTmpFile() {
 
 		$file = $this->export->createTmpFile();
@@ -120,6 +139,9 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'Hello world!', file_get_contents( $file ) );
 	}
 
+	/**
+	 * @group export
+	 */
 	public function test_timestampedFileName() {
 
 		$this->_book();
@@ -136,6 +158,9 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 		$this->assertNotContains( '+', $file );
 	}
 
+	/**
+	 * @group export
+	 */
 	public function test_nonce_AND_verifyNonce() {
 
 		$time1 = time();
@@ -154,6 +179,9 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 		$this->assertFalse( $this->export->verifyNonce( $time3, $nonce3 ) );
 	}
 
+	/**
+	 * @group export
+	 */
 	public function test_mimeType() {
 
 		$i = $this->export;
@@ -161,6 +189,9 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 		$this->assertStringStartsWith( 'image/png', $mime );
 	}
 
+	/**
+	 * @group export
+	 */
 	public function test_getExportFolder() {
 
 		$this->_book();
@@ -172,6 +203,9 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 		$this->assertStringStartsWith( 'deny from all', file_get_contents( $path . '.htaccess' ) );
 	}
 
+	/**
+	 * @group export
+	 */
 	public function test_getLatestExportStylePath() {
 
 		$this->_book();
@@ -208,6 +242,9 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 		}
 	}
 
+	/**
+	 * @group export
+	 */
 	public function test_getLatestExportStyleUrl() {
 
 		$this->_book();
@@ -244,6 +281,9 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 		}
 	}
 
+	/**
+	 * @group export
+	 */
 	public function test_truncateExportStylesheets() {
 
 		$this->_book();
@@ -301,7 +341,9 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 		}
 	}
 
-
+	/**
+	 * @group export
+	 */
 	public function test_filters_useDocraptorInsteadOfPrince() {
 		$filters = new \Pressbooks\Modules\Export\Prince\Filters();
 		$this->assertTrue( is_bool( $filters->overridePrince() ) );
@@ -313,6 +355,7 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 	 * Verify XHTML content for good measure
 	 *
 	 * @dataProvider moduleProvider
+	 * @group export
 	 */
 	public function test_sanityChecks( $module, $prerequisite ) {
 
@@ -374,6 +417,9 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 		}
 	}
 
+	/**
+	 * @group export
+	 */
 	public function test_sanityCheckXhtmlWithoutBuckram() {
 
 		$this->_book( 'pressbooks-luther' ); // Use an old book.
@@ -399,6 +445,9 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 		unlink( $exporter->getOutputPath() );
 	}
 
+	/**
+	 * @group export
+	 */
 	public function test_sanityCheckXhtmlDebug() {
 		$this->_book();
 		$meta_post = ( new \Pressbooks\Metadata() )->getMetaPost();
@@ -426,6 +475,7 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 
 	/**
 	 * @dataProvider moduleProviderHtml
+	 * @group export
 	 */
 	public function test_sanityCheckOptimizeForPrint( $module, $prerequisite ) {
 		$this->_book();

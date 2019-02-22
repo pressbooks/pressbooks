@@ -2,11 +2,17 @@
 
 class Admin_DeleteBookTest extends \WP_UnitTestCase {
 
+	/**
+	 * @group deletebook
+	 */
 	public function test_init() {
 		$class = \Pressbooks\Admin\Delete\Book::init();
 		$this->assertInstanceOf( '\Pressbooks\Admin\Delete\Book', $class );
 	}
 
+	/**
+	 * @group deletebook
+	 */
 	public function test_deleteBookEmailContent() {
 		$delete_book = new \Pressbooks\Admin\Delete\Book();
 		$content = $delete_book->deleteBookEmailContent( 'WordPress' );
@@ -14,6 +20,9 @@ class Admin_DeleteBookTest extends \WP_UnitTestCase {
 		$this->assertContains( 'Pressbooks', $content );
 	}
 
+	/**
+	 * @group deletebook
+	 */
 	public function test_addMenu() {
 		$delete_book = new \Pressbooks\Admin\Delete\Book();
 		require_once ABSPATH . WPINC . '/class-wp-admin-bar.php';

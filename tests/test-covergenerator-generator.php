@@ -6,6 +6,7 @@ class CoverGenerator_GeneratorTest extends \WP_UnitTestCase {
 
 	/**
 	 * @return \Pressbooks\Covergenerator\Input
+	 * @group covergenerator
 	 */
 	protected function input() {
 		$input = new \Pressbooks\Covergenerator\Input();
@@ -22,7 +23,9 @@ class CoverGenerator_GeneratorTest extends \WP_UnitTestCase {
 		return $input;
 	}
 
-
+	/**
+	 * @group covergenerator
+	 */
 	public function test_generators() {
 
 		\Pressbooks\Covergenerator\Covergenerator::commandLineDefaults();

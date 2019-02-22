@@ -4,22 +4,26 @@ class Shortcodes_WikiPublisher_GlyphsTest extends \WP_UnitTestCase {
 
 	/**
 	 * @var \Pressbooks\Shortcodes\Wikipublisher\Glyphs
+	 * @group shortcodes
 	 */
 	protected $glyphs;
 
 
 	/**
-	 *
+	 * @group shortcodes
 	 */
 	public function setUp() {
 		parent::setUp();
 
 		$this->glyphs = $this->getMockBuilder( '\Pressbooks\Shortcodes\Wikipublisher\Glyphs' )
-							 ->setMethods( null )// pass null to setMethods() to avoid mocking any method
-							 ->disableOriginalConstructor()// disable private constructor
-							 ->getMock();
+							->setMethods( null )// pass null to setMethods() to avoid mocking any method
+							->disableOriginalConstructor()// disable private constructor
+							->getMock();
 	}
 
+	/**
+	 * @group shortcodes
+	 */
 	public function test_langShortcode_grk() {
 
 		$content = $this->glyphs->langShortcode(
@@ -39,6 +43,9 @@ class Shortcodes_WikiPublisher_GlyphsTest extends \WP_UnitTestCase {
 		$this->assertContains( '&#945;&#949;&#953;&#959;&#965;', $content );
 	}
 
+	/**
+	 * @group shortcodes
+	 */
 	public function test_langShortcode_he() {
 
 		$content = $this->glyphs->langShortcode(
@@ -50,6 +57,9 @@ class Shortcodes_WikiPublisher_GlyphsTest extends \WP_UnitTestCase {
 		$this->assertContains( '&#1463;&#1461;&#1460;&#1465;&#1467;', $content );
 	}
 
+	/**
+	 * @group shortcodes
+	 */
 	public function test_langShortcode_bad() {
 
 		$content = $this->glyphs->langShortcode(

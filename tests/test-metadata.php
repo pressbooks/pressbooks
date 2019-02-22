@@ -6,21 +6,24 @@ class MetadataTest extends \WP_UnitTestCase {
 
 	/**
 	 * @var \Pressbooks\Metadata
+	 * @group metadata
 	 */
 	protected $metadata;
 
 	/**
 	 * @var \Pressbooks\Taxonomy
+	 * @group metadata
 	 */
 	protected $taxonomy;
 
 	/**
 	 * @var \Pressbooks\Contributors
+	 * @group metadata
 	 */
 	protected $contributor;
 
 	/**
-	 *
+	 * @group metadata
 	 */
 	public function setUp() {
 		parent::setUp();
@@ -34,6 +37,7 @@ class MetadataTest extends \WP_UnitTestCase {
 
 	/**
 	 * @see \Pressbooks\Metadata::jsonSerialize
+	 * @group metadata
 	 */
 	public function test_Metadata_JsonSerialize() {
 		$result = json_encode( $this->metadata );
@@ -42,18 +46,27 @@ class MetadataTest extends \WP_UnitTestCase {
 
 	}
 
+	/**
+	 * @group metadata
+	 */
 	public function test_get_microdata_elements() {
 
 		$result = \Pressbooks\Metadata\get_microdata_elements();
 		$this->assertContains( '<meta', $result );
 	}
 
+	/**
+	 * @group metadata
+	 */
 	public function test_get_seo_meta_elements() {
 
 		$result = \Pressbooks\Metadata\get_seo_meta_elements();
 		$this->assertContains( '<meta', $result );
 	}
 
+	/**
+	 * @group metadata
+	 */
 	public function test_show_expanded_metadata() {
 		$result = \Pressbooks\Metadata\show_expanded_metadata();
 		$this->assertFalse( $result );
@@ -62,6 +75,9 @@ class MetadataTest extends \WP_UnitTestCase {
 		$this->assertTrue( $result );
 	}
 
+	/**
+	 * @group metadata
+	 */
 	public function test_has_expanded_metadata() {
 		$meta_post_id = $this->metadata->getMetaPostId();
 		$this->assertEquals( 0, $meta_post_id );
@@ -85,6 +101,9 @@ class MetadataTest extends \WP_UnitTestCase {
 		$this->assertTrue( $result );
 	}
 
+	/**
+	 * @group metadata
+	 */
 	public function test_book_information_to_schema() {
 		$book_information = [
 			'pb_authors' => 'Herman Melville',
@@ -99,6 +118,9 @@ class MetadataTest extends \WP_UnitTestCase {
 		$this->assertEquals( $result['identifier']['value'], 'my_doi' );
 	}
 
+	/**
+	 * @group metadata
+	 */
 	public function test_schema_to_book_information() {
 		$schema = [
 			'@context' => 'http://schema.org',
@@ -188,6 +210,9 @@ class MetadataTest extends \WP_UnitTestCase {
 		$this->assertEquals( $result['pb_copyright_holder'], 'Test 6' );
 	}
 
+	/**
+	 * @group metadata
+	 */
 	public function test_section_information_to_schema() {
 		$section_information = [
 			'pb_title' => 'Loomings',
@@ -207,6 +232,9 @@ class MetadataTest extends \WP_UnitTestCase {
 		$this->assertEquals( $result['identifier']['value'], 'my_doi' );
 	}
 
+	/**
+	 * @group metadata
+	 */
 	public function test_schema_to_section_information() {
 		$book_schema = [
 			'@context' => 'http://schema.org',
@@ -271,6 +299,9 @@ class MetadataTest extends \WP_UnitTestCase {
 		$this->assertArrayHasKey( 'pb_section_license', $result );
 	}
 
+	/**
+	 * @group metadata
+	 */
 	public function test_get_thema_subjects() {
 		$result = \Pressbooks\Metadata\get_thema_subjects();
 		$this->assertArrayHasKey( 'Y', $result );
@@ -280,11 +311,17 @@ class MetadataTest extends \WP_UnitTestCase {
 		$this->assertArrayHasKey( '1', $result );
 	}
 
+	/**
+	 * @group metadata
+	 */
 	public function test_get_subject_from_thema() {
 		$result = \Pressbooks\Metadata\get_subject_from_thema( '1KBC-CA-JM' );
 		$this->assertEquals( 'Nova Scotia: South Shore & Kejimkujik National Park', $result );
 	}
 
+	/**
+	 * @group metadata
+	 */
 	public function test_is_bisac() {
 		$result = \Pressbooks\Metadata\is_bisac( 'AB' );
 		$this->assertFalse( $result );
@@ -292,6 +329,9 @@ class MetadataTest extends \WP_UnitTestCase {
 		$this->assertTrue( $result );
 	}
 
+	/**
+	 * @group metadata
+	 */
 	public function test_postStatiiConversion() {
 		$val = $this->metadata->postStatiiConversion( 'wrong', 'wrong' );
 		$this->assertEquals( 'wrong', $val );
@@ -312,6 +352,9 @@ class MetadataTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'web-only', $val );
 	}
 
+	/**
+	 * @group metadata
+	 */
 	public function test_upgradeToPressbooksFive() {
 		$interactive = \Pressbooks\Interactive\Content::init();
 		$this->_book();
@@ -331,6 +374,9 @@ class MetadataTest extends \WP_UnitTestCase {
 		$this->assertContains( '<iframe width="560" height="315" src="https://www.youtube.com/embed/JgIhGTpKTwM" frameborder="0"></iframe>', $content );
 	}
 
+	/**
+	 * @group metadata
+	 */
 	public function test_get_section_information() {
 		$this->_book();
 		$chapters = get_posts( ['post_type' => 'chapter', 'posts_per_page' => 1 ] );
@@ -340,6 +386,9 @@ class MetadataTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'Or, A Chapter to Test', $section_information['pb_subtitle'] );
 	}
 
+	/**
+	 * @group metadata
+	 */
 	public function test_add_json_ld_metadata() {
 		$this->_book();
 		ob_start();
@@ -348,6 +397,9 @@ class MetadataTest extends \WP_UnitTestCase {
 		$this->assertStringStartsWith( '<script type="application/ld+json">{"@context":"http:\/\/schema.org","@type":"Book"', $buffer );
 	}
 
+	/**
+	 * @group metadata
+	 */
 	public function test_add_citation_metadata() {
 		$this->_book();
 		$this->taxonomy->registerTaxonomies();

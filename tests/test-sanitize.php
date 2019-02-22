@@ -2,6 +2,9 @@
 
 class SanitizeTest extends \WP_UnitTestCase {
 
+	/**
+	 * @group sanitize
+	 */
 	public function test_html5_to_xhtml11() {
 
 		$html = '<article style="font-weight:bold;">Foo</article><h1>Hello!</h1><command>Bar</command>';
@@ -12,6 +15,9 @@ class SanitizeTest extends \WP_UnitTestCase {
 		);
 	}
 
+	/**
+	 * @group sanitize
+	 */
 	public function test_html5_to_epub3() {
 
 		$html = '<article style="font-weight:bold;">Foo</article><h1>Hello!</h1><command>Bar</command>';
@@ -22,6 +28,9 @@ class SanitizeTest extends \WP_UnitTestCase {
 		);
 	}
 
+	/**
+	 * @group sanitize
+	 */
 	public function test_fix_audio_shortcode() {
 
 		\Pressbooks\Sanitize\fix_audio_shortcode();
@@ -32,6 +41,9 @@ class SanitizeTest extends \WP_UnitTestCase {
 		$this->assertFalse( strpos( $var, 'style=' ) );
 	}
 
+	/**
+	 * @group sanitize
+	 */
 	public function test_sanitize_xml_attribute() {
 
 		$var = 'Hello-World!';
@@ -44,6 +56,9 @@ class SanitizeTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'test', \Pressbooks\Sanitize\sanitize_xml_attribute( $var ) );
 	}
 
+	/**
+	 * @group sanitize
+	 */
 	public function test_sanitize_xml_id() {
 
 		$var = 'Hello-World!';
@@ -64,6 +79,9 @@ class SanitizeTest extends \WP_UnitTestCase {
 		$this->assertStringStartsWith( 'slug-', $test );
 	}
 
+	/**
+	 * @group sanitize
+	 */
 	public function test_remove_control_characters() {
 
 		$var = 'Hello-World!';
@@ -80,6 +98,9 @@ class SanitizeTest extends \WP_UnitTestCase {
 		$this->assertEquals( 8, mb_strlen( $test, 'UTF-8' ) );
 	}
 
+	/**
+	 * @group sanitize
+	 */
 	public function test_force_ascii() {
 
 		$var = 'Hello-World!';
@@ -101,6 +122,7 @@ class SanitizeTest extends \WP_UnitTestCase {
 	 * Generate a string containing all the ASCII control characters
 	 *
 	 * @return string
+	 * @group sanitize
 	 */
 	private function _generateControlCharacters() {
 
@@ -112,6 +134,9 @@ class SanitizeTest extends \WP_UnitTestCase {
 		return $controlCharacters;
 	}
 
+	/**
+	 * @group sanitize
+	 */
 	public function test_decode() {
 
 		$test = '&#48;&#49;&#50;&#51;&#52;&#53;&#038;&#54;&#55;&#56;&#57;';
@@ -123,6 +148,9 @@ class SanitizeTest extends \WP_UnitTestCase {
 		$this->assertEquals( '012345&#038;6789', $test );
 	}
 
+	/**
+	 * @group sanitize
+	 */
 	public function test_strip_br() {
 
 		$test = 'Hello <br /> World!';
@@ -142,6 +170,9 @@ class SanitizeTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'Hello    World!', $test );
 	}
 
+	/**
+	 * @group sanitize
+	 */
 	public function test_filter_title() {
 
 		// Acceptable Tags: <br />, <span> with class, <em>, and <strong>.
@@ -159,6 +190,9 @@ class SanitizeTest extends \WP_UnitTestCase {
 		$this->assertEquals( '<del>Keep me</del>', $test );
 	}
 
+	/**
+	 * @group sanitize
+	 */
 	public function test_canonicalize_url() {
 
 		$url = 'pressbooks.com/';
@@ -180,6 +214,9 @@ class SanitizeTest extends \WP_UnitTestCase {
 		$this->assertEquals( $url, \Pressbooks\Sanitize\canonicalize_url( $url ) );
 	}
 
+	/**
+	 * @group sanitize
+	 */
 	public function test_maybe_https() {
 
 		if ( isset( $_SERVER['HTTPS'] ) ) {
@@ -213,6 +250,9 @@ class SanitizeTest extends \WP_UnitTestCase {
 		}
 	}
 
+	/**
+	 * @group sanitize
+	 */
 	public function test_normalize_css_urls() {
 		// Relative font
 		$css = '@font-face { font-family: "Bergamot Ornaments"; src: url(themes-book/pressbooks-book/fonts/Bergamot-Ornaments.ttf) format("truetype"); font-weight: normal; font-style: normal; }';
@@ -243,6 +283,9 @@ class SanitizeTest extends \WP_UnitTestCase {
 		$this->assertContains( $template_directory_uri . '/packages/buckram/assets/images/icon-video.svg', Pressbooks\Sanitize\normalize_css_urls( $css ) );
 	}
 
+	/**
+	 * @group sanitize
+	 */
 	public function test_allow_post_content() {
 
 		global $allowedposttags;
@@ -252,6 +295,9 @@ class SanitizeTest extends \WP_UnitTestCase {
 		$this->assertTrue( $allowedposttags['h1']['xml:lang'] );
 	}
 
+	/**
+	 * @group sanitize
+	 */
 	public function test_clean_filename() {
 
 		$file = '../../hacker.php';
@@ -267,6 +313,9 @@ class SanitizeTest extends \WP_UnitTestCase {
 		$this->assertEquals( $file, 'フランス語.txt' );
 	}
 
+	/**
+	 * @group sanitize
+	 */
 	public function test_strip_container_tags() {
 
 		$test = '<HTML><div id="title-page"><h1 class="title">My Test Book</h1></div></HTML>';
@@ -299,6 +348,9 @@ TERRIBLE;
 		$this->assertEquals( '<p>No change</p>', $result );
 	}
 
+	/**
+	 * @group sanitize
+	 */
 	public function test_cleanup_css() {
 		$css = "body { font-family: 'Comic Sans' !important; }";
 		$this->assertEquals( $css, \Pressbooks\Sanitize\cleanup_css( $css ) );
@@ -310,6 +362,9 @@ TERRIBLE;
 		$this->assertEquals( '\\\A0', \Pressbooks\Sanitize\cleanup_css( $css ) );
 	}
 
+	/**
+	 * @group sanitize
+	 */
 	public function test_prettify() {
 		$val = '<div><p>Hello!</p></div>';
 		$result = \Pressbooks\Sanitize\prettify( $val );
@@ -322,6 +377,9 @@ PRETTY;
 		$this->assertEquals( trim( $pretty ), trim( $result ) );
 	}
 
+	/**
+	 * @group sanitize
+	 */
 	public function test_is_valid_timestamp() {
 		$this->assertTrue( \Pressbooks\Sanitize\is_valid_timestamp( 1 ) );
 		$this->assertTrue( \Pressbooks\Sanitize\is_valid_timestamp( '1' ) );
@@ -334,6 +392,9 @@ PRETTY;
 		$this->assertFalse( \Pressbooks\Sanitize\is_valid_timestamp( '+1000000' ) );
 	}
 
+	/**
+	 * @group sanitize
+	 */
 	public function test_reverse_wpautop() {
 		$raw = <<< RAW
 Hi there!
@@ -358,6 +419,9 @@ RAW;
 		$this->assertEquals( trim( $raw ), trim( $var ) );
 	}
 
+	/**
+	 * @group sanitize
+	 */
 	public function test_reverse_wpautop_accuracy() {
 		$raw = <<< RAW
 <strong>media attribution needs to be turned on in the Theme options.</strong>
@@ -393,7 +457,9 @@ RAW;
 		$this->assertEquals( normalize_whitespace( $raw ), normalize_whitespace( $reversed ) );
 	}
 
-
+	/**
+	 * @group sanitize
+	 */
 	public function test_sanitize_webbook_content() {
 		$content = <<< RAW
 <table border="1">
@@ -410,6 +476,9 @@ RAW;
 		$this->assertContains( '<p style="text-align: center">This should be centered.</p>', $result );
 	}
 
+	/**
+	 * @group sanitize
+	 */
 	public function test_filter_export_content() {
 		$content = <<< RAW
 <table border="1">

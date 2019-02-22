@@ -6,20 +6,30 @@ class ThemeOptionsTest extends \WP_UnitTestCase {
 
 	/**
 	 * @var \Pressbooks\Modules\ThemeOptions\Admin
+	 * @group themeoptions
 	 */
 	protected $themeOptions;
 
+	/**
+	 * @group themeoptions
+	 */
 	public function setUp() {
 		parent::setUp();
 		$this->themeOptions = new \Pressbooks\Modules\ThemeOptions\Admin();
 	}
 
+	/**
+	 * @group themeoptions
+	 */
 	public function test_getTabs() {
 		$val = $this->themeOptions->getTabs();
 		$this->assertTrue( is_array( $val ) );
 		$this->assertArrayHasKey( 'web', $val );
 	}
 
+	/**
+	 * @group themeoptions
+	 */
 	public function test_loadTabs() {
 		global $wp_registered_settings;
 		$this->_book(); // We need Book Info now :(
@@ -28,11 +38,17 @@ class ThemeOptionsTest extends \WP_UnitTestCase {
 		$this->assertArrayHasKey( 'pressbooks_theme_options_ebook', $wp_registered_settings );
 	}
 
+	/**
+	 * @group themeoptions
+	 */
 	public function test_setPermissions() {
 		$val = $this->themeOptions->setPermissions( '' );
 		$this->assertEquals( 'edit_others_posts', $val );
 	}
 
+	/**
+	 * @group themeoptions
+	 */
 	public function test_render() {
 		ob_start();
 		$this->themeOptions->render();
@@ -40,6 +56,9 @@ class ThemeOptionsTest extends \WP_UnitTestCase {
 		$this->assertContains( 'PDF Options</a>', $output );
 	}
 
+	/**
+	 * @group themeoptions
+	 */
 	public function test_afterSwitchTheme() {
 		$option = 'pressbooks_theme_options_pdf';
 		$val = get_option( $option, 'notset' );

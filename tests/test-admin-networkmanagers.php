@@ -5,11 +5,17 @@ require_once( PB_PLUGIN_DIR . 'inc/admin/networkmanagers/namespace.php' );
 class Admin_NetworkManagers extends \WP_UnitTestCase {
 
 
+	/**
+	 * @group networkmanagers
+	 */
 	public function test_add_menu() {
 		\Pressbooks\Admin\NetworkManagers\add_menu();
 		$this->assertTrue( true ); // Did not crash
 	}
 
+	/**
+	 * @group networkmanagers
+	 */
 	public function test_admin_enqueues() {
 		global $wp_scripts, $wp_styles;
 		\Pressbooks\Admin\NetworkManagers\admin_enqueues();
@@ -17,7 +23,9 @@ class Admin_NetworkManagers extends \WP_UnitTestCase {
 		$this->assertContains( 'pb-network-managers', $wp_styles->queue );
 	}
 
-
+	/**
+	 * @group networkmanagers
+	 */
 	public function test_update_admin_status_AND_is_restricted_AND_hide_network_menus() {
 		$user_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
 		grant_super_admin( $user_id );
@@ -76,7 +84,9 @@ class Admin_NetworkManagers extends \WP_UnitTestCase {
 		$this->assertFalse( \Pressbooks\Admin\NetworkManagers\is_restricted() );
 	}
 
-
+	/**
+	 * @group networkmanagers
+	 */
 	public function test_permitted_setting_menus() {
 		$allowed = \Pressbooks\Admin\NetworkManagers\permitted_setting_menus();
 		$this->assertTrue( is_array( $allowed ) );

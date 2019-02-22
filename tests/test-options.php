@@ -8,6 +8,7 @@ class OptionsMock extends \Pressbooks\Options {
 	 *
 	 * @see upgrade()
 	 * @var int
+	 * @group options
 	 */
 	const VERSION = 1;
 
@@ -15,6 +16,7 @@ class OptionsMock extends \Pressbooks\Options {
 	 * Export options.
 	 *
 	 * @var array
+	 * @group options
 	 */
 	public $options;
 
@@ -22,6 +24,7 @@ class OptionsMock extends \Pressbooks\Options {
 	 * Export defaults.
 	 *
 	 * @var array
+	 * @group options
 	 */
 	public $defaults;
 
@@ -29,6 +32,7 @@ class OptionsMock extends \Pressbooks\Options {
 	 * Constructor.
 	 *
 	 * @param array $options The retrieved options.
+	 * @group options
 	 */
 	function __construct( array $options ) {
 		$this->options = $options;
@@ -46,6 +50,9 @@ class OptionsMock extends \Pressbooks\Options {
 		}
 	}
 
+	/**
+	 * @group options
+	 */
 	function init() {
 		$_page = $_option = $this->getSlug();
 		$_section = $this->getSlug() . '_section';
@@ -66,11 +73,15 @@ class OptionsMock extends \Pressbooks\Options {
 
 	/**
 	 * Display the mock options page description.
+	 * @group options
 	 */
 	function display() {
 		echo '<p>' . 'Mock settings.' . '</p>';
 	}
 
+	/**
+	 * @group options
+	 */
 	function render() {
 	?>
 		<div class="wrap">
@@ -83,6 +94,9 @@ class OptionsMock extends \Pressbooks\Options {
 		</div> <?php
 	}
 
+	/**
+	 * @group options
+	 */
 	function upgrade( $version ) {
 		// Unnecessary.
 	}
@@ -91,6 +105,7 @@ class OptionsMock extends \Pressbooks\Options {
 	 * Get the slug for the mock options page.
 	 *
 	 * @return string $slug
+	 * @group options
 	 */
 	static function getSlug() {
 		return 'mock';
@@ -100,11 +115,15 @@ class OptionsMock extends \Pressbooks\Options {
 	 * Get the localized title of the mock options page.
 	 *
 	 * @return string $title
+	 * @group options
 	 */
 	static function getTitle() {
 		return 'Mock';
 	}
 
+	/**
+	 * @group options
+	 */
 	static function getDefaults() {
 		return [
 			'option_bool' => 1,
@@ -121,6 +140,7 @@ class OptionsMock extends \Pressbooks\Options {
 	 * @param array $defaults The input array of default values.
 	 *
 	 * @return array $defaults
+	 * @group options
 	 */
 	static function filterDefaults( $defaults ) {
 		return $defaults;
@@ -130,6 +150,7 @@ class OptionsMock extends \Pressbooks\Options {
 	 * Get an array of options which return booleans.
 	 *
 	 * @return array $options
+	 * @group options
 	 */
 	static function getBooleanOptions() {
 		return [ 'option_bool' ];
@@ -139,6 +160,7 @@ class OptionsMock extends \Pressbooks\Options {
 	 * Get an array of options which return strings.
 	 *
 	 * @return array $options
+	 * @group options
 	 */
 	static function getStringOptions() {
 		return [ 'option_string' ];
