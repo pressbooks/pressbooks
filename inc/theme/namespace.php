@@ -206,7 +206,7 @@ function update_template_root() {
  *
  * @since 5.7.0
  *
- * @param array $data An array of lock file data.
+ * @param array $new_data An array of lock file data.
  *
  * @return bool True on success, false on failure.
  */

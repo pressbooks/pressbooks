@@ -6,7 +6,7 @@ class ThemeTest extends \WP_UnitTestCase {
 	use utilsTrait;
 
 	/**
-	 * @var Lock
+	 * @var \Pressbooks\Theme\Lock
 	 */
 	protected $lock;
 
