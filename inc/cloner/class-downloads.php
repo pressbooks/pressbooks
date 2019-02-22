@@ -178,6 +178,7 @@ class Downloads {
 				$m = $known_media[ $attached_file ];
 				$request = new \WP_REST_Request( 'PATCH', "/wp/v2/media/{$pid}" );
 				$request->set_body_params( $this->createMediaPatch( $m ) );
+				$request->set_param( '_fields', 'id' );
 				rest_do_request( $request );
 				// Store a transitional state
 				$this->cloner->createTransition( 'attachment', $m->id, $pid );
@@ -387,6 +388,7 @@ class Downloads {
 				$m = $known_media[ $attached_file ];
 				$request = new \WP_REST_Request( 'PATCH', "/wp/v2/media/{$pid}" );
 				$request->set_body_params( $this->createMediaPatch( $m ) );
+				$request->set_param( '_fields', 'id' );
 				rest_do_request( $request );
 				// Store a transitional state
 				$this->cloner->createTransition( 'attachment', $m->id, $pid );

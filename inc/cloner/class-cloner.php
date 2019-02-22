@@ -622,6 +622,7 @@ class Cloner {
 		// POST internal request
 		$request = new \WP_REST_Request( 'POST', "/pressbooks/v2/$endpoint" );
 		$request->set_body_params( $term );
+		$request->set_param( '_fields', 'id' );
 		$response = rest_do_request( $request )->get_data();
 
 		// Inform user of failure, bail
@@ -1426,6 +1427,7 @@ class Cloner {
 		// POST internal request
 		$request = new \WP_REST_Request( 'POST', "/pressbooks/v2/$endpoint" );
 		$request->set_body_params( $section );
+		$request->set_param( '_fields', 'id' );
 		$response = rest_do_request( $request )->get_data();
 
 		// Inform user of failure, bail
