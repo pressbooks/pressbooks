@@ -4,11 +4,12 @@ class CoverGenerator_SpineTest extends \WP_UnitTestCase {
 
 	/**
 	 * @var \Pressbooks\Covergenerator\Spine
+	 * @group covergenerator
 	 */
 	public $spine;
 
 	/**
-	 *
+	 * @group covergenerator
 	 */
 	public function setUp() {
 		parent::setUp();
@@ -20,6 +21,7 @@ class CoverGenerator_SpineTest extends \WP_UnitTestCase {
 	 *  [ $pages, $ppi, $expected ]
 	 *
 	 * @return array
+	 * @group covergenerator
 	 */
 	public function spineWidthCalculatorProvider() {
 
@@ -38,6 +40,7 @@ class CoverGenerator_SpineTest extends \WP_UnitTestCase {
 	 * @param int $pages
 	 * @param int $ppi
 	 * @param float $expected Inches
+	 * @group covergenerator
 	 */
 	public function test_spineWidthCalculator( $pages, $ppi, $expected ) {
 
@@ -50,6 +53,7 @@ class CoverGenerator_SpineTest extends \WP_UnitTestCase {
 	 *  [ $pages, $caliper, $expected ]
 	 *
 	 * @return array
+	 * @group covergenerator
 	 */
 	public function spineWidthCalculatorCaliperProvider() {
 		return [
@@ -67,6 +71,7 @@ class CoverGenerator_SpineTest extends \WP_UnitTestCase {
 	 * @param int $pages
 	 * @param float $caliper
 	 * @param float $expected Inches
+	 * @group covergenerator
 	 */
 	public function test_spineWidthCalculatorCaliper( $pages, $caliper, $expected ) {
 
@@ -79,6 +84,7 @@ class CoverGenerator_SpineTest extends \WP_UnitTestCase {
 	 *  [ $caliper, $expected ]
 	 *
 	 * @return array
+	 * @group covergenerator
 	 */
 	public function caliperToPpiProvider() {
 
@@ -113,6 +119,7 @@ class CoverGenerator_SpineTest extends \WP_UnitTestCase {
 	 *
 	 * @param float $caliper
 	 * @param float $expected Inches
+	 * @group covergenerator
 	 */
 	public function test_caliperToPpi( $caliper, $expected ) {
 
@@ -120,6 +127,9 @@ class CoverGenerator_SpineTest extends \WP_UnitTestCase {
 		$this->assertNotEquals( $expected + 1, $this->spine->caliperToPpi( $caliper ) );
 	}
 
+	/**
+	 * @group covergenerator
+	 */
 	function test_countPagesInMostRecentPdf() {
 		$dest = \Pressbooks\Modules\Export\Export::getExportFolder() . 'test.pdf';
 		copy( __DIR__ . '/data/test.pdf', $dest );
@@ -130,7 +140,7 @@ class CoverGenerator_SpineTest extends \WP_UnitTestCase {
 
 
 	/**
-	 *
+	 * @group covergenerator
 	 */
 	public function test_countPagesInPdf() {
 

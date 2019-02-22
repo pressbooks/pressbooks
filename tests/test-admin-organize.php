@@ -6,6 +6,9 @@ class Admin_OrganizeTest extends \WP_UnitTestCase {
 
 	use utilsTrait;
 
+	/**
+	 * @group organize
+	 */
 	public function test_update_post_visibility() {
 
 		$this->_book();
@@ -26,6 +29,9 @@ class Admin_OrganizeTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'web-only', $struct['back-matter'][0]['post_status'] );
 	}
 
+	/**
+	 * @group organize
+	 */
 	public function test_update_post_title_visibility() {
 
 		$this->_book();
@@ -46,6 +52,9 @@ class Admin_OrganizeTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'on', get_post_meta( $struct['back-matter'][0]['ID'], 'pb_show_title', true ) );
 	}
 
+	/**
+	 * @group organize
+	 */
 	public function test_reorder() {
 
 		$this->_book();

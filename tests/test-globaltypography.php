@@ -9,18 +9,21 @@ class GlobalTypographyTest extends \WP_UnitTestCase {
 
 	/**
 	 * @var \Pressbooks\GlobalTypography()
+	 * @group typography
 	 */
 	protected $gt;
 
-
 	/**
-	 *
+	 * @group typography
 	 */
 	public function setUp() {
 		parent::setUp();
 		$this->gt = new GlobalTypography( Container::get( 'Sass' ) );
 	}
 
+	/**
+	 * @group typography
+	 */
 	public function test_getSupportedLanguages() {
 
 		$result = $this->gt->getSupportedLanguages();
@@ -32,6 +35,9 @@ class GlobalTypographyTest extends \WP_UnitTestCase {
 		$this->assertArrayHasKey( 'he', $result );
 	}
 
+	/**
+	 * @group typography
+	 */
 	public function test_getRequiredLanguages() {
 
 		$result = $this->gt->_getRequiredLanguages();
@@ -39,6 +45,9 @@ class GlobalTypographyTest extends \WP_UnitTestCase {
 		$this->assertTrue( is_array( $result ) );
 	}
 
+	/**
+	 * @group typography
+	 */
 	public function test_getThemeFontStacks() {
 
 		$this->_book( 'pressbooks-clarke' ); // Pick a theme with some built-in $supported_languages
@@ -49,7 +58,9 @@ class GlobalTypographyTest extends \WP_UnitTestCase {
 		$this->assertEmpty( $this->gt->getThemeFontStacks( 'garbage' ) );
 	}
 
-
+	/**
+	 * @group typography
+	 */
 	public function test_getThemeSupportedLanguages() {
 
 		$this->_book();
@@ -61,7 +72,9 @@ class GlobalTypographyTest extends \WP_UnitTestCase {
 		$this->assertContains( 'grc', $supported_languages );
 	}
 
-
+	/**
+	 * @group typography
+	 */
 	public function test_getFonts() {
 		$result = $this->gt->getFonts( [ 'ko' ] );
 		if ( $result === false && ! empty( $_SESSION['pb_errors'] ) ) {

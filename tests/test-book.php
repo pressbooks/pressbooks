@@ -6,6 +6,9 @@ class BookTest extends \WP_UnitTestCase {
 
 	use utilsTrait;
 
+	/**
+	 * @group book
+	 */
 	public function test_getInstance() {
 
 		$book = \Pressbooks\Book::getInstance();
@@ -13,7 +16,9 @@ class BookTest extends \WP_UnitTestCase {
 		$this->assertInstanceOf( '\Pressbooks\Book', $book );
 	}
 
-
+	/**
+	 * @group book
+	 */
 	public function test_isBook() {
 
 		$book = \Pressbooks\Book::getInstance();
@@ -25,6 +30,9 @@ class BookTest extends \WP_UnitTestCase {
 		$this->assertTrue( $book::isBook() );
 	}
 
+	/**
+	 * @group book
+	 */
 	public function test_getBookStructure() {
 
 		$book = \Pressbooks\Book::getInstance();
@@ -64,6 +72,9 @@ class BookTest extends \WP_UnitTestCase {
 		$this->assertFalse( $page['export'] );
 	}
 
+	/**
+	 * @group book
+	 */
 	public function test_getBookContents() {
 
 		$book = \Pressbooks\Book::getInstance();
@@ -101,6 +112,9 @@ class BookTest extends \WP_UnitTestCase {
 		$this->assertFalse( $page['export'] );
 	}
 
+	/**
+	 * @group book
+	 */
 	public function test_getBookInformation() {
 
 		$book = \Pressbooks\Book::getInstance();
@@ -131,6 +145,9 @@ class BookTest extends \WP_UnitTestCase {
 		$this->assertArrayNotHasKey( 'pb_about_unlimited', $info );
 	}
 
+	/**
+	 * @group book
+	 */
 	public function test_wordCount() {
 
 		$book = \Pressbooks\Book::getInstance();
@@ -143,6 +160,9 @@ class BookTest extends \WP_UnitTestCase {
 		$this->assertEquals( 166, $wc_selected_for_export );
 	}
 
+	/**
+	 * @group book
+	 */
 	public function test_getSubsections() {
 		$this->_book();
 		$book = \Pressbooks\Book::getInstance();
@@ -169,6 +189,9 @@ class BookTest extends \WP_UnitTestCase {
 		$this->assertEquals( false, $result );
 	}
 
+	/**
+	 * @group book
+	 */
 	public function test_getAllSubsections() {
 		$this->_book();
 		$book = \Pressbooks\Book::getInstance();
@@ -180,6 +203,9 @@ class BookTest extends \WP_UnitTestCase {
 		$this->assertInternalType( 'array', $result['chapters'][ $id ] );
 	}
 
+	/**
+	 * @group book
+	 */
 	public function test_tagSubsections() {
 
 		$this->_book();
@@ -208,6 +234,9 @@ class BookTest extends \WP_UnitTestCase {
 		$this->assertEquals( false, $result );
 	}
 
+	/**
+	 * @group book
+	 */
 	public function test_get_position() {
 		$this->_book();
 		$book = \Pressbooks\Book::getInstance();
@@ -267,8 +296,10 @@ class BookTest extends \WP_UnitTestCase {
 		$this->assertTrue( $post_id > 0 );
 	}
 
+	/**
+	 * @group book
+	 */
 	public function test_getChapterNumber() {
-
 		$this->_book();
 		update_option( 'pressbooks_theme_options_global', [ 'chapter_numbers' => 1 ] );
 		$book = \Pressbooks\Book::getInstance();
@@ -294,5 +325,4 @@ class BookTest extends \WP_UnitTestCase {
 		$this->assertEquals( 0, $book::getChapterNumber( $one['ID'], 'exports' ) );
 		$this->assertEquals( 0, $book::getChapterNumber( $two['ID'] ), 'exports' );
 	}
-
 }

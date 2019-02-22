@@ -10,6 +10,7 @@ class Admin_FontsTest extends \WP_UnitTestCase {
 
 	/**
 	 * Override
+	 * @group typography
 	 */
 	public function setUp() {
 
@@ -48,6 +49,7 @@ class Admin_FontsTest extends \WP_UnitTestCase {
 
 	/**
 	 * Override
+	 * @group typography
 	 */
 	public function tearDown() {
 
@@ -55,6 +57,9 @@ class Admin_FontsTest extends \WP_UnitTestCase {
 		parent::tearDown();
 	}
 
+	/**
+	 * @group typography
+	 */
 	public function test_update_font_stacks() {
 
 		\Pressbooks\Admin\Fonts\update_font_stacks();
@@ -62,6 +67,9 @@ class Admin_FontsTest extends \WP_UnitTestCase {
 		$this->assertFalse( get_transient( 'pressbooks_updating_font_stacks' ) );
 	}
 
+	/**
+	 * @group typography
+	 */
 	public function test_fix_missing_font_stacks() {
 
 		$this->_book( 'pressbooks-luther' );

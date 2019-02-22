@@ -9,11 +9,17 @@ class ClonerTest extends \WP_UnitTestCase {
 	 */
 	protected $cloner;
 
+	/**
+	 * @group cloner
+	 */
 	public function setUp() {
 		parent::setUp();
 		$this->cloner = new \Pressbooks\Cloner\Cloner( home_url() );
 	}
 
+	/**
+	 * @group cloner
+	 */
 	public function test_removeDefaultBookContent() {
 		$posts = [
 			'main-body' => [
@@ -69,6 +75,9 @@ class ClonerTest extends \WP_UnitTestCase {
 		$this->assertArrayHasKey( 'table-of-contents', $result );
 	}
 
+	/**
+	 * @group cloner
+	 */
 	public function test_getBookId() {
 		global $blog_id;
 
@@ -78,6 +87,9 @@ class ClonerTest extends \WP_UnitTestCase {
 		$this->assertEquals( $result, $blog_id );
 	}
 
+	/**
+	 * @group cloner
+	 */
 	public function test_getSubdomainOrSubDirectory() {
 		$result = $this->cloner->getSubdomainOrSubDirectory( 'https://sub.domain.com/path/' );
 		$this->assertEquals( $result, 'path' );
@@ -89,11 +101,17 @@ class ClonerTest extends \WP_UnitTestCase {
 		$this->assertEquals( $result, 'sub' );
 	}
 
+	/**
+	 * @group cloner
+	 */
 	public function test_isEnabled() {
 		$result = $this->cloner::isEnabled();
 		$this->assertTrue( is_bool( $result ) );
 	}
 
+	/**
+	 * @group cloner
+	 */
 	public function test_validateNewBookName() {
 		$result = $this->cloner::validateNewBookName( '12345' );
 		$this->assertTrue( is_wp_error( $result ) );
@@ -103,6 +121,9 @@ class ClonerTest extends \WP_UnitTestCase {
 		$this->assertEquals( $result, 'example.org/newbook/' );
 	}
 
+	/**
+	 * @group cloner
+	 */
 	public function test_isSourceCloneable() {
 		$this->assertFalse( $this->cloner->isSourceCloneable( 'https://creativecommons.org/licenses/by-nd/4.0/' ) );
 		$this->assertFalse( $this->cloner->isSourceCloneable( 'https://creativecommons.org/licenses/by-nc-nd/4.0/' ) );
@@ -116,6 +137,9 @@ class ClonerTest extends \WP_UnitTestCase {
 		$this->assertTrue( $this->cloner->isSourceCloneable( 'http://i-have-no-idea-what-license-this-is/' ) );
 	}
 
+	/**
+	 * @group cloner
+	 */
 	public function test_discoverWordPressApi(){
 
 		// Hook a fake HTTP request response.
