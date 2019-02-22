@@ -752,7 +752,7 @@ abstract class Export {
 	 *
 	 * @return \Generator
 	 */
-	static function exportGenerator( $modules ) {
+	static function exportGenerator( $modules ) : \Generator {
 		/**
 		 * Maximum execution time, in seconds. If set to zero, no time limit
 		 * Overrides PHP's max_execution_time of a Nginx->PHP-FPM->PHP configuration

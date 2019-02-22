@@ -202,7 +202,7 @@ class Epub201 extends ImportGenerator {
 
 	/**
 	 * Parse OPF manifest nodes
-	 * 40-95
+	 * Yields an estimated percentage slice of: 40 - 95
 	 *
 	 * @param \SimpleXMLElement $xml
 	 * @param array $match_ids
