@@ -36,7 +36,8 @@ class ThemeTest extends \WP_UnitTestCase {
 	 */
 	public function test_update_lock_file() {
 		$this->_book();
-		$old_lock = $this->lock->generateLock( time() );
+		update_option( 'pressbooks_export_options', [ 'theme_lock' => 1 ] );
+		$old_lock = $this->lock->getLockData();
 		$this->assertArrayHasKey( 'stylesheet', $old_lock );
 		$this->assertEquals( $old_lock['stylesheet'], get_stylesheet() );
 		$new_data = [ 'stylesheet' => '' ];
