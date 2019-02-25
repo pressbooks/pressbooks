@@ -187,14 +187,16 @@ abstract class Generator {
 
 	/**
 	 * Generate cover
-	 * 20 - 100
+	 * Yields an estimated percentage slice of: 20 - 100
 	 *
 	 * @see pressbooks/templates/admin/generator.php
+	 *
+	 * @param string $format
 	 *
 	 * @return \Generator
 	 * @throws \Exception
 	 */
-	public static function formGenerator( $format ) {
+	public static function formGenerator( $format ) : \Generator {
 		wp_cache_delete( 'pressbooks_cg_options', 'options' ); // WordPress Core caches this key in the "options" group
 		wp_cache_delete( 'alloptions', 'options' );
 		$cg_options = get_option( 'pressbooks_cg_options' );

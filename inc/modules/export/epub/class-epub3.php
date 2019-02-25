@@ -172,10 +172,10 @@ class Epub3 extends Epub201 {
 	 * @return \Generator
 	 * @throws \Exception
 	 */
-	function convertGenerator(): \Generator {
+	function convertGenerator() : \Generator {
 		// HTML5 targeted css
 		$this->extraCss = $this->dir . '/templates/epub3/css/css3.css';
-		return parent::convertGenerator();
+		yield from parent::convertGenerator();
 	}
 
 	/**

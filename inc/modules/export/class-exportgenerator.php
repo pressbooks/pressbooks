@@ -13,12 +13,12 @@ abstract class ExportGenerator extends Export {
 	 *
 	 * @return \Generator
 	 */
-	abstract function convertGenerator(): \Generator;
+	abstract function convertGenerator() : \Generator;
 
 	/**
 	 * Mandatory validate method, check the sanity of $this->outputPath
 	 *
 	 * @return \Generator
 	 */
-	abstract function validateGenerator(): \Generator;
+	abstract function validateGenerator() : \Generator;
 }

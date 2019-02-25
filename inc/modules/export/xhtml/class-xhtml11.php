@@ -170,12 +170,12 @@ class Xhtml11 extends ExportGenerator {
 	}
 
 	/**
-	 * 1 to 80
+	 * Yields an estimated percentage slice of: 1 to 80
 	 *
 	 * @return \Generator
 	 * @throws \Exception
 	 */
-	public function convertGenerator(): \Generator {
+	public function convertGenerator() : \Generator {
 		yield 1 => $this->generatorPrefix . __( 'Initializing', 'pressbooks' );
 
 		yield from $this->transformGenerator();
@@ -208,12 +208,12 @@ class Xhtml11 extends ExportGenerator {
 	}
 
 	/**
-	 * 80 to 100
+	 * Yields an estimated percentage slice of: 80 to 100
 	 *
 	 * @return \Generator
 	 * @throws \Exception
 	 */
-	public function validateGenerator(): \Generator {
+	public function validateGenerator() : \Generator {
 		yield 80 => $this->generatorPrefix . __( 'Validating file', 'pressbooks' );
 
 		// Xmllint params
@@ -283,12 +283,12 @@ class Xhtml11 extends ExportGenerator {
 	}
 
 	/**
-	 * 10 to 75
+	 * Yields an estimated percentage slice of: 10 to 75
 	 *
 	 * @return \Generator
 	 * @throws \Exception
 	 */
-	public function transformGenerator() {
+	public function transformGenerator() : \Generator {
 
 		do_action( 'pb_pre_export' );
 
@@ -1192,13 +1192,13 @@ class Xhtml11 extends ExportGenerator {
 
 
 	/**
-	 * 50 to 60
+	 * Yields an estimated percentage slice of: 50 to 60
 	 *
 	 * @param array $book_contents
 	 * @param array $metadata
 	 * @return \Generator
 	 */
-	protected function echoFrontMatterGenerator( $book_contents, $metadata ) {
+	protected function echoFrontMatterGenerator( $book_contents, $metadata ) : \Generator {
 		$front_matter_printf = '<div class="front-matter %1$s" id="%2$s" title="%3$s">';
 		$front_matter_printf .= '<div class="front-matter-title-wrap"><h3 class="front-matter-number">%4$s</h3><h1 class="front-matter-title">%5$s</h1>%6$s</div>';
 		$front_matter_printf .= '<div class="ugc front-matter-ugc">%7$s</div>%8$s%9$s';
@@ -1305,13 +1305,13 @@ class Xhtml11 extends ExportGenerator {
 
 
 	/**
-	 * 60 to 70
+	 * Yields an estimated percentage slice of: 60 to 70
 	 *
 	 * @param array $book_contents
 	 * @param array $metadata
 	 * @return \Generator
 	 */
-	protected function echoPartsAndChaptersGenerator( $book_contents, $metadata ) {
+	protected function echoPartsAndChaptersGenerator( $book_contents, $metadata ) : \Generator {
 		$part_printf = '<div class="part %1$s" id="%2$s">';
 		$part_printf .= '<div class="part-title-wrap"><h3 class="part-number">%3$s</h3><h1 class="part-title">%4$s</h1></div>%5$s';
 		$part_printf .= '</div>';
@@ -1488,13 +1488,13 @@ class Xhtml11 extends ExportGenerator {
 
 
 	/**
-	 * 70 to 80
+	 * Yields an estimated percentage slice of: 70 to 80
 	 *
 	 * @param array $book_contents
 	 * @param array $metadata
 	 * @return \Generator
 	 */
-	protected function echoBackMatterGenerator( $book_contents, $metadata ) {
+	protected function echoBackMatterGenerator( $book_contents, $metadata ) : \Generator {
 		$back_matter_printf = '<div class="back-matter %1$s" id="%2$s" title="%3$s">';
 		$back_matter_printf .= '<div class="back-matter-title-wrap"><h3 class="back-matter-number">%4$s</h3><h1 class="back-matter-title">%5$s</h1>%6$s</div>';
 		$back_matter_printf .= '<div class="ugc back-matter-ugc">%7$s</div>%8$s%9$s';
