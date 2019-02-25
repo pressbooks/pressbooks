@@ -120,7 +120,7 @@ function get_all( $key ) {
 		}
 		$messages = array_merge( $messages, $_SESSION[ $key ] );
 	}
-	$transient = get_transient( $key . get_current_user_id() );
+	$transient = get_site_transient( $key . get_current_user_id() );
 	if ( ! empty( $transient ) ) {
 		if ( ! is_array( $transient ) ) {
 			$transient = [ $transient ];
@@ -136,8 +136,9 @@ function get_all( $key ) {
  */
 function add( $msg, $key ) {
 	$use_non_blocking_session = use_non_blocking_session();
+	$current_user_id = get_current_user_id();
 	if ( $use_non_blocking_session ) {
-		$messages = get_transient( $key . get_current_user_id() );
+		$messages = get_site_transient( "{$key}{$current_user_id}" );
 	} else {
 		$messages = $_SESSION[ $key ] ?? [];
 	}
@@ -149,7 +150,7 @@ function add( $msg, $key ) {
 	}
 	$messages[] = $msg;
 	if ( $use_non_blocking_session ) {
-		set_transient( $key . get_current_user_id(), $messages, 5 * MINUTE_IN_SECONDS );
+		set_site_transient( "{$key}{$current_user_id}", $messages, 15 * MINUTE_IN_SECONDS );
 	} else {
 		$_SESSION[ $key ] = $messages;
 	}
@@ -160,5 +161,5 @@ function add( $msg, $key ) {
  */
 function flush_all( $key ) {
 	unset( $_SESSION[ $key ] );
-	delete_transient( $key . get_current_user_id() );
+	delete_site_transient( $key . get_current_user_id() );
 }

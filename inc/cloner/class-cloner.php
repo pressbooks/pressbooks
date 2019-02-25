@@ -391,7 +391,7 @@ class Cloner {
 	 * @throws \Exception
 	 * @return \Generator
 	 */
-	public function cloneBookGenerator() {
+	public function cloneBookGenerator() : \Generator {
 
 		yield 1 => __( 'Looking up the source book', 'pressbooks' );
 		if ( ! $this->setupSource() ) {
