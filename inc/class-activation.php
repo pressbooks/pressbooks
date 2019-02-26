@@ -1,6 +1,6 @@
 <?php
 /**
- * Contains all procedures which will be run on 'wpmu_new_blog' hook, register_activation_hook, and
+ * Contains all procedures which will be run on 'wp_initialize_site' hook, register_activation_hook, and
  * register_deactivation_hook
  *
  * @author  Pressbooks <code@pressbooks.com>
@@ -60,7 +60,9 @@ class Activation {
 	 * @param Activation $obj
 	 */
 	static public function hooks( Activation $obj ) {
-		add_action( 'wpmu_new_blog', [ $obj, 'wpmuNewBlog' ], 9, 2 );
+		// $priority must be after the database tables are created
+		// See add_action( 'wp_initialize_site', 'wp_initialize_site', 10, 2 );
+		add_action( 'wp_initialize_site', [ $obj, 'wpmuNewBlog' ], 11, 2 );
 		add_action( 'wp_login', [ $obj, 'forcePbColors' ], 10, 2 );
 		add_action( 'profile_update', [ $obj, 'forcePbColors' ] );
 		add_action( 'user_register', [ $obj, 'forcePbColors' ] );
@@ -77,15 +79,15 @@ class Activation {
 	 * Runs activation function and sets up default WP options for new blog,
 	 * a.k.a. when a registered user creates a new blog
 	 *
-	 * @param int $blog_id
-	 * @param int $user_id
+	 * @param \WP_Site $new_site New site object.
+	 * @param array $args Arguments for the initialization.
 	 *
-	 * @see add_action( 'wpmu_new_blog', ... )
+	 * @see add_action( 'wp_initialize_site', ... )
 	 */
-	public function wpmuNewBlog( $blog_id, $user_id ) {
+	public function wpmuNewBlog( $new_site, $args ) {
 
-		$this->blog_id = (int) $blog_id;
-		$this->user_id = (int) $user_id;
+		$this->blog_id = (int) $new_site->id;
+		$this->user_id = (int) ( ! empty( $args['user_id'] ) ? $args['user_id'] : 0 );
 
 		switch_to_blog( $this->blog_id );
 		if ( ! $this->isBookSetup() ) {
@@ -105,9 +107,9 @@ class Activation {
 		}
 
 		// Set current versions to skip redundant upgrade routines
-		update_option( 'pressbooks_metadata_version', \Pressbooks\Metadata::VERSION );
-		update_option( 'pressbooks_taxonomy_version', \Pressbooks\Taxonomy::VERSION );
-		foreach ( ( new \Pressbooks\Modules\ThemeOptions\Admin() )->getTabs() as $slug => $theme_options_class ) {
+		update_option( 'pressbooks_metadata_version', Metadata::VERSION );
+		update_option( 'pressbooks_taxonomy_version', Taxonomy::VERSION );
+		foreach ( ( new Modules\ThemeOptions\Admin() )->getTabs() as $slug => $theme_options_class ) {
 			update_option( "pressbooks_theme_options_{$slug}_version", $theme_options_class::VERSION, false );
 		}
 
@@ -162,7 +164,7 @@ class Activation {
 		if ( ( get_option( 'show_on_front' ) !== 'page' ) || ( ( ! is_int( $pof ) ) || ( ! get_post( $pof ) ) ) || ( ( ! is_int( $pop ) ) || ( ! get_post( $pop ) ) ) ) {
 			return false;
 		}
-		if ( ( count( get_all_category_ids() ) < 3 ) || ( wp_count_posts()->publish < 3 ) || ( wp_count_posts( 'page' )->publish < 3 ) ) {
+		if ( ( wp_count_posts()->publish < 3 ) || ( wp_count_posts( 'page' )->publish < 3 ) || ( count( get_all_category_ids() ) < 3 ) ) {
 			return false;
 		}
 
