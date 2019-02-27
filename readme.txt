@@ -5,7 +5,7 @@ Tags: ebooks, publishing, webbooks
 Requires at least: 5.1.0
 Tested up to: 5.1.0
 Requires PHP: 7.1
-Stable tag: 5.6.5
+Stable tag: 5.7.0
 License: GPL v3.0 or later
 License URI: https://github.com/pressbooks/pressbooks/blob/master/LICENSE.md
 
@@ -24,14 +24,47 @@ TK.
 = 5.7.0 =
 
 * Pressbooks 5.7.0 requires PHP >= 7.1.
-* Pressbooks 5.7.0 requires [WordPress 5.0.0](https://wordpress.org/news/2018/12/bebo/).
-* Pressbooks 5.7.0 requires [McLuhan >= 2.7.0](https://github.com/pressbooks/pressbooks-book/).
+* Pressbooks 5.7.0 requires [WordPress 5.1.0](https://wordpress.org/news/2019/02/betty/)
+* Pressbooks 5.7.0 requires [McLuhan >= 2.8.0](https://github.com/pressbooks/pressbooks-book/)
 
 **Minor Changes**
 
-* Expose additional settings screens to network managers ([#1485](https://github.com/pressbooks/pressbooks/issues/1485)): [#1505](https://github.com/pressbooks/pressbooks/pull/1505)
+See [5.7.0 Milestone](https://github.com/pressbooks/pressbooks/milestone/60?closed=1) for detailed GitHub activity log.
+
+#### Obvious:
+
+* New export page with bulk actions, pinned exports, improved accessibility ([#1525](https://github.com/pressbooks/pressbooks/issues/1525))
+* Display a progress bar on Import, Export, Cloning and Cover Generator pages ([#1282](https://github.com/pressbooks/pressbooks/issues/1282)) ([#1599](https://github.com/pressbooks/pressbooks/issues/1599))
+* Support cloning of H5P activities ([#1529](https://github.com/pressbooks/pressbooks/issues/1529))
+  * Requires latest version of [H5P plugin](https://github.com/h5p/h5p-wordpress-plugin), currently 1.12.0
+* Improved Glossary Tooltips ([#1526](https://github.com/pressbooks/pressbooks/issues/1526)) ([#1528](https://github.com/pressbooks/pressbooks/issues/1528)) ([#1546](https://github.com/pressbooks/pressbooks/issues/1546))
+* Improved Source Comparison Tool ([#1484](https://github.com/pressbooks/pressbooks/issues/1484))
+
+#### Not so obvious:
+
+* Fix E_NOTICE in user catalog: [#1614](https://github.com/pressbooks/pressbooks/pull/1614)
+* Add support for WordPress 5.1: [#1608](https://github.com/pressbooks/pressbooks/pull/1608)
+* Add Google Maps to iframe whitelist ([#1570](https://github.com/pressbooks/pressbooks/issues/1570))
+* Diagnostics: add method for refreshing webbook stylesheet ([#1565](https://github.com/pressbooks/pressbooks/issues/1565))
+* Adjust Pressbooks credit text ([#1554](https://github.com/pressbooks/pressbooks/issues/1554))
+* Support Knight Labs OEmbed Endpoint ([#1514](https://github.com/pressbooks/pressbooks/issues/1514))
+* Unless chapter is licensed differently, it should display the book license statement ([#1508](https://github.com/pressbooks/pressbooks/issues/1508))
+* Network managers should be able to manage Google Analytics ([#1485](https://github.com/pressbooks/pressbooks/issues/1485))
 
 **Patches**
+
+* Update dependencies to [latest versions](https://github.com/pressbooks/pressbooks/pulls?utf8=%E2%9C%93&q=is%3Apr+author%3Aapp%2Fdependabot+milestone%3A5.7.0):
+  * Update [pressbooks-build-tools](https://github.com/pressbooks/pressbooks-build-tools) to 1.3.3: [#1603](https://github.com/pressbooks/pressbooks/pull/1603)
+  * Update [popper.js](https://github.com/FezVrasta/popper.js) to 1.14.7: [#1583](https://github.com/pressbooks/pressbooks/pull/1583)
+  * Update [TinyMCE](https://www.npmjs.com/package/tinymce) to 4.9.3: [#1582](https://github.com/pressbooks/pressbooks/pull/1582)
+  * Update [wpapi](https://github.com/wp-api/node-wpapi) to 1.2.1: [#1568](https://github.com/pressbooks/pressbooks/pull/1568)
+  * Update [jenssegers/imagehash](https://github.com/jenssegers/imagehash) to 0.6.0: [#1550](https://github.com/pressbooks/pressbooks/pull/1550)
+  * Update [pagedjs](https://pagedmedia.org/) to 0.1.30: [#1543](https://github.com/pressbooks/pressbooks/pull/1543)
+  * Update [YahnisElsts/plugin-update-checker](https://github.com/YahnisElsts/plugin-update-checker) to 4.5: [#1537](https://github.com/pressbooks/pressbooks/pull/1537)
+  * Update [masterminds/html5](https://github.com/Masterminds/html5-php) to 2.5.0: [#1536](https://github.com/pressbooks/pressbooks/pull/1536)
+  * Update [sshpk](https://github.com/joyent/node-sshpk) to 1.16.0: [#1533](https://github.com/pressbooks/pressbooks/pull/1533)
+  * Update [debug](https://github.com/visionmedia/debug) to 2.6.9: [#1531](https://github.com/pressbooks/pressbooks/pull/1531)
+  * Update [wp-admin-colors](https://www.npmjs.com/package/wp-admin-colors) to to 5.0.1: [#1517](https://github.com/pressbooks/pressbooks/pull/1517)
 
 = 5.6.5 =
 
@@ -153,16 +186,8 @@ TK.
 * Hide the "View" link when editing taxonomies (props [@colomet](https://github.com/colomet) for the suggestion): [#1351](https://github.com/pressbooks/pressbooks/issues/1351), [#1356](https://github.com/pressbooks/pressbooks/issues/1356), [#1360](https://github.com/pressbooks/pressbooks/issues/1360)
 
 == Upgrade Notice ==
-<<<<<<< HEAD
 = 5.7.0 =
 
 * Pressbooks 5.7.0 requires PHP >= 7.1.
-* Pressbooks 5.7.0 requires [WordPress 5.0.2](https://wordpress.org/news/2018/12/bebo/).
-* Pressbooks 5.7.0 requires [McLuhan >= 2.7.0](https://github.com/pressbooks/pressbooks-book/).
-=======
-= 5.6.5 =
-
-* Pressbooks 5.6.5 requires PHP >= 7.1.
-* Pressbooks 5.6.5 requires [WordPress 4.9.8](https://wordpress.org/news/2018/08/wordpress-4-9-8-maintenance-release/).
-* Pressbooks 5.6.5 requires [McLuhan >= 2.7.0](https://github.com/pressbooks/pressbooks-book/).
->>>>>>> master
+* Pressbooks 5.7.0 requires [WordPress 5.1.0](https://wordpress.org/news/2019/02/betty/)
+* Pressbooks 5.7.0 requires [McLuhan >= 2.8.0](https://github.com/pressbooks/pressbooks-book/)
