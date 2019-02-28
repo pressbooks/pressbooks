@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2019-02-28T19:52:40+00:00\n"
+"POT-Creation-Date: 2019-02-28T20:00:35+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.1.0\n"
 "X-Domain: pressbooks\n"
@@ -616,6 +616,7 @@ msgid "Your PDF page size is set to %1$s &times; %2$s, and your PDF cover will b
 msgstr ""
 
 #: inc/admin/covergenerator/namespace.php:422
+#: templates/admin/export.blade.php:55
 #: templates/admin/export.php:218
 msgid "Change Theme"
 msgstr ""
