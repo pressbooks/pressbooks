@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2019-02-28T19:37:55+00:00\n"
+"POT-Creation-Date: 2019-02-28T19:52:40+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.1.0\n"
 "X-Domain: pressbooks\n"
@@ -3787,6 +3787,10 @@ msgstr ""
 msgid "Other formats"
 msgstr ""
 
+#: templates/admin/export.blade.php:54
+msgid "Your Theme"
+msgstr ""
+
 #: templates/admin/export.blade.php:73
 #: templates/admin/export.php:226
 msgid "Export Your Book"
@@ -3878,6 +3882,10 @@ msgstr ""
 
 #: templates/admin/diagnostics.blade.php:4
 msgid "Please submit this information with any bug reports."
+msgstr ""
+
+#: templates/admin/diagnostics.blade.php:5
+msgid "To copy the system info, click below then press Ctrl + C (PC) or Cmd + C (Mac)."
 msgstr ""
 
 #: templates/admin/diagnostics.blade.php:7
