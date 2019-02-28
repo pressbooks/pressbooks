@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Pressbooks plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Pressbooks 5.7.0-dev\n"
+"Project-Id-Version: Pressbooks 5.7.0\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2019-02-27T15:46:06+00:00\n"
+"POT-Creation-Date: 2019-02-28T19:37:55+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.1.0\n"
 "X-Domain: pressbooks\n"
@@ -1061,6 +1061,7 @@ msgstr ""
 #: inc/admin/diagnostics/namespace.php:29
 #: inc/admin/diagnostics/namespace.php:30
 #: inc/admin/laf/namespace.php:54
+#: templates/admin/diagnostics.blade.php:3
 msgid "Diagnostics"
 msgstr ""
 
@@ -1236,6 +1237,7 @@ msgstr ""
 
 #: inc/admin/laf/namespace.php:261
 #: inc/admin/laf/namespace.php:319
+#: templates/admin/export.blade.php:9
 #: templates/admin/export.php:136
 #: templates/admin/organize.php:64
 msgid "Export"
@@ -2341,6 +2343,7 @@ msgstr ""
 #: inc/modules/themeoptions/class-admin.php:88
 #: inc/modules/themeoptions/class-admin.php:89
 #: inc/modules/themeoptions/class-admin.php:138
+#: templates/admin/export.blade.php:56
 msgid "Theme Options"
 msgstr ""
 
@@ -3762,6 +3765,37 @@ msgstr ""
 msgid "Logo Or Image"
 msgstr ""
 
+#: templates/admin/export.blade.php:10
+msgid "You can select multiple formats below. Pressbooks keeps the last 3 exports of each file format. You can pin specific files to make sure they don't get deleted."
+msgstr ""
+
+#: templates/admin/export.blade.php:13
+msgid "Toggle panel: Export Options"
+msgstr ""
+
+#: templates/admin/export.blade.php:17
+msgid "Export Options"
+msgstr ""
+
+#: templates/admin/export.blade.php:26
+#: templates/admin/export.php:177
+msgid "Supported formats"
+msgstr ""
+
+#: templates/admin/export.blade.php:36
+#: templates/admin/export.php:189
+msgid "Other formats"
+msgstr ""
+
+#: templates/admin/export.blade.php:73
+#: templates/admin/export.php:226
+msgid "Export Your Book"
+msgstr ""
+
+#: templates/admin/export.blade.php:78
+msgid "Latest Exports"
+msgstr ""
+
 #: templates/admin/dashboard.php:34
 msgid "Dashboard Settings"
 msgstr ""
@@ -3842,6 +3876,26 @@ msgstr ""
 msgid "There are no results."
 msgstr ""
 
+#: templates/admin/diagnostics.blade.php:4
+msgid "Please submit this information with any bug reports."
+msgstr ""
+
+#: templates/admin/diagnostics.blade.php:7
+msgid "View Source"
+msgstr ""
+
+#: templates/admin/diagnostics.blade.php:9
+msgid "Regenerate Webbook Stylesheet"
+msgstr ""
+
+#: templates/admin/diagnostics.blade.php:10
+msgid "If your webbook stylesheet has issues, it may help to regenerate it."
+msgstr ""
+
+#: templates/admin/diagnostics.blade.php:11
+msgid "Regenerate Stylesheet"
+msgstr ""
+
 #: templates/admin/export.php:137
 msgid "You can export multiple file formats by selecting your Export Format Options below. Pressbooks saves your last %s batches of exported files."
 msgstr ""
@@ -3858,20 +3912,8 @@ msgstr ""
 msgid "EPUB (for Nook, iBooks, Kobo etc.)"
 msgstr ""
 
-#: templates/admin/export.php:177
-msgid "Supported formats"
-msgstr ""
-
-#: templates/admin/export.php:189
-msgid "Other formats"
-msgstr ""
-
 #: templates/admin/export.php:211
 msgid "Your Theme Options"
-msgstr ""
-
-#: templates/admin/export.php:226
-msgid "Export Your Book"
 msgstr ""
 
 #: templates/admin/export.php:247
@@ -4099,6 +4141,14 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
+#: templates/admin/incompatible-plugins.blade.php:9
+msgid "Plugin"
+msgstr ""
+
+#: templates/admin/incompatible-plugins.blade.php:10
+msgid "Tested up to Pressbooks version"
+msgstr ""
+
 #: templates/admin/trash.php:21
 msgid "Restore deleted chapters, parts, front and back matter, and glossary terms"
 msgstr ""
@@ -4153,6 +4203,19 @@ msgstr ""
 
 #: templates/pb-catalog.php:268
 msgid "Pressbooks: the CMS for Books."
+msgstr ""
+
+#: templates/interactive/audio.blade.php:3
+msgid "An audio element has been excluded from this version of the text. You can listen to it online here:"
+msgstr ""
+
+#: templates/interactive/shared.blade.php:3
+#: templates/interactive/oembed.blade.php:11
+msgid "An interactive or media element has been excluded from this version of the text. You can view it online here:"
+msgstr ""
+
+#: templates/interactive/video.blade.php:3
+msgid "A video element has been excluded from this version of the text. You can watch it online here:"
 msgstr ""
 
 #. translators: 1: URL to Composer documentation, 2: URL to Pressbooks latest releases

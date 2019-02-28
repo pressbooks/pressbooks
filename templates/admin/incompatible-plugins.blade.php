@@ -6,15 +6,15 @@
     <table class="{{ $table_class ?? '' }}" cellspacing="0">
         <thead>
         <tr>
-            <th>{{ __( 'Plugin', 'pressbooks') }}</th>
-            <th>{{ __( 'Tested up to Pressbooks version', 'pressbooks') }}</th>
+            <th><?php _e( 'Plugin', 'pressbooks' ) ?></th>
+            <th><?php _e( 'Tested up to Pressbooks version', 'pressbooks' ) ?></th>
         </tr>
         </thead>
         <tbody>
         @foreach ( $plugins as $plugin )
             <tr>
                 <td>{{ $plugin['Name'] }}</td>
-                <td>{{ ! empty( $plugin[\Pressbooks\Updates::VERSION_TESTED_HEADER] ) ? $plugin[\Pressbooks\Updates::VERSION_TESTED_HEADER] : __( 'Unknown', 'pressbooks' ) }}</td>
+                <td>{{ ! empty( $plugin[\Pressbooks\Updates::VERSION_TESTED_HEADER] ) ? $plugin[\Pressbooks\Updates::VERSION_TESTED_HEADER] : __( 'Unknown', 'pressbooks' ) ?></td>
             </tr>
         @endforeach
         </tbody>

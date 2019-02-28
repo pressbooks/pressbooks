@@ -6,15 +6,15 @@
 	 */
 	?>
     {!! do_action( 'pb_top_of_export_page' ) !!}
-    <h1>{{ __( 'Export', 'pressbooks') }}</h1>
-    <p>{{ __( 'You can select multiple formats below. Pressbooks keeps the last 3 exports of each file format. You can pin specific files to make sure they don\'t get deleted.', 'pressbooks') }}</p>
+    <h1><?php _e( 'Export', 'pressbooks' ) ?></h1>
+    <p><?php _e( 'You can select multiple formats below. Pressbooks keeps the last 3 exports of each file format. You can pin specific files to make sure they don\'t get deleted.', 'pressbooks' ) ?></p>
     <div id="export-options" class="postbox">
 		<button type="button" class="handlediv" aria-expanded="true">
-			<span class="screen-reader-text">{{ __( 'Toggle panel: Export Options', 'pressbooks') }}</span>
+			<span class="screen-reader-text"><?php _e( 'Toggle panel: Export Options', 'pressbooks' ) ?></span>
 			<span class="toggle-indicator" aria-hidden="true"></span>
 		</button>
         <h2>
-			<span>{{ __( 'Export Options', 'pressbooks') }}</span>
+			<span><?php _e( 'Export Options', 'pressbooks' ) ?></span>
 		</h2>
         <div class="inside">
             <form id="pb-export-form" action="{{ $export_form_url }}" method="POST">
@@ -23,7 +23,7 @@
 						{{-- Supported Formats --}}
 						<div class="supported-formats">
 							<fieldset class="standard">
-								<legend>{{ __( 'Supported formats', 'pressbooks' ) }}:</legend>
+								<legend><?php _e( 'Supported formats', 'pressbooks' ) ?>:</legend>
 								@foreach($formats['standard'] as $key => $value)
 									<input type="checkbox" id="{{$key}}" name="export_formats[{{$key}}]" value="1" {{isset( $dependency_errors[ $key ] ) ? 'disabled' : ''}}/><label
 											for="{{$key}}"> {{$value}}</label><br/>
@@ -33,7 +33,7 @@
 						{{-- Other Formats --}}
 						<div class="other-formats">
 							<fieldset class="exotic">
-								<legend>{{ __( 'Other formats', 'pressbooks' ) }}:</legend>
+								<legend><?php _e( 'Other formats', 'pressbooks' ) ?>:</legend>
 								@foreach($formats['exotic'] as $key => $value)
 									<input type="checkbox" id="{{$key}}" name="export_formats[{{$key}}]" value="1" {{isset( $dependency_errors[ $key ] ) ? 'disabled' : ''}}/><label
 											for="{{$key}}"> {{$value}}</label><br/>
@@ -51,9 +51,9 @@
                         </div>
 						{{-- Theme Controls --}}
 						<div class="theme-controls">
-							<p><b>{{  __( 'Your Theme', 'pressbooks' ) }}:</b> {!! $theme_name !!}</p>
-							<p><a class="button" href="{{ get_bloginfo( 'url' ) }}/wp-admin/themes.php">{{  __( 'Change Theme', 'pressbooks' ) }}</a></p>
-							<p><a class="" href="{{ get_bloginfo( 'url' ) }}/wp-admin/themes.php?page=pressbooks_theme_options">{{ __( 'Theme Options', 'pressbooks' ) }}</a></p>
+							<p><b>{{  __( 'Your Theme', 'pressbooks' ) ?>:</b> {!! $theme_name !!}</p>
+							<p><a class="button" href="{{ get_bloginfo( 'url' ) }}/wp-admin/themes.php">{{  __( 'Change Theme', 'pressbooks' ) ?></a></p>
+							<p><a class="" href="{{ get_bloginfo( 'url' ) }}/wp-admin/themes.php?page=pressbooks_theme_options"><?php _e( 'Theme Options', 'pressbooks' ) ?></a></p>
 						</div>
                     </div>
                 </div>
@@ -70,12 +70,12 @@
         </div>
     </div>
     <div class="export-control">
-        <p><input id="pb-export-button" type="button" class="button button-hero button-primary generate" value="{{ __( 'Export Your Book', 'pressbooks' ) }}"/></p>
+        <p><input id="pb-export-button" type="button" class="button button-hero button-primary generate" value="<?php _e( 'Export Your Book', 'pressbooks' ) ?>"/></p>
 		<progress id="pb-sse-progressbar" max="100"></progress>
 		<p><b><span id="pb-sse-minutes"></span><span id="pb-sse-seconds"></span></b> <span id="pb-sse-info" aria-live="polite"></span></p>
     </div>
     <div class="clear"></div>
-    <h1>{{ __( 'Latest Exports', 'pressbooks') }}</h1>
+    <h1><?php _e( 'Latest Exports', 'pressbooks' ) ?></h1>
     <div id="pin-notifications" class="screen-reader-text" aria-live="assertive"></div>
 	<?php
 	/**

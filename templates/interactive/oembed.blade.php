@@ -8,7 +8,7 @@
         @if ($provider_name)
             {{  sprintf( __( 'A %s element has been excluded from this version of the text. You can view it online here:', 'pressbooks' ), $provider_name ) }}
         @else
-            {{ __( 'An interactive or media element has been excluded from this version of the text. You can view it online here:', 'pressbooks' ) }}
+            <?php _e( 'An interactive or media element has been excluded from this version of the text. You can view it online here:', 'pressbooks' ) ?>
 		@endif
 		<a href="{{ $url }}{{ \Pressbooks\Interactive\Content::ANCHOR }}" title="{{ $title }}">{{ $url }}</a>
     </p>
