@@ -451,8 +451,8 @@ abstract class Import {
 
 			case Api\Api::TYPE_OF:
 			case Html\Xhtml::TYPE_OF:
-				if ( ! empty( $upload['url'] ) && self::hasApi( $upload ) ) {
-					// API
+				if ( ! empty( $upload['url'] ) && Cloner::isEnabled() && self::hasApi( $upload ) ) {
+					// API (Cloning)
 					$importer = new Api\Api();
 					$ok = $importer->setCurrentImportOption( $upload );
 				} else {
