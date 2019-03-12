@@ -42,7 +42,7 @@ See [5.7.0 Milestone](https://github.com/pressbooks/pressbooks/milestone/60?clos
 
 #### Not so obvious:
 
-* Network level "Enable Cloning" setting should affect import types:
+* Network level "Enable Cloning" setting should affect import types: [#1619](https://github.com/pressbooks/pressbooks/pull/1619)
 * Fix E_NOTICE in user catalog: [#1614](https://github.com/pressbooks/pressbooks/pull/1614)
 * Add support for WordPress 5.1: [#1608](https://github.com/pressbooks/pressbooks/pull/1608)
 * Add Google Maps to iframe whitelist ([#1570](https://github.com/pressbooks/pressbooks/issues/1570))
