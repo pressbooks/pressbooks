@@ -1,5 +1,7 @@
 let mix = require( 'laravel-mix' );
 let path = require( 'path' );
+let normalizeNewline = require( 'normalize-newline' );
+let fs = require( 'fs' );
 
 /*
  |--------------------------------------------------------------------------
@@ -13,7 +15,6 @@ let path = require( 'path' );
  */
 
 const assets = 'assets';
-const src = `${assets}/src`;
 const dist = `${assets}/dist`;
 const templates = 'templates';
 
@@ -30,7 +31,23 @@ mix.browserSync( {
 	],
 } );
 
+// Normalize Newlines
+const normalizeNewlines = ( dir ) => {
+	fs.readdirSync( dir ).forEach( function( file ) {
+		file = path.join( dir, file );
+		fs.readFile( file, 'utf8', function( err, buffer ) {
+			if ( err ) return console.log( err );
+			buffer = normalizeNewline( buffer );
+			fs.writeFile( file, buffer, 'utf8', function( err ) {
+				if ( err ) return console.log( err );
+			} );
+		} );
+	} );
+};
+
 mix
+	.version()
+	.options( { processCssUrls: false } )
 	.setPublicPath( path.join( 'assets', 'dist' ) )
 	.js( 'assets/src/scripts/anchor.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/applyclass.js', 'assets/dist/scripts/' )
@@ -115,11 +132,14 @@ mix
 	.sass( 'assets/src/styles/theme-options.scss', 'assets/dist/styles/' )
 	.copyDirectory( 'assets/src/fonts', 'assets/dist/fonts' )
 	.copyDirectory( 'assets/src/images', 'assets/dist/images' )
-	.version()
-	.options( { processCssUrls: false } );
+	.then( () => {
+		normalizeNewlines( `${dist}/scripts/` );
+		normalizeNewlines( `${dist}/styles/` );
+	} );
 
 // Full API
-// mix.js(src, output);
+// mix.js(src, output); <-- compile (ES2015 syntax, modules, ...) !and! minify
+// mix.scripts(src, output); <-- just minify
 // mix.react(src, output); <-- Identical to mix.js(), but registers React Babel compilation.
 // mix.extract(vendorLibs);
 // mix.sass(src, output);

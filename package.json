@@ -22,16 +22,16 @@
 		"jquery-match-height": "^0.7.2",
 		"jquery-sticky": "^1.0.4",
 		"js-cookie": "^2.1.4",
-		"pagedjs": "^0.1.30",
+		"pagedjs": "^0.1.31",
 		"popper.js": "^1.14.7",
 		"select2": "^4.0.3",
 		"sidr": "^2.2.1",
 		"tinymce": "^4.9.3",
-		"wp-admin-colors": "^5.0.3",
+		"wp-admin-colors": "^5.1.0",
 		"wpapi": "^1.2.1"
 	},
 	"devDependencies": {
-		"pressbooks-build-tools": "^1.3.3"
+		"pressbooks-build-tools": "^1.4.0"
 	},
 	"repository": {
 		"type": "git",
@@ -61,6 +61,11 @@
 		"plugins": [
 			"jquery"
 		],
+		"settings": {
+			"react": {
+				"version": "999.999.999"
+			}
+		},
 		"rules": {
 			"jquery/no-ajax": 0,
 			"jquery/no-ajax-events": 0,
