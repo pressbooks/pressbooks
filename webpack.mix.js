@@ -15,7 +15,6 @@ let fs = require( 'fs' );
  */
 
 const assets = 'assets';
-const src = `${assets}/src`;
 const dist = `${assets}/dist`;
 const templates = 'templates';
 

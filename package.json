@@ -61,6 +61,11 @@
 		"plugins": [
 			"jquery"
 		],
+		"settings": {
+			"react": {
+				"version": "999.999.999"
+			}
+		},
 		"rules": {
 			"jquery/no-ajax": 0,
 			"jquery/no-ajax-events": 0,
