@@ -7,7 +7,7 @@
 		"hot": "cross-env NODE_ENV=development webpack-dev-server --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
 		"build:production": "cross-env NODE_ENV=production webpack --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
 		"lint": "npm run -s lint:scripts && npm run -s lint:styles",
-		"lint:scripts": "cross-env NODE_ENV=development node_modules/eslint/bin/eslint.js --quiet \"assets/src/scripts/*.js\"",
+		"lint:scripts": "cross-env NODE_ENV=development node_modules/eslint/bin/eslint.js \"assets/src/scripts/*.js\"",
 		"lint:styles": "cross-env NODE_ENV=development node_modules/stylelint/bin/stylelint.js \"assets/src/styles/**/*.scss\" --syntax scss",
 		"localize": "wp-pot -s \"**/*.php\" -o languages/pressbooks.pot -p \"Pressbooks\" -t \"Pressbooks (Book Oven Inc.) <code@pressbooks.com>\""
 	},
