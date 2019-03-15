@@ -23,9 +23,6 @@ TK.
 == Changelog ==
 = 5.7.0 =
 
-// TODO: Copy/paste from GitHub draft for latest version
-
-* Pressbooks 5.7.0 requires PHP >= 7.1.
 * Pressbooks 5.7.0 requires [WordPress 5.1.1](https://wordpress.org/news/2019/03/wordpress-5-1-1-security-and-maintenance-release/)
 * Pressbooks 5.7.0 requires [McLuhan >= 2.8.0](https://github.com/pressbooks/pressbooks-book/)
 
@@ -45,6 +42,7 @@ See [5.7.0 Milestone](https://github.com/pressbooks/pressbooks/milestone/60?clos
 #### Not so obvious:
 
 * Network level "Enable Cloning" setting should affect import types: [#1619](https://github.com/pressbooks/pressbooks/pull/1619)
+* Support localization of Blade templates: [#1616](https://github.com/pressbooks/pressbooks/pull/1616)
 * Fix E_NOTICE in user catalog: [#1614](https://github.com/pressbooks/pressbooks/pull/1614)
 * Add support for WordPress 5.1: [#1608](https://github.com/pressbooks/pressbooks/pull/1608)
 * Add Google Maps to iframe whitelist ([#1570](https://github.com/pressbooks/pressbooks/issues/1570))
@@ -57,17 +55,17 @@ See [5.7.0 Milestone](https://github.com/pressbooks/pressbooks/milestone/60?clos
 **Patches**
 
 * Update dependencies to [latest versions](https://github.com/pressbooks/pressbooks/pulls?utf8=%E2%9C%93&q=is%3Apr+author%3Aapp%2Fdependabot+milestone%3A5.7.0):
+  * Update [pagedjs](https://pagedmedia.org/) to 0.1.31: [#1620](https://github.com/pressbooks/pressbooks/pull/1620)
+  * Update [wp-admin-colors](https://www.npmjs.com/package/wp-admin-colors) to to 5.1.0: [#1620](https://github.com/pressbooks/pressbooks/pull/1620)
+  * Update [YahnisElsts/plugin-update-checker](https://github.com/YahnisElsts/plugin-update-checker) to 4.5.1: [#1618](https://github.com/pressbooks/pressbooks/pull/1618)
   * Update [pressbooks-build-tools](https://github.com/pressbooks/pressbooks-build-tools) to 1.3.3: [#1603](https://github.com/pressbooks/pressbooks/pull/1603)
   * Update [popper.js](https://github.com/FezVrasta/popper.js) to 1.14.7: [#1583](https://github.com/pressbooks/pressbooks/pull/1583)
   * Update [TinyMCE](https://www.npmjs.com/package/tinymce) to 4.9.3: [#1582](https://github.com/pressbooks/pressbooks/pull/1582)
   * Update [wpapi](https://github.com/wp-api/node-wpapi) to 1.2.1: [#1568](https://github.com/pressbooks/pressbooks/pull/1568)
   * Update [jenssegers/imagehash](https://github.com/jenssegers/imagehash) to 0.6.0: [#1550](https://github.com/pressbooks/pressbooks/pull/1550)
-  * Update [pagedjs](https://pagedmedia.org/) to 0.1.30: [#1543](https://github.com/pressbooks/pressbooks/pull/1543)
-  * Update [YahnisElsts/plugin-update-checker](https://github.com/YahnisElsts/plugin-update-checker) to 4.5: [#1537](https://github.com/pressbooks/pressbooks/pull/1537)
   * Update [masterminds/html5](https://github.com/Masterminds/html5-php) to 2.5.0: [#1536](https://github.com/pressbooks/pressbooks/pull/1536)
   * Update [sshpk](https://github.com/joyent/node-sshpk) to 1.16.0: [#1533](https://github.com/pressbooks/pressbooks/pull/1533)
   * Update [debug](https://github.com/visionmedia/debug) to 2.6.9: [#1531](https://github.com/pressbooks/pressbooks/pull/1531)
-  * Update [wp-admin-colors](https://www.npmjs.com/package/wp-admin-colors) to to 5.0.1: [#1517](https://github.com/pressbooks/pressbooks/pull/1517)
 
 = 5.6.5 =
 
