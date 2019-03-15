@@ -1,5 +1,6 @@
 <?php
 
+use Pressbooks\Cloner\Cloner;
 use Pressbooks\Modules\Import\Epub\Epub201;
 use Pressbooks\Modules\Import\Html\Xhtml;
 use Pressbooks\Modules\Import\Odf\Odt;
@@ -14,11 +15,10 @@ $import_form_url = wp_nonce_url( get_admin_url( get_current_blog_id(), '/tools.p
 $import_revoke_url = wp_nonce_url( get_admin_url( get_current_blog_id(), '/tools.php?page=pb_import&revoke=yes' ), 'pb-revoke-import' );
 $current_import = get_option( 'pressbooks_current_import' );
 $custom_post_types = apply_filters( 'pb_import_custom_post_types', [] );
+$html_type_of = Cloner::isEnabled() ? __( 'Web page or Pressbooks webbook (.html or URL)', 'pressbooks' ) : __( 'Web page (.html or URL)', 'pressbooks' );
 
 /**
  * Allows users to append import options to the select field.
- *
- * TODO: Update texts
  *
  * @since 3.9.6
  *
@@ -29,7 +29,7 @@ $import_option_types = apply_filters( 'pb_select_import_type', [
 	Docx::TYPE_OF => __( 'Microsoft Word (.docx)', 'pressbooks' ),
 	Odt::TYPE_OF => __( 'OpenOffice (.odt)', 'pressbooks' ),
 	Wxr::TYPE_OF => __( 'Pressbooks/WordPress XML (.wxr or .xml)', 'pressbooks' ),
-	Xhtml::TYPE_OF => __( 'Web page or Pressbooks webbook (.html or URL)', 'pressbooks' ),
+	Xhtml::TYPE_OF => $html_type_of,
 ] );
 
 ?>
