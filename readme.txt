@@ -2,8 +2,8 @@
 Contributors: Pressbooks <code@pressbooks.com>
 Donate link: https://opencollective.com/pressbooks
 Tags: ebooks, publishing, webbooks
-Requires at least: 5.1.0
-Tested up to: 5.1.0
+Requires at least: 5.1.1
+Tested up to: 5.1.1
 Requires PHP: 7.1
 Stable tag: 5.7.0
 License: GPL v3.0 or later
@@ -23,8 +23,10 @@ TK.
 == Changelog ==
 = 5.7.0 =
 
+// TODO: Copy/paste from GitHub draft for latest version
+
 * Pressbooks 5.7.0 requires PHP >= 7.1.
-* Pressbooks 5.7.0 requires [WordPress 5.1.0](https://wordpress.org/news/2019/02/betty/)
+* Pressbooks 5.7.0 requires [WordPress 5.1.1](https://wordpress.org/news/2019/03/wordpress-5-1-1-security-and-maintenance-release/)
 * Pressbooks 5.7.0 requires [McLuhan >= 2.8.0](https://github.com/pressbooks/pressbooks-book/)
 
 **Minor Changes**
@@ -190,5 +192,5 @@ See [5.7.0 Milestone](https://github.com/pressbooks/pressbooks/milestone/60?clos
 = 5.7.0 =
 
 * Pressbooks 5.7.0 requires PHP >= 7.1.
-* Pressbooks 5.7.0 requires [WordPress 5.1.0](https://wordpress.org/news/2019/02/betty/)
+* Pressbooks 5.7.0 requires [WordPress 5.1.1](https://wordpress.org/news/2019/03/wordpress-5-1-1-security-and-maintenance-release/)
 * Pressbooks 5.7.0 requires [McLuhan >= 2.8.0](https://github.com/pressbooks/pressbooks-book/)
