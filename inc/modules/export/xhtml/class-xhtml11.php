@@ -703,7 +703,7 @@ class Xhtml11 extends ExportGenerator {
 			return $content;
 		} else {
 			$content = $html5->saveHTML( $dom );
-			$content = \Pressbooks\HtmLawed::filter( $content, [ 'valid_xhtml' => 1 ] );
+			$content = $this->html5ToXhtml( $content );
 			return $content;
 		}
 	}
@@ -774,6 +774,22 @@ class Xhtml11 extends ExportGenerator {
 		$spec .= 'div=title;';
 
 		return \Pressbooks\HtmLawed::filter( $html, $config, $spec );
+	}
+
+	/**
+	 * Clean up content processed by HTML5 Parser, change it back into XHTML
+	 *
+	 * @param $html
+	 *
+	 * @return string
+	 */
+	protected function html5ToXhtml( $html ) {
+		$config = [
+			'valid_xhtml' => 1,
+			'unique_ids' => 0,
+		];
+		$html = \Pressbooks\HtmLawed::filter( $html, $config );
+		return $html;
 	}
 
 
@@ -1241,7 +1257,7 @@ class Xhtml11 extends ExportGenerator {
 			if ( \Pressbooks\Modules\Export\Export::shouldParseSubsections() === true ) {
 				if ( \Pressbooks\Book::getSubsections( $front_matter_id ) !== false ) {
 					$content = \Pressbooks\Book::tagSubsections( $content, $front_matter_id );
-					$content = \Pressbooks\HtmLawed::filter( $content, [ 'valid_xhtml' => 1 ] );
+					$content = $this->html5ToXhtml( $content );
 				}
 			}
 
@@ -1398,7 +1414,7 @@ class Xhtml11 extends ExportGenerator {
 				if ( \Pressbooks\Modules\Export\Export::shouldParseSubsections() === true ) {
 					if ( \Pressbooks\Book::getSubsections( $chapter_id ) !== false ) {
 						$content = \Pressbooks\Book::tagSubsections( $content, $chapter_id );
-						$content = \Pressbooks\HtmLawed::filter( $content, [ 'valid_xhtml' => 1 ] );
+						$content = $this->html5ToXhtml( $content );
 					}
 				}
 
@@ -1524,7 +1540,7 @@ class Xhtml11 extends ExportGenerator {
 			if ( \Pressbooks\Modules\Export\Export::shouldParseSubsections() === true ) {
 				if ( \Pressbooks\Book::getSubsections( $back_matter_id ) !== false ) {
 					$content = \Pressbooks\Book::tagSubsections( $content, $back_matter_id );
-					$content = \Pressbooks\HtmLawed::filter( $content, [ 'valid_xhtml' => 1 ] );
+					$content = $this->html5ToXhtml( $content );
 				}
 			}
 
