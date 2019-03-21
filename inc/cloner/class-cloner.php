@@ -1493,7 +1493,7 @@ class Cloner {
 	 * @return array{content: string, attachments: array}
 	 */
 	protected function retrieveSectionContent( $section ) {
-		if ( ! empty( $section['content']['raw'] ) ) {
+		if ( array_key_exists( 'raw', $section['content'] ) ) {
 			$source_content = $section['content']['raw'];
 		} else {
 			$source_content = $section['content']['rendered'];
