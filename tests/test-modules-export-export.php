@@ -366,6 +366,7 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 		( new \Pressbooks\Contributors() )->insert( 'Ned Zimmerman', $meta_post->ID );
 		$user_id = $this->factory()->user->create( [ 'role' => 'contributor' ] );
 		wp_set_current_user( $user_id );
+		update_option( 'pressbooks_theme_options_global', [ 'parse_subsections' => 1 ] );
 
 		$paths = [];
 		$xhtml_path = null;
