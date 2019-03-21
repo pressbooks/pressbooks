@@ -565,6 +565,21 @@ class Epub201 extends ExportGenerator {
 		return \Pressbooks\HtmLawed::filter( $html, $config, $spec );
 	}
 
+	/**
+	 * Clean up content processed by HTML5 Parser, change it back into XHTML
+	 *
+	 * @param $html
+	 *
+	 * @return string
+	 */
+	protected function html5ToXhtml( $html ) {
+		$config = [
+			'valid_xhtml' => 1,
+			'unique_ids' => 0,
+		];
+		$html = \Pressbooks\HtmLawed::filter( $html, $config );
+		return $html;
+	}
 
 	/**
 	 * Delete temporary directory
@@ -1297,7 +1312,7 @@ class Epub201 extends ExportGenerator {
 			if ( Export::shouldParseSubsections() === true ) {
 				if ( Book::getSubsections( $front_matter_id ) !== false ) {
 					$content = Book::tagSubsections( $content, $front_matter_id );
-					$content = \Pressbooks\HtmLawed::filter( $content, [ 'valid_xhtml' => 1 ] );
+					$content = $this->html5ToXhtml( $content );
 				}
 			}
 
@@ -1479,7 +1494,7 @@ class Epub201 extends ExportGenerator {
 				if ( Export::shouldParseSubsections() === true ) {
 					if ( Book::getSubsections( $chapter_id ) !== false ) {
 						$content = Book::tagSubsections( $content, $chapter_id );
-						$content = \Pressbooks\HtmLawed::filter( $content, [ 'valid_xhtml' => 1 ] );
+						$content = $this->html5ToXhtml( $content );
 					}
 				}
 
@@ -1717,7 +1732,7 @@ class Epub201 extends ExportGenerator {
 			if ( Export::shouldParseSubsections() === true ) {
 				if ( Book::getSubsections( $back_matter_id ) !== false ) {
 					$content = Book::tagSubsections( $content, $back_matter_id );
-					$content = \Pressbooks\HtmLawed::filter( $content, [ 'valid_xhtml' => 1 ] );
+					$content = $this->html5ToXhtml( $content );
 				}
 			}
 
