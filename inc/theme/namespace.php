@@ -8,6 +8,7 @@
 
 namespace Pressbooks\Theme;
 
+use function \Pressbooks\Utility\put_contents;
 use Pressbooks\Container;
 use Pressbooks\CustomCss;
 
@@ -113,15 +114,7 @@ function migrate_book_themes() {
 
 		if ( isset( $comparisons[ $theme ] ) ) {
 			switch_theme( $comparisons[ $theme ] );
-
-			$lock = Lock::init();
-			if ( $lock->isLocked() ) {
-				$data = $lock->getLockData();
-				$data['stylesheet'] = $comparisons[ $theme ];
-				$json = wp_json_encode( $data );
-				$lockfile = $lock->getLockDir( false ) . '/lock.json';
-				\Pressbooks\Utility\put_contents( $lockfile, $json );
-			}
+			update_lock_file( [ 'stylesheet' => $comparisons[ $theme ] ] );
 		}
 
 		$pressbooks_theme_migration = 1;
@@ -134,14 +127,7 @@ function migrate_book_themes() {
 		if ( $theme === 'pressbooks-book' ) {
 			if ( wp_get_theme( 'pressbooks-luther' )->exists() ) {
 				switch_theme( 'pressbooks-luther' );
-				$lock = Lock::init();
-				if ( $lock->isLocked() ) {
-					$data = $lock->getLockData();
-					$data['stylesheet'] = 'pressbooks-luther';
-					$json = wp_json_encode( $data );
-					$lockfile = $lock->getLockDir() . '/lock.json';
-					\Pressbooks\Utility\put_contents( $lockfile, $json );
-				}
+				update_lock_file( [ 'stylesheet' => 'pressbooks-luther' ] );
 			} else {
 				add_action(
 					'admin_notices', function () {
@@ -181,17 +167,24 @@ function migrate_book_themes() {
 		if ( $theme === 'pressbooks-dillardplain' ) {
 			// Switch theme to Dillard 2.0 with title decoration disabled
 			switch_theme( 'pressbooks-dillard' );
-			$lock = Lock::init();
-			if ( $lock->isLocked() ) {
-				$data = $lock->getLockData();
-				$data['stylesheet'] = 'pressbooks-dillard';
-				$json = wp_json_encode( $data );
-				$lockfile = $lock->getLockDir() . '/lock.json';
-				\Pressbooks\Utility\put_contents( $lockfile, $json );
-			}
+			update_lock_file( [ 'stylesheet' => 'pressbooks-dillard' ] );
+
 		}
 
 		$pressbooks_theme_migration = 4;
+		update_option( 'pressbooks_theme_migration', $pressbooks_theme_migration );
+	}
+
+	// Rename Austen Two to Austen
+	if ( $pressbooks_theme_migration === 4 ) {
+		$theme = wp_get_theme()->get_stylesheet();
+		if ( $theme === 'pressbooks-austentwo' ) {
+			// Switch theme to Austen 3.0
+			switch_theme( 'pressbooks-austen' );
+			update_lock_file( [ 'stylesheet' => 'pressbooks-austen' ] );
+		}
+
+		$pressbooks_theme_migration = 5;
 		update_option( 'pressbooks_theme_migration', $pressbooks_theme_migration );
 	}
 }
@@ -206,4 +199,32 @@ function update_template_root() {
 	if ( strpos( $template_root, '/plugins/pressbooks/themes-book' ) !== false ) {
 		update_option( 'template_root', str_replace( '/plugins/pressbooks/themes-book', '/themes', $template_root ) );
 	}
+}
+
+/**
+ * Update lock file for a locked theme.
+ *
+ * @since 5.7.0
+ *
+ * @param array $new_data An array of lock file data.
+ *
+ * @return bool True on success, false on failure.
+ */
+function update_lock_file( $new_data ) {
+	$result = false;
+	if ( is_array( $new_data ) ) {
+		$lock = Lock::init();
+		if ( $lock->isLocked() ) {
+			$data = $lock->getLockData();
+			foreach ( [ 'stylesheet', 'name', 'version', 'timestamp', 'features' ] as $key ) {
+				if ( isset( $new_data[ $key ] ) && ! empty( $new_data[ $key ] ) ) {
+					$data[ $key ] = $new_data[ $key ];
+				}
+			}
+			$json = wp_json_encode( $data );
+			$lockfile = $lock->getLockDir() . '/lock.json';
+			$result = put_contents( $lockfile, $json );
+		}
+	}
+	return $result;
 }
