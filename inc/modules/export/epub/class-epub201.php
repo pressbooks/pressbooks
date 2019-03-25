@@ -20,10 +20,12 @@ use Pressbooks\Container;
 use Pressbooks\Contributors;
 use Pressbooks\HtmlParser;
 use Pressbooks\Modules\Export\Export;
+use Pressbooks\Modules\Export\ExportGenerator;
 use Pressbooks\Sanitize;
 use Pressbooks\Taxonomy;
+use Pressbooks\Utility\PercentageYield;
 
-class Epub201 extends Export {
+class Epub201 extends ExportGenerator {
 
 	/**
 	 * @var array
@@ -42,7 +44,6 @@ class Epub201 extends Export {
 	 * @var int
 	 */
 	public $timeout = 90;
-
 
 	/**
 	 * @var string
@@ -147,6 +148,16 @@ class Epub201 extends Export {
 	/**
 	 * @var string
 	 */
+	protected $version = '2.0.1';
+
+	/**
+	 * @var string
+	 */
+	protected $generatorPrefix;
+
+	/**
+	 * @var string
+	 */
 	protected $filext = 'html';
 
 
@@ -235,6 +246,8 @@ class Epub201 extends Export {
 		foreach ( $this->reservedIds as $val ) {
 			$this->fixme[ $val ] = 1;
 		}
+
+		$this->generatorPrefix = sprintf( __( 'EPUB %s: ', 'pressbooks' ), $this->version );
 	}
 
 
@@ -246,30 +259,46 @@ class Epub201 extends Export {
 		$this->deleteTmpDir();
 	}
 
-
 	/**
 	 * Create $this->outputPath
 	 *
 	 * @return bool
 	 */
-	function convert() {
+	public function convert() {
+		try {
+			foreach ( $this->convertGenerator() as $percentage => $info ) {
+				// Do nothing, this is a compatibility wrapper that makes the generator work like a regular function
+			}
+		} catch ( \Exception $e ) {
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Yields an estimated percentage slice of: 1 to 80
+	 *
+	 * @return \Generator
+	 * @throws \Exception
+	 */
+	public function convertGenerator() : \Generator {
+
+		yield 1 => $this->generatorPrefix . __( 'Initializing', 'pressbooks' );
 
 		// Sanity check
 
 		if ( empty( $this->tmpDir ) || ! is_dir( $this->tmpDir ) ) {
 			$this->logError( '$this->tmpDir must be set before calling convert().' );
-
-			return false;
+			throw new \Exception();
 		}
 
 		if ( empty( $this->exportStylePath ) || ! is_file( $this->exportStylePath ) ) {
 			$this->logError( '$this->exportStylePath must be set before calling convert().' );
-
-			return false;
+			throw new \Exception();
 		}
 
 		// Convert
-
+		yield 2 => $this->generatorPrefix . __( 'Preparing book contents', 'pressbooks' );
 		$metadata = Book::getBookInformation();
 		$book_contents = $this->preProcessBookContents( Book::getBookContents() );
 
@@ -280,33 +309,50 @@ class Epub201 extends Export {
 
 		try {
 
+			yield 5 => $this->generatorPrefix . __( 'Creating container', 'pressbooks' );
 			$this->createContainer();
-			$this->createOEBPS( $book_contents, $metadata );
+			yield from $this->createOEBPSGenerator( $book_contents, $metadata );
 			$this->createOPF( $book_contents, $metadata );
 			$this->createNCX( $book_contents, $metadata );
 
 		} catch ( \Exception $e ) {
 			$this->logError( $e->getMessage() );
-
-			return false;
+			throw new \Exception();
 		}
 
+		yield 75 => $this->generatorPrefix . __( 'Saving file to exports folder', 'pressbooks' );
 		$filename = $this->timestampedFileName( $this->suffix );
 		if ( ! $this->zipEpub( $filename ) ) {
-			return false;
+			throw new \Exception();
 		}
 		$this->outputPath = $filename;
-
-		return true;
+		yield 80 => $this->generatorPrefix . __( 'Export successful', 'pressbooks' );
 	}
-
 
 	/**
 	 * Check the sanity of $this->outputPath
 	 *
 	 * @return bool
 	 */
-	function validate() {
+	public function validate() {
+		try {
+			foreach ( $this->validateGenerator() as $percentage => $info ) {
+				// Do nothing, this is a compatibility wrapper that makes the generator work like a regular function
+			}
+		} catch ( \Exception $e ) {
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Yields an estimated percentage slice of: 80 to 100
+	 *
+	 * @return \Generator
+	 * @throws \Exception
+	 */
+	public function validateGenerator() : \Generator {
+		yield 80 => $this->generatorPrefix . __( 'Validating file', 'pressbooks' );
 
 		// Epubcheck command, (quiet flag requires version 3.0.1+)
 		$command = PB_EPUBCHECK_COMMAND . ' -q ' . escapeshellcmd( $this->outputPath ) . ' 2>&1';
@@ -323,17 +369,20 @@ class Epub201 extends Export {
 			} elseif ( strpos( $v, 'non-standard font type application/x-font-ttf' ) !== false ) {
 				// @see https://github.com/IDPF/epubcheck/issues/586, https://github.com/IDPF/epubcheck/pull/633
 				unset( $output[ $k ] );
+			} elseif ( strpos( $v, 'non-standard font type application/font-sfnt' ) !== false ) {
+				// @see https://github.com/w3c/epubcheck/issues/339
+				unset( $output[ $k ] );
 			}
 		}
 
 		// Is this a valid Epub?
 		if ( ! empty( $output ) ) {
 			$this->logError( implode( "\n", $output ) );
-
-			return false;
+			throw new \Exception();
 		}
 
-		return true;
+		yield 90 => $this->generatorPrefix . __( 'Validation successful', 'pressbooks' );
+		yield 100 => $this->generatorPrefix . __( 'Finishing up', 'pressbooks' );
 	}
 
 
@@ -516,6 +565,21 @@ class Epub201 extends Export {
 		return \Pressbooks\HtmLawed::filter( $html, $config, $spec );
 	}
 
+	/**
+	 * Clean up content processed by HTML5 Parser, change it back into XHTML
+	 *
+	 * @param $html
+	 *
+	 * @return string
+	 */
+	protected function html5ToXhtml( $html ) {
+		$config = [
+			'valid_xhtml' => 1,
+			'unique_ids' => 0,
+		];
+		$html = \Pressbooks\HtmLawed::filter( $html, $config );
+		return $html;
+	}
 
 	/**
 	 * Delete temporary directory
@@ -595,14 +659,16 @@ class Epub201 extends Export {
 
 
 	/**
+	 * Yields an estimated percentage slice of: 10 to 75
 	 * Create OEBPS/* files.
 	 *
-	 * @param array $book_contents
-	 * @param array $metadata
+	 * @return \Generator
+	 * @throws \Exception
 	 */
-	protected function createOEBPS( $book_contents, $metadata ) {
+	protected function createOEBPSGenerator( $book_contents, $metadata ) : \Generator {
 
 		// First, setup and affect $this->stylesheet
+		yield 10 => $this->generatorPrefix . __( 'Compiling styles', 'pressbooks' );
 		$this->createStylesheet();
 
 		// Reset manifest
@@ -611,34 +677,42 @@ class Epub201 extends Export {
 		/* Note: order affects $this->manifest */
 
 		// Cover
+		yield 15 => $this->generatorPrefix . __( 'Creating cover', 'pressbooks' );
 		$this->createCover( $book_contents, $metadata );
 
 		// Before Title Page
 		$this->createBeforeTitle( $book_contents, $metadata );
 
 		// Title
+		yield 20 => $this->generatorPrefix . __( 'Creating title page', 'pressbooks' );
 		$this->createTitle( $book_contents, $metadata );
 
 		// Copyright
+		yield 20 => $this->generatorPrefix . __( 'Creating copyright page', 'pressbooks' );
 		$this->createCopyright( $book_contents, $metadata );
 
 		// Dedication and Epigraph (In that order!)
+		yield 25 => $this->generatorPrefix . __( 'Exporting dedication and epigraph', 'pressbooks' );
 		$this->createDedicationAndEpigraph( $book_contents, $metadata );
 
 		// Front-matter
-		$this->createFrontMatter( $book_contents, $metadata );
+		yield 30 => $this->generatorPrefix . __( 'Exporting front matter', 'pressbooks' );
+		yield from $this->createFrontMatterGenerator( $book_contents, $metadata );
 
 		// Promo
 		$this->createPromo( $book_contents, $metadata );
 
 		// Parts, Chapters
-		$this->createPartsAndChapters( $book_contents, $metadata );
+		yield 40 => $this->generatorPrefix . __( 'Exporting parts and chapters', 'pressbooks' );
+		yield from $this->createPartsAndChaptersGenerator( $book_contents, $metadata );
 
 		// Back-matter
-		$this->createBackMatter( $book_contents, $metadata );
+		yield 50 => $this->generatorPrefix . __( 'Exporting back matter', 'pressbooks' );
+		yield from $this->createBackMatterGenerator( $book_contents, $metadata );
 
 		// Table of contents
 		// IMPORTANT: Do this last! Uses $this->manifest to generate itself
+		yield 70 => $this->generatorPrefix . __( 'Creating table of contents', 'pressbooks' );
 		$this->createToc( $book_contents, $metadata );
 	}
 
@@ -1075,7 +1149,7 @@ class Epub201 extends Export {
 		// Copyright
 		// Please be kind, help Pressbooks grow by leaving this on!
 		if ( empty( $GLOBALS['PB_SECRET_SAUCE']['TURN_OFF_FREEBIE_NOTICES_EPUB'] ) ) {
-			$freebie_notice = 'This book was produced using <a href="http://pressbooks.com/">Pressbooks.com</a>.';
+			$freebie_notice = 'This book was produced with <a href="http://pressbooks.com/">Pressbooks</a>.';
 			$html .= "<p>$freebie_notice</p>";
 		}
 
@@ -1184,14 +1258,19 @@ class Epub201 extends Export {
 
 
 	/**
+	 * Yields an estimated percentage slice of: 30-40
+	 *
 	 * @param array $book_contents
 	 * @param array $metadata
+	 * @return \Generator
 	 */
-	protected function createFrontMatter( $book_contents, $metadata ) {
+	protected function createFrontMatterGenerator( $book_contents, $metadata ) : \Generator {
 		$front_matter_printf = '<div class="front-matter %1$s" id="%2$s">';
 		$front_matter_printf .= '<div class="front-matter-title-wrap"><h3 class="front-matter-number">%3$s</h3><h1 class="front-matter-title">%4$s</h1>%5$s</div>';
 		$front_matter_printf .= '<div class="ugc front-matter-ugc">%6$s</div>%7$s';
 		$front_matter_printf .= '</div>';
+
+		$y = new PercentageYield( 30, 40, count( $book_contents['front-matter'] ) );
 
 		$vars = [
 			'post_title' => '',
@@ -1204,6 +1283,7 @@ class Epub201 extends Export {
 
 		$i = $this->frontMatterPos;
 		foreach ( $book_contents['front-matter'] as $front_matter ) {
+			yield from $y->tick( $this->generatorPrefix . __( 'Exporting front matter', 'pressbooks' ) );
 
 			if ( ! $front_matter['export'] ) {
 				continue; // Skip
@@ -1232,7 +1312,7 @@ class Epub201 extends Export {
 			if ( Export::shouldParseSubsections() === true ) {
 				if ( Book::getSubsections( $front_matter_id ) !== false ) {
 					$content = Book::tagSubsections( $content, $front_matter_id );
-					$content = \Pressbooks\HtmLawed::filter( $content, [ 'valid_xhtml' => 1 ] );
+					$content = $this->html5ToXhtml( $content );
 				}
 			}
 
@@ -1312,7 +1392,7 @@ class Epub201 extends Export {
 			$filename = "{$file_id}.{$this->filext}";
 
 			$vars = [
-				'post_title' => __( 'Make your own books using Pressbooks.com', 'pressbooks' ),
+				'post_title' => __( 'Make your own books using Pressbooks', 'pressbooks' ),
 				'stylesheet' => $this->stylesheet,
 				'post_content' => $this->kneadHtml( $promo_html, 'custom' ),
 				'isbn' => ( isset( $metadata['pb_ebook_isbn'] ) ) ? $metadata['pb_ebook_isbn'] : '',
@@ -1334,10 +1414,13 @@ class Epub201 extends Export {
 
 
 	/**
+	 * Yields an estimated percentage slice of: 40-50
+	 *
 	 * @param array $book_contents
 	 * @param array $metadata
+	 * @return \Generator
 	 */
-	protected function createPartsAndChapters( $book_contents, $metadata ) {
+	protected function createPartsAndChaptersGenerator( $book_contents, $metadata ) : \Generator {
 		$part_printf = '<div class="part %1$s" id="%2$s">';
 		$part_printf .= '<div class="part-title-wrap"><h3 class="part-number">%3$s</h3><h1 class="part-title">%4$s</h1></div>%5$s';
 		$part_printf .= '</div>';
@@ -1346,6 +1429,12 @@ class Epub201 extends Export {
 		$chapter_printf .= '<div class="chapter-title-wrap"><h3 class="chapter-number">%3$s</h3><h2 class="chapter-title">%4$s</h2>%5$s</div>';
 		$chapter_printf .= '<div class="ugc chapter-ugc">%6$s</div>%7$s';
 		$chapter_printf .= '</div>';
+
+		$ticks = 0;
+		foreach ( $book_contents['part'] as $key => $part ) {
+			$ticks = $ticks + 1 + count( $book_contents['part'][ $key ]['chapters'] );
+		}
+		$y = new PercentageYield( 40, 50, $ticks );
 
 		$vars = [
 			'post_title' => '',
@@ -1362,6 +1451,7 @@ class Epub201 extends Export {
 		$c = 1;
 		$p = 1;
 		foreach ( $book_contents['part'] as $part ) {
+			yield from $y->tick( $this->generatorPrefix . __( 'Exporting parts and chapters', 'pressbooks' ) );
 
 			$invisibility = ( get_post_meta( $part['ID'], 'pb_part_invisible', true ) === 'on' ) ? 'invisible' : '';
 
@@ -1383,6 +1473,7 @@ class Epub201 extends Export {
 			}
 
 			foreach ( $part['chapters'] as $chapter ) {
+				yield from $y->tick( $this->generatorPrefix . __( 'Exporting parts and chapters', 'pressbooks' ) );
 
 				if ( ! $chapter['export'] ) {
 					continue; // Skip
@@ -1403,7 +1494,7 @@ class Epub201 extends Export {
 				if ( Export::shouldParseSubsections() === true ) {
 					if ( Book::getSubsections( $chapter_id ) !== false ) {
 						$content = Book::tagSubsections( $content, $chapter_id );
-						$content = \Pressbooks\HtmLawed::filter( $content, [ 'valid_xhtml' => 1 ] );
+						$content = $this->html5ToXhtml( $content );
 					}
 				}
 
@@ -1596,14 +1687,19 @@ class Epub201 extends Export {
 
 
 	/**
+	 * Yields an estimated percentage slice of: 50-60
+	 *
 	 * @param array $book_contents
 	 * @param array $metadata
+	 * @return \Generator
 	 */
-	protected function createBackMatter( $book_contents, $metadata ) {
+	protected function createBackMatterGenerator( $book_contents, $metadata ) : \Generator {
 		$back_matter_printf = '<div class="back-matter %1$s" id="%2$s">';
 		$back_matter_printf .= '<div class="back-matter-title-wrap"><h3 class="back-matter-number">%3$s</h3><h1 class="back-matter-title">%4$s</h1>%5$s</div>';
 		$back_matter_printf .= '<div class="ugc back-matter-ugc">%6$s</div>%7$s';
 		$back_matter_printf .= '</div>';
+
+		$y = new PercentageYield( 50, 70, count( $book_contents['back-matter'] ) );
 
 		$vars = [
 			'post_title' => '',
@@ -1616,6 +1712,7 @@ class Epub201 extends Export {
 
 		$i = 1;
 		foreach ( $book_contents['back-matter'] as $back_matter ) {
+			yield from $y->tick( $this->generatorPrefix . __( 'Exporting back matter', 'pressbooks' ) );
 
 			if ( ! $back_matter['export'] ) {
 				continue; // Skip
@@ -1635,7 +1732,7 @@ class Epub201 extends Export {
 			if ( Export::shouldParseSubsections() === true ) {
 				if ( Book::getSubsections( $back_matter_id ) !== false ) {
 					$content = Book::tagSubsections( $content, $back_matter_id );
-					$content = \Pressbooks\HtmLawed::filter( $content, [ 'valid_xhtml' => 1 ] );
+					$content = $this->html5ToXhtml( $content );
 				}
 			}
 
@@ -2310,7 +2407,7 @@ class Epub201 extends Export {
 			return false;
 		}
 
-		// Check if an anchor is considered external, don't change the URL if we find a match
+		// Check if an anchor (ie. #fragment) is considered external, don't change the URL if we find a match
 		$external_anchors = [ \Pressbooks\Interactive\Content::ANCHOR ];
 		if ( in_array( $anchor, $external_anchors, true ) ) {
 			return false;

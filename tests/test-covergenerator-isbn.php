@@ -5,11 +5,12 @@ class CoverGenerator_IsbnTest extends \WP_UnitTestCase {
 
 	/**
 	 * @var \Pressbooks\Covergenerator\Isbn
+	 * @group covergenerator
 	 */
 	public $isbn;
 
 	/**
-	 *
+	 * @group covergenerator
 	 */
 	public function setUp() {
 		parent::setUp();
@@ -17,7 +18,9 @@ class CoverGenerator_IsbnTest extends \WP_UnitTestCase {
 		$this->isbn = new \Pressbooks\Covergenerator\Isbn();
 	}
 
-
+	/**
+	 * @group covergenerator
+	 */
 	public function test_createBarcode() {
 		$isbn = "978-1-873671-00-9 54499";
 		$url = $this->isbn->createBarcode( $isbn );
@@ -31,6 +34,7 @@ class CoverGenerator_IsbnTest extends \WP_UnitTestCase {
 	 *  [ $isbnNumber, $expected ]
 	 *
 	 * @return array
+	 * @group covergenerator
 	 */
 	public function validateIsbnNumberProvider() {
 
@@ -58,6 +62,7 @@ class CoverGenerator_IsbnTest extends \WP_UnitTestCase {
 	 *
 	 * @param string $isbnNumber
 	 * @param bool $expected
+	 * @group covergenerator
 	 */
 	public function test_validateIsbnNumber( $isbnNumber, $expected ) {
 
@@ -69,6 +74,7 @@ class CoverGenerator_IsbnTest extends \WP_UnitTestCase {
 	 *  [ $isbnNumber, $expected ]
 	 *
 	 * @return array
+	 * @group covergenerator
 	 */
 	public function fixIsbnNumberProvider() {
 
@@ -85,6 +91,7 @@ class CoverGenerator_IsbnTest extends \WP_UnitTestCase {
 	 *
 	 * @param string $isbnNumber
 	 * @param string $expected
+	 * @group covergenerator
 	 */
 	public function test_fixIsbnNumber( $isbnNumber, $expected ) {
 

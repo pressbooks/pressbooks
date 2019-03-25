@@ -1,3 +1,5 @@
+/* global PB_GlossaryToken */
+
 ( function () {
 	tinymce.create( 'tinymce.plugins.glossary', {
 		init: function ( ed, url ) {

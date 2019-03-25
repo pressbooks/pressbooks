@@ -186,31 +186,32 @@ class Licensing {
 	 *
 	 * @param array $metadata \Pressbooks\Book::getBookInformation
 	 * @param int $post_id (optional)
-	 * @param string $title (optional)
+	 * @param string $title (@deprecated)
 	 *
 	 * @return string
-	 * @throws \Exception
 	 */
 	public function doLicense( $metadata, $post_id = 0, $title = '' ) {
+		if ( ! empty( $title ) ) {
+			_doing_it_wrong( __METHOD__, __( '$title is deprecated. Method will automatically determine title from licenses', 'pressbooks' ), '5.7.0' );
+		}
 
-		// if no post $id given, we default to book copyright
+		$book_license = isset( $metadata['pb_book_license'] ) ? $metadata['pb_book_license'] : '';
 		if ( empty( $post_id ) ) {
+			// if no post $id given, set empty strings
 			$section_license = '';
 			$section_author = '';
-			$link = get_bloginfo( 'url' );
 		} else {
 			$section_license = get_post_meta( $post_id, 'pb_section_license', true );
 			$section_author = ( new Contributors() )->get( $post_id, 'pb_authors' );
-			$link = get_permalink( $post_id );
 		}
 
 		// Copyright license, set in order of precedence
 		if ( ! empty( $section_license ) ) {
 			// section copyright higher priority than book
 			$license = $section_license;
-		} elseif ( isset( $metadata['pb_book_license'] ) ) {
+		} elseif ( ! empty( $book_license ) ) {
 			// book is the fallback, default
-			$license = $metadata['pb_book_license'];
+			$license = $book_license;
 		} else {
 			$license = 'all-rights-reserved';
 		}
@@ -219,9 +220,14 @@ class Licensing {
 			return '';
 		}
 
-		// Title
-		if ( empty( $title ) ) {
-			$title = empty( $post_id ) ? get_bloginfo( 'name' ) : get_post( $post_id )->post_title;
+		// Unless section is licensed differently, it should display the book license statement
+		if ( $section_license === $book_license || empty( $section_license ) ) {
+			$title = get_bloginfo( 'name' );
+			$link = get_bloginfo( 'url' );
+		} else {
+			$post = get_post( $post_id );
+			$title = $post ? $post->post_title : get_bloginfo( 'name' );
+			$link = get_permalink( $post_id );
 		}
 
 		// Copyright holder, set in order of precedence

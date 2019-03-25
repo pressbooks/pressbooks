@@ -6,16 +6,18 @@ class SearchResultTest extends \WP_UnitTestCase {
 
 	/**
 	 * @var \Pressbooks\Modules\SearchAndReplace\Result
+	 * @group searchandreplace
 	 */
 	protected $result;
 
 	/**
 	 * @var \Pressbooks\Modules\SearchAndReplace\Types\Content
+	 * @group searchandreplace
 	 */
 	protected $content;
 
 	/**
-	 *
+	 * @group searchandreplace
 	 */
 	public function setUp() {
 		parent::setUp();
@@ -23,6 +25,9 @@ class SearchResultTest extends \WP_UnitTestCase {
 		$this->content = new \Pressbooks\Modules\SearchAndReplace\Types\Content();
 	}
 
+	/**
+	 * @group searchandreplace
+	 */
 	public function test_singleLine() {
 		$this->result->search_plain = "line\rbreak";
 		$this->assertEquals( $this->result->singleLine(), false );
@@ -32,6 +37,9 @@ class SearchResultTest extends \WP_UnitTestCase {
 		$this->assertEquals( $this->result->singleLine(), true );
 	}
 
+	/**
+	 * @group searchandreplace
+	 */
 	public function test_regexValidate() {
 
 		$expr = "/known/i";
@@ -51,6 +59,9 @@ class SearchResultTest extends \WP_UnitTestCase {
 		$this->assertNotEquals( null, $result );
 	}
 
+	/**
+	 * @group searchandreplace
+	 */
 	public function test_searchAndReplace() {
 
 		$this->_book();

@@ -351,3 +351,10 @@ $wp-spinner-anim-duration: 1.08s;
 .mce-window[aria-label="Table properties"] .mce-formitem:nth-child(7) {
   left: 0 !important;
 }
+
+// Progress Bars
+
+#pb-sse-progressbar {
+  display: none;
+  width: 100%;
+}

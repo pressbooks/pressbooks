@@ -4,33 +4,58 @@ class Interactive_ContentTest extends \WP_UnitTestCase {
 
 	/**
 	 * @var \Pressbooks\Interactive\Content
+	 * @group interactivecontent
 	 */
 	protected $content;
 
+	/**
+	 * @group interactivecontent
+	 */
 	public function setUp() {
 		parent::setUp();
 		$this->content = new \Pressbooks\Interactive\Content();
 	}
 
-
+	/**
+	 * @group interactivecontent
+	 */
 	public function test_deleteIframesNotOnWhitelist() {
 		$raw = '
 		Test One
 		<iframe src="https://phet.colorado.edu/sims/html/balancing-act/latest/balancing-act_en.html" width="800" height="600" scrolling="no" allowfullscreen></iframe>
 		Test Two
-		 <iframe src="https://garbage.com/bad.html" width="800" height="600" scrolling="no" allowfullscreen></iframe>
+		<iframe src="https://garbage.com/bad.html" width="800" height="600" scrolling="no" allowfullscreen></iframe>
 		';
-
 		$result = $this->content->deleteIframesNotOnWhitelist( $raw, [ 'post' ] );
-
 		$this->assertEquals( 1, substr_count( $result, '<iframe' ) );
 		$this->assertContains( 'Test One', $result );
 		$this->assertContains( 'Test Two', $result );
 		$this->assertContains( '<iframe src="https://phet.colorado.edu/', $result );
 		$this->assertContains( '[embed]https://garbage.com/bad.html[/embed]', $result );
 		$this->assertNotContains( '<p>', $result );
+
+
+		$raw = '
+		Test Three
+		<iframe src="https://docs.google.com/forms/d/e/xxx/viewform?embedded=true" width="640" height="398" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
+		Test Four
+		<iframe src="https://docs.google.com/garbage/d/e/xxx/viewform?embedded=true" width="640" height="398" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
+		Test Five
+		<iframe src="https://www.google.com/maps/d/embed?mid=xxx" width="640" height="480" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
+		';
+		$result = $this->content->deleteIframesNotOnWhitelist( $raw, [ 'post' ] );
+		$this->assertEquals( 2, substr_count( $result, '<iframe' ) );
+		$this->assertContains( 'Test Three', $result );
+		$this->assertContains( 'Test Four', $result );
+		$this->assertContains( '<iframe src="https://docs.google.com/forms/d/e/xxx/viewform?embedded=true', $result );
+		$this->assertContains( '[embed]https://docs.google.com/garbage/d/e/xxx/viewform?embedded=true[/embed]', $result );
+		$this->assertContains( '<iframe src="https://www.google.com/maps/d/embed?mid=xxx', $result );
+			$this->assertNotContains( '<p>', $result );
 	}
 
+	/**
+	 * @group interactivecontent
+	 */
 	public function test_replaceIframes() {
 		$html = '
 		<p>Test</p>
@@ -45,6 +70,9 @@ class Interactive_ContentTest extends \WP_UnitTestCase {
 		$this->assertContains( 'excluded from this version of the text', $result );
 	}
 
+	/**
+	 * @group interactivecontent
+	 */
 	public function test_allowIframesInHtml() {
 		$user_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
 		wp_set_current_user( $user_id );
@@ -52,6 +80,9 @@ class Interactive_ContentTest extends \WP_UnitTestCase {
 		$this->assertTrue( ! empty( $allowed['iframe'] ) );
 	}
 
+	/**
+	 * @group interactivecontent
+	 */
 	public function test_replaceOembed() {
 
 		$data = new \StdClass();
@@ -71,6 +102,9 @@ class Interactive_ContentTest extends \WP_UnitTestCase {
 		$this->assertContains( 'excluded from this version of the text', $result );
 	}
 
+	/**
+	 * @group interactivecontent
+	 */
 	public function test_replaceInteractiveTags() {
 
 		$html = '
@@ -86,11 +120,17 @@ class Interactive_ContentTest extends \WP_UnitTestCase {
 		$this->assertContains( 'excluded from this version of the text', $result );
 	}
 
+	/**
+	 * @group interactivecontent
+	 */
 	public function test_addExtraOembedProviders() {
 		$providers = $this->content->addExtraOembedProviders( [] );
 		$this->assertNotEmpty( $providers );
 	}
 
+	/**
+	 * @group interactivecontent
+	 */
 	public function test_deleteOembedCaches() {
 		$this->content->deleteOembedCaches( 1 );
 		$this->content->deleteOembedCaches();
@@ -100,12 +140,15 @@ class Interactive_ContentTest extends \WP_UnitTestCase {
 		$this->assertEmpty( $id );
 	}
 
-	public function test_isCloneable() {
-		$content = '[h5p id="1"]';
-		$this->assertFalse( $this->content->isCloneable( $content ) );
-
-		$content = 'OK then!';
-		$this->assertTrue( $this->content->isCloneable( $content ) );
+	/**
+	 * @group interactivecontent
+	 */
+	public function test_mediaElementConfiguration() {
+		$s['_foo'] = 'bar';
+		$s['autoRewind'] = true;
+		$s = $this->content->mediaElementConfiguration( $s );
+		$this->assertEquals( 'bar', $s['_foo'] );
+		$this->assertFalse( $s['autoRewind'] );
 	}
 
 }

@@ -13,6 +13,7 @@ $overrides = [
 ];
 
 if ( \Pressbooks\Book::isBook() ) {
+	$overrides['Visit site'] = 'Vedi libro';
 	$overrides['Visit Site'] = 'Vedi libro';
 	$overrides['Edit Site'] = 'Modifica libro';
 }

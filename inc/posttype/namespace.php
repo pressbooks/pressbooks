@@ -151,7 +151,7 @@ function register_post_types() {
 				'menu_name' => __( 'Book Info', 'pressbooks' ),
 			],
 			'quick_edit' => false,
-			'capability_type' => 'post',
+			'capability_type' => 'page',
 			'exclude_from_search' => true,
 			'hierarchical' => false,
 			'publicly_queryable' => false,
@@ -230,7 +230,7 @@ function disable_months_dropdown( $disable, $post_type ) {
 function after_title( $post ) {
 	if ( $post->post_type === 'glossary' ) {
 		echo '<p>';
-		_e( 'HTML and shortcodes are not supported in glossary terms.', 'pressbooks' );
+		_e( 'Links, bold text and italic text are supported in glossary terms. Other elements will be removed.', 'pressbooks' );
 		echo '</p>';
 	}
 	if ( $post->post_type === 'back-matter' ) {
@@ -252,10 +252,16 @@ function after_title( $post ) {
  */
 function wp_editor_settings( $settings ) {
 	if ( get_post_type() === 'glossary' ) {
-		$settings['wpautop'] = false;
+		$settings['wpautop'] = true;
 		$settings['media_buttons'] = false;
-		$settings['tinymce'] = false;
-		$settings['quicktags'] = false;
+		$settings['tinymce'] = [
+			'toolbar1' => 'bold,italic,|,link,unlink,|,undo,redo',
+			'toolbar2' => '',
+			'toolbar3' => '',
+		];
+		$settings['quicktags'] = [
+			'buttons' => 'strong,em,link,close',
+		];
 		$settings['editor_css'] = '<style>.wp-editor-area { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif; font-size: 14px; }</style>';
 	}
 	return $settings;

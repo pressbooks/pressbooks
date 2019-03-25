@@ -46,7 +46,7 @@ if ( defined( 'WP_ENV' ) && WP_ENV === 'development' ) {
 	add_filter( 'https_ssl_verify', '__return_false' );
 }
 
-\Pressbooks\Activation::init();
+add_action( 'plugins_loaded', [ '\Pressbooks\Activation', 'init' ] );
 
 // -------------------------------------------------------------------------------------------------------------------
 // API
@@ -69,6 +69,7 @@ if ( $is_book ) {
 // -------------------------------------------------------------------------------------------------------------------
 
 add_filter( 'login_body_class', '\Pressbooks\Admin\Branding\login_body_class' );
+add_action( 'login_head', '\Pressbooks\Admin\Branding\favicon' );
 add_action( 'login_head', '\Pressbooks\Admin\Branding\custom_color_scheme' );
 add_action( 'login_head', '\Pressbooks\Admin\Branding\custom_login_logo' );
 add_filter( 'login_headerurl', '\Pressbooks\Admin\Branding\login_url' );
@@ -131,7 +132,7 @@ add_filter( 'plupload_default_params', '\Pressbooks\Media\force_attach_media' );
 // -------------------------------------------------------------------------------------------------------------------
 
 add_filter( 'upload_mimes', '\Pressbooks\Media\add_mime_types' );
-\Pressbooks\Interactive\Content::init();
+add_action( 'plugins_loaded', [ '\Pressbooks\Interactive\Content', 'init' ] );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Custom Post Types and Taxonomies
@@ -140,7 +141,7 @@ add_filter( 'upload_mimes', '\Pressbooks\Media\add_mime_types' );
 if ( $is_book ) {
 	add_action( 'init', '\Pressbooks\PostType\register_post_types' );
 	add_filter( 'comments_open', '\Pressbooks\PostType\comments_open', 10, 2 );
-	\Pressbooks\Taxonomy::init();
+	add_action( 'plugins_loaded', [ '\Pressbooks\Taxonomy', 'init' ] );
 	add_action( 'init', '\Pressbooks\PostType\register_meta' );
 	add_action( 'init', '\Pressbooks\PostType\register_post_statii' );
 	add_filter( 'request', '\Pressbooks\PostType\add_post_types_rss' );
@@ -190,14 +191,13 @@ add_action( 'do_robotstxt', '\Pressbooks\Utility\add_sitemap_to_robots_txt' );
 if ( $is_book ) {
 	remove_filter( 'the_content', 'wpautop' );
 	add_filter( 'the_content', 'wpautop', 12 ); // execute wpautop after shortcode processing
-
-	\Pressbooks\Shortcodes\Footnotes\Footnotes::init();
-	\Pressbooks\Shortcodes\Attributions\Attachments::init();
-	\Pressbooks\Shortcodes\Glossary\Glossary::init();
-	\Pressbooks\Shortcodes\Complex\Complex::init();
-	\Pressbooks\Shortcodes\Generics\Generics::init();
-	\Pressbooks\Shortcodes\WikiPublisher\Glyphs::init();
-	\Pressbooks\Shortcodes\TablePress::init();
+	add_action( 'plugins_loaded', [ '\Pressbooks\Shortcodes\Footnotes\Footnotes', 'init' ] );
+	add_action( 'plugins_loaded', [ '\Pressbooks\Shortcodes\Attributions\Attachments', 'init' ] );
+	add_action( 'plugins_loaded', [ '\Pressbooks\Shortcodes\Glossary\Glossary', 'init' ] );
+	add_action( 'plugins_loaded', [ '\Pressbooks\Shortcodes\Complex\Complex', 'init' ] );
+	add_action( 'plugins_loaded', [ '\Pressbooks\Shortcodes\Generics\Generics', 'init' ] );
+	add_action( 'plugins_loaded', [ '\Pressbooks\Shortcodes\WikiPublisher\Glyphs', 'init' ] );
+	add_action( 'plugins_loaded', [ '\Pressbooks\Shortcodes\TablePress', 'init' ] );
 }
 
 // Support QuickLaTeX in TablePress
@@ -209,7 +209,7 @@ if ( is_plugin_active_for_network( 'wp-quicklatex/wp-quicklatex.php' ) || is_plu
 // Theme Lock
 // -------------------------------------------------------------------------------------------------------------------
 
-\Pressbooks\Theme\Lock::init();
+add_action( 'plugins_loaded', [ '\Pressbooks\Theme\Lock', 'init' ] );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Upgrade Book Metadata
@@ -318,4 +318,3 @@ if ( $is_book ) {
 // -------------------------------------------------------------------------------------------------------------------
 
 add_action( 'init', [ '\Pressbooks\Privacy', 'init' ], 9 ); // Must come before `add_action( 'init', 'wp_schedule_delete_old_privacy_export_files' );`
-

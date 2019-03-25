@@ -5,15 +5,20 @@ class GdprTest extends \WP_UnitTestCase {
 
 	/**
 	 * @var \Pressbooks\Privacy
+	 * @group privacy
 	 */
 	protected $privacy;
 
-
+	/**
+	 * @group privacy
+	 */
 	public function setUp() {
 		parent::setUp();
 		$this->privacy = new \Pressbooks\Privacy();
 	}
-
+	/**
+	 * @group privacy
+	 */
 	public function test_reschedulePrivacyDeleteOldExportFiles() {
 		$nochange = (object) [ 'hook' => 'cant_touch_this', 'interval' => 3600 ];
 		$event = $this->privacy->reschedulePrivacyCron( $nochange );
@@ -24,7 +29,9 @@ class GdprTest extends \WP_UnitTestCase {
 		$this->assertEquals( $event->schedule, 'twicedaily' );
 		$this->assertEquals( $event->interval, 43200 );
 	}
-
+	/**
+	 * @group privacy
+	 */
 	public function test_addPrivacyPolicyContent() {
 		// Doing it right
 		global $current_screen;

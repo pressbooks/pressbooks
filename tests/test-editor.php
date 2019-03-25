@@ -4,6 +4,9 @@ class EditorTest extends \WP_UnitTestCase {
 
 	use utilsTrait;
 
+	/**
+	 * @group editor
+	 */
 	public function test_mce_valid_word_elements() {
 
 		$array = Pressbooks\Editor\mce_valid_word_elements( [] );
@@ -11,6 +14,9 @@ class EditorTest extends \WP_UnitTestCase {
 		$this->assertArrayHasKey( 'paste_word_valid_elements', $array );
 	}
 
+	/**
+	 * @group editor
+	 */
 	public function test_update_editor_style() {
 		$this->_book( 'pressbooks-clarke' );
 		Pressbooks\Editor\update_editor_style();
@@ -20,6 +26,9 @@ class EditorTest extends \WP_UnitTestCase {
 		$this->assertFileExists( WP_CONTENT_DIR . '/uploads/sites/' . $blog_id . '/pressbooks/css/editor.css' );
 	}
 
+	/**
+	 * @group editor
+	 */
 	public function test_add_editor_style() {
 		$this->_book( 'pressbooks-clarke' );
 
@@ -35,6 +44,9 @@ class EditorTest extends \WP_UnitTestCase {
 		$this->assertTrue( $result );
 	}
 
+	/**
+	 * @group editor
+	 */
 	public function test_add_languages() {
 
 		$array = Pressbooks\Editor\add_languages( [] );
@@ -42,6 +54,9 @@ class EditorTest extends \WP_UnitTestCase {
 		$this->assertContains( PB_PLUGIN_DIR . 'languages/tinymce.php', $array );
 	}
 
+	/**
+	 * @group editor
+	 */
 	public function test_mce_buttons_2() {
 
 		$buttons = Pressbooks\Editor\mce_buttons_2( [ 'formatselect' ] );
@@ -49,7 +64,9 @@ class EditorTest extends \WP_UnitTestCase {
 		$this->assertContains( 'styleselect', $buttons );
 	}
 
-
+	/**
+	 * @group editor
+	 */
 	public function test_mce_buttons_3() {
 
 		$buttons = Pressbooks\Editor\mce_buttons_3( [] );
@@ -62,12 +79,18 @@ class EditorTest extends \WP_UnitTestCase {
 		$this->assertContains( 'wp_code', $buttons );
 	}
 
+	/**
+	 * @group editor
+	 */
 	public function test_admin_enqueue_scripts() {
 		\Pressbooks\Editor\admin_enqueue_scripts( 'post.php' );
 		$this->assertTrue( wp_script_is( 'my_custom_quicktags', 'queue' ) );
 		$this->assertTrue( wp_script_is( 'wp-api', 'queue' ) );
 	}
 
+	/**
+	 * @group editor
+	 */
 	public function test_mce_button_scripts() {
 
 		$x = Pressbooks\Editor\mce_button_scripts( [] );
@@ -78,6 +101,9 @@ class EditorTest extends \WP_UnitTestCase {
 		$this->assertArrayHasKey( 'glossary', $x );
 	}
 
+	/**
+	 * @group editor
+	 */
 	public function test_mce_before_init_insert_formats() {
 
 		$x = Pressbooks\Editor\mce_before_init_insert_formats( [] );
@@ -85,6 +111,9 @@ class EditorTest extends \WP_UnitTestCase {
 		$this->assertArrayHasKey( 'style_formats', $x );
 	}
 
+	/**
+	 * @group editor
+	 */
 	public function test_metadata_manager_default_editor_args() {
 
 		$x = Pressbooks\Editor\metadata_manager_default_editor_args( [] );
@@ -92,6 +121,9 @@ class EditorTest extends \WP_UnitTestCase {
 		$this->assertArrayHasKey( 'tinymce', $x );
 	}
 
+	/**
+	 * @group editor
+	 */
 	public function test_mce_table_editor_options() {
 
 		$x = Pressbooks\Editor\mce_table_editor_options( [] );
@@ -106,6 +138,9 @@ class EditorTest extends \WP_UnitTestCase {
 		$this->assertTrue( $x['table_appearance_options'] );
 	}
 
+	/**
+	 * @group editor
+	 */
 	public function test_customize_wp_link_query_args() {
 
 		$x = \Pressbooks\Editor\customize_wp_link_query_args( [ 'post_type' => [ 'post' ] ] );
@@ -114,6 +149,9 @@ class EditorTest extends \WP_UnitTestCase {
 		$this->assertTrue( in_array( 'chapter', $x['post_type'] ) );
 	}
 
+	/**
+	 * @group editor
+	 */
 	public function test_add_anchors_to_wp_link_query() {
 
 		$post_title = 'Chapter With Anchor: ' . rand();
@@ -171,11 +209,17 @@ class EditorTest extends \WP_UnitTestCase {
 		$this->assertEmpty( $new_results );
 	}
 
+	/**
+	 * @group editor
+	 */
 	public function test_show_kitchen_sink() {
 		$result = \Pressbooks\Editor\show_kitchen_sink( [] );
 		$this->assertFalse( $result['wordpress_adv_hidden'] );
 	}
 
+	/**
+	 * @group editor
+	 */
 	public function test_force_classic_editor_mode() {
 		update_option( 'classic-editor-replace', 'no-replace' );
 		$this->assertEquals( 'no-replace', get_option( 'classic-editor-replace' ) );

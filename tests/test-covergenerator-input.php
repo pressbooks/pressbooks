@@ -4,17 +4,21 @@ class CoverGenerator_InputTest extends \WP_UnitTestCase {
 
 	/**
 	 * @var \Pressbooks\Covergenerator\Input
+	 * @group covergenerator
 	 */
 	public $input;
 
 	/**
-	 *
+	 * @group covergenerator
 	 */
 	public function setUp() {
 		parent::setUp();
 		$this->input = new \Pressbooks\Covergenerator\Input();
 	}
 
+	/**
+	 * @group covergenerator
+	 */
 	public function test_mutatorMethods() {
 
 		$this->assertEmpty( $this->input->getTitle() );

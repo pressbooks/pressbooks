@@ -2,6 +2,9 @@
 
 class HtmLawedTest extends \WP_UnitTestCase {
 
+	/**
+	 * @group sanitize
+	 */
 	public function test_filter() {
 		$output = \Pressbooks\HtmLawed::filter( '<h1>Hello world!' );
 		$this->assertEquals( '<h1>Hello world!</h1>', $output );

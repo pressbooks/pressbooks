@@ -1,3 +1,5 @@
+/* global PB_GlossaryToken */
+
 jQuery( document ).ready( function ( $ ) {
 	let notice = $( '#pb-post-type-notice' );
 	let dropdown = $( '#back-matter-typedropdown' );

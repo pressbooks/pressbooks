@@ -11,9 +11,12 @@ use function \Pressbooks\Utility\oxford_comma;
 use function \Pressbooks\Utility\oxford_comma_explode;
 use Pressbooks\Book;
 use Pressbooks\Licensing;
+use Pressbooks\Metadata;
 
 /**
  * Returns an html blob of meta elements based on what is set in 'Book Information'
+ *
+ * @deprecated 5.7.0
  *
  * @return string
  */
@@ -40,6 +43,8 @@ function get_seo_meta_elements() {
 
 /**
  * Returns an html blob of microdata elements based on what is set in 'Book Information'
+ *
+ * @deprecated 5.7.0
  *
  * @return string
  */
@@ -552,6 +557,7 @@ function section_information_to_schema( $section_information, $book_information 
 
 	$mapped_book_properties = [
 		'pb_language' => 'inLanguage',
+		'pb_title' => 'isPartOf',
 		'pb_copyright_year' => 'copyrightYear',
 	];
 
@@ -573,9 +579,9 @@ function section_information_to_schema( $section_information, $book_information 
 
 	// Use section, if missing use book
 	$authors = [];
-	if ( isset( $section_information['pb_authors'] ) ) {
+	if ( ! empty( $section_information['pb_authors'] ) ) {
 		$authors = oxford_comma_explode( $section_information['pb_authors'] );
-	} elseif ( isset( $book_information['pb_authors'] ) ) {
+	} elseif ( ! empty( $book_information['pb_authors'] ) ) {
 		$authors = oxford_comma_explode( $book_information['pb_authors'] );
 	}
 	foreach ( $authors as $author ) {
@@ -908,4 +914,124 @@ function init_book_data_models() {
 	if ( ! taxonomy_exists( 'front-matter-type' ) ) {
 		\Pressbooks\Taxonomy::init()->registerTaxonomies();
 	}
+}
+
+/**
+ * Get the section metadata for a given ID.
+ *
+ * @since 5.7.0
+ *
+ * @param int $post_id
+ *
+ * @return array
+ */
+function get_section_information( $post_id ) {
+	$section_meta = get_post_meta( $post_id, '', true );
+	$section_meta['pb_title'] = get_the_title( $post_id );
+	if ( get_post_type( $post_id ) === 'chapter' ) {
+		$section_meta['pb_chapter_number'] = pb_get_chapter_number( $post_id );
+	}
+	foreach ( $section_meta as $key => $value ) {
+		if ( is_array( $value ) ) {
+			$section_meta[ $key ] = array_pop( $value );
+		}
+	}
+	// Override Contributors
+	$contributors = new \Pressbooks\Contributors();
+	foreach ( $contributors->getAll( $post_id ) as $key => $val ) {
+		$section_meta[ $key ] = $val;
+	};
+
+	return $section_meta;
+}
+
+
+/**
+ * Echo the JSON-LD metadata tag for a book or section.
+ *
+ * @since 5.7.0
+ *
+ * @return null
+ */
+function add_json_ld_metadata() {
+
+	$context = is_singular( [ 'front-matter', 'part', 'chapter', 'back-matter' ] ) ? 'section' : 'book';
+	if ( $context === 'section' ) {
+		global $post;
+		$section_information = get_section_information( $post->ID );
+		$book_information = Book::getBookInformation();
+		$metadata = section_information_to_schema( $section_information, $book_information );
+	} else {
+		$metadata = new Metadata();
+	}
+	printf( '<script type="application/ld+json">%s</script>', wp_json_encode( $metadata ) );
+}
+
+/**
+ * Echo HighWire Press-compatible meta tags for Google Scholar and Zotero integration.
+ *
+ * @since 5.7.0
+ *
+ * @return null
+ */
+function add_citation_metadata() {
+	$context = is_singular( [ 'front-matter', 'part', 'chapter', 'back-matter' ] ) ? 'section' : 'book';
+	$book_information = Book::getBookInformation();
+	$tags = [];
+
+	$map = [
+		'citation_book_title' => 'isPartOf',
+		'citation_title' => 'name',
+		'citation_year' => 'copyrightYear',
+		'citation_publication_date' => 'datePublished',
+		'citation_language' => 'inLanguage',
+		'citation_keywords' => 'keywords',
+		'citation_publisher' => 'publisher.name',
+		'citation_isbn' => 'isbn',
+		'citation_doi' => 'identifier.value',
+	];
+
+	if ( $context === 'section' ) {
+		global $post;
+		$section_information = get_section_information( $post->ID );
+		$metadata = section_information_to_schema( $section_information, $book_information );
+		foreach ( $map as $to => $from ) {
+			if ( strpos( $from, '.' ) ) {
+				$pieces = explode( '.', $from );
+				if ( isset( $metadata[ $pieces[0] ][ $pieces[1] ] ) && ! empty( $metadata[ $pieces[0] ][ $pieces[1] ] ) ) {
+					$tags[] = sprintf( '<meta name="%1$s" content="%2$s">', $to, $metadata[ $pieces[0] ][ $pieces[1] ] );
+				}
+			} else {
+				if ( isset( $metadata[ $from ] ) && ! empty( $metadata[ $from ] ) ) {
+					$tags[] = sprintf( '<meta name="%1$s" content="%2$s">', $to, $metadata[ $from ] );
+				}
+			}
+		}
+		if ( isset( $metadata['author'] ) ) {
+			foreach ( $metadata['author'] as $author ) {
+				$tags[] = sprintf( '<meta name="%1$s" content="%2$s">', 'citation_author', $author['name'] );
+			}
+		}
+	} else {
+		$metadata = book_information_to_schema( $book_information );
+		$tags[] = sprintf( '<meta name="%1$s" content="%2$s">', 'og:type', 'book' );
+		foreach ( $map as $to => $from ) {
+			if ( strpos( $from, '.' ) ) {
+				$pieces = explode( '.', $from );
+				if ( isset( $metadata[ $pieces[0] ][ $pieces[1] ] ) && ! empty( $metadata[ $pieces[0] ][ $pieces[1] ] ) ) {
+					$tags[] = sprintf( '<meta name="%1$s" content="%2$s">', $to, $metadata[ $pieces[0] ][ $pieces[1] ] );
+				}
+			} else {
+				if ( isset( $metadata[ $from ] ) && ! empty( $metadata[ $from ] ) ) {
+					$tags[] = sprintf( '<meta name="%1$s" content="%2$s">', $to, $metadata[ $from ] );
+				}
+			}
+		}
+		if ( isset( $metadata['author'] ) ) {
+			foreach ( $metadata['author'] as $author ) {
+				$tags[] = sprintf( '<meta name="%1$s" content="%2$s">', 'citation_author', $author['name'] );
+			}
+		}
+	}
+	echo implode( "\n", $tags );
 }

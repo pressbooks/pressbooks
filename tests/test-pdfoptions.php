@@ -3,8 +3,11 @@
 class PDFOptionsTest extends \WP_UnitTestCase {
 	use utilsTrait;
 
+	/**
+	 * @group themeoptions
+	 */
 	public function test_scssOverrides() {
-		$this->_book( 'pressbooks-donham' );
+		$this->_book( 'pressbooks-luther' );
 
 		update_option( 'pressbooks_theme_options_global', [
 			'chapter_numbers' => 0,
@@ -15,6 +18,9 @@ class PDFOptionsTest extends \WP_UnitTestCase {
 
 	}
 
+	/**
+	 * @group themeoptions
+	 */
 	public function test_replaceRunningContentTags() {
 		$result = \Pressbooks\Modules\ThemeOptions\PDFOptions::replaceRunningContentTags( '%section_title%' );
 		$this->assertEquals( '"" string(section-title) ""', $result );
@@ -22,6 +28,9 @@ class PDFOptionsTest extends \WP_UnitTestCase {
 		$this->assertEquals( '"foo"', $result );
 	}
 
+	/**
+	 * @group themeoptions
+	 */
 	public function test_replaceRunningContentStrings() {
 		$result = \Pressbooks\Modules\ThemeOptions\PDFOptions::replaceRunningContentStrings( 'string(section-title)' );
 		$this->assertEquals( '%section_title%', $result );

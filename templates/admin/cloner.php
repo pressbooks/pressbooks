@@ -12,33 +12,35 @@ if ( is_subdomain_install() ) {
 ?>
 <div class="wrap">
 	<h1><?php _e( 'Clone', 'pressbooks' ); ?></h1>
-	<p><?php _e( 'Enter the URL to a Pressbooks book to clone it.', 'pressbooks' ); ?><span class="spinner"></span><p>
+	<p><?php _e( 'Enter the URL to a Pressbooks book to clone it.', 'pressbooks' ); ?><p>
 	<form id="pb-cloner-form" action="" method="post">
 		<?php wp_nonce_field( 'pb-cloner' ); ?>
 		<table class="form-table">
 			<tr>
-				<th scope=row><?php _e( 'Source Book URL', 'pressbooks' ); ?></th>
-				<td><input class="regular-text code" name="source_book_url" type="url" /></td>
+				<th scope=row><label for="source_book_url"><?php _e( 'Source Book URL', 'pressbooks' ); ?></label></th>
+				<td><input class="regular-text code" id="source_book_url" name="source_book_url" type="url" required /></td>
 			</tr>
 			<tr>
-				<th scope=row><?php _e( 'Target Book URL', 'pressbooks' ); ?></th>
+				<th scope=row><label for="target_book_url"><?php _e( 'Target Book URL', 'pressbooks' ); ?></label></th>
 				<td>
 					<?php
 					printf(
 						$template_string,
-						'<input class="regular-text code" name="target_book_url" />'
+						'<input class="regular-text code" id="target_book_url" name="target_book_url" type="text" required />'
 					);
 					?>
 				</td>
 			</tr>
 			<tr>
-				<th scope=row><?php _e( 'Target Book Title', 'pressbooks' ); ?></th>
+				<th scope=row><label for="target_book_title"><?php _e( 'Target Book Title', 'pressbooks' ); ?></label></th>
 				<td>
-					<input class="regular-text" name="target_book_title" type="text" />
-					<p class="description"><?php _e( 'Optional. If you leave this blank, the title of the source book will be used.', 'pressbooks' ); ?></p>
+					<input class="regular-text" id="target_book_title" name="target_book_title" type="text" aria-describedby="target_book_title_description" />
+					<p class="description" id="target_book_title_description"><?php _e( 'Optional. If you leave this blank, the title of the source book will be used.', 'pressbooks' ); ?></p>
 				</td>
 			</tr>
 		</table>
-		<p><input id="pb-cloner-button" class="button button-primary" type="submit" value="<?php _e( 'Clone It!', 'pressbooks' ); ?>" /><span id="loader" class="loading-content"><span class="spinner"></span></span></p>
+		<p><input id="pb-cloner-button" class="button button-primary" type="submit" value="<?php _e( 'Clone It!', 'pressbooks' ); ?>" /></p>
+		<progress id="pb-sse-progressbar" max="100"></progress>
+		<p><b><span id="pb-sse-minutes"></span><span id="pb-sse-seconds"></span></b> <span id="pb-sse-info" aria-live="polite"></span></p>
 	</form>
 </div>

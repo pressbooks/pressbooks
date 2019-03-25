@@ -6,16 +6,20 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 
 	/**
 	 * @var \Pressbooks\Shortcodes\Glossary\Glossary
+	 * @group glossary
 	 */
 	protected $gl;
 
+	/**
+	 * @group glossary
+	 */
 	public function setUp() {
 		parent::setUp();
 
 		$this->gl = $this->getMockBuilder( '\Pressbooks\Shortcodes\Glossary\Glossary' )
-		                 ->setMethods( null )
-		                 ->disableOriginalConstructor()
-		                 ->getMock();
+			->setMethods( null )
+			->disableOriginalConstructor()
+			->getMock();
 
 		// Add the filter that tests no HTML ever gets saved
 		add_filter( 'wp_insert_post_data', [ $this->gl, 'sanitizeGlossaryTerm' ] );
@@ -23,7 +27,9 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 		$this->_createGlossaryTerms();
 		$this->gl->getGlossaryTerms( true ); // Reset cache
 	}
-
+	/**
+	 * @group glossary
+	 */
 	private function _createGlossaryTerms() {
 		$args1 = [
 			'post_type'    => 'glossary',
@@ -51,7 +57,9 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 		$p3 = $this->factory()->post->create_object( $args3 );
 		wp_set_object_terms( $p3, 'definitions', 'glossary-type' );
 	}
-
+	/**
+	 * @group glossary
+	 */
 	private function _createGlossaryPost() {
 
 		$args = [
@@ -64,7 +72,9 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 
 		return $pid;
 	}
-
+	/**
+	 * @group glossary
+	 */
 	public function test_getInstance() {
 
 		$val = $this->gl->init();
@@ -76,34 +86,45 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 		$this->assertArrayHasKey( 'pb_glossary', $shortcode_tags );
 
 	}
-
+	/**
+	 * @group glossary
+	 */
 	public function test_glossaryTerms() {
 		// assures alphabetical listing and format
 		$dl = $this->gl->glossaryTerms();
-		$this->assertEquals( '<dl data-type="glossary"><dt data-type="glossterm"><dfn id="dfn-neural-network">Neural Network</dfn></dt><dd data-type="glossdef">A computer system modeled on the human brain and nervous system.</dd><dt data-type="glossterm"><dfn id="dfn-support-vector-machine">Support Vector Machine</dfn></dt><dd data-type="glossdef">An algorithm that uses a nonlinear mapping to transform the original training data into a higher dimension</dd></dl>', $dl );
+		$this->assertEquals( '<dl data-type="glossary"><dt data-type="glossterm"><dfn id="dfn-neural-network">Neural Network</dfn></dt><dd data-type="glossdef"><p>A computer system modeled on the human brain and <a href="https://en.wikipedia.org/wiki/Nervous_system" target="_blank">nervous system</a>.</p>
+</dd><dt data-type="glossterm"><dfn id="dfn-support-vector-machine">Support Vector Machine</dfn></dt><dd data-type="glossdef"><p>An algorithm that uses a nonlinear mapping to transform the original training data into a higher dimension</p>
+</dd></dl>', $dl );
 		// assures found by type
 		$dl = $this->gl->glossaryTerms( 'definitions' );
-		$this->assertEquals( '<dl data-type="glossary"><dt data-type="glossterm"><dfn id="dfn-support-vector-machine">Support Vector Machine</dfn></dt><dd data-type="glossdef">An algorithm that uses a nonlinear mapping to transform the original training data into a higher dimension</dd></dl>', $dl );
+		$this->assertEquals( '<dl data-type="glossary"><dt data-type="glossterm"><dfn id="dfn-support-vector-machine">Support Vector Machine</dfn></dt><dd data-type="glossdef"><p>An algorithm that uses a nonlinear mapping to transform the original training data into a higher dimension</p>
+</dd></dl>', $dl );
 		// assures empty (because this type is not found)
 		$dl = $this->gl->glossaryTerms( 'nothing-to-find' );
 		$this->assertEmpty( $dl );
 
 	}
-
+	/**
+	 * @group glossary
+	 */
 	public function test_glossaryTooltip() {
+		global $id;
+		$id = 42; // Fake it!
 		$pid = $this->_createGlossaryPost();
-		$result = $this->gl->glossaryTooltip( [ 'id' => $pid ], 'PHP' );
-		$this->assertEquals( '<a href="javascript:void(0);" class="tooltip" title="A &quot;popular&quot; general-purpose scripting language that is especially suited to web development.">PHP</a>', $result );
+		$result = $this->gl->glossaryTooltip( $pid, 'PHP' );
+		$this->assertEquals( '<button class="glossary-term" aria-describedby="42-' . $pid . '">PHP</button>', $result );
 
 		$this->factory()->post->update_object( $pid, [ 'post_status' => 'trash' ] );
-		$result = $this->gl->glossaryTooltip( [ 'id' => $pid ], 'PHP' );
+		$result = $this->gl->glossaryTooltip( $pid, 'PHP' );
 		$this->assertEquals( 'PHP', $result );
 	}
-
+	/**
+	 * @group glossary
+	 */
 	public function test_getGlossaryTerms() {
 		$terms = $this->gl->getGlossaryTerms();
 		$this->assertEquals( 3, count( $terms ) );
-		$this->assertEquals( 'A computer system modeled on the human brain and nervous system.', $terms['Neural Network']['content'] );
+		$this->assertEquals( 'A computer system modeled on the human brain and <a href="https://en.wikipedia.org/wiki/Nervous_system" target="_blank">nervous system</a>.', $terms['Neural Network']['content'] );
 		$this->assertEquals( 'else,something', $terms['Neural Network']['type'] );
 		$this->assertEquals( 'publish', $terms['Neural Network']['status'] );
 
@@ -122,17 +143,44 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 		$this->assertEquals( 'private', $terms['Cache Test']['status'] );
 	}
 
+	/**
+	 * @group glossary
+	 */
+	public function test_tooltipContent() {
+		$terms = $this->gl->getGlossaryTerms();
+
+		global $id;
+		$id = 1;
+
+		$definitions = [];
+
+		// First, add some terms
+		foreach ( $terms as $term ) {
+			$_ = $this->gl->webShortCodeHandler( [ 'id' => $term['id'] ], 'First.' );
+			$definitions[] = $term['content'];
+		}
+
+		$content = $this->gl->tooltipContent( 'Hello World' );
+		$this->assertContains( '<div class="glossary">', $content );
+		$this->assertContains( $definitions[0], $content );
+		$this->assertContains( $definitions[1], $content );
+	}
+	/**
+	 * @group glossary
+	 */
 	public function test_sanitizeGlossaryTerm() {
 		$data['post_type'] = 'imaginary-post-type';
-		$data['post_content'] = 'All is <strong>good.</strong>';
+		$data['post_content'] = '<a href="https://google.com" onclick="event.preventDefault(); alert(\'evil!\');">All</a> is <strong>good.</strong>';
 		$results = $this->gl->sanitizeGlossaryTerm( $data );
 		$this->assertEquals( $data['post_content'], $results['post_content'] );
 
 		$data['post_type'] = 'glossary';
 		$results = $this->gl->sanitizeGlossaryTerm( $data );
-		$this->assertEquals( 'All is good.', $results['post_content'] );
+		$this->assertEquals( '<a href="https://google.com">All</a> is <strong>good.</strong>', $results['post_content'] );
 	}
-
+	/**
+	 * @group glossary
+	 */
 	public function test_backMatterAutoDisplay() {
 		// No change
 		$content = 'Hello';

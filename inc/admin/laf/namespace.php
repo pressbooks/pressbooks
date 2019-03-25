@@ -16,7 +16,7 @@ use Pressbooks\Admin\ExportOptions;
 use Pressbooks\Admin\Network\SharingAndPrivacyOptions;
 use Pressbooks\Admin\PublishOptions;
 use Pressbooks\Book;
-use Pressbooks\Cloner;
+use Pressbooks\Cloner\Cloner;
 use Pressbooks\Metadata;
 
 /**
@@ -262,8 +262,29 @@ function replace_book_admin_menu() {
 	add_action(
 		'admin_enqueue_scripts', function ( $hook ) use ( $export_page ) {
 			if ( $hook === $export_page ) {
+				add_screen_option(
+					'per_page', [
+						'default' => 50,
+						'option' => 'pb_export_per_page',
+					]
+				);
+				wp_localize_script(
+					'pb-export', 'PB_ExportToken', [
+						'ajaxUrl' => wp_nonce_url( admin_url( 'admin-ajax.php?action=export-book' ), 'pb-export' ),
+						'bulkDeleteWarning' => __( 'Are you sure you want to delete these export files?', 'pressbooks' ),
+						'maximumFilesWarning' => __( 'Up to 5 files can be pinned at once.', 'pressbooks' ),
+						'maximumFileTypeWarning' => __( 'Cannot pin more than 3 of the same file type.', 'pressbooks' ),
+						'pinsNonce' => wp_create_nonce( 'pb-export-pins' ),
+						'redirectUrl' => admin_url( 'options.php?page=pb_export' ),
+						'reloadSnippet' => '<em>(<a href="javascript:window.location.reload(true)">' . __( 'Reload', 'pressbooks' ) . '</a>)</em>',
+						'tooManyExportsWarning' => __( 'Too many pinned files. Deselect one of the pinned files before attempting to export.', 'pressbooks' ),
+						'unloadWarning' => __( 'Exports are not done. Leaving this page, now, will cause problems. Are you sure?', 'pressbooks' ),
+					]
+				);
 				wp_enqueue_style( 'pb-export' );
 				wp_enqueue_script( 'pb-export' );
+				wp_deregister_script( 'heartbeat' );
+
 			}
 		}
 	);
@@ -313,7 +334,16 @@ function replace_book_admin_menu() {
 	add_action(
 		'admin_enqueue_scripts', function ( $hook ) use ( $import_page ) {
 			if ( $hook === $import_page ) {
+				wp_localize_script(
+					'pb-import', 'PB_ImportToken', [
+						'ajaxUrl' => wp_nonce_url( admin_url( 'admin-ajax.php?action=import-book' ), 'pb-import' ),
+						'redirectUrl' => admin_url( 'admin.php?page=pb_organize' ),
+						'unloadWarning' => __( 'Imports are not done. Leaving this page, now, will cause problems. Are you sure?', 'pressbooks' ),
+						'reloadSnippet' => '<em>(<a href="javascript:window.location.reload(true)">' . __( 'Reload', 'pressbooks' ) . '</a>)</em>',
+					]
+				);
 				wp_enqueue_script( 'pb-import' );
+				wp_deregister_script( 'heartbeat' );
 			}
 		}
 	);
@@ -324,8 +354,16 @@ function replace_book_admin_menu() {
 		add_action(
 			'admin_enqueue_scripts', function ( $hook ) use ( $cloner_page ) {
 				if ( $hook === $cloner_page ) {
-					wp_enqueue_style( 'pb-cloner' );
+					wp_localize_script(
+						'pb-cloner', 'PB_ClonerToken', [
+							'ajaxUrl' => wp_nonce_url( admin_url( 'admin-ajax.php?action=clone-book' ), 'pb-cloner' ),
+							'redirectUrl' => admin_url( 'options.php?page=pb_cloner' ),
+							'unloadWarning' => __( 'Cloning is not done. Leaving this page, now, will cause problems. Are you sure?', 'pressbooks' ),
+							'reloadSnippet' => '<em>(<a href="javascript:window.location.reload(true)">' . __( 'Reload', 'pressbooks' ) . '</a>)</em>',
+						]
+					);
 					wp_enqueue_script( 'pb-cloner' );
+					wp_deregister_script( 'heartbeat' );
 				}
 			}
 		);
@@ -333,6 +371,23 @@ function replace_book_admin_menu() {
 
 	// Catalog
 	add_submenu_page( 'index.php', __( 'My Catalog', 'pressbooks' ), __( 'My Catalog', 'pressbooks' ), 'read', 'pb_catalog', '\Pressbooks\Catalog::addMenu' );
+}
+
+/**
+ * Filters a screen option value before it is set.
+ * Returning false to the filter will skip saving the current option.
+ *
+ * @param bool $default
+ * @param $option
+ * @param $value
+ *
+ * @return mixed
+ */
+function custom_screen_options( $default, $option, $value ) {
+	if ( 'pb_export_per_page' === $option ) {
+		return (int) $value;
+	}
+	return $default;
 }
 
 /**
@@ -507,7 +562,11 @@ function display_trash() {
  * Displays the Export Admin Page
  */
 function display_export() {
-	require( PB_PLUGIN_DIR . 'templates/admin/export.php' );
+	$blade = \Pressbooks\Container::get( 'Blade' );
+	echo $blade->render(
+		'admin.export',
+		\Pressbooks\Modules\Export\template_data()
+	);
 }
 
 /**
@@ -987,24 +1046,27 @@ function init_css_js() {
 		}
 	);
 
-	// Enqueue later, on-the-fly, using action: admin_print_scripts-
+	// Polyfills
+	wp_register_script( 'eventsource-polyfill', $assets->getPath( 'scripts/eventsource.polyfill.js' ) );
+
+	// Register scripts for later, on-the-fly, using action: admin_print_scripts- (or other tricks of the shade)
 	wp_register_script( 'jquery-blockui', $assets->getPath( 'scripts/blockui.js' ), [ 'jquery', 'jquery-ui-core' ] );
 	wp_register_script( 'cssanimations', $assets->getPath( 'scripts/cssanimations.js' ), false );
-	wp_register_script( 'pb-cloner', $assets->getPath( 'scripts/cloner.js' ), [ 'jquery', 'cssanimations' ] );
-	wp_register_script( 'pb-export', $assets->getPath( 'scripts/export.js' ), [ 'jquery', 'cssanimations' ] );
-	wp_register_script( 'pb-organize', $assets->getPath( 'scripts/organize.js' ), [ 'jquery', 'jquery-ui-core', 'jquery-blockui', 'cssanimations' ] );
+	wp_register_script( 'pb-cloner', $assets->getPath( 'scripts/cloner.js' ), [ 'jquery', 'eventsource-polyfill' ] ); // TODO: Ned: An eventsource polyfill is required for progressbar. Test in all browsers.
+	wp_register_script( 'pb-export', $assets->getPath( 'scripts/export.js' ), [ 'jquery', 'eventsource-polyfill' ] );
+	wp_register_script( 'pb-import', $assets->getPath( 'scripts/import.js' ), [ 'jquery', 'eventsource-polyfill' ] );
+	wp_register_script( 'pb-organize', $assets->getPath( 'scripts/organize.js' ), [ 'jquery', 'jquery-ui-core', 'jquery-ui-sortable', 'jquery-blockui', 'cssanimations' ] );
 	wp_register_script( 'pb-metadata', $assets->getPath( 'scripts/book-information.js' ), [ 'jquery' ], false, true );
-	wp_register_script( 'pb-import', $assets->getPath( 'scripts/import.js' ), [ 'jquery' ] );
 	wp_register_script( 'pb-post-visibility', $assets->getPath( 'scripts/post-visibility.js' ), [ 'jquery' ], false, true );
 	wp_register_script( 'pb-post-back-matter', $assets->getPath( 'scripts/post-back-matter.js' ), [ 'jquery', 'editor' ], false, true );
 
-	wp_register_style( 'pb-cloner', $assets->getPath( 'styles/cloner.css' ) );
+	// Register styles for later, on-the-fly, using action: admin_print_scripts- (or other tricks of the shade)
 	wp_register_style( 'pb-export', $assets->getPath( 'styles/export.css' ) );
 	wp_register_style( 'pb-organize', $assets->getPath( 'styles/organize.css' ) );
 
+	// Always enqueue jquery and jquery-ui-core because we use them all over the place
 	wp_enqueue_script( 'jquery' );
 	wp_enqueue_script( 'jquery-ui-core' );
-	wp_enqueue_script( 'jquery-ui-sortable' );
 }
 
 /* ------------------------------------------------------------------------ *
@@ -1270,32 +1332,19 @@ function display_privacy_settings() {
  * @global array $_SESSION ['pb_notices']
  */
 function admin_notices() {
-
-	if ( ! empty( $_SESSION['pb_errors'] ) ) {
-		// Array-ify the error(s).
-		if ( ! is_array( $_SESSION['pb_errors'] ) ) {
-			$_SESSION['pb_errors'] = [ $_SESSION['pb_errors'] ];
-		}
-		// Print the error(s).
-		foreach ( $_SESSION['pb_errors'] as $msg ) {
-			echo '<div class="error"><p>' . $msg . '</p></div>';
-		}
-		// Destroy the session.
-		unset( $_SESSION['pb_errors'] );
+	// Print the error(s).
+	$errors_to_print = \Pressbooks\get_all_errors();
+	foreach ( $errors_to_print as $msg ) {
+		echo '<div class="error"><p>' . $msg . '</p></div>';
 	}
+	\Pressbooks\flush_all_errors();
 
-	if ( ! empty( $_SESSION['pb_notices'] ) ) {
-		// Array-ify the notice(s).
-		if ( ! is_array( $_SESSION['pb_notices'] ) ) {
-			$_SESSION['pb_notices'] = [ $_SESSION['pb_notices'] ];
-		}
-		// Print the notice(s).
-		foreach ( $_SESSION['pb_notices'] as $msg ) {
-			echo '<div class="updated"><p>' . $msg . '</p></div>';
-		}
-		// Destroy the session.
-		unset( $_SESSION['pb_notices'] );
+	// Print the notice(s).
+	$notices_to_print = \Pressbooks\get_all_notices();
+	foreach ( $notices_to_print as $msg ) {
+		echo '<div class="updated"><p>' . $msg . '</p></div>';
 	}
+	\Pressbooks\flush_all_notices();
 }
 
 /**

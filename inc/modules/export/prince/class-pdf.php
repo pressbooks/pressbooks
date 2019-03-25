@@ -80,13 +80,6 @@ class Pdf extends Export {
 		$timestamp = time();
 		$md5 = $this->nonce( $timestamp );
 		$this->url = home_url() . "/format/xhtml?timestamp={$timestamp}&hashkey={$md5}";
-		if ( ! empty( $_REQUEST['preview'] ) ) {
-			$this->url .= '&' . http_build_query(
-				[
-					'preview' => $_REQUEST['preview'],
-				]
-			);
-		}
 
 		$this->themeOptionsOverrides();
 		$this->fixLatexDpi();
@@ -148,7 +141,7 @@ class Pdf extends Export {
 		// Prince XML is very flexible. There could be errors but Prince will still render a PDF.
 		// We want to log those errors but we won't alert the user.
 		if ( is_countable( $msg ) && count( $msg ) ) {
-			$this->logError( \Pressbooks\Utility\get_contents( $this->logfile ) );
+			$this->logError( \Pressbooks\Utility\get_contents( $this->logfile ), [ 'warning' => 1 ] );
 		}
 
 		return $retval;
@@ -177,9 +170,7 @@ class Pdf extends Export {
 	 */
 	function logError( $message, array $more_info = [] ) {
 
-		$more_info = [
-			'url' => $this->url,
-		];
+		$more_info['url'] = $this->url;
 
 		parent::logError( $message, $more_info );
 	}
@@ -283,7 +274,7 @@ class Pdf extends Export {
 		// Copyright
 		// Please be kind, help Pressbooks grow by leaving this on!
 		if ( empty( $GLOBALS['PB_SECRET_SAUCE']['TURN_OFF_FREEBIE_NOTICES_PDF'] ) ) {
-			$freebie_notice = __( 'This book was produced using Pressbooks.com, and PDF rendering was done by PrinceXML.', 'pressbooks' );
+			$freebie_notice = __( 'This book was produced with Pressbooks (https://pressbooks.com) and rendered with Prince.', 'pressbooks' );
 			$scss .= '#copyright-page .ugc > p:last-of-type::after { display:block; margin-top: 1em; content: "' . $freebie_notice . '" }' . "\n";
 		}
 

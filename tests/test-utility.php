@@ -4,6 +4,9 @@ class UtilityTest extends \WP_UnitTestCase {
 
 	use utilsTrait;
 
+	/**
+	 * @group utility
+	 */
 	public function test_getset() {
 
 		$array = [ 'hello' => 'world' ];
@@ -23,7 +26,9 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertEquals( \Pressbooks\Utility\getset( '_POST', 'nothing', 'something' ), 'something' );
 	}
 
-
+	/**
+	 * @group utility
+	 */
 	public function test_scandir_by_date() {
 
 		$files = \Pressbooks\Utility\scandir_by_date( __DIR__ );
@@ -34,7 +39,9 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertNotContains( 'data', $files );
 	}
 
-
+	/**
+	 * @group utility
+	 */
 	public function test_group_exports() {
 
 		$files = \Pressbooks\Utility\group_exports();
@@ -51,6 +58,9 @@ class UtilityTest extends \WP_UnitTestCase {
 	//      $this->markTestIncomplete();
 	//  }
 
+	/**
+	 * @group utility
+	 */
 	public function test_get_media_prefix() {
 		switch_to_blog( $this->factory()->blog->create() );
 		$prefix = \Pressbooks\Utility\get_media_prefix();
@@ -59,6 +69,9 @@ class UtilityTest extends \WP_UnitTestCase {
 		);
 	}
 
+	/**
+	 * @group utility
+	 */
 	public function test_get_media_path() {
 
 		$guid = 'http://pressbooks.dev/test/wp-content/uploads/sites/3/2015/11/foobar.jpg';
@@ -72,6 +85,9 @@ class UtilityTest extends \WP_UnitTestCase {
 		);
 	}
 
+	/**
+	 * @group utility
+	 */
 	public function test_latest_exports() {
 		$this->_book();
 		$user_id = $this->factory()->user->create( [ 'role' => 'contributor' ] );
@@ -89,6 +105,9 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertArrayHasKey( 'wxr', $latest );
 	}
 
+	/**
+	 * @group utility
+	 */
 	public function test_add_sitemap_to_robots_txt_0() {
 
 		update_option( 'blog_public', 0 );
@@ -96,6 +115,9 @@ class UtilityTest extends \WP_UnitTestCase {
 		\Pressbooks\Utility\add_sitemap_to_robots_txt();
 	}
 
+	/**
+	 * @group utility
+	 */
 	public function test_add_sitemap_to_robots_txt_1() {
 
 		update_option( 'blog_public', 1 );
@@ -103,6 +125,9 @@ class UtilityTest extends \WP_UnitTestCase {
 		\Pressbooks\Utility\add_sitemap_to_robots_txt();
 	}
 
+	/**
+	 * @group utility
+	 */
 	public function test_do_sitemap_0() {
 
 		update_option( 'blog_public', 0 );
@@ -110,6 +135,9 @@ class UtilityTest extends \WP_UnitTestCase {
 		\Pressbooks\Utility\do_sitemap();
 	}
 
+	/**
+	 * @group utility
+	 */
 	public function test_do_sitemap_1() {
 
 		update_option( 'blog_public', 1 );
@@ -117,6 +145,9 @@ class UtilityTest extends \WP_UnitTestCase {
 		\Pressbooks\Utility\do_sitemap();
 	}
 
+	/**
+	 * @group utility
+	 */
 	public function test_create_tmp_file() {
 
 		$file = \Pressbooks\Utility\create_tmp_file();
@@ -130,36 +161,54 @@ class UtilityTest extends \WP_UnitTestCase {
 		fclose( $GLOBALS['my-very-own-resource-key'] );
 	}
 
+	/**
+	 * @group utility
+	 */
 	public function test_check_prince_install() {
 
 		$this->assertInternalType( 'bool', \Pressbooks\Utility\check_prince_install() );
 		$this->assertTrue( defined( 'PB_PRINCE_COMMAND' ) );
 	}
 
+	/**
+	 * @group utility
+	 */
 	public function test_check_epubcheck_install() {
 
 		$this->assertInternalType( 'bool', \Pressbooks\Utility\check_epubcheck_install() );
 		$this->assertTrue( defined( 'PB_EPUBCHECK_COMMAND' ) );
 	}
 
+	/**
+	 * @group utility
+	 */
 	public function test_check_kindlegen_install() {
 
 		$this->assertInternalType( 'bool', \Pressbooks\Utility\check_kindlegen_install() );
 		$this->assertTrue( defined( 'PB_KINDLEGEN_COMMAND' ) );
 	}
 
+	/**
+	 * @group utility
+	 */
 	public function test_check_xmllint_install() {
 
 		$this->assertInternalType( 'bool', \Pressbooks\Utility\check_xmllint_install() );
 		$this->assertTrue( defined( 'PB_XMLLINT_COMMAND' ) );
 	}
 
+	/**
+	 * @group utility
+	 */
 	public function test_check_saxonhe_install() {
 
 		$this->assertInternalType( 'bool', \Pressbooks\Utility\check_saxonhe_install() );
 		$this->assertTrue( defined( 'PB_SAXON_COMMAND' ) );
 	}
 
+	/**
+	 * @group utility
+	 */
 	public function test_show_experimental_features() {
 
 		$this->assertInternalType( 'bool', \Pressbooks\Utility\show_experimental_features() );
@@ -167,12 +216,18 @@ class UtilityTest extends \WP_UnitTestCase {
 
 	}
 
+	/**
+	 * @group utility
+	 */
 	public function test_include_plugins() {
 
 		\Pressbooks\Utility\include_plugins();
 		$this->assertTrue( class_exists( 'custom_metadata_manager' ) );
 	}
 
+	/**
+	 * @group utility
+	 */
 	public function test_filter_plugins() {
 
 		$symbionts = [ 'a-plugin-that-does-not-exist/foobar.php' => 1 ];
@@ -183,11 +238,17 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertArrayHasKey( 'a-plugin-that-does-not-exist/foobar.php', $filtered );
 	}
 
+	/**
+	 * @group utility
+	 */
 	public function test_install_plugins_tabs() {
 		$tabs = \Pressbooks\Utility\install_plugins_tabs( [] );
 		$this->assertArrayNotHasKey( 'featured', $tabs );
 	}
 
+	/**
+	 * @group utility
+	 */
 	public function test_file_upload_max_size() {
 
 		$maxSize = \Pressbooks\Utility\file_upload_max_size();
@@ -198,6 +259,9 @@ class UtilityTest extends \WP_UnitTestCase {
 
 	}
 
+	/**
+	 * @group utility
+	 */
 	public function test_parse_size() {
 
 		$this->assertTrue( is_float( \Pressbooks\Utility\parse_size( '1' ) ) );
@@ -207,6 +271,9 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertEquals( 8388608, \Pressbooks\Utility\parse_size( '8M' ) );
 	}
 
+	/**
+	 * @group utility
+	 */
 	public function test_format_bytes() {
 
 		$this->assertEquals( '200 B', \Pressbooks\Utility\format_bytes( 200 ) );
@@ -231,7 +298,9 @@ class UtilityTest extends \WP_UnitTestCase {
 	//      $this->markTestIncomplete();
 	//  }
 
-
+	/**
+	 * @group utility
+	 */
 	public function test_template() {
 
 		$template = \Pressbooks\Utility\template(
@@ -254,18 +323,27 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->fail();
 	}
 
+	/**
+	 * @group utility
+	 */
 	public function test_mail_from() {
 		$this->assertEquals( 'pressbooks@example.org', \Pressbooks\Utility\mail_from( '' ) );
 		define( 'WP_MAIL_FROM', 'hi@pressbooks.org' );
 		$this->assertEquals( 'hi@pressbooks.org', \Pressbooks\Utility\mail_from( '' ) );
 	}
 
+	/**
+	 * @group utility
+	 */
 	public function test_mail_from_name() {
 		$this->assertEquals( 'Pressbooks', \Pressbooks\Utility\mail_from_name( '' ) );
 		define( 'WP_MAIL_FROM_NAME', 'Ned' );
 		$this->assertEquals( 'Ned', \Pressbooks\Utility\mail_from_name( '' ) );
 	}
 
+	/**
+	 * @group utility
+	 */
 	public function test_rmrdir() {
 		$file = \Pressbooks\Utility\create_tmp_file();
 		$dirname = dirname( $file );
@@ -285,6 +363,9 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertFalse( is_dir( "$dirname/one" ) );
 	}
 
+	/**
+	 * @group utility
+	 */
 	public function test_rcopy() {
 		$uploads = wp_upload_dir();
 
@@ -310,6 +391,9 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertEquals( $return, false );
 	}
 
+	/**
+	 * @group utility
+	 */
 	public function test_rcopy_excludes() {
 		$uploads = wp_upload_dir();
 
@@ -350,6 +434,9 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'test', file_get_contents( $dest . '/readme.txt' ) );
 	}
 
+	/**
+	 * @group utility
+	 */
 	public function test_rcopy_includes() {
 		$uploads = wp_upload_dir();
 
@@ -392,16 +479,25 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'test', file_get_contents( $dest . '/readme.txt' ) );
 	}
 
+	/**
+	 * @group utility
+	 */
 	public function test_str_starts_with() {
 		$this->assertTrue( \Pressbooks\Utility\str_starts_with( 's0.wp.com', 's0.wp' ) );
 		$this->assertFalse( \Pressbooks\Utility\str_starts_with( 's0.wp.com', 'wp.com' ) );
 	}
 
+	/**
+	 * @group utility
+	 */
 	public function test_str_ends_with() {
 		$this->assertFalse( \Pressbooks\Utility\str_ends_with( 's0.wp.com', 's0.wp' ) );
 		$this->assertTrue( \Pressbooks\Utility\str_ends_with( 's0.wp.com', 'wp.com' ) );
 	}
 
+	/**
+	 * @group utility
+	 */
 	public function test_str_remove_prefix() {
 
 		$result = \Pressbooks\Utility\str_remove_prefix( 'foo foo foo bar', 'foo'  );
@@ -414,6 +510,9 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'foo foo foo bar', $result );
 	}
 
+	/**
+	 * @group utility
+	 */
 	public function test_str_lreplace() {
 
 		$result = \Pressbooks\Utility\str_lreplace( 'foo', 'bar', 'foo foo foo bar' );
@@ -423,6 +522,9 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'foo foo foo bar', $result );
 	}
 
+	/**
+	 * @group utility
+	 */
 	public function test_commaDelimitedStringSearch() {
 		$this->assertTrue( \Pressbooks\Utility\comma_delimited_string_search( 'foo', 'foo' ) );
 		$this->assertTrue( \Pressbooks\Utility\comma_delimited_string_search( 'foo,', 'foo' ) );
@@ -438,6 +540,9 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertFalse( \Pressbooks\Utility\comma_delimited_string_search( 'one,two,three,foo ', 'bar' ) );
 	}
 
+	/**
+	 * @group utility
+	 */
 	public function test_word_count() {
 
 		$content = 'This is four words.';
@@ -457,7 +562,9 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertEquals( 4, $count );
 	}
 
-
+	/**
+	 * @group utility
+	 */
 	public function test_absolute_path() {
 
 		$path = '/simple/path';
@@ -485,6 +592,9 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'ftp://127.0.0.1/one/three/filename', \Pressbooks\Utility\absolute_path( $path ) );
 	}
 
+	/**
+	 * @group utility
+	 */
 	public function test_urls_have_same_host() {
 		$this->assertTrue( \Pressbooks\Utility\urls_have_same_host( 'https://pressbooks.com', 'https://pressbooks.com' ) );
 		$this->assertTrue( \Pressbooks\Utility\urls_have_same_host( 'https://book.pressbooks.com', 'https://pressbooks.com' ) );
@@ -497,22 +607,34 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertFalse( \Pressbooks\Utility\urls_have_same_host( 'pressbooks.com', 'pressbooks.com' ) ); // Not a fully qualified URL
 	}
 
+	/**
+	 * @group utility
+	 */
 	public function get_generated_content_path() {
 		$path = \Pressbooks\Utility\get_generated_content_path();
 		$this->assertStringStartsWith( '/', $path );
 		$this->assertContains( '/pressbooks/', $path );
 	}
 
+	/**
+	 * @group utility
+	 */
 	public function get_generated_content_url() {
 		$url = \Pressbooks\Utility\get_generated_content_url();
 		$this->assertStringStartsWith( 'http', $url );
 		$this->assertContains( '/pressbooks/', $url );
 	}
 
+	/**
+	 * @group utility
+	 */
 	public function test_get_cache_path() {
 		$this->assertNotEmpty( \Pressbooks\Utility\get_cache_path() );
 	}
 
+	/**
+	 * @group utility
+	 */
 	public function test_oxford_comma() {
 		$this->assertEquals( '', \Pressbooks\Utility\oxford_comma( [] ) );
 		$vars[] = 'One Person';
@@ -525,6 +647,9 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'One Person, Two People, Three People, and Four People', \Pressbooks\Utility\oxford_comma( $vars ) );
 	}
 
+	/**
+	 * @group utility
+	 */
 	public function test_oxford_comma_explode() {
 		$this->assertEmpty( \Pressbooks\Utility\oxford_comma_explode( '' ) );
 		$this->assertEquals( [ 'One Person', 'Two People' ], \Pressbooks\Utility\oxford_comma_explode( 'One Person and Two People' ) );
@@ -532,6 +657,9 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertEquals( [ 'andy', 'andrew', 'andrea', 'android' ], \Pressbooks\Utility\oxford_comma_explode( 'andy,andrew, andrea,  android' ) );
 	}
 
+	/**
+	 * @group utility
+	 */
 	public function test_is_assoc() {
 		$this->assertFalse( \Pressbooks\Utility\is_assoc( 'Doing it wrong' ) );
 		$this->assertFalse( \Pressbooks\Utility\is_assoc( [ 'a', 'b', 'c' ] ) );
@@ -540,6 +668,9 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertTrue( \Pressbooks\Utility\is_assoc( [ "a" => 'a', "b" => 'b', "c" => 'c' ] ) );
 	}
 
+	/**
+	 * @group utility
+	 */
 	public function test_empty_space() {
 		$this->assertFalse( \Pressbooks\Utility\empty_space( 'Hi' ) );
 		$this->assertFalse( \Pressbooks\Utility\empty_space( true ) );
@@ -549,17 +680,26 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertTrue( \Pressbooks\Utility\empty_space( false ) );
 	}
 
+	/**
+	 * @group utility
+	 */
 	public function test_main_contact_email() {
 		$email = \Pressbooks\Utility\main_contact_email();
 		$this->assertContains( '@', $email );
 	}
 
+	/**
+	 * @group utility
+	 */
 	public function test_str_lowercase_dash() {
 		$this->assertEquals( 'neural-networks', \Pressbooks\Utility\str_lowercase_dash( 'Neural Networks' ) );
 		$this->assertEmpty( \Pressbooks\Utility\str_lowercase_dash( '') );
 		$this->assertEquals( 'support--vector--machines', \Pressbooks\Utility\str_lowercase_dash( ' Support  Vector  MachINEs    ') );
 	}
 
+	/**
+	 * @group utility
+	 */
 	public function test_shortcode_att_replace() {
 
 		$c = '<h1>Test</h1><p>[pb_glossary hello=world id=111 foo=bar]Skatboards[/pb_glossary], not [pb_glossary hello=world id=222 foo=bar]death[/pb_glossary].</p><p>[some id=222]other shortcode[/some]</p>';
@@ -585,6 +725,9 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertEquals( '[pb_glossary hello=world id=&quot;999&quot; foo="111"]Skatboards[/pb_glossary][pb_glossary broken=\'pebkac\']Yes[/pb_glossary]', $x );
 	}
 
+	/**
+	 * @group utility
+	 */
 	public function test_do_shortcode_by_tags() {
 		$content = '[latex]e^{\i \pi} + 1 = 0[/latex][embed]https://image.png[/embed]';
 

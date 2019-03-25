@@ -41,7 +41,7 @@ class Sku extends Isbn {
 
 		$this->sku = \Pressbooks\Sanitize\force_ascii( $sku );
 		if ( $this->sku !== $sku ) {
-			$_SESSION['pb_errors'] = __( 'There was a problem creating the barcode: Invalid characters in SKU', 'pressbooks' );
+			\Pressbooks\add_error( __( 'There was a problem creating the barcode: Invalid characters in SKU', 'pressbooks' ) );
 			return false;
 		}
 
@@ -65,14 +65,13 @@ class Sku extends Isbn {
 
 		$pid = media_handle_sideload(
 			[
-				'name' => "{$sku}.png",
+				'name' => "{$this->sku}.png",
 				'tmp_name' => $png,
 			], 0
 		);
 		if ( is_wp_error( $pid ) ) {
 			throw new \Exception(
-				$pid->get_error_message(),
-				$pid->get_error_code()
+				$pid->get_error_message()
 			);
 		}
 

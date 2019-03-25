@@ -6,19 +6,38 @@ class MetadataTest extends \WP_UnitTestCase {
 
 	/**
 	 * @var \Pressbooks\Metadata
+	 * @group metadata
 	 */
 	protected $metadata;
 
 	/**
-	 *
+	 * @var \Pressbooks\Taxonomy
+	 * @group metadata
+	 */
+	protected $taxonomy;
+
+	/**
+	 * @var \Pressbooks\Contributors
+	 * @group metadata
+	 */
+	protected $contributor;
+
+	/**
+	 * @group metadata
 	 */
 	public function setUp() {
 		parent::setUp();
 		$this->metadata = new \Pressbooks\Metadata();
+		$this->contributor = new \Pressbooks\Contributors();
+		$this->taxonomy = new \Pressbooks\Taxonomy(
+			$this->getMockBuilder( '\Pressbooks\Licensing' )->getMock(),
+			$this->contributor
+		);
 	}
 
 	/**
 	 * @see \Pressbooks\Metadata::jsonSerialize
+	 * @group metadata
 	 */
 	public function test_Metadata_JsonSerialize() {
 		$result = json_encode( $this->metadata );
@@ -27,18 +46,27 @@ class MetadataTest extends \WP_UnitTestCase {
 
 	}
 
+	/**
+	 * @group metadata
+	 */
 	public function test_get_microdata_elements() {
 
 		$result = \Pressbooks\Metadata\get_microdata_elements();
 		$this->assertContains( '<meta', $result );
 	}
 
+	/**
+	 * @group metadata
+	 */
 	public function test_get_seo_meta_elements() {
 
 		$result = \Pressbooks\Metadata\get_seo_meta_elements();
 		$this->assertContains( '<meta', $result );
 	}
 
+	/**
+	 * @group metadata
+	 */
 	public function test_show_expanded_metadata() {
 		$result = \Pressbooks\Metadata\show_expanded_metadata();
 		$this->assertFalse( $result );
@@ -47,6 +75,9 @@ class MetadataTest extends \WP_UnitTestCase {
 		$this->assertTrue( $result );
 	}
 
+	/**
+	 * @group metadata
+	 */
 	public function test_has_expanded_metadata() {
 		$meta_post_id = $this->metadata->getMetaPostId();
 		$this->assertEquals( 0, $meta_post_id );
@@ -70,6 +101,9 @@ class MetadataTest extends \WP_UnitTestCase {
 		$this->assertTrue( $result );
 	}
 
+	/**
+	 * @group metadata
+	 */
 	public function test_book_information_to_schema() {
 		$book_information = [
 			'pb_authors' => 'Herman Melville',
@@ -84,6 +118,9 @@ class MetadataTest extends \WP_UnitTestCase {
 		$this->assertEquals( $result['identifier']['value'], 'my_doi' );
 	}
 
+	/**
+	 * @group metadata
+	 */
 	public function test_schema_to_book_information() {
 		$schema = [
 			'@context' => 'http://schema.org',
@@ -173,6 +210,9 @@ class MetadataTest extends \WP_UnitTestCase {
 		$this->assertEquals( $result['pb_copyright_holder'], 'Test 6' );
 	}
 
+	/**
+	 * @group metadata
+	 */
 	public function test_section_information_to_schema() {
 		$section_information = [
 			'pb_title' => 'Loomings',
@@ -192,6 +232,9 @@ class MetadataTest extends \WP_UnitTestCase {
 		$this->assertEquals( $result['identifier']['value'], 'my_doi' );
 	}
 
+	/**
+	 * @group metadata
+	 */
 	public function test_schema_to_section_information() {
 		$book_schema = [
 			'@context' => 'http://schema.org',
@@ -256,6 +299,9 @@ class MetadataTest extends \WP_UnitTestCase {
 		$this->assertArrayHasKey( 'pb_section_license', $result );
 	}
 
+	/**
+	 * @group metadata
+	 */
 	public function test_get_thema_subjects() {
 		$result = \Pressbooks\Metadata\get_thema_subjects();
 		$this->assertArrayHasKey( 'Y', $result );
@@ -265,11 +311,17 @@ class MetadataTest extends \WP_UnitTestCase {
 		$this->assertArrayHasKey( '1', $result );
 	}
 
+	/**
+	 * @group metadata
+	 */
 	public function test_get_subject_from_thema() {
 		$result = \Pressbooks\Metadata\get_subject_from_thema( '1KBC-CA-JM' );
 		$this->assertEquals( 'Nova Scotia: South Shore & Kejimkujik National Park', $result );
 	}
 
+	/**
+	 * @group metadata
+	 */
 	public function test_is_bisac() {
 		$result = \Pressbooks\Metadata\is_bisac( 'AB' );
 		$this->assertFalse( $result );
@@ -277,6 +329,9 @@ class MetadataTest extends \WP_UnitTestCase {
 		$this->assertTrue( $result );
 	}
 
+	/**
+	 * @group metadata
+	 */
 	public function test_postStatiiConversion() {
 		$val = $this->metadata->postStatiiConversion( 'wrong', 'wrong' );
 		$this->assertEquals( 'wrong', $val );
@@ -297,6 +352,9 @@ class MetadataTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'web-only', $val );
 	}
 
+	/**
+	 * @group metadata
+	 */
 	public function test_upgradeToPressbooksFive() {
 		$interactive = \Pressbooks\Interactive\Content::init();
 		$this->_book();
@@ -314,5 +372,80 @@ class MetadataTest extends \WP_UnitTestCase {
 		$this->assertEquals( \Pressbooks\Taxonomy::VERSION, get_option( 'pressbooks_taxonomy_version' ) );
 		$content = get_post_field( 'post_content', $pid );
 		$this->assertContains( '<iframe width="560" height="315" src="https://www.youtube.com/embed/JgIhGTpKTwM" frameborder="0"></iframe>', $content );
+	}
+
+	/**
+	 * @group metadata
+	 */
+	public function test_get_section_information() {
+		$this->_book();
+		$chapters = get_posts( ['post_type' => 'chapter', 'posts_per_page' => 1 ] );
+		$section_information = \Pressbooks\Metadata\get_section_information( $chapters[0]->ID );
+		$this->assertInternalType( 'array', $section_information );
+		$this->assertStringStartsWith( 'Test Chapter: ', $section_information['pb_title'] );
+		$this->assertEquals( 'Or, A Chapter to Test', $section_information['pb_subtitle'] );
+	}
+
+	/**
+	 * @group metadata
+	 */
+	public function test_add_json_ld_metadata() {
+		$this->_book();
+		ob_start();
+		\Pressbooks\Metadata\add_json_ld_metadata();
+		$buffer = ob_get_clean();
+		$this->assertStringStartsWith( '<script type="application/ld+json">{"@context":"http:\/\/schema.org","@type":"Book"', $buffer );
+	}
+
+	/**
+	 * @group metadata
+	 */
+	public function test_add_citation_metadata() {
+		$this->_book();
+		$this->taxonomy->registerTaxonomies();
+		$author = 'Some Author';
+		$results = $this->contributor->insert( $author );
+
+		$meta_post = $this->metadata->getMetaPost();
+		$time = time();
+		update_post_meta( $meta_post->ID, 'pb_title', 'Some Book' );
+		update_post_meta( $meta_post->ID, 'pb_book_doi', '10.1000/xyz123' );
+		update_post_meta( $meta_post->ID, 'pb_ebook_isbn', '9781234567897' );
+		update_post_meta( $meta_post->ID, 'pb_language', 'en-ca' );
+		update_post_meta( $meta_post->ID, 'pb_publication_date', $time );
+		update_post_meta( $meta_post->ID, 'pb_publisher', 'Book Oven Inc.' );
+		add_post_meta( $meta_post->ID, 'pb_authors', 'some-author' );
+
+		ob_start();
+		\Pressbooks\Metadata\add_citation_metadata();
+		$buffer = ob_get_clean();
+		$this->assertStringStartsWith( '<meta name="og:type" content="book"', $buffer );
+		$this->assertContains( '<meta name="citation_title" content="Some Book">', $buffer );
+		$this->assertContains( '<meta name="citation_doi" content="10.1000/xyz123">', $buffer );
+		$this->assertContains( '<meta name="citation_isbn" content="9781234567897">', $buffer );
+		$this->assertContains( '<meta name="citation_language" content="en-ca">', $buffer );
+		$this->assertContains( '<meta name="citation_year" content="' . strftime( '%Y', $time ) . '">', $buffer );
+		$this->assertContains( '<meta name="citation_publication_date" content="' . strftime( '%F', $time ) . '">', $buffer );
+		$this->assertContains( '<meta name="citation_publisher" content="Book Oven Inc.">', $buffer );
+		$this->assertContains( '<meta name="citation_author" content="Some Author">', $buffer );
+
+		$chapters = get_posts( ['post_type' => 'chapter', 'posts_per_page' => 1 ] );
+		$this->go_to( get_permalink( $chapters[0]->ID ) );
+		global $post;
+		setup_postdata( $post );
+		$section_title = $post->post_title;
+
+		ob_start();
+		\Pressbooks\Metadata\add_citation_metadata();
+		$buffer = ob_get_clean();
+
+		$this->assertNotContains( '<meta name="og:type" content="book"', $buffer );
+		$this->assertContains( '<meta name="citation_book_title" content="Some Book">', $buffer );
+		$this->assertContains( '<meta name="citation_title" content="' . $section_title . '">', $buffer );
+		$this->assertContains( '<meta name="citation_language" content="en-ca">', $buffer );
+		$this->assertContains( '<meta name="citation_year" content="' . strftime( '%Y', $time ) . '">', $buffer );
+		$this->assertContains( '<meta name="citation_publication_date" content="' . strftime( '%F', $time ) . '">', $buffer );
+		$this->assertContains( '<meta name="citation_publisher" content="Book Oven Inc.">', $buffer );
+		$this->assertContains( '<meta name="citation_author" content="Some Author">', $buffer );
 	}
 }

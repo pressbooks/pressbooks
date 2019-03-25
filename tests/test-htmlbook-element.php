@@ -2,6 +2,9 @@
 
 class HTMLBook_ElementTest extends \WP_UnitTestCase {
 
+	/**
+	 * @group htmlbook
+	 */
 	public function test_isInline() {
 		$e = new \Pressbooks\HTMLBook\Element();
 		$f = new \Pressbooks\HTMLBook\Element();
@@ -18,6 +21,9 @@ class HTMLBook_ElementTest extends \WP_UnitTestCase {
 		$this->assertFalse( $e->isInline( $p ) );
 	}
 
+	/**
+	 * @group htmlbook
+	 */
 	public function test_isBlock() {
 		$e = new \Pressbooks\HTMLBook\Element();
 		$f = new \Pressbooks\HTMLBook\Element();
@@ -35,6 +41,9 @@ class HTMLBook_ElementTest extends \WP_UnitTestCase {
 		$this->assertFalse( $e->isBlock( $fn ) );
 	}
 
+	/**
+	 * @group htmlbook
+	 */
 	public function test_isHeading() {
 		$e = new \Pressbooks\HTMLBook\Element();
 		$f = new \Pressbooks\HTMLBook\Element();
@@ -71,6 +80,9 @@ class HTMLBook_ElementTest extends \WP_UnitTestCase {
 		$this->assertFalse( $e->isHeading( $header ) );
 	}
 
+	/**
+	 * @group htmlbook
+	 */
 	public function test_Block() {
 		$e = new \Pressbooks\HTMLBook\Block\Admonitions();
 		$e->setDataType( 'important' );
@@ -143,6 +155,9 @@ class HTMLBook_ElementTest extends \WP_UnitTestCase {
 		$this->assertEquals( '<table>Hi!</table>', $e->render() );
 	}
 
+	/**
+	 * @group htmlbook
+	 */
 	public function test_Component() {
 		$e = new \Pressbooks\HTMLBook\Component\Appendix();
 		$e->appendContent( 'Hi!' );
@@ -209,6 +224,9 @@ class HTMLBook_ElementTest extends \WP_UnitTestCase {
 		$this->assertEquals( '<nav data-type="toc">Hi!</nav>', $e->render() );
 	}
 
+	/**
+	 * @group htmlbook
+	 */
 	public function test_Heading() {
 		$e = new \Pressbooks\HTMLBook\Heading\H1();
 		$e->appendContent( 'Hi!' );
@@ -246,6 +264,9 @@ class HTMLBook_ElementTest extends \WP_UnitTestCase {
 		$this->assertEquals( '<header>Hi!</header>', $e->render() );
 	}
 
+	/**
+	 * @group htmlbook
+	 */
 	public function test_Inline() {
 		$e = new \Pressbooks\HTMLBook\Inline\CrossReferences();
 		$e->appendContent( 'Hi!' );
@@ -293,6 +314,9 @@ class HTMLBook_ElementTest extends \WP_UnitTestCase {
 		$this->assertEquals( '<sup>Hi!</sup>', $e->render() );
 	}
 
+	/**
+	 * @group htmlbook
+	 */
 	public function test_Interactive() {
 		$e = new \Pressbooks\HTMLBook\Interactive\Audio();
 		$e->appendContent( 'Hi!' );

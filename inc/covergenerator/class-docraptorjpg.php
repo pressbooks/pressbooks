@@ -178,8 +178,7 @@ class DocraptorJpg extends Generator {
 			);
 			if ( is_wp_error( $pid ) ) {
 				throw new \Exception(
-					$pid->get_error_message(),
-					$pid->get_error_code()
+					$pid->get_error_message()
 				);
 			}
 

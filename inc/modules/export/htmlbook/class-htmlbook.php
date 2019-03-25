@@ -97,9 +97,6 @@ class HTMLBook extends Export {
 		$timestamp = time();
 		$md5 = $this->nonce( $timestamp );
 		$this->url = home_url() . "/format/htmlbook?timestamp={$timestamp}&hashkey={$md5}";
-		if ( ! empty( $_REQUEST['preview'] ) ) {
-			$this->url .= '&preview=1';
-		}
 
 		// Append endnotes to URL?
 		if ( $r['endnotes'] ) {
@@ -304,9 +301,7 @@ class HTMLBook extends Export {
 	 */
 	public function logError( $message, array $more_info = [] ) {
 
-		$more_info = [
-			'url' => $this->url,
-		];
+		$more_info['url'] = $this->url;
 
 		parent::logError( $message, $more_info );
 	}
@@ -536,8 +531,14 @@ class HTMLBook extends Export {
 					$fragment = false;
 				}
 				if ( $fragment ) {
-					$link->setAttribute( 'href', "#{$fragment}" );
-					$changed = true;
+					// Check if a fragment is considered external, don't change the URL if we find a match
+					$external_anchors = [ \Pressbooks\Interactive\Content::ANCHOR ];
+					if ( in_array( "#{$fragment}", $external_anchors, true ) ) {
+						continue;
+					} else {
+						$link->setAttribute( 'href', "#{$fragment}" );
+						$changed = true;
+					}
 				}
 			}
 		}

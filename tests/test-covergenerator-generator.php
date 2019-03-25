@@ -6,6 +6,7 @@ class CoverGenerator_GeneratorTest extends \WP_UnitTestCase {
 
 	/**
 	 * @return \Pressbooks\Covergenerator\Input
+	 * @group covergenerator
 	 */
 	protected function input() {
 		$input = new \Pressbooks\Covergenerator\Input();
@@ -22,7 +23,9 @@ class CoverGenerator_GeneratorTest extends \WP_UnitTestCase {
 		return $input;
 	}
 
-
+	/**
+	 * @group covergenerator
+	 */
 	public function test_generators() {
 
 		\Pressbooks\Covergenerator\Covergenerator::commandLineDefaults();
@@ -51,7 +54,7 @@ class CoverGenerator_GeneratorTest extends \WP_UnitTestCase {
 		$this->assertContains( 'jpeg', \Pressbooks\Media\mime_type( $output_path ) );
 
 		// V1
-		$this->_book( 'pressbooks-donham' );
+		$this->_book( 'pressbooks-luther' );
 
 		$g = new \Pressbooks\Covergenerator\DocraptorPdf( $this->input() );
 		$output_path = $g->generate();

@@ -6,6 +6,9 @@ use Pressbooks\HtmlParser;
 class HtmlParserTest extends \WP_UnitTestCase {
 
 
+	/**
+	 * @group htmlparser
+	 */
 	public function test_externalParser() {
 		$html5 = new HtmlParser( false );
 
@@ -27,7 +30,9 @@ class HtmlParserTest extends \WP_UnitTestCase {
 
 	}
 
-
+	/**
+	 * @group htmlparser
+	 */
 	public function test_internalParser() {
 		$html5 = new HtmlParser( true );
 

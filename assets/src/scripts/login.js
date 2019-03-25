@@ -1,3 +1,5 @@
+/* global PB_Login */
+
 const h1 = document.querySelector( 'h1' );
 const login = document.querySelector( 'div#login' );
 let subtitle = document.createElement( 'p' );

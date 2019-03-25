@@ -87,6 +87,7 @@ class Taxonomy {
 			'front-matter',
 			[
 				'meta_box' => 'dropdown',
+				'meta_box_sanitize_cb' => 'taxonomy_meta_box_sanitize_cb_input',
 				'capabilities' => [
 					'manage_terms' => 'manage_sites',
 					'edit_terms' => 'manage_sites',
@@ -102,6 +103,7 @@ class Taxonomy {
 			'back-matter',
 			[
 				'meta_box' => 'dropdown',
+				'meta_box_sanitize_cb' => 'taxonomy_meta_box_sanitize_cb_input',
 				'capabilities' => [
 					'manage_terms' => 'manage_sites',
 					'edit_terms' => 'manage_sites',
@@ -117,6 +119,7 @@ class Taxonomy {
 			'chapter',
 			[
 				'meta_box' => 'dropdown',
+				'meta_box_sanitize_cb' => 'taxonomy_meta_box_sanitize_cb_input',
 				'capabilities' => [
 					'manage_terms' => 'manage_sites',
 					'edit_terms' => 'manage_sites',
@@ -164,6 +167,7 @@ class Taxonomy {
 			'glossary',
 			[
 				'meta_box' => 'dropdown',
+				'meta_box_sanitize_cb' => 'taxonomy_meta_box_sanitize_cb_input',
 				'capabilities' => [
 					'manage_terms' => 'manage_sites',
 					'edit_terms' => 'manage_sites',
@@ -585,9 +589,11 @@ class Taxonomy {
 		foreach ( $this->licensing->getSupportedTypes( true, true ) as $key => $val ) {
 			if ( $key === 'public-domain' ) {
 				$public_domain = get_term_by( 'slug', $key, Licensing::TAXONOMY );
-				wp_update_term( $public_domain->term_id, Licensing::TAXONOMY, [
-					'name' => $val['desc'],
-				] );
+				wp_update_term(
+					$public_domain->term_id, Licensing::TAXONOMY, [
+						'name' => $val['desc'],
+					]
+				);
 			}
 			if ( $key === 'cc-zero' ) {
 				wp_insert_term(

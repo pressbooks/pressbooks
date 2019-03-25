@@ -9,9 +9,10 @@ namespace Pressbooks\Modules\Import\Epub;
 
 use Pressbooks\Book;
 use Pressbooks\HtmlParser;
-use Pressbooks\Modules\Import\Import;
+use Pressbooks\Modules\Import\ImportGenerator;
+use Pressbooks\Utility\PercentageYield;
 
-class Epub201 extends Import {
+class Epub201 extends ImportGenerator {
 
 	const TYPE_OF = 'epub';
 
@@ -110,7 +111,7 @@ class Epub201 extends Import {
 			//Check this manifest item exists or not
 			if ( isset( $this->manifest[ $id ] ) ) {
 
-				$href = $this->manifest[ $id ]['herf'];
+				$href = (string) $this->manifest[ $id ]['href'];
 
 				//Check manifest item is copyright or not
 				if ( 'OEBPS/copyright.html' === $href ) {
@@ -131,29 +132,47 @@ class Epub201 extends Import {
 		return update_option( 'pressbooks_current_import', $option );
 	}
 
-
 	/**
 	 * @param array $current_import
 	 *
 	 * @return bool
 	 */
 	function import( array $current_import ) {
-
 		try {
-			$this->setCurrentZip( $current_import['file'] );
+			foreach ( $this->importGenerator( $current_import ) as $percentage => $info ) {
+				// Do nothing, this is a compatibility wrapper that makes the generator work like a regular function
+			}
 		} catch ( \Exception $e ) {
 			return false;
 		}
+		return true;
+	}
+
+
+	/**
+	 * @param array $current_import
+	 *
+	 * @throws \Exception
+	 * @return \Generator
+	 */
+	function importGenerator( array $current_import ) : \Generator {
+		yield 10 => __( 'Opening EPUB file', 'pressbooks' );
+		$this->setCurrentZip( $current_import['file'] );
 
 		$xml = $this->getOpf();
 		$match_ids = array_flip( array_keys( $current_import['chapters'] ) );
 		$chapter_parent = $this->getChapterParent();
 
+		yield 30 => __( 'Reading metadata', 'pressbooks' );
 		$this->parseMetadata( $xml );
-		$this->parseManifest( $xml, $match_ids, $chapter_parent, $current_import );
+
+		yield from $this->parseManifestGenerator( $xml, $match_ids, $chapter_parent, $current_import );
 
 		// Done
-		return $this->revokeCurrentImport();
+		yield 95 => __( 'Deleting temporary files', 'pressbooks' );
+		if ( ! $this->revokeCurrentImport() ) {
+			throw new \Exception();
+		}
 	}
 
 
@@ -183,40 +202,55 @@ class Epub201 extends Import {
 
 	/**
 	 * Parse OPF manifest nodes
+	 * Yields an estimated percentage slice of: 40 - 95
 	 *
 	 * @param \SimpleXMLElement $xml
 	 * @param array $match_ids
 	 * @param $chapter_parent
 	 * @param array $current_import
+	 *
+	 * @return \Generator
 	 */
-	protected function parseManifest( \SimpleXMLElement $xml, array $match_ids, $chapter_parent, $current_import ) {
-
-		//Format manifest to array
+	protected function parseManifestGenerator( \SimpleXMLElement $xml, array $match_ids, $chapter_parent, $current_import ) : \Generator {
 		$this->parseManifestToArray( $xml );
-		$total = 0;
+		$selected_for_import = $this->selectedForImport( $xml, $match_ids );
+		$total = count( $selected_for_import );
+		$y = new PercentageYield( 40, 95, $total );
+		foreach ( $selected_for_import as $id ) {
+			yield from $y->tick( __( 'Importing', 'pressbooks' ) );
+			// Insert
+			$href = $this->basedir . $this->manifest[ $id ]['href'];
+			$this->kneadAndInsert( $href, $this->determinePostType( $id ), $chapter_parent, $current_import['default_post_status'] );
+		}
+		$_SESSION['pb_notices'][] = sprintf( __( 'Imported %s chapters.', 'pressbooks' ), $total );
+	}
 
-		//Iterate each spine and get each manifest item in the order of spine
+	/**
+	 * Iterate each spine and get each manifest item in the order of spine
+	 *
+	 * @param \SimpleXMLElement $xml
+	 * @param array $match_ids
+	 *
+	 * @return int[]
+	 */
+	protected function selectedForImport( \SimpleXMLElement $xml, array $match_ids ) {
+		$selected_for_import = [];
 		foreach ( $xml->spine->children() as $item ) {
 			/** @var \SimpleXMLElement $item */
 			// Get attributes
 			$id = '';
-
 			foreach ( $item->attributes() as $key => $val ) {
 				if ( 'idref' === $key ) {
 					$id = (string) $val;
 				}
 			}
-
 			//Check this manifest item exists or not
 			if ( isset( $this->manifest[ $id ] ) ) {
-				$href = $this->manifest[ $id ]['herf'];
-
+				// Flag
+				$href = (string) $this->manifest[ $id ]['href'];
 				if ( 'OEBPS/copyright.html' === $href ) {
 					$this->pbCheck( $href );
 				}
-
-				$href = $this->basedir . $href;
-
 				// Skip
 				if ( ! $this->flaggedForImport( $id ) ) {
 					continue;
@@ -225,13 +259,11 @@ class Epub201 extends Import {
 					continue;
 				}
 
-				// Insert
-				$this->kneadAndInsert( $href, $this->determinePostType( $id ), $chapter_parent, $current_import['default_post_status'] );
-				++$total;
+				$selected_for_import[] = $id;
 			}
 		}
 
-		$_SESSION['pb_notices'][] = sprintf( __( 'Imported %s chapters.', 'pressbooks' ), $total );
+		return $selected_for_import;
 	}
 
 
@@ -612,7 +644,7 @@ class Epub201 extends Import {
 
 			$this->manifest[ $id ] = [
 				'type' => $type,
-				'herf' => $href,
+				'href' => $href,
 			];
 		}
 

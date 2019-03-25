@@ -222,7 +222,7 @@ class Catalog {
 				 * @param string $cover The url to cover image.
 				 * @param string $original The original url to the cover image.
 				 */
-				$cid = \Pressbooks\Image\attachment_id_from_url( apply_filters( 'pb_cover_image', $cover, $metadata['pb_cover_image'] ) );
+				$cid = \Pressbooks\Image\attachment_id_from_url( apply_filters( 'pb_cover_image', $cover, $metadata['pb_cover_image'] ?? '' ) );
 				foreach ( $cover_sizes as $size => $default ) {
 					$cid_thumb = wp_get_attachment_image_src( $cid, $size );
 					if ( $cid_thumb ) {

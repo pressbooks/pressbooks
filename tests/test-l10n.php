@@ -2,6 +2,10 @@
 
 class L10nTest extends \WP_UnitTestCase {
 
+
+	/**
+	 * @group localization
+	 */
 	public function test_get_locale() {
 
 		$locale = \Pressbooks\L10n\get_locale();
@@ -9,12 +13,18 @@ class L10nTest extends \WP_UnitTestCase {
 		$this->assertTrue( is_string( $locale ) );
 	}
 
+	/**
+	 * @group localization
+	 */
 	public function test_load_plugin_textdomain() {
 
 		\Pressbooks\L10n\load_plugin_textdomain();
 		$this->assertTrue( true ); // Did not crash
 	}
 
+	/**
+	 * @group localization
+	 */
 	public function test_include_core_overrides() {
 
 		$overrides = \Pressbooks\L10n\include_core_overrides();
@@ -23,6 +33,9 @@ class L10nTest extends \WP_UnitTestCase {
 		$this->assertArrayHasKey( 'My Sites', $overrides );
 	}
 
+	/**
+	 * @group localization
+	 */
 	public function test_override_core_strings() {
 
 		$text = 'My Sites';
@@ -35,6 +48,9 @@ class L10nTest extends \WP_UnitTestCase {
 		$this->assertNotEquals( $text, $translated ); // 'My Sites' should be 'My Books', 'Mes Livres', ...
 	}
 
+	/**
+	 * @group localization
+	 */
 	public function test_set_locate() {
 
 		$this->assertTrue(
@@ -42,6 +58,9 @@ class L10nTest extends \WP_UnitTestCase {
 		);
 	}
 
+	/**
+	 * @group localization
+	 */
 	public function test_set_root_locate() {
 
 		$this->assertTrue(
@@ -49,18 +68,27 @@ class L10nTest extends \WP_UnitTestCase {
 		);
 	}
 
+	/**
+	 * @group localization
+	 */
 	public function test_supported_languages() {
 
 		$supported_languages = \Pressbooks\L10n\supported_languages();
 		$this->assertTrue( is_array( $supported_languages ) );
 	}
 
+	/**
+	 * @group localization
+	 */
 	public function test_wplang_codes() {
 
 		$wplang_codes = \Pressbooks\L10n\wplang_codes();
 		$this->assertTrue( is_array( $wplang_codes ) );
 	}
 
+	/**
+	 * @group localization
+	 */
 	public function test_romanize() {
 
 		$this->assertEquals( \Pressbooks\L10n\romanize( 1 ), 'I' );
@@ -70,6 +98,9 @@ class L10nTest extends \WP_UnitTestCase {
 		$this->assertEquals( \Pressbooks\L10n\romanize( 1975 ), 'MCMLXXV' );
 	}
 
+	/**
+	 * @group localization
+	 */
 	public function test_install_book_locale() {
 
 		// Test for incorrect meta_key

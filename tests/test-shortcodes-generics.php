@@ -7,11 +7,12 @@ class Shortcodes_Generics extends \WP_UnitTestCase {
 
 	/**
 	 * @var \Pressbooks\Shortcodes\Generics\Generics
+	 * @group shortcodes
 	 */
 	protected $generics;
 
 	/**
-	 *
+	 * @group shortcodes
 	 */
 	public function setUp() {
 		parent::setUp();
@@ -22,6 +23,9 @@ class Shortcodes_Generics extends \WP_UnitTestCase {
 			->getMock();
 	}
 
+	/**
+	 * @group shortcodes
+	 */
 	public function test_getInstance() {
 		$val = $this->generics->init();
 
@@ -31,6 +35,9 @@ class Shortcodes_Generics extends \WP_UnitTestCase {
 		$this->assertArrayHasKey( 'blockquote', $shortcode_tags );
 	}
 
+	/**
+	 * @group shortcodes
+	 */
 	public function test_blockShortcodeHandler() {
 
 		// Test a straightforward tag.
@@ -44,6 +51,9 @@ class Shortcodes_Generics extends \WP_UnitTestCase {
 		$this->assertEmpty( $this->generics->blockShortcodeHandler( [], '', 'heading' ) );
 	}
 
+	/**
+	 * @group shortcodes
+	 */
 	public function test_multilineBlockShortcodeHandler() {
 
 		// Test a straightforward tag.
@@ -65,6 +75,9 @@ class Shortcodes_Generics extends \WP_UnitTestCase {
 		$this->assertEmpty( $this->generics->multilineBlockShortcodeHandler( [], '', 'blockquote' ) );
 	}
 
+	/**
+	 * @group shortcodes
+	 */
 	public function test_inlineShortcodeHandler() {
 
 		// Test a straightforward tag.

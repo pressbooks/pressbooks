@@ -2,6 +2,7 @@
 
 namespace Pressbooks\Interactive;
 
+use function Pressbooks\Utility\str_starts_with;
 use Pressbooks\Container;
 use Pressbooks\HtmlParser;
 
@@ -26,6 +27,8 @@ class Content {
 		'www.openassessments.org',
 		'players.brightcove.net',
 		'preview-players.brightcove.net',
+		'//docs.google.com/forms/',
+		'//www.google.com/maps/',
 	];
 
 	/**
@@ -70,6 +73,7 @@ class Content {
 		add_filter( 'oembed_providers', [ $obj, 'addExtraOembedProviders' ] );
 		add_filter( 'oembed_result', [ $obj, 'adjustOembeds' ], 10, 3 );
 		add_action( 'save_post', [ $obj, 'deleteOembedCaches' ] );
+		add_filter( 'mejs_settings', [ $obj, 'mediaElementConfiguration' ] );
 
 		// Export hacks
 		add_action( 'pb_pre_export', [ $obj, 'beforeExport' ] );
@@ -80,6 +84,20 @@ class Content {
 		$this->blade = Container::get( 'Blade' );
 		$this->h5p = new H5P( $this->blade );
 		$this->phet = new Phet( $this->blade );
+	}
+
+	/**
+	 * @return H5P
+	 */
+	public function getH5P() {
+		return $this->h5p;
+	}
+
+	/**
+	 * @return Phet
+	 */
+	public function getPhet() {
+		return $this->phet;
 	}
 
 	/**
@@ -120,8 +138,21 @@ class Content {
 		for ( $i = $elements->length; --$i >= 0; ) { // If you're deleting elements from within a loop, you need to loop backwards
 			$iframe = $elements->item( $i );
 			$src = $iframe->getAttribute( 'src' );
-			$parse = wp_parse_url( $src );
-			if ( ! in_array( $parse['host'], $whitelist, true ) ) {
+			$iframe_url = wp_parse_url( $src );
+			$is_in_whitelist = false;
+			foreach ( $whitelist as $wl ) {
+				if ( str_starts_with( $wl, '//' ) ) {
+					$wl_url = wp_parse_url( $wl );
+					if ( $iframe_url['host'] === $wl_url['host'] && str_starts_with( $iframe_url['path'], $wl_url['path'] ) ) {
+						$is_in_whitelist = true;
+						break;
+					}
+				} elseif ( $iframe_url['host'] === $wl ) {
+					$is_in_whitelist = true;
+					break;
+				}
+			}
+			if ( ! $is_in_whitelist ) {
 				$src = $iframe->getAttribute( 'src' );
 				$fragment = $html5->parser->loadHTMLFragment( "[embed]{$src}[/embed]" );
 				$iframe->parentNode->replaceChild( $dom->importNode( $fragment, true ), $iframe );
@@ -307,9 +338,11 @@ class Content {
 	 */
 	public function addExtraOembedProviders( $providers ) {
 
-		// Format (string), Provider (string), Supports HTTPS? (bool)
+		// Format (string), Provider (string), Is format a regular expression? (bool)
 		$providers['#https?://mathembed\.com/latex\?inputText=.*#i'] = [ 'https://mathembed.com/oembed', true ];
 		$providers['#https?://www\.openassessments\.org/assessments/.*#i'] = [ 'https://www.openassessments.org/oembed.json', true ];
+		$providers['://cdn.knightlab.com/libs/timeline*'] = [ 'https://oembed.knightlab.com/timeline/', false ];
+		$providers['://uploads.knightlab.com/storymapjs/*/index.html'] = [ 'https://oembed.knightlab.com/storymap/', false ];
 
 		return $providers;
 	}
@@ -330,37 +363,6 @@ class Content {
 				delete_post_meta( $post_meta->post_id, $post_meta->meta_key );
 			}
 		}
-	}
-
-	/**
-	 * Is supported when cloning?
-	 *
-	 * @param string $content
-	 *
-	 * @return bool
-	 */
-	public function isCloneable( $content ) {
-
-		// H5P not supported in cloning
-		$tagnames = [ $this->h5p::SHORTCODE ];
-		preg_match_all( '/' . get_shortcode_regex( $tagnames ) . '/', $content, $matches, PREG_SET_ORDER );
-		if ( ! empty( $matches ) ) {
-			return false;
-		}
-
-		return true;
-	}
-
-	/**
-	 * Replace unsupported content when cloning
-	 *
-	 * @param string $content
-	 *
-	 * @return string
-	 */
-	public function replaceCloneable( $content ) {
-		$content = $this->h5p->replaceCloneable( $content );
-		return $content;
 	}
 
 	/**
@@ -516,5 +518,25 @@ class Content {
 			return str_replace( '?feature=oembed', '?feature=oembed&rel=0', $html );
 		}
 		return $html;
+	}
+
+	/**
+	 * Override the default MediaElement configuration settings
+	 *
+	 * @see https://github.com/mediaelement/mediaelement/blob/master/docs/api.md#mediaelementplayer
+	 * @see WP_Scripts::localize
+	 *
+	 * @param array $mejs_settings
+	 *
+	 * @return array
+	 */
+	public function mediaElementConfiguration( $mejs_settings ) {
+
+		// 'autoRewind' is supposed to be boolean
+		// WP_Scripts::localize() encodes false as "" and true as "1"
+		// Still works! Dumb...
+		$mejs_settings['autoRewind'] = false;
+
+		return $mejs_settings;
 	}
 }

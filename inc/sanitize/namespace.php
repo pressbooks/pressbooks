@@ -672,14 +672,19 @@ function reverse_wpautop( $pee ) {
 	$pee = str_replace( '</p></blockquote>', '</blockquote></p>', $pee );
 
 	// Cheap and barely good enough...
-	$pee = str_replace( "\n", '', $pee );
-	$pee = str_replace( '<p>', '', $pee );
-	$pee = str_replace( [ '<br />', '<br>', '<br/>' ], "\n", $pee );
-	$pee = str_replace( '</p>', "\n\n", $pee );
+	$linebreak_tags = [
+		"\n" => '',
+		'<p>' => '',
+		'<br />' => "\n",
+		'<br>' => "\n",
+		'<br/>' => "\n",
+		'</p>' => "\n\n",
+	];
+	$pee = strtr( $pee, $linebreak_tags );
 
 	// Replace placeholder <pre> tags with their original content.
 	if ( ! empty( $pre_tags ) ) {
-		$pee = str_replace( array_keys( $pre_tags ), array_values( $pre_tags ), $pee );
+		$pee = strtr( $pee, $pre_tags );
 	}
 
 	return $pee;

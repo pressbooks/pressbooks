@@ -8,10 +8,12 @@ class UpdatesTest extends \WP_UnitTestCase {
 
 	/**
 	 * @var \Pressbooks\Updates
+	 * @group updates
 	 */
 	protected $updates;
 
 	/**
+	 * @group updates
 	 */
 	public function setUp() {
 		parent::setUp();
@@ -21,6 +23,9 @@ class UpdatesTest extends \WP_UnitTestCase {
 		$this->updates = new Updates();
 	}
 
+	/**
+	 * @group updates
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		// Remove fake incompatible plugin
@@ -28,16 +33,25 @@ class UpdatesTest extends \WP_UnitTestCase {
 		unlink( WP_PLUGIN_DIR . '/pressbooks-hello.php' );
 	}
 
+	/**
+	 * @group updates
+	 */
 	public function test_init() {
 		$instance = Updates::init();
 		$this->assertTrue( $instance instanceof \Pressbooks\Updates );
 	}
 
+	/**
+	 * @group updates
+	 */
 	public function test_gitHubUpdater() {
 		$this->updates->gitHubUpdater();
-		$this->assertTrue( has_filter( 'puc_is_slug_in_use-' ) ); // TODO: https://github.com/YahnisElsts/plugin-update-checker/issues/180
+		$this->assertTrue( has_filter( 'puc_is_slug_in_use-pressbooks' ) );
 	}
 
+	/**
+	 * @group updates
+	 */
 	public function test_inPluginUpdateMessage() {
 		ob_start();
 		$this->updates->inPluginUpdateMessage( [ 'new_version' => '9.9.9.' ] );
@@ -53,30 +67,43 @@ class UpdatesTest extends \WP_UnitTestCase {
 //		// $this->assertContains( '<thead>', $buffer );
 //	}
 
+/**
+	 * @group updates
+	 */
 	public function test_getBaseName() {
 		$basename = $this->updates->getBaseName();
 		$this->assertContains( 'pressbooks', $basename );
 	}
 
+	/**
+	 * @group updates
+	 */
 	public function test_extraPluginHeaders() {
 		$headers = $this->updates->extraPluginHeaders( [] );
 		$this->assertArrayHasKey( 'PBTested', $headers );
 	}
 
+	/**
+	 * @group updates
+	 */
 	public function test_getUntestedPlugins() {
 		$list = $this->updates->getUntestedPlugins( '5.0.0' );
 		$this->assertTrue( is_array( $list ) );
 	}
 
+	/**
+	 * @group updates
+	 */
 	public function test_getPluginsWithHeader() {
 		$list = $this->updates->getPluginsWithHeader( Updates::VERSION_TESTED_HEADER );
 		$this->assertTrue( is_array( $list ) );
 	}
 
+	/**
+	 * @group updates
+	 */
 	public function test_getPluginsWithPressbooksInDescription() {
 		$list = $this->updates->getPluginsWithPressbooksInDescription();
 		$this->assertTrue( is_array( $list ) );
 	}
-
-
 }

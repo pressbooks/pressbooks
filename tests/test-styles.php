@@ -8,17 +8,21 @@ class StylesTest extends \WP_UnitTestCase {
 
 	/**
 	 * @var \Pressbooks\Styles
+	 * @group styles
 	 */
 	protected $cs;
 
 	/**
-	 *
+	 * @group styles
 	 */
 	public function setUp() {
 		parent::setUp();
 		$this->cs = Container::get( 'Styles' );
 	}
 
+	/**
+	 * @group styles
+	 */
 	public function test_custom_posts() {
 		global $wp_post_types;
 		$this->cs->registerPosts();
@@ -31,6 +35,9 @@ class StylesTest extends \WP_UnitTestCase {
 		$this->assertFalse( $this->cs->getPost( 'garbage' ) );
 	}
 
+	/**
+	 * @group styles
+	 */
 	public function test_basepath() {
 		$v1 = wp_get_theme( 'pressbooks-book' );
 		$this->assertNotEmpty( $this->cs->getDir( $v1, true ) );
@@ -40,9 +47,12 @@ class StylesTest extends \WP_UnitTestCase {
 		$this->assertNotEmpty( $this->cs->getDir( null, false ) );
 	}
 
+	/**
+	 * @group styles
+	 */
 	public function test_pathToScss() {
 		// V1
-		$v1 = wp_get_theme( 'pressbooks-donham' );
+		$v1 = wp_get_theme( 'pressbooks-luther' );
 		$this->assertContains( 'style.scss', $this->cs->getPathToWebScss( $v1 ) );
 		$this->assertContains( '/export/', $this->cs->getPathToEpubScss( $v1 ) );
 		$this->assertContains( '/export/', $this->cs->getPathToPrinceScss( $v1 ) );
@@ -53,9 +63,12 @@ class StylesTest extends \WP_UnitTestCase {
 		$this->assertContains( '/assets/styles/', $this->cs->getPathToPrinceScss( $v2 ) );
 	}
 
+	/**
+	 * @group styles
+	 */
 	public function test_isCurrentThemeCompatible() {
 		// V1
-		$v1 = wp_get_theme( 'pressbooks-donham' );
+		$v1 = wp_get_theme( 'pressbooks-luther' );
 		$this->assertTrue( $this->cs->isCurrentThemeCompatible( 1, $v1 ) );
 		$this->assertFalse( $this->cs->isCurrentThemeCompatible( 2, $v1 ) );
 		$this->assertFalse( $this->cs->isCurrentThemeCompatible( 999, $v1 ) );
@@ -66,12 +79,18 @@ class StylesTest extends \WP_UnitTestCase {
 		$this->assertFalse( $this->cs->isCurrentThemeCompatible( 999, $v2 ) );
 	}
 
+	/**
+	 * @group styles
+	 */
 	public function test_getBuckramVersion() {
 		$this->assertGreaterThanOrEqual( 0, version_compare( $this->cs->getBuckramVersion(), '0.2.0' ) );
 	}
 
+	/**
+	 * @group styles
+	 */
 	public function test_hasBuckram() {
-		$this->_book( 'pressbooks-donham' );
+		$this->_book( 'pressbooks-luther' );
 		$this->assertFalse( $this->cs->hasBuckram() );
 		$this->_book( 'pressbooks-book' );
 		$this->assertTrue( $this->cs->hasBuckram() );
@@ -79,9 +98,12 @@ class StylesTest extends \WP_UnitTestCase {
 		$this->assertFalse( $this->cs->hasBuckram( 42 ) );
 	}
 
+	/**
+	 * @group styles
+	 */
 	public function test_applyOverrides() {
 		// V1
-		$this->_book( 'pressbooks-donham' );
+		$this->_book( 'pressbooks-luther' );
 		$result = $this->cs->applyOverrides( '// SCSS.', '// Override.' );
 		$this->assertTrue( strpos( $result, '// SCSS.' ) === 0 );
 		$result = $this->cs->applyOverrides( '// SCSS.', [ '// Override 1.', '// Override 2.' ] );
@@ -96,9 +118,12 @@ class StylesTest extends \WP_UnitTestCase {
 		$this->assertContains( '// SCSS.', $result );
 	}
 
+	/**
+	 * @group styles
+	 */
 	public function test_customize() {
 		// V1
-		$this->_book( 'pressbooks-donham' );
+		$this->_book( 'pressbooks-luther' );
 		$this->assertContains( 'font-size:', $this->cs->customizeWeb() );
 		$this->assertContains( 'font-size:', $this->cs->customizeEpub() );
 		$this->assertContains( 'font-size:', $this->cs->customizePrince() );
@@ -109,7 +134,9 @@ class StylesTest extends \WP_UnitTestCase {
 		$this->assertContains( 'font-size:', $this->cs->customizePrince() );
 	}
 
-
+	/**
+	 * @group styles
+	 */
 	public function test_updateWebBookStyleSheet() {
 
 		$this->_book( 'pressbooks-clarke' ); // Pick a theme with some built-in $supported_languages
@@ -122,6 +149,9 @@ class StylesTest extends \WP_UnitTestCase {
 		$this->assertNotEmpty( file_get_contents( $file ) );
 	}
 
+	/**
+	 * @group styles
+	 */
 	public function test_maybeUpdateStyleSheets() {
 
 		$this->_book( 'pressbooks-book' );
@@ -138,6 +168,9 @@ class StylesTest extends \WP_UnitTestCase {
 		$this->assertEquals( $result, false );
 	}
 
+	/**
+	 * @group styles
+	 */
 	public function test_editor() {
 		$this->_book();
 
@@ -151,9 +184,4 @@ class StylesTest extends \WP_UnitTestCase {
 		$output = ob_get_clean();
 		$this->assertContains( '<h1>Custom Styles</h1>', $output );
 	}
-
-
-
-
-
 }

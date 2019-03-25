@@ -1,5 +1,6 @@
 <?php
 
+use Pressbooks\Cloner\Cloner;
 use Pressbooks\Modules\Import\Epub\Epub201;
 use Pressbooks\Modules\Import\Html\Xhtml;
 use Pressbooks\Modules\Import\Odf\Odt;
@@ -14,11 +15,10 @@ $import_form_url = wp_nonce_url( get_admin_url( get_current_blog_id(), '/tools.p
 $import_revoke_url = wp_nonce_url( get_admin_url( get_current_blog_id(), '/tools.php?page=pb_import&revoke=yes' ), 'pb-revoke-import' );
 $current_import = get_option( 'pressbooks_current_import' );
 $custom_post_types = apply_filters( 'pb_import_custom_post_types', [] );
+$html_type_of = Cloner::isEnabled() ? __( 'Web page or Pressbooks webbook (.html or URL)', 'pressbooks' ) : __( 'Web page (.html or URL)', 'pressbooks' );
 
 /**
  * Allows users to append import options to the select field.
- *
- * TODO: Update texts
  *
  * @since 3.9.6
  *
@@ -29,7 +29,7 @@ $import_option_types = apply_filters( 'pb_select_import_type', [
 	Docx::TYPE_OF => __( 'Microsoft Word (.docx)', 'pressbooks' ),
 	Odt::TYPE_OF => __( 'OpenOffice (.odt)', 'pressbooks' ),
 	Wxr::TYPE_OF => __( 'Pressbooks/WordPress XML (.wxr or .xml)', 'pressbooks' ),
-	Xhtml::TYPE_OF => __( 'Web page or Pressbooks webbook (.html or URL)', 'pressbooks' ),
+	Xhtml::TYPE_OF => $html_type_of,
 ] );
 
 ?>
@@ -39,7 +39,7 @@ $import_option_types = apply_filters( 'pb_select_import_type', [
 
 	<?php if ( is_array( $current_import ) && isset( $current_import['file'] ) ) { ?>
 
-	<!-- Import in progress -->
+	<!-- STEP 2: Import in progress -->
 
 		<p><?php _e( 'Select content below for import into Pressbooks.', 'pressbooks' ); ?></p>
 		<p><?php _e( 'Source:', 'pressbooks' ); ?> <code><?php echo basename( $current_import['file'] ); ?></code></p>
@@ -74,7 +74,7 @@ $import_option_types = apply_filters( 'pb_select_import_type', [
 		// ]]>
 	</script>
 
-	<form id="pb-import-form" action="<?php echo $import_form_url ?>" method="post">
+	<form id="pb-import-form-step-2" action="<?php echo $import_form_url ?>" method="post">
 		<?php $colspan = ! empty( $current_import['allow_parts'] ) ? 5 : 4; ?>
 		<table class="wp-list-table widefat">
 			<thead>
@@ -127,6 +127,8 @@ $import_option_types = apply_filters( 'pb_select_import_type', [
 
 		<p><input type='checkbox' id='show_imports_in_web' name='show_imports_in_web' value='1'><label for="show_imports_in_web"> <?php _e( 'Show imported content in web', 'pressbooks' ); ?></label></p>
 
+		<progress id="pb-sse-progressbar" max="100"></progress>
+		<p><b><span id="pb-sse-minutes"></span><span id="pb-sse-seconds"></span></b> <span id="pb-sse-info" aria-live="polite"></span></p>
 		<p><?php
 			submit_button( __( 'Import Selection', 'pressbooks' ), 'primary', 'submit', false );
 			echo ' &nbsp; ';
@@ -137,7 +139,7 @@ $import_option_types = apply_filters( 'pb_select_import_type', [
 
 	<?php } else { ?>
 
-		<!-- Start by uploading a file -->
+		<!-- STEP 1: Start by uploading a file -->
 
 		<script type="text/javascript">
 			jQuery(function ($) {
@@ -159,7 +161,7 @@ $import_option_types = apply_filters( 'pb_select_import_type', [
 			echo ' ' . \Pressbooks\Utility\file_upload_max_size(); ?>
 		</p>
 
-		<form id="pb-import-form" action="<?php echo $import_form_url ?>" enctype="multipart/form-data" method="post">
+		<form id="pb-import-form-step-1" action="<?php echo $import_form_url ?>" enctype="multipart/form-data" method="post">
 
 			<table class="form-table">
 				<tbody>

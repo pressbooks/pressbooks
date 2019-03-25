@@ -6,16 +6,16 @@ class NamespaceTest extends \WP_UnitTestCase {
 
 	/**
 	 * Test PB style class initializations
+	 * @group namespace
 	 */
 	public function test_classInitConventions() {
 		$this->_book();
 		global $wp_filter;
 		$classes = [
 			'\Pressbooks\Activation',
-			'\Pressbooks\Taxonomy',
-			'\Pressbooks\Updates',
 			'\Pressbooks\Admin\Delete\Book',
 			'\Pressbooks\Covergenerator\Covergenerator',
+			'\Pressbooks\EventStreams',
 			'\Pressbooks\Interactive\Content',
 			'\Pressbooks\Modules\Export\Prince\Filters',
 			'\Pressbooks\Modules\SearchAndReplace\SearchAndReplace',
@@ -24,7 +24,9 @@ class NamespaceTest extends \WP_UnitTestCase {
 			'\Pressbooks\Shortcodes\Footnotes\Footnotes',
 			'\Pressbooks\Shortcodes\Generics\Generics',
 			'\Pressbooks\Shortcodes\Wikipublisher\Glyphs',
+			'\Pressbooks\Taxonomy',
 			'\Pressbooks\Theme\Lock',
+			'\Pressbooks\Updates',
 		];
 		foreach ( $classes as $class ) {
 			$result = $class::init();

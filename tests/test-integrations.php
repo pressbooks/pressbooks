@@ -4,6 +4,9 @@ class IntegrationsTest extends \WP_UnitTestCase {
 
 	use utilsTrait;
 
+	/**
+	 * @group integrations
+	 */
 	public function test_cloneRemoteBook() {
 
 		$source = 'https://pbtest.pressbooks.com';
@@ -13,7 +16,7 @@ class IntegrationsTest extends \WP_UnitTestCase {
 		$user_id = $this->factory()->user->create( [ 'role' => 'contributor' ] );
 		wp_set_current_user( $user_id );
 
-		$cloner = new \Pressbooks\Cloner( $source, $target );
+		$cloner = new \Pressbooks\Cloner\Cloner( $source, $target );
 
 		global $wpdb;
 		$suppress = $wpdb->suppress_errors();
@@ -47,6 +50,9 @@ class IntegrationsTest extends \WP_UnitTestCase {
 		$this->assertTrue( count( $cloned_items['media'] ) === 2 );
 	}
 
+	/**
+	 * @group integrations
+	 */
 	public function test_ImportUsingCloningApi() {
 
 		$source = 'https://pbtest.pressbooks.com';
@@ -71,7 +77,6 @@ class IntegrationsTest extends \WP_UnitTestCase {
 		}
 		$_POST['chapters'] = $post;
 		$this->assertTrue( $importer->import( $options ) );
-
 
 		// Check if imported chapters are in the correct position
 		$struct = \Pressbooks\Book::getBookStructure();
@@ -98,6 +103,9 @@ class IntegrationsTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'https://pressbooks.education/', get_post_meta( $post->ID, 'pb_media_attribution_adapted_url', true ) );
 	}
 
+	/**
+	 * @group integrations
+	 */
 	public function test_ImportPressbooksWxr() {
 		$this->_book();
 		$meta_post = ( new \Pressbooks\Metadata() )->getMetaPost();

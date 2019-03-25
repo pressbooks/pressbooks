@@ -1,5 +1,7 @@
 let mix = require( 'laravel-mix' );
 let path = require( 'path' );
+let normalizeNewline = require( 'normalize-newline' );
+let fs = require( 'fs' );
 
 /*
  |--------------------------------------------------------------------------
@@ -13,7 +15,6 @@ let path = require( 'path' );
  */
 
 const assets = 'assets';
-const src = `${assets}/src`;
 const dist = `${assets}/dist`;
 const templates = 'templates';
 
@@ -30,7 +31,23 @@ mix.browserSync( {
 	],
 } );
 
+// Normalize Newlines
+const normalizeNewlines = ( dir ) => {
+	fs.readdirSync( dir ).forEach( function( file ) {
+		file = path.join( dir, file );
+		fs.readFile( file, 'utf8', function( err, buffer ) {
+			if ( err ) return console.log( err );
+			buffer = normalizeNewline( buffer );
+			fs.writeFile( file, buffer, 'utf8', function( err ) {
+				if ( err ) return console.log( err );
+			} );
+		} );
+	} );
+};
+
 mix
+	.version()
+	.options( { processCssUrls: false } )
 	.setPublicPath( path.join( 'assets', 'dist' ) )
 	.js( 'assets/src/scripts/anchor.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/applyclass.js', 'assets/dist/scripts/' )
@@ -58,6 +75,10 @@ mix
 	.js( 'assets/src/scripts/textboxes-legacy.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/theme-lock.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/theme-options.js', 'assets/dist/scripts/' )
+	.js(
+		'node_modules/event-source-polyfill/src/eventsource.js',
+		'assets/dist/scripts/eventsource.polyfill.js'
+	)
 	.js(
 		'node_modules/pagedjs/lib/polyfill/polyfill.js',
 		'assets/dist/scripts/paged.polyfill.js'
@@ -98,8 +119,8 @@ mix
 	.sass( 'assets/src/styles/catalog.scss', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/colors-pb.scss', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/covergenerator.scss', 'assets/dist/styles/' )
-	.sass( 'assets/src/styles/cloner.scss', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/export.scss', 'assets/dist/styles/' )
+	.sass( 'assets/src/styles/glossary-tooltip.scss', 'assets/dist/styles' )
 	.sass( 'assets/src/styles/login.scss', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/metadata.scss', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/network-managers.scss', 'assets/dist/styles/' )
@@ -111,11 +132,14 @@ mix
 	.sass( 'assets/src/styles/theme-options.scss', 'assets/dist/styles/' )
 	.copyDirectory( 'assets/src/fonts', 'assets/dist/fonts' )
 	.copyDirectory( 'assets/src/images', 'assets/dist/images' )
-	.version()
-	.options( { processCssUrls: false } );
+	.then( () => {
+		normalizeNewlines( `${dist}/scripts/` );
+		normalizeNewlines( `${dist}/styles/` );
+	} );
 
 // Full API
-// mix.js(src, output);
+// mix.js(src, output); <-- compile (ES2015 syntax, modules, ...) !and! minify
+// mix.scripts(src, output); <-- just minify
 // mix.react(src, output); <-- Identical to mix.js(), but registers React Babel compilation.
 // mix.extract(vendorLibs);
 // mix.sass(src, output);
