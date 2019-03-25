@@ -13,6 +13,7 @@ $overrides = [
 ];
 
 if ( \Pressbooks\Book::isBook() ) {
+	$overrides['Visit site'] = 'Külasta book';
 	$overrides['Visit Site'] = 'Külasta Book';
 	$overrides['Edit Site'] = 'Muuda Book';
 }
