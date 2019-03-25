@@ -35,12 +35,15 @@ See [5.7.0 Milestone](https://github.com/pressbooks/pressbooks/milestone/60?clos
 * New export page with bulk actions, pinned exports, improved accessibility ([#1525](https://github.com/pressbooks/pressbooks/issues/1525))
 * Display a progress bar on Import, Export, Cloning and Cover Generator pages ([#1282](https://github.com/pressbooks/pressbooks/issues/1282)) ([#1599](https://github.com/pressbooks/pressbooks/issues/1599))
 * Support cloning of H5P activities ([#1529](https://github.com/pressbooks/pressbooks/issues/1529))
-  * Requires latest version of [H5P plugin](https://github.com/h5p/h5p-wordpress-plugin), currently 1.12.0
+  * Requires latest version of [H5P plugin](https://wordpress.org/plugins/h5p/), currently 1.13.1
 * Improved Glossary Tooltips ([#1526](https://github.com/pressbooks/pressbooks/issues/1526)) ([#1528](https://github.com/pressbooks/pressbooks/issues/1528)) ([#1546](https://github.com/pressbooks/pressbooks/issues/1546))
 * Improved Source Comparison Tool ([#1484](https://github.com/pressbooks/pressbooks/issues/1484))
 
 #### Not so obvious:
 
+* Rename Austen theme (pressbooks-austentwo → pressbooks-austen) for PressbooksEDU customers: [#1607](https://github.com/pressbooks/pressbooks/pull/1607)
+* Fix stripped anchors in xhtml/epub ([#1602](https://github.com/pressbooks/pressbooks/issues/1602)): [#1626](https://github.com/pressbooks/pressbooks/pull/1626)
+* Fix cloning empty raw content ie. auto-generated glossary ([#1622](https://github.com/pressbooks/pressbooks/issues/1622)): [#1625](https://github.com/pressbooks/pressbooks/pull/1625)
 * Network level "Enable Cloning" setting should affect import types: [#1619](https://github.com/pressbooks/pressbooks/pull/1619)
 * Support localization of Blade templates: [#1616](https://github.com/pressbooks/pressbooks/pull/1616)
 * Fix E_NOTICE in user catalog: [#1614](https://github.com/pressbooks/pressbooks/pull/1614)
@@ -66,7 +69,7 @@ See [5.7.0 Milestone](https://github.com/pressbooks/pressbooks/milestone/60?clos
   * Update [masterminds/html5](https://github.com/Masterminds/html5-php) to 2.5.0: [#1536](https://github.com/pressbooks/pressbooks/pull/1536)
   * Update [sshpk](https://github.com/joyent/node-sshpk) to 1.16.0: [#1533](https://github.com/pressbooks/pressbooks/pull/1533)
   * Update [debug](https://github.com/visionmedia/debug) to 2.6.9: [#1531](https://github.com/pressbooks/pressbooks/pull/1531)
-
+*
 = 5.6.5 =
 
 * Pressbooks 5.6.5 requires PHP >= 7.1.
