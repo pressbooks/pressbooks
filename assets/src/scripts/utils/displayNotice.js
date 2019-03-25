@@ -5,7 +5,7 @@ export default ( type, message, dismissable ) => {
 	let button;
 	const h1 = document.getElementsByTagName( 'h1' )[0];
 	p.setAttribute( 'aria-live', 'assertive' );
-	p.appendChild( document.createTextNode( message ) );
+	p.insertAdjacentHTML( 'beforeend', message );
 	notice.classList.add( 'notice', `notice-${type}` );
 	notice.appendChild( p );
 
