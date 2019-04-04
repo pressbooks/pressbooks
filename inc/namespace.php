@@ -48,9 +48,13 @@ function session_start() {
 			if ( is_array( $override_options ) ) {
 				$options = $override_options;
 			}
-			\session_start( $options );
+			$session_ok = @\session_start( $options ); // @codingStandardsIgnoreLine
+			if ( ! $session_ok ) {
+				session_regenerate_id( true );
+				\session_start( $options );
+			}
 		} else {
-			error_log( 'There was a problem with \Pressbooks\session_start(), headers already sent!' ); //  @codingStandardsIgnoreLine
+			error_log( 'There was a problem with \Pressbooks\session_start(), headers already sent!' ); // @codingStandardsIgnoreLine
 		}
 	}
 }
