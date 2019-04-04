@@ -2379,7 +2379,11 @@ class Epub201 extends ExportGenerator {
 		$domain = ( isset( $domain['host'] ) ) ? $domain['host'] : false;
 
 		if ( $domain ) {
-			$domain2 = wp_parse_url( wp_guess_url() );
+			$guess_url = site_url();
+			if ( ! $guess_url ) {
+				$guess_url = wp_guess_url();
+			}
+			$domain2 = wp_parse_url( $guess_url );
 			$domain2 = ( isset( $domain2['host'] ) ) ? $domain2['host'] : false;
 			if ( $domain2 !== $domain ) {
 				return false; // If there is a domain name and it =/= ours, bail.
