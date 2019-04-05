@@ -98,6 +98,8 @@ class Sass {
 	/**
 	 * Get the path to legacy book theme partials.
 	 *
+	 * @deprecated Use pathToGlobals() instead
+	 *
 	 * @return string
 	 */
 	public function pathToPartials() {
