@@ -163,7 +163,7 @@ $import_option_types = apply_filters( 'pb_select_import_type', [
 
 		<form id="pb-import-form-step-1" action="<?php echo $import_form_url ?>" enctype="multipart/form-data" method="post">
 
-			<table class="form-table">
+			<table class="form-table" role="none">
 				<tbody>
 				<tr>
 					<th scope="row">
