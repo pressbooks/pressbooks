@@ -6,6 +6,8 @@ jQuery( function ( $ ) {
 	let chapter_numbers = $( '#chapter_numbers' );
 
 	$( document ).ready( function () {
+		// Accessibility fix on form tables
+		$( 'table.form-table' ).attr( 'role', 'none' );
 		// Init
 		if ( chapter_numbers.is( ':checked' ) ) {
 			$( '#part_label, #chapter_label' )
