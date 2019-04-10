@@ -15,7 +15,7 @@ if ( is_subdomain_install() ) {
 	<p><?php _e( 'Enter the URL to a Pressbooks book to clone it.', 'pressbooks' ); ?><p>
 	<form id="pb-cloner-form" action="" method="post">
 		<?php wp_nonce_field( 'pb-cloner' ); ?>
-		<table class="form-table">
+		<table class="form-table" role="none">
 			<tr>
 				<th scope=row><label for="source_book_url"><?php _e( 'Source Book URL', 'pressbooks' ); ?></label></th>
 				<td><input class="regular-text code" id="source_book_url" name="source_book_url" type="url" required /></td>
