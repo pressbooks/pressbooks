@@ -3,6 +3,7 @@
 import displayNotice from './utils/displayNotice';
 import resetClock from './utils/resetClock';
 import startClock from './utils/startClock';
+import { NativeEventSource, EventSourcePolyfill } from 'event-source-polyfill';
 
 jQuery( function ( $ ) {
 	// Step 1: Upload or sideload import data prior to selecting content for import.
@@ -33,6 +34,7 @@ jQuery( function ( $ ) {
 		// Initialize event data
 		// TODO: There's a maximum $_GET and we are probably exceeding it
 		const eventSourceUrl = PB_ImportToken.ajaxUrl + ( PB_ImportToken.ajaxUrl.includes( '?' ) ? '&' : '?' ) + $.param( importForm.find( ':checked' ) );
+		const EventSource = NativeEventSource || EventSourcePolyfill;
 		const evtSource = new EventSource( eventSourceUrl );
 
 		// Handle open

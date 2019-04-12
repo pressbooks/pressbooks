@@ -3,6 +3,7 @@
 import displayNotice from './utils/displayNotice';
 import resetClock from './utils/resetClock';
 import startClock from './utils/startClock';
+import { NativeEventSource, EventSourcePolyfill } from 'event-source-polyfill';
 
 jQuery( function ( $ ) {
 	const clonerForm = $( '#pb-cloner-form' );
@@ -26,6 +27,7 @@ jQuery( function ( $ ) {
 
 		// Initialize event data
 		const eventSourceUrl = PB_ClonerToken.ajaxUrl + ( PB_ClonerToken.ajaxUrl.includes( '?' ) ? '&' : '?' ) + $.param( clonerForm.find( ':input' ) );
+		const EventSource = NativeEventSource || EventSourcePolyfill;
 		const evtSource = new EventSource( eventSourceUrl );
 
 		// Handle open

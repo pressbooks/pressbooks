@@ -6,6 +6,7 @@ import Cookies from 'js-cookie';
 import displayNotice from './utils/displayNotice';
 import resetClock from './utils/resetClock';
 import startClock from './utils/startClock';
+import { NativeEventSource, EventSourcePolyfill } from 'event-source-polyfill';
 
 jQuery( function ( $ ) {
 
@@ -31,6 +32,7 @@ jQuery( function ( $ ) {
 
 		// Initialize event data
 		const eventSourceUrl = PB_ExportToken.ajaxUrl + ( PB_ExportToken.ajaxUrl.includes( '?' ) ? '&' : '?' ) + $.param( exportForm.find( ':checked' ) );
+		const EventSource = NativeEventSource || EventSourcePolyfill;
 		const evtSource = new EventSource( eventSourceUrl );
 
 		// Handle open
