@@ -571,7 +571,7 @@ class custom_metadata_manager {
 ?>
 		<h3><?php echo $group->label; ?></h3>
 
-		<table class="form-table user-metadata-group">
+		<table class="form-table user-metadata-group" role="none">
 			<?php foreach ( $fields as $field_slug => $field ) : ?>
 				<?php if ( $this->is_thing_added_to_object( $field_slug, $field, $object_type, $user_id ) ) : ?>
 					<tr valign="top">
