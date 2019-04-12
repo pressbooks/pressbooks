@@ -3,7 +3,6 @@
 import displayNotice from './utils/displayNotice';
 import resetClock from './utils/resetClock';
 import startClock from './utils/startClock';
-import { NativeEventSource, EventSourcePolyfill } from 'event-source-polyfill';
 
 jQuery( function ( $ ) {
 	// Media
@@ -70,7 +69,6 @@ jQuery( function ( $ ) {
 		// Initialize event data
 		const hiddenForm = $( 'form.' + fileType );
 		const eventSourceUrl = PB_CoverGeneratorToken.ajaxUrl + ( PB_CoverGeneratorToken.ajaxUrl.includes( '?' ) ? '&' : '?' ) + $.param( hiddenForm.find( ':input' ) );
-		const EventSource = NativeEventSource || EventSourcePolyfill;
 		const evtSource = new EventSource( eventSourceUrl );
 
 		// Handle open
