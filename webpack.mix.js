@@ -75,12 +75,12 @@ mix
 	.js( 'assets/src/scripts/textboxes-legacy.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/theme-lock.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/theme-options.js', 'assets/dist/scripts/' )
-	.js(
+	.scripts(
 		'node_modules/event-source-polyfill/src/eventsource.js',
 		'assets/dist/scripts/eventsource.polyfill.js'
 	)
-	.js(
-		'node_modules/pagedjs/lib/polyfill/polyfill.js',
+	.scripts(
+		'node_modules/pagedjs/dist/paged.polyfill.js',
 		'assets/dist/scripts/paged.polyfill.js'
 	)
 	.scripts(
