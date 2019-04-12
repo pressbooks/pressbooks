@@ -469,9 +469,12 @@ class Styles {
 			);
 		} elseif ( CustomCss::isCustomCss() ) {
 			// Compile pressbooks-book web stylesheet when using the *DEPRECATED* Custom CSS theme
+			$custom_css_includes = $this->sass->defaultIncludePaths( $type, wp_get_theme( 'pressbooks-book' ) );
+			// Append deprecated partials path last, in case we can't find old stuff in previous paths
+			$custom_css_includes[] = $this->sass->pathToPartials();
 			$css = $this->sass->compile(
 				$scss,
-				$this->sass->defaultIncludePaths( $type, wp_get_theme( 'pressbooks-book' ) )
+				$custom_css_includes
 			);
 		} else {
 			$css = $this->injectHouseStyles( $scss );
