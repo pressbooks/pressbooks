@@ -478,7 +478,7 @@ function render_cover_image_box( $form_id, $cover_pid, $image_url, $ajax_action,
 				<p><img id="cover_image_preview" src="<?php echo $image_url; ?>" style="width:auto;height:100px;" alt="cover_image"/><br/>
 					<button id="delete_cover_button" name="<?php echo $image_url; ?>" type="button" class="button-secondary"><?php _e( 'Delete', 'pressbooks' ); ?></button>
 				</p>
-				<p><input type="file" name="<?php echo $form_id; ?>" value="" id="<?php echo $form_id; ?>"/></p>
+				<p><input type="file" name="<?php echo $form_id; ?>" id="<?php echo $form_id; ?>"/></p>
 				<input type="hidden" id="cover_pid" name="cover_pid" value="<?php echo $cover_pid; ?>"/>
 			<?php } else { ?>
 				<p><img id="cover_image_preview" src="<?php echo \Pressbooks\Image\default_cover_url(); ?>" style="width:auto;height:100px;" alt="cover_image"/></p>

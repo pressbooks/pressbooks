@@ -1024,9 +1024,9 @@ function metadata_subject_box( $post ) {
 	}
 	?>
 	<div class="custom-metadata-field select">
-		<label for="pb_primary_subject"><?php _e( 'Primary Subject', 'pressbooks' ); ?></label>
+		<label for="primary-subject"><?php _e( 'Primary Subject', 'pressbooks' ); ?></label>
 		<select id="primary-subject" name="pb_primary_subject">
-			<option value=""></option>
+			<option value="">&nbsp;</option>
 			<?php foreach ( \Pressbooks\Metadata\get_thema_subjects() as $subject_group ) { ?>
 			<optgroup label="<?php echo $subject_group['label']; ?>">
 				<?php foreach ( $subject_group['children'] as $key => $value ) { ?>
@@ -1038,9 +1038,9 @@ function metadata_subject_box( $post ) {
 		<span class="description"><?php printf( __( 'This appears on the web homepage of your book and helps categorize it in your network catalog (if applicable). Use %s to determine which subject category is best for your book.', 'pressbooks' ), sprintf( '<a href="%1$s">%2$s</a>', 'https://www.editeur.org/151/Thema', __( 'these instructions', 'pressbooks' ) ) ); ?></span>
 	</div>
 	<div class="custom-metadata-field select">
-		<label for="pb_additional_subjects"><?php _e( 'Additional Subject(s)', 'pressbooks' ); ?></label>
+		<label for="additional-subjects"><?php _e( 'Additional Subject(s)', 'pressbooks' ); ?></label>
 		<select id="additional-subjects" name="pb_additional_subjects[]" multiple>
-			<option value=""></option>
+			<option value="">&nbsp;</option>
 			<?php foreach ( \Pressbooks\Metadata\get_thema_subjects( true ) as $subject_group ) { ?>
 			<optgroup label="<?php echo $subject_group['label']; ?>">
 				<?php foreach ( $subject_group['children'] as $key => $value ) { ?>
@@ -1092,12 +1092,12 @@ function contributor_add_form() {
 	wp_nonce_field( 'contributor-meta', 'contributor_meta_nonce' );
 	?>
 	<div class="form-field contributor-first-name-wrap">
-		<label for="contributor_first_name"><?php _e( 'First Name', 'pressbooks' ); ?></label>
+		<label for="contributor-first-name"><?php _e( 'First Name', 'pressbooks' ); ?></label>
 		<input type="text" name="contributor_first_name" id="contributor-first-name" value="" class="contributor-first-name-field" />
 		<p>
 	</div>
 	<div class="form-field contributor-last-name-wrap">
-		<label for="contributor_last_name"><?php _e( 'Last Name', 'pressbooks' ); ?></label>
+		<label for="contributor-last-name"><?php _e( 'Last Name', 'pressbooks' ); ?></label>
 		<input type="text" name="contributor_last_name" id="contributor-last-name" value="" class="contributor-last-name-field" />
 	</div>
 	<?php
@@ -1114,14 +1114,14 @@ function contributor_edit_form( $term ) {
 	}
 	?>
 	<tr class="form-field contributor-first-name-wrap">
-		<th scope="row"><label for="contributor_first_name"><?php _e( 'First Name', 'pressbooks' ); ?></label></th>
+		<th scope="row"><label for="contributor-first-name"><?php _e( 'First Name', 'pressbooks' ); ?></label></th>
 		<td>
 			<?php wp_nonce_field( 'contributor-meta', 'contributor_meta_nonce' ); ?>
 			<input type="text" name="contributor_first_name" id="contributor-first-name" value="<?php echo esc_attr( $firstname ); ?>" class="contributor-first-name-field"  />
 		</td>
 	</tr>
 	<tr class="form-field contributor-last-name-wrap">
-		<th scope="row"><label for="contributor_last_name"><?php _e( 'Last Name', 'pressbooks' ); ?></label></th>
+		<th scope="row"><label for="contributor-last-name"><?php _e( 'Last Name', 'pressbooks' ); ?></label></th>
 		<td>
 			<input type="text" name="contributor_last_name" id="contributor-last-name" value="<?php echo esc_attr( $lastname ); ?>" class="contributor-last-name-field"  />
 		</td>
