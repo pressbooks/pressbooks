@@ -22,7 +22,7 @@ function display_generator() {
  * @param string $hooks_suffix
  */
 function generator_css_js( $hooks_suffix ) {
-	if ( $hooks_suffix === 'export_page_pressbooks_cg' ) {
+	if ( $hooks_suffix === get_plugin_page_hookname( 'pressbooks_cg', 'pb_export' ) ) {
 		$assets = new Assets( 'pressbooks', 'plugin' );
 		wp_enqueue_media();
 		wp_enqueue_style( 'cg/css', $assets->getPath( 'styles/covergenerator.css' ), [ 'wp-color-picker' ], null );
