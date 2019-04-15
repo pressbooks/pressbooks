@@ -5,7 +5,7 @@ Tags: ebooks, publishing, webbooks
 Requires at least: 5.1.1
 Tested up to: 5.1.1
 Requires PHP: 7.1
-Stable tag: 5.8.0-dev
+Stable tag: 5.7.1
 License: GPL v3.0 or later
 License URI: https://github.com/pressbooks/pressbooks/blob/master/LICENSE.md
 
@@ -21,8 +21,22 @@ For installation instructions, visit [docs.pressbooks.org/installation](https://
 TK.
 
 == Changelog ==
+= 5.7.1 =
+
+* Pressbooks 5.7.1 requires PHP >= 7.1
+* Pressbooks 5.7.1 requires [WordPress 5.1.1](https://wordpress.org/news/2019/03/wordpress-5-1-1-security-and-maintenance-release/)
+* Pressbooks 5.7.1 requires [McLuhan >= 2.8.2](https://github.com/pressbooks/pressbooks-book/)
+
+**Patches**
+
+* Fix progress bar in Microsoft Edge ([#1663](https://github.com/pressbooks/pressbooks/issues/1663)): [#1664](https://github.com/pressbooks/pressbooks/pull/1664)
+* Fix a frequently seen SCSS Compile Errror: [#1655](https://github.com/pressbooks/pressbooks/pull/1655)
+* Fix fully qualified URLs are not converted to internal links when exporting epubs on subdomain installs: [#1644](https://github.com/pressbooks/pressbooks/pull/1644)
+* Fix session id is too long or contains illegal characters: [#1643](https://github.com/pressbooks/pressbooks/pull/1643)
+
 = 5.7.0 =
 
+* Pressbooks 5.7.0 requires PHP >= 7.1
 * Pressbooks 5.7.0 requires [WordPress 5.1.1](https://wordpress.org/news/2019/03/wordpress-5-1-1-security-and-maintenance-release/)
 * Pressbooks 5.7.0 requires [McLuhan >= 2.8.0](https://github.com/pressbooks/pressbooks-book/)
 
@@ -190,8 +204,8 @@ See [5.7.0 Milestone](https://github.com/pressbooks/pressbooks/milestone/60?clos
 * Hide the "View" link when editing taxonomies (props [@colomet](https://github.com/colomet) for the suggestion): [#1351](https://github.com/pressbooks/pressbooks/issues/1351), [#1356](https://github.com/pressbooks/pressbooks/issues/1356), [#1360](https://github.com/pressbooks/pressbooks/issues/1360)
 
 == Upgrade Notice ==
-= 5.7.0 =
+= 5.7.1 =
 
-* Pressbooks 5.7.0 requires PHP >= 7.1.
-* Pressbooks 5.7.0 requires [WordPress 5.1.1](https://wordpress.org/news/2019/03/wordpress-5-1-1-security-and-maintenance-release/)
-* Pressbooks 5.7.0 requires [McLuhan >= 2.8.0](https://github.com/pressbooks/pressbooks-book/)
+* Pressbooks 5.7.1 requires PHP >= 7.1.
+* Pressbooks 5.7.1 requires [WordPress 5.1.1](https://wordpress.org/news/2019/03/wordpress-5-1-1-security-and-maintenance-release/)
+* Pressbooks 5.7.1 requires [McLuhan >= 2.8.2](https://github.com/pressbooks/pressbooks-book/)
