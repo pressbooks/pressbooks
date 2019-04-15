@@ -7,10 +7,18 @@ class L10nTest extends \WP_UnitTestCase {
 	 * @group localization
 	 */
 	public function test_get_locale() {
-
+		apply_filters( 'locale', function ( $locale ) { return 'en_US'; } );
 		$locale = \Pressbooks\L10n\get_locale();
+		$this->assertEquals( 'en_US', $locale );
 
-		$this->assertTrue( is_string( $locale ) );
+		$user_id = $this->factory()->user->create( [ 'role' => 'contributor', 'locale' => 'fr_FR' ] );
+		wp_set_current_user( $user_id );
+		$locale = \Pressbooks\L10n\get_locale();
+		$this->assertEquals( 'fr_FR', $locale );
+
+		wp_update_user( array( 'ID' => $user_id, 'locale' => '' ) );
+		$locale = \Pressbooks\L10n\get_locale();
+		$this->assertEquals( 'en_US', $locale );
 	}
 
 	/**

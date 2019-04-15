@@ -326,6 +326,14 @@ function wplang_codes() {
  * @return string
  */
 function get_locale() {
+	// If the user has set a locale, use it
+	if ( function_exists( 'wp_get_current_user' ) ) {
+		$user = wp_get_current_user();
+		if ( $user->locale ) {
+			return $user->locale;
+		}
+	}
+	// Else, use the global locale
 	global $locale;
 	if ( ! empty( $locale ) ) {
 		return $locale;
