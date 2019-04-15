@@ -9,16 +9,17 @@
 # Ned Zimmerman, 2015
 # Ned Zimmerman, 2015
 # Ron, 2014
-# Thomas Dumm <t.dumm@delivros.ch>, 2015-2016,2018
+# Thomas Dumm <thomas.dumm@delivros-orellfuessli.ch>, 2015-2016,2018
+# Thomas Dumm <thomas.dumm@delivros-orellfuessli.ch>, 2019
 # Antonio Devís <colomet@hotmail.com>, 2015
 # Ron, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
-"Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
-"POT-Creation-Date: 2019-03-22T14:33:34+00:00\n"
-"PO-Revision-Date: 2019-03-22 20:04+0000\n"
-"Last-Translator: Dac Chartrand <dac@pressbooks.com>\n"
+"Report-Msgid-Bugs-To: https://github.com/pressbooks/<plugin>/\n"
+"POT-Creation-Date: 2019-04-15T18:36:04+00:00\n"
+"PO-Revision-Date: 2019-04-05 08:46+0000\n"
+"Last-Translator: Thomas Dumm <thomas.dumm@delivros-orellfuessli.ch>\n"
 "Language-Team: German (http://www.transifex.com/pressbooks/pressbooks/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -30,24 +31,24 @@ msgstr ""
 
 #. Plugin Name of the plugin
 msgid "Pressbooks"
-msgstr ""
+msgstr "Pressbooks"
 
 #. Plugin URI of the plugin
 #. Author URI of the plugin
 msgid "https://pressbooks.org"
-msgstr ""
+msgstr "https://pressbooks.org"
 
 #. Description of the plugin
 msgid "Simple Book Production"
-msgstr ""
+msgstr "Bücher erstellen leicht gemacht"
 
 #. Author of the plugin
 msgid "Pressbooks (Book Oven Inc.)"
-msgstr ""
+msgstr "Pressbooks (Book Oven Inc.)"
 
 #: compatibility.php:103 inc/class-activation.php:314
 msgid "Simple Book Publishing"
-msgstr ""
+msgstr "Bücher erstellen leicht gemacht"
 
 #: compatibility.php:148
 msgid ""
@@ -2071,7 +2072,7 @@ msgid ""
 "licenses"
 msgstr ""
 
-#: inc/class-licensing.php:299 inc/class-styles.php:708
+#: inc/class-licensing.php:299 inc/class-styles.php:711
 #: inc/modules/export/epub/class-epub201.php:1144
 #: inc/modules/export/epub/templates/epub201/opf.php:96
 #: inc/modules/export/epub/templates/epub3/opf.php:103
@@ -2104,7 +2105,7 @@ msgstr ""
 msgid "This work (%1$s by %2$s) is free of known copyright restrictions."
 msgstr ""
 
-#: inc/class-sass.php:197
+#: inc/class-sass.php:199
 msgid ""
 "There was a problem with SASS. Contact your site administrator. Error: %1$s "
 "%2$s"
@@ -2126,17 +2127,17 @@ msgstr ""
 msgid "Custom Style for Web"
 msgstr ""
 
-#: inc/class-styles.php:633
+#: inc/class-styles.php:636
 msgid ""
 "Unexpected Error: There was a problem trying to query slug: %s - Please "
 "contact technical support."
 msgstr "Unerwarteter Fehler: Bei der Abfrage ist ein Fehler aufgetreten: %s - Bitte setzen Sie sich mit dem Support in Verbindung."
 
-#: inc/class-styles.php:673 templates/admin/custom-styles.php:16
+#: inc/class-styles.php:676 templates/admin/custom-styles.php:16
 msgid "Web"
 msgstr "Web"
 
-#: inc/class-styles.php:705
+#: inc/class-styles.php:708
 msgid "Last 10 Revisions"
 msgstr ""
 

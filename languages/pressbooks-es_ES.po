@@ -10,8 +10,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
-"Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
-"POT-Creation-Date: 2019-03-22T14:33:34+00:00\n"
+"Report-Msgid-Bugs-To: https://github.com/pressbooks/<plugin>/\n"
+"POT-Creation-Date: 2019-04-15T18:36:04+00:00\n"
 "PO-Revision-Date: 2019-03-22 20:04+0000\n"
 "Last-Translator: Dac Chartrand <dac@pressbooks.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/pressbooks/pressbooks/language/es/)\n"
@@ -2066,7 +2066,7 @@ msgid ""
 "licenses"
 msgstr ""
 
-#: inc/class-licensing.php:299 inc/class-styles.php:708
+#: inc/class-licensing.php:299 inc/class-styles.php:711
 #: inc/modules/export/epub/class-epub201.php:1144
 #: inc/modules/export/epub/templates/epub201/opf.php:96
 #: inc/modules/export/epub/templates/epub3/opf.php:103
@@ -2099,7 +2099,7 @@ msgstr ""
 msgid "This work (%1$s by %2$s) is free of known copyright restrictions."
 msgstr ""
 
-#: inc/class-sass.php:197
+#: inc/class-sass.php:199
 msgid ""
 "There was a problem with SASS. Contact your site administrator. Error: %1$s "
 "%2$s"
@@ -2121,17 +2121,17 @@ msgstr ""
 msgid "Custom Style for Web"
 msgstr ""
 
-#: inc/class-styles.php:633
+#: inc/class-styles.php:636
 msgid ""
 "Unexpected Error: There was a problem trying to query slug: %s - Please "
 "contact technical support."
 msgstr "Error inesperado: no se pudo recuperar %s. Contacte a asistencia técnica."
 
-#: inc/class-styles.php:673 templates/admin/custom-styles.php:16
+#: inc/class-styles.php:676 templates/admin/custom-styles.php:16
 msgid "Web"
 msgstr ""
 
-#: inc/class-styles.php:705
+#: inc/class-styles.php:708
 msgid "Last 10 Revisions"
 msgstr ""
 

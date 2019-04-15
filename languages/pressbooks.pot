@@ -2,15 +2,15 @@
 # This file is distributed under the same license as the Pressbooks plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Pressbooks 5.7.0\n"
-"Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
+"Project-Id-Version: Pressbooks 5.7.1\n"
+"Report-Msgid-Bugs-To: https://github.com/pressbooks/<plugin>/\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2019-03-22T14:33:34+00:00\n"
-"PO-Revision-Date: 2019-03-22T14:33:34+00:00\n"
+"POT-Creation-Date: 2019-04-15T18:36:04+00:00\n"
+"PO-Revision-Date: 2019-04-15T18:36:04+00:00\n"
 "X-Generator: WP-CLI 2.0.1\n"
 "X-Domain: pressbooks\n"
 
@@ -2003,7 +2003,7 @@ msgid "$title is deprecated. Method will automatically determine title from lice
 msgstr ""
 
 #: inc/class-licensing.php:299
-#: inc/class-styles.php:708
+#: inc/class-styles.php:711
 #: inc/modules/export/epub/class-epub201.php:1144
 #: inc/modules/export/epub/templates/epub201/opf.php:96
 #: inc/modules/export/epub/templates/epub3/opf.php:103
@@ -2038,7 +2038,7 @@ msgstr ""
 msgid "This work (%1$s by %2$s) is free of known copyright restrictions."
 msgstr ""
 
-#: inc/class-sass.php:197
+#: inc/class-sass.php:199
 msgid "There was a problem with SASS. Contact your site administrator. Error: %1$s %2$s"
 msgstr ""
 
@@ -2059,16 +2059,16 @@ msgstr ""
 msgid "Custom Style for Web"
 msgstr ""
 
-#: inc/class-styles.php:633
+#: inc/class-styles.php:636
 msgid "Unexpected Error: There was a problem trying to query slug: %s - Please contact technical support."
 msgstr ""
 
-#: inc/class-styles.php:673
+#: inc/class-styles.php:676
 #: templates/admin/custom-styles.php:16
 msgid "Web"
 msgstr ""
 
-#: inc/class-styles.php:705
+#: inc/class-styles.php:708
 msgid "Last 10 Revisions"
 msgstr ""
 
