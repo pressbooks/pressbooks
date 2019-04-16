@@ -474,10 +474,10 @@ class Catalog_List_Table extends \WP_List_Table {
 				</div>
 			</div><!-- end .postbox -->
 
-			<h2><?php echo isset( $_REQUEST['user_id'] ) ? ucfirst( get_userdata( absint( $_REQUEST['user_id'] ) )->user_login ) : __( 'My Catalog', 'pressbooks' ); ?>
+			<h1><?php echo isset( $_REQUEST['user_id'] ) ? ucfirst( get_userdata( absint( $_REQUEST['user_id'] ) )->user_login ) : __( 'My Catalog', 'pressbooks' ); ?>
 				<a href="<?php echo $edit_url; ?>" class=" page-title-action"><?php _e( 'Edit Profile', 'pressbooks' ); ?></a>
 				<a href="<?php echo $view_url; ?>" class=" page-title-action"><?php _e( 'Visit Catalog', 'pressbooks' ); ?></a>
-			</h2>
+			</h1>
 
 			<form id="books-search" method="get" action="<?php echo $url; ?>">
 				<?php wp_nonce_field( 'pb_catalog_search', 'pb_catalog_search', false ); ?>
