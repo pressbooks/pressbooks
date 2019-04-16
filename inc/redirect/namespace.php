@@ -153,6 +153,7 @@ function do_format() {
 	if ( 'xhtml' === $format ) {
 
 		$args = [];
+		add_filter( 'pre_determine_locale', '\Pressbooks\L10n\get_locale' );
 		$switched_locale = switch_to_locale( \Pressbooks\Modules\Export\Export::locale() );
 		$foo = new \Pressbooks\Modules\Export\Xhtml\Xhtml11( $args );
 		$foo->transform();
@@ -165,6 +166,7 @@ function do_format() {
 	if ( 'htmlbook' === $format ) {
 
 		$args = [];
+		add_filter( 'pre_determine_locale', '\Pressbooks\L10n\get_locale' );
 		$switched_locale = switch_to_locale( \Pressbooks\Modules\Export\Export::locale() );
 		$foo = new \Pressbooks\Modules\Export\HTMLBook\HTMLBook( $args );
 		$foo->transform();
