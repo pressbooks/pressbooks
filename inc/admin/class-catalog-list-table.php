@@ -457,6 +457,12 @@ class Catalog_List_Table extends \WP_List_Table {
 		$list_table->prepare_items();
 		?>
 		<div class="wrap">
+
+			<h1><?php echo isset( $_REQUEST['user_id'] ) ? ucfirst( get_userdata( absint( $_REQUEST['user_id'] ) )->user_login ) : __( 'My Catalog', 'pressbooks' ); ?>
+				<a href="<?php echo $edit_url; ?>" class=" page-title-action"><?php _e( 'Edit Profile', 'pressbooks' ); ?></a>
+				<a href="<?php echo $view_url; ?>" class=" page-title-action"><?php _e( 'Visit Catalog', 'pressbooks' ); ?></a>
+			</h1>
+
 			<div class="postbox">
 				<div class="inside">
 					<h4><?php _e( 'Organize your public Catalog page.', 'pressbooks' ); ?></h4>
@@ -473,11 +479,6 @@ class Catalog_List_Table extends \WP_List_Table {
 					<p><?php _e( 'The public link to your catalog page', 'pressbooks' ); ?>: <a href="<?php echo $view_url; ?>"><?php echo $view_url; ?></a></p>
 				</div>
 			</div><!-- end .postbox -->
-
-			<h1><?php echo isset( $_REQUEST['user_id'] ) ? ucfirst( get_userdata( absint( $_REQUEST['user_id'] ) )->user_login ) : __( 'My Catalog', 'pressbooks' ); ?>
-				<a href="<?php echo $edit_url; ?>" class=" page-title-action"><?php _e( 'Edit Profile', 'pressbooks' ); ?></a>
-				<a href="<?php echo $view_url; ?>" class=" page-title-action"><?php _e( 'Visit Catalog', 'pressbooks' ); ?></a>
-			</h1>
 
 			<form id="books-search" method="get" action="<?php echo $url; ?>">
 				<?php wp_nonce_field( 'pb_catalog_search', 'pb_catalog_search', false ); ?>
