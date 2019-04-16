@@ -30,7 +30,7 @@ if ( 'edit_tags' == $_REQUEST['action'] ) :
 	<form method="post" action="<?php echo $user_catalog_form_url; ?>" >
 		<input type="hidden" name="action" value="edit_tags" />
 		<input type="hidden" name="ID" value="<?php echo "$user_id:$blog_id"; ?>" />
-		<table class="form-table">
+		<table class="form-table" role="none">
 			<!-- Featured -->
 			<tr>
 				<th><label for="featured"><?php _e( 'Featured', 'pressbooks' ); ?></label></th>
@@ -93,7 +93,7 @@ else :
 	<form method="post" action="<?php echo $user_catalog_form_url; ?>" enctype="multipart/form-data" >
 		<input type="hidden" name="action" value="edit_profile" />
 		<input type="hidden" name="user_id" value="<?php echo $user_id ?>" />
-		<table class="form-table">
+		<table class="form-table" role="none">
 			<tr>
 				<th><label for="pb_catalog_about"><?php _e( 'About', 'pressbooks' ); ?></label></th>
 				<td><textarea id="pb_catalog_about" name="pb_catalog_about" rows="5" cols="30"><?php echo esc_textarea( $p['pb_catalog_about'] ); ?></textarea></td>

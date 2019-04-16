@@ -238,7 +238,7 @@ tr.pb-latex-method-<?php echo $current_method; ?> {
 
 	<form action="<?php echo esc_url( remove_query_arg( 'updated' ) ); ?>" method="post">
 
-	<table class="form-table">
+	<table class="form-table" role="none">
 	<tbody>
 		<?php if ( empty( $errors ) ): ?>
 		<tr>
