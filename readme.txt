@@ -29,7 +29,7 @@ TK.
 
 **Patches**
 
-* Fix user locale: 91663c5, f3e046d
+* Fix user locale: 91663c5, f3e046d, b1df762
 * Fix progress bar in Microsoft Edge ([#1663](https://github.com/pressbooks/pressbooks/issues/1663)): [#1664](https://github.com/pressbooks/pressbooks/pull/1664)
 * Fix a frequently seen SCSS Compile Errror: [#1655](https://github.com/pressbooks/pressbooks/pull/1655)
 * Fix fully qualified URLs are not converted to internal links when exporting epubs on subdomain installs: [#1644](https://github.com/pressbooks/pressbooks/pull/1644)
