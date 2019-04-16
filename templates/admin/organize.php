@@ -128,7 +128,6 @@ if ( isset( $ebook_options['ebook_start_point'] ) && ! empty( $ebook_options['eb
 							<?php endif; ?>
 							<th>
 								<span
-									style="cursor: pointer;"
 									role="button"
 									tabindex='0'
 									aria-label="check/uncheck Show in Web for all <?php echo $name; ?> pages"
@@ -137,7 +136,6 @@ if ( isset( $ebook_options['ebook_start_point'] ) && ! empty( $ebook_options['eb
 							</th>
 							<th>
 								<span
-									style="cursor: pointer;"
 									role="button"
 									tabindex="0"
 									aria-label="check/uncheck Show in Exports for all <?php echo $name; ?> pages"
@@ -145,7 +143,6 @@ if ( isset( $ebook_options['ebook_start_point'] ) && ! empty( $ebook_options['eb
 							</th>
 							<th>
 								<span
-									style="cursor: pointer;"
 									role="button"
 									tabindex="0"
 									aria-label="check/uncheck Show Title for all <?php echo $name; ?> pages"
@@ -290,7 +287,6 @@ endif;
 					<?php endif; ?>
 					<th>
 						<span
-							style="cursor: pointer;"
 							role="button"
 							tabindex='0'
 							aria-label="check/uncheck Show in Web for all <?php echo $name; ?> pages"
@@ -299,7 +295,6 @@ endif;
 					</th>
 					<th>
 						<span
-							style="cursor: pointer;"
 							role="button"
 							tabindex='0'
 							aria-label="check/uncheck Show in Web for all <?php echo $name; ?> pages"
@@ -308,7 +303,6 @@ endif;
 					</th>
 					<th>
 						<span
-							style="cursor: pointer;"
 							role="button"
 							tabindex='0'
 							aria-label="check/uncheck Show in Web for all <?php echo $name; ?> pages"
