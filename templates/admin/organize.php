@@ -120,15 +120,38 @@ if ( isset( $ebook_options['ebook_start_point'] ) && ! empty( $ebook_options['eb
 									<a href="<?php echo get_permalink( $part['ID'] ); ?>"><?php _e( 'View', 'pressbooks' ); ?></a>
 								</div>
 							</th>
-							<th><?php _e( 'Authors', 'pressbooks' ); ?></th>
+							<th tabindex='0'><?php _e( 'Authors', 'pressbooks' ); ?></th>
 							<?php
 							if ( false === $disable_comments ) :
 							?>
 								<th><?php _e( 'Comments', 'pressbooks' ); ?></th>
 							<?php endif; ?>
-							<th id="part_<?php echo $part['ID']; ?>_chapter_web_visibility" role="button"><?php _e( 'Show in Web', 'pressbooks' ); ?></th>
-							<th id="part_<?php echo $part['ID']; ?>_chapter_export_visibility" role="button"><?php _e( 'Show in Exports', 'pressbooks' ); ?></th>
-							<th id="part_<?php echo $part['ID']; ?>_chapter_show_title" role="button"><?php _e( 'Show Title', 'pressbooks' ); ?></th>
+							<th>
+								<span
+									style="cursor: pointer;"
+									role="button"
+									tabindex='0'
+									aria-label="check/uncheck Show in Web for all <?php echo $name; ?> pages"
+									id="<?php echo $slug; ?>_web_visibility"><?php _e( 'Show in Web', 'pressbooks' ); ?>
+								</span>
+							</th>
+							<th>
+								<span
+									style="cursor: pointer;"
+									role="button"
+									tabindex="0"
+									aria-label="check/uncheck Show in Exports for all <?php echo $name; ?> pages"
+									id="part_<?php echo $part['ID']; ?>_chapter_export_visibility"><?php _e( 'Show in Exports', 'pressbooks' ); ?></span>
+							</th>
+							<th>
+								<span
+									style="cursor: pointer;"
+									role="button"
+									tabindex="0"
+									aria-label="check/uncheck Show Title for all <?php echo $name; ?> pages"
+									id="part_<?php echo $part['ID']; ?>_chapter_show_title" role="button"><?php _e( 'Show Title', 'pressbooks' ); ?>
+								</span>
+							</th>
 						</tr>
 					</thead>
 
@@ -261,13 +284,37 @@ endif;
 			<thead>
 				<tr>
 					<th scope="col" id="title" class="has-row-actions manage-column column-title column-primary"><?php echo $name; ?></th>
-					<th><?php _e( 'Authors', 'pressbooks' ); ?></th>
+					<th tabindex='0'><?php _e( 'Authors', 'pressbooks' ); ?></th>
 					<?php if ( false === $disable_comments ) : ?>
 					<th><?php _e( 'Comments', 'pressbooks' ); ?></th>
 					<?php endif; ?>
-					<th role="button" id="<?php echo $slug; ?>_web_visibility"><?php _e( 'Show in Web', 'pressbooks' ); ?></th>
-					<th role="button" id="<?php echo $slug; ?>_export_visibility"><?php _e( 'Show in Exports', 'pressbooks' ); ?></th>
-					<th role="button" id="<?php echo $slug; ?>_show_title"><?php _e( 'Show Title', 'pressbooks' ); ?></th>
+					<th>
+						<span
+							style="cursor: pointer;"
+							role="button"
+							tabindex='0'
+							aria-label="check/uncheck Show in Web for all <?php echo $name; ?> pages"
+							id="<?php echo $slug; ?>_web_visibility"><?php _e( 'Show in Web', 'pressbooks' ); ?>
+						</span>
+					</th>
+					<th>
+						<span
+							style="cursor: pointer;"
+							role="button"
+							tabindex='0'
+							aria-label="check/uncheck Show in Web for all <?php echo $name; ?> pages"
+							id="<?php echo $slug; ?>_export_visibility"><?php _e( 'Show in Exports', 'pressbooks' ); ?>
+						</span>
+					</th>
+					<th>
+						<span
+							style="cursor: pointer;"
+							role="button"
+							tabindex='0'
+							aria-label="check/uncheck Show in Web for all <?php echo $name; ?> pages"
+							id="<?php echo $slug; ?>_show_title"><?php _e( 'Show Title', 'pressbooks' ); ?>
+						</span>
+					</th>
 				</tr>
 			</thead>
 

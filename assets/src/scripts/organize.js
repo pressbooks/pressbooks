@@ -432,7 +432,7 @@ $( document ).ready( () => {
 		}
 	} );
 
-	$( '.allow-bulk-operations table thead th[id$="show_title"]' ).on(
+	$( '.allow-bulk-operations table thead th span[id$="show_title"]' ).on(
 		'click',
 		event => {
 			let id = $( event.target ).attr( 'id' );
@@ -459,7 +459,7 @@ $( document ).ready( () => {
 		}
 	);
 
-	$( '.allow-bulk-operations table thead th[id$="visibility"]' ).on(
+	$( '.allow-bulk-operations table thead th span[id$="visibility"]' ).on(
 		'click',
 		event => {
 			let id = $( event.target ).attr( 'id' );
