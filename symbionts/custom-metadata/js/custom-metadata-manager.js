@@ -175,26 +175,6 @@
 			custom_metadata_link_selector_is_open = false;
 		});
 
-	 	// init the datepicker fields
-		$( '.custom-metadata-field.datepicker' ).find( 'input' ).datepicker({
-			changeMonth: true,
-			changeYear: true,
-			dateFormat: 'mm/dd/yy'
-		});
-
-		// init the datetimepicker fields
-		$( '.custom-metadata-field.datetimepicker' ).find( 'input' ).datetimepicker({
-			changeMonth: true,
-			changeYear: true,
-			dateFormat: 'mm/dd/yy'
-		});
-
-		// init the timepicker fields
-		$( '.custom-metadata-field.timepicker' ).find( 'input' ).timepicker({
-			changeMonth: true,
-			changeYear: true
-		});
-
 		// select2
 		$custom_metadata_field.find( '.custom-metadata-select2' ).each(function(index) {
 			$(this).select2({ placeholder : $(this).attr('data-placeholder'), allowClear : true });

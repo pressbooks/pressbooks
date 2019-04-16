@@ -192,7 +192,7 @@ class Licensing {
 	 */
 	public function doLicense( $metadata, $post_id = 0, $title = '' ) {
 		if ( ! empty( $title ) ) {
-			_doing_it_wrong( __METHOD__, __( '$title is deprecated. Method will automatically determine title from licenses', 'pressbooks' ), '5.7.0' );
+			_doing_it_wrong( __METHOD__, __( '$title is deprecated. Method will automatically determine title from licenses', 'pressbooks' ), 'Pressbooks 5.7.0' );
 		}
 
 		$book_license = isset( $metadata['pb_book_license'] ) ? $metadata['pb_book_license'] : '';
