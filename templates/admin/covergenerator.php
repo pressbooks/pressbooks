@@ -119,7 +119,7 @@ if ( $dependency_errors ) {
 																											title="<?php echo esc_attr( $file ); ?>"></span></a>
 							<div class="file-actions">
 								<a href="<?php echo( $download_form_url . $file ); ?>"><span class="dashicons dashicons-download"></span></a>
-								<button class="delete" type="submit" name="submit" src="" value="Delete"
+								<button class="delete" type="submit" name="submit" value="Delete"
 										onclick="if ( !confirm('<?php esc_attr_e( 'Are you sure you want to delete this?', 'pressbooks' ); ?>' ) ) { return false }"><span
 											class="dashicons dashicons-trash"></span></button>
 							</div>
@@ -135,7 +135,7 @@ if ( $dependency_errors ) {
 			<?php if ( ! empty( $covers ) && current_user_can( 'manage_network' ) ) : ?>
 				<form class="delete-all" action="<?php echo $delete_all_form_url; ?>" method="post">
 					<input type="hidden" name="delete_all_covers" value="1"/>
-					<button class="button" type="submit" name="submit" src="" value="Delete All Covers"
+					<button class="button" type="submit" name="submit" value="Delete All Covers"
 							onclick="if ( !confirm('<?php esc_attr_e( 'Are you sure you want to delete ALL your current covers?', 'pressbooks' ); ?>' ) ) { return false }"><?php _e( 'Delete All Covers', 'pressbooks' ); ?></button>
 				</form>
 			<?php endif; ?>

@@ -16,7 +16,7 @@ namespace Pressbooks\L10n;
 function supported_languages() {
 
 	$languages = [
-		'' => '',
+		'' => '&nbsp;',
 		'af' => 'Afrikaans',
 		'sq' => 'Albanian',
 		'ar' => 'Arabic',

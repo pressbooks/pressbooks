@@ -103,7 +103,7 @@ function render_attachment_license_options( $post_id, $license_meta ) {
 	$licenses = ( new Licensing() )->getSupportedTypes();
 	$html = "<select name='attachments[$post_id][pb_media_attribution_license]' id='attachments-{$post_id}-pb_media_attribution_license'>";
 
-	$html .= '<option value=""></option>';
+	$html .= '<option value="">&nbsp;</option>';
 	foreach ( $licenses as $key => $license ) {
 		$html .= "<option value='{$key}'" . selected( $license_meta, $key, false ) . ">{$license['desc']}</option>";
 	}

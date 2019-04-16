@@ -24,7 +24,7 @@ use Pressbooks\Metadata;
  */
 function add_footer_link() {
 	printf(
-		'<p id="footer-left" class="alignleft"><span id="footer-thankyou">%1$s</span> &bull; %2$s &bull; %3$s &bull; %4$s &bull; %5$s</p>',
+		'<span id="footer-thankyou">%1$s</span> &bull; %2$s &bull; %3$s &bull; %4$s &bull; %5$s',
 		sprintf(
 			__( 'Powered by %s', 'pressbooks' ),
 			sprintf(
