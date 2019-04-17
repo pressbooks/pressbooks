@@ -4,7 +4,7 @@ Plugin Name: Custom Metadata Manager
 Plugin URI: http://wordpress.org/extend/plugins/custom-metadata/
 Description: An easy way to add custom fields to your object types (post, pages, custom post types, users)
 Author: Automattic, Stresslimit & Contributors
-Version: 0.8-dev
+Version: 0.8-dev (forked)
 Author URI: https://github.com/Automattic/custom-metadata/
 
 Copyright 2010-2013 The Contributors
@@ -36,6 +36,15 @@ if ( ! defined( 'CUSTOM_METADATA_MANAGER_DEBUG' ) )
 if ( CUSTOM_METADATA_MANAGER_DEBUG )
 	include_once 'custom_metadata_examples.php';
 
+/**
+ * This code is deprecated. We're maintaining the best we can but it is showing it's
+ * age, is abandoned. We should move to something like CMB2 or Carbonfields
+ *
+ * @see https://github.com/CMB2/CMB2
+ * @see https://github.com/htmlburger/carbon-fields
+ *
+ * @deprecated
+ */
 class custom_metadata_manager {
 
 	var $errors = array();
@@ -63,7 +72,7 @@ class custom_metadata_manager {
 	var $_field_types_that_support_placeholder = array( 'text', 'textarea', 'password', 'number', 'email', 'tel', 'upload', 'datepicker', 'datetimepicker', 'timepicker', 'link' );
 
 	// field types that are read only by default
-	var $_field_types_that_are_read_only = array( 'upload', 'link', 'datepicker', 'datetimepicker', 'timepicker' );
+	var $_field_types_that_are_read_only = array( 'upload', 'link', 'datetimepicker', 'timepicker' );
 
 	// field types that support being part of a multifield group
 	// @todo: workarounds needed for other field types
@@ -125,7 +134,6 @@ class custom_metadata_manager {
 		$this->default_editor_args = apply_filters( 'custom_metadata_manager_default_editor_args', $this->default_editor_args );
 
 		define( 'CUSTOM_METADATA_MANAGER_SELECT2_VERSION', '3.2' ); // version for included select2.js
-		define( 'CUSTOM_METADATA_MANAGER_TIMEPICKER_VERSION', '1.2' ); // version for included timepicker
 		define( 'CUSTOM_METADATA_MANAGER_VERSION', '0.8-dev-20180330' );
 		define( 'CUSTOM_METADATA_MANAGER_URL' , apply_filters( 'custom_metadata_manager_url', trailingslashit( plugins_url( 'pressbooks/symbionts/custom-metadata' ) ) ) );
 
@@ -227,7 +235,6 @@ class custom_metadata_manager {
 		wp_enqueue_script( 'wpdialogs-popup' );
 		wp_enqueue_style( 'wp-jquery-ui-dialog' );
 		wp_enqueue_script( 'select2', apply_filters( 'custom_metadata_manager_select2_js', CUSTOM_METADATA_MANAGER_URL . 'js/select2.min.js' ), array( 'jquery' ), apply_filters( 'custom_metadata_manager_select2_js_version', CUSTOM_METADATA_MANAGER_SELECT2_VERSION ), true );
-		wp_enqueue_script( 'timepicker', apply_filters( 'custom_metadata_manager_timepicker_js', CUSTOM_METADATA_MANAGER_URL .'js/jquery-ui-timepicker.min.js' ), array( 'jquery', 'jquery-ui-datepicker' ), CUSTOM_METADATA_MANAGER_TIMEPICKER_VERSION, true );
 		wp_enqueue_script( 'custom-metadata-manager-js', apply_filters( 'custom_metadata_manager_default_js', CUSTOM_METADATA_MANAGER_URL .'js/custom-metadata-manager.js' ), array( 'jquery', 'jquery-ui-datepicker', 'select2' ), CUSTOM_METADATA_MANAGER_VERSION, true );
 		wp_enqueue_script( 'wp-color-picker' );
 	}
@@ -1269,17 +1276,21 @@ class custom_metadata_manager {
 					echo '</select>';
 					break;
 				case 'datepicker' :
-					$datepicker_value = ! empty( $v ) ? esc_attr( date( 'm/d/Y', $v ) ) : '';
-					printf( '<input type="text" id="%s" name="%s" value="%s"%s%s/>', esc_attr( $html_id ), esc_attr( $field_id ), $datepicker_value, $readonly_str, $placeholder_str );
+					$datepicker_value = ! empty( $v ) ? esc_attr( date( 'Y-m-d', $v ) ) : '';
+					printf( '<input type="date" id="%s" name="%s" value="%s" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"%s%s/>', esc_attr( $html_id ), esc_attr( $field_id ), $datepicker_value, $readonly_str, $placeholder_str  );
 					break;
 				case 'colorpicker':
 					printf( '<input type="text" id="%s" name="%s" value="%s"%s%s/>', esc_attr( $html_id ), esc_attr( $field_id ), esc_attr( $v ), $readonly_str, $placeholder_str );
 					break;
 				case 'datetimepicker' :
+					// Not supported by Pressbooks
+					_doing_it_wrong( __METHOD__, __( 'datetimepicker not supported by Pressbooks', 'pressbooks' ), 'Pressbooks 5.8.0' );
 					$datetimepicker_value = ! empty( $v ) ? esc_attr( date( 'm/d/Y G:i', $v ) ) : '';
 					printf( '<input type="text" id="%s" name="%s" value="%s"%s%s/>', esc_attr( $html_id ), esc_attr( $field_id ), $datetimepicker_value, $readonly_str, $placeholder_str );
 					break;
 				case 'timepicker' :
+					// Not supported by Pressbooks
+					_doing_it_wrong( __METHOD__, __( 'timepicker not supported by Pressbooks', 'pressbooks' ), 'Pressbooks 5.8.0' );
 					$timepicker = ! empty( $v ) ? esc_attr( date( 'G:i', $v ) ) : '';
 					printf( '<input type="text" id="%s" name="%s" value="%s"%s%s/>', esc_attr( $html_id ), esc_attr( $field_id ), $timepicker, $readonly_str, $placeholder_str );
 					break;
