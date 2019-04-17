@@ -32,13 +32,13 @@ mix.browserSync( {
 } );
 
 // Normalize Newlines
-const normalizeNewlines = ( dir ) => {
-	fs.readdirSync( dir ).forEach( function( file ) {
+const normalizeNewlines = dir => {
+	fs.readdirSync( dir ).forEach( function ( file ) {
 		file = path.join( dir, file );
-		fs.readFile( file, 'utf8', function( err, buffer ) {
+		fs.readFile( file, 'utf8', function ( err, buffer ) {
 			if ( err ) return console.log( err );
 			buffer = normalizeNewline( buffer );
-			fs.writeFile( file, buffer, 'utf8', function( err ) {
+			fs.writeFile( file, buffer, 'utf8', function ( err ) {
 				if ( err ) return console.log( err );
 			} );
 		} );
@@ -75,6 +75,7 @@ mix
 	.js( 'assets/src/scripts/textboxes-legacy.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/theme-lock.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/theme-options.js', 'assets/dist/scripts/' )
+	.js( 'assets/src/scripts/a11y.js', 'assets/dist/scripts/' )
 	.scripts(
 		'node_modules/event-source-polyfill/src/eventsource.js',
 		'assets/dist/scripts/eventsource.polyfill.js'
