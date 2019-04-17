@@ -48,11 +48,13 @@
     th {
       vertical-align: top;
       padding-top: 8px;
-
-      &[id$="show_title"],
-      &[id$="visibility"] {
-        cursor: pointer;
+      span {
+        &[id$="show_title"],
+        &[id$="visibility"] {
+          cursor: pointer;
+        }
       }
+
     }
 
     td {
