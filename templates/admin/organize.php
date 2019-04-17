@@ -106,7 +106,7 @@ if ( isset( $ebook_options['ebook_start_point'] ) && ! empty( $ebook_options['eb
 				<table id="part_<?php echo $part['ID']; ?>" class="wp-list-table widefat fixed striped chapters">
 					<thead>
 						<tr>
-							<th scope="col" id="title" class="has-row-actions manage-column column-title column-primary">
+							<th scope="col" id="title_<?php echo $part['ID']; ?>" class="has-row-actions manage-column column-title column-primary">
 								<?php if ( $can_edit ) { ?>
 									<a href="<?php echo admin_url( 'post.php?post=' . $part['ID'] . '&action=edit' ); ?>"><?php echo $part['post_title']; ?></a>
 								<?php } else { ?>
@@ -154,7 +154,7 @@ if ( isset( $ebook_options['ebook_start_point'] ) && ! empty( $ebook_options['eb
 
 					<?php if ( count( $part['chapters'] ) > 0 ) : ?>
 
-					<tbody id="the-list">
+					<tbody id="the-list-<?php echo $part['ID']; ?>">
 					<?php
 					$chapters = count( $part['chapters'] );
 					$c = 1; // Start the chapter counter
@@ -280,7 +280,7 @@ endif;
 		<table id="<?php echo $slug; ?>" class="wp-list-table widefat fixed striped <?php echo $slug; ?>">
 			<thead>
 				<tr>
-					<th scope="col" id="title" class="has-row-actions manage-column column-title column-primary"><?php echo $name; ?></th>
+					<th scope="col" id="title_<?php echo $slug; ?>" class="has-row-actions manage-column column-title column-primary"><?php echo $name; ?></th>
 					<th tabindex='0'><?php _e( 'Authors', 'pressbooks' ); ?></th>
 					<?php if ( false === $disable_comments ) : ?>
 					<th><?php _e( 'Comments', 'pressbooks' ); ?></th>
@@ -312,7 +312,7 @@ endif;
 				</tr>
 			</thead>
 
-			<tbody id="the-list">
+			<tbody id="the-list-<?php echo $slug; ?>">
 			<?php
 			$sections = count( $book_structure[ $slug ] );
 			$s = 1; // Start the counter

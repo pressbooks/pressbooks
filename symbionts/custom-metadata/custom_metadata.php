@@ -571,7 +571,7 @@ class custom_metadata_manager {
 ?>
 		<h3><?php echo $group->label; ?></h3>
 
-		<table class="form-table user-metadata-group">
+		<table class="form-table user-metadata-group" role="none">
 			<?php foreach ( $fields as $field_slug => $field ) : ?>
 				<?php if ( $this->is_thing_added_to_object( $field_slug, $field, $object_type, $user_id ) ) : ?>
 					<tr valign="top">
@@ -1185,19 +1185,9 @@ class custom_metadata_manager {
 		$readonly_str = ( ! empty( $field->readonly ) ) ? ' readonly="readonly"' : '';
 		$placeholder_str = ( in_array( $field->field_type, $this->_field_types_that_support_placeholder ) && ! empty( $field->placeholder ) ) ? ' placeholder="' . esc_attr( $field->placeholder ) . '"' : '';
 
-		$label_str = sprintf( '<label for="%s">%s</label>', esc_attr( $field_slug ), esc_html( $field->label ) );
-
-		// Define an array of field types that need the <label> AFTER the <input>
-		$label_after_field_types = array( 'checkbox' );
-
-		// Show the label now if the current field_type is not on the list
-		if ( ! in_array( $field->field_type, $label_after_field_types ) )
-			echo $label_str;
-
 		// check if there is a default value and set it if no value currently set
 		if ( empty( $value ) && in_array( $field->field_type, $this->_field_types_that_support_default_value ) && ! empty( $field->default_value ) )
 			$value = sanitize_text_field( $field->default_value );
-
 
 		// if value is empty set to an empty string
 		if ( empty( $value ) )
@@ -1206,40 +1196,57 @@ class custom_metadata_manager {
 		// make sure $value is an array
 		$value = (array) $value;
 
+		// Set a unique HTML ID
+		$has_more_than_one_value = count( $value ) > 1;
+		$html_id = $has_more_than_one_value ? "{$field_slug}_1" : $field_slug; // HTML ID must be unique
+
+		// Define an array of field types that need the <label> AFTER the <input>
+		// Show the label now if the current field_type is not on the list
+		$label_after_field_types = array( 'checkbox' );
+		$label_str = sprintf( '<label for="%s">%s</label>', esc_attr( $html_id ), esc_html( $field->label ) );
+		if ( ! in_array( $field->field_type, $label_after_field_types ) )
+			echo $label_str;
+
 		$count = 1;
 		$container_class = sanitize_html_class( $field_slug );
 		$container_class .= ( $cloneable ) ? ' cloneable' : '';
 		foreach ( $value as $v ) :
+			if ( in_array( $field->field_type, [ 'multi_select', 'taxonomy_checkbox', 'taxonomy_multi_select' ] ) ) {
+				// fields that save as arrays are not part of the foreach, otherwise they would display for each value, which is not the desired behaviour
+				continue;
+			}
+
 			$container_id = $field_slug . '-' . $count;
+			$html_id = $has_more_than_one_value ? "{$field_slug}_{$count}" : $field_slug;
 			printf( '<div class="%s" id="%s">', esc_attr( $container_class ), esc_attr( $container_id ) );
 
 			switch ( $field->field_type ) :
 				case 'text' :
-					printf( '<input type="text" id="%s" name="%s" value="%s"%s%s/>', esc_attr( $field_slug ), esc_attr( $field_id ), esc_attr( $v ), $readonly_str, $placeholder_str );
+					printf( '<input type="text" id="%s" name="%s" value="%s"%s%s/>', esc_attr( $html_id ), esc_attr( $field_id ), esc_attr( $v ), $readonly_str, $placeholder_str );
 					break;
 				case 'password' :
-					printf( '<input type="password" id="%s" name="%s" value="%s"%s%s/>', esc_attr( $field_slug ), esc_attr( $field_id ), esc_attr( $v ), $readonly_str, $placeholder_str );
+					printf( '<input type="password" id="%s" name="%s" value="%s"%s%s/>', esc_attr( $html_id ), esc_attr( $field_id ), esc_attr( $v ), $readonly_str, $placeholder_str );
 					break;
 				case 'email' :
-					printf( '<input type="email" id="%s" name="%s" value="%s"%s%s/>', esc_attr( $field_slug ), esc_attr( $field_id ), esc_attr( $v ), $readonly_str, $placeholder_str );
+					printf( '<input type="email" id="%s" name="%s" value="%s"%s%s/>', esc_attr( $html_id ), esc_attr( $field_id ), esc_attr( $v ), $readonly_str, $placeholder_str );
 					break;
 				case 'tel' :
-					printf( '<input type="tel" id="%s" name="%s" value="%s"%s%s/>', esc_attr( $field_slug ), esc_attr( $field_id ), esc_attr( $v ), $readonly_str, $placeholder_str );
+					printf( '<input type="tel" id="%s" name="%s" value="%s"%s%s/>', esc_attr( $html_id ), esc_attr( $field_id ), esc_attr( $v ), $readonly_str, $placeholder_str );
 					break;
 				case 'link' :
-					printf( '<input type="text" id="%s" name="%s" value="%s" %s%s/>', esc_attr( $field_slug ), esc_attr( $field_id ), esc_attr( $v ), $readonly_str, $placeholder_str );
+					printf( '<input type="text" id="%s" name="%s" value="%s" %s%s/>', esc_attr( $html_id ), esc_attr( $field_id ), esc_attr( $v ), $readonly_str, $placeholder_str );
 					printf( '<input type="button" class="button custom-metadata-link-button" value="%s"/>', esc_attr( $field->link_modal_button_text ) );
 					break;
 				case 'number' :
 					$min = ( ! empty( $field->min ) ) ? ' min="' . (int) $field->min . '"': '';
 					$max = ( ! empty( $field->max ) ) ? ' max="' . (int) $field->max . '"': '';
-					printf( '<input type="number" id="%s" name="%s" value="%s"%s%s%s%s/>', esc_attr( $field_slug ), esc_attr( $field_id ), esc_attr( $v ), $readonly_str, $placeholder_str, $min, $max );
+					printf( '<input type="number" id="%s" name="%s" value="%s"%s%s%s%s/>', esc_attr( $html_id ), esc_attr( $field_id ), esc_attr( $v ), $readonly_str, $placeholder_str, $min, $max );
 					break;
 				case 'textarea' :
-					printf( '<textarea id="%s" name="%s"%s%s>%s</textarea>', esc_attr( $field_slug ), esc_attr( $field_id ), $readonly_str, $placeholder_str, esc_textarea( $v ) );
+					printf( '<textarea id="%s" name="%s"%s%s>%s</textarea>', esc_attr( $html_id ), esc_attr( $field_id ), $readonly_str, $placeholder_str, esc_textarea( $v ) );
 					break;
 				case 'checkbox' :
-					printf( '<input type="checkbox" id="%s" name="%s" %s/>', esc_attr( $field_slug ), esc_attr( $field_id ), checked( $v, 'on', false ) );
+					printf( '<input type="checkbox" id="%s" name="%s" %s/>', esc_attr( $html_id ), esc_attr( $field_id ), checked( $v, 'on', false ) );
 					break;
 				case 'radio' :
 					foreach ( $field->values as $value_slug => $value_label ) {
@@ -1253,7 +1260,7 @@ class custom_metadata_manager {
 				case 'select' :
 					$select2 = ( $field->select2 ) ? ' class="custom-metadata-select2" ' : ' ';
 					$select2 .= ( $field->placeholder ) ? ' data-placeholder="'. esc_attr( $field->placeholder ) . '" ' : ' data-placeholder="" ';
-					printf( '<select id="%s" name="%s"%s>', esc_attr( $field_slug ), esc_attr( $field_id ), $select2 );
+					printf( '<select id="%s" name="%s"%s>', esc_attr( $html_id ), esc_attr( $field_id ), $select2 );
 					foreach ( $field->values as $value_slug => $value_label ) {
 						printf( '<option value="%s"%s>', esc_attr( $value_slug ), selected( $v, $value_slug, false ) );
 						echo esc_html( $value_label );
@@ -1263,18 +1270,18 @@ class custom_metadata_manager {
 					break;
 				case 'datepicker' :
 					$datepicker_value = ! empty( $v ) ? esc_attr( date( 'm/d/Y', $v ) ) : '';
-					printf( '<input type="text" name="%s" value="%s"%s%s/>', esc_attr( $field_id ), $datepicker_value, $readonly_str, $placeholder_str );
+					printf( '<input type="text" id="%s" name="%s" value="%s"%s%s/>', esc_attr( $html_id ), esc_attr( $field_id ), $datepicker_value, $readonly_str, $placeholder_str );
 					break;
 				case 'colorpicker':
-					printf( '<input type="text" name="%s" value="%s"%s%s/>', esc_attr( $field_id ), esc_attr( $v ), $readonly_str, $placeholder_str );
+					printf( '<input type="text" id="%s" name="%s" value="%s"%s%s/>', esc_attr( $html_id ), esc_attr( $field_id ), esc_attr( $v ), $readonly_str, $placeholder_str );
 					break;
 				case 'datetimepicker' :
 					$datetimepicker_value = ! empty( $v ) ? esc_attr( date( 'm/d/Y G:i', $v ) ) : '';
-					printf( '<input type="text" name="%s" value="%s"%s%s/>', esc_attr( $field_id ), $datetimepicker_value, $readonly_str, $placeholder_str );
+					printf( '<input type="text" id="%s" name="%s" value="%s"%s%s/>', esc_attr( $html_id ), esc_attr( $field_id ), $datetimepicker_value, $readonly_str, $placeholder_str );
 					break;
 				case 'timepicker' :
 					$timepicker = ! empty( $v ) ? esc_attr( date( 'G:i', $v ) ) : '';
-					printf( '<input type="text" name="%s" value="%s"%s%s/>', esc_attr( $field_id ), $timepicker, $readonly_str, $placeholder_str );
+					printf( '<input type="text" id="%s" name="%s" value="%s"%s%s/>', esc_attr( $html_id ), esc_attr( $field_id ), $timepicker, $readonly_str, $placeholder_str );
 					break;
 				case 'wysiwyg' :
 					$wysiwyg_args = apply_filters( 'custom_metadata_manager_wysiwyg_args_field_' . $field_id, $this->default_editor_args, $field_slug, $field, $object_type, $object_id );
@@ -1283,7 +1290,7 @@ class custom_metadata_manager {
 				case 'upload' :
 					$_attachment_id = $this->get_metadata_field_value( $field_slug . '_attachment_id', $field, $object_type, $object_id );
 					$attachment_id = array_shift( array_values( $_attachment_id ) ); // get the first value in the array
-					printf( '<input type="text" name="%s" value="%s" class="custom-metadata-upload-url"%s%s/>', esc_attr( $field_id ), esc_attr( $v ), $readonly_str, $placeholder_str );
+					printf( '<input type="text" id="%s" name="%s" value="%s" class="custom-metadata-upload-url"%s%s/>', esc_attr( $html_id ), esc_attr( $field_id ), esc_attr( $v ), $readonly_str, $placeholder_str );
 					printf( '<input type="button" data-uploader-title="%s" data-uploader-button-text="%s" class="button custom-metadata-upload-button" value="%s"/>', esc_attr( $field->upload_modal_title ), esc_attr( $field->upload_modal_button_text ), esc_attr( $field->upload_modal_title ) );
 					printf( '<input type="button" class="button custom-metadata-clear-button" value="%s"/>', $field->upload_clear_button_text );
 					printf( '<input type="hidden" name="%s" value="%s" class="custom-metadata-upload-id"/>', esc_attr( $field_id . '_attachment_id' ), esc_attr( $attachment_id ) );
@@ -1296,8 +1303,8 @@ class custom_metadata_manager {
 					}
 					$select2 = ( $field->select2 ) ? ' class="custom-metadata-select2" ' : ' ';
 					$select2 .= ( $field->placeholder ) ? ' data-placeholder="'. esc_attr( $field->placeholder ) . '" ' : ' data-placeholder="" ';
-					printf( '<select name="%s" id="%s"%s>', esc_attr( $field_id ), esc_attr( $field_slug ), $select2 );
-						echo '<option value=""></option>';
+					printf( '<select name="%s" id="%s"%s>', esc_attr( $field_id ), esc_attr( $html_id ), $select2 );
+						echo '<option value="">&nbsp;</option>';
 					foreach ( $terms as $term ) {
 						printf( '<option value="%s"%s>%s</option>', esc_attr( $term->slug ), selected( $v, $term->slug, false ), esc_html( $term->name ) );
 					}
@@ -1333,16 +1340,15 @@ class custom_metadata_manager {
 
 
 		if ( in_array( $field->field_type, $this->_always_multiple_fields ) ) :
-			$container_id = $field_slug . '-' . 1;
+			$container_id = $field_slug . '-' . $count;
 			printf( '<div class="%s" id="%s">', esc_attr( $container_class ), esc_attr( $container_id ) );
 
-
-			// fields that save as arrays are not part of the foreach, otherwise they would display for each value, which is not the desired behaviour
+			// fields that save as arrays were not part of the above foreach, otherwise they would have displayed for each value, which is not the desired behaviour
 			switch ( $field->field_type ) :
 				case 'multi_select' :
 					$select2 = ( $field->select2 ) ? ' class="custom-metadata-select2" ' : ' ';
 					$select2 .= ( $field->placeholder ) ? ' data-placeholder="'. esc_attr( $field->placeholder ) . '" ' : ' data-placeholder="" ';
-					printf( '<select id="%s" name="%s"%smultiple>', esc_attr( $field_slug ), esc_attr( $field_id ), $select2 );
+					printf( '<select id="%s" name="%s"%smultiple>', esc_attr( $html_id ), esc_attr( $field_id ), $select2 );
 					$ordered_values = $field->select2 ? $this->_order_multi_select( $field->values, $value ) : $field->values;
 					foreach ( $ordered_values as $value_slug => $value_label ) {
 						printf( '<option value="%s"%s>', esc_attr( $value_slug ), selected( in_array( $value_slug, $value ), true, false ) );
@@ -1372,7 +1378,7 @@ class custom_metadata_manager {
 					}
 					$select2 = ( $field->select2 ) ? ' class="custom-metadata-select2" ' : ' ';
 					$select2 .= ( $field->placeholder ) ? ' data-placeholder="'. esc_attr( $field->placeholder ) . '" ' : ' data-placeholder="" ';
-					printf( '<select name="%s" id="%s"%smultiple>', esc_attr( $field_id ), esc_attr( $field_slug ), $select2 );
+					printf( '<select name="%s" id="%s"%smultiple>', esc_attr( $field_id ), esc_attr( $html_id ), $select2 );
 					$ordered_terms = $field->select2 ? $this->_order_taxonomy_multi_select( $terms, $value ) : $terms;
 					foreach ( $ordered_terms as $term ) {
 						printf( '<option value="%s"%s>%s</option>', esc_attr( $term->slug ), selected( in_array( $term->slug, $value ), true, false ), esc_html( $term->name ) );

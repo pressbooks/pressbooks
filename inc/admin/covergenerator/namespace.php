@@ -459,7 +459,7 @@ function pressbooks_cg_front_background_image_callback( $args ) {
 	/* translators: 1: minimum width, 2: minimum height, 3: aspect ratio width, 4: aspect ratio height */
 	$html .= '<p class="description front-background-image-description' . ( isset( $option['front_background_image'] ) ? ' hidden' : '' ) . '">' . sprintf( __( 'Your image must be at least %1$s pixels in width by %2$s pixels in height, with an aspect ratio of %3$s to %4$s.', 'pressbooks' ), round( $width ), round( $height ), $numeric_width, $numeric_height ) . '</p>';
 	$html .= '<div class="front-background-image-preview-wrap' . ( isset( $option['front_background_image'] ) ? '' : ' hidden' ) . '">';
-	$html .= '<p><img class="front-background-image" src="' . ( isset( $option['front_background_image'] ) ? $option['front_background_image'] : '' ) . '" /></p>';
+	$html .= '<p><img class="front-background-image" alt="Front Cover Background Image" src="' . ( isset( $option['front_background_image'] ) ? $option['front_background_image'] : 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=' ) . '" /></p>'; // Fallback to Tiny 26 bytes GIF
 	$html .= '<p><input type="button" class="button button-primary delete-front-background-image" value="' . __( 'Delete Background Image', 'pressbooks' ) . '" /></p>';
 	$html .= '</div>';
 	echo $html;
@@ -476,7 +476,7 @@ function pressbooks_cg_text_transform_callback( $args ) {
 	foreach ( $args as $key => $val ) {
 		$html .= "<option value='" . $key . "' " . selected( $key, $option['text_transform'], false ) . ">$val</option>";
 	}
-	$html .= '<select>';
+	$html .= '</select>';
 	echo $html;
 }
 
@@ -529,7 +529,7 @@ function pressbooks_cg_ppi_callback( $args ) {
 		$custom .= ' selected';
 	}
 	$html .= "<option value=''" . $custom . '>' . __( 'Custom&hellip;', 'pressbooks' ) . '</option>';
-	$html .= '<select>';
+	$html .= '</select>';
 	echo $html;
 }
 

@@ -23,6 +23,7 @@
 			id_name = split_id[0] + '-' + instance_num;
 			$clone.attr( 'id', id_name );
 			$clone.children('input').removeAttr('value');
+			$clone.children('input').removeAttr('id');
 			$clone.insertAfter( $last ).hide().fadeIn().find( ':input' ).not( ':input[type=button]' ).val(''); // todo: figure out if default value
 		});
 
