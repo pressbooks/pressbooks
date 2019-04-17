@@ -1067,6 +1067,10 @@ function init_css_js() {
 	// Always enqueue jquery and jquery-ui-core because we use them all over the place
 	wp_enqueue_script( 'jquery' );
 	wp_enqueue_script( 'jquery-ui-core' );
+
+	// A11y
+	wp_register_script( 'pb-a11y', $assets->getPath( 'scripts/a11y.js' ), [ 'jquery' ] );
+	wp_enqueue_script( 'pb-a11y' );
 }
 
 /* ------------------------------------------------------------------------ *
