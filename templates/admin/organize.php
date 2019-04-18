@@ -130,7 +130,7 @@ if ( isset( $ebook_options['ebook_start_point'] ) && ! empty( $ebook_options['eb
 								<span
 									role="button"
 									tabindex='0'
-									aria-label="check/uncheck Show in Web for all <?php echo $name; ?> pages"
+									aria-label="check/uncheck Show in Web for all <?php echo $name; ?> pages in this Part"
 									id="<?php echo $slug; ?>_web_visibility"><?php _e( 'Show in Web', 'pressbooks' ); ?>
 								</span>
 							</th>
@@ -138,14 +138,14 @@ if ( isset( $ebook_options['ebook_start_point'] ) && ! empty( $ebook_options['eb
 								<span
 									role="button"
 									tabindex="0"
-									aria-label="check/uncheck Show in Exports for all <?php echo $name; ?> pages"
+									aria-label="check/uncheck Show in Exports for all <?php echo $name; ?> pages in this Part"
 									id="part_<?php echo $part['ID']; ?>_chapter_export_visibility"><?php _e( 'Show in Exports', 'pressbooks' ); ?></span>
 							</th>
 							<th>
 								<span
 									role="button"
 									tabindex="0"
-									aria-label="check/uncheck Show Title for all <?php echo $name; ?> pages"
+									aria-label="check/uncheck Show Title for all <?php echo $name; ?> pages in this Part"
 									id="part_<?php echo $part['ID']; ?>_chapter_show_title" role="button"><?php _e( 'Show Title', 'pressbooks' ); ?>
 								</span>
 							</th>
@@ -297,7 +297,7 @@ endif;
 						<span
 							role="button"
 							tabindex='0'
-							aria-label="check/uncheck Show in Web for all <?php echo $name; ?> pages"
+							aria-label="check/uncheck Show in Exports for all <?php echo $name; ?> pages"
 							id="<?php echo $slug; ?>_export_visibility"><?php _e( 'Show in Exports', 'pressbooks' ); ?>
 						</span>
 					</th>
@@ -305,7 +305,7 @@ endif;
 						<span
 							role="button"
 							tabindex='0'
-							aria-label="check/uncheck Show in Web for all <?php echo $name; ?> pages"
+							aria-label="check/uncheck Show Title for all <?php echo $name; ?> pages"
 							id="<?php echo $slug; ?>_show_title"><?php _e( 'Show Title', 'pressbooks' ); ?>
 						</span>
 					</th>
