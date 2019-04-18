@@ -9,4 +9,9 @@ document.addEventListener( 'DOMContentLoaded', function () {
 
 	addAttribute( 'table.wp-list-table th', 'role', 'columnheader' );
 	addAttribute( 'table.form-table', 'role', 'none' );
+
+	// Add attributes to make status and alert bars accessible
+	addAttribute( 'div.updated', 'role', 'status' );
+	addAttribute( 'div.notice', 'role', 'status' );
+	addAttribute( 'div.error', 'role', 'alert' );
 } )
