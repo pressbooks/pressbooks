@@ -171,7 +171,7 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		ob_start();
 		\Pressbooks\Admin\Laf\admin_notices();
 		$buffer = ob_get_clean();
-		$this->assertEquals( '<div class="error"><p>One</p></div><div class="error"><p>Two</p></div><div class="updated"><p>Three</p></div><div class="updated"><p>Four</p></div>', $buffer );
+		$this->assertEquals( '<div class="error" role="alert"><p>One</p></div><div class="error" role="alert"><p>Two</p></div><div class="updated" role="status"><p>Three</p></div><div class="updated" role="status"><p>Four</p></div>', $buffer );
 
 		$_SESSION['pb_errors'][] = 'One';
 		$_SESSION['pb_errors'][] = 'Two';
@@ -182,7 +182,7 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		ob_start();
 		\Pressbooks\Admin\Laf\admin_notices();
 		$buffer = ob_get_clean();
-		$this->assertEquals( '<div class="error"><p>One</p></div><div class="error"><p>Two</p></div><div class="error"><p>Three</p></div><div class="error"><p>Four</p></div><div class="updated"><p>Five</p></div><div class="updated"><p>Six</p></div><div class="updated"><p>Seven</p></div><div class="updated"><p>Eight</p></div>', $buffer );
+		$this->assertEquals( '<div class="error" role="alert"><p>One</p></div><div class="error" role="alert"><p>Two</p></div><div class="error" role="alert"><p>Three</p></div><div class="error" role="alert"><p>Four</p></div><div class="updated" role="status"><p>Five</p></div><div class="updated" role="status"><p>Six</p></div><div class="updated" role="status"><p>Seven</p></div><div class="updated" role="status"><p>Eight</p></div>', $buffer );
 
 		\Pressbooks\add_error( 'A' );
 		\Pressbooks\add_error( 'B' );
@@ -191,7 +191,7 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		ob_start();
 		\Pressbooks\Admin\Laf\admin_notices();
 		$buffer = ob_get_clean();
-		$this->assertEquals( '<div class="error"><p>A</p></div><div class="error"><p>B</p></div><div class="updated"><p>C</p></div><div class="updated"><p>D</p></div>', $buffer );
+		$this->assertEquals( '<div class="error" role="alert"><p>A</p></div><div class="error" role="alert"><p>B</p></div><div class="updated" role="status"><p>C</p></div><div class="updated" role="status"><p>D</p></div>', $buffer );
 
 		ob_start();
 		\Pressbooks\Admin\Laf\admin_notices();
