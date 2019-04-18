@@ -165,7 +165,7 @@ function _pb_copy_autoloader() {
  */
 function _pb_minimum_php() {
 	global $pb_minimum_php;
-	echo '<div id="message" class="error fade"><p>';
+	echo '<div id="message" role="alert" class="error fade"><p>';
 	printf(
 		esc_attr__( 'Pressbooks will not work with your version of PHP. Pressbooks requires PHP version %s or greater. Please upgrade PHP if you would like to use Pressbooks.', 'pressbooks' ),
 		esc_attr( $pb_minimum_php )
@@ -178,7 +178,7 @@ function _pb_minimum_php() {
  */
 function _pb_minimum_wp() {
 	global $pb_minimum_wp;
-	echo '<div id="message" class="error fade"><p>';
+	echo '<div id="message" role="alert" class="error fade"><p>';
 	printf(
 		esc_attr__( 'Pressbooks will not work with your version of WordPress. Pressbooks requires a dedicated install of WordPress Multisite, version %s or greater. Please upgrade WordPress if you would like to use Pressbooks.', 'pressbooks' ),
 		esc_attr( $pb_minimum_wp )
@@ -190,7 +190,7 @@ function _pb_minimum_wp() {
  * Echo message about Pressbooks not active
  */
 function _pb_disabled() {
-	echo '<div id="message" class="error fade"><p>';
+	echo '<div id="message" role="alert" class="error fade"><p>';
 	_e( 'The Pressbooks plugin is inactive, but you have active plugins that require Pressbooks. This is causing errors. Please go to the Plugins page, and activate Pressbooks.', 'pressbooks' );
 	echo '</p></div>';
 }

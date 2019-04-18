@@ -25,7 +25,7 @@ if ( ! empty( $_POST ) ) {
 		}
 
 		update_site_option( 'pressbooks_dashboard_feed', $options ); ?>
-		<div id="message" class="updated notice is-dismissible"><p><strong><?php _e( 'Settings saved.', 'pressbooks-oauth' ); ?></strong></div>
+		<div id="message" role="status" class="updated notice is-dismissible"><p><strong><?php _e( 'Settings saved.', 'pressbooks-oauth' ); ?></strong></div>
 		<?php }
 } ?>
 

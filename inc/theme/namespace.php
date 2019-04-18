@@ -132,7 +132,7 @@ function migrate_book_themes() {
 				add_action(
 					'admin_notices', function () {
 						/* translators: 1: URL to Luther theme */
-						echo '<div id="message" class="error fade"><p>' . sprintf(
+						echo '<div id="message" role= "alert" class="error fade"><p>' . sprintf(
 							__( 'Luther has been replaced with McLuhan as Pressbooks’ default book theme. To continue using Luther for your book, please ensure that the standalone <a href="%1$s">Luther theme</a> is installed and network activated.', 'pressbooks' ),
 							'https://github.com/pressbooks/pressbooks-luther/'
 						) . '</p></div>';
