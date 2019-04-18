@@ -1,9 +1,9 @@
 document.addEventListener( 'DOMContentLoaded', function () {
 
-	function addAttribute( x, y, z ){
-		let e = document.querySelectorAll( x );
+	function addAttribute( selector, att, val ){
+		let e = document.querySelectorAll( selector );
 		for ( let i=0; i < e.length; i++ ) {
-			e[ i ].setAttribute( y, z );
+			e[ i ].setAttribute( att, val );
 		}
 	}
 
