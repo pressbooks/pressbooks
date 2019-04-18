@@ -83,7 +83,7 @@ if ( file_exists( $composer ) ) {
 if ( ! function_exists( 'pb_meets_minimum_requirements' ) && ! @include_once( PB_PLUGIN_DIR . 'compatibility.php' ) ) { // @codingStandardsIgnoreLine
 	return add_action(
 		'admin_notices', function () {
-			echo '<div id="message" class="error fade"><p>' . __( 'Cannot find Pressbooks install.', 'pressbooks' ) . '</p></div>';
+			echo '<div id="message" role="alert" class="error fade"><p>' . __( 'Cannot find Pressbooks install.', 'pressbooks' ) . '</p></div>';
 		}
 	);
 } elseif ( ! pb_meets_minimum_requirements() ) {

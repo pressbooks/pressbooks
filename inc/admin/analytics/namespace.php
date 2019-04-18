@@ -181,7 +181,7 @@ function display_network_analytics_settings() {
 					delete_site_option( 'ga_mu_site_specific_allowed' );
 				}
 				?>
-				<div id="message" class="updated notice is-dismissible"><p><strong><?php _e( 'Settings saved.', 'pressbooks' ); ?></strong></div>
+				<div id="message" role="status" class="updated notice is-dismissible"><p><strong><?php _e( 'Settings saved.', 'pressbooks' ); ?></strong></div>
 				<?php
 			}
 		}

@@ -123,7 +123,7 @@ class PBLatexAdmin extends PBLatex {
 
 		if ( is_wp_error( $url ) ) {
 			$code = $url->get_error_code();
-			$message = '<div class="error"><p>' . $url->get_error_message() . "</p></div>\n";
+			$message = '<div class="error" role="alert"><p>' . $url->get_error_message() . "</p></div>\n";
 			echo $message;
 		} else {
 			$alt = esc_attr( __( 'Test Image', 'pressbooks' ) );

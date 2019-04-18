@@ -107,7 +107,7 @@ if ( $dependency_errors ) {
 	if ( ! empty( $dependency_messages ) ) {
 		$formats = implode( ', ', $dependency_messages );
 		printf(
-			'<div class="error"><p>%s</p></div>',
+			'<div class="error" role="alert"><p>%s</p></div>',
 			sprintf(
 				__( 'Some dependencies for %1$s exports could not be found. Please verify that you have completed the <a href="%2$s">installation instructions</a>.', 'pressbooks' ),
 				( $pos = strrpos( $formats, ', ' ) ) ? substr_replace( $formats, ', ' . __( 'and', 'pressbooks' ) . ' ', $pos, strlen( ', ' ) ) : $formats,

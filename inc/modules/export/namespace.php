@@ -89,7 +89,7 @@ function dependency_errors_msg() {
 	$formats = implode( ', ', $dependency_errors );
 	$pos = strrpos( $formats, ', ' );
 	$dependency_errors_msg = sprintf(
-		'<div class="error"><p>%s</p></div>',
+		'<div class="error" role="alert"><p>%s</p></div>',
 		sprintf(
 			__( 'Some dependencies for %1$s exports could not be found. Please verify that you have completed the <a href="%2$s">installation instructions</a>.', 'pressbooks' ),
 			( $pos ) ? substr_replace( $formats, ', ' . __( 'and', 'pressbooks' ) . ' ', $pos, strlen( ', ' ) ) : $formats,

@@ -30,7 +30,7 @@ if ( ! empty( $_GET['debug'] ) ) { // Debug
 
 if ( ! empty( $_GET['custom_styles_error'] ) ) {
 	// Conversion failed
-	printf( '<div class="error">%s</div>', __( 'Error: Something went wrong. See logs for more details.', 'pressbooks' ) );
+	printf( '<div class="error" role="alert">%s</div>', __( 'Error: Something went wrong. See logs for more details.', 'pressbooks' ) );
 }
 
 ?>
