@@ -7,7 +7,7 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		}
 	}
 
-	// <table> elementoutput by do_settings_sections() should have a role="none" attribute
+	// <table> output by do_settings_sections() should have a role="none" attribute
 	// https://core.trac.wordpress.org/ticket/46899
 	addAttribute( 'table.form-table', 'role', 'none' );
 
