@@ -754,7 +754,7 @@ function metadata_save_box( $post ) {
 	} else {
 		?>
 		<input name="original_publish" type="hidden" id="original_publish" value="<?php esc_attr_e( 'Publish' ); ?>"/>
-		<input name="publish" id="publish" type="submit" class="button button-primary button-large" value="Save" tabindex="5" accesskey="p"/>
+		<input name="publish" id="publish" type="submit" class="button button-primary button-large" accesskey="p" value="Save"/>
 		<?php
 	}
 	echo '</div>';
