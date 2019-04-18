@@ -126,7 +126,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 					}
 					update_site_option( $_option, $options );
 					?>
-					<div id="message" class="updated notice is-dismissible"><p><strong><?php _e( 'Settings saved.', 'pressbooks' ); ?></strong></div>
+					<div id="message" role="status" class="updated notice is-dismissible"><p><strong><?php _e( 'Settings saved.', 'pressbooks' ); ?></strong></div>
 					<?php
 				}
 			}
