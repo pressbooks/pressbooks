@@ -296,7 +296,7 @@ function add_meta_boxes() {
 			'field_type' => 'datepicker',
 			'group' => 'general-book-information',
 			'label' => __( 'Publication Date', 'pressbooks' ),
-			'description' => __( 'This is added to the metadata in your ebook.', 'pressbooks' ),
+			'description' => __( 'This is added to the metadata in your ebook. Please write date in YYYY-MM-DD format.', 'pressbooks' ),
 		]
 	);
 
@@ -306,7 +306,7 @@ function add_meta_boxes() {
 				'field_type' => 'datepicker',
 				'group' => 'general-book-information',
 				'label' => __( 'On-Sale Date', 'pressbooks' ),
-				'description' => __( 'This is added to the metadata in your ebook.', 'pressbooks' ),
+				'description' => __( 'This is added to the metadata in your ebook. Please write date in YYYY-MM-DD format.', 'pressbooks' ),
 			]
 		);
 	}
