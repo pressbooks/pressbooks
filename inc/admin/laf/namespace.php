@@ -543,9 +543,6 @@ function fix_root_admin_menu() {
 
 /**
  * Displays the Organize page.
- *
- * @todo Rewrite organize page by extending \WP_List_Table class
- * @see http://wordpress.org/extend/plugins/custom-list-table-example/
  */
 function display_organize() {
 	require( PB_PLUGIN_DIR . 'templates/admin/organize.php' );
