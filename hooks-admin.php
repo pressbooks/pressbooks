@@ -97,6 +97,7 @@ add_action( 'gettext', '\Pressbooks\Admin\Laf\sites_to_books', 3, 20 );
 
 // Javascript, Css
 add_action( 'admin_init', '\Pressbooks\Admin\Laf\init_css_js' );
+remove_action( 'admin_init', 'register_admin_color_schemes', 1 );
 
 // Hacks
 add_action( 'edit_form_top', '\Pressbooks\Admin\Laf\edit_screen_navigation' );

@@ -976,7 +976,6 @@ function disable_customizer() {
 function init_css_js() {
 	$assets = new Assets( 'pressbooks', 'plugin' );
 
-	// Note: Will auto-register a dependency $handle named 'colors'
 	wp_admin_css_color(
 		'pb_colors', 'Pressbooks', $assets->getPath( 'styles/colors-pb.css' ), apply_filters(
 			'pressbooks_admin_colors', [
@@ -984,6 +983,17 @@ function init_css_js() {
 				'#d4002d',
 				'#e9e9e9',
 				'#dfdfdf',
+			]
+		)
+	);
+	// TODO: Change the $colors swatch to match colors-pb-a11y.scss
+	wp_admin_css_color(
+		'pb_colors_a11y', 'Pressbooks a11y', $assets->getPath( 'styles/colors-pb-a11y.css' ), apply_filters(
+			'pressbooks_admin_colors_ally', [
+				'#ff0000',
+				'#00ff00',
+				'#0000ff',
+				'#ff69b4',
 			]
 		)
 	);

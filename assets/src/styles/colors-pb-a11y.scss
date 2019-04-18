@@ -1,0 +1,218 @@
+@import "partials/colors";
+
+$monza: $verdun-green;
+$alto: #ff69b4;
+a {
+  text-decoration: underline !important;
+  &:hover,
+  &:active,
+  &:focus {
+    text-decoration: underline !important;
+  }
+}
+
+// TODO
+//  ☝ Above lines are a hack just to prove this works. ☝
+//  This file and colors-pb.scss should look about the same, with this file having a11y focused tweaks
+
+$base-color: $alto;
+$icon-color: $mine-shaft;
+$highlight-color: $monza;
+$notification-color: $mercury;
+$button-color: $monza;
+$text-color: $mine-shaft;
+$body-background: $gallery;
+$link: darken($monza, 5%);
+$link-focus: $monza;
+$form-checked: $monza;
+$menu-background: $alto;
+$menu-text: $mine-shaft;
+$menu-icon: $mine-shaft;
+$menu-highlight-background: $gallery;
+$menu-highlight-text: $monza;
+$menu-highlight-icon: $monza;
+$menu-current-background: $boulder;
+$menu-current-text: $white;
+$menu-current-icon: $white;
+$menu-submenu-background: $white;
+$menu-submenu-text: $mine-shaft;
+$menu-submenu-background-alt: $white;
+$menu-submenu-focus-text: $monza;
+$menu-submenu-current-text: $mine-shaft;
+$menu-bubble-background: $mercury;
+$menu-bubble-text: $mine-shaft;
+$menu-bubble-current-background: $white;
+$menu-bubble-current-text: $monza;
+$menu-collapse-text: $mine-shaft;
+$menu-collapse-icon: $mine-shaft;
+$menu-collapse-focus-text: $monza;
+$menu-collapse-focus-icon: $monza;
+$adminbar-avatar-frame: $white;
+$adminbar-input-background: $white;
+
+@import "~wp-admin-colors/dist/admin";
+
+// Core UI
+
+.notice-success,
+div.updated {
+  border-color: $verdun-green;
+}
+
+.notice-warning {
+  border-color: $selective-yellow;
+}
+
+.notice-error,
+div.error {
+  border-color: $torch-red;
+}
+
+.notice-info {
+  border-color: $lochmara;
+}
+
+.plugin-update-tr.active td,
+.plugins .active th.check-column {
+  border-color: $monza;
+}
+
+.plugins .active td,
+.plugins .active th {
+  background: $chablis;
+}
+
+// Admin Menu
+
+#adminmenu li.current:hover div.wp-menu-image::before,
+#adminmenu li.wp-menu-open:hover div.wp-menu-image::before {
+  color: $white;
+}
+
+#adminmenu li > a.menu-top:focus .wp-menu-image::before {
+  color: $monza;
+}
+
+// Admin Bar
+
+#wpadminbar {
+  color: $white;
+  background: darken($monza, 5%);
+
+  .ab-icon,
+  .ab-icon::before,
+  .ab-item::before,
+  .ab-item::after {
+    color: $white;
+  }
+
+  &.mobile {
+    .quicklinks .ab-icon::before,
+    .quicklinks .ab-item::before {
+      color: $white;
+    }
+  }
+
+  .ab-item,
+  a.ab-item,
+  & > #wp-toolbar span.ab-label,
+  & > #wp-toolbar span.noticon {
+    color: $white;
+  }
+
+  #wp-admin-bar-menu-toggle .ab-item {
+    background: darken($monza, 5%);
+
+    .ab-icon,
+    .ab-icon::before {
+      color: $white;
+    }
+
+    &:hover,
+    &:active {
+      background: $white;
+
+      .ab-icon,
+      .ab-icon::before {
+        color: $monza;
+      }
+    }
+
+    &[aria-expanded="true"] {
+      background: $white;
+
+      .ab-icon,
+      .ab-icon::before {
+        color: darken($monza, 5%);
+      }
+
+      &:hover,
+      &:active {
+        .ab-icon,
+        .ab-icon::before {
+          color: $monza;
+        }
+      }
+    }
+  }
+  .you-are-here {
+    background: $monza;
+    a.ab-item {
+      color: white;
+    }
+  }
+}
+
+// Themes
+
+.theme-browser .theme.active .theme-name,
+.theme-browser .theme.add-new-theme a:hover::after,
+.theme-browser .theme.add-new-theme a:focus::after {
+  background: darken($monza, 5%);
+}
+
+.theme-browser .theme.active .theme-actions {
+  background: transparent;
+}
+
+// Page Title Actions
+
+.page-title-action:focus {
+  color: $link-focus;
+}
+
+.wrap .add-new-h2,
+.wrap .add-new-h2:active,
+.wrap .page-title-action,
+.wrap .page-title-action:active {
+  color: $link;
+}
+
+.wrap .add-new-h2:hover,
+.wrap .page-title-action:hover {
+  color: $white;
+  background-color: $link-focus;
+  border-color: $link;
+}
+
+// TinyMCE
+
+.mce-menu-item:hover .mce-text,
+.mce-menu-item:focus .mce-text,
+.mce-menu-item:hover .mce-ico,
+.mce-menu-item:focus .mce-ico {
+  color: $white !important; // Ugh.
+}
+
+.mce-menu-item:hover .mce-menu-shortcut,
+.mce-menu-item.mce-selected .mce-menu-shortcut,
+.mce-menu-item:focus .mce-menu-shortcut {
+  color: $white !important; // Ugh.
+}
+
+.mce-btn.mce-active button,
+.mce-btn.mce-active:hover button,
+.mce-btn.mce-active i,
+.mce-btn.mce-active:hover i {
+  color: $mine-shaft !important; // Ugh
+}
