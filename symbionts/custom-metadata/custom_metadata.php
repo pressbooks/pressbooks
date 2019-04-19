@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Custom Metadata Manager
-Plugin URI: http://wordpress.org/extend/plugins/custom-metadata/
+Plugin URI: https://github.com/Automattic/custom-metadata/
 Description: An easy way to add custom fields to your object types (post, pages, custom post types, users)
 Author: Automattic, Stresslimit & Contributors
 Version: 0.8-dev (forked)

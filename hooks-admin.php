@@ -230,6 +230,7 @@ add_action( 'wp_ajax_pb_update_word_count_for_export', [ '\Pressbooks\Book', 'aj
 add_action( 'wp_ajax_pb_update_global_privacy_options', [ '\Pressbooks\Book', 'updateGlobalPrivacyOptions' ] );
 // Book Information Page
 add_action( 'wp_ajax_pb_delete_cover_image', '\Pressbooks\Admin\Metaboxes\delete_cover_image' );
+add_action( 'wp_ajax_pb_get_thema_subjects', '\Pressbooks\Admin\Metaboxes\get_thema_subjects' );
 // Convert MS Word Footnotes
 add_action( 'wp_ajax_pb_ftnref_convert', [ '\Pressbooks\Shortcodes\Footnotes\Footnotes', 'convertWordFootnotes' ] );
 // User Catalog Page

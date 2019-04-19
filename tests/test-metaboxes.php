@@ -5,6 +5,8 @@ require_once( PB_PLUGIN_DIR . 'inc/admin/metaboxes/namespace.php' );
 
 class MetaboxesTest extends \WP_UnitTestCase {
 
+	use utilsTrait;
+
 	/**
 	 * @group metaboxes
 	 */
@@ -229,6 +231,29 @@ class MetaboxesTest extends \WP_UnitTestCase {
 		$buffer = ob_get_clean();
 		$this->assertContains( '<div class="submitbox" id="submitpost">', $buffer );
 		$this->assertContains( '<input name="save" id="publish" type="submit"', $buffer );
+	}
+
+	public function test_get_thema_subjects() {
+		$reporting = $this->_fakeAjax();
+		$_REQUEST['_ajax_nonce'] = wp_create_nonce( 'pb-metadata' );
+
+		ob_start();
+		\Pressbooks\Admin\Metaboxes\get_thema_subjects();
+		$buffer = json_decode( ob_get_clean(), true );
+		$this->assertNotEmpty( $buffer['results'] );
+		// Test Select2 data format
+		$this->assertArrayHasKey( 'text', $buffer['results'][0] );
+		$this->assertArrayHasKey( 'id', $buffer['results'][0]['children'][0] );
+		$this->assertArrayHasKey( 'text', $buffer['results'][0]['children'][0] );
+
+		// Test searching for something that can't be found
+		$_REQUEST['q'] = 'xxxxxxxxxxxxxx';
+		ob_start();
+		\Pressbooks\Admin\Metaboxes\get_thema_subjects();
+		$buffer = json_decode( ob_get_clean(), true );
+		$this->assertEmpty( $buffer['results'] );
+
+		$this->_fakeAjaxDone( $reporting );
 	}
 
 }

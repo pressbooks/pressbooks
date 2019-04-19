@@ -1026,32 +1026,65 @@ function metadata_subject_box( $post ) {
 	<div class="custom-metadata-field select">
 		<label for="primary-subject"><?php _e( 'Primary Subject', 'pressbooks' ); ?></label>
 		<select id="primary-subject" name="pb_primary_subject">
-			<option value="">&nbsp;</option>
-			<?php foreach ( \Pressbooks\Metadata\get_thema_subjects() as $subject_group ) { ?>
-			<optgroup label="<?php echo $subject_group['label']; ?>">
-				<?php foreach ( $subject_group['children'] as $key => $value ) { ?>
-				<option value="<?php echo $key; ?>" <?php selected( $pb_primary_subject, $key ); ?>><?php echo $value; ?></option>
-				<?php } ?>
-			</optgroup>
-			<?php } ?>
+			<option value="<?php echo $pb_primary_subject; ?>" selected="selected"><?php echo Metadata\get_subject_from_thema( $pb_primary_subject ); ?></option>
 		</select>
 		<span class="description"><?php printf( __( 'This appears on the web homepage of your book and helps categorize it in your network catalog (if applicable). Use %s to determine which subject category is best for your book.', 'pressbooks' ), sprintf( '<a href="%1$s">%2$s</a>', 'https://www.editeur.org/151/Thema', __( 'these instructions', 'pressbooks' ) ) ); ?></span>
 	</div>
 	<div class="custom-metadata-field select">
 		<label for="additional-subjects"><?php _e( 'Additional Subject(s)', 'pressbooks' ); ?></label>
 		<select id="additional-subjects" name="pb_additional_subjects[]" multiple>
-			<option value="">&nbsp;</option>
-			<?php foreach ( \Pressbooks\Metadata\get_thema_subjects( true ) as $subject_group ) { ?>
-			<optgroup label="<?php echo $subject_group['label']; ?>">
-				<?php foreach ( $subject_group['children'] as $key => $value ) { ?>
-				<option value="<?php echo $key; ?>" <?php selected( in_array( $key, $pb_additional_subjects, true ), true ); ?>><?php echo $value; ?></option>
-				<?php } ?>
-			</optgroup>
-			<?php } ?>
+			<?php
+			foreach ( $pb_additional_subjects as $pb_additional_subject ) {
+				?>
+				<option value="<?php echo $pb_additional_subject; ?>" selected="selected"><?php echo  Metadata\get_subject_from_thema( $pb_additional_subject ); ?></option>
+				<?php
+			}
+			?>
 		</select>
 		<span class="description"><?php printf( __( 'This appears on the web homepage of your book. Use %s to determine which additional subject categories are appropriate for your book.', 'pressbooks' ), sprintf( '<a href="%1$s">%2$s</a>', 'https://www.editeur.org/151/Thema', __( 'these instructions', 'pressbooks' ) ) ); ?></span>
 	</div>
 	<?php
+}
+
+/**
+ * Select2 data format
+ *
+ * @see https://select2.org/data-sources/formats
+ */
+function get_thema_subjects() {
+	check_ajax_referer( 'pb-metadata' );
+
+	$include_qualifiers = ! empty( $_REQUEST['includeQualifiers'] );
+	$q = $_REQUEST['q'] ?? '';
+	$data = [];
+	$thema_subjects = \Pressbooks\Metadata\get_thema_subjects( $include_qualifiers );
+	foreach ( $thema_subjects as $subject_group ) {
+		$group = $subject_group['label'];
+		$children = [];
+		foreach ( $subject_group['children'] as $key => $value ) {
+			if ( empty( $q ) || stripos( $key, $q ) !== false || stripos( $value, $q ) !== false ) {
+				$children[] = [
+					'id' => $key,
+					'text' => $value,
+				];
+			}
+		}
+		if ( ! empty( $children ) ) {
+			$data[] = [
+				'text' => $group,
+				'children' => $children,
+			];
+		}
+	}
+
+	wp_send_json(
+		[
+			'results' => $data,
+			'pagination' => [
+				'more' => false,
+			],
+		]
+	);
 }
 
 /**
