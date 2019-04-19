@@ -78,6 +78,7 @@ class EbookOptions extends \Pressbooks\Options {
 			$_section,
 			[
 				__( 'Note: This designated ebook start book may be overridden by some ereader devices.', 'pressbooks' ),
+				'label_for' => 'ebook_start_point',
 			]
 		);
 
@@ -101,6 +102,7 @@ class EbookOptions extends \Pressbooks\Options {
 			$_section,
 			[
 				__( 'Reduce image size and quality', 'pressbooks' ),
+				'label_for' => 'ebook_compress_images',
 			]
 		);
 
@@ -209,6 +211,8 @@ class EbookOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderEbookStartPointField( $args ) {
+		unset( $args['label_for'], $args['class'] );
+
 		$options = [
 			'' => '--',
 		];
@@ -243,6 +247,7 @@ class EbookOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderParagraphSeparationField( $args ) {
+		unset( $args['label_for'], $args['class'] );
 		$this->renderRadioButtons(
 			[
 				'id' => 'ebook_paragraph_separation',
@@ -260,6 +265,7 @@ class EbookOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderCompressImagesField( $args ) {
+		unset( $args['label_for'], $args['class'] );
 		$this->renderCheckbox(
 			[
 				'id' => 'ebook_compress_images',

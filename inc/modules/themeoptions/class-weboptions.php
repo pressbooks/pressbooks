@@ -82,6 +82,7 @@ class WebOptions extends \Pressbooks\Options {
 			$_section,
 			[
 				__( 'Add buttons to cover page and each chapter so that readers may share links to your book through social media: Facebook, Twitter, Google+', 'pressbooks' ),
+				'label_for' => 'social_media',
 			]
 		);
 
@@ -95,6 +96,7 @@ class WebOptions extends \Pressbooks\Options {
 				'30em' => __( 'Narrow', 'pressbooks' ),
 				'40em' => __( 'Standard', 'pressbooks' ),
 				'48em' => __( 'Wide', 'pressbooks' ),
+				'label_for' => 'webbook_width',
 			]
 		);
 
@@ -118,6 +120,7 @@ class WebOptions extends \Pressbooks\Options {
 			$_section,
 			[
 				__( 'Display the Part title on each chapter', 'pressbooks' ),
+				'label_for' => 'part_title',
 			]
 		);
 
@@ -130,6 +133,7 @@ class WebOptions extends \Pressbooks\Options {
 				$_section,
 				[
 					__( 'Collapse sections within front matter, chapters, and back matter', 'pressbooks' ),
+					'label_for' => 'collapse_sections',
 				]
 			);
 		}
@@ -144,6 +148,7 @@ class WebOptions extends \Pressbooks\Options {
 				[
 					__( 'Add comparison tool to the end of each front matter, part, chapter, and back matter', 'pressbooks' ),
 					__( 'Allows readers to compare content with the original book from which it was cloned.', 'pressbooks' ),
+					'label_for' => 'enable_source_comparison',
 				]
 			);
 		}
@@ -215,6 +220,7 @@ class WebOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderSocialMediaField( $args ) {
+		unset( $args['label_for'], $args['class'] );
 		$this->renderCheckbox(
 			[
 				'id' => 'social_media',
@@ -232,6 +238,7 @@ class WebOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderWebbookWidthField( $args ) {
+		unset( $args['label_for'], $args['class'] );
 		$this->renderSelect(
 			[
 				'id' => 'webbook_width',
@@ -249,6 +256,7 @@ class WebOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderParagraphSeparationField( $args ) {
+		unset( $args['label_for'], $args['class'] );
 		$this->renderRadioButtons(
 			[
 				'id' => 'paragraph_separation',
@@ -266,6 +274,7 @@ class WebOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderPartTitle( $args ) {
+		unset( $args['label_for'], $args['class'] );
 		$this->renderCheckbox(
 			[
 				'id' => 'part_title',
@@ -283,6 +292,7 @@ class WebOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderCollapseSections( $args ) {
+		unset( $args['label_for'], $args['class'] );
 		$this->renderCheckbox(
 			[
 				'id' => 'collapse_sections',
@@ -300,6 +310,7 @@ class WebOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderEnableSourceComparison( $args ) {
+		unset( $args['label_for'], $args['class'] );
 		$this->renderCheckbox(
 			[
 				'id' => 'enable_source_comparison',
@@ -467,7 +478,7 @@ class WebOptions extends \Pressbooks\Options {
 	 */
 	static function scssOverrides( $scss ) {
 
-		$styles = \Pressbooks\Container::get( 'Styles' );
+		$styles = Container::get( 'Styles' );
 		$v2_compatible = $styles->isCurrentThemeCompatible( 2 );
 
 		// Global Options
@@ -504,7 +515,7 @@ class WebOptions extends \Pressbooks\Options {
 
 		$paragraph_separation = $options['paragraph_separation'] ?? 'skiplines';
 
-		if ( 'indent' === $options['paragraph_separation'] ) {
+		if ( 'indent' === $paragraph_separation ) {
 			if ( $v2_compatible ) {
 				$styles->getSass()->setVariables(
 					[
@@ -515,7 +526,7 @@ class WebOptions extends \Pressbooks\Options {
 			} else {
 				$scss .= "#content * + p { text-indent: 1em; margin-top: 0; margin-bottom: 0; } \n";
 			}
-		} elseif ( 'skiplines' === $options['paragraph_separation'] ) {
+		} elseif ( 'skiplines' === $paragraph_separation ) {
 			if ( $v2_compatible ) {
 				$styles->getSass()->setVariables(
 					[

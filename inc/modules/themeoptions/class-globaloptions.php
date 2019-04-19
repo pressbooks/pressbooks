@@ -84,6 +84,7 @@ class GlobalOptions extends \Pressbooks\Options {
 			$_section,
 			[
 				__( 'Display part and chapter numbers', 'pressbooks' ),
+				'label_for' => 'chapter_numbers',
 			]
 		);
 
@@ -95,6 +96,7 @@ class GlobalOptions extends \Pressbooks\Options {
 			$_section,
 			[
 				__( 'The "part" label is used in the table of contents and in part titles in your webbook and exports.', 'pressbooks' ),
+				'label_for' => 'part_label',
 			]
 		);
 
@@ -106,6 +108,7 @@ class GlobalOptions extends \Pressbooks\Options {
 			$_section,
 			[
 				__( 'The "chapter" label is used in the table of contents and in chapter titles in your webbook and exports.', 'pressbooks' ),
+				'label_for' => 'chapter_label',
 			]
 		);
 
@@ -117,6 +120,7 @@ class GlobalOptions extends \Pressbooks\Options {
 			$_section,
 			[
 				__( 'Enable two-level table of contents (displays headings under chapter titles)', 'pressbooks' ),
+				'label_for' => 'parse_subsections',
 			]
 		);
 
@@ -128,6 +132,7 @@ class GlobalOptions extends \Pressbooks\Options {
 			$_section,
 			[
 				__( 'Display attributions at the end of a chapter', 'pressbooks' ),
+				'label_for' => 'attachment_attributions',
 			]
 		);
 
@@ -174,7 +179,7 @@ class GlobalOptions extends \Pressbooks\Options {
 			] as $key => $label ) {
 				add_settings_field(
 					"edu_textbox_{$key}_section",
-					sprintf( '<h3>%s</h3>', $label ),
+					sprintf( '<span style="font-size:1.3em;">%s</span>', $label ),
 					[ $this, 'renderTextboxHeader' ],
 					$_page,
 					$_section,
@@ -192,6 +197,7 @@ class GlobalOptions extends \Pressbooks\Options {
 					[
 						'key' => "edu_textbox_{$key}_header_color",
 						'description' => sprintf( __( 'The header text color for a %s textbox.', 'pressbooks' ), $label ),
+						'label_for' => "edu_textbox_{$key}_header_color",
 					]
 				);
 				add_settings_field(
@@ -203,6 +209,7 @@ class GlobalOptions extends \Pressbooks\Options {
 					[
 						'key' => "edu_textbox_{$key}_header_background",
 						'description' => sprintf( __( 'The header background color for a %s textbox.', 'pressbooks' ), $label ),
+						'label_for' => "edu_textbox_{$key}_header_background",
 					]
 				);
 				add_settings_field(
@@ -214,6 +221,7 @@ class GlobalOptions extends \Pressbooks\Options {
 					[
 						'key' => "edu_textbox_{$key}_background",
 						'description' => sprintf( __( 'The background color for a %s textbox.', 'pressbooks' ), $label ),
+						'label_for' => "edu_textbox_{$key}_background",
 					]
 				);
 			}
@@ -306,6 +314,7 @@ class GlobalOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderChapterNumbersField( $args ) {
+		unset( $args['label_for'], $args['class'] );
 		$this->renderCheckbox(
 			[
 				'id' => 'chapter_numbers',
@@ -323,6 +332,7 @@ class GlobalOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderTwoLevelTOCField( $args ) {
+		unset( $args['label_for'], $args['class'] );
 		$this->renderCheckbox(
 			[
 				'id' => 'parse_subsections',
@@ -342,6 +352,7 @@ class GlobalOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderAttachmentAttributionsField( $args ) {
+		unset( $args['label_for'], $args['class'] );
 		$this->renderCheckbox(
 			[
 				'id' => 'attachment_attributions',
@@ -359,8 +370,9 @@ class GlobalOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderLanguagesField( $args ) {
-		$foreign_languages = get_option( 'pressbooks_global_typography' );
+		unset( $args['label_for'], $args['class'] );
 
+		$foreign_languages = get_option( 'pressbooks_global_typography' );
 		if ( ! $foreign_languages ) {
 			$foreign_languages = [];
 		}
@@ -409,6 +421,7 @@ class GlobalOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderCopyrightLicenseField( $args ) {
+		unset( $args['label_for'], $args['class'] );
 		$this->renderRadioButtons(
 			[
 				'id' => 'copyright_license',
@@ -426,6 +439,7 @@ class GlobalOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderTextboxHeader( $args ) {
+		unset( $args['label_for'], $args['class'] );
 		printf( $args[0] );
 	}
 
@@ -435,6 +449,7 @@ class GlobalOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderTextboxColorField( $args ) {
+		unset( $args['label_for'], $args['class'] );
 		$this->renderColorField(
 			[
 				'id' => $args['key'],
@@ -453,6 +468,7 @@ class GlobalOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderPartLabelField( $args ) {
+		unset( $args['label_for'], $args['class'] );
 		$this->renderField(
 			[
 				'id' => 'part_label',
@@ -472,6 +488,7 @@ class GlobalOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderChapterLabelField( $args ) {
+		unset( $args['label_for'], $args['class'] );
 		$this->renderField(
 			[
 				'id' => 'chapter_label',
