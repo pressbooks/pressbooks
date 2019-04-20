@@ -682,7 +682,8 @@ function override_parent_id( $post ) {
 		)
 	);
 
-	$output = "<select name='parent_id' id='parent_id'>\n";
+	$aria_label = esc_attr( __( 'Part', 'pressbooks' ) );
+	$output = "<select name='parent_id' id='parent_id' aria-label='{$aria_label}'>\n";
 	foreach ( $results as $val ) {
 		$selected_html = ( (int) $selected === (int) $val->ID ) ? "selected='selected'" : '';
 		$output .= '<option value="' . esc_attr( $val->ID ) . '" ' . $selected_html . ' >' . esc_attr( $val->post_title ) . "</option>\n";

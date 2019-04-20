@@ -43,70 +43,70 @@ jQuery( function ( $ ) {
 			let runningcontent = $( this ).val();
 			$( 'input#running_content_front_matter_left_custom' ).val( runningcontent );
 			if ( runningcontent === '' ) {
-				$( 'input#running_content_front_matter_left_custom' ).focus().val('');
+				$( 'input#running_content_front_matter_left_custom' ).focus().val( '' );
 			}
 		} );
 		$( 'select#running_content_front_matter_right' ).change( function () {
 			let runningcontent = $( this ).val();
 			$( 'input#running_content_front_matter_right_custom' ).val( runningcontent );
 			if ( runningcontent === '' ) {
-				$( 'input#running_content_front_matter_right_custom' ).focus().val('');
+				$( 'input#running_content_front_matter_right_custom' ).focus().val( '' );
 			}
 		} );
 		$( 'select#running_content_introduction_left' ).change( function () {
 			let runningcontent = $( this ).val();
 			$( 'input#running_content_introduction_left_custom' ).val( runningcontent );
 			if ( runningcontent === '' ) {
-				$( 'input#running_content_introduction_left_custom' ).focus().val('');
+				$( 'input#running_content_introduction_left_custom' ).focus().val( '' );
 			}
 		} );
 		$( 'select#running_content_introduction_right' ).change( function () {
 			let runningcontent = $( this ).val();
 			$( 'input#running_content_introduction_right_custom' ).val( runningcontent );
 			if ( runningcontent === '' ) {
-				$( 'input#running_content_introduction_right_custom' ).focus().val('');
+				$( 'input#running_content_introduction_right_custom' ).focus().val( '' );
 			}
 		} );
 		$( 'select#running_content_part_left' ).change( function () {
 			let runningcontent = $( this ).val();
 			$( 'input#running_content_part_left_custom' ).val( runningcontent );
 			if ( runningcontent === '' ) {
-				$( 'input#running_content_part_left_custom' ).focus().val('');
+				$( 'input#running_content_part_left_custom' ).focus().val( '' );
 			}
 		} );
 		$( 'select#running_content_part_right' ).change( function () {
 			let runningcontent = $( this ).val();
 			$( 'input#running_content_part_right_custom' ).val( runningcontent );
 			if ( runningcontent === '' ) {
-				$( 'input#running_content_part_right_custom' ).focus().val('');
+				$( 'input#running_content_part_right_custom' ).focus().val( '' );
 			}
 		} );
 		$( 'select#running_content_chapter_left' ).change( function () {
 			let runningcontent = $( this ).val();
 			$( 'input#running_content_chapter_left_custom' ).val( runningcontent );
 			if ( runningcontent === '' ) {
-				$( 'input#running_content_chapter_left_custom' ).focus().val('');
+				$( 'input#running_content_chapter_left_custom' ).focus().val( '' );
 			}
 		} );
 		$( 'select#running_content_chapter_right' ).change( function () {
 			let runningcontent = $( this ).val();
 			$( 'input#running_content_chapter_right_custom' ).val( runningcontent );
 			if ( runningcontent === '' ) {
-				$( 'input#running_content_chapter_right_custom' ).focus().val('');
+				$( 'input#running_content_chapter_right_custom' ).focus().val( '' );
 			}
 		} );
 		$( 'select#running_content_back_matter_left' ).change( function () {
 			let runningcontent = $( this ).val();
 			$( 'input#running_content_back_matter_left_custom' ).val( runningcontent );
 			if ( runningcontent === '' ) {
-				$( 'input#running_content_back_matter_left_custom' ).focus().val('');
+				$( 'input#running_content_back_matter_left_custom' ).focus().val( '' );
 			}
 		} );
 		$( 'select#running_content_back_matter_right' ).change( function () {
 			let runningcontent = $( this ).val();
 			$( 'input#running_content_back_matter_right_custom' ).val( runningcontent );
 			if ( runningcontent === '' ) {
-				$( 'input#running_content_back_matter_right_custom' ).focus().val('');
+				$( 'input#running_content_back_matter_right_custom' ).focus().val( '' );
 			}
 		} );
 		$( '#pdf_page_size' ).change( function () {

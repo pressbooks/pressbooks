@@ -195,7 +195,7 @@
 		// Fix: When TABing through the page if at least one value has already been added, no label is communicated to ATs.
 		// @see https://github.com/woocommerce/selectWoo/issues/25
 		$( ':input.select2-search__field' ).each( function() {
-			var aria_label = $( this ).closest( 'div.custom-metadata-field' ).find( 'label:first-child' ).text();
+			var aria_label = $( this ).closest( 'div.custom-metadata-field' ).find( 'label:first' ).text();
 			$( this ).attr( 'aria-label', aria_label );
 		} );
 
