@@ -1156,6 +1156,34 @@ function save_contributor_meta( $term_id, $tt_id, $taxonomy ) {
 }
 
 /**
+ * @see https://core.trac.wordpress.org/ticket/47018
+ */
+function a11y_contributor_tweaks() {
+	// Are we in <term.php> or <edit-tags.php> ?
+	$current_screen = get_current_screen();
+	$form_name = $current_screen->base === 'term' ? 'edittag' : 'addtag';
+	$tag_name = $current_screen->base === 'term' ? 'name' : 'tag-name';
+	$error_msg = esc_attr( __( 'Name cannot be left blank.', 'pressbooks' ) );
+	?>
+	<script type='text/javascript'>
+		jQuery( function ( $ ) {
+			var form = document.getElementById( '<?php echo $form_name; ?>' );
+			var tag = document.getElementById( '<?php echo $tag_name; ?>' );
+			var button = $( '#<?php echo $form_name; ?> :submit' );
+			button[0].addEventListener( 'click', function() {
+				if ( tag.value ) {
+					tag.setCustomValidity( '' );
+				} else {
+					tag.setCustomValidity( '<?php echo $error_msg; ?>' );
+					form.reportValidity();
+				}
+			} );
+		} );
+	</script>
+	<?php
+}
+
+/**
  * Distinguish between front matter/chapter/back matter authors and WP author
  *
  * @param string $post_type Post type.

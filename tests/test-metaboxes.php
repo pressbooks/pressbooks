@@ -231,4 +231,15 @@ class MetaboxesTest extends \WP_UnitTestCase {
 		$this->assertContains( '<input name="save" id="publish" type="submit"', $buffer );
 	}
 
+	public function test_a11y_contributor_tweaks() {
+		// Mock Screen for taxonomy editor
+		global $current_screen;
+		$current_screen = WP_Screen::get( 'edit-contributor' );
+
+		ob_start();
+		\Pressbooks\Admin\Metaboxes\a11y_contributor_tweaks();
+		$buffer = ob_get_clean();
+		$this->assertContains( 'setCustomValidity(', $buffer );
+	}
+
 }
