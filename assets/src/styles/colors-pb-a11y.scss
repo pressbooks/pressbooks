@@ -1,7 +1,8 @@
 @import "partials/colors";
+$mine-shaft2: darken($mine-shaft, 5%);
+$monza2: #3a3a3a;
+$highlight: #AD0000;
 
-$monza: $verdun-green;
-$alto: #ff69b4;
 a {
   text-decoration: underline !important;
   &:hover,
@@ -16,37 +17,37 @@ a {
 //  This file and colors-pb.scss should look about the same, with this file having a11y focused tweaks
 
 $base-color: $alto;
-$icon-color: $mine-shaft;
-$highlight-color: $monza;
+$icon-color: $mine-shaft2;
+$highlight-color: $highlight;
 $notification-color: $mercury;
-$button-color: $monza;
-$text-color: $mine-shaft;
+$button-color: $monza2;
+$text-color: $mine-shaft2;
 $body-background: $gallery;
-$link: darken($monza, 5%);
-$link-focus: $monza;
-$form-checked: $monza;
+$link: darken($monza2, 5%);
+$link-focus: $highlight;
+$form-checked: $monza2;
 $menu-background: $alto;
-$menu-text: $mine-shaft;
-$menu-icon: $mine-shaft;
-$menu-highlight-background: $gallery;
-$menu-highlight-text: $monza;
-$menu-highlight-icon: $monza;
+$menu-text: $mine-shaft2;
+$menu-icon: $mine-shaft2;
+$menu-highlight-background: $white;
+$menu-highlight-text: $highlight;
+$menu-highlight-icon: $highlight;
 $menu-current-background: $boulder;
 $menu-current-text: $white;
 $menu-current-icon: $white;
 $menu-submenu-background: $white;
-$menu-submenu-text: $mine-shaft;
+$menu-submenu-text: $mine-shaft2;
 $menu-submenu-background-alt: $white;
-$menu-submenu-focus-text: $monza;
-$menu-submenu-current-text: $mine-shaft;
+$menu-submenu-focus-text: $highlight;
+$menu-submenu-current-text: $highlight;
 $menu-bubble-background: $mercury;
-$menu-bubble-text: $mine-shaft;
+$menu-bubble-text: $mine-shaft2;
 $menu-bubble-current-background: $white;
-$menu-bubble-current-text: $monza;
-$menu-collapse-text: $mine-shaft;
-$menu-collapse-icon: $mine-shaft;
-$menu-collapse-focus-text: $monza;
-$menu-collapse-focus-icon: $monza;
+$menu-bubble-current-text: $monza2;
+$menu-collapse-text: $mine-shaft2;
+$menu-collapse-icon: $mine-shaft2;
+$menu-collapse-focus-text: $monza2;
+$menu-collapse-focus-icon: $monza2;
 $adminbar-avatar-frame: $white;
 $adminbar-input-background: $white;
 
@@ -74,7 +75,7 @@ div.error {
 
 .plugin-update-tr.active td,
 .plugins .active th.check-column {
-  border-color: $monza;
+  border-color: $monza2;
 }
 
 .plugins .active td,
@@ -90,14 +91,14 @@ div.error {
 }
 
 #adminmenu li > a.menu-top:focus .wp-menu-image::before {
-  color: $monza;
+  color: $monza2;
 }
 
 // Admin Bar
 
 #wpadminbar {
   color: $white;
-  background: darken($monza, 5%);
+  background: darken($monza2, 5%);
 
   .ab-icon,
   .ab-icon::before,
@@ -121,7 +122,7 @@ div.error {
   }
 
   #wp-admin-bar-menu-toggle .ab-item {
-    background: darken($monza, 5%);
+    background: darken($monza2, 5%);
 
     .ab-icon,
     .ab-icon::before {
@@ -134,7 +135,7 @@ div.error {
 
       .ab-icon,
       .ab-icon::before {
-        color: $monza;
+        color: $monza2;
       }
     }
 
@@ -143,20 +144,20 @@ div.error {
 
       .ab-icon,
       .ab-icon::before {
-        color: darken($monza, 5%);
+        color: darken($monza2, 5%);
       }
 
       &:hover,
       &:active {
         .ab-icon,
         .ab-icon::before {
-          color: $monza;
+          color: $monza2;
         }
       }
     }
   }
   .you-are-here {
-    background: $monza;
+    background: $monza2;
     a.ab-item {
       color: white;
     }
@@ -168,7 +169,7 @@ div.error {
 .theme-browser .theme.active .theme-name,
 .theme-browser .theme.add-new-theme a:hover::after,
 .theme-browser .theme.add-new-theme a:focus::after {
-  background: darken($monza, 5%);
+  background: darken($monza2, 5%);
 }
 
 .theme-browser .theme.active .theme-actions {
@@ -214,5 +215,5 @@ div.error {
 .mce-btn.mce-active:hover button,
 .mce-btn.mce-active i,
 .mce-btn.mce-active:hover i {
-  color: $mine-shaft !important; // Ugh
+  color: $mine-shaft2 !important; // Ugh
 }
