@@ -219,7 +219,6 @@ class PDFOptions extends \Pressbooks\Options {
 			$_section,
 			[
 				__( 'Enable hyphenation', 'pressbooks' ),
-				'label_for' => 'pdf_hyphens',
 			]
 		);
 
@@ -256,7 +255,6 @@ class PDFOptions extends \Pressbooks\Options {
 			$_section,
 			[
 				__( 'Display table of contents', 'pressbooks' ),
-				'label_for' => 'pdf_toc',
 			]
 		);
 
@@ -268,7 +266,6 @@ class PDFOptions extends \Pressbooks\Options {
 			$_section,
 			[
 				__( 'Display crop marks', 'pressbooks' ),
-				'label_for' => 'pdf_crop_marks',
 			]
 		);
 
@@ -281,7 +278,6 @@ class PDFOptions extends \Pressbooks\Options {
 				$_section,
 				[
 					__( 'Convert part numbers into Roman numerals', 'pressbooks' ),
-					'label_for' => 'pdf_romanize_parts',
 				]
 			);
 		}
@@ -534,7 +530,6 @@ class PDFOptions extends \Pressbooks\Options {
 				$_section,
 				[
 					__( 'Increases font size and line height for greater accessibility', 'pressbooks' ),
-					'label_for' => 'pdf_fontsize',
 				]
 			);
 		}

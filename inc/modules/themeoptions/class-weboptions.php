@@ -82,7 +82,6 @@ class WebOptions extends \Pressbooks\Options {
 			$_section,
 			[
 				__( 'Add buttons to cover page and each chapter so that readers may share links to your book through social media: Facebook, Twitter, Google+', 'pressbooks' ),
-				'label_for' => 'social_media',
 			]
 		);
 
@@ -120,7 +119,6 @@ class WebOptions extends \Pressbooks\Options {
 			$_section,
 			[
 				__( 'Display the Part title on each chapter', 'pressbooks' ),
-				'label_for' => 'part_title',
 			]
 		);
 
@@ -133,7 +131,6 @@ class WebOptions extends \Pressbooks\Options {
 				$_section,
 				[
 					__( 'Collapse sections within front matter, chapters, and back matter', 'pressbooks' ),
-					'label_for' => 'collapse_sections',
 				]
 			);
 		}
@@ -148,7 +145,6 @@ class WebOptions extends \Pressbooks\Options {
 				[
 					__( 'Add comparison tool to the end of each front matter, part, chapter, and back matter', 'pressbooks' ),
 					__( 'Allows readers to compare content with the original book from which it was cloned.', 'pressbooks' ),
-					'label_for' => 'enable_source_comparison',
 				]
 			);
 		}

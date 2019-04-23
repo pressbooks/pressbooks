@@ -102,7 +102,6 @@ class EbookOptions extends \Pressbooks\Options {
 			$_section,
 			[
 				__( 'Reduce image size and quality', 'pressbooks' ),
-				'label_for' => 'ebook_compress_images',
 			]
 		);
 

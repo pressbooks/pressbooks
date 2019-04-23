@@ -84,7 +84,6 @@ class GlobalOptions extends \Pressbooks\Options {
 			$_section,
 			[
 				__( 'Display part and chapter numbers', 'pressbooks' ),
-				'label_for' => 'chapter_numbers',
 			]
 		);
 
@@ -120,7 +119,6 @@ class GlobalOptions extends \Pressbooks\Options {
 			$_section,
 			[
 				__( 'Enable two-level table of contents (displays headings under chapter titles)', 'pressbooks' ),
-				'label_for' => 'parse_subsections',
 			]
 		);
 
@@ -132,7 +130,6 @@ class GlobalOptions extends \Pressbooks\Options {
 			$_section,
 			[
 				__( 'Display attributions at the end of a chapter', 'pressbooks' ),
-				'label_for' => 'attachment_attributions',
 			]
 		);
 
@@ -197,7 +194,6 @@ class GlobalOptions extends \Pressbooks\Options {
 					[
 						'key' => "edu_textbox_{$key}_header_color",
 						'description' => sprintf( __( 'The header text color for a %s textbox.', 'pressbooks' ), $label ),
-						'label_for' => "edu_textbox_{$key}_header_color",
 					]
 				);
 				add_settings_field(
@@ -209,7 +205,6 @@ class GlobalOptions extends \Pressbooks\Options {
 					[
 						'key' => "edu_textbox_{$key}_header_background",
 						'description' => sprintf( __( 'The header background color for a %s textbox.', 'pressbooks' ), $label ),
-						'label_for' => "edu_textbox_{$key}_header_background",
 					]
 				);
 				add_settings_field(
@@ -221,7 +216,6 @@ class GlobalOptions extends \Pressbooks\Options {
 					[
 						'key' => "edu_textbox_{$key}_background",
 						'description' => sprintf( __( 'The background color for a %s textbox.', 'pressbooks' ), $label ),
-						'label_for' => "edu_textbox_{$key}_background",
 					]
 				);
 			}
@@ -400,7 +394,7 @@ class GlobalOptions extends \Pressbooks\Options {
 			$i++;
 		}
 
-		$html = '<label for="global_typography"> ' . $args[0] . '</label><br /><br />';
+		$html = '<label id="global_typography_label" for="global_typography"> ' . $args[0] . '</label><br /><br />';
 		$html .= '<select id="global_typography" class="select2" style="width: 75%" data-placeholder="' . __( 'Select languages&hellip;', 'pressbooks' ) . '" name="pressbooks_global_typography[]" multiple>';
 		foreach ( $languages as $key => $value ) {
 			$selected = ( in_array( $key, $foreign_languages, true ) || in_array( $key, $already_supported_languages, true ) ) ? ' selected' : '';
