@@ -288,6 +288,7 @@ class Sass {
 			'user' => ( isset( $current_user ) ? $current_user->user_login : '__UNKNOWN__' ),
 			'site_url' => site_url(),
 			'blog_id' => get_current_blog_id(),
+			'theme' => '' . wp_get_theme(), // Stringify by appending to empty string
 			'Exception' => [
 				'code' => $e->getCode(),
 				'error' => $e->getMessage(),

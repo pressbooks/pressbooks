@@ -313,6 +313,7 @@ abstract class Options {
 		if ( ! array_key_exists( $args['value'], $args['choices'] ) ) {
 			$is_custom = true;
 		}
+		echo '<fieldset>';
 		foreach ( $args['choices'] as $key => $label ) {
 			printf(
 				'<label for="%s"><input type="radio" id="%s" name="%s[%s]" value="%s" %s%s/>%s</label><br />',
@@ -326,6 +327,7 @@ abstract class Options {
 				$label
 			);
 		}
+		echo '</fieldset>';
 	}
 
 	/**

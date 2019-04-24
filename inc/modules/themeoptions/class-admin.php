@@ -140,15 +140,8 @@ class Admin {
 			<?php $active_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'global'; ?>
 			<h2 class="nav-tab-wrapper">
 				<?php foreach ( $this->getTabs() as $slug => $subclass ) { ?>
-					<a href="
-					<?php
-					echo admin_url( '/themes.php' );
-					?>
-					?page=pressbooks_theme_options&tab=
-					<?php
-					echo $slug;
-					?>
-					" class="nav-tab <?php echo $active_tab === $slug ? 'nav-tab-active' : ''; ?>"><?php echo $subclass::getTitle(); ?></a>
+					<a href="<?php echo admin_url( '/themes.php' ); ?>?page=pressbooks_theme_options&tab=<?php echo $slug; ?>"
+						class="nav-tab <?php echo $active_tab === $slug ? 'nav-tab-active' : ''; ?>"><?php echo $subclass::getTitle(); ?></a>
 				<?php } ?>
 			</h2>
 			<form method="post" action="options.php">
