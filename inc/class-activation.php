@@ -63,8 +63,6 @@ class Activation {
 		// $priority must be after the database tables are created
 		// See add_action( 'wp_initialize_site', 'wp_initialize_site', 10, 2 );
 		add_action( 'wp_initialize_site', [ $obj, 'wpmuNewBlog' ], 11, 2 );
-		add_action( 'wp_login', [ $obj, 'forcePbColors' ], 10, 2 );
-		add_action( 'profile_update', [ $obj, 'forcePbColors' ] );
 		add_action( 'user_register', [ $obj, 'forcePbColors' ] );
 	}
 
@@ -414,7 +412,7 @@ class Activation {
 	}
 
 	/**
-	 * Never let a user change [ Your Profile > Admin Color Scheme ]
+	 * Change [ Your Profile > Admin Color Scheme ] to Pressbooks default colors
 	 *
 	 * @param int $id
 	 * @param object $user (optional)

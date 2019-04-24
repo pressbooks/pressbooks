@@ -544,9 +544,6 @@ function fix_root_admin_menu() {
 
 /**
  * Displays the Organize page.
- *
- * @todo Rewrite organize page by extending \WP_List_Table class
- * @see http://wordpress.org/extend/plugins/custom-list-table-example/
  */
 function display_organize() {
 	require( PB_PLUGIN_DIR . 'templates/admin/organize.php' );
@@ -977,13 +974,23 @@ function disable_customizer() {
 function init_css_js() {
 	$assets = new Assets( 'pressbooks', 'plugin' );
 
-	// Note: Will auto-register a dependency $handle named 'colors'
 	wp_admin_css_color(
 		'pb_colors', 'Pressbooks', $assets->getPath( 'styles/colors-pb.css' ), apply_filters(
 			'pressbooks_admin_colors', [
 				'#b40026',
 				'#d4002d',
 				'#e9e9e9',
+				'#dfdfdf',
+			]
+		)
+	);
+
+	wp_admin_css_color(
+		'pb_colors_a11y', 'Pressbooks a11y', $assets->getPath( 'styles/colors-pb-a11y.css' ), apply_filters(
+			'pressbooks_admin_colors_ally', [
+				'#2D2D2D',
+				'#B40026',
+				'#E9E9E9',
 				'#dfdfdf',
 			]
 		)
