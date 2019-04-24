@@ -30,8 +30,8 @@ function update_font_stacks() {
  * Fix Sass for everything that has to do with dynamically generated font stacks
  */
 function maybe_update_font_stacks() {
-	// If this is ajax/cron, don't update right now
-	if ( wp_doing_ajax() || wp_doing_cron() ) {
+	// If this is ajax/cron/404, don't update right now
+	if ( wp_doing_ajax() || wp_doing_cron() || is_404() ) {
 		return;
 	}
 

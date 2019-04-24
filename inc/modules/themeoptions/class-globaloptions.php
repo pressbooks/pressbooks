@@ -95,6 +95,7 @@ class GlobalOptions extends \Pressbooks\Options {
 			$_section,
 			[
 				__( 'The "part" label is used in the table of contents and in part titles in your webbook and exports.', 'pressbooks' ),
+				'label_for' => 'part_label',
 			]
 		);
 
@@ -106,6 +107,7 @@ class GlobalOptions extends \Pressbooks\Options {
 			$_section,
 			[
 				__( 'The "chapter" label is used in the table of contents and in chapter titles in your webbook and exports.', 'pressbooks' ),
+				'label_for' => 'chapter_label',
 			]
 		);
 
@@ -174,7 +176,7 @@ class GlobalOptions extends \Pressbooks\Options {
 			] as $key => $label ) {
 				add_settings_field(
 					"edu_textbox_{$key}_section",
-					sprintf( '<h3>%s</h3>', $label ),
+					sprintf( '<span style="font-size:1.3em;">%s</span>', $label ),
 					[ $this, 'renderTextboxHeader' ],
 					$_page,
 					$_section,
@@ -306,6 +308,7 @@ class GlobalOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderChapterNumbersField( $args ) {
+		unset( $args['label_for'], $args['class'] );
 		$this->renderCheckbox(
 			[
 				'id' => 'chapter_numbers',
@@ -323,6 +326,7 @@ class GlobalOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderTwoLevelTOCField( $args ) {
+		unset( $args['label_for'], $args['class'] );
 		$this->renderCheckbox(
 			[
 				'id' => 'parse_subsections',
@@ -342,6 +346,7 @@ class GlobalOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderAttachmentAttributionsField( $args ) {
+		unset( $args['label_for'], $args['class'] );
 		$this->renderCheckbox(
 			[
 				'id' => 'attachment_attributions',
@@ -359,8 +364,9 @@ class GlobalOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderLanguagesField( $args ) {
-		$foreign_languages = get_option( 'pressbooks_global_typography' );
+		unset( $args['label_for'], $args['class'] );
 
+		$foreign_languages = get_option( 'pressbooks_global_typography' );
 		if ( ! $foreign_languages ) {
 			$foreign_languages = [];
 		}
@@ -388,7 +394,7 @@ class GlobalOptions extends \Pressbooks\Options {
 			$i++;
 		}
 
-		$html = '<label for="global_typography"> ' . $args[0] . '</label><br /><br />';
+		$html = '<label id="global_typography_label" for="global_typography"> ' . $args[0] . '</label><br /><br />';
 		$html .= '<select id="global_typography" class="select2" style="width: 75%" data-placeholder="' . __( 'Select languages&hellip;', 'pressbooks' ) . '" name="pressbooks_global_typography[]" multiple>';
 		foreach ( $languages as $key => $value ) {
 			$selected = ( in_array( $key, $foreign_languages, true ) || in_array( $key, $already_supported_languages, true ) ) ? ' selected' : '';
@@ -409,6 +415,7 @@ class GlobalOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderCopyrightLicenseField( $args ) {
+		unset( $args['label_for'], $args['class'] );
 		$this->renderRadioButtons(
 			[
 				'id' => 'copyright_license',
@@ -426,6 +433,7 @@ class GlobalOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderTextboxHeader( $args ) {
+		unset( $args['label_for'], $args['class'] );
 		printf( $args[0] );
 	}
 
@@ -435,6 +443,7 @@ class GlobalOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderTextboxColorField( $args ) {
+		unset( $args['label_for'], $args['class'] );
 		$this->renderColorField(
 			[
 				'id' => $args['key'],
@@ -453,6 +462,7 @@ class GlobalOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderPartLabelField( $args ) {
+		unset( $args['label_for'], $args['class'] );
 		$this->renderField(
 			[
 				'id' => 'part_label',
@@ -472,6 +482,7 @@ class GlobalOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderChapterLabelField( $args ) {
+		unset( $args['label_for'], $args['class'] );
 		$this->renderField(
 			[
 				'id' => 'chapter_label',

@@ -578,8 +578,8 @@ class Styles {
 	 * @return bool
 	 */
 	public function maybeUpdateStylesheets() {
-		// If this is ajax/cron, don't update right now
-		if ( wp_doing_ajax() || wp_doing_cron() ) {
+		// If this is ajax/cron/404, don't update right now
+		if ( wp_doing_ajax() || wp_doing_cron() || is_404() ) {
 			return false;
 		}
 
@@ -704,8 +704,8 @@ class Styles {
 		$q = new \WP_Query();
 		$results = $q->query( $args );
 
-		$html = '<table class="widefat fixed" cellspacing="0">';
-		$html .= '<thead><th>' . __( 'Last 10 Revisions', 'pressbooks' ) . ' <em>(' . $this->supported[ $slug ] . ')</em> </th></thead><tbody>';
+		$html = '<table class="widefat fixed">';
+		$html .= '<thead><tr><th>' . __( 'Last 10 Revisions', 'pressbooks' ) . ' <em>(' . $this->supported[ $slug ] . ')</em> </th></tr></thead><tbody>';
 		foreach ( $results as $post ) {
 			$html .= '<tr><td>' . wp_post_revision_title( $post ) . ' ';
 			$html .= __( 'by', 'pressbooks' ) . ' ' . get_userdata( $post->post_author )->user_login . '</td></tr>';

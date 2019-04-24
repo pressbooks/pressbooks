@@ -16,6 +16,7 @@ document.addEventListener( 'DOMContentLoaded', function () {
 	addAttribute( 'table.wp-list-table th', 'role', 'columnheader' );
 
 	// Add attributes to make status and alert bars accessible
+	// https://core.trac.wordpress.org/ticket/46995
 	addAttribute( 'div.updated', 'role', 'status' );
 	addAttribute( 'div.notice', 'role', 'status' );
 	addAttribute( 'div.error', 'role', 'alert' );
