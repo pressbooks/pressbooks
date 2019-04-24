@@ -103,6 +103,8 @@ class Admin_LafTest extends \WP_UnitTestCase {
 
 		do_action( 'admin_enqueue_scripts', 'admin_page_pb_cloner' );
 		$this->assertContains( 'pb-cloner', $wp_scripts->queue );
+
+		unset( $GLOBALS['post'], $GLOBALS['current_screen'] ); // Cleanup
 	}
 
 	/**
