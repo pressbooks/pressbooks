@@ -24,7 +24,7 @@ use Pressbooks\Metadata;
  */
 function add_footer_link() {
 	printf(
-		'<span id="footer-thankyou">%1$s</span> &bull; %2$s &bull; %3$s &bull; %4$s &bull; %5$s',
+		'<span id="footer-thankyou">%1$s</span> &bull; %2$s &bull; %3$s &bull; %4$s &bull; %5$s &bull; %6$s',
 		sprintf(
 			__( 'Powered by %s', 'pressbooks' ),
 			sprintf(
@@ -52,6 +52,11 @@ function add_footer_link() {
 			'<a href="%1$s">%2$s</a>',
 			admin_url( 'options.php?page=pressbooks_diagnostics' ),
 			__( 'Diagnostics', 'pressbooks' )
+		),
+		sprintf(
+			'<a href="%1$s">%2$s</a>',
+			admin_url( 'options.php?page=pressbooks_sitemap' ),
+			__( 'Site Map', 'pressbooks' )
 		),
 		sprintf(
 			'<a href="%1$s">%2$s</a>',
