@@ -983,14 +983,14 @@ function init_css_js() {
 			]
 		)
 	);
-	// TODO: Change the $colors swatch to match colors-pb-a11y.scss
+
 	wp_admin_css_color(
 		'pb_colors_a11y', 'Pressbooks a11y', $assets->getPath( 'styles/colors-pb-a11y.css' ), apply_filters(
 			'pressbooks_admin_colors_ally', [
-				'#ff0000',
-				'#00ff00',
-				'#0000ff',
-				'#ff69b4',
+				'#2D2D2D',
+				'#B40026',
+				'#E9E9E9',
+				'#dfdfdf',
 			]
 		)
 	);
