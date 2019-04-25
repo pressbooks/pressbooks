@@ -2,6 +2,7 @@
 $mine-shaft2: darken($mine-shaft, 5%);
 $monza2: #3a3a3a;
 $highlight: #AD0000;
+$boulder: darken($boulder, 5%);
 
 a {
   text-decoration: underline !important;
@@ -153,8 +154,8 @@ div.error {
     }
   }
   .you-are-here {
-    background: $monza2;
-    a.ab-item {
+    background: lighten($monza2, 7%);
+        a.ab-item {
       color: white;
     }
   }
@@ -212,4 +213,26 @@ div.error {
 .mce-btn.mce-active i,
 .mce-btn.mce-active:hover i {
   color: $mine-shaft2 !important; // Ugh
+}
+
+// Accessibility Fixes
+
+button.move-up,
+button.move-down,
+button.editinline {
+  text-decoration: underline !important;
+}
+
+a.submitdelete.deletion,
+span.delete a,
+span.spam a,
+span.trash a.submitdelete,
+span#delete-link a.delete,
+button.move-up,
+button.move-down,
+button.editinline {
+  color: darken($monza2, 5%) !important;
+  &:hover {
+    color: $highlight !important;
+  }
 }
