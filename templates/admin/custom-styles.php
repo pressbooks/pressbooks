@@ -40,10 +40,10 @@ if ( ! empty( $_GET['custom_styles_error'] ) ) {
 		<form id="pb-custom-styles-form" action="<?php echo $custom_form_url ?>" method="post">
 			<input type="hidden" name="post_id" value="<?php echo $post_id; ?>"/>
 			<input type="hidden" name="post_id_integrity" value="<?php echo md5( NONCE_KEY . $post_id ); ?>"/>
-			<div><?php echo __( 'You are currently editing styles for', 'pressbooks' ) . ': ' . $slugs_dropdown; ?></div>
-			<h3><?php printf( __( 'Theme %1$s Styles (%2$s)', 'pressbooks' ), $current_label, $theme ); ?></h3>
+			<div><label for="slug"><?php echo __( 'You are currently editing styles for', 'pressbooks' ) . ':</label> ' . $slugs_dropdown; ?></div>
+			<h3><label for="theme_styles"><?php printf( __( 'Theme %1$s Styles (%2$s)', 'pressbooks' ), $current_label, $theme ); ?></label></h3>
 			<textarea readonly id="theme_styles" name="theme_styles"><?php echo esc_textarea( $theme_styles ); ?></textarea>
-			<h3><?php printf( __( 'Your %s Styles', 'pressbooks' ), $current_label ); ?></h3>
+			<h3><label for="your_styles"><?php printf( __( 'Your %s Styles', 'pressbooks' ), $current_label ); ?></label></h3>
 			<textarea id="your_styles" name="your_styles"><?php echo esc_textarea( $your_styles ); ?></textarea>
 			<?php submit_button( __( 'Save', 'pressbooks' ), 'primary', 'save' ); ?>
 		</form>

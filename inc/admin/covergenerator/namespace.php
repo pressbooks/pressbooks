@@ -70,7 +70,9 @@ function cg_options_init() {
 		__NAMESPACE__ . '\pressbooks_cg_title_callback',
 		$_page,
 		'pressbooks_cg_text',
-		[]
+		[
+			'label_for' => 'pb_title',
+		]
 	);
 
 	add_settings_field(
@@ -79,7 +81,9 @@ function cg_options_init() {
 		__NAMESPACE__ . '\pressbooks_cg_title_spine_callback',
 		$_page,
 		'pressbooks_cg_text',
-		[]
+		[
+			'label_for' => 'pb_title_spine',
+		]
 	);
 
 	add_settings_field(
@@ -88,7 +92,9 @@ function cg_options_init() {
 		__NAMESPACE__ . '\pressbooks_cg_subtitle_callback',
 		$_page,
 		'pressbooks_cg_text',
-		[]
+		[
+			'label_for' => 'pb_subtitle',
+		]
 	);
 
 	add_settings_field(
@@ -97,7 +103,9 @@ function cg_options_init() {
 		__NAMESPACE__ . '\pressbooks_cg_author_callback',
 		$_page,
 		'pressbooks_cg_text',
-		[]
+		[
+			'label_for' => 'pb_author',
+		]
 	);
 
 	add_settings_field(
@@ -106,7 +114,9 @@ function cg_options_init() {
 		__NAMESPACE__ . '\pressbooks_cg_author_spine_callback',
 		$_page,
 		'pressbooks_cg_text',
-		[]
+		[
+			'label_for' => 'pb_author_spine',
+		]
 	);
 
 	add_settings_field(
@@ -115,7 +125,9 @@ function cg_options_init() {
 		__NAMESPACE__ . '\pressbooks_cg_about_callback',
 		$_page,
 		'pressbooks_cg_text',
-		[]
+		[
+			'label_for' => 'pb_about_unlimited',
+		]
 	);
 
 	add_settings_field(
@@ -126,6 +138,7 @@ function cg_options_init() {
 		'pressbooks_cg_text',
 		[
 			__( 'If you have an ISBN, this will generate a barcode on the back of your print cover. If you do not have an ISBN, you should leave this field blank.', 'pressbooks' ),
+			'label_for' => 'pb_print_isbn',
 		]
 	);
 
@@ -137,6 +150,7 @@ function cg_options_init() {
 		'pressbooks_cg_text',
 		[
 			__( 'If you have a 13-digit identifier that is not an ISBN, entering it in this field will generate a barcode with that number on the back of your print cover. If you do not have a non-ISBN identifier, you should leave this field blank.', 'pressbooks' ),
+			'label_for' => 'pb_print_sku',
 		]
 	);
 
@@ -164,6 +178,7 @@ function cg_options_init() {
 		[
 			'uppercase' => 'UPPERCASE',
 			'titlecase' => 'Title Case',
+			'label_for' => 'text_transform',
 		]
 	);
 
@@ -179,7 +194,10 @@ function cg_options_init() {
 		__( 'Page Count', 'pressbooks' ),
 		__NAMESPACE__ . '\pressbooks_cg_pdf_pagecount_callback',
 		$_page,
-		'pressbooks_cg_spine_size'
+		'pressbooks_cg_spine_size',
+		[
+			'label_for' => 'pdf_pagecount',
+		]
 	);
 
 	add_settings_field(
@@ -192,6 +210,7 @@ function cg_options_init() {
 			'444' => 'Black & white interior, white paper',
 			'400' => 'Black & white interior, creme paper',
 			'426' => 'Color interior',
+			'label_for' => 'ppi',
 		]
 	);
 
@@ -200,7 +219,10 @@ function cg_options_init() {
 		__( 'Custom PPI', 'pressbooks' ),
 		__NAMESPACE__ . '\pressbooks_cg_custom_ppi_callback',
 		$_page,
-		'pressbooks_cg_spine_size'
+		'pressbooks_cg_spine_size',
+		[
+			'label_for' => 'custom_ppi',
+		]
 	);
 
 	add_settings_section(
@@ -305,6 +327,7 @@ function pressbooks_cg_text_callback() {
 }
 
 function pressbooks_cg_title_callback( $args ) {
+	unset( $args['label_for'], $args['class'] );
 	$metadata = \Pressbooks\Book::getBookInformation();
 	$option = get_option( 'pressbooks_cg_options' );
 	if ( empty( $option['pb_title'] ) ) {
@@ -316,6 +339,7 @@ function pressbooks_cg_title_callback( $args ) {
 }
 
 function pressbooks_cg_title_spine_callback( $args ) {
+	unset( $args['label_for'], $args['class'] );
 	$metadata = \Pressbooks\Book::getBookInformation();
 	$option = get_option( 'pressbooks_cg_options' );
 	if ( empty( $option['pb_title_spine'] ) ) {
@@ -327,6 +351,7 @@ function pressbooks_cg_title_spine_callback( $args ) {
 }
 
 function pressbooks_cg_subtitle_callback( $args ) {
+	unset( $args['label_for'], $args['class'] );
 	$metadata = \Pressbooks\Book::getBookInformation();
 	$option = get_option( 'pressbooks_cg_options' );
 	if ( empty( $option['pb_subtitle'] ) ) {
@@ -338,6 +363,7 @@ function pressbooks_cg_subtitle_callback( $args ) {
 }
 
 function pressbooks_cg_author_callback( $args ) {
+	unset( $args['label_for'], $args['class'] );
 	$metadata = \Pressbooks\Book::getBookInformation();
 	$option = get_option( 'pressbooks_cg_options' );
 	if ( empty( $option['pb_author'] ) ) {
@@ -349,6 +375,7 @@ function pressbooks_cg_author_callback( $args ) {
 }
 
 function pressbooks_cg_author_spine_callback( $args ) {
+	unset( $args['label_for'], $args['class'] );
 	$metadata = \Pressbooks\Book::getBookInformation();
 	$option = get_option( 'pressbooks_cg_options' );
 	if ( empty( $option['pb_author_spine'] ) ) {
@@ -360,6 +387,7 @@ function pressbooks_cg_author_spine_callback( $args ) {
 }
 
 function pressbooks_cg_about_callback( $args ) {
+	unset( $args['label_for'], $args['class'] );
 	$metadata = \Pressbooks\Book::getBookInformation();
 	$option = get_option( 'pressbooks_cg_options' );
 	if ( empty( $option['pb_about_unlimited'] ) ) {
@@ -375,6 +403,7 @@ function pressbooks_cg_about_callback( $args ) {
 }
 
 function pressbooks_cg_isbn_callback( $args ) {
+	unset( $args['label_for'], $args['class'] );
 	$metadata = \Pressbooks\Book::getBookInformation();
 	$option = get_option( 'pressbooks_cg_options' );
 	if ( empty( $option['pb_print_isbn'] ) ) {
@@ -387,6 +416,7 @@ function pressbooks_cg_isbn_callback( $args ) {
 }
 
 function pressbooks_cg_sku_callback( $args ) {
+	unset( $args['label_for'], $args['class'] );
 	$metadata = \Pressbooks\Book::getBookInformation();
 	$option = get_option( 'pressbooks_cg_options' );
 	if ( empty( $option['pb_print_sku'] ) ) {
@@ -428,8 +458,8 @@ function pressbooks_cg_design_callback() {
 }
 
 function pressbooks_cg_front_background_image_callback( $args ) {
+	unset( $args['label_for'], $args['class'] );
 	$option = get_option( 'pressbooks_cg_options' );
-
 	$pdf_options = get_option( 'pressbooks_theme_options_pdf' );
 
 	if ( strpos( $pdf_options['pdf_page_width'], 'in' ) ) {
@@ -466,8 +496,8 @@ function pressbooks_cg_front_background_image_callback( $args ) {
 }
 
 function pressbooks_cg_text_transform_callback( $args ) {
+	unset( $args['label_for'], $args['class'] );
 	$option = get_option( 'pressbooks_cg_options' );
-
 	if ( empty( $option['text_transform'] ) ) {
 		$option['text_transform'] = 'uppercase';
 	}
@@ -501,6 +531,7 @@ function pressbooks_cg_spine_size_callback() {
 }
 
 function pressbooks_cg_pdf_pagecount_callback( $args ) {
+	unset( $args['label_for'], $args['class'] );
 	$option = get_option( 'pressbooks_cg_options' );
 	$spine = new \Pressbooks\Covergenerator\Spine;
 	$pages = $spine->countPagesInMostRecentPdf();
@@ -514,8 +545,8 @@ function pressbooks_cg_pdf_pagecount_callback( $args ) {
 }
 
 function pressbooks_cg_ppi_callback( $args ) {
+	unset( $args['label_for'], $args['class'] );
 	$option = get_option( 'pressbooks_cg_options' );
-
 	if ( empty( $option['ppi'] ) ) {
 		$option['ppi'] = '444';
 	}
@@ -534,6 +565,7 @@ function pressbooks_cg_ppi_callback( $args ) {
 }
 
 function pressbooks_cg_custom_ppi_callback( $args ) {
+	unset( $args['label_for'], $args['class'] );
 	$option = get_option( 'pressbooks_cg_options' );
 
 	if ( empty( $option['ppi'] ) ) {
@@ -550,6 +582,7 @@ function pressbooks_cg_colors_callback() {
 }
 
 function pressbooks_cg_color_callback( $args ) {
+	unset( $args['label_for'], $args['class'] );
 	$option = get_option( 'pressbooks_cg_options' );
 	$val = ! empty( $option[ $args[0] ] ) ? $option[ $args[0] ] : '';
 	$html = '<input class="colorpicker" id="' . $args[0] . '" name="pressbooks_cg_options[' . $args[0] . ']" value="' . $val . '" />';

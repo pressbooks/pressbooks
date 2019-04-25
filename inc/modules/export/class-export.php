@@ -893,7 +893,7 @@ abstract class Export {
 					__( 'Warning: The export has validation errors. See logs for more details.', 'pressbooks' ),
 					( isset( $exportoptions['email_validation_logs'] ) && 1 === (int) $exportoptions['email_validation_logs'] ) ? '<p>' . __( 'Emailed to:', 'pressbooks' ) . ' ' . wp_get_current_user()->user_email . '</p>' : ''
 				);
-				\Pressbooks\add_notice( $export_warning );
+				\Pressbooks\add_error( $export_warning );
 			}
 		}
 	}

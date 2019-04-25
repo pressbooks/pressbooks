@@ -24,7 +24,7 @@ use Pressbooks\Metadata;
  */
 function add_footer_link() {
 	printf(
-		'<span id="footer-thankyou">%1$s</span> &bull; %2$s &bull; %3$s &bull; %4$s &bull; %5$s',
+		'<span id="footer-thankyou">%1$s</span> &bull; %2$s &bull; %3$s &bull; %4$s &bull; %5$s &bull; %6$s',
 		sprintf(
 			__( 'Powered by %s', 'pressbooks' ),
 			sprintf(
@@ -52,6 +52,11 @@ function add_footer_link() {
 			'<a href="%1$s">%2$s</a>',
 			admin_url( 'options.php?page=pressbooks_diagnostics' ),
 			__( 'Diagnostics', 'pressbooks' )
+		),
+		sprintf(
+			'<a href="%1$s">%2$s</a>',
+			admin_url( 'options.php?page=pressbooks_sitemap' ),
+			__( 'Site Map', 'pressbooks' )
 		),
 		sprintf(
 			'<a href="%1$s">%2$s</a>',
@@ -239,6 +244,7 @@ function replace_book_admin_menu() {
 					wp_enqueue_script( 'pb-metadata' );
 					wp_localize_script(
 						'pb-metadata', 'PB_BookInfoToken', [
+							'ajaxUrl' => wp_nonce_url( admin_url( 'admin-ajax.php?action=pb_get_thema_subjects' ), 'pb-metadata' ),
 							'bookInfoMenuId' => preg_replace( '|[^a-zA-Z0-9_:.]|', '-', $bookinfo_page ),
 							'selectSubjectText' => __( 'Choose a subject…', 'pressbooks' ),
 							'selectSubjectsText' => __( 'Choose some subject(s)…', 'pressbooks' ),
@@ -594,11 +600,8 @@ function replace_menu_bar_branding( $wp_admin_bar ) {
 	$wp_admin_bar->add_menu(
 		[
 			'id' => 'wp-logo',
-			'title' => '<span class="ab-icon"></span>',
+			'title' => '<span class="ab-icon"></span><span class="screen-reader-text">' . __( 'About Pressbooks', 'pressbooks' ) . '</span>',
 			'href' => ( 'https://pressbooks.com/about/' ),
-			'meta' => [
-				'title' => __( 'About Pressbooks', 'pressbooks' ),
-			],
 		]
 	);
 

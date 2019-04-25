@@ -1158,7 +1158,7 @@ class Epub201 extends ExportGenerator {
 		// Create file, insert into manifest
 
 		$vars = [
-			'post_title' => __( 'Copyright', 'pressbooks' ),
+			'post_title' => html_entity_decode( __( 'Copyright', 'pressbooks' ) ),
 			'stylesheet' => $this->stylesheet,
 			'post_content' => $html,
 			'isbn' => ( isset( $metadata['pb_ebook_isbn'] ) ) ? $metadata['pb_ebook_isbn'] : '',
