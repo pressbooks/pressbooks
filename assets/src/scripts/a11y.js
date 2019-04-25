@@ -15,6 +15,12 @@ document.addEventListener( 'DOMContentLoaded', function () {
 	// https://core.trac.wordpress.org/ticket/46977
 	addAttribute( 'table.wp-list-table th', 'role', 'columnheader' );
 
+	// WP_List_Table table headers are missing `aria-sort` attributes for accessibility
+	// https://core.trac.wordpress.org/ticket/47047#ticket
+	addAttribute( 'table.wp-list-table th.sortable', 'aria-sort', 'none' );
+	addAttribute( 'table.wp-list-table th.sorted.asc', 'aria-sort', 'ascending' );
+	addAttribute( 'table.wp-list-table th.sorted.desc', 'aria-sort', 'descending' );
+
 	// Add attributes to make status and alert bars accessible
 	// https://core.trac.wordpress.org/ticket/46995
 	addAttribute( 'div.updated', 'role', 'status' );
