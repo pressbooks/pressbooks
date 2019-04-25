@@ -14,6 +14,7 @@ class NamespaceTest extends \WP_UnitTestCase {
 		$classes = [
 			'\Pressbooks\Activation',
 			'\Pressbooks\Admin\Delete\Book',
+			'\Pressbooks\Admin\SiteMap',
 			'\Pressbooks\Covergenerator\Covergenerator',
 			'\Pressbooks\EventStreams',
 			'\Pressbooks\Interactive\Content',
