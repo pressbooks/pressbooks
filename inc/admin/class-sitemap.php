@@ -141,24 +141,32 @@ class SiteMap {
 	/**
 	 * Print Admin Bar tree (recursive)
 	 *
-	 * @see \WP_Admin_Bar
-	 *
 	 * @param array $tree
 	 * @param \stdClass[] $nodes
+	 * @param bool $ul
+	 *
+	 * @see \WP_Admin_Bar
+	 *
 	 */
-	private function printAdminBarTree( $tree, $nodes ) {
-		if ( ! is_null( $tree ) && count( $tree ) > 0 ) {
-			echo '<ul class="ul-disc">';
+	private function printAdminBarTree( $tree, $nodes, $ul = true ) {
+		if ( is_countable( $tree ) && count( $tree ) > 0 ) {
+			if ( $ul ) {
+				echo '<ul class="ul-disc">';
+			}
 			foreach ( $tree as $node ) {
 				$title = trim( strip_tags( html_entity_decode( $nodes[ $node['name'] ]->title ) ) );
 				$href = $nodes[ $node['name'] ]->href;
 				if ( ! empty( $title ) && $href !== '#' ) {
 					echo "<li><a href='{$href}'>{$title}</a>";
+					$this->printAdminBarTree( $node['children'], $nodes, true );
+					echo '</li>';
+				} else {
+					$this->printAdminBarTree( $node['children'], $nodes, false );
 				}
-				$this->printAdminBarTree( $node['children'], $nodes );
-				echo '</li>';
 			}
-			echo '</ul>';
+			if ( $ul ) {
+				echo '</ul>';
+			}
 		}
 	}
 
