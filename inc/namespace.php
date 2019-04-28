@@ -50,7 +50,12 @@ function session_start() {
 			}
 			$session_ok = @\session_start( $options ); // @codingStandardsIgnoreLine
 			if ( ! $session_ok ) {
-				session_regenerate_id( true );
+				if ( session_status() === PHP_SESSION_ACTIVE ) {
+					session_regenerate_id( true );
+				} else {
+					$session_name = session_name();
+					unset( $_COOKIE[ $session_name ], $_GET[ $session_name ] );
+				}
 				\session_start( $options );
 			}
 		} else {
