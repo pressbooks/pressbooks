@@ -48,7 +48,8 @@ function session_start() {
 			if ( is_array( $override_options ) ) {
 				$options = $override_options;
 			}
-			$session_ok = @\session_start( $options ); // @codingStandardsIgnoreLine
+			// @codingStandardsIgnoreStart
+			$session_ok = @\session_start( $options );
 			if ( ! $session_ok ) {
 				if ( session_status() === PHP_SESSION_ACTIVE ) {
 					session_regenerate_id( true );
@@ -56,8 +57,9 @@ function session_start() {
 					$session_name = session_name();
 					unset( $_COOKIE[ $session_name ], $_GET[ $session_name ] );
 				}
-				\session_start( $options );
+				@\session_start( $options );
 			}
+			// @codingStandardsIgnoreEnd
 		} else {
 			error_log( 'There was a problem with \Pressbooks\session_start(), headers already sent!' ); // @codingStandardsIgnoreLine
 		}
