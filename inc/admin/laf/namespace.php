@@ -45,8 +45,8 @@ function add_footer_link() {
 			 *
 			 * @since 5.6.0
 			 */
-			apply_filters( 'pb_help_link', 'https://pressbooks.community/' ),
-			__( 'Help', 'pressbooks' )
+			apply_filters( 'pb_help_link', 'https://staging.pressbooks.com/help-and-support/' ),
+			__( 'Guides and Tutorials', 'pressbooks' )
 		),
 		sprintf(
 			'<a href="%1$s">%2$s</a>',
