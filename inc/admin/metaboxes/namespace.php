@@ -184,7 +184,7 @@ function add_meta_boxes() {
 	x_add_metadata_field(
 		'pb_title', 'metadata', [
 			'group' => 'general-book-information',
-			'label' => 'Title',
+			'label' => __( 'Title', 'pressbooks' ),
 		]
 	);
 
@@ -407,7 +407,7 @@ function add_meta_boxes() {
 
 	x_add_metadata_group(
 		'about-the-book', 'metadata', [
-			'label' => 'About the Book',
+			'label' => __( 'About the Book', 'pressbooks' ),
 			'priority' => 'low',
 		]
 	);
@@ -649,7 +649,7 @@ function add_meta_boxes() {
 		'pb_part_invisible', 'part', [
 			'field_type' => 'checkbox',
 			'group' => 'part-metadata-visibility',
-			'label' => 'Invisible',
+			'label' => __( 'Invisible', 'pressbooks' ),
 			'description' => __( 'Hide from table of contents and part numbering.', 'pressbooks' ),
 		]
 	);

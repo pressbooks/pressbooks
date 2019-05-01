@@ -6,6 +6,8 @@
 
 namespace Pressbooks\Admin;
 
+use function Pressbooks\Utility\str_ends_with;
+
 class SiteMap {
 
 	/**
@@ -206,7 +208,11 @@ class SiteMap {
 					foreach ( $arr2 as $arr3 ) {
 						$menu_hook = get_plugin_page_hook( $arr3[2], $k );
 						if ( $menu_hook ) {
-							$href = 'admin.php?page=' . $arr3[2];
+							if ( str_ends_with( $k, '.php' ) ) {
+								$href = "{$k}?page={$arr3[2]}";
+							} else {
+								$href = "admin.php?page={$arr3[2]}";
+							}
 						} else {
 							$href = $arr3[2];
 						}
