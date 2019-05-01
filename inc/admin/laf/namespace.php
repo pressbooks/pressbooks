@@ -24,8 +24,6 @@ use Pressbooks\Metadata;
  */
 function add_footer_link() {
 
-	$contactURL = network_home_url('/#contacts');
-
 	printf(
 		'<span id="footer-thankyou">%1$s</span> &bull; %2$s &bull; %3$s &bull; %4$s &bull; %5$s &bull; %6$s',
 		sprintf(
@@ -68,7 +66,7 @@ function add_footer_link() {
 			 *
 			 * @since 5.6.0
 			 */
-			apply_filters( 'pb_contact_link', $contactURL ),
+			apply_filters( 'pb_contact_link', network_home_url('/#contact') ),
 			__( 'Contact', 'pressbooks' )
 		)
 	);
