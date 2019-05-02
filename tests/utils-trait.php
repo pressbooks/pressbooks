@@ -91,7 +91,7 @@ There are many maths like it but these ones are mine.
 
 <h1>Image</h1>
 
-[caption id="attachment_1" align="aligncenter" width="225"]<img class="wp-image-1 size-full" src="https://pressbooks.com/wp-content/uploads/2015/04/open-book-7-225x161.png" alt="Open Book" width="225" height="161" /> Like an open book.[/caption]
+[caption id="attachment_1" align="aligncenter" width="225"]<img class="wp-image-1 size-full" src="https://pressbooks.com/wp-content/uploads/2018/03/hughmcguire.png" alt="Hugh McGuire" width="225" height="225" /> Words about our founder.[/caption]
 
 <em>Ka kite ano!</em><b></b>
 

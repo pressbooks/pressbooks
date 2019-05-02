@@ -31,7 +31,7 @@
 		"wpapi": "^1.2.1"
 	},
 	"devDependencies": {
-		"pressbooks-build-tools": "^1.4.2"
+		"pressbooks-build-tools": "^1.4.3"
 	},
 	"repository": {
 		"type": "git",
