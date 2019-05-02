@@ -66,7 +66,7 @@ function add_footer_link() {
 			 *
 			 * @since 5.6.0
 			 */
-			apply_filters( 'pb_contact_link', network_home_url('/#contact') ),
+			apply_filters( 'pb_contact_link', network_home_url( '/#contact' ) ),
 			__( 'Contact', 'pressbooks' )
 		)
 	);
