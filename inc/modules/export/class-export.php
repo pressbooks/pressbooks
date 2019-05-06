@@ -721,6 +721,9 @@ abstract class Export {
 			if ( isset( $x['htmlbook'] ) ) {
 				$modules[] = '\Pressbooks\Modules\Export\HTMLBook\HTMLBook';
 			}
+			if ( isset( $x['weblinks'] ) ) {
+				$modules[] = '\Pressbooks\Modules\Export\ThinCC\WebLinks';
+			}
 
 			// --------------------------------------------------------------------------------------------------------
 			// Other People's Plugins
