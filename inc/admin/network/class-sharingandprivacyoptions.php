@@ -13,7 +13,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	 * @see upgrade()
 	 * @var int
 	 */
-	const VERSION = 3;
+	const VERSION = 4;
 
 	/**
 	 * Sharing and Privacy options.
@@ -94,6 +94,17 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 			]
 		);
 
+		add_settings_field(
+			'enable_thincc_weblinks',
+			__( 'Enable Thin CC Weblinks', 'pressbooks' ),
+			[ $this, 'renderAllowThinCcWeblinks' ],
+			$_page,
+			$_section,
+			[
+				__( 'Allow users to produce Thin Common Cartridge exports with simple Web Links.', 'pressbooks' ),
+			]
+		);
+
 		register_setting(
 			$_page,
 			$_option,
@@ -158,6 +169,10 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 			$options['enable_cloning'] = 1;
 		}
 
+		if ( $version < 4 ) {
+			$options['enable_thincc_weblinks'] = 1;
+		}
+
 		update_site_option( $slug, $options );
 	}
 
@@ -216,6 +231,24 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	}
 
 	/**
+	 * Render the enable_thincc_weblinks checkbox.
+	 *
+	 * @param array $args
+	 */
+	function renderAllowThinCcWeblinks( $args ) {
+		$options = get_site_option( $this->getSlug() );
+		$this->renderCheckbox(
+			[
+				'id' => 'enable_thincc_weblinks',
+				'name' => $this->getSlug(),
+				'option' => 'enable_thincc_weblinks',
+				'value' => ( isset( $options['enable_thincc_weblinks'] ) ) ? $options['enable_thincc_weblinks'] : '',
+				'label' => $args[0],
+			]
+		);
+	}
+
+	/**
 	 * Get the slug for the network export options page.
 	 *
 	 * @return string $slug
@@ -243,6 +276,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 			'allow_redistribution' => 0,
 			'enable_network_api' => 1,
 			'enable_cloning' => 1,
+			'enable_thincc_weblinks' => 1,
 		];
 	}
 
@@ -256,6 +290,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 			'allow_redistribution',
 			'enable_network_api',
 			'enable_cloning',
+			'enable_thincc_weblinks',
 		];
 	}
 

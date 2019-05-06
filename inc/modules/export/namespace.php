@@ -103,6 +103,30 @@ function dependency_errors_msg() {
  * @return array
  */
 function formats() {
+	$formats = [
+		'standard' => [
+			'print_pdf' => __( 'PDF (for print)', 'pressbooks' ),
+			'pdf' => __( 'PDF (for digital distribution)', 'pressbooks' ),
+			'epub' => __( 'EPUB (for Nook, Apple Books, Kobo etc.)', 'pressbooks' ),
+			'mobi' => __( 'MOBI (for Kindle)', 'pressbooks' ),
+		],
+		'exotic' => [
+			'epub3' => __( 'EPUB 3', 'pressbooks' ),
+			'xhtml' => __( 'XHTML', 'pressbooks' ),
+			'htmlbook' => __( 'HTMLBook', 'pressbooks' ),
+			'odt' => __( 'OpenDocument', 'pressbooks' ),
+			'wxr' => __( 'Pressbooks XML', 'pressbooks' ),
+			'vanillawxr' => __( 'WordPress XML', 'pressbooks' ),
+		],
+	];
+
+	// Common Cartridge 1.1 (Web Links)
+	$enable_thincc_weblinks = get_site_option( 'pressbooks_sharingandprivacy_options', [] );
+	$enable_thincc_weblinks = isset( $enable_thincc_weblinks['enable_thincc_weblinks'] ) ? $enable_thincc_weblinks['enable_thincc_weblinks'] : \Pressbooks\Admin\Network\SharingAndPrivacyOptions::getDefaults()['enable_thincc_weblinks'];
+	if ( $enable_thincc_weblinks ) {
+		$formats['exotic']['weblinks'] = __( 'Common Cartridge 1.1 (Web Links)', 'pressbooks' );
+	}
+
 	/**
 	 * @since 3.9.8
 	 * Add custom export formats to the export page format list.
@@ -115,24 +139,8 @@ function formats() {
 	 * } );
 	 *
 	 */
-	$formats = apply_filters(
-		'pb_export_formats', [
-			'standard' => [
-				'print_pdf' => __( 'PDF (for print)', 'pressbooks' ),
-				'pdf' => __( 'PDF (for digital distribution)', 'pressbooks' ),
-				'epub' => __( 'EPUB (for Nook, Apple Books, Kobo etc.)', 'pressbooks' ),
-				'mobi' => __( 'MOBI (for Kindle)', 'pressbooks' ),
-			],
-			'exotic' => [
-				'epub3' => __( 'EPUB 3', 'pressbooks' ),
-				'xhtml' => __( 'XHTML', 'pressbooks' ),
-				'htmlbook' => __( 'HTMLBook', 'pressbooks' ),
-				'odt' => __( 'OpenDocument', 'pressbooks' ),
-				'wxr' => __( 'Pressbooks XML', 'pressbooks' ),
-				'vanillawxr' => __( 'WordPress XML', 'pressbooks' ),
-			],
-		]
-	);
+	$formats = apply_filters( 'pb_export_formats', $formats );
+
 	return $formats;
 }
 
@@ -168,6 +176,7 @@ function filetypes() {
 			'vanillawxr' => '._vanilla.xml',
 			'mpdf' => '._oss.pdf',
 			'odf' => '.odt',
+			'weblinks' => '._1_1_weblinks.imscc',
 		]
 	);
 	return $filetypes;
@@ -200,6 +209,7 @@ function get_name_from_filetype_slug( $filetype ) {
 			'odf' => __( 'OpenDocument', 'pressbooks' ),
 			'wxr' => __( 'Pressbooks XML', 'pressbooks' ),
 			'vanillawxr' => __( 'WordPress XML', 'pressbooks' ),
+			'weblinks' => __( 'Web Links', 'pressbooks' ), // TODO
 		]
 	);
 	return isset( $formats[ $filetype ] ) ? $formats[ $filetype ] : ucfirst( $filetype );
@@ -233,6 +243,7 @@ function get_name_from_module_classname( $classname ) {
 			'\Pressbooks\Modules\Export\Odt\Odt' => __( 'OpenDocument', 'pressbooks' ),
 			'\Pressbooks\Modules\Export\WordPress\Wxr' => __( 'Pressbooks XML', 'pressbooks' ),
 			'\Pressbooks\Modules\Export\WordPress\VanillaWxr' => __( 'WordPress XML', 'pressbooks' ),
+			'\Pressbooks\Modules\Export\ThinCC\WebLinks' => __( 'Web Links', 'pressbooks' ),
 		]
 	);
 	return isset( $formats[ $classname ] ) ? $formats[ $classname ] : substr( strrchr( $classname, '\\' ), 1 );
