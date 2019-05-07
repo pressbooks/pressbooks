@@ -258,7 +258,7 @@ class EventStreams {
 		delete_transient( 'pressbooks_current_import_POST' );
 
 		$at_least_one = false;
-		if ( is_iterable( $_POST ) ) {
+		if ( isset( $_POST['chapters'] ) ) {
 			foreach ( $_POST['chapters'] as $k => $v ) {
 				if ( is_array( $v ) && ! empty( $v['import'] ) ) {
 					$at_least_one = true;

@@ -95,4 +95,17 @@ class EventStreamsTest extends \WP_UnitTestCase {
 		$this->assertContains( 'data: {"action":"complete","error":false}', $buffer );
 	}
 
+	public function test_importBook_noChaptersError() {
+		$_REQUEST['_wpnonce'] = wp_create_nonce( 'pb-import' );
+		set_transient( 'pressbooks_current_import_POST', [ 'chapters' => [] ] );
+		ob_start();
+		$this->eventStreams->importBook();
+		ob_end_clean();
+		$this->assertCount( 1, $this->eventStreams->msgStack );
+		$buffer = implode( '', $this->eventStreams->msgStack );
+
+		$this->assertContains( 'event: message', $buffer );
+		$this->assertContains( 'data: {"action":"complete","error":"No chapters were selected for import."}', $buffer );
+	}
+
 }
