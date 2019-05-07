@@ -144,7 +144,9 @@ class Cloner {
 	 * @var array
 	 */
 	protected $requestArgs = [
-		'timeout' => 30,
+		'timeout' => 300,
+		'httpversion' => '1.1',
+		'compress' => true,
 	];
 
 	/**
