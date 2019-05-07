@@ -140,6 +140,7 @@ class Cloner {
 	 * The Request args for wp_remote_get() and wp_remote_post().
 	 *
 	 * @since 4.1.0
+	 * @see \WP_Http::request
 	 *
 	 * @var array
 	 */

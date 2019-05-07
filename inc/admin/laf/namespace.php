@@ -347,6 +347,7 @@ function replace_book_admin_menu() {
 						'redirectUrl' => admin_url( 'admin.php?page=pb_organize' ),
 						'unloadWarning' => __( 'Imports are not done. Leaving this page, now, will cause problems. Are you sure?', 'pressbooks' ),
 						'reloadSnippet' => '<em>(<a href="javascript:window.location.reload(true)">' . __( 'Reload', 'pressbooks' ) . '</a>)</em>',
+						'ajaxSubmitMsg' => __( 'Saving settings', 'pressbooks' ),
 					]
 				);
 				wp_enqueue_script( 'pb-import' );
@@ -1065,7 +1066,7 @@ function init_css_js() {
 	wp_register_script( 'cssanimations', $assets->getPath( 'scripts/cssanimations.js' ), false );
 	wp_register_script( 'pb-cloner', $assets->getPath( 'scripts/cloner.js' ), [ 'jquery', 'eventsource-polyfill' ] );
 	wp_register_script( 'pb-export', $assets->getPath( 'scripts/export.js' ), [ 'jquery', 'eventsource-polyfill' ] );
-	wp_register_script( 'pb-import', $assets->getPath( 'scripts/import.js' ), [ 'jquery', 'eventsource-polyfill' ] );
+	wp_register_script( 'pb-import', $assets->getPath( 'scripts/import.js' ), [ 'jquery', 'jquery-form', 'eventsource-polyfill' ] );
 	wp_register_script( 'pb-organize', $assets->getPath( 'scripts/organize.js' ), [ 'jquery', 'jquery-ui-core', 'jquery-ui-sortable', 'jquery-blockui', 'cssanimations' ] );
 	wp_register_script( 'pb-metadata', $assets->getPath( 'scripts/book-information.js' ), [ 'jquery' ], false, true );
 	wp_register_script( 'pb-post-visibility', $assets->getPath( 'scripts/post-visibility.js' ), [ 'jquery' ], false, true );
