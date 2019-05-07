@@ -96,12 +96,12 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 
 		add_settings_field(
 			'enable_thincc_weblinks',
-			__( 'Enable Thin CC Weblinks', 'pressbooks' ),
+			__( 'Enable CC with Weblinks', 'pressbooks' ),
 			[ $this, 'renderAllowThinCcWeblinks' ],
 			$_page,
 			$_section,
 			[
-				__( 'Allow users to produce Thin Common Cartridge exports with simple Web Links.', 'pressbooks' ),
+				__( 'Allow users to produce Common Cartridge exports with simple Web Links.', 'pressbooks' ),
 			]
 		);
 
