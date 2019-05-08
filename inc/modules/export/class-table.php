@@ -363,6 +363,9 @@ class Table extends \WP_List_Table {
 			case 'xml':
 				$pre_suffix = strstr( $file, '._vanilla.xml' );
 				break;
+			case 'imscc':
+				$pre_suffix = strstr( $file, '._1_1_weblinks' );
+				break;
 			default:
 				$pre_suffix = false;
 		}
@@ -378,6 +381,8 @@ class Table extends \WP_List_Table {
 			$file_class = 'epub3';
 		} elseif ( 'pdf' === $file_extension && '._print.pdf' === $pre_suffix ) {
 			$file_class = 'print-pdf';
+		} elseif ( 'imscc' === $file_extension && '._1_1_weblinks.imscc' === $pre_suffix ) {
+			$file_class = 'weblinks';
 		} else {
 			/**
 			 * Map custom export format file extensions to their CSS class.

@@ -187,6 +187,14 @@
           background-image: url(../images/odt-72.png);
         }
       }
+
+      &.weblinks {
+        background-image: url(../images/imscc-36.png);
+
+        @include hidpi {
+          background-image: url(../images/imscc-72.png);
+        }
+      }
     }
 
     &.large {
@@ -281,6 +289,14 @@
 
         @include hidpi {
           background-image: url(../images/odt-96.png);
+        }
+      }
+
+      &.weblinks {
+        background-image: url(../images/imscc-48.png);
+
+        @include hidpi {
+          background-image: url(../images/imscc-96.png);
         }
       }
     }

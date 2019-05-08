@@ -48,6 +48,7 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 			[ '\Pressbooks\Modules\Export\WordPress\VanillaWxr', false ],
 			// [ '\Pressbooks\Modules\Export\Odt\Odt', false ], // TODO: Download/install Saxon-HE in Travis build script
 			[ '\Pressbooks\Modules\Export\HTMLBook\HTMLBook', false ],
+			[ '\Pressbooks\Modules\Export\ThinCc\WebLinks', false ],
 		];
 
 	}

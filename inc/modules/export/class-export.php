@@ -627,7 +627,7 @@ abstract class Export {
 	/**
 	 * Catch form submissions
 	 *
-	 * @see pressbooks/templates/admin/export.php
+	 * @see pressbooks/templates/admin/export.blade.php
 	 */
 	static function formSubmit() {
 
@@ -720,6 +720,9 @@ abstract class Export {
 			}
 			if ( isset( $x['htmlbook'] ) ) {
 				$modules[] = '\Pressbooks\Modules\Export\HTMLBook\HTMLBook';
+			}
+			if ( isset( $x['weblinks'] ) ) {
+				$modules[] = '\Pressbooks\Modules\Export\ThinCC\WebLinks';
 			}
 
 			// --------------------------------------------------------------------------------------------------------

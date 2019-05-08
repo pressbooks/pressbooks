@@ -219,18 +219,22 @@ div.error {
 
 button.move-up,
 button.move-down,
-button.editinline {
+button.editinline,
+button.button-link {
   text-decoration: underline !important;
 }
 
 a.submitdelete.deletion,
 span.delete a,
 span.spam a,
-span.trash a.submitdelete,
+span.trash a,
 span#delete-link a.delete,
+span.approve a,
+span.unapprove a,
 button.move-up,
 button.move-down,
-button.editinline {
+button.editinline,
+button.button-link {
   color: darken($monza2, 5%) !important;
   &:hover {
     color: $highlight !important;

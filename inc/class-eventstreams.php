@@ -252,15 +252,19 @@ class EventStreams {
 	public function importBook() {
 		check_admin_referer( 'pb-import' );
 
-		// Backwards compatibility with older plugins
+		// Because there's a maximum $_GET length, and our form often exceeds it, we can't send ?url=parameters directly to EventSource
+		// The workaround is to submit using jQuery Form Plugin, set a transient, callback EventSource on done, pick up where we left off
+		$_POST = get_transient( 'pressbooks_current_import_POST' );
+		delete_transient( 'pressbooks_current_import_POST' );
+
 		$at_least_one = false;
-		foreach ( $_GET['chapters'] as $k => $v ) {
-			$_POST['chapters'][ $k ] = $v;
-			if ( is_array( $v ) && ! empty( $v['import'] ) ) {
-				$at_least_one = true;
+		if ( isset( $_POST['chapters'] ) ) {
+			foreach ( $_POST['chapters'] as $k => $v ) {
+				if ( is_array( $v ) && ! empty( $v['import'] ) ) {
+					$at_least_one = true;
+				}
 			}
 		}
-		$_POST['show_imports_in_web'] = $_GET['show_imports_in_web'] ?? 0;
 
 		if ( ! $at_least_one ) {
 			$this->emitOneTimeError( __( 'No chapters were selected for import.', 'pressbooks' ) );

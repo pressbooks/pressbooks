@@ -56,6 +56,8 @@ function is_valid_media( $path_to_file, $filename ) {
 }
 
 /**
+ * Replaces and wraps images that are effected by automatic WordPress paragraph tags.
+ *
  * @param string $content
  *
  * @return string
@@ -67,8 +69,15 @@ function force_wrap_images( $content ) {
 		'#<p[^>]*>\s*?(<a .*?><img class=\"([a-z0-9\- ]*).*?></a>)?\s*</p>#',
 	];
 	$replacement = '<div class="wp-nocaption $2">$1</div>';
+	$content = preg_replace( $pattern, $replacement, $content );
 
-	return preg_replace( $pattern, $replacement, $content );
+	$pattern = [
+		'#(<p[^>]*>)\s*?(<a .*?><img class=\"([a-z0-9\- ]*).*?></a>)?\s*<br />#',
+	];
+	$replacement = '<div class="wp-nocaption $3">$2</div>$1';
+	$content = preg_replace( $pattern, $replacement, $content );
+
+	return $content;
 }
 
 /**
