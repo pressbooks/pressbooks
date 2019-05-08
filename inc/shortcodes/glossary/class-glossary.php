@@ -176,7 +176,12 @@ class Glossary {
 				}
 				$glossary .= sprintf(
 					'<dt data-type="glossterm"><dfn id="%1$s">%2$s</dfn></dt><dd data-type="glossdef">%3$s</dd>',
-					sprintf( 'dfn-%s', \Pressbooks\Utility\str_lowercase_dash( $glossary_term_id ) ), $glossary_term_id, wpautop( $glossary_term['content'] )
+					sprintf(
+						'dfn-%s',
+						\Pressbooks\Sanitize\sanitize_xml_id( \Pressbooks\Utility\str_lowercase_dash( $glossary_term_id ) )
+					),
+					$glossary_term_id,
+					wpautop( $glossary_term['content'] )
 				);
 			}
 		}
