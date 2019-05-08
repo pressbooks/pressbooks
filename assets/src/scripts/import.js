@@ -5,40 +5,23 @@ import resetClock from './utils/resetClock';
 import startClock from './utils/startClock';
 
 jQuery( function ( $ ) {
-	// Step 1: Upload or sideload import data prior to selecting content for import.
-	$( '#pb-import-form-step-1' ).on( 'submit', function () {
-		$( 'input[type=submit]' ).attr( 'disabled', true );
-	} );
+	// Set element variables
+	const button = $( 'input[type=submit]' );
+	const bar = $( '#pb-sse-progressbar' );
+	const info = $( '#pb-sse-info' );
+	const notices = $( '.notice' );
 
-	// Step 2: Create posts from selected content.
-	const importForm = $( '#pb-import-form-step-2' );
-	importForm.on( 'submit', function ( e ) {
-		// Stop form from submitting
-		e.preventDefault();
+	// Init clock
+	let clock = null;
 
-		// Set element variables
-		const button = $( 'input[type=submit]' );
-		const bar = $( '#pb-sse-progressbar' );
-		const info = $( '#pb-sse-info' );
-		const notices = $( '.notice' );
-
-		// Init clock
-		let clock = null;
-
-		// Show bar, hide button
-		bar.val( 0 ).show();
-		button.attr( 'disabled', true );
-		notices.remove();
+	let eventSourceHandler = function () {
 
 		// Initialize event data
-		// TODO: There's a maximum $_GET and we are probably exceeding it
-		const eventSourceUrl = PB_ImportToken.ajaxUrl + ( PB_ImportToken.ajaxUrl.includes( '?' ) ? '&' : '?' ) + $.param( importForm.find( ':checked' ) );
+		const eventSourceUrl = PB_ImportToken.ajaxUrl;
 		const evtSource = new EventSource( eventSourceUrl );
 
 		// Handle open
 		evtSource.onopen = function () {
-			// Start clock
-			clock = startClock();
 			// Warn the user if they navigate away
 			$( window ).on( 'beforeunload', function () {
 				// In some browsers, the return value of the event is displayed in this dialog. Starting with Firefox 44, Chrome 51, Opera 38 and Safari 9.1, a generic string not under the control of the webpage will be shown.
@@ -84,5 +67,36 @@ jQuery( function ( $ ) {
 				resetClock( clock );
 			}
 		};
+
+	};
+
+	// Step 1: Upload or sideload import data prior to selecting content for import.
+	$( '#pb-import-form-step-1' ).on( 'submit', function () {
+		$( 'input[type=submit]' ).attr( 'disabled', true );
+	} );
+
+	// Step 2: Create posts from selected content.
+	const importForm = $( '#pb-import-form-step-2' );
+	importForm.on( 'submit', function ( e ) {
+		// Stop form from submitting
+		e.preventDefault();
+
+		// Show bar, hide button
+		bar.val( 0 ).show();
+		button.attr( 'disabled', true );
+		notices.remove();
+
+		clock = startClock();
+		info.html( PB_ImportToken.ajaxSubmitMsg );
+
+		// Save the WP options and WP Media before triggering the generator
+		// @see https://github.com/jquery-form/form
+		$( this ).ajaxSubmit( {
+			done: eventSourceHandler(),
+			timeout: 0, // A value of 0 means there will be no timeout.
+		} );
+
+		// Return false to prevent normal browser submit and page navigation.
+		return false;
 	} );
 } );

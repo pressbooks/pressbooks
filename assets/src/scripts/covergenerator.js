@@ -80,6 +80,8 @@ jQuery( function ( $ ) {
 				return PB_CoverGeneratorToken.unloadWarning;
 			} );
 		};
+
+		// Handle message
 		evtSource.onmessage = function ( message ) {
 			let data = JSON.parse( message.data );
 			switch ( data.action ) {
@@ -106,6 +108,8 @@ jQuery( function ( $ ) {
 					break;
 			}
 		};
+
+		// Handle error
 		evtSource.onerror = function () {
 			evtSource.close();
 			bar.removeAttr( 'value' );
@@ -130,7 +134,7 @@ jQuery( function ( $ ) {
 		// @see https://github.com/jquery-form/form
 		$( this ).ajaxSubmit( {
 			done: eventSourceHandler( fileType ),
-			timeout: 5000,
+			timeout: 0, // A value of 0 means there will be no timeout.
 		} );
 
 		// Return false to prevent normal browser submit and page navigation.

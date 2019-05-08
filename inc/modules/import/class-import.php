@@ -249,6 +249,7 @@ abstract class Import {
 		// Determine at what stage of the import we are and do something about it
 
 		$redirect_url = get_admin_url( get_current_blog_id(), '/tools.php?page=pb_import' );
+		$current_import = get_option( 'pressbooks_current_import' );
 
 		// Revoke
 		if ( ! empty( $_GET['revoke'] ) && check_admin_referer( 'pb-revoke-import' ) ) {
@@ -256,8 +257,15 @@ abstract class Import {
 			\Pressbooks\Redirect\location( $redirect_url );
 		}
 
-		if ( isset( $_GET['import'] ) && ! empty( $_POST['import_type'] ) && check_admin_referer( 'pb-import' ) ) {
-			self::setImportOptions(); // STEP 1
+		if ( ! empty( $_GET['import'] ) && isset( $_POST['chapters'] ) && is_array( $_POST['chapters'] ) && is_array( $current_import ) && check_admin_referer( 'pb-import' ) ) {
+			// STEP 2
+			// Because there's a maximum $_GET length, and our form often exceeds it, we can't send ?url=parameters directly to EventSource
+			// The workaround is to submit using jQuery Form Plugin, set a transient, callback EventSource on done, pick up where we left off
+			set_transient( 'pressbooks_current_import_POST', $_POST, 5 * MINUTE_IN_SECONDS ); // STEP 2
+			wp_send_json( 'Created', 201 );
+		} elseif ( isset( $_GET['import'] ) && ! empty( $_POST['import_type'] ) && check_admin_referer( 'pb-import' ) ) {
+			// STEP 1
+			self::setImportOptions();
 		}
 
 		// Default, back to form
