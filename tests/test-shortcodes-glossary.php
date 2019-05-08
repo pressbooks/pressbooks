@@ -63,7 +63,7 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 		$p3 = $this->factory()->post->create_object( $args3 );
 		wp_set_object_terms( $p3, 'definitions', 'glossary-type' );
 		$p4 = $this->factory()->post->create_object( $args4 );
-		wp_set_object_terms( $p4, 'definitions', 'glossary-type' );
+		wp_set_object_terms( $p4, 'id-test', 'glossary-type' );
 	}
 	/**
 	 * @group glossary
@@ -100,10 +100,11 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 	public function test_glossaryTerms() {
 		// assures alphabetical listing and format
 		$dl = $this->gl->glossaryTerms();
-		var_dump( $dl );
 		$this->assertEquals( '<dl data-type="glossary"><dt data-type="glossterm"><dfn id="dfn-machine-learning-ml">Machine Learning (ML)</dfn></dt><dd data-type="glossdef"><p>Machine learning is a method of data analysis that automates analytical model building</p>
 </dd><dt data-type="glossterm"><dfn id="dfn-neural-network">Neural Network</dfn></dt><dd data-type="glossdef"><p>A computer system modeled on the human brain and <a href="https://en.wikipedia.org/wiki/Nervous_system" target="_blank">nervous system</a>.</p>
-</dd><dt data-type="glossterm"><dfn id="dfn-support-vector-machine">Support Vector Machine</dfn></dt><dd data-type="glossdef"><p>An algorithm that uses a nonlinear mapping to transform the original training data into a higher dimension</p></dd></dl>', $dl );
+</dd><dt data-type="glossterm"><dfn id="dfn-support-vector-machine">Support Vector Machine</dfn></dt><dd data-type="glossdef"><p>An algorithm that uses a nonlinear mapping to transform the original training data into a higher dimension</p>
+</dd></dl>'
+		, $dl );
 		// assures found by type
 		$dl = $this->gl->glossaryTerms( 'definitions' );
 		$this->assertEquals( '<dl data-type="glossary"><dt data-type="glossterm"><dfn id="dfn-support-vector-machine">Support Vector Machine</dfn></dt><dd data-type="glossdef"><p>An algorithm that uses a nonlinear mapping to transform the original training data into a higher dimension</p>
@@ -111,9 +112,10 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 		// assures empty (because this type is not found)
 		$dl = $this->gl->glossaryTerms( 'nothing-to-find' );
 		$this->assertEmpty( $dl );
-		// Assures 'id' is sanitized to pass checks
-		$dl = $this->gl->glossaryTerms();
-		$this->assertEquals( '<dt data-type="glossterm"><dfn id="dfn-machine-learning-ml">Machine Learning (ML)</dfn></dt><dd data-type="glossdef"><p>Machine learning is a method of data analysis that automates analytical model building</p></dd>' );
+		// // Assures 'id' is sanitized to pass checks
+		$dl = $this->gl->glossaryTerms( 'id-test' );
+		$this->assertEquals( '<dl data-type="glossary"><dt data-type="glossterm"><dfn id="dfn-machine-learning-ml">Machine Learning (ML)</dfn></dt><dd data-type="glossdef"><p>Machine learning is a method of data analysis that automates analytical model building</p>
+</dd></dl>', $dl );
 	}
 	/**
 	 * @group glossary
