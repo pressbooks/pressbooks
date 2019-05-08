@@ -49,6 +49,12 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 			'post_content' => 'This term is not done so the status is private.',
 			'post_status'  => 'private',
 		];
+		$args4 = [
+			'post_type'    => 'glossary',
+			'post_title'   => 'Machine Learning (ML)',
+			'post_content' => 'Machine learning is a method of data analysis that automates analytical model building',
+			'post_status'  => 'publish',
+		];
 
 		$p1 = $this->factory()->post->create_object( $args1 );
 		wp_set_object_terms( $p1, 'definitions', 'glossary-type' );
@@ -56,6 +62,8 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 		wp_set_object_terms( $p2, [ 'something', 'else' ], 'glossary-type' );
 		$p3 = $this->factory()->post->create_object( $args3 );
 		wp_set_object_terms( $p3, 'definitions', 'glossary-type' );
+		$p4 = $this->factory()->post->create_object( $args4 );
+		wp_set_object_terms( $p4, 'definitions', 'glossary-type' );
 	}
 	/**
 	 * @group glossary
@@ -92,9 +100,10 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 	public function test_glossaryTerms() {
 		// assures alphabetical listing and format
 		$dl = $this->gl->glossaryTerms();
-		$this->assertEquals( '<dl data-type="glossary"><dt data-type="glossterm"><dfn id="dfn-neural-network">Neural Network</dfn></dt><dd data-type="glossdef"><p>A computer system modeled on the human brain and <a href="https://en.wikipedia.org/wiki/Nervous_system" target="_blank">nervous system</a>.</p>
-</dd><dt data-type="glossterm"><dfn id="dfn-support-vector-machine">Support Vector Machine</dfn></dt><dd data-type="glossdef"><p>An algorithm that uses a nonlinear mapping to transform the original training data into a higher dimension</p>
-</dd></dl>', $dl );
+		var_dump( $dl );
+		$this->assertEquals( '<dl data-type="glossary"><dt data-type="glossterm"><dfn id="dfn-machine-learning-ml">Machine Learning (ML)</dfn></dt><dd data-type="glossdef"><p>Machine learning is a method of data analysis that automates analytical model building</p>
+</dd><dt data-type="glossterm"><dfn id="dfn-neural-network">Neural Network</dfn></dt><dd data-type="glossdef"><p>A computer system modeled on the human brain and <a href="https://en.wikipedia.org/wiki/Nervous_system" target="_blank">nervous system</a>.</p>
+</dd><dt data-type="glossterm"><dfn id="dfn-support-vector-machine">Support Vector Machine</dfn></dt><dd data-type="glossdef"><p>An algorithm that uses a nonlinear mapping to transform the original training data into a higher dimension</p></dd></dl>', $dl );
 		// assures found by type
 		$dl = $this->gl->glossaryTerms( 'definitions' );
 		$this->assertEquals( '<dl data-type="glossary"><dt data-type="glossterm"><dfn id="dfn-support-vector-machine">Support Vector Machine</dfn></dt><dd data-type="glossdef"><p>An algorithm that uses a nonlinear mapping to transform the original training data into a higher dimension</p>
@@ -102,7 +111,9 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 		// assures empty (because this type is not found)
 		$dl = $this->gl->glossaryTerms( 'nothing-to-find' );
 		$this->assertEmpty( $dl );
-
+		// Assures 'id' is sanitized to pass checks
+		$dl = $this->gl->glossaryTerms();
+		$this->assertEquals( '<dt data-type="glossterm"><dfn id="dfn-machine-learning-ml">Machine Learning (ML)</dfn></dt><dd data-type="glossdef"><p>Machine learning is a method of data analysis that automates analytical model building</p></dd>' );
 	}
 	/**
 	 * @group glossary
@@ -123,7 +134,7 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 	 */
 	public function test_getGlossaryTerms() {
 		$terms = $this->gl->getGlossaryTerms();
-		$this->assertEquals( 3, count( $terms ) );
+		$this->assertEquals( 4, count( $terms ) );
 		$this->assertEquals( 'A computer system modeled on the human brain and <a href="https://en.wikipedia.org/wiki/Nervous_system" target="_blank">nervous system</a>.', $terms['Neural Network']['content'] );
 		$this->assertEquals( 'else,something', $terms['Neural Network']['type'] );
 		$this->assertEquals( 'publish', $terms['Neural Network']['status'] );
