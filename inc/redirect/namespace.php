@@ -590,10 +590,8 @@ function break_reset_password_loop( $redirect_to, $requested_redirect_to, $user 
 		}
 		parse_str( $parsed_url['query'] ?? '', $parsed_query );
 		if ( isset( $parsed_query['action'] ) && ( $parsed_query['action'] === 'resetpass' || $parsed_query['action'] === 'rp' ) ) {
-			if ( empty( $parsed_query['key'] ) ) {
-				// Break the loop
-				return admin_url();
-			}
+			// Break the loop
+			return admin_url();
 		}
 	}
 	return $redirect_to;
