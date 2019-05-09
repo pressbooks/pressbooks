@@ -567,3 +567,34 @@ function allow_programmatic_login( $user, $username, $password ) {
 	}
 	return false;
 }
+
+/**
+ * Break Password Redirect Key Loop (WordPress bug)
+ *
+ * @see https://core.trac.wordpress.org/ticket/45367
+ *
+ * @param string $redirect_to The redirect destination URL.
+ * @param string $requested_redirect_to The requested redirect destination URL passed as a parameter.
+ * @param \WP_User|\WP_Error $user
+ *
+ * @return string
+ */
+function break_reset_password_loop( $redirect_to, $requested_redirect_to, $user ) {
+	if ( $user && $user instanceof \WP_User ) {
+		$parsed_url = wp_parse_url( $redirect_to );
+		if ( $parsed_url === false ) {
+			return $redirect_to;
+		}
+		if ( strpos( $parsed_url['path'], 'wp-login.php' ) === false ) {
+			return $redirect_to;
+		}
+		parse_str( $parsed_url['query'] ?? '', $parsed_query );
+		if ( isset( $parsed_query['action'] ) && ( $parsed_query['action'] === 'resetpass' || $parsed_query['action'] === 'rp' ) ) {
+			if ( empty( $parsed_query['key'] ) ) {
+				// Break the loop
+				return admin_url();
+			}
+		}
+	}
+	return $redirect_to;
+}

@@ -134,4 +134,23 @@ class RedirectTest extends \WP_UnitTestCase {
 		$this->assertEquals( $logged_in->user_login, $user->user_login );
 	}
 
+	public function test_break_reset_password_loop() {
+		$user_id = $this->factory()->user->create( [ 'role' => 'subscriber' ] );
+		$user = get_userdata( $user_id );
+		$requested_redirect_to = 'ignored';
+
+		$redirect_to = 'wp-login.php?action=resetpass';
+		$url = \Pressbooks\Redirect\break_reset_password_loop( $redirect_to, $requested_redirect_to, $user );
+		$this->assertEquals( admin_url(), $url );
+
+		$redirect_to = 'wp-login.php?action=rp';
+		$requested_redirect_to = 'ignored';
+		$url = \Pressbooks\Redirect\break_reset_password_loop( $redirect_to, $requested_redirect_to, $user );
+		$this->assertEquals( admin_url(), $url );
+
+		$user = new WP_Error();
+		$url = \Pressbooks\Redirect\break_reset_password_loop( $redirect_to, $requested_redirect_to, $user );
+		$this->assertNotEquals( admin_url(), $url );
+	}
+
 }
