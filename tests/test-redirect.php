@@ -148,6 +148,11 @@ class RedirectTest extends \WP_UnitTestCase {
 		$url = \Pressbooks\Redirect\break_reset_password_loop( $redirect_to, $requested_redirect_to, $user );
 		$this->assertEquals( admin_url(), $url );
 
+		$redirect_to = '';
+		$url = \Pressbooks\Redirect\break_reset_password_loop( $redirect_to, $requested_redirect_to, $user );
+		$this->assertNotEquals( admin_url(), $url );
+
+		$redirect_to = 'wp-login.php?action=rp';
 		$user = new WP_Error();
 		$url = \Pressbooks\Redirect\break_reset_password_loop( $redirect_to, $requested_redirect_to, $user );
 		$this->assertNotEquals( admin_url(), $url );

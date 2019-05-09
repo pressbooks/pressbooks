@@ -585,7 +585,7 @@ function break_reset_password_loop( $redirect_to, $requested_redirect_to, $user 
 		if ( $parsed_url === false ) {
 			return $redirect_to;
 		}
-		if ( strpos( $parsed_url['path'], 'wp-login.php' ) === false ) {
+		if ( strpos( $parsed_url['path'] ?? '', 'wp-login.php' ) === false ) {
 			return $redirect_to;
 		}
 		parse_str( $parsed_url['query'] ?? '', $parsed_query );
