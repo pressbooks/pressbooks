@@ -29,6 +29,9 @@ function session_start() {
 		if ( ! headers_sent() ) {
 			ini_set( 'session.use_only_cookies', true );
 			ini_set( 'session.cookie_domain', COOKIE_DOMAIN );
+			if ( is_ssl() ) {
+				ini_set( 'session.cookie_secure', true );
+			}
 
 			$options = [];
 			if ( use_non_blocking_session() ) {

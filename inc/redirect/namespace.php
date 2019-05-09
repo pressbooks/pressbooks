@@ -35,52 +35,10 @@ function location( $href ) {
 
 
 /**
- * Change redirect upon login to user's My Catalog page
- *
- * @param string $redirect_to
- * @param string $request_redirect_to
- * @param \WP_User $user
- *
- * @return string
- */
-function login( $redirect_to, $request_redirect_to, $user ) {
-
-	if ( false === is_a( $user, 'WP_User' ) ) {
-		// Unknown user, bail with default
-		return $redirect_to;
-	}
-
-	if ( is_super_admin( $user->ID ) ) {
-		// This is an admin, don't mess
-		return $redirect_to;
-	}
-
-	$blogs = get_blogs_of_user( $user->ID );
-	if ( array_key_exists( get_current_blog_id(), $blogs ) ) {
-		// Yes, user has access to this blog
-		return $redirect_to;
-	}
-
-	if ( $user->primary_blog ) {
-		// Force redirect the user to their blog or, if they have more than one, to their catalog, bypass wp_safe_redirect()
-		if ( count( $blogs ) > 1 ) {
-			$redirect = get_blogaddress_by_id( $user->primary_blog ) . 'wp-admin/index.php?page=pb_catalog';
-		} else {
-			$redirect = get_blogaddress_by_id( $user->primary_blog ) . 'wp-admin/';
-		}
-		location( $redirect );
-	}
-
-	// User has no primary_blog? Make them sign-up for one
-	return network_site_url( '/wp-signup.php' );
-}
-
-
-/**
  * Centralize flush_rewrite_rules() in one single function so that rule does not kill the other
  */
 function flusher() {
-	$number = 3; // Increment this number when you need to re-run flush_rewrite_rules()
+	$number = 3; // Increment this number when you need to re-run flush_rewrite_rules() on next code deployment
 	if ( absint( get_option( 'pressbooks_flusher', 1 ) ) < $number ) {
 		flush_rewrite_rules( false );
 		update_option( 'pressbooks_flusher', $number );
@@ -608,4 +566,33 @@ function allow_programmatic_login( $user, $username, $password ) {
 		return $user;
 	}
 	return false;
+}
+
+/**
+ * Break Password Redirect Key Loop (WordPress bug)
+ *
+ * @see https://core.trac.wordpress.org/ticket/45367
+ *
+ * @param string $redirect_to The redirect destination URL.
+ * @param string $requested_redirect_to The requested redirect destination URL passed as a parameter.
+ * @param \WP_User|\WP_Error $user
+ *
+ * @return string
+ */
+function break_reset_password_loop( $redirect_to, $requested_redirect_to, $user ) {
+	if ( $user && $user instanceof \WP_User ) {
+		$parsed_url = wp_parse_url( $redirect_to );
+		if ( $parsed_url === false ) {
+			return $redirect_to;
+		}
+		if ( strpos( $parsed_url['path'] ?? '', 'wp-login.php' ) === false ) {
+			return $redirect_to;
+		}
+		parse_str( $parsed_url['query'] ?? '', $parsed_query );
+		if ( isset( $parsed_query['action'] ) && ( $parsed_query['action'] === 'resetpass' || $parsed_query['action'] === 'rp' ) ) {
+			// Break the loop
+			return admin_url();
+		}
+	}
+	return $redirect_to;
 }
