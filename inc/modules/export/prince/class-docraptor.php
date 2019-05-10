@@ -105,7 +105,7 @@ class Docraptor extends Pdf {
 						}
 						$result = \download_url( $status_response->getDownloadUrl() );
 						if ( is_wp_error( $result ) ) {
-							$_SESSION['pb_errors'][] = __( 'Your PDF could not be retrieved.', 'pressbooks-docraptor' );
+							$_SESSION['pb_errors'][] = __( 'Your PDF could not be retrieved.', 'pressbooks' );
 						} else {
 							copy( $result, $this->outputPath );
 							unlink( $result );
