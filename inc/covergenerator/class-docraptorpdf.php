@@ -76,7 +76,7 @@ class DocraptorPdf extends Generator {
 	 */
 	public function __construct( Input $input ) {
 		$this->pdfProfile = apply_filters( 'pb_pdf_for_print_profile', 'PDF/X-1a:2003' );
-		$this->pdfOutputIntent = plugins_url( 'pressbooks-docraptor/assets/icc/USWebCoatedSWOP.icc' );
+		$this->pdfOutputIntent = PB_PLUGIN_URL . 'assets/icc/USWebCoatedSWOP.icc';
 		parent::__construct( $input );
 	}
 

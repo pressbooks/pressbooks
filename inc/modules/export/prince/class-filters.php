@@ -71,8 +71,8 @@ class Filters {
 	public function addToFormats( $formats ) {
 		$formats['standard'] =
 			[
-				'docraptor_print' => __( 'PDF (for print)', 'pressbooks-docraptor' ),
-				'docraptor' => __( 'PDF (for digital distribution)', 'pressbooks-docraptor' ),
+				'docraptor_print' => __( 'PDF (for print)', 'pressbooks' ),
+				'docraptor' => __( 'PDF (for digital distribution)', 'pressbooks' ),
 			] + $formats['standard'];
 
 		unset( $formats['standard']['pdf'] );
