@@ -1,6 +1,5 @@
 === Pressbooks ===
 Contributors: Pressbooks <code@pressbooks.com>
-Donate link: https://opencollective.com/pressbooks
 Tags: ebooks, publishing, webbooks
 Requires at least: 5.2
 Tested up to: 5.2
