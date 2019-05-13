@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6adaf9896db91fb46cffa1c00fe72498",
+    "content-hash": "d5d24780e441bafb9646197e37fea721",
     "packages": [
         {
             "name": "composer/installers",
@@ -1307,24 +1307,25 @@
         },
         {
             "name": "pressbooks/pb-cli",
-            "version": "1.8.2",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pressbooks/pb-cli.git",
-                "reference": "71335f06f0a404ecbccf55e2ac8e929a94d744a7"
+                "reference": "e907c95299221a55f7c713e65a29e579031674ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pressbooks/pb-cli/zipball/71335f06f0a404ecbccf55e2ac8e929a94d744a7",
-                "reference": "71335f06f0a404ecbccf55e2ac8e929a94d744a7",
+                "url": "https://api.github.com/repos/pressbooks/pb-cli/zipball/e907c95299221a55f7c713e65a29e579031674ff",
+                "reference": "e907c95299221a55f7c713e65a29e579031674ff",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.0"
+                "php": ">=7.1"
             },
             "require-dev": {
                 "behat/behat": "~2.5",
-                "wp-cli/wp-cli": "^1.5"
+                "wp-cli/i18n-command": "dev-master",
+                "wp-cli/wp-cli": "^2"
             },
             "type": "wp-cli-package",
             "extra": {
@@ -1333,10 +1334,14 @@
                     "pb issue-template",
                     "pb theme lock",
                     "pb theme unlock",
-                    "pb clone"
+                    "pb clone",
+                    "pb make-pot"
                 ]
             },
             "autoload": {
+                "psr-4": {
+                    "Pressbooks_CLI\\": "inc/"
+                },
                 "files": [
                     "command.php"
                 ]
@@ -1347,7 +1352,7 @@
             ],
             "description": "A suite of wp-cli commands for Pressbooks.",
             "homepage": "https://github.com/pressbooks/pb-cli/",
-            "time": "2018-04-12T15:00:10+00:00"
+            "time": "2019-03-22T14:21:03+00:00"
         },
         {
             "name": "psr/http-message",
