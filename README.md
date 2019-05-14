@@ -29,7 +29,7 @@ Pressbooks is free software, released under the
 Our web/ebook and [PDF][pdf] exports are all driven by HTML + CSS. XML outputs have
 no styling.
 
-[pdf]: http://pressbooks.com/prince "Note: we use the non-free software PrinceXML for PDF export."
+[pdf]: https://docraptor.com/blog/docraptor-vs-princexml/ "Note: we use the non-free software PrinceXML for PDF export."
 
 ## Important!
 
