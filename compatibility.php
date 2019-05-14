@@ -29,7 +29,7 @@ function pb_meets_minimum_requirements() {
 
 	// PHP Version
 	global $pb_minimum_php;
-	$pb_minimum_php = '7.1.0';
+	$pb_minimum_php = '7.3.0';
 
 	// WordPress Version
 	global $pb_minimum_wp;

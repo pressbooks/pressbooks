@@ -12,8 +12,7 @@ branches:
   - hotfix
   - "/\\d+\\.\\d+(\\.\\d+)?(-\\S*)?$/"
 php:
-- 7.1
-- 7.2
+- 7.3
 - nightly
 env:
 - WP_VERSION=latest WP_MULTISITE=1 TRAVIS_NODE_VERSION="8"
@@ -49,8 +48,8 @@ before_script:
 script:
 - npm run lint
 - npm run build:production
-- if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.1" ]]; then phpdbg -qrr -d memory_limit=-1 vendor/bin/phpunit --configuration phpunit.xml --coverage-clover coverage.xml; fi
-- if [[ ${TRAVIS_PHP_VERSION:0:3} != "7.1" ]]; then vendor/bin/phpunit --configuration phpunit.xml; fi
+- if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.3" ]]; then phpdbg -qrr -d memory_limit=-1 vendor/bin/phpunit --configuration phpunit.xml --coverage-clover coverage.xml; fi
+- if [[ ${TRAVIS_PHP_VERSION:0:3} != "7.3" ]]; then vendor/bin/phpunit --configuration phpunit.xml; fi
 - vendor/bin/phpcs --standard=phpcs.ruleset.xml *.php inc/ bin/
 after_success:
 - bash <(curl -s https://codecov.io/bash)

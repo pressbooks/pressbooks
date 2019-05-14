@@ -22,7 +22,7 @@
 	},
 	"config": {
 		"platform": {
-			"php": "7.1"
+			"php": "7.3"
 		}
 	},
 	"require": {
@@ -46,9 +46,8 @@
 		"fale/isbn": "^3.0"
 	},
 	"require-dev": {
-		"mybuilder/phpunit-accelerator": "^2.0",
-		"phpunit/phpunit": "^6.5",
-		"pressbooks/coding-standards": "^1.0"
+		"pressbooks/coding-standards": "^1.0",
+		"phpunit/phpunit": "^7"
 	},
 	"suggest": {
 		"pressbooks/pressbooks-book":
