@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d5d24780e441bafb9646197e37fea721",
+    "content-hash": "c39a4b36112c7de5bdc5311ba5d633c0",
     "packages": [
         {
             "name": "composer/installers",
@@ -128,28 +128,29 @@
         },
         {
             "name": "davidgorges/human-name-parser",
-            "version": "0.2.1",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/davidgorges/HumanNameParser.php.git",
-                "reference": "0418268e7c6fdb4f624cb6f977fa4e84278a3a60"
+                "reference": "eaa00aaac580fe47604ed7e9a52eda73dd45444c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/davidgorges/HumanNameParser.php/zipball/0418268e7c6fdb4f624cb6f977fa4e84278a3a60",
-                "reference": "0418268e7c6fdb4f624cb6f977fa4e84278a3a60",
+                "url": "https://api.github.com/repos/davidgorges/HumanNameParser.php/zipball/eaa00aaac580fe47604ed7e9a52eda73dd45444c",
+                "reference": "eaa00aaac580fe47604ed7e9a52eda73dd45444c",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3"
+                "php": ">=7.1"
             },
             "require-dev": {
-                "phpunit/phpunit": "3.7.*"
+                "phpstan/phpstan-shim": "^0.11.2",
+                "phpunit/phpunit": "7.*"
             },
             "type": "library",
             "autoload": {
-                "psr-0": {
-                    "HumanNameParser\\": "src/"
+                "psr-4": {
+                    "HumanNameParser\\": "src/HumanNameParser"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -167,7 +168,7 @@
                 }
             ],
             "description": "Parses a human name",
-            "time": "2014-10-08T19:01:21+00:00"
+            "time": "2019-03-10T15:43:47+00:00"
         },
         {
             "name": "docraptor/docraptor",
@@ -1013,16 +1014,16 @@
         },
         {
             "name": "masterminds/html5",
-            "version": "2.5.0",
+            "version": "2.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Masterminds/html5-php.git",
-                "reference": "b5d892a4bd058d61f736935d32a9c248f11ccc93"
+                "reference": "c961ca6a0a81dc6b55b6859b3f9ea7f402edf9ad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Masterminds/html5-php/zipball/b5d892a4bd058d61f736935d32a9c248f11ccc93",
-                "reference": "b5d892a4bd058d61f736935d32a9c248f11ccc93",
+                "url": "https://api.github.com/repos/Masterminds/html5-php/zipball/c961ca6a0a81dc6b55b6859b3f9ea7f402edf9ad",
+                "reference": "c961ca6a0a81dc6b55b6859b3f9ea7f402edf9ad",
                 "shasum": ""
             },
             "require": {
@@ -1039,7 +1040,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.4-dev"
+                    "dev-master": "2.6-dev"
                 }
             },
             "autoload": {
@@ -1076,7 +1077,7 @@
                 "serializer",
                 "xml"
             ],
-            "time": "2018-12-27T22:03:43+00:00"
+            "time": "2019-03-10T11:41:28+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -1686,16 +1687,16 @@
         },
         {
             "name": "yahnis-elsts/plugin-update-checker",
-            "version": "v4.5.1",
+            "version": "v4.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/YahnisElsts/plugin-update-checker.git",
-                "reference": "57a25d905a9a4db2fdb60bc8f0b0f861cc3ee110"
+                "reference": "45374e3c02126fbebebf0244c5d5da4c5e0166ac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/YahnisElsts/plugin-update-checker/zipball/57a25d905a9a4db2fdb60bc8f0b0f861cc3ee110",
-                "reference": "57a25d905a9a4db2fdb60bc8f0b0f861cc3ee110",
+                "url": "https://api.github.com/repos/YahnisElsts/plugin-update-checker/zipball/45374e3c02126fbebebf0244c5d5da4c5e0166ac",
+                "reference": "45374e3c02126fbebebf0244c5d5da4c5e0166ac",
                 "shasum": ""
             },
             "require": {
@@ -1727,7 +1728,7 @@
                 "theme updates",
                 "wordpress"
             ],
-            "time": "2019-01-04T17:13:39+00:00"
+            "time": "2019-04-02T17:56:11+00:00"
         }
     ],
     "packages-dev": [
