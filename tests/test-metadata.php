@@ -449,3 +449,9 @@ class MetadataTest extends \WP_UnitTestCase {
 		$this->assertContains( '<meta name="citation_author" content="Some Author">', $buffer );
 	}
 }
+
+function test_add_candela_citations(){
+	deactivate_plugins( 'candela-citation/candela-citation.php' );
+	$html = '<p>hello</p>';
+	$this->assertEquals( $html , \Pressbooks\Metadata\add_candela_citations( $html ) );
+}
