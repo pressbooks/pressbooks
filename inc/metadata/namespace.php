@@ -1036,6 +1036,13 @@ function add_citation_metadata() {
 	echo implode( "\n", $tags );
 }
 
+/**
+ * @see https://github.com/lumenlearning/candela-citation
+ *
+ * @since 5.8.1
+ *
+ * @return string
+ */
 function add_candela_citations( $content ){
 	$post = get_post();
 	if( is_file(WP_PLUGIN_DIR . '/candela-citation/candela-citation.php') ) {
