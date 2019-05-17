@@ -1910,7 +1910,7 @@ class Epub201 extends ExportGenerator {
 				if ( $sections ) {
 					$html .= '<ul class="sections">';
 					foreach ( $sections as $id => $title ) {
-						$html .= '<li class="section"><a href="' . $v['filename'] . '#' . $id . '"><span class="toc-subsection-title">' . Sanitize\decode( $title ) . '</span></a></li>';
+						$html .= '<li class="section"><a href="' . $v['filename'] . '#' . $id . '"><span class="toc-subsection-title">' . strip_shortcodes( Sanitize\decode( $title ) ) . '</span></a></li>';
 					}
 					$html .= '</ul>';
 				}
