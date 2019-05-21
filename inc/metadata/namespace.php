@@ -1044,11 +1044,16 @@ function add_citation_metadata() {
  * @return string
  */
 function add_candela_citations( $content ) {
-	$post = get_post();
 	if ( is_file( WP_PLUGIN_DIR . '/candela-citation/candela-citation.php' ) ) {
 		if ( is_plugin_active_for_network( 'candela-citation/candela-citation.php' ) || is_plugin_active( 'candela-citation/candela-citation.php' ) ) {
+			$post = get_post();
 			$citation = \Candela\Citation::renderCitation( $post->ID );
-			 $new_html = '
+			$meta = get_post_meta( $post->ID, CANDELA_CITATION_FIELD, true );
+			// $meta returns as a string of '[]'. Therefore its not returing a true value when checking if its empty
+			// The below works, but probably isnt proper
+			if ( $meta != "[]" ) {
+			var_dump( $meta );
+			$new_html = '
 			 <section class="citations-section" role="contentinfo">
 			 <h3>Candela Citations</h3>
 					 <div>
@@ -1058,7 +1063,8 @@ function add_candela_citations( $content ) {
 					 </div>
 			 </section>';
 
-			 $content .= $new_html;
+			$content .= $new_html;
+			}
 		}
 	}
 	return $content;
