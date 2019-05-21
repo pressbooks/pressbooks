@@ -1043,10 +1043,10 @@ function add_citation_metadata() {
  *
  * @return string
  */
-function add_candela_citations( $content ){
+function add_candela_citations( $content ) {
 	$post = get_post();
-	if( is_file(WP_PLUGIN_DIR . '/candela-citation/candela-citation.php') ) {
-		if( is_plugin_active_for_network( 'candela-citation/candela-citation.php' ) || is_plugin_active('candela-citation/candela-citation.php') ) {
+	if ( is_file( WP_PLUGIN_DIR . '/candela-citation/candela-citation.php' ) ) {
+		if ( is_plugin_active_for_network( 'candela-citation/candela-citation.php' ) || is_plugin_active( 'candela-citation/candela-citation.php' ) ) {
 			$citation = \Candela\Citation::renderCitation( $post->ID );
 			 $new_html = '
 			 <section class="citations-section" role="contentinfo">
