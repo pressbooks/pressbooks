@@ -1123,7 +1123,7 @@ class Xhtml11 extends ExportGenerator {
 							if ( $sections ) {
 								echo '<ul class="sections">';
 								foreach ( $sections as $id => $title ) {
-									echo '<li class="section"><a href="#' . $id . '"><span class="toc-subsection-title">' . Sanitize\decode( $title ) . '</span></a></li>';
+									echo '<li class="section"><a href="#' . $id . '"><span class="toc-subsection-title">' . strip_shortcodes( Sanitize\decode( $title ) ) . '</span></a></li>';
 								}
 								echo '</ul>';
 							}
@@ -1192,7 +1192,7 @@ class Xhtml11 extends ExportGenerator {
 						if ( $sections ) {
 							echo '<ul class="sections">';
 							foreach ( $sections as $id => $title ) {
-								echo '<li class="section"><a href="#' . $id . '"><span class="toc-subsection-title">' . $title . '</span></a></li>';
+								echo '<li class="section"><a href="#' . $id . '"><span class="toc-subsection-title">' . strip_shortcodes( $title ) . '</span></a></li>';
 							}
 							echo '</ul>';
 						}
