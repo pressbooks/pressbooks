@@ -1059,9 +1059,7 @@ function add_candela_citations( $content ) {
 			 </section>';
 
 			 $content .= $new_html;
-
 		}
-
 	}
 	return $content;
 }
