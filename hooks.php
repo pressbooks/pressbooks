@@ -114,6 +114,7 @@ if ( $is_book ) {
 add_action( 'init', '\Pressbooks\Sanitize\allow_post_content' );
 add_filter( 'the_content', '\Pressbooks\Sanitize\sanitize_webbook_content' );
 add_filter( 'the_export_content', '\Pressbooks\Sanitize\filter_export_content' );
+add_filter( 'the_content', 'Pressbooks\Metadata\add_candela_citations', 13 );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Images
