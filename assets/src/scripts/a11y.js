@@ -27,6 +27,11 @@ document.addEventListener( 'DOMContentLoaded', function () {
 	addAttribute( 'div.notice', 'role', 'status' );
 	addAttribute( 'div.error', 'role', 'alert' );
 
+	// Add aria-label attribute to color picker slider
+	// https://github.com/Automattic/Iris/issues/69
+	addAttribute( 'div.iris-slider.iris-strip', 'aria-label', 'Gradient selector' );
+	addAttribute( '.ui-slider-handle', 'aria-label', 'Gradient selector' );
+
 	// Add aria-label attributes to color picker palette boxes
 	// https://github.com/Automattic/Iris/issues/69
 	 ( function (){
