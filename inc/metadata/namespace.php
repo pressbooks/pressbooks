@@ -1038,6 +1038,7 @@ function add_citation_metadata() {
 
 /**
  * @see https://github.com/lumenlearning/candela-citation
+ * @see https://github.com/lumenlearning/candela-bombadil
  *
  * @since 5.8.1
  *
@@ -1046,9 +1047,24 @@ function add_citation_metadata() {
 function add_candela_citations( $content ) {
 	if ( is_file( WP_PLUGIN_DIR . '/candela-citation/candela-citation.php' ) ) {
 		if ( is_plugin_active_for_network( 'candela-citation/candela-citation.php' ) || is_plugin_active( 'candela-citation/candela-citation.php' ) ) {
-			$post = get_post();
-			$citation = \Candela\Citation::renderCitation( $post->ID );
-			$new_html = '
+
+			// Candela Citations, out-of-the-box, already works with exports using pb_append_front_matter_content,
+			// pb_append_chapter_content, and pb_append_back_matter_content filters. They also handle appending webbook
+			// chapters with the Bombadil Theme.
+			//
+			// For backwards compatibility, this function should only print Candela Citations when we are in a webbook chapter
+			// (that isn't Bombadil).
+
+			$is_book = Book::isBook();
+			$is_not_admin = ( ! is_admin() );
+			$is_not_bombadil = ( wp_get_theme()->get_stylesheet() !== 'candela-bombadil' );
+
+			if ( $is_book && $is_not_admin && $is_not_bombadil ) {
+				$post = get_post();
+				if ( $post ) {
+					$citation = \Candela\Citation::renderCitation( $post->ID );
+					if ( $citation ) {
+						$new_html = '
 			 <section class="citations-section" role="contentinfo">
 			 <h3>Candela Citations</h3>
 					 <div>
@@ -1057,8 +1073,10 @@ function add_candela_citations( $content ) {
 						 </div>
 					 </div>
 			 </section>';
-
-			$content .= $new_html;
+						$content .= $new_html;
+					}
+				}
+			}
 		}
 	}
 	return $content;
