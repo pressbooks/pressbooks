@@ -1048,11 +1048,6 @@ function add_candela_citations( $content ) {
 		if ( is_plugin_active_for_network( 'candela-citation/candela-citation.php' ) || is_plugin_active( 'candela-citation/candela-citation.php' ) ) {
 			$post = get_post();
 			$citation = \Candela\Citation::renderCitation( $post->ID );
-			$meta = get_post_meta( $post->ID, CANDELA_CITATION_FIELD, true );
-			// $meta returns as a string of '[]'. Therefore its not returing a true value when checking if its empty
-			// The below works, but probably isnt proper
-			if ( $meta != "[]" ) {
-			var_dump( $meta );
 			$new_html = '
 			 <section class="citations-section" role="contentinfo">
 			 <h3>Candela Citations</h3>
@@ -1064,7 +1059,6 @@ function add_candela_citations( $content ) {
 			 </section>';
 
 			$content .= $new_html;
-			}
 		}
 	}
 	return $content;
