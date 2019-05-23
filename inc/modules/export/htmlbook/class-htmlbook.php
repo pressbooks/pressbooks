@@ -1097,8 +1097,8 @@ class HTMLBook extends Export {
 							$sections = \Pressbooks\Book::getSubsections( $chapter['ID'] );
 							if ( $sections ) {
 								$li_sections = '<ol class="sections">';
-								foreach ( $sections as $id => $title ) {
-									$li_sections .= '<li class="section"><a href="#' . $id . '"><span class="toc-subsection-title">' . strip_shortcodes( Sanitize\decode( $title ) ) . '</span></a></li>';
+								foreach ( $sections as $id => $section_title ) {
+									$li_sections .= '<li class="section"><a href="#' . $id . '"><span class="toc-subsection-title">' . Sanitize\decode( $section_title ) . '</span></a></li>';
 								}
 								$li_sections .= '</ol>';
 								$li->appendContent( $li_sections );
@@ -1173,8 +1173,8 @@ class HTMLBook extends Export {
 						$sections = \Pressbooks\Book::getSubsections( $val['ID'] );
 						if ( $sections ) {
 							$li_sections = '<ol class="sections">';
-							foreach ( $sections as $id => $title ) {
-								$li_sections .= '<li class="section"><a href="#' . $id . '"><span class="toc-subsection-title">' . strip_shortcodes( Sanitize\decode( $title ) ) . '</span></a></li>';
+							foreach ( $sections as $id => $section_title ) {
+								$li_sections .= '<li class="section"><a href="#' . $id . '"><span class="toc-subsection-title">' . Sanitize\decode( $section_title ) . '</span></a></li>';
 							}
 							$li_sections .= '</ol>';
 							$li->appendContent( $li_sections );
