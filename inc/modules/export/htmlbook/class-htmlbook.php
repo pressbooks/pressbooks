@@ -1174,7 +1174,7 @@ class HTMLBook extends Export {
 						if ( $sections ) {
 							$li_sections = '<ol class="sections">';
 							foreach ( $sections as $id => $title ) {
-								$li_sections .= '<li class="section"><a href="#' . $id . '"><span class="toc-subsection-title">' . strip_shortcodes( $title ) . '</span></a></li>';
+								$li_sections .= '<li class="section"><a href="#' . $id . '"><span class="toc-subsection-title">' . strip_shortcodes( Sanitize\decode( $title ) ) . '</span></a></li>';
 							}
 							$li_sections .= '</ol>';
 							$li->appendContent( $li_sections );
