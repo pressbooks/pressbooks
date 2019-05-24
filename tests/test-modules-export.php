@@ -90,6 +90,6 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 		$_REQUEST['action'] = 'export-book';
 		$this->assertTrue( \Pressbooks\Modules\Export\Export::isFormSubmission() );
 		$this->_fakeAjaxDone( $reporting );
-		unset( $_REQUEST['action'], );
+		unset( $_REQUEST['action'] );
 	}
 }
