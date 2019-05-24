@@ -73,7 +73,7 @@ class Modules_ImportTest extends \WP_UnitTestCase {
 		$_REQUEST['action'] = 'import-book';
 		$this->assertFalse( $this->import::isFormSubmission() );
 		$this->_fakeAjaxDone( $reporting );
-		unset( $_REQUEST['action'], );
+		unset( $_REQUEST['action'] );
 	}
 
 }
