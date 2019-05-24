@@ -3,6 +3,9 @@
 require_once( PB_PLUGIN_DIR . 'inc/modules/export/namespace.php' );
 
 class Modules_ExportTest extends \WP_UnitTestCase {
+
+	use utilsTrait;
+
 	/**
 	 * @group export
 	 */
@@ -68,5 +71,25 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 		$data = \Pressbooks\Modules\Export\template_data();
 		$this->assertArrayHasKey( 'export_form_url', $data );
 		$this->assertArrayHasKey( 'formats', $data );
+	}
+
+	/**
+	 * @group export
+	 */
+	public function test_isFormSubmission() {
+
+		$this->assertFalse( \Pressbooks\Modules\Export\Export::isFormSubmission() );
+
+		$_REQUEST['page'] = 'pb_export';
+		$_SERVER['REQUEST_METHOD'] = 'POST';
+		$this->assertTrue( \Pressbooks\Modules\Export\Export::isFormSubmission() );
+		unset( $_REQUEST['page'], $_SERVER['REQUEST_METHOD'] );
+
+		// Assert that EventSource (Progress bar) returns true, import code works differently than export code
+		$reporting = $this->_fakeAjax();
+		$_REQUEST['action'] = 'export-book';
+		$this->assertTrue( \Pressbooks\Modules\Export\Export::isFormSubmission() );
+		$this->_fakeAjaxDone( $reporting );
+		unset( $_REQUEST['action'], );
 	}
 }

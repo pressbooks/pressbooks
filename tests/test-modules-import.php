@@ -66,6 +66,14 @@ class Modules_ImportTest extends \WP_UnitTestCase {
 		$_REQUEST['page'] = 'pb_import';
 		$_SERVER['REQUEST_METHOD'] = 'POST';
 		$this->assertTrue( $this->import::isFormSubmission() );
+		unset( $_REQUEST['page'], $_SERVER['REQUEST_METHOD'] );
+
+		// Assert that EventSource (Progress bar) returns false, import code works differently than export code
+		$reporting = $this->_fakeAjax();
+		$_REQUEST['action'] = 'import-book';
+		$this->assertFalse( $this->import::isFormSubmission() );
+		$this->_fakeAjaxDone( $reporting );
+		unset( $_REQUEST['action'], );
 	}
 
 }
