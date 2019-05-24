@@ -98,6 +98,7 @@ function replace_book_admin_menu() {
 	remove_submenu_page( 'tools.php', 'import.php' );
 	remove_submenu_page( 'tools.php', 'export.php' );
 	remove_submenu_page( 'tools.php', 'tools.php' );
+	remove_submenu_page( 'tools.php', 'site-health.php' );
 
 	// Organize
 	$organize_page = add_menu_page( __( 'Organize', 'pressbooks' ), __( 'Organize', 'pressbooks' ), 'edit_posts', 'pb_organize', __NAMESPACE__ . '\display_organize', 'dashicons-book' );

@@ -253,7 +253,8 @@ class EventStreams {
 		check_admin_referer( 'pb-import' );
 
 		// Because there's a maximum $_GET length, and our form often exceeds it, we can't send ?url=parameters directly to EventSource
-		// The workaround is to submit using jQuery Form Plugin, set a transient, callback EventSource on done, pick up where we left off
+		// The workaround is to submit using jQuery Form Plugin ($_POST), set a transient, callback EventSource on done ($_GET), pick up where we left off
+		// This code is for the $_GET parts:
 		$_POST = get_transient( 'pressbooks_current_import_POST' );
 		delete_transient( 'pressbooks_current_import_POST' );
 

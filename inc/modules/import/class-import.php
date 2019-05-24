@@ -260,9 +260,11 @@ abstract class Import {
 		if ( ! empty( $_GET['import'] ) && isset( $_POST['chapters'] ) && is_array( $_POST['chapters'] ) && is_array( $current_import ) && check_admin_referer( 'pb-import' ) ) {
 			// STEP 2
 			// Because there's a maximum $_GET length, and our form often exceeds it, we can't send ?url=parameters directly to EventSource
-			// The workaround is to submit using jQuery Form Plugin, set a transient, callback EventSource on done, pick up where we left off
+			// The workaround is to submit using jQuery Form Plugin ($_POST), set a transient, callback EventSource on done ($_GET), pick up where we left off
+			// This code is for the $_POST parts:
 			set_transient( 'pressbooks_current_import_POST', $_POST, 5 * MINUTE_IN_SECONDS ); // STEP 2
 			wp_send_json( 'Created', 201 );
+			// exit...
 		} elseif ( isset( $_GET['import'] ) && ! empty( $_POST['import_type'] ) && check_admin_referer( 'pb-import' ) ) {
 			// STEP 1
 			self::setImportOptions();
