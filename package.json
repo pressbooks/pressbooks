@@ -15,7 +15,6 @@
 		"node": ">= 6.9.4"
 	},
 	"dependencies": {
-		"@wordpress/i18n": "^3.4.0",
 		"block-ui": "^2.70.1",
 		"countup.js": "^1.8.5",
 		"event-source-polyfill": "^1.0.5",
