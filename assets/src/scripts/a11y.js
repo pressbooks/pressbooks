@@ -1,3 +1,5 @@
+const { __ } = wp.i18n
+
 document.addEventListener( 'DOMContentLoaded', function () {
 
 	function addAttribute( selector, att, val ){
@@ -29,8 +31,8 @@ document.addEventListener( 'DOMContentLoaded', function () {
 
 	// Add aria-label attribute to color picker slider
 	// https://github.com/Automattic/Iris/issues/69
-	addAttribute( 'div.iris-slider.iris-strip', 'aria-label', 'Gradient selector' );
-	addAttribute( '.ui-slider-handle', 'aria-label', 'Gradient selector' );
+	addAttribute( 'div.iris-slider.iris-strip', 'aria-label', __( 'Gradient selector', 'pressbooks' ) );
+	addAttribute( '.ui-slider-handle', 'aria-label', __( 'Gradient selector', 'pressbooks' ) );
 
 	// Add aria-label attributes to color picker palette boxes
 	// https://github.com/Automattic/Iris/issues/69
@@ -43,31 +45,31 @@ document.addEventListener( 'DOMContentLoaded', function () {
 			let color = '';
 
 			if ( rgb === 'rgb(0, 0, 0)' ){
-				color = 'black'
+				color = __( 'Black', 'pressbooks' )
 			}
 			if ( rgb === 'rgb(255, 255, 255)' ){
-				color = 'white'
+				color = __( 'White', 'pressbooks' )
 			}
 			if ( rgb === 'rgb(221, 51, 51)' ){
-				color = 'red'
+				color = __( 'Red', 'pressbooks' )
 			}
 			if ( rgb === 'rgb(221, 153, 51)' ){
-				color = 'orange'
+				color = __( 'Orange', 'pressbooks' )
 			}
 			if ( rgb === 'rgb(238, 238, 34)' ){
-				color = 'yellow'
+				color = __( 'Yellow', 'pressbooks' )
 			}
 			if ( rgb === 'rgb(129, 215, 66)' ){
-				color = 'green'
+				color = __( 'Green', 'pressbooks' )
 			}
 			if ( rgb === 'rgb(30, 115, 190)' ){
-				color = 'blue'
+				color = __( 'Blue', 'pressbooks' )
 			}
 			if ( rgb === 'rgb(130, 36, 227)' ){
-				color = 'purple'
+				color = __( 'Purple', 'pressbooks' )
 			}
 
-			irisPalette.setAttribute( 'aria-label', 'Select ' + color );
+			irisPalette.setAttribute( 'aria-label', __( 'Select ' + color, 'pressbooks' ) );
 		}
 	} )();
 } );
