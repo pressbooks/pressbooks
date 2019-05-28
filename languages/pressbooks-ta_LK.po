@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
-"POT-Creation-Date: 2019-05-13T15:49:09+00:00\n"
+"POT-Creation-Date: 2019-05-28T15:43:06+00:00\n"
 "PO-Revision-Date: 2019-05-13 15:49+0000\n"
 "Last-Translator: Dac Chartrand <dac@pressbooks.com>\n"
 "Language-Team: Tamil (http://www.transifex.com/pressbooks/pressbooks/language/ta/)\n"
@@ -23,7 +23,7 @@ msgstr ""
 "Language: ta\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Domain: pressbooks\n"
-"X-Generator: WP-CLI 2.0.1\n"
+"X-Generator: WP-CLI 2.2.0\n"
 
 #. Plugin Name of the plugin
 msgid "Pressbooks"
@@ -226,8 +226,8 @@ msgstr "தனிப்பட்ட "
 msgid "Public"
 msgstr "பொதுவான "
 
-#: inc/admin/class-catalog-list-table.php:461 inc/admin/laf/namespace.php:381
-#: inc/admin/laf/namespace.php:548 inc/admin/laf/namespace.php:777
+#: inc/admin/class-catalog-list-table.php:461 inc/admin/laf/namespace.php:382
+#: inc/admin/laf/namespace.php:549 inc/admin/laf/namespace.php:778
 msgid "My Catalog"
 msgstr "என் பட்டியல்"
 
@@ -316,7 +316,7 @@ msgid ""
 " when themes are updated."
 msgstr ""
 
-#: inc/admin/class-exportoptions.php:186 inc/admin/laf/namespace.php:326
+#: inc/admin/class-exportoptions.php:186 inc/admin/laf/namespace.php:327
 msgid "Export Settings"
 msgstr "ஏற்றுமதி அமைப்புகள்"
 
@@ -401,7 +401,7 @@ msgid ""
 "book, add the links to your book at the different retailers below:"
 msgstr ""
 
-#: inc/admin/class-publishoptions.php:298 inc/admin/laf/namespace.php:310
+#: inc/admin/class-publishoptions.php:298 inc/admin/laf/namespace.php:311
 msgid "Publish"
 msgstr "வெளியிடு"
 
@@ -414,7 +414,7 @@ msgstr ""
 msgid "Cover Generator"
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:39 inc/admin/laf/namespace.php:350
+#: inc/admin/covergenerator/namespace.php:39 inc/admin/laf/namespace.php:351
 msgid "Saving settings"
 msgstr ""
 
@@ -424,8 +424,8 @@ msgid ""
 "Are you sure?"
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:43 inc/admin/laf/namespace.php:286
-#: inc/admin/laf/namespace.php:349 inc/admin/laf/namespace.php:370
+#: inc/admin/covergenerator/namespace.php:43 inc/admin/laf/namespace.php:287
+#: inc/admin/laf/namespace.php:350 inc/admin/laf/namespace.php:371
 msgid "Reload"
 msgstr ""
 
@@ -648,7 +648,7 @@ msgstr ""
 msgid "My Book"
 msgstr "என் நூல்"
 
-#: inc/admin/dashboard/namespace.php:82 inc/admin/laf/namespace.php:708
+#: inc/admin/dashboard/namespace.php:82 inc/admin/laf/namespace.php:709
 msgid "Users"
 msgstr "பயனாளர்கள்"
 
@@ -674,7 +674,7 @@ msgstr ""
 msgid "at"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:133 inc/admin/laf/namespace.php:785
+#: inc/admin/dashboard/namespace.php:133 inc/admin/laf/namespace.php:786
 msgid "Create A New Book"
 msgstr ""
 
@@ -714,7 +714,7 @@ msgid "Add"
 msgstr "சேர்க்கவும்"
 
 #: inc/admin/dashboard/namespace.php:216 inc/admin/dashboard/namespace.php:299
-#: inc/admin/laf/namespace.php:103
+#: inc/admin/laf/namespace.php:104
 msgid "Organize"
 msgstr "ஒருங்கிணை"
 
@@ -723,8 +723,8 @@ msgid "%1$s total users: "
 msgstr ""
 
 #: inc/admin/dashboard/namespace.php:308 inc/admin/dashboard/namespace.php:309
-#: inc/admin/laf/namespace.php:692 inc/admin/laf/namespace.php:759
-#: inc/admin/laf/namespace.php:840
+#: inc/admin/laf/namespace.php:693 inc/admin/laf/namespace.php:760
+#: inc/admin/laf/namespace.php:841
 msgid "Dashboard"
 msgstr "கட்டுப்பாட்டகம்"
 
@@ -799,243 +799,243 @@ msgstr ""
 msgid "Site Map"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:70 inc/admin/laf/namespace.php:652
+#: inc/admin/laf/namespace.php:70 inc/admin/laf/namespace.php:653
 msgid "Contact"
 msgstr "தொடர்பு"
 
-#: inc/admin/laf/namespace.php:118
+#: inc/admin/laf/namespace.php:119
 msgid "private"
 msgstr "தனிமை"
 
-#: inc/admin/laf/namespace.php:119
+#: inc/admin/laf/namespace.php:120
 msgid "public"
 msgstr "வெளிப்படை"
 
-#: inc/admin/laf/namespace.php:121
+#: inc/admin/laf/namespace.php:122
 msgid "Updating book."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:122
+#: inc/admin/laf/namespace.php:123
 msgid "Updating chapters."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:123
+#: inc/admin/laf/namespace.php:124
 msgid "Updating part."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:124
+#: inc/admin/laf/namespace.php:125
 msgid "Updating front matter."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:125
+#: inc/admin/laf/namespace.php:126
 msgid "Updating back matter."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:128
+#: inc/admin/laf/namespace.php:129
 msgid "The book has been successfully updated!"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:129
+#: inc/admin/laf/namespace.php:130
 msgid "The chapters has been successfully updated!"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:130
+#: inc/admin/laf/namespace.php:131
 msgid "The part has been successfully updated!"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:131
+#: inc/admin/laf/namespace.php:132
 msgid "The front matter has been successfully updated!"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:132
+#: inc/admin/laf/namespace.php:133
 msgid "The back matter has been successfully updated!"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:135
+#: inc/admin/laf/namespace.php:136
 msgid "Sorry, the book could not be updated.!"
 msgstr "மன்னிக்க! இந்த நூலை இற்றைப்படுத்தல் இயலவில்லை"
 
-#: inc/admin/laf/namespace.php:136
+#: inc/admin/laf/namespace.php:137
 msgid "Sorry, the chapters could not be updated."
 msgstr "மன்னிக்க! இந்த அகராதியை இற்றைப்படுத்தல் இயலவில்லை"
 
-#: inc/admin/laf/namespace.php:137
+#: inc/admin/laf/namespace.php:138
 msgid "Sorry, the part could not be updated."
 msgstr "மன்னிக்க! இந்த பகுதியை இற்றைப்படுத்தல் இயலவில்லை"
 
-#: inc/admin/laf/namespace.php:138
+#: inc/admin/laf/namespace.php:139
 msgid "Sorry, the front matter could not be updated."
 msgstr "மன்னிக்க! முன் பகுதி செய்தியய் இற்றைப்படுத்தல் இயலவில்லை "
 
-#: inc/admin/laf/namespace.php:139
+#: inc/admin/laf/namespace.php:140
 msgid "Sorry, the back matter could not be updated."
 msgstr "மன்னிக்க! பின் பகுதி செய்தியய் இற்றைப்படுத்தல் இயலவில்லை"
 
-#: inc/admin/laf/namespace.php:149 inc/admin/laf/namespace.php:150
+#: inc/admin/laf/namespace.php:150 inc/admin/laf/namespace.php:151
 #: templates/admin/organize.php:68 templates/admin/organize.php:277
 msgid "Add Part"
 msgstr "பாகத்தைச் சேர்"
 
-#: inc/admin/laf/namespace.php:157 inc/admin/laf/namespace.php:158
+#: inc/admin/laf/namespace.php:158 inc/admin/laf/namespace.php:159
 #: templates/admin/organize.php:67
 msgid "Add Chapter"
 msgstr "அதிகாரத்தைச் சேர்"
 
-#: inc/admin/laf/namespace.php:165 inc/admin/laf/namespace.php:166
+#: inc/admin/laf/namespace.php:166 inc/admin/laf/namespace.php:167
 #: templates/admin/organize.php:65
 msgid "Add Front Matter"
 msgstr "முற்பகுதியைச் சேர்"
 
-#: inc/admin/laf/namespace.php:173 inc/admin/laf/namespace.php:174
+#: inc/admin/laf/namespace.php:174 inc/admin/laf/namespace.php:175
 #: templates/admin/organize.php:66
 msgid "Add Back Matter"
 msgstr "பிற்பகுதியைச் சேர்"
 
-#: inc/admin/laf/namespace.php:181 inc/admin/laf/namespace.php:182
+#: inc/admin/laf/namespace.php:182 inc/admin/laf/namespace.php:183
 #: inc/editor/namespace.php:132 inc/posttype/namespace.php:195
 msgid "Glossary Terms"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:189 inc/admin/laf/namespace.php:190
+#: inc/admin/laf/namespace.php:190 inc/admin/laf/namespace.php:191
 msgid "Chapter Types"
 msgstr "அகராதி வகைகள்"
 
-#: inc/admin/laf/namespace.php:197 inc/admin/laf/namespace.php:198
+#: inc/admin/laf/namespace.php:198 inc/admin/laf/namespace.php:199
 msgid "Front Matter Types"
 msgstr "முற்பகுதி வகைகள் "
 
-#: inc/admin/laf/namespace.php:205 inc/admin/laf/namespace.php:206
+#: inc/admin/laf/namespace.php:206 inc/admin/laf/namespace.php:207
 msgid "Back Matter Types"
 msgstr "பிற்பகுதி வகைகள்"
 
-#: inc/admin/laf/namespace.php:213 inc/admin/laf/namespace.php:214
+#: inc/admin/laf/namespace.php:214 inc/admin/laf/namespace.php:215
 msgid "Glossary Types"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:239
+#: inc/admin/laf/namespace.php:240
 #: inc/modules/import/wordpress/class-wxr.php:479
 #: inc/posttype/namespace.php:151
 msgid "Book Info"
 msgstr "நூல் விவரங்கள்"
 
-#: inc/admin/laf/namespace.php:250
+#: inc/admin/laf/namespace.php:251
 msgid "Choose a subject…"
 msgstr "தலைப்புப் பொருள்"
 
-#: inc/admin/laf/namespace.php:251
+#: inc/admin/laf/namespace.php:252
 msgid "Choose some subject(s)…"
 msgstr "தலைப்புப் பொருள் தேர்ந்தெடு"
 
-#: inc/admin/laf/namespace.php:261 inc/admin/laf/namespace.php:262
+#: inc/admin/laf/namespace.php:262 inc/admin/laf/namespace.php:263
 msgid "Contributors"
 msgstr "பங்களித்தவர்கள் "
 
-#: inc/admin/laf/namespace.php:268 inc/admin/laf/namespace.php:326
+#: inc/admin/laf/namespace.php:269 inc/admin/laf/namespace.php:327
 #: templates/admin/organize.php:64 templates/admin/export.blade.php:11
 msgid "Export"
 msgstr "ஏற்றுமதி "
 
-#: inc/admin/laf/namespace.php:281
+#: inc/admin/laf/namespace.php:282
 msgid "Are you sure you want to delete these export files?"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:282
+#: inc/admin/laf/namespace.php:283
 msgid "Up to 5 files can be pinned at once."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:283
+#: inc/admin/laf/namespace.php:284
 msgid "Cannot pin more than 3 of the same file type."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:287
+#: inc/admin/laf/namespace.php:288
 msgid ""
 "Too many pinned files. Deselect one of the pinned files before attempting to"
 " export."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:288
+#: inc/admin/laf/namespace.php:289
 msgid ""
 "Exports are not done. Leaving this page, now, will cause problems. Are you "
 "sure?"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:313 inc/admin/laf/namespace.php:528
-#: inc/admin/laf/namespace.php:1327
+#: inc/admin/laf/namespace.php:314 inc/admin/laf/namespace.php:529
+#: inc/admin/laf/namespace.php:1328
 #: inc/admin/network/class-sharingandprivacyoptions.php:266
 msgid "Sharing and Privacy Settings"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:313 inc/admin/laf/namespace.php:528
+#: inc/admin/laf/namespace.php:314 inc/admin/laf/namespace.php:529
 msgid "Sharing &amp; Privacy"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:331 inc/admin/laf/namespace.php:332
+#: inc/admin/laf/namespace.php:332 inc/admin/laf/namespace.php:333
 msgid "QuickLaTeX"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:340 templates/admin/import.php:38
+#: inc/admin/laf/namespace.php:341 templates/admin/import.php:38
 #: templates/admin/import.php:82
 msgid "Import"
 msgstr "இறக்குமதி"
 
-#: inc/admin/laf/namespace.php:348
+#: inc/admin/laf/namespace.php:349
 msgid ""
 "Imports are not done. Leaving this page, now, will cause problems. Are you "
 "sure?"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:361
+#: inc/admin/laf/namespace.php:362
 msgid "Clone a Book"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:369
+#: inc/admin/laf/namespace.php:370
 msgid ""
 "Cloning is not done. Leaving this page, now, will cause problems. Are you "
 "sure?"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:605 inc/admin/laf/namespace.php:616
+#: inc/admin/laf/namespace.php:606 inc/admin/laf/namespace.php:617
 msgid "About Pressbooks"
 msgstr "பிரஸ்புக்ஸ் பற்றி"
 
-#: inc/admin/laf/namespace.php:627
+#: inc/admin/laf/namespace.php:628
 msgid "Pressbooks.com"
 msgstr "பிரஸ்புக்ஸ்.காம்"
 
-#: inc/admin/laf/namespace.php:637
+#: inc/admin/laf/namespace.php:638
 msgid "Help"
 msgstr "உதவி"
 
-#: inc/admin/laf/namespace.php:681
+#: inc/admin/laf/namespace.php:682
 msgid "Network Admin"
 msgstr "வலைப்பின்னல் நிர்வாகி"
 
-#: inc/admin/laf/namespace.php:700 inc/admin/laf/namespace.php:1382
-#: inc/admin/laf/namespace.php:1392
+#: inc/admin/laf/namespace.php:701 inc/admin/laf/namespace.php:1383
+#: inc/admin/laf/namespace.php:1393
 msgid "Books"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:717
+#: inc/admin/laf/namespace.php:718
 msgid "Themes"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:725
+#: inc/admin/laf/namespace.php:726
 msgid "Plugins"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:767
+#: inc/admin/laf/namespace.php:768
 msgid "Visit Website"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:802
+#: inc/admin/laf/namespace.php:803
 msgid "Clone A Book"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:848
+#: inc/admin/laf/namespace.php:849
 msgid "Visit Book"
 msgstr "புத்தகத்தைப் பார்க்க"
 
-#: inc/admin/laf/namespace.php:1048
+#: inc/admin/laf/namespace.php:1049
 msgid ""
 "Are you sure you want to unlock your theme? This will update your book to "
 "the most recent version of your selected theme, which may change your "
@@ -1043,92 +1043,92 @@ msgid ""
 "page, this action will NOT be reversable!"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1111
+#: inc/admin/laf/namespace.php:1112
 msgid "Book Visibility"
 msgstr "நூல் காண்பு நிலை"
 
-#: inc/admin/laf/namespace.php:1125
+#: inc/admin/laf/namespace.php:1126
 msgid "Private Content"
 msgstr "தனிப்பட்ட கருத்து"
 
-#: inc/admin/laf/namespace.php:1138
+#: inc/admin/laf/namespace.php:1139
 msgid "Disable Comments"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1153
+#: inc/admin/laf/namespace.php:1154
 msgid "Share Latest Export Files"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1171
+#: inc/admin/laf/namespace.php:1172
 msgid "Sharing and Privacy settings"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1187
+#: inc/admin/laf/namespace.php:1188
 msgid "Public. I would like this book to be visible to everyone."
 msgstr "பொது.  நான் இப்புத்தகத்தை எல்லோரும் பார்க்கும் வண்ணம் வைத்திட விரும்புகிறேன். "
 
-#: inc/admin/laf/namespace.php:1193
+#: inc/admin/laf/namespace.php:1194
 msgid ""
 "Private. I would like this book to be accessible only to people I invite."
 msgstr "தனிப்பயனுக்கானது. இந்நூலை நான் அழைப்பவர் மட்டும் காணத்தக்கதாக்க விரும்புகிறேன்."
 
-#: inc/admin/laf/namespace.php:1217
+#: inc/admin/laf/namespace.php:1218
 msgid "Who can see private front matter, chapters and back matter?"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1220
+#: inc/admin/laf/namespace.php:1221
 msgid "Only logged in editors and administrators."
 msgstr "ஆசிரியர்  நிர்வாகி உள்நுழைவு மட்டும்"
 
-#: inc/admin/laf/namespace.php:1222
+#: inc/admin/laf/namespace.php:1223
 msgid "All logged in users including subscribers."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1243
+#: inc/admin/laf/namespace.php:1244
 msgid ""
 "Yes. I want to automatically disable comments, trackbacks and pingbacks on "
 "all front matter, chapters and back matter."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1249
+#: inc/admin/laf/namespace.php:1250
 msgid ""
 "No. I want to leave comments, trackbacks and pingbacks enabled on all front "
 "matter, chapters and back matter unless I disable them manually."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1265
+#: inc/admin/laf/namespace.php:1266
 msgid ""
 "Yes. I would like the latest export files to be available on the homepage "
 "for free, to everyone."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1271
+#: inc/admin/laf/namespace.php:1272
 msgid ""
 "No. I would like the latest export files to only be available to "
 "administrators."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1385
+#: inc/admin/laf/namespace.php:1386
 msgid "All Books"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1395
+#: inc/admin/laf/namespace.php:1396
 msgid "Search Books"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1401
+#: inc/admin/laf/namespace.php:1402
 msgid "Edit Book: %s"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1404 inc/admin/laf/namespace.php:1413
+#: inc/admin/laf/namespace.php:1405 inc/admin/laf/namespace.php:1414
 msgid "Book Address (URL)"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1410
+#: inc/admin/laf/namespace.php:1411
 msgid "Add New Book"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1416
+#: inc/admin/laf/namespace.php:1417
 #: inc/modules/themeoptions/class-pdfoptions.php:338
 #: inc/modules/themeoptions/class-pdfoptions.php:357
 #: inc/modules/themeoptions/class-pdfoptions.php:376
@@ -1142,23 +1142,23 @@ msgstr ""
 msgid "Book Title"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1419
+#: inc/admin/laf/namespace.php:1420
 msgid "Book Language"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1422
+#: inc/admin/laf/namespace.php:1423
 msgid "Add Book"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1439
+#: inc/admin/laf/namespace.php:1440
 msgid "Edit previous or next item"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1444
+#: inc/admin/laf/namespace.php:1445
 msgid "Edit Previous (%s)"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1449
+#: inc/admin/laf/namespace.php:1450
 msgid "Edit Next (%s)"
 msgstr ""
 
@@ -1937,11 +1937,11 @@ msgstr[1] ""
 msgid "No export format was selected."
 msgstr ""
 
-#: inc/class-eventstreams.php:270
+#: inc/class-eventstreams.php:271
 msgid "No chapters were selected for import."
 msgstr ""
 
-#: inc/class-eventstreams.php:294
+#: inc/class-eventstreams.php:295
 msgid "You do not have sufficient permissions to access this page."
 msgstr ""
 
@@ -2210,7 +2210,7 @@ msgstr ""
 
 #: inc/cloner/class-cloner.php:488 inc/covergenerator/class-generator.php:301
 #: inc/modules/export/epub/class-epub201.php:385
-#: inc/modules/import/class-import.php:373
+#: inc/modules/import/class-import.php:375
 msgid "Finishing up"
 msgstr ""
 
@@ -2826,25 +2826,25 @@ msgstr ""
 msgid "Importing glossary terms"
 msgstr ""
 
-#: inc/modules/import/class-import.php:371
+#: inc/modules/import/class-import.php:373
 #: inc/modules/import/epub/class-epub201.php:220
 msgid "Importing"
 msgstr ""
 
-#: inc/modules/import/class-import.php:503
+#: inc/modules/import/class-import.php:505
 msgid "Your file does not appear to be a valid %s."
 msgstr "உங்கள் கோப்பு ஒரு முறையான %s கோப்பாக இல்லை."
 
-#: inc/modules/import/class-import.php:541
+#: inc/modules/import/class-import.php:543
 msgid "Your URL does not appear to be valid"
 msgstr ""
 
-#: inc/modules/import/class-import.php:548
-#: inc/modules/import/class-import.php:577
+#: inc/modules/import/class-import.php:550
+#: inc/modules/import/class-import.php:579
 msgid "The URL you are trying to import is bigger than the maximum file size."
 msgstr ""
 
-#: inc/modules/import/class-import.php:570
+#: inc/modules/import/class-import.php:572
 msgid ""
 "The website you are attempting to reach is not returning a successful "
 "response code: "
