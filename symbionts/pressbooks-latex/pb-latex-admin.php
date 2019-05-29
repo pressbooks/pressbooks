@@ -190,12 +190,16 @@ tr.pb-latex-method-<?php echo $current_method; ?> {
 		 */
 		$latex_renderers = apply_filters( 'pb_add_latex_renderer_option', array(
 			'Automattic_Latex_WPCOM' => __( 'WordPress.com LaTeX Server (recommended)', 'pressbooks' ),
+			'pb_mathjax' => __( 'Pressbooks Mathjax', 'pb-latex' )
 		) );
 
 		$default_wrappers = array();
 		foreach ( $this->methods as $class => $method ) {
 			if ( 'Automattic_Latex_WPCOM' == $class ) {
 				require_once( dirname( __FILE__ ) . "/automattic-latex-wpcom.php" );
+			}
+			elseif ( 'pb_mathjax' == $class ) {
+				require_once( dirname( __FILE__ ) . "/pb-mathjax.php" );
 			} else {
 				/**
 				 * Require custom latex class file.
@@ -207,6 +211,7 @@ tr.pb-latex-method-<?php echo $current_method; ?> {
 				 */
 				apply_filters( 'pb_require_latex', $class );
 			}
+
 			$latex_object = new $class( '\LaTeX' );
 			$default_wrappers[$method] = $latex_object->wrapper();
 		}
