@@ -1,5 +1,7 @@
 <?php
 
+// TODO: I care about this
+
 /**
  *
  * This plugin is forked from the original WP Latex (c) Sidney Markowitz, Automattic, Inc.

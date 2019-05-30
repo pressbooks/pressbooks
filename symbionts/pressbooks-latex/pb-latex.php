@@ -122,7 +122,8 @@ class PBLatex {
 ?>
 <style type="text/css">
 /* <![CDATA[ */
-<?php echo $this->options['css']; ?>
+<?php //
+// echo $this->options['css']; ?>
 
 /* ]]> */
 </style>
