@@ -1082,7 +1082,7 @@ function init_css_js() {
 	wp_enqueue_script( 'jquery-ui-core' );
 
 	// A11y
-	wp_register_script( 'pb-a11y', $assets->getPath( 'scripts/a11y.js' ), [ 'jquery' ], false, true );
+	wp_register_script( 'pb-a11y', $assets->getPath( 'scripts/a11y.js' ), [ 'jquery', 'wp-i18n' ], false, true );
 	wp_enqueue_script( 'pb-a11y' );
 }
 
