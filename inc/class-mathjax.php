@@ -13,6 +13,11 @@ namespace Pressbooks;
 class MathJax {
 
 	/**
+	 * @var MathJax
+	 */
+	private static $instance = null;
+
+	/**
 	 * @var array
 	 */
 	private $defaultOptions = [
@@ -21,9 +26,19 @@ class MathJax {
 	];
 
 	/**
-	 * @var MathJax
+	 * Webbook Section Cache
+	 *
+	 * @var array
 	 */
-	private static $instance = null;
+	private $sectionHasMath = [];
+
+	/**
+	 * Use PB MathJax Node.js service to render SVG/PNG image?
+	 * @see https://github.com/pressbooks/pb-mathjax
+	 *
+	 * @var bool
+	 */
+	public $usePbMathJax = false;
 
 	/**
 	 * @return MathJax
@@ -41,36 +56,41 @@ class MathJax {
 	 */
 	static public function hooks( MathJax $obj ) {
 
+		add_action( 'pb_pre_export', [ $obj, 'beforeExport' ] );
+
 		add_action( 'admin_menu', [ $obj, 'addMenu' ] );
 
 		add_filter(
 			'no_texturize_shortcodes',
 			function ( $shortcodes ) {
 				$shortcodes[] = 'latex';
-				$shortcodes[] = 'asciimath';
+				$shortcodes[] = 'math';
 				return $shortcodes;
 			}
 		);
+		add_shortcode( 'latex', [ $obj, 'latexShortcode' ] );
+		add_shortcode( 'asciimath', [ $obj, 'asciimathShortcode' ] );
 
 		add_filter( 'the_content', [ $obj, 'dollarSignLatexMarkup' ], 9 ); // before wptexturize
-
-		// IF EXPORT LOAD SHORTCODE
-		// add_shortcode( 'latex', [ $obj, 'latexShortcode' ] );
-		// add_shortcode( 'asciimath', [ $obj, 'asciimathShortcode' ] );
-
-		// ELSE IF BOOK AND THE CONTENT HAS MATH THEN MATHJAX
-		wp_enqueue_script( 'pb_mathjax', 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML&delayStartupUntil=configured' );
+		add_filter( 'the_content', [ $obj, 'dollarSignAsciiMathMarkup' ], 9 ); // before wptexturize
+		add_action( 'wp_enqueue_scripts', [ $obj, 'addScripts' ] );
 		add_action( 'wp_head', [ $obj, 'addHeaders' ] );
-
 	}
 
 	/**
-	 * Put PB MathJax under options meny
+	 * pb_pre_export
+	 */
+	public function beforeExport() {
+		$this->usePbMathJax = true;
+	}
+
+	/**
+	 * Put MathJax under options meny
 	 */
 	public function addMenu() {
 		add_options_page(
-			__( 'PB MathJax', 'pressbooks' ),
-			__( 'PB MathJax', 'pressbooks' ),
+			__( 'MathJax', 'pressbooks' ),
+			__( 'MathJax', 'pressbooks' ),
 			'edit_posts',
 			'pressbooks_mathjax',
 			[ $this, 'renderPage' ]
@@ -78,12 +98,13 @@ class MathJax {
 	}
 
 	/**
-	 * PB MathJax admin page
+	 * MathJax admin page
 	 */
 	public function renderPage() {
 		$this->saveOptions();
 		$options = get_option( 'pb_latex', $this->defaultOptions );
 
+		$this->usePbMathJax = true;
 		$test_formula = '\displaystyle P_\nu^{-\mu}(z)=\frac{\left(z^2-1\right)^{\frac{\mu}{2}}}{2^\mu \sqrt{\pi}\Gamma\left(\mu+\frac{1}{2}\right)}\int_{-1}^1\frac{\left(1-t^2\right)^{\mu -\frac{1}{2}}}{\left(z+t\sqrt{z^2-1}\right)^{\mu-\nu}}dt';
 		$test_image = $this->latexRender( $test_formula, $this->defaultOptions['fg'], $this->defaultOptions['bg'] );
 
@@ -100,7 +121,7 @@ class MathJax {
 	}
 
 	/**
-	 * PB MathJax admin page form submission
+	 * MathJax admin page form submission
 	 *
 	 * @return bool
 	 */
@@ -110,15 +131,17 @@ class MathJax {
 		}
 
 		$fg = strtolower( substr( preg_replace( '/[^0-9a-f]/i', '', $_POST['fg'] ), 0, 6 ) );
-		if ( 6 > $l = strlen( $fg ) ) {
+		$l = strlen( $fg );
+		if ( 6 > $l ) {
 			$fg .= str_repeat( '0', 6 - $l );
 		}
 
-		if ( 'transparent' == trim( $_POST['bg'] ) ) {
+		if ( 'transparent' === trim( $_POST['bg'] ) ) {
 			$bg = 'transparent';
 		} else {
 			$bg = substr( preg_replace( '/[^0-9a-f]/i', '', $_POST['bg'] ), 0, 6 );
-			if ( 6 > $l = strlen( $bg ) ) {
+			$l = strlen( $bg );
+			if ( 6 > $l ) {
 				$bg .= str_repeat( '0', 6 - $l );
 			}
 		}
@@ -134,10 +157,10 @@ class MathJax {
 	/**
 	 * LaTeX support.
 	 *
-	 * Backward compatibility requires support for "$latex $" shortcodes.
+	 * Backward compatibility support for "$latex $" shortcodes.
 	 *
-	 * $latex e^{\i \pi} + 1 = 0$  ->  [latex]e^{\i \pi} + 1 = 0[/latex]
-	 * $latex [a, b]$              ->  [latex][a, b][/latex]
+	 * $latex e^{i \pi} + 1 = 0$ -> [latex]e^{i \pi} + 1 = 0[/latex]
+	 * $latex [a, b]$ -> [latex][a, b][/latex]
 	 *
 	 * @param $content
 	 *
@@ -147,17 +170,17 @@ class MathJax {
 		$textarr = wp_html_split( $content );
 
 		$regex = '%
-		\$latex(?:=\s*|\s+)
-		((?:
-			[^$]+ # Not a dollar
-		|
-			(?<=(?<!\\\\)\\\\)\$ # Dollar preceded by exactly one slash
-		)+)
-		(?<!\\\\)\$ # Dollar preceded by zero slashes
-	%ix';
+			\$latex(?:=\s*|\s+)
+			((?:
+				[^$]+ # Not a dollar
+			|
+				(?<=(?<!\\\\)\\\\)\$ # Dollar preceded by exactly one slash
+			)+)
+			(?<!\\\\)\$ # Dollar preceded by zero slashes
+		%ix';
 
 		foreach ( $textarr as &$element ) {
-			if ( '' == $element || '<' === $element[0] ) {
+			if ( '' === $element || '<' === $element[0] ) {
 				continue;
 			}
 
@@ -198,11 +221,7 @@ class MathJax {
 			$latex = str_replace( $s_matches[1], '', $latex );
 		}
 
-		// IF EXPORT RENDER IMAGE
-		// return $this->latexRender( $latex, $fg, $bg, $s );
-
-		// ELSE SIMPLIFY FOR MATHJAX
-		return "[latex fg={$fg} bg={$bg} s={$s}]{$latex}[/latex]"; // TODO: Mathjax looks for [latex], not [latex att1=foo]
+		return $this->latexRender( $latex, $fg, $bg, $s );
 	}
 
 	/**
@@ -215,6 +234,8 @@ class MathJax {
 	}
 
 	/**
+	 * Render image (SVG/PNG) for exports, simplified shortcode for webbook
+	 *
 	 * @param string $latex
 	 * @param string $fg
 	 * @param string $bg
@@ -223,11 +244,16 @@ class MathJax {
 	 * @return string
 	 */
 	public function latexRender( $latex, $fg, $bg, $s = 0 ) {
-		// TODO: Change to pb-mathjax URL
-		$url = "//s0.wp.com/latex.php?latex=" . urlencode( $latex ) . "&bg=" . $bg . "&fg=" . $fg . "&s=" . $s;
-		$url = esc_url( $url );
-		$alt = str_replace( '\\', '&#92;', esc_attr( $latex ) );
-		return '<img src="' . $url . '" alt="' . $alt . '" title="' . $alt . '" class="latex mathjax" />';
+		if ( $this->usePbMathJax ) {
+			// TODO: Change to pb-mathjax URL
+			$url = '//s0.wp.com/latex.php?latex=' . rawurlencode( $latex ) . '&bg=' . $bg . '&fg=' . $fg . '&s=' . $s;
+			$url = esc_url( $url );
+			$alt = str_replace( '\\', '&#92;', esc_attr( $latex ) );
+			return '<img src="' . $url . '" alt="' . $alt . '" title="' . $alt . '" class="latex mathjax" />';
+		} else {
+			// TODO: Foreground, backrgound, size in CSS: http://docs.mathjax.org/en/latest/reference/CSS-styles.html
+			return "[latex]{$latex}[/latex]";
+		}
 	}
 
 	/**
@@ -254,6 +280,76 @@ class MathJax {
 	}
 
 	/**
+	 * AsciiMath support.
+	 *
+	 * Backward compatibility support for "$math $" shortcodes.
+	 *
+	 * $math e^{i \pi} + 1 = 0$ -> [math]e^{i \pi} + 1 = 0[/math]
+	 * $math [a, b]$ -> [math][a, b][/math]
+	 *
+	 * @param $content
+	 *
+	 * @return string
+	 */
+	public function dollarSignAsciiMathMarkup( $content ) {
+		$textarr = wp_html_split( $content );
+
+		$regex = '%
+			\$math(?:=\s*|\s+)
+			((?:
+				[^$]+ # Not a dollar
+			|
+				(?<=(?<!\\\\)\\\\)\$ # Dollar preceded by exactly one slash
+			)+)
+			(?<!\\\\)\$ # Dollar preceded by zero slashes
+		%ix';
+
+		foreach ( $textarr as &$element ) {
+			if ( '' === $element || '<' === $element[0] ) {
+				continue;
+			}
+
+			if ( false === stripos( $element, '$math' ) ) {
+				continue;
+			}
+
+			$element = preg_replace_callback( $regex, [ $this, '_dollarSignAsciiMathSrc' ], $element );
+		}
+
+		return implode( '', $textarr );
+	}
+
+	/**
+	 * Basically, a private method used by `preg_replace_callback` in `$this->dollarSignAsciiMathMarkup`
+	 * (Can't be a real private method because `callable $callback`)
+	 *
+	 * @param $matches
+	 *
+	 * @return string
+	 */
+	public function _dollarSignAsciiMathSrc( $matches ) {
+		$latex = $matches[1];
+		$bg = $this->defaultOptions['bg'];
+		$fg = $this->defaultOptions['fg'];
+		$s = 0;
+		$latex = $this->latexEntityDecode( $latex );
+		if ( preg_match( '/.+(&fg=[0-9a-f]{6}).*/i', $latex, $fg_matches ) ) {
+			$fg = substr( $fg_matches[1], 4 );
+			$latex = str_replace( $fg_matches[1], '', $latex );
+		}
+		if ( preg_match( '/.+(&bg=[0-9a-f]{6}).*/i', $latex, $bg_matches ) ) {
+			$bg = substr( $bg_matches[1], 4 );
+			$latex = str_replace( $bg_matches[1], '', $latex );
+		}
+		if ( preg_match( '/.+(&s=[0-9-]{1,2}).*/i', $latex, $s_matches ) ) {
+			$s = (int) substr( $s_matches[1], 3 );
+			$latex = str_replace( $s_matches[1], '', $latex );
+		}
+
+		return $this->asciimathRender( $latex, $fg, $bg, $s );
+	}
+
+	/**
 	 * @param string $asciimath
 	 *
 	 * @return string
@@ -263,6 +359,8 @@ class MathJax {
 	}
 
 	/**
+	 * Render image (SVG/PNG) for exports, simplified shortcode for webbook
+	 *
 	 * @param string $asciimath
 	 * @param string $fg
 	 * @param string $bg
@@ -271,11 +369,16 @@ class MathJax {
 	 * @return string
 	 */
 	public function asciimathRender( $asciimath, $fg, $bg, $s = 0 ) {
-		// TODO: Change to pb-mathjax URL
-		$url = "//s0.wp.com/asciimath.php?asciimath=" . urlencode( $asciimath ) . "&bg=" . $bg . "&fg=" . $fg . "&s=" . $s;
-		$url = esc_url( $url );
-		$alt = str_replace( '\\', '&#92;', esc_attr( $asciimath ) );
-		return '<img src="' . $url . '" alt="' . $alt . '" title="' . $alt . '" class="asciimath mathjax" />';
+		if ( $this->usePbMathJax ) {
+			// TODO: Change to pb-mathjax URL
+			$url = '//s0.wp.com/asciimath.php?asciimath=' . rawurlencode( $asciimath ) . '&bg=' . $bg . '&fg=' . $fg . '&s=' . $s;
+			$url = esc_url( $url );
+			$alt = str_replace( '\\', '&#92;', esc_attr( $asciimath ) );
+			return '<img src="' . $url . '" alt="' . $alt . '" title="' . $alt . '" class="asciimath mathjax" />';
+		} else {
+			// TODO: Foreground, backrgound, size in CSS: http://docs.mathjax.org/en/latest/reference/CSS-styles.html
+			return "[math]{$asciimath}[/math]";
+		}
 	}
 
 	/**
@@ -301,18 +404,58 @@ class MathJax {
 		return $this->asciimathRender( $this->asciimathEntityDecode( $content ), $atts['fg'], $atts['bg'], $atts['s'] );
 	}
 
+	/**
+	 * @return bool
+	 */
+	public function sectionHasMath() {
+		$has_math = false;
+		$post = get_post();
+		if ( $post ) {
+			$id = $post->ID;
+			if ( isset( $this->sectionHasMath[ $id ] ) ) {
+				$has_math = $this->sectionHasMath[ $id ];
+			} else {
+				$content = $post->post_content;
+				$math_tags = [ '[/latex]', '$latex', '[/math]', '$math' ];
+				foreach ( $math_tags as $math_tag ) {
+					if ( strpos( $content, $math_tag ) !== false ) {
+						$has_math = true;
+						break;
+					}
+				}
+				$this->sectionHasMath[ $id ] = $has_math;
+			}
+		}
+		return $has_math;
+	}
 
+	/**
+	 * @see http://docs.mathjax.org/en/latest/configuration.html
+	 */
+	public function addScripts() {
+		// Improve browser performance: only load MathJax if there's math to process
+		if ( ! is_admin() && $this->sectionHasMath() ) {
+			wp_enqueue_script( 'pb_mathjax', 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML&delayStartupUntil=configured' );
+		}
+	}
+
+	/**
+	 * @see http://docs.mathjax.org/en/latest/configuration.html
+	 */
 	public function addHeaders() {
-		echo '<script type="text/x-mathjax-config">
+		// Improve browser performance: only load MathJax if there's math to process
+		if ( ! is_admin() && $this->sectionHasMath() ) {
+			echo '<script type="text/x-mathjax-config">
 			MathJax.Hub.Config({
 				TeX: { extensions: ["cancel.js", "mhchem.js"] },
 				tex2jax: {inlineMath: [["[latex]","[/latex]"]] },
-				asciimath2jax: {delimiters: [["[asciimath]","[/asciimath]"]] }
+				asciimath2jax: {delimiters: [["[math]","[/math]"]] },				
 			});
 			</script>
 			<script type="text/javascript">
 				MathJax.Hub.Configured();
 			</script>';
+		}
 	}
 
 }
