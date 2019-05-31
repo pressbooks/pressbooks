@@ -57,10 +57,9 @@ class MathJax {
 	 * @param MathJax $obj
 	 */
 	static public function hooks( MathJax $obj ) {
-
-		add_action( 'pb_pre_export', [ $obj, 'beforeExport' ] );
-
-		add_action( 'admin_menu', [ $obj, 'addMenu' ] );
+		if ( Book::isBook() ) {
+			add_action( 'admin_menu', [ $obj, 'addMenu' ] );
+		}
 
 		add_filter(
 			'no_texturize_shortcodes',
@@ -77,6 +76,7 @@ class MathJax {
 		add_filter( 'the_content', [ $obj, 'dollarSignAsciiMathMarkup' ], 9 ); // before wptexturize
 		add_action( 'wp_enqueue_scripts', [ $obj, 'addScripts' ] );
 		add_action( 'wp_head', [ $obj, 'addHeaders' ] );
+		add_action( 'pb_pre_export', [ $obj, 'beforeExport' ] );
 	}
 
 	/**
