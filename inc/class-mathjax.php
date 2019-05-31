@@ -12,6 +12,8 @@ namespace Pressbooks;
  */
 class MathJax {
 
+	const OPTION = 'pb_mathjax';
+
 	/**
 	 * @var MathJax
 	 */
@@ -102,7 +104,7 @@ class MathJax {
 	 */
 	public function renderPage() {
 		$this->saveOptions();
-		$options = get_option( 'pb_latex', $this->defaultOptions );
+		$options = get_option( self::OPTION, $this->defaultOptions );
 
 		$this->usePbMathJax = true;
 		$test_formula = '\displaystyle P_\nu^{-\mu}(z)=\frac{\left(z^2-1\right)^{\frac{\mu}{2}}}{2^\mu \sqrt{\pi}\Gamma\left(\mu+\frac{1}{2}\right)}\int_{-1}^1\frac{\left(1-t^2\right)^{\mu -\frac{1}{2}}}{\left(z+t\sqrt{z^2-1}\right)^{\mu-\nu}}dt';
@@ -151,7 +153,7 @@ class MathJax {
 			'fg' => $fg,
 		];
 
-		return update_option( 'pb_latex', $options );
+		return update_option( self::OPTION, $options );
 	}
 
 	/**
