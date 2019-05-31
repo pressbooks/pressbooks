@@ -11,6 +11,7 @@ use function Pressbooks\Utility\str_starts_with;
 /**
  * @property array booleans
  * @property array strings
+ * @property array multiline_strings
  * @property array urls
  * @property array integers
  * @property array floats
@@ -109,6 +110,16 @@ abstract class Options {
 			}
 		}
 
+		if ( property_exists( $this, 'multiline_strings' ) ) {
+			foreach ( $this->multiline_strings as $key ) {
+				if ( empty( $input[ $key ] ) ) {
+					unset( $options[ $key ] );
+				} else {
+					$options[ $key ] = sanitize_textarea_field( $input[ $key ] );
+				}
+			}
+		}
+
 		if ( property_exists( $this, 'urls' ) ) {
 			foreach ( $this->urls as $key ) {
 				if ( empty( $input[ $key ] ) ) {
@@ -198,6 +209,59 @@ abstract class Options {
 			$args['type'],
 			$args['value'],
 			( ! empty( $args['disabled'] ) ) ? ' disabled' : ''
+		);
+		if ( isset( $args['append'] ) ) {
+			echo ' ' . $args['append'];
+		}
+		if ( isset( $args['description'] ) ) {
+			printf(
+				'<p class="description">%s</p>',
+				$args['description']
+			);
+		}
+	}
+
+	/**
+	 * Render a textarea.
+	 *
+	 * @param array $args {
+	 *     Arguments to render the textarea.
+	 *
+	 * @type string $id The id which will be assigned to the rendered field.
+	 * @type string $name The name of the field.
+	 * @type string $option The name of the option that the field is within.
+	 * @type string $value The stored value of the field as retrieved from the database.
+	 * @type string $description A description which will be displayed below the field.
+	 * @type string $append A string which will be appended to the field (e.g. 'px').
+	 * @type string $type The type property of the input. Default 'text'.
+	 * @type string $class The class(es) which will be assigned to the rendered input. Default 'regular-text'.
+	 * @type bool $disabled Is the field disabled?
+	 * }
+	 */
+	static function renderTextarea( $args ) {
+		$defaults = [
+			'id' => null,
+			'name' => null,
+			'option' => null,
+			'value' => '',
+			'description' => null,
+			'append' => null,
+			'class' => 'widefat',
+			'rows' => 10,
+			'disabled' => false,
+		];
+
+		$args = wp_parse_args( $args, $defaults );
+
+		printf(
+			'<textarea id="%s" class="%s" name="%s[%s]" rows="%s" %s>%s</textarea>',
+			$args['id'],
+			$args['class'],
+			$args['name'],
+			$args['option'],
+			$args['rows'],
+			( ! empty( $args['disabled'] ) ) ? ' disabled' : '',
+			esc_textarea( $args['value'] )
 		);
 		if ( isset( $args['append'] ) ) {
 			echo ' ' . $args['append'];

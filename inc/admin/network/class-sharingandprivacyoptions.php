@@ -38,6 +38,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 		$this->options = $options;
 		$this->defaults = $this->getDefaults();
 		$this->booleans = $this->getBooleanOptions();
+		$this->multiline_strings = $this->getMultilineStringOptions();
 
 		foreach ( $this->defaults as $key => $value ) {
 			if ( ! isset( $this->options[ $key ] ) ) {
@@ -102,6 +103,18 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 			$_section,
 			[
 				__( 'Allow users to produce Common Cartridge exports with simple Web Links.', 'pressbooks' ),
+			]
+		);
+
+		add_settings_field(
+			'iframes_whitelist',
+			__( 'Iframes Whitelist', 'pressbooks' ),
+			[ $this, 'renderIframesWhiteList' ],
+			$_page,
+			$_section,
+			[
+				__( 'To whitelist all content from a domain: <code>guide.pressbooks.com</code> To whitelist a path: <code>//guide.pressbooks.com/some/path/</code> One per line.', 'pressbooks' ),
+				'label_for' => 'iframes_whitelist',
 			]
 		);
 
@@ -249,6 +262,25 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	}
 
 	/**
+	 * Render the iframes_whitelist textarea.
+	 *
+	 * @param $args
+	 */
+	function renderIframesWhiteList( $args ) {
+		unset( $args['label_for'], $args['class'] );
+		$options = get_site_option( $this->getSlug() );
+		$this->renderTextarea(
+			[
+				'id' => 'iframes_whitelist',
+				'name' => $this->getSlug(),
+				'option' => 'iframes_whitelist',
+				'value' => ( isset( $options['iframes_whitelist'] ) ) ? $options['iframes_whitelist'] : '',
+				'description' => $args[0],
+			]
+		);
+	}
+
+	/**
 	 * Get the slug for the network export options page.
 	 *
 	 * @return string $slug
@@ -277,6 +309,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 			'enable_network_api' => 1,
 			'enable_cloning' => 1,
 			'enable_thincc_weblinks' => 1,
+			'iframes_whitelist' => '',
 		];
 	}
 
@@ -291,6 +324,17 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 			'enable_network_api',
 			'enable_cloning',
 			'enable_thincc_weblinks',
+		];
+	}
+
+	/**
+	 * Get an array of options which return multiline strings.
+	 *
+	 * @return array $options
+	 */
+	static function getMultilineStringOptions() {
+		return [
+			'iframes_whitelist',
 		];
 	}
 
