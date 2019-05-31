@@ -8,11 +8,24 @@
             <tr>
                 <th scope="row">{{ __( 'Syntax', 'pressbooks' ) }}</th>
                 <td class="syntax">
-                    <p>{!! sprintf(
-                        __( 'You may use either the shortcode syntax %s<br /> or the &#8220;inline&#8221; syntax %s<br /> to insert LaTeX into your posts.', 'wp-latex' ),
-	                    '<code>[latex]e^{\i \pi} + 1 = 0[/latex]</code>',
-	                    '<code>$latex e^{\i \pi} + 1 = 0$</code>'
-					) !!} </p>
+                    <section>
+                        <h2>{{ __( 'LaTeX' ,'pressbooks' ) }}</h2>
+                        <p>{!! sprintf(
+                           __( 'Shortcode syntax: %s', 'pressbooks' ),
+	                         '<code>[latex]e^{i \pi} + 1 = 0[/latex]</code>'
+					    ) !!} </p>
+                        <p>{!! sprintf(
+                           __( 'Dollar sign syntax (deprecated): %s', 'pressbooks' ),
+	                         '<code>$latex e^{i \pi} + 1 = 0$</code>'
+					    ) !!} </p>
+                    </section>
+                    <section>
+                        <h2>{{ __( 'AsciiMath' ,'pressbooks' ) }}</h2>
+                        <p>{!! sprintf(
+                            __( 'Shortcode syntax: %s', 'pressbooks' ),
+	                        '<code>[asciimath]e^{i \pi} + 1 = 0[/asciimath]</code>'
+                        ) !!} </p>
+                    </section>
                 </td>
             </tr>
             <tr>
@@ -33,7 +46,7 @@
         </table>
         <p class="submit">
             <input type="submit" class="button-primary" value="{{ __( 'Update LaTeX Options', 'pressbooks' ) }}"/>
-			{!! $wp_nonce_field !!}
+            {!! $wp_nonce_field !!}
         </p>
     </form>
 </div>

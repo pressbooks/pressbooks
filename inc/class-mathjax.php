@@ -7,7 +7,8 @@
 namespace Pressbooks;
 
 /**
- * Heavily inspired by Automattic's https://github.com/Automattic/jetpack/blob/master/modules/latex.php
+ * Heavily inspired by Automattic's
+ * @see https://github.com/Automattic/jetpack/blob/master/modules/latex.php
  */
 class MathJax {
 
@@ -46,17 +47,19 @@ class MathJax {
 			'no_texturize_shortcodes',
 			function ( $shortcodes ) {
 				$shortcodes[] = 'latex';
+				$shortcodes[] = 'asciimath';
 				return $shortcodes;
 			}
 		);
 
-		add_filter( 'the_content', [ $obj, 'latexMarkup' ], 9 );
+		add_filter( 'the_content', [ $obj, 'dollarSignLatexMarkup' ], 9 ); // before wptexturize
 
 		// IF EXPORT LOAD SHORTCODE
-		add_shortcode( 'latex', [ $obj, 'latexShortcode' ] );
+		// add_shortcode( 'latex', [ $obj, 'latexShortcode' ] );
+		// add_shortcode( 'asciimath', [ $obj, 'asciimathShortcode' ] );
 
 		// ELSE IF BOOK AND THE CONTENT HAS MATH THEN MATHJAX
-		wp_enqueue_script( 'pb_mathjax', 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML.js&delayStartupUntil=configured' );
+		wp_enqueue_script( 'pb_mathjax', 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML&delayStartupUntil=configured' );
 		add_action( 'wp_head', [ $obj, 'addHeaders' ] );
 
 	}
@@ -81,9 +84,8 @@ class MathJax {
 		$this->saveOptions();
 		$options = get_option( 'pb_latex', $this->defaultOptions );
 
-
-		$test_latex_formula = '\displaystyle P_\nu^{-\mu}(z)=\frac{\left(z^2-1\right)^{\frac{\mu}{2}}}{2^\mu \sqrt{\pi}\Gamma\left(\mu+\frac{1}{2}\right)}\int_{-1}^1\frac{\left(1-t^2\right)^{\mu -\frac{1}{2}}}{\left(z+t\sqrt{z^2-1}\right)^{\mu-\nu}}dt';
-		$test_image = $this->latexRender( $test_latex_formula, $this->defaultOptions['fg'], $this->defaultOptions['bg'] );
+		$test_formula = '\displaystyle P_\nu^{-\mu}(z)=\frac{\left(z^2-1\right)^{\frac{\mu}{2}}}{2^\mu \sqrt{\pi}\Gamma\left(\mu+\frac{1}{2}\right)}\int_{-1}^1\frac{\left(1-t^2\right)^{\mu -\frac{1}{2}}}{\left(z+t\sqrt{z^2-1}\right)^{\mu-\nu}}dt';
+		$test_image = $this->latexRender( $test_formula, $this->defaultOptions['fg'], $this->defaultOptions['bg'] );
 
 		$blade = Container::get( 'Blade' );
 		echo $blade->render(
@@ -132,8 +134,7 @@ class MathJax {
 	/**
 	 * LaTeX support.
 	 *
-	 * Backward compatibility requires support for both "[latex][/latex]", and
-	 * "$latex $" shortcodes.
+	 * Backward compatibility requires support for "$latex $" shortcodes.
 	 *
 	 * $latex e^{\i \pi} + 1 = 0$  ->  [latex]e^{\i \pi} + 1 = 0[/latex]
 	 * $latex [a, b]$              ->  [latex][a, b][/latex]
@@ -142,7 +143,7 @@ class MathJax {
 	 *
 	 * @return string
 	 */
-	public function latexMarkup( $content ) {
+	public function dollarSignLatexMarkup( $content ) {
 		$textarr = wp_html_split( $content );
 
 		$regex = '%
@@ -164,18 +165,21 @@ class MathJax {
 				continue;
 			}
 
-			$element = preg_replace_callback( $regex, [ $this, 'latexSrc' ], $element );
+			$element = preg_replace_callback( $regex, [ $this, '_dollarSignLatexSrc' ], $element );
 		}
 
 		return implode( '', $textarr );
 	}
 
 	/**
+	 * Basically, a private method used by `preg_replace_callback` in `$this->dollarSignLatexMarkup`
+	 * (Can't be a real private method because `callable $callback`)
+	 *
 	 * @param $matches
 	 *
 	 * @return string
 	 */
-	public function latexSrc( $matches ) {
+	public function _dollarSignLatexSrc( $matches ) {
 		$latex = $matches[1];
 		$bg = $this->defaultOptions['bg'];
 		$fg = $this->defaultOptions['fg'];
@@ -193,7 +197,12 @@ class MathJax {
 			$s = (int) substr( $s_matches[1], 3 );
 			$latex = str_replace( $s_matches[1], '', $latex );
 		}
-		return $this->latexRender( $latex, $fg, $bg, $s );
+
+		// IF EXPORT RENDER IMAGE
+		// return $this->latexRender( $latex, $fg, $bg, $s );
+
+		// ELSE SIMPLIFY FOR MATHJAX
+		return "[latex fg={$fg} bg={$bg} s={$s}]{$latex}[/latex]"; // TODO: Mathjax looks for [latex], not [latex att1=foo]
 	}
 
 	/**
@@ -218,7 +227,7 @@ class MathJax {
 		$url = "//s0.wp.com/latex.php?latex=" . urlencode( $latex ) . "&bg=" . $bg . "&fg=" . $fg . "&s=" . $s;
 		$url = esc_url( $url );
 		$alt = str_replace( '\\', '&#92;', esc_attr( $latex ) );
-		return '<img src="' . $url . '" alt="' . $alt . '" title="' . $alt . '" class="latex" />';
+		return '<img src="' . $url . '" alt="' . $alt . '" title="' . $alt . '" class="latex mathjax" />';
 	}
 
 	/**
@@ -244,12 +253,61 @@ class MathJax {
 		return $this->latexRender( $this->latexEntityDecode( $content ), $atts['fg'], $atts['bg'], $atts['s'] );
 	}
 
+	/**
+	 * @param string $asciimath
+	 *
+	 * @return string
+	 */
+	public function asciimathEntityDecode( $asciimath ) {
+		return str_replace( [ '&lt;', '&gt;', '&quot;', '&#039;', '&#038;', '&amp;', "\n", "\r" ], [ '<', '>', '"', "'", '&', '&', ' ', ' ' ], $asciimath );
+	}
+
+	/**
+	 * @param string $asciimath
+	 * @param string $fg
+	 * @param string $bg
+	 * @param int $s
+	 *
+	 * @return string
+	 */
+	public function asciimathRender( $asciimath, $fg, $bg, $s = 0 ) {
+		// TODO: Change to pb-mathjax URL
+		$url = "//s0.wp.com/asciimath.php?asciimath=" . urlencode( $asciimath ) . "&bg=" . $bg . "&fg=" . $fg . "&s=" . $s;
+		$url = esc_url( $url );
+		$alt = str_replace( '\\', '&#92;', esc_attr( $asciimath ) );
+		return '<img src="' . $url . '" alt="' . $alt . '" title="' . $alt . '" class="asciimath mathjax" />';
+	}
+
+	/**
+	 * The shortcode way.
+	 *
+	 * Example: [asciimath s=4 bg=00f fg=ff0]sum_(i=1)^n i^3=((n(n+1))/2)^2[/asciimath]
+	 *
+	 * @param array $atts
+	 * @param string $content
+	 *
+	 * @return string
+	 */
+	function asciimathShortcode( $atts, $content = '' ) {
+
+		$atts = shortcode_atts(
+			[
+				's' => 0,
+				'bg' => $this->defaultOptions['bg'],
+				'fg' => $this->defaultOptions['fg'],
+			], $atts, 'asciimath'
+		);
+
+		return $this->asciimathRender( $this->asciimathEntityDecode( $content ), $atts['fg'], $atts['bg'], $atts['s'] );
+	}
+
 
 	public function addHeaders() {
 		echo '<script type="text/x-mathjax-config">
 			MathJax.Hub.Config({
 				TeX: { extensions: ["cancel.js", "mhchem.js"] },
-				tex2jax: {inlineMath: [["[latex]","[/latex]"]] }
+				tex2jax: {inlineMath: [["[latex]","[/latex]"]] },
+				asciimath2jax: {delimiters: [["[asciimath]","[/asciimath]"]] }
 			});
 			</script>
 			<script type="text/javascript">
