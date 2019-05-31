@@ -71,7 +71,7 @@ class MathJax {
 			}
 		);
 		add_shortcode( 'latex', [ $obj, 'latexShortcode' ] );
-		add_shortcode( 'asciimath', [ $obj, 'asciimathShortcode' ] );
+		add_shortcode( 'math', [ $obj, 'asciiMathShortcode' ] );
 
 		add_filter( 'the_content', [ $obj, 'dollarSignLatexMarkup' ], 9 ); // before wptexturize
 		add_filter( 'the_content', [ $obj, 'dollarSignAsciiMathMarkup' ], 9 ); // before wptexturize
@@ -348,7 +348,7 @@ class MathJax {
 			$latex = str_replace( $s_matches[1], '', $latex );
 		}
 
-		return $this->asciimathRender( $latex, $fg, $bg, $s );
+		return $this->asciiMathRender( $latex, $fg, $bg, $s );
 	}
 
 	/**
@@ -356,7 +356,7 @@ class MathJax {
 	 *
 	 * @return string
 	 */
-	public function asciimathEntityDecode( $asciimath ) {
+	public function asciiMathEntityDecode( $asciimath ) {
 		return str_replace( [ '&lt;', '&gt;', '&quot;', '&#039;', '&#038;', '&amp;', "\n", "\r" ], [ '<', '>', '"', "'", '&', '&', ' ', ' ' ], $asciimath );
 	}
 
@@ -370,7 +370,7 @@ class MathJax {
 	 *
 	 * @return string
 	 */
-	public function asciimathRender( $asciimath, $fg, $bg, $s = 0 ) {
+	public function asciiMathRender( $asciimath, $fg, $bg, $s = 0 ) {
 		if ( $this->usePbMathJax ) {
 			// TODO: Change to pb-mathjax URL
 			$url = '//s0.wp.com/asciimath.php?asciimath=' . rawurlencode( $asciimath ) . '&bg=' . $bg . '&fg=' . $fg . '&s=' . $s;
@@ -386,24 +386,24 @@ class MathJax {
 	/**
 	 * The shortcode way.
 	 *
-	 * Example: [asciimath s=4 bg=00f fg=ff0]sum_(i=1)^n i^3=((n(n+1))/2)^2[/asciimath]
+	 * Example: [math s=4 bg=00f fg=ff0]sum_(i=1)^n i^3=((n(n+1))/2)^2[/math]
 	 *
 	 * @param array $atts
 	 * @param string $content
 	 *
 	 * @return string
 	 */
-	function asciimathShortcode( $atts, $content = '' ) {
+	function asciiMathShortcode( $atts, $content = '' ) {
 
 		$atts = shortcode_atts(
 			[
 				's' => 0,
 				'bg' => $this->defaultOptions['bg'],
 				'fg' => $this->defaultOptions['fg'],
-			], $atts, 'asciimath'
+			], $atts, 'math'
 		);
 
-		return $this->asciimathRender( $this->asciimathEntityDecode( $content ), $atts['fg'], $atts['bg'], $atts['s'] );
+		return $this->asciiMathRender( $this->asciiMathEntityDecode( $content ), $atts['fg'], $atts['bg'], $atts['s'] );
 	}
 
 	/**
