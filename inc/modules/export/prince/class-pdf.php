@@ -294,9 +294,9 @@ class Pdf extends Export {
 	}
 
 	/**
-	 * Increase PB-LaTeX resolution to ~300 dpi
+	 * Increase MathJax resolution to ~300 dpi
 	 *
-	 * @see symbionts/pressbooks-latex/automattic-latex-wpcom.php
+	 * @see web/app/plugins/pressbooks/inc/class-mathjax.php
 	 */
 	protected function fixLatexDpi() {
 		$fix = false;
@@ -311,6 +311,7 @@ class Pdf extends Export {
 		}
 
 		if ( $fix ) {
+			// TODO: Use SVG in Prince?
 			$this->url .= '&pb-latex-zoom=3';
 			$this->cssOverrides .= "\n" . 'img.latex { prince-image-resolution: 300dpi; }' . "\n";
 		}

@@ -132,6 +132,7 @@ class Shortcodes_Complex extends \WP_UnitTestCase {
 	 * @group shortcodes
 	 */
 	public function test_equationShortcodeHandler() {
+		// TODO Code has changed, fix test
 		$content = $this->complex->equationShortCodeHandler( [], 'e^{\i \pi} + 1 = 0', 'equation' );
 		$this->assertEquals( "<p><img src='http://s0.wp.com/latex.php?latex=e%5E%7B%5Ci+%5Cpi%7D+%2B+1+%3D+0&#038;bg=ffffff&#038;fg=000000&#038;s=0&#038;zoom=1' alt='e^{\i \pi} + 1 = 0' title='e^{\i \pi} + 1 = 0' class='latex' /></p>\n", $content );
 	}

@@ -33,16 +33,16 @@
                 </td>
             </tr>
             <tr>
-                <th scope="row"><label for="pb-latex-fg">{{ __( 'Default text color', 'pressbooks' ) }}</label></th>
+                <th scope="row"><label for="mathjax-fg">{{ __( 'Default text color', 'pressbooks' ) }}</label></th>
                 <td>
-                    <input type='text' name='fg' value='{{ $fg }}' id='pb-latex-fg'/>
+                    <input type='text' name='fg' value='{{ $fg }}' id='mathjax-fg'/>
                     {!!  __( 'A six digit hexadecimal number like <code>000000</code> or <code>ffffff</code>', 'pressbooks' )  !!}
                 </td>
             </tr>
             <tr>
-                <th scope="row"><label for="pb-latex-bg">{{ __( 'Default background color', 'pressbooks' ) }}</label></th>
+                <th scope="row"><label for="mathjax-bg">{{ __( 'Default background color', 'pressbooks' ) }}</label></th>
                 <td>
-                    <input type='text' name='bg' value='{{ $bg }}' id='pb-latex-bg'/>
+                    <input type='text' name='bg' value='{{ $bg }}' id='mathjax-bg'/>
                     {!!__( 'A six digit hexadecimal number like <code>000000</code> or <code>ffffff</code>, or <code>transparent</code>', 'pressbooks' ) !!}
                 </td>
             </tr>

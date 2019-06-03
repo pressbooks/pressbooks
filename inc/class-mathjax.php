@@ -48,7 +48,10 @@ class MathJax {
 	static public function init() {
 		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
-			self::hooks( self::$instance );
+			// Don't initialize MathJax if QuickLaTeX is active
+			if ( ! is_plugin_active( 'wp-quicklatex/wp-quicklatex.php' ) && ! is_plugin_active_for_network( 'wp-quicklatex/wp-quicklatex.php' ) ) {
+				self::hooks( self::$instance );
+			}
 		}
 		return self::$instance;
 	}
@@ -60,7 +63,6 @@ class MathJax {
 		if ( Book::isBook() ) {
 			add_action( 'admin_menu', [ $obj, 'addMenu' ] );
 		}
-
 		add_filter(
 			'no_texturize_shortcodes',
 			function ( $shortcodes ) {
@@ -71,7 +73,6 @@ class MathJax {
 		);
 		add_shortcode( 'latex', [ $obj, 'latexShortcode' ] );
 		add_shortcode( 'math', [ $obj, 'asciiMathShortcode' ] );
-
 		add_filter( 'the_content', [ $obj, 'dollarSignLatexMarkup' ], 9 ); // before wptexturize
 		add_filter( 'the_content', [ $obj, 'dollarSignAsciiMathMarkup' ], 9 ); // before wptexturize
 		add_action( 'wp_enqueue_scripts', [ $obj, 'addScripts' ] );
@@ -249,11 +250,18 @@ class MathJax {
 		if ( $this->usePbMathJax ) {
 			// TODO: Change to pb-mathjax URL
 			$url = '//s0.wp.com/latex.php?latex=' . rawurlencode( $latex ) . '&bg=' . $bg . '&fg=' . $fg . '&s=' . $s;
+			if ( ! empty( $_GET['pb-latex-zoom'] ) ) {
+				// TODO: Copy pasta from pb-latex does not belong here. Refactor, use SVG
+				// Undocumented zoom parameter increases image resolution
+				// @see https://github.com/Automattic/jetpack/issues/7392
+				$url .= '&zoom=' . (int) $_GET['pb-latex-zoom'];
+			}
 			$url = esc_url( $url );
 			$alt = str_replace( '\\', '&#92;', esc_attr( $latex ) );
 			return '<img src="' . $url . '" alt="' . $alt . '" title="' . $alt . '" class="latex mathjax" />';
 		} else {
-			// Return simplified shortcode, used as MathJax delimiters
+			// Return simplified shortcode. Used as MathJax delimiters.
+			// Foreground, background, & size (for single math equations) not supported in webbook
 			return "[latex]{$latex}[/latex]";
 		}
 	}
@@ -374,11 +382,18 @@ class MathJax {
 		if ( $this->usePbMathJax ) {
 			// TODO: Change to pb-mathjax URL
 			$url = '//s0.wp.com/asciimath.php?asciimath=' . rawurlencode( $asciimath ) . '&bg=' . $bg . '&fg=' . $fg . '&s=' . $s;
+			if ( ! empty( $_GET['pb-latex-zoom'] ) ) {
+				// TODO: Copy pasta from pb-latex does not belong here. Refactor, use SVG
+				// Undocumented zoom parameter increases image resolution
+				// @see https://github.com/Automattic/jetpack/issues/7392
+				$url .= '&zoom=' . (int) $_GET['pb-latex-zoom'];
+			}
 			$url = esc_url( $url );
 			$alt = str_replace( '\\', '&#92;', esc_attr( $asciimath ) );
 			return '<img src="' . $url . '" alt="' . $alt . '" title="' . $alt . '" class="asciimath mathjax" />';
 		} else {
-			// Return simplified shortcode, used as MathJax delimiters
+			// Return simplified shortcode. Used as MathJax delimiters.
+			// Foreground, background, & size (for single math equations) not supported in webbook
 			return "[math]{$asciimath}[/math]";
 		}
 	}
@@ -451,7 +466,7 @@ class MathJax {
 		if ( ! is_admin() && $this->sectionHasMath() ) {
 			// Colors
 			$options = get_option( self::OPTION, $this->defaultOptions );
-			if ($options['bg'] === 'transparent') {
+			if ( $options['bg'] === 'transparent' ) {
 				$colors = "color: '#{$options['fg']}'";
 			} else {
 				$colors = "'background-color': '#{$options['bg']}', color: '#{$options['fg']}'";
