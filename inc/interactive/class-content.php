@@ -124,12 +124,18 @@ class Content {
 			return $content;
 		}
 
+		// Merge global iframes whitelist with the one setup by Network Admin
+		$iframes_whitelist = get_site_option( 'pressbooks_sharingandprivacy_options', [] );
+		$iframes_whitelist = isset( $iframes_whitelist['iframes_whitelist'] ) ? $iframes_whitelist['iframes_whitelist'] : \Pressbooks\Admin\Network\SharingAndPrivacyOptions::getDefaults()['iframes_whitelist'];
+		$iframes_whitelist = array_filter( array_map( 'trim', explode( "\n", $iframes_whitelist ) ) );
+		$whitelisted_domains = array_merge( $this->whitelistedDomains, $iframes_whitelist );
+
 		/**
 		 * @param array $value
 		 *
 		 * @since 5.1.0
 		 */
-		$whitelist = apply_filters( 'pb_whitelisted_domains', $this->whitelistedDomains );
+		$whitelist = apply_filters( 'pb_whitelisted_domains', $whitelisted_domains );
 
 		$changed = false;
 		$html5 = new HtmlParser();
