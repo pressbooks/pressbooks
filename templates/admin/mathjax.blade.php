@@ -1,7 +1,7 @@
 <div class="wrap">
     <h1>{{ __( 'MathJax', 'pressbooks' ) }}</h1>
     {!! $test_image !!}
-    <p class='test-image'> {{ __( 'If you can see a big integral, then Pressbooks is configured correctly, and all is well.', 'pressbooks' ) }} </p>
+    <p class='test-image'> {{ __( 'If you can see a big integral, then PB-MathJax is configured correctly, and all is well.', 'pressbooks' ) }} </p>
     <form action="" method="post">
         <table class="form-table" role="none">
             <tbody>
@@ -36,7 +36,10 @@
                 <th scope="row"><label for="mathjax-url">{{ __( 'PB MathJax URL', 'pressbooks' ) }}</label></th>
                 <td>
                     <input class='large-text' type='url' name='pb_mathjax_url' value='{{ $pb_mathjax_url }}' id='mathjax-url'/>
-                    <p>{!!  __( 'URL to PB-MathJax Microservice', 'pressbooks' )  !!}</p>
+                    <p>{!! sprintf(
+                            __( 'URL to your <a href="%s">PB-MathJax Microservice</a>', 'pressbooks' ),
+	                         'https://github.com/pressbooks/pb-mathjax'
+					    ) !!} </p>
                 </td>
             </tr>
             <tr>

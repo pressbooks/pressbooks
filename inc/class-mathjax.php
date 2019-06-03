@@ -110,8 +110,12 @@ class MathJax {
 		$options = $this->getOptions();
 
 		$this->usePbMathJax = true;
-		$test_formula = '\displaystyle P_\nu^{-\mu}(z)=\frac{\left(z^2-1\right)^{\frac{\mu}{2}}}{2^\mu \sqrt{\pi}\Gamma\left(\mu+\frac{1}{2}\right)}\int_{-1}^1\frac{\left(1-t^2\right)^{\mu -\frac{1}{2}}}{\left(z+t\sqrt{z^2-1}\right)^{\mu-\nu}}dt';
-		$test_image = $this->latexRender( $test_formula );
+		if ( $this->getOptions()['pb_mathjax_url'] ) {
+			$test_formula = '\displaystyle P_\nu^{-\mu}(z)=\frac{\left(z^2-1\right)^{\frac{\mu}{2}}}{2^\mu \sqrt{\pi}\Gamma\left(\mu+\frac{1}{2}\right)}\int_{-1}^1\frac{\left(1-t^2\right)^{\mu -\frac{1}{2}}}{\left(z+t\sqrt{z^2-1}\right)^{\mu-\nu}}dt';
+			$test_image = $this->latexRender( $test_formula );
+		} else {
+			$test_image = '<p>😞😞😞</p>';
+		}
 
 		$blade = Container::get( 'Blade' );
 		echo $blade->render(
@@ -138,7 +142,7 @@ class MathJax {
 		}
 
 		// PB MathJax URL
-		$pb_mathjax_url = '';
+		$pb_mathjax_url = $this->defaultOptions['pb_mathjax_url'];
 		if ( filter_var( $_POST['pb_mathjax_url'] ?? '', FILTER_VALIDATE_URL ) ) {
 			$pb_mathjax_url = $_POST['pb_mathjax_url'];
 		}
@@ -162,7 +166,7 @@ class MathJax {
 		}
 
 		// Fontsize
-		$fontsize = \Pressbooks\Sanitize\cleanup_css( trim( $_POST['fontsize'] ?? '' ) );
+		$fontsize = \Pressbooks\Sanitize\cleanup_css( trim( $_POST['fontsize'] ?? $this->defaultOptions['fontsize'] ) );
 
 		$options = [
 			'pb_mathjax_url' => $pb_mathjax_url,
@@ -256,11 +260,11 @@ class MathJax {
 	 */
 	public function latexRender( $latex ) {
 		if ( $this->usePbMathJax ) {
-			// TODO: Change to pb-mathjax URL
 			$options = $this->getOptions();
-			$url = '//s0.wp.com/latex.php?latex=' . rawurlencode( $latex ) . '&bg=' . $options['bg'] . '&fg=' . $options['fg'] . '&s=' . rawurlencode( $options['fontsize'] );
+			$url = rtrim( $options['pb_mathjax_url'], '/' );
+			$url .= "{}/latex?latex=" . rawurlencode( $latex ) . '&bg=' . $options['bg'] . '&fg=' . $options['fg'] . '&s=' . rawurlencode( $options['fontsize'] );
+			// TODO: Copy pasta from pb-latex does not belong here. Refactor, use SVG
 			if ( ! empty( $_GET['pb-latex-zoom'] ) ) {
-				// TODO: Copy pasta from pb-latex does not belong here. Refactor, use SVG
 				// Undocumented zoom parameter increases image resolution
 				// @see https://github.com/Automattic/jetpack/issues/7392
 				$url .= '&zoom=' . (int) $_GET['pb-latex-zoom'];
@@ -371,11 +375,11 @@ class MathJax {
 	 */
 	public function asciiMathRender( $asciimath ) {
 		if ( $this->usePbMathJax ) {
-			// TODO: Change to pb-mathjax URL
 			$options = $this->getOptions();
-			$url = '//s0.wp.com/asciimath.php?asciimath=' . rawurlencode( $asciimath ) . '&bg=' . $options['bg'] . '&fg=' . $options['fg'] . '&s=' . rawurlencode( $options['fontsize'] );
+			$url = rtrim( $options['pb_mathjax_url'], '/' );
+			$url .= "{}/asciimath?asciimath=" . rawurlencode( $asciimath ) . '&bg=' . $options['bg'] . '&fg=' . $options['fg'] . '&s=' . rawurlencode( $options['fontsize'] );
+			// TODO: Copy pasta from pb-latex does not belong here. Refactor, use SVG
 			if ( ! empty( $_GET['pb-latex-zoom'] ) ) {
-				// TODO: Copy pasta from pb-latex does not belong here. Refactor, use SVG
 				// Undocumented zoom parameter increases image resolution
 				// @see https://github.com/Automattic/jetpack/issues/7392
 				$url .= '&zoom=' . (int) $_GET['pb-latex-zoom'];
@@ -450,7 +454,7 @@ class MathJax {
 			// Font colors & size
 			$options = $this->getOptions();
 			if ( $options['bg'] === 'transparent' ) {
-				// Omit backrgound from config
+				// Omit background from config
 				$css = "color: '#{$options['fg']}'";
 			} else {
 				$css = "'background-color': '#{$options['bg']}', color: '#{$options['fg']}'";
