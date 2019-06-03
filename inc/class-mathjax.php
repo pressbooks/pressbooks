@@ -253,7 +253,7 @@ class MathJax {
 			$alt = str_replace( '\\', '&#92;', esc_attr( $latex ) );
 			return '<img src="' . $url . '" alt="' . $alt . '" title="' . $alt . '" class="latex mathjax" />';
 		} else {
-			// TODO: Foreground, backrgound, size in CSS: http://docs.mathjax.org/en/latest/reference/CSS-styles.html
+			// Return simplified shortcode, used as MathJax delimiters
 			return "[latex]{$latex}[/latex]";
 		}
 	}
@@ -378,7 +378,7 @@ class MathJax {
 			$alt = str_replace( '\\', '&#92;', esc_attr( $asciimath ) );
 			return '<img src="' . $url . '" alt="' . $alt . '" title="' . $alt . '" class="asciimath mathjax" />';
 		} else {
-			// TODO: Foreground, backrgound, size in CSS: http://docs.mathjax.org/en/latest/reference/CSS-styles.html
+			// Return simplified shortcode, used as MathJax delimiters
 			return "[math]{$asciimath}[/math]";
 		}
 	}
@@ -435,9 +435,11 @@ class MathJax {
 	 * @see http://docs.mathjax.org/en/latest/configuration.html
 	 */
 	public function addScripts() {
-		// Improve browser performance: only load MathJax if there's math to process
+		// Only load MathJax if there's math to process (Improves browser performance)
 		if ( ! is_admin() && $this->sectionHasMath() ) {
-			wp_enqueue_script( 'pb_mathjax', 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML&delayStartupUntil=configured' );
+			// File ends in _CHTML, then it is the CommonHTML output processor
+			// The "-full" configuration is larger
+			wp_enqueue_script( 'pb_mathjax', 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML-full&delayStartupUntil=configured' );
 		}
 	}
 
@@ -445,18 +447,27 @@ class MathJax {
 	 * @see http://docs.mathjax.org/en/latest/configuration.html
 	 */
 	public function addHeaders() {
-		// Improve browser performance: only load MathJax if there's math to process
+		// Only load MathJax if there's math to process (Improves browser performance)
 		if ( ! is_admin() && $this->sectionHasMath() ) {
-			echo '<script type="text/x-mathjax-config">
-			MathJax.Hub.Config({
-				TeX: { extensions: ["cancel.js", "mhchem.js"] },
-				tex2jax: {inlineMath: [["[latex]","[/latex]"]] },
-				asciimath2jax: {delimiters: [["[math]","[/math]"]] },				
-			});
+			// Colors
+			$options = get_option( self::OPTION, $this->defaultOptions );
+			if ($options['bg'] === 'transparent') {
+				$colors = "color: '#{$options['fg']}'";
+			} else {
+				$colors = "'background-color': '#{$options['bg']}', color: '#{$options['fg']}'";
+			}
+			// Config
+			echo "<script type='text/x-mathjax-config'>
+			MathJax.Hub.Config( {
+				TeX: { extensions: [ 'cancel.js', 'mhchem.js' ] },
+				tex2jax: { inlineMath: [ ['[latex]','[/latex]'] ] },
+				asciimath2jax: { delimiters: [ ['[math]','[/math]'] ] },
+				styles: { '.MathJax_CHTML': { {$colors} } }
+			} );
 			</script>
-			<script type="text/javascript">
+			<script type='text/javascript'>
 				MathJax.Hub.Configured();
-			</script>';
+			</script>";
 		}
 	}
 
