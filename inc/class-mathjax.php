@@ -20,11 +20,13 @@ class MathJax {
 	private static $instance = null;
 
 	/**
-	 * @var array
+	 * @var array{pb_mathjax_url: string, bg: string, fg: string, fontsize: string}
 	 */
 	private $defaultOptions = [
+		'pb_mathjax_url' => '',
 		'fg' => '000000',
 		'bg' => 'transparent',
+		'fontsize' => '',
 	];
 
 	/**
@@ -105,11 +107,11 @@ class MathJax {
 	 */
 	public function renderPage() {
 		$this->saveOptions();
-		$options = get_option( self::OPTION, $this->defaultOptions );
+		$options = $this->getOptions();
 
 		$this->usePbMathJax = true;
 		$test_formula = '\displaystyle P_\nu^{-\mu}(z)=\frac{\left(z^2-1\right)^{\frac{\mu}{2}}}{2^\mu \sqrt{\pi}\Gamma\left(\mu+\frac{1}{2}\right)}\int_{-1}^1\frac{\left(1-t^2\right)^{\mu -\frac{1}{2}}}{\left(z+t\sqrt{z^2-1}\right)^{\mu-\nu}}dt';
-		$test_image = $this->latexRender( $test_formula, $this->defaultOptions['fg'], $this->defaultOptions['bg'] );
+		$test_image = $this->latexRender( $test_formula );
 
 		$blade = Container::get( 'Blade' );
 		echo $blade->render(
@@ -117,8 +119,10 @@ class MathJax {
 			[
 				'wp_nonce_field' => wp_nonce_field( 'save', 'pb-mathjax-nonce', true, false ),
 				'test_image' => $test_image,
+				'pb_mathjax_url' => $options['pb_mathjax_url'],
 				'fg' => $options['fg'],
 				'bg' => $options['bg'],
+				'fontsize' => $options['fontsize'],
 			]
 		);
 	}
@@ -133,25 +137,38 @@ class MathJax {
 			return false;
 		}
 
-		$fg = strtolower( substr( preg_replace( '/[^0-9a-f]/i', '', $_POST['fg'] ), 0, 6 ) );
+		// PB MathJax URL
+		$pb_mathjax_url = '';
+		if ( filter_var( $_POST['pb_mathjax_url'] ?? '', FILTER_VALIDATE_URL ) ) {
+			$pb_mathjax_url = $_POST['pb_mathjax_url'];
+		}
+
+		// Text color
+		$fg = strtolower( substr( preg_replace( '/[^0-9a-f]/i', '', $_POST['fg'] ?? '' ), 0, 6 ) );
 		$l = strlen( $fg );
 		if ( 6 > $l ) {
 			$fg .= str_repeat( '0', 6 - $l );
 		}
 
+		// Backrground color
 		if ( 'transparent' === trim( $_POST['bg'] ) ) {
 			$bg = 'transparent';
 		} else {
-			$bg = substr( preg_replace( '/[^0-9a-f]/i', '', $_POST['bg'] ), 0, 6 );
+			$bg = substr( preg_replace( '/[^0-9a-f]/i', '', $_POST['bg'] ?? '' ), 0, 6 );
 			$l = strlen( $bg );
 			if ( 6 > $l ) {
 				$bg .= str_repeat( '0', 6 - $l );
 			}
 		}
 
+		// Fontsize
+		$fontsize = \Pressbooks\Sanitize\cleanup_css( trim( $_POST['fontsize'] ?? '' ) );
+
 		$options = [
+			'pb_mathjax_url' => $pb_mathjax_url,
 			'bg' => $bg,
 			'fg' => $fg,
+			'fontsize' => $fontsize,
 		];
 
 		return update_option( self::OPTION, $options );
@@ -207,24 +224,18 @@ class MathJax {
 	 */
 	public function _dollarSignLatexSrc( $matches ) {
 		$latex = $matches[1];
-		$bg = $this->defaultOptions['bg'];
-		$fg = $this->defaultOptions['fg'];
-		$s = 0;
 		$latex = $this->latexEntityDecode( $latex );
+		// Remove unsupported fg, bg, size attributes
 		if ( preg_match( '/.+(&fg=[0-9a-f]{6}).*/i', $latex, $fg_matches ) ) {
-			$fg = substr( $fg_matches[1], 4 );
 			$latex = str_replace( $fg_matches[1], '', $latex );
 		}
 		if ( preg_match( '/.+(&bg=[0-9a-f]{6}).*/i', $latex, $bg_matches ) ) {
-			$bg = substr( $bg_matches[1], 4 );
 			$latex = str_replace( $bg_matches[1], '', $latex );
 		}
 		if ( preg_match( '/.+(&s=[0-9-]{1,2}).*/i', $latex, $s_matches ) ) {
-			$s = (int) substr( $s_matches[1], 3 );
 			$latex = str_replace( $s_matches[1], '', $latex );
 		}
-
-		return $this->latexRender( $latex, $fg, $bg, $s );
+		return $this->latexRender( $latex );
 	}
 
 	/**
@@ -240,16 +251,14 @@ class MathJax {
 	 * Render image (SVG/PNG) for exports, simplified shortcode for webbook
 	 *
 	 * @param string $latex
-	 * @param string $fg
-	 * @param string $bg
-	 * @param int $s
 	 *
 	 * @return string
 	 */
-	public function latexRender( $latex, $fg, $bg, $s = 0 ) {
+	public function latexRender( $latex ) {
 		if ( $this->usePbMathJax ) {
 			// TODO: Change to pb-mathjax URL
-			$url = '//s0.wp.com/latex.php?latex=' . rawurlencode( $latex ) . '&bg=' . $bg . '&fg=' . $fg . '&s=' . $s;
+			$options = $this->getOptions();
+			$url = '//s0.wp.com/latex.php?latex=' . rawurlencode( $latex ) . '&bg=' . $options['bg'] . '&fg=' . $options['fg'] . '&s=' . rawurlencode( $options['fontsize'] );
 			if ( ! empty( $_GET['pb-latex-zoom'] ) ) {
 				// TODO: Copy pasta from pb-latex does not belong here. Refactor, use SVG
 				// Undocumented zoom parameter increases image resolution
@@ -261,7 +270,6 @@ class MathJax {
 			return '<img src="' . $url . '" alt="' . $alt . '" title="' . $alt . '" class="latex mathjax" />';
 		} else {
 			// Return simplified shortcode. Used as MathJax delimiters.
-			// Foreground, background, & size (for single math equations) not supported in webbook
 			return "[latex]{$latex}[/latex]";
 		}
 	}
@@ -269,7 +277,7 @@ class MathJax {
 	/**
 	 * The shortcode way.
 	 *
-	 * Example: [latex s=4 bg=00f fg=ff0]\LaTeX[/latex]
+	 * Example: [latex]\LaTeX[/latex]
 	 *
 	 * @param array $atts
 	 * @param string $content
@@ -277,16 +285,8 @@ class MathJax {
 	 * @return string
 	 */
 	function latexShortcode( $atts, $content = '' ) {
-
-		$atts = shortcode_atts(
-			[
-				's' => 0,
-				'bg' => $this->defaultOptions['bg'],
-				'fg' => $this->defaultOptions['fg'],
-			], $atts, 'latex'
-		);
-
-		return $this->latexRender( $this->latexEntityDecode( $content ), $atts['fg'], $atts['bg'], $atts['s'] );
+		// No attributes are supported by our code
+		return $this->latexRender( $this->latexEntityDecode( $content ) );
 	}
 
 	/**
@@ -339,24 +339,18 @@ class MathJax {
 	 */
 	public function _dollarSignAsciiMathSrc( $matches ) {
 		$latex = $matches[1];
-		$bg = $this->defaultOptions['bg'];
-		$fg = $this->defaultOptions['fg'];
-		$s = 0;
 		$latex = $this->latexEntityDecode( $latex );
+		// Remove unsupported fg, bg, size attributes
 		if ( preg_match( '/.+(&fg=[0-9a-f]{6}).*/i', $latex, $fg_matches ) ) {
-			$fg = substr( $fg_matches[1], 4 );
 			$latex = str_replace( $fg_matches[1], '', $latex );
 		}
 		if ( preg_match( '/.+(&bg=[0-9a-f]{6}).*/i', $latex, $bg_matches ) ) {
-			$bg = substr( $bg_matches[1], 4 );
 			$latex = str_replace( $bg_matches[1], '', $latex );
 		}
 		if ( preg_match( '/.+(&s=[0-9-]{1,2}).*/i', $latex, $s_matches ) ) {
-			$s = (int) substr( $s_matches[1], 3 );
 			$latex = str_replace( $s_matches[1], '', $latex );
 		}
-
-		return $this->asciiMathRender( $latex, $fg, $bg, $s );
+		return $this->asciiMathRender( $latex );
 	}
 
 	/**
@@ -372,16 +366,14 @@ class MathJax {
 	 * Render image (SVG/PNG) for exports, simplified shortcode for webbook
 	 *
 	 * @param string $asciimath
-	 * @param string $fg
-	 * @param string $bg
-	 * @param int $s
 	 *
 	 * @return string
 	 */
-	public function asciiMathRender( $asciimath, $fg, $bg, $s = 0 ) {
+	public function asciiMathRender( $asciimath ) {
 		if ( $this->usePbMathJax ) {
 			// TODO: Change to pb-mathjax URL
-			$url = '//s0.wp.com/asciimath.php?asciimath=' . rawurlencode( $asciimath ) . '&bg=' . $bg . '&fg=' . $fg . '&s=' . $s;
+			$options = $this->getOptions();
+			$url = '//s0.wp.com/asciimath.php?asciimath=' . rawurlencode( $asciimath ) . '&bg=' . $options['bg'] . '&fg=' . $options['fg'] . '&s=' . rawurlencode( $options['fontsize'] );
 			if ( ! empty( $_GET['pb-latex-zoom'] ) ) {
 				// TODO: Copy pasta from pb-latex does not belong here. Refactor, use SVG
 				// Undocumented zoom parameter increases image resolution
@@ -393,7 +385,6 @@ class MathJax {
 			return '<img src="' . $url . '" alt="' . $alt . '" title="' . $alt . '" class="asciimath mathjax" />';
 		} else {
 			// Return simplified shortcode. Used as MathJax delimiters.
-			// Foreground, background, & size (for single math equations) not supported in webbook
 			return "[math]{$asciimath}[/math]";
 		}
 	}
@@ -401,7 +392,7 @@ class MathJax {
 	/**
 	 * The shortcode way.
 	 *
-	 * Example: [math s=4 bg=00f fg=ff0]sum_(i=1)^n i^3=((n(n+1))/2)^2[/math]
+	 * Example: [math]\AsciiMath[/math]
 	 *
 	 * @param array $atts
 	 * @param string $content
@@ -409,16 +400,8 @@ class MathJax {
 	 * @return string
 	 */
 	function asciiMathShortcode( $atts, $content = '' ) {
-
-		$atts = shortcode_atts(
-			[
-				's' => 0,
-				'bg' => $this->defaultOptions['bg'],
-				'fg' => $this->defaultOptions['fg'],
-			], $atts, 'math'
-		);
-
-		return $this->asciiMathRender( $this->asciiMathEntityDecode( $content ), $atts['fg'], $atts['bg'], $atts['s'] );
+		// No attributes are supported by our code
+		return $this->asciiMathRender( $this->asciiMathEntityDecode( $content ) );
 	}
 
 	/**
@@ -452,8 +435,8 @@ class MathJax {
 	public function addScripts() {
 		// Only load MathJax if there's math to process (Improves browser performance)
 		if ( ! is_admin() && $this->sectionHasMath() ) {
-			// File ends in _CHTML, then it is the CommonHTML output processor
-			// The "-full" configuration is larger
+			// If the file ends in _CHTML, then it is the CommonHTML output processor
+			// The "-full" configuration is substantially larger (on the order of 70KB more)
 			wp_enqueue_script( 'pb_mathjax', 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML-full&delayStartupUntil=configured' );
 		}
 	}
@@ -464,12 +447,16 @@ class MathJax {
 	public function addHeaders() {
 		// Only load MathJax if there's math to process (Improves browser performance)
 		if ( ! is_admin() && $this->sectionHasMath() ) {
-			// Colors
-			$options = get_option( self::OPTION, $this->defaultOptions );
+			// Font colors & size
+			$options = $this->getOptions();
 			if ( $options['bg'] === 'transparent' ) {
-				$colors = "color: '#{$options['fg']}'";
+				// Omit backrgound from config
+				$css = "color: '#{$options['fg']}'";
 			} else {
-				$colors = "'background-color': '#{$options['bg']}', color: '#{$options['fg']}'";
+				$css = "'background-color': '#{$options['bg']}', color: '#{$options['fg']}'";
+			}
+			if ( ! empty( $options['fontsize'] ) ) {
+				$css .= ", 'font-size': '{$options['fontsize']} !important'";
 			}
 			// Config
 			echo "<script type='text/x-mathjax-config'>
@@ -477,13 +464,32 @@ class MathJax {
 				TeX: { extensions: [ 'cancel.js', 'mhchem.js' ] },
 				tex2jax: { inlineMath: [ ['[latex]','[/latex]'] ] },
 				asciimath2jax: { delimiters: [ ['[math]','[/math]'] ] },
-				styles: { '.MathJax_CHTML': { {$colors} } }
+				styles: { '.MathJax_CHTML': { {$css} } }
 			} );
 			</script>
 			<script type='text/javascript'>
 				MathJax.Hub.Configured();
 			</script>";
 		}
+	}
+
+
+	/**
+	 * @return array{pb_mathjax_url: string, bg: string, fg: string, fontsize: string}
+	 * @see \Pressbooks\MathJax::$defaultOptions
+	 */
+	public function getOptions() {
+		$options = get_option( self::OPTION, [] );
+		$pb_mathjax_url = trim( $options['pb_mathjax_url'] ?? $this->defaultOptions['pb_mathjax_url'] );
+		$bg = trim( $options['bg'] ?? $this->defaultOptions['bg'] );
+		$fg = trim( $options['fg'] ?? $this->defaultOptions['fg'] );
+		$fontsize = trim( $options['fontsize'] ?? $this->defaultOptions['fontsize'] );
+		return [
+			'pb_mathjax_url' => $pb_mathjax_url,
+			'bg' => $bg,
+			'fg' => $fg,
+			'fontsize' => $fontsize,
+		];
 	}
 
 }
