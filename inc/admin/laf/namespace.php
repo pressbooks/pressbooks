@@ -26,16 +26,16 @@ function add_footer_link() {
 /**
  * Add checks to determine what contact link returns
  */
-$contactForm = get_blog_option( get_main_site_id() , 'pb_network_contact_form');
-$contactLink = get_blog_option( get_main_site_id() , 'pb_network_contact_link');
+$pb_network_contact_form = get_blog_option( get_main_site_id() , 'pb_network_contact_form');
+$pb_network_contact_link = get_blog_option( get_main_site_id() , 'pb_network_contact_link');
 
-if( $contactForm ) {
-	$pb_network_contact_link = network_home_url( '/#contact' );
+if( $pb_network_contact_form ) {
+	$contact_link = network_home_url( '/#contact' );
 } else {
 	if( !empty( $contactLink ) ){
-		$pb_network_contact_link = $contactLink;
+		$contact_link = $pb_network_contact_link;
 	} else {
-		$pb_network_contact_link = "mailto:" . get_option( 'admin_email' );
+		$contact_link = "mailto:" . get_option( 'admin_email' );
 	}
 }
 
@@ -81,7 +81,7 @@ if( $contactForm ) {
 			 *
 			 * @since 5.6.0
 			 */
-			apply_filters( 'pb_contact_link', $pb_network_contact_link ),
+			apply_filters( 'pb_contact_link', $contact_link ),
 			__( 'Contact', 'pressbooks' )
 		)
 	);
