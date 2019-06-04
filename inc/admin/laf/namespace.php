@@ -32,7 +32,7 @@ $pb_network_contact_link = get_blog_option( get_main_site_id() , 'pb_network_con
 if( $pb_network_contact_form ) {
 	$contact_link = network_home_url( '/#contact' );
 } else {
-	if( !empty( $contactLink ) ){
+	if( !empty( $pb_network_contact_link ) ){
 		$contact_link = $pb_network_contact_link;
 	} else {
 		$contact_link = "mailto:" . get_option( 'admin_email' );
