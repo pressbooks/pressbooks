@@ -33,34 +33,10 @@
                 </td>
             </tr>
             <tr>
-                <th scope="row"><label for="mathjax-url">{{ __( 'PB MathJax URL', 'pressbooks' ) }}</label></th>
-                <td>
-                    <input class='large-text' type='url' name='pb_mathjax_url' value='{{ $pb_mathjax_url }}' id='mathjax-url'/>
-                    <p>{!! sprintf(
-                            __( 'URL to your <a href="%s">PB-MathJax Microservice</a>', 'pressbooks' ),
-	                         'https://github.com/pressbooks/pb-mathjax'
-					    ) !!} </p>
-                </td>
-            </tr>
-            <tr>
                 <th scope="row"><label for="mathjax-fg">{{ __( 'Text color', 'pressbooks' ) }}</label></th>
                 <td>
                     <input type='text' name='fg' value='{{ $fg }}' id='mathjax-fg'/>
                     <p>{!!  __( 'A six digit hexadecimal number like <code>000000</code> or <code>ffffff</code>', 'pressbooks' )  !!}</p>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row"><label for="mathjax-bg">{{ __( 'Background color', 'pressbooks' ) }}</label></th>
-                <td>
-                    <input type='text' name='bg' value='{{ $bg }}' id='mathjax-bg'/>
-                    <p>{!!__( 'A six digit hexadecimal number like <code>000000</code> or <code>ffffff</code>, or <code>transparent</code>', 'pressbooks' ) !!}</p>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row"><label for="mathjax-fontsize">{{ __( 'Font size', 'pressbooks' ) }}</label></th>
-                <td>
-                    <input type='text' name='fontsize' value='{{ $fontsize }}' id='mathjax-fontsize'/>
-                    <p>{!!__( 'A CSS value for <code>font-size</code>', 'pressbooks' ) !!}</p>
                 </td>
             </tr>
             </tbody>

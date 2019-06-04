@@ -299,6 +299,9 @@ class Xhtml11 extends ExportGenerator {
 			add_shortcode( 'footnote', [ $this, 'footnoteShortcode' ] );
 		}
 
+		// Use SVG for math
+		add_filter( 'pb_mathjax_use_svg', '__return_true' );
+
 		// ------------------------------------------------------------------------------------------------------------
 		// XHTML, Start!
 

@@ -311,8 +311,7 @@ class Pdf extends Export {
 		}
 
 		if ( $fix ) {
-			// TODO: Use SVG in Prince?
-			$this->url .= '&pb-latex-zoom=3';
+			// TODO: Images were changed from PNG to SVG, do we still need this?
 			$this->cssOverrides .= "\n" . 'img.latex { prince-image-resolution: 300dpi; }' . "\n";
 		}
 	}
