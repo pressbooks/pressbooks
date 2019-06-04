@@ -55,6 +55,8 @@ class Shortcodes_Footnotes extends \WP_UnitTestCase {
 		$content = $this->fn->shortcodeHandler( [ 'suptext' => 'Foo' ], 'Well this is awkward...' );
 		$this->assertContains( '[3. Foo]</sup></a>', $content );
 
+		$this->assertContains( 'aria-label="Footnote 3"', $content );
+
 		$this->assertContains( '#footnote-1-3', $content );
 
 		$this->assertEmpty( $this->fn->shortcodeHandler( [] ) );
