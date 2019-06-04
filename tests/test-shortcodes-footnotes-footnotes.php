@@ -80,6 +80,8 @@ class Shortcodes_Footnotes extends \WP_UnitTestCase {
 		$content = $this->fn->shortcodeHandler( [ 'suptext' => 'Foo' ], 'Well this is awkward...' );
 		$this->assertContains( '[*Foo]</sup></a>', $content );
 
+		$this->assertContains( 'aria-label="Footnote 3"', $content );
+
 		$this->assertContains( '#footnote-999-3', $content );
 	}
 
@@ -103,6 +105,7 @@ class Shortcodes_Footnotes extends \WP_UnitTestCase {
 		$this->assertContains( 'First.', $content );
 		$this->assertContains( 'Second.', $content );
 		$this->assertContains( 'Third.', $content );
+		$this->assertContains( 'aria-label="Return to footnote 2', $content );
 		$this->assertContains( '</ol></div>', $content );
 	}
 
@@ -126,6 +129,7 @@ class Shortcodes_Footnotes extends \WP_UnitTestCase {
 		$this->assertContains( 'First.', $content );
 		$this->assertContains( 'Second.', $content );
 		$this->assertContains( 'Third.', $content );
+		$this->assertContains( 'aria-label="Return to footnote 2', $content );
 		$this->assertContains( '</ul></div>', $content );
 	}
 
