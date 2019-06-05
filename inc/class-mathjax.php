@@ -90,7 +90,7 @@ class MathJax {
 			}
 		);
 		add_shortcode( 'latex', [ $obj, 'latexShortcode' ] );
-		add_shortcode( 'math', [ $obj, 'asciiMathShortcode' ] );
+		add_shortcode( 'asciimath', [ $obj, 'asciiMathShortcode' ] );
 		add_filter( 'the_content', [ $obj, 'dollarSignLatexMarkup' ], 9 ); // before wptexturize
 		add_filter( 'the_content', [ $obj, 'dollarSignAsciiMathMarkup' ], 9 ); // before wptexturize
 		add_action( 'wp_enqueue_scripts', [ $obj, 'addScripts' ] );
@@ -260,7 +260,14 @@ class MathJax {
 	 */
 	public function latexRender( $latex ) {
 		$latex = trim( $latex );
-		if ( $this->usePbMathJax && PB_MATHJAX_URL ) {
+		/**
+		 * Use PB-MathJax micro-service
+		 *
+		 * @since 5.9.0
+		 * @param bool $var
+		 * @return bool
+		 */
+		if ( apply_filters( 'pb_mathjax_use', $this->usePbMathJax ) && PB_MATHJAX_URL ) {
 			$options = $this->getOptions();
 			$url = rtrim( PB_MATHJAX_URL, '/' );
 			$url .= '/latex?latex=' . rawurlencode( $latex ) . '&fg=' . $options['fg'];
@@ -301,10 +308,10 @@ class MathJax {
 	/**
 	 * AsciiMath support.
 	 *
-	 * Backward compatibility support for "$math $" shortcodes.
+	 * Backward compatibility support for "$asciimath $" shortcodes.
 	 *
-	 * $math e^{i \pi} + 1 = 0$ -> [math]e^{i \pi} + 1 = 0[/math]
-	 * $math [a, b]$ -> [math][a, b][/math]
+	 * $asciimath e^{i \pi} + 1 = 0$ -> [asciimath]e^{i \pi} + 1 = 0[/asciimath]
+	 * $asciimath [a, b]$ -> [asciimath][a, b][/asciimath]
 	 *
 	 * @param $content
 	 *
@@ -314,7 +321,7 @@ class MathJax {
 		$textarr = wp_html_split( $content );
 
 		$regex = '%
-			\$math(?:=\s*|\s+)
+			\$asciimath(?:=\s*|\s+)
 			((?:
 				[^$]+ # Not a dollar
 			|
@@ -328,7 +335,7 @@ class MathJax {
 				continue;
 			}
 
-			if ( false === stripos( $element, '$math' ) ) {
+			if ( false === stripos( $element, '$asciimath' ) ) {
 				continue;
 			}
 
@@ -380,7 +387,14 @@ class MathJax {
 	 */
 	public function asciiMathRender( $asciimath ) {
 		$asciimath = trim( $asciimath );
-		if ( $this->usePbMathJax && PB_MATHJAX_URL ) {
+		/**
+		 * Use PB-MathJax micro-service
+		 *
+		 * @since 5.9.0
+		 * @param bool $var
+		 * @return bool
+		 */
+		if ( apply_filters( 'pb_mathjax_use', $this->usePbMathJax ) && PB_MATHJAX_URL ) {
 			$options = $this->getOptions();
 			$url = rtrim( PB_MATHJAX_URL, '/' );
 			$url .= '/asciimath?asciimath=' . rawurlencode( $asciimath ) . '&fg=' . $options['fg'];
@@ -430,7 +444,7 @@ class MathJax {
 				$has_math = $this->sectionHasMath[ $id ];
 			} else {
 				$content = $post->post_content;
-				$math_tags = [ '[/latex]', '$latex', '[/math]', '$math' ];
+				$math_tags = [ '[/latex]', '$latex', '[/asciimath]', '$asciimath' ];
 				foreach ( $math_tags as $math_tag ) {
 					if ( strpos( $content, $math_tag ) !== false ) {
 						$has_math = true;
@@ -467,7 +481,7 @@ class MathJax {
 			// Config
 			echo "<script type='text/x-mathjax-config'>
 			MathJax.Hub.Config( {
-				TeX: { extensions: [ 'cancel.js', 'mhchem.js' ] },
+				TeX: { extensions: [ 'autoload-all.js' ] },
 				tex2jax: { inlineMath: [ ['[latex]','[/latex]'] ] },
 				asciimath2jax: { delimiters: [ ['[math]','[/math]'] ] },
 				styles: { '.MathJax_CHTML': { {$css} } }
