@@ -35,7 +35,7 @@ function add_footer_link() {
 		if ( ! empty( $pb_network_contact_link ) ) {
 			$contact_link = $pb_network_contact_link;
 		} else {
-			$contact_link = 'mailto:' . get_option( 'admin_email' );
+			$contact_link = 'mailto:' . get_blog_option( get_main_site_id(), 'admin_email' );
 		}
 	}
 
