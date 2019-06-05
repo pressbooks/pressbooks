@@ -34,7 +34,7 @@
 		"jenssegers/blade": "^1.1",
 		"jenssegers/imagehash": "^0.6.0",
 		"johnbillion/extended-cpts": "^4.2",
-		"leafo/scssphp": "^0.8.2",
+		"scssphp/scssphp": "^1.0.0",
 		"masterminds/html5": "^2.6",
 		"pressbooks/mix": "^2.1",
 		"pressbooks/pb-api": "^1.1",
