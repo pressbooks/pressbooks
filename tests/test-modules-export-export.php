@@ -368,6 +368,7 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 		$user_id = $this->factory()->user->create( [ 'role' => 'contributor' ] );
 		wp_set_current_user( $user_id );
 		update_option( 'pressbooks_theme_options_global', [ 'parse_subsections' => 1 ] );
+		add_filter( 'pb_mathjax_use', '__return_false' );
 
 		$paths = [];
 		$xhtml_path = null;
@@ -405,7 +406,7 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 			// Verify XHTML content for good measure
 			$xhtml_content = file_get_contents( ( $xhtml_path ) );
 			$this->assertContains( '<span class="footnote">', $xhtml_content );
-			$this->assertContains( 'wp.com/latex.php', $xhtml_content );
+			$this->assertContains( '[latex]', $xhtml_content ); // TODO: add_filter( 'pb_mathjax_use', '__return_true' );
 			$this->assertContains( ' <div id="attachment_1" ', $xhtml_content );
 			$this->assertContains( '<p><em>Ka kite ano!</em></p>', $xhtml_content );
 			$this->assertContains( 'https://github.com/pressbooks/pressbooks', $xhtml_content );
@@ -429,6 +430,7 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 		( new \Pressbooks\Contributors() )->insert( 'Ned Zimmerman', $meta_post->ID );
 		$user_id = $this->factory()->user->create( [ 'role' => 'contributor' ] );
 		wp_set_current_user( $user_id );
+		add_filter( 'pb_mathjax_use', '__return_false' );
 
 		$module = '\Pressbooks\Modules\Export\Xhtml\Xhtml11';
 		$exporter = new $module( [] );
@@ -437,7 +439,7 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 		$xhtml_content = file_get_contents( $exporter->getOutputPath() );
 
 		$this->assertContains( '<span class="footnote">', $xhtml_content );
-		$this->assertContains( 'wp.com/latex.php', $xhtml_content );
+		$this->assertContains( '[latex]', $xhtml_content );
 		$this->assertContains( ' <div id="attachment_1" ', $xhtml_content );
 		$this->assertContains( '<p><em>Ka kite ano!</em></p>', $xhtml_content );
 		$this->assertContains( 'https://github.com/pressbooks/pressbooks', $xhtml_content );
