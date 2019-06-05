@@ -185,7 +185,7 @@ class Sass {
 
 		try {
 			$css = '/* Silence is golden. */'; // If no SCSS input was passed, prevent file write errors by putting a comment in the CSS output.
-			$scssphp = new \Leafo\ScssPhp\Compiler;
+			$scssphp = new \ScssPhp\ScssPhp\Compiler;
 			if ( ! empty( $scss ) || ! empty( $this->vars ) ) {
 				$scssphp->setVariables( $this->vars );
 				$scssphp->setImportPaths( $includes );
@@ -244,16 +244,16 @@ class Sass {
 	 */
 	public function parseVariables( $scss ) {
 		$output = [];
-		$parser = new \Leafo\ScssPhp\Parser( null );
+		$parser = new \ScssPhp\ScssPhp\Parser( null );
 		$tree = $parser->parse( $scss );
 		foreach ( $tree->children as $item ) {
-			if ( $item[0] === \Leafo\ScssPhp\Type::T_ASSIGN && $item[1][0] === \Leafo\ScssPhp\Type::T_VARIABLE && ! str_starts_with( $item[1][1], '_' ) ) {
+			if ( $item[0] === \ScssPhp\ScssPhp\Type::T_ASSIGN && $item[1][0] === \ScssPhp\ScssPhp\Type::T_VARIABLE && ! str_starts_with( $item[1][1], '_' ) ) {
 				$key = $item[1][1];
 				switch ( $item[2][0] ) {
-					case \Leafo\ScssPhp\Type::T_VARIABLE:
+					case \ScssPhp\ScssPhp\Type::T_VARIABLE:
 						$val = '$' . $item[2][1];
 						break;
-					case \Leafo\ScssPhp\Type::T_FUNCTION_CALL:
+					case \ScssPhp\ScssPhp\Type::T_FUNCTION_CALL:
 						$fncall = $item[2][1];
 						$fncall_params = '';
 						foreach ( $item[2][2] as $param ) {
@@ -263,7 +263,7 @@ class Sass {
 						$val = "{$fncall}({$fncall_params})";
 						break;
 					default:
-						$val = @( new \Leafo\ScssPhp\Compiler() )->compileValue( $item[2] ); // @codingStandardsIgnoreLine
+						$val = @( new \ScssPhp\ScssPhp\Compiler() )->compileValue( $item[2] ); // @codingStandardsIgnoreLine
 				}
 				$output[ $key ] = $val;
 			}
