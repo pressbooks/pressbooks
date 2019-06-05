@@ -32,7 +32,7 @@ $include_paths = [
 $scss = \Pressbooks\Utility\get_contents( $input_file_name );
 
 try {
-	$scssphp = new \Leafo\ScssPhp\Compiler;
+	$scssphp = new \ScssPhp\ScssPhp\Compiler;
 	$scssphp->setImportPaths( $include_paths );
 	$css = $scssphp->compile( $scss );
 } catch ( Exception $e ) {
