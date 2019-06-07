@@ -513,14 +513,22 @@ class Book {
 		if ( empty( $parent ) ) {
 			return false;
 		}
-		$has_shortcode = has_shortcode( $parent->post_content, 'heading' );
-		if ( stripos( $parent->post_content, '<h1' ) === false && $has_shortcode === false ) { // No <h1> or [heading] shortcode
+		$has_heading_shortcode = has_shortcode( $parent->post_content, 'heading' );
+		if ( stripos( $parent->post_content, '<h1' ) === false && $has_heading_shortcode === false ) {
+			// No <h1> or [heading] shortcode, nothing to do
 			return false;
 		}
 
+		if ( $has_heading_shortcode ) {
+			// Only render heading shortcode into <h1> if we have to
+			$content = \Pressbooks\Utility\do_shortcode_by_tags( $parent->post_content, [ 'heading' ] );
+			$content = strip_shortcodes( $content );
+		} else {
+			$content = $parent->post_content;
+		}
+		$content = strip_tags( $content, '<h1>' );  // Strip everything except <h1> to speed up load time
+
 		$type = $parent->post_type;
-		$content = ( $has_shortcode ) ? apply_filters( 'the_content', $parent->post_content ) : $parent->post_content; // Only render shortcodes if we have to
-		$content = strip_tags( $content, '<h1>' );  // Strip everything except h1 to speed up load time
 		$output = [];
 		$s = 1;
 

@@ -930,6 +930,20 @@ abstract class Export {
 	 */
 	static function isFormSubmission() {
 
+		// EventSource (Progress bar)
+		if ( wp_doing_ajax() ) {
+			if ( empty( $_REQUEST['action'] ) ) {
+				return false;
+			}
+
+			if ( 'export-book' !== $_REQUEST['action'] ) {
+				return false;
+			}
+
+			return true;
+		}
+
+		// Delete, Download, Etc.
 		if ( empty( $_REQUEST['page'] ) ) {
 			return false;
 		}

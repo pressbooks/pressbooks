@@ -1122,8 +1122,8 @@ class Xhtml11 extends ExportGenerator {
 							$sections = \Pressbooks\Book::getSubsections( $chapter['ID'] );
 							if ( $sections ) {
 								echo '<ul class="sections">';
-								foreach ( $sections as $id => $title ) {
-									echo '<li class="section"><a href="#' . $id . '"><span class="toc-subsection-title">' . Sanitize\decode( $title ) . '</span></a></li>';
+								foreach ( $sections as $id => $section_title ) {
+									echo '<li class="section"><a href="#' . $id . '"><span class="toc-subsection-title">' . Sanitize\decode( $section_title ) . '</span></a></li>';
 								}
 								echo '</ul>';
 							}
@@ -1191,8 +1191,8 @@ class Xhtml11 extends ExportGenerator {
 						$sections = \Pressbooks\Book::getSubsections( $val['ID'] );
 						if ( $sections ) {
 							echo '<ul class="sections">';
-							foreach ( $sections as $id => $title ) {
-								echo '<li class="section"><a href="#' . $id . '"><span class="toc-subsection-title">' . $title . '</span></a></li>';
+							foreach ( $sections as $id => $section_title ) {
+								echo '<li class="section"><a href="#' . $id . '"><span class="toc-subsection-title">' . Sanitize\decode( $section_title ) . '</span></a></li>';
 							}
 							echo '</ul>';
 						}

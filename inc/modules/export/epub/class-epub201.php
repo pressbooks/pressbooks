@@ -1909,8 +1909,8 @@ class Epub201 extends ExportGenerator {
 				$sections = Book::getSubsections( $v['ID'] );
 				if ( $sections ) {
 					$html .= '<ul class="sections">';
-					foreach ( $sections as $id => $title ) {
-						$html .= '<li class="section"><a href="' . $v['filename'] . '#' . $id . '"><span class="toc-subsection-title">' . Sanitize\decode( $title ) . '</span></a></li>';
+					foreach ( $sections as $id => $section_title ) {
+						$html .= '<li class="section"><a href="' . $v['filename'] . '#' . $id . '"><span class="toc-subsection-title">' . Sanitize\decode( $section_title ) . '</span></a></li>';
 					}
 					$html .= '</ul>';
 				}

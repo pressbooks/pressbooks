@@ -121,8 +121,8 @@ function formats() {
 	];
 
 	// Common Cartridge 1.1 (Web Links)
-	$enable_thincc_weblinks = get_site_option( 'pressbooks_sharingandprivacy_options', [] );
-	$enable_thincc_weblinks = isset( $enable_thincc_weblinks['enable_thincc_weblinks'] ) ? $enable_thincc_weblinks['enable_thincc_weblinks'] : \Pressbooks\Admin\Network\SharingAndPrivacyOptions::getDefaults()['enable_thincc_weblinks'];
+
+	$enable_thincc_weblinks = \Pressbooks\Admin\Network\SharingAndPrivacyOptions::getOption( 'enable_thincc_weblinks' );
 	if ( $enable_thincc_weblinks ) {
 		$formats['exotic']['weblinks'] = __( 'Common Cartridge 1.1 (Web Links)', 'pressbooks' );
 	}

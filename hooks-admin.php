@@ -133,7 +133,7 @@ add_action( 'admin_init', '\Pressbooks\Admin\NetworkManagers\restrict_access' );
 add_action( 'admin_menu', '\Pressbooks\Admin\NetworkManagers\hide_menus' );
 add_action( 'admin_bar_menu', '\Pressbooks\Admin\NetworkManagers\hide_admin_bar_menus', 999 );
 if ( ! $is_book ) {
-	add_action( 'network_admin_menu', '\Pressbooks\Admin\NetworkManagers\hide_network_menus' );
+	add_action( 'network_admin_menu', '\Pressbooks\Admin\NetworkManagers\hide_network_menus', 999 );
 }
 
 // Interfaces around Custom Post Types and Taxonomies

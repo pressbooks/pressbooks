@@ -23,6 +23,21 @@ use Pressbooks\Metadata;
  * Add a custom message in admin footer
  */
 function add_footer_link() {
+	/**
+	 * Add checks to determine what contact link returns
+	 */
+	$pb_network_contact_form = get_blog_option( get_main_site_id(), 'pb_network_contact_form' );
+	$pb_network_contact_link = get_blog_option( get_main_site_id(), 'pb_network_contact_link' );
+
+	if ( $pb_network_contact_form ) {
+		$contact_link = network_home_url( '/#contact' );
+	} else {
+		if ( ! empty( $pb_network_contact_link ) ) {
+			$contact_link = $pb_network_contact_link;
+		} else {
+			$contact_link = 'mailto:' . get_blog_option( get_main_site_id(), 'admin_email' );
+		}
+	}
 
 	printf(
 		'<span id="footer-thankyou">%1$s</span> &bull; %2$s &bull; %3$s &bull; %4$s &bull; %5$s &bull; %6$s',
@@ -66,7 +81,7 @@ function add_footer_link() {
 			 *
 			 * @since 5.6.0
 			 */
-			apply_filters( 'pb_contact_link', network_home_url( '/#contact' ) ),
+			apply_filters( 'pb_contact_link', $contact_link ),
 			__( 'Contact', 'pressbooks' )
 		)
 	);
@@ -98,6 +113,7 @@ function replace_book_admin_menu() {
 	remove_submenu_page( 'tools.php', 'import.php' );
 	remove_submenu_page( 'tools.php', 'export.php' );
 	remove_submenu_page( 'tools.php', 'tools.php' );
+	remove_submenu_page( 'tools.php', 'site-health.php' );
 
 	// Organize
 	$organize_page = add_menu_page( __( 'Organize', 'pressbooks' ), __( 'Organize', 'pressbooks' ), 'edit_posts', 'pb_organize', __NAMESPACE__ . '\display_organize', 'dashicons-book' );
@@ -1081,7 +1097,7 @@ function init_css_js() {
 	wp_enqueue_script( 'jquery-ui-core' );
 
 	// A11y
-	wp_register_script( 'pb-a11y', $assets->getPath( 'scripts/a11y.js' ), [ 'jquery' ], false, true );
+	wp_register_script( 'pb-a11y', $assets->getPath( 'scripts/a11y.js' ), [ 'jquery', 'wp-i18n' ], false, true );
 	wp_enqueue_script( 'pb-a11y' );
 }
 
