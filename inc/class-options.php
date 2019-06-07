@@ -489,4 +489,25 @@ abstract class Options {
 			Book::deleteBookObjectCache();
 		}
 	}
+
+	/**
+	 * @since 5.9.0
+	 *
+	 * @param string $opt
+	 * @return mixed
+	 */
+	static function getOption( $opt ) {
+		$var = get_site_option( static::getSlug(), [] );
+
+		if ( isset( $var[ $opt ] ) ) {
+			return $var[ $opt ];
+		}
+
+		$defaults = static::getDefaults();
+		if ( isset( $defaults[ $opt ] ) ) {
+			return $defaults[ $opt ];
+		}
+
+		return null;
+	}
 }

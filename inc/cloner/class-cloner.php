@@ -1857,8 +1857,7 @@ class Cloner {
 	 * @return bool
 	 */
 	public static function isEnabled() {
-		$enable_cloning = get_site_option( 'pressbooks_sharingandprivacy_options', [] );
-		$enable_cloning = isset( $enable_cloning['enable_cloning'] ) ? $enable_cloning['enable_cloning'] : SharingAndPrivacyOptions::getDefaults()['enable_cloning'];
+		$enable_cloning = SharingAndPrivacyOptions::getOption( 'enable_cloning' );
 		return (bool) $enable_cloning;
 	}
 

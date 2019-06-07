@@ -365,4 +365,14 @@ class OptionsTest extends \WP_UnitTestCase {
 		$this->assertNotEquals( $now, get_transient( 'pb_cache_deleted' ) );
 	}
 
+	public function test_getOption() {
+		$opt = new \Pressbooks\Admin\Network\SharingAndPrivacyOptions( [] );
+		$this->assertNotNull( $opt::getOption( 'enable_cloning' ) );
+		$this->assertNull( $opt::getOption( 'does_not_exist' ) );
+
+		$opt = new \Pressbooks\Admin\ExportOptions( [] );
+		$this->assertNotNull( $opt::getOption( 'email_validation_logs' ) );
+		$this->assertNull( $opt::getOption( 'does_not_exist' ) );
+	}
+
 }

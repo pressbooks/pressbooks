@@ -92,5 +92,6 @@ class Admin_NetworkManagers extends \WP_UnitTestCase {
 		$this->assertTrue( is_array( $allowed ) );
 		$this->assertContains( 'pb_analytics', $allowed );
 		$this->assertContains( 'pb_whitelabel_settings', $allowed );
+		$this->assertContains( 'pressbooks_sharingandprivacy_options', $allowed );
 	}
 }
