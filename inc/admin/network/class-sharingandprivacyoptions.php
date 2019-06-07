@@ -6,6 +6,8 @@
 
 namespace Pressbooks\Admin\Network;
 
+use function Pressbooks\Admin\NetworkManagers\is_restricted;
+
 class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	/**
 	 * The value for *site* option: pressbooks_sharingandprivacy_options_version
@@ -69,6 +71,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 			$_page,
 			$_section,
 			[
+				'class' => is_restricted() ? 'hidden' : '',
 				__( 'Allow book administrators to enable redistribution of export files.', 'pressbooks' ),
 			]
 		);
@@ -80,6 +83,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 			$_page,
 			$_section,
 			[
+				'class' => is_restricted() ? 'hidden' : '',
 				__( 'Enable access to your network of books via the Pressbooks REST API.', 'pressbooks' ),
 			]
 		);
@@ -91,6 +95,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 			$_page,
 			$_section,
 			[
+				'class' => is_restricted() ? 'hidden' : '',
 				__( 'Enable book cloning via the Pressbooks REST API.', 'pressbooks' ),
 			]
 		);
@@ -102,19 +107,20 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 			$_page,
 			$_section,
 			[
+				'class' => is_restricted() ? 'hidden' : '',
 				__( 'Allow users to produce Common Cartridge exports with simple Web Links.', 'pressbooks' ),
 			]
 		);
 
 		add_settings_field(
-			'iframes_whitelist',
-			__( 'Iframes Whitelist', 'pressbooks' ),
+			'iframe_whitelist',
+			__( 'Iframe Whitelist', 'pressbooks' ),
 			[ $this, 'renderIframesWhiteList' ],
 			$_page,
 			$_section,
 			[
 				__( 'To whitelist all content from a domain: <code>guide.pressbooks.com</code> To whitelist a path: <code>//guide.pressbooks.com/some/path/</code> One per line.', 'pressbooks' ),
-				'label_for' => 'iframes_whitelist',
+				'label_for' => 'iframe_whitelist',
 			]
 		);
 
@@ -262,7 +268,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	}
 
 	/**
-	 * Render the iframes_whitelist textarea.
+	 * Render the iframe_whitelist textarea.
 	 *
 	 * @param $args
 	 */
@@ -271,10 +277,10 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 		$options = get_site_option( $this->getSlug() );
 		$this->renderTextarea(
 			[
-				'id' => 'iframes_whitelist',
+				'id' => 'iframe_whitelist',
 				'name' => $this->getSlug(),
-				'option' => 'iframes_whitelist',
-				'value' => ( isset( $options['iframes_whitelist'] ) ) ? $options['iframes_whitelist'] : '',
+				'option' => 'iframe_whitelist',
+				'value' => ( isset( $options['iframe_whitelist'] ) ) ? $options['iframe_whitelist'] : '',
 				'description' => $args[0],
 			]
 		);
@@ -309,7 +315,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 			'enable_network_api' => 1,
 			'enable_cloning' => 1,
 			'enable_thincc_weblinks' => 1,
-			'iframes_whitelist' => '',
+			'iframe_whitelist' => '',
 		];
 	}
 
@@ -334,7 +340,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	 */
 	static function getMultilineStringOptions() {
 		return [
-			'iframes_whitelist',
+			'iframe_whitelist',
 		];
 	}
 

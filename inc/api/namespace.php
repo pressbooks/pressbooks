@@ -392,7 +392,6 @@ function update_part_id( $part_id, $post_obj ) {
  * @return bool
  */
 function is_enabled() {
-	$enable_network_api = get_site_option( 'pressbooks_sharingandprivacy_options', [] );
-	$enable_network_api = isset( $enable_network_api['enable_network_api'] ) ? $enable_network_api['enable_network_api'] : SharingAndPrivacyOptions::getDefaults()['enable_network_api'];
+	$enable_network_api = SharingAndPrivacyOptions::getOption( 'enable_network_api' );
 	return (bool) $enable_network_api;
 }
