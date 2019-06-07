@@ -113,7 +113,7 @@ class Pdf extends Export {
 		$this->truncateExportStylesheets( 'prince' );
 		$timestamp = time();
 		$css = $this->kneadCss();
-		$css_file = \Pressbooks\Container::get( 'Sass' )->pathToUserGeneratedCss() . "/prince-$timestamp.css";
+		$css_file = Container::get( 'Sass' )->pathToUserGeneratedCss() . "/prince-$timestamp.css";
 		\Pressbooks\Utility\put_contents( $css_file, $css );
 
 		// --------------------------------------------------------------------
@@ -126,11 +126,16 @@ class Pdf extends Export {
 		if ( defined( 'WP_ENV' ) && ( WP_ENV === 'development' ) ) {
 			$prince->setInsecure( true );
 		}
+
 		if ( $this->pdfProfile && $this->pdfOutputIntent ) {
 			$prince->setPDFProfile( $this->pdfProfile );
 			$prince->setPDFOutputIntent( $this->pdfOutputIntent );
-
+		} elseif ( stripos( get_class( $this ), 'print' ) === false && empty( $this->pdfProfile ) ) {
+			// PDF for digital distribution without any PB_PDF_PROFILE
+			// Use PDF/UA-1, enhanced for accessibility.
+			$prince->setPDFProfile( 'PDF/UA-1' );
 		}
+
 		$prince->addStyleSheet( $css_file );
 		if ( $this->exportScriptPath ) {
 			$prince->addScript( $this->exportScriptPath );
