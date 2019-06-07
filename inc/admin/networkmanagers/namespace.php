@@ -127,6 +127,7 @@ function permitted_setting_menus() {
 	return [
 		'pb_analytics',
 		'pb_whitelabel_settings',
+		'pressbooks_sharingandprivacy_options',
 	];
 }
 
