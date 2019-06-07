@@ -103,7 +103,7 @@ class MathJax {
 	 */
 	public function __construct() {
 		if ( ! defined( 'PB_MATHJAX_URL' ) ) {
-			define( 'PB_MATHJAX_URL', false );
+			define( 'PB_MATHJAX_URL', 'http://kizu514.com:3000' ); // TODO: For textopress testing only! Change back to `false` before release
 		}
 	}
 
