@@ -7,8 +7,9 @@
 namespace Pressbooks;
 
 /**
- * Heavily inspired by Automattic's
+ * Heavily inspired by JetPack Latex and MathJax-LaTeX
  * @see https://github.com/Automattic/jetpack/blob/master/modules/latex.php
+ * @see https://github.com/phillord/mathjax-latex
  */
 class MathJax {
 
@@ -81,18 +82,29 @@ class MathJax {
 		if ( Book::isBook() ) {
 			add_action( 'admin_menu', [ $obj, 'addMenu' ] );
 		}
+
+		// LaTeX
+		add_shortcode( 'latex', [ $obj, 'latexShortcode' ] );
+		add_filter( 'the_content', [ $obj, 'dollarSignLatexMarkup' ], 9 ); // before wptexturize
+
+		// AsciiMath
+		add_shortcode( 'asciimath', [ $obj, 'asciiMathShortcode' ] );
+		add_filter( 'the_content', [ $obj, 'dollarSignAsciiMathMarkup' ], 9 ); // before wptexturize
+
+		// MathML
+		$obj->allowMathmlTags();
+		add_filter( 'tiny_mce_before_init', [ $obj, 'allowMathmlTagsInTinyMce' ], 25 );
+		add_filter( 'the_content', [ $obj, 'filterLineBreakTagsInMthml' ], 13 ); // after wpautop
+
+		// Rendering stuff
 		add_filter(
 			'no_texturize_shortcodes',
 			function ( $shortcodes ) {
 				$shortcodes[] = 'latex';
-				$shortcodes[] = 'math';
+				$shortcodes[] = 'asciimath';
 				return $shortcodes;
 			}
 		);
-		add_shortcode( 'latex', [ $obj, 'latexShortcode' ] );
-		add_shortcode( 'asciimath', [ $obj, 'asciiMathShortcode' ] );
-		add_filter( 'the_content', [ $obj, 'dollarSignLatexMarkup' ], 9 ); // before wptexturize
-		add_filter( 'the_content', [ $obj, 'dollarSignAsciiMathMarkup' ], 9 ); // before wptexturize
 		add_action( 'wp_enqueue_scripts', [ $obj, 'addScripts' ] );
 		add_action( 'wp_head', [ $obj, 'addHeaders' ] );
 		add_action( 'pb_pre_export', [ $obj, 'beforeExport' ] );
@@ -112,6 +124,7 @@ class MathJax {
 	 */
 	public function beforeExport() {
 		$this->usePbMathJax = true;
+		add_filter( 'the_content', [ $this, 'replaceMathML' ], 999 );
 	}
 
 	/**
@@ -177,6 +190,88 @@ class MathJax {
 
 		return update_option( self::OPTION, $options );
 	}
+
+	/**
+	 * Does post_content have maths?
+	 *
+	 * @return bool
+	 */
+	public function sectionHasMath() {
+		$has_math = false;
+		$post = get_post();
+		if ( $post ) {
+			$id = $post->ID;
+			if ( isset( $this->sectionHasMath[ $id ] ) ) {
+				$has_math = $this->sectionHasMath[ $id ];
+			} else {
+				$content = $post->post_content;
+				$math_tags = [ '[/latex]', '$latex', '[/asciimath]', '$asciimath', '</math>' ];
+				foreach ( $math_tags as $math_tag ) {
+					if ( strpos( $content, $math_tag ) !== false ) {
+						$has_math = true;
+						break;
+					}
+				}
+				$this->sectionHasMath[ $id ] = $has_math;
+			}
+		}
+		return $has_math;
+	}
+
+	/**
+	 * @see http://docs.mathjax.org/en/latest/configuration.html
+	 */
+	public function addScripts() {
+		// Only load MathJax if there's math to process (Improves browser performance)
+		if ( ! is_admin() && $this->sectionHasMath() ) {
+			// If the file ends in _CHTML, then it is the CommonHTML output processor
+			// The "-full" configuration is substantially larger (on the order of 70KB more)
+			wp_enqueue_script( 'pb_mathjax', 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML-full&delayStartupUntil=configured' );
+		}
+	}
+
+	/**
+	 * @see http://docs.mathjax.org/en/latest/configuration.html
+	 */
+	public function addHeaders() {
+		// Only load MathJax if there's math to process (Improves browser performance)
+		if ( ! is_admin() && $this->sectionHasMath() ) {
+			// Font colors & size
+			$options = $this->getOptions();
+			$css = "color: '#{$options['fg']}'";
+			// Config
+			echo "<script type='text/x-mathjax-config'>
+			MathJax.Hub.Config( {	
+				extensions: [ 'Safe.js' ],	 	
+				MathML: { extensions: [ 'content-mathml.js' ] },
+				TeX: { extensions: [ 'autoload-all.js' ] },
+				tex2jax: { inlineMath: [ ['[latex]','[/latex]'] ] },
+				asciimath2jax: { delimiters: [ ['[asciimath]','[/asciimath]'] ] },
+				styles: { '.MathJax_CHTML': { {$css} } },
+			} );
+			</script>
+			<script type='text/javascript'>
+				MathJax.Hub.Configured();
+			</script>";
+		}
+	}
+
+
+	/**
+	 * @return array{fg: string}
+	 * @see \Pressbooks\MathJax::$defaultOptions
+	 */
+	public function getOptions() {
+		$options = get_option( self::OPTION, [] );
+		$fg = trim( $options['fg'] ?? $this->defaultOptions['fg'] );
+		return [
+			'fg' => $fg,
+		];
+	}
+
+	// ------------------------------------------------------------------------
+	// LaTeX
+	// ------------------------------------------------------------------------
 
 	/**
 	 * LaTeX support.
@@ -263,9 +358,10 @@ class MathJax {
 		/**
 		 * Use PB-MathJax micro-service
 		 *
-		 * @since 5.9.0
 		 * @param bool $var
+		 *
 		 * @return bool
+		 * @since 5.9.0
 		 */
 		if ( apply_filters( 'pb_mathjax_use', $this->usePbMathJax ) && PB_MATHJAX_URL ) {
 			$options = $this->getOptions();
@@ -274,9 +370,10 @@ class MathJax {
 			/**
 			 * Return a SVG instead of a PNG
 			 *
-			 * @since 5.9.0
 			 * @param bool $var
+			 *
 			 * @return bool
+			 * @since 5.9.0
 			 */
 			if ( apply_filters( 'pb_mathjax_use_svg', $this->useSVG ) ) {
 				$url .= '&svg=1';
@@ -304,6 +401,10 @@ class MathJax {
 		// No attributes are supported by our code
 		return $this->latexRender( $this->latexEntityDecode( $content ) );
 	}
+
+	// ------------------------------------------------------------------------
+	// AsciiMath
+	// ------------------------------------------------------------------------
 
 	/**
 	 * AsciiMath support.
@@ -390,9 +491,10 @@ class MathJax {
 		/**
 		 * Use PB-MathJax micro-service
 		 *
-		 * @since 5.9.0
 		 * @param bool $var
+		 *
 		 * @return bool
+		 * @since 5.9.0
 		 */
 		if ( apply_filters( 'pb_mathjax_use', $this->usePbMathJax ) && PB_MATHJAX_URL ) {
 			$options = $this->getOptions();
@@ -401,9 +503,10 @@ class MathJax {
 			/**
 			 * Return a SVG instead of a PNG
 			 *
-			 * @since 5.9.0
 			 * @param bool $var
+			 *
 			 * @return bool
+			 * @since 5.9.0
 			 */
 			if ( apply_filters( 'pb_mathjax_use_svg', $this->useSVG ) ) {
 				$url .= '&svg=1';
@@ -413,14 +516,14 @@ class MathJax {
 			return '<img src="' . $url . '" alt="' . $alt . '" title="' . $alt . '" class="asciimath mathjax" />';
 		} else {
 			// Return simplified shortcode. Used as MathJax delimiters.
-			return "[math]{$asciimath}[/math]";
+			return "[asciimath]{$asciimath}[/asciimath]";
 		}
 	}
 
 	/**
 	 * The shortcode way.
 	 *
-	 * Example: [math]\AsciiMath[/math]
+	 * Example: [asciimath]\AsciiMath[/asciimath]
 	 *
 	 * @param array $atts
 	 * @param string $content
@@ -432,78 +535,173 @@ class MathJax {
 		return $this->asciiMathRender( $this->asciiMathEntityDecode( $content ) );
 	}
 
+	// ------------------------------------------------------------------------
+	// MathML
+	// ------------------------------------------------------------------------
+
 	/**
-	 * @return bool
+	 * @return array
 	 */
-	public function sectionHasMath() {
-		$has_math = false;
-		$post = get_post();
-		if ( $post ) {
-			$id = $post->ID;
-			if ( isset( $this->sectionHasMath[ $id ] ) ) {
-				$has_math = $this->sectionHasMath[ $id ];
-			} else {
-				$content = $post->post_content;
-				$math_tags = [ '[/latex]', '$latex', '[/asciimath]', '$asciimath' ];
-				foreach ( $math_tags as $math_tag ) {
-					if ( strpos( $content, $math_tag ) !== false ) {
-						$has_math = true;
-						break;
-					}
-				}
-				$this->sectionHasMath[ $id ] = $has_math;
+	public function mathmlTags() {
+		$mathml_tags = [
+			'math'           => [ 'class', 'id', 'style', 'dir', 'href', 'mathbackground', 'mathcolor', 'display', 'overflow', 'xmlns' ],
+			'maction'        => [ 'actiontype', 'class', 'id', 'style', 'href', 'mathbackground', 'mathcolor', 'selection' ],
+			'maligngroup'    => [],
+			'malignmark'     => [],
+			'menclose'       => [ 'class', 'id', 'style', 'href', 'mathbackground', 'mathcolor', 'notation' ],
+			'merror'         => [ 'class', 'id', 'style', 'href', 'mathbackground', 'mathcolor' ],
+			'mfenced'        => [ 'class', 'id', 'style', 'close', 'href', 'mathbackground', 'mathcolor', 'open', 'separators' ],
+			'mfrac'          => [ 'bevelled', 'class', 'id', 'style', 'denomalign', 'href', 'linethickness', 'mathbackground', 'mathcolor', 'numalign' ],
+			'mglyph'         => [ 'alt', 'class', 'id', 'style', 'height', 'href', 'mathbackground', 'src', 'valign', 'width' ],
+			'mi'             => [ 'class', 'id', 'style', 'href', 'mathbackground', 'mathcolor', 'mathsize', 'mathvariant' ],
+			'mlabeledtr'     => [ 'class', 'id', 'style', 'columnalign', 'groupalign', 'href', 'mathbackground', 'mathcolor', 'rowalign' ],
+			'mlongdiv'       => [],
+			'mmultiscripts'  => [ 'class', 'id', 'style', 'href', 'mathbackground', 'mathcolor', 'subscriptshift', 'superscriptshift' ],
+			'mn'             => [ 'class', 'id', 'style', 'dir', 'href', 'mathbackground', 'mathcolor', 'mathsize', 'mathvariant' ],
+			'mo'             => [ 'accent', 'class', 'id', 'style', 'dir', 'fence', 'form', 'href', 'largeop', 'lspace', 'mathbackground', 'mathcolor', 'mathsize', 'mathvariant', 'maxsize', 'minsize', 'moveablelimits', 'rspace', 'separator', 'stretchy', 'symmetric' ],
+			'mover'          => [ 'accent', 'align', 'class', 'id', 'style', 'href', 'mathbackground', 'mathcolor' ],
+			'mpadded'        => [ 'class', 'id', 'style', 'depth', 'height', 'href', 'lspace', 'mathbackground', 'mathcolor', 'voffset', 'width' ],
+			'mphantom'       => [ 'class', 'id', 'style', 'mathbackground' ],
+			'mroot'          => [ 'class', 'id', 'style', 'href', 'mathbackground', 'mathcolor' ],
+			'mrow'           => [ 'class', 'id', 'style', 'dir', 'href', 'mathbackground', 'mathcolor' ],
+			'ms'             => [ 'class', 'id', 'style', 'dir', 'lquote', 'href', 'mathbackground', 'mathcolor', 'mathsize', 'mathvariant', 'rquote' ],
+			'mscarries'      => [],
+			'mscarry'        => [],
+			'msgroup'        => [],
+			'msline'         => [],
+			'mspace'         => [ 'class', 'id', 'style', 'depth', 'height', 'linebreak', 'mathbackground', 'width' ],
+			'msqrt'          => [ 'class', 'id', 'style', 'href', 'mathbackground', 'mathcolor' ],
+			'msrow'          => [],
+			'mstack'         => [],
+			'mstyle'         => [ 'dir', 'decimalpoint', 'displaystyle', 'infixlinebreakstyle', 'scriptlevel', 'scriptminsize', 'scriptsizemultiplier' ],
+			'msub'           => [ 'class', 'id', 'style', 'mathbackground', 'mathcolor', 'subscriptshift' ],
+			'msubsup'        => [ 'class', 'id', 'style', 'href', 'mathbackground', 'mathcolor', 'subscriptshift', 'superscriptshift' ],
+			'msup'           => [ 'class', 'id', 'style', 'href', 'mathbackground', 'mathcolor', 'superscriptshift' ],
+			'mtable'         => [ 'class', 'id', 'style', 'align', 'alignmentscope', 'columnalign', 'columnlines', 'columnspacing', 'columnwidth', 'displaystyle', 'equalcolumns', 'equalrows', 'frame', 'framespacing', 'groupalign', 'href', 'mathbackground', 'mathcolor', 'minlabelspacing', 'rowalign', 'rowlines', 'rowspacing', 'side', 'width' ],
+			'mtd'            => [ 'class', 'id', 'style', 'columnalign', 'columnspan', 'groupalign', 'href', 'mathbackground', 'mathcolor', 'rowalign', 'rowspan' ],
+			'mtext'          => [ 'class', 'id', 'style', 'dir', 'href', 'mathbackground', 'mathcolor', 'mathsize', 'mathvariant' ],
+			'mtr'            => [ 'class', 'id', 'style', 'columnalign', 'groupalign', 'href', 'mathbackground', 'mathcolor', 'rowalign' ],
+			'munder'         => [ 'accentunder', 'align', 'class', 'id', 'style', 'mathbackground', 'mathcolor' ],
+			'munderover'     => [ 'accent', 'accentunder', 'align', 'class', 'id', 'style', 'href', 'mathbackground', 'mathcolor' ],
+			'semantics'      => [ 'definitionURL', 'encoding', 'cd', 'name', 'src' ],
+			'annotation'     => [ 'definitionURL', 'encoding', 'cd', 'name', 'src' ],
+			'annotation-xml' => [ 'definitionURL', 'encoding', 'cd', 'name', 'src' ],
+		];
+		return $mathml_tags;
+	}
+
+
+	/**
+	 * Allow MathML tags within WordPress
+	 * http://vip.wordpress.com/documentation/register-additional-html-attributes-for-tinymce-and-wp-kses/
+	 * https://developer.mozilla.org/en-US/docs/Web/MathML/Element
+	 */
+	public function allowMathmlTags() {
+		global $allowedposttags;
+		foreach ( $this->mathmlTags() as $tag => $attributes ) {
+			$allowedposttags[ $tag ] = [];
+			foreach ( $attributes as $a ) {
+				$allowedposttags[ $tag ][ $a ] = true;
 			}
 		}
-		return $has_math;
 	}
 
 	/**
-	 * @see http://docs.mathjax.org/en/latest/configuration.html
+	 * Ensure that the MathML tags will not be removed by the TinyMCE editor
+	 *
+	 * TODO: Switching between Text & Visual editors mangles MathML with spaces in it
+	 *
+	 * @param array options
+	 *
+	 * @return array
 	 */
-	public function addScripts() {
-		// Only load MathJax if there's math to process (Improves browser performance)
-		if ( ! is_admin() && $this->sectionHasMath() ) {
-			// If the file ends in _CHTML, then it is the CommonHTML output processor
-			// The "-full" configuration is substantially larger (on the order of 70KB more)
-			wp_enqueue_script( 'pb_mathjax', 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML-full&delayStartupUntil=configured' );
+	public function allowMathmlTagsInTinyMce( $options ) {
+		$extended_tags = [];
+		foreach ( $this->mathmlTags() as $tag => $attributes ) {
+			if ( ! empty( $attributes ) ) {
+				$tag = $tag . '[' . implode( '|', $attributes ) . ']';
+			}
+			$extended_tags[] = $tag;
 		}
-	}
-
-	/**
-	 * @see http://docs.mathjax.org/en/latest/configuration.html
-	 */
-	public function addHeaders() {
-		// Only load MathJax if there's math to process (Improves browser performance)
-		if ( ! is_admin() && $this->sectionHasMath() ) {
-			// Font colors & size
-			$options = $this->getOptions();
-			$css = "color: '#{$options['fg']}'";
-			// Config
-			echo "<script type='text/x-mathjax-config'>
-			MathJax.Hub.Config( {
-				TeX: { extensions: [ 'autoload-all.js' ] },
-				tex2jax: { inlineMath: [ ['[latex]','[/latex]'] ] },
-				asciimath2jax: { delimiters: [ ['[math]','[/math]'] ] },
-				styles: { '.MathJax_CHTML': { {$css} } }
-			} );
-			</script>
-			<script type='text/javascript'>
-				MathJax.Hub.Configured();
-			</script>";
+		if ( ! isset( $options['extended_valid_elements'] ) ) {
+			$options['extended_valid_elements'] = '';
 		}
+		$options['extended_valid_elements'] .= ',' . implode( ',', $extended_tags );
+		$options['extended_valid_elements'] = trim( $options['extended_valid_elements'], ',' );
+
+		return $options;
 	}
 
+	/**
+	 * Removes the <br /> and <p> tags inside math tags
+	 *
+	 * @param $content
+	 * @return string without <br /> tags
+	 */
+	public function filterLineBreakTagsInMthml( $content ) {
+		$filtered_content = preg_replace_callback(
+			'/(<math.*>.*<\/math>)/isU',
+			function( $matches ) {
+				return str_replace( [ '<br/>', '<br />', '<br>', '<p>', '</p>' ], '', $matches[0] );
+			},
+			$content
+		);
+		return null === $filtered_content ? $content : $filtered_content;
+	}
 
 	/**
-	 * @return array{fg: string}
-	 * @see \Pressbooks\MathJax::$defaultOptions
+	 * Replace <math> with an image
+	 *
+	 * @param string $content
+	 *
+	 * @return string
 	 */
-	public function getOptions() {
-		$options = get_option( self::OPTION, [] );
-		$fg = trim( $options['fg'] ?? $this->defaultOptions['fg'] );
-		return [
-			'fg' => $fg,
-		];
+	public function replaceMathML( $content ) {
+
+		// Check for <math> HTML code, bail if there isn't any
+		if ( stripos( $content, '<math' ) === false ) {
+			return $content;
+		}
+
+		$filtered_content = preg_replace_callback(
+			'/(<math.*>.*<\/math>)/isU',
+			function ( $matches ) {
+				$mathml = trim( $matches[0] );
+				/**
+				 * Use PB-MathJax micro-service
+				 *
+				 * @param bool $var
+				 *
+				 * @return bool
+				 * @since 5.9.0
+				 */
+				if ( apply_filters( 'pb_mathjax_use', $this->usePbMathJax ) && PB_MATHJAX_URL ) {
+					$options = $this->getOptions();
+					$url = rtrim( PB_MATHJAX_URL, '/' );
+					$url .= '/mathml?mathml=' . rawurlencode( $mathml ) . '&fg=' . $options['fg'];
+					/**
+					 * Return a SVG instead of a PNG
+					 *
+					 * @param bool $var
+					 *
+					 * @return bool
+					 * @since 5.9.0
+					 */
+					if ( apply_filters( 'pb_mathjax_use_svg', $this->useSVG ) ) {
+						$url .= '&svg=1';
+					}
+					$url = esc_url( $url );
+					$alt = str_replace( "\n", '', normalize_whitespace( strip_tags( $mathml ) ) );
+					$alt = str_replace( '\\', '&#92;', esc_attr( $alt ) );
+					return '<img src="' . $url . '" alt="' . $alt . '" title="' . $alt . '" class="mathml mathjax" />';
+				}
+				return null;
+			},
+			$content
+		);
+
+		return null === $filtered_content ? $content : $filtered_content;
+
 	}
 
 }

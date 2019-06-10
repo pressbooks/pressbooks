@@ -32,7 +32,10 @@
                     </section>
                     <section>
                         <h2>{{ __( 'MathML' ,'pressbooks' ) }}</h2>
-                        <p>On it's way!</p>
+                        <p>{!! sprintf(
+                            __( 'Markup syntax: %s', 'pressbooks' ),
+	                        '<code>&lt;math&gt;&lt;!-- Your math here --&gt;&lt;/math&gt;</code>'
+                        ) !!} </p>
                     </section>
                 </td>
             </tr>
