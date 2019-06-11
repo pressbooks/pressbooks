@@ -98,6 +98,8 @@ class Glossary {
 				'post_type' => 'glossary',
 				'posts_per_page' => -1, // @codingStandardsIgnoreLine
 				'post_status' => [ 'private', 'publish' ],
+				'order' => 'ASC',
+				'orderby' => 'title',
 			];
 			$posts = get_posts( $args );
 			/** @var \WP_Post $post */
@@ -162,8 +164,12 @@ class Glossary {
 			return '';
 		}
 
-		// make sure they are sorted in alphabetical order
-		$ok = ksort( $glossary_terms, SORT_LOCALE_STRING );
+		$ok = uksort( $glossary_terms, function ( $a, $b ) {
+			// Case insensitive, special accented characters, sort
+			$at = iconv( 'UTF-8', 'ASCII//TRANSLIT', $a );
+			$bt = iconv( 'UTF-8', 'ASCII//TRANSLIT', $b );
+			return strcmp( strtolower( $at ), strtolower( $bt ) );
+		} );
 
 		if ( true === $ok && count( $glossary_terms ) > 0 ) {
 			foreach ( $glossary_terms as $glossary_term_id => $glossary_term ) {
