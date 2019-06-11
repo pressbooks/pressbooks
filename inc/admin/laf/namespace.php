@@ -35,12 +35,27 @@ function add_footer_link() {
 		if ( ! empty( $pb_network_contact_link ) ) {
 			$contact_link = $pb_network_contact_link;
 		} else {
-			$contact_link = 'mailto:' . get_blog_option( get_main_site_id(), 'admin_email' );
+			$contact_link = '';
 		}
+	}
+	/**
+	 * Filter the "Contact" link.
+	 *
+	 * @since 5.6.0
+	 */
+	$contact_link = apply_filters( 'pb_contact_link', $contact_link );
+	if ( $contact_link ) {
+		$contact_link_href = sprintf(
+			'&bull; <a href="%1$s">%2$s</a>',
+			$contact_link,
+			__( 'Contact', 'pressbooks' )
+		);
+	} else {
+		$contact_link_href = '';
 	}
 
 	printf(
-		'<span id="footer-thankyou">%1$s</span> &bull; %2$s &bull; %3$s &bull; %4$s &bull; %5$s &bull; %6$s',
+		'<span id="footer-thankyou">%1$s</span> &bull; %2$s &bull; %3$s &bull; %4$s &bull; %5$s %6$s',
 		sprintf(
 			__( 'Powered by %s', 'pressbooks' ),
 			sprintf(
@@ -74,16 +89,7 @@ function add_footer_link() {
 			admin_url( 'options.php?page=pressbooks_sitemap' ),
 			__( 'Site Map', 'pressbooks' )
 		),
-		sprintf(
-			'<a href="%1$s">%2$s</a>',
-			/**
-			 * Filter the "Contact" link.
-			 *
-			 * @since 5.6.0
-			 */
-			apply_filters( 'pb_contact_link', $contact_link ),
-			__( 'Contact', 'pressbooks' )
-		)
+		$contact_link_href
 	);
 }
 
