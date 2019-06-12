@@ -299,6 +299,10 @@ function mce_table_editor_options( $settings ) {
 			'title' => __( 'Shaded', 'pressbooks' ),
 			'value' => 'shaded',
 		],
+		[
+			'title' => __( 'Landscape', 'pressbooks' ),
+			'value' => 'landscape',
+		],
 	];
 	$cell_classes = [
 		[
