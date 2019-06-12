@@ -300,8 +300,20 @@ function mce_table_editor_options( $settings ) {
 			'value' => 'shaded',
 		],
 		[
-			'title' => __( 'Landscape', 'pressbooks' ),
+			'title' => __( 'Standard Landscape', 'pressbooks' ),
 			'value' => 'landscape',
+		],
+		[
+			'title' => __( 'No lines Landscape', 'pressbooks' ),
+			'value' => 'no-lines landscape',
+		],
+		[
+			'title' => __( 'Lines Landscape', 'pressbooks' ),
+			'value' => 'lines landscape',
+		],
+		[
+			'title' => __( 'Shaded Landscape', 'pressbooks' ),
+			'value' => 'shaded landscape',
 		],
 	];
 	$cell_classes = [
