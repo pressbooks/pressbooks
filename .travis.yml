@@ -1,4 +1,6 @@
 dist: xenial
+services:
+  - mysql
 language: php
 sudo: required
 notifications:
