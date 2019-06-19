@@ -25,3 +25,6 @@ if ( ! defined( 'DOCRAPTOR_API_KEY' ) ) {
 	// @see: https://docraptor.com/documentation
 	define( 'DOCRAPTOR_API_KEY', 'YOUR_API_KEY_HERE' );
 }
+
+// Setup: Both sites and user accounts can be registered
+update_site_option( 'registration', 'all' );

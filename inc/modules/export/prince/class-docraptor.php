@@ -53,7 +53,7 @@ class Docraptor extends Pdf {
 		$this->truncateExportStylesheets( 'prince' );
 		$timestamp = time();
 		$css = $this->kneadCss();
-		$css_file = \Pressbooks\Container::get( 'Sass' )->pathToUserGeneratedCss() . "/prince-$timestamp.css";
+		$css_file = Container::get( 'Sass' )->pathToUserGeneratedCss() . "/prince-$timestamp.css";
 		\Pressbooks\Utility\put_contents( $css_file, $css );
 
 		// --------------------------------------------------------------------
@@ -66,7 +66,15 @@ class Docraptor extends Pdf {
 		$prince_options = new \DocRaptor\PrinceOptions();
 		$prince_options->setNoCompress( false );
 		$prince_options->setHttpTimeout( max( ini_get( 'max_execution_time' ), 30 ) );
-		$prince_options->setProfile( $this->pdfProfile );
+		if ( $this->pdfProfile && $this->pdfOutputIntent ) {
+			$prince_options->setProfile( $this->pdfProfile );
+			// DocRaptor doesn't let us setPDFOutputIntent like Prince does, we cheat with a CSS hack later
+			// @see \Pressbooks\Modules\Export\Prince\DocraptorPrint::themeOptionsOverrides
+		} elseif ( stripos( get_class( $this ), 'print' ) === false && empty( $this->pdfProfile ) ) {
+			// PDF (for digital distribution) without any PB_PDF_PROFILE
+			// Use PDF/UA-1, enhanced for accessibility.
+			$prince_options->setProfile( 'PDF/UA-1' );
+		}
 		$retval = false;
 
 		try {
