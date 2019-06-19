@@ -20,6 +20,19 @@ use Pressbooks\Cloner\Cloner;
 use Pressbooks\Metadata;
 
 /**
+ * @return bool
+ */
+function can_create_new_books() {
+	// True if site registration is enabled
+	// The value can be 'all', 'none', 'blog', or 'user', @see wp-signup.php
+	$active_signup = apply_filters( 'wpmu_active_signup', get_site_option( 'registration', 'none' ) );
+	if ( in_array( $active_signup, [ 'blog', 'all' ], true ) ) {
+		return true;
+	}
+	return false;
+}
+
+/**
  * Add a custom message in admin footer
  */
 function add_footer_link() {
@@ -379,7 +392,7 @@ function replace_book_admin_menu() {
 	);
 
 	// Clone a Book
-	if ( Cloner::isEnabled() ) {
+	if ( Cloner::isEnabled() && ( can_create_new_books() || is_super_admin() ) ) {
 		$cloner_page = add_submenu_page( 'options.php', __( 'Clone a Book', 'pressbooks' ), __( 'Clone a Book', 'pressbooks' ), 'edit_posts', 'pb_cloner', __NAMESPACE__ . '\display_cloner' );
 		add_action(
 			'admin_enqueue_scripts', function ( $hook ) use ( $cloner_page ) {
@@ -800,17 +813,20 @@ function replace_menu_bar_my_sites( $wp_admin_bar ) {
 			'href' => last_book( $wp_admin_bar, 'wp-admin/index.php?page=pb_catalog' ),
 		]
 	);
-	$wp_admin_bar->add_node(
-		[
-			'parent' => 'my-books',
-			'id' => 'add-new-book',
-			'title' => __( 'Create A New Book', 'pressbooks' ),
-			'href' => network_home_url( 'wp-signup.php' ),
-		]
-	);
+
+	if ( can_create_new_books() ) {
+		$wp_admin_bar->add_node(
+			[
+				'parent' => 'my-books',
+				'id' => 'add-new-book',
+				'title' => __( 'Create A New Book', 'pressbooks' ),
+				'href' => network_home_url( 'wp-signup.php' ),
+			]
+		);
+	}
 
 	// Cloner
-	if ( Cloner::isEnabled() ) {
+	if ( Cloner::isEnabled() && ( can_create_new_books() || is_super_admin() ) ) {
 		if ( ! Book::isBook() ) {
 			$href = last_book( $wp_admin_bar, 'wp-admin/options.php?page=pb_cloner' );
 		} else {
@@ -909,10 +925,7 @@ function show_menu_bar( $wp_admin_bar ) {
 			// Show menu for a user that has books
 			$show_menu = true;
 		} else {
-			// Show menu IF book registration is enabled
-			// The value can be 'all', 'none', 'blog', or 'user', @see wp-signup.php
-			$active_signup = apply_filters( 'wpmu_active_signup', get_site_option( 'registration', 'none' ) );
-			if ( in_array( $active_signup, [ 'blog', 'all' ], true ) ) {
+			if ( can_create_new_books() ) {
 				$show_menu = true;
 			}
 		}
