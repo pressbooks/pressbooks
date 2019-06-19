@@ -7,6 +7,22 @@ class Admin_LafTest extends \WP_UnitTestCase {
 
 	use utilsTrait;
 
+	function test_can_create_new_book() {
+		$reset_back_to_old_value = get_site_option( 'registration' );
+
+		update_site_option( 'registration', 'none' );
+		$this->assertFalse( \Pressbooks\Admin\Laf\can_create_new_books() );
+		update_site_option( 'registration', 'user' );
+		$this->assertFalse( \Pressbooks\Admin\Laf\can_create_new_books() );
+
+		update_site_option( 'registration', 'blog' );
+		$this->assertTrue( \Pressbooks\Admin\Laf\can_create_new_books() );
+		update_site_option( 'registration', 'all' );
+		$this->assertTrue( \Pressbooks\Admin\Laf\can_create_new_books() );
+
+		update_site_option( 'registration', $reset_back_to_old_value );
+	}
+
 	/**
 	 * @group branding
 	 */
