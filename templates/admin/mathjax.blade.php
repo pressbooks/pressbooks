@@ -49,7 +49,7 @@
             </tbody>
         </table>
         <p class="submit">
-            <input type="submit" class="button-primary" value="{{ __( 'Update MathJax Options', 'pressbooks' ) }}"/>
+            <input type="submit" class="button-primary" value="{{ __( 'Save Changes', 'pressbooks' ) }}"/>
             {!! $wp_nonce_field !!}
         </p>
     </form>

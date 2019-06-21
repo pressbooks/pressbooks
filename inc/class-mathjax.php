@@ -153,7 +153,7 @@ class MathJax {
 			$test_formula = '\displaystyle P_\nu^{-\mu}(z)=\frac{\left(z^2-1\right)^{\frac{\mu}{2}}}{2^\mu \sqrt{\pi}\Gamma\left(\mu+\frac{1}{2}\right)}\int_{-1}^1\frac{\left(1-t^2\right)^{\mu -\frac{1}{2}}}{\left(z+t\sqrt{z^2-1}\right)^{\mu-\nu}}dt';
 			$test_image = $this->latexRender( $test_formula );
 		} else {
-			$test_image = '<p class="latex mathjax">😞😞😞</p>';
+			$test_image = '<p class="latex mathjax">' . __( '<code>PB_MATHJAX_URL</code> not configured.', 'pressbooks' ) . '</p>';
 		}
 
 		$blade = Container::get( 'Blade' );
