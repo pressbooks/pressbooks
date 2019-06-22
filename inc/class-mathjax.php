@@ -96,6 +96,9 @@ class MathJax {
 		add_filter( 'tiny_mce_before_init', [ $obj, 'allowMathmlTagsInTinyMce' ], 25 );
 		add_filter( 'the_content', [ $obj, 'filterLineBreakTagsInMthml' ], 13 ); // after wpautop
 
+		// SVG
+		add_filter( 'the_content', [ $obj, 'filterLineBreakTagsInSvg' ], 13 ); // after wpautop
+
 		// Rendering stuff
 		add_filter(
 			'no_texturize_shortcodes',
@@ -641,6 +644,23 @@ class MathJax {
 	public function filterLineBreakTagsInMthml( $content ) {
 		$filtered_content = preg_replace_callback(
 			'/(<math.*>.*<\/math>)/isU',
+			function( $matches ) {
+				return str_replace( [ '<br/>', '<br />', '<br>', '<p>', '</p>' ], '', $matches[0] );
+			},
+			$content
+		);
+		return null === $filtered_content ? $content : $filtered_content;
+	}
+
+	/**
+	 * Removes the <br /> and <p> tags inside math tags
+	 *
+	 * @param $content
+	 * @return string without <br /> tags
+	 */
+	public function filterLineBreakTagsInSvg( $content ) {
+		$filtered_content = preg_replace_callback(
+			'/(<svg.*>.*<\/svg>)/isU',
 			function( $matches ) {
 				return str_replace( [ '<br/>', '<br />', '<br>', '<p>', '</p>' ], '', $matches[0] );
 			},
