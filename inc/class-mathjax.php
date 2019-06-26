@@ -21,10 +21,26 @@ class MathJax {
 	private static $instance = null;
 
 	/**
-	 * @var array{fg: string}
+	 * @var array{fg: string, font: string}
 	 */
 	private $defaultOptions = [
 		'fg' => '000000',
+		'font' => 'TeX',
+	];
+
+	/**
+	 * @see http://docs.mathjax.org/en/latest/options/output-processors/SVG.html#configure-svg
+	 *
+	 * @var array
+	 */
+	private $possibleFonts = [
+		'TeX',
+		'STIX-Web',
+		'Asana-Math',
+		'Neo-Euler',
+		'Gyre-Pagella',
+		'Gyre-Termes',
+		'Latin-Modern',
 	];
 
 	/**
@@ -166,6 +182,7 @@ class MathJax {
 				'wp_nonce_field' => wp_nonce_field( 'save', 'pb-mathjax-nonce', true, false ),
 				'test_image' => $test_image,
 				'fg' => $options['fg'],
+				'font' => $options['font'],
 			]
 		);
 	}
@@ -187,7 +204,15 @@ class MathJax {
 			$fg .= str_repeat( '0', 6 - $l );
 		}
 
+		// Font
+		if ( in_array( $_POST['font'], $this->possibleFonts, true ) ) {
+			$font = $_POST['font'];
+		} else {
+			$font = $this->possibleFonts[0];
+		}
+
 		$options = [
+			'font' => $font,
 			'fg' => $fg,
 		];
 
@@ -242,6 +267,7 @@ class MathJax {
 			// Font colors & size
 			$options = $this->getOptions();
 			$css = "color: '#{$options['fg']}'";
+			// TODO: CommonHTML currently only supports MathJax’s default TeX fonts.
 			// Config
 			echo "<script type='text/x-mathjax-config'>
 			MathJax.Hub.Config( {	
@@ -267,8 +293,10 @@ class MathJax {
 	public function getOptions() {
 		$options = get_option( self::OPTION, [] );
 		$fg = trim( $options['fg'] ?? $this->defaultOptions['fg'] );
+		$font = trim( $options['font'] ?? $this->defaultOptions['font'] );
 		return [
 			'fg' => $fg,
+			'font' => $font,
 		];
 	}
 
@@ -369,7 +397,7 @@ class MathJax {
 		if ( apply_filters( 'pb_mathjax_use', $this->usePbMathJax ) && PB_MATHJAX_URL ) {
 			$options = $this->getOptions();
 			$url = rtrim( PB_MATHJAX_URL, '/' );
-			$url .= '/latex?latex=' . rawurlencode( $latex ) . '&fg=' . $options['fg'];
+			$url .= '/latex?latex=' . rawurlencode( $latex ) . '&fg=' . $options['fg'] . '&font=' . $options['font'];
 			/**
 			 * Return a SVG instead of a PNG
 			 *
@@ -502,7 +530,7 @@ class MathJax {
 		if ( apply_filters( 'pb_mathjax_use', $this->usePbMathJax ) && PB_MATHJAX_URL ) {
 			$options = $this->getOptions();
 			$url = rtrim( PB_MATHJAX_URL, '/' );
-			$url .= '/asciimath?asciimath=' . rawurlencode( $asciimath ) . '&fg=' . $options['fg'];
+			$url .= '/asciimath?asciimath=' . rawurlencode( $asciimath ) . '&fg=' . $options['fg'] . '&font=' . $options['font'];
 			/**
 			 * Return a SVG instead of a PNG
 			 *
@@ -698,7 +726,7 @@ class MathJax {
 				if ( apply_filters( 'pb_mathjax_use', $this->usePbMathJax ) && PB_MATHJAX_URL ) {
 					$options = $this->getOptions();
 					$url = rtrim( PB_MATHJAX_URL, '/' );
-					$url .= '/mathml?mathml=' . rawurlencode( $mathml ) . '&fg=' . $options['fg'];
+					$url .= '/mathml?mathml=' . rawurlencode( $mathml ) . '&fg=' . $options['fg'] . '&font=' . $options['font'];
 					/**
 					 * Return a SVG instead of a PNG
 					 *
