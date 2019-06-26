@@ -300,6 +300,10 @@ function mce_table_editor_options( $settings ) {
 			'value' => 'shaded',
 		],
 		[
+			'title' => __( 'Full Grid', 'pressbooks' ),
+			'value' => 'grid',
+		],
+		[
 			'title' => __( 'Standard Landscape*', 'pressbooks' ),
 			'value' => 'landscape',
 		],
@@ -314,6 +318,10 @@ function mce_table_editor_options( $settings ) {
 		[
 			'title' => __( 'Shaded Landscape*', 'pressbooks' ),
 			'value' => 'shaded landscape',
+		],
+		[
+			'title' => __( 'Full Grid Landscape*', 'pressbooks' ),
+			'value' => 'grid landscape',
 		],
 	];
 	$cell_classes = [
