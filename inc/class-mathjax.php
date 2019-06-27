@@ -216,7 +216,12 @@ class MathJax {
 			'fg' => $fg,
 		];
 
-		return update_option( self::OPTION, $options );
+		if ( update_option( self::OPTION, $options ) ) {
+			Book::deleteBookObjectCache();
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	/**
