@@ -648,7 +648,7 @@ class MathJax {
 			'card'                => array_merge( $common_att, $def_enc_att ),
 			'cartesianproduct'    => array_merge( $common_att, $def_enc_att ),
 			'ceiling'             => array_merge( $common_att, $def_enc_att ),
-			'ci'                  => array_merge( [ 'type', ], $common_att, $def_enc_att ),
+			'ci'                  => array_merge( [ 'type' ], $common_att, $def_enc_att ),
 			'cn'                  => array_merge( [ 'type', 'base' ], $common_att, $def_enc_att ),
 			'cs'                  => array_merge( $common_att, $def_enc_att ),
 			'codomain'            => array_merge( $common_att, $def_enc_att ),
