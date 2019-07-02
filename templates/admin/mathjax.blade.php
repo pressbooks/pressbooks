@@ -47,6 +47,7 @@
                 </td>
             </tr>
             <tr>
+                <!-- TODO: Use foreach and $this->possibleFonts -->
                 <th scope="row"><label for="mathjax-font">{{ __('SVG/PNG Fonts', 'pressbooks') }}</label></th>
                 <td><select name="font" id="mathjax-font">
                         <option value="TeX" {!! selected( $font, 'TeX' ) !!} >TeX</option>

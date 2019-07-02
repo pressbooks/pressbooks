@@ -133,9 +133,7 @@ class MathJax {
 	 * MathJax constructor.
 	 */
 	public function __construct() {
-		if ( ! defined( 'PB_MATHJAX_URL' ) ) {
-			define( 'PB_MATHJAX_URL', 'http://kizu514.com:3000' ); // TODO: For textopress testing only! Change back to `false` before release
-		}
+
 	}
 
 	/**
@@ -175,6 +173,7 @@ class MathJax {
 			$test_image = '<p class="latex mathjax">' . __( '<code>PB_MATHJAX_URL</code> not configured.', 'pressbooks' ) . '</p>';
 		}
 
+		// TODO: Use $this->possibleFonts
 		$blade = Container::get( 'Blade' );
 		echo $blade->render(
 			'admin.mathjax',
