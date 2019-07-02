@@ -50,13 +50,9 @@
                 <!-- TODO: Use foreach and $this->possibleFonts -->
                 <th scope="row"><label for="mathjax-font">{{ __('SVG/PNG Fonts', 'pressbooks') }}</label></th>
                 <td><select name="font" id="mathjax-font">
-                        <option value="TeX" {!! selected( $font, 'TeX' ) !!} >TeX</option>
-                        <option value="STIX-Web" {!! selected( $font, 'STIX-Web' ) !!} >STIX-Web</option>
-                        <option value="Asana-Math" {!! selected( $font, 'Asana-Math' ) !!} >Asana-Math</option>
-                        <option value="Neo-Euler" {!! selected( $font, 'Neo-Euler' ) !!} >Neo-Euler</option>
-                        <option value="Gyre-Pagella" {!! selected( $font, 'Gyre-Pagella' ) !!} >Gyre-Pagella</option>
-                        <option value="Gyre-Termes" {!! selected( $font, 'Gyre-Termes' ) !!} >Gyre-Termes</option>
-                        <option value="Latin-Modern" {!! selected( $font, 'Latin-Modern' ) !!} >Latin-Modern</option>
+                        @foreach ($possible_fonts as $possible_font)
+                            <option value="{!! $possible_font !!}" {!! selected( $font, $possible_font ) !!} >{{ $possible_font }}</option>
+                        @endforeach
                     </select>
                     <p>{!!  __( 'Affects exports (PDF, EPUB, MOBI.) Webbook uses CommonHTML. CommonHTML currently only supports MathJax’s default TeX fonts.', 'pressbooks' )  !!}</p>
                 </td>
