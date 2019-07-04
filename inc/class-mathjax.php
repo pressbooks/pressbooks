@@ -282,6 +282,7 @@ class MathJax {
 				TeX: { extensions: [ 'autoload-all.js' ] },
 				tex2jax: { inlineMath: [ ['[latex]','[/latex]'] ] },
 				asciimath2jax: { delimiters: [ ['[asciimath]','[/asciimath]'] ] },
+				CommonHTML: { linebreaks: { automatic: true} },
 				styles: { '.MathJax_CHTML': { {$css} } },
 			} );
 			</script>
