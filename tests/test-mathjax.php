@@ -67,47 +67,81 @@ class MathJaxTest extends \WP_UnitTestCase {
 	}
 
 	public function test_sectionHasMath() {
+		$new_post = [
+			'post_title' => 'Test Chapter: ' . rand(),
+			'post_type' => 'chapter',
+			'post_status' => 'published',
+			'post_content' => 'No math',
+		];
+		$pid = $this->factory()->post->create_object( $new_post );
+		$GLOBALS['post'] = $pid;
+		$this->assertFalse( $this->mathjax->sectionHasMath());
 
-	}
-
-	public function test_addScripts() {
+		$new_post = [
+			'post_title' => 'Test Chapter: ' . rand(),
+			'post_type' => 'chapter',
+			'post_status' => 'published',
+			'post_content' => '[latex]\boldsymbol{\frac{m_{\textbf{drop}}gd}{V}}[/latex]',
+		];
+		$pid = $this->factory()->post->create_object( $new_post );
+		$GLOBALS['post'] = $pid;
+		$this->assertTrue( $this->mathjax->sectionHasMath());
 
 	}
 
 	public function test_addHeaders() {
+		$new_post = [
+			'post_title' => 'Test Chapter: ' . rand(),
+			'post_type' => 'chapter',
+			'post_status' => 'published',
+			'post_content' => 'No math',
+		];
+		$pid = $this->factory()->post->create_object( $new_post );
+		$GLOBALS['post'] = $pid;
+		ob_start();
+		$this->mathjax->addHeaders();
+		$buffer = ob_get_clean();
+		$this->assertEmpty( $buffer );
 
+
+		$new_post = [
+			'post_title' => 'Test Chapter: ' . rand(),
+			'post_type' => 'chapter',
+			'post_status' => 'published',
+			'post_content' => '[latex]\boldsymbol{\frac{m_{\textbf{drop}}gd}{V}}[/latex]',
+		];
+		$pid = $this->factory()->post->create_object( $new_post );
+		$GLOBALS['post'] = $pid;
+		ob_start();
+		$this->mathjax->addHeaders();
+		$buffer = ob_get_clean();
+		$this->assertContains('MathJax.Hub.Config', $buffer);
 	}
 
 	public function test_dollarSignLatexMarkup() {
+		$this->mathjax->usePbMathJax = false;
+		$s = $this->mathjax->dollarSignLatexMarkup( '$latex \boldsymbol{\frac{m_{\textbf{drop}}gd}{V}}$' );
+		$this->assertEquals( '[latex]\boldsymbol{\frac{m_{\textbf{drop}}gd}{V}}[/latex]', $s );
 
-	}
+		$this->mathjax->usePbMathJax = true;
+		$s = $this->mathjax->dollarSignLatexMarkup( '$latex \boldsymbol{\frac{m_{\textbf{drop}}gd}{V}}$' );
+		$this->assertStringStartsWith( '<img src="http://localhost:3000/latex?latex=%5Cboldsymbol%7B%5Cfrac%7Bm_%7B%5Ctextbf%7Bdrop%7D%7Dgd%7D%7BV%7D%7D', $s );
 
-	public function test_latexEntityDecode() {
-
-	}
-
-	public function test_latexRender() {
-
-	}
-
-	public function test_latexShortcode() {
-
+		$s = $this->mathjax->dollarSignLatexMarkup( 'latex not found$' );
+		$this->assertEquals( 'latex not found$', $s );
 	}
 
 	public function test_dollarSignAsciiMathMarkup() {
+		$this->mathjax->usePbMathJax = false;
+		$s = $this->mathjax->dollarSignAsciiMathMarkup( '$asciimath \boldsymbol{\frac{m_{\textbf{drop}}gd}{V}}$' );
+		$this->assertEquals( '[asciimath]\boldsymbol{\frac{m_{\textbf{drop}}gd}{V}}[/asciimath]', $s );
 
-	}
+		$this->mathjax->usePbMathJax = true;
+		$s = $this->mathjax->dollarSignAsciiMathMarkup( '$asciimath \boldsymbol{\frac{m_{\textbf{drop}}gd}{V}}$' );
+		$this->assertStringStartsWith( '<img src="http://localhost:3000/asciimath?asciimath=%5Cboldsymbol%7B%5Cfrac%7Bm_%7B%5Ctextbf%7Bdrop%7D%7Dgd%7D%7BV%7D%7D', $s );
 
-	public function test_asciiMathEntityDecode() {
-
-	}
-
-	public function test_asciiMathRender() {
-
-	}
-
-	public function test_asciiMathShortcode() {
-
+		$s = $this->mathjax->dollarSignAsciiMathMarkup( 'asciimath not found$' );
+		$this->assertEquals( 'asciimath not found$', $s );
 	}
 
 	public function test_mathmlTags() {
