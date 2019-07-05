@@ -6,7 +6,6 @@
 
 namespace Pressbooks\Modules\Export\Odt;
 
-use function Pressbooks\Utility\str_ends_with;
 use Pressbooks\Modules\Export\Export;
 
 class Odt extends Export {
@@ -329,9 +328,8 @@ class Odt extends Export {
 		// Basename without query string
 		$filename = explode( '?', basename( $url ) );
 
-		// isolate latex image service from WP, add file extension
-		$host = wp_parse_url( $url, PHP_URL_HOST );
-		if ( ( str_ends_with( $host, 'wordpress.com' ) || str_ends_with( $host, 'wp.com' ) ) && 'latex.php' === $filename[0] ) {
+		// isolate latex image service, add file extension
+		if ( PB_MATHJAX_URL && \Pressbooks\Utility\str_starts_with( $url, PB_MATHJAX_URL ) ) {
 			$filename = md5( array_pop( $filename ) );
 			// content-type = 'image/png'
 			$type = explode( '/', $response['headers']['content-type'] );

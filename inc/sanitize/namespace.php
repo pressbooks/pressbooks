@@ -700,10 +700,42 @@ function reverse_wpautop( $pee ) {
  */
 
 function sanitize_webbook_content( $content ) {
+	// htmLawed does not work mixed markup (MathML, SVG, ...)
+	// To deal with such mixed markup, the input text can be pre-processed to hide the non-HTML markup
+	$hidden_tags = [];
+	foreach ( [ 'math', 'svg' ] as $tag ) {
+		if ( strpos( $content, "<{$tag}" ) !== false ) {
+			$content_parts = explode( "</{$tag}>", $content );
+			$last_content = array_pop( $content_parts );
+			$content = '';
+			$i = 0;
+			foreach ( $content_parts as $content_part ) {
+				$start = strpos( $content_part, "<{$tag}" );
+				// Malformed html?
+				if ( $start === false ) {
+					$content .= $content_part;
+					continue;
+				}
+				$name = "<!-- pb-hidden-mixed-markup-{$tag}-{$i} -->";
+				$hidden_tags[ $name ] = substr( $content_part, $start ) . "</{$tag}>";
+				$content .= substr( $content_part, 0, $start ) . $name;
+				$i++;
+			}
+			$content .= $last_content;
+		}
+	}
+
+	// Remove deprecated table borders
 	$spec = '';
 	$spec .= 'table=-border;';
+	$content = \Pressbooks\HtmLawed::filter( $content, [], $spec );
 
-	return \Pressbooks\HtmLawed::filter( $content, [], $spec );
+	// Put back mixed markup
+	if ( ! empty( $hidden_tags ) ) {
+		$content = strtr( $content, $hidden_tags );
+	}
+
+	return $content;
 }
 
 /**

@@ -265,6 +265,7 @@ function replace_book_admin_menu() {
 					// post-back-matter.js
 					wp_enqueue_script( 'pb-post-back-matter' );
 				}
+				wp_enqueue_script( 'pb-post-mathjax' );
 			}
 		}
 	);
@@ -1105,6 +1106,7 @@ function init_css_js() {
 	wp_register_script( 'pb-organize', $assets->getPath( 'scripts/organize.js' ), [ 'jquery', 'jquery-ui-core', 'jquery-ui-sortable', 'jquery-blockui', 'cssanimations' ] );
 	wp_register_script( 'pb-metadata', $assets->getPath( 'scripts/book-information.js' ), [ 'jquery' ], false, true );
 	wp_register_script( 'pb-post-visibility', $assets->getPath( 'scripts/post-visibility.js' ), [ 'jquery' ], false, true );
+	wp_register_script( 'pb-post-mathjax', $assets->getPath( 'scripts/post-mathjax.js' ), [ 'jquery' ], false, true );
 	wp_register_script( 'pb-post-back-matter', $assets->getPath( 'scripts/post-back-matter.js' ), [ 'jquery', 'editor' ], false, true );
 
 	// Register styles for later, on-the-fly, using action: admin_print_scripts- (or other tricks of the shade)

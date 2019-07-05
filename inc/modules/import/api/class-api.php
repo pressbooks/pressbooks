@@ -242,8 +242,10 @@ class Api extends ImportGenerator {
 	 * @param string $status
 	 */
 	protected function updatePost( $post_id, $status ) {
-
-		$post = get_post( $post_id, 'ARRAY_A' );
+		// wp_update_post: arrays are expected to be escaped, objects are not.
+		// We want to keep \latex backslashes and other weirdness, so use post objects!
+		/** @var \WP_Post $post */
+		$post = get_post( $post_id );
 		if ( empty( $post ) ) {
 			return;
 		}
@@ -252,16 +254,16 @@ class Api extends ImportGenerator {
 		$menu_order = $wpdb->get_var(
 			$wpdb->prepare(
 				"SELECT MAX(menu_order) FROM {$wpdb->posts} WHERE post_type = %s AND post_parent = %d AND ID != %d ",
-				$post['post_type'],
-				$post['post_parent'],
+				$post->post_type,
+				$post->post_parent,
 				$post_id
 			)
 		);
 		if ( $menu_order !== null ) {
-			$post['menu_order'] = $menu_order + 1;
+			$post->menu_order = $menu_order + 1;
 		}
 
-		$post['post_status'] = $status;
+		$post->post_status = $status;
 
 		wp_update_post( $post );
 	}

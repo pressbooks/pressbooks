@@ -82,7 +82,6 @@ class Pdf extends Export {
 		$this->url = home_url() . "/format/xhtml?timestamp={$timestamp}&hashkey={$md5}";
 
 		$this->themeOptionsOverrides();
-		$this->fixLatexDpi();
 	}
 
 
@@ -296,29 +295,6 @@ class Pdf extends Export {
 			$this->url .= '&endnotes=true';
 		}
 
-	}
-
-	/**
-	 * Increase PB-LaTeX resolution to ~300 dpi
-	 *
-	 * @see symbionts/pressbooks-latex/automattic-latex-wpcom.php
-	 */
-	protected function fixLatexDpi() {
-		$fix = false;
-		if ( ! $fix && ! empty( $_GET['optimize-for-print'] ) ) {
-			$fix = true;
-		}
-		if ( ! $fix && strpos( $this->url, 'optimize-for-print=1' ) !== false ) {
-			$fix = true;
-		}
-		if ( ! $fix && stripos( get_class( $this ), 'print' ) !== false ) {
-			$fix = true;
-		}
-
-		if ( $fix ) {
-			$this->url .= '&pb-latex-zoom=3';
-			$this->cssOverrides .= "\n" . 'img.latex { prince-image-resolution: 300dpi; }' . "\n";
-		}
 	}
 
 }
