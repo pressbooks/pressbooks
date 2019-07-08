@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
-"POT-Creation-Date: 2019-07-02T17:42:33+00:00\n"
-"PO-Revision-Date: 2019-07-02 17:43+0000\n"
+"POT-Creation-Date: 2019-07-08T20:29:41+00:00\n"
+"PO-Revision-Date: 2019-07-08 20:30+0000\n"
 "Last-Translator: Dac Chartrand <dac@pressbooks.com>\n"
 "Language-Team: Hungarian (Hungary) (http://www.transifex.com/pressbooks/pressbooks/language/hu_HU/)\n"
 "MIME-Version: 1.0\n"
@@ -221,8 +221,8 @@ msgstr "Privát"
 msgid "Public"
 msgstr "Nyilvános"
 
-#: inc/admin/class-catalog-list-table.php:461 inc/admin/laf/namespace.php:416
-#: inc/admin/laf/namespace.php:583 inc/admin/laf/namespace.php:812
+#: inc/admin/class-catalog-list-table.php:461 inc/admin/laf/namespace.php:417
+#: inc/admin/laf/namespace.php:584 inc/admin/laf/namespace.php:813
 msgid "My Catalog"
 msgstr "Katalógusom"
 
@@ -311,7 +311,7 @@ msgid ""
 " when themes are updated."
 msgstr ""
 
-#: inc/admin/class-exportoptions.php:186 inc/admin/laf/namespace.php:361
+#: inc/admin/class-exportoptions.php:186 inc/admin/laf/namespace.php:362
 msgid "Export Settings"
 msgstr "Export Beállítások."
 
@@ -396,7 +396,7 @@ msgid ""
 "book, add the links to your book at the different retailers below:"
 msgstr ""
 
-#: inc/admin/class-publishoptions.php:298 inc/admin/laf/namespace.php:345
+#: inc/admin/class-publishoptions.php:298 inc/admin/laf/namespace.php:346
 msgid "Publish"
 msgstr "Pubblikálás"
 
@@ -409,7 +409,7 @@ msgstr ""
 msgid "Cover Generator"
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:39 inc/admin/laf/namespace.php:385
+#: inc/admin/covergenerator/namespace.php:39 inc/admin/laf/namespace.php:386
 msgid "Saving settings"
 msgstr ""
 
@@ -419,8 +419,8 @@ msgid ""
 "Are you sure?"
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:43 inc/admin/laf/namespace.php:321
-#: inc/admin/laf/namespace.php:384 inc/admin/laf/namespace.php:405
+#: inc/admin/covergenerator/namespace.php:43 inc/admin/laf/namespace.php:322
+#: inc/admin/laf/namespace.php:385 inc/admin/laf/namespace.php:406
 msgid "Reload"
 msgstr ""
 
@@ -643,7 +643,7 @@ msgstr "Pressbooks Hírek"
 msgid "My Book"
 msgstr "Könyvem"
 
-#: inc/admin/dashboard/namespace.php:82 inc/admin/laf/namespace.php:743
+#: inc/admin/dashboard/namespace.php:82 inc/admin/laf/namespace.php:744
 msgid "Users"
 msgstr "Felhasználók"
 
@@ -669,7 +669,7 @@ msgstr ""
 msgid "at"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:133 inc/admin/laf/namespace.php:822
+#: inc/admin/dashboard/namespace.php:133 inc/admin/laf/namespace.php:823
 msgid "Create A New Book"
 msgstr ""
 
@@ -718,8 +718,8 @@ msgid "%1$s total users: "
 msgstr ""
 
 #: inc/admin/dashboard/namespace.php:308 inc/admin/dashboard/namespace.php:309
-#: inc/admin/laf/namespace.php:727 inc/admin/laf/namespace.php:794
-#: inc/admin/laf/namespace.php:878
+#: inc/admin/laf/namespace.php:728 inc/admin/laf/namespace.php:795
+#: inc/admin/laf/namespace.php:879
 msgid "Dashboard"
 msgstr "Vezérlőpult"
 
@@ -782,7 +782,7 @@ msgstr "Diagnosztika"
 msgid "Stylesheet regenerated."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:64 inc/admin/laf/namespace.php:687
+#: inc/admin/laf/namespace.php:64 inc/admin/laf/namespace.php:688
 msgid "Contact"
 msgstr "Kapcsolat"
 
@@ -907,130 +907,130 @@ msgstr "Hátoldal Típusok"
 msgid "Glossary Types"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:274
+#: inc/admin/laf/namespace.php:275
 #: inc/modules/import/wordpress/class-wxr.php:479
 #: inc/posttype/namespace.php:151
 msgid "Book Info"
 msgstr "A könyv információi"
 
-#: inc/admin/laf/namespace.php:285
+#: inc/admin/laf/namespace.php:286
 msgid "Choose a subject…"
 msgstr "Válasszon témát..."
 
-#: inc/admin/laf/namespace.php:286
+#: inc/admin/laf/namespace.php:287
 msgid "Choose some subject(s)…"
 msgstr "Válasszon témá(ka)t"
 
-#: inc/admin/laf/namespace.php:296 inc/admin/laf/namespace.php:297
+#: inc/admin/laf/namespace.php:297 inc/admin/laf/namespace.php:298
 msgid "Contributors"
 msgstr "Közreműködők"
 
-#: inc/admin/laf/namespace.php:303 inc/admin/laf/namespace.php:361
+#: inc/admin/laf/namespace.php:304 inc/admin/laf/namespace.php:362
 #: templates/admin/organize.php:64 templates/admin/export.blade.php:11
 msgid "Export"
 msgstr "Exportálás"
 
-#: inc/admin/laf/namespace.php:316
+#: inc/admin/laf/namespace.php:317
 msgid "Are you sure you want to delete these export files?"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:317
+#: inc/admin/laf/namespace.php:318
 msgid "Up to 5 files can be pinned at once."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:318
+#: inc/admin/laf/namespace.php:319
 msgid "Cannot pin more than 3 of the same file type."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:322
+#: inc/admin/laf/namespace.php:323
 msgid ""
 "Too many pinned files. Deselect one of the pinned files before attempting to"
 " export."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:323
+#: inc/admin/laf/namespace.php:324
 msgid ""
 "Exports are not done. Leaving this page, now, will cause problems. Are you "
 "sure?"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:348 inc/admin/laf/namespace.php:563
-#: inc/admin/laf/namespace.php:1362
+#: inc/admin/laf/namespace.php:349 inc/admin/laf/namespace.php:564
+#: inc/admin/laf/namespace.php:1364
 #: inc/admin/network/class-sharingandprivacyoptions.php:304
 msgid "Sharing and Privacy Settings"
 msgstr "Megosztási és adatvédelmi beállítások"
 
-#: inc/admin/laf/namespace.php:348 inc/admin/laf/namespace.php:563
+#: inc/admin/laf/namespace.php:349 inc/admin/laf/namespace.php:564
 msgid "Sharing &amp; Privacy"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:366 inc/admin/laf/namespace.php:367
+#: inc/admin/laf/namespace.php:367 inc/admin/laf/namespace.php:368
 msgid "QuickLaTeX"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:375 templates/admin/import.php:38
+#: inc/admin/laf/namespace.php:376 templates/admin/import.php:38
 #: templates/admin/import.php:82
 msgid "Import"
 msgstr "Importálás"
 
-#: inc/admin/laf/namespace.php:383
+#: inc/admin/laf/namespace.php:384
 msgid ""
 "Imports are not done. Leaving this page, now, will cause problems. Are you "
 "sure?"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:396
+#: inc/admin/laf/namespace.php:397
 msgid "Clone a Book"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:404
+#: inc/admin/laf/namespace.php:405
 msgid ""
 "Cloning is not done. Leaving this page, now, will cause problems. Are you "
 "sure?"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:640 inc/admin/laf/namespace.php:651
+#: inc/admin/laf/namespace.php:641 inc/admin/laf/namespace.php:652
 msgid "About Pressbooks"
 msgstr "A Pressbooksról"
 
-#: inc/admin/laf/namespace.php:662
+#: inc/admin/laf/namespace.php:663
 msgid "Pressbooks.com"
 msgstr "Pressbooks.com"
 
-#: inc/admin/laf/namespace.php:672
+#: inc/admin/laf/namespace.php:673
 msgid "Help"
 msgstr "Segítség"
 
-#: inc/admin/laf/namespace.php:716
+#: inc/admin/laf/namespace.php:717
 msgid "Network Admin"
 msgstr "Hálózat Adminisztrátor"
 
-#: inc/admin/laf/namespace.php:735 inc/admin/laf/namespace.php:1417
-#: inc/admin/laf/namespace.php:1427
+#: inc/admin/laf/namespace.php:736 inc/admin/laf/namespace.php:1419
+#: inc/admin/laf/namespace.php:1429
 msgid "Books"
 msgstr "Könyvek"
 
-#: inc/admin/laf/namespace.php:752
+#: inc/admin/laf/namespace.php:753
 msgid "Themes"
 msgstr "Témák"
 
-#: inc/admin/laf/namespace.php:760
+#: inc/admin/laf/namespace.php:761
 msgid "Plugins"
 msgstr "Pluginok"
 
-#: inc/admin/laf/namespace.php:802
+#: inc/admin/laf/namespace.php:803
 msgid "Visit Website"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:840
+#: inc/admin/laf/namespace.php:841
 msgid "Clone A Book"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:886
+#: inc/admin/laf/namespace.php:887
 msgid "Visit Book"
 msgstr "Könyv megtekintése"
 
-#: inc/admin/laf/namespace.php:1083
+#: inc/admin/laf/namespace.php:1084
 msgid ""
 "Are you sure you want to unlock your theme? This will update your book to "
 "the most recent version of your selected theme, which may change your "
@@ -1038,92 +1038,92 @@ msgid ""
 "page, this action will NOT be reversable!"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1146
+#: inc/admin/laf/namespace.php:1148
 msgid "Book Visibility"
 msgstr "Könyv láthatósága"
 
-#: inc/admin/laf/namespace.php:1160
+#: inc/admin/laf/namespace.php:1162
 msgid "Private Content"
 msgstr "Privát tartalom"
 
-#: inc/admin/laf/namespace.php:1173
+#: inc/admin/laf/namespace.php:1175
 msgid "Disable Comments"
 msgstr "Hozzászólások kikapcsolása"
 
-#: inc/admin/laf/namespace.php:1188
+#: inc/admin/laf/namespace.php:1190
 msgid "Share Latest Export Files"
 msgstr "Legújabb exportfájlok megosztása"
 
-#: inc/admin/laf/namespace.php:1206
+#: inc/admin/laf/namespace.php:1208
 msgid "Sharing and Privacy settings"
 msgstr "Megosztási és adatvédelmi beállításokat"
 
-#: inc/admin/laf/namespace.php:1222
+#: inc/admin/laf/namespace.php:1224
 msgid "Public. I would like this book to be visible to everyone."
 msgstr "Nyilvános. Szeretném, ha ez a könyv mindenki számára látható lenne."
 
-#: inc/admin/laf/namespace.php:1228
+#: inc/admin/laf/namespace.php:1230
 msgid ""
 "Private. I would like this book to be accessible only to people I invite."
 msgstr "Privát. Szeretném, ha ez a könyv csak meghívottak számára lenne hozzáférhető."
 
-#: inc/admin/laf/namespace.php:1252
+#: inc/admin/laf/namespace.php:1254
 msgid "Who can see private front matter, chapters and back matter?"
 msgstr "Ki láthatja az előlapot, a fejezeteket és a hátoldalt?"
 
-#: inc/admin/laf/namespace.php:1255
+#: inc/admin/laf/namespace.php:1257
 msgid "Only logged in editors and administrators."
 msgstr "Csak bejelentkezett szerkesztők és rendszergazdák."
 
-#: inc/admin/laf/namespace.php:1257
+#: inc/admin/laf/namespace.php:1259
 msgid "All logged in users including subscribers."
 msgstr "Minden bejelentkezett felhasználó, beleértve az előfizetőket."
 
-#: inc/admin/laf/namespace.php:1278
+#: inc/admin/laf/namespace.php:1280
 msgid ""
 "Yes. I want to automatically disable comments, trackbacks and pingbacks on "
 "all front matter, chapters and back matter."
 msgstr "Igen. Szeretném automatikusan letiltani a megjegyzéseket, a visszajelzéseket és a pingbackeket az összes előlapon, fejezeten és hátlapon."
 
-#: inc/admin/laf/namespace.php:1284
+#: inc/admin/laf/namespace.php:1286
 msgid ""
 "No. I want to leave comments, trackbacks and pingbacks enabled on all front "
 "matter, chapters and back matter unless I disable them manually."
 msgstr "Nem. Aktiválva szeretném hagyni a kommenteket, trackbackeket és pingbackeket minden előlapon, fejezetben és hátlapon, kivéve ha manuálisan le nem letiltom őket."
 
-#: inc/admin/laf/namespace.php:1300
+#: inc/admin/laf/namespace.php:1302
 msgid ""
 "Yes. I would like the latest export files to be available on the homepage "
 "for free, to everyone."
 msgstr "Igen. Szeretném, ha a legújabb exportfájlok mindenki számára ingyen elérhetők lennének a honlapon."
 
-#: inc/admin/laf/namespace.php:1306
+#: inc/admin/laf/namespace.php:1308
 msgid ""
 "No. I would like the latest export files to only be available to "
 "administrators."
 msgstr "Nem. Szeretném, ha a legfrissebb exportfájlok csak a rendszergazdák számára lennének elérhetők."
 
-#: inc/admin/laf/namespace.php:1420
+#: inc/admin/laf/namespace.php:1422
 msgid "All Books"
 msgstr "Összes Könyv"
 
-#: inc/admin/laf/namespace.php:1430
+#: inc/admin/laf/namespace.php:1432
 msgid "Search Books"
 msgstr "Könyvek Keresése"
 
-#: inc/admin/laf/namespace.php:1436
+#: inc/admin/laf/namespace.php:1438
 msgid "Edit Book: %s"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1439 inc/admin/laf/namespace.php:1448
+#: inc/admin/laf/namespace.php:1441 inc/admin/laf/namespace.php:1450
 msgid "Book Address (URL)"
 msgstr "Könyv elérhetősége (URL)"
 
-#: inc/admin/laf/namespace.php:1445
+#: inc/admin/laf/namespace.php:1447
 msgid "Add New Book"
 msgstr "Új Könyv Hozzáadása"
 
-#: inc/admin/laf/namespace.php:1451
+#: inc/admin/laf/namespace.php:1453
 #: inc/modules/themeoptions/class-pdfoptions.php:338
 #: inc/modules/themeoptions/class-pdfoptions.php:357
 #: inc/modules/themeoptions/class-pdfoptions.php:376
@@ -1137,23 +1137,23 @@ msgstr "Új Könyv Hozzáadása"
 msgid "Book Title"
 msgstr "Könyvcím"
 
-#: inc/admin/laf/namespace.php:1454
+#: inc/admin/laf/namespace.php:1456
 msgid "Book Language"
 msgstr "Könyv Nyelve"
 
-#: inc/admin/laf/namespace.php:1457
+#: inc/admin/laf/namespace.php:1459
 msgid "Add Book"
 msgstr "Könyv Hozzáadása"
 
-#: inc/admin/laf/namespace.php:1474
+#: inc/admin/laf/namespace.php:1476
 msgid "Edit previous or next item"
 msgstr "Az előző vagy következő elem szerkesztése"
 
-#: inc/admin/laf/namespace.php:1479
+#: inc/admin/laf/namespace.php:1481
 msgid "Edit Previous (%s)"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1484
+#: inc/admin/laf/namespace.php:1486
 msgid "Edit Next (%s)"
 msgstr ""
 
@@ -1336,7 +1336,7 @@ msgstr "Segítsen lefordítani a Pressbooks-ot az Ön nyelvére!"
 #: inc/modules/export/epub/templates/epub201/opf.php:87
 #: inc/modules/export/epub/templates/epub3/opf.php:94
 #: inc/modules/export/htmlbook/class-htmlbook.php:863
-#: inc/modules/export/xhtml/class-xhtml11.php:987
+#: inc/modules/export/xhtml/class-xhtml11.php:990
 msgid "Copyright"
 msgstr "Szerzői jog"
 
@@ -2114,7 +2114,7 @@ msgstr ""
 #: inc/modules/export/epub/templates/epub201/opf.php:96
 #: inc/modules/export/epub/templates/epub3/opf.php:103
 #: inc/modules/export/htmlbook/class-htmlbook.php:872
-#: inc/modules/export/xhtml/class-xhtml11.php:996
+#: inc/modules/export/xhtml/class-xhtml11.php:999
 msgid "by"
 msgstr "által"
 
@@ -2140,6 +2140,15 @@ msgstr ""
 
 #: inc/class-licensing.php:420
 msgid "This work (%1$s by %2$s) is free of known copyright restrictions."
+msgstr ""
+
+#: inc/class-mathjax.php:154 inc/class-mathjax.php:155
+#: templates/admin/mathjax.blade.php:2
+msgid "MathJax"
+msgstr ""
+
+#: inc/class-mathjax.php:175
+msgid "<code>PB_MATHJAX_URL</code> is not configured."
 msgstr ""
 
 #: inc/class-sass.php:199
@@ -2629,17 +2638,17 @@ msgid "Compiling styles"
 msgstr ""
 
 #: inc/modules/export/epub/class-epub201.php:680
-#: inc/modules/export/xhtml/class-xhtml11.php:387
+#: inc/modules/export/xhtml/class-xhtml11.php:390
 msgid "Creating cover"
 msgstr ""
 
 #: inc/modules/export/epub/class-epub201.php:687
-#: inc/modules/export/xhtml/class-xhtml11.php:391
+#: inc/modules/export/xhtml/class-xhtml11.php:394
 msgid "Creating title page"
 msgstr ""
 
 #: inc/modules/export/epub/class-epub201.php:691
-#: inc/modules/export/xhtml/class-xhtml11.php:395
+#: inc/modules/export/xhtml/class-xhtml11.php:398
 msgid "Creating copyright page"
 msgstr ""
 
@@ -2649,29 +2658,29 @@ msgstr ""
 
 #: inc/modules/export/epub/class-epub201.php:699
 #: inc/modules/export/epub/class-epub201.php:1286
-#: inc/modules/export/xhtml/class-xhtml11.php:407
-#: inc/modules/export/xhtml/class-xhtml11.php:1227
+#: inc/modules/export/xhtml/class-xhtml11.php:410
+#: inc/modules/export/xhtml/class-xhtml11.php:1230
 msgid "Exporting front matter"
 msgstr ""
 
 #: inc/modules/export/epub/class-epub201.php:706
 #: inc/modules/export/epub/class-epub201.php:1454
 #: inc/modules/export/epub/class-epub201.php:1476
-#: inc/modules/export/xhtml/class-xhtml11.php:414
-#: inc/modules/export/xhtml/class-xhtml11.php:1349
-#: inc/modules/export/xhtml/class-xhtml11.php:1397
+#: inc/modules/export/xhtml/class-xhtml11.php:417
+#: inc/modules/export/xhtml/class-xhtml11.php:1352
+#: inc/modules/export/xhtml/class-xhtml11.php:1400
 msgid "Exporting parts and chapters"
 msgstr ""
 
 #: inc/modules/export/epub/class-epub201.php:710
 #: inc/modules/export/epub/class-epub201.php:1715
-#: inc/modules/export/xhtml/class-xhtml11.php:418
-#: inc/modules/export/xhtml/class-xhtml11.php:1523
+#: inc/modules/export/xhtml/class-xhtml11.php:421
+#: inc/modules/export/xhtml/class-xhtml11.php:1526
 msgid "Exporting back matter"
 msgstr ""
 
 #: inc/modules/export/epub/class-epub201.php:715
-#: inc/modules/export/xhtml/class-xhtml11.php:403
+#: inc/modules/export/xhtml/class-xhtml11.php:406
 msgid "Creating table of contents"
 msgstr ""
 
@@ -2693,7 +2702,7 @@ msgstr "Tartalomjegyzék"
 
 #: inc/modules/export/epub/class-epub201.php:1837
 #: inc/modules/export/htmlbook/class-htmlbook.php:989
-#: inc/modules/export/xhtml/class-xhtml11.php:1059
+#: inc/modules/export/xhtml/class-xhtml11.php:1062
 msgid "Contents"
 msgstr "Tartalom"
 
@@ -2716,8 +2725,8 @@ msgstr ""
 
 #: inc/modules/export/namespace.php:95
 #: inc/modules/themeoptions/class-globaloptions.php:389
-#: inc/utility/namespace.php:1314 inc/utility/namespace.php:1319
-#: inc/utility/namespace.php:1339 inc/utility/namespace.php:1345
+#: inc/utility/namespace.php:1308 inc/utility/namespace.php:1313
+#: inc/utility/namespace.php:1333 inc/utility/namespace.php:1339
 #: templates/admin/covergenerator.php:53
 msgid "and"
 msgstr "és"
@@ -2810,7 +2819,7 @@ msgstr ""
 msgid "unpinned"
 msgstr ""
 
-#: inc/modules/export/prince/class-pdf.php:282
+#: inc/modules/export/prince/class-pdf.php:281
 msgid ""
 "This book was produced with Pressbooks (https://pressbooks.com) and rendered"
 " with Prince."
@@ -2820,19 +2829,19 @@ msgstr ""
 msgid "XHTML: "
 msgstr ""
 
-#: inc/modules/export/xhtml/class-xhtml11.php:379
+#: inc/modules/export/xhtml/class-xhtml11.php:382
 msgid "Creating before title page"
 msgstr ""
 
-#: inc/modules/export/xhtml/class-xhtml11.php:383
+#: inc/modules/export/xhtml/class-xhtml11.php:386
 msgid "Creating half title page"
 msgstr ""
 
-#: inc/modules/export/xhtml/class-xhtml11.php:399
+#: inc/modules/export/xhtml/class-xhtml11.php:402
 msgid "Creating dedication and epigraph"
 msgstr ""
 
-#: inc/modules/export/xhtml/class-xhtml11.php:510
+#: inc/modules/export/xhtml/class-xhtml11.php:513
 msgid "Notes"
 msgstr "Jegyzetek"
 
@@ -3860,20 +3869,20 @@ msgstr ""
 msgid " (%1$d of %2$d)"
 msgstr ""
 
-#: inc/utility/namespace.php:608 inc/utility/namespace.php:619
-#: inc/utility/namespace.php:634
+#: inc/utility/namespace.php:602 inc/utility/namespace.php:613
+#: inc/utility/namespace.php:628
 msgid ""
 "An unexpected error occurred. Something may be wrong with the plugin "
 "recommendations server or your site&#8217;s server&#8217;s configuration."
 msgstr ""
 
-#: inc/utility/namespace.php:608
+#: inc/utility/namespace.php:602
 msgid ""
 "(Pressbooks could not establish a secure connection to the plugin "
 "recommendations server. Please contact your server administrator.)"
 msgstr "(A Pressbook nem tudott biztonságos kapcsolatot létesíteni a plugin ajánlások szerverével, kérjük, forduljon a szerver rendszergazdájához.)"
 
-#: inc/utility/namespace.php:658
+#: inc/utility/namespace.php:652
 msgid ""
 "These plugins have been created and/or recommended by the Pressbooks "
 "community."
@@ -4471,6 +4480,64 @@ msgstr ""
 
 #: templates/admin/incompatible-plugins.blade.php:17
 msgid "Unknown"
+msgstr ""
+
+#: templates/admin/mathjax.blade.php:5
+msgid ""
+"If you can see a big integral, then PB-MathJax is configured correctly, and "
+"all is well."
+msgstr ""
+
+#: templates/admin/mathjax.blade.php:10
+msgid "Syntax"
+msgstr ""
+
+#: templates/admin/mathjax.blade.php:13
+msgid "LaTeX"
+msgstr ""
+
+#: templates/admin/mathjax.blade.php:15 templates/admin/mathjax.blade.php:26
+msgid "Shortcode syntax: %s"
+msgstr ""
+
+#: templates/admin/mathjax.blade.php:19 templates/admin/mathjax.blade.php:30
+msgid "Dollar sign syntax: %s"
+msgstr ""
+
+#: templates/admin/mathjax.blade.php:24
+msgid "AsciiMath"
+msgstr ""
+
+#: templates/admin/mathjax.blade.php:35
+msgid "MathML"
+msgstr ""
+
+#: templates/admin/mathjax.blade.php:37
+msgid "Markup syntax: %s"
+msgstr ""
+
+#: templates/admin/mathjax.blade.php:44
+msgid "Text color"
+msgstr ""
+
+#: templates/admin/mathjax.blade.php:47
+msgid ""
+"A six digit hexadecimal number like <code>000000</code> or "
+"<code>ffffff</code>"
+msgstr ""
+
+#: templates/admin/mathjax.blade.php:52
+msgid "SVG/PNG Fonts"
+msgstr ""
+
+#: templates/admin/mathjax.blade.php:58
+msgid ""
+"Affects exports (PDF, EPUB, MOBI.) Webbook uses CommonHTML. CommonHTML "
+"currently only supports MathJax’s default TeX fonts."
+msgstr ""
+
+#: templates/admin/mathjax.blade.php:64
+msgid "Save Changes"
 msgstr ""
 
 #: templates/admin/sitemap.blade.php:3

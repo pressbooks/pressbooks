@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
-"POT-Creation-Date: 2019-07-02T17:42:33+00:00\n"
-"PO-Revision-Date: 2019-07-02 17:43+0000\n"
+"POT-Creation-Date: 2019-07-08T20:29:41+00:00\n"
+"PO-Revision-Date: 2019-07-08 20:30+0000\n"
 "Last-Translator: Dac Chartrand <dac@pressbooks.com>\n"
 "Language-Team: German (http://www.transifex.com/pressbooks/pressbooks/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -230,8 +230,8 @@ msgstr "Privat"
 msgid "Public"
 msgstr "Öffentlich"
 
-#: inc/admin/class-catalog-list-table.php:461 inc/admin/laf/namespace.php:416
-#: inc/admin/laf/namespace.php:583 inc/admin/laf/namespace.php:812
+#: inc/admin/class-catalog-list-table.php:461 inc/admin/laf/namespace.php:417
+#: inc/admin/laf/namespace.php:584 inc/admin/laf/namespace.php:813
 msgid "My Catalog"
 msgstr "Mein Katalog"
 
@@ -320,7 +320,7 @@ msgid ""
 " when themes are updated."
 msgstr ""
 
-#: inc/admin/class-exportoptions.php:186 inc/admin/laf/namespace.php:361
+#: inc/admin/class-exportoptions.php:186 inc/admin/laf/namespace.php:362
 msgid "Export Settings"
 msgstr "Export Einstellungen"
 
@@ -405,7 +405,7 @@ msgid ""
 "book, add the links to your book at the different retailers below:"
 msgstr ""
 
-#: inc/admin/class-publishoptions.php:298 inc/admin/laf/namespace.php:345
+#: inc/admin/class-publishoptions.php:298 inc/admin/laf/namespace.php:346
 msgid "Publish"
 msgstr "Veröffentlichen"
 
@@ -418,7 +418,7 @@ msgstr ""
 msgid "Cover Generator"
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:39 inc/admin/laf/namespace.php:385
+#: inc/admin/covergenerator/namespace.php:39 inc/admin/laf/namespace.php:386
 msgid "Saving settings"
 msgstr ""
 
@@ -428,8 +428,8 @@ msgid ""
 "Are you sure?"
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:43 inc/admin/laf/namespace.php:321
-#: inc/admin/laf/namespace.php:384 inc/admin/laf/namespace.php:405
+#: inc/admin/covergenerator/namespace.php:43 inc/admin/laf/namespace.php:322
+#: inc/admin/laf/namespace.php:385 inc/admin/laf/namespace.php:406
 msgid "Reload"
 msgstr ""
 
@@ -652,7 +652,7 @@ msgstr "Pressbooks News"
 msgid "My Book"
 msgstr "Mein Buch"
 
-#: inc/admin/dashboard/namespace.php:82 inc/admin/laf/namespace.php:743
+#: inc/admin/dashboard/namespace.php:82 inc/admin/laf/namespace.php:744
 msgid "Users"
 msgstr "Nutzer"
 
@@ -678,7 +678,7 @@ msgstr "In diesem Netzwerk können Benutzer keine neuen Bücher erstellen. Wende
 msgid "at"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:133 inc/admin/laf/namespace.php:822
+#: inc/admin/dashboard/namespace.php:133 inc/admin/laf/namespace.php:823
 msgid "Create A New Book"
 msgstr "Ein neues Buch erstellen"
 
@@ -727,8 +727,8 @@ msgid "%1$s total users: "
 msgstr "%1$s Benutzer insgesamt:"
 
 #: inc/admin/dashboard/namespace.php:308 inc/admin/dashboard/namespace.php:309
-#: inc/admin/laf/namespace.php:727 inc/admin/laf/namespace.php:794
-#: inc/admin/laf/namespace.php:878
+#: inc/admin/laf/namespace.php:728 inc/admin/laf/namespace.php:795
+#: inc/admin/laf/namespace.php:879
 msgid "Dashboard"
 msgstr "Dashboard"
 
@@ -791,7 +791,7 @@ msgstr "Diagnose"
 msgid "Stylesheet regenerated."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:64 inc/admin/laf/namespace.php:687
+#: inc/admin/laf/namespace.php:64 inc/admin/laf/namespace.php:688
 msgid "Contact"
 msgstr "Kontakt"
 
@@ -916,130 +916,130 @@ msgstr "Anhangs-Typen"
 msgid "Glossary Types"
 msgstr "Glossartypen"
 
-#: inc/admin/laf/namespace.php:274
+#: inc/admin/laf/namespace.php:275
 #: inc/modules/import/wordpress/class-wxr.php:479
 #: inc/posttype/namespace.php:151
 msgid "Book Info"
 msgstr "Buch-Info"
 
-#: inc/admin/laf/namespace.php:285
+#: inc/admin/laf/namespace.php:286
 msgid "Choose a subject…"
 msgstr "Wählen Sie ein Thema"
 
-#: inc/admin/laf/namespace.php:286
+#: inc/admin/laf/namespace.php:287
 msgid "Choose some subject(s)…"
 msgstr "Wählen Sie ein Thema..."
 
-#: inc/admin/laf/namespace.php:296 inc/admin/laf/namespace.php:297
+#: inc/admin/laf/namespace.php:297 inc/admin/laf/namespace.php:298
 msgid "Contributors"
 msgstr "Mitarbeiter"
 
-#: inc/admin/laf/namespace.php:303 inc/admin/laf/namespace.php:361
+#: inc/admin/laf/namespace.php:304 inc/admin/laf/namespace.php:362
 #: templates/admin/organize.php:64 templates/admin/export.blade.php:11
 msgid "Export"
 msgstr "Exportieren"
 
-#: inc/admin/laf/namespace.php:316
+#: inc/admin/laf/namespace.php:317
 msgid "Are you sure you want to delete these export files?"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:317
+#: inc/admin/laf/namespace.php:318
 msgid "Up to 5 files can be pinned at once."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:318
+#: inc/admin/laf/namespace.php:319
 msgid "Cannot pin more than 3 of the same file type."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:322
+#: inc/admin/laf/namespace.php:323
 msgid ""
 "Too many pinned files. Deselect one of the pinned files before attempting to"
 " export."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:323
+#: inc/admin/laf/namespace.php:324
 msgid ""
 "Exports are not done. Leaving this page, now, will cause problems. Are you "
 "sure?"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:348 inc/admin/laf/namespace.php:563
-#: inc/admin/laf/namespace.php:1362
+#: inc/admin/laf/namespace.php:349 inc/admin/laf/namespace.php:564
+#: inc/admin/laf/namespace.php:1364
 #: inc/admin/network/class-sharingandprivacyoptions.php:304
 msgid "Sharing and Privacy Settings"
 msgstr "Freigabe und Datenschutzeinstellungen."
 
-#: inc/admin/laf/namespace.php:348 inc/admin/laf/namespace.php:563
+#: inc/admin/laf/namespace.php:349 inc/admin/laf/namespace.php:564
 msgid "Sharing &amp; Privacy"
 msgstr "Zugriff &amp; Privatsphäre"
 
-#: inc/admin/laf/namespace.php:366 inc/admin/laf/namespace.php:367
+#: inc/admin/laf/namespace.php:367 inc/admin/laf/namespace.php:368
 msgid "QuickLaTeX"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:375 templates/admin/import.php:38
+#: inc/admin/laf/namespace.php:376 templates/admin/import.php:38
 #: templates/admin/import.php:82
 msgid "Import"
 msgstr "Import"
 
-#: inc/admin/laf/namespace.php:383
+#: inc/admin/laf/namespace.php:384
 msgid ""
 "Imports are not done. Leaving this page, now, will cause problems. Are you "
 "sure?"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:396
+#: inc/admin/laf/namespace.php:397
 msgid "Clone a Book"
 msgstr "Ein Buch klonen"
 
-#: inc/admin/laf/namespace.php:404
+#: inc/admin/laf/namespace.php:405
 msgid ""
 "Cloning is not done. Leaving this page, now, will cause problems. Are you "
 "sure?"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:640 inc/admin/laf/namespace.php:651
+#: inc/admin/laf/namespace.php:641 inc/admin/laf/namespace.php:652
 msgid "About Pressbooks"
 msgstr "Über Pressbooks"
 
-#: inc/admin/laf/namespace.php:662
+#: inc/admin/laf/namespace.php:663
 msgid "Pressbooks.com"
 msgstr "Pressbooks.com"
 
-#: inc/admin/laf/namespace.php:672
+#: inc/admin/laf/namespace.php:673
 msgid "Help"
 msgstr "Hilfe"
 
-#: inc/admin/laf/namespace.php:716
+#: inc/admin/laf/namespace.php:717
 msgid "Network Admin"
 msgstr "Netzwerk Admin"
 
-#: inc/admin/laf/namespace.php:735 inc/admin/laf/namespace.php:1417
-#: inc/admin/laf/namespace.php:1427
+#: inc/admin/laf/namespace.php:736 inc/admin/laf/namespace.php:1419
+#: inc/admin/laf/namespace.php:1429
 msgid "Books"
 msgstr "Bücher"
 
-#: inc/admin/laf/namespace.php:752
+#: inc/admin/laf/namespace.php:753
 msgid "Themes"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:760
+#: inc/admin/laf/namespace.php:761
 msgid "Plugins"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:802
+#: inc/admin/laf/namespace.php:803
 msgid "Visit Website"
 msgstr "Webseite anschauen"
 
-#: inc/admin/laf/namespace.php:840
+#: inc/admin/laf/namespace.php:841
 msgid "Clone A Book"
 msgstr "Ein Buch klonen"
 
-#: inc/admin/laf/namespace.php:886
+#: inc/admin/laf/namespace.php:887
 msgid "Visit Book"
 msgstr "Buch anschauen"
 
-#: inc/admin/laf/namespace.php:1083
+#: inc/admin/laf/namespace.php:1084
 msgid ""
 "Are you sure you want to unlock your theme? This will update your book to "
 "the most recent version of your selected theme, which may change your "
@@ -1047,92 +1047,92 @@ msgid ""
 "page, this action will NOT be reversable!"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1146
+#: inc/admin/laf/namespace.php:1148
 msgid "Book Visibility"
 msgstr "Sichtbarkeit des Buchs"
 
-#: inc/admin/laf/namespace.php:1160
+#: inc/admin/laf/namespace.php:1162
 msgid "Private Content"
 msgstr "Privater Inhalt"
 
-#: inc/admin/laf/namespace.php:1173
+#: inc/admin/laf/namespace.php:1175
 msgid "Disable Comments"
 msgstr "Kommentare deaktivieren"
 
-#: inc/admin/laf/namespace.php:1188
+#: inc/admin/laf/namespace.php:1190
 msgid "Share Latest Export Files"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1206
+#: inc/admin/laf/namespace.php:1208
 msgid "Sharing and Privacy settings"
 msgstr "Freigabe und Datenschutzeinstellungen"
 
-#: inc/admin/laf/namespace.php:1222
+#: inc/admin/laf/namespace.php:1224
 msgid "Public. I would like this book to be visible to everyone."
 msgstr "Öffentlich. Das Buch soll für jeden sichtbar sein."
 
-#: inc/admin/laf/namespace.php:1228
+#: inc/admin/laf/namespace.php:1230
 msgid ""
 "Private. I would like this book to be accessible only to people I invite."
 msgstr "Privat. Das Buch soll nur mit Einladung sichtbar sein."
 
-#: inc/admin/laf/namespace.php:1252
+#: inc/admin/laf/namespace.php:1254
 msgid "Who can see private front matter, chapters and back matter?"
 msgstr "Wer darf private Titeleien, Kapitel und Anhänge sehen?"
 
-#: inc/admin/laf/namespace.php:1255
+#: inc/admin/laf/namespace.php:1257
 msgid "Only logged in editors and administrators."
 msgstr "Nur eingeloggte Editoren und Administratoren"
 
-#: inc/admin/laf/namespace.php:1257
+#: inc/admin/laf/namespace.php:1259
 msgid "All logged in users including subscribers."
 msgstr "Alle eingeloggten Benutzer inklusive Teilnehmer"
 
-#: inc/admin/laf/namespace.php:1278
+#: inc/admin/laf/namespace.php:1280
 msgid ""
 "Yes. I want to automatically disable comments, trackbacks and pingbacks on "
 "all front matter, chapters and back matter."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1284
+#: inc/admin/laf/namespace.php:1286
 msgid ""
 "No. I want to leave comments, trackbacks and pingbacks enabled on all front "
 "matter, chapters and back matter unless I disable them manually."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1300
+#: inc/admin/laf/namespace.php:1302
 msgid ""
 "Yes. I would like the latest export files to be available on the homepage "
 "for free, to everyone."
 msgstr "Ja. Ich möchte, dass die neuesten Exportdateien auf der Homepage für alle kostenlos zur Verfügung stehen."
 
-#: inc/admin/laf/namespace.php:1306
+#: inc/admin/laf/namespace.php:1308
 msgid ""
 "No. I would like the latest export files to only be available to "
 "administrators."
 msgstr "Nein. Ich möchte, dass die neuesten Exportdateien nur für Administratoren zur Verfügung stehen."
 
-#: inc/admin/laf/namespace.php:1420
+#: inc/admin/laf/namespace.php:1422
 msgid "All Books"
 msgstr "Alle Bücher"
 
-#: inc/admin/laf/namespace.php:1430
+#: inc/admin/laf/namespace.php:1432
 msgid "Search Books"
 msgstr "Bücher durchsuchen"
 
-#: inc/admin/laf/namespace.php:1436
+#: inc/admin/laf/namespace.php:1438
 msgid "Edit Book: %s"
 msgstr "Buch bearbeiten: %s"
 
-#: inc/admin/laf/namespace.php:1439 inc/admin/laf/namespace.php:1448
+#: inc/admin/laf/namespace.php:1441 inc/admin/laf/namespace.php:1450
 msgid "Book Address (URL)"
 msgstr "Buch-Adresse (URL)"
 
-#: inc/admin/laf/namespace.php:1445
+#: inc/admin/laf/namespace.php:1447
 msgid "Add New Book"
 msgstr "Neues Buch hinzufügen"
 
-#: inc/admin/laf/namespace.php:1451
+#: inc/admin/laf/namespace.php:1453
 #: inc/modules/themeoptions/class-pdfoptions.php:338
 #: inc/modules/themeoptions/class-pdfoptions.php:357
 #: inc/modules/themeoptions/class-pdfoptions.php:376
@@ -1146,23 +1146,23 @@ msgstr "Neues Buch hinzufügen"
 msgid "Book Title"
 msgstr "Buchtitel"
 
-#: inc/admin/laf/namespace.php:1454
+#: inc/admin/laf/namespace.php:1456
 msgid "Book Language"
 msgstr "Sprache des Buchs"
 
-#: inc/admin/laf/namespace.php:1457
+#: inc/admin/laf/namespace.php:1459
 msgid "Add Book"
 msgstr "Buch hinzufügen"
 
-#: inc/admin/laf/namespace.php:1474
+#: inc/admin/laf/namespace.php:1476
 msgid "Edit previous or next item"
 msgstr "Vorhergehendes oder nächstes Item bearbeiten"
 
-#: inc/admin/laf/namespace.php:1479
+#: inc/admin/laf/namespace.php:1481
 msgid "Edit Previous (%s)"
 msgstr "Vorhergehendes bearbeiten (%s)"
 
-#: inc/admin/laf/namespace.php:1484
+#: inc/admin/laf/namespace.php:1486
 msgid "Edit Next (%s)"
 msgstr "Nächste bearbeiten (%s) "
 
@@ -1345,7 +1345,7 @@ msgstr "Hilf Pressbooks in deiner Sprache zu übersetzen!"
 #: inc/modules/export/epub/templates/epub201/opf.php:87
 #: inc/modules/export/epub/templates/epub3/opf.php:94
 #: inc/modules/export/htmlbook/class-htmlbook.php:863
-#: inc/modules/export/xhtml/class-xhtml11.php:987
+#: inc/modules/export/xhtml/class-xhtml11.php:990
 msgid "Copyright"
 msgstr "Copyright"
 
@@ -1571,7 +1571,7 @@ msgstr "%s Autoren"
 
 #: inc/admin/metaboxes/namespace.php:607
 msgid "%s Copyright License (overrides book license on this page)"
-msgstr ""
+msgstr "%s Lizenz (überschreibt die Buchlizenz auf dieser Seite)"
 
 #: inc/admin/metaboxes/namespace.php:614
 msgid "%s Digital Object Identifier (DOI)"
@@ -2123,7 +2123,7 @@ msgstr ""
 #: inc/modules/export/epub/templates/epub201/opf.php:96
 #: inc/modules/export/epub/templates/epub3/opf.php:103
 #: inc/modules/export/htmlbook/class-htmlbook.php:872
-#: inc/modules/export/xhtml/class-xhtml11.php:996
+#: inc/modules/export/xhtml/class-xhtml11.php:999
 msgid "by"
 msgstr "von"
 
@@ -2149,6 +2149,15 @@ msgstr ""
 
 #: inc/class-licensing.php:420
 msgid "This work (%1$s by %2$s) is free of known copyright restrictions."
+msgstr ""
+
+#: inc/class-mathjax.php:154 inc/class-mathjax.php:155
+#: templates/admin/mathjax.blade.php:2
+msgid "MathJax"
+msgstr ""
+
+#: inc/class-mathjax.php:175
+msgid "<code>PB_MATHJAX_URL</code> is not configured."
 msgstr ""
 
 #: inc/class-sass.php:199
@@ -2457,27 +2466,27 @@ msgstr "Schattiert"
 
 #: inc/editor/namespace.php:303
 msgid "Full Grid"
-msgstr ""
+msgstr "Vollständige Lineatur"
 
 #: inc/editor/namespace.php:307
 msgid "Standard Landscape*"
-msgstr ""
+msgstr "Standard Querformat*"
 
 #: inc/editor/namespace.php:311
 msgid "No lines Landscape*"
-msgstr ""
+msgstr "Keine Lineatur Querformat*"
 
 #: inc/editor/namespace.php:315
 msgid "Lines Landscape*"
-msgstr ""
+msgstr "Lineatur Querformat*"
 
 #: inc/editor/namespace.php:319
 msgid "Shaded Landscape*"
-msgstr ""
+msgstr "Schattiert Querformat*"
 
 #: inc/editor/namespace.php:323
 msgid "Full Grid Landscape*"
-msgstr ""
+msgstr "Vollständige Lineatur Querformat*"
 
 #: inc/editor/namespace.php:333 inc/editor/namespace.php:347
 msgid "Border"
@@ -2638,17 +2647,17 @@ msgid "Compiling styles"
 msgstr ""
 
 #: inc/modules/export/epub/class-epub201.php:680
-#: inc/modules/export/xhtml/class-xhtml11.php:387
+#: inc/modules/export/xhtml/class-xhtml11.php:390
 msgid "Creating cover"
 msgstr ""
 
 #: inc/modules/export/epub/class-epub201.php:687
-#: inc/modules/export/xhtml/class-xhtml11.php:391
+#: inc/modules/export/xhtml/class-xhtml11.php:394
 msgid "Creating title page"
 msgstr ""
 
 #: inc/modules/export/epub/class-epub201.php:691
-#: inc/modules/export/xhtml/class-xhtml11.php:395
+#: inc/modules/export/xhtml/class-xhtml11.php:398
 msgid "Creating copyright page"
 msgstr ""
 
@@ -2658,29 +2667,29 @@ msgstr ""
 
 #: inc/modules/export/epub/class-epub201.php:699
 #: inc/modules/export/epub/class-epub201.php:1286
-#: inc/modules/export/xhtml/class-xhtml11.php:407
-#: inc/modules/export/xhtml/class-xhtml11.php:1227
+#: inc/modules/export/xhtml/class-xhtml11.php:410
+#: inc/modules/export/xhtml/class-xhtml11.php:1230
 msgid "Exporting front matter"
 msgstr ""
 
 #: inc/modules/export/epub/class-epub201.php:706
 #: inc/modules/export/epub/class-epub201.php:1454
 #: inc/modules/export/epub/class-epub201.php:1476
-#: inc/modules/export/xhtml/class-xhtml11.php:414
-#: inc/modules/export/xhtml/class-xhtml11.php:1349
-#: inc/modules/export/xhtml/class-xhtml11.php:1397
+#: inc/modules/export/xhtml/class-xhtml11.php:417
+#: inc/modules/export/xhtml/class-xhtml11.php:1352
+#: inc/modules/export/xhtml/class-xhtml11.php:1400
 msgid "Exporting parts and chapters"
 msgstr ""
 
 #: inc/modules/export/epub/class-epub201.php:710
 #: inc/modules/export/epub/class-epub201.php:1715
-#: inc/modules/export/xhtml/class-xhtml11.php:418
-#: inc/modules/export/xhtml/class-xhtml11.php:1523
+#: inc/modules/export/xhtml/class-xhtml11.php:421
+#: inc/modules/export/xhtml/class-xhtml11.php:1526
 msgid "Exporting back matter"
 msgstr ""
 
 #: inc/modules/export/epub/class-epub201.php:715
-#: inc/modules/export/xhtml/class-xhtml11.php:403
+#: inc/modules/export/xhtml/class-xhtml11.php:406
 msgid "Creating table of contents"
 msgstr ""
 
@@ -2702,7 +2711,7 @@ msgstr "Inhaltsverzeichnis"
 
 #: inc/modules/export/epub/class-epub201.php:1837
 #: inc/modules/export/htmlbook/class-htmlbook.php:989
-#: inc/modules/export/xhtml/class-xhtml11.php:1059
+#: inc/modules/export/xhtml/class-xhtml11.php:1062
 msgid "Contents"
 msgstr "Inhalt"
 
@@ -2725,8 +2734,8 @@ msgstr ""
 
 #: inc/modules/export/namespace.php:95
 #: inc/modules/themeoptions/class-globaloptions.php:389
-#: inc/utility/namespace.php:1314 inc/utility/namespace.php:1319
-#: inc/utility/namespace.php:1339 inc/utility/namespace.php:1345
+#: inc/utility/namespace.php:1308 inc/utility/namespace.php:1313
+#: inc/utility/namespace.php:1333 inc/utility/namespace.php:1339
 #: templates/admin/covergenerator.php:53
 msgid "and"
 msgstr "und"
@@ -2819,7 +2828,7 @@ msgstr ""
 msgid "unpinned"
 msgstr ""
 
-#: inc/modules/export/prince/class-pdf.php:282
+#: inc/modules/export/prince/class-pdf.php:281
 msgid ""
 "This book was produced with Pressbooks (https://pressbooks.com) and rendered"
 " with Prince."
@@ -2829,19 +2838,19 @@ msgstr "Dieses Buch wurde mit Pressbooks (https://pressbooks.com) erstellt. Die 
 msgid "XHTML: "
 msgstr ""
 
-#: inc/modules/export/xhtml/class-xhtml11.php:379
+#: inc/modules/export/xhtml/class-xhtml11.php:382
 msgid "Creating before title page"
 msgstr ""
 
-#: inc/modules/export/xhtml/class-xhtml11.php:383
+#: inc/modules/export/xhtml/class-xhtml11.php:386
 msgid "Creating half title page"
 msgstr ""
 
-#: inc/modules/export/xhtml/class-xhtml11.php:399
+#: inc/modules/export/xhtml/class-xhtml11.php:402
 msgid "Creating dedication and epigraph"
 msgstr ""
 
-#: inc/modules/export/xhtml/class-xhtml11.php:510
+#: inc/modules/export/xhtml/class-xhtml11.php:513
 msgid "Notes"
 msgstr "Notizen"
 
@@ -3869,20 +3878,20 @@ msgstr ""
 msgid " (%1$d of %2$d)"
 msgstr ""
 
-#: inc/utility/namespace.php:608 inc/utility/namespace.php:619
-#: inc/utility/namespace.php:634
+#: inc/utility/namespace.php:602 inc/utility/namespace.php:613
+#: inc/utility/namespace.php:628
 msgid ""
 "An unexpected error occurred. Something may be wrong with the plugin "
 "recommendations server or your site&#8217;s server&#8217;s configuration."
 msgstr ""
 
-#: inc/utility/namespace.php:608
+#: inc/utility/namespace.php:602
 msgid ""
 "(Pressbooks could not establish a secure connection to the plugin "
 "recommendations server. Please contact your server administrator.)"
 msgstr ""
 
-#: inc/utility/namespace.php:658
+#: inc/utility/namespace.php:652
 msgid ""
 "These plugins have been created and/or recommended by the Pressbooks "
 "community."
@@ -3902,7 +3911,7 @@ msgstr "Eigene Textbox"
 
 #: languages/tinymce.php:8
 msgid "Standard (Sidebar)"
-msgstr ""
+msgstr "Standard (Randspalte)"
 
 #: languages/tinymce.php:9
 msgid "Type your textbox content here."
@@ -3910,11 +3919,11 @@ msgstr "Textbox-Inhalt hier ergänzen "
 
 #: languages/tinymce.php:11
 msgid "Shaded (Sidebar)"
-msgstr ""
+msgstr "Schattiert (Randspalte)"
 
 #: languages/tinymce.php:13
 msgid "Learning Objectives (Sidebar)"
-msgstr ""
+msgstr "Lernziele (Randspalte)"
 
 #: languages/tinymce.php:14
 msgid "Type your learning objectives here."
@@ -3922,7 +3931,7 @@ msgstr "Lernziele hier ergänzen"
 
 #: languages/tinymce.php:16
 msgid "Key Takeaways (Sidebar)"
-msgstr ""
+msgstr "Zusammenfassung (Randspalte)"
 
 #: languages/tinymce.php:17
 msgid "Type your key takeaways here."
@@ -3930,7 +3939,7 @@ msgstr "Zusammenfassung hier ergänzen"
 
 #: languages/tinymce.php:19
 msgid "Exercises (Sidebar)"
-msgstr ""
+msgstr "Aufgaben (Randspalte)"
 
 #: languages/tinymce.php:20
 msgid "Type your exercises here."
@@ -3938,7 +3947,7 @@ msgstr "Aufgaben hier ergänzen"
 
 #: languages/tinymce.php:22
 msgid "Examples (Sidebar)"
-msgstr ""
+msgstr "Beispiele (Randspalte)"
 
 #: languages/tinymce.php:23
 msgid "Type your examples here."
@@ -4480,6 +4489,64 @@ msgstr ""
 
 #: templates/admin/incompatible-plugins.blade.php:17
 msgid "Unknown"
+msgstr ""
+
+#: templates/admin/mathjax.blade.php:5
+msgid ""
+"If you can see a big integral, then PB-MathJax is configured correctly, and "
+"all is well."
+msgstr ""
+
+#: templates/admin/mathjax.blade.php:10
+msgid "Syntax"
+msgstr ""
+
+#: templates/admin/mathjax.blade.php:13
+msgid "LaTeX"
+msgstr ""
+
+#: templates/admin/mathjax.blade.php:15 templates/admin/mathjax.blade.php:26
+msgid "Shortcode syntax: %s"
+msgstr ""
+
+#: templates/admin/mathjax.blade.php:19 templates/admin/mathjax.blade.php:30
+msgid "Dollar sign syntax: %s"
+msgstr ""
+
+#: templates/admin/mathjax.blade.php:24
+msgid "AsciiMath"
+msgstr ""
+
+#: templates/admin/mathjax.blade.php:35
+msgid "MathML"
+msgstr ""
+
+#: templates/admin/mathjax.blade.php:37
+msgid "Markup syntax: %s"
+msgstr ""
+
+#: templates/admin/mathjax.blade.php:44
+msgid "Text color"
+msgstr ""
+
+#: templates/admin/mathjax.blade.php:47
+msgid ""
+"A six digit hexadecimal number like <code>000000</code> or "
+"<code>ffffff</code>"
+msgstr ""
+
+#: templates/admin/mathjax.blade.php:52
+msgid "SVG/PNG Fonts"
+msgstr ""
+
+#: templates/admin/mathjax.blade.php:58
+msgid ""
+"Affects exports (PDF, EPUB, MOBI.) Webbook uses CommonHTML. CommonHTML "
+"currently only supports MathJax’s default TeX fonts."
+msgstr ""
+
+#: templates/admin/mathjax.blade.php:64
+msgid "Save Changes"
 msgstr ""
 
 #: templates/admin/sitemap.blade.php:3

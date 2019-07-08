@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
-"POT-Creation-Date: 2019-07-02T17:42:33+00:00\n"
-"PO-Revision-Date: 2019-07-02 17:43+0000\n"
+"POT-Creation-Date: 2019-07-08T20:29:41+00:00\n"
+"PO-Revision-Date: 2019-07-08 20:30+0000\n"
 "Last-Translator: Dac Chartrand <dac@pressbooks.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/pressbooks/pressbooks/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -219,8 +219,8 @@ msgstr "私有"
 msgid "Public"
 msgstr "公开"
 
-#: inc/admin/class-catalog-list-table.php:461 inc/admin/laf/namespace.php:416
-#: inc/admin/laf/namespace.php:583 inc/admin/laf/namespace.php:812
+#: inc/admin/class-catalog-list-table.php:461 inc/admin/laf/namespace.php:417
+#: inc/admin/laf/namespace.php:584 inc/admin/laf/namespace.php:813
 msgid "My Catalog"
 msgstr "我的编目"
 
@@ -309,7 +309,7 @@ msgid ""
 " when themes are updated."
 msgstr "选定此设置项时，即使主题更新了，您的书的外观和页码也不会随着改变。"
 
-#: inc/admin/class-exportoptions.php:186 inc/admin/laf/namespace.php:361
+#: inc/admin/class-exportoptions.php:186 inc/admin/laf/namespace.php:362
 msgid "Export Settings"
 msgstr "导出设置"
 
@@ -394,7 +394,7 @@ msgid ""
 "book, add the links to your book at the different retailers below:"
 msgstr "在下面填写您在各类电子书服务商上发布的电子书网址。"
 
-#: inc/admin/class-publishoptions.php:298 inc/admin/laf/namespace.php:345
+#: inc/admin/class-publishoptions.php:298 inc/admin/laf/namespace.php:346
 msgid "Publish"
 msgstr "发布"
 
@@ -407,7 +407,7 @@ msgstr ""
 msgid "Cover Generator"
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:39 inc/admin/laf/namespace.php:385
+#: inc/admin/covergenerator/namespace.php:39 inc/admin/laf/namespace.php:386
 msgid "Saving settings"
 msgstr ""
 
@@ -417,8 +417,8 @@ msgid ""
 "Are you sure?"
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:43 inc/admin/laf/namespace.php:321
-#: inc/admin/laf/namespace.php:384 inc/admin/laf/namespace.php:405
+#: inc/admin/covergenerator/namespace.php:43 inc/admin/laf/namespace.php:322
+#: inc/admin/laf/namespace.php:385 inc/admin/laf/namespace.php:406
 msgid "Reload"
 msgstr ""
 
@@ -641,7 +641,7 @@ msgstr "Pressbooks新闻"
 msgid "My Book"
 msgstr "我的书籍"
 
-#: inc/admin/dashboard/namespace.php:82 inc/admin/laf/namespace.php:743
+#: inc/admin/dashboard/namespace.php:82 inc/admin/laf/namespace.php:744
 msgid "Users"
 msgstr "用户"
 
@@ -667,7 +667,7 @@ msgstr ""
 msgid "at"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:133 inc/admin/laf/namespace.php:822
+#: inc/admin/dashboard/namespace.php:133 inc/admin/laf/namespace.php:823
 msgid "Create A New Book"
 msgstr ""
 
@@ -716,8 +716,8 @@ msgid "%1$s total users: "
 msgstr ""
 
 #: inc/admin/dashboard/namespace.php:308 inc/admin/dashboard/namespace.php:309
-#: inc/admin/laf/namespace.php:727 inc/admin/laf/namespace.php:794
-#: inc/admin/laf/namespace.php:878
+#: inc/admin/laf/namespace.php:728 inc/admin/laf/namespace.php:795
+#: inc/admin/laf/namespace.php:879
 msgid "Dashboard"
 msgstr "仪表板"
 
@@ -780,7 +780,7 @@ msgstr "诊断"
 msgid "Stylesheet regenerated."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:64 inc/admin/laf/namespace.php:687
+#: inc/admin/laf/namespace.php:64 inc/admin/laf/namespace.php:688
 msgid "Contact"
 msgstr "联系"
 
@@ -905,130 +905,130 @@ msgstr "正文后材料类型"
 msgid "Glossary Types"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:274
+#: inc/admin/laf/namespace.php:275
 #: inc/modules/import/wordpress/class-wxr.php:479
 #: inc/posttype/namespace.php:151
 msgid "Book Info"
 msgstr "书籍信息"
 
-#: inc/admin/laf/namespace.php:285
+#: inc/admin/laf/namespace.php:286
 msgid "Choose a subject…"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:286
+#: inc/admin/laf/namespace.php:287
 msgid "Choose some subject(s)…"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:296 inc/admin/laf/namespace.php:297
+#: inc/admin/laf/namespace.php:297 inc/admin/laf/namespace.php:298
 msgid "Contributors"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:303 inc/admin/laf/namespace.php:361
+#: inc/admin/laf/namespace.php:304 inc/admin/laf/namespace.php:362
 #: templates/admin/organize.php:64 templates/admin/export.blade.php:11
 msgid "Export"
 msgstr "导出"
 
-#: inc/admin/laf/namespace.php:316
+#: inc/admin/laf/namespace.php:317
 msgid "Are you sure you want to delete these export files?"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:317
+#: inc/admin/laf/namespace.php:318
 msgid "Up to 5 files can be pinned at once."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:318
+#: inc/admin/laf/namespace.php:319
 msgid "Cannot pin more than 3 of the same file type."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:322
+#: inc/admin/laf/namespace.php:323
 msgid ""
 "Too many pinned files. Deselect one of the pinned files before attempting to"
 " export."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:323
+#: inc/admin/laf/namespace.php:324
 msgid ""
 "Exports are not done. Leaving this page, now, will cause problems. Are you "
 "sure?"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:348 inc/admin/laf/namespace.php:563
-#: inc/admin/laf/namespace.php:1362
+#: inc/admin/laf/namespace.php:349 inc/admin/laf/namespace.php:564
+#: inc/admin/laf/namespace.php:1364
 #: inc/admin/network/class-sharingandprivacyoptions.php:304
 msgid "Sharing and Privacy Settings"
 msgstr "分享和隐私设置"
 
-#: inc/admin/laf/namespace.php:348 inc/admin/laf/namespace.php:563
+#: inc/admin/laf/namespace.php:349 inc/admin/laf/namespace.php:564
 msgid "Sharing &amp; Privacy"
 msgstr "分享 &amp; 隐私"
 
-#: inc/admin/laf/namespace.php:366 inc/admin/laf/namespace.php:367
+#: inc/admin/laf/namespace.php:367 inc/admin/laf/namespace.php:368
 msgid "QuickLaTeX"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:375 templates/admin/import.php:38
+#: inc/admin/laf/namespace.php:376 templates/admin/import.php:38
 #: templates/admin/import.php:82
 msgid "Import"
 msgstr "导入"
 
-#: inc/admin/laf/namespace.php:383
+#: inc/admin/laf/namespace.php:384
 msgid ""
 "Imports are not done. Leaving this page, now, will cause problems. Are you "
 "sure?"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:396
+#: inc/admin/laf/namespace.php:397
 msgid "Clone a Book"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:404
+#: inc/admin/laf/namespace.php:405
 msgid ""
 "Cloning is not done. Leaving this page, now, will cause problems. Are you "
 "sure?"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:640 inc/admin/laf/namespace.php:651
+#: inc/admin/laf/namespace.php:641 inc/admin/laf/namespace.php:652
 msgid "About Pressbooks"
 msgstr "关于 "
 
-#: inc/admin/laf/namespace.php:662
+#: inc/admin/laf/namespace.php:663
 msgid "Pressbooks.com"
 msgstr "Pressbooks.com"
 
-#: inc/admin/laf/namespace.php:672
+#: inc/admin/laf/namespace.php:673
 msgid "Help"
 msgstr "帮助"
 
-#: inc/admin/laf/namespace.php:716
+#: inc/admin/laf/namespace.php:717
 msgid "Network Admin"
 msgstr " 网络管理"
 
-#: inc/admin/laf/namespace.php:735 inc/admin/laf/namespace.php:1417
-#: inc/admin/laf/namespace.php:1427
+#: inc/admin/laf/namespace.php:736 inc/admin/laf/namespace.php:1419
+#: inc/admin/laf/namespace.php:1429
 msgid "Books"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:752
+#: inc/admin/laf/namespace.php:753
 msgid "Themes"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:760
+#: inc/admin/laf/namespace.php:761
 msgid "Plugins"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:802
+#: inc/admin/laf/namespace.php:803
 msgid "Visit Website"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:840
+#: inc/admin/laf/namespace.php:841
 msgid "Clone A Book"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:886
+#: inc/admin/laf/namespace.php:887
 msgid "Visit Book"
 msgstr "在线阅读"
 
-#: inc/admin/laf/namespace.php:1083
+#: inc/admin/laf/namespace.php:1084
 msgid ""
 "Are you sure you want to unlock your theme? This will update your book to "
 "the most recent version of your selected theme, which may change your "
@@ -1036,92 +1036,92 @@ msgid ""
 "page, this action will NOT be reversable!"
 msgstr "您确认要解锁您的主题吗？这将更新您的书籍以匹配您选中主题的最新修订状态，这也许会更改您的书籍的外观和页数。当您在此页面保存设置后，该操作就无法撤销！"
 
-#: inc/admin/laf/namespace.php:1146
+#: inc/admin/laf/namespace.php:1148
 msgid "Book Visibility"
 msgstr "书籍的可见性"
 
-#: inc/admin/laf/namespace.php:1160
+#: inc/admin/laf/namespace.php:1162
 msgid "Private Content"
 msgstr "私有内容"
 
-#: inc/admin/laf/namespace.php:1173
+#: inc/admin/laf/namespace.php:1175
 msgid "Disable Comments"
 msgstr "禁用评论"
 
-#: inc/admin/laf/namespace.php:1188
+#: inc/admin/laf/namespace.php:1190
 msgid "Share Latest Export Files"
 msgstr "分享最近导出的文件"
 
-#: inc/admin/laf/namespace.php:1206
+#: inc/admin/laf/namespace.php:1208
 msgid "Sharing and Privacy settings"
 msgstr "分享和隐私设置"
 
-#: inc/admin/laf/namespace.php:1222
+#: inc/admin/laf/namespace.php:1224
 msgid "Public. I would like this book to be visible to everyone."
 msgstr "公开。我想每个人都可以访问该书。"
 
-#: inc/admin/laf/namespace.php:1228
+#: inc/admin/laf/namespace.php:1230
 msgid ""
 "Private. I would like this book to be accessible only to people I invite."
 msgstr "私有。我想该书只能被我邀请的人访问。"
 
-#: inc/admin/laf/namespace.php:1252
+#: inc/admin/laf/namespace.php:1254
 msgid "Who can see private front matter, chapters and back matter?"
 msgstr "谁能看到私有的正文前材料、章和正文后材料？"
 
-#: inc/admin/laf/namespace.php:1255
+#: inc/admin/laf/namespace.php:1257
 msgid "Only logged in editors and administrators."
 msgstr "只有登入的编辑们和管理员们。"
 
-#: inc/admin/laf/namespace.php:1257
+#: inc/admin/laf/namespace.php:1259
 msgid "All logged in users including subscribers."
 msgstr "所有登入用户，包括订阅者们。"
 
-#: inc/admin/laf/namespace.php:1278
+#: inc/admin/laf/namespace.php:1280
 msgid ""
 "Yes. I want to automatically disable comments, trackbacks and pingbacks on "
 "all front matter, chapters and back matter."
 msgstr "是。我想在所有的正文前材料、章、正文后材料中禁用评论、引用通告和参照通知。"
 
-#: inc/admin/laf/namespace.php:1284
+#: inc/admin/laf/namespace.php:1286
 msgid ""
 "No. I want to leave comments, trackbacks and pingbacks enabled on all front "
 "matter, chapters and back matter unless I disable them manually."
 msgstr "不。我想在所有的正文前材料、章、正文后材料中启用评论、引用通告和参照通知，除非我手动禁用。"
 
-#: inc/admin/laf/namespace.php:1300
+#: inc/admin/laf/namespace.php:1302
 msgid ""
 "Yes. I would like the latest export files to be available on the homepage "
 "for free, to everyone."
 msgstr "是。我想最新的导出文件显示在首页上，每个人都可以免费下载。"
 
-#: inc/admin/laf/namespace.php:1306
+#: inc/admin/laf/namespace.php:1308
 msgid ""
 "No. I would like the latest export files to only be available to "
 "administrators."
 msgstr "不。我想最近导出的文件只能被管理员访问。"
 
-#: inc/admin/laf/namespace.php:1420
+#: inc/admin/laf/namespace.php:1422
 msgid "All Books"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1430
+#: inc/admin/laf/namespace.php:1432
 msgid "Search Books"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1436
+#: inc/admin/laf/namespace.php:1438
 msgid "Edit Book: %s"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1439 inc/admin/laf/namespace.php:1448
+#: inc/admin/laf/namespace.php:1441 inc/admin/laf/namespace.php:1450
 msgid "Book Address (URL)"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1445
+#: inc/admin/laf/namespace.php:1447
 msgid "Add New Book"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1451
+#: inc/admin/laf/namespace.php:1453
 #: inc/modules/themeoptions/class-pdfoptions.php:338
 #: inc/modules/themeoptions/class-pdfoptions.php:357
 #: inc/modules/themeoptions/class-pdfoptions.php:376
@@ -1135,23 +1135,23 @@ msgstr ""
 msgid "Book Title"
 msgstr "书籍标题"
 
-#: inc/admin/laf/namespace.php:1454
+#: inc/admin/laf/namespace.php:1456
 msgid "Book Language"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1457
+#: inc/admin/laf/namespace.php:1459
 msgid "Add Book"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1474
+#: inc/admin/laf/namespace.php:1476
 msgid "Edit previous or next item"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1479
+#: inc/admin/laf/namespace.php:1481
 msgid "Edit Previous (%s)"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1484
+#: inc/admin/laf/namespace.php:1486
 msgid "Edit Next (%s)"
 msgstr ""
 
@@ -1334,7 +1334,7 @@ msgstr "帮助我们一起将Pressbooks翻译成您的本地化语言！"
 #: inc/modules/export/epub/templates/epub201/opf.php:87
 #: inc/modules/export/epub/templates/epub3/opf.php:94
 #: inc/modules/export/htmlbook/class-htmlbook.php:863
-#: inc/modules/export/xhtml/class-xhtml11.php:987
+#: inc/modules/export/xhtml/class-xhtml11.php:990
 msgid "Copyright"
 msgstr "版权"
 
@@ -2104,7 +2104,7 @@ msgstr ""
 #: inc/modules/export/epub/templates/epub201/opf.php:96
 #: inc/modules/export/epub/templates/epub3/opf.php:103
 #: inc/modules/export/htmlbook/class-htmlbook.php:872
-#: inc/modules/export/xhtml/class-xhtml11.php:996
+#: inc/modules/export/xhtml/class-xhtml11.php:999
 msgid "by"
 msgstr " "
 
@@ -2130,6 +2130,15 @@ msgstr ""
 
 #: inc/class-licensing.php:420
 msgid "This work (%1$s by %2$s) is free of known copyright restrictions."
+msgstr ""
+
+#: inc/class-mathjax.php:154 inc/class-mathjax.php:155
+#: templates/admin/mathjax.blade.php:2
+msgid "MathJax"
+msgstr ""
+
+#: inc/class-mathjax.php:175
+msgid "<code>PB_MATHJAX_URL</code> is not configured."
 msgstr ""
 
 #: inc/class-sass.php:199
@@ -2618,17 +2627,17 @@ msgid "Compiling styles"
 msgstr ""
 
 #: inc/modules/export/epub/class-epub201.php:680
-#: inc/modules/export/xhtml/class-xhtml11.php:387
+#: inc/modules/export/xhtml/class-xhtml11.php:390
 msgid "Creating cover"
 msgstr ""
 
 #: inc/modules/export/epub/class-epub201.php:687
-#: inc/modules/export/xhtml/class-xhtml11.php:391
+#: inc/modules/export/xhtml/class-xhtml11.php:394
 msgid "Creating title page"
 msgstr ""
 
 #: inc/modules/export/epub/class-epub201.php:691
-#: inc/modules/export/xhtml/class-xhtml11.php:395
+#: inc/modules/export/xhtml/class-xhtml11.php:398
 msgid "Creating copyright page"
 msgstr ""
 
@@ -2638,29 +2647,29 @@ msgstr ""
 
 #: inc/modules/export/epub/class-epub201.php:699
 #: inc/modules/export/epub/class-epub201.php:1286
-#: inc/modules/export/xhtml/class-xhtml11.php:407
-#: inc/modules/export/xhtml/class-xhtml11.php:1227
+#: inc/modules/export/xhtml/class-xhtml11.php:410
+#: inc/modules/export/xhtml/class-xhtml11.php:1230
 msgid "Exporting front matter"
 msgstr ""
 
 #: inc/modules/export/epub/class-epub201.php:706
 #: inc/modules/export/epub/class-epub201.php:1454
 #: inc/modules/export/epub/class-epub201.php:1476
-#: inc/modules/export/xhtml/class-xhtml11.php:414
-#: inc/modules/export/xhtml/class-xhtml11.php:1349
-#: inc/modules/export/xhtml/class-xhtml11.php:1397
+#: inc/modules/export/xhtml/class-xhtml11.php:417
+#: inc/modules/export/xhtml/class-xhtml11.php:1352
+#: inc/modules/export/xhtml/class-xhtml11.php:1400
 msgid "Exporting parts and chapters"
 msgstr ""
 
 #: inc/modules/export/epub/class-epub201.php:710
 #: inc/modules/export/epub/class-epub201.php:1715
-#: inc/modules/export/xhtml/class-xhtml11.php:418
-#: inc/modules/export/xhtml/class-xhtml11.php:1523
+#: inc/modules/export/xhtml/class-xhtml11.php:421
+#: inc/modules/export/xhtml/class-xhtml11.php:1526
 msgid "Exporting back matter"
 msgstr ""
 
 #: inc/modules/export/epub/class-epub201.php:715
-#: inc/modules/export/xhtml/class-xhtml11.php:403
+#: inc/modules/export/xhtml/class-xhtml11.php:406
 msgid "Creating table of contents"
 msgstr ""
 
@@ -2682,7 +2691,7 @@ msgstr "目录"
 
 #: inc/modules/export/epub/class-epub201.php:1837
 #: inc/modules/export/htmlbook/class-htmlbook.php:989
-#: inc/modules/export/xhtml/class-xhtml11.php:1059
+#: inc/modules/export/xhtml/class-xhtml11.php:1062
 msgid "Contents"
 msgstr "内容"
 
@@ -2705,8 +2714,8 @@ msgstr "%1$s导出功能必需的依赖软件未找到。请检查您是否完�
 
 #: inc/modules/export/namespace.php:95
 #: inc/modules/themeoptions/class-globaloptions.php:389
-#: inc/utility/namespace.php:1314 inc/utility/namespace.php:1319
-#: inc/utility/namespace.php:1339 inc/utility/namespace.php:1345
+#: inc/utility/namespace.php:1308 inc/utility/namespace.php:1313
+#: inc/utility/namespace.php:1333 inc/utility/namespace.php:1339
 #: templates/admin/covergenerator.php:53
 msgid "and"
 msgstr "和"
@@ -2799,7 +2808,7 @@ msgstr ""
 msgid "unpinned"
 msgstr ""
 
-#: inc/modules/export/prince/class-pdf.php:282
+#: inc/modules/export/prince/class-pdf.php:281
 msgid ""
 "This book was produced with Pressbooks (https://pressbooks.com) and rendered"
 " with Prince."
@@ -2809,19 +2818,19 @@ msgstr ""
 msgid "XHTML: "
 msgstr ""
 
-#: inc/modules/export/xhtml/class-xhtml11.php:379
+#: inc/modules/export/xhtml/class-xhtml11.php:382
 msgid "Creating before title page"
 msgstr ""
 
-#: inc/modules/export/xhtml/class-xhtml11.php:383
+#: inc/modules/export/xhtml/class-xhtml11.php:386
 msgid "Creating half title page"
 msgstr ""
 
-#: inc/modules/export/xhtml/class-xhtml11.php:399
+#: inc/modules/export/xhtml/class-xhtml11.php:402
 msgid "Creating dedication and epigraph"
 msgstr ""
 
-#: inc/modules/export/xhtml/class-xhtml11.php:510
+#: inc/modules/export/xhtml/class-xhtml11.php:513
 msgid "Notes"
 msgstr "笔记"
 
@@ -3849,20 +3858,20 @@ msgstr ""
 msgid " (%1$d of %2$d)"
 msgstr ""
 
-#: inc/utility/namespace.php:608 inc/utility/namespace.php:619
-#: inc/utility/namespace.php:634
+#: inc/utility/namespace.php:602 inc/utility/namespace.php:613
+#: inc/utility/namespace.php:628
 msgid ""
 "An unexpected error occurred. Something may be wrong with the plugin "
 "recommendations server or your site&#8217;s server&#8217;s configuration."
 msgstr "An unexpected error occurred. Something may be wrong with the plugin recommendations server or your site&#8217;s server&#8217;s configuration."
 
-#: inc/utility/namespace.php:608
+#: inc/utility/namespace.php:602
 msgid ""
 "(Pressbooks could not establish a secure connection to the plugin "
 "recommendations server. Please contact your server administrator.)"
 msgstr "(Pressbooks could not establish a secure connection to the plugin recommendations server. Please contact your server administrator.)"
 
-#: inc/utility/namespace.php:658
+#: inc/utility/namespace.php:652
 msgid ""
 "These plugins have been created and/or recommended by the Pressbooks "
 "community."
@@ -4460,6 +4469,64 @@ msgstr ""
 
 #: templates/admin/incompatible-plugins.blade.php:17
 msgid "Unknown"
+msgstr ""
+
+#: templates/admin/mathjax.blade.php:5
+msgid ""
+"If you can see a big integral, then PB-MathJax is configured correctly, and "
+"all is well."
+msgstr ""
+
+#: templates/admin/mathjax.blade.php:10
+msgid "Syntax"
+msgstr ""
+
+#: templates/admin/mathjax.blade.php:13
+msgid "LaTeX"
+msgstr ""
+
+#: templates/admin/mathjax.blade.php:15 templates/admin/mathjax.blade.php:26
+msgid "Shortcode syntax: %s"
+msgstr ""
+
+#: templates/admin/mathjax.blade.php:19 templates/admin/mathjax.blade.php:30
+msgid "Dollar sign syntax: %s"
+msgstr ""
+
+#: templates/admin/mathjax.blade.php:24
+msgid "AsciiMath"
+msgstr ""
+
+#: templates/admin/mathjax.blade.php:35
+msgid "MathML"
+msgstr ""
+
+#: templates/admin/mathjax.blade.php:37
+msgid "Markup syntax: %s"
+msgstr ""
+
+#: templates/admin/mathjax.blade.php:44
+msgid "Text color"
+msgstr ""
+
+#: templates/admin/mathjax.blade.php:47
+msgid ""
+"A six digit hexadecimal number like <code>000000</code> or "
+"<code>ffffff</code>"
+msgstr ""
+
+#: templates/admin/mathjax.blade.php:52
+msgid "SVG/PNG Fonts"
+msgstr ""
+
+#: templates/admin/mathjax.blade.php:58
+msgid ""
+"Affects exports (PDF, EPUB, MOBI.) Webbook uses CommonHTML. CommonHTML "
+"currently only supports MathJax’s default TeX fonts."
+msgstr ""
+
+#: templates/admin/mathjax.blade.php:64
+msgid "Save Changes"
 msgstr ""
 
 #: templates/admin/sitemap.blade.php:3
