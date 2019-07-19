@@ -489,7 +489,7 @@ class Xhtml extends Import {
 			'no_deprecated_attr' => 2,
 		];
 
-		return \Pressbooks\HtmLawed::filter( $html, $config );
+		return \Pressbooks\Sanitize\htmlawed_with_mixed_markup( $html, $config );
 	}
 
 }
