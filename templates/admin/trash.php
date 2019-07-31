@@ -52,13 +52,21 @@ $results = ( new \WP_Query() )->query( $args );
 				echo "<td>{$title}</td>";
 				echo "<td>{$date}</td>";
 				echo "<td>{$type}</td>";
+				echo '<td>';
 				printf(
-					'<td><a href="%s" aria-label="%s">%s</a></td>',
+					'<a href="%s" aria-label="%s">%s</a>',
 					wp_nonce_url( admin_url( sprintf( $post_type_object->_edit_link . '&amp;action=untrash', $post->ID ) ), 'untrash-post_' . $post->ID ),
 					esc_attr( sprintf( __( 'Restore &#8220;%s&#8221; from the Trash' ), $title ) ),
 					__( 'Restore' )
 				);
-				echo '</tr>';
+				echo ' | ';
+				printf(
+					'<a href="%s" aria-label="%s">%s</a>',
+					wp_nonce_url( admin_url( sprintf( $post_type_object->_edit_link . '&amp;action=delete', $post->ID ) ), 'delete-post_' . $post->ID ),
+					esc_attr( sprintf( __( 'Restore &#8220;%s&#8221; from the Trash' ), $title ) ),
+					__( 'Delete Permanently' )
+				);
+				echo '</td></tr>';
 			}
 		}
 		?>

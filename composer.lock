@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "87df1cfb1595bbacecb65bedd7a16b6a",
+    "content-hash": "1fc47ae069d21cfb7734a3e950bd3a34",
     "packages": [
         {
             "name": "composer/installers",
@@ -384,33 +384,37 @@
         },
         {
             "name": "guzzlehttp/psr7",
-            "version": "1.5.2",
+            "version": "1.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/psr7.git",
-                "reference": "9f83dded91781a01c63574e387eaa769be769115"
+                "reference": "239400de7a173fe9901b9ac7c06497751f00727a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/psr7/zipball/9f83dded91781a01c63574e387eaa769be769115",
-                "reference": "9f83dded91781a01c63574e387eaa769be769115",
+                "url": "https://api.github.com/repos/guzzle/psr7/zipball/239400de7a173fe9901b9ac7c06497751f00727a",
+                "reference": "239400de7a173fe9901b9ac7c06497751f00727a",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.4.0",
                 "psr/http-message": "~1.0",
-                "ralouphie/getallheaders": "^2.0.5"
+                "ralouphie/getallheaders": "^2.0.5 || ^3.0.0"
             },
             "provide": {
                 "psr/http-message-implementation": "1.0"
             },
             "require-dev": {
+                "ext-zlib": "*",
                 "phpunit/phpunit": "~4.8.36 || ^5.7.27 || ^6.5.8"
+            },
+            "suggest": {
+                "zendframework/zend-httphandlerrunner": "Emit PSR-7 responses"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.5-dev"
+                    "dev-master": "1.6-dev"
                 }
             },
             "autoload": {
@@ -447,7 +451,7 @@
                 "uri",
                 "url"
             ],
-            "time": "2018-12-04T20:46:45+00:00"
+            "time": "2019-07-01T23:21:34+00:00"
         },
         {
             "name": "illuminate/container",
@@ -736,16 +740,16 @@
         },
         {
             "name": "intervention/image",
-            "version": "2.4.2",
+            "version": "2.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Intervention/image.git",
-                "reference": "e82d274f786e3d4b866a59b173f42e716f0783eb"
+                "reference": "39eaef720d082ecc54c64bf54541c55f10db546d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Intervention/image/zipball/e82d274f786e3d4b866a59b173f42e716f0783eb",
-                "reference": "e82d274f786e3d4b866a59b173f42e716f0783eb",
+                "url": "https://api.github.com/repos/Intervention/image/zipball/39eaef720d082ecc54c64bf54541c55f10db546d",
+                "reference": "39eaef720d082ecc54c64bf54541c55f10db546d",
                 "shasum": ""
             },
             "require": {
@@ -802,7 +806,7 @@
                 "thumbnail",
                 "watermark"
             ],
-            "time": "2018-05-29T14:19:03+00:00"
+            "time": "2019-06-24T14:06:31+00:00"
         },
         {
             "name": "jenssegers/blade",
@@ -914,16 +918,16 @@
         },
         {
             "name": "johnbillion/extended-cpts",
-            "version": "4.2.3",
+            "version": "4.2.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnbillion/extended-cpts.git",
-                "reference": "89ba13fa10c66b77f21aacdfb794ef3607814ed5"
+                "reference": "3f582bbb19bec814360bd8b0ee8f52c95183d96a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnbillion/extended-cpts/zipball/89ba13fa10c66b77f21aacdfb794ef3607814ed5",
-                "reference": "89ba13fa10c66b77f21aacdfb794ef3607814ed5",
+                "url": "https://api.github.com/repos/johnbillion/extended-cpts/zipball/3f582bbb19bec814360bd8b0ee8f52c95183d96a",
+                "reference": "3f582bbb19bec814360bd8b0ee8f52c95183d96a",
                 "shasum": ""
             },
             "require": {
@@ -931,16 +935,24 @@
             },
             "require-dev": {
                 "automattic/phpcs-neutron-standard": "^1.5",
-                "johnbillion/php-docs-standards": "^1.2",
-                "phpunit/phpunit": "^5.7",
-                "slevomat/coding-standard": "^4.0",
-                "wimg/php-compatibility": "^8",
-                "wp-coding-standards/wpcs": "1.0"
+                "dealerdirect/phpcodesniffer-composer-installer": "^0.5",
+                "johnbillion/php-docs-standards": "^1",
+                "johnkary/phpunit-speedtrap": "^2",
+                "phpcompatibility/phpcompatibility-wp": "^2",
+                "phpunit/phpunit": "^6",
+                "roots/wordpress": "*",
+                "vlucas/phpdotenv": "^3",
+                "wp-cli/wp-cli-bundle": "^2.1",
+                "wp-coding-standards/wpcs": "^2",
+                "wp-phpunit/wp-phpunit": "*"
             },
             "suggest": {
                 "wpackagist-plugin/rewrite-testing": "Rewrite Rule Testing"
             },
             "type": "library",
+            "extra": {
+                "wordpress-install-dir": "tests/wordpress"
+            },
             "autoload": {
                 "files": [
                     "extended-cpts.php"
@@ -958,20 +970,20 @@
             ],
             "description": "A library which provides extended functionality to WordPress custom post types and taxonomies.",
             "homepage": "https://github.com/johnbillion/extended-cpts/",
-            "time": "2018-12-08T15:16:49+00:00"
+            "time": "2019-06-27T21:06:36+00:00"
         },
         {
             "name": "masterminds/html5",
-            "version": "2.6.0",
+            "version": "2.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Masterminds/html5-php.git",
-                "reference": "c961ca6a0a81dc6b55b6859b3f9ea7f402edf9ad"
+                "reference": "104443ad663d15981225f99532ba73c2f1d6b6f2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Masterminds/html5-php/zipball/c961ca6a0a81dc6b55b6859b3f9ea7f402edf9ad",
-                "reference": "c961ca6a0a81dc6b55b6859b3f9ea7f402edf9ad",
+                "url": "https://api.github.com/repos/Masterminds/html5-php/zipball/104443ad663d15981225f99532ba73c2f1d6b6f2",
+                "reference": "104443ad663d15981225f99532ba73c2f1d6b6f2",
                 "shasum": ""
             },
             "require": {
@@ -988,7 +1000,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.6-dev"
+                    "dev-master": "2.7-dev"
                 }
             },
             "autoload": {
@@ -1006,12 +1018,12 @@
                     "email": "technosophos@gmail.com"
                 },
                 {
-                    "name": "Asmir Mustafic",
-                    "email": "goetas@gmail.com"
-                },
-                {
                     "name": "Matt Farina",
                     "email": "matt@mattfarina.com"
+                },
+                {
+                    "name": "Asmir Mustafic",
+                    "email": "goetas@gmail.com"
                 }
             ],
             "description": "An HTML5 parser and serializer.",
@@ -1025,7 +1037,7 @@
                 "serializer",
                 "xml"
             ],
-            "time": "2019-03-10T11:41:28+00:00"
+            "time": "2019-07-25T07:03:26+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -1078,16 +1090,16 @@
         },
         {
             "name": "phpseclib/phpseclib",
-            "version": "2.0.17",
+            "version": "2.0.21",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpseclib/phpseclib.git",
-                "reference": "3ca5b88d582c69178c8d01fd9d02b94e15042bb8"
+                "reference": "9f1287e68b3f283339a9f98f67515dd619e5bf9d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/3ca5b88d582c69178c8d01fd9d02b94e15042bb8",
-                "reference": "3ca5b88d582c69178c8d01fd9d02b94e15042bb8",
+                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/9f1287e68b3f283339a9f98f67515dd619e5bf9d",
+                "reference": "9f1287e68b3f283339a9f98f67515dd619e5bf9d",
                 "shasum": ""
             },
             "require": {
@@ -1121,28 +1133,28 @@
             "authors": [
                 {
                     "name": "Jim Wigginton",
-                    "email": "terrafrost@php.net",
-                    "role": "Lead Developer"
+                    "role": "Lead Developer",
+                    "email": "terrafrost@php.net"
                 },
                 {
                     "name": "Patrick Monnerat",
-                    "email": "pm@datasphere.ch",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "email": "pm@datasphere.ch"
                 },
                 {
                     "name": "Andreas Fischer",
-                    "email": "bantu@phpbb.com",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "email": "bantu@phpbb.com"
                 },
                 {
                     "name": "Hans-Jürgen Petrich",
-                    "email": "petrich@tronic-media.com",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "email": "petrich@tronic-media.com"
                 },
                 {
                     "name": "Graham Campbell",
-                    "email": "graham@alt-three.com",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "email": "graham@alt-three.com"
                 }
             ],
             "description": "PHP Secure Communications Library - Pure-PHP implementations of RSA, AES, SSH2, SFTP, X.509 etc.",
@@ -1166,7 +1178,7 @@
                 "x.509",
                 "x509"
             ],
-            "time": "2019-05-26T20:38:34+00:00"
+            "time": "2019-07-12T12:53:49+00:00"
         },
         {
             "name": "pressbooks/mix",
@@ -1256,24 +1268,24 @@
         },
         {
             "name": "pressbooks/pb-cli",
-            "version": "2.0.0",
+            "version": "2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pressbooks/pb-cli.git",
-                "reference": "e907c95299221a55f7c713e65a29e579031674ff"
+                "reference": "9fb35e6129bbf51b53408671edce9bee5b75964d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pressbooks/pb-cli/zipball/e907c95299221a55f7c713e65a29e579031674ff",
-                "reference": "e907c95299221a55f7c713e65a29e579031674ff",
+                "url": "https://api.github.com/repos/pressbooks/pb-cli/zipball/9fb35e6129bbf51b53408671edce9bee5b75964d",
+                "reference": "9fb35e6129bbf51b53408671edce9bee5b75964d",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.1"
             },
             "require-dev": {
-                "behat/behat": "~2.5",
-                "wp-cli/i18n-command": "dev-master",
+                "behat/behat": "^2.5",
+                "wp-cli/i18n-command": "^2.1.2",
                 "wp-cli/wp-cli": "^2"
             },
             "type": "wp-cli-package",
@@ -1301,7 +1313,7 @@
             ],
             "description": "A suite of wp-cli commands for Pressbooks.",
             "homepage": "https://github.com/pressbooks/pb-cli/",
-            "time": "2019-03-22T14:21:03+00:00"
+            "time": "2019-07-12T19:01:02+00:00"
         },
         {
             "name": "psr/http-message",
@@ -1402,24 +1414,24 @@
         },
         {
             "name": "ralouphie/getallheaders",
-            "version": "2.0.5",
+            "version": "3.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ralouphie/getallheaders.git",
-                "reference": "5601c8a83fbba7ef674a7369456d12f1e0d0eafa"
+                "reference": "120b605dfeb996808c31b6477290a714d356e822"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ralouphie/getallheaders/zipball/5601c8a83fbba7ef674a7369456d12f1e0d0eafa",
-                "reference": "5601c8a83fbba7ef674a7369456d12f1e0d0eafa",
+                "url": "https://api.github.com/repos/ralouphie/getallheaders/zipball/120b605dfeb996808c31b6477290a714d356e822",
+                "reference": "120b605dfeb996808c31b6477290a714d356e822",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3"
+                "php": ">=5.6"
             },
             "require-dev": {
-                "phpunit/phpunit": "~3.7.0",
-                "satooshi/php-coveralls": ">=1.0"
+                "php-coveralls/php-coveralls": "^2.1",
+                "phpunit/phpunit": "^5 || ^6.5"
             },
             "type": "library",
             "autoload": {
@@ -1438,20 +1450,20 @@
                 }
             ],
             "description": "A polyfill for getallheaders.",
-            "time": "2016-02-11T07:05:27+00:00"
+            "time": "2019-03-08T08:55:37+00:00"
         },
         {
             "name": "scssphp/scssphp",
-            "version": "1.0.0",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/scssphp/scssphp.git",
-                "reference": "6c8734b6edcf6c2fa785ad874b998fa854a7d030"
+                "reference": "56a2ac8b9254dd14b5e78470fa62358fbef65634"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/scssphp/scssphp/zipball/6c8734b6edcf6c2fa785ad874b998fa854a7d030",
-                "reference": "6c8734b6edcf6c2fa785ad874b998fa854a7d030",
+                "url": "https://api.github.com/repos/scssphp/scssphp/zipball/56a2ac8b9254dd14b5e78470fa62358fbef65634",
+                "reference": "56a2ac8b9254dd14b5e78470fa62358fbef65634",
                 "shasum": ""
             },
             "require": {
@@ -1497,7 +1509,7 @@
                 "scss",
                 "stylesheet"
             ],
-            "time": "2019-06-05T01:22:01+00:00"
+            "time": "2019-07-07T02:24:57+00:00"
         },
         {
             "name": "sinergi/browser-detector",
@@ -1550,16 +1562,16 @@
         },
         {
             "name": "symfony/debug",
-            "version": "v3.4.28",
+            "version": "v3.4.30",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/debug.git",
-                "reference": "671fc55bd14800668b1d0a3708c3714940e30a8c"
+                "reference": "bc977cb2681d75988ab2d53d14c4245c6c04f82f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/debug/zipball/671fc55bd14800668b1d0a3708c3714940e30a8c",
-                "reference": "671fc55bd14800668b1d0a3708c3714940e30a8c",
+                "url": "https://api.github.com/repos/symfony/debug/zipball/bc977cb2681d75988ab2d53d14c4245c6c04f82f",
+                "reference": "bc977cb2681d75988ab2d53d14c4245c6c04f82f",
                 "shasum": ""
             },
             "require": {
@@ -1602,20 +1614,20 @@
             ],
             "description": "Symfony Debug Component",
             "homepage": "https://symfony.com",
-            "time": "2019-05-18T13:32:47+00:00"
+            "time": "2019-07-23T08:39:19+00:00"
         },
         {
             "name": "symfony/finder",
-            "version": "v3.4.28",
+            "version": "v3.4.30",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
-                "reference": "fa5d962a71f2169dfe1cbae217fa5a2799859f6c"
+                "reference": "1e762fdf73ace6ceb42ba5a6ca280be86082364a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/finder/zipball/fa5d962a71f2169dfe1cbae217fa5a2799859f6c",
-                "reference": "fa5d962a71f2169dfe1cbae217fa5a2799859f6c",
+                "url": "https://api.github.com/repos/symfony/finder/zipball/1e762fdf73ace6ceb42ba5a6ca280be86082364a",
+                "reference": "1e762fdf73ace6ceb42ba5a6ca280be86082364a",
                 "shasum": ""
             },
             "require": {
@@ -1651,7 +1663,7 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
-            "time": "2019-05-24T12:25:55+00:00"
+            "time": "2019-06-28T08:02:59+00:00"
         },
         {
             "name": "vanilla/htmlawed",
@@ -1694,16 +1706,16 @@
         },
         {
             "name": "yahnis-elsts/plugin-update-checker",
-            "version": "v4.6",
+            "version": "v4.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/YahnisElsts/plugin-update-checker.git",
-                "reference": "45374e3c02126fbebebf0244c5d5da4c5e0166ac"
+                "reference": "6da68b119277a400fad0ca6ec54f223b10bd8230"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/YahnisElsts/plugin-update-checker/zipball/45374e3c02126fbebebf0244c5d5da4c5e0166ac",
-                "reference": "45374e3c02126fbebebf0244c5d5da4c5e0166ac",
+                "url": "https://api.github.com/repos/YahnisElsts/plugin-update-checker/zipball/6da68b119277a400fad0ca6ec54f223b10bd8230",
+                "reference": "6da68b119277a400fad0ca6ec54f223b10bd8230",
                 "shasum": ""
             },
             "require": {
@@ -1735,7 +1747,7 @@
                 "theme updates",
                 "wordpress"
             ],
-            "time": "2019-04-02T17:56:11+00:00"
+            "time": "2019-07-05T18:39:53+00:00"
         }
     ],
     "packages-dev": [
@@ -2175,16 +2187,16 @@
         },
         {
             "name": "phpspec/prophecy",
-            "version": "1.8.0",
+            "version": "1.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpspec/prophecy.git",
-                "reference": "4ba436b55987b4bf311cb7c6ba82aa528aac0a06"
+                "reference": "1927e75f4ed19131ec9bcc3b002e07fb1173ee76"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/4ba436b55987b4bf311cb7c6ba82aa528aac0a06",
-                "reference": "4ba436b55987b4bf311cb7c6ba82aa528aac0a06",
+                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/1927e75f4ed19131ec9bcc3b002e07fb1173ee76",
+                "reference": "1927e75f4ed19131ec9bcc3b002e07fb1173ee76",
                 "shasum": ""
             },
             "require": {
@@ -2205,8 +2217,8 @@
                 }
             },
             "autoload": {
-                "psr-0": {
-                    "Prophecy\\": "src/"
+                "psr-4": {
+                    "Prophecy\\": "src/Prophecy"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -2234,7 +2246,7 @@
                 "spy",
                 "stub"
             ],
-            "time": "2018-08-05T17:53:17+00:00"
+            "time": "2019-06-13T12:50:23+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -2441,16 +2453,16 @@
         },
         {
             "name": "phpunit/php-token-stream",
-            "version": "3.0.1",
+            "version": "3.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-token-stream.git",
-                "reference": "c99e3be9d3e85f60646f152f9002d46ed7770d18"
+                "reference": "e899757bb3df5ff6e95089132f32cd59aac2220a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/c99e3be9d3e85f60646f152f9002d46ed7770d18",
-                "reference": "c99e3be9d3e85f60646f152f9002d46ed7770d18",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/e899757bb3df5ff6e95089132f32cd59aac2220a",
+                "reference": "e899757bb3df5ff6e95089132f32cd59aac2220a",
                 "shasum": ""
             },
             "require": {
@@ -2463,7 +2475,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.0-dev"
+                    "dev-master": "3.1-dev"
                 }
             },
             "autoload": {
@@ -2486,20 +2498,20 @@
             "keywords": [
                 "tokenizer"
             ],
-            "time": "2018-10-30T05:52:18+00:00"
+            "time": "2019-07-25T05:29:42+00:00"
         },
         {
             "name": "phpunit/phpunit",
-            "version": "7.5.12",
+            "version": "7.5.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "9ba59817745b0fe0c1a5a3032dfd4a6d2994ad1c"
+                "reference": "2834789aeb9ac182ad69bfdf9ae91856a59945ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/9ba59817745b0fe0c1a5a3032dfd4a6d2994ad1c",
-                "reference": "9ba59817745b0fe0c1a5a3032dfd4a6d2994ad1c",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/2834789aeb9ac182ad69bfdf9ae91856a59945ff",
+                "reference": "2834789aeb9ac182ad69bfdf9ae91856a59945ff",
                 "shasum": ""
             },
             "require": {
@@ -2559,8 +2571,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "email": "sebastian@phpunit.de",
-                    "role": "lead"
+                    "role": "lead",
+                    "email": "sebastian@phpunit.de"
                 }
             ],
             "description": "The PHP Unit Testing framework.",
@@ -2570,7 +2582,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2019-05-28T11:59:40+00:00"
+            "time": "2019-07-15T06:24:08+00:00"
         },
         {
             "name": "pressbooks/coding-standards",
@@ -3278,16 +3290,16 @@
         },
         {
             "name": "theseer/tokenizer",
-            "version": "1.1.2",
+            "version": "1.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/theseer/tokenizer.git",
-                "reference": "1c42705be2b6c1de5904f8afacef5895cab44bf8"
+                "reference": "11336f6f84e16a720dae9d8e6ed5019efa85a0f9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/theseer/tokenizer/zipball/1c42705be2b6c1de5904f8afacef5895cab44bf8",
-                "reference": "1c42705be2b6c1de5904f8afacef5895cab44bf8",
+                "url": "https://api.github.com/repos/theseer/tokenizer/zipball/11336f6f84e16a720dae9d8e6ed5019efa85a0f9",
+                "reference": "11336f6f84e16a720dae9d8e6ed5019efa85a0f9",
                 "shasum": ""
             },
             "require": {
@@ -3314,7 +3326,7 @@
                 }
             ],
             "description": "A small library for converting tokenized PHP source code into XML and potentially other formats",
-            "time": "2019-04-04T09:56:43+00:00"
+            "time": "2019-06-13T22:48:21+00:00"
         },
         {
             "name": "webmozart/assert",
@@ -3372,12 +3384,12 @@
             "version": "0.14.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards.git",
+                "url": "https://github.com/WordPress/WordPress-Coding-Standards.git",
                 "reference": "cf6b310caad735816caef7573295f8a534374706"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/WordPress-Coding-Standards/WordPress-Coding-Standards/zipball/cf6b310caad735816caef7573295f8a534374706",
+                "url": "https://api.github.com/repos/WordPress/WordPress-Coding-Standards/zipball/cf6b310caad735816caef7573295f8a534374706",
                 "reference": "cf6b310caad735816caef7573295f8a534374706",
                 "shasum": ""
             },
