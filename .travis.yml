@@ -53,8 +53,8 @@ before_script:
 script:
 - npm run lint
 - npm run build:production
-- if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.1" ]]; then vendor/bin/pcov clobber; vendor/bin/phpunit --configuration phpunit.xml --coverage-clover coverage.xml; fi
-- if [[ ${TRAVIS_PHP_VERSION:0:3} != "7.1" ]]; then vendor/bin/phpunit --configuration phpunit.xml; fi
+- if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.2" ]]; then composer require pcov/clobber; vendor/bin/pcov clobber; vendor/bin/phpunit --configuration phpunit.xml --coverage-clover coverage.xml; fi
+- if [[ ${TRAVIS_PHP_VERSION:0:3} != "7.2" ]]; then vendor/bin/phpunit --configuration phpunit.xml; fi
 - vendor/bin/phpcs --standard=phpcs.ruleset.xml *.php inc/ bin/
 after_success:
 - bash <(curl -s https://codecov.io/bash)
