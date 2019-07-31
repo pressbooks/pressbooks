@@ -691,19 +691,21 @@ function reverse_wpautop( $pee ) {
 }
 
 /**
- * Sanitize post content for webbook output.
+ * HtmLawed does not work mixed markup (MathML, SVG, ...)
+ * To deal with such mixed markup, the input text can be pre-processed to hide the non-HTML markup
  *
- * @since 5.6.0
+ * @since 5.9.1
  *
  * @param string $content
+ * @param int|array $htmlawed_config
+ * @param array|string $htmlawed_spec
+ *
  * @return string
  */
-
-function sanitize_webbook_content( $content ) {
-	// htmLawed does not work mixed markup (MathML, SVG, ...)
-	// To deal with such mixed markup, the input text can be pre-processed to hide the non-HTML markup
+function htmlawed_with_mixed_markup( $content, $htmlawed_config = null, $htmlawed_spec = null ) {
+	$keep = [ 'math', 'svg' ];
 	$hidden_tags = [];
-	foreach ( [ 'math', 'svg' ] as $tag ) {
+	foreach ( $keep as $tag ) {
 		if ( strpos( $content, "<{$tag}" ) !== false ) {
 			$content_parts = explode( "</{$tag}>", $content );
 			$last_content = array_pop( $content_parts );
@@ -716,7 +718,7 @@ function sanitize_webbook_content( $content ) {
 					$content .= $content_part;
 					continue;
 				}
-				$name = "<!-- pb-hidden-mixed-markup-{$tag}-{$i} -->";
+				$name = "\x83!-- pb-hidden-mixed-markup-{$tag}-{$i} --\x84";
 				$hidden_tags[ $name ] = substr( $content_part, $start ) . "</{$tag}>";
 				$content .= substr( $content_part, 0, $start ) . $name;
 				$i++;
@@ -725,16 +727,35 @@ function sanitize_webbook_content( $content ) {
 		}
 	}
 
-	// Remove deprecated table borders
-	$spec = '';
-	$spec .= 'table=-border;';
-	$content = \Pressbooks\HtmLawed::filter( $content, [], $spec );
+	if ( ! empty( $hidden_tags ) ) {
+		if ( is_array( $htmlawed_config ) && ! empty( $htmlawed_config['clean_ms_char'] ) ) {
+			// Mixed markup preservation code will not work if $config["clean_ms_char"] is set to 1
+			unset( $htmlawed_config['clean_ms_char'] );
+		}
+	}
+	$content = \Pressbooks\HtmLawed::filter( $content, $htmlawed_config, $htmlawed_spec );
 
 	// Put back mixed markup
 	if ( ! empty( $hidden_tags ) ) {
 		$content = strtr( $content, $hidden_tags );
 	}
 
+	return $content;
+}
+
+/**
+ * Sanitize post content for webbook output.
+ *
+ * @since 5.6.0
+ *
+ * @param string $content
+ * @return string
+ */
+function sanitize_webbook_content( $content ) {
+	// Remove deprecated table borders
+	$spec = '';
+	$spec .= 'table=-border;';
+	$content = htmlawed_with_mixed_markup( $content, [], $spec );
 	return $content;
 }
 
