@@ -545,7 +545,7 @@ function schema_to_book_information( $book_schema ) {
 function section_information_to_schema( $section_information, $book_information ) {
 	$section_schema = [];
 
-	$section_schema['@context'] = 'http://bib.schema.org';
+	$section_schema['@context'] = 'http://schema.org';
 	$section_schema['@type'] = 'Chapter';
 
 	$mapped_section_properties = [
