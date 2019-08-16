@@ -96,7 +96,7 @@ class SectionMetadata extends \WP_REST_Controller {
 					'type' => 'string',
 					'format' => 'uri',
 					'enum' => [
-						'http://bib.schema.org',
+						'http://schema.org',
 					],
 					'description' => __( 'The JSON-LD context.' ),
 					'context' => [ 'view' ],
