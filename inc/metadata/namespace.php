@@ -827,6 +827,12 @@ function get_thema_subjects( $include_qualifiers = false ) {
 	} else {
 		$locale = substr( get_locale(), 0, 2 );
 	}
+	/**
+	 * @since  5.9.1
+	 * @param string $locale
+	 */
+	$locale = apply_filters( 'pb_thema_subjects_locale', $locale );
+
 	$lang = ( in_array( $locale, [ 'de', 'en', 'es', 'fr', 'pt' ], true ) ) ? $locale : 'en';
 	$json = get_contents( PB_PLUGIN_DIR . "symbionts/thema/thema-${lang}.json" );
 	$values = json_decode( $json );
