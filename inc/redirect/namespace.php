@@ -357,14 +357,19 @@ function do_open() {
  * Force download
  *
  * @param string $filepath fullpath to a file
- * @param bool $inline
+ * @param bool (optional) $inline
+ * @param string $download_filename (optional) change basename the user gets prompted with in their browser
  */
-function force_download( $filepath, $inline = false ) {
-	$filename = basename( $filepath );
+function force_download( $filepath, $inline = false, $download_filename = '' ) {
+	if ( empty( $download_filename ) ) {
+		$download_filename = basename( $filepath );
+	}
+	sanitize_file_name( $download_filename );
+
 	if ( ! is_readable( $filepath ) ) {
 		// Cannot read file
 		wp_die(
-			__( 'File not found', 'pressbooks' ) . ": $filename", '', [
+			__( 'File not found', 'pressbooks' ) . ": $download_filename", '', [
 				'response' => 404,
 			]
 		);
@@ -388,9 +393,9 @@ function force_download( $filepath, $inline = false ) {
 	header( 'Content-Description: File Transfer' );
 	header( 'Content-Type: ' . \Pressbooks\Media\mime_type( $filepath ) );
 	if ( $inline ) {
-		header( 'Content-Disposition: inline; filename="' . $filename . '"' );
+		header( 'Content-Disposition: inline; filename="' . $download_filename . '"' );
 	} else {
-		header( 'Content-Disposition: attachment; filename="' . $filename . '"' );
+		header( 'Content-Disposition: attachment; filename="' . $download_filename . '"' );
 	}
 	header( 'Content-Transfer-Encoding: binary' );
 	header( 'Expires: 0' );
