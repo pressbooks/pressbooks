@@ -37,6 +37,11 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertContains( basename( __FILE__ ), $files );
 		$this->assertNotContains( '.htaccess', $files );
 		$this->assertNotContains( 'data', $files );
+
+		$files = \Pressbooks\Utility\scandir_by_date( '/fake/junk' );
+
+		$this->assertTrue( is_array( $files ) );
+		$this->assertEmpty( $files );
 	}
 
 	/**

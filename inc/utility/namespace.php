@@ -46,14 +46,16 @@ function scandir_by_date( $dir ) {
 	$dir = untrailingslashit( $dir ) . '/';
 
 	$files = [];
-	foreach ( scandir( $dir ) as $file ) {
-		if ( in_array( $file, $ignored, true ) || is_dir( $dir . $file ) ) {
-			continue;
+	if ( is_dir( $dir ) ) {
+		foreach ( scandir( $dir ) as $file ) {
+			if ( in_array( $file, $ignored, true ) || is_dir( $dir . $file ) ) {
+				continue;
+			}
+			$files[ $file ] = filemtime( $dir . $file );
 		}
-		$files[ $file ] = filemtime( $dir . $file );
+		arsort( $files );
+		$files = array_keys( $files );
 	}
-	arsort( $files );
-	$files = array_keys( $files );
 
 	return ( $files ) ? $files : [];
 }
