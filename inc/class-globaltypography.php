@@ -316,7 +316,7 @@ class GlobalTypography {
 			'hi' => [
 				'baseurl' => 'https://github.com/googlei18n/noto-fonts/raw/master/unhinted/',
 				'files' => [
-					'NotoSansDevanagari-Regular.ttf' =>'NotoSansDevanagari/NotoSansDevanagari-Regular.ttf',
+					'NotoSansDevanagari-Regular.ttf' => 'NotoSansDevanagari/NotoSansDevanagari-Regular.ttf',
 					'NotoSansDevanagari-Bold.ttf' => 'NotoSansDevanagari/NotoSansDevanagari-Bold.ttf',
 					'NotoSerifDevanagari-Bold.ttf' => 'NotoSerifDevanagari/NotoSerifDevanagari-Bold.ttf',
 					'NotoSerifDevanagari-Regular.ttf' => 'NotoSerifDevanagari/NotoSerifDevanagari-Regular.ttf',
@@ -392,14 +392,14 @@ class GlobalTypography {
 
 		foreach ( $fontpacks as $language => $val ) {
 			if ( in_array( $language, $languages, true ) ) {
-				foreach ( $val['files'] as $font => $fontUrl ) {
+				foreach ( $val['files'] as $font => $font_url ) {
 					if ( ! file_exists( $basepath . $font ) ) {
 						if ( ! function_exists( 'download_url' ) ) {
 							require_once( ABSPATH . 'wp-admin/includes/file.php' );
 						}
-						$result = download_url( $val['baseurl'] . $fontUrl );
+						$result = download_url( $val['baseurl'] . $font_url );
 						if ( is_wp_error( $result ) ) {
-							$_SESSION['pb_errors'][] = sprintf( __( 'Your %1$s font could not be downloaded from %2$s.', 'pressbooks' ), $language_names[ $language ], '<code>' . $val['baseurl'] . $fontUrl . '</code>' ) . '<br /><pre>' . $result->get_error_message() . '</pre>';
+							$_SESSION['pb_errors'][] = sprintf( __( 'Your %1$s font could not be downloaded from %2$s.', 'pressbooks' ), $language_names[ $language ], '<code>' . $val['baseurl'] . $font_url . '</code>' ) . '<br /><pre>' . $result->get_error_message() . '</pre>';
 							return false;
 						} else {
 							copy( $result, $basepath . $font );
