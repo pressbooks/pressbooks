@@ -103,6 +103,14 @@ class LicensingTest extends \WP_UnitTestCase {
 		$this->assertContains( 'https://creativecommons.org/licenses/by-nc/', $result );
 		$this->assertContains( 'Test Chapter', $result ); // Chapter and book license are the different, expected chapter name
 		$this->assertNotContains( 'Test Blog', $result );
+
+		// Chapter license statement reflects only attribution for that specific chapter when a chapter author has been defined.
+		update_post_meta( $post_id, 'pb_section_license', 'cc-by' );
+		$result = $this->licensing->doLicense( [ 'pb_book_license' => 'cc-by', 'pb_authors' => 'usrSpecific' ], $post_id );
+		$this->assertContains( 'usrSpecific', $result ); // expected specific user
+		update_post_meta( $post_id, 'pb_section_license', 'cc-by-nc' );
+		$result = $this->licensing->doLicense( [ 'pb_book_license' => 'cc-by', 'pb_authors' => 'usrSpecific' ], $post_id );
+		$this->assertContains( 'usrSpecific', $result ); // expected specific user
 	}
 
 	/**

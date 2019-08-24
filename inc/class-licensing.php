@@ -221,7 +221,8 @@ class Licensing {
 		}
 
 		// Unless section is licensed differently, it should display the book license statement
-		if ( $section_license === $book_license || empty( $section_license ) ) {
+		// Chapter license statement reflects only attribution for that specific chapter when a chapter author has been defined. Issues #588
+		if ( ( $section_license === $book_license || empty( $section_license ) ) && empty( $section_author ) ) {
 			$title = get_bloginfo( 'name' );
 			$link = get_bloginfo( 'url' );
 		} else {
