@@ -220,8 +220,8 @@ class Licensing {
 			return '';
 		}
 
-		// Unless section is empty, it should display the book license statement.
-		if ( empty( $section_license ) ) {
+		// Unless section is licensed differently, it should display the book license statement
+		if ( $section_license === $book_license || empty( $section_license ) ) {
 			$title = get_bloginfo( 'name' );
 			$link = get_bloginfo( 'url' );
 		} else {
