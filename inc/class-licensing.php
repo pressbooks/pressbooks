@@ -221,7 +221,7 @@ class Licensing {
 		}
 
 		// Unless section is licensed differently, it should display the book license statement
-		if ( $section_license === $book_license || empty( $section_license ) ) {
+		if ( $section_license === $book_license && empty( $section_author ) || empty( $section_license ) ) {
 			$title = get_bloginfo( 'name' );
 			$link = get_bloginfo( 'url' );
 		} else {
