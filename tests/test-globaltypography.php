@@ -75,15 +75,39 @@ class GlobalTypographyTest extends \WP_UnitTestCase {
 	/**
 	 * @group typography
 	 */
-	public function test_getFonts() {
-		$result = $this->gt->getFonts( [ 'ko' ] );
-		if ( $result === false && ! empty( $_SESSION['pb_errors'] ) ) {
-			$this->markTestIncomplete( print_r( $_SESSION['pb_errors'], true ) );
-			return;
+	public function test_fontPacks() {
+		$fontpacks = $this->gt->fontPacks();
+		foreach ( $fontpacks as $val ) {
+			$baseurl = $val['baseurl'];
+			foreach ( $val['files'] as $font => $font_url ) {
+				$status = '404 Not Found';
+				$url = $baseurl . $font_url;
+				$headers = wp_get_http_headers( $url );
+				if ( $headers && isset( $headers['status'] ) ) {
+					$status = $headers['status'];
+				} else {
+					$this->assertTrue( false, "Cannot download: {$url}" );
+				}
+				$this->assertNotContains( $status, '404', "404 Not Found: {$url}" );
+			}
 		}
+	}
+
+	/**
+	 * @group typography
+	 */
+	public function test_getFonts() {
+		@unlink( WP_CONTENT_DIR . '/uploads/assets/fonts/NotoSansCJKkr-Regular.otf' );
+		@unlink( WP_CONTENT_DIR . '/uploads/assets/fonts/NotoSansCJKkr-Bold.otf' );
+		$result = $this->gt->getFonts( [ 'ko' ] );
 		$this->assertTrue( $result );
 		$this->assertFileExists( WP_CONTENT_DIR . '/uploads/assets/fonts/NotoSansCJKkr-Regular.otf' );
 		$this->assertFileExists( WP_CONTENT_DIR . '/uploads/assets/fonts/NotoSansCJKkr-Bold.otf' );
+
+		@unlink( WP_CONTENT_DIR . '/uploads/assets/fonts/NotoSansBengali-Regular.ttf' );
+		@unlink( WP_CONTENT_DIR . '/uploads/assets/fonts/NotoSansBengali-Bold.ttf' );
+		@unlink( WP_CONTENT_DIR . '/uploads/assets/fonts/NotoSerifBengali-Regular.ttf' );
+		@unlink( WP_CONTENT_DIR . '/uploads/assets/fonts/NotoSerifBengali-Bold.ttf' );
 		$result = $this->gt->getFonts( [ 'bn' ] );
 		$this->assertTrue( $result );
 		$this->assertFileExists( WP_CONTENT_DIR . '/uploads/assets/fonts/NotoSansBengali-Regular.ttf' );
