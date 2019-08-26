@@ -280,23 +280,13 @@ class GlobalTypography {
 		\Pressbooks\Utility\put_contents( $file, $scss );
 	}
 
-	/**
-	 * Check for absent font files and download if necessary.
-	 *
-	 * @param array $languages
-	 *
-	 * @return bool
-	 */
-	function getFonts( $languages = null ) {
-		if ( ! $languages ) {
-			$languages = $this->_getRequiredLanguages();
-		}
-		$basepath = WP_CONTENT_DIR . '/uploads/assets/fonts/';
-		if ( ! is_dir( $basepath ) ) {
-			mkdir( $basepath, 0755, true );
-		}
 
-		// List fonts
+	/**
+	 * Array driven development :(
+	 *
+	 * @return array
+	 */
+	function fontPacks() {
 		$fontpacks = [
 			'bn' => [
 				'baseurl' => 'https://github.com/googlefonts/noto-fonts/raw/master/unhinted/',
@@ -323,7 +313,7 @@ class GlobalTypography {
 				],
 			],
 			'ja' => [
-				'baseurl' => 'https://github.com/googlefonts/noto-cjk/',
+				'baseurl' => 'https://github.com/googlefonts/noto-cjk/raw/master/',
 				'files' => [
 					'NotoSansCJKjp-Light.otf' => 'NotoSansCJKjp-Light.otf',
 					'NotoSansCJKjp-Regular.otf' => 'NotoSansCJKjp-Regular.otf',
@@ -340,7 +330,7 @@ class GlobalTypography {
 				],
 			],
 			'ko' => [
-				'baseurl' => 'https://github.com/googlefonts/noto-cjk/',
+				'baseurl' => 'https://github.com/googlefonts/noto-cjk/raw/master/',
 				'files' => [
 					'NotoSansCJKkr-Regular.otf' => 'NotoSansCJKkr-Regular.otf',
 					'NotoSansCJKkr-Bold.otf' => 'NotoSansCJKkr-Bold.otf',
@@ -372,14 +362,14 @@ class GlobalTypography {
 				],
 			],
 			'zh_HANS' => [
-				'baseurl' => 'https://github.com/googlefonts/noto-cjk/',
+				'baseurl' => 'https://github.com/googlefonts/noto-cjk/raw/master/',
 				'files' => [
 					'NotoSansCJKsc-Regular.otf' => 'NotoSansCJKsc-Regular.otf',
 					'NotoSansCJKsc-Bold.otf' => 'NotoSansCJKsc-Bold.otf',
 				],
 			],
 			'zh_HANT' => [
-				'baseurl' => 'https://github.com/googlefonts/noto-cjk/',
+				'baseurl' => 'https://github.com/googlefonts/noto-cjk/raw/master/',
 				'files' => [
 					'NotoSansCJKtc-Light.otf' => 'NotoSansCJKtc-Light.otf',
 					'NotoSansCJKtc-Regular.otf' => 'NotoSansCJKtc-Regular.otf',
@@ -387,7 +377,27 @@ class GlobalTypography {
 				],
 			],
 		];
+		return $fontpacks;
+	}
 
+	/**
+	 * Check for absent font files and download if necessary.
+	 *
+	 * @param array $languages
+	 *
+	 * @return bool
+	 */
+	function getFonts( $languages = null ) {
+		if ( ! $languages ) {
+			$languages = $this->_getRequiredLanguages();
+		}
+		$basepath = WP_CONTENT_DIR . '/uploads/assets/fonts/';
+		if ( ! is_dir( $basepath ) ) {
+			mkdir( $basepath, 0755, true );
+		}
+
+		// List fonts
+		$fontpacks = $this->fontPacks();
 		$language_names = $this->getSupportedLanguages();
 
 		foreach ( $fontpacks as $language => $val ) {
