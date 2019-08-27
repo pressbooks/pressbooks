@@ -266,7 +266,7 @@ function hide_plaintext_password() {
 					$( this ).css( 'cursor', 'pointer' );
 				},
 				function() {
-					$( this ).html( passwordFieldAsterix )
+					$( this ).html( passwordFieldAsterix );
 					$( this ).css( 'cursor', 'auto' );
 				}
 			)
