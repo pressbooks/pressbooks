@@ -110,8 +110,9 @@ function add_password_field( $errors ) {
 	<?php _e( 'Type in your password.', 'pressbooks' ); ?>
 	<label for="password_2"><?php _e( 'Confirm Password', 'pressbooks' ); ?>:</label>
 	<input name="password_2" type="password" id="password_2" value="" autocomplete="off" maxlength="20"/><br/>
+	<?php _e( 'Type in your password again.', 'pressbooks' ); ?>
+	<?php _e( 'Password should be at least 8 characters in length and should include at least one upper case letter, one number, and one special character.', 'pressbooks' ); ?>
 	<?php
-	_e( 'Type in your password again.', 'pressbooks' );
 }
 
 /**
@@ -140,6 +141,13 @@ function validate_passwords( $content ) {
 		// Passwords do not match
 		if ( $password_1 !== $password_2 ) {
 			$content['errors']->add( 'password_1', __( 'Passwords do not match.', 'pressbooks' ) );
+			return $content;
+		}
+
+		// Check for strong password
+		$strong_password_errors = check_for_strong_password( $password_1 );
+		if ( ! empty( $strong_password_errors ) ) {
+			$content['errors']->add( 'password_1', $strong_password_errors );
 			return $content;
 		}
 	}
@@ -310,4 +318,36 @@ function unpack_from_storage( $data ) {
 		$data = @openssl_decrypt( substr( $decoded, $iv_size ), $method, NONCE_KEY, OPENSSL_RAW_DATA, $iv ); // @codingStandardsIgnoreLine
 	}
 	return $data;
+}
+
+/**
+ * @param string $pwd
+ *
+ * @return string
+ */
+function check_for_strong_password( $pwd ) {
+	$errors = '';
+
+	if ( strlen( $pwd ) < 8 ) {
+		$errors .= __( 'Password should be at least 8 characters.', 'pressbooks' ) . '<br>';
+	}
+	$uppercase = preg_match( '@[A-Z]@', $pwd );
+	if ( ! $uppercase ) {
+		$errors .= __( 'Password should include at least one upper case letter.', 'pressbooks' ) . '<br>';
+	}
+	$lowercase = preg_match( '@[a-z]@', $pwd );
+	if ( ! $lowercase ) {
+		$errors .= __( 'Password should include at least one lower case letter.', 'pressbooks' ) . '<br>';
+	}
+	$number = preg_match( '@[0-9]@', $pwd );
+	if ( ! $number ) {
+		$errors .= __( 'Password should include at least one number.', 'pressbooks' ) . '<br>';
+	}
+
+	$special_chars = preg_match( '@[^\w]@', $pwd );
+	if ( ! $special_chars ) {
+		$errors .= __( 'Password should include at least one special character.', 'pressbooks' ) . '<br>';
+	}
+
+	return $errors;
 }

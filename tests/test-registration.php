@@ -142,4 +142,39 @@ class Registration extends \WP_UnitTestCase {
 		$this->assertEmpty( $junk );
 	}
 
+	public function test_check_for_strong_password() {
+		$errors = \Pressbooks\Registration\check_for_strong_password( 'a' );
+		$this->assertTrue( is_string( $errors ) );
+		$this->assertContains( 'at least 8 characters', $errors );
+		$this->assertContains( 'at least one upper case letter', $errors );
+		$this->assertNotContains( 'at least one lower case letter', $errors );
+		$this->assertContains( 'at least one number', $errors );
+		$this->assertContains( 'at least one special character', $errors );
+
+		$errors = \Pressbooks\Registration\check_for_strong_password( 'A' );
+		$this->assertContains( 'at least 8 characters', $errors );
+		$this->assertNotContains( 'at least one upper case letter', $errors );
+		$this->assertContains( 'at least one lower case letter', $errors );
+		$this->assertContains( 'at least one number', $errors );
+		$this->assertContains( 'at least one special character', $errors );
+
+		$errors = \Pressbooks\Registration\check_for_strong_password( 'aaaaAAAA' );
+		$this->assertNotContains( 'at least 8 characters', $errors );
+		$this->assertNotContains( 'at least one upper case letter', $errors );
+		$this->assertNotContains( 'at least one lower case letter', $errors );
+		$this->assertContains( 'at least one number', $errors );
+		$this->assertContains( 'at least one special character', $errors );
+
+		$errors = \Pressbooks\Registration\check_for_strong_password( 'aaa1AAAA' );
+		$this->assertNotContains( 'at least 8 characters', $errors );
+		$this->assertNotContains( 'at least one upper case letter', $errors );
+		$this->assertNotContains( 'at least one lower case letter', $errors );
+		$this->assertNotContains( 'at least one number', $errors );
+		$this->assertContains( 'at least one special character', $errors );
+
+		$errors = \Pressbooks\Registration\check_for_strong_password( 'aaa1AAA!' );
+		$this->assertTrue( is_string( $errors ) );
+		$this->assertEmpty( $errors );
+	}
+
 }
