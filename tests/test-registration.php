@@ -87,12 +87,12 @@ class Registration extends \WP_UnitTestCase {
 
 		global $_POST;
 
-		// Test for base64-encoded password key in $meta array, matching input password
+		// Test for temporarily encrypted password key in $meta array, matching input password
 
 		$_POST['password_1'] = 'colloquy glint tendril choler';
 
 		$meta = \Pressbooks\Registration\add_temporary_password( [] );
-		$this->assertEquals( 'colloquy glint tendril choler', base64_decode( $meta['password'] ) );
+		$this->assertEquals( 'colloquy glint tendril choler', \Pressbooks\Registration\unpack_from_storage( $meta['password'] ) );
 
 		// Test for absence of password key in $meta array when no password is provided
 
@@ -114,8 +114,32 @@ class Registration extends \WP_UnitTestCase {
 		$_POST['password_1'] = 'colloquy glint tendril choler';
 
 		$this->expectOutputRegex( '/(<input type="hidden" name="password_1.*)(" value=").*(").*(\/>)/' );
-		\Pressbooks\Registration\add_hidden_password_field( [] );
+		\Pressbooks\Registration\add_hidden_password_field();
 
+	}
+
+	/**
+	 * @group registration
+	 */
+	public function test_hide_plaintext_password() {
+		ob_start();
+		\Pressbooks\Registration\hide_plaintext_password();
+		$buffer = ob_get_clean();
+		$this->assertContains( '#signup-welcome p:nth-child(2)', $buffer );
+	}
+
+	/**
+	 * @group registration
+	 */
+	public function test_storage() {
+		$test = 'This is a test';
+		$packed = \Pressbooks\Registration\put_in_storage( $test );
+		$this->assertNotEquals( $test, $packed );
+		$unpacked = \Pressbooks\Registration\unpack_from_storage( $packed );
+		$this->assertEquals( $test, $unpacked );
+
+		$junk = \Pressbooks\Registration\unpack_from_storage( 'junk' );
+		$this->assertEmpty( $junk );
 	}
 
 }

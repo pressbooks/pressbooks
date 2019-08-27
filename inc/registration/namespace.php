@@ -188,7 +188,7 @@ function add_hidden_password_field() {
 /**
  * Override wp_generate_password() once when we're generating our form
  *
- * @param string $password
+ * @param string $generated_password
  *
  * @return string
  */
@@ -214,10 +214,9 @@ function override_password_generation( $generated_password ) {
 	if ( strpos( $_SERVER['PHP_SELF'], 'wp-activate.php' ) !== false && $signup && ! $signup->active ) {
 		$meta = maybe_unserialize( $signup->meta );
 		if ( isset( $meta['password'] ) ) {
-
 			// Set the "random" password to our predefined one
 			$password = unpack_from_storage( $meta['password'] );
-			if ( $password ) {
+			if ( ! empty( $password ) ) {
 				// Remove old password from signup meta
 				unset( $meta['password'] );
 				$meta = maybe_serialize( $meta );
@@ -233,6 +232,39 @@ function override_password_generation( $generated_password ) {
 		}
 	}
 	return $generated_password;  // Regular usage, don't touch the password generation
+}
+
+/**
+ * Hooked into activate_wp_head
+ * WordPress prints the user's password on the screen, this hack hides it
+ */
+function hide_plaintext_password() {
+	?>
+	<style type="text/css">
+		#signup-welcome p:nth-child(2) {
+			visibility: hidden;
+		}
+	</style>
+	<script type="text/javascript">
+		jQuery( document ).ready( function( $ ) {
+			var passwordField = $( '#signup-welcome p:nth-child(2)' );
+			var passwordFieldText = $( '#signup-welcome p:nth-child(2) span' ).text();
+			var passwordFieldValue = passwordField.html();
+			var passwordFieldAsterix = '<span class="h3">' + passwordFieldText + '</span> #####';
+			passwordField.html( passwordFieldAsterix ).css( 'visibility', 'visible' );
+			passwordField.hover(
+				function() {
+					$( this ).html( passwordFieldValue );
+					$( this ).css( 'cursor', 'pointer' );
+				},
+				function() {
+					$( this ).html( passwordFieldAsterix )
+					$( this ).css( 'cursor', 'auto' );
+				}
+			)
+		} );
+	</script>
+	<?php
 }
 
 /**
@@ -257,12 +289,25 @@ function put_in_storage( $data ) {
  * @return string
  */
 function unpack_from_storage( $data ) {
-	$data = base64_decode( $data );
-	if ( function_exists( 'openssl_encrypt' ) ) {
+	// Check if there are valid base64 characters
+	if ( ! preg_match( '/^[a-zA-Z0-9\/\r\n+]*={0,2}$/', $data ) ) {
+		return false;
+	}
+	// Decode the string in strict mode and check the results
+	$decoded = base64_decode( $data, true );
+	if ( false === $decoded ) {
+		return false;
+	}
+	// Encode the string again
+	if ( base64_encode( $decoded ) !== $data ) {
+		return false;
+	}
+
+	if ( function_exists( 'openssl_decrypt' ) ) {
 		$method = 'aes-256-ctr';
 		$iv_size = openssl_cipher_iv_length( $method );
-		$iv = substr( $data, 0, $iv_size );
-		$data = openssl_decrypt( substr( $data, $iv_size ), $method, NONCE_KEY, OPENSSL_RAW_DATA, $iv );
+		$iv = substr( $decoded, 0, $iv_size );
+		$data = @openssl_decrypt( substr( $decoded, $iv_size ), $method, NONCE_KEY, OPENSSL_RAW_DATA, $iv ); // @codingStandardsIgnoreLine
 	}
 	return $data;
 }
