@@ -96,7 +96,6 @@ function custom_signup_text( $translated_text, $untranslated_text, $domain ) {
  * @param object $errors
  */
 function add_password_field( $errors ) {
-
 	if ( $errors && method_exists( $errors, 'get_error_message' ) ) {
 		$error = $errors->get_error_message( 'password_1' );
 	} else {
@@ -104,13 +103,11 @@ function add_password_field( $errors ) {
 	} ?>
 
 	<label for="password_1"><?php _e( 'Password', 'pressbooks' ); ?>:</label>
-	<?php
-	if ( $error ) {
-		?>
-<p class="error"><?php echo $error; ?></p><?php } ?>
+	<?php if ( $error ) { ?>
+		<p class="error"><?php echo $error; ?></p>
+	<?php } ?>
 	<input name="password_1" type="password" id="password_1" value="" autocomplete="off" maxlength="20"/><br/>
 	<?php _e( 'Type in your password.', 'pressbooks' ); ?>
-
 	<label for="password_2"><?php _e( 'Confirm Password', 'pressbooks' ); ?>:</label>
 	<input name="password_2" type="password" id="password_2" value="" autocomplete="off" maxlength="20"/><br/>
 	<?php
@@ -163,15 +160,12 @@ function add_temporary_password( $meta ) {
 	}
 
 	if ( isset( $_POST['password_1'] ) ) {
-
-		// Store as base64 to avoid injections
 		$add_meta = [
-			'password' => ( isset( $_POST['password_1_base64'] ) ? $_POST['password_1'] : base64_encode( $_POST['password_1'] ) ),
+			'password' => ( isset( $_POST['password_1_base64'] ) ? $_POST['password_1'] : put_in_storage( $_POST['password_1'] ) ),
 		];
 		$meta = array_merge( $add_meta, $meta );
 	}
 
-	// This should never happen.
 	return $meta;
 }
 
@@ -186,7 +180,7 @@ function add_hidden_password_field() {
 	if ( isset( $_POST['password_1'] ) ) {
 		?>
 		<input type="hidden" name="password_1_base64" value="1"/>
-		<input type="hidden" name="password_1" value="<?php echo( isset( $_POST['password_1_base64'] ) ? $_POST['password_1'] : base64_encode( $_POST['password_1'] ) ); ?>"/>
+		<input type="hidden" name="password_1" value="<?php echo( isset( $_POST['password_1_base64'] ) ? $_POST['password_1'] : put_in_storage( $_POST['password_1'] ) ); ?>"/>
 		<?php
 	}
 }
@@ -198,48 +192,77 @@ function add_hidden_password_field() {
  *
  * @return string
  */
-function override_password_generation( $password ) {
+function override_password_generation( $generated_password ) {
 	if ( isset( $_POST['_signup_form'] ) && ! wp_verify_nonce( $_POST['_signup_form'], 'signup_form_' . $_POST['signup_form_id'] ) ) {
 		wp_die( __( 'Please try again.', 'pressbooks' ) );
 	}
 
-	global $wpdb;
-
-	// Check key in GET and then fallback to POST.
-	if ( isset( $_GET['key'] ) ) {
-		$key = $_GET['key'];
-	} elseif ( isset( $_POST['key'] ) ) {
-		$key = $_POST['key'];
+	$activate_cookie = 'wp-activate-' . COOKIEHASH;
+	if ( isset( $_REQUEST['key'] ) ) {
+		$key = $_REQUEST['key'];
+	} elseif ( isset( $_COOKIE[ $activate_cookie ] ) ) {
+		$key = $_COOKIE[ $activate_cookie ];
 	} else {
-		$key = null;
+		return $generated_password; // Regular usage, don't touch the password generation
 	}
 
 	// Look for active signup
+	global $wpdb;
 	$signup = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $wpdb->signups WHERE activation_key = %s", $key ) );
 
 	// Only override filter on wp-activate.php screen
-	if ( strpos( $_SERVER['PHP_SELF'], 'wp-activate.php' ) && null !== $key && ( ! ( empty( $signup ) || $signup->active ) ) ) {
+	if ( strpos( $_SERVER['PHP_SELF'], 'wp-activate.php' ) !== false && $signup && ! $signup->active ) {
 		$meta = maybe_unserialize( $signup->meta );
 		if ( isset( $meta['password'] ) ) {
 
 			// Set the "random" password to our predefined one
-			$password = base64_decode( $meta['password'] );
-
-			// Remove old password from signup meta
-			unset( $meta['password'] );
-			$meta = maybe_serialize( $meta );
-			$wpdb->update(
-				$wpdb->signups, [
-					'meta' => $meta,
-				], [
-					'activation_key' => $key,
-				], [ '%s' ], [ '%s' ]
-			);
-			return $password;
-		} else {
-			return $password; // No password meta set = just activate user as normal with random password
+			$password = unpack_from_storage( $meta['password'] );
+			if ( $password ) {
+				// Remove old password from signup meta
+				unset( $meta['password'] );
+				$meta = maybe_serialize( $meta );
+				$wpdb->update(
+					$wpdb->signups,
+					[ 'meta' => $meta ],
+					[ 'activation_key' => $key ],
+					'%s',
+					'%s'
+				);
+				return $password;
+			}
 		}
-	} else {
-		return $password; // Regular usage, don't touch the password generation
 	}
+	return $generated_password;  // Regular usage, don't touch the password generation
+}
+
+/**
+ * @param string $data
+ *
+ * @return string
+ */
+function put_in_storage( $data ) {
+	if ( function_exists( 'openssl_encrypt' ) ) {
+		$method = 'aes-256-ctr';
+		$iv_size = openssl_cipher_iv_length( $method );
+		$iv = openssl_random_pseudo_bytes( $iv_size );
+		$data = openssl_encrypt( $data, $method, NONCE_KEY, OPENSSL_RAW_DATA, $iv );
+		$data = $iv . $data;  // For storage/transmission, we concatenate the IV and cipher text
+	}
+	return base64_encode( $data );
+}
+
+/**
+ * @param string $data
+ *
+ * @return string
+ */
+function unpack_from_storage( $data ) {
+	$data = base64_decode( $data );
+	if ( function_exists( 'openssl_encrypt' ) ) {
+		$method = 'aes-256-ctr';
+		$iv_size = openssl_cipher_iv_length( $method );
+		$iv = substr( $data, 0, $iv_size );
+		$data = openssl_decrypt( substr( $data, $iv_size ), $method, NONCE_KEY, OPENSSL_RAW_DATA, $iv );
+	}
+	return $data;
 }
