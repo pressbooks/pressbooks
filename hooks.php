@@ -299,7 +299,6 @@ add_filter( 'wpmu_validate_user_signup', '\Pressbooks\Registration\validate_pass
 add_filter( 'add_signup_meta', '\Pressbooks\Registration\add_temporary_password', 99 );
 add_action( 'signup_blogform', '\Pressbooks\Registration\add_hidden_password_field' );
 add_filter( 'random_password', '\Pressbooks\Registration\override_password_generation' );
-add_action( 'activate_wp_head', '\Pressbooks\Registration\hide_plaintext_password', 1 );
 
 // Email configuration
 add_filter( 'wp_mail_from', '\Pressbooks\Utility\mail_from' );
