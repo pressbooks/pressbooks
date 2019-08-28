@@ -139,16 +139,16 @@ function validate_passwords( $content ) {
 			return $content;
 		}
 
+		// Passwords do not match
+		if ( $password_1 !== $password_2 ) {
+			$content['errors']->add( 'password_1', __( 'Passwords do not match.', 'pressbooks' ) );
+			return $content;
+		}
+
 		// Check for strong password
 		$strong_password_errors = check_for_strong_password( $password_1 );
 		if ( ! empty( $strong_password_errors ) ) {
 			$content['errors']->add( 'password_1', $strong_password_errors );
-			return $content;
-		}
-
-		// Passwords do not match
-		if ( $password_1 !== $password_2 ) {
-			$content['errors']->add( 'password_1', __( 'Passwords do not match.', 'pressbooks' ) );
 			return $content;
 		}
 	}
