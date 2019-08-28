@@ -106,12 +106,13 @@ function add_password_field( $errors ) {
 	<?php if ( $error ) { ?>
 		<p class="error"><?php echo $error; ?></p>
 	<?php } ?>
-	<input name="password_1" type="password" id="password_1" value="" autocomplete="off" maxlength="20"/><br/>
+	<input name="password_1" type="password" id="password_1" value="<?php echo esc_attr( $_REQUEST['password_1'] ?? '' ); ?>" autocomplete="off" maxlength="20"/><br/>
 	<?php _e( 'Type in your password.', 'pressbooks' ); ?>
 	<label for="password_2"><?php _e( 'Confirm Password', 'pressbooks' ); ?>:</label>
 	<input name="password_2" type="password" id="password_2" value="" autocomplete="off" maxlength="20"/><br/>
 	<?php _e( 'Type in your password again.', 'pressbooks' ); ?>
 	<?php _e( 'Password must be at least 12 characters in length, include at least one upper case letter, and have at least one number.', 'pressbooks' ); ?>
+
 	<?php
 }
 
@@ -138,16 +139,16 @@ function validate_passwords( $content ) {
 			return $content;
 		}
 
-		// Passwords do not match
-		if ( $password_1 !== $password_2 ) {
-			$content['errors']->add( 'password_1', __( 'Passwords do not match.', 'pressbooks' ) );
-			return $content;
-		}
-
 		// Check for strong password
 		$strong_password_errors = check_for_strong_password( $password_1 );
 		if ( ! empty( $strong_password_errors ) ) {
 			$content['errors']->add( 'password_1', $strong_password_errors );
+			return $content;
+		}
+
+		// Passwords do not match
+		if ( $password_1 !== $password_2 ) {
+			$content['errors']->add( 'password_1', __( 'Passwords do not match.', 'pressbooks' ) );
 			return $content;
 		}
 	}
@@ -240,6 +241,39 @@ function override_password_generation( $generated_password ) {
 		}
 	}
 	return $generated_password;  // Regular usage, don't touch the password generation
+}
+
+/**
+ * Hooked into activate_wp_head
+ * WordPress prints the user's password on the screen, this hack hides it
+ */
+function hide_plaintext_password() {
+	?>
+	<style type="text/css">
+		#signup-welcome p:nth-child(2) {
+			visibility: hidden;
+		}
+	</style>
+	<script type="text/javascript">
+		jQuery( document ).ready( function( $ ) {
+			var passwordField = $( '#signup-welcome p:nth-child(2)' );
+			var passwordFieldText = $( '#signup-welcome p:nth-child(2) span' ).text();
+			var passwordFieldValue = passwordField.html();
+			var passwordFieldAsterix = '<span class="h3">' + passwordFieldText + '</span> #####';
+			passwordField.html( passwordFieldAsterix ).css( 'visibility', 'visible' );
+			passwordField.hover(
+				function() {
+					$( this ).html( passwordFieldValue );
+					$( this ).css( 'cursor', 'pointer' );
+				},
+				function() {
+					$( this ).html( passwordFieldAsterix );
+					$( this ).css( 'cursor', 'auto' );
+				}
+			)
+		} );
+	</script>
+	<?php
 }
 
 /**
