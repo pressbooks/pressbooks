@@ -121,16 +121,6 @@ class Registration extends \WP_UnitTestCase {
 	/**
 	 * @group registration
 	 */
-	public function test_hide_plaintext_password() {
-		ob_start();
-		\Pressbooks\Registration\hide_plaintext_password();
-		$buffer = ob_get_clean();
-		$this->assertContains( '#signup-welcome p:nth-child(2)', $buffer );
-	}
-
-	/**
-	 * @group registration
-	 */
 	public function test_storage() {
 		$test = 'This is a test';
 		$packed = \Pressbooks\Registration\put_in_storage( $test );
@@ -145,34 +135,30 @@ class Registration extends \WP_UnitTestCase {
 	public function test_check_for_strong_password() {
 		$errors = \Pressbooks\Registration\check_for_strong_password( 'a' );
 		$this->assertTrue( is_string( $errors ) );
-		$this->assertContains( 'at least 8 characters', $errors );
+		$this->assertContains( 'at least 12 characters', $errors );
 		$this->assertContains( 'at least one upper case letter', $errors );
 		$this->assertNotContains( 'at least one lower case letter', $errors );
 		$this->assertContains( 'at least one number', $errors );
-		$this->assertContains( 'at least one special character', $errors );
 
 		$errors = \Pressbooks\Registration\check_for_strong_password( 'A' );
-		$this->assertContains( 'at least 8 characters', $errors );
+		$this->assertContains( 'at least 12 characters', $errors );
 		$this->assertNotContains( 'at least one upper case letter', $errors );
 		$this->assertContains( 'at least one lower case letter', $errors );
 		$this->assertContains( 'at least one number', $errors );
-		$this->assertContains( 'at least one special character', $errors );
 
-		$errors = \Pressbooks\Registration\check_for_strong_password( 'aaaaAAAA' );
-		$this->assertNotContains( 'at least 8 characters', $errors );
+		$errors = \Pressbooks\Registration\check_for_strong_password( 'aaaaAAAAaaaa' );
+		$this->assertNotContains( 'at least 12 characters', $errors );
 		$this->assertNotContains( 'at least one upper case letter', $errors );
 		$this->assertNotContains( 'at least one lower case letter', $errors );
 		$this->assertContains( 'at least one number', $errors );
-		$this->assertContains( 'at least one special character', $errors );
 
-		$errors = \Pressbooks\Registration\check_for_strong_password( 'aaa1AAAA' );
-		$this->assertNotContains( 'at least 8 characters', $errors );
+		$errors = \Pressbooks\Registration\check_for_strong_password( 'aaa1AAAAaaaa' );
+		$this->assertNotContains( 'at least 12 characters', $errors );
 		$this->assertNotContains( 'at least one upper case letter', $errors );
 		$this->assertNotContains( 'at least one lower case letter', $errors );
 		$this->assertNotContains( 'at least one number', $errors );
-		$this->assertContains( 'at least one special character', $errors );
 
-		$errors = \Pressbooks\Registration\check_for_strong_password( 'aaa1AAA!' );
+		$errors = \Pressbooks\Registration\check_for_strong_password( 'aaa1AAAAaaaa' );
 		$this->assertTrue( is_string( $errors ) );
 		$this->assertEmpty( $errors );
 	}
