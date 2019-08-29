@@ -918,16 +918,16 @@
         },
         {
             "name": "johnbillion/extended-cpts",
-            "version": "4.2.5",
+            "version": "4.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnbillion/extended-cpts.git",
-                "reference": "3f582bbb19bec814360bd8b0ee8f52c95183d96a"
+                "reference": "eb4ff89ffbfe8baafa3638a091435b1cd6479f0b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnbillion/extended-cpts/zipball/3f582bbb19bec814360bd8b0ee8f52c95183d96a",
-                "reference": "3f582bbb19bec814360bd8b0ee8f52c95183d96a",
+                "url": "https://api.github.com/repos/johnbillion/extended-cpts/zipball/eb4ff89ffbfe8baafa3638a091435b1cd6479f0b",
+                "reference": "eb4ff89ffbfe8baafa3638a091435b1cd6479f0b",
                 "shasum": ""
             },
             "require": {
@@ -936,8 +936,8 @@
             "require-dev": {
                 "automattic/phpcs-neutron-standard": "^1.5",
                 "dealerdirect/phpcodesniffer-composer-installer": "^0.5",
+                "johnbillion/falsey-assertequals-detector": "^2",
                 "johnbillion/php-docs-standards": "^1",
-                "johnkary/phpunit-speedtrap": "^2",
                 "phpcompatibility/phpcompatibility-wp": "^2",
                 "phpunit/phpunit": "^6",
                 "roots/wordpress": "*",
@@ -947,6 +947,7 @@
                 "wp-phpunit/wp-phpunit": "*"
             },
             "suggest": {
+                "seravo/wp-custom-bulk-actions": "Custom Bulk Actions",
                 "wpackagist-plugin/rewrite-testing": "Rewrite Rule Testing"
             },
             "type": "library",
@@ -954,6 +955,9 @@
                 "wordpress-install-dir": "tests/wordpress"
             },
             "autoload": {
+                "psr-4": {
+                    "ExtCPTs\\Tests\\": "tests/phpunit"
+                },
                 "files": [
                     "extended-cpts.php"
                 ]
@@ -970,7 +974,7 @@
             ],
             "description": "A library which provides extended functionality to WordPress custom post types and taxonomies.",
             "homepage": "https://github.com/johnbillion/extended-cpts/",
-            "time": "2019-06-27T21:06:36+00:00"
+            "time": "2019-08-13T12:32:52+00:00"
         },
         {
             "name": "masterminds/html5",
@@ -1454,16 +1458,16 @@
         },
         {
             "name": "scssphp/scssphp",
-            "version": "1.0.2",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/scssphp/scssphp.git",
-                "reference": "56a2ac8b9254dd14b5e78470fa62358fbef65634"
+                "reference": "616c518333c656eaa23182ac6cfc01453f1e7c78"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/scssphp/scssphp/zipball/56a2ac8b9254dd14b5e78470fa62358fbef65634",
-                "reference": "56a2ac8b9254dd14b5e78470fa62358fbef65634",
+                "url": "https://api.github.com/repos/scssphp/scssphp/zipball/616c518333c656eaa23182ac6cfc01453f1e7c78",
+                "reference": "616c518333c656eaa23182ac6cfc01453f1e7c78",
                 "shasum": ""
             },
             "require": {
@@ -1509,7 +1513,7 @@
                 "scss",
                 "stylesheet"
             ],
-            "time": "2019-07-07T02:24:57+00:00"
+            "time": "2019-08-07T20:16:04+00:00"
         },
         {
             "name": "sinergi/browser-detector",

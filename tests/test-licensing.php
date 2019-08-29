@@ -96,13 +96,28 @@ class LicensingTest extends \WP_UnitTestCase {
 		$this->assertContains( 'Test Blog', $result ); // Chapter and book license are the same, expected book name
 		$this->assertNotContains( 'Test Chapter', $result );
 
-
 		// Different licenses
 		update_post_meta( $post_id, 'pb_section_license', 'cc-by-nc' );
 		$result = $this->licensing->doLicense( [ 'pb_book_license' => 'cc-by' ], $post_id );
 		$this->assertContains( 'https://creativecommons.org/licenses/by-nc/', $result );
 		$this->assertContains( 'Test Chapter', $result ); // Chapter and book license are the different, expected chapter name
 		$this->assertNotContains( 'Test Blog', $result );
+
+		// Chapter license statement reflects only attribution for that specific chapter when a chapter author has been defined.
+		update_post_meta( $post_id, 'pb_section_license', 'cc-by' );
+		$result = $this->licensing->doLicense( [ 'pb_book_license' => 'cc-by', 'pb_authors' => 'Original Person' ], $post_id );
+		$this->assertContains( 'https://creativecommons.org/licenses/by/', $result );
+		$this->assertContains( 'Test Blog', $result ); // Chapter and book license are the same, expected book name
+		$this->assertNotContains( 'Test Chapter', $result );
+		$this->assertContains( 'Original Person', $result ); // Expected book authors
+		// Define chapter author
+		( new \Pressbooks\Contributors() )->insert( 'New Person', $post_id, 'pb_authors' );
+		$result = $this->licensing->doLicense( [ 'pb_book_license' => 'cc-by', 'pb_authors' => 'Original Person' ], $post_id );
+		$this->assertContains( 'https://creativecommons.org/licenses/by/', $result );
+		$this->assertContains( 'Test Chapter', $result ); // Chapter and book license are the same but there's a specific author, expected chapter name
+		$this->assertNotContains( 'Test Blog', $result );
+		$this->assertContains( 'New Person', $result );  // Expected chapter authors
+		$this->assertNotContains( 'Original Person', $result );
 	}
 
 	/**

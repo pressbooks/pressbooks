@@ -73,7 +73,7 @@ add_action( 'login_head', '\Pressbooks\Admin\Branding\favicon' );
 add_action( 'login_head', '\Pressbooks\Admin\Branding\custom_color_scheme' );
 add_action( 'login_head', '\Pressbooks\Admin\Branding\custom_login_logo' );
 add_filter( 'login_headerurl', '\Pressbooks\Admin\Branding\login_url' );
-add_filter( 'login_headertitle', '\Pressbooks\Admin\Branding\login_title' );
+add_filter( 'login_headertext', '\Pressbooks\Admin\Branding\login_title' );
 add_filter( 'login_title', '\Pressbooks\Admin\Branding\admin_title' );
 add_action( 'login_footer', '\Pressbooks\Admin\Branding\login_scripts' );
 

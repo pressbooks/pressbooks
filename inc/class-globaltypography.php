@@ -280,6 +280,106 @@ class GlobalTypography {
 		\Pressbooks\Utility\put_contents( $file, $scss );
 	}
 
+
+	/**
+	 * Array driven development :(
+	 *
+	 * @return array
+	 */
+	function fontPacks() {
+		$fontpacks = [
+			'bn' => [
+				'baseurl' => 'https://github.com/googlefonts/noto-fonts/raw/master/unhinted/',
+				'files' => [
+					'NotoSansBengali-Bold.ttf' => 'NotoSansBengali/NotoSansBengali-Bold.ttf',
+					'NotoSansBengali-Regular.ttf' => 'NotoSansBengali/NotoSansBengali-Regular.ttf',
+					'NotoSerifBengali-Bold.ttf' => 'NotoSerifBengali/NotoSerifBengali-Bold.ttf',
+					'NotoSerifBengali-Regular.ttf' => 'NotoSerifBengali/NotoSerifBengali-Regular.ttf',
+				],
+			],
+			'cans' => [
+				'baseurl' => 'https://github.com/googlefonts/noto-fonts/raw/master/unhinted/',
+				'files' => [
+					'NotoSansCanadianAboriginal-Regular.ttf' => 'NotoSansCanadianAboriginal/NotoSansCanadianAboriginal-Regular.ttf',
+				],
+			],
+			'hi' => [
+				'baseurl' => 'https://github.com/googlefonts/noto-fonts/raw/master/unhinted/',
+				'files' => [
+					'NotoSansDevanagari-Regular.ttf' => 'NotoSansDevanagari/NotoSansDevanagari-Regular.ttf',
+					'NotoSansDevanagari-Bold.ttf' => 'NotoSansDevanagari/NotoSansDevanagari-Bold.ttf',
+					'NotoSerifDevanagari-Bold.ttf' => 'NotoSerifDevanagari/NotoSerifDevanagari-Bold.ttf',
+					'NotoSerifDevanagari-Regular.ttf' => 'NotoSerifDevanagari/NotoSerifDevanagari-Regular.ttf',
+				],
+			],
+			'ja' => [
+				'baseurl' => 'https://github.com/googlefonts/noto-cjk/raw/master/',
+				'files' => [
+					'NotoSansCJKjp-Light.otf' => 'NotoSansCJKjp-Light.otf',
+					'NotoSansCJKjp-Regular.otf' => 'NotoSansCJKjp-Regular.otf',
+					'NotoSansCJKjp-Bold.otf' => 'NotoSansCJKjp-Bold.otf',
+				],
+			],
+			'kn' => [
+				'baseurl' => 'https://github.com/googlefonts/noto-fonts/raw/master/unhinted/',
+				'files' => [
+					'NotoSansKannada-Bold.ttf' => 'NotoSansKannada/NotoSansKannada-Bold.ttf',
+					'NotoSansKannada-Regular.ttf' => 'NotoSansKannada/NotoSansKannada-Regular.ttf',
+					'NotoSerifKannada-Bold.ttf' => 'NotoSerifKannada/NotoSerifKannada-Bold.ttf',
+					'NotoSerifKannada-Regular.ttf' => 'NotoSerifKannada/NotoSerifKannada-Regular.ttf',
+				],
+			],
+			'ko' => [
+				'baseurl' => 'https://github.com/googlefonts/noto-cjk/raw/master/',
+				'files' => [
+					'NotoSansCJKkr-Regular.otf' => 'NotoSansCJKkr-Regular.otf',
+					'NotoSansCJKkr-Bold.otf' => 'NotoSansCJKkr-Bold.otf',
+				],
+			],
+			'ml' => [
+				'baseurl' => 'https://github.com/googlefonts/noto-fonts/raw/master/unhinted/',
+				'files' => [
+					'NotoSansMalayalam-Bold.ttf' => 'NotoSansMalayalam/NotoSansMalayalam-Bold.ttf',
+					'NotoSansMalayalam-Regular.ttf' => 'NotoSansMalayalam/NotoSansMalayalam-Regular.ttf',
+					'NotoSerifMalayalam-Bold.ttf' => 'NotoSerifMalayalam/NotoSerifMalayalam-Bold.ttf',
+					'NotoSerifMalayalam-Regular.ttf' => 'NotoSerifMalayalam/NotoSerifMalayalam-Regular.ttf',
+				],
+			],
+			'or' => [
+				'baseurl' => 'https://github.com/googlefonts/noto-fonts/raw/master/hinted/',
+				'files' => [
+					'NotoSansOriya-Bold.ttf' => 'NotoSansOriya/NotoSansOriya-Bold.ttf',
+					'NotoSansOriya-Regular.ttf' => 'NotoSansOriya/NotoSansOriya-Regular.ttf',
+				],
+			],
+			'te' => [
+				'baseurl' => 'https://github.com/googlefonts/noto-fonts/raw/master/unhinted/',
+				'files' => [
+					'NotoSansTelugu-Bold.ttf' => 'NotoSansTelugu/NotoSansTelugu-Bold.ttf',
+					'NotoSansTelugu-Regular.ttf' => 'NotoSansTelugu/NotoSansTelugu-Regular.ttf',
+					'NotoSerifTelugu-Bold.ttf' => 'NotoSerifTelugu/NotoSerifTelugu-Bold.ttf',
+					'NotoSerifTelugu-Regular.ttf' => 'NotoSerifTelugu/NotoSerifTelugu-Regular.ttf',
+				],
+			],
+			'zh_HANS' => [
+				'baseurl' => 'https://github.com/googlefonts/noto-cjk/raw/master/',
+				'files' => [
+					'NotoSansCJKsc-Regular.otf' => 'NotoSansCJKsc-Regular.otf',
+					'NotoSansCJKsc-Bold.otf' => 'NotoSansCJKsc-Bold.otf',
+				],
+			],
+			'zh_HANT' => [
+				'baseurl' => 'https://github.com/googlefonts/noto-cjk/raw/master/',
+				'files' => [
+					'NotoSansCJKtc-Light.otf' => 'NotoSansCJKtc-Light.otf',
+					'NotoSansCJKtc-Regular.otf' => 'NotoSansCJKtc-Regular.otf',
+					'NotoSansCJKtc-Bold.otf' => 'NotoSansCJKtc-Bold.otf',
+				],
+			],
+		];
+		return $fontpacks;
+	}
+
 	/**
 	 * Check for absent font files and download if necessary.
 	 *
@@ -297,109 +397,19 @@ class GlobalTypography {
 		}
 
 		// List fonts
-		$fontpacks = [
-			'bn' => [
-				'baseurl' => 'https://github.com/googlei18n/noto-fonts/raw/master/unhinted/',
-				'files' => [
-					'NotoSansBengali-Bold.ttf',
-					'NotoSansBengali-Regular.ttf',
-					'NotoSerifBengali-Bold.ttf',
-					'NotoSerifBengali-Regular.ttf',
-				],
-			],
-			'cans' => [
-				'baseurl' => 'https://github.com/googlei18n/noto-fonts/raw/master/unhinted/',
-				'files' => [
-					'NotoSansCanadianAboriginal-Regular.ttf',
-				],
-			],
-			'hi' => [
-				'baseurl' => 'https://github.com/googlei18n/noto-fonts/raw/master/unhinted/',
-				'files' => [
-					'NotoSansDevanagari-Regular.ttf',
-					'NotoSansDevanagari-Bold.ttf',
-					'NotoSerifDevanagari-Bold.ttf',
-					'NotoSerifDevanagari-Regular.ttf',
-				],
-			],
-			'ja' => [
-				'baseurl' => 'https://github.com/googlei18n/noto-cjk/raw/master/',
-				'files' => [
-					'NotoSansCJKjp-Light.otf',
-					'NotoSansCJKjp-Regular.otf',
-					'NotoSansCJKjp-Bold.otf',
-				],
-			],
-			'kn' => [
-				'baseurl' => 'https://github.com/googlei18n/noto-fonts/raw/master/unhinted/',
-				'files' => [
-					'NotoSansKannada-Bold.ttf',
-					'NotoSansKannada-Regular.ttf',
-					'NotoSerifKannada-Bold.ttf',
-					'NotoSerifKannada-Regular.ttf',
-				],
-			],
-			'ko' => [
-				'baseurl' => 'https://github.com/googlei18n/noto-cjk/raw/master/',
-				'files' => [
-					'NotoSansCJKkr-Regular.otf',
-					'NotoSansCJKkr-Bold.otf',
-				],
-			],
-			'ml' => [
-				'baseurl' => 'https://github.com/googlei18n/noto-fonts/raw/master/unhinted/',
-				'files' => [
-					'NotoSansMalayalam-Bold.ttf',
-					'NotoSansMalayalam-Regular.ttf',
-					'NotoSerifMalayalam-Bold.ttf',
-					'NotoSerifMalayalam-Regular.ttf',
-				],
-			],
-			'or' => [
-				'baseurl' => 'https://github.com/googlei18n/noto-fonts/raw/master/hinted/',
-				'files' => [
-					'NotoSansOriya-Bold.ttf',
-					'NotoSansOriya-Regular.ttf',
-				],
-			],
-			'te' => [
-				'baseurl' => 'https://github.com/googlei18n/noto-fonts/raw/master/unhinted/',
-				'files' => [
-					'NotoSansTelugu-Bold.ttf',
-					'NotoSansTelugu-Regular.ttf',
-					'NotoSerifTelugu-Bold.ttf',
-					'NotoSerifTelugu-Regular.ttf',
-				],
-			],
-			'zh_HANS' => [
-				'baseurl' => 'https://github.com/googlei18n/noto-cjk/raw/master/',
-				'files' => [
-					'NotoSansCJKsc-Regular.otf',
-					'NotoSansCJKsc-Bold.otf',
-				],
-			],
-			'zh_HANT' => [
-				'baseurl' => 'https://github.com/googlei18n/noto-cjk/raw/master/',
-				'files' => [
-					'NotoSansCJKtc-Light.otf',
-					'NotoSansCJKtc-Regular.otf',
-					'NotoSansCJKtc-Bold.otf',
-				],
-			],
-		];
-
+		$fontpacks = $this->fontPacks();
 		$language_names = $this->getSupportedLanguages();
 
 		foreach ( $fontpacks as $language => $val ) {
 			if ( in_array( $language, $languages, true ) ) {
-				foreach ( $val['files'] as $font ) {
+				foreach ( $val['files'] as $font => $font_url ) {
 					if ( ! file_exists( $basepath . $font ) ) {
 						if ( ! function_exists( 'download_url' ) ) {
 							require_once( ABSPATH . 'wp-admin/includes/file.php' );
 						}
-						$result = download_url( $val['baseurl'] . $font );
+						$result = download_url( $val['baseurl'] . $font_url );
 						if ( is_wp_error( $result ) ) {
-							$_SESSION['pb_errors'][] = sprintf( __( 'Your %1$s font could not be downloaded from %2$s.', 'pressbooks' ), $language_names[ $language ], '<code>' . $val['baseurl'] . $font . '</code>' ) . '<br /><pre>' . $result->get_error_message() . '</pre>';
+							$_SESSION['pb_errors'][] = sprintf( __( 'Your %1$s font could not be downloaded from %2$s.', 'pressbooks' ), $language_names[ $language ], '<code>' . $val['baseurl'] . $font_url . '</code>' ) . '<br /><pre>' . $result->get_error_message() . '</pre>';
 							return false;
 						} else {
 							copy( $result, $basepath . $font );

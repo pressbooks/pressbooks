@@ -18,14 +18,15 @@
 # Ned Zimmerman, 2015
 # Richelle Chartrand <richellechartrand@yahoo.ca>, 2017
 # Steel Wagstaff <steel@pressbooks.com>, 2019
+# Steel Wagstaff <steel@pressbooks.com>, 2019
 # Zoe Wake Hyde <zoe@pressbooks.com>, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
-"POT-Creation-Date: 2019-07-08T20:29:41+00:00\n"
-"PO-Revision-Date: 2019-07-08 20:30+0000\n"
-"Last-Translator: Dac Chartrand <dac@pressbooks.com>\n"
+"POT-Creation-Date: 2019-08-20T14:35:37+00:00\n"
+"PO-Revision-Date: 2019-07-25 15:15+0000\n"
+"Last-Translator: Steel Wagstaff <steel@pressbooks.com>\n"
 "Language-Team: French (http://www.transifex.com/pressbooks/pressbooks/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1717,14 +1718,14 @@ msgstr "Laisser les utilisateurs produire le format « Common Cartridge » ave
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:117
 msgid "Iframe Whitelist"
-msgstr ""
+msgstr "Liste blanche Whitelist"
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:122
 msgid ""
 "To whitelist all content from a domain: <code>guide.pressbooks.com</code> To"
 " whitelist a path: <code>//guide.pressbooks.com/some/path/</code> One per "
 "line."
-msgstr ""
+msgstr "Pour ajouter tous les contenus d'un domaine à la liste blanche:<code>guide.pressbooks.com</code> Pour ajouter un chemin d'accès à la liste blanche: <code>//guide.pressbooks.com/quelque/chemin/</code> Un par ligne."
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:138
 msgid "Sharing and Privacy settings."
@@ -2147,7 +2148,7 @@ msgstr "Symbole de %s"
 
 #: inc/class-licensing.php:399
 msgid "%1$s by %2$s is licensed under a %3$s, except where otherwise noted."
-msgstr "%1$s de %2$sest sous une licence %3$s, sauf indication contraire."
+msgstr "%1$s de %2$s est sous une licence %3$s, sauf indication contraire."
 
 #: inc/class-licensing.php:418 inc/class-licensing.php:428
 msgid "Icon for the %s license"
@@ -2160,11 +2161,11 @@ msgstr "Cette oeuvre (%1$s de %2$s) n&rsquo;a aucune restriction de droit d’au
 #: inc/class-mathjax.php:154 inc/class-mathjax.php:155
 #: templates/admin/mathjax.blade.php:2
 msgid "MathJax"
-msgstr ""
+msgstr "MathJax"
 
 #: inc/class-mathjax.php:175
 msgid "<code>PB_MATHJAX_URL</code> is not configured."
-msgstr ""
+msgstr "<code>PB_MATHJAX_URL</code> n'est pas configuré."
 
 #: inc/class-sass.php:199
 msgid ""
@@ -2472,27 +2473,27 @@ msgstr "Ombragé"
 
 #: inc/editor/namespace.php:303
 msgid "Full Grid"
-msgstr ""
+msgstr "Grille Complète"
 
 #: inc/editor/namespace.php:307
 msgid "Standard Landscape*"
-msgstr ""
+msgstr "Paysage Standard*"
 
 #: inc/editor/namespace.php:311
 msgid "No lines Landscape*"
-msgstr ""
+msgstr "Paysage sans lignes*"
 
 #: inc/editor/namespace.php:315
 msgid "Lines Landscape*"
-msgstr ""
+msgstr "Paysage avec lignes*"
 
 #: inc/editor/namespace.php:319
 msgid "Shaded Landscape*"
-msgstr ""
+msgstr "Paysage ombragé*"
 
 #: inc/editor/namespace.php:323
 msgid "Full Grid Landscape*"
-msgstr ""
+msgstr "Paysage de grille complète*"
 
 #: inc/editor/namespace.php:333 inc/editor/namespace.php:347
 msgid "Border"
@@ -3977,14 +3978,14 @@ msgstr "Appliquer la catégorie"
 
 #. translators: 1: URL to Composer documentation, 2: URL to Pressbooks latest
 #. releases
-#: pressbooks.php:75
+#: pressbooks.php:77
 msgid ""
 "Pressbooks dependencies are missing. Please make sure that your "
 "project&rsquo;s <a href=\"%1$s\">Composer autoload file</a> is being "
 "required, or use the <a href=\"%2$s\">latest release</a> instead."
 msgstr "Dépendances Pressbooks manquantes. Veuillez vous assurer que le <a href=\"%1$s\">fichier d&rsquo;autochargement Composer</a> de votre projet soit obligatoire, ou utilisez la<a href=\"%2$s\">dernière version</a>."
 
-#: pressbooks.php:86
+#: pressbooks.php:88
 msgid "Cannot find Pressbooks install."
 msgstr "Erreur lors de ld&rsquo;installation de Pressbooks."
 
@@ -4377,39 +4378,39 @@ msgstr "Créer un site"
 
 #: assets/src/scripts/a11y.js:34 assets/src/scripts/a11y.js:35
 msgid "Gradient selector"
-msgstr ""
+msgstr "Sélecteur de gradient"
 
 #: assets/src/scripts/a11y.js:48
 msgid "Black"
-msgstr ""
+msgstr "Noir"
 
 #: assets/src/scripts/a11y.js:51
 msgid "White"
-msgstr ""
+msgstr "Blanc"
 
 #: assets/src/scripts/a11y.js:54
 msgid "Red"
-msgstr ""
+msgstr "Rouge"
 
 #: assets/src/scripts/a11y.js:57
 msgid "Orange"
-msgstr ""
+msgstr "Orange"
 
 #: assets/src/scripts/a11y.js:60
 msgid "Yellow"
-msgstr ""
+msgstr "Jaune"
 
 #: assets/src/scripts/a11y.js:63
 msgid "Green"
-msgstr ""
+msgstr "Vert"
 
 #: assets/src/scripts/a11y.js:66
 msgid "Blue"
-msgstr ""
+msgstr "Bleu"
 
 #: assets/src/scripts/a11y.js:69
 msgid "Purple"
-msgstr ""
+msgstr "Pourpre"
 
 #: templates/admin/diagnostics.blade.php:5
 msgid "Please submit this information with any bug reports."
@@ -4501,59 +4502,59 @@ msgstr "Inconnu"
 msgid ""
 "If you can see a big integral, then PB-MathJax is configured correctly, and "
 "all is well."
-msgstr ""
+msgstr "Si vous pouvez voir une grande intégrale, PB-MathJax est configuré correctement et tout va bien."
 
 #: templates/admin/mathjax.blade.php:10
 msgid "Syntax"
-msgstr ""
+msgstr "Syntaxe"
 
 #: templates/admin/mathjax.blade.php:13
 msgid "LaTeX"
-msgstr ""
+msgstr "LaTeX"
 
 #: templates/admin/mathjax.blade.php:15 templates/admin/mathjax.blade.php:26
 msgid "Shortcode syntax: %s"
-msgstr ""
+msgstr "Syntaxe shortcode: %s"
 
 #: templates/admin/mathjax.blade.php:19 templates/admin/mathjax.blade.php:30
 msgid "Dollar sign syntax: %s"
-msgstr ""
+msgstr "Syntaxe du signe dollar: %s"
 
 #: templates/admin/mathjax.blade.php:24
 msgid "AsciiMath"
-msgstr ""
+msgstr "AsciiMath"
 
 #: templates/admin/mathjax.blade.php:35
 msgid "MathML"
-msgstr ""
+msgstr "MathML"
 
 #: templates/admin/mathjax.blade.php:37
 msgid "Markup syntax: %s"
-msgstr ""
+msgstr "Syntaxe de balisage: %s"
 
 #: templates/admin/mathjax.blade.php:44
 msgid "Text color"
-msgstr ""
+msgstr "Couleur du texte"
 
 #: templates/admin/mathjax.blade.php:47
 msgid ""
 "A six digit hexadecimal number like <code>000000</code> or "
 "<code>ffffff</code>"
-msgstr ""
+msgstr "Un nombre hexadécimal à six chiffres comme <code>000000</code> ou <code>ffffff</code>"
 
 #: templates/admin/mathjax.blade.php:52
 msgid "SVG/PNG Fonts"
-msgstr ""
+msgstr "SVG/PNG fontes de caractères"
 
 #: templates/admin/mathjax.blade.php:58
 msgid ""
 "Affects exports (PDF, EPUB, MOBI.) Webbook uses CommonHTML. CommonHTML "
 "currently only supports MathJax’s default TeX fonts."
-msgstr ""
+msgstr "Affecte les exportations (PDF, EPUB, MOBI.) Le livre Web utilise CommonHTML. Au présent, CommonHTML ne prend en charge que les polices TeX par défaut de MathJax."
 
 #: templates/admin/mathjax.blade.php:64
 msgid "Save Changes"
-msgstr ""
+msgstr "Sauvegarder les modifications"
 
 #: templates/admin/sitemap.blade.php:3
 msgid "Admin Bar"

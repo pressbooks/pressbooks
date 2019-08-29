@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
-"POT-Creation-Date: 2019-07-08T20:29:41+00:00\n"
+"POT-Creation-Date: 2019-08-20T14:35:37+00:00\n"
 "PO-Revision-Date: 2019-07-08 20:30+0000\n"
 "Last-Translator: Dac Chartrand <dac@pressbooks.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/pressbooks/pressbooks/language/zh_CN/)\n"
@@ -3951,14 +3951,14 @@ msgstr "应用CSS类"
 
 #. translators: 1: URL to Composer documentation, 2: URL to Pressbooks latest
 #. releases
-#: pressbooks.php:75
+#: pressbooks.php:77
 msgid ""
 "Pressbooks dependencies are missing. Please make sure that your "
 "project&rsquo;s <a href=\"%1$s\">Composer autoload file</a> is being "
 "required, or use the <a href=\"%2$s\">latest release</a> instead."
 msgstr ""
 
-#: pressbooks.php:86
+#: pressbooks.php:88
 msgid "Cannot find Pressbooks install."
 msgstr "未能找到Pressbooks安装。"
 

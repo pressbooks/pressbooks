@@ -251,7 +251,7 @@ class MetadataTest extends \WP_UnitTestCase {
 		];
 
 		$section_schema = [
-			'@context' => 'http://bib.schema.org',
+			'@context' => 'http://schema.org',
 			'@type' => 'Chapter',
 			'author' => [
 				'@type' => 'Person',
