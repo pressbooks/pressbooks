@@ -64,6 +64,7 @@ class Activation {
 		// See add_action( 'wp_initialize_site', 'wp_initialize_site', 10, 2 );
 		add_action( 'wp_initialize_site', [ $obj, 'wpmuNewBlog' ], 11, 2 );
 		add_action( 'user_register', [ $obj, 'forcePbColors' ] );
+		add_filter( 'get_user_option_admin_color', [ $obj, 'defaultAdminColor' ], 10, 2 );
 	}
 
 	/**
@@ -428,6 +429,19 @@ class Activation {
 		}
 
 		update_user_option( $user_id, 'admin_color', 'pb_colors', true );
+	}
+
+	/**
+	 * @param string $result
+	 * @param string $option
+	 *
+	 * @return string
+	 */
+	public function defaultAdminColor( $result, $option ) {
+		if ( $option === 'admin_color' && $result === 'fresh' ) {
+			return 'pb_colors';
+		}
+		return $result;
 	}
 
 }
