@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
-"POT-Creation-Date: 2019-08-20T14:35:37+00:00\n"
-"PO-Revision-Date: 2019-07-08 20:30+0000\n"
+"POT-Creation-Date: 2019-09-04T18:38:47+00:00\n"
+"PO-Revision-Date: 2019-09-04 18:39+0000\n"
 "Last-Translator: Dac Chartrand <dac@pressbooks.com>\n"
 "Language-Team: Tamil (http://www.transifex.com/pressbooks/pressbooks/language/ta/)\n"
 "MIME-Version: 1.0\n"
@@ -23,7 +23,7 @@ msgstr ""
 "Language: ta\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Domain: pressbooks\n"
-"X-Generator: WP-CLI 2.2.0\n"
+"X-Generator: WP-CLI 2.3.0\n"
 
 #. Plugin Name of the plugin
 msgid "Pressbooks"
@@ -42,7 +42,7 @@ msgstr ""
 msgid "Pressbooks (Book Oven Inc.)"
 msgstr ""
 
-#: compatibility.php:103 inc/class-activation.php:312
+#: compatibility.php:103 inc/class-activation.php:313
 msgid "Simple Book Publishing"
 msgstr "எளியமுறையில் நூல் வெளியீடு"
 
@@ -189,7 +189,7 @@ msgstr "பட்டியல் நிலை"
 msgid "Privacy Status"
 msgstr "தனியுரிமை நிலை"
 
-#: inc/admin/class-catalog-list-table.php:171 inc/class-activation.php:223
+#: inc/admin/class-catalog-list-table.php:171 inc/class-activation.php:224
 #: inc/modules/export/epub/class-epub201.php:928 tests/test-cloner.php:58
 msgid "Cover"
 msgstr "மேல் அட்டை"
@@ -227,7 +227,7 @@ msgid "Public"
 msgstr "பொதுவான "
 
 #: inc/admin/class-catalog-list-table.php:461 inc/admin/laf/namespace.php:417
-#: inc/admin/laf/namespace.php:584 inc/admin/laf/namespace.php:813
+#: inc/admin/laf/namespace.php:585 inc/admin/laf/namespace.php:814
 msgid "My Catalog"
 msgstr "என் பட்டியல்"
 
@@ -447,7 +447,7 @@ msgid "Author (Spine)"
 msgstr ""
 
 #: inc/admin/covergenerator/namespace.php:124 inc/admin/laf/namespace.php:83
-#: inc/class-activation.php:233 templates/admin/catalog.php:98
+#: inc/class-activation.php:234 templates/admin/catalog.php:98
 msgid "About"
 msgstr "பற்றி"
 
@@ -648,7 +648,7 @@ msgstr ""
 msgid "My Book"
 msgstr "என் நூல்"
 
-#: inc/admin/dashboard/namespace.php:82 inc/admin/laf/namespace.php:744
+#: inc/admin/dashboard/namespace.php:82 inc/admin/laf/namespace.php:745
 msgid "Users"
 msgstr "பயனாளர்கள்"
 
@@ -674,7 +674,7 @@ msgstr ""
 msgid "at"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:133 inc/admin/laf/namespace.php:823
+#: inc/admin/dashboard/namespace.php:133 inc/admin/laf/namespace.php:824
 msgid "Create A New Book"
 msgstr ""
 
@@ -686,7 +686,7 @@ msgstr ""
 
 #: inc/admin/dashboard/namespace.php:154
 #: inc/api/endpoints/controller/class-books.php:132
-#: inc/class-activation.php:228
+#: inc/class-activation.php:229
 #: inc/modules/export/epub/templates/epub3/toc.php:26
 #: inc/modules/themeoptions/class-pdfoptions.php:252 tests/test-cloner.php:63
 msgid "Table of Contents"
@@ -723,8 +723,8 @@ msgid "%1$s total users: "
 msgstr ""
 
 #: inc/admin/dashboard/namespace.php:308 inc/admin/dashboard/namespace.php:309
-#: inc/admin/laf/namespace.php:728 inc/admin/laf/namespace.php:795
-#: inc/admin/laf/namespace.php:879
+#: inc/admin/laf/namespace.php:729 inc/admin/laf/namespace.php:796
+#: inc/admin/laf/namespace.php:880
 msgid "Dashboard"
 msgstr "கட்டுப்பாட்டகம்"
 
@@ -787,7 +787,7 @@ msgstr ""
 msgid "Stylesheet regenerated."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:64 inc/admin/laf/namespace.php:688
+#: inc/admin/laf/namespace.php:64 inc/admin/laf/namespace.php:689
 msgid "Contact"
 msgstr "தொடர்பு"
 
@@ -960,7 +960,7 @@ msgid ""
 msgstr ""
 
 #: inc/admin/laf/namespace.php:349 inc/admin/laf/namespace.php:564
-#: inc/admin/laf/namespace.php:1364
+#: inc/admin/laf/namespace.php:1365
 #: inc/admin/network/class-sharingandprivacyoptions.php:304
 msgid "Sharing and Privacy Settings"
 msgstr ""
@@ -994,48 +994,48 @@ msgid ""
 "sure?"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:641 inc/admin/laf/namespace.php:652
+#: inc/admin/laf/namespace.php:642 inc/admin/laf/namespace.php:653
 msgid "About Pressbooks"
 msgstr "பிரஸ்புக்ஸ் பற்றி"
 
-#: inc/admin/laf/namespace.php:663
+#: inc/admin/laf/namespace.php:664
 msgid "Pressbooks.com"
 msgstr "பிரஸ்புக்ஸ்.காம்"
 
-#: inc/admin/laf/namespace.php:673
+#: inc/admin/laf/namespace.php:674
 msgid "Help"
 msgstr "உதவி"
 
-#: inc/admin/laf/namespace.php:717
+#: inc/admin/laf/namespace.php:718
 msgid "Network Admin"
 msgstr "வலைப்பின்னல் நிர்வாகி"
 
-#: inc/admin/laf/namespace.php:736 inc/admin/laf/namespace.php:1419
-#: inc/admin/laf/namespace.php:1429
+#: inc/admin/laf/namespace.php:737 inc/admin/laf/namespace.php:1420
+#: inc/admin/laf/namespace.php:1430
 msgid "Books"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:753
+#: inc/admin/laf/namespace.php:754
 msgid "Themes"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:761
+#: inc/admin/laf/namespace.php:762
 msgid "Plugins"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:803
+#: inc/admin/laf/namespace.php:804
 msgid "Visit Website"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:841
+#: inc/admin/laf/namespace.php:842
 msgid "Clone A Book"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:887
+#: inc/admin/laf/namespace.php:888
 msgid "Visit Book"
 msgstr "புத்தகத்தைப் பார்க்க"
 
-#: inc/admin/laf/namespace.php:1084
+#: inc/admin/laf/namespace.php:1085
 msgid ""
 "Are you sure you want to unlock your theme? This will update your book to "
 "the most recent version of your selected theme, which may change your "
@@ -1043,92 +1043,92 @@ msgid ""
 "page, this action will NOT be reversable!"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1148
+#: inc/admin/laf/namespace.php:1149
 msgid "Book Visibility"
 msgstr "நூல் காண்பு நிலை"
 
-#: inc/admin/laf/namespace.php:1162
+#: inc/admin/laf/namespace.php:1163
 msgid "Private Content"
 msgstr "தனிப்பட்ட கருத்து"
 
-#: inc/admin/laf/namespace.php:1175
+#: inc/admin/laf/namespace.php:1176
 msgid "Disable Comments"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1190
+#: inc/admin/laf/namespace.php:1191
 msgid "Share Latest Export Files"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1208
+#: inc/admin/laf/namespace.php:1209
 msgid "Sharing and Privacy settings"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1224
+#: inc/admin/laf/namespace.php:1225
 msgid "Public. I would like this book to be visible to everyone."
 msgstr "பொது.  நான் இப்புத்தகத்தை எல்லோரும் பார்க்கும் வண்ணம் வைத்திட விரும்புகிறேன். "
 
-#: inc/admin/laf/namespace.php:1230
+#: inc/admin/laf/namespace.php:1231
 msgid ""
 "Private. I would like this book to be accessible only to people I invite."
 msgstr "தனிப்பயனுக்கானது. இந்நூலை நான் அழைப்பவர் மட்டும் காணத்தக்கதாக்க விரும்புகிறேன்."
 
-#: inc/admin/laf/namespace.php:1254
+#: inc/admin/laf/namespace.php:1255
 msgid "Who can see private front matter, chapters and back matter?"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1257
+#: inc/admin/laf/namespace.php:1258
 msgid "Only logged in editors and administrators."
 msgstr "ஆசிரியர்  நிர்வாகி உள்நுழைவு மட்டும்"
 
-#: inc/admin/laf/namespace.php:1259
+#: inc/admin/laf/namespace.php:1260
 msgid "All logged in users including subscribers."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1280
+#: inc/admin/laf/namespace.php:1281
 msgid ""
 "Yes. I want to automatically disable comments, trackbacks and pingbacks on "
 "all front matter, chapters and back matter."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1286
+#: inc/admin/laf/namespace.php:1287
 msgid ""
 "No. I want to leave comments, trackbacks and pingbacks enabled on all front "
 "matter, chapters and back matter unless I disable them manually."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1302
+#: inc/admin/laf/namespace.php:1303
 msgid ""
 "Yes. I would like the latest export files to be available on the homepage "
 "for free, to everyone."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1308
+#: inc/admin/laf/namespace.php:1309
 msgid ""
 "No. I would like the latest export files to only be available to "
 "administrators."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1422
+#: inc/admin/laf/namespace.php:1423
 msgid "All Books"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1432
+#: inc/admin/laf/namespace.php:1433
 msgid "Search Books"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1438
+#: inc/admin/laf/namespace.php:1439
 msgid "Edit Book: %s"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1441 inc/admin/laf/namespace.php:1450
+#: inc/admin/laf/namespace.php:1442 inc/admin/laf/namespace.php:1451
 msgid "Book Address (URL)"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1447
+#: inc/admin/laf/namespace.php:1448
 msgid "Add New Book"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1453
+#: inc/admin/laf/namespace.php:1454
 #: inc/modules/themeoptions/class-pdfoptions.php:338
 #: inc/modules/themeoptions/class-pdfoptions.php:357
 #: inc/modules/themeoptions/class-pdfoptions.php:376
@@ -1142,23 +1142,23 @@ msgstr ""
 msgid "Book Title"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1456
+#: inc/admin/laf/namespace.php:1457
 msgid "Book Language"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1459
+#: inc/admin/laf/namespace.php:1460
 msgid "Add Book"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1476
+#: inc/admin/laf/namespace.php:1477
 msgid "Edit previous or next item"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1481
+#: inc/admin/laf/namespace.php:1482
 msgid "Edit Previous (%s)"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1486
+#: inc/admin/laf/namespace.php:1487
 msgid "Edit Next (%s)"
 msgstr ""
 
@@ -1338,8 +1338,8 @@ msgstr ""
 #: inc/admin/metaboxes/namespace.php:350 inc/class-licensing.php:297
 #: inc/modules/export/epub/class-epub201.php:1135
 #: inc/modules/export/epub/class-epub201.php:1161
-#: inc/modules/export/epub/templates/epub201/opf.php:87
 #: inc/modules/export/epub/templates/epub3/opf.php:94
+#: inc/modules/export/epub/templates/epub201/opf.php:87
 #: inc/modules/export/htmlbook/class-htmlbook.php:863
 #: inc/modules/export/xhtml/class-xhtml11.php:990
 msgid "Copyright"
@@ -1793,51 +1793,51 @@ msgstr ""
 msgid "Failed to update chapter part"
 msgstr ""
 
-#: inc/class-activation.php:190
+#: inc/class-activation.php:191
 msgid "Main Body"
 msgstr "மையப் பகுதி"
 
-#: inc/class-activation.php:196 tests/test-book.php:49
+#: inc/class-activation.php:197 tests/test-book.php:49
 msgid "Introduction"
 msgstr "அறிமுகம்"
 
-#: inc/class-activation.php:198 tests/test-book.php:90
+#: inc/class-activation.php:199 tests/test-book.php:90
 msgid "This is where you can write your introduction."
 msgstr "இது உங்களுக்கான இடம்!  அறிமுகப்படுத்திக் கொள்ளலாமே!"
 
-#: inc/class-activation.php:203
+#: inc/class-activation.php:204
 msgid "Chapter 1"
 msgstr "அதிகாரம் 1"
 
-#: inc/class-activation.php:205
+#: inc/class-activation.php:206
 msgid ""
 "This is the first chapter in the main body of the text. You can change the "
 "text, rename the chapter, add new chapters, and add new parts."
 msgstr "இதுவே உங்கள் நூலின் முதன்மைப் பகுதியின் முதல் அதிகாரம் ஆகும். நீங்கள் உரையைத் திருத்தலாம்; அதிகாரத்தை மறுபெயரிடலாம்; புதிய அதிகாரத்தையையோ  புதிய பகுதியையோ சேர்க்கலாம்."
 
-#: inc/class-activation.php:210
+#: inc/class-activation.php:211
 msgid "Appendix"
 msgstr "பிற்சேர்க்கை"
 
-#: inc/class-activation.php:212
+#: inc/class-activation.php:213
 msgid "This is where you can add appendices or other back matter."
 msgstr "நூலின் பின்னிணைப்புகளையும் பிற்பகுதிகளையும் இங்கே சேர்க்கலாம்."
 
-#: inc/class-activation.php:218 templates/admin/organize.php:123
+#: inc/class-activation.php:219 templates/admin/organize.php:123
 #: templates/admin/organize.php:210 templates/admin/organize.php:284
 #: templates/admin/organize.php:369 tests/test-cloner.php:53
 msgid "Authors"
 msgstr "நூல் ஆசிரியர்கள் "
 
-#: inc/class-activation.php:238
+#: inc/class-activation.php:239
 msgid "Buy"
 msgstr "வாங்குக "
 
-#: inc/class-activation.php:243
+#: inc/class-activation.php:244
 msgid "Access Denied"
 msgstr "ஒப்புதல் இல்லை"
 
-#: inc/class-activation.php:245
+#: inc/class-activation.php:246
 msgid ""
 "This book is private, and accessible only to registered users. If you have "
 "an account you can login <a href=\"/wp-login.php\">here</a>. You can also "
@@ -1845,25 +1845,25 @@ msgid ""
 "href=\"http://pressbooks.com\">Pressbooks.com</a>."
 msgstr ""
 
-#: inc/class-activation.php:250 inc/class-customcss.php:95
+#: inc/class-activation.php:251 inc/class-customcss.php:95
 msgid "Custom CSS for Ebook"
 msgstr "மின்னூலுக்கான தனி CSS "
 
-#: inc/class-activation.php:255 inc/class-customcss.php:100
+#: inc/class-activation.php:256 inc/class-customcss.php:100
 msgid "Custom CSS for PDF"
 msgstr "PDFக்கான தனி CSS "
 
-#: inc/class-activation.php:260 inc/class-customcss.php:105
+#: inc/class-activation.php:261 inc/class-customcss.php:105
 msgid "Custom CSS for Web"
 msgstr "இணையத்திற்கான தனி CSS"
 
-#: inc/class-activation.php:266 inc/posttype/namespace.php:165
+#: inc/class-activation.php:267 inc/posttype/namespace.php:165
 #: inc/posttype/namespace.php:166 inc/posttype/namespace.php:529
 #: templates/admin/import.php:104
 msgid "Book Information"
 msgstr "நூல் பற்றிய விவரங்கள்"
 
-#: inc/class-activation.php:297
+#: inc/class-activation.php:298
 msgid "Default Data"
 msgstr "இயல்புத் தரவுகள்"
 
@@ -2040,7 +2040,7 @@ msgstr ""
 msgid "Turkish"
 msgstr ""
 
-#: inc/class-globaltypography.php:402
+#: inc/class-globaltypography.php:412
 msgid "Your %1$s font could not be downloaded from %2$s."
 msgstr ""
 
@@ -2116,8 +2116,8 @@ msgstr ""
 
 #: inc/class-licensing.php:299 inc/class-styles.php:711
 #: inc/modules/export/epub/class-epub201.php:1144
-#: inc/modules/export/epub/templates/epub201/opf.php:96
 #: inc/modules/export/epub/templates/epub3/opf.php:103
+#: inc/modules/export/epub/templates/epub201/opf.php:96
 #: inc/modules/export/htmlbook/class-htmlbook.php:872
 #: inc/modules/export/xhtml/class-xhtml11.php:999
 msgid "by"
@@ -2711,8 +2711,8 @@ msgstr "பொருளடக்கம்"
 msgid "Contents"
 msgstr "உள்ளடக்கம்"
 
-#: inc/modules/export/epub/templates/epub201/opf.php:52
 #: inc/modules/export/epub/templates/epub3/opf.php:56
+#: inc/modules/export/epub/templates/epub201/opf.php:52
 msgid "Authored by: "
 msgstr ""
 
@@ -2730,8 +2730,8 @@ msgstr ""
 
 #: inc/modules/export/namespace.php:95
 #: inc/modules/themeoptions/class-globaloptions.php:389
-#: inc/utility/namespace.php:1308 inc/utility/namespace.php:1313
-#: inc/utility/namespace.php:1333 inc/utility/namespace.php:1339
+#: inc/utility/namespace.php:1310 inc/utility/namespace.php:1315
+#: inc/utility/namespace.php:1335 inc/utility/namespace.php:1341
 #: templates/admin/covergenerator.php:53
 msgid "and"
 msgstr "மற்றும்"
@@ -3667,19 +3667,19 @@ msgstr ""
 msgid "Error: Unknown export format."
 msgstr "பிழை : எமக்குத் தெரியாத ஏற்றுமதி வடிவம்"
 
-#: inc/redirect/namespace.php:367
+#: inc/redirect/namespace.php:372
 msgid "File not found"
 msgstr "கோப்பு கிடைக்கவில்லை"
 
-#: inc/redirect/namespace.php:454
+#: inc/redirect/namespace.php:459
 msgid "Unsupported post type."
 msgstr "ஆதரவற்ற பதிவு வகை."
 
-#: inc/redirect/namespace.php:488
+#: inc/redirect/namespace.php:493
 msgid "Unsupported taxonomy."
 msgstr ""
 
-#: inc/redirect/namespace.php:512
+#: inc/redirect/namespace.php:517
 msgid "You do not have sufficient permissions to access that URL."
 msgstr "உங்களுக்கு இந்தத் தளமுகவரியை அணுக, போதிய அனுமதி இல்லை."
 
@@ -3777,34 +3777,56 @@ msgid ""
 "href=\"%2$s\">Log in</a>"
 msgstr ""
 
-#: inc/registration/namespace.php:106
+#: inc/registration/namespace.php:105
 msgid "Password"
 msgstr "ரகசிய சொல்"
 
-#: inc/registration/namespace.php:112
+#: inc/registration/namespace.php:110
 msgid "Type in your password."
 msgstr "உங்கள் ரகசிய சொல்லை தட்டச்சு செய்க "
 
-#: inc/registration/namespace.php:114
+#: inc/registration/namespace.php:111
 msgid "Confirm Password"
 msgstr "ரகசிய சொல் உறுதி செய் "
 
-#: inc/registration/namespace.php:117
+#: inc/registration/namespace.php:113
 msgid "Type in your password again."
 msgstr "மீண்டும் உங்கள் கடவுச்சொல்லை உள்ளிடுக."
 
-#: inc/registration/namespace.php:129 inc/registration/namespace.php:162
-#: inc/registration/namespace.php:184 inc/registration/namespace.php:203
+#: inc/registration/namespace.php:114
+msgid ""
+"Password must be at least 12 characters in length, include at least one "
+"upper case letter, and have at least one number."
+msgstr ""
+
+#: inc/registration/namespace.php:128 inc/registration/namespace.php:168
+#: inc/registration/namespace.php:187 inc/registration/namespace.php:206
 msgid "Please try again."
 msgstr "மீண்டும் முயற்சிக்க"
 
-#: inc/registration/namespace.php:139
+#: inc/registration/namespace.php:138
 msgid "You have to enter a password."
 msgstr "நீங்கள்  கடவுச்சொல்லை உள்ளிட வேண்டும்"
 
-#: inc/registration/namespace.php:145
+#: inc/registration/namespace.php:144
 msgid "Passwords do not match."
 msgstr "கடவுச்சொற்கள் பொருந்தவில்லை."
+
+#: inc/registration/namespace.php:333
+msgid "Password must be at least 12 characters."
+msgstr ""
+
+#: inc/registration/namespace.php:337
+msgid "Password must include at least one upper case letter."
+msgstr ""
+
+#: inc/registration/namespace.php:341
+msgid "Password must include at least one lower case letter."
+msgstr ""
+
+#: inc/registration/namespace.php:345
+msgid "Password must include at least one number."
+msgstr ""
 
 #: inc/shortcodes/attributions/class-attachments.php:200
 msgid " by "
@@ -3874,20 +3896,20 @@ msgstr ""
 msgid " (%1$d of %2$d)"
 msgstr ""
 
-#: inc/utility/namespace.php:602 inc/utility/namespace.php:613
-#: inc/utility/namespace.php:628
+#: inc/utility/namespace.php:604 inc/utility/namespace.php:615
+#: inc/utility/namespace.php:630
 msgid ""
 "An unexpected error occurred. Something may be wrong with the plugin "
 "recommendations server or your site&#8217;s server&#8217;s configuration."
 msgstr ""
 
-#: inc/utility/namespace.php:602
+#: inc/utility/namespace.php:604
 msgid ""
 "(Pressbooks could not establish a secure connection to the plugin "
 "recommendations server. Please contact your server administrator.)"
 msgstr ""
 
-#: inc/utility/namespace.php:652
+#: inc/utility/namespace.php:654
 msgid ""
 "These plugins have been created and/or recommended by the Pressbooks "
 "community."
