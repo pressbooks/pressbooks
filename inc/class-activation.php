@@ -63,6 +63,7 @@ class Activation {
 		// $priority must be after the database tables are created
 		// See add_action( 'wp_initialize_site', 'wp_initialize_site', 10, 2 );
 		add_action( 'wp_initialize_site', [ $obj, 'wpmuNewBlog' ], 11, 2 );
+		add_action( 'wp_initialize_site', [ $obj, 'wpmuNewBlogRedirect' ], 999 );
 		add_action( 'user_register', [ $obj, 'forcePbColors' ] );
 		add_filter( 'get_user_option_admin_color', [ $obj, 'defaultAdminColor' ], 10, 2 );
 	}
@@ -125,7 +126,12 @@ class Activation {
 		do_action( 'pressbooks_new_blog' );
 
 		restore_current_blog();
+	}
 
+	/**
+	 * Determine whether or not to redirect the user to the new book's dashboard
+	 */
+	public function wpmuNewBlogRedirect() {
 		if ( is_user_logged_in() ) {
 			( new \Pressbooks\Catalog() )->deleteCache();
 			/**
@@ -139,7 +145,6 @@ class Activation {
 				\Pressbooks\Redirect\location( get_admin_url( $this->blog_id ) );
 			}
 		}
-
 	}
 
 
