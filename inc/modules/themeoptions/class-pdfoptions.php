@@ -133,7 +133,7 @@ class PDFOptions extends \Pressbooks\Options {
 			$_page,
 			$_section,
 			[
-				__( 'Page width must be expressed in CSS-compatible units, e.g. &lsquo;5.5in&rsquo; or &lsquo;10cm&rsquo;.' ),
+				__( 'Page width must be expressed in CSS-compatible units, e.g. &lsquo;5.5in&rsquo; or &lsquo;10cm&rsquo;.', 'pressbooks' ),
 				'label_for' => 'pdf_page_width',
 			]
 		);
@@ -145,7 +145,7 @@ class PDFOptions extends \Pressbooks\Options {
 			$_page,
 			$_section,
 			[
-				__( 'Page height must be expressed in CSS-compatible units, e.g. &lsquo;8.5in&rsquo; or &lsquo;10cm&rsquo;.' ),
+				__( 'Page height must be expressed in CSS-compatible units, e.g. &lsquo;8.5in&rsquo; or &lsquo;10cm&rsquo;.', 'pressbooks' ),
 				'label_for' => 'pdf_page_height',
 			]
 		);
@@ -727,7 +727,10 @@ class PDFOptions extends \Pressbooks\Options {
 	 */
 	function renderPageSizeField( $args ) {
 		unset( $args['label_for'], $args['class'] );
+		// Prior to VERSION 1, pdf_page_size was an <option> value (1, 2, 3, ...)
 		if ( ! isset( $this->options['pdf_page_size'] ) ) {
+			// Map pdf_page_width and pdf_page_width to pdf_page_size
+			// Make the form simpler, allowing for customization
 			if ( isset( $this->options['pdf_page_width'] ) && isset( $this->options['pdf_page_height'] ) ) {
 				if ( '5.5in' === $this->options['pdf_page_width'] && '8.5in' === $this->options['pdf_page_height'] ) {
 					$this->options['pdf_page_size'] = 1;
