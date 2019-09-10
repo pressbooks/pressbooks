@@ -133,7 +133,7 @@ class PDFOptions extends \Pressbooks\Options {
 			$_page,
 			$_section,
 			[
-				__( 'Page width must be expressed in CSS-compatible units, e.g. &lsquo;5.5in&rsquo; or &lsquo;10cm&rsquo;.' ),
+				__( 'Page width must be expressed in CSS-compatible units, e.g. &lsquo;5.5in&rsquo; or &lsquo;10cm&rsquo;.', 'pressbooks' ),
 				'label_for' => 'pdf_page_width',
 			]
 		);
@@ -145,7 +145,7 @@ class PDFOptions extends \Pressbooks\Options {
 			$_page,
 			$_section,
 			[
-				__( 'Page height must be expressed in CSS-compatible units, e.g. &lsquo;8.5in&rsquo; or &lsquo;10cm&rsquo;.' ),
+				__( 'Page height must be expressed in CSS-compatible units, e.g. &lsquo;8.5in&rsquo; or &lsquo;10cm&rsquo;.', 'pressbooks' ),
 				'label_for' => 'pdf_page_height',
 			]
 		);
