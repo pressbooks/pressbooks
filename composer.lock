@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "composer/installers",
-            "version": "v1.6.0",
+            "version": "v1.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/installers.git",
-                "reference": "cfcca6b1b60bc4974324efb5783c13dca6932b5b"
+                "reference": "141b272484481432cda342727a427dc1e206bfa0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/installers/zipball/cfcca6b1b60bc4974324efb5783c13dca6932b5b",
-                "reference": "cfcca6b1b60bc4974324efb5783c13dca6932b5b",
+                "url": "https://api.github.com/repos/composer/installers/zipball/141b272484481432cda342727a427dc1e206bfa0",
+                "reference": "141b272484481432cda342727a427dc1e206bfa0",
                 "shasum": ""
             },
             "require": {
@@ -73,6 +73,7 @@
                 "RadPHP",
                 "SMF",
                 "Thelia",
+                "Whmcs",
                 "WolfCMS",
                 "agl",
                 "aimeos",
@@ -95,6 +96,7 @@
                 "installer",
                 "itop",
                 "joomla",
+                "known",
                 "kohana",
                 "laravel",
                 "lavalite",
@@ -124,7 +126,7 @@
                 "zend",
                 "zikula"
             ],
-            "time": "2018-08-27T06:10:37+00:00"
+            "time": "2019-08-12T15:00:31+00:00"
         },
         {
             "name": "davidgorges/human-name-parser",
@@ -914,16 +916,16 @@
         },
         {
             "name": "johnbillion/extended-cpts",
-            "version": "4.3.1",
+            "version": "4.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnbillion/extended-cpts.git",
-                "reference": "eb4ff89ffbfe8baafa3638a091435b1cd6479f0b"
+                "reference": "6446170b222869e1e0770c130ead47def5261b51"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnbillion/extended-cpts/zipball/eb4ff89ffbfe8baafa3638a091435b1cd6479f0b",
-                "reference": "eb4ff89ffbfe8baafa3638a091435b1cd6479f0b",
+                "url": "https://api.github.com/repos/johnbillion/extended-cpts/zipball/6446170b222869e1e0770c130ead47def5261b51",
+                "reference": "6446170b222869e1e0770c130ead47def5261b51",
                 "shasum": ""
             },
             "require": {
@@ -970,7 +972,7 @@
             ],
             "description": "A library which provides extended functionality to WordPress custom post types and taxonomies.",
             "homepage": "https://github.com/johnbillion/extended-cpts/",
-            "time": "2019-08-13T12:32:52+00:00"
+            "time": "2019-08-25T21:14:07+00:00"
         },
         {
             "name": "masterminds/html5",
@@ -1268,24 +1270,24 @@
         },
         {
             "name": "pressbooks/pb-cli",
-            "version": "2.0.0",
+            "version": "2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pressbooks/pb-cli.git",
-                "reference": "e907c95299221a55f7c713e65a29e579031674ff"
+                "reference": "9fb35e6129bbf51b53408671edce9bee5b75964d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pressbooks/pb-cli/zipball/e907c95299221a55f7c713e65a29e579031674ff",
-                "reference": "e907c95299221a55f7c713e65a29e579031674ff",
+                "url": "https://api.github.com/repos/pressbooks/pb-cli/zipball/9fb35e6129bbf51b53408671edce9bee5b75964d",
+                "reference": "9fb35e6129bbf51b53408671edce9bee5b75964d",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.1"
             },
             "require-dev": {
-                "behat/behat": "~2.5",
-                "wp-cli/i18n-command": "dev-master",
+                "behat/behat": "^2.5",
+                "wp-cli/i18n-command": "^2.1.2",
                 "wp-cli/wp-cli": "^2"
             },
             "type": "wp-cli-package",
@@ -1313,7 +1315,7 @@
             ],
             "description": "A suite of wp-cli commands for Pressbooks.",
             "homepage": "https://github.com/pressbooks/pb-cli/",
-            "time": "2019-03-22T14:21:03+00:00"
+            "time": "2019-07-12T19:01:02+00:00"
         },
         {
             "name": "psr/http-message",
@@ -1454,23 +1456,25 @@
         },
         {
             "name": "scssphp/scssphp",
-            "version": "1.0.3",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/scssphp/scssphp.git",
-                "reference": "616c518333c656eaa23182ac6cfc01453f1e7c78"
+                "reference": "7c292c66db52ede3afbfd6566c8872f3c5b32267"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/scssphp/scssphp/zipball/616c518333c656eaa23182ac6cfc01453f1e7c78",
-                "reference": "616c518333c656eaa23182ac6cfc01453f1e7c78",
+                "url": "https://api.github.com/repos/scssphp/scssphp/zipball/7c292c66db52ede3afbfd6566c8872f3c5b32267",
+                "reference": "7c292c66db52ede3afbfd6566c8872f3c5b32267",
                 "shasum": ""
             },
             "require": {
-                "php": "^5.6.0 || ^7"
+                "ext-ctype": "*",
+                "ext-json": "*",
+                "php": ">=5.6.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "~4.6",
+                "phpunit/phpunit": ">=4.8.36",
                 "squizlabs/php_codesniffer": "~2.5",
                 "twbs/bootstrap": "~4.3",
                 "zurb/foundation": "~6.5"
@@ -1509,7 +1513,7 @@
                 "scss",
                 "stylesheet"
             ],
-            "time": "2019-08-07T20:16:04+00:00"
+            "time": "2019-09-06T16:48:49+00:00"
         },
         {
             "name": "sinergi/browser-detector",
@@ -2502,16 +2506,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "7.5.14",
+            "version": "7.5.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "2834789aeb9ac182ad69bfdf9ae91856a59945ff"
+                "reference": "316afa6888d2562e04aeb67ea7f2017a0eb41661"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/2834789aeb9ac182ad69bfdf9ae91856a59945ff",
-                "reference": "2834789aeb9ac182ad69bfdf9ae91856a59945ff",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/316afa6888d2562e04aeb67ea7f2017a0eb41661",
+                "reference": "316afa6888d2562e04aeb67ea7f2017a0eb41661",
                 "shasum": ""
             },
             "require": {
@@ -2571,8 +2575,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "role": "lead",
-                    "email": "sebastian@phpunit.de"
+                    "email": "sebastian@phpunit.de",
+                    "role": "lead"
                 }
             ],
             "description": "The PHP Unit Testing framework.",
@@ -2582,7 +2586,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2019-07-15T06:24:08+00:00"
+            "time": "2019-09-14T09:08:39+00:00"
         },
         {
             "name": "pressbooks/coding-standards",
