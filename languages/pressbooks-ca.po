@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
-"POT-Creation-Date: 2019-09-04T18:38:47+00:00\n"
-"PO-Revision-Date: 2019-09-04 18:39+0000\n"
+"POT-Creation-Date: 2019-09-16T16:58:44+00:00\n"
+"PO-Revision-Date: 2019-09-16 16:59+0000\n"
 "Last-Translator: Dac Chartrand <dac@pressbooks.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/pressbooks/pressbooks/language/ca/)\n"
 "MIME-Version: 1.0\n"
@@ -37,7 +37,7 @@ msgstr ""
 msgid "Pressbooks (Book Oven Inc.)"
 msgstr ""
 
-#: compatibility.php:103 inc/class-activation.php:313
+#: compatibility.php:103 inc/class-activation.php:318
 msgid "Simple Book Publishing"
 msgstr "La publicació de llibres feta simple"
 
@@ -184,7 +184,7 @@ msgstr "Estat del catàleg"
 msgid "Privacy Status"
 msgstr "Estat de privacitat"
 
-#: inc/admin/class-catalog-list-table.php:171 inc/class-activation.php:224
+#: inc/admin/class-catalog-list-table.php:171 inc/class-activation.php:229
 #: inc/modules/export/epub/class-epub201.php:928 tests/test-cloner.php:58
 msgid "Cover"
 msgstr "Portada"
@@ -442,7 +442,7 @@ msgid "Author (Spine)"
 msgstr ""
 
 #: inc/admin/covergenerator/namespace.php:124 inc/admin/laf/namespace.php:83
-#: inc/class-activation.php:234 templates/admin/catalog.php:98
+#: inc/class-activation.php:239 templates/admin/catalog.php:98
 msgid "About"
 msgstr "Sobre"
 
@@ -681,7 +681,7 @@ msgstr ""
 
 #: inc/admin/dashboard/namespace.php:154
 #: inc/api/endpoints/controller/class-books.php:132
-#: inc/class-activation.php:229
+#: inc/class-activation.php:234
 #: inc/modules/export/epub/templates/epub3/toc.php:26
 #: inc/modules/themeoptions/class-pdfoptions.php:252 tests/test-cloner.php:63
 msgid "Table of Contents"
@@ -1788,51 +1788,51 @@ msgstr ""
 msgid "Failed to update chapter part"
 msgstr ""
 
-#: inc/class-activation.php:191
+#: inc/class-activation.php:196
 msgid "Main Body"
 msgstr "Cos principal"
 
-#: inc/class-activation.php:197 tests/test-book.php:49
+#: inc/class-activation.php:202 tests/test-book.php:49
 msgid "Introduction"
 msgstr "Introducció"
 
-#: inc/class-activation.php:199 tests/test-book.php:90
+#: inc/class-activation.php:204 tests/test-book.php:90
 msgid "This is where you can write your introduction."
 msgstr "Aquí és on pots escriure la teva introducció."
 
-#: inc/class-activation.php:204
+#: inc/class-activation.php:209
 msgid "Chapter 1"
 msgstr "Capítol 1"
 
-#: inc/class-activation.php:206
+#: inc/class-activation.php:211
 msgid ""
 "This is the first chapter in the main body of the text. You can change the "
 "text, rename the chapter, add new chapters, and add new parts."
 msgstr "Aquest és el primer capítol del cos del text. Pots canviar el text, reanomenar el capítol i afegir nous capítols i noves parts."
 
-#: inc/class-activation.php:211
+#: inc/class-activation.php:216
 msgid "Appendix"
 msgstr "Apèndix"
 
-#: inc/class-activation.php:213
+#: inc/class-activation.php:218
 msgid "This is where you can add appendices or other back matter."
 msgstr "Aquí pots afegir un appendix altres tipus de pàgines finals."
 
-#: inc/class-activation.php:219 templates/admin/organize.php:123
+#: inc/class-activation.php:224 templates/admin/organize.php:123
 #: templates/admin/organize.php:210 templates/admin/organize.php:284
 #: templates/admin/organize.php:369 tests/test-cloner.php:53
 msgid "Authors"
 msgstr "Autors"
 
-#: inc/class-activation.php:239
+#: inc/class-activation.php:244
 msgid "Buy"
 msgstr "Compra"
 
-#: inc/class-activation.php:244
+#: inc/class-activation.php:249
 msgid "Access Denied"
 msgstr "Accés denegat"
 
-#: inc/class-activation.php:246
+#: inc/class-activation.php:251
 msgid ""
 "This book is private, and accessible only to registered users. If you have "
 "an account you can login <a href=\"/wp-login.php\">here</a>. You can also "
@@ -1840,25 +1840,25 @@ msgid ""
 "href=\"http://pressbooks.com\">Pressbooks.com</a>."
 msgstr ""
 
-#: inc/class-activation.php:251 inc/class-customcss.php:95
+#: inc/class-activation.php:256 inc/class-customcss.php:95
 msgid "Custom CSS for Ebook"
 msgstr "CSS personalitzat per al llibre electrònic"
 
-#: inc/class-activation.php:256 inc/class-customcss.php:100
+#: inc/class-activation.php:261 inc/class-customcss.php:100
 msgid "Custom CSS for PDF"
 msgstr "CSS personalitzat per a PDF"
 
-#: inc/class-activation.php:261 inc/class-customcss.php:105
+#: inc/class-activation.php:266 inc/class-customcss.php:105
 msgid "Custom CSS for Web"
 msgstr "CSS personalitzat per a la web"
 
-#: inc/class-activation.php:267 inc/posttype/namespace.php:165
+#: inc/class-activation.php:272 inc/posttype/namespace.php:165
 #: inc/posttype/namespace.php:166 inc/posttype/namespace.php:529
 #: templates/admin/import.php:104
 msgid "Book Information"
 msgstr "Informació del llibre"
 
-#: inc/class-activation.php:298
+#: inc/class-activation.php:303
 msgid "Default Data"
 msgstr "Dades per defecte"
 
@@ -3206,9 +3206,21 @@ msgstr "5&quot; &times; 8&quot;"
 msgid "Page Width"
 msgstr "Ample de pàgina"
 
+#: inc/modules/themeoptions/class-pdfoptions.php:136
+msgid ""
+"Page width must be expressed in CSS-compatible units, e.g. "
+"&lsquo;5.5in&rsquo; or &lsquo;10cm&rsquo;."
+msgstr ""
+
 #: inc/modules/themeoptions/class-pdfoptions.php:143
 msgid "Page Height"
 msgstr "Alçada de pàgina"
+
+#: inc/modules/themeoptions/class-pdfoptions.php:148
+msgid ""
+"Page height must be expressed in CSS-compatible units, e.g. "
+"&lsquo;8.5in&rsquo; or &lsquo;10cm&rsquo;."
+msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:156
 msgid "Margins"
@@ -3219,7 +3231,7 @@ msgid "Customize your book&rsquo;s margins using the fields below."
 msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:167
-#: inc/modules/themeoptions/class-pdfoptions.php:832
+#: inc/modules/themeoptions/class-pdfoptions.php:835
 msgid "Outside Margin"
 msgstr "Marge exterior"
 
@@ -3233,17 +3245,17 @@ msgid ""
 msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:179
-#: inc/modules/themeoptions/class-pdfoptions.php:833
+#: inc/modules/themeoptions/class-pdfoptions.php:836
 msgid "Inside Margin"
 msgstr "Marge interior"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:191
-#: inc/modules/themeoptions/class-pdfoptions.php:834
+#: inc/modules/themeoptions/class-pdfoptions.php:837
 msgid "Top Margin"
 msgstr "Marge superior"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:203
-#: inc/modules/themeoptions/class-pdfoptions.php:835
+#: inc/modules/themeoptions/class-pdfoptions.php:838
 msgid "Bottom Margin"
 msgstr "Marge inferior"
 
@@ -3486,13 +3498,13 @@ msgstr ""
 msgid "These options apply to PDF exports."
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:840
+#: inc/modules/themeoptions/class-pdfoptions.php:843
 msgid ""
 "IMPORTANT: If you plan to use a print-on-demand service, margins under 2cm "
 "on any side can cause your file to be rejected."
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:1404
+#: inc/modules/themeoptions/class-pdfoptions.php:1407
 msgid "PDF Options"
 msgstr "Opcions de PDF"
 

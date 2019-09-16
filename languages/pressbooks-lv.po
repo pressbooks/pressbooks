@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
-"POT-Creation-Date: 2019-09-04T18:38:47+00:00\n"
-"PO-Revision-Date: 2019-09-04 18:39+0000\n"
+"POT-Creation-Date: 2019-09-16T16:58:44+00:00\n"
+"PO-Revision-Date: 2019-09-16 16:59+0000\n"
 "Last-Translator: Dac Chartrand <dac@pressbooks.com>\n"
 "Language-Team: Latvian (http://www.transifex.com/pressbooks/pressbooks/language/lv/)\n"
 "MIME-Version: 1.0\n"
@@ -35,7 +35,7 @@ msgstr "Vienkārša grāmatu ražošana"
 msgid "Pressbooks (Book Oven Inc.)"
 msgstr "Pressbooks (Book Oven Inc.)"
 
-#: compatibility.php:103 inc/class-activation.php:313
+#: compatibility.php:103 inc/class-activation.php:318
 msgid "Simple Book Publishing"
 msgstr "Vienkāršais grāmatizdevējdarbs"
 
@@ -182,7 +182,7 @@ msgstr "Kataloga statuss "
 msgid "Privacy Status"
 msgstr "Konfidencialitātes statuss"
 
-#: inc/admin/class-catalog-list-table.php:171 inc/class-activation.php:224
+#: inc/admin/class-catalog-list-table.php:171 inc/class-activation.php:229
 #: inc/modules/export/epub/class-epub201.php:928 tests/test-cloner.php:58
 msgid "Cover"
 msgstr "Vāks"
@@ -440,7 +440,7 @@ msgid "Author (Spine)"
 msgstr "Autors (iesējumā)"
 
 #: inc/admin/covergenerator/namespace.php:124 inc/admin/laf/namespace.php:83
-#: inc/class-activation.php:234 templates/admin/catalog.php:98
+#: inc/class-activation.php:239 templates/admin/catalog.php:98
 msgid "About"
 msgstr "Par"
 
@@ -679,7 +679,7 @@ msgstr "Jūs arī varat pieprasīt pieeju jau eksistējošai grāmatai, sazinoti
 
 #: inc/admin/dashboard/namespace.php:154
 #: inc/api/endpoints/controller/class-books.php:132
-#: inc/class-activation.php:229
+#: inc/class-activation.php:234
 #: inc/modules/export/epub/templates/epub3/toc.php:26
 #: inc/modules/themeoptions/class-pdfoptions.php:252 tests/test-cloner.php:63
 msgid "Table of Contents"
@@ -1786,51 +1786,51 @@ msgstr "ID nav daļa"
 msgid "Failed to update chapter part"
 msgstr "Neizdevās atjaunot nodaļas daļu"
 
-#: inc/class-activation.php:191
+#: inc/class-activation.php:196
 msgid "Main Body"
 msgstr "Galvenā daļa"
 
-#: inc/class-activation.php:197 tests/test-book.php:49
+#: inc/class-activation.php:202 tests/test-book.php:49
 msgid "Introduction"
 msgstr "Ievaddaļa "
 
-#: inc/class-activation.php:199 tests/test-book.php:90
+#: inc/class-activation.php:204 tests/test-book.php:90
 msgid "This is where you can write your introduction."
 msgstr "Te Jūs varat uzrakstīt Jūsu ievaddaļu."
 
-#: inc/class-activation.php:204
+#: inc/class-activation.php:209
 msgid "Chapter 1"
 msgstr "1. nodaļa"
 
-#: inc/class-activation.php:206
+#: inc/class-activation.php:211
 msgid ""
 "This is the first chapter in the main body of the text. You can change the "
 "text, rename the chapter, add new chapters, and add new parts."
 msgstr "Tas ir pirmā nodaļa galvenā teksta daļā. Jūs varat mainīt tekstu, pārdēvēt nodaļu, pievienot jaunas nodaļas vai daļās."
 
-#: inc/class-activation.php:211
+#: inc/class-activation.php:216
 msgid "Appendix"
 msgstr "Pielikums"
 
-#: inc/class-activation.php:213
+#: inc/class-activation.php:218
 msgid "This is where you can add appendices or other back matter."
 msgstr "Te Jūs varat pievienot pielikumus vai citu beigu papildinformāciju."
 
-#: inc/class-activation.php:219 templates/admin/organize.php:123
+#: inc/class-activation.php:224 templates/admin/organize.php:123
 #: templates/admin/organize.php:210 templates/admin/organize.php:284
 #: templates/admin/organize.php:369 tests/test-cloner.php:53
 msgid "Authors"
 msgstr "Autori"
 
-#: inc/class-activation.php:239
+#: inc/class-activation.php:244
 msgid "Buy"
 msgstr "Pirkt"
 
-#: inc/class-activation.php:244
+#: inc/class-activation.php:249
 msgid "Access Denied"
 msgstr "Piekļuve nav atļauta"
 
-#: inc/class-activation.php:246
+#: inc/class-activation.php:251
 msgid ""
 "This book is private, and accessible only to registered users. If you have "
 "an account you can login <a href=\"/wp-login.php\">here</a>. You can also "
@@ -1838,25 +1838,25 @@ msgid ""
 "href=\"http://pressbooks.com\">Pressbooks.com</a>."
 msgstr ""
 
-#: inc/class-activation.php:251 inc/class-customcss.php:95
+#: inc/class-activation.php:256 inc/class-customcss.php:95
 msgid "Custom CSS for Ebook"
 msgstr "Lietotāja CSS elektroniskajai grāmatai."
 
-#: inc/class-activation.php:256 inc/class-customcss.php:100
+#: inc/class-activation.php:261 inc/class-customcss.php:100
 msgid "Custom CSS for PDF"
 msgstr "Lietotāja CSS PDF formāta failiem"
 
-#: inc/class-activation.php:261 inc/class-customcss.php:105
+#: inc/class-activation.php:266 inc/class-customcss.php:105
 msgid "Custom CSS for Web"
 msgstr "Lietotāja CSS tiešsaistes grāmatai"
 
-#: inc/class-activation.php:267 inc/posttype/namespace.php:165
+#: inc/class-activation.php:272 inc/posttype/namespace.php:165
 #: inc/posttype/namespace.php:166 inc/posttype/namespace.php:529
 #: templates/admin/import.php:104
 msgid "Book Information"
 msgstr "Informācija par grāmatu"
 
-#: inc/class-activation.php:298
+#: inc/class-activation.php:303
 msgid "Default Data"
 msgstr "Noklusējuma dati"
 
@@ -3213,9 +3213,21 @@ msgstr ""
 msgid "Page Width"
 msgstr "Lapaspuses platums"
 
+#: inc/modules/themeoptions/class-pdfoptions.php:136
+msgid ""
+"Page width must be expressed in CSS-compatible units, e.g. "
+"&lsquo;5.5in&rsquo; or &lsquo;10cm&rsquo;."
+msgstr ""
+
 #: inc/modules/themeoptions/class-pdfoptions.php:143
 msgid "Page Height"
 msgstr "Lapaspuses augstums"
+
+#: inc/modules/themeoptions/class-pdfoptions.php:148
+msgid ""
+"Page height must be expressed in CSS-compatible units, e.g. "
+"&lsquo;8.5in&rsquo; or &lsquo;10cm&rsquo;."
+msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:156
 msgid "Margins"
@@ -3226,7 +3238,7 @@ msgid "Customize your book&rsquo;s margins using the fields below."
 msgstr "Pielāgojiet Jūsu grāmatas piemales, izmantojot laukus turpmāk."
 
 #: inc/modules/themeoptions/class-pdfoptions.php:167
-#: inc/modules/themeoptions/class-pdfoptions.php:832
+#: inc/modules/themeoptions/class-pdfoptions.php:835
 msgid "Outside Margin"
 msgstr "Ārpus piemale"
 
@@ -3240,17 +3252,17 @@ msgid ""
 msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:179
-#: inc/modules/themeoptions/class-pdfoptions.php:833
+#: inc/modules/themeoptions/class-pdfoptions.php:836
 msgid "Inside Margin"
 msgstr "Iekšēja apmale"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:191
-#: inc/modules/themeoptions/class-pdfoptions.php:834
+#: inc/modules/themeoptions/class-pdfoptions.php:837
 msgid "Top Margin"
 msgstr "Augšēja apmale"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:203
-#: inc/modules/themeoptions/class-pdfoptions.php:835
+#: inc/modules/themeoptions/class-pdfoptions.php:838
 msgid "Bottom Margin"
 msgstr "Apakšēja apmale"
 
@@ -3493,13 +3505,13 @@ msgstr "Palieliniet fonta izmēru un rindas augstumu labākai pieejamībai"
 msgid "These options apply to PDF exports."
 msgstr "Šī iespējas piemīt PDF formāta eksporta failiem."
 
-#: inc/modules/themeoptions/class-pdfoptions.php:840
+#: inc/modules/themeoptions/class-pdfoptions.php:843
 msgid ""
 "IMPORTANT: If you plan to use a print-on-demand service, margins under 2cm "
 "on any side can cause your file to be rejected."
 msgstr "SVARĪGI: Gadījumā, ja Jūs planējat izmantot izdrukas pēc pieprasījuma pakalpojumu, piemales, mazākas neka 2 cm katrā pusē, var rādīt Jūsu faila bloķēšanu."
 
-#: inc/modules/themeoptions/class-pdfoptions.php:1404
+#: inc/modules/themeoptions/class-pdfoptions.php:1407
 msgid "PDF Options"
 msgstr "PDF formāta failu iespējas"
 

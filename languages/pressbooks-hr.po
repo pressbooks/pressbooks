@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
-"POT-Creation-Date: 2019-09-04T18:38:47+00:00\n"
-"PO-Revision-Date: 2019-09-04 18:39+0000\n"
+"POT-Creation-Date: 2019-09-16T16:58:44+00:00\n"
+"PO-Revision-Date: 2019-09-16 16:59+0000\n"
 "Last-Translator: Dac Chartrand <dac@pressbooks.com>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/pressbooks/pressbooks/language/hr_HR/)\n"
 "MIME-Version: 1.0\n"
@@ -35,7 +35,7 @@ msgstr "Jednostavno pisanje knjiga"
 msgid "Pressbooks (Book Oven Inc.)"
 msgstr "Pressbooks (Book Oven Inc.)"
 
-#: compatibility.php:103 inc/class-activation.php:313
+#: compatibility.php:103 inc/class-activation.php:318
 msgid "Simple Book Publishing"
 msgstr "Jednostavno izdavanje knjiga"
 
@@ -182,7 +182,7 @@ msgstr "Stanje kataloga"
 msgid "Privacy Status"
 msgstr "Status privatnosti"
 
-#: inc/admin/class-catalog-list-table.php:171 inc/class-activation.php:224
+#: inc/admin/class-catalog-list-table.php:171 inc/class-activation.php:229
 #: inc/modules/export/epub/class-epub201.php:928 tests/test-cloner.php:58
 msgid "Cover"
 msgstr "Korice"
@@ -440,7 +440,7 @@ msgid "Author (Spine)"
 msgstr "Autor (hrbat)"
 
 #: inc/admin/covergenerator/namespace.php:124 inc/admin/laf/namespace.php:83
-#: inc/class-activation.php:234 templates/admin/catalog.php:98
+#: inc/class-activation.php:239 templates/admin/catalog.php:98
 msgid "About"
 msgstr "O"
 
@@ -679,7 +679,7 @@ msgstr "Možete zatražiti i pristup već postojećoj knjizi na način da se obr
 
 #: inc/admin/dashboard/namespace.php:154
 #: inc/api/endpoints/controller/class-books.php:132
-#: inc/class-activation.php:229
+#: inc/class-activation.php:234
 #: inc/modules/export/epub/templates/epub3/toc.php:26
 #: inc/modules/themeoptions/class-pdfoptions.php:252 tests/test-cloner.php:63
 msgid "Table of Contents"
@@ -1786,51 +1786,51 @@ msgstr "ID nije dio"
 msgid "Failed to update chapter part"
 msgstr "Ažuriranje dijela poglavlja nije uspjelo."
 
-#: inc/class-activation.php:191
+#: inc/class-activation.php:196
 msgid "Main Body"
 msgstr "Osnovni dio"
 
-#: inc/class-activation.php:197 tests/test-book.php:49
+#: inc/class-activation.php:202 tests/test-book.php:49
 msgid "Introduction"
 msgstr "Uvod"
 
-#: inc/class-activation.php:199 tests/test-book.php:90
+#: inc/class-activation.php:204 tests/test-book.php:90
 msgid "This is where you can write your introduction."
 msgstr "Ovdje pišete svoj uvodnik."
 
-#: inc/class-activation.php:204
+#: inc/class-activation.php:209
 msgid "Chapter 1"
 msgstr "Poglavlje 1."
 
-#: inc/class-activation.php:206
+#: inc/class-activation.php:211
 msgid ""
 "This is the first chapter in the main body of the text. You can change the "
 "text, rename the chapter, add new chapters, and add new parts."
 msgstr "Ovo je prvo poglavlje Vaše knjige. Možete izmijeniti tekst, preimenovati poglavlje, dodavati poglavlja i/ili dodavati nove dijelove."
 
-#: inc/class-activation.php:211
+#: inc/class-activation.php:216
 msgid "Appendix"
 msgstr "Dodatak"
 
-#: inc/class-activation.php:213
+#: inc/class-activation.php:218
 msgid "This is where you can add appendices or other back matter."
 msgstr "Ovdje dodajte razne dodatke ili druge završne stranice knjige."
 
-#: inc/class-activation.php:219 templates/admin/organize.php:123
+#: inc/class-activation.php:224 templates/admin/organize.php:123
 #: templates/admin/organize.php:210 templates/admin/organize.php:284
 #: templates/admin/organize.php:369 tests/test-cloner.php:53
 msgid "Authors"
 msgstr "Autori"
 
-#: inc/class-activation.php:239
+#: inc/class-activation.php:244
 msgid "Buy"
 msgstr "Kupi"
 
-#: inc/class-activation.php:244
+#: inc/class-activation.php:249
 msgid "Access Denied"
 msgstr "Pristup zabranjen"
 
-#: inc/class-activation.php:246
+#: inc/class-activation.php:251
 msgid ""
 "This book is private, and accessible only to registered users. If you have "
 "an account you can login <a href=\"/wp-login.php\">here</a>. You can also "
@@ -1838,25 +1838,25 @@ msgid ""
 "href=\"http://pressbooks.com\">Pressbooks.com</a>."
 msgstr "Ovo je privatna knjiga i dostupna je samo registriranim korisnicima. Ako imate pristupne podatke možete se prijaviti <a href=\"/wp-login.php\">ovdje</a>. Također možete postaviti vlastitu Pressbooks knjigu na: <a href=\"http://pressbooks.com\">Pressbooks.com</a>."
 
-#: inc/class-activation.php:251 inc/class-customcss.php:95
+#: inc/class-activation.php:256 inc/class-customcss.php:95
 msgid "Custom CSS for Ebook"
 msgstr "Vlastiti CSS za eKnjigu"
 
-#: inc/class-activation.php:256 inc/class-customcss.php:100
+#: inc/class-activation.php:261 inc/class-customcss.php:100
 msgid "Custom CSS for PDF"
 msgstr "Vlastiti CSS za PDF"
 
-#: inc/class-activation.php:261 inc/class-customcss.php:105
+#: inc/class-activation.php:266 inc/class-customcss.php:105
 msgid "Custom CSS for Web"
 msgstr "Vlastiti CSS za web"
 
-#: inc/class-activation.php:267 inc/posttype/namespace.php:165
+#: inc/class-activation.php:272 inc/posttype/namespace.php:165
 #: inc/posttype/namespace.php:166 inc/posttype/namespace.php:529
 #: templates/admin/import.php:104
 msgid "Book Information"
 msgstr "Informacije o knjizi"
 
-#: inc/class-activation.php:298
+#: inc/class-activation.php:303
 msgid "Default Data"
 msgstr "Ishodni podaci"
 
@@ -3213,9 +3213,21 @@ msgstr "5&quot; &times; 8&quot;"
 msgid "Page Width"
 msgstr "Širina stranice"
 
+#: inc/modules/themeoptions/class-pdfoptions.php:136
+msgid ""
+"Page width must be expressed in CSS-compatible units, e.g. "
+"&lsquo;5.5in&rsquo; or &lsquo;10cm&rsquo;."
+msgstr ""
+
 #: inc/modules/themeoptions/class-pdfoptions.php:143
 msgid "Page Height"
 msgstr "Visina stranice"
+
+#: inc/modules/themeoptions/class-pdfoptions.php:148
+msgid ""
+"Page height must be expressed in CSS-compatible units, e.g. "
+"&lsquo;8.5in&rsquo; or &lsquo;10cm&rsquo;."
+msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:156
 msgid "Margins"
@@ -3226,7 +3238,7 @@ msgid "Customize your book&rsquo;s margins using the fields below."
 msgstr "Prilagodite margine knjige koristeći se donjim poljima za unos."
 
 #: inc/modules/themeoptions/class-pdfoptions.php:167
-#: inc/modules/themeoptions/class-pdfoptions.php:832
+#: inc/modules/themeoptions/class-pdfoptions.php:835
 msgid "Outside Margin"
 msgstr "Vanjska margina"
 
@@ -3240,17 +3252,17 @@ msgid ""
 msgstr "Margine moraju biti izražene u CSS kompatibilnim mjernim jedinicama, npr.: &lsquo;8.5in&rsquo; ili &lsquo;10cm&rsquo;."
 
 #: inc/modules/themeoptions/class-pdfoptions.php:179
-#: inc/modules/themeoptions/class-pdfoptions.php:833
+#: inc/modules/themeoptions/class-pdfoptions.php:836
 msgid "Inside Margin"
 msgstr "Unutarnja margina"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:191
-#: inc/modules/themeoptions/class-pdfoptions.php:834
+#: inc/modules/themeoptions/class-pdfoptions.php:837
 msgid "Top Margin"
 msgstr "Gornja margina"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:203
-#: inc/modules/themeoptions/class-pdfoptions.php:835
+#: inc/modules/themeoptions/class-pdfoptions.php:838
 msgid "Bottom Margin"
 msgstr "Donja margina"
 
@@ -3493,13 +3505,13 @@ msgstr "Povećava veličinu pisma i visinu retka radi bolje čitljivosti"
 msgid "These options apply to PDF exports."
 msgstr "Ove postavke se odnose na izvoz u PDF."
 
-#: inc/modules/themeoptions/class-pdfoptions.php:840
+#: inc/modules/themeoptions/class-pdfoptions.php:843
 msgid ""
 "IMPORTANT: If you plan to use a print-on-demand service, margins under 2cm "
 "on any side can cause your file to be rejected."
 msgstr "VAŽNO: Ako planirate korištenje usluge tiska na zahtjev, margine ispod 2cm sa bilo koje strane mogu imati za posljedicu da se Vaša knjiga bude odbijena."
 
-#: inc/modules/themeoptions/class-pdfoptions.php:1404
+#: inc/modules/themeoptions/class-pdfoptions.php:1407
 msgid "PDF Options"
 msgstr "PDF postavke"
 

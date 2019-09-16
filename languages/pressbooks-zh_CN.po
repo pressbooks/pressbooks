@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
-"POT-Creation-Date: 2019-09-04T18:38:47+00:00\n"
-"PO-Revision-Date: 2019-09-04 18:39+0000\n"
+"POT-Creation-Date: 2019-09-16T16:58:44+00:00\n"
+"PO-Revision-Date: 2019-09-16 16:59+0000\n"
 "Last-Translator: Dac Chartrand <dac@pressbooks.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/pressbooks/pressbooks/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -35,7 +35,7 @@ msgstr ""
 msgid "Pressbooks (Book Oven Inc.)"
 msgstr ""
 
-#: compatibility.php:103 inc/class-activation.php:313
+#: compatibility.php:103 inc/class-activation.php:318
 msgid "Simple Book Publishing"
 msgstr "让出书更容易"
 
@@ -182,7 +182,7 @@ msgstr "编目状态"
 msgid "Privacy Status"
 msgstr "隐私状态"
 
-#: inc/admin/class-catalog-list-table.php:171 inc/class-activation.php:224
+#: inc/admin/class-catalog-list-table.php:171 inc/class-activation.php:229
 #: inc/modules/export/epub/class-epub201.php:928 tests/test-cloner.php:58
 msgid "Cover"
 msgstr "封面"
@@ -440,7 +440,7 @@ msgid "Author (Spine)"
 msgstr ""
 
 #: inc/admin/covergenerator/namespace.php:124 inc/admin/laf/namespace.php:83
-#: inc/class-activation.php:234 templates/admin/catalog.php:98
+#: inc/class-activation.php:239 templates/admin/catalog.php:98
 msgid "About"
 msgstr "关于"
 
@@ -679,7 +679,7 @@ msgstr ""
 
 #: inc/admin/dashboard/namespace.php:154
 #: inc/api/endpoints/controller/class-books.php:132
-#: inc/class-activation.php:229
+#: inc/class-activation.php:234
 #: inc/modules/export/epub/templates/epub3/toc.php:26
 #: inc/modules/themeoptions/class-pdfoptions.php:252 tests/test-cloner.php:63
 msgid "Table of Contents"
@@ -1786,51 +1786,51 @@ msgstr "该ID不是一个部件的ID"
 msgid "Failed to update chapter part"
 msgstr "更新章部件失败"
 
-#: inc/class-activation.php:191
+#: inc/class-activation.php:196
 msgid "Main Body"
 msgstr "正文"
 
-#: inc/class-activation.php:197 tests/test-book.php:49
+#: inc/class-activation.php:202 tests/test-book.php:49
 msgid "Introduction"
 msgstr "引子"
 
-#: inc/class-activation.php:199 tests/test-book.php:90
+#: inc/class-activation.php:204 tests/test-book.php:90
 msgid "This is where you can write your introduction."
 msgstr "您可以在在此撰写引子。"
 
-#: inc/class-activation.php:204
+#: inc/class-activation.php:209
 msgid "Chapter 1"
 msgstr "第1章"
 
-#: inc/class-activation.php:206
+#: inc/class-activation.php:211
 msgid ""
 "This is the first chapter in the main body of the text. You can change the "
 "text, rename the chapter, add new chapters, and add new parts."
 msgstr "这是主体正文部分的第一章。您可以更改文字、重命名章名、添加新章以及新建书籍部件（如：序言、索引等）。"
 
-#: inc/class-activation.php:211
+#: inc/class-activation.php:216
 msgid "Appendix"
 msgstr "附录"
 
-#: inc/class-activation.php:213
+#: inc/class-activation.php:218
 msgid "This is where you can add appendices or other back matter."
 msgstr "您可再次添加附录或其他书籍后记内容。"
 
-#: inc/class-activation.php:219 templates/admin/organize.php:123
+#: inc/class-activation.php:224 templates/admin/organize.php:123
 #: templates/admin/organize.php:210 templates/admin/organize.php:284
 #: templates/admin/organize.php:369 tests/test-cloner.php:53
 msgid "Authors"
 msgstr "作者"
 
-#: inc/class-activation.php:239
+#: inc/class-activation.php:244
 msgid "Buy"
 msgstr "购买"
 
-#: inc/class-activation.php:244
+#: inc/class-activation.php:249
 msgid "Access Denied"
 msgstr "拒绝访问"
 
-#: inc/class-activation.php:246
+#: inc/class-activation.php:251
 msgid ""
 "This book is private, and accessible only to registered users. If you have "
 "an account you can login <a href=\"/wp-login.php\">here</a>. You can also "
@@ -1838,25 +1838,25 @@ msgid ""
 "href=\"http://pressbooks.com\">Pressbooks.com</a>."
 msgstr "该书是私有的，只有注册用户才能访问。若您有账户则可以 <a href=\"/wp-login.php\">点此登录</a>。您也可以 <a href=\"http://pressbooks.com\">P点此创建</a>。"
 
-#: inc/class-activation.php:251 inc/class-customcss.php:95
+#: inc/class-activation.php:256 inc/class-customcss.php:95
 msgid "Custom CSS for Ebook"
 msgstr "EBook版自定义CSS"
 
-#: inc/class-activation.php:256 inc/class-customcss.php:100
+#: inc/class-activation.php:261 inc/class-customcss.php:100
 msgid "Custom CSS for PDF"
 msgstr "PDF版自定义CSS"
 
-#: inc/class-activation.php:261 inc/class-customcss.php:105
+#: inc/class-activation.php:266 inc/class-customcss.php:105
 msgid "Custom CSS for Web"
 msgstr "Web版自定义CSS"
 
-#: inc/class-activation.php:267 inc/posttype/namespace.php:165
+#: inc/class-activation.php:272 inc/posttype/namespace.php:165
 #: inc/posttype/namespace.php:166 inc/posttype/namespace.php:529
 #: templates/admin/import.php:104
 msgid "Book Information"
 msgstr "书籍信息"
 
-#: inc/class-activation.php:298
+#: inc/class-activation.php:303
 msgid "Default Data"
 msgstr "默认数据"
 
@@ -3195,9 +3195,21 @@ msgstr "5&quot; &times; 8&quot;"
 msgid "Page Width"
 msgstr "页面宽度"
 
+#: inc/modules/themeoptions/class-pdfoptions.php:136
+msgid ""
+"Page width must be expressed in CSS-compatible units, e.g. "
+"&lsquo;5.5in&rsquo; or &lsquo;10cm&rsquo;."
+msgstr ""
+
 #: inc/modules/themeoptions/class-pdfoptions.php:143
 msgid "Page Height"
 msgstr "页面高度"
+
+#: inc/modules/themeoptions/class-pdfoptions.php:148
+msgid ""
+"Page height must be expressed in CSS-compatible units, e.g. "
+"&lsquo;8.5in&rsquo; or &lsquo;10cm&rsquo;."
+msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:156
 msgid "Margins"
@@ -3208,7 +3220,7 @@ msgid "Customize your book&rsquo;s margins using the fields below."
 msgstr "设置您书籍的页边距"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:167
-#: inc/modules/themeoptions/class-pdfoptions.php:832
+#: inc/modules/themeoptions/class-pdfoptions.php:835
 msgid "Outside Margin"
 msgstr "外边距"
 
@@ -3222,17 +3234,17 @@ msgid ""
 msgstr "边距必须要用CSS兼容的单位来注明，如：&lsquo;5.5in&rsquo; or &lsquo;10cm&rsquo;."
 
 #: inc/modules/themeoptions/class-pdfoptions.php:179
-#: inc/modules/themeoptions/class-pdfoptions.php:833
+#: inc/modules/themeoptions/class-pdfoptions.php:836
 msgid "Inside Margin"
 msgstr "内边距"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:191
-#: inc/modules/themeoptions/class-pdfoptions.php:834
+#: inc/modules/themeoptions/class-pdfoptions.php:837
 msgid "Top Margin"
 msgstr "上边距"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:203
-#: inc/modules/themeoptions/class-pdfoptions.php:835
+#: inc/modules/themeoptions/class-pdfoptions.php:838
 msgid "Bottom Margin"
 msgstr "下边距"
 
@@ -3475,13 +3487,13 @@ msgstr "增大字号和行高方便阅读"
 msgid "These options apply to PDF exports."
 msgstr "这些选项应用到PDF导出功能中。"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:840
+#: inc/modules/themeoptions/class-pdfoptions.php:843
 msgid ""
 "IMPORTANT: If you plan to use a print-on-demand service, margins under 2cm "
 "on any side can cause your file to be rejected."
 msgstr "重要：若您计划使用印刷服务提供商，上下左右任何一边的边距小于2厘米会导致您的文件被拒绝印刷。"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:1404
+#: inc/modules/themeoptions/class-pdfoptions.php:1407
 msgid "PDF Options"
 msgstr "PDF选项"
 
