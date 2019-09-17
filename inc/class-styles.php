@@ -12,6 +12,8 @@ use function \Pressbooks\Utility\debug_error_log;
 
 /**
  * Custom Styles Feature(s)
+ * This class houses a pile of Legacy (V1), Current (V2), Buckram (SCSS Components), and Shape Shifter (Choose your own font) code
+ * Basically, a pile of lessons learned over the years, used to generate the SCSS that is, then, passed into the \Pressbooks\Sass compiler, to generate the CSS we deserve.
  */
 class Styles {
 
@@ -316,12 +318,12 @@ class Styles {
 	/**
 	 * Are the current theme's stylesheets SCSS compatible?
 	 *
-	 * @param int $version
+	 * @param int $with_version
 	 * @param \WP_Theme $theme (optional)
 	 *
 	 * @return bool
 	 */
-	public function isCurrentThemeCompatible( $version = 1, $theme = null ) {
+	public function isCurrentThemeCompatible( $with_version = 1, $theme = null ) {
 
 		if ( null === $theme ) {
 			$theme = wp_get_theme();
@@ -337,13 +339,13 @@ class Styles {
 
 		foreach ( $types as $type ) {
 			$path = '';
-			if ( 1 === $version && 'web' !== $type ) {
+			if ( 1 === $with_version && 'web' !== $type ) {
 				$path = $basepath . "/export/$type/style.scss";
-			} elseif ( 1 === $version && 'web' === $type ) {
+			} elseif ( 1 === $with_version && 'web' === $type ) {
 				$path = $basepath . '/style.scss';
 			}
 
-			if ( 2 === $version ) {
+			if ( 2 === $with_version ) {
 				$path = $basepath . "/assets/styles/$type/style.scss";
 			}
 
@@ -354,6 +356,16 @@ class Styles {
 		}
 
 		return true;
+	}
+
+	/**
+	 * Are the current theme's SCSS stylesheets "Shape Shifter" compatible?
+	 * Ie. Does it support the "choose your own font" feature?
+	 *
+	 * @return bool
+	 */
+	public function isShapeShifterCompatible() {
+		return apply_filters( 'pb_is_shape_shifter_compatible', ( 'pressbooks-malala' === get_stylesheet() ) );
 	}
 
 	/**

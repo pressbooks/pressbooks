@@ -74,6 +74,40 @@ class WebOptions extends \Pressbooks\Options {
 			$_page
 		);
 
+		$styles = \Pressbooks\Container::get( 'Styles' );
+		$shape_shifter_compatible = $styles->isShapeShifterCompatible();
+
+		if ( $shape_shifter_compatible ) {
+			add_settings_field(
+				'webbook_header_font',
+				__( 'Header Font', 'pressbooks' ),
+				[ $this, 'renderHeaderFontField' ],
+				$_page,
+				$_section,
+				[
+					// TODO
+					'' => __( 'Theme default', 'pressbooks' ),
+					'Comic Sans MS' => __( 'Comic Sans MS', 'pressbooks' ),
+					'Lucida Console' => __( 'Lucida Console', 'pressbooks' ),
+					'label_for' => 'pdf_header_font',
+				]
+			);
+			add_settings_field(
+				'webbook_body_font',
+				__( 'Body Font', 'pressbooks' ),
+				[ $this, 'renderBodyFontField' ],
+				$_page,
+				$_section,
+				[
+					// TODO
+					'' => __( 'Theme default', 'pressbooks' ),
+					'Comic Sans MS' => __( 'Comic Sans MS', 'pressbooks' ),
+					'Lucida Console' => __( 'Lucida Console', 'pressbooks' ),
+					'label_for' => 'pdf_header_font',
+				]
+			);
+		}
+
 		add_settings_field(
 			'social_media',
 			__( 'Enable Social Media', 'pressbooks' ),
@@ -320,6 +354,42 @@ class WebOptions extends \Pressbooks\Options {
 	}
 
 	/**
+	 * Render the webbook_header_font input.
+	 *
+	 * @param array $args
+	 */
+	function renderHeaderFontField( $args ) {
+		unset( $args['label_for'], $args['class'] );
+		$this->renderSelect(
+			[
+				'id' => 'webbook_header_font',
+				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
+				'option' => 'webbook_header_font',
+				'value' => ( isset( $this->options['webbook_header_font'] ) ) ? $this->options['webbook_header_font'] : '',
+				'choices' => $args,
+			]
+		);
+	}
+
+	/**
+	 * Render the webbook_body_font input.
+	 *
+	 * @param array $args
+	 */
+	function renderBodyFontField( $args ) {
+		unset( $args['label_for'], $args['class'] );
+		$this->renderSelect(
+			[
+				'id' => 'webbook_body_font',
+				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
+				'option' => 'webbook_body_font',
+				'value' => ( isset( $this->options['webbook_body_font'] ) ) ? $this->options['webbook_body_font'] : '',
+				'choices' => $args,
+			]
+		);
+	}
+
+	/**
 	 * Get the slug for the web options tab.
 	 *
 	 * @return string $slug
@@ -350,6 +420,8 @@ class WebOptions extends \Pressbooks\Options {
 		 */
 		return apply_filters(
 			'pb_theme_options_web_defaults', [
+				'webbook_header_font' => '',
+				'webbook_body_font' => '',
 				'social_media' => 1,
 				'paragraph_separation' => 'skiplines',
 				'part_title' => 0,
@@ -407,7 +479,10 @@ class WebOptions extends \Pressbooks\Options {
 		 *
 		 * @param array $value
 		 */
-		return apply_filters( 'pb_theme_options_web_strings', [] );
+		return apply_filters( 'pb_theme_options_web_strings', [
+			'webbook_header_font',
+			'webbook_body_font',
+		] );
 	}
 
 	/**
@@ -476,6 +551,7 @@ class WebOptions extends \Pressbooks\Options {
 
 		$styles = Container::get( 'Styles' );
 		$v2_compatible = $styles->isCurrentThemeCompatible( 2 );
+		$shape_shifter_compatible = $styles->isShapeShifterCompatible();
 
 		// Global Options
 		$options = get_option( 'pressbooks_theme_options_global' );
@@ -532,6 +608,24 @@ class WebOptions extends \Pressbooks\Options {
 				);
 			} else {
 				$scss .= "#content p + p { text-indent: 0em; margin-top: 1em; } \n";
+			}
+		}
+
+		// Shape Shifter Features
+		if ( $shape_shifter_compatible ) {
+			if ( ! empty( $options['webbook_header_font'] ) ) {
+				$styles->getSass()->setVariables(
+					[
+						'todo-var-2' => '"' . str_replace( '"', '', $options['webbook_header_font'] ) . '"',
+					]
+				);
+			}
+			if ( ! empty( $options['webbook_body_font'] ) ) {
+				$styles->getSass()->setVariables(
+					[
+						'todo-var-1' => '"' . str_replace( '"', '', $options['webbook_body_font'] ) . '"',
+					]
+				);
 			}
 		}
 

@@ -70,6 +70,40 @@ class EbookOptions extends \Pressbooks\Options {
 			$_page
 		);
 
+		$styles = \Pressbooks\Container::get( 'Styles' );
+		$shape_shifter_compatible = $styles->isShapeShifterCompatible();
+
+		if ( $shape_shifter_compatible ) {
+			add_settings_field(
+				'ebook_header_font',
+				__( 'Header Font', 'pressbooks' ),
+				[ $this, 'renderHeaderFontField' ],
+				$_page,
+				$_section,
+				[
+					// TODO
+					'' => __( 'Theme default', 'pressbooks' ),
+					'Comic Sans MS' => __( 'Comic Sans MS', 'pressbooks' ),
+					'Lucida Console' => __( 'Lucida Console', 'pressbooks' ),
+					'label_for' => 'pdf_header_font',
+				]
+			);
+			add_settings_field(
+				'ebook_body_font',
+				__( 'Body Font', 'pressbooks' ),
+				[ $this, 'renderBodyFontField' ],
+				$_page,
+				$_section,
+				[
+					// TODO
+					'' => __( 'Theme default', 'pressbooks' ),
+					'Comic Sans MS' => __( 'Comic Sans MS', 'pressbooks' ),
+					'Lucida Console' => __( 'Lucida Console', 'pressbooks' ),
+					'label_for' => 'pdf_header_font',
+				]
+			);
+		}
+
 		add_settings_field(
 			'ebook_start_point',
 			__( 'Ebook Start Point', 'pressbooks' ),
@@ -277,6 +311,42 @@ class EbookOptions extends \Pressbooks\Options {
 	}
 
 	/**
+	 * Render the ebook_header_font input.
+	 *
+	 * @param array $args
+	 */
+	function renderHeaderFontField( $args ) {
+		unset( $args['label_for'], $args['class'] );
+		$this->renderSelect(
+			[
+				'id' => 'ebook_header_font',
+				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
+				'option' => 'ebook_header_font',
+				'value' => ( isset( $this->options['ebook_header_font'] ) ) ? $this->options['ebook_header_font'] : '',
+				'choices' => $args,
+			]
+		);
+	}
+
+	/**
+	 * Render the ebook_body_font input.
+	 *
+	 * @param array $args
+	 */
+	function renderBodyFontField( $args ) {
+		unset( $args['label_for'], $args['class'] );
+		$this->renderSelect(
+			[
+				'id' => 'ebook_body_font',
+				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
+				'option' => 'ebook_body_font',
+				'value' => ( isset( $this->options['ebook_body_font'] ) ) ? $this->options['ebook_body_font'] : '',
+				'choices' => $args,
+			]
+		);
+	}
+
+	/**
 	 * Get the slug for the Ebook options tab.
 	 *
 	 * @return string $slug
@@ -307,6 +377,8 @@ class EbookOptions extends \Pressbooks\Options {
 		 */
 		return apply_filters(
 			'pb_theme_options_ebook_defaults', [
+				'ebook_header_font' => '',
+				'ebook_body_font' => '',
 				'ebook_paragraph_separation' => 'indent',
 				'ebook_compress_images' => 0,
 			]
@@ -357,7 +429,10 @@ class EbookOptions extends \Pressbooks\Options {
 		 *
 		 * @param array $value
 		 */
-		return apply_filters( 'pb_theme_options_ebook_strings', [] );
+		return apply_filters( 'pb_theme_options_ebook_strings', [
+			'ebook_header_font',
+			'ebook_body_font',
+		] );
 	}
 
 	/**
@@ -426,6 +501,7 @@ class EbookOptions extends \Pressbooks\Options {
 
 		$styles = \Pressbooks\Container::get( 'Styles' );
 		$v2_compatible = $styles->isCurrentThemeCompatible( 2 );
+		$shape_shifter_compatible = $styles->isShapeShifterCompatible();
 
 		// --------------------------------------------------------------------
 		// Global Options
@@ -499,6 +575,24 @@ class EbookOptions extends \Pressbooks\Options {
 				);
 			} else {
 				$scss .= "p + p, .indent, div.ugc p.indent { text-indent: 1em; margin-top: 0em; } \n";
+			}
+		}
+
+		// Shape Shifter Features
+		if ( $shape_shifter_compatible ) {
+			if ( ! empty( $options['ebook_header_font'] ) ) {
+				$styles->getSass()->setVariables(
+					[
+						'todo-var-2' => '"' . str_replace( '"', '', $options['ebook_header_font'] ) . '"',
+					]
+				);
+			}
+			if ( ! empty( $options['ebook_body_font'] ) ) {
+				$styles->getSass()->setVariables(
+					[
+						'todo-var-1' => '"' . str_replace( '"', '', $options['ebook_body_font'] ) . '"',
+					]
+				);
 			}
 		}
 
