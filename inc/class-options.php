@@ -206,7 +206,7 @@ abstract class Options {
 
 		return [
 			__( 'Serif', 'pressbooks' ) => $serif,
-			__( 'Sans Serif', 'pressbooks' ) => $sans_serif,
+			__( 'Sans serif', 'pressbooks' ) => $sans_serif,
 		];
 	}
 
