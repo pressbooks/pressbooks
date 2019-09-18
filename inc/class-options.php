@@ -169,48 +169,6 @@ abstract class Options {
 	}
 
 	/**
-	 * Optgroup compatible font choices
-	 *
-	 * @param bool $default_is_serif (optional)
-	 *
-	 * @return array
-	 * @see renderSelectOptGroup
-	 */
-	public function fontChoices( $default_is_serif = true ) {
-		$serif = [
-			'Cormorant Garamond' => __( 'Cormorant Garamond', 'pressbooks' ),
-			'Noto serif' => __( 'Noto serif', 'pressbooks' ),
-			'Spectral' => __( 'Spectral', 'pressbooks' ),
-			'Alegreya' => __( 'Alegreya', 'pressbooks' ),
-			'Crimson Text' => __( 'Crimson Text', 'pressbooks' ),
-		];
-
-		$sans_serif = [
-			'Roboto' => __( 'Roboto', 'pressbooks' ),
-			'Open Sans' => __( 'Open Sans', 'pressbooks' ),
-			'Lato' => __( 'Lato', 'pressbooks' ),
-			'Montserrat' => __( 'Montserrat', 'pressbooks' ),
-			'Raleway' => __( 'Raleway', 'pressbooks' ),
-			'Noto sans' => __( 'Noto sans', 'pressbooks' ),
-			'Rubik' => __( 'Rubik', 'pressbooks' ),
-			'Barlow' => __( 'Barlow', 'pressbooks' ),
-			'Libre Franklin' => __( 'Libre Franklin', 'pressbooks' ),
-			'K2D' => __( 'K2D', 'pressbooks' ),
-		];
-
-		if ( $default_is_serif ) {
-			$serif = array_merge( [ '' => __( 'Theme default', 'pressbooks' ) ], $serif );
-		} else {
-			$sans_serif = array_merge( [ '' => __( 'Theme default', 'pressbooks' ) ], $sans_serif );
-		}
-
-		return [
-			__( 'Serif', 'pressbooks' ) => $serif,
-			__( 'Sans serif', 'pressbooks' ) => $sans_serif,
-		];
-	}
-
-	/**
 	 * Render an input.
 	 *
 	 * @param array $args {

@@ -80,7 +80,7 @@ class EbookOptions extends \Pressbooks\Options {
 				[ $this, 'renderHeaderFontField' ],
 				$_page,
 				$_section,
-				array_merge( $this->fontChoices(), [ 'label_for' => 'ebook_header_font' ] )
+				array_merge( $styles->getShapeShifterFonts(), [ 'label_for' => 'ebook_header_font' ] )
 			);
 			add_settings_field(
 				'ebook_body_font',
@@ -88,7 +88,7 @@ class EbookOptions extends \Pressbooks\Options {
 				[ $this, 'renderBodyFontField' ],
 				$_page,
 				$_section,
-				array_merge( $this->fontChoices(), [ 'label_for' => 'ebook_body_font' ] )
+				array_merge( $styles->getShapeShifterFonts(), [ 'label_for' => 'ebook_body_font' ] )
 			);
 		}
 

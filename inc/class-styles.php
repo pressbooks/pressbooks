@@ -359,16 +359,6 @@ class Styles {
 	}
 
 	/**
-	 * Are the current theme's SCSS stylesheets "Shape Shifter" compatible?
-	 * Ie. Does it support the "choose your own font" feature?
-	 *
-	 * @return bool
-	 */
-	public function isShapeShifterCompatible() {
-		return apply_filters( 'pb_is_shape_shifter_compatible', ( 'pressbooks-malala' === get_stylesheet() ) );
-	}
-
-	/**
 	 * Get the version of Buckram for the current install or locked theme.
 	 *
 	 * @since 5.0.0
@@ -628,8 +618,70 @@ class Styles {
 		return false;
 	}
 
+	// ------------------------------------------------------------------------
+	// Shape Shifter Features
+	// ------------------------------------------------------------------------
+
 	/**
+	 * Are the current theme's SCSS stylesheets "Shape Shifter" compatible?
+	 * Ie. Does it support the "choose your own font" feature?
 	 *
+	 * @return bool
+	 */
+	public function isShapeShifterCompatible() {
+		return apply_filters( 'pb_is_shape_shifter_compatible', ( 'pressbooks-malala' === get_stylesheet() ) );
+	}
+
+	/**
+	 * Optgroup compatible font choices
+	 *
+	 * @param bool $default_is_serif (optional)
+	 *
+	 * @return array
+	 * @see \Pressbooks\Options::renderSelectOptGroup
+	 */
+	public function getShapeShifterFonts( $default_is_serif = true ) {
+		$serif = [
+			'Cormorant Garamond' => __( 'Cormorant Garamond', 'pressbooks' ),
+			'Noto serif' => __( 'Noto serif', 'pressbooks' ),
+			'Spectral' => __( 'Spectral', 'pressbooks' ),
+			'Alegreya' => __( 'Alegreya', 'pressbooks' ),
+			'Crimson Text' => __( 'Crimson Text', 'pressbooks' ),
+		];
+
+		$sans_serif = [
+			'Roboto' => __( 'Roboto', 'pressbooks' ),
+			'Open Sans' => __( 'Open Sans', 'pressbooks' ),
+			'Lato' => __( 'Lato', 'pressbooks' ),
+			'Montserrat' => __( 'Montserrat', 'pressbooks' ),
+			'Raleway' => __( 'Raleway', 'pressbooks' ),
+			'Noto Sans' => __( 'Noto Sans', 'pressbooks' ),
+			'Rubik' => __( 'Rubik', 'pressbooks' ),
+			'Barlow' => __( 'Barlow', 'pressbooks' ),
+			'Libre Franklin' => __( 'Libre Franklin', 'pressbooks' ),
+			'K2D' => __( 'K2D', 'pressbooks' ),
+		];
+
+		if ( $default_is_serif ) {
+			$serif = array_merge( [ '' => __( 'Theme default', 'pressbooks' ) ], $serif );
+		} else {
+			$sans_serif = array_merge( [ '' => __( 'Theme default', 'pressbooks' ) ], $sans_serif );
+		}
+
+		return [
+			__( 'Serif', 'pressbooks' ) => $serif,
+			__( 'Sans serif', 'pressbooks' ) => $sans_serif,
+		];
+	}
+
+	// ------------------------------------------------------------------------
+	// Custom Styles Editor
+	// ------------------------------------------------------------------------
+
+	/**
+	 * Custom Styles Editor
+	 * This method is the callback for `add_theme_page`
+	 * Adds submenu page to the Appearance main menu.
 	 */
 	public function editor() {
 

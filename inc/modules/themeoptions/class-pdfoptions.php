@@ -85,7 +85,7 @@ class PDFOptions extends \Pressbooks\Options {
 				[ $this, 'renderHeaderFontField' ],
 				$_page,
 				$_section,
-				array_merge( $this->fontChoices(), [ 'label_for' => 'pdf_header_font' ] )
+				array_merge( $custom_styles->getShapeShifterFonts(), [ 'label_for' => 'pdf_header_font' ] ) //
 			);
 			add_settings_field(
 				'pdf_body_font',
@@ -93,7 +93,7 @@ class PDFOptions extends \Pressbooks\Options {
 				[ $this, 'renderBodyFontField' ],
 				$_page,
 				$_section,
-				array_merge( $this->fontChoices(), [ 'label_for' => 'pdf_body_font' ] )
+				array_merge( $custom_styles->getShapeShifterFonts(), [ 'label_for' => 'pdf_body_font' ] )
 			);
 		}
 

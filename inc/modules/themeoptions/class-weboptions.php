@@ -84,7 +84,7 @@ class WebOptions extends \Pressbooks\Options {
 				[ $this, 'renderHeaderFontField' ],
 				$_page,
 				$_section,
-				array_merge( $this->fontChoices(), [ 'label_for' => 'webbook_header_font' ] )
+				array_merge( $styles->getShapeShifterFonts(), [ 'label_for' => 'webbook_header_font' ] )
 			);
 			add_settings_field(
 				'webbook_body_font',
@@ -92,7 +92,7 @@ class WebOptions extends \Pressbooks\Options {
 				[ $this, 'renderBodyFontField' ],
 				$_page,
 				$_section,
-				array_merge( $this->fontChoices(), [ 'label_for' => 'webbook_body_font' ] )
+				array_merge( $styles->getShapeShifterFonts(), [ 'label_for' => 'webbook_body_font' ] )
 			);
 		}
 

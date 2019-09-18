@@ -105,8 +105,9 @@ class GlobalTypography {
 	}
 
 	/**
-	 * Update and save user generated SCSS mixins: _font-stack-prince.scss, _font-stack-epub.scss, _font-stack-web.scss, ...
-	 * Creates the necessary @import statements and variables, for for foreign language support
+	 * Update and save user generated SCSS mixins:
+	 * _font-stack-prince.scss, _font-stack-epub.scss, _font-stack-web.scss, ...
+	 * Creates the necessary @import statements and variables, for foreign language support
 	 * (CSS fallback font stacks, for unknown characters)
 	 */
 	function updateGlobalTypographyMixin() {
