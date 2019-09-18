@@ -85,13 +85,7 @@ class PDFOptions extends \Pressbooks\Options {
 				[ $this, 'renderHeaderFontField' ],
 				$_page,
 				$_section,
-				[
-					// TODO
-					'' => __( 'Theme default', 'pressbooks' ),
-					'Comic Sans MS' => __( 'Comic Sans MS', 'pressbooks' ),
-					'Lucida Console' => __( 'Lucida Console', 'pressbooks' ),
-					'label_for' => 'pdf_header_font',
-				]
+				array_merge( $this->fontChoices(), [ 'label_for' => 'pdf_header_font' ] )
 			);
 			add_settings_field(
 				'pdf_body_font',
@@ -99,13 +93,7 @@ class PDFOptions extends \Pressbooks\Options {
 				[ $this, 'renderBodyFontField' ],
 				$_page,
 				$_section,
-				[
-					// TODO
-					'' => __( 'Theme default', 'pressbooks' ),
-					'Comic Sans MS' => __( 'Comic Sans MS', 'pressbooks' ),
-					'Lucida Console' => __( 'Lucida Console', 'pressbooks' ),
-					'label_for' => 'pdf_header_font',
-				]
+				array_merge( $this->fontChoices(), [ 'label_for' => 'pdf_body_font' ] )
 			);
 		}
 
@@ -738,7 +726,7 @@ class PDFOptions extends \Pressbooks\Options {
 	 */
 	function renderHeaderFontField( $args ) {
 		unset( $args['label_for'], $args['class'] );
-		$this->renderSelect(
+		$this->renderSelectOptGroup(
 			[
 				'id' => 'pdf_header_font',
 				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
@@ -756,7 +744,7 @@ class PDFOptions extends \Pressbooks\Options {
 	 */
 	function renderBodyFontField( $args ) {
 		unset( $args['label_for'], $args['class'] );
-		$this->renderSelect(
+		$this->renderSelectOptGroup(
 			[
 				'id' => 'pdf_body_font',
 				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
@@ -2130,14 +2118,14 @@ class PDFOptions extends \Pressbooks\Options {
 			if ( ! empty( $options['pdf_header_font'] ) ) {
 				$styles->getSass()->setVariables(
 					[
-						'todo-var-2' => '"' . str_replace( '"', '', $options['pdf_header_font'] ) . '"',
+						'shapeshifter-font-2' => '"' . str_replace( '"', '', $options['pdf_header_font'] ) . '"',
 					]
 				);
 			}
 			if ( ! empty( $options['pdf_body_font'] ) ) {
 				$styles->getSass()->setVariables(
 					[
-						'todo-var-1' => '"' . str_replace( '"', '', $options['pdf_body_font'] ) . '"',
+						'shapeshifter-font-1' => '"' . str_replace( '"', '', $options['pdf_body_font'] ) . '"',
 					]
 				);
 			}

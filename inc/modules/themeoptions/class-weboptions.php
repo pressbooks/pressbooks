@@ -84,13 +84,7 @@ class WebOptions extends \Pressbooks\Options {
 				[ $this, 'renderHeaderFontField' ],
 				$_page,
 				$_section,
-				[
-					// TODO
-					'' => __( 'Theme default', 'pressbooks' ),
-					'Comic Sans MS' => __( 'Comic Sans MS', 'pressbooks' ),
-					'Lucida Console' => __( 'Lucida Console', 'pressbooks' ),
-					'label_for' => 'pdf_header_font',
-				]
+				array_merge( $this->fontChoices(), [ 'label_for' => 'webbook_header_font' ] )
 			);
 			add_settings_field(
 				'webbook_body_font',
@@ -98,13 +92,7 @@ class WebOptions extends \Pressbooks\Options {
 				[ $this, 'renderBodyFontField' ],
 				$_page,
 				$_section,
-				[
-					// TODO
-					'' => __( 'Theme default', 'pressbooks' ),
-					'Comic Sans MS' => __( 'Comic Sans MS', 'pressbooks' ),
-					'Lucida Console' => __( 'Lucida Console', 'pressbooks' ),
-					'label_for' => 'pdf_header_font',
-				]
+				array_merge( $this->fontChoices(), [ 'label_for' => 'webbook_body_font' ] )
 			);
 		}
 
@@ -186,10 +174,11 @@ class WebOptions extends \Pressbooks\Options {
 		/**
 		 * Add custom settings fields.
 		 *
-		 * @since 3.9.7
-		 *
 		 * @param string $arg1
 		 * @param string $arg2
+		 *
+		 * @since 3.9.7
+		 *
 		 */
 		do_action( 'pb_theme_options_web_add_settings_fields', $_page, $_section );
 
@@ -360,7 +349,7 @@ class WebOptions extends \Pressbooks\Options {
 	 */
 	function renderHeaderFontField( $args ) {
 		unset( $args['label_for'], $args['class'] );
-		$this->renderSelect(
+		$this->renderSelectOptGroup(
 			[
 				'id' => 'webbook_header_font',
 				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
@@ -378,7 +367,7 @@ class WebOptions extends \Pressbooks\Options {
 	 */
 	function renderBodyFontField( $args ) {
 		unset( $args['label_for'], $args['class'] );
-		$this->renderSelect(
+		$this->renderSelectOptGroup(
 			[
 				'id' => 'webbook_body_font',
 				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
@@ -414,9 +403,10 @@ class WebOptions extends \Pressbooks\Options {
 	 */
 	static function getDefaults() {
 		/**
+		 * @param array $value
+		 *
 		 * @since 3.9.7
 		 *
-		 * @param array $value
 		 */
 		return apply_filters(
 			'pb_theme_options_web_defaults', [
@@ -452,9 +442,10 @@ class WebOptions extends \Pressbooks\Options {
 		/**
 		 * Allow custom boolean options to be passed to sanitization routines.
 		 *
+		 * @param array $value
+		 *
 		 * @since 3.9.7
 		 *
-		 * @param array $value
 		 */
 		return apply_filters(
 			'pb_theme_options_web_booleans', [
@@ -475,14 +466,17 @@ class WebOptions extends \Pressbooks\Options {
 		/**
 		 * Allow custom string options to be passed to sanitization routines.
 		 *
+		 * @param array $value
+		 *
 		 * @since 3.9.7
 		 *
-		 * @param array $value
 		 */
-		return apply_filters( 'pb_theme_options_web_strings', [
-			'webbook_header_font',
-			'webbook_body_font',
-		] );
+		return apply_filters(
+			'pb_theme_options_web_strings', [
+				'webbook_header_font',
+				'webbook_body_font',
+			]
+		);
 	}
 
 	/**
@@ -494,9 +488,10 @@ class WebOptions extends \Pressbooks\Options {
 		/**
 		 * Allow custom integer options to be passed to sanitization routines.
 		 *
+		 * @param array $value
+		 *
 		 * @since 3.9.7
 		 *
-		 * @param array $value
 		 */
 		return apply_filters( 'pb_theme_options_web_integers', [] );
 	}
@@ -510,9 +505,10 @@ class WebOptions extends \Pressbooks\Options {
 		/**
 		 * Allow custom float options to be passed to sanitization routines.
 		 *
+		 * @param array $value
+		 *
 		 * @since 3.9.7
 		 *
-		 * @param array $value
 		 */
 		return apply_filters( 'pb_theme_options_web_floats', [] );
 	}
@@ -526,9 +522,10 @@ class WebOptions extends \Pressbooks\Options {
 		/**
 		 * Allow custom predifined options to be passed to sanitization routines.
 		 *
+		 * @param array $value
+		 *
 		 * @since 3.9.7
 		 *
-		 * @param array $value
 		 */
 		return apply_filters(
 			'pb_theme_options_web_predefined', [
@@ -559,20 +556,22 @@ class WebOptions extends \Pressbooks\Options {
 		// Textbox colours.
 
 		if ( $v2_compatible ) {
-			foreach ( [
-				'edu_textbox_examples_header_color' => 'examples-header-color',
-				'edu_textbox_examples_header_background' => 'examples-header-background',
-				'edu_textbox_examples_background' => 'examples-background',
-				'edu_textbox_exercises_header_color' => 'exercises-header-color',
-				'edu_textbox_exercises_header_background' => 'exercises-header-background',
-				'edu_textbox_exercises_background' => 'exercises-background',
-				'edu_textbox_objectives_header_color' => 'learning-objectives-header-color',
-				'edu_textbox_objectives_header_background' => 'learning-objectives-header-background',
-				'edu_textbox_objectives_background' => 'learning-objectives-background',
-				'edu_textbox_takeaways_header_color' => 'key-takeaways-header-color',
-				'edu_textbox_takeaways_header_background' => 'key-takeaways-header-background',
-				'edu_textbox_takeaways_background' => 'key-takeaways-background',
-			] as $option => $variable ) {
+			foreach (
+				[
+					'edu_textbox_examples_header_color' => 'examples-header-color',
+					'edu_textbox_examples_header_background' => 'examples-header-background',
+					'edu_textbox_examples_background' => 'examples-background',
+					'edu_textbox_exercises_header_color' => 'exercises-header-color',
+					'edu_textbox_exercises_header_background' => 'exercises-header-background',
+					'edu_textbox_exercises_background' => 'exercises-background',
+					'edu_textbox_objectives_header_color' => 'learning-objectives-header-color',
+					'edu_textbox_objectives_header_background' => 'learning-objectives-header-background',
+					'edu_textbox_objectives_background' => 'learning-objectives-background',
+					'edu_textbox_takeaways_header_color' => 'key-takeaways-header-color',
+					'edu_textbox_takeaways_header_background' => 'key-takeaways-header-background',
+					'edu_textbox_takeaways_background' => 'key-takeaways-background',
+				] as $option => $variable
+			) {
 				if ( isset( $options[ $option ] ) ) {
 					$styles->getSass()->setVariables(
 						[
@@ -616,14 +615,14 @@ class WebOptions extends \Pressbooks\Options {
 			if ( ! empty( $options['webbook_header_font'] ) ) {
 				$styles->getSass()->setVariables(
 					[
-						'todo-var-2' => '"' . str_replace( '"', '', $options['webbook_header_font'] ) . '"',
+						'shapeshifter-font-2' => '"' . str_replace( '"', '', $options['webbook_header_font'] ) . '"',
 					]
 				);
 			}
 			if ( ! empty( $options['webbook_body_font'] ) ) {
 				$styles->getSass()->setVariables(
 					[
-						'todo-var-1' => '"' . str_replace( '"', '', $options['webbook_body_font'] ) . '"',
+						'shapeshifter-font-1' => '"' . str_replace( '"', '', $options['webbook_body_font'] ) . '"',
 					]
 				);
 			}

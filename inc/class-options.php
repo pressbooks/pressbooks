@@ -169,6 +169,36 @@ abstract class Options {
 	}
 
 	/**
+	 * Optgroup compatible font choices
+	 * @return array
+	 * @see renderSelectOptGroup
+	 */
+	public function fontChoices() {
+		return [
+			__( 'Serif', 'pressbooks' ) => [
+				'' => __( 'Theme default', 'pressbooks' ),
+				'Cormorant Garamond' => __( 'Cormorant Garamond', 'pressbooks' ),
+				'Noto serif' => __( 'Noto serif', 'pressbooks' ),
+				'Spectral' => __( 'Spectral', 'pressbooks' ),
+				'Alegreya' => __( 'Alegreya', 'pressbooks' ),
+				'Crimson Text' => __( 'Crimson Text', 'pressbooks' ),
+			],
+			__( 'Sans Serif', 'pressbooks' ) => [
+				'Roboto' => __( 'Roboto', 'pressbooks' ),
+				'Open Sans' => __( 'Open Sans', 'pressbooks' ),
+				'Lato' => __( 'Lato', 'pressbooks' ),
+				'Montserrat' => __( 'Montserrat', 'pressbooks' ),
+				'Raleway' => __( 'Raleway', 'pressbooks' ),
+				'Noto sans' => __( 'Noto sans', 'pressbooks' ),
+				'Rubik' => __( 'Rubik', 'pressbooks' ),
+				'Barlow' => __( 'Barlow', 'pressbooks' ),
+				'Libre Franklin' => __( 'Libre Franklin', 'pressbooks' ),
+				'K2D' => __( 'K2D', 'pressbooks' ),
+			],
+		];
+	}
+
+	/**
 	 * Render an input.
 	 *
 	 * @param array $args {
@@ -421,6 +451,55 @@ abstract class Options {
 				selected( $key, $args['value'], false ),
 				$label
 			);
+		}
+		printf(
+			'<select name="%s[%s]" id="%s" %s%s>%s</select>',
+			$args['name'],
+			$args['option'],
+			$args['id'],
+			( $args['multiple'] ) ? ' multiple' : '',
+			( ! empty( $args['disabled'] ) ) ? ' disabled' : '',
+			$options
+		);
+		if ( isset( $args['description'] ) ) {
+			printf(
+				'<p class="description">%s</p>',
+				$args['description']
+			);
+		}
+	}
+
+	/**
+	 * Render a select element.
+	 *
+	 * @param array $args
+	 */
+	static function renderSelectOptGroup( $args ) {
+		$defaults = [
+			'id' => null,
+			'name' => null,
+			'option' => null,
+			'value' => '',
+			'choices' => [],
+			'multiple' => false,
+			'disabled' => false,
+			'description' => null,
+		];
+
+		$args = wp_parse_args( $args, $defaults );
+
+		$options = '';
+		foreach ( $args['choices'] as $optgroup => $choices ) {
+			$options .= sprintf( '<optgroup label="%s">', $optgroup );
+			foreach ( $choices as $key => $label ) {
+				$options .= sprintf(
+					'<option value="%s" %s>%s</option>',
+					$key,
+					selected( $key, $args['value'], false ),
+					$label
+				);
+			}
+			$options .= '</optgroup>';
 		}
 		printf(
 			'<select name="%s[%s]" id="%s" %s%s>%s</select>',

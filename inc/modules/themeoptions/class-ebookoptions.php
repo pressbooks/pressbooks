@@ -80,13 +80,7 @@ class EbookOptions extends \Pressbooks\Options {
 				[ $this, 'renderHeaderFontField' ],
 				$_page,
 				$_section,
-				[
-					// TODO
-					'' => __( 'Theme default', 'pressbooks' ),
-					'Comic Sans MS' => __( 'Comic Sans MS', 'pressbooks' ),
-					'Lucida Console' => __( 'Lucida Console', 'pressbooks' ),
-					'label_for' => 'pdf_header_font',
-				]
+				array_merge( $this->fontChoices(), [ 'label_for' => 'ebook_header_font' ] )
 			);
 			add_settings_field(
 				'ebook_body_font',
@@ -94,13 +88,7 @@ class EbookOptions extends \Pressbooks\Options {
 				[ $this, 'renderBodyFontField' ],
 				$_page,
 				$_section,
-				[
-					// TODO
-					'' => __( 'Theme default', 'pressbooks' ),
-					'Comic Sans MS' => __( 'Comic Sans MS', 'pressbooks' ),
-					'Lucida Console' => __( 'Lucida Console', 'pressbooks' ),
-					'label_for' => 'pdf_header_font',
-				]
+				array_merge( $this->fontChoices(), [ 'label_for' => 'ebook_body_font' ] )
 			);
 		}
 
@@ -317,7 +305,7 @@ class EbookOptions extends \Pressbooks\Options {
 	 */
 	function renderHeaderFontField( $args ) {
 		unset( $args['label_for'], $args['class'] );
-		$this->renderSelect(
+		$this->renderSelectOptGroup(
 			[
 				'id' => 'ebook_header_font',
 				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
@@ -335,7 +323,7 @@ class EbookOptions extends \Pressbooks\Options {
 	 */
 	function renderBodyFontField( $args ) {
 		unset( $args['label_for'], $args['class'] );
-		$this->renderSelect(
+		$this->renderSelectOptGroup(
 			[
 				'id' => 'ebook_body_font',
 				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
@@ -429,10 +417,12 @@ class EbookOptions extends \Pressbooks\Options {
 		 *
 		 * @param array $value
 		 */
-		return apply_filters( 'pb_theme_options_ebook_strings', [
-			'ebook_header_font',
-			'ebook_body_font',
-		] );
+		return apply_filters(
+			'pb_theme_options_ebook_strings', [
+				'ebook_header_font',
+				'ebook_body_font',
+			]
+		);
 	}
 
 	/**
@@ -583,14 +573,14 @@ class EbookOptions extends \Pressbooks\Options {
 			if ( ! empty( $options['ebook_header_font'] ) ) {
 				$styles->getSass()->setVariables(
 					[
-						'todo-var-2' => '"' . str_replace( '"', '', $options['ebook_header_font'] ) . '"',
+						'shapeshifter-font-2' => '"' . str_replace( '"', '', $options['ebook_header_font'] ) . '"',
 					]
 				);
 			}
 			if ( ! empty( $options['ebook_body_font'] ) ) {
 				$styles->getSass()->setVariables(
 					[
-						'todo-var-1' => '"' . str_replace( '"', '', $options['ebook_body_font'] ) . '"',
+						'shapeshifter-font-1' => '"' . str_replace( '"', '', $options['ebook_body_font'] ) . '"',
 					]
 				);
 			}
