@@ -219,16 +219,18 @@ class OptionsTest extends \WP_UnitTestCase {
 		);
 	}
 
-	public function test_sanityChecks() {
+	public function test_sanityChecks( $options = [] ) {
 		$this->_book(); // We need Book Info now :(
 
-		$options[] = '\Pressbooks\Modules\ThemeOptions\EbookOptions';
-		$options[] = '\Pressbooks\Modules\ThemeOptions\GlobalOptions';
-		$options[] = '\Pressbooks\Modules\ThemeOptions\PDFOptions';
-		$options[] = '\Pressbooks\Modules\ThemeOptions\WebOptions';
-		$options[] = '\Pressbooks\Admin\PublishOptions';
-		$options[] = '\Pressbooks\Admin\ExportOptions';
-		$options[] = '\Pressbooks\Admin\Network\SharingAndPrivacyOptions';
+		if ( empty( $options ) ) {
+			$options[] = '\Pressbooks\Modules\ThemeOptions\EbookOptions';
+			$options[] = '\Pressbooks\Modules\ThemeOptions\GlobalOptions';
+			$options[] = '\Pressbooks\Modules\ThemeOptions\PDFOptions';
+			$options[] = '\Pressbooks\Modules\ThemeOptions\WebOptions';
+			$options[] = '\Pressbooks\Admin\PublishOptions';
+			$options[] = '\Pressbooks\Admin\ExportOptions';
+			$options[] = '\Pressbooks\Admin\Network\SharingAndPrivacyOptions';
+		}
 
 		foreach ( $options as $option ) {
 			/** @var \Pressbooks\Options $opt */
@@ -253,6 +255,15 @@ class OptionsTest extends \WP_UnitTestCase {
 				$this->assertStringStartsWith( 'HELLO WORLD', $option::scssOverrides( "HELLO WORLD \n" ) );
 			}
 		}
+	}
+
+	public function test_sanityChecks_ShapeShifter() {
+		add_filter( 'pb_is_shape_shifter_compatible', '__return_true' );
+		$options[] = '\Pressbooks\Modules\ThemeOptions\EbookOptions';;
+		$options[] = '\Pressbooks\Modules\ThemeOptions\PDFOptions';
+		$options[] = '\Pressbooks\Modules\ThemeOptions\WebOptions';
+		$this->test_sanityChecks( $options );
+		remove_filter( 'pb_is_shape_shifter_compatible', '__return_true' );
 	}
 
 	public function test_sanitize() {
