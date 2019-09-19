@@ -8,7 +8,6 @@ class OptionsMock extends \Pressbooks\Options {
 	 *
 	 * @see upgrade()
 	 * @var int
-	 * @group options
 	 */
 	const VERSION = 1;
 
@@ -16,7 +15,6 @@ class OptionsMock extends \Pressbooks\Options {
 	 * Export options.
 	 *
 	 * @var array
-	 * @group options
 	 */
 	public $options;
 
@@ -24,7 +22,6 @@ class OptionsMock extends \Pressbooks\Options {
 	 * Export defaults.
 	 *
 	 * @var array
-	 * @group options
 	 */
 	public $defaults;
 
@@ -32,7 +29,6 @@ class OptionsMock extends \Pressbooks\Options {
 	 * Constructor.
 	 *
 	 * @param array $options The retrieved options.
-	 * @group options
 	 */
 	function __construct( array $options ) {
 		$this->options = $options;
@@ -51,7 +47,7 @@ class OptionsMock extends \Pressbooks\Options {
 	}
 
 	/**
-	 * @group options
+	 *
 	 */
 	function init() {
 		$_page = $_option = $this->getSlug();
@@ -73,14 +69,13 @@ class OptionsMock extends \Pressbooks\Options {
 
 	/**
 	 * Display the mock options page description.
-	 * @group options
 	 */
 	function display() {
 		echo '<p>' . 'Mock settings.' . '</p>';
 	}
 
 	/**
-	 * @group options
+	 *
 	 */
 	function render() {
 	?>
@@ -95,7 +90,7 @@ class OptionsMock extends \Pressbooks\Options {
 	}
 
 	/**
-	 * @group options
+	 *
 	 */
 	function upgrade( $version ) {
 		// Unnecessary.
@@ -105,7 +100,6 @@ class OptionsMock extends \Pressbooks\Options {
 	 * Get the slug for the mock options page.
 	 *
 	 * @return string $slug
-	 * @group options
 	 */
 	static function getSlug() {
 		return 'mock';
@@ -115,14 +109,13 @@ class OptionsMock extends \Pressbooks\Options {
 	 * Get the localized title of the mock options page.
 	 *
 	 * @return string $title
-	 * @group options
 	 */
 	static function getTitle() {
 		return 'Mock';
 	}
 
 	/**
-	 * @group options
+	 *
 	 */
 	static function getDefaults() {
 		return [
@@ -140,7 +133,6 @@ class OptionsMock extends \Pressbooks\Options {
 	 * @param array $defaults The input array of default values.
 	 *
 	 * @return array $defaults
-	 * @group options
 	 */
 	static function filterDefaults( $defaults ) {
 		return $defaults;
@@ -150,7 +142,6 @@ class OptionsMock extends \Pressbooks\Options {
 	 * Get an array of options which return booleans.
 	 *
 	 * @return array $options
-	 * @group options
 	 */
 	static function getBooleanOptions() {
 		return [ 'option_bool' ];
@@ -160,7 +151,6 @@ class OptionsMock extends \Pressbooks\Options {
 	 * Get an array of options which return strings.
 	 *
 	 * @return array $options
-	 * @group options
 	 */
 	static function getStringOptions() {
 		return [ 'option_string' ];
@@ -199,7 +189,7 @@ class OptionsTest extends \WP_UnitTestCase {
 	use utilsTrait;
 
 	/**
-	 * @var \Pressbooks\Options
+	 * @var OptionsMock
 	 */
 	protected $options;
 
@@ -219,6 +209,9 @@ class OptionsTest extends \WP_UnitTestCase {
 		);
 	}
 
+	/**
+	 * @group options
+	 */
 	public function test_sanityChecks( $options = [] ) {
 		$this->_book(); // We need Book Info now :(
 
@@ -257,6 +250,9 @@ class OptionsTest extends \WP_UnitTestCase {
 		}
 	}
 
+	/**
+	 * @group options
+	 */
 	public function test_sanityChecks_ShapeShifter() {
 		add_filter( 'pb_is_shape_shifter_compatible', '__return_true' );
 		$options[] = '\Pressbooks\Modules\ThemeOptions\EbookOptions';;
@@ -266,6 +262,9 @@ class OptionsTest extends \WP_UnitTestCase {
 		remove_filter( 'pb_is_shape_shifter_compatible', '__return_true' );
 	}
 
+	/**
+	 * @group options
+	 */
 	public function test_sanitize() {
 
 		// Test empty boolean.
@@ -323,6 +322,9 @@ class OptionsTest extends \WP_UnitTestCase {
 		$this->assertEquals( $result['option_predef'], 'European Swallow' );
 	}
 
+	/**
+	 * @group options
+	 */
 	function test_PDFOptions_replaceRunningContentTags() {
 		$v = PDFOptions::replaceRunningContentTags( '%book_title%' );
 		$this->assertEquals( '"" string(book-title) ""', $v );
@@ -337,9 +339,12 @@ class OptionsTest extends \WP_UnitTestCase {
 		$this->assertEquals( '"blah  blah"', $v );
 	}
 
+	/**
+	 * @group options
+	 */
 	public function test_renderColorField() {
 		ob_start();
-		$output = \Pressbooks\Options::renderColorField([
+		\Pressbooks\Options::renderColorField([
 			'id' => 'test_color',
 			'name' => 'pressbooks_options_test',
 			'option' => 'test_color',
@@ -351,9 +356,12 @@ class OptionsTest extends \WP_UnitTestCase {
 		$this->assertEquals( '<input id="test_color" class="color-picker" name="pressbooks_options_test[test_color]" type="text" data-default-color="#c00" value="" />', $buffer );
 	}
 
+	/**
+	 * @group options
+	 */
 	public function test_renderCheckbox() {
 		ob_start();
-		$output = \Pressbooks\Options::renderCheckbox([
+		\Pressbooks\Options::renderCheckbox([
 			'id' => 'test_checkbox',
 			'name' => 'pressbooks_options_test',
 			'option' => 'test_checkbox',
@@ -365,6 +373,9 @@ class OptionsTest extends \WP_UnitTestCase {
 		$this->assertEquals( '<input id="test_checkbox" name="pressbooks_options_test[test_checkbox]" type="checkbox" value="1"  checked=\'checked\'/><label for="test_checkbox">Test Checkbox</label>', $buffer );
 	}
 
+	/**
+	 * @group options
+	 */
 	public function test_deleteCacheAfterUpdate() {
 		$now = time() - 60;
 		set_transient( 'pb_cache_deleted', $now, DAY_IN_SECONDS );
@@ -376,6 +387,9 @@ class OptionsTest extends \WP_UnitTestCase {
 		$this->assertNotEquals( $now, get_transient( 'pb_cache_deleted' ) );
 	}
 
+	/**
+	 * @group options
+	 */
 	public function test_getOption() {
 		$opt = new \Pressbooks\Admin\Network\SharingAndPrivacyOptions( [] );
 		$this->assertNotNull( $opt::getOption( 'enable_cloning' ) );
@@ -386,6 +400,9 @@ class OptionsTest extends \WP_UnitTestCase {
 		$this->assertNull( $opt::getOption( 'does_not_exist' ) );
 	}
 
+	/**
+	 * @group options
+	 */
 	public function test_renderBodyFontField() {
 
 		$fonts = \Pressbooks\Container::get( 'Styles' )->getShapeShifterFonts();
@@ -395,12 +412,14 @@ class OptionsTest extends \WP_UnitTestCase {
 		$options->renderBodyFontField( $fonts );
 		$buffer = ob_get_clean();
 		$this->assertContains( '</optgroup>', $buffer );
+		$this->assertContains( '<select name="pressbooks_theme_options_ebook[ebook_body_font]"', $buffer );
 
 		$options = new \Pressbooks\Modules\ThemeOptions\PDFOptions( [] );
 		ob_start();
 		$options->renderBodyFontField( $fonts );
 		$buffer = ob_get_clean();
 		$this->assertContains( '</optgroup>', $buffer );
+		$this->assertContains( '<select name="pressbooks_theme_options_pdf[pdf_body_font]"', $buffer );
 
 
 		$options = new \Pressbooks\Modules\ThemeOptions\WebOptions( [] );
@@ -408,9 +427,13 @@ class OptionsTest extends \WP_UnitTestCase {
 		$options->renderBodyFontField( $fonts );
 		$buffer = ob_get_clean();
 		$this->assertContains( '</optgroup>', $buffer );
+		$this->assertContains( '<select name="pressbooks_theme_options_web[webbook_body_font]"', $buffer );
 
 	}
 
+	/**
+	 * @group options
+	 */
 	public function test_renderHeaderFontField() {
 
 		$fonts = \Pressbooks\Container::get( 'Styles' )->getShapeShifterFonts();
@@ -420,12 +443,14 @@ class OptionsTest extends \WP_UnitTestCase {
 		$options->renderHeaderFontField( $fonts );
 		$buffer = ob_get_clean();
 		$this->assertContains( '</optgroup>', $buffer );
+		$this->assertContains( '<select name="pressbooks_theme_options_ebook[ebook_header_font]"', $buffer );
 
 		$options = new \Pressbooks\Modules\ThemeOptions\PDFOptions( [] );
 		ob_start();
 		$options->renderHeaderFontField( $fonts );
 		$buffer = ob_get_clean();
 		$this->assertContains( '</optgroup>', $buffer );
+		$this->assertContains( '<select name="pressbooks_theme_options_pdf[pdf_header_font]"', $buffer );
 
 
 		$options = new \Pressbooks\Modules\ThemeOptions\WebOptions( [] );
@@ -433,6 +458,7 @@ class OptionsTest extends \WP_UnitTestCase {
 		$options->renderHeaderFontField( $fonts );
 		$buffer = ob_get_clean();
 		$this->assertContains( '</optgroup>', $buffer );
+		$this->assertContains( '<select name="pressbooks_theme_options_web[webbook_header_font]"', $buffer );
 
 	}
 
