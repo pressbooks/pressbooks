@@ -386,4 +386,54 @@ class OptionsTest extends \WP_UnitTestCase {
 		$this->assertNull( $opt::getOption( 'does_not_exist' ) );
 	}
 
+	public function test_renderBodyFontField() {
+
+		$fonts = \Pressbooks\Container::get( 'Styles' )->getShapeShifterFonts();
+
+		$options = new \Pressbooks\Modules\ThemeOptions\EbookOptions( [] );
+		ob_start();
+		$options->renderBodyFontField( $fonts );
+		$buffer = ob_get_clean();
+		$this->assertContains( '</optgroup>', $buffer );
+
+		$options = new \Pressbooks\Modules\ThemeOptions\PDFOptions( [] );
+		ob_start();
+		$options->renderBodyFontField( $fonts );
+		$buffer = ob_get_clean();
+		$this->assertContains( '</optgroup>', $buffer );
+
+
+		$options = new \Pressbooks\Modules\ThemeOptions\WebOptions( [] );
+		ob_start();
+		$options->renderBodyFontField( $fonts );
+		$buffer = ob_get_clean();
+		$this->assertContains( '</optgroup>', $buffer );
+
+	}
+
+	public function test_renderHeaderFontField() {
+
+		$fonts = \Pressbooks\Container::get( 'Styles' )->getShapeShifterFonts();
+
+		$options = new \Pressbooks\Modules\ThemeOptions\EbookOptions( [] );
+		ob_start();
+		$options->renderHeaderFontField( $fonts );
+		$buffer = ob_get_clean();
+		$this->assertContains( '</optgroup>', $buffer );
+
+		$options = new \Pressbooks\Modules\ThemeOptions\PDFOptions( [] );
+		ob_start();
+		$options->renderHeaderFontField( $fonts );
+		$buffer = ob_get_clean();
+		$this->assertContains( '</optgroup>', $buffer );
+
+
+		$options = new \Pressbooks\Modules\ThemeOptions\WebOptions( [] );
+		ob_start();
+		$options->renderHeaderFontField( $fonts );
+		$buffer = ob_get_clean();
+		$this->assertContains( '</optgroup>', $buffer );
+
+	}
+
 }
