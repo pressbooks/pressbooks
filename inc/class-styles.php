@@ -682,14 +682,14 @@ class Styles {
 	 * @return bool
 	 */
 	public function isShaperShifterFontSerif( $font ) {
-		$serif = [
-			'Cormorant Garamond',
-			'Noto serif',
-			'Spectral',
-			'Alegreya',
-			'Crimson Text',
-		];
-		return in_array( $font, $serif, true );
+		$fonts = $this->getShapeShifterFonts();
+		$serif_key = __( 'Serif', 'pressbooks' );
+		$serif = array_keys( $fonts[ $serif_key ] );
+		$serif = array_map( 'strtolower', $serif );
+		if ( in_array( strtolower( $font ), $serif, true ) ) {
+			return true;
+		}
+		return false;
 	}
 
 	// ------------------------------------------------------------------------

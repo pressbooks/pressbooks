@@ -440,7 +440,7 @@ abstract class Options {
 	}
 
 	/**
-	 * Render a select element.
+	 * Render a select element with optgroups
 	 *
 	 * @param array $args
 	 */
