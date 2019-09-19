@@ -191,7 +191,7 @@ class Sass {
 			if ( ! empty( $scss ) || ! empty( $this->vars ) ) {
 				$scssphp->setVariables( $this->vars );
 				$scssphp->setImportPaths( $includes );
-				$css = @$scssphp->compile( $scss ); // @codingStandardsIgnoreLine
+				$css = $scssphp->compile( $scss );
 				$this->vars = []; // Reset
 			}
 		} catch ( \Exception $e ) {
