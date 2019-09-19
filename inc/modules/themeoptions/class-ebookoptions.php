@@ -571,16 +571,20 @@ class EbookOptions extends \Pressbooks\Options {
 		// Shape Shifter Features
 		if ( $shape_shifter_compatible ) {
 			if ( ! empty( $options['ebook_header_font'] ) ) {
+				$ebook_header_font = str_replace( '"', '', $options['ebook_header_font'] );
 				$styles->getSass()->setVariables(
 					[
-						'shapeshifter-font-2' => '"' . str_replace( '"', '', $options['ebook_header_font'] ) . '"',
+						'shapeshifter-font-2' => '"' . $ebook_header_font . '"',
+						'shapeshifter-font-2-is-serif' => $styles->isShaperShifterFontSerif( $ebook_header_font ),
 					]
 				);
 			}
 			if ( ! empty( $options['ebook_body_font'] ) ) {
+				$ebook_body_font = str_replace( '"', '', $options['ebook_body_font'] );
 				$styles->getSass()->setVariables(
 					[
-						'shapeshifter-font-1' => '"' . str_replace( '"', '', $options['ebook_body_font'] ) . '"',
+						'shapeshifter-font-1' => '"' . $ebook_body_font . '"',
+						'shapeshifter-font-1-is-serif' => $styles->isShaperShifterFontSerif( $ebook_body_font ),
 					]
 				);
 			}

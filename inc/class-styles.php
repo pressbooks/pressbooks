@@ -674,6 +674,24 @@ class Styles {
 		];
 	}
 
+	/**
+	 * Is the font serif? If no, then it's sans-serif...
+	 *
+	 * @param string $font
+	 *
+	 * @return bool
+	 */
+	public function isShaperShifterFontSerif( $font ) {
+		$serif = [
+			'Cormorant Garamond',
+			'Noto serif',
+			'Spectral',
+			'Alegreya',
+			'Crimson Text',
+		];
+		return in_array( $font, $serif, true );
+	}
+
 	// ------------------------------------------------------------------------
 	// Custom Styles Editor
 	// ------------------------------------------------------------------------

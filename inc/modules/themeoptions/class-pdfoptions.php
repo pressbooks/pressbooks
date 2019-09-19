@@ -2116,16 +2116,20 @@ class PDFOptions extends \Pressbooks\Options {
 		// Shape Shifter Features
 		if ( $shape_shifter_compatible ) {
 			if ( ! empty( $options['pdf_header_font'] ) ) {
+				$pdf_header_font = str_replace( '"', '', $options['pdf_header_font'] );
 				$styles->getSass()->setVariables(
 					[
-						'shapeshifter-font-2' => '"' . str_replace( '"', '', $options['pdf_header_font'] ) . '"',
+						'shapeshifter-font-2' => '"' . $pdf_header_font . '"',
+						'shapeshifter-font-2-is-serif' => $styles->isShaperShifterFontSerif( $pdf_header_font ),
 					]
 				);
 			}
 			if ( ! empty( $options['pdf_body_font'] ) ) {
+				$pdf_body_font = str_replace( '"', '', $options['pdf_body_font'] );
 				$styles->getSass()->setVariables(
 					[
-						'shapeshifter-font-1' => '"' . str_replace( '"', '', $options['pdf_body_font'] ) . '"',
+						'shapeshifter-font-1' => '"' . $pdf_body_font . '"',
+						'shapeshifter-font-1-is-serif' => $styles->isShaperShifterFontSerif( $pdf_body_font ),
 					]
 				);
 			}

@@ -613,16 +613,20 @@ class WebOptions extends \Pressbooks\Options {
 		// Shape Shifter Features
 		if ( $shape_shifter_compatible ) {
 			if ( ! empty( $options['webbook_header_font'] ) ) {
+				$webbook_header_font = str_replace( '"', '', $options['webbook_header_font'] );
 				$styles->getSass()->setVariables(
 					[
-						'shapeshifter-font-2' => '"' . str_replace( '"', '', $options['webbook_header_font'] ) . '"',
+						'shapeshifter-font-2' => '"' . $webbook_header_font . '"',
+						'shapeshifter-font-2-is-serif' => $styles->isShaperShifterFontSerif( $webbook_header_font ),
 					]
 				);
 			}
 			if ( ! empty( $options['webbook_body_font'] ) ) {
+				$webbook_body_font = str_replace( '"', '', $options['webbook_body_font'] );
 				$styles->getSass()->setVariables(
 					[
-						'shapeshifter-font-1' => '"' . str_replace( '"', '', $options['webbook_body_font'] ) . '"',
+						'shapeshifter-font-1' => '"' . $webbook_body_font . '"',
+						'shapeshifter-font-1-is-serif' => $styles->isShaperShifterFontSerif( $webbook_body_font ),
 					]
 				);
 			}
