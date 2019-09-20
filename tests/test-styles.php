@@ -182,21 +182,14 @@ class StylesTest extends \WP_UnitTestCase {
 	}
 
 	public function test_getShapeShifterFonts() {
+		$theme_default = __( 'Theme default', 'pressbooks' );
 		$serif_key = __( 'Serif', 'pressbooks' );
 		$sans_serif_key = __( 'Sans serif', 'pressbooks' );
-		$theme_default = __( 'Theme default', 'pressbooks' );
 
-		$fonts = $this->cs->getShapeShifterFonts( true );
+		$fonts = $this->cs->getShapeShifterFonts();
+		$this->assertTrue( $fonts[''] === $theme_default );
 		$this->assertTrue( is_array( $fonts[ $serif_key ] ) );
-		$this->assertContains( $theme_default, $fonts[ $serif_key ] );
 		$this->assertTrue( is_array( $fonts[ $sans_serif_key ] ) );
-		$this->assertNotContains( $theme_default, $fonts[ $sans_serif_key ] );
-
-		$fonts = $this->cs->getShapeShifterFonts( false );
-		$this->assertTrue( is_array( $fonts[ $serif_key ] ) );
-		$this->assertNotContains( $theme_default, $fonts[ $serif_key ] );
-		$this->assertTrue( is_array( $fonts[ $sans_serif_key ] ) );
-		$this->assertContains( $theme_default, $fonts[ $sans_serif_key ] );
 	}
 
 	public function test_isShaperShifterFontSerif() {

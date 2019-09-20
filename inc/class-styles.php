@@ -635,40 +635,35 @@ class Styles {
 	/**
 	 * Optgroup compatible font choices
 	 *
-	 * @param bool $default_is_serif (optional)
-	 *
 	 * @return array
 	 * @see \Pressbooks\Options::renderSelectOptGroup
 	 */
-	public function getShapeShifterFonts( $default_is_serif = true ) {
+	public function getShapeShifterFonts() {
 		$serif = [
+			'Alegreya' => __( 'Alegreya', 'pressbooks' ),
 			'Cormorant Garamond' => __( 'Cormorant Garamond', 'pressbooks' ),
+			'Crimson Text' => __( 'Crimson Text', 'pressbooks' ),
+			'FreeSerif' => __( 'GNU FreeFont Serif', 'pressbooks' ),
 			'Noto serif' => __( 'Noto serif', 'pressbooks' ),
 			'Spectral' => __( 'Spectral', 'pressbooks' ),
-			'Alegreya' => __( 'Alegreya', 'pressbooks' ),
-			'Crimson Text' => __( 'Crimson Text', 'pressbooks' ),
 		];
 
 		$sans_serif = [
-			'Roboto' => __( 'Roboto', 'pressbooks' ),
-			'Open Sans' => __( 'Open Sans', 'pressbooks' ),
-			'Lato' => __( 'Lato', 'pressbooks' ),
-			'Montserrat' => __( 'Montserrat', 'pressbooks' ),
-			'Raleway' => __( 'Raleway', 'pressbooks' ),
-			'Noto Sans' => __( 'Noto Sans', 'pressbooks' ),
-			'Rubik' => __( 'Rubik', 'pressbooks' ),
 			'Barlow' => __( 'Barlow', 'pressbooks' ),
-			'Libre Franklin' => __( 'Libre Franklin', 'pressbooks' ),
+			'FreeSans' => __( 'GNU FreeFont Sans', 'pressbooks' ),
 			'K2D' => __( 'K2D', 'pressbooks' ),
+			'Lato' => __( 'Lato', 'pressbooks' ),
+			'Libre Franklin' => __( 'Libre Franklin', 'pressbooks' ),
+			'Montserrat' => __( 'Montserrat', 'pressbooks' ),
+			'Noto Sans' => __( 'Noto Sans', 'pressbooks' ),
+			'Open Sans' => __( 'Open Sans', 'pressbooks' ),
+			'Raleway' => __( 'Raleway', 'pressbooks' ),
+			'Roboto' => __( 'Roboto', 'pressbooks' ),
+			'Rubik' => __( 'Rubik', 'pressbooks' ),
 		];
 
-		if ( $default_is_serif ) {
-			$serif = array_merge( [ '' => __( 'Theme default', 'pressbooks' ) ], $serif );
-		} else {
-			$sans_serif = array_merge( [ '' => __( 'Theme default', 'pressbooks' ) ], $sans_serif );
-		}
-
 		return [
+			'' => __( 'Theme default', 'pressbooks' ),
 			__( 'Serif', 'pressbooks' ) => $serif,
 			__( 'Sans serif', 'pressbooks' ) => $sans_serif,
 		];
