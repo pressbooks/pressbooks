@@ -440,6 +440,55 @@ abstract class Options {
 	}
 
 	/**
+	 * Render a select element with optgroups
+	 *
+	 * @param array $args
+	 */
+	static function renderSelectOptGroup( $args ) {
+		$defaults = [
+			'id' => null,
+			'name' => null,
+			'option' => null,
+			'value' => '',
+			'choices' => [],
+			'multiple' => false,
+			'disabled' => false,
+			'description' => null,
+		];
+
+		$args = wp_parse_args( $args, $defaults );
+
+		$options = '';
+		foreach ( $args['choices'] as $optgroup => $choices ) {
+			$options .= sprintf( '<optgroup label="%s">', $optgroup );
+			foreach ( $choices as $key => $label ) {
+				$options .= sprintf(
+					'<option value="%s" %s>%s</option>',
+					$key,
+					selected( $key, $args['value'], false ),
+					$label
+				);
+			}
+			$options .= '</optgroup>';
+		}
+		printf(
+			'<select name="%s[%s]" id="%s" %s%s>%s</select>',
+			$args['name'],
+			$args['option'],
+			$args['id'],
+			( $args['multiple'] ) ? ' multiple' : '',
+			( ! empty( $args['disabled'] ) ) ? ' disabled' : '',
+			$options
+		);
+		if ( isset( $args['description'] ) ) {
+			printf(
+				'<p class="description">%s</p>',
+				$args['description']
+			);
+		}
+	}
+
+	/**
 	 * Render a custom select element.
 	 *
 	 * @param array $args

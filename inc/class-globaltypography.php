@@ -33,6 +33,7 @@ class GlobalTypography {
 	 * Get Pressbooks-supported languages.
 	 *
 	 * @return array
+	 * @see \Pressbooks\Modules\ThemeOptions\GlobalOptions::renderLanguagesField
 	 */
 	function getSupportedLanguages() {
 		return [
@@ -104,7 +105,10 @@ class GlobalTypography {
 	}
 
 	/**
-	 * Update and save the SCSS mixin which assigns the $global-typography variable.
+	 * Update and save user generated SCSS mixins:
+	 * _font-stack-prince.scss, _font-stack-epub.scss, _font-stack-web.scss, ...
+	 * Creates the necessary @import statements and variables, for foreign language support
+	 * (CSS fallback font stacks, for unknown characters)
 	 */
 	function updateGlobalTypographyMixin() {
 
@@ -208,6 +212,7 @@ class GlobalTypography {
 	 * Get the current theme's supported languages.
 	 *
 	 * @return array
+	 * @see \Pressbooks\Modules\ThemeOptions\GlobalOptions::renderLanguagesField
 	 */
 	function getThemeSupportedLanguages() {
 

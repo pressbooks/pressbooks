@@ -168,6 +168,43 @@ class StylesTest extends \WP_UnitTestCase {
 		$this->assertEquals( $result, false );
 	}
 
+	public function test_isShapeShifterCompatible() {
+		$this->assertIsBool($this->cs->isShapeShifterCompatible());
+
+		add_filter( 'pb_is_shape_shifter_compatible', '__return_true' );
+		$this->assertTrue( $this->cs->isShapeShifterCompatible() );
+		remove_filter( 'pb_is_shape_shifter_compatible', '__return_true' );
+
+
+		add_filter( 'pb_is_shape_shifter_compatible', '__return_false' );
+		$this->assertFalse( $this->cs->isShapeShifterCompatible() );
+		remove_filter( 'pb_is_shape_shifter_compatible', '__return_false' );
+	}
+
+	public function test_getShapeShifterFonts() {
+		$serif_key = __( 'Serif', 'pressbooks' );
+		$sans_serif_key = __( 'Sans serif', 'pressbooks' );
+		$theme_default = __( 'Theme default', 'pressbooks' );
+
+		$fonts = $this->cs->getShapeShifterFonts( true );
+		$this->assertTrue( is_array( $fonts[ $serif_key ] ) );
+		$this->assertContains( $theme_default, $fonts[ $serif_key ] );
+		$this->assertTrue( is_array( $fonts[ $sans_serif_key ] ) );
+		$this->assertNotContains( $theme_default, $fonts[ $sans_serif_key ] );
+
+		$fonts = $this->cs->getShapeShifterFonts( false );
+		$this->assertTrue( is_array( $fonts[ $serif_key ] ) );
+		$this->assertNotContains( $theme_default, $fonts[ $serif_key ] );
+		$this->assertTrue( is_array( $fonts[ $sans_serif_key ] ) );
+		$this->assertContains( $theme_default, $fonts[ $sans_serif_key ] );
+	}
+
+	public function test_isShaperShifterFontSerif() {
+		$this->assertTrue( $this->cs->isShaperShifterFontSerif( 'Crimson Text' ) );
+		$this->assertTrue( $this->cs->isShaperShifterFontSerif( 'crimson text' ) );
+		$this->assertFalse( $this->cs->isShaperShifterFontSerif( 'Libre Franklin' ) );
+	}
+
 	/**
 	 * @group styles
 	 */

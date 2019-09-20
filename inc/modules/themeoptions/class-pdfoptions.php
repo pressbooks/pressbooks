@@ -76,6 +76,26 @@ class PDFOptions extends \Pressbooks\Options {
 
 		$custom_styles = Container::get( 'Styles' );
 		$v2_compatible = $custom_styles->isCurrentThemeCompatible( 2 );
+		$shape_shifter_compatible = $custom_styles->isShapeShifterCompatible();
+
+		if ( $shape_shifter_compatible ) {
+			add_settings_field(
+				'pdf_header_font',
+				__( 'Header Font', 'pressbooks' ),
+				[ $this, 'renderHeaderFontField' ],
+				$_page,
+				$_section,
+				array_merge( $custom_styles->getShapeShifterFonts(), [ 'label_for' => 'pdf_header_font' ] ) //
+			);
+			add_settings_field(
+				'pdf_body_font',
+				__( 'Body Font', 'pressbooks' ),
+				[ $this, 'renderBodyFontField' ],
+				$_page,
+				$_section,
+				array_merge( $custom_styles->getShapeShifterFonts(), [ 'label_for' => 'pdf_body_font' ] )
+			);
+		}
 
 		if ( $v2_compatible ) {
 			add_settings_field(
@@ -695,6 +715,42 @@ class PDFOptions extends \Pressbooks\Options {
 				'append' => $args[1],
 				'type' => 'text',
 				'class' => 'small-text',
+			]
+		);
+	}
+
+	/**
+	 * Render the pdf_header_font input.
+	 *
+	 * @param array $args
+	 */
+	function renderHeaderFontField( $args ) {
+		unset( $args['label_for'], $args['class'] );
+		$this->renderSelectOptGroup(
+			[
+				'id' => 'pdf_header_font',
+				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
+				'option' => 'pdf_header_font',
+				'value' => ( isset( $this->options['pdf_header_font'] ) ) ? $this->options['pdf_header_font'] : '',
+				'choices' => $args,
+			]
+		);
+	}
+
+	/**
+	 * Render the pdf_body_font input.
+	 *
+	 * @param array $args
+	 */
+	function renderBodyFontField( $args ) {
+		unset( $args['label_for'], $args['class'] );
+		$this->renderSelectOptGroup(
+			[
+				'id' => 'pdf_body_font',
+				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
+				'option' => 'pdf_body_font',
+				'value' => ( isset( $this->options['pdf_body_font'] ) ) ? $this->options['pdf_body_font'] : '',
+				'choices' => $args,
 			]
 		);
 	}
@@ -1420,6 +1476,8 @@ class PDFOptions extends \Pressbooks\Options {
 		 */
 		return apply_filters(
 			'pb_theme_options_pdf_defaults', [
+				'pdf_header_font' => '',
+				'pdf_body_font' => '',
 				'pdf_body_font_size' => '11',
 				'pdf_body_line_height' => '1.4',
 				'pdf_page_width' => '5.5in',
@@ -1594,6 +1652,8 @@ class PDFOptions extends \Pressbooks\Options {
 		 */
 		return apply_filters(
 			'pb_theme_options_pdf_strings', [
+				'pdf_header_font',
+				'pdf_body_font',
 				'pdf_page_width',
 				'pdf_page_height',
 				'pdf_page_margin_outside',
@@ -1767,6 +1827,7 @@ class PDFOptions extends \Pressbooks\Options {
 
 		$styles = Container::get( 'Styles' );
 		$v2_compatible = $styles->isCurrentThemeCompatible( 2 );
+		$shape_shifter_compatible = $styles->isShapeShifterCompatible();
 
 		if ( ! $v2_compatible ) {
 			$scss .= "/* Theme Options */\n";
@@ -2049,6 +2110,28 @@ class PDFOptions extends \Pressbooks\Options {
 		if ( ! empty( $options['pdf_fontsize'] ) ) {
 			if ( ! $v2_compatible ) {
 				$scss .= 'body { font-size: 1.3em; line-height: 1.3; }' . "\n";
+			}
+		}
+
+		// Shape Shifter Features
+		if ( $shape_shifter_compatible ) {
+			if ( ! empty( $options['pdf_header_font'] ) ) {
+				$pdf_header_font = str_replace( '"', '', $options['pdf_header_font'] );
+				$styles->getSass()->setVariables(
+					[
+						'shapeshifter-font-2' => '"' . $pdf_header_font . '"',
+						'shapeshifter-font-2-is-serif' => $styles->isShaperShifterFontSerif( $pdf_header_font ),
+					]
+				);
+			}
+			if ( ! empty( $options['pdf_body_font'] ) ) {
+				$pdf_body_font = str_replace( '"', '', $options['pdf_body_font'] );
+				$styles->getSass()->setVariables(
+					[
+						'shapeshifter-font-1' => '"' . $pdf_body_font . '"',
+						'shapeshifter-font-1-is-serif' => $styles->isShaperShifterFontSerif( $pdf_body_font ),
+					]
+				);
 			}
 		}
 

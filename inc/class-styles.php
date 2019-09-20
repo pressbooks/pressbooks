@@ -12,6 +12,8 @@ use function \Pressbooks\Utility\debug_error_log;
 
 /**
  * Custom Styles Feature(s)
+ * This class houses a pile of Legacy (V1), Current (V2), Buckram (SCSS Components), and Shape Shifter (Choose your own font) code
+ * Basically, a pile of lessons learned over the years, used to generate the SCSS that is, then, passed into the \Pressbooks\Sass compiler, to generate the CSS we deserve.
  */
 class Styles {
 
@@ -316,12 +318,12 @@ class Styles {
 	/**
 	 * Are the current theme's stylesheets SCSS compatible?
 	 *
-	 * @param int $version
+	 * @param int $with_version
 	 * @param \WP_Theme $theme (optional)
 	 *
 	 * @return bool
 	 */
-	public function isCurrentThemeCompatible( $version = 1, $theme = null ) {
+	public function isCurrentThemeCompatible( $with_version = 1, $theme = null ) {
 
 		if ( null === $theme ) {
 			$theme = wp_get_theme();
@@ -337,13 +339,13 @@ class Styles {
 
 		foreach ( $types as $type ) {
 			$path = '';
-			if ( 1 === $version && 'web' !== $type ) {
+			if ( 1 === $with_version && 'web' !== $type ) {
 				$path = $basepath . "/export/$type/style.scss";
-			} elseif ( 1 === $version && 'web' === $type ) {
+			} elseif ( 1 === $with_version && 'web' === $type ) {
 				$path = $basepath . '/style.scss';
 			}
 
-			if ( 2 === $version ) {
+			if ( 2 === $with_version ) {
 				$path = $basepath . "/assets/styles/$type/style.scss";
 			}
 
@@ -616,8 +618,88 @@ class Styles {
 		return false;
 	}
 
+	// ------------------------------------------------------------------------
+	// Shape Shifter Features
+	// ------------------------------------------------------------------------
+
 	/**
+	 * Are the current theme's SCSS stylesheets "Shape Shifter" compatible?
+	 * Ie. Does it support the "choose your own font" feature?
 	 *
+	 * @return bool
+	 */
+	public function isShapeShifterCompatible() {
+		return apply_filters( 'pb_is_shape_shifter_compatible', ( 'pressbooks-malala' === get_stylesheet() ) );
+	}
+
+	/**
+	 * Optgroup compatible font choices
+	 *
+	 * @param bool $default_is_serif (optional)
+	 *
+	 * @return array
+	 * @see \Pressbooks\Options::renderSelectOptGroup
+	 */
+	public function getShapeShifterFonts( $default_is_serif = true ) {
+		$serif = [
+			'Cormorant Garamond' => __( 'Cormorant Garamond', 'pressbooks' ),
+			'Noto serif' => __( 'Noto serif', 'pressbooks' ),
+			'Spectral' => __( 'Spectral', 'pressbooks' ),
+			'Alegreya' => __( 'Alegreya', 'pressbooks' ),
+			'Crimson Text' => __( 'Crimson Text', 'pressbooks' ),
+		];
+
+		$sans_serif = [
+			'Roboto' => __( 'Roboto', 'pressbooks' ),
+			'Open Sans' => __( 'Open Sans', 'pressbooks' ),
+			'Lato' => __( 'Lato', 'pressbooks' ),
+			'Montserrat' => __( 'Montserrat', 'pressbooks' ),
+			'Raleway' => __( 'Raleway', 'pressbooks' ),
+			'Noto Sans' => __( 'Noto Sans', 'pressbooks' ),
+			'Rubik' => __( 'Rubik', 'pressbooks' ),
+			'Barlow' => __( 'Barlow', 'pressbooks' ),
+			'Libre Franklin' => __( 'Libre Franklin', 'pressbooks' ),
+			'K2D' => __( 'K2D', 'pressbooks' ),
+		];
+
+		if ( $default_is_serif ) {
+			$serif = array_merge( [ '' => __( 'Theme default', 'pressbooks' ) ], $serif );
+		} else {
+			$sans_serif = array_merge( [ '' => __( 'Theme default', 'pressbooks' ) ], $sans_serif );
+		}
+
+		return [
+			__( 'Serif', 'pressbooks' ) => $serif,
+			__( 'Sans serif', 'pressbooks' ) => $sans_serif,
+		];
+	}
+
+	/**
+	 * Is the font serif? If no, then it's sans-serif...
+	 *
+	 * @param string $font
+	 *
+	 * @return bool
+	 */
+	public function isShaperShifterFontSerif( $font ) {
+		$fonts = $this->getShapeShifterFonts();
+		$serif_key = __( 'Serif', 'pressbooks' );
+		$serif = array_keys( $fonts[ $serif_key ] );
+		$serif = array_map( 'strtolower', $serif );
+		if ( in_array( strtolower( $font ), $serif, true ) ) {
+			return true;
+		}
+		return false;
+	}
+
+	// ------------------------------------------------------------------------
+	// Custom Styles Editor
+	// ------------------------------------------------------------------------
+
+	/**
+	 * Custom Styles Editor
+	 * This method is the callback for `add_theme_page`
+	 * Adds submenu page to the Appearance main menu.
 	 */
 	public function editor() {
 

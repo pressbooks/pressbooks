@@ -10,6 +10,8 @@ use function Pressbooks\Utility\str_starts_with;
 
 /**
  * SCSS Compiler and Build Tools
+ * Think of this class as the command line you pass your junk into. Out comes a CSS string.
+ * No styles in here! Just compiler stuff.
  */
 class Sass {
 
