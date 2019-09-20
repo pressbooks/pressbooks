@@ -460,16 +460,25 @@ abstract class Options {
 
 		$options = '';
 		foreach ( $args['choices'] as $optgroup => $choices ) {
-			$options .= sprintf( '<optgroup label="%s">', $optgroup );
-			foreach ( $choices as $key => $label ) {
+			if ( is_array( $choices ) ) {
+				$options .= sprintf( '<optgroup label="%s">', $optgroup );
+				foreach ( $choices as $key => $label ) {
+					$options .= sprintf(
+						'<option value="%s" %s>%s</option>',
+						$key,
+						selected( $key, $args['value'], false ),
+						$label
+					);
+				}
+				$options .= '</optgroup>';
+			} else {
 				$options .= sprintf(
 					'<option value="%s" %s>%s</option>',
-					$key,
-					selected( $key, $args['value'], false ),
-					$label
+					$optgroup,
+					selected( $optgroup, $args['value'], false ),
+					$choices
 				);
 			}
-			$options .= '</optgroup>';
 		}
 		printf(
 			'<select name="%s[%s]" id="%s" %s%s>%s</select>',
