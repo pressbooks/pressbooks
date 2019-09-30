@@ -348,7 +348,7 @@ class Xhtml11 extends ExportGenerator {
 			}
 		}
 		if ( ! empty( $_GET['script'] ) ) {
-			$url = $this->getExportScriptUrl( clean_filename( $_GET['script'] ) ) . '/script.js';
+			$url = $this->getExportScriptUrl( clean_filename( $_GET['script'] ) );
 			if ( $url ) {
 				echo "<script src='$url' type='text/javascript'></script>\n";
 			}
