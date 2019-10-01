@@ -42,7 +42,7 @@
     "/scripts/textboxes-legacy.js": "/scripts/textboxes-legacy.js?id=792be0d82ed0efec6567",
     "/scripts/theme-lock.js": "/scripts/theme-lock.js?id=258a9d1ba13768ac000e",
     "/scripts/theme-options.js": "/scripts/theme-options.js?id=4a7baa1af33ab8c9fbdd",
-    "/scripts/eventsource.polyfill.js": "/scripts/eventsource.polyfill.js?id=f084938079d2d21c128e",
+    "/scripts/eventsource.polyfill.js": "/scripts/eventsource.polyfill.js?id=87b1f5ef95781f909ad0",
     "/scripts/paged.polyfill.js": "/scripts/paged.polyfill.js?id=09db5c5561310ab28ec4",
     "/scripts/blockui.js": "/scripts/blockui.js?id=73a1435220f33aceff1c",
     "/scripts/isotope.js": "/scripts/isotope.js?id=8896e082b3fa1738e2e2",
@@ -51,5 +51,5 @@
     "/scripts/js-cookie.js": "/scripts/js-cookie.js?id=fa93e8894edb6245ab03",
     "/scripts/select2.js": "/scripts/select2.js?id=faccd8410c74ea339c86",
     "/scripts/sidr.js": "/scripts/sidr.js?id=32495427b04ceeab5376",
-    "/scripts/table.js": "/scripts/table.js?id=5362adbf0d39366ae8d7"
+    "/scripts/table.js": "/scripts/table.js?id=8149cba12196638e67b0"
 }
