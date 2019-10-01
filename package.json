@@ -9,7 +9,7 @@
 		"lint": "npm run -s lint:scripts && npm run -s lint:styles",
 		"lint:scripts": "cross-env NODE_ENV=development node_modules/eslint/bin/eslint.js \"assets/src/scripts/*.js\"",
 		"lint:styles": "cross-env NODE_ENV=development node_modules/stylelint/bin/stylelint.js \"assets/src/styles/**/*.scss\" --syntax scss",
-		"localize": "wp-pot -s \"**/*.php\" select2-o languages/pressbooks.pot -p \"Pressbooks\" -t \"Pressbooks (Book Oven Inc.) <code@pressbooks.com>\""
+    "localize": "wp-pot -s \"**/*.php\" -o languages/pressbooks.pot -p \"Pressbooks\" -t \"Pressbooks (Book Oven Inc.) <code@pressbooks.com>\""
 	},
 	"engines": {
 		"node": ">= 6.9.4"

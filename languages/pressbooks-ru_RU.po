@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
-"POT-Creation-Date: 2019-09-16T16:58:44+00:00\n"
-"PO-Revision-Date: 2019-09-16 16:59+0000\n"
+"POT-Creation-Date: 2019-10-01T16:35:38+00:00\n"
+"PO-Revision-Date: 2019-10-01 16:36+0000\n"
 "Last-Translator: Dac Chartrand <dac@pressbooks.com>\n"
 "Language-Team: Russian (http://www.transifex.com/pressbooks/pressbooks/language/ru/)\n"
 "MIME-Version: 1.0\n"
@@ -604,17 +604,17 @@ msgid ""
 msgstr "Мы можем рассчитать размер корешка, основываясь на спецификациях CreateSpace и Ingram, или Вы можете ввести пользовательский размер страниц в дюймах (PPI), указанный Вашем принтером."
 
 #: inc/admin/covergenerator/namespace.php:562
-#: inc/modules/themeoptions/class-pdfoptions.php:124
-#: inc/modules/themeoptions/class-pdfoptions.php:345
-#: inc/modules/themeoptions/class-pdfoptions.php:364
-#: inc/modules/themeoptions/class-pdfoptions.php:383
-#: inc/modules/themeoptions/class-pdfoptions.php:402
-#: inc/modules/themeoptions/class-pdfoptions.php:420
-#: inc/modules/themeoptions/class-pdfoptions.php:438
-#: inc/modules/themeoptions/class-pdfoptions.php:459
-#: inc/modules/themeoptions/class-pdfoptions.php:480
-#: inc/modules/themeoptions/class-pdfoptions.php:499
-#: inc/modules/themeoptions/class-pdfoptions.php:518
+#: inc/modules/themeoptions/class-pdfoptions.php:144
+#: inc/modules/themeoptions/class-pdfoptions.php:365
+#: inc/modules/themeoptions/class-pdfoptions.php:384
+#: inc/modules/themeoptions/class-pdfoptions.php:403
+#: inc/modules/themeoptions/class-pdfoptions.php:422
+#: inc/modules/themeoptions/class-pdfoptions.php:440
+#: inc/modules/themeoptions/class-pdfoptions.php:458
+#: inc/modules/themeoptions/class-pdfoptions.php:479
+#: inc/modules/themeoptions/class-pdfoptions.php:500
+#: inc/modules/themeoptions/class-pdfoptions.php:519
+#: inc/modules/themeoptions/class-pdfoptions.php:538
 msgid "Custom&hellip;"
 msgstr ""
 
@@ -685,7 +685,7 @@ msgstr "Вы также можете запросить доступ к уже �
 #: inc/api/endpoints/controller/class-books.php:132
 #: inc/class-activation.php:234
 #: inc/modules/export/epub/templates/epub3/toc.php:26
-#: inc/modules/themeoptions/class-pdfoptions.php:252 tests/test-cloner.php:63
+#: inc/modules/themeoptions/class-pdfoptions.php:272 tests/test-cloner.php:63
 msgid "Table of Contents"
 msgstr "Содержание"
 
@@ -1126,16 +1126,16 @@ msgid "Add New Book"
 msgstr "Добавить новую книгу"
 
 #: inc/admin/laf/namespace.php:1454
-#: inc/modules/themeoptions/class-pdfoptions.php:338
-#: inc/modules/themeoptions/class-pdfoptions.php:357
-#: inc/modules/themeoptions/class-pdfoptions.php:376
-#: inc/modules/themeoptions/class-pdfoptions.php:395
-#: inc/modules/themeoptions/class-pdfoptions.php:414
-#: inc/modules/themeoptions/class-pdfoptions.php:432
-#: inc/modules/themeoptions/class-pdfoptions.php:450
-#: inc/modules/themeoptions/class-pdfoptions.php:471
-#: inc/modules/themeoptions/class-pdfoptions.php:492
-#: inc/modules/themeoptions/class-pdfoptions.php:511
+#: inc/modules/themeoptions/class-pdfoptions.php:358
+#: inc/modules/themeoptions/class-pdfoptions.php:377
+#: inc/modules/themeoptions/class-pdfoptions.php:396
+#: inc/modules/themeoptions/class-pdfoptions.php:415
+#: inc/modules/themeoptions/class-pdfoptions.php:434
+#: inc/modules/themeoptions/class-pdfoptions.php:452
+#: inc/modules/themeoptions/class-pdfoptions.php:470
+#: inc/modules/themeoptions/class-pdfoptions.php:491
+#: inc/modules/themeoptions/class-pdfoptions.php:512
+#: inc/modules/themeoptions/class-pdfoptions.php:531
 msgid "Book Title"
 msgstr "Название книги"
 
@@ -1176,7 +1176,7 @@ msgstr "Обложка"
 
 #: inc/admin/metaboxes/namespace.php:159 inc/admin/metaboxes/namespace.php:623
 #: inc/admin/metaboxes/namespace.php:685
-#: inc/api/endpoints/controller/class-toc.php:202 inc/class-sass.php:87
+#: inc/api/endpoints/controller/class-toc.php:202 inc/class-sass.php:89
 #: inc/modules/export/epub/class-epub201.php:1868
 #: inc/modules/themeoptions/class-globaloptions.php:532
 #: inc/posttype/namespace.php:87 inc/posttype/namespace.php:532
@@ -1537,7 +1537,7 @@ msgid ""
 msgstr "Областнические темы BISAC помогают библиотекам и магазинам (электронных) книг правильно классифицировать Вашу книгу."
 
 #: inc/admin/metaboxes/namespace.php:567
-#: inc/api/endpoints/controller/class-toc.php:209 inc/class-sass.php:76
+#: inc/api/endpoints/controller/class-toc.php:209 inc/class-sass.php:78
 #: inc/modules/themeoptions/class-globaloptions.php:533
 #: inc/posttype/namespace.php:64 inc/posttype/namespace.php:535
 #: inc/posttype/namespace.php:574 templates/admin/import.php:85
@@ -1969,91 +1969,91 @@ msgstr ""
 msgid "You do not have sufficient permissions to access this page."
 msgstr "У Вас нет соответствующего разрешения для доступа к этой странице."
 
-#: inc/class-globaltypography.php:39
+#: inc/class-globaltypography.php:40
 msgid "Ancient Greek"
 msgstr "Древнегреческий язык"
 
-#: inc/class-globaltypography.php:40
+#: inc/class-globaltypography.php:41
 msgid "Arabic"
 msgstr "Арабский язык"
 
-#: inc/class-globaltypography.php:41
+#: inc/class-globaltypography.php:42
 msgid "Bengali"
 msgstr "Бенгальский язык"
 
-#: inc/class-globaltypography.php:42
+#: inc/class-globaltypography.php:43
 msgid "Biblical Hebrew"
 msgstr "Библейский иврит"
 
-#: inc/class-globaltypography.php:43
+#: inc/class-globaltypography.php:44
 msgid "Canadian Indigenous Syllabics"
 msgstr "Канадский слоговый язык"
 
-#: inc/class-globaltypography.php:44
+#: inc/class-globaltypography.php:45
 msgid "Devanagari (Hindi and Sanskrit)"
 msgstr "Дэвангари (хинди и санскрит)"
 
-#: inc/class-globaltypography.php:45
+#: inc/class-globaltypography.php:46
 msgid "Chinese (Simplified)"
 msgstr "Китайский язык (упрощённый)"
 
-#: inc/class-globaltypography.php:46
+#: inc/class-globaltypography.php:47
 msgid "Chinese (Traditional)"
 msgstr "Китайский язык (традиционный)"
 
-#: inc/class-globaltypography.php:47
+#: inc/class-globaltypography.php:48
 msgid "Coptic"
 msgstr "Коптский язык"
 
-#: inc/class-globaltypography.php:48
+#: inc/class-globaltypography.php:49
 msgid "Gujarati"
 msgstr "Гуджарати"
 
-#: inc/class-globaltypography.php:49
+#: inc/class-globaltypography.php:50
 msgid "Punjabi (Gurmukhi)"
 msgstr "Панджаби (гурмукхи)"
 
-#: inc/class-globaltypography.php:50
+#: inc/class-globaltypography.php:51
 msgid "Japanese"
 msgstr "Японский язык"
 
-#: inc/class-globaltypography.php:51
+#: inc/class-globaltypography.php:52
 msgid "Kannada"
 msgstr "Каннада"
 
-#: inc/class-globaltypography.php:52
+#: inc/class-globaltypography.php:53
 msgid "Korean"
 msgstr "Корейский язык"
 
-#: inc/class-globaltypography.php:53
+#: inc/class-globaltypography.php:54
 msgid "Malayalam"
 msgstr "Малайялам"
 
-#: inc/class-globaltypography.php:54
+#: inc/class-globaltypography.php:55
 msgid "Odia"
 msgstr "Одия"
 
-#: inc/class-globaltypography.php:55
+#: inc/class-globaltypography.php:56
 msgid "Syriac"
 msgstr "Сирийский язык"
 
-#: inc/class-globaltypography.php:56
+#: inc/class-globaltypography.php:57
 msgid "Tamil"
 msgstr "Тамильский язык"
 
-#: inc/class-globaltypography.php:57
+#: inc/class-globaltypography.php:58
 msgid "Telugu"
 msgstr "Телугу"
 
-#: inc/class-globaltypography.php:58
+#: inc/class-globaltypography.php:59
 msgid "Tibetan"
 msgstr "Тибетский язык"
 
-#: inc/class-globaltypography.php:59
+#: inc/class-globaltypography.php:60
 msgid "Turkish"
 msgstr "Турецкий язык"
 
-#: inc/class-globaltypography.php:412
+#: inc/class-globaltypography.php:417
 msgid "Your %1$s font could not be downloaded from %2$s."
 msgstr ""
 
@@ -2127,7 +2127,7 @@ msgid ""
 "licenses"
 msgstr ""
 
-#: inc/class-licensing.php:299 inc/class-styles.php:711
+#: inc/class-licensing.php:299 inc/class-styles.php:788
 #: inc/modules/export/epub/class-epub201.php:1144
 #: inc/modules/export/epub/templates/epub3/opf.php:103
 #: inc/modules/export/epub/templates/epub201/opf.php:96
@@ -2169,39 +2169,119 @@ msgstr ""
 msgid "<code>PB_MATHJAX_URL</code> is not configured."
 msgstr ""
 
-#: inc/class-sass.php:199
+#: inc/class-sass.php:201
 msgid ""
 "There was a problem with SASS. Contact your site administrator. Error: %1$s "
 "%2$s"
 msgstr ""
 
-#: inc/class-styles.php:90 templates/admin/custom-styles.php:38
+#: inc/class-styles.php:92 templates/admin/custom-styles.php:38
 msgid "Custom Styles"
 msgstr "Пользовательские стили"
 
-#: inc/class-styles.php:112
+#: inc/class-styles.php:114
 msgid "Custom Style for Ebook"
 msgstr "Пользовательский стиль для электронной книги"
 
-#: inc/class-styles.php:117
+#: inc/class-styles.php:119
 msgid "Custom Style for PDF"
 msgstr "Пользовательский стиль для PDF"
 
-#: inc/class-styles.php:122
+#: inc/class-styles.php:124
 msgid "Custom Style for Web"
 msgstr "Пользовательский стиль для онлайн книги"
 
-#: inc/class-styles.php:636
+#: inc/class-styles.php:643
+msgid "Alegreya"
+msgstr ""
+
+#: inc/class-styles.php:644
+msgid "Cormorant Garamond"
+msgstr ""
+
+#: inc/class-styles.php:645
+msgid "Crimson Text"
+msgstr ""
+
+#: inc/class-styles.php:646
+msgid "GNU FreeFont Serif"
+msgstr ""
+
+#: inc/class-styles.php:647
+msgid "Noto serif"
+msgstr ""
+
+#: inc/class-styles.php:648
+msgid "Spectral"
+msgstr ""
+
+#: inc/class-styles.php:652
+msgid "Barlow"
+msgstr ""
+
+#: inc/class-styles.php:653
+msgid "GNU FreeFont Sans"
+msgstr ""
+
+#: inc/class-styles.php:654
+msgid "K2D"
+msgstr ""
+
+#: inc/class-styles.php:655
+msgid "Lato"
+msgstr ""
+
+#: inc/class-styles.php:656
+msgid "Libre Franklin"
+msgstr ""
+
+#: inc/class-styles.php:657
+msgid "Montserrat"
+msgstr ""
+
+#: inc/class-styles.php:658
+msgid "Noto Sans"
+msgstr ""
+
+#: inc/class-styles.php:659
+msgid "Open Sans"
+msgstr ""
+
+#: inc/class-styles.php:660
+msgid "Raleway"
+msgstr ""
+
+#: inc/class-styles.php:661
+msgid "Roboto"
+msgstr ""
+
+#: inc/class-styles.php:662
+msgid "Rubik"
+msgstr ""
+
+#: inc/class-styles.php:666 tests/test-styles.php:185
+msgid "Theme default"
+msgstr ""
+
+#: inc/class-styles.php:667 inc/class-styles.php:681 tests/test-styles.php:186
+msgid "Serif"
+msgstr ""
+
+#: inc/class-styles.php:668 tests/test-styles.php:187
+msgid "Sans serif"
+msgstr ""
+
+#: inc/class-styles.php:713
 msgid ""
 "Unexpected Error: There was a problem trying to query slug: %s - Please "
 "contact technical support."
 msgstr ""
 
-#: inc/class-styles.php:676 templates/admin/custom-styles.php:16
+#: inc/class-styles.php:753 templates/admin/custom-styles.php:16
 msgid "Web"
 msgstr "Веб-сайт"
 
-#: inc/class-styles.php:708
+#: inc/class-styles.php:785
 msgid "Last 10 Revisions"
 msgstr "Последние 10 исправлений"
 
@@ -2458,7 +2538,7 @@ msgstr "Заметная цитата (справа)"
 
 #: inc/editor/namespace.php:287 inc/editor/namespace.php:329
 #: inc/editor/namespace.php:343
-#: inc/modules/themeoptions/class-weboptions.php:96 languages/tinymce.php:7
+#: inc/modules/themeoptions/class-weboptions.php:118 languages/tinymce.php:7
 msgid "Standard"
 msgstr "Стандарт"
 
@@ -2981,56 +3061,68 @@ msgstr "Содержание текста"
 
 #: inc/modules/themeoptions/class-admin.php:88
 #: inc/modules/themeoptions/class-admin.php:89
-#: inc/modules/themeoptions/class-admin.php:138
+#: inc/modules/themeoptions/class-admin.php:142
 #: templates/admin/export.blade.php:58
 msgid "Theme Options"
 msgstr "Параметры темы"
 
-#: inc/modules/themeoptions/class-admin.php:141
+#: inc/modules/themeoptions/class-admin.php:145
 msgid "Theme Options Tabs"
 msgstr ""
 
-#: inc/modules/themeoptions/class-ebookoptions.php:75
+#: inc/modules/themeoptions/class-ebookoptions.php:79
+#: inc/modules/themeoptions/class-pdfoptions.php:84
+#: inc/modules/themeoptions/class-weboptions.php:83
+msgid "Header Font"
+msgstr ""
+
+#: inc/modules/themeoptions/class-ebookoptions.php:87
+#: inc/modules/themeoptions/class-pdfoptions.php:92
+#: inc/modules/themeoptions/class-weboptions.php:91
+msgid "Body Font"
+msgstr ""
+
+#: inc/modules/themeoptions/class-ebookoptions.php:97
 msgid "Ebook Start Point"
 msgstr "Начальная точка электронной книги"
 
-#: inc/modules/themeoptions/class-ebookoptions.php:80
+#: inc/modules/themeoptions/class-ebookoptions.php:102
 msgid ""
 "Note: This designated ebook start book may be overridden by some ereader "
 "devices."
 msgstr "Примечание: Эту специализированную электронную книгу некоторые устройства для чтения электронных книг могут прочитать неправильно."
 
-#: inc/modules/themeoptions/class-ebookoptions.php:87
-#: inc/modules/themeoptions/class-pdfoptions.php:227
-#: inc/modules/themeoptions/class-weboptions.php:104
+#: inc/modules/themeoptions/class-ebookoptions.php:109
+#: inc/modules/themeoptions/class-pdfoptions.php:247
+#: inc/modules/themeoptions/class-weboptions.php:126
 msgid "Paragraph Separation"
 msgstr "Разделение параграфа"
 
-#: inc/modules/themeoptions/class-ebookoptions.php:92
-#: inc/modules/themeoptions/class-pdfoptions.php:232
-#: inc/modules/themeoptions/class-weboptions.php:109
+#: inc/modules/themeoptions/class-ebookoptions.php:114
+#: inc/modules/themeoptions/class-pdfoptions.php:252
+#: inc/modules/themeoptions/class-weboptions.php:131
 msgid "Indent paragraphs"
 msgstr "Отступ параграфов"
 
-#: inc/modules/themeoptions/class-ebookoptions.php:93
-#: inc/modules/themeoptions/class-pdfoptions.php:233
-#: inc/modules/themeoptions/class-weboptions.php:110
+#: inc/modules/themeoptions/class-ebookoptions.php:115
+#: inc/modules/themeoptions/class-pdfoptions.php:253
+#: inc/modules/themeoptions/class-weboptions.php:132
 msgid "Skip lines between paragraphs"
 msgstr "Пропускать строки между абзацами"
 
-#: inc/modules/themeoptions/class-ebookoptions.php:99
+#: inc/modules/themeoptions/class-ebookoptions.php:121
 msgid "Compress Images"
 msgstr "Сжать изображения"
 
-#: inc/modules/themeoptions/class-ebookoptions.php:104
+#: inc/modules/themeoptions/class-ebookoptions.php:126
 msgid "Reduce image size and quality"
 msgstr "Уменьшить размер и качество изображения"
 
-#: inc/modules/themeoptions/class-ebookoptions.php:129
+#: inc/modules/themeoptions/class-ebookoptions.php:151
 msgid "These options apply to ebook exports."
 msgstr "Эти параметры применяются для экспорта электронных книг."
 
-#: inc/modules/themeoptions/class-ebookoptions.php:294
+#: inc/modules/themeoptions/class-ebookoptions.php:352
 msgid "Ebook Options"
 msgstr "Параметры электронной книги"
 
@@ -3168,425 +3260,425 @@ msgstr ""
 msgid "Global Options"
 msgstr "Составные параметры"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:83
+#: inc/modules/themeoptions/class-pdfoptions.php:103
 msgid "Body Font Size"
 msgstr "Размер шрифта основной части"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:88
+#: inc/modules/themeoptions/class-pdfoptions.php:108
 msgid ""
 "Heading sizes are proportional to the body font size and will also be "
 "affected by this setting."
 msgstr "Размеры верхнего колонтитула пропорциональны размерам шрифта основной части, они также повлияют на эту настройку."
 
-#: inc/modules/themeoptions/class-pdfoptions.php:96
+#: inc/modules/themeoptions/class-pdfoptions.php:116
 msgid "Body Line Height"
 msgstr "Высота строки основной части"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:110
+#: inc/modules/themeoptions/class-pdfoptions.php:130
 msgid "Page Size"
 msgstr "Размер страницы"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:115
+#: inc/modules/themeoptions/class-pdfoptions.php:135
 msgid "Digest (5.5&quot; &times; 8.5&quot;)"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:116
+#: inc/modules/themeoptions/class-pdfoptions.php:136
 msgid "US Trade (6&quot; &times; 9&quot;)"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:117
+#: inc/modules/themeoptions/class-pdfoptions.php:137
 msgid "US Letter (8.5&quot; &times; 11&quot;)"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:118
+#: inc/modules/themeoptions/class-pdfoptions.php:138
 msgid "Custom (8.5&quot; &times; 9.25&quot;)"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:119
+#: inc/modules/themeoptions/class-pdfoptions.php:139
 msgid "Duodecimo (5&quot; &times; 7.75&quot;)"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:120
+#: inc/modules/themeoptions/class-pdfoptions.php:140
 msgid "Pocket (4.25&quot; &times; 7&quot;)"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:121
+#: inc/modules/themeoptions/class-pdfoptions.php:141
 msgid "A4 (21cm &times; 29.7cm)"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:122
+#: inc/modules/themeoptions/class-pdfoptions.php:142
 msgid "A5 (14.8cm &times; 21cm)"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:123
+#: inc/modules/themeoptions/class-pdfoptions.php:143
 msgid "5&quot; &times; 8&quot;"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:131
+#: inc/modules/themeoptions/class-pdfoptions.php:151
 msgid "Page Width"
 msgstr "Ширина страницы"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:136
+#: inc/modules/themeoptions/class-pdfoptions.php:156
 msgid ""
 "Page width must be expressed in CSS-compatible units, e.g. "
 "&lsquo;5.5in&rsquo; or &lsquo;10cm&rsquo;."
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:143
+#: inc/modules/themeoptions/class-pdfoptions.php:163
 msgid "Page Height"
 msgstr "Высота страницы"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:148
+#: inc/modules/themeoptions/class-pdfoptions.php:168
 msgid ""
 "Page height must be expressed in CSS-compatible units, e.g. "
 "&lsquo;8.5in&rsquo; or &lsquo;10cm&rsquo;."
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:156
+#: inc/modules/themeoptions/class-pdfoptions.php:176
 msgid "Margins"
 msgstr "Поля"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:161
+#: inc/modules/themeoptions/class-pdfoptions.php:181
 msgid "Customize your book&rsquo;s margins using the fields below."
 msgstr "Установите пользовательский размер полей Вашей книги, используя поля ниже."
 
-#: inc/modules/themeoptions/class-pdfoptions.php:167
-#: inc/modules/themeoptions/class-pdfoptions.php:835
+#: inc/modules/themeoptions/class-pdfoptions.php:187
+#: inc/modules/themeoptions/class-pdfoptions.php:891
 msgid "Outside Margin"
 msgstr "Внешнее поле"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:172
-#: inc/modules/themeoptions/class-pdfoptions.php:184
-#: inc/modules/themeoptions/class-pdfoptions.php:196
-#: inc/modules/themeoptions/class-pdfoptions.php:208
+#: inc/modules/themeoptions/class-pdfoptions.php:192
+#: inc/modules/themeoptions/class-pdfoptions.php:204
+#: inc/modules/themeoptions/class-pdfoptions.php:216
+#: inc/modules/themeoptions/class-pdfoptions.php:228
 msgid ""
 "Margins must be expressed in CSS-compatible units, e.g. &lsquo;8.5in&rsquo; "
 "or &lsquo;10cm&rsquo;."
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:179
-#: inc/modules/themeoptions/class-pdfoptions.php:836
+#: inc/modules/themeoptions/class-pdfoptions.php:199
+#: inc/modules/themeoptions/class-pdfoptions.php:892
 msgid "Inside Margin"
 msgstr "Внутреннее поле"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:191
-#: inc/modules/themeoptions/class-pdfoptions.php:837
+#: inc/modules/themeoptions/class-pdfoptions.php:211
+#: inc/modules/themeoptions/class-pdfoptions.php:893
 msgid "Top Margin"
 msgstr "Верхнее поле"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:203
-#: inc/modules/themeoptions/class-pdfoptions.php:838
+#: inc/modules/themeoptions/class-pdfoptions.php:223
+#: inc/modules/themeoptions/class-pdfoptions.php:894
 msgid "Bottom Margin"
 msgstr "Нижнее поле"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:216
+#: inc/modules/themeoptions/class-pdfoptions.php:236
 msgid "Hyphens"
 msgstr "Дефисы"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:221
+#: inc/modules/themeoptions/class-pdfoptions.php:241
 msgid "Enable hyphenation"
 msgstr "Включить перенос слов"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:239
+#: inc/modules/themeoptions/class-pdfoptions.php:259
 msgid "Section Openings"
 msgstr "Начало разделов"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:244
+#: inc/modules/themeoptions/class-pdfoptions.php:264
 msgid "Left or right page section opening (for print PDF)"
 msgstr "Начало левого или правого разделов страницы (для печати PDF)"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:245
+#: inc/modules/themeoptions/class-pdfoptions.php:265
 msgid "Right page section openings (for print PDF)"
 msgstr "Начало правого раздела страницы (для печати PDF)"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:246
+#: inc/modules/themeoptions/class-pdfoptions.php:266
 msgid "No blank pages (for web PDF)"
 msgstr "Пустые страницы отсутствуют (для онлайн PDF)"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:257
+#: inc/modules/themeoptions/class-pdfoptions.php:277
 msgid "Display table of contents"
 msgstr "Отобразить содержание"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:263
+#: inc/modules/themeoptions/class-pdfoptions.php:283
 msgid "Crop Marks"
 msgstr "Метки для разрезки"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:268
+#: inc/modules/themeoptions/class-pdfoptions.php:288
 msgid "Display crop marks"
 msgstr "Отобразить метки для разрезки"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:275
+#: inc/modules/themeoptions/class-pdfoptions.php:295
 msgid "Romanize Part Numbers"
 msgstr "Романизировать номера частей"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:280
+#: inc/modules/themeoptions/class-pdfoptions.php:300
 msgid "Convert part numbers into Roman numerals"
 msgstr "Перевести номера частей в римские цифры"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:287
+#: inc/modules/themeoptions/class-pdfoptions.php:307
 msgid "Footnote Style"
 msgstr "Стиль примечаний"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:292
+#: inc/modules/themeoptions/class-pdfoptions.php:312
 msgid "Regular footnotes"
 msgstr "Регулярный нижний колонтитул"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:293
+#: inc/modules/themeoptions/class-pdfoptions.php:313
 msgid "Display as chapter endnotes"
 msgstr "Отобразить как примечания к главе"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:299
+#: inc/modules/themeoptions/class-pdfoptions.php:319
 msgid "Widows"
 msgstr "Вдовы"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:310
+#: inc/modules/themeoptions/class-pdfoptions.php:330
 msgid "Orphans"
 msgstr "Сироты"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:322
+#: inc/modules/themeoptions/class-pdfoptions.php:342
 msgid "Running Heads & Feet"
 msgstr "Верхние и нижние колонтитулы"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:327
+#: inc/modules/themeoptions/class-pdfoptions.php:347
 msgid ""
 "Running content appears in either running heads or running feet (at the top "
 "or bottom of the page) depending on your theme."
 msgstr "В зависимости от Вашей темы, содержание появится либо в верхнем, либо в нижнем колонтитуле (вверху или внизу страницы)."
 
-#: inc/modules/themeoptions/class-pdfoptions.php:333
+#: inc/modules/themeoptions/class-pdfoptions.php:353
 msgid "Front Matter Left Page Running Content"
 msgstr "Содержание вступительной части левой страницы"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:339
-#: inc/modules/themeoptions/class-pdfoptions.php:358
-#: inc/modules/themeoptions/class-pdfoptions.php:377
-#: inc/modules/themeoptions/class-pdfoptions.php:396
-#: inc/modules/themeoptions/class-pdfoptions.php:415
-#: inc/modules/themeoptions/class-pdfoptions.php:433
-#: inc/modules/themeoptions/class-pdfoptions.php:451
-#: inc/modules/themeoptions/class-pdfoptions.php:472
-#: inc/modules/themeoptions/class-pdfoptions.php:493
-#: inc/modules/themeoptions/class-pdfoptions.php:512
-msgid "Book Subtitle"
-msgstr "Подзаголовок книги"
-
-#: inc/modules/themeoptions/class-pdfoptions.php:340
 #: inc/modules/themeoptions/class-pdfoptions.php:359
 #: inc/modules/themeoptions/class-pdfoptions.php:378
 #: inc/modules/themeoptions/class-pdfoptions.php:397
 #: inc/modules/themeoptions/class-pdfoptions.php:416
-#: inc/modules/themeoptions/class-pdfoptions.php:434
-#: inc/modules/themeoptions/class-pdfoptions.php:452
-#: inc/modules/themeoptions/class-pdfoptions.php:473
-#: inc/modules/themeoptions/class-pdfoptions.php:494
+#: inc/modules/themeoptions/class-pdfoptions.php:435
+#: inc/modules/themeoptions/class-pdfoptions.php:453
+#: inc/modules/themeoptions/class-pdfoptions.php:471
+#: inc/modules/themeoptions/class-pdfoptions.php:492
 #: inc/modules/themeoptions/class-pdfoptions.php:513
+#: inc/modules/themeoptions/class-pdfoptions.php:532
+msgid "Book Subtitle"
+msgstr "Подзаголовок книги"
+
+#: inc/modules/themeoptions/class-pdfoptions.php:360
+#: inc/modules/themeoptions/class-pdfoptions.php:379
+#: inc/modules/themeoptions/class-pdfoptions.php:398
+#: inc/modules/themeoptions/class-pdfoptions.php:417
+#: inc/modules/themeoptions/class-pdfoptions.php:436
+#: inc/modules/themeoptions/class-pdfoptions.php:454
+#: inc/modules/themeoptions/class-pdfoptions.php:472
+#: inc/modules/themeoptions/class-pdfoptions.php:493
+#: inc/modules/themeoptions/class-pdfoptions.php:514
+#: inc/modules/themeoptions/class-pdfoptions.php:533
 msgid "Book Author"
 msgstr "Автор книги"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:341
-#: inc/modules/themeoptions/class-pdfoptions.php:360
+#: inc/modules/themeoptions/class-pdfoptions.php:361
+#: inc/modules/themeoptions/class-pdfoptions.php:380
 msgid "Front Matter Title"
 msgstr "Заголовок вступительной части"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:342
-#: inc/modules/themeoptions/class-pdfoptions.php:361
+#: inc/modules/themeoptions/class-pdfoptions.php:362
+#: inc/modules/themeoptions/class-pdfoptions.php:381
 msgid "Front Matter Author"
 msgstr "Автор вступительной части"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:343
-#: inc/modules/themeoptions/class-pdfoptions.php:362
+#: inc/modules/themeoptions/class-pdfoptions.php:363
+#: inc/modules/themeoptions/class-pdfoptions.php:382
 msgid "Front Matter Subtitle"
 msgstr "Подзаголовок вступительной части"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:344
-#: inc/modules/themeoptions/class-pdfoptions.php:363
-#: inc/modules/themeoptions/class-pdfoptions.php:382
-#: inc/modules/themeoptions/class-pdfoptions.php:401
-#: inc/modules/themeoptions/class-pdfoptions.php:419
-#: inc/modules/themeoptions/class-pdfoptions.php:437
-#: inc/modules/themeoptions/class-pdfoptions.php:458
-#: inc/modules/themeoptions/class-pdfoptions.php:479
-#: inc/modules/themeoptions/class-pdfoptions.php:498
-#: inc/modules/themeoptions/class-pdfoptions.php:517
+#: inc/modules/themeoptions/class-pdfoptions.php:364
+#: inc/modules/themeoptions/class-pdfoptions.php:383
+#: inc/modules/themeoptions/class-pdfoptions.php:402
+#: inc/modules/themeoptions/class-pdfoptions.php:421
+#: inc/modules/themeoptions/class-pdfoptions.php:439
+#: inc/modules/themeoptions/class-pdfoptions.php:457
+#: inc/modules/themeoptions/class-pdfoptions.php:478
+#: inc/modules/themeoptions/class-pdfoptions.php:499
+#: inc/modules/themeoptions/class-pdfoptions.php:518
+#: inc/modules/themeoptions/class-pdfoptions.php:537
 msgid "Blank"
 msgstr "Пустой"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:352
+#: inc/modules/themeoptions/class-pdfoptions.php:372
 msgid "Front Matter Right Page Running Content"
 msgstr "Содержание вступительной части правой страницы"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:371
+#: inc/modules/themeoptions/class-pdfoptions.php:391
 msgid "Introduction Left Page Running Content"
 msgstr "Содержание введения левой страницы"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:379
-#: inc/modules/themeoptions/class-pdfoptions.php:398
+#: inc/modules/themeoptions/class-pdfoptions.php:399
+#: inc/modules/themeoptions/class-pdfoptions.php:418
 msgid "Introduction Title"
 msgstr "Заголовок введения"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:380
-#: inc/modules/themeoptions/class-pdfoptions.php:399
+#: inc/modules/themeoptions/class-pdfoptions.php:400
+#: inc/modules/themeoptions/class-pdfoptions.php:419
 msgid "Introduction Author"
 msgstr "Автор введения"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:381
-#: inc/modules/themeoptions/class-pdfoptions.php:400
+#: inc/modules/themeoptions/class-pdfoptions.php:401
+#: inc/modules/themeoptions/class-pdfoptions.php:420
 msgid "Introduction Subtitle"
 msgstr "Подзаголовок введения"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:390
+#: inc/modules/themeoptions/class-pdfoptions.php:410
 msgid "Introduction Right Page Running Content"
 msgstr "Содержание введения правой страницы"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:409
+#: inc/modules/themeoptions/class-pdfoptions.php:429
 msgid "Part Left Page Running Content"
 msgstr "Содержание части левой страницы"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:417
-#: inc/modules/themeoptions/class-pdfoptions.php:435
-#: inc/modules/themeoptions/class-pdfoptions.php:453
-#: inc/modules/themeoptions/class-pdfoptions.php:474
+#: inc/modules/themeoptions/class-pdfoptions.php:437
+#: inc/modules/themeoptions/class-pdfoptions.php:455
+#: inc/modules/themeoptions/class-pdfoptions.php:473
+#: inc/modules/themeoptions/class-pdfoptions.php:494
 msgid "Part Number"
 msgstr "Номер части"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:418
-#: inc/modules/themeoptions/class-pdfoptions.php:436
-#: inc/modules/themeoptions/class-pdfoptions.php:454
-#: inc/modules/themeoptions/class-pdfoptions.php:475
+#: inc/modules/themeoptions/class-pdfoptions.php:438
+#: inc/modules/themeoptions/class-pdfoptions.php:456
+#: inc/modules/themeoptions/class-pdfoptions.php:474
+#: inc/modules/themeoptions/class-pdfoptions.php:495
 msgid "Part Title"
 msgstr "Заголовок части"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:427
+#: inc/modules/themeoptions/class-pdfoptions.php:447
 msgid "Part Right Page Running Content"
 msgstr "Содержание части правой страницы"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:445
+#: inc/modules/themeoptions/class-pdfoptions.php:465
 msgid "Chapter Left Page Running Content"
 msgstr "Содержание главы левой страницы"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:455
-#: inc/modules/themeoptions/class-pdfoptions.php:476
+#: inc/modules/themeoptions/class-pdfoptions.php:475
+#: inc/modules/themeoptions/class-pdfoptions.php:496
 msgid "Chapter Title"
 msgstr "Заголовок главы"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:456
-#: inc/modules/themeoptions/class-pdfoptions.php:477
+#: inc/modules/themeoptions/class-pdfoptions.php:476
+#: inc/modules/themeoptions/class-pdfoptions.php:497
 msgid "Chapter Author"
 msgstr "Автор главы"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:457
-#: inc/modules/themeoptions/class-pdfoptions.php:478
+#: inc/modules/themeoptions/class-pdfoptions.php:477
+#: inc/modules/themeoptions/class-pdfoptions.php:498
 msgid "Chapter Subtitle"
 msgstr "Подзаголовок главы"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:466
+#: inc/modules/themeoptions/class-pdfoptions.php:486
 msgid "Chapter Right Page Running Content"
 msgstr "Содержание главы правой страницы"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:487
+#: inc/modules/themeoptions/class-pdfoptions.php:507
 msgid "Back Matter Left Page Running Content"
 msgstr "Содержание заключительной части левой страницы"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:495
-#: inc/modules/themeoptions/class-pdfoptions.php:514
+#: inc/modules/themeoptions/class-pdfoptions.php:515
+#: inc/modules/themeoptions/class-pdfoptions.php:534
 msgid "Back Matter Title"
 msgstr "Заголовок заключительной части"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:496
-#: inc/modules/themeoptions/class-pdfoptions.php:515
+#: inc/modules/themeoptions/class-pdfoptions.php:516
+#: inc/modules/themeoptions/class-pdfoptions.php:535
 msgid "Back Matter Author"
 msgstr "Автор заключительной части"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:497
-#: inc/modules/themeoptions/class-pdfoptions.php:516
+#: inc/modules/themeoptions/class-pdfoptions.php:517
+#: inc/modules/themeoptions/class-pdfoptions.php:536
 msgid "Back Matter Subtitle"
 msgstr "Подзаголовок заключительной части"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:506
+#: inc/modules/themeoptions/class-pdfoptions.php:526
 msgid "Back Matter Right Page Running Content"
 msgstr "Содержание заключительной части правой страницы"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:527
+#: inc/modules/themeoptions/class-pdfoptions.php:547
 msgid "Increase Font Size"
 msgstr "Увеличить размер шрифта"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:532
+#: inc/modules/themeoptions/class-pdfoptions.php:552
 msgid "Increases font size and line height for greater accessibility"
 msgstr "Увеличивает размер шрифта и высоту линий для большей доступности"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:558
+#: inc/modules/themeoptions/class-pdfoptions.php:578
 msgid "These options apply to PDF exports."
 msgstr "Эти параметры применяются для экспорта файлов в формате PDF."
 
-#: inc/modules/themeoptions/class-pdfoptions.php:843
+#: inc/modules/themeoptions/class-pdfoptions.php:899
 msgid ""
 "IMPORTANT: If you plan to use a print-on-demand service, margins under 2cm "
 "on any side can cause your file to be rejected."
 msgstr "ВАЖНО: Если вы планируете воспользоваться системой издания по заказу, поля размером меньше 2 см на каждой стороне могут заблокировать файл."
 
-#: inc/modules/themeoptions/class-pdfoptions.php:1407
+#: inc/modules/themeoptions/class-pdfoptions.php:1463
 msgid "PDF Options"
 msgstr "Параметры PDF"
 
-#: inc/modules/themeoptions/class-weboptions.php:79
+#: inc/modules/themeoptions/class-weboptions.php:101
 msgid "Enable Social Media"
 msgstr "Активировать социальную сеть"
 
-#: inc/modules/themeoptions/class-weboptions.php:84
+#: inc/modules/themeoptions/class-weboptions.php:106
 msgid ""
 "Add buttons to cover page and each chapter so that readers may share links "
 "to your book through social media: Facebook, Twitter, Google+"
 msgstr "Добавить к обложке и каждой главе кнопки, используя которые читатели могут поделиться ссылкой на Вашу книгу в социальных медиа: Facebook, Twitter, Google+"
 
-#: inc/modules/themeoptions/class-weboptions.php:90
+#: inc/modules/themeoptions/class-weboptions.php:112
 msgid "Webbook Width"
 msgstr "Ширина онлайн книги"
 
-#: inc/modules/themeoptions/class-weboptions.php:95
+#: inc/modules/themeoptions/class-weboptions.php:117
 msgid "Narrow"
 msgstr "Ограниченность"
 
-#: inc/modules/themeoptions/class-weboptions.php:97
+#: inc/modules/themeoptions/class-weboptions.php:119
 msgid "Wide"
 msgstr "Простор"
 
-#: inc/modules/themeoptions/class-weboptions.php:116
+#: inc/modules/themeoptions/class-weboptions.php:138
 msgid "Display Part Title"
 msgstr "Отобразить заголовок части"
 
-#: inc/modules/themeoptions/class-weboptions.php:121
+#: inc/modules/themeoptions/class-weboptions.php:143
 msgid "Display the Part title on each chapter"
 msgstr "Отобразить заголовок части в каждой главе"
 
-#: inc/modules/themeoptions/class-weboptions.php:128
+#: inc/modules/themeoptions/class-weboptions.php:150
 msgid "Collapse Sections"
 msgstr "Раздел сворачивания"
 
-#: inc/modules/themeoptions/class-weboptions.php:133
+#: inc/modules/themeoptions/class-weboptions.php:155
 msgid "Collapse sections within front matter, chapters, and back matter"
 msgstr "Раздел сворачивания во вступительной части, главах и заключительной части"
 
-#: inc/modules/themeoptions/class-weboptions.php:141
+#: inc/modules/themeoptions/class-weboptions.php:163
 msgid "Enable Source Comparison"
 msgstr "Отключить сравнение источников"
 
-#: inc/modules/themeoptions/class-weboptions.php:146
+#: inc/modules/themeoptions/class-weboptions.php:168
 msgid ""
 "Add comparison tool to the end of each front matter, part, chapter, and back"
 " matter"
 msgstr "Добавить опцию сравнения в конец каждой вступительной части, части, главе и заключительной части"
 
-#: inc/modules/themeoptions/class-weboptions.php:147
+#: inc/modules/themeoptions/class-weboptions.php:169
 msgid ""
 "Allows readers to compare content with the original book from which it was "
 "cloned."
 msgstr "Позволяет читателям сравнивать содержание с оригинальной книгой, с которой было клонировано содержание."
 
-#: inc/modules/themeoptions/class-weboptions.php:173
+#: inc/modules/themeoptions/class-weboptions.php:196
 msgid "These options apply to the webbook."
 msgstr "Эти параметры применяются к онлайн книге."
 
-#: inc/modules/themeoptions/class-weboptions.php:337
+#: inc/modules/themeoptions/class-weboptions.php:396
 msgid "Web Options"
 msgstr "Веб-параметры"
 
