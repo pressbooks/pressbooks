@@ -90,6 +90,11 @@ class Activation {
 		$this->user_id = (int) ( ! empty( $args['user_id'] ) ? $args['user_id'] : 0 );
 
 		switch_to_blog( $this->blog_id );
+
+		// Turn off Book Data Collector during setup
+		$bdc = \Pressbooks\DataCollector\Book::init();
+		$bdc_was_removed = remove_filter( 'wp_update_site', [ $bdc, 'updateSite' ], 999 );
+
 		if ( ! $this->isBookSetup() ) {
 
 			$this->wpmuActivate();
@@ -124,6 +129,10 @@ class Activation {
 		 * @deprecated 4.3.0 Use pb_new_blog instead.
 		 */
 		do_action( 'pressbooks_new_blog' );
+
+		if ( $bdc_was_removed ) {
+			$bdc->copyBookMetaIntoSiteTable( $this->blog_id );
+		}
 
 		restore_current_blog();
 	}
