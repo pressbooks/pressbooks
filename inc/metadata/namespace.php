@@ -1087,3 +1087,19 @@ function add_candela_citations( $content ) {
 	}
 	return $content;
 }
+
+
+/**
+ * Return $option to use in get_option() for "is this book in the network catalog?"
+ *
+ * @return string
+ */
+function get_in_catalog_option() {
+	// Try to find Aldine
+	if ( defined( '\Aldine\Admin\BLOG_OPTION' ) ) {
+		return \Aldine\Admin\BLOG_OPTION;
+	} else {
+		// Fallback to old pressbooks-publisher value
+		return 'pressbooks_publisher_in_catalog';
+	}
+}

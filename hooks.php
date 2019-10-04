@@ -64,6 +64,9 @@ if ( $is_book ) {
 	add_filter( 'rest_endpoints', '\Pressbooks\Api\hide_endpoints_from_root' );
 }
 
+add_action( 'plugins_loaded', [ '\Pressbooks\DataCollector\User', 'init' ] );
+add_action( 'plugins_loaded', [ '\Pressbooks\DataCollector\Book', 'init' ] );
+
 // -------------------------------------------------------------------------------------------------------------------
 // Login screen branding
 // -------------------------------------------------------------------------------------------------------------------
