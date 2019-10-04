@@ -164,12 +164,14 @@ class Glossary {
 			return '';
 		}
 
-		$ok = uksort( $glossary_terms, function ( $a, $b ) {
-			// Case insensitive, special accented characters, sort
-			$at = iconv( 'UTF-8', 'ASCII//TRANSLIT', $a );
-			$bt = iconv( 'UTF-8', 'ASCII//TRANSLIT', $b );
-			return strcmp( strtolower( $at ), strtolower( $bt ) );
-		} );
+		$ok = uksort(
+			$glossary_terms, function ( $a, $b ) {
+				// Case insensitive, special accented characters, sort
+				$at = iconv( 'UTF-8', 'ASCII//TRANSLIT', $a );
+				$bt = iconv( 'UTF-8', 'ASCII//TRANSLIT', $b );
+				return strcmp( strtolower( $at ), strtolower( $bt ) );
+			}
+		);
 
 		if ( true === $ok && count( $glossary_terms ) > 0 ) {
 			foreach ( $glossary_terms as $glossary_term_id => $glossary_term ) {

@@ -74,6 +74,28 @@ class WebOptions extends \Pressbooks\Options {
 			$_page
 		);
 
+		$styles = \Pressbooks\Container::get( 'Styles' );
+		$shape_shifter_compatible = $styles->isShapeShifterCompatible();
+
+		if ( $shape_shifter_compatible ) {
+			add_settings_field(
+				'webbook_header_font',
+				__( 'Header Font', 'pressbooks' ),
+				[ $this, 'renderHeaderFontField' ],
+				$_page,
+				$_section,
+				array_merge( $styles->getShapeShifterFonts(), [ 'label_for' => 'webbook_header_font' ] )
+			);
+			add_settings_field(
+				'webbook_body_font',
+				__( 'Body Font', 'pressbooks' ),
+				[ $this, 'renderBodyFontField' ],
+				$_page,
+				$_section,
+				array_merge( $styles->getShapeShifterFonts(), [ 'label_for' => 'webbook_body_font' ] )
+			);
+		}
+
 		add_settings_field(
 			'social_media',
 			__( 'Enable Social Media', 'pressbooks' ),
@@ -152,10 +174,11 @@ class WebOptions extends \Pressbooks\Options {
 		/**
 		 * Add custom settings fields.
 		 *
-		 * @since 3.9.7
-		 *
 		 * @param string $arg1
 		 * @param string $arg2
+		 *
+		 * @since 3.9.7
+		 *
 		 */
 		do_action( 'pb_theme_options_web_add_settings_fields', $_page, $_section );
 
@@ -320,6 +343,42 @@ class WebOptions extends \Pressbooks\Options {
 	}
 
 	/**
+	 * Render the webbook_header_font input.
+	 *
+	 * @param array $args
+	 */
+	function renderHeaderFontField( $args ) {
+		unset( $args['label_for'], $args['class'] );
+		$this->renderSelectOptGroup(
+			[
+				'id' => 'webbook_header_font',
+				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
+				'option' => 'webbook_header_font',
+				'value' => ( isset( $this->options['webbook_header_font'] ) ) ? $this->options['webbook_header_font'] : '',
+				'choices' => $args,
+			]
+		);
+	}
+
+	/**
+	 * Render the webbook_body_font input.
+	 *
+	 * @param array $args
+	 */
+	function renderBodyFontField( $args ) {
+		unset( $args['label_for'], $args['class'] );
+		$this->renderSelectOptGroup(
+			[
+				'id' => 'webbook_body_font',
+				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
+				'option' => 'webbook_body_font',
+				'value' => ( isset( $this->options['webbook_body_font'] ) ) ? $this->options['webbook_body_font'] : '',
+				'choices' => $args,
+			]
+		);
+	}
+
+	/**
 	 * Get the slug for the web options tab.
 	 *
 	 * @return string $slug
@@ -344,12 +403,15 @@ class WebOptions extends \Pressbooks\Options {
 	 */
 	static function getDefaults() {
 		/**
+		 * @param array $value
+		 *
 		 * @since 3.9.7
 		 *
-		 * @param array $value
 		 */
 		return apply_filters(
 			'pb_theme_options_web_defaults', [
+				'webbook_header_font' => '',
+				'webbook_body_font' => '',
 				'social_media' => 1,
 				'paragraph_separation' => 'skiplines',
 				'part_title' => 0,
@@ -380,9 +442,10 @@ class WebOptions extends \Pressbooks\Options {
 		/**
 		 * Allow custom boolean options to be passed to sanitization routines.
 		 *
+		 * @param array $value
+		 *
 		 * @since 3.9.7
 		 *
-		 * @param array $value
 		 */
 		return apply_filters(
 			'pb_theme_options_web_booleans', [
@@ -403,11 +466,17 @@ class WebOptions extends \Pressbooks\Options {
 		/**
 		 * Allow custom string options to be passed to sanitization routines.
 		 *
+		 * @param array $value
+		 *
 		 * @since 3.9.7
 		 *
-		 * @param array $value
 		 */
-		return apply_filters( 'pb_theme_options_web_strings', [] );
+		return apply_filters(
+			'pb_theme_options_web_strings', [
+				'webbook_header_font',
+				'webbook_body_font',
+			]
+		);
 	}
 
 	/**
@@ -419,9 +488,10 @@ class WebOptions extends \Pressbooks\Options {
 		/**
 		 * Allow custom integer options to be passed to sanitization routines.
 		 *
+		 * @param array $value
+		 *
 		 * @since 3.9.7
 		 *
-		 * @param array $value
 		 */
 		return apply_filters( 'pb_theme_options_web_integers', [] );
 	}
@@ -435,9 +505,10 @@ class WebOptions extends \Pressbooks\Options {
 		/**
 		 * Allow custom float options to be passed to sanitization routines.
 		 *
+		 * @param array $value
+		 *
 		 * @since 3.9.7
 		 *
-		 * @param array $value
 		 */
 		return apply_filters( 'pb_theme_options_web_floats', [] );
 	}
@@ -451,9 +522,10 @@ class WebOptions extends \Pressbooks\Options {
 		/**
 		 * Allow custom predifined options to be passed to sanitization routines.
 		 *
+		 * @param array $value
+		 *
 		 * @since 3.9.7
 		 *
-		 * @param array $value
 		 */
 		return apply_filters(
 			'pb_theme_options_web_predefined', [
@@ -476,6 +548,7 @@ class WebOptions extends \Pressbooks\Options {
 
 		$styles = Container::get( 'Styles' );
 		$v2_compatible = $styles->isCurrentThemeCompatible( 2 );
+		$shape_shifter_compatible = $styles->isShapeShifterCompatible();
 
 		// Global Options
 		$options = get_option( 'pressbooks_theme_options_global' );
@@ -483,20 +556,22 @@ class WebOptions extends \Pressbooks\Options {
 		// Textbox colours.
 
 		if ( $v2_compatible ) {
-			foreach ( [
-				'edu_textbox_examples_header_color' => 'examples-header-color',
-				'edu_textbox_examples_header_background' => 'examples-header-background',
-				'edu_textbox_examples_background' => 'examples-background',
-				'edu_textbox_exercises_header_color' => 'exercises-header-color',
-				'edu_textbox_exercises_header_background' => 'exercises-header-background',
-				'edu_textbox_exercises_background' => 'exercises-background',
-				'edu_textbox_objectives_header_color' => 'learning-objectives-header-color',
-				'edu_textbox_objectives_header_background' => 'learning-objectives-header-background',
-				'edu_textbox_objectives_background' => 'learning-objectives-background',
-				'edu_textbox_takeaways_header_color' => 'key-takeaways-header-color',
-				'edu_textbox_takeaways_header_background' => 'key-takeaways-header-background',
-				'edu_textbox_takeaways_background' => 'key-takeaways-background',
-			] as $option => $variable ) {
+			foreach (
+				[
+					'edu_textbox_examples_header_color' => 'examples-header-color',
+					'edu_textbox_examples_header_background' => 'examples-header-background',
+					'edu_textbox_examples_background' => 'examples-background',
+					'edu_textbox_exercises_header_color' => 'exercises-header-color',
+					'edu_textbox_exercises_header_background' => 'exercises-header-background',
+					'edu_textbox_exercises_background' => 'exercises-background',
+					'edu_textbox_objectives_header_color' => 'learning-objectives-header-color',
+					'edu_textbox_objectives_header_background' => 'learning-objectives-header-background',
+					'edu_textbox_objectives_background' => 'learning-objectives-background',
+					'edu_textbox_takeaways_header_color' => 'key-takeaways-header-color',
+					'edu_textbox_takeaways_header_background' => 'key-takeaways-header-background',
+					'edu_textbox_takeaways_background' => 'key-takeaways-background',
+				] as $option => $variable
+			) {
 				if ( isset( $options[ $option ] ) ) {
 					$styles->getSass()->setVariables(
 						[
@@ -532,6 +607,28 @@ class WebOptions extends \Pressbooks\Options {
 				);
 			} else {
 				$scss .= "#content p + p { text-indent: 0em; margin-top: 1em; } \n";
+			}
+		}
+
+		// Shape Shifter Features
+		if ( $shape_shifter_compatible ) {
+			if ( ! empty( $options['webbook_header_font'] ) ) {
+				$webbook_header_font = str_replace( '"', '', $options['webbook_header_font'] );
+				$styles->getSass()->setVariables(
+					[
+						'shapeshifter-font-2' => '"' . $webbook_header_font . '"',
+						'shapeshifter-font-2-is-serif' => $styles->isShaperShifterFontSerif( $webbook_header_font ),
+					]
+				);
+			}
+			if ( ! empty( $options['webbook_body_font'] ) ) {
+				$webbook_body_font = str_replace( '"', '', $options['webbook_body_font'] );
+				$styles->getSass()->setVariables(
+					[
+						'shapeshifter-font-1' => '"' . $webbook_body_font . '"',
+						'shapeshifter-font-1-is-serif' => $styles->isShaperShifterFontSerif( $webbook_body_font ),
+					]
+				);
 			}
 		}
 

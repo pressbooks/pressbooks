@@ -9,7 +9,7 @@
 		"lint": "npm run -s lint:scripts && npm run -s lint:styles",
 		"lint:scripts": "cross-env NODE_ENV=development node_modules/eslint/bin/eslint.js \"assets/src/scripts/*.js\"",
 		"lint:styles": "cross-env NODE_ENV=development node_modules/stylelint/bin/stylelint.js \"assets/src/styles/**/*.scss\" --syntax scss",
-		"localize": "wp-pot -s \"**/*.php\" -o languages/pressbooks.pot -p \"Pressbooks\" -t \"Pressbooks (Book Oven Inc.) <code@pressbooks.com>\""
+    "localize": "wp-pot -s \"**/*.php\" -o languages/pressbooks.pot -p \"Pressbooks\" -t \"Pressbooks (Book Oven Inc.) <code@pressbooks.com>\""
 	},
 	"engines": {
 		"node": ">= 6.9.4"
@@ -17,7 +17,7 @@
 	"dependencies": {
 		"block-ui": "^2.70.1",
 		"countup.js": "^1.8.5",
-		"event-source-polyfill": "^1.0.8",
+		"event-source-polyfill": "^1.0.9",
 		"isotope-layout": "^3.0.6",
 		"jquery-match-height": "^0.7.2",
 		"jquery-sticky": "^1.0.4",
@@ -26,7 +26,7 @@
 		"popper.js": "^1.15.0",
 		"select2": "github:woocommerce/selectWoo#1.0.5",
 		"sidr": "^2.2.1",
-		"tinymce": "^4.9.5",
+		"tinymce": "^4.9.6",
 		"wp-admin-colors": "^5.1.0",
 		"wpapi": "^1.2.1"
 	},

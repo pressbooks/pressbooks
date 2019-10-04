@@ -476,7 +476,7 @@ function book_info_slug() {
 }
 
 /**
- * Menu output hacks
+ * Menu output hacks (fixes selected menus)
  *
  * @see \_wp_menu_output
  * @see wp-admin/menu-header.php
@@ -527,12 +527,12 @@ function fix_parent_file( $file ) {
 }
 
 /**
- * More menu output hacks
+ * More menu output hacks  (fixes selected menus)
  *
  * @param string $submenu_file The submenu file.
  * @param string $parent_file The submenu item's parent file.
  *
- * @return mixed
+ * @return string
  */
 function fix_submenu_file( $submenu_file, $parent_file ) {
 	$haystack = [

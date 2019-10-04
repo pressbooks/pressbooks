@@ -97,6 +97,10 @@ class Admin {
 	 * Register the settings on each tab, run upgrade() if needed.
 	 */
 	public function loadTabs() {
+		// If this is ajax/cron, don't load theme option tabs (GUI) right now
+		if ( wp_doing_ajax() || wp_doing_cron() ) {
+			return;
+		}
 		foreach ( $this->getTabs() as $slug => $subclass ) {
 			/** @var \Pressbooks\Options $subclass (not instantiated, just a string) */
 			add_filter( "option_page_capability_pressbooks_theme_options_$slug", [ $this, 'setPermissions' ], 10, 1 );
