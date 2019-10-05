@@ -39,19 +39,39 @@ function admin_enqueues() {
 }
 
 /**
+ * Get a list of restricted super users
+ * (A network manager is a restricted super user)
+ * Cheap cached in a static variable to improve i/o performance
  *
+ * @param bool $reset
+ *
+ * @return array
  */
-function update_admin_status() {
-	global $wpdb;
-
-	if ( check_ajax_referer( 'pb-network-managers' ) ) {
+function _restricted_users( $reset = false ) {
+	// Cheap cache
+	static $restricted = false;
+	if ( $reset ) {
+		$restricted = false;
+	}
+	if ( $restricted === false ) {
+		global $wpdb;
 		$restricted = $wpdb->get_results( "SELECT * FROM {$wpdb->sitemeta} WHERE meta_key = 'pressbooks_network_managers'" );
 		if ( $restricted ) {
 			$restricted = maybe_unserialize( $restricted[0]->meta_value );
-		} else {
+		}
+		if ( empty( $restricted ) ) {
 			$restricted = [];
 		}
+	}
+	return $restricted;
+}
 
+/**
+ *
+ */
+function update_admin_status() {
+	if ( check_ajax_referer( 'pb-network-managers' ) ) {
+		$restricted = _restricted_users( true );
 		$id = absint( $_POST['admin_id'] );
 
 		if ( 1 === absint( $_POST['status'] ) ) {
@@ -70,6 +90,8 @@ function update_admin_status() {
 		} else {
 			delete_site_option( 'pressbooks_network_managers' );
 		}
+		// Reset the cheap cache after updating the option
+		_restricted_users( true );
 	}
 
 }
@@ -95,29 +117,18 @@ function options() {
 	<?php
 }
 
-
 /**
+ * Is this a restricted super user?
+ * (A network manager is a restricted super user)
  *
+ * @return bool
  */
 function is_restricted() {
-	global $wpdb;
-
-	$val = false;
-
 	$user = wp_get_current_user();
-
-	$restricted = $wpdb->get_results( "SELECT * FROM {$wpdb->sitemeta} WHERE meta_key = 'pressbooks_network_managers'" );
-	if ( $restricted ) {
-		$restricted = maybe_unserialize( $restricted[0]->meta_value );
-	} else {
-		$restricted = [];
+	if ( in_array( $user->ID, _restricted_users(), true ) ) {
+		return true;
 	}
-
-	if ( in_array( $user->ID, $restricted, true ) ) {
-		$val = true;
-	}
-
-	return $val;
+	return false;
 }
 
 /**
@@ -202,17 +213,8 @@ function hide_network_menus() {
  *
  */
 function restrict_access() {
-	global $wpdb;
-
 	$user = wp_get_current_user();
-
-	$restricted = $wpdb->get_results( "SELECT * FROM {$wpdb->sitemeta} WHERE meta_key = 'pressbooks_network_managers'" );
-	if ( $restricted ) {
-		$restricted = maybe_unserialize( $restricted[0]->meta_value );
-	} else {
-		$restricted = [];
-	}
-	if ( ! in_array( $user->ID, $restricted, true ) ) {
+	if ( ! in_array( $user->ID, _restricted_users(), true ) ) {
 		// This user doesn't have any restrictions. Bail.
 		return;
 	}
