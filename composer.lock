@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3626d167a821e72fe61088acae1b145e",
+    "content-hash": "4bfa0f70a98bb0038b50f3831507ab0d",
     "packages": [
         {
             "name": "composer/installers",
@@ -1710,16 +1710,16 @@
         },
         {
             "name": "yahnis-elsts/plugin-update-checker",
-            "version": "v4.8",
+            "version": "v4.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/YahnisElsts/plugin-update-checker.git",
-                "reference": "8ad3ff27698473accf51470ce46679c37279fa5c"
+                "reference": "6da68b119277a400fad0ca6ec54f223b10bd8230"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/YahnisElsts/plugin-update-checker/zipball/8ad3ff27698473accf51470ce46679c37279fa5c",
-                "reference": "8ad3ff27698473accf51470ce46679c37279fa5c",
+                "url": "https://api.github.com/repos/YahnisElsts/plugin-update-checker/zipball/6da68b119277a400fad0ca6ec54f223b10bd8230",
+                "reference": "6da68b119277a400fad0ca6ec54f223b10bd8230",
                 "shasum": ""
             },
             "require": {
@@ -1727,12 +1727,9 @@
             },
             "type": "library",
             "autoload": {
-                "psr-0": {
-                    "Puc_v4p8_": "",
-                    "Puc_v4_": "",
-                    "PucReadmeParser": "vendor/",
-                    "Parsedown": "vendor/"
-                }
+                "files": [
+                    "plugin-update-checker.php"
+                ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -1754,7 +1751,7 @@
                 "theme updates",
                 "wordpress"
             ],
-            "time": "2019-10-03T09:37:04+00:00"
+            "time": "2019-07-05T18:39:53+00:00"
         }
     ],
     "packages-dev": [
