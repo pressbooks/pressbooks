@@ -18,7 +18,7 @@ php:
 - 7.1
 - 7.2
 env:
-- WP_VERSION=latest WP_MULTISITE=1
+- WP_VERSION=latest WP_MULTISITE=1 TRAVIS_NODE_VERSION="dubnium"
 matrix:
   fast_finish: true
   allow_failures:
@@ -40,7 +40,6 @@ before_install:
 - sudo dpkg -i prince_12.5-1_ubuntu16.04_amd64.deb
 - rm prince_12.5-1_ubuntu16.04_amd64.deb
 - source ~/.nvm/nvm.sh && nvm install $TRAVIS_NODE_VERSION && nvm use $TRAVIS_NODE_VERSION
-- nvm install --lts=dubnium
 install:
 - node -v
 - npm install
