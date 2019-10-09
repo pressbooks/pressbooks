@@ -1,4 +1,4 @@
-dist: xenial
+dist: bionic
 services:
 - mysql
 language: php
@@ -17,6 +17,7 @@ branches:
 php:
 - 7.1
 - 7.2
+- 7.3
 env:
 - WP_VERSION=latest WP_MULTISITE=1 TRAVIS_NODE_VERSION="10"
 matrix:
@@ -47,13 +48,13 @@ install:
 - ulimit -n 4096
 before_script:
 - if php -v | grep -q 'Xdebug'; then phpenv config-rm xdebug.ini; fi
-- pecl install pcov
+- if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.3" ]]; pecl install pcov; fi
 - bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
 script:
 - npm run lint
 - npm run build:production
-- if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.2" ]]; then composer require pcov/clobber; vendor/bin/pcov clobber; vendor/bin/phpunit --configuration phpunit.xml --coverage-clover coverage.xml; fi
-- if [[ ${TRAVIS_PHP_VERSION:0:3} != "7.2" ]]; then vendor/bin/phpunit --configuration phpunit.xml; fi
+- if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.3" ]]; then composer require pcov/clobber; vendor/bin/pcov clobber; vendor/bin/phpunit --configuration phpunit.xml --coverage-clover coverage.xml; fi
+- if [[ ${TRAVIS_PHP_VERSION:0:3} != "7.3" ]]; then vendor/bin/phpunit --configuration phpunit.xml; fi
 - vendor/bin/phpcs --standard=phpcs.ruleset.xml *.php inc/ bin/
 after_success:
 - bash <(curl -s https://codecov.io/bash)
