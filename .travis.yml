@@ -37,9 +37,9 @@ before_install:
 - unzip epubcheck-4.1.1.zip -d /opt/
 - mv /opt/epubcheck-4.1.1 /opt/epubcheck
 - rm epubcheck-4.1.1.zip
-- wget https://www.princexml.com/download/prince_12.5-1_ubuntu16.04_amd64.deb
-- sudo dpkg -i prince_12.5-1_ubuntu16.04_amd64.deb
-- rm prince_12.5-1_ubuntu16.04_amd64.deb
+- wget https://www.princexml.com/download/prince_12.5-1_ubuntu18.04_amd64.deb
+- sudo dpkg -i prince_12.5-1_ubuntu18.04_amd64.deb
+- rm prince_12.5-1_ubuntu18.04_amd64.deb
 - source ~/.nvm/nvm.sh && nvm install $TRAVIS_NODE_VERSION && nvm use $TRAVIS_NODE_VERSION
 install:
 - node -v
