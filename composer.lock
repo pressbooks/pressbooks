@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b239b246ae3fca69d6ec4d0b0917d2dc",
+    "content-hash": "3626d167a821e72fe61088acae1b145e",
     "packages": [
         {
             "name": "composer/installers",
@@ -1456,16 +1456,16 @@
         },
         {
             "name": "scssphp/scssphp",
-            "version": "1.0.4",
+            "version": "1.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/scssphp/scssphp.git",
-                "reference": "7c292c66db52ede3afbfd6566c8872f3c5b32267"
+                "reference": "98e10149058102817b493c5a147fa582cb62d46e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/scssphp/scssphp/zipball/7c292c66db52ede3afbfd6566c8872f3c5b32267",
-                "reference": "7c292c66db52ede3afbfd6566c8872f3c5b32267",
+                "url": "https://api.github.com/repos/scssphp/scssphp/zipball/98e10149058102817b493c5a147fa582cb62d46e",
+                "reference": "98e10149058102817b493c5a147fa582cb62d46e",
                 "shasum": ""
             },
             "require": {
@@ -1474,7 +1474,7 @@
                 "php": ">=5.6.0"
             },
             "require-dev": {
-                "phpunit/phpunit": ">=4.8.36",
+                "phpunit/phpunit": "^5.7 || ^6.5 || ^7.5 || ^8.3",
                 "squizlabs/php_codesniffer": "~2.5",
                 "twbs/bootstrap": "~4.3",
                 "zurb/foundation": "~6.5"
@@ -1513,7 +1513,7 @@
                 "scss",
                 "stylesheet"
             ],
-            "time": "2019-09-06T16:48:49+00:00"
+            "time": "2019-10-03T17:09:15+00:00"
         },
         {
             "name": "sinergi/browser-detector",
@@ -1710,16 +1710,16 @@
         },
         {
             "name": "yahnis-elsts/plugin-update-checker",
-            "version": "v4.6",
+            "version": "v4.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/YahnisElsts/plugin-update-checker.git",
-                "reference": "45374e3c02126fbebebf0244c5d5da4c5e0166ac"
+                "reference": "908249c92e81c46cb66e4d81632c5e917dc879ae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/YahnisElsts/plugin-update-checker/zipball/45374e3c02126fbebebf0244c5d5da4c5e0166ac",
-                "reference": "45374e3c02126fbebebf0244c5d5da4c5e0166ac",
+                "url": "https://api.github.com/repos/YahnisElsts/plugin-update-checker/zipball/908249c92e81c46cb66e4d81632c5e917dc879ae",
+                "reference": "908249c92e81c46cb66e4d81632c5e917dc879ae",
                 "shasum": ""
             },
             "require": {
@@ -1728,7 +1728,7 @@
             "type": "library",
             "autoload": {
                 "files": [
-                    "plugin-update-checker.php"
+                    "load-v4p8.php"
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -1751,7 +1751,7 @@
                 "theme updates",
                 "wordpress"
             ],
-            "time": "2019-04-02T17:56:11+00:00"
+            "time": "2019-10-08T12:15:30+00:00"
         }
     ],
     "packages-dev": [

@@ -41,7 +41,7 @@
 		"pressbooks/pb-cli": "^2.0.0",
 		"sinergi/browser-detector": "^6.1",
 		"vanilla/htmlawed": "^2.2",
-		"yahnis-elsts/plugin-update-checker": "^4.6",
+		"yahnis-elsts/plugin-update-checker": "^4.8",
 		"docraptor/docraptor": "1.3",
 		"fale/isbn": "^3.0"
 	},

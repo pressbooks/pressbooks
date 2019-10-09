@@ -1,4 +1,4 @@
-dist: xenial
+dist: bionic
 services:
 - mysql
 language: php
@@ -17,9 +17,9 @@ branches:
 php:
 - 7.1
 - 7.2
-- nightly
+- 7.3
 env:
-- WP_VERSION=latest WP_MULTISITE=1 TRAVIS_NODE_VERSION="8"
+- WP_VERSION=latest WP_MULTISITE=1 TRAVIS_NODE_VERSION="10"
 matrix:
   fast_finish: true
   allow_failures:
@@ -31,15 +31,15 @@ cache:
   - node_modules
   - vendor
 before_install:
-- sudo apt-get -qq update
+- sudo apt-get -qq update || true
 - sudo apt-get install -y default-jdk libxml2-utils ghostscript imagemagick poppler-utils unzip
 - wget https://github.com/w3c/epubcheck/releases/download/v4.1.1/epubcheck-4.1.1.zip
 - unzip epubcheck-4.1.1.zip -d /opt/
 - mv /opt/epubcheck-4.1.1 /opt/epubcheck
 - rm epubcheck-4.1.1.zip
-- wget https://www.princexml.com/download/prince_12.5-1_ubuntu16.04_amd64.deb
-- sudo dpkg -i prince_12.5-1_ubuntu16.04_amd64.deb
-- rm prince_12.5-1_ubuntu16.04_amd64.deb
+- wget https://www.princexml.com/download/prince_12.5-1_ubuntu18.04_amd64.deb
+- sudo dpkg -i prince_12.5-1_ubuntu18.04_amd64.deb
+- rm prince_12.5-1_ubuntu18.04_amd64.deb
 - source ~/.nvm/nvm.sh && nvm install $TRAVIS_NODE_VERSION && nvm use $TRAVIS_NODE_VERSION
 install:
 - node -v
@@ -48,13 +48,13 @@ install:
 - ulimit -n 4096
 before_script:
 - if php -v | grep -q 'Xdebug'; then phpenv config-rm xdebug.ini; fi
-- pecl install pcov
+- if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.3" ]]; then pecl install pcov; fi
 - bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
 script:
 - npm run lint
 - npm run build:production
-- if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.2" ]]; then composer require pcov/clobber; vendor/bin/pcov clobber; vendor/bin/phpunit --configuration phpunit.xml --coverage-clover coverage.xml; fi
-- if [[ ${TRAVIS_PHP_VERSION:0:3} != "7.2" ]]; then vendor/bin/phpunit --configuration phpunit.xml; fi
+- if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.3" ]]; then composer require pcov/clobber; vendor/bin/pcov clobber; vendor/bin/phpunit --configuration phpunit.xml --coverage-clover coverage.xml; fi
+- if [[ ${TRAVIS_PHP_VERSION:0:3} != "7.3" ]]; then vendor/bin/phpunit --configuration phpunit.xml; fi
 - vendor/bin/phpcs --standard=phpcs.ruleset.xml *.php inc/ bin/
 after_success:
 - bash <(curl -s https://codecov.io/bash)
