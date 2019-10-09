@@ -1,6 +1,6 @@
 /* global PB_OrganizeToken */
 
-import CountUp from 'countup.js';
+import { CountUp } from 'countup.js';
 
 let $ = window.jQuery;
 
@@ -94,13 +94,14 @@ function updateWordCountForExport() {
 	};
 	$.post( ajaxurl, data, function ( response ) {
 		const current_count = parseInt( $( '#wc-selected-for-export' ).text(), 10 );
+		const count_up_options = {
+			startVal: current_count,
+			separator: '',
+		};
 		let count_up = new CountUp(
 			'wc-selected-for-export',
-			current_count,
 			response,
-			0,
-			2.5,
-			{ separator: '' }
+			count_up_options
 		);
 		count_up.start();
 	} );
