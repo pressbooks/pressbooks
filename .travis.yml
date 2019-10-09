@@ -30,7 +30,7 @@ cache:
   - node_modules
   - vendor
 before_install:
-- sudo apt-get -qq update
+- sudo apt-get -qq update || true
 - sudo apt-get install -y default-jdk libxml2-utils ghostscript imagemagick poppler-utils unzip
 - wget https://github.com/w3c/epubcheck/releases/download/v4.1.1/epubcheck-4.1.1.zip
 - unzip epubcheck-4.1.1.zip -d /opt/
