@@ -33,7 +33,7 @@ function pb_meets_minimum_requirements() {
 
 	// WordPress Version
 	global $pb_minimum_wp;
-	$pb_minimum_wp = '5.2.3';
+	$pb_minimum_wp = '5.2.4';
 
 	include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 	$is_compatible = true;

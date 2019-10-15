@@ -1,8 +1,8 @@
 === Pressbooks ===
 Contributors: Pressbooks <code@pressbooks.com>
 Tags: ebooks, publishing, webbooks
-Requires at least: 5.2.3
-Tested up to: 5.2.3
+Requires at least: 5.2.4
+Tested up to: 5.2.4
 Requires PHP: 7.1
 Stable tag: 5.9.4
 License: GPL v3.0 or later
@@ -29,5 +29,5 @@ TK.
 = 5.9.4 =
 
 * Pressbooks 5.9.4 requires PHP >= 7.1.
-* Pressbooks 5.9.4 requires [WordPress 5.2.3](https://wordpress.org/news/2019/09/wordpress-5-2-3-security-and-maintenance-release/)
+* Pressbooks 5.9.4 requires [WordPress 5.2.4](https://wordpress.org/news/2019/10/wordpress-5-2-4-security-release/)
 * Pressbooks 5.9.4 requires [McLuhan >= 2.8.11](https://github.com/pressbooks/pressbooks-book/)
