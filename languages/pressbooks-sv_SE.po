@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
-"POT-Creation-Date: 2019-10-01T16:35:38+00:00\n"
+"POT-Creation-Date: 2019-10-15T20:24:47+00:00\n"
 "PO-Revision-Date: 2019-10-01 16:36+0000\n"
 "Last-Translator: Dac Chartrand <dac@pressbooks.com>\n"
 "Language-Team: Swedish (Sweden) (http://www.transifex.com/pressbooks/pressbooks/language/sv_SE/)\n"
@@ -35,7 +35,7 @@ msgstr ""
 msgid "Pressbooks (Book Oven Inc.)"
 msgstr ""
 
-#: compatibility.php:103 inc/class-activation.php:318
+#: compatibility.php:103 inc/class-activation.php:327
 msgid "Simple Book Publishing"
 msgstr ""
 
@@ -182,7 +182,7 @@ msgstr "Katalogstatus"
 msgid "Privacy Status"
 msgstr "Status för Integritet:"
 
-#: inc/admin/class-catalog-list-table.php:171 inc/class-activation.php:229
+#: inc/admin/class-catalog-list-table.php:171 inc/class-activation.php:238
 #: inc/modules/export/epub/class-epub201.php:928 tests/test-cloner.php:58
 msgid "Cover"
 msgstr "Omslag"
@@ -440,7 +440,7 @@ msgid "Author (Spine)"
 msgstr ""
 
 #: inc/admin/covergenerator/namespace.php:124 inc/admin/laf/namespace.php:83
-#: inc/class-activation.php:239 templates/admin/catalog.php:98
+#: inc/class-activation.php:248 templates/admin/catalog.php:98
 msgid "About"
 msgstr "Om"
 
@@ -679,7 +679,7 @@ msgstr ""
 
 #: inc/admin/dashboard/namespace.php:154
 #: inc/api/endpoints/controller/class-books.php:132
-#: inc/class-activation.php:234
+#: inc/class-activation.php:243
 #: inc/modules/export/epub/templates/epub3/toc.php:26
 #: inc/modules/themeoptions/class-pdfoptions.php:272 tests/test-cloner.php:63
 msgid "Table of Contents"
@@ -1718,11 +1718,11 @@ msgstr ""
 msgid "Network Managers"
 msgstr "Nätverksförvaltare"
 
-#: inc/admin/networkmanagers/namespace.php:90
+#: inc/admin/networkmanagers/namespace.php:112
 msgid "Pressbooks Network Managers"
 msgstr "Pressbooks Nätverksförvaltare"
 
-#: inc/admin/networkmanagers/namespace.php:92
+#: inc/admin/networkmanagers/namespace.php:114
 msgid ""
 "Network administrators&rsquo; access to network administration menus can be "
 "restricted to leave only sites and users visible to them."
@@ -1786,51 +1786,51 @@ msgstr ""
 msgid "Failed to update chapter part"
 msgstr ""
 
-#: inc/class-activation.php:196
+#: inc/class-activation.php:205
 msgid "Main Body"
 msgstr "Huvuddelen"
 
-#: inc/class-activation.php:202 tests/test-book.php:49
+#: inc/class-activation.php:211 tests/test-book.php:49
 msgid "Introduction"
 msgstr "Introduktion"
 
-#: inc/class-activation.php:204 tests/test-book.php:90
+#: inc/class-activation.php:213 tests/test-book.php:90
 msgid "This is where you can write your introduction."
 msgstr "Det är här du kan skriva din introduktion."
 
-#: inc/class-activation.php:209
+#: inc/class-activation.php:218
 msgid "Chapter 1"
 msgstr "Kapitel 1"
 
-#: inc/class-activation.php:211
+#: inc/class-activation.php:220
 msgid ""
 "This is the first chapter in the main body of the text. You can change the "
 "text, rename the chapter, add new chapters, and add new parts."
 msgstr "Detta är det första kapitlet i huvuddelen av texten. Du kan ändra texten, byta namn på kapitlet, lägga till nya kapitel, och lägga till nya delar."
 
-#: inc/class-activation.php:216
+#: inc/class-activation.php:225
 msgid "Appendix"
 msgstr "Bilaga"
 
-#: inc/class-activation.php:218
+#: inc/class-activation.php:227
 msgid "This is where you can add appendices or other back matter."
 msgstr "Det är här du kan lägga till bilagor eller annat eftermaterial."
 
-#: inc/class-activation.php:224 templates/admin/organize.php:123
+#: inc/class-activation.php:233 templates/admin/organize.php:123
 #: templates/admin/organize.php:210 templates/admin/organize.php:284
 #: templates/admin/organize.php:369 tests/test-cloner.php:53
 msgid "Authors"
 msgstr "Författare"
 
-#: inc/class-activation.php:244
+#: inc/class-activation.php:253
 msgid "Buy"
 msgstr "Köp"
 
-#: inc/class-activation.php:249
+#: inc/class-activation.php:258
 msgid "Access Denied"
 msgstr "Åtkomst nekad"
 
-#: inc/class-activation.php:251
+#: inc/class-activation.php:260
 msgid ""
 "This book is private, and accessible only to registered users. If you have "
 "an account you can login <a href=\"/wp-login.php\">here</a>. You can also "
@@ -1838,25 +1838,25 @@ msgid ""
 "href=\"http://pressbooks.com\">Pressbooks.com</a>."
 msgstr "Denna bok är privat och endast tillgänglig för registrerade användare. Om du har ett konto kan du logga in <a href=\"/wp-login.php\">här</a>. Du kan också skapa din egna Pressbooks-bok på: <a href=\"http://pressbooks.com\">Pressbooks.com</a>."
 
-#: inc/class-activation.php:256 inc/class-customcss.php:95
+#: inc/class-activation.php:265 inc/class-customcss.php:95
 msgid "Custom CSS for Ebook"
 msgstr "Anpassad CSS för e-bok"
 
-#: inc/class-activation.php:261 inc/class-customcss.php:100
+#: inc/class-activation.php:270 inc/class-customcss.php:100
 msgid "Custom CSS for PDF"
 msgstr "Anpassad CSS för PDF"
 
-#: inc/class-activation.php:266 inc/class-customcss.php:105
+#: inc/class-activation.php:275 inc/class-customcss.php:105
 msgid "Custom CSS for Web"
 msgstr "Anpassad CSS för webben"
 
-#: inc/class-activation.php:272 inc/posttype/namespace.php:165
+#: inc/class-activation.php:281 inc/posttype/namespace.php:165
 #: inc/posttype/namespace.php:166 inc/posttype/namespace.php:529
 #: templates/admin/import.php:104
 msgid "Book Information"
 msgstr "Bokinformation"
 
-#: inc/class-activation.php:303
+#: inc/class-activation.php:312
 msgid "Default Data"
 msgstr "Standarddata"
 

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
-"POT-Creation-Date: 2019-10-01T16:35:38+00:00\n"
+"POT-Creation-Date: 2019-10-15T20:24:47+00:00\n"
 "PO-Revision-Date: 2019-10-01 16:36+0000\n"
 "Last-Translator: Dac Chartrand <dac@pressbooks.com>\n"
 "Language-Team: Latvian (http://www.transifex.com/pressbooks/pressbooks/language/lv/)\n"
@@ -35,7 +35,7 @@ msgstr "Vienkārša grāmatu ražošana"
 msgid "Pressbooks (Book Oven Inc.)"
 msgstr "Pressbooks (Book Oven Inc.)"
 
-#: compatibility.php:103 inc/class-activation.php:318
+#: compatibility.php:103 inc/class-activation.php:327
 msgid "Simple Book Publishing"
 msgstr "Vienkāršais grāmatizdevējdarbs"
 
@@ -182,7 +182,7 @@ msgstr "Kataloga statuss "
 msgid "Privacy Status"
 msgstr "Konfidencialitātes statuss"
 
-#: inc/admin/class-catalog-list-table.php:171 inc/class-activation.php:229
+#: inc/admin/class-catalog-list-table.php:171 inc/class-activation.php:238
 #: inc/modules/export/epub/class-epub201.php:928 tests/test-cloner.php:58
 msgid "Cover"
 msgstr "Vāks"
@@ -440,7 +440,7 @@ msgid "Author (Spine)"
 msgstr "Autors (iesējumā)"
 
 #: inc/admin/covergenerator/namespace.php:124 inc/admin/laf/namespace.php:83
-#: inc/class-activation.php:239 templates/admin/catalog.php:98
+#: inc/class-activation.php:248 templates/admin/catalog.php:98
 msgid "About"
 msgstr "Par"
 
@@ -679,7 +679,7 @@ msgstr "Jūs arī varat pieprasīt pieeju jau eksistējošai grāmatai, sazinoti
 
 #: inc/admin/dashboard/namespace.php:154
 #: inc/api/endpoints/controller/class-books.php:132
-#: inc/class-activation.php:234
+#: inc/class-activation.php:243
 #: inc/modules/export/epub/templates/epub3/toc.php:26
 #: inc/modules/themeoptions/class-pdfoptions.php:272 tests/test-cloner.php:63
 msgid "Table of Contents"
@@ -1718,11 +1718,11 @@ msgstr "Dalīšanas un konfidencialitātes iestatījumi"
 msgid "Network Managers"
 msgstr "Tīkla pārvaldnieki"
 
-#: inc/admin/networkmanagers/namespace.php:90
+#: inc/admin/networkmanagers/namespace.php:112
 msgid "Pressbooks Network Managers"
 msgstr "Pressbooks vietnes tīkla pārvaldnieki"
 
-#: inc/admin/networkmanagers/namespace.php:92
+#: inc/admin/networkmanagers/namespace.php:114
 msgid ""
 "Network administrators&rsquo; access to network administration menus can be "
 "restricted to leave only sites and users visible to them."
@@ -1786,51 +1786,51 @@ msgstr "ID nav daļa"
 msgid "Failed to update chapter part"
 msgstr "Neizdevās atjaunot nodaļas daļu"
 
-#: inc/class-activation.php:196
+#: inc/class-activation.php:205
 msgid "Main Body"
 msgstr "Galvenā daļa"
 
-#: inc/class-activation.php:202 tests/test-book.php:49
+#: inc/class-activation.php:211 tests/test-book.php:49
 msgid "Introduction"
 msgstr "Ievaddaļa "
 
-#: inc/class-activation.php:204 tests/test-book.php:90
+#: inc/class-activation.php:213 tests/test-book.php:90
 msgid "This is where you can write your introduction."
 msgstr "Te Jūs varat uzrakstīt Jūsu ievaddaļu."
 
-#: inc/class-activation.php:209
+#: inc/class-activation.php:218
 msgid "Chapter 1"
 msgstr "1. nodaļa"
 
-#: inc/class-activation.php:211
+#: inc/class-activation.php:220
 msgid ""
 "This is the first chapter in the main body of the text. You can change the "
 "text, rename the chapter, add new chapters, and add new parts."
 msgstr "Tas ir pirmā nodaļa galvenā teksta daļā. Jūs varat mainīt tekstu, pārdēvēt nodaļu, pievienot jaunas nodaļas vai daļās."
 
-#: inc/class-activation.php:216
+#: inc/class-activation.php:225
 msgid "Appendix"
 msgstr "Pielikums"
 
-#: inc/class-activation.php:218
+#: inc/class-activation.php:227
 msgid "This is where you can add appendices or other back matter."
 msgstr "Te Jūs varat pievienot pielikumus vai citu beigu papildinformāciju."
 
-#: inc/class-activation.php:224 templates/admin/organize.php:123
+#: inc/class-activation.php:233 templates/admin/organize.php:123
 #: templates/admin/organize.php:210 templates/admin/organize.php:284
 #: templates/admin/organize.php:369 tests/test-cloner.php:53
 msgid "Authors"
 msgstr "Autori"
 
-#: inc/class-activation.php:244
+#: inc/class-activation.php:253
 msgid "Buy"
 msgstr "Pirkt"
 
-#: inc/class-activation.php:249
+#: inc/class-activation.php:258
 msgid "Access Denied"
 msgstr "Piekļuve nav atļauta"
 
-#: inc/class-activation.php:251
+#: inc/class-activation.php:260
 msgid ""
 "This book is private, and accessible only to registered users. If you have "
 "an account you can login <a href=\"/wp-login.php\">here</a>. You can also "
@@ -1838,25 +1838,25 @@ msgid ""
 "href=\"http://pressbooks.com\">Pressbooks.com</a>."
 msgstr ""
 
-#: inc/class-activation.php:256 inc/class-customcss.php:95
+#: inc/class-activation.php:265 inc/class-customcss.php:95
 msgid "Custom CSS for Ebook"
 msgstr "Lietotāja CSS elektroniskajai grāmatai."
 
-#: inc/class-activation.php:261 inc/class-customcss.php:100
+#: inc/class-activation.php:270 inc/class-customcss.php:100
 msgid "Custom CSS for PDF"
 msgstr "Lietotāja CSS PDF formāta failiem"
 
-#: inc/class-activation.php:266 inc/class-customcss.php:105
+#: inc/class-activation.php:275 inc/class-customcss.php:105
 msgid "Custom CSS for Web"
 msgstr "Lietotāja CSS tiešsaistes grāmatai"
 
-#: inc/class-activation.php:272 inc/posttype/namespace.php:165
+#: inc/class-activation.php:281 inc/posttype/namespace.php:165
 #: inc/posttype/namespace.php:166 inc/posttype/namespace.php:529
 #: templates/admin/import.php:104
 msgid "Book Information"
 msgstr "Informācija par grāmatu"
 
-#: inc/class-activation.php:303
+#: inc/class-activation.php:312
 msgid "Default Data"
 msgstr "Noklusējuma dati"
 
