@@ -6,8 +6,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-use function \Pressbooks\Utility\oxford_comma_explode;
 use function \Pressbooks\Sanitize\sanitize_xml_attribute;
+use function \Pressbooks\Utility\oxford_comma_explode;
 use HumanNameParser\Exception\NameParsingException;
 use HumanNameParser\Parser;
 
