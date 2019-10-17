@@ -6,6 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use function \Pressbooks\Sanitize\sanitize_xml_attribute;
 use function \Pressbooks\Utility\oxford_comma_explode;
 use HumanNameParser\Exception\NameParsingException;
 use HumanNameParser\Parser;
@@ -53,7 +54,7 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 		if ( ! \Pressbooks\Utility\empty_space( $meta['pb_authors'] ) ) {
 			$first_author = oxford_comma_explode( $meta['pb_authors'] )[0];
 		} else {
-			$first_author = __( 'Authored by: ', 'pressbooks' ) . get_bloginfo( 'url' );
+			$first_author = sanitize_xml_attribute( __( 'Authored by: ', 'pressbooks' ) . get_bloginfo( 'url' ) );
 		}
 		echo '<dc:creator id="author">' . $first_author . '</dc:creator>' . "\n";
 
@@ -91,7 +92,7 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 		// Copyright
 		if ( ! empty( $meta['pb_copyright_year'] ) || ! empty( $meta['pb_copyright_holder'] ) ) {
 			echo '<dc:rights>';
-			echo __( 'Copyright', 'pressbooks' ) . ' &#169; ';
+			echo sanitize_xml_attribute( __( 'Copyright', 'pressbooks' ) ) . ' &#169; ';
 			if ( ! empty( $meta['pb_copyright_year'] ) ) {
 				echo $meta['pb_copyright_year'];
 			} elseif ( ! empty( $meta['pb_publication_date'] ) ) {
@@ -100,7 +101,7 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 				echo date( 'Y' );
 			}
 			if ( ! empty( $meta['pb_copyright_holder'] ) ) {
-				echo ' ' . __( 'by', 'pressbooks' ) . ' ' . $meta['pb_copyright_holder'];
+				echo ' ' . sanitize_xml_attribute( __( 'by', 'pressbooks' ) ) . ' ' . $meta['pb_copyright_holder'];
 			}
 			if ( ! empty( $do_copyright_license ) ) {
 				echo '. ' . $do_copyright_license;
