@@ -93,6 +93,7 @@ class Book {
 	 */
 	static public function hooks( Book $obj ) {
 		add_action( 'wp_update_site', [ $obj, 'updateSite' ], 999, 2 );
+		add_action( 'wp_insert_post', [ $obj, 'updateMetaData' ], 10, 3 ); // Trigger after deleteBookObjectCache
 		add_action( 'wp_delete_site', [ $obj, 'deleteSite' ], 999 );
 	}
 
@@ -113,6 +114,19 @@ class Book {
 		$this->copyBookMetaIntoSiteTable( $new_site->id );
 		if ( $old_site->id && $old_site->id !== $new_site->id ) {
 			$this->copyBookMetaIntoSiteTable( $old_site->id );
+		}
+	}
+
+	/**
+	 * Hooked into save_post
+	 *
+	 * @param int $post_id
+	 * @param \WP_Post $post
+	 * @param bool $update
+	 */
+	public function updateMetaData( $post_id, $post, $update ) {
+		if ( $post->post_type === 'metadata' && $update ) {
+			$this->copyBookMetaIntoSiteTable( get_current_blog_id() );
 		}
 	}
 
@@ -153,7 +167,7 @@ class Book {
 		update_site_meta( $book_id, self::COVER, $cover );
 
 		// pb_title
-		update_site_meta( $book_id, self::TITLE, $metadata['pb_title'] );
+		update_site_meta( $book_id, self::TITLE, $metadata['pb_title'] ?? '' );
 
 		// pb_last_edited
 		// pb_created
