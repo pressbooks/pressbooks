@@ -14,7 +14,6 @@ class ApiTest extends \WP_UnitTestCase {
 		// Test that endpoints exist
 		$endpoints = [
 			'/pressbooks/v2/books',
-			'/pressbooks/v2/books/search',
 		];
 		foreach ( $endpoints as $endpoint ) {
 			$request = new \WP_REST_Request( 'OPTIONS', $endpoint );
@@ -78,61 +77,6 @@ class ApiTest extends \WP_UnitTestCase {
 			$status = $response->get_status();
 			$this->assertEquals( 404, $status );
 		}
-	}
-
-	/**
-	 * @group api
-	 */
-	public function test_bookSearch() {
-
-		$this->_book();
-		update_option( 'blog_public', 1 );
-		restore_current_blog();
-
-		// Test book metadata search
-		$server = $this->_setupRootApi();
-		$request = new \WP_REST_Request( 'GET', '/pressbooks/v2/books/search' );
-		$request->set_param( 'name', 'site' );
-		$request->set_param( '@type', 'book' );
-		$response = $server->dispatch( $request );
-		$data = $response->get_data();
-		$this->assertNotEmpty( $data );
-
-		// Test chapter metadata search
-		$server = $this->_setupRootApi();
-		$request = new \WP_REST_Request( 'GET', '/pressbooks/v2/books/search' );
-		$request->set_param( 'name', 'appendix' );
-		$request->set_param( '@type', 'chapter' );
-		$response = $server->dispatch( $request );
-		$data = $response->get_data();
-		$this->assertNotEmpty( $data );
-
-		// Test search with 5 parameters
-		$server = $this->_setupRootApi();
-		$request = new \WP_REST_Request( 'GET', '/pressbooks/v2/books/search' );
-		$request->set_param( 'name', 'lorem,ipsum,dolor,consectetur,site' );
-		$request->set_param( '@type', 'lorem,ipsum,dolor,consectetur,book' );
-		$response = $server->dispatch( $request );
-		$data = $response->get_data();
-		$this->assertNotEmpty( $data );
-
-		// Test truncated after 5 parameters
-		$server = $this->_setupRootApi();
-		$request = new \WP_REST_Request( 'GET', '/pressbooks/v2/books/search' );
-		$request->set_param( 'name', 'lorem,ipsum,dolor,consectetur,adipiscing,site' );
-		$request->set_param( '@type', 'lorem,ipsum,dolor,consectetur,adipiscing,book' );
-		$response = $server->dispatch( $request );
-		$data = $response->get_data();
-		$this->assertEmpty( $data );
-
-		// Test AND/OR
-		$server = $this->_setupRootApi();
-		$request = new \WP_REST_Request( 'GET', '/pressbooks/v2/books/search' );
-		$request->set_param( 'name', 'site' );
-		$request->set_param( '@type', 'cake' );
-		$response = $server->dispatch( $request );
-		$data = $response->get_data();
-		$this->assertEmpty( $data );
 	}
 
 	/**
