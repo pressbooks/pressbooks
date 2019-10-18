@@ -25,11 +25,6 @@ class Books extends \WP_REST_Controller {
 	protected $lastKnownBookId = 0;
 
 	/**
-	 * @var Toc
-	 */
-	protected $toc;
-
-	/**
 	 * @var Metadata
 	 */
 	protected $metadata;
@@ -53,7 +48,6 @@ class Books extends \WP_REST_Controller {
 
 		$this->limit = apply_filters( 'pb_api_books_limit', 10 );
 
-		$this->toc = new Toc();
 		$this->metadata = new Metadata();
 		$this->bookDataCollector = BookDataCollector::init();
 	}
@@ -101,7 +95,6 @@ class Books extends \WP_REST_Controller {
 
 	public function get_item_schema() {
 
-		$toc = $this->toc->get_item_schema();
 		$metadata = $this->metadata->get_item_schema();
 
 		$schema = [
@@ -126,13 +119,6 @@ class Books extends \WP_REST_Controller {
 					'description' => __( 'Metadata', 'pressbooks' ),
 					'type' => 'object',
 					'properties' => $metadata['properties'],
-					'context' => [ 'view' ],
-					'readonly' => true,
-				],
-				'toc' => [
-					'description' => __( 'Table of Contents', 'pressbooks' ),
-					'type' => 'object',
-					'properties' => $toc['properties'],
 					'context' => [ 'view' ],
 					'readonly' => true,
 				],
@@ -232,7 +218,6 @@ class Books extends \WP_REST_Controller {
 	 * Books content is built by querying a book, but those API routes may not exist at the root level.
 	 */
 	protected function registerRouteDependencies() {
-		$this->toc->register_routes();
 		$this->metadata->register_routes();
 	}
 
@@ -267,7 +252,7 @@ class Books extends \WP_REST_Controller {
 		];
 
 		$this->linkCollector['metadata'][] = [
-			'href' => $item['link'] , get_rest_url( $id, '/pressbooks/v2/metadata' ),
+			'href' => get_rest_url( $id, '/pressbooks/v2/metadata' ),
 		];
 
 		$this->linkCollector['self'][] = [
