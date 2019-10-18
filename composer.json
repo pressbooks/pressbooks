@@ -37,7 +37,6 @@
 		"scssphp/scssphp": "^1.0",
 		"masterminds/html5": "^2.6",
 		"pressbooks/mix": "^2.1",
-		"pressbooks/pb-api": "^1.1",
 		"pressbooks/pb-cli": "^2.0.0",
 		"sinergi/browser-detector": "^6.1",
 		"vanilla/htmlawed": "^2.2",

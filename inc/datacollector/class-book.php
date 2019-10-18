@@ -72,6 +72,8 @@ class Book {
 
 	const DEACTIVATED = 'pb_deactivated';
 
+	const BOOK_INFORMATION_ARRAY = 'pb_book_information_array';
+
 	/**
 	 * @var Book
 	 */
@@ -93,6 +95,7 @@ class Book {
 	 */
 	static public function hooks( Book $obj ) {
 		add_action( 'wp_update_site', [ $obj, 'updateSite' ], 999, 2 );
+		add_action( 'wp_insert_post', [ $obj, 'updateMetaData' ], 10, 3 ); // Trigger after deleteBookObjectCache
 		add_action( 'wp_delete_site', [ $obj, 'deleteSite' ], 999 );
 	}
 
@@ -102,6 +105,10 @@ class Book {
 	public function __construct() {
 
 	}
+
+	// ------------------------------------------------------------------------
+	// Hooks
+	// ------------------------------------------------------------------------
 
 	/**
 	 * Hooked into wp_update_site
@@ -117,6 +124,19 @@ class Book {
 	}
 
 	/**
+	 * Hooked into save_post
+	 *
+	 * @param int $post_id
+	 * @param \WP_Post $post
+	 * @param bool $update
+	 */
+	public function updateMetaData( $post_id, $post, $update ) {
+		if ( $post->post_type === 'metadata' && $update ) {
+			$this->copyBookMetaIntoSiteTable( get_current_blog_id() );
+		}
+	}
+
+	/**
 	 * Hooked into wp_delete_site
 	 *
 	 * @param \WP_Site $old_site Old site object.
@@ -125,6 +145,22 @@ class Book {
 		global $wpdb;
 		$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->blogmeta} WHERE blog_id = %d ", $old_site->id ) );
 	}
+
+	/**
+	 * Hooked into pb_thema_subjects_locale
+	 *
+	 * @param string $locale
+	 *
+	 * @return string
+	 */
+	public function themaSubjectsLocale( $locale ) {
+		// TODO Use main site locale
+		return 'en';
+	}
+
+	// ------------------------------------------------------------------------
+	// Copy
+	// ------------------------------------------------------------------------
 
 	/**
 	 * Copy (sync) book meta into wp_blogmeta table.
@@ -143,7 +179,9 @@ class Book {
 		// Network Analytic Columns
 		// --------------------------------------------------------------------
 
+		// Book info
 		$metadata = \Pressbooks\Book::getBookInformation();
+		update_site_meta( $book_id, self::BOOK_INFORMATION_ARRAY, $metadata );
 
 		// pb_cover_image
 		if ( empty( $metadata['pb_cover_image'] ) ) {
@@ -153,7 +191,7 @@ class Book {
 		update_site_meta( $book_id, self::COVER, $cover );
 
 		// pb_title
-		update_site_meta( $book_id, self::TITLE, $metadata['pb_title'] );
+		update_site_meta( $book_id, self::TITLE, $metadata['pb_title'] ?? '' );
 
 		// pb_last_edited
 		// pb_created
@@ -296,18 +334,6 @@ class Book {
 	}
 
 	/**
-	 * Hooked into pb_thema_subjects_locale
-	 *
-	 * @param string $locale
-	 *
-	 * @return string
-	 */
-	public function themaSubjectsLocale( $locale ) {
-		// TODO Use main site locale
-		return 'en';
-	}
-
-	/**
 	 * @return \Generator
 	 */
 	public function copyAllBooksIntoSiteTable(): \Generator {
@@ -341,6 +367,43 @@ class Book {
 			update_site_option( 'pb_book_sync_cron_timestamp', gmdate( 'Y-m-d H:i:s' ) );
 			delete_transient( $in_progress_transient );
 		}
+	}
+
+	// ------------------------------------------------------------------------
+	// Get stuff
+	// ------------------------------------------------------------------------
+
+	/**
+	 * Looks in the wp_blogmeta table for a key
+	 * If nothing is found, then auto-sync, and try again
+	 *
+	 * @param int $blog_id
+	 * @param string $key *
+	 *
+	 * @return mixed
+	 * @throws \LogicException
+	 */
+	public function get( $blog_id, $key ) {
+		try {
+			$val = get_site_meta( $blog_id, $key, true );
+			if ( $val !== '0' && empty( $val ) ) {
+				$refl = new \ReflectionClass( $this );
+				$const = $refl->getConstants();
+				if ( in_array( $key, $const, true ) ) {
+					global $wpdb;
+					if ( 0 === (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->blogmeta} WHERE blog_id = %d AND meta_key = %s ", $blog_id, $key ) ) ) {
+						$this->copyBookMetaIntoSiteTable( $blog_id );
+						$val = get_site_meta( $blog_id, $key, true );
+					}
+				}
+			}
+		} catch ( \ReflectionException $e ) {
+			return false;
+		}
+		if ( is_object( $val ) ) {
+			throw new \LogicException( 'Objects are forbidden. Unserialization can result in code being loaded and executed due to object instantiation and autoloading, and a malicious user may be able to exploit this. Fix your code!' );
+		}
+		return $val;
 	}
 
 	/**

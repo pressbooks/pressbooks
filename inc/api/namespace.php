@@ -135,9 +135,6 @@ function init_root() {
 
 	// Register Books
 	( new Endpoints\Controller\Books() )->register_routes();
-
-	// Register Search
-	( new Endpoints\Controller\Search() )->register_routes();
 }
 
 /**

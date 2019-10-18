@@ -19,6 +19,7 @@ class DataCollector_BookTest extends \WP_UnitTestCase {
 		parent::setUp();
 		$obj = BookDataCollector::init();
 		remove_action( 'wp_update_site', [ $obj, 'updateSite' ], 999 );
+		remove_action( 'wp_insert_post', [ $obj, 'updateMetaData' ] );
 		remove_action( 'wp_delete_site', [ $obj, 'deleteSite' ], 999 );
 		$this->bookDataCollector = $obj;
 	}
@@ -45,6 +46,25 @@ class DataCollector_BookTest extends \WP_UnitTestCase {
 
 		// Check that the book was updated and left a timestamp
 		$this->bookDataCollector->updateSite( $new_site, $old_site );
+		$updated = get_site_meta( $new_site->id, BookDataCollector::TIMESTAMP, true );
+		$this->assertTrue( date_create( $updated ) >= date_create( $now ) );
+	}
+
+	/**
+	 * @group datacollector
+	 */
+	public function test_updateMetaData() {
+		$now = gmdate( 'Y-m-d H:i:s' );
+		$this->_book();
+		$new_site = $old_site = get_site();
+
+		// Check that there is no timestamp to start
+		$updated = get_site_meta( $new_site->id, BookDataCollector::TIMESTAMP, true );
+		$this->assertEmpty( $updated );
+
+		// Check that the book was updated and left a timestamp
+		$mp = ( new \Pressbooks\Metadata() )->getMetaPost();
+		$this->bookDataCollector->updateMetaData( $mp->ID, $mp, true );
 		$updated = get_site_meta( $new_site->id, BookDataCollector::TIMESTAMP, true );
 		$this->assertTrue( date_create( $updated ) >= date_create( $now ) );
 	}
@@ -101,6 +121,33 @@ class DataCollector_BookTest extends \WP_UnitTestCase {
 		}
 		$this->assertTrue( $i > 0 );
 	}
+
+	/**
+	 * @group datacollector
+	 */
+	public function test_get() {
+		$this->_book();
+		$book_id = get_current_blog_id();
+		delete_site_meta( $book_id, BookDataCollector::BOOK_INFORMATION_ARRAY );
+		$x = $this->bookDataCollector->get( $book_id, BookDataCollector::BOOK_INFORMATION_ARRAY );
+		$this->assertNotEmpty( $x );
+		$this->assertIsArray( $x );
+
+		$y = $this->bookDataCollector->get( get_current_blog_id(), 'does_not_exist' );
+		$this->assertEmpty( $y );
+	}
+
+	/**
+	 * @expectedException \LogicException
+	 * @group datacollector
+	 */
+	public function test_get_LogicExeption() {
+		$this->_book();
+		$book_id = get_current_blog_id();
+		update_site_meta( $book_id, BookDataCollector::BOOK_INFORMATION_ARRAY, new \StdClass() ); // No hackers allowed
+		$x = $this->bookDataCollector->get( $book_id, BookDataCollector::BOOK_INFORMATION_ARRAY );
+	}
+
 
 	/**
 	 * @group datacollector

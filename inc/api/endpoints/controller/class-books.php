@@ -2,7 +2,8 @@
 
 namespace Pressbooks\Api\Endpoints\Controller;
 
-use function Pressbooks\Api\get_custom_post_types;
+use function \Pressbooks\Metadata\book_information_to_schema;
+use Pressbooks\DataCollector\Book as BookDataCollector;
 
 class Books extends \WP_REST_Controller {
 
@@ -12,11 +13,6 @@ class Books extends \WP_REST_Controller {
 	 * @var int
 	 */
 	protected $limit;
-
-	/**
-	 * Maximum amount of time for search, in seconds
-	 */
-	protected $maxSearchTime;
 
 	/**
 	 * @var int
@@ -29,11 +25,6 @@ class Books extends \WP_REST_Controller {
 	protected $lastKnownBookId = 0;
 
 	/**
-	 * @var Toc
-	 */
-	protected $toc;
-
-	/**
 	 * @var Metadata
 	 */
 	protected $metadata;
@@ -44,6 +35,11 @@ class Books extends \WP_REST_Controller {
 	protected $linkCollector = [];
 
 	/**
+	 * @var BookDataCollector
+	 */
+	protected $bookDataCollector;
+
+	/**
 	 * Books
 	 */
 	public function __construct() {
@@ -51,10 +47,9 @@ class Books extends \WP_REST_Controller {
 		$this->rest_base = 'books';
 
 		$this->limit = apply_filters( 'pb_api_books_limit', 10 );
-		$this->maxSearchTime = apply_filters( 'pb_api_books_max_search_time', 15 );
 
-		$this->toc = new Toc();
 		$this->metadata = new Metadata();
+		$this->bookDataCollector = BookDataCollector::init();
 	}
 
 	/**
@@ -100,7 +95,6 @@ class Books extends \WP_REST_Controller {
 
 	public function get_item_schema() {
 
-		$toc = $this->toc->get_item_schema();
 		$metadata = $this->metadata->get_item_schema();
 
 		$schema = [
@@ -128,13 +122,6 @@ class Books extends \WP_REST_Controller {
 					'context' => [ 'view' ],
 					'readonly' => true,
 				],
-				'toc' => [
-					'description' => __( 'Table of Contents', 'pressbooks' ),
-					'type' => 'object',
-					'properties' => $toc['properties'],
-					'context' => [ 'view' ],
-					'readonly' => true,
-				],
 			],
 		];
 
@@ -147,6 +134,8 @@ class Books extends \WP_REST_Controller {
 	public function get_collection_params() {
 
 		$params = parent::get_collection_params();
+
+		unset( $params['search'] ); // Fulltext search not supported
 
 		$params['context']['default'] = 'view';
 		$params['per_page']['maximum'] = $this->limit;
@@ -184,14 +173,9 @@ class Books extends \WP_REST_Controller {
 		}
 
 		$allowed = false;
-
-		switch_to_blog( $request['id'] );
-
-		if ( 1 === absint( get_option( 'blog_public' ) ) ) {
+		if ( $this->bookDataCollector->get( $request['id'], BookDataCollector::PUBLIC ) ) {
 			$allowed = true;
 		}
-
-		restore_current_blog();
 
 		return $allowed;
 	}
@@ -206,13 +190,8 @@ class Books extends \WP_REST_Controller {
 		// Register missing routes
 		$this->registerRouteDependencies();
 
-		if ( ! empty( $request['search'] ) ) {
-			$response = rest_ensure_response( $this->searchBooks( $request ) );
-			$this->addNextSearchLinks( $request, $response );
-		} else {
-			$response = rest_ensure_response( $this->listBooks( $request ) );
-			$this->addPreviousNextLinks( $request, $response );
-		}
+		$response = rest_ensure_response( $this->listBooks( $request ) );
+		$this->addPreviousNextLinks( $request, $response );
 
 		return $response;
 	}
@@ -235,25 +214,10 @@ class Books extends \WP_REST_Controller {
 	}
 
 	/**
-	 * @param int $last_known_book_id
-	 */
-	public function setLastKnownBookId( $last_known_book_id ) {
-		$this->lastKnownBookId = $last_known_book_id;
-	}
-
-	/**
-	 * @return int
-	 */
-	public function getLastKnownBookId() {
-		return $this->lastKnownBookId;
-	}
-
-	/**
 	 * Define route dependencies.
 	 * Books content is built by querying a book, but those API routes may not exist at the root level.
 	 */
 	protected function registerRouteDependencies() {
-		$this->toc->register_routes();
 		$this->metadata->register_routes();
 	}
 
@@ -265,55 +229,31 @@ class Books extends \WP_REST_Controller {
 	 * Switches to a book, renders it for use in JSON response if found
 	 *
 	 * @param int $id
-	 * @param mixed $search (optional)
 	 *
 	 * @return array
 	 */
-	protected function renderBook( $id, $search = null ) {
+	protected function renderBook( $id ) {
 
-		switch_to_blog( $id );
-
-		// Search
-		if ( ! empty( $search ) ) {
-			if ( ! $this->find( $search ) ) {
-				restore_current_blog();
-				return [];
-			}
+		$metadata = $this->bookDataCollector->get( $id, BookDataCollector::BOOK_INFORMATION_ARRAY );
+		if ( is_array( $metadata ) && ! empty( $metadata ) ) {
+			$metadata = book_information_to_schema( $metadata );
+		} else {
+			$metadata = [];
 		}
-
-		$request_metadata = new \WP_REST_Request( 'GET', '/pressbooks/v2/metadata' );
-		$response_metadata = rest_do_request( $request_metadata );
-
-		$request_toc = new \WP_REST_Request( 'GET', '/pressbooks/v2/toc' );
-		$response_toc = rest_do_request( $request_toc );
 
 		$item = [
 			'id' => $id,
 			'link' => get_blogaddress_by_id( $id ),
-			'metadata' => $this->prepare_response_for_collection( $response_metadata ),
-			'toc' => $this->prepare_response_for_collection( $response_toc ),
+			'metadata' => $metadata,
 		];
 
 		$this->linkCollector['api'][] = [
 			'href' => get_rest_url( $id ),
 		];
 
-		restore_current_blog();
-
 		$this->linkCollector['metadata'][] = [
-			'href' => $item['metadata']['_links']['self'][0]['href'],
+			'href' => get_rest_url( $id, '/pressbooks/v2/metadata' ),
 		];
-		unset( $item['metadata']['_links'] );
-
-		$this->linkCollector['toc'][] = [
-			'href' => $item['toc']['_links']['self'][0]['href'],
-		];
-		foreach ( $item['toc']['_links']['metadata'] as $v ) {
-			$this->linkCollector['metadata'][] = [
-				'href' => $v['href'],
-			];
-		}
-		unset( $item['toc']['_links'] );
 
 		$this->linkCollector['self'][] = [
 			'href' => rest_url( sprintf( '%s/%s/%d', $this->namespace, $this->rest_base, $id ) ),
@@ -395,204 +335,6 @@ class Books extends \WP_REST_Controller {
 		if ( $max_pages > $page ) {
 			$next_page = $page + 1;
 			$next_link = add_query_arg( 'page', $next_page, $base );
-			$response->link_header( 'next', $next_link );
-		}
-	}
-
-	// -------------------------------------------------------------------------------------------------------------------
-	// Search Books
-	// -------------------------------------------------------------------------------------------------------------------
-
-	/**
-	 * Overridable find method for how to search a book
-	 *
-	 * @param mixed $search
-	 *
-	 * @return bool
-	 */
-	public function find( $search ) {
-
-		if ( ! is_array( $search ) ) {
-			$search = (array) $search;
-		}
-
-		foreach ( $search as $val ) {
-			if ( $this->fulltextSearchInPost( $val ) !== false ) {
-				return true;
-			}
-			if ( $this->fulltextSearchInMeta( $val ) !== false ) {
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-	/**
-	 * Args for \WP_Query
-	 *
-	 * @see https://codex.wordpress.org/Class_Reference/WP_Query
-	 *
-	 * @param string $s
-	 *
-	 * @return array
-	 */
-	protected function searchArgs( $s ) {
-		$s = [
-			's' => $s,
-			'post_type' => get_custom_post_types(),
-			'fields' => 'ids', // Optimize: skip the unwanted returned array of WP_Post properties
-			'no_found_rows' => true, // Optimize: only interested in post count
-		];
-
-		return $s;
-	}
-
-	/**
-	 * Fulltext search entire book
-	 *
-	 * @param string $search
-	 *
-	 * @return bool
-	 */
-	protected function fulltextSearchInPost( $search ) {
-
-		$s = $this->searchArgs( $search );
-		$q = new \WP_Query( $s );
-
-		// @codingStandardsIgnoreStart
-		//
-		// SELECT wp_2_posts.ID FROM wp_2_posts
-		// WHERE 1=1 AND (((wp_2_posts.post_title LIKE '%Foo%') OR (wp_2_posts.post_excerpt LIKE '%Foo%') OR (wp_2_posts.post_content LIKE '%Foo%')))
-		// AND (wp_2_posts.post_password = '')  AND wp_2_posts.post_type IN ('front-matter', 'back-matter', 'part', 'chapter') AND (wp_2_posts.post_status = 'publish')
-		// ORDER BY wp_2_posts.post_title LIKE '%Vikings%' DESC, wp_2_posts.post_date DESC LIMIT 0, 10
-		//
-		// @codingStandardsIgnoreEnd
-
-		if ( $q->post_count > 0 ) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	/**
-	 * Fulltext search all `pb_` prefixed meta keys in metadata post
-	 *
-	 * @param string $search
-	 *
-	 * @return bool
-	 */
-	protected function fulltextSearchInMeta( $search ) {
-
-		$meta = new \Pressbooks\Metadata();
-		$data = $meta->getMetaPostMetadata();
-
-		foreach ( $data as $key => $haystack ) {
-			// Skip anything not prefixed with pb_
-			if ( ! preg_match( '/^pb_/', $key ) ) {
-				continue;
-			}
-			if ( is_array( $haystack ) ) {
-				$haystack = implode( ' ', $haystack );
-			}
-			if ( stripos( $haystack, $search ) !== false ) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	/**
-	 * Fulltext search
-	 *
-	 * @param \WP_REST_Request $request
-	 *
-	 * @return array
-	 */
-	protected function searchBooks( $request ) {
-
-		if ( ! empty( $request['next'] ) ) {
-			$this->lastKnownBookId = $request['next'];
-		}
-
-		$start_time = time();
-		$searched_books = 0;
-		$found_books = 0;
-		$results = [];
-		while ( $found_books < $request['per_page'] ) {
-			$book_ids = $this->searchBookIds( $request );
-			foreach ( $book_ids as $id ) {
-				$node = $this->renderBook( $id, $request['search'] );
-				if ( ! empty( $node ) ) {
-					$response = rest_ensure_response( $node );
-					$response->add_links( $this->linkCollector );
-					$results[] = $this->prepare_response_for_collection( $response );
-					$this->linkCollector = []; // re-initialize
-					++$found_books;
-				}
-				++$searched_books;
-				$this->lastKnownBookId = $id;
-				if ( time() - $start_time > $this->maxSearchTime ) {
-					break 2;
-				}
-			}
-			if ( $searched_books >= $this->totalBooks ) {
-				break;
-			}
-		}
-
-		if ( ! $searched_books ) {
-			$this->lastKnownBookId = 0;
-		}
-
-		return $results;
-	}
-
-	/**
-	 * Count all books, update $this->>totalBooks, return a paginated subset of book ids
-	 *
-	 * @param \WP_REST_Request
-	 *
-	 * @return array blog ids
-	 */
-	protected function searchBookIds( $request ) {
-
-		global $wpdb;
-
-		$limit = ! empty( $request['per_page'] ) ? $request['per_page'] : $this->limit;
-
-		$blogs = $wpdb->get_col(
-			$wpdb->prepare(
-				"SELECT SQL_CALC_FOUND_ROWS blog_id FROM {$wpdb->blogs} 
-				 WHERE public = 1 AND archived = 0 AND spam = 0 AND deleted = 0 AND blog_id != %d AND blog_id > %d 
-				 ORDER BY blog_id LIMIT  %d ", get_network()->site_id, $this->lastKnownBookId, $limit
-			)
-		);
-
-		$this->totalBooks = $wpdb->get_var( 'SELECT FOUND_ROWS()' );
-
-		return $blogs;
-	}
-
-	/**
-	 * Add a next link for search results
-	 *
-	 * @param \WP_REST_Request $request
-	 * @param \WP_REST_Response $response
-	 */
-	protected function addNextSearchLinks( $request, $response ) {
-
-		$max_pages = (int) ceil( $this->totalBooks / (int) $request['per_page'] );
-
-		$response->header( 'X-WP-Total', (int) $this->totalBooks );
-		$response->header( 'X-WP-TotalPages', $max_pages );
-
-		if ( $this->lastKnownBookId ) {
-			unset( $request['page'] );
-			$request_params = $request->get_query_params();
-			$base = add_query_arg( $request_params, rest_url( sprintf( '%s/%s', $this->namespace, $this->rest_base ) ) );
-			$next_link = add_query_arg( 'next', $this->lastKnownBookId, $base );
 			$response->link_header( 'next', $next_link );
 		}
 	}

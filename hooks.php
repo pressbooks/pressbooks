@@ -173,9 +173,6 @@ if ( is_admin() === false ) {
 // Redirects
 // -------------------------------------------------------------------------------------------------------------------
 
-if ( $enable_network_api ) {
-	add_filter( 'init', '\Pressbooks\Redirect\rewrite_rules_for_api', 1 ); // API V1
-}
 add_filter( 'init', '\Pressbooks\Redirect\rewrite_rules_for_format', 1 );
 add_filter( 'init', '\Pressbooks\Redirect\rewrite_rules_for_catalog', 1 );
 add_filter( 'init', '\Pressbooks\Redirect\rewrite_rules_for_open', 1 );

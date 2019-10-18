@@ -478,7 +478,7 @@ class Book {
 		global $blog_id;
 
 		// Book Object
-		wp_cache_delete( "book-inf-$blog_id", 'pb' ); // Delete the cached value for getBookInfo()
+		wp_cache_delete( "book-inf-$blog_id", 'pb' ); // Delete the cached value for getBookInformation()
 		wp_cache_delete( "book-str-$blog_id", 'pb' ); // Delete the cached value for getBookStructure()
 		wp_cache_delete( "book-cnt-$blog_id", 'pb' ); // Delete the cached value for getBookContents()
 		static::$__order = [];

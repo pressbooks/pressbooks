@@ -35,8 +35,7 @@ trait utilsTrait {
 					}
 					wp_update_post( [ 'ID' => $part['ID'], 'post_content' => 'Part content...', 'post_status' => 'publish' ] );
 					if ( $pid ) {
-						wp_update_post( [ 'ID' => $pid, 'post_parent' => $part['ID'] ] );
-						wp_update_post( [ 'ID' => $pid, 'post_status' => 'publish' ] );
+						wp_update_post( [ 'ID' => $pid, 'post_parent' => $part['ID'], 'post_status' => 'publish' ] );
 						$pid = false;
 					}
 					foreach ( $part['chapters'] as $val ) {
