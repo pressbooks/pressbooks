@@ -2,6 +2,9 @@
 
 namespace Pressbooks\Api\Endpoints\Controller;
 
+use function \Pressbooks\Metadata\book_information_to_schema;
+use Pressbooks\DataCollector\Book as BookDataCollector;
+
 class Books extends \WP_REST_Controller {
 
 	/**
@@ -37,6 +40,11 @@ class Books extends \WP_REST_Controller {
 	protected $linkCollector = [];
 
 	/**
+	 * @var BookDataCollector
+	 */
+	protected $bookDataCollector;
+
+	/**
 	 * Books
 	 */
 	public function __construct() {
@@ -47,6 +55,7 @@ class Books extends \WP_REST_Controller {
 
 		$this->toc = new Toc();
 		$this->metadata = new Metadata();
+		$this->bookDataCollector = BookDataCollector::init();
 	}
 
 	/**
@@ -178,14 +187,9 @@ class Books extends \WP_REST_Controller {
 		}
 
 		$allowed = false;
-
-		switch_to_blog( $request['id'] );
-
-		if ( 1 === absint( get_option( 'blog_public' ) ) ) {
+		if ( $this->bookDataCollector->get( $request['id'], BookDataCollector::PUBLIC ) ) {
 			$allowed = true;
 		}
-
-		restore_current_blog();
 
 		return $allowed;
 	}
@@ -224,20 +228,6 @@ class Books extends \WP_REST_Controller {
 	}
 
 	/**
-	 * @param int $last_known_book_id
-	 */
-	public function setLastKnownBookId( $last_known_book_id ) {
-		$this->lastKnownBookId = $last_known_book_id;
-	}
-
-	/**
-	 * @return int
-	 */
-	public function getLastKnownBookId() {
-		return $this->lastKnownBookId;
-	}
-
-	/**
 	 * Define route dependencies.
 	 * Books content is built by querying a book, but those API routes may not exist at the root level.
 	 */
@@ -259,41 +249,26 @@ class Books extends \WP_REST_Controller {
 	 */
 	protected function renderBook( $id ) {
 
-		switch_to_blog( $id );
-
-		$request_metadata = new \WP_REST_Request( 'GET', '/pressbooks/v2/metadata' );
-		$response_metadata = rest_do_request( $request_metadata );
-
-		$request_toc = new \WP_REST_Request( 'GET', '/pressbooks/v2/toc' );
-		$response_toc = rest_do_request( $request_toc );
+		$metadata = $this->bookDataCollector->get( $id, BookDataCollector::BOOK_INFORMATION_ARRAY );
+		if ( is_array( $metadata ) && ! empty( $metadata ) ) {
+			$metadata = book_information_to_schema( $metadata );
+		} else {
+			$metadata = [];
+		}
 
 		$item = [
 			'id' => $id,
 			'link' => get_blogaddress_by_id( $id ),
-			'metadata' => $this->prepare_response_for_collection( $response_metadata ),
-			'toc' => $this->prepare_response_for_collection( $response_toc ),
+			'metadata' => $metadata,
 		];
 
 		$this->linkCollector['api'][] = [
 			'href' => get_rest_url( $id ),
 		];
 
-		restore_current_blog();
-
 		$this->linkCollector['metadata'][] = [
-			'href' => $item['metadata']['_links']['self'][0]['href'],
+			'href' => $item['link'] , get_rest_url( $id, '/pressbooks/v2/metadata' ),
 		];
-		unset( $item['metadata']['_links'] );
-
-		$this->linkCollector['toc'][] = [
-			'href' => $item['toc']['_links']['self'][0]['href'],
-		];
-		foreach ( $item['toc']['_links']['metadata'] as $v ) {
-			$this->linkCollector['metadata'][] = [
-				'href' => $v['href'],
-			];
-		}
-		unset( $item['toc']['_links'] );
 
 		$this->linkCollector['self'][] = [
 			'href' => rest_url( sprintf( '%s/%s/%d', $this->namespace, $this->rest_base, $id ) ),

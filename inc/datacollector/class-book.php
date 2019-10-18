@@ -6,7 +6,6 @@
 
 namespace Pressbooks\DataCollector;
 
-use function Pressbooks\Metadata\book_information_to_schema;
 use function \Pressbooks\Metadata\get_in_catalog_option;
 
 class Book {
@@ -74,8 +73,6 @@ class Book {
 	const DEACTIVATED = 'pb_deactivated';
 
 	const BOOK_INFORMATION_ARRAY = 'pb_book_information_array';
-
-	const BOOK_INFORMATION_JSON = 'pb_book_information_json';
 
 	/**
 	 * @var Book
@@ -185,7 +182,6 @@ class Book {
 		// Book info
 		$metadata = \Pressbooks\Book::getBookInformation();
 		update_site_meta( $book_id, self::BOOK_INFORMATION_ARRAY, $metadata );
-		update_site_meta( $book_id, self::BOOK_INFORMATION_JSON, wp_json_encode( book_information_to_schema( $metadata ) ) );
 
 		// pb_cover_image
 		if ( empty( $metadata['pb_cover_image'] ) ) {
@@ -382,9 +378,10 @@ class Book {
 	 * If nothing is found, then auto-sync, and try again
 	 *
 	 * @param int $blog_id
-	 * @param string $key
+	 * @param string $key *
 	 *
 	 * @return mixed
+	 * @throws \LogicException
 	 */
 	public function get( $blog_id, $key ) {
 		try {
@@ -402,6 +399,9 @@ class Book {
 			}
 		} catch ( \ReflectionException $e ) {
 			return false;
+		}
+		if ( is_object( $val ) ) {
+			throw new \LogicException( 'Objects are forbidden. Unserialization can result in code being loaded and executed due to object instantiation and autoloading, and a malicious user may be able to exploit this. Fix your code!' );
 		}
 		return $val;
 	}
