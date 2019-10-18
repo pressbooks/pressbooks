@@ -125,6 +125,22 @@ class DataCollector_BookTest extends \WP_UnitTestCase {
 	/**
 	 * @group datacollector
 	 */
+	public function test_get() {
+		$this->_book();
+		$book_id = get_current_blog_id();
+		delete_site_meta( $book_id, BookDataCollector::BOOK_INFORMATION_ARRAY );
+		$x = $this->bookDataCollector->get( $book_id, BookDataCollector::BOOK_INFORMATION_ARRAY );
+		$this->assertNotEmpty( $x );
+		$this->assertIsArray( $x );
+
+		$y = $this->bookDataCollector->get( get_current_blog_id(), 'does_not_exist' );
+		$this->assertEmpty( $y );
+	}
+
+
+	/**
+	 * @group datacollector
+	 */
 	public function test_getPossibleValuesFor() {
 		update_site_meta( 1, BookDataCollector::THEME, 'McLuhan' );
 		update_site_meta( 2, BookDataCollector::THEME, 'Clarke' );

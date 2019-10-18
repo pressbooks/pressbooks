@@ -6,6 +6,7 @@
 
 namespace Pressbooks\DataCollector;
 
+use function Pressbooks\Metadata\book_information_to_schema;
 use function \Pressbooks\Metadata\get_in_catalog_option;
 
 class Book {
@@ -72,6 +73,10 @@ class Book {
 
 	const DEACTIVATED = 'pb_deactivated';
 
+	const BOOK_INFORMATION_ARRAY = 'pb_book_information_array';
+
+	const BOOK_INFORMATION_JSON = 'pb_book_information_json';
+
 	/**
 	 * @var Book
 	 */
@@ -103,6 +108,10 @@ class Book {
 	public function __construct() {
 
 	}
+
+	// ------------------------------------------------------------------------
+	// Hooks
+	// ------------------------------------------------------------------------
 
 	/**
 	 * Hooked into wp_update_site
@@ -141,6 +150,22 @@ class Book {
 	}
 
 	/**
+	 * Hooked into pb_thema_subjects_locale
+	 *
+	 * @param string $locale
+	 *
+	 * @return string
+	 */
+	public function themaSubjectsLocale( $locale ) {
+		// TODO Use main site locale
+		return 'en';
+	}
+
+	// ------------------------------------------------------------------------
+	// Copy
+	// ------------------------------------------------------------------------
+
+	/**
 	 * Copy (sync) book meta into wp_blogmeta table.
 	 * Add a timestamp to indicate when this was done.
 	 *
@@ -157,7 +182,10 @@ class Book {
 		// Network Analytic Columns
 		// --------------------------------------------------------------------
 
+		// Book info
 		$metadata = \Pressbooks\Book::getBookInformation();
+		update_site_meta( $book_id, self::BOOK_INFORMATION_ARRAY, $metadata );
+		update_site_meta( $book_id, self::BOOK_INFORMATION_JSON, wp_json_encode( book_information_to_schema( $metadata ) ) );
 
 		// pb_cover_image
 		if ( empty( $metadata['pb_cover_image'] ) ) {
@@ -310,18 +338,6 @@ class Book {
 	}
 
 	/**
-	 * Hooked into pb_thema_subjects_locale
-	 *
-	 * @param string $locale
-	 *
-	 * @return string
-	 */
-	public function themaSubjectsLocale( $locale ) {
-		// TODO Use main site locale
-		return 'en';
-	}
-
-	/**
 	 * @return \Generator
 	 */
 	public function copyAllBooksIntoSiteTable(): \Generator {
@@ -355,6 +371,39 @@ class Book {
 			update_site_option( 'pb_book_sync_cron_timestamp', gmdate( 'Y-m-d H:i:s' ) );
 			delete_transient( $in_progress_transient );
 		}
+	}
+
+	// ------------------------------------------------------------------------
+	// Get stuff
+	// ------------------------------------------------------------------------
+
+	/**
+	 * Looks in the wp_blogmeta table for a key
+	 * If nothing is found, then auto-sync, and try again
+	 *
+	 * @param int $blog_id
+	 * @param string $key
+	 *
+	 * @return mixed
+	 */
+	public function get( $blog_id, $key ) {
+		try {
+			$val = get_site_meta( $blog_id, $key, true );
+			if ( $val !== '0' && empty( $val ) ) {
+				$refl = new \ReflectionClass( $this );
+				$const = $refl->getConstants();
+				if ( in_array( $key, $const, true ) ) {
+					global $wpdb;
+					if ( 0 === (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->blogmeta} WHERE blog_id = %d AND meta_key = %s ", $blog_id, $key ) ) ) {
+						$this->copyBookMetaIntoSiteTable( $blog_id );
+						$val = get_site_meta( $blog_id, $key, true );
+					}
+				}
+			}
+		} catch ( \ReflectionException $e ) {
+			return false;
+		}
+		return $val;
 	}
 
 	/**
