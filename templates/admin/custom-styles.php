@@ -41,9 +41,9 @@ if ( ! empty( $_GET['custom_styles_error'] ) ) {
 			<input type="hidden" name="post_id" value="<?php echo $post_id; ?>"/>
 			<input type="hidden" name="post_id_integrity" value="<?php echo md5( NONCE_KEY . $post_id ); ?>"/>
 			<div><label for="slug"><?php echo __( 'You are currently editing styles for', 'pressbooks' ) . ':</label> ' . $slugs_dropdown; ?></div>
-			<h3><label for="theme_styles"><?php printf( __( 'Theme %1$s Styles (%2$s)', 'pressbooks' ), $current_label, $theme ); ?></label></h3>
+			<h2><label for="theme_styles"><?php printf( __( 'Theme %1$s Styles (%2$s)', 'pressbooks' ), $current_label, $theme ); ?></label></h2>
 			<textarea readonly id="theme_styles" name="theme_styles"><?php echo esc_textarea( $theme_styles ); ?></textarea>
-			<h3><label for="your_styles"><?php printf( __( 'Your %s Styles', 'pressbooks' ), $current_label ); ?></label></h3>
+			<h2><label for="your_styles"><?php printf( __( 'Your %s Styles', 'pressbooks' ), $current_label ); ?></label></h2>
 			<textarea id="your_styles" name="your_styles"><?php echo esc_textarea( $your_styles ); ?></textarea>
 			<?php submit_button( __( 'Save', 'pressbooks' ), 'primary', 'save' ); ?>
 		</form>
