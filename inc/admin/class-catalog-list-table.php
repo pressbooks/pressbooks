@@ -457,12 +457,9 @@ class Catalog_List_Table extends \WP_List_Table {
 		$list_table->prepare_items();
 		?>
 		<div class="wrap">
-
-			<h1><?php echo isset( $_REQUEST['user_id'] ) ? ucfirst( get_userdata( absint( $_REQUEST['user_id'] ) )->user_login ) : __( 'My Catalog', 'pressbooks' ); ?>
+			<h1><?php echo isset( $_REQUEST['user_id'] ) ? ucfirst( get_userdata( absint( $_REQUEST['user_id'] ) )->user_login ) : __( 'My Catalog', 'pressbooks' ); ?></h1>
 				<a href="<?php echo $edit_url; ?>" class=" page-title-action"><?php _e( 'Edit Profile', 'pressbooks' ); ?></a>
 				<a href="<?php echo $view_url; ?>" class=" page-title-action"><?php _e( 'Visit Catalog', 'pressbooks' ); ?></a>
-			</h1>
-
 			<div class="postbox">
 				<div class="inside">
 					<h2><?php _e( 'Organize your public Catalog page.', 'pressbooks' ); ?></h2>
