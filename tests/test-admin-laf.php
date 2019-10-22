@@ -250,4 +250,21 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		$this->assertContains( 'Edit Previous', $buffer );
 		$this->assertContains( 'Edit Next', $buffer );
 	}
+
+	/**
+	 * @group branding
+	 */
+	function test_replace_menu_bar_branding() {
+		$user_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+		wp_set_current_user( $user_id );
+		require_once ABSPATH . WPINC . '/class-wp-admin-bar.php';
+		$wp_admin_bar = new \WP_Admin_Bar();
+		$wp_admin_bar->initialize();
+		\Pressbooks\Admin\Laf\replace_menu_bar_branding( $wp_admin_bar );
+
+		$node = $wp_admin_bar->get_node( 'contact' );
+		$this->assertTrue( is_object( $node ) );
+		$this->assertContains( 'pressbooks.org', $node->href );
+	}
+
 }
