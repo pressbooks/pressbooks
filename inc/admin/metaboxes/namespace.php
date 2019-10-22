@@ -995,7 +995,7 @@ function publish_fields_save( $post_id, $post, $update ) {
 		if ( $show_in_web === false || $require_password === false ) {
 			$post_password = null; // Clear the password
 		} else {
-			$post_password = $post->post_password;
+			$post_password = ! empty( $post->post_password ) ? $post->post_password : $_POST['post_password'] ?? ''; // @codingStandardsIgnoreLine
 		}
 
 		wp_update_post(

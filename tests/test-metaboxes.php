@@ -160,10 +160,17 @@ class MetaboxesTest extends \WP_UnitTestCase {
 
 		$_POST['web_visibility'] = '1';
 		$_POST['require_password'] = '1';
+		$_POST['post_password'] = 'goodbye';
 		$post->post_password = 'hello';
 
 		\Pressbooks\Admin\Metaboxes\publish_fields_save( $pid, $post, true );
-		$this->assertEquals( 'hello', $post->post_password );
+		$post = get_post( $pid );
+		$this->assertEquals( 'hello', $post->post_password ); // Defaults to $post->post_password
+		$post->post_password = '';
+		\Pressbooks\Admin\Metaboxes\publish_fields_save( $pid, $post, true );
+		$post = get_post( $pid );
+		$this->assertEquals( 'goodbye', $post->post_password );
+		unset( $_POST['post_password'] );
 
 		// Clear Password
 
