@@ -802,9 +802,10 @@ function safer_unserialize( $str ) {
 }
 
 /**
- * Safer unserialize value only if it was serialized.
+ * Unserialize value only if it was serialized.
+ * Use the second argument of the unserialize(), set it to false to prevent any classes from being unserialized
  *
- * @param string $original Maybe (safer) unserialized original, if is needed.
+ * @param string $original
  *
  * @return mixed
  */
