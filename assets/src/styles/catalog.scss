@@ -1,12 +1,12 @@
 @import '~select2/src/scss/core';
 @import 'partials/colors';
 
-.page_pb_catalog h1 {
+.wrap h1 {
   display: inline-block;
 }
 
-.postbox {
-  h2 {
+.wrap .postbox {
+  .inside h2 {
     font-size: #{(15 / 13)}em;
     font-weight: normal;
   }
