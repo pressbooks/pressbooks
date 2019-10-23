@@ -531,7 +531,7 @@ RAW;
 		$this->assertEquals( [ 'a', 'b', 'c', 'd' => [ 'e' => false ], false, false, false ], $result );
 
 		// Junk is not allowed
-		$x ='This is not serialized';
+		$x = 'This is not serialized';
 		$result = \Pressbooks\Sanitize\safer_unserialize( $x );
 		$this->assertFalse( $result );
 
@@ -553,4 +553,18 @@ RAW;
 		$result = \Pressbooks\Sanitize\safer_unserialize( $x );
 		$this->assertEquals( $ok, $result );
 	}
+
+	/**
+	 * @group sanitize
+	 */
+	public function test_maybe_safer_unserialize() {
+		$x = new StdClass();
+		$result = \Pressbooks\Sanitize\maybe_safer_unserialize( $x );
+		$this->assertIsObject( $result ); // Wasn't serialized to begin with, so no change
+
+		$x = serialize( new StdClass() );
+		$result = \Pressbooks\Sanitize\maybe_safer_unserialize( $x );
+		$this->assertFalse( $result );
+	}
+
 }

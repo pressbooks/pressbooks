@@ -7,6 +7,7 @@
 namespace Pressbooks\Modules\Import\WordPress;
 
 use function Pressbooks\Media\strip_baseurl as media_strip_baseurl;
+use function Pressbooks\Sanitize\maybe_safer_unserialize;
 use function Pressbooks\Sanitize\safer_unserialize;
 use function Pressbooks\Utility\str_starts_with;
 use Pressbooks\Book;
@@ -636,11 +637,7 @@ class Wxr extends Import {
 		foreach ( $postmeta as $meta ) {
 			// prefer this value, if it's set
 			if ( $meta_key === $meta['key'] ) {
-				$meta_val = $meta['value'];
-				if ( is_serialized( $meta_val ) ) {
-					$meta_val = safer_unserialize( $meta_val );
-				}
-				return $meta_val;
+				return maybe_safer_unserialize( $meta['value'] );
 			}
 		}
 

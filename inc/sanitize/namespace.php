@@ -800,3 +800,17 @@ function safer_unserialize( $str ) {
 
 	return $str;
 }
+
+/**
+ * Safer unserialize value only if it was serialized.
+ *
+ * @param string $original Maybe (safer) unserialized original, if is needed.
+ *
+ * @return mixed
+ */
+function maybe_safer_unserialize( $original ) {
+	if ( is_serialized( $original ) ) { // don't attempt to unserialize data that wasn't serialized going in
+		return safer_unserialize( $original );
+	}
+	return $original;
+}
