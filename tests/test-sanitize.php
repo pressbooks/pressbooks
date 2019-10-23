@@ -493,4 +493,78 @@ RAW;
 		$this->assertContains( '<table border="1">', $result );
 
 	}
+
+	/**
+	 * @group sanitize
+	 */
+	public function test_safer_unserialize() {
+		// Objects not allowed
+		$x = serialize( new StdClass() );
+		$result = \Pressbooks\Sanitize\safer_unserialize( $x );
+		$this->assertFalse( $result );
+
+		$x = serialize(
+			[
+				new StdClass(),
+				new StdClass(),
+				new StdClass(),
+			]
+		);
+		$result = \Pressbooks\Sanitize\safer_unserialize( $x );
+		$this->assertEquals( [ false, false, false ], $result );
+
+		$x = serialize(
+			[
+				'a',
+				'b',
+				'c',
+				'd' => [
+					'e' => new StdClass(),
+				],
+				new StdClass(),
+				new StdClass(),
+				new StdClass(),
+
+			]
+		);
+		$result = \Pressbooks\Sanitize\safer_unserialize( $x );
+		$this->assertEquals( [ 'a', 'b', 'c', 'd' => [ 'e' => false ], false, false, false ], $result );
+
+		// Junk is not allowed
+		$x = 'This is not serialized';
+		$result = \Pressbooks\Sanitize\safer_unserialize( $x );
+		$this->assertFalse( $result );
+
+		// Arrays are OK
+		$ok = [ 'a', 'b', 'c' ];
+		$x = serialize( $ok );
+		$result = \Pressbooks\Sanitize\safer_unserialize( $x );
+		$this->assertEquals( $ok, $result );
+
+		// Numbers are OK
+		$ok = 123.456;
+		$x = serialize( $ok );
+		$result = \Pressbooks\Sanitize\safer_unserialize( $x );
+		$this->assertEquals( $ok, $result );
+
+		// Strings are OK
+		$ok = 'Hello!';
+		$x = serialize( $ok );
+		$result = \Pressbooks\Sanitize\safer_unserialize( $x );
+		$this->assertEquals( $ok, $result );
+	}
+
+	/**
+	 * @group sanitize
+	 */
+	public function test_maybe_safer_unserialize() {
+		$x = new StdClass();
+		$result = \Pressbooks\Sanitize\maybe_safer_unserialize( $x );
+		$this->assertIsObject( $result ); // Wasn't serialized to begin with, so no change
+
+		$x = serialize( new StdClass() );
+		$result = \Pressbooks\Sanitize\maybe_safer_unserialize( $x );
+		$this->assertFalse( $result );
+	}
+
 }

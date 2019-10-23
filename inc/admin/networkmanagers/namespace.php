@@ -6,6 +6,7 @@
 
 namespace Pressbooks\Admin\NetworkManagers;
 
+use function Pressbooks\Sanitize\safer_unserialize;
 use PressbooksMix\Assets;
 
 /**
@@ -57,7 +58,7 @@ function _restricted_users( $reset = false ) {
 		global $wpdb;
 		$restricted = $wpdb->get_results( "SELECT * FROM {$wpdb->sitemeta} WHERE meta_key = 'pressbooks_network_managers'" );
 		if ( $restricted ) {
-			$restricted = maybe_unserialize( $restricted[0]->meta_value );
+			$restricted = safer_unserialize( $restricted[0]->meta_value );
 		}
 		if ( empty( $restricted ) ) {
 			$restricted = [];

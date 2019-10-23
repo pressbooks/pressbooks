@@ -774,3 +774,44 @@ function filter_export_content( $content ) {
 	add_filter( 'the_content', '\Pressbooks\Sanitize\sanitize_webbook_content' );
 	return $content;
 }
+
+/**
+ * Use the second argument of the unserialize(), set it to false to prevent any classes from being unserialized
+ *
+ * @param string $str The serialized string.
+ *
+ * @return mixed
+ */
+function safer_unserialize( $str ) {
+	$str = @unserialize( $str, [ 'allowed_classes' => false ] );  // @codingStandardsIgnoreLine
+	if ( $str instanceof \__PHP_Incomplete_Class ) {
+		$str = false;
+	}
+	if ( is_array( $str ) ) {
+		array_walk_recursive(
+			$str,
+			function ( &$value ) {
+				if ( $value instanceof \__PHP_Incomplete_Class ) {
+					$value = false;
+				}
+			}
+		);
+	}
+
+	return $str;
+}
+
+/**
+ * Unserialize value only if it was serialized.
+ * Use the second argument of the unserialize(), set it to false to prevent any classes from being unserialized
+ *
+ * @param string $original
+ *
+ * @return mixed
+ */
+function maybe_safer_unserialize( $original ) {
+	if ( is_serialized( $original ) ) { // don't attempt to unserialize data that wasn't serialized going in
+		return safer_unserialize( $original );
+	}
+	return $original;
+}

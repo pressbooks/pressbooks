@@ -6,6 +6,8 @@
 
 namespace Pressbooks\Admin\Dashboard;
 
+use function Pressbooks\Sanitize\safer_unserialize;
+
 /**
  * @return array
  */
@@ -262,11 +264,7 @@ function display_users_widget() {
 
 	echo '<table>';
 	foreach ( $users as $user ) {
-		$meta = unserialize( $user->meta_value ); // @codingStandardsIgnoreLine
-		if ( is_object( $meta ) ) {
-			continue; // Hack attempt?
-		}
-
+		$meta = safer_unserialize( $user->meta_value );
 		$capability = key( $meta );
 		if ( isset( $types_of_users[ $capability ] ) ) {
 			$types_of_users[ $capability ]++;

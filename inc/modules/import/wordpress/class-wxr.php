@@ -7,6 +7,8 @@
 namespace Pressbooks\Modules\Import\WordPress;
 
 use function Pressbooks\Media\strip_baseurl as media_strip_baseurl;
+use function Pressbooks\Sanitize\maybe_safer_unserialize;
+use function Pressbooks\Sanitize\safer_unserialize;
 use function Pressbooks\Utility\str_starts_with;
 use Pressbooks\Book;
 use Pressbooks\Contributors;
@@ -635,14 +637,7 @@ class Wxr extends Import {
 		foreach ( $postmeta as $meta ) {
 			// prefer this value, if it's set
 			if ( $meta_key === $meta['key'] ) {
-				$meta_val = $meta['value'];
-				if ( is_serialized( $meta_val ) ) {
-					$meta_val = unserialize( $meta_val ); // @codingStandardsIgnoreLine
-					if ( is_object( $meta_val ) ) {
-						$meta_val = ''; // Hack attempt?
-					}
-				}
-				return $meta_val;
+				return maybe_safer_unserialize( $meta['value'] );
 			}
 		}
 
@@ -667,7 +662,7 @@ class Wxr extends Import {
 			$x = [];
 			foreach ( $item['postmeta'] as $meta ) {
 				if ( $meta['key'] === '_wp_attachment_metadata' ) {
-					$x = maybe_unserialize( $meta['value'] );
+					$x = safer_unserialize( $meta['value'] );
 					break;
 				}
 			}

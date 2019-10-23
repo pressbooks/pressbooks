@@ -8,6 +8,8 @@
 
 namespace Pressbooks\Registration;
 
+use function Pressbooks\Sanitize\safer_unserialize;
+
 /**
  * Customize text on the user/book registration page
  *
@@ -221,8 +223,8 @@ function override_password_generation( $generated_password ) {
 
 	// Only override filter on wp-activate.php screen
 	if ( strpos( $_SERVER['PHP_SELF'], 'wp-activate.php' ) !== false && $signup && ! $signup->active ) {
-		$meta = maybe_unserialize( $signup->meta );
-		if ( isset( $meta['password'] ) ) {
+		$meta = safer_unserialize( $signup->meta );
+		if ( is_array( $meta ) && isset( $meta['password'] ) ) {
 			// Set the "random" password to our predefined one
 			$password = unpack_from_storage( $meta['password'] );
 			if ( ! empty( $password ) ) {
