@@ -264,8 +264,7 @@ function display_users_widget() {
 
 	echo '<table>';
 	foreach ( $users as $user ) {
-		$meta = safer_unserialize( $user->meta_value ); // @codingStandardsIgnoreLine
-
+		$meta = safer_unserialize( $user->meta_value );
 		$capability = key( $meta );
 		if ( isset( $types_of_users[ $capability ] ) ) {
 			$types_of_users[ $capability ]++;
