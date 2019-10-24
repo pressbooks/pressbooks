@@ -103,7 +103,7 @@ class WebOptions extends \Pressbooks\Options {
 			$_page,
 			$_section,
 			[
-				__( 'Add buttons to cover page and each chapter so that readers may share links to your book through social media: Facebook, Twitter, Google+', 'pressbooks' ),
+				__( 'Adds a button to cover page and each chapter which allows readers to share links to your book through Twitter', 'pressbooks' ),
 			]
 		);
 
