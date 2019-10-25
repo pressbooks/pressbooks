@@ -457,25 +457,22 @@ class Catalog_List_Table extends \WP_List_Table {
 		$list_table->prepare_items();
 		?>
 		<div class="wrap">
-
-			<h1><?php echo isset( $_REQUEST['user_id'] ) ? ucfirst( get_userdata( absint( $_REQUEST['user_id'] ) )->user_login ) : __( 'My Catalog', 'pressbooks' ); ?>
+			<h1><?php echo isset( $_REQUEST['user_id'] ) ? ucfirst( get_userdata( absint( $_REQUEST['user_id'] ) )->user_login ) : __( 'My Catalog', 'pressbooks' ); ?></h1>
 				<a href="<?php echo $edit_url; ?>" class=" page-title-action"><?php _e( 'Edit Profile', 'pressbooks' ); ?></a>
 				<a href="<?php echo $view_url; ?>" class=" page-title-action"><?php _e( 'Visit Catalog', 'pressbooks' ); ?></a>
-			</h1>
-
 			<div class="postbox">
 				<div class="inside">
-					<h4><?php _e( 'Organize your public Catalog page.', 'pressbooks' ); ?></h4>
-					<h5><span data-icon="a" class="show-hide-icon"></span><?php _e( 'Show/Hide books', 'pressbooks' ); ?></h5>
+					<h2><?php _e( 'Organize your public Catalog page.', 'pressbooks' ); ?></h2>
+					<h3><span data-icon="a" class="show-hide-icon"></span><?php _e( 'Show/Hide books', 'pressbooks' ); ?></h3>
 					<p><?php printf( __( 'To display a book in your catalog choose "%s" under Catalog Status. ', 'pressbooks' ), '<strong>' . __( 'Show in Catalog', 'pressbooks' ) . '</strong>' ); ?>
 						<br>
 						<?php printf( __( 'To hide a book in your catalog choose "%s" under Catalog Status.', 'pressbooks' ), '<strong>' . __( 'Hide in Catalog', 'pressbooks' ) . '</strong>' ); ?>
 					</p>
 
-					<h5><span data-icon="g" class="sort-icon"></span><?php _e( 'Catalog sorting', 'pressbooks' ); ?></h5>
+					<h3><span data-icon="g" class="sort-icon"></span><?php _e( 'Catalog sorting', 'pressbooks' ); ?></h3>
 					<p><?php printf( __( 'To add sorting ability, add your Tag names to your <a href="%s">Catalog Profile</a> page (ex: Authors, Book Genre), then add the appropriate tags to each individual book.', 'pressbooks' ), $edit_url ); ?></p>
 
-					<h5><span data-icon="f" class="share-icon"></span><?php _e( 'Share your catalog', 'pressbooks' ); ?></h5>
+					<h3><span data-icon="f" class="share-icon"></span><?php _e( 'Share your catalog', 'pressbooks' ); ?></h3>
 					<p><?php _e( 'The public link to your catalog page', 'pressbooks' ); ?>: <a href="<?php echo $view_url; ?>"><?php echo $view_url; ?></a></p>
 				</div>
 			</div><!-- end .postbox -->

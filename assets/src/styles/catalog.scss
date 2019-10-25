@@ -1,13 +1,19 @@
 @import '~select2/src/scss/core';
 @import 'partials/colors';
 
-.postbox {
-  h4 {
+.wrap h1 {
+  display: inline-block;
+}
+
+.wrap .postbox {
+  .inside h2 {
     font-size: #{(15 / 13)}em;
     font-weight: normal;
+    margin: 1.33em 0;
+    padding: 0;
   }
 
-  h5 {
+  h3 {
     margin: 0;
     font-size: 1.1em;
   }
