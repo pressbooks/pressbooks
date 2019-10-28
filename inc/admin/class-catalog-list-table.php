@@ -136,6 +136,68 @@ class Catalog_List_Table extends \WP_List_Table {
 		return $html;
 	}
 
+	/**
+	 * Hidden elements should be visible when focused.
+	 *
+	 * @param mixed $item
+	 * @param string $classes
+	 * @param string $data
+	 * @param string $primary
+	 */
+	protected function _column_title( $item, $classes, $data, $primary ) {
+		$this->hasRowActionsFix( 'column_title', $item, $classes, $data, $primary );
+	}
+
+	/**
+	 * Hidden elements should be visible when focused.
+	 * Note: Total _column_tag_x methods much equal \Pressbooks\Catalog::MAX_TAGS_GROUP
+	 *
+	 * @param mixed $item
+	 * @param string $classes
+	 * @param string $data
+	 * @param string $primary
+	 *
+	 * @see \Pressbooks\Catalog::MAX_TAGS_GROUP
+	 */
+	protected function _column_tag_1( $item, $classes, $data, $primary ) {
+		$this->hasRowActionsFix( 'tag_1', $item, $classes, $data, $primary );
+	}
+
+	/**
+	 * Hidden elements should be visible when focused.
+	 * Note: Total _column_tag_x methods much equal \Pressbooks\Catalog::MAX_TAGS_GROUP
+	 *
+	 * @param mixed $item
+	 * @param string $classes
+	 * @param string $data
+	 * @param string $primary
+	 *
+	 * @see \Pressbooks\Catalog::MAX_TAGS_GROUP
+	 */
+	protected function _column_tag_2( $item, $classes, $data, $primary ) {
+		$this->hasRowActionsFix( 'tag_2', $item, $classes, $data, $primary );
+	}
+
+	/**
+	 * Hidden elements should be visible when focused.
+	 *
+	 * @param string $column_name
+	 * @param mixed $item
+	 * @param string $classes
+	 * @param string $data
+	 * @param string $primary
+	 */
+	protected function hasRowActionsFix( $column_name, $item, $classes, $data, $primary ) {
+		echo '<td class="', $classes, ' has-row-actions" ', $data, '>';
+		if ( method_exists( $this, $column_name ) ) {
+			echo call_user_func( [ $this, $column_name ], $item );
+		} else {
+			echo $this->column_default( $item, $column_name );
+		}
+		echo $this->handle_row_actions( $item, $column_name, $primary );
+		echo '</td>';
+	}
+
 
 	/**
 	 * REQUIRED if displaying checkboxes or using bulk actions! The 'cb' column
