@@ -36,40 +36,57 @@ function add_mime_types( $existing_mimes = [] ) {
 }
 
 /**
- * If "Lord of the files" is installed, and the Network Administrator wants to allow extra file extensions under Network Settings, and we can guess the mime type, then go nuts
- * Bonus: If SVGs have been enabled, "Lord of the files" will sanitize them at the upload stage to make sure they do not contain any dangerous exploits
- *
- * @see \get_allowed_mime_types
- * @see \check_upload_mimes
- * @see https://wordpress.org/plugins/blob-mimes/
+ * Get a list of unknown types set under Network Settings
  *
  * @param array $existing_mimes
  *
  * @return array
+ * @see \get_allowed_mime_types
+ *
+ */
+function unknown_upload_types( $existing_mimes ) {
+	$site_exts = explode( ' ', get_site_option( 'upload_filetypes', '' ) );
+	$upload_filetype_mimes = [];
+	foreach ( $site_exts as $ext ) {
+		$already_there = false;
+		foreach ( $existing_mimes as $ext_pattern => $mime ) {
+			if ( $ext !== '' && strpos( $ext_pattern, $ext ) !== false ) {
+				$already_there = true;
+				break;
+			}
+		}
+		if ( ! $already_there ) {
+			$upload_filetype_mimes[ $ext ] = null;
+		}
+	}
+	return $upload_filetype_mimes;
+}
+
+/**
+ * If "Lord of the files" is installed, and the Network Administrator wants to allow extra file extensions under Network Settings, and we can guess the mime type, then go nuts
+ * Bonus: If SVGs have been enabled, "Lord of the files" will sanitize them at the upload stage to make sure they do not contain any dangerous exploits
+ *
+ * @param array $existing_mimes
+ *
+ * @return array
+ *
+ * @see \get_allowed_mime_types
+ * @see \check_upload_mimes
+ * @see https://wordpress.org/plugins/blob-mimes/
  */
 function add_lord_of_the_files_types( $existing_mimes = [] ) {
+	$upload_filetype_mimes = [];
 	$lord_of_the_files_activated = ( is_plugin_active_for_network( 'blob-mimes/index.php' ) || is_plugin_active( 'blob-mimes/h5p.php' ) ) && method_exists( '\blobfolio\wp\bm\mime', 'get_aliases' );
 	if ( $lord_of_the_files_activated ) {
-		$site_exts = explode( ' ', get_site_option( 'upload_filetypes', '' ) );
-		$upload_filetype_mimes = [];
-		foreach ( $site_exts as $ext ) {
-			$already_there = false;
-			foreach ( $existing_mimes as $ext_pattern => $mime ) {
-				if ( $ext !== '' && strpos( $ext_pattern, $ext ) !== false ) {
-					$already_there = true;
-					break;
-				}
-			}
-			if ( ! $already_there ) {
-				$extra_mime_alias = \blobfolio\wp\bm\mime::get_aliases( $ext );
-				if ( $extra_mime_alias ) {
-					$upload_filetype_mimes[ $ext ] = $extra_mime_alias[0];
-				}
+		foreach ( unknown_upload_types( $existing_mimes ) as $k => $v ) {
+			$extra_mime_alias = \blobfolio\wp\bm\mime::get_aliases( $k );
+			if ( $extra_mime_alias ) {
+				$upload_filetype_mimes[ $k ] = $extra_mime_alias[0]; // The first MIME entry is the official (or most conventional) media type
 			}
 		}
-		if ( ! empty( $upload_filetype_mimes ) ) {
-			$existing_mimes = array_merge( $upload_filetype_mimes, $existing_mimes );
-		}
+	}
+	if ( ! empty( $upload_filetype_mimes ) ) {
+		$existing_mimes = array_merge( $upload_filetype_mimes, $existing_mimes );
 	}
 
 	return $existing_mimes;
