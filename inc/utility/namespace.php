@@ -618,12 +618,13 @@ function fetch_recommended_plugins() {
 	} else {
 		$res = json_decode( wp_remote_retrieve_body( $request ) );
 		$res->info = (array) $res->info; // WP wants this as an array...
-		$res->plugins = array_map(
-			function ( $plugin ) {
-				$plugin->icons = (array) $plugin->icons; // WP wants this as an array...
-				return $plugin;
-			}, $res->plugins
-		);
+		foreach ( $res->plugins as $k => $plugin ) {
+			if ( ! empty( $plugin->error ) ) {
+				unset( $res->plugins[ $k ] );
+			} else {
+				$res->plugins[ $k ]->icons = (array) $plugin->icons; // WP wants this as an array...
+			}
+		}
 		if ( ! is_object( $res ) && ! is_array( $res ) ) {
 			$res = new \WP_Error(
 				'plugins_api_failed',

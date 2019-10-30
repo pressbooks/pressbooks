@@ -136,6 +136,7 @@ add_filter( 'plupload_default_params', '\Pressbooks\Media\force_attach_media' );
 // -------------------------------------------------------------------------------------------------------------------
 
 add_filter( 'upload_mimes', '\Pressbooks\Media\add_mime_types' );
+add_filter( 'upload_mimes', '\Pressbooks\Media\add_lord_of_the_files_types', 11 );
 add_action( 'plugins_loaded', [ '\Pressbooks\Interactive\Content', 'init' ] );
 
 // -------------------------------------------------------------------------------------------------------------------
