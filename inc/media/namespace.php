@@ -10,7 +10,6 @@ namespace Pressbooks\Media;
  * Filter to alter the list of acceptable file extensions
  *
  * @see \get_allowed_mime_types
- * @see \Pressbooks\Modules\Export\Epub3
  *
  * @param array $existing_mimes
  *
@@ -34,6 +33,46 @@ function add_mime_types( $existing_mimes = [] ) {
 	];
 
 	return array_merge( $add_mimes, $existing_mimes );
+}
+
+/**
+ * If "Lord of the files" is installed, and the Network Administrator wants to allow extra file extensions under Network Settings, and we can guess the mime type, then go nuts
+ * Bonus: If SVGs have been enabled, "Lord of the files" will sanitize them at the upload stage to make sure they do not contain any dangerous exploits
+ *
+ * @see \get_allowed_mime_types
+ * @see \check_upload_mimes
+ * @see https://wordpress.org/plugins/blob-mimes/
+ *
+ * @param array $existing_mimes
+ *
+ * @return array
+ */
+function add_lord_of_the_files_types( $existing_mimes = [] ) {
+	$lord_of_the_files_activated = ( is_plugin_active_for_network( 'blob-mimes/index.php' ) || is_plugin_active( 'blob-mimes/h5p.php' ) ) && method_exists( '\blobfolio\wp\bm\mime', 'get_aliases' );
+	if ( $lord_of_the_files_activated ) {
+		$site_exts = explode( ' ', get_site_option( 'upload_filetypes', '' ) );
+		$upload_filetype_mimes = [];
+		foreach ( $site_exts as $ext ) {
+			$already_there = false;
+			foreach ( $existing_mimes as $ext_pattern => $mime ) {
+				if ( $ext !== '' && strpos( $ext_pattern, $ext ) !== false ) {
+					$already_there = true;
+					break;
+				}
+			}
+			if ( ! $already_there ) {
+				$extra_mime_alias = \blobfolio\wp\bm\mime::get_aliases( $ext );
+				if ( $extra_mime_alias ) {
+					$upload_filetype_mimes[ $ext ] = $extra_mime_alias[0];
+				}
+			}
+		}
+		if ( ! empty( $upload_filetype_mimes ) ) {
+			$existing_mimes = array_merge( $upload_filetype_mimes, $existing_mimes );
+		}
+	}
+
+	return $existing_mimes;
 }
 
 /**

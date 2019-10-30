@@ -21,6 +21,15 @@ class MediaTest extends \WP_UnitTestCase {
 		$this->assertArrayNotHasKey( 'baz', $mimes );
 	}
 
+	public function test_add_lord_of_the_files_types() {
+		$jitMimes = [ 'foobar' => 'foo/bar' ];
+		$mimes = \Pressbooks\Media\add_lord_of_the_files_types( $jitMimes );
+		$this->assertArrayHasKey( 'foobar', $mimes );
+		$this->assertEquals( 'foo/bar', $mimes['foobar'] );
+
+		// TODO: Test with LOTF plugin enabled
+	}
+
 	/**
 	 * @group media
 	 */
