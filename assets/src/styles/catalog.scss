@@ -66,8 +66,16 @@
   }
 }
 
-#add-by-url {
+.inline-form {
+  display: inline;
+}
+
+#books-search-container {
   float: right;
+}
+
+#add-by-url, #books-search p.search-box {
+  float: left !important;
 }
 
 .wp-list-table {
