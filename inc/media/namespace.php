@@ -93,6 +93,35 @@ function add_lord_of_the_files_types( $existing_mimes = [] ) {
 }
 
 /**
+ * Override the list of MIME aliases matching a particular file extension.
+ * Hooked into blobmimes_get_mime_aliases (Lord Of The Files)
+ *
+ * @param mixed $match
+ * @param string $ext
+ *
+ * @return array|bool
+ * @see https://github.com/Blobfolio/blob-mimes/blob/master/wp/lib/blobfolio/wp/bm/mime/aliases.php
+ */
+function get_lord_of_the_files_mime_aliases( $match, $ext ) {
+	if ( $match === false ) {
+		$match = []; // Recast
+	}
+
+	if ( $ext === 'musicxml' ) {
+		$match[] = 'text/xml';
+	}
+	if ( $ext === 'nlogo' ) {
+		$match[] = 'text/plain';
+	}
+
+	if ( empty( $match ) ) {
+		return false;
+	} else {
+		return array_unique( $match );
+	}
+}
+
+/**
  * Checks for valid EPUB3 video or audio file names.
  *
  * @param string $path_to_file
