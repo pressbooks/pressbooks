@@ -107,9 +107,6 @@ function get_lord_of_the_files_mime_aliases( $match, $ext ) {
 		$match = []; // Recast
 	}
 
-	if ( $ext === 'musicxml' ) {
-		$match[] = 'text/xml';
-	}
 	if ( $ext === 'nlogo' ) {
 		$match[] = 'text/plain';
 	}
