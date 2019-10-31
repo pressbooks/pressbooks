@@ -61,10 +61,10 @@ class MediaTest extends \WP_UnitTestCase {
 		$match = \Pressbooks\Media\get_lord_of_the_files_mime_aliases( [ 'text/plain' ], 'nlogo' ); // No duplicates
 		$this->assertEquals( [ 'text/plain' ], $match );
 
-		$match = \Pressbooks\Media\get_lord_of_the_files_mime_aliases( [ 'fake/records' ], 'musicxml' );
-		$this->assertEquals( [ 'fake/records', 'text/xml' ], $match );
+		$match = \Pressbooks\Media\get_lord_of_the_files_mime_aliases( [ 'fake/records' ], 'nlogo' );
+		$this->assertEquals( [ 'fake/records', 'text/plain' ], $match );
 
-		$match = \Pressbooks\Media\get_lord_of_the_files_mime_aliases( [ 'fake/records' ], '.musicxml' ); // Not expected to match dot
+		$match = \Pressbooks\Media\get_lord_of_the_files_mime_aliases( [ 'fake/records' ], '.nlogo' ); // Not expected to match dot
 		$this->assertEquals( [ 'fake/records' ], $match );
 	}
 
