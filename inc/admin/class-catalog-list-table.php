@@ -522,6 +522,22 @@ class Catalog_List_Table extends \WP_List_Table {
 			<h1><?php echo isset( $_REQUEST['user_id'] ) ? ucfirst( get_userdata( absint( $_REQUEST['user_id'] ) )->user_login ) : __( 'My Catalog', 'pressbooks' ); ?></h1>
 				<a href="<?php echo $edit_url; ?>" class=" page-title-action"><?php _e( 'Edit Profile', 'pressbooks' ); ?></a>
 				<a href="<?php echo $view_url; ?>" class=" page-title-action"><?php _e( 'Visit Catalog', 'pressbooks' ); ?></a>
+			<?php
+			if ( isset( $_REQUEST['s'] ) && strlen( $_REQUEST['s'] ) ) {
+				$total_items = (int) $list_table->get_pagination_arg( 'total_items' );
+				if ( $total_items === 0 ) {
+					/* translators: %s: search keywords */
+					$search_results = sprintf( __( 'Search results for &#8220;%s&#8221; returned no items', 'pressbooks' ), esc_html( wp_unslash( $_REQUEST['s'] ) ) );
+				} elseif ( $total_items === 1 ) {
+					/* translators: %s: search keywords */
+					$search_results = sprintf( __( 'Search results for &#8220;%s&#8221; returned 1 item', 'pressbooks' ), esc_html( wp_unslash( $_REQUEST['s'] ) ) );
+				} else {
+					/* translators: %s: search keywords, %d: total items found */
+					$search_results = sprintf( __( 'Search results for &#8220;%1$s&#8221; returned %2$d items', 'pressbooks' ), esc_html( wp_unslash( $_REQUEST['s'] ) ), $total_items );
+				}
+				echo '<span class="subtitle">' . $search_results . '</span>';
+			}
+			?>
 			<div class="postbox">
 				<div class="inside">
 					<h2><?php _e( 'Organize your public Catalog page.', 'pressbooks' ); ?></h2>
