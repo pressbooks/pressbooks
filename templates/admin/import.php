@@ -43,6 +43,7 @@ $import_option_types = apply_filters( 'pb_select_import_type', [
 
 		<p><?php _e( 'Select content below for import into Pressbooks.', 'pressbooks' ); ?></p>
 		<p><?php _e( 'Source:', 'pressbooks' ); ?> <code><?php echo basename( $current_import['file'] ); ?></code></p>
+		<div class="screen-reader-text"><span id="js-aria-messages" aria-live="polite"></span></div>
 
 		<script type="text/javascript">
 		// <![CDATA[
@@ -56,10 +57,14 @@ $import_option_types = apply_filters( 'pb_select_import_type', [
 						$(this).css('background', '');
 					}
 			);
-			// Power select
-			$("#checkall").click(function() {
-				$('td > :checkbox').prop('checked', this.checked);
-			});
+			// Select all, a11y message
+			$( "#cb-select-all-1, #cb-select-all-2" ).click( function() {
+				if ( this.checked ) {
+					$( '#js-aria-messages' ).html( '<?php echo esc_attr( __( 'Selected all sections for import', 'pressbooks' ) ); ?>' );
+				} else {
+					$( '#js-aria-messages' ).html( '<?php echo esc_attr( __( 'Unselected all sections for import', 'pressbooks' ) ); ?>' );
+				}
+			} );
 			// Abort import
 			$('#abort_button').bind('click', function () {
 				if (!confirm('<?php esc_attr_e( 'Are you sure you want to abort the import?', 'pressbooks' ); ?>')) {
@@ -76,21 +81,27 @@ $import_option_types = apply_filters( 'pb_select_import_type', [
 
 	<form id="pb-import-form-step-2" action="<?php echo $import_form_url ?>" method="post">
 		<?php $colspan = ! empty( $current_import['allow_parts'] ) ? 5 : 4; ?>
-		<table class="wp-list-table widefat">
+		<table class="wp-list-table widefat" >
 			<thead>
 			<tr>
-				<td id="cb" class="manage-column column-cb check-column"><input type="checkbox" id="checkall" /> <label for="checkall" class="screen-reader-text"><?php _e( 'Import', 'pressbooks' ); ?></label></th>
-				<th><?php _e( 'Title', 'pressbooks' ); ?></th>
-				<th style="width:10%;"><?php _e( 'Front Matter', 'pressbooks' ); ?></th>
-				<th style="width:10%;"><?php _e( 'Chapter', 'pressbooks' ); ?></th>
+				<td id="cb" class="manage-column column-cb check-column"><label><span
+							class="screen-reader-text"><?php _e( 'Import all', 'pressbooks' ); ?></span><input type="checkbox" id="cb-select-all-1"/></label></td>
+				<?php ob_start(); ?>
+				<th scope="col" role="columnheader" class="column-primary"><?php _e( 'Title', 'pressbooks' ); ?></th>
+				<th scope="col" role="columnheader" style="width:10%;"><?php _e( 'Front Matter', 'pressbooks' ); ?></th>
+				<th scope="col" role="columnheader" style="width:10%;"><?php _e( 'Chapter', 'pressbooks' ); ?></th>
 				<?php if ( ! empty( $current_import['allow_parts'] ) ) {?>
-				<th style="width:10%;"><?php _e( 'Part', 'pressbooks' ); ?></th>
+				<th scope="col" role="columnheader" style="width:10%;"><?php _e( 'Part', 'pressbooks' ); ?></th>
 				<?php } ?>
-				<th style="width:10%;"><?php _e( 'Back Matter', 'pressbooks' ); ?></th>
-				<th style="width:10%;"><?php _e( 'Glossary', 'pressbooks' ); ?></th>
+				<th scope="col" role="columnheader" style="width:10%;"><?php _e( 'Back Matter', 'pressbooks' ); ?></th>
+				<th scope="col" role="columnheader" style="width:10%;"><?php _e( 'Glossary', 'pressbooks' ); ?></th>
 				<?php if ( has_filter( 'pb_import_custom_post_types' ) ) { ?>
-				<th style="width:10%;"><?php _e( 'Other', 'pressbooks' ); ?></th>
+				<th scope="col" role="columnheader" style="width:10%;"><?php _e( 'Other', 'pressbooks' ); ?></th>
 				<?php } ?>
+				<?php
+				$shared_thead_tfoot_output = ob_get_clean();
+				echo $shared_thead_tfoot_output;
+				?>
 			</tr>
 			</thead>
 			<tbody>
@@ -99,13 +110,16 @@ $import_option_types = apply_filters( 'pb_select_import_type', [
 			foreach ( $current_import['chapters'] as $key => $chapter ) {
 				?>
 				<tr <?php if ( $i % 2 ) { echo 'class="alt"';} ?> >
-					<td><input type='checkbox' id='selective_import_<?php echo $i; ?>' name='chapters[<?php echo $key; ?>][import]' value='1'></td>
+					<th scope="row" class="check-column">
+						<label class='screen-reader-text' for='selective_import_<?php echo $i; ?>'><?php _e( 'Import', 'pressbooks' ); ?> <?php echo $chapter; ?></label>
+						<input type='checkbox' id='selective_import_<?php echo $i; ?>' name='chapters[<?php echo $key; ?>][import]' value='1'>
+					</th>
 					<?php if ( isset( $current_import['post_types'][ $key ] ) && 'metadata' == $current_import['post_types'][ $key ] ) { ?>
-						<td><label for="selective_import_<?php echo $i; ?>"><em>(<?php echo __( 'Book Information', 'pressbooks' ); ?>)</em></label></td>
+						<td class="column-primary"><em>(<?php echo __( 'Book Information', 'pressbooks' ); ?>)</em></td>
 						<td colspan="<?php echo $colspan; ?>"><input type="hidden" name='chapters[<?php echo $key; ?>][type]' value="metadata" /></td>
 					<?php }
 					else { ?>
-						<td><label for="selective_import_<?php echo $i; ?>"><?php echo $chapter; ?></label></td>
+						<th scope="row" class="column-primary"><?php echo $chapter; ?></th>
 						<td><input type='radio' name='chapters[<?php echo $key; ?>][type]' value='front-matter' <?php checked( isset( $current_import['post_types'][ $key ] ) && 'front-matter' == $current_import['post_types'][ $key ] );?>></td>
 						<td><input type='radio' name='chapters[<?php echo $key; ?>][type]' value='chapter' <?php checked( ! isset( $current_import['post_types'][ $key ] ) || 'chapter' == $current_import['post_types'][ $key ] );?>></td>
 						<?php if ( ! empty( $current_import['allow_parts'] ) ) {?>
@@ -123,6 +137,13 @@ $import_option_types = apply_filters( 'pb_select_import_type', [
 			}
 			?>
 			</tbody>
+			<tfoot>
+			<tr>
+				<td id="cb" class="manage-column column-cb check-column"><label><span
+							class="screen-reader-text"><?php _e( 'Import all', 'pressbooks' ); ?></span><input type="checkbox" id="cb-select-all-2"/></label></td>
+				<?php echo $shared_thead_tfoot_output ?>
+			</tr>
+			</tfoot>
 		</table>
 
 		<p><input type='checkbox' id='show_imports_in_web' name='show_imports_in_web' value='1'><label for="show_imports_in_web"> <?php _e( 'Show imported content in web', 'pressbooks' ); ?></label></p>
