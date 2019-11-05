@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
-"POT-Creation-Date: 2019-10-15T20:24:47+00:00\n"
-"PO-Revision-Date: 2019-10-01 16:36+0000\n"
+"POT-Creation-Date: 2019-11-05T15:33:10+00:00\n"
+"PO-Revision-Date: 2019-11-05 15:35+0000\n"
 "Last-Translator: Dac Chartrand <dac@pressbooks.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/pressbooks/pressbooks/language/ca/)\n"
 "MIME-Version: 1.0\n"
@@ -123,7 +123,7 @@ msgid "Source URL"
 msgstr ""
 
 #: inc/admin/attachments/namespace.php:54
-#: inc/admin/class-catalog-list-table.php:173
+#: inc/admin/class-catalog-list-table.php:235
 #: inc/admin/covergenerator/namespace.php:102
 msgid "Author"
 msgstr "Autor"
@@ -165,117 +165,132 @@ msgid "Visit Admin"
 msgstr "Administra"
 
 #: inc/admin/class-catalog-list-table.php:106
-#: inc/admin/class-catalog-list-table.php:214
-#: inc/admin/class-catalog-list-table.php:472
+#: inc/admin/class-catalog-list-table.php:276
+#: inc/admin/class-catalog-list-table.php:547
 msgid "Hide in Catalog"
 msgstr "Amaga en el catàleg"
 
 #: inc/admin/class-catalog-list-table.php:111
-#: inc/admin/class-catalog-list-table.php:213
-#: inc/admin/class-catalog-list-table.php:470
+#: inc/admin/class-catalog-list-table.php:275
+#: inc/admin/class-catalog-list-table.php:545
 msgid "Show in Catalog"
 msgstr "Mostra en el catàleg"
 
-#: inc/admin/class-catalog-list-table.php:169
+#: inc/admin/class-catalog-list-table.php:231
 msgid "Catalog Status"
 msgstr "Estat del catàleg"
 
-#: inc/admin/class-catalog-list-table.php:170
+#: inc/admin/class-catalog-list-table.php:232
 msgid "Privacy Status"
 msgstr "Estat de privacitat"
 
-#: inc/admin/class-catalog-list-table.php:171 inc/class-activation.php:238
+#: inc/admin/class-catalog-list-table.php:233 inc/class-activation.php:238
 #: inc/modules/export/epub/class-epub201.php:928 tests/test-cloner.php:58
 msgid "Cover"
 msgstr "Portada"
 
-#: inc/admin/class-catalog-list-table.php:172
+#: inc/admin/class-catalog-list-table.php:234
 #: inc/admin/covergenerator/namespace.php:69
-#: inc/admin/metaboxes/namespace.php:187 templates/admin/import.php:83
+#: inc/admin/metaboxes/namespace.php:187 templates/admin/import.php:90
 msgid "Title"
 msgstr "Títol"
 
-#: inc/admin/class-catalog-list-table.php:177 templates/pb-catalog.php:223
+#: inc/admin/class-catalog-list-table.php:239 templates/pb-catalog.php:223
 msgid "Tag"
 msgstr "Etiqueta"
 
-#: inc/admin/class-catalog-list-table.php:180 templates/admin/catalog.php:36
+#: inc/admin/class-catalog-list-table.php:242 templates/admin/catalog.php:36
 msgid "Featured"
 msgstr "Destacat"
 
-#: inc/admin/class-catalog-list-table.php:181
+#: inc/admin/class-catalog-list-table.php:243
 msgid "Pub Date"
 msgstr "Data de publicació"
 
-#: inc/admin/class-catalog-list-table.php:345
+#: inc/admin/class-catalog-list-table.php:407
 msgid "Edit Tags"
 msgstr "Edita etiquetes"
 
-#: inc/admin/class-catalog-list-table.php:385 templates/admin/organize.php:43
+#: inc/admin/class-catalog-list-table.php:447 templates/admin/organize.php:43
 #: templates/admin/organize.php:49
 msgid "Private"
 msgstr "Privat"
 
-#: inc/admin/class-catalog-list-table.php:385 templates/admin/organize.php:41
+#: inc/admin/class-catalog-list-table.php:447 templates/admin/organize.php:41
 #: templates/admin/organize.php:46
 msgid "Public"
 msgstr "Públic"
 
-#: inc/admin/class-catalog-list-table.php:461 inc/admin/laf/namespace.php:417
+#: inc/admin/class-catalog-list-table.php:522 inc/admin/laf/namespace.php:417
 #: inc/admin/laf/namespace.php:585 inc/admin/laf/namespace.php:814
 msgid "My Catalog"
 msgstr "El meu catàleg"
 
-#: inc/admin/class-catalog-list-table.php:462
+#: inc/admin/class-catalog-list-table.php:523
 msgid "Edit Profile"
 msgstr "Edita el perfil"
 
-#: inc/admin/class-catalog-list-table.php:463
+#: inc/admin/class-catalog-list-table.php:524
 msgid "Visit Catalog"
 msgstr "Visita el catàleg"
 
-#: inc/admin/class-catalog-list-table.php:468
+#. translators: %s: search keywords
+#: inc/admin/class-catalog-list-table.php:530
+msgid "Search results for &#8220;%s&#8221; returned no items"
+msgstr ""
+
+#. translators: %s: search keywords
+#: inc/admin/class-catalog-list-table.php:533
+msgid "Search results for &#8220;%s&#8221; returned 1 item"
+msgstr ""
+
+#. translators: %s: search keywords, %d: total items found
+#: inc/admin/class-catalog-list-table.php:536
+msgid "Search results for &#8220;%1$s&#8221; returned %2$d items"
+msgstr ""
+
+#: inc/admin/class-catalog-list-table.php:543
 msgid "Organize your public Catalog page."
 msgstr "Organitza la pàgina del teu catàleg públic"
 
-#: inc/admin/class-catalog-list-table.php:469
+#: inc/admin/class-catalog-list-table.php:544
 msgid "Show/Hide books"
 msgstr "Mostra/Amaga llibres"
 
-#: inc/admin/class-catalog-list-table.php:470
+#: inc/admin/class-catalog-list-table.php:545
 msgid "To display a book in your catalog choose \"%s\" under Catalog Status. "
 msgstr "Per mostrar un llibre en el teu catàleg escull \"%s\" a l'status del catàleg. "
 
-#: inc/admin/class-catalog-list-table.php:472
+#: inc/admin/class-catalog-list-table.php:547
 msgid "To hide a book in your catalog choose \"%s\" under Catalog Status."
 msgstr "Per amagar un llibre en el teu catàleg escull \"%s\" a l'status del catàleg. "
 
-#: inc/admin/class-catalog-list-table.php:475
+#: inc/admin/class-catalog-list-table.php:550
 msgid "Catalog sorting"
 msgstr "Ordena el catàleg"
 
-#: inc/admin/class-catalog-list-table.php:476
+#: inc/admin/class-catalog-list-table.php:551
 msgid ""
 "To add sorting ability, add your Tag names to your <a href=\"%s\">Catalog "
 "Profile</a> page (ex: Authors, Book Genre), then add the appropriate tags to"
 " each individual book."
 msgstr ""
 
-#: inc/admin/class-catalog-list-table.php:478
+#: inc/admin/class-catalog-list-table.php:553
 msgid "Share your catalog"
 msgstr "Comparteix el catàleg"
 
-#: inc/admin/class-catalog-list-table.php:479
+#: inc/admin/class-catalog-list-table.php:554
 msgid "The public link to your catalog page"
 msgstr "Enllaç públic a la pàgina del teu catàleg"
 
-#: inc/admin/class-catalog-list-table.php:489 templates/admin/search.php:81
-msgid "Search"
-msgstr "Cerca"
-
-#: inc/admin/class-catalog-list-table.php:499
+#: inc/admin/class-catalog-list-table.php:567
 msgid "Add By URL"
 msgstr "Afegeix via URL"
+
+#: inc/admin/class-catalog-list-table.php:578 templates/admin/search.php:81
+msgid "Search"
+msgstr "Cerca"
 
 #: inc/admin/class-exportoptions.php:66
 msgid "Email Validation Logs"
@@ -635,115 +650,113 @@ msgid ""
 " %1$s to %2$s."
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:16
+#: inc/admin/dashboard/namespace.php:18
 msgid "Pressbooks News"
 msgstr "Notícies de Pressbooks"
 
-#: inc/admin/dashboard/namespace.php:81
+#: inc/admin/dashboard/namespace.php:83
 msgid "My Book"
 msgstr "El meu llibre"
 
-#: inc/admin/dashboard/namespace.php:82 inc/admin/laf/namespace.php:745
+#: inc/admin/dashboard/namespace.php:84 inc/admin/laf/namespace.php:745
 msgid "Users"
 msgstr "Usuaris"
 
-#: inc/admin/dashboard/namespace.php:102
+#: inc/admin/dashboard/namespace.php:104
 msgid "Book Permissions"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:114
+#: inc/admin/dashboard/namespace.php:116
 msgid "Welcome to Pressbooks!"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:117
+#: inc/admin/dashboard/namespace.php:119
 msgid "You do not have access to any books at the moment."
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:124
+#: inc/admin/dashboard/namespace.php:126
 msgid ""
 "This network does not allow users to create new books. To create a new book,"
 " please contact your Pressbooks Network Manager"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:126 inc/admin/dashboard/namespace.php:140
+#: inc/admin/dashboard/namespace.php:128 inc/admin/dashboard/namespace.php:142
 msgid "at"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:133 inc/admin/laf/namespace.php:824
+#: inc/admin/dashboard/namespace.php:135 inc/admin/laf/namespace.php:824
 msgid "Create A New Book"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:138
+#: inc/admin/dashboard/namespace.php:140
 msgid ""
 "You can also request access to an existing book by contacting the book's "
 "author or the institution's Pressbooks Network Manager"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:154
-#: inc/api/endpoints/controller/class-books.php:132
-#: inc/class-activation.php:243
+#: inc/admin/dashboard/namespace.php:156 inc/class-activation.php:243
 #: inc/modules/export/epub/templates/epub3/toc.php:26
 #: inc/modules/themeoptions/class-pdfoptions.php:272 tests/test-cloner.php:63
 msgid "Table of Contents"
 msgstr "Índex de continguts"
 
-#: inc/admin/dashboard/namespace.php:156 inc/admin/metaboxes/namespace.php:566
+#: inc/admin/dashboard/namespace.php:158 inc/admin/metaboxes/namespace.php:566
 #: inc/api/endpoints/controller/class-toc.php:192
 #: inc/posttype/namespace.php:115 inc/posttype/namespace.php:116
-#: inc/posttype/namespace.php:538 templates/admin/import.php:84
+#: inc/posttype/namespace.php:538 templates/admin/import.php:91
 #: templates/admin/organize.php:58 templates/admin/organize.php:81
 msgid "Front Matter"
 msgstr "Pàgines inicials"
 
-#: inc/admin/dashboard/namespace.php:197 inc/admin/metaboxes/namespace.php:568
+#: inc/admin/dashboard/namespace.php:199 inc/admin/metaboxes/namespace.php:568
 #: inc/api/endpoints/controller/class-toc.php:225
 #: inc/posttype/namespace.php:143 inc/posttype/namespace.php:144
-#: inc/posttype/namespace.php:541 templates/admin/import.php:89
+#: inc/posttype/namespace.php:541 templates/admin/import.php:96
 #: templates/admin/organize.php:60 templates/admin/organize.php:89
 msgid "Back Matter"
 msgstr "Pàgines finals"
 
-#: inc/admin/dashboard/namespace.php:216 inc/admin/dashboard/namespace.php:299
+#: inc/admin/dashboard/namespace.php:218 inc/admin/dashboard/namespace.php:297
 #: templates/admin/organize.php:266 templates/admin/organize.php:423
 msgid "Add"
 msgstr "Afegeix"
 
-#: inc/admin/dashboard/namespace.php:216 inc/admin/dashboard/namespace.php:299
+#: inc/admin/dashboard/namespace.php:218 inc/admin/dashboard/namespace.php:297
 #: inc/admin/laf/namespace.php:138
 msgid "Organize"
 msgstr "Organitza"
 
-#: inc/admin/dashboard/namespace.php:288
+#: inc/admin/dashboard/namespace.php:286
 msgid "%1$s total users: "
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:308 inc/admin/dashboard/namespace.php:309
+#: inc/admin/dashboard/namespace.php:306 inc/admin/dashboard/namespace.php:307
 #: inc/admin/laf/namespace.php:729 inc/admin/laf/namespace.php:796
 #: inc/admin/laf/namespace.php:880
 msgid "Dashboard"
 msgstr "Tauler"
 
-#: inc/admin/dashboard/namespace.php:358
+#: inc/admin/dashboard/namespace.php:356
 msgid "Dashboard Feed"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:365
+#: inc/admin/dashboard/namespace.php:363
 msgid "Display Feed"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:370
+#: inc/admin/dashboard/namespace.php:368
 msgid "Display an RSS feed widget on the dashboard."
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:376
+#: inc/admin/dashboard/namespace.php:374
 msgid "Feed Title"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:384
+#: inc/admin/dashboard/namespace.php:382
 msgid "Feed URL"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:411
+#: inc/admin/dashboard/namespace.php:409
 msgid "Adjust settings for your dashboard RSS feed widget below."
 msgstr ""
 
@@ -908,7 +921,7 @@ msgid "Glossary Types"
 msgstr ""
 
 #: inc/admin/laf/namespace.php:275
-#: inc/modules/import/wordpress/class-wxr.php:479
+#: inc/modules/import/wordpress/class-wxr.php:481
 #: inc/posttype/namespace.php:151
 msgid "Book Info"
 msgstr "Informació del llibre"
@@ -969,7 +982,7 @@ msgid "QuickLaTeX"
 msgstr ""
 
 #: inc/admin/laf/namespace.php:376 templates/admin/import.php:38
-#: templates/admin/import.php:82
+#: templates/admin/import.php:114
 msgid "Import"
 msgstr "Importa"
 
@@ -1178,7 +1191,7 @@ msgstr "Imatge de portada"
 #: inc/modules/export/epub/class-epub201.php:1868
 #: inc/modules/themeoptions/class-globaloptions.php:532
 #: inc/posttype/namespace.php:87 inc/posttype/namespace.php:532
-#: inc/posttype/namespace.php:570 templates/admin/import.php:87
+#: inc/posttype/namespace.php:570 templates/admin/import.php:94
 #: tests/test-posttype.php:261
 msgid "Part"
 msgstr "Part"
@@ -1333,8 +1346,8 @@ msgstr "Ajuda a traduir Pressbooks a la teva llengua!"
 #: inc/admin/metaboxes/namespace.php:350 inc/class-licensing.php:297
 #: inc/modules/export/epub/class-epub201.php:1135
 #: inc/modules/export/epub/class-epub201.php:1161
-#: inc/modules/export/epub/templates/epub3/opf.php:94
-#: inc/modules/export/epub/templates/epub201/opf.php:87
+#: inc/modules/export/epub/templates/epub3/opf.php:95
+#: inc/modules/export/epub/templates/epub201/opf.php:88
 #: inc/modules/export/htmlbook/class-htmlbook.php:863
 #: inc/modules/export/xhtml/class-xhtml11.php:990
 msgid "Copyright"
@@ -1538,7 +1551,7 @@ msgstr ""
 #: inc/api/endpoints/controller/class-toc.php:209 inc/class-sass.php:78
 #: inc/modules/themeoptions/class-globaloptions.php:533
 #: inc/posttype/namespace.php:64 inc/posttype/namespace.php:535
-#: inc/posttype/namespace.php:574 templates/admin/import.php:85
+#: inc/posttype/namespace.php:574 templates/admin/import.php:92
 #: templates/admin/organize.php:85
 msgid "Chapter"
 msgstr "Capítol"
@@ -1715,29 +1728,29 @@ msgstr ""
 msgid "Sharing and Privacy settings."
 msgstr "Preferències de compartir i privacitat."
 
-#: inc/admin/networkmanagers/namespace.php:17
 #: inc/admin/networkmanagers/namespace.php:18
+#: inc/admin/networkmanagers/namespace.php:19
 msgid "Network Managers"
 msgstr "Gestors de la xarxa"
 
-#: inc/admin/networkmanagers/namespace.php:112
+#: inc/admin/networkmanagers/namespace.php:113
 msgid "Pressbooks Network Managers"
 msgstr "Gestors de la xarxa de Pressbooks"
 
-#: inc/admin/networkmanagers/namespace.php:114
+#: inc/admin/networkmanagers/namespace.php:115
 msgid ""
 "Network administrators&rsquo; access to network administration menus can be "
 "restricted to leave only sites and users visible to them."
 msgstr ""
 
-#: inc/api/endpoints/controller/class-books.php:125
+#: inc/api/endpoints/controller/class-books.php:119
 #: inc/api/endpoints/controller/class-toc.php:151
 #: inc/api/endpoints/controller/class-toc.php:164
 #: inc/api/endpoints/controller/class-toc.php:177
 msgid "Metadata"
 msgstr ""
 
-#: inc/api/endpoints/controller/class-books.php:156
+#: inc/api/endpoints/controller/class-books.php:145
 msgid "ID offset, overrides page."
 msgstr ""
 
@@ -1746,10 +1759,6 @@ msgstr ""
 msgid ""
 "URL of a reference Web page that unambiguously indicates the item's "
 "identity."
-msgstr ""
-
-#: inc/api/endpoints/controller/class-search.php:44
-msgid "Any meta key, comma separated values, limit of 5."
 msgstr ""
 
 #: inc/api/endpoints/controller/class-toc.php:98
@@ -1772,19 +1781,19 @@ msgstr ""
 msgid "Part ID."
 msgstr ""
 
-#: inc/api/namespace.php:194
+#: inc/api/namespace.php:191
 msgid "Invalid batch parameter(s)."
 msgstr ""
 
-#: inc/api/namespace.php:361
+#: inc/api/namespace.php:358
 msgid "Part does not exist"
 msgstr ""
 
-#: inc/api/namespace.php:368
+#: inc/api/namespace.php:365
 msgid "ID is not a part"
 msgstr ""
 
-#: inc/api/namespace.php:382
+#: inc/api/namespace.php:379
 msgid "Failed to update chapter part"
 msgstr ""
 
@@ -1854,7 +1863,7 @@ msgstr "CSS personalitzat per a la web"
 
 #: inc/class-activation.php:281 inc/posttype/namespace.php:165
 #: inc/posttype/namespace.php:166 inc/posttype/namespace.php:529
-#: templates/admin/import.php:104
+#: templates/admin/import.php:118
 msgid "Book Information"
 msgstr "Informació del llibre"
 
@@ -1892,35 +1901,35 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: inc/class-eventstreams.php:199
-#: inc/modules/import/wordpress/class-wxr.php:352
+#: inc/modules/import/wordpress/class-wxr.php:354
 msgid "%s front matter"
 msgid_plural "%s front matter"
 msgstr[0] ""
 msgstr[1] ""
 
 #: inc/class-eventstreams.php:200
-#: inc/modules/import/wordpress/class-wxr.php:353
+#: inc/modules/import/wordpress/class-wxr.php:355
 msgid "%s part"
 msgid_plural "%s parts"
 msgstr[0] ""
 msgstr[1] ""
 
 #: inc/class-eventstreams.php:201
-#: inc/modules/import/wordpress/class-wxr.php:354
+#: inc/modules/import/wordpress/class-wxr.php:356
 msgid "%s chapter"
 msgid_plural "%s chapters"
 msgstr[0] ""
 msgstr[1] ""
 
 #: inc/class-eventstreams.php:202
-#: inc/modules/import/wordpress/class-wxr.php:355
+#: inc/modules/import/wordpress/class-wxr.php:357
 msgid "%s back matter"
 msgid_plural "%s back matter"
 msgstr[0] ""
 msgstr[1] ""
 
 #: inc/class-eventstreams.php:203
-#: inc/modules/import/wordpress/class-wxr.php:356
+#: inc/modules/import/wordpress/class-wxr.php:358
 msgid "%s media attachment"
 msgid_plural "%s media attachments"
 msgstr[0] ""
@@ -1933,7 +1942,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: inc/class-eventstreams.php:205
-#: inc/modules/import/wordpress/class-wxr.php:357
+#: inc/modules/import/wordpress/class-wxr.php:359
 msgid "%s glossary term"
 msgid_plural "%s glossary terms"
 msgstr[0] ""
@@ -2111,8 +2120,8 @@ msgstr ""
 
 #: inc/class-licensing.php:299 inc/class-styles.php:788
 #: inc/modules/export/epub/class-epub201.php:1144
-#: inc/modules/export/epub/templates/epub3/opf.php:103
-#: inc/modules/export/epub/templates/epub201/opf.php:96
+#: inc/modules/export/epub/templates/epub3/opf.php:104
+#: inc/modules/export/epub/templates/epub201/opf.php:97
 #: inc/modules/export/htmlbook/class-htmlbook.php:872
 #: inc/modules/export/xhtml/class-xhtml11.php:999
 msgid "by"
@@ -2426,7 +2435,7 @@ msgstr "Insereix nota al peu"
 msgid "Convert MS Word Footnotes"
 msgstr "Converteix notes al peu de MS Word"
 
-#: inc/editor/namespace.php:117 templates/admin/import.php:135
+#: inc/editor/namespace.php:117 templates/admin/import.php:156
 msgid "Cancel"
 msgstr "Cancela"
 
@@ -2786,8 +2795,8 @@ msgstr "Índex de continguts"
 msgid "Contents"
 msgstr "Índex"
 
-#: inc/modules/export/epub/templates/epub3/opf.php:56
-#: inc/modules/export/epub/templates/epub201/opf.php:52
+#: inc/modules/export/epub/templates/epub3/opf.php:57
+#: inc/modules/export/epub/templates/epub201/opf.php:53
 msgid "Authored by: "
 msgstr ""
 
@@ -2805,8 +2814,8 @@ msgstr ""
 
 #: inc/modules/export/namespace.php:95
 #: inc/modules/themeoptions/class-globaloptions.php:389
-#: inc/utility/namespace.php:1310 inc/utility/namespace.php:1315
-#: inc/utility/namespace.php:1335 inc/utility/namespace.php:1341
+#: inc/utility/namespace.php:1311 inc/utility/namespace.php:1316
+#: inc/utility/namespace.php:1336 inc/utility/namespace.php:1342
 #: templates/admin/covergenerator.php:53
 msgid "and"
 msgstr "i"
@@ -2995,7 +3004,7 @@ msgid ""
 "This does not appear to be a WXR file, missing/invalid WXR version number"
 msgstr "No sembla que sigui un arxiu WXR, fala número de versió WXR o aquest no és vàlid."
 
-#: inc/modules/import/wordpress/class-wxr.php:351
+#: inc/modules/import/wordpress/class-wxr.php:353
 msgctxt ""
 "String which tells user how many front matter, parts, chapters, back matter,"
 " media attachments, and glossary terms were imported."
@@ -3606,8 +3615,8 @@ msgstr ""
 
 #: inc/modules/themeoptions/class-weboptions.php:106
 msgid ""
-"Add buttons to cover page and each chapter so that readers may share links "
-"to your book through social media: Facebook, Twitter, Google+"
+"Adds a button to cover page and each chapter which allows readers to share "
+"links to your book through Twitter"
 msgstr ""
 
 #: inc/modules/themeoptions/class-weboptions.php:112
@@ -3757,44 +3766,44 @@ msgstr "pàgines finals"
 msgid "glossary"
 msgstr ""
 
-#: inc/posttype/namespace.php:544 templates/admin/import.php:90
+#: inc/posttype/namespace.php:544 templates/admin/import.php:97
 #: templates/admin/organize.php:62
 msgid "Glossary"
 msgstr ""
 
-#: inc/redirect/namespace.php:144 inc/redirect/namespace.php:352
+#: inc/redirect/namespace.php:144 inc/redirect/namespace.php:232
 msgid "Error: Unknown export format."
 msgstr "Error: format d'exportació desconegut."
 
-#: inc/redirect/namespace.php:372
+#: inc/redirect/namespace.php:252
 msgid "File not found"
 msgstr "No s'ha trobat cap arxiu"
 
-#: inc/redirect/namespace.php:459
+#: inc/redirect/namespace.php:339
 msgid "Unsupported post type."
 msgstr "Tipus d'entrada no suportada."
 
-#: inc/redirect/namespace.php:493
+#: inc/redirect/namespace.php:373
 msgid "Unsupported taxonomy."
 msgstr ""
 
-#: inc/redirect/namespace.php:517
+#: inc/redirect/namespace.php:397
 msgid "You do not have sufficient permissions to access that URL."
 msgstr "No tens prous permisos per accedir a aquesta URL."
 
-#: inc/registration/namespace.php:28
+#: inc/registration/namespace.php:30
 msgid "Register my book now"
 msgstr "Registra el meu llibre ara"
 
-#: inc/registration/namespace.php:31
+#: inc/registration/namespace.php:33
 msgid "Register my book later"
 msgstr "Registra el meu llibre més tard"
 
-#: inc/registration/namespace.php:35
+#: inc/registration/namespace.php:37
 msgid "Webbook Address:"
 msgstr ""
 
-#: inc/registration/namespace.php:38 inc/registration/namespace.php:70
+#: inc/registration/namespace.php:40 inc/registration/namespace.php:72
 msgid ""
 "Your webbook address is the web address where you will access and create "
 "your book. It must be at least 4 characters, letters and numbers only. It "
@@ -3802,55 +3811,55 @@ msgid ""
 "the title of your book with no spaces."
 msgstr ""
 
-#: inc/registration/namespace.php:41
+#: inc/registration/namespace.php:43
 msgid "Book Title:"
 msgstr "Títol del llibre:"
 
-#: inc/registration/namespace.php:44
+#: inc/registration/namespace.php:46
 msgid "Book Language:"
 msgstr "Llengua del llibre:"
 
-#: inc/registration/namespace.php:47
+#: inc/registration/namespace.php:49
 msgid "Would you like your webbook to be visible to the public?"
 msgstr ""
 
-#: inc/registration/namespace.php:51
+#: inc/registration/namespace.php:53
 msgid "Create Book"
 msgstr "Crea llibre"
 
-#: inc/registration/namespace.php:54
+#: inc/registration/namespace.php:56
 msgid "Register a %s account"
 msgstr ""
 
-#: inc/registration/namespace.php:57
+#: inc/registration/namespace.php:59
 msgid "Create a new book"
 msgstr "Crea un nou llibre"
 
-#: inc/registration/namespace.php:60
+#: inc/registration/namespace.php:62
 msgid ""
 "Welcome, %s. Fill out the form below to <strong>add a new book to your "
 "account</strong>."
 msgstr ""
 
-#: inc/registration/namespace.php:64
+#: inc/registration/namespace.php:66
 msgid "yourwebbookname"
 msgstr "nomdelteullibre"
 
-#: inc/registration/namespace.php:67
+#: inc/registration/namespace.php:69
 msgid "Books you are already a member of:"
 msgstr "Llibres dels quals ja ets membre:"
 
-#: inc/registration/namespace.php:73
+#: inc/registration/namespace.php:75
 msgid "Congratulations! Your new book, %s, is almost ready"
 msgstr "Felicitats! El teu nou llibre, %s, ja gairebé està a punt."
 
-#: inc/registration/namespace.php:76
+#: inc/registration/namespace.php:78
 msgid ""
 "But, before you can start writing your book, <strong>you must activate "
 "it</strong>."
 msgstr ""
 
-#: inc/registration/namespace.php:79
+#: inc/registration/namespace.php:81
 msgid ""
 "Your account has been activated. You may now <a href=\"%1$s\">log in</a> to "
 "your book using your chosen username of &#8220;%2$s&#8221;. Please check "
@@ -3860,7 +3869,7 @@ msgid ""
 "password</a>."
 msgstr ""
 
-#: inc/registration/namespace.php:82
+#: inc/registration/namespace.php:84
 msgid ""
 "Your book at <a href=\"%1$s\">%2$s</a> is active. You may now log in to your"
 " book using your chosen username of &#8220;%3$s&#8221;. Please check your "
@@ -3870,60 +3879,60 @@ msgid ""
 "password</a>."
 msgstr ""
 
-#: inc/registration/namespace.php:85
+#: inc/registration/namespace.php:87
 msgid ""
 "Your account is now activated. <a href=\"%1$s\">View your book</a> or <a "
 "href=\"%2$s\">Log in</a>"
 msgstr ""
 
-#: inc/registration/namespace.php:105
+#: inc/registration/namespace.php:107
 msgid "Password"
 msgstr "Clau de pas"
 
-#: inc/registration/namespace.php:110
+#: inc/registration/namespace.php:112
 msgid "Type in your password."
 msgstr "Introdueix la clau de pas"
 
-#: inc/registration/namespace.php:111
+#: inc/registration/namespace.php:113
 msgid "Confirm Password"
 msgstr "Confirma la clau de pas"
 
-#: inc/registration/namespace.php:113
+#: inc/registration/namespace.php:115
 msgid "Type in your password again."
 msgstr "introdueix la clau de pas de nou"
 
-#: inc/registration/namespace.php:114
+#: inc/registration/namespace.php:116
 msgid ""
 "Password must be at least 12 characters in length, include at least one "
 "upper case letter, and have at least one number."
 msgstr ""
 
-#: inc/registration/namespace.php:128 inc/registration/namespace.php:168
-#: inc/registration/namespace.php:187 inc/registration/namespace.php:206
+#: inc/registration/namespace.php:130 inc/registration/namespace.php:170
+#: inc/registration/namespace.php:189 inc/registration/namespace.php:208
 msgid "Please try again."
 msgstr "Si us plau, torna a intentar-ho."
 
-#: inc/registration/namespace.php:138
+#: inc/registration/namespace.php:140
 msgid "You have to enter a password."
 msgstr "Has d'intorudir una clau de pass"
 
-#: inc/registration/namespace.php:144
+#: inc/registration/namespace.php:146
 msgid "Passwords do not match."
 msgstr "Les claus no coincideixen"
 
-#: inc/registration/namespace.php:333
+#: inc/registration/namespace.php:335
 msgid "Password must be at least 12 characters."
 msgstr ""
 
-#: inc/registration/namespace.php:337
+#: inc/registration/namespace.php:339
 msgid "Password must include at least one upper case letter."
 msgstr ""
 
-#: inc/registration/namespace.php:341
+#: inc/registration/namespace.php:343
 msgid "Password must include at least one lower case letter."
 msgstr ""
 
-#: inc/registration/namespace.php:345
+#: inc/registration/namespace.php:347
 msgid "Password must include at least one number."
 msgstr ""
 
@@ -3996,7 +4005,7 @@ msgid " (%1$d of %2$d)"
 msgstr ""
 
 #: inc/utility/namespace.php:604 inc/utility/namespace.php:615
-#: inc/utility/namespace.php:630
+#: inc/utility/namespace.php:631
 msgid ""
 "An unexpected error occurred. Something may be wrong with the plugin "
 "recommendations server or your site&#8217;s server&#8217;s configuration."
@@ -4008,7 +4017,7 @@ msgid ""
 "recommendations server. Please contact your server administrator.)"
 msgstr ""
 
-#: inc/utility/namespace.php:654
+#: inc/utility/namespace.php:655
 msgid ""
 "These plugins have been created and/or recommended by the Pressbooks "
 "community."
@@ -4261,35 +4270,47 @@ msgstr ""
 msgid "Source:"
 msgstr ""
 
+#: templates/admin/import.php:63
+msgid "Selected all sections for import"
+msgstr ""
+
 #: templates/admin/import.php:65
+msgid "Unselected all sections for import"
+msgstr ""
+
+#: templates/admin/import.php:70
 msgid "Are you sure you want to abort the import?"
 msgstr "Estàs segur que vols cancelar la exportació?"
 
-#: templates/admin/import.php:92
+#: templates/admin/import.php:88 templates/admin/import.php:143
+msgid "Import all"
+msgstr ""
+
+#: templates/admin/import.php:99
 msgid "Other"
 msgstr "Altres"
 
-#: templates/admin/import.php:128
+#: templates/admin/import.php:149
 msgid "Show imported content in web"
 msgstr ""
 
-#: templates/admin/import.php:133
+#: templates/admin/import.php:154
 msgid "Import Selection"
 msgstr "Importa la selecció"
 
-#: templates/admin/import.php:160
+#: templates/admin/import.php:181
 msgid "Maximum file size:"
 msgstr "Mida màxima de l'arxiu:"
 
-#: templates/admin/import.php:170
+#: templates/admin/import.php:191
 msgid "Import Type"
 msgstr ""
 
-#: templates/admin/import.php:182
+#: templates/admin/import.php:203
 msgid "Import Source"
 msgstr ""
 
-#: templates/admin/import.php:201
+#: templates/admin/import.php:222
 msgid "Begin Import"
 msgstr ""
 
