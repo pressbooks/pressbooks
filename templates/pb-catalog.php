@@ -169,7 +169,11 @@ $_current_user_id = $catalog->getUserId();
 	<?php // @codingStandardsIgnoreEnd ?>
 	<?php \Pressbooks\analytics\print_analytics(); ?>
 </head>
+<?php if ( ! empty( $profile['pb_catalog_color'] ) ) : ?>
+<body style="background-image: none !important;">
+<?php else : ?>
 <body>
+<?php endif ?>
 
 <div class="catalog-wrap">
 		<div class="log-wrap">	<!-- Login/Logout -->
@@ -190,7 +194,7 @@ $_current_user_id = $catalog->getUserId();
 			<?php endif; ?>
 		</div> <!-- end .log-wrap -->
 	<?php if ( ! empty( $profile['pb_catalog_color'] ) ) : ?>
-		<div id="catalog-sidebar" class="catalog-sidebar" style="background-color:<?php echo $profile['pb_catalog_color']; ?>">
+		<div id="catalog-sidebar" class="catalog-sidebar" style="background-color:<?php echo esc_attr( $profile['pb_catalog_color'] ); ?>">
 	<?php else : ?>
 		<div id="catalog-sidebar" class="catalog-sidebar">
 	<?php endif ?>
@@ -212,6 +216,7 @@ $_current_user_id = $catalog->getUserId();
 			</a>
 			<p class="about-blurb"><?php
 			if ( ! empty( $profile['pb_catalog_about'] ) ) {
+				$profile['pb_catalog_about'] = \Pressbooks\HtmLawed::filter( $profile['pb_catalog_about'], [ 'safe' => 1, 'deny_attribute' => 'style' ] );
 				echo preg_replace( '/<p[^>]*>(.*)<\/p[^>]*>/i', '$1', $profile['pb_catalog_about'] ); // Make valid HTML by removing first <p> and last </p>
 			}
 			?></p>
@@ -220,7 +225,7 @@ $_current_user_id = $catalog->getUserId();
 			<!-- Tags -->
 			<?php for ( $i = 1; $i <= 2; ++$i ) : ?>
 			<?php $tags = $catalog->getTags( $i, false ); ?>
-				<h3><?php echo ( ! empty( $profile[ "pb_catalog_tag_{$i}_name" ] ) ) ? $profile[ "pb_catalog_tag_{$i}_name" ] : __( 'Tag', 'pressbooks' ) . " $i"; ?></h3>
+				<h3><?php echo ( ! empty( $profile["pb_catalog_tag_{$i}_name"] ) ) ? esc_html( strip_tags( $profile["pb_catalog_tag_{$i}_name"] ) ) : __( 'Tag', 'pressbooks' ) . " $i"; ?></h3>
 				<ul>
 					<?php
 					foreach ( $tags as $val ) {

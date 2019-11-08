@@ -754,7 +754,12 @@ class Catalog {
 			} elseif ( '%f' === $this->profileMetaKeys[ $key ] ) {
 				$val = (float) $val;
 			} else {
-				$val = (string) $val;
+				$val = HtmLawed::filter(
+					$val, [
+						'safe' => 1,
+						'deny_attribute' => 'style',
+					]
+				);
 			}
 
 			update_user_meta( $this->userId, $key, $val );
