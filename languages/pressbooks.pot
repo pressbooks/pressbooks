@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Pressbooks plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Pressbooks 5.10.0\n"
+"Project-Id-Version: Pressbooks 5.10.1\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2019-11-05T15:33:10+00:00\n"
+"POT-Creation-Date: 2019-11-11T18:05:31+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.3.0\n"
 "X-Domain: pressbooks\n"
@@ -180,7 +180,7 @@ msgid "Title"
 msgstr ""
 
 #: inc/admin/class-catalog-list-table.php:239
-#: templates/pb-catalog.php:223
+#: templates/pb-catalog.php:228
 msgid "Tag"
 msgstr ""
 
@@ -1811,22 +1811,22 @@ msgstr ""
 msgid "Default Data"
 msgstr ""
 
-#: inc/class-catalog.php:818
+#: inc/class-catalog.php:823
 msgid "Catalog Logo"
 msgstr ""
 
-#: inc/class-catalog.php:1175
-#: inc/class-catalog.php:1230
-#: inc/class-catalog.php:1278
+#: inc/class-catalog.php:1180
+#: inc/class-catalog.php:1235
+#: inc/class-catalog.php:1283
 #: templates/admin/catalog.php:19
 msgid "You do not have permission to do that."
 msgstr ""
 
-#: inc/class-catalog.php:1325
+#: inc/class-catalog.php:1330
 msgid "Invalid URL."
 msgstr ""
 
-#: inc/class-catalog.php:1345
+#: inc/class-catalog.php:1350
 msgid "No book found."
 msgstr ""
 
@@ -4332,31 +4332,31 @@ msgstr ""
 msgid "'s Catalog Page"
 msgstr ""
 
-#: templates/pb-catalog.php:177
+#: templates/pb-catalog.php:181
 msgid "login"
 msgstr ""
 
-#: templates/pb-catalog.php:179
+#: templates/pb-catalog.php:183
 msgid "logout"
 msgstr ""
 
-#: templates/pb-catalog.php:187
+#: templates/pb-catalog.php:191
 msgid "Admin"
 msgstr ""
 
-#: templates/pb-catalog.php:239
+#: templates/pb-catalog.php:244
 msgid "Catalog"
 msgstr ""
 
-#: templates/pb-catalog.php:239
+#: templates/pb-catalog.php:244
 msgid "filtering by"
 msgstr ""
 
-#: templates/pb-catalog.php:264
+#: templates/pb-catalog.php:269
 msgid "Sorry, but no books matched your filtering criteria. Please <a class=\"clear-filters\" href=\"#\">clear your current filters</a> and try again."
 msgstr ""
 
-#: templates/pb-catalog.php:268
+#: templates/pb-catalog.php:273
 msgid "Pressbooks: the CMS for Books."
 msgstr ""
 
