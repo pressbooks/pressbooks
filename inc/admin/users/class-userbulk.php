@@ -64,8 +64,9 @@ class UserBulk {
 	 */
 	public function printMenu() {
 		try {
-			if ( $this->bulkAddUsers() ) {
-				echo '<div id="message" role="status" class="updated notice is-dismissible"><p>' . __( 'Users have been successfully added.', 'user' ) . '</p></div>';
+			$results = $this->bulkAddUsers();
+			if ( $results ) {
+				echo $this->getBulkResultHtml( $results );
 			}
 		} catch ( \Exception $e ) {
 			echo '<div id="message" role="alert" class="error notice is-dismissible"><p>' . $e->getMessage() . '</p></div>';
@@ -107,7 +108,10 @@ class UserBulk {
 				$result = $this->createUser( $email, $role );
 			}
 
-			array_push( $results, [ $email => $result ] );
+			array_push( $results, [
+				'email'  => $email,
+				'status' => $result
+			] );
 		}
 
 		return $results;
@@ -116,13 +120,16 @@ class UserBulk {
 	/**
 	 * @param string $email
 	 * @param string $role
-	 * @return array|bool
+	 * @return WP_Error|bool
 	 */
 	public function createUser( string $email, string $role ) {
-		$user_name = $this->calculateUserNameFromEmail( $email );
-		if ( false === $user_name ) {
-			return false;
+		$user_details = $this->generateUserNameFromEmail( $email );
+
+		if ( is_wp_error( $user_details[ 'errors' ] ) && $user_details[ 'errors' ]->has_errors() ) {
+			return $user_details[ 'errors' ];
 		}
+
+		$user_name = $user_details[ 'user_name' ];
 		$unique_username = apply_filters( 'pre_user_login', $this->sanitizeUser( wp_unslash( $user_name ), true ) );
 
 		// link newly created user to book
@@ -140,9 +147,9 @@ class UserBulk {
 
 	/**
 	 * @param string $email
-	 * @return string|bool
+	 * @return array|bool
 	 */
-	public function calculateUserNameFromEmail( string $email ) {
+	public function generateUserNameFromEmail( string $email ) {
 		if ( ! filter_var( $email, FILTER_VALIDATE_EMAIL ) ) {
 			return false;
 		}
@@ -156,7 +163,7 @@ class UserBulk {
 		}
 
 		$user_details = wpmu_validate_user_signup( $unique_username, $email );
-		return $user_details[ 'errors' ]->has_errors() ? false : $user_details[ 'user_name' ];
+		return $user_details;
 	}
 
 	/**
@@ -180,5 +187,27 @@ class UserBulk {
 		$unique_username = str_pad( $unique_username, 4, '1' );
 
 		return $unique_username;
+	}
+
+	/**
+	 * @param array $results
+	 * @return string
+	 */
+	public function getBulkResultHtml( array $results ) : string {
+		$output_success = sprintf( '%s:%s', __( 'Users successfully added to this book', 'users' ), '<br />' );
+		$output_errors = sprintf( '%s:%s', __( 'The following users could not be added', 'users' ) , '<br />' );
+
+		foreach( $results as $result ) {
+			if ( is_wp_error( $result[ 'status' ] ) ) {
+				$error_messages = implode( ' ', $result[ 'status' ]->get_error_messages() );
+				$output_errors .= sprintf( "<b>%s</b>. %s %s", $result['email'], $error_messages, '<br />' );
+			} else {
+				$output_success .= sprintf( '<b>%s</b><br />', $result['email'] );
+			}
+		}
+
+		$html_output = sprintf( '<div role="status" class="updated notice is-dismissible"><p>%s</p></div>', $output_success );
+		$html_output .= sprintf( '<div role="alert" class="error notice is-dismissible"><p>%s</p></div>', $output_errors );
+		return $html_output;
 	}
 }

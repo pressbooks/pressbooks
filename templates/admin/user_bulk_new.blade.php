@@ -1,5 +1,5 @@
 <div class="wrap">
-	<h1>{{ __( 'Bulk Add New User', 'user' ) }}</h1>
+	<h1>{{ __( 'Bulk Add New Users', 'user' ) }}</h1>
 	<form method="POST" action="{{ $form_url }}" method="post">
 		<?php echo wp_nonce_field( $nonce ); ?>
 		<h2>{{ __('Bulk add users', 'user') }}</h2>
