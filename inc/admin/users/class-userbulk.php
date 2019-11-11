@@ -1,0 +1,184 @@
+<?php
+
+namespace Pressbooks\Admin\Users;
+
+use Jenssegers\Blade\Blade;
+use Pressbooks\Container;
+
+class UserBulk {
+
+	const SLUG = 'user_bulk_new';
+
+	const PARENT_SLUG = 'users.php';
+
+	const TEMPLATE = 'admin.user_bulk_new';
+
+	/**
+	 * @var UserBulk
+	 */
+	protected static $instance;
+
+	/**
+	 * @var Blade
+	 */
+	protected $blade;
+
+	/**
+	 * @return UserBulk
+	 */
+	static public function init() {
+		if ( is_null( self::$instance ) ) {
+			self::$instance = new self();
+			self::hooks( self::$instance );
+		}
+		return self::$instance;
+	}
+
+	/**
+	 * @param UserBulk $obj
+	 */
+	static public function hooks( UserBulk $obj ) {
+		add_action( 'admin_menu', [ $obj, 'addMenu' ] );
+	}
+
+	public function __construct() {
+		$this->blade = Container::get( 'Blade' );
+	}
+
+	/**
+	 * Register 'Bulk add' submenu
+	 */
+	public function addMenu() {
+		add_submenu_page(
+			self::PARENT_SLUG,
+			__( 'Bulk Add', 'user' ),
+			__( 'Bulk Add', 'user' ),
+			'create_users',
+			self::SLUG,
+			[ $this, 'printMenu' ]
+		);
+	}
+
+	/**
+	 * Render menu template
+	 */
+	public function printMenu() {
+		try {
+			if ( $this->bulkAddUsers() ) {
+				echo '<div id="message" role="status" class="updated notice is-dismissible"><p>' . __( 'Users have been successfully added.', 'user' ) . '</p></div>';
+			}
+		} catch ( \Exception $e ) {
+			echo '<div id="message" role="alert" class="error notice is-dismissible"><p>' . $e->getMessage() . '</p></div>';
+		}
+
+		$html = $this->blade->render(
+			self::TEMPLATE, [
+				'form_url'  => self_admin_url( sprintf( '/users.php?page=%s', self::SLUG ) ),
+				'nonce'     => self::SLUG
+			]
+		);
+		echo $html;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function bulkAddUsers() {
+		if ( empty( $_POST ) || ! check_admin_referer( self::SLUG ) ) {
+			return false;
+		}
+
+		$_POST = array_map( 'trim', $_POST );
+		$role = $_POST[ 'role' ];
+		$users = array_unique( preg_split( '/\r\n|\r|\n/', $_POST['users'] ) );
+		$results = [];
+
+		foreach( $users as $email ) {
+			$existing_user = get_user_by( 'email', $email );
+
+			if ( false !== $existing_user ) {
+				$result = add_existing_user_to_blog(
+					[
+						'user_id' => $existing_user->ID,
+						'role'    => $role,
+					]
+				);
+			} else {
+				$result = $this->createUser( $email, $role );
+			}
+
+			array_push( $results, [ $email => $result ] );
+		}
+
+		return $results;
+	}
+
+	/**
+	 * @param string $email
+	 * @param string $role
+	 * @return array|bool
+	 */
+	public function createUser( string $email, string $role ) {
+		$user_name = $this->calculateUserNameFromEmail( $email );
+		if ( false === $user_name ) {
+			return false;
+		}
+		$unique_username = apply_filters( 'pre_user_login', $this->sanitizeUser( wp_unslash( $user_name ), true ) );
+
+		// link newly created user to book
+		wpmu_signup_user(
+			$unique_username,
+			$email,
+			[
+				'add_to_blog' => get_current_blog_id(),
+				'new_role'    => $role,
+			]
+		);
+
+		return true;
+	}
+
+	/**
+	 * @param string $email
+	 * @return string|bool
+	 */
+	public function calculateUserNameFromEmail( string $email ) {
+		if ( ! filter_var( $email, FILTER_VALIDATE_EMAIL ) ) {
+			return false;
+		}
+
+		$i = 1;
+		$username = explode( '@', $email )[0];
+		$unique_username = $this->sanitizeUser( $username );
+		while ( username_exists( $unique_username ) ) {
+			$unique_username = $this->sanitizeUser( "{$username}{$i}" );
+			++$i;
+		}
+
+		$user_details = wpmu_validate_user_signup( $unique_username, $email );
+		return $user_details[ 'errors' ]->has_errors() ? false : $user_details[ 'user_name' ];
+	}
+
+	/**
+	 * Multisite has more restrictions on user login character set
+	 *
+	 * @see https://core.trac.wordpress.org/ticket/17904
+	 *
+	 * @param string $username
+	 *
+	 * @return string
+	 */
+	public function sanitizeUser( $username ) {
+		$unique_username = sanitize_user( $username, true );
+		$unique_username = strtolower( $unique_username );
+		$unique_username = preg_replace( '/[^a-z0-9]/', '', $unique_username );
+
+		if ( preg_match( '/^[0-9]*$/', $unique_username ) ) {
+			$unique_username .= 'a'; // usernames must have letters too
+		}
+
+		$unique_username = str_pad( $unique_username, 4, '1' );
+
+		return $unique_username;
+	}
+}
