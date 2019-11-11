@@ -2,7 +2,6 @@
 
 namespace Pressbooks\Admin\Users;
 
-use Jenssegers\Blade\Blade;
 use Pressbooks\Container;
 
 class UserBulk {
@@ -75,14 +74,14 @@ class UserBulk {
 		$html = $this->blade->render(
 			self::TEMPLATE, [
 				'form_url'  => self_admin_url( sprintf( '/users.php?page=%s', self::SLUG ) ),
-				'nonce'     => self::SLUG
+				'nonce'     => self::SLUG,
 			]
 		);
 		echo $html;
 	}
 
 	/**
-	 * @return array
+	 * @return bool|array
 	 */
 	public function bulkAddUsers() {
 		if ( empty( $_POST ) || ! check_admin_referer( self::SLUG ) ) {
@@ -90,11 +89,11 @@ class UserBulk {
 		}
 
 		$_POST = array_map( 'trim', $_POST );
-		$role = $_POST[ 'role' ];
+		$role = $_POST['role'];
 		$users = array_unique( preg_split( '/\r\n|\r|\n/', $_POST['users'] ) );
 		$results = [];
 
-		foreach( $users as $email ) {
+		foreach ( $users as $email ) {
 			$existing_user = get_user_by( 'email', $email );
 
 			if ( false !== $existing_user ) {
@@ -108,10 +107,12 @@ class UserBulk {
 				$result = $this->createUser( $email, $role );
 			}
 
-			array_push( $results, [
-				'email'  => $email,
-				'status' => $result
-			] );
+			array_push(
+				$results, [
+					'email'  => $email,
+					'status' => $result,
+				]
+			);
 		}
 
 		return $results;
@@ -125,11 +126,11 @@ class UserBulk {
 	public function createUser( string $email, string $role ) {
 		$user_details = $this->generateUserNameFromEmail( $email );
 
-		if ( is_wp_error( $user_details[ 'errors' ] ) && $user_details[ 'errors' ]->has_errors() ) {
-			return $user_details[ 'errors' ];
+		if ( is_wp_error( $user_details['errors'] ) && $user_details['errors']->has_errors() ) {
+			return $user_details['errors'];
 		}
 
-		$user_name = $user_details[ 'user_name' ];
+		$user_name = $user_details['user_name'];
 		$unique_username = apply_filters( 'pre_user_login', $this->sanitizeUser( wp_unslash( $user_name ), true ) );
 
 		// link newly created user to book
@@ -147,7 +148,7 @@ class UserBulk {
 
 	/**
 	 * @param string $email
-	 * @return array|bool
+	 * @return bool|array
 	 */
 	public function generateUserNameFromEmail( string $email ) {
 		if ( ! filter_var( $email, FILTER_VALIDATE_EMAIL ) ) {
@@ -195,12 +196,12 @@ class UserBulk {
 	 */
 	public function getBulkResultHtml( array $results ) : string {
 		$output_success = sprintf( '%s:%s', __( 'Users successfully added to this book', 'users' ), '<br />' );
-		$output_errors = sprintf( '%s:%s', __( 'The following users could not be added', 'users' ) , '<br />' );
+		$output_errors = sprintf( '%s:%s', __( 'The following users could not be added', 'users' ), '<br />' );
 
-		foreach( $results as $result ) {
-			if ( is_wp_error( $result[ 'status' ] ) ) {
-				$error_messages = implode( ' ', $result[ 'status' ]->get_error_messages() );
-				$output_errors .= sprintf( "<b>%s</b>. %s %s", $result['email'], $error_messages, '<br />' );
+		foreach ( $results as $result ) {
+			if ( is_wp_error( $result['status'] ) ) {
+				$error_messages = implode( ' ', $result['status']->get_error_messages() );
+				$output_errors .= sprintf( '<b>%s</b>. %s %s', $result['email'], $error_messages, '<br />' );
 			} else {
 				$output_success .= sprintf( '<b>%s</b><br />', $result['email'] );
 			}
