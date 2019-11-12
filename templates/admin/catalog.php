@@ -47,7 +47,7 @@ if ( 'edit_tags' == $_REQUEST['action'] ) :
 			<!-- Tags -->
 			<?php for ( $i = 1; $i <= $catalog::MAX_TAGS_GROUP; ++$i ) { ?>
 				<?php
-				$name = ! empty( $profile[ "pb_catalog_tag_{$i}_name" ] ) ? $profile[ "pb_catalog_tag_{$i}_name" ] : __( 'Tags', 'pressbooks' ) . " $i";
+				$name = ! empty( $profile["pb_catalog_tag_{$i}_name"] ) ? esc_html( strip_tags( $profile["pb_catalog_tag_{$i}_name"] ) ) : __( 'Tags', 'pressbooks' ) . " $i";
 				?>
 				<tr>
 
