@@ -1,5 +1,8 @@
 @import 'partials/colors';
 
+//Space between column 1 and column 2
+$side-right-space: 20px;
+
 .page-title-action {
   display: none;
 }
@@ -10,4 +13,13 @@
 
 .datepicker input[readonly='readonly'] {
   background-color: $white;
+}
+
+//Book Info Fixed Sidebar only for large screens
+@media screen and (min-width: 850px) {
+  #post-body.columns-2 #postbox-container-1  {
+    position: fixed !important;
+    right: $side-right-space !important;
+    margin-right: 0 !important;
+  }
 }
