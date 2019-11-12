@@ -3,7 +3,6 @@
 	<form method="POST" action="{{ $form_url }}" method="post">
 		<?php echo wp_nonce_field( $nonce ); ?>
 		<h2>{{ __('Bulk add users', 'user') }}</h2>
-
 		<table class="form-table" role="none">
 			<tr>
 				<th><label for="provision">{{ __('Emails', 'user') }}</label></th>
@@ -14,7 +13,6 @@
 					</div>
 				</td>
 			</tr>
-
 			<tr class="form-field">
 				<th scope="row"><label for="adduser-role"><?php _e( 'Role' ); ?></label></th>
 				<td><select name="role" id="adduser-role">
@@ -22,9 +20,7 @@
 					</select>
 				</td>
 			</tr>
-
 		</table>
-
-		{!! get_submit_button() !!}
+		{!! get_submit_button( __( 'Add users', 'users' ) ) !!}
 	</form>
 </div>
