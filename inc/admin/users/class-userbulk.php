@@ -208,7 +208,7 @@ class UserBulk {
 		}
 
 		$html_output = ! empty( $output_errors ) ? sprintf( '<div role="status" class="updated notice is-dismissible"><p>%s</p></div>', $output_success ) : '';
-		$html_output .= ! empty ( $output_success ) ? sprintf( '<div role="alert" class="error notice is-dismissible"><p>%s</p></div>', $output_errors ) : '';
+		$html_output .= ! empty( $output_success ) ? sprintf( '<div role="alert" class="error notice is-dismissible"><p>%s</p></div>', $output_errors ) : '';
 		return $html_output;
 	}
 }
