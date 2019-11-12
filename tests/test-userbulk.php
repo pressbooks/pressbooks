@@ -1,18 +1,19 @@
 <?php
 
 use Pressbooks\Admin\Users\UserBulk;
+use Pressbooks\HtmlParser;
 
 class UserBulkTest extends \WP_UnitTestCase {
 
 	use utilsTrait;
 
 	/**
-	 * @var \Pressbooks\Admin\Users\UserBulk
+	 * @var UserBulk
 	 */
 	protected $user_bulk;
 
 	/**
-	 *
+	 * Test setup
 	 */
 	public function setUp() {
 		parent::setUp();
@@ -41,5 +42,20 @@ class UserBulkTest extends \WP_UnitTestCase {
 	public function test_addMenu() {
 		$this->user_bulk->addMenu( );
 		$this->assertTrue( true ); // Did not crash
+	}
+
+	/**
+	 * @group userbulk
+	 */
+	public function test_printMenu() {
+		ob_start(); // begin collecting output
+		$this->user_bulk->printMenu();
+		$html = ob_get_clean();
+
+		$parser = new HtmlParser( true );
+		$doc = $parser->loadHTML( $html );
+		$form = $doc->getElementsByTagName( 'form' )[0];
+
+		$this->assertTrue( $doc instanceof \DOMDocument );
 	}
 }
