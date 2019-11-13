@@ -44,6 +44,7 @@ before_install:
 install:
 - node -v
 - npm install
+- npm install --no-save pressbooks-build-tools
 - composer install
 - ulimit -n 4096
 before_script:
