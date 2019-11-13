@@ -84,7 +84,7 @@ class UserBulk {
 	 * @return bool|array
 	 */
 	public function bulkAddUsers() {
-		if ( empty( $_POST ) || ! check_admin_referer( self::SLUG ) ) {
+		if ( empty( $_POST ) || empty( $_POST['users'] ) || ! check_admin_referer( self::SLUG ) ) {
 			return false;
 		}
 
@@ -104,7 +104,7 @@ class UserBulk {
 					]
 				);
 			} else {
-				$result = $this->createUser( $email, $role );
+				$result = $this->linkNewUserToBook( $email, $role );
 			}
 
 			array_push(
@@ -123,7 +123,7 @@ class UserBulk {
 	 * @param string $role
 	 * @return WP_Error|bool
 	 */
-	public function createUser( string $email, string $role ) {
+	public function linkNewUserToBook( string $email, string $role ) {
 		$user_details = $this->generateUserNameFromEmail( $email );
 
 		if ( is_wp_error( $user_details['errors'] ) && $user_details['errors']->has_errors() ) {
@@ -195,8 +195,10 @@ class UserBulk {
 	 * @return string
 	 */
 	public function getBulkResultHtml( array $results ) : string {
-		$output_success = sprintf( '%s:%s', __( 'Users successfully added to this book', 'users' ), '<br />' );
-		$output_errors = sprintf( '%s:%s', __( 'The following users could not be added', 'users' ), '<br />' );
+		$output_success = '';
+		$output_errors = '';
+		$success_subtitle = sprintf( '%s:%s', __( 'Users successfully added to this book', 'users' ), '<br />' );
+		$error_subtitle = sprintf( '%s:%s', __( 'The following users could not be added', 'users' ), '<br />' );
 
 		foreach ( $results as $result ) {
 			if ( is_wp_error( $result['status'] ) ) {
@@ -207,8 +209,8 @@ class UserBulk {
 			}
 		}
 
-		$html_output = ! empty( $output_errors ) ? sprintf( '<div role="status" class="updated notice is-dismissible"><p>%s</p></div>', $output_success ) : '';
-		$html_output .= ! empty( $output_success ) ? sprintf( '<div role="alert" class="error notice is-dismissible"><p>%s</p></div>', $output_errors ) : '';
+		$html_output = ! empty( $output_success ) ? sprintf( '<div role="status" id="bulk-success" class="updated notice is-dismissible"><p>%s%s</p></div>', $success_subtitle, $output_success ) : '';
+		$html_output .= ! empty( $output_errors ) ? sprintf( '<div role="alert" id="bulk-errors" class="error notice is-dismissible"><p>%s%s</p></div>', $error_subtitle, $output_errors ) : '';
 		return $html_output;
 	}
 }
