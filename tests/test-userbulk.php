@@ -33,8 +33,11 @@ class UserBulkTest extends \WP_UnitTestCase {
 	 * @group userbulk
 	 */
 	public function test_hooks() {
-		$this->user_bulk->hooks( $this->user_bulk );
-		$this->assertEquals( true, has_action( 'admin_menu', [ $this->user_bulk, 'addMenu' ] ) );
+		global $wp_filter;
+		$result = $this->user_bulk->init();
+		$this->assertInstanceOf( UserBulk::class, $result );
+		$this->user_bulk->hooks( $result );
+		$this->assertNotEmpty( $wp_filter );
 	}
 
 	/**
