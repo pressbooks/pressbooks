@@ -357,6 +357,6 @@ add_filter( 'gettext', '\Pressbooks\Utility\change_recommendations_sentence', 10
 add_action( 'admin_init', '\Pressbooks\Theme\check_required_themes' );
 add_action( 'admin_init', '\Pressbooks\Theme\check_upgraded_customcss' );
 
-if ( $is_book ) {
-	add_action( 'init', [ '\Pressbooks\Admin\Users\UserBulk', 'init' ] );
-}
+// Bulk add users
+add_action( 'init', [ '\Pressbooks\Admin\Users\UserBulk', 'init' ] );
+

@@ -37,7 +37,9 @@ class UserBulk {
 	 * @param UserBulk $obj
 	 */
 	static public function hooks( UserBulk $obj ) {
-		add_action( 'admin_menu', [ $obj, 'addMenu' ] );
+		if ( \Pressbooks\Book::isBook() ) {
+			add_action( 'admin_menu', [ $obj, 'addMenu' ] );
+		}
 	}
 
 	public function __construct() {

@@ -1,7 +1,7 @@
 <div class="wrap">
 	<h1>{{ __( 'Bulk Add New Users', 'user' ) }}</h1>
 	<form method="POST" action="{{ $form_url }}" method="post">
-		<?php echo wp_nonce_field( $nonce ); ?>
+		@php echo wp_nonce_field( $nonce ); @endphp
 		<h2>{{ __('Bulk add users', 'user') }}</h2>
 		<table class="form-table" role="none">
 			<tr>
@@ -14,9 +14,9 @@
 				</td>
 			</tr>
 			<tr class="form-field">
-				<th scope="row"><label for="adduser-role"><?php _e( 'Role' ); ?></label></th>
+				<th scope="row"><label for="adduser-role">@php _e( 'Role' ); @endphp</label></th>
 				<td><select name="role" id="adduser-role">
-						<?php wp_dropdown_roles( get_option( 'default_role' ) ); ?>
+						@php wp_dropdown_roles( get_option( 'default_role' ) ); @endphp
 					</select>
 				</td>
 			</tr>
