@@ -30,9 +30,7 @@
 		"wp-admin-colors": "^5.1.0",
 		"wpapi": "^1.2.1"
 	},
-	"devDependencies": {
-		"pressbooks-build-tools": "^1.5.0"
-	},
+	"devDependencies": {},
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/pressbooks/pressbooks.git"
