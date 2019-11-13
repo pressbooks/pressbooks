@@ -5,8 +5,6 @@ use Pressbooks\HtmlParser;
 
 class UserBulkTest extends \WP_UnitTestCase {
 
-	use utilsTrait;
-
 	/**
 	 * @var UserBulk
 	 */
