@@ -176,7 +176,7 @@ class UserBulk {
 	 *
 	 * @return string
 	 */
-	public function sanitizeUser( $username ) {
+	public function sanitizeUser( $username ) : string {
 		$unique_username = sanitize_user( $username, true );
 		$unique_username = strtolower( $unique_username );
 		$unique_username = preg_replace( '/[^a-z0-9]/', '', $unique_username );
