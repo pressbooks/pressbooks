@@ -66,7 +66,7 @@ class UserBulkTest extends \WP_UnitTestCase {
 		$user_rol_dropdown = $doc->getElementById( 'adduser-role' );
 
 		$this->assertTrue( $doc instanceof \DOMDocument );
-		$this->assertEquals( 1, $doc->getElementsByTagName( 'form' )->count() );
+		$this->assertEquals( 1, $doc->getElementsByTagName( 'form' )->length );
 		$this->assertInstanceOf( DOMElement::class, $users_input );
 		$this->assertInstanceOf( DOMElement::class, $user_rol_dropdown );
 		$this->assertEquals( 'users', $users_input->getAttribute( 'name' ) );
