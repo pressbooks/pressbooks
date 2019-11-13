@@ -76,6 +76,21 @@ class UserBulkTest extends \WP_UnitTestCase {
 	/**
 	 * @group userbulk
 	 */
+	public function test_printMenuException() {
+		$_REQUEST['_wpnonce'] = 'fsdflkjdfsiofueriu';
+		$_POST['users'] = implode( "\r\n", $this->post_users );
+		$_POST['role'] = 'contributor';
+		$_POST['submit'] = 'Add users';
+
+		ob_start();
+		$this->user_bulk->printMenu();
+		$html = ob_get_clean();
+		$this->assertNotFalse( strpos( $html, 'class="error notice is-dismissible"' ) );
+	}
+
+	/**
+	 * @group userbulk
+	 */
 	public function test_bulkAddUsers() {
 		$_REQUEST['_wpnonce'] = wp_create_nonce( 'user_bulk_new' );
 		$_POST['users'] = implode( "\r\n", $this->post_users );
