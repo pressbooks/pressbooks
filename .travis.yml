@@ -44,7 +44,6 @@ before_install:
 install:
 - node -v
 - npm install
-- npm install --no-save pressbooks-build-tools
 - composer install
 - ulimit -n 4096
 before_script:
@@ -52,6 +51,7 @@ before_script:
 - if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.3" ]]; then pecl install pcov; fi
 - bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
 script:
+- npm run install-build-tools
 - npm run lint
 - npm run build:production
 - if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.3" ]]; then composer require pcov/clobber; vendor/bin/pcov clobber; vendor/bin/phpunit --configuration phpunit.xml --coverage-clover coverage.xml; fi
