@@ -18,19 +18,6 @@ const assets = 'assets';
 const dist = `${assets}/dist`;
 const templates = 'templates';
 
-// BrowserSync
-mix.browserSync( {
-	host: 'localhost',
-	proxy: 'https://pressbooks.test/wp-login.php',
-	port: 3100,
-	files: [
-		'*.php',
-		`${templates}/**/*.php`,
-		`${dist}/styles/*.css`,
-		`${dist}/scripts/*.js`,
-	],
-} );
-
 // Normalize Newlines
 const normalizeNewlines = dir => {
 	fs.readdirSync( dir ).forEach( function ( file ) {

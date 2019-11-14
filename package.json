@@ -2,10 +2,11 @@
 	"name": "@pressbooks/pressbooks",
 	"description": "Pressbooks is an open source book publishing tool built on a WordPress multisite platform. Pressbooks outputs books in multiple formats, including PDF, EPUB, MOBI, web, and a variety of XML flavours, using a theming/templating system, driven by CSS.",
 	"scripts": {
-		"build": "cross-env NODE_ENV=development webpack --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-		"watch": "cross-env NODE_ENV=development webpack --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-		"hot": "cross-env NODE_ENV=development webpack-dev-server --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
-		"build:production": "cross-env NODE_ENV=production webpack --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "install-build-tools": "npm install --no-save pressbooks-build-tools",
+    "watch": "npm run production -- --watch",
+    "prod": "npm run production",
+    "build:production": "npm run production",
+    "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
 		"lint": "npm run -s lint:scripts && npm run -s lint:styles",
 		"lint:scripts": "cross-env NODE_ENV=development node_modules/eslint/bin/eslint.js \"assets/src/scripts/*.js\"",
 		"lint:styles": "cross-env NODE_ENV=development node_modules/stylelint/bin/stylelint.js \"assets/src/styles/**/*.scss\" --syntax scss",
@@ -30,9 +31,7 @@
 		"wp-admin-colors": "^5.1.0",
 		"wpapi": "^1.2.1"
 	},
-	"devDependencies": {
-		"pressbooks-build-tools": "^1.5.0"
-	},
+	"devDependencies": {},
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/pressbooks/pressbooks.git"
@@ -58,60 +57,10 @@
 			"Popper": true,
 			"tinymce": true
 		},
-		"plugins": [
-			"jquery"
-		],
 		"settings": {
 			"react": {
 				"version": "999.999.999"
 			}
-		},
-		"rules": {
-			"jquery/no-ajax": 0,
-			"jquery/no-ajax-events": 0,
-			"jquery/no-animate": 0,
-			"jquery/no-attr": 0,
-			"jquery/no-bind": 0,
-			"jquery/no-class": 0,
-			"jquery/no-clone": 0,
-			"jquery/no-closest": 0,
-			"jquery/no-css": 0,
-			"jquery/no-data": 0,
-			"jquery/no-deferred": 0,
-			"jquery/no-delegate": 0,
-			"jquery/no-each": 0,
-			"jquery/no-fade": 0,
-			"jquery/no-filter": 0,
-			"jquery/no-find": 0,
-			"jquery/no-global-eval": 0,
-			"jquery/no-has": 0,
-			"jquery/no-hide": 0,
-			"jquery/no-html": 0,
-			"jquery/no-in-array": 0,
-			"jquery/no-is": 0,
-			"jquery/no-load": 0,
-			"jquery/no-map": 0,
-			"jquery/no-merge": 0,
-			"jquery/no-param": 0,
-			"jquery/no-parent": 0,
-			"jquery/no-parents": 0,
-			"jquery/no-parse-html": 0,
-			"jquery/no-prop": 0,
-			"jquery/no-proxy": 0,
-			"jquery/no-ready": 0,
-			"jquery/no-serialize": 0,
-			"jquery/no-show": 0,
-			"jquery/no-size": 0,
-			"jquery/no-sizzle": 0,
-			"jquery/no-slide": 0,
-			"jquery/no-submit": 0,
-			"jquery/no-text": 0,
-			"jquery/no-toggle": 0,
-			"jquery/no-trigger": 0,
-			"jquery/no-trim": 0,
-			"jquery/no-val": 0,
-			"jquery/no-when": 0,
-			"jquery/no-wrap": 0
 		}
 	},
 	"stylelint": {
