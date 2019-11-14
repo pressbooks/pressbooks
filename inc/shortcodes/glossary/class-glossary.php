@@ -292,7 +292,7 @@ class Glossary {
 
 		foreach ( $glossary_terms as $glossary_term_id => $glossary_term ) {
 			$identifier = "$id-$glossary_term_id";
-			$content .= '<div class="glossary__tooltip" id="' . $identifier . '" hidden>' . wpautop( do_shortcode($glossary_term) ) . '</div>';
+			$content .= '<div class="glossary__tooltip" id="' . $identifier . '" hidden>' . wpautop( do_shortcode( $glossary_term ) ) . '</div>';
 		}
 
 		$content .= '</div>';
@@ -330,6 +330,7 @@ class Glossary {
 					'em' => [],
 					'p' => [],
 					'strong' => [],
+
 				]
 			);
 		}

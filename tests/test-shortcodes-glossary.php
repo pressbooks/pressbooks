@@ -56,6 +56,13 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 			'post_status'  => 'publish',
 		];
 
+		$args5 = [
+			'post_type'    => 'glossary',
+			'post_title'   => 'Evolutionary Learning',
+			'post_content' => 'Evolutionary algorithms are a heuristic-based approach to solving problems that cannot be easily solved in polynomial time. [media src="https://www.youtube.com/watch?v=L--IxUH4fac" caption="Introduction to evolutionary algorithms" /]',
+			'post_status'  => 'publish',
+		];
+
 		$p1 = $this->factory()->post->create_object( $args1 );
 		wp_set_object_terms( $p1, 'definitions', 'glossary-type' );
 		$p2 = $this->factory()->post->create_object( $args2 );
@@ -64,6 +71,9 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 		wp_set_object_terms( $p3, 'definitions', 'glossary-type' );
 		$p4 = $this->factory()->post->create_object( $args4 );
 		wp_set_object_terms( $p4, 'id-test', 'glossary-type' );
+		$p5 = $this->factory()->post->create_object( $args5 );
+		wp_set_object_terms( $p5, 'glossary-media', 'glossary-type' );
+
 	}
 	/**
 	 * @group glossary
@@ -73,7 +83,7 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 		$args = [
 			'post_type'    => 'glossary',
 			'post_title'   => 'PHP',
-			'post_content' => 'A "popular" general-purpose <script>scripting</script> language that is <em>especially</em> suited to web development.',
+			'post_content' => 'A "popular" general-purpose <script>scripting</script> language that is <em>especially</em> suited to web development. [media src="https://www.youtube.com/watch?v=L--IxUH4fac" caption="Introduction to evolutionary algorithms" /]',
 			'post_status'  => 'publish',
 		];
 		$pid  = $this->factory()->post->create_object( $args );
@@ -100,11 +110,13 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 	public function test_glossaryTerms() {
 		// assures alphabetical listing and format
 		$dl = $this->gl->glossaryTerms();
-		$this->assertEquals( '<dl data-type="glossary"><dt data-type="glossterm"><dfn id="dfn-machine-learning-ml">Machine Learning (ML)</dfn></dt><dd data-type="glossdef"><p>Machine learning is a method of data analysis that automates analytical model building</p>
+		$this->assertEquals( '<dl data-type="glossary"><dt data-type="glossterm"><dfn id="dfn-evolutionary-learning">Evolutionary Learning</dfn></dt><dd data-type="glossdef"><p>Evolutionary algorithms are a heuristic-based approach to solving problems that cannot be easily solved in polynomial time. [media src="https://www.youtube.com/watch?v=L--IxUH4fac" caption="Introduction to evolutionary algorithms" /]</p>
+</dd><dt data-type="glossterm"><dfn id="dfn-machine-learning-ml">Machine Learning (ML)</dfn></dt><dd data-type="glossdef"><p>Machine learning is a method of data analysis that automates analytical model building</p>
 </dd><dt data-type="glossterm"><dfn id="dfn-neural-network">Neural Network</dfn></dt><dd data-type="glossdef"><p>A computer system modeled on the human brain and <a href="https://en.wikipedia.org/wiki/Nervous_system" target="_blank">nervous system</a>.</p>
 </dd><dt data-type="glossterm"><dfn id="dfn-support-vector-machine">Support Vector Machine</dfn></dt><dd data-type="glossdef"><p>An algorithm that uses a nonlinear mapping to transform the original training data into a higher dimension</p>
 </dd></dl>'
 		, $dl );
+
 		// assures found by type
 		$dl = $this->gl->glossaryTerms( 'definitions' );
 		$this->assertEquals( '<dl data-type="glossary"><dt data-type="glossterm"><dfn id="dfn-support-vector-machine">Support Vector Machine</dfn></dt><dd data-type="glossdef"><p>An algorithm that uses a nonlinear mapping to transform the original training data into a higher dimension</p>
@@ -115,6 +127,10 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 		// // Assures 'id' is sanitized to pass checks
 		$dl = $this->gl->glossaryTerms( 'id-test' );
 		$this->assertEquals( '<dl data-type="glossary"><dt data-type="glossterm"><dfn id="dfn-machine-learning-ml">Machine Learning (ML)</dfn></dt><dd data-type="glossdef"><p>Machine learning is a method of data analysis that automates analytical model building</p>
+</dd></dl>', $dl );
+		// Assures short code media caption is in content
+		$dl = $this->gl->glossaryTerms( 'glossary-media' );
+		$this->assertEquals( '<dl data-type="glossary"><dt data-type="glossterm"><dfn id="dfn-evolutionary-learning">Evolutionary Learning</dfn></dt><dd data-type="glossdef"><p>Evolutionary algorithms are a heuristic-based approach to solving problems that cannot be easily solved in polynomial time. [media src="https://www.youtube.com/watch?v=L--IxUH4fac" caption="Introduction to evolutionary algorithms" /]</p>
 </dd></dl>', $dl );
 	}
 	/**
@@ -136,7 +152,7 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 	 */
 	public function test_getGlossaryTerms() {
 		$terms = $this->gl->getGlossaryTerms();
-		$this->assertEquals( 4, count( $terms ) );
+		$this->assertEquals( 5, count( $terms ) );
 		$this->assertEquals( 'A computer system modeled on the human brain and <a href="https://en.wikipedia.org/wiki/Nervous_system" target="_blank">nervous system</a>.', $terms['Neural Network']['content'] );
 		$this->assertEquals( 'else,something', $terms['Neural Network']['type'] );
 		$this->assertEquals( 'publish', $terms['Neural Network']['status'] );
@@ -174,9 +190,16 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 		}
 
 		$content = $this->gl->tooltipContent( 'Hello World' );
+
+		var_dump($content);
+
 		$this->assertContains( '<div class="glossary">', $content );
 		$this->assertContains( $definitions[0], $content );
 		$this->assertContains( $definitions[1], $content );
+
+//		WP shortcode not running...
+//	 	$this->assertContains( '<iframe', do_shortcode("[latex]asd[/latex]") );
+
 	}
 	/**
 	 * @group glossary
