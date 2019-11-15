@@ -151,7 +151,7 @@ class UserBulkTest extends \WP_UnitTestCase {
 		$valid_email = 'validemail@pressbooks.com';
 		$valid_user_data = $this->user_bulk->generateUserNameFromEmail( $valid_email );
 
-		$this->assertFalse( $invalid_user_name );
+		$this->assertInstanceOf( WP_Error::class, $invalid_user_name['errors'] );
 		$this->assertEquals( 'validemail', $valid_user_data['user_name'] );
 		$this->assertEquals( $valid_email, $valid_user_data['user_email'] );
 		$this->assertFalse( $valid_user_data['errors']->has_errors() );

@@ -86,16 +86,17 @@ class UserBulk {
 	 * @return bool|array
 	 */
 	public function bulkAddUsers() {
-		if ( empty( $_POST ) || empty( $_POST['users'] ) || ! check_admin_referer( self::SLUG ) ) {
+		if ( empty( $_POST ) || empty( $_POST['role'] ) || empty( $_POST['users'] ) || ! check_admin_referer( self::SLUG ) ) {
 			return false;
 		}
 
 		$_POST = array_map( 'trim', $_POST );
 		$role = $_POST['role'];
-		$users = array_unique( preg_split( '/\r\n|\r|\n/', $_POST['users'] ) );
+		$emails_input = array_unique( preg_split( '/\r\n|\r|\n/', $_POST['users'] ) );
+		$emails = array_map( 'sanitize_text_field', $emails_input );
 		$results = [];
 
-		foreach ( $users as $email ) {
+		foreach ( $emails as $email ) {
 			$existing_user = get_user_by( 'email', $email );
 
 			if ( false !== $existing_user ) {
@@ -150,11 +151,11 @@ class UserBulk {
 
 	/**
 	 * @param string $email
-	 * @return bool|array
+	 * @return array
 	 */
 	public function generateUserNameFromEmail( string $email ) {
 		if ( ! filter_var( $email, FILTER_VALIDATE_EMAIL ) ) {
-			return false;
+			return [ 'errors' => new \WP_Error( 'pb_email', __( 'Invalid email address', 'users' ) ) ];
 		}
 
 		$i = 1;
