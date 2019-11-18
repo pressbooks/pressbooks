@@ -184,7 +184,7 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 
 		// Testing glossary to support shortcodes
 		$content_with_shortcode = 'Evolutionary algorithms are a heuristic-based approach to solving problems that cannot be easily solved in polynomial time. [media src="https://www.youtube.com/watch?v=L--IxUH4fac" caption="Introduction to evolutionary algorithms" /]';
-		$content_with_shortcode = do_shortcode($content_with_shortcode);
+		$content_with_shortcode = do_shortcode( $content_with_shortcode );
 
 		// Testing media caption
 		$this->assertContains( '<figure', $content_with_shortcode );
