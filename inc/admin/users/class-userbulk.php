@@ -12,6 +12,12 @@ class UserBulk {
 
 	const TEMPLATE = 'admin.user_bulk_new';
 
+	const USER_STATUS_NEW = 'new';
+
+	const USER_STATUS_INVITED = 'invited';
+
+	const USER_STATUS_ERROR = 'error';
+
 	/**
 	 * @var UserBulk
 	 */
@@ -105,7 +111,7 @@ class UserBulk {
 						'user_id' => $existing_user->ID,
 						'role'    => $role,
 					]
-				);
+				) ? self::USER_STATUS_INVITED : false;
 			} else {
 				$result = $this->linkNewUserToBook( $email, $role );
 			}
@@ -146,7 +152,7 @@ class UserBulk {
 			]
 		);
 
-		return true;
+		return self::USER_STATUS_NEW;
 	}
 
 	/**
@@ -198,22 +204,47 @@ class UserBulk {
 	 * @return string
 	 */
 	public function getBulkResultHtml( array $results ) : string {
-		$output_success = '';
+		$output_success_new = '';
+		$output_success_invited = '';
 		$output_errors = '';
-		$success_subtitle = sprintf( '%s:%s', __( 'Users successfully added to this book', 'users' ), '<br />' );
-		$error_subtitle = sprintf( '%s:%s', __( 'The following users could not be added', 'users' ), '<br />' );
 
 		foreach ( $results as $result ) {
 			if ( is_wp_error( $result['status'] ) ) {
 				$error_messages = implode( ' ', $result['status']->get_error_messages() );
-				$output_errors .= sprintf( '<b>%s</b>. %s %s', $result['email'], $error_messages, '<br />' );
-			} else {
-				$output_success .= sprintf( '<b>%s</b><br />', $result['email'] );
+				$output_errors .= sprintf( '<b>%s</b>. %s<br />', $result['email'], $error_messages );
+			} elseif ( self::USER_STATUS_NEW === $result['status'] ) {
+				$output_success_new .= sprintf( '<b>%s</b><br />', $result['email'] );
+			} elseif ( self::USER_STATUS_INVITED ) {
+				$output_success_invited .= sprintf( '<b>%s</b><br />', $result['email'] );
 			}
 		}
 
-		$html_output = ! empty( $output_success ) ? sprintf( '<div role="status" id="bulk-success" class="updated notice is-dismissible"><p>%s%s</p></div>', $success_subtitle, $output_success ) : '';
-		$html_output .= ! empty( $output_errors ) ? sprintf( '<div role="alert" id="bulk-errors" class="error notice is-dismissible"><p>%s%s</p></div>', $error_subtitle, $output_errors ) : '';
+		$html_output = ! empty( $output_success_new ) ? sprintf( '<div role="status" id="bulk-success" class="updated notice is-dismissible"><p>%s%s</p></div>', $this->getBulkMessageSubtitle( self::USER_STATUS_NEW ), $output_success_new ) : '';
+		$html_output .= ! empty( $output_success_invited ) ? sprintf( '<div role="status" id="bulk-success" class="updated notice is-dismissible"><p>%s%s</p></div>', $this->getBulkMessageSubtitle( self::USER_STATUS_INVITED ), $output_success_invited ) : '';
+		$html_output .= ! empty( $output_errors ) ? sprintf( '<div role="alert" id="bulk-errors" class="error notice is-dismissible"><p>%s%s</p></div>', $this->getBulkMessageSubtitle( self::USER_STATUS_ERROR ), $output_errors ) : '';
 		return $html_output;
+	}
+
+	/**
+	 * @param string|\WP_Error $status
+	 *
+	 * @return string
+	 */
+	public function getBulkMessageSubtitle( $status ) : string {
+		$subtitle = '';
+
+		switch ( $status ) {
+			case self::USER_STATUS_ERROR:
+				$subtitle =  sprintf( '%s%s', __( 'The following user(s) could not be added.', 'users' ), '<br />' );
+				break;
+			case self::USER_STATUS_INVITED:
+				$subtitle = sprintf( '%s%s', __( 'An invitation email has been sent to the user(s) below. A confirmation link must be clicked before their account is created.', 'users' ), '<br />' );
+				break;
+			case self::USER_STATUS_NEW:
+				$subtitle = sprintf( '%s%s', __( 'User(s) successfully added to this book.', 'users' ), '<br />' );
+				break;
+		}
+
+		return $subtitle;
 	}
 }
