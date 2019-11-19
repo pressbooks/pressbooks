@@ -219,9 +219,9 @@ class UserBulk {
 			}
 		}
 
-		$html_output = ! empty( $output_success_new ) ? sprintf( '<div role="status" id="bulk-success" class="updated notice is-dismissible"><p>%s%s</p></div>', $this->getBulkMessageSubtitle( self::USER_STATUS_NEW ), $output_success_new ) : '';
-		$html_output .= ! empty( $output_success_invited ) ? sprintf( '<div role="status" id="bulk-success" class="updated notice is-dismissible"><p>%s%s</p></div>', $this->getBulkMessageSubtitle( self::USER_STATUS_INVITED ), $output_success_invited ) : '';
-		$html_output .= ! empty( $output_errors ) ? sprintf( '<div role="alert" id="bulk-errors" class="error notice is-dismissible"><p>%s%s</p></div>', $this->getBulkMessageSubtitle( self::USER_STATUS_ERROR ), $output_errors ) : '';
+		$html_output = ! empty( $output_success_new ) ? sprintf( '<div role="status" id="bulk-success" class="updated notice is-dismissible"><br>%s<br />%s</p></div>', $this->getBulkMessageSubtitle( self::USER_STATUS_NEW ), $output_success_new ) : '';
+		$html_output .= ! empty( $output_success_invited ) ? sprintf( '<div role="status" id="bulk-success" class="updated notice is-dismissible"><p>%s<br />%s</p></div>', $this->getBulkMessageSubtitle( self::USER_STATUS_INVITED ), $output_success_invited ) : '';
+		$html_output .= ! empty( $output_errors ) ? sprintf( '<div role="alert" id="bulk-errors" class="error notice is-dismissible"><p>%s<br />%s</p></div>', $this->getBulkMessageSubtitle( self::USER_STATUS_ERROR ), $output_errors ) : '';
 		return $html_output;
 	}
 
@@ -235,16 +235,24 @@ class UserBulk {
 
 		switch ( $status ) {
 			case self::USER_STATUS_ERROR:
-				$subtitle =  sprintf( '%s%s', __( 'The following user(s) could not be added.', 'users' ), '<br />' );
+				$subtitle = __( 'The following user(s) could not be added.', 'users' );
 				break;
 			case self::USER_STATUS_INVITED:
-				$subtitle = sprintf( '%s%s', __( 'An invitation email has been sent to the user(s) below. A confirmation link must be clicked before their account is created.', 'users' ), '<br />' );
+				$subtitle = __( 'An invitation email has been sent to the user(s) below. A confirmation link must be clicked before their account is created.', 'users' );
 				break;
 			case self::USER_STATUS_NEW:
-				$subtitle = sprintf( '%s%s', __( 'User(s) successfully added to this book.', 'users' ), '<br />' );
+				$subtitle = __( 'User(s) successfully added to this book.', 'users' );
 				break;
 		}
 
 		return $subtitle;
 	}
+
+	/**
+	 *
+	 */
+	public function sendInvitationEmail() {
+
+	}
+
 }
