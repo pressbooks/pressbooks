@@ -351,7 +351,7 @@ function check_for_strong_password( $pwd ) {
 }
 
 /**
- * Modifies the html of sign up page
+ * Add accessbility on create book page
  */
 function add_a11y() {
 
