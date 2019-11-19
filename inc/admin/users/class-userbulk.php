@@ -247,12 +247,4 @@ class UserBulk {
 
 		return $subtitle;
 	}
-
-	/**
-	 *
-	 */
-	public function sendInvitationEmail() {
-
-	}
-
 }
