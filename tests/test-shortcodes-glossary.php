@@ -177,6 +177,23 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 		$this->assertContains( '<div class="glossary">', $content );
 		$this->assertContains( $definitions[0], $content );
 		$this->assertContains( $definitions[1], $content );
+
+		// Initialize shortcode hooks
+		$this->_book();
+		\Pressbooks\Shortcodes\Complex\Complex::init();
+
+		// Testing glossary to support shortcodes
+		$content_with_shortcode = 'Evolutionary algorithms are a heuristic-based approach to solving problems that cannot be easily solved in polynomial time. [media src="https://www.youtube.com/watch?v=L--IxUH4fac" caption="Introduction to evolutionary algorithms" /]';
+		$content_with_shortcode = do_shortcode( $content_with_shortcode );
+
+		// Testing media caption
+		$this->assertContains( '<figure', $content_with_shortcode );
+		$this->assertContains( 'Evolutionary algorithms are a heuristic-based approach to solving problems that cannot be easily solved in polynomial time.', $content_with_shortcode );
+		$this->assertContains( '<iframe', $content_with_shortcode );
+		$this->assertContains( 'L--IxUH4fac', $content_with_shortcode );
+		$this->assertContains( '<figcaption', $content_with_shortcode );
+		$this->assertContains( 'Introduction to evolutionary algorithms', $content_with_shortcode );
+
 	}
 	/**
 	 * @group glossary
