@@ -99,6 +99,13 @@ class UserBulkTest extends \WP_UnitTestCase {
 		$_POST['users'] = implode( "\r\n", $this->post_users );
 		$_POST['role'] = 'contributor';
 		$_POST['submit'] = 'Add users';
+		$assertions = [
+			$this->user_bulk::USER_STATUS_INVITED,
+			$this->user_bulk::USER_STATUS_INVITED,
+			$this->user_bulk::USER_STATUS_NEW,
+			$this->user_bulk::USER_STATUS_NEW,
+			$this->user_bulk::USER_STATUS_NEW,
+		];
 
 		$this->factory()->user->create(
 			[
@@ -117,10 +124,11 @@ class UserBulkTest extends \WP_UnitTestCase {
 		);
 
 		$results = $this->user_bulk->bulkAddUsers();
+		$count = count( $results );
 
-		foreach( $results as $r ) {
-			$this->assertTrue( in_array( $r['email'], $this->post_users ) );
-			$this->assertTrue( $r['status'] );
+		for ( $i = 0; $i < $count; $i++ ) {
+			$this->assertTrue( in_array( $results[$i]['email'], $this->post_users ) );
+			$this->assertEquals( $results[$i]['status'], $assertions[$i] );
 		}
 	}
 
@@ -139,7 +147,7 @@ class UserBulkTest extends \WP_UnitTestCase {
 		$success = $this->user_bulk->linkNewUserToBook( $new_user_email, 'editor' );
 
 		$this->assertTrue( $wp_error instanceof WP_Error ); // cannot link existing users
-		$this->assertTrue( $success );
+		$this->assertEquals( $success, $this->user_bulk::USER_STATUS_NEW );
 	}
 
 	/**
@@ -223,5 +231,18 @@ class UserBulkTest extends \WP_UnitTestCase {
 				$this->assertTrue( false !== strpos( $error_message_str, $result['email'] ) );
 			}
 		}
+	}
+
+	/**
+	 * @group userbulk
+	 */
+	public function test_getBulkMessageSubtitle() {
+		$subtitle_error =  'The following user(s) could not be added.';
+		$subtitle_success_invite = 'An invitation email has been sent to the user(s) below. A confirmation link must be clicked before their account is created.';
+		$subtitle_success = 'User(s) successfully added to this book.';
+
+		$this->assertEquals( $this->user_bulk->getBulkMessageSubtitle( $this->user_bulk::USER_STATUS_ERROR ), $subtitle_error );
+		$this->assertEquals( $this->user_bulk->getBulkMessageSubtitle( $this->user_bulk::USER_STATUS_INVITED ), $subtitle_success_invite );
+		$this->assertEquals( $this->user_bulk->getBulkMessageSubtitle( $this->user_bulk::USER_STATUS_NEW ), $subtitle_success );
 	}
 }
