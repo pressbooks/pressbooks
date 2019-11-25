@@ -58,8 +58,8 @@ class UserBulk {
 	public function addMenu() {
 		add_submenu_page(
 			self::PARENT_SLUG,
-			__( 'Bulk Add', 'user' ),
-			__( 'Bulk Add', 'user' ),
+			__( 'Bulk Add', 'pressbooks' ),
+			__( 'Bulk Add', 'pressbooks' ),
 			'create_users',
 			self::SLUG,
 			[ $this, 'printMenu' ]
@@ -161,7 +161,7 @@ class UserBulk {
 	 */
 	public function generateUserNameFromEmail( string $email ) {
 		if ( ! filter_var( $email, FILTER_VALIDATE_EMAIL ) ) {
-			return [ 'errors' => new \WP_Error( 'pb_email', __( 'Invalid email address', 'users' ) ) ];
+			return [ 'errors' => new \WP_Error( 'pb_email', __( 'Invalid email address', 'pressbooks' ) ) ];
 		}
 
 		$i = 1;
@@ -235,13 +235,13 @@ class UserBulk {
 
 		switch ( $status ) {
 			case self::USER_STATUS_ERROR:
-				$subtitle = __( 'The following user(s) could not be added.', 'users' );
+				$subtitle = __( 'The following user(s) could not be added.', 'pressbooks' );
 				break;
 			case self::USER_STATUS_INVITED:
-				$subtitle = __( 'User(s) successfully added to this book.', 'users' );
+				$subtitle = __( 'User(s) successfully added to this book.', 'pressbooks' );
 				break;
 			case self::USER_STATUS_NEW:
-				$subtitle = __( 'An invitation email has been sent to the user(s) below. A confirmation link must be clicked before their account is created.', 'users' );
+				$subtitle = __( 'An invitation email has been sent to the user(s) below. A confirmation link must be clicked before their account is created.', 'pressbooks' );
 				break;
 		}
 
