@@ -238,10 +238,10 @@ class UserBulk {
 				$subtitle = __( 'The following user(s) could not be added.', 'users' );
 				break;
 			case self::USER_STATUS_INVITED:
-				$subtitle = __( 'An invitation email has been sent to the user(s) below. A confirmation link must be clicked before their account is created.', 'users' );
+				$subtitle = __( 'User(s) successfully added to this book.', 'users' );
 				break;
 			case self::USER_STATUS_NEW:
-				$subtitle = __( 'User(s) successfully added to this book.', 'users' );
+				$subtitle = __( 'An invitation email has been sent to the user(s) below. A confirmation link must be clicked before their account is created.', 'users' );
 				break;
 		}
 
