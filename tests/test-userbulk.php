@@ -238,8 +238,8 @@ class UserBulkTest extends \WP_UnitTestCase {
 	 */
 	public function test_getBulkMessageSubtitle() {
 		$subtitle_error =  'The following user(s) could not be added.';
-		$subtitle_success_invite = 'An invitation email has been sent to the user(s) below. A confirmation link must be clicked before their account is created.';
-		$subtitle_success = 'User(s) successfully added to this book.';
+		$subtitle_success_invite = 'User(s) successfully added to this book.';
+		$subtitle_success = 'An invitation email has been sent to the user(s) below. A confirmation link must be clicked before their account is created.';
 
 		$this->assertEquals( $this->user_bulk->getBulkMessageSubtitle( $this->user_bulk::USER_STATUS_ERROR ), $subtitle_error );
 		$this->assertEquals( $this->user_bulk->getBulkMessageSubtitle( $this->user_bulk::USER_STATUS_INVITED ), $subtitle_success_invite );
