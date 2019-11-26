@@ -14,7 +14,7 @@
 [Pressbooks](https://pressbooks.org) is a book content management system which
 produces multiple formats: ebooks, webbooks, print-ready [PDF][pdf], and various
 XML flavours. [Pressbooks](https://pressbooks.org) is built on top of
-[WordPress Multisite](http://codex.wordpress.org/Glossary#Multisite), and makes
+[WordPress Multisite](https://wordpress.org/support/article/glossary/#multisite), and makes
 significant changes to:
 
 * admin interface (customized for books and other structured documents, such as
