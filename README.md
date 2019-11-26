@@ -11,10 +11,10 @@
 [![Translate Pressbooks](https://img.shields.io/badge/dynamic/json.svg?label=translated&url=https%3A%2F%2Ftenpercent.now.sh%2F%3Forganization%3Dpressbooks%26project%3Dpressbooks&query=%24.status&colorB=e05d44&suffix=%25)](https://www.transifex.com/pressbooks/pressbooks/translate/)
 
 
-[Pressbooks](http://pressbooks.org) is a book content management system which
+[Pressbooks](https://pressbooks.org) is a book content management system which
 produces multiple formats: ebooks, webbooks, print-ready [PDF][pdf], and various
-XML flavours. [Pressbooks](http://pressbooks.org) is built on top of
-[WordPress Multisite](http://codex.wordpress.org/Glossary#Multisite), and makes
+XML flavours. [Pressbooks](https://pressbooks.org) is built on top of
+[WordPress Multisite](https://wordpress.org/support/article/glossary/#multisite), and makes
 significant changes to:
 
 * admin interface (customized for books and other structured documents, such as
@@ -35,14 +35,14 @@ no styling.
 
 * Do **_NOT_** use Pressbooks with an existing WordPress site.
 * Please use with a **_FRESH_** install of
-  [WP **_MULTISITE_**](http://codex.wordpress.org/Glossary#Multisite).
+  [WP **_MULTISITE_**](https://wordpress.org/support/article/glossary/#multisite).
 * If this makes you nervous, please use our free site:
-  [Pressbooks](http://pressbooks.com), or contact us.
+  [Pressbooks](https://pressbooks.com), or contact us.
 
 ## Try pressbooks.com
 
 While Pressbooks is open source, we recommend you try
-[Pressbooks.com](http://pressbooks.com) before deciding whether or not you wish
+[Pressbooks.com](https://pressbooks.com) before deciding whether or not you wish
 to host and maintain your own instance. We can also host and maintain an
 instance for you.
 
