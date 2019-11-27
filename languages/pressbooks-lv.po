@@ -6,9 +6,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
-"POT-Creation-Date: 2019-11-11T18:05:31+00:00\n"
-"PO-Revision-Date: 2019-11-05 15:35+0000\n"
-"Last-Translator: Dac Chartrand <dac@pressbooks.com>\n"
+"POT-Creation-Date: 2019-11-27T19:10:24+00:00\n"
+"PO-Revision-Date: 2019-11-27 19:31+0000\n"
+"Last-Translator: Carlos <carlos@pressbooks.com>\n"
 "Language-Team: Latvian (http://www.transifex.com/pressbooks/pressbooks/language/lv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1740,6 +1740,28 @@ msgid ""
 "Network administrators&rsquo; access to network administration menus can be "
 "restricted to leave only sites and users visible to them."
 msgstr "Tīkla administratoru pieeja tīkla administrēšanas izvēlnei var būt ierobežota līdz divām redzamām viņam funkcijām: saites un lietotāji"
+
+#: inc/admin/users/class-userbulk.php:61 inc/admin/users/class-userbulk.php:62
+msgid "Bulk Add"
+msgstr ""
+
+#: inc/admin/users/class-userbulk.php:164
+msgid "Invalid email address"
+msgstr ""
+
+#: inc/admin/users/class-userbulk.php:238
+msgid "The following user(s) could not be added."
+msgstr ""
+
+#: inc/admin/users/class-userbulk.php:241
+msgid "User(s) successfully added to this book."
+msgstr ""
+
+#: inc/admin/users/class-userbulk.php:244
+msgid ""
+"An invitation email has been sent to the user(s) below. A confirmation link "
+"must be clicked before their account is created."
+msgstr ""
 
 #: inc/api/endpoints/controller/class-books.php:119
 #: inc/api/endpoints/controller/class-toc.php:151
