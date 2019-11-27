@@ -34,6 +34,7 @@ $menu-collapse-focus-text: $monza;
 $menu-collapse-focus-icon: $monza;
 $adminbar-avatar-frame: $white;
 $adminbar-input-background: $white;
+$active-button-text: $white;
 
 @import "~wp-admin-colors/dist/admin";
 
@@ -164,6 +165,7 @@ div.error {
 
 .page-title-action:focus {
   color: $link-focus;
+  border: 1px solid $link-focus;
 }
 
 .wrap .add-new-h2,
@@ -171,6 +173,7 @@ div.error {
 .wrap .page-title-action,
 .wrap .page-title-action:active {
   color: $link;
+  border: 1px solid $link-focus;
 }
 
 .wrap .add-new-h2:hover,
@@ -200,4 +203,21 @@ div.error {
 .mce-btn.mce-active i,
 .mce-btn.mce-active:hover i {
   color: $mine-shaft !important; // Ugh
+}
+
+// Overwrite some WP 5.3 a11y styles
+
+.wp-core-ui {
+  .button, .button &.action {
+    &.button-primary {
+      color: $active-button-text !important;
+    }
+
+    color: $link !important;
+    border-color: $link !important;
+  }
+}
+
+.wp-admin select       {
+  color: $text-color !important;
 }
