@@ -243,4 +243,17 @@ body.pressbooks.login {
       }
     }
   }
+
+  .admin-email__actions {
+    &-primary {
+      .button.button-large, #correct-admin-email {
+        display: inline-block;
+        margin: auto;
+      }
+
+      #correct-admin-email {
+        margin-top: 20px;
+      }
+    }
+  }
 }
