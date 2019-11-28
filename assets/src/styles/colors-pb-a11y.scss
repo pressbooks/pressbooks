@@ -47,6 +47,7 @@ $menu-collapse-focus-text: $monza2;
 $menu-collapse-focus-icon: $monza2;
 $adminbar-avatar-frame: $white;
 $adminbar-input-background: $white;
+$active-button-text: $white;
 
 @import "~wp-admin-colors/dist/admin";
 
@@ -239,4 +240,19 @@ button.button-link {
   &:hover {
     color: $highlight !important;
   }
+}
+
+.wp-core-ui {
+  .button, .button &.action {
+    &.button-primary {
+      color: $active-button-text !important;
+    }
+
+    color: $link !important;
+    border-color: $link !important;
+  }
+}
+
+.wp-admin select       {
+  color: $text-color !important;
 }

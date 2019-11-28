@@ -201,6 +201,7 @@ body.pressbooks.login {
         background: #fff;
         font-size: 1rem;
         box-shadow: none;
+        border-radius: 0px;
 
         label & {
           position: absolute;
@@ -240,6 +241,19 @@ body.pressbooks.login {
       a {
         color: var(--primary, #b01109);
         font-weight: 600;
+      }
+    }
+  }
+
+  .admin-email__actions {
+    &-primary {
+      .button.button-large, #correct-admin-email {
+        display: inline-block;
+        margin: auto;
+      }
+
+      #correct-admin-email {
+        margin-top: 20px;
       }
     }
   }
