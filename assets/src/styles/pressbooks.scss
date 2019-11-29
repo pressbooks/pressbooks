@@ -186,46 +186,6 @@ i.mce-i-icon {
   content: "\f330";
 }
 
-// Plugin compatibility
-
-.incompatible-plugin-upgrade-notice {
-  margin: 1em;
-  padding: 1em;
-  border: 1px solid #e1e1e1;
-  border-radius: 5px;
-  p {
-    padding: 0 20px;
-    margin: 0;
-    line-height: 1.5em;
-    &::before {
-      content: "" !important;
-      display: none;
-    }
-  }
-  table.incompatible-plugin-details-table {
-    margin: 0.75em 0 0;
-    tr {
-      background: transparent none !important;
-      border: 0 !important;
-    }
-    th,
-    td {
-      background: transparent none !important;
-      margin: 0;
-      padding: 0.75em 20px 0;
-      border: 0 !important;
-      font-size: 1em;
-      box-shadow: none;
-    }
-    th {
-      font-weight: bold;
-    }
-  }
-  & + p:empty {
-    display: none;
-  }
-}
-
 // Status and visibility
 
 .postbox#status-visibility {

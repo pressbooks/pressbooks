@@ -30,7 +30,6 @@ class NamespaceTest extends \WP_UnitTestCase {
 			'\Pressbooks\Shortcodes\Wikipublisher\Glyphs',
 			'\Pressbooks\Taxonomy',
 			'\Pressbooks\Theme\Lock',
-			'\Pressbooks\Updates',
 		];
 		foreach ( $classes as $class ) {
 			$result = $class::init();
