@@ -209,3 +209,10 @@ div.error {
 .wp-admin select       {
   color: $text-color !important;
 }
+
+.form-table {
+  input[type="radio"] {
+    margin-top: 2px;
+    margin-bottom: 2px;
+  }
+}
