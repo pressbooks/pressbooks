@@ -329,3 +329,6 @@ add_action( 'init', [ '\Pressbooks\Privacy', 'init' ], 9 ); // Must come before 
 // -------------------------------------------------------------------------------------------------------------------
 
 add_action( 'init', [ '\Pressbooks\MathJax', 'init' ] );
+
+// Disable admin check email
+add_filter( 'admin_email_check_interval', '__return_false' );

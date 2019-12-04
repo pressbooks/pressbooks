@@ -206,18 +206,6 @@ div.error {
 }
 
 // Overwrite some WP 5.3 a11y styles
-
-.wp-core-ui {
-  .button, .button &.action {
-    &.button-primary {
-      color: $active-button-text !important;
-    }
-
-    color: $link !important;
-    border-color: $link !important;
-  }
-}
-
 .wp-admin select       {
   color: $text-color !important;
 }
