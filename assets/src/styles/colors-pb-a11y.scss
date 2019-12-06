@@ -175,8 +175,13 @@ div.error {
 
 // Page Title Actions
 
-.page-title-action:focus {
+.page-title-action {
   color: $link-focus;
+  border-color: $button-color !important;
+
+  &:focus{
+    color: $link-focus;
+  }
 }
 
 .wrap .add-new-h2,
