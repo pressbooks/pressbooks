@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
-"POT-Creation-Date: 2019-11-27T19:10:24+00:00\n"
-"PO-Revision-Date: 2019-11-27 19:31+0000\n"
+"POT-Creation-Date: 2019-12-10T18:51:25+00:00\n"
+"PO-Revision-Date: 2019-12-10 19:10+0000\n"
 "Last-Translator: Carlos <carlos@pressbooks.com>\n"
 "Language-Team: Lithuanian (Lithuania) (http://www.transifex.com/pressbooks/pressbooks/language/lt_LT/)\n"
 "MIME-Version: 1.0\n"
@@ -2312,10 +2312,6 @@ msgstr "Žiniatinklis"
 msgid "Last 10 Revisions"
 msgstr "Paskutinių 10 Peržiūrų"
 
-#: inc/class-updates.php:115
-msgid "Plugins For Pressbooks"
-msgstr ""
-
 #: inc/cloner/class-cloner.php:399 inc/modules/import/api/class-api.php:121
 msgid "Looking up the source book"
 msgstr ""
@@ -4545,39 +4541,39 @@ msgstr ""
 msgid "Create Site"
 msgstr ""
 
-#: assets/src/scripts/a11y.js:34 assets/src/scripts/a11y.js:35
+#: assets/src/scripts/a11y.js:30 assets/src/scripts/a11y.js:31
 msgid "Gradient selector"
 msgstr ""
 
-#: assets/src/scripts/a11y.js:48
+#: assets/src/scripts/a11y.js:44
 msgid "Black"
 msgstr ""
 
-#: assets/src/scripts/a11y.js:51
+#: assets/src/scripts/a11y.js:47
 msgid "White"
 msgstr ""
 
-#: assets/src/scripts/a11y.js:54
+#: assets/src/scripts/a11y.js:50
 msgid "Red"
 msgstr ""
 
-#: assets/src/scripts/a11y.js:57
+#: assets/src/scripts/a11y.js:53
 msgid "Orange"
 msgstr ""
 
-#: assets/src/scripts/a11y.js:60
+#: assets/src/scripts/a11y.js:56
 msgid "Yellow"
 msgstr ""
 
-#: assets/src/scripts/a11y.js:63
+#: assets/src/scripts/a11y.js:59
 msgid "Green"
 msgstr ""
 
-#: assets/src/scripts/a11y.js:66
+#: assets/src/scripts/a11y.js:62
 msgid "Blue"
 msgstr ""
 
-#: assets/src/scripts/a11y.js:69
+#: assets/src/scripts/a11y.js:65
 msgid "Purple"
 msgstr ""
 
@@ -4646,25 +4642,6 @@ msgstr "Eksportuokite savo knygą"
 
 #: templates/admin/export.blade.php:81
 msgid "Latest Exports"
-msgstr ""
-
-#: templates/admin/incompatible-plugins.blade.php:5
-msgid ""
-"Uh oh! The versions of the following plugins you're running haven't been "
-"tested with Pressbooks %s. Please update them or confirm compatibility "
-"before updating Pressbooks, or you may experience issues:"
-msgstr ""
-
-#: templates/admin/incompatible-plugins.blade.php:9
-msgid "Plugin"
-msgstr ""
-
-#: templates/admin/incompatible-plugins.blade.php:10
-msgid "Tested up to Pressbooks version"
-msgstr ""
-
-#: templates/admin/incompatible-plugins.blade.php:17
-msgid "Unknown"
 msgstr ""
 
 #: templates/admin/mathjax.blade.php:5
