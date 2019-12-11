@@ -48,3 +48,42 @@ function hide_gutenberg( $plugins ) {
 	unset( $plugins['gutenberg/gutenberg.php'] );
 	return $plugins;
 }
+
+/**
+ * Remove ability to disable file extension check when using H5P plugin
+ * Hooked into `user_has_cap`
+ *
+ * @param bool[] $allcaps An array of all the user's capabilities.
+ * @param string[] $caps Required primitive capabilities for the requested capability.
+ * @param array $args {
+ *     Arguments that accompany the requested capability check.
+ *
+ *     @type string    $0 Requested capability.
+ *     @type int       $1 Concerned user ID.
+ *     @type mixed  ...$2 Optional second and further parameters, typically object ID.
+ * }
+ *
+ * @return array
+ */
+function disable_h5p_security( $allcaps, $caps, $args ) {
+	if ( isset( $args[0] ) && $args[0] === 'disable_h5p_security' ) {
+		$allcaps['disable_h5p_security'] = false;
+	}
+	return $allcaps;
+}
+
+/**
+ * Remove super admins ability to disable file extension check when using H5P plugin
+ * Hooked into `map_meta_cap`
+ *
+ * @param array $caps
+ * @param string $cap
+ *
+ * @return array
+ */
+function disable_h5p_security_superadmin( $caps, $cap ) {
+	if ( $cap === 'disable_h5p_security' ) {
+		$caps[] = 'do_not_allow';
+	}
+	return $caps;
+}

@@ -49,4 +49,26 @@ class Admin_PluginsTest extends \WP_UnitTestCase {
 		$this->assertArrayNotHasKey( 'gutenberg/gutenberg.php', $plugins );
 	}
 
+	/**
+	 * @group plugins
+	 */
+	public function test_disable_h5p_security() {
+		$allcaps = [];
+		$allcaps = \Pressbooks\Admin\Plugins\disable_h5p_security( $allcaps, [], [ 'do_nothing' ] );
+		$this->assertEmpty( $allcaps );
+		$allcaps = \Pressbooks\Admin\Plugins\disable_h5p_security( $allcaps, [], [ 'disable_h5p_security' ] );
+		$this->assertFalse( $allcaps['disable_h5p_security'] );
+	}
+
+	/**
+	 * @group plugins
+	 */
+	public function test_disable_h5p_security_superadmin() {
+		$caps = [];
+		$caps = \Pressbooks\Admin\Plugins\disable_h5p_security_superadmin( $caps, '' );
+		$this->assertEmpty( $caps );
+		$caps = \Pressbooks\Admin\Plugins\disable_h5p_security_superadmin( $caps, 'disable_h5p_security' );
+		$this->assertContains( 'do_not_allow', $caps );
+	}
+
 }

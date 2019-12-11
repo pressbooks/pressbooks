@@ -6,6 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 require_once( __DIR__ . '/inc/admin/branding/namespace.php' );
 require_once( __DIR__ . '/inc/admin/networkmanagers/namespace.php' );
+require_once( __DIR__ . '/inc/admin/plugins/namespace.php' );
 require_once( __DIR__ . '/inc/analytics/namespace.php' );
 require_once( __DIR__ . '/inc/api/namespace.php' );
 require_once( __DIR__ . '/inc/editor/namespace.php' );
