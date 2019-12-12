@@ -8,6 +8,8 @@
 
 namespace Pressbooks\Admin\Plugins;
 
+use function Pressbooks\add_notice;
+
 /**
  * Hide plugins that aren't prefixed with `pressbooks-` (only applies to books).
  * To show all plugins to all users, place the following in a plugin that loads before Pressbooks:
@@ -58,9 +60,9 @@ function hide_gutenberg( $plugins ) {
  * @param array $args {
  *     Arguments that accompany the requested capability check.
  *
- *     @type string    $0 Requested capability.
- *     @type int       $1 Concerned user ID.
- *     @type mixed  ...$2 Optional second and further parameters, typically object ID.
+ * @type string    $0 Requested capability.
+ * @type int       $1 Concerned user ID.
+ * @type mixed  ...$2 Optional second and further parameters, typically object ID.
  * }
  *
  * @return array
@@ -86,4 +88,16 @@ function disable_h5p_security_superadmin( $caps, $cap ) {
 		$caps[] = 'do_not_allow';
 	}
 	return $caps;
+}
+
+/**
+ * Add warning for QuickLaTeX SVGs
+ *
+ * @param string $plugin
+ */
+function quicklatex_svg_warning( $plugin ) {
+	if ( $plugin === 'wp-quicklatex/wp-quicklatex.php' ) {
+		$warning = __( 'Please be advised that any content provided via a remote third-party service, like WP QuickLaTeX, may not be trustworthy. The WP QuickLaTeX plugin also includes an advanced setting which allows users to create and display SVG files, a format that may carry a higher security risk than other image formats.', 'pressbooks' );
+		add_notice( $warning );
+	}
 }

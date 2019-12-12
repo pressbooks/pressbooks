@@ -293,6 +293,7 @@ add_filter( 'akismet_debug_log', '__return_false' );
 // Remove ability to disable file extension check when using H5P plugin
 add_filter( 'user_has_cap', '\Pressbooks\Admin\Plugins\disable_h5p_security', 10, 3 );
 add_filter( 'map_meta_cap', '\Pressbooks\Admin\Plugins\disable_h5p_security_superadmin', 10, 2 );
+add_action( 'activated_plugin', '\Pressbooks\Admin\Plugins\quicklatex_svg_warning' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Registration
