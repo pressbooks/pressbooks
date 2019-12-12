@@ -57,13 +57,7 @@ function hide_gutenberg( $plugins ) {
  *
  * @param bool[] $allcaps An array of all the user's capabilities.
  * @param string[] $caps Required primitive capabilities for the requested capability.
- * @param array $args {
- *     Arguments that accompany the requested capability check.
- *
- * @type string    $0 Requested capability.
- * @type int       $1 Concerned user ID.
- * @type mixed  ...$2 Optional second and further parameters, typically object ID.
- * }
+ * @param array{string, int, ...mixed} $args Requested capability, Concerned user ID, Optional second and further parameters, typically object ID.
  *
  * @return array
  */
