@@ -71,4 +71,17 @@ class Admin_PluginsTest extends \WP_UnitTestCase {
 		$this->assertContains( 'do_not_allow', $caps );
 	}
 
+	/**
+	 * @group plugins
+	 */
+	public function test_quicklatex_svg_warning() {
+		\Pressbooks\Admin\Plugins\quicklatex_svg_warning( 'do/nothing.php' );
+		$notices = \Pressbooks\get_all_notices();
+		$this->assertEmpty( $notices );
+
+		\Pressbooks\Admin\Plugins\quicklatex_svg_warning( 'wp-quicklatex/wp-quicklatex.php' );
+		$notices = \Pressbooks\get_all_notices();
+		$this->assertContains( 'a format that may carry a higher security risk', $notices[0] );
+	}
+
 }
