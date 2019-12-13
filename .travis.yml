@@ -12,6 +12,7 @@ notifications:
 branches:
   only:
   - dev
+  - dev-travis
   - hotfix
   - "/\\d+\\.\\d+(\\.\\d+)?(-\\S*)?$/"
 php:
