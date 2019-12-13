@@ -75,6 +75,7 @@ deploy:
   api_key:
     secure: 85a8f7a3d21dddd03ba11f946af4319ef935fac5
   file: "pressbooks-$TRAVIS_TAG.zip"
+  draft: true
   on:
     tags: true
     repo: pressbooks/pressbooks
