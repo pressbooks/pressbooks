@@ -79,3 +79,5 @@ deploy:
   on:
     tags: true
     repo: pressbooks/pressbooks
+    draft: true
+    prerelease: true
