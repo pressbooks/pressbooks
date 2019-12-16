@@ -73,7 +73,7 @@ deploy:
   provider: releases
   skip_cleanup: true
   api_key:
-    secure: GBpewhfS9/0xpsmCgIyAaU6SZq6aI35gpfgsZnf5nspb7NuKPmKwi+f/hBBXKg+gT96ZmoJiauaqsMsvSf1NDobzP4CxAp+yESVeXJCsUuOWaDJF0MCrqcFoGD1L3RXYiYsyIsX5zEwc+se8lAVCKTI5/z0RIIpPuFN/+TUZfySddUSKX3YOk0+TbLVajWlBxv7CMl55j7NklAEh5ygVY1uQFIpiMuRgTSMI0hE8HI4wMPuNgUNNkiX3zHmQiez2jmjdoyBfNQA5/4Nf0HnFzx3CkVaWAwmxlxdFCZEyK8axBrzb0FUJOCgfSF6ELjzN08Do1tGpsjtFklOMKVIaiC7l8fr+pigYpvrgcqLFfnfolRj5yiJxBoc4yvOsNzxXUvlnjlOpZ8t36+Q9UmIhe7RdbEb1NEHUyZtf5VerJg5lYnFqMlrK+DO2gSKT9ic01SHeJnKubJ53hAyMZtzJWWZd5ZAxlg7kd1VZOsehybhAbdTVB9lKjvCp2SoA1c+vSMrCsDW3jql7bvTsClfsJ6ohMp6DxC2V9YPQ19HUqFQr11yMde98Y8CeCgG8unvNO1nlDYH3STECJbGMAjqTHc2auvUathWzFI1l4iu1rpYvoMDbmssl8XouC1PWVrIvFgrO5XZ5sb+EluIDa+wwq/oLy9n3YH9FXOf9x360yFI=
+    secure: $GITHUB_ACCESS_TOKEN
   file: "pressbooks-$TRAVIS_TAG.zip"
   on:
     tags: true
