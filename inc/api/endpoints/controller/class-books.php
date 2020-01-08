@@ -293,11 +293,16 @@ class Books extends \WP_REST_Controller {
 
 		$limit = ! empty( $request['per_page'] ) ? $request['per_page'] : $this->limit;
 		$offset = ! empty( $request['page'] ) ? ( $request['page'] - 1 ) * $limit : 0;
+		$conditions = 'public = 1 AND archived = 0 AND spam = 0 AND deleted = 0 AND blog_id != %d';
+
+		if ( ! empty( $request['modified_since'] ) && is_numeric( $request['modified_since'] ) ) {
+			$conditions .= sprintf( ' AND last_updated > \'%s\'', $request['modified_since'] );
+		}
 
 		$blogs = $wpdb->get_col(
 			$wpdb->prepare(
-				"SELECT SQL_CALC_FOUND_ROWS blog_id FROM {$wpdb->blogs} 
-				WHERE public = 1 AND archived = 0 AND spam = 0 AND deleted = 0 AND blog_id != %d 
+				"SELECT SQL_CALC_FOUND_ROWS blog_id FROM {$wpdb->blogs}
+				WHERE {$conditions}
 				ORDER BY blog_id LIMIT %d, %d ", get_network()->site_id, $offset, $limit
 			)
 		);
