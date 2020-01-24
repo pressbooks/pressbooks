@@ -205,7 +205,7 @@ function mce_before_init_insert_formats( $init_array ) {
 			'title' => __( 'Write right to left', 'pressbooks' ),
 			'block' => 'p',
 			'styles' => [
-				'direction' => 'rtl'
+				'direction' => 'rtl',
 			],
 			'wrapper' => false,
 		],
@@ -213,7 +213,7 @@ function mce_before_init_insert_formats( $init_array ) {
 			'title' => __( 'Write left to right', 'pressbooks' ),
 			'block' => 'p',
 			'styles' => [
-				'direction' => 'ltr'
+				'direction' => 'ltr',
 			],
 			'wrapper' => false,
 		],
