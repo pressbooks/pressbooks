@@ -6,9 +6,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
-"POT-Creation-Date: 2020-01-06T21:43:48+00:00\n"
-"PO-Revision-Date: 2020-01-06 21:48+0000\n"
-"Last-Translator: Carlos <carlos@pressbooks.com>\n"
+"POT-Creation-Date: 2020-02-03T16:35:54+00:00\n"
+"PO-Revision-Date: 2020-02-03 16:38+0000\n"
+"Last-Translator: Ho Man Chan <homan@pressbooks.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/pressbooks/pressbooks/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Domain: pressbooks\n"
-"X-Generator: WP-CLI 2.4.0\n"
+"X-Generator: WP-CLI 2.3.0\n"
 
 #. Plugin Name of the plugin
 msgid "Pressbooks"
@@ -2518,77 +2518,85 @@ msgid "No indent"
 msgstr "不缩进"
 
 #: inc/editor/namespace.php:205
+msgid "Write right to left"
+msgstr ""
+
+#: inc/editor/namespace.php:213
+msgid "Write left to right"
+msgstr ""
+
+#: inc/editor/namespace.php:221
 msgid "Tight tracking"
 msgstr "紧凑字间距"
 
-#: inc/editor/namespace.php:211
+#: inc/editor/namespace.php:227
 msgid "Very tight tracking"
 msgstr "极紧凑的字间距"
 
-#: inc/editor/namespace.php:217
+#: inc/editor/namespace.php:233
 msgid "Loose tracking"
 msgstr "宽松的字间距"
 
-#: inc/editor/namespace.php:223
+#: inc/editor/namespace.php:239
 msgid "Very loose tracking"
 msgstr "非常宽松的 "
 
-#: inc/editor/namespace.php:229
+#: inc/editor/namespace.php:245
 msgid "Pullquote (left)"
 msgstr "左浮动醒目引文"
 
-#: inc/editor/namespace.php:235
+#: inc/editor/namespace.php:251
 msgid "Pullquote (right)"
 msgstr "右浮动醒目引文"
 
-#: inc/editor/namespace.php:287 inc/editor/namespace.php:329
-#: inc/editor/namespace.php:343
+#: inc/editor/namespace.php:303 inc/editor/namespace.php:345
+#: inc/editor/namespace.php:359
 #: inc/modules/themeoptions/class-weboptions.php:118 languages/tinymce.php:7
 msgid "Standard"
 msgstr " "
 
-#: inc/editor/namespace.php:291
+#: inc/editor/namespace.php:307
 msgid "No lines"
 msgstr "没有行"
 
-#: inc/editor/namespace.php:295
+#: inc/editor/namespace.php:311
 msgid "Lines"
 msgstr "行"
 
-#: inc/editor/namespace.php:299 inc/editor/namespace.php:337
-#: inc/editor/namespace.php:351 languages/tinymce.php:10
+#: inc/editor/namespace.php:315 inc/editor/namespace.php:353
+#: inc/editor/namespace.php:367 languages/tinymce.php:10
 msgid "Shaded"
 msgstr "有阴影的"
 
-#: inc/editor/namespace.php:303
+#: inc/editor/namespace.php:319
 msgid "Full Grid"
 msgstr ""
 
-#: inc/editor/namespace.php:307
+#: inc/editor/namespace.php:323
 msgid "Standard Landscape*"
 msgstr ""
 
-#: inc/editor/namespace.php:311
+#: inc/editor/namespace.php:327
 msgid "No lines Landscape*"
 msgstr ""
 
-#: inc/editor/namespace.php:315
+#: inc/editor/namespace.php:331
 msgid "Lines Landscape*"
 msgstr ""
 
-#: inc/editor/namespace.php:319
+#: inc/editor/namespace.php:335
 msgid "Shaded Landscape*"
 msgstr ""
 
-#: inc/editor/namespace.php:323
+#: inc/editor/namespace.php:339
 msgid "Full Grid Landscape*"
 msgstr ""
 
-#: inc/editor/namespace.php:333 inc/editor/namespace.php:347
+#: inc/editor/namespace.php:349 inc/editor/namespace.php:363
 msgid "Border"
 msgstr "边框"
 
-#: inc/editor/namespace.php:467
+#: inc/editor/namespace.php:483
 msgid "Internal Link"
 msgstr "内部链接"
 
