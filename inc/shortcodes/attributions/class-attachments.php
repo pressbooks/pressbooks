@@ -200,7 +200,7 @@ class Attachments {
 					$author_byline = isset( $attribution['author'] ) ? __( ' &copy; ', 'pressbooks' ) : '';
 					$adapted_byline = isset( $attribution['adapted'] ) ? __( ' adapted by ', 'pressbooks' ) : '';
 					$license_prefix = isset( $attribution['license'] ) ? ' is licensed under a ' : '';
-					$license_suffix = isset( $attribution['license'] ) ? ' license' : '';
+					$license_suffix = isset( $attribution['license'] ) ? 'license' : '';
 					$author = isset( $attribution['author'] ) ? $attribution['author'] : '';
 					$title = isset( $attribution['title'] ) ? $attribution['title'] : '';
 					$adapted_author = isset( $attribution['adapted'] ) ? $attribution['adapted'] : '';
