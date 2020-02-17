@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Pressbooks plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Pressbooks 5.14.0\n"
+"Project-Id-Version: Pressbooks 5.14.1\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-02-03T16:35:54+00:00\n"
+"POT-Creation-Date: 2020-02-17T21:35:08+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.3.0\n"
 "X-Domain: pressbooks\n"
@@ -3111,7 +3111,7 @@ msgid "Enable two-level table of contents (displays headings under chapter title
 msgstr ""
 
 #: inc/modules/themeoptions/class-globaloptions.php:127
-#: inc/shortcodes/attributions/class-attachments.php:260
+#: inc/shortcodes/attributions/class-attachments.php:262
 msgid "Media Attributions"
 msgstr ""
 
@@ -3858,7 +3858,7 @@ msgid "Password must include at least one number."
 msgstr ""
 
 #: inc/shortcodes/attributions/class-attachments.php:200
-msgid " by "
+msgid " &copy; "
 msgstr ""
 
 #: inc/shortcodes/attributions/class-attachments.php:201

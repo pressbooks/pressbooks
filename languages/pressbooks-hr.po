@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
-"POT-Creation-Date: 2020-02-03T16:35:54+00:00\n"
-"PO-Revision-Date: 2020-02-03 16:38+0000\n"
+"POT-Creation-Date: 2020-02-17T21:35:08+00:00\n"
+"PO-Revision-Date: 2020-02-17 21:35+0000\n"
 "Last-Translator: Ho Man Chan <homan@pressbooks.com>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/pressbooks/pressbooks/language/hr_HR/)\n"
 "MIME-Version: 1.0\n"
@@ -3195,7 +3195,7 @@ msgid ""
 msgstr "Omogući tablicu sadržaja sa dvije razine (prikaz naslova ispod naziva poglavlja)"
 
 #: inc/modules/themeoptions/class-globaloptions.php:127
-#: inc/shortcodes/attributions/class-attachments.php:260
+#: inc/shortcodes/attributions/class-attachments.php:262
 msgid "Media Attributions"
 msgstr "Pripisivanje medijskih sadržaja"
 
@@ -3979,8 +3979,8 @@ msgid "Password must include at least one number."
 msgstr ""
 
 #: inc/shortcodes/attributions/class-attachments.php:200
-msgid " by "
-msgstr "od"
+msgid " &copy; "
+msgstr ""
 
 #: inc/shortcodes/attributions/class-attachments.php:201
 msgid " adapted by "
