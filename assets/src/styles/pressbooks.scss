@@ -62,6 +62,12 @@
     content: "\e600" !important;
   }
 
+  #wp-admin-bar-my-books-list {
+    min-height: 100px;
+    max-height: calc(100vh - 150px);
+    overflow: auto;
+  }
+
   @media screen and (max-width: 782px) {
     #wp-admin-bar-pb-network-admin, #wp-admin-bar-pb-site-admin, #wp-admin-bar-my-books {
       display: block;
