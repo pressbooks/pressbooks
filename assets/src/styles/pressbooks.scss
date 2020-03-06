@@ -66,6 +66,7 @@
     min-height: 100px;
     max-height: calc(100vh - 150px);
     overflow-y: auto;
+    padding-right: 5px;
   }
 
   @media screen and (max-width: 782px) {
