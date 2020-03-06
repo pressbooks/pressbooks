@@ -812,7 +812,7 @@ function replace_menu_bar_my_sites( $wp_admin_bar ) {
 		[
 			'id' => 'my-books',
 			'title' => __( 'My Books', 'pressbooks' ),
-			'href' => '#',
+			'href' => last_book( $wp_admin_bar, 'wp-admin/index.php?page=pb_catalog' ),
 		]
 	);
 
