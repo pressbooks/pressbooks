@@ -65,7 +65,7 @@
   #wp-admin-bar-my-books-list {
     min-height: 100px;
     max-height: calc(100vh - 150px);
-    overflow: auto;
+    overflow-y: auto;
   }
 
   @media screen and (max-width: 782px) {
