@@ -4,7 +4,7 @@ Tags: ebooks, publishing, webbooks
 Requires at least: 5.3
 Tested up to: 5.3
 Requires PHP: 7.1
-Stable tag: 5.14.1
+Stable tag: 5.14.2
 License: GPL v3.0 or later
 License URI: https://github.com/pressbooks/pressbooks/blob/master/LICENSE.md
 
@@ -20,9 +20,9 @@ For installation instructions, visit [docs.pressbooks.org/installation](https://
 TK.
 
 == Changelog ==
-= 5.14.1 =
+= 5.14.2 =
 
-* See: https://github.com/pressbooks/pressbooks/releases/tag/5.14.1
+* See: https://github.com/pressbooks/pressbooks/releases/tag/5.14.2
 * Full release history available at: https://github.com/pressbooks/pressbooks/releases
 
 == Upgrade Notice ==
