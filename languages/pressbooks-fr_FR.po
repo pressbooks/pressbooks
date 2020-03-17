@@ -13,19 +13,20 @@
 # Gilbert MOISIO <gmoisio@gmail.com>, 2017
 # Hubert GB <hgblouin@tciinc.ca>, 2019
 # Hugh McGuire <hugh@pressbooks.com>, 2018
-# Ned Zimmerman, 2014
+# Ned Zimmerman <ned@bight.dev>, 2014
 # Ned Zimmerman, 2014-2015
-# Ned Zimmerman, 2015
+# Ned Zimmerman <ned@bight.dev>, 2015
 # Richelle Chartrand <richellechartrand@yahoo.ca>, 2017
 # Steel Wagstaff <steel@pressbooks.com>, 2019
+# Steel Wagstaff <steelwagstaff@gmail.com>, 2020
 # Steel Wagstaff <steel@pressbooks.com>, 2019
 # Zoe Wake Hyde <zoe@pressbooks.com>, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
-"POT-Creation-Date: 2020-02-17T21:35:08+00:00\n"
-"PO-Revision-Date: 2020-02-17 21:35+0000\n"
+"POT-Creation-Date: 2020-03-12T19:26:15+00:00\n"
+"PO-Revision-Date: 2020-03-16 14:51+0000\n"
 "Last-Translator: Ho Man Chan <homan@pressbooks.com>\n"
 "Language-Team: French (http://www.transifex.com/pressbooks/pressbooks/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -238,7 +239,7 @@ msgid "Public"
 msgstr "Public"
 
 #: inc/admin/class-catalog-list-table.php:522 inc/admin/laf/namespace.php:417
-#: inc/admin/laf/namespace.php:585 inc/admin/laf/namespace.php:814
+#: inc/admin/laf/namespace.php:585 inc/admin/laf/namespace.php:824
 msgid "My Catalog"
 msgstr "Mon catalogue"
 
@@ -700,7 +701,7 @@ msgstr "Ce réseau ne permet pas aux utilisateurs de créer de nouveaux livres. 
 msgid "at"
 msgstr "à"
 
-#: inc/admin/dashboard/namespace.php:135 inc/admin/laf/namespace.php:824
+#: inc/admin/dashboard/namespace.php:135 inc/admin/laf/namespace.php:834
 msgid "Create A New Book"
 msgstr "Créer un nouveau livre"
 
@@ -748,7 +749,6 @@ msgstr "%1$s d&rsquo;utilisateurs&nbsp;:"
 
 #: inc/admin/dashboard/namespace.php:306 inc/admin/dashboard/namespace.php:307
 #: inc/admin/laf/namespace.php:729 inc/admin/laf/namespace.php:796
-#: inc/admin/laf/namespace.php:880
 msgid "Dashboard"
 msgstr "Tableau de bord"
 
@@ -984,7 +984,7 @@ msgid ""
 msgstr "Les exportations ne sont pas terminées. Quitter cette page entraînera des problèmes. Voulez-vous vraiment quitter la page?"
 
 #: inc/admin/laf/namespace.php:349 inc/admin/laf/namespace.php:564
-#: inc/admin/laf/namespace.php:1365
+#: inc/admin/laf/namespace.php:1359
 #: inc/admin/network/class-sharingandprivacyoptions.php:304
 msgid "Sharing and Privacy Settings"
 msgstr "Paramètres de partage et de confidentialité"
@@ -1034,8 +1034,8 @@ msgstr "Aide"
 msgid "Network Admin"
 msgstr "Administrateur de réseau"
 
-#: inc/admin/laf/namespace.php:737 inc/admin/laf/namespace.php:1420
-#: inc/admin/laf/namespace.php:1430
+#: inc/admin/laf/namespace.php:737 inc/admin/laf/namespace.php:1414
+#: inc/admin/laf/namespace.php:1424
 msgid "Books"
 msgstr "Livres"
 
@@ -1051,15 +1051,15 @@ msgstr "Modules d&rsquo;extension"
 msgid "Visit Website"
 msgstr "Consultez le site web"
 
-#: inc/admin/laf/namespace.php:842
+#: inc/admin/laf/namespace.php:814
+msgid "My Books"
+msgstr ""
+
+#: inc/admin/laf/namespace.php:852
 msgid "Clone A Book"
 msgstr "Dupliquer un livre"
 
-#: inc/admin/laf/namespace.php:888
-msgid "Visit Book"
-msgstr "Consulter le livre"
-
-#: inc/admin/laf/namespace.php:1085
+#: inc/admin/laf/namespace.php:1079
 msgid ""
 "Are you sure you want to unlock your theme? This will update your book to "
 "the most recent version of your selected theme, which may change your "
@@ -1067,92 +1067,92 @@ msgid ""
 "page, this action will NOT be reversable!"
 msgstr "Voulez-vous vraiment dévérouiller votre thème? Cette action mettra votre livre à jour avec la version la plus récente du thème sélectionné. Ceci pourrait changer l&rsquo;apparence et le nombre de pages de votre livre. Une fois vos réglages sauvegardés sur cette page, cette action est IRRÉVERSIBLE!"
 
-#: inc/admin/laf/namespace.php:1149
+#: inc/admin/laf/namespace.php:1143
 msgid "Book Visibility"
 msgstr "Visibilité du livre"
 
-#: inc/admin/laf/namespace.php:1163
+#: inc/admin/laf/namespace.php:1157
 msgid "Private Content"
 msgstr "Contenu privé"
 
-#: inc/admin/laf/namespace.php:1176
+#: inc/admin/laf/namespace.php:1170
 msgid "Disable Comments"
 msgstr "Désactiver les commentaires"
 
-#: inc/admin/laf/namespace.php:1191
+#: inc/admin/laf/namespace.php:1185
 msgid "Share Latest Export Files"
 msgstr "Partage des derniers fichiers exportés"
 
-#: inc/admin/laf/namespace.php:1209
+#: inc/admin/laf/namespace.php:1203
 msgid "Sharing and Privacy settings"
 msgstr "Paramètres de partage et de confidentialité"
 
-#: inc/admin/laf/namespace.php:1225
+#: inc/admin/laf/namespace.php:1219
 msgid "Public. I would like this book to be visible to everyone."
 msgstr "Je veux que ce livre soit visible pour tout le monde."
 
-#: inc/admin/laf/namespace.php:1231
+#: inc/admin/laf/namespace.php:1225
 msgid ""
 "Private. I would like this book to be accessible only to people I invite."
 msgstr "Je veux que ce livre ne soit accessible qu&rsquo;aux personnes que j&rsquo;invite."
 
-#: inc/admin/laf/namespace.php:1255
+#: inc/admin/laf/namespace.php:1249
 msgid "Who can see private front matter, chapters and back matter?"
 msgstr "Qui peut voir les pages liminaires, les chapitres ou les parties annexes privés?"
 
-#: inc/admin/laf/namespace.php:1258
+#: inc/admin/laf/namespace.php:1252
 msgid "Only logged in editors and administrators."
 msgstr "Seulement les éditeurs et les administrateurs connectés."
 
-#: inc/admin/laf/namespace.php:1260
+#: inc/admin/laf/namespace.php:1254
 msgid "All logged in users including subscribers."
 msgstr "Toutes les personnes connectées, y compris les abonnés."
 
-#: inc/admin/laf/namespace.php:1281
+#: inc/admin/laf/namespace.php:1275
 msgid ""
 "Yes. I want to automatically disable comments, trackbacks and pingbacks on "
 "all front matter, chapters and back matter."
 msgstr "Oui, je veux désactiver automatiquement les commentaires ainsi que les fonctions rétroliens Pingbacks et Trackback pour l&rsquo;ensemble des pages liminaires, des chapitres et des parties annexes."
 
-#: inc/admin/laf/namespace.php:1287
+#: inc/admin/laf/namespace.php:1281
 msgid ""
 "No. I want to leave comments, trackbacks and pingbacks enabled on all front "
 "matter, chapters and back matter unless I disable them manually."
 msgstr "Non, je souhaite activer les commentaires ainsi que les fonctions rétroliens Pingbacks et Trackback pour l&rsquo;ensemble des pages liminaires, des chapitres et des parties annexes, sauf si je les désactive manuellement."
 
-#: inc/admin/laf/namespace.php:1303
+#: inc/admin/laf/namespace.php:1297
 msgid ""
 "Yes. I would like the latest export files to be available on the homepage "
 "for free, to everyone."
 msgstr "Oui. Je souhaite que les derniers fichiers exportés soient accessibles à tous sur la page d&rsquo;accueil."
 
-#: inc/admin/laf/namespace.php:1309
+#: inc/admin/laf/namespace.php:1303
 msgid ""
 "No. I would like the latest export files to only be available to "
 "administrators."
 msgstr "Non. Je souhaite que les derniers fichiers exportés ne soient accessibles qu&rsquo;aux administrateurs."
 
-#: inc/admin/laf/namespace.php:1423
+#: inc/admin/laf/namespace.php:1417
 msgid "All Books"
 msgstr "Tous les livres"
 
-#: inc/admin/laf/namespace.php:1433
+#: inc/admin/laf/namespace.php:1427
 msgid "Search Books"
 msgstr "Rechercher dans les livres"
 
-#: inc/admin/laf/namespace.php:1439
+#: inc/admin/laf/namespace.php:1433
 msgid "Edit Book: %s"
 msgstr "Modifier le livre&nbsp;: %s"
 
-#: inc/admin/laf/namespace.php:1442 inc/admin/laf/namespace.php:1451
+#: inc/admin/laf/namespace.php:1436 inc/admin/laf/namespace.php:1445
 msgid "Book Address (URL)"
 msgstr "Adresse du livre (URL)"
 
-#: inc/admin/laf/namespace.php:1448
+#: inc/admin/laf/namespace.php:1442
 msgid "Add New Book"
 msgstr "Ajouter un nouveau livre"
 
-#: inc/admin/laf/namespace.php:1454
+#: inc/admin/laf/namespace.php:1448
 #: inc/modules/themeoptions/class-pdfoptions.php:358
 #: inc/modules/themeoptions/class-pdfoptions.php:377
 #: inc/modules/themeoptions/class-pdfoptions.php:396
@@ -1166,23 +1166,23 @@ msgstr "Ajouter un nouveau livre"
 msgid "Book Title"
 msgstr "Titre du livre"
 
-#: inc/admin/laf/namespace.php:1457
+#: inc/admin/laf/namespace.php:1451
 msgid "Book Language"
 msgstr "Langue du livre"
 
-#: inc/admin/laf/namespace.php:1460
+#: inc/admin/laf/namespace.php:1454
 msgid "Add Book"
 msgstr "Ajouter un livre"
 
-#: inc/admin/laf/namespace.php:1477
+#: inc/admin/laf/namespace.php:1471
 msgid "Edit previous or next item"
 msgstr "Modifier la section précédente ou suivante"
 
-#: inc/admin/laf/namespace.php:1482
+#: inc/admin/laf/namespace.php:1476
 msgid "Edit Previous (%s)"
 msgstr "Modifier la section précédente (%s)"
 
-#: inc/admin/laf/namespace.php:1487
+#: inc/admin/laf/namespace.php:1481
 msgid "Edit Next (%s)"
 msgstr "Modifier la section suivante (%s)"
 
@@ -1770,7 +1770,7 @@ msgstr ""
 
 #: inc/admin/users/class-userbulk.php:61 inc/admin/users/class-userbulk.php:62
 msgid "Bulk Add"
-msgstr ""
+msgstr "Ajout en Vrac"
 
 #: inc/admin/users/class-userbulk.php:164
 msgid "Invalid email address"
@@ -2231,7 +2231,7 @@ msgstr "Style personnalisé pour le Web"
 
 #: inc/class-styles.php:643
 msgid "Alegreya"
-msgstr ""
+msgstr "Alegreya"
 
 #: inc/class-styles.php:644
 msgid "Cormorant Garamond"
