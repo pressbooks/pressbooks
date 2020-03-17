@@ -72,8 +72,7 @@ before_deploy:
 deploy:
   provider: releases
   skip_cleanup: true
-  api_key:
-    secure: $GITHUB_ACCESS_TOKEN
+  api_key: $GITHUB_ACCESS_TOKEN
   file: "pressbooks-$TRAVIS_TAG.zip"
   on:
     tags: true
