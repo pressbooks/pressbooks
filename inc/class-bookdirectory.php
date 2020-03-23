@@ -35,9 +35,9 @@ class BookDirectory {
 	 * @param BookDirectory $obj
 	 */
 	static public function hooks( BookDirectory $obj ) {
-		add_filter( 'update_option_blog_public', [ $obj, 'set_book_private' ], 10, 2 );
-		add_action( 'wp_update_site', [ $obj, 'soft_delete_actions'], 10, 2 );
-		add_action( 'wp_delete_site', [ $obj, 'delete_action' ], 10, 2 );
+		add_filter( 'update_option_blog_public', [ $obj, 'setBookPrivate' ], 10, 2 );
+		add_action( 'wp_update_site', [ $obj, 'softDeleteActions' ], 10, 2 );
+		add_action( 'wp_delete_site', [ $obj, 'deleteAction' ], 10, 2 );
 	}
 
 	/**
@@ -49,8 +49,8 @@ class BookDirectory {
 	 *
 	 * @return void
 	 */
-	function delete_action( \WP_Site $site ) {
-		$this->delete_book_from_directory( $site->blog_id );
+	function deleteAction( \WP_Site $site ) {
+		$this->deleteBookFromDirectory( $site->blog_id );
 	}
 
 	/**
@@ -63,10 +63,10 @@ class BookDirectory {
 	 *
 	 * @return void
 	 */
-	function set_book_private( $stored_value, $new_value ) {
+	function setBookPrivate( $stored_value, $new_value ) {
 		// Book changes from public to private
 		if ( 0 === $new_value ) {
-			$this->delete_book_from_directory();
+			$this->deleteBookFromDirectory();
 		}
 	}
 
@@ -80,14 +80,14 @@ class BookDirectory {
 	 *
 	 * @return void
 	 */
-	function soft_delete_actions( $updated_config, $previous_config ) {
+	function softDeleteActions( $updated_config, $previous_config ) {
 		$is_archived = ! $previous_config->archived && '1' === $updated_config->archived;
 		// deactivating a book updates the 'deleted' site config (Soft delete)
 		$is_deactivated = ! $previous_config->deleted && '1' === $updated_config->deleted;
 		$is_spam = ! $previous_config->spam && '1' === $updated_config->spam;
 
 		if ( $is_archived || $is_deactivated || $is_spam ) {
-			$this->delete_book_from_directory( $updated_config->blog_id );
+			$this->deleteBookFromDirectory( $updated_config->blog_id );
 		}
 	}
 
@@ -100,13 +100,13 @@ class BookDirectory {
 	 *
 	 * @return void
 	 */
-	function delete_book_from_directory( $book_id = null ) {
+	function deleteBookFromDirectory( $book_id = null ) {
 		$data = [
-			'network' => DOMAIN_CURRENT_SITE,
+			'network' => $_SERVER['HTTP_HOST'],
 			'book-id' => $book_id ?? get_current_blog_id(),
-			];
+		];
 
-		\Requests::post( self::DELETE_BOOK_ENDPOINT, array(), $data );
+		\Requests::post( self::DELETE_BOOK_ENDPOINT, [], $data );
 	}
 }
 
