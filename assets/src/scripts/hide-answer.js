@@ -1,13 +1,13 @@
-var pressed = false;
+let pressed = false;
 
-jQuery('.show-answer').click(function() {
-  pressed = !pressed;
-  var target = "#" + jQuery(this).data('target');
+jQuery( '.show-answer' ).click( function () {
+	pressed = ! pressed;
+	let target = '#' + jQuery( this ).data( 'target' );
 
-  // Animation
-  jQuery(target).slideToggle(200);
+	// Animation
+	jQuery( target ).slideToggle( 200 );
 
-  // Accessibility
-  jQuery(this).toggleClass('expanded collapsed');
-  jQuery(this).attr('aria-pressed', pressed);
-});
+	// Accessibility
+	jQuery( this ).toggleClass( 'expanded collapsed' );
+	jQuery( this ).attr( 'aria-pressed', pressed );
+} );
