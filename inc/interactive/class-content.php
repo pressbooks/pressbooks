@@ -25,13 +25,10 @@ class Content {
 		'phet.colorado.edu',
 		'cdn.knightlab.com',
 		'www.openassessments.org',
-		'www.openassessments.com',
-		'lumenlearning.com',
 		'players.brightcove.net',
 		'preview-players.brightcove.net',
 		'//docs.google.com/forms/',
 		'//www.google.com/maps/',
-
 	];
 
 	/**
@@ -349,10 +346,8 @@ class Content {
 		// Format (string), Provider (string), Is format a regular expression? (bool)
 		$providers['#https?://mathembed\.com/latex\?inputText=.*#i'] = [ 'https://mathembed.com/oembed', true ];
 		$providers['#https?://www\.openassessments\.org/assessments/.*#i'] = [ 'https://www.openassessments.org/oembed.json', true ];
-		$providers['#https?://www\.openassessments\.com/assessments/.*#i'] = [ 'https://www.openassessments.com/oembed.json', true ];
 		$providers['://cdn.knightlab.com/libs/timeline*'] = [ 'https://oembed.knightlab.com/timeline/', false ];
 		$providers['://uploads.knightlab.com/storymapjs/*/index.html'] = [ 'https://oembed.knightlab.com/storymap/', false ];
-		$providers['#https?://assessments\.lumenlearning\.com/.*#i'] = [ 'https://assessments.lumenlearning.com/oembed.json', true ];
 
 		return $providers;
 	}
