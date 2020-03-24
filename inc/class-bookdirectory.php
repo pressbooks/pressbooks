@@ -9,7 +9,7 @@
 namespace Pressbooks;
 
 class BookDirectory {
-	const DELETE_BOOK_ENDPOINT = 'http://httpbin.org/post';
+	const DELETE_BOOK_ENDPOINT = 'https://pressbooks.test';
 
 	/**
 	 * @var BookDirectory
@@ -85,8 +85,9 @@ class BookDirectory {
 		// deactivating a book updates the 'deleted' site config (Soft delete)
 		$is_deactivated = ! $previous_config->deleted && '1' === $updated_config->deleted;
 		$is_spam = ! $previous_config->spam && '1' === $updated_config->spam;
+		$url_changed = $previous_config->path !== $updated_config->path;
 
-		if ( $is_archived || $is_deactivated || $is_spam ) {
+		if ( $is_archived || $is_deactivated || $is_spam || $url_changed ) {
 			$this->deleteBookFromDirectory( $updated_config->blog_id );
 		}
 	}
@@ -100,13 +101,15 @@ class BookDirectory {
 	 *
 	 * @return void
 	 */
-	function deleteBookFromDirectory( $book_id = null ) {
-		$data = [
-			'network' => $_SERVER['HTTP_HOST'],
-			'book-id' => $book_id ?? get_current_blog_id(),
-		];
+	function deleteBookFromDirectory( string $book_id = null ) {
+		if ( filter_var( self::DELETE_BOOK_ENDPOINT, FILTER_VALIDATE_URL ) ) {
+			$data = [
+				'network' => $_SERVER['HTTP_HOST'],
+				'book-id' => $book_id ?? get_current_blog_id(),
+			];
 
-		\Requests::post( self::DELETE_BOOK_ENDPOINT, [], $data );
+			\Requests::post( self::DELETE_BOOK_ENDPOINT, [], $data );
+		}
 	}
 }
 
