@@ -9,7 +9,7 @@
 namespace Pressbooks;
 
 class BookDirectory {
-	const DELETE_BOOK_ENDPOINT = 'https://pressbooks.test';
+	const DELETE_BOOK_ENDPOINT = 'https://pressbooks.com';
 
 	/**
 	 * @var BookDirectory
