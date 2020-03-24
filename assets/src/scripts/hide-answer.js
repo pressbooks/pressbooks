@@ -1,8 +1,8 @@
 var pressed = false;
 
-jQuery(".show-answer").click(function() {
+jQuery('.show-answer').click(function() {
   pressed = !pressed;
-  var target = "#" + jQuery(this).data("target");
+  var target = "#" + jQuery(this).data('target');
 
   // Animation
   jQuery(target).slideToggle(200);
