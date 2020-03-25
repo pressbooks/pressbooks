@@ -287,7 +287,7 @@ class Complex {
 	 * Enqueues show/hide answer JavaScript
 	 */
 	public function hiddenAnswerScripts() {
-		  $assets = new Assets( 'pressbooks', 'plugin' );
+		$assets = new Assets( 'pressbooks', 'plugin' );
 			wp_enqueue_script( 'hide-answers', $assets->getPath( 'scripts/hide-answer.js' ), [ 'jquery' ], '', true );
 	}
 }
