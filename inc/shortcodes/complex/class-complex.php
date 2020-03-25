@@ -253,18 +253,18 @@ class Complex {
 	 *
 	 * @return string
 	 */
-	public function revealAnswerShortCodeHandler( $atts, $content = null) {
+	public function revealAnswerShortCodeHandler( $atts, $content = null ) {
 		$wrapper_style = 'display: block';
 		$show_answer_style = 'cursor: pointer';
 
 		$atts = shortcode_atts(
-			array(
+			[
 				'q' => 'default 1',
-			), $atts
+			], $atts
 		);
 
 		return '<div class="qa-wrapper" style="' . $wrapper_style . '"><span class="show-answer collapsed" style="' . $show_answer_style . '" data-target="q' . $atts['q'] . '">' . do_shortcode( $content ) . '</span>';
-		}
+	}
 
 	/**
 	 * Shortcode that wraps around text that hides the answer.
@@ -275,9 +275,9 @@ class Complex {
 		$hidden_answer_style = 'display: none';
 
 		$atts = shortcode_atts(
-			array(
+			[
 				'a' => 'default 1',
-			), $atts
+			], $atts
 		);
 
 		return '<div id="q' . $atts['a'] . '" class="hidden-answer" style="' . $hidden_answer_style . '">' . do_shortcode( $content ) . '</div></div>';
@@ -288,6 +288,6 @@ class Complex {
 	 */
 	public function hiddenAnswerScripts() {
 		  $assets = new Assets( 'pressbooks', 'plugin' );
-			wp_enqueue_script( 'hide-answers', $assets->getPath( 'scripts/hide-answer.js' ), array( 'jquery' ), '', true );
+			wp_enqueue_script( 'hide-answers', $assets->getPath( 'scripts/hide-answer.js' ), [ 'jquery' ], '', true );
 	}
 }
