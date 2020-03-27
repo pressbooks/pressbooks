@@ -288,6 +288,6 @@ class Complex {
 	 */
 	public function hiddenAnswerScripts() {
 		$assets = new Assets( 'pressbooks', 'plugin' );
-			wp_enqueue_script( 'hide-answers', $assets->getPath( 'scripts/hide-answer.js' ), [ 'jquery' ], '', true );
+		wp_enqueue_script( 'hide-answers', $assets->getPath( 'scripts/hide-answer.js' ), [ 'jquery' ], '', true );
 	}
 }
