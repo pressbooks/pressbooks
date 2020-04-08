@@ -162,27 +162,4 @@ class Shortcodes_Complex extends \WP_UnitTestCase {
 		$this->assertContains( '<figcaption>Deploy day!</figcaption>', $content );
 	}
 
-	/**
-	 * @group shortcodes
-	 */
-	public function test_revealAnswerShortCodeHandler() {
-		$content = $this->complex->revealAnswerShortCodeHandler( [], 'e^{\i \pi} + 1 = 0', 'equation' );
-		$this->assertEquals( "<div class=\"qa-wrapper\" style=\"display: block\"><span class=\"show-answer collapsed\" style=\"cursor: pointer\" data-target=\"qdefault 1\">e^{\i \pi} + 1 = 0</span>", $content );
-	}
-
-	/**
-	 * @group shortcodes
-	 */
-	public function test_hiddenAnswerShortCodeHandler() {
-		$content = $this->complex->hiddenAnswerShortCodeHandler( [], 'e^{\i \pi} + 1 = 0' );
-		$this->assertEquals( "<div id=\"qdefault 1\" class=\"hidden-answer\" style=\"display: none\">e^{\i \pi} + 1 = 0</div></div>", $content );
-	}
-
-	/**
-	 * @group shortcodes
-	 */
-	public function test_hiddenAnswerScripts() {
-		$this->complex->hiddenAnswerScripts();
-		$this->assertTrue( wp_script_is( 'hide-answers', 'enqueued' ) );
-	}
 }
