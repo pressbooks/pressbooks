@@ -9,6 +9,7 @@ namespace Pressbooks\Modules\Import\Ooxml;
 
 use Pressbooks\Book;
 use Pressbooks\Modules\Import\Import;
+use Pressbooks\Utility;
 
 class Docx extends Import {
 
@@ -44,6 +45,12 @@ class Docx extends Import {
 	 * @var array
 	 */
 	protected $ln = [];
+
+	/**
+	 * Must not rely on all OOXML to be consistent with naming document.xml
+	 * @var string
+	 */
+	protected $document_target = '';
 
 	const DOCUMENT_SCHEMA = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument';
 	const METADATA_SCHEMA = 'http://schemas.openxmlformats.org/package/2006/relationships/metadata/core-properties';
@@ -728,8 +735,14 @@ class Docx extends Import {
 		if ( true !== $result ) {
 			throw new \Exception( 'Opening docx file failed' );
 		}
-		// check if a document.xml exists
+
+		// check if a document file exists
 		$path = $this->getTargetPath( self::DOCUMENT_SCHEMA );
+
+		// save document file name
+		if ( $path ) {
+			$this->document_target = basename( $path );
+		}
 
 		$ok = $this->getZipContent( $path );
 
@@ -752,7 +765,7 @@ class Docx extends Import {
 		if ( empty( $id ) ) {
 			$path_to_rel_doc = '_rels/.rels';
 		} else {
-			$path_to_rel_doc = 'word/_rels/document.xml.rels';
+			$path_to_rel_doc = "word/_rels/{$this->document_target}.rels";
 		}
 
 		$relations = simplexml_load_string(
@@ -775,7 +788,7 @@ class Docx extends Import {
 					case 'footnotes':
 					case 'endnotes':
 					case '_styles':
-						$path = 'word/' . $rel_target;
+						$path = 'word/' . basename( $rel_target );
 						break;
 					default:
 						if ( $rel_type === self::IMAGE_SCHEMA ) {
@@ -791,7 +804,7 @@ class Docx extends Import {
 			}
 		}
 
-		return $path;
+		return Utility\str_remove_prefix( $path, '/' );
 	}
 
 	/**
