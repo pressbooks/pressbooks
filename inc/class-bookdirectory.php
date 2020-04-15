@@ -9,7 +9,7 @@
 namespace Pressbooks;
 
 class BookDirectory {
-	const DELETE_BOOK_ENDPOINT = '';
+	const DELETE_BOOK_ENDPOINT = PB_BOOK_DIRECTORY_URL . '/api/books/delete';
 
 	/**
 	 * @var BookDirectory
@@ -103,12 +103,17 @@ class BookDirectory {
 	 */
 	function deleteBookFromDirectory( string $book_id = null ) {
 		if ( filter_var( self::DELETE_BOOK_ENDPOINT, FILTER_VALIDATE_URL ) ) {
-			$data = [
-				'network' => $_SERVER['HTTP_HOST'],
-				'book-id' => $book_id ?? get_current_blog_id(),
+
+			$header = [
+				'Content-Type' => 'application/json'
 			];
 
-			\Requests::post( self::DELETE_BOOK_ENDPOINT, [], $data );
+			$data = [
+				'network' => 'https://' . $_SERVER['HTTP_HOST'],
+				'book_id' => $book_id ?? get_current_blog_id(),
+			];
+
+			\Requests::post( self::DELETE_BOOK_ENDPOINT, $header, json_encode($data) );
 		}
 	}
 }
