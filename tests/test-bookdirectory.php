@@ -10,6 +10,11 @@ class BookDirectoryTest extends \WP_UnitTestCase {
 	 */
 	public function setUp() {
 		parent::setUp();
+
+		if ( ! defined( 'PB_BOOK_DIRECTORY_URL' ) ) {
+			define( 'PB_BOOK_DIRECTORY_URL', 'http://10.0.2.2:3000' );
+		}
+
 		$this->book_directory = new \Pressbooks\BookDirectory();
 	}
 

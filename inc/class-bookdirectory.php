@@ -22,10 +22,12 @@ class BookDirectory {
 	 * @return BookDirectory
 	 */
 	static public function init() {
+
 		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
 			self::hooks( self::$instance );
 		}
+
 		return self::$instance;
 	}
 
@@ -105,7 +107,7 @@ class BookDirectory {
 		if ( filter_var( self::DELETE_BOOK_ENDPOINT, FILTER_VALIDATE_URL ) ) {
 
 			$header = [
-				'Content-Type' => 'application/json'
+				'Content-Type' => 'application/json',
 			];
 
 			$data = [
@@ -113,7 +115,7 @@ class BookDirectory {
 				'book_id' => $book_id ?? get_current_blog_id(),
 			];
 
-			\Requests::post( self::DELETE_BOOK_ENDPOINT, $header, json_encode($data) );
+			\Requests::post( self::DELETE_BOOK_ENDPOINT, $header, wp_json_encode( $data ) );
 		}
 	}
 }
