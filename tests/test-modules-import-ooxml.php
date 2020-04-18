@@ -39,16 +39,28 @@ class Modules_Import_OoxmlTest extends \WP_UnitTestCase {
 		$nope      = $this->docx->setCurrentImportOption( $not_a_zip );
 		$this->assertFalse( $nope );
 
-		// happy path
-		$this->docx->setCurrentImportOption( $this->upload );
+		// happy path for Word doc saved online
+		$yes_online     = $this->docx->setCurrentImportOption( $this->upload );
 		$current_import = get_option( 'pressbooks_current_import' );
 
-		// assertions
+		// assertions for Word doc saved online
+		$this->assertTrue( $yes_online );
 		$this->assertEquals( $this->upload['file'], $current_import['file'] );
 		$this->assertArrayHasKey( 'chapters', $current_import );
 		$this->assertEquals( 'Chapter One', $current_import['chapters'][0] );
 		$this->assertEquals( 'Chapter Two', $current_import['chapters'][1] );
 
+		// happy path for Word doc saved locally
+		$this->upload['file'] = __DIR__ . '/data/WordImportTest.docx';
+		$yes_local            = $this->docx->setCurrentImportOption( $this->upload );
+		$current_import       = get_option( 'pressbooks_current_import' );
+
+		// assertions for Word doc saved locally
+		$this->assertTrue( $yes_local );
+		$this->assertEquals( __DIR__ . '/data/WordImportTest.docx', $current_import['file'] );
+		$this->assertArrayHasKey( 'chapters', $current_import );
+		$this->assertEquals( 'Chapter 1', $current_import['chapters'][0] );
+		$this->assertEquals( 'Chapter 2', $current_import['chapters'][1] );
 	}
 
 	/**
@@ -58,18 +70,27 @@ class Modules_Import_OoxmlTest extends \WP_UnitTestCase {
 		// necessary for getChapterParent()
 		$this->_book();
 
-		// set the import option
+		// set the import option for Online Word doc
+		copy( __DIR__ . '/data/OnlineWordImportTest.docx', __DIR__ . '/data/deleteMe.docx' );
+		$this->upload['file'] = __DIR__ . '/data/deleteMe.docx';
 		$this->docx->setCurrentImportOption( $this->upload );
 		$current_import = get_option( 'pressbooks_current_import' );
 
-		// Import process _revokeCurrentImport() deletes the file. Create a tmp file
-		copy( __DIR__ . '/data/OnlineWordImportTest.docx', __DIR__ . '/data/deleteMe.docx' );
-		$current_import['file'] = __DIR__ . '/data/deleteMe.docx';
-		update_option( 'pressbooks_current_import', $current_import );
+		// happy path for Online Word doc
+		$yes_online = $this->docx->import( $current_import );
+		$this->assertTrue( $yes_online );
+		$this->assertFileNotExists( __DIR__ . '/data/deleteMe.docx' );
 
-		// happy path
-		$here_be_zip = $this->docx->import( $current_import );
-		$this->assertTrue( $here_be_zip );
+		// set the import option for local Word
+		copy( __DIR__ . '/data/WordImportTest.docx', __DIR__ . '/data/deleteMe.docx' );
+		$this->upload['file'] = __DIR__ . '/data/deleteMe.docx';
+		$this->docx->setCurrentImportOption( $this->upload );
+		$current_import = get_option( 'pressbooks_current_import' );
+
+		// happy path for Online Word
+		$yes_local = $this->docx->import( $current_import );
+		$this->assertTrue( $yes_local );
+		$this->assertFileNotExists( __DIR__ . '/data/deleteMe.docx' );
 
 	}
 
