@@ -1338,7 +1338,7 @@ class Xhtml11 extends ExportGenerator {
 
 		$chapter_printf = '<div class="chapter %1$s" id="%2$s" title="%3$s">';
 		$chapter_printf .= '<div class="chapter-title-wrap"><h3 class="chapter-number">%4$s</h3><h2 class="chapter-title">%5$s</h2>%6$s</div>';
-		$chapter_printf .= '<div class="ugc {chapter-ugc}">%7$s</div>%8$s%9$s';
+		$chapter_printf .= '<div class="ugc chapter-ugc">%7$s</div>%8$s%9$s';
 		$chapter_printf .= '</div>';
 
 		$ticks = 0;
