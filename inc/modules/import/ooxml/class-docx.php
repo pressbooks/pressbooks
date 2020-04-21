@@ -268,7 +268,7 @@ class Docx extends Import {
 	 */
 	private function getFootnotesStyles( $text_tags, $ids ) {
 		// for now only italic, bold and underlined: https://github.com/pressbooks/pressbooks/issues/1852#issuecomment-617268552
-		$availableStyles = ['i', 'b', 'u'];
+		$availableStyles = [ 'i', 'b', 'u' ];
 
 		$this->fn_styles = [];
 		$limit = count( $ids );
@@ -284,14 +284,13 @@ class Docx extends Import {
 					}
 					$styles[] = [
 						'style' => $availableStyle,
-						'texts' => $texts
+						'texts' => $texts,
 					];
 				}
 				if ( count( $styles ) > 0 ) {
 					$this->fn_styles[ $ids[ $i ] ] = $styles;
 				}
 			}
-
 		}
 		return $this->fn_styles;
 	}
@@ -661,9 +660,9 @@ class Docx extends Import {
 				if ( isset( $this->fn_styles ) && array_key_exists( $id, $this->fn_styles ) ) {
 					$footnoteText = $notes[ $id ];
 					foreach ( $this->fn_styles[ $id ] as $style ) {
-						foreach ($style[ 'texts' ] as $textStyle) {
+						foreach ( $style['texts'] as $textStyle ) {
 							// Create style element
-							$styleElement = $chapter->createElement( $style[ 'style' ] );
+							$styleElement = $chapter->createElement( $style['style'] );
 							$textElement = $chapter->createTextNode( $textStyle );
 							$styleElement->appendChild( $textElement );
 
@@ -674,12 +673,11 @@ class Docx extends Import {
 								$footnoteText = str_replace( $textStyle, '', $footnoteText );
 								$parent->appendChild( $styleElement );
 							} else {
-								$textReplaced = $chapter->createTextNode( $e[ 0 ] );
+								$textReplaced = $chapter->createTextNode( $e[0] );
 								$parent->appendChild( $textReplaced );
 								$parent->appendChild( $styleElement );
 								$footnoteText = substr( $footnoteText, $position + strlen( $textStyle ) );
 							}
-
 						}
 					}
 					if ( strlen( $footnoteText ) > 0 ) {
