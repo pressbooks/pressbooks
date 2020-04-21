@@ -444,7 +444,7 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 		$this->assertContains( '<p><em>Ka kite ano!</em></p>', $xhtml_content );
 		$this->assertContains( 'https://github.com/pressbooks/pressbooks', $xhtml_content );
 		// Heading elements should be in a "bad" place.
-		$this->assertContains( '</h2></div><div class="ugc chapter-ugc"><h2 class="chapter-subtitle">Or, A Chapter to Test</h2>', $xhtml_content );
+		$this->assertContains( '</h2></div><div class="ugc {chapter-ugc}"><h2 class="chapter-subtitle">Or, A Chapter to Test</h2>', $xhtml_content );
 
 		unlink( $exporter->getOutputPath() );
 	}
