@@ -182,9 +182,9 @@ class Docx extends Import {
 		if ( $tags_fn_ref->length > 0 ) {
 			foreach ( $tags_fn_ref as $id ) {
 				/** @var \DOMElement $id */
-				$idAttribute = $id->getAttribute( $attr );
-				if ( '' !== $idAttribute ) { // don't add if its empty
-					$fn_ids[] = $idAttribute;
+				$id_attribute = $id->getAttribute( $attr );
+				if ( '' !== $id_attribute ) { // don't add if its empty
+					$fn_ids[] = $id_attribute;
 				}
 			}
 		}
@@ -197,12 +197,12 @@ class Docx extends Import {
 	 *
 	 * @param array $ids
 	 * @param string $tag
-	 * @param boolean $fnStyles
+	 * @param boolean $fn_styles
 	 *
 	 * @return array|bool
 	 * @throws \Exception if there is discrepancy between the number of footnotes in document.xml and footnotes.xml
 	 */
-	protected function getRelationshipPart( array $ids, $tag = 'footnotes', $fnStyles = false ) {
+	protected function getRelationshipPart( array $ids, $tag = 'footnotes', $fn_styles = false ) {
 		$footnotes = [];
 		$tag_name = rtrim( $tag, 's' );
 
@@ -251,7 +251,7 @@ class Docx extends Import {
 			$footnotes[ $ids[ $i ] ] = $text_tags->item( $i + 2 )->nodeValue;
 		}
 
-		if ( $fnStyles ) {
+		if ( $fn_styles ) {
 			$this->getFootnotesStyles( $text_tags, $ids );
 		}
 
@@ -268,14 +268,14 @@ class Docx extends Import {
 	 */
 	private function getFootnotesStyles( $text_tags, $ids ) {
 		// for now only italic, bold and underlined: https://github.com/pressbooks/pressbooks/issues/1852#issuecomment-617268552
-		$availableStyles = [ 'i', 'b', 'u' ];
+		$available_styles = [ 'i', 'b', 'u' ];
 
 		$this->fn_styles = [];
 		$limit = count( $ids );
 		for ( $i = 0; $i < $limit; $i++ ) {
-			$idStyleMain = $text_tags->item( $i + 2 );
-			foreach ( $availableStyles as $availableStyle ) {
-				$s = $idStyleMain->getElementsByTagName( $availableStyle );
+			$id_style_main = $text_tags->item( $i + 2 );
+			foreach ( $available_styles as $available_style ) {
+				$s = $id_style_main->getElementsByTagName( $available_style );
 				$styles = [];
 				if ( $s->length > 0 ) {
 					$texts = [];
@@ -283,7 +283,7 @@ class Docx extends Import {
 						$texts[] = $s->item( $j )->parentNode->parentNode->lastChild->nodeValue;
 					}
 					$styles[] = [
-						'style' => $availableStyle,
+						'style' => $available_style,
 						'texts' => $texts,
 					];
 				}
@@ -658,31 +658,31 @@ class Docx extends Import {
 				$parent->appendChild( $child );
 
 				if ( isset( $this->fn_styles ) && array_key_exists( $id, $this->fn_styles ) ) {
-					$footnoteText = $notes[ $id ];
+					$footnote_text = $notes[ $id ];
 					foreach ( $this->fn_styles[ $id ] as $style ) {
-						foreach ( $style['texts'] as $textStyle ) {
+						foreach ( $style['texts'] as $text_style ) {
 							// Create style element
-							$styleElement = $chapter->createElement( $style['style'] );
-							$textElement = $chapter->createTextNode( $textStyle );
-							$styleElement->appendChild( $textElement );
+							$style_element = $chapter->createElement( $style['style'] );
+							$text_element = $chapter->createTextNode( $text_style );
+							$style_element->appendChild( $text_element );
 
-							$e = explode( $textStyle, $footnoteText );
-							$position = strpos( $footnoteText, $textStyle );
+							$e = explode( $text_style, $footnote_text );
+							$position = strpos( $footnote_text, $text_style );
 
-							if ( $position == 0 ) {
-								$footnoteText = str_replace( $textStyle, '', $footnoteText );
-								$parent->appendChild( $styleElement );
+							if ( $position === 0 ) {
+								$footnote_text = str_replace( $text_style, '', $footnote_text );
+								$parent->appendChild( $style_element );
 							} else {
-								$textReplaced = $chapter->createTextNode( $e[0] );
-								$parent->appendChild( $textReplaced );
-								$parent->appendChild( $styleElement );
-								$footnoteText = substr( $footnoteText, $position + strlen( $textStyle ) );
+								$text_replaced = $chapter->createTextNode( $e[0] );
+								$parent->appendChild( $text_replaced );
+								$parent->appendChild( $style_element );
+								$footnote_text = substr( $footnote_text, $position + strlen( $text_style ) );
 							}
 						}
 					}
-					if ( strlen( $footnoteText ) > 0 ) {
-						$textReplaced = $chapter->createTextNode( $footnoteText );
-						$parent->appendChild( $textReplaced );
+					if ( strlen( $footnote_text ) > 0 ) {
+						$text_replaced = $chapter->createTextNode( $footnote_text );
+						$parent->appendChild( $text_replaced );
 					}
 				} else {
 					$parent->appendChild( $text );
