@@ -80,6 +80,9 @@
 		],
 		"standards": [
 			"vendor/bin/phpcs --standard=phpcs.ruleset.xml *.php inc/ bin/"
-		]
+		],
+    "fix": [
+      "vendor/bin/phpcbf --standard=phpcs.ruleset.xml *.php inc/ bin/"
+    ]
 	}
 }
