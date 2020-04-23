@@ -144,7 +144,7 @@ class Footnotes {
 		foreach ( $footnotes as $num => $footnote ) {
 			$num++;
 			$numlabel = "$id-$num";
-			$content .= '<li id="footnote-' . $numlabel . '">' . make_clickable( $footnote ) . ' <a href="#return-footnote-' . $numlabel . '" class="return-footnote" aria-label="Return to footnote ' . $num . '">&crarr;</a></li>';
+			$content .= '<li id="footnote-' . $numlabel . '">' . $footnote . ' <a href="#return-footnote-' . $numlabel . '" class="return-footnote" aria-label="Return to footnote ' . $num . '">&crarr;</a></li>';
 		}
 
 		if ( $this->numbered[ $id ] ) {
