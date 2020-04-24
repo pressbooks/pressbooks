@@ -9,7 +9,8 @@
 namespace Pressbooks;
 
 class BookDirectory {
-	const DELETE_BOOK_ENDPOINT = PB_BOOK_DIRECTORY_URL . '/api/books/delete';
+
+	const DELETE_BOOK_ENDPOINT = 'https://api.pressbooks.com/book-directory-fetcher/api/books/delete';
 
 	/**
 	 * @var BookDirectory
