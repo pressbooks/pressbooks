@@ -259,7 +259,7 @@ class Attachments {
 			}
 			if ( ! empty( $media_attributions ) ) {
 				$html = sprintf(
-					'<div class="media-atttributions" prefix:cc="http://creativecommons.org/ns#" prefix:dc="http://purl.org/dc/terms/"><h3>' . __( 'Media Attributions', 'pressbooks' ) . '</h3><ul>%s</ul></div>',
+					'<div class="media-attributions" prefix:cc="http://creativecommons.org/ns#" prefix:dc="http://purl.org/dc/terms/"><h3>' . __( 'Media Attributions', 'pressbooks' ) . '</h3><ul>%s</ul></div>',
 					$media_attributions
 				);
 			}
