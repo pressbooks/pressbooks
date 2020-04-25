@@ -336,3 +336,9 @@ add_action( 'init', [ '\Pressbooks\MathJax', 'init' ] );
 
 // Disable admin check email
 add_filter( 'admin_email_check_interval', '__return_false' );
+
+// -------------------------------------------------------------------------------------------------------------------
+// Book directory event actions
+// -------------------------------------------------------------------------------------------------------------------
+add_filter( 'init', [ '\Pressbooks\BookDirectory', 'init' ], 10, 2 );
+
