@@ -37,6 +37,7 @@ class GlobalTypography {
 	 */
 	function getSupportedLanguages() {
 		return [
+			'ff' => __( 'Adlam', 'pressbooks' ),
 			'grc' => __( 'Ancient Greek', 'pressbooks' ),
 			'ar' => __( 'Arabic', 'pressbooks' ),
 			'bn' => __( 'Bengali', 'pressbooks' ),
@@ -46,7 +47,6 @@ class GlobalTypography {
 			'zh_HANS' => __( 'Chinese (Simplified)', 'pressbooks' ),
 			'zh_HANT' => __( 'Chinese (Traditional)', 'pressbooks' ),
 			'cop' => __( 'Coptic', 'pressbooks' ),
-			'ff' => __( 'Adlam', 'pressbooks' ),
 			'gu' => __( 'Gujarati', 'pressbooks' ),
 			'pan' => __( 'Punjabi (Gurmukhi)', 'pressbooks' ),
 			'ja' => __( 'Japanese', 'pressbooks' ),
