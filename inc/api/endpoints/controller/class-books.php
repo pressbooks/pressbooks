@@ -299,6 +299,7 @@ class Books extends \WP_REST_Controller {
 			$conditions .= sprintf( ' AND last_updated > \'%s\'', $request['modified_since'] );
 		}
 
+		// phpcs:disable WordPress.WP.PreparedSQL.NotPrepared, WordPress.DB.PreparedSQLPlaceholders.ReplacementsWrongNumber
 		$blogs = $wpdb->get_col(
 			$wpdb->prepare(
 				"SELECT SQL_CALC_FOUND_ROWS blog_id FROM {$wpdb->blogs}
@@ -306,6 +307,7 @@ class Books extends \WP_REST_Controller {
 				ORDER BY blog_id LIMIT %d, %d ", get_network()->site_id, $offset, $limit
 			)
 		);
+		// phpcs:enable
 
 		$this->totalBooks = $wpdb->get_var( 'SELECT FOUND_ROWS()' );
 
