@@ -28,7 +28,6 @@ class Modules_ImportTest extends \WP_UnitTestCase {
 	 */
 	protected $import;
 
-
 	/**
 	 * @group import
 	 */

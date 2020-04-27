@@ -811,6 +811,16 @@ function replace_menu_bar_my_sites( $wp_admin_bar ) {
 	$wp_admin_bar->add_menu(
 		[
 			'id' => 'my-books',
+			'title' => __( 'My Books', 'pressbooks' ),
+			'href' => last_book( $wp_admin_bar, 'wp-admin/index.php?page=pb_catalog' ),
+		]
+	);
+
+	// My Catalog
+	$wp_admin_bar->add_node(
+		[
+			'parent' => 'my-books',
+			'id' => 'my-catalog',
 			'title' => __( 'My Catalog', 'pressbooks' ),
 			'href' => last_book( $wp_admin_bar, 'wp-admin/index.php?page=pb_catalog' ),
 		]
@@ -871,22 +881,6 @@ function replace_menu_bar_my_sites( $wp_admin_bar ) {
 				'id' => $menu_id,
 				'title' => $blavatar . $blogname,
 				'href' => $admin_url,
-			]
-		);
-		$wp_admin_bar->add_node(
-			[
-				'parent' => $menu_id,
-				'id' => $menu_id . '-d',
-				'title' => __( 'Dashboard', 'pressbooks' ),
-				'href' => $admin_url,
-			]
-		);
-		$wp_admin_bar->add_node(
-			[
-				'parent' => $menu_id,
-				'id' => $menu_id . '-v',
-				'title' => __( 'Visit Book', 'pressbooks' ),
-				'href' => get_home_url( $blog->userblog_id, '/' ),
 			]
 		);
 	}

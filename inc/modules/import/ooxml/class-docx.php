@@ -9,6 +9,7 @@ namespace Pressbooks\Modules\Import\Ooxml;
 
 use Pressbooks\Book;
 use Pressbooks\Modules\Import\Import;
+use Pressbooks\Utility;
 
 class Docx extends Import {
 
@@ -44,6 +45,17 @@ class Docx extends Import {
 	 * @var array
 	 */
 	protected $ln = [];
+
+	/**
+	 * Must not rely on all OOXML to be consistent with naming document.xml
+	 * @var string
+	 */
+	protected $document_target = '';
+
+	/**
+	 * @var array
+	 */
+	protected $fn_styles = [];
 
 	const DOCUMENT_SCHEMA = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument';
 	const METADATA_SCHEMA = 'http://schemas.openxmlformats.org/package/2006/relationships/metadata/core-properties';
@@ -101,8 +113,9 @@ class Docx extends Import {
 		if ( $fn_ids ) {
 			try {
 				// pass the IDs and get the content
-				$this->fn = $this->getRelationshipPart( $fn_ids );
+				$this->fn = $this->getRelationshipPart( $fn_ids, 'footnotes', true );
 			} catch ( \Exception $e ) {
+				$this->fn_styles = [];
 				$_SESSION['pb_notices'][] = $e->getMessage();
 			}
 		}
@@ -167,6 +180,7 @@ class Docx extends Import {
 	 */
 	protected function getIDs( \DOMDocument $dom_doc, $tag = 'footnoteReference', $attr = 'w:id' ) {
 		$fn_ids = [];
+
 		$doc_elem = $dom_doc->documentElement;
 
 		$tags_fn_ref = $doc_elem->getElementsByTagName( $tag );
@@ -175,8 +189,9 @@ class Docx extends Import {
 		if ( $tags_fn_ref->length > 0 ) {
 			foreach ( $tags_fn_ref as $id ) {
 				/** @var \DOMElement $id */
-				if ( '' !== $id->getAttribute( $attr ) ) { // don't add if its empty
-					$fn_ids[] = $id->getAttribute( $attr );
+				$id_attribute = $id->getAttribute( $attr );
+				if ( '' !== $id_attribute ) { // don't add if its empty
+					$fn_ids[] = $id_attribute;
 				}
 			}
 		}
@@ -189,11 +204,12 @@ class Docx extends Import {
 	 *
 	 * @param array $ids
 	 * @param string $tag
+	 * @param boolean $fn_styles
 	 *
 	 * @return array|bool
 	 * @throws \Exception if there is discrepancy between the number of footnotes in document.xml and footnotes.xml
 	 */
-	protected function getRelationshipPart( array $ids, $tag = 'footnotes' ) {
+	protected function getRelationshipPart( array $ids, $tag = 'footnotes', $fn_styles = false ) {
 		$footnotes = [];
 		$tag_name = rtrim( $tag, 's' );
 
@@ -242,7 +258,48 @@ class Docx extends Import {
 			$footnotes[ $ids[ $i ] ] = $text_tags->item( $i + 2 )->nodeValue;
 		}
 
+		if ( $fn_styles ) {
+			$this->getFootnotesStyles( $text_tags, $ids );
+		}
+
 		return $footnotes;
+	}
+
+	/**
+	 * Get styles for footnotes (Italic, Bold and Underline) and save it in fn_styles property.
+	 *
+	 * @param array $text_tags
+	 * @param array $ids
+	 *
+	 * @return array
+	 */
+	private function getFootnotesStyles( $text_tags, $ids ) {
+		// for now only italic, bold and underlined: https://github.com/pressbooks/pressbooks/issues/1852#issuecomment-617268552
+		$available_styles = [ 'i', 'b', 'u' ];
+
+		$this->fn_styles = [];
+		$limit = count( $ids );
+		for ( $i = 0; $i < $limit; $i++ ) {
+			$id_style_main = $text_tags->item( $i + 2 );
+			foreach ( $available_styles as $available_style ) {
+				$s = $id_style_main->getElementsByTagName( $available_style );
+				$styles = [];
+				if ( $s->length > 0 ) {
+					$texts = [];
+					for ( $j = 0; $j < $s->length; $j++ ) {
+						$texts[] = $s->item( $j )->parentNode->parentNode->lastChild->nodeValue;
+					}
+					$styles[] = [
+						'style' => $available_style,
+						'texts' => $texts,
+					];
+				}
+				if ( count( $styles ) > 0 ) {
+					$this->fn_styles[ $ids[ $i ] ] = $styles;
+				}
+			}
+		}
+		return $this->fn_styles;
 	}
 
 	/**
@@ -565,6 +622,19 @@ class Docx extends Import {
 			}
 		}
 
+		return $this->addFootnotesToDOM( $chapter, $fn_ids );
+
+	}
+
+	/**
+	 * adds footnotes to DOM applying styles
+	 *
+	 * @param \DOMDocument $chapter
+	 * @param array $fn_ids
+	 *
+	 * @return \DOMDocument
+	 */
+	private function addFootnotesToDOM( \DOMDocument $chapter, $fn_ids ) {
 		// TODO either/or is not sufficient, needs to be built to
 		// cover a use case where both are present.
 		$notes = [];
@@ -573,6 +643,11 @@ class Docx extends Import {
 		}
 		if ( ! empty( $this->en ) ) {
 			$notes = $this->en;
+		}
+
+		// We need to improve our way to get $fn_candidates
+		if ( empty( $fn_ids ) && ! empty( $notes ) ) {
+			$fn_ids = array_keys( $notes );
 		}
 
 		foreach ( $fn_ids as $id ) {
@@ -588,7 +663,37 @@ class Docx extends Import {
 				// attach
 				$grandparent->appendChild( $parent );
 				$parent->appendChild( $child );
-				$parent->appendChild( $text );
+
+				if ( isset( $this->fn_styles ) && array_key_exists( $id, $this->fn_styles ) ) {
+					$footnote_text = $notes[ $id ];
+					foreach ( $this->fn_styles[ $id ] as $style ) {
+						foreach ( $style['texts'] as $text_style ) {
+							// Create style element
+							$style_element = $chapter->createElement( $style['style'] );
+							$text_element = $chapter->createTextNode( $text_style );
+							$style_element->appendChild( $text_element );
+
+							$e = explode( $text_style, $footnote_text );
+							$position = strpos( $footnote_text, $text_style );
+
+							if ( $position === 0 ) {
+								$footnote_text = str_replace( $text_style, '', $footnote_text );
+								$parent->appendChild( $style_element );
+							} else {
+								$text_replaced = $chapter->createTextNode( $e[0] );
+								$parent->appendChild( $text_replaced );
+								$parent->appendChild( $style_element );
+								$footnote_text = substr( $footnote_text, $position + strlen( $text_style ) );
+							}
+						}
+					}
+					if ( strlen( $footnote_text ) > 0 ) {
+						$text_replaced = $chapter->createTextNode( $footnote_text );
+						$parent->appendChild( $text_replaced );
+					}
+				} else {
+					$parent->appendChild( $text );
+				}
 
 				$chapter->documentElement->appendChild( $grandparent );
 			}
@@ -728,8 +833,14 @@ class Docx extends Import {
 		if ( true !== $result ) {
 			throw new \Exception( 'Opening docx file failed' );
 		}
-		// check if a document.xml exists
+
+		// check if a document file exists
 		$path = $this->getTargetPath( self::DOCUMENT_SCHEMA );
+
+		// save document file name
+		if ( $path ) {
+			$this->document_target = basename( $path );
+		}
 
 		$ok = $this->getZipContent( $path );
 
@@ -752,7 +863,7 @@ class Docx extends Import {
 		if ( empty( $id ) ) {
 			$path_to_rel_doc = '_rels/.rels';
 		} else {
-			$path_to_rel_doc = 'word/_rels/document.xml.rels';
+			$path_to_rel_doc = "word/_rels/{$this->document_target}.rels";
 		}
 
 		$relations = simplexml_load_string(
@@ -775,7 +886,7 @@ class Docx extends Import {
 					case 'footnotes':
 					case 'endnotes':
 					case '_styles':
-						$path = 'word/' . $rel_target;
+						$path = 'word/' . basename( $rel_target );
 						break;
 					default:
 						if ( $rel_type === self::IMAGE_SCHEMA ) {
@@ -791,7 +902,7 @@ class Docx extends Import {
 			}
 		}
 
-		return $path;
+		return Utility\str_remove_prefix( $path, '/' );
 	}
 
 	/**

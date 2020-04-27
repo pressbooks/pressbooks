@@ -49,8 +49,11 @@ function replace_root_dashboard_widgets() {
 	global $wp_meta_boxes;
 
 	// Remove unwanted dashboard widgets
-	unset( $wp_meta_boxes['dashboard']['side']['core']['dashboard_primary'] );
-	unset( $wp_meta_boxes['dashboard']['side']['core']['dashboard_secondary'] );
+	remove_meta_box( 'dashboard_primary', 'dashboard', 'side' );
+	remove_meta_box( 'dashboard_quick_press', 'dashboard', 'side' );
+	remove_meta_box( 'health_check_status', 'dashboard', 'normal' );
+	remove_meta_box( 'dashboard_activity', 'dashboard', 'normal' );
+	remove_meta_box( 'dashboard_site_health', 'dashboard', 'normal' );
 
 	// Add our news feed.
 	$options = array_map(

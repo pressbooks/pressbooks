@@ -6,9 +6,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
-"POT-Creation-Date: 2020-01-06T21:43:48+00:00\n"
-"PO-Revision-Date: 2020-01-06 21:48+0000\n"
-"Last-Translator: Carlos <carlos@pressbooks.com>\n"
+"POT-Creation-Date: 2020-04-15T22:06:53+00:00\n"
+"PO-Revision-Date: 2020-03-16 14:51+0000\n"
+"Last-Translator: Ho Man Chan <homan@pressbooks.com>\n"
 "Language-Team: Latvian (http://www.transifex.com/pressbooks/pressbooks/language/lv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Language: lv\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2);\n"
 "X-Domain: pressbooks\n"
-"X-Generator: WP-CLI 2.4.0\n"
+"X-Generator: WP-CLI 2.3.0\n"
 
 #. Plugin Name of the plugin
 msgid "Pressbooks"
@@ -220,7 +220,7 @@ msgid "Public"
 msgstr "Publisks "
 
 #: inc/admin/class-catalog-list-table.php:522 inc/admin/laf/namespace.php:417
-#: inc/admin/laf/namespace.php:585 inc/admin/laf/namespace.php:814
+#: inc/admin/laf/namespace.php:585 inc/admin/laf/namespace.php:824
 msgid "My Catalog"
 msgstr "Mans katalogs"
 
@@ -682,7 +682,7 @@ msgstr "Šīs tīkls neļauj lietotājiem veidot jaunas grāmatas. Lai izveidotu
 msgid "at"
 msgstr "(kur?)"
 
-#: inc/admin/dashboard/namespace.php:135 inc/admin/laf/namespace.php:824
+#: inc/admin/dashboard/namespace.php:135 inc/admin/laf/namespace.php:834
 msgid "Create A New Book"
 msgstr "Izveidot jaunu grāmatu"
 
@@ -730,7 +730,6 @@ msgstr ""
 
 #: inc/admin/dashboard/namespace.php:306 inc/admin/dashboard/namespace.php:307
 #: inc/admin/laf/namespace.php:729 inc/admin/laf/namespace.php:796
-#: inc/admin/laf/namespace.php:880
 msgid "Dashboard"
 msgstr "Informācijas panelis"
 
@@ -966,7 +965,7 @@ msgid ""
 msgstr ""
 
 #: inc/admin/laf/namespace.php:349 inc/admin/laf/namespace.php:564
-#: inc/admin/laf/namespace.php:1365
+#: inc/admin/laf/namespace.php:1359
 #: inc/admin/network/class-sharingandprivacyoptions.php:304
 msgid "Sharing and Privacy Settings"
 msgstr "Dalīšanas un konfidencialitātes iestatījumi"
@@ -1016,8 +1015,8 @@ msgstr "Palīdzība"
 msgid "Network Admin"
 msgstr "Tīkla administrators"
 
-#: inc/admin/laf/namespace.php:737 inc/admin/laf/namespace.php:1420
-#: inc/admin/laf/namespace.php:1430
+#: inc/admin/laf/namespace.php:737 inc/admin/laf/namespace.php:1414
+#: inc/admin/laf/namespace.php:1424
 msgid "Books"
 msgstr "Grāmatas"
 
@@ -1033,15 +1032,15 @@ msgstr "Spraudņi"
 msgid "Visit Website"
 msgstr "Apmeklēt vietni"
 
-#: inc/admin/laf/namespace.php:842
+#: inc/admin/laf/namespace.php:814
+msgid "My Books"
+msgstr ""
+
+#: inc/admin/laf/namespace.php:852
 msgid "Clone A Book"
 msgstr "Klonēt grāmatu"
 
-#: inc/admin/laf/namespace.php:888
-msgid "Visit Book"
-msgstr "Apmeklēt grāmatu"
-
-#: inc/admin/laf/namespace.php:1085
+#: inc/admin/laf/namespace.php:1079
 msgid ""
 "Are you sure you want to unlock your theme? This will update your book to "
 "the most recent version of your selected theme, which may change your "
@@ -1049,92 +1048,92 @@ msgid ""
 "page, this action will NOT be reversable!"
 msgstr "Vai tiešām vēlaties atbloķēt Jūsu tēmu? Tas atjaunos Jūsu grāmatu līdz izvēlētas grāmatas visjaunākajai versijai, kas vārēs nomainīt Jūsu grāmatas ārējo izskatu un lapaspušu skaitu. Kad Jūs saglabāsiet iestatījumus šajā lapaspusē, šo rīcību NEBŪS iespējams atcelt! "
 
-#: inc/admin/laf/namespace.php:1149
+#: inc/admin/laf/namespace.php:1143
 msgid "Book Visibility"
 msgstr "Grāmatas redzamība"
 
-#: inc/admin/laf/namespace.php:1163
+#: inc/admin/laf/namespace.php:1157
 msgid "Private Content"
 msgstr "Privāts saturs"
 
-#: inc/admin/laf/namespace.php:1176
+#: inc/admin/laf/namespace.php:1170
 msgid "Disable Comments"
 msgstr "Aizvērt komentārus"
 
-#: inc/admin/laf/namespace.php:1191
+#: inc/admin/laf/namespace.php:1185
 msgid "Share Latest Export Files"
 msgstr "Dalīties ar jaunākiem eksporta failiem"
 
-#: inc/admin/laf/namespace.php:1209
+#: inc/admin/laf/namespace.php:1203
 msgid "Sharing and Privacy settings"
 msgstr "Dalīšanas un konfidencialitātes iestatījumi"
 
-#: inc/admin/laf/namespace.php:1225
+#: inc/admin/laf/namespace.php:1219
 msgid "Public. I would like this book to be visible to everyone."
 msgstr "Publiskais. Es gribētu, lai grāmata būtu pieejama visiem."
 
-#: inc/admin/laf/namespace.php:1231
+#: inc/admin/laf/namespace.php:1225
 msgid ""
 "Private. I would like this book to be accessible only to people I invite."
 msgstr "Privātais. Es gribētu, lai grāmata būtu pieejama tikai tiem cilvēkiem, ko es uzaicināju."
 
-#: inc/admin/laf/namespace.php:1255
+#: inc/admin/laf/namespace.php:1249
 msgid "Who can see private front matter, chapters and back matter?"
 msgstr "Kas var redzēt privātus sākuma papildinformāciju, nodaļas un beigu papildinformāciju?"
 
-#: inc/admin/laf/namespace.php:1258
+#: inc/admin/laf/namespace.php:1252
 msgid "Only logged in editors and administrators."
 msgstr "Tikai ielogotie redaktori un administratori."
 
-#: inc/admin/laf/namespace.php:1260
+#: inc/admin/laf/namespace.php:1254
 msgid "All logged in users including subscribers."
 msgstr "Visi ielogotie lietotāji, ieskaitot abonentus."
 
-#: inc/admin/laf/namespace.php:1281
+#: inc/admin/laf/namespace.php:1275
 msgid ""
 "Yes. I want to automatically disable comments, trackbacks and pingbacks on "
 "all front matter, chapters and back matter."
 msgstr "Jā. Es gribu, lai komentāri, atsaučpaziņošanas un atbalspaziņošanas bija automātiski aizvērti sākuma papildinformācijā, nodaļās un beigu papildinformācijā."
 
-#: inc/admin/laf/namespace.php:1287
+#: inc/admin/laf/namespace.php:1281
 msgid ""
 "No. I want to leave comments, trackbacks and pingbacks enabled on all front "
 "matter, chapters and back matter unless I disable them manually."
 msgstr "Nē. Es gribu, lai komentāri, atsaučpaziņošanas un atbalspaziņošanas sākuma papildinformācijā, nodaļās un beigu papildinformācijā palika atvērti, kamēr es pats tos neaizvēršu."
 
-#: inc/admin/laf/namespace.php:1303
+#: inc/admin/laf/namespace.php:1297
 msgid ""
 "Yes. I would like the latest export files to be available on the homepage "
 "for free, to everyone."
 msgstr "Jā. Es gribu, lai jaunāki eksporta faili bija bezmaksas pieejami visiem mājaslapā."
 
-#: inc/admin/laf/namespace.php:1309
+#: inc/admin/laf/namespace.php:1303
 msgid ""
 "No. I would like the latest export files to only be available to "
 "administrators."
 msgstr "Nē. Es gribu, lai jaunāki eksporta faili bija pieejami tikai administratoriem."
 
-#: inc/admin/laf/namespace.php:1423
+#: inc/admin/laf/namespace.php:1417
 msgid "All Books"
 msgstr "Visas grāmatas"
 
-#: inc/admin/laf/namespace.php:1433
+#: inc/admin/laf/namespace.php:1427
 msgid "Search Books"
 msgstr "Meklēt grāmatas"
 
-#: inc/admin/laf/namespace.php:1439
+#: inc/admin/laf/namespace.php:1433
 msgid "Edit Book: %s"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1442 inc/admin/laf/namespace.php:1451
+#: inc/admin/laf/namespace.php:1436 inc/admin/laf/namespace.php:1445
 msgid "Book Address (URL)"
 msgstr "Grāmatas adrese (tīmekļa adrese)"
 
-#: inc/admin/laf/namespace.php:1448
+#: inc/admin/laf/namespace.php:1442
 msgid "Add New Book"
 msgstr "Pievienot jaunu grāmatu"
 
-#: inc/admin/laf/namespace.php:1454
+#: inc/admin/laf/namespace.php:1448
 #: inc/modules/themeoptions/class-pdfoptions.php:358
 #: inc/modules/themeoptions/class-pdfoptions.php:377
 #: inc/modules/themeoptions/class-pdfoptions.php:396
@@ -1148,23 +1147,23 @@ msgstr "Pievienot jaunu grāmatu"
 msgid "Book Title"
 msgstr "Grāmatas virsraksts"
 
-#: inc/admin/laf/namespace.php:1457
+#: inc/admin/laf/namespace.php:1451
 msgid "Book Language"
 msgstr "Grāmatas valoda"
 
-#: inc/admin/laf/namespace.php:1460
+#: inc/admin/laf/namespace.php:1454
 msgid "Add Book"
 msgstr "Pievienot grāmatu"
 
-#: inc/admin/laf/namespace.php:1477
+#: inc/admin/laf/namespace.php:1471
 msgid "Edit previous or next item"
 msgstr "Rediģēt iepriekšējo vai nākamo priekšmetu"
 
-#: inc/admin/laf/namespace.php:1482
+#: inc/admin/laf/namespace.php:1476
 msgid "Edit Previous (%s)"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1487
+#: inc/admin/laf/namespace.php:1481
 msgid "Edit Next (%s)"
 msgstr ""
 
@@ -2536,77 +2535,85 @@ msgid "No indent"
 msgstr "Nav atkāpes"
 
 #: inc/editor/namespace.php:205
+msgid "Write right to left"
+msgstr ""
+
+#: inc/editor/namespace.php:213
+msgid "Write left to right"
+msgstr ""
+
+#: inc/editor/namespace.php:221
 msgid "Tight tracking"
 msgstr "Stingra izsekošana"
 
-#: inc/editor/namespace.php:211
+#: inc/editor/namespace.php:227
 msgid "Very tight tracking"
 msgstr "Ļoti stingra izsekošana"
 
-#: inc/editor/namespace.php:217
+#: inc/editor/namespace.php:233
 msgid "Loose tracking"
 msgstr "Brīva izsekošana"
 
-#: inc/editor/namespace.php:223
+#: inc/editor/namespace.php:239
 msgid "Very loose tracking"
 msgstr "Ļoti brīva izsekošana"
 
-#: inc/editor/namespace.php:229
+#: inc/editor/namespace.php:245
 msgid "Pullquote (left)"
 msgstr "Izvilkuma citāts (kreisā pusē)"
 
-#: inc/editor/namespace.php:235
+#: inc/editor/namespace.php:251
 msgid "Pullquote (right)"
 msgstr "Izvilkuma citāts (labā pusē)"
 
-#: inc/editor/namespace.php:287 inc/editor/namespace.php:329
-#: inc/editor/namespace.php:343
+#: inc/editor/namespace.php:303 inc/editor/namespace.php:345
+#: inc/editor/namespace.php:359
 #: inc/modules/themeoptions/class-weboptions.php:118 languages/tinymce.php:7
 msgid "Standard"
 msgstr "Standarts"
 
-#: inc/editor/namespace.php:291
+#: inc/editor/namespace.php:307
 msgid "No lines"
 msgstr "Nav līniju"
 
-#: inc/editor/namespace.php:295
+#: inc/editor/namespace.php:311
 msgid "Lines"
 msgstr "Līnijas"
 
-#: inc/editor/namespace.php:299 inc/editor/namespace.php:337
-#: inc/editor/namespace.php:351 languages/tinymce.php:10
+#: inc/editor/namespace.php:315 inc/editor/namespace.php:353
+#: inc/editor/namespace.php:367 languages/tinymce.php:10
 msgid "Shaded"
 msgstr "Aizēnots"
 
-#: inc/editor/namespace.php:303
+#: inc/editor/namespace.php:319
 msgid "Full Grid"
 msgstr ""
 
-#: inc/editor/namespace.php:307
+#: inc/editor/namespace.php:323
 msgid "Standard Landscape*"
 msgstr ""
 
-#: inc/editor/namespace.php:311
+#: inc/editor/namespace.php:327
 msgid "No lines Landscape*"
 msgstr ""
 
-#: inc/editor/namespace.php:315
+#: inc/editor/namespace.php:331
 msgid "Lines Landscape*"
 msgstr ""
 
-#: inc/editor/namespace.php:319
+#: inc/editor/namespace.php:335
 msgid "Shaded Landscape*"
 msgstr ""
 
-#: inc/editor/namespace.php:323
+#: inc/editor/namespace.php:339
 msgid "Full Grid Landscape*"
 msgstr ""
 
-#: inc/editor/namespace.php:333 inc/editor/namespace.php:347
+#: inc/editor/namespace.php:349 inc/editor/namespace.php:363
 msgid "Border"
 msgstr "Apmale"
 
-#: inc/editor/namespace.php:467
+#: inc/editor/namespace.php:483
 msgid "Internal Link"
 msgstr "Iekšēja saite"
 
@@ -3187,7 +3194,7 @@ msgid ""
 msgstr "Aktivēt divlīmeņa saturu (daļu virsraksti tiks rādīti pēc nodaļu virsrakstiem)"
 
 #: inc/modules/themeoptions/class-globaloptions.php:127
-#: inc/shortcodes/attributions/class-attachments.php:260
+#: inc/shortcodes/attributions/class-attachments.php:262
 msgid "Media Attributions"
 msgstr "Plašsaziņas līdzekļi ar autorības norādi"
 
@@ -3971,8 +3978,8 @@ msgid "Password must include at least one number."
 msgstr ""
 
 #: inc/shortcodes/attributions/class-attachments.php:200
-msgid " by "
-msgstr "ar"
+msgid " &copy; "
+msgstr ""
 
 #: inc/shortcodes/attributions/class-attachments.php:201
 msgid " adapted by "

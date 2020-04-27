@@ -202,6 +202,22 @@ function mce_before_init_insert_formats( $init_array ) {
 			'wrapper' => false,
 		],
 		[
+			'title' => __( 'Write right to left', 'pressbooks' ),
+			'block' => 'p',
+			'styles' => [
+				'direction' => 'rtl',
+			],
+			'wrapper' => false,
+		],
+		[
+			'title' => __( 'Write left to right', 'pressbooks' ),
+			'block' => 'p',
+			'styles' => [
+				'direction' => 'ltr',
+			],
+			'wrapper' => false,
+		],
+		[
 			'title' => __( 'Tight tracking', 'pressbooks' ),
 			'block' => 'span',
 			'classes' => 'tight',

@@ -1333,6 +1333,7 @@ class Xhtml11 extends ExportGenerator {
 	protected function echoPartsAndChaptersGenerator( $book_contents, $metadata ) : \Generator {
 		$part_printf = '<div class="part %1$s" id="%2$s">';
 		$part_printf .= '<div class="part-title-wrap"><h3 class="part-number">%3$s</h3><h1 class="part-title">%4$s</h1></div>%5$s';
+		$part_printf .= '<div class="ugc part-ugc">%6$s</div>';
 		$part_printf .= '</div>';
 
 		$chapter_printf = '<div class="chapter %1$s" id="%2$s" title="%3$s">';
@@ -1385,13 +1386,15 @@ class Xhtml11 extends ExportGenerator {
 			}
 
 			$m = ( 'invisible' === $invisibility ) ? '' : $i;
+
 			$my_part = sprintf(
 				( $part_printf_changed ? $part_printf_changed : $part_printf ),
 				$invisibility,
 				$slug,
 				\Pressbooks\L10n\romanize( $m ),
 				Sanitize\decode( $title ),
-				$part_content
+				$part_content,
+				$this->doEndnotes( $part['ID'] )
 			) . "\n";
 
 			$my_chapters = '';

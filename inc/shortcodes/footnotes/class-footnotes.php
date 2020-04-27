@@ -136,15 +136,15 @@ class Footnotes {
 		}
 
 		if ( $this->numbered[ $id ] ) {
-			$content .= '<hr class="before-footnotes" /><div class="footnotes"><ol>';
+			$content .= '<hr class="before-footnotes clear" /><div class="footnotes"><ol>';
 		} else {
-			$content .= '<hr class="before-footnotes" /><div class="footnotes"><ul>';
+			$content .= '<hr class="before-footnotes clear" /><div class="footnotes"><ul>';
 		}
 
 		foreach ( $footnotes as $num => $footnote ) {
 			$num++;
 			$numlabel = "$id-$num";
-			$content .= '<li id="footnote-' . $numlabel . '">' . make_clickable( $footnote ) . ' <a href="#return-footnote-' . $numlabel . '" class="return-footnote" aria-label="Return to footnote ' . $num . '">&crarr;</a></li>';
+			$content .= '<li id="footnote-' . $numlabel . '">' . $footnote . ' <a href="#return-footnote-' . $numlabel . '" class="return-footnote" aria-label="Return to footnote ' . $num . '">&crarr;</a></li>';
 		}
 
 		if ( $this->numbered[ $id ] ) {
