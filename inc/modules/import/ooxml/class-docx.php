@@ -182,7 +182,6 @@ class Docx extends Import {
 		$fn_ids = [];
 
 		$doc_elem = $dom_doc->documentElement;
-		$xml = $dom_doc->saveXML();
 
 		$tags_fn_ref = $doc_elem->getElementsByTagName( $tag );
 
@@ -243,7 +242,6 @@ class Docx extends Import {
 		// set it up
 		$dom_doc = $this->getZipContent( $target_path );
 		$doc_elem = $dom_doc->documentElement;
-		$s = $dom_doc->saveXML();
 
 		// grab all the footnotes
 		$text_tags = $doc_elem->getElementsByTagName( $tag_name );
