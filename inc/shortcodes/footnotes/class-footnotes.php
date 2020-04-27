@@ -136,9 +136,9 @@ class Footnotes {
 		}
 
 		if ( $this->numbered[ $id ] ) {
-			$content .= '<hr class="before-footnotes" /><div class="footnotes"><ol>';
+			$content .= '<hr class="before-footnotes clear" /><div class="footnotes"><ol>';
 		} else {
-			$content .= '<hr class="before-footnotes" /><div class="footnotes"><ul>';
+			$content .= '<hr class="before-footnotes clear" /><div class="footnotes"><ul>';
 		}
 
 		foreach ( $footnotes as $num => $footnote ) {
