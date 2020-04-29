@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
-"POT-Creation-Date: 2020-04-15T22:06:53+00:00\n"
+"POT-Creation-Date: 2020-04-28T23:36:52+00:00\n"
 "PO-Revision-Date: 2020-03-16 14:51+0000\n"
 "Last-Translator: Ho Man Chan <homan@pressbooks.com>\n"
 "Language-Team: Greek (http://www.transifex.com/pressbooks/pressbooks/language/el/)\n"
@@ -657,53 +657,53 @@ msgstr ""
 msgid "Pressbooks News"
 msgstr "Τα Νέα του Pressbooks"
 
-#: inc/admin/dashboard/namespace.php:83
+#: inc/admin/dashboard/namespace.php:86
 msgid "My Book"
 msgstr "Το βιβλίο μου"
 
-#: inc/admin/dashboard/namespace.php:84 inc/admin/laf/namespace.php:745
+#: inc/admin/dashboard/namespace.php:87 inc/admin/laf/namespace.php:745
 msgid "Users"
 msgstr "Χρήστες"
 
-#: inc/admin/dashboard/namespace.php:104
+#: inc/admin/dashboard/namespace.php:107
 msgid "Book Permissions"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:116
+#: inc/admin/dashboard/namespace.php:119
 msgid "Welcome to Pressbooks!"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:119
+#: inc/admin/dashboard/namespace.php:122
 msgid "You do not have access to any books at the moment."
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:126
+#: inc/admin/dashboard/namespace.php:129
 msgid ""
 "This network does not allow users to create new books. To create a new book,"
 " please contact your Pressbooks Network Manager"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:128 inc/admin/dashboard/namespace.php:142
+#: inc/admin/dashboard/namespace.php:131 inc/admin/dashboard/namespace.php:145
 msgid "at"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:135 inc/admin/laf/namespace.php:834
+#: inc/admin/dashboard/namespace.php:138 inc/admin/laf/namespace.php:834
 msgid "Create A New Book"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:140
+#: inc/admin/dashboard/namespace.php:143
 msgid ""
 "You can also request access to an existing book by contacting the book's "
 "author or the institution's Pressbooks Network Manager"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:156 inc/class-activation.php:243
+#: inc/admin/dashboard/namespace.php:159 inc/class-activation.php:243
 #: inc/modules/export/epub/templates/epub3/toc.php:26
 #: inc/modules/themeoptions/class-pdfoptions.php:272 tests/test-cloner.php:63
 msgid "Table of Contents"
 msgstr "Πίνακας Περιεχομένων"
 
-#: inc/admin/dashboard/namespace.php:158 inc/admin/metaboxes/namespace.php:566
+#: inc/admin/dashboard/namespace.php:161 inc/admin/metaboxes/namespace.php:566
 #: inc/api/endpoints/controller/class-toc.php:192
 #: inc/posttype/namespace.php:115 inc/posttype/namespace.php:116
 #: inc/posttype/namespace.php:538 templates/admin/import.php:91
@@ -711,7 +711,7 @@ msgstr "Πίνακας Περιεχομένων"
 msgid "Front Matter"
 msgstr "Προκειμενικά στοιχεία"
 
-#: inc/admin/dashboard/namespace.php:199 inc/admin/metaboxes/namespace.php:568
+#: inc/admin/dashboard/namespace.php:202 inc/admin/metaboxes/namespace.php:568
 #: inc/api/endpoints/controller/class-toc.php:225
 #: inc/posttype/namespace.php:143 inc/posttype/namespace.php:144
 #: inc/posttype/namespace.php:541 templates/admin/import.php:96
@@ -719,46 +719,46 @@ msgstr "Προκειμενικά στοιχεία"
 msgid "Back Matter"
 msgstr "Μετακειμενικά στοιχεία"
 
-#: inc/admin/dashboard/namespace.php:218 inc/admin/dashboard/namespace.php:297
+#: inc/admin/dashboard/namespace.php:221 inc/admin/dashboard/namespace.php:300
 #: templates/admin/organize.php:266 templates/admin/organize.php:423
 msgid "Add"
 msgstr "Προσθήκη"
 
-#: inc/admin/dashboard/namespace.php:218 inc/admin/dashboard/namespace.php:297
+#: inc/admin/dashboard/namespace.php:221 inc/admin/dashboard/namespace.php:300
 #: inc/admin/laf/namespace.php:138
 msgid "Organize"
 msgstr "Οργάνωση"
 
-#: inc/admin/dashboard/namespace.php:286
+#: inc/admin/dashboard/namespace.php:289
 msgid "%1$s total users: "
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:306 inc/admin/dashboard/namespace.php:307
+#: inc/admin/dashboard/namespace.php:309 inc/admin/dashboard/namespace.php:310
 #: inc/admin/laf/namespace.php:729 inc/admin/laf/namespace.php:796
 msgid "Dashboard"
 msgstr "Πίνακας ελέγχου"
 
-#: inc/admin/dashboard/namespace.php:356
+#: inc/admin/dashboard/namespace.php:359
 msgid "Dashboard Feed"
 msgstr "Τροφοδοσία Πίνακα Ελέγχου"
 
-#: inc/admin/dashboard/namespace.php:363
+#: inc/admin/dashboard/namespace.php:366
 msgid "Display Feed"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:368
+#: inc/admin/dashboard/namespace.php:371
 msgid "Display an RSS feed widget on the dashboard."
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:374
+#: inc/admin/dashboard/namespace.php:377
 msgid "Feed Title"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:382
+#: inc/admin/dashboard/namespace.php:385
 msgid "Feed URL"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:409
+#: inc/admin/dashboard/namespace.php:412
 msgid "Adjust settings for your dashboard RSS feed widget below."
 msgstr ""
 
@@ -2793,15 +2793,15 @@ msgstr ""
 #: inc/modules/export/epub/class-epub201.php:1454
 #: inc/modules/export/epub/class-epub201.php:1476
 #: inc/modules/export/xhtml/class-xhtml11.php:417
-#: inc/modules/export/xhtml/class-xhtml11.php:1352
-#: inc/modules/export/xhtml/class-xhtml11.php:1400
+#: inc/modules/export/xhtml/class-xhtml11.php:1353
+#: inc/modules/export/xhtml/class-xhtml11.php:1403
 msgid "Exporting parts and chapters"
 msgstr ""
 
 #: inc/modules/export/epub/class-epub201.php:710
 #: inc/modules/export/epub/class-epub201.php:1715
 #: inc/modules/export/xhtml/class-xhtml11.php:421
-#: inc/modules/export/xhtml/class-xhtml11.php:1526
+#: inc/modules/export/xhtml/class-xhtml11.php:1529
 msgid "Exporting back matter"
 msgstr ""
 
