@@ -12,6 +12,10 @@ class BookDirectory {
 
 	const DELETE_BOOK_ENDPOINT = 'https://api.pressbooks.com/book-directory-fetcher/api/books/delete';
 
+	const DELETION_PREFIX = 'remove-';
+
+	const DELETIONS_META_KEY = 'book_directory_removals';
+
 	/**
 	 * @var BookDirectory
 	 */
@@ -106,17 +110,26 @@ class BookDirectory {
 	 */
 	function deleteBookFromDirectory( string $book_id = null ) {
 		if ( filter_var( self::DELETE_BOOK_ENDPOINT, FILTER_VALIDATE_URL ) ) {
+			$book_id = $book_id ?? get_current_blog_id();
+			$sid = sprintf( '%s-%s-%s', uniqid( self::DELETION_PREFIX, true ), rand( 1, 99 ), $book_id );
 
 			$header = [
 				'Content-Type' => 'application/json',
 			];
 
 			$data = [
-				'network' => 'https://' . $_SERVER['HTTP_HOST'],
-				'book_id' => $book_id ?? get_current_blog_id(),
+				'sid'       => $sid,
+				'network'   => 'https://' . $_SERVER['HTTP_HOST'],
+				'book_id'   => $book_id,
 			];
 
-			\Requests::post( self::DELETE_BOOK_ENDPOINT, $header, wp_json_encode( $data ) );
+			$result = \Requests::post( self::DELETE_BOOK_ENDPOINT, $header, wp_json_encode( $data ) );
+
+			if ( 200 === $result->status_code && true === $result->success ) {
+				$removals = get_site_option( self::DELETIONS_META_KEY, [] );
+				array_push( $removals, $sid );
+				update_site_option( self::DELETIONS_META_KEY, $removals );
+			}
 		}
 	}
 }
