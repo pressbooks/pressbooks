@@ -4,6 +4,10 @@ namespace Pressbooks\Api\Endpoints\Controller;
 
 use Pressbooks\BookDirectory;
 
+/**
+ * Class Directory
+ * @package Pressbooks\Api\Endpoints\Controller
+ */
 class Directory extends \WP_REST_Controller {
 	const VERIFY_DELETION = 'verify_deletion';
 

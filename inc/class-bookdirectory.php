@@ -8,6 +8,12 @@
 
 namespace Pressbooks;
 
+use WP_Site;
+
+/**
+ * Class BookDirectory
+ * @package Pressbooks
+ */
 class BookDirectory {
 
 	const DELETE_BOOK_ENDPOINT = 'https://api.pressbooks.com/book-directory-fetcher/api/books/delete';
@@ -50,44 +56,43 @@ class BookDirectory {
 	/**
 	 * Detects a book deletion and triggers a book deletion request to the book fetcher API.
 	 *
+	 * @param WP_Site $site
+	 *
+	 * @return bool
 	 * @since 5.14.3
-	 *
-	 * @param string $blog_id
-	 *
-	 * @return void
 	 */
-	function deleteAction( \WP_Site $site ) {
-		$this->deleteBookFromDirectory( $site->blog_id );
+	public function deleteAction( WP_Site $site ) {
+		return $this->deleteBookFromDirectory( $site->blog_id );
 	}
 
 	/**
 	 * Detects when a book is made private and triggers a book deletion request to the book fetcher API.
 	 *
-	 * @since 5.14.3
-	 *
 	 * @param string $stored_value
 	 * @param int $new_value
 	 *
-	 * @return void
+	 * @return bool
+	 * @since 5.14.3
+	 *
 	 */
-	function setBookPrivate( $stored_value, $new_value ) {
+	public function setBookPrivate( $stored_value, $new_value ) {
 		// Book changes from public to private
 		if ( 0 === $new_value ) {
-			$this->deleteBookFromDirectory();
+			return $this->deleteBookFromDirectory();
 		}
 	}
 
 	/**
 	 * Detects when a book is deleted, deactivated, marked as spam or archived
 	 *
-	 * @since 5.14.3
+	 * @param WP_Site $updated_config
+	 * @param WP_Site $previous_config
 	 *
-	 * @param \WP_Site $updated_config
-	 * @param \WP_Site $previous_config
+	 * @return bool
+	 *@since 5.14.3
 	 *
-	 * @return void
 	 */
-	function softDeleteActions( $updated_config, $previous_config ) {
+	public function softDeleteActions( $updated_config, $previous_config ) {
 		$is_archived = ! $previous_config->archived && '1' === $updated_config->archived;
 		// deactivating a book updates the 'deleted' site config (Soft delete)
 		$is_deactivated = ! $previous_config->deleted && '1' === $updated_config->deleted;
@@ -95,20 +100,20 @@ class BookDirectory {
 		$url_changed = $previous_config->path !== $updated_config->path;
 
 		if ( $is_archived || $is_deactivated || $is_spam || $url_changed ) {
-			$this->deleteBookFromDirectory( $updated_config->blog_id );
+			return $this->deleteBookFromDirectory( $updated_config->blog_id );
 		}
 	}
 
 	/**
 	 * Delete book from directory.
 	 *
-	 * @since 5.14.3
-	 *
 	 * @param string $book_id Blog ID
 	 *
-	 * @return void
+	 * @return bool
+	 * @since 5.14.3
+	 *
 	 */
-	function deleteBookFromDirectory( string $book_id = null ) {
+	public function deleteBookFromDirectory( string $book_id = null ) {
 		if ( filter_var( self::DELETE_BOOK_ENDPOINT, FILTER_VALIDATE_URL ) ) {
 			$book_id = $book_id ?? get_current_blog_id();
 			$sid = sprintf( '%s-%s-%s', uniqid( self::DELETION_PREFIX, true ), rand( 1, 99 ), $book_id );
@@ -129,8 +134,11 @@ class BookDirectory {
 				$removals = get_site_option( self::DELETIONS_META_KEY, [] );
 				array_push( $removals, $sid );
 				update_site_option( self::DELETIONS_META_KEY, $removals );
+				return true;
 			}
 		}
+
+		return false;
 	}
 }
 
