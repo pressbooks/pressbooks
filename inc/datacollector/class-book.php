@@ -493,26 +493,28 @@ class Book {
 
 	/**
 	 * Get multiple wp_blogmeta meta_key values for a blog
-	 * @param array $keys
 	 * @param integer $blog_id
+	 * @param array $keys
 	 * @return array
 	 */
-	public function getMultipleMeta( $keys, $blog_id ) {
+	public function getMultipleMeta( $blog_id, $keys ) {
 		if ( count( $keys ) === 0 ) {
 			return [];
 		}
 		global $wpdb;
-		$keysString = "'" . implode( "', '", $keys ) . "'";
-		$results = $wpdb->get_results(
-			$wpdb->prepare(
-				"SELECT meta_key, meta_value FROM {$wpdb->blogmeta} WHERE meta_key IN ($keysString) AND blog_id = %d",
-				$blog_id
-			), ARRAY_A
-		);
+
+		$placeholders = implode( ', ', array_fill( 0, count( $keys ), '%s' ) );
+		$sql = "SELECT meta_key, meta_value FROM {$wpdb->blogmeta} WHERE meta_key IN ($placeholders) AND blog_id = %d";
+		// phpcs:disable WordPress.WP.PreparedSQL.NotPrepared
+		$results = $wpdb->get_results( $wpdb->prepare( $sql, array_merge( $keys, [ $blog_id ] ) ), ARRAY_A );
+		// phpcs:enable
+
 		$values = [];
+		// phpcs:disable WordPress.VIP.SlowDBQuery.slow_db_query_meta_key
 		foreach ( $results as $r ) {
-			$values[$r['meta_key']] = $r['meta_value'];
+			$values[ $r['meta_key'] ] = $r['meta_value'];
 		}
+		// phpcs:enable
 		return $values;
 	}
 

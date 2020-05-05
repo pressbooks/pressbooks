@@ -350,6 +350,10 @@ function book_information_to_schema( $book_information ) {
 		$book_information['pb_book_license'] = 'all-rights-reserved';
 	}
 
+	if ( isset( $book_information['pb_in_catalog'] ) ) {
+		$book_schema['inCatalog'] = $book_information['pb_in_catalog'] !== '0';
+	}
+
 	$licensing = new Licensing;
 	$book_schema['license'] = [
 		'@type' => 'CreativeWork',
