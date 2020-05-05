@@ -441,6 +441,30 @@ class Metadata extends \WP_REST_Controller {
 					'context' => [ 'view' ],
 					'readonly' => true,
 				],
+				'wordCount' => [
+					'type' => 'integer',
+					'description' => __( 'Number of words in the book.' ),
+					'context' => [ 'view' ],
+					'readonly' => true,
+				],
+				'storageSize' => [
+					'type' => 'string',
+					'description' => __( 'Storage size.' ),
+					'context' => [ 'view' ],
+					'readonly' => true,
+				],
+				'h5pActivities' => [
+					'type' => 'integer',
+					'description' => __( 'Number of H5P activities.' ),
+					'context' => [ 'view' ],
+					'readonly' => true,
+				],
+				'inCatalog' => [
+					'type' => 'boolean',
+					'description' => __( 'Is in catalog?' ),
+					'context' => [ 'view' ],
+					'readonly' => true,
+				],
 			],
 		];
 
