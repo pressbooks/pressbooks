@@ -43,7 +43,7 @@ class ApiTest extends \WP_UnitTestCase {
 		$this->assertIsString( $data['metadata']['wordCount'] );
 		$this->assertIsString( $data['metadata']['storageSize'] );
 		$this->assertIsString( $data['metadata']['h5pActivities'] );
-		$this->assertIsBool( $data['metadata']['inCatalog'] );
+		$this->assertIsString( $data['metadata']['inCatalog'] );
 	}
 
 	/**
