@@ -442,7 +442,7 @@ class Metadata extends \WP_REST_Controller {
 					'readonly' => true,
 				],
 				'wordCount' => [
-					'type' => 'integer',
+					'type' => 'string',
 					'description' => __( 'Number of words in the book.' ),
 					'context' => [ 'view' ],
 					'readonly' => true,
@@ -454,13 +454,13 @@ class Metadata extends \WP_REST_Controller {
 					'readonly' => true,
 				],
 				'h5pActivities' => [
-					'type' => 'integer',
+					'type' => 'string',
 					'description' => __( 'Number of H5P activities.' ),
 					'context' => [ 'view' ],
 					'readonly' => true,
 				],
 				'inCatalog' => [
-					'type' => 'boolean',
+					'type' => 'string',
 					'description' => __( 'Is in catalog?' ),
 					'context' => [ 'view' ],
 					'readonly' => true,
