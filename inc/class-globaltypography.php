@@ -37,6 +37,7 @@ class GlobalTypography {
 	 */
 	function getSupportedLanguages() {
 		return [
+			'ff' => __( 'Adlam', 'pressbooks' ),
 			'grc' => __( 'Ancient Greek', 'pressbooks' ),
 			'ar' => __( 'Arabic', 'pressbooks' ),
 			'bn' => __( 'Bengali', 'pressbooks' ),
@@ -52,6 +53,7 @@ class GlobalTypography {
 			'kn' => __( 'Kannada', 'pressbooks' ),
 			'ko' => __( 'Korean', 'pressbooks' ),
 			'ml' => __( 'Malayalam', 'pressbooks' ),
+			'nqo' => __( 'N\'Ko', 'pressbooks' ),
 			'or' => __( 'Odia', 'pressbooks' ),
 			'syr' => __( 'Syriac', 'pressbooks' ),
 			'ta' => __( 'Tamil', 'pressbooks' ),
@@ -308,6 +310,12 @@ class GlobalTypography {
 					'NotoSansCanadianAboriginal-Regular.ttf' => 'NotoSansCanadianAboriginal/NotoSansCanadianAboriginal-Regular.ttf',
 				],
 			],
+			'ff' => [
+				'baseurl' => 'https://github.com/googlefonts/noto-fonts/raw/master/unhinted/',
+				'files' => [
+					'NotoSansAdlam-Regular.ttf' => 'NotoSansAdlam/NotoSansAdlam-Regular.ttf',
+				],
+			],
 			'hi' => [
 				'baseurl' => 'https://github.com/googlefonts/noto-fonts/raw/master/unhinted/',
 				'files' => [
@@ -348,6 +356,12 @@ class GlobalTypography {
 					'NotoSansMalayalam-Regular.ttf' => 'NotoSansMalayalam/NotoSansMalayalam-Regular.ttf',
 					'NotoSerifMalayalam-Bold.ttf' => 'NotoSerifMalayalam/NotoSerifMalayalam-Bold.ttf',
 					'NotoSerifMalayalam-Regular.ttf' => 'NotoSerifMalayalam/NotoSerifMalayalam-Regular.ttf',
+				],
+			],
+			'nqo' => [
+				'baseurl' => 'https://github.com/googlefonts/noto-fonts/raw/master/unhinted/',
+				'files' => [
+					'NotoSansNKo-Regular.ttf' => 'NotoSansNKo/NotoSansNKo-Regular.ttf',
 				],
 			],
 			'or' => [
