@@ -10,7 +10,7 @@ namespace Pressbooks;
 
 class BookDirectory {
 
-	const DELETE_BOOK_ENDPOINT = 'http://localhost:3000/api/books/delete';
+	const DELETE_BOOK_ENDPOINT = 'http://api.pressbooks.com/book-directory-fetcher/api/books/delete';
 
 	/**
 	 * @var BookDirectory
