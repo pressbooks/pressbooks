@@ -53,7 +53,7 @@ class GlobalTypography {
 			'kn' => __( 'Kannada', 'pressbooks' ),
 			'ko' => __( 'Korean', 'pressbooks' ),
 			'ml' => __( 'Malayalam', 'pressbooks' ),
-			'nqo' => __( 'NKo', 'pressbooks' ),
+			'nqo' => __( 'N\'Ko', 'pressbooks' ),
 			'or' => __( 'Odia', 'pressbooks' ),
 			'syr' => __( 'Syriac', 'pressbooks' ),
 			'ta' => __( 'Tamil', 'pressbooks' ),
@@ -313,7 +313,7 @@ class GlobalTypography {
 			'ff' => [
 				'baseurl' => 'https://github.com/googlefonts/noto-fonts/raw/master/unhinted/',
 				'files' => [
-					'NotoSansAdlam.ttf' => 'NotoSansAdlam/NotoSansAdlam-Regular.ttf'
+					'NotoSansAdlam-Regular.ttf' => 'NotoSansAdlam/NotoSansAdlam-Regular.ttf',
 				],
 			],
 			'hi' => [
@@ -358,10 +358,10 @@ class GlobalTypography {
 					'NotoSerifMalayalam-Regular.ttf' => 'NotoSerifMalayalam/NotoSerifMalayalam-Regular.ttf',
 				],
 			],
-			'nko' => [
+			'nqo' => [
 				'baseurl' => 'https://github.com/googlefonts/noto-fonts/raw/master/unhinted/',
 				'files' => [
-					'NotoSansNko.ttf' => 'NotoSansNko/NotoSansNko-Regular.ttf'
+					'NotoSansNKo-Regular.ttf' => 'NotoSansNKo/NotoSansNKo-Regular.ttf',
 				],
 			],
 			'or' => [
