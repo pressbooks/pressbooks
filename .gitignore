@@ -4,4 +4,3 @@ coverage.xml
 node_modules
 tests/logs/
 vendor
-coverage-reports
