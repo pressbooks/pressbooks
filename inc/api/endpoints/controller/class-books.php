@@ -241,7 +241,7 @@ class Books extends \WP_REST_Controller {
 			BookDataCollector::WORD_COUNT,
 			BookDataCollector::STORAGE_SIZE,
 			BookDataCollector::H5P_ACTIVITIES,
-			BookDataCollector::IN_CATALOG
+			BookDataCollector::IN_CATALOG,
 		];
 		$metadata_blog_meta = $this->bookDataCollector->getMultipleMeta( $id, $keys );
 
