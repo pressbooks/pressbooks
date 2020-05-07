@@ -660,6 +660,7 @@ class Styles {
 			'Raleway' => __( 'Raleway', 'pressbooks' ),
 			'Roboto' => __( 'Roboto', 'pressbooks' ),
 			'Rubik' => __( 'Rubik', 'pressbooks' ),
+			'Source Sans Pro' => __( 'Source Sans Pro', 'pressbooks' ),
 		];
 
 		return [
