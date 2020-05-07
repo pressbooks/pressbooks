@@ -211,6 +211,10 @@ function book_information_to_schema( $book_information ) {
 		'pb_cover_image' => 'image',
 		'pb_series_number' => 'position',
 		'pb_is_based_on' => 'isBasedOn',
+		'pb_word_count' => 'wordCount',
+		'pb_storage_size' => 'storageSize',
+		'pb_h5p_activities' => 'h5pActivities',
+		'pb_in_catalog' => 'inCatalog',
 	];
 
 	foreach ( $mapped_properties as $old => $new ) {

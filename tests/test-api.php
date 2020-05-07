@@ -26,6 +26,29 @@ class ApiTest extends \WP_UnitTestCase {
 	/**
 	 * @group api
 	 */
+	public function test_booksEndpointMetada() {
+		$this->_book();
+		$server = $this->_setupRootApi();
+		$endpoint = '/pressbooks/v2/books';
+		$request = new \WP_REST_Request( 'GET', $endpoint );
+		$response = $server->dispatch( $request );
+		$data = $response->get_data()[0];
+
+		$this->assertArrayHasKey( 'metadata', $data );
+		$this->assertArrayHasKey( 'wordCount', $data['metadata'] );
+		$this->assertArrayHasKey( 'storageSize', $data['metadata'] );
+		$this->assertArrayHasKey( 'h5pActivities', $data['metadata'] );
+		$this->assertArrayHasKey( 'inCatalog', $data['metadata'] );
+
+		$this->assertIsString( $data['metadata']['wordCount'] );
+		$this->assertIsString( $data['metadata']['storageSize'] );
+		$this->assertIsString( $data['metadata']['h5pActivities'] );
+		$this->assertIsString( $data['metadata']['inCatalog'] );
+	}
+
+	/**
+	 * @group api
+	 */
 	public function test_BookEndpoints() {
 
 		// Test that endpoints exist

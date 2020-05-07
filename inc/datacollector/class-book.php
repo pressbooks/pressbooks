@@ -491,4 +491,31 @@ class Book {
 		return (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->posts} WHERE post_type = %s AND (post_status != 'trash' AND post_status != 'inherit') ", 'tablepress_table' ) );
 	}
 
+	/**
+	 * Get multiple wp_blogmeta meta_key values for a blog
+	 * @param integer $blog_id
+	 * @param array $keys
+	 * @return array
+	 */
+	public function getMultipleMeta( $blog_id, $keys ) {
+		if ( count( $keys ) === 0 ) {
+			return [];
+		}
+		global $wpdb;
+
+		$placeholders = implode( ', ', array_fill( 0, count( $keys ), '%s' ) );
+		$sql = "SELECT meta_key, meta_value FROM {$wpdb->blogmeta} WHERE meta_key IN ($placeholders) AND blog_id = %d";
+		// phpcs:disable WordPress.WP.PreparedSQL.NotPrepared
+		$results = $wpdb->get_results( $wpdb->prepare( $sql, array_merge( $keys, [ $blog_id ] ) ), ARRAY_A );
+		// phpcs:enable
+
+		$values = [];
+		// phpcs:disable WordPress.VIP.SlowDBQuery.slow_db_query_meta_key
+		foreach ( $results as $r ) {
+			$values[ $r['meta_key'] ] = $r['meta_value'];
+		}
+		// phpcs:enable
+		return $values;
+	}
+
 }
