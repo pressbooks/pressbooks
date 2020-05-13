@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Pressbooks plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Pressbooks 5.14.4\n"
+"Project-Id-Version: Pressbooks 5.14.5\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-04-28T23:36:52+00:00\n"
+"POT-Creation-Date: 2020-05-13T04:18:20+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.3.0\n"
 "X-Domain: pressbooks\n"
@@ -1925,90 +1925,98 @@ msgid "You do not have sufficient permissions to access this page."
 msgstr ""
 
 #: inc/class-globaltypography.php:40
-msgid "Ancient Greek"
+msgid "Adlam"
 msgstr ""
 
 #: inc/class-globaltypography.php:41
-msgid "Arabic"
+msgid "Ancient Greek"
 msgstr ""
 
 #: inc/class-globaltypography.php:42
-msgid "Bengali"
+msgid "Arabic"
 msgstr ""
 
 #: inc/class-globaltypography.php:43
-msgid "Biblical Hebrew"
+msgid "Bengali"
 msgstr ""
 
 #: inc/class-globaltypography.php:44
-msgid "Canadian Indigenous Syllabics"
+msgid "Biblical Hebrew"
 msgstr ""
 
 #: inc/class-globaltypography.php:45
-msgid "Devanagari (Hindi and Sanskrit)"
+msgid "Canadian Indigenous Syllabics"
 msgstr ""
 
 #: inc/class-globaltypography.php:46
-msgid "Chinese (Simplified)"
+msgid "Devanagari (Hindi and Sanskrit)"
 msgstr ""
 
 #: inc/class-globaltypography.php:47
-msgid "Chinese (Traditional)"
+msgid "Chinese (Simplified)"
 msgstr ""
 
 #: inc/class-globaltypography.php:48
-msgid "Coptic"
+msgid "Chinese (Traditional)"
 msgstr ""
 
 #: inc/class-globaltypography.php:49
-msgid "Gujarati"
+msgid "Coptic"
 msgstr ""
 
 #: inc/class-globaltypography.php:50
-msgid "Punjabi (Gurmukhi)"
+msgid "Gujarati"
 msgstr ""
 
 #: inc/class-globaltypography.php:51
-msgid "Japanese"
+msgid "Punjabi (Gurmukhi)"
 msgstr ""
 
 #: inc/class-globaltypography.php:52
-msgid "Kannada"
+msgid "Japanese"
 msgstr ""
 
 #: inc/class-globaltypography.php:53
-msgid "Korean"
+msgid "Kannada"
 msgstr ""
 
 #: inc/class-globaltypography.php:54
-msgid "Malayalam"
+msgid "Korean"
 msgstr ""
 
 #: inc/class-globaltypography.php:55
-msgid "Odia"
+msgid "Malayalam"
 msgstr ""
 
 #: inc/class-globaltypography.php:56
-msgid "Syriac"
+msgid "N'Ko"
 msgstr ""
 
 #: inc/class-globaltypography.php:57
-msgid "Tamil"
+msgid "Odia"
 msgstr ""
 
 #: inc/class-globaltypography.php:58
-msgid "Telugu"
+msgid "Syriac"
 msgstr ""
 
 #: inc/class-globaltypography.php:59
-msgid "Tibetan"
+msgid "Tamil"
 msgstr ""
 
 #: inc/class-globaltypography.php:60
+msgid "Telugu"
+msgstr ""
+
+#: inc/class-globaltypography.php:61
+msgid "Tibetan"
+msgstr ""
+
+#: inc/class-globaltypography.php:62
 msgid "Turkish"
 msgstr ""
 
-#: inc/class-globaltypography.php:417
+#: inc/class-globaltypography.php:431
 msgid "Your %1$s font could not be downloaded from %2$s."
 msgstr ""
 
@@ -2078,7 +2086,7 @@ msgid "$title is deprecated. Method will automatically determine title from lice
 msgstr ""
 
 #: inc/class-licensing.php:299
-#: inc/class-styles.php:788
+#: inc/class-styles.php:789
 #: inc/modules/export/epub/class-epub201.php:1144
 #: inc/modules/export/epub/templates/epub3/opf.php:104
 #: inc/modules/export/epub/templates/epub201/opf.php:97
@@ -2212,32 +2220,36 @@ msgstr ""
 msgid "Rubik"
 msgstr ""
 
-#: inc/class-styles.php:666
+#: inc/class-styles.php:663
+msgid "Source Sans Pro"
+msgstr ""
+
+#: inc/class-styles.php:667
 #: tests/test-styles.php:185
 msgid "Theme default"
 msgstr ""
 
-#: inc/class-styles.php:667
-#: inc/class-styles.php:681
+#: inc/class-styles.php:668
+#: inc/class-styles.php:682
 #: tests/test-styles.php:186
 msgid "Serif"
 msgstr ""
 
-#: inc/class-styles.php:668
+#: inc/class-styles.php:669
 #: tests/test-styles.php:187
 msgid "Sans serif"
 msgstr ""
 
-#: inc/class-styles.php:713
+#: inc/class-styles.php:714
 msgid "Unexpected Error: There was a problem trying to query slug: %s - Please contact technical support."
 msgstr ""
 
-#: inc/class-styles.php:753
+#: inc/class-styles.php:754
 #: templates/admin/custom-styles.php:16
 msgid "Web"
 msgstr ""
 
-#: inc/class-styles.php:785
+#: inc/class-styles.php:786
 msgid "Last 10 Revisions"
 msgstr ""
 
