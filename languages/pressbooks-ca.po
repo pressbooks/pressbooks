@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
-"POT-Creation-Date: 2020-04-28T23:36:52+00:00\n"
-"PO-Revision-Date: 2020-03-16 14:51+0000\n"
+"POT-Creation-Date: 2020-05-13T04:18:20+00:00\n"
+"PO-Revision-Date: 2020-05-13 04:19+0000\n"
 "Last-Translator: Ho Man Chan <homan@pressbooks.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/pressbooks/pressbooks/language/ca/)\n"
 "MIME-Version: 1.0\n"
@@ -1991,90 +1991,98 @@ msgid "You do not have sufficient permissions to access this page."
 msgstr ""
 
 #: inc/class-globaltypography.php:40
+msgid "Adlam"
+msgstr ""
+
+#: inc/class-globaltypography.php:41
 msgid "Ancient Greek"
 msgstr "Grec antic"
 
-#: inc/class-globaltypography.php:41
+#: inc/class-globaltypography.php:42
 msgid "Arabic"
 msgstr "Àrab"
 
-#: inc/class-globaltypography.php:42
+#: inc/class-globaltypography.php:43
 msgid "Bengali"
 msgstr ""
 
-#: inc/class-globaltypography.php:43
+#: inc/class-globaltypography.php:44
 msgid "Biblical Hebrew"
 msgstr "Hebreu bíblic"
 
-#: inc/class-globaltypography.php:44
+#: inc/class-globaltypography.php:45
 msgid "Canadian Indigenous Syllabics"
 msgstr ""
 
-#: inc/class-globaltypography.php:45
+#: inc/class-globaltypography.php:46
 msgid "Devanagari (Hindi and Sanskrit)"
 msgstr ""
 
-#: inc/class-globaltypography.php:46
+#: inc/class-globaltypography.php:47
 msgid "Chinese (Simplified)"
 msgstr "Xinès (simplificat)"
 
-#: inc/class-globaltypography.php:47
+#: inc/class-globaltypography.php:48
 msgid "Chinese (Traditional)"
 msgstr "Xinès (tradicional)"
 
-#: inc/class-globaltypography.php:48
+#: inc/class-globaltypography.php:49
 msgid "Coptic"
 msgstr "Còptic"
 
-#: inc/class-globaltypography.php:49
+#: inc/class-globaltypography.php:50
 msgid "Gujarati"
 msgstr "Gujarati"
 
-#: inc/class-globaltypography.php:50
+#: inc/class-globaltypography.php:51
 msgid "Punjabi (Gurmukhi)"
 msgstr ""
 
-#: inc/class-globaltypography.php:51
+#: inc/class-globaltypography.php:52
 msgid "Japanese"
 msgstr "Japonès"
 
-#: inc/class-globaltypography.php:52
+#: inc/class-globaltypography.php:53
 msgid "Kannada"
 msgstr ""
 
-#: inc/class-globaltypography.php:53
+#: inc/class-globaltypography.php:54
 msgid "Korean"
 msgstr "Coreà"
 
-#: inc/class-globaltypography.php:54
+#: inc/class-globaltypography.php:55
 msgid "Malayalam"
 msgstr ""
 
-#: inc/class-globaltypography.php:55
-msgid "Odia"
-msgstr ""
-
 #: inc/class-globaltypography.php:56
-msgid "Syriac"
+msgid "N'Ko"
 msgstr ""
 
 #: inc/class-globaltypography.php:57
-msgid "Tamil"
-msgstr "Tàmil"
+msgid "Odia"
+msgstr ""
 
 #: inc/class-globaltypography.php:58
-msgid "Telugu"
+msgid "Syriac"
 msgstr ""
 
 #: inc/class-globaltypography.php:59
+msgid "Tamil"
+msgstr "Tàmil"
+
+#: inc/class-globaltypography.php:60
+msgid "Telugu"
+msgstr ""
+
+#: inc/class-globaltypography.php:61
 msgid "Tibetan"
 msgstr "Tibetà"
 
-#: inc/class-globaltypography.php:60
+#: inc/class-globaltypography.php:62
 msgid "Turkish"
 msgstr "Turc"
 
-#: inc/class-globaltypography.php:417
+#: inc/class-globaltypography.php:431
 msgid "Your %1$s font could not be downloaded from %2$s."
 msgstr ""
 
@@ -2148,7 +2156,7 @@ msgid ""
 "licenses"
 msgstr ""
 
-#: inc/class-licensing.php:299 inc/class-styles.php:788
+#: inc/class-licensing.php:299 inc/class-styles.php:789
 #: inc/modules/export/epub/class-epub201.php:1144
 #: inc/modules/export/epub/templates/epub3/opf.php:104
 #: inc/modules/export/epub/templates/epub201/opf.php:97
@@ -2280,29 +2288,33 @@ msgstr ""
 msgid "Rubik"
 msgstr ""
 
-#: inc/class-styles.php:666 tests/test-styles.php:185
+#: inc/class-styles.php:663
+msgid "Source Sans Pro"
+msgstr ""
+
+#: inc/class-styles.php:667 tests/test-styles.php:185
 msgid "Theme default"
 msgstr ""
 
-#: inc/class-styles.php:667 inc/class-styles.php:681 tests/test-styles.php:186
+#: inc/class-styles.php:668 inc/class-styles.php:682 tests/test-styles.php:186
 msgid "Serif"
 msgstr ""
 
-#: inc/class-styles.php:668 tests/test-styles.php:187
+#: inc/class-styles.php:669 tests/test-styles.php:187
 msgid "Sans serif"
 msgstr ""
 
-#: inc/class-styles.php:713
+#: inc/class-styles.php:714
 msgid ""
 "Unexpected Error: There was a problem trying to query slug: %s - Please "
 "contact technical support."
 msgstr "Error inesperat: Hi ha hagut un problema amb la consulta: %s - Si us plau, consulta amb el suport tècnic."
 
-#: inc/class-styles.php:753 templates/admin/custom-styles.php:16
+#: inc/class-styles.php:754 templates/admin/custom-styles.php:16
 msgid "Web"
 msgstr "Web"
 
-#: inc/class-styles.php:785
+#: inc/class-styles.php:786
 msgid "Last 10 Revisions"
 msgstr ""
 
