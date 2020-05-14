@@ -16,7 +16,7 @@ use WP_Site;
  */
 class BookDirectory {
 
-	const DELETE_BOOK_ENDPOINT = 'https://api.pressbooks.com/book-directory-fetcher/api/books/delete';
+	const DEFAULT_DELETE_BOOK_ENDPOINT = 'https://api.pressbooks.com/book-directory-fetcher/api/books/delete';
 
 	const DELETION_PREFIX = 'remove-';
 
@@ -26,6 +26,11 @@ class BookDirectory {
 	 * @var BookDirectory
 	 */
 	protected static $instance = null;
+
+	/**
+	 * @var BookDirectory
+	 */
+	protected static $delete_book_endpoint = null;
 
 	/**
 	 * @since 5.14.3
@@ -38,6 +43,8 @@ class BookDirectory {
 			self::$instance = new self();
 			self::hooks( self::$instance );
 		}
+
+		self::$delete_book_endpoint = getenv( 'CUSTOM_DELETE_BOOK_ENDPOINT' ) !== false ? getenv( 'CUSTOM_DELETE_BOOK_ENDPOINT' ) : self::DEFAULT_DELETE_BOOK_ENDPOINT;
 
 		return self::$instance;
 	}
@@ -114,7 +121,7 @@ class BookDirectory {
 	 *
 	 */
 	public function deleteBookFromDirectory( string $book_id = null ) {
-		if ( filter_var( self::DELETE_BOOK_ENDPOINT, FILTER_VALIDATE_URL ) ) {
+		if ( filter_var( self::$delete_book_endpoint, FILTER_VALIDATE_URL ) ) {
 			$book_id = $book_id ?? get_current_blog_id();
 			$sid = sprintf( '%s-%s-%s', uniqid( self::DELETION_PREFIX, true ), rand( 1, 99 ), $book_id );
 
@@ -128,7 +135,11 @@ class BookDirectory {
 				'book_id'   => $book_id,
 			];
 
-			$result = \Requests::post( self::DELETE_BOOK_ENDPOINT, $header, wp_json_encode( $data ) );
+			try {
+				$result = \Requests::post( self::$delete_book_endpoint, $header, wp_json_encode( $data ) );
+			} catch ( \Exception $exception ) {
+				return false;
+			}
 
 			if ( 200 === $result->status_code && true === $result->success ) {
 				$removals = get_site_option( self::DELETIONS_META_KEY, [] );
