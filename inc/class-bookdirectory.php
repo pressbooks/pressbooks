@@ -44,7 +44,8 @@ class BookDirectory {
 			self::hooks( self::$instance );
 		}
 
-		self::$delete_book_endpoint = getenv( 'CUSTOM_DELETE_BOOK_ENDPOINT' ) !== false ? getenv( 'CUSTOM_DELETE_BOOK_ENDPOINT' ) : self::DEFAULT_DELETE_BOOK_ENDPOINT;
+		self::$delete_book_endpoint = getenv( 'CUSTOM_DELETE_BOOK_ENDPOINT' ) !== false
+			? getenv( 'CUSTOM_DELETE_BOOK_ENDPOINT' ) : self::DEFAULT_DELETE_BOOK_ENDPOINT;
 
 		return self::$instance;
 	}
