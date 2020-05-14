@@ -375,6 +375,22 @@ function book_information_to_schema( $book_information ) {
 		$book_schema['sameAs'] = trailingslashit( $doi_resolver ) . $book_information['pb_book_doi'];
 	}
 
+	if ( isset( $book_information['pb_word_count'] ) ) {
+		$book_schema['wordCount'] = intval( $book_information['pb_word_count'] );
+	}
+
+	if ( isset( $book_information['pb_storage_size'] ) ) {
+		$book_schema['storageSize'] = intval( $book_information['pb_storage_size'] );
+	}
+
+	if ( isset( $book_information['pb_h5p_activities'] ) ) {
+		$book_schema['h5pActivities'] = intval( $book_information['pb_h5p_activities'] );
+	}
+
+	if ( isset( $book_information['pb_in_catalog'] ) ) {
+		$book_schema['inCatalog'] = $book_information['pb_in_catalog'] === '1';
+	}
+
 	// TODO: educationalAlignment, educationalUse, timeRequired, typicalAgeRange, interactivityType, learningResourceType, isBasedOnUrl
 
 	return $book_schema;

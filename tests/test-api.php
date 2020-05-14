@@ -40,10 +40,10 @@ class ApiTest extends \WP_UnitTestCase {
 		$this->assertArrayHasKey( 'h5pActivities', $data['metadata'] );
 		$this->assertArrayHasKey( 'inCatalog', $data['metadata'] );
 
-		$this->assertIsString( $data['metadata']['wordCount'] );
-		$this->assertIsString( $data['metadata']['storageSize'] );
-		$this->assertIsString( $data['metadata']['h5pActivities'] );
-		$this->assertIsString( $data['metadata']['inCatalog'] );
+		$this->assertIsInt( $data['metadata']['wordCount'] );
+		$this->assertIsInt( $data['metadata']['storageSize'] );
+		$this->assertIsInt( $data['metadata']['h5pActivities'] );
+		$this->assertIsBool( $data['metadata']['inCatalog'] );
 	}
 
 	/**
