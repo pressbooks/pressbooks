@@ -1,4 +1,11 @@
 <?php
+
+use Pressbooks\BookDirectory;
+
+
+/**
+ * @group bookDirectory
+ */
 class BookDirectoryTest extends \WP_UnitTestCase {
 	/**
 	 * @var BookDirectory
@@ -11,28 +18,22 @@ class BookDirectoryTest extends \WP_UnitTestCase {
 	public function setUp() {
 		parent::setUp();
 
-		if ( ! defined( 'PB_BOOK_DIRECTORY_URL' ) ) {
-			define( 'PB_BOOK_DIRECTORY_URL', 'http://10.0.2.2:3000' );
-		}
-
-		$this->book_directory = new \Pressbooks\BookDirectory();
+		$this->book_directory = new BookDirectory();
 	}
 
-	/**
-	 * @group bookDirectory
-	 */
 	public function test_getInstance() {
 		$bookDirectory = $this->book_directory->init();
 		$this->assertInstanceOf( '\Pressbooks\BookDirectory', $bookDirectory );
 	}
 
-	/**
-	 * @group bookDirectory
-	 */
 	public function test_hooks() {
 		global $wp_filter;
 		$result = $this->book_directory->init();
 		$this->book_directory->hooks( $result );
 		$this->assertNotEmpty( $wp_filter );
+	}
+
+	public function test_deleteAction() {
+		$this->assertFalse( $this->book_directory->deleteAction( get_site() ) );
 	}
 }

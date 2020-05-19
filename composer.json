@@ -78,11 +78,15 @@
 			"vendor/bin/phpunit --configuration phpunit.xml --coverage-clover coverage.xml",
 			"@standards"
 		],
+		"test-coverage": [
+			"vendor/bin/phpunit --configuration phpunit.xml --coverage-clover coverage.xml --coverage-html=./coverage-reports",
+			"@standards"
+		],
 		"standards": [
 			"vendor/bin/phpcs --standard=phpcs.ruleset.xml *.php inc/ bin/"
 		],
-    "fix": [
-      "vendor/bin/phpcbf --standard=phpcs.ruleset.xml *.php inc/ bin/"
-    ]
+		"fix": [
+			"vendor/bin/phpcbf --standard=phpcs.ruleset.xml *.php inc/ bin/"
+		]
 	}
 }
