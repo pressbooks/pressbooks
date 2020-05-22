@@ -331,8 +331,8 @@ class GlobalTypography {
 				'files' => [
 					'NotoSansArmenian-Regular.ttf' => 'NotoSansArmenian/NotoSansArmenian-Regular.ttf',
 					'NotoSansArmenian-Bold.ttf' => 'NotoSansArmenian/NotoSansArmenian-Bold.ttf',
-					'NotoSerifArmenian-Regular.ttf' => 'NotoSericArmenian/NotoSerifArmenian-Regular.ttf',
-					'NotoSerifArmenian-Bold.ttf' => 'NotoSericArmenian/NotoSerifArmenian-Bold.ttf',
+					'NotoSerifArmenian-Regular.ttf' => 'NotoSerifArmenian/NotoSerifArmenian-Regular.ttf',
+					'NotoSerifArmenian-Bold.ttf' => 'NotoSerifArmenian/NotoSerifArmenian-Bold.ttf',
 				],
 			],
 			'ja' => [
