@@ -72,7 +72,6 @@ class ApiTest extends \WP_UnitTestCase {
 			'/pressbooks/v2/glossary/999/metadata',
 			'/pressbooks/v2/glossary/999/revisions',
 			'/pressbooks/v2/toc',
-			'/pressbooks/v2/directory/verify_deletion',
 		];
 		$server = $this->_setupBookApi();
 		foreach ( $endpoints as $endpoint ) {
