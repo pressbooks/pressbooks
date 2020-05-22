@@ -39,6 +39,7 @@ class GlobalTypography {
 		return [
 			'ff' => __( 'Adlam', 'pressbooks' ),
 			'grc' => __( 'Ancient Greek', 'pressbooks' ),
+			'hy' => __( 'Armenian', 'pressbooks' ),
 			'ar' => __( 'Arabic', 'pressbooks' ),
 			'bn' => __( 'Bengali', 'pressbooks' ),
 			'he' => __( 'Biblical Hebrew', 'pressbooks' ),
@@ -323,6 +324,15 @@ class GlobalTypography {
 					'NotoSansDevanagari-Bold.ttf' => 'NotoSansDevanagari/NotoSansDevanagari-Bold.ttf',
 					'NotoSerifDevanagari-Bold.ttf' => 'NotoSerifDevanagari/NotoSerifDevanagari-Bold.ttf',
 					'NotoSerifDevanagari-Regular.ttf' => 'NotoSerifDevanagari/NotoSerifDevanagari-Regular.ttf',
+				],
+			],
+			'hy' => [
+				'baseurl' => 'https://github.com/googlefonts/noto-fonts/raw/master/unhinted/',
+				'files' => [
+					'NotoSansArmenian-Regular.ttf' => 'NotoSansArmenian/NotoSansArmenian-Regular.ttf',
+					'NotoSansArmenian-Bold.ttf' => 'NotoSansArmenian/NotoSansArmenian-Bold.ttf',
+					'NotoSerifArmenian-Regular.ttf' => 'NotoSericArmenian/NotoSerifArmenian-Regular.ttf',
+					'NotoSerifArmenian-Bold.ttf' => 'NotoSericArmenian/NotoSerifArmenian-Bold.ttf',
 				],
 			],
 			'ja' => [
