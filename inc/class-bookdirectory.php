@@ -137,7 +137,7 @@ class BookDirectory {
 			];
 
 			$removals = get_site_option( self::DELETIONS_META_KEY, [] );
-			update_site_option( self::DELETIONS_META_KEY, array_merge( $removals, $sid ) );
+			update_site_option( self::DELETIONS_META_KEY, array_merge( $removals, [ $sid ] ) );
 
 			try {
 				$result = \Requests::post( self::$delete_book_endpoint, $header, wp_json_encode( $data ) );
