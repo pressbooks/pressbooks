@@ -136,17 +136,20 @@ class BookDirectory {
 				'book_id'   => (int) $book_id,
 			];
 
+			$removals = get_site_option( self::DELETIONS_META_KEY, [] );
+			update_site_option( self::DELETIONS_META_KEY, array_merge( $removals, $sid ) );
+
 			try {
 				$result = \Requests::post( self::$delete_book_endpoint, $header, wp_json_encode( $data ) );
 			} catch ( \Exception $exception ) {
+				update_site_option( self::DELETIONS_META_KEY, $removals );
 				return false;
 			}
 
 			if ( 200 === $result->status_code && true === $result->success ) {
-				$removals = get_site_option( self::DELETIONS_META_KEY, [] );
-				array_push( $removals, $sid );
-				update_site_option( self::DELETIONS_META_KEY, $removals );
 				return true;
+			} else {
+				update_site_option( self::DELETIONS_META_KEY, $removals );
 			}
 		}
 
