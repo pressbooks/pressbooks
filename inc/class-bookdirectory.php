@@ -133,7 +133,7 @@ class BookDirectory {
 			$data = [
 				'sid'       => $sid,
 				'network'   => 'https://' . $_SERVER['HTTP_HOST'],
-				'book_id'   => $book_id,
+				'book_id'   => (int) $book_id,
 			];
 
 			try {
