@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Pressbooks plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Pressbooks 5.14.5\n"
+"Project-Id-Version: Pressbooks 5.14.6\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-05-13T04:18:20+00:00\n"
+"POT-Creation-Date: 2020-05-26T21:00:20+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.3.0\n"
 "X-Domain: pressbooks\n"
@@ -1741,19 +1741,19 @@ msgstr ""
 msgid "Part ID."
 msgstr ""
 
-#: inc/api/namespace.php:191
+#: inc/api/namespace.php:194
 msgid "Invalid batch parameter(s)."
 msgstr ""
 
-#: inc/api/namespace.php:358
+#: inc/api/namespace.php:361
 msgid "Part does not exist"
 msgstr ""
 
-#: inc/api/namespace.php:365
+#: inc/api/namespace.php:368
 msgid "ID is not a part"
 msgstr ""
 
-#: inc/api/namespace.php:379
+#: inc/api/namespace.php:382
 msgid "Failed to update chapter part"
 msgstr ""
 
@@ -1933,90 +1933,94 @@ msgid "Ancient Greek"
 msgstr ""
 
 #: inc/class-globaltypography.php:42
-msgid "Arabic"
+msgid "Armenian"
 msgstr ""
 
 #: inc/class-globaltypography.php:43
-msgid "Bengali"
+msgid "Arabic"
 msgstr ""
 
 #: inc/class-globaltypography.php:44
-msgid "Biblical Hebrew"
+msgid "Bengali"
 msgstr ""
 
 #: inc/class-globaltypography.php:45
-msgid "Canadian Indigenous Syllabics"
+msgid "Biblical Hebrew"
 msgstr ""
 
 #: inc/class-globaltypography.php:46
-msgid "Devanagari (Hindi and Sanskrit)"
+msgid "Canadian Indigenous Syllabics"
 msgstr ""
 
 #: inc/class-globaltypography.php:47
-msgid "Chinese (Simplified)"
+msgid "Devanagari (Hindi and Sanskrit)"
 msgstr ""
 
 #: inc/class-globaltypography.php:48
-msgid "Chinese (Traditional)"
+msgid "Chinese (Simplified)"
 msgstr ""
 
 #: inc/class-globaltypography.php:49
-msgid "Coptic"
+msgid "Chinese (Traditional)"
 msgstr ""
 
 #: inc/class-globaltypography.php:50
-msgid "Gujarati"
+msgid "Coptic"
 msgstr ""
 
 #: inc/class-globaltypography.php:51
-msgid "Punjabi (Gurmukhi)"
+msgid "Gujarati"
 msgstr ""
 
 #: inc/class-globaltypography.php:52
-msgid "Japanese"
+msgid "Punjabi (Gurmukhi)"
 msgstr ""
 
 #: inc/class-globaltypography.php:53
-msgid "Kannada"
+msgid "Japanese"
 msgstr ""
 
 #: inc/class-globaltypography.php:54
-msgid "Korean"
+msgid "Kannada"
 msgstr ""
 
 #: inc/class-globaltypography.php:55
-msgid "Malayalam"
+msgid "Korean"
 msgstr ""
 
 #: inc/class-globaltypography.php:56
-msgid "N'Ko"
+msgid "Malayalam"
 msgstr ""
 
 #: inc/class-globaltypography.php:57
-msgid "Odia"
+msgid "N'Ko"
 msgstr ""
 
 #: inc/class-globaltypography.php:58
-msgid "Syriac"
+msgid "Odia"
 msgstr ""
 
 #: inc/class-globaltypography.php:59
-msgid "Tamil"
+msgid "Syriac"
 msgstr ""
 
 #: inc/class-globaltypography.php:60
-msgid "Telugu"
+msgid "Tamil"
 msgstr ""
 
 #: inc/class-globaltypography.php:61
-msgid "Tibetan"
+msgid "Telugu"
 msgstr ""
 
 #: inc/class-globaltypography.php:62
+msgid "Tibetan"
+msgstr ""
+
+#: inc/class-globaltypography.php:63
 msgid "Turkish"
 msgstr ""
 
-#: inc/class-globaltypography.php:431
+#: inc/class-globaltypography.php:441
 msgid "Your %1$s font could not be downloaded from %2$s."
 msgstr ""
 
