@@ -25,7 +25,7 @@
 						},
 						error: function ( transport ) {
 							ed.setProgressState( 0 ); // Hide progress
-							if ( jQuery.trim( transport.responseText ).length ) {
+							if ( transport.responseText.trim().length ) {
 								alert( transport.responseText );
 							}
 						},
