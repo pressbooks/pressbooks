@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
-"POT-Creation-Date: 2020-05-13T04:18:20+00:00\n"
-"PO-Revision-Date: 2020-05-13 04:19+0000\n"
+"POT-Creation-Date: 2020-05-27T11:40:13+00:00\n"
+"PO-Revision-Date: 2020-05-26 21:05+0000\n"
 "Last-Translator: Ho Man Chan <homan@pressbooks.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/pressbooks/pressbooks/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -66,14 +66,14 @@ msgid ""
 "Pressbooks will not work with your version of WordPress. Pressbooks requires"
 " a dedicated install of WordPress Multisite, version %s or greater. Please "
 "upgrade WordPress if you would like to use Pressbooks."
-msgstr ""
+msgstr "Pressbooks zal niet werken met uw versie van WordPress. pressbooks vereist een dedicated installatie van WordPress Multisite, versie %sof hoger. Werk alstublieft uw WordPress versie bij indien u gebruik wil amken van Pressbooks"
 
 #: compatibility.php:194
 msgid ""
 "The Pressbooks plugin is inactive, but you have active plugins that require "
 "Pressbooks. This is causing errors. Please go to the Plugins page, and "
 "activate Pressbooks."
-msgstr ""
+msgstr "De Pressbooks plugin is inactief, maar u heeft actieve plugins die afhankelijk zijn van Pressbooks. Dit veroorzaakt foutmeldingen. Ga alstublieft naar de plugins pagina en activeer Pressbooks."
 
 #: inc/admin/analytics/namespace.php:12 inc/admin/analytics/namespace.php:13
 #: inc/admin/analytics/namespace.php:22 inc/admin/analytics/namespace.php:23
@@ -88,7 +88,7 @@ msgstr "Google Analytics ID"
 #: inc/admin/analytics/namespace.php:51
 msgid ""
 "The Google Analytics ID for your network, e.g. &lsquo;UA-01234567-8&rsquo;."
-msgstr ""
+msgstr "De Google Analytics ID voor uw netwerk, bv. &lsquo;UA-01234567-8&rsquo;."
 
 #: inc/admin/analytics/namespace.php:69
 msgid "Site-Specific Tracking"
@@ -99,12 +99,12 @@ msgid ""
 "If enabled, the Google Analytics settings page will be visible to book "
 "administrators, allowing them to use their own Google Analytics accounts to "
 "track statistics at the book level."
-msgstr ""
+msgstr "Indien ingeschakeld zal de Google Analytics instellingen pagina zichtbaar zijn voor boek beheerders , waardoor ze in staat zijn hun eigen Google Analytics account te gebruiken om statistieken op boekniveau te kunnen volgen."
 
 #: inc/admin/analytics/namespace.php:108
 msgid ""
 "The Google Analytics ID for your book, e.g. &lsquo;UA-01234567-8&rsquo;."
-msgstr ""
+msgstr "De Google Analytics ID voor uw boek, bv. &lsquo;UA-01234567-8&rsquo;."
 
 #: inc/admin/analytics/namespace.php:125
 msgid "Google Analytics settings."
@@ -382,14 +382,14 @@ msgid ""
 "serve ebookstores are <a href=\"%1$1s\">Kindle</a>, <a "
 "href=\"%2$2s\">Kobo</a>, and <a href=\"%3$3s\">Nook</a>. Other ebook stores "
 "include Apple iBooks and Google."
-msgstr ""
+msgstr "Zodra u uw bestanden heeft gedownload, kunt u ze zelf indienen bij e-book winkels, of dit door een derde partij lten doen. Aanbevolen zelfbediening e-book winkels zijn<a href=\"%1$1s\">Kindle</a>, <a href=\"%2$2s\">Kobo</a> en <a href=\"%3$3s\">Nook</a>. Andere e-book winkels zijn onder andere Apple iBooks en Google."
 
 #: inc/admin/class-publishoptions.php:130
 msgid ""
 "If you do not wish to submit your ebooks yourself, we recommend using a "
 "third-party distribution service such as <a href=\"%1s\">IngramSpark</a>, "
 "which can also make your books available online in print."
-msgstr ""
+msgstr "Indien u uw e-books niet zelf wilt indienen, bevelen wij het gebruik van een derde partij sistributie service aan zoals, <a href=\"%1s\">1IngramSpark</a>, die uw boek ook beschikbaar kunnen maken online en in print."
 
 #: inc/admin/class-publishoptions.php:132
 msgid "Print-on-Demand"
@@ -400,7 +400,7 @@ msgid ""
 "If you wish to sell your printed books online, we recommend going through <a"
 " href=\"%1$1s\">IngramSpark</a> or Amazon's <a "
 "href=\"%2$2s\">CreateSpace</a>."
-msgstr ""
+msgstr "Indien uw uw gedrukte boeken online wilt verkopen raden wij aan om te gaan via <a href=\"%1$1s\">IngramSpark </a> of Amazon's <a href=\"%2$2s\">CreateSpace</a>."
 
 #: inc/admin/class-publishoptions.php:137
 msgid "Adding BUY Links to Your Pressbooks Web Book"
@@ -410,7 +410,7 @@ msgstr "\"Koop\" links aan uw Wordpress Web Boek Toevoegen"
 msgid ""
 "If you would like to add <strong>BUY</strong> links to your Pressbooks web "
 "book, add the links to your book at the different retailers below:"
-msgstr ""
+msgstr "Indien u <strong>Koop Nu</strong>links aan uw Pressbooks Web boek wil toe voegen, voeg dan de links naar uw boek bij de verschillende retailers hieronder in:"
 
 #: inc/admin/class-publishoptions.php:298 inc/admin/laf/namespace.php:346
 msgid "Publish"
@@ -433,7 +433,7 @@ msgstr "Opslaan van instellingen"
 msgid ""
 "Cover generation is not done. Leaving this page, now, will cause problems. "
 "Are you sure?"
-msgstr ""
+msgstr "Omslag generatie is niet voltooid. Deze pagina nu verlaten zal problemen verzoorzaken. Weet u het zeker?"
 
 #: inc/admin/covergenerator/namespace.php:43 inc/admin/laf/namespace.php:322
 #: inc/admin/laf/namespace.php:385 inc/admin/laf/namespace.php:406
@@ -470,7 +470,7 @@ msgstr "ISBN"
 msgid ""
 "If you have an ISBN, this will generate a barcode on the back of your print "
 "cover. If you do not have an ISBN, you should leave this field blank."
-msgstr ""
+msgstr "Indien u een ISBN nummer heeft, zal dit een streepjescode genereren op de achterkant van de omslag. Indien u geen ISBN nummer heeft dient u dit veld leeg te laten."
 
 #: inc/admin/covergenerator/namespace.php:147
 msgid "or SKU"
@@ -482,7 +482,7 @@ msgid ""
 "field will generate a barcode with that number on the back of your print "
 "cover. If you do not have a non-ISBN identifier, you should leave this field"
 " blank."
-msgstr ""
+msgstr "Indien u een 13-cijferig indentifictienummer heeft dat geen ISBN nummer is en dit invoert in dit veld, zal een streepjescode met dit nummer op de achterkant van de omslag gedrukt worden. Indien u geen niet-ISBN indentificatienummer heeft dient u dit veld leeg te laten."
 
 #: inc/admin/covergenerator/namespace.php:159
 msgid "Design"
@@ -547,7 +547,7 @@ msgid ""
 " and is used to generate your cover(s). You can reformat the text below as "
 "needed. (<strong>IMPORTANT NOTE:</strong> Changes you make here will "
 "<strong>NOT</strong> be reflected on the Book Information page.)"
-msgstr ""
+msgstr "De tekst hieronder wordt opgehaald uit uw   <a href=\"%s\">Boek Informatie</a> pagina en wordt gebruikt om uw omslag(en) te genereren.  U kunt de tekstopmaak aanpassen indien nodig. (</strong>BELANGRIJKE NOTITIE:</strong> Aanpassingen die u hier maakt worden  <strong>NIET</strong> weergegeven op de  Boek Information pagina.)"
 
 #. translators: %s: URL to Appearance menu
 #: inc/admin/covergenerator/namespace.php:436
@@ -595,20 +595,20 @@ msgstr "Verwijder Achtergrondafbeelding"
 msgid ""
 "Spine size is calculated based on the number of pages in your book, and the "
 "weight of the paper used in printing."
-msgstr ""
+msgstr "Rug formaat wordt berekend op basis van het aantal pagina&acute;s in uw boek en het gewicht van het papier gebruikt voor afdrukken."
 
 #: inc/admin/covergenerator/namespace.php:522
 msgid ""
 "You haven't exported any PDF copies of your book, so you will need to enter "
 "a page count below."
-msgstr ""
+msgstr "U heeft geen enkele PDF kopie van uw boek ge&euml;xporteerd, dus dient u hieronder een pagina telling in te geven."
 
 #. translators: %s: number of pages in pdf
 #: inc/admin/covergenerator/namespace.php:525
 msgid ""
 "The last PDF you exported has %s pages (you can edit this below if you "
 "like)."
-msgstr ""
+msgstr "De laatste PDF die u exporteerde heeft %s pagina&acute;s (u kunt dit  indien u wenst hieronder bewerken)"
 
 #: inc/admin/covergenerator/namespace.php:529
 msgid ""
@@ -634,7 +634,7 @@ msgstr "Custom&hellip;"
 
 #: inc/admin/covergenerator/namespace.php:580
 msgid "Choose text color and background colors below."
-msgstr ""
+msgstr "Kies hieronder de tekst en achtergrondkleuren."
 
 #. translators: 1: minimum width, 2: minimum height, 3: image width 4: image
 #. height
@@ -1174,7 +1174,7 @@ msgstr "Bewerk Volgende (%s)"
 msgid ""
 "Your cover image (%1$s x %1$s) is too small. It should be 625px on the "
 "shortest side."
-msgstr ""
+msgstr "De omslagfoto (%1$s x %1$s) is te klein. Hij dient 625px aan de kortste zijde te hebben."
 
 #: inc/admin/metaboxes/namespace.php:99
 msgid "Your cover image (%s) is too big. It should be no more than 2MB."
@@ -1220,7 +1220,7 @@ msgstr "Korte titel"
 msgid ""
 "In case of long titles that might be truncated in running heads in the PDF "
 "export."
-msgstr ""
+msgstr "In geval van lange titels die mogelijk afgebroken worden in lopende kopteksten in de PDF export."
 
 #: inc/admin/metaboxes/namespace.php:209
 msgid "Author(s)"
@@ -1231,7 +1231,7 @@ msgstr "Auteur(s)"
 #: inc/admin/metaboxes/namespace.php:261 inc/admin/metaboxes/namespace.php:273
 #: inc/admin/metaboxes/namespace.php:597
 msgid "Create New Contributor"
-msgstr ""
+msgstr "Nieuwe Bijdrager Aanmaken"
 
 #: inc/admin/metaboxes/namespace.php:214 inc/admin/metaboxes/namespace.php:598
 msgid "Choose author(s)..."
@@ -1469,7 +1469,7 @@ msgstr "Hashtag"
 msgid ""
 "These are added to your webbook cover page. For those of you who like "
 "Twitter."
-msgstr ""
+msgstr "Deze worden toegevoegd aan uw webboek omslag pagina. Voor diegenen die van Twitter houden."
 
 #: inc/admin/metaboxes/namespace.php:487
 msgid "List Price (Print)"
@@ -1687,7 +1687,7 @@ msgstr "Toestaan Redistributie"
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:75
 msgid "Allow book administrators to enable redistribution of export files."
-msgstr ""
+msgstr "Sta boekbeheerders toe herdistributie van bestanden in te schakelen."
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:81
 msgid "Enable network API"
@@ -1812,19 +1812,19 @@ msgstr "Woordaantal"
 msgid "Part ID."
 msgstr "Deel ID."
 
-#: inc/api/namespace.php:191
+#: inc/api/namespace.php:194
 msgid "Invalid batch parameter(s)."
 msgstr "Ongeldige batch parameter(s)."
 
-#: inc/api/namespace.php:358
+#: inc/api/namespace.php:361
 msgid "Part does not exist"
 msgstr "Deel bestaat niet."
 
-#: inc/api/namespace.php:365
+#: inc/api/namespace.php:368
 msgid "ID is not a part"
 msgstr "ID is geen deel"
 
-#: inc/api/namespace.php:379
+#: inc/api/namespace.php:382
 msgid "Failed to update chapter part"
 msgstr "Bijwerken van het hoodstuk deel mislukt"
 
@@ -1993,97 +1993,101 @@ msgstr "U heeft niet voldoende rechten om deze pagina te op te vragen."
 
 #: inc/class-globaltypography.php:40
 msgid "Adlam"
-msgstr ""
+msgstr "Adlam"
 
 #: inc/class-globaltypography.php:41
 msgid "Ancient Greek"
 msgstr "Oudgrieks"
 
 #: inc/class-globaltypography.php:42
+msgid "Armenian"
+msgstr ""
+
+#: inc/class-globaltypography.php:43
 msgid "Arabic"
 msgstr "Arabisch"
 
-#: inc/class-globaltypography.php:43
+#: inc/class-globaltypography.php:44
 msgid "Bengali"
 msgstr "Bengali"
 
-#: inc/class-globaltypography.php:44
+#: inc/class-globaltypography.php:45
 msgid "Biblical Hebrew"
 msgstr "Bijbels Hebreeuws"
 
-#: inc/class-globaltypography.php:45
+#: inc/class-globaltypography.php:46
 msgid "Canadian Indigenous Syllabics"
 msgstr "Canadian Indigenous Syllabics"
 
-#: inc/class-globaltypography.php:46
+#: inc/class-globaltypography.php:47
 msgid "Devanagari (Hindi and Sanskrit)"
 msgstr "Devanagari (Hindi and Sanskrit)"
 
-#: inc/class-globaltypography.php:47
+#: inc/class-globaltypography.php:48
 msgid "Chinese (Simplified)"
 msgstr "Chinees (Vereenvoudigd)"
 
-#: inc/class-globaltypography.php:48
+#: inc/class-globaltypography.php:49
 msgid "Chinese (Traditional)"
 msgstr "Chinees (Traditioneel)"
 
-#: inc/class-globaltypography.php:49
+#: inc/class-globaltypography.php:50
 msgid "Coptic"
 msgstr "Koptisch"
 
-#: inc/class-globaltypography.php:50
+#: inc/class-globaltypography.php:51
 msgid "Gujarati"
 msgstr "Gujarati"
 
-#: inc/class-globaltypography.php:51
+#: inc/class-globaltypography.php:52
 msgid "Punjabi (Gurmukhi)"
 msgstr "Punjabi (Gurmukhi)"
 
-#: inc/class-globaltypography.php:52
+#: inc/class-globaltypography.php:53
 msgid "Japanese"
 msgstr "Japans"
 
-#: inc/class-globaltypography.php:53
+#: inc/class-globaltypography.php:54
 msgid "Kannada"
 msgstr "Kannada"
 
-#: inc/class-globaltypography.php:54
+#: inc/class-globaltypography.php:55
 msgid "Korean"
 msgstr "Koreaans"
 
-#: inc/class-globaltypography.php:55
+#: inc/class-globaltypography.php:56
 msgid "Malayalam"
 msgstr "Malayalam"
 
-#: inc/class-globaltypography.php:56
-msgid "N'Ko"
-msgstr ""
-
 #: inc/class-globaltypography.php:57
+msgid "N'Ko"
+msgstr "N'Ko"
+
+#: inc/class-globaltypography.php:58
 msgid "Odia"
 msgstr "Odia"
 
-#: inc/class-globaltypography.php:58
+#: inc/class-globaltypography.php:59
 msgid "Syriac"
 msgstr "Syrisch"
 
-#: inc/class-globaltypography.php:59
+#: inc/class-globaltypography.php:60
 msgid "Tamil"
 msgstr "Tamil"
 
-#: inc/class-globaltypography.php:60
+#: inc/class-globaltypography.php:61
 msgid "Telugu"
 msgstr "Telugu"
 
-#: inc/class-globaltypography.php:61
+#: inc/class-globaltypography.php:62
 msgid "Tibetan"
 msgstr "Tibetaans"
 
-#: inc/class-globaltypography.php:62
+#: inc/class-globaltypography.php:63
 msgid "Turkish"
 msgstr "Turks"
 
-#: inc/class-globaltypography.php:431
+#: inc/class-globaltypography.php:441
 msgid "Your %1$s font could not be downloaded from %2$s."
 msgstr "Uw %1$s font kon niet worden gedownload van %2$s."
 
@@ -2291,7 +2295,7 @@ msgstr "Rubik"
 
 #: inc/class-styles.php:663
 msgid "Source Sans Pro"
-msgstr ""
+msgstr "Source Sans Pro"
 
 #: inc/class-styles.php:667 tests/test-styles.php:185
 msgid "Theme default"
@@ -2361,19 +2365,19 @@ msgstr "Afronden"
 msgid ""
 "You can only clone from a book hosted by Pressbooks 4.1 or later. Please "
 "ensure that your source book meets these requirements."
-msgstr ""
+msgstr "U kunt alleen dupliceren van een boek gehost op Pressbooks 4.1 of later. Zorg alstublieft dat uw bronboek aan deze voorwaarde voldoet."
 
 #: inc/cloner/class-cloner.php:511
 msgid "Could not retrieve metadata from %s."
-msgstr ""
+msgstr "Kon geen metadata opvragen van %s."
 
 #: inc/cloner/class-cloner.php:519
 msgid "%s is not licensed for cloning."
-msgstr ""
+msgstr "%s heeft geen licentie voor duplicatie."
 
 #: inc/cloner/class-cloner.php:528
 msgid "Could not retrieve contents and structure from %s."
-msgstr ""
+msgstr "Kon geen inhoud en structuur opvragen van %s."
 
 #: inc/cloner/class-cloner.php:536
 msgid "Could not retrieve taxonomies from %s."
@@ -2381,7 +2385,7 @@ msgstr ""
 
 #: inc/cloner/class-cloner.php:544
 msgid "Could not retrieve media from %s."
-msgstr ""
+msgstr "Kon geen media opvragen van %s."
 
 #: inc/cloner/class-cloner.php:713
 msgid ""
@@ -2416,7 +2420,7 @@ msgstr ""
 
 #: inc/cloner/class-cloner.php:1843
 msgid "That book URL is not allowed."
-msgstr ""
+msgstr "Die boek URL is niet toegestaan."
 
 #: inc/cloner/class-cloner.php:1845
 msgid "Your book URL must be at least %s character."
@@ -2430,23 +2434,23 @@ msgstr ""
 
 #: inc/cloner/class-cloner.php:1849
 msgid "Sorry, that book URL already exists!"
-msgstr ""
+msgstr "Sorry, die boek URL bestaat al."
 
 #: inc/covergenerator/class-generator.php:204
 msgid "Calculating spine width"
-msgstr ""
+msgstr "Berekenen rug breedte"
 
 #: inc/covergenerator/class-generator.php:220
 msgid "Creating barcode"
-msgstr ""
+msgstr "Maak Streepjescode"
 
 #: inc/covergenerator/class-generator.php:228
 msgid "Loading metadata"
-msgstr ""
+msgstr "Laden metadata"
 
 #: inc/covergenerator/class-generator.php:286
 msgid "Generating cover"
-msgstr ""
+msgstr "Genereren omslag"
 
 #: inc/covergenerator/class-generator.php:368
 #: inc/modules/export/class-export.php:333
@@ -2456,15 +2460,15 @@ msgstr "boek"
 #: inc/covergenerator/class-generator.php:461
 #: inc/modules/export/prince/class-docraptor.php:117
 msgid "Your PDF could not be retrieved."
-msgstr ""
+msgstr "Uw PDF kon niet worden opgevraagd."
 
 #: inc/covergenerator/class-isbn.php:62
 msgid "There was a problem creating the barcode: Invalid ISBN number."
-msgstr ""
+msgstr "Er was een probleem bij het aanmaken van de streepjescode: Ongeldig ISBN nummer."
 
 #: inc/covergenerator/class-sku.php:44
 msgid "There was a problem creating the barcode: Invalid characters in SKU"
-msgstr ""
+msgstr "Er was een probleem bij het aanmaken van de streepjescode: Ongeldige karakters in de SKU."
 
 #: inc/editor/namespace.php:103
 msgid "Insert Footnote"
@@ -2493,7 +2497,7 @@ msgstr "Invoegen"
 #: inc/editor/namespace.php:122
 msgctxt "JS template string"
 msgid "Glossary term <em>${templateString1}</em> not found. Please create it."
-msgstr ""
+msgstr "Woordenboek term <em>${templateString1}</em> niet gevonden. Maak hem alstublieft aan."
 
 #: inc/editor/namespace.php:123
 msgid "Select a Term"
@@ -2522,7 +2526,7 @@ msgstr "Geen term geselcteerd?"
 #: inc/editor/namespace.php:130 inc/posttype/namespace.php:240
 msgid ""
 "To display a list of glossary terms, leave this back matter's content blank."
-msgstr ""
+msgstr "Om een een woordenlijst weer te geven dient u deze nawerkpagina leeg te laten."
 
 #: inc/editor/namespace.php:131
 msgid "Term"
@@ -2650,7 +2654,7 @@ msgstr ""
 msgid ""
 "Please contact your system administrator if you would like them to install "
 "extended %s language support for the Pressbooks interface."
-msgstr ""
+msgstr "Neem alstublieft contact op met uw systeembeheerder indien u extra %staalondersteuneuning geinstalleerd wil hebben voor de Pressbooks interface."
 
 #: inc/metadata/namespace.php:111
 msgid "Hide Additional Book Information"
@@ -2670,7 +2674,7 @@ msgstr ""
 msgid ""
 "If you need to enter additional information, click the button below to see "
 "all available fields."
-msgstr ""
+msgstr "Indien u extra informatie wilt toevoegen, klik op onderstaande knop om alle beschikbare velden te zien."
 
 #: inc/modules/export/class-export.php:794
 msgid "%s: Initializing"
@@ -2845,7 +2849,7 @@ msgstr "Inhoud"
 #: inc/modules/export/epub/templates/epub3/opf.php:57
 #: inc/modules/export/epub/templates/epub201/opf.php:53
 msgid "Authored by: "
-msgstr ""
+msgstr "Geschreven door:"
 
 #: inc/modules/export/htmlbook/class-htmlbook.php:193
 #: inc/modules/export/wordpress/class-wxr.php:81
@@ -2857,7 +2861,7 @@ msgstr "Fout door ongeldige toestemming"
 msgid ""
 "Some dependencies for %1$s exports could not be found. Please verify that "
 "you have completed the <a href=\"%2$s\">installation instructions</a>."
-msgstr ""
+msgstr "Sommige afhankelijkheden voor %1$s exports konden niet worden gevonden. Kijk alstublieft na of u de <a href=\"%2$s\"> installatieinstructies </a> heeft voltooid."
 
 #: inc/modules/export/namespace.php:95
 #: inc/modules/themeoptions/class-globaloptions.php:389
@@ -2959,7 +2963,7 @@ msgstr "unpinned"
 msgid ""
 "This book was produced with Pressbooks (https://pressbooks.com) and rendered"
 " with Prince."
-msgstr ""
+msgstr "Dit boek is geproduceerd met Pressbooks (https://pressbooks.com) and gerenderd met Prince."
 
 #: inc/modules/export/xhtml/class-xhtml11.php:153
 msgid "XHTML: "
@@ -2975,7 +2979,7 @@ msgstr "Cre&euml;eren halve titelpagina"
 
 #: inc/modules/export/xhtml/class-xhtml11.php:402
 msgid "Creating dedication and epigraph"
-msgstr ""
+msgstr "Aanmaken toewijding en epigraaf"
 
 #: inc/modules/export/xhtml/class-xhtml11.php:513
 msgid "Notes"
@@ -2995,16 +2999,16 @@ msgstr "Importeren delen en hoofdstukken"
 
 #: inc/modules/import/api/class-api.php:194
 msgid "Importing back matter"
-msgstr ""
+msgstr "Importeren nawerk"
 
 #: inc/modules/import/api/class-api.php:210
 msgid "Importing glossary terms"
-msgstr ""
+msgstr "Importeren woordenlijst termen"
 
 #: inc/modules/import/class-import.php:373
 #: inc/modules/import/epub/class-epub201.php:220
 msgid "Importing"
-msgstr ""
+msgstr "Importeren"
 
 #: inc/modules/import/class-import.php:505
 msgid "Your file does not appear to be a valid %s."
@@ -3017,25 +3021,25 @@ msgstr "Uw URL blijkt niet geldig te zijn."
 #: inc/modules/import/class-import.php:550
 #: inc/modules/import/class-import.php:579
 msgid "The URL you are trying to import is bigger than the maximum file size."
-msgstr ""
+msgstr "De URL die u probeert te importeren is groter dan de maximaal toegestane bestandsgrootte."
 
 #: inc/modules/import/class-import.php:572
 msgid ""
 "The website you are attempting to reach is not returning a successful "
 "response code: "
-msgstr ""
+msgstr "De website die u probeert te bereiken retourneerd geen geldige reactiecode:"
 
 #: inc/modules/import/epub/class-epub201.php:159
 msgid "Opening EPUB file"
-msgstr ""
+msgstr "Openen EPUB file"
 
 #: inc/modules/import/epub/class-epub201.php:166
 msgid "Reading metadata"
-msgstr ""
+msgstr "Lezen metadata"
 
 #: inc/modules/import/epub/class-epub201.php:172
 msgid "Deleting temporary files"
-msgstr ""
+msgstr "Verwijderen tijdelijke bestanden"
 
 #: inc/modules/import/epub/class-epub201.php:225
 msgid "Imported %s chapters."
@@ -3043,7 +3047,7 @@ msgstr "Geïmporteerde %s hoofdstukken."
 
 #: inc/modules/import/html/class-xhtml.php:45
 msgid "The HTML is larger than pcre.backtrack_limit."
-msgstr ""
+msgstr "De HTML is langer dan pcre.backtrack_limit."
 
 #: inc/modules/import/wordpress/class-parser.php:65
 #: inc/modules/import/wordpress/class-parser.php:71
@@ -3056,15 +3060,15 @@ msgctxt ""
 "String which tells user how many front matter, parts, chapters, back matter,"
 " media attachments, and glossary terms were imported."
 msgid "Imported %1$s, %2$s, %3$s, %4$s, %5$s, and %6$s."
-msgstr ""
+msgstr "Ge&iuml;mporteerd%1$s, %2$s, %3$s, %4$s, %5$s, en%6$s."
 
 #: inc/modules/searchandreplace/class-search.php:138
 msgid "Invalid regular expression"
-msgstr ""
+msgstr "Ongeldige regular expression"
 
 #: inc/modules/searchandreplace/class-search.php:146
 msgid "No search pattern."
-msgstr ""
+msgstr "Geen zoekpatroon"
 
 #: inc/modules/searchandreplace/class-searchandreplace.php:60
 msgid ""
@@ -3077,23 +3081,23 @@ msgstr ""
 #: inc/modules/searchandreplace/class-searchandreplace.php:71
 #: templates/admin/search.php:11
 msgid "Search & Replace"
-msgstr ""
+msgstr "Zoek & Vervang"
 
 #: inc/modules/searchandreplace/types/class-content.php:57
 msgid "view"
-msgstr ""
+msgstr "bekijk"
 
 #: inc/modules/searchandreplace/types/class-content.php:59
 msgid "edit"
-msgstr ""
+msgstr "bewerk"
 
 #: inc/modules/searchandreplace/types/class-content.php:69
 msgid "%1$s ID #%2$d: %3$s"
-msgstr ""
+msgstr "%1$s ID #%2$d: %3$s"
 
 #: inc/modules/searchandreplace/types/class-content.php:97
 msgid "Content Text"
-msgstr ""
+msgstr "Inhoud Tekst"
 
 #: inc/modules/themeoptions/class-admin.php:88
 #: inc/modules/themeoptions/class-admin.php:89
@@ -3104,23 +3108,23 @@ msgstr "Thema Opties"
 
 #: inc/modules/themeoptions/class-admin.php:145
 msgid "Theme Options Tabs"
-msgstr ""
+msgstr "Thema Opties Tab"
 
 #: inc/modules/themeoptions/class-ebookoptions.php:79
 #: inc/modules/themeoptions/class-pdfoptions.php:84
 #: inc/modules/themeoptions/class-weboptions.php:83
 msgid "Header Font"
-msgstr ""
+msgstr "Koptekst Lettertype"
 
 #: inc/modules/themeoptions/class-ebookoptions.php:87
 #: inc/modules/themeoptions/class-pdfoptions.php:92
 #: inc/modules/themeoptions/class-weboptions.php:91
 msgid "Body Font"
-msgstr ""
+msgstr "Inhoud Lettertype"
 
 #: inc/modules/themeoptions/class-ebookoptions.php:97
 msgid "Ebook Start Point"
-msgstr ""
+msgstr "E-book Startpunt"
 
 #: inc/modules/themeoptions/class-ebookoptions.php:102
 msgid ""
@@ -3132,47 +3136,47 @@ msgstr ""
 #: inc/modules/themeoptions/class-pdfoptions.php:247
 #: inc/modules/themeoptions/class-weboptions.php:126
 msgid "Paragraph Separation"
-msgstr ""
+msgstr "Alinea Scheiding"
 
 #: inc/modules/themeoptions/class-ebookoptions.php:114
 #: inc/modules/themeoptions/class-pdfoptions.php:252
 #: inc/modules/themeoptions/class-weboptions.php:131
 msgid "Indent paragraphs"
-msgstr ""
+msgstr "Inspringen alinea&acute;s"
 
 #: inc/modules/themeoptions/class-ebookoptions.php:115
 #: inc/modules/themeoptions/class-pdfoptions.php:253
 #: inc/modules/themeoptions/class-weboptions.php:132
 msgid "Skip lines between paragraphs"
-msgstr ""
+msgstr "Witregel gebruiken tussen alinea&acute;s"
 
 #: inc/modules/themeoptions/class-ebookoptions.php:121
 msgid "Compress Images"
-msgstr ""
+msgstr "Afbeeldingen Comprimeren"
 
 #: inc/modules/themeoptions/class-ebookoptions.php:126
 msgid "Reduce image size and quality"
-msgstr ""
+msgstr "Verminder afbeeldings- grootte en kwaliteit"
 
 #: inc/modules/themeoptions/class-ebookoptions.php:151
 msgid "These options apply to ebook exports."
-msgstr ""
+msgstr "Deze opties zijn van toepassing op exports."
 
 #: inc/modules/themeoptions/class-ebookoptions.php:352
 msgid "Ebook Options"
-msgstr ""
+msgstr "E-book Opties"
 
 #: inc/modules/themeoptions/class-globaloptions.php:81
 msgid "Part and Chapter Numbers"
-msgstr ""
+msgstr "Deel en Hoofdstuk Nummers"
 
 #: inc/modules/themeoptions/class-globaloptions.php:86
 msgid "Display part and chapter numbers"
-msgstr ""
+msgstr "Toon deel- en hoofdstuknummers"
 
 #: inc/modules/themeoptions/class-globaloptions.php:92
 msgid "Part Label"
-msgstr ""
+msgstr "Deel Label"
 
 #: inc/modules/themeoptions/class-globaloptions.php:97
 msgid ""
@@ -3182,7 +3186,7 @@ msgstr ""
 
 #: inc/modules/themeoptions/class-globaloptions.php:104
 msgid "Chapter Label"
-msgstr ""
+msgstr "Hoofdstuk Label"
 
 #: inc/modules/themeoptions/class-globaloptions.php:109
 msgid ""
@@ -3192,45 +3196,45 @@ msgstr ""
 
 #: inc/modules/themeoptions/class-globaloptions.php:116
 msgid "Two-Level TOC"
-msgstr ""
+msgstr "Twee-Niveau Inhoudsopgave"
 
 #: inc/modules/themeoptions/class-globaloptions.php:121
 msgid ""
 "Enable two-level table of contents (displays headings under chapter titles)"
-msgstr ""
+msgstr "Inschakelen Twee-Niveau inhoudsopgave (toont kopteksten en ondertitels)"
 
 #: inc/modules/themeoptions/class-globaloptions.php:127
 #: inc/shortcodes/attributions/class-attachments.php:262
 msgid "Media Attributions"
-msgstr ""
+msgstr "Media Bijdragen"
 
 #: inc/modules/themeoptions/class-globaloptions.php:132
 msgid "Display attributions at the end of a chapter"
-msgstr ""
+msgstr "Toon attributen aan het einde van een hoofdstuk"
 
 #: inc/modules/themeoptions/class-globaloptions.php:140
 msgid "Language & Script Support"
-msgstr ""
+msgstr "Taal & Script Ondersteuning"
 
 #: inc/modules/themeoptions/class-globaloptions.php:145
 msgid "Include fonts to support the following languages and scripts:"
-msgstr ""
+msgstr "Includeer lettertypen om de volgende talen en scripts te ondersteunen:"
 
 #: inc/modules/themeoptions/class-globaloptions.php:159
 msgid "Chapter Licenses"
-msgstr ""
+msgstr "Hoofdstuk Licenties"
 
 #: inc/modules/themeoptions/class-globaloptions.php:164
 msgid "Do not display section level copyright license"
-msgstr ""
+msgstr "Toon geen sectie niveau copyright licentie"
 
 #: inc/modules/themeoptions/class-globaloptions.php:165
 msgid "Display section level license on table of contents in export formats"
-msgstr ""
+msgstr "Toon sectieniveau licentie in de inhoudsopgave van export formaten"
 
 #: inc/modules/themeoptions/class-globaloptions.php:166
 msgid "Display section level license at end of chapter in export formats"
-msgstr ""
+msgstr "Toon sectieniveau licenties aan het einde van hoofdstukken in exportformaten."
 
 #: inc/modules/themeoptions/class-globaloptions.php:172
 #: languages/tinymce.php:21
@@ -3254,11 +3258,11 @@ msgstr "Leerdoelstellingen"
 
 #: inc/modules/themeoptions/class-globaloptions.php:184
 msgid "Customize colors for %s textboxes using the fields below."
-msgstr ""
+msgstr "Aangepaste kleuren voor %stekstboxen met gebruik van onderstaande velden."
 
 #: inc/modules/themeoptions/class-globaloptions.php:190
 msgid "Header Color"
-msgstr ""
+msgstr "Header Kleur"
 
 #: inc/modules/themeoptions/class-globaloptions.php:196
 msgid "The header text color for a %s textbox."
@@ -3266,7 +3270,7 @@ msgstr ""
 
 #: inc/modules/themeoptions/class-globaloptions.php:201
 msgid "Header Background"
-msgstr ""
+msgstr "Header Achtergrond"
 
 #: inc/modules/themeoptions/class-globaloptions.php:207
 msgid "The header background color for a %s textbox."
@@ -3274,11 +3278,11 @@ msgstr ""
 
 #: inc/modules/themeoptions/class-globaloptions.php:212
 msgid "Background"
-msgstr ""
+msgstr "Achtergrond"
 
 #: inc/modules/themeoptions/class-globaloptions.php:218
 msgid "The background color for a %s textbox."
-msgstr ""
+msgstr "De achtergrondkleur voor een %s textbox."
 
 #: inc/modules/themeoptions/class-globaloptions.php:245
 msgid "These options apply universally to webbook, PDF and ebook exports."
@@ -3286,7 +3290,7 @@ msgstr ""
 
 #: inc/modules/themeoptions/class-globaloptions.php:398
 msgid "Select languages&hellip;"
-msgstr ""
+msgstr "Selecteer talen&hellip;"
 
 #: inc/modules/themeoptions/class-globaloptions.php:406
 msgid "This theme includes built-in support for %s."
@@ -3294,11 +3298,11 @@ msgstr ""
 
 #: inc/modules/themeoptions/class-globaloptions.php:514
 msgid "Global Options"
-msgstr ""
+msgstr "Globale Opties"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:103
 msgid "Body Font Size"
-msgstr ""
+msgstr "Inhoud Lettertype Formaat"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:108
 msgid ""
@@ -3308,11 +3312,11 @@ msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:116
 msgid "Body Line Height"
-msgstr ""
+msgstr "Inhoud Regel Hoogte"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:130
 msgid "Page Size"
-msgstr ""
+msgstr "Pagina Grootte"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:135
 msgid "Digest (5.5&quot; &times; 8.5&quot;)"
@@ -3328,7 +3332,7 @@ msgstr "US Letter (8.5&quot; &times; 11&quot;)"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:138
 msgid "Custom (8.5&quot; &times; 9.25&quot;)"
-msgstr ""
+msgstr "Aangepast (8.5&quot; &times; 9.25&quot;)"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:139
 msgid "Duodecimo (5&quot; &times; 7.75&quot;)"
@@ -3352,7 +3356,7 @@ msgstr "5&quot; &times; 8&quot;"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:151
 msgid "Page Width"
-msgstr ""
+msgstr "Pagina Breedte"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:156
 msgid ""
@@ -3362,7 +3366,7 @@ msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:163
 msgid "Page Height"
-msgstr ""
+msgstr "Pagina Hoogte"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:168
 msgid ""
@@ -3372,7 +3376,7 @@ msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:176
 msgid "Margins"
-msgstr ""
+msgstr "Marges"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:181
 msgid "Customize your book&rsquo;s margins using the fields below."
@@ -3381,7 +3385,7 @@ msgstr ""
 #: inc/modules/themeoptions/class-pdfoptions.php:187
 #: inc/modules/themeoptions/class-pdfoptions.php:891
 msgid "Outside Margin"
-msgstr ""
+msgstr "Buitenkant Marge"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:192
 #: inc/modules/themeoptions/class-pdfoptions.php:204
@@ -3395,29 +3399,29 @@ msgstr ""
 #: inc/modules/themeoptions/class-pdfoptions.php:199
 #: inc/modules/themeoptions/class-pdfoptions.php:892
 msgid "Inside Margin"
-msgstr ""
+msgstr "Binnenkant Marge"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:211
 #: inc/modules/themeoptions/class-pdfoptions.php:893
 msgid "Top Margin"
-msgstr ""
+msgstr "Bovenkant Marge"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:223
 #: inc/modules/themeoptions/class-pdfoptions.php:894
 msgid "Bottom Margin"
-msgstr ""
+msgstr "Onderkant Marge"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:236
 msgid "Hyphens"
-msgstr ""
+msgstr "Koppeltekens"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:241
 msgid "Enable hyphenation"
-msgstr ""
+msgstr "Inschakelen Woordafbreking"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:259
 msgid "Section Openings"
-msgstr ""
+msgstr "Sectie Openingen"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:264
 msgid "Left or right page section opening (for print PDF)"
@@ -3425,65 +3429,65 @@ msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:265
 msgid "Right page section openings (for print PDF)"
-msgstr ""
+msgstr "Rechterpagina sectieopenigen (voor print PDF)"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:266
 msgid "No blank pages (for web PDF)"
-msgstr ""
+msgstr "Geen lege pagina&acute;s (voor web PDF)"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:277
 msgid "Display table of contents"
-msgstr ""
+msgstr "Toon Inhoudsopgave"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:283
 msgid "Crop Marks"
-msgstr ""
+msgstr "Bijsnijden Markeringen"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:288
 msgid "Display crop marks"
-msgstr ""
+msgstr "Toon Markeringen"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:295
 msgid "Romanize Part Numbers"
-msgstr ""
+msgstr "Deelnummers Romanizeren"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:300
 msgid "Convert part numbers into Roman numerals"
-msgstr ""
+msgstr "Converteer deelnummers in Romeinse cijfers"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:307
 msgid "Footnote Style"
-msgstr ""
+msgstr "Voetnoot Stijl"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:312
 msgid "Regular footnotes"
-msgstr ""
+msgstr "Normale Voetnoten"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:313
 msgid "Display as chapter endnotes"
-msgstr ""
+msgstr "Toon als hoofdstuk eindnoten"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:319
 msgid "Widows"
-msgstr ""
+msgstr "Weduwen"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:330
 msgid "Orphans"
-msgstr ""
+msgstr "Wezen"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:342
 msgid "Running Heads & Feet"
-msgstr ""
+msgstr "Lopende Kop & Voet"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:347
 msgid ""
 "Running content appears in either running heads or running feet (at the top "
 "or bottom of the page) depending on your theme."
-msgstr ""
+msgstr "Lopende inhoud verschijnt in lopende koppen of lopende voeten (aan de onderkant van de pagina) afhankelijk van uw thema."
 
 #: inc/modules/themeoptions/class-pdfoptions.php:353
 msgid "Front Matter Left Page Running Content"
-msgstr ""
+msgstr "Voorwerk Linkerpagina Lopende Inhoud"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:359
 #: inc/modules/themeoptions/class-pdfoptions.php:378
@@ -3496,7 +3500,7 @@ msgstr ""
 #: inc/modules/themeoptions/class-pdfoptions.php:513
 #: inc/modules/themeoptions/class-pdfoptions.php:532
 msgid "Book Subtitle"
-msgstr ""
+msgstr "Boek Ondertiel"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:360
 #: inc/modules/themeoptions/class-pdfoptions.php:379
@@ -3509,22 +3513,22 @@ msgstr ""
 #: inc/modules/themeoptions/class-pdfoptions.php:514
 #: inc/modules/themeoptions/class-pdfoptions.php:533
 msgid "Book Author"
-msgstr ""
+msgstr "Boek Auteur"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:361
 #: inc/modules/themeoptions/class-pdfoptions.php:380
 msgid "Front Matter Title"
-msgstr ""
+msgstr "Voorwerk Titel"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:362
 #: inc/modules/themeoptions/class-pdfoptions.php:381
 msgid "Front Matter Author"
-msgstr ""
+msgstr "Voorwerk Auteur"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:363
 #: inc/modules/themeoptions/class-pdfoptions.php:382
 msgid "Front Matter Subtitle"
-msgstr ""
+msgstr "Voorwerk Ondertitel"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:364
 #: inc/modules/themeoptions/class-pdfoptions.php:383
@@ -3537,114 +3541,114 @@ msgstr ""
 #: inc/modules/themeoptions/class-pdfoptions.php:518
 #: inc/modules/themeoptions/class-pdfoptions.php:537
 msgid "Blank"
-msgstr ""
+msgstr "Blanco"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:372
 msgid "Front Matter Right Page Running Content"
-msgstr ""
+msgstr "Voorwerk Rechterpagina Lopende Inhoud"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:391
 msgid "Introduction Left Page Running Content"
-msgstr ""
+msgstr "Introductie Linkerpagina Lopende Inhoud"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:399
 #: inc/modules/themeoptions/class-pdfoptions.php:418
 msgid "Introduction Title"
-msgstr ""
+msgstr "Introductie Titel"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:400
 #: inc/modules/themeoptions/class-pdfoptions.php:419
 msgid "Introduction Author"
-msgstr ""
+msgstr "Introductie Auteur"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:401
 #: inc/modules/themeoptions/class-pdfoptions.php:420
 msgid "Introduction Subtitle"
-msgstr ""
+msgstr "Introductie Ondertitel"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:410
 msgid "Introduction Right Page Running Content"
-msgstr ""
+msgstr "introductie Rechterpagina Lopende Inhoud"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:429
 msgid "Part Left Page Running Content"
-msgstr ""
+msgstr "Deel Linkerpagina Lopende Inhoud"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:437
 #: inc/modules/themeoptions/class-pdfoptions.php:455
 #: inc/modules/themeoptions/class-pdfoptions.php:473
 #: inc/modules/themeoptions/class-pdfoptions.php:494
 msgid "Part Number"
-msgstr ""
+msgstr "Deel Nummer"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:438
 #: inc/modules/themeoptions/class-pdfoptions.php:456
 #: inc/modules/themeoptions/class-pdfoptions.php:474
 #: inc/modules/themeoptions/class-pdfoptions.php:495
 msgid "Part Title"
-msgstr ""
+msgstr "Deel Titel"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:447
 msgid "Part Right Page Running Content"
-msgstr ""
+msgstr "Deel Rechterpagina Lopende Inhoud"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:465
 msgid "Chapter Left Page Running Content"
-msgstr ""
+msgstr "Hoofdstuk Linkerpagina Lopende Inhoud"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:475
 #: inc/modules/themeoptions/class-pdfoptions.php:496
 msgid "Chapter Title"
-msgstr ""
+msgstr "Hoofdstuk Titel"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:476
 #: inc/modules/themeoptions/class-pdfoptions.php:497
 msgid "Chapter Author"
-msgstr ""
+msgstr "Hoofdstuk Auteur"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:477
 #: inc/modules/themeoptions/class-pdfoptions.php:498
 msgid "Chapter Subtitle"
-msgstr ""
+msgstr "Hoofdstuk Ondertitel"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:486
 msgid "Chapter Right Page Running Content"
-msgstr ""
+msgstr "Hoofdstuk Rechterpagina Lopende Inhoud"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:507
 msgid "Back Matter Left Page Running Content"
-msgstr ""
+msgstr "Nawerk Linkerpagina Lopende Inhoud"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:515
 #: inc/modules/themeoptions/class-pdfoptions.php:534
 msgid "Back Matter Title"
-msgstr ""
+msgstr "Nawerk Titel"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:516
 #: inc/modules/themeoptions/class-pdfoptions.php:535
 msgid "Back Matter Author"
-msgstr ""
+msgstr "Nawerk Auteur"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:517
 #: inc/modules/themeoptions/class-pdfoptions.php:536
 msgid "Back Matter Subtitle"
-msgstr ""
+msgstr "Nawerk Ondertitel"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:526
 msgid "Back Matter Right Page Running Content"
-msgstr ""
+msgstr "Nawerk Rechterpagina Lopende Inhoud"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:547
 msgid "Increase Font Size"
-msgstr ""
+msgstr "Vergroten Lettertypeformaat"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:552
 msgid "Increases font size and line height for greater accessibility"
-msgstr ""
+msgstr "Vergroot lettertypeformaat en regelhoogte voor betere toegangelijkheid"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:578
 msgid "These options apply to PDF exports."
-msgstr ""
+msgstr "Deze opties zijn van toepassing op PDF exports."
 
 #: inc/modules/themeoptions/class-pdfoptions.php:899
 msgid ""
@@ -3654,11 +3658,11 @@ msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:1463
 msgid "PDF Options"
-msgstr ""
+msgstr "PDF Opties"
 
 #: inc/modules/themeoptions/class-weboptions.php:101
 msgid "Enable Social Media"
-msgstr ""
+msgstr "Inschakelen Sociale Media"
 
 #: inc/modules/themeoptions/class-weboptions.php:106
 msgid ""
@@ -3668,35 +3672,35 @@ msgstr ""
 
 #: inc/modules/themeoptions/class-weboptions.php:112
 msgid "Webbook Width"
-msgstr ""
+msgstr "Webboek Breedte"
 
 #: inc/modules/themeoptions/class-weboptions.php:117
 msgid "Narrow"
-msgstr ""
+msgstr "Nauw"
 
 #: inc/modules/themeoptions/class-weboptions.php:119
 msgid "Wide"
-msgstr ""
+msgstr "Wijd"
 
 #: inc/modules/themeoptions/class-weboptions.php:138
 msgid "Display Part Title"
-msgstr ""
+msgstr "Toon Deel Titel"
 
 #: inc/modules/themeoptions/class-weboptions.php:143
 msgid "Display the Part title on each chapter"
-msgstr ""
+msgstr "Toon de de Deeltitel in elk hoofdstuk"
 
 #: inc/modules/themeoptions/class-weboptions.php:150
 msgid "Collapse Sections"
-msgstr ""
+msgstr "Inklappen Secties"
 
 #: inc/modules/themeoptions/class-weboptions.php:155
 msgid "Collapse sections within front matter, chapters, and back matter"
-msgstr ""
+msgstr "Secties binnen het voorwerk, de hoofdstukken en nawerk inklappen"
 
 #: inc/modules/themeoptions/class-weboptions.php:163
 msgid "Enable Source Comparison"
-msgstr ""
+msgstr "Inschakelen Bronvergelijking"
 
 #: inc/modules/themeoptions/class-weboptions.php:168
 msgid ""
@@ -3716,11 +3720,11 @@ msgstr ""
 
 #: inc/modules/themeoptions/class-weboptions.php:396
 msgid "Web Options"
-msgstr ""
+msgstr "Web Opties"
 
 #: inc/posttype/namespace.php:65 templates/admin/organize.php:59
 msgid "Chapters"
-msgstr ""
+msgstr "Hoofdstukken"
 
 #: inc/posttype/namespace.php:88 templates/admin/organize.php:61
 msgid "Parts"
@@ -3728,7 +3732,7 @@ msgstr "Onderdelen"
 
 #: inc/posttype/namespace.php:194
 msgid "Glossary Term"
-msgstr ""
+msgstr "Woordenlijst Term"
 
 #: inc/posttype/namespace.php:233
 msgid ""
@@ -3738,7 +3742,7 @@ msgstr ""
 
 #: inc/posttype/namespace.php:278
 msgid "Unlisted"
-msgstr ""
+msgstr "Onvermeld"
 
 #: inc/posttype/namespace.php:315
 msgid "Show title in exports"
@@ -3766,57 +3770,57 @@ msgstr ""
 
 #: inc/posttype/namespace.php:375
 msgid "Media attribution source url"
-msgstr ""
+msgstr "Mediabijdrage bron URL"
 
 #: inc/posttype/namespace.php:384
 msgid "Media attribution author"
-msgstr ""
+msgstr "Mediabijdrage Auteur"
 
 #: inc/posttype/namespace.php:393
 msgid "Media attribution author url"
-msgstr ""
+msgstr "Mediabijdrage auteur url"
 
 #: inc/posttype/namespace.php:402
 msgid "Media attribution adapted by"
-msgstr ""
+msgstr "Mediabijdrage aangepast door"
 
 #: inc/posttype/namespace.php:411
 msgid "Media attribution adapted by url"
-msgstr ""
+msgstr "Mediabijdrage aangepast door url"
 
 #: inc/posttype/namespace.php:420
 msgid "Media attribution license"
-msgstr ""
+msgstr "Mediabijdrage Licentie"
 
 #: inc/posttype/namespace.php:432
 msgctxt "post status"
 msgid "Web Only"
-msgstr ""
+msgstr "Alleen Web"
 
 #: inc/posttype/namespace.php:477
 msgid "parts"
-msgstr ""
+msgstr "delen"
 
 #: inc/posttype/namespace.php:478
 msgid "chapters"
-msgstr ""
+msgstr "hoofdstukken"
 
 #: inc/posttype/namespace.php:479
 msgid "front matter"
-msgstr ""
+msgstr "voorwerk"
 
 #: inc/posttype/namespace.php:480
 msgid "back matter"
-msgstr ""
+msgstr "nawerk"
 
 #: inc/posttype/namespace.php:481
 msgid "glossary"
-msgstr ""
+msgstr "woordenlijst"
 
 #: inc/posttype/namespace.php:544 templates/admin/import.php:97
 #: templates/admin/organize.php:62
 msgid "Glossary"
-msgstr ""
+msgstr "Woordenlijst"
 
 #: inc/redirect/namespace.php:144 inc/redirect/namespace.php:232
 msgid "Error: Unknown export format."
@@ -3832,7 +3836,7 @@ msgstr "Niet ondersteunde berichttype"
 
 #: inc/redirect/namespace.php:373
 msgid "Unsupported taxonomy."
-msgstr ""
+msgstr "Niet ondersteunde taxonomie."
 
 #: inc/redirect/namespace.php:397
 msgid "You do not have sufficient permissions to access that URL."
@@ -3840,7 +3844,7 @@ msgstr "U hebt onvoldoende toestemming voor de toegang tot die URL."
 
 #: inc/registration/namespace.php:30
 msgid "Register my book now"
-msgstr ""
+msgstr "Registreer nu mijn boek"
 
 #: inc/registration/namespace.php:33
 msgid "Register my book later"
@@ -3868,7 +3872,7 @@ msgstr "Boek Taal:"
 
 #: inc/registration/namespace.php:49
 msgid "Would you like your webbook to be visible to the public?"
-msgstr ""
+msgstr "Wilt u uw webboek tonen aan het publiek?"
 
 #: inc/registration/namespace.php:53
 msgid "Create Book"
@@ -3876,7 +3880,7 @@ msgstr "Maak Boek"
 
 #: inc/registration/namespace.php:56
 msgid "Register a %s account"
-msgstr ""
+msgstr "Registreer een %s account"
 
 #: inc/registration/namespace.php:59
 msgid "Create a new book"
@@ -3886,7 +3890,7 @@ msgstr "Maak een nieuw boek"
 msgid ""
 "Welcome, %s. Fill out the form below to <strong>add a new book to your "
 "account</strong>."
-msgstr ""
+msgstr "Welkom, %s. Vul onderstaand formulier in om <strong>een nieuw boek aan uw account toe te voegen</strong>."
 
 #: inc/registration/namespace.php:66
 msgid "yourwebbookname"
@@ -3904,7 +3908,7 @@ msgstr "Gefeliciteerd! Uw nieuwe boek, %s, is bijna gereed"
 msgid ""
 "But, before you can start writing your book, <strong>you must activate "
 "it</strong>."
-msgstr ""
+msgstr "Maar, voor u kunt beginnen met schrijven van uw boek <strong>dient u het eerst te activeren</strong>."
 
 #: inc/registration/namespace.php:81
 msgid ""
@@ -4014,7 +4018,7 @@ msgstr ""
 
 #: inc/theme/class-lock.php:204
 msgid "Your book&rsquo;s theme has been unlocked."
-msgstr ""
+msgstr "Uw boek&acute;s thema is ontgrendeld"
 
 #: inc/theme/class-lock.php:270
 msgid ""
@@ -4193,21 +4197,21 @@ msgstr ""
 
 #: templates/admin/cloner.php:24
 msgid "Target Book URL"
-msgstr ""
+msgstr "Doel Boek URL"
 
 #: templates/admin/cloner.php:35
 msgid "Target Book Title"
-msgstr ""
+msgstr "Doel Boek Titel"
 
 #: templates/admin/cloner.php:38
 msgid ""
 "Optional. If you leave this blank, the title of the source book will be "
 "used."
-msgstr ""
+msgstr "Optioneel. indien u dit leeg laat, zal de titel van het bronboek gebruikt worden."
 
 #: templates/admin/cloner.php:42
 msgid "Clone It!"
-msgstr ""
+msgstr "Dupliceer!"
 
 #: templates/admin/covergenerator.php:65 templates/admin/covergenerator.php:85
 msgid ""
@@ -4226,15 +4230,15 @@ msgstr ""
 
 #: templates/admin/covergenerator.php:79
 msgid "Make Your Cover"
-msgstr ""
+msgstr "Maak Uw Omslag"
 
 #: templates/admin/covergenerator.php:92
 msgid "Make PDF Cover"
-msgstr ""
+msgstr "Maak PDF Omslag"
 
 #: templates/admin/covergenerator.php:98
 msgid "Make Ebook Cover"
-msgstr ""
+msgstr "Maak E-book Omslag"
 
 #: templates/admin/covergenerator.php:100
 msgid "Download"
@@ -4242,7 +4246,7 @@ msgstr "Download"
 
 #: templates/admin/covergenerator.php:104
 msgid "Sorry! You have to generate some covers first."
-msgstr ""
+msgstr "Sorry! U moet eerst enige ommslagen genereren."
 
 #. translators: %s date/time
 #: templates/admin/covergenerator.php:107
@@ -4255,7 +4259,7 @@ msgstr ""
 
 #: templates/admin/covergenerator.php:139
 msgid "Delete All Covers"
-msgstr ""
+msgstr "Verwijderen Alle Omslagen"
 
 #: templates/admin/custom-styles.php:33
 msgid "Error: Something went wrong. See logs for more details."
@@ -4267,11 +4271,11 @@ msgstr ""
 
 #: templates/admin/custom-styles.php:44
 msgid "Theme %1$s Styles (%2$s)"
-msgstr ""
+msgstr "Thema %1$s Stijlen(%2$s)"
 
 #: templates/admin/custom-styles.php:46
 msgid "Your %s Styles"
-msgstr ""
+msgstr "Uw %s Stijlen"
 
 #: templates/admin/custom-styles.php:48
 msgid "Save"
@@ -4279,7 +4283,7 @@ msgstr "Opslaan"
 
 #: templates/admin/dashboard.php:34
 msgid "Dashboard Settings"
-msgstr ""
+msgstr "Dashboard Instellingen"
 
 #: templates/admin/dashboard.php:36
 msgid "Customize your Pressbooks dashboard below."
@@ -4291,7 +4295,7 @@ msgstr ""
 
 #: templates/admin/import.php:18
 msgid "Web page (.html or URL)"
-msgstr ""
+msgstr "Web pagina (.html of URL)"
 
 #: templates/admin/import.php:28
 msgid "EPUB (.epub)"
@@ -4315,15 +4319,15 @@ msgstr ""
 
 #: templates/admin/import.php:45
 msgid "Source:"
-msgstr ""
+msgstr "Bron:"
 
 #: templates/admin/import.php:63
 msgid "Selected all sections for import"
-msgstr ""
+msgstr "Selecteer alle secties voor import"
 
 #: templates/admin/import.php:65
 msgid "Unselected all sections for import"
-msgstr ""
+msgstr "Uitschakelen alle secties voor import"
 
 #: templates/admin/import.php:70
 msgid "Are you sure you want to abort the import?"
@@ -4331,11 +4335,11 @@ msgstr "Bent u zeker dat u de import wilt stoppen?"
 
 #: templates/admin/import.php:88 templates/admin/import.php:143
 msgid "Import all"
-msgstr ""
+msgstr "Importeer alle"
 
 #: templates/admin/import.php:99
 msgid "Other"
-msgstr ""
+msgstr "Andere"
 
 #: templates/admin/import.php:149
 msgid "Show imported content in web"
@@ -4343,23 +4347,23 @@ msgstr ""
 
 #: templates/admin/import.php:154
 msgid "Import Selection"
-msgstr ""
+msgstr "Importeer Selectie"
 
 #: templates/admin/import.php:181
 msgid "Maximum file size:"
-msgstr ""
+msgstr "Maximale bestandsgrootte:"
 
 #: templates/admin/import.php:191
 msgid "Import Type"
-msgstr ""
+msgstr "Import Type"
 
 #: templates/admin/import.php:203
 msgid "Import Source"
-msgstr ""
+msgstr "Import Bron"
 
 #: templates/admin/import.php:222
 msgid "Begin Import"
-msgstr ""
+msgstr "Start Import"
 
 #: templates/admin/organize.php:41 templates/admin/organize.php:43
 msgid "This book's global privacy is set to"
@@ -4377,63 +4381,63 @@ msgstr ""
 
 #: templates/admin/organize.php:69
 msgid "Add Glossary Term"
-msgstr ""
+msgstr "Toevoegen Woordenlijst Term"
 
 #: templates/admin/organize.php:72
 msgid "Word Count:"
-msgstr ""
+msgstr "Woord Telling:"
 
 #: templates/admin/organize.php:72
 msgid "%s (whole book)"
-msgstr ""
+msgstr "%s (gehele boek)"
 
 #: templates/admin/organize.php:73
 msgid "%s (selected for export)"
-msgstr ""
+msgstr "%s (geselcteerd voor export)"
 
 #: templates/admin/organize.php:117 templates/admin/organize.php:183
 #: templates/admin/organize.php:341
 msgid "Edit"
-msgstr ""
+msgstr "Bewerk"
 
 #: templates/admin/organize.php:119 templates/admin/organize.php:185
 #: templates/admin/organize.php:343
 msgid "Trash"
-msgstr ""
+msgstr "Verwijder"
 
 #: templates/admin/organize.php:120 templates/admin/organize.php:186
 #: templates/admin/organize.php:344
 msgid "View"
-msgstr ""
+msgstr "Bekijk"
 
 #: templates/admin/organize.php:127 templates/admin/organize.php:286
 msgid "Comments"
-msgstr ""
+msgstr "Commentaren"
 
 #: templates/admin/organize.php:172 templates/admin/organize.php:177
 #: templates/admin/organize.php:330 templates/admin/organize.php:335
 msgid "Ebook start point"
-msgstr ""
+msgstr "E-book startpunt"
 
 #: templates/admin/organize.php:193 templates/admin/organize.php:352
 msgid "Move Up"
-msgstr ""
+msgstr "Verplaats Omhoog"
 
 #: templates/admin/organize.php:196 templates/admin/organize.php:355
 msgid "Move Down"
-msgstr ""
+msgstr "Verplaats Omlaag"
 
 #: templates/admin/results.php:4
 msgid "Results"
-msgstr ""
+msgstr "Resultaten"
 
 #: templates/admin/results.php:6
 msgid "%1$s result(s) found."
-msgstr ""
+msgstr "%1$s resultaat(en) gevonden."
 
 #: templates/admin/results.php:21
 msgid "There are no results."
-msgstr ""
+msgstr "Er zijn geen resultaten."
 
 #: templates/admin/search.php:12
 msgid ""
@@ -4451,43 +4455,43 @@ msgstr ""
 
 #: templates/admin/search.php:17
 msgid "Search Within"
-msgstr ""
+msgstr "Zoek In"
 
 #: templates/admin/search.php:41
 msgid "Result Order"
-msgstr ""
+msgstr "Resultaat Volgorde"
 
 #: templates/admin/search.php:50
 msgid "Ascending"
-msgstr ""
+msgstr "Stijgend"
 
 #: templates/admin/search.php:51
 msgid "Descending"
-msgstr ""
+msgstr "Dalend"
 
 #: templates/admin/search.php:56
 msgid "Search For"
-msgstr ""
+msgstr "Zoek Naar"
 
 #: templates/admin/search.php:62
 msgid "Replace With"
-msgstr ""
+msgstr "Vervang Door"
 
 #: templates/admin/search.php:69
 msgid "Regex"
-msgstr ""
+msgstr "Regex"
 
 #: templates/admin/search.php:73
 msgid "Enable regular expressions"
-msgstr ""
+msgstr "Inschakelen standaard expressies"
 
 #: templates/admin/search.php:84
 msgid "Preview Replacements"
-msgstr ""
+msgstr "Voorbeschouwen Vervangingen"
 
 #: templates/admin/search.php:85
 msgid "Replace &amp; Save"
-msgstr ""
+msgstr "Vervang &amp; Sla op"
 
 #: templates/admin/trash.php:21
 msgid ""
@@ -4502,43 +4506,43 @@ msgstr ""
 
 #: templates/admin/trash.php:27
 msgid "No trash found."
-msgstr ""
+msgstr "Geen afval gevonden."
 
 #: templates/admin/trash.php:37
 msgid "Last Modified"
-msgstr ""
+msgstr "Laats Aangepast"
 
 #: templates/admin/trash.php:38
 msgid "Type"
-msgstr ""
+msgstr "Type"
 
 #: templates/admin/trash.php:39
 msgid "Action"
-msgstr ""
+msgstr "Actie"
 
 #: templates/pb-catalog.php:160
 msgid "'s Catalog Page"
-msgstr ""
+msgstr "'s Catalogus Pagina"
 
 #: templates/pb-catalog.php:181
 msgid "login"
-msgstr ""
+msgstr "inloggen"
 
 #: templates/pb-catalog.php:183
 msgid "logout"
-msgstr ""
+msgstr "uitloggen"
 
 #: templates/pb-catalog.php:191
 msgid "Admin"
-msgstr ""
+msgstr "Beheer"
 
 #: templates/pb-catalog.php:244
 msgid "Catalog"
-msgstr ""
+msgstr "Catalogus"
 
 #: templates/pb-catalog.php:244
 msgid "filtering by"
-msgstr ""
+msgstr "filteren op"
 
 #: templates/pb-catalog.php:269
 msgid ""
@@ -4548,7 +4552,7 @@ msgstr ""
 
 #: templates/pb-catalog.php:273
 msgid "Pressbooks: the CMS for Books."
-msgstr ""
+msgstr "Pressbooks: het CMS voor Boeken."
 
 #: tests/test-registration.php:28
 msgid "Create Site"
@@ -4560,35 +4564,35 @@ msgstr ""
 
 #: assets/src/scripts/a11y.js:44
 msgid "Black"
-msgstr ""
+msgstr "Zwart"
 
 #: assets/src/scripts/a11y.js:47
 msgid "White"
-msgstr ""
+msgstr "Wit"
 
 #: assets/src/scripts/a11y.js:50
 msgid "Red"
-msgstr ""
+msgstr "Rood"
 
 #: assets/src/scripts/a11y.js:53
 msgid "Orange"
-msgstr ""
+msgstr "Oranje"
 
 #: assets/src/scripts/a11y.js:56
 msgid "Yellow"
-msgstr ""
+msgstr "Geel"
 
 #: assets/src/scripts/a11y.js:59
 msgid "Green"
-msgstr ""
+msgstr "Groen"
 
 #: assets/src/scripts/a11y.js:62
 msgid "Blue"
-msgstr ""
+msgstr "Blauw"
 
 #: assets/src/scripts/a11y.js:65
 msgid "Purple"
-msgstr ""
+msgstr "Paars"
 
 #: templates/admin/diagnostics.blade.php:5
 msgid "Please submit this information with any bug reports."
@@ -4602,7 +4606,7 @@ msgstr ""
 
 #: templates/admin/diagnostics.blade.php:8
 msgid "View Source"
-msgstr ""
+msgstr "Bron Tonen"
 
 #: templates/admin/diagnostics.blade.php:9
 msgid ""
@@ -4620,7 +4624,7 @@ msgstr ""
 
 #: templates/admin/diagnostics.blade.php:12
 msgid "Regenerate Stylesheet"
-msgstr ""
+msgstr "Regenereren Stylesheet"
 
 #: templates/admin/export.blade.php:12
 msgid ""
@@ -4635,15 +4639,15 @@ msgstr ""
 
 #: templates/admin/export.blade.php:19
 msgid "Export Options"
-msgstr ""
+msgstr "Export Opties"
 
 #: templates/admin/export.blade.php:28
 msgid "Supported formats"
-msgstr ""
+msgstr "Ondersteunde formaten"
 
 #: templates/admin/export.blade.php:38
 msgid "Other formats"
-msgstr ""
+msgstr "Andere formaten"
 
 #: templates/admin/export.blade.php:56
 msgid "Your Theme"
