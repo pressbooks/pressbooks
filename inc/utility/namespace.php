@@ -1505,7 +1505,7 @@ function initialize_sentry() {
 			\Sentry\init( [
 				'dsn' => 'https://' . getenv( 'SENTRY_KEY' ) . '@' . getenv( 'SENTRY_ORGANIZATION' ) .
 					'.ingest.sentry.io/' . getenv( 'SENTRY_PROJECT' ),
-				'environment' => getenv( 'WP_ENV' )
+				'environment' => getenv( 'WP_ENV' ),
 			] );
 			return true;
 		} catch ( \Exception $exception ) {
