@@ -1,7 +1,7 @@
 # Copyright (C) 2020 Pressbooks (Book Oven Inc.)
 # This file is distributed under the same license as the Pressbooks plugin.
 # Translators:
-# Antonio Devís <colomet@hotmail.com>, 2018
+# Antonio Devís <colomet@hotmail.com>, 2018,2020
 # jorge santibañez <info@letrapixel.com>, 2017
 # taskforsome <taskforsome@gmail.com>, 2014
 # taskforsome <taskforsome@gmail.com>, 2014
@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
-"POT-Creation-Date: 2020-05-13T04:18:20+00:00\n"
-"PO-Revision-Date: 2020-05-13 04:19+0000\n"
+"POT-Creation-Date: 2020-05-27T11:40:13+00:00\n"
+"PO-Revision-Date: 2020-05-26 21:05+0000\n"
 "Last-Translator: Ho Man Chan <homan@pressbooks.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/pressbooks/pressbooks/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -90,7 +90,7 @@ msgstr "Google Analytics ID"
 #: inc/admin/analytics/namespace.php:51
 msgid ""
 "The Google Analytics ID for your network, e.g. &lsquo;UA-01234567-8&rsquo;."
-msgstr ""
+msgstr "El ID de Google Analytics para su red, p. ej. &lsquo;UA-01234567-8&rsquo;."
 
 #: inc/admin/analytics/namespace.php:69
 msgid "Site-Specific Tracking"
@@ -101,12 +101,12 @@ msgid ""
 "If enabled, the Google Analytics settings page will be visible to book "
 "administrators, allowing them to use their own Google Analytics accounts to "
 "track statistics at the book level."
-msgstr ""
+msgstr "Si se habilita, la página de configuración de Google Analytics será visible para los administradores de libros, permitiéndoles usar sus propias cuentas de Google Analytics para realizar un seguimiento de las estadísticas a nivel del libro."
 
 #: inc/admin/analytics/namespace.php:108
 msgid ""
 "The Google Analytics ID for your book, e.g. &lsquo;UA-01234567-8&rsquo;."
-msgstr ""
+msgstr "El ID de Google Analytics para su libro, e.g. &lsquo;UA-01234567-8&rsquo;."
 
 #: inc/admin/analytics/namespace.php:125
 msgid "Google Analytics settings."
@@ -119,11 +119,11 @@ msgstr "Configuración guardada."
 
 #: inc/admin/attachments/namespace.php:39
 msgid "ATTRIBUTIONS"
-msgstr ""
+msgstr "Atribuciones"
 
 #: inc/admin/attachments/namespace.php:46
 msgid "Source URL"
-msgstr ""
+msgstr "URL de origen"
 
 #: inc/admin/attachments/namespace.php:54
 #: inc/admin/class-catalog-list-table.php:235
@@ -133,7 +133,7 @@ msgstr "Autor"
 
 #: inc/admin/attachments/namespace.php:60
 msgid "Author URL"
-msgstr ""
+msgstr "URL del autor"
 
 #: inc/admin/attachments/namespace.php:68
 msgid "License"
@@ -240,17 +240,17 @@ msgstr "Visitar catálogo"
 #. translators: %s: search keywords
 #: inc/admin/class-catalog-list-table.php:530
 msgid "Search results for &#8220;%s&#8221; returned no items"
-msgstr ""
+msgstr "Resultados de búsqueda de &#8220;%s&#8221; no ha obtenido ningún elemento"
 
 #. translators: %s: search keywords
 #: inc/admin/class-catalog-list-table.php:533
 msgid "Search results for &#8220;%s&#8221; returned 1 item"
-msgstr ""
+msgstr "Resultados de búsqueda de &#8220;%s&#8221; ha obtenido un elemento"
 
 #. translators: %s: search keywords, %d: total items found
 #: inc/admin/class-catalog-list-table.php:536
 msgid "Search results for &#8220;%1$s&#8221; returned %2$d items"
-msgstr ""
+msgstr "Resultados de búsqueda de &#8220;%1$s&#8221; ha obtenido %2$d elementos"
 
 #: inc/admin/class-catalog-list-table.php:543
 msgid "Organize your public Catalog page."
@@ -1814,19 +1814,19 @@ msgstr "Recuento de las palabras."
 msgid "Part ID."
 msgstr ""
 
-#: inc/api/namespace.php:191
+#: inc/api/namespace.php:194
 msgid "Invalid batch parameter(s)."
 msgstr ""
 
-#: inc/api/namespace.php:358
+#: inc/api/namespace.php:361
 msgid "Part does not exist"
 msgstr ""
 
-#: inc/api/namespace.php:365
+#: inc/api/namespace.php:368
 msgid "ID is not a part"
 msgstr ""
 
-#: inc/api/namespace.php:379
+#: inc/api/namespace.php:382
 msgid "Failed to update chapter part"
 msgstr ""
 
@@ -2002,90 +2002,94 @@ msgid "Ancient Greek"
 msgstr "Griego antiguo"
 
 #: inc/class-globaltypography.php:42
+msgid "Armenian"
+msgstr ""
+
+#: inc/class-globaltypography.php:43
 msgid "Arabic"
 msgstr "Arabe"
 
-#: inc/class-globaltypography.php:43
+#: inc/class-globaltypography.php:44
 msgid "Bengali"
 msgstr ""
 
-#: inc/class-globaltypography.php:44
+#: inc/class-globaltypography.php:45
 msgid "Biblical Hebrew"
 msgstr "Hebreo Bíblico"
 
-#: inc/class-globaltypography.php:45
+#: inc/class-globaltypography.php:46
 msgid "Canadian Indigenous Syllabics"
 msgstr ""
 
-#: inc/class-globaltypography.php:46
+#: inc/class-globaltypography.php:47
 msgid "Devanagari (Hindi and Sanskrit)"
 msgstr ""
 
-#: inc/class-globaltypography.php:47
+#: inc/class-globaltypography.php:48
 msgid "Chinese (Simplified)"
 msgstr "Chino (Simplificado)"
 
-#: inc/class-globaltypography.php:48
+#: inc/class-globaltypography.php:49
 msgid "Chinese (Traditional)"
 msgstr "Chino (Tradicional)"
 
-#: inc/class-globaltypography.php:49
+#: inc/class-globaltypography.php:50
 msgid "Coptic"
 msgstr "Copto"
 
-#: inc/class-globaltypography.php:50
+#: inc/class-globaltypography.php:51
 msgid "Gujarati"
 msgstr "Guyaratí"
 
-#: inc/class-globaltypography.php:51
+#: inc/class-globaltypography.php:52
 msgid "Punjabi (Gurmukhi)"
 msgstr ""
 
-#: inc/class-globaltypography.php:52
+#: inc/class-globaltypography.php:53
 msgid "Japanese"
 msgstr "Japonés"
 
-#: inc/class-globaltypography.php:53
+#: inc/class-globaltypography.php:54
 msgid "Kannada"
 msgstr ""
 
-#: inc/class-globaltypography.php:54
+#: inc/class-globaltypography.php:55
 msgid "Korean"
 msgstr "Coreano"
 
-#: inc/class-globaltypography.php:55
+#: inc/class-globaltypography.php:56
 msgid "Malayalam"
 msgstr ""
 
-#: inc/class-globaltypography.php:56
+#: inc/class-globaltypography.php:57
 msgid "N'Ko"
 msgstr ""
 
-#: inc/class-globaltypography.php:57
+#: inc/class-globaltypography.php:58
 msgid "Odia"
 msgstr ""
 
-#: inc/class-globaltypography.php:58
+#: inc/class-globaltypography.php:59
 msgid "Syriac"
 msgstr "Sirio"
 
-#: inc/class-globaltypography.php:59
+#: inc/class-globaltypography.php:60
 msgid "Tamil"
 msgstr "Tamil"
 
-#: inc/class-globaltypography.php:60
+#: inc/class-globaltypography.php:61
 msgid "Telugu"
 msgstr ""
 
-#: inc/class-globaltypography.php:61
+#: inc/class-globaltypography.php:62
 msgid "Tibetan"
 msgstr "Tibetano"
 
-#: inc/class-globaltypography.php:62
+#: inc/class-globaltypography.php:63
 msgid "Turkish"
 msgstr "Turco"
 
-#: inc/class-globaltypography.php:431
+#: inc/class-globaltypography.php:441
 msgid "Your %1$s font could not be downloaded from %2$s."
 msgstr ""
 
