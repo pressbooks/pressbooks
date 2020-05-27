@@ -76,7 +76,7 @@ class PrincePdf extends Generator {
 	 */
 	public function __construct( Input $input ) {
 		parent::__construct( $input );
-		$this->pdfProfile = apply_filters( 'pb_pdf_for_print_profile', 'PDF/X-1a' );
+		$this->pdfProfile = apply_filters( 'pb_pdf_for_print_profile', 'PDF/X-4' );
 		$this->pdfOutputIntent = '/usr/lib/prince/icc/USWebCoatedSWOP.icc';
 	}
 

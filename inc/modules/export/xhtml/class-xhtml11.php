@@ -655,6 +655,7 @@ class Xhtml11 extends ExportGenerator {
 					if ( in_array( "#{$fragment}", $external_anchors, true ) ) {
 						continue;
 					} else {
+						$link->setAttribute( 'data-url', "{$home_url}{$href}" );
 						$link->setAttribute( 'href', "#{$fragment}" );
 						$changed = true;
 					}
