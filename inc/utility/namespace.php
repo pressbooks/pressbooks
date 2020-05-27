@@ -1493,3 +1493,24 @@ function do_shortcode_by_tags( $content, array $tags ) {
 	$shortcode_tags = $_tags;
 	return $shortcoded;
 }
+
+function initialize_sentry() {
+	if (
+		getenv( 'SENTRY_KEY' ) !== false &&
+		getenv( 'SENTRY_ORGANIZATION' ) !== false &&
+		getenv( 'SENTRY_PROJECT' ) !== false &&
+		getenv( 'WP_ENV' ) !== false
+	) {
+		try {
+			\Sentry\init( [
+				'dsn' => 'https://' . getenv( 'SENTRY_KEY' ) . '@' . getenv( 'SENTRY_ORGANIZATION' ) .
+					'.ingest.sentry.io/' . getenv( 'SENTRY_PROJECT' ),
+				'environment' => getenv( 'WP_ENV' )
+			] );
+			return true;
+		} catch ( \Exception $exception ) {
+			debug_error_log( 'Error initializing Sentry: ' . $exception->getMessage() );
+		}
+	}
+	return false;
+}

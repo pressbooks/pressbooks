@@ -41,7 +41,8 @@
 		"sinergi/browser-detector": "^6.1",
 		"vanilla/htmlawed": "^2.2",
 		"docraptor/docraptor": "1.3",
-		"fale/isbn": "^3.0"
+		"fale/isbn": "^3.0",
+		"sentry/sdk": "2.1.0"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "^7",
