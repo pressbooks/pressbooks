@@ -30,4 +30,4 @@ TK.
 
 * Pressbooks 5.14.6 requires PHP >= 7.1.
 * Pressbooks 5.14.6 requires [WordPress 5.4](https://wordpress.org/support/wordpress-version/version-5-3/)
-* Pressbooks 5.14.6 requires [McLuhan >= 2.9.1](https://github.com/pressbooks/pressbooks-book/)
+* Pressbooks 5.14.6 requires [McLuhan >= 2.10.2](https://github.com/pressbooks/pressbooks-book/)
