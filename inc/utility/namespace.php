@@ -1499,13 +1499,13 @@ function initialize_sentry() {
 		getenv( 'SENTRY_KEY' ) !== false &&
 		getenv( 'SENTRY_ORGANIZATION' ) !== false &&
 		getenv( 'SENTRY_PROJECT' ) !== false &&
-		getenv( 'WP_ENV' ) !== false
+		defined( 'WP_ENV' )
 	) {
 		try {
 			\Sentry\init( [
 				'dsn' => 'https://' . getenv( 'SENTRY_KEY' ) . '@' . getenv( 'SENTRY_ORGANIZATION' ) .
 					'.ingest.sentry.io/' . getenv( 'SENTRY_PROJECT' ),
-				'environment' => getenv( 'WP_ENV' ),
+				'environment' => WP_ENV,
 			] );
 			return true;
 		} catch ( \Exception $exception ) {
