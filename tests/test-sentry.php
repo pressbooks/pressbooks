@@ -15,7 +15,7 @@ class SentryTest extends \WP_UnitTestCase {
 		putenv( 'SENTRY_KEY=mock_key' );
 		putenv( 'SENTRY_ORGANIZATION=mock_org' );
 		putenv( 'SENTRY_PROJECT=mock_project' );
-		putenv( 'WP_ENV=testing' );
+		define ( 'WP_ENV', 'testing' );
 
 		$this->assertFalse( \Pressbooks\Utility\initialize_sentry() );
 	}
