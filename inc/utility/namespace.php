@@ -1495,22 +1495,15 @@ function do_shortcode_by_tags( $content, array $tags ) {
 }
 
 function initialize_sentry() {
-	if (
-		getenv( 'SENTRY_KEY' ) !== false &&
-		getenv( 'SENTRY_ORGANIZATION' ) !== false &&
-		getenv( 'SENTRY_PROJECT' ) !== false &&
-		defined( 'WP_ENV' )
-	) {
-		try {
-			\Sentry\init( [
-				'dsn' => 'https://' . getenv( 'SENTRY_KEY' ) . '@' . getenv( 'SENTRY_ORGANIZATION' ) .
-					'.ingest.sentry.io/' . getenv( 'SENTRY_PROJECT' ),
-				'environment' => WP_ENV,
-			] );
-			return true;
-		} catch ( \Exception $exception ) {
-			debug_error_log( 'Error initializing Sentry: ' . $exception->getMessage() );
-		}
+	try {
+		\Sentry\init( [
+			'dsn' => 'https://' . env( 'SENTRY_KEY' ) ?: '' . '@' . env( 'SENTRY_ORGANIZATION' ) ?: '' .
+				'.ingest.sentry.io/' . env( 'SENTRY_ORGANIZATION' ) ?: '',
+			'environment' => env( 'WP_ENV' ) ?: 'staging',
+		] );
+		return true;
+	} catch ( \Exception $exception ) {
+		debug_error_log( 'Error initializing Sentry: ' . $exception->getMessage() );
 	}
 	return false;
 }
