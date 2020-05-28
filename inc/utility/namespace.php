@@ -1496,9 +1496,12 @@ function do_shortcode_by_tags( $content, array $tags ) {
 
 function initialize_sentry() {
 	try {
+		$sentry_key = env( 'SENTRY_KEY' ) ?: '';
+		$sentry_organization = env( 'SENTRY_ORGANIZATION' ) ?: '';
+		$sentry_project = env( 'SENTRY_PROJECT' ) ?: '';
 		\Sentry\init( [
-			'dsn' => 'https://' . env( 'SENTRY_KEY' ) ?: '' . '@' . env( 'SENTRY_ORGANIZATION' ) ?: '' .
-				'.ingest.sentry.io/' . env( 'SENTRY_ORGANIZATION' ) ?: '',
+			'dsn' => 'https://' . $sentry_key . '@' . $sentry_organization .
+				'.ingest.sentry.io/' . $sentry_project,
 			'environment' => env( 'WP_ENV' ) ?: 'staging',
 		] );
 		return true;
