@@ -638,6 +638,7 @@ class Xhtml11 extends ExportGenerator {
 		foreach ( $links as $link ) {
 			/** @var \DOMElement $link */
 			$href = $link->getAttribute( 'href' );
+				$link->setAttribute('data-url', "{$href}");
 			if ( str_starts_with( $href, '/' ) || str_starts_with( $href, $home_url ) ) {
 				$pos = strpos( $href, '#' );
 				if ( $pos !== false ) {
@@ -655,7 +656,6 @@ class Xhtml11 extends ExportGenerator {
 					if ( in_array( "#{$fragment}", $external_anchors, true ) ) {
 						continue;
 					} else {
-						$link->setAttribute( 'data-url', "{$home_url}{$href}" );
 						$link->setAttribute( 'href', "#{$fragment}" );
 						$changed = true;
 					}
