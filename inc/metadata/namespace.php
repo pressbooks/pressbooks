@@ -228,6 +228,10 @@ function book_information_to_schema( $book_information ) {
 			'@type' => 'Thing',
 			'identifier' => $book_information['pb_primary_subject'],
 		];
+		$book_schema['subjects'][] = [
+			'identifier' => $book_information['pb_primary_subject'],
+			'name' => Metadata\get_subject_from_thema( $book_information['pb_primary_subject'] ),
+		];
 	}
 
 	if ( isset( $book_information['pb_additional_subjects'] ) ) {
@@ -236,6 +240,10 @@ function book_information_to_schema( $book_information ) {
 			$book_schema['about'][] = [
 				'@type' => 'Thing',
 				'identifier' => $additional_subject,
+			];
+			$book_schema['subjects'][] = [
+				'identifier' => $additional_subject,
+				'name' => Metadata\get_subject_from_thema( $additional_subject ),
 			];
 		}
 	}
@@ -389,6 +397,16 @@ function book_information_to_schema( $book_information ) {
 
 	if ( isset( $book_information['pb_in_catalog'] ) ) {
 		$book_schema['inCatalog'] = $book_information['pb_in_catalog'] === '1';
+	}
+
+	if ( isset( $book_information['pb_language'] ) ) {
+		$languages = \Pressbooks\L10n\supported_languages();
+		$language = ( array_key_exists( $book_information['pb_language'], $languages ) ) ?
+			$languages[ $book_information['pb_language'] ] : 'Unavailable code';
+		$book_schema['language'] = [
+			'code' => $book_information['pb_language'],
+			'name' => $language,
+		];
 	}
 
 	// TODO: educationalAlignment, educationalUse, timeRequired, typicalAgeRange, interactivityType, learningResourceType, isBasedOnUrl
