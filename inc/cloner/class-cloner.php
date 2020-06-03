@@ -970,9 +970,9 @@ class Cloner {
 					}
 				}
 			}
-		} elseif ( $post_type === 'glossary ' ) {
+		} elseif ( $post_type === 'glossary' ) {
 			foreach ( $this->sourceBookGlossary as $k => $v ) {
-				if ( $v['id'] === absint( $section_id ) ) {
+				if ( $v['id'] === absint( $section_id ) && isset( $v['metadata'] ) ) {
 					return $v['metadata'];
 				}
 			}

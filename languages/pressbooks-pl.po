@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
-"POT-Creation-Date: 2020-05-13T04:18:20+00:00\n"
-"PO-Revision-Date: 2020-05-13 04:19+0000\n"
+"POT-Creation-Date: 2020-05-27T11:40:13+00:00\n"
+"PO-Revision-Date: 2020-05-26 21:05+0000\n"
 "Last-Translator: Ho Man Chan <homan@pressbooks.com>\n"
 "Language-Team: Polish (http://www.transifex.com/pressbooks/pressbooks/language/pl/)\n"
 "MIME-Version: 1.0\n"
@@ -1811,19 +1811,19 @@ msgstr ""
 msgid "Part ID."
 msgstr ""
 
-#: inc/api/namespace.php:191
+#: inc/api/namespace.php:194
 msgid "Invalid batch parameter(s)."
 msgstr ""
 
-#: inc/api/namespace.php:358
+#: inc/api/namespace.php:361
 msgid "Part does not exist"
 msgstr ""
 
-#: inc/api/namespace.php:365
+#: inc/api/namespace.php:368
 msgid "ID is not a part"
 msgstr ""
 
-#: inc/api/namespace.php:379
+#: inc/api/namespace.php:382
 msgid "Failed to update chapter part"
 msgstr ""
 
@@ -2015,90 +2015,94 @@ msgid "Ancient Greek"
 msgstr "Starogrecki"
 
 #: inc/class-globaltypography.php:42
+msgid "Armenian"
+msgstr ""
+
+#: inc/class-globaltypography.php:43
 msgid "Arabic"
 msgstr "Arabski"
 
-#: inc/class-globaltypography.php:43
+#: inc/class-globaltypography.php:44
 msgid "Bengali"
 msgstr ""
 
-#: inc/class-globaltypography.php:44
+#: inc/class-globaltypography.php:45
 msgid "Biblical Hebrew"
 msgstr "Biblijny hebrajski"
 
-#: inc/class-globaltypography.php:45
+#: inc/class-globaltypography.php:46
 msgid "Canadian Indigenous Syllabics"
 msgstr "Abugidy kanadyjskie"
 
-#: inc/class-globaltypography.php:46
+#: inc/class-globaltypography.php:47
 msgid "Devanagari (Hindi and Sanskrit)"
 msgstr ""
 
-#: inc/class-globaltypography.php:47
+#: inc/class-globaltypography.php:48
 msgid "Chinese (Simplified)"
 msgstr "Chiński (uproszczony)"
 
-#: inc/class-globaltypography.php:48
+#: inc/class-globaltypography.php:49
 msgid "Chinese (Traditional)"
 msgstr "Chiński (tradycyjny)"
 
-#: inc/class-globaltypography.php:49
+#: inc/class-globaltypography.php:50
 msgid "Coptic"
 msgstr "Koptyjski"
 
-#: inc/class-globaltypography.php:50
+#: inc/class-globaltypography.php:51
 msgid "Gujarati"
 msgstr "Gudźarati"
 
-#: inc/class-globaltypography.php:51
+#: inc/class-globaltypography.php:52
 msgid "Punjabi (Gurmukhi)"
 msgstr ""
 
-#: inc/class-globaltypography.php:52
+#: inc/class-globaltypography.php:53
 msgid "Japanese"
 msgstr "Japoński"
 
-#: inc/class-globaltypography.php:53
+#: inc/class-globaltypography.php:54
 msgid "Kannada"
 msgstr ""
 
-#: inc/class-globaltypography.php:54
+#: inc/class-globaltypography.php:55
 msgid "Korean"
 msgstr "Koreański"
 
-#: inc/class-globaltypography.php:55
+#: inc/class-globaltypography.php:56
 msgid "Malayalam"
 msgstr ""
 
-#: inc/class-globaltypography.php:56
+#: inc/class-globaltypography.php:57
 msgid "N'Ko"
 msgstr ""
 
-#: inc/class-globaltypography.php:57
+#: inc/class-globaltypography.php:58
 msgid "Odia"
 msgstr ""
 
-#: inc/class-globaltypography.php:58
+#: inc/class-globaltypography.php:59
 msgid "Syriac"
 msgstr "Syryjski"
 
-#: inc/class-globaltypography.php:59
+#: inc/class-globaltypography.php:60
 msgid "Tamil"
 msgstr "Tamilski"
 
-#: inc/class-globaltypography.php:60
+#: inc/class-globaltypography.php:61
 msgid "Telugu"
 msgstr ""
 
-#: inc/class-globaltypography.php:61
+#: inc/class-globaltypography.php:62
 msgid "Tibetan"
 msgstr "Tybetański"
 
-#: inc/class-globaltypography.php:62
+#: inc/class-globaltypography.php:63
 msgid "Turkish"
 msgstr "Turecki"
 
-#: inc/class-globaltypography.php:431
+#: inc/class-globaltypography.php:441
 msgid "Your %1$s font could not be downloaded from %2$s."
 msgstr "Twoja czcionka%1$snie mogła zostać ściągnięta z %2$s."
 
