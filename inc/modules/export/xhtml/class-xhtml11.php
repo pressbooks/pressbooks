@@ -638,7 +638,7 @@ class Xhtml11 extends ExportGenerator {
 		foreach ( $links as $link ) {
 			/** @var \DOMElement $link */
 			$href = $link->getAttribute( 'href' );
-				$link->setAttribute('data-url', "{$href}");
+				$link->setAttribute( 'data-url', "{$href}" );
 			if ( str_starts_with( $href, '/' ) || str_starts_with( $href, $home_url ) ) {
 				$pos = strpos( $href, '#' );
 				if ( $pos !== false ) {
