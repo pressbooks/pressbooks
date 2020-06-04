@@ -642,9 +642,9 @@ class Xhtml11 extends ExportGenerator {
 			$href = $link->getAttribute( 'href' );
 
 			if ( str_starts_with( $href, '#' ) && ! empty( $id ) ) {
-				$link->setAttribute('data-url', get_permalink( $id ) . $href );
+				$link->setAttribute( 'data-url', get_permalink( $id ) . $href );
 			} else {
-				$link->setAttribute('data-url', $href);
+				$link->setAttribute( 'data-url', $href );
 			}
 
 			if ( str_starts_with( $href, '/' ) || str_starts_with( $href, $home_url ) ) {
