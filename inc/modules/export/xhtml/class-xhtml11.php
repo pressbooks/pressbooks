@@ -548,7 +548,7 @@ class Xhtml11 extends ExportGenerator {
 				if ( isset( $val['post_content'] ) ) {
 					$id = $val['ID'];
 					if ( $val['export'] ) {
-						$book_contents[ $type ][ $i ]['post_content'] = $this->preProcessPostContent( $val['post_content'] );
+						$book_contents[ $type ][ $i ]['post_content'] = $this->preProcessPostContent( $val['post_content'], $id );
 					} else {
 						$book_contents[ $type ][ $i ]['post_content'] = '';
 					}
@@ -567,7 +567,7 @@ class Xhtml11 extends ExportGenerator {
 
 						if ( isset( $val2['post_content'] ) ) {
 							$id = $val2['ID'];
-							$book_contents[ $type ][ $i ]['chapters'][ $j ]['post_content'] = $this->preProcessPostContent( $val2['post_content'] );
+							$book_contents[ $type ][ $i ]['chapters'][ $j ]['post_content'] = $this->preProcessPostContent( $val2['post_content'], $id );
 						}
 						if ( isset( $val2['post_title'] ) ) {
 							$book_contents[ $type ][ $i ]['chapters'][ $j ]['post_title'] = Sanitize\sanitize_xml_attribute( $val2['post_title'] );
@@ -587,14 +587,15 @@ class Xhtml11 extends ExportGenerator {
 
 	/**
 	 * @param string $content
+	 * @param int    $id
 	 *
 	 * @return string
 	 */
-	protected function preProcessPostContent( $content ) {
+	protected function preProcessPostContent( $content, $id = null ) {
 		$content = apply_filters( 'the_export_content', $content );
 		$content = str_ireplace( [ '<b></b>', '<i></i>', '<strong></strong>', '<em></em>' ], '', $content );
 		$content = $this->fixAnnoyingCharacters( $content ); // is this used?
-		$content = $this->fixInternalLinks( $content );
+		$content = $this->fixInternalLinks( $content, $id );
 		$content = $this->switchLaTexFormat( $content );
 		if ( ! empty( $_GET['optimize-for-print'] ) ) {
 			$content = $this->fixImages( $content );
@@ -619,10 +620,11 @@ class Xhtml11 extends ExportGenerator {
 
 	/**
 	 * @param string $source_content
+	 * @param int    $id
 	 *
 	 * @return string
 	 */
-	protected function fixInternalLinks( $source_content ) {
+	protected function fixInternalLinks( $source_content, $id = null ) {
 
 		if ( stripos( $source_content, '<a' ) === false ) {
 			// There are no <a> tags to look at, skip this
@@ -638,6 +640,13 @@ class Xhtml11 extends ExportGenerator {
 		foreach ( $links as $link ) {
 			/** @var \DOMElement $link */
 			$href = $link->getAttribute( 'href' );
+
+			if ( str_starts_with( $href, '#' ) && ! empty( $id ) ) {
+				$link->setAttribute( 'data-url', get_permalink( $id ) . $href );
+			} else {
+				$link->setAttribute( 'data-url', $href );
+			}
+
 			if ( str_starts_with( $href, '/' ) || str_starts_with( $href, $home_url ) ) {
 				$pos = strpos( $href, '#' );
 				if ( $pos !== false ) {
