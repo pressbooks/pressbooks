@@ -227,9 +227,6 @@ function book_information_to_schema( $book_information ) {
 		$book_schema['about'][] = [
 			'@type' => 'Thing',
 			'identifier' => $book_information['pb_primary_subject'],
-		];
-		$book_schema['subjects'][] = [
-			'identifier' => $book_information['pb_primary_subject'],
 			'name' => Metadata\get_subject_from_thema( $book_information['pb_primary_subject'] ),
 		];
 	}
@@ -239,9 +236,6 @@ function book_information_to_schema( $book_information ) {
 		foreach ( $additional_subjects as $additional_subject ) {
 			$book_schema['about'][] = [
 				'@type' => 'Thing',
-				'identifier' => $additional_subject,
-			];
-			$book_schema['subjects'][] = [
 				'identifier' => $additional_subject,
 				'name' => Metadata\get_subject_from_thema( $additional_subject ),
 			];
@@ -404,6 +398,7 @@ function book_information_to_schema( $book_information ) {
 		$language = ( array_key_exists( $book_information['pb_language'], $languages ) ) ?
 			$languages[ $book_information['pb_language'] ] : 'Unavailable code';
 		$book_schema['language'] = [
+			'@type' => 'Language',
 			'code' => $book_information['pb_language'],
 			'name' => $language,
 		];

@@ -99,6 +99,12 @@ class Metadata extends \WP_REST_Controller {
 							'context' => [ 'view' ],
 							'readonly' => true,
 						],
+						'name' => [
+							'type' => 'string',
+							'description' => __( 'The name property represents a readable format for identifier property' ),
+							'context' => [ 'view' ],
+							'readonly' => true,
+						],
 					],
 					'context' => [ 'view' ],
 					'readonly' => true,
@@ -469,6 +475,15 @@ class Metadata extends \WP_REST_Controller {
 					'type' => 'object',
 					'description' => __( 'The language details of the content, expressed as one of the language codes from the IETF BCP 47 standard.' ),
 					'properties' => [
+						'@type' => [
+							'type' => 'string',
+							'enum' => [
+								'Language',
+							],
+							'description' => __( 'The type of the thing.' ),
+							'context' => [ 'view' ],
+							'readonly' => true,
+						],
 						'code' => [
 							'type' => 'string',
 							'description' => __( 'The language code.' ),
@@ -478,26 +493,6 @@ class Metadata extends \WP_REST_Controller {
 						'name' => [
 							'type' => 'string',
 							'description' => __( 'The complete name of the language.' ),
-							'context' => [ 'view' ],
-							'readonly' => true,
-						],
-					],
-					'context' => [ 'view' ],
-					'readonly' => true,
-				],
-				'subjects' => [
-					'type' => 'object',
-					'description' => __( 'The subject matter of the content.' ),
-					'properties' => [
-						'identifier' => [
-							'type' => 'string',
-							'description' => __( 'The identifier property represents any kind of identifier for any kind of Thing, such as ISBNs, GTIN codes, UUIDs etc.' ),
-							'context' => [ 'view' ],
-							'readonly' => true,
-						],
-						'name' => [
-							'type' => 'string',
-							'description' => __( 'The name property represents the identifier subject' ),
 							'context' => [ 'view' ],
 							'readonly' => true,
 						],
