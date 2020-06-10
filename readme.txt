@@ -34,4 +34,4 @@ TK.
 * Pressbooks 5.15.0 supports integration with [Sentry](https://sentry.io/)
   * [OPTIONAL] If you wish to integrate [Sentry](https://sentry.io/), add the following keys and its value in your environment variable: SENTRY_KEY, SENTRY_ORGANIZATION, SENTRY_PROJECT, WP_ENV
   * The SENTRY_* values can be found in your sentry account
-  * The WP_ENV can be any of the following values: development, staging, production
+  * The WP_ENV can be any value. ex: development, staging, production
