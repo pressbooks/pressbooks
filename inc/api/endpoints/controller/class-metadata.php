@@ -500,6 +500,35 @@ class Metadata extends \WP_REST_Controller {
 					'context' => [ 'view' ],
 					'readonly' => true,
 				],
+				'network' => [
+					'type' => 'object',
+					'description' => __( 'Network details.' ),
+					'properties' => [
+						'@type' => [
+							'type' => 'string',
+							'enum' => [
+								'Network',
+							],
+							'description' => __( 'The type of the thing.' ),
+							'context' => [ 'view' ],
+							'readonly' => true,
+						],
+						'url' => [
+							'type' => 'string',
+							'description' => __( 'The network url.' ),
+							'context' => [ 'view' ],
+							'readonly' => true,
+						],
+						'host' => [
+							'type' => 'string',
+							'description' => __( 'The network host.' ),
+							'context' => [ 'view' ],
+							'readonly' => true,
+						],
+					],
+					'context' => [ 'view' ],
+					'readonly' => true,
+				],
 			],
 		];
 
