@@ -237,7 +237,6 @@ class Books extends \WP_REST_Controller {
 		$metadata_info_array = $this->bookDataCollector->get( $id, BookDataCollector::BOOK_INFORMATION_ARRAY );
 		$site_name = get_site_option( 'site_name' );
 
-		// https://github.com/pressbooks/pressbooks/issues/1797
 		$keys = [
 			BookDataCollector::WORD_COUNT,
 			BookDataCollector::STORAGE_SIZE,
