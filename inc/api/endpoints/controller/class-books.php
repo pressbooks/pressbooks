@@ -235,17 +235,18 @@ class Books extends \WP_REST_Controller {
 	protected function renderBook( $id ) {
 
 		$metadata_info_array = $this->bookDataCollector->get( $id, BookDataCollector::BOOK_INFORMATION_ARRAY );
+		$site_name = get_site_option( 'site_name' );
 
-		// https://github.com/pressbooks/pressbooks/issues/1797
 		$keys = [
 			BookDataCollector::WORD_COUNT,
 			BookDataCollector::STORAGE_SIZE,
 			BookDataCollector::H5P_ACTIVITIES,
 			BookDataCollector::IN_CATALOG,
+			BookDataCollector::BOOK_URL,
 		];
 		$metadata_blog_meta = $this->bookDataCollector->getMultipleMeta( $id, $keys );
 
-		$metadata = array_merge( $metadata_info_array, $metadata_blog_meta );
+		$metadata = array_merge( $metadata_info_array, $metadata_blog_meta, [ 'site_name' => $site_name ] );
 		if ( is_array( $metadata ) && ! empty( $metadata ) ) {
 			$metadata = book_information_to_schema( $metadata );
 		} else {

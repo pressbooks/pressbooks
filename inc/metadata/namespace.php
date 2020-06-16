@@ -404,6 +404,14 @@ function book_information_to_schema( $book_information ) {
 		];
 	}
 
+	if ( isset( $book_information['site_name'] ) ) {
+		$book_schema['network'] = [
+			'@type' => 'Network',
+			'host' => wp_parse_url( $book_information['pb_book_url'], PHP_URL_HOST ),
+			'name' => $book_information['site_name'],
+		];
+	}
+
 	// TODO: educationalAlignment, educationalUse, timeRequired, typicalAgeRange, interactivityType, learningResourceType, isBasedOnUrl
 
 	return $book_schema;
