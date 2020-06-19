@@ -74,6 +74,8 @@ class Book {
 
 	const BOOK_INFORMATION_ARRAY = 'pb_book_information_array';
 
+	const LTI_GRADING_ENABLED = 'pb_lti_grading_enabled';
+
 	/**
 	 * @var Book
 	 */
