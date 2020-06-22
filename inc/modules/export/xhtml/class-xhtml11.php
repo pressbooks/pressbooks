@@ -739,6 +739,12 @@ class Xhtml11 extends ExportGenerator {
 		$images = $dom->getElementsByTagName( 'img' );
 		foreach ( $images as $image ) {
 			/** @var \DOMElement $image */
+			$old_alt = $image->getAttribute( 'alt' );
+			$new_alt = htmlspecialchars( $old_alt );
+			if ( $old_alt !== $new_alt ) {
+				$image->setAttribute( 'alt', $new_alt );
+				$changed = true;
+			}
 			$old_src = $image->getAttribute( 'src' );
 			if ( isset( $already_done[ $old_src ] ) ) {
 				$new_src = $already_done[ $old_src ];
