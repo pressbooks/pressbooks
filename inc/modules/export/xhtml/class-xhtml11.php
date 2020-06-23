@@ -603,7 +603,7 @@ class Xhtml11 extends ExportGenerator {
 	}
 
 	/**
-	 * Make sure that all images have properly escaped HTML characters in their alt and title attributes and are right sized for print
+	 * Ensure that all images have properly escaped HTML characters in their attributes and are right sized for print
 	 *
 	 * @param string $content The section content.
 	 *
