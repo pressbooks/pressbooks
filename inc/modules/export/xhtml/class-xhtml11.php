@@ -594,72 +594,15 @@ class Xhtml11 extends ExportGenerator {
 	protected function preProcessPostContent( $content, $id = null ) {
 		$content = apply_filters( 'the_export_content', $content );
 		$content = str_ireplace( [ '<b></b>', '<i></i>', '<strong></strong>', '<em></em>' ], '', $content );
+		$content = $this->fixAnnoyingCharacters( $content ); // is this used?
 		$content = $this->fixInternalLinks( $content, $id );
 		$content = $this->switchLaTexFormat( $content );
-		$content = $this->fixImages( $content );
+		if ( ! empty( $_GET['optimize-for-print'] ) ) {
+			$content = $this->fixImages( $content );
+		}
 		$content = $this->tidy( $content );
 
 		return $content;
-	}
-
-	/**
-	 * Ensure that all images have properly escaped HTML characters in their attributes and are right sized for print
-	 *
-	 * @param string $content The section content.
-	 *
-	 * @return string
-	 */
-	protected function fixImages( $content ) {
-
-		if ( stripos( $content, '<img' ) === false ) {
-			// There are no <img> tags to look at, skip this
-			return $content;
-		}
-
-		$changed = false;
-		$html5 = new HtmlParser();
-		$dom = $html5->loadHTML( $content );
-		$images = $dom->getElementsByTagName( 'img' );
-
-		foreach ( $images as $image ) {
-			/** @var \DOMElement $image */
-			$old_alt = $image->getAttribute( 'alt' );
-			$new_alt = htmlspecialchars( $old_alt );
-			if ( $old_alt !== $new_alt ) {
-				$image->setAttribute( 'alt', $new_alt );
-				$changed = true;
-			}
-
-			$old_title = $image->getAttribute( 'title' );
-			$new_title = htmlspecialchars( $old_title );
-			if ( $old_title !== $new_title ) {
-				$image->setAttribute( 'title', $new_title );
-				$changed = true;
-			}
-
-			if ( ! empty( $_GET['optimize-for-print'] ) ) {
-				// Cheap cache
-				static $already_done = [];
-				$old_src = $image->getAttribute( 'src' );
-
-				if ( isset( $already_done[ $old_src ] ) ) {
-					$new_src = $already_done[ $old_src ];
-				} else {
-					$new_src = \Pressbooks\Image\maybe_swap_with_bigger( $old_src );
-				}
-				if ( $old_src !== $new_src ) {
-					$image->setAttribute( 'src', $new_src );
-					$image->removeAttribute( 'srcset' );
-					$changed = true;
-				}
-				$already_done[ $old_src ] = $new_src;
-			}
-
-			if ( $changed ) {
-				$content = $html5->saveHTML( $dom );
-			}
-			return $content;
-		}
 	}
 
 	/**
@@ -775,6 +718,46 @@ class Xhtml11 extends ExportGenerator {
 			$content = $this->html5ToXhtml( $content );
 			return $content;
 		}
+	}
+
+	/**
+	 * Replace every image with the bigger original image
+	 *
+	 * @param $content
+	 *
+	 * @return string
+	 */
+	protected function fixImages( $content ) {
+
+		// Cheap cache
+		static $already_done = [];
+
+		$changed = false;
+		$html5 = new HtmlParser();
+		$dom = $html5->loadHTML( $content );
+
+		$images = $dom->getElementsByTagName( 'img' );
+		foreach ( $images as $image ) {
+			/** @var \DOMElement $image */
+			$old_src = $image->getAttribute( 'src' );
+			if ( isset( $already_done[ $old_src ] ) ) {
+				$new_src = $already_done[ $old_src ];
+			} else {
+				$new_src = \Pressbooks\Image\maybe_swap_with_bigger( $old_src );
+			}
+			if ( $old_src !== $new_src ) {
+				$image->setAttribute( 'src', $new_src );
+				$image->removeAttribute( 'srcset' );
+				$changed = true;
+			}
+			$already_done[ $old_src ] = $new_src;
+		}
+
+		if ( $changed ) {
+			$content = $html5->saveHTML( $dom );
+		}
+
+		return $content;
 	}
 
 	/**
