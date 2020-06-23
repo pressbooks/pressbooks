@@ -597,12 +597,57 @@ class Xhtml11 extends ExportGenerator {
 		$content = $this->fixAnnoyingCharacters( $content ); // is this used?
 		$content = $this->fixInternalLinks( $content, $id );
 		$content = $this->switchLaTexFormat( $content );
+		$content = $this->fixAltTags( $content );
 		if ( ! empty( $_GET['optimize-for-print'] ) ) {
 			$content = $this->fixImages( $content );
 		}
 		$content = $this->tidy( $content );
 
 		return $content;
+	}
+
+	/**
+	 * Make sure that all images have properly escaped HTML characters in their alt and title attributes
+	 *
+	 * @param string $content The section content.
+	 *
+	 * @return string
+	 */
+	protected function fixAltTags( $content ) {
+
+		if ( stripos( $content, '<img' ) === false ) {
+			// There are no <img> tags to look at, skip this
+			return $content;
+		}
+
+		$changed = false;
+		$html5 = new HtmlParser();
+		$dom = $html5->loadHTML( $content );
+		$images = $dom->getElementsByTagName( 'img' );
+
+		foreach ( $images as $image ) {
+			/** @var \DOMElement $image */
+			$old_alt = $image->getAttribute( 'alt' );
+			$new_alt = htmlspecialchars( $old_alt );
+			if ( $old_alt !== $new_alt ) {
+				$image->setAttribute( 'alt', $new_alt );
+				$changed = true;
+			}
+
+			$old_title = $image->getAttribute( 'title' );
+			$new_title = htmlspecialchars( $old_title );
+			if ( $old_title !== $new_title ) {
+				$image->setAttribute( 'title', $new_title );
+				$changed = true;
+			}
+		}
+
+		if ( ! $changed ) {
+			return $content;
+		} else {
+			$content = $html5->saveHTML( $dom );
+			return $content;
+		}
 	}
 
 	/**
