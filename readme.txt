@@ -29,7 +29,7 @@ TK.
 = 5.15.1 =
 
 * Pressbooks 5.15.1 requires PHP >= 7.1.
-* Pressbooks 5.15.1 requires [WordPress 5.4](https://wordpress.org/support/wordpress-version/version-5-3/)
+* Pressbooks 5.15.1 requires [WordPress 5.4](https://wordpress.org/support/wordpress-version/version-5-4/)
 * Pressbooks 5.15.1 requires [McLuhan >= 2.10.2](https://github.com/pressbooks/pressbooks-book/)
 * Pressbooks 5.15.1 supports integration with [Sentry](https://sentry.io/)
   * [OPTIONAL] If you wish to integrate [Sentry](https://sentry.io/), add the following keys and its value in your environment variable: SENTRY_KEY, SENTRY_ORGANIZATION, SENTRY_PROJECT, WP_ENV
