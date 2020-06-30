@@ -465,7 +465,7 @@ class Xhtml11 extends ExportGenerator {
 	 */
 	function footnoteShortcode( $atts, $content = null ) {
 
-		return '<span class="footnote">' . trim( $content ) . '</span>';
+		return '<div class="footnote">' . trim( $content ) . '</div>';
 	}
 
 
