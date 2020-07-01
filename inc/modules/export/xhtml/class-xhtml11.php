@@ -669,7 +669,7 @@ class Xhtml11 extends ExportGenerator {
 		}
 
 		$content = $html5->saveHTML( $dom );
-			return $content;
+		return $content;
 	}
 
 	/**
