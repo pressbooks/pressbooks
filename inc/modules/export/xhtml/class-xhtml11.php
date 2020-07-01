@@ -594,7 +594,6 @@ class Xhtml11 extends ExportGenerator {
 	protected function preProcessPostContent( $content, $id = null ) {
 		$content = apply_filters( 'the_export_content', $content );
 		$content = str_ireplace( [ '<b></b>', '<i></i>', '<strong></strong>', '<em></em>' ], '', $content );
-		$content = $this->fixAnnoyingCharacters( $content ); // is this used?
 		$content = $this->fixInternalLinks( $content, $id );
 		$content = $this->switchLaTexFormat( $content );
 		if ( ! empty( $_GET['optimize-for-print'] ) ) {
@@ -636,7 +635,6 @@ class Xhtml11 extends ExportGenerator {
 		$dom = $html5->loadHTML( $source_content );
 		$links = $dom->getElementsByTagName( 'a' );
 
-		$changed = false;
 		foreach ( $links as $link ) {
 			/** @var \DOMElement $link */
 			$href = $link->getAttribute( 'href' );
@@ -665,18 +663,13 @@ class Xhtml11 extends ExportGenerator {
 						continue;
 					} else {
 						$link->setAttribute( 'href', "#{$fragment}" );
-						$changed = true;
 					}
 				}
 			}
 		}
 
-		if ( ! $changed ) {
-			return $source_content;
-		} else {
-			$content = $html5->saveHTML( $dom );
+		$content = $html5->saveHTML( $dom );
 			return $content;
-		}
 	}
 
 	/**
