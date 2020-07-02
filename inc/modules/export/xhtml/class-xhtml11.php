@@ -365,18 +365,23 @@ class Xhtml11 extends ExportGenerator {
 			echo "class='print' ";
 		}
 		echo ">\n";
+		$replace_token = uniqid( 'PB_REPLACE_INNER_HTML_', true );
+		echo $replace_token;
 		echo "<script type='text/javascript'>
 			function hiddeSubFootnotes() {
 				var fnotes = document.getElementsByClassName('footnotes');
 				for (var i=0; i<fnotes.length; i++) {
-				    var e = fnotes[i].getElementsByTagName('sub');
-				    if (e) fnotes[i].style.display = 'none';
+				    var e = fnotes[i].getElementsByClassName('footnote');
+				    if (e.length > 0) {
+				      fnotes[i].innerHTML = '';
+				      for (var j=0; j<e.length; j++) {
+				        fnotes[i].innerHTML += e[j].innerHTML;
+				      }
+				    }
 				}
 			}
 			window.onload = hiddeSubFootnotes();
 		</script>";
-		$replace_token = uniqid( 'PB_REPLACE_INNER_HTML_', true );
-		echo $replace_token;
 		echo "\n</body>\n</html>";
 
 		$buffer_outer_html = ob_get_clean();
