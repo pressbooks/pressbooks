@@ -120,6 +120,7 @@ mix
 	.sass( 'assets/src/styles/select2.scss', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/style-catalog.scss', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/theme-options.scss', 'assets/dist/styles/' )
+	.sass( 'assets/src/styles/prince-export.scss', 'assets/dist/styles/' )
 	.copyDirectory( 'assets/src/fonts', 'assets/dist/fonts' )
 	.copyDirectory( 'assets/src/images', 'assets/dist/images' )
 	.then( () => {

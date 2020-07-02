@@ -354,6 +354,9 @@ class Xhtml11 extends ExportGenerator {
 				echo "<link rel='stylesheet' href='$url' type='text/css' />\n";
 			}
 		}
+		$assets = new Assets( 'pressbooks', 'plugin' );
+		$url = $assets->getPath( 'styles/prince-export.css' );
+		echo "<link rel='stylesheet' href='$url' type='text/css' />\n";
 		if ( ! empty( $_GET['script'] ) ) {
 			$url = $this->getExportScriptUrl( clean_filename( $_GET['script'] ) );
 			if ( $url ) {
@@ -367,11 +370,6 @@ class Xhtml11 extends ExportGenerator {
 		echo ">\n";
 		$replace_token = uniqid( 'PB_REPLACE_INNER_HTML_', true );
 		echo $replace_token;
-		echo '<style>
-			.footnote::footnote-call {
-				font-size: 0px !important;
-			}
-		</style>';
 		echo "\n</body>\n</html>";
 
 		$buffer_outer_html = ob_get_clean();
