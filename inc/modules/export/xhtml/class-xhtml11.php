@@ -367,21 +367,11 @@ class Xhtml11 extends ExportGenerator {
 		echo ">\n";
 		$replace_token = uniqid( 'PB_REPLACE_INNER_HTML_', true );
 		echo $replace_token;
-		echo "<script type='text/javascript'>
-			function hiddeSubFootnotes() {
-				var fnotes = document.getElementsByClassName('footnotes');
-				for (var i=0; i<fnotes.length; i++) {
-				    var e = fnotes[i].getElementsByClassName('footnote');
-				    if (e.length > 0) {
-				      fnotes[i].innerHTML = '';
-				      for (var j=0; j<e.length; j++) {
-				        fnotes[i].innerHTML += e[j].innerHTML;
-				      }
-				    }
-				}
+		echo "<style>
+			.footnote::footnote-call {
+				font-size: 0px !important;
 			}
-			window.onload = hiddeSubFootnotes();
-		</script>";
+		</style>";
 		echo "\n</body>\n</html>";
 
 		$buffer_outer_html = ob_get_clean();
@@ -392,7 +382,7 @@ class Xhtml11 extends ExportGenerator {
 		$my_get = $_GET;
 		unset( $my_get['timestamp'], $my_get['hashkey'] );
 		$cache = get_transient( self::TRANSIENT );
-		if ( false && is_array( $cache ) && isset( $cache[0] ) && $cache[0] === md5( wp_json_encode( $my_get ) ) ) {
+		if ( is_array( $cache ) && isset( $cache[0] ) && $cache[0] === md5( wp_json_encode( $my_get ) ) ) {
 			// The $_GET parameters haven't changed since the last request so the output will be the same
 			$buffer_inner_html = $cache[1];
 		} else {
@@ -490,8 +480,6 @@ class Xhtml11 extends ExportGenerator {
 		$ref_id = count( $this->footnotes[ $id ] );
 
 		return '<sup>' . $ref_id . '</sup>';
-
-//		return '<div class="footnote">' . trim( $content ) . '</div>';
 	}
 
 
