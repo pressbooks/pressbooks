@@ -46,6 +46,13 @@ class Xhtml11 extends ExportGenerator {
 	 */
 	protected $endnotes = [];
 
+	/**
+	 * Footnotes storage container.
+	 *
+	 * @var array
+	 */
+	protected $footnotes = [];
+
 
 	/**
 	 * We forcefully reorder some of the front-matter types to respect the Chicago Manual of Style.
@@ -353,7 +360,6 @@ class Xhtml11 extends ExportGenerator {
 				echo "<script src='$url' type='text/javascript'></script>\n";
 			}
 		}
-
 		echo "</head>\n<body lang='{$this->lang}' ";
 		if ( ! empty( $_GET['optimize-for-print'] ) ) {
 			echo "class='print' ";
@@ -361,6 +367,17 @@ class Xhtml11 extends ExportGenerator {
 		echo ">\n";
 		$replace_token = uniqid( 'PB_REPLACE_INNER_HTML_', true );
 		echo $replace_token;
+		echo "<script type='text/javascript'>
+			function fixFootnotes() {
+			    var ind = document.getElementsByClassName('indirect');
+				for (var i=0; i<ind.length; i++) {
+				    var e = document.getElementById(ind[i].getAttribute('data-footnoteref'));
+//				    if (e) ind[i].appendChild(e);
+				    if (e) ind[i].innerHTML = e.innerHTML;
+				}
+			}
+			window.onload = fixFootnotes();
+		</script> \n";
 		echo "\n</body>\n</html>";
 
 		$buffer_outer_html = ob_get_clean();
@@ -371,7 +388,7 @@ class Xhtml11 extends ExportGenerator {
 		$my_get = $_GET;
 		unset( $my_get['timestamp'], $my_get['hashkey'] );
 		$cache = get_transient( self::TRANSIENT );
-		if ( is_array( $cache ) && isset( $cache[0] ) && $cache[0] === md5( wp_json_encode( $my_get ) ) ) {
+		if ( false && is_array( $cache ) && isset( $cache[0] ) && $cache[0] === md5( wp_json_encode( $my_get ) ) ) {
 			// The $_GET parameters haven't changed since the last request so the output will be the same
 			$buffer_inner_html = $cache[1];
 		} else {
@@ -464,8 +481,15 @@ class Xhtml11 extends ExportGenerator {
 	 * @return string
 	 */
 	function footnoteShortcode( $atts, $content = null ) {
+		global $id; // This is the Post ID, [@see WP_Query::setup_postdata, preProcessBookContents, ...]
+		$this->footnotes[ $id ][] = trim( $content );
+		$ref_id = count( $this->footnotes[ $id ] );
 
-		return '<div class="footnote">' . trim( $content ) . '</div>';
+		return '<span class="footnote">' .
+					'<span class="indirect" data-footnoteref="' . $ref_id . '"></span>' .
+		       '</span>';
+
+//		return '<div class="footnote">' . trim( $content ) . '</div>';
 	}
 
 
@@ -517,6 +541,27 @@ class Xhtml11 extends ExportGenerator {
 		}
 		$e .= '</ol></div>';
 
+		return $e;
+	}
+
+	/**
+	 * Style footnotes.
+	 *
+	 * @see footnoteShortcode
+	 *
+	 * @param $id
+	 *
+	 * @return string
+	 */
+	function doFootnotes( $id ) {
+		if ( ! isset( $this->footnotes[ $id ] ) || ! count( $this->footnotes[ $id ] ) ) {
+			return '';
+		}
+		$e = '';
+		foreach ( $this->footnotes[ $id ] as $key => $footnote ) {
+			$k = $key ++;
+			$e .= "<div id='$k'>$footnote</div>";
+		}
 		return $e;
 	}
 
@@ -1347,7 +1392,7 @@ class Xhtml11 extends ExportGenerator {
 
 		$chapter_printf = '<div class="chapter %1$s" id="%2$s" title="%3$s">';
 		$chapter_printf .= '<div class="chapter-title-wrap"><h3 class="chapter-number">%4$s</h3><h2 class="chapter-title">%5$s</h2>%6$s</div>';
-		$chapter_printf .= '<div class="ugc chapter-ugc">%7$s</div>%8$s%9$s';
+		$chapter_printf .= '<div class="ugc chapter-ugc">%7$s</div>%10$s%8$s%9$s';
 		$chapter_printf .= '</div>';
 
 		$ticks = 0;
@@ -1476,7 +1521,8 @@ class Xhtml11 extends ExportGenerator {
 					$after_title,
 					$content,
 					$append_chapter_content,
-					$this->doEndnotes( $chapter_id )
+					$this->doEndnotes( $chapter_id ),
+					$this->doFootnotes( $chapter_id )
 				) . "\n";
 
 				if ( $my_chapter_number !== '' ) {
