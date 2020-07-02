@@ -367,11 +367,11 @@ class Xhtml11 extends ExportGenerator {
 		echo ">\n";
 		$replace_token = uniqid( 'PB_REPLACE_INNER_HTML_', true );
 		echo $replace_token;
-		echo "<style>
+		echo '<style>
 			.footnote::footnote-call {
 				font-size: 0px !important;
 			}
-		</style>";
+		</style>';
 		echo "\n</body>\n</html>";
 
 		$buffer_outer_html = ob_get_clean();
