@@ -365,19 +365,18 @@ class Xhtml11 extends ExportGenerator {
 			echo "class='print' ";
 		}
 		echo ">\n";
-		$replace_token = uniqid( 'PB_REPLACE_INNER_HTML_', true );
-		echo $replace_token;
 		echo "<script type='text/javascript'>
-			function fixFootnotes() {
-			    var ind = document.getElementsByClassName('indirect');
-				for (var i=0; i<ind.length; i++) {
-				    var e = document.getElementById(ind[i].getAttribute('data-footnoteref'));
-//				    if (e) ind[i].appendChild(e);
-				    if (e) ind[i].innerHTML = e.innerHTML;
+			function hiddeSubFootnotes() {
+				var fnotes = document.getElementsByClassName('footnotes');
+				for (var i=0; i<fnotes.length; i++) {
+				    var e = fnotes[i].getElementsByTagName('sub');
+				    if (e) fnotes[i].style.display = 'none';
 				}
 			}
-			window.onload = fixFootnotes();
-		</script> \n";
+			window.onload = hiddeSubFootnotes();
+		</script>";
+		$replace_token = uniqid( 'PB_REPLACE_INNER_HTML_', true );
+		echo $replace_token;
 		echo "\n</body>\n</html>";
 
 		$buffer_outer_html = ob_get_clean();
@@ -485,9 +484,7 @@ class Xhtml11 extends ExportGenerator {
 		$this->footnotes[ $id ][] = trim( $content );
 		$ref_id = count( $this->footnotes[ $id ] );
 
-		return '<span class="footnote">' .
-					'<span class="indirect" data-footnoteref="' . $ref_id . '"></span>' .
-		       '</span>';
+		return '<sup>' . $ref_id . '</sup>';
 
 //		return '<div class="footnote">' . trim( $content ) . '</div>';
 	}
@@ -557,11 +554,11 @@ class Xhtml11 extends ExportGenerator {
 		if ( ! isset( $this->footnotes[ $id ] ) || ! count( $this->footnotes[ $id ] ) ) {
 			return '';
 		}
-		$e = '';
-		foreach ( $this->footnotes[ $id ] as $key => $footnote ) {
-			$k = $key ++;
-			$e .= "<div id='$k'>$footnote</div>";
+		$e = '<div class="footnotes">';
+		foreach ( $this->footnotes[ $id ] as $footnote ) {
+			$e .= "<div class='footnote'>$footnote</div>";
 		}
+		$e .= '</div>';
 		return $e;
 	}
 
