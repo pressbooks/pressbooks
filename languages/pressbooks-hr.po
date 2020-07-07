@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
-"POT-Creation-Date: 2020-06-11T12:29:28+00:00\n"
+"POT-Creation-Date: 2020-07-07T15:16:47+00:00\n"
 "PO-Revision-Date: 2020-05-26 21:05+0000\n"
 "Last-Translator: Ho Man Chan <homan@pressbooks.com>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/pressbooks/pressbooks/language/hr_HR/)\n"
@@ -1346,7 +1346,7 @@ msgstr "Pomognite u prijevodu Pressbooks-a na Vaš jezik!"
 #: inc/modules/export/epub/templates/epub3/opf.php:95
 #: inc/modules/export/epub/templates/epub201/opf.php:88
 #: inc/modules/export/htmlbook/class-htmlbook.php:863
-#: inc/modules/export/xhtml/class-xhtml11.php:999
+#: inc/modules/export/xhtml/class-xhtml11.php:992
 msgid "Copyright"
 msgstr "Autorsko pravo"
 
@@ -2171,7 +2171,7 @@ msgstr "$title je zastarjelo. Metoda će automatski odrediti naslov iz licence"
 #: inc/modules/export/epub/templates/epub3/opf.php:104
 #: inc/modules/export/epub/templates/epub201/opf.php:97
 #: inc/modules/export/htmlbook/class-htmlbook.php:872
-#: inc/modules/export/xhtml/class-xhtml11.php:1008
+#: inc/modules/export/xhtml/class-xhtml11.php:1001
 msgid "by"
 msgstr "od"
 
@@ -2805,7 +2805,7 @@ msgstr "Izvoz posvete i epigrafa"
 #: inc/modules/export/epub/class-epub201.php:699
 #: inc/modules/export/epub/class-epub201.php:1286
 #: inc/modules/export/xhtml/class-xhtml11.php:410
-#: inc/modules/export/xhtml/class-xhtml11.php:1239
+#: inc/modules/export/xhtml/class-xhtml11.php:1232
 msgid "Exporting front matter"
 msgstr "Izvoz uvodnih stranica"
 
@@ -2813,15 +2813,15 @@ msgstr "Izvoz uvodnih stranica"
 #: inc/modules/export/epub/class-epub201.php:1454
 #: inc/modules/export/epub/class-epub201.php:1476
 #: inc/modules/export/xhtml/class-xhtml11.php:417
-#: inc/modules/export/xhtml/class-xhtml11.php:1362
-#: inc/modules/export/xhtml/class-xhtml11.php:1412
+#: inc/modules/export/xhtml/class-xhtml11.php:1355
+#: inc/modules/export/xhtml/class-xhtml11.php:1405
 msgid "Exporting parts and chapters"
 msgstr "Izvoz dijelova i poglavlja"
 
 #: inc/modules/export/epub/class-epub201.php:710
 #: inc/modules/export/epub/class-epub201.php:1715
 #: inc/modules/export/xhtml/class-xhtml11.php:421
-#: inc/modules/export/xhtml/class-xhtml11.php:1538
+#: inc/modules/export/xhtml/class-xhtml11.php:1531
 msgid "Exporting back matter"
 msgstr "Izvoz završnih stranica"
 
@@ -2848,7 +2848,7 @@ msgstr "Tablica sadržaja"
 
 #: inc/modules/export/epub/class-epub201.php:1837
 #: inc/modules/export/htmlbook/class-htmlbook.php:989
-#: inc/modules/export/xhtml/class-xhtml11.php:1071
+#: inc/modules/export/xhtml/class-xhtml11.php:1064
 msgid "Contents"
 msgstr "Sadržaj"
 
