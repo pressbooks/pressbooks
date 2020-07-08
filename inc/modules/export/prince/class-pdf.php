@@ -7,6 +7,7 @@
 namespace Pressbooks\Modules\Export\Prince;
 
 use function Pressbooks\Sanitize\normalize_css_urls;
+use PressbooksMix\Assets;
 use Pressbooks\Container;
 use Pressbooks\Modules\Export\Export;
 
@@ -119,7 +120,7 @@ class Pdf extends Export {
 		// Save PDF as file in exports folder
 
 		$prince = new \PrinceXMLPhp\PrinceWrapper( PB_PRINCE_COMMAND );
-		$prince->setJavaScript(true);
+
 		$prince->setHTML( true );
 		$prince->setCompress( true );
 		$prince->setHttpTimeout( max( ini_get( 'max_execution_time' ), 30 ) );
@@ -137,6 +138,12 @@ class Pdf extends Export {
 		}
 
 		$prince->addStyleSheet( $css_file );
+
+		// Footnote hack to allow more complex DOM
+		$assets = new Assets( 'pressbooks', 'plugin' );
+		$js_path = $assets->getPath( 'scripts/export-footnotes.js' );
+		$prince->addScript( $js_path );
+
 		if ( $this->exportScriptPath ) {
 			$prince->addScript( $this->exportScriptPath );
 		}

@@ -64,6 +64,7 @@ mix
 	.js( 'assets/src/scripts/theme-lock.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/theme-options.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/a11y.js', 'assets/dist/scripts/' )
+	.js( 'assets/src/scripts/export-footnotes.js', 'assets/dist/scripts/' )
 	.scripts(
 		'node_modules/event-source-polyfill/src/eventsource.js',
 		'assets/dist/scripts/eventsource.polyfill.js'
@@ -120,7 +121,6 @@ mix
 	.sass( 'assets/src/styles/select2.scss', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/style-catalog.scss', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/theme-options.scss', 'assets/dist/styles/' )
-	.sass( 'assets/src/styles/prince-export.scss', 'assets/dist/styles/' )
 	.copyDirectory( 'assets/src/fonts', 'assets/dist/fonts' )
 	.copyDirectory( 'assets/src/images', 'assets/dist/images' )
 	.then( () => {

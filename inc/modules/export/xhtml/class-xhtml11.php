@@ -305,7 +305,6 @@ class Xhtml11 extends ExportGenerator {
 		} else {
 			add_shortcode( 'footnote', [ $this, 'footnoteShortcode' ] );
 		}
-
 		// Use SVG for math
 		add_filter( 'pb_mathjax_use_svg', '__return_true' );
 
@@ -354,9 +353,6 @@ class Xhtml11 extends ExportGenerator {
 				echo "<link rel='stylesheet' href='$url' type='text/css' />\n";
 			}
 		}
-		$assets = new Assets( 'pressbooks', 'plugin' );
-		$url = $assets->getPath( 'styles/prince-export.css' );
-		echo "<link rel='stylesheet' href='$url' type='text/css' />\n";
 		if ( ! empty( $_GET['script'] ) ) {
 			$url = $this->getExportScriptUrl( clean_filename( $_GET['script'] ) );
 			if ( $url ) {
@@ -370,25 +366,6 @@ class Xhtml11 extends ExportGenerator {
 		echo ">\n";
 		$replace_token = uniqid( 'PB_REPLACE_INNER_HTML_', true );
 		echo $replace_token;
-
-		echo "<script>
-			function moveFootnotes() {
-			    var footnotes = document.querySelectorAll( '[id^=\"footnote-\"]' );
-			    var footnotesRef = document.querySelectorAll( '[id^=\"footnoteref-\"]' );
-			    for ( var i = 0; i < footnotes.length; i ++ ) {
-			    	var id = footnotes[i].id;
-					for (var j = 0; j < footnotesRef.length; j ++) {
-					    var idRef = footnotesRef[j].id;
-					    if (idRef == id) {
-					        var newFootnote = footnotesRef[j].cloneNode(true);
-					      	footnotesRef[j].insertBefore(newFootnote);
-					      	footnotes[i].parentNode.removeChild(footnotes[i]);
-					    }
-					}
-			    }
-			}
-			window.onload = moveFootnotes();
-		</script> \n";
 
 		echo "\n</body>\n</html>";
 
@@ -497,7 +474,7 @@ class Xhtml11 extends ExportGenerator {
 		$this->footnotes[ $id ][] = trim( $content );
 		$ref_id = count( $this->footnotes[ $id ] );
 		$ref_id_dom = $id . '-' . $ref_id;
-		return '<sup id="footnoteref-' . $ref_id_dom . '">' . $ref_id . '</sup>';
+		return "<span class='footnote'><span class='footnote-indirect' data-fnref='$ref_id_dom'></span></span>";
 	}
 
 
@@ -553,23 +530,28 @@ class Xhtml11 extends ExportGenerator {
 	}
 
 	/**
-	 * Style footnotes.
+	 * Content for footnotes.
 	 *
-	 * @see footnoteShortcode
+	 * @see footnoteShortCode
 	 *
 	 * @param $id
 	 *
 	 * @return string
 	 */
 	function doFootnotes( $id ) {
+
 		if ( ! isset( $this->footnotes[ $id ] ) || ! count( $this->footnotes[ $id ] ) ) {
 			return '';
 		}
+
 		$e = '<div class="footnotes">';
 		foreach ( $this->footnotes[ $id ] as $k => $footnote ) {
-			$e .= "<div id='footnote-" . $id . '-' . $k . "' class='footnote'>$footnote</div>";
+			$key = $k + 1;
+			$id_attr = $id . '-' . $key;
+			$e .= "<div id='$id_attr'>$footnote</div>";
 		}
 		$e .= '</div>';
+
 		return $e;
 	}
 
@@ -1393,7 +1375,7 @@ class Xhtml11 extends ExportGenerator {
 
 		$chapter_printf = '<div class="chapter %1$s" id="%2$s" title="%3$s">';
 		$chapter_printf .= '<div class="chapter-title-wrap"><h3 class="chapter-number">%4$s</h3><h2 class="chapter-title">%5$s</h2>%6$s</div>';
-		$chapter_printf .= '<div class="ugc chapter-ugc">%7$s</div>%10$s%8$s%9$s';
+		$chapter_printf .= '<div class="ugc chapter-ugc">%7$s</div>%8$s%9$s%10$s';
 		$chapter_printf .= '</div>';
 
 		$ticks = 0;
