@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Pressbooks plugin.
 # Translators:
 # Amelie Roberge <aroberge@tciinc.ca>, 2019
-# 58b8e2d8f36d8d173ef8131da15c4e40, 2017-2018
+# Dac Chartrand <dac.chartrand@gmail.com>, 2017-2018,2020
 # Dac Chartrand <dac@pressbooks.com>, 2019
 # Eric Lord <elord@tciinc.ca>, 2019
 # fgerber <gerber.francois@gmail.com>, 2015
@@ -25,9 +25,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
-"POT-Creation-Date: 2020-06-11T12:29:28+00:00\n"
-"PO-Revision-Date: 2020-05-26 21:05+0000\n"
-"Last-Translator: Ho Man Chan <homan@pressbooks.com>\n"
+"POT-Creation-Date: 2020-07-07T15:16:47+00:00\n"
+"PO-Revision-Date: 2020-06-26 20:51+0000\n"
+"Last-Translator: Dac Chartrand <dac.chartrand@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/pressbooks/pressbooks/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1365,7 +1365,7 @@ msgstr "Aidez à traduire Pressbooks dans votre langue!"
 #: inc/modules/export/epub/templates/epub3/opf.php:95
 #: inc/modules/export/epub/templates/epub201/opf.php:88
 #: inc/modules/export/htmlbook/class-htmlbook.php:863
-#: inc/modules/export/xhtml/class-xhtml11.php:999
+#: inc/modules/export/xhtml/class-xhtml11.php:992
 msgid "Copyright"
 msgstr "Droit d&rsquo;auteur"
 
@@ -1774,7 +1774,7 @@ msgstr "Ajout en Vrac"
 
 #: inc/admin/users/class-userbulk.php:164
 msgid "Invalid email address"
-msgstr ""
+msgstr "Courriel invalide"
 
 #: inc/admin/users/class-userbulk.php:238
 msgid "The following user(s) could not be added."
@@ -2182,7 +2182,7 @@ msgstr "$titre désapprouvé. La méthode déterminera le titre automatiquement 
 #: inc/modules/export/epub/templates/epub3/opf.php:104
 #: inc/modules/export/epub/templates/epub201/opf.php:97
 #: inc/modules/export/htmlbook/class-htmlbook.php:872
-#: inc/modules/export/xhtml/class-xhtml11.php:1008
+#: inc/modules/export/xhtml/class-xhtml11.php:1001
 msgid "by"
 msgstr "par"
 
@@ -2815,7 +2815,7 @@ msgstr "Exportation de la dédicace et de l&rsquo;épigraphe"
 #: inc/modules/export/epub/class-epub201.php:699
 #: inc/modules/export/epub/class-epub201.php:1286
 #: inc/modules/export/xhtml/class-xhtml11.php:410
-#: inc/modules/export/xhtml/class-xhtml11.php:1239
+#: inc/modules/export/xhtml/class-xhtml11.php:1232
 msgid "Exporting front matter"
 msgstr "Exportation des pages liminaires"
 
@@ -2823,15 +2823,15 @@ msgstr "Exportation des pages liminaires"
 #: inc/modules/export/epub/class-epub201.php:1454
 #: inc/modules/export/epub/class-epub201.php:1476
 #: inc/modules/export/xhtml/class-xhtml11.php:417
-#: inc/modules/export/xhtml/class-xhtml11.php:1362
-#: inc/modules/export/xhtml/class-xhtml11.php:1412
+#: inc/modules/export/xhtml/class-xhtml11.php:1355
+#: inc/modules/export/xhtml/class-xhtml11.php:1405
 msgid "Exporting parts and chapters"
 msgstr "Exportation des parties et des chapitres"
 
 #: inc/modules/export/epub/class-epub201.php:710
 #: inc/modules/export/epub/class-epub201.php:1715
 #: inc/modules/export/xhtml/class-xhtml11.php:421
-#: inc/modules/export/xhtml/class-xhtml11.php:1538
+#: inc/modules/export/xhtml/class-xhtml11.php:1531
 msgid "Exporting back matter"
 msgstr "Exportation des parties annexes"
 
@@ -2858,7 +2858,7 @@ msgstr "Table des matières"
 
 #: inc/modules/export/epub/class-epub201.php:1837
 #: inc/modules/export/htmlbook/class-htmlbook.php:989
-#: inc/modules/export/xhtml/class-xhtml11.php:1071
+#: inc/modules/export/xhtml/class-xhtml11.php:1064
 msgid "Contents"
 msgstr "Table des matières"
 
