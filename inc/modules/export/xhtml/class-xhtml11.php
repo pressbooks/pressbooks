@@ -370,6 +370,26 @@ class Xhtml11 extends ExportGenerator {
 		echo ">\n";
 		$replace_token = uniqid( 'PB_REPLACE_INNER_HTML_', true );
 		echo $replace_token;
+
+		echo "<script>
+			function moveFootnotes() {
+			    var footnotes = document.querySelectorAll( '[id^=\"footnote-\"]' );
+			    var footnotesRef = document.querySelectorAll( '[id^=\"footnoteref-\"]' );
+			    for ( var i = 0; i < footnotes.length; i ++ ) {
+			    	var id = footnotes[i].id;
+					for (var j = 0; j < footnotesRef.length; j ++) {
+					    var idRef = footnotesRef[j].id;
+					    if (idRef == id) {
+					        var newFootnote = footnotesRef[j].cloneNode(true);
+					      	footnotesRef[j].insertBefore(newFootnote);
+					      	footnotes[i].parentNode.removeChild(footnotes[i]);
+					    }
+					}
+			    }
+			}
+			window.onload = moveFootnotes();
+		</script> \n";
+
 		echo "\n</body>\n</html>";
 
 		$buffer_outer_html = ob_get_clean();
@@ -476,8 +496,8 @@ class Xhtml11 extends ExportGenerator {
 		global $id; // This is the Post ID, [@see WP_Query::setup_postdata, preProcessBookContents, ...]
 		$this->footnotes[ $id ][] = trim( $content );
 		$ref_id = count( $this->footnotes[ $id ] );
-
-		return '<sup>' . $ref_id . '</sup>';
+		$ref_id_dom = $id . '-' . $ref_id;
+		return '<sup id="footnoteref-' . $ref_id_dom . '">' . $ref_id . '</sup>';
 	}
 
 
@@ -546,8 +566,8 @@ class Xhtml11 extends ExportGenerator {
 			return '';
 		}
 		$e = '<div class="footnotes">';
-		foreach ( $this->footnotes[ $id ] as $footnote ) {
-			$e .= "<div class='footnote'>$footnote</div>";
+		foreach ( $this->footnotes[ $id ] as $k => $footnote ) {
+			$e .= "<div id='footnote-" . $id . '-' . $k . "' class='footnote'>$footnote</div>";
 		}
 		$e .= '</div>';
 		return $e;

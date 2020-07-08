@@ -119,6 +119,7 @@ class Pdf extends Export {
 		// Save PDF as file in exports folder
 
 		$prince = new \PrinceXMLPhp\PrinceWrapper( PB_PRINCE_COMMAND );
+		$prince->setJavaScript(true);
 		$prince->setHTML( true );
 		$prince->setCompress( true );
 		$prince->setHttpTimeout( max( ini_get( 'max_execution_time' ), 30 ) );
