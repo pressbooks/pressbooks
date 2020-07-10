@@ -366,7 +366,6 @@ class Xhtml11 extends ExportGenerator {
 		echo ">\n";
 		$replace_token = uniqid( 'PB_REPLACE_INNER_HTML_', true );
 		echo $replace_token;
-
 		echo "\n</body>\n</html>";
 
 		$buffer_outer_html = ob_get_clean();
@@ -539,7 +538,6 @@ class Xhtml11 extends ExportGenerator {
 	 * @return string
 	 */
 	function doFootnotes( $id ) {
-
 		if ( ! isset( $this->footnotes[ $id ] ) || ! count( $this->footnotes[ $id ] ) ) {
 			return '';
 		}
