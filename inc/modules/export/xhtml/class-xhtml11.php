@@ -46,6 +46,13 @@ class Xhtml11 extends ExportGenerator {
 	 */
 	protected $endnotes = [];
 
+	/**
+	 * Footnotes storage container.
+	 *
+	 * @var array
+	 */
+	protected $footnotes = [];
+
 
 	/**
 	 * We forcefully reorder some of the front-matter types to respect the Chicago Manual of Style.
@@ -298,7 +305,6 @@ class Xhtml11 extends ExportGenerator {
 		} else {
 			add_shortcode( 'footnote', [ $this, 'footnoteShortcode' ] );
 		}
-
 		// Use SVG for math
 		add_filter( 'pb_mathjax_use_svg', '__return_true' );
 
@@ -353,7 +359,6 @@ class Xhtml11 extends ExportGenerator {
 				echo "<script src='$url' type='text/javascript'></script>\n";
 			}
 		}
-
 		echo "</head>\n<body lang='{$this->lang}' ";
 		if ( ! empty( $_GET['optimize-for-print'] ) ) {
 			echo "class='print' ";
@@ -464,8 +469,11 @@ class Xhtml11 extends ExportGenerator {
 	 * @return string
 	 */
 	function footnoteShortcode( $atts, $content = null ) {
-
-		return '<span class="footnote">' . trim( $content ) . '</span>';
+		global $id; // This is the Post ID, [@see WP_Query::setup_postdata, preProcessBookContents, ...]
+		$this->footnotes[ $id ][] = trim( $content );
+		$ref_id = count( $this->footnotes[ $id ] );
+		$ref_id_dom = $id . '-' . $ref_id;
+		return "<span class='footnote'><span class='footnote-indirect' data-fnref='$ref_id_dom'></span></span>";
 	}
 
 
@@ -516,6 +524,31 @@ class Xhtml11 extends ExportGenerator {
 			$e .= "<li><span>$endnote</span></li>";
 		}
 		$e .= '</ol></div>';
+
+		return $e;
+	}
+
+	/**
+	 * Content for footnotes.
+	 *
+	 * @see footnoteShortCode
+	 *
+	 * @param $id
+	 *
+	 * @return string
+	 */
+	function doFootnotes( $id ) {
+		if ( ! isset( $this->footnotes[ $id ] ) || ! count( $this->footnotes[ $id ] ) ) {
+			return '';
+		}
+
+		$e = '<div class="footnotes">';
+		foreach ( $this->footnotes[ $id ] as $k => $footnote ) {
+			$key = $k + 1;
+			$id_attr = $id . '-' . $key;
+			$e .= "<div id='$id_attr'>$footnote</div>";
+		}
+		$e .= '</div>';
 
 		return $e;
 	}
@@ -1340,7 +1373,7 @@ class Xhtml11 extends ExportGenerator {
 
 		$chapter_printf = '<div class="chapter %1$s" id="%2$s" title="%3$s">';
 		$chapter_printf .= '<div class="chapter-title-wrap"><h3 class="chapter-number">%4$s</h3><h2 class="chapter-title">%5$s</h2>%6$s</div>';
-		$chapter_printf .= '<div class="ugc chapter-ugc">%7$s</div>%8$s%9$s';
+		$chapter_printf .= '<div class="ugc chapter-ugc">%7$s</div>%8$s%9$s%10$s';
 		$chapter_printf .= '</div>';
 
 		$ticks = 0;
@@ -1469,7 +1502,8 @@ class Xhtml11 extends ExportGenerator {
 					$after_title,
 					$content,
 					$append_chapter_content,
-					$this->doEndnotes( $chapter_id )
+					$this->doEndnotes( $chapter_id ),
+					$this->doFootnotes( $chapter_id )
 				) . "\n";
 
 				if ( $my_chapter_number !== '' ) {

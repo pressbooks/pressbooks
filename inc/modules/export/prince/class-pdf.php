@@ -7,6 +7,7 @@
 namespace Pressbooks\Modules\Export\Prince;
 
 use function Pressbooks\Sanitize\normalize_css_urls;
+use PressbooksMix\Assets;
 use Pressbooks\Container;
 use Pressbooks\Modules\Export\Export;
 
@@ -136,6 +137,10 @@ class Pdf extends Export {
 		}
 
 		$prince->addStyleSheet( $css_file );
+		$assets = new Assets( 'pressbooks', 'plugin' );
+		$js_path = $assets->getPath( 'scripts/export-footnotes.js' );
+		$prince->addScript( $js_path );
+
 		if ( $this->exportScriptPath ) {
 			$prince->addScript( $this->exportScriptPath );
 		}

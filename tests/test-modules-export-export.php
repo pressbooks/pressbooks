@@ -405,7 +405,7 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 		if ( $xhtml_path ) {
 			// Verify XHTML content for good measure
 			$xhtml_content = file_get_contents( ( $xhtml_path ) );
-			$this->assertContains( '<span class="footnote">', $xhtml_content );
+			$this->assertContains( '<div class="footnotes">', $xhtml_content );
 			$this->assertContains( '[latex]', $xhtml_content ); // TODO: add_filter( 'pb_mathjax_use', '__return_true' );
 			$this->assertContains( ' <div id="attachment_1" ', $xhtml_content );
 			$this->assertContains( '<p><em>Ka kite ano!</em></p>', $xhtml_content );
@@ -438,7 +438,7 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 		$this->assertTrue( $exporter->validate(), "Could not validate with {$module}" );
 		$xhtml_content = file_get_contents( $exporter->getOutputPath() );
 
-		$this->assertContains( '<span class="footnote">', $xhtml_content );
+		$this->assertContains( '<div class="footnotes">', $xhtml_content );
 		$this->assertContains( '[latex]', $xhtml_content );
 		$this->assertContains( ' <div id="attachment_1" ', $xhtml_content );
 		$this->assertContains( '<p><em>Ka kite ano!</em></p>', $xhtml_content );
