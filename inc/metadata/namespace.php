@@ -353,10 +353,12 @@ function book_information_to_schema( $book_information ) {
 	}
 
 	$licensing = new Licensing;
+	$supported_types = $licensing->getSupportedTypes();
 	$book_schema['license'] = [
 		'@type' => 'CreativeWork',
 		'url' => $licensing->getUrlForLicense( $book_information['pb_book_license'] ),
-		'name' => $licensing->getSupportedTypes()[ $book_information['pb_book_license'] ]['desc'] ?? 'all-rights-reserved',
+		'name' => $supported_types[ $book_information['pb_book_license'] ]['desc'] ?? 'all-rights-reserved',
+		'code' => $supported_types[ $book_information['pb_book_license'] ]['abbreviation'] ?? 'All Rights Reserved',
 	];
 	if ( isset( $book_information['pb_custom_copyright'] ) ) {
 		$book_schema['license']['description'] = $book_information['pb_custom_copyright'];
