@@ -39,11 +39,14 @@ class ApiTest extends \WP_UnitTestCase {
 		$this->assertArrayHasKey( 'storageSize', $data['metadata'] );
 		$this->assertArrayHasKey( 'h5pActivities', $data['metadata'] );
 		$this->assertArrayHasKey( 'inCatalog', $data['metadata'] );
+		$this->assertArrayHasKey( 'license', $data['metadata'] );
+		$this->assertArrayHasKey( 'code', $data['metadata']['license'] );
 
 		$this->assertIsInt( $data['metadata']['wordCount'] );
 		$this->assertIsInt( $data['metadata']['storageSize'] );
 		$this->assertIsInt( $data['metadata']['h5pActivities'] );
 		$this->assertIsBool( $data['metadata']['inCatalog'] );
+		$this->assertIsString( $data['metadata']['license']['code'] );
 	}
 
 	/**
