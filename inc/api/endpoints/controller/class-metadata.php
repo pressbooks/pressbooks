@@ -397,6 +397,12 @@ class Metadata extends \WP_REST_Controller {
 							'context' => [ 'view' ],
 							'readonly' => true,
 						],
+						'code' => [
+							'type' => 'string',
+							'description' => __( 'CC License Abbreviation.' ),
+							'context' => [ 'view' ],
+							'readonly' => true,
+						],
 					],
 					'context' => [ 'view' ],
 					'readonly' => true,
