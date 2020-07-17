@@ -459,6 +459,7 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 		$user_id = $this->factory()->user->create( [ 'role' => 'contributor' ] );
 		wp_set_current_user( $user_id );
 		$_GET['debug'] = 'prince';
+		$_GET['movefootnotes'] = true;
 		if ( ! defined( 'WP_DEBUG' ) ) {
 			define( 'WP_DEBUG', true );
 		}
