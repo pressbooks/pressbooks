@@ -20,7 +20,7 @@ class Docraptor extends Pdf {
 	public function __construct( array $args ) {
 
 		parent::__construct( $args );
-		$this->url .= '&style=prince&script=prince&movefootnotes=true';
+		$this->url .= '&style=prince&script=prince';
 	}
 
 
@@ -66,7 +66,6 @@ class Docraptor extends Pdf {
 		$prince_options = new \DocRaptor\PrinceOptions();
 		$prince_options->setNoCompress( false );
 		$prince_options->setHttpTimeout( max( ini_get( 'max_execution_time' ), 30 ) );
-		$prince_options->setJavascript( true );
 		if ( $this->pdfProfile && $this->pdfOutputIntent ) {
 			$prince_options->setProfile( $this->pdfProfile );
 			// DocRaptor doesn't let us setPDFOutputIntent like Prince does, we cheat with a CSS hack later

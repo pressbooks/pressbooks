@@ -366,22 +366,6 @@ class Xhtml11 extends ExportGenerator {
 		echo ">\n";
 		$replace_token = uniqid( 'PB_REPLACE_INNER_HTML_', true );
 		echo $replace_token;
-		if ( ! empty( $_GET['movefootnotes'] ) ) {
-			echo "\n <script>
-					function moveFootnotes() {
-						var footnotes = document.getElementsByClassName( 'footnote-indirect' );
-						for ( var i = 0; i < footnotes.length; i++ ) {
-							var ref = document.getElementById( footnotes[i].getAttribute( 'data-fnref' ) );
-							if ( ref ) {
-								footnotes[i].appendChild( ref );
-							}
-						}
-					}
-					if ( typeof Prince != 'undefined' ) {
-						moveFootnotes();
-					}
-				</script> \n";
-		}
 		echo "\n</body>\n</html>";
 
 		$buffer_outer_html = ob_get_clean();
