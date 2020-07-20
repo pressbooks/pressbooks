@@ -898,7 +898,7 @@ class Xhtml11 extends ExportGenerator {
 
 		$front_matter_printf = '<div class="front-matter %1$s" id="%2$s">';
 		$front_matter_printf .= '<div class="front-matter-title-wrap"><h3 class="front-matter-number">%3$s</h3><h1 class="front-matter-title">%4$s</h1></div>';
-		$front_matter_printf .= '<div class="ugc front-matter-ugc">%5$s</div>%6$s';
+		$front_matter_printf .= '<div class="ugc front-matter-ugc">%5$s</div>%6$s%7$s';
 		$front_matter_printf .= '</div>';
 
 		$i = $this->frontMatterPos;
@@ -927,7 +927,8 @@ class Xhtml11 extends ExportGenerator {
 					$i,
 					Sanitize\decode( $title ),
 					$content,
-					$this->doEndnotes( $front_matter_id )
+					$this->doEndnotes( $front_matter_id ),
+					$this->doFootnotes( $front_matter_id )
 				);
 
 				echo "\n";
@@ -1064,7 +1065,7 @@ class Xhtml11 extends ExportGenerator {
 
 		$front_matter_printf = '<div class="front-matter %1$s" id="%2$s">';
 		$front_matter_printf .= '<div class="front-matter-title-wrap"><h3 class="front-matter-number">%3$s</h3><h1 class="front-matter-title">%4$s</h1></div>';
-		$front_matter_printf .= '<div class="ugc front-matter-ugc">%5$s</div>%6$s';
+		$front_matter_printf .= '<div class="ugc front-matter-ugc">%5$s</div>%6$s%7$s';
 		$front_matter_printf .= '</div>';
 
 		$i = $this->frontMatterPos;
@@ -1093,7 +1094,8 @@ class Xhtml11 extends ExportGenerator {
 					$i,
 					Sanitize\decode( $title ),
 					$content,
-					$this->doEndnotes( $front_matter_id )
+					$this->doEndnotes( $front_matter_id ),
+					$this->doFootnotes( $front_matter_id )
 				);
 
 				echo "\n";
@@ -1271,7 +1273,7 @@ class Xhtml11 extends ExportGenerator {
 	protected function echoFrontMatterGenerator( $book_contents, $metadata ) : \Generator {
 		$front_matter_printf = '<div class="front-matter %1$s" id="%2$s" title="%3$s">';
 		$front_matter_printf .= '<div class="front-matter-title-wrap"><h3 class="front-matter-number">%4$s</h3><h1 class="front-matter-title">%5$s</h1>%6$s</div>';
-		$front_matter_printf .= '<div class="ugc front-matter-ugc">%7$s</div>%8$s%9$s';
+		$front_matter_printf .= '<div class="ugc front-matter-ugc">%7$s</div>%8$s%9$s%10$s';
 		$front_matter_printf .= '</div>';
 
 		$y = new PercentageYield( 50, 60, count( $book_contents['front-matter'] ) );
@@ -1351,7 +1353,8 @@ class Xhtml11 extends ExportGenerator {
 				$after_title,
 				$content,
 				$append_front_matter_content,
-				$this->doEndnotes( $front_matter_id )
+				$this->doEndnotes( $front_matter_id ),
+				$this->doFootnotes( $front_matter_id )
 			);
 
 			echo "\n";
@@ -1384,7 +1387,7 @@ class Xhtml11 extends ExportGenerator {
 	protected function echoPartsAndChaptersGenerator( $book_contents, $metadata ) : \Generator {
 		$part_printf = '<div class="part %1$s" id="%2$s">';
 		$part_printf .= '<div class="part-title-wrap"><h3 class="part-number">%3$s</h3><h1 class="part-title">%4$s</h1></div>%5$s';
-		$part_printf .= '<div class="ugc part-ugc">%6$s</div>';
+		$part_printf .= '<div class="ugc part-ugc">%6$s</div>%7$s';
 		$part_printf .= '</div>';
 
 		$chapter_printf = '<div class="chapter %1$s" id="%2$s" title="%3$s">';
@@ -1445,7 +1448,8 @@ class Xhtml11 extends ExportGenerator {
 				\Pressbooks\L10n\romanize( $m ),
 				Sanitize\decode( $title ),
 				$part_content,
-				$this->doEndnotes( $part['ID'] )
+				$this->doEndnotes( $part['ID'] ),
+				$this->doFootnotes( $part['ID'] )
 			) . "\n";
 
 			$my_chapters = '';
@@ -1571,7 +1575,7 @@ class Xhtml11 extends ExportGenerator {
 	protected function echoBackMatterGenerator( $book_contents, $metadata ) : \Generator {
 		$back_matter_printf = '<div class="back-matter %1$s" id="%2$s" title="%3$s">';
 		$back_matter_printf .= '<div class="back-matter-title-wrap"><h3 class="back-matter-number">%4$s</h3><h1 class="back-matter-title">%5$s</h1>%6$s</div>';
-		$back_matter_printf .= '<div class="ugc back-matter-ugc">%7$s</div>%8$s%9$s';
+		$back_matter_printf .= '<div class="ugc back-matter-ugc">%7$s</div>%8$s%9$s%10$s';
 		$back_matter_printf .= '</div>';
 
 		$y = new PercentageYield( 70, 80, count( $book_contents['back-matter'] ) );
@@ -1638,7 +1642,8 @@ class Xhtml11 extends ExportGenerator {
 				$after_title,
 				$content,
 				$append_back_matter_content,
-				$this->doEndnotes( $back_matter_id )
+				$this->doEndnotes( $back_matter_id ),
+				$this->doFootnotes( $back_matter_id )
 			);
 
 			echo "\n";
