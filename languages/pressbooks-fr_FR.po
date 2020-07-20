@@ -25,7 +25,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
-"POT-Creation-Date: 2020-07-07T15:16:47+00:00\n"
+"POT-Creation-Date: 2020-07-20T21:12:58+00:00\n"
 "PO-Revision-Date: 2020-06-26 20:51+0000\n"
 "Last-Translator: Dac Chartrand <dac.chartrand@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/pressbooks/pressbooks/language/fr/)\n"
@@ -1359,13 +1359,13 @@ msgstr "Active les métadonnées dans votre livre numérique, ce qui le rend plu
 msgid "Help translate Pressbooks into your language!"
 msgstr "Aidez à traduire Pressbooks dans votre langue!"
 
-#: inc/admin/metaboxes/namespace.php:350 inc/class-licensing.php:297
+#: inc/admin/metaboxes/namespace.php:350 inc/class-licensing.php:306
 #: inc/modules/export/epub/class-epub201.php:1135
 #: inc/modules/export/epub/class-epub201.php:1161
 #: inc/modules/export/epub/templates/epub3/opf.php:95
 #: inc/modules/export/epub/templates/epub201/opf.php:88
 #: inc/modules/export/htmlbook/class-htmlbook.php:863
-#: inc/modules/export/xhtml/class-xhtml11.php:992
+#: inc/modules/export/xhtml/class-xhtml11.php:1042
 msgid "Copyright"
 msgstr "Droit d&rsquo;auteur"
 
@@ -1801,7 +1801,7 @@ msgstr "Métadonnées"
 msgid "ID offset, overrides page."
 msgstr "Le décalage de l&rsquo;ID, remplace la page."
 
-#: inc/api/endpoints/controller/class-metadata.php:446
+#: inc/api/endpoints/controller/class-metadata.php:452
 #: inc/api/endpoints/controller/class-sectionmetadata.php:423
 msgid ""
 "URL of a reference Web page that unambiguously indicates the item's "
@@ -2107,106 +2107,106 @@ msgstr "Turc"
 msgid "Your %1$s font could not be downloaded from %2$s."
 msgstr "Votre police %1$s n&rsquo;a pas pu être téléchargée à partir de %2$s."
 
-#: inc/class-licensing.php:55
+#: inc/class-licensing.php:56
 msgid "Public Domain"
 msgstr "Domaine public"
 
-#: inc/class-licensing.php:64
+#: inc/class-licensing.php:66
 msgid "CC0 (Creative Commons Zero)"
 msgstr "CC0 (Creative Commons Zéro)"
 
-#: inc/class-licensing.php:73
+#: inc/class-licensing.php:76
 msgid "CC BY (Attribution)"
 msgstr "CC BY (Attribution)"
 
-#: inc/class-licensing.php:74
+#: inc/class-licensing.php:77
 msgid "Creative Commons Attribution 4.0 International License"
 msgstr "Licence Creative Commons Attribution 4.0 International"
 
-#: inc/class-licensing.php:83
+#: inc/class-licensing.php:87
 msgid "CC BY-SA (Attribution ShareAlike)"
 msgstr "CC BY-SA (Attribution - Partage dans les mêmes conditions)"
 
-#: inc/class-licensing.php:84
+#: inc/class-licensing.php:88
 msgid "Creative Commons Attribution-ShareAlike 4.0 International License"
 msgstr "License Creative Commons Attribution - Partage dans les mêmes conditions 4.0 International"
 
-#: inc/class-licensing.php:93
+#: inc/class-licensing.php:98
 msgid "CC BY-ND (Attribution NoDerivatives)"
 msgstr "CC BY-ND (Attribution - Pas de modification)"
 
-#: inc/class-licensing.php:94
+#: inc/class-licensing.php:99
 msgid "Creative Commons Attribution-NoDerivatives 4.0 International License"
 msgstr "License Creative Commons Attribution - Pas de modification 4.0 International"
 
-#: inc/class-licensing.php:103
+#: inc/class-licensing.php:109
 msgid "CC BY-NC (Attribution NonCommercial)"
 msgstr "CC BY-NC (Attribution - Pas d&rsquo;utilisation commerciale)"
 
-#: inc/class-licensing.php:104
+#: inc/class-licensing.php:110
 msgid "Creative Commons Attribution-NonCommercial 4.0 International License"
 msgstr "License Creative Commons Attribution - Pas d&rsquo;utilisation commerciale 4.0 International"
 
-#: inc/class-licensing.php:113
+#: inc/class-licensing.php:120
 msgid "CC BY-NC-SA (Attribution NonCommercial ShareAlike)"
 msgstr "CC BY-NC-SA (Attribution - Pas d&rsquo;utilisation commerciale - Partage dans les mêmes conditions)"
 
-#: inc/class-licensing.php:114
+#: inc/class-licensing.php:121
 msgid ""
 "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International "
 "License"
 msgstr "License Creative Commons Attribution - Pas d&rsquo;utilisation commerciale - Partage dans les mêmes conditions 4.0 International"
 
-#: inc/class-licensing.php:123
+#: inc/class-licensing.php:131
 msgid "CC BY-NC-ND (Attribution NonCommercial NoDerivatives)"
 msgstr "CC BY-NC-ND (Attribution - Pas d&rsquo;utilisation commerciale - Pas de modification)"
 
-#: inc/class-licensing.php:124
+#: inc/class-licensing.php:132
 msgid ""
 "Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International "
 "License"
 msgstr "Licence Creative Commons Attribution - Pas d&rsquo;utilisation commerciale - Pas de modification 4.0 International"
 
-#: inc/class-licensing.php:129 inc/class-licensing.php:302
+#: inc/class-licensing.php:138 inc/class-licensing.php:311
 msgid "All Rights Reserved"
 msgstr "Tous droits réservés"
 
-#: inc/class-licensing.php:195
+#: inc/class-licensing.php:204
 msgid ""
 "$title is deprecated. Method will automatically determine title from "
 "licenses"
 msgstr "$titre désapprouvé. La méthode déterminera le titre automatiquement à partir des licences."
 
-#: inc/class-licensing.php:299 inc/class-styles.php:789
+#: inc/class-licensing.php:308 inc/class-styles.php:789
 #: inc/modules/export/epub/class-epub201.php:1144
 #: inc/modules/export/epub/templates/epub3/opf.php:104
 #: inc/modules/export/epub/templates/epub201/opf.php:97
 #: inc/modules/export/htmlbook/class-htmlbook.php:872
-#: inc/modules/export/xhtml/class-xhtml11.php:1001
+#: inc/modules/export/xhtml/class-xhtml11.php:1051
 msgid "by"
 msgstr "par"
 
-#: inc/class-licensing.php:358
+#: inc/class-licensing.php:367
 msgid "except where otherwise noted."
 msgstr "sauf indication contraire."
 
-#: inc/class-licensing.php:385 inc/class-licensing.php:409
+#: inc/class-licensing.php:394 inc/class-licensing.php:418
 msgid "%1$s Copyright &copy;%2$s by %3$s. All Rights Reserved."
 msgstr "%1$s&copy; %2$s par %3$s. Tous droits réservés."
 
-#: inc/class-licensing.php:397
+#: inc/class-licensing.php:406
 msgid "Icon for the %s"
 msgstr "Symbole de %s"
 
-#: inc/class-licensing.php:399
+#: inc/class-licensing.php:408
 msgid "%1$s by %2$s is licensed under a %3$s, except where otherwise noted."
 msgstr "%1$s de %2$s est sous une licence %3$s, sauf indication contraire."
 
-#: inc/class-licensing.php:418 inc/class-licensing.php:428
+#: inc/class-licensing.php:427 inc/class-licensing.php:437
 msgid "Icon for the %s license"
 msgstr "Icône de la licence %s"
 
-#: inc/class-licensing.php:420
+#: inc/class-licensing.php:429
 msgid "This work (%1$s by %2$s) is free of known copyright restrictions."
 msgstr "Cette oeuvre (%1$s de %2$s) n&rsquo;a aucune restriction de droit d’auteur connue."
 
@@ -2474,7 +2474,7 @@ msgid "book"
 msgstr "livre"
 
 #: inc/covergenerator/class-generator.php:461
-#: inc/modules/export/prince/class-docraptor.php:117
+#: inc/modules/export/prince/class-docraptor.php:118
 msgid "Your PDF could not be retrieved."
 msgstr "Votre PDF est introuvable."
 
@@ -2757,7 +2757,7 @@ msgid "EPUB %s: "
 msgstr "EPUB %s&nbsp;:"
 
 #: inc/modules/export/epub/class-epub201.php:286
-#: inc/modules/export/xhtml/class-xhtml11.php:179
+#: inc/modules/export/xhtml/class-xhtml11.php:186
 msgid "Initializing"
 msgstr "Initialisation"
 
@@ -2770,22 +2770,22 @@ msgid "Creating container"
 msgstr "Création d&rsquo;un élément à couple de balises"
 
 #: inc/modules/export/epub/class-epub201.php:323
-#: inc/modules/export/xhtml/class-xhtml11.php:187
+#: inc/modules/export/xhtml/class-xhtml11.php:194
 msgid "Saving file to exports folder"
 msgstr "Sauvegarde du fichier dans le dossier d&rsquo;exportation"
 
 #: inc/modules/export/epub/class-epub201.php:329
-#: inc/modules/export/xhtml/class-xhtml11.php:191
+#: inc/modules/export/xhtml/class-xhtml11.php:198
 msgid "Export successful"
 msgstr "Exportation réussie"
 
 #: inc/modules/export/epub/class-epub201.php:355
-#: inc/modules/export/xhtml/class-xhtml11.php:217
+#: inc/modules/export/xhtml/class-xhtml11.php:224
 msgid "Validating file"
 msgstr "Validation du fichier"
 
 #: inc/modules/export/epub/class-epub201.php:384
-#: inc/modules/export/xhtml/class-xhtml11.php:233
+#: inc/modules/export/xhtml/class-xhtml11.php:240
 msgid "Validation successful"
 msgstr "Validation réussie"
 
@@ -2794,17 +2794,17 @@ msgid "Compiling styles"
 msgstr "Compilation des styles"
 
 #: inc/modules/export/epub/class-epub201.php:680
-#: inc/modules/export/xhtml/class-xhtml11.php:390
+#: inc/modules/export/xhtml/class-xhtml11.php:411
 msgid "Creating cover"
 msgstr "Création de la page couverture"
 
 #: inc/modules/export/epub/class-epub201.php:687
-#: inc/modules/export/xhtml/class-xhtml11.php:394
+#: inc/modules/export/xhtml/class-xhtml11.php:415
 msgid "Creating title page"
 msgstr "Création de la page titre"
 
 #: inc/modules/export/epub/class-epub201.php:691
-#: inc/modules/export/xhtml/class-xhtml11.php:398
+#: inc/modules/export/xhtml/class-xhtml11.php:419
 msgid "Creating copyright page"
 msgstr "Création de la page du droit d&rsquo;auteur"
 
@@ -2814,29 +2814,29 @@ msgstr "Exportation de la dédicace et de l&rsquo;épigraphe"
 
 #: inc/modules/export/epub/class-epub201.php:699
 #: inc/modules/export/epub/class-epub201.php:1286
-#: inc/modules/export/xhtml/class-xhtml11.php:410
-#: inc/modules/export/xhtml/class-xhtml11.php:1232
+#: inc/modules/export/xhtml/class-xhtml11.php:431
+#: inc/modules/export/xhtml/class-xhtml11.php:1283
 msgid "Exporting front matter"
 msgstr "Exportation des pages liminaires"
 
 #: inc/modules/export/epub/class-epub201.php:706
 #: inc/modules/export/epub/class-epub201.php:1454
 #: inc/modules/export/epub/class-epub201.php:1476
-#: inc/modules/export/xhtml/class-xhtml11.php:417
-#: inc/modules/export/xhtml/class-xhtml11.php:1355
-#: inc/modules/export/xhtml/class-xhtml11.php:1405
+#: inc/modules/export/xhtml/class-xhtml11.php:438
+#: inc/modules/export/xhtml/class-xhtml11.php:1407
+#: inc/modules/export/xhtml/class-xhtml11.php:1458
 msgid "Exporting parts and chapters"
 msgstr "Exportation des parties et des chapitres"
 
 #: inc/modules/export/epub/class-epub201.php:710
 #: inc/modules/export/epub/class-epub201.php:1715
-#: inc/modules/export/xhtml/class-xhtml11.php:421
-#: inc/modules/export/xhtml/class-xhtml11.php:1531
+#: inc/modules/export/xhtml/class-xhtml11.php:442
+#: inc/modules/export/xhtml/class-xhtml11.php:1585
 msgid "Exporting back matter"
 msgstr "Exportation des parties annexes"
 
 #: inc/modules/export/epub/class-epub201.php:715
-#: inc/modules/export/xhtml/class-xhtml11.php:406
+#: inc/modules/export/xhtml/class-xhtml11.php:427
 msgid "Creating table of contents"
 msgstr "Création de la table des matières"
 
@@ -2858,7 +2858,7 @@ msgstr "Table des matières"
 
 #: inc/modules/export/epub/class-epub201.php:1837
 #: inc/modules/export/htmlbook/class-htmlbook.php:989
-#: inc/modules/export/xhtml/class-xhtml11.php:1064
+#: inc/modules/export/xhtml/class-xhtml11.php:1115
 msgid "Contents"
 msgstr "Table des matières"
 
@@ -2869,7 +2869,7 @@ msgstr "Rédigé par&nbsp;:"
 
 #: inc/modules/export/htmlbook/class-htmlbook.php:193
 #: inc/modules/export/wordpress/class-wxr.php:81
-#: inc/modules/export/xhtml/class-xhtml11.php:265
+#: inc/modules/export/xhtml/class-xhtml11.php:272
 msgid "Invalid permission error"
 msgstr "Erreur d&rsquo;autorisation invalide"
 
@@ -2975,29 +2975,29 @@ msgstr "épinglé"
 msgid "unpinned"
 msgstr "retiré des épingles"
 
-#: inc/modules/export/prince/class-pdf.php:281
+#: inc/modules/export/prince/class-pdf.php:286
 msgid ""
 "This book was produced with Pressbooks (https://pressbooks.com) and rendered"
 " with Prince."
 msgstr "Ce livre a été crée avec Pressbooks (https://pressbooks.com) et converti par Prince."
 
-#: inc/modules/export/xhtml/class-xhtml11.php:153
+#: inc/modules/export/xhtml/class-xhtml11.php:160
 msgid "XHTML: "
 msgstr "XHTML&nbsp;:"
 
-#: inc/modules/export/xhtml/class-xhtml11.php:382
+#: inc/modules/export/xhtml/class-xhtml11.php:403
 msgid "Creating before title page"
 msgstr "Créer avant la page titre"
 
-#: inc/modules/export/xhtml/class-xhtml11.php:386
+#: inc/modules/export/xhtml/class-xhtml11.php:407
 msgid "Creating half title page"
 msgstr "Création de la page de faux-titre"
 
-#: inc/modules/export/xhtml/class-xhtml11.php:402
+#: inc/modules/export/xhtml/class-xhtml11.php:423
 msgid "Creating dedication and epigraph"
 msgstr "Création de la dédicace et de l&rsquo;épigraphe"
 
-#: inc/modules/export/xhtml/class-xhtml11.php:513
+#: inc/modules/export/xhtml/class-xhtml11.php:537
 msgid "Notes"
 msgstr "Notes"
 
