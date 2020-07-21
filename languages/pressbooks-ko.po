@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
-"POT-Creation-Date: 2020-07-07T15:16:47+00:00\n"
+"POT-Creation-Date: 2020-07-20T21:12:58+00:00\n"
 "PO-Revision-Date: 2020-05-26 21:05+0000\n"
 "Last-Translator: Ho Man Chan <homan@pressbooks.com>\n"
 "Language-Team: Korean (http://www.transifex.com/pressbooks/pressbooks/language/ko/)\n"
@@ -1343,13 +1343,13 @@ msgstr ""
 msgid "Help translate Pressbooks into your language!"
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:350 inc/class-licensing.php:297
+#: inc/admin/metaboxes/namespace.php:350 inc/class-licensing.php:306
 #: inc/modules/export/epub/class-epub201.php:1135
 #: inc/modules/export/epub/class-epub201.php:1161
 #: inc/modules/export/epub/templates/epub3/opf.php:95
 #: inc/modules/export/epub/templates/epub201/opf.php:88
 #: inc/modules/export/htmlbook/class-htmlbook.php:863
-#: inc/modules/export/xhtml/class-xhtml11.php:992
+#: inc/modules/export/xhtml/class-xhtml11.php:1042
 msgid "Copyright"
 msgstr "저작권"
 
@@ -1785,7 +1785,7 @@ msgstr ""
 msgid "ID offset, overrides page."
 msgstr ""
 
-#: inc/api/endpoints/controller/class-metadata.php:446
+#: inc/api/endpoints/controller/class-metadata.php:452
 #: inc/api/endpoints/controller/class-sectionmetadata.php:423
 msgid ""
 "URL of a reference Web page that unambiguously indicates the item's "
@@ -2083,106 +2083,106 @@ msgstr ""
 msgid "Your %1$s font could not be downloaded from %2$s."
 msgstr ""
 
-#: inc/class-licensing.php:55
+#: inc/class-licensing.php:56
 msgid "Public Domain"
 msgstr ""
 
-#: inc/class-licensing.php:64
+#: inc/class-licensing.php:66
 msgid "CC0 (Creative Commons Zero)"
 msgstr ""
 
-#: inc/class-licensing.php:73
+#: inc/class-licensing.php:76
 msgid "CC BY (Attribution)"
 msgstr ""
 
-#: inc/class-licensing.php:74
+#: inc/class-licensing.php:77
 msgid "Creative Commons Attribution 4.0 International License"
 msgstr ""
 
-#: inc/class-licensing.php:83
+#: inc/class-licensing.php:87
 msgid "CC BY-SA (Attribution ShareAlike)"
 msgstr ""
 
-#: inc/class-licensing.php:84
+#: inc/class-licensing.php:88
 msgid "Creative Commons Attribution-ShareAlike 4.0 International License"
 msgstr ""
 
-#: inc/class-licensing.php:93
+#: inc/class-licensing.php:98
 msgid "CC BY-ND (Attribution NoDerivatives)"
 msgstr ""
 
-#: inc/class-licensing.php:94
+#: inc/class-licensing.php:99
 msgid "Creative Commons Attribution-NoDerivatives 4.0 International License"
 msgstr ""
 
-#: inc/class-licensing.php:103
+#: inc/class-licensing.php:109
 msgid "CC BY-NC (Attribution NonCommercial)"
 msgstr ""
 
-#: inc/class-licensing.php:104
+#: inc/class-licensing.php:110
 msgid "Creative Commons Attribution-NonCommercial 4.0 International License"
 msgstr ""
 
-#: inc/class-licensing.php:113
+#: inc/class-licensing.php:120
 msgid "CC BY-NC-SA (Attribution NonCommercial ShareAlike)"
 msgstr ""
 
-#: inc/class-licensing.php:114
+#: inc/class-licensing.php:121
 msgid ""
 "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International "
 "License"
 msgstr ""
 
-#: inc/class-licensing.php:123
+#: inc/class-licensing.php:131
 msgid "CC BY-NC-ND (Attribution NonCommercial NoDerivatives)"
 msgstr ""
 
-#: inc/class-licensing.php:124
+#: inc/class-licensing.php:132
 msgid ""
 "Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International "
 "License"
 msgstr ""
 
-#: inc/class-licensing.php:129 inc/class-licensing.php:302
+#: inc/class-licensing.php:138 inc/class-licensing.php:311
 msgid "All Rights Reserved"
 msgstr "All Rights Reserved"
 
-#: inc/class-licensing.php:195
+#: inc/class-licensing.php:204
 msgid ""
 "$title is deprecated. Method will automatically determine title from "
 "licenses"
 msgstr ""
 
-#: inc/class-licensing.php:299 inc/class-styles.php:789
+#: inc/class-licensing.php:308 inc/class-styles.php:789
 #: inc/modules/export/epub/class-epub201.php:1144
 #: inc/modules/export/epub/templates/epub3/opf.php:104
 #: inc/modules/export/epub/templates/epub201/opf.php:97
 #: inc/modules/export/htmlbook/class-htmlbook.php:872
-#: inc/modules/export/xhtml/class-xhtml11.php:1001
+#: inc/modules/export/xhtml/class-xhtml11.php:1051
 msgid "by"
 msgstr "by"
 
-#: inc/class-licensing.php:358
+#: inc/class-licensing.php:367
 msgid "except where otherwise noted."
 msgstr "별도로 언급된 경우를 제외하고."
 
-#: inc/class-licensing.php:385 inc/class-licensing.php:409
+#: inc/class-licensing.php:394 inc/class-licensing.php:418
 msgid "%1$s Copyright &copy;%2$s by %3$s. All Rights Reserved."
 msgstr ""
 
-#: inc/class-licensing.php:397
+#: inc/class-licensing.php:406
 msgid "Icon for the %s"
 msgstr ""
 
-#: inc/class-licensing.php:399
+#: inc/class-licensing.php:408
 msgid "%1$s by %2$s is licensed under a %3$s, except where otherwise noted."
 msgstr ""
 
-#: inc/class-licensing.php:418 inc/class-licensing.php:428
+#: inc/class-licensing.php:427 inc/class-licensing.php:437
 msgid "Icon for the %s license"
 msgstr ""
 
-#: inc/class-licensing.php:420
+#: inc/class-licensing.php:429
 msgid "This work (%1$s by %2$s) is free of known copyright restrictions."
 msgstr ""
 
@@ -2449,7 +2449,7 @@ msgid "book"
 msgstr "책"
 
 #: inc/covergenerator/class-generator.php:461
-#: inc/modules/export/prince/class-docraptor.php:117
+#: inc/modules/export/prince/class-docraptor.php:118
 msgid "Your PDF could not be retrieved."
 msgstr ""
 
@@ -2732,7 +2732,7 @@ msgid "EPUB %s: "
 msgstr ""
 
 #: inc/modules/export/epub/class-epub201.php:286
-#: inc/modules/export/xhtml/class-xhtml11.php:179
+#: inc/modules/export/xhtml/class-xhtml11.php:186
 msgid "Initializing"
 msgstr ""
 
@@ -2745,22 +2745,22 @@ msgid "Creating container"
 msgstr ""
 
 #: inc/modules/export/epub/class-epub201.php:323
-#: inc/modules/export/xhtml/class-xhtml11.php:187
+#: inc/modules/export/xhtml/class-xhtml11.php:194
 msgid "Saving file to exports folder"
 msgstr ""
 
 #: inc/modules/export/epub/class-epub201.php:329
-#: inc/modules/export/xhtml/class-xhtml11.php:191
+#: inc/modules/export/xhtml/class-xhtml11.php:198
 msgid "Export successful"
 msgstr ""
 
 #: inc/modules/export/epub/class-epub201.php:355
-#: inc/modules/export/xhtml/class-xhtml11.php:217
+#: inc/modules/export/xhtml/class-xhtml11.php:224
 msgid "Validating file"
 msgstr ""
 
 #: inc/modules/export/epub/class-epub201.php:384
-#: inc/modules/export/xhtml/class-xhtml11.php:233
+#: inc/modules/export/xhtml/class-xhtml11.php:240
 msgid "Validation successful"
 msgstr ""
 
@@ -2769,17 +2769,17 @@ msgid "Compiling styles"
 msgstr ""
 
 #: inc/modules/export/epub/class-epub201.php:680
-#: inc/modules/export/xhtml/class-xhtml11.php:390
+#: inc/modules/export/xhtml/class-xhtml11.php:411
 msgid "Creating cover"
 msgstr ""
 
 #: inc/modules/export/epub/class-epub201.php:687
-#: inc/modules/export/xhtml/class-xhtml11.php:394
+#: inc/modules/export/xhtml/class-xhtml11.php:415
 msgid "Creating title page"
 msgstr ""
 
 #: inc/modules/export/epub/class-epub201.php:691
-#: inc/modules/export/xhtml/class-xhtml11.php:398
+#: inc/modules/export/xhtml/class-xhtml11.php:419
 msgid "Creating copyright page"
 msgstr ""
 
@@ -2789,29 +2789,29 @@ msgstr ""
 
 #: inc/modules/export/epub/class-epub201.php:699
 #: inc/modules/export/epub/class-epub201.php:1286
-#: inc/modules/export/xhtml/class-xhtml11.php:410
-#: inc/modules/export/xhtml/class-xhtml11.php:1232
+#: inc/modules/export/xhtml/class-xhtml11.php:431
+#: inc/modules/export/xhtml/class-xhtml11.php:1283
 msgid "Exporting front matter"
 msgstr ""
 
 #: inc/modules/export/epub/class-epub201.php:706
 #: inc/modules/export/epub/class-epub201.php:1454
 #: inc/modules/export/epub/class-epub201.php:1476
-#: inc/modules/export/xhtml/class-xhtml11.php:417
-#: inc/modules/export/xhtml/class-xhtml11.php:1355
-#: inc/modules/export/xhtml/class-xhtml11.php:1405
+#: inc/modules/export/xhtml/class-xhtml11.php:438
+#: inc/modules/export/xhtml/class-xhtml11.php:1407
+#: inc/modules/export/xhtml/class-xhtml11.php:1458
 msgid "Exporting parts and chapters"
 msgstr ""
 
 #: inc/modules/export/epub/class-epub201.php:710
 #: inc/modules/export/epub/class-epub201.php:1715
-#: inc/modules/export/xhtml/class-xhtml11.php:421
-#: inc/modules/export/xhtml/class-xhtml11.php:1531
+#: inc/modules/export/xhtml/class-xhtml11.php:442
+#: inc/modules/export/xhtml/class-xhtml11.php:1585
 msgid "Exporting back matter"
 msgstr ""
 
 #: inc/modules/export/epub/class-epub201.php:715
-#: inc/modules/export/xhtml/class-xhtml11.php:406
+#: inc/modules/export/xhtml/class-xhtml11.php:427
 msgid "Creating table of contents"
 msgstr ""
 
@@ -2833,7 +2833,7 @@ msgstr "목차"
 
 #: inc/modules/export/epub/class-epub201.php:1837
 #: inc/modules/export/htmlbook/class-htmlbook.php:989
-#: inc/modules/export/xhtml/class-xhtml11.php:1064
+#: inc/modules/export/xhtml/class-xhtml11.php:1115
 msgid "Contents"
 msgstr "내용"
 
@@ -2844,7 +2844,7 @@ msgstr ""
 
 #: inc/modules/export/htmlbook/class-htmlbook.php:193
 #: inc/modules/export/wordpress/class-wxr.php:81
-#: inc/modules/export/xhtml/class-xhtml11.php:265
+#: inc/modules/export/xhtml/class-xhtml11.php:272
 msgid "Invalid permission error"
 msgstr "잘못된 권한 오류"
 
@@ -2950,29 +2950,29 @@ msgstr ""
 msgid "unpinned"
 msgstr ""
 
-#: inc/modules/export/prince/class-pdf.php:281
+#: inc/modules/export/prince/class-pdf.php:286
 msgid ""
 "This book was produced with Pressbooks (https://pressbooks.com) and rendered"
 " with Prince."
 msgstr ""
 
-#: inc/modules/export/xhtml/class-xhtml11.php:153
+#: inc/modules/export/xhtml/class-xhtml11.php:160
 msgid "XHTML: "
 msgstr ""
 
-#: inc/modules/export/xhtml/class-xhtml11.php:382
+#: inc/modules/export/xhtml/class-xhtml11.php:403
 msgid "Creating before title page"
 msgstr ""
 
-#: inc/modules/export/xhtml/class-xhtml11.php:386
+#: inc/modules/export/xhtml/class-xhtml11.php:407
 msgid "Creating half title page"
 msgstr ""
 
-#: inc/modules/export/xhtml/class-xhtml11.php:402
+#: inc/modules/export/xhtml/class-xhtml11.php:423
 msgid "Creating dedication and epigraph"
 msgstr ""
 
-#: inc/modules/export/xhtml/class-xhtml11.php:513
+#: inc/modules/export/xhtml/class-xhtml11.php:537
 msgid "Notes"
 msgstr "주의"
 
