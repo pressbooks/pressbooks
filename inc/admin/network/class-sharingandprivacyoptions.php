@@ -169,6 +169,11 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 					} else {
 						$options = $this->sanitize( [] ); // Get sanitized defaults
 					}
+
+					if ( $this->options['network_directory_excluded'] !== $options['network_directory_excluded'] ) {
+						$this->updateBooksLastUpdatedDate();
+					}
+
 					update_site_option( $_option, $options );
 					?>
 					<div id="message" role="status" class="updated notice is-dismissible"><p><strong><?php _e( 'Settings saved.', 'pressbooks' ); ?></strong></div>
@@ -185,6 +190,21 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 			</form>
 		</div>
 		<?php
+	}
+
+	/**
+	 * Update 'last_update' blog meta for all books
+	 */
+	public function updateBooksLastUpdatedDate() {
+		$books = get_sites();
+
+		foreach ( $books as $book ) {
+			if ( '1' === $book->blog_id ) {
+				continue;
+			}
+
+			update_blog_details( $book->blog_id, [ 'last_updated' => current_time( 'mysql', true ) ] );
+		}
 	}
 
 	/**
