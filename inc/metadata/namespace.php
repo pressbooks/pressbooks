@@ -188,10 +188,11 @@ function has_expanded_metadata() {
  * @since 4.1
  *
  * @param array $book_information
+ * @param bool  $network_excluded_directory
  *
  * @return array
  */
-function book_information_to_schema( $book_information ) {
+function book_information_to_schema( $book_information, $network_excluded_directory = false ) {
 	$book_schema = [];
 
 	$book_schema['@context'] = 'http://schema.org';
@@ -215,6 +216,7 @@ function book_information_to_schema( $book_information ) {
 		'pb_storage_size' => 'storageSize',
 		'pb_h5p_activities' => 'h5pActivities',
 		'pb_in_catalog' => 'inCatalog',
+		'pb_book_directory_excluded' => 'bookDirectoryExcluded',
 	];
 
 	foreach ( $mapped_properties as $old => $new ) {
@@ -393,6 +395,14 @@ function book_information_to_schema( $book_information ) {
 
 	if ( isset( $book_information['pb_in_catalog'] ) ) {
 		$book_schema['inCatalog'] = $book_information['pb_in_catalog'] === '1';
+	}
+
+	if ( true === $network_excluded_directory ) {
+		$book_schema['bookDirectoryExcluded'] = $network_excluded_directory;
+	} elseif ( isset( $book_schema['bookDirectoryExcluded'] ) ) {
+		$book_schema['bookDirectoryExcluded'] = $book_information['pb_book_directory_excluded'] === '1';
+	} else {
+		$book_schema['bookDirectoryExcluded'] = false;
 	}
 
 	if ( isset( $book_information['pb_language'] ) ) {

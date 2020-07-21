@@ -3,6 +3,7 @@
 namespace Pressbooks\Api\Endpoints\Controller;
 
 use function \Pressbooks\Metadata\book_information_to_schema;
+use Pressbooks\Admin\Network\SharingAndPrivacyOptions;
 use Pressbooks\DataCollector\Book as BookDataCollector;
 
 class Books extends \WP_REST_Controller {
@@ -40,14 +41,20 @@ class Books extends \WP_REST_Controller {
 	protected $bookDataCollector;
 
 	/**
+	 * @var $networkExcludedDirectory
+	 */
+	protected $networkExcludedDirectory = false;
+
+	/**
 	 * Books
 	 */
 	public function __construct() {
 		$this->namespace = 'pressbooks/v2';
 		$this->rest_base = 'books';
-
 		$this->limit = apply_filters( 'pb_api_books_limit', 10 );
-
+		$network_options = get_site_option( SharingAndPrivacyOptions::getSlug() );
+		$this->networkExcludedDirectory = isset( $network_options[ SharingAndPrivacyOptions::NETWORK_DIRECTORY_EXCLUDED ] )
+			? (bool) $network_options[ SharingAndPrivacyOptions::NETWORK_DIRECTORY_EXCLUDED ] : false;
 		$this->metadata = new Metadata();
 		$this->bookDataCollector = BookDataCollector::init();
 	}
@@ -233,7 +240,6 @@ class Books extends \WP_REST_Controller {
 	 * @return array
 	 */
 	protected function renderBook( $id ) {
-
 		$metadata_info_array = $this->bookDataCollector->get( $id, BookDataCollector::BOOK_INFORMATION_ARRAY );
 		$site_name = get_site_option( 'site_name' );
 
@@ -243,15 +249,12 @@ class Books extends \WP_REST_Controller {
 			BookDataCollector::H5P_ACTIVITIES,
 			BookDataCollector::IN_CATALOG,
 			BookDataCollector::BOOK_URL,
+			BookDataCollector::BOOK_DIRECTORY_EXCLUDED,
 		];
 		$metadata_blog_meta = $this->bookDataCollector->getMultipleMeta( $id, $keys );
 
 		$metadata = array_merge( $metadata_info_array, $metadata_blog_meta, [ 'site_name' => $site_name ] );
-		if ( is_array( $metadata ) && ! empty( $metadata ) ) {
-			$metadata = book_information_to_schema( $metadata );
-		} else {
-			$metadata = [];
-		}
+		$metadata = ( is_array( $metadata ) && ! empty( $metadata ) ) ? book_information_to_schema( $metadata, $this->networkExcludedDirectory ) : [];
 
 		$item = [
 			'id' => $id,
@@ -282,6 +285,7 @@ class Books extends \WP_REST_Controller {
 	protected function listBooks( $request ) {
 		$results = [];
 		$book_ids = $this->listBookIds( $request );
+
 		foreach ( $book_ids as $id ) {
 			$response = rest_ensure_response( $this->renderBook( $id ) );
 			$response->add_links( $this->linkCollector );

@@ -9,6 +9,9 @@ namespace Pressbooks\Admin\Network;
 use function Pressbooks\Admin\NetworkManagers\is_restricted;
 
 class SharingAndPrivacyOptions extends \Pressbooks\Options {
+
+	const NETWORK_DIRECTORY_EXCLUDED = 'network_directory_excluded';
+
 	/**
 	 * The value for *site* option: pressbooks_sharingandprivacy_options_version
 	 *
@@ -109,6 +112,18 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 			[
 				'class' => is_restricted() ? 'hidden' : '',
 				__( 'Allow users to produce Common Cartridge exports with simple Web Links.', 'pressbooks' ),
+			]
+		);
+
+		add_settings_field(
+			self::NETWORK_DIRECTORY_EXCLUDED,
+			__( 'Book directory', 'pressbooks' ),
+			[ $this, 'renderNetworkExcludeNonCataloguedPublicBooks' ],
+			$_page,
+			$_section,
+			[
+				'class' => is_restricted() ? 'hidden' : '',
+				__( 'Exclude non-catalogued public books from Pressbooks Directory.', 'pressbooks' ),
 			]
 		);
 
@@ -268,6 +283,24 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	}
 
 	/**
+	 * Render the enable_thincc_weblinks checkbox.
+	 *
+	 * @param array $args
+	 */
+	function renderNetworkExcludeNonCataloguedPublicBooks( $args ) {
+		$options = get_site_option( $this->getSlug() );
+		$this->renderCheckbox(
+			[
+				'id' => self::NETWORK_DIRECTORY_EXCLUDED,
+				'name' => $this->getSlug(),
+				'option' => self::NETWORK_DIRECTORY_EXCLUDED,
+				'value' => ( isset( $options[ self::NETWORK_DIRECTORY_EXCLUDED ] ) ) ? $options[ self::NETWORK_DIRECTORY_EXCLUDED ] : '',
+				'label' => $args[0],
+			]
+		);
+	}
+
+	/**
 	 * Render the iframe_whitelist textarea.
 	 *
 	 * @param $args
@@ -311,11 +344,12 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	 */
 	static function getDefaults() {
 		return [
-			'allow_redistribution' => 0,
-			'enable_network_api' => 1,
-			'enable_cloning' => 1,
-			'enable_thincc_weblinks' => 1,
-			'iframe_whitelist' => '',
+			'allow_redistribution'           => 0,
+			'enable_network_api'             => 1,
+			'enable_cloning'                 => 1,
+			'enable_thincc_weblinks'         => 1,
+			'iframe_whitelist'               => '',
+			self::NETWORK_DIRECTORY_EXCLUDED => 0,
 		];
 	}
 
@@ -330,6 +364,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 			'enable_network_api',
 			'enable_cloning',
 			'enable_thincc_weblinks',
+			self::NETWORK_DIRECTORY_EXCLUDED,
 		];
 	}
 
