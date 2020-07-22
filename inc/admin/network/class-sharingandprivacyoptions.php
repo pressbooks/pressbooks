@@ -9,6 +9,9 @@ namespace Pressbooks\Admin\Network;
 use function Pressbooks\Admin\NetworkManagers\is_restricted;
 
 class SharingAndPrivacyOptions extends \Pressbooks\Options {
+
+	const NETWORK_DIRECTORY_EXCLUDED = 'network_directory_excluded';
+
 	/**
 	 * The value for *site* option: pressbooks_sharingandprivacy_options_version
 	 *
@@ -113,6 +116,18 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 		);
 
 		add_settings_field(
+			self::NETWORK_DIRECTORY_EXCLUDED,
+			__( 'Book directory', 'pressbooks' ),
+			[ $this, 'renderNetworkExcludeNonCataloguedPublicBooks' ],
+			$_page,
+			$_section,
+			[
+				'class' => is_restricted() ? 'hidden' : '',
+				__( 'Exclude non-catalogued public books from Pressbooks Directory.', 'pressbooks' ),
+			]
+		);
+
+		add_settings_field(
 			'iframe_whitelist',
 			__( 'Iframe Whitelist', 'pressbooks' ),
 			[ $this, 'renderIframesWhiteList' ],
@@ -154,6 +169,11 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 					} else {
 						$options = $this->sanitize( [] ); // Get sanitized defaults
 					}
+
+					if ( $this->options['network_directory_excluded'] !== $options['network_directory_excluded'] ) {
+						$this->updateBooksLastUpdatedDate();
+					}
+
 					update_site_option( $_option, $options );
 					?>
 					<div id="message" role="status" class="updated notice is-dismissible"><p><strong><?php _e( 'Settings saved.', 'pressbooks' ); ?></strong></div>
@@ -170,6 +190,21 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 			</form>
 		</div>
 		<?php
+	}
+
+	/**
+	 * Update 'last_update' blog meta for all books
+	 */
+	public function updateBooksLastUpdatedDate() {
+		$books = get_sites();
+
+		foreach ( $books as $book ) {
+			if ( '1' === $book->blog_id ) {
+				continue;
+			}
+
+			update_blog_details( $book->blog_id, [ 'last_updated' => current_time( 'mysql', true ) ] );
+		}
 	}
 
 	/**
@@ -268,6 +303,24 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	}
 
 	/**
+	 * Render the enable_thincc_weblinks checkbox.
+	 *
+	 * @param array $args
+	 */
+	function renderNetworkExcludeNonCataloguedPublicBooks( $args ) {
+		$options = get_site_option( $this->getSlug() );
+		$this->renderCheckbox(
+			[
+				'id' => self::NETWORK_DIRECTORY_EXCLUDED,
+				'name' => $this->getSlug(),
+				'option' => self::NETWORK_DIRECTORY_EXCLUDED,
+				'value' => ( isset( $options[ self::NETWORK_DIRECTORY_EXCLUDED ] ) ) ? $options[ self::NETWORK_DIRECTORY_EXCLUDED ] : '',
+				'label' => $args[0],
+			]
+		);
+	}
+
+	/**
 	 * Render the iframe_whitelist textarea.
 	 *
 	 * @param $args
@@ -311,11 +364,12 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	 */
 	static function getDefaults() {
 		return [
-			'allow_redistribution' => 0,
-			'enable_network_api' => 1,
-			'enable_cloning' => 1,
-			'enable_thincc_weblinks' => 1,
-			'iframe_whitelist' => '',
+			'allow_redistribution'           => 0,
+			'enable_network_api'             => 1,
+			'enable_cloning'                 => 1,
+			'enable_thincc_weblinks'         => 1,
+			'iframe_whitelist'               => '',
+			self::NETWORK_DIRECTORY_EXCLUDED => 0,
 		];
 	}
 
@@ -330,6 +384,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 			'enable_network_api',
 			'enable_cloning',
 			'enable_thincc_weblinks',
+			self::NETWORK_DIRECTORY_EXCLUDED,
 		];
 	}
 

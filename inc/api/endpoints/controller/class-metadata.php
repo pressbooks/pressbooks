@@ -477,6 +477,12 @@ class Metadata extends \WP_REST_Controller {
 					'context' => [ 'view' ],
 					'readonly' => true,
 				],
+				'bookDirectoryExcluded' => [
+					'type' => 'boolean',
+					'description' => __( 'Is excluded from book directory?' ),
+					'context' => [ 'view' ],
+					'readonly' => true,
+				],
 				'language' => [
 					'type' => 'object',
 					'description' => __( 'The language details of the content, expressed as one of the language codes from the IETF BCP 47 standard.' ),

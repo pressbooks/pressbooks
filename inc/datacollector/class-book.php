@@ -76,6 +76,8 @@ class Book {
 
 	const LTI_GRADING_ENABLED = 'pb_lti_grading_enabled';
 
+	const BOOK_DIRECTORY_EXCLUDED = 'pb_book_directory_excluded';
+
 	/**
 	 * @var Book
 	 */

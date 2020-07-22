@@ -39,6 +39,7 @@ class ApiTest extends \WP_UnitTestCase {
 		$this->assertArrayHasKey( 'storageSize', $data['metadata'] );
 		$this->assertArrayHasKey( 'h5pActivities', $data['metadata'] );
 		$this->assertArrayHasKey( 'inCatalog', $data['metadata'] );
+		$this->assertArrayHasKey( 'bookDirectoryExcluded', $data['metadata'] );
 		$this->assertArrayHasKey( 'license', $data['metadata'] );
 		$this->assertArrayHasKey( 'code', $data['metadata']['license'] );
 
