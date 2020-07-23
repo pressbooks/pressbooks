@@ -51,4 +51,18 @@ class GdprTest extends \WP_UnitTestCase {
 		$this->assertTrue( $result );
 	}
 
+	/**
+	 * @group privacy
+	 */
+	public function test_namespace() {
+		$last_updated_before = get_blog_details()->last_updated;
+		update_site_option( 'pressbooks_sharingandprivacy_options', [ 'network_directory_excluded' => 0 ] );
+		add_action( 'admin_init', '\Pressbooks\Admin\Laf\privacy_settings_init' );
+		@do_action( 'admin_init' );
+		do_action( 'update_option_pb_book_directory_excluded', '0', '1' );
+		$last_updated_after = get_blog_details()->last_updated;
+
+		$this->assertNotEquals( $last_updated_before, $last_updated_after );
+	}
+
 }
