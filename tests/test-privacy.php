@@ -1,5 +1,8 @@
 <?php
 
+use Pressbooks\DataCollector\Book as DataCollector;
+use function Pressbooks\Admin\Laf\book_directory_excluded_callback;
+
 class GdprTest extends \WP_UnitTestCase {
 
 
@@ -62,7 +65,19 @@ class GdprTest extends \WP_UnitTestCase {
 		do_action( 'update_option_pb_book_directory_excluded', '0', '1' );
 		$last_updated_after = get_blog_details()->last_updated;
 
+		$this->assertEquals( get_site_meta( get_current_blog_id(), DataCollector::BOOK_DIRECTORY_EXCLUDED, true ), '1' );
 		$this->assertNotEquals( $last_updated_before, $last_updated_after );
 	}
 
+	/**
+	 * @group privacy
+	 */
+	public function test_bookDirectoryExcludedCallback() {
+		ob_start();
+		book_directory_excluded_callback( [] );
+		$buffer = ob_get_clean();
+		$html_group = '<input type="radio" id="exclude-from-directory" name="pb_book_directory_excluded" value="1" /><label for="exclude-from-directory"> Yes. Exclude this book from the Pressbooks directory.</label><br /><input type="radio" id="include-in-directory" name="pb_book_directory_excluded" value="0" checked="checked" /><label for="include-in-directory"> No. I want this book to be listed in the Pressbooks directory.</label>';
+
+		$this->assertEquals( $buffer, $html_group );
+	}
 }
