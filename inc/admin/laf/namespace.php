@@ -17,6 +17,7 @@ use Pressbooks\Admin\Network\SharingAndPrivacyOptions;
 use Pressbooks\Admin\PublishOptions;
 use Pressbooks\Book;
 use Pressbooks\Cloner\Cloner;
+use Pressbooks\DataCollector\Book as DataCollector;
 use Pressbooks\Metadata;
 
 /**
@@ -1193,6 +1194,31 @@ function privacy_settings_init() {
 			__NAMESPACE__ . '\privacy_pbt_redistribute_settings_sanitize'
 		);
 	}
+
+	if ( isset( $sharingandprivacy['network_directory_excluded'] ) && 0 === $sharingandprivacy['network_directory_excluded'] ) {
+		add_action(
+			'update_option_pb_book_directory_excluded', function( $old_value, $updated_value ) {
+				$current_book_id = get_current_blog_id();
+
+				if ( update_site_meta( $current_book_id, DataCollector::BOOK_DIRECTORY_EXCLUDED, $updated_value ) ) {
+					update_blog_details( $current_book_id, [ 'last_updated' => current_time( 'mysql', true ) ] );
+				}
+			}, 10, 2
+		);
+
+		add_settings_field(
+			'pb_book_directory_excluded',
+			__( 'Pressbooks Directory', 'pressbooks' ),
+			__NAMESPACE__ . '\book_directory_excluded_callback',
+			'privacy_settings',
+			'privacy_settings_section'
+		);
+		register_setting(
+			'privacy_settings',
+			'pb_book_directory_excluded',
+			__NAMESPACE__ . '\book_directory_excluded_sanitize'
+		);
+	}
 }
 
 
@@ -1305,6 +1331,28 @@ function privacy_latest_files_public_callback( $args ) {
 }
 
 /**
+ * Sharing settings, exclude book from directory field callback
+ *
+ * @param $args
+ */
+function book_directory_excluded_callback( $args ) {
+	$exclude_book = get_option( 'pb_book_directory_excluded', 0 );
+	$html = '<input type="radio" id="exclude-from-directory" name="pb_book_directory_excluded" value="1" ';
+	if ( $exclude_book ) {
+		$html .= 'checked="checked" ';
+	}
+	$html .= '/>';
+	$html .= '<label for="exclude-from-directory"> ' . __( 'Yes. Exclude this book from the Pressbooks directory.', 'pressbooks' ) . '</label><br />';
+	$html .= '<input type="radio" id="include-in-directory" name="pb_book_directory_excluded" value="0" ';
+	if ( ! $exclude_book ) {
+		$html .= 'checked="checked" ';
+	}
+	$html .= '/>';
+	$html .= '<label for="include-in-directory"> ' . __( 'No. I want this book to be listed in the Pressbooks directory.', 'pressbooks' ) . '</label>';
+	echo $html;
+}
+
+/**
  * Privacy settings, blog_public field sanitization
  *
  * @param $input
@@ -1349,6 +1397,18 @@ function privacy_pbt_redistribute_settings_sanitize( $input ) {
 	$output['latest_files_public'] = absint( $input['latest_files_public'] );
 	return $output;
 }
+
+/**
+ * Privacy settings, pb_book_directory_excluded field sanitization
+ *
+ * @param $input
+ *
+ * @return string
+ */
+function book_directory_excluded_sanitize( $input ) {
+	return absint( $input );
+}
+
 
 /**
  * Display Privacy settings
