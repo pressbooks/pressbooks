@@ -137,7 +137,7 @@ add_filter( 'plupload_default_params', '\Pressbooks\Media\force_attach_media' );
 
 add_filter( 'upload_mimes', '\Pressbooks\Media\add_mime_types' );
 add_filter( 'upload_mimes', '\Pressbooks\Media\add_lord_of_the_files_types', 11 );
-add_filter( 'blobmimes_get_mime_aliases', '\Pressbooks\Media\get_lord_of_the_files_mime_aliases', 10, 2 );
+add_filter( 'lotf_get_mime_aliases', '\Pressbooks\Media\get_lord_of_the_files_mime_aliases', 10, 2 );
 add_action( 'plugins_loaded', [ '\Pressbooks\Interactive\Content', 'init' ] );
 
 // -------------------------------------------------------------------------------------------------------------------
