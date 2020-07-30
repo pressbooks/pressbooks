@@ -76,12 +76,11 @@ function unknown_upload_types( $existing_mimes ) {
  */
 function add_lord_of_the_files_types( $existing_mimes = [] ) {
 	$upload_filetype_mimes = [];
-	$lord_of_the_files_activated = ( is_plugin_active_for_network( 'blob-mimes/index.php' ) || is_plugin_active( 'blob-mimes/h5p.php' ) ) && method_exists( '\blobfolio\wp\bm\mime', 'get_aliases' );
+	$lord_of_the_files_activated = ( is_plugin_active_for_network( 'blob-mimes/index.php' ) || is_plugin_active( 'blob-mimes/h5p.php' ) ) && class_exists( 'blobfolio\\wp\\bm\\mime\\aliases' );
 	if ( $lord_of_the_files_activated ) {
 		foreach ( unknown_upload_types( $existing_mimes ) as $k => $v ) {
-			$extra_mime_alias = \blobfolio\wp\bm\mime::get_aliases( $k );
-			if ( $extra_mime_alias ) {
-				$upload_filetype_mimes[ $k ] = $extra_mime_alias[0]; // The first MIME entry is the official (or most conventional) media type
+			if ( isset( \blobfolio\wp\bm\mime\aliases::TYPES[$k] ) ) {
+				$upload_filetype_mimes[ $k ] = \blobfolio\wp\bm\mime\aliases::TYPES[$k][0];
 			}
 		}
 	}
