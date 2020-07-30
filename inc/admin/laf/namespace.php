@@ -1195,7 +1195,7 @@ function privacy_settings_init() {
 		);
 	}
 
-	if ( isset( $sharingandprivacy['network_directory_excluded'] ) && 0 === $sharingandprivacy['network_directory_excluded'] ) {
+	if ( ! isset( $sharingandprivacy['network_directory_excluded'] ) || 0 === $sharingandprivacy['network_directory_excluded'] ) {
 		add_action(
 			'update_option_pb_book_directory_excluded', function( $old_value, $updated_value ) {
 				$current_book_id = get_current_blog_id();
@@ -1337,18 +1337,18 @@ function privacy_latest_files_public_callback( $args ) {
  */
 function book_directory_excluded_callback( $args ) {
 	$exclude_book = get_option( 'pb_book_directory_excluded', 0 );
-	$html = '<input type="radio" id="exclude-from-directory" name="pb_book_directory_excluded" value="1" ';
-	if ( $exclude_book ) {
-		$html .= 'checked="checked" ';
-	}
-	$html .= '/>';
-	$html .= '<label for="exclude-from-directory"> ' . __( 'Yes. Exclude this book from the Pressbooks directory.', 'pressbooks' ) . '</label><br />';
-	$html .= '<input type="radio" id="include-in-directory" name="pb_book_directory_excluded" value="0" ';
+	$html = '<input type="radio" id="include-in-directory" name="pb_book_directory_excluded" value="0" ';
 	if ( ! $exclude_book ) {
 		$html .= 'checked="checked" ';
 	}
 	$html .= '/>';
-	$html .= '<label for="include-in-directory"> ' . __( 'No. I want this book to be listed in the Pressbooks directory.', 'pressbooks' ) . '</label>';
+	$html .= '<label for="include-in-directory"> ' . __( 'Yes. I want this book to be listed in the Pressbooks directory.', 'pressbooks' ) . '</label><br />';
+	$html .= '<input type="radio" id="exclude-from-directory" name="pb_book_directory_excluded" value="1" ';
+	if ( $exclude_book ) {
+		$html .= 'checked="checked" ';
+	}
+	$html .= '/>';
+	$html .= '<label for="exclude-from-directory"> ' . __( 'No. Exclude this book from the Pressbooks directory.', 'pressbooks' ) . '</label>';
 	echo $html;
 }
 
