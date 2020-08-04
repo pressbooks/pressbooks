@@ -4,7 +4,7 @@ Tags: ebooks, publishing, webbooks
 Requires at least: 5.4
 Tested up to: 5.4.2
 Requires PHP: 7.1
-Stable tag: 5.15.3
+Stable tag: 5.16.0
 License: GPL v3.0 or later
 License URI: https://github.com/pressbooks/pressbooks/blob/master/LICENSE.md
 
@@ -20,12 +20,18 @@ For installation instructions, visit [docs.pressbooks.org/installation](https://
 TK.
 
 == Changelog ==
-= 5.15.3=
+= 5.16.0=
 
-* See: https://github.com/pressbooks/pressbooks/releases/tag/5.15.3
+* See: https://github.com/pressbooks/pressbooks/releases/tag/5.16.0
 * Full release history available at: https://github.com/pressbooks/pressbooks/releases
 
 == Upgrade Notice ==
+
+= 5.16.0 =
+
+* If you are using the plugin (Lord of the Files)[https://wordpress.org/plugins/blob-mimes/] version <=1.0.0, this upgrade will break your application.
+To fix this, you would need to update Lord of the files plugin to at least 1.1.0.
+
 = 5.15.1 =
 
 * Pressbooks 5.15.1 requires PHP >= 7.1.
