@@ -28,7 +28,7 @@ function replace_network_dashboard_widgets() {
 
 	// Remove unwanted dashboard widgets
 	unset( $wp_meta_boxes['dashboard-network']['side']['core']['dashboard_primary'] );
-	
+
 	// Remove third-party widgets
 	remove_meta_box( 'dashboard_rediscache', 'dashboard-network', 'normal' );
 
@@ -84,10 +84,10 @@ function replace_dashboard_widgets() {
 			}
 		}
 	}
-	
+
 	// Remove third-party widgets
 	remove_meta_box( 'dashboard_rediscache', 'dashboard', 'normal' );
-	
+
 	// Replace with our own
 	$book_name = get_bloginfo( 'name' );
 	add_meta_box( 'pb_dashboard_widget_book', ( $book_name ? $book_name : __( 'My Book', 'pressbooks' ) ), __NAMESPACE__ . '\display_book_widget', 'dashboard', 'normal', 'high' );
