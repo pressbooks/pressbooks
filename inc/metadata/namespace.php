@@ -405,6 +405,10 @@ function book_information_to_schema( $book_information, $network_excluded_direct
 		$book_schema['bookDirectoryExcluded'] = false;
 	}
 
+	if ( isset( $book_information['last_updated'] ) ) {
+		$book_schema['lastUpdated'] = $book_information['last_updated'];
+	}
+
 	if ( isset( $book_information['pb_language'] ) ) {
 		$languages = \Pressbooks\L10n\supported_languages();
 		$language = ( array_key_exists( $book_information['pb_language'], $languages ) ) ?

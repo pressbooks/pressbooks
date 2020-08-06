@@ -241,7 +241,6 @@ class Books extends \WP_REST_Controller {
 	 */
 	protected function renderBook( $id ) {
 		$metadata_info_array = $this->bookDataCollector->get( $id, BookDataCollector::BOOK_INFORMATION_ARRAY );
-		$site_name = get_site_option( 'site_name' );
 
 		$keys = [
 			BookDataCollector::WORD_COUNT,
@@ -253,7 +252,12 @@ class Books extends \WP_REST_Controller {
 		];
 		$metadata_blog_meta = $this->bookDataCollector->getMultipleMeta( $id, $keys );
 
-		$metadata = array_merge( $metadata_info_array, $metadata_blog_meta, [ 'site_name' => $site_name ] );
+		$blog_info = [
+			'site_name' => get_site_option( 'site_name' ),
+			'last_updated' => strtotime( explode( ' ', get_blog_details()->last_updated )[0] ),
+		];
+
+		$metadata = array_merge( $metadata_info_array, $metadata_blog_meta, $blog_info );
 		$metadata = ( is_array( $metadata ) && ! empty( $metadata ) ) ? book_information_to_schema( $metadata, $this->networkExcludedDirectory ) : [];
 
 		$item = [
