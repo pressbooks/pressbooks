@@ -562,7 +562,7 @@ class Xhtml11 extends ExportGenerator {
 		foreach ( $this->footnotes[ $id ] as $k => $footnote ) {
 			$key = $k + 1;
 			$id_attr = $id . '-' . $key;
-			$e .= "<div id='$id_attr'>$footnote</div>";
+			$e .= "<div id='$id_attr'>" . $this->fixInternalLinks( $footnote ) . '</div>';
 		}
 		$e .= '</div>';
 
@@ -1387,12 +1387,12 @@ class Xhtml11 extends ExportGenerator {
 	protected function echoPartsAndChaptersGenerator( $book_contents, $metadata ) : \Generator {
 		$part_printf = '<div class="part %1$s" id="%2$s">';
 		$part_printf .= '<div class="part-title-wrap"><h3 class="part-number">%3$s</h3><h1 class="part-title">%4$s</h1></div>%5$s';
-		$part_printf .= '<div class="ugc part-ugc">%6$s</div>%7$s';
+		$part_printf .= '<div class="ugc part-ugc">%6$s%7$s</div>';
 		$part_printf .= '</div>';
 
 		$chapter_printf = '<div class="chapter %1$s" id="%2$s" title="%3$s">';
 		$chapter_printf .= '<div class="chapter-title-wrap"><h3 class="chapter-number">%4$s</h3><h2 class="chapter-title">%5$s</h2>%6$s</div>';
-		$chapter_printf .= '<div class="ugc chapter-ugc">%7$s</div>%8$s%9$s%10$s';
+		$chapter_printf .= '<div class="ugc chapter-ugc">%7$s%10$s</div>%8$s%9$s';
 		$chapter_printf .= '</div>';
 
 		$ticks = 0;
