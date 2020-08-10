@@ -562,7 +562,7 @@ class Xhtml11 extends ExportGenerator {
 		foreach ( $this->footnotes[ $id ] as $k => $footnote ) {
 			$key = $k + 1;
 			$id_attr = $id . '-' . $key;
-			$e .= "<div id='$id_attr'>" . $this->fixInternalLinks( $footnote ) . "</div>";
+			$e .= "<div id='$id_attr'>" . $this->fixInternalLinks( $footnote ) . '</div>';
 		}
 		$e .= '</div>';
 
