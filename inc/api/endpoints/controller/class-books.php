@@ -252,6 +252,7 @@ class Books extends \WP_REST_Controller {
 		];
 		$metadata_blog_meta = $this->bookDataCollector->getMultipleMeta( $id, $keys );
 
+
 		$blog_info = [
 			'site_name' => get_site_option( 'site_name' ),
 			'last_updated' => strtotime( explode( ' ', get_blog_details()->last_updated )[0] ),
