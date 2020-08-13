@@ -185,14 +185,15 @@ function has_expanded_metadata() {
 /**
  * Convert Pressbooks Book Information to Schema.org-compatible metadata
  *
- * @since 4.1
- *
  * @param array $book_information
- * @param bool  $network_excluded_directory
+ * @param string|null $id
+ * @param bool $network_excluded_directory
  *
  * @return array
+ * @since 4.1
+ *
  */
-function book_information_to_schema( $book_information, $network_excluded_directory = false ) {
+function book_information_to_schema( $book_information, string $id = null, $network_excluded_directory = false ) {
 	$book_schema = [];
 
 	$book_schema['@context'] = 'http://schema.org';
@@ -402,7 +403,7 @@ function book_information_to_schema( $book_information, $network_excluded_direct
 	} elseif ( isset( $book_schema['bookDirectoryExcluded'] ) ) {
 		$book_schema['bookDirectoryExcluded'] = $book_information['pb_book_directory_excluded'] === '1';
 	} else {
-		$book_schema['bookDirectoryExcluded'] = false;
+		$book_schema['bookDirectoryExcluded'] = $id ? (bool) get_blog_option( $id, 'pb_book_directory_excluded', 0 ) : false;
 	}
 
 	if ( isset( $book_information['last_updated'] ) ) {

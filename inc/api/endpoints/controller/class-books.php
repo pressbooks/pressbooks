@@ -251,7 +251,6 @@ class Books extends \WP_REST_Controller {
 			BookDataCollector::BOOK_DIRECTORY_EXCLUDED,
 		];
 		$metadata_blog_meta = $this->bookDataCollector->getMultipleMeta( $id, $keys );
-		$foo = 1;
 
 		$blog_info = [
 			'site_name' => get_site_option( 'site_name' ),
@@ -259,7 +258,7 @@ class Books extends \WP_REST_Controller {
 		];
 
 		$metadata = array_merge( $metadata_info_array, $metadata_blog_meta, $blog_info );
-		$metadata = ( is_array( $metadata ) && ! empty( $metadata ) ) ? book_information_to_schema( $metadata, $this->networkExcludedDirectory ) : [];
+		$metadata = ( is_array( $metadata ) && ! empty( $metadata ) ) ? book_information_to_schema( $metadata, $id, $this->networkExcludedDirectory ) : [];
 
 		$item = [
 			'id' => $id,
