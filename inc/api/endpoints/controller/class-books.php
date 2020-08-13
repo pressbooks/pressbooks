@@ -251,7 +251,7 @@ class Books extends \WP_REST_Controller {
 			BookDataCollector::BOOK_DIRECTORY_EXCLUDED,
 		];
 		$metadata_blog_meta = $this->bookDataCollector->getMultipleMeta( $id, $keys );
-
+		$foo = 1;
 
 		$blog_info = [
 			'site_name' => get_site_option( 'site_name' ),
