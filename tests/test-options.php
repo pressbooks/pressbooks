@@ -1,7 +1,6 @@
 <?php
 
 use Pressbooks\Modules\ThemeOptions\PDFOptions;
-use \Pressbooks\Admin\Network\SharingAndPrivacyOptions;
 
 class OptionsMock extends \Pressbooks\Options {
 	/**
@@ -461,20 +460,5 @@ class OptionsTest extends \WP_UnitTestCase {
 		$this->assertContains( '</optgroup>', $buffer );
 		$this->assertContains( '<select name="pressbooks_theme_options_web[webbook_header_font]"', $buffer );
 
-	}
-
-	/**
-	 * @group options
-	 */
-	public function test_optionNetworkDirectoryExcluded() {
-		$_option = SharingAndPrivacyOptions::getSlug();
-		$privacy_options = new SharingAndPrivacyOptions( [ 'network_directory_excluded' => 1 ] );
-		$_REQUEST['_wpnonce'] = wp_create_nonce( $_option . '-options' );
-		$_POST['network_directory_excluded'] = '0';
-		ob_start();
-		$privacy_options->render();
-		$buffer = ob_get_clean();
-
-		$this->assertContains( '<input id="network_directory_excluded" name="pressbooks_sharingandprivacy_options[network_directory_excluded]" type="checkbox" value="1" />', $buffer );
 	}
 }
