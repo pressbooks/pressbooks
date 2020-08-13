@@ -253,7 +253,7 @@ class Books extends \WP_REST_Controller {
 		$metadata_blog_meta = $this->bookDataCollector->getMultipleMeta( $id, $keys );
 
 		if ( ! isset( $metadata_blog_meta[ BookDataCollector::BOOK_DIRECTORY_EXCLUDED ] ) ) {
-			$metadata_blog_meta[ BookDataCollector::BOOK_DIRECTORY_EXCLUDED ] = get_blog_option( $id, 'pb_book_directory_excluded', 0 );
+			//$metadata_blog_meta[ BookDataCollector::BOOK_DIRECTORY_EXCLUDED ] = get_blog_option( $id, 'pb_book_directory_excluded', 0 );
 		}
 
 		$blog_info = [
