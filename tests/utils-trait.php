@@ -221,7 +221,6 @@ https://youtu.be/Lqqsp8soXTo
 		add_filter( 'rest_url', '\Pressbooks\Api\fix_book_urls', 10, 2 );
 		add_filter( 'rest_prepare_attachment', '\Pressbooks\Api\fix_attachment', 10, 3 );
 
-		do_action( 'rest_api_init' );
 		return $server;
 	}
 
