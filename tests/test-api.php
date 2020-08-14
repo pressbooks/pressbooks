@@ -9,17 +9,17 @@ class ApiTest extends \WP_UnitTestCase {
 	 */
 	public function test_rootEndpoints() {
 
-		$server = $this->_setupRootApi();
+		@$server = $this->_setupRootApi();
 
 		// Test that endpoints exist
 		$endpoints = [
 			'/pressbooks/v2/books',
 		];
 		foreach ( $endpoints as $endpoint ) {
-			$request = new \WP_REST_Request( 'OPTIONS', $endpoint );
-			$response = $server->dispatch( $request );
-			$data = $response->get_data();
-			//$this->assertEquals( 'pressbooks/v2', $data['namespace'] );
+			@$request = new \WP_REST_Request( 'OPTIONS', $endpoint );
+			@$response = $server->dispatch( $request );
+			@$data = $response->get_data();
+			$this->assertEquals( 'pressbooks/v2', $data['namespace'] );
 		}
 	}
 
