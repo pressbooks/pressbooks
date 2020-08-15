@@ -215,7 +215,7 @@ https://youtu.be/Lqqsp8soXTo
 			\Pressbooks\PostType\register_meta();
 		}
 		\Pressbooks\Metadata\init_book_data_models();
-		//remove_action( 'rest_api_init', '\Pressbooks\Api\init_root' );
+		remove_action( 'rest_api_init', '\Pressbooks\Api\init_root' );
 		add_action( 'rest_api_init', '\Pressbooks\Api\init_book' );
 		add_filter( 'rest_endpoints', 'Pressbooks\Api\hide_endpoints_from_book' );
 		add_filter( 'rest_url', '\Pressbooks\Api\fix_book_urls', 10, 2 );

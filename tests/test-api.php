@@ -9,7 +9,7 @@ class ApiTest extends \WP_UnitTestCase {
 	 */
 	public function test_rootEndpoints() {
 
-		$server = $this->_setupRootApi();
+		@$server = $this->_setupRootApi();
 
 		// Test that endpoints exist
 		$endpoints = [
