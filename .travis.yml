@@ -19,7 +19,7 @@ php:
 - 7.2
 - 7.3
 env:
-- WP_VERSION=latest WP_MULTISITE=1 TRAVIS_NODE_VERSION="10"
+- WP_VERSION=5.4.2 WP_MULTISITE=1 TRAVIS_NODE_VERSION="10"
 matrix:
   fast_finish: true
   allow_failures:
