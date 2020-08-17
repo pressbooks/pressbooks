@@ -24,6 +24,7 @@ class Directory extends \WP_REST_Controller {
 				[
 					'methods' => \WP_REST_Server::READABLE,
 					'callback' => [ $this, 'verify_removal' ],
+					'permission_callback' => '__return_true',
 				],
 			]
 		);

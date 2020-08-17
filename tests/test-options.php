@@ -460,13 +460,13 @@ class OptionsTest extends \WP_UnitTestCase {
 		$buffer = ob_get_clean();
 		$this->assertContains( '</optgroup>', $buffer );
 		$this->assertContains( '<select name="pressbooks_theme_options_web[webbook_header_font]"', $buffer );
-
 	}
 
 	/**
 	 * @group options
 	 */
 	public function test_optionNetworkDirectoryExcluded() {
+		switch_to_blog( 1 );
 		$_option = SharingAndPrivacyOptions::getSlug();
 		$privacy_options = new SharingAndPrivacyOptions( [ 'network_directory_excluded' => 1 ] );
 		$_REQUEST['_wpnonce'] = wp_create_nonce( $_option . '-options' );
