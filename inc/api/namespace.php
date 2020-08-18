@@ -179,6 +179,7 @@ function init_batch() {
 				'requests' => [],
 			],
 			'callback' => __NAMESPACE__ . '\batch_serve_request',
+			'permission_callback' => '__return_true',
 		]
 	);
 }
