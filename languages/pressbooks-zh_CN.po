@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
-"POT-Creation-Date: 2020-08-04T20:51:48+00:00\n"
+"POT-Creation-Date: 2020-08-19T14:27:25+00:00\n"
 "PO-Revision-Date: 2020-08-04 20:52+0000\n"
 "Last-Translator: Ho Man Chan <homan@pressbooks.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/pressbooks/pressbooks/language/zh_CN/)\n"
@@ -652,53 +652,53 @@ msgstr ""
 msgid "Pressbooks News"
 msgstr "Pressbooks新闻"
 
-#: inc/admin/dashboard/namespace.php:93
+#: inc/admin/dashboard/namespace.php:96
 msgid "My Book"
 msgstr "我的书籍"
 
-#: inc/admin/dashboard/namespace.php:94 inc/admin/laf/namespace.php:746
+#: inc/admin/dashboard/namespace.php:97 inc/admin/laf/namespace.php:746
 msgid "Users"
 msgstr "用户"
 
-#: inc/admin/dashboard/namespace.php:114
+#: inc/admin/dashboard/namespace.php:117
 msgid "Book Permissions"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:126
+#: inc/admin/dashboard/namespace.php:129
 msgid "Welcome to Pressbooks!"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:129
+#: inc/admin/dashboard/namespace.php:132
 msgid "You do not have access to any books at the moment."
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:136
+#: inc/admin/dashboard/namespace.php:139
 msgid ""
 "This network does not allow users to create new books. To create a new book,"
 " please contact your Pressbooks Network Manager"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:138 inc/admin/dashboard/namespace.php:152
+#: inc/admin/dashboard/namespace.php:141 inc/admin/dashboard/namespace.php:155
 msgid "at"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:145 inc/admin/laf/namespace.php:835
+#: inc/admin/dashboard/namespace.php:148 inc/admin/laf/namespace.php:835
 msgid "Create A New Book"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:150
+#: inc/admin/dashboard/namespace.php:153
 msgid ""
 "You can also request access to an existing book by contacting the book's "
 "author or the institution's Pressbooks Network Manager"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:166 inc/class-activation.php:243
+#: inc/admin/dashboard/namespace.php:169 inc/class-activation.php:243
 #: inc/modules/export/epub/templates/epub3/toc.php:26
 #: inc/modules/themeoptions/class-pdfoptions.php:272 tests/test-cloner.php:63
 msgid "Table of Contents"
 msgstr "目录"
 
-#: inc/admin/dashboard/namespace.php:168 inc/admin/metaboxes/namespace.php:566
+#: inc/admin/dashboard/namespace.php:171 inc/admin/metaboxes/namespace.php:566
 #: inc/api/endpoints/controller/class-toc.php:192
 #: inc/posttype/namespace.php:115 inc/posttype/namespace.php:116
 #: inc/posttype/namespace.php:538 templates/admin/import.php:91
@@ -706,7 +706,7 @@ msgstr "目录"
 msgid "Front Matter"
 msgstr "正文前材料"
 
-#: inc/admin/dashboard/namespace.php:209 inc/admin/metaboxes/namespace.php:568
+#: inc/admin/dashboard/namespace.php:212 inc/admin/metaboxes/namespace.php:568
 #: inc/api/endpoints/controller/class-toc.php:225
 #: inc/posttype/namespace.php:143 inc/posttype/namespace.php:144
 #: inc/posttype/namespace.php:541 templates/admin/import.php:96
@@ -714,46 +714,46 @@ msgstr "正文前材料"
 msgid "Back Matter"
 msgstr "正文后材料"
 
-#: inc/admin/dashboard/namespace.php:228 inc/admin/dashboard/namespace.php:307
+#: inc/admin/dashboard/namespace.php:231 inc/admin/dashboard/namespace.php:310
 #: templates/admin/organize.php:266 templates/admin/organize.php:423
 msgid "Add"
 msgstr "添加"
 
-#: inc/admin/dashboard/namespace.php:228 inc/admin/dashboard/namespace.php:307
+#: inc/admin/dashboard/namespace.php:231 inc/admin/dashboard/namespace.php:310
 #: inc/admin/laf/namespace.php:139
 msgid "Organize"
 msgstr "组织"
 
-#: inc/admin/dashboard/namespace.php:296
+#: inc/admin/dashboard/namespace.php:299
 msgid "%1$s total users: "
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:316 inc/admin/dashboard/namespace.php:317
+#: inc/admin/dashboard/namespace.php:319 inc/admin/dashboard/namespace.php:320
 #: inc/admin/laf/namespace.php:730 inc/admin/laf/namespace.php:797
 msgid "Dashboard"
 msgstr "仪表板"
 
-#: inc/admin/dashboard/namespace.php:366
+#: inc/admin/dashboard/namespace.php:369
 msgid "Dashboard Feed"
 msgstr "仪表板Feed"
 
-#: inc/admin/dashboard/namespace.php:373
+#: inc/admin/dashboard/namespace.php:376
 msgid "Display Feed"
 msgstr "显示Feed"
 
-#: inc/admin/dashboard/namespace.php:378
+#: inc/admin/dashboard/namespace.php:381
 msgid "Display an RSS feed widget on the dashboard."
 msgstr "在仪表板上显示一条RSS Fee "
 
-#: inc/admin/dashboard/namespace.php:384
+#: inc/admin/dashboard/namespace.php:387
 msgid "Feed Title"
 msgstr "Feed标题"
 
-#: inc/admin/dashboard/namespace.php:392
+#: inc/admin/dashboard/namespace.php:395
 msgid "Feed URL"
 msgstr "Feed网址"
 
-#: inc/admin/dashboard/namespace.php:419
+#: inc/admin/dashboard/namespace.php:422
 msgid "Adjust settings for your dashboard RSS feed widget below."
 msgstr "使用下面的微件调整仪表盘中的RSS feed的设置。"
 
@@ -1829,19 +1829,19 @@ msgstr ""
 msgid "Part ID."
 msgstr "书籍部ID。"
 
-#: inc/api/namespace.php:194
+#: inc/api/namespace.php:195
 msgid "Invalid batch parameter(s)."
 msgstr ""
 
-#: inc/api/namespace.php:361
+#: inc/api/namespace.php:362
 msgid "Part does not exist"
 msgstr "部件不存在"
 
-#: inc/api/namespace.php:368
+#: inc/api/namespace.php:369
 msgid "ID is not a part"
 msgstr "该ID不是一个部件的ID"
 
-#: inc/api/namespace.php:382
+#: inc/api/namespace.php:383
 msgid "Failed to update chapter part"
 msgstr "更新章部件失败"
 

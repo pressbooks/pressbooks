@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
-"POT-Creation-Date: 2020-08-04T20:51:48+00:00\n"
+"POT-Creation-Date: 2020-08-19T14:27:25+00:00\n"
 "PO-Revision-Date: 2020-08-04 20:52+0000\n"
 "Last-Translator: Ho Man Chan <homan@pressbooks.com>\n"
 "Language-Team: Latvian (http://www.transifex.com/pressbooks/pressbooks/language/lv/)\n"
@@ -652,53 +652,53 @@ msgstr ""
 msgid "Pressbooks News"
 msgstr "Pressbooks vietnes ziņas"
 
-#: inc/admin/dashboard/namespace.php:93
+#: inc/admin/dashboard/namespace.php:96
 msgid "My Book"
 msgstr "Manas grāmatas"
 
-#: inc/admin/dashboard/namespace.php:94 inc/admin/laf/namespace.php:746
+#: inc/admin/dashboard/namespace.php:97 inc/admin/laf/namespace.php:746
 msgid "Users"
 msgstr "Lietotāji"
 
-#: inc/admin/dashboard/namespace.php:114
+#: inc/admin/dashboard/namespace.php:117
 msgid "Book Permissions"
 msgstr "Grāmatas atļaujas"
 
-#: inc/admin/dashboard/namespace.php:126
+#: inc/admin/dashboard/namespace.php:129
 msgid "Welcome to Pressbooks!"
 msgstr "Esiet sveicināti Pressbooks vietnē!"
 
-#: inc/admin/dashboard/namespace.php:129
+#: inc/admin/dashboard/namespace.php:132
 msgid "You do not have access to any books at the moment."
 msgstr "Pašlaik Jums nav pieejas nekādam grāmatām."
 
-#: inc/admin/dashboard/namespace.php:136
+#: inc/admin/dashboard/namespace.php:139
 msgid ""
 "This network does not allow users to create new books. To create a new book,"
 " please contact your Pressbooks Network Manager"
 msgstr "Šīs tīkls neļauj lietotājiem veidot jaunas grāmatas. Lai izveidotu jaunu grāmatu, lūdzu, sazinieties ar Jūsu Pressbooks vietnes tīkla pārvaldnieku."
 
-#: inc/admin/dashboard/namespace.php:138 inc/admin/dashboard/namespace.php:152
+#: inc/admin/dashboard/namespace.php:141 inc/admin/dashboard/namespace.php:155
 msgid "at"
 msgstr "(kur?)"
 
-#: inc/admin/dashboard/namespace.php:145 inc/admin/laf/namespace.php:835
+#: inc/admin/dashboard/namespace.php:148 inc/admin/laf/namespace.php:835
 msgid "Create A New Book"
 msgstr "Izveidot jaunu grāmatu"
 
-#: inc/admin/dashboard/namespace.php:150
+#: inc/admin/dashboard/namespace.php:153
 msgid ""
 "You can also request access to an existing book by contacting the book's "
 "author or the institution's Pressbooks Network Manager"
 msgstr "Jūs arī varat pieprasīt pieeju jau eksistējošai grāmatai, sazinoties ar grāmatas autoru vai institūcijas Pressbooks vietnes tīkla pārvaldnieku."
 
-#: inc/admin/dashboard/namespace.php:166 inc/class-activation.php:243
+#: inc/admin/dashboard/namespace.php:169 inc/class-activation.php:243
 #: inc/modules/export/epub/templates/epub3/toc.php:26
 #: inc/modules/themeoptions/class-pdfoptions.php:272 tests/test-cloner.php:63
 msgid "Table of Contents"
 msgstr "Saturs"
 
-#: inc/admin/dashboard/namespace.php:168 inc/admin/metaboxes/namespace.php:566
+#: inc/admin/dashboard/namespace.php:171 inc/admin/metaboxes/namespace.php:566
 #: inc/api/endpoints/controller/class-toc.php:192
 #: inc/posttype/namespace.php:115 inc/posttype/namespace.php:116
 #: inc/posttype/namespace.php:538 templates/admin/import.php:91
@@ -706,7 +706,7 @@ msgstr "Saturs"
 msgid "Front Matter"
 msgstr "Sākuma papildinformācija"
 
-#: inc/admin/dashboard/namespace.php:209 inc/admin/metaboxes/namespace.php:568
+#: inc/admin/dashboard/namespace.php:212 inc/admin/metaboxes/namespace.php:568
 #: inc/api/endpoints/controller/class-toc.php:225
 #: inc/posttype/namespace.php:143 inc/posttype/namespace.php:144
 #: inc/posttype/namespace.php:541 templates/admin/import.php:96
@@ -714,46 +714,46 @@ msgstr "Sākuma papildinformācija"
 msgid "Back Matter"
 msgstr "Beigu papildinformācija"
 
-#: inc/admin/dashboard/namespace.php:228 inc/admin/dashboard/namespace.php:307
+#: inc/admin/dashboard/namespace.php:231 inc/admin/dashboard/namespace.php:310
 #: templates/admin/organize.php:266 templates/admin/organize.php:423
 msgid "Add"
 msgstr "Pievienot"
 
-#: inc/admin/dashboard/namespace.php:228 inc/admin/dashboard/namespace.php:307
+#: inc/admin/dashboard/namespace.php:231 inc/admin/dashboard/namespace.php:310
 #: inc/admin/laf/namespace.php:139
 msgid "Organize"
 msgstr "Organizēt"
 
-#: inc/admin/dashboard/namespace.php:296
+#: inc/admin/dashboard/namespace.php:299
 msgid "%1$s total users: "
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:316 inc/admin/dashboard/namespace.php:317
+#: inc/admin/dashboard/namespace.php:319 inc/admin/dashboard/namespace.php:320
 #: inc/admin/laf/namespace.php:730 inc/admin/laf/namespace.php:797
 msgid "Dashboard"
 msgstr "Informācijas panelis"
 
-#: inc/admin/dashboard/namespace.php:366
+#: inc/admin/dashboard/namespace.php:369
 msgid "Dashboard Feed"
 msgstr "Informācijas paneļa plūsma"
 
-#: inc/admin/dashboard/namespace.php:373
+#: inc/admin/dashboard/namespace.php:376
 msgid "Display Feed"
 msgstr "Displeja plūsma"
 
-#: inc/admin/dashboard/namespace.php:378
+#: inc/admin/dashboard/namespace.php:381
 msgid "Display an RSS feed widget on the dashboard."
 msgstr "Rādīt RSS plūsmas logrīku informācijas panelī."
 
-#: inc/admin/dashboard/namespace.php:384
+#: inc/admin/dashboard/namespace.php:387
 msgid "Feed Title"
 msgstr "Plūsmas virsraksts"
 
-#: inc/admin/dashboard/namespace.php:392
+#: inc/admin/dashboard/namespace.php:395
 msgid "Feed URL"
 msgstr "Plūsmas tīmekļa adrese"
 
-#: inc/admin/dashboard/namespace.php:419
+#: inc/admin/dashboard/namespace.php:422
 msgid "Adjust settings for your dashboard RSS feed widget below."
 msgstr "Turpmāk Jūs varēsiet piemērot iestatījumus Jūsu RSS plūsmas logrīka informācijas panelim."
 
@@ -1829,19 +1829,19 @@ msgstr "Vārdu skaits."
 msgid "Part ID."
 msgstr "Daļas ID."
 
-#: inc/api/namespace.php:194
+#: inc/api/namespace.php:195
 msgid "Invalid batch parameter(s)."
 msgstr "Nepareizs(-i) datu paketes parametrs(-i)."
 
-#: inc/api/namespace.php:361
+#: inc/api/namespace.php:362
 msgid "Part does not exist"
 msgstr "Daļa neeksistē"
 
-#: inc/api/namespace.php:368
+#: inc/api/namespace.php:369
 msgid "ID is not a part"
 msgstr "ID nav daļa"
 
-#: inc/api/namespace.php:382
+#: inc/api/namespace.php:383
 msgid "Failed to update chapter part"
 msgstr "Neizdevās atjaunot nodaļas daļu"
 
