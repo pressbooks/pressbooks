@@ -397,13 +397,8 @@ function book_information_to_schema( $book_information, $network_excluded_direct
 		$book_schema['inCatalog'] = $book_information['pb_in_catalog'] === '1';
 	}
 
-	if ( true === $network_excluded_directory ) {
-		$book_schema['bookDirectoryExcluded'] = $network_excluded_directory;
-	} elseif ( isset( $book_schema['bookDirectoryExcluded'] ) ) {
-		$book_schema['bookDirectoryExcluded'] = $book_information['pb_book_directory_excluded'] === '1';
-	} else {
-		$book_schema['bookDirectoryExcluded'] = false;
-	}
+	$book_schema['bookDirectoryExcluded'] = ( true === $network_excluded_directory ) ?
+        $network_excluded_directory : (bool) $book_information['pb_book_directory_excluded'];
 
 	if ( isset( $book_information['last_updated'] ) ) {
 		$book_schema['lastUpdated'] = $book_information['last_updated'];
