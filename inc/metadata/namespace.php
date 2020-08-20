@@ -398,7 +398,7 @@ function book_information_to_schema( $book_information, $network_excluded_direct
 	}
 
 	$book_schema['bookDirectoryExcluded'] = ( true === $network_excluded_directory ) ?
-        $network_excluded_directory : (bool) $book_information['pb_book_directory_excluded'];
+		$network_excluded_directory : (bool) $book_information['pb_book_directory_excluded'];
 
 	if ( isset( $book_information['last_updated'] ) ) {
 		$book_schema['lastUpdated'] = $book_information['last_updated'];
