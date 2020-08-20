@@ -629,7 +629,7 @@ class Styles {
 	 * @return bool
 	 */
 	public function isShapeShifterCompatible() {
-		return apply_filters( 'pb_is_shape_shifter_compatible', ( 'pressbooks-malala' === get_stylesheet() ) );
+		return apply_filters( 'pb_is_shape_shifter_compatible', ( 'pressbooks-malala' === get_stylesheet() || 'pressbooks-book' === get_stylesheet() ) );
 	}
 
 	/**
@@ -643,14 +643,15 @@ class Styles {
 			'Alegreya' => __( 'Alegreya', 'pressbooks' ),
 			'Cormorant Garamond' => __( 'Cormorant Garamond', 'pressbooks' ),
 			'Crimson Text' => __( 'Crimson Text', 'pressbooks' ),
-			'FreeSerif' => __( 'GNU FreeFont Serif', 'pressbooks' ),
-			'Noto serif' => __( 'Noto serif', 'pressbooks' ),
+			'FreeFont Serif' => __( 'GNU FreeFont Serif', 'pressbooks' ),
+			'Noto Serif' => __( 'Noto Serif', 'pressbooks' ),
+			'Sorts Mill Goudy' => __( 'Sorts Mill Goudy', 'pressbooks' ),
 			'Spectral' => __( 'Spectral', 'pressbooks' ),
 		];
 
 		$sans_serif = [
 			'Barlow' => __( 'Barlow', 'pressbooks' ),
-			'FreeSans' => __( 'GNU FreeFont Sans', 'pressbooks' ),
+			'FreeFont Sans' => __( 'GNU FreeFont Sans', 'pressbooks' ),
 			'K2D' => __( 'K2D', 'pressbooks' ),
 			'Lato' => __( 'Lato', 'pressbooks' ),
 			'Libre Franklin' => __( 'Libre Franklin', 'pressbooks' ),

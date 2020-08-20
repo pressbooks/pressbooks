@@ -54,6 +54,7 @@ class GlobalTypography {
 			'kn' => __( 'Kannada', 'pressbooks' ),
 			'ko' => __( 'Korean', 'pressbooks' ),
 			'ml' => __( 'Malayalam', 'pressbooks' ),
+			'music' => __( 'Musical Notation', 'pressbooks' ),
 			'nqo' => __( 'N\'Ko', 'pressbooks' ),
 			'or' => __( 'Odia', 'pressbooks' ),
 			'syr' => __( 'Syriac', 'pressbooks' ),
@@ -366,6 +367,12 @@ class GlobalTypography {
 					'NotoSansMalayalam-Regular.ttf' => 'NotoSansMalayalam/NotoSansMalayalam-Regular.ttf',
 					'NotoSerifMalayalam-Bold.ttf' => 'NotoSerifMalayalam/NotoSerifMalayalam-Bold.ttf',
 					'NotoSerifMalayalam-Regular.ttf' => 'NotoSerifMalayalam/NotoSerifMalayalam-Regular.ttf',
+				],
+			],
+			'music' => [
+				'baseurl' => 'https://github.com/steinbergmedia/bravura/raw/master/redist/otf/',
+				'files' => [
+					'BravuraText.otf' => 'BravuraText.otf',
 				],
 			],
 			'nqo' => [
