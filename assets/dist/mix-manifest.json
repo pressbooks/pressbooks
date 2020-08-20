@@ -1,19 +1,19 @@
 {
     "/scripts/a11y.js": "/scripts/a11y.js?id=49734f56a3aeda571c63",
     "/scripts/anchor.js": "/scripts/anchor.js?id=d405ace42aefb805b660",
-    "/styles/catalog.css": "/styles/catalog.css?id=193a23d8b36426e51b4e",
+    "/styles/catalog.css": "/styles/catalog.css?id=899bf71a5574360c4c0c",
     "/styles/colors-pb.css": "/styles/colors-pb.css?id=a5d62620a23e8e7517f9",
     "/styles/colors-pb-a11y.css": "/styles/colors-pb-a11y.css?id=e2fb49a95f28821d1060",
     "/styles/covergenerator.css": "/styles/covergenerator.css?id=e5da93f94c6d67e75e99",
-    "/styles/export.css": "/styles/export.css?id=dd1fb2d117849c240250",
+    "/styles/export.css": "/styles/export.css?id=3c2e6de0af1b033d2439",
     "/styles/glossary-tooltip.css": "/styles/glossary-tooltip.css?id=9e19062c8778618fda33",
     "/styles/login.css": "/styles/login.css?id=cbeaa9bc77806b97ca7b",
     "/styles/metadata.css": "/styles/metadata.css?id=f044d8260853a46a839c",
     "/styles/network-managers.css": "/styles/network-managers.css?id=27f9c0db220c71c68deb",
     "/styles/organize.css": "/styles/organize.css?id=752ce481035dddac575f",
-    "/styles/pressbooks.css": "/styles/pressbooks.css?id=54493c6c216f5c7a1799",
+    "/styles/pressbooks.css": "/styles/pressbooks.css?id=bf92dda6e9724fdffc5c",
     "/styles/search-and-replace.css": "/styles/search-and-replace.css?id=0320ae44c86cd8b9153c",
-    "/styles/select2.css": "/styles/select2.css?id=f872ef8cc1c1a5c62fa8",
+    "/styles/select2.css": "/styles/select2.css?id=c715b3679651217e6e35",
     "/styles/style-catalog.css": "/styles/style-catalog.css?id=0a7404b572b99bc91c10",
     "/styles/theme-options.css": "/styles/theme-options.css?id=4e6fd1be2be2d103379e",
     "/scripts/applyclass.js": "/scripts/applyclass.js?id=c63a9337f9a4c6d58df9",
@@ -52,5 +52,5 @@
     "/scripts/js-cookie.js": "/scripts/js-cookie.js?id=fa93e8894edb6245ab03",
     "/scripts/select2.js": "/scripts/select2.js?id=faccd8410c74ea339c86",
     "/scripts/sidr.js": "/scripts/sidr.js?id=32495427b04ceeab5376",
-    "/scripts/table.js": "/scripts/table.js?id=1794ac0f091c3077c72f"
+    "/scripts/table.js": "/scripts/table.js?id=f259b57cdd1a1663e6e7"
 }
