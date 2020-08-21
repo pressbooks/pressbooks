@@ -309,7 +309,7 @@ class Glossary {
 	 * @return string
 	 */
 	public function exportShortcodeHandler( $atts, $content ) {
-		return $content;
+		return "<span class='glossary-term'>" . $content . '</span>';
 	}
 
 	/**
