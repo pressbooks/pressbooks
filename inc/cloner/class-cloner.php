@@ -1293,6 +1293,9 @@ class Cloner {
 		}
 
 		$book_information = schema_to_book_information( $this->sourceBookMetadata );
+		// Do not clone ISBN and ebook DOI. https://github.com/pressbooks/pressbooks/issues/1609
+		$book_information['pb_ebook_isbn'] = '';
+		$book_information['pb_book_doi'] = '';
 
 		// Cover image
 		if ( ! \Pressbooks\Image\is_default_cover( $book_information['pb_cover_image'] ) ) {
@@ -1585,6 +1588,10 @@ class Cloner {
 	protected function cloneSectionMetadata( $section_id, $post_type, $target_id ) {
 
 		$book_schema = $this->sourceBookMetadata;
+		// Do not clone ISBN and ebook DOI. https://github.com/pressbooks/pressbooks/issues/1609
+		$book_schema['isbn'] = '';
+		$book_schema['identifier'] = [];
+
 		if ( empty( $this->targetBookUrl ) ) {
 			// If there's no target then that means this data is going into the current book.
 			// Remove invalid $book_schema values so that $section_schema is used instead.
