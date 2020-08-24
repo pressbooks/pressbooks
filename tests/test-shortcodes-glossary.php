@@ -159,6 +159,24 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 	/**
 	 * @group glossary
 	 */
+	public function test_exportShortCodeHandler() {
+		$terms = $this->gl->getGlossaryTerms();
+
+		global $id;
+		$id = 1;
+
+		$definitions = [];
+
+		// First, add some terms
+		foreach ( $terms as $term ) {
+			$content = $this->gl->exportShortcodeHandler( [ 'id' => $term['id'] ], 'First.' );
+			$this->assertContains( "<span class='glossary-term'>", $content );
+		}
+	}
+
+	/**
+	 * @group glossary
+	 */
 	public function test_tooltipContent() {
 		$terms = $this->gl->getGlossaryTerms();
 
