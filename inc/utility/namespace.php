@@ -1182,11 +1182,10 @@ function get_generated_content_path( $suffix = '', $mkdir = true ) {
  * @return string
  */
 function get_generated_content_url( $suffix = '' ) {
-	$abs_path =  wp_get_upload_dir()['baseurl'] . '/pressbooks';
+	$abs_path = wp_get_upload_dir()['baseurl'] . '/pressbooks';
 	$path_parsed = wp_parse_url( $abs_path );
 	global $domain;
 	$path = $path_parsed['scheme'] . '://' . $domain . $path_parsed['path'];
-	$p = wp_get_upload_dir();
 	if ( $suffix ) {
 		$suffix = ltrim( $suffix, '/' );
 		$path = absolute_path( "{$path}/{$suffix}" );
