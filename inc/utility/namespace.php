@@ -1178,11 +1178,18 @@ function get_generated_content_path( $suffix = '', $mkdir = true ) {
  * @since 5.0.0
  *
  * @param string $suffix (optional)
+ * @param bool $keep_subdomain (optional) Keep subdomain in url
  *
  * @return string
+ *
  */
-function get_generated_content_url( $suffix = '' ) {
+function get_generated_content_url( $suffix = '', $keep_subdomain = false ) {
 	$path = wp_get_upload_dir()['baseurl'] . '/pressbooks';
+	if ( $keep_subdomain ) {
+		$path_parsed = wp_parse_url( $path );
+		global $domain;
+		$path = $path_parsed['scheme'] . '://' . $domain . $path_parsed['path'];
+	}
 	if ( $suffix ) {
 		$suffix = ltrim( $suffix, '/' );
 		$path = absolute_path( "{$path}/{$suffix}" );
