@@ -146,7 +146,7 @@ class Sass {
 	/**
 	 * Get URI to user transpiled CSS files
 	 *
-	 * @param bool $keep_subdomain (subdomain) keep subdomain in url
+	 * @param bool $keep_subdomain (optional) keep subdomain in url
 	 *
 	 * @return string
 	 */
