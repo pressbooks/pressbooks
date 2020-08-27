@@ -1175,6 +1175,8 @@ function get_generated_content_path( $suffix = '', $mkdir = true ) {
 /**
  * Namespace our generated content
  *
+ * @since 5.0.0
+ *
  * @param string $suffix (optional)
  * @param bool $keep_subdomain (optional) Keep subdomain in url
  *
