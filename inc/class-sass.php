@@ -146,10 +146,12 @@ class Sass {
 	/**
 	 * Get URI to user transpiled CSS files
 	 *
+	 * @param bool $keep_subdomain (subdomain) keep subdomain in url
+	 *
 	 * @return string
 	 */
-	public function urlToUserGeneratedCss() {
-		return \Pressbooks\Utility\get_generated_content_url( '/css' );
+	public function urlToUserGeneratedCss( $keep_subdomain = false ) {
+		return \Pressbooks\Utility\get_generated_content_url( '/css', $keep_subdomain );
 	}
 
 

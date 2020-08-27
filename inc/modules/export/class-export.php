@@ -167,7 +167,7 @@ abstract class Export {
 		if ( in_array( $type, [ 'prince' ], true ) ) {
 			foreach ( scandir_by_date( Container::get( 'Sass' )->pathToUserGeneratedCss() ) as $file ) {
 				if ( preg_match( '/(' . $type . ')-([0-9]*)/', $file, $matches ) ) {
-					return Container::get( 'Sass' )->urlToUserGeneratedCss() . "/$type-{$matches[2]}.css";
+					return Container::get( 'Sass' )->urlToUserGeneratedCss( true ) . "/$type-{$matches[2]}.css";
 				}
 			}
 		}
