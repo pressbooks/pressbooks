@@ -644,6 +644,7 @@ class Styles {
 			'Cormorant Garamond' => __( 'Cormorant Garamond', 'pressbooks' ),
 			'Crimson Text' => __( 'Crimson Text', 'pressbooks' ),
 			'FreeFont Serif' => __( 'GNU FreeFont Serif', 'pressbooks' ),
+			'New Athena Unicode' => __( 'New Athena Unicode', 'pressbooks' ),
 			'Noto Serif' => __( 'Noto Serif', 'pressbooks' ),
 			'Sorts Mill Goudy' => __( 'Sorts Mill Goudy', 'pressbooks' ),
 			'Spectral' => __( 'Spectral', 'pressbooks' ),
