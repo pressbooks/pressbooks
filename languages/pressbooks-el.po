@@ -4,7 +4,7 @@
 # aggelos manousopoulos <a.manousopoulos@gmail.com>, 2015-2018
 # LaScapigliata <ditri2000@hotmail.com>, 2015
 # LaScapigliata <ditri2000@hotmail.com>, 2015
-# Antonio Devís <colomet@hotmail.com>, 2015
+# Antonio D. <colomet@hotmail.com>, 2015
 # ZedRyder <zedryder@gmail.com>, 2014-2016
 # ZedRyder <zedryder@gmail.com>, 2014
 msgid ""

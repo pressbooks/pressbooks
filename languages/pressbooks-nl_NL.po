@@ -4,7 +4,7 @@
 # Erwin de Ruiter <erwinderuiter@gmail.com>, 2015
 # Joomill <info@joomill.nl>, 2018
 # Nienke Coppens <nienke.coppens@gmail.com>, 2020
-# Antonio Devís <colomet@hotmail.com>, 2016
+# Antonio D. <colomet@hotmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"

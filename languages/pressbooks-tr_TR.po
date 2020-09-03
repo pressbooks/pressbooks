@@ -1,10 +1,10 @@
 # Copyright (C) 2020 Pressbooks (Book Oven Inc.)
 # This file is distributed under the same license as the Pressbooks plugin.
 # Translators:
-# Antonio Devís <colomet@hotmail.com>, 2017
+# Antonio D. <colomet@hotmail.com>, 2017
 # ayse tekbas <ayse.tekbas@gmail.com>, 2016
 # Mustafa Bulun <mustafa.bulun@bizimajans.com>, 2020
-# Antonio Devís <colomet@hotmail.com>, 2016
+# Antonio D. <colomet@hotmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"

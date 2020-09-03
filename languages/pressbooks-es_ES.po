@@ -1,12 +1,12 @@
 # Copyright (C) 2020 Pressbooks (Book Oven Inc.)
 # This file is distributed under the same license as the Pressbooks plugin.
 # Translators:
-# Antonio Devís <colomet@hotmail.com>, 2018,2020
+# Antonio D. <colomet@hotmail.com>, 2018,2020
 # Eduardo Vera <info@yachaypuriq.xyz>, 2020
 # jorge santibañez <info@letrapixel.com>, 2017
 # taskforsome <taskforsome@gmail.com>, 2014
 # taskforsome <taskforsome@gmail.com>, 2014
-# Antonio Devís <colomet@hotmail.com>, 2015-2016
+# Antonio D. <colomet@hotmail.com>, 2015-2016
 # Víctor Sabaté <maelstrom@editorialmaelstrom.com>, 2015
 msgid ""
 msgstr ""

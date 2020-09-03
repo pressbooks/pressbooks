@@ -1,7 +1,7 @@
 # Copyright (C) 2020 Pressbooks (Book Oven Inc.)
 # This file is distributed under the same license as the Pressbooks plugin.
 # Translators:
-# Antonio Devís <colomet@hotmail.com>, 2017-2018
+# Antonio D. <colomet@hotmail.com>, 2017-2018
 # Pasha Chemodan <chemodan.pasha@gmail.com>, 2017
 # Antonio Devís <colomet@hotmail.com>, 2017
 # vharitonov <vharitonov@gmail.com>, 2014
