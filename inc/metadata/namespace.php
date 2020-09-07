@@ -226,20 +226,28 @@ function book_information_to_schema( $book_information, $network_excluded_direct
 	}
 
 	if ( isset( $book_information['pb_primary_subject'] ) ) {
+		$name = Metadata\get_subject_from_thema( $book_information['pb_primary_subject'] );
+		if ( is_null( $name ) || ! $name ) {
+			$name = $book_information['pb_primary_subject'];
+		}
 		$book_schema['about'][] = [
 			'@type' => 'Thing',
 			'identifier' => $book_information['pb_primary_subject'],
-			'name' => Metadata\get_subject_from_thema( $book_information['pb_primary_subject'] ),
+			'name' => $name,
 		];
 	}
 
 	if ( isset( $book_information['pb_additional_subjects'] ) ) {
 		$additional_subjects = explode( ', ', $book_information['pb_additional_subjects'] );
 		foreach ( $additional_subjects as $additional_subject ) {
+			$name = Metadata\get_subject_from_thema( $additional_subject );
+			if ( is_null( $name ) || ! $name ) {
+				$name = $additional_subject;
+			}
 			$book_schema['about'][] = [
 				'@type' => 'Thing',
 				'identifier' => $additional_subject,
-				'name' => Metadata\get_subject_from_thema( $additional_subject ),
+				'name' => $name,
 			];
 		}
 	}
