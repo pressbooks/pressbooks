@@ -7,7 +7,6 @@
 namespace Pressbooks\Admin\Network;
 
 use Pressbooks\BookDirectory;
-use Pressbooks\DataCollector;
 use function Pressbooks\Admin\NetworkManagers\is_restricted;
 
 class SharingAndPrivacyOptions extends \Pressbooks\Options {
@@ -215,8 +214,8 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	}
 
 	/**
-	 * Triggers a book delete for all books
-	 * When the network excludes book directory
+	 * Triggers a batch book directory delete for all NON catalog books
+	 * @param bool $revert	un-checking network exclude
 	 */
 	public function excludeCatalogBooksFromDirectory( bool $revert = false) {
 		$book_ids = [];
