@@ -6,6 +6,8 @@
 
 namespace Pressbooks\Admin\Network;
 
+use Pressbooks\BookDirectory;
+use Pressbooks\DataCollector;
 use function Pressbooks\Admin\NetworkManagers\is_restricted;
 
 class SharingAndPrivacyOptions extends \Pressbooks\Options {
@@ -171,7 +173,12 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 					}
 
 					if ( $this->options['network_directory_excluded'] !== $options['network_directory_excluded'] ) {
-						$this->updateBooksLastUpdatedDate();
+						if ( $options['network_directory_excluded'] === 1 ) {
+							$this->excludeCatalogBooksFromDirectory();
+						}
+						if ( $options['network_directory_excluded'] === 0 ) {
+							$this->excludeCatalogBooksFromDirectory(true);
+						}
 					}
 
 					update_site_option( $_option, $options );
@@ -204,6 +211,36 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 			}
 
 			update_blog_details( $book->blog_id, [ 'last_updated' => current_time( 'mysql', true ) ] );
+		}
+	}
+
+	/**
+	 * Triggers a book delete for all books
+	 * When the network excludes book directory
+	 */
+	public function excludeCatalogBooksFromDirectory( bool $revert = false) {
+		$book_ids = [];
+		$books = get_sites();
+
+		foreach ( $books as $book ) {
+			if ( '1' === $book->blog_id ) {
+				continue;
+			}
+
+			$inCatalog = get_site_meta($book->blog_id, \Pressbooks\DataCollector\Book::IN_CATALOG, true);
+
+			if ( isset( $inCatalog ) && $inCatalog === '0' ){
+				if ( !$revert ) {
+					$book_ids[] = $book->blog_id;
+				}
+
+				update_blog_details( $book->blog_id, [ 'last_updated' => current_time( 'mysql', true ) ] );
+			}
+
+		}
+
+		if ( count( $book_ids ) > 0) {
+			BookDirectory::init()->deleteBookFromDirectory( $book_ids );
 		}
 	}
 
