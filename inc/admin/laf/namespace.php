@@ -16,10 +16,11 @@ use Pressbooks\Admin\ExportOptions;
 use Pressbooks\Admin\Network\SharingAndPrivacyOptions;
 use Pressbooks\Admin\PublishOptions;
 use Pressbooks\Book;
+use Pressbooks\BookDirectory;
 use Pressbooks\Cloner\Cloner;
 use Pressbooks\DataCollector\Book as DataCollector;
 use Pressbooks\Metadata;
-use Pressbooks\BookDirectory;
+
 /**
  * @return bool
  */
@@ -1204,7 +1205,7 @@ function privacy_settings_init() {
 					update_blog_details( $current_book_id, [ 'last_updated' => current_time( 'mysql', true ) ] );
 				}
 				if ( $updated_value === 1 ) {
-					BookDirectory::init()->deleteBookFromDirectory( array( $current_book_id ) );
+					BookDirectory::init()->deleteBookFromDirectory( [ $current_book_id ] );
 				}
 
 			}, 10, 2

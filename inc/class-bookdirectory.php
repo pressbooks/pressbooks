@@ -70,7 +70,7 @@ class BookDirectory {
 	 * @since 5.14.3
 	 */
 	public function deleteAction( WP_Site $site ) {
-		return $this->deleteBookFromDirectory( array($site->blog_id) );
+		return $this->deleteBookFromDirectory( [ $site->blog_id ] );
 	}
 
 	/**
@@ -108,7 +108,7 @@ class BookDirectory {
 		$url_changed = $previous_config->path !== $updated_config->path;
 
 		if ( $is_archived || $is_deactivated || $is_spam || $url_changed ) {
-			return $this->deleteBookFromDirectory( array($updated_config->blog_id) );
+			return $this->deleteBookFromDirectory( [ $updated_config->blog_id ] );
 		}
 	}
 
@@ -123,7 +123,7 @@ class BookDirectory {
 	 */
 	public function deleteBookFromDirectory( array $book_ids = null ) {
 		if ( filter_var( self::$delete_book_endpoint, FILTER_VALIDATE_URL ) ) {
-			$book_ids = $book_ids ?? array( get_current_blog_id() );
+			$book_ids = $book_ids ?? [ get_current_blog_id() ];
 			$sid = sprintf( '%s-%s-%s', uniqid( self::DELETION_PREFIX, true ), rand( 1, 99 ), $book_ids[0] );
 
 			$header = [
