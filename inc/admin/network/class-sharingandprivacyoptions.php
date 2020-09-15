@@ -171,12 +171,12 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 						$options = $this->sanitize( [] ); // Get sanitized defaults
 					}
 
-					if ( $this->options['network_directory_excluded'] !== $options['network_directory_excluded'] ) {
-						if ( $options['network_directory_excluded'] === 1 ) {
-							$this->excludeCatalogBooksFromDirectory();
+					if ( $this->options[self::NETWORK_DIRECTORY_EXCLUDED] !== $options[self::NETWORK_DIRECTORY_EXCLUDED] ) {
+						if ( $options[self::NETWORK_DIRECTORY_EXCLUDED] === 1 ) {
+							self::excludeCatalogBooksFromDirectory();
 						}
-						if ( $options['network_directory_excluded'] === 0 ) {
-							$this->excludeCatalogBooksFromDirectory( true );
+						if ( $options[self::NETWORK_DIRECTORY_EXCLUDED] === 0 ) {
+							self::excludeCatalogBooksFromDirectory( true );
 						}
 					}
 
@@ -209,7 +209,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 				continue;
 			}
 
-			update_blog_details( $book->blog_id, [ 'last_updated' => current_time( 'mysql', true ) ] );
+			update_blog_details( $book->blog_id, array( 'last_updated' => current_time( 'mysql', true ) ) );
 		}
 	}
 
@@ -217,7 +217,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	 * Triggers a batch book directory delete for all NON catalog books
 	 * @param bool $revert  un-checking network exclude
 	 */
-	public function excludeCatalogBooksFromDirectory( bool $revert = false ) {
+	static function excludeCatalogBooksFromDirectory( bool $revert = false ) {
 		$book_ids = [];
 		$books = get_sites();
 
@@ -233,7 +233,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 					$book_ids[] = $book->blog_id;
 				}
 
-				update_blog_details( $book->blog_id, [ 'last_updated' => current_time( 'mysql', true ) ] );
+				update_blog_details( $book->blog_id, array( 'last_updated' => current_time( 'mysql', true ) ) );
 			}
 		}
 
