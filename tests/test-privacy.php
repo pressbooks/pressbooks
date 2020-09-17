@@ -93,7 +93,7 @@ class GdprTest extends \WP_UnitTestCase {
 			'enable_cloning'                 => 1,
 			'enable_thincc_weblinks'         => 1,
 			'iframe_whitelist'               => '',
-			SharingAndPrivacyOptions::NETWORK_DIRECTORY_EXCLUDED => 0,
+			SharingAndPrivacyOptions::NETWORK_DIRECTORY_EXCLUDED => 1,
 		];
 
 		$optionAfter =  [
@@ -108,19 +108,26 @@ class GdprTest extends \WP_UnitTestCase {
 		$this->assertEquals( SharingAndPrivacyOptions::networkExcludeOption( SharingAndPrivacyOptions::getSlug() ), true);
 		$this->assertEquals( SharingAndPrivacyOptions::networkExcludeOption( 'some_option_name' ), false);
 
+		update_site_option( SharingAndPrivacyOptions::getSlug(), $optionBefore );
 //		add_action( 'update_site_option', [ '\Pressbooks\Admin\Network\SharingAndPrivacyOptions', 'networkExcludeOption' ] );
-//
+//		do_action( 'update_site_option' );
+//		do_action( SharingAndPrivacyOptions::getSlug(), $optionBefore, $optionAfter);
+
 //		update_site_option( SharingAndPrivacyOptions::getSlug(), $optionBefore );
 //		do_action( 'update_site_option' );
+
+//		update_site_option( 'pressbooks_sharingandprivacy_options', [ 'network_directory_excluded' => 0 ] );
+//		add_action( 'admin_init', '\Pressbooks\Admin\Laf\privacy_settings_init' );
+//		@do_action( 'admin_init' );
+//		do_action( 'update_option_pb_book_directory_excluded', '0', '1' );
 //
-//		$last_updated_before = get_blog_details()->last_updated;
-//		sleep(2);
-//
-//		update_site_option( SharingAndPrivacyOptions::getSlug(), $optionAfter );
+		$last_updated_before = get_blog_details()->last_updated;
+		sleep(2);
+		update_site_option( SharingAndPrivacyOptions::getSlug(), $optionAfter );
 //		do_action( 'update_site_option' );
 //
-//		$last_updated_after = get_blog_details()->last_updated;
-//		$this->assertNotEquals( $last_updated_before, $last_updated_after );
+		$last_updated_after = get_blog_details()->last_updated;
+		$this->assertNotEquals( $last_updated_before, $last_updated_after );
 
 	}
 

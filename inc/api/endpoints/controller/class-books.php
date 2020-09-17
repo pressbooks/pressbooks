@@ -256,9 +256,11 @@ class Books extends \WP_REST_Controller {
 			$metadata_blog_meta[ BookDataCollector::BOOK_DIRECTORY_EXCLUDED ] = get_blog_option( $id, BookDataCollector::BOOK_DIRECTORY_EXCLUDED, 0 );
 		}
 
+
+
 		$blog_info = [
 			'site_name' => get_site_option( 'site_name' ),
-			'last_updated' => strtotime( explode( ' ', get_blog_details()->last_updated )[0] ),
+			'last_updated' => strtotime( explode( ' ', get_blog_details( $id )->last_updated )[0] )
 		];
 
 		$metadata = array_merge( $metadata_info_array, $metadata_blog_meta, $blog_info );
