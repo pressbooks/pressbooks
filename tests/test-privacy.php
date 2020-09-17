@@ -6,6 +6,7 @@ use Pressbooks\Admin\Network\SharingAndPrivacyOptions;
 
 class GdprTest extends \WP_UnitTestCase {
 
+	use utilsTrait;
 
 	/**
 	 * @var \Pressbooks\Privacy
@@ -65,9 +66,6 @@ class GdprTest extends \WP_UnitTestCase {
 		@do_action( 'admin_init' );
 		do_action( 'update_option_pb_book_directory_excluded', '0', '1' );
 		$last_updated_after = get_blog_details()->last_updated;
-
-		var_dump(get_current_blog_id());
-		var_dump(get_site_meta( get_current_blog_id(), DataCollector::BOOK_DIRECTORY_EXCLUDED, true ));
 		$this->assertEquals( get_site_meta( get_current_blog_id(), DataCollector::BOOK_DIRECTORY_EXCLUDED, true ), '1' );
 		$this->assertNotEquals( $last_updated_before, $last_updated_after );
 	}
@@ -85,11 +83,88 @@ class GdprTest extends \WP_UnitTestCase {
 	}
 
 	/**
-	 *
+	 * @group privacy
 	 */
 	public function test_networkExcludeOption() {
+
+		$optionBefore =  [
+			'allow_redistribution'           => 0,
+			'enable_network_api'             => 1,
+			'enable_cloning'                 => 1,
+			'enable_thincc_weblinks'         => 1,
+			'iframe_whitelist'               => '',
+			SharingAndPrivacyOptions::NETWORK_DIRECTORY_EXCLUDED => 0,
+		];
+
+		$optionAfter =  [
+			'allow_redistribution'           => 0,
+			'enable_network_api'             => 1,
+			'enable_cloning'                 => 1,
+			'enable_thincc_weblinks'         => 1,
+			'iframe_whitelist'               => '',
+			SharingAndPrivacyOptions::NETWORK_DIRECTORY_EXCLUDED => 0,
+		];
+
 		$this->assertEquals( SharingAndPrivacyOptions::networkExcludeOption( SharingAndPrivacyOptions::getSlug() ), true);
 		$this->assertEquals( SharingAndPrivacyOptions::networkExcludeOption( 'some_option_name' ), false);
+
+//		add_action( 'update_site_option', [ '\Pressbooks\Admin\Network\SharingAndPrivacyOptions', 'networkExcludeOption' ] );
+//
+//		update_site_option( SharingAndPrivacyOptions::getSlug(), $optionBefore );
+//		do_action( 'update_site_option' );
+//
+//		$last_updated_before = get_blog_details()->last_updated;
+//		sleep(2);
+//
+//		update_site_option( SharingAndPrivacyOptions::getSlug(), $optionAfter );
+//		do_action( 'update_site_option' );
+//
+//		$last_updated_after = get_blog_details()->last_updated;
+//		$this->assertNotEquals( $last_updated_before, $last_updated_after );
+
+	}
+
+	/**
+	 * @group privacy
+	 */
+	public function test_getNonCatalogBooks_zero_to_one_non_catalog_books() {
+
+		update_site_meta( get_current_blog_id(), 'pb_in_catalog', true );
+
+		$this->assertIsArray( SharingAndPrivacyOptions::getNonCatalogBooks() );
+		$this->assertCount( 0, SharingAndPrivacyOptions::getNonCatalogBooks() );
+
+		$this->_book();
+
+		$this->assertCount( 1, SharingAndPrivacyOptions::getNonCatalogBooks() );
+
+		update_site_meta( get_current_blog_id(), 'pb_in_catalog', true );
+
+		$this->assertCount( 0, SharingAndPrivacyOptions::getNonCatalogBooks() );
+
+	}
+
+	/**
+	 * @group privacy
+	 */
+	public function test_excludeNonCatalogBooksFromDirectoryAction() {
+
+		$books = $this->factory()->blog->create_many(2);
+
+		$response = [
+			'directory_delete_response' => false,
+			'update_blogs_details_response' => [ true, true ],
+		];
+
+		$this->assertEquals(
+			SharingAndPrivacyOptions::excludeNonCatalogBooksFromDirectoryAction( $books ),
+			$response
+		);
+
+		$this->assertEquals(
+			SharingAndPrivacyOptions::excludeNonCatalogBooksFromDirectoryAction( $books, false),
+			$response
+		);
 	}
 
 }
