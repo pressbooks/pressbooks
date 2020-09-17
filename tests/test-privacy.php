@@ -2,6 +2,7 @@
 
 use Pressbooks\DataCollector\Book as DataCollector;
 use function Pressbooks\Admin\Laf\book_directory_excluded_callback;
+use Pressbooks\Admin\Network\SharingAndPrivacyOptions;
 
 class GdprTest extends \WP_UnitTestCase {
 
@@ -65,6 +66,8 @@ class GdprTest extends \WP_UnitTestCase {
 		do_action( 'update_option_pb_book_directory_excluded', '0', '1' );
 		$last_updated_after = get_blog_details()->last_updated;
 
+		var_dump(get_current_blog_id());
+		var_dump(get_site_meta( get_current_blog_id(), DataCollector::BOOK_DIRECTORY_EXCLUDED, true ));
 		$this->assertEquals( get_site_meta( get_current_blog_id(), DataCollector::BOOK_DIRECTORY_EXCLUDED, true ), '1' );
 		$this->assertNotEquals( $last_updated_before, $last_updated_after );
 	}
@@ -80,4 +83,13 @@ class GdprTest extends \WP_UnitTestCase {
 
 		$this->assertEquals( $buffer, $html_group );
 	}
+
+	/**
+	 *
+	 */
+	public function test_networkExcludeOption() {
+		$this->assertEquals( SharingAndPrivacyOptions::networkExcludeOption( SharingAndPrivacyOptions::getSlug() ), true);
+		$this->assertEquals( SharingAndPrivacyOptions::networkExcludeOption( 'some_option_name' ), false);
+	}
+
 }

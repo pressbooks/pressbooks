@@ -1202,7 +1202,7 @@ function privacy_settings_init() {
 				$current_book_id = get_current_blog_id();
 
 				if ( update_site_meta( $current_book_id, DataCollector::BOOK_DIRECTORY_EXCLUDED, $updated_value ) ) {
-					update_blog_details( $current_book_id, array( 'last_updated' => current_time( 'mysql', true ) ) );
+					update_blog_details( $current_book_id, [ 'last_updated' => current_time( 'mysql', true ) ] );
 				}
 				if ( $updated_value === 1 ) {
 					BookDirectory::init()->deleteBookFromDirectory( [ $current_book_id ] );

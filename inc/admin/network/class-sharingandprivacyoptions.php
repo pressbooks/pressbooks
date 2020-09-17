@@ -171,15 +171,6 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 						$options = $this->sanitize( [] ); // Get sanitized defaults
 					}
 
-					if ( $this->options[self::NETWORK_DIRECTORY_EXCLUDED] !== $options[self::NETWORK_DIRECTORY_EXCLUDED] ) {
-						if ( $options[self::NETWORK_DIRECTORY_EXCLUDED] === 1 ) {
-							self::excludeCatalogBooksFromDirectory();
-						}
-						if ( $options[self::NETWORK_DIRECTORY_EXCLUDED] === 0 ) {
-							self::excludeCatalogBooksFromDirectory( true );
-						}
-					}
-
 					update_site_option( $_option, $options );
 					?>
 					<div id="message" role="status" class="updated notice is-dismissible"><p><strong><?php _e( 'Settings saved.', 'pressbooks' ); ?></strong></div>
@@ -209,37 +200,89 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 				continue;
 			}
 
-			update_blog_details( $book->blog_id, array( 'last_updated' => current_time( 'mysql', true ) ) );
+			update_blog_details( $book->blog_id, [ 'last_updated' => current_time( 'mysql', true ) ] );
 		}
+	}
+
+	/**
+	 * Performs network exclusion logic when the exclude option is on
+	 * This function is added to the update_site_option as an action
+	 * which listens to all changes in site option
+	 * @param string $option
+	 * @param $value
+	 * @return bool
+	 */
+	public static function networkExcludeOption( string $option ) {
+		if ( $option !== self::getSlug() ) {
+			return false;
+		}
+
+		$value = get_site_option( $option );
+
+		if ( isset( $value[ self::NETWORK_DIRECTORY_EXCLUDED ] ) ) {
+			if ( $value[ self::NETWORK_DIRECTORY_EXCLUDED ] === 1 ) {
+				self::excludeNonCatalogBooksFromDirectory( 'excludeNonCatalogBooksFromDirectoryAction' );
+			} elseif ( $value[ self::NETWORK_DIRECTORY_EXCLUDED ] === 0 ) {
+				self::excludeNonCatalogBooksFromDirectory( 'excludeNonCatalogBooksFromDirectoryAction', true );
+			}
+		}
+
+		return true;
 	}
 
 	/**
 	 * Triggers a batch book directory delete for all NON catalog books
 	 * @param bool $revert  un-checking network exclude
 	 */
-	static function excludeCatalogBooksFromDirectory( bool $revert = false ) {
-		$book_ids = [];
-		$books = get_sites();
-
-		foreach ( $books as $book ) {
-			if ( '1' === $book->blog_id ) {
-				continue;
-			}
-
-			$in_catalog = get_site_meta( $book->blog_id, \Pressbooks\DataCollector\Book::IN_CATALOG, true );
-
-			if ( isset( $in_catalog ) && $in_catalog === '0' ) {
-				if ( ! $revert ) {
-					$book_ids[] = $book->blog_id;
-				}
-
-				update_blog_details( $book->blog_id, array( 'last_updated' => current_time( 'mysql', true ) ) );
-			}
-		}
+	static function excludeNonCatalogBooksFromDirectory( $callback, bool $revert = false ) {
+		$book_ids = self::getNonCatalogBooks();
 
 		if ( count( $book_ids ) > 0 ) {
-			BookDirectory::init()->deleteBookFromDirectory( $book_ids );
+			self::$callback( $book_ids, $revert );
 		}
+	}
+
+	/**
+	 *  Returns all non catalog book ids
+	 * @return array    Non catalog books
+	 */
+	static function getNonCatalogBooks() {
+		$book_ids = [];
+		$books = get_sites();
+		foreach ( $books as $book ) {
+			$in_catalog = get_site_meta( $book->blog_id, \Pressbooks\DataCollector\Book::IN_CATALOG, true );
+			if ( isset( $in_catalog ) && $in_catalog === '0' ) {
+				$book_ids[] = $book->blog_id;
+			}
+		}
+		return $book_ids;
+	}
+
+	/**
+	 * Perform actions during network book exclusion is enabled
+	 * @param $book_ids
+	 */
+	static function excludeNonCatalogBooksFromDirectoryAction( array $book_ids, bool $revert = false ) {
+		$is_deleted = false;
+		$update_blogs = [];
+
+		if ( ! $revert ) {
+			$is_deleted = BookDirectory::init()->deleteBookFromDirectory( $book_ids );
+		}
+
+		$update_blogs = array_map(
+			function( $book_id ) {
+				return update_blog_details( $book_id, [ 'last_updated' => current_time( 'mysql', true ) ] );
+			},
+			$book_ids
+		);
+
+		$response = [
+			'directory_delete_response' => $is_deleted,
+			'update_blogs_details_response' => $update_blogs,
+		];
+
+		return $response;
 	}
 
 	/**
