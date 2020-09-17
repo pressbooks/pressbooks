@@ -109,6 +109,9 @@ class GdprTest extends \WP_UnitTestCase {
 		$this->assertEquals( SharingAndPrivacyOptions::networkExcludeOption( 'some_option_name' ), false);
 
 		update_site_option( SharingAndPrivacyOptions::getSlug(), $optionBefore );
+		update_blog_details( 1,
+			[ 'last_updated' => current_time( 'mysql', true ) ]
+		);
 //		add_action( 'update_site_option', [ '\Pressbooks\Admin\Network\SharingAndPrivacyOptions', 'networkExcludeOption' ] );
 //		do_action( 'update_site_option' );
 //		do_action( SharingAndPrivacyOptions::getSlug(), $optionBefore, $optionAfter);
@@ -123,9 +126,12 @@ class GdprTest extends \WP_UnitTestCase {
 //
 		$last_updated_before = get_blog_details()->last_updated;
 		sleep(2);
-		update_site_option( SharingAndPrivacyOptions::getSlug(), $optionAfter );
+		$x = update_site_option( SharingAndPrivacyOptions::getSlug(), $optionAfter );
 //		do_action( 'update_site_option' );
-//
+
+		update_blog_details( 1,
+			[ 'last_updated' => current_time( 'mysql', true ) ]
+		);
 		$last_updated_after = get_blog_details()->last_updated;
 		$this->assertNotEquals( $last_updated_before, $last_updated_after );
 
