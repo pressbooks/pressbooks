@@ -210,7 +210,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 
 	/**
 	 * Performs network book directory exclusion logic for non catalog books
-	 * @param bool $exclude		True for exclude and false for removing exclude
+	 * @param bool $exclude   True for exclude and false for removing exclude
 	 */
 	public static function networkExcludeOption( bool $exclude ) {
 		if ( $exclude ) {
@@ -238,7 +238,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	 */
 	static function getNonCatalogBooks() {
 		$book_ids = [];
-		$books = get_sites( [ 'site__not_in' => [1] ] );
+		$books = get_sites( [ 'site__not_in' => [ 1 ] ] );
 		foreach ( $books as $book ) {
 			$in_catalog = get_site_meta( $book->blog_id, \Pressbooks\DataCollector\Book::IN_CATALOG, true );
 			if ( isset( $in_catalog ) && $in_catalog === '0' ) {
@@ -251,7 +251,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	/**
 	 * Perform actions during network book exclusion is enabled
 	 * @param $book_ids
-	 * @return array	Responses from actions
+	 * @return array   Responses from actions
 	 */
 	static function excludeNonCatalogBooksFromDirectoryAction( array $book_ids, bool $revert = false ) {
 		$is_deleted = false;

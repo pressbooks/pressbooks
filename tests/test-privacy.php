@@ -87,16 +87,15 @@ class GdprTest extends \WP_UnitTestCase {
 	 */
 	public function test_getNonCatalogBooks_zero_to_one_non_catalog_books() {
 
-		update_site_meta( get_current_blog_id(), 'pb_in_catalog', true );
-
 		$this->assertIsArray( SharingAndPrivacyOptions::getNonCatalogBooks() );
 		$this->assertCount( 0, SharingAndPrivacyOptions::getNonCatalogBooks() );
 
 		$this->_book();
+		add_site_meta( get_current_blog_id(), 'pb_in_catalog', true );
 
 		$this->assertCount( 1, SharingAndPrivacyOptions::getNonCatalogBooks() );
 
-		update_site_meta( get_current_blog_id(), 'pb_in_catalog', true );
+		update_site_meta( get_current_blog_id(), 'pb_in_catalog', false );
 
 		$this->assertCount( 0, SharingAndPrivacyOptions::getNonCatalogBooks() );
 
