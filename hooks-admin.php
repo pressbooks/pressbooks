@@ -111,7 +111,6 @@ add_action( 'network_admin_menu', '\Pressbooks\Admin\Laf\network_admin_menu' );
 if ( ! is_network_admin() ) {
 	add_action( 'admin_init', '\Pressbooks\Admin\Laf\privacy_settings_init' );
 }
-add_action( 'update_site_option', [ '\Pressbooks\Admin\Network\SharingAndPrivacyOptions', 'networkExcludeOption' ] );
 
 //  Replaces 'WordPress' with 'Pressbooks' in titles of admin pages.
 add_filter( 'admin_title', '\Pressbooks\Admin\Branding\admin_title' );

@@ -171,6 +171,10 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 						$options = $this->sanitize( [] ); // Get sanitized defaults
 					}
 
+					if ( $this->options['network_directory_excluded'] !== $options['network_directory_excluded'] ) {
+						self::networkExcludeOption( (int) $options['network_directory_excluded'] );
+					}
+
 					update_site_option( $_option, $options );
 					?>
 					<div id="message" role="status" class="updated notice is-dismissible"><p><strong><?php _e( 'Settings saved.', 'pressbooks' ); ?></strong></div>
@@ -205,29 +209,15 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	}
 
 	/**
-	 * Performs network exclusion logic when the exclude option is on
-	 * This function is added to the update_site_option as an action
-	 * which listens to all changes in site option
-	 * @param string $option
-	 * @param $value
-	 * @return bool
+	 * Performs network book directory exclusion logic for non catalog books
+	 * @param bool $exclude		True for exclude and false for removing exclude
 	 */
-	public static function networkExcludeOption( string $option ) {
-		if ( $option !== self::getSlug() ) {
-			return false;
+	public static function networkExcludeOption( bool $exclude ) {
+		if ( $exclude ) {
+			self::excludeNonCatalogBooksFromDirectory( 'excludeNonCatalogBooksFromDirectoryAction' );
+		} else {
+			self::excludeNonCatalogBooksFromDirectory( 'excludeNonCatalogBooksFromDirectoryAction', true );
 		}
-
-		$value = get_site_option( $option );
-
-		if ( isset( $value[ self::NETWORK_DIRECTORY_EXCLUDED ] ) ) {
-			if ( $value[ self::NETWORK_DIRECTORY_EXCLUDED ] === 1 ) {
-				self::excludeNonCatalogBooksFromDirectory( 'excludeNonCatalogBooksFromDirectoryAction' );
-			} elseif ( $value[ self::NETWORK_DIRECTORY_EXCLUDED ] === 0 ) {
-				self::excludeNonCatalogBooksFromDirectory( 'excludeNonCatalogBooksFromDirectoryAction', true );
-			}
-		}
-
-		return true;
 	}
 
 	/**
