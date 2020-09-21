@@ -372,7 +372,7 @@ class GlobalTypography {
 			'music' => [
 				'baseurl' => 'https://github.com/steinbergmedia/bravura/raw/master/redist/otf/',
 				'files' => [
-						'BravuraText.otf' => 'BravuraText.otf',
+					'BravuraText.otf' => 'BravuraText.otf',
 				],
 			],
 			'nqo' => [
