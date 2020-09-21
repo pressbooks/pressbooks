@@ -1,5 +1,7 @@
 <?php
 
+use function \Pressbooks\Metadata\book_information_to_schema;
+
 class ApiTest extends \WP_UnitTestCase {
 
 	use utilsTrait;
@@ -48,6 +50,34 @@ class ApiTest extends \WP_UnitTestCase {
 		$this->assertIsInt( $data['metadata']['h5pActivities'] );
 		$this->assertIsBool( $data['metadata']['inCatalog'] );
 		$this->assertIsString( $data['metadata']['license']['code'] );
+	}
+
+	/**
+	 * @group api
+	 */
+	public function test_informationToSchema() {
+		$book_information = [
+			"pb_authors" => "admin",
+            "pb_title" => "The onboarding process",
+			"pb_language" => "en",
+			"pb_cover_image" => "https://pressbooks.test/app/plugins/pressbooks/assets/dist/images/default-book-cover.jpg",
+            "pb_primary_subject" => "YXHB",
+			"pb_additional_subjects" => "ATL, ABK",
+			"pb_subtitle" => "subtitle test",
+			"pb_word_count" => "4840",
+            "pb_storage_size" => "39570177",
+            "pb_in_catalog" => 1,
+            "pb_h5p_activities" => 6,
+            "pb_book_url" => "https://pressbooks.test/theonboarding",
+            "pb_book_directory_excluded" => 1,
+			"last_updated" => 1584921600,
+		];
+		$schema = book_information_to_schema( $book_information );
+
+		$this->assertArrayHasKey( 'about', $schema );
+		$this->assertArrayHasKey( 'language', $schema );
+		$this->assertArrayHasKey( 'wordCount', $schema );
+		$this->assertArrayHasKey( 'h5pActivities', $schema );
 	}
 
 	/**
