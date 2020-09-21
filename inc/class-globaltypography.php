@@ -371,11 +371,9 @@ class GlobalTypography {
 			],
 			'music' => [
 				'baseurl' => 'https://github.com/steinbergmedia/bravura/raw/master/redist/otf/',
-				//              'baseurl' => 'https://github.com/steinbergmedia/bravura/raw/master/redist/woff',
-					'files' => [
+				'files' => [
 						'BravuraText.otf' => 'BravuraText.otf',
-				//                  'BravuraText.woff2' => 'BravuraText.woff2',
-					],
+				],
 			],
 			'nqo' => [
 				'baseurl' => 'https://github.com/googlefonts/noto-fonts/raw/master/unhinted/ttf/',
