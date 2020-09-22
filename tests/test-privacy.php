@@ -21,6 +21,19 @@ class GdprTest extends \WP_UnitTestCase {
 		parent::setUp();
 		$this->privacy = new \Pressbooks\Privacy();
 	}
+
+	/**
+	 * @group privacy
+	 */
+	public static function setUpBeforeClass()
+	{
+		$blog_ids = get_sites( [ 'site__not_in' => 1 ] );
+
+		foreach ( $blog_ids as $blog ) {
+			wp_delete_site($blog->blog_id);
+		}
+	}
+
 	/**
 	 * @group privacy
 	 */
@@ -34,6 +47,7 @@ class GdprTest extends \WP_UnitTestCase {
 		$this->assertEquals( $event->schedule, 'twicedaily' );
 		$this->assertEquals( $event->interval, 43200 );
 	}
+
 	/**
 	 * @group privacy
 	 */
@@ -87,6 +101,7 @@ class GdprTest extends \WP_UnitTestCase {
 	 */
 	public function test_getNonCatalogBooks_zero_to_one_non_catalog_books() {
 
+		// assume the first blog is the main wp site and not a book
 		$this->assertIsArray( SharingAndPrivacyOptions::getNonCatalogBooks() );
 		$this->assertCount( 0, SharingAndPrivacyOptions::getNonCatalogBooks() );
 
@@ -98,7 +113,6 @@ class GdprTest extends \WP_UnitTestCase {
 		update_site_meta( get_current_blog_id(), 'pb_in_catalog', false );
 
 		$this->assertCount( 0, SharingAndPrivacyOptions::getNonCatalogBooks() );
-
 	}
 
 	/**
@@ -122,6 +136,7 @@ class GdprTest extends \WP_UnitTestCase {
 			SharingAndPrivacyOptions::excludeNonCatalogBooksFromDirectoryAction( $books, false),
 			$response
 		);
+
 	}
 
 }

@@ -298,7 +298,7 @@ class GlobalTypography {
 	function fontPacks() {
 		$fontpacks = [
 			'bn' => [
-				'baseurl' => 'https://github.com/googlefonts/noto-fonts/raw/master/unhinted/',
+				'baseurl' => 'https://github.com/googlefonts/noto-fonts/raw/master/archive/unhinted/',
 				'files' => [
 					'NotoSansBengali-Bold.ttf' => 'NotoSansBengali/NotoSansBengali-Bold.ttf',
 					'NotoSansBengali-Regular.ttf' => 'NotoSansBengali/NotoSansBengali-Regular.ttf',
@@ -443,6 +443,7 @@ class GlobalTypography {
 						if ( ! function_exists( 'download_url' ) ) {
 							require_once( ABSPATH . 'wp-admin/includes/file.php' );
 						}
+
 						$result = download_url( $val['baseurl'] . $font_url );
 						if ( is_wp_error( $result ) ) {
 							$_SESSION['pb_errors'][] = sprintf( __( 'Your %1$s font could not be downloaded from %2$s.', 'pressbooks' ), $language_names[ $language ], '<code>' . $val['baseurl'] . $font_url . '</code>' ) . '<br /><pre>' . $result->get_error_message() . '</pre>';
