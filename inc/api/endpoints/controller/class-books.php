@@ -322,7 +322,7 @@ class Books extends \WP_REST_Controller {
 		if ( ! empty( $request['modified_since'] ) && is_numeric( $request['modified_since'] ) ) {
 			$epoch = $request['modified_since'];
 			$datetime = new \DateTime( "@$epoch" );
-			$conditions .= sprintf( ' AND last_updated > \'%s\'', $datetime->format('Y-m-d H:i:s') );
+			$conditions .= sprintf( ' AND last_updated > \'%s\'', $datetime->format( 'Y-m-d H:i:s' ) );
 		}
 
 		// phpcs:disable WordPress.WP.PreparedSQL.NotPrepared, WordPress.DB.PreparedSQLPlaceholders.ReplacementsWrongNumber
