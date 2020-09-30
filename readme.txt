@@ -2,7 +2,7 @@
 Contributors: Pressbooks <code@pressbooks.com>
 Tags: ebooks, publishing, webbooks
 Requires at least: 5.4
-Tested up to: 5.4.2
+Tested up to: 5.5.1
 Requires PHP: 7.1
 Stable tag: 5.16.3
 License: GPL v3.0 or later
