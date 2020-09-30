@@ -159,7 +159,7 @@ Please open an issue on `pressbooks/pressbooks` if you have suggestions for new 
 #### Pull Request Labels
 
 | Label name | `pressbooks/pressbooks` | Description |
-| --- | --- | --- | --- |
+| --- | --- | --- |
 | `work-in-progress` | [search][search-pressbooks-repo-label-work-in-progress] | Pull requests which are still being worked on, more changes will follow. |
 | `needs-review` | [search][search-pressbooks-repo-label-needs-review] | Pull requests which need code review, and approval from maintainers or the Pressbooks team. |
 | `under-review` | [search][search-pressbooks-repo-label-under-review] | Pull requests being reviewed by maintainers or the Pressbooks team. |
