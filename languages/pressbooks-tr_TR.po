@@ -1,17 +1,17 @@
 # Copyright (C) 2020 Pressbooks (Book Oven Inc.)
 # This file is distributed under the same license as the Pressbooks plugin.
 # Translators:
-# Antonio Devís <colomet@hotmail.com>, 2017
+# Antonio D., 2017
 # ayse tekbas <ayse.tekbas@gmail.com>, 2016
 # Mustafa Bulun <mustafa.bulun@bizimajans.com>, 2020
-# Antonio Devís <colomet@hotmail.com>, 2016
+# Antonio D., 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
-"POT-Creation-Date: 2020-08-21T02:30:20+00:00\n"
-"PO-Revision-Date: 2020-09-02 20:48+0000\n"
-"Last-Translator: Ho Man Chan <homan@pressbooks.com>\n"
+"POT-Creation-Date: 2020-09-30T20:43:15+00:00\n"
+"PO-Revision-Date: 2020-09-19 00:28+0000\n"
+"Last-Translator: Mustafa Bulun <mustafa.bulun@bizimajans.com>\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/pressbooks/pressbooks/language/tr_TR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2081,7 +2081,7 @@ msgstr "Malayalam dili"
 
 #: inc/class-globaltypography.php:57
 msgid "Musical Notation"
-msgstr ""
+msgstr "Müzik Nota Sistemi"
 
 #: inc/class-globaltypography.php:58
 msgid "N'Ko"
@@ -2267,15 +2267,15 @@ msgstr "GNU FreeFont Serif"
 
 #: inc/class-styles.php:647
 msgid "New Athena Unicode"
-msgstr ""
+msgstr "New Athena Unicode"
 
 #: inc/class-styles.php:648
 msgid "Noto Serif"
-msgstr ""
+msgstr "Noto Serif"
 
 #: inc/class-styles.php:649
 msgid "Sorts Mill Goudy"
-msgstr ""
+msgstr "Sorts Mill Goudy"
 
 #: inc/class-styles.php:650
 msgid "Spectral"
@@ -3298,7 +3298,7 @@ msgstr "Başlık Rengi"
 
 #: inc/modules/themeoptions/class-globaloptions.php:196
 msgid "The header text color for a %s textbox."
-msgstr ""
+msgstr "%s metin kutusu için başlık metin rengi."
 
 #: inc/modules/themeoptions/class-globaloptions.php:201
 msgid "Header Background"
@@ -3306,7 +3306,7 @@ msgstr "Başlık Arkaplanı"
 
 #: inc/modules/themeoptions/class-globaloptions.php:207
 msgid "The header background color for a %s textbox."
-msgstr ""
+msgstr "%s metin kutusu için başlık arka plan rengi."
 
 #: inc/modules/themeoptions/class-globaloptions.php:212
 msgid "Background"
@@ -3314,7 +3314,7 @@ msgstr "Arkaplan"
 
 #: inc/modules/themeoptions/class-globaloptions.php:218
 msgid "The background color for a %s textbox."
-msgstr ""
+msgstr "%s metin kutusu için arka plan rengi."
 
 #: inc/modules/themeoptions/class-globaloptions.php:245
 msgid "These options apply universally to webbook, PDF and ebook exports."
@@ -4021,7 +4021,7 @@ msgstr "Şifre en az bir rakam içermek zorundadır."
 
 #: inc/shortcodes/attributions/class-attachments.php:200
 msgid " &copy; "
-msgstr ""
+msgstr " &copy; "
 
 #: inc/shortcodes/attributions/class-attachments.php:201
 msgid " adapted by "
@@ -4040,7 +4040,7 @@ msgstr "Seç"
 msgid ""
 "Your book&rsquo;s theme, %1$s, has been locked in its current state as of "
 "%2$s at %3$s."
-msgstr ""
+msgstr "Kitabınızın teması, %1$s, mevcut durumunda kilitlendi %2$s / %3$s."
 
 #: inc/theme/class-lock.php:110
 msgid ""
@@ -4056,13 +4056,13 @@ msgstr "Kitabınızın teması açıldı."
 msgid ""
 "Your book&rsquo;s theme, %1$s, was locked in its current state as of %2$s at"
 " %3$s. To select a new theme or change your theme options, please %4$s."
-msgstr ""
+msgstr "Kitabınızın teması, %1$s, mevcut durumunda kilitlendi %2$s / %3$s. Yeni bir tema seçmek veya tema seçeneklerinizi değiştirmek için lütfen %4$s."
 
 #: inc/theme/namespace.php:39
 msgid ""
 "Your theme, %1$s, is not installed. Please visit %2$s for installation "
 "instructions."
-msgstr ""
+msgstr "Temanız, %1$s, yüklenmemiş. Kurulum talimatları için lütfen  %2$s ziyaret edin."
 
 #: inc/theme/namespace.php:54
 msgid ""
@@ -4074,18 +4074,18 @@ msgstr "Pressbooks Book teması yüklenmedi, ancak Pressbooks'un düzgün çalı
 msgid ""
 "The Pressbooks Custom CSS theme must be upgraded. Please visit %s for "
 "installation instructions."
-msgstr ""
+msgstr "Pressbooks Özel CSS teması yükseltilmelidir. Kurulum talimatları için lütfen %s adresini ziyaret edin."
 
 #: inc/theme/namespace.php:136
 msgid ""
 "Luther has been replaced with McLuhan as Pressbooks’ default book theme. To "
 "continue using Luther for your book, please ensure that the standalone <a "
 "href=\"%1$s\">Luther theme</a> is installed and network activated."
-msgstr ""
+msgstr "Luther, Pressbooks’un varsayılan kitap teması olarak McLuhan ile değiştirildi. Kitabınız için Luther'i kullanmaya devam etmek için lütfen bağımsız <a href=\"%1$s\">Luther temasının</a> kurulu ve ağın etkinleştirildiğinden emin olun."
 
 #: inc/utility/class-percentageyield.php:91
 msgid " (%1$d of %2$d)"
-msgstr ""
+msgstr " (%1$d / %2$d)"
 
 #: inc/utility/namespace.php:604 inc/utility/namespace.php:615
 #: inc/utility/namespace.php:631
@@ -4185,7 +4185,7 @@ msgid ""
 "Pressbooks dependencies are missing. Please make sure that your "
 "project&rsquo;s <a href=\"%1$s\">Composer autoload file</a> is being "
 "required, or use the <a href=\"%2$s\">latest release</a> instead."
-msgstr ""
+msgstr "Pressbooks bağımlılıkları eksik. Lütfen projenizin <a href=\"%1$s\">Composer otomatik yükleme dosyasının</a> gerekli olduğundan emin olun veya bunun yerine <a href=\"%2$s\">En son sürümü</a> kullanın."
 
 #: pressbooks.php:88
 msgid "Cannot find Pressbooks install."
@@ -4258,7 +4258,7 @@ msgid ""
 "<strong>print</strong> book that will work with most Print on Demand "
 "services, as well as an <strong>ebook</strong> cover that will meet the "
 "specifications of Kindle, Apple and other ebook retailers."
-msgstr ""
+msgstr "Kapak oluşturucumuzu kullanarak, <strong>kitabınız</strong> için güzel bir kapak oluşturabilirsiniz. Ayrıca, Kindle, Apple ve diğer e-kitap satıcılarının teknik özelliklerini karşılayacak bir <strong>e-kitap</strong> kapağı da oluşturabilirsiniz."
 
 #: templates/admin/covergenerator.php:79
 msgid "Make Your Cover"
@@ -4283,7 +4283,7 @@ msgstr "Afedersiniz! Önce bazı kapakları oluşturmanız gerekir."
 #. translators: %s date/time
 #: templates/admin/covergenerator.php:107
 msgid "Your latest covers were generated on %s. Hover to download them."
-msgstr ""
+msgstr "En son kapaklarınız %s tarihinde oluşturuldu. İndirmek için fareyle üzerine gelin."
 
 #: templates/admin/covergenerator.php:139
 msgid "Are you sure you want to delete ALL your current covers?"
@@ -4303,7 +4303,7 @@ msgstr "Şu anda stilleri düzenliyorsunuz, şunun için:"
 
 #: templates/admin/custom-styles.php:44
 msgid "Theme %1$s Styles (%2$s)"
-msgstr ""
+msgstr "Tema %1$s Stiller (%2$s)"
 
 #: templates/admin/custom-styles.php:46
 msgid "Your %s Styles"
@@ -4421,11 +4421,11 @@ msgstr "Sözcük sayısı:"
 
 #: templates/admin/organize.php:72
 msgid "%s (whole book)"
-msgstr ""
+msgstr "%s (tüm kitap)"
 
 #: templates/admin/organize.php:73
 msgid "%s (selected for export)"
-msgstr ""
+msgstr "%s (dışa aktarma için seçildi)"
 
 #: templates/admin/organize.php:117 templates/admin/organize.php:183
 #: templates/admin/organize.php:341
@@ -4476,7 +4476,7 @@ msgid ""
 "Search & Replace will find and replace ALL instances of the search pattern "
 "in your entire book. Replacements will only be saved if you click "
 "&lsquo;<strong>Replace &amp; Save</strong>&rsquo;."
-msgstr ""
+msgstr "Ara ve Değiştir, kitabınızın tamamında arama modelinin TÜM örneklerini bulur ve değiştirir.  Değiştirmeler yalnızca \"Değiştir &amp; Kaydet</strong>\" seçeneğini tıklarsanız kaydedilecektir."
 
 #: templates/admin/search.php:13
 msgid ""
@@ -4511,7 +4511,7 @@ msgstr "İle değiştir"
 
 #: templates/admin/search.php:69
 msgid "Regex"
-msgstr ""
+msgstr "Normal ifade"
 
 #: templates/admin/search.php:73
 msgid "Enable regular expressions"
@@ -4534,7 +4534,7 @@ msgstr "Silinen bölümleri, parçaları, ön ve arka konuları ve sözlük teri
 msgid ""
 "<strong>NOTE</strong>: Items in the trash will be permanently deleted after "
 "%d days."
-msgstr ""
+msgstr "<strong>NOT</strong>: Çöp kutusundaki öğeler %d gün sonra kalıcı olarak silinecek."
 
 #: templates/admin/trash.php:27
 msgid "No trash found."
@@ -4634,7 +4634,7 @@ msgstr "Lütfen bu bilgileri herhangi bir hata raporuyla birlikte gönderin."
 msgid ""
 "To copy the system info, click below then press Ctrl + C (PC) or Cmd + C "
 "(Mac)."
-msgstr ""
+msgstr "Sistem bilgilerini kopyalamak için aşağıya tıklayın ve Ctrl + C (PC) veya Cmd + C (Mac) tuşlarına basın."
 
 #: templates/admin/diagnostics.blade.php:8
 msgid "View Source"
@@ -4644,7 +4644,7 @@ msgstr "Kaynağı Görüntüle"
 msgid ""
 "<a href=\"%s\">View your book&rsquo;s XHTML source</a> to diagnose issues "
 "you may be encountering with your PDF exports."
-msgstr ""
+msgstr "PDF dışa aktarmalarınızda karşılaşabileceğiniz sorunları teşhis etmek için, <a href=\"%s\">kitabınızın XHTML kaynağını</a> görüntüleyin."
 
 #: templates/admin/diagnostics.blade.php:10
 msgid "Regenerate Webbook Stylesheet"
@@ -4735,7 +4735,7 @@ msgstr "Metin rengi"
 msgid ""
 "A six digit hexadecimal number like <code>000000</code> or "
 "<code>ffffff</code>"
-msgstr ""
+msgstr "<code>000000</code> veya <code>ffffff</code> gibi altı basamaklı onaltılık bir sayı."
 
 #: templates/admin/mathjax.blade.php:52
 msgid "SVG/PNG Fonts"
