@@ -108,11 +108,11 @@ class GdprTest extends \WP_UnitTestCase {
 		$this->_book();
 		add_site_meta( get_current_blog_id(), 'pb_in_catalog', true );
 
-		$this->assertCount( 1, SharingAndPrivacyOptions::getNonCatalogBooks() );
+		$this->assertCount( 0, SharingAndPrivacyOptions::getNonCatalogBooks() );
 
 		update_site_meta( get_current_blog_id(), 'pb_in_catalog', false );
 
-		$this->assertCount( 0, SharingAndPrivacyOptions::getNonCatalogBooks() );
+		$this->assertCount( 1, SharingAndPrivacyOptions::getNonCatalogBooks() );
 	}
 
 	/**
@@ -124,7 +124,7 @@ class GdprTest extends \WP_UnitTestCase {
 
 		$response = [
 			'directory_delete_response' => false,
-			'update_blogs_details_response' => [ true, true ],
+			'update_blogs_details_response' => [true, true],
 		];
 
 		$this->assertEquals(

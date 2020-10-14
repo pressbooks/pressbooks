@@ -213,11 +213,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	 * @param bool $exclude   True for exclude and false for removing exclude
 	 */
 	public static function networkExcludeOption( bool $exclude ) {
-		if ( $exclude ) {
-			self::excludeNonCatalogBooksFromDirectory( 'excludeNonCatalogBooksFromDirectoryAction' );
-		} else {
-			self::excludeNonCatalogBooksFromDirectory( 'excludeNonCatalogBooksFromDirectoryAction', true );
-		}
+		self::excludeNonCatalogBooksFromDirectory( 'excludeNonCatalogBooksFromDirectoryAction' , !$exclude);
 	}
 
 	/**
