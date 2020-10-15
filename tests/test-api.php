@@ -139,6 +139,35 @@ class ApiTest extends \WP_UnitTestCase {
 	/**
 	 * @group api
 	 */
+	public function test_book_api_filter_modified_since() {
+		$epochNow = strtotime( 'today' );
+		$epochFuture = strtotime( '+1 week' );
+
+		$this->_book();
+		$server = $this->_setupRootApi();
+		$endpoint = '/pressbooks/v2/books';
+		$request = new \WP_REST_Request( 'GET', $endpoint );
+
+		$request->set_query_params( [ 'modified_since' => $epochNow ] );
+		$response = $server->dispatch( $request );
+		$data = $response->get_data();
+		$this->assertCount( 1, $data );
+
+		$request->set_query_params( [ 'modified_since' => $epochFuture ] );
+		$response = $server->dispatch( $request );
+		$data = $response->get_data();
+		$this->assertEmpty( $data );
+
+		$this->_book();
+		$request->set_query_params( [ 'modified_since' => '' ] );
+		$response = $server->dispatch( $request );
+		$data = $response->get_data();
+		$this->assertCount( 2, $data );
+	}
+
+	/**
+	 * @group api
+	 */
 	public function test_is_enabled() {
 		$result = \Pressbooks\Api\is_enabled();
 		$this->assertTrue( is_bool( $result ) );
