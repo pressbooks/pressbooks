@@ -258,7 +258,7 @@ class Books extends \WP_REST_Controller {
 
 		$blog_info = [
 			'site_name' => get_site_option( 'site_name' ),
-			'last_updated' => strtotime( explode( ' ', get_blog_details()->last_updated )[0] ),
+			'last_updated' => strtotime( get_blog_details( $id )->last_updated ),
 		];
 
 		$metadata = array_merge( $metadata_info_array, $metadata_blog_meta, $blog_info );

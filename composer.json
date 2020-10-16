@@ -21,6 +21,7 @@
 		"source": "https://github.com/pressbooks/pressbooks/"
 	},
 	"config": {
+    "process-timeout":0,
 		"platform": {
 			"php": "7.1"
 		}

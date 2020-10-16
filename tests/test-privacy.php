@@ -2,9 +2,11 @@
 
 use Pressbooks\DataCollector\Book as DataCollector;
 use function Pressbooks\Admin\Laf\book_directory_excluded_callback;
+use Pressbooks\Admin\Network\SharingAndPrivacyOptions;
 
 class GdprTest extends \WP_UnitTestCase {
 
+	use utilsTrait;
 
 	/**
 	 * @var \Pressbooks\Privacy
@@ -19,6 +21,19 @@ class GdprTest extends \WP_UnitTestCase {
 		parent::setUp();
 		$this->privacy = new \Pressbooks\Privacy();
 	}
+
+	/**
+	 * @group privacy
+	 */
+	public static function setUpBeforeClass()
+	{
+		$blog_ids = get_sites( [ 'site__not_in' => 1 ] );
+
+		foreach ( $blog_ids as $blog ) {
+			wp_delete_site($blog->blog_id);
+		}
+	}
+
 	/**
 	 * @group privacy
 	 */
@@ -32,6 +47,7 @@ class GdprTest extends \WP_UnitTestCase {
 		$this->assertEquals( $event->schedule, 'twicedaily' );
 		$this->assertEquals( $event->interval, 43200 );
 	}
+
 	/**
 	 * @group privacy
 	 */
@@ -64,7 +80,6 @@ class GdprTest extends \WP_UnitTestCase {
 		@do_action( 'admin_init' );
 		do_action( 'update_option_pb_book_directory_excluded', '0', '1' );
 		$last_updated_after = get_blog_details()->last_updated;
-
 		$this->assertEquals( get_site_meta( get_current_blog_id(), DataCollector::BOOK_DIRECTORY_EXCLUDED, true ), '1' );
 		$this->assertNotEquals( $last_updated_before, $last_updated_after );
 	}
@@ -80,4 +95,46 @@ class GdprTest extends \WP_UnitTestCase {
 
 		$this->assertEquals( $buffer, $html_group );
 	}
+
+	/**
+	 * @group privacy
+	 */
+	public function test_getNonCatalogBooks_zero_to_one_non_catalog_books() {
+
+		// assume the first blog is the main wp site and not a book
+		$this->assertIsArray( SharingAndPrivacyOptions::getNonCatalogBooks() );
+		$this->assertCount( 0, SharingAndPrivacyOptions::getNonCatalogBooks() );
+
+		$this->_book();
+		update_site_meta( get_current_blog_id(), \Pressbooks\DataCollector\Book::IN_CATALOG, 1 );
+		$this->assertCount( 0, SharingAndPrivacyOptions::getNonCatalogBooks() );
+
+		update_site_meta( get_current_blog_id(), \Pressbooks\DataCollector\Book::IN_CATALOG, 0 );
+		$this->assertCount( 1, SharingAndPrivacyOptions::getNonCatalogBooks() );
+	}
+
+	/**
+	 * @group privacy
+	 */
+	public function test_excludeNonCatalogBooksFromDirectoryAction() {
+
+		$books = $this->factory()->blog->create_many(2);
+
+		$response = [
+			'directory_delete_response' => false,
+			'update_blogs_details_response' => [true, true],
+		];
+
+		$this->assertEquals(
+			SharingAndPrivacyOptions::excludeNonCatalogBooksFromDirectoryAction( $books ),
+			$response
+		);
+
+		$this->assertEquals(
+			SharingAndPrivacyOptions::excludeNonCatalogBooksFromDirectoryAction( $books, false),
+			$response
+		);
+
+	}
+
 }

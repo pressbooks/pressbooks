@@ -7,6 +7,7 @@
 namespace Pressbooks\Admin\Network;
 
 use function Pressbooks\Admin\NetworkManagers\is_restricted;
+use Pressbooks\BookDirectory;
 
 class SharingAndPrivacyOptions extends \Pressbooks\Options {
 
@@ -171,7 +172,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 					}
 
 					if ( $this->options['network_directory_excluded'] !== $options['network_directory_excluded'] ) {
-						$this->updateBooksLastUpdatedDate();
+						self::networkExcludeOption( (int) $options['network_directory_excluded'] );
 					}
 
 					update_site_option( $_option, $options );
@@ -205,6 +206,69 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 
 			update_blog_details( $book->blog_id, [ 'last_updated' => current_time( 'mysql', true ) ] );
 		}
+	}
+
+	/**
+	 * Performs network book directory exclusion logic for non catalog books
+	 * @param bool $exclude   True for exclude and false for removing exclude
+	 */
+	public static function networkExcludeOption( bool $exclude ) {
+		self::excludeNonCatalogBooksFromDirectory( 'excludeNonCatalogBooksFromDirectoryAction', ! $exclude );
+	}
+
+	/**
+	 * Triggers a batch book directory delete for all NON catalog books
+	 * @param bool $revert  un-checking network exclude
+	 */
+	static function excludeNonCatalogBooksFromDirectory( $callback, bool $revert = false ) {
+		$book_ids = self::getNonCatalogBooks();
+
+		if ( count( $book_ids ) > 0 ) {
+			self::$callback( $book_ids, $revert );
+		}
+	}
+
+	/**
+	 *  Returns all non catalog book ids
+	 * @return array    Non catalog books
+	 */
+	static function getNonCatalogBooks() {
+		$book_ids = [];
+		$books = get_sites( [ 'site__not_in' => [ 1 ] ] );
+		foreach ( $books as $book ) {
+			$in_catalog = get_site_meta( $book->blog_id, \Pressbooks\DataCollector\Book::IN_CATALOG, true );
+			if ( isset( $in_catalog ) && $in_catalog === '0' ) {
+				$book_ids[] = $book->blog_id;
+			}
+		}
+		return $book_ids;
+	}
+
+	/**
+	 * Perform actions during network book exclusion is enabled
+	 * @param $book_ids
+	 * @return array   Responses from actions
+	 */
+	static function excludeNonCatalogBooksFromDirectoryAction( array $book_ids, bool $revert = false ) {
+		$is_deleted = false;
+
+		if ( ! $revert ) {
+			$is_deleted = BookDirectory::init()->deleteBookFromDirectory( $book_ids );
+		}
+
+		$update_blogs = array_map(
+			function( $book_id ) {
+				return update_blog_details( $book_id, [ 'last_updated' => current_time( 'mysql', true ) ] );
+			},
+			$book_ids
+		);
+
+		$response = [
+			'directory_delete_response' => $is_deleted,
+			'update_blogs_details_response' => $update_blogs,
+		];
+
+		return $response;
 	}
 
 	/**

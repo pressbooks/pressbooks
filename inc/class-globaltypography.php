@@ -443,6 +443,7 @@ class GlobalTypography {
 						if ( ! function_exists( 'download_url' ) ) {
 							require_once( ABSPATH . 'wp-admin/includes/file.php' );
 						}
+
 						$result = download_url( $val['baseurl'] . $font_url );
 						if ( is_wp_error( $result ) ) {
 							$_SESSION['pb_errors'][] = sprintf( __( 'Your %1$s font could not be downloaded from %2$s.', 'pressbooks' ), $language_names[ $language ], '<code>' . $val['baseurl'] . $font_url . '</code>' ) . '<br /><pre>' . $result->get_error_message() . '</pre>';
