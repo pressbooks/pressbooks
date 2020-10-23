@@ -61,6 +61,40 @@ class Admin_DashboardTest extends \WP_UnitTestCase {
 	/**
 	 * @group dashboard
 	 */
+	public function test_lowly_user_remove_healthy_and_wp_news_widgets() {
+		global $wp_meta_boxes;
+		// Mock dashboard user, by default the dashboard will be admin in this test
+		$wp_meta_boxes['dashboard-user'] = [
+			'normal' => [
+				'core' => [
+					'dashboard_site_health' => [
+						'id' => 'dashboard_site_health',
+						'title' => 'Site Health Status',
+						'callback' => 'wp_dashboard_site_health',
+						'args' => [ '__widget_basename' => 'Site Health Status' ],
+					],
+				],
+			],
+			'side' => [
+				'core' => [
+					'dashboard_primary' => [
+						'id' => 'dashboard_primary',
+						'title' => 'WordPress Events and News',
+						'callback' => 'wp_dashboard_events_news',
+						'args' => [ '__widget_basename' => 'WordPress Events and News' ],
+					],
+				],
+			]
+		];
+		\Pressbooks\Admin\Dashboard\lowly_user();
+		$this->assertFalse( isset( $wp_meta_boxes['dashboard-user']['normal']['high']['dashboard_primary'] ) );
+		$this->assertFalse( isset( $wp_meta_boxes['dashboard-user']['normal']['high']['dashboard_site_health'] ) );
+	}
+
+
+	/**
+	 * @group dashboard
+	 */
 	public function test_lowly_user_callback() {
 		ob_start();
 		\Pressbooks\Admin\Dashboard\lowly_user_callback();
