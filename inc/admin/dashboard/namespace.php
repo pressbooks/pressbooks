@@ -115,10 +115,16 @@ function lowly_user() {
 	global $wp_meta_boxes;
 	// https://github.com/pressbooks/pressbooks/issues/2041:  Remove health status and primary (WP news) widgets
 	if ( array_key_exists( 'dashboard-user', $wp_meta_boxes ) ) {
-		if ( array_key_exists( 'dashboard_primary', $wp_meta_boxes['dashboard-user']['side']['core'] ) ) {
+		if (
+			array_key_exists( 'side', $wp_meta_boxes['dashboard-user'] ) &&
+			array_key_exists( 'dashboard_primary', $wp_meta_boxes['dashboard-user']['side']['core'] )
+		) {
 			unset( $wp_meta_boxes['dashboard-user']['side']['core']['dashboard_primary'] );
 		}
-		if ( array_key_exists( 'dashboard_site_health', $wp_meta_boxes['dashboard-user']['normal']['core'] ) ) {
+		if (
+			array_key_exists( 'normal', $wp_meta_boxes['dashboard-user'] ) &&
+			array_key_exists( 'dashboard_site_health', $wp_meta_boxes['dashboard-user']['normal']['core'] )
+		) {
 			unset( $wp_meta_boxes['dashboard-user']['normal']['core']['dashboard_site_health'] );
 		}
 	}
