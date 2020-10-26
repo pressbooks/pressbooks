@@ -232,7 +232,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 
 	/**
 	 *  Returns all public book ids. Can filter by in catalog
-	 * @return array    Non catalog books
+	 * @return array    public books
 	 */
 	static function getPublicBooks( $only_non_catalog = true ) {
 		global $wpdb;
