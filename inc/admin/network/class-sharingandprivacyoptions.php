@@ -7,7 +7,9 @@
 namespace Pressbooks\Admin\Network;
 
 use function Pressbooks\Admin\NetworkManagers\is_restricted;
+use function Pressbooks\Utility\str_lreplace;
 use Pressbooks\BookDirectory;
+use Pressbooks\DataCollector\Book;
 
 class SharingAndPrivacyOptions extends \Pressbooks\Options {
 
@@ -221,7 +223,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	 * @param bool $revert  un-checking network exclude
 	 */
 	static function excludeNonCatalogBooksFromDirectory( $callback, bool $revert = false ) {
-		$book_ids = self::getNonCatalogBooks();
+		$book_ids = self::getPublicBooks( ! $revert );
 
 		if ( count( $book_ids ) > 0 ) {
 			self::$callback( $book_ids, $revert );
@@ -229,19 +231,39 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	}
 
 	/**
-	 *  Returns all non catalog book ids
+	 *  Returns all public book ids. Can filter by in catalog
 	 * @return array    Non catalog books
 	 */
-	static function getNonCatalogBooks() {
-		$book_ids = [];
-		$books = get_sites( [ 'site__not_in' => [ 1 ] ] );
-		foreach ( $books as $book ) {
-			$in_catalog = get_site_meta( $book->blog_id, \Pressbooks\DataCollector\Book::IN_CATALOG, true );
-			if ( isset( $in_catalog ) && $in_catalog === '0' ) {
-				$book_ids[] = $book->blog_id;
-			}
+	static function getPublicBooks( $only_non_catalog = true ) {
+		global $wpdb;
+
+		$public = Book::PUBLIC;
+		$in_catalog = Book::IN_CATALOG;
+
+		$sql_where_conditions = [ 'id != 1', 'public = 1' ];
+		if ( $only_non_catalog ) {
+			$sql_where_conditions[] = 'inCatalog = 0';
 		}
-		return $book_ids;
+
+		$sql_where = '';
+		if ( ! empty( $sql_where_conditions ) ) {
+			$sql_where = 'HAVING ';
+			foreach ( $sql_where_conditions as $condition ) {
+				$sql_where .= "($condition) AND ";
+			}
+			$sql_where = str_lreplace( ') AND ', ') ', $sql_where );
+		}
+
+		$sql = "SELECT
+					b.blog_id AS id,
+					MAX(IF(b.meta_key='{$public}',CAST(b.meta_value AS UNSIGNED),null)) AS public,
+					MAX(IF(b.meta_key='{$in_catalog}',CAST(b.meta_value AS UNSIGNED),null)) AS inCatalog
+				FROM {$wpdb->blogmeta} b
+				GROUP BY id
+				{$sql_where}
+				";
+
+		return array_map( 'intval', array_column( $wpdb->get_results( $sql, 'ARRAY_A' ), 'id' ) ); // @codingStandardsIgnoreLine
 	}
 
 	/**
@@ -250,25 +272,29 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	 * @return array   Responses from actions
 	 */
 	static function excludeNonCatalogBooksFromDirectoryAction( array $book_ids, bool $revert = false ) {
-		$is_deleted = false;
+		$is_deleted = [];
 
 		if ( ! $revert ) {
-			$is_deleted = BookDirectory::init()->deleteBookFromDirectory( $book_ids );
+			$is_deleted = array_map(
+				function( $book_ids ) {
+					return BookDirectory::init()->deleteBookFromDirectory( $book_ids );
+				},
+				array_chunk( $book_ids, 50 )
+			);
 		}
 
-		$update_blogs = array_map(
-			function( $book_id ) {
-				return update_blog_details( $book_id, [ 'last_updated' => current_time( 'mysql', true ) ] );
-			},
-			$book_ids
-		);
+		$blogs_not_updated = [];
 
-		$response = [
-			'directory_delete_response' => $is_deleted,
-			'update_blogs_details_response' => $update_blogs,
+		foreach ( $book_ids as $book_id ) {
+			if ( ! update_blog_details( $book_id, [ 'last_updated' => current_time( 'mysql', true ) ] ) ) {
+				$blogs_not_updated[] = $book_id;
+			}
+		}
+
+		return [
+			'directory_delete_responses' => $is_deleted,
+			'blogs_not_updated' => $blogs_not_updated,
 		];
-
-		return $response;
 	}
 
 	/**

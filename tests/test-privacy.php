@@ -99,18 +99,32 @@ class GdprTest extends \WP_UnitTestCase {
 	/**
 	 * @group privacy
 	 */
-	public function test_getNonCatalogBooks_zero_to_one_non_catalog_books() {
+	public function test_getPublicBooks_zero_to_one_non_catalog_books() {
 
 		// assume the first blog is the main wp site and not a book
-		$this->assertIsArray( SharingAndPrivacyOptions::getNonCatalogBooks() );
-		$this->assertCount( 0, SharingAndPrivacyOptions::getNonCatalogBooks() );
+		$this->assertIsArray( SharingAndPrivacyOptions::getPublicBooks() );
+		$this->assertCount( 0, SharingAndPrivacyOptions::getPublicBooks() );
+		$this->assertCount( 0, SharingAndPrivacyOptions::getPublicBooks( true ) );
 
 		$this->_book();
+		$this->assertCount( 1, SharingAndPrivacyOptions::getPublicBooks() );
+
 		update_site_meta( get_current_blog_id(), \Pressbooks\DataCollector\Book::IN_CATALOG, 1 );
-		$this->assertCount( 0, SharingAndPrivacyOptions::getNonCatalogBooks() );
+		$this->assertCount( 0, SharingAndPrivacyOptions::getPublicBooks( true ) );
 
 		update_site_meta( get_current_blog_id(), \Pressbooks\DataCollector\Book::IN_CATALOG, 0 );
-		$this->assertCount( 1, SharingAndPrivacyOptions::getNonCatalogBooks() );
+		$this->assertCount( 1, SharingAndPrivacyOptions::getPublicBooks( true ) );
+
+		$this->_book();
+		update_site_meta( get_current_blog_id(), \Pressbooks\DataCollector\Book::PUBLIC, 0 );
+		update_site_meta( get_current_blog_id(), \Pressbooks\DataCollector\Book::IN_CATALOG, 1 );
+		$this->assertCount( 1, SharingAndPrivacyOptions::getPublicBooks( true ) );
+		$this->assertCount( 1, SharingAndPrivacyOptions::getPublicBooks( true ) );
+
+		update_site_meta( get_current_blog_id(), \Pressbooks\DataCollector\Book::PUBLIC, 1 );
+		update_site_meta( get_current_blog_id(), \Pressbooks\DataCollector\Book::IN_CATALOG, 0 );
+		$this->assertCount( 2, SharingAndPrivacyOptions::getPublicBooks( true ) );
+		$this->assertCount( 2, SharingAndPrivacyOptions::getPublicBooks() );
 	}
 
 	/**
@@ -118,23 +132,59 @@ class GdprTest extends \WP_UnitTestCase {
 	 */
 	public function test_excludeNonCatalogBooksFromDirectoryAction() {
 
-		$books = $this->factory()->blog->create_many(2);
-
-		$response = [
-			'directory_delete_response' => false,
-			'update_blogs_details_response' => [true, true],
-		];
+		$books = $this->factory()->blog->create_many( 2 );
 
 		$this->assertEquals(
 			SharingAndPrivacyOptions::excludeNonCatalogBooksFromDirectoryAction( $books ),
-			$response
+			[
+				'directory_delete_responses' => [ false ],
+				'blogs_not_updated' => [],
+			]
 		);
 
 		$this->assertEquals(
-			SharingAndPrivacyOptions::excludeNonCatalogBooksFromDirectoryAction( $books, false),
-			$response
+			SharingAndPrivacyOptions::excludeNonCatalogBooksFromDirectoryAction( $books, true ),
+			[
+				'directory_delete_responses' => [],
+				'blogs_not_updated' => [],
+			]
 		);
 
+		$books = $this->factory()->blog->create_many( 52 );
+
+		$this->assertEquals(
+			SharingAndPrivacyOptions::excludeNonCatalogBooksFromDirectoryAction( $books ),
+			[
+				'directory_delete_responses' => [ false, false ],
+				'blogs_not_updated' => [],
+			]
+		);
+
+		$this->assertEquals(
+			SharingAndPrivacyOptions::excludeNonCatalogBooksFromDirectoryAction( $books, true ),
+			[
+				'directory_delete_responses' => [],
+				'blogs_not_updated' => [],
+			]
+		);
+
+		$books[] = 9876;
+
+		$this->assertEquals(
+			SharingAndPrivacyOptions::excludeNonCatalogBooksFromDirectoryAction( $books ),
+			[
+				'directory_delete_responses' => [ false, false ],
+				'blogs_not_updated' => [ 9876 ],
+			]
+		);
+
+		$this->assertEquals(
+			SharingAndPrivacyOptions::excludeNonCatalogBooksFromDirectoryAction( $books, true),
+			[
+				'directory_delete_responses' => [],
+				'blogs_not_updated' => [ 9876 ],
+			]
+		);
 	}
 
 }
