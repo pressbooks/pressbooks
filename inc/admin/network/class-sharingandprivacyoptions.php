@@ -254,14 +254,15 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 			$sql_where = str_lreplace( ') AND ', ') ', $sql_where );
 		}
 
-		$sql = "SELECT
-					b.blog_id AS id,
-					MAX(IF(b.meta_key='{$public}',CAST(b.meta_value AS UNSIGNED),null)) AS public,
-					MAX(IF(b.meta_key='{$in_catalog}',CAST(b.meta_value AS UNSIGNED),null)) AS inCatalog
-				FROM {$wpdb->blogmeta} b
-				GROUP BY id
-				{$sql_where}
-				";
+		$sql = "
+			SELECT
+				b.blog_id AS id,
+				MAX(IF(b.meta_key='{$public}',CAST(b.meta_value AS UNSIGNED),null)) AS public,
+				MAX(IF(b.meta_key='{$in_catalog}',CAST(b.meta_value AS UNSIGNED),null)) AS inCatalog
+			FROM {$wpdb->blogmeta} b
+			GROUP BY id
+			{$sql_where}
+			";
 
 		return array_map( 'intval', array_column( $wpdb->get_results( $sql, 'ARRAY_A' ), 'id' ) ); // @codingStandardsIgnoreLine
 	}
