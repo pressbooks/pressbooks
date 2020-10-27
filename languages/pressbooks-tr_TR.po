@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
-"POT-Creation-Date: 2020-10-20T20:23:23+00:00\n"
+"POT-Creation-Date: 2020-10-27T21:34:16+00:00\n"
 "PO-Revision-Date: 2020-09-19 00:28+0000\n"
 "Last-Translator: Mustafa Bulun <mustafa.bulun@bizimajans.com>\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/pressbooks/pressbooks/language/tr_TR/)\n"
@@ -111,7 +111,7 @@ msgid "Google Analytics settings."
 msgstr "Google Analitik ayarları"
 
 #: inc/admin/analytics/namespace.php:184
-#: inc/admin/network/class-sharingandprivacyoptions.php:180
+#: inc/admin/network/class-sharingandprivacyoptions.php:182
 msgid "Settings saved."
 msgstr "Ayarlar kaydedildi."
 
@@ -663,45 +663,45 @@ msgstr "Kitabım"
 msgid "Users"
 msgstr "Kullanıcılar"
 
-#: inc/admin/dashboard/namespace.php:117
+#: inc/admin/dashboard/namespace.php:134
 msgid "Book Permissions"
 msgstr "Kitap İzinleri"
 
-#: inc/admin/dashboard/namespace.php:129
+#: inc/admin/dashboard/namespace.php:146
 msgid "Welcome to Pressbooks!"
 msgstr "Sitemize Hoşgeldiniz"
 
-#: inc/admin/dashboard/namespace.php:132
+#: inc/admin/dashboard/namespace.php:149
 msgid "You do not have access to any books at the moment."
 msgstr "Şu anda herhangi bir kitaba erişiminiz yok."
 
-#: inc/admin/dashboard/namespace.php:139
+#: inc/admin/dashboard/namespace.php:156
 msgid ""
 "This network does not allow users to create new books. To create a new book,"
 " please contact your Pressbooks Network Manager"
 msgstr "Bu ağ, kullanıcıların yeni kitap oluşturmasına izin vermez. Yeni bir kitap oluşturmak için lütfen Pressbooks Ağ Yöneticinizle iletişime geçin"
 
-#: inc/admin/dashboard/namespace.php:141 inc/admin/dashboard/namespace.php:155
+#: inc/admin/dashboard/namespace.php:158 inc/admin/dashboard/namespace.php:172
 msgid "at"
 msgstr "de"
 
-#: inc/admin/dashboard/namespace.php:148 inc/admin/laf/namespace.php:836
+#: inc/admin/dashboard/namespace.php:165 inc/admin/laf/namespace.php:836
 msgid "Create A New Book"
 msgstr "Yeni Kitap Oluştur"
 
-#: inc/admin/dashboard/namespace.php:153
+#: inc/admin/dashboard/namespace.php:170
 msgid ""
 "You can also request access to an existing book by contacting the book's "
 "author or the institution's Pressbooks Network Manager"
 msgstr "Ayrıca kitabın yazarı veya kurumun Pressbooks Ağ Yöneticisi ile iletişime geçerek mevcut bir kitaba erişim talebinde bulunabilirsiniz."
 
-#: inc/admin/dashboard/namespace.php:169 inc/class-activation.php:243
+#: inc/admin/dashboard/namespace.php:186 inc/class-activation.php:243
 #: inc/modules/export/epub/templates/epub3/toc.php:26
 #: inc/modules/themeoptions/class-pdfoptions.php:272 tests/test-cloner.php:63
 msgid "Table of Contents"
 msgstr "İçindekiler"
 
-#: inc/admin/dashboard/namespace.php:171 inc/admin/metaboxes/namespace.php:566
+#: inc/admin/dashboard/namespace.php:188 inc/admin/metaboxes/namespace.php:566
 #: inc/api/endpoints/controller/class-toc.php:192
 #: inc/posttype/namespace.php:115 inc/posttype/namespace.php:116
 #: inc/posttype/namespace.php:538 templates/admin/import.php:91
@@ -709,7 +709,7 @@ msgstr "İçindekiler"
 msgid "Front Matter"
 msgstr "Ön bölüm"
 
-#: inc/admin/dashboard/namespace.php:212 inc/admin/metaboxes/namespace.php:568
+#: inc/admin/dashboard/namespace.php:229 inc/admin/metaboxes/namespace.php:568
 #: inc/api/endpoints/controller/class-toc.php:225
 #: inc/posttype/namespace.php:143 inc/posttype/namespace.php:144
 #: inc/posttype/namespace.php:541 templates/admin/import.php:96
@@ -717,46 +717,46 @@ msgstr "Ön bölüm"
 msgid "Back Matter"
 msgstr "Arka Bölüm"
 
-#: inc/admin/dashboard/namespace.php:231 inc/admin/dashboard/namespace.php:310
+#: inc/admin/dashboard/namespace.php:248 inc/admin/dashboard/namespace.php:327
 #: templates/admin/organize.php:266 templates/admin/organize.php:423
 msgid "Add"
 msgstr "Ekle"
 
-#: inc/admin/dashboard/namespace.php:231 inc/admin/dashboard/namespace.php:310
+#: inc/admin/dashboard/namespace.php:248 inc/admin/dashboard/namespace.php:327
 #: inc/admin/laf/namespace.php:140
 msgid "Organize"
 msgstr "Organize et"
 
-#: inc/admin/dashboard/namespace.php:299
+#: inc/admin/dashboard/namespace.php:316
 msgid "%1$s total users: "
 msgstr "%1$s toplam kullanıcı: "
 
-#: inc/admin/dashboard/namespace.php:319 inc/admin/dashboard/namespace.php:320
+#: inc/admin/dashboard/namespace.php:336 inc/admin/dashboard/namespace.php:337
 #: inc/admin/laf/namespace.php:731 inc/admin/laf/namespace.php:798
 msgid "Dashboard"
 msgstr "Gösterge Panosu"
 
-#: inc/admin/dashboard/namespace.php:369
+#: inc/admin/dashboard/namespace.php:386
 msgid "Dashboard Feed"
 msgstr "Gösterge Panosu yayını"
 
-#: inc/admin/dashboard/namespace.php:376
+#: inc/admin/dashboard/namespace.php:393
 msgid "Display Feed"
 msgstr "Görüntü yayını"
 
-#: inc/admin/dashboard/namespace.php:381
+#: inc/admin/dashboard/namespace.php:398
 msgid "Display an RSS feed widget on the dashboard."
 msgstr "Gösterge panosunda bir RSS widget görüntüsü yayınla"
 
-#: inc/admin/dashboard/namespace.php:387
+#: inc/admin/dashboard/namespace.php:404
 msgid "Feed Title"
 msgstr "Başlığı Yayınla"
 
-#: inc/admin/dashboard/namespace.php:395
+#: inc/admin/dashboard/namespace.php:412
 msgid "Feed URL"
 msgstr "URL yayınla"
 
-#: inc/admin/dashboard/namespace.php:422
+#: inc/admin/dashboard/namespace.php:439
 msgid "Adjust settings for your dashboard RSS feed widget below."
 msgstr "Gösterge panonuzun RSS besleme widget'inin ayarlarını aşağıdaki gibi yapın."
 
@@ -969,7 +969,7 @@ msgstr "Dışa aktarım tamamlanmadı. Bu sayfadan şimdi ayrılmak sorunlara ne
 
 #: inc/admin/laf/namespace.php:351 inc/admin/laf/namespace.php:566
 #: inc/admin/laf/namespace.php:1424
-#: inc/admin/network/class-sharingandprivacyoptions.php:421
+#: inc/admin/network/class-sharingandprivacyoptions.php:449
 msgid "Sharing and Privacy Settings"
 msgstr "Paylaşım ve Gizlilik ayarları."
 
@@ -1693,58 +1693,58 @@ msgstr "Adı boş bırakılamaz"
 msgid "Owner"
 msgstr "Sahibi"
 
-#: inc/admin/network/class-sharingandprivacyoptions.php:73
+#: inc/admin/network/class-sharingandprivacyoptions.php:75
 msgid "Allow Redistribution"
 msgstr "Yeniden Dağıtıma İzin Ver"
 
-#: inc/admin/network/class-sharingandprivacyoptions.php:79
+#: inc/admin/network/class-sharingandprivacyoptions.php:81
 msgid "Allow book administrators to enable redistribution of export files."
 msgstr "Kitap yöneticilerinin, ihraç dosyalarının yeniden dağıtılmasını etkinleştirmesine izin ver."
 
-#: inc/admin/network/class-sharingandprivacyoptions.php:85
+#: inc/admin/network/class-sharingandprivacyoptions.php:87
 msgid "Enable network API"
 msgstr "Ağ API'sini etkinleştir"
 
-#: inc/admin/network/class-sharingandprivacyoptions.php:91
+#: inc/admin/network/class-sharingandprivacyoptions.php:93
 msgid "Enable access to your network of books via the Pressbooks REST API."
 msgstr "Pressbooks REST API aracılığıyla kitap ağınıza erişimi etkinleştirin."
 
-#: inc/admin/network/class-sharingandprivacyoptions.php:97
+#: inc/admin/network/class-sharingandprivacyoptions.php:99
 msgid "Enable Cloning"
 msgstr "Klonlamayı Etkinleştirin"
 
-#: inc/admin/network/class-sharingandprivacyoptions.php:103
+#: inc/admin/network/class-sharingandprivacyoptions.php:105
 msgid "Enable book cloning via the Pressbooks REST API."
 msgstr "Pressbooks REST API aracılığıyla kitap klonlamayı etkinleştirin."
 
-#: inc/admin/network/class-sharingandprivacyoptions.php:109
+#: inc/admin/network/class-sharingandprivacyoptions.php:111
 msgid "Enable CC with Weblinks"
 msgstr "Web Bağlantıları ile CC'yi etkinleştirin"
 
-#: inc/admin/network/class-sharingandprivacyoptions.php:115
+#: inc/admin/network/class-sharingandprivacyoptions.php:117
 msgid "Allow users to produce Common Cartridge exports with simple Web Links."
 msgstr "Kullanıcıların basit Web Bağlantıları ile Ortak Kartuş dışa aktarmaları yapmasına izin verin."
 
-#: inc/admin/network/class-sharingandprivacyoptions.php:121
+#: inc/admin/network/class-sharingandprivacyoptions.php:123
 msgid "Book directory"
 msgstr "Kitap Dizini"
 
-#: inc/admin/network/class-sharingandprivacyoptions.php:127
+#: inc/admin/network/class-sharingandprivacyoptions.php:129
 msgid "Exclude non-catalogued public books from Pressbooks Directory."
 msgstr "Kataloglanmamış halka açık kitapları Pressbooks Dizininden hariç tutun."
 
-#: inc/admin/network/class-sharingandprivacyoptions.php:133
+#: inc/admin/network/class-sharingandprivacyoptions.php:135
 msgid "Iframe Whitelist"
 msgstr "Iframe Beyaz Listesi"
 
-#: inc/admin/network/class-sharingandprivacyoptions.php:138
+#: inc/admin/network/class-sharingandprivacyoptions.php:140
 msgid ""
 "To whitelist all content from a domain: <code>guide.pressbooks.com</code> To"
 " whitelist a path: <code>//guide.pressbooks.com/some/path/</code> One per "
 "line."
 msgstr "Bir alandaki tüm içeriği beyaz listeye eklemek için:<code>guide.pressbooks.com</code> Bir dizini beyaz listeye eklemek için: <code>//guide.pressbooks.com/some/path/</code> Her satıra bir tane."
 
-#: inc/admin/network/class-sharingandprivacyoptions.php:154
+#: inc/admin/network/class-sharingandprivacyoptions.php:156
 msgid "Sharing and Privacy settings."
 msgstr "Paylaşım ve Gizlilik ayarları."
 
