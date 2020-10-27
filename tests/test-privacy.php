@@ -104,27 +104,42 @@ class GdprTest extends \WP_UnitTestCase {
 		// assume the first blog is the main wp site and not a book
 		$this->assertIsArray( SharingAndPrivacyOptions::getPublicBooks() );
 		$this->assertCount( 0, SharingAndPrivacyOptions::getPublicBooks() );
+		$this->assertCount( 0, SharingAndPrivacyOptions::getPublicBooks( false ) );
 		$this->assertCount( 0, SharingAndPrivacyOptions::getPublicBooks( true ) );
 
 		$this->_book();
 		$this->assertCount( 1, SharingAndPrivacyOptions::getPublicBooks() );
+		$this->assertCount( 1, SharingAndPrivacyOptions::getPublicBooks( false ) );
+		$this->assertCount( 1, SharingAndPrivacyOptions::getPublicBooks( true ) );
 
 		update_site_meta( get_current_blog_id(), \Pressbooks\DataCollector\Book::IN_CATALOG, 1 );
+		$this->assertCount( 1, SharingAndPrivacyOptions::getPublicBooks() );
+		$this->assertCount( 1, SharingAndPrivacyOptions::getPublicBooks( false ) );
 		$this->assertCount( 0, SharingAndPrivacyOptions::getPublicBooks( true ) );
 
 		update_site_meta( get_current_blog_id(), \Pressbooks\DataCollector\Book::IN_CATALOG, 0 );
+		$this->assertCount( 1, SharingAndPrivacyOptions::getPublicBooks() );
+		$this->assertCount( 1, SharingAndPrivacyOptions::getPublicBooks(false) );
 		$this->assertCount( 1, SharingAndPrivacyOptions::getPublicBooks( true ) );
 
 		$this->_book();
 		update_site_meta( get_current_blog_id(), \Pressbooks\DataCollector\Book::PUBLIC, 0 );
 		update_site_meta( get_current_blog_id(), \Pressbooks\DataCollector\Book::IN_CATALOG, 1 );
-		$this->assertCount( 1, SharingAndPrivacyOptions::getPublicBooks( true ) );
+		$this->assertCount( 1, SharingAndPrivacyOptions::getPublicBooks() );
+		$this->assertCount( 1, SharingAndPrivacyOptions::getPublicBooks( false ) );
 		$this->assertCount( 1, SharingAndPrivacyOptions::getPublicBooks( true ) );
 
 		update_site_meta( get_current_blog_id(), \Pressbooks\DataCollector\Book::PUBLIC, 1 );
 		update_site_meta( get_current_blog_id(), \Pressbooks\DataCollector\Book::IN_CATALOG, 0 );
-		$this->assertCount( 2, SharingAndPrivacyOptions::getPublicBooks( true ) );
 		$this->assertCount( 2, SharingAndPrivacyOptions::getPublicBooks() );
+		$this->assertCount( 2, SharingAndPrivacyOptions::getPublicBooks( false ) );
+		$this->assertCount( 2, SharingAndPrivacyOptions::getPublicBooks( true ) );
+
+		update_site_meta( get_current_blog_id(), \Pressbooks\DataCollector\Book::IN_CATALOG, 1 );
+		$this->assertCount( 2, SharingAndPrivacyOptions::getPublicBooks() );
+		$this->assertCount( 2, SharingAndPrivacyOptions::getPublicBooks( false ) );
+		$this->assertCount( 1, SharingAndPrivacyOptions::getPublicBooks( true ) );
+
 	}
 
 	/**

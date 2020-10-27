@@ -234,7 +234,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	 *  Returns all public book ids. Can filter by in catalog
 	 * @return array    public books
 	 */
-	static function getPublicBooks( $only_non_catalog = true ) {
+	static function getPublicBooks( $only_non_catalog = false ) {
 		global $wpdb;
 
 		$public = Book::PUBLIC;
@@ -273,6 +273,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	 * @return array   Responses from actions
 	 */
 	static function excludeNonCatalogBooksFromDirectoryAction( array $book_ids, bool $revert = false ) {
+
 		$is_deleted = [];
 
 		if ( ! $revert ) {
