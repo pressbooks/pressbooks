@@ -88,12 +88,16 @@ class GdprTest extends \WP_UnitTestCase {
 	 * @group privacy
 	 */
 	public function test_bookDirectoryExcludedCallback() {
+		$this->_book();
+
 		ob_start();
 		book_directory_excluded_callback( [] );
 		$buffer = ob_get_clean();
 		$html_group = '<input type="radio" id="include-in-directory" name="pb_book_directory_excluded" value="0" checked="checked" /><label for="include-in-directory"> Yes. I want this book to be listed in the Pressbooks directory.</label><br /><input type="radio" id="exclude-from-directory" name="pb_book_directory_excluded" value="1" /><label for="exclude-from-directory"> No. Exclude this book from the Pressbooks directory.</label>';
-
 		$this->assertEquals( $buffer, $html_group );
+
+		$this->assertEquals( get_option( 'pb_book_directory_excluded' ), 0 );
+
 	}
 
 	/**

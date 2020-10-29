@@ -1204,6 +1204,7 @@ function privacy_settings_init() {
 				if ( update_site_meta( $current_book_id, DataCollector::BOOK_DIRECTORY_EXCLUDED, $updated_value ) ) {
 					update_blog_details( $current_book_id, [ 'last_updated' => current_time( 'mysql', true ) ] );
 				}
+
 				if ( $updated_value === 1 ) {
 					BookDirectory::init()->deleteBookFromDirectory( [ $current_book_id ] );
 				}
@@ -1341,7 +1342,10 @@ function privacy_latest_files_public_callback( $args ) {
  * @param $args
  */
 function book_directory_excluded_callback( $args ) {
-	$exclude_book = get_option( 'pb_book_directory_excluded', 0 );
+	if ( ! get_option( 'pb_book_directory_excluded' ) ) {
+		add_option( 'pb_book_directory_excluded', 0 );
+	}
+	$exclude_book = get_option( 'pb_book_directory_excluded');
 	$html = '<input type="radio" id="include-in-directory" name="pb_book_directory_excluded" value="0" ';
 	if ( ! $exclude_book ) {
 		$html .= 'checked="checked" ';
