@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
-"POT-Creation-Date: 2020-10-27T21:34:16+00:00\n"
+"POT-Creation-Date: 2020-10-29T05:24:00+00:00\n"
 "PO-Revision-Date: 2020-09-02 20:48+0000\n"
 "Last-Translator: Ho Man Chan <homan@pressbooks.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/pressbooks/pressbooks/language/ca/)\n"
@@ -967,7 +967,7 @@ msgid ""
 msgstr ""
 
 #: inc/admin/laf/namespace.php:351 inc/admin/laf/namespace.php:566
-#: inc/admin/laf/namespace.php:1424
+#: inc/admin/laf/namespace.php:1428
 #: inc/admin/network/class-sharingandprivacyoptions.php:449
 msgid "Sharing and Privacy Settings"
 msgstr "Preferències de compartir i privacitat"
@@ -1017,8 +1017,8 @@ msgstr "Ajuda"
 msgid "Network Admin"
 msgstr "Administra la xarxa"
 
-#: inc/admin/laf/namespace.php:739 inc/admin/laf/namespace.php:1479
-#: inc/admin/laf/namespace.php:1489
+#: inc/admin/laf/namespace.php:739 inc/admin/laf/namespace.php:1483
+#: inc/admin/laf/namespace.php:1493
 msgid "Books"
 msgstr ""
 
@@ -1066,88 +1066,88 @@ msgstr "Desactiva els comentaris"
 msgid "Share Latest Export Files"
 msgstr "Comparteix els darrers arxius exportats"
 
-#: inc/admin/laf/namespace.php:1216
+#: inc/admin/laf/namespace.php:1217
 msgid "Pressbooks Directory"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1234
+#: inc/admin/laf/namespace.php:1235
 msgid "Sharing and Privacy settings"
 msgstr "Preferències de compartir i privacitat"
 
-#: inc/admin/laf/namespace.php:1250
+#: inc/admin/laf/namespace.php:1251
 msgid "Public. I would like this book to be visible to everyone."
 msgstr "Públic. Vull que aquest llibre sigui visible per a tothom."
 
-#: inc/admin/laf/namespace.php:1256
+#: inc/admin/laf/namespace.php:1257
 msgid ""
 "Private. I would like this book to be accessible only to people I invite."
 msgstr "Privat. Vull que aquest llibre sigui només accessible per a les persones que jo convidi."
 
-#: inc/admin/laf/namespace.php:1280
+#: inc/admin/laf/namespace.php:1281
 msgid "Who can see private front matter, chapters and back matter?"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1283
+#: inc/admin/laf/namespace.php:1284
 msgid "Only logged in editors and administrators."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1285
+#: inc/admin/laf/namespace.php:1286
 msgid "All logged in users including subscribers."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1306
+#: inc/admin/laf/namespace.php:1307
 msgid ""
 "Yes. I want to automatically disable comments, trackbacks and pingbacks on "
 "all front matter, chapters and back matter."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1312
+#: inc/admin/laf/namespace.php:1313
 msgid ""
 "No. I want to leave comments, trackbacks and pingbacks enabled on all front "
 "matter, chapters and back matter unless I disable them manually."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1328
+#: inc/admin/laf/namespace.php:1329
 msgid ""
 "Yes. I would like the latest export files to be available on the homepage "
 "for free, to everyone."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1334
+#: inc/admin/laf/namespace.php:1335
 msgid ""
 "No. I would like the latest export files to only be available to "
 "administrators."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1350
+#: inc/admin/laf/namespace.php:1354
 msgid "Yes. I want this book to be listed in the Pressbooks directory."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1356
+#: inc/admin/laf/namespace.php:1360
 msgid "No. Exclude this book from the Pressbooks directory."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1482
+#: inc/admin/laf/namespace.php:1486
 msgid "All Books"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1492
+#: inc/admin/laf/namespace.php:1496
 msgid "Search Books"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1498
+#: inc/admin/laf/namespace.php:1502
 msgid "Edit Book: %s"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1501 inc/admin/laf/namespace.php:1510
+#: inc/admin/laf/namespace.php:1505 inc/admin/laf/namespace.php:1514
 msgid "Book Address (URL)"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1507
+#: inc/admin/laf/namespace.php:1511
 msgid "Add New Book"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1513
+#: inc/admin/laf/namespace.php:1517
 #: inc/modules/themeoptions/class-pdfoptions.php:358
 #: inc/modules/themeoptions/class-pdfoptions.php:377
 #: inc/modules/themeoptions/class-pdfoptions.php:396
@@ -1161,23 +1161,23 @@ msgstr ""
 msgid "Book Title"
 msgstr "Títol del llibre"
 
-#: inc/admin/laf/namespace.php:1516
+#: inc/admin/laf/namespace.php:1520
 msgid "Book Language"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1519
+#: inc/admin/laf/namespace.php:1523
 msgid "Add Book"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1536
+#: inc/admin/laf/namespace.php:1540
 msgid "Edit previous or next item"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1541
+#: inc/admin/laf/namespace.php:1545
 msgid "Edit Previous (%s)"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1546
+#: inc/admin/laf/namespace.php:1550
 msgid "Edit Next (%s)"
 msgstr ""
 
