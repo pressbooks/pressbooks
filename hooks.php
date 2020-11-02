@@ -346,11 +346,11 @@ add_filter( 'init', [ '\Pressbooks\BookDirectory', 'init' ], 10, 2 );
 // Sentry initializer - Only for staging and production environments
 // -------------------------------------------------------------------------------------------------------------------
 if (
-	defined( 'WP_ENV' ) &&
+	! is_null( env( 'WP_ENV' ) ) &&
 	WP_ENV !== 'development' &&
-	defined( 'SENTRY_KEY' ) &&
-	defined( 'SENTRY_ORGANIZATION' ) &&
-	defined( 'SENTRY_PROJECT' )
+	! is_null( env( 'SENTRY_KEY' ) ) &&
+	! is_null( env( 'SENTRY_ORGANIZATION' ) ) &&
+	! is_null( env( 'SENTRY_PROJECT' ) )
 ) {
 	add_action( 'init', '\Pressbooks\Utility\initialize_sentry', 9999 );
 }
