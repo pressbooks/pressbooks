@@ -132,7 +132,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 
 		add_settings_field(
 			'iframe_whitelist',
-			__( 'Iframe Whitelist', 'pressbooks' ),
+			__( 'Iframe Allowlist', 'pressbooks' ),
 			[ $this, 'renderIframesWhiteList' ],
 			$_page,
 			$_section,
