@@ -132,12 +132,12 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 
 		add_settings_field(
 			'iframe_whitelist',
-			__( 'Iframe Whitelist', 'pressbooks' ),
+			__( 'Iframe Allowlist', 'pressbooks' ),
 			[ $this, 'renderIframesWhiteList' ],
 			$_page,
 			$_section,
 			[
-				__( 'To whitelist all content from a domain: <code>guide.pressbooks.com</code> To whitelist a path: <code>//guide.pressbooks.com/some/path/</code> One per line.', 'pressbooks' ),
+				__( 'To allowlist all content from a domain: <code>guide.pressbooks.com</code> To allowlist a path: <code>//guide.pressbooks.com/some/path/</code> One per line.', 'pressbooks' ),
 				'label_for' => 'iframe_whitelist',
 			]
 		);
