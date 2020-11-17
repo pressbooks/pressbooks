@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Pressbooks plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Pressbooks 5.17.2\n"
+"Project-Id-Version: Pressbooks 5.17.3\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-10-29T05:24:00+00:00\n"
+"POT-Creation-Date: 2020-11-17T22:39:26+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.3.0\n"
 "X-Domain: pressbooks\n"
@@ -1676,11 +1676,11 @@ msgid "Exclude non-catalogued public books from Pressbooks Directory."
 msgstr ""
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:135
-msgid "Iframe Whitelist"
+msgid "Iframe Allowlist"
 msgstr ""
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:140
-msgid "To whitelist all content from a domain: <code>guide.pressbooks.com</code> To whitelist a path: <code>//guide.pressbooks.com/some/path/</code> One per line."
+msgid "To allowlist all content from a domain: <code>guide.pressbooks.com</code> To allowlist a path: <code>//guide.pressbooks.com/some/path/</code> One per line."
 msgstr ""
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:156

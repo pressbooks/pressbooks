@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
-"POT-Creation-Date: 2020-10-29T05:24:00+00:00\n"
-"PO-Revision-Date: 2020-09-19 00:28+0000\n"
-"Last-Translator: Mustafa Bulun <mustafa.bulun@bizimajans.com>\n"
+"POT-Creation-Date: 2020-11-17T22:39:26+00:00\n"
+"PO-Revision-Date: 2020-11-17 22:39+0000\n"
+"Last-Translator: Ho Man Chan <homan@pressbooks.com>\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/pressbooks/pressbooks/language/tr_TR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1734,15 +1734,15 @@ msgid "Exclude non-catalogued public books from Pressbooks Directory."
 msgstr "Kataloglanmamış halka açık kitapları Pressbooks Dizininden hariç tutun."
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:135
-msgid "Iframe Whitelist"
-msgstr "Iframe Beyaz Listesi"
+msgid "Iframe Allowlist"
+msgstr ""
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:140
 msgid ""
-"To whitelist all content from a domain: <code>guide.pressbooks.com</code> To"
-" whitelist a path: <code>//guide.pressbooks.com/some/path/</code> One per "
+"To allowlist all content from a domain: <code>guide.pressbooks.com</code> To"
+" allowlist a path: <code>//guide.pressbooks.com/some/path/</code> One per "
 "line."
-msgstr "Bir alandaki tüm içeriği beyaz listeye eklemek için:<code>guide.pressbooks.com</code> Bir dizini beyaz listeye eklemek için: <code>//guide.pressbooks.com/some/path/</code> Her satıra bir tane."
+msgstr ""
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:156
 msgid "Sharing and Privacy settings."
