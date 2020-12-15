@@ -28,6 +28,11 @@ class Sentry {
 	protected static $dsn;
 
 	/**
+	 * @var \WP_User
+	 */
+	protected static $user;
+
+	/**
 	 * @since 5.5.3
 	 *
 	 * @return Sentry
@@ -40,6 +45,7 @@ class Sentry {
 
 		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
+			self::getCurrentUserForTracking();
 			if (
 				! is_null( env( 'SENTRY_INITIALIZE_PHP' ) ) &&
 				intval( env( 'SENTRY_INITIALIZE_PHP' ) ) === 1
@@ -56,6 +62,17 @@ class Sentry {
 
 		return self::$instance;
 
+	}
+
+	/**
+	 * Get current user for tracking (if available)
+	 *
+	 * @return false|\WP_User
+	 */
+	static private function getCurrentUserForTracking() {
+		$user_id = get_current_user_id();
+		self::$user = $user_id > 0 ? $user = get_userdata( $user_id ) : false;
+		return self::$user;
 	}
 
 	/**
@@ -81,6 +98,17 @@ class Sentry {
 					'environment' => env( 'WP_ENV' ) ?: self::DEFAULT_ENVIRNOMENT,
 				]
 			);
+			if ( self::$user ) {
+				$user = self::$user;
+				\Sentry\configureScope(
+					function ( \Sentry\State\Scope $scope ) use ( $user ): void {
+						$scope->setUser( [
+							'username' => $user->user_login,
+							'email' => $user->user_email,
+						] );
+					}
+				);
+			}
 			return true;
 		} catch ( \Exception $exception ) {
 			debug_error_log( 'Error initializing Sentry for PHP: ' . $exception->getMessage() );
@@ -101,7 +129,14 @@ class Sentry {
 			$script_params = [
 				'dsn' => self::$dsn,
 				'environment' => env( 'WP_ENV' ) ?: self::DEFAULT_ENVIRNOMENT,
+				'user' => false
 			];
+			if ( self::$user ) {
+				$script_params['user'] = [
+					'username' => self::$user->user_login,
+					'email' => self::$user->user_email,
+				];
+			}
 			wp_localize_script( self::WP_SCRIPT_NAME, 'SentryParams', $script_params );
 			return true;
 		} catch ( \Exception $exception ) {
