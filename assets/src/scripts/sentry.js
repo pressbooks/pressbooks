@@ -10,7 +10,7 @@ Sentry.init( {
 } );
 
 if ( SentryParams.user ) {
-	Sentry.configureScope(scope => scope.setUser(null));
+	Sentry.configureScope( scope => scope.setUser( null ) );
 	Sentry.setUser( {
 		username: SentryParams.user.username,
 		email: SentryParams.user.email,

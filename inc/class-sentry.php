@@ -129,7 +129,7 @@ class Sentry {
 			$script_params = [
 				'dsn' => self::$dsn,
 				'environment' => env( 'WP_ENV' ) ?: self::DEFAULT_ENVIRNOMENT,
-				'user' => false
+				'user' => false,
 			];
 			if ( self::$user ) {
 				$script_params['user'] = [
