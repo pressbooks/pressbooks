@@ -1,22 +1,48 @@
 <?php
 
+use Pressbooks\Sentry;
+
+/**
+ * @group sentry
+ */
+
 class SentryTest extends \WP_UnitTestCase {
-	use utilsTrait;
 
 	/**
-	 * Test sentry init function
-	 * It should be false since we are using mock credentials for Sentry
-	 *
-	 * @return \PHPUnit\Framework\Assert
-	 *
+	 * @var Sentry
 	 */
-	public function test_sentry_init() {
-		// We set environment variable to force testing Init function
-		putenv( 'SENTRY_KEY=mock_key' );
-		putenv( 'SENTRY_ORGANIZATION=mock_org' );
-		putenv( 'SENTRY_PROJECT=mock_project' );
-		define ( 'WP_ENV', 'testing' );
+	protected $sentry;
 
-		$this->assertFalse( \Pressbooks\Utility\initialize_sentry() );
+	/**
+	 * Test setup
+	 */
+	public function setUp() {
+		parent::setUp();
+		$this->sentry = new Sentry();
+	}
+
+	/**
+	 * Test init Sentry function to test instance returned.
+	 */
+	public function test_getInstance() {
+		putenv( 'SENTRY_DSN=test_mock_dsn' );
+		$sentry = $this->sentry->init();
+		$this->assertInstanceOf( '\Pressbooks\Sentry', $sentry );
+	}
+
+	/**
+	 * Test phpObserver Sentry function. Since Sentry connection is mocked, it should return false.
+	 */
+	public function test_phpObserver() {
+		$this->assertTrue( $this->sentry->phpObserver() );
+	}
+
+	/**
+	 * Test javascript observer for Sentry, it should enqueue the sentry.js script
+	 */
+	public function test_javascriptObserver() {
+		$this->assertTrue( $this->sentry->javascriptObserver() );
+		global $wp_scripts;
+		$this->assertContains( Sentry::WP_SCRIPT_NAME, $wp_scripts->queue );
 	}
 }
