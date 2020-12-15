@@ -101,7 +101,7 @@ class Sentry {
 			if ( self::$user ) {
 				$user = self::$user;
 				\Sentry\configureScope(
-					function ( \Sentry\State\Scope $scope ) use ( $user ): void {
+					function ( \Sentry\State\Scope $scope ) use ( $user ) {
 						$scope->setUser( [
 							'username' => $user->user_login,
 							'email' => $user->user_email,
