@@ -40,6 +40,7 @@ before_install:
 - wget https://www.princexml.com/download/prince_12.5-1_ubuntu18.04_amd64.deb
 - sudo dpkg -i prince_12.5-1_ubuntu18.04_amd64.deb
 - rm prince_12.5-1_ubuntu18.04_amd64.deb
+- composer self-update --rollback
 - composer self-update 1.10.17
 - source ~/.nvm/nvm.sh && nvm install $TRAVIS_NODE_VERSION && nvm use $TRAVIS_NODE_VERSION
 install:
