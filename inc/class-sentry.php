@@ -69,7 +69,7 @@ class Sentry {
 	 *
 	 * @return false|\WP_User
 	 */
-	static private function getCurrentUserForTracking() {
+	static public function getCurrentUserForTracking() {
 		$user_id = get_current_user_id();
 		self::$user = $user_id > 0 ? $user = get_userdata( $user_id ) : false;
 		return self::$user;

@@ -34,6 +34,7 @@ class SentryTest extends \WP_UnitTestCase {
 	 * Test phpObserver Sentry function. Since Sentry connection is mocked, it should return false.
 	 */
 	public function test_phpObserver() {
+		Sentry::getCurrentUserForTracking();
 		$this->assertTrue( $this->sentry->phpObserver() );
 	}
 
@@ -41,6 +42,7 @@ class SentryTest extends \WP_UnitTestCase {
 	 * Test javascript observer for Sentry, it should enqueue the sentry.js script
 	 */
 	public function test_javascriptObserver() {
+		Sentry::getCurrentUserForTracking();
 		$this->assertTrue( $this->sentry->javascriptObserver() );
 		global $wp_scripts;
 		$this->assertContains( Sentry::WP_SCRIPT_NAME, $wp_scripts->queue );
