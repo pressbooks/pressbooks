@@ -30,7 +30,7 @@ class Sentry {
 	/**
 	 * @var \WP_User
 	 */
-	protected static $user;
+	private $user;
 
 	/**
 	 * @since 5.5.3
@@ -45,7 +45,7 @@ class Sentry {
 
 		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
-			self::getCurrentUserForTracking();
+			self::$instance->getCurrentUserForTracking();
 			if (
 				! is_null( env( 'SENTRY_INITIALIZE_PHP' ) ) &&
 				intval( env( 'SENTRY_INITIALIZE_PHP' ) ) === 1
@@ -69,10 +69,21 @@ class Sentry {
 	 *
 	 * @return false|\WP_User
 	 */
-	static public function getCurrentUserForTracking() {
+	public function getCurrentUserForTracking() {
 		$user_id = get_current_user_id();
-		self::$user = $user_id > 0 ? $user = get_userdata( $user_id ) : false;
-		return self::$user;
+		$this->user = $user_id > 0 ? $user = get_userdata( $user_id ) : false;
+		return $this->user;
+	}
+
+	/**
+	 * Set user for tracking
+	 *
+	 * @param \WP_User $user
+	 * @return \WP_User
+	 */
+	public function setUserForTracking( \WP_User $user ) {
+		$this->user = $user;
+		return $this->user;
 	}
 
 	/**
@@ -98,8 +109,8 @@ class Sentry {
 					'environment' => env( 'WP_ENV' ) ?: self::DEFAULT_ENVIRNOMENT,
 				]
 			);
-			if ( self::$user ) {
-				$user = self::$user;
+			if ( $this->user ) {
+				$user = $this->user;
 				\Sentry\configureScope(
 					function ( \Sentry\State\Scope $scope ) use ( $user ) {
 						$scope->setUser( [
@@ -131,16 +142,16 @@ class Sentry {
 				'environment' => env( 'WP_ENV' ) ?: self::DEFAULT_ENVIRNOMENT,
 				'user' => false,
 			];
-			if ( self::$user ) {
+			if ( $this->user ) {
 				$script_params['user'] = [
-					'username' => self::$user->user_login,
-					'email' => self::$user->user_email,
+					'username' => $this->user->user_login,
+					'email' => $this->user->user_email,
 				];
 			}
 			wp_localize_script( self::WP_SCRIPT_NAME, 'SentryParams', $script_params );
 			return true;
 		} catch ( \Exception $exception ) {
-			debug_error_log( 'Error initializing Sentry for PHP: ' . $exception->getMessage() );
+			debug_error_log( 'Error initializing Sentry for JavaScript: ' . $exception->getMessage() );
 		}
 		return false;
 
