@@ -306,6 +306,7 @@ add_action( 'wp_footer', '\Pressbooks\Registration\add_a11y' );
 add_filter( 'add_signup_meta', '\Pressbooks\Registration\add_temporary_password', 99 );
 add_action( 'signup_blogform', '\Pressbooks\Registration\add_hidden_password_field' );
 add_filter( 'random_password', '\Pressbooks\Registration\override_password_generation' );
+add_filter( 'lostpassword_url', '\Pressbooks\Registration\remove_wp_prefix', 12 );
 
 // Email configuration
 add_filter( 'wp_mail_from', '\Pressbooks\Utility\mail_from' );

@@ -365,3 +365,10 @@ function add_a11y() {
 	</script>';
 
 }
+
+/**
+ * Remove unwanted and unnecessary Bedrock's prefix in Lost Url
+ */
+function remove_wp_prefix($lostpassword_url) {
+    return str_replace('/wp/', '/', $lostpassword_url);
+}
