@@ -43,8 +43,8 @@ no styling.
 
 While Pressbooks is open source, we recommend you try
 [Pressbooks.com](https://pressbooks.com) before deciding whether or not you wish
-to host and maintain your own instance. We can also host and maintain an
-instance for you.
+to host and maintain your own instance. We can also [host and maintain an
+instance for you](https://pressbooks.com/contact-pressbooks/).
 
 ## Installing the Plugin
 
@@ -58,7 +58,7 @@ you need to install Pressbooks for development, please see the
 
 ## Requirements
 
-Pressbooks works with PHP 7.1 and WordPress 5.3. Lower versions are not
+Pressbooks works with PHP 7.3 and WordPress 5.5.3. Lower versions are not
 supported.
 
 ## Disclaimers
