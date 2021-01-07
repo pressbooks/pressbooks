@@ -347,5 +347,5 @@ add_filter( 'init', [ '\Pressbooks\BookDirectory', 'init' ], 10, 2 );
 // Sentry initializer - Only for staging and production environments
 // -------------------------------------------------------------------------------------------------------------------
 if ( PressbooksSentry::areEnvironmentVariablesPresent() ) {
-	add_filter( 'init', [ '\Pressbooks\PressbooksSentry', 'init' ] );
+	add_action( 'init', [ '\Pressbooks\PressbooksSentry', 'init' ] );
 }
