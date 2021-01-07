@@ -7,6 +7,7 @@
 use function \Pressbooks\Utility\include_plugins as include_symbionts;
 use Pressbooks\Book;
 use Pressbooks\Container;
+use Pressbooks\PressbooksSentry;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -345,9 +346,6 @@ add_filter( 'init', [ '\Pressbooks\BookDirectory', 'init' ], 10, 2 );
 // -------------------------------------------------------------------------------------------------------------------
 // Sentry initializer - Only for staging and production environments
 // -------------------------------------------------------------------------------------------------------------------
-if (
-	! is_null( env( 'ENABLE_SENTRY' ) ) &&
-	intval( env( 'ENABLE_SENTRY' ) ) === 1
-) {
-	add_filter( 'init', [ '\Pressbooks\Sentry', 'init' ] );
+if ( PressbooksSentry::areEnvironmentVariablesPresent() ) {
+	add_filter( 'init', [ '\Pressbooks\PressbooksSentry', 'init' ] );
 }

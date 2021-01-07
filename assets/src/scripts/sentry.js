@@ -5,7 +5,7 @@ import { Integrations } from '@sentry/tracing';
 Sentry.init( {
 	dsn: SentryParams.dsn,
 	integrations: [ new Integrations.BrowserTracing() ],
-	tracesSampleRate: 1.0,
+	tracesSampleRate: SentryParams.sample,
 	environment: SentryParams.environment,
 } );
 
