@@ -15,8 +15,6 @@ branches:
   - hotfix
   - "/\\d+\\.\\d+(\\.\\d+)?(-\\S*)?$/"
 php:
-- 7.1
-- 7.2
 - 7.3
 env:
 - WP_VERSION=latest WP_MULTISITE=1 TRAVIS_NODE_VERSION="10"

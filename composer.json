@@ -23,11 +23,11 @@
 	"config": {
     "process-timeout":0,
 		"platform": {
-			"php": "7.1"
+			"php": "7.3"
 		}
 	},
 	"require": {
-		"php": ">=7.1",
+		"php": ">=7.3",
 		"composer/installers": "~1.0",
 		"davidgorges/human-name-parser": "^1.0",
 		"gridonic/princexml-php": "^1.2",
