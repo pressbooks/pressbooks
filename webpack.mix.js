@@ -65,6 +65,7 @@ mix
 	.js( 'assets/src/scripts/theme-options.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/a11y.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/export-footnotes.js', 'assets/dist/scripts/' )
+	.js( 'assets/src/scripts/sentry.js', 'assets/dist/scripts/' )
 	.scripts(
 		'node_modules/event-source-polyfill/src/eventsource.js',
 		'assets/dist/scripts/eventsource.polyfill.js'
