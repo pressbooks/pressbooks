@@ -20,7 +20,7 @@ For installation instructions, visit [docs.pressbooks.org/installation](https://
 = 5.17.4 =
 
 * Pressbooks 5.17.4 requires PHP >= 7.3
-* Pressbooks 5.17.4 requires [WordPress 5.5](https://wordpress.org/support/wordpress-version/version-5-5/)
+* Pressbooks 5.17.4 requires [WordPress 5.5.3](https://wordpress.org/support/wordpress-version/version-5-5-3/)
 
 = 5.17.3 =
 
