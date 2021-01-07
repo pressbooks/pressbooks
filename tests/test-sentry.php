@@ -26,6 +26,9 @@ class SentryTest extends \WP_UnitTestCase {
 	 */
 	protected $fake_dsn;
 
+	/**
+	 * @var ClientBuilderInterface
+	 */
 	protected $sentry_client;
 
 	/**
