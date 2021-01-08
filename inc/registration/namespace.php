@@ -371,5 +371,5 @@ function add_a11y() {
  * only if the book name is not wp
  */
 function remove_wp_prefix( $lostpassword_url ) {
-	return preg_replace('/(.*[^\/])\/wp\/(.*)(\/wp-login.php)(.*)/i', "$1/$2$3$4", $lostpassword_url);
+	return preg_replace( '/(.*[^\/])\/wp\/(.*)(\/wp-login.php)(.*)/i', '$1/$2$3$4', $lostpassword_url );
 }
