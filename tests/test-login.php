@@ -9,7 +9,7 @@ class Login extends \WP_UnitTestCase {
 
 		$this->assertEquals(
 			'https://network.pressbooks.pub/booktitle/wp-login.php?action=lostpassword',
-			\Pressbooks\Registration\remove_wp_prefix( 'https://network.pressbooks.pub/booktitle/wp-login.php?action=lostpassword' )
+			\Pressbooks\Registration\remove_wp_prefix( 'https://network.pressbooks.pub/wp/booktitle/wp-login.php?action=lostpassword' )
 		);
 
 		$this->assertEquals(
