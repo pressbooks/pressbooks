@@ -5,22 +5,6 @@ class Login extends \WP_UnitTestCase {
 	/**
 	 * @group Login
 	 */
-	function setUp()
-	{
-		parent::setUp();
-	}
-
-	/**
-	 * @group registration
-	 */
-	function tearDown()
-	{
-		parent::tearDown();
-	}
-
-	/**
-	 * @group Login
-	 */
 	public function test_if_wp_prefix_is_removed() {
 
 		$scenario1 = 'https://institution.pressbooks.pub/wp/booktitle/wp-login.php?action=lostpassword';
