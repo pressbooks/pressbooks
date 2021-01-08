@@ -365,3 +365,11 @@ function add_a11y() {
 	</script>';
 
 }
+
+/**
+ * Remove unwanted and unnecessary Bedrock's prefix in Lost Url link
+ * only if the book name is not wp
+ */
+function remove_wp_prefix( $lostpassword_url ) {
+	return preg_replace( '/(.*[^\/])\/wp\/(.*)(\/wp-login.php)(.*)/i', '$1/$2$3$4', $lostpassword_url );
+}
