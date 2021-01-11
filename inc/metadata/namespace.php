@@ -226,12 +226,10 @@ function book_information_to_schema( $book_information, $network_excluded_direct
 	}
 
 	if ( isset( $book_information['pb_primary_subject'] ) ) {
-		$name = Metadata\get_subject_from_thema( $book_information['pb_primary_subject'] );
 		$book_schema['about'][] = [
 			'@type' => 'Thing',
-			'identifier' => ( is_null( $name ) || ! $name ) ?
-						$book_information['pb_primary_subject'] : $name,
-			'name' => $name,
+			'identifier' => $book_information['pb_primary_subject'],
+			'name' => Metadata\get_subject_from_thema( $book_information['pb_primary_subject'] ),
 		];
 	}
 
