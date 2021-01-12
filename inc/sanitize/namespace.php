@@ -837,6 +837,6 @@ function sanitize_string( $value, $allow_html = false ) {
 
 	}
 
-	return strip_tags( pb_decode ( $value ) );
+	return strip_tags( pb_decode( $value ) );
 
 }
