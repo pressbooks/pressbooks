@@ -6,10 +6,13 @@
 
 namespace Pressbooks\Admin\Metaboxes;
 
+use function Pressbooks\Sanitize\sanitize_string;
 use PressbooksMix\Assets;
 use Pressbooks\Contributors;
 use Pressbooks\Licensing;
 use Pressbooks\Metadata;
+
+define( 'METADATA_CALLBACK_INDEX', 4 );
 
 /**
  * If the user updates the book's title, then also update the blog name
@@ -402,6 +405,9 @@ function add_meta_boxes() {
 			'group' => 'copyright',
 			'label' => __( 'Copyright Notice', 'pressbooks' ),
 			'description' => __( 'Enter a custom copyright notice, with whatever information you like. This will override the auto-generated copyright notice if All Rights Reserved or no license is selected, and will be inserted after the title page. If you select a Creative Commons license, the custom notice will appear after the license text in both the webbook and your exports.', 'pressbooks' ),
+			'sanitize_callback' => function ( ...$args ) {
+				return sanitize_string( $args[ METADATA_CALLBACK_INDEX ], true );
+			},
 		]
 	);
 
@@ -426,6 +432,9 @@ function add_meta_boxes() {
 			'group' => 'about-the-book',
 			'label' => __( 'Short Description', 'pressbooks' ),
 			'description' => __( 'A short paragraph about your book, for catalogs, reviewers etc. to quote.', 'pressbooks' ),
+			'sanitize_callback' => function ( ...$args ) {
+				return sanitize_string( $args[ METADATA_CALLBACK_INDEX ] );
+			},
 		]
 	);
 
@@ -435,6 +444,9 @@ function add_meta_boxes() {
 			'group' => 'about-the-book',
 			'label' => __( 'Long Description', 'pressbooks' ),
 			'description' => __( 'The full description of your book.', 'pressbooks' ),
+			'sanitize_callback' => function ( ...$args ) {
+				return sanitize_string( $args[ METADATA_CALLBACK_INDEX ], true );
+			},
 		]
 	);
 

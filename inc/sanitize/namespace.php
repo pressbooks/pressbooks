@@ -6,6 +6,8 @@
 
 namespace Pressbooks\Sanitize;
 
+use Pressbooks\HtmLawed;
+
 /**
  * Convert HTML5 tags to XHTML11 divs.
  *
@@ -814,4 +816,27 @@ function maybe_safer_unserialize( $original ) {
 		return safer_unserialize( $original );
 	}
 	return $original;
+}
+
+
+/**
+ * Sanitize an string for undesired XSS attacks allowing HTML but removing malicious code
+ * @param $value
+ * @param bool $allow_html
+ * @return string
+ */
+function sanitize_string( $value, $allow_html = false ) {
+
+	if ( $allow_html ) {
+
+		return HtmLawed::filter(
+			pb_decode( $value ), [
+				'safe' => 1,
+			]
+		);
+
+	}
+
+	return strip_tags( pb_decode ( $value ) );
+
 }
