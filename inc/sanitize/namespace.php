@@ -827,16 +827,6 @@ function maybe_safer_unserialize( $original ) {
  */
 function sanitize_string( $value, $allow_html = false ) {
 
-	if ( $allow_html ) {
-
-		return HtmLawed::filter(
-			pb_decode( $value ), [
-				'safe' => 1,
-			]
-		);
-
-	}
-
-	return strip_tags( pb_decode( $value ) );
+	return $allow_html ? HtmLawed::filter( pb_decode( $value ), [ 'safe' => 1 ] ) : strip_tags( pb_decode( $value ) );
 
 }
