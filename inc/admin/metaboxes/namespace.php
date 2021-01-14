@@ -12,7 +12,9 @@ use Pressbooks\Contributors;
 use Pressbooks\Licensing;
 use Pressbooks\Metadata;
 
+// @codeCoverageIgnoreStart
 define( 'METADATA_CALLBACK_INDEX', 4 );
+// @codeCoverageIgnoreEnd
 
 /**
  * If the user updates the book's title, then also update the blog name
