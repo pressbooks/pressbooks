@@ -379,7 +379,7 @@ class BookTest extends \WP_UnitTestCase {
 		$_POST[ $about_extended_field ] = $xss_string;
 		$c->save_metadata_field( $about_extended_field, $field, 'metadata', $mp->ID );
 		$value = $c->get_metadata_field_value( $about_extended_field, $field, 'metadata', $mp->ID );
-		$this->assertEquals( ' hello xss', $value[0] );
+		$this->assertEquals( '<img src="#" alt="image" /> hello xss', $value[0] );
 
 		$copyright_field = 'pb_custom_copyright';
 
@@ -387,7 +387,7 @@ class BookTest extends \WP_UnitTestCase {
 		$_POST[ $copyright_field ] = $xss_string;
 		$c->save_metadata_field( $copyright_field, $field, 'metadata', $mp->ID );
 		$value = $c->get_metadata_field_value( $copyright_field, $field, 'metadata', $mp->ID );
-		$this->assertEquals( ' hello xss', $value[0] );
+		$this->assertEquals( '<img src="#" alt="image" /> hello xss', $value[0] );
 
 	}
 }
