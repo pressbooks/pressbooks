@@ -363,16 +363,31 @@ class BookTest extends \WP_UnitTestCase {
 
 		\Pressbooks\Admin\Metaboxes\add_meta_boxes();
 
-		$field_slug = 'pb_about_50';
+		$xss_string = '<img src=# onerror=alert(document.cookie) /> hello xss';
 
-		$field = $c->get_field( $field_slug, 'about-the-book', 'metadata' );
+		$about_field = 'pb_about_50';
 
-		$_POST[ $field_slug ] = '<img src=# onerror=alert(document.cookie) /> hello xss';
-
-		$c->save_metadata_field( $field_slug, $field, 'metadata', $mp->ID );
-
-		$value = $c->get_metadata_field_value( $field_slug, $field, 'metadata', $mp->ID );
-
+		$field = $c->get_field( $about_field, 'about-the-book', 'metadata' );
+		$_POST[ $about_field ] = $xss_string;
+		$c->save_metadata_field( $about_field, $field, 'metadata', $mp->ID );
+		$value = $c->get_metadata_field_value( $about_field, $field, 'metadata', $mp->ID );
 		$this->assertEquals( ' hello xss', $value[0] );
+
+		$about_extended_field = 'pb_about_unlimited';
+
+		$field = $c->get_field( $about_extended_field, 'about-the-book', 'metadata' );
+		$_POST[ $about_extended_field ] = $xss_string;
+		$c->save_metadata_field( $about_extended_field, $field, 'metadata', $mp->ID );
+		$value = $c->get_metadata_field_value( $about_extended_field, $field, 'metadata', $mp->ID );
+		$this->assertEquals( ' hello xss', $value[0] );
+
+		$copyright_field = 'pb_custom_copyright';
+
+		$field = $c->get_field( $copyright_field, 'copyright', 'metadata' );
+		$_POST[ $copyright_field ] = $xss_string;
+		$c->save_metadata_field( $copyright_field, $field, 'metadata', $mp->ID );
+		$value = $c->get_metadata_field_value( $copyright_field, $field, 'metadata', $mp->ID );
+		$this->assertEquals( ' hello xss', $value[0] );
+
 	}
 }
