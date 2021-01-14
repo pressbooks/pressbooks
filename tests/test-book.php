@@ -54,7 +54,12 @@ class BookTest extends \WP_UnitTestCase {
 		// Returns cached export value, with $blog_id as param
 		global $blog_id;
 		delete_post_meta( $page['ID'], 'pb_export' );
-		wp_update_post( [ 'ID' => $page['ID'], 'post_status' => 'draft' ] );
+		wp_update_post(
+			[
+				'ID' => $page['ID'],
+				'post_status' => 'draft',
+			]
+		);
 		$structure = $book::getBookStructure( $blog_id );
 		$this->assertTrue( count( $structure['__orphans'] ) === 1 );
 		$vals = array_values( $structure['__orphans'] );
@@ -63,7 +68,12 @@ class BookTest extends \WP_UnitTestCase {
 
 		// Returns latest export value no cache
 		delete_post_meta( $page['ID'], 'pb_export' );
-		wp_update_post( [ 'ID' => $page['ID'], 'post_status' => 'draft' ] );
+		wp_update_post(
+			[
+				'ID' => $page['ID'],
+				'post_status' => 'draft',
+			]
+		);
 		$book::deleteBookObjectCache();
 		$structure = $book::getBookStructure();
 		$this->assertTrue( count( $structure['__orphans'] ) === 1 );
@@ -94,7 +104,12 @@ class BookTest extends \WP_UnitTestCase {
 
 		// Returns cached export value
 		delete_post_meta( $page['ID'], 'pb_export' );
-		wp_update_post( [ 'ID' => $page['ID'], 'post_status' => 'draft' ] );
+		wp_update_post(
+			[
+				'ID' => $page['ID'],
+				'post_status' => 'draft',
+			]
+		);
 		$contents = $book::getBookContents();
 		$this->assertTrue( count( $contents['__orphans'] ) === 1 );
 		$vals = array_values( $contents['__orphans'] );
@@ -103,7 +118,12 @@ class BookTest extends \WP_UnitTestCase {
 
 		// Returns latest export value no cache
 		delete_post_meta( $page['ID'], 'pb_export' );
-		wp_update_post( [ 'ID' => $page['ID'], 'post_status' => 'draft' ] );
+		wp_update_post(
+			[
+				'ID' => $page['ID'],
+				'post_status' => 'draft',
+			]
+		);
 		$book::deleteBookObjectCache();
 		$contents = $book::getBookContents();
 		$this->assertTrue( count( $contents['__orphans'] ) === 1 );
@@ -170,18 +190,18 @@ class BookTest extends \WP_UnitTestCase {
 		$result = $book::getSubsections( 0 );
 		$this->assertEquals( false, $result );
 
-		$test = "<h1>Hi there!<b></b></h1><p>How are you?</p>";
+		$test = '<h1>Hi there!<b></b></h1><p>How are you?</p>';
 		$id = $book::getBookStructure()['front-matter'][0]['ID'];
 		$this->factory()->post->update_object( $id, [ 'post_content' => $test ] );
 		$result = $book::getSubsections( $id );
 		$this->assertArrayHasKey( "front-matter-{$id}-section-1", $result );
-		$this->assertEquals( 'Hi there!', $result["front-matter-{$id}-section-1"] );
+		$this->assertEquals( 'Hi there!', $result[ "front-matter-{$id}-section-1" ] );
 
 		$test = "<H1 style='font-size:small;'>Hi there! Hope you're doing good.<B></B></H1><P>How are you?</P>"; // ALL CAPS, texturized
 		$this->factory()->post->update_object( $id, [ 'post_content' => $test ] );
 		$result = $book::getSubsections( $id );
 		$this->assertArrayHasKey( "front-matter-{$id}-section-1", $result );
-		$this->assertEquals( 'Hi there! Hope you&#8217;re doing good.', $result["front-matter-{$id}-section-1"] );
+		$this->assertEquals( 'Hi there! Hope you&#8217;re doing good.', $result[ "front-matter-{$id}-section-1" ] );
 
 		$test = "<h2>Hi there! Hope you're doing good.<b></b></h2><p>How are you?</p>"; // H2
 		$this->factory()->post->update_object( $id, [ 'post_content' => $test ] );
@@ -211,7 +231,7 @@ class BookTest extends \WP_UnitTestCase {
 		$this->_book();
 		$book = \Pressbooks\Book::getInstance();
 
-		$test = "<h1>Hi there!<b></b></h1><p>How are you?.</p>";
+		$test = '<h1>Hi there!<b></b></h1><p>How are you?.</p>';
 		$result = $book::tagSubsections( $test, 0 );
 		$this->assertEquals( false, $result );
 
@@ -229,7 +249,7 @@ class BookTest extends \WP_UnitTestCase {
 		$result = $book::tagSubsections( $test, $id );
 		$this->assertContains( "<h1 class=\"section-header foo bar\" id=\"front-matter-{$id}-section-1\"", $result );
 
-		$test = "<h2>Hi there!<b></b></h2><p>How are you?</p>"; // H2
+		$test = '<h2>Hi there!<b></b></h2><p>How are you?</p>'; // H2
 		$result = $book::tagSubsections( $test, $id );
 		$this->assertEquals( false, $result );
 	}
@@ -279,7 +299,7 @@ class BookTest extends \WP_UnitTestCase {
 		$user_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
 		wp_set_current_user( $user_id );
 
-		$url = $book::getFirst( false, true);
+		$url = $book::getFirst( false, true );
 		$this->assertContains( 'example.org/', $url );
 		$post_id = $book::getFirst( true, true );
 		$this->assertTrue( is_integer( $post_id ) );
@@ -310,7 +330,12 @@ class BookTest extends \WP_UnitTestCase {
 		$this->assertEquals( 1, $book::getChapterNumber( $one['ID'] ) );
 		$this->assertEquals( 2, $book::getChapterNumber( $two['ID'] ) );
 
-		wp_update_post( [ 'ID' => $one['ID'], 'post_status' => 'private' ] );
+		wp_update_post(
+			[
+				'ID' => $one['ID'],
+				'post_status' => 'private',
+			]
+		);
 		$book::deleteBookObjectCache();
 
 		$this->assertEquals( 0, $book::getChapterNumber( $one['ID'], 'webbook' ) );
@@ -324,5 +349,45 @@ class BookTest extends \WP_UnitTestCase {
 		$this->assertEquals( 0, $book::getChapterNumber( $two['ID'] ) );
 		$this->assertEquals( 0, $book::getChapterNumber( $one['ID'], 'exports' ) );
 		$this->assertEquals( 0, $book::getChapterNumber( $two['ID'] ), 'exports' );
+	}
+
+	public function test_getSanitizedBookAboutInfo() {
+
+		$this->_book();
+		$mp = ( new \Pressbooks\Metadata() )->getMetaPost();
+
+		$c = custom_metadata_manager::instance();
+
+		$c->admin_init();
+		$c->init_metadata();
+
+		\Pressbooks\Admin\Metaboxes\add_meta_boxes();
+
+		$xss_string = '<img src=# onerror=alert(document.cookie) /> hello xss';
+
+		$about_field = 'pb_about_50';
+
+		$field = $c->get_field( $about_field, 'about-the-book', 'metadata' );
+		$_POST[ $about_field ] = $xss_string;
+		$c->save_metadata_field( $about_field, $field, 'metadata', $mp->ID );
+		$value = $c->get_metadata_field_value( $about_field, $field, 'metadata', $mp->ID );
+		$this->assertEquals( ' hello xss', $value[0] );
+
+		$about_extended_field = 'pb_about_unlimited';
+
+		$field = $c->get_field( $about_extended_field, 'about-the-book', 'metadata' );
+		$_POST[ $about_extended_field ] = $xss_string;
+		$c->save_metadata_field( $about_extended_field, $field, 'metadata', $mp->ID );
+		$value = $c->get_metadata_field_value( $about_extended_field, $field, 'metadata', $mp->ID );
+		$this->assertEquals( '<img src="#" alt="image" /> hello xss', $value[0] );
+
+		$copyright_field = 'pb_custom_copyright';
+
+		$field = $c->get_field( $copyright_field, 'copyright', 'metadata' );
+		$_POST[ $copyright_field ] = $xss_string;
+		$c->save_metadata_field( $copyright_field, $field, 'metadata', $mp->ID );
+		$value = $c->get_metadata_field_value( $copyright_field, $field, 'metadata', $mp->ID );
+		$this->assertEquals( '<img src="#" alt="image" /> hello xss', $value[0] );
+
 	}
 }
