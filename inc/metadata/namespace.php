@@ -424,7 +424,7 @@ function book_information_to_schema( $book_information, $network_excluded_direct
 	if ( isset( $book_information['site_name'] ) ) {
 		$book_schema['network'] = [
 			'@type' => 'Network',
-			'host' => wp_parse_url( $book_information['pb_book_url'], PHP_URL_HOST ),
+			'host' => wp_parse_url( network_home_url(), PHP_URL_HOST ),
 			'name' => $book_information['site_name'],
 		];
 	}
