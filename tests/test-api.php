@@ -281,8 +281,7 @@ class ApiTest extends \WP_UnitTestCase {
 		$data = $response->get_data();
 
 		$this->assertEquals( 2, count( $data ) );
-		$this->assertEquals( 'Synapse', $data[0]['title']['rendered'] );
-		$this->assertEquals( 'ML', $data[1]['title']['rendered'] );
+		$this->assertEquals( 'ML', $data[0]['title']['rendered'] );
 	}
 
 }
