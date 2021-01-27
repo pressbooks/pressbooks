@@ -245,4 +245,44 @@ class ApiTest extends \WP_UnitTestCase {
 		$this->assertInstanceOf( '\WP_User', get_user_by( 'slug', 'batchuser002' ) );
 	}
 
+	/**
+	 * Test /pressbooks/v2/glossary
+	 * @group api
+	 */
+	public function test_glossaryApi() {
+
+		$server = $this->_setupBookApi();
+
+		$term1 = [
+			'post_type'    => 'glossary',
+			'post_title'   => 'Synapse',
+			'post_content' => 'Definition',
+			'post_status'  => 'publish',
+		];
+		$term2 = [
+			'post_type'    => 'glossary',
+			'post_title'   => 'Not done',
+			'post_content' => 'This term is not done so the status is private.',
+			'post_status'  => 'private',
+		];
+		$term3 = [
+			'post_type'    => 'glossary',
+			'post_title'   => 'ML',
+			'post_content' => 'Machine learning is a method of data analysis that automates analytical model building',
+			'post_status'  => 'publish',
+		];
+
+		$this->factory()->post->create_object( $term1 );
+		$this->factory()->post->create_object( $term2 );
+		$this->factory()->post->create_object( $term3 );
+
+		$request = new \WP_REST_Request( 'GET', '/pressbooks/v2/glossary' );
+		$response = $server->dispatch( $request );
+		$data = $response->get_data();
+
+		$this->assertEquals( 2, count( $data ) );
+		$this->assertEquals( 'Synapse', $data[0]['title']['rendered'] );
+		$this->assertEquals( 'ML', $data[1]['title']['rendered'] );
+	}
+
 }
