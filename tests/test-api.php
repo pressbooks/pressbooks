@@ -1,5 +1,7 @@
 <?php
 
+use Pressbooks\Api\Endpoints\Controller\Posts;
+
 use function \Pressbooks\Metadata\book_information_to_schema;
 
 class ApiTest extends \WP_UnitTestCase {
@@ -253,6 +255,8 @@ class ApiTest extends \WP_UnitTestCase {
 
 		$server = $this->_setupBookApi();
 
+		$controller = new Posts('glossary');
+
 		$term1 = [
 			'post_type'    => 'glossary',
 			'post_title'   => 'Synapse',
@@ -281,7 +285,8 @@ class ApiTest extends \WP_UnitTestCase {
 		$data = $response->get_data();
 
 		$this->assertEquals( 2, count( $data ) );
-		$this->assertEquals( 'ML', $data[0]['title']['rendered'] );
+		$this->assertEquals( 'Synapse', $data[0]['title']['rendered'] );
+		$this->assertEquals( 'ML', $data[1]['title']['rendered'] );
 	}
 
 }
