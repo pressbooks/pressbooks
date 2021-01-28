@@ -48,7 +48,9 @@ class Posts extends \WP_REST_Posts_Controller {
 		// TODO: $args come from \Pressbooks\Book::getBookStructure, we should consolidate this somewhere?
 
 		$args['post_status'] = 'any';
-		$args['orderby'] = 'menu_order';
+		// orderby menu_order causes issues duplicating records in the REST API for custom post types
+		// using menu_order in REST API is not reilable because is not unique and mess the WP_Query
+		$args['orderby'] = $this->post_type === 'glossary' ? 'id' : 'menu_order';
 		$args['order'] = 'ASC';
 
 		return $args;
