@@ -4,7 +4,7 @@ Tags: ebooks, publishing, webbooks
 Requires at least: 5.5.3
 Tested up to: 5.5.3
 Requires PHP: 7.3
-Stable tag: 5.18.0
+Stable tag: 5.18.1
 License: GPL v3.0 or later
 License URI: https://github.com/pressbooks/pressbooks/blob/master/LICENSE.md
 
@@ -17,17 +17,18 @@ Pressbooks is an open source book publishing tool built on a WordPress multisite
 For installation instructions, visit [docs.pressbooks.org/installation](https://docs.pressbooks.org/installation).
 
 == Changelog ==
+
+= 5.18.1 =
+
+* See: https://github.com/pressbooks/pressbooks/releases/tag/5.18.1
+* Full release history available at: https://github.com/pressbooks/pressbooks/releases
+
+== Upgrade Notice ==
+
 = 5.18.0=
 
 * Pressbooks 5.18.0 requires PHP >= 7.3
 * Pressbooks 5.18.0 requires [WordPress 5.5.3](https://wordpress.org/support/wordpress-version/version-5-5-3/)
-
-= 5.17.3 =
-
-* See: https://github.com/pressbooks/pressbooks/releases/tag/5.17.3
-* Full release history available at: https://github.com/pressbooks/pressbooks/releases
-
-== Upgrade Notice ==
 
 = 5.16.0 =
 
