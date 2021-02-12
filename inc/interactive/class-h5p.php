@@ -224,7 +224,7 @@ class H5P {
 	}
 
 	/**
-	 * This hook add a HTML wrapper to identify each hp5 activity
+	 * This hook adds a HTML wrapper to identify each hp5 activity
 	 * @param $html
 	 * @param $content array this array holds the custom post type information (h5p)
 	 * @return string
