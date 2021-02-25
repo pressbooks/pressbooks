@@ -389,5 +389,11 @@ class BookTest extends \WP_UnitTestCase {
 		$value = $c->get_metadata_field_value( $copyright_field, $field, 'metadata', $mp->ID );
 		$this->assertEquals( '<img src="#" alt="image" /> hello xss', $value[0] );
 
+		$field = $c->get_field( $about_extended_field, 'about-the-book', 'metadata' );
+		$_POST[ $about_extended_field ] = '<a href="https://pressbooks.org">Link</a>';
+		$c->save_metadata_field( $about_extended_field, $field, 'metadata', $mp->ID );
+		$value = $c->get_metadata_field_value( $about_extended_field, $field, 'metadata', $mp->ID );
+		$this->assertEquals( '<a href="https://pressbooks.org">Link</a>', $value[0] );
+
 	}
 }
