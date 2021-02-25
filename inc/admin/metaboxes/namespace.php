@@ -435,7 +435,7 @@ function add_meta_boxes() {
 			'label' => __( 'Short Description', 'pressbooks' ),
 			'description' => __( 'A short paragraph about your book, for catalogs, reviewers etc. to quote.', 'pressbooks' ),
 			'sanitize_callback' => function ( ...$args ) {
-				return sanitize_string( $args[ METADATA_CALLBACK_INDEX ] );
+				return sanitize_string( $args[ METADATA_CALLBACK_INDEX ], true );
 			},
 		]
 	);

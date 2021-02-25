@@ -371,7 +371,7 @@ class BookTest extends \WP_UnitTestCase {
 		$_POST[ $about_field ] = $xss_string;
 		$c->save_metadata_field( $about_field, $field, 'metadata', $mp->ID );
 		$value = $c->get_metadata_field_value( $about_field, $field, 'metadata', $mp->ID );
-		$this->assertEquals( ' hello xss', $value[0] );
+		$this->assertEquals( '<img src="#" alt="image" /> hello xss', $value[0] );
 
 		$about_extended_field = 'pb_about_unlimited';
 

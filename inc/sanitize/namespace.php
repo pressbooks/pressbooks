@@ -827,6 +827,6 @@ function maybe_safer_unserialize( $original ) {
  */
 function sanitize_string( $value, $allow_html = false ) {
 
-	return $allow_html ? HtmLawed::filter( pb_decode( wp_kses_stripslashes( $value ) ), [ 'safe' => 1 ] ) : strip_tags( pb_decode( $value ) );
+	return $allow_html ? HtmLawed::filter( pb_decode( stripslashes_from_strings_only( $value ) ), [ 'safe' => 1 ] ) : strip_tags( pb_decode( $value ) );
 
 }
