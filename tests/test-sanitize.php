@@ -592,10 +592,13 @@ RAW;
 		$test = \Pressbooks\Sanitize\sanitize_string( $test, true );
 		$this->assertEquals( '<img src="denied:javascript:alert(" alt="image" />', $test );
 
-		$test = '\<a onmouseover="alert(document.cookie)"\>xxs link\</a\>';
+		$test = '<a onmouseover="alert(document.cookie)">xxs link</a\>';
 		$test = \Pressbooks\Sanitize\sanitize_string( $test, true );
-		$this->assertEquals( '\<a>xxs link\</a>', $test );
+		$this->assertEquals( '<a>xxs link</a>', $test );
 
+		$test = '<a href="https://pressbooks.org" onmouseover="alert(document.cookie)">xxs link</a>';
+		$test = \Pressbooks\Sanitize\sanitize_string( $test, true );
+		$this->assertEquals( '<a href="https://pressbooks.org">xxs link</a>', $test );
 	}
 
 }
