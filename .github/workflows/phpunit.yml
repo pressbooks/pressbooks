@@ -38,7 +38,7 @@ jobs:
         unzip epubcheck-${{ matrix.epubcheck }}.zip -d /opt/
         mv /opt/epubcheck-${{ matrix.epubcheck }} /opt/epubcheck
         rm epubcheck-${{ matrix.epubcheck }}.zip
-        wget https://www.princexml.com/download/${{ matrix.prince }}_ubuntu18.04_amd64.deb
+        wget https://www.princexml.com/download/prince_${{ matrix.prince }}_ubuntu18.04_amd64.deb
         sudo dpkg -i ${{ matrix.prince }}_ubuntu18.04_amd64.deb
         rm ${{ matrix.prince }}_ubuntu18.04_amd64.deb
 
