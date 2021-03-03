@@ -7,7 +7,7 @@ on:
     branches: [ dev ]
 
 jobs:
-  build-test:
+  phpunit:
     runs-on: ${{ matrix.operating-system }}
     strategy:
       matrix:
@@ -27,10 +27,9 @@ jobs:
 
     steps:
     - name: Checkout code
-    - uses: actions/checkout@v2
+      uses: actions/checkout@v2
 
     - name: Cache dependencies
-      id: composer-cache
       uses: actions/cache@v2
       with:
         path: vendor
