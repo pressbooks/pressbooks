@@ -29,7 +29,10 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Cache dependencies
+    - name: Install OS dependencies
+      run: sudo apt-get install default-jdk libxml2-utils ghostscript imagemagick poppler-utils unzip
+
+    - name: Cache Composer packages
       uses: actions/cache@v2
       with:
         path: vendor
@@ -44,7 +47,7 @@ jobs:
       run: composer self-update --1
 
     - name: Install Composer packages
-      run: composer install -q --no-ansi --no-interaction --no-progress --prefer-dist
+      run: composer install
 
     - name: Install WP tests
       run: bash bin/install-wp-tests.sh wordpress_test root root localhost latest
