@@ -18,15 +18,6 @@ jobs:
 
     name: PHPUnit - ${{ matrix.php }}
 
-    services:
-      mysql:
-          image: mysql:5.7
-          env:
-              MYSQL_ALLOW_EMPTY_PASSWORD: yes
-              MYSQL_DATABASE: wordpress_test
-          ports:
-              - 3306
-
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
@@ -34,6 +25,7 @@ jobs:
     - name: Install OS dependencies
       run: |
         sudo apt-get install libxml2-utils ghostscript poppler-utils
+        sudo systemctl start mysql.service
         wget https://github.com/w3c/epubcheck/releases/download/v${{ matrix.epubcheck }}/epubcheck-${{ matrix.epubcheck }}.zip
         unzip epubcheck-${{ matrix.epubcheck }}.zip -d /opt/
         mv /opt/epubcheck-${{ matrix.epubcheck }} /opt/epubcheck
@@ -60,7 +52,7 @@ jobs:
       run: composer install
 
     - name: Install WP tests
-      run: bash bin/install-wp-tests.sh wordpress_test root root 127.0.0.1:3306 latest
+      run: bash bin/install-wp-tests.sh wordpress_test root root localhost latest
 
     - name: Run tests
       run: composer test
