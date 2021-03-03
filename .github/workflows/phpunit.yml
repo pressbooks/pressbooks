@@ -12,7 +12,9 @@ jobs:
     strategy:
       matrix:
         php: [7.4, 7.3]
-        os: [ubuntu-latest]
+        os: [ubuntu-18.04]
+        epubcheck: [4.2.4]
+        prince: [12.5.1-1]
 
     name: PHPUnit - ${{ matrix.php }}
 
@@ -30,7 +32,15 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Install OS dependencies
-      run: sudo apt-get install default-jdk libxml2-utils ghostscript imagemagick poppler-utils unzip
+      run: |
+        sudo apt-get install libxml2-utils ghostscript poppler-utils
+        wget https://github.com/w3c/epubcheck/releases/download/v${{ matrix.epubcheck }}/epubcheck-${{ matrix.epubcheck }}.zip
+        unzip epubcheck-${{ matrix.epubcheck }}.zip -d /opt/
+        mv /opt/epubcheck-${{ matrix.epubcheck }} /opt/epubcheck
+        rm epubcheck-${{ matrix.epubcheck }}.zip
+        wget https://www.princexml.com/download/${{ matrix.prince }}_ubuntu18.04_amd64.deb
+        sudo dpkg -i ${{ matrix.prince }}_ubuntu18.04_amd64.deb
+        rm ${{ matrix.prince }}_ubuntu18.04_amd64.deb
 
     - name: Cache Composer packages
       uses: actions/cache@v2
@@ -50,7 +60,7 @@ jobs:
       run: composer install
 
     - name: Install WP tests
-      run: bash bin/install-wp-tests.sh wordpress_test root root localhost latest
+      run: bash bin/install-wp-tests.sh wordpress_test root root 127.0.0.1:3306 latest
 
     - name: Run tests
       run: composer test
