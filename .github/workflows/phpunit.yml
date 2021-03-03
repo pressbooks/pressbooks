@@ -2,7 +2,7 @@ name: PHPUnit
 
 on:
   push:
-    branches: [ dev, master ]
+    branches: [ dev, master, github-actions ]
   pull_request:
     branches: [ dev ]
 
@@ -16,9 +16,21 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Install dependencies
+
+    - name: Cache Composer packages
+      id: composer-cache
+      uses: actions/cache@v2
+      with:
+        path: vendor
+        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-php-
+  
+    - name: Install Composer packages
       run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+
     - name: Install WP tests
       run: bash bin/install-wp-tests.sh wordpress_test root root localhost latest
+
     - name: Run tests
       run: composer test
