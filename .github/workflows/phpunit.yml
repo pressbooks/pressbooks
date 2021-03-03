@@ -38,9 +38,10 @@ jobs:
         unzip epubcheck-${{ matrix.epubcheck }}.zip -d /opt/
         mv /opt/epubcheck-${{ matrix.epubcheck }} /opt/epubcheck
         rm epubcheck-${{ matrix.epubcheck }}.zip
-        wget https://www.princexml.com/download/prince_${{ matrix.prince }}_ubuntu18.04_amd64.deb
-        sudo dpkg -i ${{ matrix.prince }}_ubuntu18.04_amd64.deb
-        rm ${{ matrix.prince }}_ubuntu18.04_amd64.deb
+        prince_os=${matrix.os | sed 's/-//g'}
+        wget https://www.princexml.com/download/prince_${{ matrix.prince }}_${{ prince_os }}_amd64.deb
+        sudo dpkg -i prince_${{ matrix.prince }}_${{ prince_os }}_amd64.deb
+        rm prince_${{ matrix.prince }}_${{ prince_os }}_amd64.deb
 
     - name: Cache Composer packages
       uses: actions/cache@v2
