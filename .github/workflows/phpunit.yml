@@ -1,4 +1,4 @@
-name: CI
+name: PHPUnit
 
 on:
   push:
@@ -8,16 +8,17 @@ on:
 
 jobs:
   build-test:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.operating-system }}
+    strategy:
+      matrix:
+        operating-system: ['ubuntu-latest']
+        php-versions: ['7.3', '7.4']
 
     steps:
     - uses: actions/checkout@v2
-
-    - name: Install Dependencies
+    - name: Install dependencies
       run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-      
-    - name: Install WP Tests
+    - name: Install WP tests
       run: bash bin/install-wp-tests.sh wordpress_test root root localhost latest
-      
-    - name: Run Tests
+    - name: Run tests
       run: composer test
