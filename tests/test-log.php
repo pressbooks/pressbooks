@@ -33,10 +33,11 @@ class LogTest extends \WP_UnitTestCase {
 	}
 
 	private function setEnvironmentVariables() {
+		putenv( 'LOG_LOGIN_ATTEMPTS=1' );
 		putenv( 'AWS_S3_OIDC_BUCKET=fakeBucket' );
 		putenv( 'AWS_SECRET_ACCESS_KEY=fakeAccessKey' );
 		putenv( 'AWS_ACCESS_KEY_ID=fakeKeyId' );
-		putenv( 'AWS_S3_VERSION=fakeVersion' );
+		putenv( 'AWS_S3_VERSION=fake' );
 		putenv( 'AWS_S3_REGION=fakeRegion' );
 	}
 
@@ -91,6 +92,29 @@ class LogTest extends \WP_UnitTestCase {
 	}
 
 	/**
+	 * Use Reflexion for private method
+	 *
+	 * @param $object
+	 * @param string $method
+	 * @param array $parameters
+	 * @return mixed
+	 * @throws ReflectionException
+	 */
+	private function callMethodForReflection($object, string $method , array $parameters = []) {
+		try {
+			$className = get_class( $object );
+			$reflection = new \ReflectionClass( $className );
+		} catch ( \ReflectionException $e ) {
+			throw new \Exception( $e->getMessage() );
+		}
+
+		$method = $reflection->getMethod( $method );
+		$method->setAccessible( true );
+
+		return $method->invokeArgs( $object, $parameters );
+	}
+
+	/**
 	 * @group log
 	 */
 	public function test_s3_store() {
@@ -124,6 +148,14 @@ class LogTest extends \WP_UnitTestCase {
 			'Test c' => 'Test d',
 		] );
 		$this->assertFalse( $this->log->store() );
+	}
+
+	/**
+	 * @group log
+	 */
+	public function test_s3_create_action() {
+		$s3_provider = new Log\S3StorageProvider();
+		$this->assertFalse( $this->callMethodForReflection( $s3_provider, 'create' ) );
 	}
 
 	/**

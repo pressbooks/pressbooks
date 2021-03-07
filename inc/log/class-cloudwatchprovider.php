@@ -4,6 +4,7 @@ namespace Pressbooks\Log;
 
 use Aws\CloudWatchLogs\CloudWatchLogsClient;
 use Aws\Credentials\CredentialProvider;
+use Aws\Exception\UnresolvedApiException;
 use function Pressbooks\Utility\debug_error_log;
 use Maxbanton\Cwh\Handler\CloudWatch;
 use Monolog\Formatter\JsonFormatter;
@@ -63,28 +64,33 @@ class CloudWatchProvider implements StorageProvider {
 			$this->access_key_id = env( 'AWS_ACCESS_KEY_ID' );
 			$this->secret_key = env( 'AWS_SECRET_ACCESS_KEY' );
 			if ( is_null( $this->client ) ) {
-				$this->client = new CloudWatchLogsClient(
-					[
-						'region' => $this->region,
-						'version' => $this->version,
-						'credentials' => CredentialProvider::env(),
-					]
-				);
-				$this->handler = new CloudWatch(
-					$this->client,
-					self::GROUP,
-					self::STREAM,
-					self::RETENTION_DAYS,
-					10000,
-					[], // TODO: Implement tags
-				);
-				$this->handler->setFormatter( new JsonFormatter() );
-				$this->logger = new Logger( self::CHANNEL );
-				$this->logger->pushHandler( $this->handler );
+				try {
+					$this->client = new CloudWatchLogsClient(
+						[
+							'region' => $this->region,
+							'version' => $this->version,
+							'credentials' => CredentialProvider::env(),
+						]
+					);
+					$this->handler = new CloudWatch(
+						$this->client,
+						self::GROUP,
+						self::STREAM,
+						self::RETENTION_DAYS,
+						10000,
+						[], // TODO: Implement tags
+					);
+					$this->handler->setFormatter( new JsonFormatter() );
+					$this->logger = new Logger( self::CHANNEL );
+					$this->logger->pushHandler( $this->handler );
+				} catch ( UnresolvedApiException $e ) {
+					debug_error_log( 'Error initializing Cloudwatch Storage Provider: ' . $e->getMessage() );
+					return false;
+				}
 			}
 			return true;
 		} else {
-			debug_error_log( 'Error initializing S3 Storage Provider: Some environment variables are not present.' );
+			debug_error_log( 'Error initializing CloudWatch Storage Provider: Some environment variables are not present.' );
 		}
 		return ! is_null( $this->client ) && ! is_null( $this->handler );
 	}

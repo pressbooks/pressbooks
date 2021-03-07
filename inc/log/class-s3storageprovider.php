@@ -3,7 +3,7 @@
 namespace Pressbooks\Log;
 
 use Aws\Credentials\CredentialProvider;
-use Aws\Exception\AwsException as AwsException;
+use Aws\Exception\UnresolvedApiException;
 use Aws\S3\S3Client as S3Client;
 use function Pressbooks\Utility\debug_error_log;
 
@@ -64,13 +64,18 @@ class S3StorageProvider implements StorageProvider {
 					'/' . wp_hash( network_home_url( '', $scheme ) ) . '/' . current_time( 'Y-m' ) . self::FILENAME_FORMAT;
 			}
 			if ( is_null( $this->client ) ) {
-				$this->client = new S3Client(
-					[
-						'region' => $this->region,
-						'version' => $this->version,
-						'credentials' => CredentialProvider::env(),
-					]
-				);
+				try {
+					$this->client = new S3Client(
+						[
+							'region' => $this->region,
+							'version' => $this->version,
+							'credentials' => CredentialProvider::env(),
+						]
+					);
+				} catch ( UnresolvedApiException $e ) {
+					debug_error_log( 'Error creating S3 client: ' . $e->getMessage() );
+					return false;
+				}
 			}
 			return true;
 		} else {
