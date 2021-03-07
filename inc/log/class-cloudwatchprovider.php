@@ -5,9 +5,9 @@ namespace Pressbooks\Log;
 use Aws\Credentials\CredentialProvider;
 use Aws\CloudWatchLogs\CloudWatchLogsClient;
 use function Pressbooks\Utility\debug_error_log;
-use Maxbanton\Cwh\Handler\CloudWatch;
 use Monolog\Formatter\JsonFormatter;
 use Monolog\Logger;
+use Maxbanton\Cwh\Handler\CloudWatch;
 
 class CloudWatchProvider implements StorageProvider {
 
@@ -128,7 +128,7 @@ class CloudWatchProvider implements StorageProvider {
 		return false;
 	}
 
-	public function getDataFormat($data ) {
+	public function getDataFormat( $data ) {
 		$scheme = is_ssl() ? 'https' : 'http';
 		$data['Environment'] = env( 'WP_ENV' ) ? env( 'WP_ENV' ) : 'production';
 		$data['Network'] = [
