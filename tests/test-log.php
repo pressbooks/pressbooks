@@ -115,6 +115,20 @@ class LogTest extends \WP_UnitTestCase {
 	/**
 	 * @group log
 	 */
+	public function test_s3_invalid_store_action_because_fake_env_variables() {
+		$s3_provider = new Log\S3StorageProvider();
+		$this->log = new Log\Log( $s3_provider );
+		$this->log->addRowToData( 'Test key 1', ['Test value'] );
+		$this->log->addRowToData( 'Test key 2', [
+			'Test a' => 'Test b',
+			'Test c' => 'Test d',
+		] );
+		$this->assertFalse( $this->log->store() );
+	}
+
+	/**
+	 * @group log
+	 */
 	public function test_cloudwatch_store() {
 		$this->setLoggerMock();
 		$this->log->addRowToData( 'Test key 1', ['Test value'] );
@@ -123,5 +137,19 @@ class LogTest extends \WP_UnitTestCase {
 			'Test c' => 'Test d',
 		] );
 		$this->assertTrue( $this->log->store() );
+	}
+
+	/**
+	 * @group log
+	 */
+	public function test_cloudwatch_invalid_store_action_because_fake_env_variables() {
+		$cloudwatch_provider = new Log\CloudWatchProvider();
+		$this->log = new Log\Log( $cloudwatch_provider );
+		$this->log->addRowToData( 'Test key 1', ['Test value'] );
+		$this->log->addRowToData( 'Test key 2', [
+			'Test a' => 'Test b',
+			'Test c' => 'Test d',
+		] );
+		$this->assertFalse( $this->log->store() );
 	}
 }

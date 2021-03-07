@@ -4,6 +4,7 @@ namespace Pressbooks\Log;
 
 use Aws\CloudWatchLogs\CloudWatchLogsClient;
 use Aws\Credentials\CredentialProvider;
+use Isbn\Exception;
 use function Pressbooks\Utility\debug_error_log;
 use Maxbanton\Cwh\Handler\CloudWatch;
 use Monolog\Formatter\JsonFormatter;
@@ -113,17 +114,13 @@ class CloudWatchProvider implements StorageProvider {
 		return false;
 	}
 
-	public function setFilePath( string $file_path ) {
-		$this->file_path = $file_path;
-	}
-
 	public function store( array $data, string $file_header = null ) {
 		if ( $this->create() ) {
+			$data = $this->getDataFormat( $data );
 			try {
-				$data = $this->getDataFormat( $data );
 				$this->logger->debug( 'SAML Log', $data );
 				return true;
-			} catch ( AwsException $e ) {
+			} catch ( \Exception $e ) {
 				debug_error_log( 'Error saving logs in CloudWatch: ' . $e->getMessage() );
 			}
 		}
