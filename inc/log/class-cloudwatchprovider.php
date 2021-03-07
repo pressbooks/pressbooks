@@ -2,12 +2,12 @@
 
 namespace Pressbooks\Log;
 
-use function Pressbooks\Utility\debug_error_log;
 use Aws\Credentials\CredentialProvider;
 use Aws\CloudWatchLogs\CloudWatchLogsClient;
+use function Pressbooks\Utility\debug_error_log;
 use Maxbanton\Cwh\Handler\CloudWatch;
-use Monolog\Logger;
 use Monolog\Formatter\JsonFormatter;
+use Monolog\Logger;
 
 class CloudWatchProvider implements StorageProvider {
 
@@ -62,8 +62,6 @@ class CloudWatchProvider implements StorageProvider {
 			$this->version = env( 'AWS_S3_VERSION' );
 			$this->access_key_id = env( 'AWS_ACCESS_KEY_ID' );
 			$this->secret_key = env( 'AWS_SECRET_ACCESS_KEY' );
-			$environment = env( 'WP_ENV' ) ? env( 'WP_ENV' ) : 'production';
-			$scheme = is_ssl() ? 'https' : 'http';
 			if ( is_null( $this->client ) ) {
 				$this->client = new CloudWatchLogsClient( [
 					'region' => $this->region,
