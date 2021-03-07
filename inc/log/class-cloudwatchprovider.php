@@ -4,7 +4,6 @@ namespace Pressbooks\Log;
 
 use Aws\CloudWatchLogs\CloudWatchLogsClient;
 use Aws\Credentials\CredentialProvider;
-use Isbn\Exception;
 use function Pressbooks\Utility\debug_error_log;
 use Maxbanton\Cwh\Handler\CloudWatch;
 use Monolog\Formatter\JsonFormatter;
