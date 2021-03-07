@@ -64,11 +64,13 @@ class S3StorageProvider implements StorageProvider {
 					'/' . wp_hash( network_home_url( '', $scheme ) ) . '/' . current_time( 'Y-m' ) . self::FILENAME_FORMAT;
 			}
 			if ( is_null( $this->client ) ) {
-				$this->client = new S3Client( [
-					'region' => $this->region,
-					'version' => $this->version,
-					'credentials' => CredentialProvider::env(),
-				] );
+				$this->client = new S3Client(
+					[
+						'region' => $this->region,
+						'version' => $this->version,
+						'credentials' => CredentialProvider::env(),
+					]
+				);
 			}
 			return true;
 		} else {
