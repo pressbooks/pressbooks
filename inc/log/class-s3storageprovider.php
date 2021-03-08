@@ -44,14 +44,30 @@ class S3StorageProvider implements StorageProvider {
 	 */
 	private $file_path;
 
-	const FILENAME_FORMAT = '-saml_logs.csv';
+	/**
+	 * @var string
+	 */
+	private $filename;
+
+	/**
+	 * @var string
+	 */
+	private $aws_folder;
 
 	const AWS_CONFIG_FILENAME = 'does_not_exist.ini';
 
-	const AWS_MAIN_LOG_FOLDER = 'saml_logs';
+	public function __construct( string $aws_folder, string $filename ) {
+		$this->aws_folder = $aws_folder;
+		$this->filename = $filename;
+	}
 
 	private function create() {
-		if ( self::areEnvironmentVariablesPresent() && is_null( $this->client ) ) {
+		if (
+			self::areEnvironmentVariablesPresent() &&
+			is_null( $this->client ) &&
+			! is_null( $this->filename ) &&
+			! is_null( $this->aws_folder )
+		) {
 			$this->region = env( 'AWS_S3_REGION' );
 			$this->version = env( 'AWS_S3_VERSION' );
 			$this->bucket_name = env( 'AWS_S3_OIDC_BUCKET' );
@@ -59,10 +75,9 @@ class S3StorageProvider implements StorageProvider {
 			$this->secret_key = env( 'AWS_SECRET_ACCESS_KEY' );
 			$environment = env( 'WP_ENV' ) ? env( 'WP_ENV' ) : 'production';
 			$scheme = is_ssl() ? 'https' : 'http';
-			if ( is_null( $this->file_path ) ) {
-				$this->file_path = 's3://' . $this->bucket_name . '/' . self::AWS_MAIN_LOG_FOLDER . '/' . $environment .
-					'/' . wp_hash( network_home_url( '', $scheme ) ) . '/' . current_time( 'Y-m' ) . self::FILENAME_FORMAT;
-			}
+			$this->file_path = is_null( $this->file_path ) ? 's3://' . $this->bucket_name . '/' . $this->aws_folder .
+				'/' . $environment . '/' . wp_hash( network_home_url( '', $scheme ) ) . '/' . current_time( 'Y-m' ) .
+				$this->filename : $this->file_path;
 			if ( is_null( $this->client ) ) {
 				try {
 					$this->client = new S3Client(
@@ -82,6 +97,10 @@ class S3StorageProvider implements StorageProvider {
 			debug_error_log( 'Error initializing S3 Storage Provider: Some environment variables are not present.' );
 		}
 		return ! is_null( $this->client );
+	}
+
+	public function setFilePath( string $file_path ) {
+		$this->file_path = $file_path;
 	}
 
 	/**
@@ -107,10 +126,6 @@ class S3StorageProvider implements StorageProvider {
 			debug_error_log( 'Error initializing S3 Storage Provider: Some environment variables are not present.' );
 		}
 		return false;
-	}
-
-	public function setFilePath( string $file_path ) {
-		$this->file_path = $file_path;
 	}
 
 	public function store( array $data, string $file_header = null ) {

@@ -47,15 +47,34 @@ class CloudWatchProvider implements StorageProvider {
 	 */
 	private $logger;
 
-	const RETENTION_DAYS = 90;
+	/**
+	 * @var integer
+	 */
+	private $retention_days;
 
-	const GROUP = 'pressbooks-logs';
+	/**
+	 * @var string
+	 */
+	private $group;
 
-	const STREAM = 'pressbooks-plugin';
+	/**
+	 * @var string
+	 */
+	private $stream;
+
+	/**
+	 * @var string
+	 */
+	private $channel;
 
 	const AWS_CONFIG_FILENAME = 'does_not_exist.ini';
 
-	const CHANNEL = 'saml-logs';
+	public function __construct( int $retention_days, string $group, string $stream, string $channel ) {
+		$this->retention_days = $retention_days;
+		$this->group = $group;
+		$this->stream = $stream;
+		$this->channel = $channel;
+	}
 
 	private function create() {
 		if ( self::areEnvironmentVariablesPresent() && is_null( $this->client ) ) {
@@ -74,14 +93,14 @@ class CloudWatchProvider implements StorageProvider {
 					);
 					$this->handler = new CloudWatch(
 						$this->client,
-						self::GROUP,
-						self::STREAM,
-						self::RETENTION_DAYS,
+						$this->group,
+						$this->stream,
+						$this->retention_days,
 						10000,
 						[], // TODO: Implement tags
 					);
 					$this->handler->setFormatter( new JsonFormatter() );
-					$this->logger = new Logger( self::CHANNEL );
+					$this->logger = new Logger( $this->channel );
 					$this->logger->pushHandler( $this->handler );
 				} catch ( UnresolvedApiException $e ) {
 					debug_error_log( 'Error initializing Cloudwatch Storage Provider: ' . $e->getMessage() );

@@ -49,7 +49,7 @@ class LogTest extends \WP_UnitTestCase {
 				'registerStreamWrapper',
 			])
 			->getMock();
-		$this->s3_provider_mock = new Log\S3StorageProvider();
+		$this->s3_provider_mock = new Log\S3StorageProvider( 'tests/data', 'log.csv' );
 		$this->s3_provider_mock->setClient( $s3_client_mock );
 		$this->s3_provider_mock->setFilePath( self::TEST_FILE_PATH );
 		$this->log = new Log\Log( $this->s3_provider_mock );
@@ -84,7 +84,7 @@ class LogTest extends \WP_UnitTestCase {
 		$handler->expects( $this->any() )
 			->method( 'setFormatter' )
 			->will( $this->onConsecutiveCalls( true ) );
-		$this->cloudwatch_provider_mock = new Log\CloudWatchProvider();
+		$this->cloudwatch_provider_mock = new Log\CloudWatchProvider( 90, 'pressbooks-logs', 'pressbooks-plugin', 'saml-logs' );
 		$this->cloudwatch_provider_mock->setLogger( $logger_mock );
 		$this->cloudwatch_provider_mock->setHandler( $handler );
 		$this->cloudwatch_provider_mock->setClient( $cloudwatch_logs_mock );
@@ -140,7 +140,7 @@ class LogTest extends \WP_UnitTestCase {
 	 * @group log
 	 */
 	public function test_s3_invalid_store_action_because_fake_env_variables() {
-		$s3_provider = new Log\S3StorageProvider();
+		$s3_provider = new Log\S3StorageProvider( 'tests/data', 'log.csv' );
 		$this->log = new Log\Log( $s3_provider );
 		$this->log->addRowToData( 'Test key 1', ['Test value'] );
 		$this->log->addRowToData( 'Test key 2', [
@@ -154,7 +154,7 @@ class LogTest extends \WP_UnitTestCase {
 	 * @group log
 	 */
 	public function test_s3_create_action() {
-		$s3_provider = new Log\S3StorageProvider();
+		$s3_provider = new Log\S3StorageProvider( 'tests/data', 'log.csv' );
 		$this->assertFalse( $this->callMethodForReflection( $s3_provider, 'create' ) );
 	}
 
@@ -175,7 +175,7 @@ class LogTest extends \WP_UnitTestCase {
 	 * @group log
 	 */
 	public function test_cloudwatch_invalid_store_action_because_fake_env_variables() {
-		$cloudwatch_provider = new Log\CloudWatchProvider();
+		$cloudwatch_provider = new Log\CloudWatchProvider( 90, 'pressbooks-logs', 'pressbooks-plugin', 'saml-logs' );
 		$this->log = new Log\Log( $cloudwatch_provider );
 		$this->log->addRowToData( 'Test key 1', ['Test value'] );
 		$this->log->addRowToData( 'Test key 2', [
