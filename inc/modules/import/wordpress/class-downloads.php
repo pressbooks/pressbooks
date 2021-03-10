@@ -67,7 +67,7 @@ class Downloads {
 			/** @var \DOMElement $image */
 			// Fetch image, change src
 			$src_old = $image->getAttribute( 'src' );
-			if ( str_contains($src_old, ";base64," )) {
+			if ( str_contains( $src_old, ';base64,' ) ) {
 				// Do nothing because image is embedded as base64 string
 				continue;
 			}
