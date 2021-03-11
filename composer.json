@@ -43,7 +43,10 @@
 		"vanilla/htmlawed": "^2.2",
 		"docraptor/docraptor": "1.3",
 		"fale/isbn": "^3.0",
-		"sentry/sdk": "2.1.0"
+		"sentry/sdk": "2.1.0",
+		"aws/aws-sdk-php": "^3.173",
+		"monolog/monolog": "^2.2",
+		"maxbanton/cwh": "^2.0"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "^7",
