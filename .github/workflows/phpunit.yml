@@ -2,7 +2,7 @@ name: PHPUnit
 
 on:
   push:
-    branches: [ dev, master ]
+    branches: [ dev, master, github-actions ]
   pull_request:
     branches: [ dev ]
 
