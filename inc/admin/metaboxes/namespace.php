@@ -553,7 +553,7 @@ function add_meta_boxes() {
 					'group' => 'additional-catalog-information',
 					'label' => __( 'BISAC Subject(s)', 'pressbooks' ),
 					'multiple' => true,
-					'description' => __( 'BISAC Subject Headings help libraries and (e)book stores properly classify your book.', 'pressbooks' ),
+					'description' => sprintf( __( 'BISAC Subject Headings help libraries and (e)book stores properly classify your book. To select the appropriate subject heading for your book, consult %s', 'pressbooks' ), sprintf( '<a href="https://bisg.org/page/BISACEdition">%s</a>', __( 'the BISAC Subject Headings list', 'pressbooks' ) ) ),
 				]
 			)
 		);
@@ -1043,7 +1043,7 @@ function metadata_subject_box( $post ) {
 		<select id="primary-subject" name="pb_primary_subject">
 			<option value="<?php echo $pb_primary_subject; ?>" selected="selected"><?php echo Metadata\get_subject_from_thema( $pb_primary_subject ); ?></option>
 		</select>
-		<span class="description"><?php printf( __( 'This appears on the web homepage of your book and helps categorize it in your network catalog (if applicable). Use %s to determine which subject category is best for your book.', 'pressbooks' ), sprintf( '<a href="%1$s">%2$s</a>', 'https://www.editeur.org/151/Thema', __( 'these instructions', 'pressbooks' ) ) ); ?></span>
+		<span class="description"><?php printf( __( '%s subject terms appear on the web homepage of your book and help categorize your book in your network catalog and Pressbooks Directory (if applicable). Use %s to determine which subject category is best for your book.', 'pressbooks' ), sprintf( '<a href="%1$s"><em>%2$s</em></a>', 'https://www.editeur.org/151/Thema', __( 'Thema', 'pressbooks' ) ), sprintf( '<a href="%1$s">%2$s</a>', 'https://ns.editeur.org/thema/en', __( 'the Thema subject category list', 'pressbooks' ) ) );?></span>
 	</div>
 	<div class="custom-metadata-field select">
 		<label for="additional-subjects"><?php _e( 'Additional Subject(s)', 'pressbooks' ); ?></label>
@@ -1056,7 +1056,7 @@ function metadata_subject_box( $post ) {
 			}
 			?>
 		</select>
-		<span class="description"><?php printf( __( 'This appears on the web homepage of your book. Use %s to determine which additional subject categories are appropriate for your book.', 'pressbooks' ), sprintf( '<a href="%1$s">%2$s</a>', 'https://www.editeur.org/151/Thema', __( 'these instructions', 'pressbooks' ) ) ); ?></span>
+		<span class="description"><?php printf( __( '%s subject terms appear on the web homepage of your book and help categorize your book in your network catalog and Pressbooks Directory (if applicable). Use %s to determine which additional subject categories are appropriate for your book.', 'pressbooks' ), sprintf( '<a href="%1$s"><em>%2$s</em></a>', 'https://www.editeur.org/151/Thema', __( 'Thema', 'pressbooks' ) ), sprintf( '<a href="%1$s">%2$s</a>', 'https://ns.editeur.org/thema/en', __( 'the Thema subject category list', 'pressbooks' ) ) );?></span>
 	</div>
 	<?php
 }
