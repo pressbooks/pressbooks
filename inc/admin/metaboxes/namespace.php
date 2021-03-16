@@ -1043,7 +1043,7 @@ function metadata_subject_box( $post ) {
 		<select id="primary-subject" name="pb_primary_subject">
 			<option value="<?php echo $pb_primary_subject; ?>" selected="selected"><?php echo Metadata\get_subject_from_thema( $pb_primary_subject ); ?></option>
 		</select>
-		<span class="description"><?php printf( __( '%s subject terms appear on the web homepage of your book and help categorize your book in your network catalog and Pressbooks Directory (if applicable). Use %s to determine which subject category is best for your book.', 'pressbooks' ), sprintf( '<a href="%1$s"><em>%2$s</em></a>', 'https://www.editeur.org/151/Thema', __( 'Thema', 'pressbooks' ) ), sprintf( '<a href="%1$s">%2$s</a>', 'https://ns.editeur.org/thema/en', __( 'the Thema subject category list', 'pressbooks' ) ) );?></span>
+		<span class="description"><?php printf( __( '%1$s subject terms appear on the web homepage of your book and help categorize your book in your network catalog and Pressbooks Directory (if applicable). Use %2$s to determine which subject category is best for your book.', 'pressbooks' ), sprintf( '<a href="%1$s"><em>%2$s</em></a>', 'https://www.editeur.org/151/Thema', __( 'Thema', 'pressbooks' ) ), sprintf( '<a href="%1$s">%2$s</a>', 'https://ns.editeur.org/thema/en', __( 'the Thema subject category list', 'pressbooks' ) ) ); ?></span>
 	</div>
 	<div class="custom-metadata-field select">
 		<label for="additional-subjects"><?php _e( 'Additional Subject(s)', 'pressbooks' ); ?></label>
@@ -1056,7 +1056,7 @@ function metadata_subject_box( $post ) {
 			}
 			?>
 		</select>
-		<span class="description"><?php printf( __( '%s subject terms appear on the web homepage of your book and help categorize your book in your network catalog and Pressbooks Directory (if applicable). Use %s to determine which additional subject categories are appropriate for your book.', 'pressbooks' ), sprintf( '<a href="%1$s"><em>%2$s</em></a>', 'https://www.editeur.org/151/Thema', __( 'Thema', 'pressbooks' ) ), sprintf( '<a href="%1$s">%2$s</a>', 'https://ns.editeur.org/thema/en', __( 'the Thema subject category list', 'pressbooks' ) ) );?></span>
+		<span class="description"><?php printf( __( '%1$s subject terms appear on the web homepage of your book and help categorize your book in your network catalog and Pressbooks Directory (if applicable). Use %2$s to determine which additional subject categories are appropriate for your book.', 'pressbooks' ), sprintf( '<a href="%1$s"><em>%2$s</em></a>', 'https://www.editeur.org/151/Thema', __( 'Thema', 'pressbooks' ) ), sprintf( '<a href="%1$s">%2$s</a>', 'https://ns.editeur.org/thema/en', __( 'the Thema subject category list', 'pressbooks' ) ) ); ?></span>
 	</div>
 	<?php
 }
