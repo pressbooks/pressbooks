@@ -134,6 +134,9 @@ class Book {
 				// We only care about strings
 				if ( is_array( $val ) ) {
 					if ( false !== in_array( $key, $expected_array, true ) ) {
+						if ( $key === 'pb_bisac_subject' ) {
+							self::addInvalidatedBisacCodesNotice( $val );
+						}
 						$val = implode( ', ', $val );
 					} else {
 						$val = array_values( $val );
@@ -189,6 +192,38 @@ class Book {
 		}
 
 		return $book_information;
+	}
+
+	/**
+	 * Add notice about invalidated Bisac codes if there are 1 or more invalidated codes in the parameter.
+	 *
+	 * @param array $bisac_codes
+	 * @return bool
+	 */
+	static function addInvalidatedBisacCodesNotice( array $bisac_codes ) {
+		$invalidated_codes = self::getInvalidatedBisacCodes( $bisac_codes );
+		if ( ! empty( $invalidated_codes ) ) {
+			// @codingStandardsIgnoreStart
+			add_error( __(
+				'This book was using the following BISAC subject terms, which have been retired: ' .
+				'<strong>' . join( ', ', $invalidated_codes ) . '</strong>' .
+				' The retired term(s) has been removed from your book. ' .
+				' Please consult <a href="https://bisg.org/page/InactivatedCodes" target="_blank">BISAC\'s list of inactivated codes</a> for their recommended replacements.'
+			) );
+			// @codingStandardsIgnoreEnd
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * Get invalidated Bisac codes given a list of Bisac codes.
+	 *
+	 * @param array $bisac_codes
+	 * @return array
+	 */
+	static function getInvalidatedBisacCodes( array $bisac_codes ) {
+		return array_intersect( $bisac_codes, \Pressbooks\Metadata\get_inactived_codes() );
 	}
 
 
