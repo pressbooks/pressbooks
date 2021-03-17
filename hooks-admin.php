@@ -77,6 +77,11 @@ if ( $is_book ) {
 	add_action( 'admin_menu', '\Pressbooks\Admin\Laf\fix_root_admin_menu', 1 );
 	// TODO: Add Privacy Policy content
 	// See Pressbooks\Privacy::addPrivacyPolicyContent() for reference.
+
+	// If exists on the network enable redirection plugin only for super admins
+	add_filter( 'redirection_role', function() {
+		return 'manage_sites';
+	} );
 }
 
 if ( is_network_admin() ) {
