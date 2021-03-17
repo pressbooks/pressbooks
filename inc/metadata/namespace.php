@@ -958,7 +958,7 @@ function is_bisac( $code ) {
  *
  * @return array
  */
-function get_inactived_codes() {
+function get_invalidated_bisac_codes() {
 	return [
 		'COM008000',
 		'COM009000',

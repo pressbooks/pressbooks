@@ -201,7 +201,7 @@ class Book {
 	 * @return bool
 	 */
 	static function addInvalidatedBisacCodesNotice( array $bisac_codes ) {
-		$invalidated_codes = self::getInvalidatedBisacCodes( $bisac_codes );
+		$invalidated_codes = self::extractInvalidatedBisacCodes( $bisac_codes );
 		if ( ! empty( $invalidated_codes ) ) {
 			// @codingStandardsIgnoreStart
 			add_error( __(
@@ -222,8 +222,8 @@ class Book {
 	 * @param array $bisac_codes
 	 * @return array
 	 */
-	static function getInvalidatedBisacCodes( array $bisac_codes ) {
-		return array_intersect( $bisac_codes, \Pressbooks\Metadata\get_inactived_codes() );
+	static function extractInvalidatedBisacCodes( array $bisac_codes ) {
+		return array_intersect( $bisac_codes, \Pressbooks\Metadata\get_invalidated_bisac_codes() );
 	}
 
 
