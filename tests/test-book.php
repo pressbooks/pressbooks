@@ -402,7 +402,7 @@ class BookTest extends \WP_UnitTestCase {
 	 */
 	public function test_invalidatedBisacCodesNotice() {
 		$validated_bisac_codes = [ 'CRA001000', 'CRA053000' ];
-		$invalidated_bisac_codes = [ 'ART001000', 'ART030040' ];
+		$invalidated_bisac_codes = [ 'COM020010', 'COM020050' ];
 		$bisac_codes = array_merge( $validated_bisac_codes, $invalidated_bisac_codes );
 		$this->assertTrue( \Pressbooks\Book::addInvalidatedBisacCodesNotice( $bisac_codes ) );
 		$_SESSION = [];
@@ -410,7 +410,7 @@ class BookTest extends \WP_UnitTestCase {
 		\Pressbooks\Admin\Laf\admin_notices();
 		$buffer = ob_get_clean();
 		$this->assertEquals(
-			'<div class="error" role="alert"><p>This book was using the following BISAC subject terms, which have been retired: <strong>ART001000, ART030040</strong> The retired term(s) has been removed from your book.  Please consult <a href="https://bisg.org/page/InactivatedCodes" target="_blank">BISAC\'s list of inactivated codes</a> for their recommended replacements.</p></div>',
+			'<div class="error" role="alert"><p>This book was using the following BISAC subject terms, which have been retired: <strong>COM020010, COM020050</strong> The retired term(s) has been removed from your book.  Please consult <a href="https://bisg.org/page/InactivatedCodes" target="_blank">BISAC\'s list of inactivated codes</a> for their recommended replacements.</p></div>',
 			$buffer
 		);
 		$this->assertTrue( \Pressbooks\Book::addInvalidatedBisacCodesNotice( $invalidated_bisac_codes ) );
