@@ -1,6 +1,7 @@
 <?php
 
 // require_once( PB_PLUGIN_DIR . 'inc/class-book.php' );
+use Pressbooks\DataCollector\Book as BookDataCollector;
 
 class BookTest extends \WP_UnitTestCase {
 
@@ -401,19 +402,80 @@ class BookTest extends \WP_UnitTestCase {
 	 * @group book
 	 */
 	public function test_invalidatedBisacCodesNotice() {
-		$validated_bisac_codes = [ 'CRA001000', 'CRA053000' ];
+		$this->_book();
+		global $blog_id;
+		$book_data_collector = BookDataCollector::init();
+		$book_information_array = $book_data_collector->get( $blog_id, BookDataCollector::BOOK_INFORMATION_ARRAY );
 		$invalidated_bisac_codes = [ 'COM020010', 'COM020050' ];
+		$validated_bisac_codes = [ 'CRA001000', 'CRA053000' ];
 		$bisac_codes = array_merge( $validated_bisac_codes, $invalidated_bisac_codes );
-		$this->assertTrue( \Pressbooks\Book::addInvalidatedBisacCodesNotice( $bisac_codes ) );
+		$book_information_array['pb_bisac_subject'] = join(', ', $bisac_codes );
+		update_site_meta( $blog_id, BookDataCollector::BOOK_INFORMATION_ARRAY, $book_information_array );
+		$meta = new \Pressbooks\Metadata();
+		$meta_post = $meta->getMetaPost();
+		delete_post_meta( $meta_post->ID, 'pb_bisac_subject' );
+		foreach ($bisac_codes as $bisac_code) {
+			add_metadata( 'post', $meta_post->ID, 'pb_bisac_subject', $bisac_code );
+		}
+
+		add_filter( 'get_invalidated_codes_alternatives_mapped', function( $bisac_codes ) {
+			return [ 'TEC071000', 'COM051010', 'CRA001000', 'CRA053000' ];
+		}, 10, 1 );
+		$this->assertTrue( \Pressbooks\Book::notifyBisacCodesRemoved() );
+
 		$_SESSION = [];
 		ob_start();
 		\Pressbooks\Admin\Laf\admin_notices();
 		$buffer = ob_get_clean();
+		$notice_msg = "This book was using a <a href='https://bisg.org/page/InactivatedCodes' target='_blank'> retired BISAC subject term </a>, which has been replaced in your book with a recommended BISAC replacement. You may wish to check the BISAC subject terms manually to confirm that you are satisfied with these replacements.";
 		$this->assertEquals(
-			'<div class="error" role="alert"><p>This book was using the following BISAC subject terms, which have been retired: <strong>COM020010, COM020050</strong> The retired term(s) has been removed from your book.  Please consult <a href="https://bisg.org/page/InactivatedCodes" target="_blank">BISAC\'s list of inactivated codes</a> for their recommended replacements.</p></div>',
+			'<div class="error" role="alert"><p>' . $notice_msg . '</p></div>',
 			$buffer
 		);
-		$this->assertTrue( \Pressbooks\Book::addInvalidatedBisacCodesNotice( $invalidated_bisac_codes ) );
-		$this->assertFalse( \Pressbooks\Book::addInvalidatedBisacCodesNotice( $validated_bisac_codes ) );
+
+		$metadata = get_post_meta( $meta_post->ID );
+		$this->assertArrayHasKey( 'pb_bisac_subject', $metadata );
+		$this->assertContains( $validated_bisac_codes[0], $metadata['pb_bisac_subject'] );
+		$this->assertNotContains( $invalidated_bisac_codes[0], $metadata['pb_bisac_subject'] );
+
+		$book_information_array_updated = $book_data_collector->get( $blog_id, BookDataCollector::BOOK_INFORMATION_ARRAY );
+		$this->assertArrayHasKey( 'pb_bisac_subject', $book_information_array_updated );
+		$blog_bisac_codes_updated = explode(', ', $book_information_array_updated['pb_bisac_subject'] );
+		$this->assertContains( $validated_bisac_codes[0], $blog_bisac_codes_updated );
+		$this->assertContains( 'TEC071000', $blog_bisac_codes_updated );
+		$this->assertNotContains( $invalidated_bisac_codes[0], $blog_bisac_codes_updated );
+	}
+
+	/**
+	 * @group book
+	 */
+	public function test_invalidatedBisacCodesNotFound() {
+		$this->_book();
+		global $blog_id;
+		$book_data_collector = BookDataCollector::init();
+		$book_information_array = $book_data_collector->get( $blog_id, BookDataCollector::BOOK_INFORMATION_ARRAY );
+		$bisac_codes = [ 'CRA001000', 'CRA053000' ];
+		$book_information_array['pb_bisac_subject'] = join(', ', $bisac_codes );
+		update_site_meta( $blog_id, BookDataCollector::BOOK_INFORMATION_ARRAY, $book_information_array );
+		$meta = new \Pressbooks\Metadata();
+		$meta_post = $meta->getMetaPost();
+		delete_post_meta( $meta_post->ID, 'pb_bisac_subject' );
+		foreach ($bisac_codes as $bisac_code) {
+			add_metadata( 'post', $meta_post->ID, 'pb_bisac_subject', $bisac_code );
+		}
+
+		add_filter( 'get_invalidated_codes_alternatives_mapped', function( $bisac_codes ) {
+			return [ 'CRA001000', 'CRA053000' ];
+		}, 10, 1 );
+		$this->assertFalse( \Pressbooks\Book::notifyBisacCodesRemoved() );
+
+		$metadata = get_post_meta( $meta_post->ID );
+		$this->assertArrayHasKey( 'pb_bisac_subject', $metadata );
+		$this->assertEquals( $bisac_codes, $metadata['pb_bisac_subject'] );
+
+		$book_information_array_updated = $book_data_collector->get( $blog_id, BookDataCollector::BOOK_INFORMATION_ARRAY );
+		$this->assertArrayHasKey( 'pb_bisac_subject', $book_information_array_updated );
+		$blog_bisac_codes_updated = explode(', ', $book_information_array_updated['pb_bisac_subject'] );
+		$this->assertEquals( $bisac_codes, $blog_bisac_codes_updated );
 	}
 }

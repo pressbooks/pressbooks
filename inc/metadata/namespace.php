@@ -953,59 +953,6 @@ function is_bisac( $code ) {
 }
 
 /**
- * Get inactivated bisac codes for 2020 Bisac Edition.
- * More info here: https://bisg.org/page/InactivatedCodes
- *
- * @return array
- */
-function get_invalidated_bisac_codes() {
-	return [
-		'COM008000',
-		'COM009000',
-		'COM020000',
-		'COM020010',
-		'COM020050',
-		'COM020090',
-		'COM021050',
-		'COM022000',
-		'COM035000',
-		'COM043060',
-		'COM046060',
-		'COM051020',
-		'COM051050',
-		'COM051080',
-		'COM051090',
-		'COM051100',
-		'COM051130',
-		'COM051140',
-		'COM051290',
-		'COM051420',
-		'COM056000',
-		'COM060070',
-		'COM060080',
-		'COM060090',
-		'COM065000',
-		'COM069000',
-		'COM082000',
-		'COM084000',
-		'COM086000',
-		'DES010000',
-		'EDU028000',
-		'HOM008000',
-		'HOM018000',
-		'JNF051060',
-		'LAN014000',
-		'LAN019000',
-		'REF006000',
-		'REF026000',
-		'REF028000',
-		'REL012100',
-		'REL037020',
-		'SPO024000',
-	];
-}
-
-/**
  * @since 5.0.0
  */
 function register_contributor_meta() {

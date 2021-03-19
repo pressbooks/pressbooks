@@ -10,6 +10,7 @@
 
 namespace Pressbooks;
 
+use Pressbooks\DataCollector\Book as BookDataCollector;
 use Pressbooks\Modules\Export\Export;
 use Pressbooks\Modules\Export\Xhtml\Xhtml11;
 
@@ -134,9 +135,6 @@ class Book {
 				// We only care about strings
 				if ( is_array( $val ) ) {
 					if ( false !== in_array( $key, $expected_array, true ) ) {
-						if ( $key === 'pb_bisac_subject' ) {
-							self::addInvalidatedBisacCodesNotice( $val );
-						}
 						$val = implode( ', ', $val );
 					} else {
 						$val = array_values( $val );
@@ -195,20 +193,18 @@ class Book {
 	}
 
 	/**
-	 * Add notice about invalidated Bisac codes if there are 1 or more invalidated codes in the parameter.
+	 * Add notice about invalidated Bisac codes if there are 1 or more invalidated codes in metadata.
 	 *
-	 * @param array $bisac_codes
 	 * @return bool
 	 */
-	static function addInvalidatedBisacCodesNotice( array $bisac_codes ) {
-		$invalidated_codes = self::extractInvalidatedBisacCodes( $bisac_codes );
-		if ( ! empty( $invalidated_codes ) ) {
+	static function notifyBisacCodesRemoved() {
+		global $blog_id;
+		$book_data_collector = BookDataCollector::init();
+		$book_information_array = $book_data_collector->get( $blog_id, BookDataCollector::BOOK_INFORMATION_ARRAY );
+		if ( self::removeInvalidatedBisacCodes( $blog_id, $book_information_array ) ) {
 			// @codingStandardsIgnoreStart
 			add_error( __(
-				'This book was using the following BISAC subject terms, which have been retired: ' .
-				'<strong>' . join( ', ', $invalidated_codes ) . '</strong>' .
-				' The retired term(s) has been removed from your book. ' .
-				' Please consult <a href="https://bisg.org/page/InactivatedCodes" target="_blank">BISAC\'s list of inactivated codes</a> for their recommended replacements.'
+				"This book was using a <a href='https://bisg.org/page/InactivatedCodes' target='_blank'> retired BISAC subject term </a>, which has been replaced in your book with a recommended BISAC replacement. You may wish to check the BISAC subject terms manually to confirm that you are satisfied with these replacements."
 			) );
 			// @codingStandardsIgnoreEnd
 			return true;
@@ -217,13 +213,59 @@ class Book {
 	}
 
 	/**
-	 * Get invalidated Bisac codes given a list of Bisac codes.
+	 * Delete invalidated Bisac Codes from blogmeta and postmeta tables.
+	 *
+	 * @param int $blog_id
+	 * @param array $book_information_array
+	 * @return bool
+	 */
+	static function removeInvalidatedBisacCodes( int $blog_id, array $book_information_array ) {
+		if ( array_key_exists( 'pb_bisac_subject', $book_information_array ) ) {
+			$book_information_array['pb_bisac_subject'] = explode(
+				', ',
+				$book_information_array['pb_bisac_subject']
+			);
+			$book_information_array['pb_bisac_subject'] = self::getReplacementForInvalidatedBisacCodes(
+				$book_information_array['pb_bisac_subject']
+			);
+			$book_information_array['pb_bisac_subject'] = join(
+				', ',
+				$book_information_array['pb_bisac_subject']
+			);
+			return self::removeInvalidatedBisacCodesFromPostMeta() &&
+				update_site_meta( $blog_id, BookDataCollector::BOOK_INFORMATION_ARRAY, $book_information_array );
+		}
+		return false;
+	}
+
+	/**
+	 * Remove invalidated Bisac codes from postmeta table.
+	 *
+	 * @return bool
+	 */
+	static function removeInvalidatedBisacCodesFromPostMeta() {
+		$meta = new Metadata();
+		$meta_post = $meta->getMetaPost();
+		$metadata = get_post_meta( $meta_post->ID );
+		if ( array_key_exists( 'pb_bisac_subject', $metadata ) ) {
+			$metadata['pb_bisac_subject'] = self::getReplacementForInvalidatedBisacCodes( $metadata['pb_bisac_subject'] );
+			delete_post_meta( $meta_post->ID, 'pb_bisac_subject' );
+			foreach ( $metadata['pb_bisac_subject'] as $bisac_code ) {
+				add_metadata( 'post', $meta_post->ID, 'pb_bisac_subject', $bisac_code );
+			}
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * Get invalidated Bisac codes replacement given a list of Bisac codes.
 	 *
 	 * @param array $bisac_codes
 	 * @return array
 	 */
-	static function extractInvalidatedBisacCodes( array $bisac_codes ) {
-		return array_intersect( $bisac_codes, \Pressbooks\Metadata\get_invalidated_bisac_codes() );
+	static function getReplacementForInvalidatedBisacCodes( array $bisac_codes ) {
+		return apply_filters( 'get_invalidated_codes_alternatives_mapped', $bisac_codes );
 	}
 
 
