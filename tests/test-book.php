@@ -427,7 +427,7 @@ class BookTest extends \WP_UnitTestCase {
 		ob_start();
 		\Pressbooks\Admin\Laf\admin_notices();
 		$buffer = ob_get_clean();
-		$notice_msg = "This book was using a <a href='https://bisg.org/page/InactivatedCodes' target='_blank'> retired BISAC subject term </a>, which has been replaced in your book with a recommended BISAC replacement. You may wish to check the BISAC subject terms manually to confirm that you are satisfied with these replacements.";
+		$notice_msg = "This book was using a <a href='https://bisg.org/page/InactivatedCodes' target='_blank'>retired BISAC subject term</a>, which has been replaced in your book with a recommended BISAC replacement. You may wish to check the BISAC subject terms manually to confirm that you are satisfied with these replacements.";
 		$this->assertEquals(
 			'<div class="error" role="alert"><p>' . $notice_msg . '</p></div>',
 			$buffer
