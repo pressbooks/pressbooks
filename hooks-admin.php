@@ -182,6 +182,7 @@ if ( $is_book ) {
 	add_action( 'added_post_meta', '\Pressbooks\Admin\Metaboxes\title_update', 10, 4 );
 	add_action( 'updated_post_meta', '\Pressbooks\Admin\Metaboxes\title_update', 10, 4 );
 	add_action( 'updated_post_meta', '\Pressbooks\L10n\install_book_locale', 10, 4 );
+	add_action( 'updated_post_meta', '\Pressbooks\Metadata\download_thema_lang', 10, 4 );
 	add_action( 'save_post', [ '\Pressbooks\Book', 'deleteBookObjectCache' ], 1000 );
 	add_action( 'wp_trash_post', [ '\Pressbooks\Book', 'deletePost' ] );
 	add_action( 'wp_trash_post', [ '\Pressbooks\Book', 'deleteBookObjectCache' ], 1000 );

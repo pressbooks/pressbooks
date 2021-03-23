@@ -108,7 +108,7 @@ class MetadataTest extends \WP_UnitTestCase {
 		$book_information = [
 			'pb_authors' => 'Herman Melville',
 			'pb_title' => 'Moby Dick',
-			'pb_book_doi' => 'my_doi'
+			'pb_book_doi' => 'my_doi',
 		];
 
 		$result = \Pressbooks\Metadata\book_information_to_schema( $book_information );
@@ -316,7 +316,7 @@ class MetadataTest extends \WP_UnitTestCase {
 	 */
 	public function test_get_subject_from_thema() {
 		$result = \Pressbooks\Metadata\get_subject_from_thema( '1KBC-CA-JM' );
-		$this->assertEquals( 'Nova Scotia: South Shore & Kejimkujik National Park', $result );
+		$this->assertEquals( 'Nova Scotia: South Shore and Kejimkujik National Park', $result );
 	}
 
 	/**
@@ -359,13 +359,20 @@ class MetadataTest extends \WP_UnitTestCase {
 		$interactive = \Pressbooks\Interactive\Content::init();
 		$this->_book();
 		update_option( 'pressbooks_taxonomy_version', \Pressbooks\Taxonomy::VERSION + 999 );
-		$chapters = get_posts( ['post_type' => 'chapter', 'posts_per_page' => 1 ] );
+		$chapters = get_posts(
+			[
+				'post_type' => 'chapter',
+				'posts_per_page' => 1,
+			]
+		);
 		remove_filter( 'pre_kses', [ $interactive, 'deleteIframesNotOnWhitelist' ], 1 );
 		add_filter( 'wp_kses_allowed_html', [ $this, '_allowIframes' ], 10, 2 ); // Allow iframes
-		$pid = wp_update_post( [
-			'ID' => $chapters[0]->ID,
-			'post_content' => $chapters[0]->post_content . '<p>There should be an iframe here:<br /><iframe width="560" height="315" src="https://www.youtube.com/embed/JgIhGTpKTwM" frameborder="0"></iframe></p>',
-		] );
+		$pid = wp_update_post(
+			[
+				'ID' => $chapters[0]->ID,
+				'post_content' => $chapters[0]->post_content . '<p>There should be an iframe here:<br /><iframe width="560" height="315" src="https://www.youtube.com/embed/JgIhGTpKTwM" frameborder="0"></iframe></p>',
+			]
+		);
 		remove_filter( 'wp_kses_allowed_html', [ $this, '_allowIframes' ] ); // Disallow iframes
 		add_filter( 'pre_kses', [ $interactive, 'deleteIframesNotOnWhitelist' ], 1, 2 );
 		$this->metadata->upgradeToPressbooksFive();
@@ -379,7 +386,12 @@ class MetadataTest extends \WP_UnitTestCase {
 	 */
 	public function test_get_section_information() {
 		$this->_book();
-		$chapters = get_posts( ['post_type' => 'chapter', 'posts_per_page' => 1 ] );
+		$chapters = get_posts(
+			[
+				'post_type' => 'chapter',
+				'posts_per_page' => 1,
+			]
+		);
 		$section_information = \Pressbooks\Metadata\get_section_information( $chapters[0]->ID );
 		$this->assertInternalType( 'array', $section_information );
 		$this->assertStringStartsWith( 'Test Chapter: ', $section_information['pb_title'] );
@@ -429,7 +441,12 @@ class MetadataTest extends \WP_UnitTestCase {
 		$this->assertContains( '<meta name="citation_publisher" content="Book Oven Inc.">', $buffer );
 		$this->assertContains( '<meta name="citation_author" content="Some Author">', $buffer );
 
-		$chapters = get_posts( ['post_type' => 'chapter', 'posts_per_page' => 1 ] );
+		$chapters = get_posts(
+			[
+				'post_type' => 'chapter',
+				'posts_per_page' => 1,
+			]
+		);
 		$this->go_to( get_permalink( $chapters[0]->ID ) );
 		global $post;
 		setup_postdata( $post );
@@ -465,6 +482,28 @@ class MetadataTest extends \WP_UnitTestCase {
 		$option = \Pressbooks\Metadata\get_in_catalog_option();
 		$this->assertTrue( ! empty( $option ) );
 		$this->assertTrue( is_string( $option ) );
+	}
+
+	/**
+	 * @group metadata
+	 */
+	function test_download_thema_subjects() {
+		$result = \Pressbooks\Metadata\download_thema_lang( 1, 1, 'pb_language', 'en' );
+		$this->assertFalse( $result );
+
+		$es_book = WP_CONTENT_DIR . '/uploads/assets/thema/symbionts/es.json';
+
+		@unlink( $es_book );
+		$result = \Pressbooks\Metadata\download_thema_lang( 1, 1, 'pb_language', 'es' );
+		$this->assertTrue( $result );
+		$this->assertFileExists( $es_book );
+
+		$fr_ca_book = WP_CONTENT_DIR . '/uploads/assets/thema/symbionts/fr-ca.json';
+
+		@unlink( $fr_ca_book );
+		$result = \Pressbooks\Metadata\download_thema_lang( 1, 1, 'pb_language', 'fr-ca' );
+		$this->assertTrue( $result );
+		$this->assertFileExists( $fr_ca_book );
 	}
 
 }
