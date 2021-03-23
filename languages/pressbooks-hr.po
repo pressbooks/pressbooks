@@ -5,9 +5,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
-"Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
-"POT-Creation-Date: 2021-02-28T06:09:22+00:00\n"
-"PO-Revision-Date: 2020-11-17 22:39+0000\n"
+"Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks\n"
+"POT-Creation-Date: 2021-03-23T20:41:13+00:00\n"
+"PO-Revision-Date: 2021-03-23 20:42+0000\n"
 "Last-Translator: Ho Man Chan <homan@pressbooks.com>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/pressbooks/pressbooks/language/hr_HR/)\n"
 "MIME-Version: 1.0\n"
@@ -1543,8 +1543,13 @@ msgstr "BISAC treme (predmeti)"
 #: inc/admin/metaboxes/namespace.php:556
 msgid ""
 "BISAC Subject Headings help libraries and (e)book stores properly classify "
-"your book."
-msgstr "BISAC Subject Headings su standardizirani naslovi tema koje pomažu pri klasifikaciji vaše knjige."
+"your book. To select the appropriate subject heading for your book, consult "
+"%s"
+msgstr ""
+
+#: inc/admin/metaboxes/namespace.php:556
+msgid "the BISAC Subject Headings list"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:570
 msgid "BISAC Regional Theme"
@@ -1652,15 +1657,21 @@ msgstr "Primarni predmet/tema"
 
 #: inc/admin/metaboxes/namespace.php:1046
 msgid ""
-"This appears on the web homepage of your book and helps categorize it in "
-"your network catalog (if applicable). Use %s to determine which subject "
-"category is best for your book."
-msgstr "Prikazuje se na početnoj stranici knjige i pomaže pri kategorizaciji unutar Vašeg mrežnog kataloga (ako je primjenjiv). Koristite %s za određivanje koji predmet/tema najviše odgovara za Vašu knjigu."
+"%1$s subject terms appear on the web homepage of your book and help "
+"categorize your book in your network catalog and Pressbooks Directory (if "
+"applicable). Use %2$s to determine which subject category is best for your "
+"book."
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:1046
 #: inc/admin/metaboxes/namespace.php:1059
-msgid "these instructions"
-msgstr "ove upute"
+msgid "Thema"
+msgstr ""
+
+#: inc/admin/metaboxes/namespace.php:1046
+#: inc/admin/metaboxes/namespace.php:1059
+msgid "the Thema subject category list"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:1049
 msgid "Additional Subject(s)"
@@ -1668,9 +1679,11 @@ msgstr "Dodatni predmet(i)"
 
 #: inc/admin/metaboxes/namespace.php:1059
 msgid ""
-"This appears on the web homepage of your book. Use %s to determine which "
-"additional subject categories are appropriate for your book."
-msgstr "Pojavljuje se na početnoj stranici Vaše knjige. Koristite %s za određivanje koji su dodatni predmeti/teme relevantni za Vašu knjigu."
+"%1$s subject terms appear on the web homepage of your book and help "
+"categorize your book in your network catalog and Pressbooks Directory (if "
+"applicable). Use %2$s to determine which additional subject categories are "
+"appropriate for your book."
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:1143
 #: inc/admin/metaboxes/namespace.php:1165

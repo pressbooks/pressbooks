@@ -2,8 +2,8 @@
 # This file is distributed under the same license as the Pressbooks plugin.
 # Translators:
 # Antonio D., 2018,2020
-# Eduardo Vera-Palomino <info@yachaypuriq.xyz>, 2020
-# Eduardo Vera-Palomino <info@yachaypuriq.xyz>, 2020
+# Eduardo Vera <info@yachaypuriq.xyz>, 2020
+# Eduardo Vera <info@yachaypuriq.xyz>, 2020
 # jorge santibañez <info@letrapixel.com>, 2017
 # taskforsome <taskforsome@gmail.com>, 2014
 # taskforsome <taskforsome@gmail.com>, 2014
@@ -12,10 +12,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
-"Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
-"POT-Creation-Date: 2021-02-28T06:09:22+00:00\n"
-"PO-Revision-Date: 2020-11-26 04:16+0000\n"
-"Last-Translator: Eduardo Vera-Palomino <info@yachaypuriq.xyz>\n"
+"Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks\n"
+"POT-Creation-Date: 2021-03-23T20:41:13+00:00\n"
+"PO-Revision-Date: 2021-03-23 20:42+0000\n"
+"Last-Translator: Ho Man Chan <homan@pressbooks.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/pressbooks/pressbooks/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1550,8 +1550,13 @@ msgstr "Categorías BISAC"
 #: inc/admin/metaboxes/namespace.php:556
 msgid ""
 "BISAC Subject Headings help libraries and (e)book stores properly classify "
-"your book."
-msgstr "Las categorías BISAC sirven para que las librerías físicas y electrónicas clasifiquen adecuadamente tu libro."
+"your book. To select the appropriate subject heading for your book, consult "
+"%s"
+msgstr ""
+
+#: inc/admin/metaboxes/namespace.php:556
+msgid "the BISAC Subject Headings list"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:570
 msgid "BISAC Regional Theme"
@@ -1659,15 +1664,21 @@ msgstr "Tema principal"
 
 #: inc/admin/metaboxes/namespace.php:1046
 msgid ""
-"This appears on the web homepage of your book and helps categorize it in "
-"your network catalog (if applicable). Use %s to determine which subject "
-"category is best for your book."
-msgstr "Aparece en la página de inicio de tu libro y ayuda a categorizarlo en el catálogo de tu red (si procede). Sigue %s para determinar la mejor categoría para tu libro."
+"%1$s subject terms appear on the web homepage of your book and help "
+"categorize your book in your network catalog and Pressbooks Directory (if "
+"applicable). Use %2$s to determine which subject category is best for your "
+"book."
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:1046
 #: inc/admin/metaboxes/namespace.php:1059
-msgid "these instructions"
-msgstr "estas instrucciones"
+msgid "Thema"
+msgstr ""
+
+#: inc/admin/metaboxes/namespace.php:1046
+#: inc/admin/metaboxes/namespace.php:1059
+msgid "the Thema subject category list"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:1049
 msgid "Additional Subject(s)"
@@ -1675,9 +1686,11 @@ msgstr "Temas adicionales"
 
 #: inc/admin/metaboxes/namespace.php:1059
 msgid ""
-"This appears on the web homepage of your book. Use %s to determine which "
-"additional subject categories are appropriate for your book."
-msgstr "Aparecen en la página de inicio de tu libro. Sigue %s para determinar qué categorías de temas adicionales son apropiadas para tu libro."
+"%1$s subject terms appear on the web homepage of your book and help "
+"categorize your book in your network catalog and Pressbooks Directory (if "
+"applicable). Use %2$s to determine which additional subject categories are "
+"appropriate for your book."
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:1143
 #: inc/admin/metaboxes/namespace.php:1165
