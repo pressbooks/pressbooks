@@ -504,6 +504,10 @@ class MetadataTest extends \WP_UnitTestCase {
 		$result = \Pressbooks\Metadata\download_thema_lang( 1, 1, 'pb_language', 'fr-ca' );
 		$this->assertTrue( $result );
 		$this->assertFileExists( $fr_ca_book );
+
+		$result = \Pressbooks\Metadata\download_thema_lang( 1, 1, 'pb_language', 'es-mx' );
+		$this->assertFalse( $result );
+
 	}
 
 }

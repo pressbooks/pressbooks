@@ -1194,7 +1194,7 @@ function get_in_catalog_option() {
  * @param $post_id
  * @param $meta_key
  * @param $meta_value
- * @return false
+ * @return true|false
  */
 function download_thema_lang( $meta_id, $post_id, $meta_key, $meta_value ) {
 	if ( 'pb_language' !== $meta_key || $meta_value === 'en' ) {
@@ -1213,26 +1213,38 @@ function download_thema_lang( $meta_id, $post_id, $meta_key, $meta_value ) {
 		mkdir( $basepath, 0755, true );
 	}
 
-	if ( ! file_exists( $local_file ) ) {
-		if ( ! function_exists( 'download_url' ) ) {
-			require_once( ABSPATH . 'wp-admin/includes/file.php' );
-		}
+	$download_file = "{$thema_lang_baseurl}{$thema_lang}.json";
 
-		$download_file = "{$thema_lang_baseurl}{$thema_lang}.json";
+	// Check if there is a thema file available for download if not just skip the downloading request
+	$response = wp_remote_head( $download_file );
+	$status = wp_remote_retrieve_response_code( $response );
 
-		$downloaded = download_url( $download_file );
-		if ( is_wp_error( $downloaded ) ) {
-			$_SESSION['pb_errors'][] = sprintf(
-				__( 'Your %1$s thema subjects could not be downloaded from %2$s.', 'pressbooks' ),
-				$thema_lang,
-				'<code>' . $download_file . '</code>'
-			) . '<br /><pre>' . $downloaded->get_error_message() . '</pre>';
-			return false;
-		} else {
-			copy( $downloaded, $local_file );
-			return unlink( $downloaded );
+	// Proceed to download the file exists
+	if ( $status === 200 ) {
+		if ( ! file_exists( $local_file ) ) {
+			if ( ! function_exists( 'download_url' ) ) {
+				require_once( ABSPATH . 'wp-admin/includes/file.php' );
+			}
+			// If a file is available for download download the file
+			$downloaded = download_url( $download_file );
+			if ( is_wp_error( $downloaded ) ) {
+				$_SESSION['pb_errors'][] = sprintf(
+					__(
+						'The %1$s Thema subject terms requested for this book could not be downloaded from %2$s. Please report this error to your network manager.',
+						'pressbooks'
+					),
+					$thema_lang,
+					'<code>' . $download_file . '</code>'
+				);
+				return false;
+			} else {
+				copy( $downloaded, $local_file );
+				return unlink( $downloaded );
+			}
 		}
 	}
+
+	return false;
 }
 
 /**
