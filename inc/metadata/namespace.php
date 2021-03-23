@@ -1219,7 +1219,7 @@ function download_thema_lang( $meta_id, $post_id, $meta_key, $meta_value ) {
 	$response = wp_remote_head( $download_file );
 	$status = wp_remote_retrieve_response_code( $response );
 
-	// Proceed to download the file exists
+	// Proceed to download the file
 	if ( $status === 200 ) {
 		if ( ! file_exists( $local_file ) ) {
 			if ( ! function_exists( 'download_url' ) ) {
