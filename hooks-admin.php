@@ -191,6 +191,7 @@ if ( $is_book ) {
 	add_action( 'add_meta_boxes', '\Pressbooks\Admin\Metaboxes\replace_authordiv' );
 	add_filter( 'attachment_fields_to_edit', '\Pressbooks\Admin\Attachments\add_metadata_attachment', 10, 2 );
 	add_filter( 'attachment_fields_to_save', '\Pressbooks\Admin\Attachments\save_metadata_attachment', 10, 2 );
+	add_filter( 'edit_form_top', [ '\Pressbooks\Book', 'notifyBisacCodesRemoved' ] );
 }
 
 // -------------------------------------------------------------------------------------------------------------------
