@@ -64,7 +64,7 @@ before_deploy:
 - chmod +x wp-cli.phar
 - sudo mv wp-cli.phar /usr/local/bin/wp
 - wp package install wp-cli/dist-archive-command
-- composer install --no-dev --optimize-autoloader
+- COMPOSER_MEMORY_LIMIT=-1 composer install --no-dev --optimize-autoloader
 - cd ../
 - wp dist-archive $TRAVIS_PROJECT_SLUG $TRAVIS_BUILD_DIR/$TRAVIS_PROJECT_SLUG-$TRAVIS_TAG.zip
 - cd $TRAVIS_BUILD_DIR
