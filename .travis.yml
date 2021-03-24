@@ -60,11 +60,12 @@ after_success:
 - bash <(curl -s https://codecov.io/bash)
 before_deploy:
 - export TRAVIS_PROJECT_SLUG="$(basename $TRAVIS_BUILD_DIR)"
+- export COMPOSER_MEMORY_LIMIT=-1
 - curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 - chmod +x wp-cli.phar
 - sudo mv wp-cli.phar /usr/local/bin/wp
-- wp package install wp-cli/dist-archive-command
-- COMPOSER_MEMORY_LIMIT=-1 composer install --no-dev --optimize-autoloader
+- php -d memory_limit=2G "$(which wp)" package install wp-cli/dist-archive-command
+- php -d memory_limit=2G "$(which composer)" install --no-dev --optimize-autoloader
 - cd ../
 - wp dist-archive $TRAVIS_PROJECT_SLUG $TRAVIS_BUILD_DIR/$TRAVIS_PROJECT_SLUG-$TRAVIS_TAG.zip
 - cd $TRAVIS_BUILD_DIR
