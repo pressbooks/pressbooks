@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks\n"
-"POT-Creation-Date: 2021-03-23T20:41:13+00:00\n"
-"PO-Revision-Date: 2021-03-23 20:42+0000\n"
+"POT-Creation-Date: 2021-03-27T01:02:53+00:00\n"
+"PO-Revision-Date: 2021-03-27 01:03+0000\n"
 "Last-Translator: Ho Man Chan <homan@pressbooks.com>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/pressbooks/pressbooks/language/hr_HR/)\n"
 "MIME-Version: 1.0\n"
@@ -1862,11 +1862,11 @@ msgstr "Ažuriranje dijela poglavlja nije uspjelo."
 msgid "Main Body"
 msgstr "Osnovni dio"
 
-#: inc/class-activation.php:211 tests/test-book.php:49
+#: inc/class-activation.php:211 tests/test-book.php:50
 msgid "Introduction"
 msgstr "Uvod"
 
-#: inc/class-activation.php:213 tests/test-book.php:100
+#: inc/class-activation.php:213 tests/test-book.php:101
 msgid "This is where you can write your introduction."
 msgstr "Ovdje pišete svoj uvodnik."
 
@@ -2726,6 +2726,12 @@ msgid ""
 "If you need to enter additional information, click the button below to see "
 "all available fields."
 msgstr "Ako morate unijeti dodatne informacije, kliknite na donji gumb za prikaz dostupnih polja."
+
+#: inc/metadata/namespace.php:1232
+msgid ""
+"The %1$s Thema subject terms requested for this book could not be downloaded"
+" from %2$s. Please report this error to your network manager."
+msgstr ""
 
 #: inc/modules/export/class-export.php:794
 msgid "%s: Initializing"
