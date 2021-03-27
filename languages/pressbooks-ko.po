@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks\n"
-"POT-Creation-Date: 2021-03-23T20:41:13+00:00\n"
-"PO-Revision-Date: 2021-03-23 20:42+0000\n"
+"POT-Creation-Date: 2021-03-27T01:02:53+00:00\n"
+"PO-Revision-Date: 2021-03-27 01:03+0000\n"
 "Last-Translator: Ho Man Chan <homan@pressbooks.com>\n"
 "Language-Team: Korean (http://www.transifex.com/pressbooks/pressbooks/language/ko/)\n"
 "MIME-Version: 1.0\n"
@@ -1865,11 +1865,11 @@ msgstr ""
 msgid "Main Body"
 msgstr "본문"
 
-#: inc/class-activation.php:211 tests/test-book.php:49
+#: inc/class-activation.php:211 tests/test-book.php:50
 msgid "Introduction"
 msgstr "소개"
 
-#: inc/class-activation.php:213 tests/test-book.php:100
+#: inc/class-activation.php:213 tests/test-book.php:101
 msgid "This is where you can write your introduction."
 msgstr "이곳에 소개를 작성해주세요."
 
@@ -2710,6 +2710,12 @@ msgstr ""
 msgid ""
 "If you need to enter additional information, click the button below to see "
 "all available fields."
+msgstr ""
+
+#: inc/metadata/namespace.php:1232
+msgid ""
+"The %1$s Thema subject terms requested for this book could not be downloaded"
+" from %2$s. Please report this error to your network manager."
 msgstr ""
 
 #: inc/modules/export/class-export.php:794

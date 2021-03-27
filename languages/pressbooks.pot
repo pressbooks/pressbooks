@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Pressbooks plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Pressbooks 5.19.0\n"
+"Project-Id-Version: Pressbooks 5.19.1\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-03-23T20:41:13+00:00\n"
+"POT-Creation-Date: 2021-03-27T01:02:53+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.3.0\n"
 "X-Domain: pressbooks\n"
@@ -1791,12 +1791,12 @@ msgid "Main Body"
 msgstr ""
 
 #: inc/class-activation.php:211
-#: tests/test-book.php:49
+#: tests/test-book.php:50
 msgid "Introduction"
 msgstr ""
 
 #: inc/class-activation.php:213
-#: tests/test-book.php:100
+#: tests/test-book.php:101
 msgid "This is where you can write your introduction."
 msgstr ""
 
@@ -2642,6 +2642,10 @@ msgstr ""
 
 #: inc/metadata/namespace.php:123
 msgid "If you need to enter additional information, click the button below to see all available fields."
+msgstr ""
+
+#: inc/metadata/namespace.php:1232
+msgid "The %1$s Thema subject terms requested for this book could not be downloaded from %2$s. Please report this error to your network manager."
 msgstr ""
 
 #: inc/modules/export/class-export.php:794
