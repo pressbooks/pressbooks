@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0b967ff08d09beb07e673d0252c143b0",
+    "content-hash": "b7ea58d1ea211518b2b5d9dd258917e6",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -1592,6 +1592,16 @@
                 "logging",
                 "psr-3"
             ],
+            "funding": [
+                {
+                    "url": "https://github.com/Seldaek",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/monolog/monolog",
+                    "type": "tidelift"
+                }
+            ],
             "time": "2020-12-14T13:15:25+00:00"
         },
         {
@@ -2447,16 +2457,16 @@
         },
         {
             "name": "scssphp/scssphp",
-            "version": "1.1.0",
+            "version": "1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/scssphp/scssphp.git",
-                "reference": "4363ddce8d750f055c436833dd77d83517946532"
+                "reference": "824e4cec10b2bfa88eec5dac23991cb9106622c1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/scssphp/scssphp/zipball/4363ddce8d750f055c436833dd77d83517946532",
-                "reference": "4363ddce8d750f055c436833dd77d83517946532",
+                "url": "https://api.github.com/repos/scssphp/scssphp/zipball/824e4cec10b2bfa88eec5dac23991cb9106622c1",
+                "reference": "824e4cec10b2bfa88eec5dac23991cb9106622c1",
                 "shasum": ""
             },
             "require": {
@@ -2504,7 +2514,7 @@
                 "scss",
                 "stylesheet"
             ],
-            "time": "2020-04-21T15:53:32+00:00"
+            "time": "2020-06-04T17:30:40+00:00"
         },
         {
             "name": "sentry/sdk",
@@ -3454,6 +3464,12 @@
                 "stub",
                 "test",
                 "test double"
+            ],
+            "funding": [
+                {
+                    "url": "https://github.com/michalbundyra",
+                    "type": "github"
+                }
             ],
             "time": "2020-12-11T19:20:04+00:00"
         },
@@ -4956,5 +4972,6 @@
     "platform-dev": [],
     "platform-overrides": {
         "php": "7.3"
-    }
+    },
+    "plugin-api-version": "1.1.0"
 }
