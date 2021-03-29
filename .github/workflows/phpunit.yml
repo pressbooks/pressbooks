@@ -1,0 +1,83 @@
+name: PHPUnit
+
+on:
+  push:
+    branches: [ dev, master, github-actions ]
+  pull_request:
+    branches: [ dev ]
+
+jobs:
+  phpunit:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        php: [7.3] # TODO: Add 7.4 and fix the errors.
+        os: [ubuntu-18.04]
+        epubcheck: [4.2.4]
+        prince: [12.5-1]
+        wordpress: [5.6.2]
+
+    name: PHPUnit - ${{ matrix.php }}
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Install OS dependencies
+      run: |
+        sudo apt-get install libxml2-utils ghostscript poppler-utils
+        sudo systemctl start mysql.service
+        wget https://github.com/w3c/epubcheck/releases/download/v${{ matrix.epubcheck }}/epubcheck-${{ matrix.epubcheck }}.zip
+        unzip epubcheck-${{ matrix.epubcheck }}.zip -d /opt/
+        mv /opt/epubcheck-${{ matrix.epubcheck }} /opt/epubcheck
+        rm epubcheck-${{ matrix.epubcheck }}.zip
+        wget https://www.princexml.com/download/prince_${{ matrix.prince }}_ubuntu18.04_amd64.deb
+        sudo dpkg -i prince_${{ matrix.prince }}_ubuntu18.04_amd64.deb
+        rm prince_${{ matrix.prince }}_ubuntu18.04_amd64.deb
+
+    - name: Cache Composer packages
+      uses: actions/cache@v2
+      with:
+        path: vendor
+        key: ${{ matrix.php }}-php-${{ hashFiles('**/composer.lock') }}
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php }}
+        tools: composer:v1
+        coverage: none
+      if: matrix.php != 7.3
+
+    - name: Setup PHP with coverage
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php }}
+        tools: composer:v1
+        coverage: pcov
+      if: matrix.php == 7.3
+
+    - name: Install Composer packages
+      run: composer install
+
+    - name: Setup PCOV
+      run: |
+        composer require pcov/clobber
+        vendor/bin/pcov clobber
+      if: matrix.php == 7.3
+
+    - name: Install WP tests
+      run: bash bin/install-wp-tests.sh wordpress_test root root localhost ${{ matrix.wordpress }}
+
+    - name: Run tests
+      run: vendor/bin/phpunit --configuration phpunit.xml
+      if: matrix.php != 7.3
+
+    - name: Run tests with coverage
+      run: vendor/bin/phpunit --configuration phpunit.xml --coverage-clover coverage.xml
+      if: matrix.php == 7.3
+
+    # TODO: Enable this once Travis is disabled.
+    # - name: Upload coverage to Codecov
+    #   uses: codecov/codecov-action@v1
+    #   if: ${{ matrix.php }} == 7.3
