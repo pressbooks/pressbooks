@@ -67,6 +67,10 @@ class Downloads {
 			/** @var \DOMElement $image */
 			// Fetch image, change src
 			$src_old = $image->getAttribute( 'src' );
+			if ( preg_match( '/^data:image\/(jpeg|png);base64.*/i', $src_old ) ) {
+				// Do nothing because image is embedded as base64 string
+				continue;
+			}
 			$attachment_id = $this->fetchAndSaveUniqueImage( $src_old );
 			if ( $attachment_id === -1 ) {
 				// Do nothing because image is not hosted on the source Pb network
