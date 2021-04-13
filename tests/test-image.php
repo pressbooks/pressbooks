@@ -262,7 +262,7 @@ class ImageTest extends \WP_UnitTestCase {
 
 		\Pressbooks\Image\resize_down( 'png', $resized, 400 );
 
-		$image_to_check = new Imagick( $resized );
+		$image_to_check = new \Imagick( $resized );
 		$this->assertTrue( (bool) $image_to_check->getImageAlphaChannel() );
 		$this->assertEquals( 400, getimagesize( $resized )[0] );
 
@@ -277,7 +277,7 @@ class ImageTest extends \WP_UnitTestCase {
 
 		\Pressbooks\Image\resize_down( 'jpeg', $resized, 200 );
 
-		$image_to_check = new Imagick( $resized );
+		$image_to_check = new \Imagick( $resized );
 		$this->assertFalse( (bool) $image_to_check->getImageAlphaChannel() );
 		$this->assertEquals( 200, getimagesize( $resized )[0] );
 
