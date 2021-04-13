@@ -47,6 +47,7 @@ jobs:
         php-version: ${{ matrix.php }}
         tools: composer:v1
         coverage: none
+        extensions: imagick
       if: matrix.php != 7.3
 
     - name: Setup PHP with coverage
@@ -55,6 +56,7 @@ jobs:
         php-version: ${{ matrix.php }}
         tools: composer:v1
         coverage: pcov
+        extensions: imagick
       if: matrix.php == 7.3
 
     - name: Install Composer packages

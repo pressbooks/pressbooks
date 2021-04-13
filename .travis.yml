@@ -48,6 +48,7 @@ install:
 before_script:
 - if php -v | grep -q 'Xdebug'; then phpenv config-rm xdebug.ini; fi
 - if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.3" ]]; then pecl install pcov; fi
+- pecl install imagick
 - bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
 script:
 - npm run install-build-tools
