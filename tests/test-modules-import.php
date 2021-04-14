@@ -1,6 +1,8 @@
 <?php
 
 
+use Pressbooks\Modules\Import\WordPress\Downloads;
+
 class ImportMock extends \Pressbooks\Modules\Import\Import {
 	/**
 	 * @group import
@@ -73,6 +75,25 @@ class Modules_ImportTest extends \WP_UnitTestCase {
 		$this->assertFalse( $this->import::isFormSubmission() );
 		$this->_fakeAjaxDone( $reporting );
 		unset( $_REQUEST['action'] );
+	}
+
+	/**
+	 * @group import
+	 */
+	public function test_scrapeAndKneadImages() {
+
+		$html = '<img src="pathtoremoteImage/image.jpg" /> <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4QAqRXhpZgA" />';
+
+		$doc = new DOMDocument();
+		$doc->loadHTML( $html );
+
+		$wordpress_importer = new Downloads( null );
+
+		$result = $wordpress_importer->scrapeAndKneadImages( $doc );
+		$images = $result['dom']->getElementsByTagName( 'img' );
+		$this->assertContains( '#fixme', $images[0]->getAttribute( 'src' ) );
+		$this->assertNotContains( '#fixme', $images[1]->getAttribute( 'src' ) );
+
 	}
 
 }

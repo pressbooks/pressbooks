@@ -337,7 +337,7 @@ class GlobalTypography {
 				],
 			],
 			'ja' => [
-				'baseurl' => 'https://github.com/googlefonts/noto-cjk/raw/main/',
+				'baseurl' => 'https://github.com/googlefonts/noto-cjk/raw/main/Sans/OTF/Japanese/',
 				'files' => [
 					'NotoSansCJKjp-Light.otf' => 'NotoSansCJKjp-Light.otf',
 					'NotoSansCJKjp-Regular.otf' => 'NotoSansCJKjp-Regular.otf',
@@ -354,7 +354,7 @@ class GlobalTypography {
 				],
 			],
 			'ko' => [
-				'baseurl' => 'https://github.com/googlefonts/noto-cjk/raw/main/',
+				'baseurl' => 'https://github.com/googlefonts/noto-cjk/raw/main/Sans/OTF/Korean/',
 				'files' => [
 					'NotoSansCJKkr-Regular.otf' => 'NotoSansCJKkr-Regular.otf',
 					'NotoSansCJKkr-Bold.otf' => 'NotoSansCJKkr-Bold.otf',
@@ -398,14 +398,14 @@ class GlobalTypography {
 				],
 			],
 			'zh_HANS' => [
-				'baseurl' => 'https://github.com/googlefonts/noto-cjk/raw/main/',
+				'baseurl' => 'https://github.com/googlefonts/noto-cjk/raw/main/Sans/OTF/SimplifiedChinese/',
 				'files' => [
 					'NotoSansCJKsc-Regular.otf' => 'NotoSansCJKsc-Regular.otf',
 					'NotoSansCJKsc-Bold.otf' => 'NotoSansCJKsc-Bold.otf',
 				],
 			],
 			'zh_HANT' => [
-				'baseurl' => 'https://github.com/googlefonts/noto-cjk/raw/main/',
+				'baseurl' => 'https://github.com/googlefonts/noto-cjk/raw/main/Sans/OTF/TraditionalChinese/',
 				'files' => [
 					'NotoSansCJKtc-Light.otf' => 'NotoSansCJKtc-Light.otf',
 					'NotoSansCJKtc-Regular.otf' => 'NotoSansCJKtc-Regular.otf',
