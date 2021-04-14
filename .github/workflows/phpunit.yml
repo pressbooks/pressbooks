@@ -2,7 +2,7 @@ name: PHPUnit
 
 on:
   push:
-    branches: [ dev, master, github-actions, pb-2134 ]
+    branches: [ dev, master ]
     tags:
       - '*.*.*'
   pull_request:
@@ -79,6 +79,7 @@ jobs:
       run: bash <(curl -s https://codecov.io/bash)
 
     - name: Prepare Build
+      if: startsWith(github.ref, 'refs/tags/')
       run: |
         export COMPOSER_MEMORY_LIMIT=-1
         export GITHUB_BUILD_PATH=${{github.workspace}}
@@ -95,7 +96,9 @@ jobs:
         wp dist-archive $GITHUB_REPO_SLUG $GITHUB_BUILD_PATH/$GITHUB_REPO_SLUG-$GITHUB_TAG.zip
         cd $GITHUB_BUILD_PATH
         ls $GITHUB_BUILD_PATH
+
     - name: Deploy
+      if: startsWith(github.ref, 'refs/tags/')
       uses: softprops/action-gh-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
