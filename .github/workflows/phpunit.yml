@@ -2,7 +2,9 @@ name: PHPUnit
 
 on:
   push:
-    branches: [ dev, master, github-actions ]
+    branches: [ dev, master, github-actions, pb-2134 ]
+    tags:
+      - '*.*.*'
   pull_request:
     branches: [ dev ]
 
@@ -46,38 +48,66 @@ jobs:
       with:
         php-version: ${{ matrix.php }}
         tools: composer:v1
-        coverage: none
+        coverage: pcov
       if: matrix.php != 7.3
 
-    - name: Setup PHP with coverage
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: ${{ matrix.php }}
-        tools: composer:v1
-        coverage: pcov
-      if: matrix.php == 7.3
-
-    - name: Install Composer packages
-      run: composer install
-
-    - name: Setup PCOV
+    - name: Install dependencies
       run: |
-        composer require pcov/clobber
-        vendor/bin/pcov clobber
-      if: matrix.php == 7.3
+        node -v
+        npm install
+        npm run install-build-tools
+        npm run build:production
+        export PATH="$HOME/.composer/vendor/bin:$PATH"
+        composer install --no-interaction
+        ulimit -n 4096
+
+    - name: Run Lint
+      run: vendor/bin/phpcs --standard=phpcs.ruleset.xml *.php inc/ bin/
 
     - name: Install WP tests
       run: bash bin/install-wp-tests.sh wordpress_test root root localhost ${{ matrix.wordpress }}
 
-    - name: Run tests
+    - name: Run PHP Tests
       run: vendor/bin/phpunit --configuration phpunit.xml
       if: matrix.php != 7.3
 
-    - name: Run tests with coverage
-      run: vendor/bin/phpunit --configuration phpunit.xml --coverage-clover coverage.xml
+    - name: Run PHP Tests and PCOV
+      run: composer require pcov/clobber; vendor/bin/pcov clobber; vendor/bin/phpunit --configuration phpunit.xml --coverage-clover coverage.xml
       if: matrix.php == 7.3
 
-    # TODO: Enable this once Travis is disabled.
-    # - name: Upload coverage to Codecov
-    #   uses: codecov/codecov-action@v1
-    #   if: ${{ matrix.php }} == 7.3
+    - name: Upload Coverage to Codecov
+      run: bash <(curl -s https://codecov.io/bash)
+
+    - name: Prepare Build
+      run: |
+        export COMPOSER_MEMORY_LIMIT=-1
+        export GITHUB_BUILD_PATH=${{github.workspace}}
+        export GITHUB_REPO_SLUG="$(basename ${{github.workspace}})"
+        export GITHUB_TAG="$(basename ${{github.ref}})"
+        echo "File to be created : $GITHUB_BUILD_PATH/$GITHUB_REPO_SLUG-$GITHUB_TAG.zip"
+        curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+        chmod +x wp-cli.phar
+        mv wp-cli.phar /usr/local/bin/wp
+        wp package install wp-cli/dist-archive-command
+        npm run build:production
+        composer install --no-dev --optimize-autoloader
+        cd ..
+        wp dist-archive $GITHUB_REPO_SLUG $GITHUB_BUILD_PATH/$GITHUB_REPO_SLUG-$GITHUB_TAG.zip
+        cd $GITHUB_BUILD_PATH
+        ls $GITHUB_BUILD_PATH
+    - name: Deploy
+      uses: softprops/action-gh-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        files:
+          ${{github.workspace}}/*.zip
+
+    - name: Slack Notification
+      uses: rtCamp/action-slack-notify@v2
+      env:
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+        SLACK_USERNAME: 'Github Actions'
+        SLACK_ICON_EMOJI: ':octocat:'
+        SLACK_COLOR: ${{job.status}}
+      if: always()
