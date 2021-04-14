@@ -59,6 +59,7 @@ jobs:
         npm run build:production
         export PATH="$HOME/.composer/vendor/bin:$PATH"
         composer install --no-interaction
+        composer global require "phpunit/phpunit:7.5.20"
         ulimit -n 4096
 
     - name: Run Lint
