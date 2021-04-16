@@ -244,4 +244,43 @@ class ImageTest extends \WP_UnitTestCase {
 		$this->assertFalse( \Pressbooks\Image\same_aspect_ratio( $file5, $file5 ) );
 	}
 
+	/**
+	 * @group media
+	 * @throws Exception
+	 */
+	public function test_imageResize() {
+
+		ini_set( 'memory_limit', '100M' ); //Needed to resize and open the image for testing
+
+		/*
+		 * Test PNGs with alpha channel
+		 */
+		$path = __DIR__ . '/data/';
+		$original = "${path}alpha.png";
+		$resized = "${path}alpha_resized.png";
+		copy( $original, $resized );
+
+		\Pressbooks\Image\resize_down( 'png', $resized, 400 );
+
+		$image_to_check = new \Imagick( $resized );
+		$this->assertTrue( (bool) $image_to_check->getImageAlphaChannel() );
+		$this->assertEquals( 400, getimagesize( $resized )[0] );
+
+
+		/*
+		 * Test Jpeg
+		 */
+
+		$original = "${path}skates.jpg";
+		$resized = "${path}skates_resized.jpg";
+		copy( $original, $resized );
+
+		\Pressbooks\Image\resize_down( 'jpeg', $resized, 200 );
+
+		$image_to_check = new \Imagick( $resized );
+		$this->assertFalse( (bool) $image_to_check->getImageAlphaChannel() );
+		$this->assertEquals( 200, getimagesize( $resized )[0] );
+
+	}
+
 }

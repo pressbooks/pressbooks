@@ -551,6 +551,13 @@ function resize_down( $format, $fullpath, $max_w = 1024, $max_h = 1024 ) {
 	}
 
 	$dst = imagecreatetruecolor( $new_w, $new_h );
+	//allow transparency for resized pngs
+	if ( $format === 'png' ) {
+		$transparent_bg = imagecolorallocatealpha( $dst, 0, 0, 0, 127 );
+		imagefill( $dst, 0, 0, $transparent_bg );
+		imagealphablending( $dst, false );
+		imagesavealpha( $dst, true );
+	}
 	imagecopyresampled( $dst, $src, 0, 0, 0, 0, $new_w, $new_h, $orig_w, $orig_h );
 	imagedestroy( $src );
 

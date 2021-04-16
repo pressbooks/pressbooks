@@ -27,7 +27,7 @@ jobs:
 
     - name: Install OS dependencies
       run: |
-        sudo apt-get install libxml2-utils ghostscript poppler-utils
+        sudo apt-get install libxml2-utils ghostscript poppler-utils imagemagick
         sudo systemctl start mysql.service
         wget https://github.com/w3c/epubcheck/releases/download/v${{ matrix.epubcheck }}/epubcheck-${{ matrix.epubcheck }}.zip
         unzip epubcheck-${{ matrix.epubcheck }}.zip -d /opt/
@@ -49,6 +49,7 @@ jobs:
         php-version: ${{ matrix.php }}
         tools: composer:v1
         coverage: pcov
+        extensions: imagick
 
     - name: Install dependencies
       run: |
