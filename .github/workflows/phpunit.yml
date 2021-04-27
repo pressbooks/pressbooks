@@ -17,9 +17,9 @@ jobs:
         os: [ubuntu-18.04]
         epubcheck: [4.2.4]
         prince: [12.5-1]
-        wordpress: [5.6.2]
+        wordpress: [5.6.2, 5.7]
 
-    name: PHPUnit - ${{ matrix.php }}
+    name: PHPUnit - ${{ matrix.php }} - ${{ matrix.wordpress }}
 
     steps:
     - name: Checkout code
