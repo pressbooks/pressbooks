@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
-"POT-Creation-Date: 2021-04-14T03:37:29+00:00\n"
+"POT-Creation-Date: 2021-04-27T16:11:58+00:00\n"
 "PO-Revision-Date: 2021-03-27 01:03+0000\n"
 "Last-Translator: Ho Man Chan <homan@pressbooks.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/pressbooks/pressbooks/language/zh_CN/)\n"
@@ -164,13 +164,13 @@ msgstr "管理书籍"
 
 #: inc/admin/class-catalog-list-table.php:106
 #: inc/admin/class-catalog-list-table.php:276
-#: inc/admin/class-catalog-list-table.php:547
+#: inc/admin/class-catalog-list-table.php:548
 msgid "Hide in Catalog"
 msgstr "在编目中隐藏"
 
 #: inc/admin/class-catalog-list-table.php:111
 #: inc/admin/class-catalog-list-table.php:275
-#: inc/admin/class-catalog-list-table.php:545
+#: inc/admin/class-catalog-list-table.php:546
 msgid "Show in Catalog"
 msgstr "在编目中显示"
 
@@ -247,46 +247,46 @@ msgstr ""
 msgid "Search results for &#8220;%1$s&#8221; returned %2$d items"
 msgstr ""
 
-#: inc/admin/class-catalog-list-table.php:543
+#: inc/admin/class-catalog-list-table.php:544
 msgid "Organize your public Catalog page."
 msgstr "组织公开的编目页。"
 
-#: inc/admin/class-catalog-list-table.php:544
+#: inc/admin/class-catalog-list-table.php:545
 msgid "Show/Hide books"
 msgstr "显示/隐藏书籍"
 
-#: inc/admin/class-catalog-list-table.php:545
+#: inc/admin/class-catalog-list-table.php:546
 msgid "To display a book in your catalog choose \"%s\" under Catalog Status. "
 msgstr "在编目状态下选择“%s”以显示一本书。"
 
-#: inc/admin/class-catalog-list-table.php:547
+#: inc/admin/class-catalog-list-table.php:548
 msgid "To hide a book in your catalog choose \"%s\" under Catalog Status."
 msgstr "在编目状态下选择“%s”以隐藏一本书。"
 
-#: inc/admin/class-catalog-list-table.php:550
+#: inc/admin/class-catalog-list-table.php:551
 msgid "Catalog sorting"
 msgstr "编目排序"
 
-#: inc/admin/class-catalog-list-table.php:551
+#: inc/admin/class-catalog-list-table.php:552
 msgid ""
 "To add sorting ability, add your Tag names to your <a href=\"%s\">Catalog "
 "Profile</a> page (ex: Authors, Book Genre), then add the appropriate tags to"
 " each individual book."
 msgstr "要想增加排序功能，请在<a href=\"%s\">编目资料页</a>中（如：作者、书籍流派）中添加标签名，并把合适的标签选配给每本书。"
 
-#: inc/admin/class-catalog-list-table.php:553
+#: inc/admin/class-catalog-list-table.php:554
 msgid "Share your catalog"
 msgstr "分享您的编目"
 
-#: inc/admin/class-catalog-list-table.php:554
+#: inc/admin/class-catalog-list-table.php:555
 msgid "The public link to your catalog page"
 msgstr "可访问您的编目页的公开超链接"
 
-#: inc/admin/class-catalog-list-table.php:567
+#: inc/admin/class-catalog-list-table.php:568
 msgid "Add By URL"
 msgstr "通过网址添加"
 
-#: inc/admin/class-catalog-list-table.php:578 templates/admin/search.php:81
+#: inc/admin/class-catalog-list-table.php:579 templates/admin/search.php:81
 msgid "Search"
 msgstr "搜索"
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
-"POT-Creation-Date: 2021-04-14T03:37:29+00:00\n"
+"POT-Creation-Date: 2021-04-27T16:11:58+00:00\n"
 "PO-Revision-Date: 2021-03-27 01:03+0000\n"
 "Last-Translator: Ho Man Chan <homan@pressbooks.com>\n"
 "Language-Team: Polish (http://www.transifex.com/pressbooks/pressbooks/language/pl/)\n"
@@ -166,13 +166,13 @@ msgstr "Odwiedź panel administratora"
 
 #: inc/admin/class-catalog-list-table.php:106
 #: inc/admin/class-catalog-list-table.php:276
-#: inc/admin/class-catalog-list-table.php:547
+#: inc/admin/class-catalog-list-table.php:548
 msgid "Hide in Catalog"
 msgstr "Ukryj w Katalogu"
 
 #: inc/admin/class-catalog-list-table.php:111
 #: inc/admin/class-catalog-list-table.php:275
-#: inc/admin/class-catalog-list-table.php:545
+#: inc/admin/class-catalog-list-table.php:546
 msgid "Show in Catalog"
 msgstr "Pokaż w Katalogu"
 
@@ -249,46 +249,46 @@ msgstr ""
 msgid "Search results for &#8220;%1$s&#8221; returned %2$d items"
 msgstr ""
 
-#: inc/admin/class-catalog-list-table.php:543
+#: inc/admin/class-catalog-list-table.php:544
 msgid "Organize your public Catalog page."
 msgstr "Zarządzaj stroną publicznego Katalogu"
 
-#: inc/admin/class-catalog-list-table.php:544
+#: inc/admin/class-catalog-list-table.php:545
 msgid "Show/Hide books"
 msgstr "Pokaż/Ukryj książki"
 
-#: inc/admin/class-catalog-list-table.php:545
+#: inc/admin/class-catalog-list-table.php:546
 msgid "To display a book in your catalog choose \"%s\" under Catalog Status. "
 msgstr "Aby pokazać książkę w twoim katalogu wybierz \"%s\" jako Status Katalogu."
 
-#: inc/admin/class-catalog-list-table.php:547
+#: inc/admin/class-catalog-list-table.php:548
 msgid "To hide a book in your catalog choose \"%s\" under Catalog Status."
 msgstr "Aby ukryć książkę w twoim katalogu wybierz \"%s\" jako Status Katalogu."
 
-#: inc/admin/class-catalog-list-table.php:550
+#: inc/admin/class-catalog-list-table.php:551
 msgid "Catalog sorting"
 msgstr "Sortowanie Katalogu"
 
-#: inc/admin/class-catalog-list-table.php:551
+#: inc/admin/class-catalog-list-table.php:552
 msgid ""
 "To add sorting ability, add your Tag names to your <a href=\"%s\">Catalog "
 "Profile</a> page (ex: Authors, Book Genre), then add the appropriate tags to"
 " each individual book."
 msgstr "Aby odblokować możliwość sortowania, dodaj nazwy tagów do strony <a href=\"%s\">Profilu Katalogu </a> (np. Autorzy, gatunek), a potem dodaj odpowiednie tagi do każdej książki."
 
-#: inc/admin/class-catalog-list-table.php:553
+#: inc/admin/class-catalog-list-table.php:554
 msgid "Share your catalog"
 msgstr "Udostępnij Katalog"
 
-#: inc/admin/class-catalog-list-table.php:554
+#: inc/admin/class-catalog-list-table.php:555
 msgid "The public link to your catalog page"
 msgstr "Publiczny link do strony twojego katalogu"
 
-#: inc/admin/class-catalog-list-table.php:567
+#: inc/admin/class-catalog-list-table.php:568
 msgid "Add By URL"
 msgstr "Dodaj przez URL"
 
-#: inc/admin/class-catalog-list-table.php:578 templates/admin/search.php:81
+#: inc/admin/class-catalog-list-table.php:579 templates/admin/search.php:81
 msgid "Search"
 msgstr "Szukaj"
 
