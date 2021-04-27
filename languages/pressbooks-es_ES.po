@@ -2,8 +2,8 @@
 # This file is distributed under the same license as the Pressbooks plugin.
 # Translators:
 # Antonio D., 2018,2020
-# Eduardo Vera <info@yachaypuriq.xyz>, 2020
-# Eduardo Vera <info@yachaypuriq.xyz>, 2020
+# Eduardo Vera <info@mirimiri.xyz>, 2020-2021
+# Eduardo Vera <info@mirimiri.xyz>, 2020
 # jorge santibañez <info@letrapixel.com>, 2017
 # taskforsome <taskforsome@gmail.com>, 2014
 # taskforsome <taskforsome@gmail.com>, 2014
@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
-"POT-Creation-Date: 2021-04-14T03:37:29+00:00\n"
-"PO-Revision-Date: 2021-03-27 01:03+0000\n"
-"Last-Translator: Ho Man Chan <homan@pressbooks.com>\n"
+"POT-Creation-Date: 2021-04-27T16:11:58+00:00\n"
+"PO-Revision-Date: 2021-04-24 06:40+0000\n"
+"Last-Translator: Eduardo Vera <info@mirimiri.xyz>\n"
 "Language-Team: Spanish (http://www.transifex.com/pressbooks/pressbooks/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -171,13 +171,13 @@ msgstr "Visitar el administrador"
 
 #: inc/admin/class-catalog-list-table.php:106
 #: inc/admin/class-catalog-list-table.php:276
-#: inc/admin/class-catalog-list-table.php:547
+#: inc/admin/class-catalog-list-table.php:548
 msgid "Hide in Catalog"
 msgstr "Ocultar en el catálogo"
 
 #: inc/admin/class-catalog-list-table.php:111
 #: inc/admin/class-catalog-list-table.php:275
-#: inc/admin/class-catalog-list-table.php:545
+#: inc/admin/class-catalog-list-table.php:546
 msgid "Show in Catalog"
 msgstr "Mostrar en el catálogo"
 
@@ -254,46 +254,46 @@ msgstr "Resultados de búsqueda de «%s»: se encontró un elemento"
 msgid "Search results for &#8220;%1$s&#8221; returned %2$d items"
 msgstr "Resultados de búsqueda de «%1$s»: se encontraron %2$d elementos"
 
-#: inc/admin/class-catalog-list-table.php:543
+#: inc/admin/class-catalog-list-table.php:544
 msgid "Organize your public Catalog page."
 msgstr "Organiza tu página pública de catálogo."
 
-#: inc/admin/class-catalog-list-table.php:544
+#: inc/admin/class-catalog-list-table.php:545
 msgid "Show/Hide books"
 msgstr "Mostrar u ocultar libros"
 
-#: inc/admin/class-catalog-list-table.php:545
+#: inc/admin/class-catalog-list-table.php:546
 msgid "To display a book in your catalog choose \"%s\" under Catalog Status. "
 msgstr "Para mostrar un libro en tu catálogo, selecciona «%s» en Estado de catalogación."
 
-#: inc/admin/class-catalog-list-table.php:547
+#: inc/admin/class-catalog-list-table.php:548
 msgid "To hide a book in your catalog choose \"%s\" under Catalog Status."
 msgstr "Para ocultar un libro de tu catálogo, selecciona «%s» en Estado de catalogación."
 
-#: inc/admin/class-catalog-list-table.php:550
+#: inc/admin/class-catalog-list-table.php:551
 msgid "Catalog sorting"
 msgstr "Ordenación del catálogo"
 
-#: inc/admin/class-catalog-list-table.php:551
+#: inc/admin/class-catalog-list-table.php:552
 msgid ""
 "To add sorting ability, add your Tag names to your <a href=\"%s\">Catalog "
 "Profile</a> page (ex: Authors, Book Genre), then add the appropriate tags to"
 " each individual book."
 msgstr "Para activar la ordenación, define los nombres de tus etiquetas en la página de <a href=\"%s\">perfil del catálogo</a> (por ejemplo: Autor, Género); luego, añade a cada libro las etiquetas que correspondan."
 
-#: inc/admin/class-catalog-list-table.php:553
+#: inc/admin/class-catalog-list-table.php:554
 msgid "Share your catalog"
 msgstr "Comparte tu catálogo"
 
-#: inc/admin/class-catalog-list-table.php:554
+#: inc/admin/class-catalog-list-table.php:555
 msgid "The public link to your catalog page"
 msgstr "Enlace público a tu página de catálogo"
 
-#: inc/admin/class-catalog-list-table.php:567
+#: inc/admin/class-catalog-list-table.php:568
 msgid "Add By URL"
 msgstr "Añadir desde URL"
 
-#: inc/admin/class-catalog-list-table.php:578 templates/admin/search.php:81
+#: inc/admin/class-catalog-list-table.php:579 templates/admin/search.php:81
 msgid "Search"
 msgstr "Buscar"
 
@@ -1552,11 +1552,11 @@ msgid ""
 "BISAC Subject Headings help libraries and (e)book stores properly classify "
 "your book. To select the appropriate subject heading for your book, consult "
 "%s"
-msgstr ""
+msgstr "Las categorías BISAC sirven para que las librerías físicas y electrónicas clasifiquen adecuadamente tu libro. Para elegir la categoría adecuada para tu libro, consulta %s."
 
 #: inc/admin/metaboxes/namespace.php:556
 msgid "the BISAC Subject Headings list"
-msgstr ""
+msgstr "la lista de categorías BISAC"
 
 #: inc/admin/metaboxes/namespace.php:570
 msgid "BISAC Regional Theme"
@@ -1668,17 +1668,17 @@ msgid ""
 "categorize your book in your network catalog and Pressbooks Directory (if "
 "applicable). Use %2$s to determine which subject category is best for your "
 "book."
-msgstr ""
+msgstr "Las categorías %1$s aparecen en la página de inicio de la web de tu libro y permiten clasificar tu libro en tu catálogo de red y en el directorio de Pressbooks (si aplica). Usa %2$s para determinar qué categoría es la mejor para tu libro."
 
 #: inc/admin/metaboxes/namespace.php:1046
 #: inc/admin/metaboxes/namespace.php:1059
 msgid "Thema"
-msgstr ""
+msgstr "Thema"
 
 #: inc/admin/metaboxes/namespace.php:1046
 #: inc/admin/metaboxes/namespace.php:1059
 msgid "the Thema subject category list"
-msgstr ""
+msgstr "la lista de categorías Thema"
 
 #: inc/admin/metaboxes/namespace.php:1049
 msgid "Additional Subject(s)"
@@ -1690,7 +1690,7 @@ msgid ""
 "categorize your book in your network catalog and Pressbooks Directory (if "
 "applicable). Use %2$s to determine which additional subject categories are "
 "appropriate for your book."
-msgstr ""
+msgstr "Las categorías %1$s aparecen en la página de inicio de la web de tu libro y permiten clasificar tu libro en tu catálogo de red y en el directorio de Pressbooks (si aplica). Usa %2$s para determinar qué categorías adicionales son las adecuadas para tu libro."
 
 #: inc/admin/metaboxes/namespace.php:1143
 #: inc/admin/metaboxes/namespace.php:1165
@@ -2729,7 +2729,7 @@ msgstr "Si necesitas introducir alguna información adicional, haz clic en el bo
 msgid ""
 "The %1$s Thema subject terms requested for this book could not be downloaded"
 " from %2$s. Please report this error to your network manager."
-msgstr ""
+msgstr "Las %1$s categorías Thema solicitadas para este libro no se han podido descargar desde %2$s. Informa de este error al administrador de tu red."
 
 #: inc/modules/export/class-export.php:794
 msgid "%s: Initializing"
