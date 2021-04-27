@@ -13,11 +13,11 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        php: [7.3] # TODO: Add 7.4 and fix the errors.
+        php: [7.3, 7.4] # TODO: Add 7.4 and fix the errors.
         os: [ubuntu-18.04]
         epubcheck: [4.2.4]
         prince: [12.5-1]
-        wordpress: [5.6.2, 5.7]
+        wordpress: [5.6.2, 5.7, 5.7.1]
 
     name: PHPUnit - ${{ matrix.php }} - ${{ matrix.wordpress }}
 
