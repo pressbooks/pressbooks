@@ -32,6 +32,7 @@ class H5P {
 		if ( is_file( WP_PLUGIN_DIR . '/h5p/autoloader.php' ) ) {
 			require_once( WP_PLUGIN_DIR . '/h5p/autoloader.php' );
 		}
+		add_filter( 'print_h5p_content', [ $this, 'generateCustomH5pWrapper' ], 10, 2 );
 	}
 
 	/**
@@ -137,7 +138,7 @@ class H5P {
 			$wpdb->suppress_errors( $suppress );
 		}
 
-		$h5p_id = isset( $atts['id'] ) ? intval( $atts['id'] ) : 0;
+		$h5p_id = isset( $atts['id'] ) ? (int) $atts['id'] : 0;
 
 		// H5P Content
 		if ( $h5p_id ) {
@@ -150,16 +151,14 @@ class H5P {
 				// Do nothing
 			}
 		}
-
 		// HTML
-		$html = $this->blade->render(
-			'interactive.shared', [
+		return $this->blade->render(
+			'interactive.h5p', [
 				'title' => $h5p_title,
 				'url' => $h5p_url,
+				'id' => $h5p_id ? '#' . self::SHORTCODE . '-' . $h5p_id : '',
 			]
 		);
-
-		return $html;
 	}
 
 	/**
@@ -222,6 +221,16 @@ class H5P {
 			}
 		}
 		return $ids;
+	}
+
+	/**
+	 * This hook adds a HTML wrapper to identify each hp5 activity
+	 * @param $html
+	 * @param $content array this array holds the custom post type information (h5p)
+	 * @return string
+	 */
+	public function generateCustomH5pWrapper( $html, array $content ) {
+		return '<div id="' . self::SHORTCODE . '-' . $content['id'] . '">' . $html . '</div>';
 	}
 
 }
