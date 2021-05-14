@@ -7,22 +7,33 @@
 
 actor: AcceptanceTester
 modules:
-    enabled:
-        - WPWebDriver
-        - \Helper\Acceptance
-    config:
-         WPWebDriver:
-             url: '%TEST_SITE_WP_URL%'
-             adminUsername: '%TEST_SITE_ADMIN_USERNAME%'
-             adminPassword: '%TEST_SITE_ADMIN_PASSWORD%'
-             adminPath: '%TEST_SITE_WP_ADMIN_PATH%'
-             browser: chrome
-             host: localhost
-             port: 9515
-             window_size: false #disabled for Chrome driver
-             capabilities:
-               chromeOptions:
-                 args: ["--headless", "--disable-gpu", "--proxy-server='direct://'", "--proxy-bypass-list=*"]
-             headers:
-                 X_TEST_REQUEST: 1
-                 X_WPBROWSER_REQUEST: 1
+  enabled:
+      - \Helper\Acceptance
+      - WPDb
+      - WPWebDriver
+  config:
+    WPDb:
+      dsn: '%TEST_SITE_DB_DSN%'
+      user: '%TEST_DB_USER%'
+      password: '%TEST_DB_PASSWORD%'
+      dump: tests/_data/pressbooks_fixture.sql
+      populate: true
+      cleanup: true
+      url: '%TEST_SITE_WP_URL%'
+      tablePrefix: '%TEST_TABLE_PREFIX%'
+      urlReplacement: true
+    WPWebDriver:
+       url: '%TEST_SITE_WP_URL%'
+       adminUsername: '%TEST_SITE_ADMIN_USERNAME%'
+       adminPassword: '%TEST_SITE_ADMIN_PASSWORD%'
+       adminPath: '%TEST_SITE_WP_ADMIN_PATH%'
+       browser: chrome
+       host: localhost
+       port: 9515
+       window_size: false #disabled for Chrome driver
+       capabilities:
+          acceptInsecureCerts: true
+          chromeOptions:
+            args: ["--headless", "--disable-gpu", "--user-agent=wp-browser"]
+       headers:
+         X-Testing: 'wp-browser'

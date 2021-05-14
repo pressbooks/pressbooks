@@ -45,11 +45,11 @@ class CreateBook
 		$I->amOnPage(self::$URL);
 		$I->fillField($this->bookWebAddressField, $bookWebAddress);
 		$I->fillField($this->bookTitleField, $bookTitle);
-//		if ( $publicPrivacy ) {
-//			$I->checkOption($this->bookPrivacyOptionOn);
-//		} else {
-//			$I->checkOption($this->bookPrivacyOptionOff);
-//		}
+		if ( $publicPrivacy ) {
+			$I->checkOption($this->bookPrivacyOptionOn);
+		} else {
+			$I->checkOption($this->bookPrivacyOptionOff);
+		}
 		$I->click($this->createButton);
 	}
 
