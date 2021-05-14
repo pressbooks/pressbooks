@@ -1,11 +1,11 @@
 import * as Sentry from '@sentry/browser';
-import { Integrations } from '@sentry/tracing';
+import { Integrations as TracingIntegrations } from '@sentry/tracing';
 
 /* global SentryParams */
 Sentry.init( {
 	dsn: SentryParams.dsn,
-	integrations: [ new Integrations.BrowserTracing() ],
-	tracesSampleRate: SentryParams.sample,
+	integrations: [ new TracingIntegrations.BrowserTracing() ],
+	tracesSampleRate: parseInt(SentryParams.sample) / 10,
 	environment: SentryParams.environment,
 } );
 

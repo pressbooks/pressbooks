@@ -567,4 +567,38 @@ RAW;
 		$this->assertFalse( $result );
 	}
 
+	/**
+	 * @group sanitize
+	 */
+	public function test_sanitize_string() {
+
+		$test = '<img src=# onerror=alert(document.cookie)>HTML not allowed';
+		$test = \Pressbooks\Sanitize\sanitize_string( $test );
+		$this->assertEquals( 'HTML not allowed', $test );
+
+		$test = '<img src=# onerror=alert(document.cookie)> HTML is allowed';
+		$test = \Pressbooks\Sanitize\sanitize_string( $test, true );
+		$this->assertEquals( '<img src="#" alt="image" /> HTML is allowed' , $test);
+
+		$test = '&lt;img src=# onerror=alert(document.cookie)&gt; HTML should be cleaned';
+		$test = \Pressbooks\Sanitize\sanitize_string( $test );
+		$this->assertEquals( ' HTML should be cleaned', $test );
+
+		$test = '&lt;img src=# onerror=alert(document.cookie)&gt; encoded HTML';
+		$test = \Pressbooks\Sanitize\sanitize_string( $test, true );
+		$this->assertEquals( '<img src="#" alt="image" /> encoded HTML', $test );
+
+		$test = '<IMG SRC=javascript:alert("XSS")>';
+		$test = \Pressbooks\Sanitize\sanitize_string( $test, true );
+		$this->assertEquals( '<img src="denied:javascript:alert(" alt="image" />', $test );
+
+		$test = '<a onmouseover="alert(document.cookie)">xxs link</a\>';
+		$test = \Pressbooks\Sanitize\sanitize_string( $test, true );
+		$this->assertEquals( '<a>xxs link</a>', $test );
+
+		$test = '<a href="https://pressbooks.org" onmouseover="alert(document.cookie)">xxs link</a>';
+		$test = \Pressbooks\Sanitize\sanitize_string( $test, true );
+		$this->assertEquals( '<a href="https://pressbooks.org">xxs link</a>', $test );
+	}
+
 }

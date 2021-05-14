@@ -80,15 +80,14 @@ class GlobalTypographyTest extends \WP_UnitTestCase {
 		foreach ( $fontpacks as $val ) {
 			$baseurl = $val['baseurl'];
 			foreach ( $val['files'] as $font => $font_url ) {
-				$status = '404 Not Found';
 				$url = $baseurl . $font_url;
 				$headers = wp_get_http_headers( $url );
-				if ( $headers && isset( $headers['status'] ) ) {
-					$status = $headers['status'];
+				if ( $headers && isset( $headers['location'] ) ) {
+					$font_url = $headers['location'];
 				} else {
 					$this->assertTrue( false, "Cannot download: {$url}" );
 				}
-				$this->assertNotContains( $status, '404', "404 Not Found: {$url}" );
+				$this->assertContains( "https://raw.githubusercontent.com", $font_url );
 			}
 		}
 	}

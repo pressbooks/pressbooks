@@ -1,4 +1,4 @@
-# Copyright (C) 2020 Pressbooks (Book Oven Inc.)
+# Copyright (C) 2021 Pressbooks (Book Oven Inc.)
 # This file is distributed under the same license as the Pressbooks plugin.
 # Translators:
 # Antonio D., 2017-2018
@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
-"POT-Creation-Date: 2020-11-17T22:39:26+00:00\n"
-"PO-Revision-Date: 2020-11-17 22:39+0000\n"
+"POT-Creation-Date: 2021-04-27T16:11:58+00:00\n"
+"PO-Revision-Date: 2021-03-27 01:03+0000\n"
 "Last-Translator: Ho Man Chan <homan@pressbooks.com>\n"
 "Language-Team: Russian (http://www.transifex.com/pressbooks/pressbooks/language/ru/)\n"
 "MIME-Version: 1.0\n"
@@ -168,13 +168,13 @@ msgstr "Ознакомиться с администратором"
 
 #: inc/admin/class-catalog-list-table.php:106
 #: inc/admin/class-catalog-list-table.php:276
-#: inc/admin/class-catalog-list-table.php:547
+#: inc/admin/class-catalog-list-table.php:548
 msgid "Hide in Catalog"
 msgstr "Скрыть из каталога"
 
 #: inc/admin/class-catalog-list-table.php:111
 #: inc/admin/class-catalog-list-table.php:275
-#: inc/admin/class-catalog-list-table.php:545
+#: inc/admin/class-catalog-list-table.php:546
 msgid "Show in Catalog"
 msgstr "Показать в каталоге"
 
@@ -193,7 +193,7 @@ msgstr "Обложка"
 
 #: inc/admin/class-catalog-list-table.php:234
 #: inc/admin/covergenerator/namespace.php:69
-#: inc/admin/metaboxes/namespace.php:187 templates/admin/import.php:90
+#: inc/admin/metaboxes/namespace.php:192 templates/admin/import.php:90
 msgid "Title"
 msgstr "Заголовок"
 
@@ -251,46 +251,46 @@ msgstr ""
 msgid "Search results for &#8220;%1$s&#8221; returned %2$d items"
 msgstr ""
 
-#: inc/admin/class-catalog-list-table.php:543
+#: inc/admin/class-catalog-list-table.php:544
 msgid "Organize your public Catalog page."
 msgstr "Структурировать страницу Вашего публичного каталога."
 
-#: inc/admin/class-catalog-list-table.php:544
+#: inc/admin/class-catalog-list-table.php:545
 msgid "Show/Hide books"
 msgstr "Показать/скрыть книги"
 
-#: inc/admin/class-catalog-list-table.php:545
+#: inc/admin/class-catalog-list-table.php:546
 msgid "To display a book in your catalog choose \"%s\" under Catalog Status. "
 msgstr ""
 
-#: inc/admin/class-catalog-list-table.php:547
+#: inc/admin/class-catalog-list-table.php:548
 msgid "To hide a book in your catalog choose \"%s\" under Catalog Status."
 msgstr ""
 
-#: inc/admin/class-catalog-list-table.php:550
+#: inc/admin/class-catalog-list-table.php:551
 msgid "Catalog sorting"
 msgstr "Сортировка каталога"
 
-#: inc/admin/class-catalog-list-table.php:551
+#: inc/admin/class-catalog-list-table.php:552
 msgid ""
 "To add sorting ability, add your Tag names to your <a href=\"%s\">Catalog "
 "Profile</a> page (ex: Authors, Book Genre), then add the appropriate tags to"
 " each individual book."
 msgstr ""
 
-#: inc/admin/class-catalog-list-table.php:553
+#: inc/admin/class-catalog-list-table.php:554
 msgid "Share your catalog"
 msgstr "Поделиться Вашим каталогом"
 
-#: inc/admin/class-catalog-list-table.php:554
+#: inc/admin/class-catalog-list-table.php:555
 msgid "The public link to your catalog page"
 msgstr "Публичная ссылка на страницу каталога"
 
-#: inc/admin/class-catalog-list-table.php:567
+#: inc/admin/class-catalog-list-table.php:568
 msgid "Add By URL"
 msgstr "Добавить с помощью ссылки"
 
-#: inc/admin/class-catalog-list-table.php:578 templates/admin/search.php:81
+#: inc/admin/class-catalog-list-table.php:579 templates/admin/search.php:81
 msgid "Search"
 msgstr "Поиск"
 
@@ -450,7 +450,7 @@ msgid "Title (Spine)"
 msgstr "Заголовок (корешок)"
 
 #: inc/admin/covergenerator/namespace.php:91
-#: inc/admin/metaboxes/namespace.php:202
+#: inc/admin/metaboxes/namespace.php:207
 msgid "Subtitle"
 msgstr "Подзаголовок"
 
@@ -702,7 +702,7 @@ msgstr "Вы также можете запросить доступ к уже �
 msgid "Table of Contents"
 msgstr "Содержание"
 
-#: inc/admin/dashboard/namespace.php:188 inc/admin/metaboxes/namespace.php:566
+#: inc/admin/dashboard/namespace.php:188 inc/admin/metaboxes/namespace.php:580
 #: inc/api/endpoints/controller/class-toc.php:192
 #: inc/posttype/namespace.php:115 inc/posttype/namespace.php:116
 #: inc/posttype/namespace.php:538 templates/admin/import.php:91
@@ -710,7 +710,7 @@ msgstr "Содержание"
 msgid "Front Matter"
 msgstr "Вступительная часть"
 
-#: inc/admin/dashboard/namespace.php:229 inc/admin/metaboxes/namespace.php:568
+#: inc/admin/dashboard/namespace.php:229 inc/admin/metaboxes/namespace.php:582
 #: inc/api/endpoints/controller/class-toc.php:225
 #: inc/posttype/namespace.php:143 inc/posttype/namespace.php:144
 #: inc/posttype/namespace.php:541 templates/admin/import.php:96
@@ -1183,23 +1183,23 @@ msgstr ""
 msgid "Edit Next (%s)"
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:93
+#: inc/admin/metaboxes/namespace.php:98
 msgid ""
 "Your cover image (%1$s x %1$s) is too small. It should be 625px on the "
 "shortest side."
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:99
+#: inc/admin/metaboxes/namespace.php:104
 msgid "Your cover image (%s) is too big. It should be no more than 2MB."
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:116 inc/admin/metaboxes/namespace.php:173
+#: inc/admin/metaboxes/namespace.php:121 inc/admin/metaboxes/namespace.php:178
 #: inc/class-metadata.php:449
 msgid "Cover Image"
 msgstr "Обложка"
 
-#: inc/admin/metaboxes/namespace.php:159 inc/admin/metaboxes/namespace.php:623
-#: inc/admin/metaboxes/namespace.php:685
+#: inc/admin/metaboxes/namespace.php:164 inc/admin/metaboxes/namespace.php:637
+#: inc/admin/metaboxes/namespace.php:699
 #: inc/api/endpoints/controller/class-toc.php:202 inc/class-sass.php:89
 #: inc/modules/export/epub/class-epub201.php:1868
 #: inc/modules/themeoptions/class-globaloptions.php:532
@@ -1209,154 +1209,154 @@ msgstr "Обложка"
 msgid "Part"
 msgstr "Часть"
 
-#: inc/admin/metaboxes/namespace.php:163
+#: inc/admin/metaboxes/namespace.php:168
 msgid "Save Part"
 msgstr "Сохранить часть"
 
-#: inc/admin/metaboxes/namespace.php:164
+#: inc/admin/metaboxes/namespace.php:169
 msgid "Save Book Information"
 msgstr "Сохранить информацию о книге"
 
-#: inc/admin/metaboxes/namespace.php:165
+#: inc/admin/metaboxes/namespace.php:170
 msgid "Status & Visibility"
 msgstr "Статус и видимость"
 
-#: inc/admin/metaboxes/namespace.php:179
+#: inc/admin/metaboxes/namespace.php:184
 msgid "General Book Information"
 msgstr "Основная информация о книге"
 
-#: inc/admin/metaboxes/namespace.php:194
+#: inc/admin/metaboxes/namespace.php:199
 msgid "Short Title"
 msgstr "Короткий заголовок"
 
-#: inc/admin/metaboxes/namespace.php:195
+#: inc/admin/metaboxes/namespace.php:200
 msgid ""
 "In case of long titles that might be truncated in running heads in the PDF "
 "export."
 msgstr "В случае длинных заголовков, которые могут быть сокращены в верхнем колонтитуле, в экспорте PDF."
 
-#: inc/admin/metaboxes/namespace.php:209
+#: inc/admin/metaboxes/namespace.php:214
 msgid "Author(s)"
 msgstr "Автор(-ы)"
 
-#: inc/admin/metaboxes/namespace.php:213 inc/admin/metaboxes/namespace.php:225
-#: inc/admin/metaboxes/namespace.php:237 inc/admin/metaboxes/namespace.php:249
-#: inc/admin/metaboxes/namespace.php:261 inc/admin/metaboxes/namespace.php:273
-#: inc/admin/metaboxes/namespace.php:597
+#: inc/admin/metaboxes/namespace.php:218 inc/admin/metaboxes/namespace.php:230
+#: inc/admin/metaboxes/namespace.php:242 inc/admin/metaboxes/namespace.php:254
+#: inc/admin/metaboxes/namespace.php:266 inc/admin/metaboxes/namespace.php:278
+#: inc/admin/metaboxes/namespace.php:611
 msgid "Create New Contributor"
 msgstr "Создать нового составителя"
 
-#: inc/admin/metaboxes/namespace.php:214 inc/admin/metaboxes/namespace.php:598
+#: inc/admin/metaboxes/namespace.php:219 inc/admin/metaboxes/namespace.php:612
 msgid "Choose author(s)..."
 msgstr "Выбрать автора(-ов)..."
 
-#: inc/admin/metaboxes/namespace.php:221
+#: inc/admin/metaboxes/namespace.php:226
 msgid "Editor(s)"
 msgstr "Редактор(-ы)"
 
-#: inc/admin/metaboxes/namespace.php:226
+#: inc/admin/metaboxes/namespace.php:231
 msgid "Choose editor(s)..."
 msgstr "Выбрать редактора(-ов)..."
 
-#: inc/admin/metaboxes/namespace.php:233
+#: inc/admin/metaboxes/namespace.php:238
 msgid "Translator(s)"
 msgstr "Переводчик(-и)"
 
-#: inc/admin/metaboxes/namespace.php:238
+#: inc/admin/metaboxes/namespace.php:243
 msgid "Choose translator(s)..."
 msgstr "Выбрать переводчика(-ов)..."
 
-#: inc/admin/metaboxes/namespace.php:245
+#: inc/admin/metaboxes/namespace.php:250
 msgid "Reviewer(s)"
 msgstr "Технический(-ие) редактор(-ы)"
 
-#: inc/admin/metaboxes/namespace.php:250
+#: inc/admin/metaboxes/namespace.php:255
 msgid "Choose reviewer(s)..."
 msgstr "Выбрать технического(-их) редактора(-ов)..."
 
-#: inc/admin/metaboxes/namespace.php:257
+#: inc/admin/metaboxes/namespace.php:262
 msgid "Illustrator(s)"
 msgstr "Иллюстратор(-ы)"
 
-#: inc/admin/metaboxes/namespace.php:262
+#: inc/admin/metaboxes/namespace.php:267
 msgid "Choose illustrator(s)..."
 msgstr "Выбрать иллюстратора(-ов)..."
 
-#: inc/admin/metaboxes/namespace.php:269
+#: inc/admin/metaboxes/namespace.php:274
 msgid "Contributor(s)"
 msgstr "Составитель(-и)"
 
-#: inc/admin/metaboxes/namespace.php:274
+#: inc/admin/metaboxes/namespace.php:279
 msgid "Choose contributor(s)..."
 msgstr "Выбрать составителя(-ей)..."
 
-#: inc/admin/metaboxes/namespace.php:281
+#: inc/admin/metaboxes/namespace.php:286
 msgid "Publisher"
 msgstr "Издатель"
 
-#: inc/admin/metaboxes/namespace.php:282 inc/admin/metaboxes/namespace.php:290
+#: inc/admin/metaboxes/namespace.php:287 inc/admin/metaboxes/namespace.php:295
 msgid "This text appears on the title page of your book."
 msgstr "Этот текст появится на обложке Вашей книги."
 
-#: inc/admin/metaboxes/namespace.php:289
+#: inc/admin/metaboxes/namespace.php:294
 msgid "Publisher City"
 msgstr "Город издателя"
 
-#: inc/admin/metaboxes/namespace.php:298
+#: inc/admin/metaboxes/namespace.php:303
 msgid "Publication Date"
 msgstr "Дата публикации"
 
-#: inc/admin/metaboxes/namespace.php:299 inc/admin/metaboxes/namespace.php:309
+#: inc/admin/metaboxes/namespace.php:304 inc/admin/metaboxes/namespace.php:314
 msgid ""
 "This is added to the metadata in your ebook. Please write date in YYYY-MM-DD"
 " format."
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:308
+#: inc/admin/metaboxes/namespace.php:313
 msgid "On-Sale Date"
 msgstr "Дата поступления в продажу"
 
-#: inc/admin/metaboxes/namespace.php:317
+#: inc/admin/metaboxes/namespace.php:322
 msgid "Ebook ISBN"
 msgstr "ISBN электронной книги"
 
-#: inc/admin/metaboxes/namespace.php:318
+#: inc/admin/metaboxes/namespace.php:323
 msgid ""
 "ISBN is the International Standard Book Number, and you'll need one if you "
 "want to sell your book in some online ebook stores. This is added to the "
 "metadata in your ebook."
 msgstr "ISBN — это Международный стандартный номер книги, и он нужен Вам, если вы хотите продать свою книгу в некоторых онлайн магазинах электронных книг. Он добавлен к метаданным Вашей электронной книги."
 
-#: inc/admin/metaboxes/namespace.php:325
+#: inc/admin/metaboxes/namespace.php:330
 msgid "Print ISBN"
 msgstr "Распечатать ISBN"
 
-#: inc/admin/metaboxes/namespace.php:326
+#: inc/admin/metaboxes/namespace.php:331
 msgid ""
 "ISBN is the International Standard Book Number, and you'll need one if you "
 "want to sell your book in online and physical book stores."
 msgstr "ISBN — это Международный стандартный номер книги, и он нужен Вам, если вы хотите продать свою книгу в некоторых онлайн магазинах электронных книг."
 
-#: inc/admin/metaboxes/namespace.php:333
+#: inc/admin/metaboxes/namespace.php:338
 msgid "Digital Object Identifier (DOI)"
 msgstr "Идентификатор цифрового объекта (DOI)"
 
-#: inc/admin/metaboxes/namespace.php:342
+#: inc/admin/metaboxes/namespace.php:347
 msgid "Language"
 msgstr "Язык"
 
-#: inc/admin/metaboxes/namespace.php:343
+#: inc/admin/metaboxes/namespace.php:348
 msgid ""
 "This sets metadata in your ebook, making it easier to find in some stores. "
 "It also changes some system generated content for supported languages, such "
 "as the \"Contents\" header."
 msgstr "Это устанавливает метаданные для Вашей электронной книги, чтобы легче было легче найти ее в некоторых магазинах. Это также изменяет определенную систему сгенерированного содержания для поддерживаемых языков, таких как \"Содержание\" заголовка."
 
-#: inc/admin/metaboxes/namespace.php:343
+#: inc/admin/metaboxes/namespace.php:348
 msgid "Help translate Pressbooks into your language!"
 msgstr "Помогите перевести Pressbooks на Ваш язык!"
 
-#: inc/admin/metaboxes/namespace.php:350 inc/class-licensing.php:306
+#: inc/admin/metaboxes/namespace.php:355 inc/class-licensing.php:306
 #: inc/modules/export/epub/class-epub201.php:1135
 #: inc/modules/export/epub/class-epub201.php:1161
 #: inc/modules/export/epub/templates/epub3/opf.php:95
@@ -1366,45 +1366,45 @@ msgstr "Помогите перевести Pressbooks на Ваш язык!"
 msgid "Copyright"
 msgstr "Авторские права"
 
-#: inc/admin/metaboxes/namespace.php:363 templates/admin/cloner.php:20
+#: inc/admin/metaboxes/namespace.php:368 templates/admin/cloner.php:20
 msgid "Source Book URL"
 msgstr "Ссылка на источник книги"
 
-#: inc/admin/metaboxes/namespace.php:365
+#: inc/admin/metaboxes/namespace.php:370
 msgid ""
 "This book was cloned from a pre-existing book at the above URL. This "
 "information will be displayed on the webbook homepage."
 msgstr "Эта книга — клон предыдущей книги, находящейся по этой ссылке. Эта информация будет отображена на домашней странице электронной книги."
 
-#: inc/admin/metaboxes/namespace.php:375
+#: inc/admin/metaboxes/namespace.php:380
 msgid "Copyright Year"
 msgstr "Год регистрации авторских прав"
 
-#: inc/admin/metaboxes/namespace.php:376
+#: inc/admin/metaboxes/namespace.php:381
 msgid "Year that the book is/was published."
 msgstr "Год, в котором книга была опубликована."
 
-#: inc/admin/metaboxes/namespace.php:384
+#: inc/admin/metaboxes/namespace.php:389
 msgid "Copyright Holder"
 msgstr "Владелец авторских прав"
 
-#: inc/admin/metaboxes/namespace.php:385
+#: inc/admin/metaboxes/namespace.php:390
 msgid "Name of the copyright holder."
 msgstr "Имя владельца авторских прав."
 
-#: inc/admin/metaboxes/namespace.php:394
+#: inc/admin/metaboxes/namespace.php:399
 msgid "Copyright License"
 msgstr "Лицензия авторских прав"
 
-#: inc/admin/metaboxes/namespace.php:395
+#: inc/admin/metaboxes/namespace.php:400
 msgid "You can select various licenses including Creative Commons."
 msgstr "Вы можете выбрать различные лицензии, включая авторские права творческого объединения."
 
-#: inc/admin/metaboxes/namespace.php:403
+#: inc/admin/metaboxes/namespace.php:408
 msgid "Copyright Notice"
 msgstr "Уведомление об авторских правах"
 
-#: inc/admin/metaboxes/namespace.php:404
+#: inc/admin/metaboxes/namespace.php:409
 msgid ""
 "Enter a custom copyright notice, with whatever information you like. This "
 "will override the auto-generated copyright notice if All Rights Reserved or "
@@ -1413,154 +1413,159 @@ msgid ""
 "license text in both the webbook and your exports."
 msgstr "Введите копию пользовательского уведомления об авторских права с любым содержанием, которое вам нравится. Это уведомление заменит собой автоматически сгенерированное уведомление о том, что все права защищены, или о том, что никакая лицензия выбрана не была, и будет помещено после заголовка страницы. Если вы выбрали лицензию творческого объединения, пользовательское уведомление появится после лицензионного текста как в электронной книге, так и в экспортируемом файле."
 
-#: inc/admin/metaboxes/namespace.php:410
+#: inc/admin/metaboxes/namespace.php:418
 msgid "About the Book"
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:418
+#: inc/admin/metaboxes/namespace.php:426
 msgid "Book Tagline"
 msgstr "Подзаголовок книги"
 
-#: inc/admin/metaboxes/namespace.php:419
+#: inc/admin/metaboxes/namespace.php:427
 msgid ""
 "A very short description of your book. It should fit in a Twitter post, and "
 "encapsulate your book in the briefest sentence."
 msgstr "Очень краткое описание Вашей книги. Оно должно помещаться в один пост в Twitter и описывать Вашу книгу несколькими короткими предложениями."
 
-#: inc/admin/metaboxes/namespace.php:427
+#: inc/admin/metaboxes/namespace.php:435
 msgid "Short Description"
 msgstr "Краткое описание"
 
-#: inc/admin/metaboxes/namespace.php:428
+#: inc/admin/metaboxes/namespace.php:436
 msgid ""
 "A short paragraph about your book, for catalogs, reviewers etc. to quote."
 msgstr "Небольшой параграф, описывающий Вашу книгу, для каталогов, технических редакторов и так далее для цитирования."
 
-#: inc/admin/metaboxes/namespace.php:436
+#: inc/admin/metaboxes/namespace.php:447
 msgid "Long Description"
 msgstr "Подробное описание"
 
-#: inc/admin/metaboxes/namespace.php:437
+#: inc/admin/metaboxes/namespace.php:448
 msgid "The full description of your book."
 msgstr "Полное описание вашей книги."
 
-#: inc/admin/metaboxes/namespace.php:441
+#: inc/admin/metaboxes/namespace.php:455
 msgid "Subject(s)"
 msgstr "Тема(-ы)"
 
-#: inc/admin/metaboxes/namespace.php:446
+#: inc/admin/metaboxes/namespace.php:460
 msgid "Additional Catalog Information"
 msgstr "Дополнительная информация о каталоге"
 
-#: inc/admin/metaboxes/namespace.php:454
+#: inc/admin/metaboxes/namespace.php:468
 msgid "Series Title"
 msgstr "Название серии книг"
 
-#: inc/admin/metaboxes/namespace.php:455 inc/admin/metaboxes/namespace.php:463
+#: inc/admin/metaboxes/namespace.php:469 inc/admin/metaboxes/namespace.php:477
 msgid "Add if your book is part of a series."
 msgstr "Добавьте, если Ваша книга является частью серии книг."
 
-#: inc/admin/metaboxes/namespace.php:462
+#: inc/admin/metaboxes/namespace.php:476
 msgid "Series Number"
 msgstr "Номер серии книг"
 
-#: inc/admin/metaboxes/namespace.php:470
+#: inc/admin/metaboxes/namespace.php:484
 msgid "Keywords"
 msgstr "Ключевые слова"
 
-#: inc/admin/metaboxes/namespace.php:472
+#: inc/admin/metaboxes/namespace.php:486
 msgid ""
 "These are added to your webbook cover page, and in your ebook metadata. "
 "Keywords are used by online book stores and search engines."
 msgstr "Они добавляется на обложку и в метаданные Вашей электронной книги. Ключевые слова используются онлайн магазинами электронных книг и поисковыми службами."
 
-#: inc/admin/metaboxes/namespace.php:479
+#: inc/admin/metaboxes/namespace.php:493
 msgid "Hashtag"
 msgstr "Хэштеги"
 
-#: inc/admin/metaboxes/namespace.php:480
+#: inc/admin/metaboxes/namespace.php:494
 msgid ""
 "These are added to your webbook cover page. For those of you who like "
 "Twitter."
 msgstr "Они добавляется на обложку Вашей электронной книги. Для тех из Вас, кому нравится Twitter."
 
-#: inc/admin/metaboxes/namespace.php:487
+#: inc/admin/metaboxes/namespace.php:501
 msgid "List Price (Print)"
 msgstr "Прейскурант (Печать)"
 
-#: inc/admin/metaboxes/namespace.php:488
+#: inc/admin/metaboxes/namespace.php:502
 msgid "The list price of your book in print."
 msgstr "Прейскурант для Вашей книги в печатном издании."
 
-#: inc/admin/metaboxes/namespace.php:495
+#: inc/admin/metaboxes/namespace.php:509
 msgid "List Price (PDF)"
 msgstr "Прейскурант (PDF)"
 
-#: inc/admin/metaboxes/namespace.php:496
+#: inc/admin/metaboxes/namespace.php:510
 msgid "The list price of your book in PDF format."
 msgstr "Прейскурант для Вашей книги в формате PDF."
 
-#: inc/admin/metaboxes/namespace.php:503
+#: inc/admin/metaboxes/namespace.php:517
 msgid "List Price (ebook)"
 msgstr "Прейскурант (электронная книга)"
 
-#: inc/admin/metaboxes/namespace.php:504
+#: inc/admin/metaboxes/namespace.php:518
 msgid "The list price of your book in Ebook formats."
 msgstr "Прейскурант для Вашей книги в формате электронной книги."
 
-#: inc/admin/metaboxes/namespace.php:511
+#: inc/admin/metaboxes/namespace.php:525
 msgid "List Price (Web)"
 msgstr "Прейскурант (онлайн)"
 
-#: inc/admin/metaboxes/namespace.php:512
+#: inc/admin/metaboxes/namespace.php:526
 msgid "The list price of your webbook."
 msgstr "Прейскурант для Вашей книги в онлайн формате."
 
-#: inc/admin/metaboxes/namespace.php:521
+#: inc/admin/metaboxes/namespace.php:535
 msgid "Choose an audience&hellip;"
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:522
+#: inc/admin/metaboxes/namespace.php:536
 msgid "Juvenile"
 msgstr "Подростки"
 
-#: inc/admin/metaboxes/namespace.php:523
+#: inc/admin/metaboxes/namespace.php:537
 msgid "Young Adult"
 msgstr "Молодые люди"
 
-#: inc/admin/metaboxes/namespace.php:524
+#: inc/admin/metaboxes/namespace.php:538
 msgid "Adult"
 msgstr "Взрослые"
 
-#: inc/admin/metaboxes/namespace.php:526
+#: inc/admin/metaboxes/namespace.php:540
 msgid "Audience"
 msgstr "Аудитория"
 
-#: inc/admin/metaboxes/namespace.php:527
+#: inc/admin/metaboxes/namespace.php:541
 msgid "The target audience for your book."
 msgstr "Целевая аудитория, на которую направлена Ваша книга."
 
-#: inc/admin/metaboxes/namespace.php:540
+#: inc/admin/metaboxes/namespace.php:554
 msgid "BISAC Subject(s)"
 msgstr "Тема(-ы) BISAC"
 
-#: inc/admin/metaboxes/namespace.php:542
+#: inc/admin/metaboxes/namespace.php:556
 msgid ""
 "BISAC Subject Headings help libraries and (e)book stores properly classify "
-"your book."
-msgstr "Тематические заголовки BISAC помогают библиотекам и магазинам (электронных) книг правильно классифицировать Вашу книгу."
+"your book. To select the appropriate subject heading for your book, consult "
+"%s"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:556
+msgid "the BISAC Subject Headings list"
+msgstr ""
+
+#: inc/admin/metaboxes/namespace.php:570
 msgid "BISAC Regional Theme"
 msgstr "Областническая тема BISAC"
 
-#: inc/admin/metaboxes/namespace.php:557
+#: inc/admin/metaboxes/namespace.php:571
 msgid ""
 "BISAC Regional Themes help libraries and (e)book stores properly classify "
 "your book."
 msgstr "Областнические темы BISAC помогают библиотекам и магазинам (электронных) книг правильно классифицировать Вашу книгу."
 
-#: inc/admin/metaboxes/namespace.php:567
+#: inc/admin/metaboxes/namespace.php:581
 #: inc/api/endpoints/controller/class-toc.php:209 inc/class-sass.php:78
 #: inc/modules/themeoptions/class-globaloptions.php:533
 #: inc/posttype/namespace.php:64 inc/posttype/namespace.php:535
@@ -1569,128 +1574,136 @@ msgstr "Областнические темы BISAC помогают библи�
 msgid "Chapter"
 msgstr "Глава"
 
-#: inc/admin/metaboxes/namespace.php:572
+#: inc/admin/metaboxes/namespace.php:586
 msgid "%s Metadata"
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:579
+#: inc/admin/metaboxes/namespace.php:593
 msgid ""
 "%s Short Title (appears in the PDF running header and webbook navigation)"
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:586
+#: inc/admin/metaboxes/namespace.php:600
 msgid "%s Subtitle (appears in the Web/ebook/PDF output)"
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:593
+#: inc/admin/metaboxes/namespace.php:607
 msgid "%s Author(s)"
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:607
+#: inc/admin/metaboxes/namespace.php:621
 msgid "%s Copyright License (overrides book license on this page)"
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:614
+#: inc/admin/metaboxes/namespace.php:628
 msgid "%s Digital Object Identifier (DOI)"
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:634
+#: inc/admin/metaboxes/namespace.php:648
 msgid ""
 "Appears on part page. Parts will not appear if a book has only one part."
 msgstr "Отображается на части страницы. Части не отображаются если в книге только одна часть."
 
-#: inc/admin/metaboxes/namespace.php:642
+#: inc/admin/metaboxes/namespace.php:656
 msgid "Part Visibility"
 msgstr "Видимость части"
 
-#: inc/admin/metaboxes/namespace.php:652
+#: inc/admin/metaboxes/namespace.php:666
 msgid "Invisible"
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:653
+#: inc/admin/metaboxes/namespace.php:667
 msgid "Hide from table of contents and part numbering."
 msgstr "Скрыть из содержания и нумерации частей."
 
-#: inc/admin/metaboxes/namespace.php:809
+#: inc/admin/metaboxes/namespace.php:823
 msgid "Show in Glossary Lists"
 msgstr "Показать в списке глоссариев"
 
-#: inc/admin/metaboxes/namespace.php:820
+#: inc/admin/metaboxes/namespace.php:834
 msgid "Preview"
 msgstr "Предпросмотр"
 
 #. translators: accessibility text
-#: inc/admin/metaboxes/namespace.php:822
+#: inc/admin/metaboxes/namespace.php:836
 msgid "(opens in a new window)"
 msgstr "(открывается в новом окне)"
 
-#: inc/admin/metaboxes/namespace.php:831 templates/admin/organize.php:134
+#: inc/admin/metaboxes/namespace.php:845 templates/admin/organize.php:134
 #: templates/admin/organize.php:237 templates/admin/organize.php:293
 #: templates/admin/organize.php:395
 msgid "Show in Web"
 msgstr "Отображать онлайн"
 
-#: inc/admin/metaboxes/namespace.php:835
+#: inc/admin/metaboxes/namespace.php:849
 msgid "Require a Password"
 msgstr "Необходимо ввести пароль"
 
-#: inc/admin/metaboxes/namespace.php:836
+#: inc/admin/metaboxes/namespace.php:850
 msgid "Password..."
 msgstr "Пароль..."
 
-#: inc/admin/metaboxes/namespace.php:840 templates/admin/organize.php:142
+#: inc/admin/metaboxes/namespace.php:854 templates/admin/organize.php:142
 #: templates/admin/organize.php:241 templates/admin/organize.php:301
 #: templates/admin/organize.php:399
 msgid "Show in Exports"
 msgstr "Отображать в экспортируемом"
 
-#: inc/admin/metaboxes/namespace.php:844 templates/admin/organize.php:149
+#: inc/admin/metaboxes/namespace.php:858 templates/admin/organize.php:149
 #: templates/admin/organize.php:245 templates/admin/organize.php:309
 #: templates/admin/organize.php:403
 msgid "Show Title"
 msgstr "Показать заголовок"
 
-#: inc/admin/metaboxes/namespace.php:1028
+#: inc/admin/metaboxes/namespace.php:1042
 msgid "Primary Subject"
 msgstr "Основная тема"
 
-#: inc/admin/metaboxes/namespace.php:1032
+#: inc/admin/metaboxes/namespace.php:1046
 msgid ""
-"This appears on the web homepage of your book and helps categorize it in "
-"your network catalog (if applicable). Use %s to determine which subject "
-"category is best for your book."
+"%1$s subject terms appear on the web homepage of your book and help "
+"categorize your book in your network catalog and Pressbooks Directory (if "
+"applicable). Use %2$s to determine which subject category is best for your "
+"book."
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:1032
-#: inc/admin/metaboxes/namespace.php:1045
-msgid "these instructions"
-msgstr "эти инструкции"
+#: inc/admin/metaboxes/namespace.php:1046
+#: inc/admin/metaboxes/namespace.php:1059
+msgid "Thema"
+msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:1035
+#: inc/admin/metaboxes/namespace.php:1046
+#: inc/admin/metaboxes/namespace.php:1059
+msgid "the Thema subject category list"
+msgstr ""
+
+#: inc/admin/metaboxes/namespace.php:1049
 msgid "Additional Subject(s)"
 msgstr "Дополнительная(-ые) тема(-ы)"
 
-#: inc/admin/metaboxes/namespace.php:1045
+#: inc/admin/metaboxes/namespace.php:1059
 msgid ""
-"This appears on the web homepage of your book. Use %s to determine which "
-"additional subject categories are appropriate for your book."
+"%1$s subject terms appear on the web homepage of your book and help "
+"categorize your book in your network catalog and Pressbooks Directory (if "
+"applicable). Use %2$s to determine which additional subject categories are "
+"appropriate for your book."
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:1129
-#: inc/admin/metaboxes/namespace.php:1151
+#: inc/admin/metaboxes/namespace.php:1143
+#: inc/admin/metaboxes/namespace.php:1165
 msgid "First Name"
 msgstr "Имя"
 
-#: inc/admin/metaboxes/namespace.php:1134
-#: inc/admin/metaboxes/namespace.php:1158
+#: inc/admin/metaboxes/namespace.php:1148
+#: inc/admin/metaboxes/namespace.php:1172
 msgid "Last Name"
 msgstr "Фамилия"
 
-#: inc/admin/metaboxes/namespace.php:1200
+#: inc/admin/metaboxes/namespace.php:1214
 msgid "Name cannot be left blank."
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:1234
+#: inc/admin/metaboxes/namespace.php:1248
 msgid "Owner"
 msgstr "Владелец"
 
@@ -1853,11 +1866,11 @@ msgstr "Не удалось обновить часть главы"
 msgid "Main Body"
 msgstr "Основная часть"
 
-#: inc/class-activation.php:211 tests/test-book.php:49
+#: inc/class-activation.php:211 tests/test-book.php:50
 msgid "Introduction"
 msgstr "Вступление"
 
-#: inc/class-activation.php:213 tests/test-book.php:90
+#: inc/class-activation.php:213 tests/test-book.php:101
 msgid "This is where you can write your introduction."
 msgstr "Тут Вы можете написать своё вступление."
 
@@ -2727,6 +2740,12 @@ msgid ""
 "all available fields."
 msgstr "Если Вам необходимо ввести дополнительную информацию, нажмите на кнопку ниже, чтобы увидеть доступные поля."
 
+#: inc/metadata/namespace.php:1232
+msgid ""
+"The %1$s Thema subject terms requested for this book could not be downloaded"
+" from %2$s. Please report this error to your network manager."
+msgstr ""
+
 #: inc/modules/export/class-export.php:794
 msgid "%s: Initializing"
 msgstr ""
@@ -3113,11 +3132,11 @@ msgctxt ""
 msgid "Imported %1$s, %2$s, %3$s, %4$s, %5$s, and %6$s."
 msgstr ""
 
-#: inc/modules/searchandreplace/class-search.php:138
+#: inc/modules/searchandreplace/class-search.php:140
 msgid "Invalid regular expression"
 msgstr "Неправильное регулярное выражение"
 
-#: inc/modules/searchandreplace/class-search.php:146
+#: inc/modules/searchandreplace/class-search.php:148
 msgid "No search pattern."
 msgstr "Нет поискового набора."
 

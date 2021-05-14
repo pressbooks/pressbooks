@@ -77,6 +77,12 @@ class SearchResultTest extends \WP_UnitTestCase {
 		foreach ( $results as $result ) {
 			$this->assertContains( 'sadness', $result->content );
 		}
+
+		$this->content->regex = false;
+		$results = $this->content->searchAndReplace( 'sadness', '<img src=# onerror=alert(document.cookie)>', 0, 0, 'asc', true );
+		foreach ( $results as $result ) {
+			$this->assertContains( '<img src="#" alt="image" />', $result->content );
+		}
 	}
 
 }

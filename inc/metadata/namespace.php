@@ -424,7 +424,7 @@ function book_information_to_schema( $book_information, $network_excluded_direct
 	if ( isset( $book_information['site_name'] ) ) {
 		$book_schema['network'] = [
 			'@type' => 'Network',
-			'host' => wp_parse_url( $book_information['pb_book_url'], PHP_URL_HOST ),
+			'host' => wp_parse_url( network_home_url(), PHP_URL_HOST ),
 			'name' => $book_information['site_name'],
 		];
 	}
@@ -869,6 +869,38 @@ function schema_to_section_information( $section_schema, $book_schema ) {
 	return $section_information;
 }
 
+/**
+ * @return mixed|void
+ */
+function get_book_metadata_lang() {
+	if ( Book::isBook() ) {
+		$locale = get_book_language();
+	} else {
+		$locale = substr( get_locale(), 0, 2 );
+	}
+	/**
+	 * @since  5.9.1
+	 * @param string $locale
+	 */
+	return apply_filters( 'pb_thema_subjects_locale', $locale );
+}
+
+
+/**
+ * This function returns the current's book language thema file if exists otherwise returns false
+ * @return false|string
+ */
+function get_thema_lang_file() {
+
+	$locale = get_book_metadata_lang();
+
+	$thema_files_path = WP_CONTENT_DIR . '/uploads/assets/thema/symbionts/';
+
+	$thema_file = "{$thema_files_path}{$locale}.json";
+
+	return file_exists( $thema_file ) ? $thema_file : false;
+}
+
 
 /**
  * Return an array of Thema subject categories.
@@ -880,19 +912,13 @@ function schema_to_section_information( $section_schema, $book_schema ) {
  * @return array
  */
 function get_thema_subjects( $include_qualifiers = false ) {
-	if ( \Pressbooks\Book::isBook() ) {
-		$locale = substr( get_book_language(), 0, 2 );
-	} else {
-		$locale = substr( get_locale(), 0, 2 );
-	}
-	/**
-	 * @since  5.9.1
-	 * @param string $locale
-	 */
-	$locale = apply_filters( 'pb_thema_subjects_locale', $locale );
 
-	$lang = ( in_array( $locale, [ 'de', 'en', 'es', 'fr', 'pt' ], true ) ) ? $locale : 'en';
-	$json = get_contents( PB_PLUGIN_DIR . "symbionts/thema/thema-${lang}.json" );
+	$thema_file = get_thema_lang_file();
+
+	$thema_json = file_exists( $thema_file ) ? $thema_file : PB_PLUGIN_DIR . 'symbionts/thema/en.json';
+
+	$json = get_contents( $thema_json );
+
 	$values = json_decode( $json );
 	$subjects = [];
 	foreach ( $values->CodeList->ThemaCodes->Code as $code ) {
@@ -1160,4 +1186,79 @@ function get_in_catalog_option() {
 		// Fallback to old pressbooks-publisher value
 		return 'pressbooks_publisher_in_catalog';
 	}
+}
+
+/**
+ * This function download the thema subjects from the pressbooks symbionts repo when the book metadata is updated
+ * @param $meta_id
+ * @param $post_id
+ * @param $meta_key
+ * @param $meta_value
+ * @return true|false
+ */
+function download_thema_lang( $meta_id, $post_id, $meta_key, $meta_value ) {
+	if ( 'pb_language' !== $meta_key || $meta_value === 'en' ) {
+		return false;
+	}
+
+	$thema_lang = $meta_value;
+
+	$thema_lang_baseurl = 'https://raw.githubusercontent.com/pressbooks/symbionts-thema/main/';
+
+	$basepath = WP_CONTENT_DIR . '/uploads/assets/thema/symbionts/';
+
+	$local_file = "{$basepath}{$thema_lang}.json";
+
+	if ( ! is_dir( $basepath ) ) {
+		mkdir( $basepath, 0755, true );
+	}
+
+	$download_file = "{$thema_lang_baseurl}{$thema_lang}.json";
+
+	// Check if there is a thema file available for download if not just skip the downloading request
+	$response = wp_remote_head( $download_file );
+	$status = wp_remote_retrieve_response_code( $response );
+
+	// Proceed to download the file
+	if ( $status === 200 ) {
+		if ( ! file_exists( $local_file ) ) {
+			if ( ! function_exists( 'download_url' ) ) {
+				require_once( ABSPATH . 'wp-admin/includes/file.php' );
+			}
+			// If a file is available for download download the file
+			$downloaded = download_url( $download_file );
+			if ( is_wp_error( $downloaded ) ) {
+				$_SESSION['pb_errors'][] = sprintf(
+					__(
+						'The %1$s Thema subject terms requested for this book could not be downloaded from %2$s. Please report this error to your network manager.',
+						'pressbooks'
+					),
+					$thema_lang,
+					'<code>' . $download_file . '</code>'
+				);
+				return false;
+			} else {
+				copy( $downloaded, $local_file );
+				return unlink( $downloaded );
+			}
+		}
+	}
+
+	return false;
+}
+
+/**
+ * Download thema file if the thema lang file is not downloaded
+ * @param $post
+ */
+function check_thema_lang_file( $post ) {
+
+	if ( $post->post_type !== 'metadata' ) {
+		return;
+	}
+
+	if ( ! get_thema_lang_file() ) {
+		download_thema_lang( $post, $post->ID, 'pb_language', get_book_metadata_lang() );
+	}
+
 }

@@ -6,6 +6,8 @@
 
 namespace Pressbooks\Modules\SearchAndReplace;
 
+use function Pressbooks\Sanitize\sanitize_string;
+
 abstract class Search {
 
 	/** @var mixed */
@@ -96,7 +98,7 @@ abstract class Search {
 			$replace = str_replace( '\\', '\\\\', $replace );
 			$replace = str_replace( '$', '\\$', $replace );
 		}
-		$this->replace = $replace;
+		$this->replace = sanitize_string( $replace, true );
 		$results = $this->searchForPattern( $search, $limit, $offset, $orderby );
 		if ( is_array( $results ) && $save ) {
 			$this->replace( $results );

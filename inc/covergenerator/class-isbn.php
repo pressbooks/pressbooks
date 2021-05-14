@@ -242,6 +242,7 @@ class Isbn {
 	 */
 	public function crop( $path_to_png, $border = '20x20' ) {
 
+		$border = escapeshellarg( $border );
 		$command = PB_CONVERT_COMMAND . ' ' . escapeshellarg( $path_to_png ) . " -trim +repage -bordercolor white -border {$border} " . escapeshellarg( $path_to_png );
 
 		// Execute command

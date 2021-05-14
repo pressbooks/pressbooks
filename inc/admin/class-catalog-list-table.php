@@ -535,7 +535,8 @@ class Catalog_List_Table extends \WP_List_Table {
 					/* translators: %s: search keywords, %d: total items found */
 					$search_results = sprintf( __( 'Search results for &#8220;%1$s&#8221; returned %2$d items', 'pressbooks' ), esc_html( wp_unslash( $_REQUEST['s'] ) ), $total_items );
 				}
-				echo '<span class="subtitle">' . $search_results . '</span>';
+				echo '<span id="search-results" class="subtitle" role="alert"></span>';
+				echo '<script>window.addEventListener("load", function(event){document.getElementById("search-results").innerHTML="' . $search_results . '";});</script>';
 			}
 			?>
 			<div class="postbox">

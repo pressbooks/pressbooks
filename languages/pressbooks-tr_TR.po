@@ -1,16 +1,16 @@
-# Copyright (C) 2020 Pressbooks (Book Oven Inc.)
+# Copyright (C) 2021 Pressbooks (Book Oven Inc.)
 # This file is distributed under the same license as the Pressbooks plugin.
 # Translators:
 # Antonio D., 2017
 # ayse tekbas <ayse.tekbas@gmail.com>, 2016
-# Mustafa Bulun <mustafa.bulun@bizimajans.com>, 2020
+# Mustafa Bulun <mustafa.bulun@bizimajans.com>, 2020-2021
 # Antonio D., 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
-"POT-Creation-Date: 2020-11-17T22:39:26+00:00\n"
-"PO-Revision-Date: 2020-11-17 22:39+0000\n"
+"POT-Creation-Date: 2021-04-27T16:11:58+00:00\n"
+"PO-Revision-Date: 2021-03-27 01:03+0000\n"
 "Last-Translator: Ho Man Chan <homan@pressbooks.com>\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/pressbooks/pressbooks/language/tr_TR/)\n"
 "MIME-Version: 1.0\n"
@@ -167,13 +167,13 @@ msgstr "Yöneticiyi Ziyaret et"
 
 #: inc/admin/class-catalog-list-table.php:106
 #: inc/admin/class-catalog-list-table.php:276
-#: inc/admin/class-catalog-list-table.php:547
+#: inc/admin/class-catalog-list-table.php:548
 msgid "Hide in Catalog"
 msgstr "Katalogda gizle"
 
 #: inc/admin/class-catalog-list-table.php:111
 #: inc/admin/class-catalog-list-table.php:275
-#: inc/admin/class-catalog-list-table.php:545
+#: inc/admin/class-catalog-list-table.php:546
 msgid "Show in Catalog"
 msgstr "Katalogda göster"
 
@@ -192,7 +192,7 @@ msgstr "Kapak"
 
 #: inc/admin/class-catalog-list-table.php:234
 #: inc/admin/covergenerator/namespace.php:69
-#: inc/admin/metaboxes/namespace.php:187 templates/admin/import.php:90
+#: inc/admin/metaboxes/namespace.php:192 templates/admin/import.php:90
 msgid "Title"
 msgstr "Başlık"
 
@@ -250,46 +250,46 @@ msgstr "&#8220 için arama sonuçları;%s&#8221; 1 sonuç bulundu"
 msgid "Search results for &#8220;%1$s&#8221; returned %2$d items"
 msgstr "&#8220 için arama sonuçları;%1$s&#8221; %2$d sonuç bulundu."
 
-#: inc/admin/class-catalog-list-table.php:543
+#: inc/admin/class-catalog-list-table.php:544
 msgid "Organize your public Catalog page."
 msgstr "Genel Katalog sayfanızı düzenleyin."
 
-#: inc/admin/class-catalog-list-table.php:544
+#: inc/admin/class-catalog-list-table.php:545
 msgid "Show/Hide books"
 msgstr "Kitapları Göster/Gizle"
 
-#: inc/admin/class-catalog-list-table.php:545
+#: inc/admin/class-catalog-list-table.php:546
 msgid "To display a book in your catalog choose \"%s\" under Catalog Status. "
 msgstr "Kataloğunuzda bir kitap görüntülemek için Katalog Durumu altındaki \"%s\" seçeneğini seçiniz."
 
-#: inc/admin/class-catalog-list-table.php:547
+#: inc/admin/class-catalog-list-table.php:548
 msgid "To hide a book in your catalog choose \"%s\" under Catalog Status."
 msgstr "Kataloğunuzdaki bir kitabı gizlemek için Katalog Durumu altındaki \"%s\" seçeneğini seçiniz."
 
-#: inc/admin/class-catalog-list-table.php:550
+#: inc/admin/class-catalog-list-table.php:551
 msgid "Catalog sorting"
 msgstr "Katalog sıralaması"
 
-#: inc/admin/class-catalog-list-table.php:551
+#: inc/admin/class-catalog-list-table.php:552
 msgid ""
 "To add sorting ability, add your Tag names to your <a href=\"%s\">Catalog "
 "Profile</a> page (ex: Authors, Book Genre), then add the appropriate tags to"
 " each individual book."
 msgstr "Sıralama kabiliyeti eklemek için, isimleri<a href=\"%s\">Katalog Profil</a> sayfasına (örn: Yazarlar, Kitap Türleri) etiketleyiniz, ve ardından her bir kitaba uygun etiketleri ekleyiniz."
 
-#: inc/admin/class-catalog-list-table.php:553
+#: inc/admin/class-catalog-list-table.php:554
 msgid "Share your catalog"
 msgstr "Kataloğunuzu paylaşın"
 
-#: inc/admin/class-catalog-list-table.php:554
+#: inc/admin/class-catalog-list-table.php:555
 msgid "The public link to your catalog page"
 msgstr "Katalog sayfanıza genel erişim linki"
 
-#: inc/admin/class-catalog-list-table.php:567
+#: inc/admin/class-catalog-list-table.php:568
 msgid "Add By URL"
 msgstr "URL ile ekle"
 
-#: inc/admin/class-catalog-list-table.php:578 templates/admin/search.php:81
+#: inc/admin/class-catalog-list-table.php:579 templates/admin/search.php:81
 msgid "Search"
 msgstr "Ara"
 
@@ -307,19 +307,19 @@ msgstr "Evet."
 
 #: inc/admin/class-exportoptions.php:72
 msgid "Email me validation error logs on export."
-msgstr "İhracat doğrulama hata günlüklerini bana e-postayla gönder."
+msgstr "Dışa aktarma sırasında doğrulama hata günlüklerini bana e-postayla gönder."
 
 #: inc/admin/class-exportoptions.php:79
 msgid "Lock Theme"
-msgstr "Konuyu Kilitle"
+msgstr "Temayı Kilitle"
 
 #: inc/admin/class-exportoptions.php:84
 msgid "Lock your theme at its current version."
-msgstr "Konuyu son halinde kilitle."
+msgstr "Temayı son halinde kilitle."
 
 #: inc/admin/class-exportoptions.php:100
 msgid "Export settings."
-msgstr "Ayarları aktar."
+msgstr "Dışa aktarma ayarları"
 
 #: inc/admin/class-exportoptions.php:166
 msgid ""
@@ -329,7 +329,7 @@ msgstr "Bu, temalar güncellendiğinde kitap görünümündeki ve sayfa sayısı
 
 #: inc/admin/class-exportoptions.php:186 inc/admin/laf/namespace.php:364
 msgid "Export Settings"
-msgstr "Ayarları Aktar"
+msgstr "Dışa aktarma ayarları"
 
 #: inc/admin/class-network-managers-list-table.php:76
 #: inc/admin/class-network-managers-list-table.php:80
@@ -449,7 +449,7 @@ msgid "Title (Spine)"
 msgstr "Başlık (Sırt)"
 
 #: inc/admin/covergenerator/namespace.php:91
-#: inc/admin/metaboxes/namespace.php:202
+#: inc/admin/metaboxes/namespace.php:207
 msgid "Subtitle"
 msgstr "Alt Başlık"
 
@@ -701,7 +701,7 @@ msgstr "Ayrıca kitabın yazarı veya kurumun Pressbooks Ağ Yöneticisi ile ile
 msgid "Table of Contents"
 msgstr "İçindekiler"
 
-#: inc/admin/dashboard/namespace.php:188 inc/admin/metaboxes/namespace.php:566
+#: inc/admin/dashboard/namespace.php:188 inc/admin/metaboxes/namespace.php:580
 #: inc/api/endpoints/controller/class-toc.php:192
 #: inc/posttype/namespace.php:115 inc/posttype/namespace.php:116
 #: inc/posttype/namespace.php:538 templates/admin/import.php:91
@@ -709,7 +709,7 @@ msgstr "İçindekiler"
 msgid "Front Matter"
 msgstr "Ön bölüm"
 
-#: inc/admin/dashboard/namespace.php:229 inc/admin/metaboxes/namespace.php:568
+#: inc/admin/dashboard/namespace.php:229 inc/admin/metaboxes/namespace.php:582
 #: inc/api/endpoints/controller/class-toc.php:225
 #: inc/posttype/namespace.php:143 inc/posttype/namespace.php:144
 #: inc/posttype/namespace.php:541 templates/admin/import.php:96
@@ -941,7 +941,7 @@ msgstr "Katkıda bulunanlar"
 #: inc/admin/laf/namespace.php:306 inc/admin/laf/namespace.php:364
 #: templates/admin/organize.php:64 templates/admin/export.blade.php:11
 msgid "Export"
-msgstr "İhraç et"
+msgstr "Dışa Aktar"
 
 #: inc/admin/laf/namespace.php:319
 msgid "Are you sure you want to delete these export files?"
@@ -984,7 +984,7 @@ msgstr "QuickLaTeX"
 #: inc/admin/laf/namespace.php:378 templates/admin/import.php:38
 #: templates/admin/import.php:114
 msgid "Import"
-msgstr "İthal et"
+msgstr "İçe aktar"
 
 #: inc/admin/laf/namespace.php:386
 msgid ""
@@ -1025,7 +1025,7 @@ msgstr "Kitaplar"
 
 #: inc/admin/laf/namespace.php:756
 msgid "Themes"
-msgstr "Şablonlar"
+msgstr "Temalar"
 
 #: inc/admin/laf/namespace.php:764
 msgid "Plugins"
@@ -1065,7 +1065,7 @@ msgstr "Yorumları Devre Dışı Bırak"
 
 #: inc/admin/laf/namespace.php:1187
 msgid "Share Latest Export Files"
-msgstr "En Güncel İhraç Dosyalarını Paylaş"
+msgstr "En Güncel Dışa Aktarılan Dosyaları Paylaş"
 
 #: inc/admin/laf/namespace.php:1217
 msgid "Pressbooks Directory"
@@ -1112,13 +1112,13 @@ msgstr "Hayır. Manüel olarak devre dışı bırakmadıkça tüm ön konular, b
 msgid ""
 "Yes. I would like the latest export files to be available on the homepage "
 "for free, to everyone."
-msgstr "Evet. En güncel ihraç dosyalarının, ana sayfadan ücretsiz olarak, herkese açık olmasını istiyorum."
+msgstr "Evet. En güncel dışa aktarım dosyalarının, ana sayfadan ücretsiz olarak, herkese açık olmasını istiyorum."
 
 #: inc/admin/laf/namespace.php:1335
 msgid ""
 "No. I would like the latest export files to only be available to "
 "administrators."
-msgstr "Hayır. En güncel ihraç dosyalarının yalnızca yöneticilere açık olmasını istiyorum."
+msgstr "Hayır. En güncel dışa aktarım dosyalarının yalnızca yöneticilere açık olmasını istiyorum."
 
 #: inc/admin/laf/namespace.php:1354
 msgid "Yes. I want this book to be listed in the Pressbooks directory."
@@ -1182,23 +1182,23 @@ msgstr "Öncekini Düzenle (%s)"
 msgid "Edit Next (%s)"
 msgstr "Sonrakini Düzenle (%s)"
 
-#: inc/admin/metaboxes/namespace.php:93
+#: inc/admin/metaboxes/namespace.php:98
 msgid ""
 "Your cover image (%1$s x %1$s) is too small. It should be 625px on the "
 "shortest side."
 msgstr "Kapak resminiz (%1$s x %1$s) olması gerekenden küçük. Kısa kenarının 625px olması gerekmektedir."
 
-#: inc/admin/metaboxes/namespace.php:99
+#: inc/admin/metaboxes/namespace.php:104
 msgid "Your cover image (%s) is too big. It should be no more than 2MB."
 msgstr "Kapak resminiz (%s) olması gerekenden büyük. 2MB'dan büyük olmamalıdır."
 
-#: inc/admin/metaboxes/namespace.php:116 inc/admin/metaboxes/namespace.php:173
+#: inc/admin/metaboxes/namespace.php:121 inc/admin/metaboxes/namespace.php:178
 #: inc/class-metadata.php:449
 msgid "Cover Image"
 msgstr "Kapak resmi"
 
-#: inc/admin/metaboxes/namespace.php:159 inc/admin/metaboxes/namespace.php:623
-#: inc/admin/metaboxes/namespace.php:685
+#: inc/admin/metaboxes/namespace.php:164 inc/admin/metaboxes/namespace.php:637
+#: inc/admin/metaboxes/namespace.php:699
 #: inc/api/endpoints/controller/class-toc.php:202 inc/class-sass.php:89
 #: inc/modules/export/epub/class-epub201.php:1868
 #: inc/modules/themeoptions/class-globaloptions.php:532
@@ -1208,154 +1208,154 @@ msgstr "Kapak resmi"
 msgid "Part"
 msgstr "Parça"
 
-#: inc/admin/metaboxes/namespace.php:163
+#: inc/admin/metaboxes/namespace.php:168
 msgid "Save Part"
 msgstr "Parçayı kaydet"
 
-#: inc/admin/metaboxes/namespace.php:164
+#: inc/admin/metaboxes/namespace.php:169
 msgid "Save Book Information"
 msgstr "Kitap bilgisini kaydet"
 
-#: inc/admin/metaboxes/namespace.php:165
+#: inc/admin/metaboxes/namespace.php:170
 msgid "Status & Visibility"
 msgstr "Durum ve Görünürlük"
 
-#: inc/admin/metaboxes/namespace.php:179
+#: inc/admin/metaboxes/namespace.php:184
 msgid "General Book Information"
 msgstr "Genel Kitap Bilgisi"
 
-#: inc/admin/metaboxes/namespace.php:194
+#: inc/admin/metaboxes/namespace.php:199
 msgid "Short Title"
 msgstr "Kısa Başlık"
 
-#: inc/admin/metaboxes/namespace.php:195
+#: inc/admin/metaboxes/namespace.php:200
 msgid ""
 "In case of long titles that might be truncated in running heads in the PDF "
 "export."
 msgstr "PDF ihracında uzun isimlerin sayfa başlıklarında kırpılabilmesi durumunda."
 
-#: inc/admin/metaboxes/namespace.php:209
+#: inc/admin/metaboxes/namespace.php:214
 msgid "Author(s)"
 msgstr "Yazar / Yazarlar"
 
-#: inc/admin/metaboxes/namespace.php:213 inc/admin/metaboxes/namespace.php:225
-#: inc/admin/metaboxes/namespace.php:237 inc/admin/metaboxes/namespace.php:249
-#: inc/admin/metaboxes/namespace.php:261 inc/admin/metaboxes/namespace.php:273
-#: inc/admin/metaboxes/namespace.php:597
+#: inc/admin/metaboxes/namespace.php:218 inc/admin/metaboxes/namespace.php:230
+#: inc/admin/metaboxes/namespace.php:242 inc/admin/metaboxes/namespace.php:254
+#: inc/admin/metaboxes/namespace.php:266 inc/admin/metaboxes/namespace.php:278
+#: inc/admin/metaboxes/namespace.php:611
 msgid "Create New Contributor"
 msgstr "Yeni Katkıda Bulunan Oluşturun"
 
-#: inc/admin/metaboxes/namespace.php:214 inc/admin/metaboxes/namespace.php:598
+#: inc/admin/metaboxes/namespace.php:219 inc/admin/metaboxes/namespace.php:612
 msgid "Choose author(s)..."
 msgstr "Yazar seçin"
 
-#: inc/admin/metaboxes/namespace.php:221
+#: inc/admin/metaboxes/namespace.php:226
 msgid "Editor(s)"
 msgstr "Editör / Editörler"
 
-#: inc/admin/metaboxes/namespace.php:226
+#: inc/admin/metaboxes/namespace.php:231
 msgid "Choose editor(s)..."
 msgstr "Editör seçin"
 
-#: inc/admin/metaboxes/namespace.php:233
+#: inc/admin/metaboxes/namespace.php:238
 msgid "Translator(s)"
 msgstr "Çevirmen / Çevirmenler"
 
-#: inc/admin/metaboxes/namespace.php:238
+#: inc/admin/metaboxes/namespace.php:243
 msgid "Choose translator(s)..."
 msgstr "Çevirmen seçin"
 
-#: inc/admin/metaboxes/namespace.php:245
+#: inc/admin/metaboxes/namespace.php:250
 msgid "Reviewer(s)"
 msgstr "Gözden geçiren"
 
-#: inc/admin/metaboxes/namespace.php:250
+#: inc/admin/metaboxes/namespace.php:255
 msgid "Choose reviewer(s)..."
 msgstr "Gözden geçirenleri seçiniz"
 
-#: inc/admin/metaboxes/namespace.php:257
+#: inc/admin/metaboxes/namespace.php:262
 msgid "Illustrator(s)"
 msgstr "Çizim yapanlar"
 
-#: inc/admin/metaboxes/namespace.php:262
+#: inc/admin/metaboxes/namespace.php:267
 msgid "Choose illustrator(s)..."
 msgstr "Çizim yapanları seçiniz"
 
-#: inc/admin/metaboxes/namespace.php:269
+#: inc/admin/metaboxes/namespace.php:274
 msgid "Contributor(s)"
 msgstr "Katkıda bulunanlar"
 
-#: inc/admin/metaboxes/namespace.php:274
+#: inc/admin/metaboxes/namespace.php:279
 msgid "Choose contributor(s)..."
 msgstr "Katkıda bulunanları seçiniz"
 
-#: inc/admin/metaboxes/namespace.php:281
+#: inc/admin/metaboxes/namespace.php:286
 msgid "Publisher"
 msgstr "Yayınevi"
 
-#: inc/admin/metaboxes/namespace.php:282 inc/admin/metaboxes/namespace.php:290
+#: inc/admin/metaboxes/namespace.php:287 inc/admin/metaboxes/namespace.php:295
 msgid "This text appears on the title page of your book."
 msgstr "Bu yazı kitabının baş sayfasında görünüyor."
 
-#: inc/admin/metaboxes/namespace.php:289
+#: inc/admin/metaboxes/namespace.php:294
 msgid "Publisher City"
 msgstr "Yayınevi Şehri"
 
-#: inc/admin/metaboxes/namespace.php:298
+#: inc/admin/metaboxes/namespace.php:303
 msgid "Publication Date"
 msgstr "Yayımlanma Tarihi"
 
-#: inc/admin/metaboxes/namespace.php:299 inc/admin/metaboxes/namespace.php:309
+#: inc/admin/metaboxes/namespace.php:304 inc/admin/metaboxes/namespace.php:314
 msgid ""
 "This is added to the metadata in your ebook. Please write date in YYYY-MM-DD"
 " format."
 msgstr "Bu, e-kitabınızdaki meta verilere eklenir. Lütfen tarihi YYYY-AA-GG formatında yazın."
 
-#: inc/admin/metaboxes/namespace.php:308
+#: inc/admin/metaboxes/namespace.php:313
 msgid "On-Sale Date"
 msgstr "Satış tarihi"
 
-#: inc/admin/metaboxes/namespace.php:317
+#: inc/admin/metaboxes/namespace.php:322
 msgid "Ebook ISBN"
 msgstr "E-kitap ISBN"
 
-#: inc/admin/metaboxes/namespace.php:318
+#: inc/admin/metaboxes/namespace.php:323
 msgid ""
 "ISBN is the International Standard Book Number, and you'll need one if you "
 "want to sell your book in some online ebook stores. This is added to the "
 "metadata in your ebook."
 msgstr "ISBN Uluslararası Standart Kitap Numarası'dır ve e-kitap mağazalarında kitaplarınızı online olarak satmak istiyorsanız bu kitap numarasına sahip olmanız gerekmektedir. Bu numara e-kitabınızın metaverisine eklenir."
 
-#: inc/admin/metaboxes/namespace.php:325
+#: inc/admin/metaboxes/namespace.php:330
 msgid "Print ISBN"
 msgstr "ISBN'yi yazdır."
 
-#: inc/admin/metaboxes/namespace.php:326
+#: inc/admin/metaboxes/namespace.php:331
 msgid ""
 "ISBN is the International Standard Book Number, and you'll need one if you "
 "want to sell your book in online and physical book stores."
 msgstr "ISBN Uluslararası Standart Kitap Numarası'dır ve kitabınızı online veya basılı olarak satmak istediğinizde bu numarayı kullanmanız gerekmektedir."
 
-#: inc/admin/metaboxes/namespace.php:333
+#: inc/admin/metaboxes/namespace.php:338
 msgid "Digital Object Identifier (DOI)"
 msgstr "Digital Object Identifier (DOI)"
 
-#: inc/admin/metaboxes/namespace.php:342
+#: inc/admin/metaboxes/namespace.php:347
 msgid "Language"
 msgstr "Dil"
 
-#: inc/admin/metaboxes/namespace.php:343
+#: inc/admin/metaboxes/namespace.php:348
 msgid ""
 "This sets metadata in your ebook, making it easier to find in some stores. "
 "It also changes some system generated content for supported languages, such "
 "as the \"Contents\" header."
 msgstr "Bu e-kitabınızdaki metaveriyi belirler ve mağazalarda bulunmasını kolaylaştırır. Ayrıca desteklenen diller için ''İçerikler'' başlığı gibi sistemce üretilen bazı içerikleri de değiştirir. "
 
-#: inc/admin/metaboxes/namespace.php:343
+#: inc/admin/metaboxes/namespace.php:348
 msgid "Help translate Pressbooks into your language!"
 msgstr "Pressbook'un kendi dilinize çevrilmesine yardım edin!"
 
-#: inc/admin/metaboxes/namespace.php:350 inc/class-licensing.php:306
+#: inc/admin/metaboxes/namespace.php:355 inc/class-licensing.php:306
 #: inc/modules/export/epub/class-epub201.php:1135
 #: inc/modules/export/epub/class-epub201.php:1161
 #: inc/modules/export/epub/templates/epub3/opf.php:95
@@ -1365,45 +1365,45 @@ msgstr "Pressbook'un kendi dilinize çevrilmesine yardım edin!"
 msgid "Copyright"
 msgstr "Telif Hakkı"
 
-#: inc/admin/metaboxes/namespace.php:363 templates/admin/cloner.php:20
+#: inc/admin/metaboxes/namespace.php:368 templates/admin/cloner.php:20
 msgid "Source Book URL"
 msgstr "Kaynak Kitap URL"
 
-#: inc/admin/metaboxes/namespace.php:365
+#: inc/admin/metaboxes/namespace.php:370
 msgid ""
 "This book was cloned from a pre-existing book at the above URL. This "
 "information will be displayed on the webbook homepage."
 msgstr "Bu kitap, yukarıdaki URL’de önceden var olan bir kitaptan klonlandı. Bu bilgiler webkitabı ana sayfasında gösterilecektir."
 
-#: inc/admin/metaboxes/namespace.php:375
+#: inc/admin/metaboxes/namespace.php:380
 msgid "Copyright Year"
 msgstr "Telif Hakkı Yılı"
 
-#: inc/admin/metaboxes/namespace.php:376
+#: inc/admin/metaboxes/namespace.php:381
 msgid "Year that the book is/was published."
 msgstr "Kıtabın yayınlandığı tarihi"
 
-#: inc/admin/metaboxes/namespace.php:384
+#: inc/admin/metaboxes/namespace.php:389
 msgid "Copyright Holder"
 msgstr "Telif Hakkı Sahibi"
 
-#: inc/admin/metaboxes/namespace.php:385
+#: inc/admin/metaboxes/namespace.php:390
 msgid "Name of the copyright holder."
 msgstr "Telif hakkı sahibinin adı."
 
-#: inc/admin/metaboxes/namespace.php:394
+#: inc/admin/metaboxes/namespace.php:399
 msgid "Copyright License"
 msgstr "Telif Hakkı Lisansı"
 
-#: inc/admin/metaboxes/namespace.php:395
+#: inc/admin/metaboxes/namespace.php:400
 msgid "You can select various licenses including Creative Commons."
 msgstr "Creative Commons'da dahil olmak üzere farklı türlerde lisanslar seçebilirsiniz. "
 
-#: inc/admin/metaboxes/namespace.php:403
+#: inc/admin/metaboxes/namespace.php:408
 msgid "Copyright Notice"
 msgstr "Telif hakkı bildirimi"
 
-#: inc/admin/metaboxes/namespace.php:404
+#: inc/admin/metaboxes/namespace.php:409
 msgid ""
 "Enter a custom copyright notice, with whatever information you like. This "
 "will override the auto-generated copyright notice if All Rights Reserved or "
@@ -1412,154 +1412,159 @@ msgid ""
 "license text in both the webbook and your exports."
 msgstr "İstediğiniz bilgilerle birlikte özel bir telif hakkı bildirimi girin. Bu, Tüm Hakları Saklıdır veya lisans yok seçilirse, otomatik olarak oluşturulan telif hakkı bildirimini geçersiz kılar ve başlık sayfasından sonra eklenir. Bir Creative Commons lisansı seçerseniz, özel bildirim hem web kitabında hem de dışa aktardığınızda lisans metninden sonra görünecektir."
 
-#: inc/admin/metaboxes/namespace.php:410
+#: inc/admin/metaboxes/namespace.php:418
 msgid "About the Book"
 msgstr "Kitap Hakkında"
 
-#: inc/admin/metaboxes/namespace.php:418
+#: inc/admin/metaboxes/namespace.php:426
 msgid "Book Tagline"
 msgstr "Kitap sloganı"
 
-#: inc/admin/metaboxes/namespace.php:419
+#: inc/admin/metaboxes/namespace.php:427
 msgid ""
 "A very short description of your book. It should fit in a Twitter post, and "
 "encapsulate your book in the briefest sentence."
 msgstr "Kitabının çok kısa bir tanımı. Twitter gönderisine sığacak boyutta olmalı, ve kitabı kısa ve öz olacak şekilde açıklamalıdır."
 
-#: inc/admin/metaboxes/namespace.php:427
+#: inc/admin/metaboxes/namespace.php:435
 msgid "Short Description"
 msgstr "Kısa Tanım"
 
-#: inc/admin/metaboxes/namespace.php:428
+#: inc/admin/metaboxes/namespace.php:436
 msgid ""
 "A short paragraph about your book, for catalogs, reviewers etc. to quote."
 msgstr "Katalogların, eleştirmenlerin vb.nin alıntı yapabilmesi için kısa bir paragraf."
 
-#: inc/admin/metaboxes/namespace.php:436
+#: inc/admin/metaboxes/namespace.php:447
 msgid "Long Description"
 msgstr "Uzun Tanım"
 
-#: inc/admin/metaboxes/namespace.php:437
+#: inc/admin/metaboxes/namespace.php:448
 msgid "The full description of your book."
 msgstr "Kitabın uzun bir tanımı."
 
-#: inc/admin/metaboxes/namespace.php:441
+#: inc/admin/metaboxes/namespace.php:455
 msgid "Subject(s)"
 msgstr "Konu / Konular"
 
-#: inc/admin/metaboxes/namespace.php:446
+#: inc/admin/metaboxes/namespace.php:460
 msgid "Additional Catalog Information"
 msgstr "Ek Katalog Bilgileri"
 
-#: inc/admin/metaboxes/namespace.php:454
+#: inc/admin/metaboxes/namespace.php:468
 msgid "Series Title"
 msgstr "Seri başlığı"
 
-#: inc/admin/metaboxes/namespace.php:455 inc/admin/metaboxes/namespace.php:463
+#: inc/admin/metaboxes/namespace.php:469 inc/admin/metaboxes/namespace.php:477
 msgid "Add if your book is part of a series."
 msgstr "Kitabınız bir dizinin parçasıysa ekleyin."
 
-#: inc/admin/metaboxes/namespace.php:462
+#: inc/admin/metaboxes/namespace.php:476
 msgid "Series Number"
 msgstr "Seri numarası"
 
-#: inc/admin/metaboxes/namespace.php:470
+#: inc/admin/metaboxes/namespace.php:484
 msgid "Keywords"
 msgstr "Anahtar Kelimeler"
 
-#: inc/admin/metaboxes/namespace.php:472
+#: inc/admin/metaboxes/namespace.php:486
 msgid ""
 "These are added to your webbook cover page, and in your ebook metadata. "
 "Keywords are used by online book stores and search engines."
 msgstr "Bunlar webbook kapak sayfanıza ve ebook metaverinize eklendi. Anahtar kelimeler çevrimiçi kitap mağazaları ve arama motorları tarafından kullanılır."
 
-#: inc/admin/metaboxes/namespace.php:479
+#: inc/admin/metaboxes/namespace.php:493
 msgid "Hashtag"
 msgstr "Etiket"
 
-#: inc/admin/metaboxes/namespace.php:480
+#: inc/admin/metaboxes/namespace.php:494
 msgid ""
 "These are added to your webbook cover page. For those of you who like "
 "Twitter."
-msgstr "Bunlar webbook kapak sayfanıza eklendi. Sizin gibi Twitter'ı sevenler için."
+msgstr "Bunlar web kitabı kapak sayfanıza eklendi. Sizin gibi Twitter'ı sevenler için."
 
-#: inc/admin/metaboxes/namespace.php:487
+#: inc/admin/metaboxes/namespace.php:501
 msgid "List Price (Print)"
 msgstr "Liste Fiyatı (Baskı)"
 
-#: inc/admin/metaboxes/namespace.php:488
+#: inc/admin/metaboxes/namespace.php:502
 msgid "The list price of your book in print."
 msgstr "Kitabınızın basılı liste fiyatı."
 
-#: inc/admin/metaboxes/namespace.php:495
+#: inc/admin/metaboxes/namespace.php:509
 msgid "List Price (PDF)"
 msgstr "Liste Fiyatı (PDF)"
 
-#: inc/admin/metaboxes/namespace.php:496
+#: inc/admin/metaboxes/namespace.php:510
 msgid "The list price of your book in PDF format."
 msgstr "Kitabınızın PDF formatında liste fiyatı."
 
-#: inc/admin/metaboxes/namespace.php:503
+#: inc/admin/metaboxes/namespace.php:517
 msgid "List Price (ebook)"
 msgstr "Liste Fiyatı (e-kitap)"
 
-#: inc/admin/metaboxes/namespace.php:504
+#: inc/admin/metaboxes/namespace.php:518
 msgid "The list price of your book in Ebook formats."
 msgstr "Kitabınızın E-kitap formatlarındaki liste fiyatı."
 
-#: inc/admin/metaboxes/namespace.php:511
+#: inc/admin/metaboxes/namespace.php:525
 msgid "List Price (Web)"
 msgstr "Liste Fiyatı (Web)"
 
-#: inc/admin/metaboxes/namespace.php:512
+#: inc/admin/metaboxes/namespace.php:526
 msgid "The list price of your webbook."
 msgstr "Webbook liste fiyatı."
 
-#: inc/admin/metaboxes/namespace.php:521
+#: inc/admin/metaboxes/namespace.php:535
 msgid "Choose an audience&hellip;"
 msgstr "Okuyucu kitlesini seçiniz&hellip;"
 
-#: inc/admin/metaboxes/namespace.php:522
+#: inc/admin/metaboxes/namespace.php:536
 msgid "Juvenile"
 msgstr "Gençlik"
 
-#: inc/admin/metaboxes/namespace.php:523
+#: inc/admin/metaboxes/namespace.php:537
 msgid "Young Adult"
 msgstr "Genç Yetişkin"
 
-#: inc/admin/metaboxes/namespace.php:524
+#: inc/admin/metaboxes/namespace.php:538
 msgid "Adult"
 msgstr "Yetişkin"
 
-#: inc/admin/metaboxes/namespace.php:526
+#: inc/admin/metaboxes/namespace.php:540
 msgid "Audience"
 msgstr "Okuyucu kitlesi"
 
-#: inc/admin/metaboxes/namespace.php:527
+#: inc/admin/metaboxes/namespace.php:541
 msgid "The target audience for your book."
 msgstr "Kitabınızın hedef okuyucu kitlesi."
 
-#: inc/admin/metaboxes/namespace.php:540
+#: inc/admin/metaboxes/namespace.php:554
 msgid "BISAC Subject(s)"
 msgstr "BISAC konusu (ları)"
 
-#: inc/admin/metaboxes/namespace.php:542
+#: inc/admin/metaboxes/namespace.php:556
 msgid ""
 "BISAC Subject Headings help libraries and (e)book stores properly classify "
-"your book."
-msgstr "BISAC Konu Başlıkları kütüphanelerinin ve (e)kitap mağazalarının kitabınızı doğru olarak sınıflandırmasına yardımcı olur."
+"your book. To select the appropriate subject heading for your book, consult "
+"%s"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:556
+msgid "the BISAC Subject Headings list"
+msgstr ""
+
+#: inc/admin/metaboxes/namespace.php:570
 msgid "BISAC Regional Theme"
 msgstr "BISAC Bölgesel Tema"
 
-#: inc/admin/metaboxes/namespace.php:557
+#: inc/admin/metaboxes/namespace.php:571
 msgid ""
 "BISAC Regional Themes help libraries and (e)book stores properly classify "
 "your book."
 msgstr "BISAC Bölgesel Temaları, kütüphanelerin ve (e) kitap depolarının kitabınızı uygun şekilde sınıflandırmasına yardımcı olur."
 
-#: inc/admin/metaboxes/namespace.php:567
+#: inc/admin/metaboxes/namespace.php:581
 #: inc/api/endpoints/controller/class-toc.php:209 inc/class-sass.php:78
 #: inc/modules/themeoptions/class-globaloptions.php:533
 #: inc/posttype/namespace.php:64 inc/posttype/namespace.php:535
@@ -1568,128 +1573,136 @@ msgstr "BISAC Bölgesel Temaları, kütüphanelerin ve (e) kitap depolarının k
 msgid "Chapter"
 msgstr "Bölüm"
 
-#: inc/admin/metaboxes/namespace.php:572
+#: inc/admin/metaboxes/namespace.php:586
 msgid "%s Metadata"
 msgstr "%s Metadata"
 
-#: inc/admin/metaboxes/namespace.php:579
+#: inc/admin/metaboxes/namespace.php:593
 msgid ""
 "%s Short Title (appears in the PDF running header and webbook navigation)"
 msgstr "%s Kısa Başlık (PDF çalışan başlığında ve web kitabında gezinmede görünür)"
 
-#: inc/admin/metaboxes/namespace.php:586
+#: inc/admin/metaboxes/namespace.php:600
 msgid "%s Subtitle (appears in the Web/ebook/PDF output)"
-msgstr "%s Altyazı (Web / e-kitap / PDF çıktısında görünür)"
+msgstr "%s Altbaşlık (Web / e-kitap / PDF çıktısında görünür)"
 
-#: inc/admin/metaboxes/namespace.php:593
+#: inc/admin/metaboxes/namespace.php:607
 msgid "%s Author(s)"
 msgstr "%s Yazarlar"
 
-#: inc/admin/metaboxes/namespace.php:607
+#: inc/admin/metaboxes/namespace.php:621
 msgid "%s Copyright License (overrides book license on this page)"
 msgstr "%s Telif Hakkı Lisansı (bu sayfadaki kitap lisansını geçersiz kılar)"
 
-#: inc/admin/metaboxes/namespace.php:614
+#: inc/admin/metaboxes/namespace.php:628
 msgid "%s Digital Object Identifier (DOI)"
 msgstr "%s Digital Object Identifier (DOI)"
 
-#: inc/admin/metaboxes/namespace.php:634
+#: inc/admin/metaboxes/namespace.php:648
 msgid ""
 "Appears on part page. Parts will not appear if a book has only one part."
 msgstr "Metin parçasında görünür. Eğer kitap sadece bir parçaya sahipse parçalar görünmeyecektir."
 
-#: inc/admin/metaboxes/namespace.php:642
+#: inc/admin/metaboxes/namespace.php:656
 msgid "Part Visibility"
 msgstr "Parça görünürlüğü"
 
-#: inc/admin/metaboxes/namespace.php:652
+#: inc/admin/metaboxes/namespace.php:666
 msgid "Invisible"
 msgstr "Görünmez"
 
-#: inc/admin/metaboxes/namespace.php:653
+#: inc/admin/metaboxes/namespace.php:667
 msgid "Hide from table of contents and part numbering."
 msgstr "Parça numaralamasından ve içerik tablosundan gizle"
 
-#: inc/admin/metaboxes/namespace.php:809
+#: inc/admin/metaboxes/namespace.php:823
 msgid "Show in Glossary Lists"
 msgstr "Sözlük Listelerinde Göster"
 
-#: inc/admin/metaboxes/namespace.php:820
+#: inc/admin/metaboxes/namespace.php:834
 msgid "Preview"
 msgstr "Önizleme"
 
 #. translators: accessibility text
-#: inc/admin/metaboxes/namespace.php:822
+#: inc/admin/metaboxes/namespace.php:836
 msgid "(opens in a new window)"
 msgstr "(yeni bir pencerede açılır)"
 
-#: inc/admin/metaboxes/namespace.php:831 templates/admin/organize.php:134
+#: inc/admin/metaboxes/namespace.php:845 templates/admin/organize.php:134
 #: templates/admin/organize.php:237 templates/admin/organize.php:293
 #: templates/admin/organize.php:395
 msgid "Show in Web"
 msgstr "Webde Göster"
 
-#: inc/admin/metaboxes/namespace.php:835
+#: inc/admin/metaboxes/namespace.php:849
 msgid "Require a Password"
-msgstr "Bir Şifre Gerekli"
+msgstr "Şifre Oluştur"
 
-#: inc/admin/metaboxes/namespace.php:836
+#: inc/admin/metaboxes/namespace.php:850
 msgid "Password..."
 msgstr "Şifre..."
 
-#: inc/admin/metaboxes/namespace.php:840 templates/admin/organize.php:142
+#: inc/admin/metaboxes/namespace.php:854 templates/admin/organize.php:142
 #: templates/admin/organize.php:241 templates/admin/organize.php:301
 #: templates/admin/organize.php:399
 msgid "Show in Exports"
 msgstr "Dışa Aktarımlarda Göster"
 
-#: inc/admin/metaboxes/namespace.php:844 templates/admin/organize.php:149
+#: inc/admin/metaboxes/namespace.php:858 templates/admin/organize.php:149
 #: templates/admin/organize.php:245 templates/admin/organize.php:309
 #: templates/admin/organize.php:403
 msgid "Show Title"
 msgstr "Başlığı göster"
 
-#: inc/admin/metaboxes/namespace.php:1028
+#: inc/admin/metaboxes/namespace.php:1042
 msgid "Primary Subject"
 msgstr "Birincil Konu"
 
-#: inc/admin/metaboxes/namespace.php:1032
+#: inc/admin/metaboxes/namespace.php:1046
 msgid ""
-"This appears on the web homepage of your book and helps categorize it in "
-"your network catalog (if applicable). Use %s to determine which subject "
-"category is best for your book."
-msgstr "Bu, kitabınızın web ana sayfasında görünür ve onu ağ kataloğunuzda (varsa) sınıflandırmanıza yardımcı olur.  Kitabınız için en iyi konu kategorisini belirlemek için %s kullanın."
+"%1$s subject terms appear on the web homepage of your book and help "
+"categorize your book in your network catalog and Pressbooks Directory (if "
+"applicable). Use %2$s to determine which subject category is best for your "
+"book."
+msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:1032
-#: inc/admin/metaboxes/namespace.php:1045
-msgid "these instructions"
-msgstr "bu talimatlar"
+#: inc/admin/metaboxes/namespace.php:1046
+#: inc/admin/metaboxes/namespace.php:1059
+msgid "Thema"
+msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:1035
+#: inc/admin/metaboxes/namespace.php:1046
+#: inc/admin/metaboxes/namespace.php:1059
+msgid "the Thema subject category list"
+msgstr ""
+
+#: inc/admin/metaboxes/namespace.php:1049
 msgid "Additional Subject(s)"
 msgstr "Ek Konular"
 
-#: inc/admin/metaboxes/namespace.php:1045
+#: inc/admin/metaboxes/namespace.php:1059
 msgid ""
-"This appears on the web homepage of your book. Use %s to determine which "
-"additional subject categories are appropriate for your book."
-msgstr "Bu, kitabınızın web ana sayfasında görünür.  Kitabınız için hangi ek konu kategorilerinin uygun olduğunu belirlemek için %s kullanın."
+"%1$s subject terms appear on the web homepage of your book and help "
+"categorize your book in your network catalog and Pressbooks Directory (if "
+"applicable). Use %2$s to determine which additional subject categories are "
+"appropriate for your book."
+msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:1129
-#: inc/admin/metaboxes/namespace.php:1151
+#: inc/admin/metaboxes/namespace.php:1143
+#: inc/admin/metaboxes/namespace.php:1165
 msgid "First Name"
 msgstr "Ad"
 
-#: inc/admin/metaboxes/namespace.php:1134
-#: inc/admin/metaboxes/namespace.php:1158
+#: inc/admin/metaboxes/namespace.php:1148
+#: inc/admin/metaboxes/namespace.php:1172
 msgid "Last Name"
 msgstr "Soyad"
 
-#: inc/admin/metaboxes/namespace.php:1200
+#: inc/admin/metaboxes/namespace.php:1214
 msgid "Name cannot be left blank."
 msgstr "Adı boş bırakılamaz"
 
-#: inc/admin/metaboxes/namespace.php:1234
+#: inc/admin/metaboxes/namespace.php:1248
 msgid "Owner"
 msgstr "Sahibi"
 
@@ -1699,7 +1712,7 @@ msgstr "Yeniden Dağıtıma İzin Ver"
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:81
 msgid "Allow book administrators to enable redistribution of export files."
-msgstr "Kitap yöneticilerinin, ihraç dosyalarının yeniden dağıtılmasını etkinleştirmesine izin ver."
+msgstr "Kitap yöneticilerinin, dışa aktarım dosyalarının yeniden dağıtılmasını etkinleştirmesine izin ver."
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:87
 msgid "Enable network API"
@@ -1852,11 +1865,11 @@ msgstr "Bölüm kısmı güncellenemedi"
 msgid "Main Body"
 msgstr "Ana gövde"
 
-#: inc/class-activation.php:211 tests/test-book.php:49
+#: inc/class-activation.php:211 tests/test-book.php:50
 msgid "Introduction"
 msgstr "Giriş"
 
-#: inc/class-activation.php:213 tests/test-book.php:90
+#: inc/class-activation.php:213 tests/test-book.php:101
 msgid "This is where you can write your introduction."
 msgstr "Giriş bölümünüzü burada yazabilirsiniz."
 
@@ -2331,7 +2344,7 @@ msgstr "Source Sans Pro"
 
 #: inc/class-styles.php:669 tests/test-styles.php:185
 msgid "Theme default"
-msgstr "Şablon varsaylanı"
+msgstr "Tema varsaylanı"
 
 #: inc/class-styles.php:670 inc/class-styles.php:684 tests/test-styles.php:186
 msgid "Serif"
@@ -2349,7 +2362,7 @@ msgstr "Beklenmedik Hata: Slag: %s sorgulanırken bir hata oluştu - Lütfen tek
 
 #: inc/class-styles.php:756 templates/admin/custom-styles.php:16
 msgid "Web"
-msgstr "İnternet ağı"
+msgstr "Web Kitabı"
 
 #: inc/class-styles.php:788
 msgid "Last 10 Revisions"
@@ -2602,11 +2615,11 @@ msgstr "Çok gevşek izleme"
 
 #: inc/editor/namespace.php:245
 msgid "Pullquote (left)"
-msgstr "Tanıtım (sol)"
+msgstr "Alıntı yap (sol)"
 
 #: inc/editor/namespace.php:251
 msgid "Pullquote (right)"
-msgstr "Tanıtım (sağ)"
+msgstr "Alıntı yap (sağ)"
 
 #: inc/editor/namespace.php:303 inc/editor/namespace.php:345
 #: inc/editor/namespace.php:359
@@ -2708,6 +2721,12 @@ msgid ""
 "all available fields."
 msgstr "Ek bilgi girmeniz gerekirse, mevcut tüm alanları görmek için aşağıdaki düğmeyi tıklayın."
 
+#: inc/metadata/namespace.php:1232
+msgid ""
+"The %1$s Thema subject terms requested for this book could not be downloaded"
+" from %2$s. Please report this error to your network manager."
+msgstr ""
+
 #: inc/modules/export/class-export.php:794
 msgid "%s: Initializing"
 msgstr "%s: Başlatılıyor"
@@ -2738,7 +2757,7 @@ msgstr "Dışa aktarma başarısız oldu. Daha fazla ayrıntı için log kayıtl
 
 #: inc/modules/export/class-export.php:896
 msgid "Warning: The export has validation errors. See logs for more details."
-msgstr "Uyarı: İhraç doğrulama hatası ile karşılaştı. Detaylar "
+msgstr "Uyarı: Dışa aktarma, doğrulama hatası ile karşılaştı. Detaylar için log kayıtlarına bakınız."
 
 #: inc/modules/export/class-export.php:897
 msgid "Emailed to:"
@@ -3075,7 +3094,7 @@ msgstr "Geçici dosyalar siliniyor"
 
 #: inc/modules/import/epub/class-epub201.php:225
 msgid "Imported %s chapters."
-msgstr "İthal %s bölüm"
+msgstr "%s bölüm içe aktarıldı"
 
 #: inc/modules/import/html/class-xhtml.php:45
 msgid "The HTML is larger than pcre.backtrack_limit."
@@ -3094,11 +3113,11 @@ msgctxt ""
 msgid "Imported %1$s, %2$s, %3$s, %4$s, %5$s, and %6$s."
 msgstr "%1$s, %2$s, %3$s, %4$s, %5$s, ve %6$s içe aktarıldı."
 
-#: inc/modules/searchandreplace/class-search.php:138
+#: inc/modules/searchandreplace/class-search.php:140
 msgid "Invalid regular expression"
 msgstr "Geçersiz Normal İfade"
 
-#: inc/modules/searchandreplace/class-search.php:146
+#: inc/modules/searchandreplace/class-search.php:148
 msgid "No search pattern."
 msgstr "Arama modeli yok"
 
@@ -3113,7 +3132,7 @@ msgstr "\"Değiştir ve Kaydet\" e bastıktan sonra geri dönüş yoktur! Bunun 
 #: inc/modules/searchandreplace/class-searchandreplace.php:71
 #: templates/admin/search.php:11
 msgid "Search & Replace"
-msgstr "Araştırma & Değiştirme"
+msgstr "Bul ve Değiştir"
 
 #: inc/modules/searchandreplace/types/class-content.php:57
 msgid "view"
@@ -3140,7 +3159,7 @@ msgstr "Tema Seçenekleri"
 
 #: inc/modules/themeoptions/class-admin.php:145
 msgid "Theme Options Tabs"
-msgstr "Şablon Seçenekleri Sekmesi"
+msgstr "Tema Seçenekleri Sekmesi"
 
 #: inc/modules/themeoptions/class-ebookoptions.php:79
 #: inc/modules/themeoptions/class-pdfoptions.php:84
@@ -3485,7 +3504,7 @@ msgstr "Parça numaralarını romanlaştır"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:300
 msgid "Convert part numbers into Roman numerals"
-msgstr "Parça numaralarını Roman numarasına çevir"
+msgstr "Parça numaralarını Roman rakamlarına çevirin"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:307
 msgid "Footnote Style"
@@ -3680,7 +3699,7 @@ msgstr "Tam erişim için yazı tiği boyutunu ve çizgi yüksekliğini artır."
 
 #: inc/modules/themeoptions/class-pdfoptions.php:578
 msgid "These options apply to PDF exports."
-msgstr "Bu seçenekler PDF ihraçları için geçerlidir."
+msgstr "Bu seçenekler PDF dışa aktarım için geçerlidir."
 
 #: inc/modules/themeoptions/class-pdfoptions.php:899
 msgid ""
@@ -3704,7 +3723,7 @@ msgstr "Kapak sayfasına ve her bölüme okuyucuların kitabınızın bağlantı
 
 #: inc/modules/themeoptions/class-weboptions.php:112
 msgid "Webbook Width"
-msgstr "Webkitabı genişliği"
+msgstr "Web kitabı genişliği"
 
 #: inc/modules/themeoptions/class-weboptions.php:117
 msgid "Narrow"
@@ -3748,11 +3767,11 @@ msgstr "Okuyucuların içeriği klonlandığı orijinal kitapla karşılaştırm
 
 #: inc/modules/themeoptions/class-weboptions.php:196
 msgid "These options apply to the webbook."
-msgstr "Bu seçenekler Webbook için geçerli."
+msgstr "Bu seçenekler Web Kitabı için geçerlidir."
 
 #: inc/modules/themeoptions/class-weboptions.php:396
 msgid "Web Options"
-msgstr "Ağ seçenekleri"
+msgstr "Web seçenekleri"
 
 #: inc/posttype/namespace.php:65 templates/admin/organize.php:59
 msgid "Chapters"
@@ -3778,7 +3797,7 @@ msgstr "Listelenmemiş"
 
 #: inc/posttype/namespace.php:315
 msgid "Show title in exports"
-msgstr "İhraçlarda başlık göster"
+msgstr "Dışa aktarılanlarda başlık göster"
 
 #: inc/posttype/namespace.php:327
 msgid "Chapter Short Title (appears in the PDF running header)"
@@ -3856,7 +3875,7 @@ msgstr "Sözlük"
 
 #: inc/redirect/namespace.php:144 inc/redirect/namespace.php:232
 msgid "Error: Unknown export format."
-msgstr "Hata: Bilinmeyen ihraç biçimi."
+msgstr "Hata: Bilinmeyen dışa aktarım biçimi."
 
 #: inc/redirect/namespace.php:252
 msgid "File not found"
@@ -3884,7 +3903,7 @@ msgstr "Kitabımı sonra kaydet."
 
 #: inc/registration/namespace.php:37
 msgid "Webbook Address:"
-msgstr "Webkitap Adresi: "
+msgstr "Web Kitabı Adresi: "
 
 #: inc/registration/namespace.php:40 inc/registration/namespace.php:72
 msgid ""
@@ -3926,7 +3945,7 @@ msgstr "Hoşgeldiniz, %s. Hesabınıza yeni bir kitap eklemek için <strong>aş�
 
 #: inc/registration/namespace.php:66
 msgid "yourwebbookname"
-msgstr "Web book isminiz."
+msgstr "web-kitabi-adi"
 
 #: inc/registration/namespace.php:69
 msgid "Books you are already a member of:"
@@ -4311,7 +4330,7 @@ msgstr "%s Stilleriniz"
 
 #: templates/admin/custom-styles.php:48
 msgid "Save"
-msgstr "Kaydetmek"
+msgstr "Kaydet"
 
 #: templates/admin/dashboard.php:34
 msgid "Dashboard Settings"
@@ -4363,7 +4382,7 @@ msgstr "İçe aktarma için tüm bölümlerin seçimi kaldırıldı"
 
 #: templates/admin/import.php:70
 msgid "Are you sure you want to abort the import?"
-msgstr "İhracı iptal etmek istediğinden emin misin?"
+msgstr "İçe aktarmayı iptal etmek istediğinden emin misin?"
 
 #: templates/admin/import.php:88 templates/admin/import.php:143
 msgid "Import all"
@@ -4379,7 +4398,7 @@ msgstr "İçe aktarılan içeriği web'de göster"
 
 #: templates/admin/import.php:154
 msgid "Import Selection"
-msgstr "Seçileni İhraç Et"
+msgstr "Seçileni İçe Aktar"
 
 #: templates/admin/import.php:181
 msgid "Maximum file size:"
@@ -4687,7 +4706,7 @@ msgstr "Temanız"
 
 #: templates/admin/export.blade.php:76
 msgid "Export Your Book"
-msgstr "Kitabını ihraç et"
+msgstr "Kitabını Dışa Aktar"
 
 #: templates/admin/export.blade.php:81
 msgid "Latest Exports"

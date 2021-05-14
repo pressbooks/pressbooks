@@ -13,7 +13,7 @@ class PressbooksSentry {
 
 	const DEFAULT_ENVIRNOMENT = 'staging';
 
-	const DEFAULT_TRACE_SAMPLE_RATE = 0.5;
+	const DEFAULT_TRACE_SAMPLE_RATE = 5;
 
 	const WP_SCRIPT_NAME = 'script-sentry';
 
@@ -199,12 +199,12 @@ class PressbooksSentry {
 				$assets = new Assets( 'pressbooks', 'plugin' );
 				$src = $assets->getPath( 'scripts/sentry.js' );
 				wp_enqueue_script( self::WP_SCRIPT_NAME, $src );
-				$sample_rate = floatval( env( 'SENTRY_TRACE_SAMPLE_RATE' ) );
+				$sample_rate = floatval( env( 'SENTRY_TRACE_SAMPLE_RATE' ) ) * 10;
 				$script_params = [
 					'dsn' => $this->dsn,
 					'environment' => env( 'WP_ENV' ) ?: self::DEFAULT_ENVIRNOMENT,
 					'user' => false,
-					'sample' => ( $sample_rate > 0 && $sample_rate <= 1 ) ? $sample_rate : self::DEFAULT_TRACE_SAMPLE_RATE,
+					'sample' => ( $sample_rate > 0 && $sample_rate <= 10 ) ? $sample_rate : self::DEFAULT_TRACE_SAMPLE_RATE,
 				];
 				if ( $this->user ) {
 					$script_params['user'] = [
