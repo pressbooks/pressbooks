@@ -124,7 +124,7 @@ function formats() {
 
 	$enable_thincc_weblinks = \Pressbooks\Admin\Network\SharingAndPrivacyOptions::getOption( 'enable_thincc_weblinks' );
 	if ( $enable_thincc_weblinks ) {
-		$formats['exotic']['weblinks'] = __( 'Common Cartridge with weblinks', 'pressbooks' );
+		$formats['exotic']['weblinks'] = __( 'Common Cartridge with Web Links', 'pressbooks' );
 	}
 
 	/**
