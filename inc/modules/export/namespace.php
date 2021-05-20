@@ -198,7 +198,7 @@ function get_name_from_filetype_slug( $filetype ) {
 	 */
 	$formats = apply_filters(
 		'pb_export_filetype_names', [
-			'print-pdf' => __( 'Print PDF', 'pressbooks' ),
+			'print_pdf' => __( 'Print PDF', 'pressbooks' ),
 			'pdf' => __( 'Digital PDF', 'pressbooks' ),
 			'mpdf' => __( 'Digital PDF', 'pressbooks' ),
 			'htmlbook' => __( 'HTMLBook', 'pressbooks' ),
@@ -209,7 +209,7 @@ function get_name_from_filetype_slug( $filetype ) {
 			'odf' => __( 'OpenDocument', 'pressbooks' ),
 			'wxr' => __( 'Pressbooks XML', 'pressbooks' ),
 			'vanillawxr' => __( 'WordPress XML', 'pressbooks' ),
-			'weblinks' => __( 'Web Links', 'pressbooks' ), // TODO
+			'weblinks' => __( 'Common Cartridge (Web Links)', 'pressbooks' ),
 		]
 	);
 	return isset( $formats[ $filetype ] ) ? $formats[ $filetype ] : ucfirst( $filetype );
@@ -243,7 +243,7 @@ function get_name_from_module_classname( $classname ) {
 			'\Pressbooks\Modules\Export\Odt\Odt' => __( 'OpenDocument', 'pressbooks' ),
 			'\Pressbooks\Modules\Export\WordPress\Wxr' => __( 'Pressbooks XML', 'pressbooks' ),
 			'\Pressbooks\Modules\Export\WordPress\VanillaWxr' => __( 'WordPress XML', 'pressbooks' ),
-			'\Pressbooks\Modules\Export\ThinCC\WebLinks' => __( 'Web Links', 'pressbooks' ),
+			'\Pressbooks\Modules\Export\ThinCC\WebLinks' => __( 'Common Cartridge (Web Links)', 'pressbooks' ),
 		]
 	);
 	return isset( $formats[ $classname ] ) ? $formats[ $classname ] : substr( strrchr( $classname, '\\' ), 1 );
