@@ -8,7 +8,7 @@ jQuery( function ( $ ) {
 	// Media
 	$( document ).ready( function () {
 		let mediaUploader;
-		$( '.front-background-image-upload-button' ).click( function ( e ) {
+		$( '.front-background-image-upload-button' ).on( 'click', function ( e ) {
 			e.preventDefault();
 			if ( ! mediaUploader ) {
 				// Extend the wp.media object
@@ -141,7 +141,7 @@ jQuery( function ( $ ) {
 		return false;
 	} );
 
-	makePdfButton.click( function () {
+	makePdfButton.on( 'click', function () {
 		let editor = tinymce.get( 'pb_about_unlimited' );
 		if ( editor ) {
 			let content = editor.getContent();
@@ -150,7 +150,7 @@ jQuery( function ( $ ) {
 		form.trigger( 'saveAndGenerate', [ 'pdf' ] );
 	} );
 
-	makeEbookButton.click( function () {
+	makeEbookButton.on( 'click', function () {
 		form.trigger( 'saveAndGenerate', [ 'jpg' ] );
 	} );
 } );

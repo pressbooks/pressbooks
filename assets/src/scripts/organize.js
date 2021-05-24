@@ -320,7 +320,7 @@ $( document ).ready( () => {
 		.disableSelection();
 
 	// Handle Global Privacy form changes.
-	$( 'input[name=blog_public]' ).change( event => {
+	$( 'input[name=blog_public]' ).on( 'change', event => {
 		const publicizeAlert = $( '.publicize-alert' );
 		const publicizeAlertText = $( '.publicize-alert > span' );
 		let blogPublic;
@@ -358,7 +358,7 @@ $( document ).ready( () => {
 	} );
 
 	// Handle visibility changes.
-	$( '.web_visibility, .export_visibility' ).change( function () {
+	$( '.web_visibility, .export_visibility' ).on( 'change', function () {
 		let row = $( this ).parents( 'tr' );
 		let item = getRowData( row );
 		let output;
@@ -378,7 +378,7 @@ $( document ).ready( () => {
 	} );
 
 	// Handle title visibility changes.
-	$( '.show_title' ).change( event => {
+	$( '.show_title' ).on( 'change', event => {
 		let row = $( event.target ).parents( 'tr' );
 		let item = getRowData( row );
 

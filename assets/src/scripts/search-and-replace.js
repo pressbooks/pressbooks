@@ -1,6 +1,6 @@
 jQuery( function ( $ ) {
 	const form = $( '#search-form' );
-	$( '.replace-and-save' ).click( function ( e ) {
+	$( '.replace-and-save' ).on( 'click', function ( e ) {
 		/* eslint-disable no-restricted-globals */
 		if ( confirm( pb_sr.warning_text ) ) {
 			/* eslint-enable no-restricted-globals */

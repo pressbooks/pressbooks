@@ -8,7 +8,7 @@ jQuery( function ( $ ) {
 	$.fn.matchHeight._afterUpdate = function ( event, groups ) {
 		$container.isotope( 'layout' );
 	};
-	$( '.filter-group-1' ).click( function () {
+	$( '.filter-group-1' ).on( 'click', function () {
 		let filter1_id = $( this ).attr( 'data-filter' );
 		let filter1_name = $( this ).text();
 		let filter2_id, filter2_name, currentFilterIDs, currentFilters;
@@ -38,7 +38,7 @@ jQuery( function ( $ ) {
 		$( '.catalog-content-wrap h1 span.filtered-by' ).show();
 		$( '.catalog-content-wrap h1 span.clear-filters' ).show();
 	} );
-	$( '.filter-group-2' ).click( function () {
+	$( '.filter-group-2' ).on( 'click', function () {
 		let filter2_id = $( this ).attr( 'data-filter' );
 		let filter2_name = $( this ).text();
 		let filter1_id, filter1_name, currentFilterIDs, currentFilters;
@@ -68,7 +68,7 @@ jQuery( function ( $ ) {
 		$( '.catalog-content-wrap h1 span.filtered-by' ).show();
 		$( '.catalog-content-wrap h1 span.clear-filters' ).show();
 	} );
-	$( 'a.clear-filters' ).click( function ( e ) {
+	$( 'a.clear-filters' ).on( 'click', function ( e ) {
 		$( '.filter-group-1.active' ).removeClass( 'active' );
 		$( '.filter-group-2.active' ).removeClass( 'active' );
 		$container.isotope( { filter: '*' } );

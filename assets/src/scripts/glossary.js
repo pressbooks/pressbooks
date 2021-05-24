@@ -3,7 +3,7 @@
 ( function () {
 	tinymce.create( 'tinymce.plugins.glossary', {
 		init: function ( ed, url ) {
-			let glossaryTermValues = jQuery.parseJSON( PB_GlossaryToken.listbox_values );
+			let glossaryTermValues = JSON.parse( PB_GlossaryToken.listbox_values );
 
 			function termValue( name ) {
 				for ( let key in glossaryTermValues ) {
