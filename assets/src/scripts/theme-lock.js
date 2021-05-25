@@ -1,7 +1,7 @@
 /* global PB_ThemeLockToken */
 
 jQuery( function ( $ ) {
-	$( '#theme_lock' ).change( function () {
+	$( '#theme_lock' ).on( 'change', function () {
 		if ( ! this.checked ) {
 			if ( window.confirm( PB_ThemeLockToken.confirmation ) ) {
 				$( '#theme_lock' ).attr( 'checked', false );
