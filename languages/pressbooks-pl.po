@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
-"POT-Creation-Date: 2021-04-27T16:11:58+00:00\n"
-"PO-Revision-Date: 2021-03-27 01:03+0000\n"
+"POT-Creation-Date: 2021-05-15T20:04:38+00:00\n"
+"PO-Revision-Date: 2021-05-25 22:37+0000\n"
 "Last-Translator: Ho Man Chan <homan@pressbooks.com>\n"
 "Language-Team: Polish (http://www.transifex.com/pressbooks/pressbooks/language/pl/)\n"
 "MIME-Version: 1.0\n"
@@ -2706,7 +2706,7 @@ msgstr "Czy jesteś pewien, że chcesz to usunąć?"
 msgid "Delete"
 msgstr "Usuń"
 
-#: inc/interactive/class-h5p.php:176
+#: inc/interactive/class-h5p.php:175
 msgid ""
 "The original version of this chapter contained H5P content. You may want to "
 "remove or replace this element."
@@ -2986,7 +2986,7 @@ msgid "WordPress XML"
 msgstr "WordPress XML"
 
 #: inc/modules/export/namespace.php:127
-msgid "Common Cartridge 1.1 (Web Links)"
+msgid "Common Cartridge with Web Links"
 msgstr ""
 
 #: inc/modules/export/namespace.php:201 inc/modules/export/namespace.php:234
@@ -3012,7 +3012,7 @@ msgid "EPUB3"
 msgstr ""
 
 #: inc/modules/export/namespace.php:212 inc/modules/export/namespace.php:246
-msgid "Web Links"
+msgid "Common Cartridge (Web Links)"
 msgstr ""
 
 #: inc/modules/export/namespace.php:282
@@ -4799,6 +4799,12 @@ msgstr ""
 msgid ""
 "An audio element has been excluded from this version of the text. You can "
 "listen to it online here:"
+msgstr ""
+
+#: templates/interactive/h5p.blade.php:3
+msgid ""
+"An interactive H5P element has been excluded from this version of the text. "
+"You can view it online here:"
 msgstr ""
 
 #: templates/interactive/oembed.blade.php:3
