@@ -145,17 +145,24 @@ function is_valid_media( $path_to_file, $filename ) {
  */
 function force_wrap_images( $content ) {
 
-	$pattern = [
-		'#<p[^>]*>\s*?(<img class=\"([a-z0-9\- ]*).*?>)?\s*</p>#',
-		'#<p[^>]*>\s*?(<a .*?><img class=\"([a-z0-9\- ]*).*?></a>)?\s*</p>#',
-	];
-	$replacement = '<div class="wp-nocaption $2">$1</div>';
-	$content = preg_replace( $pattern, $replacement, $content );
+    $pattern = [
+        '#<p[^>]*>\s*?(<img class=\"([a-z0-9\- ]*).*?>)?\s*</p>#',
+        '#<p[^>]*>\s*?(<a .*?><img class=\"([a-z0-9\- ]*).*?></a>)?\s*</p>#',
+    ];
+    $replacement = '<figure class="wp-nocaption $2">$1</figure>';
+    $content = preg_replace( $pattern, $replacement, $content );
+
+    $pattern = [
+        '#(<p[^>]*>)((?:.(?!p>))*?)\s*?(<a .*?><img class=\"([a-z0-9\- ]*).*?></a>)\s*((?:.)*?)?(<\/p>)#',
+        '#(<p[^>]*>)((?:.(?!p>))*?)\s*?(<img class=\"([a-z0-9\- ]*).*?>)\s*((?:.)*?)?(<\/p>)#',
+    ];
+    $replacement = '$1$2$6<figure class="wp-nocaption $4">$3</figure>$1$5$6';
+    $content = preg_replace( $pattern, $replacement, $content );
 
 	$pattern = [
-		'#(<p[^>]*>)\s*?(<a .*?><img class=\"([a-z0-9\- ]*).*?></a>)?\s*<br />#',
+		'#(<p[^>]*>)\s*?(<a .*?><img class=\"([a-z0-9\- ]*).*?><\/a>)?\s*<br \/>#',
 	];
-	$replacement = '<div class="wp-nocaption $3">$2</div>$1';
+	$replacement = '<figure class="wp-nocaption $3">$2</figure>$1';
 	$content = preg_replace( $pattern, $replacement, $content );
 
 	return $content;
