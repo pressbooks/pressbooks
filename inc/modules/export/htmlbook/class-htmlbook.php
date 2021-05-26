@@ -533,7 +533,7 @@ class HTMLBook extends Export {
 				if ( $fragment ) {
 					// Check if a fragment is considered external, don't change the URL if we find a match
 					$external_anchors = [ \Pressbooks\Interactive\Content::ANCHOR ];
-					if ( in_array( "#{$fragment}", $external_anchors, true ) ) {
+					if ( in_array( "#{$fragment}", $external_anchors, true ) || str_starts_with( $fragment, 'h5p' ) ) {
 						continue;
 					} else {
 						$link->setAttribute( 'href', "#{$fragment}" );

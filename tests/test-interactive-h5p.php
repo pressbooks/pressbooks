@@ -59,7 +59,7 @@ class Interactive_H5PTest extends \WP_UnitTestCase {
 		$this->assertContains( 'The original version of this chapter contained H5P content', $result );
 
 		$content = '[h5p id="1"][h5p id=\'2\' something="else"][h5p id=3]';
-		$result = $this->h5p->replaceUncloneable( $content, [ 1, "2" ] );
+		$result = $this->h5p->replaceUncloneable( $content, [ 1, '2' ] );
 		$this->assertNotContains( '[h5p id="1', $result );
 		$this->assertNotContains( '[h5p id=\'2', $result );
 		$this->assertContains( '[h5p id=3]', $result );
@@ -71,6 +71,24 @@ class Interactive_H5PTest extends \WP_UnitTestCase {
 		$this->assertContains( '[h5p id="1', $result );
 		$this->assertContains( '[h5p id=\'2', $result );
 		$this->assertContains( 'The original version of this chapter contained H5P content', $result );
+	}
+	/**
+	 * @group interactivecontent
+	 */
+	public function test_h5p_custom_wrapper() {
+
+		$html = '<iframe id="h5p-content"><div></div></iframe>';
+
+		$content = [
+			'id' => 1,
+		];
+
+		$result = $this->h5p->generateCustomH5pWrapper( $html, $content );
+
+		$expected = '<div id="h5p-1"><iframe id="h5p-content"><div></div></iframe></div>';
+
+		$this->assertEquals( $expected, $result );
+
 	}
 
 }

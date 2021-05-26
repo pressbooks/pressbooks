@@ -2,7 +2,7 @@
 
 jQuery( document ).ready( function ( $ ) {
 	// Set an initial focus to help users of assistive technology
-	$( '#pb_title' ).focus();
+	$( '#pb_title' ).trigger( 'focus' );
 	// Select2, The jQuery replacement for select boxes
 	$( '#primary-subject' ).select2( {
 		placeholder: PB_BookInfoToken.selectSubjectText,

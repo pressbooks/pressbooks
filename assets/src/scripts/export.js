@@ -129,7 +129,7 @@ jQuery( function ( $ ) {
 	} );
 
 	/* Swap out and animate the 'Export Your Book' button */
-	$( '#pb-export-button' ).click( function ( e ) {
+	$( '#pb-export-button' ).on( 'click', function ( e ) {
 		e.preventDefault();
 		// If the user has pinned three files of a given export type and then tries to export that format,
 		// the export job should be stopped and an error should be displayed instructing them to deselect
@@ -193,7 +193,7 @@ jQuery( function ( $ ) {
 				$( this ).prop( 'checked', false );
 			}
 		} )
-		.change( function () {
+		.on( 'change', function () {
 			let name = $( this ).attr( 'name' );
 			if ( $( this ).prop( 'checked' ) ) {
 				// Cookie syntax: 'ef[<format>]': 1
@@ -214,7 +214,7 @@ jQuery( function ( $ ) {
 				.attr( 'disabled', true );
 		} else {
 			$( '#cb-select-all-1, #cb-select-all-2, #bulk-action-selector-top, #bulk-action-selector-bottom, #doaction, #doaction2' )
-				.removeAttr( 'disabled' );
+				.attr( 'disabled', false );
 		}
 	}
 
@@ -233,7 +233,7 @@ jQuery( function ( $ ) {
 				tr.find( 'td.column-file span.delete' ).hide();
 			}
 		} )
-		.change( function () {
+		.on( 'change', function () {
 			adjustBulkActions();
 			let name =  $( this ).attr( 'name' );
 			let tr = $( this ).closest( 'tr' );

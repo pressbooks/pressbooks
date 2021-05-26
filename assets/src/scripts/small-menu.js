@@ -17,7 +17,7 @@ jQuery( document ).ready( function ( $ ) {
 
 		$( '.menu-toggle' )
 			.unbind( 'click' )
-			.click( function () {
+			.on( 'click', function () {
 				masthead.find( '.main-small-navigation' ).slideToggle();
 				$( this ).toggleClass( 'toggled-on' );
 			} );

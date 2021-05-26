@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Pressbooks plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Pressbooks 5.20.1\n"
+"Project-Id-Version: Pressbooks 5.21.0\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-04-27T16:11:58+00:00\n"
+"POT-Creation-Date: 2021-05-26T03:39:17+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.3.0\n"
 "X-Domain: pressbooks\n"
@@ -2619,7 +2619,7 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: inc/interactive/class-h5p.php:176
+#: inc/interactive/class-h5p.php:175
 msgid "The original version of this chapter contained H5P content. You may want to remove or replace this element."
 msgstr ""
 
@@ -2895,7 +2895,7 @@ msgid "WordPress XML"
 msgstr ""
 
 #: inc/modules/export/namespace.php:127
-msgid "Common Cartridge 1.1 (Web Links)"
+msgid "Common Cartridge with Web Links"
 msgstr ""
 
 #: inc/modules/export/namespace.php:201
@@ -2928,7 +2928,7 @@ msgstr ""
 
 #: inc/modules/export/namespace.php:212
 #: inc/modules/export/namespace.php:246
-msgid "Web Links"
+msgid "Common Cartridge (Web Links)"
 msgstr ""
 
 #: inc/modules/export/namespace.php:282
@@ -4614,6 +4614,10 @@ msgstr ""
 
 #: templates/interactive/audio.blade.php:3
 msgid "An audio element has been excluded from this version of the text. You can listen to it online here:"
+msgstr ""
+
+#: templates/interactive/h5p.blade.php:3
+msgid "An interactive H5P element has been excluded from this version of the text. You can view it online here:"
 msgstr ""
 
 #: templates/interactive/oembed.blade.php:3

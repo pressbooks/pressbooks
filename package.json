@@ -18,8 +18,6 @@
 		"node": ">= 6.9.4"
 	},
 	"dependencies": {
-		"@sentry/browser": "^6.3.0",
-		"@sentry/tracing": "^6.3.0",
 		"block-ui": "^2.70.1",
 		"countup.js": "^2.0.4",
 		"event-source-polyfill": "^1.0.11",
