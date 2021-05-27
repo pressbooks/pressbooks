@@ -157,12 +157,12 @@ function force_wrap_images( $content ) {
 	 * 5        ((?:.)*?)?                                      Anything up to the final </p>
 	 * 6        (<\/p>)                                         Closing <p> tag
 	 */
-	$patterns = [
+	$pattern = [
 		'#(<p[^>]*>)((?:.(?!p>))*?)\s*?(<a .*?><img .*?class=\"([a-z0-9\- ]*).*?></a>)\s*?((?:.)*?)?(<\/p>)#',
 		'#(<p[^>]*>)((?:.(?!p>))*?)\s*?(<img .*?class=\"([a-z0-9\- ]*).*?>)\s*?((?:.)*?)?(<\/p>)#',
 	];
 	$replacement = '$1$2$6<div class="wp-nocaption $4">$3</div>$1$5$6';
-	$content = preg_replace( $patterns, $replacement, $content );
+	$content = preg_replace( $pattern, $replacement, $content );
 
 	$pattern = [
 		'#(<p[^>]*>)\s*?(<a .*?><img class=\"([a-z0-9\- ]*).*?><\/a>)?\s*<br \/>#',
