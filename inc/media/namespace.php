@@ -145,24 +145,24 @@ function is_valid_media( $path_to_file, $filename ) {
  */
 function force_wrap_images( $content ) {
 
-    /**
-     * Regex pattern explained
-     *
-     * Group   Regex                                            Description
-     * 1       (<p[^>]*>)                                       Starting <p> tag
-     * 2       ((?:.(?!p>))*?)                                  Anything that is not followed by a p>
-     * 3       (<a .*?><img .*?class=\"([a-z0-9\- ]*).*?></a>)  The whole <a> tag - used when there is a wrapping anchor on the img.
-     * 3.1     (<img .*?class=\"([a-z0-9\- ]*).*?>)             The whole <img> tag - used when there is no wrapping anchor on the img.
-     * 4       ([a-z0-9\- ]*)                                   All classes that are present in the <img>
-     * 5       ((?:.)*?)?                                       Anything up to the final </p>
-     * 6       (<\/p>)                                          Closing <p> tag
-     */
-    $patterns = [
-        '#(<p[^>]*>)((?:.(?!p>))*?)\s*?(<a .*?><img .*?class=\"([a-z0-9\- ]*).*?></a>)\s*?((?:.)*?)?(<\/p>)#',
-        '#(<p[^>]*>)((?:.(?!p>))*?)\s*?(<img .*?class=\"([a-z0-9\- ]*).*?>)\s*?((?:.)*?)?(<\/p>)#',
-    ];
-    $replacement = '$1$2$6<div class="wp-nocaption $4">$3</div>$1$5$6';
-    $content = preg_replace( $patterns, $replacement, $content );
+	/**
+	 * Regex pattern explained
+	 *
+	 * Group    Regex                                           Description
+	 * 1        (<p[^>]*>)                                      Starting <p> tag
+	 * 2        ((?:.(?!p>))*?)                                 Anything that is not followed by a p>
+	 * 3        (<a .*?><img .*?class=\"([a-z0-9\- ]*).*?></a>) The whole <a> tag - used when there is a wrapping anchor on the img.
+	 * 3.1      (<img .*?class=\"([a-z0-9\- ]*).*?>)            The whole <img> tag - used when there is no wrapping anchor on the img.
+	 * 4        ([a-z0-9\- ]*)                                  All classes that are present in the <img>
+	 * 5        ((?:.)*?)?                                      Anything up to the final </p>
+	 * 6        (<\/p>)                                         Closing <p> tag
+	 */
+	$patterns = [
+		'#(<p[^>]*>)((?:.(?!p>))*?)\s*?(<a .*?><img .*?class=\"([a-z0-9\- ]*).*?></a>)\s*?((?:.)*?)?(<\/p>)#',
+		'#(<p[^>]*>)((?:.(?!p>))*?)\s*?(<img .*?class=\"([a-z0-9\- ]*).*?>)\s*?((?:.)*?)?(<\/p>)#',
+	];
+	$replacement = '$1$2$6<div class="wp-nocaption $4">$3</div>$1$5$6';
+	$content = preg_replace( $patterns, $replacement, $content );
 
 	$pattern = [
 		'#(<p[^>]*>)\s*?(<a .*?><img class=\"([a-z0-9\- ]*).*?><\/a>)?\s*<br \/>#',
