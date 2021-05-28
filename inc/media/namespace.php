@@ -163,7 +163,12 @@ function force_wrap_images( $content ) {
 	];
 
 	$content = preg_replace_callback( $pattern, function ( $matches ) {
-		[ $_, $open_p, $content_before, $image, $classes, $content_after, $close_p ] = $matches;
+		$open_p = $matches[1];
+		$content_before = $matches[2];
+		$image = $matches[3];
+		$classes = $matches[4];
+		$content_after = $matches[5];
+		$close_p = $matches[6];
 
 		$wrapped_image = "<div class='wp-nocaption $classes'>$image</div>";
 
