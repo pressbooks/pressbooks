@@ -120,6 +120,12 @@ class MediaTest extends \WP_UnitTestCase {
 		$this->assertStringStartsWith( '<div class="wp-nocaption aligncenter size-full wp-image-294"><img ', $converted );
 		$this->assertStringEndsWith( ' /></div>', $converted );
 
+		// If we have p tags with more content than just the image, we split p tag into two and wrap the image.
+		$case = '<p>Lorem ipsum<img class="aligncenter size-full wp-image-294" src="http://standardtest.pressbooks.com/files/2015/10/Denison-small.jpg" alt="Denison-small" width="191" height="240" />dolor sit amet</p>';
+		$converted = \Pressbooks\Media\force_wrap_images( $case );
+		$this->assertStringStartsWith( '<p>Lorem ipsum</p><div class="wp-nocaption aligncenter size-full wp-image-294"><img ', $converted );
+		$this->assertStringEndsWith( ' /></div><p>dolor sit amet</p>', $converted );
+
 		// WordPress generates this in the case of an image with a link: (We *do* want to change this)
 		$case = '<p><a href="http://imagelink.com/image.jpg"><img class="aligncenter wp-image-294 size-full" src="http://standardtest.pressbooks.com/files/2015/10/Denison-small.jpg" alt="Denison-small" width="191" height="240" /></a></p>';
 		$converted = \Pressbooks\Media\force_wrap_images( $case );

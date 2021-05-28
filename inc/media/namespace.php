@@ -172,17 +172,17 @@ function force_wrap_images( $content ) {
 
 		$wrapped_image = "<div class=\"wp-nocaption $classes\">$image</div>";
 
-		// If the <p> tag contains only the <img> tag itself we just wrap the image inside the div.no-caption
+		// If the <p> tag contains only the <img> tag itself we just return the wrapped image
 		if ( trim( $content_before ) === '' && trim( $content_after ) === '' ) {
 			return $wrapped_image;
 		}
 
-		// If the <p> tag does not contain content before the <img> tag
+		// If the <p> tag does not contain content before the <img> tag we return the wrapped image followed by the content
 		if ( trim( $content_before ) === '' ) {
 			return $wrapped_image . $open_p . $content_after . $close_p;
 		}
 
-		// If the <p> tag does not contain content before the <img> tag
+		// If the <p> tag does not contain content after the <img> tag we return the wrapped image preceded by the content
 		if ( trim( $content_after ) === '' ) {
 			return $open_p . $content_before . $close_p . $wrapped_image;
 		}
