@@ -130,7 +130,7 @@ class MediaTest extends \WP_UnitTestCase {
 		$case = '<p><a href="https://university.pressbooks.pub/app/uploads/sites/112/2018/12/image1-1.jpeg"><img class="aligncenter wp-image-33 size-thumbnail" src="https://university.pressbooks.pub/app/uploads/sites/112/2018/12/image1-1-150x150.jpeg" alt="Green cacti and a grey sky" width="150" height="150" /></a><br />Lorem ipsum.</p>';
 		$converted = \Pressbooks\Media\force_wrap_images( $case );
 		$this->assertStringStartsWith( '<div class="wp-nocaption aligncenter wp-image-33 size-thumbnail"><a ', $converted );
-		$this->assertStringEndsWith( '</a></div><p>Lorem ipsum.</p>', $converted );
+		$this->assertStringEndsWith( '</a></div><p><br />Lorem ipsum.</p>', $converted );
 	}
 
 	/**
