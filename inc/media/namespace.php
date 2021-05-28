@@ -161,8 +161,29 @@ function force_wrap_images( $content ) {
 		'#(<p[^>]*>)((?:.(?!p>))*?)\s*?(<a .*?><img .*?class=\"([a-z0-9\- ]*).*?></a>)\s*?((?:.)*?)?(<\/p>)#',
 		'#(<p[^>]*>)((?:.(?!p>))*?)\s*?(<img .*?class=\"([a-z0-9\- ]*).*?>)\s*?((?:.)*?)?(<\/p>)#',
 	];
-	$replacement = '$1$2$6<div class="wp-nocaption $4">$3</div>$1$5$6';
-	$content = preg_replace( $pattern, $replacement, $content );
+
+	$content = preg_replace_callback( $pattern, function ( $matches ) {
+		[ $_, $open_p, $content_before, $image, $classes, $content_after, $close_p ] = $matches;
+
+		$wrapped_image = "<div class='wp-nocaption $classes'>$image</div>";
+
+		// If the <p> tag contains only the <img> tag itself we just wrap the image inside the div.no-caption
+		if ( trim( $content_before ) === '' && trim( $content_after ) === '' ) {
+			return $wrapped_image;
+		}
+
+		// If the <p> tag does not contain content before the <img> tag
+		if ( trim( $content_before ) === '' ) {
+			return $wrapped_image . $open_p . $content_after . $close_p;
+		}
+
+		// If the <p> tag does not contain content before the <img> tag
+		if ( trim( $content_after ) === '' ) {
+			return $open_p . $content_before . $close_p . $wrapped_image;
+		}
+
+		return $open_p . $content_before . $close_p . $wrapped_image . $open_p . $content_after . $close_p;
+	}, $content );
 
 	$pattern = [
 		'#(<p[^>]*>)\s*?(<a .*?><img class=\"([a-z0-9\- ]*).*?><\/a>)?\s*<br \/>#',

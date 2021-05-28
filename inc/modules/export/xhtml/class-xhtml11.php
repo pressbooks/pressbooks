@@ -648,7 +648,7 @@ class Xhtml11 extends ExportGenerator {
 		if ( ! empty( $_GET['optimize-for-print'] ) ) {
 			$content = $this->fixImages( $content );
 		}
-		$content = $this->wrapFloatingImages( $content );
+		$content = \Pressbooks\Media\force_wrap_images( $content );
 		$content = $this->tidy( $content );
 
 		return $content;
@@ -801,34 +801,6 @@ class Xhtml11 extends ExportGenerator {
 		}
 
 		return $content;
-	}
-
-	/**
-	 * Replaces and wraps images that are effected by automatic WordPress paragraph tags.
-	 *
-	 * @param $content
-	 *
-	 * @return string
-	 */
-	protected function wrapFloatingImages( $content ) {
-		/**
-		 * Regex pattern explained
-		 *
-		 * Group    Regex                                           Description
-		 * 1        (<p[^>]*>)                                      Starting <p> tag
-		 * 2        ((?:.(?!p>))*?)                                 Anything that is not followed by a p>
-		 * 3        (<a .*?><img .*?class=\"([a-z0-9\- ]*).*?></a>) The whole <a> tag - used when there is a wrapping anchor on the img.
-		 * 3.1      (<img .*?class=\"([a-z0-9\- ]*).*?>)            The whole <img> tag - used when there is no wrapping anchor on the img.
-		 * 4        ([a-z0-9\- ]*)                                  All classes that are present in the <img>
-		 * 5        ((?:.)*?)?                                      Anything up to the final </p>
-		 * 6        (<\/p>)                                         Closing <p> tag
-		 */
-		$pattern = [
-			'#(<p[^>]*>)((?:.(?!p>))*?)\s*?(<a .*?><img .*?class=\"([a-z0-9\- ]*).*?></a>)\s*?((?:.)*?)?(<\/p>)#',
-			'#(<p[^>]*>)((?:.(?!p>))*?)\s*?(<img .*?class=\"([a-z0-9\- ]*).*?>)\s*?((?:.)*?)?(<\/p>)#',
-		];
-		$replacement = '$1$2$6<div class="wp-nocaption $4">$3</div>$1$5$6';
-		return preg_replace( $pattern, $replacement, $content );
 	}
 
 	/**
