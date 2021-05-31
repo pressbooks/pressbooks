@@ -62,6 +62,7 @@ function get_microdata_elements() {
 		'description' => 'pb_about_50',
 		'editor' => 'pb_editors',
 		'image' => 'pb_cover_image',
+		'thumbnailUrl' => 'pb_thumbnail',
 		'inLanguage' => 'pb_language',
 		'keywords' => 'pb_keywords_tags',
 		'publisher' => 'pb_publisher',
@@ -210,6 +211,7 @@ function book_information_to_schema( $book_information, $network_excluded_direct
 		'pb_about_50' => 'disambiguatingDescription',
 		'pb_about_unlimited' => 'description',
 		'pb_cover_image' => 'image',
+		'pb_thumbnail' => 'thumbnailUrl',
 		'pb_series_number' => 'position',
 		'pb_is_based_on' => 'isBasedOn',
 		'pb_word_count' => 'wordCount',
@@ -463,6 +465,7 @@ function schema_to_book_information( $book_schema ) {
 		'disambiguatingDescription' => 'pb_about_50',
 		'description' => 'pb_about_unlimited',
 		'image' => 'pb_cover_image',
+		'thumbnailUrl' => 'pb_thumbnail',
 		'position' => 'pb_series_number',
 		'isBasedOn' => 'pb_is_based_on',
 	];

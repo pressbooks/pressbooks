@@ -207,4 +207,14 @@ class DataCollector_BookTest extends \WP_UnitTestCase {
 	}
 
 
+	/**
+	 * @group datacollector
+	 */
+	public function test_getCoverThumbnail() {
+		$this->_book();
+		$path = $this->bookDataCollector->getCoverThumbnail(1, 'https://presssbooks.test/cover-image.jpg');
+		$this->assertEquals('https://presssbooks.test/cover-image.jpg', $path);
+	}
+
+
 }
