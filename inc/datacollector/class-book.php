@@ -461,6 +461,7 @@ class Book {
 
 	/**
 	 * Get the cover thumbnail from WordPress resized items
+	 * It will force https in each image path
 	 * @return string
 	 */
 	public function getCoverThumbnail( $book_id, $cover_path ) {
@@ -472,10 +473,10 @@ class Book {
 		$cover_id = attachment_id_from_url( $cover_path );
 
 		if ( $cover_id ) {
-			return wp_get_attachment_image_url( $cover_id, $thumbnail_size, false );
+			$cover_path = wp_get_attachment_image_url( $cover_id, $thumbnail_size, false );
 		}
 
-		return  $cover_path;
+		return  str_replace( 'http://', 'https://', $cover_path );
 	}
 
 
