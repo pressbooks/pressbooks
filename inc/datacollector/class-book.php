@@ -472,6 +472,8 @@ class Book {
 
 		$cover_id = attachment_id_from_url( $cover_path );
 
+		var_dump($cover_id);
+
 		if ( $cover_id ) {
 			$cover_path = wp_get_attachment_image_url( $cover_id, $thumbnail_size, false );
 		}

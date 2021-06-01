@@ -210,6 +210,10 @@ function attachment_id_from_url( $url ) {
 		)
 	);
 
+	$results = $wpdb->get_results("SELECT meta_value FROM $wpdb->postmeta WHERE meta_key = 'wp_attached_file'");
+
+	var_dump($results);
+
 	return absint( $id );
 }
 

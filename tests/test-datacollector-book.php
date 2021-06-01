@@ -212,31 +212,27 @@ class DataCollector_BookTest extends \WP_UnitTestCase {
 	 */
 	public function test_getCoverThumbnail() {
 		$this->_book();
-		$path = $this->bookDataCollector->getCoverThumbnail( 1, 'https://presssbooks.test/cover-image.jpg' );
+
+		global $blog_id;
+
+		$path = $this->bookDataCollector->getCoverThumbnail( $blog_id, 'https://presssbooks.test/cover-image.jpg' );
 		$this->assertEquals( 'https://presssbooks.test/cover-image.jpg', $path );
 
-		$path = $this->bookDataCollector->getCoverThumbnail( 1, 'http://presssbooks.test/no-https-cover-image.jpg' );
+		$path = $this->bookDataCollector->getCoverThumbnail( $blog_id, 'http://presssbooks.test/no-https-cover-image.jpg' );
 		$this->assertEquals( 'https://presssbooks.test/no-https-cover-image.jpg', $path );
 
-		$image_name = 'themetamorphosis_1200x1600.jpg';
 
-		$good_url = 'https://metamorphosiskafka.pressbooks.com/wp-content/uploads/sites/26642/2014/04/' . $image_name;
-		update_post_meta( 1, 'pb_cover_image', $good_url );
+		$attachment = $this->factory->attachment->create_upload_object( __DIR__ . '/data/skates.jpg', $blog_id );
 
-		$args = [
-			'post_mime_type' => 'jpg',
-			'post_title' => __( 'Cover Image', 'pressbooks' ),
-			'post_content' => '',
-			'post_status' => 'inherit',
-			'post_name' => 'pb-cover-image',
-		];
+		$attachment_path = wp_get_attachment_url( $attachment );
 
-		$id = wp_insert_attachment( $args, $image_name, 1 );
+		$obj = get_post_meta($attachment);
 
-		wp_update_attachment_metadata( $id, wp_generate_attachment_metadata( $id, $image_name ) );
+		var_dump($obj);
+		var_dump($attachment_path);
 
-		$path = $this->bookDataCollector->getCoverThumbnail( 1, $good_url );
-		$this->assertEquals( 'https://presssbooks.test/no-https-cover-image.jpg', $path );
+		$path = $this->bookDataCollector->getCoverThumbnail( 1, $attachment_path );
+		$this->assertEquals( $attachment_path, $path );
 	}
 
 
