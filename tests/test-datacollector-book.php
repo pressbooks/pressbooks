@@ -218,8 +218,13 @@ class DataCollector_BookTest extends \WP_UnitTestCase {
 		$path = $this->bookDataCollector->getCoverThumbnail( $blog_id, 'https://presssbooks.test/cover-image.jpg' );
 		$this->assertEquals( 'https://presssbooks.test/cover-image.jpg', $path );
 
-		$path = $this->bookDataCollector->getCoverThumbnail( $blog_id, 'http://presssbooks.test/no-https-cover-image.jpg' );
-		$this->assertEquals( 'https://presssbooks.test/no-https-cover-image.jpg', $path );
+		$path = $this->bookDataCollector->getCoverThumbnail( $blog_id, 'http://presssbooks.test/server-whitout-ssl-image.jpg' );
+		$this->assertEquals( 'http://presssbooks.test/server-whitout-ssl-image.jpg', $path );
+
+		$_SERVER['HTTPS'] = 'on';
+
+		$path = $this->bookDataCollector->getCoverThumbnail( $blog_id, 'http://presssbooks.test/https-cover-image.jpg' );
+		$this->assertEquals( 'https://presssbooks.test/https-cover-image.jpg', $path );
 
 		$attachment_id = $this->factory->attachment->create_upload_object( __DIR__ . '/data/skates.jpg', $blog_id );
 		$attachment_path = wp_get_attachment_url( $attachment_id );

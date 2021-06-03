@@ -474,7 +474,7 @@ class Book {
 			$cover_path = wp_get_attachment_image_url( $cover_id, 'large', false );
 		}
 
-		return  str_replace( 'http://', 'https://', $cover_path );
+		return  is_ssl() ? str_replace( 'http://', 'https://', $cover_path ) : $cover_path;
 	}
 
 
