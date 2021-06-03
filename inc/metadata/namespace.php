@@ -1247,6 +1247,7 @@ function download_thema_lang( $meta_id, $post_id, $meta_key, $meta_value ) {
 	return false;
 }
 
+
 /**
  * Download thema file if the thema lang file is not downloaded
  * @param $post
