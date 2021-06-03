@@ -226,6 +226,8 @@ class DataCollector_BookTest extends \WP_UnitTestCase {
 		$path = $this->bookDataCollector->getCoverThumbnail( $blog_id, 'http://presssbooks.test/https-cover-image.jpg' );
 		$this->assertEquals( 'https://presssbooks.test/https-cover-image.jpg', $path );
 
+		$_SERVER['HTTPS'] = 'off';
+
 		$attachment_id = $this->factory->attachment->create_upload_object( __DIR__ . '/data/skates.jpg', $blog_id );
 		$attachment_path = wp_get_attachment_url( $attachment_id );
 
