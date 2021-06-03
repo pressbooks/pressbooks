@@ -29,6 +29,7 @@ class DataCollector_BookTest extends \WP_UnitTestCase {
 		// Put the hooks back in place
 		$obj = BookDataCollector::init();
 		$obj::hooks( $obj );
+		$_SERVER['SERVER_PORT'] = '';
 	}
 
 
@@ -221,7 +222,7 @@ class DataCollector_BookTest extends \WP_UnitTestCase {
 		$path = $this->bookDataCollector->getCoverThumbnail( $blog_id, 'http://presssbooks.test/server-whitout-ssl-image.jpg' );
 		$this->assertEquals( 'http://presssbooks.test/server-whitout-ssl-image.jpg', $path );
 
-		$_SERVER['HTTPS'] = 'on';
+		$_SERVER['SERVER_PORT'] = '443';
 
 		$path = $this->bookDataCollector->getCoverThumbnail( $blog_id, 'http://presssbooks.test/https-cover-image.jpg' );
 		$this->assertEquals( 'https://presssbooks.test/https-cover-image.jpg', $path );
@@ -232,8 +233,6 @@ class DataCollector_BookTest extends \WP_UnitTestCase {
 		$path = $this->bookDataCollector->getCoverThumbnail( $blog_id, $attachment_path, $attachment_id );
 
 		$this->assertEquals( 1, preg_match( '/https:\/\/.*-768x1024\.jpg/', $path ) );
-
-		$_SERVER['HTTPS'] = 'off';
 	}
 
 
