@@ -231,8 +231,6 @@ class DataCollector_BookTest extends \WP_UnitTestCase {
 		$attachment_id = $this->factory->attachment->create_upload_object( __DIR__ . '/data/skates.jpg', $blog_id );
 		$attachment_path = wp_get_attachment_url( $attachment_id );
 
-		update_post_meta( $blog_id, 'pb_cover_image', $attachment_path );
-
 		$path = $this->bookDataCollector->getCoverThumbnail( $blog_id, $attachment_path, $attachment_id );
 
 		$this->assertEquals( 1, preg_match( '/https:\/\/.*-768x1024\.jpg/', $path ) );
