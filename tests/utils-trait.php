@@ -96,6 +96,8 @@ There are many maths like it but these ones are mine.
 
 <p><a href="/back-matter/appendix/">Link to another post.</a></p>
 
+<p><img class="size-medium wp-image-29 alignleft" src="https://pressbooks.com/wp-content/uploads/2018/03/hughmcguire.png" alt="" width="300" height="199" />Image with no caption.</p>
+
 <p><a href="https://github.com/pressbooks/pressbooks#hello-world">External link.</a></p>
 
 https://youtu.be/Lqqsp8soXTo
