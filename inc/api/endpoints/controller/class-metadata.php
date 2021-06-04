@@ -164,6 +164,13 @@ class Metadata extends \WP_REST_Controller {
 					'context' => [ 'view' ],
 					'readonly' => true,
 				],
+				'thumbnailUrl' => [
+					'type' => 'string',
+					'format' => 'uri',
+					'description' => __( 'A thumbnail of the item.' ),
+					'context' => [ 'view' ],
+					'readonly' => true,
+				],
 				'position' => [
 					'type' => 'integer',
 					'description' => __( 'The position of an item in a series or sequence of items.' ),
