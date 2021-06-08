@@ -91,9 +91,7 @@ add_action( 'wp_head', '\Pressbooks\Analytics\print_analytics' );
 // Tracking
 // -------------------------------------------------------------------------------------------------------------------
 
-add_action( 'init', function() {
-	( new \Pressbooks\Tracking\BookDownload() )->setup();
-} );
+add_action( 'init', [ '\Pressbooks\Tracking\BookDownload', 'init' ] );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Custom Metadata plugin

@@ -217,7 +217,7 @@ function do_open() {
 
 	$action = get_query_var( 'open' );
 
-	if ( 'download' === $action && ! empty( $_GET[ 'type' ]) ) {
+	if ( 'download' === $action && ! empty( $_GET['type'] ) ) {
 		// Download
 		$format = $_GET['type'];
 		$files = \Pressbooks\Utility\latest_exports();

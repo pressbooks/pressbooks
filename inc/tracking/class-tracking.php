@@ -21,15 +21,14 @@ abstract class Tracking {
 		global $wpdb;
 
 		$this->dbTable = $wpdb->base_prefix . 'pressbooks_tracking';
-    }
+	}
 
 	/**
 	 * Set up the database table.
 	 *
 	 * @return void
 	 */
-	public function setup(): void
-	{
+	public function setup() {
 		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 
 		$sql = "CREATE TABLE IF NOT EXISTS `$this->dbTable` (
@@ -51,7 +50,7 @@ abstract class Tracking {
 	 * @param mixed $value
 	 * @return void
 	 */
-	public function store( $value ): void {
+	public function store( $value ) {
 		global $wpdb;
 
 		$wpdb->insert( $this->dbTable, [
@@ -59,7 +58,7 @@ abstract class Tracking {
 			'track_type' => $this->type,
 			'track_value' => $value,
 			'logged_in' => is_user_logged_in(),
-			'created_at' => date("Y-m-d h:i:s"),
+			'created_at' => date( 'Y-m-d h:i:s' ),
 		] );
 	}
 }
