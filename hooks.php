@@ -92,7 +92,7 @@ add_action( 'wp_head', '\Pressbooks\Analytics\print_analytics' );
 // -------------------------------------------------------------------------------------------------------------------
 
 add_action( 'init', function() {
-	( new \Pressbooks\Tracking\Download() )->setup();
+	( new \Pressbooks\Tracking\BookDownload() )->setup();
 } );
 
 // -------------------------------------------------------------------------------------------------------------------

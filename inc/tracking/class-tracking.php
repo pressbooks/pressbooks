@@ -4,7 +4,7 @@ namespace Pressbooks\Tracking;
 
 abstract class Tracking {
 	/**
-	 * Tracking table, set in constructor
+	 * Tracking table
 	 *
 	 * @var string
 	 */
@@ -17,11 +17,6 @@ abstract class Tracking {
 	 */
 	protected $type;
 
-	/**
-	 * Initialize the constructor.
-	 *
-	 * @return void
-	 */
 	public function __construct() {
 		global $wpdb;
 
@@ -38,15 +33,33 @@ abstract class Tracking {
 		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 
 		$sql = "CREATE TABLE IF NOT EXISTS `$this->dbTable` (
-				`id` INT(11) NOT NULL AUTO_INCREMENT,
-				`blog_id` INT(11) NOT NULL,
+				`id` bigint(20) NOT NULL AUTO_INCREMENT,
+				`blog_id` bigint(20) NOT NULL,
 				`track_type` varchar(30) NOT NULL,
-				`track_metadata` longtext,
-				`is_logged_in` boolean NOT NULL default false,
+				`track_value` varchar(255),
+				`logged_in` boolean NOT NULL default false,
 				`created_at` datetime NOT NULL,
 				PRIMARY KEY  (id)
 				);";
 
 		dbDelta( $sql );
+	}
+
+	/**
+	 * Store tracking event data.
+	 *
+	 * @param mixed $value
+	 * @return void
+	 */
+	public function store( $value ): void {
+		global $wpdb;
+
+		$wpdb->insert( $this->dbTable, [
+			'blog_id' => get_current_blog_id(),
+			'track_type' => $this->type,
+			'track_value' => $value,
+			'logged_in' => is_user_logged_in(),
+			'created_at' => date("Y-m-d h:i:s"),
+		] );
 	}
 }
