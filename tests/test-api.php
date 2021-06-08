@@ -63,6 +63,7 @@ class ApiTest extends \WP_UnitTestCase {
             "pb_title" => "The onboarding process",
 			"pb_language" => "en",
 			"pb_cover_image" => "https://pressbooks.test/app/plugins/pressbooks/assets/dist/images/default-book-cover.jpg",
+			"pb_thumbnail" => "https://pressbooks.test/app/plugins/pressbooks/assets/dist/images/default-book-cover.jpg",
             "pb_primary_subject" => "YXHB",
 			"pb_additional_subjects" => "ATL, ABK",
 			"pb_subtitle" => "subtitle test",
@@ -80,6 +81,7 @@ class ApiTest extends \WP_UnitTestCase {
 		$this->assertArrayHasKey( 'language', $schema );
 		$this->assertArrayHasKey( 'wordCount', $schema );
 		$this->assertArrayHasKey( 'h5pActivities', $schema );
+		$this->assertArrayHasKey( 'thumbnailUrl', $schema );
 	}
 
 	/**

@@ -479,8 +479,8 @@ class Xhtml11 extends ExportGenerator {
 	 *
 	 * @see http://www.princexml.com/doc/8.1/footnotes/
 	 *
-	 * @param      $atts
-	 * @param null $content
+	 * @param       $atts
+	 * @param null  $content
 	 *
 	 * @return string
 	 */
@@ -648,6 +648,7 @@ class Xhtml11 extends ExportGenerator {
 		if ( ! empty( $_GET['optimize-for-print'] ) ) {
 			$content = $this->fixImages( $content );
 		}
+		$content = \Pressbooks\Media\force_wrap_images( $content );
 		$content = $this->tidy( $content );
 
 		return $content;

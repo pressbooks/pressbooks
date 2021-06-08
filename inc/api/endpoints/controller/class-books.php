@@ -261,7 +261,9 @@ class Books extends \WP_REST_Controller {
 			'last_updated' => strtotime( get_blog_details( $id )->last_updated ),
 		];
 
-		$metadata = array_merge( $metadata_info_array, $metadata_blog_meta, $blog_info );
+		$metadata_thumb['pb_thumbnail'] = $this->bookDataCollector->getCoverThumbnail( $id, $metadata_info_array['pb_cover_image'] );
+
+		$metadata = array_merge( $metadata_info_array, $metadata_blog_meta, $blog_info, $metadata_thumb );
 		$metadata = ( is_array( $metadata ) && ! empty( $metadata ) ) ? book_information_to_schema( $metadata, $this->networkExcludedDirectory ) : [];
 
 		$item = [
