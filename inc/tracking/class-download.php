@@ -26,16 +26,17 @@ class Download extends Tracking {
 	/**
 	 * Store the download event data.
 	 *
-	 * @param array $data
+	 * @param string $format
 	 * @return void
 	 */
-	public function store ( array $data = [] ): void {
+	public function store ( string $format ): void {
 		global $wpdb;
 
 		$wpdb->insert( $this->dbTable, [
 			'blog_id' => get_current_blog_id(),
 			'track_type' => $this->type,
-			'track_data' => maybe_serialize( $data ),
+			'track_metadata' => json_encode( [ 'format' => $format ] ),
+			'is_logged_in' => is_user_logged_in(),
 			'created_at' => date("Y-m-d h:i:s"),
 		] );
 	}

@@ -223,10 +223,7 @@ function do_open() {
 		$files = \Pressbooks\Utility\latest_exports();
 
 		if ( isset( $files[ $format ] ) ) {
-			do_action( 'store_download_data', [
-				'format' => $format,
-				'is_logged_in' => is_user_logged_in(),
-			] );
+			do_action( 'store_download_data', $format );
 
 			$filepath = \Pressbooks\Modules\Export\Export::getExportFolder() . $files[ $format ];
 			force_download( $filepath );

@@ -41,7 +41,8 @@ abstract class Tracking {
 				`id` INT(11) NOT NULL AUTO_INCREMENT,
 				`blog_id` INT(11) NOT NULL,
 				`track_type` varchar(30) NOT NULL,
-				`track_data` longtext,
+				`track_metadata` longtext,
+				`is_logged_in` boolean NOT NULL default false,
 				`created_at` datetime NOT NULL,
 				PRIMARY KEY  (id)
 				);";
