@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
-"POT-Creation-Date: 2021-05-26T03:39:17+00:00\n"
+"POT-Creation-Date: 2021-06-08T13:58:02+00:00\n"
 "PO-Revision-Date: 2021-05-25 22:37+0000\n"
 "Last-Translator: Ho Man Chan <homan@pressbooks.com>\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/pressbooks/pressbooks/language/tr_TR/)\n"
@@ -1361,7 +1361,7 @@ msgstr "Pressbook'un kendi dilinize çevrilmesine yardım edin!"
 #: inc/modules/export/epub/templates/epub3/opf.php:95
 #: inc/modules/export/epub/templates/epub201/opf.php:88
 #: inc/modules/export/htmlbook/class-htmlbook.php:863
-#: inc/modules/export/xhtml/class-xhtml11.php:1042
+#: inc/modules/export/xhtml/class-xhtml11.php:1043
 msgid "Copyright"
 msgstr "Telif Hakkı"
 
@@ -1818,7 +1818,7 @@ msgstr "Metadata"
 msgid "ID offset, overrides page."
 msgstr "ID offset, sayfayı geçersiz kılar."
 
-#: inc/api/endpoints/controller/class-metadata.php:452
+#: inc/api/endpoints/controller/class-metadata.php:459
 #: inc/api/endpoints/controller/class-sectionmetadata.php:423
 msgid ""
 "URL of a reference Web page that unambiguously indicates the item's "
@@ -2203,7 +2203,7 @@ msgstr "$title ikullanımdan kaldırıldı. Yöntem, başlıkları otomatik olar
 #: inc/modules/export/epub/templates/epub3/opf.php:104
 #: inc/modules/export/epub/templates/epub201/opf.php:97
 #: inc/modules/export/htmlbook/class-htmlbook.php:872
-#: inc/modules/export/xhtml/class-xhtml11.php:1051
+#: inc/modules/export/xhtml/class-xhtml11.php:1052
 msgid "by"
 msgstr "ile"
 
@@ -2701,27 +2701,27 @@ msgid ""
 "extended %s language support for the Pressbooks interface."
 msgstr "Pressbooks arayüzü için genişletilmiş %s dil desteği yüklemesini istiyorsanız, lütfen sistem yöneticinizle iletişime geçin."
 
-#: inc/metadata/namespace.php:111
+#: inc/metadata/namespace.php:112
 msgid "Hide Additional Book Information"
 msgstr "Ek Kitap Bilgilerini Gizle"
 
-#: inc/metadata/namespace.php:114
+#: inc/metadata/namespace.php:115
 msgid "Show Additional Book Information"
 msgstr "Ek Kitap Bilgilerini Göster"
 
-#: inc/metadata/namespace.php:121
+#: inc/metadata/namespace.php:122
 msgid ""
 "The book information you enter here appears on your book’s cover and title "
 "pages and in the metadata of your webbook and exported files."
 msgstr "Buraya girdiğiniz kitap bilgileri, kitabınızın kapak ve başlık sayfalarında ve web kitabınızın meta verilerinde ve dışa aktarılan dosyalarda görünür."
 
-#: inc/metadata/namespace.php:123
+#: inc/metadata/namespace.php:124
 msgid ""
 "If you need to enter additional information, click the button below to see "
 "all available fields."
 msgstr "Ek bilgi girmeniz gerekirse, mevcut tüm alanları görmek için aşağıdaki düğmeyi tıklayın."
 
-#: inc/metadata/namespace.php:1232
+#: inc/metadata/namespace.php:1235
 msgid ""
 "The %1$s Thema subject terms requested for this book could not be downloaded"
 " from %2$s. Please report this error to your network manager."
@@ -2850,7 +2850,7 @@ msgstr "İthaf ve epigrafı dışa aktarma"
 #: inc/modules/export/epub/class-epub201.php:699
 #: inc/modules/export/epub/class-epub201.php:1286
 #: inc/modules/export/xhtml/class-xhtml11.php:431
-#: inc/modules/export/xhtml/class-xhtml11.php:1283
+#: inc/modules/export/xhtml/class-xhtml11.php:1284
 msgid "Exporting front matter"
 msgstr "Ön materyali dışa aktarma"
 
@@ -2858,15 +2858,15 @@ msgstr "Ön materyali dışa aktarma"
 #: inc/modules/export/epub/class-epub201.php:1454
 #: inc/modules/export/epub/class-epub201.php:1476
 #: inc/modules/export/xhtml/class-xhtml11.php:438
-#: inc/modules/export/xhtml/class-xhtml11.php:1407
-#: inc/modules/export/xhtml/class-xhtml11.php:1458
+#: inc/modules/export/xhtml/class-xhtml11.php:1408
+#: inc/modules/export/xhtml/class-xhtml11.php:1459
 msgid "Exporting parts and chapters"
 msgstr "Parçaları ve bölümleri dışa aktarma"
 
 #: inc/modules/export/epub/class-epub201.php:710
 #: inc/modules/export/epub/class-epub201.php:1715
 #: inc/modules/export/xhtml/class-xhtml11.php:442
-#: inc/modules/export/xhtml/class-xhtml11.php:1585
+#: inc/modules/export/xhtml/class-xhtml11.php:1586
 msgid "Exporting back matter"
 msgstr "Arka materyal dışa aktarılıyor"
 
@@ -2893,7 +2893,7 @@ msgstr "İçindekiler tablosu"
 
 #: inc/modules/export/epub/class-epub201.php:1837
 #: inc/modules/export/htmlbook/class-htmlbook.php:989
-#: inc/modules/export/xhtml/class-xhtml11.php:1115
+#: inc/modules/export/xhtml/class-xhtml11.php:1116
 msgid "Contents"
 msgstr "İçindekiler"
 
