@@ -217,15 +217,20 @@ function do_open() {
 
 	$action = get_query_var( 'open' );
 
-	if ( 'download' === $action ) {
+	if ( 'download' === $action && ! empty( $_GET[ 'type' ]) ) {
 		// Download
-		if ( ! empty( $_GET['type'] ) ) {
-			$files = \Pressbooks\Utility\latest_exports();
-			if ( isset( $files[ $_GET['type'] ] ) ) {
-				$filepath = \Pressbooks\Modules\Export\Export::getExportFolder() . $files[ $_GET['type'] ];
-				force_download( $filepath );
-				exit;
-			}
+		$format = $_GET['type'];
+		$files = \Pressbooks\Utility\latest_exports();
+
+		if ( isset( $files[ $format ] ) ) {
+			do_action( 'store_download_data', [
+				'format' => $format,
+				'is_logged_in' => is_user_logged_in(),
+			] );
+
+			$filepath = \Pressbooks\Modules\Export\Export::getExportFolder() . $files[ $format ];
+			force_download( $filepath );
+			exit;
 		}
 	}
 
