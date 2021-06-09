@@ -5,6 +5,16 @@ use Pressbooks\Tracking\BookDownload;
 class Track_BookDownloadTest extends \WP_UnitTestCase {
 	use utilsTrait;
 
+	public function setUp() {
+		parent::setUp();
+
+		$reflection = new ReflectionClass(BookDownload::class);
+		$instance = $reflection->getProperty('instance');
+		$instance->setAccessible(true);
+		$instance->setValue(null);
+		$instance->setAccessible(false);
+    }
+
 	/**
 	 * @group book_download
 	 */
@@ -15,10 +25,10 @@ class Track_BookDownloadTest extends \WP_UnitTestCase {
 
 		$table = $bookDownload->getTable();
 
-        $this->assertInstanceOf( BookDownload::class, $bookDownload ); // sanity check
+		$this->assertInstanceOf( BookDownload::class, $bookDownload ); // sanity check
 
-        $this->assertNotEmpty( $wp_filter['store_download_data'] );
-        $this->assertSame( $wpdb->get_var( "SHOW TABLES LIKE '$table'" ), $table );
+		$this->assertNotEmpty( $wp_filter['store_download_data'] );
+		$this->assertSame( $wpdb->get_var( "SHOW TABLES LIKE '$table'" ), $table );
 	}
 
 	/**
@@ -30,14 +40,14 @@ class Track_BookDownloadTest extends \WP_UnitTestCase {
 		$download = BookDownload::init();
 
 		$table = $download->getTable();
-		$type = $download->getType();
 
 		$this->_book();
 
 		do_action( 'store_download_data', 'epub' );
 
-		$record = $wpdb->get_row( "SELECT `track_value` FROM $table WHERE `track_type` = '$type'" );
+		$record = $wpdb->get_row( "SELECT * FROM $table" );
 
-        $this->assertSame( 'epub', $record->track_value );
+		$this->assertSame( 'epub', $record->track_value );
+		$this->assertSame( 'book_download', $record->track_type );
     }
 }

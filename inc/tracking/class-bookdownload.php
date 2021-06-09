@@ -6,18 +6,23 @@ class BookDownload extends Tracking {
 	/**
 	 * @var BookDownload
 	 */
-	private static $instance;
+	protected static $instance;
 
-	public function __construct() {
+	protected function __construct() {
 		parent::__construct();
 
-		$this->setType( 'book_download' );
+		$this->type = 'book_download';
 
 		add_action( 'store_download_data', [ $this, 'store' ] );
 	}
 
 	public static function init():BookDownload {
+	    echo PHP_EOL;
+	    echo 'getting instance';
+
 		if ( is_null( self::$instance ) ) {
+		    echo PHP_EOL;
+		    echo 'instance was null';
 			self::$instance = new static;
 
 			self::$instance->setup();

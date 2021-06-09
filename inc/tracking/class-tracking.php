@@ -17,7 +17,7 @@ abstract class Tracking {
 	 */
 	protected $type;
 
-	public function __construct() {
+	protected function __construct() {
 		global $wpdb;
 
 		$this->dbTable = $wpdb->base_prefix . 'pressbooks_tracking';
@@ -28,7 +28,7 @@ abstract class Tracking {
 	 *
 	 * @return void
 	 */
-	public function setup() {
+	protected function setup() {
 		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 
 		$sql = "CREATE TABLE IF NOT EXISTS `$this->dbTable` (
@@ -69,24 +69,5 @@ abstract class Tracking {
 	 */
 	public function getTable() {
 		return $this->dbTable;
-	}
-
-	/**
-	 * Store tracking event data.
-	 *
-	 * @return string
-	 */
-	public function getType() {
-		return $this->type;
-	}
-
-	/**
-	 * Store tracking event data.
-	 *
-	 * @param string $type
-	 * @return void
-	 */
-	public function setType( string $type ) {
-		$this->type = $type;
 	}
 }
