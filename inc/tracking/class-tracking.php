@@ -61,13 +61,4 @@ abstract class Tracking {
 			'created_at' => date( 'Y-m-d h:i:s' ),
 		] );
 	}
-
-	/**
-	 * Store tracking event data.
-	 *
-	 * @return string
-	 */
-	public function getTable() {
-		return $this->dbTable;
-	}
 }
