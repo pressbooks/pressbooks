@@ -2,10 +2,6 @@
 
 use Pressbooks\Tracking\BookDownload;
 
-function force_download( $filepath ) {
-    return;
-}
-
 class Track_BookDownloadTest extends \WP_UnitTestCase {
 	use utilsTrait;
 
