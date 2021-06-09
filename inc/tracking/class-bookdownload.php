@@ -17,12 +17,7 @@ class BookDownload extends Tracking {
 	}
 
 	public static function init():BookDownload {
-	    echo PHP_EOL;
-	    echo 'getting instance';
-
 		if ( is_null( self::$instance ) ) {
-		    echo PHP_EOL;
-		    echo 'instance was null';
 			self::$instance = new static;
 
 			self::$instance->setup();
