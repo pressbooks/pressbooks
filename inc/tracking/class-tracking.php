@@ -72,7 +72,7 @@ abstract class Tracking {
 			'track_type' => $this->type,
 			'track_value' => $value,
 			'logged_in' => is_user_logged_in(),
-			'created_at' => $date->format( 'Y-m-d h:i:s' ),
+			'created_at' => $date->format( 'Y-m-d H:i:s' ),
 		] );
 	}
 }
