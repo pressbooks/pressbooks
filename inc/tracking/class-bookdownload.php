@@ -3,11 +3,6 @@
 namespace Pressbooks\Tracking;
 
 class BookDownload extends Tracking {
-	/**
-	 * @var BookDownload
-	 */
-	protected static $instance;
-
 	protected function __construct() {
 		parent::__construct();
 

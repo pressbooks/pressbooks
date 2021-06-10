@@ -3,6 +3,8 @@
 namespace Pressbooks\Tracking;
 
 abstract class Tracking {
+	protected static $instance;
+
 	/**
 	 * Tracking table
 	 *
