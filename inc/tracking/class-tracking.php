@@ -23,6 +23,16 @@ abstract class Tracking {
 		$this->dbTable = $wpdb->base_prefix . 'pressbooks_tracking';
 	}
 
+	public static function init() {
+		if ( is_null( static::$instance ) ) {
+			static::$instance = new static;
+
+			static::$instance->setup();
+		}
+
+		return static::$instance;
+	}
+
 	/**
 	 * Set up the database table.
 	 *
