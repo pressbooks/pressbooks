@@ -230,7 +230,7 @@ function do_open( $do_download = null ) {
 			do_action( 'store_download_data', $format );
 
 			$filepath = \Pressbooks\Modules\Export\Export::getExportFolder() . $files[ $format ];
-			$do_download( $filepath );
+			is_callable( $do_download ) && $do_download( $filepath );
 			return;
 		}
 	}
