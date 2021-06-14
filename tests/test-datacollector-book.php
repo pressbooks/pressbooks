@@ -232,7 +232,7 @@ class DataCollector_BookTest extends \WP_UnitTestCase {
 
 		$path = $this->bookDataCollector->getCoverThumbnail( $blog_id, $attachment_path, $attachment_id );
 
-		$this->assertEquals( 1, preg_match( '/https:\/\/.*-768x1024\.jpg/', $path ) );
+		$this->assertEquals( 1, preg_match( '/https:\/\/.*-350x467\.jpg/', $path ) );
 	}
 
 
