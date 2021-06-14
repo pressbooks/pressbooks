@@ -308,7 +308,6 @@ add_action( 'activated_plugin', '\Pressbooks\Admin\Plugins\quicklatex_svg_warnin
 add_filter( 'gettext', '\Pressbooks\Registration\custom_signup_text', 20, 3 );
 add_action( 'signup_extra_fields', '\Pressbooks\Registration\add_password_field', 9 );
 add_filter( 'wpmu_validate_user_signup', '\Pressbooks\Registration\validate_passwords' );
-add_action( 'wp_footer', '\Pressbooks\Registration\add_a11y' );
 add_filter( 'add_signup_meta', '\Pressbooks\Registration\add_temporary_password', 99 );
 add_action( 'signup_blogform', '\Pressbooks\Registration\add_hidden_password_field' );
 add_filter( 'random_password', '\Pressbooks\Registration\override_password_generation' );
