@@ -471,7 +471,7 @@ class Book {
 		$cover_id = $attachment_id ? $attachment_id : attachment_id_from_url( $cover_path );
 
 		if ( $cover_id ) {
-			$cover_path = wp_get_attachment_image_url( $cover_id, 'large', false );
+			$cover_path = wp_get_attachment_image_url( $cover_id, 'pb_cover_large', false );
 		}
 
 		return  is_ssl() ? str_replace( 'http://', 'https://', $cover_path ) : $cover_path;
