@@ -351,22 +351,6 @@ function check_for_strong_password( $pwd ) {
 }
 
 /**
- * Add accessbility on create book page
- */
-function add_a11y() {
-
-	echo '<script type="text/javascript">
-		jQuery( document ).ready( function( $ ) {
-
-			//https://core.trac.wordpress.org/ticket/48657
-			$(".mu_register.wp-signup-container").attr("role","main");
-
-		} );
-	</script>';
-
-}
-
-/**
  * Remove unwanted and unnecessary Bedrock's prefix in Lost Url link
  * only if the book name is not wp
  */

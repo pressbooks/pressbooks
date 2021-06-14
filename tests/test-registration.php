@@ -162,17 +162,4 @@ class Registration extends \WP_UnitTestCase {
 		$this->assertTrue( is_string( $errors ) );
 		$this->assertEmpty( $errors );
 	}
-
-	/**
-	 * @group registration
-	 */
-	public function test_add_a11y() {
-		$expected = '$(".mu_register.wp-signup-container").attr("role","main");';
-
-		ob_start();
-		\Pressbooks\Registration\add_a11y();
-		$buffer = ob_get_clean();
-		$this->assertContains( $expected, $buffer );
-	}
-
 }
