@@ -27,6 +27,10 @@ class Kindlegen extends Export {
 			define( 'PB_KINDLEGEN_COMMAND', '/opt/kindlegen/kindlegen' );
 		}
 
+		if ( ! defined( 'PB_KINDLEGEN_SUPPRESS_MOBI8' ) ) {
+			define( 'PB_KINDLEGEN_SUPRRESS_MOBI8', false );
+		}
+
 	}
 
 
@@ -71,6 +75,12 @@ class Kindlegen extends Export {
 		$last_line = array_filter( $output );
 		$last_line = strtolower( end( $last_line ) );
 		if ( false !== strpos( $last_line, 'mobi file built successfully' ) ) {
+			if ( PB_KINDLEGEN_SUPPRESS_MOBI8 ) {
+				$mobi8_filename = $input_folder . sanitize_file_name( basename( $this->outputPath . '8' ) );
+				if ( file_exists( $mobi8_filename ) ) {
+					unlink( $mobi8_filename );
+				}
+			}
 
 			// Ok!
 			return true;
