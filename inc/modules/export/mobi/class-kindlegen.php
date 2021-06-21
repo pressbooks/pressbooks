@@ -87,7 +87,7 @@ class Kindlegen extends Export {
 		$this->outputPath = $filename;
 
 		// Move epub to tmp folder, convert and move to export folder
-		$tmp_input_path = $this->tmpDir . DIRECTORY_SEPARATOR . escapeshellcmd( basename( $input_path) );
+		$tmp_input_path = $this->tmpDir . DIRECTORY_SEPARATOR . escapeshellcmd( basename( $input_path ) );
 
 		copy( escapeshellcmd( $input_path ), $tmp_input_path );
 
