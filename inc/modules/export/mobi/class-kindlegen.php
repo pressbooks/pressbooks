@@ -15,6 +15,12 @@ class Kindlegen extends Export {
 	 */
 	public $hasWarnings = false;
 
+	/**
+	 * Temporary directory used to build Common Cartridge, no trailing slash!
+	 *
+	 * @var string
+	 */
+	protected $tmpDir;
 
 	/**
 	 * @param array $args
@@ -27,6 +33,22 @@ class Kindlegen extends Export {
 			define( 'PB_KINDLEGEN_COMMAND', '/opt/kindlegen/kindlegen' );
 		}
 
+		$this->tmpDir = $this->createTmpDir();
+
+	}
+
+	/**
+	 * Delete temporary directory when done.
+	 */
+	function __destruct() {
+		$this->deleteTmpDir();
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getTmpDir() {
+		return $this->tmpDir;
 	}
 
 
@@ -36,6 +58,10 @@ class Kindlegen extends Export {
 	 * @return bool
 	 */
 	function convert() {
+		if ( empty( $this->tmpDir ) || ! is_dir( $this->tmpDir ) ) {
+			$this->logError( '$this->tmpDir must be set before calling convert().' );
+			return false;
+		}
 
 		// Get most recent Epub file
 
@@ -60,11 +86,17 @@ class Kindlegen extends Export {
 		$filename = $this->timestampedFileName( '.mobi' );
 		$this->outputPath = $filename;
 
-		$command = PB_KINDLEGEN_COMMAND . ' ' . escapeshellcmd( $input_path ) . ' -locale en -o ' . escapeshellcmd( basename( $this->outputPath ) ) . ' 2>&1';
+		// Move epub to tmp folder, convert and move to export folder
+		$tmp_input_path = $this->tmpDir . DIRECTORY_SEPARATOR . escapeshellcmd( basename( $input_path) );
+
+		copy( escapeshellcmd( $input_path ), $tmp_input_path );
+
+		$command = PB_KINDLEGEN_COMMAND . ' ' . escapeshellcmd( $tmp_input_path ) . ' -locale en -o ' . escapeshellcmd( basename( $this->outputPath ) ) . ' 2>&1';
 
 		$output = [];
 		$return_var = 0;
 		exec( $command, $output, $return_var );
+		copy( $this->tmpDir . DIRECTORY_SEPARATOR . basename( $this->outputPath ), dirname( $this->outputPath ) . DIRECTORY_SEPARATOR . basename( $this->outputPath ) );
 
 		// Check build results
 
@@ -116,6 +148,17 @@ class Kindlegen extends Export {
 		}
 
 		return false;
+	}
+
+	/**
+	 * Delete temporary directory
+	 */
+	protected function deleteTmpDir() {
+
+		// Cleanup temporary directory, if any
+		if ( ! empty( $this->tmpDir ) ) {
+			\Pressbooks\Utility\rmrdir( $this->tmpDir );
+		}
 	}
 
 }
