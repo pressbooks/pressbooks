@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
-"POT-Creation-Date: 2021-06-08T13:58:02+00:00\n"
+"POT-Creation-Date: 2021-06-22T04:45:23+00:00\n"
 "PO-Revision-Date: 2021-05-25 22:37+0000\n"
 "Last-Translator: Ho Man Chan <homan@pressbooks.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/pressbooks/pressbooks/language/uk/)\n"
@@ -1359,7 +1359,7 @@ msgstr "Допоможіть перекласти Пресбуку на вашу
 #: inc/modules/export/epub/templates/epub3/opf.php:95
 #: inc/modules/export/epub/templates/epub201/opf.php:88
 #: inc/modules/export/htmlbook/class-htmlbook.php:863
-#: inc/modules/export/xhtml/class-xhtml11.php:1043
+#: inc/modules/export/xhtml/class-xhtml11.php:1042
 msgid "Copyright"
 msgstr "Авторське право"
 
@@ -2217,7 +2217,7 @@ msgstr ""
 #: inc/modules/export/epub/templates/epub3/opf.php:104
 #: inc/modules/export/epub/templates/epub201/opf.php:97
 #: inc/modules/export/htmlbook/class-htmlbook.php:872
-#: inc/modules/export/xhtml/class-xhtml11.php:1052
+#: inc/modules/export/xhtml/class-xhtml11.php:1051
 msgid "by"
 msgstr "за допомогою"
 
@@ -2866,7 +2866,7 @@ msgstr ""
 #: inc/modules/export/epub/class-epub201.php:699
 #: inc/modules/export/epub/class-epub201.php:1286
 #: inc/modules/export/xhtml/class-xhtml11.php:431
-#: inc/modules/export/xhtml/class-xhtml11.php:1284
+#: inc/modules/export/xhtml/class-xhtml11.php:1283
 msgid "Exporting front matter"
 msgstr ""
 
@@ -2874,15 +2874,15 @@ msgstr ""
 #: inc/modules/export/epub/class-epub201.php:1454
 #: inc/modules/export/epub/class-epub201.php:1476
 #: inc/modules/export/xhtml/class-xhtml11.php:438
-#: inc/modules/export/xhtml/class-xhtml11.php:1408
-#: inc/modules/export/xhtml/class-xhtml11.php:1459
+#: inc/modules/export/xhtml/class-xhtml11.php:1407
+#: inc/modules/export/xhtml/class-xhtml11.php:1458
 msgid "Exporting parts and chapters"
 msgstr ""
 
 #: inc/modules/export/epub/class-epub201.php:710
 #: inc/modules/export/epub/class-epub201.php:1715
 #: inc/modules/export/xhtml/class-xhtml11.php:442
-#: inc/modules/export/xhtml/class-xhtml11.php:1586
+#: inc/modules/export/xhtml/class-xhtml11.php:1585
 msgid "Exporting back matter"
 msgstr ""
 
@@ -2909,7 +2909,7 @@ msgstr "Таблиця змісту"
 
 #: inc/modules/export/epub/class-epub201.php:1837
 #: inc/modules/export/htmlbook/class-htmlbook.php:989
-#: inc/modules/export/xhtml/class-xhtml11.php:1116
+#: inc/modules/export/xhtml/class-xhtml11.php:1115
 msgid "Contents"
 msgstr "Зміст"
 
@@ -3889,23 +3889,23 @@ msgstr ""
 msgid "Glossary"
 msgstr ""
 
-#: inc/redirect/namespace.php:144 inc/redirect/namespace.php:232
+#: inc/redirect/namespace.php:144 inc/redirect/namespace.php:242
 msgid "Error: Unknown export format."
 msgstr "Помилка: Невідомий формат експорту."
 
-#: inc/redirect/namespace.php:252
+#: inc/redirect/namespace.php:262
 msgid "File not found"
 msgstr "Файл не знайдений"
 
-#: inc/redirect/namespace.php:339
+#: inc/redirect/namespace.php:349
 msgid "Unsupported post type."
 msgstr "Непідтримуваний тип посту."
 
-#: inc/redirect/namespace.php:373
+#: inc/redirect/namespace.php:383
 msgid "Unsupported taxonomy."
 msgstr ""
 
-#: inc/redirect/namespace.php:397
+#: inc/redirect/namespace.php:407
 msgid "You do not have sufficient permissions to access that URL."
 msgstr "Ви не маєте достатнього дозволу для доступу до цього URL."
 

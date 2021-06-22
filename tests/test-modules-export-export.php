@@ -410,7 +410,6 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 			$this->assertContains( ' <div id="attachment_1" ', $xhtml_content );
 			$this->assertContains( '<p><em>Ka kite ano!</em></p>', $xhtml_content );
 			$this->assertContains( 'https://github.com/pressbooks/pressbooks', $xhtml_content );
-			$this->assertContains( '<div class="wp-nocaption size-medium wp-image-29 alignleft"><img ', $xhtml_content ); // check if export is wrapping floating divs
 			$this->assertContains( '</h2><h2 class="chapter-subtitle">Or, A Chapter to Test</h2></div>', $xhtml_content );
 			$this->assertContains( '<p>A YouTube element has been excluded from this version of the text.', $xhtml_content );
 			$this->assertRegExp( '~/?p=\d+#pb-interactive-content"~', $xhtml_content ); //  href="http://example.org/testpath26/?p=21#pb-interactive-content"

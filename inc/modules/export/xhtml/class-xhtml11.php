@@ -648,7 +648,6 @@ class Xhtml11 extends ExportGenerator {
 		if ( ! empty( $_GET['optimize-for-print'] ) ) {
 			$content = $this->fixImages( $content );
 		}
-		$content = \Pressbooks\Media\force_wrap_images( $content );
 		$content = $this->tidy( $content );
 
 		return $content;

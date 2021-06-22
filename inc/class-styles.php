@@ -643,7 +643,7 @@ class Styles {
 			'Alegreya' => __( 'Alegreya', 'pressbooks' ),
 			'Cormorant Garamond' => __( 'Cormorant Garamond', 'pressbooks' ),
 			'Crimson Text' => __( 'Crimson Text', 'pressbooks' ),
-			'FreeFont Serif' => __( 'GNU FreeFont Serif', 'pressbooks' ),
+			'FreeSerif' => __( 'GNU FreeFont Serif', 'pressbooks' ),
 			'New Athena Unicode' => __( 'New Athena Unicode', 'pressbooks' ),
 			'Noto Serif' => __( 'Noto Serif', 'pressbooks' ),
 			'Sorts Mill Goudy' => __( 'Sorts Mill Goudy', 'pressbooks' ),
@@ -652,7 +652,7 @@ class Styles {
 
 		$sans_serif = [
 			'Barlow' => __( 'Barlow', 'pressbooks' ),
-			'FreeFont Sans' => __( 'GNU FreeFont Sans', 'pressbooks' ),
+			'FreeSans' => __( 'GNU FreeFont Sans', 'pressbooks' ),
 			'K2D' => __( 'K2D', 'pressbooks' ),
 			'Lato' => __( 'Lato', 'pressbooks' ),
 			'Libre Franklin' => __( 'Libre Franklin', 'pressbooks' ),
