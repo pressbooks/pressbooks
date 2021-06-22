@@ -4,7 +4,6 @@ class Modules_Export_MobiTest extends \WP_UnitTestCase {
 
 	use utilsTrait;
 
-
 	public function setUp() {
 		parent::setUp();
 		$this->kindlegen = new Pressbooks\Modules\Export\Mobi\Kindlegen( [] );
