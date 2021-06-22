@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
-"POT-Creation-Date: 2021-06-08T13:58:02+00:00\n"
+"POT-Creation-Date: 2021-06-22T04:45:23+00:00\n"
 "PO-Revision-Date: 2021-06-03 00:28+0000\n"
 "Last-Translator: Eduardo Vera <info@mirimiri.xyz>\n"
 "Language-Team: Spanish (http://www.transifex.com/pressbooks/pressbooks/language/es/)\n"
@@ -1366,7 +1366,7 @@ msgstr "¡Ayuda a traducir Pressbooks a tu idioma!"
 #: inc/modules/export/epub/templates/epub3/opf.php:95
 #: inc/modules/export/epub/templates/epub201/opf.php:88
 #: inc/modules/export/htmlbook/class-htmlbook.php:863
-#: inc/modules/export/xhtml/class-xhtml11.php:1043
+#: inc/modules/export/xhtml/class-xhtml11.php:1042
 msgid "Copyright"
 msgstr "Copyright"
 
@@ -2208,7 +2208,7 @@ msgstr "$title es obsoleto. El método determinará el título automáticamente 
 #: inc/modules/export/epub/templates/epub3/opf.php:104
 #: inc/modules/export/epub/templates/epub201/opf.php:97
 #: inc/modules/export/htmlbook/class-htmlbook.php:872
-#: inc/modules/export/xhtml/class-xhtml11.php:1052
+#: inc/modules/export/xhtml/class-xhtml11.php:1051
 msgid "by"
 msgstr "por"
 
@@ -2855,7 +2855,7 @@ msgstr "Exportando la dedicatoria y el epígrafe"
 #: inc/modules/export/epub/class-epub201.php:699
 #: inc/modules/export/epub/class-epub201.php:1286
 #: inc/modules/export/xhtml/class-xhtml11.php:431
-#: inc/modules/export/xhtml/class-xhtml11.php:1284
+#: inc/modules/export/xhtml/class-xhtml11.php:1283
 msgid "Exporting front matter"
 msgstr "Exportando las páginas preliminares"
 
@@ -2863,15 +2863,15 @@ msgstr "Exportando las páginas preliminares"
 #: inc/modules/export/epub/class-epub201.php:1454
 #: inc/modules/export/epub/class-epub201.php:1476
 #: inc/modules/export/xhtml/class-xhtml11.php:438
-#: inc/modules/export/xhtml/class-xhtml11.php:1408
-#: inc/modules/export/xhtml/class-xhtml11.php:1459
+#: inc/modules/export/xhtml/class-xhtml11.php:1407
+#: inc/modules/export/xhtml/class-xhtml11.php:1458
 msgid "Exporting parts and chapters"
 msgstr "Exportando las secciones y los capítulos"
 
 #: inc/modules/export/epub/class-epub201.php:710
 #: inc/modules/export/epub/class-epub201.php:1715
 #: inc/modules/export/xhtml/class-xhtml11.php:442
-#: inc/modules/export/xhtml/class-xhtml11.php:1586
+#: inc/modules/export/xhtml/class-xhtml11.php:1585
 msgid "Exporting back matter"
 msgstr "Exportando las páginas finales"
 
@@ -2898,7 +2898,7 @@ msgstr "Índice"
 
 #: inc/modules/export/epub/class-epub201.php:1837
 #: inc/modules/export/htmlbook/class-htmlbook.php:989
-#: inc/modules/export/xhtml/class-xhtml11.php:1116
+#: inc/modules/export/xhtml/class-xhtml11.php:1115
 msgid "Contents"
 msgstr "Contenido"
 
@@ -3878,23 +3878,23 @@ msgstr "glosario"
 msgid "Glossary"
 msgstr "Glosario"
 
-#: inc/redirect/namespace.php:144 inc/redirect/namespace.php:232
+#: inc/redirect/namespace.php:144 inc/redirect/namespace.php:242
 msgid "Error: Unknown export format."
 msgstr "Error: formato de exportación desconocido."
 
-#: inc/redirect/namespace.php:252
+#: inc/redirect/namespace.php:262
 msgid "File not found"
 msgstr "Archivo no encontrado"
 
-#: inc/redirect/namespace.php:339
+#: inc/redirect/namespace.php:349
 msgid "Unsupported post type."
 msgstr "Tipo de contenido no compatible."
 
-#: inc/redirect/namespace.php:373
+#: inc/redirect/namespace.php:383
 msgid "Unsupported taxonomy."
 msgstr "Taxonomía no compatible."
 
-#: inc/redirect/namespace.php:397
+#: inc/redirect/namespace.php:407
 msgid "You do not have sufficient permissions to access that URL."
 msgstr "No tienes permisos para acceder a esa URL."
 
