@@ -2,6 +2,7 @@
 /**
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv3 (or any later version)
+ *
  */
 
 namespace Pressbooks\Modules\Export\Mobi;
@@ -56,6 +57,7 @@ class Kindlegen extends Export {
 	 * Create $this->outputPath
 	 *
 	 * @return bool
+	 * @codeCoverageIgnore
 	 */
 	function convert() {
 		if ( empty( $this->tmpDir ) || ! is_dir( $this->tmpDir ) ) {
@@ -153,7 +155,7 @@ class Kindlegen extends Export {
 	/**
 	 * Delete temporary directory
 	 */
-	protected function deleteTmpDir() {
+	public function deleteTmpDir() {
 
 		// Cleanup temporary directory, if any
 		if ( ! empty( $this->tmpDir ) ) {
