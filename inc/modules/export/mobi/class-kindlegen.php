@@ -2,7 +2,6 @@
 /**
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv3 (or any later version)
- *
  */
 
 namespace Pressbooks\Modules\Export\Mobi;
@@ -88,17 +87,16 @@ class Kindlegen extends Export {
 		$filename = $this->timestampedFileName( '.mobi' );
 		$this->outputPath = $filename;
 
-		// Move epub to tmp folder, convert and move to export folder
-		$tmp_input_path = $this->tmpDir . DIRECTORY_SEPARATOR . escapeshellcmd( basename( $input_path ) );
-
-		copy( escapeshellcmd( $input_path ), $tmp_input_path );
+		// Copy epub to tmp folder, convert and copy mobi to export folder
+		$tmp_input_path = $this->tmpDir . DIRECTORY_SEPARATOR . basename( $input_path );
+		copy( $input_path, $tmp_input_path );
 
 		$command = PB_KINDLEGEN_COMMAND . ' ' . escapeshellcmd( $tmp_input_path ) . ' -locale en -o ' . escapeshellcmd( basename( $this->outputPath ) ) . ' 2>&1';
 
 		$output = [];
 		$return_var = 0;
 		exec( $command, $output, $return_var );
-		copy( $this->tmpDir . DIRECTORY_SEPARATOR . basename( $this->outputPath ), dirname( $this->outputPath ) . DIRECTORY_SEPARATOR . basename( $this->outputPath ) );
+		copy( $this->tmpDir . DIRECTORY_SEPARATOR . basename( $this->outputPath ), $this->outputPath );
 
 		// Check build results
 
