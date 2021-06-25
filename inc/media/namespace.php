@@ -145,50 +145,20 @@ function is_valid_media( $path_to_file, $filename ) {
  */
 function force_wrap_images( $content ) {
 
-	/**
-	 * Regex pattern explained
-	 *
-	 * Group    Regex                                           Description
-	 * 1        (<p[^>]*>)                                      Starting <p> tag
-	 * 2        ((?:.(?!p>))*?)                                 Anything that is not followed by a p>
-	 * 3        (<a .*?><img .*?class=\"([a-z0-9\- ]*).*?></a>) The whole <a> tag - used when there is a wrapping anchor on the img.
-	 * 3.1      (<img .*?class=\"([a-z0-9\- ]*).*?>)            The whole <img> tag - used when there is no wrapping anchor on the img.
-	 * 4        ([a-z0-9\- ]*)                                  All classes that are present in the <img>
-	 * 5        ((?:.)*?)?                                      Anything up to the final </p>
-	 * 6        (<\/p>)                                         Closing <p> tag
-	 */
 	$pattern = [
-		'#(<p[^>]*>)((?:.(?!p>))*?)\s*?(<a .*?><img .*?class=\"([a-z0-9\- ]*).*?></a>)\s*?((?:.|\n|\r)*?)?(<\/p>)#',
-		'#(<p[^>]*>)((?:.(?!p>))*?)\s*?(<img .*?class=\"([a-z0-9\- ]*).*?>)\s*?((?:.)*?)?(<\/p>)#',
+		'#<p[^>]*>\s*?(<img class=\"([a-z0-9\- ]*).*?>)?\s*</p>#',
+		'#<p[^>]*>\s*?(<a .*?><img class=\"([a-z0-9\- ]*).*?></a>)?\s*</p>#',
 	];
+	$replacement = '<div class="wp-nocaption $2">$1</div>';
+	$content = preg_replace( $pattern, $replacement, $content );
 
-	return preg_replace_callback( $pattern, function ( $matches ) {
-		$open_p = $matches[1];
-		$content_before = $matches[2];
-		$image = $matches[3];
-		$classes = $matches[4];
-		$content_after = $matches[5];
-		$close_p = $matches[6];
+	$pattern = [
+		'#(<p[^>]*>)\s*?(<a .*?><img class=\"([a-z0-9\- ]*).*?></a>)?\s*<br />#',
+	];
+	$replacement = '<div class="wp-nocaption $3">$2</div>$1';
+	$content = preg_replace( $pattern, $replacement, $content );
 
-		$wrapped_image = "<div class=\"wp-nocaption $classes\">$image</div>";
-
-		// If the <p> tag contains only the <img> tag itself we just return the wrapped image
-		if ( trim( $content_before ) === '' && trim( $content_after ) === '' ) {
-			return $wrapped_image;
-		}
-
-		// If the <p> tag does not contain content before the <img> tag we return the wrapped image followed by the content
-		if ( trim( $content_before ) === '' ) {
-			return $wrapped_image . $open_p . $content_after . $close_p;
-		}
-
-		// If the <p> tag does not contain content after the <img> tag we return the wrapped image preceded by the content
-		if ( trim( $content_after ) === '' ) {
-			return $open_p . $content_before . $close_p . $wrapped_image;
-		}
-
-		return $open_p . $content_before . $close_p . $wrapped_image . $open_p . $content_after . $close_p;
-	}, $content );
+	return $content;
 }
 
 /**
