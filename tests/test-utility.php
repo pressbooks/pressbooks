@@ -4,6 +4,10 @@ class UtilityTest extends \WP_UnitTestCase {
 
 	use utilsTrait;
 
+	public static function tearDownAfterClass() {
+		$_SERVER['SERVER_PORT'] = '';
+	}
+
 	/**
 	 * @group utility
 	 */
@@ -745,6 +749,16 @@ class UtilityTest extends \WP_UnitTestCase {
 
 		$expected = '<img src="http://localhost:3000/latex?latex=e%5E%7B%5Ci%20%5Cpi%7D%20%2B%201%20%3D%200&#038;fg=000000&#038;font=TeX" alt="e^{&#92;i &#92;pi} + 1 = 0" title="e^{&#92;i &#92;pi} + 1 = 0" class="latex mathjax" />';
 		$this->assertEquals( $expected, \Pressbooks\Utility\do_shortcode_by_tags( $content, [ 'latex', 'embed' ] ) );
+	}
+
+	public function test_https_swap() {
+		$_SERVER['SERVER_PORT'] = '443';
+		$url = 'http://pressbooks.test/book';
+		$this->assertEquals( \Pressbooks\Utility\apply_https_if_available( $url ), 'https://pressbooks.test/book' );
+
+		$_SERVER['SERVER_PORT'] = '';
+		$url = 'http://network-no-ssl.pressbooks.test/book';
+		$this->assertEquals( \Pressbooks\Utility\apply_https_if_available( $url ), 'http://network-no-ssl.pressbooks.test/book' );
 	}
 
 }
