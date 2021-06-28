@@ -2,10 +2,10 @@
 
 namespace Pressbooks\Metadata;
 
+use function Pressbooks\Utility\apply_https_if_available;
 use function \Pressbooks\L10n\get_book_language;
 use function \Pressbooks\L10n\get_locale;
 use function \Pressbooks\Sanitize\is_valid_timestamp;
-use function Pressbooks\Utility\apply_https_if_available;
 use function \Pressbooks\Utility\get_contents;
 use function \Pressbooks\Utility\is_assoc;
 use function \Pressbooks\Utility\oxford_comma;
