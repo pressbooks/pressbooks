@@ -2,6 +2,7 @@
 
 namespace Pressbooks\Metadata;
 
+use function Pressbooks\Utility\apply_https_if_available;
 use function \Pressbooks\L10n\get_book_language;
 use function \Pressbooks\L10n\get_locale;
 use function \Pressbooks\Sanitize\is_valid_timestamp;
@@ -429,6 +430,10 @@ function book_information_to_schema( $book_information, $network_excluded_direct
 			'host' => wp_parse_url( network_home_url(), PHP_URL_HOST ),
 			'name' => $book_information['site_name'],
 		];
+	}
+
+	if ( isset( $book_information['pb_cover_image'] ) ) {
+		$book_schema['image'] = apply_https_if_available( $book_schema['image'] );
 	}
 
 	// TODO: educationalAlignment, educationalUse, timeRequired, typicalAgeRange, interactivityType, learningResourceType, isBasedOnUrl
