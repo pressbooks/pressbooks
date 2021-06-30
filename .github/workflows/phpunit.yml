@@ -57,7 +57,7 @@ jobs:
         node -v
         npm install
         npm run install-build-tools
-        npm run build:production
+        npm run build
         export PATH="$HOME/.composer/vendor/bin:$PATH"
         composer install --no-interaction
         composer global require "phpunit/phpunit:7.5.20"
