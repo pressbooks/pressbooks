@@ -201,6 +201,7 @@ function rewrite_rules_for_open() {
 	add_filter( 'template_redirect', function () {
 		do_open( function ( $filepath ) {
 			force_download( $filepath );
+			exit;
 		} );
 	}, 0 );
 }
