@@ -2,6 +2,7 @@
 
 namespace Pressbooks\Api\Endpoints\Controller;
 
+use function Pressbooks\Utility\apply_https_if_available;
 use function \Pressbooks\Metadata\book_information_to_schema;
 use Pressbooks\Admin\Network\SharingAndPrivacyOptions;
 use Pressbooks\DataCollector\Book as BookDataCollector;
@@ -268,7 +269,7 @@ class Books extends \WP_REST_Controller {
 
 		$item = [
 			'id' => $id,
-			'link' => get_blogaddress_by_id( $id ),
+			'link' => apply_https_if_available( get_blogaddress_by_id( $id ) ),
 			'metadata' => $metadata,
 		];
 

@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
-"POT-Creation-Date: 2021-06-22T04:45:23+00:00\n"
+"POT-Creation-Date: 2021-07-06T18:17:20+00:00\n"
 "PO-Revision-Date: 2021-05-25 22:37+0000\n"
 "Last-Translator: Ho Man Chan <homan@pressbooks.com>\n"
 "Language-Team: German (http://www.transifex.com/pressbooks/pressbooks/language/de/)\n"
@@ -1816,14 +1816,14 @@ msgid ""
 "must be clicked before their account is created."
 msgstr ""
 
-#: inc/api/endpoints/controller/class-books.php:126
+#: inc/api/endpoints/controller/class-books.php:127
 #: inc/api/endpoints/controller/class-toc.php:151
 #: inc/api/endpoints/controller/class-toc.php:164
 #: inc/api/endpoints/controller/class-toc.php:177
 msgid "Metadata"
 msgstr "Metadaten"
 
-#: inc/api/endpoints/controller/class-books.php:152
+#: inc/api/endpoints/controller/class-books.php:153
 msgid "ID offset, overrides page."
 msgstr "ID Versatz, überschreibt Seite."
 
@@ -2710,27 +2710,27 @@ msgid ""
 "extended %s language support for the Pressbooks interface."
 msgstr "Bitte kontaktieren Sie Ihren System-Verwalter damit er Ihnen erweiterte %s Sprachunterstützung für die Pressbooks Benutzeroberfläche installiert."
 
-#: inc/metadata/namespace.php:112
+#: inc/metadata/namespace.php:113
 msgid "Hide Additional Book Information"
 msgstr "Zusätzliche Buch-Informationen verstecken"
 
-#: inc/metadata/namespace.php:115
+#: inc/metadata/namespace.php:116
 msgid "Show Additional Book Information"
 msgstr "Zusätzliche Buch-Informationen anzeigen"
 
-#: inc/metadata/namespace.php:122
+#: inc/metadata/namespace.php:123
 msgid ""
 "The book information you enter here appears on your book’s cover and title "
 "pages and in the metadata of your webbook and exported files."
 msgstr "Die Buch-Informationen, die hier eingegeben werden, erscheinen auf dem Buchumschlag und Titelseiten und in den Metainformationen des Buchs im Web und der exportierten Dateien."
 
-#: inc/metadata/namespace.php:124
+#: inc/metadata/namespace.php:125
 msgid ""
 "If you need to enter additional information, click the button below to see "
 "all available fields."
 msgstr "Wenn Sie zusätzliche Informationen eingeben müssen, klicken Sie auf die Schaltfläche unten, um alle verfügbaren Felder anzuzeigen."
 
-#: inc/metadata/namespace.php:1235
+#: inc/metadata/namespace.php:1240
 msgid ""
 "The %1$s Thema subject terms requested for this book could not be downloaded"
 " from %2$s. Please report this error to your network manager."
@@ -3882,23 +3882,23 @@ msgstr "Glossar"
 msgid "Glossary"
 msgstr "Glossar"
 
-#: inc/redirect/namespace.php:144 inc/redirect/namespace.php:242
+#: inc/redirect/namespace.php:144 inc/redirect/namespace.php:239
 msgid "Error: Unknown export format."
 msgstr "Fehler: Unbekanntes Export-Format."
 
-#: inc/redirect/namespace.php:262
+#: inc/redirect/namespace.php:259
 msgid "File not found"
 msgstr "Datei nicht gefunden"
 
-#: inc/redirect/namespace.php:349
+#: inc/redirect/namespace.php:346
 msgid "Unsupported post type."
 msgstr "Nicht unterstützter Beitrags-Typ."
 
-#: inc/redirect/namespace.php:383
+#: inc/redirect/namespace.php:380
 msgid "Unsupported taxonomy."
 msgstr "Nicht unterstützte Taxonomie."
 
-#: inc/redirect/namespace.php:407
+#: inc/redirect/namespace.php:404
 msgid "You do not have sufficient permissions to access that URL."
 msgstr "Sie besitzen nicht die erforderlichen Rechte um diese URL aufzurufen."
 
