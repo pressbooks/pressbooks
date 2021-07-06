@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
-"POT-Creation-Date: 2021-06-22T04:45:23+00:00\n"
+"POT-Creation-Date: 2021-07-06T18:17:20+00:00\n"
 "PO-Revision-Date: 2021-05-25 22:37+0000\n"
 "Last-Translator: Ho Man Chan <homan@pressbooks.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/pressbooks/pressbooks/language/zh_CN/)\n"
@@ -1804,14 +1804,14 @@ msgid ""
 "must be clicked before their account is created."
 msgstr ""
 
-#: inc/api/endpoints/controller/class-books.php:126
+#: inc/api/endpoints/controller/class-books.php:127
 #: inc/api/endpoints/controller/class-toc.php:151
 #: inc/api/endpoints/controller/class-toc.php:164
 #: inc/api/endpoints/controller/class-toc.php:177
 msgid "Metadata"
 msgstr "元数据"
 
-#: inc/api/endpoints/controller/class-books.php:152
+#: inc/api/endpoints/controller/class-books.php:153
 msgid "ID offset, overrides page."
 msgstr "ID偏离，覆盖页面。"
 
@@ -2689,27 +2689,27 @@ msgid ""
 "extended %s language support for the Pressbooks interface."
 msgstr "若您要安装系统扩展界面语言%s，请联系系统管理员。"
 
-#: inc/metadata/namespace.php:112
+#: inc/metadata/namespace.php:113
 msgid "Hide Additional Book Information"
 msgstr "隐藏书籍扩展信息。"
 
-#: inc/metadata/namespace.php:115
+#: inc/metadata/namespace.php:116
 msgid "Show Additional Book Information"
 msgstr "显示书籍扩展信息"
 
-#: inc/metadata/namespace.php:122
+#: inc/metadata/namespace.php:123
 msgid ""
 "The book information you enter here appears on your book’s cover and title "
 "pages and in the metadata of your webbook and exported files."
 msgstr "您在此输入的信息将显示在您的书籍的封面和标题页中，也会作为元数据保存在导出的电子书文件中。"
 
-#: inc/metadata/namespace.php:124
+#: inc/metadata/namespace.php:125
 msgid ""
 "If you need to enter additional information, click the button below to see "
 "all available fields."
 msgstr "若您要输入扩展信息，请点击下面的按钮展开表单。"
 
-#: inc/metadata/namespace.php:1235
+#: inc/metadata/namespace.php:1240
 msgid ""
 "The %1$s Thema subject terms requested for this book could not be downloaded"
 " from %2$s. Please report this error to your network manager."
@@ -3861,23 +3861,23 @@ msgstr ""
 msgid "Glossary"
 msgstr ""
 
-#: inc/redirect/namespace.php:144 inc/redirect/namespace.php:242
+#: inc/redirect/namespace.php:144 inc/redirect/namespace.php:239
 msgid "Error: Unknown export format."
 msgstr "错误：未知导出格式。"
 
-#: inc/redirect/namespace.php:262
+#: inc/redirect/namespace.php:259
 msgid "File not found"
 msgstr "文件未找到"
 
-#: inc/redirect/namespace.php:349
+#: inc/redirect/namespace.php:346
 msgid "Unsupported post type."
 msgstr "不支持的帖子类型"
 
-#: inc/redirect/namespace.php:383
+#: inc/redirect/namespace.php:380
 msgid "Unsupported taxonomy."
 msgstr ""
 
-#: inc/redirect/namespace.php:407
+#: inc/redirect/namespace.php:404
 msgid "You do not have sufficient permissions to access that URL."
 msgstr "您没有足够的权限访问该网址。"
 
