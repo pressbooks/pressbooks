@@ -92,7 +92,7 @@ jobs:
         chmod +x wp-cli.phar
         mv wp-cli.phar /usr/local/bin/wp
         wp package install wp-cli/dist-archive-command
-        npm run build:production
+        npm run build
         composer install --no-dev --optimize-autoloader
         cd ..
         wp dist-archive $GITHUB_REPO_SLUG $GITHUB_BUILD_PATH/$GITHUB_REPO_SLUG-$GITHUB_TAG.zip
