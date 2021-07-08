@@ -1500,3 +1500,13 @@ function do_shortcode_by_tags( $content, array $tags ) {
 	$shortcode_tags = $_tags;
 	return $shortcoded;
 }
+
+
+/**
+ * This function swap http to https if ssl is available
+ * @param $url
+ * @return array|mixed|string|string[]
+ */
+function apply_https_if_available( $url ) {
+	return  is_ssl() ? str_replace( 'http://', 'https://', $url ) : $url;
+}

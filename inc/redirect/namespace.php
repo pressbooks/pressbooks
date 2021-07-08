@@ -198,7 +198,12 @@ function rewrite_rules_for_sitemap() {
 function rewrite_rules_for_open() {
 
 	add_rewrite_endpoint( 'open', EP_ROOT );
-	add_filter( 'template_redirect', __NAMESPACE__ . '\do_open', 0 );
+	add_filter( 'template_redirect', function () {
+		do_open( function ( $filepath ) {
+			force_download( $filepath );
+			exit;
+		} );
+	}, 0 );
 }
 
 /**
@@ -208,7 +213,7 @@ function rewrite_rules_for_open() {
  * @copyright 2014 Brad Payne
  * @since 3.8.0
  */
-function do_open() {
+function do_open( $do_download = null ) {
 
 	if ( ! array_key_exists( 'open', $GLOBALS['wp_query']->query_vars ) ) {
 		// Don't do anything and return
@@ -217,15 +222,17 @@ function do_open() {
 
 	$action = get_query_var( 'open' );
 
-	if ( 'download' === $action ) {
+	if ( 'download' === $action && ! empty( $_GET['type'] ) ) {
 		// Download
-		if ( ! empty( $_GET['type'] ) ) {
-			$files = \Pressbooks\Utility\latest_exports();
-			if ( isset( $files[ $_GET['type'] ] ) ) {
-				$filepath = \Pressbooks\Modules\Export\Export::getExportFolder() . $files[ $_GET['type'] ];
-				force_download( $filepath );
-				exit;
-			}
+		$format = $_GET['type'];
+		$files = \Pressbooks\Utility\latest_exports();
+
+		if ( isset( $files[ $format ] ) ) {
+			do_action( 'store_download_data', $format );
+
+			$filepath = \Pressbooks\Modules\Export\Export::getExportFolder() . $files[ $format ];
+			is_callable( $do_download ) && $do_download( $filepath );
+			return;
 		}
 	}
 

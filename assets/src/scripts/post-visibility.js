@@ -16,14 +16,14 @@ jQuery( document ).ready( function ( $ ) {
 	}
 
 	// On Change
-	web_visibility.change( function () {
+	web_visibility.on( 'change', function () {
 		if ( this.checked ) {
 			$( '#pb-password-protected' ).show();
 		} else {
 			$( '#pb-password-protected' ).hide();
 		}
 	} );
-	require_password.change( function () {
+	require_password.on( 'change', function () {
 		if ( this.checked ) {
 			$( '#post_password' ).show();
 		} else {

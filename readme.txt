@@ -1,10 +1,10 @@
 === Pressbooks ===
 Contributors: Pressbooks <code@pressbooks.com>
 Tags: ebooks, publishing, webbooks
-Requires at least: 5.6.2
-Tested up to: 5.6.2
+Requires at least: 5.7.2
+Tested up to: 5.7.2
 Requires PHP: 7.3
-Stable tag: 5.20.1
+Stable tag: 5.24.0
 License: GPL v3.0 or later
 License URI: https://github.com/pressbooks/pressbooks/blob/master/LICENSE.md
 
@@ -18,12 +18,15 @@ For installation instructions, visit [docs.pressbooks.org/installation](https://
 
 == Changelog ==
 
-= 5.20.1 =
+= 5.24.0 =
 
-* See: https://github.com/pressbooks/pressbooks/releases/tag/5.20.1
+* See: https://github.com/pressbooks/pressbooks/releases/tag/5.24.0
 * Full release history available at: https://github.com/pressbooks/pressbooks/releases
 
 == Upgrade Notice ==
+
+= 5.21.0=
+* Pressbooks 5.21.0 requires [WordPress 5.7.2](https://wordpress.org/support/wordpress-version/version-5-7-2/)
 
 = 5.20.1=
 * Pressbooks 5.20.1 requires [WordPress 5.6.2](https://wordpress.org/support/wordpress-version/version-5-6-2/)

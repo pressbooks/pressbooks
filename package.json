@@ -3,10 +3,9 @@
 	"description": "Pressbooks is an open source book publishing tool built on a WordPress multisite platform. Pressbooks outputs books in multiple formats, including PDF, EPUB, MOBI, web, and a variety of XML flavours, using a theming/templating system, driven by CSS.",
 	"scripts": {
 		"install-build-tools": "npm install --no-save pressbooks-build-tools",
-		"watch": "npm run production -- --watch",
-		"prod": "npm run production",
-		"build:production": "npm run production",
-		"production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+		"watch": "mix watch",
+		"build": "npm run production",
+		"production": "mix --production",
 		"test": "npm run lint",
 		"lint": "npm run -s lint:scripts && npm run -s lint:styles",
 		"lint:scripts": "cross-env NODE_ENV=development node_modules/eslint/bin/eslint.js \"assets/src/scripts/*.js\"",
@@ -18,8 +17,6 @@
 		"node": ">= 6.9.4"
 	},
 	"dependencies": {
-		"@sentry/browser": "^6.3.0",
-		"@sentry/tracing": "^6.3.0",
 		"block-ui": "^2.70.1",
 		"countup.js": "^2.0.4",
 		"event-source-polyfill": "^1.0.11",

@@ -6,6 +6,7 @@
 
 namespace Pressbooks\DataCollector;
 
+use function Pressbooks\Image\attachment_id_from_url;
 use function \Pressbooks\Metadata\get_in_catalog_option;
 
 class Book {
@@ -456,6 +457,24 @@ class Book {
 		global $wpdb;
 		$total = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(DISTINCT blog_id) FROM {$wpdb->blogmeta} WHERE meta_key = %s ", self::TIMESTAMP ) );
 		return (int) $total;
+	}
+
+	/**
+	 * Get the cover thumbnail from WordPress resized items
+	 * It will force https in each image path
+	 * @return string
+	 */
+	public function getCoverThumbnail( $book_id, $cover_path, $attachment_id = null ) {
+
+		switch_to_blog( $book_id );
+
+		$cover_id = $attachment_id ? $attachment_id : attachment_id_from_url( $cover_path );
+
+		if ( $cover_id ) {
+			$cover_path = wp_get_attachment_image_url( $cover_id, 'pb_cover_large', false );
+		}
+
+		return  is_ssl() ? str_replace( 'http://', 'https://', $cover_path ) : $cover_path;
 	}
 
 

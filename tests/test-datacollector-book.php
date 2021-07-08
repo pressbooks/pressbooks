@@ -29,6 +29,7 @@ class DataCollector_BookTest extends \WP_UnitTestCase {
 		// Put the hooks back in place
 		$obj = BookDataCollector::init();
 		$obj::hooks( $obj );
+		$_SERVER['SERVER_PORT'] = '';
 	}
 
 
@@ -204,6 +205,34 @@ class DataCollector_BookTest extends \WP_UnitTestCase {
 		$x = $this->bookDataCollector->getTotalBooks();
 		$this->assertIsInt( $x );
 		$this->assertTrue( $x > 0 );
+	}
+
+
+	/**
+	 * @group datacollector
+	 */
+	public function test_getCoverThumbnail() {
+		$this->_book();
+
+		global $blog_id;
+
+		$path = $this->bookDataCollector->getCoverThumbnail( $blog_id, 'https://presssbooks.test/cover-image.jpg' );
+		$this->assertEquals( 'https://presssbooks.test/cover-image.jpg', $path );
+
+		$path = $this->bookDataCollector->getCoverThumbnail( $blog_id, 'http://presssbooks.test/server-whitout-ssl-image.jpg' );
+		$this->assertEquals( 'http://presssbooks.test/server-whitout-ssl-image.jpg', $path );
+
+		$_SERVER['SERVER_PORT'] = '443';
+
+		$path = $this->bookDataCollector->getCoverThumbnail( $blog_id, 'http://presssbooks.test/https-cover-image.jpg' );
+		$this->assertEquals( 'https://presssbooks.test/https-cover-image.jpg', $path );
+
+		$attachment_id = $this->factory->attachment->create_upload_object( __DIR__ . '/data/skates.jpg', $blog_id );
+		$attachment_path = wp_get_attachment_url( $attachment_id );
+
+		$path = $this->bookDataCollector->getCoverThumbnail( $blog_id, $attachment_path, $attachment_id );
+
+		$this->assertEquals( 1, preg_match( '/https:\/\/.*-350x467\.jpg/', $path ) );
 	}
 
 

@@ -42,23 +42,14 @@
 		"maxbanton/cwh": "^2.0",
 		"monolog/monolog": "^2.2",
 		"pressbooks/mix": "^2.1",
-		"pressbooks/pb-cli": "^2.0.0",
+		"pressbooks/pb-cli": "^2.1.0",
 		"scssphp/scssphp": "~1.1.0",
-		"sentry/sdk": "^3.1",
 		"sinergi/browser-detector": "^6.1",
 		"vanilla/htmlawed": "^2.2"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "^7",
-		"pressbooks/coding-standards": "^1.0",
-		"lucatume/wp-browser": "^3.0",
-    "codeception/module-asserts": "^1.0",
-    "codeception/module-phpbrowser": "^1.0",
-    "codeception/module-webdriver": "^1.0",
-    "codeception/module-db": "^1.0",
-    "codeception/module-filesystem": "^1.0",
-    "codeception/module-cli": "^1.0",
-    "codeception/util-universalframework": "^1.0"
+		"pressbooks/coding-standards": "^1.0"
 	},
 	"suggest": {
 		"pressbooks/pressbooks-book":

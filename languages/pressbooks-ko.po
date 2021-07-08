@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
-"POT-Creation-Date: 2021-04-27T16:11:58+00:00\n"
-"PO-Revision-Date: 2021-03-27 01:03+0000\n"
+"POT-Creation-Date: 2021-07-06T18:17:20+00:00\n"
+"PO-Revision-Date: 2021-05-25 22:37+0000\n"
 "Last-Translator: Ho Man Chan <homan@pressbooks.com>\n"
 "Language-Team: Korean (http://www.transifex.com/pressbooks/pressbooks/language/ko/)\n"
 "MIME-Version: 1.0\n"
@@ -1807,18 +1807,18 @@ msgid ""
 "must be clicked before their account is created."
 msgstr ""
 
-#: inc/api/endpoints/controller/class-books.php:126
+#: inc/api/endpoints/controller/class-books.php:127
 #: inc/api/endpoints/controller/class-toc.php:151
 #: inc/api/endpoints/controller/class-toc.php:164
 #: inc/api/endpoints/controller/class-toc.php:177
 msgid "Metadata"
 msgstr ""
 
-#: inc/api/endpoints/controller/class-books.php:152
+#: inc/api/endpoints/controller/class-books.php:153
 msgid "ID offset, overrides page."
 msgstr ""
 
-#: inc/api/endpoints/controller/class-metadata.php:452
+#: inc/api/endpoints/controller/class-metadata.php:459
 #: inc/api/endpoints/controller/class-sectionmetadata.php:423
 msgid ""
 "URL of a reference Web page that unambiguously indicates the item's "
@@ -2680,7 +2680,7 @@ msgstr "삭제해도 괜찮습니까?"
 msgid "Delete"
 msgstr "삭제"
 
-#: inc/interactive/class-h5p.php:176
+#: inc/interactive/class-h5p.php:175
 msgid ""
 "The original version of this chapter contained H5P content. You may want to "
 "remove or replace this element."
@@ -2692,27 +2692,27 @@ msgid ""
 "extended %s language support for the Pressbooks interface."
 msgstr ""
 
-#: inc/metadata/namespace.php:111
+#: inc/metadata/namespace.php:113
 msgid "Hide Additional Book Information"
 msgstr ""
 
-#: inc/metadata/namespace.php:114
+#: inc/metadata/namespace.php:116
 msgid "Show Additional Book Information"
 msgstr ""
 
-#: inc/metadata/namespace.php:121
+#: inc/metadata/namespace.php:123
 msgid ""
 "The book information you enter here appears on your book’s cover and title "
 "pages and in the metadata of your webbook and exported files."
 msgstr ""
 
-#: inc/metadata/namespace.php:123
+#: inc/metadata/namespace.php:125
 msgid ""
 "If you need to enter additional information, click the button below to see "
 "all available fields."
 msgstr ""
 
-#: inc/metadata/namespace.php:1232
+#: inc/metadata/namespace.php:1240
 msgid ""
 "The %1$s Thema subject terms requested for this book could not be downloaded"
 " from %2$s. Please report this error to your network manager."
@@ -2960,7 +2960,7 @@ msgid "WordPress XML"
 msgstr "WordPress XML"
 
 #: inc/modules/export/namespace.php:127
-msgid "Common Cartridge 1.1 (Web Links)"
+msgid "Common Cartridge with Web Links"
 msgstr ""
 
 #: inc/modules/export/namespace.php:201 inc/modules/export/namespace.php:234
@@ -2986,7 +2986,7 @@ msgid "EPUB3"
 msgstr ""
 
 #: inc/modules/export/namespace.php:212 inc/modules/export/namespace.php:246
-msgid "Web Links"
+msgid "Common Cartridge (Web Links)"
 msgstr ""
 
 #: inc/modules/export/namespace.php:282
@@ -3864,23 +3864,23 @@ msgstr ""
 msgid "Glossary"
 msgstr ""
 
-#: inc/redirect/namespace.php:144 inc/redirect/namespace.php:232
+#: inc/redirect/namespace.php:144 inc/redirect/namespace.php:239
 msgid "Error: Unknown export format."
 msgstr "Error: 알려지지 않은 내보내기 유형"
 
-#: inc/redirect/namespace.php:252
+#: inc/redirect/namespace.php:259
 msgid "File not found"
 msgstr "파일을 찾을 수 없습니다."
 
-#: inc/redirect/namespace.php:339
+#: inc/redirect/namespace.php:346
 msgid "Unsupported post type."
 msgstr "지원하지 않는 포스트 유형"
 
-#: inc/redirect/namespace.php:373
+#: inc/redirect/namespace.php:380
 msgid "Unsupported taxonomy."
 msgstr ""
 
-#: inc/redirect/namespace.php:397
+#: inc/redirect/namespace.php:404
 msgid "You do not have sufficient permissions to access that URL."
 msgstr "해당 URL에 접근할 수 있는 권한이 없습니다."
 
@@ -4773,6 +4773,12 @@ msgstr ""
 msgid ""
 "An audio element has been excluded from this version of the text. You can "
 "listen to it online here:"
+msgstr ""
+
+#: templates/interactive/h5p.blade.php:3
+msgid ""
+"An interactive H5P element has been excluded from this version of the text. "
+"You can view it online here:"
 msgstr ""
 
 #: templates/interactive/oembed.blade.php:3

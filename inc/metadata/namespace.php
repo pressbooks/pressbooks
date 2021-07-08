@@ -2,6 +2,7 @@
 
 namespace Pressbooks\Metadata;
 
+use function Pressbooks\Utility\apply_https_if_available;
 use function \Pressbooks\L10n\get_book_language;
 use function \Pressbooks\L10n\get_locale;
 use function \Pressbooks\Sanitize\is_valid_timestamp;
@@ -62,6 +63,7 @@ function get_microdata_elements() {
 		'description' => 'pb_about_50',
 		'editor' => 'pb_editors',
 		'image' => 'pb_cover_image',
+		'thumbnailUrl' => 'pb_thumbnail',
 		'inLanguage' => 'pb_language',
 		'keywords' => 'pb_keywords_tags',
 		'publisher' => 'pb_publisher',
@@ -210,6 +212,7 @@ function book_information_to_schema( $book_information, $network_excluded_direct
 		'pb_about_50' => 'disambiguatingDescription',
 		'pb_about_unlimited' => 'description',
 		'pb_cover_image' => 'image',
+		'pb_thumbnail' => 'thumbnailUrl',
 		'pb_series_number' => 'position',
 		'pb_is_based_on' => 'isBasedOn',
 		'pb_word_count' => 'wordCount',
@@ -429,6 +432,10 @@ function book_information_to_schema( $book_information, $network_excluded_direct
 		];
 	}
 
+	if ( isset( $book_information['pb_cover_image'] ) ) {
+		$book_schema['image'] = apply_https_if_available( $book_schema['image'] );
+	}
+
 	// TODO: educationalAlignment, educationalUse, timeRequired, typicalAgeRange, interactivityType, learningResourceType, isBasedOnUrl
 
 	return $book_schema;
@@ -463,6 +470,7 @@ function schema_to_book_information( $book_schema ) {
 		'disambiguatingDescription' => 'pb_about_50',
 		'description' => 'pb_about_unlimited',
 		'image' => 'pb_cover_image',
+		'thumbnailUrl' => 'pb_thumbnail',
 		'position' => 'pb_series_number',
 		'isBasedOn' => 'pb_is_based_on',
 	];

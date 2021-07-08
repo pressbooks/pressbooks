@@ -380,7 +380,7 @@ class Table extends \WP_List_Table {
 		} elseif ( 'epub' === $file_extension && '._3.epub' === $pre_suffix ) {
 			$file_class = 'epub3';
 		} elseif ( 'pdf' === $file_extension && '._print.pdf' === $pre_suffix ) {
-			$file_class = 'print-pdf';
+			$file_class = 'print_pdf';
 		} elseif ( 'imscc' === $file_extension && '._1_1_weblinks.imscc' === $pre_suffix ) {
 			$file_class = 'weblinks';
 		} else {

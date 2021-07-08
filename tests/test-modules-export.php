@@ -48,7 +48,7 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 	 * @group export
 	 */
 	public function test_get_name_from_filetype_slug() {
-		$type = \Pressbooks\Modules\Export\get_name_from_filetype_slug( 'print-pdf' );
+		$type = \Pressbooks\Modules\Export\get_name_from_filetype_slug( 'print_pdf' );
 		$this->assertEquals( 'Print PDF', $type );
 		$type = \Pressbooks\Modules\Export\get_name_from_filetype_slug( 'wtfbbq' );
 		$this->assertEquals( 'Wtfbbq', $type );

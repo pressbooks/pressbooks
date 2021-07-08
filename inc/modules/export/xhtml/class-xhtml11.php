@@ -479,8 +479,8 @@ class Xhtml11 extends ExportGenerator {
 	 *
 	 * @see http://www.princexml.com/doc/8.1/footnotes/
 	 *
-	 * @param      $atts
-	 * @param null $content
+	 * @param       $atts
+	 * @param null  $content
 	 *
 	 * @return string
 	 */

@@ -17,7 +17,7 @@ jobs:
         os: [ubuntu-18.04]
         epubcheck: [4.2.4]
         prince: [12.5-1]
-        wordpress: [5.6.2, 5.7, 5.7.1]
+        wordpress: [5.7.2, latest]
 
     name: PHPUnit - ${{ matrix.php }} - ${{ matrix.wordpress }}
 
@@ -27,6 +27,7 @@ jobs:
 
     - name: Install OS dependencies
       run: |
+        sudo apt update
         sudo apt-get install libxml2-utils ghostscript poppler-utils imagemagick
         sudo systemctl start mysql.service
         wget https://github.com/w3c/epubcheck/releases/download/v${{ matrix.epubcheck }}/epubcheck-${{ matrix.epubcheck }}.zip
@@ -56,7 +57,7 @@ jobs:
         node -v
         npm install
         npm run install-build-tools
-        npm run build:production
+        npm run build
         export PATH="$HOME/.composer/vendor/bin:$PATH"
         composer install --no-interaction
         composer global require "phpunit/phpunit:7.5.20"
@@ -91,7 +92,7 @@ jobs:
         chmod +x wp-cli.phar
         mv wp-cli.phar /usr/local/bin/wp
         wp package install wp-cli/dist-archive-command
-        npm run build:production
+        npm run build
         composer install --no-dev --optimize-autoloader
         cd ..
         wp dist-archive $GITHUB_REPO_SLUG $GITHUB_BUILD_PATH/$GITHUB_REPO_SLUG-$GITHUB_TAG.zip

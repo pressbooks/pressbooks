@@ -2,6 +2,7 @@
 
 namespace Pressbooks\Api\Endpoints\Controller;
 
+use function Pressbooks\Utility\apply_https_if_available;
 use function \Pressbooks\Metadata\book_information_to_schema;
 use Pressbooks\Admin\Network\SharingAndPrivacyOptions;
 use Pressbooks\DataCollector\Book as BookDataCollector;
@@ -261,12 +262,14 @@ class Books extends \WP_REST_Controller {
 			'last_updated' => strtotime( get_blog_details( $id )->last_updated ),
 		];
 
-		$metadata = array_merge( $metadata_info_array, $metadata_blog_meta, $blog_info );
+		$metadata_thumb['pb_thumbnail'] = $this->bookDataCollector->getCoverThumbnail( $id, $metadata_info_array['pb_cover_image'] );
+
+		$metadata = array_merge( $metadata_info_array, $metadata_blog_meta, $blog_info, $metadata_thumb );
 		$metadata = ( is_array( $metadata ) && ! empty( $metadata ) ) ? book_information_to_schema( $metadata, $this->networkExcludedDirectory ) : [];
 
 		$item = [
 			'id' => $id,
-			'link' => get_blogaddress_by_id( $id ),
+			'link' => apply_https_if_available( get_blogaddress_by_id( $id ) ),
 			'metadata' => $metadata,
 		];
 
