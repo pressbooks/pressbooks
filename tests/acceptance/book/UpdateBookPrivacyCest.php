@@ -39,8 +39,8 @@ class UpdateBookPrivacyCest
 
 		$I->amOnPage("/samplebook/wp-admin");
 		$I->click('Organize');
-		$I->seeCheckboxIsChecked('#blog-private');
-		$I->dontSeeCheckboxIsChecked('#blog-public');
+		$I->seeCheckboxIsChecked('#publicize-panel #blog-private');
+		$I->dontSeeCheckboxIsChecked('#publicize-panel #blog-public');
 
 		$I->checkOption('#publicize-panel #blog-public');
 		$I->waitForText('PUBLIC', 10, '#publicize-panel .publicize-alert');

@@ -16,9 +16,9 @@ class CreateBookCest
 	 */
 	public function tryToCreateABook(AcceptanceTester $I, \Page\Acceptance\CreateBook $createBookPage, \Codeception\Example $example)
 	{
-    	$bookWebAddress = "book".rand();
-    	$bookTitle = "$bookWebAddress Title";
-		$createBookPage->createBook($bookWebAddress, $bookTitle, boolval( $example['blogPublic'] ) );
+		$bookWebAddress = "book".rand();
+		$bookTitle = "$bookWebAddress Title";
+		$createBookPage->createBook($bookWebAddress, $bookTitle, (bool) $example['blogPublic']);
 		$I->amOnPage("/$bookWebAddress/wp-admin");
 		$I->see($bookTitle);
 	}
