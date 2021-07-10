@@ -268,24 +268,26 @@ $wp-spinner-anim-duration: 1.08s;
   }
 }
 
-.spinner {
-  position: relative;
-  width: $wp-spinner-size;
-  height: $wp-spinner-size;
-  border-radius: $wp-spinner-size;
-  background: $wp-spinner-bg;
-  animation: infinite-spinning $wp-spinner-anim-duration linear infinite;
+@supports (animation-name: infinite-spinning) {
+  .spinner {
+    position: relative;
+    width: $wp-spinner-size;
+    height: $wp-spinner-size;
+    border-radius: $wp-spinner-size;
+    background: $wp-spinner-bg;
+    animation: infinite-spinning $wp-spinner-anim-duration linear infinite;
 
-  &:after {
-    content: "";
-    position: absolute;
-    top: 2px;
-    left: 50%;
-    width: $wp-spinner-size-inner;
-    height: $wp-spinner-size-inner;
-    border-radius: $wp-spinner-size-inner;
-    margin-left: -($wp-spinner-size-inner / 2);
-    background: $wp-spinner-fg;
+    &:after {
+      content: "";
+      position: absolute;
+      top: 2px;
+      left: 50%;
+      width: $wp-spinner-size-inner;
+      height: $wp-spinner-size-inner;
+      border-radius: $wp-spinner-size-inner;
+      margin-left: -($wp-spinner-size-inner / 2);
+      background: $wp-spinner-fg;
+    }
   }
 }
 
