@@ -41,7 +41,6 @@ mix
 	.js( 'assets/src/scripts/covergenerator.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/cloner.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/color-picker.js', 'assets/dist/scripts/' )
-	.js( 'assets/src/scripts/cssanimations.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/export.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/footnote.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/ftnref-convert.js', 'assets/dist/scripts/' )

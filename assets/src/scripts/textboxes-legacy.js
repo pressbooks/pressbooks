@@ -9,6 +9,9 @@
  */
 
 tinymce.PluginManager.add( 'textboxes', function ( editor ) {
+	/**
+	 *
+	 */
 	function showDialog() {
 		let selectedNode = editor.selection.getNode();
 
@@ -21,6 +24,9 @@ tinymce.PluginManager.add( 'textboxes', function ( editor ) {
 				label: editor.getLang( 'strings.classtitle' ),
 				value: selectedNode.name || selectedNode.id,
 			},
+			/**
+			 * @param e
+			 */
 			onsubmit: function ( e ) {
 				editor.execCommand(
 					'mceReplaceContent',
@@ -38,6 +44,9 @@ tinymce.PluginManager.add( 'textboxes', function ( editor ) {
 		menu: [
 			{
 				text: editor.getLang( 'strings.standard' ),
+				/**
+				 *
+				 */
 				onclick: function () {
 					let selection = editor.selection.getContent();
 					if ( selection !== '' ) {
@@ -59,6 +68,9 @@ tinymce.PluginManager.add( 'textboxes', function ( editor ) {
 			},
 			{
 				text: editor.getLang( 'strings.shaded' ),
+				/**
+				 *
+				 */
 				onclick: function () {
 					let selection = editor.selection.getContent();
 					if ( selection !== '' ) {
@@ -80,6 +92,9 @@ tinymce.PluginManager.add( 'textboxes', function ( editor ) {
 			},
 			{
 				text: editor.getLang( 'strings.learningobjectives' ),
+				/**
+				 *
+				 */
 				onclick: function () {
 					let selection = editor.selection.getContent();
 					if ( selection !== '' ) {
@@ -111,6 +126,9 @@ tinymce.PluginManager.add( 'textboxes', function ( editor ) {
 			},
 			{
 				text: editor.getLang( 'strings.keytakeaways' ),
+				/**
+				 *
+				 */
 				onclick: function () {
 					let selection = editor.selection.getContent();
 					if ( selection !== '' ) {
@@ -142,6 +160,9 @@ tinymce.PluginManager.add( 'textboxes', function ( editor ) {
 			},
 			{
 				text: editor.getLang( 'strings.exercises' ),
+				/**
+				 *
+				 */
 				onclick: function () {
 					let selection = editor.selection.getContent();
 					if ( selection !== '' ) {
@@ -173,6 +194,9 @@ tinymce.PluginManager.add( 'textboxes', function ( editor ) {
 			},
 			{
 				text: editor.getLang( 'strings.examples' ),
+				/**
+				 *
+				 */
 				onclick: function () {
 					let selection = editor.selection.getContent();
 					if ( selection !== '' ) {
@@ -204,6 +228,9 @@ tinymce.PluginManager.add( 'textboxes', function ( editor ) {
 			},
 			{
 				text: editor.getLang( 'strings.customellipses' ),
+				/**
+				 *
+				 */
 				onclick: function () {
 					showDialog();
 				},
