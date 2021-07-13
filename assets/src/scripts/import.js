@@ -14,6 +14,9 @@ jQuery( function ( $ ) {
 	// Init clock
 	let clock = null;
 
+	/**
+	 *
+	 */
 	let eventSourceHandler = function () {
 
 		// Initialize event data
@@ -21,6 +24,9 @@ jQuery( function ( $ ) {
 		const evtSource = new EventSource( eventSourceUrl );
 
 		// Handle open
+		/**
+		 *
+		 */
 		evtSource.onopen = function () {
 			// Warn the user if they navigate away
 			$( window ).on( 'beforeunload', function () {
@@ -31,6 +37,9 @@ jQuery( function ( $ ) {
 		};
 
 		// Handle message
+		/**
+		 * @param message
+		 */
 		evtSource.onmessage = function ( message ) {
 			const data = JSON.parse( message.data );
 			switch ( data.action ) {
@@ -58,6 +67,9 @@ jQuery( function ( $ ) {
 		};
 
 		// Handle error
+		/**
+		 *
+		 */
 		evtSource.onerror = function () {
 			evtSource.close();
 			bar.removeAttr( 'value' );

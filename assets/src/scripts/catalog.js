@@ -5,6 +5,10 @@ jQuery( function ( $ ) {
 		layoutMode: 'fitRows',
 	} );
 	$( '.mix' ).matchHeight( {} );
+	/**
+	 * @param event
+	 * @param groups
+	 */
 	$.fn.matchHeight._afterUpdate = function ( event, groups ) {
 		$container.isotope( 'layout' );
 	};

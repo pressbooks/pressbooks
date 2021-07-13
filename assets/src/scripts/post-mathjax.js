@@ -2,6 +2,10 @@ jQuery( document ).ready( function ( $ ) {
 	$( 'body' ).on( {
 		// Switching between the visual and text editors breaks MathML tags
 		// We can stop this from happening by forcing the MathML into one line without any returns
+		/**
+		 * @param e
+		 * @param o
+		 */
 		beforeWpautop: ( e, o ) => {
 			if ( o.unfiltered.indexOf( '</math>' ) !== -1 || o.unfiltered.indexOf( '</svg>' ) !== -1 ) {
 				o.data = o.unfiltered.replace( /<(math|svg)[^>]*>[\s\S]*?<\/\1>/gi, match => {

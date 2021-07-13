@@ -1,4 +1,7 @@
 tinymce.PluginManager.add( 'apply_class', function ( editor ) {
+	/**
+	 *
+	 */
 	function showDialog() {
 		let selectedNode = editor.selection.getNode();
 		let selectedContent = editor.selection.getContent();
@@ -10,6 +13,9 @@ tinymce.PluginManager.add( 'apply_class', function ( editor ) {
 				size: 40,
 				label: editor.getLang( 'strings.classtitle' ),
 			},
+			/**
+			 * @param e
+			 */
 			onsubmit: function ( e ) {
 				if ( selectedContent !== '' ) {
 					editor.selection.setContent(

@@ -199,7 +199,7 @@ $isbn-width: 1.83in !default;
   .isbn {
     position: absolute;
     bottom: $trim-bleed + 0.5in;
-    left: $trim-width / 2 - $isbn-width / 2;
+    left: $trim-width * 0.5 - $isbn-width * 0.5;
     width: $isbn-width;
     height: auto;
     // scss-lint:disable PropertySpelling
