@@ -8,9 +8,10 @@
  * Contributing: http://www.tinymce.com/contributing
  */
 
-/*global tinymce:true */
-
 tinymce.PluginManager.add( 'anchor', function ( editor ) {
+	/**
+	 *
+	 */
 	function showDialog() {
 		let selectedNode = editor.selection.getNode();
 		editor.windowManager.open( {
@@ -22,6 +23,9 @@ tinymce.PluginManager.add( 'anchor', function ( editor ) {
 				label: 'Name',
 				value: selectedNode.name || selectedNode.id,
 			},
+			/**
+			 * @param e
+			 */
 			onsubmit: function ( e ) {
 				editor.execCommand(
 					'mceInsertContent',

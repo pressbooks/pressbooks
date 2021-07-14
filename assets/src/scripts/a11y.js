@@ -1,7 +1,12 @@
-const { __ } = wp.i18n
+const { __ } = wp.i18n;
 
 document.addEventListener( 'DOMContentLoaded', function () {
 
+	/**
+	 * @param selector
+	 * @param att
+	 * @param val
+	 */
 	function addAttribute( selector, att, val ){
 		let e = document.querySelectorAll( selector );
 		for ( let i=0; i < e.length; i++ ) {
@@ -41,28 +46,28 @@ document.addEventListener( 'DOMContentLoaded', function () {
 			let color = '';
 
 			if ( rgb === 'rgb(0, 0, 0)' ){
-				color = __( 'Black', 'pressbooks' )
+				color = __( 'Black', 'pressbooks' );
 			}
 			if ( rgb === 'rgb(255, 255, 255)' ){
-				color = __( 'White', 'pressbooks' )
+				color = __( 'White', 'pressbooks' );
 			}
 			if ( rgb === 'rgb(221, 51, 51)' ){
-				color = __( 'Red', 'pressbooks' )
+				color = __( 'Red', 'pressbooks' );
 			}
 			if ( rgb === 'rgb(221, 153, 51)' ){
-				color = __( 'Orange', 'pressbooks' )
+				color = __( 'Orange', 'pressbooks' );
 			}
 			if ( rgb === 'rgb(238, 238, 34)' ){
-				color = __( 'Yellow', 'pressbooks' )
+				color = __( 'Yellow', 'pressbooks' );
 			}
 			if ( rgb === 'rgb(129, 215, 66)' ){
-				color = __( 'Green', 'pressbooks' )
+				color = __( 'Green', 'pressbooks' );
 			}
 			if ( rgb === 'rgb(30, 115, 190)' ){
-				color = __( 'Blue', 'pressbooks' )
+				color = __( 'Blue', 'pressbooks' );
 			}
 			if ( rgb === 'rgb(130, 36, 227)' ){
-				color = __( 'Purple', 'pressbooks' )
+				color = __( 'Purple', 'pressbooks' );
 			}
 
 			irisPalette.setAttribute( 'aria-label', __( 'Select ' + color, 'pressbooks' ) );

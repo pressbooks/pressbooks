@@ -2,12 +2,19 @@
 
 ( function () {
 	tinymce.create( 'tinymce.plugins.glossary', {
+		/**
+		 * @param ed
+		 * @param url
+		 */
 		init: function ( ed, url ) {
 			let glossaryTermValues = JSON.parse( PB_GlossaryToken.listbox_values );
 
+			/**
+			 * @param name
+			 */
 			function termValue( name ) {
 				for ( let key in glossaryTermValues ) {
-					if ( glossaryTermValues.hasOwnProperty( key ) ) {
+					if ( Object.prototype.hasOwnProperty.call( glossaryTermValues, key ) ) {
 						if ( glossaryTermValues[ key ].text.toLowerCase().trim() === name.toLowerCase().trim() ) {
 							return glossaryTermValues[ key ].value;
 						}
@@ -16,9 +23,12 @@
 				return '';
 			}
 
+			/**
+			 * @param value
+			 */
 			function termName( value ) {
 				for ( let key in glossaryTermValues ) {
-					if ( glossaryTermValues.hasOwnProperty( key ) ) {
+					if ( Object.prototype.hasOwnProperty.call( glossaryTermValues, key ) ) {
 						if ( glossaryTermValues[ key ].value === value ) {
 							return glossaryTermValues[ key ].text;
 						}
@@ -32,6 +42,9 @@
 				title: PB_GlossaryToken.glossary_button_title,
 				text: 'GL',
 				icon: false,
+				/**
+				 *
+				 */
 				onclick: function () {
 					// get the user highlighted selection from the TinyMCE editor
 					let mySelection = ed.selection.getContent();
@@ -114,6 +127,9 @@
 							},
 						],
 
+						/**
+						 * @param event
+						 */
 						onsubmit: function ( event ) {
 							let mySubmittedTabId = this.find( 'tabpanel' )[ 0 ].activeTabId;
 							if ( mySubmittedTabId === 't0' ) {
@@ -158,11 +174,15 @@
 								}
 							}
 						},
-					}, );
+					} );
 					myWindow.find( 'tabpanel' )[ 0 ].activateTab( myActiveTab );
 				},
 			} );
 		},
+		/**
+		 * @param n
+		 * @param cm
+		 */
 		createControl: function ( n, cm ) {
 			return null;
 		},

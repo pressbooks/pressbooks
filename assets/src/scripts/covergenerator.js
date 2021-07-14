@@ -65,6 +65,9 @@ jQuery( function ( $ ) {
 	let clock = null;
 
 	// Event source handler
+	/**
+	 * @param fileType
+	 */
 	let eventSourceHandler = function ( fileType ) {
 		// Initialize event data
 		const hiddenForm = $( 'form.' + fileType );
@@ -72,6 +75,9 @@ jQuery( function ( $ ) {
 		const evtSource = new EventSource( eventSourceUrl );
 
 		// Handle open
+		/**
+		 *
+		 */
 		evtSource.onopen = function () {
 			// Warn the user if they navigate away
 			$( window ).on( 'beforeunload', function () {
@@ -82,6 +88,9 @@ jQuery( function ( $ ) {
 		};
 
 		// Handle message
+		/**
+		 * @param message
+		 */
 		evtSource.onmessage = function ( message ) {
 			let data = JSON.parse( message.data );
 			switch ( data.action ) {
@@ -110,6 +119,9 @@ jQuery( function ( $ ) {
 		};
 
 		// Handle error
+		/**
+		 *
+		 */
 		evtSource.onerror = function () {
 			evtSource.close();
 			bar.removeAttr( 'value' );

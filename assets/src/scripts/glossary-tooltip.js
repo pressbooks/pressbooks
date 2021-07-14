@@ -36,6 +36,9 @@ document.addEventListener( 'DOMContentLoaded', function () {
 			}
 		} );
 
+		/**
+		 *
+		 */
 		function showDefinition() {
 			new Popper( glossaryTerm, glossaryDefinition, {} );
 			glossaryDefinition.classList.add( 'glossary__tooltip--visible' );
@@ -48,6 +51,9 @@ document.addEventListener( 'DOMContentLoaded', function () {
 			} );
 		}
 
+		/**
+		 *
+		 */
 		function hideDefinition() {
 			glossaryDefinition.hidden = true;
 			glossaryDefinition.classList.remove( 'glossary__tooltip--visible' );

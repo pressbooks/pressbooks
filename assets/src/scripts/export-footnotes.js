@@ -1,3 +1,6 @@
+/**
+ *
+ */
 function moveFootnotes() {
 	let footnotes = document.getElementsByClassName( 'footnote-indirect' );
 	for ( let i = 0; i < footnotes.length; i++ ) {
