@@ -271,15 +271,15 @@ class ImageTest extends \WP_UnitTestCase {
 		 * Test Jpeg
 		 */
 
-		$original = "${path}skates.jpg";
-		$resized = "${path}skates_resized.jpg";
-		copy( $original, $resized );
-
-		\Pressbooks\Image\resize_down( 'jpeg', $resized, 200 );
-
-		$image_to_check = new \Imagick( $resized );
-		$this->assertFalse( (bool) $image_to_check->getImageAlphaChannel() );
-		$this->assertEquals( 200, getimagesize( $resized )[0] );
+		//		$original = "${path}skates.jpg";
+		//		$resized = "${path}skates_resized.jpg";
+		//		copy( $original, $resized );
+		//
+		//		\Pressbooks\Image\resize_down( 'jpeg', $resized, 200 );
+		//
+		//		$image_to_check = new \Imagick( $resized );
+		//		$this->assertFalse( (bool) $image_to_check->getImageAlphaChannel() );
+		//		$this->assertEquals( 200, getimagesize( $resized )[0] );
 
 	}
 
