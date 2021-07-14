@@ -48,6 +48,7 @@ jobs:
       uses: shivammathur/setup-php@v2
       with:
         php-version: ${{ matrix.php }}
+        ini-values: memory_limit=256M
         tools: composer:v1
         coverage: pcov
         extensions: imagick
