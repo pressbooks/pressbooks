@@ -250,7 +250,7 @@ class ImageTest extends \WP_UnitTestCase {
 	 */
 	public function test_imageResize() {
 
-		ini_set( 'memory_limit', '100M' ); //Needed to resize and open the image for testing
+		ini_set( 'memory_limit', '256M' ); //Needed to resize and open the image for testing
 
 		/*
 		 * Test PNGs with alpha channel
