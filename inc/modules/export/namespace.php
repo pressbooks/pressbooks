@@ -30,12 +30,6 @@ function dependency_errors() {
 		set_site_transient( 'pb_epub_compatible', true );
 	}
 
-	if ( false === (bool) get_site_transient( 'pb_mobi_compatible' ) && false === (bool) \Pressbooks\Modules\Export\Mobi\Kindlegen::hasDependencies() ) {
-		$dependency_errors['mobi'] = 'MOBI';
-	} else {
-		set_site_transient( 'pb_mobi_compatible', true );
-	}
-
 	if ( false === (bool) get_site_transient( 'pb_epub3_compatible' ) && false === (bool) \Pressbooks\Modules\Export\Epub\Epub3::hasDependencies() ) {
 		$dependency_errors['epub3'] = 'EPUB3';
 	} else {
@@ -108,7 +102,6 @@ function formats() {
 			'print_pdf' => __( 'PDF (for print)', 'pressbooks' ),
 			'pdf' => __( 'PDF (for digital distribution)', 'pressbooks' ),
 			'epub' => __( 'EPUB (for Nook, Apple Books, Kobo etc.)', 'pressbooks' ),
-			'mobi' => __( 'MOBI (for Kindle)', 'pressbooks' ),
 		],
 		'exotic' => [
 			'epub3' => __( 'EPUB 3', 'pressbooks' ),
@@ -168,7 +161,6 @@ function filetypes() {
 			'epub' => '.epub',
 			'pdf' => '.pdf',
 			'print_pdf' => '._print.pdf',
-			'mobi' => '.mobi',
 			'icml' => '.icml',
 			'htmlbook' => '.-htmlbook.html',
 			'xhtml' => '.html',
@@ -203,7 +195,6 @@ function get_name_from_filetype_slug( $filetype ) {
 			'mpdf' => __( 'Digital PDF', 'pressbooks' ),
 			'htmlbook' => __( 'HTMLBook', 'pressbooks' ),
 			'epub' => __( 'EPUB', 'pressbooks' ),
-			'mobi' => __( 'MOBI', 'pressbooks' ),
 			'epub3' => __( 'EPUB3', 'pressbooks' ),
 			'xhtml' => __( 'XHTML', 'presbooks' ),
 			'odf' => __( 'OpenDocument', 'pressbooks' ),
@@ -237,7 +228,6 @@ function get_name_from_module_classname( $classname ) {
 			'\Pressbooks\Modules\Export\Prince\Pdf' => __( 'Digital PDF', 'pressbooks' ),
 			'\Pressbooks\Modules\Export\HTMLBook\HTMLBook' => __( 'HTMLBook', 'pressbooks' ),
 			'\Pressbooks\Modules\Export\Epub\Epub201' => __( 'EPUB', 'pressbooks' ),
-			'\Pressbooks\Modules\Export\Mobi\Kindlegen' => __( 'MOBI', 'pressbooks' ),
 			'\Pressbooks\Modules\Export\Epub\Epub3' => __( 'EPUB3', 'pressbooks' ),
 			'\Pressbooks\Modules\Export\Xhtml\Xhtml11' => __( 'XHTML', 'presbooks' ),
 			'\Pressbooks\Modules\Export\Odt\Odt' => __( 'OpenDocument', 'pressbooks' ),

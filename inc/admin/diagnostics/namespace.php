@@ -7,7 +7,6 @@
 namespace Pressbooks\Admin\Diagnostics;
 
 use function Pressbooks\Utility\check_epubcheck_install;
-use function Pressbooks\Utility\check_kindlegen_install;
 use function Pressbooks\Utility\check_prince_install;
 use function Pressbooks\Utility\check_saxonhe_install;
 use function Pressbooks\Utility\check_xmllint_install;

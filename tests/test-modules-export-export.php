@@ -42,7 +42,6 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 			[ '\Pressbooks\Modules\Export\Prince\DocraptorPrint', '\Pressbooks\Modules\Export\Xhtml\Xhtml11' ],
 			[ '\Pressbooks\Modules\Export\Epub\Epub201', false ],
 			[ '\Pressbooks\Modules\Export\Epub\Epub3', false ],
-			// [ '\Pressbooks\Modules\Export\Mobi\Kindlegen', '\Pressbooks\Modules\Export\Epub\Epub201' ] // TODO: Download/install Kindlegen in Travis build script
 			[ '\Pressbooks\Modules\Export\InDesign\Icml', false ],
 			[ '\Pressbooks\Modules\Export\WordPress\Wxr', false ],
 			[ '\Pressbooks\Modules\Export\WordPress\VanillaWxr', false ],

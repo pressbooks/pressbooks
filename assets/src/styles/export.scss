@@ -124,14 +124,6 @@
         }
       }
 
-      &.mobi {
-        background-image: url(../images/mobi-36.png);
-
-        @include hidpi {
-          background-image: url(../images/mobi-72.png);
-        }
-      }
-
       &.print-pdf {
         background-image: url('../images/print-pdf-36.png');
 
