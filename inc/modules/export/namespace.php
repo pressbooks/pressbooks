@@ -102,13 +102,13 @@ function formats() {
 			'print_pdf' => __( 'PDF (for print)', 'pressbooks' ),
 			'pdf' => __( 'PDF (for digital distribution)', 'pressbooks' ),
 			'epub' => __( 'EPUB (for Nook, Apple Books, Kobo etc.)', 'pressbooks' ),
+			'wxr' => __( 'Pressbooks XML', 'pressbooks' ),
 		],
 		'exotic' => [
 			'epub3' => __( 'EPUB 3', 'pressbooks' ),
 			'xhtml' => __( 'XHTML', 'pressbooks' ),
 			'htmlbook' => __( 'HTMLBook', 'pressbooks' ),
 			'odt' => __( 'OpenDocument', 'pressbooks' ),
-			'wxr' => __( 'Pressbooks XML', 'pressbooks' ),
 			'vanillawxr' => __( 'WordPress XML', 'pressbooks' ),
 		],
 	];
@@ -117,7 +117,7 @@ function formats() {
 
 	$enable_thincc_weblinks = \Pressbooks\Admin\Network\SharingAndPrivacyOptions::getOption( 'enable_thincc_weblinks' );
 	if ( $enable_thincc_weblinks ) {
-		$formats['exotic']['weblinks'] = __( 'Common Cartridge with Web Links', 'pressbooks' );
+		$formats['standard']['weblinks'] = __( 'Common Cartridge with Web Links', 'pressbooks' );
 	}
 
 	/**

@@ -191,15 +191,6 @@ class UtilityTest extends \WP_UnitTestCase {
 	/**
 	 * @group utility
 	 */
-	public function test_check_kindlegen_install() {
-
-		$this->assertInternalType( 'bool', \Pressbooks\Utility\check_kindlegen_install() );
-		$this->assertTrue( defined( 'PB_KINDLEGEN_COMMAND' ) );
-	}
-
-	/**
-	 * @group utility
-	 */
 	public function test_check_xmllint_install() {
 
 		$this->assertInternalType( 'bool', \Pressbooks\Utility\check_xmllint_install() );
