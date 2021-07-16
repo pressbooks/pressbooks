@@ -2007,10 +2007,6 @@ class Epub201 extends ExportGenerator {
 		// Remove auto-created <html> <body> and <!DOCTYPE> tags.
 		$html = \Pressbooks\Sanitize\strip_container_tags( $html );
 
-		// Mobi7 hacks
-		$utf8_hack = '<?xml version="1.0" encoding="UTF-8"?>';
-		$html = $this->transformXML( "{$utf8_hack }<html>{$html}</html>", $this->dir . '/templates/epub201/mobi-hacks.xsl' );
-
 		return $html;
 	}
 

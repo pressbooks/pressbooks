@@ -11,7 +11,7 @@ License URI: https://github.com/pressbooks/pressbooks/blob/master/LICENSE.md
 Pressbooks is an open source book publishing tool built on a WordPress multisite platform.
 
 == Description ==
-Pressbooks is an open source book publishing tool built on a WordPress multisite platform. Pressbooks outputs books in multiple formats, including PDF, EPUB, MOBI, web, and a variety of XML flavours, using a theming/templating system, driven by CSS. For more information, visit https://pressbooks.org.
+Pressbooks is an open source book publishing tool built on a WordPress multisite platform. Pressbooks outputs books in multiple formats, including PDF, EPUB, web, and a variety of XML flavours, using a theming/templating system, driven by CSS. For more information, visit https://pressbooks.org.
 
 == Installation ==
 For installation instructions, visit [docs.pressbooks.org/installation](https://docs.pressbooks.org/installation).
