@@ -106,12 +106,10 @@ function upload_cover_image( $pid, $post ) {
 	}
 
 	// resize image without cropping or altering aspect ratio
-	if ( $height > 1500 ) {
-		$image_editor = wp_get_image_editor( $image['file'] );
-		if ( ! is_wp_error( $image_editor ) ) {
-			$image_editor->resize( 1500, 1500, false );
-			$image_editor->save( $image['file'] );
-		}
+	$img = wp_get_image_editor( $image['file'] );
+	if ( ! is_wp_error( $img ) ) {
+		$img->resize( 1500, 1500, false );
+		$img->save( $image['file'] );
 	}
 
 	$old = get_post_meta( $pid, 'pb_cover_image', false );
