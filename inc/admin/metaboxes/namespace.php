@@ -101,7 +101,7 @@ function upload_cover_image( $pid, $post ) {
 	}
 
 	$ratio = intdiv( $width, $height );
-	if ( $ratio > 1 || $ratio < .66 )  {
+	if ( $ratio > 1 || $ratio < .66 ) {
 		$_SESSION['pb_notices'][] = sprintf( __( 'Your cover image was not saved because the width to height ratio (%s) is outside the permitted range (1:1 to 2:3). We recommend a width to height ratio of 3:4', 'pressbooks' ), $ratio );
 		$valid = false;
 	}
