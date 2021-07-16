@@ -692,10 +692,16 @@ abstract class Export {
 				$modules[] = '\Pressbooks\Modules\Export\Prince\PrintPdf';
 			}
 			if ( isset( $x['epub'] ) ) {
-				$modules[] = '\Pressbooks\Modules\Export\Epub\Epub201';
+				$modules[] = '\Pressbooks\Modules\Export\Epub\Epub201'; // Must be set before MOBI
 			}
 			if ( isset( $x['epub3'] ) ) {
 				$modules[] = '\Pressbooks\Modules\Export\Epub\Epub3';
+			}
+			if ( isset( $x['mobi'] ) ) {
+				if ( ! isset( $x['epub'] ) ) { // Make sure Epub source file is generated
+					$modules[] = '\Pressbooks\Modules\Export\Epub\Epub201'; // Must be set before MOBI
+				}
+				$modules[] = '\Pressbooks\Modules\Export\Mobi\Kindlegen'; // Must be set after EPUB
 			}
 			if ( isset( $x['icml'] ) ) {
 				$modules[] = '\Pressbooks\Modules\Export\InDesign\Icml';
@@ -832,6 +838,16 @@ abstract class Export {
 
 		if ( static::$switchedLocale ) {
 			restore_previous_locale();
+		}
+
+		// --------------------------------------------------------------------------------------------------------
+		// MOBI cleanup
+
+		if ( is_array( getset( '_GET', 'export_formats' ) ) && check_admin_referer( 'pb-export' ) ) {
+			$x = $_GET['export_formats'];
+			if ( isset( $x['mobi'] ) && ! isset( $x['epub'] ) ) {
+				unlink( $outputs['\Pressbooks\Modules\Export\Epub\Epub201'] );
+			}
 		}
 
 		// --------------------------------------------------------------------------------------------------------

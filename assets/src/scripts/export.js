@@ -195,7 +195,8 @@ jQuery( function ( $ ) {
 				if (
 					name === 'export_formats[pdf]' ||
 					name === 'export_formats[mpdf]' ||
-					name === 'export_formats[epub]'
+					name === 'export_formats[epub]' ||
+					name === 'export_formats[mobi]'
 				) {
 					$( this ).prop( 'checked', true );
 				} else {
