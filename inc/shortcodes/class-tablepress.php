@@ -8,7 +8,7 @@ namespace Pressbooks\Shortcodes;
  * @see https://github.com/TobiasBg/TablePress
  *
  * By default, TablePress only registers its shortcodes outside of the admin context.
- * We need them registered there too so that EPUB exports will include the
+ * We need them registered there too so that EPUB/MOBI exports will include the
  * rendered tables.
  *
  * @see https://github.com/TobiasBg/TablePress/blob/master/classes/class-tablepress.php#L148-L155
