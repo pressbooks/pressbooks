@@ -113,7 +113,7 @@ function upload_cover_image( $pid, $post ) {
 		$valid = false;
 	}
 
-	if ( !$valid ) {
+	if ( ! $valid ) {
 		return; // Bail
 	}
 
