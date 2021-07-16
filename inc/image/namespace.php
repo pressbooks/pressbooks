@@ -404,7 +404,7 @@ function cover_image_box( $post ) {
 	$image_url = thumbnail_from_url( get_post_meta( $post->ID, $meta_key, true ), 'pb_cover_medium' );
 	$action = 'pb_delete_cover_image';
 	$nonce = wp_create_nonce( 'pb-delete-cover-image' );
-	$description = __( 'This image will be displayed on the webbook home page and used as the internal cover in ebook exports. Cover images must be at least 800px tall and have an aspect ratio between .66 and 1. Very large images will be resized upon upload. See <a href="https://guide.pressbooks.com/chapter/how-to-design-your-book-cover/" target="_blank">our guide</a> for more details.', 'pressbooks' );
+	$description = __( 'This image will be displayed on the webbook home page and used as the internal cover in ebook exports. Cover images must be at least 800px tall and have an aspect ratio between .66 and 1. Very large images will be resized upon upload. Read more in <a href="https://guide.pressbooks.com/chapter/how-to-design-your-book-cover/" target="_blank">our guide</a>.', 'pressbooks' );
 
 	render_cover_image_box( $meta_key, $pid, $image_url, $action, $nonce, $description );
 }

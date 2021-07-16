@@ -101,7 +101,7 @@ function upload_cover_image( $pid, $post ) {
 
 	$ratio = number_format( $width / $height, 2 );
 	if ( $ratio > 1 || $ratio < .66 ) {
-		$_SESSION['pb_errors'][] = sprintf( __( 'Your cover image was not saved because the aspect ratio (%s) is outside the permitted range (.66 to 1). We recommend an aspect ratio of .75', 'pressbooks' ), $ratio );
+		$_SESSION['pb_errors'][] = sprintf( __( 'Your cover image was not saved because the aspect ratio (%s) is outside the permitted range (.66 to 1). We recommend an aspect ratio of .75.', 'pressbooks' ), $ratio );
 		return; // Do not save uploaded image if it triggers a size-related error
 	}
 
