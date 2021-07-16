@@ -5,3 +5,6 @@ node_modules
 tests/logs/
 vendor
 coverage-reports
+
+.env.*
+!.env.*.example
