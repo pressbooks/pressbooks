@@ -94,8 +94,13 @@ function upload_cover_image( $pid, $post ) {
 	}
 
 	list( $width, $height ) = getimagesize( $image['file'] );
-	if ( $width < 625 || $height < 625 ) {
-		$_SESSION['pb_notices'][] = sprintf( __( 'Your cover image (%1$s x %1$s) is too small. It should be 625px on the shortest side.', 'pressbooks' ), $width, $height );
+	if ( $height < 800 ) {
+		$_SESSION['pb_notices'][] = sprintf( __( 'Your cover image (%1$s x %1$s) is too small. It should be at least 800px in height.', 'pressbooks' ), $width, $height );
+	}
+
+	$ratio = intdiv( $width, $height );
+	if ( $ratio > 1 || $ratio < .66 )  {
+		$_SESSION['pb_notices'][] = sprintf( __( 'The width to height ratio (%1$s x %1$s) of your cover image is outside the permitted range (1:1 to 2:3). We recommend a width to height ratio of 3:4', 'pressbooks' ), $width, $height );
 	}
 
 	$filesize = filesize( $image['file'] );
