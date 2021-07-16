@@ -101,7 +101,7 @@ function formats() {
 		'standard' => [
 			'print_pdf' => __( 'PDF (for print)', 'pressbooks' ),
 			'pdf' => __( 'PDF (for digital distribution)', 'pressbooks' ),
-			'epub' => __( 'EPUB (for Nook, Apple Books, Kobo etc.)', 'pressbooks' ),
+			'epub' => __( 'EPUB 2.01', 'pressbooks' ),
 			'wxr' => __( 'Pressbooks XML', 'pressbooks' ),
 		],
 		'exotic' => [
