@@ -904,7 +904,7 @@ class Epub201 extends ExportGenerator {
 
 		$img = wp_get_image_editor( $source_path );
 		if ( ! is_wp_error( $img ) ) {
-			$img->resize( 1500, 1500, false ); // in case image wasn't resized upon upload
+			$img->resize( 1563, 2500, false ); // in case image wasn't resized upon upload
 			$img->save( $dest_path );
 			$this->coverImage = $dest_image;
 		}
