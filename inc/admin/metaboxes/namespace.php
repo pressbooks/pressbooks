@@ -93,20 +93,28 @@ function upload_cover_image( $pid, $post ) {
 		wp_die( $image['error'] );
 	}
 
+	$valid = true;
 	list( $width, $height ) = getimagesize( $image['file'] );
 	if ( $height < 800 ) {
-		$_SESSION['pb_notices'][] = sprintf( __( 'Your cover image (%1$s x %1$s) is too small. It should be at least 800px in height.', 'pressbooks' ), $width, $height );
+		$_SESSION['pb_notices'][] = sprintf( __( 'Your cover image was not saved because it is too small (%1$s x %1$s). It should be at least 800px in height.', 'pressbooks' ), $width, $height );
+		$valid = false;
 	}
 
 	$ratio = intdiv( $width, $height );
 	if ( $ratio > 1 || $ratio < .66 )  {
-		$_SESSION['pb_notices'][] = sprintf( __( 'The width to height ratio (%1$s x %1$s) of your cover image is outside the permitted range (1:1 to 2:3). We recommend a width to height ratio of 3:4', 'pressbooks' ), $width, $height );
+		$_SESSION['pb_notices'][] = sprintf( __( 'Your cover image was not saved because the width to height ratio (%s) is outside the permitted range (1:1 to 2:3). We recommend a width to height ratio of 3:4', 'pressbooks' ), $ratio );
+		$valid = false;
 	}
 
 	$filesize = filesize( $image['file'] );
 	if ( $filesize > 2000000 ) {
 		$filesize_in_mb = \Pressbooks\Utility\format_bytes( $filesize );
-		$_SESSION['pb_notices'][] = sprintf( __( 'Your cover image (%s) is too big. It should be no more than 2MB.', 'pressbooks' ), $filesize_in_mb );
+		$_SESSION['pb_notices'][] = sprintf( __( 'Your cover image was not saved because the file was too large (%s). It should be no larger than 2MB.', 'pressbooks' ), $filesize_in_mb );
+		$valid = false;
+	}
+
+	if ( !$valid ) {
+		return; // Bail
 	}
 
 	$old = get_post_meta( $pid, 'pb_cover_image', false );
