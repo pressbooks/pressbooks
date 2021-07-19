@@ -66,8 +66,9 @@ function add_required_data( $pid, $post ) {
  *
  * @param $pid
  * @param $post
+ * @param $image
  */
-function upload_cover_image( $pid, $post ) {
+function upload_cover_image( $pid, $post, $image = null ) {
 
 	if ( ! isset( $_FILES['pb_cover_image']['name'] ) || empty( $_FILES['pb_cover_image']['name'] ) ) {
 		return; // Bail
@@ -87,7 +88,7 @@ function upload_cover_image( $pid, $post ) {
 		'test_form' => false,
 		'mimes' => $allowed_file_types,
 	];
-	$image = wp_handle_upload( $_FILES['pb_cover_image'], $overrides );
+	$image = $image ?? wp_handle_upload( $_FILES['pb_cover_image'], $overrides );
 
 	if ( ! empty( $image['error'] ) ) {
 		wp_die( $image['error'] );
