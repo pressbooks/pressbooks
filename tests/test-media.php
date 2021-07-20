@@ -225,7 +225,7 @@ class MediaTest extends \WP_UnitTestCase {
 	}
 
 	/**
-	 * @group upload
+	 * @group cover_image
 	 */
 	public function test_upload_cover_image() {
 		$this->_book();
@@ -259,7 +259,7 @@ class MediaTest extends \WP_UnitTestCase {
     }
 
 	/**
-	 * @group upload
+	 * @group cover_image
 	 */
 	public function test_upload_cover_image_fails_with_wrong_aspect_ratio() {
 		$this->_book();
@@ -304,11 +304,11 @@ class MediaTest extends \WP_UnitTestCase {
     }
 
     /**
-     * @group upload
+     * @group cover_image
      */
     public function test_upload_cover_image_fails_if_less_than_800_tall() {
         $this->_book();
-		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
+        wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
 
         $_FILES = [
             'pb_cover_image' => [
