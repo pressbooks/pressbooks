@@ -190,6 +190,9 @@ function add_meta_boxes() {
 		'pb_title', 'metadata', [
 			'group' => 'general-book-information',
 			'label' => __( 'Title', 'pressbooks' ),
+			'sanitize_callback' => function ( ...$args ) {
+				return sanitize_text_field( $args[ METADATA_CALLBACK_INDEX ] );
+			},
 		]
 	);
 
@@ -198,6 +201,9 @@ function add_meta_boxes() {
 			'group' => 'general-book-information',
 			'label' => __( 'Short Title', 'pressbooks' ),
 			'description' => __( 'In case of long titles that might be truncated in running heads in the PDF export.', 'pressbooks' ),
+			'sanitize_callback' => function ( ...$args ) {
+				return sanitize_text_field( $args[ METADATA_CALLBACK_INDEX ] );
+			},
 		]
 	);
 
@@ -205,6 +211,9 @@ function add_meta_boxes() {
 		'pb_subtitle', 'metadata', [
 			'group' => 'general-book-information',
 			'label' => __( 'Subtitle', 'pressbooks' ),
+			'sanitize_callback' => function ( ...$args ) {
+				return sanitize_text_field( $args[ METADATA_CALLBACK_INDEX ] );
+			},
 		]
 	);
 
@@ -285,6 +294,9 @@ function add_meta_boxes() {
 			'group' => 'general-book-information',
 			'label' => __( 'Publisher', 'pressbooks' ),
 			'description' => __( 'This text appears on the title page of your book.', 'pressbooks' ),
+			'sanitize_callback' => function ( ...$args ) {
+				return sanitize_text_field( $args[ METADATA_CALLBACK_INDEX ] );
+			},
 		]
 	);
 
@@ -293,6 +305,9 @@ function add_meta_boxes() {
 			'group' => 'general-book-information',
 			'label' => __( 'Publisher City', 'pressbooks' ),
 			'description' => __( 'This text appears on the title page of your book.', 'pressbooks' ),
+			'sanitize_callback' => function ( ...$args ) {
+				return sanitize_text_field( $args[ METADATA_CALLBACK_INDEX ] );
+			},
 		]
 	);
 
@@ -321,6 +336,9 @@ function add_meta_boxes() {
 			'group' => 'general-book-information',
 			'label' => __( 'Ebook ISBN', 'pressbooks' ),
 			'description' => __( 'ISBN is the International Standard Book Number, and you\'ll need one if you want to sell your book in some online ebook stores. This is added to the metadata in your ebook.', 'pressbooks' ),
+			'sanitize_callback' => function ( ...$args ) {
+				return sanitize_text_field( $args[ METADATA_CALLBACK_INDEX ] );
+			},
 		]
 	);
 
@@ -329,6 +347,9 @@ function add_meta_boxes() {
 			'group' => 'general-book-information',
 			'label' => __( 'Print ISBN', 'pressbooks' ),
 			'description' => __( 'ISBN is the International Standard Book Number, and you\'ll need one if you want to sell your book in online and physical book stores.', 'pressbooks' ),
+			'sanitize_callback' => function ( ...$args ) {
+				return sanitize_text_field( $args[ METADATA_CALLBACK_INDEX ] );
+			},
 		]
 	);
 
@@ -336,6 +357,9 @@ function add_meta_boxes() {
 		'pb_book_doi', 'metadata', [
 			'group' => 'general-book-information',
 			'label' => __( 'Digital Object Identifier (DOI)', 'pressbooks' ),
+			'sanitize_callback' => function ( ...$args ) {
+				return sanitize_text_field( $args[ METADATA_CALLBACK_INDEX ] );
+			},
 		]
 	);
 
@@ -388,6 +412,9 @@ function add_meta_boxes() {
 			'group' => 'copyright',
 			'label' => __( 'Copyright Holder', 'pressbooks' ),
 			'description' => __( 'Name of the copyright holder.', 'pressbooks' ),
+			'sanitize_callback' => function ( ...$args ) {
+				return sanitize_text_field( $args[ METADATA_CALLBACK_INDEX ] );
+			},
 		]
 	);
 
@@ -425,6 +452,9 @@ function add_meta_boxes() {
 			'group' => 'about-the-book',
 			'label' => __( 'Book Tagline', 'pressbooks' ),
 			'description' => __( 'A very short description of your book. It should fit in a Twitter post, and encapsulate your book in the briefest sentence.', 'pressbooks' ),
+			'sanitize_callback' => function ( ...$args ) {
+				return sanitize_text_field( $args[ METADATA_CALLBACK_INDEX ] );
+			},
 		]
 	);
 
@@ -475,6 +505,9 @@ function add_meta_boxes() {
 				'group' => 'additional-catalog-information',
 				'label' => __( 'Series Number', 'pressbooks' ),
 				'description' => __( 'Add if your book is part of a series.', 'pressbooks' ),
+				'sanitize_callback' => function ( ...$args ) {
+					return sanitize_text_field( $args[ METADATA_CALLBACK_INDEX ] );
+				},
 			]
 		);
 
@@ -492,6 +525,9 @@ function add_meta_boxes() {
 				'group' => 'additional-catalog-information',
 				'label' => __( 'Hashtag', 'pressbooks' ),
 				'description' => __( 'These are added to your webbook cover page. For those of you who like Twitter.', 'pressbooks' ),
+				'sanitize_callback' => function ( ...$args ) {
+					return sanitize_text_field( $args[ METADATA_CALLBACK_INDEX ] );
+				},
 			]
 		);
 
@@ -500,6 +536,9 @@ function add_meta_boxes() {
 				'group' => 'additional-catalog-information',
 				'label' => __( 'List Price (Print)', 'pressbooks' ),
 				'description' => __( 'The list price of your book in print.', 'pressbooks' ),
+				'sanitize_callback' => function ( ...$args ) {
+					return sanitize_text_field( $args[ METADATA_CALLBACK_INDEX ] );
+				},
 			]
 		);
 
@@ -508,6 +547,9 @@ function add_meta_boxes() {
 				'group' => 'additional-catalog-information',
 				'label' => __( 'List Price (PDF)', 'pressbooks' ),
 				'description' => __( 'The list price of your book in PDF format.', 'pressbooks' ),
+				'sanitize_callback' => function ( ...$args ) {
+					return sanitize_text_field( $args[ METADATA_CALLBACK_INDEX ] );
+				},
 			]
 		);
 
@@ -516,6 +558,9 @@ function add_meta_boxes() {
 				'group' => 'additional-catalog-information',
 				'label' => __( 'List Price (ebook)', 'pressbooks' ),
 				'description' => __( 'The list price of your book in Ebook formats.', 'pressbooks' ),
+				'sanitize_callback' => function ( ...$args ) {
+					return sanitize_text_field( $args[ METADATA_CALLBACK_INDEX ] );
+				},
 			]
 		);
 
@@ -524,6 +569,9 @@ function add_meta_boxes() {
 				'group' => 'additional-catalog-information',
 				'label' => __( 'List Price (Web)', 'pressbooks' ),
 				'description' => __( 'The list price of your webbook.', 'pressbooks' ),
+				'sanitize_callback' => function ( ...$args ) {
+					return sanitize_text_field( $args[ METADATA_CALLBACK_INDEX ] );
+				},
 			]
 		);
 
