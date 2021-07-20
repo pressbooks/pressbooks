@@ -66,8 +66,9 @@ function add_required_data( $pid, $post ) {
  *
  * @param $pid
  * @param $post
+ * @param $image
  */
-function upload_cover_image( $pid, $post ) {
+function upload_cover_image( $pid, $post, $image = null ) {
 
 	if ( ! isset( $_FILES['pb_cover_image']['name'] ) || empty( $_FILES['pb_cover_image']['name'] ) ) {
 		return; // Bail
@@ -87,21 +88,29 @@ function upload_cover_image( $pid, $post ) {
 		'test_form' => false,
 		'mimes' => $allowed_file_types,
 	];
-	$image = wp_handle_upload( $_FILES['pb_cover_image'], $overrides );
+	$image = $image ?? wp_handle_upload( $_FILES['pb_cover_image'], $overrides );
 
 	if ( ! empty( $image['error'] ) ) {
 		wp_die( $image['error'] );
 	}
 
 	list( $width, $height ) = getimagesize( $image['file'] );
-	if ( $width < 625 || $height < 625 ) {
-		$_SESSION['pb_notices'][] = sprintf( __( 'Your cover image (%1$s x %1$s) is too small. It should be 625px on the shortest side.', 'pressbooks' ), $width, $height );
+	if ( $height < 800 ) {
+		$_SESSION['pb_errors'][] = sprintf( __( 'Your cover image was not saved because it is too small (%1$s x %2$s). It should be at least 800px in height.', 'pressbooks' ), $width, $height );
+		return; // Do not save uploaded image if it triggers a size-related error
 	}
 
-	$filesize = filesize( $image['file'] );
-	if ( $filesize > 2000000 ) {
-		$filesize_in_mb = \Pressbooks\Utility\format_bytes( $filesize );
-		$_SESSION['pb_notices'][] = sprintf( __( 'Your cover image (%s) is too big. It should be no more than 2MB.', 'pressbooks' ), $filesize_in_mb );
+	$ratio = number_format( $width / $height, 2 );
+	if ( $ratio > 1 || $ratio < .66 ) {
+		$_SESSION['pb_errors'][] = sprintf( __( 'Your cover image was not saved because the aspect ratio (%s) is outside the permitted range (.66 to 1). We recommend an aspect ratio of .75.', 'pressbooks' ), $ratio );
+		return; // Do not save uploaded image if it triggers a size-related error
+	}
+
+	// resize image without cropping or altering aspect ratio
+	$img = wp_get_image_editor( $image['file'] );
+	if ( ! is_wp_error( $img ) ) {
+		$img->resize( 1500, 1500, false );
+		$img->save( $image['file'] );
 	}
 
 	$old = get_post_meta( $pid, 'pb_cover_image', false );
