@@ -132,11 +132,11 @@
         }
       }
 
-      &.print-pdf {
-        background-image: url('../images/print-pdf-36.png');
+      &.print_pdf {
+        background-image: url(../images/print-pdf-36.png);
 
         @include hidpi {
-          background-image: url('../images/print-pdf-72.png');
+          background-image: url(../images/print-pdf-72.png);
         }
       }
 
@@ -236,11 +236,11 @@
         }
       }
 
-      &.print-pdf {
-        background-image: url('../images/print-pdf-48.png');
+      &.print_pdf {
+        background-image: url(../images/print-pdf-48.png);
 
         @include hidpi {
-          background-image: url('../images/print-pdf-96.png');
+          background-image: url(../images/print-pdf-96.png);
         }
       }
 
