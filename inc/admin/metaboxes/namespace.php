@@ -403,6 +403,10 @@ function add_meta_boxes() {
 				'group' => 'copyright',
 				'label' => __( 'Copyright Year', 'pressbooks' ),
 				'description' => __( 'Year that the book is/was published.', 'pressbooks' ),
+				'sanitize_callback' => function ( ...$args ) {
+					return sanitize_text_field( $args[ METADATA_CALLBACK_INDEX ] );
+				},
+
 			]
 		);
 	}
@@ -435,7 +439,7 @@ function add_meta_boxes() {
 			'label' => __( 'Copyright Notice', 'pressbooks' ),
 			'description' => __( 'Enter a custom copyright notice, with whatever information you like. This will override the auto-generated copyright notice if All Rights Reserved or no license is selected, and will be inserted after the title page. If you select a Creative Commons license, the custom notice will appear after the license text in both the webbook and your exports.', 'pressbooks' ),
 			'sanitize_callback' => function ( ...$args ) {
-				return sanitize_string( $args[ METADATA_CALLBACK_INDEX ], true );
+				return trim( sanitize_string( $args[ METADATA_CALLBACK_INDEX ], true ) );
 			},
 		]
 	);
@@ -465,7 +469,7 @@ function add_meta_boxes() {
 			'label' => __( 'Short Description', 'pressbooks' ),
 			'description' => __( 'A short paragraph about your book, for catalogs, reviewers etc. to quote.', 'pressbooks' ),
 			'sanitize_callback' => function ( ...$args ) {
-				return sanitize_string( $args[ METADATA_CALLBACK_INDEX ], true );
+				return trim( sanitize_string( $args[ METADATA_CALLBACK_INDEX ], true ) );
 			},
 		]
 	);
@@ -477,7 +481,7 @@ function add_meta_boxes() {
 			'label' => __( 'Long Description', 'pressbooks' ),
 			'description' => __( 'The full description of your book.', 'pressbooks' ),
 			'sanitize_callback' => function ( ...$args ) {
-				return sanitize_string( $args[ METADATA_CALLBACK_INDEX ], true );
+				return trim( sanitize_string( $args[ METADATA_CALLBACK_INDEX ], true ) );
 			},
 		]
 	);
@@ -497,6 +501,9 @@ function add_meta_boxes() {
 				'group' => 'additional-catalog-information',
 				'label' => __( 'Series Title', 'pressbooks' ),
 				'description' => __( 'Add if your book is part of a series.', 'pressbooks' ),
+				'sanitize_callback' => function ( ...$args ) {
+					return sanitize_text_field( $args[ METADATA_CALLBACK_INDEX ] );
+				},
 			]
 		);
 
