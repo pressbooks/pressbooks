@@ -280,32 +280,6 @@ function check_epubcheck_install() {
 }
 
 /**
- * Lightweight check to see if the Kindlegen executable is installed and up to date.
- *
- * @return boolean
- */
-function check_kindlegen_install() {
-	if ( ! defined( 'PB_KINDLEGEN_COMMAND' ) ) { // @see wp-config.php
-		define( 'PB_KINDLEGEN_COMMAND', '/opt/kindlegen/kindlegen' );
-	}
-
-	$output = [];
-	$return_val = 0;
-	exec( PB_KINDLEGEN_COMMAND . ' 2>&1', $output, $return_val );
-
-	if ( isset( $output[2] ) && false !== strpos( $output[2], 'kindlegen' ) ) { // Command found.
-		$output = explode( ' V', $output[2] );
-		$output = explode( ' build', $output[1] );
-		$version = $output[0];
-		if ( version_compare( $version, '2.9' ) >= 0 ) {
-			return true;
-		}
-	}
-
-	return false;
-}
-
-/**
  * Lightweight check to see if the Prince executable is installed and up to date.
  *
  * @return boolean
