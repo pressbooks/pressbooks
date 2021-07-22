@@ -74,7 +74,7 @@ class EditorTest extends \WP_UnitTestCase {
 		$this->assertContains( 'anchor', $buttons );
 		$this->assertContains( 'footnote', $buttons );
 		$this->assertContains( 'ftnref_convert', $buttons );
-		$this->assertContains( 'latex', $buttons);
+		$this->assertContains( 'latex', $buttons );
 		$this->assertContains( 'glossary', $buttons );
 		$this->assertContains( 'glossary_all', $buttons );
 		$this->assertContains( 'wp_code', $buttons );
@@ -99,7 +99,7 @@ class EditorTest extends \WP_UnitTestCase {
 		$this->assertArrayHasKey( 'table', $x );
 		$this->assertArrayHasKey( 'footnote', $x );
 		$this->assertArrayHasKey( 'ftnref_convert', $x );
-		$this->assertArrayHasKey( 'latex', $x);
+		$this->assertArrayHasKey( 'latex', $x );
 		$this->assertArrayHasKey( 'glossary', $x );
 	}
 
