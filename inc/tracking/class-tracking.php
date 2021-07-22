@@ -67,12 +67,14 @@ abstract class Tracking {
 
 		$date = new \DateTime( 'now', new \DateTimeZone( 'UTC' ) );
 
-		$wpdb->insert( $this->dbTable, [
-			'blog_id' => get_current_blog_id(),
-			'track_type' => $this->type,
-			'track_value' => $value,
-			'logged_in' => is_user_logged_in(),
-			'created_at' => $date->format( 'Y-m-d H:i:s' ),
-		] );
+		$wpdb->insert(
+			$this->dbTable, [
+				'blog_id' => get_current_blog_id(),
+				'track_type' => $this->type,
+				'track_value' => $value,
+				'logged_in' => is_user_logged_in(),
+				'created_at' => $date->format( 'Y-m-d H:i:s' ),
+			]
+		);
 	}
 }
