@@ -49,8 +49,6 @@ function replace_network_dashboard_widgets() {
  */
 function replace_root_dashboard_widgets() {
 
-	global $wp_meta_boxes;
-
 	// Remove unwanted dashboard widgets
 	remove_meta_box( 'dashboard_primary', 'dashboard', 'side' );
 	remove_meta_box( 'dashboard_quick_press', 'dashboard', 'side' );
@@ -61,9 +59,27 @@ function replace_root_dashboard_widgets() {
 	// Remove third-party widgets
 	remove_meta_box( 'dashboard_rediscache', 'dashboard', 'normal' );
 
+	$user_id = get_current_user_id();
+	$capabilities = get_user_meta( $user_id, 'wp_capabilities' );
+	if (
+		count( $capabilities ) > 0 &&
+		array_key_exists( 'subscriber', $capabilities[0] ) &&
+		$capabilities[0]['subscriber']
+	) {
+		add_meta_box(
+			'pb_dashboard_widget_book_permissions',
+			__( 'Book Permissions', 'pressbooks' ),
+			__NAMESPACE__ . '\lowly_user_callback',
+			'dashboard',
+			'normal',
+			'high'
+		);
+		return true;
+	}
 	// Add our news feed.
 	$options = array_map(
-		'stripslashes_deep', get_site_option(
+		'stripslashes_deep',
+		get_site_option(
 			'pressbooks_dashboard_feed', get_rss_defaults()
 		)
 	);
@@ -144,7 +160,7 @@ function lowly_user() {
  */
 function lowly_user_callback() {
 	echo '<p>' . __( 'Welcome to Pressbooks!', 'pressbooks' ) . '</p>';
-	$user_has_books = count( get_blogs_of_user( get_current_user_id() ) ) > 0;
+	$user_has_books = count( get_blogs_of_user( get_current_user_id() ) ) > 1;
 	if ( ! $user_has_books ) {
 		echo '<p>' . __( 'You do not have access to any books at the moment.', 'pressbooks' ) . '</p>';
 	}
