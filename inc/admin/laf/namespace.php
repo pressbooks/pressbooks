@@ -586,7 +586,8 @@ function fix_root_admin_menu() {
 	$user_id = get_current_user_id();
 	$capabilities = get_user_meta( $user_id, 'wp_capabilities' );
 	if (
-		count( $capabilities ) > 0 &&
+		$capabilities &&
+		count( $capabilities ) === 1 &&
 		array_key_exists( 'subscriber', $capabilities[0] ) &&
 		$capabilities[0]['subscriber']
 	) {
@@ -600,7 +601,7 @@ function fix_root_admin_menu() {
 	add_submenu_page( 'index.php', __( 'My Catalog', 'pressbooks' ), __( 'My Catalog', 'pressbooks' ), 'read', 'pb_catalog', '\Pressbooks\Catalog::addMenu' );
 }
 
-function add_cloner_profile_page() {
+function add_pb_cloner_page() {
 	add_submenu_page(
 		null,
 		__( 'Clone a Book', 'pressbooks' ),

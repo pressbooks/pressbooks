@@ -69,6 +69,7 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		$this->assertEquals( $menu[12][0], 'Book Info' );
 		$this->assertEquals( $menu[14][0], 'Export' );
 		$this->assertEquals( $menu[16][0], 'Publish' );
+		$this->assertEquals( $menu[101][0], 'Clone a Book' );
 		$this->assertNotContains(
 			[
 				'QuickLaTex',
@@ -117,10 +118,17 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		do_action( 'admin_enqueue_scripts', 'admin_page_pb_import' );
 		$this->assertContains( 'pb-import', $wp_scripts->queue );
 
-		do_action( 'admin_enqueue_scripts', 'admin_page_pb_cloner' );
-		$this->assertContains( 'pb-cloner', $wp_scripts->queue );
-
 		unset( $GLOBALS['post'], $GLOBALS['current_screen'] ); // Cleanup
+	}
+
+	/**
+	 * @group branding
+	 */
+	function test_pb_cloner_page() {
+		$user_id = $this->factory()->user->create();
+		wp_set_current_user( $user_id );
+		do_action( 'admin_menu' );
+		global $menu, $submenu; var_dump($submenu);
 	}
 
 	/**
@@ -135,14 +143,6 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		$this->assertEquals( $x, 0 );
 		$x = \Pressbooks\Admin\Laf\custom_screen_options( false, 'fake_records', 9 );
 		$this->assertTrue( $x === false );
-	}
-
-	/**
-	 * @group branding
-	 */
-	function test_reorder_book_admin_menu() {
-		$order = \Pressbooks\Admin\Laf\reorder_book_admin_menu();
-		$this->assertEquals( $order[4], 'post-new.php?post_type=metadata' );
 	}
 
 	/**

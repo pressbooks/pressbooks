@@ -62,7 +62,8 @@ function replace_root_dashboard_widgets() {
 	$user_id = get_current_user_id();
 	$capabilities = get_user_meta( $user_id, 'wp_capabilities' );
 	if (
-		count( $capabilities ) > 0 &&
+		$capabilities &&
+		count( $capabilities ) === 1 &&
 		array_key_exists( 'subscriber', $capabilities[0] ) &&
 		$capabilities[0]['subscriber']
 	) {
