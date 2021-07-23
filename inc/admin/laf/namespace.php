@@ -619,6 +619,7 @@ function add_pb_cloner_page() {
 					'reloadSnippet' => '<em>(<a href="javascript:window.location.reload(true)">' . __( 'Reload', 'pressbooks' ) . '</a>)</em>',
 				]
 			);
+			global $wp_scripts;
 			wp_enqueue_script( 'pb-cloner' );
 			wp_deregister_script( 'heartbeat' );
 		}

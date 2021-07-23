@@ -148,12 +148,18 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		$user = get_userdata( $user_id );
 		$user->add_role( 'subscriber' );
 		wp_set_current_user( $user_id );
-		global $submenu;
+		global $submenu, $wp_scripts;
 		include_once( ABSPATH . '/wp-admin/menu.php' );
 		\Pressbooks\Admin\Laf\add_pb_cloner_page();
 		$this->assertArrayHasKey( 'index.php', $submenu );
 		$this->assertArrayHasKey( '', $submenu );
 		$this->assertContains( 'Clone a Book', $submenu[''][0] );
+		$new_post['post_type'] = 'post';
+		$GLOBALS['post'] =  get_post( $this->factory()->post->create_object( $new_post ) );
+		$GLOBALS['current_screen'] = WP_Screen::get( 'post' );
+		\Pressbooks\Admin\Laf\init_css_js();
+		do_action( 'admin_enqueue_scripts' );
+		$this->assertContains( 'pb-cloner', $wp_scripts->queue );
 	}
 
 	/**
