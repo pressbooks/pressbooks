@@ -131,7 +131,7 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		$user = get_userdata( $user_id );
 		$user->add_role( 'subscriber' );
 		wp_set_current_user( $user_id );
-		global $menu, $submenu;
+		global $submenu;
 		include_once( ABSPATH . '/wp-admin/menu.php' );
 		\Pressbooks\Admin\Laf\fix_root_admin_menu();
 		$this->assertArrayHasKey( 'index.php', $submenu );
@@ -148,12 +148,11 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		$user = get_userdata( $user_id );
 		$user->add_role( 'subscriber' );
 		wp_set_current_user( $user_id );
-		global $menu, $submenu;
+		global $submenu;
 		include_once( ABSPATH . '/wp-admin/menu.php' );
 		\Pressbooks\Admin\Laf\add_pb_cloner_page();
 		$this->assertArrayHasKey( 'index.php', $submenu );
 		$this->assertArrayHasKey( '', $submenu );
-		$this->assertContains( 'My Books', $submenu['index.php'][5] );
 		$this->assertContains( 'Clone a Book', $submenu[''][0] );
 	}
 
