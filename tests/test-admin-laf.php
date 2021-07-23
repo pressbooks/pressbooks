@@ -160,6 +160,8 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		\Pressbooks\Admin\Laf\init_css_js();
 		do_action( 'admin_enqueue_scripts' );
 		$this->assertContains( 'pb-cloner', $wp_scripts->queue );
+
+		unset( $GLOBALS['post'], $GLOBALS['current_screen'] ); // Cleanup
 	}
 
 	/**
