@@ -59,13 +59,11 @@ function replace_root_dashboard_widgets() {
 	// Remove third-party widgets
 	remove_meta_box( 'dashboard_rediscache', 'dashboard', 'normal' );
 
-	$user_id = get_current_user_id();
-	$capabilities = get_user_meta( $user_id, 'wp_capabilities' );
+	$user = wp_get_current_user();
 	if (
-		$capabilities &&
-		count( $capabilities ) === 1 &&
-		array_key_exists( 'subscriber', $capabilities[0] ) &&
-		$capabilities[0]['subscriber']
+		$user->roles &&
+		count( $user->roles ) === 1 &&
+		$user->roles[0] === 'subscriber'
 	) {
 		add_meta_box(
 			'pb_dashboard_widget_book_permissions',

@@ -583,13 +583,11 @@ function fix_root_admin_menu() {
 	remove_menu_page( 'edit.php?post_type=glossary' );
 	remove_submenu_page( 'tools.php', 'site-health.php' );
 
-	$user_id = get_current_user_id();
-	$capabilities = get_user_meta( $user_id, 'wp_capabilities' );
+	$user = wp_get_current_user();
 	if (
-		$capabilities &&
-		count( $capabilities ) === 1 &&
-		array_key_exists( 'subscriber', $capabilities[0] ) &&
-		$capabilities[0]['subscriber']
+		$user->roles &&
+		count( $user->roles ) === 1 &&
+		$user->roles[0] === 'subscriber'
 	) {
 		remove_submenu_page( 'index.php', 'my-sites.php' );
 		if ( class_exists( '\H5P_Plugin_Admin' ) ) {
@@ -810,12 +808,11 @@ function replace_menu_bar_my_sites( $wp_admin_bar ) {
 
 	// Website Admin
 	$show_website_admin = false;
-	$user_id = get_current_user_id();
-	$capabilities = get_user_meta( $user_id, 'wp_capabilities' );
+	$user = wp_get_current_user();
 	if (
-		! $capabilities ||
-		! array_key_exists( 'subscriber', $capabilities[0] ) ||
-		! $capabilities[0]['subscriber']
+		$user->roles &&
+		count( $user->roles ) === 1 &&
+		$user->roles[0] === 'subscriber'
 	) {
 		foreach ( (array) $wp_admin_bar->user->blogs as $blog ) {
 			if ( is_main_site( $blog->userblog_id ) ) {

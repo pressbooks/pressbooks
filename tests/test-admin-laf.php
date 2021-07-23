@@ -119,16 +119,42 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		$this->assertContains( 'pb-import', $wp_scripts->queue );
 
 		unset( $GLOBALS['post'], $GLOBALS['current_screen'] ); // Cleanup
+
 	}
 
 	/**
 	 * @group branding
 	 */
-	function test_pb_cloner_page() {
+
+	function test_fix_root_admin_menu() {
 		$user_id = $this->factory()->user->create();
+		$user = get_userdata( $user_id );
+		$user->add_role( 'subscriber' );
 		wp_set_current_user( $user_id );
-		do_action( 'admin_menu' );
-		global $menu, $submenu; var_dump($submenu);
+		global $menu, $submenu;
+		include_once( ABSPATH . '/wp-admin/menu.php' );
+		\Pressbooks\Admin\Laf\fix_root_admin_menu();
+		$this->assertArrayHasKey( 'index.php', $submenu );
+		$this->assertContains( 'Home', $submenu['index.php'][0] );
+		$this->assertContains( 'read', $submenu['index.php'][0] );
+	}
+
+	/**
+	 * @group branding
+	 */
+
+	function test_add_pb_cloner_page() {
+		$user_id = $this->factory()->user->create();
+		$user = get_userdata( $user_id );
+		$user->add_role( 'subscriber' );
+		wp_set_current_user( $user_id );
+		global $menu, $submenu;
+		include_once( ABSPATH . '/wp-admin/menu.php' );
+		\Pressbooks\Admin\Laf\add_pb_cloner_page();
+		$this->assertArrayHasKey( 'index.php', $submenu );
+		$this->assertArrayHasKey( '', $submenu );
+		$this->assertContains( 'My Books', $submenu['index.php'][5] );
+		$this->assertContains( 'Clone a Book', $submenu[''][0] );
 	}
 
 	/**
@@ -153,6 +179,23 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		$user_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
 		wp_set_current_user( $user_id );
 		require_once ABSPATH . WPINC . '/class-wp-admin-bar.php';
+		$wp_admin_bar = new \WP_Admin_Bar();
+		$wp_admin_bar->initialize();
+		\Pressbooks\Admin\Laf\replace_menu_bar_my_sites( $wp_admin_bar );
+
+		$node = $wp_admin_bar->get_node( 'my-books' );
+		$this->assertTrue( is_object( $node ) );
+		$this->assertEquals( $node->id, 'my-books' );
+
+		$node = $wp_admin_bar->get_node( 'clone-a-book' );
+		$this->assertTrue( is_object( $node ) );
+		$this->assertEquals( $node->id, 'clone-a-book' );
+
+		// Subscriber user
+		$user_id = $this->factory()->user->create();
+		$user = get_userdata( $user_id );
+		$user->add_role( 'subscriber' );
+		wp_set_current_user( $user_id );
 		$wp_admin_bar = new \WP_Admin_Bar();
 		$wp_admin_bar->initialize();
 		\Pressbooks\Admin\Laf\replace_menu_bar_my_sites( $wp_admin_bar );
