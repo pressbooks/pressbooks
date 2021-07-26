@@ -662,6 +662,9 @@ class Xhtml11 extends ExportGenerator {
 			$alt = $image->getAttribute( 'alt' );
 			$alt = htmlspecialchars( $alt );
 			$image->setAttribute( 'alt', $alt );
+			$title = $image->getAttribute( 'title' );
+			$title = htmlspecialchars( $title );
+			$image->setAttribute( 'title', $title );
 		}
 		$content = $html5->saveHTML( $dom );
 		return $content;
