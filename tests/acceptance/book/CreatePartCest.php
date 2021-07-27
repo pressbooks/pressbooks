@@ -4,7 +4,7 @@ use \Codeception\Util\HttpCode;
 
 class CreatePartCest
 {
-	protected $bookURL = 'testbookpart';
+	public $bookURL = 'testbookpart';
 
 	public function _before(AcceptanceTester $I, \Page\Acceptance\CreateBook $createBookPage)
 	{
@@ -20,7 +20,7 @@ class CreatePartCest
 
 		$createBookPartPage->createPart( $this->bookURL, $partName );
 
-        $I->amOnPage( "$this->bookURL/wp-admin/admin.php?page=pb_organize" );
+		$I->amOnPage( "$this->bookURL/wp-admin/admin.php?page=pb_organize" );
 		$I->see( $partName );
 	}
 

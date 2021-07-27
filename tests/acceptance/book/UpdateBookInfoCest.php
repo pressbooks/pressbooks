@@ -8,7 +8,7 @@ class UpdateBookInfoCest
 
 	public $bookTitle = 'Test Book Info';
 
-    public $saveButton = '#submitpost input[type=submit]';
+	public $saveButton = '#submitpost input[type=submit]';
 
 	public function _before(AcceptanceTester $I, \Page\Acceptance\CreateBook $createBookPage)
 	{
@@ -23,16 +23,14 @@ class UpdateBookInfoCest
 	public function tryToUpdateBookTitle(AcceptanceTester $I)
 	{
 		$I->seeInField( $titleField = '#pb_title', $this->bookTitle );
-
 		$I->fillField( $titleField, $newBookTitle = 'Updated Test Book Info' );
 
 		$I->click( $this->saveButton );
 
 		$I->see( 'Book Information updated.' );
-        $I->seeInField( $titleField, $newBookTitle );
+		$I->seeInField( $titleField, $newBookTitle );
 
 		$I->amOnPage( $this->bookURL );
-
 		$I->see( $newBookTitle );
 	}
 
