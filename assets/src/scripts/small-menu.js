@@ -5,6 +5,9 @@ jQuery( document ).ready( function ( $ ) {
 	let masthead = $( '#catalog-sidebar' );
 	let timeout = false;
 
+	/**
+	 *
+	 */
 	$.fn.smallMenu = function () {
 		masthead
 			.find( '.sidebar-inner-wrap' )

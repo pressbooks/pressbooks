@@ -678,7 +678,7 @@ class Epub201 extends ExportGenerator {
 
 		// Cover
 		yield 15 => $this->generatorPrefix . __( 'Creating cover', 'pressbooks' );
-		$this->createCover( $book_contents, $metadata );
+		$this->createCover( $metadata );
 
 		// Before Title Page
 		$this->createBeforeTitle( $book_contents, $metadata );
@@ -889,12 +889,9 @@ class Epub201 extends ExportGenerator {
 
 
 	/**
-	 * @param array $book_contents
 	 * @param array $metadata
 	 */
-	protected function createCover( $book_contents, $metadata ) {
-
-		// Resize Image
+	protected function createCover( array $metadata ) {
 
 		if ( ! empty( $metadata['pb_cover_image'] ) && ! \Pressbooks\Image\is_default_cover( $metadata['pb_cover_image'] ) ) {
 			$source_path = \Pressbooks\Utility\get_media_path( $metadata['pb_cover_image'] );
@@ -907,9 +904,7 @@ class Epub201 extends ExportGenerator {
 
 		$img = wp_get_image_editor( $source_path );
 		if ( ! is_wp_error( $img ) ) {
-			// Take the longest dimension of the image and resize.
-			// Cropping is turned off. The aspect ratio is maintained.
-			$img->resize( 1563, 2500, false );
+			$img->resize( 1563, 2500, false ); // in case image wasn't resized upon upload
 			$img->save( $dest_path );
 			$this->coverImage = $dest_image;
 		}
@@ -2006,10 +2001,6 @@ class Epub201 extends ExportGenerator {
 
 		// Remove auto-created <html> <body> and <!DOCTYPE> tags.
 		$html = \Pressbooks\Sanitize\strip_container_tags( $html );
-
-		// Mobi7 hacks
-		$utf8_hack = '<?xml version="1.0" encoding="UTF-8"?>';
-		$html = $this->transformXML( "{$utf8_hack }<html>{$html}</html>", $this->dir . '/templates/epub201/mobi-hacks.xsl' );
 
 		return $html;
 	}

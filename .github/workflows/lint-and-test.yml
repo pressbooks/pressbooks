@@ -1,0 +1,111 @@
+name: Lint and test
+
+on:
+  push:
+    branches: [ dev, master ]
+    tags:
+      - '*.*.*'
+  pull_request:
+    branches: [ dev ]
+
+jobs:
+  lint-and-test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        php: [7.3] # TODO: Add 7.4 and fix the errors.
+        os: [ubuntu-18.04]
+        epubcheck: [4.2.4]
+        prince: [12.5-1]
+        wordpress: [5.7.2, latest]
+
+    name: PHPUnit - ${{ matrix.php }} - ${{ matrix.wordpress }}
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Install OS dependencies
+      run: |
+        sudo apt update
+        sudo apt-get install libxml2-utils ghostscript poppler-utils imagemagick
+        sudo systemctl start mysql.service
+        wget https://github.com/w3c/epubcheck/releases/download/v${{ matrix.epubcheck }}/epubcheck-${{ matrix.epubcheck }}.zip
+        unzip epubcheck-${{ matrix.epubcheck }}.zip -d /opt/
+        mv /opt/epubcheck-${{ matrix.epubcheck }} /opt/epubcheck
+        rm epubcheck-${{ matrix.epubcheck }}.zip
+        wget https://www.princexml.com/download/prince_${{ matrix.prince }}_ubuntu18.04_amd64.deb
+        sudo dpkg -i prince_${{ matrix.prince }}_ubuntu18.04_amd64.deb
+        rm prince_${{ matrix.prince }}_ubuntu18.04_amd64.deb
+
+    - name: Cache Composer packages
+      uses: actions/cache@v2
+      with:
+        path: vendor
+        key: ${{ matrix.php }}-php-${{ hashFiles('**/composer.lock') }}
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php }}
+        tools: composer:v1
+        coverage: pcov
+        extensions: imagick
+
+    - name: Install dependencies
+      run: |
+        node -v
+        npm install
+        npm run build
+        export PATH="$HOME/.composer/vendor/bin:$PATH"
+        composer install --no-interaction
+        composer global require "phpunit/phpunit:7.5.20"
+        ulimit -n 4096
+
+    - name: Run ESLint and Stylelint
+      run: npm run lint
+
+    - name: Run PHP CodeSniffer
+      run: vendor/bin/phpcs --standard=phpcs.ruleset.xml *.php inc/ bin/
+
+    - name: Install WP tests
+      run: bash bin/install-wp-tests.sh wordpress_test root root localhost ${{ matrix.wordpress }}
+
+    - name: Run PHP Tests
+      run: vendor/bin/phpunit --configuration phpunit.xml
+      if: matrix.php != 7.3
+
+    - name: Run PHP Tests and PCOV
+      run: composer require pcov/clobber; vendor/bin/pcov clobber; vendor/bin/phpunit --configuration phpunit.xml --coverage-clover coverage.xml
+      if: matrix.php == 7.3
+
+    - name: Upload Coverage to Codecov
+      run: bash <(curl -s https://codecov.io/bash)
+
+    - name: Prepare Build
+      if: startsWith(github.ref, 'refs/tags/')
+      run: |
+        export COMPOSER_MEMORY_LIMIT=-1
+        export GITHUB_BUILD_PATH=${{github.workspace}}
+        export GITHUB_REPO_SLUG="$(basename ${{github.workspace}})"
+        export GITHUB_TAG="$(basename ${{github.ref}})"
+        echo "File to be created : $GITHUB_BUILD_PATH/$GITHUB_REPO_SLUG-$GITHUB_TAG.zip"
+        curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+        chmod +x wp-cli.phar
+        mv wp-cli.phar /usr/local/bin/wp
+        wp package install wp-cli/dist-archive-command
+        npm run build
+        composer install --no-dev --optimize-autoloader
+        cd ..
+        wp dist-archive $GITHUB_REPO_SLUG $GITHUB_BUILD_PATH/$GITHUB_REPO_SLUG-$GITHUB_TAG.zip
+        cd $GITHUB_BUILD_PATH
+        ls $GITHUB_BUILD_PATH
+
+    - name: Deploy
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: softprops/action-gh-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        files:
+          ${{github.workspace}}/*.zip

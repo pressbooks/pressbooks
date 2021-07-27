@@ -361,7 +361,7 @@ class BookTest extends \WP_UnitTestCase {
 
 		$c->admin_init();
 		$c->init_metadata();
-
+		update_option( 'pressbooks_show_expanded_metadata', 1 );
 		\Pressbooks\Admin\Metaboxes\add_meta_boxes();
 
 		$xss_string = '<img src=# onerror=alert(document.cookie) /> hello xss';
@@ -396,6 +396,49 @@ class BookTest extends \WP_UnitTestCase {
 		$value = $c->get_metadata_field_value( $about_extended_field, $field, 'metadata', $mp->ID );
 		$this->assertEquals( '<a href="https://pressbooks.org">Link</a>', $value[0] );
 
+		$string_to_sanitize = '    This is a book title    ';
+
+		$fields = [
+			'general-book-information' => [
+				'pb_title',
+				'pb_short_title',
+				'pb_subtitle',
+				'pb_publisher',
+				'pb_publisher_city',
+				'pb_ebook_isbn',
+				'pb_book_doi',
+			],
+			'copyright' => [
+				'pb_copyright_year',
+				'pb_copyright_holder',
+			],
+			'about-the-book' => [
+				'pb_about_140',
+			],
+			'additional-catalog-information' => [
+				'pb_series_title',
+				'pb_series_number',
+				'pb_hashtag',
+				'pb_list_price_print',
+				'pb_list_price_pdf',
+				'pb_list_price_epub',
+				'pb_list_price_web',
+			],
+		];
+
+		foreach ( $fields as $group => $book_fields ) {
+
+			foreach ( $book_fields as $field_to_test ) {
+
+				$field = $c->get_field( $field_to_test, $group, 'metadata' );
+				$_POST[ $field_to_test ] = $string_to_sanitize;
+				$c->save_metadata_field( $field_to_test, $field, 'metadata', $mp->ID );
+				$value = $c->get_metadata_field_value( $field_to_test, $field, 'metadata', $mp->ID );
+				$this->assertEquals( 'This is a book title', $value[0] );
+
+			}
+		}
+
 	}
 
 	/**
@@ -409,18 +452,20 @@ class BookTest extends \WP_UnitTestCase {
 		$invalidated_bisac_codes = [ 'COM020010', 'COM020050' ];
 		$validated_bisac_codes = [ 'CRA001000', 'CRA053000' ];
 		$bisac_codes = array_merge( $validated_bisac_codes, $invalidated_bisac_codes );
-		$book_information_array['pb_bisac_subject'] = join(', ', $bisac_codes );
+		$book_information_array['pb_bisac_subject'] = join( ', ', $bisac_codes );
 		update_site_meta( $blog_id, BookDataCollector::BOOK_INFORMATION_ARRAY, $book_information_array );
 		$meta = new \Pressbooks\Metadata();
 		$meta_post = $meta->getMetaPost();
 		delete_post_meta( $meta_post->ID, 'pb_bisac_subject' );
-		foreach ($bisac_codes as $bisac_code) {
+		foreach ( $bisac_codes as $bisac_code ) {
 			add_metadata( 'post', $meta_post->ID, 'pb_bisac_subject', $bisac_code );
 		}
 
-		add_filter( 'get_invalidated_codes_alternatives_mapped', function( $bisac_codes ) {
-			return [ 'TEC071000', 'COM051010', 'CRA001000', 'CRA053000' ];
-		}, 10, 1 );
+		add_filter(
+			'get_invalidated_codes_alternatives_mapped', function( $bisac_codes ) {
+				return [ 'TEC071000', 'COM051010', 'CRA001000', 'CRA053000' ];
+			}, 10, 1
+		);
 		$this->assertTrue( \Pressbooks\Book::notifyBisacCodesRemoved() );
 
 		$_SESSION = [];
@@ -440,7 +485,7 @@ class BookTest extends \WP_UnitTestCase {
 
 		$book_information_array_updated = $book_data_collector->get( $blog_id, BookDataCollector::BOOK_INFORMATION_ARRAY );
 		$this->assertArrayHasKey( 'pb_bisac_subject', $book_information_array_updated );
-		$blog_bisac_codes_updated = explode(', ', $book_information_array_updated['pb_bisac_subject'] );
+		$blog_bisac_codes_updated = explode( ', ', $book_information_array_updated['pb_bisac_subject'] );
 		$this->assertContains( $validated_bisac_codes[0], $blog_bisac_codes_updated );
 		$this->assertContains( 'TEC071000', $blog_bisac_codes_updated );
 		$this->assertNotContains( $invalidated_bisac_codes[0], $blog_bisac_codes_updated );
@@ -455,18 +500,20 @@ class BookTest extends \WP_UnitTestCase {
 		$book_data_collector = BookDataCollector::init();
 		$book_information_array = $book_data_collector->get( $blog_id, BookDataCollector::BOOK_INFORMATION_ARRAY );
 		$bisac_codes = [ 'CRA001000', 'CRA053000' ];
-		$book_information_array['pb_bisac_subject'] = join(', ', $bisac_codes );
+		$book_information_array['pb_bisac_subject'] = join( ', ', $bisac_codes );
 		update_site_meta( $blog_id, BookDataCollector::BOOK_INFORMATION_ARRAY, $book_information_array );
 		$meta = new \Pressbooks\Metadata();
 		$meta_post = $meta->getMetaPost();
 		delete_post_meta( $meta_post->ID, 'pb_bisac_subject' );
-		foreach ($bisac_codes as $bisac_code) {
+		foreach ( $bisac_codes as $bisac_code ) {
 			add_metadata( 'post', $meta_post->ID, 'pb_bisac_subject', $bisac_code );
 		}
 
-		add_filter( 'get_invalidated_codes_alternatives_mapped', function( $bisac_codes ) {
-			return [ 'CRA001000', 'CRA053000' ];
-		}, 10, 1 );
+		add_filter(
+			'get_invalidated_codes_alternatives_mapped', function( $bisac_codes ) {
+				return [ 'CRA001000', 'CRA053000' ];
+			}, 10, 1
+		);
 		$this->assertFalse( \Pressbooks\Book::notifyBisacCodesRemoved() );
 
 		$metadata = get_post_meta( $meta_post->ID );
@@ -475,7 +522,7 @@ class BookTest extends \WP_UnitTestCase {
 
 		$book_information_array_updated = $book_data_collector->get( $blog_id, BookDataCollector::BOOK_INFORMATION_ARRAY );
 		$this->assertArrayHasKey( 'pb_bisac_subject', $book_information_array_updated );
-		$blog_bisac_codes_updated = explode(', ', $book_information_array_updated['pb_bisac_subject'] );
+		$blog_bisac_codes_updated = explode( ', ', $book_information_array_updated['pb_bisac_subject'] );
 		$this->assertEquals( $bisac_codes, $blog_bisac_codes_updated );
 	}
 }

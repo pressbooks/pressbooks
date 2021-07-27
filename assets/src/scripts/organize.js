@@ -21,11 +21,19 @@ let pb = {
 			dropOnEmpty: true,
 			cursor: 'crosshair',
 			items: 'tbody > tr',
+			/**
+			 * @param event
+			 * @param ui
+			 */
 			start: ( event, ui ) => {
 				pb.organize.oldParent = $( ui.item )
 					.parents( 'table' )
 					.attr( 'id' );
 			},
+			/**
+			 * @param event
+			 * @param ui
+			 */
 			stop: ( event, ui ) => {
 				pb.organize.newParent = $( ui.item )
 					.parents( 'table' )
@@ -77,6 +85,9 @@ function removeModal( item, status ) {
 	}
 
 	$.unblockUI( {
+		/**
+		 *
+		 */
 		onUnblock: () => {
 			alert.removeClass( 'loading-content' ).addClass( 'visually-hidden' );
 			alert.children( 'p' ).text( alertMessage );
@@ -110,9 +121,9 @@ function updateWordCountForExport() {
 /**
  * Get the table before or after the current table.
  *
- * @param {jQuery object} table
+ * @param {object} table
  * @param {string} relationship
- * @returns {jQuery object}
+ * @returns {object}
  */
 function getAdjacentContainer( table, relationship ) {
 	if ( relationship === 'prev' ) {
@@ -125,7 +136,7 @@ function getAdjacentContainer( table, relationship ) {
 /**
  * Get data for a table row.
  *
- * @param {jQuery object} row
+ * @param {object} row
  * @returns {object}
  */
 function getRowData( row ) {
@@ -142,8 +153,8 @@ function getRowData( row ) {
 /**
  * Get an array object of IDs in a table.
  *
- * @param {jQuery object} table
- * @returns {array} ids
+ * @param {object} table
+ * @returns {Array} ids
  */
 function getIdsInTable( table ) {
 	let ids = [];
@@ -161,7 +172,7 @@ function getIdsInTable( table ) {
 /**
  * Adjust the reorder controls throughout a table as part of a reorder operation.
  *
- * @param {jQuery object} table
+ * @param {object} table
  */
 function updateControls( table ) {
 	table
@@ -212,9 +223,7 @@ function updateControls( table ) {
 /**
  * Reorder the contents of a table, optionally moving the target row to a new table.
  *
- * @param {jQuery object} row
- * @param {jQuery object} source
- * @param {jQuery object} destination
+ * @param {object} row
  */
 function reorder( row ) {
 	let item = getRowData( row );
@@ -231,6 +240,9 @@ function reorder( row ) {
 			new_parent: pb.organize.newParent.replace( /^part_([0-9]+)$/i, '$1' ),
 			_ajax_nonce: PB_OrganizeToken.reorderNonce,
 		},
+		/**
+		 *
+		 */
 		beforeSend: () => {
 			showModal( item );
 			if ( pb.organize.oldParent !== pb.organize.newParent ) {
@@ -238,9 +250,15 @@ function reorder( row ) {
 			}
 			updateControls( $( `#${pb.organize.newParent}` ) );
 		},
+		/**
+		 *
+		 */
 		success: () => {
 			removeModal( item, 'success' );
 		},
+		/**
+		 *
+		 */
 		error: () => {
 			removeModal( item, 'failure' );
 		},
@@ -250,7 +268,10 @@ function reorder( row ) {
 /**
  * Update post status for individual or multiple posts.
  *
- * @param {string} post_id
+ * @param ids
+ * @param postType
+ * @param output
+ * @param visibility
  */
 function updateVisibility( ids, postType, output, visibility ) {
 	let data = {
@@ -263,13 +284,22 @@ function updateVisibility( ids, postType, output, visibility ) {
 		url: ajaxurl,
 		type: 'POST',
 		data: Object.assign( data, { [output]: visibility } ),
+		/**
+		 *
+		 */
 		beforeSend: () => {
 			showModal( { post_type: postType } );
 		},
+		/**
+		 * @param response
+		 */
 		success: response => {
 			removeModal( { post_type: postType }, 'success' );
 			updateWordCountForExport();
 		},
+		/**
+		 *
+		 */
 		error: () => {
 			removeModal( { post_type: postType }, 'failure' );
 		},
@@ -293,12 +323,21 @@ function updateTitleVisibility( ids, postType, showTitle ) {
 			show_title: showTitle,
 			_ajax_nonce: PB_OrganizeToken.showTitleNonce,
 		},
+		/**
+		 *
+		 */
 		beforeSend: () => {
 			showModal( { post_type: postType } );
 		},
+		/**
+		 * @param response
+		 */
 		success: response => {
 			removeModal( { post_type: postType }, 'success' );
 		},
+		/**
+		 *
+		 */
 		error: () => {
 			removeModal( { post_type: postType }, 'failure' );
 		},
@@ -338,9 +377,15 @@ $( document ).ready( () => {
 				blog_public: blogPublic,
 				_ajax_nonce: PB_OrganizeToken.privacyNonce,
 			},
+			/**
+			 *
+			 */
 			beforeSend: () => {
 				showModal( 'book' );
 			},
+			/**
+			 *
+			 */
 			success: () => {
 				if ( blogPublic === 0 ) {
 					publicizeAlert.removeClass( 'public' ).addClass( 'private' );
@@ -351,6 +396,9 @@ $( document ).ready( () => {
 				}
 				removeModal( 'book', 'success' );
 			},
+			/**
+			 *
+			 */
 			error: () => {
 				removeModal( 'book', 'failure' );
 			},

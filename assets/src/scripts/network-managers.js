@@ -24,6 +24,9 @@ jQuery( function ( $ ) {
 						status: change_status_to,
 						_ajax_nonce: PB_NetworkManagerToken.networkManagerNonce,
 					},
+					/**
+					 *
+					 */
 					success: function () {
 						parent_row.toggleClass( 'restricted' );
 						if ( change_status_to === '0' ) {
@@ -36,6 +39,11 @@ jQuery( function ( $ ) {
 							link.text( unrestrict_string );
 						}
 					},
+					/**
+					 * @param jqXHR
+					 * @param textStatus
+					 * @param errorThrown
+					 */
 					error: function ( jqXHR, textStatus, errorThrown ) {
 						alert( jqXHR + ' :: ' + textStatus + ' :: ' + errorThrown );
 					},

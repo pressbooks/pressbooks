@@ -72,6 +72,8 @@ function mce_buttons_3( $buttons ) {
 	array_push( $buttons, 'apply_class', 'anchor', 'superscript', 'subscript', 'wp_code' );
 	// Footnotes
 	array_push( $buttons, 'footnote', 'ftnref_convert' );
+	// LaTeX
+	array_push( $buttons, 'latex' );
 	// Glossary
 	// to avoid 'inception' like glossary within a glossary, restricting
 	// glossary buttons means less chance of needing to untangle the labyrinth
@@ -102,6 +104,13 @@ function admin_enqueue_scripts( $hook ) {
 			'nonce' => wp_create_nonce( 'pb-footnote-convert' ),
 			'fn_title' => __( 'Insert Footnote', 'pressbooks' ),
 			'ftnref_title' => __( 'Convert MS Word Footnotes', 'pressbooks' ),
+		]
+	);
+
+	// LaTeX
+	wp_localize_script(
+		'editor', 'PB_LaTeXToken', [
+			'fn_title' => __( 'Insert LaTeX', 'pressbooks' ),
 		]
 	);
 
@@ -165,6 +174,9 @@ function mce_button_scripts( $plugin_array ) {
 	// Footnotes
 	$plugin_array['footnote'] = $assets->getPath( 'scripts/footnote.js' );
 	$plugin_array['ftnref_convert'] = $assets->getPath( 'scripts/ftnref-convert.js' );
+
+	// LaTeX
+	$plugin_array['latex'] = $assets->getPath( 'scripts/latex.js' );
 
 	// Glossary
 	$plugin_array['glossary'] = $assets->getPath( 'scripts/glossary.js' );

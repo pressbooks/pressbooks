@@ -404,7 +404,7 @@ function cover_image_box( $post ) {
 	$image_url = thumbnail_from_url( get_post_meta( $post->ID, $meta_key, true ), 'pb_cover_medium' );
 	$action = 'pb_delete_cover_image';
 	$nonce = wp_create_nonce( 'pb-delete-cover-image' );
-	$description = __( 'Cover Image should be 1:1.5 aspect ratio. Recommended dimensions are 2500px × 3750px, maximum size is 2MB.<br />NOTE: This cover will be included in your ebook files but not your PDF export. Read more <a href="https://guide.pressbooks.com/chapter/how-to-design-your-book-cover/">here</a>.', 'pressbooks' );
+	$description = __( 'This image will be displayed on the webbook home page and used as the internal cover in ebook exports. Cover images must be at least 800px tall and have an aspect ratio between .66 and 1. Very large images will be resized upon upload. Read more in <a href="https://guide.pressbooks.com/chapter/how-to-design-your-book-cover/" target="_blank">our guide</a>.', 'pressbooks' );
 
 	render_cover_image_box( $meta_key, $pid, $image_url, $action, $nonce, $description );
 }

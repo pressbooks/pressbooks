@@ -29,6 +29,9 @@ jQuery( function ( $ ) {
 		const evtSource = new EventSource( eventSourceUrl );
 
 		// Handle open
+		/**
+		 *
+		 */
 		evtSource.onopen = function () {
 			// Start clock
 			clock = startClock();
@@ -42,6 +45,9 @@ jQuery( function ( $ ) {
 		};
 
 		// Handle message
+		/**
+		 * @param message
+		 */
 		evtSource.onmessage = function ( message ) {
 			const data = JSON.parse( message.data );
 			switch ( data.action ) {
@@ -69,6 +75,9 @@ jQuery( function ( $ ) {
 		};
 
 		// Handle error
+		/**
+		 *
+		 */
 		evtSource.onerror = function () {
 			evtSource.close();
 			$( '#pb-sse-progressbar' ).removeAttr( 'value' );

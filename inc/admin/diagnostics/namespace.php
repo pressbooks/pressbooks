@@ -7,7 +7,6 @@
 namespace Pressbooks\Admin\Diagnostics;
 
 use function Pressbooks\Utility\check_epubcheck_install;
-use function Pressbooks\Utility\check_kindlegen_install;
 use function Pressbooks\Utility\check_prince_install;
 use function Pressbooks\Utility\check_saxonhe_install;
 use function Pressbooks\Utility\check_xmllint_install;
@@ -93,7 +92,6 @@ function render_page() {
 	$output .= 'Root Theme Version: ' . $root_theme->get( 'Version' ) . "\n\n";
 	$output .= "#### Pressbooks Dependencies\n\n";
 	$output .= 'Epubcheck: ' . ( check_epubcheck_install() ? 'Installed' : 'Not Installed' ) . "\n"; // TODO: version
-	$output .= 'Kindlegen: ' . ( check_kindlegen_install() ? 'Installed' : 'Not Installed' ) . "\n"; // TODO: version
 	$output .= 'xmllint: ' . ( check_xmllint_install() ? 'Installed' : 'Not Installed' ) . "\n"; // TODO: version
 	$output .= 'PrinceXML: ' . ( check_prince_install() ? 'Installed' : 'Not Installed' ) . "\n"; // TODO: version
 	$output .= 'Saxon-HE: ' . ( check_saxonhe_install() ? 'Installed' : 'Not Installed' ) . "\n\n"; // TODO: version
