@@ -268,7 +268,7 @@ $wp-spinner-anim-duration: 1.08s;
   }
 }
 
-.cssanimations {
+@supports (animation-name: infinite-spinning) {
   .spinner {
     position: relative;
     width: $wp-spinner-size;
@@ -285,7 +285,7 @@ $wp-spinner-anim-duration: 1.08s;
       width: $wp-spinner-size-inner;
       height: $wp-spinner-size-inner;
       border-radius: $wp-spinner-size-inner;
-      margin-left: -($wp-spinner-size-inner / 2);
+      margin-left: -($wp-spinner-size-inner * 0.5);
       background: $wp-spinner-fg;
     }
   }

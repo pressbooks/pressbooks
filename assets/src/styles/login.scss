@@ -1,3 +1,5 @@
+@use "sass:math";
+
 body.pressbooks.login {
   display: flex;
   flex-direction: column;
@@ -33,7 +35,7 @@ body.pressbooks.login {
     display: inline-block;
     font-family: "Karla", sans-serif;
     font-weight: 500;
-    letter-spacing: (2 / 18) * 1em;
+    letter-spacing: math.div(2, 18) * 1em;
     min-height: 59px;
     height: auto;
     width: 100%;
@@ -84,7 +86,7 @@ body.pressbooks.login {
     a {
       width: 50%;
       height: 0;
-      padding-bottom: (1 / 6) * 100%;
+      padding-bottom: math.div(1, 6) * 100%;
       background-size: contain;
       background-repeat: no-repeat;
       background-position: center;

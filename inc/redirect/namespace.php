@@ -198,12 +198,16 @@ function rewrite_rules_for_sitemap() {
 function rewrite_rules_for_open() {
 
 	add_rewrite_endpoint( 'open', EP_ROOT );
-	add_filter( 'template_redirect', function () {
-		do_open( function ( $filepath ) {
-			force_download( $filepath );
-			exit;
-		} );
-	}, 0 );
+	add_filter(
+		'template_redirect', function () {
+			do_open(
+				function ( $filepath ) {
+					force_download( $filepath );
+					exit;
+				}
+			);
+		}, 0
+	);
 }
 
 /**

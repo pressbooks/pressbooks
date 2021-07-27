@@ -66,8 +66,9 @@ function add_required_data( $pid, $post ) {
  *
  * @param $pid
  * @param $post
+ * @param $image
  */
-function upload_cover_image( $pid, $post ) {
+function upload_cover_image( $pid, $post, $image = null ) {
 
 	if ( ! isset( $_FILES['pb_cover_image']['name'] ) || empty( $_FILES['pb_cover_image']['name'] ) ) {
 		return; // Bail
@@ -87,21 +88,29 @@ function upload_cover_image( $pid, $post ) {
 		'test_form' => false,
 		'mimes' => $allowed_file_types,
 	];
-	$image = wp_handle_upload( $_FILES['pb_cover_image'], $overrides );
+	$image = $image ?? wp_handle_upload( $_FILES['pb_cover_image'], $overrides );
 
 	if ( ! empty( $image['error'] ) ) {
 		wp_die( $image['error'] );
 	}
 
 	list( $width, $height ) = getimagesize( $image['file'] );
-	if ( $width < 625 || $height < 625 ) {
-		$_SESSION['pb_notices'][] = sprintf( __( 'Your cover image (%1$s x %1$s) is too small. It should be 625px on the shortest side.', 'pressbooks' ), $width, $height );
+	if ( $height < 800 ) {
+		$_SESSION['pb_errors'][] = sprintf( __( 'Your cover image was not saved because it is too small (%1$s x %2$s). It should be at least 800px in height.', 'pressbooks' ), $width, $height );
+		return; // Do not save uploaded image if it triggers a size-related error
 	}
 
-	$filesize = filesize( $image['file'] );
-	if ( $filesize > 2000000 ) {
-		$filesize_in_mb = \Pressbooks\Utility\format_bytes( $filesize );
-		$_SESSION['pb_notices'][] = sprintf( __( 'Your cover image (%s) is too big. It should be no more than 2MB.', 'pressbooks' ), $filesize_in_mb );
+	$ratio = number_format( $width / $height, 2 );
+	if ( $ratio > 1 || $ratio < .66 ) {
+		$_SESSION['pb_errors'][] = sprintf( __( 'Your cover image was not saved because the aspect ratio (%s) is outside the permitted range (.66 to 1). We recommend an aspect ratio of .75.', 'pressbooks' ), $ratio );
+		return; // Do not save uploaded image if it triggers a size-related error
+	}
+
+	// resize image without cropping or altering aspect ratio
+	$img = wp_get_image_editor( $image['file'] );
+	if ( ! is_wp_error( $img ) ) {
+		$img->resize( 1500, 1500, false );
+		$img->save( $image['file'] );
 	}
 
 	$old = get_post_meta( $pid, 'pb_cover_image', false );
@@ -190,6 +199,9 @@ function add_meta_boxes() {
 		'pb_title', 'metadata', [
 			'group' => 'general-book-information',
 			'label' => __( 'Title', 'pressbooks' ),
+			'sanitize_callback' => function ( ...$args ) {
+				return sanitize_text_field( $args[ METADATA_CALLBACK_INDEX ] );
+			},
 		]
 	);
 
@@ -198,6 +210,9 @@ function add_meta_boxes() {
 			'group' => 'general-book-information',
 			'label' => __( 'Short Title', 'pressbooks' ),
 			'description' => __( 'In case of long titles that might be truncated in running heads in the PDF export.', 'pressbooks' ),
+			'sanitize_callback' => function ( ...$args ) {
+				return sanitize_text_field( $args[ METADATA_CALLBACK_INDEX ] );
+			},
 		]
 	);
 
@@ -205,6 +220,9 @@ function add_meta_boxes() {
 		'pb_subtitle', 'metadata', [
 			'group' => 'general-book-information',
 			'label' => __( 'Subtitle', 'pressbooks' ),
+			'sanitize_callback' => function ( ...$args ) {
+				return sanitize_text_field( $args[ METADATA_CALLBACK_INDEX ] );
+			},
 		]
 	);
 
@@ -285,6 +303,9 @@ function add_meta_boxes() {
 			'group' => 'general-book-information',
 			'label' => __( 'Publisher', 'pressbooks' ),
 			'description' => __( 'This text appears on the title page of your book.', 'pressbooks' ),
+			'sanitize_callback' => function ( ...$args ) {
+				return sanitize_text_field( $args[ METADATA_CALLBACK_INDEX ] );
+			},
 		]
 	);
 
@@ -293,6 +314,9 @@ function add_meta_boxes() {
 			'group' => 'general-book-information',
 			'label' => __( 'Publisher City', 'pressbooks' ),
 			'description' => __( 'This text appears on the title page of your book.', 'pressbooks' ),
+			'sanitize_callback' => function ( ...$args ) {
+				return sanitize_text_field( $args[ METADATA_CALLBACK_INDEX ] );
+			},
 		]
 	);
 
@@ -321,6 +345,9 @@ function add_meta_boxes() {
 			'group' => 'general-book-information',
 			'label' => __( 'Ebook ISBN', 'pressbooks' ),
 			'description' => __( 'ISBN is the International Standard Book Number, and you\'ll need one if you want to sell your book in some online ebook stores. This is added to the metadata in your ebook.', 'pressbooks' ),
+			'sanitize_callback' => function ( ...$args ) {
+				return sanitize_text_field( $args[ METADATA_CALLBACK_INDEX ] );
+			},
 		]
 	);
 
@@ -329,6 +356,9 @@ function add_meta_boxes() {
 			'group' => 'general-book-information',
 			'label' => __( 'Print ISBN', 'pressbooks' ),
 			'description' => __( 'ISBN is the International Standard Book Number, and you\'ll need one if you want to sell your book in online and physical book stores.', 'pressbooks' ),
+			'sanitize_callback' => function ( ...$args ) {
+				return sanitize_text_field( $args[ METADATA_CALLBACK_INDEX ] );
+			},
 		]
 	);
 
@@ -336,6 +366,9 @@ function add_meta_boxes() {
 		'pb_book_doi', 'metadata', [
 			'group' => 'general-book-information',
 			'label' => __( 'Digital Object Identifier (DOI)', 'pressbooks' ),
+			'sanitize_callback' => function ( ...$args ) {
+				return sanitize_text_field( $args[ METADATA_CALLBACK_INDEX ] );
+			},
 		]
 	);
 
@@ -379,6 +412,10 @@ function add_meta_boxes() {
 				'group' => 'copyright',
 				'label' => __( 'Copyright Year', 'pressbooks' ),
 				'description' => __( 'Year that the book is/was published.', 'pressbooks' ),
+				'sanitize_callback' => function ( ...$args ) {
+					return sanitize_text_field( $args[ METADATA_CALLBACK_INDEX ] );
+				},
+
 			]
 		);
 	}
@@ -388,6 +425,9 @@ function add_meta_boxes() {
 			'group' => 'copyright',
 			'label' => __( 'Copyright Holder', 'pressbooks' ),
 			'description' => __( 'Name of the copyright holder.', 'pressbooks' ),
+			'sanitize_callback' => function ( ...$args ) {
+				return sanitize_text_field( $args[ METADATA_CALLBACK_INDEX ] );
+			},
 		]
 	);
 
@@ -408,7 +448,7 @@ function add_meta_boxes() {
 			'label' => __( 'Copyright Notice', 'pressbooks' ),
 			'description' => __( 'Enter a custom copyright notice, with whatever information you like. This will override the auto-generated copyright notice if All Rights Reserved or no license is selected, and will be inserted after the title page. If you select a Creative Commons license, the custom notice will appear after the license text in both the webbook and your exports.', 'pressbooks' ),
 			'sanitize_callback' => function ( ...$args ) {
-				return sanitize_string( $args[ METADATA_CALLBACK_INDEX ], true );
+				return trim( sanitize_string( $args[ METADATA_CALLBACK_INDEX ], true ) );
 			},
 		]
 	);
@@ -425,6 +465,9 @@ function add_meta_boxes() {
 			'group' => 'about-the-book',
 			'label' => __( 'Book Tagline', 'pressbooks' ),
 			'description' => __( 'A very short description of your book. It should fit in a Twitter post, and encapsulate your book in the briefest sentence.', 'pressbooks' ),
+			'sanitize_callback' => function ( ...$args ) {
+				return sanitize_text_field( $args[ METADATA_CALLBACK_INDEX ] );
+			},
 		]
 	);
 
@@ -435,7 +478,7 @@ function add_meta_boxes() {
 			'label' => __( 'Short Description', 'pressbooks' ),
 			'description' => __( 'A short paragraph about your book, for catalogs, reviewers etc. to quote.', 'pressbooks' ),
 			'sanitize_callback' => function ( ...$args ) {
-				return sanitize_string( $args[ METADATA_CALLBACK_INDEX ], true );
+				return trim( sanitize_string( $args[ METADATA_CALLBACK_INDEX ], true ) );
 			},
 		]
 	);
@@ -447,7 +490,7 @@ function add_meta_boxes() {
 			'label' => __( 'Long Description', 'pressbooks' ),
 			'description' => __( 'The full description of your book.', 'pressbooks' ),
 			'sanitize_callback' => function ( ...$args ) {
-				return sanitize_string( $args[ METADATA_CALLBACK_INDEX ], true );
+				return trim( sanitize_string( $args[ METADATA_CALLBACK_INDEX ], true ) );
 			},
 		]
 	);
@@ -467,6 +510,9 @@ function add_meta_boxes() {
 				'group' => 'additional-catalog-information',
 				'label' => __( 'Series Title', 'pressbooks' ),
 				'description' => __( 'Add if your book is part of a series.', 'pressbooks' ),
+				'sanitize_callback' => function ( ...$args ) {
+					return sanitize_text_field( $args[ METADATA_CALLBACK_INDEX ] );
+				},
 			]
 		);
 
@@ -475,6 +521,9 @@ function add_meta_boxes() {
 				'group' => 'additional-catalog-information',
 				'label' => __( 'Series Number', 'pressbooks' ),
 				'description' => __( 'Add if your book is part of a series.', 'pressbooks' ),
+				'sanitize_callback' => function ( ...$args ) {
+					return sanitize_text_field( $args[ METADATA_CALLBACK_INDEX ] );
+				},
 			]
 		);
 
@@ -492,6 +541,9 @@ function add_meta_boxes() {
 				'group' => 'additional-catalog-information',
 				'label' => __( 'Hashtag', 'pressbooks' ),
 				'description' => __( 'These are added to your webbook cover page. For those of you who like Twitter.', 'pressbooks' ),
+				'sanitize_callback' => function ( ...$args ) {
+					return sanitize_text_field( $args[ METADATA_CALLBACK_INDEX ] );
+				},
 			]
 		);
 
@@ -500,6 +552,9 @@ function add_meta_boxes() {
 				'group' => 'additional-catalog-information',
 				'label' => __( 'List Price (Print)', 'pressbooks' ),
 				'description' => __( 'The list price of your book in print.', 'pressbooks' ),
+				'sanitize_callback' => function ( ...$args ) {
+					return sanitize_text_field( $args[ METADATA_CALLBACK_INDEX ] );
+				},
 			]
 		);
 
@@ -508,6 +563,9 @@ function add_meta_boxes() {
 				'group' => 'additional-catalog-information',
 				'label' => __( 'List Price (PDF)', 'pressbooks' ),
 				'description' => __( 'The list price of your book in PDF format.', 'pressbooks' ),
+				'sanitize_callback' => function ( ...$args ) {
+					return sanitize_text_field( $args[ METADATA_CALLBACK_INDEX ] );
+				},
 			]
 		);
 
@@ -516,6 +574,9 @@ function add_meta_boxes() {
 				'group' => 'additional-catalog-information',
 				'label' => __( 'List Price (ebook)', 'pressbooks' ),
 				'description' => __( 'The list price of your book in Ebook formats.', 'pressbooks' ),
+				'sanitize_callback' => function ( ...$args ) {
+					return sanitize_text_field( $args[ METADATA_CALLBACK_INDEX ] );
+				},
 			]
 		);
 
@@ -524,6 +585,9 @@ function add_meta_boxes() {
 				'group' => 'additional-catalog-information',
 				'label' => __( 'List Price (Web)', 'pressbooks' ),
 				'description' => __( 'The list price of your webbook.', 'pressbooks' ),
+				'sanitize_callback' => function ( ...$args ) {
+					return sanitize_text_field( $args[ METADATA_CALLBACK_INDEX ] );
+				},
 			]
 		);
 

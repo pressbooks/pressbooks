@@ -1,3 +1,5 @@
+@use "sass:math";
+
 @import '~select2/src/scss/core';
 @import 'partials/colors';
 
@@ -7,7 +9,7 @@
 
 .wrap .postbox {
   .inside h2 {
-    font-size: #{(15 / 13)}em;
+    font-size: #{math.div(15, 13)}em;
     font-weight: normal;
     margin: 1.33em 0;
     padding: 0;

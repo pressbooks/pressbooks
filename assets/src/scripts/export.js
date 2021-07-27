@@ -3,6 +3,7 @@
 /* global _pb_export_pins_inventory */
 
 import Cookies from 'js-cookie';
+
 import displayNotice from './utils/displayNotice';
 import resetClock from './utils/resetClock';
 import startClock from './utils/startClock';
@@ -34,6 +35,9 @@ jQuery( function ( $ ) {
 		const evtSource = new EventSource( eventSourceUrl );
 
 		// Handle open
+		/**
+		 *
+		 */
 		evtSource.onopen = function () {
 			// Start clock
 			clock = startClock();
@@ -47,6 +51,9 @@ jQuery( function ( $ ) {
 		};
 
 		// Handle message
+		/**
+		 * @param message
+		 */
 		evtSource.onmessage = function ( message ) {
 			const data = JSON.parse( message.data );
 			switch ( data.action ) {
@@ -74,6 +81,9 @@ jQuery( function ( $ ) {
 		};
 
 		// Handle error
+		/**
+		 *
+		 */
 		evtSource.onerror = function () {
 			evtSource.close();
 			bar.removeAttr( 'value' );
@@ -91,6 +101,9 @@ jQuery( function ( $ ) {
 	if ( typeof json_cookie === 'undefined' ) {
 		json_cookie = {};
 	}
+	/**
+	 *
+	 */
 	function update_json_cookie() {
 		Cookies.set( json_cookie_key, json_cookie, {
 			path: '/',
@@ -101,6 +114,9 @@ jQuery( function ( $ ) {
 	/* Collapsible form */
 	const optionsPanel = document.getElementById( 'export-options' );
 	const toggleButton = optionsPanel.querySelector( '.handlediv' );
+	/**
+	 *
+	 */
 	toggleButton.onclick = () => {
 		let expanded = toggleButton.getAttribute( 'aria-expanded' ) === 'true' || false;
 		toggleButton.setAttribute( 'aria-expanded', ! expanded );
@@ -109,7 +125,7 @@ jQuery( function ( $ ) {
 		} else {
 			optionsPanel.classList.remove( 'closed' );
 		}
-	}
+	};
 
 	/* Bulk Action Handler */
 	const bulkActionsTop = document.getElementById( 'bulk-action-selector-top' );
@@ -122,6 +138,9 @@ jQuery( function ( $ ) {
 				return false;
 			}
 		}
+		/**
+		 *
+		 */
 		const bulkSubmission = function () {
 			bulkForm.submit();
 		};
@@ -156,6 +175,9 @@ jQuery( function ( $ ) {
 		$( '.export-control button' ).prop( 'disabled', true );
 		$( '#pb-export-button' ).hide();
 		$( '#loader' ).show();
+		/**
+		 *
+		 */
 		const submission = function () {
 			$( '#pb-export-form' ).submit();
 		};
@@ -173,8 +195,7 @@ jQuery( function ( $ ) {
 				if (
 					name === 'export_formats[pdf]' ||
 					name === 'export_formats[mpdf]' ||
-					name === 'export_formats[epub]' ||
-					name === 'export_formats[mobi]'
+					name === 'export_formats[epub]'
 				) {
 					$( this ).prop( 'checked', true );
 				} else {
@@ -183,7 +204,7 @@ jQuery( function ( $ ) {
 			} else {
 				// Initialize checkboxes from cookie
 				let was_checked = 0;
-				if ( json_cookie.hasOwnProperty( name ) ) {
+				if ( Object.prototype.hasOwnProperty.call( json_cookie, name ) ) {
 					was_checked = json_cookie[ name ];
 				}
 				$( this ).prop( 'checked', !! was_checked );
@@ -206,6 +227,9 @@ jQuery( function ( $ ) {
 		} );
 
 	/* Pins */
+	/**
+	 *
+	 */
 	const adjustBulkActions = () => {
 		let totalCount = $( 'td.column-pin input' ).length;
 		let checkedCount = $( 'td.column-pin input:checked' ).length;
@@ -216,7 +240,7 @@ jQuery( function ( $ ) {
 			$( '#cb-select-all-1, #cb-select-all-2, #bulk-action-selector-top, #bulk-action-selector-bottom, #doaction, #doaction2' )
 				.attr( 'disabled', false );
 		}
-	}
+	};
 
 	adjustBulkActions();
 
@@ -282,6 +306,9 @@ jQuery( function ( $ ) {
 					pinned: pinned,
 					_ajax_nonce: PB_ExportToken.pinsNonce,
 				},
+				/**
+				 * @param response
+				 */
 				success: response => {
 					let pinNotifications = $( '#pin-notifications' );
 					pinNotifications.html( response.data.message );

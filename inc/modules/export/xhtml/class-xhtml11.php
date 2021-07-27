@@ -645,11 +645,28 @@ class Xhtml11 extends ExportGenerator {
 		$content = str_ireplace( [ '<b></b>', '<i></i>', '<strong></strong>', '<em></em>' ], '', $content );
 		$content = $this->fixInternalLinks( $content, $id );
 		$content = $this->switchLaTexFormat( $content );
+		$content = $this->fixImageAttributes( $content );
 		if ( ! empty( $_GET['optimize-for-print'] ) ) {
 			$content = $this->fixImages( $content );
 		}
 		$content = $this->tidy( $content );
 
+		return $content;
+	}
+
+	protected function fixImageAttributes( $content ) {
+		$html5 = new HtmlParser();
+		$dom = $html5->loadHTML( $content );
+		$images = $dom->getElementsByTagName( 'img' );
+		foreach ( $images as $image ) {
+			$alt = $image->getAttribute( 'alt' );
+			$alt = htmlspecialchars( $alt );
+			$image->setAttribute( 'alt', $alt );
+			$title = $image->getAttribute( 'title' );
+			$title = htmlspecialchars( $title );
+			$image->setAttribute( 'title', $title );
+		}
+		$content = $html5->saveHTML( $dom );
 		return $content;
 	}
 

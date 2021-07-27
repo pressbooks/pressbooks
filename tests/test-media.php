@@ -1,6 +1,8 @@
 <?php
 
 class MediaTest extends \WP_UnitTestCase {
+	use utilsTrait;
+
 	/**
 	 * @group media
 	 */
@@ -221,4 +223,111 @@ class MediaTest extends \WP_UnitTestCase {
 		$result = \Pressbooks\Media\strip_baseurl( $test );
 		$this->assertEquals( 'https://pressbooks.dev/upload/2017/08/foo-bar.invalid_extension', $result );
 	}
+
+	/**
+	 * @group cover_image
+	 */
+	public function test_upload_cover_image() {
+		$this->_book();
+		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
+
+		$_FILES = [
+			'pb_cover_image' => [
+				'name' => 'image.jpeg',
+			],
+		];
+
+		copy( __DIR__ . '/data/upload/image.jpeg', __DIR__ . '/data/upload/image_test.jpeg' );
+
+		$image = [
+			'file' => __DIR__ . '/data/upload/image_test.jpeg',
+			'url' => 'https://pressbooks.test/app/uploads/sites/4/2021/07/image.jpeg',
+			'type' => 'image/jpeg',
+		];
+
+		global $post_ID;
+		$post_ID = '42';
+
+		$cover_image = get_post_meta( $post_ID, 'pb_cover_image', true );
+
+		$this->assertNotEquals( $cover_image, $image['url']);
+
+		\Pressbooks\Admin\Metaboxes\upload_cover_image( $post_ID, null, $image );
+		$cover_image = get_post_meta( $post_ID, 'pb_cover_image', true );
+
+		$this->assertEquals( $cover_image, $image['url']);
+    }
+
+	/**
+	 * @group cover_image
+	 */
+	public function test_upload_cover_image_fails_with_wrong_aspect_ratio() {
+		$this->_book();
+		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
+
+		$_FILES = [
+			'pb_cover_image' => [
+				'name' => 'gt_1_aspect_ratio.jpeg',
+			],
+		];
+
+		$image = [
+			'file' => __DIR__ . '/data/upload/gt_1_aspect_ratio.jpeg',
+			'url' => 'https://pressbooks.test/app/uploads/sites/4/2021/07/gt_1_aspect_ratio.jpeg',
+			'type' => 'image/jpeg',
+		];
+
+		global $post_ID;
+		$post_ID = '42';
+
+		\Pressbooks\Admin\Metaboxes\upload_cover_image( $post_ID, null, $image );
+		$cover_image = get_post_meta( $post_ID, 'pb_cover_image', true );
+
+		$this->assertEmpty( $cover_image );
+
+		$_FILES = [
+			'pb_cover_image' => [
+				'name' => 'lt_66_aspect_ratio.jpeg',
+			],
+		];
+
+		$image = [
+			'file' => __DIR__ . '/data/upload/lt_66_aspect_ratio.jpeg',
+			'url' => 'https://pressbooks.test/app/uploads/sites/4/2021/07/lt_66_aspect_ratio.jpeg',
+			'type' => 'image/jpeg',
+		];
+
+		\Pressbooks\Admin\Metaboxes\upload_cover_image( $post_ID, null, $image );
+		$cover_image = get_post_meta( $post_ID, 'pb_cover_image', true );
+
+		$this->assertEmpty( $cover_image );
+    }
+
+    /**
+     * @group cover_image
+     */
+    public function test_upload_cover_image_fails_if_less_than_800_tall() {
+        $this->_book();
+        wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
+
+        $_FILES = [
+            'pb_cover_image' => [
+                'name' => 'lt_800_tall.jpeg',
+            ],
+        ];
+
+        $image = [
+            'file' => __DIR__ . '/data/upload/lt_800_tall.jpeg',
+            'url' => 'https://pressbooks.test/app/uploads/sites/4/2021/07/lt_800_tall.jpeg',
+            'type' => 'image/jpeg',
+        ];
+
+        global $post_ID;
+        $post_ID = '42';
+
+        \Pressbooks\Admin\Metaboxes\upload_cover_image( $post_ID, null, $image );
+        $cover_image = get_post_meta( $post_ID, 'pb_cover_image', true );
+
+        $this->assertEmpty( $cover_image );
+    }
 }
