@@ -23,7 +23,7 @@ class LoginCest
 	public function tryToLoginWithWrongCredentialsInLoginPage(AcceptanceTester $I, \Page\Acceptance\Login $loginPage)
 	{
 		$loginPage->login('billevans', 'debby');
-		$I->see('Unknown username. Check again or try your email address.');
+		$I->see('The username billevans is not registered on this site. If you are unsure of your username, try your email address instead.');
 	}
 
 }
