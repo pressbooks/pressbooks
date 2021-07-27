@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
-"POT-Creation-Date: 2021-07-06T18:17:20+00:00\n"
-"PO-Revision-Date: 2021-05-25 22:37+0000\n"
+"POT-Creation-Date: 2021-07-09T01:10:36+00:00\n"
+"PO-Revision-Date: 2021-07-27 15:30+0000\n"
 "Last-Translator: Ho Man Chan <homan@pressbooks.com>\n"
 "Language-Team: Bulgarian (Bulgaria) (http://www.transifex.com/pressbooks/pressbooks/language/bg_BG/)\n"
 "MIME-Version: 1.0\n"
@@ -50,28 +50,28 @@ msgstr "Системата не може да създаде плъгин пап
 msgid ""
 "Pressbooks could not copy the autoloader from %1$s to %2$s. Please copy the "
 "file manually."
-msgstr ""
+msgstr "Информацията от %1$s на %2$s не можа да се копира автоматично. Моля, копирайте ръчно."
 
 #: compatibility.php:170
 msgid ""
 "Pressbooks will not work with your version of PHP. Pressbooks requires PHP "
 "version %s or greater. Please upgrade PHP if you would like to use "
 "Pressbooks."
-msgstr ""
+msgstr "Платформата не е съвместима с Вашата версия на PHP. Необходима е версия на PHP  %s или по-висока. Моля, направете ъпгрейт на версията PHP, ако искате да използвате платформата."
 
 #: compatibility.php:183
 msgid ""
 "Pressbooks will not work with your version of WordPress. Pressbooks requires"
 " a dedicated install of WordPress Multisite, version %s or greater. Please "
 "upgrade WordPress if you would like to use Pressbooks."
-msgstr ""
+msgstr "Платформата не работи с Вашата версия на WordPress. Необходима е специална инсталация на WordPress Multisite, версия %s или по-нова. Моля, направете ъпгрейт на WordPress ако искате да използвате платформата."
 
 #: compatibility.php:194
 msgid ""
 "The Pressbooks plugin is inactive, but you have active plugins that require "
 "Pressbooks. This is causing errors. Please go to the Plugins page, and "
 "activate Pressbooks."
-msgstr ""
+msgstr "Приставката е неактивна, но имате активни плъгини, които изискват използването й. Това причинява грешки. Моля, отидете на страницата Plugins и активирайте приставката. "
 
 #: inc/admin/analytics/namespace.php:12 inc/admin/analytics/namespace.php:13
 #: inc/admin/analytics/namespace.php:22 inc/admin/analytics/namespace.php:23
@@ -90,19 +90,19 @@ msgstr "Гугъл Аналитикс Потребителско име за т�
 
 #: inc/admin/analytics/namespace.php:69
 msgid "Site-Specific Tracking"
-msgstr ""
+msgstr "Специфично за сайта проследяване"
 
 #: inc/admin/analytics/namespace.php:74
 msgid ""
 "If enabled, the Google Analytics settings page will be visible to book "
 "administrators, allowing them to use their own Google Analytics accounts to "
 "track statistics at the book level."
-msgstr ""
+msgstr "Ако е активирана, страницата с настройки на Google Analytics ще бъде видима и ще може да се добавят администратори с техните собствени Google Analytics акаунти, което позволява проследяване на статистически данни за книгата. "
 
 #: inc/admin/analytics/namespace.php:108
 msgid ""
 "The Google Analytics ID for your book, e.g. &lsquo;UA-01234567-8&rsquo;."
-msgstr ""
+msgstr "Идентификационният номер на Google Analytics за Вашата книга е: e.g. &lsquo;UA-01234567-8&rsquo;."
 
 #: inc/admin/analytics/namespace.php:125
 msgid "Google Analytics settings."
@@ -184,13 +184,13 @@ msgid "Privacy Status"
 msgstr "Състояние на поверителност "
 
 #: inc/admin/class-catalog-list-table.php:233 inc/class-activation.php:238
-#: inc/modules/export/epub/class-epub201.php:928 tests/test-cloner.php:58
+#: inc/modules/export/epub/class-epub201.php:923 tests/test-cloner.php:58
 msgid "Cover"
 msgstr "Корица"
 
 #: inc/admin/class-catalog-list-table.php:234
 #: inc/admin/covergenerator/namespace.php:69
-#: inc/admin/metaboxes/namespace.php:192 templates/admin/import.php:90
+#: inc/admin/metaboxes/namespace.php:201 templates/admin/import.php:90
 msgid "Title"
 msgstr "Заглавие"
 
@@ -447,7 +447,7 @@ msgid "Title (Spine)"
 msgstr "Заглавие (гръбче) "
 
 #: inc/admin/covergenerator/namespace.php:91
-#: inc/admin/metaboxes/namespace.php:207
+#: inc/admin/metaboxes/namespace.php:222
 msgid "Subtitle"
 msgstr "Подзаглавие"
 
@@ -468,11 +468,11 @@ msgstr "ISBN"
 msgid ""
 "If you have an ISBN, this will generate a barcode on the back of your print "
 "cover. If you do not have an ISBN, you should leave this field blank."
-msgstr ""
+msgstr "Ако имате ISBN, това ще генерира баркод на гърба на корицата за печат. Ако нямате ISBN, трябва да оставите това поле празно. "
 
 #: inc/admin/covergenerator/namespace.php:147
 msgid "or SKU"
-msgstr ""
+msgstr "или SKU"
 
 #: inc/admin/covergenerator/namespace.php:152
 msgid ""
@@ -480,7 +480,7 @@ msgid ""
 "field will generate a barcode with that number on the back of your print "
 "cover. If you do not have a non-ISBN identifier, you should leave this field"
 " blank."
-msgstr ""
+msgstr "Ако имате 13-цифрен идентификатор, който не е ISBN, въвеждането му в това поле ще генерира баркод с този номер на гърба на корицата за печат. Ако нямате идентификатор, различен от ISBN, трябва да оставите това поле празно. "
 
 #: inc/admin/covergenerator/namespace.php:159
 msgid "Design"
@@ -492,11 +492,11 @@ msgstr "Фоново изображение на първа корица"
 
 #: inc/admin/covergenerator/namespace.php:174
 msgid "Book Title Case"
-msgstr ""
+msgstr "Поле за заглавие на книгата"
 
 #: inc/admin/covergenerator/namespace.php:187
 msgid "Spine Size"
-msgstr ""
+msgstr "Размер на гръбчето"
 
 #: inc/admin/covergenerator/namespace.php:194
 msgid "Page Count"
@@ -504,39 +504,39 @@ msgstr "Номерация на страниците"
 
 #: inc/admin/covergenerator/namespace.php:205
 msgid "Paper Type"
-msgstr ""
+msgstr "Тип хартия "
 
 #: inc/admin/covergenerator/namespace.php:219
 msgid "Custom PPI"
-msgstr ""
+msgstr "Персонализиран PPI "
 
 #: inc/admin/covergenerator/namespace.php:230
 msgid "Text and Background Colors"
-msgstr ""
+msgstr "Цветове на текста и фона "
 
 #: inc/admin/covergenerator/namespace.php:237
 msgid "Front Cover Text"
-msgstr ""
+msgstr "Текст на първа корица"
 
 #: inc/admin/covergenerator/namespace.php:248
 msgid "Front Cover Background"
-msgstr ""
+msgstr "Фон на първа корица"
 
 #: inc/admin/covergenerator/namespace.php:259
 msgid "Spine Text"
-msgstr ""
+msgstr "Текст на гръбчето"
 
 #: inc/admin/covergenerator/namespace.php:270
 msgid "Spine Background"
-msgstr ""
+msgstr "Фон на гръбчето"
 
 #: inc/admin/covergenerator/namespace.php:281
 msgid "Back Cover Text"
-msgstr ""
+msgstr "Текст четвърта корица"
 
 #: inc/admin/covergenerator/namespace.php:292
 msgid "Back Cover Background"
-msgstr ""
+msgstr "Фон четвърта корица"
 
 #. translators: %s: URL to Book Information page
 #: inc/admin/covergenerator/namespace.php:323
@@ -545,7 +545,7 @@ msgid ""
 " and is used to generate your cover(s). You can reformat the text below as "
 "needed. (<strong>IMPORTANT NOTE:</strong> Changes you make here will "
 "<strong>NOT</strong> be reflected on the Book Information page.)"
-msgstr ""
+msgstr "Текстът по-долу е изтеглен  от <a href=\"%s\">и страницата с информация за книгата </a>, и се използва за генерирането на Вашата корица(корици). Можете да преформатирате текста по-долу, ако е необходимо. (<strong> ВАЖНА ЗАБЕЛЕЖКА:</strong> Промените, които правите тук <strong>НЯМА </strong> да бъдат отразени на страницата с информация за книгата.)"
 
 #. translators: %s: URL to Appearance menu
 #: inc/admin/covergenerator/namespace.php:436
@@ -553,7 +553,7 @@ msgid ""
 "Below you can make small adjustments to the design of your cover. The look "
 "and feel of the cover will echo the theme you have chosen for your book. You"
 " can change your book theme in the <a href=\"%s\">Appearance</a> menu."
-msgstr ""
+msgstr "По-долу можете да направите малки корекции в дизайна на Вашата корица. Външният вид на корицата ще отразява темата, която сте избрали за Вашата книга. Може да промените визуалната тема на книгата от <a href=\"%s\"> Тема/Облик </a> менюто."
 
 #. translators: 1: pdf page width, 2: pdf page height, 3: URL to Theme Options
 #. page
@@ -562,20 +562,20 @@ msgid ""
 "Your PDF page size is set to %1$s &times; %2$s, and your PDF cover will be "
 "generated with the same dimensions. You can change the PDF page size in the "
 "<a href=\"%3$s\">Theme Options</a> menu."
-msgstr ""
+msgstr "Размерът на Вашата PDF страница е зададен на %1$s &times; %2$s, Вашата PDF корица ще бъде генерирана със същите размери. Можете да промените размера на PDF страницата в <a href=\"%3$s\">Теми/Опции</a> менюто."
 
 #: inc/admin/covergenerator/namespace.php:452
 #: templates/admin/export.blade.php:57
 msgid "Change Theme"
-msgstr ""
+msgstr "Промяна на темата"
 
 #: inc/admin/covergenerator/namespace.php:453
 msgid "Options"
-msgstr ""
+msgstr "Опции"
 
 #: inc/admin/covergenerator/namespace.php:456
 msgid "You can upload a background image here."
-msgstr ""
+msgstr "Можете да качите фоново изображение тук. "
 
 #. translators: 1: minimum width, 2: minimum height, 3: aspect ratio width, 4:
 #. aspect ratio height
@@ -583,37 +583,37 @@ msgstr ""
 msgid ""
 "Your image must be at least %1$s pixels in width by %2$s pixels in height, "
 "with an aspect ratio of %3$s to %4$s."
-msgstr ""
+msgstr "Изображението трябва да е поне %1$s пиксели на ширина на %2$s пиксели на височина,  със съотношение на страните от %3$s до %4$s."
 
 #: inc/admin/covergenerator/namespace.php:493
 msgid "Delete Background Image"
-msgstr ""
+msgstr "Изтрийте фоновото изображение "
 
 #: inc/admin/covergenerator/namespace.php:516
 msgid ""
 "Spine size is calculated based on the number of pages in your book, and the "
 "weight of the paper used in printing."
-msgstr ""
+msgstr "Размерът на гръбчето се изчислява въз основа на броя страници във Вашата книга и теглото на хартията, използвана при печат. "
 
 #: inc/admin/covergenerator/namespace.php:522
 msgid ""
 "You haven't exported any PDF copies of your book, so you will need to enter "
 "a page count below."
-msgstr ""
+msgstr "Не сте експортирали PDF копия на книгата си, така че ще трябва да въведете броя на страниците по-долу. "
 
 #. translators: %s: number of pages in pdf
 #: inc/admin/covergenerator/namespace.php:525
 msgid ""
 "The last PDF you exported has %s pages (you can edit this below if you "
 "like)."
-msgstr ""
+msgstr "Последният пдф, който сте ескпортирали има  %s страници (можете да редактирате това по-долу, ако желаете). "
 
 #: inc/admin/covergenerator/namespace.php:529
 msgid ""
 "We can calculate the spine size based on CreateSpace and Ingram "
 "specifications, or you can enter your own custom pages per inch (PPI) "
 "defined by your printer."
-msgstr ""
+msgstr "Можем да изчислим размера на гръбчето въз основа на спецификациите CreateSpace и Ingram или можете да въведете свои собствени точки на инч (PPI), дефинирани от вашия принтер. "
 
 #: inc/admin/covergenerator/namespace.php:562
 #: inc/modules/themeoptions/class-pdfoptions.php:144
@@ -632,7 +632,7 @@ msgstr ""
 
 #: inc/admin/covergenerator/namespace.php:580
 msgid "Choose text color and background colors below."
-msgstr ""
+msgstr "Изберете цвят на текста и цветовете на фона по-долу. "
 
 #. translators: 1: minimum width, 2: minimum height, 3: image width 4: image
 #. height
@@ -640,58 +640,58 @@ msgstr ""
 msgid ""
 "Your image is too small. The image must be %1$d by %2$d pixels. Your image "
 "is %3$d by %4$d pixels."
-msgstr ""
+msgstr "Вашето изображение е твърде малко. Изображението трябва да бъде %1$d на %2$d пиксела. Вашето изображение е %3$d на %4$d пиксела."
 
 #. translators: 1: pdf page width, 2: pdf page height
 #: inc/admin/covergenerator/namespace.php:755
 msgid ""
 "Your image is the wrong aspect ratio. The image must have an aspect ratio of"
 " %1$s to %2$s."
-msgstr ""
+msgstr "Вашето изображение е с грешно съотношение. Изображението трябва да има съотношение на страните от %1$s до %2$s."
 
 #: inc/admin/dashboard/namespace.php:18
 msgid "Pressbooks News"
-msgstr ""
+msgstr "Новини"
 
 #: inc/admin/dashboard/namespace.php:96
 msgid "My Book"
-msgstr ""
+msgstr "Моята книга"
 
 #: inc/admin/dashboard/namespace.php:97 inc/admin/laf/namespace.php:747
 msgid "Users"
-msgstr ""
+msgstr "Ползватели"
 
 #: inc/admin/dashboard/namespace.php:134
 msgid "Book Permissions"
-msgstr ""
+msgstr "Права за управление и достъп"
 
 #: inc/admin/dashboard/namespace.php:146
 msgid "Welcome to Pressbooks!"
-msgstr ""
+msgstr "Добре дошли!"
 
 #: inc/admin/dashboard/namespace.php:149
 msgid "You do not have access to any books at the moment."
-msgstr ""
+msgstr "В момента нямате достъп до нито една книга. "
 
 #: inc/admin/dashboard/namespace.php:156
 msgid ""
 "This network does not allow users to create new books. To create a new book,"
 " please contact your Pressbooks Network Manager"
-msgstr ""
+msgstr "Тази мрежа не позволява на потребителите да създават нови книги. За да създадете нова книга, моля, свържете се с вашия мениджър на Платформата."
 
 #: inc/admin/dashboard/namespace.php:158 inc/admin/dashboard/namespace.php:172
 msgid "at"
-msgstr ""
+msgstr "в"
 
 #: inc/admin/dashboard/namespace.php:165 inc/admin/laf/namespace.php:836
 msgid "Create A New Book"
-msgstr ""
+msgstr "Създайте нова книга "
 
 #: inc/admin/dashboard/namespace.php:170
 msgid ""
 "You can also request access to an existing book by contacting the book's "
 "author or the institution's Pressbooks Network Manager"
-msgstr ""
+msgstr "Можете също така да поискате достъп до съществуваща книга, като пишете до Платформата."
 
 #: inc/admin/dashboard/namespace.php:186 inc/class-activation.php:243
 #: inc/modules/export/epub/templates/epub3/toc.php:26
@@ -699,68 +699,68 @@ msgstr ""
 msgid "Table of Contents"
 msgstr "Съдържание"
 
-#: inc/admin/dashboard/namespace.php:188 inc/admin/metaboxes/namespace.php:580
+#: inc/admin/dashboard/namespace.php:188 inc/admin/metaboxes/namespace.php:644
 #: inc/api/endpoints/controller/class-toc.php:192
 #: inc/posttype/namespace.php:115 inc/posttype/namespace.php:116
 #: inc/posttype/namespace.php:538 templates/admin/import.php:91
 #: templates/admin/organize.php:58 templates/admin/organize.php:81
 msgid "Front Matter"
-msgstr ""
+msgstr "Втора корица"
 
-#: inc/admin/dashboard/namespace.php:229 inc/admin/metaboxes/namespace.php:582
+#: inc/admin/dashboard/namespace.php:229 inc/admin/metaboxes/namespace.php:646
 #: inc/api/endpoints/controller/class-toc.php:225
 #: inc/posttype/namespace.php:143 inc/posttype/namespace.php:144
 #: inc/posttype/namespace.php:541 templates/admin/import.php:96
 #: templates/admin/organize.php:60 templates/admin/organize.php:89
 msgid "Back Matter"
-msgstr ""
+msgstr "Трета корица"
 
 #: inc/admin/dashboard/namespace.php:248 inc/admin/dashboard/namespace.php:327
 #: templates/admin/organize.php:266 templates/admin/organize.php:423
 msgid "Add"
-msgstr ""
+msgstr "Добавяне"
 
 #: inc/admin/dashboard/namespace.php:248 inc/admin/dashboard/namespace.php:327
 #: inc/admin/laf/namespace.php:140
 msgid "Organize"
-msgstr ""
+msgstr "Организиране"
 
 #: inc/admin/dashboard/namespace.php:316
 msgid "%1$s total users: "
-msgstr ""
+msgstr "%1$s общо потребители: "
 
 #: inc/admin/dashboard/namespace.php:336 inc/admin/dashboard/namespace.php:337
 #: inc/admin/laf/namespace.php:731 inc/admin/laf/namespace.php:798
 msgid "Dashboard"
-msgstr ""
+msgstr "Табло "
 
 #: inc/admin/dashboard/namespace.php:386
 msgid "Dashboard Feed"
-msgstr ""
+msgstr "Табло - детайли"
 
 #: inc/admin/dashboard/namespace.php:393
 msgid "Display Feed"
-msgstr ""
+msgstr "Покажи детайлите "
 
 #: inc/admin/dashboard/namespace.php:398
 msgid "Display an RSS feed widget on the dashboard."
-msgstr ""
+msgstr "Показване на приспособление за RSS емисия на таблото. "
 
 #: inc/admin/dashboard/namespace.php:404
 msgid "Feed Title"
-msgstr ""
+msgstr "Заглавие на емисията"
 
 #: inc/admin/dashboard/namespace.php:412
 msgid "Feed URL"
-msgstr ""
+msgstr "URL на емисията"
 
 #: inc/admin/dashboard/namespace.php:439
 msgid "Adjust settings for your dashboard RSS feed widget below."
-msgstr ""
+msgstr "Регулирайте настройките за Вашето приспособление за RSS емисия на таблото по-долу. "
 
 #: inc/admin/delete/class-book.php:52
 msgid "Delete Book"
-msgstr ""
+msgstr "Изтрийте книгата"
 
 #. translators: Do not translate USERNAME, URL_DELETE, SITE_NAME: those are
 #. placeholders.
@@ -781,265 +781,265 @@ msgid ""
 "\n"
 "Thanks for using Pressbooks,\n"
 "###SITE_NAME###"
-msgstr ""
+msgstr "Здравейте, ###USERNAME###,\n\nНаскоро щракнахте върху връзката „Изтриване на книга“ във вашата книга и попълнихте на тази страница. \n\nАко наистина искате да изтриете книгата си, щракнете върху връзката по-долу. Няма да има повторно искане за потвърждение, така че, щракнете върху връзката само, ако сте абсолютно сигурни:\n###URL_DELETE###\n\nАко изтриете книгата си, моля, може да започнете нов проект за книга с нас \nв бъдеще! (Но помнете, че настоящата книга\nизчезва завинаги.)\n\nБлагодарим, че използвате платформата. \n###SITE_NAME###"
 
-#: inc/admin/diagnostics/namespace.php:29
-#: inc/admin/diagnostics/namespace.php:30 inc/admin/laf/namespace.php:100
+#: inc/admin/diagnostics/namespace.php:28
+#: inc/admin/diagnostics/namespace.php:29 inc/admin/laf/namespace.php:100
 #: templates/admin/diagnostics.blade.php:4
 msgid "Diagnostics"
-msgstr ""
+msgstr "Диагностика "
 
-#: inc/admin/diagnostics/namespace.php:197
+#: inc/admin/diagnostics/namespace.php:195
 msgid "Stylesheet regenerated."
-msgstr ""
+msgstr "Таблица със стилове. "
 
 #: inc/admin/laf/namespace.php:66 inc/admin/laf/namespace.php:691
 msgid "Contact"
-msgstr ""
+msgstr "Контакт"
 
 #: inc/admin/laf/namespace.php:75
 msgid "Powered by %s"
-msgstr ""
+msgstr "Поддържано от %s"
 
 #: inc/admin/laf/namespace.php:95
 msgid "Guides and Tutorials"
-msgstr ""
+msgstr "Ръководства и уроци "
 
 #: inc/admin/laf/namespace.php:105 templates/admin/sitemap.blade.php:2
 msgid "Site Map"
-msgstr ""
+msgstr "Карта на сайта"
 
 #: inc/admin/laf/namespace.php:155
 msgid "private"
-msgstr ""
+msgstr "Личен достъп"
 
 #: inc/admin/laf/namespace.php:156
 msgid "public"
-msgstr ""
+msgstr "Публичен достъп"
 
 #: inc/admin/laf/namespace.php:158
 msgid "Updating book."
-msgstr ""
+msgstr "Актуализиране на книгата. "
 
 #: inc/admin/laf/namespace.php:159
 msgid "Updating chapters."
-msgstr ""
+msgstr "Актуализиране на глави. "
 
 #: inc/admin/laf/namespace.php:160
 msgid "Updating part."
-msgstr ""
+msgstr "Актуализиране на част. "
 
 #: inc/admin/laf/namespace.php:161
 msgid "Updating front matter."
-msgstr ""
+msgstr "Актуализиране на втора корица."
 
 #: inc/admin/laf/namespace.php:162
 msgid "Updating back matter."
-msgstr ""
+msgstr "Актуализиране на трета корица."
 
 #: inc/admin/laf/namespace.php:165
 msgid "The book has been successfully updated!"
-msgstr ""
+msgstr "Книгата е актуализирана успешно!"
 
 #: inc/admin/laf/namespace.php:166
 msgid "The chapters has been successfully updated!"
-msgstr ""
+msgstr "Главите са актуализирани успешно! "
 
 #: inc/admin/laf/namespace.php:167
 msgid "The part has been successfully updated!"
-msgstr ""
+msgstr "Частта е актуализирана успешно! "
 
 #: inc/admin/laf/namespace.php:168
 msgid "The front matter has been successfully updated!"
-msgstr ""
+msgstr "Втора корица е актуализирана успешно! "
 
 #: inc/admin/laf/namespace.php:169
 msgid "The back matter has been successfully updated!"
-msgstr ""
+msgstr "Трета корица е актуализирана успешно! "
 
 #: inc/admin/laf/namespace.php:172
 msgid "Sorry, the book could not be updated.!"
-msgstr ""
+msgstr "За съжаление книгата не можа да бъде актуализирана! "
 
 #: inc/admin/laf/namespace.php:173
 msgid "Sorry, the chapters could not be updated."
-msgstr ""
+msgstr "За съжаление главите не можаха да бъдат актуализирани. "
 
 #: inc/admin/laf/namespace.php:174
 msgid "Sorry, the part could not be updated."
-msgstr ""
+msgstr "За съжаление частта не можа да бъде актуализирана. "
 
 #: inc/admin/laf/namespace.php:175
 msgid "Sorry, the front matter could not be updated."
-msgstr ""
+msgstr "За съжаление втора корица не можа да бъде актуализирана. "
 
 #: inc/admin/laf/namespace.php:176
 msgid "Sorry, the back matter could not be updated."
-msgstr ""
+msgstr "За съжаление, трета корица не можа да бъде актуализирана. "
 
 #: inc/admin/laf/namespace.php:186 inc/admin/laf/namespace.php:187
 #: templates/admin/organize.php:68 templates/admin/organize.php:277
 msgid "Add Part"
-msgstr ""
+msgstr "Добавяне на част "
 
 #: inc/admin/laf/namespace.php:194 inc/admin/laf/namespace.php:195
 #: templates/admin/organize.php:67
 msgid "Add Chapter"
-msgstr ""
+msgstr "Добавяне на глава"
 
 #: inc/admin/laf/namespace.php:202 inc/admin/laf/namespace.php:203
 #: templates/admin/organize.php:65
 msgid "Add Front Matter"
-msgstr ""
+msgstr "Добавяне на втора корица"
 
 #: inc/admin/laf/namespace.php:210 inc/admin/laf/namespace.php:211
 #: templates/admin/organize.php:66
 msgid "Add Back Matter"
-msgstr ""
+msgstr "Добавяне на трета корица"
 
 #: inc/admin/laf/namespace.php:218 inc/admin/laf/namespace.php:219
-#: inc/editor/namespace.php:132 inc/posttype/namespace.php:195
+#: inc/editor/namespace.php:141 inc/posttype/namespace.php:195
 msgid "Glossary Terms"
-msgstr ""
+msgstr "Речник на термините "
 
 #: inc/admin/laf/namespace.php:226 inc/admin/laf/namespace.php:227
 msgid "Chapter Types"
-msgstr ""
+msgstr "Видове глави "
 
 #: inc/admin/laf/namespace.php:234 inc/admin/laf/namespace.php:235
 msgid "Front Matter Types"
-msgstr ""
+msgstr "Видове втори корици"
 
 #: inc/admin/laf/namespace.php:242 inc/admin/laf/namespace.php:243
 msgid "Back Matter Types"
-msgstr ""
+msgstr "Видове трети корици"
 
 #: inc/admin/laf/namespace.php:250 inc/admin/laf/namespace.php:251
 msgid "Glossary Types"
-msgstr ""
+msgstr "Видове речници на термините"
 
 #: inc/admin/laf/namespace.php:277
 #: inc/modules/import/wordpress/class-wxr.php:481
 #: inc/posttype/namespace.php:151
 msgid "Book Info"
-msgstr ""
+msgstr "Инфо за книгата"
 
 #: inc/admin/laf/namespace.php:288
 msgid "Choose a subject…"
-msgstr ""
+msgstr "Избор на тема"
 
 #: inc/admin/laf/namespace.php:289
 msgid "Choose some subject(s)…"
-msgstr ""
+msgstr "Изберете тема (и) ... "
 
 #: inc/admin/laf/namespace.php:299 inc/admin/laf/namespace.php:300
 msgid "Contributors"
-msgstr ""
+msgstr "Сътрудници "
 
 #: inc/admin/laf/namespace.php:306 inc/admin/laf/namespace.php:364
 #: templates/admin/organize.php:64 templates/admin/export.blade.php:11
 msgid "Export"
-msgstr ""
+msgstr "Експорт"
 
 #: inc/admin/laf/namespace.php:319
 msgid "Are you sure you want to delete these export files?"
-msgstr ""
+msgstr "Наистина ли искате да изтриете тези файлове за експортиране? "
 
 #: inc/admin/laf/namespace.php:320
 msgid "Up to 5 files can be pinned at once."
-msgstr ""
+msgstr "Могат да се закачат до 5 файла наведнъж. "
 
 #: inc/admin/laf/namespace.php:321
 msgid "Cannot pin more than 3 of the same file type."
-msgstr ""
+msgstr "Не могат да се изберат и закачат повече от 3 файла от един и същи тип файл. "
 
 #: inc/admin/laf/namespace.php:325
 msgid ""
 "Too many pinned files. Deselect one of the pinned files before attempting to"
 " export."
-msgstr ""
+msgstr "Твърде много закачени в `пин` файлове. Премахнете избора на един от закачените файлове, преди да се опитате да експортирате. "
 
 #: inc/admin/laf/namespace.php:326
 msgid ""
 "Exports are not done. Leaving this page, now, will cause problems. Are you "
 "sure?"
-msgstr ""
+msgstr "Експортът не е завършен. Напускането на тази страница сега ще доведе до проблеми. Сигурни ли сте, че напускате страницата? "
 
 #: inc/admin/laf/namespace.php:351 inc/admin/laf/namespace.php:566
-#: inc/admin/laf/namespace.php:1428
+#: inc/admin/laf/namespace.php:1427
 #: inc/admin/network/class-sharingandprivacyoptions.php:449
 msgid "Sharing and Privacy Settings"
-msgstr ""
+msgstr "Настройки за споделяне и поверителност "
 
 #: inc/admin/laf/namespace.php:351 inc/admin/laf/namespace.php:566
 msgid "Sharing &amp; Privacy"
-msgstr ""
+msgstr "Sharing &amp; Поверителност"
 
 #: inc/admin/laf/namespace.php:369 inc/admin/laf/namespace.php:370
 msgid "QuickLaTeX"
-msgstr ""
+msgstr "QuickLaTeX"
 
 #: inc/admin/laf/namespace.php:378 templates/admin/import.php:38
 #: templates/admin/import.php:114
 msgid "Import"
-msgstr ""
+msgstr "Импортиране"
 
 #: inc/admin/laf/namespace.php:386
 msgid ""
 "Imports are not done. Leaving this page, now, will cause problems. Are you "
 "sure?"
-msgstr ""
+msgstr "Импортирането не е приключило. Напускането на тази страница сега ще доведе до проблеми. Сигурни ли сте, че искате да напуснете страницата? "
 
 #: inc/admin/laf/namespace.php:399
 msgid "Clone a Book"
-msgstr ""
+msgstr "Клонирайте книга "
 
 #: inc/admin/laf/namespace.php:407
 msgid ""
 "Cloning is not done. Leaving this page, now, will cause problems. Are you "
 "sure?"
-msgstr ""
+msgstr "Клонирането не е завършено. Напускането на тази страница сега ще доведе до проблеми. Сигурни ли сте, че искате да напуснете страницата? "
 
 #: inc/admin/laf/namespace.php:644 inc/admin/laf/namespace.php:655
 msgid "About Pressbooks"
-msgstr ""
+msgstr "За Платформата"
 
 #: inc/admin/laf/namespace.php:666
 msgid "Pressbooks.com"
-msgstr ""
+msgstr "Платформата"
 
 #: inc/admin/laf/namespace.php:676
 msgid "Help"
-msgstr ""
+msgstr "Помощ"
 
 #: inc/admin/laf/namespace.php:720
 msgid "Network Admin"
-msgstr ""
+msgstr "Администратор на мрежата "
 
-#: inc/admin/laf/namespace.php:739 inc/admin/laf/namespace.php:1483
-#: inc/admin/laf/namespace.php:1493
+#: inc/admin/laf/namespace.php:739 inc/admin/laf/namespace.php:1482
+#: inc/admin/laf/namespace.php:1492
 msgid "Books"
-msgstr ""
+msgstr "Книги"
 
 #: inc/admin/laf/namespace.php:756
 msgid "Themes"
-msgstr ""
+msgstr "Теми"
 
 #: inc/admin/laf/namespace.php:764
 msgid "Plugins"
-msgstr ""
+msgstr "Приставки"
 
 #: inc/admin/laf/namespace.php:806
 msgid "Visit Website"
-msgstr ""
+msgstr "Посети сайта"
 
 #: inc/admin/laf/namespace.php:816
 msgid "My Books"
-msgstr ""
+msgstr "Моите книги"
 
 #: inc/admin/laf/namespace.php:854
 msgid "Clone A Book"
-msgstr ""
+msgstr "Клониране на книга "
 
 #: inc/admin/laf/namespace.php:1081
 msgid ""
@@ -1047,106 +1047,106 @@ msgid ""
 "the most recent version of your selected theme, which may change your "
 "book&rsquo;s appearance and page count. Once you save your settings on this "
 "page, this action will NOT be reversable!"
-msgstr ""
+msgstr "Наистина ли искате да отключите темата си? Това ще актуализира Вашата книга до най-новата версия на избраната от вас тема, което може да промени външния вид и броя на страниците на Вашата книга. След като запазите настройките си на тази страница, това действие НЯМА да се как да бъде върнато обратно! "
 
-#: inc/admin/laf/namespace.php:1145
+#: inc/admin/laf/namespace.php:1144
 msgid "Book Visibility"
-msgstr ""
+msgstr "Видимост на книгата "
 
-#: inc/admin/laf/namespace.php:1159
+#: inc/admin/laf/namespace.php:1158
 msgid "Private Content"
-msgstr ""
+msgstr "Частно съдържание "
 
-#: inc/admin/laf/namespace.php:1172
+#: inc/admin/laf/namespace.php:1171
 msgid "Disable Comments"
-msgstr ""
+msgstr "Деактивирайте коментарите "
 
-#: inc/admin/laf/namespace.php:1187
+#: inc/admin/laf/namespace.php:1186
 msgid "Share Latest Export Files"
-msgstr ""
+msgstr "Споделете най-новите файлове за експортиране "
 
-#: inc/admin/laf/namespace.php:1217
+#: inc/admin/laf/namespace.php:1216
 msgid "Pressbooks Directory"
-msgstr ""
+msgstr "Директория на платформата"
 
-#: inc/admin/laf/namespace.php:1235
+#: inc/admin/laf/namespace.php:1234
 msgid "Sharing and Privacy settings"
-msgstr ""
+msgstr "Настройки за споделяне и поверителност "
 
-#: inc/admin/laf/namespace.php:1251
+#: inc/admin/laf/namespace.php:1250
 msgid "Public. I would like this book to be visible to everyone."
-msgstr ""
+msgstr "Публично. Бих искал тази книга да бъде видима за всички. "
 
-#: inc/admin/laf/namespace.php:1257
+#: inc/admin/laf/namespace.php:1256
 msgid ""
 "Private. I would like this book to be accessible only to people I invite."
-msgstr ""
+msgstr "Частен. Бих искал тази книга да бъде достъпна само за хора, които поканя. "
 
-#: inc/admin/laf/namespace.php:1281
+#: inc/admin/laf/namespace.php:1280
 msgid "Who can see private front matter, chapters and back matter?"
-msgstr ""
+msgstr "Кой може да види втора и трета корица и главите? "
 
-#: inc/admin/laf/namespace.php:1284
+#: inc/admin/laf/namespace.php:1283
 msgid "Only logged in editors and administrators."
-msgstr ""
+msgstr "Само вписани като редактори и администратори. "
 
-#: inc/admin/laf/namespace.php:1286
+#: inc/admin/laf/namespace.php:1285
 msgid "All logged in users including subscribers."
-msgstr ""
+msgstr "Всички влезли потребители, включително абонати. "
 
-#: inc/admin/laf/namespace.php:1307
+#: inc/admin/laf/namespace.php:1306
 msgid ""
 "Yes. I want to automatically disable comments, trackbacks and pingbacks on "
 "all front matter, chapters and back matter."
-msgstr ""
+msgstr "Да. Искам автоматично да деактивирам коментари, проследявания - за всички глави, втора и трета корица. "
 
-#: inc/admin/laf/namespace.php:1313
+#: inc/admin/laf/namespace.php:1312
 msgid ""
 "No. I want to leave comments, trackbacks and pingbacks enabled on all front "
 "matter, chapters and back matter unless I disable them manually."
-msgstr ""
+msgstr "Не. Искам да оставя коментари, проследявания - за всички глави, втора и трета корица. "
 
-#: inc/admin/laf/namespace.php:1329
+#: inc/admin/laf/namespace.php:1328
 msgid ""
 "Yes. I would like the latest export files to be available on the homepage "
 "for free, to everyone."
-msgstr ""
+msgstr "Да. Бих искал най-новите файлове за експортиране да бъдат достъпни безплатно на началната страница за всички. "
 
-#: inc/admin/laf/namespace.php:1335
+#: inc/admin/laf/namespace.php:1334
 msgid ""
 "No. I would like the latest export files to only be available to "
 "administrators."
-msgstr ""
+msgstr "Не. Бих искал най-новите файлове за експортиране да са достъпни само за администратори. "
 
-#: inc/admin/laf/namespace.php:1354
+#: inc/admin/laf/namespace.php:1353
 msgid "Yes. I want this book to be listed in the Pressbooks directory."
-msgstr ""
+msgstr "Да. Искам тази книга да бъде включена в директорията на „Книги за пресата“. "
 
-#: inc/admin/laf/namespace.php:1360
+#: inc/admin/laf/namespace.php:1359
 msgid "No. Exclude this book from the Pressbooks directory."
-msgstr ""
+msgstr "Не. Изключете тази книга от директорията на Платформата. "
 
-#: inc/admin/laf/namespace.php:1486
+#: inc/admin/laf/namespace.php:1485
 msgid "All Books"
-msgstr ""
+msgstr "Всички книги"
 
-#: inc/admin/laf/namespace.php:1496
+#: inc/admin/laf/namespace.php:1495
 msgid "Search Books"
-msgstr ""
+msgstr "Търсене на книги"
 
-#: inc/admin/laf/namespace.php:1502
+#: inc/admin/laf/namespace.php:1501
 msgid "Edit Book: %s"
-msgstr ""
+msgstr "Редактиране на книга: %s"
 
-#: inc/admin/laf/namespace.php:1505 inc/admin/laf/namespace.php:1514
+#: inc/admin/laf/namespace.php:1504 inc/admin/laf/namespace.php:1513
 msgid "Book Address (URL)"
-msgstr ""
+msgstr "Адрес на книгата (URL) "
 
-#: inc/admin/laf/namespace.php:1511
+#: inc/admin/laf/namespace.php:1510
 msgid "Add New Book"
-msgstr ""
+msgstr "Добавяне на нова книга"
 
-#: inc/admin/laf/namespace.php:1517
+#: inc/admin/laf/namespace.php:1516
 #: inc/modules/themeoptions/class-pdfoptions.php:358
 #: inc/modules/themeoptions/class-pdfoptions.php:377
 #: inc/modules/themeoptions/class-pdfoptions.php:396
@@ -1158,47 +1158,49 @@ msgstr ""
 #: inc/modules/themeoptions/class-pdfoptions.php:512
 #: inc/modules/themeoptions/class-pdfoptions.php:531
 msgid "Book Title"
-msgstr ""
+msgstr "Заглавие на книга  "
 
-#: inc/admin/laf/namespace.php:1520
+#: inc/admin/laf/namespace.php:1519
 msgid "Book Language"
-msgstr ""
+msgstr "Език на книгата "
 
-#: inc/admin/laf/namespace.php:1523
+#: inc/admin/laf/namespace.php:1522
 msgid "Add Book"
-msgstr ""
+msgstr "Добавяне на книга "
 
-#: inc/admin/laf/namespace.php:1540
+#: inc/admin/laf/namespace.php:1539
 msgid "Edit previous or next item"
-msgstr ""
+msgstr "Редактирайте предишен или следващ елемент"
 
-#: inc/admin/laf/namespace.php:1545
+#: inc/admin/laf/namespace.php:1544
 msgid "Edit Previous (%s)"
-msgstr ""
+msgstr "Редактиране на предишен елемент (%s)"
 
-#: inc/admin/laf/namespace.php:1550
+#: inc/admin/laf/namespace.php:1549
 msgid "Edit Next (%s)"
-msgstr ""
+msgstr "Редактиране на следващ елемент (%s)"
 
-#: inc/admin/metaboxes/namespace.php:98
+#: inc/admin/metaboxes/namespace.php:99
 msgid ""
-"Your cover image (%1$s x %1$s) is too small. It should be 625px on the "
-"shortest side."
+"Your cover image was not saved because it is too small (%1$s x %2$s). It "
+"should be at least 800px in height."
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:104
-msgid "Your cover image (%s) is too big. It should be no more than 2MB."
+#: inc/admin/metaboxes/namespace.php:105
+msgid ""
+"Your cover image was not saved because the aspect ratio (%s) is outside the "
+"permitted range (.66 to 1). We recommend an aspect ratio of .75."
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:121 inc/admin/metaboxes/namespace.php:178
+#: inc/admin/metaboxes/namespace.php:130 inc/admin/metaboxes/namespace.php:187
 #: inc/class-metadata.php:449
 msgid "Cover Image"
-msgstr ""
+msgstr "Изображение на корицата "
 
-#: inc/admin/metaboxes/namespace.php:164 inc/admin/metaboxes/namespace.php:637
-#: inc/admin/metaboxes/namespace.php:699
+#: inc/admin/metaboxes/namespace.php:173 inc/admin/metaboxes/namespace.php:701
+#: inc/admin/metaboxes/namespace.php:763
 #: inc/api/endpoints/controller/class-toc.php:202 inc/class-sass.php:89
-#: inc/modules/export/epub/class-epub201.php:1868
+#: inc/modules/export/epub/class-epub201.php:1863
 #: inc/modules/themeoptions/class-globaloptions.php:532
 #: inc/posttype/namespace.php:87 inc/posttype/namespace.php:532
 #: inc/posttype/namespace.php:570 templates/admin/import.php:94
@@ -1206,363 +1208,363 @@ msgstr ""
 msgid "Part"
 msgstr "Част"
 
-#: inc/admin/metaboxes/namespace.php:168
+#: inc/admin/metaboxes/namespace.php:177
 msgid "Save Part"
-msgstr ""
+msgstr "Запазване на част"
 
-#: inc/admin/metaboxes/namespace.php:169
+#: inc/admin/metaboxes/namespace.php:178
 msgid "Save Book Information"
-msgstr ""
+msgstr "Запазване на информация за книгата "
 
-#: inc/admin/metaboxes/namespace.php:170
+#: inc/admin/metaboxes/namespace.php:179
 msgid "Status & Visibility"
-msgstr ""
+msgstr "Състояние и видимост "
 
-#: inc/admin/metaboxes/namespace.php:184
+#: inc/admin/metaboxes/namespace.php:193
 msgid "General Book Information"
-msgstr ""
+msgstr "Обща информация за книгата "
 
-#: inc/admin/metaboxes/namespace.php:199
+#: inc/admin/metaboxes/namespace.php:211
 msgid "Short Title"
-msgstr ""
+msgstr "Кратко заглавие "
 
-#: inc/admin/metaboxes/namespace.php:200
+#: inc/admin/metaboxes/namespace.php:212
 msgid ""
 "In case of long titles that might be truncated in running heads in the PDF "
 "export."
-msgstr ""
+msgstr "В случай на дълги заглавия, които могат да бъдат съкратени при експортирането на PDF. "
 
-#: inc/admin/metaboxes/namespace.php:214
+#: inc/admin/metaboxes/namespace.php:232
 msgid "Author(s)"
-msgstr ""
+msgstr "Автор(и)"
 
-#: inc/admin/metaboxes/namespace.php:218 inc/admin/metaboxes/namespace.php:230
-#: inc/admin/metaboxes/namespace.php:242 inc/admin/metaboxes/namespace.php:254
-#: inc/admin/metaboxes/namespace.php:266 inc/admin/metaboxes/namespace.php:278
-#: inc/admin/metaboxes/namespace.php:611
+#: inc/admin/metaboxes/namespace.php:236 inc/admin/metaboxes/namespace.php:248
+#: inc/admin/metaboxes/namespace.php:260 inc/admin/metaboxes/namespace.php:272
+#: inc/admin/metaboxes/namespace.php:284 inc/admin/metaboxes/namespace.php:296
+#: inc/admin/metaboxes/namespace.php:675
 msgid "Create New Contributor"
-msgstr ""
+msgstr "Създайте нов сътрудник "
 
-#: inc/admin/metaboxes/namespace.php:219 inc/admin/metaboxes/namespace.php:612
+#: inc/admin/metaboxes/namespace.php:237 inc/admin/metaboxes/namespace.php:676
 msgid "Choose author(s)..."
-msgstr ""
+msgstr "Изберете автор (и) ... "
 
-#: inc/admin/metaboxes/namespace.php:226
+#: inc/admin/metaboxes/namespace.php:244
 msgid "Editor(s)"
-msgstr ""
+msgstr "Редактор (и) "
 
-#: inc/admin/metaboxes/namespace.php:231
+#: inc/admin/metaboxes/namespace.php:249
 msgid "Choose editor(s)..."
-msgstr ""
+msgstr "Изберете редактор (и) ... "
 
-#: inc/admin/metaboxes/namespace.php:238
+#: inc/admin/metaboxes/namespace.php:256
 msgid "Translator(s)"
-msgstr ""
+msgstr "Преводач (и) "
 
-#: inc/admin/metaboxes/namespace.php:243
+#: inc/admin/metaboxes/namespace.php:261
 msgid "Choose translator(s)..."
-msgstr ""
+msgstr "Изберете преводач (и) ... "
 
-#: inc/admin/metaboxes/namespace.php:250
+#: inc/admin/metaboxes/namespace.php:268
 msgid "Reviewer(s)"
-msgstr ""
+msgstr "Рецензент (и) "
 
-#: inc/admin/metaboxes/namespace.php:255
+#: inc/admin/metaboxes/namespace.php:273
 msgid "Choose reviewer(s)..."
-msgstr ""
+msgstr "Изберете рецензент (и) ... "
 
-#: inc/admin/metaboxes/namespace.php:262
+#: inc/admin/metaboxes/namespace.php:280
 msgid "Illustrator(s)"
-msgstr ""
+msgstr "Илюстратор (и) "
 
-#: inc/admin/metaboxes/namespace.php:267
+#: inc/admin/metaboxes/namespace.php:285
 msgid "Choose illustrator(s)..."
-msgstr ""
+msgstr "Изберете илюстратор (и) ... "
 
-#: inc/admin/metaboxes/namespace.php:274
+#: inc/admin/metaboxes/namespace.php:292
 msgid "Contributor(s)"
-msgstr ""
+msgstr "Сътрудник (сътрудници) "
 
-#: inc/admin/metaboxes/namespace.php:279
+#: inc/admin/metaboxes/namespace.php:297
 msgid "Choose contributor(s)..."
-msgstr ""
+msgstr "Изберете сътрудник (сътрудници) "
 
-#: inc/admin/metaboxes/namespace.php:286
+#: inc/admin/metaboxes/namespace.php:304
 msgid "Publisher"
-msgstr ""
+msgstr "Издател "
 
-#: inc/admin/metaboxes/namespace.php:287 inc/admin/metaboxes/namespace.php:295
+#: inc/admin/metaboxes/namespace.php:305 inc/admin/metaboxes/namespace.php:316
 msgid "This text appears on the title page of your book."
-msgstr ""
+msgstr "Този текст се появява на заглавната страница на Вашата книга. "
 
-#: inc/admin/metaboxes/namespace.php:294
+#: inc/admin/metaboxes/namespace.php:315
 msgid "Publisher City"
-msgstr ""
+msgstr "Град"
 
-#: inc/admin/metaboxes/namespace.php:303
+#: inc/admin/metaboxes/namespace.php:327
 msgid "Publication Date"
-msgstr ""
+msgstr "Дата на издаване"
 
-#: inc/admin/metaboxes/namespace.php:304 inc/admin/metaboxes/namespace.php:314
+#: inc/admin/metaboxes/namespace.php:328 inc/admin/metaboxes/namespace.php:338
 msgid ""
 "This is added to the metadata in your ebook. Please write date in YYYY-MM-DD"
 " format."
-msgstr ""
+msgstr "Това се добавя към метаданните във вашата електронна книга. Моля, напишете дата във формат ГГГГ-ММ-ДД. "
 
-#: inc/admin/metaboxes/namespace.php:313
+#: inc/admin/metaboxes/namespace.php:337
 msgid "On-Sale Date"
-msgstr ""
+msgstr "Дата на пускане в продажба "
 
-#: inc/admin/metaboxes/namespace.php:322
+#: inc/admin/metaboxes/namespace.php:346
 msgid "Ebook ISBN"
-msgstr ""
+msgstr "Електронна книжка ISBN"
 
-#: inc/admin/metaboxes/namespace.php:323
+#: inc/admin/metaboxes/namespace.php:347
 msgid ""
 "ISBN is the International Standard Book Number, and you'll need one if you "
 "want to sell your book in some online ebook stores. This is added to the "
 "metadata in your ebook."
-msgstr ""
+msgstr "ISBN е международният стандартен номер на книгата и ще ви е необходим, ако искате да продадете книгата Ви в някои онлайн магазини за електронни книги. Това се добавя към метаданните във Вашата електронна книга. "
 
-#: inc/admin/metaboxes/namespace.php:330
+#: inc/admin/metaboxes/namespace.php:357
 msgid "Print ISBN"
-msgstr ""
+msgstr "ISBN - версия печат"
 
-#: inc/admin/metaboxes/namespace.php:331
+#: inc/admin/metaboxes/namespace.php:358
 msgid ""
 "ISBN is the International Standard Book Number, and you'll need one if you "
 "want to sell your book in online and physical book stores."
-msgstr ""
+msgstr "ISBN е международният стандартен номер на книгата и ще ви е необходим, ако искате да продадете книгата Ви в онлайн и физически магазини за книги. "
 
-#: inc/admin/metaboxes/namespace.php:338
+#: inc/admin/metaboxes/namespace.php:368
 msgid "Digital Object Identifier (DOI)"
-msgstr ""
+msgstr "Идентификатор на цифров обект (DOI) "
 
-#: inc/admin/metaboxes/namespace.php:347
+#: inc/admin/metaboxes/namespace.php:380
 msgid "Language"
-msgstr ""
+msgstr "Език"
 
-#: inc/admin/metaboxes/namespace.php:348
+#: inc/admin/metaboxes/namespace.php:381
 msgid ""
 "This sets metadata in your ebook, making it easier to find in some stores. "
 "It also changes some system generated content for supported languages, such "
 "as the \"Contents\" header."
-msgstr ""
+msgstr "Това задава метаданни във Вашата електронна книга, което улеснява намирането в някои магазини. Също така променя част от генерираното от системата съдържание за поддържани езици, например в рубриката „Съдържание“. "
 
-#: inc/admin/metaboxes/namespace.php:348
+#: inc/admin/metaboxes/namespace.php:381
 msgid "Help translate Pressbooks into your language!"
-msgstr ""
+msgstr "Помогнете да преведем платформата на Вашия език! "
 
-#: inc/admin/metaboxes/namespace.php:355 inc/class-licensing.php:306
-#: inc/modules/export/epub/class-epub201.php:1135
-#: inc/modules/export/epub/class-epub201.php:1161
+#: inc/admin/metaboxes/namespace.php:388 inc/class-licensing.php:306
+#: inc/modules/export/epub/class-epub201.php:1130
+#: inc/modules/export/epub/class-epub201.php:1156
 #: inc/modules/export/epub/templates/epub3/opf.php:95
 #: inc/modules/export/epub/templates/epub201/opf.php:88
 #: inc/modules/export/htmlbook/class-htmlbook.php:863
-#: inc/modules/export/xhtml/class-xhtml11.php:1042
+#: inc/modules/export/xhtml/class-xhtml11.php:1059
 msgid "Copyright"
 msgstr "Авторско право"
 
-#: inc/admin/metaboxes/namespace.php:368 templates/admin/cloner.php:20
+#: inc/admin/metaboxes/namespace.php:401 templates/admin/cloner.php:20
 msgid "Source Book URL"
-msgstr ""
+msgstr "URL адрес на изходната книга "
 
-#: inc/admin/metaboxes/namespace.php:370
+#: inc/admin/metaboxes/namespace.php:403
 msgid ""
 "This book was cloned from a pre-existing book at the above URL. This "
 "information will be displayed on the webbook homepage."
-msgstr ""
+msgstr "Тази книга е клонирана от вече съществуваща книга на горния URL адрес. Тази информация ще бъде показана на началната страница на уеб книгата. "
 
-#: inc/admin/metaboxes/namespace.php:380
+#: inc/admin/metaboxes/namespace.php:413
 msgid "Copyright Year"
-msgstr ""
+msgstr "Copyright Година"
 
-#: inc/admin/metaboxes/namespace.php:381
+#: inc/admin/metaboxes/namespace.php:414
 msgid "Year that the book is/was published."
-msgstr ""
+msgstr "Година, в която книгата е / е била публикувана. "
 
-#: inc/admin/metaboxes/namespace.php:389
+#: inc/admin/metaboxes/namespace.php:426
 msgid "Copyright Holder"
-msgstr ""
+msgstr "Притежател на авторски права "
 
-#: inc/admin/metaboxes/namespace.php:390
+#: inc/admin/metaboxes/namespace.php:427
 msgid "Name of the copyright holder."
-msgstr ""
+msgstr "Име на притежателя на авторските права. "
 
-#: inc/admin/metaboxes/namespace.php:399
+#: inc/admin/metaboxes/namespace.php:439
 msgid "Copyright License"
-msgstr ""
+msgstr "Лиценз за авторски права "
 
-#: inc/admin/metaboxes/namespace.php:400
+#: inc/admin/metaboxes/namespace.php:440
 msgid "You can select various licenses including Creative Commons."
-msgstr ""
+msgstr "Можете да изберете различни лицензи, включително Creative Commons. "
 
-#: inc/admin/metaboxes/namespace.php:408
+#: inc/admin/metaboxes/namespace.php:448
 msgid "Copyright Notice"
-msgstr ""
+msgstr "Известие за авторски права "
 
-#: inc/admin/metaboxes/namespace.php:409
+#: inc/admin/metaboxes/namespace.php:449
 msgid ""
 "Enter a custom copyright notice, with whatever information you like. This "
 "will override the auto-generated copyright notice if All Rights Reserved or "
 "no license is selected, and will be inserted after the title page. If you "
 "select a Creative Commons license, the custom notice will appear after the "
 "license text in both the webbook and your exports."
-msgstr ""
+msgstr "Въведете персонализирано известие за авторски права, с каквато информация харесвате. Това ще замени автоматично генерираното известие за авторските права, (ако са избрани \"Всички права запазени\" или \"няма лиценз\"), и ще бъде вмъкнато след заглавната страница. Ако изберете лиценз на Creative Commons, персонализираното известие ще се появи след текста на лиценза както в уеб книгата, така и във вашия eкспортиран файл."
 
-#: inc/admin/metaboxes/namespace.php:418
+#: inc/admin/metaboxes/namespace.php:458
 msgid "About the Book"
-msgstr ""
+msgstr "Относно книгата "
 
-#: inc/admin/metaboxes/namespace.php:426
+#: inc/admin/metaboxes/namespace.php:466
 msgid "Book Tagline"
-msgstr ""
+msgstr "Резервирайте слоган "
 
-#: inc/admin/metaboxes/namespace.php:427
+#: inc/admin/metaboxes/namespace.php:467
 msgid ""
 "A very short description of your book. It should fit in a Twitter post, and "
 "encapsulate your book in the briefest sentence."
-msgstr ""
+msgstr "Много кратко описание на вашата книга. Той трябва да се побере в публикация в Twitter и да опише Вашата книга в най-краткото изречение. "
 
-#: inc/admin/metaboxes/namespace.php:435
+#: inc/admin/metaboxes/namespace.php:478
 msgid "Short Description"
-msgstr ""
+msgstr "Кратко описание"
 
-#: inc/admin/metaboxes/namespace.php:436
+#: inc/admin/metaboxes/namespace.php:479
 msgid ""
 "A short paragraph about your book, for catalogs, reviewers etc. to quote."
-msgstr ""
+msgstr "Кратък абзац за Вашата книга, за да се цитира в каталози, рецензенти и др. "
 
-#: inc/admin/metaboxes/namespace.php:447
+#: inc/admin/metaboxes/namespace.php:490
 msgid "Long Description"
-msgstr ""
+msgstr "Дълго описание "
 
-#: inc/admin/metaboxes/namespace.php:448
+#: inc/admin/metaboxes/namespace.php:491
 msgid "The full description of your book."
-msgstr ""
+msgstr "Пълното описание на вашата книга. "
 
-#: inc/admin/metaboxes/namespace.php:455
+#: inc/admin/metaboxes/namespace.php:498
 msgid "Subject(s)"
-msgstr ""
+msgstr "Тема (и) "
 
-#: inc/admin/metaboxes/namespace.php:460
+#: inc/admin/metaboxes/namespace.php:503
 msgid "Additional Catalog Information"
-msgstr ""
+msgstr "Допълнителна информация за каталога "
 
-#: inc/admin/metaboxes/namespace.php:468
+#: inc/admin/metaboxes/namespace.php:511
 msgid "Series Title"
-msgstr ""
+msgstr "Заглавие на поредицата "
 
-#: inc/admin/metaboxes/namespace.php:469 inc/admin/metaboxes/namespace.php:477
+#: inc/admin/metaboxes/namespace.php:512 inc/admin/metaboxes/namespace.php:523
 msgid "Add if your book is part of a series."
-msgstr ""
+msgstr "Добавете, ако Вашата книга е част от поредица. "
 
-#: inc/admin/metaboxes/namespace.php:476
+#: inc/admin/metaboxes/namespace.php:522
 msgid "Series Number"
-msgstr ""
+msgstr "Сериен номер "
 
-#: inc/admin/metaboxes/namespace.php:484
+#: inc/admin/metaboxes/namespace.php:533
 msgid "Keywords"
-msgstr ""
+msgstr "Ключови думи "
 
-#: inc/admin/metaboxes/namespace.php:486
+#: inc/admin/metaboxes/namespace.php:535
 msgid ""
 "These are added to your webbook cover page, and in your ebook metadata. "
 "Keywords are used by online book stores and search engines."
-msgstr ""
+msgstr "Те се добавят към основната страница на Вашата уеб книга и към метаданните на електронната Ви книга. Ключовите думи се използват от онлайн магазините за книги и търсачките. "
 
-#: inc/admin/metaboxes/namespace.php:493
+#: inc/admin/metaboxes/namespace.php:542
 msgid "Hashtag"
-msgstr ""
+msgstr "Хаштаг"
 
-#: inc/admin/metaboxes/namespace.php:494
+#: inc/admin/metaboxes/namespace.php:543
 msgid ""
 "These are added to your webbook cover page. For those of you who like "
 "Twitter."
-msgstr ""
+msgstr "Те се добавят към обложката на Вашата уеб книга. За тези от вас, които харесват Twitter. "
 
-#: inc/admin/metaboxes/namespace.php:501
+#: inc/admin/metaboxes/namespace.php:553
 msgid "List Price (Print)"
-msgstr ""
-
-#: inc/admin/metaboxes/namespace.php:502
-msgid "The list price of your book in print."
-msgstr ""
-
-#: inc/admin/metaboxes/namespace.php:509
-msgid "List Price (PDF)"
-msgstr ""
-
-#: inc/admin/metaboxes/namespace.php:510
-msgid "The list price of your book in PDF format."
-msgstr ""
-
-#: inc/admin/metaboxes/namespace.php:517
-msgid "List Price (ebook)"
-msgstr ""
-
-#: inc/admin/metaboxes/namespace.php:518
-msgid "The list price of your book in Ebook formats."
-msgstr ""
-
-#: inc/admin/metaboxes/namespace.php:525
-msgid "List Price (Web)"
-msgstr ""
-
-#: inc/admin/metaboxes/namespace.php:526
-msgid "The list price of your webbook."
-msgstr ""
-
-#: inc/admin/metaboxes/namespace.php:535
-msgid "Choose an audience&hellip;"
-msgstr ""
-
-#: inc/admin/metaboxes/namespace.php:536
-msgid "Juvenile"
-msgstr ""
-
-#: inc/admin/metaboxes/namespace.php:537
-msgid "Young Adult"
-msgstr ""
-
-#: inc/admin/metaboxes/namespace.php:538
-msgid "Adult"
-msgstr ""
-
-#: inc/admin/metaboxes/namespace.php:540
-msgid "Audience"
-msgstr ""
-
-#: inc/admin/metaboxes/namespace.php:541
-msgid "The target audience for your book."
-msgstr ""
+msgstr "Каталожна цена (Печат) "
 
 #: inc/admin/metaboxes/namespace.php:554
-msgid "BISAC Subject(s)"
-msgstr ""
+msgid "The list price of your book in print."
+msgstr "Каталожната цена на вашата книга в печат. "
 
-#: inc/admin/metaboxes/namespace.php:556
+#: inc/admin/metaboxes/namespace.php:564
+msgid "List Price (PDF)"
+msgstr "Каталожна цена (PDF) "
+
+#: inc/admin/metaboxes/namespace.php:565
+msgid "The list price of your book in PDF format."
+msgstr "Каталожната цена на вашата книга в PDF формат. "
+
+#: inc/admin/metaboxes/namespace.php:575
+msgid "List Price (ebook)"
+msgstr "Каталожна цена (електронна книга) "
+
+#: inc/admin/metaboxes/namespace.php:576
+msgid "The list price of your book in Ebook formats."
+msgstr "Каталожната цена на вашата книга във формати Ebook. "
+
+#: inc/admin/metaboxes/namespace.php:586
+msgid "List Price (Web)"
+msgstr "Каталожна цена (уеб) "
+
+#: inc/admin/metaboxes/namespace.php:587
+msgid "The list price of your webbook."
+msgstr "Каталожната цена на вашата уеб книга. "
+
+#: inc/admin/metaboxes/namespace.php:599
+msgid "Choose an audience&hellip;"
+msgstr "Изберете аудитория audience&hellip;"
+
+#: inc/admin/metaboxes/namespace.php:600
+msgid "Juvenile"
+msgstr "Непълнолетни "
+
+#: inc/admin/metaboxes/namespace.php:601
+msgid "Young Adult"
+msgstr "Възрастни до 40 г."
+
+#: inc/admin/metaboxes/namespace.php:602
+msgid "Adult"
+msgstr "Възрастни над 40 г."
+
+#: inc/admin/metaboxes/namespace.php:604
+msgid "Audience"
+msgstr "Публика"
+
+#: inc/admin/metaboxes/namespace.php:605
+msgid "The target audience for your book."
+msgstr "Целевата аудитория за Вашата книга. "
+
+#: inc/admin/metaboxes/namespace.php:618
+msgid "BISAC Subject(s)"
+msgstr "Код(ове) BISAC "
+
+#: inc/admin/metaboxes/namespace.php:620
 msgid ""
 "BISAC Subject Headings help libraries and (e)book stores properly classify "
 "your book. To select the appropriate subject heading for your book, consult "
 "%s"
-msgstr ""
+msgstr "Тематичните заглавия на BISAC помагат на библиотеките и (е) книжарниците да класифицират правилно Вашата книга. За да изберете подходящото заглавие на темата за Вашата книга, консултирайте се %s"
 
-#: inc/admin/metaboxes/namespace.php:556
+#: inc/admin/metaboxes/namespace.php:620
 msgid "the BISAC Subject Headings list"
-msgstr ""
+msgstr "Списъка с кодове на BISAC "
 
-#: inc/admin/metaboxes/namespace.php:570
+#: inc/admin/metaboxes/namespace.php:634
 msgid "BISAC Regional Theme"
-msgstr ""
+msgstr "Регионална тема на BISAC "
 
-#: inc/admin/metaboxes/namespace.php:571
+#: inc/admin/metaboxes/namespace.php:635
 msgid ""
 "BISAC Regional Themes help libraries and (e)book stores properly classify "
 "your book."
-msgstr ""
+msgstr "Регионалните теми на BISAC помагат на библиотеките и (е) книжарниците да класифицират правилно Вашата книга. "
 
-#: inc/admin/metaboxes/namespace.php:581
+#: inc/admin/metaboxes/namespace.php:645
 #: inc/api/endpoints/controller/class-toc.php:209 inc/class-sass.php:78
 #: inc/modules/themeoptions/class-globaloptions.php:533
 #: inc/posttype/namespace.php:64 inc/posttype/namespace.php:535
@@ -1571,208 +1573,208 @@ msgstr ""
 msgid "Chapter"
 msgstr "Глава"
 
-#: inc/admin/metaboxes/namespace.php:586
+#: inc/admin/metaboxes/namespace.php:650
 msgid "%s Metadata"
-msgstr ""
+msgstr "%s Метаданни"
 
-#: inc/admin/metaboxes/namespace.php:593
+#: inc/admin/metaboxes/namespace.php:657
 msgid ""
 "%s Short Title (appears in the PDF running header and webbook navigation)"
-msgstr ""
+msgstr "%s Кратко заглавие (появява се в PDF заглавието и навигацията в уеб книгата) "
 
-#: inc/admin/metaboxes/namespace.php:600
+#: inc/admin/metaboxes/namespace.php:664
 msgid "%s Subtitle (appears in the Web/ebook/PDF output)"
-msgstr ""
+msgstr "%s Подзаглавие (появява се в уеб / ebook / PDF четвърта корица) "
 
-#: inc/admin/metaboxes/namespace.php:607
+#: inc/admin/metaboxes/namespace.php:671
 msgid "%s Author(s)"
-msgstr ""
+msgstr "%s Автор (и)"
 
-#: inc/admin/metaboxes/namespace.php:621
+#: inc/admin/metaboxes/namespace.php:685
 msgid "%s Copyright License (overrides book license on this page)"
-msgstr ""
+msgstr "%s Лиценз за авторски права (заменя лиценза за книга на тази страница) "
 
-#: inc/admin/metaboxes/namespace.php:628
+#: inc/admin/metaboxes/namespace.php:692
 msgid "%s Digital Object Identifier (DOI)"
-msgstr ""
+msgstr "%s Идентификатор на цифров обект (DOI) "
 
-#: inc/admin/metaboxes/namespace.php:648
+#: inc/admin/metaboxes/namespace.php:712
 msgid ""
 "Appears on part page. Parts will not appear if a book has only one part."
-msgstr ""
+msgstr "Появява се на страничната част. Частите няма да се появят, ако книгата има само една част. "
 
-#: inc/admin/metaboxes/namespace.php:656
+#: inc/admin/metaboxes/namespace.php:720
 msgid "Part Visibility"
-msgstr ""
+msgstr "Видимост на частите"
 
-#: inc/admin/metaboxes/namespace.php:666
+#: inc/admin/metaboxes/namespace.php:730
 msgid "Invisible"
-msgstr ""
+msgstr "Невидим режим"
 
-#: inc/admin/metaboxes/namespace.php:667
+#: inc/admin/metaboxes/namespace.php:731
 msgid "Hide from table of contents and part numbering."
-msgstr ""
+msgstr "Скриване от съдържанието и номерацията на частите. "
 
-#: inc/admin/metaboxes/namespace.php:823
+#: inc/admin/metaboxes/namespace.php:887
 msgid "Show in Glossary Lists"
-msgstr ""
+msgstr "Показване в списъци с речници "
 
-#: inc/admin/metaboxes/namespace.php:834
+#: inc/admin/metaboxes/namespace.php:898
 msgid "Preview"
-msgstr ""
+msgstr "Преглед "
 
 #. translators: accessibility text
-#: inc/admin/metaboxes/namespace.php:836
+#: inc/admin/metaboxes/namespace.php:900
 msgid "(opens in a new window)"
-msgstr ""
+msgstr "(отваря се в нов прозорец) "
 
-#: inc/admin/metaboxes/namespace.php:845 templates/admin/organize.php:134
+#: inc/admin/metaboxes/namespace.php:909 templates/admin/organize.php:134
 #: templates/admin/organize.php:237 templates/admin/organize.php:293
 #: templates/admin/organize.php:395
 msgid "Show in Web"
-msgstr ""
+msgstr "Показване в мрежата "
 
-#: inc/admin/metaboxes/namespace.php:849
+#: inc/admin/metaboxes/namespace.php:913
 msgid "Require a Password"
-msgstr ""
+msgstr "Изискване на парола "
 
-#: inc/admin/metaboxes/namespace.php:850
+#: inc/admin/metaboxes/namespace.php:914
 msgid "Password..."
-msgstr ""
+msgstr "Парола ... "
 
-#: inc/admin/metaboxes/namespace.php:854 templates/admin/organize.php:142
+#: inc/admin/metaboxes/namespace.php:918 templates/admin/organize.php:142
 #: templates/admin/organize.php:241 templates/admin/organize.php:301
 #: templates/admin/organize.php:399
 msgid "Show in Exports"
-msgstr ""
+msgstr "Показване в Експорти"
 
-#: inc/admin/metaboxes/namespace.php:858 templates/admin/organize.php:149
+#: inc/admin/metaboxes/namespace.php:922 templates/admin/organize.php:149
 #: templates/admin/organize.php:245 templates/admin/organize.php:309
 #: templates/admin/organize.php:403
 msgid "Show Title"
-msgstr ""
+msgstr "Показване на заглавието "
 
-#: inc/admin/metaboxes/namespace.php:1042
+#: inc/admin/metaboxes/namespace.php:1106
 msgid "Primary Subject"
-msgstr ""
+msgstr "Основен предмет "
 
-#: inc/admin/metaboxes/namespace.php:1046
+#: inc/admin/metaboxes/namespace.php:1110
 msgid ""
 "%1$s subject terms appear on the web homepage of your book and help "
 "categorize your book in your network catalog and Pressbooks Directory (if "
 "applicable). Use %2$s to determine which subject category is best for your "
 "book."
-msgstr ""
+msgstr "%1$s  тематични термини се появяват на уеб страницата на Вашата книга и помагат за категоризирането й в мрежовия ви каталог и в директорията на пресата (ако е приложимо). Използвайте %2$s, за да определите коя тема е най-подходяща за Вашата книга."
 
-#: inc/admin/metaboxes/namespace.php:1046
-#: inc/admin/metaboxes/namespace.php:1059
+#: inc/admin/metaboxes/namespace.php:1110
+#: inc/admin/metaboxes/namespace.php:1123
 msgid "Thema"
-msgstr ""
+msgstr "Тема"
 
-#: inc/admin/metaboxes/namespace.php:1046
-#: inc/admin/metaboxes/namespace.php:1059
+#: inc/admin/metaboxes/namespace.php:1110
+#: inc/admin/metaboxes/namespace.php:1123
 msgid "the Thema subject category list"
-msgstr ""
+msgstr "Списъка на категориите теми "
 
-#: inc/admin/metaboxes/namespace.php:1049
+#: inc/admin/metaboxes/namespace.php:1113
 msgid "Additional Subject(s)"
-msgstr ""
+msgstr "Допълнителна тема(и)"
 
-#: inc/admin/metaboxes/namespace.php:1059
+#: inc/admin/metaboxes/namespace.php:1123
 msgid ""
 "%1$s subject terms appear on the web homepage of your book and help "
 "categorize your book in your network catalog and Pressbooks Directory (if "
 "applicable). Use %2$s to determine which additional subject categories are "
 "appropriate for your book."
-msgstr ""
+msgstr "%1$s тематични термини се появяват на уеб страницата на Вашата книга и помагат за категоризирането на книгата Ви в мрежовия каталог и справочника на Платформата (ако е приложимо). Използвайте,  %2$s за да определите кои допълнителни теми са подходящи за Вашата книга."
 
-#: inc/admin/metaboxes/namespace.php:1143
-#: inc/admin/metaboxes/namespace.php:1165
+#: inc/admin/metaboxes/namespace.php:1207
+#: inc/admin/metaboxes/namespace.php:1229
 msgid "First Name"
-msgstr ""
+msgstr "Първо име"
 
-#: inc/admin/metaboxes/namespace.php:1148
-#: inc/admin/metaboxes/namespace.php:1172
+#: inc/admin/metaboxes/namespace.php:1212
+#: inc/admin/metaboxes/namespace.php:1236
 msgid "Last Name"
-msgstr ""
+msgstr "Фамилия"
 
-#: inc/admin/metaboxes/namespace.php:1214
+#: inc/admin/metaboxes/namespace.php:1278
 msgid "Name cannot be left blank."
-msgstr ""
+msgstr "Името не може да остане празно. "
 
-#: inc/admin/metaboxes/namespace.php:1248
+#: inc/admin/metaboxes/namespace.php:1312
 msgid "Owner"
-msgstr ""
+msgstr "Собственик "
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:75
 msgid "Allow Redistribution"
-msgstr ""
+msgstr "Разрешаване на редистрибуция"
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:81
 msgid "Allow book administrators to enable redistribution of export files."
-msgstr ""
+msgstr "Позволете на администраторите на книги да разрешат редистрибуция на файлове за експортиране. "
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:87
 msgid "Enable network API"
-msgstr ""
+msgstr "Активирайте мрежовия API "
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:93
 msgid "Enable access to your network of books via the Pressbooks REST API."
-msgstr ""
+msgstr "Активирайте достъпа до Вашата мрежа от книги чрез API REST. "
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:99
 msgid "Enable Cloning"
-msgstr ""
+msgstr "Активирайте клонирането "
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:105
 msgid "Enable book cloning via the Pressbooks REST API."
-msgstr ""
+msgstr "Активирайте клонирането на книги чрез API REST. "
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:111
 msgid "Enable CC with Weblinks"
-msgstr ""
+msgstr "Активирайте CC с уеб връзки "
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:117
 msgid "Allow users to produce Common Cartridge exports with simple Web Links."
-msgstr ""
+msgstr "Позволете на потребителите да генерират Common Cartridge уеб връзки-линкове. "
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:123
 msgid "Book directory"
-msgstr ""
+msgstr "Директория с книги"
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:129
 msgid "Exclude non-catalogued public books from Pressbooks Directory."
-msgstr ""
+msgstr "Изключете книгите с публичен достъп, които не са каталогизирани, от Директория на платформата. "
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:135
 msgid "Iframe Allowlist"
-msgstr ""
+msgstr "Iframe Allowlist"
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:140
 msgid ""
 "To allowlist all content from a domain: <code>guide.pressbooks.com</code> To"
 " allowlist a path: <code>//guide.pressbooks.com/some/path/</code> One per "
 "line."
-msgstr ""
+msgstr "To allowlist all content from a domain: <code>guide.pressbooks.com</code> To allowlist a path: <code>//guide.pressbooks.com/some/path/</code> One per line.\nЗа да позволите списък на цялото съдържание от домейн: guide.pressbooks.com За да позволите списък с път: //guide.pressbooks.com/some/path/ Един на ред. "
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:156
 msgid "Sharing and Privacy settings."
-msgstr ""
+msgstr "Настройки за споделяне и поверителност. "
 
 #: inc/admin/networkmanagers/namespace.php:18
 #: inc/admin/networkmanagers/namespace.php:19
 msgid "Network Managers"
-msgstr ""
+msgstr "Мрежови мениджъри "
 
 #: inc/admin/networkmanagers/namespace.php:113
 msgid "Pressbooks Network Managers"
-msgstr ""
+msgstr "Мениджъри на мрежи за книги от платформата"
 
 #: inc/admin/networkmanagers/namespace.php:115
 msgid ""
 "Network administrators&rsquo; access to network administration menus can be "
 "restricted to leave only sites and users visible to them."
-msgstr ""
+msgstr "Мрежови администратори&rsquo; достъпът до менютата за мрежова администрация може да бъде ограничен, за да останат видими само сайтове и потребители, до които имат права на достъп."
 
 #: inc/admin/plugins/namespace.php:94
 msgid ""
@@ -1781,127 +1783,127 @@ msgid ""
 "plugin also includes an advanced setting which allows users to create and "
 "display SVG files, a format that may carry a higher security risk than other"
 " image formats."
-msgstr ""
+msgstr "Моля, имайте предвид, че всяко съдържание, предоставено чрез отдалечена услуга на трета страна, като WP QuickLaTeX, може да не заслужава доверие. Приставката WP QuickLaTeX също включва усъвършенствана настройка, която позволява на потребителите да създават и показват SVG файлове, формат, който може да носи по-висок риск за сигурността от другите формати на изображения. "
 
 #: inc/admin/users/class-userbulk.php:61 inc/admin/users/class-userbulk.php:62
 msgid "Bulk Add"
-msgstr ""
+msgstr "Групово добавяне "
 
 #: inc/admin/users/class-userbulk.php:164
 msgid "Invalid email address"
-msgstr ""
+msgstr "Невалиден имейл адрес"
 
 #: inc/admin/users/class-userbulk.php:238
 msgid "The following user(s) could not be added."
-msgstr ""
+msgstr "Следният потребител(и) не могат да бъдат добавени. "
 
 #: inc/admin/users/class-userbulk.php:241
 msgid "User(s) successfully added to this book."
-msgstr ""
+msgstr "Потребител(и) са добавени успешно към тази книга. "
 
 #: inc/admin/users/class-userbulk.php:244
 msgid ""
 "An invitation email has been sent to the user(s) below. A confirmation link "
 "must be clicked before their account is created."
-msgstr ""
+msgstr "Имейл с покана е изпратен на потребителя (ите) по-долу. Преди да бъде създаден акаунтът трябва да се щракне върху връзка за потвърждение. "
 
 #: inc/api/endpoints/controller/class-books.php:127
 #: inc/api/endpoints/controller/class-toc.php:151
 #: inc/api/endpoints/controller/class-toc.php:164
 #: inc/api/endpoints/controller/class-toc.php:177
 msgid "Metadata"
-msgstr ""
+msgstr "Метаданни "
 
 #: inc/api/endpoints/controller/class-books.php:153
 msgid "ID offset, overrides page."
-msgstr ""
+msgstr "Изместване на идентификатора, заменя страницата."
 
 #: inc/api/endpoints/controller/class-metadata.php:459
 #: inc/api/endpoints/controller/class-sectionmetadata.php:423
 msgid ""
 "URL of a reference Web page that unambiguously indicates the item's "
 "identity."
-msgstr ""
+msgstr "URL на справочна уеб страница, която недвусмислено идентифицира книгата. "
 
 #: inc/api/endpoints/controller/class-toc.php:98
 msgid "Comment count"
-msgstr ""
+msgstr "Брой коментари "
 
 #: inc/api/endpoints/controller/class-toc.php:123
 msgid "Include in exports."
-msgstr ""
+msgstr "Включете в експорта. "
 
 #: inc/api/endpoints/controller/class-toc.php:129
 msgid "Has post content, the content field is not empty."
-msgstr ""
+msgstr "Има съдържание на публикация, полето за съдържание не е празно. "
 
 #: inc/api/endpoints/controller/class-toc.php:134
 msgid "Word count."
-msgstr ""
+msgstr "Брой думи."
 
 #: inc/api/namespace.php:71
 msgid "Part ID."
-msgstr ""
+msgstr "Идентификатор на част. "
 
 #: inc/api/namespace.php:195
 msgid "Invalid batch parameter(s)."
-msgstr ""
+msgstr "Невалиден партиден параметър(и)."
 
 #: inc/api/namespace.php:362
 msgid "Part does not exist"
-msgstr ""
+msgstr "Част не съществува "
 
 #: inc/api/namespace.php:369
 msgid "ID is not a part"
-msgstr ""
+msgstr "ID не е част"
 
 #: inc/api/namespace.php:383
 msgid "Failed to update chapter part"
-msgstr ""
+msgstr "Актуализирането на част от глава не бе успешно "
 
 #: inc/class-activation.php:205
 msgid "Main Body"
-msgstr ""
+msgstr "Основно тяло"
 
 #: inc/class-activation.php:211 tests/test-book.php:50
 msgid "Introduction"
-msgstr ""
+msgstr "Въведение"
 
 #: inc/class-activation.php:213 tests/test-book.php:101
 msgid "This is where you can write your introduction."
-msgstr ""
+msgstr "Тук можете да напишете своето въведение. "
 
 #: inc/class-activation.php:218
 msgid "Chapter 1"
-msgstr ""
+msgstr "Глава 1"
 
 #: inc/class-activation.php:220
 msgid ""
 "This is the first chapter in the main body of the text. You can change the "
 "text, rename the chapter, add new chapters, and add new parts."
-msgstr ""
+msgstr "Това е първата глава в основната част на текста. Можете да промените текста, да преименувате главата, да добавите нови глави и да добавите нови части. "
 
 #: inc/class-activation.php:225
 msgid "Appendix"
-msgstr ""
+msgstr "Приложение "
 
 #: inc/class-activation.php:227
 msgid "This is where you can add appendices or other back matter."
-msgstr ""
+msgstr "Това е мястото, където можете да добавяте приложения или други въпроси. "
 
 #: inc/class-activation.php:233 templates/admin/organize.php:123
 #: templates/admin/organize.php:210 templates/admin/organize.php:284
 #: templates/admin/organize.php:369 tests/test-cloner.php:53
 msgid "Authors"
-msgstr ""
+msgstr "Автори "
 
 #: inc/class-activation.php:253
 msgid "Buy"
-msgstr ""
+msgstr "Купи"
 
 #: inc/class-activation.php:258
 msgid "Access Denied"
-msgstr ""
+msgstr "Отказан достъп "
 
 #: inc/class-activation.php:260
 msgid ""
@@ -1909,52 +1911,52 @@ msgid ""
 "an account you can login <a href=\"/wp-login.php\">here</a>. You can also "
 "set up your own Pressbooks book at: <a "
 "href=\"http://pressbooks.com\">Pressbooks.com</a>."
-msgstr ""
+msgstr "Тази книга е частна и достъпна само за регистрирани потребители. Ако имате акаунт, можете да влезете <a href=\"/wp-login.php\">оттук</a>. Можете също така да създадете своя собствена книга тук: <a href=\"http://pressbooks.com\">Pressbooks.com</a>."
 
 #: inc/class-activation.php:265 inc/class-customcss.php:95
 msgid "Custom CSS for Ebook"
-msgstr ""
+msgstr "Персонализиран CSS за електронна книга "
 
 #: inc/class-activation.php:270 inc/class-customcss.php:100
 msgid "Custom CSS for PDF"
-msgstr ""
+msgstr "Персонализиран CSS за PDF "
 
 #: inc/class-activation.php:275 inc/class-customcss.php:105
 msgid "Custom CSS for Web"
-msgstr ""
+msgstr "Персонализиран CSS за уеб "
 
 #: inc/class-activation.php:281 inc/posttype/namespace.php:165
 #: inc/posttype/namespace.php:166 inc/posttype/namespace.php:529
 #: templates/admin/import.php:118
 msgid "Book Information"
-msgstr ""
+msgstr "Информация за книгата "
 
 #: inc/class-activation.php:312
 msgid "Default Data"
-msgstr ""
+msgstr "Данни по подразбиране "
 
 #: inc/class-catalog.php:823
 msgid "Catalog Logo"
-msgstr ""
+msgstr "Каталог - лого "
 
 #: inc/class-catalog.php:1180 inc/class-catalog.php:1235
 #: inc/class-catalog.php:1283 templates/admin/catalog.php:19
 msgid "You do not have permission to do that."
-msgstr ""
+msgstr "Нямате разрешение за това. "
 
 #: inc/class-catalog.php:1330
 msgid "Invalid URL."
-msgstr ""
+msgstr "Невалиден адрес."
 
 #: inc/class-catalog.php:1350
 msgid "No book found."
-msgstr ""
+msgstr "Не е намерена книга."
 
 #: inc/class-eventstreams.php:197
 msgid ""
 "Cloning succeeded! Cloned %1$s, %2$s, %3$s, %4$s, %5$s, %6$s, %7$s, and %8$s"
 " to %9$s."
-msgstr ""
+msgstr "Клонирането е успешно! Клонирани са %1$s, %2$s, %3$s, %4$s, %5$s, %6$s, %7$s, и %8$s до %9$s."
 
 #: inc/class-eventstreams.php:198
 msgid "%s term"
@@ -2012,19 +2014,19 @@ msgstr[1] ""
 
 #: inc/class-eventstreams.php:227
 msgid "No export format was selected."
-msgstr ""
+msgstr "Не е избран формат за експортиране. "
 
 #: inc/class-eventstreams.php:271
 msgid "No chapters were selected for import."
-msgstr ""
+msgstr "Не са избрани глави за импортиране."
 
 #: inc/class-eventstreams.php:295
 msgid "You do not have sufficient permissions to access this page."
-msgstr ""
+msgstr "Нямате права за достъп до тази страница. "
 
 #: inc/class-globaltypography.php:40
 msgid "Adlam"
-msgstr ""
+msgstr "Адлам"
 
 #: inc/class-globaltypography.php:41
 msgid "Ancient Greek"
@@ -2040,19 +2042,19 @@ msgstr "Арабски"
 
 #: inc/class-globaltypography.php:44
 msgid "Bengali"
-msgstr ""
+msgstr "Бенгали"
 
 #: inc/class-globaltypography.php:45
 msgid "Biblical Hebrew"
-msgstr ""
+msgstr "Библейски иврит "
 
 #: inc/class-globaltypography.php:46
 msgid "Canadian Indigenous Syllabics"
-msgstr ""
+msgstr "Канадски местни срички "
 
 #: inc/class-globaltypography.php:47
 msgid "Devanagari (Hindi and Sanskrit)"
-msgstr ""
+msgstr "Деванагари (хинди и санскрит) "
 
 #: inc/class-globaltypography.php:48
 msgid "Chinese (Simplified)"
@@ -2064,15 +2066,15 @@ msgstr "Традиционен китайски"
 
 #: inc/class-globaltypography.php:50
 msgid "Coptic"
-msgstr ""
+msgstr "Коптски език"
 
 #: inc/class-globaltypography.php:51
 msgid "Gujarati"
-msgstr ""
+msgstr "Гуджарат"
 
 #: inc/class-globaltypography.php:52
 msgid "Punjabi (Gurmukhi)"
-msgstr ""
+msgstr "Пенджаби (Гурмукхи)"
 
 #: inc/class-globaltypography.php:53
 msgid "Japanese"
@@ -2080,39 +2082,39 @@ msgstr "Японски"
 
 #: inc/class-globaltypography.php:54
 msgid "Kannada"
-msgstr ""
+msgstr "Каннада език"
 
 #: inc/class-globaltypography.php:55
 msgid "Korean"
-msgstr ""
+msgstr "Корейски"
 
 #: inc/class-globaltypography.php:56
 msgid "Malayalam"
-msgstr ""
+msgstr "Малаялам"
 
 #: inc/class-globaltypography.php:57
 msgid "Musical Notation"
-msgstr ""
+msgstr "Музикална нотация "
 
 #: inc/class-globaltypography.php:58
 msgid "N'Ko"
-msgstr ""
+msgstr "N'Ko западноафрикански писмен език"
 
 #: inc/class-globaltypography.php:59
 msgid "Odia"
-msgstr ""
+msgstr "Одия индоарийски език"
 
 #: inc/class-globaltypography.php:60
 msgid "Syriac"
-msgstr ""
+msgstr "Сирийски език"
 
 #: inc/class-globaltypography.php:61
 msgid "Tamil"
-msgstr ""
+msgstr "Тамилският език"
 
 #: inc/class-globaltypography.php:62
 msgid "Telugu"
-msgstr ""
+msgstr "Те́лугу"
 
 #: inc/class-globaltypography.php:63
 msgid "Tibetan"
@@ -2124,7 +2126,7 @@ msgstr "Турски"
 
 #: inc/class-globaltypography.php:449
 msgid "Your %1$s font could not be downloaded from %2$s."
-msgstr ""
+msgstr "Шрифтът Ви %1$s не можа да бъде изтеглен от %2$s."
 
 #: inc/class-licensing.php:56
 msgid "Public Domain"
@@ -2132,76 +2134,76 @@ msgstr "Публичен домейн"
 
 #: inc/class-licensing.php:66
 msgid "CC0 (Creative Commons Zero)"
-msgstr ""
+msgstr "CC0 (Creative Commons Zero) "
 
 #: inc/class-licensing.php:76
 msgid "CC BY (Attribution)"
-msgstr ""
+msgstr "CC BY (с Цитиране)"
 
 #: inc/class-licensing.php:77
 msgid "Creative Commons Attribution 4.0 International License"
-msgstr ""
+msgstr "Creative Commons Attribution 4.0 Интернационален Лиценз "
 
 #: inc/class-licensing.php:87
 msgid "CC BY-SA (Attribution ShareAlike)"
-msgstr ""
+msgstr "CC BY-SA (Цитиране ShareAlike) "
 
 #: inc/class-licensing.php:88
 msgid "Creative Commons Attribution-ShareAlike 4.0 International License"
-msgstr ""
+msgstr "Creative Commons Attribution-ShareAlike 4.0 Интернационален Лиценз"
 
 #: inc/class-licensing.php:98
 msgid "CC BY-ND (Attribution NoDerivatives)"
-msgstr ""
+msgstr "CC BY-ND (Attribution NoDerivatives) "
 
 #: inc/class-licensing.php:99
 msgid "Creative Commons Attribution-NoDerivatives 4.0 International License"
-msgstr ""
+msgstr "Creative Commons Attribution-NoDerivatives 4.0 Интернационален Лиценз"
 
 #: inc/class-licensing.php:109
 msgid "CC BY-NC (Attribution NonCommercial)"
-msgstr ""
+msgstr "CC BY-NC (Attribution NonCommercial)"
 
 #: inc/class-licensing.php:110
 msgid "Creative Commons Attribution-NonCommercial 4.0 International License"
-msgstr ""
+msgstr "Creative Commons Attribution-NonCommercial 4.0 Интернационален лиценз"
 
 #: inc/class-licensing.php:120
 msgid "CC BY-NC-SA (Attribution NonCommercial ShareAlike)"
-msgstr ""
+msgstr "CC BY-NC-SA (Attribution NonCommercial ShareAlike)"
 
 #: inc/class-licensing.php:121
 msgid ""
 "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International "
 "License"
-msgstr ""
+msgstr "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 Интернационален лиценз"
 
 #: inc/class-licensing.php:131
 msgid "CC BY-NC-ND (Attribution NonCommercial NoDerivatives)"
-msgstr ""
+msgstr "CC BY-NC-ND (Attribution NonCommercial NoDerivatives)"
 
 #: inc/class-licensing.php:132
 msgid ""
 "Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International "
 "License"
-msgstr ""
+msgstr "Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License"
 
 #: inc/class-licensing.php:138 inc/class-licensing.php:311
 msgid "All Rights Reserved"
-msgstr ""
+msgstr "Всички права запазени"
 
 #: inc/class-licensing.php:204
 msgid ""
 "$title is deprecated. Method will automatically determine title from "
 "licenses"
-msgstr ""
+msgstr "$title е оттеглено. Методът автоматично ще определи заглавието от лицензите "
 
-#: inc/class-licensing.php:308 inc/class-styles.php:791
-#: inc/modules/export/epub/class-epub201.php:1144
+#: inc/class-licensing.php:308 inc/class-styles.php:790
+#: inc/modules/export/epub/class-epub201.php:1139
 #: inc/modules/export/epub/templates/epub3/opf.php:104
 #: inc/modules/export/epub/templates/epub201/opf.php:97
 #: inc/modules/export/htmlbook/class-htmlbook.php:872
-#: inc/modules/export/xhtml/class-xhtml11.php:1051
+#: inc/modules/export/xhtml/class-xhtml11.php:1068
 msgid "by"
 msgstr "от"
 
@@ -2211,38 +2213,38 @@ msgstr "освен ако не е посочено друго. "
 
 #: inc/class-licensing.php:394 inc/class-licensing.php:418
 msgid "%1$s Copyright &copy;%2$s by %3$s. All Rights Reserved."
-msgstr ""
+msgstr "%1$s Copyright &copy;%2$s от %3$s. Всички права запазени."
 
 #: inc/class-licensing.php:406
 msgid "Icon for the %s"
-msgstr ""
+msgstr "Икона за  %s"
 
 #: inc/class-licensing.php:408
 msgid "%1$s by %2$s is licensed under a %3$s, except where otherwise noted."
-msgstr ""
+msgstr "%1$s от %2$sе лицензиран под %3$s,  освен ако не е посочено друго."
 
 #: inc/class-licensing.php:427 inc/class-licensing.php:437
 msgid "Icon for the %s license"
-msgstr ""
+msgstr "Икона за %s лиценз"
 
 #: inc/class-licensing.php:429
 msgid "This work (%1$s by %2$s) is free of known copyright restrictions."
-msgstr ""
+msgstr "Този продукт (%1$s by %2$s) е освободено от известни ограничения на авторските права. "
 
 #: inc/class-mathjax.php:154 inc/class-mathjax.php:155
 #: templates/admin/mathjax.blade.php:2
 msgid "MathJax"
-msgstr ""
+msgstr "MathJax"
 
 #: inc/class-mathjax.php:175
 msgid "<code>PB_MATHJAX_URL</code> is not configured."
-msgstr ""
+msgstr "<code>PB_MATHJAX_URL</code> не е конфигурирано."
 
 #: inc/class-sass.php:203
 msgid ""
 "There was a problem with SASS. Contact your site administrator. Error: %1$s "
 "%2$s"
-msgstr ""
+msgstr "Имаше проблем със SASS. Свържете се с Вашия администратор на сайта. Грешка: %1$s %2$s"
 
 #: inc/class-styles.php:92 templates/admin/custom-styles.php:38
 msgid "Custom Styles"
@@ -2260,115 +2262,115 @@ msgstr "Персонализиран стил за ПДФ"
 msgid "Custom Style for Web"
 msgstr "Персонализиран стил за уеб "
 
-#: inc/class-styles.php:643
+#: inc/class-styles.php:642
 msgid "Alegreya"
 msgstr "Alegreya"
 
-#: inc/class-styles.php:644
+#: inc/class-styles.php:643
 msgid "Cormorant Garamond"
 msgstr "Cormorant Garamond"
 
-#: inc/class-styles.php:645
+#: inc/class-styles.php:644
 msgid "Crimson Text"
 msgstr "Crimson Text"
 
-#: inc/class-styles.php:646
+#: inc/class-styles.php:645
 msgid "GNU FreeFont Serif"
 msgstr "GNU FreeFont Serif"
 
-#: inc/class-styles.php:647
+#: inc/class-styles.php:646
 msgid "New Athena Unicode"
 msgstr "New Athena Unicode"
 
-#: inc/class-styles.php:648
+#: inc/class-styles.php:647
 msgid "Noto Serif"
 msgstr "Noto Serif"
 
-#: inc/class-styles.php:649
+#: inc/class-styles.php:648
 msgid "Sorts Mill Goudy"
 msgstr "Sorts Mill Goudy"
 
-#: inc/class-styles.php:650
+#: inc/class-styles.php:649
 msgid "Spectral"
 msgstr "Spectral"
 
-#: inc/class-styles.php:654
+#: inc/class-styles.php:653
 msgid "Barlow"
 msgstr "Barlow"
 
-#: inc/class-styles.php:655
+#: inc/class-styles.php:654
 msgid "GNU FreeFont Sans"
 msgstr "GNU FreeFont Sans"
 
-#: inc/class-styles.php:656
+#: inc/class-styles.php:655
 msgid "K2D"
 msgstr "K2D"
 
-#: inc/class-styles.php:657
+#: inc/class-styles.php:656
 msgid "Lato"
 msgstr "Lato"
 
-#: inc/class-styles.php:658
+#: inc/class-styles.php:657
 msgid "Libre Franklin"
 msgstr "Libre Franklin"
 
-#: inc/class-styles.php:659
+#: inc/class-styles.php:658
 msgid "Montserrat"
 msgstr "Montserrat"
 
-#: inc/class-styles.php:660
+#: inc/class-styles.php:659
 msgid "Noto Sans"
 msgstr "Noto Sans"
 
-#: inc/class-styles.php:661
+#: inc/class-styles.php:660
 msgid "Open Sans"
 msgstr "Open Sans"
 
-#: inc/class-styles.php:662
+#: inc/class-styles.php:661
 msgid "Raleway"
 msgstr "Raleway"
 
-#: inc/class-styles.php:663
+#: inc/class-styles.php:662
 msgid "Roboto"
 msgstr "Roboto"
 
-#: inc/class-styles.php:664
+#: inc/class-styles.php:663
 msgid "Rubik"
 msgstr "Rubik"
 
-#: inc/class-styles.php:665
+#: inc/class-styles.php:664
 msgid "Source Sans Pro"
 msgstr "Source Sans Pro"
 
-#: inc/class-styles.php:669 tests/test-styles.php:185
+#: inc/class-styles.php:668 tests/test-styles.php:185
 msgid "Theme default"
 msgstr "Тема по подразбиране"
 
-#: inc/class-styles.php:670 inc/class-styles.php:684 tests/test-styles.php:186
+#: inc/class-styles.php:669 inc/class-styles.php:683 tests/test-styles.php:186
 msgid "Serif"
 msgstr "Серифен шрифт"
 
-#: inc/class-styles.php:671 tests/test-styles.php:187
+#: inc/class-styles.php:670 tests/test-styles.php:187
 msgid "Sans serif"
 msgstr "Без сериф"
 
-#: inc/class-styles.php:716
+#: inc/class-styles.php:715
 msgid ""
 "Unexpected Error: There was a problem trying to query slug: %s - Please "
 "contact technical support."
-msgstr ""
+msgstr "Неочаквана грешка: Възникна проблем: %s - Моля, свържете се с техническата поддръжка."
 
-#: inc/class-styles.php:756 templates/admin/custom-styles.php:16
+#: inc/class-styles.php:755 templates/admin/custom-styles.php:16
 msgid "Web"
 msgstr "Уеб"
 
-#: inc/class-styles.php:788
+#: inc/class-styles.php:787
 msgid "Last 10 Revisions"
 msgstr "Последни 10 ревизии"
 
 #: inc/cloner/class-cloner.php:399 inc/modules/import/api/class-api.php:121
 msgid "Looking up the source book"
-msgstr ""
+msgstr "Търсенето на изходната книга "
 
 #: inc/cloner/class-cloner.php:401
 msgid "Failed to setup source"
@@ -2376,7 +2378,7 @@ msgstr "Неуспешно настройване на източника "
 
 #: inc/cloner/class-cloner.php:405
 msgid "Creating the target book"
-msgstr ""
+msgstr "Създаване на целевата книга "
 
 #: inc/cloner/class-cloner.php:416
 msgid "Cloning metadata"
@@ -2384,82 +2386,82 @@ msgstr "Клониране на мета дата"
 
 #: inc/cloner/class-cloner.php:423
 msgid "Cloning contributors and licenses"
-msgstr ""
+msgstr "Клониране на сътрудници и лицензи "
 
 #: inc/cloner/class-cloner.php:434
 msgid "Cloning front matter"
-msgstr ""
+msgstr "Клониране втора корица"
 
 #: inc/cloner/class-cloner.php:448 inc/cloner/class-cloner.php:453
 msgid "Cloning parts and chapters"
-msgstr ""
+msgstr "Клониране на части и глави "
 
 #: inc/cloner/class-cloner.php:465
 msgid "Cloning back matter"
-msgstr ""
+msgstr "Клониране на трета корица "
 
 #: inc/cloner/class-cloner.php:488 inc/covergenerator/class-generator.php:301
 #: inc/modules/export/epub/class-epub201.php:385
 #: inc/modules/import/class-import.php:375
 msgid "Finishing up"
-msgstr ""
+msgstr "Довършване "
 
 #: inc/cloner/class-cloner.php:504
 msgid ""
 "You can only clone from a book hosted by Pressbooks 4.1 or later. Please "
 "ensure that your source book meets these requirements."
-msgstr ""
+msgstr "Можете да клонирате само от книга, хоствана от Платформата версия 4.1 или по-нова версия. Моля, уверете се, че Вашата изходна книга отговаря на тези изисквания. "
 
 #: inc/cloner/class-cloner.php:511
 msgid "Could not retrieve metadata from %s."
-msgstr ""
+msgstr "Не може да се извлекат метаданни от %s."
 
 #: inc/cloner/class-cloner.php:519
 msgid "%s is not licensed for cloning."
-msgstr ""
+msgstr "%s не е лицензиран за клониране. "
 
 #: inc/cloner/class-cloner.php:528
 msgid "Could not retrieve contents and structure from %s."
-msgstr ""
+msgstr "Съдържанието и структурата не можаха да бъдат извлечени от %s."
 
 #: inc/cloner/class-cloner.php:536
 msgid "Could not retrieve taxonomies from %s."
-msgstr ""
+msgstr "Не можа да се извлекат таксономии от %s."
 
 #: inc/cloner/class-cloner.php:544
 msgid "Could not retrieve media from %s."
-msgstr ""
+msgstr "Не можа да се извлече носител от %s."
 
 #: inc/cloner/class-cloner.php:713
 msgid ""
 "The source book contained H5P content that could not be cloned. Please "
 "review the cloned version of your book carefully, as missing H5P content "
 "will be indicated. You may want to remove or replace these elements."
-msgstr ""
+msgstr "Източникът съдържаше съдържание на H5P, което не можеше да бъде клонирано. Моля, прегледайте клонираната версия на книгата си внимателно, тъй като липсващото съдържание на H5P ще бъде посочено. Може да искате да премахнете или замените тези елементи. "
 
 #: inc/cloner/class-cloner.php:735
 msgid "The source book&rsquo;s media could not be read."
-msgstr ""
+msgstr "Носителят на изходната книга book&rsquo;s не можа да бъде прочетен. "
 
 #: inc/cloner/class-cloner.php:809
 msgid "The source book&rsquo;s metadata could not be read."
-msgstr ""
+msgstr "Метаданните на изходната книга book&rsquo;s не могат да бъдат прочетени. "
 
 #: inc/cloner/class-cloner.php:840
 msgid "The source book&rsquo;s structure and contents could not be read."
-msgstr ""
+msgstr "Структурата и съдържанието на изходната книга book&rsquo;s не могат да бъдат прочетени."
 
 #: inc/cloner/class-cloner.php:882
 msgid "The source book&rsquo;s taxonomies could not be read."
-msgstr ""
+msgstr "Таксономиите на изходната книга  book&rsquo;s не можаха да бъдат прочетени. "
 
 #: inc/cloner/class-cloner.php:1846
 msgid "Your book URL can only contain lowercase letters (a-z) and numbers."
-msgstr ""
+msgstr "URL адресът на Вашата книга може да съдържа само малки букви (a-z) и цифри. "
 
 #: inc/cloner/class-cloner.php:1848
 msgid "Your book URL must contain at least some letters."
-msgstr ""
+msgstr "URL адресът на Вашата книга трябва да съдържа поне няколко букви. "
 
 #: inc/cloner/class-cloner.php:1850
 msgid "That book URL is not allowed."
@@ -2503,180 +2505,185 @@ msgstr "книга"
 #: inc/covergenerator/class-generator.php:461
 #: inc/modules/export/prince/class-docraptor.php:118
 msgid "Your PDF could not be retrieved."
-msgstr ""
+msgstr "Вашият PDF файл не можа да бъде генериран. "
 
 #: inc/covergenerator/class-isbn.php:62
 msgid "There was a problem creating the barcode: Invalid ISBN number."
-msgstr ""
+msgstr "При създаването на баркода възникна проблем: Невалиден номер на ISBN. "
 
 #: inc/covergenerator/class-sku.php:44
 msgid "There was a problem creating the barcode: Invalid characters in SKU"
-msgstr ""
+msgstr "При създаването на баркода възникна проблем: Невалидни знаци в SKU "
 
-#: inc/editor/namespace.php:103
+#: inc/editor/namespace.php:105
 msgid "Insert Footnote"
-msgstr ""
+msgstr "Поставете бележка под линия "
 
-#: inc/editor/namespace.php:104
+#: inc/editor/namespace.php:106
 msgid "Convert MS Word Footnotes"
+msgstr "Конвертиране на бележки под линия на MS Word"
+
+#: inc/editor/namespace.php:113
+msgid "Insert LaTeX"
 msgstr ""
 
-#: inc/editor/namespace.php:117 templates/admin/import.php:156
+#: inc/editor/namespace.php:126 templates/admin/import.php:156
 msgid "Cancel"
 msgstr "Заваряне"
 
-#: inc/editor/namespace.php:118
+#: inc/editor/namespace.php:127
 msgid "Description"
 msgstr "Описание"
 
-#: inc/editor/namespace.php:119
+#: inc/editor/namespace.php:128
 msgid "Insert Glossary Term"
 msgstr "Добавяне на термин в речника"
 
-#: inc/editor/namespace.php:120
+#: inc/editor/namespace.php:129
 msgid "Insert"
 msgstr "Вмъкване"
 
-#: inc/editor/namespace.php:122
+#: inc/editor/namespace.php:131
 msgctxt "JS template string"
 msgid "Glossary term <em>${templateString1}</em> not found. Please create it."
-msgstr ""
+msgstr "Терминът на речника <em>${templateString1}</em>не е намерен. Моля, създайте го. "
 
-#: inc/editor/namespace.php:123
+#: inc/editor/namespace.php:132
 msgid "Select a Term"
-msgstr ""
+msgstr "Изберете термин "
 
-#: inc/editor/namespace.php:124
+#: inc/editor/namespace.php:133
 msgid "Create and Insert Term"
-msgstr ""
+msgstr "Създаване и вмъкване на термин "
 
-#: inc/editor/namespace.php:125
+#: inc/editor/namespace.php:134
 msgid "Choose Existing Term"
-msgstr ""
+msgstr "Изберете съществуващ срок "
 
-#: inc/editor/namespace.php:126
+#: inc/editor/namespace.php:135
 msgid "Glossary term already exists."
-msgstr ""
+msgstr "Терминът от речника вече съществува. "
 
-#: inc/editor/namespace.php:128
+#: inc/editor/namespace.php:137
 msgid "Cannot submit empty Glossary term."
-msgstr ""
+msgstr "Не може да се запази термин от речника, когато полето е празно."
 
-#: inc/editor/namespace.php:129
+#: inc/editor/namespace.php:138
 msgid "A term was not selected?"
-msgstr ""
+msgstr "Не е избран термин? "
 
-#: inc/editor/namespace.php:130 inc/posttype/namespace.php:240
+#: inc/editor/namespace.php:139 inc/posttype/namespace.php:240
 msgid ""
 "To display a list of glossary terms, leave this back matter's content blank."
-msgstr ""
+msgstr "За да се покаже списък с термините в речника, оставете съдържанието на трета кори - празно. "
 
-#: inc/editor/namespace.php:131
+#: inc/editor/namespace.php:140
 msgid "Term"
-msgstr ""
-
-#: inc/editor/namespace.php:187
-msgid "Indent"
-msgstr ""
-
-#: inc/editor/namespace.php:193
-msgid "Hanging indent"
-msgstr ""
+msgstr "Срок "
 
 #: inc/editor/namespace.php:199
-msgid "No indent"
-msgstr ""
+msgid "Indent"
+msgstr "Параграф"
 
 #: inc/editor/namespace.php:205
+msgid "Hanging indent"
+msgstr "Отстъп на параграфа"
+
+#: inc/editor/namespace.php:211
+msgid "No indent"
+msgstr "Без параграф"
+
+#: inc/editor/namespace.php:217
 msgid "Write right to left"
-msgstr ""
+msgstr "Пишете отдясно наляво "
 
-#: inc/editor/namespace.php:213
+#: inc/editor/namespace.php:225
 msgid "Write left to right"
-msgstr ""
-
-#: inc/editor/namespace.php:221
-msgid "Tight tracking"
-msgstr ""
-
-#: inc/editor/namespace.php:227
-msgid "Very tight tracking"
-msgstr ""
+msgstr "Пишете отляво надясно "
 
 #: inc/editor/namespace.php:233
-msgid "Loose tracking"
-msgstr ""
+msgid "Tight tracking"
+msgstr "Плътен тракинг (пространството между групите букви /думите/)"
 
 #: inc/editor/namespace.php:239
-msgid "Very loose tracking"
-msgstr ""
+msgid "Very tight tracking"
+msgstr "Много плътен тракинг (кондензиран шрифт)"
 
 #: inc/editor/namespace.php:245
-msgid "Pullquote (left)"
-msgstr ""
+msgid "Loose tracking"
+msgstr "Увеличен тракинг, шрифт с повече въздух"
 
 #: inc/editor/namespace.php:251
-msgid "Pullquote (right)"
-msgstr ""
+msgid "Very loose tracking"
+msgstr "Много увеличен тракинг, шрифт с повече въздух"
 
-#: inc/editor/namespace.php:303 inc/editor/namespace.php:345
-#: inc/editor/namespace.php:359
+#: inc/editor/namespace.php:257
+msgid "Pullquote (left)"
+msgstr "Подравняване (ляво)"
+
+#: inc/editor/namespace.php:263
+msgid "Pullquote (right)"
+msgstr "Подравняване (дясно)"
+
+#: inc/editor/namespace.php:315 inc/editor/namespace.php:357
+#: inc/editor/namespace.php:371
 #: inc/modules/themeoptions/class-weboptions.php:118 languages/tinymce.php:7
 msgid "Standard"
-msgstr ""
-
-#: inc/editor/namespace.php:307
-msgid "No lines"
-msgstr ""
-
-#: inc/editor/namespace.php:311
-msgid "Lines"
-msgstr ""
-
-#: inc/editor/namespace.php:315 inc/editor/namespace.php:353
-#: inc/editor/namespace.php:367 languages/tinymce.php:10
-msgid "Shaded"
-msgstr ""
+msgstr "Стандартно"
 
 #: inc/editor/namespace.php:319
-msgid "Full Grid"
-msgstr ""
+msgid "No lines"
+msgstr "Без редове"
 
 #: inc/editor/namespace.php:323
-msgid "Standard Landscape*"
-msgstr ""
+msgid "Lines"
+msgstr "Редове"
 
-#: inc/editor/namespace.php:327
-msgid "No lines Landscape*"
-msgstr ""
+#: inc/editor/namespace.php:327 inc/editor/namespace.php:365
+#: inc/editor/namespace.php:379 languages/tinymce.php:10
+msgid "Shaded"
+msgstr "Със сянка"
 
 #: inc/editor/namespace.php:331
-msgid "Lines Landscape*"
-msgstr ""
+msgid "Full Grid"
+msgstr "Пълна (помощна) мрежа"
 
 #: inc/editor/namespace.php:335
-msgid "Shaded Landscape*"
-msgstr ""
+msgid "Standard Landscape*"
+msgstr "Стандартна ориентация пейзаж* "
 
 #: inc/editor/namespace.php:339
-msgid "Full Grid Landscape*"
-msgstr ""
+msgid "No lines Landscape*"
+msgstr "Ориентация - Без линии Пейзаж * "
 
-#: inc/editor/namespace.php:349 inc/editor/namespace.php:363
+#: inc/editor/namespace.php:343
+msgid "Lines Landscape*"
+msgstr "Линии Пейзаж* "
+
+#: inc/editor/namespace.php:347
+msgid "Shaded Landscape*"
+msgstr "Ориентация - пейзаж и светлосенки* "
+
+#: inc/editor/namespace.php:351
+msgid "Full Grid Landscape*"
+msgstr "Ориентация - пейзаж с пълна мрежа * "
+
+#: inc/editor/namespace.php:361 inc/editor/namespace.php:375
 msgid "Border"
 msgstr "Рамка"
 
-#: inc/editor/namespace.php:483
+#: inc/editor/namespace.php:495
 msgid "Internal Link"
 msgstr "Вътрешен линк"
 
 #: inc/image/namespace.php:407
 msgid ""
-"Cover Image should be 1:1.5 aspect ratio. Recommended dimensions are 2500px "
-"× 3750px, maximum size is 2MB.<br />NOTE: This cover will be included in "
-"your ebook files but not your PDF export. Read more <a "
-"href=\"https://guide.pressbooks.com/chapter/how-to-design-your-book-"
-"cover/\">here</a>."
+"This image will be displayed on the webbook home page and used as the "
+"internal cover in ebook exports. Cover images must be at least 800px tall "
+"and have an aspect ratio between .66 and 1. Very large images will be "
+"resized upon upload. Read more in <a "
+"href=\"https://guide.pressbooks.com/chapter/how-to-design-your-book-cover/\""
+" target=\"_blank\">our guide</a>."
 msgstr ""
 
 #: inc/image/namespace.php:447 templates/admin/covergenerator.php:123
@@ -2691,73 +2698,73 @@ msgstr "Изтриване"
 msgid ""
 "The original version of this chapter contained H5P content. You may want to "
 "remove or replace this element."
-msgstr ""
+msgstr "Оригиналната версия на тази глава съдържаше H5P съдържание. Може да искате да премахнете или замените този елемент."
 
 #: inc/l10n/namespace.php:511 inc/l10n/namespace.php:535
 msgid ""
 "Please contact your system administrator if you would like them to install "
 "extended %s language support for the Pressbooks interface."
-msgstr ""
+msgstr "Моля, свържете се със системния си администратор, ако искате да инсталират разширена %sезикова поддръжка за интерфейса на Платформата. "
 
 #: inc/metadata/namespace.php:113
 msgid "Hide Additional Book Information"
-msgstr ""
+msgstr "Скриване на допълнителната информация за книгата "
 
 #: inc/metadata/namespace.php:116
 msgid "Show Additional Book Information"
-msgstr ""
+msgstr "Показване на допълнителна информация за книгата "
 
 #: inc/metadata/namespace.php:123
 msgid ""
 "The book information you enter here appears on your book’s cover and title "
 "pages and in the metadata of your webbook and exported files."
-msgstr ""
+msgstr "Информацията за книгата, която въвеждате тук, се появява на корицата и заглавните страници на Вашата книга и в метаданните на Вашата уеб книга и експортираните файлове."
 
 #: inc/metadata/namespace.php:125
 msgid ""
 "If you need to enter additional information, click the button below to see "
 "all available fields."
-msgstr ""
+msgstr "Ако трябва да въведете допълнителна информация, щракнете върху бутона по-долу, за да видите всички налични полета."
 
 #: inc/metadata/namespace.php:1240
 msgid ""
 "The %1$s Thema subject terms requested for this book could not be downloaded"
 " from %2$s. Please report this error to your network manager."
-msgstr ""
+msgstr "Изисканите  %1$s за тази книга условия на темата не могат да бъдат изтеглени от %2$s.Моля, докладвайте за тази грешка на вашия мрежов мениджър."
 
-#: inc/modules/export/class-export.php:794
+#: inc/modules/export/class-export.php:788
 msgid "%s: Initializing"
-msgstr ""
+msgstr "%s: Инициализиране"
 
-#: inc/modules/export/class-export.php:796
+#: inc/modules/export/class-export.php:790
 msgid "%s: Exporting"
 msgstr "Файлът се експортира"
 
-#: inc/modules/export/class-export.php:801
+#: inc/modules/export/class-export.php:795
 msgid "%s: Export successful"
 msgstr "Успешен експорт "
 
-#: inc/modules/export/class-export.php:803
+#: inc/modules/export/class-export.php:797
 msgid "%s: Validating file"
-msgstr ""
+msgstr "%s: Проверка на файл "
 
-#: inc/modules/export/class-export.php:808
+#: inc/modules/export/class-export.php:802
 msgid "%s: Validation successful"
-msgstr ""
+msgstr "%s: Проверката е успешна "
 
-#: inc/modules/export/class-export.php:812
+#: inc/modules/export/class-export.php:806
 msgid "%s: Finishing up"
-msgstr ""
+msgstr "%s: Довършване "
 
-#: inc/modules/export/class-export.php:887
+#: inc/modules/export/class-export.php:871
 msgid "The export failed. See logs for more details."
-msgstr ""
+msgstr "Експортирането не бе успешно. Вижте дневниците за повече подробности. "
 
-#: inc/modules/export/class-export.php:896
+#: inc/modules/export/class-export.php:880
 msgid "Warning: The export has validation errors. See logs for more details."
-msgstr ""
+msgstr "Предупреждение: Експортът има грешки при проверка. Вижте дневниците за повече подробности. "
 
-#: inc/modules/export/class-export.php:897
+#: inc/modules/export/class-export.php:881
 msgid "Emailed to:"
 msgstr "Изпратено по мейл до:"
 
@@ -2779,11 +2786,11 @@ msgstr "Размер"
 
 #: inc/modules/export/class-table.php:128
 msgid "Pin"
-msgstr ""
+msgstr "Закачване - пин"
 
 #: inc/modules/export/class-table.php:129
 msgid "Date Exported"
-msgstr ""
+msgstr "Дата на експорта"
 
 #: inc/modules/export/epub/class-epub201.php:250
 msgid "EPUB %s: "
@@ -2792,20 +2799,20 @@ msgstr "EPUB (eлектронна книга) %s: "
 #: inc/modules/export/epub/class-epub201.php:286
 #: inc/modules/export/xhtml/class-xhtml11.php:186
 msgid "Initializing"
-msgstr ""
+msgstr "Инициализиране"
 
 #: inc/modules/export/epub/class-epub201.php:301
 msgid "Preparing book contents"
-msgstr ""
+msgstr "Подготовка на съдържанието на книгата"
 
 #: inc/modules/export/epub/class-epub201.php:312
 msgid "Creating container"
-msgstr ""
+msgstr "Създаване на кутия-контейнер"
 
 #: inc/modules/export/epub/class-epub201.php:323
 #: inc/modules/export/xhtml/class-xhtml11.php:194
 msgid "Saving file to exports folder"
-msgstr ""
+msgstr "Запазване на файл в папка за експортиране "
 
 #: inc/modules/export/epub/class-epub201.php:329
 #: inc/modules/export/xhtml/class-xhtml11.php:198
@@ -2815,7 +2822,7 @@ msgstr "Успешно експортиране"
 #: inc/modules/export/epub/class-epub201.php:355
 #: inc/modules/export/xhtml/class-xhtml11.php:224
 msgid "Validating file"
-msgstr ""
+msgstr "Проверка на файл "
 
 #: inc/modules/export/epub/class-epub201.php:384
 #: inc/modules/export/xhtml/class-xhtml11.php:240
@@ -2824,7 +2831,7 @@ msgstr "Успешно потвърждение"
 
 #: inc/modules/export/epub/class-epub201.php:671
 msgid "Compiling styles"
-msgstr ""
+msgstr "Компилиране на стилове "
 
 #: inc/modules/export/epub/class-epub201.php:680
 #: inc/modules/export/xhtml/class-xhtml11.php:411
@@ -2834,71 +2841,71 @@ msgstr "Създаване на корица"
 #: inc/modules/export/epub/class-epub201.php:687
 #: inc/modules/export/xhtml/class-xhtml11.php:415
 msgid "Creating title page"
-msgstr ""
+msgstr "Създаване на заглавна страница "
 
 #: inc/modules/export/epub/class-epub201.php:691
 #: inc/modules/export/xhtml/class-xhtml11.php:419
 msgid "Creating copyright page"
-msgstr ""
+msgstr "Създаване на страница с авторски права "
 
 #: inc/modules/export/epub/class-epub201.php:695
 msgid "Exporting dedication and epigraph"
-msgstr ""
+msgstr "Експортиране на посвещение и епиграф "
 
 #: inc/modules/export/epub/class-epub201.php:699
-#: inc/modules/export/epub/class-epub201.php:1286
+#: inc/modules/export/epub/class-epub201.php:1281
 #: inc/modules/export/xhtml/class-xhtml11.php:431
-#: inc/modules/export/xhtml/class-xhtml11.php:1283
+#: inc/modules/export/xhtml/class-xhtml11.php:1300
 msgid "Exporting front matter"
-msgstr ""
+msgstr "Експортиране на втора корица"
 
 #: inc/modules/export/epub/class-epub201.php:706
-#: inc/modules/export/epub/class-epub201.php:1454
-#: inc/modules/export/epub/class-epub201.php:1476
+#: inc/modules/export/epub/class-epub201.php:1449
+#: inc/modules/export/epub/class-epub201.php:1471
 #: inc/modules/export/xhtml/class-xhtml11.php:438
-#: inc/modules/export/xhtml/class-xhtml11.php:1407
-#: inc/modules/export/xhtml/class-xhtml11.php:1458
+#: inc/modules/export/xhtml/class-xhtml11.php:1424
+#: inc/modules/export/xhtml/class-xhtml11.php:1475
 msgid "Exporting parts and chapters"
-msgstr ""
+msgstr "Експортиране на части и глави "
 
 #: inc/modules/export/epub/class-epub201.php:710
-#: inc/modules/export/epub/class-epub201.php:1715
+#: inc/modules/export/epub/class-epub201.php:1710
 #: inc/modules/export/xhtml/class-xhtml11.php:442
-#: inc/modules/export/xhtml/class-xhtml11.php:1585
+#: inc/modules/export/xhtml/class-xhtml11.php:1602
 msgid "Exporting back matter"
-msgstr ""
+msgstr "Експортиране на трета страница"
 
 #: inc/modules/export/epub/class-epub201.php:715
 #: inc/modules/export/xhtml/class-xhtml11.php:427
 msgid "Creating table of contents"
-msgstr ""
+msgstr "Създаване на съдържание "
 
-#: inc/modules/export/epub/class-epub201.php:1063
+#: inc/modules/export/epub/class-epub201.php:1058
 msgid "Publisher Logo"
-msgstr ""
+msgstr "Лого на издателя "
 
-#: inc/modules/export/epub/class-epub201.php:1073
+#: inc/modules/export/epub/class-epub201.php:1068
 msgid "Title Page"
 msgstr "Заглавна страница"
 
-#: inc/modules/export/epub/class-epub201.php:1395
+#: inc/modules/export/epub/class-epub201.php:1390
 msgid "Make your own books using Pressbooks"
-msgstr ""
+msgstr "Направете свои собствени книги с помощта на платформата"
 
-#: inc/modules/export/epub/class-epub201.php:1822
+#: inc/modules/export/epub/class-epub201.php:1817
 msgid "Table Of Contents"
 msgstr "Съдържание"
 
-#: inc/modules/export/epub/class-epub201.php:1837
+#: inc/modules/export/epub/class-epub201.php:1832
 #: inc/modules/export/htmlbook/class-htmlbook.php:989
-#: inc/modules/export/xhtml/class-xhtml11.php:1115
+#: inc/modules/export/xhtml/class-xhtml11.php:1132
 msgid "Contents"
-msgstr ""
+msgstr "Съдържание "
 
 #: inc/modules/export/epub/templates/epub3/opf.php:57
 #: inc/modules/export/epub/templates/epub201/opf.php:53
 msgid "Authored by: "
-msgstr ""
+msgstr "Автор: "
 
 #: inc/modules/export/htmlbook/class-htmlbook.php:193
 #: inc/modules/export/wordpress/class-wxr.php:81
@@ -2906,129 +2913,125 @@ msgstr ""
 msgid "Invalid permission error"
 msgstr "Грешка поради проблем с правата"
 
-#: inc/modules/export/namespace.php:94 templates/admin/covergenerator.php:52
+#: inc/modules/export/namespace.php:88 templates/admin/covergenerator.php:52
 msgid ""
 "Some dependencies for %1$s exports could not be found. Please verify that "
 "you have completed the <a href=\"%2$s\">installation instructions</a>."
-msgstr ""
+msgstr "Някои зависимости за %1$s не можаха да бъдат намерени. Моля, проверете дали сте изпълнили <a href=\"%2$s\">инструкциите за инсталиране</a>."
 
-#: inc/modules/export/namespace.php:95
+#: inc/modules/export/namespace.php:89
 #: inc/modules/themeoptions/class-globaloptions.php:389
-#: inc/utility/namespace.php:1318 inc/utility/namespace.php:1323
-#: inc/utility/namespace.php:1343 inc/utility/namespace.php:1349
+#: inc/utility/namespace.php:1292 inc/utility/namespace.php:1297
+#: inc/utility/namespace.php:1317 inc/utility/namespace.php:1323
 #: templates/admin/covergenerator.php:53
 msgid "and"
 msgstr "и"
 
-#: inc/modules/export/namespace.php:108
+#: inc/modules/export/namespace.php:102
 #: inc/modules/export/prince/class-filters.php:74
 msgid "PDF (for print)"
 msgstr "PDF (за печат)"
 
-#: inc/modules/export/namespace.php:109
+#: inc/modules/export/namespace.php:103
 #: inc/modules/export/prince/class-filters.php:75
 msgid "PDF (for digital distribution)"
+msgstr "PDF (за дигитално разпространение) "
+
+#: inc/modules/export/namespace.php:104
+msgid "EPUB 2.01"
 msgstr ""
 
-#: inc/modules/export/namespace.php:110
-msgid "EPUB (for Nook, Apple Books, Kobo etc.)"
-msgstr ""
-
-#: inc/modules/export/namespace.php:111
-msgid "MOBI (for Kindle)"
-msgstr ""
-
-#: inc/modules/export/namespace.php:114
-msgid "EPUB 3"
-msgstr ""
-
-#: inc/modules/export/namespace.php:115
-msgid "XHTML"
-msgstr ""
-
-#: inc/modules/export/namespace.php:116 inc/modules/export/namespace.php:204
-#: inc/modules/export/namespace.php:238
-msgid "HTMLBook"
-msgstr ""
-
-#: inc/modules/export/namespace.php:117 inc/modules/export/namespace.php:209
-#: inc/modules/export/namespace.php:243
-msgid "OpenDocument"
-msgstr ""
-
-#: inc/modules/export/namespace.php:118 inc/modules/export/namespace.php:210
-#: inc/modules/export/namespace.php:244
-msgid "Pressbooks XML"
-msgstr ""
-
-#: inc/modules/export/namespace.php:119 inc/modules/export/namespace.php:211
-#: inc/modules/export/namespace.php:245
-msgid "WordPress XML"
-msgstr ""
-
-#: inc/modules/export/namespace.php:127
-msgid "Common Cartridge with Web Links"
-msgstr ""
-
-#: inc/modules/export/namespace.php:201 inc/modules/export/namespace.php:234
+#: inc/modules/export/namespace.php:105 inc/modules/export/namespace.php:203
 #: inc/modules/export/namespace.php:236
+msgid "Pressbooks XML"
+msgstr "Pressbooks XML"
+
+#: inc/modules/export/namespace.php:108
+msgid "EPUB 3"
+msgstr "EPUB 3"
+
+#: inc/modules/export/namespace.php:109
+msgid "XHTML"
+msgstr "XHTML"
+
+#: inc/modules/export/namespace.php:110 inc/modules/export/namespace.php:197
+#: inc/modules/export/namespace.php:231
+msgid "HTMLBook"
+msgstr "HTMLBook"
+
+#: inc/modules/export/namespace.php:111 inc/modules/export/namespace.php:202
+#: inc/modules/export/namespace.php:235
+msgid "OpenDocument"
+msgstr "OpenDocument"
+
+#: inc/modules/export/namespace.php:112 inc/modules/export/namespace.php:204
+#: inc/modules/export/namespace.php:237
+msgid "WordPress XML"
+msgstr "WordPress XML"
+
+#: inc/modules/export/namespace.php:120
+msgid "Common Cartridge with Web Links"
+msgstr "Обща набор от уеб връзки "
+
+#: inc/modules/export/namespace.php:194 inc/modules/export/namespace.php:227
+#: inc/modules/export/namespace.php:229
 msgid "Print PDF"
-msgstr ""
+msgstr "Печат на PDF "
 
-#: inc/modules/export/namespace.php:202 inc/modules/export/namespace.php:203
-#: inc/modules/export/namespace.php:235 inc/modules/export/namespace.php:237
+#: inc/modules/export/namespace.php:195 inc/modules/export/namespace.php:196
+#: inc/modules/export/namespace.php:228 inc/modules/export/namespace.php:230
 msgid "Digital PDF"
-msgstr ""
+msgstr "Цифров PDF "
 
-#: inc/modules/export/namespace.php:205 inc/modules/export/namespace.php:239
+#: inc/modules/export/namespace.php:198 inc/modules/export/namespace.php:232
 msgid "EPUB"
-msgstr ""
+msgstr "EPUB"
 
-#: inc/modules/export/namespace.php:206 inc/modules/export/namespace.php:240
+#: inc/modules/export/namespace.php:199
 msgid "MOBI"
-msgstr ""
+msgstr "MOBI"
 
-#: inc/modules/export/namespace.php:207 inc/modules/export/namespace.php:241
+#: inc/modules/export/namespace.php:200 inc/modules/export/namespace.php:233
 msgid "EPUB3"
-msgstr ""
+msgstr "EPUB3"
 
-#: inc/modules/export/namespace.php:212 inc/modules/export/namespace.php:246
+#: inc/modules/export/namespace.php:205 inc/modules/export/namespace.php:238
 msgid "Common Cartridge (Web Links)"
-msgstr ""
+msgstr "Обща набор линкове (уеб връзки) "
 
-#: inc/modules/export/namespace.php:282
+#: inc/modules/export/namespace.php:274
 msgid "The file %1$s has been %2$s successfully."
-msgstr ""
+msgstr "Файлът %1$s бе %2$s успешно."
 
-#: inc/modules/export/namespace.php:284
+#: inc/modules/export/namespace.php:276
 msgid "pinned"
-msgstr ""
+msgstr "закачено с пин"
 
-#: inc/modules/export/namespace.php:284
+#: inc/modules/export/namespace.php:276
 msgid "unpinned"
-msgstr ""
+msgstr "премахване на закачането с пин"
 
 #: inc/modules/export/prince/class-pdf.php:286
 msgid ""
 "This book was produced with Pressbooks (https://pressbooks.com) and rendered"
 " with Prince."
-msgstr ""
+msgstr "Тази книга е създадена с платформата (всички права запазени) представена с Prince."
 
 #: inc/modules/export/xhtml/class-xhtml11.php:160
 msgid "XHTML: "
-msgstr ""
+msgstr "XHTML: "
 
 #: inc/modules/export/xhtml/class-xhtml11.php:403
 msgid "Creating before title page"
-msgstr ""
+msgstr "Създаване преди заглавна страница "
 
 #: inc/modules/export/xhtml/class-xhtml11.php:407
 msgid "Creating half title page"
-msgstr ""
+msgstr "Създаване на половин заглавна страница "
 
 #: inc/modules/export/xhtml/class-xhtml11.php:423
 msgid "Creating dedication and epigraph"
-msgstr ""
+msgstr "Създаване на посвещение и епиграф "
 
 #: inc/modules/export/xhtml/class-xhtml11.php:537
 msgid "Notes"
@@ -3036,73 +3039,73 @@ msgstr "Бележки"
 
 #: inc/modules/import/api/class-api.php:89
 msgid "No chapters in %s are licensed for cloning."
-msgstr ""
+msgstr "Няма глави в %s, които да са лицензирани за клониране. "
 
 #: inc/modules/import/api/class-api.php:146
 msgid "Importing front matter"
-msgstr ""
+msgstr "Импортиране на втора корица"
 
 #: inc/modules/import/api/class-api.php:169
 msgid "Importing parts and chapters"
-msgstr ""
+msgstr "Импортиране на части и глави "
 
 #: inc/modules/import/api/class-api.php:194
 msgid "Importing back matter"
-msgstr ""
+msgstr "Импортиране на трета корица"
 
 #: inc/modules/import/api/class-api.php:210
 msgid "Importing glossary terms"
-msgstr ""
+msgstr "Импортиране на речникови термини "
 
 #: inc/modules/import/class-import.php:373
 #: inc/modules/import/epub/class-epub201.php:220
 msgid "Importing"
-msgstr ""
+msgstr "Импортиране"
 
 #: inc/modules/import/class-import.php:505
 msgid "Your file does not appear to be a valid %s."
-msgstr ""
+msgstr "Изглежда Вашият файл не е валиден %s."
 
 #: inc/modules/import/class-import.php:543
 msgid "Your URL does not appear to be valid"
-msgstr ""
+msgstr "Изглежда, че Вашият URL адрес не е валиден "
 
 #: inc/modules/import/class-import.php:550
 #: inc/modules/import/class-import.php:579
 msgid "The URL you are trying to import is bigger than the maximum file size."
-msgstr ""
+msgstr "URL адресът, който се опитвате да импортирате, е по-голям от максималния размер на файла. "
 
 #: inc/modules/import/class-import.php:572
 msgid ""
 "The website you are attempting to reach is not returning a successful "
 "response code: "
-msgstr ""
+msgstr "Уебсайтът, който се опитвате да достигнете, не връща успешен код за отговор: "
 
 #: inc/modules/import/epub/class-epub201.php:159
 msgid "Opening EPUB file"
-msgstr ""
+msgstr "Отваря се EPUB файл"
 
 #: inc/modules/import/epub/class-epub201.php:166
 msgid "Reading metadata"
-msgstr ""
+msgstr "Четене на метаданни "
 
 #: inc/modules/import/epub/class-epub201.php:172
 msgid "Deleting temporary files"
-msgstr ""
+msgstr "Изтриване на временни файлове "
 
 #: inc/modules/import/epub/class-epub201.php:225
 msgid "Imported %s chapters."
-msgstr ""
+msgstr "Импортирани %s глави."
 
 #: inc/modules/import/html/class-xhtml.php:45
 msgid "The HTML is larger than pcre.backtrack_limit."
-msgstr ""
+msgstr "HTML е по-голям от ограничението от pcre.backtrack_limit."
 
 #: inc/modules/import/wordpress/class-parser.php:65
 #: inc/modules/import/wordpress/class-parser.php:71
 msgid ""
 "This does not appear to be a WXR file, missing/invalid WXR version number"
-msgstr ""
+msgstr "Изглежда, че това не е WXR файл, липсващ / невалиден номер на версията на WXR "
 
 #: inc/modules/import/wordpress/class-wxr.php:353
 msgctxt ""
@@ -3113,32 +3116,32 @@ msgstr "Импортирани %1$s, %2$s, %3$s, %4$s, %5$s, и %6$s."
 
 #: inc/modules/searchandreplace/class-search.php:140
 msgid "Invalid regular expression"
-msgstr ""
+msgstr "Невалиден регулярен израз "
 
 #: inc/modules/searchandreplace/class-search.php:148
 msgid "No search pattern."
-msgstr ""
+msgstr "Няма модел на търсене. "
 
 #: inc/modules/searchandreplace/class-searchandreplace.php:60
 msgid ""
 "Once you&rsquo;ve pressed &lsquo;Replace & Save&rsquo; there is no going "
 "back! Have you checked &lsquo;Preview Replacements&rsquo; to make sure this "
 "will do what you want it to do?"
-msgstr ""
+msgstr "След като you&rsquo;ve сте натиснали \"Замени & Запази\" ; връщане назад няма! Проверили ли сте \"Преглед на замествания\"; за да сте сигурни, че това ще направи това, което искате? "
 
 #: inc/modules/searchandreplace/class-searchandreplace.php:70
 #: inc/modules/searchandreplace/class-searchandreplace.php:71
 #: templates/admin/search.php:11
 msgid "Search & Replace"
-msgstr ""
+msgstr "Търсене и замяна "
 
 #: inc/modules/searchandreplace/types/class-content.php:57
 msgid "view"
-msgstr ""
+msgstr "изглед"
 
 #: inc/modules/searchandreplace/types/class-content.php:59
 msgid "edit"
-msgstr ""
+msgstr "редактиране"
 
 #: inc/modules/searchandreplace/types/class-content.php:69
 msgid "%1$s ID #%2$d: %3$s"
@@ -3146,144 +3149,144 @@ msgstr "%1$s ID #%2$d: %3$s"
 
 #: inc/modules/searchandreplace/types/class-content.php:97
 msgid "Content Text"
-msgstr ""
+msgstr "Текст на съдържанието "
 
 #: inc/modules/themeoptions/class-admin.php:88
 #: inc/modules/themeoptions/class-admin.php:89
 #: inc/modules/themeoptions/class-admin.php:142
 #: templates/admin/export.blade.php:58
 msgid "Theme Options"
-msgstr ""
+msgstr "Опции на темата "
 
 #: inc/modules/themeoptions/class-admin.php:145
 msgid "Theme Options Tabs"
-msgstr ""
+msgstr "Раздели с опции за теми "
 
 #: inc/modules/themeoptions/class-ebookoptions.php:79
 #: inc/modules/themeoptions/class-pdfoptions.php:84
 #: inc/modules/themeoptions/class-weboptions.php:83
 msgid "Header Font"
-msgstr ""
+msgstr "Шрифт на хедъра"
 
 #: inc/modules/themeoptions/class-ebookoptions.php:87
 #: inc/modules/themeoptions/class-pdfoptions.php:92
 #: inc/modules/themeoptions/class-weboptions.php:91
 msgid "Body Font"
-msgstr ""
+msgstr "Шрифт на тялото "
 
 #: inc/modules/themeoptions/class-ebookoptions.php:97
 msgid "Ebook Start Point"
-msgstr ""
+msgstr "Начало на електронната книга "
 
 #: inc/modules/themeoptions/class-ebookoptions.php:102
 msgid ""
 "Note: This designated ebook start book may be overridden by some ereader "
 "devices."
-msgstr ""
+msgstr "Забележка: Определеното начално за електронна книга може да бъде заменено от някои устройства за четене. "
 
 #: inc/modules/themeoptions/class-ebookoptions.php:109
 #: inc/modules/themeoptions/class-pdfoptions.php:247
 #: inc/modules/themeoptions/class-weboptions.php:126
 msgid "Paragraph Separation"
-msgstr ""
+msgstr "Разделяне на абзаци "
 
 #: inc/modules/themeoptions/class-ebookoptions.php:114
 #: inc/modules/themeoptions/class-pdfoptions.php:252
 #: inc/modules/themeoptions/class-weboptions.php:131
 msgid "Indent paragraphs"
-msgstr ""
+msgstr "Отстъпи на абзаци "
 
 #: inc/modules/themeoptions/class-ebookoptions.php:115
 #: inc/modules/themeoptions/class-pdfoptions.php:253
 #: inc/modules/themeoptions/class-weboptions.php:132
 msgid "Skip lines between paragraphs"
-msgstr ""
+msgstr "Прескачане на редове между параграфи "
 
 #: inc/modules/themeoptions/class-ebookoptions.php:121
 msgid "Compress Images"
-msgstr ""
+msgstr "Компресиране на изображения "
 
 #: inc/modules/themeoptions/class-ebookoptions.php:126
 msgid "Reduce image size and quality"
-msgstr ""
+msgstr "Намалете размера и качеството на изображението "
 
 #: inc/modules/themeoptions/class-ebookoptions.php:151
 msgid "These options apply to ebook exports."
-msgstr ""
+msgstr "Тези опции се отнасят за експорта на електронни книги. "
 
 #: inc/modules/themeoptions/class-ebookoptions.php:352
 msgid "Ebook Options"
-msgstr ""
+msgstr "Опции за електронна книга "
 
 #: inc/modules/themeoptions/class-globaloptions.php:81
 msgid "Part and Chapter Numbers"
-msgstr ""
+msgstr "Номера на части и глави "
 
 #: inc/modules/themeoptions/class-globaloptions.php:86
 msgid "Display part and chapter numbers"
-msgstr ""
+msgstr "Показване на номера на части и глави "
 
 #: inc/modules/themeoptions/class-globaloptions.php:92
 msgid "Part Label"
-msgstr ""
+msgstr "Етикет на дадената част "
 
 #: inc/modules/themeoptions/class-globaloptions.php:97
 msgid ""
 "The \"part\" label is used in the table of contents and in part titles in "
 "your webbook and exports."
-msgstr ""
+msgstr "Етикетът \"част\" се използва в съдържанието и в заглавията на части във Вашата уеб книга и при експорти. "
 
 #: inc/modules/themeoptions/class-globaloptions.php:104
 msgid "Chapter Label"
-msgstr ""
+msgstr "Етикет на глава "
 
 #: inc/modules/themeoptions/class-globaloptions.php:109
 msgid ""
 "The \"chapter\" label is used in the table of contents and in chapter titles"
 " in your webbook and exports."
-msgstr ""
+msgstr "Етикетът \"глава\" се използва в съдържанието и в заглавията на главите във Вашата уеб книга и при експорти. "
 
 #: inc/modules/themeoptions/class-globaloptions.php:116
 msgid "Two-Level TOC"
-msgstr ""
+msgstr "Съдържание на две нива "
 
 #: inc/modules/themeoptions/class-globaloptions.php:121
 msgid ""
 "Enable two-level table of contents (displays headings under chapter titles)"
-msgstr ""
+msgstr "Активиране на съдържанието на две нива (показва заглавия под заглавия на глави) "
 
 #: inc/modules/themeoptions/class-globaloptions.php:127
 #: inc/shortcodes/attributions/class-attachments.php:262
 msgid "Media Attributions"
-msgstr ""
+msgstr "Добавяне на връзки към различни медии"
 
 #: inc/modules/themeoptions/class-globaloptions.php:132
 msgid "Display attributions at the end of a chapter"
-msgstr ""
+msgstr "Показване на връзки в края на глава "
 
 #: inc/modules/themeoptions/class-globaloptions.php:140
 msgid "Language & Script Support"
-msgstr ""
+msgstr "Поддръжка на език и скрипт "
 
 #: inc/modules/themeoptions/class-globaloptions.php:145
 msgid "Include fonts to support the following languages and scripts:"
-msgstr ""
+msgstr "Включете шрифтове за поддържане на следните езици и скриптове: "
 
 #: inc/modules/themeoptions/class-globaloptions.php:159
 msgid "Chapter Licenses"
-msgstr ""
+msgstr "Лицензи авторски права - глави "
 
 #: inc/modules/themeoptions/class-globaloptions.php:164
 msgid "Do not display section level copyright license"
-msgstr ""
+msgstr "Не показвайте лиценз за авторски права на ниво раздел "
 
 #: inc/modules/themeoptions/class-globaloptions.php:165
 msgid "Display section level license on table of contents in export formats"
-msgstr ""
+msgstr "Показване на лиценз на ниво раздел върху съдържание в експортни формати "
 
 #: inc/modules/themeoptions/class-globaloptions.php:166
 msgid "Display section level license at end of chapter in export formats"
-msgstr ""
+msgstr "Показване на лиценз на ниво раздел в края на глава в експортни формати "
 
 #: inc/modules/themeoptions/class-globaloptions.php:172
 #: languages/tinymce.php:21
@@ -3298,32 +3301,32 @@ msgstr "Упражнения"
 #: inc/modules/themeoptions/class-globaloptions.php:174
 #: languages/tinymce.php:15
 msgid "Key Takeaways"
-msgstr ""
+msgstr "Основни продукти за вкъщи "
 
 #: inc/modules/themeoptions/class-globaloptions.php:175
 #: languages/tinymce.php:12
 msgid "Learning Objectives"
-msgstr ""
+msgstr "Цели на обучението"
 
 #: inc/modules/themeoptions/class-globaloptions.php:184
 msgid "Customize colors for %s textboxes using the fields below."
-msgstr ""
+msgstr "Персонализирайте цветовете за %s полета, като използвате полетата по-долу. "
 
 #: inc/modules/themeoptions/class-globaloptions.php:190
 msgid "Header Color"
-msgstr ""
+msgstr "Цвят на хедъра"
 
 #: inc/modules/themeoptions/class-globaloptions.php:196
 msgid "The header text color for a %s textbox."
-msgstr ""
+msgstr "Цвят на текста на хедъра за %s текстово поле."
 
 #: inc/modules/themeoptions/class-globaloptions.php:201
 msgid "Header Background"
-msgstr ""
+msgstr "Заглавен фон"
 
 #: inc/modules/themeoptions/class-globaloptions.php:207
 msgid "The header background color for a %s textbox."
-msgstr ""
+msgstr "Цветът на фона на хедъра за %s текстово поле."
 
 #: inc/modules/themeoptions/class-globaloptions.php:212
 msgid "Background"
@@ -3331,11 +3334,11 @@ msgstr "Бекграунд (фон)"
 
 #: inc/modules/themeoptions/class-globaloptions.php:218
 msgid "The background color for a %s textbox."
-msgstr ""
+msgstr "Цвят на фона за %s текстово поле."
 
 #: inc/modules/themeoptions/class-globaloptions.php:245
 msgid "These options apply universally to webbook, PDF and ebook exports."
-msgstr ""
+msgstr "Тези опции се прилагат универсално за износ на уеб книги, PDF и електронни книги. "
 
 #: inc/modules/themeoptions/class-globaloptions.php:398
 msgid "Select languages&hellip;"
@@ -3343,7 +3346,7 @@ msgstr "Избор на езици"
 
 #: inc/modules/themeoptions/class-globaloptions.php:406
 msgid "This theme includes built-in support for %s."
-msgstr ""
+msgstr "Тази тема включва вградена поддръжка за %s."
 
 #: inc/modules/themeoptions/class-globaloptions.php:514
 msgid "Global Options"
@@ -3351,17 +3354,17 @@ msgstr "Основни настройки"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:103
 msgid "Body Font Size"
-msgstr ""
+msgstr "Размер на шрифта на тялото "
 
 #: inc/modules/themeoptions/class-pdfoptions.php:108
 msgid ""
 "Heading sizes are proportional to the body font size and will also be "
 "affected by this setting."
-msgstr ""
+msgstr "Размерите на заглавията са пропорционални на размера на шрифта на тялото и също ще бъдат засегнати от тази настройка. "
 
 #: inc/modules/themeoptions/class-pdfoptions.php:116
 msgid "Body Line Height"
-msgstr ""
+msgstr "Височина на линията на тялото "
 
 #: inc/modules/themeoptions/class-pdfoptions.php:130
 msgid "Page Size"
@@ -3369,19 +3372,19 @@ msgstr "Размер на страницата"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:135
 msgid "Digest (5.5&quot; &times; 8.5&quot;)"
-msgstr ""
+msgstr "Digest (5.5&quot; &times; 8.5&quot;)"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:136
 msgid "US Trade (6&quot; &times; 9&quot;)"
-msgstr ""
+msgstr "US Trade (6&quot; &times; 9&quot;)"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:137
 msgid "US Letter (8.5&quot; &times; 11&quot;)"
-msgstr ""
+msgstr "US Letter (8.5&quot; &times; 11&quot;)"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:138
 msgid "Custom (8.5&quot; &times; 9.25&quot;)"
-msgstr ""
+msgstr "По задание (8.5&quot; &times; 9.25&quot;)"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:139
 msgid "Duodecimo (5&quot; &times; 7.75&quot;)"
@@ -3389,7 +3392,7 @@ msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:140
 msgid "Pocket (4.25&quot; &times; 7&quot;)"
-msgstr ""
+msgstr "Джобен формат (4.25&quot; &times; 7&quot;)"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:141
 msgid "A4 (21cm &times; 29.7cm)"
@@ -3405,13 +3408,13 @@ msgstr "5\" × 8\""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:151
 msgid "Page Width"
-msgstr ""
+msgstr "Ширина на страницата "
 
 #: inc/modules/themeoptions/class-pdfoptions.php:156
 msgid ""
 "Page width must be expressed in CSS-compatible units, e.g. "
 "&lsquo;5.5in&rsquo; or &lsquo;10cm&rsquo;."
-msgstr ""
+msgstr "Ширината на страницата трябва да бъде изразена в CSS-съвместими единици, напр.  &lsquo;5.5in&rsquo; or &lsquo;10cm&rsquo;."
 
 #: inc/modules/themeoptions/class-pdfoptions.php:163
 msgid "Page Height"
@@ -3421,7 +3424,7 @@ msgstr "Височина на страницата"
 msgid ""
 "Page height must be expressed in CSS-compatible units, e.g. "
 "&lsquo;8.5in&rsquo; or &lsquo;10cm&rsquo;."
-msgstr ""
+msgstr "Височината на страницата трябва да бъде изразена в CSS-съвместими единици, напр. &lsquo;8.5in&rsquo; or &lsquo;10cm&rsquo;."
 
 #: inc/modules/themeoptions/class-pdfoptions.php:176
 msgid "Margins"
@@ -3429,7 +3432,7 @@ msgstr "Отстъпи "
 
 #: inc/modules/themeoptions/class-pdfoptions.php:181
 msgid "Customize your book&rsquo;s margins using the fields below."
-msgstr ""
+msgstr "Персонализирайте полетата на Вашата книга, като използвате полетата по-долу. "
 
 #: inc/modules/themeoptions/class-pdfoptions.php:187
 #: inc/modules/themeoptions/class-pdfoptions.php:891
@@ -3443,17 +3446,17 @@ msgstr "Фон пердю (извън ножа)"
 msgid ""
 "Margins must be expressed in CSS-compatible units, e.g. &lsquo;8.5in&rsquo; "
 "or &lsquo;10cm&rsquo;."
-msgstr ""
+msgstr "Маржовете трябва да бъдат изразени в CSS-съвместими единици, напр. &lsquo;8.5in&rsquo; or &lsquo;10cm&rsquo;."
 
 #: inc/modules/themeoptions/class-pdfoptions.php:199
 #: inc/modules/themeoptions/class-pdfoptions.php:892
 msgid "Inside Margin"
-msgstr ""
+msgstr "Вътре в полето "
 
 #: inc/modules/themeoptions/class-pdfoptions.php:211
 #: inc/modules/themeoptions/class-pdfoptions.php:893
 msgid "Top Margin"
-msgstr ""
+msgstr "Фон пердю - горен"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:223
 #: inc/modules/themeoptions/class-pdfoptions.php:894
@@ -3871,23 +3874,23 @@ msgstr "терминологичен речник"
 msgid "Glossary"
 msgstr "Терминологичен речник"
 
-#: inc/redirect/namespace.php:144 inc/redirect/namespace.php:239
+#: inc/redirect/namespace.php:144 inc/redirect/namespace.php:243
 msgid "Error: Unknown export format."
 msgstr ""
 
-#: inc/redirect/namespace.php:259
+#: inc/redirect/namespace.php:263
 msgid "File not found"
 msgstr "Файлът не е намерен"
 
-#: inc/redirect/namespace.php:346
+#: inc/redirect/namespace.php:350
 msgid "Unsupported post type."
 msgstr ""
 
-#: inc/redirect/namespace.php:380
+#: inc/redirect/namespace.php:384
 msgid "Unsupported taxonomy."
 msgstr ""
 
-#: inc/redirect/namespace.php:404
+#: inc/redirect/namespace.php:408
 msgid "You do not have sufficient permissions to access that URL."
 msgstr ""
 
@@ -4104,20 +4107,20 @@ msgstr ""
 msgid " (%1$d of %2$d)"
 msgstr ""
 
-#: inc/utility/namespace.php:604 inc/utility/namespace.php:615
-#: inc/utility/namespace.php:631
+#: inc/utility/namespace.php:578 inc/utility/namespace.php:589
+#: inc/utility/namespace.php:605
 msgid ""
 "An unexpected error occurred. Something may be wrong with the plugin "
 "recommendations server or your site&#8217;s server&#8217;s configuration."
 msgstr ""
 
-#: inc/utility/namespace.php:604
+#: inc/utility/namespace.php:578
 msgid ""
 "(Pressbooks could not establish a secure connection to the plugin "
 "recommendations server. Please contact your server administrator.)"
 msgstr ""
 
-#: inc/utility/namespace.php:655
+#: inc/utility/namespace.php:629
 msgid ""
 "These plugins have been created and/or recommended by the Pressbooks "
 "community."
@@ -4607,39 +4610,39 @@ msgstr ""
 msgid "Create Site"
 msgstr ""
 
-#: assets/src/scripts/a11y.js:30 assets/src/scripts/a11y.js:31
+#: assets/src/scripts/a11y.js:35 assets/src/scripts/a11y.js:36
 msgid "Gradient selector"
 msgstr ""
 
-#: assets/src/scripts/a11y.js:44
+#: assets/src/scripts/a11y.js:49
 msgid "Black"
 msgstr "Черно"
 
-#: assets/src/scripts/a11y.js:47
+#: assets/src/scripts/a11y.js:52
 msgid "White"
 msgstr "Бяло"
 
-#: assets/src/scripts/a11y.js:50
+#: assets/src/scripts/a11y.js:55
 msgid "Red"
 msgstr "Червено"
 
-#: assets/src/scripts/a11y.js:53
+#: assets/src/scripts/a11y.js:58
 msgid "Orange"
 msgstr "Оранжево"
 
-#: assets/src/scripts/a11y.js:56
+#: assets/src/scripts/a11y.js:61
 msgid "Yellow"
 msgstr "Жълто"
 
-#: assets/src/scripts/a11y.js:59
+#: assets/src/scripts/a11y.js:64
 msgid "Green"
 msgstr "Зелено"
 
-#: assets/src/scripts/a11y.js:62
+#: assets/src/scripts/a11y.js:67
 msgid "Blue"
 msgstr "Синьо"
 
-#: assets/src/scripts/a11y.js:65
+#: assets/src/scripts/a11y.js:70
 msgid "Purple"
 msgstr "Лилаво"
 

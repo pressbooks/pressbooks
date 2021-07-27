@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
-"POT-Creation-Date: 2021-07-06T18:17:20+00:00\n"
-"PO-Revision-Date: 2021-05-25 22:37+0000\n"
+"POT-Creation-Date: 2021-07-09T01:10:36+00:00\n"
+"PO-Revision-Date: 2021-07-27 15:30+0000\n"
 "Last-Translator: Ho Man Chan <homan@pressbooks.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/pressbooks/pressbooks/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -186,13 +186,13 @@ msgid "Privacy Status"
 msgstr "Privacy status"
 
 #: inc/admin/class-catalog-list-table.php:233 inc/class-activation.php:238
-#: inc/modules/export/epub/class-epub201.php:928 tests/test-cloner.php:58
+#: inc/modules/export/epub/class-epub201.php:923 tests/test-cloner.php:58
 msgid "Cover"
 msgstr "Cover"
 
 #: inc/admin/class-catalog-list-table.php:234
 #: inc/admin/covergenerator/namespace.php:69
-#: inc/admin/metaboxes/namespace.php:192 templates/admin/import.php:90
+#: inc/admin/metaboxes/namespace.php:201 templates/admin/import.php:90
 msgid "Title"
 msgstr "Titel"
 
@@ -449,7 +449,7 @@ msgid "Title (Spine)"
 msgstr "Titel(Rug)"
 
 #: inc/admin/covergenerator/namespace.php:91
-#: inc/admin/metaboxes/namespace.php:207
+#: inc/admin/metaboxes/namespace.php:222
 msgid "Subtitle"
 msgstr "Ondertitel"
 
@@ -701,7 +701,7 @@ msgstr ""
 msgid "Table of Contents"
 msgstr "Inhoudsopgave"
 
-#: inc/admin/dashboard/namespace.php:188 inc/admin/metaboxes/namespace.php:580
+#: inc/admin/dashboard/namespace.php:188 inc/admin/metaboxes/namespace.php:644
 #: inc/api/endpoints/controller/class-toc.php:192
 #: inc/posttype/namespace.php:115 inc/posttype/namespace.php:116
 #: inc/posttype/namespace.php:538 templates/admin/import.php:91
@@ -709,7 +709,7 @@ msgstr "Inhoudsopgave"
 msgid "Front Matter"
 msgstr "Voorzijde kwesties"
 
-#: inc/admin/dashboard/namespace.php:229 inc/admin/metaboxes/namespace.php:582
+#: inc/admin/dashboard/namespace.php:229 inc/admin/metaboxes/namespace.php:646
 #: inc/api/endpoints/controller/class-toc.php:225
 #: inc/posttype/namespace.php:143 inc/posttype/namespace.php:144
 #: inc/posttype/namespace.php:541 templates/admin/import.php:96
@@ -785,13 +785,13 @@ msgid ""
 "###SITE_NAME###"
 msgstr ""
 
-#: inc/admin/diagnostics/namespace.php:29
-#: inc/admin/diagnostics/namespace.php:30 inc/admin/laf/namespace.php:100
+#: inc/admin/diagnostics/namespace.php:28
+#: inc/admin/diagnostics/namespace.php:29 inc/admin/laf/namespace.php:100
 #: templates/admin/diagnostics.blade.php:4
 msgid "Diagnostics"
 msgstr "Diagnose"
 
-#: inc/admin/diagnostics/namespace.php:197
+#: inc/admin/diagnostics/namespace.php:195
 msgid "Stylesheet regenerated."
 msgstr "Stylesheet geregenereerd."
 
@@ -900,7 +900,7 @@ msgid "Add Back Matter"
 msgstr "Nawerk toevoegen"
 
 #: inc/admin/laf/namespace.php:218 inc/admin/laf/namespace.php:219
-#: inc/editor/namespace.php:132 inc/posttype/namespace.php:195
+#: inc/editor/namespace.php:141 inc/posttype/namespace.php:195
 msgid "Glossary Terms"
 msgstr "Woordenlijst Termen"
 
@@ -968,7 +968,7 @@ msgid ""
 msgstr "Exports zijn niet gereed. De pagina nu verlaten zal problemen veroorzaken. Weet u het zeker?"
 
 #: inc/admin/laf/namespace.php:351 inc/admin/laf/namespace.php:566
-#: inc/admin/laf/namespace.php:1428
+#: inc/admin/laf/namespace.php:1427
 #: inc/admin/network/class-sharingandprivacyoptions.php:449
 msgid "Sharing and Privacy Settings"
 msgstr "Deel- en privacyinstellingen"
@@ -1018,8 +1018,8 @@ msgstr "Help"
 msgid "Network Admin"
 msgstr "Netwerk Beheer"
 
-#: inc/admin/laf/namespace.php:739 inc/admin/laf/namespace.php:1483
-#: inc/admin/laf/namespace.php:1493
+#: inc/admin/laf/namespace.php:739 inc/admin/laf/namespace.php:1482
+#: inc/admin/laf/namespace.php:1492
 msgid "Books"
 msgstr "Boeken"
 
@@ -1051,104 +1051,104 @@ msgid ""
 "page, this action will NOT be reversable!"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1145
+#: inc/admin/laf/namespace.php:1144
 msgid "Book Visibility"
 msgstr "Zichtbaarheid Boek "
 
-#: inc/admin/laf/namespace.php:1159
+#: inc/admin/laf/namespace.php:1158
 msgid "Private Content"
 msgstr "Privé-inhoud"
 
-#: inc/admin/laf/namespace.php:1172
+#: inc/admin/laf/namespace.php:1171
 msgid "Disable Comments"
 msgstr "Uitschakelen Commentaren"
 
-#: inc/admin/laf/namespace.php:1187
+#: inc/admin/laf/namespace.php:1186
 msgid "Share Latest Export Files"
 msgstr "Deel Laatste Export Bestanden"
 
-#: inc/admin/laf/namespace.php:1217
+#: inc/admin/laf/namespace.php:1216
 msgid "Pressbooks Directory"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1235
+#: inc/admin/laf/namespace.php:1234
 msgid "Sharing and Privacy settings"
 msgstr "Deel- en Privacy Instellingen"
 
-#: inc/admin/laf/namespace.php:1251
+#: inc/admin/laf/namespace.php:1250
 msgid "Public. I would like this book to be visible to everyone."
 msgstr "Openbaar. Ik zou dit boek graag zichtbaar maken voor iedereen."
 
-#: inc/admin/laf/namespace.php:1257
+#: inc/admin/laf/namespace.php:1256
 msgid ""
 "Private. I would like this book to be accessible only to people I invite."
 msgstr "Privé. Ik zou dit broek graag alleen zichtbaar maken voor de mensen die ik uitgenodigd heb."
 
-#: inc/admin/laf/namespace.php:1281
+#: inc/admin/laf/namespace.php:1280
 msgid "Who can see private front matter, chapters and back matter?"
 msgstr "Wie kan het voorwerk, de hoofdstukken en het nawerk die privé zijn zien?"
 
-#: inc/admin/laf/namespace.php:1284
+#: inc/admin/laf/namespace.php:1283
 msgid "Only logged in editors and administrators."
 msgstr "Enkel ingelogde redacteurs en beheerders."
 
-#: inc/admin/laf/namespace.php:1286
+#: inc/admin/laf/namespace.php:1285
 msgid "All logged in users including subscribers."
 msgstr "Alle ingelogde gebruikers, inclusief abonnees."
 
-#: inc/admin/laf/namespace.php:1307
+#: inc/admin/laf/namespace.php:1306
 msgid ""
 "Yes. I want to automatically disable comments, trackbacks and pingbacks on "
 "all front matter, chapters and back matter."
 msgstr "Ja. Ik wil commentaren, trackbacks en pingbacks automatisch uitschakelen voor alle voorwerken, hoofdstukken en nawerken."
 
-#: inc/admin/laf/namespace.php:1313
+#: inc/admin/laf/namespace.php:1312
 msgid ""
 "No. I want to leave comments, trackbacks and pingbacks enabled on all front "
 "matter, chapters and back matter unless I disable them manually."
 msgstr "Nee. Ik wil commentaren, trackbacks en pingbacks inschakelen voor alle voorerken, hoofdstukken en nawerken, tenzij ik ze handmatig uitschakel."
 
-#: inc/admin/laf/namespace.php:1329
+#: inc/admin/laf/namespace.php:1328
 msgid ""
 "Yes. I would like the latest export files to be available on the homepage "
 "for free, to everyone."
 msgstr "Ja. Ik wil dat de laatste exportbestanden op de website gratis voor iedereen beschikbaar zijn op de homepage."
 
-#: inc/admin/laf/namespace.php:1335
+#: inc/admin/laf/namespace.php:1334
 msgid ""
 "No. I would like the latest export files to only be available to "
 "administrators."
 msgstr "Nee. Ik wil dat de laatste exportbestanden alleen beschikbaar zijn voor beheerders."
 
-#: inc/admin/laf/namespace.php:1354
+#: inc/admin/laf/namespace.php:1353
 msgid "Yes. I want this book to be listed in the Pressbooks directory."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1360
+#: inc/admin/laf/namespace.php:1359
 msgid "No. Exclude this book from the Pressbooks directory."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1486
+#: inc/admin/laf/namespace.php:1485
 msgid "All Books"
 msgstr "Alle Boeken"
 
-#: inc/admin/laf/namespace.php:1496
+#: inc/admin/laf/namespace.php:1495
 msgid "Search Books"
 msgstr "Boeken Zoeken"
 
-#: inc/admin/laf/namespace.php:1502
+#: inc/admin/laf/namespace.php:1501
 msgid "Edit Book: %s"
 msgstr "Bewerk Boek: %s"
 
-#: inc/admin/laf/namespace.php:1505 inc/admin/laf/namespace.php:1514
+#: inc/admin/laf/namespace.php:1504 inc/admin/laf/namespace.php:1513
 msgid "Book Address (URL)"
 msgstr "Boek Adres (URL)"
 
-#: inc/admin/laf/namespace.php:1511
+#: inc/admin/laf/namespace.php:1510
 msgid "Add New Book"
 msgstr "Nieuw Boek Toevoegen"
 
-#: inc/admin/laf/namespace.php:1517
+#: inc/admin/laf/namespace.php:1516
 #: inc/modules/themeoptions/class-pdfoptions.php:358
 #: inc/modules/themeoptions/class-pdfoptions.php:377
 #: inc/modules/themeoptions/class-pdfoptions.php:396
@@ -1162,45 +1162,47 @@ msgstr "Nieuw Boek Toevoegen"
 msgid "Book Title"
 msgstr "Boektitel"
 
-#: inc/admin/laf/namespace.php:1520
+#: inc/admin/laf/namespace.php:1519
 msgid "Book Language"
 msgstr "Boektaal"
 
-#: inc/admin/laf/namespace.php:1523
+#: inc/admin/laf/namespace.php:1522
 msgid "Add Book"
 msgstr "Boek Toevoegen"
 
-#: inc/admin/laf/namespace.php:1540
+#: inc/admin/laf/namespace.php:1539
 msgid "Edit previous or next item"
 msgstr "Bewerk vorige of volgende item"
 
-#: inc/admin/laf/namespace.php:1545
+#: inc/admin/laf/namespace.php:1544
 msgid "Edit Previous (%s)"
 msgstr "Bewerk Vorige (%s)"
 
-#: inc/admin/laf/namespace.php:1550
+#: inc/admin/laf/namespace.php:1549
 msgid "Edit Next (%s)"
 msgstr "Bewerk Volgende (%s)"
 
-#: inc/admin/metaboxes/namespace.php:98
+#: inc/admin/metaboxes/namespace.php:99
 msgid ""
-"Your cover image (%1$s x %1$s) is too small. It should be 625px on the "
-"shortest side."
-msgstr "De omslagfoto (%1$s x %1$s) is te klein. Hij dient 625px aan de kortste zijde te hebben."
+"Your cover image was not saved because it is too small (%1$s x %2$s). It "
+"should be at least 800px in height."
+msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:104
-msgid "Your cover image (%s) is too big. It should be no more than 2MB."
-msgstr "Uw omslagafbeelding (%s) is te groot. Het mag niet groter zijn dan 2MB."
+#: inc/admin/metaboxes/namespace.php:105
+msgid ""
+"Your cover image was not saved because the aspect ratio (%s) is outside the "
+"permitted range (.66 to 1). We recommend an aspect ratio of .75."
+msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:121 inc/admin/metaboxes/namespace.php:178
+#: inc/admin/metaboxes/namespace.php:130 inc/admin/metaboxes/namespace.php:187
 #: inc/class-metadata.php:449
 msgid "Cover Image"
 msgstr "Omslagafbeelding"
 
-#: inc/admin/metaboxes/namespace.php:164 inc/admin/metaboxes/namespace.php:637
-#: inc/admin/metaboxes/namespace.php:699
+#: inc/admin/metaboxes/namespace.php:173 inc/admin/metaboxes/namespace.php:701
+#: inc/admin/metaboxes/namespace.php:763
 #: inc/api/endpoints/controller/class-toc.php:202 inc/class-sass.php:89
-#: inc/modules/export/epub/class-epub201.php:1868
+#: inc/modules/export/epub/class-epub201.php:1863
 #: inc/modules/themeoptions/class-globaloptions.php:532
 #: inc/posttype/namespace.php:87 inc/posttype/namespace.php:532
 #: inc/posttype/namespace.php:570 templates/admin/import.php:94
@@ -1208,202 +1210,202 @@ msgstr "Omslagafbeelding"
 msgid "Part"
 msgstr "Deel"
 
-#: inc/admin/metaboxes/namespace.php:168
+#: inc/admin/metaboxes/namespace.php:177
 msgid "Save Part"
 msgstr "Onderdeel Opslaan"
 
-#: inc/admin/metaboxes/namespace.php:169
+#: inc/admin/metaboxes/namespace.php:178
 msgid "Save Book Information"
 msgstr "Boekinfo Opslaan"
 
-#: inc/admin/metaboxes/namespace.php:170
+#: inc/admin/metaboxes/namespace.php:179
 msgid "Status & Visibility"
 msgstr "Status & Zichtbaarheid"
 
-#: inc/admin/metaboxes/namespace.php:184
+#: inc/admin/metaboxes/namespace.php:193
 msgid "General Book Information"
 msgstr "Algemene Boekinfo"
 
-#: inc/admin/metaboxes/namespace.php:199
+#: inc/admin/metaboxes/namespace.php:211
 msgid "Short Title"
 msgstr "Korte titel"
 
-#: inc/admin/metaboxes/namespace.php:200
+#: inc/admin/metaboxes/namespace.php:212
 msgid ""
 "In case of long titles that might be truncated in running heads in the PDF "
 "export."
 msgstr "In geval van lange titels die mogelijk afgebroken worden in lopende kopteksten in de PDF export."
 
-#: inc/admin/metaboxes/namespace.php:214
+#: inc/admin/metaboxes/namespace.php:232
 msgid "Author(s)"
 msgstr "Auteur(s)"
 
-#: inc/admin/metaboxes/namespace.php:218 inc/admin/metaboxes/namespace.php:230
-#: inc/admin/metaboxes/namespace.php:242 inc/admin/metaboxes/namespace.php:254
-#: inc/admin/metaboxes/namespace.php:266 inc/admin/metaboxes/namespace.php:278
-#: inc/admin/metaboxes/namespace.php:611
+#: inc/admin/metaboxes/namespace.php:236 inc/admin/metaboxes/namespace.php:248
+#: inc/admin/metaboxes/namespace.php:260 inc/admin/metaboxes/namespace.php:272
+#: inc/admin/metaboxes/namespace.php:284 inc/admin/metaboxes/namespace.php:296
+#: inc/admin/metaboxes/namespace.php:675
 msgid "Create New Contributor"
 msgstr "Nieuwe Bijdrager Aanmaken"
 
-#: inc/admin/metaboxes/namespace.php:219 inc/admin/metaboxes/namespace.php:612
+#: inc/admin/metaboxes/namespace.php:237 inc/admin/metaboxes/namespace.php:676
 msgid "Choose author(s)..."
 msgstr "Kies auteur(s)"
 
-#: inc/admin/metaboxes/namespace.php:226
+#: inc/admin/metaboxes/namespace.php:244
 msgid "Editor(s)"
 msgstr "Editor(s)"
 
-#: inc/admin/metaboxes/namespace.php:231
+#: inc/admin/metaboxes/namespace.php:249
 msgid "Choose editor(s)..."
 msgstr "Kies editor(s)..."
 
-#: inc/admin/metaboxes/namespace.php:238
+#: inc/admin/metaboxes/namespace.php:256
 msgid "Translator(s)"
 msgstr "Vertaler(s)"
 
-#: inc/admin/metaboxes/namespace.php:243
+#: inc/admin/metaboxes/namespace.php:261
 msgid "Choose translator(s)..."
 msgstr "Kies vertaler(s)..."
 
-#: inc/admin/metaboxes/namespace.php:250
+#: inc/admin/metaboxes/namespace.php:268
 msgid "Reviewer(s)"
 msgstr "Recensent(en)"
 
-#: inc/admin/metaboxes/namespace.php:255
+#: inc/admin/metaboxes/namespace.php:273
 msgid "Choose reviewer(s)..."
 msgstr "Kies Recensent(en)..."
 
-#: inc/admin/metaboxes/namespace.php:262
+#: inc/admin/metaboxes/namespace.php:280
 msgid "Illustrator(s)"
 msgstr "Illustrator(s)"
 
-#: inc/admin/metaboxes/namespace.php:267
+#: inc/admin/metaboxes/namespace.php:285
 msgid "Choose illustrator(s)..."
 msgstr "Kies illustrator(s)..."
 
-#: inc/admin/metaboxes/namespace.php:274
+#: inc/admin/metaboxes/namespace.php:292
 msgid "Contributor(s)"
 msgstr "Contributor(s)"
 
-#: inc/admin/metaboxes/namespace.php:279
+#: inc/admin/metaboxes/namespace.php:297
 msgid "Choose contributor(s)..."
 msgstr "Kies contributor(s)..."
 
-#: inc/admin/metaboxes/namespace.php:286
+#: inc/admin/metaboxes/namespace.php:304
 msgid "Publisher"
 msgstr "Uitgever"
 
-#: inc/admin/metaboxes/namespace.php:287 inc/admin/metaboxes/namespace.php:295
+#: inc/admin/metaboxes/namespace.php:305 inc/admin/metaboxes/namespace.php:316
 msgid "This text appears on the title page of your book."
 msgstr "Deze tekst verschijnt op de titelpagina van uw boek."
 
-#: inc/admin/metaboxes/namespace.php:294
+#: inc/admin/metaboxes/namespace.php:315
 msgid "Publisher City"
 msgstr "Plaats van Publicatie"
 
-#: inc/admin/metaboxes/namespace.php:303
+#: inc/admin/metaboxes/namespace.php:327
 msgid "Publication Date"
 msgstr "Publicatiedatum"
 
-#: inc/admin/metaboxes/namespace.php:304 inc/admin/metaboxes/namespace.php:314
+#: inc/admin/metaboxes/namespace.php:328 inc/admin/metaboxes/namespace.php:338
 msgid ""
 "This is added to the metadata in your ebook. Please write date in YYYY-MM-DD"
 " format."
 msgstr "Dit is toegevoegd aan de metadata van uw e-book. Schrijf de datum alstublieft in YYYY-MM-DD formaat."
 
-#: inc/admin/metaboxes/namespace.php:313
+#: inc/admin/metaboxes/namespace.php:337
 msgid "On-Sale Date"
 msgstr "Verkoopdatum"
 
-#: inc/admin/metaboxes/namespace.php:322
+#: inc/admin/metaboxes/namespace.php:346
 msgid "Ebook ISBN"
 msgstr "E-boek ISBN"
 
-#: inc/admin/metaboxes/namespace.php:323
+#: inc/admin/metaboxes/namespace.php:347
 msgid ""
 "ISBN is the International Standard Book Number, and you'll need one if you "
 "want to sell your book in some online ebook stores. This is added to the "
 "metadata in your ebook."
 msgstr "ISBN is het Internationaal Standaard Boeknummer. U hebt er eentje nodig als u uw boek wilt verkopen in online e-boek winkels. Dit wordt toegevoegd aan de metadata in uw e-boek."
 
-#: inc/admin/metaboxes/namespace.php:330
+#: inc/admin/metaboxes/namespace.php:357
 msgid "Print ISBN"
 msgstr "Druk ISBN"
 
-#: inc/admin/metaboxes/namespace.php:331
+#: inc/admin/metaboxes/namespace.php:358
 msgid ""
 "ISBN is the International Standard Book Number, and you'll need one if you "
 "want to sell your book in online and physical book stores."
 msgstr "ISBN is het Internationaal Standaard Boeknummer. U hebt er eentje nodig als u uw boek wilt verkopen in online e-boek winkels en fysieke boekenwinkels."
 
-#: inc/admin/metaboxes/namespace.php:338
+#: inc/admin/metaboxes/namespace.php:368
 msgid "Digital Object Identifier (DOI)"
 msgstr "Digital Object Identifier (DOI)"
 
-#: inc/admin/metaboxes/namespace.php:347
+#: inc/admin/metaboxes/namespace.php:380
 msgid "Language"
 msgstr "Taal"
 
-#: inc/admin/metaboxes/namespace.php:348
+#: inc/admin/metaboxes/namespace.php:381
 msgid ""
 "This sets metadata in your ebook, making it easier to find in some stores. "
 "It also changes some system generated content for supported languages, such "
 "as the \"Contents\" header."
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:348
+#: inc/admin/metaboxes/namespace.php:381
 msgid "Help translate Pressbooks into your language!"
 msgstr "Help Pressbooks in uw taal te vertalen!"
 
-#: inc/admin/metaboxes/namespace.php:355 inc/class-licensing.php:306
-#: inc/modules/export/epub/class-epub201.php:1135
-#: inc/modules/export/epub/class-epub201.php:1161
+#: inc/admin/metaboxes/namespace.php:388 inc/class-licensing.php:306
+#: inc/modules/export/epub/class-epub201.php:1130
+#: inc/modules/export/epub/class-epub201.php:1156
 #: inc/modules/export/epub/templates/epub3/opf.php:95
 #: inc/modules/export/epub/templates/epub201/opf.php:88
 #: inc/modules/export/htmlbook/class-htmlbook.php:863
-#: inc/modules/export/xhtml/class-xhtml11.php:1042
+#: inc/modules/export/xhtml/class-xhtml11.php:1059
 msgid "Copyright"
 msgstr "Auteursrecht"
 
-#: inc/admin/metaboxes/namespace.php:368 templates/admin/cloner.php:20
+#: inc/admin/metaboxes/namespace.php:401 templates/admin/cloner.php:20
 msgid "Source Book URL"
 msgstr "Broen Boek URL"
 
-#: inc/admin/metaboxes/namespace.php:370
+#: inc/admin/metaboxes/namespace.php:403
 msgid ""
 "This book was cloned from a pre-existing book at the above URL. This "
 "information will be displayed on the webbook homepage."
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:380
+#: inc/admin/metaboxes/namespace.php:413
 msgid "Copyright Year"
 msgstr "Jaar van auteursrecht"
 
-#: inc/admin/metaboxes/namespace.php:381
+#: inc/admin/metaboxes/namespace.php:414
 msgid "Year that the book is/was published."
 msgstr "Jaar van publicatie van het boek."
 
-#: inc/admin/metaboxes/namespace.php:389
+#: inc/admin/metaboxes/namespace.php:426
 msgid "Copyright Holder"
 msgstr "Auteursrechthebbende"
 
-#: inc/admin/metaboxes/namespace.php:390
+#: inc/admin/metaboxes/namespace.php:427
 msgid "Name of the copyright holder."
 msgstr "Naam van de auteursrechthebbende."
 
-#: inc/admin/metaboxes/namespace.php:399
+#: inc/admin/metaboxes/namespace.php:439
 msgid "Copyright License"
 msgstr "Licentie voor gebruik van auteursrechten"
 
-#: inc/admin/metaboxes/namespace.php:400
+#: inc/admin/metaboxes/namespace.php:440
 msgid "You can select various licenses including Creative Commons."
 msgstr "U kan verschillende licenties selecteren, inclusief Creative Commons."
 
-#: inc/admin/metaboxes/namespace.php:408
+#: inc/admin/metaboxes/namespace.php:448
 msgid "Copyright Notice"
 msgstr "Melding van auteursrecht "
 
-#: inc/admin/metaboxes/namespace.php:409
+#: inc/admin/metaboxes/namespace.php:449
 msgid ""
 "Enter a custom copyright notice, with whatever information you like. This "
 "will override the auto-generated copyright notice if All Rights Reserved or "
@@ -1412,159 +1414,159 @@ msgid ""
 "license text in both the webbook and your exports."
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:418
+#: inc/admin/metaboxes/namespace.php:458
 msgid "About the Book"
 msgstr "Over het Boek"
 
-#: inc/admin/metaboxes/namespace.php:426
+#: inc/admin/metaboxes/namespace.php:466
 msgid "Book Tagline"
 msgstr "Tagline van boek"
 
-#: inc/admin/metaboxes/namespace.php:427
+#: inc/admin/metaboxes/namespace.php:467
 msgid ""
 "A very short description of your book. It should fit in a Twitter post, and "
 "encapsulate your book in the briefest sentence."
 msgstr "Een heel korte beschrijving van uw boek. Het moet kunnen passen in een Twitterbericht, en uw boek zo kort mogelijk samenvatten."
 
-#: inc/admin/metaboxes/namespace.php:435
+#: inc/admin/metaboxes/namespace.php:478
 msgid "Short Description"
 msgstr "Korte beschrijving"
 
-#: inc/admin/metaboxes/namespace.php:436
+#: inc/admin/metaboxes/namespace.php:479
 msgid ""
 "A short paragraph about your book, for catalogs, reviewers etc. to quote."
 msgstr "Een korte paragraaf over uw boek, voor catalogi, recensenten etc. om te citeren."
 
-#: inc/admin/metaboxes/namespace.php:447
+#: inc/admin/metaboxes/namespace.php:490
 msgid "Long Description"
 msgstr "Lange beschrijving"
 
-#: inc/admin/metaboxes/namespace.php:448
+#: inc/admin/metaboxes/namespace.php:491
 msgid "The full description of your book."
 msgstr "De volledige beschrijving van uw boek."
 
-#: inc/admin/metaboxes/namespace.php:455
+#: inc/admin/metaboxes/namespace.php:498
 msgid "Subject(s)"
 msgstr "Onderwerp(en)"
 
-#: inc/admin/metaboxes/namespace.php:460
+#: inc/admin/metaboxes/namespace.php:503
 msgid "Additional Catalog Information"
 msgstr "Bijkomstige Catalogus-informatie"
 
-#: inc/admin/metaboxes/namespace.php:468
+#: inc/admin/metaboxes/namespace.php:511
 msgid "Series Title"
 msgstr "Reekstitel"
 
-#: inc/admin/metaboxes/namespace.php:469 inc/admin/metaboxes/namespace.php:477
+#: inc/admin/metaboxes/namespace.php:512 inc/admin/metaboxes/namespace.php:523
 msgid "Add if your book is part of a series."
 msgstr "Voeg toe indien uw boek deel uitmaakt van een serie."
 
-#: inc/admin/metaboxes/namespace.php:476
+#: inc/admin/metaboxes/namespace.php:522
 msgid "Series Number"
 msgstr "Reeksnummer"
 
-#: inc/admin/metaboxes/namespace.php:484
+#: inc/admin/metaboxes/namespace.php:533
 msgid "Keywords"
 msgstr "Trefwoorden"
 
-#: inc/admin/metaboxes/namespace.php:486
+#: inc/admin/metaboxes/namespace.php:535
 msgid ""
 "These are added to your webbook cover page, and in your ebook metadata. "
 "Keywords are used by online book stores and search engines."
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:493
+#: inc/admin/metaboxes/namespace.php:542
 msgid "Hashtag"
 msgstr "Hashtag"
 
-#: inc/admin/metaboxes/namespace.php:494
+#: inc/admin/metaboxes/namespace.php:543
 msgid ""
 "These are added to your webbook cover page. For those of you who like "
 "Twitter."
 msgstr "Deze worden toegevoegd aan uw webboek omslag pagina. Voor diegenen die van Twitter houden."
 
-#: inc/admin/metaboxes/namespace.php:501
+#: inc/admin/metaboxes/namespace.php:553
 msgid "List Price (Print)"
 msgstr "Catalogusprijs (Druk)"
 
-#: inc/admin/metaboxes/namespace.php:502
+#: inc/admin/metaboxes/namespace.php:554
 msgid "The list price of your book in print."
 msgstr "De verkoopprijs van uw boek in print."
 
-#: inc/admin/metaboxes/namespace.php:509
+#: inc/admin/metaboxes/namespace.php:564
 msgid "List Price (PDF)"
 msgstr "Catalogusprijs (PDF)"
 
-#: inc/admin/metaboxes/namespace.php:510
+#: inc/admin/metaboxes/namespace.php:565
 msgid "The list price of your book in PDF format."
 msgstr "De verkoopprijs van uw boek in PDF formaat."
 
-#: inc/admin/metaboxes/namespace.php:517
+#: inc/admin/metaboxes/namespace.php:575
 msgid "List Price (ebook)"
 msgstr "Catalogusprijs (e-boek)"
 
-#: inc/admin/metaboxes/namespace.php:518
+#: inc/admin/metaboxes/namespace.php:576
 msgid "The list price of your book in Ebook formats."
 msgstr "De verkoopprijs van uw boek in E-book formaten."
 
-#: inc/admin/metaboxes/namespace.php:525
+#: inc/admin/metaboxes/namespace.php:586
 msgid "List Price (Web)"
 msgstr "Catalogusprijs (Web)"
 
-#: inc/admin/metaboxes/namespace.php:526
+#: inc/admin/metaboxes/namespace.php:587
 msgid "The list price of your webbook."
 msgstr "De verkoopprijs van uw webboek."
 
-#: inc/admin/metaboxes/namespace.php:535
+#: inc/admin/metaboxes/namespace.php:599
 msgid "Choose an audience&hellip;"
 msgstr "Kies een publiek&hellip;"
 
-#: inc/admin/metaboxes/namespace.php:536
+#: inc/admin/metaboxes/namespace.php:600
 msgid "Juvenile"
 msgstr "Jeugdig"
 
-#: inc/admin/metaboxes/namespace.php:537
+#: inc/admin/metaboxes/namespace.php:601
 msgid "Young Adult"
 msgstr "Jong Volwassenen"
 
-#: inc/admin/metaboxes/namespace.php:538
+#: inc/admin/metaboxes/namespace.php:602
 msgid "Adult"
 msgstr "Volwassenen"
 
-#: inc/admin/metaboxes/namespace.php:540
+#: inc/admin/metaboxes/namespace.php:604
 msgid "Audience"
 msgstr "Publiek"
 
-#: inc/admin/metaboxes/namespace.php:541
+#: inc/admin/metaboxes/namespace.php:605
 msgid "The target audience for your book."
 msgstr "Het doelpubliek voor uw boek."
 
-#: inc/admin/metaboxes/namespace.php:554
+#: inc/admin/metaboxes/namespace.php:618
 msgid "BISAC Subject(s)"
 msgstr "BISAC Onderwerp(en)"
 
-#: inc/admin/metaboxes/namespace.php:556
+#: inc/admin/metaboxes/namespace.php:620
 msgid ""
 "BISAC Subject Headings help libraries and (e)book stores properly classify "
 "your book. To select the appropriate subject heading for your book, consult "
 "%s"
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:556
+#: inc/admin/metaboxes/namespace.php:620
 msgid "the BISAC Subject Headings list"
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:570
+#: inc/admin/metaboxes/namespace.php:634
 msgid "BISAC Regional Theme"
 msgstr "BISAC Regionaal Thema"
 
-#: inc/admin/metaboxes/namespace.php:571
+#: inc/admin/metaboxes/namespace.php:635
 msgid ""
 "BISAC Regional Themes help libraries and (e)book stores properly classify "
 "your book."
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:581
+#: inc/admin/metaboxes/namespace.php:645
 #: inc/api/endpoints/controller/class-toc.php:209 inc/class-sass.php:78
 #: inc/modules/themeoptions/class-globaloptions.php:533
 #: inc/posttype/namespace.php:64 inc/posttype/namespace.php:535
@@ -1573,92 +1575,92 @@ msgstr ""
 msgid "Chapter"
 msgstr "Hoofdstuk"
 
-#: inc/admin/metaboxes/namespace.php:586
+#: inc/admin/metaboxes/namespace.php:650
 msgid "%s Metadata"
 msgstr "%s Metadata"
 
-#: inc/admin/metaboxes/namespace.php:593
+#: inc/admin/metaboxes/namespace.php:657
 msgid ""
 "%s Short Title (appears in the PDF running header and webbook navigation)"
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:600
+#: inc/admin/metaboxes/namespace.php:664
 msgid "%s Subtitle (appears in the Web/ebook/PDF output)"
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:607
+#: inc/admin/metaboxes/namespace.php:671
 msgid "%s Author(s)"
 msgstr "%s Auteur(s)"
 
-#: inc/admin/metaboxes/namespace.php:621
+#: inc/admin/metaboxes/namespace.php:685
 msgid "%s Copyright License (overrides book license on this page)"
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:628
+#: inc/admin/metaboxes/namespace.php:692
 msgid "%s Digital Object Identifier (DOI)"
 msgstr "%s Digital Object Identifier (DOI)"
 
-#: inc/admin/metaboxes/namespace.php:648
+#: inc/admin/metaboxes/namespace.php:712
 msgid ""
 "Appears on part page. Parts will not appear if a book has only one part."
 msgstr "Verschijnt op onderdeelpagina. Onderdelen zullen niet verschijnen als een boek enkel één onderdeel bevat."
 
-#: inc/admin/metaboxes/namespace.php:656
+#: inc/admin/metaboxes/namespace.php:720
 msgid "Part Visibility"
 msgstr "Zichtbaarheid onderdeel"
 
-#: inc/admin/metaboxes/namespace.php:666
+#: inc/admin/metaboxes/namespace.php:730
 msgid "Invisible"
 msgstr "Onzichtbaar"
 
-#: inc/admin/metaboxes/namespace.php:667
+#: inc/admin/metaboxes/namespace.php:731
 msgid "Hide from table of contents and part numbering."
 msgstr "Verberg van de inhoudsopgave en deelnummering."
 
-#: inc/admin/metaboxes/namespace.php:823
+#: inc/admin/metaboxes/namespace.php:887
 msgid "Show in Glossary Lists"
 msgstr "Toon in Woordenlijst"
 
-#: inc/admin/metaboxes/namespace.php:834
+#: inc/admin/metaboxes/namespace.php:898
 msgid "Preview"
 msgstr "Voorbeeld"
 
 #. translators: accessibility text
-#: inc/admin/metaboxes/namespace.php:836
+#: inc/admin/metaboxes/namespace.php:900
 msgid "(opens in a new window)"
 msgstr "(opent in een nieuw venster)"
 
-#: inc/admin/metaboxes/namespace.php:845 templates/admin/organize.php:134
+#: inc/admin/metaboxes/namespace.php:909 templates/admin/organize.php:134
 #: templates/admin/organize.php:237 templates/admin/organize.php:293
 #: templates/admin/organize.php:395
 msgid "Show in Web"
 msgstr "Toon in Web"
 
-#: inc/admin/metaboxes/namespace.php:849
+#: inc/admin/metaboxes/namespace.php:913
 msgid "Require a Password"
 msgstr "Wachtwoord vereist"
 
-#: inc/admin/metaboxes/namespace.php:850
+#: inc/admin/metaboxes/namespace.php:914
 msgid "Password..."
 msgstr "Wachtwoord..."
 
-#: inc/admin/metaboxes/namespace.php:854 templates/admin/organize.php:142
+#: inc/admin/metaboxes/namespace.php:918 templates/admin/organize.php:142
 #: templates/admin/organize.php:241 templates/admin/organize.php:301
 #: templates/admin/organize.php:399
 msgid "Show in Exports"
 msgstr "Toon in Exports"
 
-#: inc/admin/metaboxes/namespace.php:858 templates/admin/organize.php:149
+#: inc/admin/metaboxes/namespace.php:922 templates/admin/organize.php:149
 #: templates/admin/organize.php:245 templates/admin/organize.php:309
 #: templates/admin/organize.php:403
 msgid "Show Title"
 msgstr "Toon Titel"
 
-#: inc/admin/metaboxes/namespace.php:1042
+#: inc/admin/metaboxes/namespace.php:1106
 msgid "Primary Subject"
 msgstr "Primair Onderwerp"
 
-#: inc/admin/metaboxes/namespace.php:1046
+#: inc/admin/metaboxes/namespace.php:1110
 msgid ""
 "%1$s subject terms appear on the web homepage of your book and help "
 "categorize your book in your network catalog and Pressbooks Directory (if "
@@ -1666,21 +1668,21 @@ msgid ""
 "book."
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:1046
-#: inc/admin/metaboxes/namespace.php:1059
+#: inc/admin/metaboxes/namespace.php:1110
+#: inc/admin/metaboxes/namespace.php:1123
 msgid "Thema"
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:1046
-#: inc/admin/metaboxes/namespace.php:1059
+#: inc/admin/metaboxes/namespace.php:1110
+#: inc/admin/metaboxes/namespace.php:1123
 msgid "the Thema subject category list"
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:1049
+#: inc/admin/metaboxes/namespace.php:1113
 msgid "Additional Subject(s)"
 msgstr "Additionele Onderwerp(en)"
 
-#: inc/admin/metaboxes/namespace.php:1059
+#: inc/admin/metaboxes/namespace.php:1123
 msgid ""
 "%1$s subject terms appear on the web homepage of your book and help "
 "categorize your book in your network catalog and Pressbooks Directory (if "
@@ -1688,21 +1690,21 @@ msgid ""
 "appropriate for your book."
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:1143
-#: inc/admin/metaboxes/namespace.php:1165
+#: inc/admin/metaboxes/namespace.php:1207
+#: inc/admin/metaboxes/namespace.php:1229
 msgid "First Name"
 msgstr "Voornaam"
 
-#: inc/admin/metaboxes/namespace.php:1148
-#: inc/admin/metaboxes/namespace.php:1172
+#: inc/admin/metaboxes/namespace.php:1212
+#: inc/admin/metaboxes/namespace.php:1236
 msgid "Last Name"
 msgstr "Achternaam"
 
-#: inc/admin/metaboxes/namespace.php:1214
+#: inc/admin/metaboxes/namespace.php:1278
 msgid "Name cannot be left blank."
 msgstr "Naam kan niet leeg gelaten worden."
 
-#: inc/admin/metaboxes/namespace.php:1248
+#: inc/admin/metaboxes/namespace.php:1312
 msgid "Owner"
 msgstr "Eigenaar"
 
@@ -2198,12 +2200,12 @@ msgid ""
 "licenses"
 msgstr "$title is verouderd. Methode zal automatisch de titel van licenties bepalen."
 
-#: inc/class-licensing.php:308 inc/class-styles.php:791
-#: inc/modules/export/epub/class-epub201.php:1144
+#: inc/class-licensing.php:308 inc/class-styles.php:790
+#: inc/modules/export/epub/class-epub201.php:1139
 #: inc/modules/export/epub/templates/epub3/opf.php:104
 #: inc/modules/export/epub/templates/epub201/opf.php:97
 #: inc/modules/export/htmlbook/class-htmlbook.php:872
-#: inc/modules/export/xhtml/class-xhtml11.php:1051
+#: inc/modules/export/xhtml/class-xhtml11.php:1068
 msgid "by"
 msgstr "door"
 
@@ -2262,109 +2264,109 @@ msgstr "Aangepaste Stijl voor PDF"
 msgid "Custom Style for Web"
 msgstr "Aangepaste Stijl voor Web"
 
-#: inc/class-styles.php:643
+#: inc/class-styles.php:642
 msgid "Alegreya"
 msgstr "Alegreya"
 
-#: inc/class-styles.php:644
+#: inc/class-styles.php:643
 msgid "Cormorant Garamond"
 msgstr "Cormorant Garamond"
 
-#: inc/class-styles.php:645
+#: inc/class-styles.php:644
 msgid "Crimson Text"
 msgstr "Crimson Text"
 
-#: inc/class-styles.php:646
+#: inc/class-styles.php:645
 msgid "GNU FreeFont Serif"
 msgstr "GNU FreeFont Serif"
 
-#: inc/class-styles.php:647
+#: inc/class-styles.php:646
 msgid "New Athena Unicode"
 msgstr ""
 
-#: inc/class-styles.php:648
+#: inc/class-styles.php:647
 msgid "Noto Serif"
 msgstr ""
 
-#: inc/class-styles.php:649
+#: inc/class-styles.php:648
 msgid "Sorts Mill Goudy"
 msgstr ""
 
-#: inc/class-styles.php:650
+#: inc/class-styles.php:649
 msgid "Spectral"
 msgstr "Spectral"
 
-#: inc/class-styles.php:654
+#: inc/class-styles.php:653
 msgid "Barlow"
 msgstr "Barlow"
 
-#: inc/class-styles.php:655
+#: inc/class-styles.php:654
 msgid "GNU FreeFont Sans"
 msgstr "GNU FreeFont Sans"
 
-#: inc/class-styles.php:656
+#: inc/class-styles.php:655
 msgid "K2D"
 msgstr "K2D"
 
-#: inc/class-styles.php:657
+#: inc/class-styles.php:656
 msgid "Lato"
 msgstr "Lato"
 
-#: inc/class-styles.php:658
+#: inc/class-styles.php:657
 msgid "Libre Franklin"
 msgstr "Libre Franklin"
 
-#: inc/class-styles.php:659
+#: inc/class-styles.php:658
 msgid "Montserrat"
 msgstr "Montserrat"
 
-#: inc/class-styles.php:660
+#: inc/class-styles.php:659
 msgid "Noto Sans"
 msgstr "Noto Sans"
 
-#: inc/class-styles.php:661
+#: inc/class-styles.php:660
 msgid "Open Sans"
 msgstr "Open Sans"
 
-#: inc/class-styles.php:662
+#: inc/class-styles.php:661
 msgid "Raleway"
 msgstr "Raleway"
 
-#: inc/class-styles.php:663
+#: inc/class-styles.php:662
 msgid "Roboto"
 msgstr "Roboto"
 
-#: inc/class-styles.php:664
+#: inc/class-styles.php:663
 msgid "Rubik"
 msgstr "Rubik"
 
-#: inc/class-styles.php:665
+#: inc/class-styles.php:664
 msgid "Source Sans Pro"
 msgstr "Source Sans Pro"
 
-#: inc/class-styles.php:669 tests/test-styles.php:185
+#: inc/class-styles.php:668 tests/test-styles.php:185
 msgid "Theme default"
 msgstr "Theme default"
 
-#: inc/class-styles.php:670 inc/class-styles.php:684 tests/test-styles.php:186
+#: inc/class-styles.php:669 inc/class-styles.php:683 tests/test-styles.php:186
 msgid "Serif"
 msgstr "Serif"
 
-#: inc/class-styles.php:671 tests/test-styles.php:187
+#: inc/class-styles.php:670 tests/test-styles.php:187
 msgid "Sans serif"
 msgstr "Sans serif"
 
-#: inc/class-styles.php:716
+#: inc/class-styles.php:715
 msgid ""
 "Unexpected Error: There was a problem trying to query slug: %s - Please "
 "contact technical support."
 msgstr "Onverwachte Fout: Er was een probleem tijdens het verzoek naar slug: %s - Raadpleeg de technische ondersteuning."
 
-#: inc/class-styles.php:756 templates/admin/custom-styles.php:16
+#: inc/class-styles.php:755 templates/admin/custom-styles.php:16
 msgid "Web"
 msgstr "Web"
 
-#: inc/class-styles.php:788
+#: inc/class-styles.php:787
 msgid "Last 10 Revisions"
 msgstr "Laatste 10 Revisies"
 
@@ -2515,170 +2517,175 @@ msgstr "Er was een probleem bij het aanmaken van de streepjescode: Ongeldig ISBN
 msgid "There was a problem creating the barcode: Invalid characters in SKU"
 msgstr "Er was een probleem bij het aanmaken van de streepjescode: Ongeldige karakters in de SKU."
 
-#: inc/editor/namespace.php:103
+#: inc/editor/namespace.php:105
 msgid "Insert Footnote"
 msgstr "Voetnoot invoegen"
 
-#: inc/editor/namespace.php:104
+#: inc/editor/namespace.php:106
 msgid "Convert MS Word Footnotes"
 msgstr "Converteer voetnoten van MS Word"
 
-#: inc/editor/namespace.php:117 templates/admin/import.php:156
+#: inc/editor/namespace.php:113
+msgid "Insert LaTeX"
+msgstr ""
+
+#: inc/editor/namespace.php:126 templates/admin/import.php:156
 msgid "Cancel"
 msgstr "Annuleer"
 
-#: inc/editor/namespace.php:118
+#: inc/editor/namespace.php:127
 msgid "Description"
 msgstr "Omschrijving"
 
-#: inc/editor/namespace.php:119
+#: inc/editor/namespace.php:128
 msgid "Insert Glossary Term"
 msgstr "Woordenlijst term invoegen"
 
-#: inc/editor/namespace.php:120
+#: inc/editor/namespace.php:129
 msgid "Insert"
 msgstr "Invoegen"
 
-#: inc/editor/namespace.php:122
+#: inc/editor/namespace.php:131
 msgctxt "JS template string"
 msgid "Glossary term <em>${templateString1}</em> not found. Please create it."
 msgstr "Woordenboek term <em>${templateString1}</em> niet gevonden. Maak hem alstublieft aan."
 
-#: inc/editor/namespace.php:123
+#: inc/editor/namespace.php:132
 msgid "Select a Term"
 msgstr "Selecteer een Term"
 
-#: inc/editor/namespace.php:124
+#: inc/editor/namespace.php:133
 msgid "Create and Insert Term"
 msgstr "Term Maken en Invoegen"
 
-#: inc/editor/namespace.php:125
+#: inc/editor/namespace.php:134
 msgid "Choose Existing Term"
 msgstr "Kies Bestaande Term"
 
-#: inc/editor/namespace.php:126
+#: inc/editor/namespace.php:135
 msgid "Glossary term already exists."
 msgstr "Woordenlijst term bestaat al."
 
-#: inc/editor/namespace.php:128
+#: inc/editor/namespace.php:137
 msgid "Cannot submit empty Glossary term."
 msgstr "Kan geen lege woordenlijst term toevoegen."
 
-#: inc/editor/namespace.php:129
+#: inc/editor/namespace.php:138
 msgid "A term was not selected?"
 msgstr "Geen term geselcteerd?"
 
-#: inc/editor/namespace.php:130 inc/posttype/namespace.php:240
+#: inc/editor/namespace.php:139 inc/posttype/namespace.php:240
 msgid ""
 "To display a list of glossary terms, leave this back matter's content blank."
 msgstr "Om een een woordenlijst weer te geven dient u deze nawerkpagina leeg te laten."
 
-#: inc/editor/namespace.php:131
+#: inc/editor/namespace.php:140
 msgid "Term"
 msgstr "Term"
 
-#: inc/editor/namespace.php:187
+#: inc/editor/namespace.php:199
 msgid "Indent"
 msgstr "Inspringen"
 
-#: inc/editor/namespace.php:193
+#: inc/editor/namespace.php:205
 msgid "Hanging indent"
 msgstr "Inspringen van de tweede en volgende regels"
 
-#: inc/editor/namespace.php:199
+#: inc/editor/namespace.php:211
 msgid "No indent"
 msgstr "Niet inspringen"
 
-#: inc/editor/namespace.php:205
+#: inc/editor/namespace.php:217
 msgid "Write right to left"
 msgstr "Schrijf rechts naar links"
 
-#: inc/editor/namespace.php:213
+#: inc/editor/namespace.php:225
 msgid "Write left to right"
 msgstr "Schrijf links naar rechts"
 
-#: inc/editor/namespace.php:221
+#: inc/editor/namespace.php:233
 msgid "Tight tracking"
 msgstr ""
 
-#: inc/editor/namespace.php:227
+#: inc/editor/namespace.php:239
 msgid "Very tight tracking"
 msgstr ""
 
-#: inc/editor/namespace.php:233
+#: inc/editor/namespace.php:245
 msgid "Loose tracking"
 msgstr ""
 
-#: inc/editor/namespace.php:239
+#: inc/editor/namespace.php:251
 msgid "Very loose tracking"
 msgstr ""
 
-#: inc/editor/namespace.php:245
+#: inc/editor/namespace.php:257
 msgid "Pullquote (left)"
 msgstr "Pullquote (links)"
 
-#: inc/editor/namespace.php:251
+#: inc/editor/namespace.php:263
 msgid "Pullquote (right)"
 msgstr "Pullquote (rechts)"
 
-#: inc/editor/namespace.php:303 inc/editor/namespace.php:345
-#: inc/editor/namespace.php:359
+#: inc/editor/namespace.php:315 inc/editor/namespace.php:357
+#: inc/editor/namespace.php:371
 #: inc/modules/themeoptions/class-weboptions.php:118 languages/tinymce.php:7
 msgid "Standard"
 msgstr "Standaard"
 
-#: inc/editor/namespace.php:307
+#: inc/editor/namespace.php:319
 msgid "No lines"
 msgstr "Geen regels"
 
-#: inc/editor/namespace.php:311
+#: inc/editor/namespace.php:323
 msgid "Lines"
 msgstr "Regels"
 
-#: inc/editor/namespace.php:315 inc/editor/namespace.php:353
-#: inc/editor/namespace.php:367 languages/tinymce.php:10
+#: inc/editor/namespace.php:327 inc/editor/namespace.php:365
+#: inc/editor/namespace.php:379 languages/tinymce.php:10
 msgid "Shaded"
 msgstr "Schaduw"
 
-#: inc/editor/namespace.php:319
+#: inc/editor/namespace.php:331
 msgid "Full Grid"
 msgstr "Volledig Grid"
 
-#: inc/editor/namespace.php:323
+#: inc/editor/namespace.php:335
 msgid "Standard Landscape*"
 msgstr "Standaard Liggend*"
 
-#: inc/editor/namespace.php:327
+#: inc/editor/namespace.php:339
 msgid "No lines Landscape*"
 msgstr "Geen lijnen Liggend*"
 
-#: inc/editor/namespace.php:331
+#: inc/editor/namespace.php:343
 msgid "Lines Landscape*"
 msgstr "Lijnen Liggend*"
 
-#: inc/editor/namespace.php:335
+#: inc/editor/namespace.php:347
 msgid "Shaded Landscape*"
 msgstr "Schaduw Liggend*"
 
-#: inc/editor/namespace.php:339
+#: inc/editor/namespace.php:351
 msgid "Full Grid Landscape*"
 msgstr "Volledig Grid Liggend*"
 
-#: inc/editor/namespace.php:349 inc/editor/namespace.php:363
+#: inc/editor/namespace.php:361 inc/editor/namespace.php:375
 msgid "Border"
 msgstr "Grens"
 
-#: inc/editor/namespace.php:483
+#: inc/editor/namespace.php:495
 msgid "Internal Link"
 msgstr "Interne Link"
 
 #: inc/image/namespace.php:407
 msgid ""
-"Cover Image should be 1:1.5 aspect ratio. Recommended dimensions are 2500px "
-"× 3750px, maximum size is 2MB.<br />NOTE: This cover will be included in "
-"your ebook files but not your PDF export. Read more <a "
-"href=\"https://guide.pressbooks.com/chapter/how-to-design-your-book-"
-"cover/\">here</a>."
+"This image will be displayed on the webbook home page and used as the "
+"internal cover in ebook exports. Cover images must be at least 800px tall "
+"and have an aspect ratio between .66 and 1. Very large images will be "
+"resized upon upload. Read more in <a "
+"href=\"https://guide.pressbooks.com/chapter/how-to-design-your-book-cover/\""
+" target=\"_blank\">our guide</a>."
 msgstr ""
 
 #: inc/image/namespace.php:447 templates/admin/covergenerator.php:123
@@ -2727,39 +2734,39 @@ msgid ""
 " from %2$s. Please report this error to your network manager."
 msgstr ""
 
-#: inc/modules/export/class-export.php:794
+#: inc/modules/export/class-export.php:788
 msgid "%s: Initializing"
 msgstr "%s: Initialiseren"
 
-#: inc/modules/export/class-export.php:796
+#: inc/modules/export/class-export.php:790
 msgid "%s: Exporting"
 msgstr "%s: Exporteren"
 
-#: inc/modules/export/class-export.php:801
+#: inc/modules/export/class-export.php:795
 msgid "%s: Export successful"
 msgstr "%s: Export succesvol"
 
-#: inc/modules/export/class-export.php:803
+#: inc/modules/export/class-export.php:797
 msgid "%s: Validating file"
 msgstr "%s: Valideren bestand"
 
-#: inc/modules/export/class-export.php:808
+#: inc/modules/export/class-export.php:802
 msgid "%s: Validation successful"
 msgstr "%s: Validatie succesvol"
 
-#: inc/modules/export/class-export.php:812
+#: inc/modules/export/class-export.php:806
 msgid "%s: Finishing up"
 msgstr "%s: Afronden"
 
-#: inc/modules/export/class-export.php:887
+#: inc/modules/export/class-export.php:871
 msgid "The export failed. See logs for more details."
 msgstr "De export is mislukt. Zie logs voor meer details."
 
-#: inc/modules/export/class-export.php:896
+#: inc/modules/export/class-export.php:880
 msgid "Warning: The export has validation errors. See logs for more details."
 msgstr "Waarschuwing: De export bevat valideerfouten. Zie de logboeken voor meer details."
 
-#: inc/modules/export/class-export.php:897
+#: inc/modules/export/class-export.php:881
 msgid "Emailed to:"
 msgstr "Via e-mail verstuurd naar:"
 
@@ -2848,25 +2855,25 @@ msgid "Exporting dedication and epigraph"
 msgstr ""
 
 #: inc/modules/export/epub/class-epub201.php:699
-#: inc/modules/export/epub/class-epub201.php:1286
+#: inc/modules/export/epub/class-epub201.php:1281
 #: inc/modules/export/xhtml/class-xhtml11.php:431
-#: inc/modules/export/xhtml/class-xhtml11.php:1283
+#: inc/modules/export/xhtml/class-xhtml11.php:1300
 msgid "Exporting front matter"
 msgstr "Exporteren voorwerk"
 
 #: inc/modules/export/epub/class-epub201.php:706
-#: inc/modules/export/epub/class-epub201.php:1454
-#: inc/modules/export/epub/class-epub201.php:1476
+#: inc/modules/export/epub/class-epub201.php:1449
+#: inc/modules/export/epub/class-epub201.php:1471
 #: inc/modules/export/xhtml/class-xhtml11.php:438
-#: inc/modules/export/xhtml/class-xhtml11.php:1407
-#: inc/modules/export/xhtml/class-xhtml11.php:1458
+#: inc/modules/export/xhtml/class-xhtml11.php:1424
+#: inc/modules/export/xhtml/class-xhtml11.php:1475
 msgid "Exporting parts and chapters"
 msgstr "Exporteren delen en hoofdstukken"
 
 #: inc/modules/export/epub/class-epub201.php:710
-#: inc/modules/export/epub/class-epub201.php:1715
+#: inc/modules/export/epub/class-epub201.php:1710
 #: inc/modules/export/xhtml/class-xhtml11.php:442
-#: inc/modules/export/xhtml/class-xhtml11.php:1585
+#: inc/modules/export/xhtml/class-xhtml11.php:1602
 msgid "Exporting back matter"
 msgstr "Exporteren nawerk"
 
@@ -2875,25 +2882,25 @@ msgstr "Exporteren nawerk"
 msgid "Creating table of contents"
 msgstr "Cre&euml;eren inhoudsopgave"
 
-#: inc/modules/export/epub/class-epub201.php:1063
+#: inc/modules/export/epub/class-epub201.php:1058
 msgid "Publisher Logo"
 msgstr "Uitgever Logo"
 
-#: inc/modules/export/epub/class-epub201.php:1073
+#: inc/modules/export/epub/class-epub201.php:1068
 msgid "Title Page"
 msgstr "Titelpagina"
 
-#: inc/modules/export/epub/class-epub201.php:1395
+#: inc/modules/export/epub/class-epub201.php:1390
 msgid "Make your own books using Pressbooks"
 msgstr "Maak uw eigen boeken met Pressbooks"
 
-#: inc/modules/export/epub/class-epub201.php:1822
+#: inc/modules/export/epub/class-epub201.php:1817
 msgid "Table Of Contents"
 msgstr "Inhoudsopgave"
 
-#: inc/modules/export/epub/class-epub201.php:1837
+#: inc/modules/export/epub/class-epub201.php:1832
 #: inc/modules/export/htmlbook/class-htmlbook.php:989
-#: inc/modules/export/xhtml/class-xhtml11.php:1115
+#: inc/modules/export/xhtml/class-xhtml11.php:1132
 msgid "Contents"
 msgstr "Inhoud"
 
@@ -2908,105 +2915,101 @@ msgstr "Geschreven door:"
 msgid "Invalid permission error"
 msgstr "Fout door ongeldige toestemming"
 
-#: inc/modules/export/namespace.php:94 templates/admin/covergenerator.php:52
+#: inc/modules/export/namespace.php:88 templates/admin/covergenerator.php:52
 msgid ""
 "Some dependencies for %1$s exports could not be found. Please verify that "
 "you have completed the <a href=\"%2$s\">installation instructions</a>."
 msgstr "Sommige afhankelijkheden voor %1$s exports konden niet worden gevonden. Kijk alstublieft na of u de <a href=\"%2$s\"> installatieinstructies </a> heeft voltooid."
 
-#: inc/modules/export/namespace.php:95
+#: inc/modules/export/namespace.php:89
 #: inc/modules/themeoptions/class-globaloptions.php:389
-#: inc/utility/namespace.php:1318 inc/utility/namespace.php:1323
-#: inc/utility/namespace.php:1343 inc/utility/namespace.php:1349
+#: inc/utility/namespace.php:1292 inc/utility/namespace.php:1297
+#: inc/utility/namespace.php:1317 inc/utility/namespace.php:1323
 #: templates/admin/covergenerator.php:53
 msgid "and"
 msgstr "en"
 
-#: inc/modules/export/namespace.php:108
+#: inc/modules/export/namespace.php:102
 #: inc/modules/export/prince/class-filters.php:74
 msgid "PDF (for print)"
 msgstr "PDF (voor print)"
 
-#: inc/modules/export/namespace.php:109
+#: inc/modules/export/namespace.php:103
 #: inc/modules/export/prince/class-filters.php:75
 msgid "PDF (for digital distribution)"
 msgstr "PDF (voor digitale distributie)"
 
-#: inc/modules/export/namespace.php:110
-msgid "EPUB (for Nook, Apple Books, Kobo etc.)"
-msgstr "EPUB (voor Nook, Apple Books, Kobo etc.)"
+#: inc/modules/export/namespace.php:104
+msgid "EPUB 2.01"
+msgstr ""
 
-#: inc/modules/export/namespace.php:111
-msgid "MOBI (for Kindle)"
-msgstr "MOBI (voor Kindle)"
-
-#: inc/modules/export/namespace.php:114
-msgid "EPUB 3"
-msgstr "EPUB 3"
-
-#: inc/modules/export/namespace.php:115
-msgid "XHTML"
-msgstr "XHTML"
-
-#: inc/modules/export/namespace.php:116 inc/modules/export/namespace.php:204
-#: inc/modules/export/namespace.php:238
-msgid "HTMLBook"
-msgstr "HTMLBook"
-
-#: inc/modules/export/namespace.php:117 inc/modules/export/namespace.php:209
-#: inc/modules/export/namespace.php:243
-msgid "OpenDocument"
-msgstr "OpenDocument"
-
-#: inc/modules/export/namespace.php:118 inc/modules/export/namespace.php:210
-#: inc/modules/export/namespace.php:244
+#: inc/modules/export/namespace.php:105 inc/modules/export/namespace.php:203
+#: inc/modules/export/namespace.php:236
 msgid "Pressbooks XML"
 msgstr "Pressbooks XML"
 
-#: inc/modules/export/namespace.php:119 inc/modules/export/namespace.php:211
-#: inc/modules/export/namespace.php:245
+#: inc/modules/export/namespace.php:108
+msgid "EPUB 3"
+msgstr "EPUB 3"
+
+#: inc/modules/export/namespace.php:109
+msgid "XHTML"
+msgstr "XHTML"
+
+#: inc/modules/export/namespace.php:110 inc/modules/export/namespace.php:197
+#: inc/modules/export/namespace.php:231
+msgid "HTMLBook"
+msgstr "HTMLBook"
+
+#: inc/modules/export/namespace.php:111 inc/modules/export/namespace.php:202
+#: inc/modules/export/namespace.php:235
+msgid "OpenDocument"
+msgstr "OpenDocument"
+
+#: inc/modules/export/namespace.php:112 inc/modules/export/namespace.php:204
+#: inc/modules/export/namespace.php:237
 msgid "WordPress XML"
 msgstr "WordPress XML"
 
-#: inc/modules/export/namespace.php:127
+#: inc/modules/export/namespace.php:120
 msgid "Common Cartridge with Web Links"
 msgstr ""
 
-#: inc/modules/export/namespace.php:201 inc/modules/export/namespace.php:234
-#: inc/modules/export/namespace.php:236
+#: inc/modules/export/namespace.php:194 inc/modules/export/namespace.php:227
+#: inc/modules/export/namespace.php:229
 msgid "Print PDF"
 msgstr "Print PDF"
 
-#: inc/modules/export/namespace.php:202 inc/modules/export/namespace.php:203
-#: inc/modules/export/namespace.php:235 inc/modules/export/namespace.php:237
+#: inc/modules/export/namespace.php:195 inc/modules/export/namespace.php:196
+#: inc/modules/export/namespace.php:228 inc/modules/export/namespace.php:230
 msgid "Digital PDF"
 msgstr "Digitale PDF"
 
-#: inc/modules/export/namespace.php:205 inc/modules/export/namespace.php:239
+#: inc/modules/export/namespace.php:198 inc/modules/export/namespace.php:232
 msgid "EPUB"
 msgstr "EPUB"
 
-#: inc/modules/export/namespace.php:206 inc/modules/export/namespace.php:240
+#: inc/modules/export/namespace.php:199
 msgid "MOBI"
 msgstr "MOBI"
 
-#: inc/modules/export/namespace.php:207 inc/modules/export/namespace.php:241
+#: inc/modules/export/namespace.php:200 inc/modules/export/namespace.php:233
 msgid "EPUB3"
 msgstr "EPUB3"
 
-#: inc/modules/export/namespace.php:212 inc/modules/export/namespace.php:246
+#: inc/modules/export/namespace.php:205 inc/modules/export/namespace.php:238
 msgid "Common Cartridge (Web Links)"
 msgstr ""
 
-#: inc/modules/export/namespace.php:282
+#: inc/modules/export/namespace.php:274
 msgid "The file %1$s has been %2$s successfully."
 msgstr "Het bestand %1$s was %2$s succesvol."
 
-#: inc/modules/export/namespace.php:284
+#: inc/modules/export/namespace.php:276
 msgid "pinned"
 msgstr "pinned"
 
-#: inc/modules/export/namespace.php:284
+#: inc/modules/export/namespace.php:276
 msgid "unpinned"
 msgstr "unpinned"
 
@@ -3873,23 +3876,23 @@ msgstr "woordenlijst"
 msgid "Glossary"
 msgstr "Woordenlijst"
 
-#: inc/redirect/namespace.php:144 inc/redirect/namespace.php:239
+#: inc/redirect/namespace.php:144 inc/redirect/namespace.php:243
 msgid "Error: Unknown export format."
 msgstr "Fout: Onbekende exportformaat."
 
-#: inc/redirect/namespace.php:259
+#: inc/redirect/namespace.php:263
 msgid "File not found"
 msgstr "Bestand niet gevonden"
 
-#: inc/redirect/namespace.php:346
+#: inc/redirect/namespace.php:350
 msgid "Unsupported post type."
 msgstr "Niet ondersteunde berichttype"
 
-#: inc/redirect/namespace.php:380
+#: inc/redirect/namespace.php:384
 msgid "Unsupported taxonomy."
 msgstr "Niet ondersteunde taxonomie."
 
-#: inc/redirect/namespace.php:404
+#: inc/redirect/namespace.php:408
 msgid "You do not have sufficient permissions to access that URL."
 msgstr "U hebt onvoldoende toestemming voor de toegang tot die URL."
 
@@ -4106,20 +4109,20 @@ msgstr ""
 msgid " (%1$d of %2$d)"
 msgstr " (%1$d van %2$d)"
 
-#: inc/utility/namespace.php:604 inc/utility/namespace.php:615
-#: inc/utility/namespace.php:631
+#: inc/utility/namespace.php:578 inc/utility/namespace.php:589
+#: inc/utility/namespace.php:605
 msgid ""
 "An unexpected error occurred. Something may be wrong with the plugin "
 "recommendations server or your site&#8217;s server&#8217;s configuration."
 msgstr ""
 
-#: inc/utility/namespace.php:604
+#: inc/utility/namespace.php:578
 msgid ""
 "(Pressbooks could not establish a secure connection to the plugin "
 "recommendations server. Please contact your server administrator.)"
 msgstr ""
 
-#: inc/utility/namespace.php:655
+#: inc/utility/namespace.php:629
 msgid ""
 "These plugins have been created and/or recommended by the Pressbooks "
 "community."
@@ -4609,39 +4612,39 @@ msgstr "Pressbooks: het CMS voor Boeken."
 msgid "Create Site"
 msgstr ""
 
-#: assets/src/scripts/a11y.js:30 assets/src/scripts/a11y.js:31
+#: assets/src/scripts/a11y.js:35 assets/src/scripts/a11y.js:36
 msgid "Gradient selector"
 msgstr ""
 
-#: assets/src/scripts/a11y.js:44
+#: assets/src/scripts/a11y.js:49
 msgid "Black"
 msgstr "Zwart"
 
-#: assets/src/scripts/a11y.js:47
+#: assets/src/scripts/a11y.js:52
 msgid "White"
 msgstr "Wit"
 
-#: assets/src/scripts/a11y.js:50
+#: assets/src/scripts/a11y.js:55
 msgid "Red"
 msgstr "Rood"
 
-#: assets/src/scripts/a11y.js:53
+#: assets/src/scripts/a11y.js:58
 msgid "Orange"
 msgstr "Oranje"
 
-#: assets/src/scripts/a11y.js:56
+#: assets/src/scripts/a11y.js:61
 msgid "Yellow"
 msgstr "Geel"
 
-#: assets/src/scripts/a11y.js:59
+#: assets/src/scripts/a11y.js:64
 msgid "Green"
 msgstr "Groen"
 
-#: assets/src/scripts/a11y.js:62
+#: assets/src/scripts/a11y.js:67
 msgid "Blue"
 msgstr "Blauw"
 
-#: assets/src/scripts/a11y.js:65
+#: assets/src/scripts/a11y.js:70
 msgid "Purple"
 msgstr "Paars"
 
