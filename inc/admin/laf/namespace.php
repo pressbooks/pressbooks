@@ -396,7 +396,7 @@ function replace_book_admin_menu() {
 
 	// Clone a Book
 	if ( Cloner::isEnabled() && ( can_create_new_books() || is_super_admin() ) ) {
-		$cloner_page = add_submenu_page( 'options.php', __( 'Clone a Book', 'pressbooks' ), __( 'Clone a Book', 'pressbooks' ), 'edit_posts', 'pb_cloner', __NAMESPACE__ . '\display_cloner' );
+		$cloner_page = add_menu_page( __( 'Clone a Book', 'pressbooks' ), __( 'Clone a Book', 'pressbooks' ), 'edit_posts', 'pb_cloner', __NAMESPACE__ . '\display_cloner' );
 		add_action(
 			'admin_enqueue_scripts', function ( $hook ) use ( $cloner_page ) {
 				if ( $hook === $cloner_page ) {
@@ -583,8 +583,47 @@ function fix_root_admin_menu() {
 	remove_menu_page( 'edit.php?post_type=glossary' );
 	remove_submenu_page( 'tools.php', 'site-health.php' );
 
+	$user = wp_get_current_user();
+	if (
+		$user->roles &&
+		count( $user->roles ) === 1 &&
+		$user->roles[0] === 'subscriber'
+	) {
+		remove_submenu_page( 'index.php', 'my-sites.php' );
+		if ( class_exists( '\H5P_Plugin_Admin' ) ) {
+			remove_action( 'admin_menu', [ \H5P_Plugin_Admin::get_instance(), 'add_plugin_admin_menu' ] );
+		}
+		return true;
+	}
 	// Catalog
 	add_submenu_page( 'index.php', __( 'My Catalog', 'pressbooks' ), __( 'My Catalog', 'pressbooks' ), 'read', 'pb_catalog', '\Pressbooks\Catalog::addMenu' );
+}
+
+function add_pb_cloner_page() {
+	add_submenu_page(
+		null,
+		__( 'Clone a Book', 'pressbooks' ),
+		__( 'Clone a Book', 'pressbooks' ),
+		'read',
+		'pb_cloner',
+		__NAMESPACE__ . '\display_cloner'
+	);
+	add_action(
+		'admin_enqueue_scripts',
+		function () {
+			wp_localize_script(
+				'pb-cloner', 'PB_ClonerToken', [
+					'ajaxUrl' => wp_nonce_url( admin_url( 'admin-ajax.php?action=clone-book' ), 'pb-cloner' ),
+					'redirectUrl' => admin_url( 'admin.php?page=pb_cloner' ),
+					'unloadWarning' => __( 'Cloning is not done. Leaving this page, now, will cause problems. Are you sure?', 'pressbooks' ),
+					'reloadSnippet' => '<em>(<a href="javascript:window.location.reload(true)">' . __( 'Reload', 'pressbooks' ) . '</a>)</em>',
+				]
+			);
+			global $wp_scripts;
+			wp_enqueue_script( 'pb-cloner' );
+			wp_deregister_script( 'heartbeat' );
+		}
+	);
 }
 
 
@@ -770,12 +809,20 @@ function replace_menu_bar_my_sites( $wp_admin_bar ) {
 
 	// Website Admin
 	$show_website_admin = false;
-	foreach ( (array) $wp_admin_bar->user->blogs as $blog ) {
-		if ( is_main_site( $blog->userblog_id ) ) {
-			$show_website_admin = true;
-			break;
+	$user = wp_get_current_user();
+	if (
+		$user->roles &&
+		count( $user->roles ) === 1 &&
+		$user->roles[0] === 'subscriber'
+	) {
+		foreach ( (array) $wp_admin_bar->user->blogs as $blog ) {
+			if ( is_main_site( $blog->userblog_id ) ) {
+				$show_website_admin = true;
+				break;
+			}
 		}
 	}
+
 	if ( $show_website_admin || is_super_admin() ) {
 		$website_id = get_main_site_id();
 		$menu_id = 'blog-' . $website_id;
@@ -841,21 +888,14 @@ function replace_menu_bar_my_sites( $wp_admin_bar ) {
 
 	// Cloner
 	if ( Cloner::isEnabled() && ( can_create_new_books() || is_super_admin() ) ) {
-		if ( ! Book::isBook() ) {
-			$href = last_book( $wp_admin_bar, 'wp-admin/options.php?page=pb_cloner' );
-		} else {
-			$href = home_url( 'wp-admin/options.php?page=pb_cloner', 'relative' );
-		}
-		if ( $href ) {
-			$wp_admin_bar->add_node(
-				[
-					'parent' => 'my-books',
-					'id' => 'clone-a-book',
-					'title' => __( 'Clone A Book', 'pressbooks' ),
-					'href' => $href,
-				]
-			);
-		}
+		$wp_admin_bar->add_node(
+			[
+				'parent' => 'my-books',
+				'id' => 'clone-a-book',
+				'title' => __( 'Clone A Book', 'pressbooks' ),
+				'href' => admin_url( 'admin.php?page=pb_cloner' ),
+			]
+		);
 	}
 
 	// Add book links

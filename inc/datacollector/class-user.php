@@ -33,6 +33,7 @@ class User {
 	 */
 	static public function hooks( User $obj ) {
 		add_action( 'wp_login', [ $obj, 'setLastLogin' ], 0, 2 );
+		add_action( 'wp_login', [ $obj, 'setSubscriberRole' ], 0, 2 );
 	}
 
 	/**
@@ -51,6 +52,13 @@ class User {
 	 */
 	public function setLastLogin( $user_login, $user ) {
 		update_user_meta( $user->ID, self::LAST_LOGIN, gmdate( 'Y-m-d H:i:s' ) );
+	}
+
+	public function setSubscriberRole( $user_login, $user ) {
+		$caps = $user->get_role_caps();
+		if ( ! in_array( 'read', $caps, true ) ) {
+			$user->add_role( 'subscriber' );
+		}
 	}
 
 }

@@ -69,6 +69,7 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		$this->assertEquals( $menu[12][0], 'Book Info' );
 		$this->assertEquals( $menu[14][0], 'Export' );
 		$this->assertEquals( $menu[16][0], 'Publish' );
+		$this->assertEquals( $menu[101][0], 'Clone a Book' );
 		$this->assertNotContains(
 			[
 				'QuickLaTex',
@@ -117,7 +118,47 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		do_action( 'admin_enqueue_scripts', 'admin_page_pb_import' );
 		$this->assertContains( 'pb-import', $wp_scripts->queue );
 
-		do_action( 'admin_enqueue_scripts', 'admin_page_pb_cloner' );
+		unset( $GLOBALS['post'], $GLOBALS['current_screen'] ); // Cleanup
+
+	}
+
+	/**
+	 * @group branding
+	 */
+
+	function test_fix_root_admin_menu() {
+		$user_id = $this->factory()->user->create();
+		$user = get_userdata( $user_id );
+		$user->add_role( 'subscriber' );
+		wp_set_current_user( $user_id );
+		global $submenu;
+		include_once( ABSPATH . '/wp-admin/menu.php' );
+		\Pressbooks\Admin\Laf\fix_root_admin_menu();
+		$this->assertArrayHasKey( 'index.php', $submenu );
+		$this->assertContains( 'Home', $submenu['index.php'][0] );
+		$this->assertContains( 'read', $submenu['index.php'][0] );
+	}
+
+	/**
+	 * @group branding
+	 */
+
+	function test_add_pb_cloner_page() {
+		$user_id = $this->factory()->user->create();
+		$user = get_userdata( $user_id );
+		$user->add_role( 'subscriber' );
+		wp_set_current_user( $user_id );
+		global $submenu, $wp_scripts;
+		include_once( ABSPATH . '/wp-admin/menu.php' );
+		\Pressbooks\Admin\Laf\add_pb_cloner_page();
+		$this->assertArrayHasKey( 'index.php', $submenu );
+		$this->assertArrayHasKey( '', $submenu );
+		$this->assertContains( 'Clone a Book', $submenu[''][0] );
+		$new_post['post_type'] = 'post';
+		$GLOBALS['post'] =  get_post( $this->factory()->post->create_object( $new_post ) );
+		$GLOBALS['current_screen'] = WP_Screen::get( 'post' );
+		\Pressbooks\Admin\Laf\init_css_js();
+		do_action( 'admin_enqueue_scripts' );
 		$this->assertContains( 'pb-cloner', $wp_scripts->queue );
 
 		unset( $GLOBALS['post'], $GLOBALS['current_screen'] ); // Cleanup
@@ -140,19 +181,28 @@ class Admin_LafTest extends \WP_UnitTestCase {
 	/**
 	 * @group branding
 	 */
-	function test_reorder_book_admin_menu() {
-		$order = \Pressbooks\Admin\Laf\reorder_book_admin_menu();
-		$this->assertEquals( $order[4], 'post-new.php?post_type=metadata' );
-	}
-
-	/**
-	 * @group branding
-	 */
 	function test_replace_menu_bar_my_sites() {
 		$this->_book();
 		$user_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
 		wp_set_current_user( $user_id );
 		require_once ABSPATH . WPINC . '/class-wp-admin-bar.php';
+		$wp_admin_bar = new \WP_Admin_Bar();
+		$wp_admin_bar->initialize();
+		\Pressbooks\Admin\Laf\replace_menu_bar_my_sites( $wp_admin_bar );
+
+		$node = $wp_admin_bar->get_node( 'my-books' );
+		$this->assertTrue( is_object( $node ) );
+		$this->assertEquals( $node->id, 'my-books' );
+
+		$node = $wp_admin_bar->get_node( 'clone-a-book' );
+		$this->assertTrue( is_object( $node ) );
+		$this->assertEquals( $node->id, 'clone-a-book' );
+
+		// Subscriber user
+		$user_id = $this->factory()->user->create();
+		$user = get_userdata( $user_id );
+		$user->add_role( 'subscriber' );
+		wp_set_current_user( $user_id );
 		$wp_admin_bar = new \WP_Admin_Bar();
 		$wp_admin_bar->initialize();
 		\Pressbooks\Admin\Laf\replace_menu_bar_my_sites( $wp_admin_bar );
