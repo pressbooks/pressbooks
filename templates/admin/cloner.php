@@ -1,7 +1,6 @@
 <?php if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-
 $base_url = wp_parse_url( network_home_url(), PHP_URL_HOST );
 if ( is_subdomain_install() ) {
 	$template_string = "<p>%s</p><p>.$base_url</p>";
