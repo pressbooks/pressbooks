@@ -25,7 +25,7 @@
 		"js-cookie": "^2.2.1",
 		"pagedjs": "^0.1.35",
 		"popper.js": "^1.16.1",
-		"select2": "github:woocommerce/selectWoo#1.0.5",
+		"select2": "github:woocommerce/selectWoo#4.0.3",
 		"sidr": "^2.2.1",
 		"tinymce": "^4.9.11",
 		"wp-admin-colors": "^5.8.0",
