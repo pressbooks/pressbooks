@@ -396,7 +396,7 @@ function replace_book_admin_menu() {
 
 	// Clone a Book
 	if ( Cloner::isEnabled() && ( can_create_new_books() || is_super_admin() ) ) {
-		$cloner_page = add_menu_page( __( 'Clone a Book', 'pressbooks' ), __( 'Clone a Book', 'pressbooks' ), 'edit_posts', 'pb_cloner', __NAMESPACE__ . '\display_cloner' );
+		$cloner_page = add_submenu_page( 'admin.php', __( 'Clone a Book', 'pressbooks' ), __( 'Clone a Book', 'pressbooks' ), 'edit_posts', 'pb_cloner', __NAMESPACE__ . '\display_cloner' );
 		add_action(
 			'admin_enqueue_scripts', function ( $hook ) use ( $cloner_page ) {
 				if ( $hook === $cloner_page ) {
