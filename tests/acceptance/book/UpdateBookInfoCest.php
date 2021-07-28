@@ -1,6 +1,7 @@
 <?php
 
 use \Codeception\Util\HttpCode;
+use Page\Acceptance\CreateBook;
 
 class UpdateBookInfoCest
 {
@@ -10,7 +11,7 @@ class UpdateBookInfoCest
 
 	public $saveButton = '#submitpost input[type=submit]';
 
-	public function _before(AcceptanceTester $I, \Page\Acceptance\CreateBook $createBookPage)
+	public function _before(AcceptanceTester $I, CreateBook $createBookPage)
 	{
 		$I->loginAsAdmin();
 
@@ -20,18 +21,15 @@ class UpdateBookInfoCest
 		$I->click( 'Book Info' );
 	}
 
-	public function tryToUpdateBookTitle(AcceptanceTester $I)
+	public function tryToUpdateBookTitle(AcceptanceTester $I, \Page\Acceptance\BookInfo $bookInfoPage)
 	{
-		$I->seeInField( $titleField = '#pb_title', $this->bookTitle );
-		$I->fillField( $titleField, $newBookTitle = 'Updated Test Book Info' );
+		$I->dontSeeInField( $field = '#pb_title', $bookTitle = 'Updated Test Book Info' );
 
-		$I->click( $this->saveButton );
+		$bookInfoPage->updateBookTitle( $this->bookURL, $bookTitle );
 
-		$I->see( 'Book Information updated.' );
-		$I->seeInField( $titleField, $newBookTitle );
+		$I->seeInField( $field, $bookTitle );
 
 		$I->amOnPage( $this->bookURL );
-		$I->see( $newBookTitle );
+		$I->see( $bookTitle );
 	}
-
 }
