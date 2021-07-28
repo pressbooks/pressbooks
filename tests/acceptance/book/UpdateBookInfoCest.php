@@ -1,6 +1,7 @@
 <?php
 
 use \Codeception\Util\HttpCode;
+use Page\Acceptance\BookInfo;
 use Page\Acceptance\CreateBook;
 
 class UpdateBookInfoCest
@@ -21,7 +22,7 @@ class UpdateBookInfoCest
 		$I->click( 'Book Info' );
 	}
 
-	public function tryToUpdateBookTitle(AcceptanceTester $I, \Page\Acceptance\BookInfo $bookInfoPage)
+	public function tryToUpdateBookTitle(AcceptanceTester $I, BookInfo $bookInfoPage)
 	{
 		$I->dontSeeInField( $field = '#pb_title', $bookTitle = 'Updated Test Book Info' );
 
