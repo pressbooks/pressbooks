@@ -69,7 +69,6 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		$this->assertEquals( $menu[12][0], 'Book Info' );
 		$this->assertEquals( $menu[14][0], 'Export' );
 		$this->assertEquals( $menu[16][0], 'Publish' );
-		$this->assertEquals( $menu[101][0], 'Clone a Book' );
 		$this->assertNotContains(
 			[
 				'QuickLaTex',
