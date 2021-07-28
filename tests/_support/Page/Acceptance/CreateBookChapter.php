@@ -21,7 +21,7 @@ class CreateBookChapter
 	}
 
 	public function createChapter(string $bookURL, string $title, string $content = null): void
-    {
+	{
 		$I = $this->acceptanceTester;
 
 		$I->amOnPage( $bookURL . self::$URL);

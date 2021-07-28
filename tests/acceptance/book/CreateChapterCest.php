@@ -18,14 +18,14 @@ class CreateChapterCest
 
 	public function tryToCreateABookChapter(AcceptanceTester $I, CreateBookChapter $createBookChapterPage): void
 	{
-	    $I->amOnPage( $this->bookURL);
-	    $I->dontSee( $chapterTitle = 'Foobar' );
+		$I->amOnPage( $this->bookURL);
+		$I->dontSee( $chapterTitle = 'Foobar' );
 
-	    $createBookChapterPage->createChapter( $this->bookURL, $chapterTitle );
+		$createBookChapterPage->createChapter( $this->bookURL, $chapterTitle );
 
-        $I->see( 'Chapter published. View chapter' );
+		$I->see( 'Chapter published. View chapter' );
 
-        $I->amOnPage( $this->bookURL );
-        $I->see( $chapterTitle );
+		$I->amOnPage( $this->bookURL );
+		$I->see( $chapterTitle );
 	}
 }
