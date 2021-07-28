@@ -22,12 +22,14 @@ class UpdateBookInfoCest
 		$I->click( 'Book Info' );
 	}
 
-	public function tryToUpdateBookTitle(AcceptanceTester $I, BookInfo $bookInfoPage)
+	public function tryToUpdateBookTitle(AcceptanceTester $I)
 	{
 		$I->dontSeeInField( $field = '#pb_title', $bookTitle = 'Updated Test Book Info' );
 
-		$bookInfoPage->updateBookTitle( $this->bookURL, $bookTitle );
+		$I->fillField( $field, $bookTitle );
+		$I->click( $this->saveButton );
 
+		$I->see( 'Book Information updated.' );
 		$I->seeInField( $field, $bookTitle );
 
 		$I->amOnPage( $this->bookURL );
