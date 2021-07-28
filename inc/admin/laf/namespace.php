@@ -91,7 +91,7 @@ function add_footer_link() {
 			 *
 			 * @since 5.6.0
 			 */
-			apply_filters( 'pb_help_link', 'https://pressbooks.com/help-and-support/' ),
+			apply_filters( 'pb_help_link', 'https://pressbooks.com/support/' ),
 			__( 'Guides and Tutorials', 'pressbooks' )
 		),
 		sprintf(
