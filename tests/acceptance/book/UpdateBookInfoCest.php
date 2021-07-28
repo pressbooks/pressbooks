@@ -6,9 +6,9 @@ use Page\Acceptance\CreateBook;
 
 class UpdateBookInfoCest
 {
-	public $bookURL = 'testbookinfo';
+	public $bookURL = 'samplebook';
 
-	public $bookTitle = 'Test Book Info';
+	public $bookTitle = 'Sample Book';
 
 	public $saveButton = '#submitpost input[type=submit]';
 
@@ -16,23 +16,21 @@ class UpdateBookInfoCest
 	{
 		$I->loginAsAdmin();
 
-		$createBookPage->createBook( $this->bookURL, $this->bookTitle, true );
-
-		$I->amOnPage( "$this->bookURL/wp-admin" );
-		$I->click( 'Book Info' );
+		$createBookPage->createBook( $this->bookURL, $this->bookTitle );
 	}
 
-	public function tryToUpdateBookTitle(AcceptanceTester $I)
+	public function tryToUpdateBookTitle(AcceptanceTester $I, BookInfo $bookInfoPage)
 	{
-		$I->dontSeeInField( $field = '#pb_title', $bookTitle = 'Updated Test Book Info' );
+		$I->amOnPage( $this->bookURL );
+		$I->see( $this->bookTitle );
+		$I->dontSee( $newBookTitle = 'Updated Book Title' );
 
-		$I->fillField( $field, $bookTitle );
-		$I->click( $this->saveButton );
+		$bookInfoPage->updateBookTitle( $this->bookURL, $newBookTitle );
 
 		$I->see( 'Book Information updated.' );
-		$I->seeInField( $field, $bookTitle );
 
 		$I->amOnPage( $this->bookURL );
-		$I->see( $bookTitle );
+		$I->see( $newBookTitle );
+		$I->dontSee( $this->bookTitle );
 	}
 }
