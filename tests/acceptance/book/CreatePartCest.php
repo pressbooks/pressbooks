@@ -1,6 +1,5 @@
 <?php
 
-use \Codeception\Util\HttpCode;
 use Page\Acceptance\CreateBook;
 use Page\Acceptance\CreateBookPart;
 
@@ -8,7 +7,7 @@ class CreatePartCest
 {
 	public $bookURL = 'samplebook';
 
-	public function _before(AcceptanceTester $I, CreateBook $createBookPage)
+	public function _before(AcceptanceTester $I, CreateBook $createBookPage): void
 	{
 		$I->loginAsAdmin();
 
@@ -17,11 +16,11 @@ class CreatePartCest
 		$I->amOnPage( "$this->bookURL/wp-admin" );
 	}
 
-	public function tryToCreateBookPart(AcceptanceTester $I, CreateBookPart $createBookPartPage)
+	public function tryToCreateABookPart(AcceptanceTester $I, CreateBookPart $createBookPartPage): void
 	{
 		$I->click('Organize');
 
-		$I->dontSee( $partName = 'Part '.mt_rand() );
+		$I->dontSee( $partName = 'Section A' );
 
 		$createBookPartPage->createPart( $this->bookURL, $partName );
 
@@ -29,5 +28,4 @@ class CreatePartCest
 		$I->click('Organize');
 		$I->see( $partName );
 	}
-
 }

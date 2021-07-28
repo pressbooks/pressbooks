@@ -1,6 +1,5 @@
 <?php
 
-use \Codeception\Util\HttpCode;
 use Page\Acceptance\BookInfo;
 use Page\Acceptance\CreateBook;
 
@@ -12,14 +11,14 @@ class UpdateBookInfoCest
 
 	public $saveButton = '#submitpost input[type=submit]';
 
-	public function _before(AcceptanceTester $I, CreateBook $createBookPage)
+	public function _before(AcceptanceTester $I, CreateBook $createBookPage): void
 	{
 		$I->loginAsAdmin();
 
 		$createBookPage->createBook( $this->bookURL, $this->bookTitle );
 	}
 
-	public function tryToUpdateBookTitle(AcceptanceTester $I, BookInfo $bookInfoPage)
+	public function tryToUpdateBookTitle(AcceptanceTester $I, BookInfo $bookInfoPage): void
 	{
 		$I->amOnPage( $this->bookURL );
 		$I->see( $this->bookTitle );

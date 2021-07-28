@@ -3,12 +3,12 @@ namespace Page\Acceptance;
 
 use AcceptanceTester;
 
-class CreateBookPart
+class CreateBookChapter
 {
-	public static $URL = '/wp-admin/post-new.php?post_type=part';
+	public static $URL = '/wp-admin/post-new.php?post_type=chapter';
 
 	protected $titleField = '#title';
-	protected $saveButton = '#submitpost input[type=submit]';
+	protected $saveButton = '#publishing-action input[type=submit]';
 
 	/**
 	 * @var AcceptanceTester;
@@ -20,8 +20,8 @@ class CreateBookPart
 		$this->acceptanceTester = $I;
 	}
 
-	public function createPart(string $bookURL, string $title): void
-	{
+	public function createChapter(string $bookURL, string $title, string $content = null): void
+    {
 		$I = $this->acceptanceTester;
 
 		$I->amOnPage( $bookURL . self::$URL);
