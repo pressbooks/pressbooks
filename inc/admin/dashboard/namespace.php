@@ -6,7 +6,6 @@
 
 namespace Pressbooks\Admin\Dashboard;
 
-use function Pressbooks\Admin\Laf\network_admin_menu;
 use function Pressbooks\Sanitize\safer_unserialize;
 
 /**
