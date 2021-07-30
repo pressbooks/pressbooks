@@ -21,11 +21,16 @@ class CreateChapterCest
 		$I->amOnPage( $this->bookURL);
 		$I->dontSee( $chapterTitle = 'Foobar' );
 
-		$createBookChapterPage->createChapter( $this->bookURL, $chapterTitle );
+		$createBookChapterPage->createChapter(
+			$this->bookURL,
+			$chapterTitle,
+			$chapterContent = 'Here is the chapter content'
+		);
 
 		$I->see( 'Chapter published. View chapter' );
+		$I->click( '#wp-admin-bar-view a' ); // View chapter link
 
-		$I->amOnPage( $this->bookURL );
 		$I->see( $chapterTitle );
+		$I->see( $chapterContent );
 	}
 }

@@ -8,6 +8,7 @@ class CreateBookChapter
 	public static $URL = '/wp-admin/post-new.php?post_type=chapter';
 
 	protected $titleField = '#title';
+	protected $contentField = '#content';
 	protected $saveButton = '#publishing-action input[type=submit]';
 
 	/**
@@ -26,6 +27,9 @@ class CreateBookChapter
 
 		$I->amOnPage( $bookURL . self::$URL);
 		$I->fillField($this->titleField, $title);
+		$I->fillField( $this->contentField, $content );
+		// Figure it out how to enable tinymce when running tests
+		// $I->fillTinyMceEditorByName('content', $content);
 		$I->click($this->saveButton);
 	}
 }
