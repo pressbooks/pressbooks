@@ -617,7 +617,7 @@ function add_meta_boxes() {
 					'group' => 'additional-catalog-information',
 					'label' => __( 'BISAC Subject(s)', 'pressbooks' ),
 					'multiple' => true,
-					'description' => sprintf( __( 'BISAC Subject Headings help libraries and (e)book stores properly classify your book. To select the appropriate subject heading for your book, consult %s', 'pressbooks' ), sprintf( '<a href="https://bisg.org/page/BISACEdition">%s</a>', __( 'the BISAC Subject Headings list', 'pressbooks' ) ) ),
+					'description' => sprintf( __( 'BISAC Subject Headings help libraries and bookstores properly classify your book. To select the appropriate subject heading for your book, consult %s.', 'pressbooks' ), sprintf( '<a href="https://bisg.org/page/BISACEdition">%s</a>', __( 'the BISAC Subject Headings list', 'pressbooks' ) ) ),
 				]
 			)
 		);
@@ -632,7 +632,7 @@ function add_meta_boxes() {
 				'pb_bisac_regional_theme_field_args', [
 					'group' => 'additional-catalog-information',
 					'label' => __( 'BISAC Regional Theme', 'pressbooks' ),
-					'description' => __( 'BISAC Regional Themes help libraries and (e)book stores properly classify your book.', 'pressbooks' ),
+					'description' => __( 'BISAC Regional Themes help libraries and bookstores properly classify your book.', 'pressbooks' ),
 				]
 			)
 		);
