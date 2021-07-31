@@ -15,16 +15,16 @@ class BookInfo
 	 */
 	protected $acceptanceTester;
 
-	public function __construct(AcceptanceTester $I)
+	public function __construct( AcceptanceTester $I )
 	{
 		$this->acceptanceTester = $I;
 	}
 
-	public function updateBookTitle(string $bookURL, string $newTitle): void
+	public function updateBookTitle( string $bookURL, string $newTitle ): void
 	{
 		$I = $this->acceptanceTester;
 
-		$I->amOnPage( $bookURL . self::$URL);
+		$I->amOnPage( $bookURL . self::$URL );
 
 		$I->dontSeeInField( $this->titleField, $newTitle );
 		$I->fillField( $this->titleField, $newTitle );

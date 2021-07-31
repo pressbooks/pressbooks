@@ -16,20 +16,20 @@ class CreateBookChapter
 	 */
 	protected $acceptanceTester;
 
-	public function __construct(AcceptanceTester $I)
+	public function __construct( AcceptanceTester $I )
 	{
 		$this->acceptanceTester = $I;
 	}
 
-	public function createChapter(string $bookURL, string $title, string $content = null): void
+	public function createChapter( string $bookURL, string $title, string $content = null ): void
 	{
 		$I = $this->acceptanceTester;
 
-		$I->amOnPage( $bookURL . self::$URL);
-		$I->fillField($this->titleField, $title);
+		$I->amOnPage( $bookURL . self::$URL );
+		$I->fillField( $this->titleField, $title );
 		$I->fillField( $this->contentField, $content );
 		// Figure it out how to enable tinymce when running tests
-		// $I->fillTinyMceEditorByName('content', $content);
-		$I->click($this->saveButton);
+		// $I->fillTinyMceEditorByName( 'content', $content );
+		$I->click( $this->saveButton );
 	}
 }

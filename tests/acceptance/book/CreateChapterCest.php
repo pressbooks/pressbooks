@@ -7,7 +7,7 @@ class CreateChapterCest
 {
 	public $bookURL = 'samplebook';
 
-	public function _before(AcceptanceTester $I, CreateBook $createBookPage): void
+	public function _before( AcceptanceTester $I, CreateBook $createBookPage ): void
 	{
 		$I->loginAsAdmin();
 
@@ -16,7 +16,7 @@ class CreateChapterCest
 		$I->amOnPage( "$this->bookURL/wp-admin" );
 	}
 
-	public function tryToCreateABookChapter(AcceptanceTester $I, CreateBookChapter $createBookChapterPage): void
+	public function tryToCreateABookChapter( AcceptanceTester $I, CreateBookChapter $createBookChapterPage ): void
 	{
 		$I->amOnPage( $this->bookURL);
 		$I->dontSee( $chapterTitle = 'Foobar' );

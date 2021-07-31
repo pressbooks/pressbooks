@@ -7,7 +7,7 @@ class CreatePartCest
 {
 	public $bookURL = 'samplebook';
 
-	public function _before(AcceptanceTester $I, CreateBook $createBookPage): void
+	public function _before( AcceptanceTester $I, CreateBook $createBookPage ): void
 	{
 		$I->loginAsAdmin();
 
@@ -16,16 +16,16 @@ class CreatePartCest
 		$I->amOnPage( "$this->bookURL/wp-admin" );
 	}
 
-	public function tryToCreateABookPart(AcceptanceTester $I, CreateBookPart $createBookPartPage): void
+	public function tryToCreateABookPart( AcceptanceTester $I, CreateBookPart $createBookPartPage ): void
 	{
-		$I->click('Organize');
+		$I->click( 'Organize' );
 
 		$I->dontSee( $partName = 'Section A' );
 
 		$createBookPartPage->createPart( $this->bookURL, $partName );
 
 		$I->see( 'Part published. View part' );
-		$I->click('Organize');
+		$I->click( 'Organize' );
 		$I->see( $partName );
 	}
 }
