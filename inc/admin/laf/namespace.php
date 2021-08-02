@@ -8,8 +8,6 @@
 
 namespace Pressbooks\Admin\Laf;
 
-use stdClass;
-use WP_Error;
 use function Pressbooks\Admin\NetworkManagers\is_restricted;
 use function Pressbooks\PostType\get_post_type_label;
 use function Pressbooks\Utility\str_starts_with;
@@ -22,6 +20,7 @@ use Pressbooks\BookDirectory;
 use Pressbooks\Cloner\Cloner;
 use Pressbooks\DataCollector\Book as DataCollector;
 use Pressbooks\Metadata;
+use WP_Error;
 
 /**
  * @return bool
