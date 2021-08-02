@@ -176,9 +176,11 @@ function lowly_user_callback() {
 		}
 		echo '</p>';
 	} else {
-		$href = network_home_url( 'wp-signup.php' );
-		$text = __( 'Create A New Book', 'pressbooks' );
-		echo "<p><a class='button button-hero button-primary' href='{$href}'>{$text}</a></p>";
+		$href_create = network_home_url( 'wp-signup.php' );
+		$text_create = __( 'Create a Book', 'pressbooks' );
+		$href_clone = admin_url( 'admin.php?page=pb_cloner' );
+		$text_clone = __( 'Clone a Book', 'pressbooks' );
+		echo "<p><a class='button button-hero button-primary' href='{$href_create}'>{$text_create}</a></p><p><a class='button button-hero button-primary' href='{$href_clone}'>{$text_clone}</a></p>";
 	}
 	if ( ! $user_has_books ) {
 		echo '<p>';
