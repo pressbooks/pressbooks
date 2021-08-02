@@ -1635,8 +1635,9 @@ function sanitize_user_profile( $errors, $update, $user ) {
 	$additional_urls_to_check = [ 'url' => 'Website' ];
 
 	foreach ( array_merge( get_user_contact_fields(), $additional_urls_to_check ) as $key => $value ) {
-		if ( ! empty( $_POST[ $key ] ) ) {
-			if ( ! filter_var( $_POST[ $key ], FILTER_VALIDATE_URL ) ) {
+		$field = wp_kses( $_POST[ $key ], false );
+		if ( ! empty( $field ) ) {
+			if ( ! filter_var( $field, FILTER_VALIDATE_URL ) ) {
 				$errors->add( $key, "The $value field is not a valid URL." );
 			}
 		}
