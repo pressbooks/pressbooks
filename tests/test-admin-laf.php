@@ -338,7 +338,11 @@ class Admin_LafTest extends \WP_UnitTestCase {
 	 */
 	function test_modify_user_fields() {
 
-		$methods = [ 'aim', 'yim', 'jabber' ];
+		$methods = [
+			'aim' => '',
+			'yim' => '',
+			'jabber' => '',
+		];
 
 		$fields = \Pressbooks\Admin\Laf\modify_user_contact_fields( $methods );
 
