@@ -8,6 +8,8 @@
 
 namespace Pressbooks\Admin\Laf;
 
+use stdClass;
+use WP_Error;
 use function Pressbooks\Admin\NetworkManagers\is_restricted;
 use function Pressbooks\PostType\get_post_type_label;
 use function Pressbooks\Utility\str_starts_with;
@@ -1626,11 +1628,11 @@ function modify_user_contact_fields( $methods ) {
 /**
  *
  * $since 5.27.0
- * @param array $errors
+ * @param WP_Error $errors
  * @param bool $update
- * @param \stdClass $user
+ * @param stdClass $user
  */
-function sanitize_user_profile( $errors, $update, $user ) {
+function sanitize_user_profile( WP_Error $errors, $update, $user ) {
 
 	$additional_urls_to_check = [ 'url' => 'Website' ];
 

@@ -35,13 +35,17 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		$this->assertContains( 'Powered by', $buffer );
 		$this->assertContains( 'Pressbooks', $buffer );
 
-		add_filter( 'pb_help_link', function() {
-			return 'https://pressbooks.community/';
-		} );
+		add_filter(
+			'pb_help_link', function() {
+				return 'https://pressbooks.community/';
+			}
+		);
 
-		add_filter( 'pb_contact_link', function() {
-			return 'https://pressbooks.org/contact';
-		} );
+		add_filter(
+			'pb_contact_link', function() {
+				return 'https://pressbooks.org/contact';
+			}
+		);
 
 		ob_start();
 		\Pressbooks\Admin\Laf\add_footer_link();
@@ -93,7 +97,7 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		$this->assertContains( 'pb-post-visibility', $wp_scripts->queue );
 
 		$new_post['post_type'] = 'back-matter';
-		$GLOBALS['post'] =  get_post( $this->factory()->post->create_object( $new_post ) );
+		$GLOBALS['post'] = get_post( $this->factory()->post->create_object( $new_post ) );
 		$GLOBALS['current_screen'] = WP_Screen::get( 'back-matter' );
 		do_action( 'admin_enqueue_scripts', 'post.php' );
 		$this->assertContains( 'pb-post-back-matter', $wp_scripts->queue );
@@ -104,7 +108,7 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		$this->assertContains( 'pb-metadata', $wp_scripts->queue );
 
 		$new_post['post_type'] = 'post';
-		$GLOBALS['post'] =  get_post( $this->factory()->post->create_object( $new_post ) );
+		$GLOBALS['post'] = get_post( $this->factory()->post->create_object( $new_post ) );
 		$GLOBALS['current_screen'] = WP_Screen::get( 'post' );
 		do_action( 'admin_enqueue_scripts', 'toplevel_page_pb_organize' );
 		$this->assertContains( 'pb-organize', $wp_scripts->queue );
@@ -154,7 +158,7 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		$this->assertArrayHasKey( '', $submenu );
 		$this->assertContains( 'Clone a Book', $submenu[''][0] );
 		$new_post['post_type'] = 'post';
-		$GLOBALS['post'] =  get_post( $this->factory()->post->create_object( $new_post ) );
+		$GLOBALS['post'] = get_post( $this->factory()->post->create_object( $new_post ) );
 		$GLOBALS['current_screen'] = WP_Screen::get( 'post' );
 		\Pressbooks\Admin\Laf\init_css_js();
 		do_action( 'admin_enqueue_scripts' );
@@ -314,6 +318,51 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		$node = $wp_admin_bar->get_node( 'contact' );
 		$this->assertTrue( is_object( $node ) );
 		$this->assertContains( 'pressbooks.org', $node->href );
+	}
+
+	/**
+	 * @group branding
+	 */
+	function test_user_contact_fields() {
+
+		$fields = \Pressbooks\Admin\Laf\get_user_contact_fields();
+
+		$this->assertCount( 3, $fields );
+
+		$this->assertEquals( 'Twitter URL', $fields['twitter'] );
+
+	}
+
+	/**
+	 * @group branding
+	 */
+	function test_modify_user_fields() {
+
+		$methods = [ 'aim', 'yim', 'jabber' ];
+
+		$fields = \Pressbooks\Admin\Laf\modify_user_contact_fields( $methods );
+
+		$this->assertCount( 3, $fields );
+
+	}
+	/**
+	 * @group branding
+	 */
+	function test_sanitize_user_profile() {
+
+		$_POST['twitter'] = 'https://twitter.com/pb';
+		$_POST['linkedin'] = 'htd';
+		$_POST['github'] = 'https://github.com/pressbooks';
+		$_POST['url'] = 'https://pressbooks.org';
+
+		$error_handler = new WP_Error();
+
+		$fields = \Pressbooks\Admin\Laf\sanitize_user_profile( $error_handler, true, new stdClass() );
+
+		$this->assertTrue( $error_handler->has_errors() );
+
+		$this->assertEquals( 'The LinkedIn URL field is not a valid URL.', $error_handler->get_error_message( 'linkedin' ) );
+
 	}
 
 }
