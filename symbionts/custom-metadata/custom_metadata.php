@@ -865,6 +865,7 @@ class custom_metadata_manager {
 	}
 
 	function _push_field( $field_slug, $field, $group_slug, $object_type ) {
+		if (! isset( $this->metadata[$object_type] )) return true;
 		$this->metadata[$object_type][$group_slug]->fields[$field_slug] = $field;
 	}
 

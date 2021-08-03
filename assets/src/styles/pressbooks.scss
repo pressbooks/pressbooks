@@ -24,7 +24,11 @@
 }
 
 #wpadminbar {
-  .quicklinks li .blavatar::before {
+  .quicklinks li .blavatar {
+    margin: 0 8px 4px 0;
+  }
+
+   .quicklinks li .blavatar::before {
     font: 14px/1 "PBFont", sans-serif !important;
     -webkit-font-smoothing: antialiased;
     background: none;

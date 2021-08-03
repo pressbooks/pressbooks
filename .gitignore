@@ -3,6 +3,9 @@
 coverage.xml
 node_modules
 tests/logs/
+tests/data/alpha_resized.png
+tests/data/skates_resized.jpg
+tests/data/log.csv
 vendor
 coverage-reports
 

@@ -40,6 +40,20 @@ class Admin_DashboardTest extends \WP_UnitTestCase {
 	/**
 	 * @group dashboard
 	 */
+	public function test_replace_root_dashboard_widgets_lowly_user() {
+		$user_id = $this->factory()->user->create( [ 'role' => 'subscriber' ] );
+		$user = get_userdata( $user_id );
+		$user->add_role( 'subscriber' );
+		wp_set_current_user( $user_id );
+		global $wp_meta_boxes;
+		\Pressbooks\Admin\Dashboard\replace_root_dashboard_widgets();
+		$this->assertArrayHasKey( 'dashboard', $wp_meta_boxes );
+		$this->assertTrue( isset( $wp_meta_boxes['dashboard']['normal']['high']['pb_dashboard_widget_book_permissions'] ) );
+	}
+
+	/**
+	 * @group dashboard
+	 */
 	public function test_replace_dashboard_widgets() {
 		global $wp_meta_boxes;
 		\Pressbooks\Admin\Dashboard\replace_dashboard_widgets();

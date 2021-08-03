@@ -17,7 +17,7 @@ jobs:
         os: [ubuntu-18.04]
         epubcheck: [4.2.4]
         prince: [12.5-1]
-        wordpress: [5.7.2, latest]
+        wordpress: [5.8, latest]
 
     name: PHPUnit - ${{ matrix.php }} - ${{ matrix.wordpress }}
 

@@ -65,6 +65,7 @@ class Activation {
 		add_action( 'wp_initialize_site', [ $obj, 'wpmuNewBlog' ], 11, 2 );
 		add_action( 'wp_initialize_site', [ $obj, 'wpmuNewBlogRedirect' ], 999 );
 		add_action( 'user_register', [ $obj, 'forcePbColors' ] );
+		add_action( 'profile_update', [ $obj, 'addUserDefaultRole' ] );
 		add_filter( 'get_user_option_admin_color', [ $obj, 'defaultAdminColor' ], 10, 2 );
 	}
 
@@ -427,7 +428,6 @@ class Activation {
 	 * @param object $user (optional)
 	 */
 	public function forcePbColors( $id, $user = null ) {
-
 		if ( is_numeric( $id ) ) {
 			$user_id = $id;
 		} elseif ( $user instanceof \WP_User ) {
@@ -437,6 +437,14 @@ class Activation {
 		}
 
 		update_user_option( $user_id, 'admin_color', 'pb_colors', true );
+	}
+
+	public function addUserDefaultRole( $id ) {
+		if ( is_numeric( $id ) ) {
+			$user_id = $id;
+			$user = get_userdata( $user_id );
+			$user->add_role( 'subscriber' );
+		}
 	}
 
 	/**
