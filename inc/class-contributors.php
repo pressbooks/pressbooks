@@ -246,6 +246,55 @@ class Contributors {
 	}
 
 	/**
+	 * Return contributors taxonomy terms associative array with meta HTML tag information.
+	 *
+	 * @param string $field
+	 * @return array
+	 */
+	public static function getContributorFields( $field = '' ) {
+		$allowed_fields = [
+			self::TAXONOMY . '_first_name' => [
+				'label' => 'First Name',
+				'tag' => self::TAXONOMY .   '-first-name',
+				'input_type' => 'text',
+				'sanitization_method' => 'sanitize_text_field',
+			],
+			self::TAXONOMY . '_last_name' => [
+				'label' => 'Last Name',
+				'tag' => self::TAXONOMY . '-last-name',
+				'input_type' => 'text',
+				'sanitization_method' => 'sanitize_text_field',
+			],
+			self::TAXONOMY . '_twitter' => [
+				'label' => 'Twitter',
+				'tag' => self::TAXONOMY . '-twitter',
+				'input_type' => 'url',
+				'sanitization_method' => 'esc_url_raw',
+			],
+			self::TAXONOMY . '_linkedin' => [
+				'label' => 'LinkedIn',
+				'tag' => self::TAXONOMY . '-linkedin',
+				'input_type' => 'url',
+				'sanitization_method' => 'esc_url_raw',
+			],
+			self::TAXONOMY . '_github' => [
+				'label' => 'GitHub',
+				'tag' => self::TAXONOMY . '-github',
+				'input_type' => 'url',
+				'sanitization_method' => 'esc_url_raw',
+			],
+			self::TAXONOMY . '_url' => [
+				'label' => 'Website',
+				'tag' => self::TAXONOMY . '-website',
+				'input_type' => 'url',
+				'sanitization_method' => 'esc_url_raw',
+			],
+		];
+
+		return $allowed_fields[ self::TAXONOMY . '_' . $field ] ?? $allowed_fields;
+	}
+
+	/**
 	 * Create a matching Contributor term for a given User ID. Used when a user is added to a blog.
 	 *
 	 * @param int $user_id
