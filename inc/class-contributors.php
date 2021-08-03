@@ -318,8 +318,14 @@ class Contributors {
 				]
 			);
 			if ( is_array( $results ) ) {
-				add_term_meta( $results['term_id'], 'contributor_first_name', $user->first_name, true );
-				add_term_meta( $results['term_id'], 'contributor_last_name', $user->last_name, true );
+				$contributors_terms = array_keys( self::getContributorFields() );
+				foreach ( $contributors_terms as $term ) {
+					$user_term = str_replace( 'contributor_', '', $term );
+					if ( $user->$user_term ) {
+						add_term_meta( $results['term_id'], $term, $user->$user_term, true );
+					}
+				}
+
 				return $results;
 			}
 		}
