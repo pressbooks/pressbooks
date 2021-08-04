@@ -1614,14 +1614,7 @@ function get_user_contact_fields() {
  * @return array
  */
 function modify_user_contact_fields( $methods ) {
-
-	// Remove unwanted user contact methods
-	unset( $methods['aim'] );
-	unset( $methods['yim'] );
-	unset( $methods['jabber'] );
-
-	// Add desired user contact methods
-	return array_merge( $methods, get_user_contact_fields() );
+	return get_user_contact_fields();
 }
 
 /**

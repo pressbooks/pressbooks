@@ -246,7 +246,7 @@ class Contributors {
 	}
 
 	/**
-	 * Return contributors taxonomy terms associative array with meta HTML tag information.
+	 * Return contributors' taxonomy terms as an associative array with meta HTML tag information.
 	 *
 	 * @param string $field
 	 * @return array
@@ -484,9 +484,9 @@ class Contributors {
 		$fullContributors = [];
 		$contributors = get_post_meta( $post_id, $contributor_type, false );
 		foreach( $contributors as $key => $contributor ) {
-			foreach ( self::getContributorFields() as $field => $value ) {
-				$term = get_term_by( 'slug', $contributor, self::TAXONOMY );
-				if ( $term ) {
+			$term = get_term_by( 'slug', $contributor, self::TAXONOMY );
+			if ( $term ) {
+				foreach ( self::getContributorFields() as $field => $value ) {
 					$fullContributors[$key]['name'] = $this->personalName($contributor);
 					$fullContributors[$key][$field] = get_term_meta($term->term_id, $field, true);
 				}
