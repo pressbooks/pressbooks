@@ -294,7 +294,7 @@ class Contributors {
 				'input_type' => 'text',
 				'sanitization_method' => '\Pressbooks\Admin\Metaboxes\validate_contributor_url',
 			],
-			self::TAXONOMY . '_url' => [
+			self::TAXONOMY . '_user_url' => [
 				'label' => 'Website',
 				'tag' => self::TAXONOMY . '-website',
 				'input_type' => 'text',
