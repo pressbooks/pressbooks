@@ -4,9 +4,9 @@ on:
   push:
     branches:
     - dev
-    paths:
-    - '**.php'
-    - '**.js'
+    # paths:
+    # - '**.php'
+    # - '**.js'
 
 jobs:
   update-pot:
