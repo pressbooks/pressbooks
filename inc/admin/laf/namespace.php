@@ -20,6 +20,7 @@ use Pressbooks\BookDirectory;
 use Pressbooks\Cloner\Cloner;
 use Pressbooks\DataCollector\Book as DataCollector;
 use Pressbooks\Metadata;
+use WP_Error;
 
 /**
  * @return bool
@@ -1590,5 +1591,56 @@ function edit_screen_navigation( $post ) {
 		}
 
 		echo '</nav>';
+	}
+}
+
+/**
+ *
+ * $since 5.27.0
+ * @return array
+ */
+function get_user_contact_fields() {
+	$methods = [];
+	$methods['twitter'] = __( 'Twitter URL', 'pressbooks' );
+	$methods['linkedin'] = __( 'LinkedIn URL', 'pressbooks' );
+	$methods['github'] = __( 'GitHub URL', 'pressbooks' );
+	return $methods;
+}
+
+/**
+ *
+ * $since 5.27.0
+ * @param array $methods
+ * @return array
+ */
+function modify_user_contact_fields( $methods ) {
+
+	// Remove unwanted user contact methods
+	unset( $methods['aim'] );
+	unset( $methods['yim'] );
+	unset( $methods['jabber'] );
+
+	// Add desired user contact methods
+	return array_merge( $methods, get_user_contact_fields() );
+}
+
+/**
+ *
+ * $since 5.27.0
+ * @param WP_Error $errors
+ * @param bool $update
+ * @param stdClass $user
+ */
+function sanitize_user_profile( WP_Error $errors, $update, $user ) {
+
+	$additional_urls_to_check = [ 'url' => 'Website' ];
+
+	foreach ( array_merge( get_user_contact_fields(), $additional_urls_to_check ) as $key => $value ) {
+		$field = wp_kses( $_POST[ $key ], false );
+		if ( ! empty( $field ) ) {
+			if ( ! filter_var( $field, FILTER_VALIDATE_URL ) ) {
+				$errors->add( $key, "The $value field is not a valid URL." );
+			}
+		}
 	}
 }
