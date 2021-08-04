@@ -466,4 +466,36 @@ class Contributors {
 		return $result;
 	}
 
+	/**
+	 * @param int $post_id
+	 * @param string $contributor_type
+	 *
+	 * @return array An array containing a set of matching contributor arrays
+	 */
+	public function getFullContributors( $post_id, $contributor_type )
+	{
+		if ( ! str_starts_with( $contributor_type, 'pb_' ) ) {
+			$contributor_type = 'pb_' . $contributor_type;
+		}
+		if ( ! $this->isValid( $contributor_type ) ) {
+			return [];
+		}
+
+		$contributors = $this->getArray( $post_id, $contributor_type );
+		$newContributors = [];
+		foreach( $contributors as $key => $contributor ) {
+			$meta = get_post_meta( $post_id, $contributor_type, false );
+			if ( is_array( $meta ) ) {
+				foreach ( self::getContributorFields() as $field => $value ) {
+					$term = get_term_by( 'slug', $meta[$key], self::TAXONOMY );
+					if ( $term ) {
+						$newContributors[$key]['name'] = $this->personalName($meta[$key]);
+						$newContributors[$key][$field] = get_term_meta($term->term_id, $field, true);
+					}
+				}
+			}
+		}
+
+		return $newContributors;
+	}
 }
