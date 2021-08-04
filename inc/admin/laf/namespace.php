@@ -1614,14 +1614,7 @@ function get_user_contact_fields() {
  * @return array
  */
 function modify_user_contact_fields( $methods ) {
-
-	// Remove unwanted user contact methods
-	unset( $methods['aim'] );
-	unset( $methods['yim'] );
-	unset( $methods['jabber'] );
-
-	// Add desired user contact methods
-	return array_merge( $methods, get_user_contact_fields() );
+	return get_user_contact_fields();
 }
 
 /**
@@ -1638,7 +1631,7 @@ function sanitize_user_profile( WP_Error $errors, $update, $user ) {
 	foreach ( array_merge( get_user_contact_fields(), $additional_urls_to_check ) as $key => $value ) {
 		$field = wp_kses( $_POST[ $key ], false );
 		if ( ! empty( $field ) ) {
-			if ( ! filter_var( $field, FILTER_VALIDATE_URL ) ) {
+			if ( ! \Pressbooks\Sanitize\validate_url_field( $field ) ) {
 				$errors->add( $key, "The $value field is not a valid URL." );
 			}
 		}

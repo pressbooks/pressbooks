@@ -246,7 +246,7 @@ class Contributors {
 	}
 
 	/**
-	 * Return contributors taxonomy terms associative array with meta HTML tag information.
+	 * Return contributors' taxonomy terms as an associative array with meta HTML tag information.
 	 *
 	 * @param string $field
 	 * @return array
@@ -254,19 +254,19 @@ class Contributors {
 	public static function getContributorFields( $field = '' ) {
 		$allowed_fields = [
 			self::TAXONOMY . '_first_name' => [
-				'label' => 'First Name',
-				'tag' => self::TAXONOMY .   '-first-name',
+				'label' => __( 'First Name', 'pressbooks' ),
+				'tag' => self::TAXONOMY . '-first-name',
 				'input_type' => 'text',
 				'sanitization_method' => 'sanitize_text_field',
 			],
 			self::TAXONOMY . '_last_name' => [
-				'label' => 'Last Name',
+				'label' => __( 'Last Name', 'pressbooks' ),
 				'tag' => self::TAXONOMY . '-last-name',
 				'input_type' => 'text',
 				'sanitization_method' => 'sanitize_text_field',
 			],
 			self::TAXONOMY . '_description' => [
-				'label' => 'Biography',
+				'label' => __( 'Biographical Info', 'pressbooks' ),
 				'tag' => self::TAXONOMY . '-biography',
 				'input_type' => 'tinymce',
 			],
@@ -276,34 +276,34 @@ class Contributors {
 				'input_type' => 'media',
 			],
 			self::TAXONOMY . '_institution' => [
-				'label' => 'Institution',
+				'label' => __( 'Institution', 'pressbooks' ),
 				'tag' => self::TAXONOMY . '-institution',
 				'input_type' => 'text',
 				'sanitization_method' => 'sanitize_text_field',
 			],
-			self::TAXONOMY . '_twitter' => [
-				'label' => 'Twitter',
-				'tag' => self::TAXONOMY . '-twitter',
-				'input_type' => 'text',
-				'sanitization_method' => '\Pressbooks\Admin\Metaboxes\validate_contributor_url',
-			],
-			self::TAXONOMY . '_linkedin' => [
-				'label' => 'LinkedIn',
-				'tag' => self::TAXONOMY . '-linkedin',
-				'input_type' => 'text',
-				'sanitization_method' => '\Pressbooks\Admin\Metaboxes\validate_contributor_url',
-			],
-			self::TAXONOMY . '_github' => [
-				'label' => 'GitHub',
-				'tag' => self::TAXONOMY . '-github',
-				'input_type' => 'text',
-				'sanitization_method' => '\Pressbooks\Admin\Metaboxes\validate_contributor_url',
-			],
-			self::TAXONOMY . '_url' => [
-				'label' => 'Website',
+			self::TAXONOMY . '_user_url' => [
+				'label' => __( 'Website', 'presbooks' ),
 				'tag' => self::TAXONOMY . '-website',
 				'input_type' => 'text',
-				'sanitization_method' => '\Pressbooks\Admin\Metaboxes\validate_contributor_url',
+				'sanitization_method' => '\Pressbooks\Sanitize\validate_url_field',
+			],
+			self::TAXONOMY . '_twitter' => [
+				'label' => __( 'Twitter', 'pressbooks' ),
+				'tag' => self::TAXONOMY . '-twitter',
+				'input_type' => 'text',
+				'sanitization_method' => '\Pressbooks\Sanitize\validate_url_field',
+			],
+			self::TAXONOMY . '_linkedin' => [
+				'label' => __( 'LinkedIn', 'pressbooks' ),
+				'tag' => self::TAXONOMY . '-linkedin',
+				'input_type' => 'text',
+				'sanitization_method' => '\Pressbooks\Sanitize\validate_url_field',
+			],
+			self::TAXONOMY . '_github' => [
+				'label' => __( 'GitHub', 'pressbooks' ),
+				'tag' => self::TAXONOMY . '-github',
+				'input_type' => 'text',
+				'sanitization_method' => '\Pressbooks\Sanitize\validate_url_field',
 			],
 		];
 
@@ -471,4 +471,32 @@ class Contributors {
 		return $result;
 	}
 
+	/**
+	 * @param int $post_id
+	 * @param string $contributor_type
+	 *
+	 * @return array An array containing a set of matching contributor arrays
+	 */
+	public function getFullContributors( $post_id, $contributor_type ) {
+		if ( ! str_starts_with( $contributor_type, 'pb_' ) ) {
+			$contributor_type = 'pb_' . $contributor_type;
+		}
+		if ( ! $this->isValid( $contributor_type ) ) {
+			return [];
+		}
+
+		$full_contributors = [];
+		$contributors = get_post_meta( $post_id, $contributor_type, false );
+		foreach ( $contributors as $key => $contributor ) {
+			$term = get_term_by( 'slug', $contributor, self::TAXONOMY );
+			if ( $term ) {
+				foreach ( self::getContributorFields() as $field => $value ) {
+					$full_contributors[ $key ]['name'] = $this->personalName( $contributor );
+					$full_contributors[ $key ][ $field ] = get_term_meta( $term->term_id, $field, true );
+				}
+			}
+		}
+
+		return $full_contributors;
+	}
 }
