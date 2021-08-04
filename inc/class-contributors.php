@@ -280,25 +280,25 @@ class Contributors {
 				'label' => 'Twitter',
 				'tag' => self::TAXONOMY . '-twitter',
 				'input_type' => 'text',
-				'sanitization_method' => '\Pressbooks\Admin\Metaboxes\validate_contributor_url',
+				'sanitization_method' => '\Pressbooks\Sanitize\validate_url_field',
 			],
 			self::TAXONOMY . '_linkedin' => [
 				'label' => 'LinkedIn',
 				'tag' => self::TAXONOMY . '-linkedin',
 				'input_type' => 'text',
-				'sanitization_method' => '\Pressbooks\Admin\Metaboxes\validate_contributor_url',
+				'sanitization_method' => '\Pressbooks\Sanitize\validate_url_field',
 			],
 			self::TAXONOMY . '_github' => [
 				'label' => 'GitHub',
 				'tag' => self::TAXONOMY . '-github',
 				'input_type' => 'text',
-				'sanitization_method' => '\Pressbooks\Admin\Metaboxes\validate_contributor_url',
+				'sanitization_method' => '\Pressbooks\Sanitize\validate_url_field',
 			],
 			self::TAXONOMY . '_user_url' => [
 				'label' => 'Website',
 				'tag' => self::TAXONOMY . '-website',
 				'input_type' => 'text',
-				'sanitization_method' => '\Pressbooks\Admin\Metaboxes\validate_contributor_url',
+				'sanitization_method' => '\Pressbooks\Sanitize\validate_url_field',
 			],
 		];
 
