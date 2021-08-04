@@ -1209,7 +1209,7 @@ function contributor_add_form() {
 		if ( $meta_tags['input_type'] === 'tinymce' ) {
 			?>
 			<div class="form-field <?php echo $meta_tags['tag']; ?>-wrap">
-				<label for="<?php echo $meta_tags['tag']; ?>"><?php _e( $meta_tags['label'], 'pressbooks' ); ?></label>
+				<label for="<?php echo $meta_tags['tag']; ?>"><?php echo $meta_tags['label']; ?></label>
 				<?php wp_editor( null, $term, get_editor_settings() ); ?>
 				<script>
 					jQuery(window).ready(function(){
@@ -1233,7 +1233,7 @@ function contributor_add_form() {
 		}
 		?>
 		<div class="form-field <?php echo $meta_tags['tag']; ?>-wrap">
-			<label for="<?php echo $meta_tags['tag']; ?>"><?php _e( $meta_tags['label'], 'pressbooks' ); ?></label>
+			<label for="<?php echo $meta_tags['tag']; ?>"><?php echo $meta_tags['label']; ?></label>
 			<input type="<?php echo $meta_tags['input_type'] ?>" name="<?php echo $term; ?>" id="<?php echo $meta_tags['tag']; ?>" value="" class="<?php echo $meta_tags['tag']; ?>" />
 		</div>
 		<?php
@@ -1249,7 +1249,7 @@ function contributor_edit_form( $term ) {
 		if ( $meta_tags['input_type'] === 'tinymce' ) {
 			?>
 			<tr class="form-field <?php echo $meta_tags['tag']; ?>-wrap">
-				<th scope="row"><label for="<?php echo $meta_tags['tag']; ?>"><?php _e( $meta_tags['label'], 'pressbooks' ); ?></label></th>
+				<th scope="row"><label for="<?php echo $meta_tags['tag']; ?>"><?php echo $meta_tags['label']; ?></label></th>
 				<td>
 					<?php wp_nonce_field( 'contributor-meta', 'contributor_meta_nonce' ); ?>
 					<?php wp_editor( html_entity_decode( $value ), $term, get_editor_settings() ); ?>
@@ -1265,7 +1265,7 @@ function contributor_edit_form( $term ) {
 		}
 		?>
 		<tr class="form-field <?php echo $meta_tags['tag']; ?>-wrap">
-			<th scope="row"><label for="<?php echo $meta_tags['tag']; ?>"><?php _e( $meta_tags['label'], 'pressbooks' ); ?></label></th>
+			<th scope="row"><label for="<?php echo $meta_tags['tag']; ?>"><?php echo $meta_tags['label']; ?></label></th>
 			<td>
 				<?php wp_nonce_field( 'contributor-meta', 'contributor_meta_nonce' ); ?>
 				<input type="<?php echo $meta_tags['input_type'] ?>" name="<?php echo $term; ?>" id="<?php echo $meta_tags['tag']; ?>" value="<?php echo esc_attr( $value ); ?>" class="<?php echo $meta_tags['tag']; ?>-field"  />
@@ -1315,10 +1315,6 @@ function save_contributor_meta( $term_id, $tt_id, $taxonomy ) {
 		}
 		$value ? update_term_meta( $term_id, $term, $value ) : delete_term_meta( $term_id, $term );
 	}
-}
-
-function validate_contributor_url( $url ) {
-	return filter_var( $url, FILTER_VALIDATE_URL ) ? $url : false;
 }
 
 /**

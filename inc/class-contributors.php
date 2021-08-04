@@ -254,49 +254,49 @@ class Contributors {
 	public static function getContributorFields( $field = '' ) {
 		$allowed_fields = [
 			self::TAXONOMY . '_first_name' => [
-				'label' => 'First Name',
+				'label' => __( 'First Name', 'pressbooks' ),
 				'tag' => self::TAXONOMY . '-first-name',
 				'input_type' => 'text',
 				'sanitization_method' => 'sanitize_text_field',
 			],
 			self::TAXONOMY . '_last_name' => [
-				'label' => 'Last Name',
+				'label' => __( 'Last Name', 'pressbooks' ),
 				'tag' => self::TAXONOMY . '-last-name',
 				'input_type' => 'text',
 				'sanitization_method' => 'sanitize_text_field',
 			],
 			self::TAXONOMY . '_description' => [
-				'label' => 'Biography',
+				'label' => __( 'Biographical Info', 'pressbooks' ),
 				'tag' => self::TAXONOMY . '-biography',
 				'input_type' => 'tinymce',
 			],
 			self::TAXONOMY . '_institution' => [
-				'label' => 'Institution',
+				'label' => __( 'Institution', 'pressbooks' ),
 				'tag' => self::TAXONOMY . '-institution',
 				'input_type' => 'text',
 				'sanitization_method' => 'sanitize_text_field',
 			],
+			self::TAXONOMY . '_user_url' => [
+				'label' => __( 'Website', 'presbooks' ),
+				'tag' => self::TAXONOMY . '-website',
+				'input_type' => 'text',
+				'sanitization_method' => '\Pressbooks\Sanitize\validate_url_field',
+			],
 			self::TAXONOMY . '_twitter' => [
-				'label' => 'Twitter',
+				'label' => __( 'Twitter', 'pressbooks' ),
 				'tag' => self::TAXONOMY . '-twitter',
 				'input_type' => 'text',
 				'sanitization_method' => '\Pressbooks\Sanitize\validate_url_field',
 			],
 			self::TAXONOMY . '_linkedin' => [
-				'label' => 'LinkedIn',
+				'label' => __( 'LinkedIn', 'pressbooks' ),
 				'tag' => self::TAXONOMY . '-linkedin',
 				'input_type' => 'text',
 				'sanitization_method' => '\Pressbooks\Sanitize\validate_url_field',
 			],
 			self::TAXONOMY . '_github' => [
-				'label' => 'GitHub',
+				'label' => __( 'GitHub', 'pressbooks' ),
 				'tag' => self::TAXONOMY . '-github',
-				'input_type' => 'text',
-				'sanitization_method' => '\Pressbooks\Sanitize\validate_url_field',
-			],
-			self::TAXONOMY . '_user_url' => [
-				'label' => 'Website',
-				'tag' => self::TAXONOMY . '-website',
 				'input_type' => 'text',
 				'sanitization_method' => '\Pressbooks\Sanitize\validate_url_field',
 			],
