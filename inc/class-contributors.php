@@ -265,29 +265,40 @@ class Contributors {
 				'input_type' => 'text',
 				'sanitization_method' => 'sanitize_text_field',
 			],
+			self::TAXONOMY . '_description' => [
+				'label' => 'Biography',
+				'tag' => self::TAXONOMY . '-biography',
+				'input_type' => 'tinymce',
+			],
+			self::TAXONOMY . '_institution' => [
+				'label' => 'Institution',
+				'tag' => self::TAXONOMY . '-institution',
+				'input_type' => 'text',
+				'sanitization_method' => 'sanitize_text_field',
+			],
 			self::TAXONOMY . '_twitter' => [
 				'label' => 'Twitter',
 				'tag' => self::TAXONOMY . '-twitter',
-				'input_type' => 'url',
-				'sanitization_method' => 'esc_url_raw',
+				'input_type' => 'text',
+				'sanitization_method' => '\Pressbooks\Admin\Metaboxes\validate_contributor_url',
 			],
 			self::TAXONOMY . '_linkedin' => [
 				'label' => 'LinkedIn',
 				'tag' => self::TAXONOMY . '-linkedin',
-				'input_type' => 'url',
-				'sanitization_method' => 'esc_url_raw',
+				'input_type' => 'text',
+				'sanitization_method' => '\Pressbooks\Admin\Metaboxes\validate_contributor_url',
 			],
 			self::TAXONOMY . '_github' => [
 				'label' => 'GitHub',
 				'tag' => self::TAXONOMY . '-github',
-				'input_type' => 'url',
-				'sanitization_method' => 'esc_url_raw',
+				'input_type' => 'text',
+				'sanitization_method' => '\Pressbooks\Admin\Metaboxes\validate_contributor_url',
 			],
 			self::TAXONOMY . '_url' => [
 				'label' => 'Website',
 				'tag' => self::TAXONOMY . '-website',
-				'input_type' => 'url',
-				'sanitization_method' => 'esc_url_raw',
+				'input_type' => 'text',
+				'sanitization_method' => '\Pressbooks\Admin\Metaboxes\validate_contributor_url',
 			],
 		];
 

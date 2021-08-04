@@ -1206,6 +1206,31 @@ function contributor_add_form() {
 	$contributors_fields = Contributors::getContributorFields();
 
 	foreach ( $contributors_fields as $term => $meta_tags ) {
+		if ( $meta_tags['input_type'] === 'tinymce' ) {
+			?>
+			<div class="form-field <?php echo $meta_tags['tag']; ?>-wrap">
+				<label for="<?php echo $meta_tags['tag']; ?>"><?php _e( $meta_tags['label'], 'pressbooks' ); ?></label>
+				<?php wp_editor( null, $term, get_editor_settings() ); ?>
+				<script>
+					jQuery(window).ready(function(){
+						jQuery( document ).ajaxComplete(function(event, xhr, settings) {
+							if ( settings.data.indexOf('action=add-tag') >= 0 ) {
+								window.tinyMCE.activeEditor.setContent('');
+							}
+						});
+
+						jQuery('.term-description-wrap').remove();
+						jQuery('#submit').on('click', function(event) {
+							event.preventDefault();
+							window.tinyMCE.triggerSave();
+							event.target.click();
+						});
+					});
+				</script>
+			</div>
+			<?php
+			continue;
+		}
 		?>
 		<div class="form-field <?php echo $meta_tags['tag']; ?>-wrap">
 			<label for="<?php echo $meta_tags['tag']; ?>"><?php _e( $meta_tags['label'], 'pressbooks' ); ?></label>
@@ -1221,6 +1246,23 @@ function contributor_edit_form( $term ) {
 
 	foreach ( $contributors_fields as $term => $meta_tags ) {
 		$value = $terms_meta[$term][0] ?? '';
+		if ( $meta_tags['input_type'] === 'tinymce' ) {
+			?>
+			<tr class="form-field <?php echo $meta_tags['tag']; ?>-wrap">
+				<th scope="row"><label for="<?php echo $meta_tags['tag']; ?>"><?php _e( $meta_tags['label'], 'pressbooks' ); ?></label></th>
+				<td>
+					<?php wp_nonce_field( 'contributor-meta', 'contributor_meta_nonce' ); ?>
+					<?php wp_editor( html_entity_decode( $value ), $term, get_editor_settings() ); ?>
+					<script>
+						jQuery(window).ready(function(){
+							jQuery('.term-description-wrap').remove();
+						});
+					</script>
+				</td>
+			</tr>
+			<?php
+			continue;
+		}
 		?>
 		<tr class="form-field <?php echo $meta_tags['tag']; ?>-wrap">
 			<th scope="row"><label for="<?php echo $meta_tags['tag']; ?>"><?php _e( $meta_tags['label'], 'pressbooks' ); ?></label></th>
@@ -1231,6 +1273,24 @@ function contributor_edit_form( $term ) {
 		</tr>
 		<?php
 	}
+}
+
+function get_editor_settings() {
+	return [
+		'textarea_name' => 'contributor_description',
+		'tabfocus_elements' => 'content-html,save-post',
+		'editor_height' => 300,
+		'wpautop' => true,
+		'media_buttons' => false,
+		'quicktags' => [
+			'buttons' => 'strong,em,link,close',
+		],
+		'tinymce' => [
+			'toolbar1' => 'bold,italic,|,link,unlink,|,undo,redo',
+			'toolbar2' => '',
+			'toolbar3' => '',
+		],
+	];
 }
 
 /**
@@ -1246,9 +1306,19 @@ function save_contributor_meta( $term_id, $tt_id, $taxonomy ) {
 
 	$contributors_fields = Contributors::getContributorFields();
 	foreach ( $contributors_fields as $term => $meta_tags ) {
-		$value = isset( $_POST[ $term ] ) ? $meta_tags['sanitization_method']( $_POST[ $term ] ) : false;
+		$value = false;
+		if ( isset( $_POST[ $term ] ) ) {
+			$value = $_POST[ $term ];
+			if ( array_key_exists( 'sanitization_method', $meta_tags ) ) {
+				$value = $meta_tags['sanitization_method']( $value );
+			}
+		}
 		$value ? update_term_meta( $term_id, $term, $value ) : delete_term_meta( $term_id, $term );
 	}
+}
+
+function validate_contributor_url( $url ) {
+	return filter_var( $url, FILTER_VALIDATE_URL ) ? $url : false;
 }
 
 /**
