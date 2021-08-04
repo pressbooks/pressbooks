@@ -1631,7 +1631,7 @@ function sanitize_user_profile( WP_Error $errors, $update, $user ) {
 	foreach ( array_merge( get_user_contact_fields(), $additional_urls_to_check ) as $key => $value ) {
 		$field = wp_kses( $_POST[ $key ], false );
 		if ( ! empty( $field ) ) {
-			if ( ! filter_var( $field, FILTER_VALIDATE_URL ) ) {
+			if ( ! \Pressbooks\Sanitize\validate_url_field( $field ) ) {
 				$errors->add( $key, "The $value field is not a valid URL." );
 			}
 		}
