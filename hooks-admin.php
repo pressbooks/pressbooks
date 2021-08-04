@@ -169,6 +169,8 @@ add_action( 'custom_metadata_manager_init_metadata', '\Pressbooks\Admin\Metaboxe
 
 if ( $is_book ) {
 	add_action( 'admin_enqueue_scripts', '\Pressbooks\Admin\Metaboxes\add_metadata_styles' );
+	add_action( 'admin_enqueue_scripts', '\Pressbooks\Admin\Metaboxes\enqueue_js_script' );
+	add_filter('media_upload_default_tab', '\Pressbooks\Admin\Metaboxes\get_default_media_tab');
 	add_action( 'save_post', [ '\Pressbooks\Book', 'consolidatePost' ], 10, 2 );
 	add_action( 'save_post_metadata', '\Pressbooks\Admin\Metaboxes\upload_cover_image', 10, 2 );
 	add_action( 'wp_insert_post', '\Pressbooks\Admin\Metaboxes\add_required_data', 10, 2 );

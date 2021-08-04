@@ -270,6 +270,11 @@ class Contributors {
 				'tag' => self::TAXONOMY . '-biography',
 				'input_type' => 'tinymce',
 			],
+			self::TAXONOMY . '_picture' => [
+				'label' => 'Picture',
+				'tag' => self::TAXONOMY . '-picture',
+				'input_type' => 'media',
+			],
 			self::TAXONOMY . '_institution' => [
 				'label' => 'Institution',
 				'tag' => self::TAXONOMY . '-institution',

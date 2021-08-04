@@ -1206,38 +1206,67 @@ function contributor_add_form() {
 	$contributors_fields = Contributors::getContributorFields();
 
 	foreach ( $contributors_fields as $term => $meta_tags ) {
-		if ( $meta_tags['input_type'] === 'tinymce' ) {
-			?>
-			<div class="form-field <?php echo $meta_tags['tag']; ?>-wrap">
-				<label for="<?php echo $meta_tags['tag']; ?>"><?php _e( $meta_tags['label'], 'pressbooks' ); ?></label>
-				<?php wp_editor( null, $term, get_editor_settings() ); ?>
-				<script>
-					jQuery(window).ready(function(){
-						jQuery( document ).ajaxComplete(function(event, xhr, settings) {
-							if ( settings.data.indexOf('action=add-tag') >= 0 ) {
-								window.tinyMCE.activeEditor.setContent('');
-							}
-						});
+		switch ( $meta_tags['input_type'] ) {
+			case 'tinymce':
+				?>
+				<div class="form-field <?php echo $meta_tags['tag']; ?>-wrap">
+					<label for="<?php echo $meta_tags['tag']; ?>"><?php _e( $meta_tags['label'], 'pressbooks' ); ?></label>
+					<?php wp_editor( null, $term, get_editor_settings() ); ?>
+					<script>
+						jQuery(window).ready(function(){
+							jQuery( document ).ajaxComplete(function(event, xhr, settings) {
+								if ( settings.data.indexOf('action=add-tag') >= 0 ) {
+									window.tinyMCE.activeEditor.setContent('');
+								}
+							});
 
-						jQuery('.term-description-wrap').remove();
-						jQuery('#submit').on('click', function(event) {
-							event.preventDefault();
-							window.tinyMCE.triggerSave();
-							event.target.click();
+							jQuery('.term-description-wrap').remove();
+							jQuery('#submit').on('click', function(event) {
+								event.preventDefault();
+								window.tinyMCE.triggerSave();
+								event.target.click();
+							});
 						});
-					});
-				</script>
-			</div>
-			<?php
-			continue;
+					</script>
+				</div>
+				<?php
+				break;
+			case 'media':
+				?>
+				<div class="form-field <?php echo $meta_tags['tag']; ?>-wrap">
+					<label for="<?php echo $meta_tags['tag']; ?>"><?php _e( $meta_tags['label'], 'pressbooks' ); ?></label>
+					<input type="hidden" name="<?php echo $term; ?>" id="<?php echo $meta_tags['tag']; ?>">
+					<?php wp_media_upload_handler();  ?>
+				</div>
+				<?php
+				break;
+			default:
+				?>
+				<div class="form-field <?php echo $meta_tags['tag']; ?>-wrap">
+					<label for="<?php echo $meta_tags['tag']; ?>"><?php _e( $meta_tags['label'], 'pressbooks' ); ?></label>
+					<input type="<?php echo $meta_tags['input_type'] ?>" name="<?php echo $term; ?>" id="<?php echo $meta_tags['tag']; ?>" value="" class="<?php echo $meta_tags['tag']; ?>" />
+				</div>
+				<?php
+				break;
 		}
-		?>
-		<div class="form-field <?php echo $meta_tags['tag']; ?>-wrap">
-			<label for="<?php echo $meta_tags['tag']; ?>"><?php _e( $meta_tags['label'], 'pressbooks' ); ?></label>
-			<input type="<?php echo $meta_tags['input_type'] ?>" name="<?php echo $term; ?>" id="<?php echo $meta_tags['tag']; ?>" value="" class="<?php echo $meta_tags['tag']; ?>" />
-		</div>
-		<?php
 	}
+}
+
+function get_default_media_tab() {
+	return 'library';
+}
+
+function enqueue_js_script() {
+	$assets = new Assets( 'pressbooks', 'plugin' );
+	wp_enqueue_media();
+	wp_enqueue_script(
+		'cg/js', $assets->getPath( 'scripts/contributors.js' ), [
+			'jquery',
+			'jquery-form',
+			'wp-color-picker',
+			'eventsource-polyfill',
+		], null
+	);
 }
 
 function contributor_edit_form( $term ) {
@@ -1246,32 +1275,48 @@ function contributor_edit_form( $term ) {
 
 	foreach ( $contributors_fields as $term => $meta_tags ) {
 		$value = $terms_meta[$term][0] ?? '';
-		if ( $meta_tags['input_type'] === 'tinymce' ) {
-			?>
-			<tr class="form-field <?php echo $meta_tags['tag']; ?>-wrap">
-				<th scope="row"><label for="<?php echo $meta_tags['tag']; ?>"><?php _e( $meta_tags['label'], 'pressbooks' ); ?></label></th>
-				<td>
-					<?php wp_nonce_field( 'contributor-meta', 'contributor_meta_nonce' ); ?>
-					<?php wp_editor( html_entity_decode( $value ), $term, get_editor_settings() ); ?>
-					<script>
-						jQuery(window).ready(function(){
-							jQuery('.term-description-wrap').remove();
-						});
-					</script>
-				</td>
-			</tr>
-			<?php
-			continue;
+		switch ( $meta_tags['input_type'] ) {
+			case 'tinymce':
+				?>
+				<tr class="form-field <?php echo $meta_tags['tag']; ?>-wrap">
+					<th scope="row"><label for="<?php echo $meta_tags['tag']; ?>"><?php _e( $meta_tags['label'], 'pressbooks' ); ?></label></th>
+					<td>
+						<?php wp_nonce_field( 'contributor-meta', 'contributor_meta_nonce' ); ?>
+						<?php wp_editor( html_entity_decode( $value ), $term, get_editor_settings() ); ?>
+						<script>
+							jQuery(window).ready(function(){
+								jQuery('.term-description-wrap').remove();
+							});
+						</script>
+					</td>
+				</tr>
+				<?php
+				break;
+			case 'media':
+				?>
+				<tr class="form-field <?php echo $meta_tags['tag']; ?>-wrap">
+					<th scope="row"><label for="<?php echo $meta_tags['tag']; ?>"><?php _e( $meta_tags['label'], 'pressbooks' ); ?></label></th>
+					<td>
+						<img src="<?php echo $value; ?>" width="100" />
+						<?php wp_nonce_field( 'contributor-meta', 'contributor_meta_nonce' ); ?>
+						<?php wp_media_upload_handler();  ?>
+						<input type="hidden" name="<?php echo $term; ?>" id="<?php echo $meta_tags['tag']; ?>">
+					</td>
+				</tr>
+				<?php
+				break;
+			default:
+				?>
+				<tr class="form-field <?php echo $meta_tags['tag']; ?>-wrap">
+					<th scope="row"><label for="<?php echo $meta_tags['tag']; ?>"><?php _e( $meta_tags['label'], 'pressbooks' ); ?></label></th>
+					<td>
+						<?php wp_nonce_field( 'contributor-meta', 'contributor_meta_nonce' ); ?>
+						<input type="<?php echo $meta_tags['input_type'] ?>" name="<?php echo $term;  ?>" id="<?php echo $meta_tags['tag']; ?>" value="<?php echo esc_attr( $value ); ?>" class="<?php echo $meta_tags['tag']; ?>-field"  />
+					</td>
+				</tr>
+				<?php
+				break;
 		}
-		?>
-		<tr class="form-field <?php echo $meta_tags['tag']; ?>-wrap">
-			<th scope="row"><label for="<?php echo $meta_tags['tag']; ?>"><?php _e( $meta_tags['label'], 'pressbooks' ); ?></label></th>
-			<td>
-				<?php wp_nonce_field( 'contributor-meta', 'contributor_meta_nonce' ); ?>
-				<input type="<?php echo $meta_tags['input_type'] ?>" name="<?php echo $term;  ?>" id="<?php echo $meta_tags['tag']; ?>" value="<?php echo esc_attr( $value ); ?>" class="<?php echo $meta_tags['tag']; ?>-field"  />
-			</td>
-		</tr>
-		<?php
 	}
 }
 
