@@ -481,21 +481,18 @@ class Contributors {
 			return [];
 		}
 
-		$contributors = $this->getArray( $post_id, $contributor_type );
-		$newContributors = [];
+		$fullContributors = [];
+		$contributors = get_post_meta( $post_id, $contributor_type, false );
 		foreach( $contributors as $key => $contributor ) {
-			$meta = get_post_meta( $post_id, $contributor_type, false );
-			if ( is_array( $meta ) ) {
-				foreach ( self::getContributorFields() as $field => $value ) {
-					$term = get_term_by( 'slug', $meta[$key], self::TAXONOMY );
-					if ( $term ) {
-						$newContributors[$key]['name'] = $this->personalName($meta[$key]);
-						$newContributors[$key][$field] = get_term_meta($term->term_id, $field, true);
-					}
+			foreach ( self::getContributorFields() as $field => $value ) {
+				$term = get_term_by( 'slug', $contributor, self::TAXONOMY );
+				if ( $term ) {
+					$fullContributors[$key]['name'] = $this->personalName($contributor);
+					$fullContributors[$key][$field] = get_term_meta($term->term_id, $field, true);
 				}
 			}
 		}
 
-		return $newContributors;
+		return $fullContributors;
 	}
 }
