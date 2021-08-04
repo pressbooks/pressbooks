@@ -1245,7 +1245,7 @@ function contributor_edit_form( $term ) {
 	$contributors_fields = Contributors::getContributorFields();
 
 	foreach ( $contributors_fields as $term => $meta_tags ) {
-		$value = $terms_meta[$term][0] ?? '';
+		$value = $terms_meta[ $term ][0] ?? '';
 		if ( $meta_tags['input_type'] === 'tinymce' ) {
 			?>
 			<tr class="form-field <?php echo $meta_tags['tag']; ?>-wrap">
@@ -1268,7 +1268,7 @@ function contributor_edit_form( $term ) {
 			<th scope="row"><label for="<?php echo $meta_tags['tag']; ?>"><?php _e( $meta_tags['label'], 'pressbooks' ); ?></label></th>
 			<td>
 				<?php wp_nonce_field( 'contributor-meta', 'contributor_meta_nonce' ); ?>
-				<input type="<?php echo $meta_tags['input_type'] ?>" name="<?php echo $term;  ?>" id="<?php echo $meta_tags['tag']; ?>" value="<?php echo esc_attr( $value ); ?>" class="<?php echo $meta_tags['tag']; ?>-field"  />
+				<input type="<?php echo $meta_tags['input_type'] ?>" name="<?php echo $term; ?>" id="<?php echo $meta_tags['tag']; ?>" value="<?php echo esc_attr( $value ); ?>" class="<?php echo $meta_tags['tag']; ?>-field"  />
 			</td>
 		</tr>
 		<?php

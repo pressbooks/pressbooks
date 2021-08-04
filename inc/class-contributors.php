@@ -255,7 +255,7 @@ class Contributors {
 		$allowed_fields = [
 			self::TAXONOMY . '_first_name' => [
 				'label' => 'First Name',
-				'tag' => self::TAXONOMY .   '-first-name',
+				'tag' => self::TAXONOMY . '-first-name',
 				'input_type' => 'text',
 				'sanitization_method' => 'sanitize_text_field',
 			],
@@ -472,8 +472,7 @@ class Contributors {
 	 *
 	 * @return array An array containing a set of matching contributor arrays
 	 */
-	public function getFullContributors( $post_id, $contributor_type )
-	{
+	public function getFullContributors( $post_id, $contributor_type ) {
 		if ( ! str_starts_with( $contributor_type, 'pb_' ) ) {
 			$contributor_type = 'pb_' . $contributor_type;
 		}
@@ -481,18 +480,18 @@ class Contributors {
 			return [];
 		}
 
-		$fullContributors = [];
+		$full_contributors = [];
 		$contributors = get_post_meta( $post_id, $contributor_type, false );
-		foreach( $contributors as $key => $contributor ) {
+		foreach ( $contributors as $key => $contributor ) {
 			$term = get_term_by( 'slug', $contributor, self::TAXONOMY );
 			if ( $term ) {
 				foreach ( self::getContributorFields() as $field => $value ) {
-					$fullContributors[$key]['name'] = $this->personalName($contributor);
-					$fullContributors[$key][$field] = get_term_meta($term->term_id, $field, true);
+					$full_contributors[ $key ]['name'] = $this->personalName( $contributor );
+					$full_contributors[ $key ][ $field ] = get_term_meta( $term->term_id, $field, true );
 				}
 			}
 		}
 
-		return $fullContributors;
+		return $full_contributors;
 	}
 }
