@@ -1235,8 +1235,8 @@ function contributor_add_form() {
 				?>
 				<div class="form-field <?php echo $meta_tags['tag']; ?>-wrap">
 					<label for="<?php echo $meta_tags['tag']; ?>"><?php _e( $meta_tags['label'], 'pressbooks' ); ?></label>
-					<input type="hidden" name="<?php echo $term; ?>" id="<?php echo $meta_tags['tag']; ?>">
 					<?php wp_media_upload_handler();  ?>
+					<input type="hidden" name="<?php echo $term; ?>" id="<?php echo $meta_tags['tag']; ?>">
 				</div>
 				<?php
 				break;
