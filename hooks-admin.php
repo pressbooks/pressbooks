@@ -60,6 +60,7 @@ if ( $is_book ) {
 	// Aggressively replace default interface
 	add_action( 'init', [ '\Pressbooks\Modules\SearchAndReplace\SearchAndReplace', 'init' ] );
 	add_action( 'after_setup_theme', [ '\Pressbooks\Modules\ThemeOptions\Admin', 'init' ] );
+	add_action( 'after_setup_theme', '\Pressbooks\Admin\Metaboxes\add_contributor_image_size' );
 	add_action( 'admin_init', '\Pressbooks\Redirect\redirect_away_from_bad_urls' );
 	add_action( 'admin_menu', '\Pressbooks\Admin\Laf\replace_book_admin_menu', 1 );
 	add_filter( 'custom_menu_order', '__return_true' );
@@ -169,8 +170,9 @@ add_action( 'custom_metadata_manager_init_metadata', '\Pressbooks\Admin\Metaboxe
 
 if ( $is_book ) {
 	add_action( 'admin_enqueue_scripts', '\Pressbooks\Admin\Metaboxes\add_metadata_styles' );
+	add_filter( 'image_size_names_choose', 'Pressbooks\Admin\Metaboxes\merge_contributor_size' );
 	add_action( 'admin_enqueue_scripts', '\Pressbooks\Admin\Metaboxes\enqueue_js_script' );
-	add_filter('media_upload_default_tab', '\Pressbooks\Admin\Metaboxes\get_default_media_tab');
+	add_filter( 'media_upload_tabs', '\Pressbooks\Admin\Metaboxes\get_default_media_tab' );
 	add_action( 'save_post', [ '\Pressbooks\Book', 'consolidatePost' ], 10, 2 );
 	add_action( 'save_post_metadata', '\Pressbooks\Admin\Metaboxes\upload_cover_image', 10, 2 );
 	add_action( 'wp_insert_post', '\Pressbooks\Admin\Metaboxes\add_required_data', 10, 2 );

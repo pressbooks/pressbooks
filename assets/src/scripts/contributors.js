@@ -1,10 +1,18 @@
 jQuery( function ( $ ) {
 	// Media
 	$( document ).ready( function () {
+		jQuery('#addtag > div.form-field.contributor-picture-wrap > p.savebutton.ml-submit > input').hide();
+		jQuery('#media-upload-header').hide();
+		jQuery('#addtag > div.form-field.contributor-picture-wrap > h3').hide();
+		jQuery('#plupload-upload-ui > p').hide();
 		jQuery( '#plupload-browse-button' ).on( 'click', function( e ) {
 			let pictureLibrary = wp.media({
-				title: "Select picture",
+				title: "Select a picture",
+				frame: 'post',
 				multiple: false,
+				library: {
+					type: 'image'
+				},
 				button: {
 					text: 'Done'
 				}
@@ -16,25 +24,5 @@ jQuery( function ( $ ) {
 				jQuery('#contributor-picture').val(selectedImage.url);
 			});
 		});
-
-		// hide description field
-		jQuery(window).ready(function(){
-			jQuery('.term-description-wrap').remove();
-		});
-
-		// Clean Tinymce biography field
-		jQuery( document ).ajaxComplete(function(event, xhr, settings) {
-			if ( settings.data.indexOf('action=add-tag') >= 0 ) {
-				window.tinyMCE.activeEditor.setContent('');
-			}
-		});
-
-		jQuery('.term-description-wrap').remove();
-		jQuery('#submit').on('click', function(event) {
-			event.preventDefault();
-			window.tinyMCE.triggerSave();
-			event.target.click();
-		});
-
 	});
 });
