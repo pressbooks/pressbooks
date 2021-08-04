@@ -1212,22 +1212,6 @@ function contributor_add_form() {
 				<div class="form-field <?php echo $meta_tags['tag']; ?>-wrap">
 					<label for="<?php echo $meta_tags['tag']; ?>"><?php _e( $meta_tags['label'], 'pressbooks' ); ?></label>
 					<?php wp_editor( null, $term, get_editor_settings() ); ?>
-					<script>
-						jQuery(window).ready(function(){
-							jQuery( document ).ajaxComplete(function(event, xhr, settings) {
-								if ( settings.data.indexOf('action=add-tag') >= 0 ) {
-									window.tinyMCE.activeEditor.setContent('');
-								}
-							});
-
-							jQuery('.term-description-wrap').remove();
-							jQuery('#submit').on('click', function(event) {
-								event.preventDefault();
-								window.tinyMCE.triggerSave();
-								event.target.click();
-							});
-						});
-					</script>
 				</div>
 				<?php
 				break;
@@ -1283,11 +1267,6 @@ function contributor_edit_form( $term ) {
 					<td>
 						<?php wp_nonce_field( 'contributor-meta', 'contributor_meta_nonce' ); ?>
 						<?php wp_editor( html_entity_decode( $value ), $term, get_editor_settings() ); ?>
-						<script>
-							jQuery(window).ready(function(){
-								jQuery('.term-description-wrap').remove();
-							});
-						</script>
 					</td>
 				</tr>
 				<?php
