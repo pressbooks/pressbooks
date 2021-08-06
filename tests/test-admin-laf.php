@@ -375,7 +375,6 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		$user_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
 		wp_set_current_user( $user_id );
 		ob_start();
-		$pagenow = 'wp-admin/user-edit.php?user_id=' . $user_id;
 		\Pressbooks\Admin\Laf\add_user_profile_fields( new \WP_User( $user_id ) );
 		$buffer = ob_get_clean();
 
