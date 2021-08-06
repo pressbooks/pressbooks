@@ -300,6 +300,11 @@ class Contributors {
 				'input_type' => 'text',
 				'sanitization_method' => '\Pressbooks\Sanitize\validate_url_field',
 			],
+			self::TAXONOMY . '_picture' => [
+				'label' => 'Picture',
+				'tag' => self::TAXONOMY . '-picture',
+				'input_type' => 'media',
+			],
 		];
 
 		return $allowed_fields[ self::TAXONOMY . '_' . $field ] ?? $allowed_fields;
