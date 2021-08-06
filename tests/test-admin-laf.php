@@ -369,4 +369,35 @@ class Admin_LafTest extends \WP_UnitTestCase {
 
 	}
 
+	function test_institution_fields_hooks() {
+
+		global $post, $pagenow;
+		$user_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+		wp_set_current_user( $user_id );
+		ob_start();
+		$pagenow = 'wp-admin/user-edit.php?user_id=' . $user_id;
+		\Pressbooks\Admin\Laf\add_user_profile_fields( new \WP_User( $user_id ) );
+		$buffer = ob_get_clean();
+
+
+		$this->assertContains( 'element.insertAdjacentHTML', $buffer );
+		$this->assertContains( 'Please enter your institutional affiliation', $buffer );
+
+		$_REQUEST['institution'] = 'Rebus Foundation';
+
+		\Pressbooks\Admin\Laf\update_user_profile_fields( $user_id );
+
+		$this->assertEquals( 'Rebus Foundation', get_user_meta( $user_id, 'institution', true ) );
+
+		// Test if a lowly user can't update the field
+
+		$user_id = $this->factory()->user->create( [ 'role' => 'subscriber' ] );
+		wp_set_current_user( $user_id );
+
+		$result = \Pressbooks\Admin\Laf\update_user_profile_fields( $user_id );
+
+		$this->assertNull( $result );
+
+	}
+
 }

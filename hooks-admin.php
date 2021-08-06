@@ -366,3 +366,7 @@ add_action( 'init', [ '\Pressbooks\Admin\Users\UserBulk', 'init' ] );
 // Add & sanitize additional contact methods to user profile
 add_filter( 'user_contactmethods', '\Pressbooks\Admin\Laf\modify_user_contact_fields', 11 );
 add_action( 'user_profile_update_errors', '\Pressbooks\Admin\Laf\sanitize_user_profile', 10, 3 );
+add_action( 'show_user_profile', '\Pressbooks\Admin\Laf\add_user_profile_fields', 11 );
+add_action( 'edit_user_profile', '\Pressbooks\Admin\Laf\add_user_profile_fields', 11 );
+add_action( 'edit_user_profile_update', '\Pressbooks\Admin\Laf\update_user_profile_fields', 11 );
+add_action( 'personal_options_update', '\Pressbooks\Admin\Laf\update_user_profile_fields', 11 );
