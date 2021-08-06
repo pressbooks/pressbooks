@@ -56,7 +56,7 @@ class Taxonomy {
 			add_action( 'init', [ $obj, 'registerTaxonomies' ] );
 			add_action( 'init', [ $obj, 'maybeUpgrade' ], 1000 );
 			add_action( 'user_register', [ $obj->contributors, 'addBlogUser' ] );
-			add_action( 'add_user_to_blog', [ $obj, 'registerTaxonomies' ]); // This is a workaround because newbloguser does not fire init action.
+			add_action( 'add_user_to_blog', [ $obj, 'registerTaxonomies' ] ); // This is a workaround because newbloguser does not fire init action.
 			add_action( 'add_user_to_blog', [ $obj->contributors, 'addBlogUser' ] );
 			add_action( 'profile_update', [ $obj->contributors, 'updateBlogUser' ], 10, 2 );
 			add_action( 'added_post_meta', [ $obj, 'upgradeToContributorTaxonomy' ], 10, 4 );
