@@ -10,6 +10,7 @@ namespace Pressbooks\Admin\Laf;
 
 use function Pressbooks\Admin\NetworkManagers\is_restricted;
 use function Pressbooks\PostType\get_post_type_label;
+use function Pressbooks\Sanitize\sanitize_string;
 use function Pressbooks\Utility\str_starts_with;
 use PressbooksMix\Assets;
 use Pressbooks\Admin\ExportOptions;
