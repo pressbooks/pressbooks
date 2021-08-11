@@ -1637,3 +1637,44 @@ function sanitize_user_profile( WP_Error $errors, $update, $user ) {
 		}
 	}
 }
+
+/**
+ *
+ * @since 5.27.0
+ * @param \WP_User $user
+ */
+function add_user_profile_fields( \WP_User $user ) {
+
+	$institution = __( 'Institution' );
+	$value = esc_attr( get_the_author_meta( 'institution', $user->ID ) );
+	$helper = __( 'Please enter your institutional affiliation (i.e. Rebus Foundation or Open University.' );
+
+	$row = <<<HTML
+	<tr class="institution">
+		<th><label for="institution"> $institution </label></th>
+		<td>
+			<input type="text" name="institution" id="institution" value="$value" class="regular-text" /><br />
+			<span class="description"> $helper </span>
+		</td>
+	</tr>
+HTML;
+	?>
+	<script>
+		const element = document.querySelector(".user-description-wrap").parentNode; //Biographical Info input as reference
+		element.insertAdjacentHTML('afterbegin', '<?php echo str_replace( [ "\r\n", "\r", "\n", "\t" ], '', $row ); ?>');
+	</script>
+	<?php
+}
+
+/**
+ *
+ * @since 5.27.0
+ * @param int $user_id
+ */
+function update_user_profile_fields( $user_id ) {
+	if ( ! current_user_can( 'edit_user', $user_id ) ) {
+		return;
+	}
+
+	update_user_meta( $user_id, 'institution', sanitize_string( $_REQUEST['institution'] ) );
+}
