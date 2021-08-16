@@ -11,7 +11,7 @@ if ( is_subdomain_install() ) {
 ?>
 <div class="wrap">
 	<h1><?php _e( 'Clone a Book', 'pressbooks' ); ?></h1>
-	<p><?php printf( __( 'This tool allows you to %1$s from one Pressbooks network to another. Search the thousands of books in the %2$s for material you would like to clone.', 'pressbooks' ), sprintf( '<a href="https://guide.pressbooks.com/chapter/book-cloning/" target="_blank">%s</a>', __('clone openly licensed books', 'pressbooks' ) ), sprintf( '<a href="https://pressbooks.directory/" target="_blank">%s</a>', __( 'Pressbooks Directory', 'pressbooks' ) ) ); ?></p>
+	<p><?php printf( __( 'This tool allows you to %1$s from one Pressbooks network to another. Search the thousands of books in the %2$s for material you would like to clone. Once a book is cloned into your network, you can edit content, add new media, and enhance with H5P interactive activities.', 'pressbooks' ), sprintf( '<a href="https://guide.pressbooks.com/chapter/book-cloning/" target="_blank">%s</a>', __('clone openly licensed books', 'pressbooks' ) ), sprintf( '<a href="https://pressbooks.directory/" target="_blank">%s</a>', __( 'Pressbooks Directory', 'pressbooks' ) ) ); ?></p>
 	<form id="pb-cloner-form" action="" method="post">
 		<?php wp_nonce_field( 'pb-cloner' ); ?>
 		<table class="form-table" role="none">

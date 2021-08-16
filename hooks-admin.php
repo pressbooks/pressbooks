@@ -359,3 +359,6 @@ add_action( 'admin_init', '\Pressbooks\Theme\check_upgraded_customcss' );
 // Bulk add users
 add_action( 'init', [ '\Pressbooks\Admin\Users\UserBulk', 'init' ] );
 
+// Add & sanitize additional contact methods to user profile
+add_filter( 'user_contactmethods', '\Pressbooks\Admin\Laf\modify_user_contact_fields', 11 );
+add_action( 'user_profile_update_errors', '\Pressbooks\Admin\Laf\sanitize_user_profile', 10, 3 );

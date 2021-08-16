@@ -4,7 +4,7 @@ Tags: ebooks, publishing, webbooks
 Requires at least: 5.8
 Tested up to: 5.8
 Requires PHP: 7.3
-Stable tag: 5.25
+Stable tag: 5.26.0
 License: GPL v3.0 or later
 License URI: https://github.com/pressbooks/pressbooks/blob/master/LICENSE.md
 
@@ -18,12 +18,15 @@ For installation instructions, visit [docs.pressbooks.org/installation](https://
 
 == Changelog ==
 
-= 5.25.0 =
+= 5.26.0 =
 
-* See: https://github.com/pressbooks/pressbooks/releases/tag/5.25.0
+* See: https://github.com/pressbooks/pressbooks/releases/tag/5.26.0
 * Full release history available at: https://github.com/pressbooks/pressbooks/releases
 
 == Upgrade Notice ==
+
+= 5.25.0=
+* Pressbooks 5.25.0 requires [WordPress 5.8](https://wordpress.org/support/wordpress-version/version-5-8/)
 
 = 5.21.0=
 * Pressbooks 5.21.0 requires [WordPress 5.7.2](https://wordpress.org/support/wordpress-version/version-5-7-2/)
@@ -45,8 +48,4 @@ To fix this, you would need to update Lord of the files plugin to at least 1.1.0
 
 * Pressbooks 5.15.1 requires PHP >= 7.1.
 * Pressbooks 5.15.1 requires [WordPress 5.4](https://wordpress.org/support/wordpress-version/version-5-4/)
-* Pressbooks 5.15.1 requires [McLuhan >= 2.10.2](https://github.com/pressbooks/pressbooks-book/)
-* Pressbooks 5.15.1 supports integration with [Sentry](https://sentry.io/)
-  * [OPTIONAL] If you wish to integrate [Sentry](https://sentry.io/), add the following keys and its value in your environment variable: SENTRY_KEY, SENTRY_ORGANIZATION, SENTRY_PROJECT, WP_ENV
-  * The SENTRY_* values can be found in your sentry account
-  * The WP_ENV can be any value. ex: development, staging, production
+* Pressbooks 5.15.1 requires [McLuhan >= 2.10.2](https://github.com/pressbooks/pressbooks-book/)  
