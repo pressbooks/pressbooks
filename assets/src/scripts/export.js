@@ -97,7 +97,7 @@ jQuery( function ( $ ) {
 
 	/* JSON Cookie. Remember to keep key/values short because a cookie has max 4096 bytes */
 	let json_cookie_key = 'pb_export';
-	let json_cookie = Cookies.getJSON( json_cookie_key );
+	let json_cookie = JSON.parse( Cookies.get( json_cookie_key ) );
 	if ( typeof json_cookie === 'undefined' ) {
 		json_cookie = {};
 	}
