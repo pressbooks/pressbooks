@@ -96,7 +96,13 @@ class ContributorsTest extends \WP_UnitTestCase {
 
 		$this->assertFalse( $this->contributor->addBlogUser( 999 ) );
 
-		$user_id = $this->factory()->user->create( [ 'role' => 'contributor', 'first_name' => 'Joey', 'last_name' => 'Joe Joe' ] );
+		$user_id = $this->factory()->user->create(
+			[
+				'role' => 'contributor',
+				'first_name' => 'Joey',
+				'last_name' => 'Joe Joe',
+			]
+		);
 		$user = get_userdata( $user_id );
 		$results = $this->contributor->addBlogUser( $user_id );
 		$this->assertTrue( is_array( $results ) );
@@ -118,7 +124,13 @@ class ContributorsTest extends \WP_UnitTestCase {
 		$this->assertEquals( '', get_term_meta( $term->term_id, 'contributor_first_name', true ) );
 		$this->assertEquals( '', get_term_meta( $term->term_id, 'contributor_last_name', true ) );
 
-		$user_id = $this->factory()->user->create( [ 'role' => 'subscriber', 'first_name' => 'Fanny', 'last_name' => 'Fan Fan' ] );
+		$user_id = $this->factory()->user->create(
+			[
+				'role' => 'subscriber',
+				'first_name' => 'Fanny',
+				'last_name' => 'Fan Fan',
+			]
+		);
 		$this->assertFalse( $this->contributor->addBlogUser( $user_id ) );
 	}
 
@@ -128,7 +140,13 @@ class ContributorsTest extends \WP_UnitTestCase {
 	public function test_update() {
 		$this->taxonomy->registerTaxonomies();
 
-		$user_id = $this->factory()->user->create( [ 'role' => 'contributor', 'first_name' => 'Joey', 'last_name' => 'Joe Joe' ] );
+		$user_id = $this->factory()->user->create(
+			[
+				'role' => 'contributor',
+				'first_name' => 'Joey',
+				'last_name' => 'Joe Joe',
+			]
+		);
 		$old_user_data = get_userdata( $user_id );
 		$this->assertFalse( $this->contributor->updateBlogUser( 999, $old_user_data ) );
 
@@ -186,6 +204,47 @@ class ContributorsTest extends \WP_UnitTestCase {
 		$this->contributor->convert( 'pb_contributing_authors', [ 'Rando2', 'Rando3' ], $post_id );
 		$s = $this->contributor->get( $post_id, 'pb_contributors' );
 		$this->assertEquals( 'Rando1, Rando2, and Rando3', $s );
+	}
+
+	public function test_editContributorForm() {
+
+		$this->taxonomy->registerTaxonomies();
+
+		$user_id = $this->factory()->user->create(
+			[
+				'role' => 'contributor',
+				'first_name' => 'Joey',
+				'last_name' => 'Joe Joe',
+			]
+		);
+
+		$user = get_userdata( $user_id );
+
+		$results = $this->contributor->addBlogUser( $user_id );
+
+		$term = get_term_by( 'slug', $user->user_nicename, 'contributor' );
+
+		ob_start();
+		\Pressbooks\Admin\Metaboxes\contributor_edit_form( $term );
+		$buffer = ob_get_clean();
+
+		$this->assertContains( "jQuery('.term-description-wrap').remove()", $buffer );
+
+	}
+
+	public function test_getFullContributors() {
+
+		$this->taxonomy->registerTaxonomies();
+		$post_id = $this->_createChapter();
+
+		$this->contributor->insert( 'Zig Zag', $post_id, 'contributors' );
+		$this->contributor->insert( 'Zig Zog', $post_id, 'contributors' );
+
+		$contributors = $this->contributor->getFullContributors( $post_id, 'contributors' );
+
+		$this->assertCount( 2, $contributors );
+		$this->assertArrayHasKey( 'contributor_twitter', $contributors[0] );
+
 	}
 
 }
