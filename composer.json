@@ -31,7 +31,7 @@
 		"aws/aws-sdk-php": "^3.173",
 		"composer/installers": "~1.0",
 		"davidgorges/human-name-parser": "^1.0",
-		"docraptor/docraptor": "dev-guzzle-7",
+		"docraptor/docraptor": "2.0",
 		"fale/isbn": "^3.0",
 		"gridonic/princexml-php": "^1.2",
 		"illuminate/container": "5.4.*",
@@ -59,12 +59,6 @@
 		"codeception/util-universalframework": "^1.0",
 		"lucatume/wp-browser": "^3.0"
 	},
-	"repositories": [
-		{
-			"type": "vcs",
-			"url": "https://github.com/airdrummingfool/docraptor-php"
-		}
-	],
 	"suggest": {
 		"pressbooks/pressbooks-book":
 			"Pressbooks Book is the canonical book theme for Pressbooks.",
