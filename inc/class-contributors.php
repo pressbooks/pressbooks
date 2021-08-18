@@ -246,6 +246,66 @@ class Contributors {
 	}
 
 	/**
+	 * Return contributors' taxonomy terms as an associative array with meta HTML tag information.
+	 *
+	 * @param string $field
+	 * @return array
+	 */
+	public static function getContributorFields( $field = '' ) {
+		$allowed_fields = [
+			self::TAXONOMY . '_first_name' => [
+				'label' => __( 'First Name', 'pressbooks' ),
+				'tag' => self::TAXONOMY . '-first-name',
+				'input_type' => 'text',
+				'sanitization_method' => 'sanitize_text_field',
+			],
+			self::TAXONOMY . '_last_name' => [
+				'label' => __( 'Last Name', 'pressbooks' ),
+				'tag' => self::TAXONOMY . '-last-name',
+				'input_type' => 'text',
+				'sanitization_method' => 'sanitize_text_field',
+			],
+			self::TAXONOMY . '_description' => [
+				'label' => __( 'Biographical Info', 'pressbooks' ),
+				'tag' => self::TAXONOMY . '-biography',
+				'input_type' => 'tinymce',
+			],
+			self::TAXONOMY . '_institution' => [
+				'label' => __( 'Institution', 'pressbooks' ),
+				'tag' => self::TAXONOMY . '-institution',
+				'input_type' => 'text',
+				'sanitization_method' => 'sanitize_text_field',
+			],
+			self::TAXONOMY . '_user_url' => [
+				'label' => __( 'Website', 'presbooks' ),
+				'tag' => self::TAXONOMY . '-website',
+				'input_type' => 'text',
+				'sanitization_method' => '\Pressbooks\Sanitize\validate_url_field',
+			],
+			self::TAXONOMY . '_twitter' => [
+				'label' => __( 'Twitter', 'pressbooks' ),
+				'tag' => self::TAXONOMY . '-twitter',
+				'input_type' => 'text',
+				'sanitization_method' => '\Pressbooks\Sanitize\validate_url_field',
+			],
+			self::TAXONOMY . '_linkedin' => [
+				'label' => __( 'LinkedIn', 'pressbooks' ),
+				'tag' => self::TAXONOMY . '-linkedin',
+				'input_type' => 'text',
+				'sanitization_method' => '\Pressbooks\Sanitize\validate_url_field',
+			],
+			self::TAXONOMY . '_github' => [
+				'label' => __( 'GitHub', 'pressbooks' ),
+				'tag' => self::TAXONOMY . '-github',
+				'input_type' => 'text',
+				'sanitization_method' => '\Pressbooks\Sanitize\validate_url_field',
+			],
+		];
+
+		return $allowed_fields[ self::TAXONOMY . '_' . $field ] ?? $allowed_fields;
+	}
+
+	/**
 	 * Create a matching Contributor term for a given User ID. Used when a user is added to a blog.
 	 *
 	 * @param int $user_id
@@ -269,8 +329,14 @@ class Contributors {
 				]
 			);
 			if ( is_array( $results ) ) {
-				add_term_meta( $results['term_id'], 'contributor_first_name', $user->first_name, true );
-				add_term_meta( $results['term_id'], 'contributor_last_name', $user->last_name, true );
+				$contributors_terms = array_keys( self::getContributorFields() );
+				foreach ( $contributors_terms as $term ) {
+					$user_term = str_replace( 'contributor_', '', $term );
+					if ( $user->$user_term ) {
+						add_term_meta( $results['term_id'], $term, $user->$user_term, true );
+					}
+				}
+
 				return $results;
 			}
 		}
@@ -400,4 +466,32 @@ class Contributors {
 		return $result;
 	}
 
+	/**
+	 * @param int $post_id
+	 * @param string $contributor_type
+	 *
+	 * @return array An array containing a set of matching contributor arrays
+	 */
+	public function getFullContributors( $post_id, $contributor_type ) {
+		if ( ! str_starts_with( $contributor_type, 'pb_' ) ) {
+			$contributor_type = 'pb_' . $contributor_type;
+		}
+		if ( ! $this->isValid( $contributor_type ) ) {
+			return [];
+		}
+
+		$full_contributors = [];
+		$contributors = get_post_meta( $post_id, $contributor_type, false );
+		foreach ( $contributors as $key => $contributor ) {
+			$term = get_term_by( 'slug', $contributor, self::TAXONOMY );
+			if ( $term ) {
+				foreach ( self::getContributorFields() as $field => $value ) {
+					$full_contributors[ $key ]['name'] = $this->personalName( $contributor );
+					$full_contributors[ $key ][ $field ] = get_term_meta( $term->term_id, $field, true );
+				}
+			}
+		}
+
+		return $full_contributors;
+	}
 }

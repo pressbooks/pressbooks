@@ -830,3 +830,12 @@ function sanitize_string( $value, $allow_html = false ) {
 	return $allow_html ? HtmLawed::filter( pb_decode( stripslashes_from_strings_only( $value ) ), [ 'safe' => 1 ] ) : strip_tags( pb_decode( $value ) );
 
 }
+
+/**
+ * Validates that the URL is valid.
+ * @param $value
+ * @return false|mixed
+ */
+function validate_url_field( $value ) {
+	return filter_var( $value, FILTER_VALIDATE_URL ) ? $value : false;
+}
