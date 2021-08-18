@@ -245,6 +245,10 @@ class ContributorsTest extends \WP_UnitTestCase {
 		$this->assertCount( 2, $contributors );
 		$this->assertArrayHasKey( 'contributor_twitter', $contributors[0] );
 
+		$contributors = $this->contributor->getFullContributors( $post_id, 'fake_reviewer' );
+
+		$this->assertCount( 0 , $contributors);
+
 	}
 
 }
