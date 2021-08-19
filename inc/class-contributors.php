@@ -253,6 +253,13 @@ class Contributors {
 	 */
 	public static function getContributorFields( $field = '' ) {
 		$allowed_fields = [
+			self::TAXONOMY . '_prefix' => [
+				'label' => __( 'Prefix', 'pressbooks' ),
+				'tag' => self::TAXONOMY . '-prefix',
+				'input_type' => 'text',
+				'description' => 'An optional prefix or title to be displayed before the person\'s first name, e.g. Dr., Prof., Ms., Rev., Capt.',
+				'sanitization_method' => 'sanitize_text_field',
+			],
 			self::TAXONOMY . '_first_name' => [
 				'label' => __( 'First Name', 'pressbooks' ),
 				'tag' => self::TAXONOMY . '-first-name',
@@ -263,6 +270,13 @@ class Contributors {
 				'label' => __( 'Last Name', 'pressbooks' ),
 				'tag' => self::TAXONOMY . '-last-name',
 				'input_type' => 'text',
+				'sanitization_method' => 'sanitize_text_field',
+			],
+			self::TAXONOMY . '_suffix' => [
+				'label' => __( 'Suffix', 'pressbooks' ),
+				'tag' => self::TAXONOMY . '-suffix',
+				'input_type' => 'text',
+				'description' => 'An optional suffix to be displayed after the person\'s last name, e.g. Jr., Sr., IV, PhD, MD, USN (Ret.)',
 				'sanitization_method' => 'sanitize_text_field',
 			],
 			self::TAXONOMY . '_description' => [
@@ -406,10 +420,13 @@ class Contributors {
 		$name = '';
 		$term = get_term_by( 'slug', $slug, self::TAXONOMY );
 		if ( $term ) {
+			$prefix = get_term_meta( $term->term_id, 'contributor_prefix', true );
+			$suffix = get_term_meta( $term->term_id, 'contributor_suffix', true );
 			$first_name = get_term_meta( $term->term_id, 'contributor_first_name', true );
 			$last_name = get_term_meta( $term->term_id, 'contributor_last_name', true );
 			if ( ! empty( $first_name ) && ! empty( $last_name ) ) {
-				$name = "{$first_name} {$last_name}";
+				$name = $prefix ? "{$prefix} {$first_name} {$last_name}" : "{$first_name} {$last_name}";
+				$name = $suffix ? "${name} $suffix" : $name;
 			} elseif ( ! empty( $term->name ) ) {
 				$name = $term->name;
 			}
