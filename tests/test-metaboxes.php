@@ -275,7 +275,7 @@ class MetaboxesTest extends \WP_UnitTestCase {
 		$this->assertContains( 'setCustomValidity(', $buffer );
 	}
 
-	function test_contributor_metaboxes() {
+	public function test_contributor_metaboxes() {
 
 		$user_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
 		wp_set_current_user( $user_id );
@@ -283,11 +283,9 @@ class MetaboxesTest extends \WP_UnitTestCase {
 		\Pressbooks\Admin\Metaboxes\contributor_add_form();
 		$buffer = ob_get_clean();
 
-
 		$this->assertContains( 'window.tinyMCE.activeEditor.setContent', $buffer );
 		$this->assertContains( '.term-description-wrap', $buffer );
 		$this->assertContains( '<label for="contributor-first-name">', $buffer );
-
 	}
 
 }

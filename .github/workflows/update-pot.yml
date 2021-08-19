@@ -4,9 +4,9 @@ on:
   push:
     branches:
     - dev
-    paths:
-    - '**.php'
-    - '**.js'
+    # paths:
+    # - '**.php'
+    # - '**.js'
 
 jobs:
   update-pot:
@@ -21,6 +21,9 @@ jobs:
     - name: Install dependencies
       run: |
         wp package install wp-cli/i18n-command:2.2.8
+        cd /home/runner/.wp-cli/packages/
+        composer config repositories.wp-cli '{"type": "composer","url": "https://wp-cli.org/package-index/","canonical": false}'
+        cd ./
         wp package install pressbooks/pb-cli:2.1.0
         composer require jenssegers/blade:1.1.0
     - name: Update POT file

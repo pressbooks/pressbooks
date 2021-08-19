@@ -11,14 +11,23 @@ on:
 jobs:
   lint-and-test:
     runs-on: ${{ matrix.os }}
+    continue-on-error: ${{ matrix.experimental }}
     strategy:
+      fail-fast: false
       matrix:
-        php: [7.3] # TODO: Add 7.4 and fix the errors.
+        php: [7.3]
         os: [ubuntu-18.04]
         epubcheck: [4.2.4]
         prince: [12.5-1]
         wordpress: [5.8, latest]
-
+        experimental: [false]
+        include:
+          - php: 7.4
+            os: ubuntu-18.04
+            wordpress: latest
+            epubcheck: 4.2.6
+            prince: 14.2-1
+            experimental: true
     name: PHPUnit - ${{ matrix.php }} - ${{ matrix.wordpress }}
 
     steps:
@@ -44,6 +53,12 @@ jobs:
         path: vendor
         key: ${{ matrix.php }}-php-${{ hashFiles('**/composer.lock') }}
 
+    - name: Cache node modules
+      uses: actions/cache@v2
+      with:
+        path: node_modules
+        key: ${{ runner.OS }}-build-${{ hashFiles('**/package-lock.json') }}
+
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
       with:
@@ -52,11 +67,15 @@ jobs:
         coverage: pcov
         extensions: imagick
 
-    - name: Install dependencies
+    - name: Install Node dependencies
       run: |
         node -v
         npm install
         npm run build
+      if: matrix.experimental == false
+
+    - name: Install PHP dependencies
+      run: |
         export PATH="$HOME/.composer/vendor/bin:$PATH"
         composer install --no-interaction
         composer global require "phpunit/phpunit:7.5.20"
@@ -64,15 +83,16 @@ jobs:
 
     - name: Run ESLint and Stylelint
       run: npm run lint
+      if: matrix.experimental == false
 
     - name: Run PHP CodeSniffer
-      run: vendor/bin/phpcs --standard=phpcs.ruleset.xml *.php inc/ bin/
+      run: composer standards
 
     - name: Install WP tests
       run: bash bin/install-wp-tests.sh wordpress_test root root localhost ${{ matrix.wordpress }}
 
     - name: Run PHP Tests
-      run: vendor/bin/phpunit --configuration phpunit.xml
+      run: composer test
       if: matrix.php != 7.3
 
     - name: Run PHP Tests and PCOV

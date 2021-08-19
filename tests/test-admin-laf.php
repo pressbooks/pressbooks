@@ -378,7 +378,6 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		\Pressbooks\Admin\Laf\add_user_profile_fields( new \WP_User( $user_id ) );
 		$buffer = ob_get_clean();
 
-
 		$this->assertContains( 'element.insertAdjacentHTML', $buffer );
 		$this->assertContains( 'Please enter your institutional affiliation', $buffer );
 
@@ -388,10 +387,10 @@ class Admin_LafTest extends \WP_UnitTestCase {
 
 		$this->assertEquals( 'Rebus Foundation', get_user_meta( $user_id, 'institution', true ) );
 
-		// Test if a lowly user can't update the field
+		// Test if another user could not update others
 
-		$user_id = $this->factory()->user->create( [ 'role' => 'subscriber' ] );
-		wp_set_current_user( $user_id );
+		$user2_id = $this->factory()->user->create( [ 'role' => 'subscriber' ] );
+		wp_set_current_user( $user2_id );
 
 		$result = \Pressbooks\Admin\Laf\update_user_profile_fields( $user_id );
 

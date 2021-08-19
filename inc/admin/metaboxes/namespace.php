@@ -6,7 +6,6 @@
 
 namespace Pressbooks\Admin\Metaboxes;
 
-use function cli\input;
 use function Pressbooks\Sanitize\sanitize_string;
 use PressbooksMix\Assets;
 use Pressbooks\Contributors;
