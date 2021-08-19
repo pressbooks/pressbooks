@@ -265,6 +265,12 @@ class Contributors {
 				'input_type' => 'text',
 				'sanitization_method' => 'sanitize_text_field',
 			],
+			self::TAXONOMY . '_picture' => [
+				'label' => __( 'Picture', 'pressbooks' ),
+				'tag' => self::TAXONOMY . '-picture',
+				'input_type' => 'picture',
+				'sanitization_method' => '\Pressbooks\Sanitize\validate_url_field',
+			],
 			self::TAXONOMY . '_description' => [
 				'label' => __( 'Biographical Info', 'pressbooks' ),
 				'tag' => self::TAXONOMY . '-biography',
@@ -302,7 +308,9 @@ class Contributors {
 			],
 		];
 
-		return $allowed_fields[ self::TAXONOMY . '_' . $field ] ?? $allowed_fields;
+		return array_key_exists(self::TAXONOMY . '_' . $field, $allowed_fields) ?
+			$allowed_fields[ self::TAXONOMY . '_' . $field ] :
+			$allowed_fields;
 	}
 
 	/**

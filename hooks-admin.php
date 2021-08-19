@@ -169,13 +169,16 @@ add_action( 'custom_metadata_manager_init_metadata', '\Pressbooks\Admin\Metaboxe
 
 if ( $is_book ) {
 	add_action( 'admin_enqueue_scripts', '\Pressbooks\Admin\Metaboxes\add_metadata_styles' );
+	add_action( 'admin_enqueue_scripts', '\Pressbooks\Admin\Metaboxes\enqueue_contributor_js_script' );
 	add_action( 'save_post', [ '\Pressbooks\Book', 'consolidatePost' ], 10, 2 );
 	add_action( 'save_post_metadata', '\Pressbooks\Admin\Metaboxes\upload_cover_image', 10, 2 );
 	add_action( 'wp_insert_post', '\Pressbooks\Admin\Metaboxes\add_required_data', 10, 2 );
 	add_action( 'save_post_metadata', '\Pressbooks\Admin\Metaboxes\save_subject_metadata', 10, 2 );
+	add_action( 'contributor_pre_add_form', '\Pressbooks\Admin\Metaboxes\contributor_add_form_picture' );
 	add_action( 'contributor_add_form_fields', '\Pressbooks\Admin\Metaboxes\contributor_add_form' );
 	add_action( 'contributor_edit_form_fields', '\Pressbooks\Admin\Metaboxes\contributor_edit_form' );
 	add_action( 'contributor_edit_form', '\Pressbooks\Admin\Metaboxes\a11y_contributor_tweaks' );
+//	add_action( 'contributor_edit_form', '\Pressbooks\Admin\Metaboxes\contributor_edit_form_picture' );
 	add_action( 'after-contributor-table', '\Pressbooks\Admin\Metaboxes\a11y_contributor_tweaks' );
 	add_action( 'save_post', '\Pressbooks\Admin\Metaboxes\publish_fields_save', 10, 3 );
 	add_action( 'init', '\Pressbooks\Metadata\register_contributor_meta' );

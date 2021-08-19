@@ -6,6 +6,7 @@
 
 namespace Pressbooks\Admin\Metaboxes;
 
+use function cli\input;
 use function Pressbooks\Sanitize\sanitize_string;
 use PressbooksMix\Assets;
 use Pressbooks\Contributors;
@@ -1222,26 +1223,72 @@ function contributor_add_form() {
 						jQuery('.term-description-wrap').remove();
 						jQuery('#submit').on('click', function(event) {
 							event.preventDefault();
+							jQuery('#contributor_description').text(window.tinyMCE.activeEditor.getContent());
 							window.tinyMCE.triggerSave();
 							event.target.click();
+							jQuery('#contributor-picture-thumbnail').attr('src', '').hide();
+							jQuery('#contributor-picture').val('');
 						});
 					});
 				</script>
 			</div>
 			<?php
-			continue;
+		} else if ( $meta_tags['input_type'] !== 'picture' ) {
+			?>
+			<div class="form-field <?php echo $meta_tags['tag']; ?>-wrap">
+				<label for="<?php echo $meta_tags['tag']; ?>"><?php echo $meta_tags['label']; ?></label>
+				<input type="<?php echo $meta_tags['input_type'] ?>" name="<?php echo $term; ?>" id="<?php echo $meta_tags['tag']; ?>" value="" class="<?php echo $meta_tags['tag']; ?>" />
+			</div>
+			<?php
+		} else if ($meta_tags['input_type'] === 'picture') {
+			?>
+			<img style="display: none" src="" id="<?php echo $meta_tags['tag']; ?>-thumbnail" width="120" /> <br />
+			<button name="dispatch-media-picture" id="btn-media">Upload Picture</button>
+			<div class="form-field <?php echo $meta_tags['tag']; ?>-wrap">
+				<input type="hidden" name="<?php echo $term; ?>" id="<?php echo $meta_tags['tag']; ?>">
+			</div>
+			<?php
 		}
-		?>
-		<div class="form-field <?php echo $meta_tags['tag']; ?>-wrap">
-			<label for="<?php echo $meta_tags['tag']; ?>"><?php echo $meta_tags['label']; ?></label>
-			<input type="<?php echo $meta_tags['input_type'] ?>" name="<?php echo $term; ?>" id="<?php echo $meta_tags['tag']; ?>" value="" class="<?php echo $meta_tags['tag']; ?>" />
-		</div>
-		<?php
 	}
 }
 
+function contributor_add_form_picture() {
+	$meta_tags = Contributors::getContributorFields( 'picture' );
+	?>
+		<div id="contributor-media-picture">
+			<label for="<?php echo $meta_tags['tag']; ?>"><?php _e( $meta_tags['label'], 'pressbooks' ); ?></label>
+			<?php wp_media_upload_handler(); ?>
+		</div>
+	<?php
+}
+
+function contributor_edit_form_picture() {
+//	$meta_tags = Contributors::getContributorFields( 'picture' );
+//	?>
+<!--	<div class="form-field --><?php //echo $meta_tags['tag']; ?><!---wrap">-->
+<!--		<label for="--><?php //echo $meta_tags['tag']; ?><!--">--><?php //_e( $meta_tags['label'], 'pressbooks' ); ?><!--</label>-->
+<!--		--><?php //wp_media_upload_handler();  ?>
+<!--		<input type="hidden" name="--><?php //echo $term; ?><!--" id="--><?php //echo $meta_tags['tag']; ?><!--">-->
+<!--	</div>-->
+<!--	--><?php
+}
+
+function enqueue_contributor_js_script() {
+	$assets = new Assets( 'pressbooks', 'plugin' );
+	wp_enqueue_media();
+	wp_enqueue_script(
+		'cg/js', $assets->getPath( 'scripts/contributors.js' ),
+		[
+			'jquery',
+			'jquery-form',
+			'wp-color-picker',
+			'eventsource-polyfill',
+		], null
+	);
+}
+
 function contributor_edit_form( $term ) {
-	$terms_meta = get_term_meta( $term->term_id );
+	$terms_meta = get_term_meta( $term->term_id ); var_dump($term->term_id);
 	$contributors_fields = Contributors::getContributorFields();
 
 	foreach ( $contributors_fields as $term => $meta_tags ) {
