@@ -247,7 +247,52 @@ class ContributorsTest extends \WP_UnitTestCase {
 
 		$contributors = $this->contributor->getFullContributors( $post_id, 'fake_reviewer' );
 
-		$this->assertCount( 0 , $contributors);
+		$this->assertCount( 0, $contributors );
+
+	}
+
+	public function test_personalName() {
+
+		$this->taxonomy->registerTaxonomies();
+		$post_id = $this->_createChapter();
+
+		$person1 = $this->contributor->insert( 'Steel Wagstaff', $post_id, 'contributors' );
+		$person2 = $this->contributor->insert( 'Apurva Ashook', $post_id, 'contributors' );
+		$person3 = $this->contributor->insert( 'Mario Bros', $post_id, 'contributors' );
+		$person4 = $this->contributor->insert( 'Isaac Asimov', $post_id, 'contributors' );
+
+		$term1 = get_term_by( 'term_id', $person1['term_id'], 'contributor' );
+		$term2 = get_term_by( 'term_id', $person2['term_id'], 'contributor' );
+		$term3 = get_term_by( 'term_id', $person3['term_id'], 'contributor' );
+		$term4 = get_term_by( 'term_id', $person4['term_id'], 'contributor' );
+
+		add_term_meta( $term1->term_id, 'contributor_first_name', 'Steel' );
+		add_term_meta( $term1->term_id, 'contributor_last_name', 'Wagstaff' );
+		add_term_meta( $term1->term_id, 'contributor_prefix', 'Dr.' );
+		add_term_meta( $term1->term_id, 'contributor_suffix', 'PhD' );
+
+
+		add_term_meta( $term2->term_id, 'contributor_first_name', 'Apurva' );
+		add_term_meta( $term2->term_id, 'contributor_last_name', 'Ashook' );
+		add_term_meta( $term2->term_id, 'contributor_prefix', 'Prof.' );
+		add_term_meta( $term2->term_id, 'contributor_suffix', 'IV' );
+
+		add_term_meta( $term3->term_id, 'contributor_first_name', 'Mario' );
+		add_term_meta( $term3->term_id, 'contributor_last_name', 'Bros' );
+
+		add_term_meta( $term4->term_id, 'contributor_first_name', 'Isaac' );
+		add_term_meta( $term4->term_id, 'contributor_last_name', 'Asimov' );
+		add_term_meta( $term4->term_id, 'contributor_prefix', 'Sir.' );
+
+		$name1 = $this->contributor->personalName( $term1->slug );
+		$name2 = $this->contributor->personalName( $term2->slug );
+		$name3 = $this->contributor->personalName( $term3->slug );
+		$name4 = $this->contributor->personalName( $term4->slug );
+
+		$this->assertEquals( 'Dr. Steel Wagstaff, PhD', $name1 );
+		$this->assertEquals( 'Prof. Apurva Ashook IV', $name2 );
+		$this->assertEquals( 'Mario Bros', $name3 );
+		$this->assertEquals( 'Sir. Isaac Asimov', $name4 );
 
 	}
 

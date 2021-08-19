@@ -426,7 +426,8 @@ class Contributors {
 			$last_name = get_term_meta( $term->term_id, 'contributor_last_name', true );
 			if ( ! empty( $first_name ) && ! empty( $last_name ) ) {
 				$name = $prefix ? "{$prefix} {$first_name} {$last_name}" : "{$first_name} {$last_name}";
-				$name = $suffix ? "${name} $suffix" : $name;
+				$suffix = ! empty( $suffix ) ? ( preg_match( '/^[MDCLXVI]+$/', $suffix ) ? " $suffix" : ", $suffix" ) : '';
+				$name = $suffix ? "${name}${suffix}" : $name;
 			} elseif ( ! empty( $term->name ) ) {
 				$name = $term->name;
 			}
