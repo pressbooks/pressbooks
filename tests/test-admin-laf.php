@@ -379,7 +379,7 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		$buffer = ob_get_clean();
 
 		$this->assertContains( 'element.insertAdjacentHTML', $buffer );
-		$this->assertContains( 'Please enter your institutional affiliation', $buffer );
+		$this->assertContains( 'Your institutional affiliation, e.g. Rebus Foundation, Open University, Amnesty International.', $buffer );
 
 		$_REQUEST['institution'] = 'Rebus Foundation';
 

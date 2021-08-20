@@ -1235,6 +1235,9 @@ function contributor_add_form() {
 		<div class="form-field <?php echo $meta_tags['tag']; ?>-wrap">
 			<label for="<?php echo $meta_tags['tag']; ?>"><?php echo $meta_tags['label']; ?></label>
 			<input type="<?php echo $meta_tags['input_type'] ?>" name="<?php echo $term; ?>" id="<?php echo $meta_tags['tag']; ?>" value="" class="<?php echo $meta_tags['tag']; ?>" />
+			<?php if ( ! empty( $meta_tags['description'] ) ) : ?>
+				<p class="description"><?php echo $meta_tags['description']; ?></p>
+			<?php endif; ?>
 		</div>
 		<?php
 	}
@@ -1269,6 +1272,9 @@ function contributor_edit_form( $term ) {
 			<td>
 				<?php wp_nonce_field( 'contributor-meta', 'contributor_meta_nonce' ); ?>
 				<input type="<?php echo $meta_tags['input_type'] ?>" name="<?php echo $term; ?>" id="<?php echo $meta_tags['tag']; ?>" value="<?php echo esc_attr( $value ); ?>" class="<?php echo $meta_tags['tag']; ?>-field"  />
+				<?php if ( ! empty( $meta_tags['description'] ) ) : ?>
+					<p class="description"><?php echo $meta_tags['description']; ?></p>
+				<?php endif; ?>
 			</td>
 		</tr>
 		<?php

@@ -253,6 +253,13 @@ class Contributors {
 	 */
 	public static function getContributorFields( $field = '' ) {
 		$allowed_fields = [
+			self::TAXONOMY . '_prefix' => [
+				'label' => __( 'Prefix', 'pressbooks' ),
+				'tag' => self::TAXONOMY . '-prefix',
+				'input_type' => 'text',
+				'description' => __( 'Prefix to be displayed before this contributor\'s name, e.g. Dr., Prof., Ms., Rev., Capt.', 'pressbooks' ),
+				'sanitization_method' => 'sanitize_text_field',
+			],
 			self::TAXONOMY . '_first_name' => [
 				'label' => __( 'First Name', 'pressbooks' ),
 				'tag' => self::TAXONOMY . '-first-name',
@@ -265,6 +272,13 @@ class Contributors {
 				'input_type' => 'text',
 				'sanitization_method' => 'sanitize_text_field',
 			],
+			self::TAXONOMY . '_suffix' => [
+				'label' => __( 'Suffix', 'pressbooks' ),
+				'tag' => self::TAXONOMY . '-suffix',
+				'input_type' => 'text',
+				'description' => __( 'Suffix to be displayed after this contributors\'s name, e.g. Jr., Sr., IV, PhD, MD, USN (Ret.).', 'pressbooks' ),
+				'sanitization_method' => 'sanitize_text_field',
+			],
 			self::TAXONOMY . '_description' => [
 				'label' => __( 'Biographical Info', 'pressbooks' ),
 				'tag' => self::TAXONOMY . '-biography',
@@ -274,30 +288,35 @@ class Contributors {
 				'label' => __( 'Institution', 'pressbooks' ),
 				'tag' => self::TAXONOMY . '-institution',
 				'input_type' => 'text',
+				'description' => __( 'Institution this contributor is associated with, e.g. Rebus Foundation, Open University, Amnesty International.', 'pressbooks' ),
 				'sanitization_method' => 'sanitize_text_field',
 			],
 			self::TAXONOMY . '_user_url' => [
 				'label' => __( 'Website', 'presbooks' ),
 				'tag' => self::TAXONOMY . '-website',
 				'input_type' => 'text',
+				'description' => __( 'Website for this contributor. Must be a valid URL.', 'pressbooks' ),
 				'sanitization_method' => '\Pressbooks\Sanitize\validate_url_field',
 			],
 			self::TAXONOMY . '_twitter' => [
 				'label' => __( 'Twitter', 'pressbooks' ),
 				'tag' => self::TAXONOMY . '-twitter',
 				'input_type' => 'text',
+				'description' => __( 'Twitter profile for this contributor. Must be a valid URL.', 'pressbooks' ),
 				'sanitization_method' => '\Pressbooks\Sanitize\validate_url_field',
 			],
 			self::TAXONOMY . '_linkedin' => [
 				'label' => __( 'LinkedIn', 'pressbooks' ),
 				'tag' => self::TAXONOMY . '-linkedin',
 				'input_type' => 'text',
+				'description' => __( 'LinkedIn profile for this contributor. Must be a valid URL.', 'pressbooks' ),
 				'sanitization_method' => '\Pressbooks\Sanitize\validate_url_field',
 			],
 			self::TAXONOMY . '_github' => [
 				'label' => __( 'GitHub', 'pressbooks' ),
 				'tag' => self::TAXONOMY . '-github',
 				'input_type' => 'text',
+				'description' => __( 'GitHub profile for this contributor. Must be a valid URL.', 'pressbooks' ),
 				'sanitization_method' => '\Pressbooks\Sanitize\validate_url_field',
 			],
 		];
@@ -406,10 +425,14 @@ class Contributors {
 		$name = '';
 		$term = get_term_by( 'slug', $slug, self::TAXONOMY );
 		if ( $term ) {
+			$prefix = get_term_meta( $term->term_id, 'contributor_prefix', true );
+			$suffix = get_term_meta( $term->term_id, 'contributor_suffix', true );
 			$first_name = get_term_meta( $term->term_id, 'contributor_first_name', true );
 			$last_name = get_term_meta( $term->term_id, 'contributor_last_name', true );
 			if ( ! empty( $first_name ) && ! empty( $last_name ) ) {
-				$name = "{$first_name} {$last_name}";
+				$name = $prefix ? "{$prefix} {$first_name} {$last_name}" : "{$first_name} {$last_name}";
+				$suffix = ! empty( $suffix ) ? ( preg_match( '/^[MDCLXVI]+$/', $suffix ) ? " $suffix" : ", $suffix" ) : '';
+				$name = $suffix ? "${name}${suffix}" : $name;
 			} elseif ( ! empty( $term->name ) ) {
 				$name = $term->name;
 			}
