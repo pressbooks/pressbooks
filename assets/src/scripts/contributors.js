@@ -1,6 +1,8 @@
 jQuery( function ( $ ) {
 	// Media
 	$( document ).ready( function () {
+		const min_picture_size = 400;
+
 		// Add form
 		jQuery( document ).ajaxComplete( function ( event, xhr, settings ) {
 			if ( settings.data.indexOf( 'action=add-tag' ) >= 0 ) {
@@ -38,8 +40,8 @@ jQuery( function ( $ ) {
 				doCrop: function ( attachment ) {
 					const cropDetails = attachment.get( 'cropDetails' );
 
-					cropDetails.dst_width  = 512;
-					cropDetails.dst_height = 512;
+					cropDetails.dst_width  = min_picture_size;
+					cropDetails.dst_height = min_picture_size;
 
 					return wp.ajax.post( 'crop-image', {
 						nonce: attachment.get( 'nonces' ).edit,
@@ -61,8 +63,8 @@ jQuery( function ( $ ) {
 						multiple: false,
 						date: false,
 						priority: 20,
-						suggestedWidth: 512,
-						suggestedHeight: 512,
+						suggestedWidth: min_picture_size,
+						suggestedHeight: min_picture_size,
 					} ),
 					new Cropp( {
 						/**
@@ -79,8 +81,8 @@ jQuery( function ( $ ) {
 								flexHeight = false,
 								realWidth  = attachment.get( 'width' ),
 								realHeight = attachment.get( 'height' ),
-								xInit = 512,
-								yInit = 512,
+								xInit = min_picture_size,
+								yInit = min_picture_size,
 								ratio = 1,
 								xImg  = xInit,
 								yImg  = yInit,
@@ -180,7 +182,7 @@ jQuery( function ( $ ) {
 			} );
 			pictureLibrary.on( 'select', function () {
 				const attachment = pictureLibrary.state().get( 'selection' ).first().toJSON();
-				if ( attachment.width !== 512 || attachment.height !== 512 ) {
+				if ( attachment.width !== min_picture_size || attachment.height !== min_picture_size ) {
 					pictureLibrary.setState( 'cropper' );
 				} else {
 					jQuery( '#contributor-picture' ).val( attachment.url );

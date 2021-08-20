@@ -1274,18 +1274,18 @@ function contributor_edit_form( $term ) {
 							<input type="hidden" name="<?php echo $term; ?>" id="<?php echo $meta_tags['tag']; ?>">
 						</td>
 					</tr>
-							<?php
-							break;
-							default:
-								?>
-					<tr class="form-field <?php echo $meta_tags['tag']; ?>-wrap">
-						<th scope="row"><label for="<?php echo $meta_tags['tag']; ?>"><?php echo $meta_tags['label']; ?></label></th>
-						<td>
-								<?php wp_nonce_field( 'contributor-meta', 'contributor_meta_nonce' ); ?>
-							<input type="<?php echo $meta_tags['input_type'] ?>" name="<?php echo $term; ?>" id="<?php echo $meta_tags['tag']; ?>" value="<?php echo esc_attr( $value ); ?>" class="<?php echo $meta_tags['tag']; ?>-field"  />
-						</td>
-					</tr>
-								<?php
+				<?php
+				break;
+			default:
+				?>
+				<tr class="form-field <?php echo $meta_tags['tag']; ?>-wrap">
+					<th scope="row"><label for="<?php echo $meta_tags['tag']; ?>"><?php echo $meta_tags['label']; ?></label></th>
+					<td>
+							<?php wp_nonce_field( 'contributor-meta', 'contributor_meta_nonce' ); ?>
+						<input type="<?php echo $meta_tags['input_type'] ?>" name="<?php echo $term; ?>" id="<?php echo $meta_tags['tag']; ?>" value="<?php echo esc_attr( $value ); ?>" class="<?php echo $meta_tags['tag']; ?>-field"  />
+					</td>
+				</tr>
+				<?php
 				break;
 		}
 	}
