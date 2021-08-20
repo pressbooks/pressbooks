@@ -50,7 +50,6 @@ class HTMLBook extends Export {
 	 */
 	protected $frontMatterPos = 1;
 
-
 	/**
 	 * Sometimes the user will omit an introduction so we must inject the style in either the first
 	 * part or the first chapter ourselves.
@@ -59,14 +58,12 @@ class HTMLBook extends Export {
 	 */
 	protected $hasIntroduction = false;
 
-
 	/**
 	 * Main language of document, two letter code
 	 *
 	 * @var string
 	 */
 	protected $lang = 'en';
-
 
 	/**
 	 * @var \Pressbooks\Taxonomy
@@ -113,7 +110,6 @@ class HTMLBook extends Export {
 		}
 	}
 
-
 	/**
 	 * Create $this->outputPath
 	 *
@@ -138,7 +134,6 @@ class HTMLBook extends Export {
 		return true;
 	}
 
-
 	/**
 	 * Check the sanity of $this->outputPath
 	 *
@@ -160,7 +155,6 @@ class HTMLBook extends Export {
 
 		return true;
 	}
-
 
 	/**
 	 * Procedure for "format/htmlbook" rewrite rule.
@@ -292,7 +286,6 @@ class HTMLBook extends Export {
 		}
 	}
 
-
 	/**
 	 * Add $this->url as additional log info, fallback to parent.
 	 *
@@ -305,7 +298,6 @@ class HTMLBook extends Export {
 
 		parent::logError( $message, $more_info );
 	}
-
 
 	/**
 	 * Footnotes
@@ -329,7 +321,6 @@ class HTMLBook extends Export {
 
 		return $fn;
 	}
-
 
 	/**
 	 * Endnotes
@@ -401,7 +392,6 @@ class HTMLBook extends Export {
 		return $bm;
 	}
 
-
 	// ----------------------------------------------------------------------------------------------------------------
 	// Sanitize book
 	// ----------------------------------------------------------------------------------------------------------------
@@ -464,7 +454,6 @@ class HTMLBook extends Export {
 		$id = $old_id;
 		return $book_contents;
 	}
-
 
 	/**
 	 * @param string $content
@@ -646,7 +635,6 @@ class HTMLBook extends Export {
 		return \Pressbooks\HtmLawed::filter( $html, $config, $spec );
 	}
 
-
 	// ----------------------------------------------------------------------------------------------------------------
 	// Echo Functions
 	// ----------------------------------------------------------------------------------------------------------------
@@ -661,7 +649,6 @@ class HTMLBook extends Export {
 		echo 'xmlns="http://www.w3.org/1999/xhtml"' . "\n";
 		echo 'lang="' . $this->lang . '">' . "\n";
 	}
-
 
 	/**
 	 * @param Book $book
@@ -751,7 +738,6 @@ class HTMLBook extends Export {
 		$this->frontMatterPos = $i;
 	}
 
-
 	/**
 	 * @param Book $book
 	 */
@@ -763,7 +749,6 @@ class HTMLBook extends Export {
 
 		$book->appendContent( $fm );
 	}
-
 
 	/**
 	 * @param Book $book
@@ -817,7 +802,6 @@ class HTMLBook extends Export {
 
 		$book->appendContent( $fm );
 	}
-
 
 	/**
 	 * @param Book $book
@@ -877,7 +861,6 @@ class HTMLBook extends Export {
 
 		$book->appendContent( $fm );
 	}
-
 
 	/**
 	 * @param Book $book
@@ -975,7 +958,6 @@ class HTMLBook extends Export {
 		}
 		$this->frontMatterPos = $i;
 	}
-
 
 	/**
 	 * @param Book $book
@@ -1190,7 +1172,6 @@ class HTMLBook extends Export {
 		$book->appendContent( $toc );
 	}
 
-
 	/**
 	 * @param Book $book
 	 * @param array $book_contents
@@ -1308,7 +1289,6 @@ class HTMLBook extends Export {
 		$this->frontMatterPos = $i;
 	}
 
-
 	/**
 	 */
 	protected function echoPromo() {
@@ -1318,7 +1298,6 @@ class HTMLBook extends Export {
 			echo $promo_html;
 		}
 	}
-
 
 	/**
 	 * @param Book $book
@@ -1537,7 +1516,6 @@ class HTMLBook extends Export {
 
 	}
 
-
 	/**
 	 * @param Book $book
 	 * @param array $book_contents
@@ -1641,7 +1619,6 @@ class HTMLBook extends Export {
 		}
 
 	}
-
 
 	/**
 	 * Does array of chapters have at least one export? Recursive.

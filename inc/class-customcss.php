@@ -30,7 +30,6 @@ class CustomCss {
 		return $path;
 	}
 
-
 	/**
 	 * Is the current theme the custom css theme?
 	 *
@@ -39,7 +38,6 @@ class CustomCss {
 	static function isCustomCss() {
 		return ( 'pressbooks-custom-css' === get_stylesheet() );
 	}
-
 
 	/**
 	 * Is the romanize parts option true?
@@ -54,7 +52,6 @@ class CustomCss {
 		}
 		return false;
 	}
-
 
 	/**
 	 * Determine base theme that was used for the selected Custom CSS.
@@ -77,7 +74,6 @@ class CustomCss {
 
 		return untrailingslashit( $theme_slug );
 	}
-
 
 	/**
 	 * @deprecated Leftover code from old Custom CSS Editor. Use Custom Styles instead.

@@ -893,7 +893,6 @@ function get_book_metadata_lang() {
 	return apply_filters( 'pb_thema_subjects_locale', $locale );
 }
 
-
 /**
  * This function returns the current's book language thema file if exists otherwise returns false
  * @return false|string
@@ -908,7 +907,6 @@ function get_thema_lang_file() {
 
 	return file_exists( $thema_file ) ? $thema_file : false;
 }
-
 
 /**
  * Return an array of Thema subject categories.
@@ -1042,7 +1040,6 @@ function get_section_information( $post_id ) {
 
 	return $section_meta;
 }
-
 
 /**
  * Echo the JSON-LD metadata tag for a book or section.
@@ -1179,7 +1176,6 @@ function add_candela_citations( $content ) {
 	}
 	return $content;
 }
-
 
 /**
  * Return $option to use in get_option() for "is this book in the network catalog?"

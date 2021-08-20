@@ -33,7 +33,6 @@ class Generics {
 		'textbox' => [ 'div', 'textbox' ],
 	];
 
-
 	/**
 	 * @array Protected array of generic shortcodes as a key => value pair,
 	 * where the key is the shortcode and the value is either a string (the tag)

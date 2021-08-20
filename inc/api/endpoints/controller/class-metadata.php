@@ -554,7 +554,6 @@ class Metadata extends \WP_REST_Controller {
 		return $this->add_additional_fields_schema( $schema );
 	}
 
-
 	/**
 	 * @param  \WP_REST_Request $request Full details about the request.
 	 *

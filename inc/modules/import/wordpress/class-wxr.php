@@ -171,7 +171,6 @@ class Wxr extends Import {
 		return update_option( 'pressbooks_current_import', $option );
 	}
 
-
 	/**
 	 * @param array $current_import
 	 *
@@ -466,7 +465,6 @@ class Wxr extends Import {
 
 		return $array;
 	}
-
 
 	/**
 	 * Get existing Meta Post, if none exists create one

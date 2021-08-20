@@ -510,7 +510,6 @@ function pressbooks_cg_text_transform_callback( $args ) {
 	echo $html;
 }
 
-
 function pressbooks_cg_spine_size_callback() {
 	?>
 	<p><?php _e( 'Spine size is calculated based on the number of pages in your book, and the weight of the paper used in printing.', 'pressbooks' ); ?></p>

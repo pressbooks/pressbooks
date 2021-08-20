@@ -149,7 +149,6 @@ function sanitize_xml_attribute( $slug ) {
 	return $slug;
 }
 
-
 /**
  * Sanitize XML id
  *
@@ -173,7 +172,6 @@ function sanitize_xml_id( $slug ) {
 	return $slug;
 }
 
-
 /**
  * Get rid of control characters. Strange hidden characters that mess things up.
  *
@@ -187,7 +185,6 @@ function remove_control_characters( $slug ) {
 
 	return $slug;
 }
-
 
 /**
  * Force ASCII (no control characters)
@@ -203,7 +200,6 @@ function force_ascii( $slug ) {
 	return $slug;
 }
 
-
 /**
  * Reverse htmlspecialchars() except ampersands.
  *
@@ -218,7 +214,6 @@ function decode( $slug ) {
 
 	return $slug;
 }
-
 
 /**
  * Strip <br /> tags.
@@ -293,7 +288,6 @@ function canonicalize_url( $url ) {
 	return $url;
 
 }
-
 
 /**
  * Maybe change http:// to https://, depending on server state.
@@ -390,7 +384,6 @@ function normalize_css_urls( $css, $url_path = '' ) {
 	return $css;
 }
 
-
 /**
  * Allow language tagging on more inline elements.
  *
@@ -482,7 +475,6 @@ function allow_post_content() {
 	return;
 }
 
-
 /**
  * Sanitizer for filename
  *
@@ -518,7 +510,6 @@ function strip_container_tags( $html ) {
 
 	return (string) $html;
 }
-
 
 /**
  * Clean up CSS.
@@ -817,7 +808,6 @@ function maybe_safer_unserialize( $original ) {
 	}
 	return $original;
 }
-
 
 /**
  * Sanitize an string for undesired XSS attacks allowing HTML but removing malicious code

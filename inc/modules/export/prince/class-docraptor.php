@@ -23,7 +23,6 @@ class Docraptor extends Pdf {
 		$this->url .= '&style=prince&script=prince&movefootnotes=true';
 	}
 
-
 	/**
 	 * @since 5.4.0
 	 *
@@ -172,7 +171,6 @@ class Docraptor extends Pdf {
 		}
 		return '';
 	}
-
 
 	/**
 	 * @since 5.4.0

@@ -1115,7 +1115,6 @@ class Cloner {
 		return $contents;
 	}
 
-
 	/**
 	 * @param array $item
 	 *
@@ -1227,7 +1226,6 @@ class Cloner {
 			$fix( $post_id, 'h5p', \Pressbooks\Interactive\H5P::SHORTCODE );
 		}
 	}
-
 
 	/**
 	 * Maybe restore current blog

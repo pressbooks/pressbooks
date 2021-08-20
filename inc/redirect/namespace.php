@@ -33,7 +33,6 @@ function location( $href ) {
 	}
 }
 
-
 /**
  * Centralize flush_rewrite_rules() in one single function so that rule does not kill the other
  */
@@ -95,7 +94,6 @@ function rewrite_rules_for_format() {
 	add_filter( 'template_redirect', __NAMESPACE__ . '\do_format', 0 );
 }
 
-
 /**
  * Display book in a custom format.
  */
@@ -144,7 +142,6 @@ function do_format() {
 	wp_die( __( 'Error: Unknown export format.', 'pressbooks' ) );
 }
 
-
 /**
  * Add a rewrite rule for the keyword "catalog" (Changed in Pressbooks 4.2)
  *
@@ -175,7 +172,6 @@ function do_catalog( $template ) {
 	}
 	return $template;
 }
-
 
 /**
  * Add a rewrite rule for sitemap xml
@@ -242,7 +238,6 @@ function do_open( $do_download = null ) {
 
 	wp_die( __( 'Error: Unknown export format.', 'pressbooks' ) );
 }
-
 
 /**
  * Force download

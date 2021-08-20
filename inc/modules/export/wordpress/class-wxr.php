@@ -17,7 +17,6 @@ class Wxr extends Export {
 
 	}
 
-
 	/**
 	 * Create $this->outputPath
 	 *
@@ -42,7 +41,6 @@ class Wxr extends Export {
 		return true;
 	}
 
-
 	/**
 	 * Check the sanity of $this->outputPath
 	 *
@@ -59,7 +57,6 @@ class Wxr extends Export {
 
 		return true;
 	}
-
 
 	/**
 	 * Procedure for "format/wxr" rewrite rule.

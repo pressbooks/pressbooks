@@ -28,7 +28,6 @@ class Network_Managers_List_Table extends \WP_List_Table {
 
 	}
 
-
 	/** ************************************************************************
 	 * Custom column method for the display_name column.
 	 *
@@ -54,7 +53,6 @@ class Network_Managers_List_Table extends \WP_List_Table {
 	function column_user_email( $item ) {
 		return $item['user_email'];
 	}
-
 
 	/** ************************************************************************
 	 * Custom column method for the user_login column.
@@ -93,7 +91,6 @@ class Network_Managers_List_Table extends \WP_List_Table {
 		);
 	}
 
-
 	/** ************************************************************************
 	 * Define the table's columns and titles.
 	 *
@@ -108,7 +105,6 @@ class Network_Managers_List_Table extends \WP_List_Table {
 		];
 		return $columns;
 	}
-
 
 	/** ************************************************************************
 	 * Define which columns are sortable.

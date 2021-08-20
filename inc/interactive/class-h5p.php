@@ -61,7 +61,6 @@ class H5P {
 		return false;
 	}
 
-
 	/**
 	 * Defines REST API callbacks
 	 *

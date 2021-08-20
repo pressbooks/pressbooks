@@ -122,7 +122,6 @@ class Sass {
 		return apply_filters( 'pb_global_components_path', get_theme_root( 'pressbooks-book' ) . '/pressbooks-book/packages/buckram/assets/styles/' );
 	}
 
-
 	/**
 	 * Get the path to our PB Fonts
 	 *
@@ -132,7 +131,6 @@ class Sass {
 		return get_theme_root( 'pressbooks-book' ) . '/pressbooks-book/assets/book/typography/styles/';
 	}
 
-
 	/**
 	 * Get path to a directory we can dump user transpiled CSS files into (create dir if it does not exist)
 	 *
@@ -141,7 +139,6 @@ class Sass {
 	public function pathToUserGeneratedCss() {
 		return \Pressbooks\Utility\get_generated_content_path( '/css' );
 	}
-
 
 	/**
 	 * Get URI to user transpiled CSS files
@@ -154,7 +151,6 @@ class Sass {
 		return \Pressbooks\Utility\get_generated_content_url( '/css', $keep_subdomain );
 	}
 
-
 	/**
 	 * Get path to a directory we can dump user generated Sass files into (create dir if it does not exist)
 	 *
@@ -164,7 +160,6 @@ class Sass {
 		return \Pressbooks\Utility\get_generated_content_path( '/scss' );
 	}
 
-
 	/**
 	 * Get path to a directory we can dump debug files into
 	 *
@@ -173,7 +168,6 @@ class Sass {
 	public function pathToDebugDir() {
 		return \Pressbooks\Utility\get_generated_content_path( '/scss-debug' );
 	}
-
 
 	/**
 	 * Returns the compiled CSS from SCSS input
@@ -310,7 +304,6 @@ class Sass {
 			$message
 		);
 	}
-
 
 	/**
 	 * Write CSS to a a debug dir

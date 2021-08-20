@@ -60,7 +60,6 @@ function scandir_by_date( $dir ) {
 	return ( $files ) ? $files : [];
 }
 
-
 /**
  * Scan the exports directory, return the files grouped into intervals of 3 minutes, newest first.
  *
@@ -104,7 +103,6 @@ function group_exports( $dir = null ) {
 	return $output;
 }
 
-
 /**
  * Truncate the exports directory, delete old files.
  *
@@ -135,7 +133,6 @@ function truncate_exports( $max, $dir = null ) {
 		++$i;
 	}
 }
-
 
 /**
  * Return the full path to the directory containing media
@@ -211,7 +208,6 @@ function latest_exports() {
 	return $latest;
 }
 
-
 /**
  * Add sitemap to robots.txt
  */
@@ -221,7 +217,6 @@ function add_sitemap_to_robots_txt() {
 		echo 'Sitemap: ' . get_option( 'siteurl' ) . "/?feed=sitemap.xml\n\n";
 	}
 }
-
 
 /**
  * Echo a sitemap
@@ -631,7 +626,6 @@ function change_recommendations_sentence( $translation, $text, $domain ) {
 	return $translation;
 }
 
-
 /**
  * Function to return a string representing max import size by comparing values of upload_max_filesize, post_max_size
  * Uses parse_size helper function since the values in php.ini are strings like 64M and 128K
@@ -744,7 +738,6 @@ function email_error_log( $emails, $subject, $message ) {
 		\wp_mail( $email, $subject, $message );
 	}
 }
-
 
 /**
  * Simple template system.
@@ -1277,7 +1270,6 @@ function rmrdir( $dirname, $only_empty = false ) {
 	return ( ( $only_empty ) ? ( count( scandir( $dirname ) ) <= 2 ) : ( ! is_dir( $dirname ) ) );
 }
 
-
 /**
  * Comma separated, Oxford comma, localized and between the last two items
  *
@@ -1474,7 +1466,6 @@ function do_shortcode_by_tags( $content, array $tags ) {
 	$shortcode_tags = $_tags;
 	return $shortcoded;
 }
-
 
 /**
  * This function swap http to https if ssl is available

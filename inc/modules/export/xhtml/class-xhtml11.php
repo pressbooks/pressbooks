@@ -53,7 +53,6 @@ class Xhtml11 extends ExportGenerator {
 	 */
 	protected $footnotes = [];
 
-
 	/**
 	 * We forcefully reorder some of the front-matter types to respect the Chicago Manual of Style.
 	 * Keep track of where we are using this variable.
@@ -61,7 +60,6 @@ class Xhtml11 extends ExportGenerator {
 	 * @var int
 	 */
 	protected $frontMatterPos = 1;
-
 
 	/**
 	 * Sometimes the user will omit an introduction so we must inject the style in either the first
@@ -239,7 +237,6 @@ class Xhtml11 extends ExportGenerator {
 
 		yield 100 => $this->generatorPrefix . __( 'Validation successful', 'pressbooks' );
 	}
-
 
 	/**
 	 * Procedure for "format/xhtml" rewrite rule.
@@ -459,7 +456,6 @@ class Xhtml11 extends ExportGenerator {
 		$this->transformOutput = $buffer;
 	}
 
-
 	/**
 	 * Add $this->url as additional log info, fallback to parent.
 	 *
@@ -472,7 +468,6 @@ class Xhtml11 extends ExportGenerator {
 
 		parent::logError( $message, $more_info );
 	}
-
 
 	/**
 	 * Wrap footnotes for Prince compatibility
@@ -491,7 +486,6 @@ class Xhtml11 extends ExportGenerator {
 		$ref_id_dom = $id . '-' . $ref_id;
 		return "<span class='footnote'><span class='footnote-indirect' data-fnref='$ref_id_dom'></span></span>";
 	}
-
 
 	/**
 	 * Convert footnotes to endnotes by moving them to the end of the_content()
@@ -515,7 +509,6 @@ class Xhtml11 extends ExportGenerator {
 
 		return '<sup class="endnote">' . count( $this->endnotes[ $id ] ) . '</sup>';
 	}
-
 
 	/**
 	 * Style endnotes.
@@ -568,7 +561,6 @@ class Xhtml11 extends ExportGenerator {
 
 		return $e;
 	}
-
 
 	// ----------------------------------------------------------------------------------------------------------------
 	// Sanitize book
@@ -632,7 +624,6 @@ class Xhtml11 extends ExportGenerator {
 		$id = $old_id;
 		return $book_contents;
 	}
-
 
 	/**
 	 * @param string $content
@@ -863,7 +854,6 @@ class Xhtml11 extends ExportGenerator {
 		return $html;
 	}
 
-
 	// ----------------------------------------------------------------------------------------------------------------
 	// Echo Functions
 	// ----------------------------------------------------------------------------------------------------------------
@@ -878,7 +868,6 @@ class Xhtml11 extends ExportGenerator {
 		echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">' . "\n";
 		echo '<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="' . $this->lang . '">' . "\n";
 	}
-
 
 	/**
 	 * @param array $book_contents
@@ -896,7 +885,6 @@ class Xhtml11 extends ExportGenerator {
 		}
 	}
 
-
 	/**
 	 * @param array $book_contents
 	 * @param array $metadata
@@ -905,7 +893,6 @@ class Xhtml11 extends ExportGenerator {
 		// Does nothing.
 		// Is here for child classes to override if ever needed.
 	}
-
 
 	/**
 	 * @param array $book_contents
@@ -955,7 +942,6 @@ class Xhtml11 extends ExportGenerator {
 		$this->frontMatterPos = $i;
 	}
 
-
 	/**
 	 * @param array $book_contents
 	 * @param array $metadata
@@ -966,7 +952,6 @@ class Xhtml11 extends ExportGenerator {
 		echo '<h1 class="title">' . get_bloginfo( 'name' ) . '</h1>';
 		echo '</div>' . "\n";
 	}
-
 
 	/**
 	 * @param array $book_contents
@@ -1016,7 +1001,6 @@ class Xhtml11 extends ExportGenerator {
 		}
 		echo "</div>\n";
 	}
-
 
 	/**
 	 * @param array $book_contents
@@ -1073,7 +1057,6 @@ class Xhtml11 extends ExportGenerator {
 		echo "</div></div>\n";
 	}
 
-
 	/**
 	 * @param array $book_contents
 	 * @param array $metadata
@@ -1121,7 +1104,6 @@ class Xhtml11 extends ExportGenerator {
 		}
 		$this->frontMatterPos = $i;
 	}
-
 
 	/**
 	 * @param array $book_contents
@@ -1279,7 +1261,6 @@ class Xhtml11 extends ExportGenerator {
 
 	}
 
-
 	/**
 	 * Yields an estimated percentage slice of: 50 to 60
 	 *
@@ -1380,7 +1361,6 @@ class Xhtml11 extends ExportGenerator {
 		$this->frontMatterPos = $i;
 	}
 
-
 	/**
 	 * @param array $book_contents
 	 * @param array $metadata
@@ -1392,7 +1372,6 @@ class Xhtml11 extends ExportGenerator {
 			echo $promo_html;
 		}
 	}
-
 
 	/**
 	 * Yields an estimated percentage slice of: 60 to 70
@@ -1581,7 +1560,6 @@ class Xhtml11 extends ExportGenerator {
 
 	}
 
-
 	/**
 	 * Yields an estimated percentage slice of: 70 to 80
 	 *
@@ -1668,7 +1646,6 @@ class Xhtml11 extends ExportGenerator {
 		}
 
 	}
-
 
 	/**
 	 * Does array of chapters have at least one export? Recursive.

@@ -43,7 +43,6 @@ function replace_network_dashboard_widgets() {
 	}
 }
 
-
 /**
  *  Remove unwanted root Dashboard widgets, add our news feed.
  */
@@ -86,7 +85,6 @@ function replace_root_dashboard_widgets() {
 		add_meta_box( 'pb_dashboard_widget_blog', $options['title'], __NAMESPACE__ . '\display_pressbooks_blog', 'dashboard', 'side', 'low' );
 	}
 }
-
 
 /**
  *  Remove all Dashboard widgets and replace with our own
@@ -296,7 +294,6 @@ function display_pressbooks_blog() {
 	}
 	echo $rss;
 }
-
 
 /**
  * Displays a Users widget

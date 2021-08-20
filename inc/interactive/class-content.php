@@ -81,7 +81,6 @@ class Content {
 		add_action( 'pb_pre_export', [ $obj, 'beforeExport' ] );
 	}
 
-
 	public function __construct() {
 		$this->blade = Container::get( 'Blade' );
 		$this->h5p = new H5P( $this->blade );

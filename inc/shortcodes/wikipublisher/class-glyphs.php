@@ -19,7 +19,6 @@ class Glyphs {
 	 */
 	static $instance = null;
 
-
 	// ISO-639-3
 	protected $supported_languages = [
 		'grc', // Ancient Greek (polytonic)
@@ -105,7 +104,6 @@ class Glyphs {
 
 		return $content;
 	}
-
 
 	/**
 	 * @param        $text
@@ -419,7 +417,6 @@ class Glyphs {
 
 		return str_replace( array_keys( $gr_alphabet ), array_values( $gr_alphabet ), $r );
 	}
-
 
 	/**
 	 * @param $text

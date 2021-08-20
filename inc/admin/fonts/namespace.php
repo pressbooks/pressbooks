@@ -25,7 +25,6 @@ function update_font_stacks() {
 	}
 }
 
-
 /**
  * Fix Sass for everything that has to do with dynamically generated font stacks
  */

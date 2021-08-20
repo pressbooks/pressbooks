@@ -50,7 +50,6 @@ class PercentageYield {
 	 */
 	protected $j;
 
-
 	/**
 	 * PercentageYield constructor.
 	 *

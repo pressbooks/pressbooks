@@ -36,7 +36,6 @@ class Downloads {
 	 */
 	protected $mediaWasAlreadyDownloaded = [];
 
-
 	/**
 	 * @param Wxr $wxr
 	 */
@@ -235,7 +234,6 @@ class Downloads {
 
 		return $src_new;
 	}
-
 
 	/**
 	 * Parse HTML snippet, save all found media using media_handle_sideload(), return the HTML with changed URLs.

@@ -117,7 +117,6 @@ class Footnotes {
 		return $retval;
 	}
 
-
 	/**
 	 * Post-process footnote shortcode
 	 *
@@ -173,7 +172,6 @@ class Footnotes {
 		}
 		wp_die();
 	}
-
 
 	/**
 	 * WP_Ajax hook. Convert MS Word footnotes to Pressbooks compatible [footnotes]

@@ -317,7 +317,6 @@ function wplang_codes() {
 	return $languages;
 }
 
-
 /**
  * Override get_locale
  * For performance reasons, we only want functions in this namespace to call WP get_locale once.
@@ -375,7 +374,6 @@ function load_plugin_textdomain( $locale = '' ) {
 	}
 }
 
-
 /**
  * Change core WordPress strings.
  *
@@ -422,7 +420,6 @@ function include_core_overrides() {
 
 	return $_overrides[ $locale ];
 }
-
 
 /**
  * Hook for add_filter('locale ', ...), change the user interface language
@@ -514,7 +511,6 @@ function install_book_locale( $meta_id, $post_id, $meta_key, $meta_value ) {
 
 	return false;
 }
-
 
 /**
  * Update previous user interface language meta value to WP 4.7 user locale, try to install the corresponding language pack.

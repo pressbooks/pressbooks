@@ -10,7 +10,6 @@ use Pressbooks\Modules\Export\Export;
 
 class Icml extends Export {
 
-
 	/**
 	 * @param array $args
 	 */
@@ -22,7 +21,6 @@ class Icml extends Export {
 			define( 'PB_XMLLINT_COMMAND', '/usr/bin/xmllint' );
 		}
 	}
-
 
 	/**
 	 * Create $this->outputPath
@@ -61,7 +59,6 @@ class Icml extends Export {
 
 	}
 
-
 	/**
 	 * Check the sanity of $this->outputPath
 	 *
@@ -79,7 +76,6 @@ class Icml extends Export {
 		return true;
 	}
 
-
 	/**
 	 * Add $this->outputPath as additional log info, fallback to parent.
 	 *
@@ -92,7 +88,6 @@ class Icml extends Export {
 
 		parent::logError( $message, $more_info );
 	}
-
 
 	/**
 	 * Log problems with $book_html that probably caused transformXML() to fail.
@@ -120,7 +115,6 @@ class Icml extends Export {
 
 		return $message . implode( "\n", $output );
 	}
-
 
 	// ----------------------------------------------------------------------------------------------------------------
 	// Sanitize book
@@ -181,7 +175,6 @@ class Icml extends Export {
 		return $book_contents;
 	}
 
-
 	/**
 	 * @param string $content
 	 *
@@ -195,7 +188,6 @@ class Icml extends Export {
 
 		return $content;
 	}
-
 
 	/**
 	 * Tidy HTML

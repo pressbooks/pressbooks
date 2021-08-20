@@ -53,7 +53,6 @@ class PrinceJpg extends Generator {
 		'front-background-image',
 	];
 
-
 	/**
 	 * Constructor
 	 *
@@ -109,7 +108,6 @@ class PrinceJpg extends Generator {
 		return $css;
 	}
 
-
 	/**
 	 * Generate HTML for Ebook JPG cover
 	 *
@@ -121,7 +119,6 @@ class PrinceJpg extends Generator {
 		$html = template( PB_PLUGIN_DIR . 'templates/covergenerator/jpg-cover.php', $vars );
 		return $html;
 	}
-
 
 	// Bonus info, originally tried cropping the PDF print cover to get the Ebook JPG cover, but the inch-to-pixel math wasn't working ( CSS Standard: 1 inch = 96 px, ImageMagick: 1 inch ~= 73.8 ?! )
 	// Here's the command I was using for anyone from the future who wants to try:

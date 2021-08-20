@@ -628,7 +628,6 @@ function add_pb_cloner_page() {
 	);
 }
 
-
 /**
  * Displays the Organize page.
  */
@@ -667,7 +666,6 @@ function display_cloner() {
 function display_import() {
 	require( PB_PLUGIN_DIR . 'templates/admin/import.php' );
 }
-
 
 /**
  * Replace WP logo in menu bar with PB one and add links to About page, Contact page, and forums
@@ -945,7 +943,6 @@ function replace_menu_bar_my_sites( $wp_admin_bar ) {
 	}
 }
 
-
 /**
  * @param \WP_Admin_Bar $wp_admin_bar
  *
@@ -1018,7 +1015,6 @@ function remove_menu_bar_update( $wp_admin_bar ) {
 	$wp_admin_bar->remove_menu( 'updates' );
 }
 
-
 /**
  * Remove New Content item from admin menu
  *
@@ -1028,7 +1024,6 @@ function remove_menu_bar_new_content( $wp_admin_bar ) {
 	$wp_admin_bar->remove_menu( 'new-content' );
 }
 
-
 /**
  * @param \WP_Customize_Manager $wp_customize
  *
@@ -1037,7 +1032,6 @@ function remove_menu_bar_new_content( $wp_admin_bar ) {
 function customize_register( $wp_customize ) {
 	$wp_customize->remove_section( 'static_front_page' );
 }
-
 
 /**
  * @return string
@@ -1268,14 +1262,12 @@ function privacy_settings_init() {
 	}
 }
 
-
 /**
  * Privacy settings section callback
  */
 function privacy_settings_section_callback() {
 	echo '<p>' . __( 'Sharing and Privacy settings', 'pressbooks' ) . '.</p>'; // TK
 }
-
 
 /**
  * Privacy settings, blog_public field callback
@@ -1458,7 +1450,6 @@ function privacy_pbt_redistribute_settings_sanitize( $input ) {
 function book_directory_excluded_sanitize( $input ) {
 	return absint( $input );
 }
-
 
 /**
  * Display Privacy settings

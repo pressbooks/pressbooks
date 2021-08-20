@@ -68,7 +68,6 @@ class PrincePdf extends Generator {
 		'front-background-image',
 	];
 
-
 	/**
 	 * Constructor
 	 *
@@ -79,7 +78,6 @@ class PrincePdf extends Generator {
 		$this->pdfProfile = apply_filters( 'pb_pdf_for_print_profile', 'PDF/X-4' );
 		$this->pdfOutputIntent = '/usr/lib/prince/icc/USWebCoatedSWOP.icc';
 	}
-
 
 	/**
 	 * Generate PDF print cover
@@ -97,7 +95,6 @@ class PrincePdf extends Generator {
 		delete_transient( 'dirsize_cache' ); /** @see get_dirsize() */
 		return $output_path;
 	}
-
 
 	/**
 	 * Generate CSS for PDF print cover

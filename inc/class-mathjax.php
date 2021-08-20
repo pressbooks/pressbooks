@@ -292,7 +292,6 @@ class MathJax {
 		}
 	}
 
-
 	/**
 	 * @return array{fg: string}
 	 * @see \Pressbooks\MathJax::$defaultOptions
@@ -779,7 +778,6 @@ class MathJax {
 		];
 		return $mathml_tags;
 	}
-
 
 	/**
 	 * Allow MathML tags within WordPress

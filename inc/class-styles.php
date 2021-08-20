@@ -848,7 +848,6 @@ class Styles {
 
 	}
 
-
 	/**
 	 * Check if a user submitted something to themes.php?page=pb_custom_styles
 	 *

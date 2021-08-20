@@ -157,7 +157,6 @@ class Activation {
 		}
 	}
 
-
 	/**
 	 * Determine if book is set up or not to avoid duplication
 	 * (i.e. if activation functions have run and default options set)
@@ -184,7 +183,6 @@ class Activation {
 
 		return true;
 	}
-
 
 	/**
 	 * Set up default terms for Front Matter and Back Matter

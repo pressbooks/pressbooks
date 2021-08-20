@@ -150,7 +150,6 @@ function admin_enqueue_scripts( $hook ) {
 	}
 }
 
-
 /**
  * Adds Javascript for buttons above.
  *
@@ -276,7 +275,6 @@ function mce_before_init_insert_formats( $init_array ) {
 	return $init_array;
 }
 
-
 /**
  * We don't support "the kitchen sink" when using the custom metadata plugin,
  * render the WYSIWYG editor accordingly.
@@ -300,7 +298,6 @@ function metadata_manager_default_editor_args( $args ) {
 
 	return $args;
 }
-
 
 /**
  * Builds custom list of classes and adjusts other aspects of the table editor plugin.
@@ -394,7 +391,6 @@ function mce_table_editor_options( $settings ) {
 	return $settings;
 }
 
-
 /**
  * Updates custom stylesheet for MCE previewing.
  */
@@ -425,7 +421,6 @@ function update_editor_style() {
 	\Pressbooks\Utility\put_contents( $output, $css );
 }
 
-
 /**
  * Adds stylesheet for MCE previewing.
  *
@@ -444,7 +439,6 @@ function add_editor_style() {
 
 	return false;
 }
-
 
 /**
  * Only show book contents post types in link insertion modal.

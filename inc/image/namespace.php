@@ -44,7 +44,6 @@ function default_cover_url( $size = 'full' ) {
 	return apply_filters( 'pb_default_cover_url', PB_PLUGIN_URL . "assets/dist/images/default-book-cover${suffix}.jpg", $suffix );
 }
 
-
 /**
  * Full path to default cover image
  *
@@ -81,7 +80,6 @@ function default_cover_path( $size = 'full' ) {
 	return apply_filters( 'pb_default_cover_path', PB_PLUGIN_DIR . "assets/dist/images/default-book-cover${suffix}.jpg", $suffix );
 }
 
-
 /**
  * Determine if string is default cover image
  *
@@ -95,7 +93,6 @@ function is_default_cover( $compare ) {
 
 	return ( $found ) ? true : false;
 }
-
 
 /**
  * Check if a file (or stream) is a valid image type
@@ -149,7 +146,6 @@ function is_valid_image( $file, $filename, $is_stream = false ) {
 	}
 }
 
-
 /**
  * Rename image with arbitrary suffix (before extension)
  *
@@ -164,7 +160,6 @@ function thumbify( $thumb, $path ) {
 
 	return stripslashes( preg_replace( '/(\.jpe?g|\.gif|\.png)/i', "$thumb$1", $path ) );
 }
-
 
 /**
  * Returns the upload path and basename from attachment URL (ie. 2017/08/foo-bar.png), or unchanged if no match is found.
@@ -182,7 +177,6 @@ function strip_baseurl( $url ) {
 
 	return $url;
 }
-
 
 /**
  * Get the attachment id from an image url.
@@ -213,7 +207,6 @@ function attachment_id_from_url( $url ) {
 	return absint( $id );
 }
 
-
 /**
  * Try to get a thumbnail url from an image url.
  *
@@ -234,7 +227,6 @@ function thumbnail_from_url( $url, $size ) {
 		return $url; // Couldn't find anything, return original
 	}
 }
-
 
 /**
  * Get a list of possible intermediate image sizes.
@@ -272,7 +264,6 @@ function intermediate_image_sizes( array $image_sizes = [] ) {
 	}
 }
 
-
 /**
  * Fix wp_save_image() for our custom sizes, possibly other places.
  *
@@ -301,7 +292,6 @@ function fix_intermediate_image_size_options() {
 	}
 }
 
-
 /**
  * WP Hook for filter 'intermediate_image_sizes_advanced'
  *
@@ -315,7 +305,6 @@ function intermediate_image_sizes_advanced( array $image_sizes ) {
 
 	return $image_sizes;
 }
-
 
 /**
  * WP Hook for action 'delete_attachment'. Deal with user deleting cover image from Media Library.
@@ -356,7 +345,6 @@ function delete_attachment( $post_id ) {
 	}
 }
 
-
 /**
  * WP Hook for action 'wp_update_attachment_metadata'. Deal with user editing cover image from Media Library.
  *
@@ -391,7 +379,6 @@ function save_attachment( $data, $post_id ) {
 	return $data;
 }
 
-
 /**
  * Render "Cover Image" meta box
  *
@@ -409,7 +396,6 @@ function cover_image_box( $post ) {
 	render_cover_image_box( $meta_key, $pid, $image_url, $action, $nonce, $description );
 }
 
-
 /**
  * Render "Catalog Logo" meta box
  *
@@ -424,7 +410,6 @@ function catalog_logo_box( $user_id ) {
 
 	render_cover_image_box( $meta_key, absint( $user_id ), $image_url, $action, $nonce );
 }
-
 
 /**
  * Render cover image widget
@@ -492,7 +477,6 @@ function render_cover_image_box( $form_id, $cover_pid, $image_url, $ajax_action,
 	</div>
 	<?php
 }
-
 
 /**
  * Proportionally resize an image file
@@ -565,7 +549,6 @@ function resize_down( $format, $fullpath, $max_w = 1024, $max_h = 1024 ) {
 	$func( $dst, $fullpath );
 	imagedestroy( $dst );
 }
-
 
 /**
  * Adjust memory for large images

@@ -45,7 +45,6 @@ abstract class Generator {
 	 */
 	protected $optionalSassVars = [];
 
-
 	/**
 	 * Constructor
 	 *
@@ -60,7 +59,6 @@ abstract class Generator {
 	 */
 	abstract public function generate();
 
-
 	/**
 	 * Convert dashed string to Getter method
 	 *
@@ -72,7 +70,6 @@ abstract class Generator {
 
 		return 'get' . str_replace( ' ', '', ucwords( str_replace( [ '-', '_' ], ' ', $str ) ) );
 	}
-
 
 	/**
 	 * Get the fullpath to the Covers folder.
@@ -96,7 +93,6 @@ abstract class Generator {
 		return $path;
 	}
 
-
 	/**
 	 * Get the fullpath to the Covers folder.
 	 * Create if not there. Create .htaccess protection if missing.
@@ -109,7 +105,6 @@ abstract class Generator {
 
 		return $path;
 	}
-
 
 	/**
 	 * Generate SCSS vars based on Input object
@@ -148,7 +143,6 @@ abstract class Generator {
 
 		return $sass;
 	}
-
 
 	/**
 	 * @return array
@@ -301,7 +295,6 @@ abstract class Generator {
 		yield 100 => __( 'Finishing up', 'pressbooks' );
 	}
 
-
 	/**
 	 * Delete cover
 	 *
@@ -343,7 +336,6 @@ abstract class Generator {
 		$filename = sanitize_file_name( isset( $_GET['file'] ) ? $_GET['file'] : '' ); // @codingStandardsIgnoreLine
 		static::_downloadCoverFile( $filename );
 	}
-
 
 	/**
 	 * Download an .htaccess protected file from the exports directory.

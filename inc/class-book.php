@@ -268,7 +268,6 @@ class Book {
 		return apply_filters( 'get_invalidated_codes_alternatives_mapped', $bisac_codes );
 	}
 
-
 	/**
 	 * Returns an array representing the entire structure of a book, in correct order,
 	 * with a minimum amount of fields. Data is raw and must be post-processed.
@@ -441,7 +440,6 @@ class Book {
 		return $book_structure;
 	}
 
-
 	/**
 	 * Returns an array representing the entire structure of a book, in correct order,
 	 * with a maximum amount of fields. Data is raw and must be post-processed.
@@ -535,7 +533,6 @@ class Book {
 		return $selected_for_export ? $wc_selected_for_export : $wc;
 	}
 
-
 	/**
 	 *
 	 */
@@ -545,7 +542,6 @@ class Book {
 			wp_die();
 		}
 	}
-
 
 	/**
 	 * Delete the Book Object cache(s)
@@ -785,7 +781,6 @@ class Book {
 		}
 	}
 
-
 	/**
 	 * Select the very first post in a book. May be a chapter or a front matter post
 	 *
@@ -885,7 +880,6 @@ class Book {
 		return ( $type === 'numberless' ) ? 0 : $i;
 	}
 
-
 	/**
 	 * Ensures this chapter/part/front matter has a "menu_order" when it is saved
 	 *
@@ -951,7 +945,6 @@ class Book {
 
 		return $success ? true : false;
 	}
-
 
 	/**
 	 * Put a Part/Chapter/Front Matter/Back Matter in the trash

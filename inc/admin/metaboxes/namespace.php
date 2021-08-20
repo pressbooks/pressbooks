@@ -60,7 +60,6 @@ function add_required_data( $pid, $post ) {
 	}
 }
 
-
 /**
  * Process uploaded cover image
  *
@@ -136,7 +135,6 @@ function upload_cover_image( $pid, $post, $image = null ) {
 	wp_update_attachment_metadata( $id, wp_generate_attachment_metadata( $id, $image['file'] ) );
 }
 
-
 /**
  * Force a stylesheet onto our Book Information edit page
  *
@@ -160,7 +158,6 @@ function add_metadata_styles( $hook ) {
 		}
 	}
 }
-
 
 /**
  * Register all metadata groups and fields
@@ -796,7 +793,6 @@ function delete_cover_image() {
 	die();
 }
 
-
 /**
  * Override save dialogue for Parts
  *
@@ -816,7 +812,6 @@ function part_save_box( $post ) {
 	}
 	echo '</div>';
 }
-
 
 /**
  *  Override save dialogue for Book Information

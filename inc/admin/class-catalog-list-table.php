@@ -13,11 +13,9 @@ use Pressbooks\Catalog;
  */
 class Catalog_List_Table extends \WP_List_Table {
 
-
 	// ----------------------------------------------------------------------------------------------------------------
 	// WordPress Overrides
 	// ----------------------------------------------------------------------------------------------------------------
-
 
 	/**
 	 * Constructor, must call parent
@@ -31,7 +29,6 @@ class Catalog_List_Table extends \WP_List_Table {
 		];
 		parent::__construct( $args );
 	}
-
 
 	/**
 	 * This method is called when the parent class can't find a method
@@ -54,7 +51,6 @@ class Catalog_List_Table extends \WP_List_Table {
 
 		return esc_html( $item[ $column_name ] );
 	}
-
 
 	/**
 	 * @param array $item A singular item (one full row's worth of data)
@@ -82,7 +78,6 @@ class Catalog_List_Table extends \WP_List_Table {
 			$this->row_actions( $actions )
 		);
 	}
-
 
 	/**
 	 * @param array $item A singular item (one full row's worth of data)
@@ -119,7 +114,6 @@ class Catalog_List_Table extends \WP_List_Table {
 			$this->row_actions( $actions )
 		);
 	}
-
 
 	/**
 	 * @param array $item A singular item (one full row's worth of data)
@@ -198,7 +192,6 @@ class Catalog_List_Table extends \WP_List_Table {
 		echo '</td>';
 	}
 
-
 	/**
 	 * REQUIRED if displaying checkboxes or using bulk actions! The 'cb' column
 	 * is given special treatment when columns are processed. It ALWAYS needs to
@@ -215,7 +208,6 @@ class Catalog_List_Table extends \WP_List_Table {
 			$item['ID'] // The value of the checkbox should be the record's id
 		);
 	}
-
 
 	/**
 	 * This method dictates the table's columns and titles.
@@ -245,7 +237,6 @@ class Catalog_List_Table extends \WP_List_Table {
 		return $columns;
 	}
 
-
 	/**
 	 * This method merely defines which columns should be sortable and makes them
 	 * clickable - it does not handle the actual sorting.
@@ -265,7 +256,6 @@ class Catalog_List_Table extends \WP_List_Table {
 		return $sortable_columns;
 	}
 
-
 	/**
 	 * @return array An associative array containing all the bulk actions: 'slugs'=>'Visible Titles'
 	 */
@@ -278,7 +268,6 @@ class Catalog_List_Table extends \WP_List_Table {
 
 		return $actions;
 	}
-
 
 	/**
 	 * REQUIRED! This is where you prepare your data for display. This method will
@@ -337,7 +326,6 @@ class Catalog_List_Table extends \WP_List_Table {
 
 	}
 
-
 	/**
 	 * Form is POST not GET. Override parent method to compensate.
 	 *
@@ -365,23 +353,19 @@ class Catalog_List_Table extends \WP_List_Table {
 		parent::print_column_headers( $with_id );
 	}
 
-
 	function _js_vars() {
 
 		parent::_js_vars();
 	}
-
 
 	function ajax_response() {
 
 		parent::ajax_response();
 	}
 
-
 	// ----------------------------------------------------------------------------------------------------------------
 	// Pressbooks Stuff
 	// ----------------------------------------------------------------------------------------------------------------
-
 
 	/**
 	 * @param object $item A singular item (one full row's worth of data)
@@ -431,7 +415,6 @@ class Catalog_List_Table extends \WP_List_Table {
 		return $hidden_columns;
 	}
 
-
 	/**
 	 * @return array
 	 */
@@ -450,7 +433,6 @@ class Catalog_List_Table extends \WP_List_Table {
 
 		return $this->searchFilter( $data );
 	}
-
 
 	/**
 	 * @param array $data
@@ -474,7 +456,6 @@ class Catalog_List_Table extends \WP_List_Table {
 
 		return $filtered_data;
 	}
-
 
 	/**
 	 * @param $keyword
@@ -501,7 +482,6 @@ class Catalog_List_Table extends \WP_List_Table {
 
 		return false;
 	}
-
 
 	/**
 	 * WP Hook, Instantiate UI
@@ -593,7 +573,6 @@ class Catalog_List_Table extends \WP_List_Table {
 
 	}
 
-
 	/**
 	 * Rebuild a URL with known search parameters
 	 *
@@ -621,7 +600,6 @@ class Catalog_List_Table extends \WP_List_Table {
 
 		return $url;
 	}
-
 
 	/**
 	 * Generate catalog URL. Dies on problem.

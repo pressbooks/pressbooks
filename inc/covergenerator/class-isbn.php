@@ -46,7 +46,6 @@ class Isbn {
 
 	}
 
-
 	/**
 	 * Create an ISBN png and sideload it into WordPress
 	 *
@@ -106,7 +105,6 @@ class Isbn {
 		return $src;
 	}
 
-
 	/**
 	 * Validate an ISBN string
 	 *
@@ -152,7 +150,6 @@ class Isbn {
 		return $isbn_number;
 	}
 
-
 	/**
 	 * ISBN Invocation Code.
 	 *
@@ -175,7 +172,6 @@ class Isbn {
 
 		return implode( "\n", $ps ) . "\n";
 	}
-
 
 	/**
 	 * Compile an ISBN Postscript file
@@ -207,7 +203,6 @@ class Isbn {
 		// @codingStandardsIgnoreEnd
 	}
 
-
 	/**
 	 * Use Ghostscript to convert a PostScript file into a grayscale PNG file
 	 *
@@ -232,7 +227,6 @@ class Isbn {
 			// @codingStandardsIgnoreEnd
 		}
 	}
-
 
 	/**
 	 * Use ImageMagick to automatically crop & pad a PNG file with a white border
