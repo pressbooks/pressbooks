@@ -308,7 +308,7 @@ class Contributors {
 			],
 		];
 
-		return array_key_exists(self::TAXONOMY . '_' . $field, $allowed_fields) ?
+		return array_key_exists( self::TAXONOMY . '_' . $field, $allowed_fields ) ?
 			$allowed_fields[ self::TAXONOMY . '_' . $field ] :
 			$allowed_fields;
 	}

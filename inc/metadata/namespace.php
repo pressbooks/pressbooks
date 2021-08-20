@@ -10,6 +10,7 @@ use function \Pressbooks\Utility\get_contents;
 use function \Pressbooks\Utility\is_assoc;
 use function \Pressbooks\Utility\oxford_comma;
 use function \Pressbooks\Utility\oxford_comma_explode;
+use PressbooksMix\Assets;
 use Pressbooks\Book;
 use Pressbooks\Licensing;
 use Pressbooks\Metadata;
@@ -995,6 +996,24 @@ function register_contributor_meta() {
 	];
 	register_term_meta( 'contributor', 'contributor_first_name', $args );
 	register_term_meta( 'contributor', 'contributor_last_name', $args );
+
+	add_action(
+		'admin_enqueue_scripts', function ( $hook ) {
+			if ( $hook === 'edit-tags.php' || $hook === 'term.php' ) {
+				$assets = new Assets( 'pressbooks', 'plugin' );
+				wp_enqueue_media();
+				wp_enqueue_script(
+					'cg/js', $assets->getPath( 'scripts/contributors.js' ),
+					[
+						'jquery',
+						'jquery-form',
+						'wp-color-picker',
+						'eventsource-polyfill',
+					], null
+				);
+			}
+		}
+	);
 }
 
 /**
