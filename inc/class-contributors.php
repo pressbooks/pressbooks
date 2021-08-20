@@ -302,7 +302,7 @@ class Contributors {
 				'label' => __( 'Twitter', 'pressbooks' ),
 				'tag' => self::TAXONOMY . '-twitter',
 				'input_type' => 'text',
-				'description' => __( 'Twitter profile for this contributor. Must be valid URL.', 'pressbooks' ),
+				'description' => __( 'Twitter profile for this contributor. Must be a valid URL.', 'pressbooks' ),
 				'sanitization_method' => '\Pressbooks\Sanitize\validate_url_field',
 			],
 			self::TAXONOMY . '_linkedin' => [
