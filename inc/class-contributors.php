@@ -257,7 +257,7 @@ class Contributors {
 				'label' => __( 'Prefix', 'pressbooks' ),
 				'tag' => self::TAXONOMY . '-prefix',
 				'input_type' => 'text',
-				'description' => 'An optional prefix or title to be displayed before the person\'s first name, e.g. Dr., Prof., Ms., Rev., Capt.',
+				'description' => __( 'Prefix to be displayed before this contributor\'s name, e.g. Dr., Prof., Ms., Rev., Capt.', 'pressbooks' ),
 				'sanitization_method' => 'sanitize_text_field',
 			],
 			self::TAXONOMY . '_first_name' => [
@@ -276,7 +276,7 @@ class Contributors {
 				'label' => __( 'Suffix', 'pressbooks' ),
 				'tag' => self::TAXONOMY . '-suffix',
 				'input_type' => 'text',
-				'description' => 'An optional suffix to be displayed after the person\'s last name, e.g. Jr., Sr., IV, PhD, MD, USN (Ret.)',
+				'description' => __( 'Suffix to be displayed after this contributors\'s name, e.g. Jr., Sr., IV, PhD, MD, USN (Ret.).', 'pressbooks' ),
 				'sanitization_method' => 'sanitize_text_field',
 			],
 			self::TAXONOMY . '_picture' => [
@@ -294,30 +294,35 @@ class Contributors {
 				'label' => __( 'Institution', 'pressbooks' ),
 				'tag' => self::TAXONOMY . '-institution',
 				'input_type' => 'text',
+				'description' => __( 'Institution this contributor is associated with, e.g. Rebus Foundation, Open University, Amnesty International.', 'pressbooks' ),
 				'sanitization_method' => 'sanitize_text_field',
 			],
 			self::TAXONOMY . '_user_url' => [
 				'label' => __( 'Website', 'presbooks' ),
 				'tag' => self::TAXONOMY . '-website',
 				'input_type' => 'text',
+				'description' => __( 'Website for this contributor. Must be a valid URL.', 'pressbooks' ),
 				'sanitization_method' => '\Pressbooks\Sanitize\validate_url_field',
 			],
 			self::TAXONOMY . '_twitter' => [
 				'label' => __( 'Twitter', 'pressbooks' ),
 				'tag' => self::TAXONOMY . '-twitter',
 				'input_type' => 'text',
+				'description' => __( 'Twitter profile for this contributor. Must be a valid URL.', 'pressbooks' ),
 				'sanitization_method' => '\Pressbooks\Sanitize\validate_url_field',
 			],
 			self::TAXONOMY . '_linkedin' => [
 				'label' => __( 'LinkedIn', 'pressbooks' ),
 				'tag' => self::TAXONOMY . '-linkedin',
 				'input_type' => 'text',
+				'description' => __( 'LinkedIn profile for this contributor. Must be a valid URL.', 'pressbooks' ),
 				'sanitization_method' => '\Pressbooks\Sanitize\validate_url_field',
 			],
 			self::TAXONOMY . '_github' => [
 				'label' => __( 'GitHub', 'pressbooks' ),
 				'tag' => self::TAXONOMY . '-github',
 				'input_type' => 'text',
+				'description' => __( 'GitHub profile for this contributor. Must be a valid URL.', 'pressbooks' ),
 				'sanitization_method' => '\Pressbooks\Sanitize\validate_url_field',
 			],
 		];
