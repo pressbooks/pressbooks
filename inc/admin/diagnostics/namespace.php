@@ -134,7 +134,6 @@ function render_page() {
 	$output .= 'MySQL Version: ' . $wpdb->db_version() . "\n";
 	$output .= 'Webserver Info: ' . $_SERVER['SERVER_SOFTWARE'] . "\n\n";
 	$output .= "#### PHP Configuration\n\n";
-	$output .= 'Safe Mode: ' . ( ini_get( 'safe_mode' ) ? 'Enabled' : 'Disabled' . "\n" );
 	$output .= 'Memory Limit: ' . ini_get( 'memory_limit' ) . "\n";
 	$output .= 'Upload Max Size: ' . ini_get( 'upload_max_filesize' ) . "\n";
 	$output .= 'Post Max Size: ' . ini_get( 'post_max_size' ) . "\n";

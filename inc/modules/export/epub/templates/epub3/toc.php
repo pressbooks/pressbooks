@@ -36,7 +36,7 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 					}
 
 					if ( get_post_meta( $v['ID'], 'pb_part_invisible', true ) !== 'on' ) {
-						$text = strip_tags( \Pressbooks\Sanitize\decode( $v['post_title'] ) );
+						$text = wp_strip_all_tags( \Pressbooks\Sanitize\decode( $v['post_title'] ) );
 						if ( ! $text ) {
 							$text = ' ';
 						}

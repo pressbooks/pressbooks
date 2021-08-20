@@ -895,6 +895,7 @@ function get_book_metadata_lang() {
 
 /**
  * This function returns the current's book language thema file if exists otherwise returns false
+ *
  * @return false|string
  */
 function get_thema_lang_file() {
@@ -1194,6 +1195,7 @@ function get_in_catalog_option() {
 
 /**
  * This function download the thema subjects from the pressbooks symbionts repo when the book metadata is updated
+ *
  * @param $meta_id
  * @param $post_id
  * @param $meta_key
@@ -1253,6 +1255,7 @@ function download_thema_lang( $meta_id, $post_id, $meta_key, $meta_value ) {
 
 /**
  * Download thema file if the thema lang file is not downloaded
+ *
  * @param $post
  */
 function check_thema_lang_file( $post ) {

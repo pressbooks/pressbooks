@@ -228,7 +228,7 @@ class Catalog_List_Table extends \WP_List_Table {
 		];
 
 		for ( $i = 1; $i <= Catalog::MAX_TAGS_GROUP; ++$i ) {
-			$columns[ "tag_{$i}" ] = ! empty( $profile[ "pb_catalog_tag_{$i}_name" ] ) ? esc_html( strip_tags( $profile[ "pb_catalog_tag_{$i}_name" ] ) ) : __( 'Tag', 'pressbooks' ) . " $i";
+			$columns[ "tag_{$i}" ] = ! empty( $profile[ "pb_catalog_tag_{$i}_name" ] ) ? esc_html( wp_strip_all_tags( $profile[ "pb_catalog_tag_{$i}_name" ] ) ) : __( 'Tag', 'pressbooks' ) . " $i";
 		}
 
 		$columns['featured'] = __( 'Featured', 'pressbooks' );

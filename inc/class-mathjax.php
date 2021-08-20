@@ -8,6 +8,7 @@ namespace Pressbooks;
 
 /**
  * Heavily inspired by JetPack Latex and MathJax-LaTeX
+ *
  * @see https://github.com/Automattic/jetpack/blob/master/modules/latex.php
  * @see https://github.com/phillord/mathjax-latex
  */
@@ -52,6 +53,7 @@ class MathJax {
 
 	/**
 	 * Use PB MathJax Node.js service to render SVG/PNG image?
+	 *
 	 * @see https://github.com/pressbooks/pb-mathjax
 	 *
 	 * @var bool
@@ -276,8 +278,8 @@ class MathJax {
 			// TODO: CommonHTML currently only supports MathJax’s default TeX fonts.
 			// Config
 			echo "<script type='text/x-mathjax-config'>
-			MathJax.Hub.Config( {	
-				extensions: [ 'Safe.js' ],	 	
+			MathJax.Hub.Config( {
+				extensions: [ 'Safe.js' ],
 				MathML: { extensions: [ 'content-mathml.js' ] },
 				TeX: { extensions: [ 'autoload-all.js' ] },
 				tex2jax: { inlineMath: [ ['[latex]','[/latex]'] ] },
@@ -894,7 +896,7 @@ class MathJax {
 						$url .= '&svg=1';
 					}
 					$url = esc_url( $url );
-					$alt = str_replace( "\n", '', normalize_whitespace( strip_tags( $mathml ) ) );
+					$alt = str_replace( "\n", '', normalize_whitespace( wp_strip_all_tags( $mathml ) ) );
 					$alt = str_replace( '\\', '&#92;', esc_attr( $alt ) );
 					return '<img src="' . $url . '" alt="' . $alt . '" title="' . $alt . '" class="mathml mathjax" />';
 				}

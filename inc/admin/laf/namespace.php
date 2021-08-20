@@ -1589,6 +1589,7 @@ function edit_screen_navigation( $post ) {
 /**
  *
  * $since 5.27.0
+ *
  * @return array
  */
 function get_user_contact_fields() {
@@ -1602,6 +1603,7 @@ function get_user_contact_fields() {
 /**
  *
  * $since 5.27.0
+ *
  * @param array $methods
  * @return array
  */
@@ -1612,6 +1614,7 @@ function modify_user_contact_fields( $methods ) {
 /**
  *
  * $since 5.27.0
+ *
  * @param WP_Error $errors
  * @param bool $update
  * @param stdClass $user

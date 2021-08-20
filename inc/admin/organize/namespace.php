@@ -12,7 +12,6 @@ use Pressbooks\Book;
  * Update the status of one more posts.
  *
  * @since 5.0.0
-
  */
 function update_post_visibility() {
 	if ( check_ajax_referer( 'pb-organize-visibility' ) ) {
@@ -80,7 +79,6 @@ function update_post_visibility() {
  * Update the pb_show_title metadata value for one or more posts.
  *
  * @since 5.0.0
-
  */
 function update_post_title_visibility() {
 	if ( check_ajax_referer( 'pb-organize-showtitle' ) ) {

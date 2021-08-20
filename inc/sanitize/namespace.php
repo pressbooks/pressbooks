@@ -534,10 +534,10 @@ function cleanup_css( $css ) {
 	$prev = $css;
 	$css = wp_kses_split( $prev, [], [] );
 	$css = str_replace( '&gt;', '>', $css ); // kses replaces lone '>' with &gt;
-	$css = strip_tags( $css );
+	$css = wp_strip_all_tags( $css );
 
 	if ( $css !== $prev ) {
-		$warnings[] = 'kses() and strip_tags() do not match';
+		$warnings[] = 'kses() and wp_strip_all_tags() do not match';
 	}
 
 	// TODO: Something with $warnings[]
@@ -811,18 +811,20 @@ function maybe_safer_unserialize( $original ) {
 
 /**
  * Sanitize an string for undesired XSS attacks allowing HTML but removing malicious code
+ *
  * @param $value
  * @param bool $allow_html
  * @return string
  */
 function sanitize_string( $value, $allow_html = false ) {
 
-	return $allow_html ? HtmLawed::filter( pb_decode( stripslashes_from_strings_only( $value ) ), [ 'safe' => 1 ] ) : strip_tags( pb_decode( $value ) );
+	return $allow_html ? HtmLawed::filter( pb_decode( stripslashes_from_strings_only( $value ) ), [ 'safe' => 1 ] ) : wp_strip_all_tags( pb_decode( $value ) );
 
 }
 
 /**
  * Validates that the URL is valid.
+ *
  * @param $value
  * @return false|mixed
  */

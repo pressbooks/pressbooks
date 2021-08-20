@@ -629,6 +629,7 @@ function change_recommendations_sentence( $translation, $text, $domain ) {
 /**
  * Function to return a string representing max import size by comparing values of upload_max_filesize, post_max_size
  * Uses parse_size helper function since the values in php.ini are strings like 64M and 128K
+ *
  * @return string
  */
 
@@ -1148,7 +1149,6 @@ function get_generated_content_path( $suffix = '', $mkdir = true ) {
  * @param bool $keep_subdomain (optional) Keep subdomain in url
  *
  * @return string
- *
  */
 function get_generated_content_url( $suffix = '', $keep_subdomain = false ) {
 	$path = wp_get_upload_dir()['baseurl'] . '/pressbooks';
@@ -1469,6 +1469,7 @@ function do_shortcode_by_tags( $content, array $tags ) {
 
 /**
  * This function swap http to https if ssl is available
+ *
  * @param $url
  * @return array|mixed|string|string[]
  */

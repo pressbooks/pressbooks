@@ -39,7 +39,6 @@ function default_cover_url( $size = 'full' ) {
 	 * Filter the URL of the default cover image.
 	 *
 	 * @since 5.4.0
-	 *
 	 */
 	return apply_filters( 'pb_default_cover_url', PB_PLUGIN_URL . "assets/dist/images/default-book-cover${suffix}.jpg", $suffix );
 }
@@ -75,7 +74,6 @@ function default_cover_path( $size = 'full' ) {
 	 * Filter the path of the default cover image.
 	 *
 	 * @since 5.4.0
-	 *
 	 */
 	return apply_filters( 'pb_default_cover_path', PB_PLUGIN_DIR . "assets/dist/images/default-book-cover${suffix}.jpg", $suffix );
 }
@@ -214,7 +212,6 @@ function attachment_id_from_url( $url ) {
  * @param string $size
  *
  * @return string
- *
  */
 function thumbnail_from_url( $url, $size ) {
 

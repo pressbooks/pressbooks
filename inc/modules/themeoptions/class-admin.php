@@ -121,6 +121,7 @@ class Admin {
 
 	/**
 	 * Modifies the capability for theme options to allow Editors to manage them.
+	 *
 	 * @see https://developer.wordpress.org/reference/hooks/option_page_capability_option_page/
 	 *
 	 * @since 4.1.0

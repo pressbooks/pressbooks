@@ -212,6 +212,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 
 	/**
 	 * Performs network book directory exclusion logic for non catalog books
+	 *
 	 * @param bool $exclude   True for exclude and false for removing exclude
 	 */
 	public static function networkExcludeOption( bool $exclude ) {
@@ -220,6 +221,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 
 	/**
 	 * Triggers a batch book directory delete for all NON catalog books
+	 *
 	 * @param bool $revert  un-checking network exclude
 	 */
 	static function excludeNonCatalogBooksFromDirectory( $callback, bool $revert = false ) {
@@ -232,6 +234,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 
 	/**
 	 *  Returns all public book ids. Can filter by in catalog
+	 *
 	 * @return array    public books
 	 */
 	static function getPublicBooks( $only_non_catalog = false ) {
@@ -269,6 +272,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 
 	/**
 	 * Perform actions during network book exclusion is enabled
+	 *
 	 * @param $book_ids
 	 * @return array   Responses from actions
 	 */

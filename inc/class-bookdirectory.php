@@ -12,6 +12,7 @@ use WP_Site;
 
 /**
  * Class BookDirectory
+ *
  * @package Pressbooks
  */
 class BookDirectory {
@@ -81,7 +82,6 @@ class BookDirectory {
 	 *
 	 * @return bool
 	 * @since 5.14.3
-	 *
 	 */
 	public function setBookPrivate( $stored_value, $new_value ) {
 		// Book changes from public to private
@@ -98,7 +98,6 @@ class BookDirectory {
 	 *
 	 * @return bool
 	 *@since 5.14.3
-	 *
 	 */
 	public function softDeleteActions( $updated_config, $previous_config ) {
 		$is_archived = ! $previous_config->archived && '1' === $updated_config->archived;
@@ -119,12 +118,11 @@ class BookDirectory {
 	 *
 	 * @return bool
 	 * @since 5.14.3
-	 *
 	 */
 	public function deleteBookFromDirectory( array $book_ids = null ) {
 		if ( filter_var( self::$delete_book_endpoint, FILTER_VALIDATE_URL ) ) {
 			$book_ids = $book_ids ?? [ get_current_blog_id() ];
-			$sid = sprintf( '%s-%s-%s', uniqid( self::DELETION_PREFIX, true ), rand( 1, 99 ), $book_ids[0] );
+			$sid = sprintf( '%s-%s-%s', uniqid( self::DELETION_PREFIX, true ), wp_rand( 1, 99 ), $book_ids[0] );
 
 			$header = [
 				'Content-Type' => 'application/json',

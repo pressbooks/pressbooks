@@ -77,7 +77,7 @@ class Glyphs {
 		if ( empty( $content ) || empty( $a['lang'] ) || ! in_array( $a['lang'], $this->supported_languages, true ) ) {
 			// We don't support this language
 			$_error = "*** ERROR: Unsupported pb_language attribute: {$a['lang']} -- ";
-			$_error .= 'Valid choices, based on ISO-639-3, are: ' . implode( $this->supported_languages, ', ' ) . ') ***';
+			$_error .= 'Valid choices, based on ISO-639-3, are: ' . implode( ', ', $this->supported_languages, ) . ') ***';
 
 			return $_error;
 		}

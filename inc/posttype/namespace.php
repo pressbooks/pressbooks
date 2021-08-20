@@ -466,6 +466,7 @@ function add_post_types_rss( $args ) {
 
 /**
  * Add Hypothesis support for Pressbooks custom post types
+ *
  * @see https://github.com/hypothesis/wp-hypothesis/blob/master/hypothesis.php#L63-L68
  *
  * @param array $posttypes Default Hypothesis post types.

@@ -36,7 +36,7 @@ class Icml extends Export {
 			'book_contents' => $this->preProcessBookContents( \Pressbooks\Book::getBookContents() ),
 		];
 
-		$cc_copyright = strip_tags( $this->doCopyrightLicense( $vars['meta'] ) );
+		$cc_copyright = wp_strip_all_tags( $this->doCopyrightLicense( $vars['meta'] ) );
 		$vars['do_copyright_license'] = $cc_copyright;
 
 		$book_html = $this->loadTemplate( __DIR__ . '/templates/xhtml.php', $vars );

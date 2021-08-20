@@ -877,7 +877,7 @@ class Xhtml11 extends ExportGenerator {
 
 		foreach ( $metadata as $name => $content ) {
 			$name = Sanitize\sanitize_xml_id( str_replace( '_', '-', $name ) );
-			$content = trim( strip_tags( html_entity_decode( $content ) ) ); // Plain text
+			$content = trim( wp_strip_all_tags( html_entity_decode( $content ) ) ); // Plain text
 			$content = preg_replace( '/\s+/', ' ', preg_replace( '/\n+/', ' ', $content ) ); // Normalize whitespaces
 			$content = Sanitize\sanitize_xml_attribute( $content );
 			printf( '<meta name="%s" content="%s" />', $name, $content );
