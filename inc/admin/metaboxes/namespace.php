@@ -1247,6 +1247,7 @@ function contributor_add_form_picture() {
 function contributor_edit_form( $term ) {
 	$terms_meta = get_term_meta( $term->term_id );
 	$contributors_fields = Contributors::getContributorFields();
+
 	foreach ( $contributors_fields as $term => $meta_tags ) {
 		$value = $terms_meta[ $term ][0] ?? '';
 		switch ( $meta_tags['input_type'] ) {
