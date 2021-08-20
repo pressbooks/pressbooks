@@ -27,7 +27,7 @@ jobs:
         wp package install pressbooks/pb-cli:2.1.0
         composer require jenssegers/blade:1.1.0
     - name: Update POT file
-      run: wp pb make-pot . languages/pressbooks.pot --require=vendor/autoload.php --domain=pressbooks --slug=pressbooks --package-name="Pressbooks" --headers="{\"Report-Msgid-Bugs-To\":\"https://github.com/pressbooks/pressbooks/issues\"}"
+      run: wp pb make-pot . languages/pressbooks.pot --domain=pressbooks --slug=pressbooks --package-name="Pressbooks" --headers="{\"Report-Msgid-Bugs-To\":\"https://github.com/pressbooks/pressbooks/issues\"}"
     # Remove the next four lines and uncomment the last five lines once the process has been confirmed to work as desired.
     - uses: actions/upload-artifact@v2
       with:
