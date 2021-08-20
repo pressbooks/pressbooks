@@ -4,6 +4,7 @@
     <rule ref="vendor/pressbooks/coding-standards">
         <exclude name="WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase"/>
 		<exclude name="WordPress.NamingConventions.ValidVariableName.PropertyNotSnakeCase"/>
+		<exclude name="WordPress.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition"/>
 		<!-- TODO: These should be re-enabled sooner than later... -->
 		<exclude name="Squiz.Commenting"/>
 		<exclude name="Generic.Commenting"/>
