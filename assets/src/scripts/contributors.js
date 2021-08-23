@@ -1,7 +1,7 @@
 jQuery( function ( $ ) {
-	const min_picture_size = 400,
-		contributor_picture_element = jQuery( '#contributor-picture' ),
-		contributor_picture_thumbnail_element = jQuery( '#contributor-picture-thumbnail' );
+	const minPictureSize = 400,
+		contributorPictureElement = jQuery( '#contributor-picture' ),
+		contributorPictureThumbnailElement = jQuery( '#contributor-picture-thumbnail' );
 
 	/**
 	 * Return whether the image must be cropped, based on required dimensions.
@@ -50,8 +50,8 @@ jQuery( function ( $ ) {
 	let imgSelectOptions = function ( attachment, controller ) {
 		let realWidth  = attachment.get( 'width' ),
 			realHeight = attachment.get( 'height' ),
-			xInit = min_picture_size,
-			yInit = min_picture_size,
+			xInit = minPictureSize,
+			yInit = minPictureSize,
 			ratio = 1,
 			xImg  = xInit,
 			yImg  = yInit,
@@ -90,17 +90,17 @@ jQuery( function ( $ ) {
 	jQuery( document ).ajaxComplete( function ( event, xhr, settings ) {
 		if ( settings.data.indexOf( 'action=add-tag' ) >= 0 ) {
 			window.tinyMCE.activeEditor.setContent( '' );
-			contributor_picture_thumbnail_element.attr( 'src', '' ).hide();
-			contributor_picture_element.val( '' );
+			contributorPictureThumbnailElement.attr( 'src', '' ).hide();
+			contributorPictureElement.val( '' );
 		}
 	} );
 
 	jQuery( document ).ajaxSend( function ( event, xhr, settings ) {
 		if ( settings.data.indexOf( 'action=add-tag' ) >= 0 ) {
 			window.tinyMCE.triggerSave();
-			let data_encoded = new URLSearchParams( settings.data );
-			data_encoded.set( 'contributor_description', window.tinyMCE.activeEditor.getContent() );
-			settings.data = data_encoded.toString();
+			let dataEncoded = new URLSearchParams( settings.data );
+			dataEncoded.set( 'contributor_description', window.tinyMCE.activeEditor.getContent() );
+			settings.data = dataEncoded.toString();
 		}
 	} );
 	jQuery( '.term-description-wrap' ).remove();
@@ -123,8 +123,8 @@ jQuery( function ( $ ) {
 			doCrop: function ( attachment ) {
 				const cropDetails = attachment.get( 'cropDetails' );
 
-				cropDetails.dst_width  = min_picture_size;
-				cropDetails.dst_height = min_picture_size;
+				cropDetails.dstWidth  = minPictureSize;
+				cropDetails.dstHeight = minPictureSize;
 
 				return wp.ajax.post( 'crop-image', {
 					nonce: attachment.get( 'nonces' ).edit,
@@ -145,8 +145,8 @@ jQuery( function ( $ ) {
 					multiple: false,
 					date: false,
 					priority: 20,
-					suggestedWidth: min_picture_size,
-					suggestedHeight: min_picture_size,
+					suggestedWidth: minPictureSize,
+					suggestedHeight: minPictureSize,
 				} ),
 				new Cropp( { imgSelectOptions } ),
 			],
@@ -154,21 +154,21 @@ jQuery( function ( $ ) {
 		e.preventDefault();
 		pictureLibrary.open();
 		pictureLibrary.on( 'cropped', function ( croppedImage ) {
-			contributor_picture_element.val( croppedImage.url );
-			contributor_picture_thumbnail_element.attr( 'src', croppedImage.url ).show();
+			contributorPictureElement.val( croppedImage.url );
+			contributorPictureThumbnailElement.attr( 'src', croppedImage.url ).show();
 		} );
 		pictureLibrary.on( 'insert', function () {
 			const attachment = pictureLibrary.state().get( 'selection' ).first().toJSON();
-			contributor_picture_element.val( attachment.url );
-			contributor_picture_thumbnail_element.attr( 'src', attachment.url ).show();
+			contributorPictureElement.val( attachment.url );
+			contributorPictureThumbnailElement.attr( 'src', attachment.url ).show();
 		} );
 		pictureLibrary.on( 'select', function () {
 			const attachment = pictureLibrary.state().get( 'selection' ).first().toJSON();
-			if ( attachment.width !== min_picture_size || attachment.height !== min_picture_size ) {
+			if ( attachment.width !== minPictureSize || attachment.height !== minPictureSize ) {
 				pictureLibrary.setState( 'cropper' );
 			} else {
-				contributor_picture_element.val( attachment.url );
-				contributor_picture_thumbnail_element.attr( 'src', attachment.url ).show();
+				contributorPictureElement.val( attachment.url );
+				contributorPictureThumbnailElement.attr( 'src', attachment.url ).show();
 				pictureLibrary.close();
 			}
 		} );
