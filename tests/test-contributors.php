@@ -206,6 +206,9 @@ class ContributorsTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'Rando1, Rando2, and Rando3', $s );
 	}
 
+	/**
+	 * @group contributors
+	 */
 	public function test_editContributorForm() {
 
 		$this->taxonomy->registerTaxonomies();
@@ -223,15 +226,17 @@ class ContributorsTest extends \WP_UnitTestCase {
 		$results = $this->contributor->addBlogUser( $user_id );
 
 		$term = get_term_by( 'slug', $user->user_nicename, 'contributor' );
-
 		ob_start();
 		\Pressbooks\Admin\Metaboxes\contributor_edit_form( $term );
 		$buffer = ob_get_clean();
 
-		$this->assertContains( "jQuery('.term-description-wrap').remove()", $buffer );
+		$this->assertContains( '<button name="dispatch-media-picture" id="btn-media">Upload Picture</button>', $buffer );
 
 	}
 
+	/**
+	 * @group contributors
+	 */
 	public function test_getFullContributors() {
 
 		$this->taxonomy->registerTaxonomies();
@@ -251,6 +256,9 @@ class ContributorsTest extends \WP_UnitTestCase {
 
 	}
 
+	/**
+	 * @group contributors
+	 */
 	public function test_personalName() {
 
 		$this->taxonomy->registerTaxonomies();

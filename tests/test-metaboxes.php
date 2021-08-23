@@ -240,7 +240,9 @@ class MetaboxesTest extends \WP_UnitTestCase {
 		$this->assertContains( '<input name="save" id="publish" type="submit"', $buffer );
 	}
 
-
+	/**
+	 * @group metaboxes
+	 */
 	public function test_get_thema_subjects() {
 		$reporting = $this->_fakeAjax();
 		$_REQUEST['_ajax_nonce'] = wp_create_nonce( 'pb-metadata' );
@@ -264,6 +266,9 @@ class MetaboxesTest extends \WP_UnitTestCase {
 		$this->_fakeAjaxDone( $reporting );
 	}
 
+	/**
+	 * @group metaboxes
+	 */
 	public function test_a11y_contributor_tweaks() {
 		// Mock Screen for taxonomy editor
 		global $current_screen;
@@ -275,6 +280,9 @@ class MetaboxesTest extends \WP_UnitTestCase {
 		$this->assertContains( 'setCustomValidity(', $buffer );
 	}
 
+	/**
+	 * @group metaboxes
+	 */
 	public function test_contributor_metaboxes() {
 
 		$user_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
@@ -283,8 +291,8 @@ class MetaboxesTest extends \WP_UnitTestCase {
 		\Pressbooks\Admin\Metaboxes\contributor_add_form();
 		$buffer = ob_get_clean();
 
-		$this->assertContains( 'window.tinyMCE.activeEditor.setContent', $buffer );
-		$this->assertContains( '.term-description-wrap', $buffer );
+		$this->assertContains( '<img style="display: none" src="" id="contributor-picture-thumbnail" width="120" />', $buffer );
+		$this->assertContains( '<input type="hidden" name="contributor_picture" id="contributor-picture">', $buffer );
 		$this->assertContains( '<label for="contributor-first-name">', $buffer );
 	}
 
