@@ -1003,7 +1003,7 @@ function register_contributor_meta() {
 				$assets = new Assets( 'pressbooks', 'plugin' );
 				wp_enqueue_media();
 				wp_enqueue_script(
-					'cg/js', $assets->getPath( 'scripts/contributors.js' ),
+					'pb_contributors', $assets->getPath( 'scripts/contributors.js' ),
 					[
 						'jquery',
 						'jquery-form',

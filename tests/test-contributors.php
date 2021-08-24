@@ -304,4 +304,22 @@ class ContributorsTest extends \WP_UnitTestCase {
 
 	}
 
+	/**
+	 * @group contributors
+	 */
+	public function test_getFields() {
+		$fields = Contributors::getContributorFields( 'picture' );
+		$this->assertIsArray( $fields );
+		$this->assertArrayHasKey( 'label', $fields );
+		$this->assertEquals( 'Picture', $fields['label'] );
+		$this->assertArrayHasKey( 'sanitization_method', $fields );
+
+		$fields = Contributors::getContributorFields();
+		$this->assertIsArray( $fields );
+		$this->assertArrayHasKey( 'contributor_first_name', $fields );
+		$this->assertIsArray( $fields['contributor_first_name'] );
+		$this->assertArrayHasKey( 'contributor_description', $fields );
+		$this->assertArrayHasKey( 'contributor_twitter', $fields );
+	}
+
 }
