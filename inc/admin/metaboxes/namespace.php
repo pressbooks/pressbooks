@@ -1206,41 +1206,46 @@ function contributor_add_form() {
 	$contributors_fields = Contributors::getContributorFields();
 
 	foreach ( $contributors_fields as $term => $meta_tags ) {
-		if ( $meta_tags['input_type'] === 'tinymce' ) {
-			?>
-			<div class="form-field <?php echo $meta_tags['tag']; ?>-wrap">
-				<label for="<?php echo $meta_tags['tag']; ?>"><?php echo $meta_tags['label']; ?></label>
-				<?php wp_editor( null, $term, get_editor_settings() ); ?>
-				<script>
-					jQuery(window).ready(function(){
-						jQuery( document ).ajaxComplete(function(event, xhr, settings) {
-							if ( settings.data.indexOf('action=add-tag') >= 0 ) {
-								window.tinyMCE.activeEditor.setContent('');
-							}
-						});
-
-						jQuery('.term-description-wrap').remove();
-						jQuery('#submit').on('click', function(event) {
-							event.preventDefault();
-							window.tinyMCE.triggerSave();
-							event.target.click();
-						});
-					});
-				</script>
-			</div>
-			<?php
-			continue;
+		switch ( $meta_tags['input_type'] ) {
+			case 'tinymce':
+				?>
+				<div class="form-field <?php echo $meta_tags['tag']; ?>-wrap">
+					<label for="<?php echo $meta_tags['tag']; ?>"><?php echo $meta_tags['label']; ?></label>
+					<?php wp_editor( null, $term, get_editor_settings() ); ?>
+				</div>
+				<?php
+				break;
+			case 'picture':
+				?>
+				<img style="display: none" src="" id="<?php echo $meta_tags['tag']; ?>-thumbnail" width="120" /> <br />
+				<div class="form-field <?php echo $meta_tags['tag']; ?>-wrap">
+					<label for="<?php echo $meta_tags['tag']; ?>"><?php echo $meta_tags['label']; ?></label>
+					<button name="dispatch-media-picture" id="btn-media">Upload Picture</button>
+					<input type="hidden" name="<?php echo $term; ?>" id="<?php echo $meta_tags['tag']; ?>">
+					<p>
+						<?php echo __( 'Images should be square and at least 400px wide. Very large images will be resized upon upload.', 'pressbooks' ); ?>
+					</p>
+				</div>
+				<?php
+				break;
+			default:
+				?>
+				<div class="form-field <?php echo $meta_tags['tag']; ?>-wrap">
+					<label for="<?php echo $meta_tags['tag']; ?>"><?php echo $meta_tags['label']; ?></label>
+					<input type="<?php echo $meta_tags['input_type'] ?>" name="<?php echo $term; ?>" id="<?php echo $meta_tags['tag']; ?>" value="" class="<?php echo $meta_tags['tag']; ?>" />
+				</div>
+				<?php
+				break;
 		}
-		?>
-		<div class="form-field <?php echo $meta_tags['tag']; ?>-wrap">
-			<label for="<?php echo $meta_tags['tag']; ?>"><?php echo $meta_tags['label']; ?></label>
-			<input type="<?php echo $meta_tags['input_type'] ?>" name="<?php echo $term; ?>" id="<?php echo $meta_tags['tag']; ?>" value="" class="<?php echo $meta_tags['tag']; ?>" />
-			<?php if ( ! empty( $meta_tags['description'] ) ) : ?>
-				<p class="description"><?php echo $meta_tags['description']; ?></p>
-			<?php endif; ?>
-		</div>
-		<?php
 	}
+}
+
+function contributor_add_form_picture() {
+	?>
+		<div id="contributor-media-picture">
+			<?php wp_media_upload_handler(); ?>
+		</div>
+	<?php
 }
 
 function contributor_edit_form( $term ) {
@@ -1249,35 +1254,47 @@ function contributor_edit_form( $term ) {
 
 	foreach ( $contributors_fields as $term => $meta_tags ) {
 		$value = $terms_meta[ $term ][0] ?? '';
-		if ( $meta_tags['input_type'] === 'tinymce' ) {
-			?>
-			<tr class="form-field <?php echo $meta_tags['tag']; ?>-wrap">
-				<th scope="row"><label for="<?php echo $meta_tags['tag']; ?>"><?php echo $meta_tags['label']; ?></label></th>
-				<td>
-					<?php wp_nonce_field( 'contributor-meta', 'contributor_meta_nonce' ); ?>
-					<?php wp_editor( html_entity_decode( $value ), $term, get_editor_settings() ); ?>
-					<script>
-						jQuery(window).ready(function(){
-							jQuery('.term-description-wrap').remove();
-						});
-					</script>
-				</td>
-			</tr>
-			<?php
-			continue;
+		switch ( $meta_tags['input_type'] ) {
+			case 'tinymce':
+				?>
+					<tr class="form-field <?php echo $meta_tags['tag']; ?>-wrap">
+						<th scope="row"><label for="<?php echo $meta_tags['tag']; ?>"><?php echo $meta_tags['label']; ?></label></th>
+						<td>
+							<?php wp_nonce_field( 'contributor-meta', 'contributor_meta_nonce' ); ?>
+							<?php wp_editor( html_entity_decode( $value ), $term, get_editor_settings() ); ?>
+						</td>
+					</tr>
+				<?php
+				break;
+			case 'picture':
+				?>
+					<tr class="form-field <?php echo $meta_tags['tag']; ?>-wrap">
+						<th scope="row"><label for="<?php echo $meta_tags['tag']; ?>"><?php echo $meta_tags['label']; ?></label></th>
+						<td>
+							<?php if ( $value ) : ?>
+								<img src="<?php echo $value; ?>" id="<?php echo $meta_tags['tag']; ?>-thumbnail" width="120" /> <br />
+							<?php endif; ?>
+							<button name="dispatch-media-picture" id="btn-media">Upload Picture</button>
+							<p class="description">
+								<?php echo __( 'Images should be square and at least 400px wide. Very large images will be resized upon upload.', 'pressbooks' ); ?>
+							</p>
+							<input type="hidden" name="<?php echo $term; ?>" id="<?php echo $meta_tags['tag']; ?>">
+						</td>
+					</tr>
+							<?php
+				break;
+			default:
+				?>
+				<tr class="form-field <?php echo $meta_tags['tag']; ?>-wrap">
+					<th scope="row"><label for="<?php echo $meta_tags['tag']; ?>"><?php echo $meta_tags['label']; ?></label></th>
+					<td>
+						<?php wp_nonce_field( 'contributor-meta', 'contributor_meta_nonce' ); ?>
+						<input type="<?php echo $meta_tags['input_type'] ?>" name="<?php echo $term; ?>" id="<?php echo $meta_tags['tag']; ?>" value="<?php echo esc_attr( $value ); ?>" class="<?php echo $meta_tags['tag']; ?>-field"  />
+					</td>
+				</tr>
+								<?php
+				break;
 		}
-		?>
-		<tr class="form-field <?php echo $meta_tags['tag']; ?>-wrap">
-			<th scope="row"><label for="<?php echo $meta_tags['tag']; ?>"><?php echo $meta_tags['label']; ?></label></th>
-			<td>
-				<?php wp_nonce_field( 'contributor-meta', 'contributor_meta_nonce' ); ?>
-				<input type="<?php echo $meta_tags['input_type'] ?>" name="<?php echo $term; ?>" id="<?php echo $meta_tags['tag']; ?>" value="<?php echo esc_attr( $value ); ?>" class="<?php echo $meta_tags['tag']; ?>-field"  />
-				<?php if ( ! empty( $meta_tags['description'] ) ) : ?>
-					<p class="description"><?php echo $meta_tags['description']; ?></p>
-				<?php endif; ?>
-			</td>
-		</tr>
-		<?php
 	}
 }
 

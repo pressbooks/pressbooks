@@ -510,5 +510,17 @@ class MetadataTest extends \WP_UnitTestCase {
 
 	}
 
+	/**
+	 * @group metadata
+	 */
+	function test_register_contributor_meta_enqueue_script() {
+		global $current_screen;
+		$current_screen = WP_Screen::get( 'term.php' );
+		\Pressbooks\Metadata\register_contributor_meta();
+		global $wp_scripts;
+		do_action( 'admin_enqueue_scripts', 'term.php' );
+		$this->assertContains( 'pb_contributors', $wp_scripts->queue );
+	}
+
 }
 
