@@ -287,7 +287,7 @@ class Activation {
 				'post_title' => __( 'Book Information', 'pressbooks' ),
 				'post_name' => 'book-information',
 				'post_type' => 'metadata',
-			]
+			],
 		];
 
 		/**
