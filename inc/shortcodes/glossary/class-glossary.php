@@ -7,8 +7,12 @@
 namespace Pressbooks\Shortcodes\Glossary;
 
 use PressbooksMix\Assets;
+use Pressbooks\PostType\BackMatter;
+use Pressbooks\Utility\AutoDisplayable;
 
-class Glossary {
+class Glossary implements BackMatter {
+
+	use AutoDisplayable;
 
 	const SHORTCODE = 'pb_glossary';
 
@@ -60,7 +64,7 @@ class Glossary {
 		);
 		add_action( 'init', [ $obj, 'addTooltipScripts' ] );
 		add_filter( 'wp_insert_post_data', [ $obj, 'sanitizeGlossaryTerm' ] );
-		add_filter( 'the_content', [ $obj, 'backMatterAutoDisplay' ] );
+		add_filter( 'the_content', [ $obj, 'overrideDisplay' ] );
 		// do_shortcode() is registered as a default filter on 'the_content' with a priority of 11.
 		// We need to run $this->tooltipContent() after this, and after footnotes and attributions which are set to 12 and 13 respectively
 		add_filter( 'the_content', [ $obj, 'tooltipContent' ], 13 );
@@ -344,33 +348,12 @@ class Glossary {
 	 *
 	 * @return string
 	 */
-	public function backMatterAutoDisplay( $content ) {
-		$post = get_post();
-		if ( ! $post ) {
-			// Try to find using deprecated means
-			global $id;
-			$post = get_post( $id );
-		}
-		if ( ! $post ) {
-			// Unknown post
-			return $content;
-		}
-		if ( $post->post_type !== 'back-matter' ) {
-			// Post is not a back-matter
-			return $content;
-		}
-		$taxonomy = \Pressbooks\Taxonomy::init();
-		if ( $taxonomy->getBackMatterType( $post->ID ) !== 'glossary' ) {
-			// Post is not a glossary
-			return $content;
-		}
+	public function overrideDisplay( $content ) {
 
-		if ( ! \Pressbooks\Utility\empty_space( \Pressbooks\Sanitize\decode( str_replace( '&nbsp;', '', $content ) ) ) ) {
-			// Content is not empty
-			return $content;
-		}
+		return $this->display( $content, function() {
+			return $this->glossaryTerms();
+		} );
 
-		return $this->glossaryTerms();
 	}
 
 }

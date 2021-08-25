@@ -229,6 +229,11 @@ class Activation {
 				'post_type' => 'back-matter',
 				'menu_order' => 1,
 			],
+			'contributors' => [
+				'post_title' => __( 'Contributors', 'pressbooks' ),
+				'post_name' => 'contributors',
+				'post_type' => 'back-matter',
+			],
 			// Pages
 			'authors' => [
 				'post_title' => __( 'Authors', 'pressbooks' ),
@@ -282,7 +287,7 @@ class Activation {
 				'post_title' => __( 'Book Information', 'pressbooks' ),
 				'post_name' => 'book-information',
 				'post_type' => 'metadata',
-			],
+			]
 		];
 
 		/**
