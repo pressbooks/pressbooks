@@ -9,23 +9,37 @@ namespace Pressbooks;
 use function Pressbooks\Metadata\init_book_data_models;
 use function Pressbooks\Utility\oxford_comma_explode;
 use function Pressbooks\Utility\str_starts_with;
+use Illuminate\Support\Str;
+use Pressbooks\PostType\BackMatter;
+use Pressbooks\Utility\AutoDisplayable;
 
-class Contributors {
+/**
+ *
+ */
+class Contributors implements BackMatter {
+
+	use AutoDisplayable;
 
 	const TAXONOMY = 'contributor';
 
 	/**
-	 * Valid contributor slugs
+	 * @var Contributors
+	 */
+	static $instance = null;
+
+
+	/**
+	 * Valid contributor slugs ordered by preference
 	 *
 	 * @var array
 	 */
 	public $valid = [
-		'pb_authors',
 		'pb_editors',
+		'pb_authors',
+		'pb_contributors',
 		'pb_translators',
 		'pb_reviewers',
 		'pb_illustrators',
-		'pb_contributors',
 	];
 
 	/**
@@ -40,7 +54,25 @@ class Contributors {
 		'pb_translator',
 	];
 
-	public function __construct() {
+	/**
+	 * Function to init our class, set filters & hooks, set a singleton instance
+	 *
+	 * @return Contributors
+	 */
+	static public function init() {
+		if ( is_null( self::$instance ) ) {
+			self::$instance = new self();
+			self::hooks( self::$instance );
+		}
+
+		return self::$instance;
+	}
+
+	/**
+	 * @param Contributors $obj
+	 */
+	static public function hooks( Contributors $obj ) {
+		add_filter( 'the_content', [ $obj, 'overrideDisplay' ], 13 ); // Run after wpautop to avoid unwanted breaklines.
 	}
 
 	/**
@@ -503,7 +535,7 @@ class Contributors {
 	 *
 	 * @return array An array containing a set of matching contributor arrays
 	 */
-	public function getFullContributors( $post_id, $contributor_type ) {
+	public function getContributorsWithMeta( $post_id, $contributor_type ) {
 		if ( ! str_starts_with( $contributor_type, 'pb_' ) ) {
 			$contributor_type = 'pb_' . $contributor_type;
 		}
@@ -524,5 +556,48 @@ class Contributors {
 		}
 
 		return $full_contributors;
+	}
+
+	/**
+	 * This function returns an array with all the contributors registered in a book ordered by $valid array default ordering.
+	 * @return array
+	 */
+	public function getAllContributors() {
+
+		$meta = new Metadata();
+		$meta_post = $meta->getMetaPost();
+
+		$records = [];
+		foreach ( $this->valid as $contributor_type ) {
+			$contributors = $this->getContributorsWithMeta( $meta_post->ID, $contributor_type );
+			$contributors_count = count( $contributors );
+			if ( $contributors_count > 0 ) {
+				list( ,$title ) = explode( '_', $contributor_type );
+				$records[ $contributor_type ]['title'] = Str::ucfirst( $contributors_count > 1 ? $title : Str::singular( $title ) ); // ex. return Author or Authors
+				$records[ $contributor_type ]['records'] = $contributors;
+			}
+		}
+		return $records;
+	}
+
+	/**
+	 * Automatically displays a contributors page if the back-matter content is empty.
+	 *
+	 * @param string $content
+	 *
+	 * @return string
+	 */
+	public function overrideDisplay( $content ) {
+
+		return $this->display(
+			$content, function() {
+
+				$blade = Container::get( 'Blade' );
+
+				return $blade->render( 'posttypes/contributors', [ 'contributors' => $this->getAllContributors() ] );
+
+			}, 'contributors'
+		);
+
 	}
 }

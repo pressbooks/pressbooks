@@ -420,6 +420,11 @@ class Taxonomy {
 				'slug' => 'suggested-reading',
 			]
 		);
+		wp_insert_term(
+			'Contributors', 'back-matter-type', [
+				'slug' => 'contributors',
+			]
+		);
 
 		// Chapter
 		wp_insert_term(

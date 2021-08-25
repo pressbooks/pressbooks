@@ -209,7 +209,7 @@ class ApiTest extends \WP_UnitTestCase {
 		$this->assertEquals( 200, $data[0]->get_data()['status'] );
 		$this->assertEquals( 200, $data[1]->get_data()['status'] );
 		$this->assertEquals( 'Introduction', $data[0]->get_data()['body'][0]['title']['rendered'] );
-		$this->assertEquals( 'Appendix', $data[1]->get_data()['body'][0]['title']['rendered'] );
+		$this->assertEquals( 'Contributors', $data[1]->get_data()['body'][0]['title']['rendered'] );
 
 		// JSON Object Format
 

@@ -204,6 +204,7 @@ if ( $is_book ) {
 	add_action( 'plugins_loaded', [ '\Pressbooks\Shortcodes\Footnotes\Footnotes', 'init' ] );
 	add_action( 'plugins_loaded', [ '\Pressbooks\Shortcodes\Attributions\Attachments', 'init' ] );
 	add_action( 'plugins_loaded', [ '\Pressbooks\Shortcodes\Glossary\Glossary', 'init' ] );
+	add_action( 'plugins_loaded', [ 'Pressbooks\Contributors', 'init' ] );
 	add_action( 'plugins_loaded', [ '\Pressbooks\Shortcodes\Complex\Complex', 'init' ] );
 	add_action( 'plugins_loaded', [ '\Pressbooks\Shortcodes\Generics\Generics', 'init' ] );
 	add_action( 'plugins_loaded', [ '\Pressbooks\Shortcodes\WikiPublisher\Glyphs', 'init' ] );
