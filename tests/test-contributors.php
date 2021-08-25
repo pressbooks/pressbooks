@@ -237,7 +237,7 @@ class ContributorsTest extends \WP_UnitTestCase {
 	/**
 	 * @group contributors
 	 */
-	public function test_getFullContributors() {
+	public function test_getContributorsMeta() {
 
 		$this->taxonomy->registerTaxonomies();
 		$post_id = $this->_createChapter();
@@ -245,12 +245,13 @@ class ContributorsTest extends \WP_UnitTestCase {
 		$this->contributor->insert( 'Zig Zag', $post_id, 'contributors' );
 		$this->contributor->insert( 'Zig Zog', $post_id, 'contributors' );
 
-		$contributors = $this->contributor->getFullContributors( $post_id, 'contributors' );
+		$contributors = $this->contributor->getContributorsWithMeta( $post_id, 'contributors' );
 
 		$this->assertCount( 2, $contributors );
 		$this->assertArrayHasKey( 'contributor_twitter', $contributors[0] );
+		$this->assertArrayHasKey( 'contributor_picture', $contributors[0] );
 
-		$contributors = $this->contributor->getFullContributors( $post_id, 'fake_reviewer' );
+		$contributors = $this->contributor->getContributorsWithMeta( $post_id, 'fake_reviewer' );
 
 		$this->assertCount( 0, $contributors );
 
