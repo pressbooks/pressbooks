@@ -1,6 +1,6 @@
 @foreach($contributors as $contributor_type)
 	<div class="contributors page">
-		<h3 class="about-authors">{{$contributor_type['title']}}</h3>
+		<h3>{{$contributor_type['title']}}</h3>
 		@foreach($contributor_type['records'] as $contributor)
 			<div class="contributor">
 				<div class="contributor_name_and_links">
@@ -43,7 +43,7 @@
 						@endif
 					</div>
 				</div>
-				<div class="contributor_bio">{{ wp_kses( $contributor['contributor_description'], true ) }}</div>
+				<div class="contributor_bio">{!! wp_kses( $contributor['contributor_description'], true ) !!}</div>
 			</div>
 		@endforeach
 	</div>
