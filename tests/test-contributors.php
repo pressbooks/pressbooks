@@ -280,7 +280,6 @@ class ContributorsTest extends \WP_UnitTestCase {
 		add_term_meta( $term1->term_id, 'contributor_prefix', 'Dr.' );
 		add_term_meta( $term1->term_id, 'contributor_suffix', 'PhD' );
 
-
 		add_term_meta( $term2->term_id, 'contributor_first_name', 'Apurva' );
 		add_term_meta( $term2->term_id, 'contributor_last_name', 'Ashook' );
 		add_term_meta( $term2->term_id, 'contributor_prefix', 'Prof.' );
@@ -321,6 +320,74 @@ class ContributorsTest extends \WP_UnitTestCase {
 		$this->assertIsArray( $fields['contributor_first_name'] );
 		$this->assertArrayHasKey( 'contributor_description', $fields );
 		$this->assertArrayHasKey( 'contributor_twitter', $fields );
+	}
+
+	/**
+	 * @group contributors
+	 */
+	public function test_contributorsBackMatterAutoDisplay() {
+
+		$this->taxonomy->registerTaxonomies();
+		$this->_book();
+
+		$book = \Pressbooks\Book::getInstance();
+		$mp = ( new \Pressbooks\Metadata() )->getMetaPost();
+
+		$person1 = $this->contributor->insert( 'Ricardo ScrumDev', $mp->ID, 'pb_authors' );
+		$person2 = $this->contributor->insert( 'Dalcin Dev', $mp->ID, 'pb_authors' );
+		$person3 = $this->contributor->insert( 'Os Editor', $mp->ID, 'pb_editors' );
+
+		// No change
+		$content = 'Hello';
+		$this->assertEquals( 'Hello', $this->contributor->overrideDisplay( $content ) );
+
+		// No change
+		global $post;
+		$args = [
+			'post_title' => 'Test Contributors Page: ' . rand(),
+			'post_type' => 'back-matter',
+			'post_status' => 'publish',
+			'post_content' => 'Not empty',
+		];
+		$pid = $this->factory()->post->create_object( $args );
+		wp_set_object_terms( $pid, 'contributors', 'back-matter-type' );
+		$post = get_post( $pid );
+		$this->assertEquals( 'Not empty', $this->contributor->overrideDisplay( $post->post_content ) );
+
+		// Yes, changed
+		$pid = $this->factory()->post->update_object( $pid, [ 'post_content' => ' &nbsp;    ' ] );
+		$post = get_post( $pid );
+		$content = $this->contributor->overrideDisplay( $post->post_content );
+		$this->assertContains( '<div class="contributors page">', $content );
+		$this->assertNotContains( '<h3 class="about-authors">Reviewers</h3>', $content ); // if no reviewers that should not be printed
+		$this->assertContains( '<h3 class="about-authors">Authors</h3>', $content ); // two authors should be plural
+		$this->assertContains( '<h3 class="about-authors">Editor</h3>', $content ); // one editor should be singular
+	}
+
+	/**
+	 * @group contributors
+	 */
+	public function test_getAllContributors() {
+
+		$this->taxonomy->registerTaxonomies();
+		$this->_book();
+
+		$book = \Pressbooks\Book::getInstance();
+		$mp = ( new \Pressbooks\Metadata() )->getMetaPost();
+
+		$person1 = $this->contributor->insert( 'Ricardo ScrumDev', $mp->ID, 'pb_authors' );
+		$person2 = $this->contributor->insert( 'Dalcin Dev', $mp->ID, 'pb_authors' );
+		$person3 = $this->contributor->insert( 'Os Editor', $mp->ID, 'pb_editors' );
+
+		$contributors = $this->contributor->getAllContributors();
+
+		$this->assertCount( 2, $contributors );
+		$this->assertCount( 1, $contributors['pb_editors']['records'] );
+		$this->assertCount( 2, $contributors['pb_authors']['records'] );
+
+		$this->assertEquals( 'Editor', $contributors['pb_editors']['title'] ); // Singular for one element
+		$this->assertEquals( 'Authors', $contributors['pb_authors']['title'] ); // Plural for two or more
+
 	}
 
 }
