@@ -229,6 +229,12 @@ class Activation {
 				'post_type' => 'back-matter',
 				'menu_order' => 1,
 			],
+			'contributors' => [
+				'post_title' => __( 'Contributors', 'pressbooks' ),
+				'post_name' => 'contributors',
+				'post_type' => 'back-matter',
+				'menu_order' => 2,
+			],
 			// Pages
 			'authors' => [
 				'post_title' => __( 'Authors', 'pressbooks' ),
@@ -332,7 +338,7 @@ class Activation {
 		$appendix = 0;
 		$chapter1 = 0;
 
-		foreach ( $posts as $item ) {
+		foreach ( $posts as $key => $item ) {
 
 			$exists = $wpdb->get_var(
 				$wpdb->prepare(
@@ -377,9 +383,12 @@ class Activation {
 					} elseif ( 'front-matter' === $item['post_type'] ) {
 						// Apply 'introduction' front matter type to 'introduction' post
 						wp_set_object_terms( $newpost, 'introduction', 'front-matter-type' );
-					} elseif ( 'back-matter' === $item['post_type'] ) {
+					} elseif ( 'back-matter' === $item['post_type'] && $key === 'appendix' ) {
 						// Apply 'appendix' front matter type to 'appendix' post
 						wp_set_object_terms( $newpost, 'appendix', 'back-matter-type' );
+					} elseif ( 'back-matter' === $item['post_type'] && $key === 'contributors' ) {
+						// Apply 'contributors' front matter type to 'contributors' post
+						wp_set_object_terms( $newpost, 'contributors', 'back-matter-type' );
 					} elseif ( 'metadata' === $item['post_type'] ) {
 						$metadata_id = $newpost;
 						if ( 0 !== get_current_user_id() ) {
