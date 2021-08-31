@@ -48,6 +48,19 @@ class ContributorsTest extends \WP_UnitTestCase {
 	/**
 	 * @group contributors
 	 */
+	public function test_init() {
+		global $wp_filter;
+
+		Contributors::init();
+
+		$this->assertNotEmpty( $wp_filter[ 'the_content' ] );
+		$this->assertNotEmpty( $wp_filter[ 'handle_bulk_actions-edit-contributor' ] );
+		$this->assertNotEmpty( $wp_filter[ 'bulk_actions-edit-contributor' ] );
+	}
+
+	/**
+	 * @group contributors
+	 */
 	public function test_getContributors() {
 		$this->taxonomy->registerTaxonomies();
 		$post_id = $this->_createChapter();

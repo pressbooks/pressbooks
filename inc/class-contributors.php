@@ -12,6 +12,7 @@ use function Pressbooks\Utility\str_starts_with;
 use Illuminate\Support\Str;
 use Pressbooks\PostType\BackMatter;
 use Pressbooks\Utility\AutoDisplayable;
+use Pressbooks\Utility\Exportable;
 
 /**
  *
@@ -19,6 +20,7 @@ use Pressbooks\Utility\AutoDisplayable;
 class Contributors implements BackMatter {
 
 	use AutoDisplayable;
+	use Exportable;
 
 	const TAXONOMY = 'contributor';
 
@@ -59,7 +61,7 @@ class Contributors implements BackMatter {
 	 *
 	 * @return Contributors
 	 */
-	static public function init() {
+	public static function init() {
 		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
 			self::hooks( self::$instance );
@@ -71,8 +73,10 @@ class Contributors implements BackMatter {
 	/**
 	 * @param Contributors $obj
 	 */
-	static public function hooks( Contributors $obj ) {
+	public static function hooks( Contributors $obj ) {
 		add_filter( 'the_content', [ $obj, 'overrideDisplay' ], 13 ); // Run after wpautop to avoid unwanted breaklines.
+
+		$obj->bootExportable( $obj );
 	}
 
 	/**
@@ -362,6 +366,16 @@ class Contributors implements BackMatter {
 		return array_key_exists( self::TAXONOMY . '_' . $field, $allowed_fields ) ?
 			$allowed_fields[ self::TAXONOMY . '_' . $field ] :
 			$allowed_fields;
+	}
+
+	/**
+	 * Get the list of fields that should be exported.
+	 *
+	 * @return array
+	 */
+	public function getExportableFields()
+	{
+		return array_keys( self::getContributorFields() );
 	}
 
 	/**
