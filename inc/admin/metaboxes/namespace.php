@@ -1273,12 +1273,20 @@ function contributor_edit_form( $term ) {
 						<td>
 							<?php if ( $value ) : ?>
 								<img src="<?php echo $value; ?>" id="<?php echo $meta_tags['tag']; ?>-thumbnail" width="120" /> <br />
+							<?php else : ?>
+								<img style="display: none" id="<?php echo $meta_tags['tag']; ?>-thumbnail" width="120" />
 							<?php endif; ?>
+							<br />
 							<button name="dispatch-media-picture" id="btn-media">Upload Picture</button>
 							<p class="description">
 								<?php echo __( 'Images should be square and at least 400px wide. Very large images will be resized upon upload.', 'pressbooks' ); ?>
 							</p>
-							<input type="hidden" name="<?php echo $term; ?>" id="<?php echo $meta_tags['tag']; ?>">
+							<input
+								type="hidden"
+								name="<?php echo $term; ?>"
+								id="<?php echo $meta_tags['tag']; ?>"
+								value="<?php echo $value ? $value : ''; ?>"
+							>
 						</td>
 					</tr>
 							<?php
@@ -1353,10 +1361,10 @@ function contributor_custom_columns( $string, $columns, $term_id ) {
 			echo esc_html( get_term_meta( $term_id, Contributors::TAXONOMY . '_institution', true ) );
 			break;
 		case Contributors::TAXONOMY . '_description':
-			$description = wp_filter_nohtml_kses ( get_term_meta( $term_id, Contributors::TAXONOMY . '_description', true ) );
-			$limit_characters = 180;
-			echo strlen( $description ) > $limit_characters ?
-					substr( $description, 0, $limit_characters ) . ' ...' :
+			$description = wp_filter_nohtml_kses( get_term_meta( $term_id, Contributors::TAXONOMY . '_description', true ) );
+			$limit_description_characters = 180;
+			echo strlen( $description ) > $limit_description_characters ?
+					substr( $description, 0, $limit_description_characters ) . '...' :
 					$description;
 			break;
 		case Contributors::TAXONOMY . '_picture':
@@ -1373,12 +1381,12 @@ function contributor_custom_columns( $string, $columns, $term_id ) {
  * @param $columns
  * @return array
  */
-function contributor_table_columns( $columns) {
+function contributor_table_columns( $columns ) {
 	$new_columns = [
-		Contributors::TAXONOMY . '_picture' => Contributors::getContributorFields('picture')['label'],
-		'name' => __('Name', 'pressbooks'),
-		Contributors::TAXONOMY . '_institution' => Contributors::getContributorFields('institution')['label'],
-		Contributors::TAXONOMY . '_description' => Contributors::getContributorFields('description')['label'],
+		Contributors::TAXONOMY . '_picture' => Contributors::getContributorFields( 'picture' )['label'],
+		'name' => __( 'Name', 'pressbooks' ),
+		Contributors::TAXONOMY . '_institution' => Contributors::getContributorFields( 'institution' )['label'],
+		Contributors::TAXONOMY . '_description' => Contributors::getContributorFields( 'description' )['label'],
 	];
 	return $new_columns;
 }

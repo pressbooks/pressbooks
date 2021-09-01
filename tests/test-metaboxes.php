@@ -296,4 +296,33 @@ class MetaboxesTest extends \WP_UnitTestCase {
 		$this->assertContains( '<label for="contributor-first-name">', $buffer );
 	}
 
+	/**
+	 * @group metaboxes
+	 */
+	public function test_contributor_editor_settings() {
+		$editor_settings = \Pressbooks\Admin\Metaboxes\get_editor_settings();
+		$this->assertContains( \Pressbooks\Contributors::TAXONOMY . '_description', $editor_settings['textarea_name'] );
+		$this->assertContains( 'bold,italic,|,link,unlink,|,undo,redo', $editor_settings['tinymce']['toolbar1'] );
+	}
+
+	/**
+	 * @group metaboxes
+	 */
+	public function test_contributor_table_columns() {
+		$contributor_columns = \Pressbooks\Admin\Metaboxes\contributor_table_columns( [] );
+		$this->assertArrayHasKey( \Pressbooks\Contributors::TAXONOMY . '_description', $contributor_columns );
+		$this->assertArrayHasKey( \Pressbooks\Contributors::TAXONOMY . '_institution', $contributor_columns );
+		$this->assertArrayHasKey( \Pressbooks\Contributors::TAXONOMY . '_picture', $contributor_columns );
+	}
+
+	/**
+	 * @group metaboxes
+	 */
+	public function test_contributor_sortable_columns() {
+		$contributor_sortable_columns = \Pressbooks\Admin\Metaboxes\contributor_sortable_columns( [] );
+		$this->assertArrayHasKey( \Pressbooks\Contributors::TAXONOMY . '_description', $contributor_sortable_columns );
+		$this->assertArrayHasKey( \Pressbooks\Contributors::TAXONOMY . '_institution', $contributor_sortable_columns );
+		$this->assertArrayHasKey( 'name', $contributor_sortable_columns );
+	}
+
 }
