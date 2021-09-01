@@ -179,7 +179,13 @@ class Taxonomy {
 				'show_in_rest' => true,
 			]
 		);
-		$this->insertTerms();
+		if ( ! get_term_by( 'slug', 'contributors', 'back-matter-type' ) ) {
+			wp_insert_term(
+				'Contributors', 'back-matter-type', [
+					'slug' => 'contributors',
+				]
+			);
+		}
 	}
 
 	/**
