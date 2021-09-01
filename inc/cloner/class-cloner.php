@@ -1108,6 +1108,7 @@ class Cloner {
 				'main-body',
 				'chapter-1',
 				'appendix',
+				'contributors',
 			] as $post
 		) {
 			unset( $contents[ $post ] );
