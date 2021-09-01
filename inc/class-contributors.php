@@ -600,4 +600,9 @@ class Contributors implements BackMatter {
 		);
 
 	}
+
+	public static function changeContributorName( \WP_Roles $roles ) {
+		$roles->roles['contributor']['name'] = 'Collaborator';
+		$roles->role_names['contributor'] = 'Collaborator';
+	}
 }

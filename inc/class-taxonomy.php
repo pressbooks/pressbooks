@@ -179,6 +179,7 @@ class Taxonomy {
 				'show_in_rest' => true,
 			]
 		);
+		$this->insertTerms();
 	}
 
 	/**
@@ -357,6 +358,11 @@ class Taxonomy {
 			]
 		);
 		wp_insert_term(
+			'Contributors', 'back-matter-type', [
+				'slug' => 'contributors',
+			]
+		);
+		wp_insert_term(
 			'Credits', 'back-matter-type', [
 				'slug' => 'credits',
 			]
@@ -419,11 +425,6 @@ class Taxonomy {
 		wp_insert_term(
 			'Suggested Reading', 'back-matter-type', [
 				'slug' => 'suggested-reading',
-			]
-		);
-		wp_insert_term(
-			'Contributors', 'back-matter-type', [
-				'slug' => 'contributors',
 			]
 		);
 

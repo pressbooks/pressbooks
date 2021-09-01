@@ -390,4 +390,14 @@ class ContributorsTest extends \WP_UnitTestCase {
 
 	}
 
+	public function test_contributorRoleNameChange() {
+		$current_roles = new WP_Roles();
+
+		$this->assertEquals( 'Contributor', $current_roles->roles['contributor']['name'] );
+
+		Contributors::changeContributorName( $current_roles );
+
+		$this->assertEquals( 'Collaborator', $current_roles->roles['contributor']['name'] );
+	}
+
 }
