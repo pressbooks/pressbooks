@@ -9,7 +9,7 @@ namespace Pressbooks\Utility;
 use function Pressbooks\Redirect\force_download;
 
 /**
- * This trait is used to allow exporting taxonomies.
+ * This trait allows exporting taxonomies.
  */
 trait Exportable {
 	/**
@@ -58,7 +58,7 @@ trait Exportable {
 	 * @return void
 	 */
 	public function exportCsv( $ids ) {
-		$items = $this->getExportableContent( $ids );
+		$items = $this->getExportableItems( $ids );
 
 		if ( empty( $items ) ) {
 			return;
@@ -66,7 +66,7 @@ trait Exportable {
 
 		$content = $this->generateCsvContent( $items );
 
-		$this->downloadContent( $content );
+		$this->downloadCsv( $content );
 	}
 
 	/**
@@ -75,11 +75,11 @@ trait Exportable {
 	 * @param $ids
 	 * @return array
 	 */
-	public function getExportableContent( $ids ) {
+	public function getExportableItems( $ids ) {
 		$items = [];
 		$fields = $this->getExportableFields();
 
-		foreach ($ids as $id) {
+		foreach ( $ids as $id ) {
 			$term = get_term( $id, self::TAXONOMY );
 			$term_meta = get_term_meta( $term->term_id );
 
@@ -88,7 +88,7 @@ trait Exportable {
 				'slug' => $term->slug,
 			];
 
-			foreach( $fields as $field ) {
+			foreach ( $fields as $field ) {
 				$value = $term_meta[ $field ] ?? [];
 
 				$item[ str_replace( self::TAXONOMY . '_', '', $field ) ] = $value[0] ?? '';
@@ -113,7 +113,7 @@ trait Exportable {
 
 		fputcsv( $df, array_keys( $items[0] ) );
 
-		foreach ($items as $row) {
+		foreach ( $items as $row ) {
 			fputcsv( $df, $row );
 		}
 
@@ -123,11 +123,12 @@ trait Exportable {
 	}
 
 	/**
+	 * Download the content as a CSV file.
+	 *
 	 * @param string $content
 	 * @return void
 	 */
-	public function downloadContent( $content )
-	{
+	public function downloadCsv( $content ) {
 		$filename = self::TAXONOMY . '-list-' . time() . '.csv';
 
 		$file = create_tmp_file();

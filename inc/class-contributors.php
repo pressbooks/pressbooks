@@ -373,8 +373,7 @@ class Contributors implements BackMatter {
 	 *
 	 * @return array
 	 */
-	public function getExportableFields()
-	{
+	public function getExportableFields() {
 		return array_keys( self::getContributorFields() );
 	}
 
