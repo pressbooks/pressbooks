@@ -34,7 +34,8 @@ if ( isset( $ebook_options['ebook_start_point'] ) && ! empty( $ebook_options['eb
 	 *
 	 * @since 5.4.0
 	 */
-	if ( apply_filters( 'pb_permissive_webbooks', true ) && $can_manage_options ) : ?>
+	if ( apply_filters( 'pb_permissive_webbooks', true ) && $can_manage_options ) :
+		?>
 	<div id="publicize-panel" class="postbox">
 		<div class="inside">
 			<?php if ( $book_is_public ) { ?>
@@ -44,7 +45,12 @@ if ( isset( $ebook_options['ebook_start_point'] ) && ! empty( $ebook_options['eb
 			<?php } ?>
 			<div class="publicize-form">
 				<label for="blog-public"><input type="radio" <?php checked( $book_is_public, 1 ); ?> value="1" name="blog_public" id="blog-public"><span class="public"><?php _e( 'Public', 'pressbooks' ); ?></span> &mdash;
-					<?php _e( 'Promote your book, set individual chapters privacy below.', 'pressbooks' ); ?>
+					<?php
+					/* translators: %s: URL to Pressbooks Directory */
+					printf( __( 'Anyone with the link can see your book. Public books are eligible to be listed in <a href="%s">Pressbooks Directory</a>. Individual chapters can be set to private.', 'pressbooks' ),
+						esc_url( 'https://pressbooks.directory' )
+					);
+					?>
 				</label>
 				<label for="blog-private"><input type="radio" <?php checked( $book_is_public, 0 ); ?> value="0" name="blog_public" id="blog-private"><span class="private"><?php _e( 'Private', 'pressbooks' ); ?></span> &mdash;
 					<?php _e( 'Only users you invite can see your book, regardless of individual chapter visibility below.', 'pressbooks' ); ?>
@@ -95,14 +101,14 @@ if ( isset( $ebook_options['ebook_start_point'] ) && ! empty( $ebook_options['eb
 		$name = $type['name'];
 		 // Chapters have to be handled differently.
 		if ( 'chapter' === $slug ) :
-		?>
+			?>
 			<?php
 			$parts = count( $book_structure['part'] );
 			$p = 1;
 			foreach ( $book_structure['part'] as $part ) :
 				$can_edit = current_user_can( 'edit_post', $part['ID'] );
 				$can_delete = current_user_can( 'delete_post', $part['ID'] );
-			?>
+				?>
 				<table id="part_<?php echo $part['ID']; ?>" class="wp-list-table widefat fixed striped chapters">
 					<thead>
 						<tr>
@@ -123,7 +129,7 @@ if ( isset( $ebook_options['ebook_start_point'] ) && ! empty( $ebook_options['eb
 							<th tabindex='0'><?php _e( 'Authors', 'pressbooks' ); ?></th>
 							<?php
 							if ( false === $disable_comments ) :
-							?>
+								?>
 								<th><?php _e( 'Comments', 'pressbooks' ); ?></th>
 							<?php endif; ?>
 							<th>
@@ -155,20 +161,20 @@ if ( isset( $ebook_options['ebook_start_point'] ) && ! empty( $ebook_options['eb
 					<?php if ( count( $part['chapters'] ) > 0 ) : ?>
 
 					<tbody id="the-list-<?php echo $part['ID']; ?>">
-					<?php
-					$chapters = count( $part['chapters'] );
-					$c = 1; // Start the chapter counter
-					foreach ( $part['chapters'] as $content ) :
-						$can_edit = current_user_can( 'edit_post', $content['ID'] );
-						$can_publish = current_user_can( 'publish_post', $content['ID'] );
-						$can_delete = current_user_can( 'delete_post', $content['ID'] );
-						?>
+						<?php
+						$chapters = count( $part['chapters'] );
+						$c = 1; // Start the chapter counter
+						foreach ( $part['chapters'] as $content ) :
+							$can_edit = current_user_can( 'edit_post', $content['ID'] );
+							$can_publish = current_user_can( 'publish_post', $content['ID'] );
+							$can_delete = current_user_can( 'delete_post', $content['ID'] );
+							?>
 						<tr id="chapter_<?php echo $content['ID']; ?>">
 							<td class="title column-title has-row-actions">
 								<div class="row-title">
 								<?php if ( $can_edit ) { ?>
 									<a href="<?php echo admin_url( 'post.php?post=' . $content['ID'] . '&action=edit' ); ?>"><?php echo $content['post_title']; ?>
-								<?php if ( $start_point === $content['ID'] ) { ?>
+									<?php if ( $start_point === $content['ID'] ) { ?>
 									<span class="ebook-start-point" title="<?php _e( 'Ebook start point', 'pressbooks' ); ?>">&#9733;</span>
 								<?php } ?></a>
 								<?php } else { ?>
@@ -187,22 +193,22 @@ if ( isset( $ebook_options['ebook_start_point'] ) && ! empty( $ebook_options['eb
 									<?php
 									if ( $can_edit_others_posts ) :
 										if ( $c > 1 || ( $p > 1 && $parts > 1 ) || $c < $chapters || $p < $parts ) :
-?>
+											?>
 <span class="reorder"><?php endif; ?>
-								<?php if ( $c > 1 || ( $p > 1 && $parts > 1 ) ) : ?>
+										<?php if ( $c > 1 || ( $p > 1 && $parts > 1 ) ) : ?>
  | <button class="move-up"><?php _e( 'Move Up', 'pressbooks' ); ?></button>
 									<?php endif; ?>
-									<?php if ( $c < $chapters || $p < $parts ) : ?>
+										<?php if ( $c < $chapters || $p < $parts ) : ?>
  | <button class="move-down"><?php _e( 'Move Down', 'pressbooks' ); ?></button>
 									<?php endif; ?>
-								<?php
-								if ( $c > 1 || ( $p > 1 && $parts > 1 ) || $c < $chapters || $p < $parts ) :
-?>
+										<?php
+										if ( $c > 1 || ( $p > 1 && $parts > 1 ) || $c < $chapters || $p < $parts ) :
+											?>
 </span>
-<?php
+											<?php
 endif;
-endif;
-?>
+	endif;
+									?>
 								</div>
 								</div>
 							</td>
@@ -219,7 +225,7 @@ endif;
 							</td>
 							<?php
 							if ( false === $disable_comments ) :
-							?>
+								?>
 							<td class="comments column-comments">
 								<a class="post-comment-count" href="<?php echo admin_url( 'edit-comments.php?p=' . $content['ID'] ); ?>">
 									<span class="comment-count"><?php echo $content['comment_count']; ?></span>
@@ -245,10 +251,10 @@ endif;
 								<label for="show_title_<?php echo $content['ID']; ?>"><?php _e( 'Show Title', 'pressbooks' ); ?></label>
 							</td>
 						</tr>
-					<?php
-					$c++;
+							<?php
+							$c++;
 					endforeach;
-					?>
+						?>
 					</tbody>
 					<?php endif; ?>
 					<tfoot>
@@ -257,7 +263,7 @@ endif;
 							<th>&nbsp;</th>
 							<?php
 							if ( false === $disable_comments ) :
-?>
+								?>
 <th>&nbsp;</th><?php endif; ?>
 							<th>&nbsp;</th>
 							<th>&nbsp;</th>
@@ -269,8 +275,8 @@ endif;
 						</tr>
 					</tfoot>
 				</table>
-			<?php
-			$p++;
+				<?php
+				$p++;
 			endforeach;
 			?>
 			<?php if ( current_user_can( 'edit_posts' ) ) : ?>
@@ -320,13 +326,13 @@ endif;
 				$can_edit = current_user_can( 'edit_post', $content['ID'] );
 				$can_publish = current_user_can( 'publish_post', $content['ID'] );
 				$can_delete = current_user_can( 'delete_post', $content['ID'] );
-			?>
+				?>
 				<tr id="<?php echo $slug; ?>_<?php echo $content['ID']; ?>">
 					<td class="title column-title has-row-actions">
 					<div class="row-title">
 								<?php if ( $can_edit ) { ?>
 									<a href="<?php echo admin_url( 'post.php?post=' . $content['ID'] . '&action=edit' ); ?>"><?php echo $content['post_title']; ?>
-								<?php if ( $start_point === $content['ID'] ) { ?>
+									<?php if ( $start_point === $content['ID'] ) { ?>
 									<span class="ebook-start-point" title="<?php _e( 'Ebook start point', 'pressbooks' ); ?>">&#9733;</span>
 								<?php } ?></a>
 								<?php } else { ?>
@@ -356,12 +362,12 @@ endif;
 										<?php endif; ?>
 										<?php
 										if ( $s > 1 || $s < $sections ) :
-			?>
+											?>
 			</span>
-			<?php
+											<?php
 			endif;
 endif;
-?>
+									?>
 								</div>
 								</div>
 					</td>
@@ -378,7 +384,7 @@ endif;
 					</td>
 					<?php
 					if ( false === $disable_comments ) :
-?>
+						?>
 <td class="comments column-comments">
 						<a class="post-comment-count" href="<?php echo admin_url( 'edit-comments.php?p=' . $content['ID'] ); ?>">
 							<span class="comment-count"><?php echo $content['comment_count']; ?></span>
@@ -403,8 +409,8 @@ endif;
 						<label for="show_title_<?php echo $content['ID']; ?>"><?php _e( 'Show Title', 'pressbooks' ); ?></label>
 					</td>
 				</tr>
-			<?php
-			$s++;
+				<?php
+				$s++;
 			endforeach;
 			?>
 			</tbody>
@@ -414,7 +420,7 @@ endif;
 					<th>&nbsp;</th>
 					<?php
 					if ( false === $disable_comments ) :
-?>
+						?>
 <th>&nbsp;</th><?php endif; ?>
 					<th>&nbsp;</th>
 					<th>&nbsp;</th>
