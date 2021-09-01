@@ -51,7 +51,7 @@ class ContributorsTest extends \WP_UnitTestCase {
 	public function test_init() {
 		global $wp_filter;
 
-		Contributors::init();
+		\Pressbooks\Contributors::init();
 
 		$this->assertNotEmpty( $wp_filter[ 'the_content' ] );
 		$this->assertNotEmpty( $wp_filter[ 'handle_bulk_actions-edit-contributor' ] );
@@ -403,4 +403,72 @@ class ContributorsTest extends \WP_UnitTestCase {
 
 	}
 
+	/**
+	 * @group contributors
+	 */
+	public function test_addBulkAction() {
+		$actions = $this->contributor->addBulkAction( [] );
+
+		$this->assertNotEmpty( $actions );
+		$this->assertArrayHasKey( 'download-csv', $actions );
+	}
+
+	/**
+	 * @group contributors
+	 */
+	public function test_getExportableFields() {
+		$this->assertEquals(
+			array_keys(\Pressbooks\Contributors::getContributorFields() ),
+			$this->contributor->getExportableFields()
+		);
+	}
+
+	/**
+	 * @group contributors
+	 */
+	public function test_downloadContributors() {
+		$this->taxonomy->registerTaxonomies();
+
+		$taxonomy = \Pressbooks\Contributors::TAXONOMY;
+
+		$user_id = $this->factory()->user->create(
+			[
+				'role' => 'contributor',
+				'first_name' => 'John',
+				'last_name' => 'Doe',
+				'slug' => 'johndoe',
+			]
+		);
+
+		$contributor = $this->contributor->addBlogUser( $user_id );
+
+		add_term_meta( $contributor['term_id'], $taxonomy . '_prefix', 'Dr.' );
+		add_term_meta( $contributor['term_id'], $taxonomy . '_first_name', 'John' );
+		add_term_meta( $contributor['term_id'], $taxonomy . '_last_name', 'Doe' );
+		add_term_meta( $contributor['term_id'], $taxonomy . '_description', 'John\'s biographical info' );
+		add_term_meta( $contributor['term_id'], $taxonomy . '_institution', 'Rebus Foundation' );
+		add_term_meta( $contributor['term_id'], $taxonomy . '_user_url', 'https://someurl.com' );
+		add_term_meta( $contributor['term_id'], $taxonomy . '_twitter', 'https://twitter.com/johndoe' );
+		add_term_meta( $contributor['term_id'], $taxonomy . '_linkedin', 'https://linkedin.com/in/johndoe' );
+		add_term_meta( $contributor['term_id'], $taxonomy . '_github', 'https://github.com/johndoe' );
+
+		$items = $this->contributor->getExportableItems( [ $contributor['term_id'] ] );
+
+		$this->assertIsArray( $items );
+
+		$this->assertEquals( 'Dr.', $items[0]['prefix'] );
+		$this->assertEquals( 'John', $items[0]['first_name'] );
+		$this->assertEquals( 'Doe', $items[0]['last_name'] );
+		$this->assertEquals( '', $items[0]['suffix'] );
+		$this->assertEquals( 'John\'s biographical info', $items[0]['description'] );
+		$this->assertEquals( 'Rebus Foundation', $items[0]['institution'] );
+		$this->assertEquals( 'https://someurl.com', $items[0]['user_url'] );
+		$this->assertEquals( 'https://twitter.com/johndoe', $items[0]['twitter'] );
+		$this->assertEquals( 'https://linkedin.com/in/johndoe', $items[0]['linkedin'] );
+		$this->assertEquals( 'https://github.com/johndoe', $items[0]['github'] );
+
+		$csv = $this->contributor->generateCsvContent( $items );
+
+		$this->assertContains( 'Dr.,John,Doe,,,"John\'s biographical info","Rebus Foundation",https://someurl.com,https://twitter.com/johndoe,https://linkedin.com/in/johndoe,https://github.com/johndoe', $csv);
+	}
 }
