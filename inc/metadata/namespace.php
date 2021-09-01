@@ -2,6 +2,7 @@
 
 namespace Pressbooks\Metadata;
 
+use Pressbooks\Contributors;
 use function Pressbooks\Utility\apply_https_if_available;
 use function \Pressbooks\L10n\get_book_language;
 use function \Pressbooks\L10n\get_locale;
@@ -1014,6 +1015,35 @@ function register_contributor_meta() {
 			}
 		}
 	);
+}
+
+/**
+ * Apply custom sorting for Contributors list table.
+ *
+ * @param $pieces
+ * @param $taxonomies
+ * @param $args
+ * @return array
+ */
+function contributor_meta_custom_sort( $pieces, $taxonomies, $args ) {
+	$order_field_allowed = [
+		'contributor_description',
+		'contributor_institution',
+	];
+	global $pagenow;
+	if (
+		$pagenow === 'edit-tags.php' &&
+		isset( $args['taxonomy'] ) &&
+		isset( $args['orderby'] ) &&
+		in_array( Contributors::TAXONOMY, $args['taxonomy'] ) &&
+		in_array( $args['orderby'], $order_field_allowed, true )
+	) {
+		global $wpdb;
+		$pieces[ 'join' ] .= ' INNER JOIN ' . $wpdb->termmeta . ' AS tm ON t.term_id = tm.term_id ';
+		$pieces[ 'orderby' ]  = ' ORDER BY tm.meta_value ';
+		$pieces[ 'where' ] .= ' AND tm.meta_key = "' . $args['orderby'] . '"';
+	}
+	return $pieces;
 }
 
 /**

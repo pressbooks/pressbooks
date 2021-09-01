@@ -179,8 +179,12 @@ if ( $is_book ) {
 	add_action( 'contributor_edit_form', '\Pressbooks\Admin\Metaboxes\a11y_contributor_tweaks' );
 	add_action( 'contributor_pre_edit_form', '\Pressbooks\Admin\Metaboxes\contributor_add_form_picture' );
 	add_action( 'after-contributor-table', '\Pressbooks\Admin\Metaboxes\a11y_contributor_tweaks' );
+	add_action( 'manage_contributor_custom_column', '\Pressbooks\Admin\Metaboxes\contributor_custom_columns', 10, 3 );
+	add_action( 'manage_edit-contributor_columns', '\Pressbooks\Admin\Metaboxes\contributor_table_columns' );
+	add_action( 'manage_edit-contributor_sortable_columns', '\Pressbooks\Admin\Metaboxes\contributor_sortable_columns' );
 	add_action( 'save_post', '\Pressbooks\Admin\Metaboxes\publish_fields_save', 10, 3 );
 	add_action( 'init', '\Pressbooks\Metadata\register_contributor_meta' );
+	add_action( 'terms_clauses', '\Pressbooks\Metadata\contributor_meta_custom_sort', 10, 3 );
 	add_action( 'create_term', '\Pressbooks\Admin\Metaboxes\save_contributor_meta', 10, 3 );
 	add_action( 'edit_term', '\Pressbooks\Admin\Metaboxes\save_contributor_meta', 10, 3 );
 	add_action( 'added_post_meta', '\Pressbooks\Admin\Metaboxes\title_update', 10, 4 );

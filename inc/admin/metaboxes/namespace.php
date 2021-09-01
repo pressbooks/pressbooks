@@ -1341,6 +1341,64 @@ function save_contributor_meta( $term_id, $tt_id, $taxonomy ) {
 }
 
 /**
+ * Get and display custom columns in the Contributors list
+ *
+ * @param $string
+ * @param $columns
+ * @param $term_id
+ */
+function contributor_custom_columns( $string, $columns, $term_id ) {
+	switch ( $columns ) {
+		case Contributors::TAXONOMY . '_institution':
+			echo esc_html( get_term_meta( $term_id, Contributors::TAXONOMY . '_institution', true ) );
+			break;
+		case Contributors::TAXONOMY . '_description':
+			$description = wp_filter_nohtml_kses ( get_term_meta( $term_id, Contributors::TAXONOMY . '_description', true ) );
+			$limit_characters = 180;
+			echo strlen( $description ) > $limit_characters ?
+					substr( $description, 0, $limit_characters ) . ' ...' :
+					$description;
+			break;
+		case Contributors::TAXONOMY . '_picture':
+			echo '<img src=\'' .
+				esc_html( get_term_meta( $term_id, Contributors::TAXONOMY . '_picture', true ) ) .
+				'\' width=\'100\' />';
+			break;
+	}
+}
+
+/**
+ * Add custom columns to the Contributors list
+ *
+ * @param $columns
+ * @return array
+ */
+function contributor_table_columns( $columns) {
+	$new_columns = [
+		Contributors::TAXONOMY . '_picture' => Contributors::getContributorFields('picture')['label'],
+		'name' => __('Name', 'pressbooks'),
+		Contributors::TAXONOMY . '_institution' => Contributors::getContributorFields('institution')['label'],
+		Contributors::TAXONOMY . '_description' => Contributors::getContributorFields('description')['label'],
+	];
+	return $new_columns;
+}
+
+/**
+ * Specify sortable columns in the Contributors list
+ *
+ * @param $columns
+ * @return string[]
+ */
+function contributor_sortable_columns( $columns ) {
+	$columns = [
+		'name' => 'name',
+		'contributor_institution' => 'contributor_institution',
+		'contributor_description' => 'contributor_description',
+	];
+	return $columns;
+}
+
+/**
  * @see https://core.trac.wordpress.org/ticket/47018
  */
 function a11y_contributor_tweaks() {
