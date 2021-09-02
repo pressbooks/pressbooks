@@ -325,4 +325,60 @@ class MetaboxesTest extends \WP_UnitTestCase {
 		$this->assertArrayHasKey( 'name', $contributor_sortable_columns );
 	}
 
+	/**
+	 * @group metaboxes
+	 */
+	public function test_contributor_custom_columns() {
+		$contributor = new \Pressbooks\Contributors();
+		$taxonomy = new \Pressbooks\Taxonomy(
+			$this->getMockBuilder( '\Pressbooks\Licensing' )->getMock(),
+			$contributor
+		);
+		$taxonomy->registerTaxonomies();
+		$post_id = $this->_createChapter();
+
+		$person = $contributor->insert( 'Pat Metheny', $post_id, 'contributors' );
+
+		$term = get_term_by( 'term_id', $person['term_id'], 'contributor' );
+		add_term_meta( $term->term_id,
+			\Pressbooks\Contributors::TAXONOMY . '_description',
+			'<strong>I am a description</strong>'
+		);
+		add_term_meta( $term->term_id,
+			\Pressbooks\Contributors::TAXONOMY . '_institution',
+			'Pressbooks University'
+		);
+		add_term_meta( $term->term_id,
+			\Pressbooks\Contributors::TAXONOMY . '_picture',
+			'Sorry, there is not picture! :/'
+		);
+		ob_start();
+		\Pressbooks\Admin\Metaboxes\contributor_custom_columns(
+			'',
+			\Pressbooks\Contributors::TAXONOMY . '_description',
+			$term->term_id
+		);
+		$buffer = ob_get_clean();
+		$this->assertContains( 'I am a description', $buffer );
+		$this->assertNotContains( 'strong', $buffer );
+
+		ob_start();
+		\Pressbooks\Admin\Metaboxes\contributor_custom_columns(
+			'',
+			\Pressbooks\Contributors::TAXONOMY . '_institution',
+			$term->term_id
+		);
+		$buffer = ob_get_clean();
+		$this->assertContains( 'Pressbooks University', $buffer );
+
+		ob_start();
+		\Pressbooks\Admin\Metaboxes\contributor_custom_columns(
+			'',
+			\Pressbooks\Contributors::TAXONOMY . '_picture',
+			$term->term_id
+		);
+		$buffer = ob_get_clean();
+		$this->assertContains( 'Sorry, there is not picture! :/', $buffer );
+	}
+
 }
