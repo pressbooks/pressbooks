@@ -1223,7 +1223,7 @@ function contributor_add_form() {
 					<button name="dispatch-media-picture" id="btn-media">Upload Picture</button>
 					<input type="hidden" name="<?php echo $term; ?>" id="<?php echo $meta_tags['tag']; ?>">
 					<p>
-						<?php echo __( 'Images should be square and at least 400px wide. Very large images will be resized upon upload.', 'pressbooks' ); ?>
+						<?php echo __( 'Images should be square (400px x 400px). You will be allowed to crop images after upload. The maximum file size permitted is 1 MB.', 'pressbooks' ); ?>
 					</p>
 				</div>
 				<?php
@@ -1276,7 +1276,7 @@ function contributor_edit_form( $term ) {
 							<?php endif; ?>
 							<button name="dispatch-media-picture" id="btn-media">Upload Picture</button>
 							<p class="description">
-								<?php echo __( 'Images should be square and at least 400px wide. Very large images will be resized upon upload.', 'pressbooks' ); ?>
+								<?php echo __( 'Images should be square (400px x 400px). You will be allowed to crop images after upload. The maximum file size permitted is 1 MB.', 'pressbooks' ); ?>
 							</p>
 							<input type="hidden" name="<?php echo $term; ?>" id="<?php echo $meta_tags['tag']; ?>">
 						</td>
@@ -1338,6 +1338,26 @@ function save_contributor_meta( $term_id, $tt_id, $taxonomy ) {
 		}
 		$value ? update_term_meta( $term_id, $term, $value ) : delete_term_meta( $term_id, $term );
 	}
+}
+
+function validate_contributor_picture_size( $file ) {
+	$min_width_height = 400;
+	$image = getimagesize( $file['tmp_name'] );
+	$image_width = $image[0];
+	$image_height = $image[1];
+
+	if ( $image_width < $min_width_height || $image_height < $min_width_height ) {
+		$too_small_txt = __( 'Your image is too small. The image must be %1$d by %2$d pixels. Your image is %3$d by %4$d pixels.', 'pressbooks' );
+		$file['error'] = sprintf(
+			$too_small_txt,
+			$min_width_height,
+			$min_width_height,
+			$image_width,
+			$image_height
+		);
+	}
+
+	return $file;
 }
 
 /**

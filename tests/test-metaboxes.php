@@ -296,4 +296,20 @@ class MetaboxesTest extends \WP_UnitTestCase {
 		$this->assertContains( '<label for="contributor-first-name">', $buffer );
 	}
 
+	/**
+	 * @group metaboxes
+	 */
+	public function test_validate_contributor_picture_size() {
+		$file = [ 'tmp_name' => __DIR__ . '/data/pb.png' ];
+		$validation = \Pressbooks\Admin\Metaboxes\validate_contributor_picture_size( $file );
+		$this->assertArrayHasKey( 'tmp_name', $validation );
+		$this->assertFalse( array_key_exists( 'error', $validation ) );
+
+		$file = [ 'tmp_name' => __DIR__ . '/data/mountains-300x225.jpg' ];
+		$validation = \Pressbooks\Admin\Metaboxes\validate_contributor_picture_size( $file );
+		$this->assertArrayHasKey( 'tmp_name', $validation );
+		$this->assertArrayHasKey( 'error', $validation );
+		$this->assertContains( 'Your image is too small.', $validation['error'] );
+	}
+
 }
