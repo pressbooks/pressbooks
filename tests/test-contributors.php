@@ -410,7 +410,7 @@ class ContributorsTest extends \WP_UnitTestCase {
 		$actions = $this->contributor->addBulkAction( [] );
 
 		$this->assertNotEmpty( $actions );
-		$this->assertArrayHasKey( 'download-csv', $actions );
+		$this->assertArrayHasKey( 'contributor-download', $actions );
 	}
 
 	/**

@@ -12,23 +12,22 @@ use function Pressbooks\Utility\str_starts_with;
 use Illuminate\Support\Str;
 use Pressbooks\PostType\BackMatter;
 use Pressbooks\Utility\AutoDisplayable;
-use Pressbooks\Utility\Exportable;
+use Pressbooks\Utility\HandlesTransfers;
 
 /**
  *
  */
-class Contributors implements BackMatter {
+class Contributors implements BackMatter, Transferable {
 
 	use AutoDisplayable;
-	use Exportable;
+	use HandlesTransfers;
 
-	const TAXONOMY = 'contributor';
+	public const TAXONOMY = 'contributor';
 
 	/**
 	 * @var Contributors
 	 */
 	static $instance = null;
-
 
 	/**
 	 * Valid contributor slugs ordered by preference
@@ -373,8 +372,23 @@ class Contributors implements BackMatter {
 	 *
 	 * @return array
 	 */
-	public function getExportableFields() {
+	public function getTransferableFields() {
 		return array_keys( self::getContributorFields() );
+	}
+
+	/**
+	 * Returns the form title and the hint for the file input.
+	 *
+	 * @return array
+	 */
+	public function getFormMessages() {
+		$guide_chapter = esc_url( 'https://networkmanagerguide.pressbooks.com/' );
+		$hint = __( '<p>Import multiple contributors at once by uploading a valid CSV file. See <a href="%s" target="_blank">our guide</a> for details.</p>', 'pressbooks' );
+
+		return [
+			'title' => __( 'Import Contributors', 'pressbooks' ),
+			'hint' => sprintf( $hint, $guide_chapter ),
+		];
 	}
 
 	/**
