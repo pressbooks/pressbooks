@@ -416,10 +416,10 @@ class ContributorsTest extends \WP_UnitTestCase {
 	/**
 	 * @group contributors
 	 */
-	public function test_getExportableFields() {
+	public function test_getTransferableFields() {
 		$this->assertEquals(
 			array_keys(\Pressbooks\Contributors::getContributorFields() ),
-			$this->contributor->getExportableFields()
+			$this->contributor->getTransferableFields()
 		);
 	}
 
@@ -456,16 +456,16 @@ class ContributorsTest extends \WP_UnitTestCase {
 
 		$this->assertIsArray( $items );
 
-		$this->assertEquals( 'Dr.', $items[0]['prefix'] );
-		$this->assertEquals( 'John', $items[0]['first_name'] );
-		$this->assertEquals( 'Doe', $items[0]['last_name'] );
-		$this->assertEquals( '', $items[0]['suffix'] );
-		$this->assertEquals( 'John\'s biographical info', $items[0]['description'] );
-		$this->assertEquals( 'Rebus Foundation', $items[0]['institution'] );
-		$this->assertEquals( 'https://someurl.com', $items[0]['user_url'] );
-		$this->assertEquals( 'https://twitter.com/johndoe', $items[0]['twitter'] );
-		$this->assertEquals( 'https://linkedin.com/in/johndoe', $items[0]['linkedin'] );
-		$this->assertEquals( 'https://github.com/johndoe', $items[0]['github'] );
+		$this->assertEquals( 'Dr.', $items[0]['contributor_prefix'] );
+		$this->assertEquals( 'John', $items[0]['contributor_first_name'] );
+		$this->assertEquals( 'Doe', $items[0]['contributor_last_name'] );
+		$this->assertEquals( '', $items[0]['contributor_suffix'] );
+		$this->assertEquals( 'John\'s biographical info', $items[0]['contributor_description'] );
+		$this->assertEquals( 'Rebus Foundation', $items[0]['contributor_institution'] );
+		$this->assertEquals( 'https://someurl.com', $items[0]['contributor_user_url'] );
+		$this->assertEquals( 'https://twitter.com/johndoe', $items[0]['contributor_twitter'] );
+		$this->assertEquals( 'https://linkedin.com/in/johndoe', $items[0]['contributor_linkedin'] );
+		$this->assertEquals( 'https://github.com/johndoe', $items[0]['contributor_github'] );
 
 		$csv = $this->contributor->generateCsvContent( $items );
 
