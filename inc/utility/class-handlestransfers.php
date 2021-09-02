@@ -298,7 +298,7 @@ trait HandlesTransfers {
 
 				if ( false !== strpos( $field, 'picture' ) ) {
 					// Skip the picture if we are unable to get the src url.
-					$src = $this->handleImage( $items[ $field ] );
+					$src = $this->handleImage( $item[ $field ] );
 
 					if ( ! $src ) {
 						continue;
