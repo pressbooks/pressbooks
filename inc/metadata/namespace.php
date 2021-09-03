@@ -12,7 +12,6 @@ use function \Pressbooks\Utility\oxford_comma;
 use function \Pressbooks\Utility\oxford_comma_explode;
 use PressbooksMix\Assets;
 use Pressbooks\Book;
-use Pressbooks\Contributors;
 use Pressbooks\Licensing;
 use Pressbooks\Metadata;
 
