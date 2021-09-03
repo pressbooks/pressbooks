@@ -194,7 +194,6 @@ trait HandlesTransfers {
 	 * Download the content as a CSV file.
 	 *
 	 * @param string $content
-	 * @param \Closure $download_callback
 	 * @return void
 	 */
 	public function downloadCsv( $content ) {

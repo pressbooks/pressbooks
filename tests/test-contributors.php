@@ -457,6 +457,48 @@ class ContributorsTest extends \WP_UnitTestCase {
 	/**
 	 * @group contributors
 	 */
+	public function test_exportCsv() {
+		$this->taxonomy->registerTaxonomies();
+
+		$user_id = $this->factory()->user->create([
+			'role' => 'contributor',
+			'first_name' => 'John',
+			'last_name' => 'Doe',
+			'slug' => 'johndoe',
+		] );
+
+		$contributor = $this->contributor->addBlogUser( $user_id );
+
+		add_term_meta( $contributor['term_id'], 'contributor_prefix', 'Dr.' );
+		add_term_meta( $contributor['term_id'], 'contributor_first_name', 'John' );
+		add_term_meta( $contributor['term_id'], 'contributor_last_name', 'Doe' );
+		add_term_meta( $contributor['term_id'], 'contributor_description', 'John\'s biographical info' );
+		add_term_meta( $contributor['term_id'], 'contributor_institution', 'Rebus Foundation' );
+		add_term_meta( $contributor['term_id'], 'contributor_user_url', 'https://someurl.com' );
+		add_term_meta( $contributor['term_id'], 'contributor_twitter', 'https://twitter.com/johndoe' );
+		add_term_meta( $contributor['term_id'], 'contributor_linkedin', 'https://linkedin.com/in/johndoe' );
+		add_term_meta( $contributor['term_id'], 'contributor_github', 'https://github.com/johndoe' );
+
+		$content = $this->contributor->generateCsvContent(
+			$this->contributor->getExportableItems( [ $contributor['term_id'] ] )
+		);
+
+		$contributors = $this->getMockBuilder( Contributors::class )
+			->setMethods(['downloadCsv'])
+			->getMock();
+
+		$contributors->expects( $this->once() )
+			->method( 'downloadCsv' )
+			->with( $content );
+
+		$contributors->handleBulkAction( false, 'contributor-download', [
+			$contributor['term_id']
+		]);
+	}
+
+	/**
+	 * @group contributors
+	 */
 	public function test_renderImportForm() {
 		$this->taxonomy->registerTaxonomies();
 
