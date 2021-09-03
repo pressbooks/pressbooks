@@ -1,6 +1,7 @@
-/* global minPictureSize */
+/* global pictureSize */
 jQuery( function ( $ ) {
-	const contributorPictureElement = jQuery( '#contributor-picture' ),
+	const minPictureSize = pictureSize.min,
+		contributorPictureElement = jQuery( '#contributor-picture' ),
 		contributorPictureThumbnailElement = jQuery( '#contributor-picture-thumbnail' );
 
 	/**

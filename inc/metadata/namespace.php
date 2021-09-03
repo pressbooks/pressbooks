@@ -1012,7 +1012,11 @@ function register_contributor_meta() {
 						'eventsource-polyfill',
 					], null
 				);
-				wp_localize_script( 'pb_contributors', 'minPictureSize', Contributors::PICTURE_MIN_PIXELS );
+				wp_localize_script(
+					'pb_contributors',
+					'pictureSize',
+					[ 'min' => Contributors::PICTURE_MIN_PIXELS ]
+				);
 			}
 		}
 	);
