@@ -369,7 +369,7 @@ class ContributorsTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'Not empty', $this->contributor->overrideDisplay( $post->post_content ) );
 
 		// Yes, changed
-		$pid = $this->factory()->post->update_object( $pid, [ 'post_content' => ' &nbsp;  i  ' ] );
+		$pid = $this->factory()->post->update_object( $pid, [ 'post_content' => ' &nbsp;    ' ] );
 		$post = get_post( $pid );
 		$content = $this->contributor->overrideDisplay( $post->post_content );
 		$this->assertContains( '<div class="contributors page">', $content );
