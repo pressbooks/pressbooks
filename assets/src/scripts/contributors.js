@@ -77,9 +77,9 @@ jQuery( function ( $ ) {
 			minWidth: xImg > xInit ? xInit : xImg,
 			minHeight: yImg > yInit ? yInit : yImg,
 			x1: x1,
-			y1: y1 - 1,
-			x2: xInit + x1 - 1,
-			y2: yInit + y1 - 1,
+			y1: realHeight > minPictureSize || realWidth > minPictureSize ? y1 - 1 : y1,
+			x2: realHeight > minPictureSize || realWidth > minPictureSize ? xInit + x1 - 1 : xInit + x1,
+			y2: realHeight > minPictureSize || realWidth > minPictureSize ? yInit + y1 - 1 : yInit + y1,
 		};
 		imgSelectOptions.aspectRatio = xInit + ':' + yInit;
 
@@ -147,8 +147,6 @@ jQuery( function ( $ ) {
 					priority: 20,
 					suggestedWidth: minPictureSize,
 					suggestedHeight: minPictureSize,
-					minWidth: 400,
-					minHeight: 400,
 				} ),
 				new Cropp( { imgSelectOptions } ),
 			],
