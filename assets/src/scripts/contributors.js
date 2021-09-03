@@ -68,6 +68,8 @@ jQuery( function ( $ ) {
 
 		x1 = ( realWidth - xInit ) / 2;
 		y1 = ( realHeight - yInit ) / 2;
+
+		const isBiggerThanMinimum = realHeight > minPictureSize || realWidth > minPictureSize;
 		imgSelectOptions = {
 			handles: true,
 			keys: true,
@@ -77,10 +79,10 @@ jQuery( function ( $ ) {
 			imageHeight: realHeight,
 			minWidth: xImg > xInit ? xInit : xImg,
 			minHeight: yImg > yInit ? yInit : yImg,
-			x1: x1,
-			y1: realHeight > minPictureSize || realWidth > minPictureSize ? y1 - 1 : y1,
-			x2: realHeight > minPictureSize || realWidth > minPictureSize ? xInit + x1 - 1 : xInit + x1,
-			y2: realHeight > minPictureSize || realWidth > minPictureSize ? yInit + y1 - 1 : yInit + y1,
+			x1: isBiggerThanMinimum ? x1 - 1 : x1,
+			y1: isBiggerThanMinimum ? y1 - 1 : y1,
+			x2: isBiggerThanMinimum ? xInit + x1 - 1 : xInit + x1,
+			y2: isBiggerThanMinimum ? yInit + y1 - 1 : yInit + y1,
 		};
 		imgSelectOptions.aspectRatio = xInit + ':' + yInit;
 
@@ -166,6 +168,16 @@ jQuery( function ( $ ) {
 		pictureLibrary.on( 'select', function () {
 			const attachment = pictureLibrary.state().get( 'selection' ).first().toJSON();
 			if ( attachment.width < minPictureSize || attachment.height < minPictureSize ) {
+				const htmlError = '<div class="media-uploader-status errors">' +
+					'<div class="upload-errors"><div class="upload-error">\n' +
+					'<span class="upload-error-filename">Your image is too small.</span>' +
+					'<span class="upload-error-message">' +
+					'The image must be ' + minPictureSize +
+					' by ' + minPictureSize + ' pixels. Your image is ' + attachment.width + ' by ' +
+					attachment.height + ' pixels.</span></div></div></div>';
+
+				jQuery( '.media-sidebar' )
+					.html( htmlError );
 				return;
 			}
 			if ( attachment.width !== minPictureSize || attachment.height !== minPictureSize ) {

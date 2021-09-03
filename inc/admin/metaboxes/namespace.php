@@ -1223,7 +1223,7 @@ function contributor_add_form() {
 					<button name="dispatch-media-picture" id="btn-media">Upload Picture</button>
 					<input type="hidden" name="<?php echo $term; ?>" id="<?php echo $meta_tags['tag']; ?>">
 					<p>
-						<?php echo __( 'Images should be square (400px x 400px). You will be allowed to crop images after upload. The maximum file size permitted is 1 MB.', 'pressbooks' ); ?>
+						<?php echo __( 'Images should be square (400px x 400px). You will be allowed to crop images after upload.', 'pressbooks' ); ?>
 					</p>
 				</div>
 				<?php
@@ -1279,7 +1279,7 @@ function contributor_edit_form( $term ) {
 							<br />
 							<button name="dispatch-media-picture" id="btn-media">Upload Picture</button>
 							<p class="description">
-								<?php echo __( 'Images should be square (400px x 400px). You will be allowed to crop images after upload. The maximum file size permitted is 1 MB.', 'pressbooks' ); ?>
+								<?php echo __( 'Images should be square (400px x 400px). You will be allowed to crop images after upload.', 'pressbooks' ); ?>
 							</p>
 							<input
 								type="hidden"
