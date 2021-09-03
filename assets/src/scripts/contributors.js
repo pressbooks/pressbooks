@@ -1,6 +1,5 @@
 jQuery( function ( $ ) {
-	const minPictureSize = 400,
-		contributorPictureElement = jQuery( '#contributor-picture' ),
+	const contributorPictureElement = jQuery( '#contributor-picture' ),
 		contributorPictureThumbnailElement = jQuery( '#contributor-picture-thumbnail' );
 
 	/**

@@ -22,6 +22,8 @@ class Contributors implements BackMatter {
 
 	const TAXONOMY = 'contributor';
 
+	const PICTURE_MIN_PIXELS = 400;
+
 	/**
 	 * @var Contributors
 	 */

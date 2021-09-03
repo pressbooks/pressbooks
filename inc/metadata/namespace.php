@@ -2,6 +2,7 @@
 
 namespace Pressbooks\Metadata;
 
+use Pressbooks\Contributors;
 use function Pressbooks\Utility\apply_https_if_available;
 use function \Pressbooks\L10n\get_book_language;
 use function \Pressbooks\L10n\get_locale;
@@ -1011,6 +1012,7 @@ function register_contributor_meta() {
 						'eventsource-polyfill',
 					], null
 				);
+				wp_localize_script( 'pb_contributors', 'minPictureSize', Contributors::PICTURE_MIN_PIXELS );
 			}
 		}
 	);

@@ -1341,7 +1341,7 @@ function save_contributor_meta( $term_id, $tt_id, $taxonomy ) {
 }
 
 function validate_contributor_picture_size( $file ) {
-	$min_width_height = 400;
+	$min_width_height = Contributors::PICTURE_MIN_PIXELS;
 	$image = getimagesize( $file['tmp_name'] );
 	$image_width = $image[0];
 	$image_height = $image[1];
