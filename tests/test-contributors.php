@@ -404,236 +404,236 @@ class ContributorsTest extends \WP_UnitTestCase {
 
 	}
 
-    /**
-     * @group contributors
-     */
-    public function test_addBulkAction() {
-        $actions = $this->contributor->addBulkAction( [] );
+	/**
+	 * @group contributors
+	 */
+	public function test_addBulkAction() {
+		$actions = $this->contributor->addBulkAction( [] );
 
-        $this->assertNotEmpty( $actions );
-        $this->assertArrayHasKey( 'contributor-download', $actions );
-    }
+		$this->assertNotEmpty( $actions );
+		$this->assertArrayHasKey( 'contributor-download', $actions );
+	}
 
-    /**
-     * @group contributors
-     */
-    public function test_handleBulkAction() {
-        $this->taxonomy->registerTaxonomies();
+	/**
+	 * @group contributors
+	 */
+	public function test_handleBulkAction() {
+		$this->taxonomy->registerTaxonomies();
 
-        $user_one = $this->factory()->user->create([
-            'role' => 'contributor',
-            'first_name' => 'John',
-            'last_name' => 'Doe',
-            'slug' => 'johndoe',
-        ] );
+		$user_one = $this->factory()->user->create([
+			'role' => 'contributor',
+			'first_name' => 'John',
+			'last_name' => 'Doe',
+			'slug' => 'johndoe',
+		] );
 
-        $user_two = $this->factory()->user->create([
-            'role' => 'contributor',
-            'first_name' => 'Jane',
-            'last_name' => 'Doe',
-            'slug' => 'jane',
-        ]);
+		$user_two = $this->factory()->user->create([
+			'role' => 'contributor',
+			'first_name' => 'Jane',
+			'last_name' => 'Doe',
+			'slug' => 'jane',
+		]);
 
-        $contributor_one = $this->contributor->addBlogUser( $user_one );
-        $contributor_two = $this->contributor->addBlogUser( $user_two );
+		$contributor_one = $this->contributor->addBlogUser( $user_one );
+		$contributor_two = $this->contributor->addBlogUser( $user_two );
 
-        $contributors = $this->getMockBuilder( Contributors::class )
-            ->setMethods(['exportCsv', 'importCsv'])
-            ->getMock();
+		$contributors = $this->getMockBuilder( Contributors::class )
+			->setMethods(['exportCsv', 'importCsv'])
+			->getMock();
 
-        $contributors->expects( $this->once() )->method( 'exportCsv' )->with([
-            $contributor_one['term_id'], $contributor_two['term_id']
-        ]);
+		$contributors->expects( $this->once() )->method( 'exportCsv' )->with([
+			$contributor_one['term_id'], $contributor_two['term_id']
+		]);
 
-        $contributors->handleBulkAction( false, 'contributor-download', [
-            $contributor_one['term_id'], $contributor_two['term_id']
-        ]);
+		$contributors->handleBulkAction( false, 'contributor-download', [
+			$contributor_one['term_id'], $contributor_two['term_id']
+		]);
 
-        $contributors->expects( $this->once() )->method( 'importCsv' );
+		$contributors->expects( $this->once() )->method( 'importCsv' );
 
-        $contributors->handleBulkAction( false, 'contributor-import', [] );
-    }
+		$contributors->handleBulkAction( false, 'contributor-import', [] );
+	}
 
-    /**
-     * @group contributors
-     */
-    public function test_exportCsv() {
-        $this->taxonomy->registerTaxonomies();
+	/**
+	 * @group contributors
+	 */
+	public function test_exportCsv() {
+		$this->taxonomy->registerTaxonomies();
 
-        $user_id = $this->factory()->user->create([
-            'role' => 'contributor',
-            'first_name' => 'John',
-            'last_name' => 'Doe',
-            'slug' => 'johndoe',
-        ] );
+		$user_id = $this->factory()->user->create([
+			'role' => 'contributor',
+			'first_name' => 'John',
+			'last_name' => 'Doe',
+			'slug' => 'johndoe',
+		] );
 
-        $contributor = $this->contributor->addBlogUser( $user_id );
+		$contributor = $this->contributor->addBlogUser( $user_id );
 
-        add_term_meta( $contributor['term_id'], 'contributor_prefix', 'Dr.' );
-        add_term_meta( $contributor['term_id'], 'contributor_first_name', 'John' );
-        add_term_meta( $contributor['term_id'], 'contributor_last_name', 'Doe' );
-        add_term_meta( $contributor['term_id'], 'contributor_description', 'John\'s biographical info' );
-        add_term_meta( $contributor['term_id'], 'contributor_institution', 'Rebus Foundation' );
-        add_term_meta( $contributor['term_id'], 'contributor_user_url', 'https://someurl.com' );
-        add_term_meta( $contributor['term_id'], 'contributor_twitter', 'https://twitter.com/johndoe' );
-        add_term_meta( $contributor['term_id'], 'contributor_linkedin', 'https://linkedin.com/in/johndoe' );
-        add_term_meta( $contributor['term_id'], 'contributor_github', 'https://github.com/johndoe' );
+		add_term_meta( $contributor['term_id'], 'contributor_prefix', 'Dr.' );
+		add_term_meta( $contributor['term_id'], 'contributor_first_name', 'John' );
+		add_term_meta( $contributor['term_id'], 'contributor_last_name', 'Doe' );
+		add_term_meta( $contributor['term_id'], 'contributor_description', 'John\'s biographical info' );
+		add_term_meta( $contributor['term_id'], 'contributor_institution', 'Rebus Foundation' );
+		add_term_meta( $contributor['term_id'], 'contributor_user_url', 'https://someurl.com' );
+		add_term_meta( $contributor['term_id'], 'contributor_twitter', 'https://twitter.com/johndoe' );
+		add_term_meta( $contributor['term_id'], 'contributor_linkedin', 'https://linkedin.com/in/johndoe' );
+		add_term_meta( $contributor['term_id'], 'contributor_github', 'https://github.com/johndoe' );
 
-        $content = $this->contributor->generateCsvContent(
-            $this->contributor->getExportableItems( [ $contributor['term_id'] ] )
-        );
+		$content = $this->contributor->generateCsvContent(
+			$this->contributor->getExportableItems( [ $contributor['term_id'] ] )
+		);
 
-        $contributors = $this->getMockBuilder( Contributors::class )
-            ->setMethods(['downloadCsv'])
-            ->getMock();
+		$contributors = $this->getMockBuilder( Contributors::class )
+			->setMethods(['downloadCsv'])
+			->getMock();
 
-        $contributors->expects( $this->once() )
-            ->method( 'downloadCsv' )
-            ->with( $content );
+		$contributors->expects( $this->once() )
+			->method( 'downloadCsv' )
+			->with( $content );
 
-        $contributors->handleBulkAction( false, 'contributor-download', [
-            $contributor['term_id']
-        ]);
-    }
+		$contributors->handleBulkAction( false, 'contributor-download', [
+			$contributor['term_id']
+		]);
+	}
 
-    /**
-     * @group contributors
-     */
-    public function test_renderImportForm() {
-        $this->taxonomy->registerTaxonomies();
+	/**
+	 * @group contributors
+	 */
+	public function test_renderImportForm() {
+		$this->taxonomy->registerTaxonomies();
 
-        ob_start();
-        $this->contributor->renderImportForm();
-        $content = ob_get_clean();
+		ob_start();
+		$this->contributor->renderImportForm();
+		$content = ob_get_clean();
 
-        $this->assertContains( '<h2>Import Contributors</h2>', $content );
-        $this->assertContains( '<input type="hidden" name="action" value="contributor-import">', $content );
-        $this->assertContains( '<input type="file" name="import_file" />', $content );
-    }
+		$this->assertContains( '<h2>Import Contributors</h2>', $content );
+		$this->assertContains( '<input type="hidden" name="action" value="contributor-import">', $content );
+		$this->assertContains( '<input type="file" name="import_file" />', $content );
+	}
 
-    /**
-     * @group contributors
-     */
-    public function test_getFormMessages() {
-        $messages = $this->contributor->getFormMessages();
+	/**
+	 * @group contributors
+	 */
+	public function test_getFormMessages() {
+		$messages = $this->contributor->getFormMessages();
 
-        $this->assertEquals( '<h2>Import Contributors</h2>', $messages['title'] );
-        $this->assertNotEmpty( $messages['hint'] );
-    }
+		$this->assertEquals( '<h2>Import Contributors</h2>', $messages['title'] );
+		$this->assertNotEmpty( $messages['hint'] );
+	}
 
-    /**
-     * @group contributors
-     */
-    public function test_getTransferableFields() {
-        $this->assertEquals(
-            array_keys( \Pressbooks\Contributors::getContributorFields() ),
-            $this->contributor->getTransferableFields()
-        );
-    }
+	/**
+	 * @group contributors
+	 */
+	public function test_getTransferableFields() {
+		$this->assertEquals(
+			array_keys( \Pressbooks\Contributors::getContributorFields() ),
+			$this->contributor->getTransferableFields()
+		);
+	}
 
-    /**
-     * @group contributors
-     */
-    public function test_downloadContributors() {
-        $this->taxonomy->registerTaxonomies();
+	/**
+	 * @group contributors
+	 */
+	public function test_downloadContributors() {
+		$this->taxonomy->registerTaxonomies();
 
-        $taxonomy = \Pressbooks\Contributors::TAXONOMY;
+		$taxonomy = \Pressbooks\Contributors::TAXONOMY;
 
-        $user_id = $this->factory()->user->create([
-            'role' => 'contributor',
-            'first_name' => 'John',
-            'last_name' => 'Doe',
-            'slug' => 'johndoe',
-        ] );
+		$user_id = $this->factory()->user->create([
+			'role' => 'contributor',
+			'first_name' => 'John',
+			'last_name' => 'Doe',
+			'slug' => 'johndoe',
+		] );
 
-        $contributor = $this->contributor->addBlogUser( $user_id );
+		$contributor = $this->contributor->addBlogUser( $user_id );
 
-        add_term_meta( $contributor['term_id'], $taxonomy . '_prefix', 'Dr.' );
-        add_term_meta( $contributor['term_id'], $taxonomy . '_first_name', 'John' );
-        add_term_meta( $contributor['term_id'], $taxonomy . '_last_name', 'Doe' );
-        add_term_meta( $contributor['term_id'], $taxonomy . '_description', 'John\'s biographical info' );
-        add_term_meta( $contributor['term_id'], $taxonomy . '_institution', 'Rebus Foundation' );
-        add_term_meta( $contributor['term_id'], $taxonomy . '_user_url', 'https://someurl.com' );
-        add_term_meta( $contributor['term_id'], $taxonomy . '_twitter', 'https://twitter.com/johndoe' );
-        add_term_meta( $contributor['term_id'], $taxonomy . '_linkedin', 'https://linkedin.com/in/johndoe' );
-        add_term_meta( $contributor['term_id'], $taxonomy . '_github', 'https://github.com/johndoe' );
+		add_term_meta( $contributor['term_id'], $taxonomy . '_prefix', 'Dr.' );
+		add_term_meta( $contributor['term_id'], $taxonomy . '_first_name', 'John' );
+		add_term_meta( $contributor['term_id'], $taxonomy . '_last_name', 'Doe' );
+		add_term_meta( $contributor['term_id'], $taxonomy . '_description', 'John\'s biographical info' );
+		add_term_meta( $contributor['term_id'], $taxonomy . '_institution', 'Rebus Foundation' );
+		add_term_meta( $contributor['term_id'], $taxonomy . '_user_url', 'https://someurl.com' );
+		add_term_meta( $contributor['term_id'], $taxonomy . '_twitter', 'https://twitter.com/johndoe' );
+		add_term_meta( $contributor['term_id'], $taxonomy . '_linkedin', 'https://linkedin.com/in/johndoe' );
+		add_term_meta( $contributor['term_id'], $taxonomy . '_github', 'https://github.com/johndoe' );
 
-        $items = $this->contributor->getExportableItems( [ $contributor['term_id'] ] );
+		$items = $this->contributor->getExportableItems( [ $contributor['term_id'] ] );
 
-        $this->assertIsArray( $items );
+		$this->assertIsArray( $items );
 
-        $this->assertEquals( 'Dr.', $items[0]['contributor_prefix'] );
-        $this->assertEquals( 'John', $items[0]['contributor_first_name'] );
-        $this->assertEquals( 'Doe', $items[0]['contributor_last_name'] );
-        $this->assertEquals( '', $items[0]['contributor_suffix'] );
-        $this->assertEquals( "John\'s biographical info", $items[0]['contributor_description'] );
-        $this->assertEquals( 'Rebus Foundation', $items[0]['contributor_institution'] );
-        $this->assertEquals( 'https://someurl.com', $items[0]['contributor_user_url'] );
-        $this->assertEquals( 'https://twitter.com/johndoe', $items[0]['contributor_twitter'] );
-        $this->assertEquals( 'https://linkedin.com/in/johndoe', $items[0]['contributor_linkedin'] );
-        $this->assertEquals( 'https://github.com/johndoe', $items[0]['contributor_github'] );
+		$this->assertEquals( 'Dr.', $items[0]['contributor_prefix'] );
+		$this->assertEquals( 'John', $items[0]['contributor_first_name'] );
+		$this->assertEquals( 'Doe', $items[0]['contributor_last_name'] );
+		$this->assertEquals( '', $items[0]['contributor_suffix'] );
+		$this->assertEquals( "John\'s biographical info", $items[0]['contributor_description'] );
+		$this->assertEquals( 'Rebus Foundation', $items[0]['contributor_institution'] );
+		$this->assertEquals( 'https://someurl.com', $items[0]['contributor_user_url'] );
+		$this->assertEquals( 'https://twitter.com/johndoe', $items[0]['contributor_twitter'] );
+		$this->assertEquals( 'https://linkedin.com/in/johndoe', $items[0]['contributor_linkedin'] );
+		$this->assertEquals( 'https://github.com/johndoe', $items[0]['contributor_github'] );
 
-        $csv = $this->contributor->generateCsvContent( $items );
+		$csv = $this->contributor->generateCsvContent( $items );
 
-        $this->assertContains(
-            'Dr.,John,Doe,,,"John\\\'s biographical info","Rebus Foundation",https://someurl.com,https://twitter.com/johndoe,https://linkedin.com/in/johndoe,https://github.com/johndoe',
-            $csv
-        );
-    }
+		$this->assertContains(
+			'Dr.,John,Doe,,,"John\\\'s biographical info","Rebus Foundation",https://someurl.com,https://twitter.com/johndoe,https://linkedin.com/in/johndoe,https://github.com/johndoe',
+			$csv
+		);
+	}
 
-    /**
-     * @group contributors
-     */
-    public function test_importCsv() {
-        $contributors = $this->getMockBuilder( Contributors::class )
-            ->setMethods(['handleUpload'])
-            ->getMock();
+	/**
+	 * @group contributors
+	 */
+	public function test_importCsv() {
+		$contributors = $this->getMockBuilder( Contributors::class )
+			->setMethods(['handleUpload'])
+			->getMock();
 
-        copy( __DIR__ . '/data/test-contributor-list.csv', __DIR__ . '/data/upload/test-contributor-list.csv' );
+		copy( __DIR__ . '/data/test-contributor-list.csv', __DIR__ . '/data/upload/test-contributor-list.csv' );
 
-        $contributors->expects( $this->once() )
-            ->method( 'handleUpload' )
-            ->willReturn( [
-                'file' => __DIR__ . '/data/upload/test-contributor-list.csv',
-            ] );
+		$contributors->expects( $this->once() )
+			->method( 'handleUpload' )
+			->willReturn( [
+				'file' => __DIR__ . '/data/upload/test-contributor-list.csv',
+			] );
 
-        $contributors->importCsv();
+		$contributors->importCsv();
 
-        $term = get_term_by( 'slug', 'johndoe', 'contributor' );
+		$term = get_term_by( 'slug', 'johndoe', 'contributor' );
 
-        $this->assertEquals( 'John Doe', $term->name );
-        $this->assertEquals( 'johndoe', $term->slug );
-        $this->assertArrayHasKey( 'pb_notices', $_SESSION );
-        $this->assertArraySubset(
-            [ 'pb_notices' => ['Successfully imported.'] ],
-            $_SESSION
-        );
+		$this->assertEquals( 'John Doe', $term->name );
+		$this->assertEquals( 'johndoe', $term->slug );
+		$this->assertArrayHasKey( 'pb_notices', $_SESSION );
+		$this->assertArraySubset(
+			[ 'pb_notices' => ['Successfully imported.'] ],
+			$_SESSION
+		);
 
-        unset( $_SESSION['pb_notices'] );
-    }
+		unset( $_SESSION['pb_notices'] );
+	}
 
-    /**
-     * @group contributors
-     */
-    public function test_skipsImportCsv() {
-        $contributors = $this->getMockBuilder( Contributors::class )
-            ->setMethods(['handleUpload'])
-            ->getMock();
+	/**
+	 * @group contributors
+	 */
+	public function test_skipsImportCsv() {
+		$contributors = $this->getMockBuilder( Contributors::class )
+			->setMethods(['handleUpload'])
+			->getMock();
 
-        $contributors->expects( $this->once() )
-            ->method( 'handleUpload' )
-            ->willReturn( false );
+		$contributors->expects( $this->once() )
+			->method( 'handleUpload' )
+			->willReturn( false );
 
-        $contributors->importCsv();
+		$contributors->importCsv();
 
-        $term = get_term_by( 'slug', 'johndoe', 'contributor' );
+		$term = get_term_by( 'slug', 'johndoe', 'contributor' );
 
-        $this->assertFalse( $term );
-    }
+		$this->assertFalse( $term );
+	}
 
-    /**
-     * @group contributors
-     */
+	/**
+	 * @group contributors
+	 */
 	public function test_contributorRoleNameChange() {
 		$current_roles = new WP_Roles();
 
