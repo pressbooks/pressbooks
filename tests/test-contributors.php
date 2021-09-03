@@ -608,6 +608,8 @@ class ContributorsTest extends \WP_UnitTestCase {
 			[ 'pb_notices' => ['Successfully imported.'] ],
 			$_SESSION
 		);
+
+		unset( $_SESSION['pb_notices'] );
 	}
 
 	/**
