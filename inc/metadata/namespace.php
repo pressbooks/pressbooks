@@ -2,7 +2,6 @@
 
 namespace Pressbooks\Metadata;
 
-use Pressbooks\Contributors;
 use function Pressbooks\Utility\apply_https_if_available;
 use function \Pressbooks\L10n\get_book_language;
 use function \Pressbooks\L10n\get_locale;
@@ -13,6 +12,7 @@ use function \Pressbooks\Utility\oxford_comma;
 use function \Pressbooks\Utility\oxford_comma_explode;
 use PressbooksMix\Assets;
 use Pressbooks\Book;
+use Pressbooks\Contributors;
 use Pressbooks\Licensing;
 use Pressbooks\Metadata;
 
