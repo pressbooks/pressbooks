@@ -369,7 +369,7 @@ class ContributorsTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'Not empty', $this->contributor->overrideDisplay( $post->post_content ) );
 
 		// Yes, changed
-		$pid = $this->factory()->post->update_object( $pid, [ 'post_content' => ' &nbsp;    ' ] );
+		$pid = $this->factory()->post->update_object( $pid, [ 'post_content' => ' &nbsp;  i  ' ] );
 		$post = get_post( $pid );
 		$content = $this->contributor->overrideDisplay( $post->post_content );
 		$this->assertContains( '<div class="contributors page">', $content );
@@ -579,5 +579,53 @@ class ContributorsTest extends \WP_UnitTestCase {
 			'Dr.,John,Doe,,,"John\'s biographical info","Rebus Foundation",https://someurl.com,https://twitter.com/johndoe,https://linkedin.com/in/johndoe,https://github.com/johndoe',
 			$csv
 		);
+	}
+
+	/**
+	 * @group contributors
+	 */
+	public function test_importCsv() {
+		$contributors = $this->getMockBuilder( Contributors::class )
+			->setMethods(['handleUpload'])
+			->getMock();
+
+		copy( __DIR__ . '/data/test-contributor-list.csv', __DIR__ . '/data/upload/test-contributor-list.csv' );
+
+		$contributors->expects( $this->once() )
+			->method( 'handleUpload' )
+			->willReturn( [
+				'file' => __DIR__ . '/data/upload/test-contributor-list.csv',
+			] );
+
+		$contributors->importCsv();
+
+		$term = get_term_by( 'slug', 'johndoe', 'contributor' );
+
+		$this->assertEquals( 'John Doe', $term->name );
+		$this->assertEquals( 'johndoe', $term->slug );
+		$this->assertArrayHasKey( 'pb_notices', $_SESSION );
+		$this->assertArraySubset(
+			[ 'pb_notices' => ['Successfully imported.'] ],
+			$_SESSION
+		);
+	}
+
+	/**
+	 * @group contributors
+	 */
+	public function test_skipsImportCsv() {
+		$contributors = $this->getMockBuilder( Contributors::class )
+			->setMethods(['handleUpload'])
+			->getMock();
+
+		$contributors->expects( $this->once() )
+			->method( 'handleUpload' )
+			->willReturn( false );
+
+		$contributors->importCsv();
+
+		$term = get_term_by( 'slug', 'johndoe', 'contributor' );
+
+		$this->assertFalse( $term );
 	}
 }
