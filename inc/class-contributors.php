@@ -386,7 +386,7 @@ class Contributors implements BackMatter, Transferable {
 		$hint = __( '<p>Import multiple contributors at once by uploading a valid CSV file. See <a href="%s" target="_blank">our guide</a> for details.</p>', 'pressbooks' );
 
 		return [
-			'title' => __( 'Import Contributors', 'pressbooks' ),
+			'title' => '<h2>' . __( 'Import Contributors', 'pressbooks' ) . '</h2>',
 			'hint' => sprintf( $hint, $guide_chapter ),
 		];
 	}

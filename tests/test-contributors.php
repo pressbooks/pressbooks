@@ -53,9 +53,10 @@ class ContributorsTest extends \WP_UnitTestCase {
 
 		\Pressbooks\Contributors::init();
 
-		$this->assertNotEmpty( $wp_filter[ 'the_content' ] );
-		$this->assertNotEmpty( $wp_filter[ 'handle_bulk_actions-edit-contributor' ] );
-		$this->assertNotEmpty( $wp_filter[ 'bulk_actions-edit-contributor' ] );
+		$this->assertNotEmpty( $wp_filter['the_content' ]);
+		$this->assertNotEmpty( $wp_filter['handle_bulk_actions-edit-contributor' ]);
+		$this->assertNotEmpty( $wp_filter['bulk_actions-edit-contributor' ]);
+		$this->assertNotEmpty( $wp_filter['upload_mimes'] );
 	}
 
 	/**
@@ -416,9 +417,74 @@ class ContributorsTest extends \WP_UnitTestCase {
 	/**
 	 * @group contributors
 	 */
+	public function test_handleBulkAction() {
+		$this->taxonomy->registerTaxonomies();
+
+		$user_one = $this->factory()->user->create([
+			'role' => 'contributor',
+			'first_name' => 'John',
+			'last_name' => 'Doe',
+			'slug' => 'johndoe',
+		] );
+
+		$user_two = $this->factory()->user->create([
+			'role' => 'contributor',
+			'first_name' => 'Jane',
+			'last_name' => 'Doe',
+			'slug' => 'jane',
+		]);
+
+		$contributor_one = $this->contributor->addBlogUser( $user_one );
+		$contributor_two = $this->contributor->addBlogUser( $user_two );
+
+		$contributors = $this->getMockBuilder( Contributors::class )
+			->setMethods(['exportCsv', 'importCsv'])
+			->getMock();
+
+		$contributors->expects( $this->once() )->method( 'exportCsv' )->with([
+			$contributor_one['term_id'], $contributor_two['term_id']
+		]);
+
+		$contributors->handleBulkAction( false, 'contributor-download', [
+			$contributor_one['term_id'], $contributor_two['term_id']
+		]);
+
+		$contributors->expects( $this->once() )->method( 'importCsv' );
+
+		$contributors->handleBulkAction( false, 'contributor-import', [] );
+	}
+
+	/**
+	 * @group contributors
+	 */
+	public function test_renderImportForm() {
+		$this->taxonomy->registerTaxonomies();
+
+		ob_start();
+		$this->contributor->renderImportForm();
+		$content = ob_get_clean();
+
+		$this->assertContains( '<h2>Import Contributors</h2>', $content );
+		$this->assertContains( '<input type="hidden" name="action" value="contributor-import">', $content );
+		$this->assertContains( '<input type="file" name="import_file" />', $content );
+	}
+
+	/**
+	 * @group contributors
+	 */
+	public function test_getFormMessages() {
+		$messages = $this->contributor->getFormMessages();
+
+		$this->assertEquals( '<h2>Import Contributors</h2>', $messages['title'] );
+		$this->assertNotEmpty( $messages['hint'] );
+	}
+
+	/**
+	 * @group contributors
+	 */
 	public function test_getTransferableFields() {
 		$this->assertEquals(
-			array_keys(\Pressbooks\Contributors::getContributorFields() ),
+			array_keys( \Pressbooks\Contributors::getContributorFields() ),
 			$this->contributor->getTransferableFields()
 		);
 	}
@@ -431,14 +497,12 @@ class ContributorsTest extends \WP_UnitTestCase {
 
 		$taxonomy = \Pressbooks\Contributors::TAXONOMY;
 
-		$user_id = $this->factory()->user->create(
-			[
-				'role' => 'contributor',
-				'first_name' => 'John',
-				'last_name' => 'Doe',
-				'slug' => 'johndoe',
-			]
-		);
+		$user_id = $this->factory()->user->create([
+			'role' => 'contributor',
+			'first_name' => 'John',
+			'last_name' => 'Doe',
+			'slug' => 'johndoe',
+		] );
 
 		$contributor = $this->contributor->addBlogUser( $user_id );
 
@@ -469,6 +533,9 @@ class ContributorsTest extends \WP_UnitTestCase {
 
 		$csv = $this->contributor->generateCsvContent( $items );
 
-		$this->assertContains( 'Dr.,John,Doe,,,"John\'s biographical info","Rebus Foundation",https://someurl.com,https://twitter.com/johndoe,https://linkedin.com/in/johndoe,https://github.com/johndoe', $csv);
+		$this->assertContains(
+			'Dr.,John,Doe,,,"John\'s biographical info","Rebus Foundation",https://someurl.com,https://twitter.com/johndoe,https://linkedin.com/in/johndoe,https://github.com/johndoe',
+			$csv
+		);
 	}
 }

@@ -15,10 +15,6 @@ use Pressbooks\Transferable;
  * This trait allows exporting taxonomies.
  */
 trait HandlesTransfers {
-	protected $allowed_types = [
-		'csv' => 'text/csv',
-	];
-
 	/**
 	 * Adds the required filters to handle exporting and importing data.
 	 *
@@ -31,9 +27,8 @@ trait HandlesTransfers {
 		add_filter( 'handle_bulk_actions-edit-' . self::TAXONOMY, [ $obj, 'handleBulkAction' ], 10, 3 );
 		// We need to allow for csv file uploads
 		add_filter( 'upload_mimes', function( $allowed_types ) {
-			return array_merge( $allowed_types, $this->allowed_types );
+			return array_merge( $allowed_types, [ 'csv' => 'text/csv' ] );
 		});
-
 	}
 
 	/**
@@ -77,7 +72,7 @@ trait HandlesTransfers {
 		$messages = $this->getFormMessages();
 		?>
 		<div class="form-wrap">
-			<h2><?php echo $messages['title'] ?? '' ?></h2>
+			<?php echo $messages['title'] ?? '' ?>
 			<form method="post" enctype="multipart/form-data">
 				<input type="hidden" name="action" value="<?php echo self::TAXONOMY ?>-import">
 				<input type="hidden" name="taxonomy" value="<?php echo self::TAXONOMY ?>">
@@ -199,6 +194,7 @@ trait HandlesTransfers {
 	 * Download the content as a CSV file.
 	 *
 	 * @param string $content
+     * @param \Closure $download_callback
 	 * @return void
 	 */
 	public function downloadCsv( $content ) {
@@ -223,7 +219,7 @@ trait HandlesTransfers {
 			return false;
 		}
 
-		if ( ! in_array( $_FILES['import_file']['type'], $this->allowed_types, true ) ) {
+		if ( $_FILES['import_file']['type'] !== 'text/csv' ) {
 			$_SESSION['pb_errors'][] = __( 'Sorry, this file type is not permitted for security reasons.' );
 
 			return false;
