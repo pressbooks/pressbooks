@@ -336,6 +336,9 @@ function display_users_widget() {
 	printf( __( '%1$s total users: ', 'pressbooks' ), count( $users ) );
 	$types_of_totals = [];
 	foreach ( $types_of_users as $capability => $count ) {
+		if ( $capability === 'contributor' ) {
+			$capability = 'collaborator';
+		}
 		if ( $count > 1 ) {
 			$capability .= 's'; // Plural
 		}
