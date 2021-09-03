@@ -566,7 +566,7 @@ class ContributorsTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'John', $items[0]['contributor_first_name'] );
 		$this->assertEquals( 'Doe', $items[0]['contributor_last_name'] );
 		$this->assertEquals( '', $items[0]['contributor_suffix'] );
-		$this->assertEquals( 'John\'s biographical info', $items[0]['contributor_description'] );
+		$this->assertEquals( "John\'s biographical info", $items[0]['contributor_description'] );
 		$this->assertEquals( 'Rebus Foundation', $items[0]['contributor_institution'] );
 		$this->assertEquals( 'https://someurl.com', $items[0]['contributor_user_url'] );
 		$this->assertEquals( 'https://twitter.com/johndoe', $items[0]['contributor_twitter'] );
@@ -576,7 +576,7 @@ class ContributorsTest extends \WP_UnitTestCase {
 		$csv = $this->contributor->generateCsvContent( $items );
 
 		$this->assertContains(
-			'Dr.,John,Doe,,,"John\'s biographical info","Rebus Foundation",https://someurl.com,https://twitter.com/johndoe,https://linkedin.com/in/johndoe,https://github.com/johndoe',
+			'Dr.,John,Doe,,,"John\\\'s biographical info","Rebus Foundation",https://someurl.com,https://twitter.com/johndoe,https://linkedin.com/in/johndoe,https://github.com/johndoe',
 			$csv
 		);
 	}

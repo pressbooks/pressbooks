@@ -159,7 +159,7 @@ trait HandlesTransfers {
 			foreach ( $fields as $field ) {
 				$value = $term_meta[ $field ] ?? [];
 
-				$item[ $field ] = $value[0] ?? '';
+				$item[ $field ] = preg_replace( '/\R/', '', addslashes( $value[0] ?? '' ) );
 			}
 
 			$items[] = $item;
