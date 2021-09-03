@@ -149,6 +149,7 @@ add_action(
 		// replace default title filtering with our custom one that allows certain tags
 		remove_filter( 'title_save_pre', 'wp_filter_kses' );
 		add_filter( 'title_save_pre', '\Pressbooks\Sanitize\filter_title' );
+		add_action( 'wp_roles_init', [ '\Pressbooks\Contributors', 'changeContributorName' ] );
 	}
 );
 

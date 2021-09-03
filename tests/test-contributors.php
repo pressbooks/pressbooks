@@ -359,9 +359,9 @@ class ContributorsTest extends \WP_UnitTestCase {
 		$post = get_post( $pid );
 		$content = $this->contributor->overrideDisplay( $post->post_content );
 		$this->assertContains( '<div class="contributors page">', $content );
-		$this->assertNotContains( '<h3>Reviewers</h3>', $content ); // if no reviewers that should not be printed
-		$this->assertContains( '<h3>Authors</h3>', $content ); // two authors should be plural
-		$this->assertContains( '<h3>Editor</h3>', $content ); // one editor should be singular
+		$this->assertNotContains( '<h2>Reviewers</h2>', $content ); // if no reviewers that should not be printed
+		$this->assertContains( '<h2>Authors</h2>', $content ); // two authors should be plural
+		$this->assertContains( '<h2>Editor</h2>', $content ); // one editor should be singular
 	}
 
 	/**
@@ -388,6 +388,16 @@ class ContributorsTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'Editor', $contributors['pb_editors']['title'] ); // Singular for one element
 		$this->assertEquals( 'Authors', $contributors['pb_authors']['title'] ); // Plural for two or more
 
+	}
+
+	public function test_contributorRoleNameChange() {
+		$current_roles = new WP_Roles();
+
+		$this->assertEquals( 'Contributor', $current_roles->roles['contributor']['name'] );
+
+		Contributors::changeContributorName( $current_roles );
+
+		$this->assertEquals( 'Collaborator', $current_roles->roles['contributor']['name'] );
 	}
 
 }

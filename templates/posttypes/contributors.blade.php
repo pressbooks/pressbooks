@@ -1,6 +1,6 @@
 @foreach($contributors as $contributor_type)
 	<div class="contributors page">
-		<h3>{{$contributor_type['title']}}</h3>
+		<h2>{{$contributor_type['title']}}</h2>
 		@foreach($contributor_type['records'] as $contributor)
 			<div class="contributor">
 				<div class="contributor_name_and_links">

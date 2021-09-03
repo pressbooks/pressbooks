@@ -321,6 +321,9 @@ function display_users_widget() {
 		if ( $capability === 'subscriber' ) {
 			continue; // Hide subscribers
 		}
+		if ( $capability === 'contributor' ) {
+			$capability = 'collaborator';
+		}
 
 		if ( $displayed < $limit ) {
 			echo '<tr><td>' . get_avatar( $user->user_id, 32 ) . '</td><td>' . get_userdata( $user->user_id )->display_name . ' - ' . ucfirst( $capability ) . '</td></tr>';
@@ -333,6 +336,9 @@ function display_users_widget() {
 	printf( __( '%1$s total users: ', 'pressbooks' ), count( $users ) );
 	$types_of_totals = [];
 	foreach ( $types_of_users as $capability => $count ) {
+		if ( $capability === 'contributor' ) {
+			$capability = 'collaborator';
+		}
 		if ( $count > 1 ) {
 			$capability .= 's'; // Plural
 		}
