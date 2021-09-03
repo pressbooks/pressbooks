@@ -1369,8 +1369,7 @@ function contributor_custom_columns( $string, $columns, $term_id ) {
 			break;
 		case Contributors::TAXONOMY . '_picture':
 			echo '<img src=\'' .
-				esc_html( get_term_meta( $term_id, Contributors::TAXONOMY . '_picture', true ) ) .
-				'\' width=\'100\' />';
+				esc_html( get_term_meta( $term_id, Contributors::TAXONOMY . '_picture', true ) ) . '\' />';
 			break;
 	}
 }
@@ -1400,8 +1399,6 @@ function contributor_table_columns( $columns ) {
 function contributor_sortable_columns( $columns ) {
 	$columns = [
 		'name' => 'name',
-		'contributor_institution' => 'contributor_institution',
-		'contributor_description' => 'contributor_description',
 	];
 	return $columns;
 }

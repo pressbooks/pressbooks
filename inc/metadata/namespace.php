@@ -1018,36 +1018,6 @@ function register_contributor_meta() {
 }
 
 /**
- * Apply custom sorting for Contributors list table.
- *
- * @param $pieces
- * @param $taxonomies
- * @param $args
- * @return array
- */
-function contributor_meta_custom_sort( $pieces, $taxonomies, $args ) {
-	$order_field_allowed = [
-		Contributors::TAXONOMY . '_description',
-		Contributors::TAXONOMY . '_institution',
-	];
-	global $pagenow;
-
-	if (
-		$pagenow === 'edit-tags.php' &&
-		isset( $args['taxonomy'] ) &&
-		isset( $args['orderby'] ) &&
-		in_array( Contributors::TAXONOMY, $args['taxonomy'], true ) &&
-		in_array( $args['orderby'], $order_field_allowed, true )
-	) {
-		global $wpdb;
-		$pieces['join'] .= ' INNER JOIN ' . $wpdb->termmeta . ' AS tm ON t.term_id = tm.term_id ';
-		$pieces['orderby']  = ' ORDER BY tm.meta_value ';
-		$pieces['where'] .= ' AND tm.meta_key = "' . $args['orderby'] . '"';
-	}
-	return $pieces;
-}
-
-/**
  * Ensure book data models are registered.
  *
  * These should already have been initialized by hooks, but sometimes they are disabled because we don't want them in the root site.

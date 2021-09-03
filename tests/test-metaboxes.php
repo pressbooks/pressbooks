@@ -320,8 +320,6 @@ class MetaboxesTest extends \WP_UnitTestCase {
 	 */
 	public function test_contributor_sortable_columns() {
 		$contributor_sortable_columns = \Pressbooks\Admin\Metaboxes\contributor_sortable_columns( [] );
-		$this->assertArrayHasKey( \Pressbooks\Contributors::TAXONOMY . '_description', $contributor_sortable_columns );
-		$this->assertArrayHasKey( \Pressbooks\Contributors::TAXONOMY . '_institution', $contributor_sortable_columns );
 		$this->assertArrayHasKey( 'name', $contributor_sortable_columns );
 	}
 

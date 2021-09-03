@@ -522,29 +522,5 @@ class MetadataTest extends \WP_UnitTestCase {
 		$this->assertContains( 'pb_contributors', $wp_scripts->queue );
 	}
 
-	/**
-	 * @group metadata
-	 */
-	function test_contributor_meta_custom_sort() {
-		global $pagenow;
-		$pagenow = 'edit-tags.php';
-		$field_order = \Pressbooks\Contributors::TAXONOMY . '_institution';
-		$pieces = [
-			'fields' => 't.*, tt.*',
-			'join' => ' INNER JOIN wp_26_term_taxonomy AS tt ON t.term_id = tt.term_id',
-			'where' => 't.taxonomy IN (\'contributor\')',
-			'orderby' => 'ORDER BY t.name',
-			'order' => 'ASC',
-			'limits' => 'LIMIT 20'
-		];
-		$args = [
-			'taxonomy' => [ \Pressbooks\Contributors::TAXONOMY ],
-			'orderby' => $field_order ,
-		];
-		$pieces_filtered = \Pressbooks\Metadata\contributor_meta_custom_sort( $pieces, [], $args );
-		$this->assertArrayHasKey( 'where', $pieces_filtered );
-		$this->assertContains( $field_order, $pieces_filtered['where'] );
-	}
-
 }
 
