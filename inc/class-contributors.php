@@ -24,6 +24,8 @@ class Contributors implements BackMatter, Transferable {
 
 	public const TAXONOMY = 'contributor';
 
+	const PICTURE_MIN_PIXELS = 400;
+
 	/**
 	 * @var Contributors
 	 */
