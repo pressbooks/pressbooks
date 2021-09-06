@@ -407,6 +407,16 @@ class ContributorsTest extends \WP_UnitTestCase {
 	/**
 	 * @group contributors
 	 */
+	public function test_addExtraMimeTypes() {
+		$mimes = $this->contributor->addExtraMimeTypes( [] );
+
+		$this->assertNotEmpty( $mimes );
+		$this->assertArrayHasKey( 'csv', $mimes );
+	}
+
+	/**
+	 * @group contributors
+	 */
 	public function test_addBulkAction() {
 		$actions = $this->contributor->addBulkAction( [] );
 
@@ -642,5 +652,18 @@ class ContributorsTest extends \WP_UnitTestCase {
 		Contributors::changeContributorName( $current_roles );
 
 		$this->assertEquals( 'Collaborator', $current_roles->roles['contributor']['name'] );
+	}
+
+	/**
+	 * @group contributors
+	 */
+	public function test_handleImage() {
+		$src = $this->contributor->handleImage( 'https://pressbooks.com/app/plugins/pressbooks/assets/dist/images/default-book-cover.jpg' );
+
+		$this->assertContains( 'default-book-cover', $src );
+
+		$src = $this->contributor->handleImage( 'not-a-valid-url' );
+
+		$this->assertFalse( $src );
 	}
 }

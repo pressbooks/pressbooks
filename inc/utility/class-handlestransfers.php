@@ -26,9 +26,17 @@ trait HandlesTransfers {
 		add_filter( 'bulk_actions-edit-' . $obj::TAXONOMY, [ $obj, 'addBulkAction' ] );
 		add_filter( 'handle_bulk_actions-edit-' . self::TAXONOMY, [ $obj, 'handleBulkAction' ], 10, 3 );
 		// We need to allow for csv file uploads
-		add_filter( 'upload_mimes', function( $allowed_types ) {
-			return array_merge( $allowed_types, [ 'csv' => 'text/csv' ] );
-		});
+		add_filter( 'upload_mimes', [ $obj, 'addExtraMimeTypes' ] );
+	}
+
+	/**
+	 * Adds extra extensions to the upload_mimes hook.
+	 *
+	 * @param array $allowed_types
+	 * @returm void
+	 */
+	public function addExtraMimeTypes( $allowed_types ) {
+		return array_merge( $allowed_types, [ 'csv' => 'text/csv' ] );
 	}
 
 	/**
