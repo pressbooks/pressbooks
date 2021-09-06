@@ -211,6 +211,8 @@ trait HandlesTransfers {
 	}
 
 	/**
+	 * Handles file upload before importing contributors.
+	 *
 	 * @return array|false
 	 */
 	public function handleUpload() {
@@ -236,6 +238,8 @@ trait HandlesTransfers {
 	}
 
 	/**
+	 * Returns the list of contributors to import
+	 *
 	 * @param array $upload
 	 * @return array|false
 	 */
@@ -252,6 +256,7 @@ trait HandlesTransfers {
 
 			$header = str_getcsv( $line );
 
+			// If we don't find the minimum required headers we won't import anything.
 			if ( ! in_array( 'name', $header, true ) || ! in_array( 'slug', $header, true ) ) {
 				$_SESSION['pb_errors'][] = __( 'Sorry, this file could not be imported. Please, make sure to send a valid file.' );
 
@@ -263,6 +268,8 @@ trait HandlesTransfers {
 	}
 
 	/**
+	 * Imports the list of contributors.
+	 *
 	 * @param array $items
 	 */
 	public function handleImport( $items ) {
@@ -309,6 +316,12 @@ trait HandlesTransfers {
 		}
 	}
 
+	/**
+	 * Creates a new image based on the url provided during import.
+	 *
+	 * @param string $url
+	 * @return false|string
+	 */
 	public function handleImage( $url ) {
 		$parts = explode( '?', $url );
 		$parts = explode( '#', $parts[0] );
