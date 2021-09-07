@@ -392,7 +392,6 @@ class Xhtml11 extends ExportGenerator {
 		$my_get = $_GET;
 		unset( $my_get['timestamp'], $my_get['hashkey'] );
 		$cache = get_transient( self::TRANSIENT );
-		$cache = false;
 		if ( is_array( $cache ) && isset( $cache[0] ) && $cache[0] === md5( wp_json_encode( $my_get ) ) ) {
 			// The $_GET parameters haven't changed since the last request so the output will be the same
 			$buffer_inner_html = $cache[1];
