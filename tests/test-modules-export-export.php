@@ -566,8 +566,7 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 			$contributor_metadata['github']
 		);
 
-		$xhtml = new \Pressbooks\Modules\Export\Xhtml\Xhtml11( [] );
-		$contributors_print = $xhtml->getContributorsSection( $meta_post->ID );
+		$contributors_print = \Pressbooks\Modules\Export\getContributorsSection( $meta_post->ID );
 		$this->assertContains( $contributor_metadata['name'], $contributors_print );
 		$this->assertContains( $contributor_metadata['github'], $contributors_print );
 		$this->assertContains( $contributor_metadata['linkedin'], $contributors_print );
