@@ -392,6 +392,7 @@ class Xhtml11 extends ExportGenerator {
 		$my_get = $_GET;
 		unset( $my_get['timestamp'], $my_get['hashkey'] );
 		$cache = get_transient( self::TRANSIENT );
+		$cache = false;
 		if ( is_array( $cache ) && isset( $cache[0] ) && $cache[0] === md5( wp_json_encode( $my_get ) ) ) {
 			// The $_GET parameters haven't changed since the last request so the output will be the same
 			$buffer_inner_html = $cache[1];
@@ -1412,6 +1413,8 @@ class Xhtml11 extends ExportGenerator {
 		$chapter_printf .= '<div class="ugc chapter-ugc">%7$s%10$s</div>%8$s%9$s';
 		$chapter_printf .= '</div>';
 
+		$display_about_the_author = ! empty( get_option( 'pressbooks_theme_options_global', [] )['about_the_author'] );
+
 		$ticks = 0;
 		foreach ( $book_contents['part'] as $key => $part ) {
 			$ticks = $ticks + 1 + count( $book_contents['part'][ $key ]['chapters'] );
@@ -1543,6 +1546,8 @@ class Xhtml11 extends ExportGenerator {
 					$this->doFootnotes( $chapter_id )
 				) . "\n";
 
+				$my_chapters .= $display_about_the_author ? $this->getContributorsSection( $chapter_id ) : '';
+
 				if ( $my_chapter_number !== '' ) {
 					++$j;
 				}
@@ -1579,6 +1584,43 @@ class Xhtml11 extends ExportGenerator {
 			}
 		}
 
+	}
+
+	public function getContributorsSection( $chapter_id ) {
+		$chapter_contributors = $this->contributors->getContributorsWithMeta( $chapter_id, 'authors' );
+		if ( empty( $chapter_contributors ) ) {
+			return '';
+		}
+		$title = sprintf( _n( '%s Author', '%s Authors', count( $chapter_contributors ), 'pressbooks' ), 'About the' );
+		$print = '<div class="contributors">';
+		$print .= "<h3 class=\"about-authors\">{$title}</h3>";
+		foreach ( $chapter_contributors as $contributor ) {
+			$print .= '<div class="contributor_name_and_links">';
+			if ( $contributor['contributor_picture'] ) {
+				$print .= "<img class=\"contributor_profile_picture\" src=\"{$contributor['contributor_picture']}\" />";
+			}
+			$print .= "<span class=\"contributor_name\">{$contributor['name']}</span>";
+			if ( $contributor['contributor_institution'] ) {
+				$print .= "<span class=\"contributor_institution\">{$contributor['contributor_institution']}</span>";
+			}
+			if ( $contributor['contributor_user_url'] ) {
+				$print .= "<span class=\"contributor_website\"><a href=\"{$contributor['contributor_user_url']}\" target=\"_blank\">{$contributor['contributor_user_url']}</a></span>";
+			}
+			$print .= '<div class="contributor_links">'; // a new line for each link
+			if ( $contributor['contributor_twitter'] ) {
+				$print .= "<div><a class=\"contributor_twitter\" href=\"{$contributor['contributor_twitter']}\" target=\"_blank\">{$contributor['contributor_twitter']}</a></div>";
+			}
+			if ( $contributor['contributor_linkedin'] ) {
+				$print .= "<div><a class=\"contributor_linkedin\" href=\"{$contributor['contributor_linkedin']}\" target=\"_blank\">{$contributor['contributor_linkedin']}</a></div>";
+			}
+			if ( $contributor['contributor_github'] ) {
+				$print .= "<div><a class=\"contributor_github\" href=\"{$contributor['contributor_github']}\" target=\"_blank\">{$contributor['contributor_github']}</a></div>";
+			}
+			$print .= '</div></div>';
+			$print .= '<div class="contributor_bio">' . wp_kses( $contributor['contributor_description'], true ) . '</div>';
+		}
+		$print .= '</div>';
+		return $print;
 	}
 
 
