@@ -1545,7 +1545,7 @@ class Xhtml11 extends ExportGenerator {
 					$this->doFootnotes( $chapter_id )
 				) . "\n";
 
-				$my_chapters .= $display_about_the_author ? \Pressbooks\Modules\Export\getContributorsSection( $chapter_id ) : '';
+				$my_chapters .= $display_about_the_author ? \Pressbooks\Modules\Export\get_contributors_section( $chapter_id ) : '';
 
 				if ( $my_chapter_number !== '' ) {
 					++$j;

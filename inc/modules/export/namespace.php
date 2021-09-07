@@ -288,7 +288,7 @@ function update_pins() {
  * @param $chapter_id Integer
  * @return string
  */
-function getContributorsSection( $chapter_id ) {
+function get_contributors_section( $chapter_id ) {
 	$contributors = new Contributors();
 	$chapter_contributors = $contributors->getContributorsWithMeta( $chapter_id, 'authors' );
 	if ( empty( $chapter_contributors ) ) {

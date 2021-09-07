@@ -499,7 +499,7 @@ class Epub201 extends ExportGenerator {
 							$id = $val2['ID'];
 							$book_contents[ $type ][ $i ]['chapters'][ $j ]['post_content'] = $this->preProcessPostContent( $val2['post_content'] );
 							if ( $display_about_the_author ) {
-								$book_contents[ $type ][ $i ]['chapters'][ $j ]['post_content'] .= \Pressbooks\Modules\Export\getContributorsSection( $val2['ID'] );
+								$book_contents[ $type ][ $i ]['chapters'][ $j ]['post_content'] .= \Pressbooks\Modules\Export\get_contributors_section( $val2['ID'] );
 							}
 						}
 						if ( isset( $val2['post_title'] ) ) {
