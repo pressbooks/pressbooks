@@ -1586,6 +1586,12 @@ class Xhtml11 extends ExportGenerator {
 
 	}
 
+	/**
+	 * Get the HTML for "About the Authors" section given a chapter ID.
+	 *
+	 * @param $chapter_id Integer
+	 * @return string
+	 */
 	public function getContributorsSection( $chapter_id ) {
 		$chapter_contributors = $this->contributors->getContributorsWithMeta( $chapter_id, 'authors' );
 		if ( empty( $chapter_contributors ) ) {
@@ -1606,7 +1612,7 @@ class Xhtml11 extends ExportGenerator {
 			if ( $contributor['contributor_user_url'] ) {
 				$print .= "<span class=\"contributor_website\"><a href=\"{$contributor['contributor_user_url']}\" target=\"_blank\">{$contributor['contributor_user_url']}</a></span>";
 			}
-			$print .= '<div class="contributor_links">'; // a new line for each link
+			$print .= '<div class="contributor_links">';
 			if ( $contributor['contributor_twitter'] ) {
 				$print .= "<div><a class=\"contributor_twitter\" href=\"{$contributor['contributor_twitter']}\" target=\"_blank\">{$contributor['contributor_twitter']}</a></div>";
 			}
