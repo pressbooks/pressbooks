@@ -1447,7 +1447,7 @@ class HTMLBook extends Export {
 
 				$append_chapter_content .= $this->removeAttributionLink( $this->doSectionLevelLicense( $metadata, $chapter_id ) );
 
-				$about_the_author .= $display_about_the_author ? \Pressbooks\Modules\Export\get_contributors_section( $chapter_id ) : '';
+				$about_the_author = $display_about_the_author ? \Pressbooks\Modules\Export\get_contributors_section( $chapter_id ) : '';
 
 				$my_chapter = new Chapter();
 				if ( $inject_introduction_class ) {

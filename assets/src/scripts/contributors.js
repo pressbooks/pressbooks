@@ -56,13 +56,14 @@ jQuery( function ( $ ) {
 			ratio = 1,
 			xImg  = xInit,
 			yImg  = yInit,
+			maxSize = minPictureSize * 2,
 			x1, y1, imgSelectOptions;
 		controller.set( 'canSkipCrop', ! mustBeCropped( false, false, xInit, yInit, realWidth, realHeight ) );
 		if ( realWidth / realHeight > ratio ) {
-			yInit = realHeight;
+			yInit = realHeight > maxSize ? maxSize : realHeight;
 			xInit = yInit * ratio;
 		} else {
-			xInit = realWidth;
+			xInit = realWidth > maxSize ? maxSize : realWidth;
 			yInit = xInit / ratio;
 		}
 
@@ -79,8 +80,8 @@ jQuery( function ( $ ) {
 			imageHeight: realHeight,
 			minWidth: xImg > xInit ? xInit : xImg,
 			minHeight: yImg > yInit ? yInit : yImg,
-			maxHeight: minPictureSize * 2,
-			maxWidth: minPictureSize * 2,
+			maxHeight: maxSize,
+			maxWidth: maxSize,
 			x1: isBiggerThanMinimum ? x1 - 1 : x1,
 			y1: isBiggerThanMinimum ? y1 - 1 : y1,
 			x2: isBiggerThanMinimum ? xInit + x1 - 1 : xInit + x1,
