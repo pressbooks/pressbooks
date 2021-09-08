@@ -6,6 +6,8 @@
 
 namespace Pressbooks\Modules\Export;
 
+use Pressbooks\Contributors;
+
 /**
  * @return array
  */
@@ -278,4 +280,48 @@ function update_pins() {
 		];
 		wp_send_json_success( $data );
 	}
+}
+
+/**
+ * Get the HTML for "About the Authors" section given a chapter ID.
+ *
+ * @param $chapter_id Integer
+ * @return string
+ */
+function get_contributors_section( $chapter_id ) {
+	$contributors = new Contributors();
+	$chapter_contributors = $contributors->getContributorsWithMeta( $chapter_id, 'authors' );
+	if ( empty( $chapter_contributors ) ) {
+		return '';
+	}
+	$title = sprintf( _n( '%s Author', '%s Authors', count( $chapter_contributors ), 'pressbooks' ), 'About the' );
+	$print = '<div class="contributors">';
+	$print .= "<h3 class=\"about-authors\">{$title}</h3>";
+	foreach ( $chapter_contributors as $contributor ) {
+		$print .= '<div class="contributor_name_and_links">';
+		if ( $contributor['contributor_picture'] ) {
+			$print .= "<img class=\"contributor_profile_picture\" alt=\"Contributor photo\" title=\"Photo\" src=\"{$contributor['contributor_picture']}\" />";
+		}
+		$print .= "<span class=\"contributor_name\">{$contributor['name']}</span>";
+		if ( $contributor['contributor_institution'] ) {
+			$print .= "<span class=\"contributor_institution\">{$contributor['contributor_institution']}</span>";
+		}
+		if ( $contributor['contributor_user_url'] ) {
+			$print .= "<span class=\"contributor_website\"><a href=\"{$contributor['contributor_user_url']}\" target=\"_blank\">{$contributor['contributor_user_url']}</a></span>";
+		}
+		$print .= '<div class="contributor_links">';
+		if ( $contributor['contributor_twitter'] ) {
+			$print .= "<div><a class=\"contributor_twitter\" href=\"{$contributor['contributor_twitter']}\" target=\"_blank\">{$contributor['contributor_twitter']}</a></div>";
+		}
+		if ( $contributor['contributor_linkedin'] ) {
+			$print .= "<div><a class=\"contributor_linkedin\" href=\"{$contributor['contributor_linkedin']}\" target=\"_blank\">{$contributor['contributor_linkedin']}</a></div>";
+		}
+		if ( $contributor['contributor_github'] ) {
+			$print .= "<div><a class=\"contributor_github\" href=\"{$contributor['contributor_github']}\" target=\"_blank\">{$contributor['contributor_github']}</a></div>";
+		}
+		$print .= '</div></div>';
+		$print .= '<div class="contributor_bio">' . wp_kses( $contributor['contributor_description'], true ) . '</div>';
+	}
+	$print .= '</div>';
+	return $print;
 }

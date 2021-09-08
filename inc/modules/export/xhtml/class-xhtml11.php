@@ -1412,6 +1412,8 @@ class Xhtml11 extends ExportGenerator {
 		$chapter_printf .= '<div class="ugc chapter-ugc">%7$s%10$s</div>%8$s%9$s';
 		$chapter_printf .= '</div>';
 
+		$display_about_the_author = ! empty( get_option( 'pressbooks_theme_options_global', [] )['about_the_author'] );
+
 		$ticks = 0;
 		foreach ( $book_contents['part'] as $key => $part ) {
 			$ticks = $ticks + 1 + count( $book_contents['part'][ $key ]['chapters'] );
@@ -1542,6 +1544,8 @@ class Xhtml11 extends ExportGenerator {
 					$this->doEndnotes( $chapter_id ),
 					$this->doFootnotes( $chapter_id )
 				) . "\n";
+
+				$my_chapters .= $display_about_the_author ? \Pressbooks\Modules\Export\get_contributors_section( $chapter_id ) : '';
 
 				if ( $my_chapter_number !== '' ) {
 					++$j;
