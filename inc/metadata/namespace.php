@@ -12,6 +12,7 @@ use function \Pressbooks\Utility\oxford_comma;
 use function \Pressbooks\Utility\oxford_comma_explode;
 use PressbooksMix\Assets;
 use Pressbooks\Book;
+use Pressbooks\Contributors;
 use Pressbooks\Licensing;
 use Pressbooks\Metadata;
 
@@ -1010,6 +1011,11 @@ function register_contributor_meta() {
 						'wp-color-picker',
 						'eventsource-polyfill',
 					], null
+				);
+				wp_localize_script(
+					'pb_contributors',
+					'pictureSize',
+					[ 'min' => Contributors::PICTURE_MIN_PIXELS ]
 				);
 			}
 		}
