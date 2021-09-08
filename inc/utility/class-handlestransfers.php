@@ -167,7 +167,7 @@ trait HandlesTransfers {
 			foreach ( $fields as $field ) {
 				$value = $term_meta[ $field ] ?? [];
 
-				$item[ $field ] = preg_replace( '/\R/', '', wp_filter_nohtml_kses( $value[0] ?? ''  ) );
+				$item[ $field ] = preg_replace( '/\R/', '', wp_filter_nohtml_kses( $value[0] ?? '' ) );
 			}
 
 			$items[] = $item;
