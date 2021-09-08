@@ -300,7 +300,7 @@ function get_contributors_section( $chapter_id ) {
 	foreach ( $chapter_contributors as $contributor ) {
 		$print .= '<div class="contributor_name_and_links">';
 		if ( $contributor['contributor_picture'] ) {
-			$print .= "<img class=\"contributor_profile_picture\" src=\"{$contributor['contributor_picture']}\" />";
+			$print .= "<img class=\"contributor_profile_picture\" alt=\"Contributor photo\" title=\"Photo\" src=\"{$contributor['contributor_picture']}\" />";
 		}
 		$print .= "<span class=\"contributor_name\">{$contributor['name']}</span>";
 		if ( $contributor['contributor_institution'] ) {
