@@ -79,6 +79,8 @@ jQuery( function ( $ ) {
 			imageHeight: realHeight,
 			minWidth: xImg > xInit ? xInit : xImg,
 			minHeight: yImg > yInit ? yInit : yImg,
+			maxHeight: minPictureSize * 2,
+			maxWidth: minPictureSize * 2,
 			x1: isBiggerThanMinimum ? x1 - 1 : x1,
 			y1: isBiggerThanMinimum ? y1 - 1 : y1,
 			x2: isBiggerThanMinimum ? xInit + x1 - 1 : xInit + x1,

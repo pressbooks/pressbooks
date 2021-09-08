@@ -1424,6 +1424,7 @@ class HTMLBook extends Export {
 				$short_title = trim( get_post_meta( $chapter_id, 'pb_short_title', true ) );
 				$subtitle = trim( get_post_meta( $chapter_id, 'pb_subtitle', true ) );
 				$author = $this->contributors->get( $chapter_id, 'pb_authors' );
+				$display_about_the_author = ! empty( get_option( 'pressbooks_theme_options_global', [] )['about_the_author'] );
 
 				if ( \Pressbooks\Modules\Export\Export::shouldParseSubsections() === true ) {
 					if ( \Pressbooks\Book::getSubsections( $chapter_id ) !== false ) {
@@ -1445,6 +1446,8 @@ class HTMLBook extends Export {
 				}
 
 				$append_chapter_content .= $this->removeAttributionLink( $this->doSectionLevelLicense( $metadata, $chapter_id ) );
+
+				$about_the_author .= $display_about_the_author ? \Pressbooks\Modules\Export\get_contributors_section( $chapter_id ) : '';
 
 				$my_chapter = new Chapter();
 				if ( $inject_introduction_class ) {
@@ -1498,6 +1501,7 @@ class HTMLBook extends Export {
 						$header,
 						$content,
 						$append_chapter_content,
+						$about_the_author,
 					]
 				);
 
