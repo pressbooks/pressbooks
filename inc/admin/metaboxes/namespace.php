@@ -1348,26 +1348,6 @@ function save_contributor_meta( $term_id, $tt_id, $taxonomy ) {
 	}
 }
 
-function validate_contributor_picture_size( $file ) {
-	$min_width_height = Contributors::PICTURE_MIN_PIXELS;
-	$image = getimagesize( $file['tmp_name'] );
-	$image_width = $image[0];
-	$image_height = $image[1];
-
-	if ( $image_width < $min_width_height || $image_height < $min_width_height ) {
-		$too_small_txt = __( 'Your image is too small. The image must be %1$d by %2$d pixels. Your image is %3$d by %4$d pixels.', 'pressbooks' );
-		$file['error'] = sprintf(
-			$too_small_txt,
-			$min_width_height,
-			$min_width_height,
-			$image_width,
-			$image_height
-		);
-	}
-
-	return $file;
-}
-
 /**
  * Get and display custom columns in the Contributors list
  *
