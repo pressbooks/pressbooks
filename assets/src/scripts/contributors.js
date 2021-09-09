@@ -80,8 +80,6 @@ jQuery( function ( $ ) {
 			imageHeight: realHeight,
 			minWidth: xImg > xInit ? xInit : xImg,
 			minHeight: yImg > yInit ? yInit : yImg,
-			maxHeight: maxSize,
-			maxWidth: maxSize,
 			x1: isBiggerThanMinimum ? x1 - 1 : x1,
 			y1: isBiggerThanMinimum ? y1 - 1 : y1,
 			x2: isBiggerThanMinimum ? xInit + x1 - 1 : xInit + x1,
@@ -128,9 +126,9 @@ jQuery( function ( $ ) {
 			 */
 			doCrop: function ( attachment ) {
 				const cropDetails = attachment.get( 'cropDetails' );
-
-				cropDetails.dstWidth  = minPictureSize;
-				cropDetails.dstHeight = minPictureSize;
+				const minSize = parseInt( minPictureSize );
+				cropDetails.dst_width  = minSize;
+				cropDetails.dst_height = minSize;
 
 				return wp.ajax.post( 'crop-image', {
 					nonce: attachment.get( 'nonces' ).edit,
