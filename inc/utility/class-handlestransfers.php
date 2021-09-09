@@ -237,7 +237,7 @@ trait HandlesTransfers {
 		if ( ! empty( $invalid_rows ) ) {
 			$message = __( 'One or more rows were not imported because they have missing information. Please, check rows %s', 'pressbooks' );
 
-			$_SESSION['pb_errors'][] = sprintf( $message, implode( ',', $invalid_rows ) );
+			$_SESSION['pb_notices'][] = sprintf( $message, implode( ',', $invalid_rows ) );
 		}
 
 		return $items;
@@ -294,8 +294,8 @@ trait HandlesTransfers {
 				}
 
 				$term
-					? update_term_meta( $results['term_id'], $field, sanitize_text_field( $item[ $field ] ) )
-					: add_term_meta( $results['term_id'], sanitize_text_field( $field ), $item[ $field ] );
+					? update_term_meta( $results['term_id'], $field, $item[ $field ] )
+					: add_term_meta( $results['term_id'], $field, $item[ $field ] );
 			}
 		}
 
