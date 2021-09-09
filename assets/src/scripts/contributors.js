@@ -56,13 +56,14 @@ jQuery( function ( $ ) {
 			ratio = 1,
 			xImg  = xInit,
 			yImg  = yInit,
+			maxSize = minPictureSize * 2,
 			x1, y1, imgSelectOptions;
 		controller.set( 'canSkipCrop', ! mustBeCropped( false, false, xInit, yInit, realWidth, realHeight ) );
 		if ( realWidth / realHeight > ratio ) {
-			yInit = realHeight;
+			yInit = realHeight > maxSize ? maxSize : realHeight;
 			xInit = yInit * ratio;
 		} else {
-			xInit = realWidth;
+			xInit = realWidth > maxSize ? maxSize : realWidth;
 			yInit = xInit / ratio;
 		}
 
@@ -125,9 +126,9 @@ jQuery( function ( $ ) {
 			 */
 			doCrop: function ( attachment ) {
 				const cropDetails = attachment.get( 'cropDetails' );
-
-				cropDetails.dstWidth  = minPictureSize;
-				cropDetails.dstHeight = minPictureSize;
+				const minSize = parseInt( minPictureSize );
+				cropDetails.dst_width  = minSize;
+				cropDetails.dst_height = minSize;
 
 				return wp.ajax.post( 'crop-image', {
 					nonce: attachment.get( 'nonces' ).edit,

@@ -577,4 +577,24 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 		$this->assertContains( "<h3 class=\"about-authors\">About the Author</h3>", $contributors_print );
 	}
 
+	/**
+	 * @group export
+	 */
+	public function test_HTMLBookConstructor() {
+		$html_book = new Pressbooks\Modules\Export\HTMLBook\HTMLBook( [ 'endnotes' => true ] );
+		$this->assertContains( 'endnotes', $_GET );
+		$this->assertTrue( $_GET['endnotes'] );
+	}
+
+	/**
+	 * @group export
+	 */
+	public function test_endnoteShortcode() {
+		$html_book = new Pressbooks\Modules\Export\HTMLBook\HTMLBook( [ 'endnotes' => true ] );
+		$end_note = $html_book->endnoteShortcode( [] , 'I am a endnote, see you!');
+		$attributes = $end_note->getAttributes();
+		$this->assertArrayHasKey( 'class', $attributes );
+		$this->assertEquals( 'endnote', $attributes['class'] );
+	}
+
 }

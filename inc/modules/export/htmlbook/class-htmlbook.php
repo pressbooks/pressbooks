@@ -1498,6 +1498,7 @@ class HTMLBook extends Export {
 						$header,
 						$content,
 						$append_chapter_content,
+						! empty( get_option( 'pressbooks_theme_options_global', [] )['about_the_author'] ) ? \Pressbooks\Modules\Export\get_contributors_section( $chapter_id ) : '',
 					]
 				);
 

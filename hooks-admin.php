@@ -199,7 +199,6 @@ if ( $is_book ) {
 	add_filter( 'attachment_fields_to_edit', '\Pressbooks\Admin\Attachments\add_metadata_attachment', 10, 2 );
 	add_filter( 'attachment_fields_to_save', '\Pressbooks\Admin\Attachments\save_metadata_attachment', 10, 2 );
 	add_filter( 'edit_form_top', [ '\Pressbooks\Book', 'notifyBisacCodesRemoved' ] );
-	add_filter( 'wp_handle_upload_prefilter', '\Pressbooks\Admin\Metaboxes\validate_contributor_picture_size', 10, 1 );
 }
 
 // -------------------------------------------------------------------------------------------------------------------
