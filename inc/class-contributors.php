@@ -396,6 +396,30 @@ class Contributors implements BackMatter, Transferable {
 	}
 
 	/**
+	 * Sanitize input when importing data.
+	 *
+	 * @param string $name
+	 * @param string $value
+	 * @return string
+	 */
+	public function sanitizeField( $name, $value ) {
+		$field = self::getContributorFields( str_replace( self::TAXONOMY . '_', '', $name ) );
+
+		// if the given field does not have a sanitization method we simply return the given value.
+		if ( ! isset( $field['sanitization_method'] ) ) {
+			return $value;
+		}
+
+		// If the given field is a URL, we return the given value if it's a valid URL and an empty string otherwise.
+		if ( in_array( $name, $this->getUrlFields(), true ) ) {
+			return $field['sanitization_method']( $value ) ? $value : '';
+		}
+
+		// Apply the sanitization method.
+		return $field['sanitization_method']( $value );
+	}
+
+	/**
 	 * Returns the form title and the hint for the file input.
 	 *
 	 * @return array

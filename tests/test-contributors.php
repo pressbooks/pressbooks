@@ -496,6 +496,42 @@ class ContributorsTest extends \WP_UnitTestCase {
 		]);
 	}
 
+    /**
+     * @group contributors
+     */
+    public function test_getUrlFields()
+    {
+        $fields = $this->contributor->getUrlFields();
+
+        $this->assertContains( 'contributor_picture', $fields );
+        $this->assertContains( 'contributor_user_url', $fields );
+        $this->assertContains( 'contributor_twitter', $fields );
+        $this->assertContains( 'contributor_linkedin', $fields );
+        $this->assertContains( 'contributor_github', $fields );
+    }
+
+    /**
+     * @group contributors
+     */
+    public function test_sanitizeField()
+    {
+        $value = $this->contributor->sanitizeField( 'contributor_description', 'I\'m a <strong>description</strong>' );
+
+        $this->assertEquals( 'I\'m a <strong>description</strong>', $value );
+
+        $value = $this->contributor->sanitizeField( 'contributor_github', 'https://github.com/johndoe' );
+
+        $this->assertEquals( 'https://github.com/johndoe', $value );
+
+        $value = $this->contributor->sanitizeField( 'contributor_github', 'not-a-valid-url' );
+
+        $this->assertEquals( '', $value );
+
+        $value = $this->contributor->sanitizeField( 'contributor_first_name', 'John' );
+
+        $this->assertEquals( 'John', $value );
+    }
+
 	/**
 	 * @group contributors
 	 */

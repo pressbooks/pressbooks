@@ -44,6 +44,15 @@ interface Transferable {
 	public function getTransferableFields();
 
 	/**
+	 * Sanitize input when importing data.
+	 *
+	 * @param string $name
+	 * @param string $value
+	 * @return string
+	 */
+	public function sanitizeField( $name, $value );
+
+	/**
 	 * Get the list of fields that should be stored as URLs.
 	 *
 	 * @return array

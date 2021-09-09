@@ -271,13 +271,15 @@ trait HandlesTransfers {
 					continue;
 				}
 
-				if ( empty( $item[ $field ] ) ) {
-					continue;
+				$sanitized_value = $this->sanitizeField( $field, $item[ $field ] );
+
+				if ( $item[ $field ] !== $sanitized_value ) {
+					$changed = true;
+					$item[ $field ] = $sanitized_value;
 				}
 
-				if ( in_array( $field, $this->getUrlFields(), true ) && ! \Pressbooks\Sanitize\validate_url_field( $item[ $field ] ) ) {
-					$changed = true;
-					$item[ $field ] = '';
+				if ( empty( $item[ $field ] ) ) {
+					continue;
 				}
 
 				if ( false !== strpos( $field, 'picture' ) ) {
@@ -309,6 +311,10 @@ trait HandlesTransfers {
 	 * @return false|string
 	 */
 	public function handleImage( $url ) {
+		if ( ! $url ) {
+			return false;
+		}
+
 		$parts = explode( '?', $url );
 		$parts = explode( '#', $parts[0] );
 		$parts = explode( '/', $parts[0] );
