@@ -48,6 +48,20 @@ class ContributorsTest extends \WP_UnitTestCase {
 	/**
 	 * @group contributors
 	 */
+	public function test_init() {
+		global $wp_filter;
+
+		\Pressbooks\Contributors::init();
+
+		$this->assertNotEmpty( $wp_filter['the_content' ]);
+		$this->assertNotEmpty( $wp_filter['handle_bulk_actions-edit-contributor' ]);
+		$this->assertNotEmpty( $wp_filter['bulk_actions-edit-contributor' ]);
+		$this->assertNotEmpty( $wp_filter['upload_mimes'] );
+	}
+
+	/**
+	 * @group contributors
+	 */
 	public function test_getContributors() {
 		$this->taxonomy->registerTaxonomies();
 		$post_id = $this->_createChapter();
@@ -390,6 +404,278 @@ class ContributorsTest extends \WP_UnitTestCase {
 
 	}
 
+	/**
+	 * @group contributors
+	 */
+	public function test_addBulkAction() {
+		$actions = $this->contributor->addBulkAction( [] );
+
+		$this->assertNotEmpty( $actions );
+		$this->assertArrayHasKey( 'contributor-download', $actions );
+	}
+
+	/**
+	 * @group contributors
+	 */
+	public function test_handleBulkAction() {
+		$this->taxonomy->registerTaxonomies();
+
+		$user_one = $this->factory()->user->create([
+			'role' => 'contributor',
+			'first_name' => 'John',
+			'last_name' => 'Doe',
+			'slug' => 'johndoe',
+		] );
+
+		$user_two = $this->factory()->user->create([
+			'role' => 'contributor',
+			'first_name' => 'Jane',
+			'last_name' => 'Doe',
+			'slug' => 'jane',
+		]);
+
+		$contributor_one = $this->contributor->addBlogUser( $user_one );
+		$contributor_two = $this->contributor->addBlogUser( $user_two );
+
+		$contributors = $this->getMockBuilder( Contributors::class )
+			->setMethods(['exportTaxonomyList', 'importTaxonomyList'])
+			->getMock();
+
+		$contributors->expects( $this->once() )->method( 'exportTaxonomyList' )->with([
+			$contributor_one['term_id'], $contributor_two['term_id']
+		]);
+
+		$contributors->handleBulkAction( false, 'contributor-download', [
+			$contributor_one['term_id'], $contributor_two['term_id']
+		]);
+
+		$contributors->expects( $this->once() )->method( 'importTaxonomyList' );
+
+		$contributors->handleBulkAction( false, 'contributor-import', [] );
+	}
+
+	/**
+	 * @group contributors
+	 */
+	public function test_exportTaxonomyList() {
+		$this->taxonomy->registerTaxonomies();
+
+		$user_id = $this->factory()->user->create([
+			'role' => 'contributor',
+			'first_name' => 'John',
+			'last_name' => 'Doe',
+			'slug' => 'johndoe',
+		] );
+
+		$contributor = $this->contributor->addBlogUser( $user_id );
+
+		add_term_meta( $contributor['term_id'], 'contributor_prefix', 'Dr.' );
+		add_term_meta( $contributor['term_id'], 'contributor_first_name', 'John' );
+		add_term_meta( $contributor['term_id'], 'contributor_last_name', 'Doe' );
+		add_term_meta( $contributor['term_id'], 'contributor_description', 'John\'s biographical info' );
+		add_term_meta( $contributor['term_id'], 'contributor_institution', 'Rebus Foundation' );
+		add_term_meta( $contributor['term_id'], 'contributor_user_url', 'https://someurl.com' );
+		add_term_meta( $contributor['term_id'], 'contributor_twitter', 'https://twitter.com/johndoe' );
+		add_term_meta( $contributor['term_id'], 'contributor_linkedin', 'https://linkedin.com/in/johndoe' );
+		add_term_meta( $contributor['term_id'], 'contributor_github', 'https://github.com/johndoe' );
+
+		$content = wp_json_encode(
+			$this->contributor->getExportableItems( [ $contributor['term_id'] ] ),
+		);
+
+		$contributors = $this->getMockBuilder( Contributors::class )
+			->setMethods(['downloadJson'])
+			->getMock();
+
+		$contributors->expects( $this->once() )
+			->method( 'downloadJson' )
+			->with( $content );
+
+		$contributors->handleBulkAction( false, 'contributor-download', [
+			$contributor['term_id']
+		]);
+	}
+
+    /**
+     * @group contributors
+     */
+    public function test_getUrlFields()
+    {
+        $fields = $this->contributor->getUrlFields();
+
+        $this->assertContains( 'contributor_picture', $fields );
+        $this->assertContains( 'contributor_user_url', $fields );
+        $this->assertContains( 'contributor_twitter', $fields );
+        $this->assertContains( 'contributor_linkedin', $fields );
+        $this->assertContains( 'contributor_github', $fields );
+    }
+
+    /**
+     * @group contributors
+     */
+    public function test_sanitizeField()
+    {
+        $value = $this->contributor->sanitizeField( 'contributor_description', 'I\'m a <strong>description</strong>' );
+
+        $this->assertEquals( 'I\'m a <strong>description</strong>', $value );
+
+        $value = $this->contributor->sanitizeField( 'contributor_github', 'https://github.com/johndoe' );
+
+        $this->assertEquals( 'https://github.com/johndoe', $value );
+
+        $value = $this->contributor->sanitizeField( 'contributor_github', 'not-a-valid-url' );
+
+        $this->assertEquals( '', $value );
+
+        $value = $this->contributor->sanitizeField( 'contributor_first_name', 'John' );
+
+        $this->assertEquals( 'John', $value );
+    }
+
+	/**
+	 * @group contributors
+	 */
+	public function test_renderImportForm() {
+		$this->taxonomy->registerTaxonomies();
+
+		ob_start();
+		$this->contributor->renderImportForm();
+		$content = ob_get_clean();
+
+		$this->assertContains( '<h2>Import Contributors</h2>', $content );
+		$this->assertContains( '<input type="hidden" name="action" value="contributor-import">', $content );
+		$this->assertContains( '<input type="file" name="import_file" />', $content );
+	}
+
+	/**
+	 * @group contributors
+	 */
+	public function test_getFormMessages() {
+		$messages = $this->contributor->getFormMessages();
+
+		$this->assertEquals( '<h2>Import Contributors</h2>', $messages['title'] );
+		$this->assertNotEmpty( $messages['hint'] );
+	}
+
+	/**
+	 * @group contributors
+	 */
+	public function test_getTransferableFields() {
+		$this->assertEquals(
+			array_keys( \Pressbooks\Contributors::getContributorFields() ),
+			$this->contributor->getTransferableFields()
+		);
+	}
+
+	/**
+	 * @group contributors
+	 */
+	public function test_downloadContributors() {
+		$this->taxonomy->registerTaxonomies();
+
+		$taxonomy = \Pressbooks\Contributors::TAXONOMY;
+
+		$user_id = $this->factory()->user->create([
+			'role' => 'contributor',
+			'first_name' => 'John',
+			'last_name' => 'Doe',
+			'slug' => 'johndoe',
+		] );
+
+		$contributor = $this->contributor->addBlogUser( $user_id );
+
+		add_term_meta( $contributor['term_id'], $taxonomy . '_prefix', 'Dr.' );
+		add_term_meta( $contributor['term_id'], $taxonomy . '_first_name', 'John' );
+		add_term_meta( $contributor['term_id'], $taxonomy . '_last_name', 'Doe' );
+		add_term_meta( $contributor['term_id'], $taxonomy . '_description', 'Biographical info <strong>with some html</strong>' );
+		add_term_meta( $contributor['term_id'], $taxonomy . '_institution', 'Rebus Foundation' );
+		add_term_meta( $contributor['term_id'], $taxonomy . '_user_url', 'https://someurl.com' );
+		add_term_meta( $contributor['term_id'], $taxonomy . '_twitter', 'https://twitter.com/johndoe' );
+		add_term_meta( $contributor['term_id'], $taxonomy . '_linkedin', 'https://linkedin.com/in/johndoe' );
+		add_term_meta( $contributor['term_id'], $taxonomy . '_github', 'https://github.com/johndoe' );
+
+		$items = $this->contributor->getExportableItems( [ $contributor['term_id'] ] );
+
+		$this->assertIsArray( $items );
+
+		$this->assertEquals( 'Dr.', $items[0]['contributor_prefix'] );
+		$this->assertEquals( 'John', $items[0]['contributor_first_name'] );
+		$this->assertEquals( 'Doe', $items[0]['contributor_last_name'] );
+		$this->assertEquals( '', $items[0]['contributor_suffix'] );
+		$this->assertEquals( "Biographical info <strong>with some html</strong>", $items[0]['contributor_description'] );
+		$this->assertEquals( 'Rebus Foundation', $items[0]['contributor_institution'] );
+		$this->assertEquals( 'https://someurl.com', $items[0]['contributor_user_url'] );
+		$this->assertEquals( 'https://twitter.com/johndoe', $items[0]['contributor_twitter'] );
+		$this->assertEquals( 'https://linkedin.com/in/johndoe', $items[0]['contributor_linkedin'] );
+		$this->assertEquals( 'https://github.com/johndoe', $items[0]['contributor_github'] );
+
+		$json = json_encode( $items, JSON_PRETTY_PRINT );
+
+		$this->assertContains('"name": "John Doe"', $json);
+		$this->assertContains('"contributor_prefix": "Dr."', $json);
+		$this->assertContains('"contributor_first_name": "John"', $json);
+		$this->assertContains('"contributor_last_name": "Doe"', $json);
+		$this->assertContains('"contributor_description": "Biographical info <strong>with some html<\/strong>"', $json);
+		$this->assertContains('"contributor_institution": "Rebus Foundation"', $json);
+		$this->assertContains('"contributor_user_url": "https:\/\/someurl.com"', $json);
+		$this->assertContains('"contributor_twitter": "https:\/\/twitter.com\/johndoe"', $json);
+		$this->assertContains('"contributor_linkedin": "https:\/\/linkedin.com\/in\/johndoe"', $json);
+		$this->assertContains('"contributor_github": "https:\/\/github.com\/johndoe"', $json);
+	}
+
+	/**
+	 * @group contributors
+	 */
+	public function test_importTaxonomyList() {
+		$contributors = $this->getMockBuilder( Contributors::class )
+			->setMethods(['handleUpload'])
+			->getMock();
+
+		copy( __DIR__ . '/data/test-contributor-list.json', __DIR__ . '/data/upload/test-contributor-list.json' );
+
+		$contributors->expects( $this->once() )
+			->method( 'handleUpload' )
+			->willReturn( [
+				'file' => __DIR__ . '/data/upload/test-contributor-list.json',
+			] );
+
+		$contributors->importTaxonomyList();
+
+		$term = get_term_by( 'slug', 'johndoe', 'contributor' );
+
+		$this->assertEquals( 'John Doe', $term->name );
+		$this->assertEquals( 'johndoe', $term->slug );
+		$this->assertArrayHasKey( 'pb_notices', $_SESSION );
+		$this->assertArraySubset(
+			[ 'pb_notices' => ['Successfully imported.'] ],
+			$_SESSION
+		);
+
+		unset( $_SESSION['pb_notices'] );
+	}
+
+	/**
+	 * @group contributors
+	 */
+	public function test_skipsImportCsv() {
+		$contributors = $this->getMockBuilder( Contributors::class )
+			->setMethods(['handleUpload'])
+			->getMock();
+
+		$contributors->expects( $this->once() )
+			->method( 'handleUpload' )
+			->willReturn( false );
+
+		$contributors->importTaxonomyList();
+
+		$term = get_term_by( 'slug', 'johndoe', 'contributor' );
+
+		$this->assertFalse( $term );
+	}
+
+	/**
+	 * @group contributors
+	 */
 	public function test_contributorRoleNameChange() {
 		$current_roles = new WP_Roles();
 
@@ -400,4 +686,16 @@ class ContributorsTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'Collaborator', $current_roles->roles['contributor']['name'] );
 	}
 
+	/**
+	 * @group contributors
+	 */
+	public function test_handleImage() {
+		$src = $this->contributor->handleImage( 'https://pressbooks.com/app/plugins/pressbooks/assets/dist/images/default-book-cover.jpg' );
+
+		$this->assertContains( 'default-book-cover', $src );
+
+		$src = $this->contributor->handleImage( 'not-a-valid-url' );
+
+		$this->assertFalse( $src );
+	}
 }

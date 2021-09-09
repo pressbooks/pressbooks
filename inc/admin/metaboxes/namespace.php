@@ -1381,13 +1381,19 @@ function contributor_custom_columns( $string, $columns, $term_id ) {
  * @return array
  */
 function contributor_table_columns( $columns ) {
+	// Unset default columns but keep checkbox, so we can handle bulk actions.
+	$remove_keys = [ 'name', 'description', 'slug', 'posts' ];
+
+	$columns = array_diff_key( $columns, array_flip( $remove_keys ) );
+
 	$new_columns = [
 		Contributors::TAXONOMY . '_picture' => Contributors::getContributorFields( 'picture' )['label'],
 		'name' => __( 'Name', 'pressbooks' ),
 		Contributors::TAXONOMY . '_institution' => Contributors::getContributorFields( 'institution' )['label'],
 		Contributors::TAXONOMY . '_description' => Contributors::getContributorFields( 'description' )['label'],
 	];
-	return $new_columns;
+
+	return array_merge( $columns, $new_columns );
 }
 
 /**

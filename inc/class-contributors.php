@@ -12,15 +12,17 @@ use function Pressbooks\Utility\str_starts_with;
 use Illuminate\Support\Str;
 use Pressbooks\PostType\BackMatter;
 use Pressbooks\Utility\AutoDisplayable;
+use Pressbooks\Utility\HandlesTransfers;
 
 /**
  *
  */
-class Contributors implements BackMatter {
+class Contributors implements BackMatter, Transferable {
 
 	use AutoDisplayable;
+	use HandlesTransfers;
 
-	const TAXONOMY = 'contributor';
+	public const TAXONOMY = 'contributor';
 
 	const PICTURE_MIN_PIXELS = 400;
 
@@ -28,7 +30,6 @@ class Contributors implements BackMatter {
 	 * @var Contributors
 	 */
 	static $instance = null;
-
 
 	/**
 	 * Valid contributor slugs ordered by preference
@@ -61,7 +62,7 @@ class Contributors implements BackMatter {
 	 *
 	 * @return Contributors
 	 */
-	static public function init() {
+	public static function init() {
 		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
 			self::hooks( self::$instance );
@@ -73,8 +74,10 @@ class Contributors implements BackMatter {
 	/**
 	 * @param Contributors $obj
 	 */
-	static public function hooks( Contributors $obj ) {
+	public static function hooks( Contributors $obj ) {
 		add_filter( 'the_content', [ $obj, 'overrideDisplay' ], 13 ); // Run after wpautop to avoid unwanted breaklines.
+
+		$obj->bootExportable( $obj );
 	}
 
 	/**
@@ -364,6 +367,71 @@ class Contributors implements BackMatter {
 		return array_key_exists( self::TAXONOMY . '_' . $field, $allowed_fields ) ?
 			$allowed_fields[ self::TAXONOMY . '_' . $field ] :
 			$allowed_fields;
+	}
+
+	/**
+	 * Get the list of fields that should be exported.
+	 *
+	 * @return array
+	 */
+	public function getTransferableFields() {
+		return array_keys( self::getContributorFields() );
+	}
+
+	/**
+	 * Get the list of fields that should be stored as URLs.
+	 *
+	 * @return array
+	 */
+	public function getUrlFields() {
+		$fields = self::getContributorFields();
+
+		return array_keys( array_filter( $fields, function( $field ) {
+			if ( ! isset( $field['sanitization_method'] ) ) {
+				return false;
+			}
+
+			return $field['sanitization_method'] === '\Pressbooks\Sanitize\validate_url_field';
+		} ) );
+	}
+
+	/**
+	 * Sanitize input when importing data.
+	 *
+	 * @param string $name
+	 * @param string $value
+	 * @return string
+	 */
+	public function sanitizeField( $name, $value ) {
+		$field = self::getContributorFields( str_replace( self::TAXONOMY . '_', '', $name ) );
+
+		// if the given field does not have a sanitization method we simply return the given value.
+		if ( ! isset( $field['sanitization_method'] ) ) {
+			return $value;
+		}
+
+		// If the given field is a URL, we return the given value if it's a valid URL and an empty string otherwise.
+		if ( in_array( $name, $this->getUrlFields(), true ) ) {
+			return $field['sanitization_method']( $value ) ? $value : '';
+		}
+
+		// Apply the sanitization method.
+		return $field['sanitization_method']( $value );
+	}
+
+	/**
+	 * Returns the form title and the hint for the file input.
+	 *
+	 * @return array
+	 */
+	public function getFormMessages() {
+		$guide_chapter = esc_url( 'https://networkmanagerguide.pressbooks.com/' );
+		$hint = __( '<p>Import multiple contributors at once by uploading a valid JSON file. See <a href="%s" target="_blank">our guide</a> for details.</p>', 'pressbooks' );
+
+		return [
+			'title' => '<h2>' . __( 'Import Contributors', 'pressbooks' ) . '</h2>',
+			'hint' => sprintf( $hint, $guide_chapter ),
+		];
 	}
 
 	/**
