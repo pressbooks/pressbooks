@@ -37,11 +37,18 @@ interface Transferable {
 	public function renderImportForm();
 
 	/**
-	 * Get the list of fields that should be trasfered.
+	 * Get the list of fields that should be transferred.
 	 *
 	 * @return array
 	 */
 	public function getTransferableFields();
+
+	/**
+	 * Get the list of fields that should be stored as URLs.
+	 *
+	 * @return array
+	 */
+	public function getUrlFields();
 
 	/**
 	 * Returns the form title and the hint for the file input.

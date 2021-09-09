@@ -25,18 +25,6 @@ trait HandlesTransfers {
 		add_action( self::TAXONOMY . '_pre_add_form', [ $obj, 'renderImportForm' ] );
 		add_filter( 'bulk_actions-edit-' . $obj::TAXONOMY, [ $obj, 'addBulkAction' ] );
 		add_filter( 'handle_bulk_actions-edit-' . self::TAXONOMY, [ $obj, 'handleBulkAction' ], 10, 3 );
-		// We need to allow for csv file uploads
-		add_filter( 'upload_mimes', [ $obj, 'addExtraMimeTypes' ] );
-	}
-
-	/**
-	 * Adds extra extensions to the upload_mimes hook.
-	 *
-	 * @param array $allowed_types
-	 * @returm void
-	 */
-	public function addExtraMimeTypes( $allowed_types ) {
-		return array_merge( $allowed_types, [ 'csv' => 'text/csv' ] );
 	}
 
 	/**
@@ -47,7 +35,7 @@ trait HandlesTransfers {
 	 */
 	public function addBulkAction( $actions ) {
 		return array_merge( $actions, [
-			self::TAXONOMY . '-download' => __( 'Download CSV', 'pressbooks' ),
+			self::TAXONOMY . '-download' => __( 'Download JSON', 'pressbooks' ),
 		] );
 	}
 
@@ -62,10 +50,10 @@ trait HandlesTransfers {
 	public function handleBulkAction( $redirect, $action, $ids ) {
 		switch ( $action ) {
 			case self::TAXONOMY . '-download':
-				$this->exportCsv( $ids );
+				$this->exportTaxonomyList( $ids );
 				break;
 			case self::TAXONOMY . '-import':
-				$this->importCsv();
+				$this->importTaxonomyList();
 				break;
 			default:
 		}
@@ -102,11 +90,11 @@ trait HandlesTransfers {
 	}
 
 	/**
-	 * Imports a CSV file content and creates the taxonomy terms.
+	 * Imports a JSON file content and creates the taxonomy terms.
 	 *
 	 * @return void
 	 */
-	public function importCsv() {
+	public function importTaxonomyList() {
 		// If no file was imported.
 		$upload = $this->handleUpload();
 
@@ -118,7 +106,7 @@ trait HandlesTransfers {
 
 		unlink( $upload['file'] );
 
-		if ( ! $items ) {
+		if ( empty( $items ) ) {
 			return;
 		}
 
@@ -128,21 +116,19 @@ trait HandlesTransfers {
 	}
 
 	/**
-	 * Generates and download a CSV file with all the selected resources.
+	 * Generates and download a JSON file with all the selected resources.
 	 *
 	 * @param $ids
 	 * @return void
 	 */
-	public function exportCsv( $ids ) {
+	public function exportTaxonomyList( $ids ) {
 		$items = $this->getExportableItems( $ids );
 
 		if ( empty( $items ) ) {
 			return;
 		}
 
-		$content = $this->generateCsvContent( $items );
-
-		$this->downloadCsv( $content );
+		$this->downloadJson( wp_json_encode( $items ) );
 	}
 
 	/**
@@ -167,7 +153,7 @@ trait HandlesTransfers {
 			foreach ( $fields as $field ) {
 				$value = $term_meta[ $field ] ?? [];
 
-				$item[ $field ] = preg_replace( '/\R/', '', wp_filter_nohtml_kses( $value[0] ?? '' ) );
+				$item[ $field ] = $value[0] ?? '';
 			}
 
 			$items[] = $item;
@@ -177,35 +163,13 @@ trait HandlesTransfers {
 	}
 
 	/**
-	 * Generate the CSV content for the given array of items.
-	 *
-	 * @param array $items
-	 * @return false|string
-	 */
-	public function generateCsvContent( $items ) {
-		ob_start();
-
-		$df = fopen( 'php://output', 'w' );
-
-		fputcsv( $df, array_keys( $items[0] ) );
-
-		foreach ( $items as $row ) {
-			fputcsv( $df, $row );
-		}
-
-		fclose( $df );
-
-		return ob_get_clean();
-	}
-
-	/**
-	 * Download the content as a CSV file.
+	 * Download the content as a JSON file.
 	 *
 	 * @param string $content
 	 * @return void
 	 */
-	public function downloadCsv( $content ) {
-		$filename = self::TAXONOMY . '-list-' . time() . '.csv';
+	public function downloadJson( $content ) {
+		$filename = self::TAXONOMY . '-list-' . time() . '.json';
 
 		$file = create_tmp_file();
 
@@ -228,13 +192,16 @@ trait HandlesTransfers {
 			return false;
 		}
 
-		if ( $_FILES['import_file']['type'] !== 'text/csv' ) {
+		if ( $_FILES['import_file']['type'] !== 'application/json' ) {
 			$_SESSION['pb_errors'][] = __( 'Sorry, this file type is not permitted for security reasons.' );
 
 			return false;
 		}
 
-		$upload = wp_handle_upload( $_FILES['import_file'], [ 'action' => self::TAXONOMY . '-import' ] );
+		$upload = wp_handle_upload( $_FILES['import_file'], [
+			'test_type' => false,
+			'action' => self::TAXONOMY . '-import',
+		] );
 
 		if ( ! empty( $upload['error'] ) ) {
 			$_SESSION['pb_errors'][] = $upload['error'];
@@ -249,27 +216,28 @@ trait HandlesTransfers {
 	 * Returns the list of contributors to import
 	 *
 	 * @param array $upload
-	 * @return array|false
+	 * @return array
 	 */
 	public function getImportableItems( $upload ) {
-		$header = [];
 		$items = [];
+		$invalid_rows = [];
 
-		foreach ( file( $upload['file'] ) as $key => $line ) {
-			if ( $key > 0 ) {
-				$items[] = array_combine( $header, str_getcsv( $line ) );
+		foreach ( json_decode( file_get_contents( $upload['file'] ) ) as $key => $item ) {
+			$item = (array) $item;
+
+			if ( ! isset( $item['name'], $item['slug'] ) ) {
+				$invalid_rows[] = $key + 1;
 
 				continue;
 			}
 
-			$header = str_getcsv( $line );
+			$items[] = $item;
+		}
 
-			// If we don't find the minimum required headers we won't import anything.
-			if ( ! in_array( 'name', $header, true ) || ! in_array( 'slug', $header, true ) ) {
-				$_SESSION['pb_errors'][] = __( 'Sorry, this file could not be imported. Please, make sure to send a valid file.' );
+		if ( ! empty( $invalid_rows ) ) {
+			$message = __( 'One or more rows were not imported because they have missing information. Please, check rows %s', 'pressbooks' );
 
-				return false;
-			}
+			$_SESSION['pb_errors'][] = sprintf( $message, implode( ',', $invalid_rows ) );
 		}
 
 		return $items;
@@ -282,6 +250,7 @@ trait HandlesTransfers {
 	 */
 	public function handleImport( $items ) {
 		$importable_fields = $this->getTransferableFields();
+		$changed = false;
 
 		foreach ( $items as $item ) {
 			$term = get_term_by( 'slug', $item['slug'], self::TAXONOMY );
@@ -306,6 +275,11 @@ trait HandlesTransfers {
 					continue;
 				}
 
+				if ( in_array( $field, $this->getUrlFields(), true ) && ! \Pressbooks\Sanitize\validate_url_field( $item[ $field ] ) ) {
+					$changed = true;
+					$item[ $field ] = '';
+				}
+
 				if ( false !== strpos( $field, 'picture' ) ) {
 					// Skip the picture if we are unable to get the src url.
 					$src = $this->handleImage( $item[ $field ] );
@@ -321,6 +295,10 @@ trait HandlesTransfers {
 					? update_term_meta( $results['term_id'], $field, sanitize_text_field( $item[ $field ] ) )
 					: add_term_meta( $results['term_id'], sanitize_text_field( $field ), $item[ $field ] );
 			}
+		}
+
+		if ( $changed ) {
+			$_SESSION['pb_notices'][] = __( 'Values for one or more of the imported contributors were altered by our validation routine. You may want to check the values for the newly imported contributors.', 'pressbooks' );
 		}
 	}
 

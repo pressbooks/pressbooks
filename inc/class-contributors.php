@@ -379,13 +379,30 @@ class Contributors implements BackMatter, Transferable {
 	}
 
 	/**
+	 * Get the list of fields that should be stored as URLs.
+	 *
+	 * @return array
+	 */
+	public function getUrlFields() {
+		$fields = self::getContributorFields();
+
+		return array_keys( array_filter( $fields, function( $field ) {
+			if ( ! isset( $field['sanitization_method'] ) ) {
+				return false;
+			}
+
+			return $field['sanitization_method'] === '\Pressbooks\Sanitize\validate_url_field';
+		} ) );
+	}
+
+	/**
 	 * Returns the form title and the hint for the file input.
 	 *
 	 * @return array
 	 */
 	public function getFormMessages() {
 		$guide_chapter = esc_url( 'https://networkmanagerguide.pressbooks.com/' );
-		$hint = __( '<p>Import multiple contributors at once by uploading a valid CSV file. See <a href="%s" target="_blank">our guide</a> for details.</p>', 'pressbooks' );
+		$hint = __( '<p>Import multiple contributors at once by uploading a valid JSON file. See <a href="%s" target="_blank">our guide</a> for details.</p>', 'pressbooks' );
 
 		return [
 			'title' => '<h2>' . __( 'Import Contributors', 'pressbooks' ) . '</h2>',

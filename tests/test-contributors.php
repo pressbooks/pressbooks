@@ -407,16 +407,6 @@ class ContributorsTest extends \WP_UnitTestCase {
 	/**
 	 * @group contributors
 	 */
-	public function test_addExtraMimeTypes() {
-		$mimes = $this->contributor->addExtraMimeTypes( [] );
-
-		$this->assertNotEmpty( $mimes );
-		$this->assertArrayHasKey( 'csv', $mimes );
-	}
-
-	/**
-	 * @group contributors
-	 */
 	public function test_addBulkAction() {
 		$actions = $this->contributor->addBulkAction( [] );
 
@@ -448,10 +438,10 @@ class ContributorsTest extends \WP_UnitTestCase {
 		$contributor_two = $this->contributor->addBlogUser( $user_two );
 
 		$contributors = $this->getMockBuilder( Contributors::class )
-			->setMethods(['exportCsv', 'importCsv'])
+			->setMethods(['exportTaxonomyList', 'importTaxonomyList'])
 			->getMock();
 
-		$contributors->expects( $this->once() )->method( 'exportCsv' )->with([
+		$contributors->expects( $this->once() )->method( 'exportTaxonomyList' )->with([
 			$contributor_one['term_id'], $contributor_two['term_id']
 		]);
 
@@ -459,7 +449,7 @@ class ContributorsTest extends \WP_UnitTestCase {
 			$contributor_one['term_id'], $contributor_two['term_id']
 		]);
 
-		$contributors->expects( $this->once() )->method( 'importCsv' );
+		$contributors->expects( $this->once() )->method( 'importTaxonomyList' );
 
 		$contributors->handleBulkAction( false, 'contributor-import', [] );
 	}
@@ -467,7 +457,7 @@ class ContributorsTest extends \WP_UnitTestCase {
 	/**
 	 * @group contributors
 	 */
-	public function test_exportCsv() {
+	public function test_exportTaxonomyList() {
 		$this->taxonomy->registerTaxonomies();
 
 		$user_id = $this->factory()->user->create([
@@ -489,16 +479,16 @@ class ContributorsTest extends \WP_UnitTestCase {
 		add_term_meta( $contributor['term_id'], 'contributor_linkedin', 'https://linkedin.com/in/johndoe' );
 		add_term_meta( $contributor['term_id'], 'contributor_github', 'https://github.com/johndoe' );
 
-		$content = $this->contributor->generateCsvContent(
-			$this->contributor->getExportableItems( [ $contributor['term_id'] ] )
+		$content = wp_json_encode(
+			$this->contributor->getExportableItems( [ $contributor['term_id'] ] ),
 		);
 
 		$contributors = $this->getMockBuilder( Contributors::class )
-			->setMethods(['downloadCsv'])
+			->setMethods(['downloadJson'])
 			->getMock();
 
 		$contributors->expects( $this->once() )
-			->method( 'downloadCsv' )
+			->method( 'downloadJson' )
 			->with( $content );
 
 		$contributors->handleBulkAction( false, 'contributor-download', [
@@ -561,7 +551,7 @@ class ContributorsTest extends \WP_UnitTestCase {
 		add_term_meta( $contributor['term_id'], $taxonomy . '_prefix', 'Dr.' );
 		add_term_meta( $contributor['term_id'], $taxonomy . '_first_name', 'John' );
 		add_term_meta( $contributor['term_id'], $taxonomy . '_last_name', 'Doe' );
-		add_term_meta( $contributor['term_id'], $taxonomy . '_description', 'John\'s biographical info' );
+		add_term_meta( $contributor['term_id'], $taxonomy . '_description', 'Biographical info <strong>with some html</strong>' );
 		add_term_meta( $contributor['term_id'], $taxonomy . '_institution', 'Rebus Foundation' );
 		add_term_meta( $contributor['term_id'], $taxonomy . '_user_url', 'https://someurl.com' );
 		add_term_meta( $contributor['term_id'], $taxonomy . '_twitter', 'https://twitter.com/johndoe' );
@@ -576,38 +566,44 @@ class ContributorsTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'John', $items[0]['contributor_first_name'] );
 		$this->assertEquals( 'Doe', $items[0]['contributor_last_name'] );
 		$this->assertEquals( '', $items[0]['contributor_suffix'] );
-		$this->assertEquals( "John\'s biographical info", $items[0]['contributor_description'] );
+		$this->assertEquals( "Biographical info <strong>with some html</strong>", $items[0]['contributor_description'] );
 		$this->assertEquals( 'Rebus Foundation', $items[0]['contributor_institution'] );
 		$this->assertEquals( 'https://someurl.com', $items[0]['contributor_user_url'] );
 		$this->assertEquals( 'https://twitter.com/johndoe', $items[0]['contributor_twitter'] );
 		$this->assertEquals( 'https://linkedin.com/in/johndoe', $items[0]['contributor_linkedin'] );
 		$this->assertEquals( 'https://github.com/johndoe', $items[0]['contributor_github'] );
 
-		$csv = $this->contributor->generateCsvContent( $items );
+		$json = json_encode( $items, JSON_PRETTY_PRINT );
 
-		$this->assertContains(
-			'Dr.,John,Doe,,,"John\\\'s biographical info","Rebus Foundation",https://someurl.com,https://twitter.com/johndoe,https://linkedin.com/in/johndoe,https://github.com/johndoe',
-			$csv
-		);
+		$this->assertContains('"name": "John Doe"', $json);
+		$this->assertContains('"contributor_prefix": "Dr."', $json);
+		$this->assertContains('"contributor_first_name": "John"', $json);
+		$this->assertContains('"contributor_last_name": "Doe"', $json);
+		$this->assertContains('"contributor_description": "Biographical info <strong>with some html<\/strong>"', $json);
+		$this->assertContains('"contributor_institution": "Rebus Foundation"', $json);
+		$this->assertContains('"contributor_user_url": "https:\/\/someurl.com"', $json);
+		$this->assertContains('"contributor_twitter": "https:\/\/twitter.com\/johndoe"', $json);
+		$this->assertContains('"contributor_linkedin": "https:\/\/linkedin.com\/in\/johndoe"', $json);
+		$this->assertContains('"contributor_github": "https:\/\/github.com\/johndoe"', $json);
 	}
 
 	/**
 	 * @group contributors
 	 */
-	public function test_importCsv() {
+	public function test_importTaxonomyList() {
 		$contributors = $this->getMockBuilder( Contributors::class )
 			->setMethods(['handleUpload'])
 			->getMock();
 
-		copy( __DIR__ . '/data/test-contributor-list.csv', __DIR__ . '/data/upload/test-contributor-list.csv' );
+		copy( __DIR__ . '/data/test-contributor-list.json', __DIR__ . '/data/upload/test-contributor-list.json' );
 
 		$contributors->expects( $this->once() )
 			->method( 'handleUpload' )
 			->willReturn( [
-				'file' => __DIR__ . '/data/upload/test-contributor-list.csv',
+				'file' => __DIR__ . '/data/upload/test-contributor-list.json',
 			] );
 
-		$contributors->importCsv();
+		$contributors->importTaxonomyList();
 
 		$term = get_term_by( 'slug', 'johndoe', 'contributor' );
 
@@ -634,7 +630,7 @@ class ContributorsTest extends \WP_UnitTestCase {
 			->method( 'handleUpload' )
 			->willReturn( false );
 
-		$contributors->importCsv();
+		$contributors->importTaxonomyList();
 
 		$term = get_term_by( 'slug', 'johndoe', 'contributor' );
 
