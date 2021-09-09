@@ -220,13 +220,13 @@ trait HandlesTransfers {
 	 */
 	public function getImportableItems( $upload ) {
 		$items = [];
-		$invalid_rows = [];
+		$invalid_rows = false;
 
 		foreach ( json_decode( file_get_contents( $upload['file'] ) ) as $key => $item ) {
 			$item = (array) $item;
 
 			if ( ! isset( $item['name'], $item['slug'] ) ) {
-				$invalid_rows[] = $key + 1;
+				$invalid_rows = true;
 
 				continue;
 			}
@@ -234,10 +234,8 @@ trait HandlesTransfers {
 			$items[] = $item;
 		}
 
-		if ( ! empty( $invalid_rows ) ) {
-			$message = __( 'One or more rows were not imported because they have missing information. Please, check rows %s', 'pressbooks' );
-
-			$_SESSION['pb_notices'][] = sprintf( $message, implode( ',', $invalid_rows ) );
+		if ( $invalid_rows ) {
+			$_SESSION['pb_errors'][] = __( 'One or more contributors could not be imported because they were missing a name or slug.', 'pressbooks' );
 		}
 
 		return $items;
@@ -300,7 +298,7 @@ trait HandlesTransfers {
 		}
 
 		if ( $changed ) {
-			$_SESSION['pb_notices'][] = __( 'Values for one or more of the imported contributors were altered by our validation routine. You may want to check the values for the newly imported contributors.', 'pressbooks' );
+			$_SESSION['pb_errors'][] = __( 'Values for one or more of the imported contributors were altered by our validation routine. ', 'pressbooks' );
 		}
 	}
 
