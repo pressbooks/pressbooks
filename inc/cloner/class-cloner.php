@@ -1432,9 +1432,8 @@ class Cloner {
 		unset( $section['meta']['pb_authors'], $section['meta']['pb_section_license'] );
 
 		// POST internal request
-		$request = new \WP_REST_Request( 'POST', "/pressbooks/v2/$endpoint");
+		$request = new \WP_REST_Request( 'POST', "/pressbooks/v2/$endpoint" );
 		$request->set_body_params( $section );
-		$request->set_query_params( ['XDEBUG_SESSION_START' => 'PHPSTORM'] );
 		$request->set_param( '_fields', 'id' );
 		$response = rest_do_request( $request )->get_data();
 

@@ -276,18 +276,6 @@ function hide_endpoints_from_book( $endpoints ) {
 }
 
 /**
- * Hide endpoints from root api
- *
- * @param array $endpoints
- *
- * @return array
- */
-function hide_endpoints_from_root( $endpoints ) {
-
-	return $endpoints; // Nothing to hide
-}
-
-/**
  * Filter to adjust the url returned by the get_rest_url() function
  *
  * @param string $url
@@ -355,7 +343,6 @@ function fix_attachment( $response, $post, $request ) {
  * @return bool|\WP_Error
  */
 function update_part_id( $part_id, $post_obj ) {
-	$part_id = intval($part_id);
 
 	$part = get_post( $part_id );
 	if ( $part === null ) {
@@ -379,7 +366,7 @@ function update_part_id( $part_id, $post_obj ) {
 			'post_parent' => $part_id,
 		]
 	);
-	if (  $ret instanceof \WP_Error || intval( $ret ) === 0 ) {
+	if ( false === $ret ) {
 		return new \WP_Error(
 			'rest_chapter_part_failed', __( 'Failed to update chapter part', 'pressbooks' ), [
 				'status' => 500,
