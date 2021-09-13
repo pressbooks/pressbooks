@@ -382,7 +382,6 @@ class Cloner {
 				// Do nothing, this is a compatibility wrapper that makes the generator work like a regular function
 			}
 		} catch ( \Exception $e ) {
-			var_dump($e->getMessage());
 			return false;
 		}
 		return true;
