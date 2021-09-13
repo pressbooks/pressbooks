@@ -25,7 +25,7 @@ jQuery( function ( $ ) {
 		notices.remove();
 
 		// Initialize event data
-		const eventSourceUrl = PB_ClonerToken.ajaxUrl + ( PB_ClonerToken.ajaxUrl.includes( '?' ) ? '&' : '?' ) + $.param( clonerForm.find( ':input' ) );
+		const eventSourceUrl = PB_ClonerToken.ajaxUrl + ( PB_ClonerToken.ajaxUrl.includes( '?' ) ? '&' : '?' ) + $.param( clonerForm.find( ':input' ) ) + '&XDEBUG_SESSION_START=PHPSTORM';
 		const evtSource = new EventSource( eventSourceUrl );
 
 		// Handle open

@@ -53,7 +53,6 @@ add_action( 'plugins_loaded', [ '\Pressbooks\Activation', 'init' ] );
 // -------------------------------------------------------------------------------------------------------------------
 
 add_filter( 'rest_index', '\Pressbooks\Api\add_help_link' );
-
 if ( $is_book ) {
 	add_action( 'rest_api_init', '\Pressbooks\Api\init_book' );
 	add_filter( 'rest_endpoints', '\Pressbooks\Api\hide_endpoints_from_book' );

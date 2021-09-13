@@ -355,6 +355,7 @@ function fix_attachment( $response, $post, $request ) {
  * @return bool|\WP_Error
  */
 function update_part_id( $part_id, $post_obj ) {
+	$part_id = intval($part_id);
 
 	$part = get_post( $part_id );
 	if ( $part === null ) {
@@ -378,7 +379,7 @@ function update_part_id( $part_id, $post_obj ) {
 			'post_parent' => $part_id,
 		]
 	);
-	if ( false === $ret ) {
+	if (  $ret instanceof \WP_Error || intval( $ret ) === 0 ) {
 		return new \WP_Error(
 			'rest_chapter_part_failed', __( 'Failed to update chapter part', 'pressbooks' ), [
 				'status' => 500,
