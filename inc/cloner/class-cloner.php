@@ -1431,6 +1431,16 @@ class Cloner {
 		// Remove items handled by cloneSectionMetadata()
 		unset( $section['meta']['pb_authors'], $section['meta']['pb_section_license'] );
 
+		if ( isset( $section['meta']['pb_part_invisible'] ) ) {
+			// pb_part_invisible metadata compatibility with previous boolean type (false | null)
+			if ( is_bool( $section['meta']['pb_part_invisible'] ) && $section['meta']['pb_part_invisible'] === false ) {
+				$section['meta']['pb_part_invisible'] = '';
+			}
+			if ( is_null( $section['meta']['pb_part_invisible'] ) ) {
+				$section['meta']['pb_part_invisible'] = 'on';
+			}
+		}
+
 		// POST internal request
 		$request = new \WP_REST_Request( 'POST', "/pressbooks/v2/$endpoint" );
 		$request->set_body_params( $section );
