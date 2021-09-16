@@ -3,22 +3,22 @@
 		<h2>{{$contributor_type['title']}}</h2>
 		@foreach($contributor_type['records'] as $contributor)
 			<div class="contributor">
-				<div class="contributor_name_and_links">
+				<div class="contributor__name__and__links">
 					@if ( $contributor['contributor_picture'] )
-						<img class="contributor_profile_picture" alt="Contributor photo" title="Photo"
+						<img class="contributor__profile__picture" alt="Contributor photo" title="Photo"
 							 src="{{ $contributor['contributor_picture'] }}"/>
 					@endif
-					<span class="contributor_name">{{ $contributor['name'] }}</span>
+					<p class="contributor__name">{{ $contributor['name'] }}</p>
 					@if ( $contributor['contributor_institution'] )
-						<span class="contributor_institution"> {{ $contributor['contributor_institution'] }}</span>
+						<p class="contributor__institution"> {{ $contributor['contributor_institution'] }}</p>
 					@endif
 					@if ( $contributor['contributor_user_url'] )
-						<span class="contributor_website"><a href="{{ $contributor['contributor_user_url'] }}"
-															 target="_blank">{{ $contributor['contributor_user_url'] }}</a></span>
+						<p class="contributor__website"><a href="{{ $contributor['contributor_user_url'] }}"
+															 target="_blank">{{ $contributor['contributor_user_url'] }}</a></p>
 					@endif
-					<div class="contributor_links">
+					<div class="contributor__links">
 						@if ( $contributor['contributor_twitter'] )
-							<a class="contributor_twitter" href="{{$contributor['contributor_twitter']}}" target="_blank">
+							<a class="contributor__twitter" href="{{$contributor['contributor_twitter']}}" target="_blank">
 								<svg role="img" aria-labelledby="twitter-logo" class="contributor icon-svg">
 									<title id="twitter-title-logo">Twitter logo</title>
 									<use href="#twitter-icon"/>
@@ -26,7 +26,7 @@
 							</a>
 						@endif
 						@if ( $contributor['contributor_linkedin'] )
-							<a class="contributor_linkedin" href="{{$contributor['contributor_linkedin']}}" target="_blank">
+							<a class="contributor__linkedin" href="{{$contributor['contributor_linkedin']}}" target="_blank">
 								<svg role="img" aria-labelledby="linkedin-logo" class="contributor icon-svg">
 									<title id="linkedin-title-logo">LinkedIn logo</title>
 									<use href="#linkedin-icon"/>
@@ -34,7 +34,7 @@
 							</a>
 						@endif
 						@if ( $contributor['contributor_github'] )
-							<a class="contributor_github" href="{{$contributor['contributor_github']}}" target="_blank">
+							<a class="contributor__github" href="{{$contributor['contributor_github']}}" target="_blank">
 								<svg role="img" aria-labelledby="github-logo" class="contributor icon-svg">
 									<title id="github-title-logo">GitHub logo</title>
 									<use href="#github-icon"/>
@@ -43,7 +43,7 @@
 						@endif
 					</div>
 				</div>
-				<div class="contributor_bio">{!! wp_kses( $contributor['contributor_description'], true ) !!}</div>
+				<div class="contributor__bio">{!! wp_kses( $contributor['contributor_description'], true ) !!}</div>
 			</div>
 		@endforeach
 	</div>
