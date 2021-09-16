@@ -231,6 +231,9 @@ class Wxr extends Import {
 		$terms = apply_filters( 'pb_import_custom_terms', $xml['terms'] );
 
 		// and import them if they don't already exist.
+		file_put_contents($_SERVER['DOCUMENT_ROOT'].'/main_terms.log',print_r($terms, true));
+		file_put_contents($_SERVER['DOCUMENT_ROOT'].'/taxonomies.log',print_r($taxonomies, true));
+		file_put_contents($_SERVER['DOCUMENT_ROOT'].'/xml_posts.log',print_r($xml['posts'], true));
 		foreach ( $terms as $t ) {
 			$term = term_exists( $t['term_name'], $t['term_taxonomy'] );
 			if ( null === $term || 0 === $term ) {
@@ -296,6 +299,7 @@ class Wxr extends Import {
 			// if this is a custom post type,
 			// and it has terms associated with it...
 			if ( ( in_array( $post_type, $custom_post_types, true ) && isset( $p['terms'] ) ) ) {
+				file_put_contents($_SERVER['DOCUMENT_ROOT'].'/terms.log',print_r($p['terms'], true));
 				// associate post with terms.
 				foreach ( $p['terms'] as $t ) {
 					if ( in_array( $t['domain'], $taxonomies, true ) ) {
@@ -542,11 +546,13 @@ class Wxr extends Import {
 		}
 
 		if ( $data_model === 5 ) {
-			$meta_val = $this->searchForMetaValue( 'pb_authors', $p['postmeta'] );
-			if ( $meta_val ) {
+			$meta_values = $this->searchMultipleValues( 'pb_authors', $p['postmeta'] );
+			if ( is_array( $meta_values ) ) {
 				// PB5 contributors (slugs)
-				add_post_meta( $pid, 'pb_authors', $meta_val );
-				wp_set_object_terms( $pid, $meta_val, Contributors::TAXONOMY );
+				foreach ( $meta_values as $slug ) {
+					add_post_meta( $pid, 'pb_authors', $slug );
+					wp_set_object_terms( $pid, $slug, Contributors::TAXONOMY );
+				}
 			}
 		} else {
 			$meta_val = $this->searchForMetaValue( 'pb_section_author', $p['postmeta'] );
@@ -582,13 +588,17 @@ class Wxr extends Import {
 				delete_post_meta( $pid, $key );
 			}
 		}
-
 		// Import contributors
 		foreach ( $p['postmeta'] as $meta ) {
 			if ( $data_model === 5 && $this->contributors->isValid( $meta['key'] ) ) {
 				// PB5 contributors (slugs)
-				add_post_meta( $pid, $meta['key'], $meta['value'] );
-				wp_set_object_terms( $pid, $meta['value'], Contributors::TAXONOMY );
+				$contributor = get_term_by( 'slug', $meta['value'], Contributors::TAXONOMY );
+				$value = $meta['value'];
+				if ( $contributor ) {
+					$value = $meta['value'] . '-hola';
+				}
+				add_post_meta( $pid, $meta['key'], $value );
+				wp_set_object_terms( $pid, $value, Contributors::TAXONOMY );
 			} elseif ( $data_model === 4 && $this->contributors->isDeprecated( $meta['key'] ) ) {
 				// PB4 contributors (full names)
 				$this->contributors->convert( $meta['key'], $meta['value'], $pid );
@@ -634,6 +644,8 @@ class Wxr extends Import {
 			return '';
 		}
 
+		$values = [];
+
 		foreach ( $postmeta as $meta ) {
 			// prefer this value, if it's set
 			if ( $meta_key === $meta['key'] ) {
@@ -642,6 +654,23 @@ class Wxr extends Import {
 		}
 
 		return '';
+	}
+
+	protected function searchMultipleValues( $meta_key, array $postmeta ) {
+		if ( empty( $postmeta ) ) {
+			return [];
+		}
+
+		$values = [];
+
+		foreach ( $postmeta as $meta ) {
+			// prefer this value, if it's set
+			if ( $this->contributors->isValid( $meta_key ) && $meta_key === $meta['key'] ) {
+				$values[] = maybe_safer_unserialize( $meta['value'] );
+			}
+		}
+
+		return $values;
 	}
 
 	/**
