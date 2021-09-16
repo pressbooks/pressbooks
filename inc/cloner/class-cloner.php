@@ -13,7 +13,6 @@ use function Pressbooks\Image\strip_baseurl as image_strip_baseurl;
 use function Pressbooks\Media\strip_baseurl as media_strip_baseurl;
 use function Pressbooks\Metadata\schema_to_book_information;
 use function Pressbooks\Metadata\schema_to_section_information;
-use function Pressbooks\Utility\oxford_comma_explode;
 use function Pressbooks\Utility\str_ends_with;
 use function Pressbooks\Utility\str_lreplace;
 use function Pressbooks\Utility\str_remove_prefix;
@@ -1317,7 +1316,7 @@ class Cloner {
 		foreach ( $book_information as $key => $value ) {
 			if ( $this->contributors->isValid( $key ) ) {
 				foreach ( $value as $contributor_data ) {
-					$this->contributors->insert( $contributor_data, $metadata_post_id, $key );
+					$this->contributors->insert( $contributor_data, $metadata_post_id, $key, $this->downloads );
 				}
 			} elseif ( in_array( $key, $metadata_array_values, true ) ) {
 				$values = explode( ', ', $value );
@@ -1617,7 +1616,7 @@ class Cloner {
 		foreach ( $section_information as $key => $value ) {
 			if ( $this->contributors->isValid( $key ) ) {
 				foreach ( $value as $contributor_data ) {
-					$this->contributors->insert( $contributor_data, $target_id, $key );
+					$this->contributors->insert( $contributor_data, $target_id, $key, $this->downloads );
 				}
 			} else {
 				update_post_meta( $target_id, $key, $value );

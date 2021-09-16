@@ -7,9 +7,6 @@ use function \Pressbooks\L10n\get_book_language;
 use function \Pressbooks\L10n\get_locale;
 use function \Pressbooks\Sanitize\is_valid_timestamp;
 use function \Pressbooks\Utility\get_contents;
-use function \Pressbooks\Utility\is_assoc;
-use function \Pressbooks\Utility\oxford_comma_explode;
-use function \Pressbooks\Utility\oxford_comma;
 use PressbooksMix\Assets;
 use Pressbooks\Book;
 use Pressbooks\Contributors;
@@ -432,6 +429,12 @@ function schema_to_book_information( $book_schema ) {
 		'thumbnailUrl' => 'pb_thumbnail',
 		'position' => 'pb_series_number',
 		'isBasedOn' => 'pb_is_based_on',
+		'author' => 'pb_authors',
+		'editor' => 'pb_editors',
+		'translator' => 'pb_translators',
+		'reviewedBy' => 'pb_reviewers',
+		'illustrator' => 'pb_illustrators',
+		'contributor' => 'pb_contributors',
 	];
 
 	foreach ( $mapped_properties as $old => $new ) {
@@ -455,28 +458,11 @@ function schema_to_book_information( $book_schema ) {
 		$book_information['pb_bisac_subject'] = implode( ', ', $bisac_subjects );
 	}
 
-	if ( isset( $book_schema['author'] ) ) {
-		$book_information['pb_authors'] = $book_schema['author'];
-	}
-
-	if ( isset( $book_schema['editor'] ) ) {
-		$book_information['pb_editors'] = $book_schema['editor'];
-	}
-
-	if ( isset( $book_schema['translator'] ) ) {
-		$book_information['pb_translators'] = $book_schema['translator'] ;
-	}
-
-	if ( isset( $book_schema['reviewedBy'] ) ) {
-		$book_information['pb_reviewers'] = $book_schema['reviewedBy'];
-	}
-
-	if ( isset( $book_schema['illustrator'] ) ) {
-		$book_information['pb_illustrators'] = $book_schema['illustrator'];
-	}
-
-	if ( isset( $book_schema['contributor'] ) ) {
-		$book_information['pb_contributors'] = $book_schema['contributor'];
+	$contributors = new Contributors();
+	foreach ( $contributors->valid as $contributor_type ) {
+		if ( isset( $book_schema[ $mapped_properties[ $contributor_type ] ] ) ) {
+			$book_information[ $contributor_type ] = $book_schema[ $mapped_properties[ $contributor_type ] ];
+		}
 	}
 
 	if ( isset( $book_schema['publisher'] ) ) {

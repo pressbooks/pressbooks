@@ -94,7 +94,7 @@ class Book {
 		// -----------------------------------------------------------------------------
 
 		$cache_id = "book-inf-$blog_id";
-		if ( false ) {
+		if ( static::useCache() ) {
 			$book_information = wp_cache_get( $cache_id, 'pb' );
 			if ( $book_information ) {
 				return $book_information;
