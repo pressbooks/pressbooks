@@ -1316,9 +1316,8 @@ class Cloner {
 		$metadata_array_values = [ 'pb_keywords_tags', 'pb_bisac_subject', 'pb_additional_subjects' ];
 		foreach ( $book_information as $key => $value ) {
 			if ( $this->contributors->isValid( $key ) ) {
-				$values = oxford_comma_explode( $value );
-				foreach ( $values as $v ) {
-					$this->contributors->insert( $v, $metadata_post_id, $key );
+				foreach ( $value as $contributor_data ) {
+					$this->contributors->insert( $contributor_data, $metadata_post_id, $key );
 				}
 			} elseif ( in_array( $key, $metadata_array_values, true ) ) {
 				$values = explode( ', ', $value );
@@ -1617,9 +1616,8 @@ class Cloner {
 
 		foreach ( $section_information as $key => $value ) {
 			if ( $this->contributors->isValid( $key ) ) {
-				$values = oxford_comma_explode( $value );
-				foreach ( $values as $v ) {
-					$this->contributors->insert( $v, $target_id, $key );
+				foreach ( $value as $contributor_data ) {
+					$this->contributors->insert( $contributor_data, $target_id, $key );
 				}
 			} else {
 				update_post_meta( $target_id, $key, $value );

@@ -1279,7 +1279,7 @@ function rmrdir( $dirname, $only_empty = false ) {
 
 
 /**
- * Comma separated, Oxford comma, localized and between the last two items
+ * Comma separated, Oxford comma (or semicolon if comma is part of any array element), localized and between the last two items
  *
  * @since 5.0.0
  *
@@ -1291,10 +1291,11 @@ function oxford_comma( array $vars ) {
 	if ( count( $vars ) === 2 ) {
 		return $vars[0] . ' ' . __( 'and', 'pressbooks' ) . ' ' . $vars[1];
 	} else {
+		$str_implode = '; ';
 		$last = array_pop( $vars );
-		$output = implode( ', ', $vars );
+		$output = implode( $str_implode, $vars );
 		if ( $output ) {
-			$output .= ', ' . __( 'and', 'pressbooks' ) . ' ';
+			$output .= $str_implode . __( 'and', 'pressbooks' ) . ' ';
 		}
 		$output .= $last;
 		return $output;
@@ -1302,7 +1303,7 @@ function oxford_comma( array $vars ) {
 }
 
 /**
- * Explode an oxford comma seperated list of items
+ * Explode an oxford comma (or semicolon if comma and semicolon are present in the string) seperated list of items
  *
  * @param $string
  *
@@ -1310,8 +1311,18 @@ function oxford_comma( array $vars ) {
  */
 function oxford_comma_explode( $string ) {
 	$results = [];
-	if ( strpos( $string, ',' ) !== false ) {
-		$items = explode( ',', $string );
+	$str_explode = ';';
+	if ( strpos( $string, $str_explode ) !== false ) {
+		$items = explode( $str_explode, $string );
+		if ( count( $items ) === 2 ) {
+			$items = explode( ' ' . __( 'and', 'pressbooks' ) . ' ', $string );
+			foreach ( $items as $item ) {
+				$item = trim( $item );
+				if ( ! empty( $item ) ) {
+					$results[] = $item;
+				}
+			}
+		}
 		foreach ( $items as $item ) {
 			$item = trim( $item );
 			$item = str_remove_prefix( $item, __( 'and', 'pressbooks' ) . ' ' );

@@ -103,16 +103,17 @@ class Contributors implements BackMatter, Transferable {
 	 *
 	 * @param int $post_id
 	 * @param bool $as_strings
+	 * @param bool $include_term_meta
 	 *
 	 * @return array
 	 */
-	public function getAll( $post_id, $as_strings = true ) {
+	public function getAll( $post_id, $as_strings = true, $include_term_meta = false ) {
 		$contributors = [];
 		foreach ( $this->valid as $contributor_type ) {
 			if ( $as_strings ) {
 				$contributors[ $contributor_type ] = $this->get( $post_id, $contributor_type );
 			} else {
-				$contributors[ $contributor_type ] = $this->getArray( $post_id, $contributor_type );
+				$contributors[ $contributor_type ] = $this->getArray( $post_id, $contributor_type, $include_term_meta );
 			}
 		}
 		return $contributors;
@@ -135,11 +136,12 @@ class Contributors implements BackMatter, Transferable {
 	 * Retrieve author/editor/etc lists for a given Post ID and Contributor type, returns array
 	 *
 	 * @param int $post_id
+	 * @param bool $include_term_meta
 	 * @param string $contributor_type
 	 *
 	 * @return array
 	 */
-	public function getArray( $post_id, $contributor_type ) {
+	public function getArray( $post_id, $contributor_type, $include_term_meta = false ) {
 		if ( ! str_starts_with( $contributor_type, 'pb_' ) ) {
 			$contributor_type = 'pb_' . $contributor_type;
 		}
@@ -153,8 +155,18 @@ class Contributors implements BackMatter, Transferable {
 		if ( is_array( $meta ) ) {
 			foreach ( $meta as $slug ) {
 				$name = $this->personalName( $slug );
-				if ( $name ) {
-					$contributors[] = $name;
+				if ( ! $include_term_meta ) {
+					if ( $name ) {
+						$contributors[] = $name;
+					}
+				} else {
+					$term = get_term_by( 'slug', $slug, self::TAXONOMY );
+					$contributor = get_term_meta( $term->term_id );
+					foreach ( $contributor as $field => $property ) {
+						$contributor[ $field ] = is_array( $property ) ? $property[0] : $property;
+					}
+					$contributor['name'] = $name;
+					$contributors[] = $contributor;
 				}
 			}
 		}
@@ -190,6 +202,40 @@ class Contributors implements BackMatter, Transferable {
 		return $contributors;
 	}
 
+	public function insert( $data, $post_id = 0, $contributor_type = 'pb_authors' ) {
+		if ( is_string( $data ) ) {
+			return $this->insertByFullName( $data, $post_id, $contributor_type );
+		}
+		if ( is_array( $data ) ) {
+			$name = $data['name'];
+			unset( $data['name'] );
+			$results = wp_insert_term(
+				$name,
+				self::TAXONOMY,
+				[
+					'slug' => sanitize_title_with_dashes( remove_accents( $name ), '', 'save' ),
+				]
+			);
+			$term_id = false;
+			if ( is_array( $results ) ) {
+				$term_id = $results['term_id'];
+				$contributor_fields = self::getContributorFields();
+				foreach ( $data as $field => $property ) {
+					if ( array_key_exists( $field, $contributor_fields ) ) {
+						add_term_meta( $term_id, $field, $property );
+					}
+				}
+			} elseif ( $results instanceof \WP_Error && isset( $results->error_data['term_exists'] ) ) {
+				$term_id = $results->error_data['term_exists'];
+			}
+			if ( $term_id && $post_id  ) {
+				$this->link( $term_id, $post_id, $contributor_type );
+			}
+			return $term_id;
+		}
+		return false;
+	}
+
 	/**
 	 * @param string $full_name
 	 * @param int $post_id (optional)
@@ -197,7 +243,7 @@ class Contributors implements BackMatter, Transferable {
 	 *
 	 * @return array|false An array containing the `term_id` and `term_taxonomy_id`, false otherwise.
 	 */
-	public function insert( $full_name, $post_id = 0, $contributor_type = 'pb_authors' ) {
+	public function insertByFullName( $full_name, $post_id = 0, $contributor_type = 'pb_authors' ) {
 		$full_name = trim( $full_name );
 		$slug = sanitize_title_with_dashes( remove_accents( $full_name ), '', 'save' );
 		$term = get_term_by( 'slug', $slug, self::TAXONOMY );
@@ -247,7 +293,7 @@ class Contributors implements BackMatter, Transferable {
 				if ( $wpdb->get_var( $wpdb->prepare( "SELECT meta_id FROM {$wpdb->postmeta} WHERE post_id = %d AND meta_key = %s AND meta_value = %s", $post_id, $contributor_type, $term->slug ) ) ) {
 					return true;
 				} else {
-					return is_int( add_post_meta( $post_id, $contributor_type, $term->slug ) );
+					return add_post_meta( $post_id, $contributor_type, $term->slug ) !== false;
 				}
 			}
 		}

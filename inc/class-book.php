@@ -94,7 +94,7 @@ class Book {
 		// -----------------------------------------------------------------------------
 
 		$cache_id = "book-inf-$blog_id";
-		if ( static::useCache() ) {
+		if ( false ) {
 			$book_information = wp_cache_get( $cache_id, 'pb' );
 			if ( $book_information ) {
 				return $book_information;
@@ -113,7 +113,8 @@ class Book {
 
 			// Contributors
 			$contributors = new Contributors();
-			foreach ( $contributors->getAll( $meta_post->ID ) as $key => $val ) {
+			$all_contributors = $contributors->getAll( $meta_post->ID, false, true );
+			foreach ( $all_contributors as $key => $val ) {
 				$book_information[ $key ] = $val;
 			};
 
