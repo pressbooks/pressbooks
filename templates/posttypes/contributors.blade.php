@@ -1,6 +1,6 @@
+<section class="contributors book-contributors">
 @foreach($contributors as $contributor_type)
-	<div class="contributors page">
-		<h2>{{$contributor_type['title']}}</h2>
+	<h2 class="contributor__type">{{$contributor_type['title']}}</h2>
 		@foreach($contributor_type['records'] as $contributor)
 			<div class="contributor">
 				<div class="contributor__name__and__links">
@@ -46,5 +46,5 @@
 				<div class="contributor__bio">{!! wp_kses( $contributor['contributor_description'], true ) !!}</div>
 			</div>
 		@endforeach
-	</div>
 @endforeach
+</section>
