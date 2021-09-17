@@ -198,6 +198,12 @@ class Metadata extends \WP_REST_Controller {
 								'context' => [ 'view' ],
 								'readonly' => true,
 							],
+							'slug' => [
+								'type' => 'string',
+								'description' => __( 'The slug of the thing.' ),
+								'context' => [ 'view' ],
+								'readonly' => true,
+							],
 							'alternateName' => [
 								'type' => 'string',
 								'description' => __( 'An alias for the thing.' ),
@@ -227,6 +233,12 @@ class Metadata extends \WP_REST_Controller {
 							'name' => [
 								'type' => 'string',
 								'description' => __( 'The name of the thing.' ),
+								'context' => [ 'view' ],
+								'readonly' => true,
+							],
+							'slug' => [
+								'type' => 'string',
+								'description' => __( 'The slug of the thing.' ),
 								'context' => [ 'view' ],
 								'readonly' => true,
 							],
@@ -262,6 +274,12 @@ class Metadata extends \WP_REST_Controller {
 								'context' => [ 'view' ],
 								'readonly' => true,
 							],
+							'slug' => [
+								'type' => 'string',
+								'description' => __( 'The slug of the thing.' ),
+								'context' => [ 'view' ],
+								'readonly' => true,
+							],
 							'alternateName' => [
 								'type' => 'string',
 								'description' => __( 'An alias for the thing.' ),
@@ -291,6 +309,12 @@ class Metadata extends \WP_REST_Controller {
 							'name' => [
 								'type' => 'string',
 								'description' => __( 'The name of the thing.' ),
+								'context' => [ 'view' ],
+								'readonly' => true,
+							],
+							'slug' => [
+								'type' => 'string',
+								'description' => __( 'The slug of the thing.' ),
 								'context' => [ 'view' ],
 								'readonly' => true,
 							],
