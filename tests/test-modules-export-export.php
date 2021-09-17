@@ -381,6 +381,10 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 		$modules = ( $prerequisite ) ? [ $prerequisite, $module ] : [ $module ];
 
 		foreach ( $modules as $format ) {
+			// We don't support ICML anymore
+			if ( strpos( strtolower( $format ), 'icml' ) !== false ) {
+				continue;
+			}
 			/** @var \Pressbooks\Modules\Export\Export $exporter */
 			$exporter = new $format( [] );
 

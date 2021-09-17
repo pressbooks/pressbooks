@@ -2544,11 +2544,13 @@ class Epub201 extends ExportGenerator {
 			if ( is_array( $val ) ) {
 				$items = [];
 				foreach ( $val as $item ) {
-					if ( isset( $item['name'] ) && ! is_array( $item['name'] ) ) {
+					if ( isset( $item['name'] ) ) {
 						$items[] = sanitize_xml_attribute( $item['name'] );
 					}
 				}
-				$metadata[ $key ] = oxford_comma( $items );
+				if ( ! empty( $items ) ) {
+					$metadata[ $key ] = oxford_comma( $items );
+				}
 			} else {
 				$metadata[ $key ] = sanitize_xml_attribute( $val );
 			}
