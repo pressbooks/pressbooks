@@ -2,7 +2,7 @@
 	@foreach($contributors as $contributor_type)
 		<h2 class="contributor__type">{{$contributor_type['title']}}</h2>
 		@foreach($contributor_type['records'] as $contributor)
-			// TODO: start template here
+			{{--  TODO: start template here --}}
 			<div class="contributor">
 				<div class="contributor__name__and__links">
 					@if ( $contributor['contributor_picture'] )
@@ -19,7 +19,7 @@
 					@endif
 					@if ( $contributor['contributor_twitter'] || $contributor['contributor_linkedin'] || $contributor['contributor_github'])
 						<div class="contributor__links">
-							// TODO: add variables to allow SVGs to be replaced with links if export
+							{{-- TODO: add variables to allow SVGs to be replaced with links if export --}}
 							@if ( $contributor['contributor_twitter'] )
 								<a class="contributor__twitter" href="{{$contributor['contributor_twitter']}}" target="_blank">
 									<svg role="img" aria-labelledby="twitter-logo" class="contributor icon-svg">
