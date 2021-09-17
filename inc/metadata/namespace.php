@@ -593,7 +593,7 @@ function section_information_to_schema( $section_information, $book_information 
 		$merge = false;
 		if ( ! empty( $section_information[ $contributor_type ] ) ) {
 			$merge = $section_information[ $contributor_type ];
-		} elseif ( $book_information[ $contributor_type ] ) {
+		} elseif ( ! empty( $book_information[ $contributor_type ] ) ) {
 			$merge = $book_information[ $contributor_type ];
 		}
 		if ( $merge ) {

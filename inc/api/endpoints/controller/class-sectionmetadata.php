@@ -148,98 +148,128 @@ class SectionMetadata extends \WP_REST_Controller {
 					'readonly' => true,
 				],
 				'author' => [
-					'type' => 'object',
+					'type' => 'array',
 					'description' => __( 'The author of this content.' ),
-					'properties' => [
-						'@type' => [
-							'type' => 'string',
-							'enum' => [
-								'Person',
+					'items' => [
+						'type' => 'object',
+						'properties' => [
+							'@type' => [
+								'type' => 'string',
+								'enum' => [
+									'Person',
+								],
+								'description' => __( 'The type of the thing.' ),
+								'context' => [ 'view' ],
+								'readonly' => true,
 							],
-							'description' => __( 'The type of the thing.' ),
-							'context' => [ 'view' ],
-							'readonly' => true,
-						],
-						'name' => [
-							'type' => 'string',
-							'description' => __( 'The name of the thing.' ),
-							'context' => [ 'view' ],
-							'readonly' => true,
-						],
-						'alternateName' => [
-							'type' => 'string',
-							'description' => __( 'An alias for the thing.' ),
-							'context' => [ 'view' ],
-							'readonly' => true,
+							'name' => [
+								'type' => 'string',
+								'description' => __( 'The name of the thing.' ),
+								'context' => [ 'view' ],
+								'readonly' => true,
+							],
+							'alternateName' => [
+								'type' => 'string',
+								'description' => __( 'An alias for the thing.' ),
+								'context' => [ 'view' ],
+								'readonly' => true,
+							],
 						],
 					],
 					'context' => [ 'view' ],
 					'readonly' => true,
 				],
 				'contributor' => [
-					'type' => 'object',
+					'type' => 'array',
 					'description' => __( 'A secondary contributor to the Book.' ),
-					'properties' => [
-						'@type' => [
-							'type' => 'string',
-							'enum' => [
-								'Person',
+					'items' => [
+						'type' => 'object',
+						'properties' => [
+							'@type' => [
+								'type' => 'string',
+								'enum' => [
+									'Person',
+								],
+								'description' => __( 'The type of the thing.' ),
+								'context' => [ 'view' ],
+								'readonly' => true,
 							],
-							'description' => __( 'The type of the thing.' ),
-							'context' => [ 'view' ],
-							'readonly' => true,
-						],
-						'name' => [
-							'type' => 'string',
-							'description' => __( 'The name of the thing.' ),
-							'context' => [ 'view' ],
-							'readonly' => true,
+							'name' => [
+								'type' => 'string',
+								'description' => __( 'The name of the thing.' ),
+								'context' => [ 'view' ],
+								'readonly' => true,
+							],
+							'alternateName' => [
+								'type' => 'string',
+								'description' => __( 'An alias for the thing.' ),
+								'context' => [ 'view' ],
+								'readonly' => true,
+							],
 						],
 					],
 					'context' => [ 'view' ],
 					'readonly' => true,
 				],
 				'editor' => [
-					'type' => 'object',
+					'type' => 'array',
 					'description' => __( 'Specifies the Person who edited the Book.' ),
-					'properties' => [
-						'@type' => [
-							'type' => 'string',
-							'enum' => [
-								'Person',
+					'items' => [
+						'type' => 'object',
+						'properties' => [
+							'@type' => [
+								'type' => 'string',
+								'enum' => [
+									'Person',
+								],
+								'description' => __( 'The type of the thing.' ),
+								'context' => [ 'view' ],
+								'readonly' => true,
 							],
-							'description' => __( 'The type of the thing.' ),
-							'context' => [ 'view' ],
-							'readonly' => true,
-						],
-						'name' => [
-							'type' => 'string',
-							'description' => __( 'The name of the thing.' ),
-							'context' => [ 'view' ],
-							'readonly' => true,
+							'name' => [
+								'type' => 'string',
+								'description' => __( 'The name of the thing.' ),
+								'context' => [ 'view' ],
+								'readonly' => true,
+							],
+							'alternateName' => [
+								'type' => 'string',
+								'description' => __( 'An alias for the thing.' ),
+								'context' => [ 'view' ],
+								'readonly' => true,
+							],
 						],
 					],
 					'context' => [ 'view' ],
 					'readonly' => true,
 				],
 				'translator' => [
-					'type' => 'object',
+					'type' => 'array',
 					'description' => __( 'Organization or person who adapts a Book to different languages, regional differences and technical requirements of a target market.' ),
-					'properties' => [
-						'@type' => [
-							'type' => 'string',
-							'enum' => [
-								'Person',
+					'items' => [
+						'type' => 'object',
+						'properties' => [
+							'@type' => [
+								'type' => 'string',
+								'enum' => [
+									'Person',
+								],
+								'description' => __( 'The type of the thing.' ),
+								'context' => [ 'view' ],
+								'readonly' => true,
 							],
-							'description' => __( 'The type of the thing.' ),
-							'context' => [ 'view' ],
-							'readonly' => true,
-						],
-						'name' => [
-							'type' => 'string',
-							'description' => __( 'The name of the thing.' ),
-							'context' => [ 'view' ],
-							'readonly' => true,
+							'name' => [
+								'type' => 'string',
+								'description' => __( 'The name of the thing.' ),
+								'context' => [ 'view' ],
+								'readonly' => true,
+							],
+							'alternateName' => [
+								'type' => 'string',
+								'description' => __( 'An alias for the thing.' ),
+								'context' => [ 'view' ],
+								'readonly' => true,
+							],
 						],
 					],
 					'context' => [ 'view' ],

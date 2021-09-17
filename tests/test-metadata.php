@@ -322,7 +322,11 @@ class MetadataTest extends \WP_UnitTestCase {
 		];
 
 		$book_information = [
-			'pb_authors' => 'Herman Melville',
+			'pb_authors' => [
+				[
+					'name' => 'Herman Melville',
+				],
+			],
 			'pb_title' => 'Moby Dick',
 		];
 

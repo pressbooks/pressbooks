@@ -2544,7 +2544,7 @@ class Epub201 extends ExportGenerator {
 			if ( is_array( $val ) ) {
 				$items = [];
 				foreach ( $val as $item ) {
-					if ( isset( $item['name'] ) ) {
+					if ( isset( $item['name'] ) && ! is_array( $item['name'] ) ) {
 						$items[] = sanitize_xml_attribute( $item['name'] );
 					}
 				}
