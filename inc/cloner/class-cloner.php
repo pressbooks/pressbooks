@@ -1626,6 +1626,10 @@ class Cloner {
 		foreach ( $section_information as $key => $value ) {
 			if ( $this->contributors->isValid( $key ) ) {
 				foreach ( $value as $contributor_data ) {
+					// Compatibility with previous contributors metadata format
+					if ( ! isset( $contributor_data['slug'] ) ) {
+						$contributor_data['slug'] = sanitize_title_with_dashes( remove_accents( $contributor_data['name'] ), '', 'save' );
+					}
 					$this->contributors->insert( $contributor_data, $target_id, $key, $this->downloads, 'slug' );
 				}
 			} else {
