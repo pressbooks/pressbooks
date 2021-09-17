@@ -366,7 +366,7 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 			'name' => 'Pat Metheny',
 			'contributor_first_name' => 'Pat',
 			'contributor_last_name' => 'Metheny',
-			'contributor_description' => 'The drummer is the leader of any band',
+			'contributor_description' => 'The <strong>drummer</strong> is the leader of any band',
 		];
 		( new \Pressbooks\Contributors() )->insert( $contributor, $meta_post->ID );
 		$user_id = $this->factory()->user->create( [ 'role' => 'contributor' ] );

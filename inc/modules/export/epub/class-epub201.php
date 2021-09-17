@@ -2621,10 +2621,18 @@ class Epub201 extends ExportGenerator {
 		if ( empty( $this->manifest ) ) {
 			throw new \Exception( '$this->manifest cannot be empty. Did you forget to call $this->createOEBPS() ?' );
 		}
+		$authors = '';
+		if ( isset( $metadata['pb_authors'] ) && is_array( $metadata['pb_authors'] ) && ! empty( $metadata['pb_authors'] ) ) {
+			$authors = [];
+			foreach ( $metadata['pb_authors'] as $author ) {
+				$authors[] = $author['name'];
+			}
+			$authors = oxford_comma( $authors );
+		}
 
 		// Sanitize variables for usage in XML template
 		$vars = [
-			'author' => ! empty( $metadata['pb_authors'] ) ? sanitize_xml_attribute( $metadata['pb_authors'][0]['name'] ) : '',
+			'author' => sanitize_xml_attribute( $authors ),
 			'manifest' => $this->manifest,
 			'dtd_uid' => ! empty( $metadata['pb_ebook_isbn'] ) ? sanitize_xml_attribute( $metadata['pb_ebook_isbn'] ) : sanitize_xml_attribute( get_bloginfo( 'url' ) ),
 			'enable_external_identifier' => true,

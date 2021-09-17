@@ -9,6 +9,7 @@ namespace Pressbooks\Modules\Export\Epub;
 
 use function \Pressbooks\Sanitize\sanitize_xml_attribute;
 use function \Pressbooks\Utility\debug_error_log;
+use function \Pressbooks\Utility\oxford_comma;
 use Pressbooks\HtmLawed;
 use Pressbooks\HtmlParser;
 use Pressbooks\Sanitize;
@@ -481,7 +482,19 @@ class Epub3 extends Epub201 {
 
 		// Sanitize metadata for usage in XML template
 		foreach ( $metadata as $key => $val ) {
-			$metadata[ $key ] = sanitize_xml_attribute( $val );
+			if ( is_array( $val ) ) {
+				$items = [];
+				foreach ( $val as $item ) {
+					if ( isset( $item['name'] ) ) {
+						$items[] = sanitize_xml_attribute( $item['name'] );
+					}
+				}
+				if ( ! empty( $items ) ) {
+					$metadata[ $key ] = oxford_comma( $items );
+				}
+			} else {
+				$metadata[ $key ] = sanitize_xml_attribute( $val );
+			}
 		}
 		$vars['meta'] = $metadata;
 
@@ -506,9 +519,18 @@ class Epub3 extends Epub201 {
 			throw new \Exception( '$this->manifest cannot be empty. Did you forget to call $this->createOEBPS() ?' );
 		}
 
+		$authors = '';
+		if ( isset( $metadata['pb_authors'] ) && is_array( $metadata['pb_authors'] ) && ! empty( $metadata['pb_authors'] ) ) {
+			$authors = [];
+			foreach ( $metadata['pb_authors'] as $author ) {
+				$authors[] = $author['name'];
+			}
+			$authors = oxford_comma( $authors );
+		}
+
 		// Sanitize variables for usage in XML template
 		$vars = [
-			'author' => ! empty( $metadata['pb_authors'] ) ? sanitize_xml_attribute( $metadata['pb_authors'][0]['name'] ) : '',
+			'author' => sanitize_xml_attribute( $authors ),
 			'manifest' => $this->manifest,
 			'dtd_uid' => ! empty( $metadata['pb_ebook_isbn'] ) ? sanitize_xml_attribute( $metadata['pb_ebook_isbn'] ) : sanitize_xml_attribute( get_bloginfo( 'url' ) ),
 			'enable_external_identifier' => false,
