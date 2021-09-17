@@ -363,6 +363,7 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 		$this->_book();
 		$meta_post = ( new \Pressbooks\Metadata() )->getMetaPost();
 		$contributor = [
+			'slug' => 'patmetheny',
 			'name' => 'Pat Metheny',
 			'contributor_first_name' => 'Pat',
 			'contributor_last_name' => 'Metheny',

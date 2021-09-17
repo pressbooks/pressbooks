@@ -1317,6 +1317,10 @@ class Cloner {
 		foreach ( $book_information as $key => $value ) {
 			if ( $this->contributors->isValid( $key ) ) {
 				foreach ( $value as $contributor_data ) {
+					// Compatibility with previous contributors metadata format
+					if ( ! isset( $contributor_data['slug'] ) ) {
+						$contributor_data['slug'] = sanitize_title_with_dashes( remove_accents( $contributor_data['name'] ), '', 'save' );
+					}
 					$this->contributors->insert( $contributor_data, $metadata_post_id, $key, $this->downloads, 'slug' );
 					if ( $key === 'pb_authors' && isset( $contributor_data['slug'] ) ) {
 						$authors_slug[] = $contributor_data['slug'];
