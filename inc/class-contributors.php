@@ -230,6 +230,10 @@ class Contributors implements BackMatter, Transferable {
 			);
 			if ( is_array( $results ) ) {
 				$term_id = $results['term_id'];
+			} elseif ( $results instanceof \WP_Error && isset( $results->error_data['term_exists'] ) ) {
+				$term_id = $results->error_data['term_exists'];
+			}
+			if ( $term_id ) {
 				$contributor_fields = self::getContributorFields();
 				foreach ( $data as $field => $property ) {
 					if ( array_key_exists( $field, $contributor_fields ) ) {
@@ -244,11 +248,9 @@ class Contributors implements BackMatter, Transferable {
 						add_term_meta( $term_id, $field, $property );
 					}
 				}
-			} elseif ( $results instanceof \WP_Error && isset( $results->error_data['term_exists'] ) ) {
-				$term_id = $results->error_data['term_exists'];
-			}
-			if ( $term_id && $post_id ) {
-				$this->link( $term_id, $post_id, $contributor_type );
+				if ( $post_id ) {
+					$this->link( $term_id, $post_id, $contributor_type );
+				}
 			}
 		}
 		return $term_id;
