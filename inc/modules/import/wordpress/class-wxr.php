@@ -17,6 +17,9 @@ use Pressbooks\Licensing;
 use Pressbooks\Metadata;
 use Pressbooks\Modules\Import\Import;
 
+/**
+ *
+ */
 class Wxr extends Import {
 
 	const TYPE_OF = 'wxr';
@@ -56,6 +59,12 @@ class Wxr extends Import {
 	 * @var \Pressbooks\Entities\Cloner\Transition[]
 	 */
 	protected $transitions;
+
+	/**
+	 * This variable will help us to match new created slugs for imported contributors
+	 * @var array
+	 */
+	protected $contributorsSlugsToFix = [];
 
 	/**
 	 * @var int[]
@@ -171,6 +180,71 @@ class Wxr extends Import {
 		return update_option( 'pressbooks_current_import', $option );
 	}
 
+	/**
+	 * Insert a term with the meta associated
+	 * @param $term
+	 * @return array|int[]|mixed|\WP_Error
+	 */
+	public function insertTerm( $term ) {
+		$results = wp_insert_term(
+			$term['term_name'],
+			$term['term_taxonomy'],
+			[
+				'description' => $term['term_description'],
+				'slug' => $term['slug'],
+			]
+		);
+		if ( ! empty( $term['termmeta'] ) && is_array( $results ) ) {
+			foreach ( $term['termmeta'] as $termmeta ) {
+				$value = $termmeta['value'];
+				// Copy contributor_picture from remote server to local
+				if ( $termmeta['key'] === 'contributor_picture' && $value ) {
+					$image_id = $this->downloads->fetchAndSaveUniqueImage( $value );
+					if ( $image_id > 0 ) {
+						$value = wp_get_attachment_url( $image_id );
+					}
+				}
+				add_term_meta( $results['term_id'], $termmeta['key'], $value, true );
+			}
+		}
+
+		return $results;
+	}
+
+	/**
+	 * This function search for existent contributors by checking every field to look for exact duplicates.
+	 * @param $term
+	 * @return false|mixed
+	 */
+	public function findExistentTerm( $term ) {
+
+			$args = [
+				'taxonomy' => 'contributor',
+				'hide_empty' => false,
+				'meta_query' => [],
+			];
+
+			$fields_to_compare = [ 'contributor_first_name', 'contributor_last_name', 'contributor_prefix', 'contributor_suffix' ];
+
+			foreach ( $term['termmeta'] as $field ) {
+				if ( in_array( $field['key'], $fields_to_compare, true ) ) {
+					$args['meta_query'][] = [
+						'key' => $field['key'],
+						'value' => $field['value'],
+					];
+				}
+			}
+
+			$term_query = get_terms( $args );
+
+			if ( count( $term_query ) > 0 ) {
+				return $term_query[0];
+			}
+
+			return false;
+
+	}
+
 
 	/**
 	 * @param array $current_import
@@ -231,25 +305,19 @@ class Wxr extends Import {
 		$terms = apply_filters( 'pb_import_custom_terms', $xml['terms'] );
 
 		// and import them if they don't already exist.
-		file_put_contents($_SERVER['DOCUMENT_ROOT'].'/main_terms.log',print_r($terms, true));
-		file_put_contents($_SERVER['DOCUMENT_ROOT'].'/taxonomies.log',print_r($taxonomies, true));
-		file_put_contents($_SERVER['DOCUMENT_ROOT'].'/xml_posts.log',print_r($xml['posts'], true));
 		foreach ( $terms as $t ) {
 			$term = term_exists( $t['term_name'], $t['term_taxonomy'] );
-			if ( null === $term || 0 === $term ) {
-				$results = wp_insert_term(
-					$t['term_name'],
-					$t['term_taxonomy'],
-					[
-						'description' => $t['term_description'],
-						'slug' => $t['slug'],
-					]
-				);
-				if ( ! empty( $t['termmeta'] ) && is_array( $results ) ) {
-					foreach ( $t['termmeta'] as $termmeta ) {
-						add_term_meta( $results['term_id'], $termmeta['key'], $termmeta['value'], true );
-					}
+			if ( ( null === $term || 0 === $term ) ) {
+				$this->insertTerm( $t );
+			}
+			if ( $t['term_taxonomy'] === 'contributor' ) {
+				// Find an equal contributor if exist get the slug and avoid dupes
+				$existent_term = $this->findExistentTerm( $t );
+				if ( ! $existent_term ) {
+					$term = $this->insertTerm( $t );
+					$new_term = get_term( $term['term_id'], 'contributor' );
 				}
+				$this->contributorsSlugsToFix[ $t['slug'] ] = $existent_term ? $existent_term->slug : $new_term->slug;
 			}
 		}
 
@@ -299,7 +367,6 @@ class Wxr extends Import {
 			// if this is a custom post type,
 			// and it has terms associated with it...
 			if ( ( in_array( $post_type, $custom_post_types, true ) && isset( $p['terms'] ) ) ) {
-				file_put_contents($_SERVER['DOCUMENT_ROOT'].'/terms.log',print_r($p['terms'], true));
 				// associate post with terms.
 				foreach ( $p['terms'] as $t ) {
 					if ( in_array( $t['domain'], $taxonomies, true ) ) {
@@ -519,9 +586,7 @@ class Wxr extends Import {
 			$new_post['post_parent'] = $chapter_parent;
 		}
 
-		$pid = wp_insert_post( add_magic_quotes( $new_post ) );
-
-		return $pid;
+		return wp_insert_post( add_magic_quotes( $new_post ) );
 	}
 
 	/**
@@ -546,12 +611,12 @@ class Wxr extends Import {
 		}
 
 		if ( $data_model === 5 ) {
-			$meta_values = $this->searchMultipleValues( 'pb_authors', $p['postmeta'] );
+			$meta_values = $this->searchMultipleContributorValues( 'pb_authors', $p['postmeta'] );
 			if ( is_array( $meta_values ) ) {
 				// PB5 contributors (slugs)
 				foreach ( $meta_values as $slug ) {
-					add_post_meta( $pid, 'pb_authors', $slug );
-					wp_set_object_terms( $pid, $slug, Contributors::TAXONOMY );
+					add_post_meta( $pid, 'pb_authors', $this->contributorsSlugsToFix[ $slug ] );
+					wp_set_object_terms( $pid, $this->contributorsSlugsToFix[ $slug ], Contributors::TAXONOMY );
 				}
 			}
 		} else {
@@ -593,12 +658,8 @@ class Wxr extends Import {
 			if ( $data_model === 5 && $this->contributors->isValid( $meta['key'] ) ) {
 				// PB5 contributors (slugs)
 				$contributor = get_term_by( 'slug', $meta['value'], Contributors::TAXONOMY );
-				$value = $meta['value'];
-				if ( $contributor ) {
-					$value = $meta['value'] . '-hola';
-				}
-				add_post_meta( $pid, $meta['key'], $value );
-				wp_set_object_terms( $pid, $value, Contributors::TAXONOMY );
+				add_post_meta( $pid, $meta['key'], $this->contributorsSlugsToFix[ $meta['value'] ] );
+				wp_set_object_terms( $pid, $this->contributorsSlugsToFix[ $meta['value'] ], Contributors::TAXONOMY );
 			} elseif ( $data_model === 4 && $this->contributors->isDeprecated( $meta['key'] ) ) {
 				// PB4 contributors (full names)
 				$this->contributors->convert( $meta['key'], $meta['value'], $pid );
@@ -656,10 +717,14 @@ class Wxr extends Import {
 		return '';
 	}
 
-	protected function searchMultipleValues( $meta_key, array $postmeta ) {
-		if ( empty( $postmeta ) ) {
-			return [];
-		}
+	/**
+	 * This method returns only the contributors in the postmeta array
+	 *
+	 * @param $meta_key
+	 * @param array $postmeta
+	 * @return array
+	 */
+	protected function searchMultipleContributorValues( $meta_key, array $postmeta = [] ) {
 
 		$values = [];
 
