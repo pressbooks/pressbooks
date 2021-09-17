@@ -42,7 +42,6 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 			[ '\Pressbooks\Modules\Export\Prince\DocraptorPrint', '\Pressbooks\Modules\Export\Xhtml\Xhtml11' ],
 			[ '\Pressbooks\Modules\Export\Epub\Epub201', false ],
 			[ '\Pressbooks\Modules\Export\Epub\Epub3', false ],
-			[ '\Pressbooks\Modules\Export\InDesign\Icml', false ],
 			[ '\Pressbooks\Modules\Export\WordPress\Wxr', false ],
 			[ '\Pressbooks\Modules\Export\WordPress\VanillaWxr', false ],
 			// [ '\Pressbooks\Modules\Export\Odt\Odt', false ], // TODO: Download/install Saxon-HE in Travis build script
@@ -381,10 +380,6 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 		$modules = ( $prerequisite ) ? [ $prerequisite, $module ] : [ $module ];
 
 		foreach ( $modules as $format ) {
-			// We don't support ICML anymore
-			if ( strpos( strtolower( $format ), 'icml' ) !== false ) {
-				continue;
-			}
 			/** @var \Pressbooks\Modules\Export\Export $exporter */
 			$exporter = new $format( [] );
 
