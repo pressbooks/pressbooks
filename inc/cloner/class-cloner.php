@@ -1338,7 +1338,7 @@ class Cloner {
 		}
 
 		$user_data = get_userdata( get_current_user_id() );
-		if ( ! in_array( $user_data->user_nicename, $authors_slug ) ) {
+		if ( ! in_array( $user_data->user_nicename, $authors_slug, true ) ) {
 			// Remove the current user from the author field in Book Info if it is not the author of the source book
 			$this->contributors->unlink( $user_data->user_nicename, $metadata_post_id );
 		}
