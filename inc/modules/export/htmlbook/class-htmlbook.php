@@ -801,9 +801,14 @@ class HTMLBook extends Export {
 			$content .= sprintf( '<h1 class="title">%s</h1>', get_bloginfo( 'name' ) );
 			$content .= sprintf( '<p class="subtitle">%s</p>', ( isset( $metadata['pb_subtitle'] ) ) ? $metadata['pb_subtitle'] : '' );
 			if ( isset( $metadata['pb_authors'] ) ) {
-				$authors = oxford_comma_explode( $metadata['pb_authors'] );
+				if ( is_string( $metadata['pb_authors'] ) ) {
+					$authors = oxford_comma_explode( $metadata['pb_authors'] );
+				} else {
+					$authors = $metadata['pb_authors'];
+				}
 				foreach ( $authors as $author ) {
-					$content .= sprintf( '<p class="author">%s</p>', $author );
+					$name = is_array( $author ) && array_key_exists( 'name', $author ) ? $author['name'] : $author;
+					$content .= sprintf( '<p class="author">%s</p>', $name );
 				}
 			}
 			if ( current_theme_supports( 'pressbooks_publisher_logo' ) ) {

@@ -127,16 +127,18 @@ class MetadataTest extends \WP_UnitTestCase {
 			'@type' => 'Book',
 			'name' => 'Moby Dick',
 			'license' => 'https://creativecommons.org/publicdomain/mark/1.0/',
-			'author' => [ // PB4
-				'@type' => 'Person',
-				'name' => 'Herman Melville',
+			'author' => [
+				[
+					'@type' => 'Person',
+					'name' => 'Pat Metheny',
+				],
 			],
 			'sameAs' => 'https://dx.doi.org/my_doi',
 		];
 
 		$result = \Pressbooks\Metadata\schema_to_book_information( $schema );
 		$this->assertEquals( $result['pb_title'], 'Moby Dick' );
-		$this->assertEquals( $result['pb_authors'], 'Herman Melville' );
+		$this->assertEquals( $result['pb_authors'][0]['name'], 'Pat Metheny' );
 		$this->assertEquals( $result['pb_book_license'], 'public-domain' );
 		$this->assertEquals( $result['pb_book_doi'], 'my_doi' );
 
@@ -152,37 +154,130 @@ class MetadataTest extends \WP_UnitTestCase {
 			'author' => [
 				[
 					'@type' => 'Person',
-					'name' => 'Herman Melville',
+					'name' => 'Pat Metheny',
+					'contributor_prefix' => "Mr",
+					'contributor_first_name' => "Patrick",
+					'contributor_last_name' => "Metheny",
+					'contributor_suffix' => "Musician",
+					'contributor_picture' => "https://pressbooks.test/app/uploads/sites/5/2021/09/cropped-IMG_5226-3-scaled-1.jpg",
+					'contributor_description' => "Hi <strong>I am a contributor</strong>!",
+					'contributor_institution' => "PMG",
+					'contributor_user_url' => "https://patmetheny.com",
+					'contributor_linkedin' => "https://linkedin.com/pm",
 				],
 			],
 			'editor' => [
 				[
 					'@type' => 'Person',
-					'name' => 'Test 1',
+					'name' => 'Pat Metheny',
+					'contributor_prefix' => "Mr",
+					'contributor_first_name' => "Patrick",
+					'contributor_last_name' => "Metheny",
+					'contributor_suffix' => "Musician",
+					'contributor_picture' => "https://pressbooks.test/app/uploads/sites/5/2021/09/cropped-IMG_5226-3-scaled-1.jpg",
+					'contributor_description' => "Hi <strong>I am a contributor</strong>!",
+					'contributor_institution' => "PMG",
+					'contributor_user_url' => "https://patmetheny.com",
+					'contributor_linkedin' => "https://linkedin.com/pm",
+				],
+				[
+					'@type' => 'Person',
+					'name' => 'Pedro Aznar',
+					'contributor_prefix' => "Mr",
+					'contributor_first_name' => "Pedro",
+					'contributor_last_name' => "Aznar",
+					'contributor_suffix' => "Musician",
+					'contributor_picture' => "https://pressbooks.test/app/uploads/sites/5/2021/09/cropped-IMG_5226-3-scaled-2.jpg",
+					'contributor_description' => "Hi <strong>I am a contributor</strong>!",
+					'contributor_institution' => "PMG",
+					'contributor_user_url' => "https://pedroaznar.com.com",
+					'contributor_linkedin' => "https://linkedin.com/pa",
 				],
 			],
 			'translator' => [
 				[
 					'@type' => 'Person',
-					'name' => 'Test 2',
+					'name' => 'Pedro Aznar',
+					'contributor_prefix' => "Mr",
+					'contributor_first_name' => "Pedro",
+					'contributor_last_name' => "Aznar",
+					'contributor_suffix' => "Musician",
+					'contributor_picture' => "https://pressbooks.test/app/uploads/sites/5/2021/09/cropped-IMG_5226-3-scaled-2.jpg",
+					'contributor_description' => "Hi <strong>I am a contributor</strong>!",
+					'contributor_institution' => "PMG",
+					'contributor_user_url' => "https://pedroaznar.com.com",
+					'contributor_linkedin' => "https://linkedin.com/pa",
 				],
 			],
 			'reviewedBy' => [
 				[
 					'@type' => 'Person',
-					'name' => 'Test 3',
+					'name' => 'Pedro Aznar',
+					'contributor_prefix' => "Mr",
+					'contributor_first_name' => "Pedro",
+					'contributor_last_name' => "Aznar",
+					'contributor_suffix' => "Musician",
+					'contributor_picture' => "https://pressbooks.test/app/uploads/sites/5/2021/09/cropped-IMG_5226-3-scaled-2.jpg",
+					'contributor_description' => "Hi <strong>I am a contributor</strong>!",
+					'contributor_institution' => "PMG",
+					'contributor_user_url' => "https://pedroaznar.com.com",
+					'contributor_linkedin' => "https://linkedin.com/pa",
 				],
 			],
 			'illustrator' => [
 				[
 					'@type' => 'Person',
-					'name' => 'Test 4',
+					'name' => 'Pat Metheny',
+					'contributor_prefix' => "Mr",
+					'contributor_first_name' => "Patrick",
+					'contributor_last_name' => "Metheny",
+					'contributor_suffix' => "Musician",
+					'contributor_picture' => "https://pressbooks.test/app/uploads/sites/5/2021/09/cropped-IMG_5226-3-scaled-1.jpg",
+					'contributor_description' => "Hi <strong>I am a contributor</strong>!",
+					'contributor_institution' => "PMG",
+					'contributor_user_url' => "https://patmetheny.com",
+					'contributor_linkedin' => "https://linkedin.com/pm",
+				],
+				[
+					'@type' => 'Person',
+					'name' => 'Pedro Aznar',
+					'contributor_prefix' => "Mr",
+					'contributor_first_name' => "Pedro",
+					'contributor_last_name' => "Aznar",
+					'contributor_suffix' => "Musician",
+					'contributor_picture' => "https://pressbooks.test/app/uploads/sites/5/2021/09/cropped-IMG_5226-3-scaled-2.jpg",
+					'contributor_description' => "Hi <strong>I am a contributor</strong>!",
+					'contributor_institution' => "PMG",
+					'contributor_user_url' => "https://pedroaznar.com.com",
+					'contributor_linkedin' => "https://linkedin.com/pa",
 				],
 			],
 			'contributor' => [
 				[
 					'@type' => 'Person',
-					'name' => 'Test 5',
+					'name' => 'Pat Metheny',
+					'contributor_prefix' => "Mr",
+					'contributor_first_name' => "Patrick",
+					'contributor_last_name' => "Metheny",
+					'contributor_suffix' => "Musician",
+					'contributor_picture' => "https://pressbooks.test/app/uploads/sites/5/2021/09/cropped-IMG_5226-3-scaled-1.jpg",
+					'contributor_description' => "Hi <strong>I am a contributor</strong>!",
+					'contributor_institution' => "PMG",
+					'contributor_user_url' => "https://patmetheny.com",
+					'contributor_linkedin' => "https://linkedin.com/pm",
+				],
+				[
+					'@type' => 'Person',
+					'name' => 'Pedro Aznar',
+					'contributor_prefix' => "Mr",
+					'contributor_first_name' => "Pedro",
+					'contributor_last_name' => "Aznar",
+					'contributor_suffix' => "Musician",
+					'contributor_picture' => "https://pressbooks.test/app/uploads/sites/5/2021/09/cropped-IMG_5226-3-scaled-2.jpg",
+					'contributor_description' => "Hi <strong>I am a contributor</strong>!",
+					'contributor_institution' => "PMG",
+					'contributor_user_url' => "https://pedroaznar.com.com",
+					'contributor_linkedin' => "https://linkedin.com/pa",
 				],
 			],
 			'audience' => [
@@ -197,14 +292,20 @@ class MetadataTest extends \WP_UnitTestCase {
 		];
 
 		$result = \Pressbooks\Metadata\schema_to_book_information( $schema );
-		$this->assertEquals( $result['pb_authors'], 'Herman Melville' );
 		$this->assertEquals( $result['pb_book_license'], 'public-domain' );
 		$this->assertEquals( $result['pb_custom_copyright'], 'Override copyright.' );
-		$this->assertEquals( $result['pb_editors'], 'Test 1' );
-		$this->assertEquals( $result['pb_translators'], 'Test 2' );
-		$this->assertEquals( $result['pb_reviewers'], 'Test 3' );
-		$this->assertEquals( $result['pb_illustrators'], 'Test 4' );
-		$this->assertEquals( $result['pb_contributors'], 'Test 5' );
+		$this->assertIsArray( $result['pb_authors'] );
+		$this->assertIsArray( $result['pb_editors'] );
+		$this->assertIsArray( $result['pb_translators'] );
+		$this->assertIsArray( $result['pb_reviewers'] );
+		$this->assertIsArray( $result['pb_illustrators'] );
+		$this->assertIsArray( $result['pb_contributors'] );
+		$this->assertArrayHasKey( 'contributor_first_name', $result['pb_authors'][0] );
+		$this->assertArrayHasKey( 'contributor_last_name', $result['pb_editors'][0] );
+		$this->assertArrayHasKey( 'contributor_picture', $result['pb_translators'][0] );
+		$this->assertArrayHasKey( 'contributor_linkedin', $result['pb_reviewers'][0] );
+		$this->assertArrayHasKey( 'contributor_user_url', $result['pb_illustrators'][0] );
+		$this->assertArrayHasKey( 'contributor_institution', $result['pb_contributors'][0] );
 		$this->assertEquals( $result['pb_audience'], 'adult' );
 		$this->assertEquals( $result['pb_publication_date'], 1516838400 );
 		$this->assertEquals( $result['pb_copyright_holder'], 'Test 6' );

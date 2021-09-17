@@ -7,6 +7,7 @@
 namespace Pressbooks;
 
 use function \Pressbooks\Utility\debug_error_log;
+use function \Pressbooks\Utility\oxford_comma;
 use function \Pressbooks\Utility\oxford_comma_explode;
 
 /**
@@ -248,7 +249,15 @@ class Licensing {
 			$copyright_holder = $metadata['pb_copyright_holder'];
 		} elseif ( isset( $metadata['pb_authors'] ) ) {
 			// book author is the fallback, default
-			$copyright_holder = $metadata['pb_authors'];
+			if ( is_array( $metadata['pb_authors'] ) ) {
+				$authors = [];
+				foreach ( $metadata['pb_authors'] as $author ) {
+					$authors[] = $author['name'];
+				}
+				$copyright_holder = oxford_comma( $authors );
+			} else {
+				$copyright_holder = $metadata['pb_authors'];
+			}
 		} else {
 			$copyright_holder = '';
 		}

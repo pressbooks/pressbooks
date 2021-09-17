@@ -885,15 +885,26 @@ class Xhtml11 extends ExportGenerator {
 	 * @param array $metadata
 	 */
 	protected function echoMetaData( $book_contents, $metadata ) {
-
 		foreach ( $metadata as $name => $content ) {
 			$name = Sanitize\sanitize_xml_id( str_replace( '_', '-', $name ) );
-			$content = trim( strip_tags( html_entity_decode( $content ) ) ); // Plain text
-			$content = preg_replace( '/\s+/', ' ', preg_replace( '/\n+/', ' ', $content ) ); // Normalize whitespaces
-			$content = Sanitize\sanitize_xml_attribute( $content );
-			printf( '<meta name="%s" content="%s" />', $name, $content );
-			echo "\n";
+			if ( is_array( $content ) ) {
+				foreach ( $content as $content_item ) {
+					if ( isset( $content_item['name'] ) ) {
+						$this->echoMetaDataItem( $name, $content_item['name'] );
+					}
+				}
+				continue;
+			}
+			$this->echoMetaDataItem( $name, $content );
 		}
+	}
+
+	protected function echoMetaDataItem( $name, $content_item ) {
+		$content_item = trim( strip_tags( html_entity_decode( $content_item ) ) ); // Plain text
+		$content_item = preg_replace( '/\s+/', ' ', preg_replace( '/\n+/', ' ', $content_item ) ); // Normalize whitespaces
+		$content_item = Sanitize\sanitize_xml_attribute( $content_item );
+		printf( '<meta name="%s" content="%s" />', $name, $content_item );
+		echo "\n";
 	}
 
 
@@ -1003,10 +1014,14 @@ class Xhtml11 extends ExportGenerator {
 			printf( '<h1 class="title">%s</h1>', get_bloginfo( 'name' ) );
 			printf( '<h2 class="subtitle">%s</h2>', ( isset( $metadata['pb_subtitle'] ) ) ? $metadata['pb_subtitle'] : '' );
 			if ( isset( $metadata['pb_authors'] ) ) {
-				printf( '<h3 class="author">%s</h3>', $metadata['pb_authors'] );
+				foreach ( $metadata['pb_authors'] as $author ) {
+					printf( '<h3 class="author">%s</h3>', $author['name'] );
+				}
 			}
 			if ( isset( $metadata['pb_contributors'] ) ) {
-				printf( '<h3 class="author">%s</h3>', $metadata['pb_contributors'] );
+				foreach ( $metadata['pb_contributors'] as $contributor ) {
+					printf( '<h3 class="author">%s</h3>', $contributor['name'] );
+				}
 			}
 			if ( current_theme_supports( 'pressbooks_publisher_logo' ) ) {
 				printf( '<div class="publisher-logo"><img src="%s" /></div>', get_theme_support( 'pressbooks_publisher_logo' )[0]['logo_uri'] ); // TODO: Support custom publisher logo.

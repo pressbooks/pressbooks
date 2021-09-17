@@ -2,11 +2,13 @@
 
 namespace Pressbooks\Metadata;
 
-use function Pressbooks\Utility\apply_https_if_available;
 use function \Pressbooks\L10n\get_book_language;
 use function \Pressbooks\L10n\get_locale;
 use function \Pressbooks\Sanitize\is_valid_timestamp;
+use function \Pressbooks\Utility\apply_https_if_available;
 use function \Pressbooks\Utility\get_contents;
+use function \Pressbooks\Utility\oxford_comma;
+use function \Pressbooks\Utility\oxford_comma_explode;
 use PressbooksMix\Assets;
 use Pressbooks\Book;
 use Pressbooks\Contributors;
@@ -266,6 +268,18 @@ function book_information_to_schema( $book_information, $network_excluded_direct
 	$contributors = new Contributors();
 	foreach ( $contributors->valid as $contributor_type ) {
 		if ( isset( $book_information[ $contributor_type ] ) ) {
+			// Compatibility with previous version (basic strings contributors)
+			if ( is_string( $book_information[ $contributor_type ] ) ) {
+				$contributors_string = oxford_comma_explode( $book_information[ $contributor_type ] );
+				$book_schema[ $mapped_properties[ $contributor_type ] ] = [];
+				foreach ( $contributors_string as $contributor_name ) {
+					$book_schema[ $mapped_properties[ $contributor_type ] ][] = [
+						'@type' => 'Person',
+						'name' => $contributor_name,
+					];
+				}
+				continue;
+			}
 			$contributors_array = $book_information[ $contributor_type ];
 			$book_schema[ $mapped_properties[ $contributor_type ] ] = [];
 			foreach ( $contributors_array as $contributor ) {
@@ -429,12 +443,12 @@ function schema_to_book_information( $book_schema ) {
 		'thumbnailUrl' => 'pb_thumbnail',
 		'position' => 'pb_series_number',
 		'isBasedOn' => 'pb_is_based_on',
-		'author' => 'pb_authors',
-		'editor' => 'pb_editors',
-		'translator' => 'pb_translators',
-		'reviewedBy' => 'pb_reviewers',
-		'illustrator' => 'pb_illustrators',
-		'contributor' => 'pb_contributors',
+		'pb_authors' => 'author',
+		'pb_editors' => 'editor',
+		'pb_translators' => 'translator',
+		'pb_reviewers' => 'reviewedBy',
+		'pb_illustrators' => 'illustrator',
+		'pb_contributors' => 'contributor',
 	];
 
 	foreach ( $mapped_properties as $old => $new ) {
@@ -461,7 +475,18 @@ function schema_to_book_information( $book_schema ) {
 	$contributors = new Contributors();
 	foreach ( $contributors->valid as $contributor_type ) {
 		if ( isset( $book_schema[ $mapped_properties[ $contributor_type ] ] ) ) {
-			$book_information[ $contributor_type ] = $book_schema[ $mapped_properties[ $contributor_type ] ];
+			if ( isset( $book_schema[ $mapped_properties[ $contributor_type ] ][0]['name'] ) ) {
+				$book_information[ $contributor_type ] = $book_schema[ $mapped_properties[ $contributor_type ] ];
+			} else {
+				// Compatiblity with previous versions where we took only the contributor's name
+				$contributors_array = [];
+				foreach ( $book_schema[ $mapped_properties[ $contributor_type ] ] as $contrib ) {
+					if ( isset( $contrib['name'] ) ) {
+						$contributors_array[] = $contrib['name'];
+					}
+				}
+				$book_information[ $contributor_type ] = oxford_comma( $contributors_array );
+			}
 		}
 	}
 
@@ -565,22 +590,32 @@ function section_information_to_schema( $section_information, $book_information 
 	$contributors = new Contributors();
 	foreach ( $contributors->valid as $contributor_type ) {
 		$section_schema[ $mapped_contributors_type[ $contributor_type ] ] = [];
+		$merge = false;
 		if ( ! empty( $section_information[ $contributor_type ] ) ) {
-			$section_schema[ $mapped_contributors_type[ $contributor_type ] ] = array_map(
-				function ( $contrib ) {
-					$contrib['@type'] = 'Person';
-					return $contrib;
-				},
-				$section_information[ $contributor_type ]
-			);
+			$merge = $section_information[ $contributor_type ];
 		} elseif ( $book_information[ $contributor_type ] ) {
-			$section_schema[ $mapped_contributors_type[ $contributor_type ] ] = array_map(
-				function ( $contrib ) {
-					$contrib['@type'] = 'Person';
-					return $contrib;
-				},
-				$book_information[ $contributor_type ]
-			);
+			$merge = $book_information[ $contributor_type ];
+		}
+		if ( $merge ) {
+			if ( is_array( $merge ) ) {
+				$section_schema[ $mapped_contributors_type[ $contributor_type ] ] = array_map(
+					function ( $contrib ) {
+						$contrib['@type'] = 'Person';
+						return $contrib;
+					},
+					$merge
+				);
+			} elseif ( is_string( $merge ) ) {
+				// compatibility with previous contributors schema
+				$contributors_string = oxford_comma_explode( $merge );
+				$section_schema[ $mapped_contributors_type[ $contributor_type ] ] = [];
+				foreach ( $contributors_string as $contributor_name ) {
+					$section_schema[ $mapped_contributors_type[ $contributor_type ] ][] = [
+						'@type' => 'Person',
+						'name' => $contributor_name,
+					];
+				}
+			}
 		}
 	}
 
