@@ -17,9 +17,6 @@ use Pressbooks\Licensing;
 use Pressbooks\Metadata;
 use Pressbooks\Modules\Import\Import;
 
-/**
- *
- */
 class Wxr extends Import {
 
 	const TYPE_OF = 'wxr';
@@ -111,6 +108,13 @@ class Wxr extends Import {
 	 */
 	public function getSourceBookUrl() {
 		return $this->sourceBookUrl;
+	}
+
+	/**
+	 * @param $sourceBookUrl
+	 */
+	public function setSourceBookUrl( $source ) {
+		$this->sourceBookUrl = $source;
 	}
 
 	/**
@@ -221,7 +225,7 @@ class Wxr extends Import {
 			$args = [
 				'taxonomy' => 'contributor',
 				'hide_empty' => false,
-				'meta_query' => [],
+				'meta_query' => [], // phpcs:ignore
 			];
 
 			$fields_to_compare = [ 'contributor_first_name', 'contributor_last_name', 'contributor_prefix', 'contributor_suffix' ];

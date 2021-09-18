@@ -2,6 +2,7 @@
 
 
 use Pressbooks\Modules\Import\WordPress\Downloads;
+use Pressbooks\Modules\Import\WordPress\Wxr;
 
 class ImportMock extends \Pressbooks\Modules\Import\Import {
 	/**
@@ -93,6 +94,65 @@ class Modules_ImportTest extends \WP_UnitTestCase {
 		$images = $result['dom']->getElementsByTagName( 'img' );
 		$this->assertContains( '#fixme', $images[0]->getAttribute( 'src' ) );
 		$this->assertNotContains( '#fixme', $images[1]->getAttribute( 'src' ) );
+
+	}
+
+	/**
+	 * @group import
+	 */
+	public function test_wxrInsertAndFindTerm() {
+		$wxr = new Wxr();
+		$wxr->setSourceBookUrl( 'https://pressbooks.com/' );
+
+		$imported_term = [
+			'term_name' => 'Jane Doe',
+			'term_taxonomy' => 'contributor',
+			'term_description' => 'Some description',
+			'slug' => 'jane-doe',
+			'termmeta' => [
+				[
+					'key' => 'contributor_first_name',
+					'value' => 'Jane',
+				],
+				[
+					'key' => 'contributor_last_name',
+					'value' => 'Doe',
+				],
+				[
+					'key' => 'contributor_prefix',
+					'value' => 'Dr.',
+				],
+				[
+					'key' => 'contributor_suffix',
+					'value' => 'VI',
+				],
+				[
+					'key' => 'contributor_picture',
+					'value' => 'https://pressbooks.com/app/uploads/sites/109504/2018/08/4tatoos.jpg',
+				],
+			],
+		];
+
+		$term = $wxr->insertTerm( $imported_term );
+
+		$this->assertEquals( 3, $term['term_id'] );
+
+		$meta = get_term_meta( $term['term_id'] );
+		$term = get_term( $term['term_id'] );
+
+		$this->assertEquals( 'contributor', $term->taxonomy );
+		$this->assertEquals( 'Jane Doe', $term->name );
+		$this->assertEquals( 'http://example.org/wp-content/uploads/2021/09/4tatoos.jpg', $meta['contributor_picture'][0] );
+
+		// Clean attachments after test
+		array_map( 'unlink', array_filter( (array) glob( '/tmp/wordpress/wp-content/uploads/2021/09/*' ) ) );
+
+		$existent = $wxr->findExistentTerm( $imported_term );
+
+		$this->assertEquals( 3, $existent->term_id );
+		$this->assertEquals( 'jane-doe', $existent->slug );
+
+		$this->assertFalse( $wxr->findExistentTerm( [ 'termmeta' => [] ] ) );
 
 	}
 
