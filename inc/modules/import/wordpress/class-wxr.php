@@ -312,18 +312,18 @@ class Wxr extends Import {
 
 		// and import them if they don't already exist.
 		foreach ( $terms as $t ) {
-			$term = term_exists( $t['term_name'], $t['term_taxonomy'] );
-			if ( ( null === $term || 0 === $term ) ) {
-				$this->insertTerm( $t );
-			}
 			if ( $t['term_taxonomy'] === 'contributor' ) {
 				// Find an equal contributor if exist get the slug and avoid dupes
 				$existent_term = $this->findExistentTerm( $t );
-				if ( ! $existent_term && ! is_a( $existent_term, \WP_Error::class ) ) {
+				if ( ! $existent_term ) {
 					$term = $this->insertTerm( $t );
 					$new_term = get_term( $term['term_id'], 'contributor' );
 				}
 				$this->contributorsSlugsToFix[ $t['slug'] ] = $existent_term ? $existent_term->slug : $new_term->slug;
+			}
+			$term = term_exists( $t['term_name'], $t['term_taxonomy'] );
+			if ( ( null === $term || 0 === $term ) ) {
+				$this->insertTerm( $t );
 			}
 		}
 
