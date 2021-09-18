@@ -135,7 +135,16 @@ class Modules_ImportTest extends \WP_UnitTestCase {
 
 		$term = $wxr->insertTerm( $imported_term );
 
-		$this->assertEquals( 3, $term['term_id'] );
+		$last_term = get_terms(
+			[
+				'taxonomy' => 'contributor',
+				'hide_empty'    => false,
+				'orderby' => 'id',
+				'order' => 'DESC',
+			]
+		);
+
+		$this->assertEquals( $last_term[0]->term_id, $term['term_id'] );
 
 		$meta = get_term_meta( $term['term_id'] );
 		$term = get_term( $term['term_id'] );
@@ -149,7 +158,7 @@ class Modules_ImportTest extends \WP_UnitTestCase {
 
 		$existent = $wxr->findExistentTerm( $imported_term );
 
-		$this->assertEquals( 3, $existent->term_id );
+		$this->assertEquals( $last_term[0]->term_id, $existent->term_id );
 		$this->assertEquals( 'jane-doe', $existent->slug );
 
 		$this->assertFalse( $wxr->findExistentTerm( [ 'termmeta' => [] ] ) );

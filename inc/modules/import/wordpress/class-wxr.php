@@ -230,19 +230,21 @@ class Wxr extends Import {
 
 			$fields_to_compare = [ 'contributor_first_name', 'contributor_last_name', 'contributor_prefix', 'contributor_suffix' ];
 
-			foreach ( $term['termmeta'] as $field ) {
-				if ( in_array( $field['key'], $fields_to_compare, true ) ) {
-					$args['meta_query'][] = [
-						'key' => $field['key'],
-						'value' => $field['value'],
-					];
+			if ( ! empty( $term['termmeta'] ) ) {
+				foreach ( $term['termmeta'] as $field ) {
+					if ( in_array( $field['key'], $fields_to_compare, true ) ) {
+						$args['meta_query'][] = [
+							'key' => $field['key'],
+							'value' => $field['value'],
+						];
+					}
 				}
-			}
 
-			$term_query = get_terms( $args );
+				$term_query = get_terms( $args );
 
-			if ( count( $term_query ) > 0 ) {
-				return $term_query[0];
+				if ( count( $term_query ) > 0 ) {
+					return $term_query[0];
+				}
 			}
 
 			return false;
