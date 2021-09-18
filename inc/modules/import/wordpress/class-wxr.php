@@ -319,7 +319,7 @@ class Wxr extends Import {
 			if ( $t['term_taxonomy'] === 'contributor' ) {
 				// Find an equal contributor if exist get the slug and avoid dupes
 				$existent_term = $this->findExistentTerm( $t );
-				if ( ! $existent_term ) {
+				if ( ! $existent_term && ! is_a( $existent_term, \WP_Error::class ) ) {
 					$term = $this->insertTerm( $t );
 					$new_term = get_term( $term['term_id'], 'contributor' );
 				}
