@@ -158,6 +158,7 @@ function filetypes() {
 			'pdf' => '.pdf',
 			'print_pdf' => '._print.pdf',
 			'mobi' => '.mobi',
+			'icml' => '.icml',
 			'htmlbook' => '.-htmlbook.html',
 			'xhtml' => '.html',
 			'wxr' => '.xml',

@@ -240,8 +240,6 @@ class Contributors implements BackMatter, Transferable {
 					]
 				);
 				if ( $results instanceof \WP_Error && isset( $results->error_data['term_exists'] ) ) {
-					wp_delete_term( $data['name'], self::TAXONOMY );
-
 					$term_id = $results->error_data['term_exists'];
 				} else {
 					$term_id = $results['term_id'];
@@ -635,7 +633,19 @@ class Contributors implements BackMatter, Transferable {
 			$last_name = get_term_meta( $term->term_id, 'contributor_last_name', true );
 			if ( ! empty( $first_name ) && ! empty( $last_name ) ) {
 				$name = $prefix ? "{$prefix} {$first_name} {$last_name}" : "{$first_name} {$last_name}";
-				$suffix = ! empty( $suffix ) ? ( preg_match( '/^[MDCLXVI]+$/', $suffix ) ? " $suffix" : ", $suffix" ) : '';
+				if ( ! empty( $suffix ) ) {
+					$does_contains_roman_number = false;
+					$roman_numbers_suffix = [ 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII' ];
+					foreach ( $roman_numbers_suffix as $roman_number ) {
+						if ( strpos( $suffix, $roman_number ) ) {
+							$does_contains_roman_number = true;
+							break;
+						}
+					}
+					$suffix = $does_contains_roman_number ? " $suffix" : ", $suffix";
+				} else {
+					$suffix = '';
+				}
 				$name = $suffix ? "${name}${suffix}" : $name;
 			} elseif ( ! empty( $term->name ) ) {
 				$name = $term->name;
