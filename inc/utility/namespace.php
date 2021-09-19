@@ -1279,7 +1279,7 @@ function rmrdir( $dirname, $only_empty = false ) {
 
 
 /**
- * Comma separated, Oxford comma (or semicolon if comma is part of any array element), localized and between the last two items
+ * Comma separated, Oxford semicolon localized and between the last two items
  *
  * @since 5.0.0
  *
@@ -1303,7 +1303,7 @@ function oxford_comma( array $vars ) {
 }
 
 /**
- * Explode an oxford comma (or semicolon if comma and semicolon are present in the string) seperated list of items
+ * Explode an oxford semicolon seperated list of items
  *
  * @param $string
  *
