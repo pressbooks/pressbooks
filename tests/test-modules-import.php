@@ -165,4 +165,40 @@ class Modules_ImportTest extends \WP_UnitTestCase {
 
 	}
 
+	public function test_searchMultipleContributorValues() {
+		$contributors = new \Pressbooks\Contributors();
+		$contributors->insert( 'Leo Schopenhauer', 1 );
+		$contributors->insert( 'Leo Simon', 1 );
+		$contributors->insert( 'Mary User', 1, 'pb_editors' );
+
+		$post_meta = [
+			[
+				'key' => 'pb_authors',
+				'value' => 'Leo',
+			],
+			[
+				'key' => 'pb_editors',
+				'value' => 'Leo',
+			],
+			[
+				'key' => 'pb_editors',
+				'value' => 'Os',
+			],
+			[
+				'key' => 'pb_editors',
+				'value' => 'Sarah',
+			],
+		];
+
+		$import = new Wxr();
+		$values = $import->searchMultipleContributorValues( 'pb_authors', $post_meta );
+		$this->assertCount(1, $values);
+
+		$values = $import->searchMultipleContributorValues( 'pb_editors', $post_meta );
+		$this->assertCount(3, $values);
+
+		$values = $import->searchMultipleContributorValues( 'pb_fail', $post_meta );
+		$this->assertCount(0, $values);
+	}
+
 }

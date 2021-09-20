@@ -730,7 +730,7 @@ class Wxr extends Import {
 	 * @param array $postmeta
 	 * @return array
 	 */
-	protected function searchMultipleContributorValues( $meta_key, array $postmeta = [] ) {
+	public function searchMultipleContributorValues( $meta_key, array $postmeta = [] ) {
 
 		$values = [];
 
