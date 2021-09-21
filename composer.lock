@@ -2208,16 +2208,16 @@
     "packages-dev": [
         {
             "name": "antecedent/patchwork",
-            "version": "2.1.12",
+            "version": "2.1.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/antecedent/patchwork.git",
-                "reference": "b98e046dd4c0acc34a0846604f06f6111654d9ea"
+                "reference": "0430ceaac7f447f1778c199ec19d7e4362a6f961"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/antecedent/patchwork/zipball/b98e046dd4c0acc34a0846604f06f6111654d9ea",
-                "reference": "b98e046dd4c0acc34a0846604f06f6111654d9ea",
+                "url": "https://api.github.com/repos/antecedent/patchwork/zipball/0430ceaac7f447f1778c199ec19d7e4362a6f961",
+                "reference": "0430ceaac7f447f1778c199ec19d7e4362a6f961",
                 "shasum": ""
             },
             "require": {
@@ -2248,7 +2248,7 @@
                 "runkit",
                 "testing"
             ],
-            "time": "2019-12-22T17:52:09+00:00"
+            "time": "2021-08-22T08:00:13+00:00"
         },
         {
             "name": "behat/gherkin",
@@ -2309,6 +2309,58 @@
                 "parser"
             ],
             "time": "2021-02-04T12:44:21+00:00"
+        },
+        {
+            "name": "bordoni/phpass",
+            "version": "0.3.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bordoni/phpass.git",
+                "reference": "fd57c109213e95150b7de1dc8908c55605cd8e55"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bordoni/phpass/zipball/fd57c109213e95150b7de1dc8908c55605cd8e55",
+                "reference": "fd57c109213e95150b7de1dc8908c55605cd8e55",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "replace": {
+                "hautelook/phpass": "0.3.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Hautelook": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Public Domain"
+            ],
+            "authors": [
+                {
+                    "name": "Solar Designer",
+                    "email": "solar@openwall.com",
+                    "homepage": "http://openwall.com/phpass/"
+                },
+                {
+                    "name": "Gustavo Bordoni",
+                    "email": "gustavo@bordoni.me",
+                    "homepage": "https://bordoni.me"
+                }
+            ],
+            "description": "Portable PHP password hashing framework",
+            "homepage": "http://github.com/hautelook/phpass/",
+            "keywords": [
+                "blowfish",
+                "crypt",
+                "password",
+                "security"
+            ],
+            "time": "2012-08-31T00:00:00+00:00"
         },
         {
             "name": "codeception/codeception",
@@ -3066,50 +3118,6 @@
             "time": "2017-08-30T10:00:39+00:00"
         },
         {
-            "name": "hautelook/phpass",
-            "version": "0.3.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/hautelook/phpass.git",
-                "reference": "b4cbd9b67ed3ef5672ec79d8e0c46d24bd844abd"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/hautelook/phpass/zipball/b4cbd9b67ed3ef5672ec79d8e0c46d24bd844abd",
-                "reference": "b4cbd9b67ed3ef5672ec79d8e0c46d24bd844abd",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.3"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Hautelook": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "Public Domain"
-            ],
-            "authors": [
-                {
-                    "name": "Solar Designer",
-                    "email": "solar@openwall.com",
-                    "homepage": "http://openwall.com/phpass/"
-                }
-            ],
-            "description": "Portable PHP password hashing framework",
-            "homepage": "http://github.com/hautelook/phpass/",
-            "keywords": [
-                "blowfish",
-                "crypt",
-                "password",
-                "security"
-            ],
-            "time": "2012-08-31T00:00:00+00:00"
-        },
-        {
             "name": "humanmade/coding-standards",
             "version": "v0.5.0",
             "source": {
@@ -3141,20 +3149,21 @@
         },
         {
             "name": "lucatume/wp-browser",
-            "version": "3.0.8",
+            "version": "3.0.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lucatume/wp-browser.git",
-                "reference": "22e7ff337c8e5966eedec5551d93b9ed3148799a"
+                "reference": "c215ae0aff4a4ea58e2172e7014a2a7b0c160e25"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lucatume/wp-browser/zipball/22e7ff337c8e5966eedec5551d93b9ed3148799a",
-                "reference": "22e7ff337c8e5966eedec5551d93b9ed3148799a",
+                "url": "https://api.github.com/repos/lucatume/wp-browser/zipball/c215ae0aff4a4ea58e2172e7014a2a7b0c160e25",
+                "reference": "c215ae0aff4a4ea58e2172e7014a2a7b0c160e25",
                 "shasum": ""
             },
             "require": {
                 "antecedent/patchwork": "^2.0",
+                "bordoni/phpass": "^0.3",
                 "codeception/codeception": "^2.5 || ^3.0 || ^4.0",
                 "dg/mysql-dump": "^1.3",
                 "ext-fileinfo": "*",
@@ -3226,7 +3235,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-07-05T08:24:12+00:00"
+            "time": "2021-09-20T17:00:45+00:00"
         },
         {
             "name": "mikehaertl/php-shellcommand",
@@ -6405,16 +6414,16 @@
         },
         {
             "name": "wp-cli/php-cli-tools",
-            "version": "v0.11.12",
+            "version": "v0.11.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wp-cli/php-cli-tools.git",
-                "reference": "e472e08489f7504d9e8c5c5a057e1419cd1b2b3e"
+                "reference": "a2866855ac1abc53005c102e901553ad5772dc04"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wp-cli/php-cli-tools/zipball/e472e08489f7504d9e8c5c5a057e1419cd1b2b3e",
-                "reference": "e472e08489f7504d9e8c5c5a057e1419cd1b2b3e",
+                "url": "https://api.github.com/repos/wp-cli/php-cli-tools/zipball/a2866855ac1abc53005c102e901553ad5772dc04",
+                "reference": "a2866855ac1abc53005c102e901553ad5772dc04",
                 "shasum": ""
             },
             "require": {
@@ -6451,7 +6460,7 @@
                 "cli",
                 "console"
             ],
-            "time": "2021-03-03T12:43:49+00:00"
+            "time": "2021-07-01T15:08:16+00:00"
         },
         {
             "name": "wp-cli/wp-cli",
