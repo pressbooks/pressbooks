@@ -7,6 +7,7 @@
 namespace Pressbooks\Modules\Export\Xhtml;
 
 use function Pressbooks\Sanitize\clean_filename;
+use function Pressbooks\Utility\oxford_comma;
 use function Pressbooks\Utility\str_starts_with;
 use PressbooksMix\Assets;
 use Pressbooks\Container;
@@ -1014,14 +1015,20 @@ class Xhtml11 extends ExportGenerator {
 			printf( '<h1 class="title">%s</h1>', get_bloginfo( 'name' ) );
 			printf( '<h2 class="subtitle">%s</h2>', ( isset( $metadata['pb_subtitle'] ) ) ? $metadata['pb_subtitle'] : '' );
 			if ( isset( $metadata['pb_authors'] ) ) {
+				echo '<h3 class="author">';
+				$authors_title_page = [];
 				foreach ( $metadata['pb_authors'] as $author ) {
-					printf( '<h3 class="author">%s</h3>', $author['name'] );
+					$authors_title_page[] = $author['name'];
 				}
+				printf( '%s</h3>', oxford_comma( $authors_title_page ) );
 			}
 			if ( isset( $metadata['pb_contributors'] ) ) {
+				echo '<h3 class="author">';
+				$contributors_title_page = [];
 				foreach ( $metadata['pb_contributors'] as $contributor ) {
-					printf( '<h3 class="author">%s</h3>', $contributor['name'] );
+					$contributors_title_page[] = $contributor['name'];
 				}
+				printf( '%s</h3>', oxford_comma( $contributors_title_page ) );
 			}
 			if ( current_theme_supports( 'pressbooks_publisher_logo' ) ) {
 				printf( '<div class="publisher-logo"><img src="%s" /></div>', get_theme_support( 'pressbooks_publisher_logo' )[0]['logo_uri'] ); // TODO: Support custom publisher logo.
