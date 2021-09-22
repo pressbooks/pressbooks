@@ -156,7 +156,7 @@ class Contributors implements BackMatter, Transferable {
 			foreach ( $meta as $slug ) {
 				$name = $this->personalName( $slug );
 				if ( ! $include_term_meta ) {
-					if ( $name ) {
+					if ( $name !== '' ) {
 						$contributors[] = $name;
 					}
 				} else {
