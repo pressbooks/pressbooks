@@ -138,7 +138,7 @@ class IntegrationsTest extends \WP_UnitTestCase {
 
 		$info = \Pressbooks\Book::getBookInformation();
 		$this->assertEquals( 'Pressbooks Integration Testing', $info ['pb_title'] );
-		$this->assertEquals( 'Nobody', $info ['pb_authors'][0]['name'] );
+		$this->assertEquals( 'Nobody', $info ['pb_authors'] );
 
 		$term = get_term_by( 'slug', 'nobody', \Pressbooks\Contributors::TAXONOMY );
 		$this->assertInstanceOf( \WP_Term::class, $term );
