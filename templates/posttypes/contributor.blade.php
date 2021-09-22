@@ -14,7 +14,6 @@
 		@endif
 		@if ( $contributor['contributor_twitter'] || $contributor['contributor_linkedin'] || $contributor['contributor_github'])
 			<div class="contributor__links">
-				{{-- TODO: add variables to allow SVGs to be replaced with links if export --}}
 				@if ( $contributor['contributor_twitter'] )
 					<a class="contributor__twitter" href="{{$contributor['contributor_twitter']}}" target="_blank">
 						@if ( $exporting )
