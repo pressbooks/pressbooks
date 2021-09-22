@@ -6,6 +6,7 @@
 
 namespace Pressbooks\Modules\Export;
 
+use Pressbooks\Container;
 use Pressbooks\Contributors;
 
 /**
@@ -297,33 +298,14 @@ function get_contributors_section( $chapter_id ) {
 	$title = sprintf( _n( '%s Author', '%s Authors', count( $chapter_contributors ), 'pressbooks' ), 'About the' );
 	$print = '<section class="contributors">';
 	$print .= "<h3 class=\"about-authors\">{$title}</h3>";
+	$blade_engine = Container::get( 'Blade' );
 	foreach ( $chapter_contributors as $contributor ) {
-		$print .= '<div class="contributor__name__and__links">';
-		if ( $contributor['contributor_picture'] ) {
-			$print .= "<img class=\"contributor__profile__picture\" alt=\"Contributor photo\" title=\"Photo\" src=\"{$contributor['contributor_picture']}\" />";
-		}
-		$print .= "<p class=\"contributor__name\">{$contributor['name']}</p>";
-		if ( $contributor['contributor_institution'] ) {
-			$print .= "<p class=\"contributor__institution\">{$contributor['contributor_institution']}</p>";
-		}
-		if ( $contributor['contributor_user_url'] ) {
-			$print .= "<p class=\"contributor__website\"><a href=\"{$contributor['contributor_user_url']}\" target=\"_blank\">{$contributor['contributor_user_url']}</a></p>";
-		}
-		if ( $contributor['contributor_twitter'] || $contributor['contributor_linkedin'] || $contributor['contributor_github'] ) {
-			$print .= '<div class="contributor__links">';
-			if ( $contributor['contributor_twitter'] ) {
-				$print .= "<div><a class=\"contributor__twitter\" href=\"{$contributor['contributor_twitter']}\" target=\"_blank\">{$contributor['contributor_twitter']}</a></div>";
-			}
-			if ( $contributor['contributor_linkedin'] ) {
-				$print .= "<div><a class=\"contributor__linkedin\" href=\"{$contributor['contributor_linkedin']}\" target=\"_blank\">{$contributor['contributor_linkedin']}</a></div>";
-			}
-			if ( $contributor['contributor_github'] ) {
-				$print .= "<div><a class=\"contributor__github\" href=\"{$contributor['contributor_github']}\" target=\"_blank\">{$contributor['contributor_github']}</a></div>";
-			}
-			$print .= '</div>';
-		}
-		$print .= '</div>';
-		$print .= '<div class="contributor__bio">' . wp_kses( $contributor['contributor_description'], true ) . '</div>';
+		$print .= $blade_engine->render(
+			'posttypes.contributor', [
+				'contributor' => $contributor,
+				'renderIcons' => false,
+			]
+		);
 	}
 	$print .= '</section>';
 	return $print;
