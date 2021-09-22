@@ -303,7 +303,7 @@ function get_contributors_section( $chapter_id ) {
 		$print .= $blade_engine->render(
 			'posttypes.contributor', [
 				'contributor' => $contributor,
-				'renderIcons' => false,
+				'exporting' => true,
 			]
 		);
 	}
