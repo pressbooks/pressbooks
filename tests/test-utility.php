@@ -638,6 +638,31 @@ class UtilityTest extends \WP_UnitTestCase {
 	/**
 	 * @group utility
 	 */
+	public function test_implode_add_and() {
+		$this->assertEmpty( \Pressbooks\Utility\explode_remove_and( ';', '' ) );
+		$this->assertEquals( [ 'One Person', 'Two People' ], \Pressbooks\Utility\explode_remove_and( ';', 'One Person and Two People' ) );
+		$this->assertEquals( [ 'One Person', 'Two People', 'Three People', 'Four People' ], \Pressbooks\Utility\explode_remove_and( ';', 'One Person; Two People; Three People; and Four People' ) );
+		$this->assertEquals( [ 'andy, suff', 'andrew', 'andrea', 'android' ], \Pressbooks\Utility\explode_remove_and( ';', 'andy, suff; andrew; andrea; android' ) );
+	}
+
+	/**
+	 * @group utility
+	 */
+	public function test_explode_remove_and() {
+		$this->assertEquals( '', \Pressbooks\Utility\implode_add_and( ';', [] ) );
+		$vars[] = 'One Person';
+		$this->assertEquals( 'One Person', \Pressbooks\Utility\implode_add_and( ';', $vars ) );
+		$vars[] = 'Two People';
+		$this->assertEquals( 'One Person and Two People', \Pressbooks\Utility\implode_add_and( ';', $vars ) );
+		$vars[] = 'Three People';
+		$this->assertEquals( 'One Person; Two People; and Three People', \Pressbooks\Utility\implode_add_and( ';', $vars ) );
+		$vars[] = 'Four People';
+		$this->assertEquals( 'One Person; Two People; Three People; and Four People', \Pressbooks\Utility\implode_add_and( ';', $vars ) );
+	}
+
+	/**
+	 * @group utility
+	 */
 	public function test_oxford_comma() {
 		$this->assertEquals( '', \Pressbooks\Utility\oxford_comma( [] ) );
 		$vars[] = 'One Person';
@@ -645,9 +670,9 @@ class UtilityTest extends \WP_UnitTestCase {
 		$vars[] = 'Two People';
 		$this->assertEquals( 'One Person and Two People', \Pressbooks\Utility\oxford_comma( $vars ) );
 		$vars[] = 'Three People';
-		$this->assertEquals( 'One Person; Two People; and Three People', \Pressbooks\Utility\oxford_comma( $vars ) );
+		$this->assertEquals( 'One Person, Two People, and Three People', \Pressbooks\Utility\oxford_comma( $vars ) );
 		$vars[] = 'Four People';
-		$this->assertEquals( 'One Person; Two People; Three People; and Four People', \Pressbooks\Utility\oxford_comma( $vars ) );
+		$this->assertEquals( 'One Person, Two People, Three People, and Four People', \Pressbooks\Utility\oxford_comma( $vars ) );
 	}
 
 	/**
@@ -656,8 +681,8 @@ class UtilityTest extends \WP_UnitTestCase {
 	public function test_oxford_comma_explode() {
 		$this->assertEmpty( \Pressbooks\Utility\oxford_comma_explode( '' ) );
 		$this->assertEquals( [ 'One Person', 'Two People' ], \Pressbooks\Utility\oxford_comma_explode( 'One Person and Two People' ) );
-		$this->assertEquals( [ 'One Person', 'Two People', 'Three People', 'Four People' ], \Pressbooks\Utility\oxford_comma_explode( 'One Person; Two People; Three People; and Four People' ) );
-		$this->assertEquals( [ 'andy, andrew', 'andrea', 'android' ], \Pressbooks\Utility\oxford_comma_explode( 'andy, andrew; andrea;  android' ) );
+		$this->assertEquals( [ 'One Person', 'Two People', 'Three People', 'Four People' ], \Pressbooks\Utility\oxford_comma_explode( 'One Person, Two People, Three People, and Four People' ) );
+		$this->assertEquals( [ 'andy', 'andrew', 'andrea', 'android' ], \Pressbooks\Utility\oxford_comma_explode( 'andy, andrew, andrea, android' ) );
 	}
 
 	/**

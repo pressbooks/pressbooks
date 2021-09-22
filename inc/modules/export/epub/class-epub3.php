@@ -9,7 +9,8 @@ namespace Pressbooks\Modules\Export\Epub;
 
 use function \Pressbooks\Sanitize\sanitize_xml_attribute;
 use function \Pressbooks\Utility\debug_error_log;
-use function \Pressbooks\Utility\oxford_comma;
+use function \Pressbooks\Utility\get_contributors_name_imploded;
+use function \Pressbooks\Utility\implode_add_and;
 use Pressbooks\HtmLawed;
 use Pressbooks\HtmlParser;
 use Pressbooks\Sanitize;
@@ -490,7 +491,7 @@ class Epub3 extends Epub201 {
 					}
 				}
 				if ( ! empty( $items ) ) {
-					$metadata[ $key ] = oxford_comma( $items );
+					$metadata[ $key ] = implode_add_and( ';', $items );
 				}
 			} else {
 				$metadata[ $key ] = sanitize_xml_attribute( $val );
@@ -521,11 +522,7 @@ class Epub3 extends Epub201 {
 
 		$authors = '';
 		if ( isset( $metadata['pb_authors'] ) && is_array( $metadata['pb_authors'] ) && ! empty( $metadata['pb_authors'] ) ) {
-			$authors = [];
-			foreach ( $metadata['pb_authors'] as $author ) {
-				$authors[] = $author['name'];
-			}
-			$authors = oxford_comma( $authors );
+			$authors = get_contributors_name_imploded( $metadata['pb_authors'] );
 		}
 
 		// Sanitize variables for usage in XML template

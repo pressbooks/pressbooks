@@ -11,7 +11,8 @@ namespace Pressbooks\Modules\Export\Epub;
 
 use function Pressbooks\Sanitize\sanitize_xml_attribute;
 use function Pressbooks\Utility\debug_error_log;
-use function Pressbooks\Utility\oxford_comma;
+use function Pressbooks\Utility\get_contributors_name_imploded;
+use function Pressbooks\Utility\implode_add_and;
 use function Pressbooks\Utility\str_ends_with;
 use function Pressbooks\Utility\str_lreplace;
 use function Pressbooks\Utility\str_starts_with;
@@ -299,7 +300,7 @@ class Epub201 extends ExportGenerator {
 
 		// Convert
 		yield 2 => $this->generatorPrefix . __( 'Preparing book contents', 'pressbooks' );
-		$metadata = Book::getBookInformation();
+		$metadata = Book::getBookInformation( null, false );
 		$book_contents = $this->preProcessBookContents( Book::getBookContents() );
 
 		// Set two letter language code
@@ -1053,17 +1054,11 @@ class Epub201 extends ExportGenerator {
 		} else {
 			$html .= sprintf( '<h1 class="title">%s</h1>', get_bloginfo( 'name' ) );
 			$html .= sprintf( '<h2 class="subtitle">%s</h2>', ( isset( $metadata['pb_subtitle'] ) ) ? $metadata['pb_subtitle'] : '' );
-			if ( isset( $metadata['pb_authors'] ) ) {
-				if ( isset( $metadata['pb_authors'] ) ) {
-					foreach ( $metadata['pb_authors'] as $author ) {
-						$html .= sprintf( '<h3 class="author">%s</h3>', $author['name'] );
-					}
-				}
+			if ( isset( $metadata['pb_authors'] ) && ! empty( $metadata['pb_authors'] ) ) {
+				$html .= sprintf( '<h3 class="author">%s</h3>', get_contributors_name_imploded( $metadata['pb_authors'] ) );
 			}
-			if ( isset( $metadata['pb_contributors'] ) ) {
-				foreach ( $metadata['pb_contributors'] as $contributor ) {
-					$html .= sprintf( '<h3 class="author">%s</h3>', $contributor['name'] );
-				}
+			if ( isset( $metadata['pb_contributors'] ) && ! empty( $metadata['pb_contributors'] ) ) {
+				$html .= sprintf( '<h3 class="author">%s</h3>', get_contributors_name_imploded( $metadata['pb_contributors'] ) );
 			}
 			if ( current_theme_supports( 'pressbooks_publisher_logo' ) ) {
 				$html .= sprintf( '<div class="publisher-logo"><img src="%s" alt="%s" /></div>', get_theme_support( 'pressbooks_publisher_logo' )[0]['logo_uri'], __( 'Publisher Logo', 'pressbooks' ) ); // TODO: Support custom publisher logo.
@@ -2549,7 +2544,7 @@ class Epub201 extends ExportGenerator {
 					}
 				}
 				if ( ! empty( $items ) ) {
-					$metadata[ $key ] = oxford_comma( $items );
+					$metadata[ $key ] = implode_add_and( ';', $items );
 				}
 			} else {
 				$metadata[ $key ] = sanitize_xml_attribute( $val );
@@ -2623,11 +2618,7 @@ class Epub201 extends ExportGenerator {
 		}
 		$authors = '';
 		if ( isset( $metadata['pb_authors'] ) && is_array( $metadata['pb_authors'] ) && ! empty( $metadata['pb_authors'] ) ) {
-			$authors = [];
-			foreach ( $metadata['pb_authors'] as $author ) {
-				$authors[] = $author['name'];
-			}
-			$authors = oxford_comma( $authors );
+			$authors = get_contributors_name_imploded( $metadata['pb_authors'] );
 		}
 
 		// Sanitize variables for usage in XML template

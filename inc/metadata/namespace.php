@@ -6,9 +6,9 @@ use function \Pressbooks\L10n\get_book_language;
 use function \Pressbooks\L10n\get_locale;
 use function \Pressbooks\Sanitize\is_valid_timestamp;
 use function \Pressbooks\Utility\apply_https_if_available;
+use function \Pressbooks\Utility\explode_remove_and;
 use function \Pressbooks\Utility\get_contents;
-use function \Pressbooks\Utility\oxford_comma;
-use function \Pressbooks\Utility\oxford_comma_explode;
+use function \Pressbooks\Utility\get_contributors_name_imploded;
 use PressbooksMix\Assets;
 use Pressbooks\Book;
 use Pressbooks\Contributors;
@@ -270,7 +270,7 @@ function book_information_to_schema( $book_information, $network_excluded_direct
 		if ( isset( $book_information[ $contributor_type ] ) ) {
 			// Compatibility with previous version (basic strings contributors)
 			if ( is_string( $book_information[ $contributor_type ] ) ) {
-				$contributors_string = oxford_comma_explode( $book_information[ $contributor_type ] );
+				$contributors_string = explode_remove_and( ';', $book_information[ $contributor_type ] );
 				$book_schema[ $mapped_properties[ $contributor_type ] ] = [];
 				foreach ( $contributors_string as $contributor_name ) {
 					$book_schema[ $mapped_properties[ $contributor_type ] ][] = [
@@ -479,13 +479,7 @@ function schema_to_book_information( $book_schema ) {
 				$book_information[ $contributor_type ] = $book_schema[ $mapped_properties[ $contributor_type ] ];
 			} else {
 				// Compatiblity with previous versions where we took only the contributor's name
-				$contributors_array = [];
-				foreach ( $book_schema[ $mapped_properties[ $contributor_type ] ] as $contrib ) {
-					if ( isset( $contrib['name'] ) ) {
-						$contributors_array[] = $contrib['name'];
-					}
-				}
-				$book_information[ $contributor_type ] = oxford_comma( $contributors_array );
+				$book_information[ $contributor_type ] = get_contributors_name_imploded( $book_schema[ $mapped_properties[ $contributor_type ] ] );
 			}
 		}
 	}
@@ -607,7 +601,7 @@ function section_information_to_schema( $section_information, $book_information 
 				);
 			} elseif ( is_string( $merge ) ) {
 				// compatibility with previous contributors schema
-				$contributors_string = oxford_comma_explode( $merge );
+				$contributors_string = explode_remove_and( ';', $merge );
 				$section_schema[ $mapped_contributors_type[ $contributor_type ] ] = [];
 				foreach ( $contributors_string as $contributor_name ) {
 					$section_schema[ $mapped_contributors_type[ $contributor_type ] ][] = [
@@ -981,7 +975,7 @@ function add_json_ld_metadata() {
 	if ( $context === 'section' ) {
 		global $post;
 		$section_information = get_section_information( $post->ID );
-		$book_information = Book::getBookInformation();
+		$book_information = Book::getBookInformation( null, false );
 		$metadata = section_information_to_schema( $section_information, $book_information );
 	} else {
 		$metadata = new Metadata();
@@ -998,7 +992,7 @@ function add_json_ld_metadata() {
  */
 function add_citation_metadata() {
 	$context = is_singular( [ 'front-matter', 'part', 'chapter', 'back-matter' ] ) ? 'section' : 'book';
-	$book_information = Book::getBookInformation();
+	$book_information = Book::getBookInformation( null, false );
 	$tags = [];
 
 	$map = [

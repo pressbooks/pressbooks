@@ -7,7 +7,7 @@
 namespace Pressbooks;
 
 use function Pressbooks\Metadata\init_book_data_models;
-use function Pressbooks\Utility\oxford_comma_explode;
+use function Pressbooks\Utility\explode_remove_and;
 use function Pressbooks\Utility\str_starts_with;
 use Illuminate\Support\Str;
 use Pressbooks\PostType\BackMatter;
@@ -129,7 +129,7 @@ class Contributors implements BackMatter, Transferable {
 	 */
 	public function get( $post_id, $contributor_type ) {
 		$contributors = $this->getArray( $post_id, $contributor_type );
-		return \Pressbooks\Utility\oxford_comma( $contributors );
+		return \Pressbooks\Utility\implode_add_and( ';', $contributors );
 	}
 
 	/**
@@ -161,13 +161,15 @@ class Contributors implements BackMatter, Transferable {
 					}
 				} else {
 					$term = get_term_by( 'slug', $slug, self::TAXONOMY );
-					$contributor = get_term_meta( $term->term_id );
-					foreach ( $contributor as $field => $property ) {
-						$contributor[ $field ] = is_array( $property ) ? $property[0] : $property;
+					if ( $term ) {
+						$contributor = get_term_meta( $term->term_id );
+						foreach ( $contributor as $field => $property ) {
+							$contributor[ $field ] = is_array( $property ) ? $property[0] : $property;
+						}
+						$contributor['name'] = $name;
+						$contributor['slug'] = $term->slug;
+						$contributors[] = $contributor;
 					}
-					$contributor['name'] = $name;
-					$contributor['slug'] = $term->slug;
-					$contributors[] = $contributor;
 				}
 			}
 		}
@@ -637,7 +639,7 @@ class Contributors implements BackMatter, Transferable {
 					$does_contains_roman_number = false;
 					$roman_numbers_suffix = [ 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII' ];
 					foreach ( $roman_numbers_suffix as $roman_number ) {
-						if ( strpos( $suffix, $roman_number ) ) {
+						if ( strpos( $suffix, $roman_number ) !== false ) {
 							$does_contains_roman_number = true;
 							break;
 						}
@@ -694,7 +696,7 @@ class Contributors implements BackMatter, Transferable {
 
 		$result = false;
 		foreach ( $names as $contributors ) {
-			$values = oxford_comma_explode( $contributors );
+			$values = explode_remove_and( ';', $contributors );
 			foreach ( $values as $v ) {
 				$result = $this->insert( $v, $post_id, $new_slug );
 			}
