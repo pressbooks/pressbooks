@@ -16,7 +16,7 @@
 			<div class="contributor__links">
 				@if ( $contributor['contributor_twitter'] )
 					<a class="contributor__twitter" href="{{$contributor['contributor_twitter']}}" target="_blank">
-						@if ( $exporting )
+						@if ( isset( $exporting ) )
 							{{$contributor['contributor_twitter']}}
 						@else
 							<svg role="img" aria-labelledby="twitter-logo" class="contributor icon-svg">
@@ -28,7 +28,7 @@
 				@endif
 				@if ( $contributor['contributor_linkedin'] )
 					<a class="contributor__linkedin" href="{{$contributor['contributor_linkedin']}}" target="_blank">
-						@if ( $exporting )
+						@if ( isset( $exporting ) )
 							{{$contributor['contributor_linkedin']}}
 						@else
 							<svg role="img" aria-labelledby="linkedin-logo" class="contributor icon-svg">
@@ -40,7 +40,7 @@
 				@endif
 				@if ( $contributor['contributor_github'] )
 					<a class="contributor__github" href="{{$contributor['contributor_github']}}" target="_blank">
-						@if ( $exporting )
+						@if ( isset( $exporting ) )
 							{{$contributor['contributor_github']}}
 						@else
 						<svg role="img" aria-labelledby="github-logo" class="contributor icon-svg">
