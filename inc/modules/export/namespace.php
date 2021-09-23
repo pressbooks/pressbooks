@@ -296,7 +296,7 @@ function get_contributors_section( $chapter_id ) {
 		return '';
 	}
 	$title = sprintf( _n( '%s Author', '%s Authors', count( $chapter_contributors ), 'pressbooks' ), 'About the' );
-	$print = '<section class="contributors">';
+	$print = '<div class="contributors">';
 	$print .= "<h3 class=\"about-authors\">{$title}</h3>";
 	$blade_engine = Container::get( 'Blade' );
 	foreach ( $chapter_contributors as $contributor ) {
