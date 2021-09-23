@@ -25,7 +25,6 @@
 						</p>
 					@else
 						<a href="{{$contributor['contributor_twitter']}}" target="_blank">
-							{{$contributor['contributor_twitter']}}
 							<svg role="img" aria-labelledby="twitter-logo" class="contributor icon-svg">
 								<title id="twitter-title-logo">Twitter logo</title>
 								<use href="#twitter-icon"/>
