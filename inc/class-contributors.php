@@ -154,21 +154,24 @@ class Contributors implements BackMatter, Transferable {
 		$meta = get_post_meta( $post_id, $contributor_type, false );
 		if ( is_array( $meta ) ) {
 			foreach ( $meta as $slug ) {
-				$name = $this->personalName( $slug );
-				if ( ! $include_term_meta ) {
-					if ( $name !== '' ) {
-						$contributors[] = $name;
+				$term = get_term_by( 'slug', $slug, self::TAXONOMY );
+				if ( $term ) {
+					$contributor = get_term_meta( $term->term_id );
+					$name = get_term_meta( $term->term_id, 'contributor_first_name', true );
+					if ( ! $name ) {
+						$name = str_replace( [ ',', ';' ], '', $this->personalName( $slug ) );
 					}
-				} else {
-					$term = get_term_by( 'slug', $slug, self::TAXONOMY );
-					if ( $term ) {
-						$contributor = get_term_meta( $term->term_id );
-						foreach ( $contributor as $field => $property ) {
-							$contributor[ $field ] = is_array( $property ) ? $property[0] : $property;
+					if ( ! $include_term_meta ) {
+						$contributors[] = $name;
+					} else {
+						if ( $term ) {
+							foreach ( $contributor as $field => $property ) {
+								$contributor[ $field ] = is_array( $property ) ? $property[0] : $property;
+							}
+							$contributor['name'] = $name;
+							$contributor['slug'] = $term->slug;
+							$contributors[] = $contributor;
 						}
-						$contributor['name'] = $name;
-						$contributor['slug'] = $term->slug;
-						$contributors[] = $contributor;
 					}
 				}
 			}
