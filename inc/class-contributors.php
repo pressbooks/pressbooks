@@ -82,7 +82,7 @@ class Contributors implements BackMatter, Transferable {
 
 		add_action(
 			'pb_pre_export', function () use ( $obj ) {
-				$this->exporting = true; //only set this variable during exports
+				$obj->exporting = true; //only set this variable during exports
 			}
 		);
 
