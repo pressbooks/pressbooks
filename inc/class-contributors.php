@@ -56,6 +56,10 @@ class Contributors implements BackMatter, Transferable {
 		'pb_editor',
 		'pb_translator',
 	];
+	/**
+	 * @var bool
+	 */
+	private $exporting;
 
 	/**
 	 * Function to init our class, set filters & hooks, set a singleton instance
@@ -75,6 +79,13 @@ class Contributors implements BackMatter, Transferable {
 	 * @param Contributors $obj
 	 */
 	public static function hooks( Contributors $obj ) {
+
+		add_action(
+			'pb_pre_export', function () use ( $obj ) {
+				$this->exporting = true; //only set this variable during exports
+			}
+		);
+
 		add_filter( 'the_content', [ $obj, 'overrideDisplay' ], 13 ); // Run after wpautop to avoid unwanted breaklines.
 
 		$obj->bootExportable( $obj );
@@ -386,13 +397,17 @@ class Contributors implements BackMatter, Transferable {
 	public function getUrlFields() {
 		$fields = self::getContributorFields();
 
-		return array_keys( array_filter( $fields, function( $field ) {
-			if ( ! isset( $field['sanitization_method'] ) ) {
-				return false;
-			}
+		return array_keys(
+			array_filter(
+				$fields, function( $field ) {
+					if ( ! isset( $field['sanitization_method'] ) ) {
+						return false;
+					}
 
-			return $field['sanitization_method'] === '\Pressbooks\Sanitize\validate_url_field';
-		} ) );
+					return $field['sanitization_method'] === '\Pressbooks\Sanitize\validate_url_field';
+				}
+			)
+		);
 	}
 
 	/**
@@ -664,7 +679,12 @@ class Contributors implements BackMatter, Transferable {
 
 				$blade = Container::get( 'Blade' );
 
-				return $blade->render( 'posttypes/contributors', [ 'contributors' => $this->getAllContributors() ] );
+				return $blade->render(
+					'posttypes/contributors', [
+						'contributors' => $this->getAllContributors(),
+						'exporting' => $this->exporting,
+					]
+				);
 
 			}, 'contributors'
 		);
