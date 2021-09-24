@@ -307,6 +307,6 @@ function get_contributors_section( $chapter_id ) {
 			]
 		);
 	}
-	$print .= '</section>';
+	$print .= '</div>';
 	return $print;
 }
