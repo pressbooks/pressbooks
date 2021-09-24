@@ -214,6 +214,11 @@ class Epub201 extends ExportGenerator {
 	 */
 	protected $sanitizedSlugs = [];
 
+	/**
+	 * @var bool
+	 */
+	protected $displayAboutTheAuthors;
+
 
 	/**
 	 * @param array $args
@@ -299,6 +304,7 @@ class Epub201 extends ExportGenerator {
 
 		// Convert
 		yield 2 => $this->generatorPrefix . __( 'Preparing book contents', 'pressbooks' );
+		$this->displayAboutTheAuthors = ! empty( get_option( 'pressbooks_theme_options_global', [] )['about_the_author'] );
 		$metadata = Book::getBookInformation();
 		$book_contents = $this->preProcessBookContents( Book::getBookContents() );
 
@@ -467,8 +473,6 @@ class Epub201 extends ExportGenerator {
 		global $id;
 		$old_id = $id;
 
-		$display_about_the_author = ! empty( get_option( 'pressbooks_theme_options_global', [] )['about_the_author'] );
-
 		// Do root level structures first.
 		foreach ( $book_contents as $type => $struct ) {
 
@@ -480,7 +484,7 @@ class Epub201 extends ExportGenerator {
 
 				if ( isset( $val['post_content'] ) ) {
 					$id = $val['ID'];
-					$book_contents[ $type ][ $i ]['post_content'] = $this->preProcessPostContent( $val['post_content'] );
+					$book_contents[ $type ][ $i ]['post_content'] = $this->preProcessPostContent( $val['post_content'], $type, $val['ID'] );
 				}
 				if ( isset( $val['post_title'] ) ) {
 					$book_contents[ $type ][ $i ]['post_title'] = sanitize_xml_attribute( $val['post_title'] );
@@ -497,10 +501,7 @@ class Epub201 extends ExportGenerator {
 
 						if ( isset( $val2['post_content'] ) ) {
 							$id = $val2['ID'];
-							$book_contents[ $type ][ $i ]['chapters'][ $j ]['post_content'] = $this->preProcessPostContent( $val2['post_content'] );
-							if ( $display_about_the_author ) {
-								$book_contents[ $type ][ $i ]['chapters'][ $j ]['post_content'] .= \Pressbooks\Modules\Export\get_contributors_section( $val2['ID'] );
-							}
+							$book_contents[ $type ][ $i ]['chapters'][ $j ]['post_content'] = $this->preProcessPostContent( $val2['post_content'], 'chapter', $val2['ID'] );
 						}
 						if ( isset( $val2['post_title'] ) ) {
 							$book_contents[ $type ][ $i ]['chapters'][ $j ]['post_title'] = sanitize_xml_attribute( $val2['post_title'] );
@@ -521,14 +522,24 @@ class Epub201 extends ExportGenerator {
 
 	/**
 	 * @param string $content
+	 * @param string $type
+	 * @param int $post_id
 	 *
 	 * @return string
 	 */
-	protected function preProcessPostContent( $content ) {
+	protected function preProcessPostContent( $content, $type = '', $post_id = 0 ) {
 		$content = apply_filters( 'the_export_content', $content );
 		$content = str_ireplace( [ '<b></b>', '<i></i>', '<strong></strong>', '<em></em>' ], '', $content );
 		$content = $this->fixAnnoyingCharacters( $content );
 		$content = $this->tidy( $content );
+
+		if (
+			$this->displayAboutTheAuthors &&
+			in_array( $type, [ 'chapter', 'front-matter', 'back-matter' ], true ) &&
+			$post_id > 0
+		) {
+			$content .= \Pressbooks\Modules\Export\get_contributors_section( $post_id );
+		}
 
 		return $content;
 	}

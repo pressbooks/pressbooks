@@ -1298,6 +1298,7 @@ class HTMLBook extends Export {
 					$header,
 					$content,
 					$append_front_matter_content,
+					! empty( get_option( 'pressbooks_theme_options_global', [] )['about_the_author'] ) ? \Pressbooks\Modules\Export\get_contributors_section( $front_matter_id ) : '',
 				]
 			);
 
@@ -1633,6 +1634,7 @@ class HTMLBook extends Export {
 					$header,
 					$content,
 					$append_back_matter_content,
+					! empty( get_option( 'pressbooks_theme_options_global', [] )['about_the_author'] ) ? \Pressbooks\Modules\Export\get_contributors_section( $back_matter_id ) : '',
 				]
 			);
 
