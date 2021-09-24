@@ -56,6 +56,7 @@ class ContributorsTest extends \WP_UnitTestCase {
 		$this->assertNotEmpty( $wp_filter['the_content' ]);
 		$this->assertNotEmpty( $wp_filter['handle_bulk_actions-edit-contributor' ]);
 		$this->assertNotEmpty( $wp_filter['bulk_actions-edit-contributor' ]);
+		$this->assertNotEmpty( $wp_filter['delete_contributor' ]);
 		$this->assertNotEmpty( $wp_filter['upload_mimes'] );
 	}
 
@@ -496,41 +497,41 @@ class ContributorsTest extends \WP_UnitTestCase {
 		]);
 	}
 
-    /**
-     * @group contributors
-     */
-    public function test_getUrlFields()
-    {
-        $fields = $this->contributor->getUrlFields();
+	/**
+	 * @group contributors
+	 */
+	public function test_getUrlFields()
+	{
+		$fields = $this->contributor->getUrlFields();
 
-        $this->assertContains( 'contributor_picture', $fields );
-        $this->assertContains( 'contributor_user_url', $fields );
-        $this->assertContains( 'contributor_twitter', $fields );
-        $this->assertContains( 'contributor_linkedin', $fields );
-        $this->assertContains( 'contributor_github', $fields );
-    }
+		$this->assertContains( 'contributor_picture', $fields );
+		$this->assertContains( 'contributor_user_url', $fields );
+		$this->assertContains( 'contributor_twitter', $fields );
+		$this->assertContains( 'contributor_linkedin', $fields );
+		$this->assertContains( 'contributor_github', $fields );
+	}
 
-    /**
-     * @group contributors
-     */
-    public function test_sanitizeField()
-    {
-        $value = $this->contributor->sanitizeField( 'contributor_description', 'I\'m a <strong>description</strong>' );
+	/**
+	 * @group contributors
+	 */
+	public function test_sanitizeField()
+	{
+		$value = $this->contributor->sanitizeField( 'contributor_description', 'I\'m a <strong>description</strong>' );
 
-        $this->assertEquals( 'I\'m a <strong>description</strong>', $value );
+		$this->assertEquals( 'I\'m a <strong>description</strong>', $value );
 
-        $value = $this->contributor->sanitizeField( 'contributor_github', 'https://github.com/johndoe' );
+		$value = $this->contributor->sanitizeField( 'contributor_github', 'https://github.com/johndoe' );
 
-        $this->assertEquals( 'https://github.com/johndoe', $value );
+		$this->assertEquals( 'https://github.com/johndoe', $value );
 
-        $value = $this->contributor->sanitizeField( 'contributor_github', 'not-a-valid-url' );
+		$value = $this->contributor->sanitizeField( 'contributor_github', 'not-a-valid-url' );
 
-        $this->assertEquals( '', $value );
+		$this->assertEquals( '', $value );
 
-        $value = $this->contributor->sanitizeField( 'contributor_first_name', 'John' );
+		$value = $this->contributor->sanitizeField( 'contributor_first_name', 'John' );
 
-        $this->assertEquals( 'John', $value );
-    }
+		$this->assertEquals( 'John', $value );
+	}
 
 	/**
 	 * @group contributors
@@ -697,5 +698,55 @@ class ContributorsTest extends \WP_UnitTestCase {
 		$src = $this->contributor->handleImage( 'not-a-valid-url' );
 
 		$this->assertFalse( $src );
+	}
+
+	/**
+	 * @group contributors
+	 */
+	public function test_deleteContributor() {
+		$this->taxonomy->registerTaxonomies();
+		$post_id = $this->_createChapter();
+
+		$john_doe_id = $this->factory()->user->create([
+			'role' => 'contributor',
+			'first_name' => 'John',
+			'last_name' => 'Doe',
+			'user_nicename' => 'johndoe'
+		] );
+
+		$monsieur_fake_id = $this->factory()->user->create([
+			'role' => 'contributor',
+			'first_name' => 'Monsieur',
+			'last_name' => 'Fake',
+			'user_nicename' => 'monsieurfake'
+		] );
+
+		$result = $this->contributor->addBlogUser( $john_doe_id );
+		$john_doe = get_term( $result['term_id'], 'contributor' );
+
+		$result = $this->contributor->addBlogUser( $monsieur_fake_id );
+		$monsieur_fake = get_term( $result[ 'term_id'], 'contributor' );
+
+		add_post_meta( $post_id, 'pb_authors', $john_doe->slug );
+		add_post_meta( $post_id, 'pb_authors', $monsieur_fake->slug );
+
+		$s = $this->contributor->get( $post_id, 'pb_authors' );
+		$this->assertEquals( 'John Doe and Monsieur Fake', $s );
+
+		global $wpdb;
+
+		$authors = $wpdb->get_results( "SELECT meta_value FROM {$wpdb->prefix}postmeta WHERE post_id = $post_id and meta_key = 'pb_authors'" );
+
+		$this->assertCount( 2, $authors );
+		$this->assertEquals( 'monsieurfake', $authors[1]->meta_value );
+
+		wp_delete_term( $monsieur_fake->term_id, 'contributor' );
+		$this->contributor->deleteContributor( null, null, $monsieur_fake );
+
+		$authors = $wpdb->get_results( "SELECT meta_value FROM {$wpdb->prefix}postmeta WHERE post_id = $post_id and meta_key = 'pb_authors'" );
+
+		$this->assertNull( get_term( $result[ 'term_id'], 'contributor' ) );
+		$this->assertCount( 1, $authors );
+		$this->assertNotEquals( 'monsieurfake', $authors[0]->meta_value );
 	}
 }

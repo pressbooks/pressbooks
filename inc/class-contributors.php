@@ -75,6 +75,8 @@ class Contributors implements BackMatter, Transferable {
 	 * @param Contributors $obj
 	 */
 	public static function hooks( Contributors $obj ) {
+		add_action( 'delete_' . self::TAXONOMY, [ $obj, 'deleteContributor' ], 10, 3 );
+
 		add_filter( 'the_content', [ $obj, 'overrideDisplay' ], 13 ); // Run after wpautop to avoid unwanted breaklines.
 
 		$obj->bootExportable( $obj );
@@ -280,6 +282,23 @@ class Contributors implements BackMatter, Transferable {
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * Remove deleted contributor's post meta references
+	 * @param int $term
+	 * @param int $tt_id
+	 * @param \WP_Term $deleted_term
+	 */
+	public function deleteContributor( $term, $tt_id, $deleted_term ) {
+		global $wpdb;
+
+		$table = $wpdb->prefix . 'postmeta';
+
+		$wpdb->delete( $table, [
+			'meta_key' => 'pb_authors',
+			'meta_value' => $deleted_term->slug,
+		] );
 	}
 
 	/**
