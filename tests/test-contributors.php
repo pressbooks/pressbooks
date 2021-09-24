@@ -373,10 +373,10 @@ class ContributorsTest extends \WP_UnitTestCase {
 		$pid = $this->factory()->post->update_object( $pid, [ 'post_content' => ' &nbsp;    ' ] );
 		$post = get_post( $pid );
 		$content = $this->contributor->overrideDisplay( $post->post_content );
-		$this->assertContains( '<div class="contributors page">', $content );
-		$this->assertNotContains( '<h2>Reviewers</h2>', $content ); // if no reviewers that should not be printed
-		$this->assertContains( '<h2>Authors</h2>', $content ); // two authors should be plural
-		$this->assertContains( '<h2>Editor</h2>', $content ); // one editor should be singular
+		$this->assertContains( '<section class="contributors book-contributors">', $content );
+		$this->assertNotContains( '<h2 class="contributor__type">Reviewers</h2>', $content ); // if no reviewers that should not be printed
+		$this->assertContains( '<h2 class="contributor__type">Authors</h2>', $content ); // two authors should be plural
+		$this->assertContains( '<h2 class="contributor__type">Editor</h2>', $content ); // one editor should be singular
 	}
 
 	/**
