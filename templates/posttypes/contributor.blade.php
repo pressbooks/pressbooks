@@ -3,15 +3,29 @@
 		@if ( $contributor['contributor_picture'] )
 			<img class="contributor__profile__picture" alt="Contributor photo" src="{{ $contributor['contributor_picture'] }}"/>
 		@endif
-		<p class="contributor__name"><span class="screen-reader-text">name: </span>{{ $contributor['name'] }}</p>
+		<p class="contributor__name">
+			@if ( !isset( $exporting ) )
+				<span class="screen-reader-text">name: </span>
+			@endif
+			{{ $contributor['name'] }}
+		</p>
 		@if ( $contributor['contributor_institution'] )
-			<p class="contributor__institution"><span
-						class="screen-reader-text">institution: </span>{{ $contributor['contributor_institution'] }}</p>
+			<p class="contributor__institution">
+				@if ( !isset( $exporting ) )
+					<span class="screen-reader-text">institution: </span>
+				@endif
+				{{ $contributor['contributor_institution'] }}
+			</p>
 		@endif
 		@if ( $contributor['contributor_user_url'] )
-			<p class="contributor__website"><span class="screen-reader-text">website: </span><a
-						href="{{ $contributor['contributor_user_url'] }}"
-						target="_blank">{{ $contributor['contributor_user_url'] }}</a></p>
+			<p class="contributor__website">
+				@if ( !isset( $exporting ) )
+					<span class="screen-reader-text">website: </span>
+				@endif
+				<a href="{{ $contributor['contributor_user_url'] }}"
+						target="_blank">{{ $contributor['contributor_user_url'] }}
+				</a>
+			</p>
 		@endif
 		@if ( $contributor['contributor_twitter'] || $contributor['contributor_linkedin'] || $contributor['contributor_github'])
 			<div class="contributor__links">
