@@ -1,8 +1,7 @@
 <div class="contributor">
 	<div class="contributor__name__and__links">
 		@if ( $contributor['contributor_picture'] )
-			<img class="contributor__profile__picture" alt="Contributor photo" role="presentation"
-				 src="{{ $contributor['contributor_picture'] }}"/>
+			<img class="contributor__profile__picture" alt="Contributor photo" src="{{ $contributor['contributor_picture'] }}"/>
 		@endif
 		<p class="contributor__name"><span class="screen-reader-text">name: </span>{{ $contributor['name'] }}</p>
 		@if ( $contributor['contributor_institution'] )
