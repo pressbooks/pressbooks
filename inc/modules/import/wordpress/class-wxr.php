@@ -223,7 +223,7 @@ class Wxr extends Import {
 	public function findExistentTerm( $term ) {
 
 			$args = [
-				'taxonomy' => 'contributor',
+				'taxonomy' => Contributors::TAXONOMY,
 				'hide_empty' => false,
 				'meta_query' => [], // phpcs:ignore
 			];
@@ -312,12 +312,12 @@ class Wxr extends Import {
 
 		// and import them if they don't already exist.
 		foreach ( $terms as $t ) {
-			if ( $t['term_taxonomy'] === 'contributor' ) {
+			if ( $t['term_taxonomy'] === Contributors::TAXONOMY ) {
 				// Find an equal contributor if exist get the slug and avoid dupes
 				$existent_term = $this->findExistentTerm( $t );
 				if ( ! $existent_term ) {
 					$term = $this->insertTerm( $t );
-					$new_term = get_term( $term['term_id'], 'contributor' );
+					$new_term = get_term( $term['term_id'], Contributors::TAXONOMY );
 				}
 				$this->contributorsSlugsToFix[ $t['slug'] ] = $existent_term ? $existent_term->slug : $new_term->slug;
 			}
