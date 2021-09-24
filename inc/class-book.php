@@ -80,7 +80,7 @@ class Book {
 	 *
 	 * @return array
 	 */
-	static function getBookInformation( $id = null ) {
+	static function getBookInformation( $id = null, $contributors_as_string = true ) {
 
 		if ( ! empty( $id ) && is_int( $id ) ) {
 			$blog_id = $id;
@@ -113,7 +113,8 @@ class Book {
 
 			// Contributors
 			$contributors = new Contributors();
-			foreach ( $contributors->getAll( $meta_post->ID ) as $key => $val ) {
+			$all_contributors = $contributors->getAll( $meta_post->ID, $contributors_as_string, true );
+			foreach ( $all_contributors as $key => $val ) {
 				$book_information[ $key ] = $val;
 			};
 

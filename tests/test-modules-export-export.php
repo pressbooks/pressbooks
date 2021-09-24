@@ -42,7 +42,6 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 			[ '\Pressbooks\Modules\Export\Prince\DocraptorPrint', '\Pressbooks\Modules\Export\Xhtml\Xhtml11' ],
 			[ '\Pressbooks\Modules\Export\Epub\Epub201', false ],
 			[ '\Pressbooks\Modules\Export\Epub\Epub3', false ],
-			[ '\Pressbooks\Modules\Export\InDesign\Icml', false ],
 			[ '\Pressbooks\Modules\Export\WordPress\Wxr', false ],
 			[ '\Pressbooks\Modules\Export\WordPress\VanillaWxr', false ],
 			// [ '\Pressbooks\Modules\Export\Odt\Odt', false ], // TODO: Download/install Saxon-HE in Travis build script
@@ -363,7 +362,14 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 
 		$this->_book();
 		$meta_post = ( new \Pressbooks\Metadata() )->getMetaPost();
-		( new \Pressbooks\Contributors() )->insert( 'Ned Zimmerman', $meta_post->ID );
+		$contributor = [
+			'slug' => 'patmetheny',
+			'name' => 'Pat Metheny',
+			'contributor_first_name' => 'Pat',
+			'contributor_last_name' => 'Metheny',
+			'contributor_description' => 'The <strong>drummer</strong> is the leader of any band',
+		];
+		( new \Pressbooks\Contributors() )->insert( $contributor, $meta_post->ID );
 		$user_id = $this->factory()->user->create( [ 'role' => 'contributor' ] );
 		wp_set_current_user( $user_id );
 		update_option( 'pressbooks_theme_options_global', [ 'parse_subsections' => 1 ] );

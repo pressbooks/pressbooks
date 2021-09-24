@@ -7,7 +7,8 @@
 namespace Pressbooks;
 
 use function \Pressbooks\Utility\debug_error_log;
-use function \Pressbooks\Utility\oxford_comma_explode;
+use function \Pressbooks\Utility\explode_remove_and;
+use function \Pressbooks\Utility\implode_add_and;
 
 /**
  * TODO: Refactor
@@ -248,7 +249,15 @@ class Licensing {
 			$copyright_holder = $metadata['pb_copyright_holder'];
 		} elseif ( isset( $metadata['pb_authors'] ) ) {
 			// book author is the fallback, default
-			$copyright_holder = $metadata['pb_authors'];
+			if ( is_array( $metadata['pb_authors'] ) ) {
+				$authors = [];
+				foreach ( $metadata['pb_authors'] as $author ) {
+					$authors[] = $author['name'];
+				}
+				$copyright_holder = implode_add_and( ';', $authors );
+			} else {
+				$copyright_holder = $metadata['pb_authors'];
+			}
 		} else {
 			$copyright_holder = '';
 		}
@@ -442,7 +451,7 @@ class Licensing {
 								'To the extent possible under law, %1$s have waived all copyright and related or neighboring rights to %2$s, except where otherwise noted.',
 								'pressbooks-book'
 							),
-							count( oxford_comma_explode( $copyright_holder ) ),
+							count( explode_remove_and( ';', $copyright_holder ) ),
 							'pressbooks'
 						),
 						$copyright_holder,

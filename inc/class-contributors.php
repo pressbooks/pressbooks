@@ -7,7 +7,7 @@
 namespace Pressbooks;
 
 use function Pressbooks\Metadata\init_book_data_models;
-use function Pressbooks\Utility\oxford_comma_explode;
+use function Pressbooks\Utility\explode_remove_and;
 use function Pressbooks\Utility\str_starts_with;
 use Illuminate\Support\Str;
 use Pressbooks\PostType\BackMatter;
@@ -114,16 +114,17 @@ class Contributors implements BackMatter, Transferable {
 	 *
 	 * @param int $post_id
 	 * @param bool $as_strings
+	 * @param bool $include_term_meta
 	 *
 	 * @return array
 	 */
-	public function getAll( $post_id, $as_strings = true ) {
+	public function getAll( $post_id, $as_strings = true, $include_term_meta = false ) {
 		$contributors = [];
 		foreach ( $this->valid as $contributor_type ) {
 			if ( $as_strings ) {
 				$contributors[ $contributor_type ] = $this->get( $post_id, $contributor_type );
 			} else {
-				$contributors[ $contributor_type ] = $this->getArray( $post_id, $contributor_type );
+				$contributors[ $contributor_type ] = $this->getArray( $post_id, $contributor_type, $include_term_meta );
 			}
 		}
 		return $contributors;
@@ -139,18 +140,19 @@ class Contributors implements BackMatter, Transferable {
 	 */
 	public function get( $post_id, $contributor_type ) {
 		$contributors = $this->getArray( $post_id, $contributor_type );
-		return \Pressbooks\Utility\oxford_comma( $contributors );
+		return \Pressbooks\Utility\implode_add_and( ';', $contributors );
 	}
 
 	/**
 	 * Retrieve author/editor/etc lists for a given Post ID and Contributor type, returns array
 	 *
 	 * @param int $post_id
+	 * @param bool $include_term_meta
 	 * @param string $contributor_type
 	 *
 	 * @return array
 	 */
-	public function getArray( $post_id, $contributor_type ) {
+	public function getArray( $post_id, $contributor_type, $include_term_meta = false ) {
 		if ( ! str_starts_with( $contributor_type, 'pb_' ) ) {
 			$contributor_type = 'pb_' . $contributor_type;
 		}
@@ -163,9 +165,21 @@ class Contributors implements BackMatter, Transferable {
 		$meta = get_post_meta( $post_id, $contributor_type, false );
 		if ( is_array( $meta ) ) {
 			foreach ( $meta as $slug ) {
-				$name = $this->personalName( $slug );
-				if ( $name ) {
-					$contributors[] = $name;
+				$term = get_term_by( 'slug', $slug, self::TAXONOMY );
+				if ( $term ) {
+					$contributor = get_term_meta( $term->term_id );
+					if ( ! $include_term_meta ) {
+						$contributors[] = $term->name;
+					} else {
+						if ( $term ) {
+							foreach ( $contributor as $field => $property ) {
+								$contributor[ $field ] = is_array( $property ) ? $property[0] : $property;
+							}
+							$contributor['name'] = $term->name;
+							$contributor['slug'] = $term->slug;
+							$contributors[] = $contributor;
+						}
+					}
 				}
 			}
 		}
@@ -202,13 +216,91 @@ class Contributors implements BackMatter, Transferable {
 	}
 
 	/**
+	 * Insert a new contributor by name or fields data and associate it by post_id if present.
+	 * If the contributor's already exists by $compare_by parameter and/or name field it will be replaced by the new one.
+	 * if $post_id is present ($post_id != 0) and the metadata will be updated anyway.
+	 * The contributor_picture will be downloaded to the media if the field and $downloads object is present.
+	 *
+	 * @param string | array $data
+	 * @param int $post_id
+	 * @param string $contributor_type
+	 * @param \Pressbooks\Cloner\Downloads $downloads (optional)
+	 * @return array|false|int|mixed
+	 */
+	public function insert( $data, $post_id = 0, $contributor_type = 'pb_authors', $downloads = null, $compare_by = 'name' ) {
+		if ( is_string( $data ) ) {
+			return $this->insertByFullName( $data, $post_id, $contributor_type );
+		}
+		$term_id = false;
+		$term = false;
+		if ( is_array( $data ) && isset( $data['name'] ) ) {
+			$term_by_name = get_term_by( 'name', $data['name'], self::TAXONOMY );
+			if ( $term_by_name !== false ) {
+				$term = $term_by_name;
+			} elseif ( $compare_by !== 'name' && array_key_exists( $compare_by, $data ) ) {
+				$term_by_custom = get_term_by( $compare_by, $data[ $compare_by ], self::TAXONOMY );
+				if ( $term_by_custom !== false ) {
+					$term = $term_by_custom;
+				}
+			}
+			if ( ! $term ) {
+				$results = wp_insert_term(
+					$data['name'],
+					self::TAXONOMY,
+					[
+						'slug' => $data['slug'],
+					]
+				);
+				if ( $results instanceof \WP_Error && isset( $results->error_data['term_exists'] ) ) {
+					$term_id = $results->error_data['term_exists'];
+				} else {
+					$term_id = $results['term_id'];
+				}
+			} else {
+				$term_id = $term->term_id;
+			}
+			unset( $data['name'] );
+			unset( $data['slug'] );
+			$contributor_fields = self::getContributorFields();
+			$terms_contributor_meta = get_term_meta( $term_id );
+			foreach ( $data as $field => $property ) {
+				if (
+					array_key_exists( $field, $contributor_fields ) &&
+					(
+						! array_key_exists( $field, $terms_contributor_meta ) ||
+						$terms_contributor_meta[ $field ][0] !== $property
+					)
+				) {
+					if ( ! is_null( $downloads ) && $field === self::TAXONOMY . '_picture' ) {
+						$image_id = $downloads->fetchAndSaveUniqueImage( $property );
+						if ( $image_id <= 0 ) {
+							continue;
+						} else {
+							$property = wp_get_attachment_url( $image_id );
+						}
+					}
+					if ( ! array_key_exists( $field, $terms_contributor_meta ) ) {
+						add_term_meta( $term_id, $field, $property );
+					} else {
+						update_term_meta( $term_id, $field, $property );
+					}
+				}
+			}
+			if ( $term_id && $post_id ) {
+				$this->link( $term_id, $post_id, $contributor_type );
+			}
+		}
+		return $term_id;
+	}
+
+	/**
 	 * @param string $full_name
 	 * @param int $post_id (optional)
 	 * @param string $contributor_type (optional)
 	 *
 	 * @return array|false An array containing the `term_id` and `term_taxonomy_id`, false otherwise.
 	 */
-	public function insert( $full_name, $post_id = 0, $contributor_type = 'pb_authors' ) {
+	public function insertByFullName( $full_name, $post_id = 0, $contributor_type = 'pb_authors' ) {
 		$full_name = trim( $full_name );
 		$slug = sanitize_title_with_dashes( remove_accents( $full_name ), '', 'save' );
 		$term = get_term_by( 'slug', $slug, self::TAXONOMY );
@@ -255,10 +347,11 @@ class Contributors implements BackMatter, Transferable {
 			}
 			if ( $term && ! is_wp_error( $term ) ) {
 				wp_set_object_terms( $post_id, $term->term_id, self::TAXONOMY, true );
-				if ( $wpdb->get_var( $wpdb->prepare( "SELECT meta_id FROM {$wpdb->postmeta} WHERE post_id = %d AND meta_key = %s AND meta_value = %s", $post_id, $contributor_type, $term->slug ) ) ) {
+				$meta_id = $wpdb->get_var( $wpdb->prepare( "SELECT meta_id FROM {$wpdb->postmeta} WHERE post_id = %d AND meta_key = %s AND meta_value = %s", $post_id, $contributor_type, $term->slug ) );
+				if ( $meta_id ) {
 					return true;
 				} else {
-					return is_int( add_post_meta( $post_id, $contributor_type, $term->slug ) );
+					return add_post_meta( $post_id, $contributor_type, $term->slug ) !== false;
 				}
 			}
 		}
@@ -556,7 +649,19 @@ class Contributors implements BackMatter, Transferable {
 			$last_name = get_term_meta( $term->term_id, 'contributor_last_name', true );
 			if ( ! empty( $first_name ) && ! empty( $last_name ) ) {
 				$name = $prefix ? "{$prefix} {$first_name} {$last_name}" : "{$first_name} {$last_name}";
-				$suffix = ! empty( $suffix ) ? ( preg_match( '/^[MDCLXVI]+$/', $suffix ) ? " $suffix" : ", $suffix" ) : '';
+				if ( ! empty( $suffix ) ) {
+					$does_contains_roman_number = false;
+					$roman_numbers_suffix = [ 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII' ];
+					foreach ( $roman_numbers_suffix as $roman_number ) {
+						if ( strpos( $suffix, $roman_number ) !== false ) {
+							$does_contains_roman_number = true;
+							break;
+						}
+					}
+					$suffix = $does_contains_roman_number ? " $suffix" : ", $suffix";
+				} else {
+					$suffix = '';
+				}
 				$name = $suffix ? "${name}${suffix}" : $name;
 			} elseif ( ! empty( $term->name ) ) {
 				$name = $term->name;
@@ -605,7 +710,7 @@ class Contributors implements BackMatter, Transferable {
 
 		$result = false;
 		foreach ( $names as $contributors ) {
-			$values = oxford_comma_explode( $contributors );
+			$values = explode_remove_and( ';', $contributors );
 			foreach ( $values as $v ) {
 				$result = $this->insert( $v, $post_id, $new_slug );
 			}
