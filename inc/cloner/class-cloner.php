@@ -13,7 +13,6 @@ use function Pressbooks\Image\strip_baseurl as image_strip_baseurl;
 use function Pressbooks\Media\strip_baseurl as media_strip_baseurl;
 use function Pressbooks\Metadata\schema_to_book_information;
 use function Pressbooks\Metadata\schema_to_section_information;
-use function Pressbooks\Utility\oxford_comma_explode;
 use function Pressbooks\Utility\str_ends_with;
 use function Pressbooks\Utility\str_lreplace;
 use function Pressbooks\Utility\str_remove_prefix;
@@ -1314,11 +1313,18 @@ class Cloner {
 		// Everything else
 		$book_information['pb_is_based_on'] = $this->sourceBookUrl;
 		$metadata_array_values = [ 'pb_keywords_tags', 'pb_bisac_subject', 'pb_additional_subjects' ];
+		$authors_slug = [];
 		foreach ( $book_information as $key => $value ) {
 			if ( $this->contributors->isValid( $key ) ) {
-				$values = oxford_comma_explode( $value );
-				foreach ( $values as $v ) {
-					$this->contributors->insert( $v, $metadata_post_id, $key );
+				foreach ( $value as $contributor_data ) {
+					// Compatibility with previous contributors metadata format
+					if ( ! isset( $contributor_data['slug'] ) ) {
+						$contributor_data['slug'] = sanitize_title_with_dashes( remove_accents( $contributor_data['name'] ), '', 'save' );
+					}
+					$this->contributors->insert( $contributor_data, $metadata_post_id, $key, $this->downloads, 'slug' );
+					if ( $key === 'pb_authors' && isset( $contributor_data['slug'] ) ) {
+						$authors_slug[] = $contributor_data['slug'];
+					}
 				}
 			} elseif ( in_array( $key, $metadata_array_values, true ) ) {
 				$values = explode( ', ', $value );
@@ -1335,9 +1341,11 @@ class Cloner {
 			}
 		}
 
-		// Remove the current user from the author field in Book Info
 		$user_data = get_userdata( get_current_user_id() );
-		$this->contributors->unlink( $user_data->user_nicename, $metadata_post_id );
+		if ( ! in_array( $user_data->user_nicename, $authors_slug, true ) ) {
+			// Remove the current user from the author field in Book Info if it is not the author of the source book
+			$this->contributors->unlink( $user_data->user_nicename, $metadata_post_id );
+		}
 
 		return $metadata_post_id;
 	}
@@ -1617,9 +1625,12 @@ class Cloner {
 
 		foreach ( $section_information as $key => $value ) {
 			if ( $this->contributors->isValid( $key ) ) {
-				$values = oxford_comma_explode( $value );
-				foreach ( $values as $v ) {
-					$this->contributors->insert( $v, $target_id, $key );
+				foreach ( $value as $contributor_data ) {
+					// Compatibility with previous contributors metadata format
+					if ( ! isset( $contributor_data['slug'] ) ) {
+						$contributor_data['slug'] = sanitize_title_with_dashes( remove_accents( $contributor_data['name'] ), '', 'save' );
+					}
+					$this->contributors->insert( $contributor_data, $target_id, $key, $this->downloads, 'slug' );
 				}
 			} else {
 				update_post_meta( $target_id, $key, $value );

@@ -45,12 +45,6 @@ function dependency_errors() {
 		set_site_transient( 'pb_xhtml_compatible', true );
 	}
 
-	if ( false === (bool) get_site_transient( 'pb_icml_compatible' ) && false === (bool) \Pressbooks\Modules\Export\InDesign\Icml::hasDependencies() ) {
-		$dependency_errors['icml'] = 'ICML';
-	} else {
-		set_site_transient( 'pb_icml_compatible', true );
-	}
-
 	if ( false === (bool) get_site_transient( 'pb_odt_compatible' ) && false === (bool) \Pressbooks\Modules\Export\Odt\Odt::hasDependencies() ) {
 		$dependency_errors['odt'] = 'OpenDocument';
 	} else {

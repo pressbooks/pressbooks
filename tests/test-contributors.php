@@ -78,12 +78,12 @@ class ContributorsTest extends \WP_UnitTestCase {
 
 		$this->contributor->insert( 'Miss Real', $post_id, 'contributors' );
 		$s = $this->contributor->get( $post_id, 'pb_contributors' );
-		$this->assertEquals( 'Monsieur Fake, Zig Zag, and Miss Real', $s );
+		$this->assertEquals( 'Monsieur Fake; Zig Zag; and Miss Real', $s );
 
 		// Test that if we try to add more contributors using the old data model it's ignored because we already upgraded
 		add_post_meta( $post_id, 'pb_contributing_authors', 'Me Too' );
 		$s = $this->contributor->get( $post_id, 'pb_contributors' );
-		$this->assertEquals( 'Monsieur Fake, Zig Zag, and Miss Real', $s );
+		$this->assertEquals( 'Monsieur Fake; Zig Zag; and Miss Real', $s );
 
 		// Different contributor type
 		$this->contributor->insert( 'Me Too', $post_id, 'authors' );
@@ -98,7 +98,7 @@ class ContributorsTest extends \WP_UnitTestCase {
 		// All of them
 		$all = $this->contributor->getAll( $post_id );
 		$this->assertEquals( 'Me Too', $all['pb_authors'] );
-		$this->assertEquals( 'Monsieur Fake, Zig Zag, and Miss Real', $all['pb_contributors'] );
+		$this->assertEquals( 'Monsieur Fake; Zig Zag; and Miss Real', $all['pb_contributors'] );
 		$this->assertEmpty( $all['pb_reviewers'] );
 	}
 
@@ -217,7 +217,7 @@ class ContributorsTest extends \WP_UnitTestCase {
 
 		$this->contributor->convert( 'pb_contributing_authors', [ 'Rando2', 'Rando3' ], $post_id );
 		$s = $this->contributor->get( $post_id, 'pb_contributors' );
-		$this->assertEquals( 'Rando1, Rando2, and Rando3', $s );
+		$this->assertEquals( 'Rando1; Rando2; and Rando3', $s );
 	}
 
 	/**
