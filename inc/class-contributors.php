@@ -157,18 +157,14 @@ class Contributors implements BackMatter, Transferable {
 				$term = get_term_by( 'slug', $slug, self::TAXONOMY );
 				if ( $term ) {
 					$contributor = get_term_meta( $term->term_id );
-					$name = get_term_meta( $term->term_id, 'contributor_first_name', true );
-					if ( ! $name ) {
-						$name = str_replace( [ ',', ';' ], '', $this->personalName( $slug ) );
-					}
 					if ( ! $include_term_meta ) {
-						$contributors[] = $name;
+						$contributors[] = $term->name;
 					} else {
 						if ( $term ) {
 							foreach ( $contributor as $field => $property ) {
 								$contributor[ $field ] = is_array( $property ) ? $property[0] : $property;
 							}
-							$contributor['name'] = $name;
+							$contributor['name'] = $term->name;
 							$contributor['slug'] = $term->slug;
 							$contributors[] = $contributor;
 						}

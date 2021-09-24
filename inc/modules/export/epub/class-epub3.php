@@ -521,8 +521,12 @@ class Epub3 extends Epub201 {
 		}
 
 		$authors = '';
-		if ( isset( $metadata['pb_authors'] ) && is_array( $metadata['pb_authors'] ) && ! empty( $metadata['pb_authors'] ) ) {
-			$authors = get_contributors_name_imploded( $metadata['pb_authors'] );
+		if ( isset( $metadata['pb_authors'] ) && ! empty( $metadata['pb_authors'] ) ) {
+			if ( is_array( $metadata['pb_authors'] ) ) {
+				$authors = get_contributors_name_imploded( $metadata['pb_authors'] );
+			} elseif ( is_string( $metadata['pb_authors'] ) ) {
+				$authors = $metadata['pb_authors'];
+			}
 		}
 
 		// Sanitize variables for usage in XML template
