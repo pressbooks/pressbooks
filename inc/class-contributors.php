@@ -79,6 +79,7 @@ class Contributors implements BackMatter, Transferable {
 	 * @param Contributors $obj
 	 */
 	public static function hooks( Contributors $obj ) {
+		add_action( 'delete_' . self::TAXONOMY, [ $obj, 'deleteContributor' ], 10, 3 );
 
 		add_action(
 			'pb_pre_export', function () use ( $obj ) {
@@ -384,6 +385,24 @@ class Contributors implements BackMatter, Transferable {
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * Remove deleted contributor's post meta references
+	 * @param int $term
+	 * @param int $tt_id
+	 * @param \WP_Term $deleted_term
+	 */
+	public function deleteContributor( $term, $tt_id, $deleted_term ) {
+		global $wpdb;
+
+		$placeholder = implode( ', ', array_fill( 0, count( $this->valid ), '%s' ) );
+
+		$wpdb->query( $wpdb->prepare(
+			//phpcs:disable WordPress.WP.PreparedSQL.NotPrepared
+			"DELETE FROM $wpdb->postmeta WHERE meta_key IN ( $placeholder ) AND meta_value = %s",
+			array_merge( $this->valid, [ $deleted_term->slug ] )
+		) );
 	}
 
 	/**
