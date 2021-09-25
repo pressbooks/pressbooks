@@ -113,6 +113,11 @@ class Xhtml11 extends ExportGenerator {
 	protected $contributors;
 
 	/**
+	 * @var bool
+	 */
+	protected $displayAboutTheAuthors;
+
+	/**
 	 * @param array $args
 	 */
 	public function __construct( array $args ) {
@@ -399,6 +404,8 @@ class Xhtml11 extends ExportGenerator {
 		} else {
 			$book_contents = $this->preProcessBookContents( \Pressbooks\Book::getBookContents() );
 			ob_start();
+
+			$this->displayAboutTheAuthors = ! empty( get_option( 'pressbooks_theme_options_global', [] )['about_the_author'] );
 
 			// Before Title Page
 			yield 10 => $this->generatorPrefix . __( 'Creating before title page', 'pressbooks' );
@@ -1394,6 +1401,10 @@ class Xhtml11 extends ExportGenerator {
 				$this->doFootnotes( $front_matter_id )
 			);
 
+			if ( $this->displayAboutTheAuthors ) {
+				echo \Pressbooks\Modules\Export\get_contributors_section( $front_matter_id );
+			}
+
 			echo "\n";
 			++$i;
 		}
@@ -1431,8 +1442,6 @@ class Xhtml11 extends ExportGenerator {
 		$chapter_printf .= '<div class="chapter-title-wrap"><h3 class="chapter-number">%4$s</h3><h2 class="chapter-title">%5$s</h2>%6$s</div>';
 		$chapter_printf .= '<div class="ugc chapter-ugc">%7$s%10$s</div>%8$s%9$s';
 		$chapter_printf .= '</div>';
-
-		$display_about_the_author = ! empty( get_option( 'pressbooks_theme_options_global', [] )['about_the_author'] );
 
 		$ticks = 0;
 		foreach ( $book_contents['part'] as $key => $part ) {
@@ -1565,7 +1574,7 @@ class Xhtml11 extends ExportGenerator {
 					$this->doFootnotes( $chapter_id )
 				) . "\n";
 
-				$my_chapters .= $display_about_the_author ? \Pressbooks\Modules\Export\get_contributors_section( $chapter_id ) : '';
+				$my_chapters .= $this->displayAboutTheAuthors ? \Pressbooks\Modules\Export\get_contributors_section( $chapter_id ) : '';
 
 				if ( $my_chapter_number !== '' ) {
 					++$j;
@@ -1686,6 +1695,10 @@ class Xhtml11 extends ExportGenerator {
 				$this->doEndnotes( $back_matter_id ),
 				$this->doFootnotes( $back_matter_id )
 			);
+
+			if ( $this->displayAboutTheAuthors ) {
+				echo \Pressbooks\Modules\Export\get_contributors_section( $back_matter_id );
+			}
 
 			echo "\n";
 			++$i;

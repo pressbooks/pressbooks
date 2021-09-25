@@ -280,12 +280,12 @@ function update_pins() {
 /**
  * Get the HTML for "About the Authors" section given a chapter ID.
  *
- * @param $chapter_id Integer
+ * @param $post_id Integer
  * @return string
  */
-function get_contributors_section( $chapter_id ) {
+function get_contributors_section( $post_id ) {
 	$contributors = new Contributors();
-	$chapter_contributors = $contributors->getContributorsWithMeta( $chapter_id, 'authors' );
+	$chapter_contributors = $contributors->getContributorsWithMeta( $post_id, 'authors' );
 	if ( empty( $chapter_contributors ) ) {
 		return '';
 	}
