@@ -355,5 +355,4 @@ class Glossary implements BackMatter {
 		} );
 
 	}
-
 }
