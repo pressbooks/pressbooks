@@ -77,6 +77,8 @@ class Book {
 	 * Returns book information in a useful, string only, format. Data is converted to HTML.
 	 *
 	 * @param int $id The book ID.
+	 * @param bool $contributors_as_string Read contributors list as a string.
+	 * @param int $read_contributors_from_cache Read contributors from cache, if book information is stored in wp cache.
 	 *
 	 * @return array
 	 */
