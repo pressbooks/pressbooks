@@ -104,7 +104,7 @@ class Book {
 		// -----------------------------------------------------------------------------
 
 		$cache_id = "book-inf-$blog_id";
-		if (  static::useCache() ) {
+		if ( static::useCache() ) {
 			$cached_book_information = wp_cache_get( $cache_id, 'pb' );
 			if ( $cached_book_information ) {
 				if ( ! $read_contributors_from_cache ) {
@@ -124,10 +124,13 @@ class Book {
 		if ( $meta_post ) {
 
 			// Contributors
-			$book_information = array_merge( $book_information, $contributors->getAll(
-				$meta_post->ID,
-				$contributors_as_string,
-				true )
+			$book_information = array_merge(
+				$book_information,
+				$contributors->getAll(
+					$meta_post->ID,
+					$contributors_as_string,
+					true
+				)
 			);
 
 			// Post Meta
