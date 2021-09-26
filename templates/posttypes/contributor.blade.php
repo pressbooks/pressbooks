@@ -80,5 +80,5 @@
 			</div>
 		@endif
 	</div>
-	<div class="contributor__bio">{!! wp_kses( $contributor['contributor_description'], true ) !!}</div>
+	<div class="contributor__bio">{!! apply_filters( 'the_content', $contributor['contributor_description'] ) !!}</div>
 </div>
