@@ -503,7 +503,7 @@ class SectionMetadata extends \WP_REST_Controller {
 
 		$section_meta = $this->buildMetadata(
 			get_section_information( $request['parent'] ),
-			Book::getBookInformation( null, false )
+			Book::getBookInformation( null, false, false )
 		);
 
 		$response = rest_ensure_response( $section_meta );

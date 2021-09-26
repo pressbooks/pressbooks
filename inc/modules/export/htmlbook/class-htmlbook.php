@@ -205,7 +205,7 @@ class HTMLBook extends Export {
 		// ------------------------------------------------------------------------------------------------------------
 		// HTMLBook, Start!
 
-		$metadata = \Pressbooks\Book::getBookInformation( null, false );
+		$metadata = \Pressbooks\Book::getBookInformation( null, false, false );
 		$book_contents = $this->preProcessBookContents( \Pressbooks\Book::getBookContents() );
 
 		// Set two letter language code

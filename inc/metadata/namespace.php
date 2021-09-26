@@ -975,7 +975,7 @@ function add_json_ld_metadata() {
 	if ( $context === 'section' ) {
 		global $post;
 		$section_information = get_section_information( $post->ID );
-		$book_information = Book::getBookInformation( null, false );
+		$book_information = Book::getBookInformation( null, false, false );
 		$metadata = section_information_to_schema( $section_information, $book_information );
 	} else {
 		$metadata = new Metadata();
@@ -992,7 +992,7 @@ function add_json_ld_metadata() {
  */
 function add_citation_metadata() {
 	$context = is_singular( [ 'front-matter', 'part', 'chapter', 'back-matter' ] ) ? 'section' : 'book';
-	$book_information = Book::getBookInformation( null, false );
+	$book_information = Book::getBookInformation( null, false, false );
 	$tags = [];
 
 	$map = [
