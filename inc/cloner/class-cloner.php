@@ -1322,7 +1322,7 @@ class Cloner {
 						$contributor_data['slug'] = sanitize_title_with_dashes( remove_accents( $contributor_data['name'] ), '', 'save' );
 					}
 					$this->contributors->insert( $contributor_data, $metadata_post_id, $key, $this->downloads, 'slug' );
-					if ( $key === 'pb_authors' && isset( $contributor_data['slug'] ) ) {
+					if ( $key === 'pb_authors' ) {
 						$authors_slug[] = $contributor_data['slug'];
 					}
 				}

@@ -317,7 +317,7 @@ class Xhtml11 extends ExportGenerator {
 		// ------------------------------------------------------------------------------------------------------------
 		// XHTML, Start!
 
-		$metadata = \Pressbooks\Book::getBookInformation( null, false );
+		$metadata = \Pressbooks\Book::getBookInformation( null, false, false );
 		$_unused = [];
 
 		// Set two letter language code
