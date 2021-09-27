@@ -39,6 +39,7 @@ class Api extends ImportGenerator {
 			return false;
 		}
 		$this->cloner = new Cloner( $upload['url'] );
+		$this->cloner->isImporting = true;
 		if ( ! $this->cloner->setupSource( false ) ) {
 			return false;
 		}
