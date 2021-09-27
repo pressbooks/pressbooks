@@ -229,12 +229,6 @@ class Activation {
 				'post_type' => 'back-matter',
 				'menu_order' => 1,
 			],
-			'contributors' => [
-				'post_title' => __( 'Contributors', 'pressbooks' ),
-				'post_name' => 'contributors',
-				'post_type' => 'back-matter',
-				'menu_order' => 2,
-			],
 			// Pages
 			'authors' => [
 				'post_title' => __( 'Authors', 'pressbooks' ),
