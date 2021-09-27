@@ -186,8 +186,11 @@ class Content {
 	 * @return string
 	 */
 	public function replaceIframes( $content ) {
+		// If the provider is Twitter, return a simple link to the embedded URL.
+		if ( $data->provider_name === "Twitter") {
+			return sprintf('<a href="%1$s" rel="external">%1$s</a>', $data->url);
 		// Check for iframe HTML code, bail if there isn't any
-		if ( stripos( $content, '<iframe' ) === false ) {
+		} elseif ( stripos( $content, '<iframe' ) === false ) {
 			return $content;
 		}
 
