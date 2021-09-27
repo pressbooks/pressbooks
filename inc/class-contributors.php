@@ -554,7 +554,7 @@ class Contributors implements BackMatter, Transferable {
 	 * @return array
 	 */
 	public function getFormMessages() {
-		$guide_chapter = esc_url( 'https://networkmanagerguide.pressbooks.com/' );
+		$guide_chapter = esc_url( 'https://guide.pressbooks.com/chapter/creating-and-displaying-contributors/#importingcontributors' );
 		$hint = __( '<p>Import multiple contributors at once by uploading a valid JSON file. See <a href="%s" target="_blank">our guide</a> for details.</p>', 'pressbooks' );
 
 		return [
