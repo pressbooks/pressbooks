@@ -82,5 +82,7 @@
 			@endif
 		</div>
 	</div>
-	<div class="contributor__bio">{!! apply_filters( 'the_content', $contributor['contributor_description'] ) !!}</div>
+	@if ( $contributor['contributor_description'] )
+		<div class="contributor__bio">{!! apply_filters( 'the_content', $contributor['contributor_description'] ) !!}</div>
+	@endif
 </div>
