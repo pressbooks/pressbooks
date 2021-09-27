@@ -254,9 +254,11 @@ class Content {
 	 * @return string
 	 */
 	public function replaceOembed( $return, $data, $url ) {
-
-		// Check for iframe HTML code, bail if there isn't any
-		if ( stripos( $return, '<iframe' ) === false ) {
+		if ( $data->provider_name === 'Twitter' ) {
+			// If the provider is Twitter, return a simple link to the embedded URL.
+			return sprintf( '<a href="%1$s" rel="external">%1$s</a>', $data->url );
+		} elseif ( stripos( $return, '<iframe' ) === false ) {
+			// Check for iframe HTML code, bail if there isn't any
 			return $return;
 		}
 
