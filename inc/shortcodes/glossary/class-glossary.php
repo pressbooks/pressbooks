@@ -350,10 +350,11 @@ class Glossary implements BackMatter {
 	 */
 	public function overrideDisplay( $content ) {
 
-		return $this->display( $content, function() {
-			return $this->glossaryTerms();
-		} );
+		return $this->display(
+			$content, function() {
+				return $this->glossaryTerms();
+			}
+		);
 
 	}
-
 }

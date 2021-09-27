@@ -398,11 +398,13 @@ class Contributors implements BackMatter, Transferable {
 
 		$placeholder = implode( ', ', array_fill( 0, count( $this->valid ), '%s' ) );
 
-		$wpdb->query( $wpdb->prepare(
+		$wpdb->query(
+			$wpdb->prepare(
 			//phpcs:disable WordPress.WP.PreparedSQL.NotPrepared
-			"DELETE FROM $wpdb->postmeta WHERE meta_key IN ( $placeholder ) AND meta_value = %s",
-			array_merge( $this->valid, [ $deleted_term->slug ] )
-		) );
+				"DELETE FROM $wpdb->postmeta WHERE meta_key IN ( $placeholder ) AND meta_value = %s",
+				array_merge( $this->valid, [ $deleted_term->slug ] )
+			)
+		);
 	}
 
 	/**

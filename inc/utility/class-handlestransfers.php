@@ -34,9 +34,11 @@ trait HandlesTransfers {
 	 * @return array
 	 */
 	public function addBulkAction( $actions ) {
-		return array_merge( $actions, [
-			self::TAXONOMY . '-download' => __( 'Download JSON', 'pressbooks' ),
-		] );
+		return array_merge(
+			$actions, [
+				self::TAXONOMY . '-download' => __( 'Download JSON', 'pressbooks' ),
+			]
+		);
 	}
 
 	/**
@@ -198,10 +200,12 @@ trait HandlesTransfers {
 			return false;
 		}
 
-		$upload = wp_handle_upload( $_FILES['import_file'], [
-			'test_type' => false,
-			'action' => self::TAXONOMY . '-import',
-		] );
+		$upload = wp_handle_upload(
+			$_FILES['import_file'], [
+				'test_type' => false,
+				'action' => self::TAXONOMY . '-import',
+			]
+		);
 
 		if ( ! empty( $upload['error'] ) ) {
 			$_SESSION['pb_errors'][] = $upload['error'];
@@ -254,14 +258,18 @@ trait HandlesTransfers {
 			$term = get_term_by( 'slug', $item['slug'], self::TAXONOMY );
 
 			if ( ! $term ) {
-				$results = wp_insert_term( sanitize_text_field( $item['name'] ), self::TAXONOMY, [
-					'slug' => sanitize_text_field( $item['slug'] ),
-				] );
+				$results = wp_insert_term(
+					sanitize_text_field( $item['name'] ), self::TAXONOMY, [
+						'slug' => sanitize_text_field( $item['slug'] ),
+					]
+				);
 			} else {
-				$results = wp_update_term( $term->term_id, self::TAXONOMY, [
-					'name' => sanitize_text_field( $item['name'] ),
-					'slug' => sanitize_text_field( $item['slug'] ),
-				] );
+				$results = wp_update_term(
+					$term->term_id, self::TAXONOMY, [
+						'name' => sanitize_text_field( $item['name'] ),
+						'slug' => sanitize_text_field( $item['slug'] ),
+					]
+				);
 			}
 
 			foreach ( $importable_fields as $field ) {
@@ -339,10 +347,12 @@ trait HandlesTransfers {
 			}
 		}
 
-		$pid = media_handle_sideload( [
-			'name' => $filename,
-			'tmp_name' => $tmp_name,
-		] );
+		$pid = media_handle_sideload(
+			[
+				'name' => $filename,
+				'tmp_name' => $tmp_name,
+			]
+		);
 
 		@unlink( $tmp_name ); // @codingStandardsIgnoreLine
 
