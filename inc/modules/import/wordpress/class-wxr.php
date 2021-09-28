@@ -202,15 +202,12 @@ class Wxr extends Import {
 	}
 
 	/**
-	 * Insert a term with the meta associated
+	 * Save Term meta like contributors_first_name
 	 * @param $term
-	 * @return array|int[]|mixed|\WP_Error
+	 * @param $last_inserted
 	 */
-	public function insertTerm( $term ) {
-
-		$results = $this->saveTerm( $term );
-
-		if ( ! empty( $term['termmeta'] ) && is_array( $results ) ) {
+	private function saveMeta( $term, $last_inserted ) {
+		if ( ! empty( $term['termmeta'] ) && is_array( $last_inserted ) ) {
 			foreach ( $term['termmeta'] as $termmeta ) {
 				$value = $termmeta['value'];
 				// Copy contributor_picture from remote server to local
@@ -220,15 +217,27 @@ class Wxr extends Import {
 						$value = wp_get_attachment_url( $image_id );
 					}
 				}
-				add_term_meta( $results['term_id'], $termmeta['key'], $value, true );
+				add_term_meta( $last_inserted['term_id'], $termmeta['key'], $value, true );
 			}
 		}
+	}
 
-		if ( is_wp_error( $results ) ) { // trying to insert with a different disambiguation slug
-			return $this->saveTerm( $term, true );
+	/**
+	 * Insert a term with the meta associated
+	 * @param $term
+	 * @return array|int[]|mixed|\WP_Error
+	 */
+	public function insertTerm( $term ) {
+
+		$last_inserted = $this->saveTerm( $term );
+
+		if ( is_wp_error( $last_inserted ) ) { // trying to insert with a different disambiguation slug
+			$last_inserted = $this->saveTerm( $term, true );
 		}
 
-		return $results;
+		$this->saveMeta( $term, $last_inserted );
+
+		return $last_inserted;
 	}
 
 
