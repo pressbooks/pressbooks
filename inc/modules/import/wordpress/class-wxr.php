@@ -184,6 +184,12 @@ class Wxr extends Import {
 		return update_option( 'pressbooks_current_import', $option );
 	}
 
+	/**
+	 * This function save a term into the database
+	 * @param $term
+	 * @param false $override_slug when true it will add a random string at the end to disambiguate from existent terms
+	 * @return array|int[]|\WP_Error
+	 */
 	private function saveTerm( $term, $override_slug = false ) {
 		return wp_insert_term(
 			$term['term_name'],
