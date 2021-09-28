@@ -134,6 +134,7 @@ class Modules_ImportTest extends \WP_UnitTestCase {
 		];
 
 		$term = $wxr->insertTerm( $imported_term );
+		$term_2 = $wxr->insertTerm( $imported_term );
 
 		$last_term = get_terms(
 			[
@@ -144,7 +145,7 @@ class Modules_ImportTest extends \WP_UnitTestCase {
 			]
 		);
 
-		$this->assertEquals( $last_term[0]->term_id, $term['term_id'] );
+		$this->assertEquals( $last_term[1]->term_id, $term['term_id'] );
 
 		$meta = get_term_meta( $term['term_id'] );
 		$term = get_term( $term['term_id'] );
@@ -153,16 +154,12 @@ class Modules_ImportTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'Jane Doe', $term->name );
 		$this->assertEquals( 'http://example.org/wp-content/uploads/2021/09/4tatoos.jpg', $meta['contributor_picture'][0] );
 
+		$term_2 = get_term( $term_2['term_id'] );
+
+		$this->assertContains( '-', $term_2->slug );
+
 		// Clean attachments after test
 		array_map( 'unlink', array_filter( (array) glob( '/tmp/wordpress/wp-content/uploads/2021/09/*' ) ) );
-
-		$existent = $wxr->findExistentTerm( $imported_term );
-
-		$this->assertEquals( $last_term[0]->term_id, $existent->term_id );
-		$this->assertEquals( 'jane-doe', $existent->slug );
-
-		$this->assertFalse( $wxr->findExistentTerm( [ 'termmeta' => [] ] ) );
-
 	}
 
 	public function test_searchMultipleContributorValues() {

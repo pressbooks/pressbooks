@@ -184,20 +184,26 @@ class Wxr extends Import {
 		return update_option( 'pressbooks_current_import', $option );
 	}
 
+	private function saveTerm( $term, $override_slug = false ) {
+		return wp_insert_term(
+			$term['term_name'],
+			$term['term_taxonomy'],
+			[
+				'description' => $term['term_description'],
+				'slug' => $override_slug === false ? $term['slug'] : $term['slug'] . '-' . str_random( 10 ),
+			]
+		);
+	}
+
 	/**
 	 * Insert a term with the meta associated
 	 * @param $term
 	 * @return array|int[]|mixed|\WP_Error
 	 */
 	public function insertTerm( $term ) {
-		$results = wp_insert_term(
-			$term['term_name'],
-			$term['term_taxonomy'],
-			[
-				'description' => $term['term_description'],
-				'slug' => $term['slug'],
-			]
-		);
+
+		$results = $this->saveTerm( $term );
+
 		if ( ! empty( $term['termmeta'] ) && is_array( $results ) ) {
 			foreach ( $term['termmeta'] as $termmeta ) {
 				$value = $termmeta['value'];
@@ -212,43 +218,11 @@ class Wxr extends Import {
 			}
 		}
 
+		if ( is_wp_error( $results ) ) { // trying to insert with a different disambiguation slug
+			return $this->saveTerm( $term, true );
+		}
+
 		return $results;
-	}
-
-	/**
-	 * This function search for existent contributors by checking every field to look for exact duplicates.
-	 * @param $term
-	 * @return false|mixed
-	 */
-	public function findExistentTerm( $term ) {
-
-			$args = [
-				'taxonomy' => Contributors::TAXONOMY,
-				'hide_empty' => false,
-				'meta_query' => [], // phpcs:ignore
-			];
-
-			$fields_to_compare = [ 'contributor_first_name', 'contributor_last_name', 'contributor_prefix', 'contributor_suffix' ];
-
-			if ( ! empty( $term['termmeta'] ) ) {
-				foreach ( $term['termmeta'] as $field ) {
-					if ( in_array( $field['key'], $fields_to_compare, true ) ) {
-						$args['meta_query'][] = [
-							'key' => $field['key'],
-							'value' => $field['value'],
-						];
-					}
-				}
-
-				$term_query = get_terms( $args );
-
-				if ( count( $term_query ) > 0 ) {
-					return $term_query[0];
-				}
-			}
-
-			return false;
-
 	}
 
 
@@ -313,17 +287,14 @@ class Wxr extends Import {
 		// and import them if they don't already exist.
 		foreach ( $terms as $t ) {
 			if ( $t['term_taxonomy'] === Contributors::TAXONOMY ) {
-				// Find an equal contributor if exist get the slug and avoid dupes
-				$existent_term = $this->findExistentTerm( $t );
-				if ( ! $existent_term ) {
-					$term = $this->insertTerm( $t );
-					$new_term = get_term( $term['term_id'], Contributors::TAXONOMY );
+				$term = $this->insertTerm( $t );
+				$new_term = get_term( $term['term_id'], Contributors::TAXONOMY );
+				$this->contributorsSlugsToFix[ $t['slug'] ] = is_wp_error( $term ) ? $t['slug'] : $new_term->slug; // fallback to found slug
+			} else {
+				$term = term_exists( $t['term_name'], $t['term_taxonomy'] );
+				if ( ( null === $term || 0 === $term ) ) {
+					$this->insertTerm( $t );
 				}
-				$this->contributorsSlugsToFix[ $t['slug'] ] = $existent_term ? $existent_term->slug : $new_term->slug;
-			}
-			$term = term_exists( $t['term_name'], $t['term_taxonomy'] );
-			if ( ( null === $term || 0 === $term ) ) {
-				$this->insertTerm( $t );
 			}
 		}
 
