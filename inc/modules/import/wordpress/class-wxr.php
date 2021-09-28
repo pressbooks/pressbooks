@@ -185,20 +185,29 @@ class Wxr extends Import {
 	}
 
 	/**
-	 * Insert a term with the meta associated
+	 * This function save a term into the database
 	 * @param $term
-	 * @return array|int[]|mixed|\WP_Error
+	 * @param false $override_slug when true it will add a random string at the end to disambiguate from existent terms
+	 * @return array|int[]|\WP_Error
 	 */
-	public function insertTerm( $term ) {
-		$results = wp_insert_term(
+	private function saveTerm( $term, $override_slug = false ) {
+		return wp_insert_term(
 			$term['term_name'],
 			$term['term_taxonomy'],
 			[
 				'description' => $term['term_description'],
-				'slug' => $term['slug'],
+				'slug' => $override_slug === false ? $term['slug'] : $term['slug'] . '-' . str_random( 10 ),
 			]
 		);
-		if ( ! empty( $term['termmeta'] ) && is_array( $results ) ) {
+	}
+
+	/**
+	 * Save Term meta like contributors_first_name
+	 * @param $term
+	 * @param $last_inserted
+	 */
+	private function saveMeta( $term, $last_inserted ) {
+		if ( ! empty( $term['termmeta'] ) && is_array( $last_inserted ) ) {
 			foreach ( $term['termmeta'] as $termmeta ) {
 				$value = $termmeta['value'];
 				// Copy contributor_picture from remote server to local
@@ -208,47 +217,27 @@ class Wxr extends Import {
 						$value = wp_get_attachment_url( $image_id );
 					}
 				}
-				add_term_meta( $results['term_id'], $termmeta['key'], $value, true );
+				add_term_meta( $last_inserted['term_id'], $termmeta['key'], $value, true );
 			}
 		}
-
-		return $results;
 	}
 
 	/**
-	 * This function search for existent contributors by checking every field to look for exact duplicates.
+	 * Insert a term with the meta associated
 	 * @param $term
-	 * @return false|mixed
+	 * @return array|int[]|mixed|\WP_Error
 	 */
-	public function findExistentTerm( $term ) {
+	public function insertTerm( $term ) {
 
-			$args = [
-				'taxonomy' => Contributors::TAXONOMY,
-				'hide_empty' => false,
-				'meta_query' => [], // phpcs:ignore
-			];
+		$last_inserted = $this->saveTerm( $term );
 
-			$fields_to_compare = [ 'contributor_first_name', 'contributor_last_name', 'contributor_prefix', 'contributor_suffix' ];
+		if ( is_wp_error( $last_inserted ) ) { // trying to insert with a different disambiguation slug
+			$last_inserted = $this->saveTerm( $term, true );
+		}
 
-			if ( ! empty( $term['termmeta'] ) ) {
-				foreach ( $term['termmeta'] as $field ) {
-					if ( in_array( $field['key'], $fields_to_compare, true ) ) {
-						$args['meta_query'][] = [
-							'key' => $field['key'],
-							'value' => $field['value'],
-						];
-					}
-				}
+		$this->saveMeta( $term, $last_inserted );
 
-				$term_query = get_terms( $args );
-
-				if ( count( $term_query ) > 0 ) {
-					return $term_query[0];
-				}
-			}
-
-			return false;
-
+		return $last_inserted;
 	}
 
 
@@ -313,17 +302,14 @@ class Wxr extends Import {
 		// and import them if they don't already exist.
 		foreach ( $terms as $t ) {
 			if ( $t['term_taxonomy'] === Contributors::TAXONOMY ) {
-				// Find an equal contributor if exist get the slug and avoid dupes
-				$existent_term = $this->findExistentTerm( $t );
-				if ( ! $existent_term ) {
-					$term = $this->insertTerm( $t );
-					$new_term = get_term( $term['term_id'], Contributors::TAXONOMY );
+				$term = $this->insertTerm( $t );
+				$new_term = get_term( $term['term_id'], Contributors::TAXONOMY );
+				$this->contributorsSlugsToFix[ $t['slug'] ] = is_wp_error( $term ) ? $t['slug'] : $new_term->slug; // fallback to found slug
+			} else {
+				$term = term_exists( $t['term_name'], $t['term_taxonomy'] );
+				if ( ( null === $term || 0 === $term ) ) {
+					$this->insertTerm( $t );
 				}
-				$this->contributorsSlugsToFix[ $t['slug'] ] = $existent_term ? $existent_term->slug : $new_term->slug;
-			}
-			$term = term_exists( $t['term_name'], $t['term_taxonomy'] );
-			if ( ( null === $term || 0 === $term ) ) {
-				$this->insertTerm( $t );
 			}
 		}
 
