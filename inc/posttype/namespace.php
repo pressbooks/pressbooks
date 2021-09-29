@@ -372,6 +372,16 @@ function register_meta() {
 			$defaults, [
 				'object_subtype' => 'part',
 				'description' => __( 'Whether or not the part is shown in the table of contents', 'pressbooks' ),
+				'type' => 'boolean',
+			]
+		)
+	);
+
+	\register_meta(
+		'post', 'pb_part_invisible_string', array_merge(
+			$defaults, [
+				'object_subtype' => 'part',
+				'description' => __( 'Whether or not the part is shown in the table of contents in string format', 'pressbooks' ),
 				'sanitize_callback' => function( $v ) {
 					return ( $v ? 'on' : null );
 				},

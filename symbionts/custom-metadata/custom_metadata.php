@@ -740,12 +740,22 @@ class custom_metadata_manager {
 			$value = $this->_sanitize_field_value( $field_slug, $field, $object_type, $object_id, $_POST[$field_slug] );
 			$this->_save_field_value( $field_slug, $field, $object_type, $object_id, $value );
 
+			if ( $field_slug === 'pb_part_invisible' ) {
+				// Save the string format to expose to the metadata API TOC endpoint
+				$this->_save_field_value( 'pb_part_invisible_string', $field, $object_type, $object_id, $value );
+			}
+
 
 			// save the attachment ID of the upload field as well
 			if ( $field->field_type == 'upload' && isset( $_POST[$field_slug . '_attachment_id'] ) )
 				$this->_save_field_value( $field_slug . '_attachment_id', $field, $object_type, $object_id, absint( $_POST[$field_slug . '_attachment_id'] ) );
 		} else {
 			$this->_delete_field_value( $field_slug, $field, $object_type, $object_id );
+
+			if ( $field_slug === 'pb_part_invisible' ) {
+				// Delete the string format to expose to the metadata API TOC endpoint
+				$this->_delete_field_value( 'pb_part_invisible_string', $field, $object_type, $object_id );
+			}
 
 			// delete the attachment ID of the upload field as well
 			if ( $field->field_type == 'upload' && isset( $_POST[$field_slug . '_attachment_id'] ) )
