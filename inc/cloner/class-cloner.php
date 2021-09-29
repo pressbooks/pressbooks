@@ -237,6 +237,14 @@ class Cloner {
 	public $isImporting = false;
 
 	/**
+	 * List of contributors inserted.
+	 *
+	 * @var array
+	 */
+	private $contributorsInserted = [];
+
+
+	/**
 	 * Constructor.
 	 *
 	 * @since 4.1.0
@@ -1628,6 +1636,7 @@ class Cloner {
 			$book_schema
 		);
 
+		$this->contributorsInserted = [];
 		foreach ( $section_information as $key => $value ) {
 			if ( $this->contributors->isValid( $key ) ) {
 				foreach ( $value as $contributor_data ) {
@@ -1635,7 +1644,17 @@ class Cloner {
 					if ( ! isset( $contributor_data['slug'] ) ) {
 						$contributor_data['slug'] = sanitize_title_with_dashes( remove_accents( $contributor_data['name'] ), '', 'save' );
 					}
-					$this->contributors->insert( $contributor_data, $target_id, $key, $this->downloads, $this->isImporting ? 'disambiguate' : 'slug' );
+					if ( $this->isImporting && array_key_exists( $contributor_data['slug'], $this->contributorsInserted ) ) {
+						$this->contributors->link( $this->contributorsInserted[ $contributor_data['slug'] ], $target_id, $key );
+						continue;
+					}
+					$this->contributorsInserted[ $contributor_data['slug'] ] = $this->contributors->insert(
+						$contributor_data,
+						$target_id,
+						$key,
+						$this->downloads,
+						$this->isImporting ? 'disambiguate' : 'slug'
+					);
 				}
 			} else {
 				update_post_meta( $target_id, $key, $value );
