@@ -235,15 +235,19 @@ class Contributors implements BackMatter, Transferable {
 		$term_id = false;
 		$term = false;
 		if ( is_array( $data ) && isset( $data['name'] ) ) {
-			$term_by_name = get_term_by( 'name', $data['name'], self::TAXONOMY );
-			if ( $term_by_name !== false ) {
-				$term = $term_by_name;
-			} elseif ( $compare_by !== 'name' && array_key_exists( $compare_by, $data ) ) {
-				$term_by_custom = get_term_by( $compare_by, $data[ $compare_by ], self::TAXONOMY );
-				if ( $term_by_custom !== false ) {
-					$term = $term_by_custom;
+
+			if ( $compare_by !== 'disambiguate' ) {
+				$term_by_name = get_term_by( 'name', $data['name'], self::TAXONOMY );
+				if ( $term_by_name !== false ) {
+					$term = $term_by_name;
+				} elseif ( $compare_by !== 'name' && array_key_exists( $compare_by, $data ) ) {
+					$term_by_custom = get_term_by( $compare_by, $data[ $compare_by ], self::TAXONOMY );
+					if ( $term_by_custom !== false ) {
+						$term = $term_by_custom;
+					}
 				}
 			}
+
 			if ( ! $term ) {
 				$results = wp_insert_term(
 					$data['name'],
@@ -253,7 +257,18 @@ class Contributors implements BackMatter, Transferable {
 					]
 				);
 				if ( $results instanceof \WP_Error && isset( $results->error_data['term_exists'] ) ) {
-					$term_id = $results->error_data['term_exists'];
+					if ( $compare_by === 'disambiguate' ) {
+						$results = wp_insert_term(
+							$data['name'],
+							self::TAXONOMY,
+							[
+								'slug' => $data['slug'] . '-' . str_random( 10 ),
+							]
+						);
+						$term_id = $results['term_id'];
+					} else {
+						$term_id = $results->error_data['term_exists'];
+					}
 				} else {
 					$term_id = $results['term_id'];
 				}
