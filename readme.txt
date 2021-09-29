@@ -1,10 +1,10 @@
 === Pressbooks ===
 Contributors: Pressbooks <code@pressbooks.com>
 Tags: ebooks, publishing, webbooks
-Requires at least: 5.8
-Tested up to: 5.8
+Requires at least: 5.8.1
+Tested up to: 5.8.1
 Requires PHP: 7.3
-Stable tag: 5.26.0
+Stable tag: 5.27.0
 License: GPL v3.0 or later
 License URI: https://github.com/pressbooks/pressbooks/blob/master/LICENSE.md
 
@@ -18,12 +18,16 @@ For installation instructions, visit [docs.pressbooks.org/installation](https://
 
 == Changelog ==
 
-= 5.26.0 =
+= 5.27.0 =
 
-* See: https://github.com/pressbooks/pressbooks/releases/tag/5.26.0
+* See: https://github.com/pressbooks/pressbooks/releases/tag/5.27.0
 * Full release history available at: https://github.com/pressbooks/pressbooks/releases
 
 == Upgrade Notice ==
+
+= 5.27.0=
+* Pressbooks 5.27.0 requires [WordPress 5.8.1](https://wordpress.org/support/wordpress-version/version-5-8-1/)
+* Pressbooks 5.27.0 requires [McLuhan >= 2.13.0](https://github.com/pressbooks/pressbooks-book/)
 
 = 5.25.0=
 * Pressbooks 5.25.0 requires [WordPress 5.8](https://wordpress.org/support/wordpress-version/version-5-8/)
@@ -48,4 +52,4 @@ To fix this, you would need to update Lord of the files plugin to at least 1.1.0
 
 * Pressbooks 5.15.1 requires PHP >= 7.1.
 * Pressbooks 5.15.1 requires [WordPress 5.4](https://wordpress.org/support/wordpress-version/version-5-4/)
-* Pressbooks 5.15.1 requires [McLuhan >= 2.10.2](https://github.com/pressbooks/pressbooks-book/)  
+* Pressbooks 5.15.1 requires [McLuhan >= 2.10.2](https://github.com/pressbooks/pressbooks-book/)
