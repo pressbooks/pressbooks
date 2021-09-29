@@ -1334,7 +1334,7 @@ class Cloner {
 					if ( ! isset( $contributor_data['slug'] ) ) {
 						$contributor_data['slug'] = sanitize_title_with_dashes( remove_accents( $contributor_data['name'] ), '', 'save' );
 					}
-					$this->contributors->insert( $contributor_data, $metadata_post_id, $key, $this->downloads, $this->isImporting ? 'disambiguate' : 'slug' );
+					$this->contributors->insert( $contributor_data, $metadata_post_id, $key, $this->downloads, 'slug' );
 					if ( $key === 'pb_authors' ) {
 						$authors_slug[] = $contributor_data['slug'];
 					}
@@ -1636,7 +1636,6 @@ class Cloner {
 			$book_schema
 		);
 
-		$this->contributorsInserted = [];
 		foreach ( $section_information as $key => $value ) {
 			if ( $this->contributors->isValid( $key ) ) {
 				foreach ( $value as $contributor_data ) {
