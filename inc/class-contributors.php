@@ -201,7 +201,7 @@ class Contributors implements BackMatter, Transferable {
 						foreach ( $meta as $name ) {
 							$result = $this->insert( $name );
 							if ( $result !== false ) {
-								$added = $this->link( $result, $post_id, $contributor_type );
+								$added = $this->link( $result['term_id'], $post_id, $contributor_type );
 								if ( $added !== false ) {
 									$contributors[] = $name;
 									delete_post_meta( $post_id, $slug, $name );
