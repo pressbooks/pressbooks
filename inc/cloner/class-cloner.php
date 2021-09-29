@@ -1326,7 +1326,7 @@ class Cloner {
 					if ( ! isset( $contributor_data['slug'] ) ) {
 						$contributor_data['slug'] = sanitize_title_with_dashes( remove_accents( $contributor_data['name'] ), '', 'save' );
 					}
-					$this->contributors->insert( $contributor_data, $metadata_post_id, $key, $this->downloads, $this->isImporting ? 'name' : 'slug' );
+					$this->contributors->insert( $contributor_data, $metadata_post_id, $key, $this->downloads, $this->isImporting ? 'disambiguate' : 'slug' );
 					if ( $key === 'pb_authors' ) {
 						$authors_slug[] = $contributor_data['slug'];
 					}
@@ -1635,7 +1635,7 @@ class Cloner {
 					if ( ! isset( $contributor_data['slug'] ) ) {
 						$contributor_data['slug'] = sanitize_title_with_dashes( remove_accents( $contributor_data['name'] ), '', 'save' );
 					}
-					$this->contributors->insert( $contributor_data, $target_id, $key, $this->downloads, $this->isImporting ? 'name' : 'slug' );
+					$this->contributors->insert( $contributor_data, $target_id, $key, $this->downloads, $this->isImporting ? 'disambiguate' : 'slug' );
 				}
 			} else {
 				update_post_meta( $target_id, $key, $value );
