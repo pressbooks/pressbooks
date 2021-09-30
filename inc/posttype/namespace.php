@@ -372,9 +372,7 @@ function register_meta() {
 			$defaults, [
 				'object_subtype' => 'part',
 				'description' => __( 'Whether or not the part is shown in the table of contents', 'pressbooks' ),
-				'sanitize_callback' => function( $v ) {
-					return ( $v ? 'on' : null );
-				},
+				'type' => 'boolean',
 			]
 		)
 	);
