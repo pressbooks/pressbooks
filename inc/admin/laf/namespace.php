@@ -10,6 +10,7 @@ namespace Pressbooks\Admin\Laf;
 
 use function Pressbooks\Admin\NetworkManagers\is_restricted;
 use function Pressbooks\PostType\get_post_type_label;
+use function Pressbooks\Sanitize\sanitize_string;
 use function Pressbooks\Utility\str_starts_with;
 use PressbooksMix\Assets;
 use Pressbooks\Admin\ExportOptions;
@@ -20,6 +21,7 @@ use Pressbooks\BookDirectory;
 use Pressbooks\Cloner\Cloner;
 use Pressbooks\DataCollector\Book as DataCollector;
 use Pressbooks\Metadata;
+use WP_Error;
 
 /**
  * @return bool
@@ -1591,4 +1593,89 @@ function edit_screen_navigation( $post ) {
 
 		echo '</nav>';
 	}
+}
+
+/**
+ *
+ * $since 5.27.0
+ * @return array
+ */
+function get_user_contact_fields() {
+	$methods = [];
+	$methods['twitter'] = __( 'Twitter URL', 'pressbooks' );
+	$methods['linkedin'] = __( 'LinkedIn URL', 'pressbooks' );
+	$methods['github'] = __( 'GitHub URL', 'pressbooks' );
+	return $methods;
+}
+
+/**
+ *
+ * $since 5.27.0
+ * @param array $methods
+ * @return array
+ */
+function modify_user_contact_fields( $methods ) {
+	return get_user_contact_fields();
+}
+
+/**
+ *
+ * $since 5.27.0
+ * @param WP_Error $errors
+ * @param bool $update
+ * @param stdClass $user
+ */
+function sanitize_user_profile( WP_Error $errors, $update, $user ) {
+
+	$additional_urls_to_check = [ 'url' => 'Website' ];
+
+	foreach ( array_merge( get_user_contact_fields(), $additional_urls_to_check ) as $key => $value ) {
+		$field = wp_kses( $_POST[ $key ], false );
+		if ( ! empty( $field ) ) {
+			if ( ! \Pressbooks\Sanitize\validate_url_field( $field ) ) {
+				$errors->add( $key, "The $value field is not a valid URL." );
+			}
+		}
+	}
+}
+
+/**
+ *
+ * @since 5.27.0
+ * @param \WP_User $user
+ */
+function add_user_profile_fields( \WP_User $user ) {
+
+	$institution = __( 'Institution' );
+	$value = esc_attr( get_the_author_meta( 'institution', $user->ID ) );
+	$helper = __( 'Your institutional affiliation, e.g. Rebus Foundation, Open University, Amnesty International.', 'pressbooks' );
+
+	$row = <<<HTML
+	<tr class="institution">
+		<th><label for="institution"> $institution </label></th>
+		<td>
+			<input type="text" name="institution" id="institution" value="$value" class="regular-text" /><br />
+			<p class="description"> $helper </p>
+		</td>
+	</tr>
+HTML;
+	?>
+	<script>
+		const element = document.querySelector(".user-description-wrap").parentNode; //Biographical Info input as reference
+		element.insertAdjacentHTML('afterbegin', '<?php echo str_replace( [ "\r\n", "\r", "\n", "\t" ], '', $row ); ?>');
+	</script>
+	<?php
+}
+
+/**
+ *
+ * @since 5.27.0
+ * @param int $user_id
+ */
+function update_user_profile_fields( $user_id ) {
+	if ( ! current_user_can( 'edit_user', $user_id ) ) {
+		return;
+	}
+
+	update_user_meta( $user_id, 'institution', sanitize_string( $_REQUEST['institution'] ) );
 }

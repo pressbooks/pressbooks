@@ -77,28 +77,18 @@ class Book {
 	 * Returns book information in a useful, string only, format. Data is converted to HTML.
 	 *
 	 * @param int $id The book ID.
+	 * @param bool $contributors_as_string Read contributors list as a string.
+	 * @param int $read_contributors_from_cache Read contributors from cache, if book information is stored in wp cache.
 	 *
 	 * @return array
 	 */
-	static function getBookInformation( $id = null ) {
+	static function getBookInformation( $id = null, $contributors_as_string = true, $read_contributors_from_cache = true ) {
 
 		if ( ! empty( $id ) && is_int( $id ) ) {
 			$blog_id = $id;
 			switch_to_blog( $blog_id );
 		} else {
 			global $blog_id;
-		}
-
-		// -----------------------------------------------------------------------------
-		// Is cached?
-		// -----------------------------------------------------------------------------
-
-		$cache_id = "book-inf-$blog_id";
-		if ( static::useCache() ) {
-			$book_information = wp_cache_get( $cache_id, 'pb' );
-			if ( $book_information ) {
-				return $book_information;
-			}
 		}
 
 		// ----------------------------------------------------------------------------
@@ -109,13 +99,41 @@ class Book {
 		$meta = new Metadata();
 		$meta_post = $meta->getMetaPost();
 
+		$contributors = new Contributors();
+
+		// -----------------------------------------------------------------------------
+		// Is cached?
+		// -----------------------------------------------------------------------------
+
+		$cache_id = "book-inf-$blog_id";
+		if ( static::useCache() ) {
+			$cached_book_information = wp_cache_get( $cache_id, 'pb' );
+			if ( $cached_book_information ) {
+				if ( ! $read_contributors_from_cache ) {
+					$cached_book_information = array_merge(
+						$cached_book_information,
+						$contributors->getAll(
+							$meta_post->ID,
+							$contributors_as_string,
+							true
+						)
+					);
+				}
+				return $cached_book_information;
+			}
+		}
+
 		if ( $meta_post ) {
 
 			// Contributors
-			$contributors = new Contributors();
-			foreach ( $contributors->getAll( $meta_post->ID ) as $key => $val ) {
-				$book_information[ $key ] = $val;
-			};
+			$book_information = array_merge(
+				$book_information,
+				$contributors->getAll(
+					$meta_post->ID,
+					$contributors_as_string,
+					true
+				)
+			);
 
 			// Post Meta
 			$expected_array = [ 'pb_keywords_tags', 'pb_additional_subjects', 'pb_bisac_subject' ];

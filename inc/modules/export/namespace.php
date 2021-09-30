@@ -6,6 +6,9 @@
 
 namespace Pressbooks\Modules\Export;
 
+use Pressbooks\Container;
+use Pressbooks\Contributors;
+
 /**
  * @return array
  */
@@ -40,12 +43,6 @@ function dependency_errors() {
 		$dependency_errors['xhtml'] = 'XHTML';
 	} else {
 		set_site_transient( 'pb_xhtml_compatible', true );
-	}
-
-	if ( false === (bool) get_site_transient( 'pb_icml_compatible' ) && false === (bool) \Pressbooks\Modules\Export\InDesign\Icml::hasDependencies() ) {
-		$dependency_errors['icml'] = 'ICML';
-	} else {
-		set_site_transient( 'pb_icml_compatible', true );
 	}
 
 	if ( false === (bool) get_site_transient( 'pb_odt_compatible' ) && false === (bool) \Pressbooks\Modules\Export\Odt\Odt::hasDependencies() ) {
@@ -278,4 +275,32 @@ function update_pins() {
 		];
 		wp_send_json_success( $data );
 	}
+}
+
+/**
+ * Get the HTML for "About the Authors" section given a chapter ID.
+ *
+ * @param $post_id Integer
+ * @return string
+ */
+function get_contributors_section( $post_id ) {
+	$contributors = new Contributors();
+	$chapter_contributors = $contributors->getContributorsWithMeta( $post_id, 'authors' );
+	if ( empty( $chapter_contributors ) ) {
+		return '';
+	}
+	$title = sprintf( _n( '%s Author', '%s Authors', count( $chapter_contributors ), 'pressbooks' ), 'About the' );
+	$print = '<div class="contributors">';
+	$print .= "<h3 class=\"about-authors\">{$title}</h3>";
+	$blade_engine = Container::get( 'Blade' );
+	foreach ( $chapter_contributors as $contributor ) {
+		$print .= $blade_engine->render(
+			'posttypes.contributor', [
+				'contributor' => $contributor,
+				'exporting' => true,
+			]
+		);
+	}
+	$print .= '</div>';
+	return $print;
 }

@@ -201,10 +201,15 @@ class DataCollector_BookTest extends \WP_UnitTestCase {
 	 * @group datacollector
 	 */
 	public function test_getTotalBooks() {
+		add_action( 'wp_update_site', [ $this->bookDataCollector, 'updateSite' ], 999, 2 );
+
 		$this->_book();
 		$x = $this->bookDataCollector->getTotalBooks();
+
 		$this->assertIsInt( $x );
-		$this->assertTrue( $x > 0 );
+		$this->assertEquals( 1, $x );
+
+		remove_action( 'wp_update_site', [ $this->bookDataCollector, 'updateSite' ], 999 );
 	}
 
 

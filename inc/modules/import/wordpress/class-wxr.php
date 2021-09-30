@@ -58,6 +58,12 @@ class Wxr extends Import {
 	protected $transitions;
 
 	/**
+	 * This variable will help us to match new created slugs for imported contributors
+	 * @var array
+	 */
+	protected $contributorsSlugsToFix = [];
+
+	/**
 	 * @var int[]
 	 */
 	protected $postsWithGlossaryShortcodesToFix = [];
@@ -102,6 +108,13 @@ class Wxr extends Import {
 	 */
 	public function getSourceBookUrl() {
 		return $this->sourceBookUrl;
+	}
+
+	/**
+	 * @param $sourceBookUrl
+	 */
+	public function setSourceBookUrl( $source ) {
+		$this->sourceBookUrl = $source;
 	}
 
 	/**
@@ -171,6 +184,62 @@ class Wxr extends Import {
 		return update_option( 'pressbooks_current_import', $option );
 	}
 
+	/**
+	 * This function save a term into the database
+	 * @param $term
+	 * @param false $override_slug when true it will add a random string at the end to disambiguate from existent terms
+	 * @return array|int[]|\WP_Error
+	 */
+	private function saveTerm( $term, $override_slug = false ) {
+		return wp_insert_term(
+			$term['term_name'],
+			$term['term_taxonomy'],
+			[
+				'description' => $term['term_description'],
+				'slug' => $override_slug === false ? $term['slug'] : $term['slug'] . '-' . str_random( 10 ),
+			]
+		);
+	}
+
+	/**
+	 * Save Term meta like contributors_first_name
+	 * @param $term
+	 * @param $last_inserted
+	 */
+	private function saveMeta( $term, $last_inserted ) {
+		if ( ! empty( $term['termmeta'] ) && is_array( $last_inserted ) ) {
+			foreach ( $term['termmeta'] as $termmeta ) {
+				$value = $termmeta['value'];
+				// Copy contributor_picture from remote server to local
+				if ( $termmeta['key'] === 'contributor_picture' && $value ) {
+					$image_id = $this->downloads->fetchAndSaveUniqueImage( $value );
+					if ( $image_id > 0 ) {
+						$value = wp_get_attachment_url( $image_id );
+					}
+				}
+				add_term_meta( $last_inserted['term_id'], $termmeta['key'], $value, true );
+			}
+		}
+	}
+
+	/**
+	 * Insert a term with the meta associated
+	 * @param $term
+	 * @return array|int[]|mixed|\WP_Error
+	 */
+	public function insertTerm( $term ) {
+
+		$last_inserted = $this->saveTerm( $term );
+
+		if ( is_wp_error( $last_inserted ) ) { // trying to insert with a different disambiguation slug
+			$last_inserted = $this->saveTerm( $term, true );
+		}
+
+		$this->saveMeta( $term, $last_inserted );
+
+		return $last_inserted;
+	}
+
 
 	/**
 	 * @param array $current_import
@@ -232,20 +301,14 @@ class Wxr extends Import {
 
 		// and import them if they don't already exist.
 		foreach ( $terms as $t ) {
-			$term = term_exists( $t['term_name'], $t['term_taxonomy'] );
-			if ( null === $term || 0 === $term ) {
-				$results = wp_insert_term(
-					$t['term_name'],
-					$t['term_taxonomy'],
-					[
-						'description' => $t['term_description'],
-						'slug' => $t['slug'],
-					]
-				);
-				if ( ! empty( $t['termmeta'] ) && is_array( $results ) ) {
-					foreach ( $t['termmeta'] as $termmeta ) {
-						add_term_meta( $results['term_id'], $termmeta['key'], $termmeta['value'], true );
-					}
+			if ( $t['term_taxonomy'] === Contributors::TAXONOMY ) {
+				$term = $this->insertTerm( $t );
+				$new_term = get_term( $term['term_id'], Contributors::TAXONOMY );
+				$this->contributorsSlugsToFix[ $t['slug'] ] = is_wp_error( $term ) ? $t['slug'] : $new_term->slug; // fallback to found slug
+			} else {
+				$term = term_exists( $t['term_name'], $t['term_taxonomy'] );
+				if ( ( null === $term || 0 === $term ) ) {
+					$this->insertTerm( $t );
 				}
 			}
 		}
@@ -515,9 +578,7 @@ class Wxr extends Import {
 			$new_post['post_parent'] = $chapter_parent;
 		}
 
-		$pid = wp_insert_post( add_magic_quotes( $new_post ) );
-
-		return $pid;
+		return wp_insert_post( add_magic_quotes( $new_post ) );
 	}
 
 	/**
@@ -542,11 +603,13 @@ class Wxr extends Import {
 		}
 
 		if ( $data_model === 5 ) {
-			$meta_val = $this->searchForMetaValue( 'pb_authors', $p['postmeta'] );
-			if ( $meta_val ) {
+			$meta_values = $this->searchMultipleContributorValues( 'pb_authors', $p['postmeta'] );
+			if ( is_array( $meta_values ) ) {
 				// PB5 contributors (slugs)
-				add_post_meta( $pid, 'pb_authors', $meta_val );
-				wp_set_object_terms( $pid, $meta_val, Contributors::TAXONOMY );
+				foreach ( $meta_values as $slug ) {
+					add_post_meta( $pid, 'pb_authors', $this->contributorsSlugsToFix[ $slug ] );
+					wp_set_object_terms( $pid, $this->contributorsSlugsToFix[ $slug ], Contributors::TAXONOMY );
+				}
 			}
 		} else {
 			$meta_val = $this->searchForMetaValue( 'pb_section_author', $p['postmeta'] );
@@ -582,13 +645,13 @@ class Wxr extends Import {
 				delete_post_meta( $pid, $key );
 			}
 		}
-
 		// Import contributors
 		foreach ( $p['postmeta'] as $meta ) {
 			if ( $data_model === 5 && $this->contributors->isValid( $meta['key'] ) ) {
 				// PB5 contributors (slugs)
-				add_post_meta( $pid, $meta['key'], $meta['value'] );
-				wp_set_object_terms( $pid, $meta['value'], Contributors::TAXONOMY );
+				$contributor = get_term_by( 'slug', $meta['value'], Contributors::TAXONOMY );
+				add_post_meta( $pid, $meta['key'], $this->contributorsSlugsToFix[ $meta['value'] ] );
+				wp_set_object_terms( $pid, $this->contributorsSlugsToFix[ $meta['value'] ], Contributors::TAXONOMY );
 			} elseif ( $data_model === 4 && $this->contributors->isDeprecated( $meta['key'] ) ) {
 				// PB4 contributors (full names)
 				$this->contributors->convert( $meta['key'], $meta['value'], $pid );
@@ -634,6 +697,8 @@ class Wxr extends Import {
 			return '';
 		}
 
+		$values = [];
+
 		foreach ( $postmeta as $meta ) {
 			// prefer this value, if it's set
 			if ( $meta_key === $meta['key'] ) {
@@ -642,6 +707,27 @@ class Wxr extends Import {
 		}
 
 		return '';
+	}
+
+	/**
+	 * This method returns only the contributors in the postmeta array
+	 *
+	 * @param $meta_key
+	 * @param array $postmeta
+	 * @return array
+	 */
+	public function searchMultipleContributorValues( $meta_key, array $postmeta = [] ) {
+
+		$values = [];
+
+		foreach ( $postmeta as $meta ) {
+			// prefer this value, if it's set
+			if ( $this->contributors->isValid( $meta_key ) && $meta_key === $meta['key'] ) {
+				$values[] = maybe_safer_unserialize( $meta['value'] );
+			}
+		}
+
+		return $values;
 	}
 
 	/**

@@ -56,6 +56,9 @@ class Taxonomy {
 			add_action( 'init', [ $obj, 'registerTaxonomies' ] );
 			add_action( 'init', [ $obj, 'maybeUpgrade' ], 1000 );
 			add_action( 'user_register', [ $obj->contributors, 'addBlogUser' ] );
+			add_action( 'add_user_to_blog', [ $obj, 'registerTaxonomies' ] ); // This is a workaround because newbloguser does not fire init action.
+			add_action( 'add_user_to_blog', [ $obj->contributors, 'addBlogUser' ] );
+			add_action( 'set_user_role', [ $obj->contributors, 'addBlogUser' ] );
 			add_action( 'profile_update', [ $obj->contributors, 'updateBlogUser' ], 10, 2 );
 			add_action( 'added_post_meta', [ $obj, 'upgradeToContributorTaxonomy' ], 10, 4 );
 			add_action( 'updated_postmeta', [ $obj, 'upgradeToContributorTaxonomy' ], 10, 4 );
@@ -81,7 +84,6 @@ class Taxonomy {
 	 * Register taxonomies
 	 */
 	public function registerTaxonomies() {
-
 		register_extended_taxonomy(
 			'front-matter-type',
 			'front-matter',
@@ -177,6 +179,13 @@ class Taxonomy {
 				'show_in_rest' => true,
 			]
 		);
+		if ( ! get_term_by( 'slug', 'contributors', 'back-matter-type' ) ) {
+			wp_insert_term(
+				'Contributors', 'back-matter-type', [
+					'slug' => 'contributors',
+				]
+			);
+		}
 	}
 
 	/**
@@ -352,6 +361,11 @@ class Taxonomy {
 		wp_insert_term(
 			'Conclusion', 'back-matter-type', [
 				'slug' => 'conclusion',
+			]
+		);
+		wp_insert_term(
+			'Contributors', 'back-matter-type', [
+				'slug' => 'contributors',
 			]
 		);
 		wp_insert_term(

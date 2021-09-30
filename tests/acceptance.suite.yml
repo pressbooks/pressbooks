@@ -32,6 +32,7 @@ modules:
        port: 9515
        window_size: false #disabled for Chrome driver
        capabilities:
+          javascriptEnabled: true
           acceptInsecureCerts: true
           chromeOptions:
             args: ["--headless", "--disable-gpu", "--user-agent=wp-browser"]

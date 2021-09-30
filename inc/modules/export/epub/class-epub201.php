@@ -11,7 +11,8 @@ namespace Pressbooks\Modules\Export\Epub;
 
 use function Pressbooks\Sanitize\sanitize_xml_attribute;
 use function Pressbooks\Utility\debug_error_log;
-use function Pressbooks\Utility\oxford_comma_explode;
+use function Pressbooks\Utility\get_contributors_name_imploded;
+use function Pressbooks\Utility\implode_add_and;
 use function Pressbooks\Utility\str_ends_with;
 use function Pressbooks\Utility\str_lreplace;
 use function Pressbooks\Utility\str_starts_with;
@@ -214,6 +215,11 @@ class Epub201 extends ExportGenerator {
 	 */
 	protected $sanitizedSlugs = [];
 
+	/**
+	 * @var bool
+	 */
+	protected $displayAboutTheAuthors;
+
 
 	/**
 	 * @param array $args
@@ -299,6 +305,7 @@ class Epub201 extends ExportGenerator {
 
 		// Convert
 		yield 2 => $this->generatorPrefix . __( 'Preparing book contents', 'pressbooks' );
+		$this->displayAboutTheAuthors = ! empty( get_option( 'pressbooks_theme_options_global', [] )['about_the_author'] );
 		$metadata = Book::getBookInformation();
 		$book_contents = $this->preProcessBookContents( Book::getBookContents() );
 
@@ -478,7 +485,7 @@ class Epub201 extends ExportGenerator {
 
 				if ( isset( $val['post_content'] ) ) {
 					$id = $val['ID'];
-					$book_contents[ $type ][ $i ]['post_content'] = $this->preProcessPostContent( $val['post_content'] );
+					$book_contents[ $type ][ $i ]['post_content'] = $this->preProcessPostContent( $val['post_content'], $type, $val['ID'] );
 				}
 				if ( isset( $val['post_title'] ) ) {
 					$book_contents[ $type ][ $i ]['post_title'] = sanitize_xml_attribute( $val['post_title'] );
@@ -495,7 +502,7 @@ class Epub201 extends ExportGenerator {
 
 						if ( isset( $val2['post_content'] ) ) {
 							$id = $val2['ID'];
-							$book_contents[ $type ][ $i ]['chapters'][ $j ]['post_content'] = $this->preProcessPostContent( $val2['post_content'] );
+							$book_contents[ $type ][ $i ]['chapters'][ $j ]['post_content'] = $this->preProcessPostContent( $val2['post_content'], 'chapter', $val2['ID'] );
 						}
 						if ( isset( $val2['post_title'] ) ) {
 							$book_contents[ $type ][ $i ]['chapters'][ $j ]['post_title'] = sanitize_xml_attribute( $val2['post_title'] );
@@ -516,15 +523,23 @@ class Epub201 extends ExportGenerator {
 
 	/**
 	 * @param string $content
+	 * @param string $type
+	 * @param int $post_id
 	 *
 	 * @return string
 	 */
-	protected function preProcessPostContent( $content ) {
+	protected function preProcessPostContent( $content, $type = '', $post_id = 0 ) {
+		if (
+			$this->displayAboutTheAuthors &&
+			in_array( $type, [ 'chapter', 'front-matter', 'back-matter' ], true ) &&
+			$post_id > 0
+		) {
+			$content .= \Pressbooks\Modules\Export\get_contributors_section( $post_id );
+		}
 		$content = apply_filters( 'the_export_content', $content );
 		$content = str_ireplace( [ '<b></b>', '<i></i>', '<strong></strong>', '<em></em>' ], '', $content );
 		$content = $this->fixAnnoyingCharacters( $content );
 		$content = $this->tidy( $content );
-
 		return $content;
 	}
 
@@ -1048,11 +1063,19 @@ class Epub201 extends ExportGenerator {
 		} else {
 			$html .= sprintf( '<h1 class="title">%s</h1>', get_bloginfo( 'name' ) );
 			$html .= sprintf( '<h2 class="subtitle">%s</h2>', ( isset( $metadata['pb_subtitle'] ) ) ? $metadata['pb_subtitle'] : '' );
-			if ( isset( $metadata['pb_authors'] ) ) {
-				$html .= sprintf( '<h3 class="author">%s</h3>', $metadata['pb_authors'] );
+			if ( isset( $metadata['pb_authors'] ) && ! empty( $metadata['pb_authors'] ) ) {
+				if ( is_array( $metadata['pb_authors'] ) ) {
+					$html .= sprintf( '<h3 class="author">%s</h3>', get_contributors_name_imploded( $metadata['pb_authors'] ) );
+				} elseif ( is_string( $metadata['pb_authors'] ) ) {
+					$html .= sprintf( '<h3 class="author">%s</h3>', $metadata['pb_authors'] );
+				}
 			}
-			if ( isset( $metadata['pb_contributors'] ) ) {
-				$html .= sprintf( '<h3 class="author">%s</h3>', $metadata['pb_contributors'] );
+			if ( isset( $metadata['pb_contributors'] ) && ! empty( $metadata['pb_contributors'] ) ) {
+				if ( is_array( $metadata['pb_contributors'] ) ) {
+					$html .= sprintf( '<h3 class="author">%s</h3>', get_contributors_name_imploded( $metadata['pb_contributors'] ) );
+				} elseif ( is_string( $metadata['pb_contributors'] ) ) {
+					$html .= sprintf( '<h3 class="author">%s</h3>', $metadata['pb_contributors'] );
+				}
 			}
 			if ( current_theme_supports( 'pressbooks_publisher_logo' ) ) {
 				$html .= sprintf( '<div class="publisher-logo"><img src="%s" alt="%s" /></div>', get_theme_support( 'pressbooks_publisher_logo' )[0]['logo_uri'], __( 'Publisher Logo', 'pressbooks' ) ); // TODO: Support custom publisher logo.
@@ -2530,7 +2553,19 @@ class Epub201 extends ExportGenerator {
 
 		// Sanitize metadata for usage in XML template
 		foreach ( $metadata as $key => $val ) {
-			$metadata[ $key ] = sanitize_xml_attribute( $val );
+			if ( is_array( $val ) ) {
+				$items = [];
+				foreach ( $val as $item ) {
+					if ( isset( $item['name'] ) ) {
+						$items[] = sanitize_xml_attribute( $item['name'] );
+					}
+				}
+				if ( ! empty( $items ) ) {
+					$metadata[ $key ] = implode_add_and( ';', $items );
+				}
+			} else {
+				$metadata[ $key ] = sanitize_xml_attribute( $val );
+			}
 		}
 		$vars['meta'] = $metadata;
 
@@ -2598,10 +2633,14 @@ class Epub201 extends ExportGenerator {
 		if ( empty( $this->manifest ) ) {
 			throw new \Exception( '$this->manifest cannot be empty. Did you forget to call $this->createOEBPS() ?' );
 		}
+		$authors = '';
+		if ( isset( $metadata['pb_authors'] ) && is_array( $metadata['pb_authors'] ) && ! empty( $metadata['pb_authors'] ) ) {
+			$authors = get_contributors_name_imploded( $metadata['pb_authors'] );
+		}
 
 		// Sanitize variables for usage in XML template
 		$vars = [
-			'author' => ! \Pressbooks\Utility\empty_space( $metadata['pb_authors'] ) ? sanitize_xml_attribute( oxford_comma_explode( $metadata['pb_authors'] )[0] ) : '',
+			'author' => sanitize_xml_attribute( $authors ),
 			'manifest' => $this->manifest,
 			'dtd_uid' => ! empty( $metadata['pb_ebook_isbn'] ) ? sanitize_xml_attribute( $metadata['pb_ebook_isbn'] ) : sanitize_xml_attribute( get_bloginfo( 'url' ) ),
 			'enable_external_identifier' => true,

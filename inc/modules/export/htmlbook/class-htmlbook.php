@@ -6,7 +6,6 @@
 
 namespace Pressbooks\Modules\Export\HTMLBook;
 
-use function Pressbooks\Utility\oxford_comma_explode;
 use function Pressbooks\Utility\str_starts_with;
 use PressbooksMix\Assets;
 use Pressbooks\HTMLBook\Block\Blockquote;
@@ -206,7 +205,7 @@ class HTMLBook extends Export {
 		// ------------------------------------------------------------------------------------------------------------
 		// HTMLBook, Start!
 
-		$metadata = \Pressbooks\Book::getBookInformation();
+		$metadata = \Pressbooks\Book::getBookInformation( null, false, false );
 		$book_contents = $this->preProcessBookContents( \Pressbooks\Book::getBookContents() );
 
 		// Set two letter language code
@@ -801,9 +800,14 @@ class HTMLBook extends Export {
 			$content .= sprintf( '<h1 class="title">%s</h1>', get_bloginfo( 'name' ) );
 			$content .= sprintf( '<p class="subtitle">%s</p>', ( isset( $metadata['pb_subtitle'] ) ) ? $metadata['pb_subtitle'] : '' );
 			if ( isset( $metadata['pb_authors'] ) ) {
-				$authors = oxford_comma_explode( $metadata['pb_authors'] );
-				foreach ( $authors as $author ) {
-					$content .= sprintf( '<p class="author">%s</p>', $author );
+				if ( is_string( $metadata['pb_authors'] ) ) {
+					$content .= sprintf( '<p class="author">%s</p>', $metadata['pb_authors'] );
+				} else {
+					$authors = $metadata['pb_authors'];
+					foreach ( $authors as $author ) {
+						$name = is_array( $author ) && array_key_exists( 'name', $author ) ? $author['name'] : $author;
+						$content .= sprintf( '<p class="author">%s</p>', $name );
+					}
 				}
 			}
 			if ( current_theme_supports( 'pressbooks_publisher_logo' ) ) {
@@ -1298,6 +1302,7 @@ class HTMLBook extends Export {
 					$header,
 					$content,
 					$append_front_matter_content,
+					! empty( get_option( 'pressbooks_theme_options_global', [] )['about_the_author'] ) ? \Pressbooks\Modules\Export\get_contributors_section( $front_matter_id ) : '',
 				]
 			);
 
@@ -1498,6 +1503,7 @@ class HTMLBook extends Export {
 						$header,
 						$content,
 						$append_chapter_content,
+						! empty( get_option( 'pressbooks_theme_options_global', [] )['about_the_author'] ) ? \Pressbooks\Modules\Export\get_contributors_section( $chapter_id ) : '',
 					]
 				);
 
@@ -1632,6 +1638,7 @@ class HTMLBook extends Export {
 					$header,
 					$content,
 					$append_back_matter_content,
+					! empty( get_option( 'pressbooks_theme_options_global', [] )['about_the_author'] ) ? \Pressbooks\Modules\Export\get_contributors_section( $back_matter_id ) : '',
 				]
 			);
 

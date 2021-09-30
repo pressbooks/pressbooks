@@ -697,9 +697,6 @@ abstract class Export {
 			if ( isset( $x['epub3'] ) ) {
 				$modules[] = '\Pressbooks\Modules\Export\Epub\Epub3';
 			}
-			if ( isset( $x['icml'] ) ) {
-				$modules[] = '\Pressbooks\Modules\Export\InDesign\Icml';
-			}
 			if ( isset( $x['xhtml'] ) ) {
 				$modules[] = '\Pressbooks\Modules\Export\Xhtml\Xhtml11';
 			}

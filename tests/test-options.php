@@ -461,4 +461,17 @@ class OptionsTest extends \WP_UnitTestCase {
 		$this->assertContains( '</optgroup>', $buffer );
 		$this->assertContains( '<select name="pressbooks_theme_options_web[webbook_header_font]"', $buffer );
 	}
+
+	/**
+	 * @group options
+	 */
+	public function test_renderAboutTheAuthorField() {
+		$options = new \Pressbooks\Modules\ThemeOptions\GlobalOptions( [] );
+		ob_start();
+		$options->renderAuthorInformation( [ __( 'Display information about authors at the end of each chapter', 'pressbooks' ) ] );
+		$buffer = ob_get_clean();
+		$this->assertContains( '<input ', $buffer );
+		$this->assertContains( 'type="checkbox" ', $buffer );
+		$this->assertContains( 'name="pressbooks_theme_options_global[about_the_author]"', $buffer );
+	}
 }

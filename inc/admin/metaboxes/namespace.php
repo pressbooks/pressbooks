@@ -1202,43 +1202,126 @@ function save_subject_metadata( $post_id ) {
  */
 function contributor_add_form() {
 	wp_nonce_field( 'contributor-meta', 'contributor_meta_nonce' );
+
+	$contributors_fields = Contributors::getContributorFields();
+
+	foreach ( $contributors_fields as $term => $meta_tags ) {
+		switch ( $meta_tags['input_type'] ) {
+			case 'tinymce':
+				?>
+				<div class="form-field <?php echo $meta_tags['tag']; ?>-wrap">
+					<label for="<?php echo $meta_tags['tag']; ?>"><?php echo $meta_tags['label']; ?></label>
+					<?php wp_editor( null, $term, get_editor_settings() ); ?>
+				</div>
+				<?php
+				break;
+			case 'picture':
+				?>
+				<img style="display: none" src="" id="<?php echo $meta_tags['tag']; ?>-thumbnail" width="120" /> <br />
+				<div class="form-field <?php echo $meta_tags['tag']; ?>-wrap">
+					<label for="<?php echo $meta_tags['tag']; ?>"><?php echo $meta_tags['label']; ?></label>
+					<button name="dispatch-media-picture" id="btn-media">Upload Picture</button>
+					<input type="hidden" name="<?php echo $term; ?>" id="<?php echo $meta_tags['tag']; ?>">
+					<p>
+						<?php echo __( 'Images should be square (400px x 400px). You will be allowed to crop images after upload.', 'pressbooks' ); ?>
+					</p>
+				</div>
+				<?php
+				break;
+			default:
+				?>
+				<div class="form-field <?php echo $meta_tags['tag']; ?>-wrap">
+					<label for="<?php echo $meta_tags['tag']; ?>"><?php echo $meta_tags['label']; ?></label>
+					<input type="<?php echo $meta_tags['input_type'] ?>" name="<?php echo $term; ?>" id="<?php echo $meta_tags['tag']; ?>" value="" class="<?php echo $meta_tags['tag']; ?>" />
+				</div>
+				<?php
+				break;
+		}
+	}
+}
+
+function contributor_add_form_picture() {
 	?>
-	<div class="form-field contributor-first-name-wrap">
-		<label for="contributor-first-name"><?php _e( 'First Name', 'pressbooks' ); ?></label>
-		<input type="text" name="contributor_first_name" id="contributor-first-name" value="" class="contributor-first-name-field" />
-		<p>
-	</div>
-	<div class="form-field contributor-last-name-wrap">
-		<label for="contributor-last-name"><?php _e( 'Last Name', 'pressbooks' ); ?></label>
-		<input type="text" name="contributor_last_name" id="contributor-last-name" value="" class="contributor-last-name-field" />
-	</div>
+		<div id="contributor-media-picture">
+			<?php wp_media_upload_handler(); ?>
+		</div>
 	<?php
 }
 
 function contributor_edit_form( $term ) {
-	$firstname = get_term_meta( $term->term_id, 'contributor_first_name', true );
-	$lastname = get_term_meta( $term->term_id, 'contributor_last_name', true );
-	if ( ! $firstname ) {
-		$firstname = '';
+	$terms_meta = get_term_meta( $term->term_id );
+	$contributors_fields = Contributors::getContributorFields();
+
+	foreach ( $contributors_fields as $term => $meta_tags ) {
+		$value = $terms_meta[ $term ][0] ?? '';
+		switch ( $meta_tags['input_type'] ) {
+			case 'tinymce':
+				?>
+					<tr class="form-field <?php echo $meta_tags['tag']; ?>-wrap">
+						<th scope="row"><label for="<?php echo $meta_tags['tag']; ?>"><?php echo $meta_tags['label']; ?></label></th>
+						<td>
+							<?php wp_nonce_field( 'contributor-meta', 'contributor_meta_nonce' ); ?>
+							<?php wp_editor( html_entity_decode( $value ), $term, get_editor_settings() ); ?>
+						</td>
+					</tr>
+				<?php
+				break;
+			case 'picture':
+				?>
+					<tr class="form-field <?php echo $meta_tags['tag']; ?>-wrap">
+						<th scope="row"><label for="<?php echo $meta_tags['tag']; ?>"><?php echo $meta_tags['label']; ?></label></th>
+						<td>
+							<?php if ( $value ) : ?>
+								<img src="<?php echo $value; ?>" id="<?php echo $meta_tags['tag']; ?>-thumbnail" width="120" /> <br />
+							<?php else : ?>
+								<img style="display: none" id="<?php echo $meta_tags['tag']; ?>-thumbnail" width="120" />
+							<?php endif; ?>
+							<br />
+							<button name="dispatch-media-picture" id="btn-media">Upload Picture</button>
+							<p class="description">
+								<?php echo __( 'Images should be square (400px x 400px). You will be allowed to crop images after upload.', 'pressbooks' ); ?>
+							</p>
+							<input
+								type="hidden"
+								name="<?php echo $term; ?>"
+								id="<?php echo $meta_tags['tag']; ?>"
+								value="<?php echo $value ? $value : ''; ?>"
+							>
+						</td>
+					</tr>
+							<?php
+				break;
+			default:
+				?>
+				<tr class="form-field <?php echo $meta_tags['tag']; ?>-wrap">
+					<th scope="row"><label for="<?php echo $meta_tags['tag']; ?>"><?php echo $meta_tags['label']; ?></label></th>
+					<td>
+						<?php wp_nonce_field( 'contributor-meta', 'contributor_meta_nonce' ); ?>
+						<input type="<?php echo $meta_tags['input_type'] ?>" name="<?php echo $term; ?>" id="<?php echo $meta_tags['tag']; ?>" value="<?php echo esc_attr( $value ); ?>" class="<?php echo $meta_tags['tag']; ?>-field"  />
+					</td>
+				</tr>
+								<?php
+				break;
+		}
 	}
-	if ( ! $lastname ) {
-		$lastname = '';
-	}
-	?>
-	<tr class="form-field contributor-first-name-wrap">
-		<th scope="row"><label for="contributor-first-name"><?php _e( 'First Name', 'pressbooks' ); ?></label></th>
-		<td>
-			<?php wp_nonce_field( 'contributor-meta', 'contributor_meta_nonce' ); ?>
-			<input type="text" name="contributor_first_name" id="contributor-first-name" value="<?php echo esc_attr( $firstname ); ?>" class="contributor-first-name-field"  />
-		</td>
-	</tr>
-	<tr class="form-field contributor-last-name-wrap">
-		<th scope="row"><label for="contributor-last-name"><?php _e( 'Last Name', 'pressbooks' ); ?></label></th>
-		<td>
-			<input type="text" name="contributor_last_name" id="contributor-last-name" value="<?php echo esc_attr( $lastname ); ?>" class="contributor-last-name-field"  />
-		</td>
-	</tr>
-	<?php
+}
+
+function get_editor_settings() {
+	return [
+		'textarea_name' => 'contributor_description',
+		'tabfocus_elements' => 'content-html,save-post',
+		'editor_height' => 300,
+		'wpautop' => true,
+		'media_buttons' => false,
+		'quicktags' => [
+			'buttons' => 'strong,em,link,close',
+		],
+		'tinymce' => [
+			'toolbar1' => 'bold,italic,|,link,unlink,|,undo,redo',
+			'toolbar2' => '',
+			'toolbar3' => '',
+		],
+	];
 }
 
 /**
@@ -1251,20 +1334,79 @@ function save_contributor_meta( $term_id, $tt_id, $taxonomy ) {
 	if ( ! isset( $_POST['contributor_meta_nonce'] ) || ! wp_verify_nonce( $_POST['contributor_meta_nonce'], 'contributor-meta' ) ) {
 		return;
 	}
-	$old_first_name  = get_term_meta( $term_id, 'contributor_first_name', true );
-	$old_last_name  = get_term_meta( $term_id, 'contributor_last_name', true );
-	$new_first_name = isset( $_POST['contributor_first_name'] ) ? sanitize_text_field( $_POST['contributor_first_name'] ) : '';
-	$new_last_name = isset( $_POST['contributor_last_name'] ) ? sanitize_text_field( $_POST['contributor_last_name'] ) : '';
-	if ( $new_first_name === '' ) {
-		delete_term_meta( $term_id, 'contributor_first_name' );
-	} elseif ( $old_first_name !== $new_first_name ) {
-		update_term_meta( $term_id, 'contributor_first_name', $new_first_name );
+
+	$contributors_fields = Contributors::getContributorFields();
+	foreach ( $contributors_fields as $term => $meta_tags ) {
+		$value = false;
+		if ( isset( $_POST[ $term ] ) ) {
+			$value = $_POST[ $term ];
+			if ( array_key_exists( 'sanitization_method', $meta_tags ) ) {
+				$value = $meta_tags['sanitization_method']( $value );
+			}
+		}
+		$value ? update_term_meta( $term_id, $term, $value ) : delete_term_meta( $term_id, $term );
 	}
-	if ( $new_last_name === '' ) {
-		delete_term_meta( $term_id, 'contributor_last_name' );
-	} elseif ( $old_last_name !== $new_last_name ) {
-		update_term_meta( $term_id, 'contributor_last_name', $new_last_name );
+}
+
+/**
+ * Get and display custom columns in the Contributors list
+ *
+ * @param $string
+ * @param $columns
+ * @param $term_id
+ */
+function contributor_custom_columns( $string, $columns, $term_id ) {
+	switch ( $columns ) {
+		case Contributors::TAXONOMY . '_institution':
+			echo esc_html( get_term_meta( $term_id, Contributors::TAXONOMY . '_institution', true ) );
+			break;
+		case Contributors::TAXONOMY . '_description':
+			$description = wp_filter_nohtml_kses( get_term_meta( $term_id, Contributors::TAXONOMY . '_description', true ) );
+			$limit_description_characters = 180;
+			echo strlen( $description ) > $limit_description_characters ?
+					substr( $description, 0, $limit_description_characters ) . '...' :
+					$description;
+			break;
+		case Contributors::TAXONOMY . '_picture':
+			echo '<img src=\'' .
+				esc_html( get_term_meta( $term_id, Contributors::TAXONOMY . '_picture', true ) ) . '\' />';
+			break;
 	}
+}
+
+/**
+ * Add custom columns to the Contributors list
+ *
+ * @param $columns
+ * @return array
+ */
+function contributor_table_columns( $columns ) {
+	// Unset default columns but keep checkbox, so we can handle bulk actions.
+	$remove_keys = [ 'name', 'description', 'slug', 'posts' ];
+
+	$columns = array_diff_key( $columns, array_flip( $remove_keys ) );
+
+	$new_columns = [
+		Contributors::TAXONOMY . '_picture' => Contributors::getContributorFields( 'picture' )['label'],
+		'name' => __( 'Name', 'pressbooks' ),
+		Contributors::TAXONOMY . '_institution' => Contributors::getContributorFields( 'institution' )['label'],
+		Contributors::TAXONOMY . '_description' => Contributors::getContributorFields( 'description' )['label'],
+	];
+
+	return array_merge( $columns, $new_columns );
+}
+
+/**
+ * Specify sortable columns in the Contributors list
+ *
+ * @param $columns
+ * @return string[]
+ */
+function contributor_sortable_columns( $columns ) {
+	$columns = [
+		'name' => 'name',
+	];
+	return $columns;
 }
 
 /**
