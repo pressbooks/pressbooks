@@ -474,7 +474,7 @@ class Book {
 	 */
 	public function getTotalBooks() {
 		global $wpdb;
-		$root_id = 1; // root network id should not be considered
+		$root_id = get_network()->site_id; // root network id should not be considered
 
 		$total = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(DISTINCT blog_id) FROM {$wpdb->blogmeta} WHERE blog_id <> %d AND meta_key = %s ", $root_id, self::TIMESTAMP ) );
 
