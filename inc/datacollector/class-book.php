@@ -320,7 +320,7 @@ class Book {
 		$wp_quicklatex_activated = is_plugin_active_for_network( 'wp-quicklatex/wp-quicklatex.php' ) || is_plugin_active( 'wp-quicklatex/wp-quicklatex.php' );
 		update_site_meta( $book_id, self::WP_QUICK_LATEX_ACTIVATED, $wp_quicklatex_activated ? 1 : 0 );
 
-		$hypothesis_options = get_option( 'wp_hypothesis_options' );
+		$hypothesis_options = get_option( 'wp_hypothesis_options' ) ?: [];
 		$active_options = array_intersect_key( array_flip( self::$hypothesis_keys ), $hypothesis_options );
 
 		update_site_meta( $book_id, self::HYPOTHESIS_ACTIVATED, empty( $active_options ) ? 0 : 1 );
