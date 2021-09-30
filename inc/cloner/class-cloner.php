@@ -1452,14 +1452,8 @@ class Cloner {
 		// Remove items handled by cloneSectionMetadata()
 		unset( $section['meta']['pb_authors'], $section['meta']['pb_section_license'] );
 
-		if ( isset( $section['meta']['pb_part_invisible_string'] ) ) {
-			// pb_part_invisible metadata compatibility with previous boolean type (false | null)
-			if ( is_bool( $section['meta']['pb_part_invisible_string'] ) && $section['meta']['pb_part_invisible_string'] === false ) {
-				$section['meta']['pb_part_invisible_string'] = '';
-			}
-			if ( is_null( $section['meta']['pb_part_invisible_string'] ) ) {
-				$section['meta']['pb_part_invisible_string'] = 'on';
-			}
+		if ( array_key_exists( 'pb_part_invisible', $section['meta'] ) ) {
+			unset( $section['meta']['pb_part_invisible'] );
 		}
 
 		// POST internal request
@@ -1475,6 +1469,9 @@ class Cloner {
 
 		// Set pb_is_based_on property
 		update_post_meta( $response['id'], 'pb_is_based_on', $permalink );
+		if ( isset( $section['meta']['pb_part_invisible_string'] ) && $section['meta']['pb_part_invisible_string'] === 'on' ) {
+			update_post_meta( $response['id'], 'pb_part_invisible', 'on' );
+		}
 
 		// Clone associated content
 		if ( $post_type !== 'part' ) {
