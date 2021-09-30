@@ -112,16 +112,16 @@ class PDFOptions extends \Pressbooks\Options {
 			);
 
 			add_settings_field(
-					'pdf_footnote_font_size',
-					__( 'Footnote Font Size', 'pressbooks' ),
-					[ $this, 'renderFootnoteFontSizeField' ],
-					$_page,
-					$_section,
-					[
-							'',
-							'pt',
-							'label_for' => 'pdf_footnote_font_size',
-					]
+				'pdf_footnote_font_size',
+				__( 'Footnote Font Size', 'pressbooks' ),
+				[ $this, 'renderFootnoteFontSizeField' ],
+				$_page,
+				$_section,
+				[
+					'',
+					'pt',
+					'label_for' => 'pdf_footnote_font_size',
+				]
 			);
 
 			add_settings_field(
@@ -740,16 +740,16 @@ class PDFOptions extends \Pressbooks\Options {
 	function renderFootnoteFontSizeField( $args ) {
 		unset( $args['label_for'], $args['class'] );
 		$this->renderField(
-				[
-						'id' => 'pdf_footnote_font_size',
-						'name' => 'pressbooks_theme_options_' . $this->getSlug(),
-						'option' => 'pdf_footnote_font_size',
-						'value' => ( isset( $this->options['pdf_footnote_font_size'] ) ) ? $this->options['pdf_footnote_font_size'] : $this->defaults['pdf_footnote_font_size'],
-						'description' => $args[0],
-						'append' => $args[1],
-						'type' => 'text',
-						'class' => 'small-text',
-				]
+			[
+				'id' => 'pdf_footnote_font_size',
+				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
+				'option' => 'pdf_footnote_font_size',
+				'value' => ( isset( $this->options['pdf_footnote_font_size'] ) ) ? $this->options['pdf_footnote_font_size'] : $this->defaults['pdf_footnote_font_size'],
+				'description' => $args[0],
+				'append' => $args[1],
+				'type' => 'text',
+				'class' => 'small-text',
+			]
 		);
 	}
 
@@ -1942,9 +1942,9 @@ class PDFOptions extends \Pressbooks\Options {
 		if ( $v2_compatible && isset( $options['pdf_footnote_font_size'] ) ) {
 			$fontsize = $options['pdf_footnote_font_size'] . 'pt';
 			$styles->getSass()->setVariables(
-					[
-							'footnote-font-size' => "(epub: 0.9em, prince: $fontsize, web: 0.9em)",
-					]
+				[
+					'footnote-font-size' => "(epub: 0.9em, prince: $fontsize, web: 0.9em)",
+				]
 			);
 		}
 
