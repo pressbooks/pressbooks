@@ -62,6 +62,33 @@ class User {
 		add_action( 'profile_update', [ $obj, 'updateMetaData' ] );
 	}
 
+	/**
+	 * @return \Generator
+	 */
+	public function updateAllUsersMetadata(): \Generator {
+		// Try to stop a Cache Stampede, Dog-Pile, Cascading Failure...
+		$in_progress_transient = 'pb_user_sync_cron_in_progress';
+		if ( ! get_transient( $in_progress_transient ) ) {
+			set_transient( $in_progress_transient, 1, 15 * MINUTE_IN_SECONDS );
+
+			set_time_limit( 0 );
+			ini_set( 'memory_limit', -1 );
+			ignore_user_abort( true );
+
+			global $wpdb;
+			$users = $wpdb->get_col( "SELECT ID FROM {$wpdb->users} WHERE spam = 0 AND spam = 0" );
+
+			foreach ( $users as $user_id ) {
+				$this->updateMetaData( $user_id );
+				yield;
+			}
+
+			// Timestamp
+			update_site_option( 'pb_user_sync_cron_timestamp', gmdate( 'Y-m-d H:i:s' ) );
+			delete_transient( $in_progress_transient );
+		}
+	}
+
 	public function updateMetaData( $user_id ) {
 		global $wpdb;
 
