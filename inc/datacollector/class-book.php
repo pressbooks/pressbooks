@@ -95,7 +95,7 @@ class Book {
 		'allow-on-part',
 		'allow-on-chapter',
 		'allow-on-front-matter',
-		'allow-on-back-matter'
+		'allow-on-back-matter',
 	];
 
 	/**
@@ -116,13 +116,6 @@ class Book {
 		add_action( 'wp_update_site', [ $obj, 'updateSite' ], 999, 2 );
 		add_action( 'wp_insert_post', [ $obj, 'updateMetaData' ], 10, 3 ); // Trigger after deleteBookObjectCache
 		add_action( 'wp_delete_site', [ $obj, 'deleteSite' ], 999 );
-	}
-
-	/**
-	 *
-	 */
-	public function __construct() {
-
 	}
 
 	// ------------------------------------------------------------------------
