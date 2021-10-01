@@ -5,6 +5,11 @@ jQuery( function ( $ ) {
 		contributorPictureThumbnailElement = jQuery( '#contributor-picture-thumbnail' );
 
 	/**
+	 * Add read only property for slug input
+	 */
+	jQuery( '#slug' ).attr( 'readonly', true );
+
+	/**
 	 * Return whether the image must be cropped, based on required dimensions.
 	 *
 	 * @param {boolean} flexW

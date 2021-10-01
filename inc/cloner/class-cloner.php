@@ -237,6 +237,14 @@ class Cloner {
 	public $isImporting = false;
 
 	/**
+	 * List of contributors inserted.
+	 *
+	 * @var array
+	 */
+	private $contributorsInserted = [];
+
+
+	/**
 	 * Constructor.
 	 *
 	 * @since 4.1.0
@@ -1326,7 +1334,7 @@ class Cloner {
 					if ( ! isset( $contributor_data['slug'] ) ) {
 						$contributor_data['slug'] = sanitize_title_with_dashes( remove_accents( $contributor_data['name'] ), '', 'save' );
 					}
-					$this->contributors->insert( $contributor_data, $metadata_post_id, $key, $this->downloads, $this->isImporting ? 'name' : 'slug' );
+					$this->contributors->insert( $contributor_data, $metadata_post_id, $key, $this->downloads, 'slug' );
 					if ( $key === 'pb_authors' ) {
 						$authors_slug[] = $contributor_data['slug'];
 					}
@@ -1444,14 +1452,8 @@ class Cloner {
 		// Remove items handled by cloneSectionMetadata()
 		unset( $section['meta']['pb_authors'], $section['meta']['pb_section_license'] );
 
-		if ( isset( $section['meta']['pb_part_invisible'] ) ) {
-			// pb_part_invisible metadata compatibility with previous boolean type (false | null)
-			if ( is_bool( $section['meta']['pb_part_invisible'] ) && $section['meta']['pb_part_invisible'] === false ) {
-				$section['meta']['pb_part_invisible'] = '';
-			}
-			if ( is_null( $section['meta']['pb_part_invisible'] ) ) {
-				$section['meta']['pb_part_invisible'] = 'on';
-			}
+		if ( array_key_exists( 'pb_part_invisible', $section['meta'] ) ) {
+			unset( $section['meta']['pb_part_invisible'] );
 		}
 
 		// POST internal request
@@ -1467,6 +1469,9 @@ class Cloner {
 
 		// Set pb_is_based_on property
 		update_post_meta( $response['id'], 'pb_is_based_on', $permalink );
+		if ( isset( $section['meta']['pb_part_invisible_string'] ) && $section['meta']['pb_part_invisible_string'] === 'on' ) {
+			update_post_meta( $response['id'], 'pb_part_invisible', 'on' );
+		}
 
 		// Clone associated content
 		if ( $post_type !== 'part' ) {
@@ -1635,7 +1640,17 @@ class Cloner {
 					if ( ! isset( $contributor_data['slug'] ) ) {
 						$contributor_data['slug'] = sanitize_title_with_dashes( remove_accents( $contributor_data['name'] ), '', 'save' );
 					}
-					$this->contributors->insert( $contributor_data, $target_id, $key, $this->downloads, $this->isImporting ? 'name' : 'slug' );
+					if ( $this->isImporting && array_key_exists( $contributor_data['slug'], $this->contributorsInserted ) ) {
+						$this->contributors->link( $this->contributorsInserted[ $contributor_data['slug'] ], $target_id, $key );
+						continue;
+					}
+					$this->contributorsInserted[ $contributor_data['slug'] ] = $this->contributors->insert(
+						$contributor_data,
+						$target_id,
+						$key,
+						$this->downloads,
+						$this->isImporting ? 'disambiguate' : 'slug'
+					);
 				}
 			} else {
 				update_post_meta( $target_id, $key, $value );
