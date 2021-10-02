@@ -152,7 +152,7 @@ class Modules_ImportTest extends \WP_UnitTestCase {
 
 		$this->assertEquals( 'contributor', $term->taxonomy );
 		$this->assertEquals( 'Jane Doe', $term->name );
-		$this->assertContains( "4tatoos.jpg", $meta['contributor_picture'][0] );
+		$this->assertContains( '4tatoos.jpg', $meta['contributor_picture'][0] );
 
 		$term_2 = get_term( $term_2['term_id'] );
 
