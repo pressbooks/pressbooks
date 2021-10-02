@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
-"POT-Creation-Date: 2021-09-29T01:28:39+00:00\n"
-"PO-Revision-Date: 2021-09-29 01:29+0000\n"
+"POT-Creation-Date: 2021-10-02T21:46:41+00:00\n"
+"PO-Revision-Date: 2021-10-02 21:47+0000\n"
 "Last-Translator: Ho Man Chan <homan@pressbooks.com>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/pressbooks/pressbooks/language/en_GB/)\n"
 "MIME-Version: 1.0\n"
@@ -708,7 +708,7 @@ msgstr "Table of Contents"
 #: inc/admin/dashboard/namespace.php:205 inc/admin/metaboxes/namespace.php:644
 #: inc/api/endpoints/controller/class-toc.php:192
 #: inc/posttype/namespace.php:115 inc/posttype/namespace.php:116
-#: inc/posttype/namespace.php:549 templates/admin/import.php:91
+#: inc/posttype/namespace.php:547 templates/admin/import.php:91
 #: templates/admin/organize.php:64 templates/admin/organize.php:87
 msgid "Front Matter"
 msgstr "Front Matter"
@@ -716,7 +716,7 @@ msgstr "Front Matter"
 #: inc/admin/dashboard/namespace.php:246 inc/admin/metaboxes/namespace.php:646
 #: inc/api/endpoints/controller/class-toc.php:225
 #: inc/posttype/namespace.php:143 inc/posttype/namespace.php:144
-#: inc/posttype/namespace.php:552 templates/admin/import.php:96
+#: inc/posttype/namespace.php:550 templates/admin/import.php:96
 #: templates/admin/organize.php:66 templates/admin/organize.php:95
 msgid "Back Matter"
 msgstr "Back Matter"
@@ -1226,8 +1226,8 @@ msgstr "Cover Image"
 #: inc/api/endpoints/controller/class-toc.php:202 inc/class-sass.php:89
 #: inc/modules/export/epub/class-epub201.php:1886
 #: inc/modules/themeoptions/class-globaloptions.php:561
-#: inc/posttype/namespace.php:87 inc/posttype/namespace.php:543
-#: inc/posttype/namespace.php:581 templates/admin/import.php:94
+#: inc/posttype/namespace.php:87 inc/posttype/namespace.php:541
+#: inc/posttype/namespace.php:579 templates/admin/import.php:94
 #: tests/test-posttype.php:261
 msgid "Part"
 msgstr "Part"
@@ -1590,8 +1590,8 @@ msgstr ""
 #: inc/admin/metaboxes/namespace.php:645
 #: inc/api/endpoints/controller/class-toc.php:209 inc/class-sass.php:78
 #: inc/modules/themeoptions/class-globaloptions.php:562
-#: inc/posttype/namespace.php:64 inc/posttype/namespace.php:546
-#: inc/posttype/namespace.php:585 templates/admin/import.php:92
+#: inc/posttype/namespace.php:64 inc/posttype/namespace.php:544
+#: inc/posttype/namespace.php:583 templates/admin/import.php:92
 #: templates/admin/organize.php:91
 msgid "Chapter"
 msgstr "Chapter"
@@ -1950,7 +1950,7 @@ msgid "Custom CSS for Web"
 msgstr "Custom CSS for Web"
 
 #: inc/class-activation.php:282 inc/posttype/namespace.php:165
-#: inc/posttype/namespace.php:166 inc/posttype/namespace.php:540
+#: inc/posttype/namespace.php:166 inc/posttype/namespace.php:538
 #: templates/admin/import.php:118
 msgid "Book Information"
 msgstr "Book Information"
@@ -1976,163 +1976,159 @@ msgstr "Invalid URL."
 msgid "No book found."
 msgstr "No book found."
 
-#: inc/class-contributors.php:419
+#: inc/class-contributors.php:434
 msgid "Prefix"
 msgstr ""
 
-#: inc/class-contributors.php:422
+#: inc/class-contributors.php:437
 msgid ""
 "Prefix to be displayed before this contributor's name, e.g. Dr., Prof., Ms.,"
 " Rev., Capt."
 msgstr ""
 
-#: inc/class-contributors.php:426
+#: inc/class-contributors.php:441
 msgid "First Name"
 msgstr "First Name"
 
-#: inc/class-contributors.php:432
+#: inc/class-contributors.php:447
 msgid "Last Name"
 msgstr "Last Name"
 
-#: inc/class-contributors.php:438
+#: inc/class-contributors.php:453
 msgid "Suffix"
 msgstr ""
 
-#: inc/class-contributors.php:441
+#: inc/class-contributors.php:456
 msgid ""
 "Suffix to be displayed after this contributors's name, e.g. Jr., Sr., IV, "
 "PhD, MD, USN (Ret.)."
 msgstr ""
 
-#: inc/class-contributors.php:445
+#: inc/class-contributors.php:460
 msgid "Picture"
 msgstr ""
 
-#: inc/class-contributors.php:451
+#: inc/class-contributors.php:466
 msgid "Biographical Info"
 msgstr ""
 
-#: inc/class-contributors.php:456
+#: inc/class-contributors.php:471
 msgid "Institution"
 msgstr ""
 
-#: inc/class-contributors.php:459
+#: inc/class-contributors.php:474
 msgid ""
 "Institution this contributor is associated with, e.g. Rebus Foundation, Open"
 " University, Amnesty International."
 msgstr ""
 
-#: inc/class-contributors.php:466
+#: inc/class-contributors.php:481
 msgid "Website for this contributor. Must be a valid URL."
 msgstr ""
 
-#: inc/class-contributors.php:470
+#: inc/class-contributors.php:485
 msgid "Twitter"
 msgstr ""
 
-#: inc/class-contributors.php:473
+#: inc/class-contributors.php:488
 msgid "Twitter profile for this contributor. Must be a valid URL."
 msgstr ""
 
-#: inc/class-contributors.php:477
+#: inc/class-contributors.php:492
 msgid "LinkedIn"
 msgstr ""
 
-#: inc/class-contributors.php:480
+#: inc/class-contributors.php:495
 msgid "LinkedIn profile for this contributor. Must be a valid URL."
 msgstr ""
 
-#: inc/class-contributors.php:484
+#: inc/class-contributors.php:499
 msgid "GitHub"
 msgstr ""
 
-#: inc/class-contributors.php:487
+#: inc/class-contributors.php:502
 msgid "GitHub profile for this contributor. Must be a valid URL."
 msgstr ""
 
-#: inc/class-contributors.php:558
+#: inc/class-contributors.php:573
 msgid ""
 "<p>Import multiple contributors at once by uploading a valid JSON file. See "
 "<a href=\"%s\" target=\"_blank\">our guide</a> for details.</p>"
 msgstr ""
 
-#: inc/class-contributors.php:561
+#: inc/class-contributors.php:576
 msgid "Import Contributors"
 msgstr ""
 
-#: inc/class-eventstreams.php:177
-msgid "ping"
-msgstr ""
-
-#: inc/class-eventstreams.php:204
+#: inc/class-eventstreams.php:197
 msgid ""
 "Cloning succeeded! Cloned %1$s, %2$s, %3$s, %4$s, %5$s, %6$s, %7$s, and %8$s"
 " to %9$s."
 msgstr "Cloning succeeded! Cloned %1$s, %2$s, %3$s, %4$s, %5$s, %6$s, %7$s, and %8$s to %9$s."
 
-#: inc/class-eventstreams.php:205
+#: inc/class-eventstreams.php:198
 msgid "%s term"
 msgid_plural "%s terms"
 msgstr[0] "%s term"
 msgstr[1] "%s terms"
 
-#: inc/class-eventstreams.php:206
+#: inc/class-eventstreams.php:199
 #: inc/modules/import/wordpress/class-wxr.php:417
 msgid "%s front matter"
 msgid_plural "%s front matter"
 msgstr[0] "%s front matter"
 msgstr[1] "%s front matter"
 
-#: inc/class-eventstreams.php:207
+#: inc/class-eventstreams.php:200
 #: inc/modules/import/wordpress/class-wxr.php:418
 msgid "%s part"
 msgid_plural "%s parts"
 msgstr[0] "%s part"
 msgstr[1] "%s parts"
 
-#: inc/class-eventstreams.php:208
+#: inc/class-eventstreams.php:201
 #: inc/modules/import/wordpress/class-wxr.php:419
 msgid "%s chapter"
 msgid_plural "%s chapters"
 msgstr[0] "%s chapter"
 msgstr[1] "%s chapters"
 
-#: inc/class-eventstreams.php:209
+#: inc/class-eventstreams.php:202
 #: inc/modules/import/wordpress/class-wxr.php:420
 msgid "%s back matter"
 msgid_plural "%s back matter"
 msgstr[0] "%s back matter"
 msgstr[1] "%s back matter"
 
-#: inc/class-eventstreams.php:210
+#: inc/class-eventstreams.php:203
 #: inc/modules/import/wordpress/class-wxr.php:421
 msgid "%s media attachment"
 msgid_plural "%s media attachments"
 msgstr[0] "%s media attachment"
 msgstr[1] "%s media attachments"
 
-#: inc/class-eventstreams.php:211
+#: inc/class-eventstreams.php:204
 msgid "%s H5P element"
 msgid_plural "%s H5P elements"
 msgstr[0] "%s H5P element"
 msgstr[1] "%s H5P elements"
 
-#: inc/class-eventstreams.php:212
+#: inc/class-eventstreams.php:205
 #: inc/modules/import/wordpress/class-wxr.php:422
 msgid "%s glossary term"
 msgid_plural "%s glossary terms"
 msgstr[0] "%s glossary term"
 msgstr[1] "%s glossary terms"
 
-#: inc/class-eventstreams.php:235
+#: inc/class-eventstreams.php:227
 msgid "No export format was selected."
 msgstr "No export format was selected."
 
-#: inc/class-eventstreams.php:279
+#: inc/class-eventstreams.php:271
 msgid "No chapters were selected for import."
 msgstr "No chapters were selected for import."
 
-#: inc/class-eventstreams.php:303
+#: inc/class-eventstreams.php:295
 msgid "You do not have sufficient permissions to access this page."
 msgstr "You do not have sufficient permissions to access this page."
 
@@ -2480,116 +2476,116 @@ msgstr "Web"
 msgid "Last 10 Revisions"
 msgstr "Last 10 Revisions"
 
-#: inc/cloner/class-cloner.php:404 inc/modules/import/api/class-api.php:122
+#: inc/cloner/class-cloner.php:412 inc/modules/import/api/class-api.php:115
 msgid "Looking up the source book"
 msgstr "Looking up the source book"
 
-#: inc/cloner/class-cloner.php:406
+#: inc/cloner/class-cloner.php:414
 msgid "Failed to setup source"
 msgstr "Failed to setup source"
 
-#: inc/cloner/class-cloner.php:410
+#: inc/cloner/class-cloner.php:418
 msgid "Creating the target book"
 msgstr "Creating the target book"
 
-#: inc/cloner/class-cloner.php:421
+#: inc/cloner/class-cloner.php:429
 msgid "Cloning metadata"
 msgstr "Cloning metadata"
 
-#: inc/cloner/class-cloner.php:428
+#: inc/cloner/class-cloner.php:436
 msgid "Cloning contributors and licenses"
 msgstr "Cloning contributors and licenses"
 
-#: inc/cloner/class-cloner.php:439
+#: inc/cloner/class-cloner.php:447
 msgid "Cloning front matter"
 msgstr "Cloning front matter"
 
-#: inc/cloner/class-cloner.php:453 inc/cloner/class-cloner.php:458
+#: inc/cloner/class-cloner.php:461 inc/cloner/class-cloner.php:466
 msgid "Cloning parts and chapters"
 msgstr "Cloning parts and chapters"
 
-#: inc/cloner/class-cloner.php:470
+#: inc/cloner/class-cloner.php:478
 msgid "Cloning back matter"
 msgstr "Cloning back matter"
 
-#: inc/cloner/class-cloner.php:493 inc/covergenerator/class-generator.php:301
+#: inc/cloner/class-cloner.php:501 inc/covergenerator/class-generator.php:301
 #: inc/modules/export/epub/class-epub201.php:392
 #: inc/modules/import/class-import.php:375
 msgid "Finishing up"
 msgstr "Finishing up"
 
-#: inc/cloner/class-cloner.php:509
+#: inc/cloner/class-cloner.php:517
 msgid ""
 "You can only clone from a book hosted by Pressbooks 4.1 or later. Please "
 "ensure that your source book meets these requirements."
 msgstr "You can only clone from a book hosted by Pressbooks 4.1 or later. Please ensure that your source book meets these requirements."
 
-#: inc/cloner/class-cloner.php:516
+#: inc/cloner/class-cloner.php:524
 msgid "Could not retrieve metadata from %s."
 msgstr "Could not retrieve metadata from %s."
 
-#: inc/cloner/class-cloner.php:524
+#: inc/cloner/class-cloner.php:532
 msgid "%s is not licensed for cloning."
 msgstr "%s is not licensed for cloning."
 
-#: inc/cloner/class-cloner.php:533
+#: inc/cloner/class-cloner.php:541
 msgid "Could not retrieve contents and structure from %s."
 msgstr "Could not retrieve contents and structure from %s."
 
-#: inc/cloner/class-cloner.php:541
+#: inc/cloner/class-cloner.php:549
 msgid "Could not retrieve taxonomies from %s."
 msgstr "Could not retrieve taxonomies from %s."
 
-#: inc/cloner/class-cloner.php:549
+#: inc/cloner/class-cloner.php:557
 msgid "Could not retrieve media from %s."
 msgstr "Could not retrieve media from %s."
 
-#: inc/cloner/class-cloner.php:718
+#: inc/cloner/class-cloner.php:726
 msgid ""
 "The source book contained H5P content that could not be cloned. Please "
 "review the cloned version of your book carefully, as missing H5P content "
 "will be indicated. You may want to remove or replace these elements."
 msgstr "The source book contained H5P content that could not be cloned. Please review the cloned version of your book carefully, as missing H5P content will be indicated. You may want to remove or replace these elements."
 
-#: inc/cloner/class-cloner.php:740
+#: inc/cloner/class-cloner.php:748
 msgid "The source book&rsquo;s media could not be read."
 msgstr "The source book&rsquo;s media could not be read."
 
-#: inc/cloner/class-cloner.php:814
+#: inc/cloner/class-cloner.php:822
 msgid "The source book&rsquo;s metadata could not be read."
 msgstr "The source book&rsquo;s metadata could not be read."
 
-#: inc/cloner/class-cloner.php:845
+#: inc/cloner/class-cloner.php:853
 msgid "The source book&rsquo;s structure and contents could not be read."
 msgstr "The source book&rsquo;s structure and contents could not be read."
 
-#: inc/cloner/class-cloner.php:887
+#: inc/cloner/class-cloner.php:895
 msgid "The source book&rsquo;s taxonomies could not be read."
 msgstr "The source book&rsquo;s taxonomies could not be read."
 
-#: inc/cloner/class-cloner.php:1873
+#: inc/cloner/class-cloner.php:1888
 msgid "Your book URL can only contain lowercase letters (a-z) and numbers."
 msgstr "Your book URL can only contain lowercase letters (a-z) and numbers."
 
-#: inc/cloner/class-cloner.php:1875
+#: inc/cloner/class-cloner.php:1890
 msgid "Your book URL must contain at least some letters."
 msgstr "Your book URL must contain at least some letters."
 
-#: inc/cloner/class-cloner.php:1877
+#: inc/cloner/class-cloner.php:1892
 msgid "That book URL is not allowed."
 msgstr "That book URL is not allowed."
 
-#: inc/cloner/class-cloner.php:1879
+#: inc/cloner/class-cloner.php:1894
 msgid "Your book URL must be at least %s character."
 msgid_plural "Your book URL must be at least %s characters."
 msgstr[0] "Your book URL must be at least %s character."
 msgstr[1] "Your book URL must be at least %s characters."
 
-#: inc/cloner/class-cloner.php:1881
+#: inc/cloner/class-cloner.php:1896
 msgid "Sorry, you may not use that book URL."
 msgstr "Sorry, you may not use that book URL."
 
-#: inc/cloner/class-cloner.php:1883
+#: inc/cloner/class-cloner.php:1898
 msgid "Sorry, that book URL already exists!"
 msgstr "Sorry, that book URL already exists!"
 
@@ -2838,7 +2834,7 @@ msgid ""
 "all available fields."
 msgstr "If you need to enter additional information, click the button below to see all available fields."
 
-#: inc/metadata/namespace.php:1158
+#: inc/metadata/namespace.php:1161
 msgid ""
 "The %1$s Thema subject terms requested for this book could not be downloaded"
 " from %2$s. Please report this error to your network manager."
@@ -3155,23 +3151,23 @@ msgstr "Creating dedication and epigraph"
 msgid "Notes"
 msgstr "Notes"
 
-#: inc/modules/import/api/class-api.php:90
+#: inc/modules/import/api/class-api.php:83
 msgid "No chapters in %s are licensed for cloning."
 msgstr "No chapters in %s are licensed for cloning."
 
-#: inc/modules/import/api/class-api.php:147
+#: inc/modules/import/api/class-api.php:141
 msgid "Importing front matter"
 msgstr "Importing front matter"
 
-#: inc/modules/import/api/class-api.php:170
+#: inc/modules/import/api/class-api.php:164
 msgid "Importing parts and chapters"
 msgstr "Importing parts and chapters"
 
-#: inc/modules/import/api/class-api.php:195
+#: inc/modules/import/api/class-api.php:189
 msgid "Importing back matter"
 msgstr "Importing back matter"
 
-#: inc/modules/import/api/class-api.php:211
+#: inc/modules/import/api/class-api.php:205
 msgid "Importing glossary terms"
 msgstr "Importing glossary terms"
 
@@ -3952,56 +3948,56 @@ msgstr "Chapter Copyright Licence (overrides book licence on this page)"
 msgid "Whether or not the part is shown in the table of contents"
 msgstr "Whether or not the part is shown in the table of contents"
 
-#: inc/posttype/namespace.php:386
+#: inc/posttype/namespace.php:384
 msgid "Media attribution source url"
 msgstr "Media attribution source url"
 
-#: inc/posttype/namespace.php:395
+#: inc/posttype/namespace.php:393
 msgid "Media attribution author"
 msgstr "Media attribution author"
 
-#: inc/posttype/namespace.php:404
+#: inc/posttype/namespace.php:402
 msgid "Media attribution author url"
 msgstr "Media attribution author url"
 
-#: inc/posttype/namespace.php:413
+#: inc/posttype/namespace.php:411
 msgid "Media attribution adapted by"
 msgstr "Media attribution adapted by"
 
-#: inc/posttype/namespace.php:422
+#: inc/posttype/namespace.php:420
 msgid "Media attribution adapted by url"
 msgstr "Media attribution adapted by url"
 
-#: inc/posttype/namespace.php:431
+#: inc/posttype/namespace.php:429
 msgid "Media attribution license"
 msgstr "Media attribution license"
 
-#: inc/posttype/namespace.php:443
+#: inc/posttype/namespace.php:441
 msgctxt "post status"
 msgid "Web Only"
 msgstr "Web Only"
 
-#: inc/posttype/namespace.php:488
+#: inc/posttype/namespace.php:486
 msgid "parts"
 msgstr "parts"
 
-#: inc/posttype/namespace.php:489
+#: inc/posttype/namespace.php:487
 msgid "chapters"
 msgstr "chapters"
 
-#: inc/posttype/namespace.php:490
+#: inc/posttype/namespace.php:488
 msgid "front matter"
 msgstr "front matter"
 
-#: inc/posttype/namespace.php:491
+#: inc/posttype/namespace.php:489
 msgid "back matter"
 msgstr "back matter"
 
-#: inc/posttype/namespace.php:492
+#: inc/posttype/namespace.php:490
 msgid "glossary"
 msgstr "glossary"
 
-#: inc/posttype/namespace.php:555 templates/admin/import.php:97
+#: inc/posttype/namespace.php:553 templates/admin/import.php:97
 #: templates/admin/organize.php:68
 msgid "Glossary"
 msgstr "Glossary"
