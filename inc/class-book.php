@@ -111,9 +111,7 @@ class Book {
 			if ( $cached_book_information ) {
 				$contributors_cached_as_string = true;
 				foreach ( $contributors->valid as $contributor_type ) {
-					if (
-						isset( $cached_book_information[ $contributor_type ] )
-					) {
+					if ( isset( $cached_book_information[ $contributor_type ] ) ) {
 						$contributors_cached_as_string = is_string( $cached_book_information[ $contributor_type ] );
 						break;
 					}

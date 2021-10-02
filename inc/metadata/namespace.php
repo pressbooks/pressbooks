@@ -474,7 +474,10 @@ function schema_to_book_information( $book_schema ) {
 
 	$contributors = new Contributors();
 	foreach ( $contributors->valid as $contributor_type ) {
-		if ( isset( $book_schema[ $mapped_properties[ $contributor_type ] ] ) ) {
+		if (
+			isset( $book_schema[ $mapped_properties[ $contributor_type ] ] ) &&
+			! empty( $book_schema[ $mapped_properties[ $contributor_type ] ] )
+		) {
 			if ( isset( $book_schema[ $mapped_properties[ $contributor_type ] ][0]['name'] ) ) {
 				$book_information[ $contributor_type ] = $book_schema[ $mapped_properties[ $contributor_type ] ];
 			} else {
