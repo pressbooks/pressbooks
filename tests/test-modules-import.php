@@ -159,12 +159,13 @@ class Modules_ImportTest extends \WP_UnitTestCase {
 		$this->assertContains( '-', $term_2->slug );
 
 		// Clean attachments after test
-		array_map( 'unlink', array_filter( (array) glob( '/tmp/wordpress/wp-content/uploads/*' ) ) );
+		$date = date( 'Y/m' );
+		array_map( 'unlink', array_filter( (array) glob( "/tmp/wordpress/wp-content/uploads/{$date}/*" ) ) );
 	}
 
 	public function test_searchMultipleContributorValues() {
 		$contributors = new \Pressbooks\Contributors();
-		$contributors->insert( 'Leo Schopenhauer', 1 );
+		$contributors->insert( "Leo Schopenhauer', 1 );
 		$contributors->insert( 'Leo Simon', 1 );
 		$contributors->insert( 'Mary User', 1, 'pb_editors' );
 
