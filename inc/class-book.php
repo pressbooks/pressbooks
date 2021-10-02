@@ -109,7 +109,14 @@ class Book {
 		if ( static::useCache() ) {
 			$cached_book_information = wp_cache_get( $cache_id, 'pb' );
 			if ( $cached_book_information ) {
-				if ( ! $read_contributors_from_cache ) {
+				$contributors_cached_as_string = true;
+				foreach ( $contributors->valid as $contributor_type ) {
+					if ( isset( $cached_book_information[ $contributor_type ] ) ) {
+						$contributors_cached_as_string = is_string( $cached_book_information[ $contributor_type ] );
+						break;
+					}
+				}
+				if ( ! $read_contributors_from_cache || $contributors_cached_as_string !== $contributors_as_string ) {
 					$cached_book_information = array_merge(
 						$cached_book_information,
 						$contributors->getAll(
