@@ -165,7 +165,7 @@ class Modules_ImportTest extends \WP_UnitTestCase {
 
 	public function test_searchMultipleContributorValues() {
 		$contributors = new \Pressbooks\Contributors();
-		$contributors->insert( "Leo Schopenhauer', 1 );
+		$contributors->insert( 'Leo Schopenhauer', 1 );
 		$contributors->insert( 'Leo Simon', 1 );
 		$contributors->insert( 'Mary User', 1, 'pb_editors' );
 
