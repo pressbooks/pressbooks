@@ -394,7 +394,7 @@ class Cloner {
 			foreach ( $this->cloneBookGenerator() as $percentage => $info ) {
 				// Do nothing, this is a compatibility wrapper that makes the generator work like a regular function
 			}
-		} catch ( \Exception $e ) { var_dump($e->getMessage());
+		} catch ( \Exception $e ) {
 			return false;
 		}
 		return true;
