@@ -159,7 +159,7 @@ class Modules_ImportTest extends \WP_UnitTestCase {
 		$this->assertContains( '-', $term_2->slug );
 
 		// Clean attachments after test
-		array_map( 'unlink', array_filter( (array) glob( '/tmp/wordpress/wp-content/uploads/*' ) ) );
+		array_map( 'unlink', array_filter( (array) glob( '/tmp/wordpress/wp-content/uploads/*/*.*' ) ) );
 	}
 
 	public function test_searchMultipleContributorValues() {
