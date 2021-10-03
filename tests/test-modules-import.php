@@ -139,7 +139,7 @@ class Modules_ImportTest extends \WP_UnitTestCase {
 		$last_term = get_terms(
 			[
 				'taxonomy' => 'contributor',
-				'hide_empty'    => false,
+				'hide_empty'	=> false,
 				'orderby' => 'id',
 				'order' => 'DESC',
 			]
@@ -152,14 +152,15 @@ class Modules_ImportTest extends \WP_UnitTestCase {
 
 		$this->assertEquals( 'contributor', $term->taxonomy );
 		$this->assertEquals( 'Jane Doe', $term->name );
-		$this->assertNotEmpty( $meta['contributor_picture'][0] );
+		$this->assertContains( '4tatoos.jpg', $meta['contributor_picture'][0] );
 
 		$term_2 = get_term( $term_2['term_id'] );
 
 		$this->assertContains( '-', $term_2->slug );
 
 		// Clean attachments after test
-		array_map( 'unlink', array_filter( (array) glob( '/tmp/wordpress/wp-content/uploads/**/*.*' ) ) );
+		$date = date( 'Y/m' );
+		array_map( 'unlink', array_filter( (array) glob( "/tmp/wordpress/wp-content/uploads/{$date}/*" ) ) );
 	}
 
 	public function test_searchMultipleContributorValues() {
