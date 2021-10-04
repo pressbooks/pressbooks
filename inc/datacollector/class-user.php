@@ -76,7 +76,7 @@ class User {
 			ignore_user_abort( true );
 
 			global $wpdb;
-			$users = $wpdb->get_col( "SELECT ID FROM {$wpdb->users} WHERE spam = 0 AND spam = 0" );
+			$users = $wpdb->get_col( "SELECT ID FROM {$wpdb->users} WHERE spam = 0 AND deleted = 0" );
 
 			foreach ( $users as $user_id ) {
 				$this->updateMetaData( $user_id );
