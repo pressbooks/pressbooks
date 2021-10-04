@@ -60,6 +60,19 @@ function replace_root_dashboard_widgets() {
 	remove_meta_box( 'dashboard_rediscache', 'dashboard', 'normal' );
 
 	$user = wp_get_current_user();
+
+	/*
+	 * TODO: Check if the user has pending invitations and render the block properly.
+	 */
+	add_meta_box(
+		'pb_dashboard_widget_book_invitations',
+		__( 'Book Invitations', 'pressbooks' ),
+		__NAMESPACE__ . '\pending_invitations_callback',
+		'dashboard',
+		'normal',
+		'high'
+	);
+
 	if (
 		$user->roles &&
 		count( $user->roles ) === 1 &&
@@ -144,6 +157,20 @@ function lowly_user() {
 		}
 	}
 
+	$user = wp_get_current_user();
+
+	/*
+	 * TODO: Check if the user has pending invitations and render the block properly.
+	 */
+	add_meta_box(
+		'pb_dashboard_widget_book_invitations',
+		__( 'Book Invitations', 'pressbooks' ),
+		__NAMESPACE__ . '\pending_invitations_callback',
+		'dashboard-user',
+		'normal',
+		'high'
+	);
+
 	add_meta_box(
 		'pb_dashboard_widget_book_permissions',
 		__( 'Book Permissions', 'pressbooks' ),
@@ -152,6 +179,31 @@ function lowly_user() {
 		'normal',
 		'high'
 	);
+}
+
+/**
+ * Callback for /wp-admin and /wp-admin/user widget
+ *
+ * Renders book invitations if user has at least one pending book invitation.
+ */
+function pending_invitations_callback() {
+	// TODO: get all book invitations for the current user.
+	$invitations = [
+		'Taxonomy' => 'editor',
+		'Book List Test' => 'subscriber',
+	];
+
+	foreach ( $invitations as $book => $role ) {
+		echo <<<HTML
+<div>
+<p>You have been invited to join <a href="#$book"><strong>$book</strong></a> as an $role.</p>
+<div>
+<a class="button button-primary" href="#$book">Accept</a>
+<a class="button" href="#$book">Decline</a>
+</div>
+</div>
+HTML;
+	}
 }
 
 /**
