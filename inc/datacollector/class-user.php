@@ -138,13 +138,13 @@ class User {
 
 		$highest_role = $this->getHighestRole( $totals );
 
-		update_user_meta( $user_id, self::HIGHEST_ROLE, $highest_role );
 		update_user_meta( $user_id, self::TOTAL_BOOKS, $totals['books'] );
 		update_user_meta( $user_id, self::BOOKS_AS_ADMIN, $totals['administrator'] );
 		update_user_meta( $user_id, self::BOOKS_AS_EDITOR, $totals['editor'] );
 		update_user_meta( $user_id, self::BOOKS_AS_AUTHOR, $totals['author'] );
 		update_user_meta( $user_id, self::BOOKS_AS_CONTRIBUTOR, $totals['contributor'] );
 		update_user_meta( $user_id, self::BOOKS_AS_SUBSCRIBER, $totals['subscriber'] );
+		update_user_meta( $user_id, self::HIGHEST_ROLE, $highest_role );
 	}
 
 	/**
