@@ -89,6 +89,11 @@ class User {
 		}
 	}
 
+	/**
+	 * Sync user meta into wp_usermeta table.
+	 *
+	 * @param int $user_id
+	 */
 	public function updateMetaData( $user_id ) {
 		global $wpdb;
 
