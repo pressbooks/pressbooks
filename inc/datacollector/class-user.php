@@ -45,7 +45,7 @@ class User {
 	/**
 	 * @return User
 	 */
-	static public function init() {
+	public static function init() {
 		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
 			self::hooks( self::$instance );
@@ -56,7 +56,7 @@ class User {
 	/**
 	 * @param User $obj
 	 */
-	static public function hooks( User $obj ) {
+	public static function hooks( User $obj ) {
 		add_action( 'wp_login', [ $obj, 'setLastLogin' ], 0, 2 );
 		add_action( 'wp_login', [ $obj, 'setSubscriberRole' ], 0, 2 );
 		add_action( 'profile_update', [ $obj, 'updateMetaData' ] );

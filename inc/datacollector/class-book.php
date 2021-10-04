@@ -101,7 +101,7 @@ class Book {
 	/**
 	 * @return Book
 	 */
-	static public function init() {
+	public static function init() {
 		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
 			self::hooks( self::$instance );
@@ -112,7 +112,7 @@ class Book {
 	/**
 	 * @param Book $obj
 	 */
-	static public function hooks( Book $obj ) {
+	public static function hooks( Book $obj ) {
 		add_action( 'wp_update_site', [ $obj, 'updateSite' ], 999, 2 );
 		add_action( 'wp_insert_post', [ $obj, 'updateMetaData' ], 10, 3 ); // Trigger after deleteBookObjectCache
 		add_action( 'wp_delete_site', [ $obj, 'deleteSite' ], 999 );
