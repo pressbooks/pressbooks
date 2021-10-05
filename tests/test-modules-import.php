@@ -139,7 +139,7 @@ class Modules_ImportTest extends \WP_UnitTestCase {
 		$last_term = get_terms(
 			[
 				'taxonomy' => 'contributor',
-				'hide_empty'    => false,
+				'hide_empty' => false,
 				'orderby' => 'id',
 				'order' => 'DESC',
 			]

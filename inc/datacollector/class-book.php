@@ -63,6 +63,8 @@ class Book {
 
 	const WP_QUICK_LATEX_ACTIVATED = 'pb_wp_quick_latex_activated';
 
+	const HYPOTHESIS_ACTIVATED = 'pb_hypothesis_activated';
+
 	const GLOSSARY_TERMS = 'pb_glossary_terms';
 
 	const H5P_ACTIVITIES = 'pb_h5p_activities';
@@ -85,9 +87,21 @@ class Book {
 	private static $instance = null;
 
 	/**
+	 * Hypothesis is considered active if one of these keys is enabled.
+	 *
+	 * @var string[]
+	 */
+	private static $hypothesis_keys = [
+		'allow-on-part',
+		'allow-on-chapter',
+		'allow-on-front-matter',
+		'allow-on-back-matter',
+	];
+
+	/**
 	 * @return Book
 	 */
-	static public function init() {
+	public static function init() {
 		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
 			self::hooks( self::$instance );
@@ -98,17 +112,10 @@ class Book {
 	/**
 	 * @param Book $obj
 	 */
-	static public function hooks( Book $obj ) {
+	public static function hooks( Book $obj ) {
 		add_action( 'wp_update_site', [ $obj, 'updateSite' ], 999, 2 );
 		add_action( 'wp_insert_post', [ $obj, 'updateMetaData' ], 10, 3 ); // Trigger after deleteBookObjectCache
 		add_action( 'wp_delete_site', [ $obj, 'deleteSite' ], 999 );
-	}
-
-	/**
-	 *
-	 */
-	public function __construct() {
-
 	}
 
 	// ------------------------------------------------------------------------
@@ -306,6 +313,11 @@ class Book {
 		$wp_quicklatex_activated = is_plugin_active_for_network( 'wp-quicklatex/wp-quicklatex.php' ) || is_plugin_active( 'wp-quicklatex/wp-quicklatex.php' );
 		update_site_meta( $book_id, self::WP_QUICK_LATEX_ACTIVATED, $wp_quicklatex_activated ? 1 : 0 );
 
+		$hypothesis_options = get_option( 'wp_hypothesis_options' ) ?: [];
+		$active_options = array_intersect_key( array_flip( self::$hypothesis_keys ), $hypothesis_options );
+
+		update_site_meta( $book_id, self::HYPOTHESIS_ACTIVATED, empty( $active_options ) ? 0 : 1 );
+
 		update_site_meta( $book_id, self::GLOSSARY_TERMS, $this->glossaryTerms() );
 
 		$h5p_activated = is_plugin_active_for_network( 'h5p/h5p.php' ) || is_plugin_active( 'h5p/h5p.php' );
@@ -455,7 +467,7 @@ class Book {
 	 */
 	public function getTotalBooks() {
 		global $wpdb;
-		$root_id = 1; // root network id should not be considered
+		$root_id = get_network()->site_id; // root network id should not be considered
 
 		$total = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(DISTINCT blog_id) FROM {$wpdb->blogmeta} WHERE blog_id <> %d AND meta_key = %s ", $root_id, self::TIMESTAMP ) );
 
