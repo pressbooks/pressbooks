@@ -59,19 +59,21 @@ function replace_root_dashboard_widgets() {
 	// Remove third-party widgets
 	remove_meta_box( 'dashboard_rediscache', 'dashboard', 'normal' );
 
+	global $wpdb;
 	$user = wp_get_current_user();
 
-	/*
-	 * TODO: Check if the user has pending invitations and render the block properly.
-	 */
-	add_meta_box(
-		'pb_dashboard_widget_book_invitations',
-		__( 'Book Invitations', 'pressbooks' ),
-		__NAMESPACE__ . '\pending_invitations_callback',
-		'dashboard',
-		'normal',
-		'high'
-	);
+	$invitations = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(1) FROM $wpdb->usermeta WHERE meta_key LIKE %s AND user_id = %d", 'new_user_%', $user->ID ) );
+
+	if ( $invitations ) {
+		add_meta_box(
+			'pb_dashboard_widget_book_invitations',
+			__( 'Book Invitations', 'pressbooks' ),
+			__NAMESPACE__ . '\pending_invitations_callback',
+			'dashboard',
+			'normal',
+			'high'
+		);
+	}
 
 	if (
 		$user->roles &&
@@ -157,19 +159,21 @@ function lowly_user() {
 		}
 	}
 
+	global $wpdb;
 	$user = wp_get_current_user();
 
-	/*
-	 * TODO: Check if the user has pending invitations and render the block properly.
-	 */
-	add_meta_box(
-		'pb_dashboard_widget_book_invitations',
-		__( 'Book Invitations', 'pressbooks' ),
-		__NAMESPACE__ . '\pending_invitations_callback',
-		'dashboard-user',
-		'normal',
-		'high'
-	);
+	$invitations = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(1) FROM $wpdb->usermeta WHERE meta_key LIKE %s AND user_id = %d", 'new_user_%', $user->ID ) );
+
+	if ( $invitations ) {
+		add_meta_box(
+			'pb_dashboard_widget_book_invitations',
+			__( 'Book Invitations', 'pressbooks' ),
+			__NAMESPACE__ . '\pending_invitations_callback',
+			'dashboard-user',
+			'normal',
+			'high'
+		);
+	}
 
 	add_meta_box(
 		'pb_dashboard_widget_book_permissions',
@@ -187,23 +191,36 @@ function lowly_user() {
  * Renders book invitations if user has at least one pending book invitation.
  */
 function pending_invitations_callback() {
-	// TODO: get all book invitations for the current user.
-	$invitations = [
-		'Taxonomy' => 'editor',
-		'Book List Test' => 'subscriber',
-	];
+	global $wpdb;
 
-	foreach ( $invitations as $book => $role ) {
-		echo <<<HTML
-<div>
-<p>You have been invited to join <a href="#$book"><strong>$book</strong></a> as an $role.</p>
-<div>
-<a class="button button-primary" href="#$book">Accept</a>
-<a class="button" href="#$book">Decline</a>
-</div>
-</div>
-HTML;
+	$current_blog_id = get_current_blog_id();
+	$user_id = get_current_user_id();
+
+	$invitations = $wpdb->get_results( $wpdb->prepare( "SELECT meta_key, meta_value FROM $wpdb->usermeta WHERE meta_key LIKE %s AND user_id = %d", 'new_user_%', $user_id ) );
+
+	foreach ( $invitations as $invitation ) {
+		$metadata = maybe_unserialize( $invitation->meta_value );
+
+		switch_to_blog( $metadata['blog_id'] );
+
+		$message = sprintf(
+			__( 'You have been invited to join <a href="%1$s">%2$s</a> as %3$s %4$s', 'pressbooks' ),
+			home_url(),
+			get_site_meta( $metadata['blog_id'], 'pb_title', true ),
+			preg_match( '/^[aeiou]/i', $metadata['role'] ) ? 'an' : 'a',
+			$metadata['role']
+		);
+
+		echo "
+        <div>
+            <p>$message</p>
+            <a class='button button-primary' href='" . home_url( '/newbloguser/' . $metadata['key'] ) . "'>" . __( 'Accept', 'pressbooks' ) . '</a>
+        </div>
+        <hr/>
+        ';
 	}
+
+	switch_to_blog( $current_blog_id );
 }
 
 /**
