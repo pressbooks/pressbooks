@@ -370,7 +370,8 @@ function save_invitation_data( $user_id, $role, $newuser_key ) {
 	$blog_id = get_current_blog_id();
 
 	update_user_meta(
-		$user_id, "new_user_{$newuser_key}", [
+		$user_id, "new_user_{$newuser_key}",
+		[
 			'role' => $role['name'],
 			'key' => $newuser_key,
 			'blog_id' => $blog_id,
