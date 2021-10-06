@@ -300,8 +300,6 @@ class Registration extends \WP_UnitTestCase {
 		$_SERVER['REQUEST_URI'] = '/newbloguser/' . $key;
 		add_existing_user_to_blog( get_option( $meta_key ) );
 
-		wp_cache_flush();
-
 		$this->assertEmpty( get_user_meta( $user->ID, $meta_key, true ) );
 	}
 
@@ -333,8 +331,6 @@ class Registration extends \WP_UnitTestCase {
 
 		$_SERVER['REQUEST_URI'] = '/newbloguser/' . $key;
 		\Pressbooks\Registration\clean_invitation_data( $user->ID, false );
-
-		wp_cache_flush();
 
 		$this->assertNotEmpty( get_user_meta( $user->ID, $meta_key, true ) );
 	}

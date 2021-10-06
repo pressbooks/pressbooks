@@ -392,13 +392,11 @@ function clean_invitation_data( $user_id, $result ) {
 		return;
 	}
 
-	global $wpdb;
-
 	// We need to get the key from the URI since it's not passed as a parameter.
 	$parts = explode( '/', $_SERVER['REQUEST_URI'] );
 	$key   = array_pop( $parts );
 
 	$key = $key === '' ? array_pop( $parts ) : $key;
 
-	$wpdb->query( $wpdb->prepare( "DELETE FROM $wpdb->usermeta WHERE user_id = %d AND meta_key = %s", $user_id, 'new_user_' . $key ) );
+	delete_user_meta( $user_id, 'new_user_' . $key );
 }
