@@ -61,14 +61,7 @@ function replace_root_dashboard_widgets() {
 	$user = wp_get_current_user();
 
 	if ( \Pressbooks\Utility\get_number_of_invitations( $user ) ) {
-		add_meta_box(
-			'pb_dashboard_widget_book_invitations',
-			__( 'Book Invitations', 'pressbooks' ),
-			__NAMESPACE__ . '\pending_invitations_callback',
-			'dashboard',
-			'normal',
-			'high'
-		);
+		add_pending_invitation_meta_box( 'dashboard' );
 	}
 
 	if (
@@ -156,14 +149,7 @@ function lowly_user() {
 	}
 
 	if ( \Pressbooks\Utility\get_number_of_invitations( wp_get_current_user() ) ) {
-		add_meta_box(
-			'pb_dashboard_widget_book_invitations',
-			__( 'Book Invitations', 'pressbooks' ),
-			__NAMESPACE__ . '\pending_invitations_callback',
-			'dashboard-user',
-			'normal',
-			'high'
-		);
+		add_pending_invitation_meta_box( 'dashboard-user' );
 	}
 
 	add_meta_box(
@@ -176,6 +162,21 @@ function lowly_user() {
 	);
 }
 
+/**
+ * Adds pending invitations meta box
+ *
+ * @param string $screen
+ */
+function add_pending_invitation_meta_box( $screen ) {
+	add_meta_box(
+		'pb_dashboard_widget_book_invitations',
+		__( 'Book Invitations', 'pressbooks' ),
+		__NAMESPACE__ . '\pending_invitations_callback',
+		$screen,
+		'normal',
+		'high'
+	);
+}
 /**
  * Callback for /wp-admin and /wp-admin/user widget
  *
