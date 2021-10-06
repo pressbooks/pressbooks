@@ -58,13 +58,9 @@ function replace_root_dashboard_widgets() {
 
 	// Remove third-party widgets
 	remove_meta_box( 'dashboard_rediscache', 'dashboard', 'normal' );
-
-	global $wpdb;
 	$user = wp_get_current_user();
 
-	$invitations = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(1) FROM $wpdb->usermeta WHERE meta_key LIKE %s AND user_id = %d", 'new_user_%', $user->ID ) );
-
-	if ( $invitations ) {
+	if ( \Pressbooks\Utility\get_number_of_invitations( $user ) ) {
 		add_meta_box(
 			'pb_dashboard_widget_book_invitations',
 			__( 'Book Invitations', 'pressbooks' ),
@@ -159,12 +155,7 @@ function lowly_user() {
 		}
 	}
 
-	global $wpdb;
-	$user = wp_get_current_user();
-
-	$invitations = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(1) FROM $wpdb->usermeta WHERE meta_key LIKE %s AND user_id = %d", 'new_user_%', $user->ID ) );
-
-	if ( $invitations ) {
+	if ( \Pressbooks\Utility\get_number_of_invitations( wp_get_current_user() ) ) {
 		add_meta_box(
 			'pb_dashboard_widget_book_invitations',
 			__( 'Book Invitations', 'pressbooks' ),
