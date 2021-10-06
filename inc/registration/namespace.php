@@ -360,7 +360,7 @@ function remove_wp_prefix( $lostpassword_url ) {
 
 /**
  * When inviting a user to a book, store useful information to
- * display pending invitations widget.
+ * display pending invitations' widget.
  *
  * @param int $user_id
  * @param array $role
@@ -380,7 +380,7 @@ function save_invitation_data( $user_id, $role, $newuser_key ) {
 
 /**
  * When accepting an invitation to a book, we want to clean up
- * usermeta table.
+ * user meta table.
  *
  * @param int $user_id
  * @param bool|\WP_Error$result
@@ -393,6 +393,7 @@ function clean_invitation_data( $user_id, $result ) {
 
 	global $wpdb;
 
+	// We need to get the key from the URI since it's not passed as a parameter.
 	$parts = explode( '/', $_SERVER['REQUEST_URI'] );
 	$key   = array_pop( $parts );
 
