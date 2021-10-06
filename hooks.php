@@ -311,6 +311,9 @@ add_filter( 'add_signup_meta', '\Pressbooks\Registration\add_temporary_password'
 add_action( 'signup_blogform', '\Pressbooks\Registration\add_hidden_password_field' );
 add_filter( 'random_password', '\Pressbooks\Registration\override_password_generation' );
 add_filter( 'lostpassword_url', '\Pressbooks\Registration\remove_wp_prefix', 12 );
+// Hooks to have pending invitation information
+add_action( 'invite_user', '\Pressbooks\Registration\save_invitation_data', 10, 3 );
+add_action( 'added_existing_user', '\Pressbooks\Registration\clean_invitation_data', 10, 2 );
 
 // Email configuration
 add_filter( 'wp_mail_from', '\Pressbooks\Utility\mail_from' );
