@@ -3,7 +3,8 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv3 (or any later version)
  */
-
+// TODO: Security audit
+// @phpcs:disable Pressbooks.Security.EscapeOutput.OutputNotEscaped
 namespace Pressbooks\Admin\Metaboxes;
 
 use function Pressbooks\Sanitize\sanitize_string;
@@ -12,9 +13,9 @@ use Pressbooks\Contributors;
 use Pressbooks\Licensing;
 use Pressbooks\Metadata;
 
-// @codeCoverageIgnoreStart
+// phpcs:ignore
 define( 'METADATA_CALLBACK_INDEX', 4 );
-// @codeCoverageIgnoreEnd
+// TODO: Security audit
 
 /**
  * If the user updates the book's title, then also update the blog name

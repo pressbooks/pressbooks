@@ -2,7 +2,10 @@
 /**
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv3 (or any later version)
+ * See templating function for reference: \Pressbooks\Modules\Export\Export loadTemplate()
+ * TODO: Review escaping in the next refactor
  */
+// @phpcs:disable Pressbooks.Security.EscapeOutput.OutputNotEscaped
 
 namespace Pressbooks\Modules\Export\Xhtml;
 

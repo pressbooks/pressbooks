@@ -12,7 +12,9 @@ Text Domain: pressbooks
 License: GPL v3 or later
 Network: True
 */
-
+// TODO: Security audit
+// @phpcs:disable Pressbooks.Security.EscapeOutput.OutputNotEscaped
+// @phpcs:disable WordPress.PHP.NoSilencedErrors.Discouraged
 if ( ! defined( 'ABSPATH' ) ) {
 	return;
 }

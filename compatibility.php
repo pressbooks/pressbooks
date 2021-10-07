@@ -6,7 +6,9 @@
  * @author  Book Oven Inc. <code@pressbooks.com>
  * @license GPLv3 (or any later version)
  */
-
+// TODO: Security audit
+// @phpcs:disable Pressbooks.Security.EscapeOutput.OutputNotEscaped
+// @phpcs:disable WordPress.PHP.NoSilencedErrors.Discouraged
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }

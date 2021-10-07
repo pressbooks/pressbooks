@@ -1,6 +1,12 @@
 <?php
-
-// See templating function for reference: \Pressbooks\Modules\Export\Export loadTemplate()
+/**
+ * File description
+ *
+ * @tags
+ * See templating function for reference: \Pressbooks\Modules\Export\Export loadTemplate()
+ */
+// TODO: Review escaping in the next refactor
+// @phpcs:disable Pressbooks.Security.EscapeOutput.OutputNotEscaped
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

@@ -744,7 +744,7 @@ class Book {
 
 		// Move internal pointer to correct position
 		reset( $pos );
-		while ( $find_me = current( $pos ) ) {
+		while ( $find_me = current( $pos ) ) { // @phpcs:disable WordPress.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
 			if ( (int) $find_me === (int) $current_post_id ) {
 				break;
 			} else {
@@ -754,7 +754,7 @@ class Book {
 
 		// Get next/previous
 		$what( $pos );
-		while ( $post_id = current( $pos ) ) {
+		while ( $post_id = current( $pos ) ) { // @phpcs:disable WordPress.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
 			if ( $admin_mode ) {
 				if ( current_user_can( 'edit_post', $post_id ) ) {
 					break;
@@ -798,7 +798,7 @@ class Book {
 		$pos = array_keys( $order );
 
 		reset( $pos );
-		while ( $first_id = current( $pos ) ) {
+		while ( $first_id = current( $pos ) ) { // @phpcs:disable WordPress.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
 			if ( $admin_mode ) {
 				if ( current_user_can( 'edit_post', $first_id ) ) {
 					break;

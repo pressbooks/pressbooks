@@ -50,7 +50,7 @@
 	"require-dev": {
 		"phpunit/phpunit": "^9",
 		"codeception/module-db": "^1.1",
-		"codeception/module-webdriver": "^1.2",
+		"codeception/module-webdriver": "^1.4",
 		"codeception/module-phpbrowser": "^1.0",
 		"codeception/module-asserts": "^1.3",
 		"codeception/module-filesystem": "^1.0",
@@ -95,7 +95,7 @@
 			"@standards"
 		],
 		"standards": [
-			"vendor/bin/phpcs --standard=phpcs.ruleset.xml *.php inc/ bin/"
+			"vendor/bin/phpcs --standard=phpcs.ruleset.xml *.php inc/admin/metaboxes/namespace.php"
 		],
 		"fix": [
 			"vendor/bin/phpcbf --standard=phpcs.ruleset.xml *.php inc/ bin/"

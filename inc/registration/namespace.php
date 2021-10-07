@@ -5,6 +5,8 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv3 (or any later version)
  */
+// @phpcs:disable Pressbooks.Security.EscapeOutput.OutputNotEscaped
+// @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.MissingUnslash
 
 namespace Pressbooks\Registration;
 
