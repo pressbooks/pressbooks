@@ -1,5 +1,8 @@
 <?php
-
+// TODO: Security audit
+// @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.InputNotValidated
+// @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.MissingUnslash
+// @phpcs:disable Pressbooks.Security.EscapeOutput.OutputNotEscaped
 namespace Pressbooks\Covergenerator;
 
 use function Pressbooks\Utility\create_tmp_file;

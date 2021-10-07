@@ -1,5 +1,8 @@
 <?php
-
+// TODO: Security audit
+// @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.MissingUnslash
+// @phpcs:disable Pressbooks.Security.EscapeOutput.OutputNotEscaped
+// @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.InputNotSanitized
 namespace Pressbooks\Metadata;
 
 use function Pressbooks\Utility\apply_https_if_available;

@@ -3,6 +3,13 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv3 (or any later version)
  */
+// TODO: Security audit
+// @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.MissingUnslash
+// @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.InputNotSanitized
+// @phpcs:disable Pressbooks.Security.NonceVerification.Missing
+// @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.InputNotValidated
+// @phpcs:disable WordPress.PHP.NoSilencedErrors.Discouraged
+// @phpcs:disable WordPress.PHP.DevelopmentFunctions.error_log_print_r
 
 namespace Pressbooks\Modules\Import;
 

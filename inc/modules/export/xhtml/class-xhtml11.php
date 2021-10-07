@@ -5,6 +5,9 @@
  * See templating function for reference: \Pressbooks\Modules\Export\Export loadTemplate()
  * TODO: Review escaping in the next refactor
  */
+// TODO: Security audit
+// @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.MissingUnslash
+// @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.InputNotSanitized
 // @phpcs:disable Pressbooks.Security.EscapeOutput.OutputNotEscaped
 
 namespace Pressbooks\Modules\Export\Xhtml;
