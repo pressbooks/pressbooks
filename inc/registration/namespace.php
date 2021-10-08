@@ -401,7 +401,7 @@ function clean_invitation_data( $user_id, $result ) {
 	delete_user_meta( $user_id, 'new_user_' . $key );
 
 	// If running tests, we don't want to redirect
-	if ( ! defined( 'WP_TESTS_MULTISITE' ) ) {
+	if ( ! defined( 'WP_TESTS_MULTISITE' ) && is_user_logged_in() ) {
 		wp_redirect( network_site_url( 'wp-admin' ) );
 	}
 }
