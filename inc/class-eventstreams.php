@@ -8,6 +8,7 @@
 // @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.MissingUnslash
 // @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.InputNotSanitized
 // @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.InputNotValidated
+// @phpcs:disable WordPress.PHP.NoSilencedErrors.Discouraged
 
 namespace Pressbooks;
 
@@ -150,7 +151,6 @@ class EventStreams {
 	 *
 	 */
 	private function setupHeaders() {
-		// @codingStandardsIgnoreStart
 		// Turn off PHP output compression
 		@ini_set( 'output_buffering', 'off' );
 		@ini_set( 'zlib.output_compression', false );
@@ -160,7 +160,6 @@ class EventStreams {
 		}
 		// Start the event stream
 		@header( 'Content-Type: text/event-stream' );
-		// @codingStandardsIgnoreEnd
 
 		// 2KB padding for IE
 		echo ':' . str_repeat( ' ', 2048 ) . "\n\n";

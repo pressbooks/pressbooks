@@ -10,6 +10,7 @@
 // TODO: Security audit
 // @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.InputNotValidated
 // @phpcs:disable Pressbooks.Security.EscapeOutput.OutputNotEscaped
+// @phpcs:disable WordPress.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
 
 namespace Pressbooks;
 
@@ -205,11 +206,9 @@ class Book {
 		$book_data_collector = BookDataCollector::init();
 		$book_information_array = $book_data_collector->get( $blog_id, BookDataCollector::BOOK_INFORMATION_ARRAY );
 		if ( self::removeInvalidatedBisacCodes( $blog_id, $book_information_array ) ) {
-			// @codingStandardsIgnoreStart
 			add_error( __(
 				"This book was using a <a href='https://bisg.org/page/InactivatedCodes' target='_blank'> retired BISAC subject term </a>, which has been replaced in your book with a recommended BISAC replacement. You may wish to check the BISAC subject terms manually to confirm that you are satisfied with these replacements."
 			) );
-			// @codingStandardsIgnoreEnd
 			return true;
 		}
 		return false;
@@ -324,7 +323,7 @@ class Book {
 		$results = $q->query(
 			[
 				'post_type' => $custom_types,
-				'posts_per_page' => -1, // @codingStandardsIgnoreLine
+				'posts_per_page' => -1, // @phpcs:ignore
 				'post_status' => 'any',
 				'orderby' => 'menu_order',
 				'order' => 'ASC',
@@ -747,7 +746,7 @@ class Book {
 
 		// Move internal pointer to correct position
 		reset( $pos );
-		while ( $find_me = current( $pos ) ) { // @phpcs:disable WordPress.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
+		while ( $find_me = current( $pos ) ) { // @phpcs:ignore
 			if ( (int) $find_me === (int) $current_post_id ) {
 				break;
 			} else {
@@ -757,7 +756,7 @@ class Book {
 
 		// Get next/previous
 		$what( $pos );
-		while ( $post_id = current( $pos ) ) { // @phpcs:disable WordPress.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
+		while ( $post_id = current( $pos ) ) { // @phpcs:ignore
 			if ( $admin_mode ) {
 				if ( current_user_can( 'edit_post', $post_id ) ) {
 					break;
@@ -863,7 +862,7 @@ class Book {
 		// Calculate chapter number
 		$i = 0;
 		$type = 'standard';
-		$found = array_merge( [ 'ID' => $post_id ], $lookup[ $post_id ] ); // @codingStandardsIgnoreLine
+		$found = array_merge( [ 'ID' => $post_id ], $lookup[ $post_id ] ); // @phpcs:ignore
 		foreach ( $lookup as $post_id => $val ) {
 			if (
 				$val['post_type'] !== 'chapter' ||

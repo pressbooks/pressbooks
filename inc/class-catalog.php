@@ -10,6 +10,7 @@
 // @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.MissingUnslash
 // @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.InputNotSanitized
 // @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.InputNotValidated
+// @phpcs:disable WordPress.DB.PreparedSQL.NotPrepared
 
 namespace Pressbooks;
 
@@ -124,7 +125,7 @@ class Catalog {
 
 		$sql = "SELECT * FROM {$this->dbTable} WHERE users_id = %d AND deleted = 0 ";
 
-		return $wpdb->get_results( $wpdb->prepare( $sql, $this->userId ), ARRAY_A ); // @codingStandardsIgnoreLine
+		return $wpdb->get_results( $wpdb->prepare( $sql, $this->userId ), ARRAY_A );
 	}
 
 	/**
@@ -338,7 +339,7 @@ class Catalog {
  				INNER JOIN {$this->dbTagsTable} ON {$this->dbTagsTable}.id = {$this->dbLinkTable}.tags_id
  				WHERE {$this->dbLinkTable}.users_id = %d AND {$this->dbLinkTable}.tags_group = %d AND {$this->dbLinkTable}.tags_id = %d AND {$this->dbTable}.deleted = 0 ";
 
-		return $wpdb->get_results( $wpdb->prepare( $sql, $this->userId, $tag_group, $tag_id ), ARRAY_A ); // @codingStandardsIgnoreLine
+		return $wpdb->get_results( $wpdb->prepare( $sql, $this->userId, $tag_group, $tag_id ), ARRAY_A );
 	}
 
 	/**
@@ -398,7 +399,7 @@ class Catalog {
 
 		$sql = "SELECT * FROM {$this->dbTable} WHERE users_id = %d AND blogs_id = %d AND deleted = 0 ";
 
-		return $wpdb->get_row( $wpdb->prepare( $sql, $this->userId, $blog_id ), ARRAY_A ); // @codingStandardsIgnoreLine
+		return $wpdb->get_row( $wpdb->prepare( $sql, $this->userId, $blog_id ), ARRAY_A );
 	}
 
 	/**
@@ -413,7 +414,7 @@ class Catalog {
 
 		$sql = "SELECT blogs_id FROM {$this->dbTable} WHERE users_id = %d AND deleted = 0 ";
 
-		return $wpdb->get_col( $wpdb->prepare( $sql, $this->userId ) ); // @codingStandardsIgnoreLine
+		return $wpdb->get_col( $wpdb->prepare( $sql, $this->userId ) );
 	}
 
 	/**
@@ -479,7 +480,7 @@ class Catalog {
 			$sql .= ' users_id = users_id '; // Do nothing
 		}
 
-		return $wpdb->query( $wpdb->prepare( $sql, $args ) ); // @codingStandardsIgnoreLine
+		return $wpdb->query( $wpdb->prepare( $sql, $args ) );
 	}
 
 	/**
@@ -537,7 +538,7 @@ class Catalog {
 		}
 		$sql .= "ORDER BY {$this->dbTagsTable}.tag ASC ";
 
-		return $wpdb->get_results( $wpdb->prepare( $sql, $tag_group, $this->userId ), ARRAY_A ); // @codingStandardsIgnoreLine
+		return $wpdb->get_results( $wpdb->prepare( $sql, $tag_group, $this->userId ), ARRAY_A );
 	}
 
 	/**
@@ -559,7 +560,7 @@ class Catalog {
  				WHERE {$this->dbLinkTable}.tags_group = %d AND {$this->dbLinkTable}.users_id = %d AND {$this->dbLinkTable}.blogs_id = %d
  				ORDER BY {$this->dbTagsTable}.tag ASC ";
 
-		return $wpdb->get_results( $wpdb->prepare( $sql, $tag_group, $this->userId, $blog_id ), ARRAY_A ); // @codingStandardsIgnoreLine
+		return $wpdb->get_results( $wpdb->prepare( $sql, $tag_group, $this->userId, $blog_id ), ARRAY_A );
 	}
 
 	/**
@@ -583,17 +584,17 @@ class Catalog {
 		// @see http://dev.mysql.com/doc/refman/5.0/en/insert-on-duplicate.html
 
 		$sql = "INSERT INTO {$this->dbTagsTable} ( users_id, tag ) VALUES ( %d, %s ) ON DUPLICATE KEY UPDATE id = id ";
-		$_ = $wpdb->query( $wpdb->prepare( $sql, $this->userId, $tag ) ); // @codingStandardsIgnoreLine
+		$_ = $wpdb->query( $wpdb->prepare( $sql, $this->userId, $tag ) );
 
 		// Get ID
 
 		$sql = "SELECT id FROM {$this->dbTagsTable} WHERE tag = %s ";
-		$tag_id = $wpdb->get_var( $wpdb->prepare( $sql, $tag ) ); // @codingStandardsIgnoreLine
+		$tag_id = $wpdb->get_var( $wpdb->prepare( $sql, $tag ) );
 
 		// Create JOIN
 
 		$sql = "INSERT INTO {$this->dbLinkTable} ( users_id, blogs_id, tags_id, tags_group ) VALUES ( %d, %d, %d, %d ) ON DUPLICATE KEY UPDATE users_id = users_id ";
-		$result = $wpdb->query( $wpdb->prepare( $sql, $this->userId, $blog_id, $tag_id, $tag_group ) ); // @codingStandardsIgnoreLine
+		$result = $wpdb->query( $wpdb->prepare( $sql, $this->userId, $blog_id, $tag_id, $tag_group ) );
 
 		return $result;
 	}
@@ -618,7 +619,7 @@ class Catalog {
 		// Get ID
 
 		$sql = "SELECT id FROM {$this->dbTagsTable} WHERE tag = %s ";
-		$tag_id = $wpdb->get_var( $wpdb->prepare( $sql, $tag ) ); // @codingStandardsIgnoreLine
+		$tag_id = $wpdb->get_var( $wpdb->prepare( $sql, $tag ) );
 
 		if ( ! $tag_id ) {
 			return false;
@@ -830,7 +831,7 @@ class Catalog {
 		global $wpdb;
 
 		$sql = "SELECT users_id FROM {$this->dbTable} WHERE blogs_id = %d ";
-		$results = $wpdb->get_col( $wpdb->prepare( $sql, $book_id ) ); // @codingStandardsIgnoreLine
+		$results = $wpdb->get_col( $wpdb->prepare( $sql, $book_id ) );
 
 		foreach ( $results as $user_id ) {
 			wp_cache_delete( "cat-$user_id", 'pb' );
