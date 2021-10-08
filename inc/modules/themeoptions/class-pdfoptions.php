@@ -112,6 +112,19 @@ class PDFOptions extends \Pressbooks\Options {
 			);
 
 			add_settings_field(
+				'pdf_footnote_font_size',
+				__( 'Footnote Font Size', 'pressbooks' ),
+				[ $this, 'renderFootnoteFontSizeField' ],
+				$_page,
+				$_section,
+				[
+					'',
+					'pt',
+					'label_for' => 'pdf_footnote_font_size',
+				]
+			);
+
+			add_settings_field(
 				'pdf_body_line_height',
 				__( 'Body Line Height', 'pressbooks' ),
 				[ $this, 'renderBodyLineHightField' ],
@@ -711,6 +724,27 @@ class PDFOptions extends \Pressbooks\Options {
 				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
 				'option' => 'pdf_body_font_size',
 				'value' => ( isset( $this->options['pdf_body_font_size'] ) ) ? $this->options['pdf_body_font_size'] : $this->defaults['pdf_body_font_size'],
+				'description' => $args[0],
+				'append' => $args[1],
+				'type' => 'text',
+				'class' => 'small-text',
+			]
+		);
+	}
+
+	/**
+	 * Render the pdf_footnote_font_size input.
+	 *
+	 * @param array $args
+	 */
+	function renderFootnoteFontSizeField( $args ) {
+		unset( $args['label_for'], $args['class'] );
+		$this->renderField(
+			[
+				'id' => 'pdf_footnote_font_size',
+				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
+				'option' => 'pdf_footnote_font_size',
+				'value' => ( isset( $this->options['pdf_footnote_font_size'] ) ) ? $this->options['pdf_footnote_font_size'] : $this->defaults['pdf_footnote_font_size'],
 				'description' => $args[0],
 				'append' => $args[1],
 				'type' => 'text',
@@ -1479,6 +1513,7 @@ class PDFOptions extends \Pressbooks\Options {
 				'pdf_header_font' => '',
 				'pdf_body_font' => '',
 				'pdf_body_font_size' => '11',
+				'pdf_footnote_font_size' => '9',
 				'pdf_body_line_height' => '1.4',
 				'pdf_page_width' => '5.5in',
 				'pdf_page_height' => '8.5in',
@@ -1522,6 +1557,7 @@ class PDFOptions extends \Pressbooks\Options {
 		// SASS => WP
 		$overrides = [
 			'body-font-size' => 'pdf_body_font_size',
+			'footnote-font-size' => 'pdf_footnote_font_size',
 			'body-line-height' => 'pdf_body_line_height',
 			'page-margin-top' => 'pdf_page_margin_top',
 			'page-margin-inside' => 'pdf_page_margin_inside',
@@ -1711,6 +1747,7 @@ class PDFOptions extends \Pressbooks\Options {
 		return apply_filters(
 			'pb_theme_options_pdf_floats', [
 				'pdf_body_font_size',
+				'pdf_footnote_font_size',
 				'pdf_body_line_height',
 			]
 		);
@@ -1897,6 +1934,16 @@ class PDFOptions extends \Pressbooks\Options {
 			$styles->getSass()->setVariables(
 				[
 					'body-font-size' => "(epub: medium, prince: $fontsize, web: 14pt)",
+				]
+			);
+		}
+
+		// Change body font size
+		if ( $v2_compatible && isset( $options['pdf_footnote_font_size'] ) ) {
+			$fontsize = $options['pdf_footnote_font_size'] . 'pt';
+			$styles->getSass()->setVariables(
+				[
+					'footnote-font-size' => "(epub: 0.9em, prince: $fontsize, web: 0.9em)",
 				]
 			);
 		}
