@@ -235,12 +235,21 @@ function after_title( $post ) {
 	}
 	if ( $post->post_type === 'back-matter' ) {
 		$taxonomy = \Pressbooks\Taxonomy::init();
-		if ( $taxonomy->getBackMatterType( $post->ID ) === 'glossary' ) {
-			echo '<div id="pb-post-type-notice" class="notice notice-info" aria-live="assertive"><p>';
-			_e( "To display a list of glossary terms, leave this back matter's content blank.", 'pressbooks' );
-			echo '</p></div>';
-		} else {
-			echo '<div id="pb-post-type-notice" class="notice notice-info" style="display:none;" aria-live="assertive"></div>'; // Placeholder
+		$current_taxonomy = $taxonomy->getBackMatterType( $post->ID );
+		$text = '';
+		switch ( $current_taxonomy ) {
+			case 'glossary':
+				echo '<div id="pb-post-type-notice" class="notice notice-info" aria-live="assertive"><p>';
+				_e( "To display a list of glossary terms, leave this back matter's content blank.", 'pressbooks' );
+				echo '</p></div>';
+				break;
+			case 'contributors':
+				echo '<div id="pb-post-type-notice" class="notice notice-info" aria-live="assertive"><p>';
+				_e( "To display a list of contributors, leave this back matter's content blank.", 'pressbooks' );
+				echo '</p></div>';
+				break;
+			default:
+				echo '<div id="pb-post-type-notice" class="notice notice-info" style="display:none;" aria-live="assertive"></div>'; // Placeholder
 		}
 	}
 }

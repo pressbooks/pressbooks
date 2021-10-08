@@ -1278,6 +1278,22 @@ function rmrdir( $dirname, $only_empty = false ) {
 }
 
 /**
+ * Given an array of contributors with metadata, extract the name field and implode those using semicolon and `and` word.
+ *
+ * @param string $separator
+ * @param array $contributors_array
+ */
+function get_contributors_name_imploded( array $contributors_array ) {
+	$contributors_name_array = [];
+	foreach ( $contributors_array as $contributor ) {
+		if ( isset( $contributor['name'] ) ) {
+			$contributors_name_array[] = $contributor['name'];
+		}
+	}
+	return implode_add_and( ';', $contributors_name_array );
+}
+
+/**
  * Comma separated, Oxford comma, localized and between the last two items
  *
  * @since 5.0.0
@@ -1287,13 +1303,27 @@ function rmrdir( $dirname, $only_empty = false ) {
  * @return string
  */
 function oxford_comma( array $vars ) {
-	if ( count( $vars ) === 2 ) {
-		return $vars[0] . ' ' . __( 'and', 'pressbooks' ) . ' ' . $vars[1];
+	return implode_add_and( ',', $vars );
+}
+
+/**
+ * Implode an array and add a localized version of the word 'and' between the final two terms.
+ * Example:
+ * $str_implode = ';' $array_of_string = [ 'Carl Calson', 'Mark Thomson, PhD', 'John K.' ];
+ * Output: 'Carl Carlson; Mark Thomson, PhD; and John K.'
+ *
+ * @param string $str_implode
+ * @param array $array_of_strings
+ * @return string
+ */
+function implode_add_and( string $separator, array $array_of_strings ) {
+	if ( count( $array_of_strings ) === 2 ) {
+		return $array_of_strings[0] . ' ' . __( 'and', 'pressbooks' ) . ' ' . $array_of_strings[1];
 	} else {
-		$last = array_pop( $vars );
-		$output = implode( ', ', $vars );
+		$last = array_pop( $array_of_strings );
+		$output = implode( $separator . ' ', $array_of_strings );
 		if ( $output ) {
-			$output .= ', ' . __( 'and', 'pressbooks' ) . ' ';
+			$output .= $separator . ' ' . __( 'and', 'pressbooks' ) . ' ';
 		}
 		$output .= $last;
 		return $output;
@@ -1307,10 +1337,34 @@ function oxford_comma( array $vars ) {
  *
  * @return array
  */
-function oxford_comma_explode( $string ) {
+function oxford_comma_explode( string $string ) {
+	return explode_remove_and( ',', $string );
+}
+
+/**
+ * Explode a string and remove the word `and` from the resulting array. Useful when converting lists with 'and' separating the final terms to an array
+ * Example:
+ * $str_explode = ';', $string = 'Carl Carlson; Mark Thomson, PhD; and John K.'
+ * Output:
+ * [ 'Carl Calson', 'Mark Thomson, PhD', 'John K.' ]
+ *
+ * @param string $str_explode
+ * @param string $string
+ * @return array
+ */
+function explode_remove_and( string $separator, string $string ) {
 	$results = [];
-	if ( strpos( $string, ',' ) !== false ) {
-		$items = explode( ',', $string );
+	if ( strpos( $string, $separator ) !== false ) {
+		$items = explode( $separator, $string );
+		if ( count( $items ) === 2 ) {
+			$items = explode( ' ' . __( 'and', 'pressbooks' ) . ' ', $string );
+			foreach ( $items as $item ) {
+				$item = trim( $item );
+				if ( ! empty( $item ) ) {
+					$results[] = $item;
+				}
+			}
+		}
 		foreach ( $items as $item ) {
 			$item = trim( $item );
 			$item = str_remove_prefix( $item, __( 'and', 'pressbooks' ) . ' ' );

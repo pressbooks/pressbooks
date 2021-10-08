@@ -305,7 +305,10 @@ class UtilityTest extends \WP_UnitTestCase {
 
 		$template = \Pressbooks\Utility\template(
 			__DIR__ . '/data/template.php',
-			[ 'title' => 'Foobar', 'body' => 'Hello World!' ]
+			[
+				'title' => 'Foobar',
+				'body' => 'Hello World!',
+			]
 		);
 
 		$this->assertContains( '<title>Foobar</title>', $template );
@@ -500,7 +503,7 @@ class UtilityTest extends \WP_UnitTestCase {
 	 */
 	public function test_str_remove_prefix() {
 
-		$result = \Pressbooks\Utility\str_remove_prefix( 'foo foo foo bar', 'foo'  );
+		$result = \Pressbooks\Utility\str_remove_prefix( 'foo foo foo bar', 'foo' );
 		$this->assertEquals( ' foo foo bar', $result );
 
 		$result = \Pressbooks\Utility\str_remove_prefix( 'foo foo foo bar', 'foo ' );
@@ -635,6 +638,31 @@ class UtilityTest extends \WP_UnitTestCase {
 	/**
 	 * @group utility
 	 */
+	public function test_implode_add_and() {
+		$this->assertEmpty( \Pressbooks\Utility\explode_remove_and( ';', '' ) );
+		$this->assertEquals( [ 'One Person', 'Two People' ], \Pressbooks\Utility\explode_remove_and( ';', 'One Person and Two People' ) );
+		$this->assertEquals( [ 'One Person', 'Two People', 'Three People', 'Four People' ], \Pressbooks\Utility\explode_remove_and( ';', 'One Person; Two People; Three People; and Four People' ) );
+		$this->assertEquals( [ 'andy, suff', 'andrew', 'andrea', 'android' ], \Pressbooks\Utility\explode_remove_and( ';', 'andy, suff; andrew; andrea; android' ) );
+	}
+
+	/**
+	 * @group utility
+	 */
+	public function test_explode_remove_and() {
+		$this->assertEquals( '', \Pressbooks\Utility\implode_add_and( ';', [] ) );
+		$vars[] = 'One Person';
+		$this->assertEquals( 'One Person', \Pressbooks\Utility\implode_add_and( ';', $vars ) );
+		$vars[] = 'Two People';
+		$this->assertEquals( 'One Person and Two People', \Pressbooks\Utility\implode_add_and( ';', $vars ) );
+		$vars[] = 'Three People';
+		$this->assertEquals( 'One Person; Two People; and Three People', \Pressbooks\Utility\implode_add_and( ';', $vars ) );
+		$vars[] = 'Four People';
+		$this->assertEquals( 'One Person; Two People; Three People; and Four People', \Pressbooks\Utility\implode_add_and( ';', $vars ) );
+	}
+
+	/**
+	 * @group utility
+	 */
 	public function test_oxford_comma() {
 		$this->assertEquals( '', \Pressbooks\Utility\oxford_comma( [] ) );
 		$vars[] = 'One Person';
@@ -654,7 +682,7 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertEmpty( \Pressbooks\Utility\oxford_comma_explode( '' ) );
 		$this->assertEquals( [ 'One Person', 'Two People' ], \Pressbooks\Utility\oxford_comma_explode( 'One Person and Two People' ) );
 		$this->assertEquals( [ 'One Person', 'Two People', 'Three People', 'Four People' ], \Pressbooks\Utility\oxford_comma_explode( 'One Person, Two People, Three People, and Four People' ) );
-		$this->assertEquals( [ 'andy', 'andrew', 'andrea', 'android' ], \Pressbooks\Utility\oxford_comma_explode( 'andy,andrew, andrea,  android' ) );
+		$this->assertEquals( [ 'andy', 'andrew', 'andrea', 'android' ], \Pressbooks\Utility\oxford_comma_explode( 'andy, andrew, andrea, android' ) );
 	}
 
 	/**
@@ -663,9 +691,33 @@ class UtilityTest extends \WP_UnitTestCase {
 	public function test_is_assoc() {
 		$this->assertFalse( \Pressbooks\Utility\is_assoc( 'Doing it wrong' ) );
 		$this->assertFalse( \Pressbooks\Utility\is_assoc( [ 'a', 'b', 'c' ] ) );
-		$this->assertFalse( \Pressbooks\Utility\is_assoc( [ "0" => 'a', "1" => 'b', "2" => 'c' ] ) );
-		$this->assertTrue( \Pressbooks\Utility\is_assoc( [ "1" => 'a', "0" => 'b', "2" => 'c' ] ) );
-		$this->assertTrue( \Pressbooks\Utility\is_assoc( [ "a" => 'a', "b" => 'b', "c" => 'c' ] ) );
+		$this->assertFalse(
+			\Pressbooks\Utility\is_assoc(
+				[
+					'0' => 'a',
+					'1' => 'b',
+					'2' => 'c',
+				]
+			)
+		);
+		$this->assertTrue(
+			\Pressbooks\Utility\is_assoc(
+				[
+					'1' => 'a',
+					'0' => 'b',
+					'2' => 'c',
+				]
+			)
+		);
+		$this->assertTrue(
+			\Pressbooks\Utility\is_assoc(
+				[
+					'a' => 'a',
+					'b' => 'b',
+					'c' => 'c',
+				]
+			)
+		);
 	}
 
 	/**
@@ -693,8 +745,8 @@ class UtilityTest extends \WP_UnitTestCase {
 	 */
 	public function test_str_lowercase_dash() {
 		$this->assertEquals( 'neural-networks', \Pressbooks\Utility\str_lowercase_dash( 'Neural Networks' ) );
-		$this->assertEmpty( \Pressbooks\Utility\str_lowercase_dash( '') );
-		$this->assertEquals( 'support--vector--machines', \Pressbooks\Utility\str_lowercase_dash( ' Support  Vector  MachINEs    ') );
+		$this->assertEmpty( \Pressbooks\Utility\str_lowercase_dash( '' ) );
+		$this->assertEquals( 'support--vector--machines', \Pressbooks\Utility\str_lowercase_dash( ' Support  Vector  MachINEs    ' ) );
 	}
 
 	/**
@@ -704,7 +756,7 @@ class UtilityTest extends \WP_UnitTestCase {
 
 		$c = '<h1>Test</h1><p>[pb_glossary hello=world id=111 foo=bar]Skatboards[/pb_glossary], not [pb_glossary hello=world id=222 foo=bar]death[/pb_glossary].</p><p>[some id=222]other shortcode[/some]</p>';
 		$x = \Pressbooks\Utility\shortcode_att_replace( $c, 'pb_glossary', 'id', 222, 999 );
-		$this->assertEquals( "<h1>Test</h1><p>[pb_glossary hello=world id=111 foo=bar]Skatboards[/pb_glossary], not [pb_glossary hello=world id=999 foo=bar]death[/pb_glossary].</p><p>[some id=222]other shortcode[/some]</p>", $x );
+		$this->assertEquals( '<h1>Test</h1><p>[pb_glossary hello=world id=111 foo=bar]Skatboards[/pb_glossary], not [pb_glossary hello=world id=999 foo=bar]death[/pb_glossary].</p><p>[some id=222]other shortcode[/some]</p>', $x );
 
 		$c = '<h1>Test</h1><p>[pb_glossary hello="world" id="111" foo="bar"]Skatboards[/pb_glossary], not [pb_glossary hello="world" id="222" foo="bar"]death[/pb_glossary].</p><p>[some id="222"]other shortcode[/some]</p>';
 		$x = \Pressbooks\Utility\shortcode_att_replace( $c, 'pb_glossary', 'id', 222, 999 );
@@ -735,7 +787,7 @@ class UtilityTest extends \WP_UnitTestCase {
 		$expected = '<img src="http://localhost:3000/latex?latex=e%5E%7B%5Ci%20%5Cpi%7D%20%2B%201%20%3D%200&#038;fg=000000&#038;font=TeX" alt="e^{&#92;i &#92;pi} + 1 = 0" title="e^{&#92;i &#92;pi} + 1 = 0" class="latex mathjax" />[embed]https://image.png[/embed]';
 		$this->assertEquals( $expected, \Pressbooks\Utility\do_shortcode_by_tags( $content, [ 'latex' ] ) );
 
-		$expected = "[latex]e^{\i \pi} + 1 = 0[/latex]";
+		$expected = '[latex]e^{\i \pi} + 1 = 0[/latex]';
 		$this->assertEquals( $expected, \Pressbooks\Utility\do_shortcode_by_tags( $content, [ 'embed' ] ) );
 
 		$expected = '<img src="http://localhost:3000/latex?latex=e%5E%7B%5Ci%20%5Cpi%7D%20%2B%201%20%3D%200&#038;fg=000000&#038;font=TeX" alt="e^{&#92;i &#92;pi} + 1 = 0" title="e^{&#92;i &#92;pi} + 1 = 0" class="latex mathjax" />';
@@ -750,6 +802,25 @@ class UtilityTest extends \WP_UnitTestCase {
 		$_SERVER['SERVER_PORT'] = '';
 		$url = 'http://network-no-ssl.pressbooks.test/book';
 		$this->assertEquals( \Pressbooks\Utility\apply_https_if_available( $url ), 'http://network-no-ssl.pressbooks.test/book' );
+	}
+
+	/**
+	 * @group utility
+	 */
+	public function test_contractAndTraits() {
+
+		$contributors = new \Pressbooks\Contributors();
+		$glossary = new Pressbooks\Shortcodes\Glossary\Glossary();
+
+		$this->assertTrue( is_a( $contributors, \Pressbooks\PostType\BackMatter::class ) );
+		$this->assertTrue( is_a( $glossary, \Pressbooks\PostType\BackMatter::class ) );
+
+		$class1 = new \ReflectionClass( \Pressbooks\Contributors::class );
+		$class2 = new \ReflectionClass( Pressbooks\Shortcodes\Glossary\Glossary::class );
+
+		$this->assertTrue( is_a( $class1->getMethod( 'display' ), '\ReflectionMethod' ) );
+		$this->assertTrue( is_a( $class2->getMethod( 'display' ), '\ReflectionMethod' ) );
+
 	}
 
 }

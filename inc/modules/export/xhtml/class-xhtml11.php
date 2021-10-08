@@ -3,7 +3,6 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv3 (or any later version)
  * See templating function for reference: \Pressbooks\Modules\Export\Export loadTemplate()
- * TODO: Review escaping in the next refactor
  */
 // TODO: Security audit
 // @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.MissingUnslash
@@ -13,6 +12,7 @@
 namespace Pressbooks\Modules\Export\Xhtml;
 
 use function Pressbooks\Sanitize\clean_filename;
+use function Pressbooks\Utility\get_contributors_name_imploded;
 use function Pressbooks\Utility\str_starts_with;
 use PressbooksMix\Assets;
 use Pressbooks\Container;
@@ -114,6 +114,11 @@ class Xhtml11 extends ExportGenerator {
 	 * @var \Pressbooks\Contributors
 	 */
 	protected $contributors;
+
+	/**
+	 * @var bool
+	 */
+	protected $displayAboutTheAuthors;
 
 	/**
 	 * @param array $args
@@ -314,7 +319,7 @@ class Xhtml11 extends ExportGenerator {
 		// ------------------------------------------------------------------------------------------------------------
 		// XHTML, Start!
 
-		$metadata = \Pressbooks\Book::getBookInformation();
+		$metadata = \Pressbooks\Book::getBookInformation( null, false, false );
 		$_unused = [];
 
 		// Set two letter language code
@@ -401,6 +406,8 @@ class Xhtml11 extends ExportGenerator {
 		} else {
 			$book_contents = $this->preProcessBookContents( \Pressbooks\Book::getBookContents() );
 			ob_start();
+
+			$this->displayAboutTheAuthors = ! empty( get_option( 'pressbooks_theme_options_global', [] )['about_the_author'] );
 
 			// Before Title Page
 			yield 10 => $this->generatorPrefix . __( 'Creating before title page', 'pressbooks' );
@@ -880,15 +887,26 @@ class Xhtml11 extends ExportGenerator {
 	 * @param array $metadata
 	 */
 	protected function echoMetaData( $book_contents, $metadata ) {
-
 		foreach ( $metadata as $name => $content ) {
 			$name = Sanitize\sanitize_xml_id( str_replace( '_', '-', $name ) );
-			$content = trim( wp_strip_all_tags( html_entity_decode( $content ) ) ); // Plain text
-			$content = preg_replace( '/\s+/', ' ', preg_replace( '/\n+/', ' ', $content ) ); // Normalize whitespaces
-			$content = Sanitize\sanitize_xml_attribute( $content );
-			printf( '<meta name="%s" content="%s" />', $name, $content );
-			echo "\n";
+			if ( is_array( $content ) ) {
+				foreach ( $content as $content_item ) {
+					if ( isset( $content_item['name'] ) ) {
+						$this->echoMetaDataItem( $name, $content_item['name'] );
+					}
+				}
+				continue;
+			}
+			$this->echoMetaDataItem( $name, $content );
 		}
+	}
+
+	protected function echoMetaDataItem( $name, $content_item ) {
+		$content_item = trim( wp_strip_all_tags( html_entity_decode( $content_item ) ) ); // Plain text
+		$content_item = preg_replace( '/\s+/', ' ', preg_replace( '/\n+/', ' ', $content_item ) ); // Normalize whitespaces
+		$content_item = Sanitize\sanitize_xml_attribute( $content_item );
+		printf( '<meta name="%s" content="%s" />', $name, $content_item );
+		echo "\n";
 	}
 
 	/**
@@ -994,10 +1012,18 @@ class Xhtml11 extends ExportGenerator {
 			printf( '<h1 class="title">%s</h1>', get_bloginfo( 'name' ) );
 			printf( '<h2 class="subtitle">%s</h2>', ( isset( $metadata['pb_subtitle'] ) ) ? $metadata['pb_subtitle'] : '' );
 			if ( isset( $metadata['pb_authors'] ) ) {
-				printf( '<h3 class="author">%s</h3>', $metadata['pb_authors'] );
+				if ( is_array( $metadata['pb_authors'] ) ) {
+					printf( '<h3 class="author">%s</h3>', get_contributors_name_imploded( $metadata['pb_authors'] ) );
+				} elseif ( is_string( $metadata['pb_authors'] ) ) {
+					printf( '<h3 class="author">%s</h3>', $metadata['pb_authors'] );
+				}
 			}
 			if ( isset( $metadata['pb_contributors'] ) ) {
-				printf( '<h3 class="author">%s</h3>', $metadata['pb_contributors'] );
+				if ( is_array( $metadata['pb_contributors'] ) ) {
+					printf( '<h3 class="author">%s</h3>', get_contributors_name_imploded( $metadata['pb_contributors'] ) );
+				} elseif ( is_string( $metadata['pb_contributors'] ) ) {
+					printf( '<h3 class="author">%s</h3>', $metadata['pb_contributors'] );
+				}
 			}
 			if ( current_theme_supports( 'pressbooks_publisher_logo' ) ) {
 				printf( '<div class="publisher-logo"><img src="%s" /></div>', get_theme_support( 'pressbooks_publisher_logo' )[0]['logo_uri'] ); // TODO: Support custom publisher logo.
@@ -1347,6 +1373,8 @@ class Xhtml11 extends ExportGenerator {
 
 			$append_front_matter_content .= $this->removeAttributionLink( $this->doSectionLevelLicense( $metadata, $front_matter_id ) );
 
+			$content .= $this->displayAboutTheAuthors ? \Pressbooks\Modules\Export\get_contributors_section( $front_matter_id ) : '';
+
 			printf(
 				$front_matter_printf,
 				$subclass,
@@ -1513,6 +1541,8 @@ class Xhtml11 extends ExportGenerator {
 
 				$append_chapter_content .= $this->removeAttributionLink( $this->doSectionLevelLicense( $metadata, $chapter_id ) );
 
+				$content .= $this->displayAboutTheAuthors ? \Pressbooks\Modules\Export\get_contributors_section( $chapter_id ) : '';
+
 				$my_chapter_number = ( strpos( $subclass, 'numberless' ) === false ) ? $j : '';
 				$my_chapters .= sprintf(
 					$chapter_printf,
@@ -1632,6 +1662,8 @@ class Xhtml11 extends ExportGenerator {
 			}
 
 			$append_back_matter_content .= $this->removeAttributionLink( $this->doSectionLevelLicense( $metadata, $back_matter_id ) );
+
+			$content .= $this->displayAboutTheAuthors ? \Pressbooks\Modules\Export\get_contributors_section( $back_matter_id ) : '';
 
 			printf(
 				$back_matter_printf,

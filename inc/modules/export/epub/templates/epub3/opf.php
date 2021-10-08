@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 use function \Pressbooks\Sanitize\sanitize_xml_attribute;
-use function \Pressbooks\Utility\oxford_comma_explode;
+use function \Pressbooks\Utility\explode_remove_and;
 use HumanNameParser\Exception\NameParsingException;
 use HumanNameParser\Parser;
 
@@ -58,7 +58,7 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 
 		// First author
 		if ( ! \Pressbooks\Utility\empty_space( $meta['pb_authors'] ) ) {
-			$first_author = oxford_comma_explode( $meta['pb_authors'] )[0];
+			$first_author = explode_remove_and( ';', $meta['pb_authors'] )[0];
 		} else {
 			$first_author = sanitize_xml_attribute( __( 'Authored by: ', 'pressbooks' ) . get_bloginfo( 'url' ) );
 		}
@@ -66,14 +66,14 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 
 		// Contributing authors
 		if ( ! empty( $meta['pb_authors'] ) ) {
-			$contributors = oxford_comma_explode( $meta['pb_authors'] );
+			$contributors = explode_remove_and( ';', $meta['pb_authors'] );
 			foreach ( $contributors as $contributor ) {
 				echo '<dc:contributor>' . trim( $contributor ) . '</dc:contributor>' . "\n";
 			}
 			unset( $meta['pb_authors'] );
 		}
 		if ( ! empty( $meta['pb_contributors'] ) ) {
-			$contributors = oxford_comma_explode( $meta['pb_contributors'] );
+			$contributors = explode_remove_and( ';', $meta['pb_contributors'] );
 			foreach ( $contributors as $contributor ) {
 				echo '<dc:contributor>' . trim( $contributor ) . '</dc:contributor>' . "\n";
 			}

@@ -240,7 +240,9 @@ class MetaboxesTest extends \WP_UnitTestCase {
 		$this->assertContains( '<input name="save" id="publish" type="submit"', $buffer );
 	}
 
-
+	/**
+	 * @group metaboxes
+	 */
 	public function test_get_thema_subjects() {
 		$reporting = $this->_fakeAjax();
 		$_REQUEST['_ajax_nonce'] = wp_create_nonce( 'pb-metadata' );
@@ -264,6 +266,9 @@ class MetaboxesTest extends \WP_UnitTestCase {
 		$this->_fakeAjaxDone( $reporting );
 	}
 
+	/**
+	 * @group metaboxes
+	 */
 	public function test_a11y_contributor_tweaks() {
 		// Mock Screen for taxonomy editor
 		global $current_screen;
@@ -275,6 +280,9 @@ class MetaboxesTest extends \WP_UnitTestCase {
 		$this->assertContains( 'setCustomValidity(', $buffer );
 	}
 
+	/**
+	 * @group metaboxes
+	 */
 	public function test_contributor_metaboxes() {
 
 		$user_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
@@ -283,9 +291,92 @@ class MetaboxesTest extends \WP_UnitTestCase {
 		\Pressbooks\Admin\Metaboxes\contributor_add_form();
 		$buffer = ob_get_clean();
 
-		$this->assertContains( 'window.tinyMCE.activeEditor.setContent', $buffer );
-		$this->assertContains( '.term-description-wrap', $buffer );
+		$this->assertContains( '<img style="display: none" src="" id="contributor-picture-thumbnail" width="120" />', $buffer );
+		$this->assertContains( '<input type="hidden" name="contributor_picture" id="contributor-picture">', $buffer );
 		$this->assertContains( '<label for="contributor-first-name">', $buffer );
+	}
+
+	/**
+	 * @group metaboxes
+	 */
+	public function test_contributor_editor_settings() {
+		$editor_settings = \Pressbooks\Admin\Metaboxes\get_editor_settings();
+		$this->assertContains( \Pressbooks\Contributors::TAXONOMY . '_description', $editor_settings['textarea_name'] );
+		$this->assertContains( 'bold,italic,|,link,unlink,|,undo,redo', $editor_settings['tinymce']['toolbar1'] );
+	}
+
+	/**
+	 * @group metaboxes
+	 */
+	public function test_contributor_table_columns() {
+		$contributor_columns = \Pressbooks\Admin\Metaboxes\contributor_table_columns( [] );
+		$this->assertArrayHasKey( \Pressbooks\Contributors::TAXONOMY . '_description', $contributor_columns );
+		$this->assertArrayHasKey( \Pressbooks\Contributors::TAXONOMY . '_institution', $contributor_columns );
+		$this->assertArrayHasKey( \Pressbooks\Contributors::TAXONOMY . '_picture', $contributor_columns );
+	}
+
+	/**
+	 * @group metaboxes
+	 */
+	public function test_contributor_sortable_columns() {
+		$contributor_sortable_columns = \Pressbooks\Admin\Metaboxes\contributor_sortable_columns( [] );
+		$this->assertArrayHasKey( 'name', $contributor_sortable_columns );
+	}
+
+	/**
+	 * @group metaboxes
+	 */
+	public function test_contributor_custom_columns() {
+		$contributor = new \Pressbooks\Contributors();
+		$taxonomy = new \Pressbooks\Taxonomy(
+			$this->getMockBuilder( '\Pressbooks\Licensing' )->getMock(),
+			$contributor
+		);
+		$taxonomy->registerTaxonomies();
+		$post_id = $this->_createChapter();
+
+		$person = $contributor->insert( 'Pat Metheny', $post_id, 'contributors' );
+
+		$term = get_term_by( 'term_id', $person['term_id'], 'contributor' );
+		add_term_meta( $term->term_id,
+			\Pressbooks\Contributors::TAXONOMY . '_description',
+			'<strong>I am a description</strong>'
+		);
+		add_term_meta( $term->term_id,
+			\Pressbooks\Contributors::TAXONOMY . '_institution',
+			'Pressbooks University'
+		);
+		add_term_meta( $term->term_id,
+			\Pressbooks\Contributors::TAXONOMY . '_picture',
+			'Sorry, there is not picture! :/'
+		);
+		ob_start();
+		\Pressbooks\Admin\Metaboxes\contributor_custom_columns(
+			'',
+			\Pressbooks\Contributors::TAXONOMY . '_description',
+			$term->term_id
+		);
+		$buffer = ob_get_clean();
+		$this->assertContains( 'I am a description', $buffer );
+		$this->assertNotContains( 'strong', $buffer );
+
+		ob_start();
+		\Pressbooks\Admin\Metaboxes\contributor_custom_columns(
+			'',
+			\Pressbooks\Contributors::TAXONOMY . '_institution',
+			$term->term_id
+		);
+		$buffer = ob_get_clean();
+		$this->assertContains( 'Pressbooks University', $buffer );
+
+		ob_start();
+		\Pressbooks\Admin\Metaboxes\contributor_custom_columns(
+			'',
+			\Pressbooks\Contributors::TAXONOMY . '_picture',
+			$term->term_id
+		);
+		$buffer = ob_get_clean();
+		$this->assertContains( 'Sorry, there is not picture! :/', $buffer );
 	}
 
 }

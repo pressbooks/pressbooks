@@ -13,7 +13,6 @@ use function Pressbooks\Image\strip_baseurl as image_strip_baseurl;
 use function Pressbooks\Media\strip_baseurl as media_strip_baseurl;
 use function Pressbooks\Metadata\schema_to_book_information;
 use function Pressbooks\Metadata\schema_to_section_information;
-use function Pressbooks\Utility\oxford_comma_explode;
 use function Pressbooks\Utility\str_ends_with;
 use function Pressbooks\Utility\str_lreplace;
 use function Pressbooks\Utility\str_remove_prefix;
@@ -230,6 +229,20 @@ class Cloner {
 	 * @var \Pressbooks\Entities\Cloner\H5P[]
 	 */
 	protected $knownH5P = [];
+
+	/**
+	 * Flag to indicate the cloner is being used to import content
+	 * @var bool
+	 */
+	public $isImporting = false;
+
+	/**
+	 * List of contributors inserted.
+	 *
+	 * @var array
+	 */
+	private $contributorsInserted = [];
+
 
 	/**
 	 * Constructor.
@@ -1311,11 +1324,18 @@ class Cloner {
 		// Everything else
 		$book_information['pb_is_based_on'] = $this->sourceBookUrl;
 		$metadata_array_values = [ 'pb_keywords_tags', 'pb_bisac_subject', 'pb_additional_subjects' ];
+		$authors_slug = [];
 		foreach ( $book_information as $key => $value ) {
 			if ( $this->contributors->isValid( $key ) ) {
-				$values = oxford_comma_explode( $value );
-				foreach ( $values as $v ) {
-					$this->contributors->insert( $v, $metadata_post_id, $key );
+				foreach ( $value as $contributor_data ) {
+					// Compatibility with previous contributors metadata format
+					if ( ! isset( $contributor_data['slug'] ) ) {
+						$contributor_data['slug'] = sanitize_title_with_dashes( remove_accents( $contributor_data['name'] ), '', 'save' );
+					}
+					$this->contributors->insert( $contributor_data, $metadata_post_id, $key, $this->downloads, 'slug' );
+					if ( $key === 'pb_authors' ) {
+						$authors_slug[] = $contributor_data['slug'];
+					}
 				}
 			} elseif ( in_array( $key, $metadata_array_values, true ) ) {
 				$values = explode( ', ', $value );
@@ -1332,9 +1352,11 @@ class Cloner {
 			}
 		}
 
-		// Remove the current user from the author field in Book Info
 		$user_data = get_userdata( get_current_user_id() );
-		$this->contributors->unlink( $user_data->user_nicename, $metadata_post_id );
+		if ( ! in_array( $user_data->user_nicename, $authors_slug, true ) ) {
+			// Remove the current user from the author field in Book Info if it is not the author of the source book
+			$this->contributors->unlink( $user_data->user_nicename, $metadata_post_id );
+		}
 
 		return $metadata_post_id;
 	}
@@ -1428,6 +1450,10 @@ class Cloner {
 		// Remove items handled by cloneSectionMetadata()
 		unset( $section['meta']['pb_authors'], $section['meta']['pb_section_license'] );
 
+		if ( array_key_exists( 'pb_part_invisible', $section['meta'] ) ) {
+			unset( $section['meta']['pb_part_invisible'] );
+		}
+
 		// POST internal request
 		$request = new \WP_REST_Request( 'POST', "/pressbooks/v2/$endpoint" );
 		$request->set_body_params( $section );
@@ -1441,6 +1467,9 @@ class Cloner {
 
 		// Set pb_is_based_on property
 		update_post_meta( $response['id'], 'pb_is_based_on', $permalink );
+		if ( isset( $section['meta']['pb_part_invisible_string'] ) && $section['meta']['pb_part_invisible_string'] === 'on' ) {
+			update_post_meta( $response['id'], 'pb_part_invisible', 'on' );
+		}
 
 		// Clone associated content
 		if ( $post_type !== 'part' ) {
@@ -1604,9 +1633,22 @@ class Cloner {
 
 		foreach ( $section_information as $key => $value ) {
 			if ( $this->contributors->isValid( $key ) ) {
-				$values = oxford_comma_explode( $value );
-				foreach ( $values as $v ) {
-					$this->contributors->insert( $v, $target_id, $key );
+				foreach ( $value as $contributor_data ) {
+					// Compatibility with previous contributors metadata format
+					if ( ! isset( $contributor_data['slug'] ) ) {
+						$contributor_data['slug'] = sanitize_title_with_dashes( remove_accents( $contributor_data['name'] ), '', 'save' );
+					}
+					if ( $this->isImporting && array_key_exists( $contributor_data['slug'], $this->contributorsInserted ) ) {
+						$this->contributors->link( $this->contributorsInserted[ $contributor_data['slug'] ], $target_id, $key );
+						continue;
+					}
+					$this->contributorsInserted[ $contributor_data['slug'] ] = $this->contributors->insert(
+						$contributor_data,
+						$target_id,
+						$key,
+						$this->downloads,
+						$this->isImporting ? 'disambiguate' : 'slug'
+					);
 				}
 			} else {
 				update_post_meta( $target_id, $key, $value );

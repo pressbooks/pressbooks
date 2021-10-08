@@ -42,7 +42,7 @@ class IntegrationsTest extends \WP_UnitTestCase {
 		$cloned_items = $cloner->getClonedItems();
 
 		$this->assertTrue( count( $cloned_items['metadata'] ) === 1 );
-		$this->assertTrue( count( $cloned_items['terms'] ) === 47 );
+		$this->assertTrue( count( $cloned_items['terms'] ) === 48 );
 		$this->assertTrue( count( $cloned_items['front-matter'] ) === 1 );
 		$this->assertTrue( count( $cloned_items['parts'] ) === 2 );
 		$this->assertTrue( count( $cloned_items['chapters'] ) === 5 );

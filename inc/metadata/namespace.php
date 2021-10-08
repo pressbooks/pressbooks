@@ -5,15 +5,16 @@
 // @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.InputNotSanitized
 namespace Pressbooks\Metadata;
 
-use function Pressbooks\Utility\apply_https_if_available;
 use function \Pressbooks\L10n\get_book_language;
 use function \Pressbooks\L10n\get_locale;
 use function \Pressbooks\Sanitize\is_valid_timestamp;
+use function \Pressbooks\Utility\apply_https_if_available;
+use function \Pressbooks\Utility\explode_remove_and;
 use function \Pressbooks\Utility\get_contents;
-use function \Pressbooks\Utility\is_assoc;
-use function \Pressbooks\Utility\oxford_comma;
-use function \Pressbooks\Utility\oxford_comma_explode;
+use function \Pressbooks\Utility\get_contributors_name_imploded;
+use PressbooksMix\Assets;
 use Pressbooks\Book;
+use Pressbooks\Contributors;
 use Pressbooks\Licensing;
 use Pressbooks\Metadata;
 
@@ -223,6 +224,12 @@ function book_information_to_schema( $book_information, $network_excluded_direct
 		'pb_h5p_activities' => 'h5pActivities',
 		'pb_in_catalog' => 'inCatalog',
 		'pb_book_directory_excluded' => 'bookDirectoryExcluded',
+		'pb_authors' => 'author',
+		'pb_editors' => 'editor',
+		'pb_translators' => 'translator',
+		'pb_reviewers' => 'reviewedBy',
+		'pb_illustrators' => 'illustrator',
+		'pb_contributors' => 'contributor',
 	];
 
 	foreach ( $mapped_properties as $old => $new ) {
@@ -261,63 +268,26 @@ function book_information_to_schema( $book_information, $network_excluded_direct
 		}
 	}
 
-	if ( isset( $book_information['pb_authors'] ) ) {
-		$authors = oxford_comma_explode( $book_information['pb_authors'] );
-		foreach ( $authors as $author ) {
-			$book_schema['author'][] = [
-				'@type' => 'Person',
-				'name' => $author,
-			];
-		}
-	}
-
-	if ( isset( $book_information['pb_editors'] ) ) {
-		$editors = oxford_comma_explode( $book_information['pb_editors'] );
-		foreach ( $editors as $editor ) {
-			$book_schema['editor'][] = [
-				'@type' => 'Person',
-				'name' => $editor,
-			];
-		}
-	}
-
-	if ( isset( $book_information['pb_translators'] ) ) {
-		$translators = oxford_comma_explode( $book_information['pb_translators'] );
-		foreach ( $translators as $translator ) {
-			$book_schema['translator'][] = [
-				'@type' => 'Person',
-				'name' => $translator,
-			];
-		}
-	}
-
-	if ( isset( $book_information['pb_reviewers'] ) ) {
-		$reviewers = oxford_comma_explode( $book_information['pb_reviewers'] );
-		foreach ( $reviewers as $reviewer ) {
-			$book_schema['reviewedBy'][] = [
-				'@type' => 'Person',
-				'name' => $reviewer,
-			];
-		}
-	}
-
-	if ( isset( $book_information['pb_illustrators'] ) ) {
-		$illustrators = oxford_comma_explode( $book_information['pb_illustrators'] );
-		foreach ( $illustrators as $illustrator ) {
-			$book_schema['illustrator'][] = [
-				'@type' => 'Person',
-				'name' => $illustrator,
-			];
-		}
-	}
-
-	if ( isset( $book_information['pb_contributors'] ) ) {
-		$contributing_authors = oxford_comma_explode( $book_information['pb_contributors'] );
-		foreach ( $contributing_authors as $contributor ) {
-			$book_schema['contributor'][] = [
-				'@type' => 'Person',
-				'name' => $contributor,
-			];
+	$contributors = new Contributors();
+	foreach ( $contributors->valid as $contributor_type ) {
+		if ( isset( $book_information[ $contributor_type ] ) ) {
+			// Compatibility with previous version (basic strings contributors)
+			if ( is_string( $book_information[ $contributor_type ] ) ) {
+				$contributors_string = explode_remove_and( ';', $book_information[ $contributor_type ] );
+				$book_schema[ $mapped_properties[ $contributor_type ] ] = [];
+				foreach ( $contributors_string as $contributor_name ) {
+					$book_schema[ $mapped_properties[ $contributor_type ] ][] = [
+						'@type' => 'Person',
+						'name' => $contributor_name,
+					];
+				}
+				continue;
+			}
+			$contributors_array = $book_information[ $contributor_type ];
+			$book_schema[ $mapped_properties[ $contributor_type ] ] = [];
+			foreach ( $contributors_array as $contributor ) {
+				$book_schema[ $mapped_properties[ $contributor_type ] ][] = array_merge( [ '@type' => 'Person' ], $contributor );
+			}
 		}
 	}
 
@@ -476,6 +446,12 @@ function schema_to_book_information( $book_schema ) {
 		'thumbnailUrl' => 'pb_thumbnail',
 		'position' => 'pb_series_number',
 		'isBasedOn' => 'pb_is_based_on',
+		'pb_authors' => 'author',
+		'pb_editors' => 'editor',
+		'pb_translators' => 'translator',
+		'pb_reviewers' => 'reviewedBy',
+		'pb_illustrators' => 'illustrator',
+		'pb_contributors' => 'contributor',
 	];
 
 	foreach ( $mapped_properties as $old => $new ) {
@@ -499,64 +475,19 @@ function schema_to_book_information( $book_schema ) {
 		$book_information['pb_bisac_subject'] = implode( ', ', $bisac_subjects );
 	}
 
-	if ( isset( $book_schema['author'] ) ) {
-		// Pressbooks 5
-		$authors = [];
-		foreach ( $book_schema['author'] as $author ) {
-			if ( isset( $author['name'] ) ) {
-				$authors[] = $author['name'];
+	$contributors = new Contributors();
+	foreach ( $contributors->valid as $contributor_type ) {
+		if (
+			isset( $book_schema[ $mapped_properties[ $contributor_type ] ] ) &&
+			! empty( $book_schema[ $mapped_properties[ $contributor_type ] ] )
+		) {
+			if ( isset( $book_schema[ $mapped_properties[ $contributor_type ] ][0]['name'] ) ) {
+				$book_information[ $contributor_type ] = $book_schema[ $mapped_properties[ $contributor_type ] ];
+			} else {
+				// Compatiblity with previous versions where we took only the contributor's name
+				$book_information[ $contributor_type ] = get_contributors_name_imploded( $book_schema[ $mapped_properties[ $contributor_type ] ] );
 			}
 		}
-		if ( empty( $authors ) && isset( $book_schema['author']['name'] ) ) {
-			// Pressbooks 4
-			$authors[] = $book_schema['author']['name']; // Backwards compatibility with Pressbooks 4
-			if ( isset( $book_schema['author']['alternateName'] ) ) {
-				$book_information['pb_author_file_as'] = $book_schema['author']['alternateName'];
-			}
-		} else {
-			$book_information['pb_author'] = implode( ', ', $authors );
-		}
-		$book_information['pb_authors'] = oxford_comma( $authors );
-	}
-
-	if ( isset( $book_schema['editor'] ) ) {
-		$editors = [];
-		foreach ( $book_schema['editor'] as $editor ) {
-			$editors[] = $editor['name'];
-		}
-		$book_information['pb_editors'] = oxford_comma( $editors );
-	}
-
-	if ( isset( $book_schema['translator'] ) ) {
-		$translators = [];
-		foreach ( $book_schema['translator'] as $translator ) {
-			$translators[] = $translator['name'];
-		}
-		$book_information['pb_translators'] = oxford_comma( $translators );
-	}
-
-	if ( isset( $book_schema['reviewedBy'] ) ) {
-		$reviewers = [];
-		foreach ( $book_schema['reviewedBy'] as $reviewer ) {
-			$reviewers[] = $reviewer['name'];
-		}
-		$book_information['pb_reviewers'] = oxford_comma( $reviewers );
-	}
-
-	if ( isset( $book_schema['illustrator'] ) ) {
-		$illustrators = [];
-		foreach ( $book_schema['illustrator'] as $illustrator ) {
-			$illustrators[] = $illustrator['name'];
-		}
-		$book_information['pb_illustrators'] = oxford_comma( $illustrators );
-	}
-
-	if ( isset( $book_schema['contributor'] ) ) {
-		$contributors = [];
-		foreach ( $book_schema['contributor'] as $contributor ) {
-			$contributors[] = $contributor['name'];
-		}
-		$book_information['pb_contributors'] = oxford_comma( $contributors );
 	}
 
 	if ( isset( $book_schema['publisher'] ) ) {
@@ -630,6 +561,15 @@ function section_information_to_schema( $section_information, $book_information 
 		'pb_copyright_year' => 'copyrightYear',
 	];
 
+	$mapped_contributors_type = [
+		'pb_authors' => 'author',
+		'pb_editors' => 'editor',
+		'pb_translators' => 'translator',
+		'pb_reviewers' => 'reviewedBy',
+		'pb_illustrators' => 'illustrator',
+		'pb_contributors' => 'contributor',
+	];
+
 	foreach ( $mapped_section_properties as $old => $new ) {
 		if ( isset( $section_information[ $old ] ) ) {
 			$section_schema[ $new ] = $section_information[ $old ];
@@ -647,74 +587,36 @@ function section_information_to_schema( $section_information, $book_information 
 	}
 
 	// Use section, if missing use book
-	$authors = [];
-	if ( ! empty( $section_information['pb_authors'] ) ) {
-		$authors = oxford_comma_explode( $section_information['pb_authors'] );
-	} elseif ( ! empty( $book_information['pb_authors'] ) ) {
-		$authors = oxford_comma_explode( $book_information['pb_authors'] );
-	}
-	foreach ( $authors as $author ) {
-		$section_schema['author'][] = [
-			'@type' => 'Person',
-			'name' => $author,
-		];
-	}
-
-	if ( isset( $book_information['pb_editors'] ) ) {
-		$editors = oxford_comma_explode( $book_information['pb_editors'] );
-		foreach ( $editors as $editor ) {
-			$section_schema['editor'][] = [
-				'@type' => 'Person',
-				'name' => $editor,
-			];
+	$contributors = new Contributors();
+	foreach ( $contributors->valid as $contributor_type ) {
+		$section_schema[ $mapped_contributors_type[ $contributor_type ] ] = [];
+		$merge = false;
+		if ( ! empty( $section_information[ $contributor_type ] ) ) {
+			$merge = $section_information[ $contributor_type ];
+		} elseif ( ! empty( $book_information[ $contributor_type ] ) ) {
+			$merge = $book_information[ $contributor_type ];
 		}
-	}
-
-	if ( isset( $book_information['pb_translators'] ) ) {
-		$translators = oxford_comma_explode( $book_information['pb_translators'] );
-		foreach ( $translators as $translator ) {
-			$section_schema['translator'][] = [
-				'@type' => 'Person',
-				'name' => $translator,
-			];
+		if ( $merge ) {
+			if ( is_array( $merge ) ) {
+				$section_schema[ $mapped_contributors_type[ $contributor_type ] ] = array_map(
+					function ( $contrib ) {
+						$contrib['@type'] = 'Person';
+						return $contrib;
+					},
+					$merge
+				);
+			} elseif ( is_string( $merge ) ) {
+				// compatibility with previous contributors schema
+				$contributors_string = explode_remove_and( ';', $merge );
+				$section_schema[ $mapped_contributors_type[ $contributor_type ] ] = [];
+				foreach ( $contributors_string as $contributor_name ) {
+					$section_schema[ $mapped_contributors_type[ $contributor_type ] ][] = [
+						'@type' => 'Person',
+						'name' => $contributor_name,
+					];
+				}
+			}
 		}
-	}
-
-	if ( isset( $book_information['pb_reviewers'] ) ) {
-		$reviewers = oxford_comma_explode( $book_information['pb_reviewers'] );
-		foreach ( $reviewers as $reviewer ) {
-			$section_schema['reviewedBy'][] = [
-				'@type' => 'Person',
-				'name' => $reviewer,
-			];
-		}
-	}
-
-	if ( isset( $book_information['pb_illustrators'] ) ) {
-		$illustrators = oxford_comma_explode( $book_information['pb_illustrators'] );
-		foreach ( $illustrators as $illustrator ) {
-			$section_schema['illustrator'][] = [
-				'@type' => 'Person',
-				'name' => $illustrator,
-			];
-		}
-	}
-
-	if ( isset( $book_information['pb_contributors'] ) ) {
-		$contributing_authors = oxford_comma_explode( $book_information['pb_contributors'] );
-		foreach ( $contributing_authors as $contributor ) {
-			$section_schema['contributor'][] = [
-				'@type' => 'Person',
-				'name' => $contributor,
-			];
-		}
-	}
-
-	if ( isset( $book_information['pb_audience'] ) ) {
-		$section_schema['audience'] = [
-			'@type' => 'Audience',
-			'name' => $book_information['pb_audience'],
-		];
 	}
 
 	if ( isset( $book_information['pb_publisher'] ) ) {
@@ -816,25 +718,20 @@ function schema_to_section_information( $section_schema, $book_schema ) {
 	// Authors
 	if ( isset( $section_schema['author'], $book_schema['author'] ) ) {
 		$book_authors = [];
-		if ( is_assoc( $book_schema['author'] ) ) {
-			$book_schema['author'] = [ $book_schema['author'] ];
-		}
 		foreach ( $book_schema['author'] as $book_author ) {
 			if ( isset( $book_author['name'] ) ) {
 				$book_authors[] = $book_author['name'];
 			}
 		}
 		$section_authors = [];
-		if ( is_assoc( $section_schema['author'] ) ) {
-			$section_schema['author'] = [ $section_schema['author'] ];
-		}
+		$section_authors_array = $section_schema['author'];
 		foreach ( $section_schema['author'] as $section_author ) {
 			if ( isset( $section_author['name'] ) ) {
 				$section_authors[] = $section_author['name'];
 			}
 		}
 		if ( $section_authors !== $book_authors ) {
-			$section_information['pb_authors'] = oxford_comma( $section_authors );
+			$section_information['pb_authors'] = $section_authors_array;
 		}
 	}
 
@@ -997,6 +894,29 @@ function register_contributor_meta() {
 	];
 	register_term_meta( 'contributor', 'contributor_first_name', $args );
 	register_term_meta( 'contributor', 'contributor_last_name', $args );
+
+	add_action(
+		'admin_enqueue_scripts', function ( $hook ) {
+			if ( $hook === 'edit-tags.php' || $hook === 'term.php' ) {
+				$assets = new Assets( 'pressbooks', 'plugin' );
+				wp_enqueue_media();
+				wp_enqueue_script(
+					'pb_contributors', $assets->getPath( 'scripts/contributors.js' ),
+					[
+						'jquery',
+						'jquery-form',
+						'wp-color-picker',
+						'eventsource-polyfill',
+					], null
+				);
+				wp_localize_script(
+					'pb_contributors',
+					'pictureSize',
+					[ 'min' => Contributors::PICTURE_MIN_PIXELS ]
+				);
+			}
+		}
+	);
 }
 
 /**
@@ -1038,7 +958,8 @@ function get_section_information( $post_id ) {
 	}
 	// Override Contributors
 	$contributors = new \Pressbooks\Contributors();
-	foreach ( $contributors->getAll( $post_id ) as $key => $val ) {
+	$all_contributors = $contributors->getAll( $post_id, false, true );
+	foreach ( $all_contributors as $key => $val ) {
 		$section_meta[ $key ] = $val;
 	};
 
@@ -1058,7 +979,7 @@ function add_json_ld_metadata() {
 	if ( $context === 'section' ) {
 		global $post;
 		$section_information = get_section_information( $post->ID );
-		$book_information = Book::getBookInformation();
+		$book_information = Book::getBookInformation( null, false, false );
 		$metadata = section_information_to_schema( $section_information, $book_information );
 	} else {
 		$metadata = new Metadata();
@@ -1075,7 +996,7 @@ function add_json_ld_metadata() {
  */
 function add_citation_metadata() {
 	$context = is_singular( [ 'front-matter', 'part', 'chapter', 'back-matter' ] ) ? 'section' : 'book';
-	$book_information = Book::getBookInformation();
+	$book_information = Book::getBookInformation( null, false, false );
 	$tags = [];
 
 	$map = [

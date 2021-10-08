@@ -125,6 +125,17 @@ class GlobalOptions extends \Pressbooks\Options {
 		);
 
 		add_settings_field(
+			'about_the_author',
+			__( 'About the Author', 'pressbooks' ),
+			[ $this, 'renderAuthorInformation' ],
+			$_page,
+			$_section,
+			[
+				__( 'Display information about authors at the end of each chapter', 'pressbooks' ),
+			]
+		);
+
+		add_settings_field(
 			'attachment_attributions',
 			__( 'Media Attributions', 'pressbooks' ),
 			[ $this, 'renderAttachmentAttributionsField' ],
@@ -341,6 +352,24 @@ class GlobalOptions extends \Pressbooks\Options {
 	}
 
 	/**
+	 * Render the about_the_author checkbox.
+	 *
+	 * @param array $args
+	 */
+	function renderAuthorInformation( $args ) {
+		unset( $args['label_for'], $args['class'] );
+		$this->renderCheckbox(
+			[
+				'id' => 'about_the_author',
+				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
+				'option' => 'about_the_author',
+				'value' => ( isset( $this->options['about_the_author'] ) ) ? $this->options['about_the_author'] : '',
+				'label' => $args[0],
+			]
+		);
+	}
+
+	/**
 	 * Render the attachment_attributions checkbox.
 	 *
 	 * @since 5.5.0
@@ -533,6 +562,7 @@ class GlobalOptions extends \Pressbooks\Options {
 				'parse_subsections' => 0,
 				'part_label' => __( 'Part', 'pressbooks' ),
 				'chapter_label' => __( 'Chapter', 'pressbooks' ),
+				'about_the_author' => 0,
 				'attachment_attributions' => 0,
 				'copyright_license' => 0,
 				'edu_textbox_examples_header_color' => '#fff',
@@ -627,6 +657,7 @@ class GlobalOptions extends \Pressbooks\Options {
 				'chapter_numbers',
 				'parse_subsections',
 				'attachment_attributions',
+				'about_the_author',
 			]
 		);
 	}

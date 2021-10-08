@@ -22,13 +22,6 @@ class Api extends ImportGenerator {
 
 	/**
 	 *
-	 */
-	function __construct() {
-
-	}
-
-	/**
-	 *
 	 * @param array $upload
 	 *
 	 * @return bool
@@ -39,6 +32,7 @@ class Api extends ImportGenerator {
 			return false;
 		}
 		$this->cloner = new Cloner( $upload['url'] );
+		$this->cloner->isImporting = true;
 		if ( ! $this->cloner->setupSource( false ) ) {
 			return false;
 		}
@@ -127,6 +121,7 @@ class Api extends ImportGenerator {
 		$post_status = $current_import['default_post_status'];
 
 		$this->cloner = new Cloner( $current_import['url'] );
+		$this->cloner->isImporting = true;
 		if ( ! $this->cloner->setupSource( false ) ) {
 			throw new \Exception();
 		}

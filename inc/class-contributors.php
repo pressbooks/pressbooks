@@ -7,25 +7,42 @@
 namespace Pressbooks;
 
 use function Pressbooks\Metadata\init_book_data_models;
-use function Pressbooks\Utility\oxford_comma_explode;
+use function Pressbooks\Utility\explode_remove_and;
 use function Pressbooks\Utility\str_starts_with;
+use Illuminate\Support\Str;
+use Pressbooks\PostType\BackMatter;
+use Pressbooks\Utility\AutoDisplayable;
+use Pressbooks\Utility\HandlesTransfers;
 
-class Contributors {
+/**
+ *
+ */
+class Contributors implements BackMatter, Transferable {
 
-	const TAXONOMY = 'contributor';
+	use AutoDisplayable;
+	use HandlesTransfers;
+
+	public const TAXONOMY = 'contributor';
+
+	const PICTURE_MIN_PIXELS = 400;
 
 	/**
-	 * Valid contributor slugs
+	 * @var Contributors
+	 */
+	static $instance = null;
+
+	/**
+	 * Valid contributor slugs ordered by preference
 	 *
 	 * @var array
 	 */
 	public $valid = [
-		'pb_authors',
 		'pb_editors',
+		'pb_authors',
+		'pb_contributors',
 		'pb_translators',
 		'pb_reviewers',
 		'pb_illustrators',
-		'pb_contributors',
 	];
 
 	/**
@@ -39,8 +56,40 @@ class Contributors {
 		'pb_editor',
 		'pb_translator',
 	];
+	/**
+	 * @var bool
+	 */
+	private $exporting;
 
-	public function __construct() {
+	/**
+	 * Function to init our class, set filters & hooks, set a singleton instance
+	 *
+	 * @return Contributors
+	 */
+	public static function init() {
+		if ( is_null( self::$instance ) ) {
+			self::$instance = new self();
+			self::hooks( self::$instance );
+		}
+
+		return self::$instance;
+	}
+
+	/**
+	 * @param Contributors $obj
+	 */
+	public static function hooks( Contributors $obj ) {
+		add_action( 'delete_' . self::TAXONOMY, [ $obj, 'deleteContributor' ], 10, 3 );
+
+		add_action(
+			'pb_pre_export', function () use ( $obj ) {
+				$obj->exporting = true; //only set this variable during exports
+			}
+		);
+
+		add_filter( 'the_content', [ $obj, 'overrideDisplay' ], 13 ); // Run after wpautop to avoid unwanted breaklines.
+
+		$obj->bootExportable( $obj );
 	}
 
 	/**
@@ -66,16 +115,17 @@ class Contributors {
 	 *
 	 * @param int $post_id
 	 * @param bool $as_strings
+	 * @param bool $include_term_meta
 	 *
 	 * @return array
 	 */
-	public function getAll( $post_id, $as_strings = true ) {
+	public function getAll( $post_id, $as_strings = true, $include_term_meta = false ) {
 		$contributors = [];
 		foreach ( $this->valid as $contributor_type ) {
 			if ( $as_strings ) {
 				$contributors[ $contributor_type ] = $this->get( $post_id, $contributor_type );
 			} else {
-				$contributors[ $contributor_type ] = $this->getArray( $post_id, $contributor_type );
+				$contributors[ $contributor_type ] = $this->getArray( $post_id, $contributor_type, $include_term_meta );
 			}
 		}
 		return $contributors;
@@ -91,18 +141,19 @@ class Contributors {
 	 */
 	public function get( $post_id, $contributor_type ) {
 		$contributors = $this->getArray( $post_id, $contributor_type );
-		return \Pressbooks\Utility\oxford_comma( $contributors );
+		return \Pressbooks\Utility\implode_add_and( ';', $contributors );
 	}
 
 	/**
 	 * Retrieve author/editor/etc lists for a given Post ID and Contributor type, returns array
 	 *
 	 * @param int $post_id
+	 * @param bool $include_term_meta
 	 * @param string $contributor_type
 	 *
 	 * @return array
 	 */
-	public function getArray( $post_id, $contributor_type ) {
+	public function getArray( $post_id, $contributor_type, $include_term_meta = false ) {
 		if ( ! str_starts_with( $contributor_type, 'pb_' ) ) {
 			$contributor_type = 'pb_' . $contributor_type;
 		}
@@ -115,9 +166,21 @@ class Contributors {
 		$meta = get_post_meta( $post_id, $contributor_type, false );
 		if ( is_array( $meta ) ) {
 			foreach ( $meta as $slug ) {
-				$name = $this->personalName( $slug );
-				if ( $name ) {
-					$contributors[] = $name;
+				$term = get_term_by( 'slug', $slug, self::TAXONOMY );
+				if ( $term ) {
+					$contributor = get_term_meta( $term->term_id );
+					if ( ! $include_term_meta ) {
+						$contributors[] = $term->name;
+					} else {
+						if ( $term ) {
+							foreach ( $contributor as $field => $property ) {
+								$contributor[ $field ] = is_array( $property ) ? $property[0] : $property;
+							}
+							$contributor['name'] = $term->name;
+							$contributor['slug'] = $term->slug;
+							$contributors[] = $contributor;
+						}
+					}
 				}
 			}
 		}
@@ -154,13 +217,106 @@ class Contributors {
 	}
 
 	/**
+	 * Insert a new contributor by name or fields data and associate it by post_id if present.
+	 * If the contributor's already exists by $compare_by parameter and/or name field it will be replaced by the new one.
+	 * if $post_id is present ($post_id != 0) and the metadata will be updated anyway.
+	 * The contributor_picture will be downloaded to the media if the field and $downloads object is present.
+	 *
+	 * @param string | array $data
+	 * @param int $post_id
+	 * @param string $contributor_type
+	 * @param \Pressbooks\Cloner\Downloads $downloads (optional)
+	 * @return array|false|int|mixed
+	 */
+	public function insert( $data, $post_id = 0, $contributor_type = 'pb_authors', $downloads = null, $compare_by = 'name' ) {
+		if ( is_string( $data ) ) {
+			return $this->insertByFullName( $data, $post_id, $contributor_type );
+		}
+		$term_id = false;
+		$term = false;
+		if ( is_array( $data ) && isset( $data['name'] ) ) {
+
+			if ( $compare_by !== 'disambiguate' ) {
+				$term_by_name = get_term_by( 'name', $data['name'], self::TAXONOMY );
+				if ( $term_by_name !== false ) {
+					$term = $term_by_name;
+				} elseif ( $compare_by !== 'name' && array_key_exists( $compare_by, $data ) ) {
+					$term_by_custom = get_term_by( $compare_by, $data[ $compare_by ], self::TAXONOMY );
+					if ( $term_by_custom !== false ) {
+						$term = $term_by_custom;
+					}
+				}
+			}
+
+			if ( ! $term ) {
+				$results = wp_insert_term(
+					$data['name'],
+					self::TAXONOMY,
+					[
+						'slug' => $data['slug'],
+					]
+				);
+				if ( $results instanceof \WP_Error && isset( $results->error_data['term_exists'] ) ) {
+					if ( $compare_by === 'disambiguate' ) {
+						$results = wp_insert_term(
+							$data['name'],
+							self::TAXONOMY,
+							[
+								'slug' => $data['slug'] . '-' . str_random( 10 ),
+							]
+						);
+						$term_id = $results['term_id'];
+					} else {
+						$term_id = $results->error_data['term_exists'];
+					}
+				} else {
+					$term_id = $results['term_id'];
+				}
+			} else {
+				$term_id = $term->term_id;
+			}
+			unset( $data['name'] );
+			unset( $data['slug'] );
+			$contributor_fields = self::getContributorFields();
+			$terms_contributor_meta = get_term_meta( $term_id );
+			foreach ( $data as $field => $property ) {
+				if (
+					array_key_exists( $field, $contributor_fields ) &&
+					(
+						! array_key_exists( $field, $terms_contributor_meta ) ||
+						$terms_contributor_meta[ $field ][0] !== $property
+					)
+				) {
+					if ( ! is_null( $downloads ) && $field === self::TAXONOMY . '_picture' ) {
+						$image_id = $downloads->fetchAndSaveUniqueImage( $property );
+						if ( $image_id <= 0 ) {
+							continue;
+						} else {
+							$property = wp_get_attachment_url( $image_id );
+						}
+					}
+					if ( ! array_key_exists( $field, $terms_contributor_meta ) ) {
+						add_term_meta( $term_id, $field, $property );
+					} else {
+						update_term_meta( $term_id, $field, $property );
+					}
+				}
+			}
+			if ( $term_id && $post_id ) {
+				$this->link( $term_id, $post_id, $contributor_type );
+			}
+		}
+		return $term_id;
+	}
+
+	/**
 	 * @param string $full_name
 	 * @param int $post_id (optional)
 	 * @param string $contributor_type (optional)
 	 *
 	 * @return array|false An array containing the `term_id` and `term_taxonomy_id`, false otherwise.
 	 */
-	public function insert( $full_name, $post_id = 0, $contributor_type = 'pb_authors' ) {
+	public function insertByFullName( $full_name, $post_id = 0, $contributor_type = 'pb_authors' ) {
 		$full_name = trim( $full_name );
 		$slug = sanitize_title_with_dashes( remove_accents( $full_name ), '', 'save' );
 		$term = get_term_by( 'slug', $slug, self::TAXONOMY );
@@ -207,10 +363,11 @@ class Contributors {
 			}
 			if ( $term && ! is_wp_error( $term ) ) {
 				wp_set_object_terms( $post_id, $term->term_id, self::TAXONOMY, true );
-				if ( $wpdb->get_var( $wpdb->prepare( "SELECT meta_id FROM {$wpdb->postmeta} WHERE post_id = %d AND meta_key = %s AND meta_value = %s", $post_id, $contributor_type, $term->slug ) ) ) {
+				$meta_id = $wpdb->get_var( $wpdb->prepare( "SELECT meta_id FROM {$wpdb->postmeta} WHERE post_id = %d AND meta_key = %s AND meta_value = %s", $post_id, $contributor_type, $term->slug ) );
+				if ( $meta_id ) {
 					return true;
 				} else {
-					return is_int( add_post_meta( $post_id, $contributor_type, $term->slug ) );
+					return add_post_meta( $post_id, $contributor_type, $term->slug ) !== false;
 				}
 			}
 		}
@@ -246,6 +403,26 @@ class Contributors {
 	}
 
 	/**
+	 * Remove deleted contributor's post meta references
+	 * @param int $term
+	 * @param int $tt_id
+	 * @param \WP_Term $deleted_term
+	 */
+	public function deleteContributor( $term, $tt_id, $deleted_term ) {
+		global $wpdb;
+
+		$placeholder = implode( ', ', array_fill( 0, count( $this->valid ), '%s' ) );
+
+		$wpdb->query(
+			$wpdb->prepare(
+			//phpcs:disable WordPress.WP.PreparedSQL.NotPrepared
+				"DELETE FROM $wpdb->postmeta WHERE meta_key IN ( $placeholder ) AND meta_value = %s",
+				array_merge( $this->valid, [ $deleted_term->slug ] )
+			)
+		);
+	}
+
+	/**
 	 * Return contributors' taxonomy terms as an associative array with meta HTML tag information.
 	 *
 	 * @param string $field
@@ -278,6 +455,12 @@ class Contributors {
 				'input_type' => 'text',
 				'description' => __( 'Suffix to be displayed after this contributors\'s name, e.g. Jr., Sr., IV, PhD, MD, USN (Ret.).', 'pressbooks' ),
 				'sanitization_method' => 'sanitize_text_field',
+			],
+			self::TAXONOMY . '_picture' => [
+				'label' => __( 'Picture', 'pressbooks' ),
+				'tag' => self::TAXONOMY . '-picture',
+				'input_type' => 'picture',
+				'sanitization_method' => '\Pressbooks\Sanitize\validate_url_field',
 			],
 			self::TAXONOMY . '_description' => [
 				'label' => __( 'Biographical Info', 'pressbooks' ),
@@ -321,7 +504,78 @@ class Contributors {
 			],
 		];
 
-		return $allowed_fields[ self::TAXONOMY . '_' . $field ] ?? $allowed_fields;
+		return array_key_exists( self::TAXONOMY . '_' . $field, $allowed_fields ) ?
+			$allowed_fields[ self::TAXONOMY . '_' . $field ] :
+			$allowed_fields;
+	}
+
+	/**
+	 * Get the list of fields that should be exported.
+	 *
+	 * @return array
+	 */
+	public function getTransferableFields() {
+		return array_keys( self::getContributorFields() );
+	}
+
+	/**
+	 * Get the list of fields that should be stored as URLs.
+	 *
+	 * @return array
+	 */
+	public function getUrlFields() {
+		$fields = self::getContributorFields();
+
+		return array_keys(
+			array_filter(
+				$fields, function( $field ) {
+					if ( ! isset( $field['sanitization_method'] ) ) {
+						return false;
+					}
+
+					return $field['sanitization_method'] === '\Pressbooks\Sanitize\validate_url_field';
+				}
+			)
+		);
+	}
+
+	/**
+	 * Sanitize input when importing data.
+	 *
+	 * @param string $name
+	 * @param string $value
+	 * @return string
+	 */
+	public function sanitizeField( $name, $value ) {
+		$field = self::getContributorFields( str_replace( self::TAXONOMY . '_', '', $name ) );
+
+		// if the given field does not have a sanitization method we simply return the given value.
+		if ( ! isset( $field['sanitization_method'] ) ) {
+			return $value;
+		}
+
+		// If the given field is a URL, we return the given value if it's a valid URL and an empty string otherwise.
+		if ( in_array( $name, $this->getUrlFields(), true ) ) {
+			return $field['sanitization_method']( $value ) ? $value : '';
+		}
+
+		// Apply the sanitization method.
+		return $field['sanitization_method']( $value );
+	}
+
+	/**
+	 * Returns the form title and the hint for the file input.
+	 *
+	 * @return array
+	 */
+	public function getFormMessages() {
+		$guide_chapter = esc_url( 'https://guide.pressbooks.com/chapter/creating-and-displaying-contributors/#importingcontributors' );
+		$hint = __( '<p>Import multiple contributors at once by uploading a valid JSON file. See <a href="%s" target="_blank">our guide</a> for details.</p>', 'pressbooks' );
+
+		return [
+			'title' => '<h2>' . __( 'Import Contributors', 'pressbooks' ) . '</h2>',
+			'hint' => sprintf( $hint, $guide_chapter ),
+		];
 	}
 
 	/**
@@ -431,7 +685,19 @@ class Contributors {
 			$last_name = get_term_meta( $term->term_id, 'contributor_last_name', true );
 			if ( ! empty( $first_name ) && ! empty( $last_name ) ) {
 				$name = $prefix ? "{$prefix} {$first_name} {$last_name}" : "{$first_name} {$last_name}";
-				$suffix = ! empty( $suffix ) ? ( preg_match( '/^[MDCLXVI]+$/', $suffix ) ? " $suffix" : ", $suffix" ) : '';
+				if ( ! empty( $suffix ) ) {
+					$does_contains_roman_number = false;
+					$roman_numbers_suffix = [ 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII' ];
+					foreach ( $roman_numbers_suffix as $roman_number ) {
+						if ( strpos( $suffix, $roman_number ) !== false ) {
+							$does_contains_roman_number = true;
+							break;
+						}
+					}
+					$suffix = $does_contains_roman_number ? " $suffix" : ", $suffix";
+				} else {
+					$suffix = '';
+				}
 				$name = $suffix ? "${name}${suffix}" : $name;
 			} elseif ( ! empty( $term->name ) ) {
 				$name = $term->name;
@@ -480,7 +746,7 @@ class Contributors {
 
 		$result = false;
 		foreach ( $names as $contributors ) {
-			$values = oxford_comma_explode( $contributors );
+			$values = explode_remove_and( ';', $contributors );
 			foreach ( $values as $v ) {
 				$result = $this->insert( $v, $post_id, $new_slug );
 			}
@@ -495,7 +761,7 @@ class Contributors {
 	 *
 	 * @return array An array containing a set of matching contributor arrays
 	 */
-	public function getFullContributors( $post_id, $contributor_type ) {
+	public function getContributorsWithMeta( $post_id, $contributor_type ) {
 		if ( ! str_starts_with( $contributor_type, 'pb_' ) ) {
 			$contributor_type = 'pb_' . $contributor_type;
 		}
@@ -516,5 +782,58 @@ class Contributors {
 		}
 
 		return $full_contributors;
+	}
+
+	/**
+	 * This function returns an array with all the contributors registered in a book ordered by $valid array default ordering.
+	 * @return array
+	 */
+	public function getAllContributors() {
+
+		$meta = new Metadata();
+		$meta_post = $meta->getMetaPost();
+
+		$records = [];
+		foreach ( $this->valid as $contributor_type ) {
+			$contributors = $this->getContributorsWithMeta( $meta_post->ID, $contributor_type );
+			$contributors_count = count( $contributors );
+			if ( $contributors_count > 0 ) {
+				list( ,$title ) = explode( '_', $contributor_type );
+				$records[ $contributor_type ]['title'] = Str::ucfirst( $contributors_count > 1 ? $title : Str::singular( $title ) ); // ex. return Author or Authors
+				$records[ $contributor_type ]['records'] = $contributors;
+			}
+		}
+		return $records;
+	}
+
+	/**
+	 * Automatically displays a contributors page if the back-matter content is empty.
+	 *
+	 * @param string $content
+	 *
+	 * @return string
+	 */
+	public function overrideDisplay( $content ) {
+
+		return $this->display(
+			$content, function() {
+
+				$blade = Container::get( 'Blade' );
+
+				return $blade->render(
+					'posttypes/contributors', [
+						'contributors' => $this->getAllContributors(),
+						'exporting' => $this->exporting,
+					]
+				);
+
+			}, 'contributors'
+		);
+
+	}
+
+	public static function changeContributorName( \WP_Roles $roles ) {
+		$roles->roles['contributor']['name'] = 'Collaborator';
+		$roles->role_names['contributor'] = 'Collaborator';
 	}
 }

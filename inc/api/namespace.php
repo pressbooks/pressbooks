@@ -276,18 +276,6 @@ function hide_endpoints_from_book( $endpoints ) {
 }
 
 /**
- * Hide endpoints from root api
- *
- * @param array $endpoints
- *
- * @return array
- */
-function hide_endpoints_from_root( $endpoints ) {
-
-	return $endpoints; // Nothing to hide
-}
-
-/**
  * Filter to adjust the url returned by the get_rest_url() function
  *
  * @param string $url

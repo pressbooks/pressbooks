@@ -53,15 +53,13 @@ add_action( 'plugins_loaded', [ '\Pressbooks\Activation', 'init' ] );
 // -------------------------------------------------------------------------------------------------------------------
 
 add_filter( 'rest_index', '\Pressbooks\Api\add_help_link' );
-
 if ( $is_book ) {
 	add_action( 'rest_api_init', '\Pressbooks\Api\init_book' );
-	add_filter( 'rest_endpoints', '\Pressbooks\Api\hide_endpoints_from_book' );
 	add_filter( 'rest_url', '\Pressbooks\Api\fix_book_urls', 10, 2 );
 	add_filter( 'rest_prepare_attachment', '\Pressbooks\Api\fix_attachment', 10, 3 );
 } elseif ( $enable_network_api ) {
+	add_action( 'rest_api_init', '\Pressbooks\Api\init_book' );
 	add_action( 'rest_api_init', '\Pressbooks\Api\init_root' );
-	add_filter( 'rest_endpoints', '\Pressbooks\Api\hide_endpoints_from_root' );
 }
 
 add_action( 'plugins_loaded', [ '\Pressbooks\DataCollector\User', 'init' ] );
@@ -204,6 +202,7 @@ if ( $is_book ) {
 	add_action( 'plugins_loaded', [ '\Pressbooks\Shortcodes\Footnotes\Footnotes', 'init' ] );
 	add_action( 'plugins_loaded', [ '\Pressbooks\Shortcodes\Attributions\Attachments', 'init' ] );
 	add_action( 'plugins_loaded', [ '\Pressbooks\Shortcodes\Glossary\Glossary', 'init' ] );
+	add_action( 'plugins_loaded', [ 'Pressbooks\Contributors', 'init' ] );
 	add_action( 'plugins_loaded', [ '\Pressbooks\Shortcodes\Complex\Complex', 'init' ] );
 	add_action( 'plugins_loaded', [ '\Pressbooks\Shortcodes\Generics\Generics', 'init' ] );
 	add_action( 'plugins_loaded', [ '\Pressbooks\Shortcodes\WikiPublisher\Glyphs', 'init' ] );

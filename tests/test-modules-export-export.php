@@ -42,7 +42,6 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 			[ '\Pressbooks\Modules\Export\Prince\DocraptorPrint', '\Pressbooks\Modules\Export\Xhtml\Xhtml11' ],
 			[ '\Pressbooks\Modules\Export\Epub\Epub201', false ],
 			[ '\Pressbooks\Modules\Export\Epub\Epub3', false ],
-			[ '\Pressbooks\Modules\Export\InDesign\Icml', false ],
 			[ '\Pressbooks\Modules\Export\WordPress\Wxr', false ],
 			[ '\Pressbooks\Modules\Export\WordPress\VanillaWxr', false ],
 			// [ '\Pressbooks\Modules\Export\Odt\Odt', false ], // TODO: Download/install Saxon-HE in Travis build script
@@ -363,7 +362,14 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 
 		$this->_book();
 		$meta_post = ( new \Pressbooks\Metadata() )->getMetaPost();
-		( new \Pressbooks\Contributors() )->insert( 'Ned Zimmerman', $meta_post->ID );
+		$contributor = [
+			'slug' => 'patmetheny',
+			'name' => 'Pat Metheny',
+			'contributor_first_name' => 'Pat',
+			'contributor_last_name' => 'Metheny',
+			'contributor_description' => 'The <strong>drummer</strong> is the leader of any band',
+		];
+		( new \Pressbooks\Contributors() )->insert( $contributor, $meta_post->ID );
 		$user_id = $this->factory()->user->create( [ 'role' => 'contributor' ] );
 		wp_set_current_user( $user_id );
 		update_option( 'pressbooks_theme_options_global', [ 'parse_subsections' => 1 ] );
@@ -516,6 +522,85 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 			$this->assertNotContains( 'print', $sections[0]->getAttribute( 'class' ) );
 			unlink( $exporter->getOutputPath() );
 		}
+	}
+
+	/**
+	 * @group export
+	 */
+	public function test_getContributorsForSectionXHTML() {
+		$this->_book();
+		$meta_post = ( new \Pressbooks\Metadata() )->getMetaPost();
+		$contributor_metadata = [
+			'name' => 'Pat Metheny',
+			'institution' => 'Pressbooks University',
+			'picture' => 'Sorry, there is not picture! :/',
+			'url' => 'https://pressbooks.com',
+			'linkedin' => 'https://linkedin.com/pat',
+			'twitter' => 'https://twitter.com/pat',
+			'github' => 'https://github.com/pat',
+			'description' => '<strong>I am a description</strong>',
+		];
+		$contributor = ( new \Pressbooks\Contributors() )->insert( $contributor_metadata['name'], $meta_post->ID );
+
+		$term = get_term_by( 'term_id', $contributor['term_id'], 'contributor' );
+		add_term_meta( $term->term_id,
+			\Pressbooks\Contributors::TAXONOMY . '_description',
+			$contributor_metadata['description']
+		);
+		add_term_meta( $term->term_id,
+			\Pressbooks\Contributors::TAXONOMY . '_institution',
+			$contributor_metadata['institution']
+		);
+		add_term_meta( $term->term_id,
+			\Pressbooks\Contributors::TAXONOMY . '_picture',
+			$contributor_metadata['picture']
+		);
+		add_term_meta( $term->term_id,
+			\Pressbooks\Contributors::TAXONOMY . '_user_url',
+			$contributor_metadata['url']
+		);
+		add_term_meta( $term->term_id,
+			\Pressbooks\Contributors::TAXONOMY . '_twitter',
+			$contributor_metadata['twitter']
+		);
+		add_term_meta( $term->term_id,
+			\Pressbooks\Contributors::TAXONOMY . '_linkedin',
+			$contributor_metadata['linkedin']
+		);
+		add_term_meta( $term->term_id,
+			\Pressbooks\Contributors::TAXONOMY . '_github',
+			$contributor_metadata['github']
+		);
+
+		$contributors_print = \Pressbooks\Modules\Export\get_contributors_section( $meta_post->ID );
+		$this->assertContains( $contributor_metadata['name'], $contributors_print );
+		$this->assertContains( $contributor_metadata['github'], $contributors_print );
+		$this->assertContains( $contributor_metadata['linkedin'], $contributors_print );
+		$this->assertContains( $contributor_metadata['twitter'], $contributors_print );
+		$this->assertContains( $contributor_metadata['url'], $contributors_print );
+		$this->assertContains( $contributor_metadata['institution'], $contributors_print );
+		$this->assertContains( $contributor_metadata['description'], $contributors_print );
+		$this->assertContains( "<h3 class=\"about-authors\">About the Author</h3>", $contributors_print );
+	}
+
+	/**
+	 * @group export
+	 */
+	public function test_HTMLBookConstructor() {
+		$html_book = new Pressbooks\Modules\Export\HTMLBook\HTMLBook( [ 'endnotes' => true ] );
+		$this->assertContains( 'endnotes', $_GET );
+		$this->assertTrue( $_GET['endnotes'] );
+	}
+
+	/**
+	 * @group export
+	 */
+	public function test_endnoteShortcode() {
+		$html_book = new Pressbooks\Modules\Export\HTMLBook\HTMLBook( [ 'endnotes' => true ] );
+		$end_note = $html_book->endnoteShortcode( [] , 'I am a endnote, see you!');
+		$attributes = $end_note->getAttributes();
+		$this->assertArrayHasKey( 'class', $attributes );
+		$this->assertEquals( 'endnote', $attributes['class'] );
 	}
 
 }

@@ -59,7 +59,14 @@ class ApiTest extends \WP_UnitTestCase {
 	 */
 	public function test_informationToSchema() {
 		$book_information = [
-			"pb_authors" => "admin",
+			"pb_authors" => [
+				[
+					'name' => 'admin',
+					'contributor_first_name' => 'Pat',
+					'contributor_last_name' => 'Metheny',
+					'contributor_description' => 'The drummer is the leader of any band',
+				],
+			],
             "pb_title" => "The onboarding process",
 			"pb_language" => "en",
 			"pb_cover_image" => "https://pressbooks.test/app/plugins/pressbooks/assets/dist/images/default-book-cover.jpg",
@@ -82,6 +89,7 @@ class ApiTest extends \WP_UnitTestCase {
 		$this->assertArrayHasKey( 'wordCount', $schema );
 		$this->assertArrayHasKey( 'h5pActivities', $schema );
 		$this->assertArrayHasKey( 'thumbnailUrl', $schema );
+		$this->assertArrayHasKey( 'author', $schema );
 	}
 
 	/**
