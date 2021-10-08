@@ -23,13 +23,13 @@
 	"config": {
     "process-timeout":0,
 		"platform": {
-			"php": "7.4"
+			"php": "7.3"
 		}
 	},
 	"require": {
-		"php": "^7.4",
+		"php": ">=7.3",
 		"aws/aws-sdk-php": "^3.173",
-		"composer/installers": "^2.0.0",
+		"composer/installers": "~1.0",
 		"davidgorges/human-name-parser": "^1.0",
 		"docraptor/docraptor": "1.3",
 		"fale/isbn": "^3.0",
@@ -50,14 +50,14 @@
 	"require-dev": {
 		"phpunit/phpunit": "^9",
 		"codeception/module-db": "^1.1",
-		"codeception/module-webdriver": "^1.4",
+		"codeception/module-webdriver": "^1.2",
 		"codeception/module-phpbrowser": "^1.0",
 		"codeception/module-asserts": "^1.3",
 		"codeception/module-filesystem": "^1.0",
 		"codeception/module-cli": "^1.1",
 		"codeception/util-universalframework": "^1.0",
 		"lucatume/wp-browser": "^3.0",
-		"pressbooks/coding-standards": "dev-master"
+		"pressbooks/coding-standards": "^1.0"
 	},
 	"suggest": {
 		"pressbooks/pressbooks-book":
