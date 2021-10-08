@@ -3,6 +3,10 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv3 (or any later version)
  */
+// TODO: Security audit
+// @phpcs:disable Pressbooks.Security.EscapeOutput.OutputNotEscaped
+// @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.InputNotValidated
+// @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.MissingUnslash
 
 namespace Pressbooks\Utility;
 
@@ -341,7 +345,7 @@ trait HandlesTransfers {
 					return false;
 				}
 			} catch ( \Exception $exc ) {
-				@unlink( $tmp_name ); // @codingStandardsIgnoreLine
+				@unlink( $tmp_name );
 
 				return false;
 			}
@@ -354,7 +358,7 @@ trait HandlesTransfers {
 			]
 		);
 
-		@unlink( $tmp_name ); // @codingStandardsIgnoreLine
+		@unlink( $tmp_name );
 
 		return wp_get_attachment_url( $pid );
 	}

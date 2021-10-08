@@ -4,7 +4,6 @@
  * @license GPLv3 (or any later version)
  */
 
-
 namespace Pressbooks\Utility;
 
 /**

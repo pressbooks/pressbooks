@@ -3,6 +3,8 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv3 (or any later version)
  */
+// TODO: Security audit
+// @phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 
 namespace Pressbooks;
 
@@ -415,7 +417,7 @@ class Contributors implements BackMatter, Transferable {
 
 		$wpdb->query(
 			$wpdb->prepare(
-			//phpcs:disable WordPress.WP.PreparedSQL.NotPrepared
+			//phpcs:ignore
 				"DELETE FROM $wpdb->postmeta WHERE meta_key IN ( $placeholder ) AND meta_value = %s",
 				array_merge( $this->valid, [ $deleted_term->slug ] )
 			)

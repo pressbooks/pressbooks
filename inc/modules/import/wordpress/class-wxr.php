@@ -240,7 +240,6 @@ class Wxr extends Import {
 		return $last_inserted;
 	}
 
-
 	/**
 	 * @param array $current_import
 	 *

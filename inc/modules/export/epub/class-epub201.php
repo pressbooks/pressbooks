@@ -209,7 +209,6 @@ class Epub201 extends ExportGenerator {
 	 */
 	protected $displayAboutTheAuthors;
 
-
 	/**
 	 * @param array $args
 	 */
@@ -878,7 +877,6 @@ class Epub201 extends ExportGenerator {
 
 		return $css;
 	}
-
 
 	/**
 	 * @param array $metadata

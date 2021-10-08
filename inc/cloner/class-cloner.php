@@ -243,7 +243,6 @@ class Cloner {
 	 */
 	private $contributorsInserted = [];
 
-
 	/**
 	 * Constructor.
 	 *
