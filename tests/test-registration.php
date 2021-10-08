@@ -1,6 +1,7 @@
 <?php
 
 class Registration extends \WP_UnitTestCase {
+	use utilsTrait;
 
 	/**
 	 * @group registration
@@ -161,5 +162,176 @@ class Registration extends \WP_UnitTestCase {
 		$errors = \Pressbooks\Registration\check_for_strong_password( 'aaa1AAAAaaaa' );
 		$this->assertTrue( is_string( $errors ) );
 		$this->assertEmpty( $errors );
+	}
+
+	/**
+	 * @group invitation
+	 */
+	public function test_invitation_sent_to_existing_user() {
+		$this->_book();
+
+		$role = [ 'name' => 'author'];
+		$key = wp_generate_password( 20, false );
+		$user = get_userdata( $this->factory()->user->create() );
+
+		$meta_key = 'new_user_' . $key;
+
+		$this->assertEmpty( get_option( $meta_key ) );
+		$this->assertEmpty( get_user_meta( $user->ID, $meta_key, true ) );
+
+		add_option(
+			$meta_key,
+			[
+				'user_id' => $user->ID,
+				'email' => $user->user_email,
+				'role' => $role['name'],
+			]
+		);
+
+		do_action( 'invite_user', $user->ID, $role, $key );
+
+		$invitation = get_user_meta( $user->ID, $meta_key, true );
+
+		$this->assertNotEmpty( get_option( $meta_key ) );
+		$this->assertNotEmpty( $invitation );
+		$this->assertEquals( $key, $invitation['key'] );
+		$this->assertEquals( get_current_blog_id(), $invitation['blog_id'] );
+		$this->assertEquals( $role['name'], $invitation['role'] );
+	}
+
+	/**
+	 * @group invitation
+	 */
+	public function test_display_invitation() {
+		$this->_book();
+
+		$role = [ 'name' => 'author'];
+		$key = wp_generate_password( 20, false );
+		$user = get_userdata( $this->factory()->user->create() );
+
+		$meta_key = 'new_user_' . $key;
+
+		do_action( 'invite_user', $user->ID, $role, $key );
+
+		$this->assertNotEmpty( get_user_meta( $user->ID, $meta_key, true) );
+
+		wp_set_current_user( $user->ID );
+
+		ob_start();
+		\Pressbooks\Admin\Dashboard\pending_invitations_callback();
+		$output = ob_get_clean();
+
+		$this->assertContains( get_site_meta( get_current_blog_id(), 'pb_title', true ), $output );
+		$this->assertContains( "<a class='button button-primary' href='" . home_url( '/newbloguser/' . $key ) . "'>Accept</a>", $output );
+	}
+
+	/**
+	 * @group invitation
+	 */
+	public function test_display_invitation_does_not_show_to_the_wrong_user() {
+		$this->_book();
+
+		$role = [ 'name' => 'author'];
+		$key = wp_generate_password( 20, false );
+		$user = get_userdata( $this->factory()->user->create() );
+
+		$meta_key = 'new_user_' . $key;
+
+		do_action( 'invite_user', $user->ID, $role, $key );
+
+		$this->assertNotEmpty( get_user_meta( $user->ID, $meta_key, true) );
+
+		$user_2 = get_userdata( $this->factory()->user->create() );
+		wp_set_current_user( $user_2->ID );
+
+		ob_start();
+		\Pressbooks\Admin\Dashboard\pending_invitations_callback();
+		$output = ob_get_clean();
+
+		$this->assertEmpty( $output );
+	}
+
+	/**
+	 * @group invitation
+	 */
+	public function test_nothing_is_displayed_when_user_has_no_invitation()
+	{
+		$this->_book();
+
+		$key = wp_generate_password( 20, false );
+		$user = get_userdata( $this->factory()->user->create() );
+
+		$this->assertEmpty( get_user_meta( $user->ID, 'new_user_' . $key, true) );
+
+		wp_set_current_user( $user->ID );
+
+		ob_start();
+		\Pressbooks\Admin\Dashboard\pending_invitations_callback();
+		$output = ob_get_clean();
+
+		$this->assertEmpty( $output );
+	}
+
+	/**
+	 * @group invitation
+	 */
+	public function test_accept_invitation() {
+		$this->_book();
+
+		$role = [ 'name' => 'author'];
+		$key = wp_generate_password( 20, false );
+		$user = get_userdata( $this->factory()->user->create() );
+
+		$meta_key = 'new_user_' . $key;
+
+		add_option(
+			$meta_key,
+			[
+				'user_id' => $user->ID,
+				'email' => $user->user_email,
+				'role' => $role['name'],
+			]
+		);
+
+		do_action( 'invite_user', $user->ID, $role, $key );
+
+		$this->assertNotEmpty( get_user_meta( $user->ID, $meta_key, true) );
+
+		$_SERVER['REQUEST_URI'] = '/newbloguser/' . $key;
+		add_existing_user_to_blog( get_option( $meta_key ) );
+
+		$this->assertEmpty( get_user_meta( $user->ID, $meta_key, true ) );
+	}
+
+	/**
+	 * @group invitation
+	 */
+	public function test_clean_invitation_data_does_not_delete_data_if_activation_fails()
+	{
+		$this->_book();
+
+		$role = [ 'name' => 'author'];
+		$key = wp_generate_password( 20, false );
+		$user = get_userdata( $this->factory()->user->create() );
+
+		$meta_key = 'new_user_' . $key;
+
+		add_option(
+			$meta_key,
+			[
+				'user_id' => $user->ID,
+				'email' => $user->user_email,
+				'role' => $role['name'],
+			]
+		);
+
+		do_action( 'invite_user', $user->ID, $role, $key );
+
+		$this->assertNotEmpty( get_user_meta( $user->ID, $meta_key, true) );
+
+		$_SERVER['REQUEST_URI'] = '/newbloguser/' . $key;
+		\Pressbooks\Registration\clean_invitation_data( $user->ID, false );
+
+		$this->assertNotEmpty( get_user_meta( $user->ID, $meta_key, true ) );
 	}
 }

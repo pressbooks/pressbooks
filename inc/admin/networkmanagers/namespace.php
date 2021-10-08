@@ -91,8 +91,11 @@ function update_admin_status() {
 
 		if ( is_array( $restricted ) && ! empty( $restricted ) ) {
 			update_site_option( 'pressbooks_network_managers', $restricted );
+			// This meta option will only be used by the BI, but we want to keep that in sync.
+			update_site_option( 'pressbooks_network_managers_ids', implode( ',', $restricted ) );
 		} else {
 			delete_site_option( 'pressbooks_network_managers' );
+			delete_site_option( 'pressbooks_network_managers_ids' );
 		}
 		// Reset the cheap cache after updating the option
 		_restricted_users( true );

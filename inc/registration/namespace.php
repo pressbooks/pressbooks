@@ -363,3 +363,46 @@ function check_for_strong_password( $pwd ) {
 function remove_wp_prefix( $lostpassword_url ) {
 	return preg_replace( '/(.*[^\/])\/wp\/(.*)(\/wp-login.php)(.*)/i', '$1/$2$3$4', $lostpassword_url );
 }
+
+/**
+ * When inviting a user to a book, store useful information to
+ * display pending invitations' widget.
+ *
+ * @param int $user_id
+ * @param array $role
+ * @param string $newuser_key
+ */
+function save_invitation_data( $user_id, $role, $newuser_key ) {
+	$blog_id = get_current_blog_id();
+
+	update_user_meta(
+		$user_id, "new_user_{$newuser_key}",
+		[
+			'role' => $role['name'],
+			'key' => $newuser_key,
+			'blog_id' => $blog_id,
+		]
+	);
+}
+
+/**
+ * When accepting an invitation to a book, we want to clean up
+ * user meta table.
+ *
+ * @param int $user_id
+ * @param bool|\WP_Error$result
+ */
+function clean_invitation_data( $user_id, $result ) {
+	// If was not possible to add the user we skip.
+	if ( $result !== true ) {
+		return;
+	}
+
+	// We need to get the key from the URI since it's not passed as a parameter.
+	$parts = explode( '/', $_SERVER['REQUEST_URI'] );
+	$key   = array_pop( $parts );
+
+	$key = $key === '' ? array_pop( $parts ) : $key;
+
+	delete_user_meta( $user_id, 'new_user_' . $key );
+}

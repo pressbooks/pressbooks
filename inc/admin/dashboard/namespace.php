@@ -61,8 +61,12 @@ function replace_root_dashboard_widgets() {
 
 	// Remove third-party widgets
 	remove_meta_box( 'dashboard_rediscache', 'dashboard', 'normal' );
-
 	$user = wp_get_current_user();
+
+	if ( \Pressbooks\Utility\get_number_of_invitations( $user ) ) {
+		add_pending_invitation_meta_box( 'dashboard' );
+	}
+
 	if (
 		$user->roles &&
 		count( $user->roles ) === 1 &&
@@ -146,6 +150,10 @@ function lowly_user() {
 		}
 	}
 
+	if ( \Pressbooks\Utility\get_number_of_invitations( wp_get_current_user() ) ) {
+		add_pending_invitation_meta_box( 'dashboard-user' );
+	}
+
 	add_meta_box(
 		'pb_dashboard_widget_book_permissions',
 		__( 'Book Permissions', 'pressbooks' ),
@@ -154,6 +162,59 @@ function lowly_user() {
 		'normal',
 		'high'
 	);
+}
+
+/**
+ * Adds pending invitations meta box
+ *
+ * @param string $screen
+ */
+function add_pending_invitation_meta_box( $screen ) {
+	add_meta_box(
+		'pb_dashboard_widget_book_invitations',
+		__( 'Book Invitations', 'pressbooks' ),
+		__NAMESPACE__ . '\pending_invitations_callback',
+		$screen,
+		'normal',
+		'high'
+	);
+}
+/**
+ * Callback for /wp-admin and /wp-admin/user widget
+ *
+ * Renders book invitations if user has at least one pending book invitation.
+ */
+function pending_invitations_callback() {
+	global $wpdb;
+
+	$current_blog_id = get_current_blog_id();
+	$user_id = get_current_user_id();
+
+	$invitations = $wpdb->get_results( $wpdb->prepare( "SELECT meta_key, meta_value FROM $wpdb->usermeta WHERE meta_key LIKE %s AND user_id = %d", 'new_user_%', $user_id ) );
+
+	foreach ( $invitations as $invitation ) {
+		$metadata = maybe_unserialize( $invitation->meta_value );
+
+		switch_to_blog( $metadata['blog_id'] );
+
+		$message = sprintf(
+			__( 'You have been invited to join <a href="%1$s">%2$s</a> as %3$s %4$s', 'pressbooks' ),
+			home_url(),
+			get_site_meta( $metadata['blog_id'], 'pb_title', true ),
+			preg_match( '/^[aeiou]/i', $metadata['role'] ) ? 'an' : 'a',
+			$metadata['role']
+		);
+
+		echo "
+        <div>
+            <p>$message</p>
+            <a class='button button-primary' href='" . home_url( '/newbloguser/' . $metadata['key'] ) . "'>" . __( 'Accept', 'pressbooks' ) . '</a>
+        </div>
+        <hr/>
+        ';
+	}
+
+	switch_to_blog( $current_blog_id );
 }
 
 /**

@@ -1537,3 +1537,17 @@ function do_shortcode_by_tags( $content, array $tags ) {
 function apply_https_if_available( $url ) {
 	return  is_ssl() ? str_replace( 'http://', 'https://', $url ) : $url;
 }
+
+/**
+ * Checks if the user has pending invitations
+ *
+ * @param \WP_User $user
+ * @return int
+ */
+function get_number_of_invitations( $user ) {
+	global $wpdb;
+
+	$invitations = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(1) FROM $wpdb->usermeta WHERE meta_key LIKE %s AND user_id = %d", 'new_user_%', $user->ID ) );
+
+	return (int) $invitations;
+}
