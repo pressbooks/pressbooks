@@ -314,24 +314,33 @@ trait HandlesTransfers {
 	 * Creates a new image based on the url provided during import.
 	 *
 	 * @param string $url
+	 * @param bool $importing
 	 * @return false|string
 	 */
-	public function handleImage( $url ) {
+	public function handleImage( $url, $importing = true ) {
 		if ( ! $url ) {
 			return false;
 		}
 
-		$parts = explode( '?', $url );
-		$parts = explode( '#', $parts[0] );
-		$parts = explode( '/', $parts[0] );
+		if ( $importing ) {
+			$parts = explode( '?', $url );
+			$parts = explode( '#', $parts[0] );
+			$parts = explode( '/', $parts[0] );
 
-		$filename = sanitize_file_name( end( $parts ) );
+			$filename = sanitize_file_name( end( $parts ) );
 
-		if ( ! preg_match( '/\.(jpe?g|gif|png)$/i', $filename ) ) {
-			return false;
+			if ( ! preg_match( '/\.(jpe?g|gif|png)$/i', $filename ) ) {
+				return false;
+			}
 		}
 
+		$filename = $filename ?? 'profile.jpg';
+
 		$tmp_name = download_url( $url );
+
+		if ( is_wp_error( $tmp_name ) ) {
+			return false;
+		}
 
 		if ( ! is_valid_image( $tmp_name, $filename ) ) {
 			try {

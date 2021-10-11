@@ -605,6 +605,20 @@ class Contributors implements BackMatter, Transferable {
 				$contributors_terms = array_keys( self::getContributorFields() );
 				foreach ( $contributors_terms as $term ) {
 					$user_term = str_replace( 'contributor_', '', $term );
+
+					if ( $user_term === 'picture' ) {
+						// handle gravatar profile picture
+						$hash = md5( strtolower( $user->user_email ) );
+
+						$src = $this->handleImage( "https://secure.gravatar.com/avatar/{$hash}?s=400&d=404", false );
+
+						if ( $src ) {
+							add_term_meta( $results['term_id'], $term, $src, true );
+						}
+
+						continue;
+					}
+
 					if ( $user->$user_term ) {
 						add_term_meta( $results['term_id'], $term, $user->$user_term, true );
 					}
