@@ -610,7 +610,7 @@ class Contributors implements BackMatter, Transferable {
 						// handle gravatar profile picture
 						$hash = md5( strtolower( $user->user_email ) );
 
-						$src = $this->handleImage( "https://secure.gravatar.com/avatar/{$hash}?s=400&d=404", false );
+						$src = \Pressbooks\Utility\handle_image_upload( "https://secure.gravatar.com/avatar/{$hash}?s=400&d=404" );
 
 						if ( $src ) {
 							add_term_meta( $results['term_id'], $term, $src, true );

@@ -6,8 +6,6 @@
 
 namespace Pressbooks\Utility;
 
-use function Pressbooks\Image\is_valid_image;
-use function Pressbooks\Image\proper_image_extension;
 use function Pressbooks\Redirect\force_download;
 use Pressbooks\Transferable;
 
@@ -314,57 +312,23 @@ trait HandlesTransfers {
 	 * Creates a new image based on the url provided during import.
 	 *
 	 * @param string $url
-	 * @param bool $importing
 	 * @return false|string
 	 */
-	public function handleImage( $url, $importing = true ) {
+	public function handleImage( $url ) {
 		if ( ! $url ) {
 			return false;
 		}
 
-		if ( $importing ) {
-			$parts = explode( '?', $url );
-			$parts = explode( '#', $parts[0] );
-			$parts = explode( '/', $parts[0] );
+		$parts = explode( '?', $url );
+		$parts = explode( '#', $parts[0] );
+		$parts = explode( '/', $parts[0] );
 
-			$filename = sanitize_file_name( end( $parts ) );
+		$filename = sanitize_file_name( end( $parts ) );
 
-			if ( ! preg_match( '/\.(jpe?g|gif|png)$/i', $filename ) ) {
-				return false;
-			}
-		}
-
-		$filename = $filename ?? 'profile.jpg';
-
-		$tmp_name = download_url( $url );
-
-		if ( is_wp_error( $tmp_name ) ) {
+		if ( ! preg_match( '/\.(jpe?g|gif|png)$/i', $filename ) ) {
 			return false;
 		}
 
-		if ( ! is_valid_image( $tmp_name, $filename ) ) {
-			try {
-				$filename = proper_image_extension( $tmp_name, $filename );
-
-				if ( ! is_valid_image( $tmp_name, $filename ) ) {
-					return false;
-				}
-			} catch ( \Exception $exc ) {
-				@unlink( $tmp_name ); // @codingStandardsIgnoreLine
-
-				return false;
-			}
-		}
-
-		$pid = media_handle_sideload(
-			[
-				'name' => $filename,
-				'tmp_name' => $tmp_name,
-			]
-		);
-
-		@unlink( $tmp_name ); // @codingStandardsIgnoreLine
-
-		return wp_get_attachment_url( $pid );
+		return \Pressbooks\Utility\handle_image_upload( $url, $filename );
 	}
 }
