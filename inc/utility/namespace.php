@@ -1551,3 +1551,56 @@ function get_number_of_invitations( $user ) {
 
 	return (int) $invitations;
 }
+
+/**
+ * Creates a new image based on the url provided during import.
+ *
+ * @param string $url
+ * @param string $filename
+ * @return false|string
+ */
+function handle_image_upload( $url, $filename = 'profile.jpg' ) {
+	if ( ! $url ) {
+		return false;
+	}
+
+	if ( ! function_exists( 'download_url' ) ) {
+		require_once ABSPATH . 'wp-admin/includes/file.php';
+	}
+
+	$tmp_name = \download_url( $url );
+
+	if ( is_wp_error( $tmp_name ) ) {
+		return false;
+	}
+
+	if ( ! \Pressbooks\Image\is_valid_image( $tmp_name, $filename ) ) {
+		try {
+			$filename = \Pressbooks\Image\proper_image_extension( $tmp_name, $filename );
+
+			if ( ! \Pressbooks\Image\is_valid_image( $tmp_name, $filename ) ) {
+				return false;
+			}
+		} catch ( \Exception $exc ) {
+            @unlink( $tmp_name ); // @codingStandardsIgnoreLine
+
+			return false;
+		}
+	}
+
+	if ( ! function_exists( 'media_handle_sideload' ) ) {
+		require_once ABSPATH . 'wp-admin/includes/image.php';
+		require_once ABSPATH . 'wp-admin/includes/media.php';
+	}
+
+	$pid = media_handle_sideload(
+		[
+			'name' => $filename,
+			'tmp_name' => $tmp_name,
+		]
+	);
+
+    @unlink( $tmp_name ); // @codingStandardsIgnoreLine
+
+	return wp_get_attachment_url( $pid );
+}
