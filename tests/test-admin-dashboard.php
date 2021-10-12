@@ -35,6 +35,37 @@ class Admin_DashboardTest extends \WP_UnitTestCase {
 		\Pressbooks\Admin\Dashboard\replace_root_dashboard_widgets();
 		$this->assertArrayHasKey( 'dashboard', $wp_meta_boxes );
 		$this->assertTrue( isset( $wp_meta_boxes['dashboard']['side']['low']['pb_dashboard_widget_blog'] ) );
+		$this->assertFalse( isset( $wp_meta_boxes['dashboard']['normal']['high']['pb_dashboard_widget_book_invitations']));
+	}
+
+	/**
+	 * @group dashboard
+	 */
+	public function test_replace_root_dashboard_widgets_with_invitations() {
+		$this->_book();
+
+		global $wp_meta_boxes;
+
+		$role = [ 'name' => 'author'];
+		$key = wp_generate_password( 20, false );
+		$user = get_userdata( $this->factory()->user->create() );
+
+		add_option(
+			'new_user_' . $key,
+			[
+				'user_id' => $user->ID,
+				'email' => $user->user_email,
+				'role' => $role['name'],
+			]
+		);
+
+		do_action( 'invite_user', $user->ID, $role, $key );
+
+		wp_set_current_user( $user->ID );
+
+		\Pressbooks\Admin\Dashboard\replace_root_dashboard_widgets();
+		$this->assertArrayHasKey( 'dashboard', $wp_meta_boxes );
+		$this->assertTrue( isset( $wp_meta_boxes['dashboard']['normal']['high']['pb_dashboard_widget_book_invitations']));
 	}
 
 	/**
@@ -70,6 +101,38 @@ class Admin_DashboardTest extends \WP_UnitTestCase {
 		global $wp_meta_boxes;
 		\Pressbooks\Admin\Dashboard\lowly_user();
 		$this->assertTrue( isset( $wp_meta_boxes['dashboard-user']['normal']['high']['pb_dashboard_widget_book_permissions'] ) );
+	}
+
+	/**
+	 * @group dashboard
+	 */
+	public function test_lowly_user_with_invitations() {
+		$this->_book();
+
+		global $wp_meta_boxes;
+
+		$wp_meta_boxes['dashboard-user']['normal']['core']['dashboard_site_health'] = 1;
+
+		$role = [ 'name' => 'author'];
+		$key = wp_generate_password( 20, false );
+		$user = get_userdata( $this->factory()->user->create() );
+
+		add_option(
+			'new_user_' . $key,
+			[
+				'user_id' => $user->ID,
+				'email' => $user->user_email,
+				'role' => $role['name'],
+			]
+		);
+
+		do_action( 'invite_user', $user->ID, $role, $key );
+
+		wp_set_current_user( $user->ID );
+
+		\Pressbooks\Admin\Dashboard\lowly_user();
+		$this->assertArrayHasKey( 'dashboard', $wp_meta_boxes );
+		$this->assertTrue( isset( $wp_meta_boxes['dashboard-user']['normal']['high']['pb_dashboard_widget_book_invitations']));
 	}
 
 	/**

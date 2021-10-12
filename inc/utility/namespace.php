@@ -1537,3 +1537,70 @@ function do_shortcode_by_tags( $content, array $tags ) {
 function apply_https_if_available( $url ) {
 	return  is_ssl() ? str_replace( 'http://', 'https://', $url ) : $url;
 }
+
+/**
+ * Checks if the user has pending invitations
+ *
+ * @param \WP_User $user
+ * @return int
+ */
+function get_number_of_invitations( $user ) {
+	global $wpdb;
+
+	$invitations = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(1) FROM $wpdb->usermeta WHERE meta_key LIKE %s AND user_id = %d", 'new_user_%', $user->ID ) );
+
+	return (int) $invitations;
+}
+
+/**
+ * Creates a new image based on the url provided during import.
+ *
+ * @param string $url
+ * @param string $filename
+ * @return false|string
+ */
+function handle_image_upload( $url, $filename = 'profile.jpg' ) {
+	if ( ! $url ) {
+		return false;
+	}
+
+	if ( ! function_exists( 'download_url' ) ) {
+		require_once ABSPATH . 'wp-admin/includes/file.php';
+	}
+
+	$tmp_name = \download_url( $url );
+
+	if ( is_wp_error( $tmp_name ) ) {
+		return false;
+	}
+
+	if ( ! \Pressbooks\Image\is_valid_image( $tmp_name, $filename ) ) {
+		try {
+			$filename = \Pressbooks\Image\proper_image_extension( $tmp_name, $filename );
+
+			if ( ! \Pressbooks\Image\is_valid_image( $tmp_name, $filename ) ) {
+				return false;
+			}
+		} catch ( \Exception $exc ) {
+            @unlink( $tmp_name ); // @codingStandardsIgnoreLine
+
+			return false;
+		}
+	}
+
+	if ( ! function_exists( 'media_handle_sideload' ) ) {
+		require_once ABSPATH . 'wp-admin/includes/image.php';
+		require_once ABSPATH . 'wp-admin/includes/media.php';
+	}
+
+	$pid = media_handle_sideload(
+		[
+			'name' => $filename,
+			'tmp_name' => $tmp_name,
+		]
+	);
+
+    @unlink( $tmp_name ); // @codingStandardsIgnoreLine
+
+	return wp_get_attachment_url( $pid );
+}

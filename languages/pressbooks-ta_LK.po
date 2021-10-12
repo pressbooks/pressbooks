@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
-"POT-Creation-Date: 2021-10-02T21:46:41+00:00\n"
-"PO-Revision-Date: 2021-10-02 21:47+0000\n"
+"POT-Creation-Date: 2021-10-12T18:18:07+00:00\n"
+"PO-Revision-Date: 2021-10-12 18:19+0000\n"
 "Last-Translator: Ho Man Chan <homan@pressbooks.com>\n"
 "Language-Team: Tamil (http://www.transifex.com/pressbooks/pressbooks/language/ta/)\n"
 "MIME-Version: 1.0\n"
@@ -623,17 +623,17 @@ msgid ""
 msgstr ""
 
 #: inc/admin/covergenerator/namespace.php:562
-#: inc/modules/themeoptions/class-pdfoptions.php:144
-#: inc/modules/themeoptions/class-pdfoptions.php:365
-#: inc/modules/themeoptions/class-pdfoptions.php:384
-#: inc/modules/themeoptions/class-pdfoptions.php:403
-#: inc/modules/themeoptions/class-pdfoptions.php:422
-#: inc/modules/themeoptions/class-pdfoptions.php:440
-#: inc/modules/themeoptions/class-pdfoptions.php:458
-#: inc/modules/themeoptions/class-pdfoptions.php:479
-#: inc/modules/themeoptions/class-pdfoptions.php:500
-#: inc/modules/themeoptions/class-pdfoptions.php:519
-#: inc/modules/themeoptions/class-pdfoptions.php:538
+#: inc/modules/themeoptions/class-pdfoptions.php:157
+#: inc/modules/themeoptions/class-pdfoptions.php:378
+#: inc/modules/themeoptions/class-pdfoptions.php:397
+#: inc/modules/themeoptions/class-pdfoptions.php:416
+#: inc/modules/themeoptions/class-pdfoptions.php:435
+#: inc/modules/themeoptions/class-pdfoptions.php:453
+#: inc/modules/themeoptions/class-pdfoptions.php:471
+#: inc/modules/themeoptions/class-pdfoptions.php:492
+#: inc/modules/themeoptions/class-pdfoptions.php:513
+#: inc/modules/themeoptions/class-pdfoptions.php:532
+#: inc/modules/themeoptions/class-pdfoptions.php:551
 msgid "Custom&hellip;"
 msgstr ""
 
@@ -660,59 +660,71 @@ msgstr ""
 msgid "Pressbooks News"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:70 inc/admin/dashboard/namespace.php:149
+#: inc/admin/dashboard/namespace.php:74 inc/admin/dashboard/namespace.php:157
 msgid "Book Permissions"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:111
+#: inc/admin/dashboard/namespace.php:115
 msgid "My Book"
 msgstr "என் நூல்"
 
-#: inc/admin/dashboard/namespace.php:112 inc/admin/laf/namespace.php:788
+#: inc/admin/dashboard/namespace.php:116 inc/admin/laf/namespace.php:788
 msgid "Users"
 msgstr "பயனாளர்கள்"
 
-#: inc/admin/dashboard/namespace.php:161
+#: inc/admin/dashboard/namespace.php:173
+msgid "Book Invitations"
+msgstr ""
+
+#: inc/admin/dashboard/namespace.php:199
+msgid "You have been invited to join <a href=\"%1$s\">%2$s</a> as %3$s %4$s"
+msgstr ""
+
+#: inc/admin/dashboard/namespace.php:209
+msgid "Accept"
+msgstr ""
+
+#: inc/admin/dashboard/namespace.php:222
 msgid "Welcome to Pressbooks!"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:164
+#: inc/admin/dashboard/namespace.php:225
 msgid "You do not have access to any books at the moment."
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:171
+#: inc/admin/dashboard/namespace.php:232
 msgid ""
 "This network does not allow users to create new books. To create a new book,"
 " please contact your Pressbooks Network Manager"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:173 inc/admin/dashboard/namespace.php:189
+#: inc/admin/dashboard/namespace.php:234 inc/admin/dashboard/namespace.php:250
 msgid "at"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:180
+#: inc/admin/dashboard/namespace.php:241
 msgid "Create a Book"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:182 inc/admin/laf/namespace.php:401
+#: inc/admin/dashboard/namespace.php:243 inc/admin/laf/namespace.php:401
 #: inc/admin/laf/namespace.php:607 inc/admin/laf/namespace.php:608
 #: templates/admin/cloner.php:13
 msgid "Clone a Book"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:187
+#: inc/admin/dashboard/namespace.php:248
 msgid ""
 "You can also request access to an existing book by contacting the book's "
 "author or the institution's Pressbooks Network Manager"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:203 inc/class-activation.php:244
+#: inc/admin/dashboard/namespace.php:264 inc/class-activation.php:244
 #: inc/modules/export/epub/templates/epub3/toc.php:26
-#: inc/modules/themeoptions/class-pdfoptions.php:272 tests/test-cloner.php:63
+#: inc/modules/themeoptions/class-pdfoptions.php:285 tests/test-cloner.php:63
 msgid "Table of Contents"
 msgstr "பொருளடக்கம்"
 
-#: inc/admin/dashboard/namespace.php:205 inc/admin/metaboxes/namespace.php:644
+#: inc/admin/dashboard/namespace.php:266 inc/admin/metaboxes/namespace.php:644
 #: inc/api/endpoints/controller/class-toc.php:192
 #: inc/posttype/namespace.php:115 inc/posttype/namespace.php:116
 #: inc/posttype/namespace.php:547 templates/admin/import.php:91
@@ -720,7 +732,7 @@ msgstr "பொருளடக்கம்"
 msgid "Front Matter"
 msgstr "முன்பகுதி"
 
-#: inc/admin/dashboard/namespace.php:246 inc/admin/metaboxes/namespace.php:646
+#: inc/admin/dashboard/namespace.php:307 inc/admin/metaboxes/namespace.php:646
 #: inc/api/endpoints/controller/class-toc.php:225
 #: inc/posttype/namespace.php:143 inc/posttype/namespace.php:144
 #: inc/posttype/namespace.php:550 templates/admin/import.php:96
@@ -728,46 +740,46 @@ msgstr "முன்பகுதி"
 msgid "Back Matter"
 msgstr "பிற்பகுதி"
 
-#: inc/admin/dashboard/namespace.php:265 inc/admin/dashboard/namespace.php:350
+#: inc/admin/dashboard/namespace.php:326 inc/admin/dashboard/namespace.php:411
 #: templates/admin/organize.php:272 templates/admin/organize.php:429
 msgid "Add"
 msgstr "சேர்க்கவும்"
 
-#: inc/admin/dashboard/namespace.php:265 inc/admin/dashboard/namespace.php:350
+#: inc/admin/dashboard/namespace.php:326 inc/admin/dashboard/namespace.php:411
 #: inc/admin/laf/namespace.php:142
 msgid "Organize"
 msgstr "ஒருங்கிணை"
 
-#: inc/admin/dashboard/namespace.php:336
+#: inc/admin/dashboard/namespace.php:397
 msgid "%1$s total users: "
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:359 inc/admin/dashboard/namespace.php:360
+#: inc/admin/dashboard/namespace.php:420 inc/admin/dashboard/namespace.php:421
 #: inc/admin/laf/namespace.php:772 inc/admin/laf/namespace.php:847
 msgid "Dashboard"
 msgstr "கட்டுப்பாட்டகம்"
 
-#: inc/admin/dashboard/namespace.php:409
+#: inc/admin/dashboard/namespace.php:470
 msgid "Dashboard Feed"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:416
+#: inc/admin/dashboard/namespace.php:477
 msgid "Display Feed"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:421
+#: inc/admin/dashboard/namespace.php:482
 msgid "Display an RSS feed widget on the dashboard."
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:427
+#: inc/admin/dashboard/namespace.php:488
 msgid "Feed Title"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:435
+#: inc/admin/dashboard/namespace.php:496
 msgid "Feed URL"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:462
+#: inc/admin/dashboard/namespace.php:523
 msgid "Adjust settings for your dashboard RSS feed widget below."
 msgstr ""
 
@@ -992,7 +1004,7 @@ msgstr ""
 msgid "QuickLaTeX"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:380 inc/utility/class-handlestransfers.php:86
+#: inc/admin/laf/namespace.php:380 inc/utility/class-handlestransfers.php:84
 #: templates/admin/import.php:38 templates/admin/import.php:114
 msgid "Import"
 msgstr "இறக்குமதி"
@@ -1160,16 +1172,16 @@ msgid "Add New Book"
 msgstr ""
 
 #: inc/admin/laf/namespace.php:1558
-#: inc/modules/themeoptions/class-pdfoptions.php:358
-#: inc/modules/themeoptions/class-pdfoptions.php:377
-#: inc/modules/themeoptions/class-pdfoptions.php:396
-#: inc/modules/themeoptions/class-pdfoptions.php:415
-#: inc/modules/themeoptions/class-pdfoptions.php:434
-#: inc/modules/themeoptions/class-pdfoptions.php:452
-#: inc/modules/themeoptions/class-pdfoptions.php:470
-#: inc/modules/themeoptions/class-pdfoptions.php:491
-#: inc/modules/themeoptions/class-pdfoptions.php:512
-#: inc/modules/themeoptions/class-pdfoptions.php:531
+#: inc/modules/themeoptions/class-pdfoptions.php:371
+#: inc/modules/themeoptions/class-pdfoptions.php:390
+#: inc/modules/themeoptions/class-pdfoptions.php:409
+#: inc/modules/themeoptions/class-pdfoptions.php:428
+#: inc/modules/themeoptions/class-pdfoptions.php:447
+#: inc/modules/themeoptions/class-pdfoptions.php:465
+#: inc/modules/themeoptions/class-pdfoptions.php:483
+#: inc/modules/themeoptions/class-pdfoptions.php:504
+#: inc/modules/themeoptions/class-pdfoptions.php:525
+#: inc/modules/themeoptions/class-pdfoptions.php:544
 msgid "Book Title"
 msgstr ""
 
@@ -1797,11 +1809,11 @@ msgstr ""
 msgid "Network Managers"
 msgstr ""
 
-#: inc/admin/networkmanagers/namespace.php:113
+#: inc/admin/networkmanagers/namespace.php:116
 msgid "Pressbooks Network Managers"
 msgstr ""
 
-#: inc/admin/networkmanagers/namespace.php:115
+#: inc/admin/networkmanagers/namespace.php:118
 msgid ""
 "Network administrators&rsquo; access to network administration menus can be "
 "restricted to leave only sites and users visible to them."
@@ -3306,19 +3318,19 @@ msgid ""
 msgstr ""
 
 #: inc/modules/themeoptions/class-ebookoptions.php:109
-#: inc/modules/themeoptions/class-pdfoptions.php:247
+#: inc/modules/themeoptions/class-pdfoptions.php:260
 #: inc/modules/themeoptions/class-weboptions.php:126
 msgid "Paragraph Separation"
 msgstr "பத்திப் பிரித்தல்"
 
 #: inc/modules/themeoptions/class-ebookoptions.php:114
-#: inc/modules/themeoptions/class-pdfoptions.php:252
+#: inc/modules/themeoptions/class-pdfoptions.php:265
 #: inc/modules/themeoptions/class-weboptions.php:131
 msgid "Indent paragraphs"
 msgstr "ஓரம் சீர்செய்யப்பட்ட பத்திகள்"
 
 #: inc/modules/themeoptions/class-ebookoptions.php:115
-#: inc/modules/themeoptions/class-pdfoptions.php:253
+#: inc/modules/themeoptions/class-pdfoptions.php:266
 #: inc/modules/themeoptions/class-weboptions.php:132
 msgid "Skip lines between paragraphs"
 msgstr "பத்திகளுக்கு இடையேயான வரிகளைத் தவிர்த்திடுக."
@@ -3493,352 +3505,356 @@ msgid ""
 msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:116
+msgid "Footnote Font Size"
+msgstr ""
+
+#: inc/modules/themeoptions/class-pdfoptions.php:129
 msgid "Body Line Height"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:130
+#: inc/modules/themeoptions/class-pdfoptions.php:143
 msgid "Page Size"
 msgstr "பக்க அளவு"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:135
+#: inc/modules/themeoptions/class-pdfoptions.php:148
 msgid "Digest (5.5&quot; &times; 8.5&quot;)"
 msgstr "Digest (5.5&quot; &times; 8.5&quot;)"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:136
+#: inc/modules/themeoptions/class-pdfoptions.php:149
 msgid "US Trade (6&quot; &times; 9&quot;)"
 msgstr "US Trade (6&quot; &times; 9&quot;)"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:137
+#: inc/modules/themeoptions/class-pdfoptions.php:150
 msgid "US Letter (8.5&quot; &times; 11&quot;)"
 msgstr "US Letter (8.5&quot; &times; 11&quot;)"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:138
+#: inc/modules/themeoptions/class-pdfoptions.php:151
 msgid "Custom (8.5&quot; &times; 9.25&quot;)"
 msgstr "Custom (8.5&quot; &times; 9.25&quot;)"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:139
+#: inc/modules/themeoptions/class-pdfoptions.php:152
 msgid "Duodecimo (5&quot; &times; 7.75&quot;)"
 msgstr "Duodecimo (5&quot; &times; 7.75&quot;)"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:140
+#: inc/modules/themeoptions/class-pdfoptions.php:153
 msgid "Pocket (4.25&quot; &times; 7&quot;)"
 msgstr "Pocket (4.25&quot; &times; 7&quot;)"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:141
+#: inc/modules/themeoptions/class-pdfoptions.php:154
 msgid "A4 (21cm &times; 29.7cm)"
 msgstr "A4 (21cm &times; 29.7cm)"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:142
+#: inc/modules/themeoptions/class-pdfoptions.php:155
 msgid "A5 (14.8cm &times; 21cm)"
 msgstr "A5 (14.8cm &times; 21cm)"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:143
+#: inc/modules/themeoptions/class-pdfoptions.php:156
 msgid "5&quot; &times; 8&quot;"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:151
+#: inc/modules/themeoptions/class-pdfoptions.php:164
 msgid "Page Width"
 msgstr "பக்கத்தின் அகலம்"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:156
+#: inc/modules/themeoptions/class-pdfoptions.php:169
 msgid ""
 "Page width must be expressed in CSS-compatible units, e.g. "
 "&lsquo;5.5in&rsquo; or &lsquo;10cm&rsquo;."
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:163
+#: inc/modules/themeoptions/class-pdfoptions.php:176
 msgid "Page Height"
 msgstr "பக்கத்தின்  உயரம்"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:168
+#: inc/modules/themeoptions/class-pdfoptions.php:181
 msgid ""
 "Page height must be expressed in CSS-compatible units, e.g. "
 "&lsquo;8.5in&rsquo; or &lsquo;10cm&rsquo;."
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:176
+#: inc/modules/themeoptions/class-pdfoptions.php:189
 msgid "Margins"
 msgstr "எல்லைக்கோடு"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:181
+#: inc/modules/themeoptions/class-pdfoptions.php:194
 msgid "Customize your book&rsquo;s margins using the fields below."
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:187
-#: inc/modules/themeoptions/class-pdfoptions.php:891
+#: inc/modules/themeoptions/class-pdfoptions.php:200
+#: inc/modules/themeoptions/class-pdfoptions.php:925
 msgid "Outside Margin"
 msgstr "வெளிப்புற எல்லைக்கோடு"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:192
-#: inc/modules/themeoptions/class-pdfoptions.php:204
-#: inc/modules/themeoptions/class-pdfoptions.php:216
-#: inc/modules/themeoptions/class-pdfoptions.php:228
+#: inc/modules/themeoptions/class-pdfoptions.php:205
+#: inc/modules/themeoptions/class-pdfoptions.php:217
+#: inc/modules/themeoptions/class-pdfoptions.php:229
+#: inc/modules/themeoptions/class-pdfoptions.php:241
 msgid ""
 "Margins must be expressed in CSS-compatible units, e.g. &lsquo;8.5in&rsquo; "
 "or &lsquo;10cm&rsquo;."
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:199
-#: inc/modules/themeoptions/class-pdfoptions.php:892
+#: inc/modules/themeoptions/class-pdfoptions.php:212
+#: inc/modules/themeoptions/class-pdfoptions.php:926
 msgid "Inside Margin"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:211
-#: inc/modules/themeoptions/class-pdfoptions.php:893
+#: inc/modules/themeoptions/class-pdfoptions.php:224
+#: inc/modules/themeoptions/class-pdfoptions.php:927
 msgid "Top Margin"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:223
-#: inc/modules/themeoptions/class-pdfoptions.php:894
+#: inc/modules/themeoptions/class-pdfoptions.php:236
+#: inc/modules/themeoptions/class-pdfoptions.php:928
 msgid "Bottom Margin"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:236
+#: inc/modules/themeoptions/class-pdfoptions.php:249
 msgid "Hyphens"
 msgstr "சொல்லிடை கோடு"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:241
+#: inc/modules/themeoptions/class-pdfoptions.php:254
 msgid "Enable hyphenation"
 msgstr "hyphenation ஐ செயல்படுத்துக"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:259
+#: inc/modules/themeoptions/class-pdfoptions.php:272
 msgid "Section Openings"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:264
+#: inc/modules/themeoptions/class-pdfoptions.php:277
 msgid "Left or right page section opening (for print PDF)"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:265
+#: inc/modules/themeoptions/class-pdfoptions.php:278
 msgid "Right page section openings (for print PDF)"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:266
+#: inc/modules/themeoptions/class-pdfoptions.php:279
 msgid "No blank pages (for web PDF)"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:277
+#: inc/modules/themeoptions/class-pdfoptions.php:290
 msgid "Display table of contents"
 msgstr "பொருளடக்க அட்டவணையைக் காட்டுக "
 
-#: inc/modules/themeoptions/class-pdfoptions.php:283
+#: inc/modules/themeoptions/class-pdfoptions.php:296
 msgid "Crop Marks"
 msgstr "கத்தரிக்கப்பட்ட தடங்கள்"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:288
+#: inc/modules/themeoptions/class-pdfoptions.php:301
 msgid "Display crop marks"
 msgstr "கத்தரிக்கப்பட்ட தடங்களைக் காட்டுக"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:295
+#: inc/modules/themeoptions/class-pdfoptions.php:308
 msgid "Romanize Part Numbers"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:300
+#: inc/modules/themeoptions/class-pdfoptions.php:313
 msgid "Convert part numbers into Roman numerals"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:307
+#: inc/modules/themeoptions/class-pdfoptions.php:320
 msgid "Footnote Style"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:312
+#: inc/modules/themeoptions/class-pdfoptions.php:325
 msgid "Regular footnotes"
 msgstr "வழக்கமான அடிக்குறிப்புகள்"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:313
+#: inc/modules/themeoptions/class-pdfoptions.php:326
 msgid "Display as chapter endnotes"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:319
+#: inc/modules/themeoptions/class-pdfoptions.php:332
 msgid "Widows"
 msgstr "சாளரங்கள் "
 
-#: inc/modules/themeoptions/class-pdfoptions.php:330
+#: inc/modules/themeoptions/class-pdfoptions.php:343
 msgid "Orphans"
 msgstr "ஏதிலிகள்"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:342
+#: inc/modules/themeoptions/class-pdfoptions.php:355
 msgid "Running Heads & Feet"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:347
+#: inc/modules/themeoptions/class-pdfoptions.php:360
 msgid ""
 "Running content appears in either running heads or running feet (at the top "
 "or bottom of the page) depending on your theme."
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:353
+#: inc/modules/themeoptions/class-pdfoptions.php:366
 msgid "Front Matter Left Page Running Content"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:359
-#: inc/modules/themeoptions/class-pdfoptions.php:378
-#: inc/modules/themeoptions/class-pdfoptions.php:397
-#: inc/modules/themeoptions/class-pdfoptions.php:416
-#: inc/modules/themeoptions/class-pdfoptions.php:435
-#: inc/modules/themeoptions/class-pdfoptions.php:453
-#: inc/modules/themeoptions/class-pdfoptions.php:471
-#: inc/modules/themeoptions/class-pdfoptions.php:492
-#: inc/modules/themeoptions/class-pdfoptions.php:513
-#: inc/modules/themeoptions/class-pdfoptions.php:532
+#: inc/modules/themeoptions/class-pdfoptions.php:372
+#: inc/modules/themeoptions/class-pdfoptions.php:391
+#: inc/modules/themeoptions/class-pdfoptions.php:410
+#: inc/modules/themeoptions/class-pdfoptions.php:429
+#: inc/modules/themeoptions/class-pdfoptions.php:448
+#: inc/modules/themeoptions/class-pdfoptions.php:466
+#: inc/modules/themeoptions/class-pdfoptions.php:484
+#: inc/modules/themeoptions/class-pdfoptions.php:505
+#: inc/modules/themeoptions/class-pdfoptions.php:526
+#: inc/modules/themeoptions/class-pdfoptions.php:545
 msgid "Book Subtitle"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:360
-#: inc/modules/themeoptions/class-pdfoptions.php:379
-#: inc/modules/themeoptions/class-pdfoptions.php:398
-#: inc/modules/themeoptions/class-pdfoptions.php:417
-#: inc/modules/themeoptions/class-pdfoptions.php:436
-#: inc/modules/themeoptions/class-pdfoptions.php:454
-#: inc/modules/themeoptions/class-pdfoptions.php:472
-#: inc/modules/themeoptions/class-pdfoptions.php:493
-#: inc/modules/themeoptions/class-pdfoptions.php:514
-#: inc/modules/themeoptions/class-pdfoptions.php:533
+#: inc/modules/themeoptions/class-pdfoptions.php:373
+#: inc/modules/themeoptions/class-pdfoptions.php:392
+#: inc/modules/themeoptions/class-pdfoptions.php:411
+#: inc/modules/themeoptions/class-pdfoptions.php:430
+#: inc/modules/themeoptions/class-pdfoptions.php:449
+#: inc/modules/themeoptions/class-pdfoptions.php:467
+#: inc/modules/themeoptions/class-pdfoptions.php:485
+#: inc/modules/themeoptions/class-pdfoptions.php:506
+#: inc/modules/themeoptions/class-pdfoptions.php:527
+#: inc/modules/themeoptions/class-pdfoptions.php:546
 msgid "Book Author"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:361
-#: inc/modules/themeoptions/class-pdfoptions.php:380
+#: inc/modules/themeoptions/class-pdfoptions.php:374
+#: inc/modules/themeoptions/class-pdfoptions.php:393
 msgid "Front Matter Title"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:362
-#: inc/modules/themeoptions/class-pdfoptions.php:381
+#: inc/modules/themeoptions/class-pdfoptions.php:375
+#: inc/modules/themeoptions/class-pdfoptions.php:394
 msgid "Front Matter Author"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:363
-#: inc/modules/themeoptions/class-pdfoptions.php:382
+#: inc/modules/themeoptions/class-pdfoptions.php:376
+#: inc/modules/themeoptions/class-pdfoptions.php:395
 msgid "Front Matter Subtitle"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:364
-#: inc/modules/themeoptions/class-pdfoptions.php:383
-#: inc/modules/themeoptions/class-pdfoptions.php:402
-#: inc/modules/themeoptions/class-pdfoptions.php:421
-#: inc/modules/themeoptions/class-pdfoptions.php:439
-#: inc/modules/themeoptions/class-pdfoptions.php:457
-#: inc/modules/themeoptions/class-pdfoptions.php:478
-#: inc/modules/themeoptions/class-pdfoptions.php:499
-#: inc/modules/themeoptions/class-pdfoptions.php:518
-#: inc/modules/themeoptions/class-pdfoptions.php:537
+#: inc/modules/themeoptions/class-pdfoptions.php:377
+#: inc/modules/themeoptions/class-pdfoptions.php:396
+#: inc/modules/themeoptions/class-pdfoptions.php:415
+#: inc/modules/themeoptions/class-pdfoptions.php:434
+#: inc/modules/themeoptions/class-pdfoptions.php:452
+#: inc/modules/themeoptions/class-pdfoptions.php:470
+#: inc/modules/themeoptions/class-pdfoptions.php:491
+#: inc/modules/themeoptions/class-pdfoptions.php:512
+#: inc/modules/themeoptions/class-pdfoptions.php:531
+#: inc/modules/themeoptions/class-pdfoptions.php:550
 msgid "Blank"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:372
+#: inc/modules/themeoptions/class-pdfoptions.php:385
 msgid "Front Matter Right Page Running Content"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:391
+#: inc/modules/themeoptions/class-pdfoptions.php:404
 msgid "Introduction Left Page Running Content"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:399
-#: inc/modules/themeoptions/class-pdfoptions.php:418
+#: inc/modules/themeoptions/class-pdfoptions.php:412
+#: inc/modules/themeoptions/class-pdfoptions.php:431
 msgid "Introduction Title"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:400
-#: inc/modules/themeoptions/class-pdfoptions.php:419
+#: inc/modules/themeoptions/class-pdfoptions.php:413
+#: inc/modules/themeoptions/class-pdfoptions.php:432
 msgid "Introduction Author"
 msgstr "ஆசிரியர் முன்னுரை"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:401
-#: inc/modules/themeoptions/class-pdfoptions.php:420
+#: inc/modules/themeoptions/class-pdfoptions.php:414
+#: inc/modules/themeoptions/class-pdfoptions.php:433
 msgid "Introduction Subtitle"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:410
+#: inc/modules/themeoptions/class-pdfoptions.php:423
 msgid "Introduction Right Page Running Content"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:429
+#: inc/modules/themeoptions/class-pdfoptions.php:442
 msgid "Part Left Page Running Content"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:437
-#: inc/modules/themeoptions/class-pdfoptions.php:455
-#: inc/modules/themeoptions/class-pdfoptions.php:473
-#: inc/modules/themeoptions/class-pdfoptions.php:494
+#: inc/modules/themeoptions/class-pdfoptions.php:450
+#: inc/modules/themeoptions/class-pdfoptions.php:468
+#: inc/modules/themeoptions/class-pdfoptions.php:486
+#: inc/modules/themeoptions/class-pdfoptions.php:507
 msgid "Part Number"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:438
-#: inc/modules/themeoptions/class-pdfoptions.php:456
-#: inc/modules/themeoptions/class-pdfoptions.php:474
-#: inc/modules/themeoptions/class-pdfoptions.php:495
+#: inc/modules/themeoptions/class-pdfoptions.php:451
+#: inc/modules/themeoptions/class-pdfoptions.php:469
+#: inc/modules/themeoptions/class-pdfoptions.php:487
+#: inc/modules/themeoptions/class-pdfoptions.php:508
 msgid "Part Title"
 msgstr "பகுதியின் தலைப்பு"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:447
+#: inc/modules/themeoptions/class-pdfoptions.php:460
 msgid "Part Right Page Running Content"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:465
+#: inc/modules/themeoptions/class-pdfoptions.php:478
 msgid "Chapter Left Page Running Content"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:475
-#: inc/modules/themeoptions/class-pdfoptions.php:496
+#: inc/modules/themeoptions/class-pdfoptions.php:488
+#: inc/modules/themeoptions/class-pdfoptions.php:509
 msgid "Chapter Title"
 msgstr "அலகு  தலைப்பு"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:476
-#: inc/modules/themeoptions/class-pdfoptions.php:497
+#: inc/modules/themeoptions/class-pdfoptions.php:489
+#: inc/modules/themeoptions/class-pdfoptions.php:510
 msgid "Chapter Author"
 msgstr "பகுதியின் ஆசிரியர் "
 
-#: inc/modules/themeoptions/class-pdfoptions.php:477
-#: inc/modules/themeoptions/class-pdfoptions.php:498
+#: inc/modules/themeoptions/class-pdfoptions.php:490
+#: inc/modules/themeoptions/class-pdfoptions.php:511
 msgid "Chapter Subtitle"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:486
+#: inc/modules/themeoptions/class-pdfoptions.php:499
 msgid "Chapter Right Page Running Content"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:507
+#: inc/modules/themeoptions/class-pdfoptions.php:520
 msgid "Back Matter Left Page Running Content"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:515
-#: inc/modules/themeoptions/class-pdfoptions.php:534
+#: inc/modules/themeoptions/class-pdfoptions.php:528
+#: inc/modules/themeoptions/class-pdfoptions.php:547
 msgid "Back Matter Title"
 msgstr "பின் பக்க  தலைப்பு"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:516
-#: inc/modules/themeoptions/class-pdfoptions.php:535
+#: inc/modules/themeoptions/class-pdfoptions.php:529
+#: inc/modules/themeoptions/class-pdfoptions.php:548
 msgid "Back Matter Author"
 msgstr "பின் பக்க ஆசிரியர்"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:517
-#: inc/modules/themeoptions/class-pdfoptions.php:536
+#: inc/modules/themeoptions/class-pdfoptions.php:530
+#: inc/modules/themeoptions/class-pdfoptions.php:549
 msgid "Back Matter Subtitle"
 msgstr "பின் பக்க துணை தலைப்பு"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:526
+#: inc/modules/themeoptions/class-pdfoptions.php:539
 msgid "Back Matter Right Page Running Content"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:547
+#: inc/modules/themeoptions/class-pdfoptions.php:560
 msgid "Increase Font Size"
 msgstr "எழுத்துரு அளவு அதிகரி"
 
-#: inc/modules/themeoptions/class-pdfoptions.php:552
+#: inc/modules/themeoptions/class-pdfoptions.php:565
 msgid "Increases font size and line height for greater accessibility"
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:578
+#: inc/modules/themeoptions/class-pdfoptions.php:591
 msgid "These options apply to PDF exports."
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:899
+#: inc/modules/themeoptions/class-pdfoptions.php:933
 msgid ""
 "IMPORTANT: If you plan to use a print-on-demand service, margins under 2cm "
 "on any side can cause your file to be rejected."
 msgstr ""
 
-#: inc/modules/themeoptions/class-pdfoptions.php:1463
+#: inc/modules/themeoptions/class-pdfoptions.php:1497
 msgid "PDF Options"
 msgstr "PDF தேர்வுகள்"
 
@@ -4238,21 +4254,21 @@ msgid ""
 "href=\"%1$s\">Luther theme</a> is installed and network activated."
 msgstr ""
 
-#: inc/utility/class-handlestransfers.php:39
+#: inc/utility/class-handlestransfers.php:37
 msgid "Download JSON"
 msgstr ""
 
-#: inc/utility/class-handlestransfers.php:117
+#: inc/utility/class-handlestransfers.php:115
 msgid "Successfully imported."
 msgstr ""
 
-#: inc/utility/class-handlestransfers.php:242
+#: inc/utility/class-handlestransfers.php:240
 msgid ""
 "One or more contributors could not be imported because they were missing a "
 "name or slug."
 msgstr ""
 
-#: inc/utility/class-handlestransfers.php:309
+#: inc/utility/class-handlestransfers.php:307
 msgid ""
 "Values for one or more of the imported contributors were altered by our "
 "validation routine. "
@@ -4779,7 +4795,7 @@ msgstr "மன்னிக்கவும், உங்கள் தேடலு
 msgid "Pressbooks: the CMS for Books."
 msgstr "பிரெஸ்பூக்: நூல்களுக்கான உள்ளடக்க மேலாண்மை அமைப்பு"
 
-#: tests/test-registration.php:28
+#: tests/test-registration.php:29
 msgid "Create Site"
 msgstr ""
 
