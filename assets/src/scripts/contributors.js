@@ -166,6 +166,10 @@ jQuery( function ( $ ) {
 			contributorPictureElement.val( croppedImage.url );
 			contributorPictureThumbnailElement.attr( 'src', croppedImage.url ).show();
 		} );
+		pictureLibrary.on( 'skippedcrop', function( croppedImage ) {
+			contributorPictureElement.val( croppedImage.changed.url );
+			contributorPictureThumbnailElement.attr( 'src', croppedImage.changed.url ).show();
+		});
 		pictureLibrary.on( 'insert', function () {
 			const attachment = pictureLibrary.state().get( 'selection' ).first().toJSON();
 			contributorPictureElement.val( attachment.url );
