@@ -1,6 +1,12 @@
 <?php
-
-// See templating function for reference: \Pressbooks\Modules\Export\Export loadTemplate()
+/**
+ * File description
+ *
+ * @tags
+ * @phpcs:disable Pressbooks.Security.EscapeOutput.OutputNotEscaped
+ * See templating function for reference: \Pressbooks\Modules\Export\Export loadTemplate()
+ * TODO: Review escaping in the next refactor
+ */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -49,7 +55,7 @@ if ( $enable_external_identifier ) {
 
 			if ( get_post_meta( $v['ID'], 'pb_part_invisible', true ) !== 'on' ) {
 
-				$text = strip_tags( \Pressbooks\Sanitize\decode( $v['post_title'] ) );
+				$text = wp_strip_all_tags( \Pressbooks\Sanitize\decode( $v['post_title'] ) );
 				if ( ! $text ) {
 					$text = ' ';
 				}

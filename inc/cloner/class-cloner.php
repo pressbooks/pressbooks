@@ -243,7 +243,6 @@ class Cloner {
 	 */
 	private $contributorsInserted = [];
 
-
 	/**
 	 * Constructor.
 	 *
@@ -1128,7 +1127,6 @@ class Cloner {
 		return $contents;
 	}
 
-
 	/**
 	 * @param array $item
 	 *
@@ -1209,7 +1207,7 @@ class Cloner {
 			$post = get_post( $post_id );
 			foreach ( $this->transitions as $transition ) {
 				if ( $transition->type === $transition_type ) {
-					$md5 = md5( $transition->oldId . $transition->newId . rand() );
+					$md5 = md5( $transition->oldId . $transition->newId . wp_rand() );
 					$to = "<!-- pb_fixme_{$md5} -->";
 					$replace_pairs[ $to ] = $transition->newId;
 					$post->post_content = \Pressbooks\Utility\shortcode_att_replace(
@@ -1240,7 +1238,6 @@ class Cloner {
 			$fix( $post_id, 'h5p', \Pressbooks\Interactive\H5P::SHORTCODE );
 		}
 	}
-
 
 	/**
 	 * Maybe restore current blog

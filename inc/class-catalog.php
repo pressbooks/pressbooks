@@ -5,6 +5,12 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv3 (or any later version)
  */
+// TODO: Security audit
+// @phpcs:disable Pressbooks.Security.EscapeOutput.OutputNotEscaped
+// @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.MissingUnslash
+// @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.InputNotSanitized
+// @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.InputNotValidated
+// @phpcs:disable WordPress.DB.PreparedSQL.NotPrepared
 
 namespace Pressbooks;
 
@@ -12,7 +18,6 @@ use function Pressbooks\Utility\oxford_comma_explode;
 use function \Pressbooks\Utility\getset;
 
 class Catalog {
-
 
 	/**
 	 * The value for option: pressbooks_catalog_version
@@ -22,14 +27,12 @@ class Catalog {
 	 */
 	const VERSION = 3;
 
-
 	/**
 	 * Maximum number allowed in tags_group column
 	 *
 	 * @var int
 	 */
 	const MAX_TAGS_GROUP = 2;
-
 
 	/**
 	 * Catalog tables, set in constructor
@@ -38,14 +41,12 @@ class Catalog {
 	 */
 	protected $dbTable, $dbTagsTable, $dbLinkTable;
 
-
 	/**
 	 * User ID to construct this object
 	 *
 	 * @var int
 	 */
 	protected $userId;
-
 
 	/**
 	 * Column structure of catalog_table
@@ -59,7 +60,6 @@ class Catalog {
 		'featured' => '%d',
 	];
 
-
 	/**
 	 * Profile keys, stored in user_meta table
 	 *
@@ -72,7 +72,6 @@ class Catalog {
 		'pb_catalog_color' => '%s',
 		// Tags added in constructor (Ie. pb_catalog_tag_1_name, pb_catalog_tag_2_name, ...)
 	];
-
 
 	/**
 	 * @param int $user_id (optional)
@@ -105,7 +104,6 @@ class Catalog {
 		\Pressbooks\Metadata\init_book_data_models();
 	}
 
-
 	/**
 	 * Get User ID
 	 *
@@ -115,7 +113,6 @@ class Catalog {
 
 		return $this->userId;
 	}
-
 
 	/**
 	 * Get an entire catalog.
@@ -128,9 +125,8 @@ class Catalog {
 
 		$sql = "SELECT * FROM {$this->dbTable} WHERE users_id = %d AND deleted = 0 ";
 
-		return $wpdb->get_results( $wpdb->prepare( $sql, $this->userId ), ARRAY_A ); // @codingStandardsIgnoreLine
+		return $wpdb->get_results( $wpdb->prepare( $sql, $this->userId ), ARRAY_A );
 	}
-
 
 	/**
 	 * Get all data for an entire catalog, cached
@@ -325,7 +321,6 @@ class Catalog {
 		return $data;
 	}
 
-
 	/**
 	 * Get catalog by tag id
 	 *
@@ -344,9 +339,8 @@ class Catalog {
  				INNER JOIN {$this->dbTagsTable} ON {$this->dbTagsTable}.id = {$this->dbLinkTable}.tags_id
  				WHERE {$this->dbLinkTable}.users_id = %d AND {$this->dbLinkTable}.tags_group = %d AND {$this->dbLinkTable}.tags_id = %d AND {$this->dbTable}.deleted = 0 ";
 
-		return $wpdb->get_results( $wpdb->prepare( $sql, $this->userId, $tag_group, $tag_id ), ARRAY_A ); // @codingStandardsIgnoreLine
+		return $wpdb->get_results( $wpdb->prepare( $sql, $this->userId, $tag_group, $tag_id ), ARRAY_A );
 	}
-
 
 	/**
 	 * Save an entire catalog.
@@ -361,7 +355,6 @@ class Catalog {
 			}
 		}
 	}
-
 
 	/**
 	 * Delete an entire catalog.
@@ -392,7 +385,6 @@ class Catalog {
 		}
 	}
 
-
 	/**
 	 * Get a book from a user catalog.
 	 *
@@ -407,9 +399,8 @@ class Catalog {
 
 		$sql = "SELECT * FROM {$this->dbTable} WHERE users_id = %d AND blogs_id = %d AND deleted = 0 ";
 
-		return $wpdb->get_row( $wpdb->prepare( $sql, $this->userId, $blog_id ), ARRAY_A ); // @codingStandardsIgnoreLine
+		return $wpdb->get_row( $wpdb->prepare( $sql, $this->userId, $blog_id ), ARRAY_A );
 	}
-
 
 	/**
 	 * Get only blog IDs.
@@ -423,9 +414,8 @@ class Catalog {
 
 		$sql = "SELECT blogs_id FROM {$this->dbTable} WHERE users_id = %d AND deleted = 0 ";
 
-		return $wpdb->get_col( $wpdb->prepare( $sql, $this->userId ) ); // @codingStandardsIgnoreLine
+		return $wpdb->get_col( $wpdb->prepare( $sql, $this->userId ) );
 	}
-
 
 	/**
 	 * Save a book to a user catalog.
@@ -490,9 +480,8 @@ class Catalog {
 			$sql .= ' users_id = users_id '; // Do nothing
 		}
 
-		return $wpdb->query( $wpdb->prepare( $sql, $args ) ); // @codingStandardsIgnoreLine
+		return $wpdb->query( $wpdb->prepare( $sql, $args ) );
 	}
-
 
 	/**
 	 * Delete a book from a user catalog.
@@ -526,7 +515,6 @@ class Catalog {
 		}
 	}
 
-
 	/**
 	 * Get tags
 	 *
@@ -550,9 +538,8 @@ class Catalog {
 		}
 		$sql .= "ORDER BY {$this->dbTagsTable}.tag ASC ";
 
-		return $wpdb->get_results( $wpdb->prepare( $sql, $tag_group, $this->userId ), ARRAY_A ); // @codingStandardsIgnoreLine
+		return $wpdb->get_results( $wpdb->prepare( $sql, $tag_group, $this->userId ), ARRAY_A );
 	}
-
 
 	/**
 	 * Get all tags for a book
@@ -573,9 +560,8 @@ class Catalog {
  				WHERE {$this->dbLinkTable}.tags_group = %d AND {$this->dbLinkTable}.users_id = %d AND {$this->dbLinkTable}.blogs_id = %d
  				ORDER BY {$this->dbTagsTable}.tag ASC ";
 
-		return $wpdb->get_results( $wpdb->prepare( $sql, $tag_group, $this->userId, $blog_id ), ARRAY_A ); // @codingStandardsIgnoreLine
+		return $wpdb->get_results( $wpdb->prepare( $sql, $tag_group, $this->userId, $blog_id ), ARRAY_A );
 	}
-
 
 	/**
 	 * Save tag
@@ -591,28 +577,27 @@ class Catalog {
 		/** @var $wpdb \wpdb */
 		global $wpdb;
 
-		$tag = strip_tags( $tag );
+		$tag = wp_strip_all_tags( $tag );
 		$tag = trim( $tag );
 
 		// INSERT ... ON DUPLICATE KEY UPDATE
 		// @see http://dev.mysql.com/doc/refman/5.0/en/insert-on-duplicate.html
 
 		$sql = "INSERT INTO {$this->dbTagsTable} ( users_id, tag ) VALUES ( %d, %s ) ON DUPLICATE KEY UPDATE id = id ";
-		$_ = $wpdb->query( $wpdb->prepare( $sql, $this->userId, $tag ) ); // @codingStandardsIgnoreLine
+		$_ = $wpdb->query( $wpdb->prepare( $sql, $this->userId, $tag ) );
 
 		// Get ID
 
 		$sql = "SELECT id FROM {$this->dbTagsTable} WHERE tag = %s ";
-		$tag_id = $wpdb->get_var( $wpdb->prepare( $sql, $tag ) ); // @codingStandardsIgnoreLine
+		$tag_id = $wpdb->get_var( $wpdb->prepare( $sql, $tag ) );
 
 		// Create JOIN
 
 		$sql = "INSERT INTO {$this->dbLinkTable} ( users_id, blogs_id, tags_id, tags_group ) VALUES ( %d, %d, %d, %d ) ON DUPLICATE KEY UPDATE users_id = users_id ";
-		$result = $wpdb->query( $wpdb->prepare( $sql, $this->userId, $blog_id, $tag_id, $tag_group ) ); // @codingStandardsIgnoreLine
+		$result = $wpdb->query( $wpdb->prepare( $sql, $this->userId, $blog_id, $tag_id, $tag_group ) );
 
 		return $result;
 	}
-
 
 	/**
 	 * Delete a tag.
@@ -634,7 +619,7 @@ class Catalog {
 		// Get ID
 
 		$sql = "SELECT id FROM {$this->dbTagsTable} WHERE tag = %s ";
-		$tag_id = $wpdb->get_var( $wpdb->prepare( $sql, $tag ) ); // @codingStandardsIgnoreLine
+		$tag_id = $wpdb->get_var( $wpdb->prepare( $sql, $tag ) );
 
 		if ( ! $tag_id ) {
 			return false;
@@ -672,7 +657,6 @@ class Catalog {
 		return $result;
 	}
 
-
 	/**
 	 * Delete all tags from a user catalog
 	 *
@@ -703,7 +687,6 @@ class Catalog {
 
 	}
 
-
 	/**
 	 * Find all IDs in dbTagsTable that have no matching ID in dbLinkTable and delete them.
 	 */
@@ -711,7 +694,6 @@ class Catalog {
 
 		// TODO
 	}
-
 
 	/**
 	 * Get catalog profile.
@@ -727,7 +709,6 @@ class Catalog {
 
 		return $profile;
 	}
-
 
 	/**
 	 * Save catalog profile
@@ -765,7 +746,6 @@ class Catalog {
 			update_user_meta( $this->userId, $key, $val );
 		}
 	}
-
 
 	/**
 	 * @param string $meta_key
@@ -832,7 +812,6 @@ class Catalog {
 		restore_current_blog();
 	}
 
-
 	/**
 	 * Delete the cache(s)
 	 */
@@ -840,7 +819,6 @@ class Catalog {
 
 		wp_cache_delete( "cat-{$this->userId}", 'pb' );
 	}
-
 
 	/**
 	 * Delete the cache(s) by Book ID
@@ -853,18 +831,16 @@ class Catalog {
 		global $wpdb;
 
 		$sql = "SELECT users_id FROM {$this->dbTable} WHERE blogs_id = %d ";
-		$results = $wpdb->get_col( $wpdb->prepare( $sql, $book_id ) ); // @codingStandardsIgnoreLine
+		$results = $wpdb->get_col( $wpdb->prepare( $sql, $book_id ) );
 
 		foreach ( $results as $user_id ) {
 			wp_cache_delete( "cat-$user_id", 'pb' );
 		}
 	}
 
-
 	// ----------------------------------------------------------------------------------------------------------------
 	// Upgrades
 	// ----------------------------------------------------------------------------------------------------------------
-
 
 	/**
 	 * Upgrade catalog.
@@ -877,7 +853,6 @@ class Catalog {
 			$this->createOrUpdateTables();
 		}
 	}
-
 
 	/**
 	 * DB Delta the initial Catalog tables.
@@ -920,11 +895,9 @@ class Catalog {
 		dbDelta( $sql );
 	}
 
-
 	// ----------------------------------------------------------------------------------------------------------------
 	// Helpers
 	// ----------------------------------------------------------------------------------------------------------------
-
 
 	/**
 	 * Return an array of tags from a comma delimited string
@@ -938,7 +911,7 @@ class Catalog {
 		$tags = mb_split( ',', $tags );
 
 		foreach ( $tags as $key => &$val ) {
-			$val = strip_tags( $val );
+			$val = wp_strip_all_tags( $val );
 			$val = mb_convert_case( $val, MB_CASE_TITLE, 'UTF-8' );
 			$val = mb_split( '\W', $val ); // Split on negated \w
 			$val = implode( ' ', $val ); // Put back together with spaces
@@ -950,7 +923,6 @@ class Catalog {
 
 		return $tags;
 	}
-
 
 	/**
 	 * Return a comma delimited string from an SQL array of tags, in alphabetical order.
@@ -970,7 +942,6 @@ class Catalog {
 
 		return rtrim( $str, ', ' );
 	}
-
 
 	/**
 	 * Catalog image is stored in user's active Media Library.
@@ -993,7 +964,6 @@ class Catalog {
 		return $image_url;
 	}
 
-
 	/**
 	 * WP Hook, Instantiate UI
 	 */
@@ -1013,7 +983,6 @@ class Catalog {
 		}
 	}
 
-
 	/**
 	 * Find and load our catalog template.
 	 *
@@ -1028,11 +997,9 @@ class Catalog {
 		}
 	}
 
-
 	// ----------------------------------------------------------------------------------------------------------------
 	// Form stuff
 	// ----------------------------------------------------------------------------------------------------------------
-
 
 	/**
 	 * Catch me
@@ -1057,7 +1024,6 @@ class Catalog {
 		}
 
 	}
-
 
 	/**
 	 * Check if a user submitted something to index.php?page=pb_catalog
@@ -1085,7 +1051,6 @@ class Catalog {
 		return false;
 	}
 
-
 	/**
 	 * Two actions are possible in a generic WP_List_Table form. The first takes precedence.
 	 *
@@ -1107,7 +1072,6 @@ class Catalog {
 
 		return ( $action === $compare );
 	}
-
 
 	/**
 	 * WP_Ajax hook for pb_delete_catalog_logo
@@ -1139,7 +1103,6 @@ class Catalog {
 		// Will append 0 to returned json string if we don't die()
 		die();
 	}
-
 
 	/**
 	 * Save bulk actions
@@ -1210,7 +1173,6 @@ class Catalog {
 		\Pressbooks\Redirect\location( $redirect_url );
 	}
 
-
 	/**
 	 * Save tags to database
 	 */
@@ -1269,7 +1231,6 @@ class Catalog {
 		\Pressbooks\Redirect\location( $redirect_url );
 	}
 
-
 	/**
 	 * Save catalog profile to database
 	 */
@@ -1304,7 +1265,6 @@ class Catalog {
 		// Redirect back to form
 		\Pressbooks\Redirect\location( $redirect_url );
 	}
-
 
 	/**
 	 * Add Book by URL

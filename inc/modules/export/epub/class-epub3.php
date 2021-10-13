@@ -227,7 +227,6 @@ class Epub3 extends Epub201 {
 		return false;
 	}
 
-
 	/**
 	 * Check for existence of scripting elements
 	 *
@@ -549,7 +548,6 @@ class Epub3 extends Epub201 {
 			$this->loadTemplate( $this->dir . '/templates/epub201/ncx.php', $vars )
 		);
 	}
-
 
 	/**
 	 * Override load template function

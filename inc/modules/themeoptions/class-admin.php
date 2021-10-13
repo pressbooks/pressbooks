@@ -3,6 +3,11 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv3 (or any later version)
  */
+// TODO: Security audit
+// @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.MissingUnslash
+// @phpcs:disable Pressbooks.Security.EscapeOutput.OutputNotEscaped
+// @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.InputNotSanitized
+// @phpcs:disable Pressbooks.Security.NonceVerification.Missing
 
 namespace Pressbooks\Modules\ThemeOptions;
 
@@ -121,6 +126,7 @@ class Admin {
 
 	/**
 	 * Modifies the capability for theme options to allow Editors to manage them.
+	 *
 	 * @see https://developer.wordpress.org/reference/hooks/option_page_capability_option_page/
 	 *
 	 * @since 4.1.0

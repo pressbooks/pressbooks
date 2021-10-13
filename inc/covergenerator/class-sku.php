@@ -27,7 +27,6 @@ class Sku extends Isbn {
 	 */
 	protected $dpi = 300;
 
-
 	/**
 	 * Create CODE128 png and sideload it into WordPress
 	 *
@@ -86,7 +85,6 @@ class Sku extends Isbn {
 		return $src;
 	}
 
-
 	/**
 	 * SKU Invocation Code.
 	 *
@@ -109,7 +107,6 @@ class Sku extends Isbn {
 
 		return implode( "\n", $ps ) . "\n";
 	}
-
 
 	/**
 	 * Compile a SKU Postscript file

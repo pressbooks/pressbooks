@@ -582,7 +582,7 @@ RAW;
 
 		$test = '&lt;img src=# onerror=alert(document.cookie)&gt; HTML should be cleaned';
 		$test = \Pressbooks\Sanitize\sanitize_string( $test );
-		$this->assertEquals( ' HTML should be cleaned', $test );
+		$this->assertEquals( 'HTML should be cleaned', $test );
 
 		$test = '&lt;img src=# onerror=alert(document.cookie)&gt; encoded HTML';
 		$test = \Pressbooks\Sanitize\sanitize_string( $test, true );

@@ -18,7 +18,6 @@ class Odt extends Export {
 	 */
 	public $timeout = 90;
 
-
 	/**
 	 * Service URL
 	 *
@@ -26,14 +25,12 @@ class Odt extends Export {
 	 */
 	public $url;
 
-
 	/**
 	 * Fullpath to log file used by Saxon.
 	 *
 	 * @var string
 	 */
 	public $logfile;
-
 
 	/**
 	 * Compress images?
@@ -48,7 +45,6 @@ class Odt extends Export {
 	 * @var string
 	 */
 	protected $tmpDir;
-
 
 	/**
 	 * @param array $args
@@ -266,7 +262,6 @@ class Odt extends Export {
 		return true;
 	}
 
-
 	/**
 	 * Add $this->url as additional log info, fallback to parent.
 	 *
@@ -279,7 +274,6 @@ class Odt extends Export {
 
 		parent::logError( $message, $more_info );
 	}
-
 
 	/**
 	 * Verify if body is actual ODT

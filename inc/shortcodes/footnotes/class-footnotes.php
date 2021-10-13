@@ -3,6 +3,11 @@
  * @author   Pressbooks <code@pressbooks.com>
  * @license  GPLv3 (or any later version)
  */
+// TODO: Security audit
+// @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.MissingUnslash
+// @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.InputNotSanitized
+// @phpcs:disable Pressbooks.Security.EscapeOutput.OutputNotEscaped
+// @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.InputNotValidated
 
 namespace Pressbooks\Shortcodes\Footnotes;
 
@@ -117,7 +122,6 @@ class Footnotes {
 		return $retval;
 	}
 
-
 	/**
 	 * Post-process footnote shortcode
 	 *
@@ -173,7 +177,6 @@ class Footnotes {
 		}
 		wp_die();
 	}
-
 
 	/**
 	 * WP_Ajax hook. Convert MS Word footnotes to Pressbooks compatible [footnotes]

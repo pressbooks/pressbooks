@@ -20,7 +20,6 @@ class Metadata implements \JsonSerializable {
 	 */
 	const VERSION = 13;
 
-
 	/**
 	 * Deprecated meta keys represented by checkboxes in the GUI.
 	 * We need to upgrade these for compatibility with custom_metdata().
@@ -34,11 +33,9 @@ class Metadata implements \JsonSerializable {
 		'show-title' => 1,
 	];
 
-
 	/**
 	*/
 	public function __construct() { }
-
 
 	/**
 	 * Returns the latest "metadata" post ID. There should be only one per book.
@@ -66,7 +63,6 @@ class Metadata implements \JsonSerializable {
 		return $results[0];
 	}
 
-
 	/**
 	 * Returns the latest "metadata" post. There should be only one per book.
 	 *
@@ -93,7 +89,6 @@ class Metadata implements \JsonSerializable {
 		return $results[0];
 	}
 
-
 	/**
 	 * Return metadata attached to the latest "metadata" post.
 	 *
@@ -109,7 +104,6 @@ class Metadata implements \JsonSerializable {
 
 		return get_post_meta( $meta_post->ID );
 	}
-
 
 	/**
 	 * Return a database ID for a given meta key.
@@ -197,7 +191,6 @@ class Metadata implements \JsonSerializable {
 		}
 	}
 
-
 	/**
 	 * Upgrade Ecommerce metadata - from version 0 (closed source) to version 1 (first open source version, february 2013)
 	 *
@@ -221,7 +214,6 @@ class Metadata implements \JsonSerializable {
 		update_option( 'pressbooks_ecommerce_links', $new_options );
 		delete_option( 'ecomm-url' );
 	}
-
 
 	/**
 	 * Upgrade book information - from version 0 (closed source) to version 1 (first open source version, february 2013)
@@ -269,7 +261,6 @@ class Metadata implements \JsonSerializable {
 		update_metadata( 'post', $meta_post->ID, 'pb_title', get_bloginfo( 'name' ) );
 	}
 
-
 	/**
 	 * Upgrade book metadata - from version 0 (closed source) to version 1 (first open source version, february 2013)
 	 *
@@ -302,7 +293,6 @@ class Metadata implements \JsonSerializable {
 		}
 
 	}
-
 
 	/**
 	 * Upgrade from version 0 (closed source) to version 1 (first open source version, february 2013)
@@ -410,7 +400,6 @@ class Metadata implements \JsonSerializable {
 		}
 	}
 
-
 	/**
 	 * Change default book cover from PNG to JPG
 	 */
@@ -426,7 +415,6 @@ class Metadata implements \JsonSerializable {
 			}
 		}
 	}
-
 
 	/**
 	 * Generate thumbnails for a user uploaded cover
@@ -459,7 +447,6 @@ class Metadata implements \JsonSerializable {
 		}
 	}
 
-
 	/**
 	 * Fix broken landing page
 	 */
@@ -480,7 +467,6 @@ class Metadata implements \JsonSerializable {
 			update_option( 'page_for_posts', $id );
 		}
 	}
-
 
 	/**
 	 * Migrate part content to content editor

@@ -51,12 +51,10 @@ class Epub201 extends ExportGenerator {
 	 */
 	protected $stylesheet;
 
-
 	/**
 	 * @var bool
 	 */
 	protected $numbered = false;
-
 
 	/**
 	 * Temporary directory used to build EPUB, no trailing slash!
@@ -73,7 +71,6 @@ class Epub201 extends ExportGenerator {
 	 */
 	protected $manifest = [];
 
-
 	/**
 	 * We forcefully reorder some of the front-matter types to respect the Chicago Manual of Style.
 	 * Keep track of where we are using this variable.
@@ -82,14 +79,12 @@ class Epub201 extends ExportGenerator {
 	 */
 	protected $frontMatterPos = 1;
 
-
 	/**
 	 * Last known front matter position. Used to insert the TOC in the correct place.
 	 *
 	 * @var int|bool
 	 */
 	protected $frontMatterLastPos = false;
-
 
 	/**
 	 * Sometimes the user will omit an introduction so we must inject the style in either the first
@@ -115,14 +110,12 @@ class Epub201 extends ExportGenerator {
 	 */
 	protected $coverImage;
 
-
 	/**
 	 * Fullpath to book CSS file.
 	 *
 	 * @var string
 	 */
 	protected $exportStylePath;
-
 
 	/**
 	 * CSS overrides
@@ -131,7 +124,6 @@ class Epub201 extends ExportGenerator {
 	 */
 	protected $cssOverrides;
 
-
 	/**
 	 * Used by HtmLawed with $GLOBALS['hl_Ids']
 	 *
@@ -139,12 +131,10 @@ class Epub201 extends ExportGenerator {
 	 */
 	protected $fixme;
 
-
 	/**
 	 * @var bool
 	 */
 	protected $compressImages = false;
-
 
 	/**
 	 * @var string
@@ -160,7 +150,6 @@ class Epub201 extends ExportGenerator {
 	 * @var string
 	 */
 	protected $filext = 'html';
-
 
 	/**
 	 * $var string
@@ -220,7 +209,6 @@ class Epub201 extends ExportGenerator {
 	 */
 	protected $displayAboutTheAuthors;
 
-
 	/**
 	 * @param array $args
 	 */
@@ -255,7 +243,6 @@ class Epub201 extends ExportGenerator {
 
 		$this->generatorPrefix = sprintf( __( 'EPUB %s: ', 'pressbooks' ), $this->version );
 	}
-
 
 	/**
 	 * Delete temporary directory when done.
@@ -392,7 +379,6 @@ class Epub201 extends ExportGenerator {
 		yield 100 => $this->generatorPrefix . __( 'Finishing up', 'pressbooks' );
 	}
 
-
 	/**
 	 * Fix annoying characters that the user probably didn't do on purpose
 	 *
@@ -414,7 +400,6 @@ class Epub201 extends ExportGenerator {
 		return $html;
 	}
 
-
 	/**
 	 * Override mimeType, get rid of '; charset=binary'
 	 *
@@ -430,7 +415,6 @@ class Epub201 extends ExportGenerator {
 
 		return $mime;
 	}
-
 
 	/**
 	 * Override based on Theme Options
@@ -461,7 +445,6 @@ class Epub201 extends ExportGenerator {
 		}
 
 	}
-
 
 	/**
 	 * @param $book_contents
@@ -520,7 +503,6 @@ class Epub201 extends ExportGenerator {
 		return $book_contents;
 	}
 
-
 	/**
 	 * @param string $content
 	 * @param string $type
@@ -542,7 +524,6 @@ class Epub201 extends ExportGenerator {
 		$content = $this->tidy( $content );
 		return $content;
 	}
-
 
 	/**
 	 * Tidy HTML
@@ -607,7 +588,6 @@ class Epub201 extends ExportGenerator {
 		}
 	}
 
-
 	/**
 	 * Zip the contents of an EPUB following the conventions outlined in Open Publication Structure 2.0.1
 	 *
@@ -645,7 +625,6 @@ class Epub201 extends ExportGenerator {
 		return true;
 	}
 
-
 	/**
 	 * Create Open Publication Structure 2.0.1 container.
 	 */
@@ -671,7 +650,6 @@ class Epub201 extends ExportGenerator {
 		);
 
 	}
-
 
 	/**
 	 * Yields an estimated percentage slice of: 10 to 75
@@ -731,7 +709,6 @@ class Epub201 extends ExportGenerator {
 		$this->createToc( $book_contents, $metadata );
 	}
 
-
 	/**
 	 * Create stylesheet. Change $this->stylesheet to a filename used by subsequent methods.
 	 */
@@ -748,7 +725,6 @@ class Epub201 extends ExportGenerator {
 
 		$this->scrapeKneadAndSaveCss( $this->exportStylePath, $path_to_tmp_stylesheet );
 	}
-
 
 	/**
 	 * Parse CSS, copy assets, rewrite copy.
@@ -902,7 +878,6 @@ class Epub201 extends ExportGenerator {
 		return $css;
 	}
 
-
 	/**
 	 * @param array $metadata
 	 */
@@ -957,7 +932,6 @@ class Epub201 extends ExportGenerator {
 		];
 
 	}
-
 
 	/**
 	 * @param array $book_contents
@@ -1027,7 +1001,6 @@ class Epub201 extends ExportGenerator {
 		}
 		$this->frontMatterPos = $i;
 	}
-
 
 	/**
 	 * @param array $book_contents
@@ -1110,7 +1083,6 @@ class Epub201 extends ExportGenerator {
 		];
 
 	}
-
 
 	/**
 	 * @param array $book_contents
@@ -1199,7 +1171,6 @@ class Epub201 extends ExportGenerator {
 
 	}
 
-
 	/**
 	 * @param array $book_contents
 	 * @param array $metadata
@@ -1273,7 +1244,6 @@ class Epub201 extends ExportGenerator {
 			$this->frontMatterLastPos = $last_pos - 1;
 		}
 	}
-
 
 	/**
 	 * Yields an estimated percentage slice of: 30-40
@@ -1396,7 +1366,6 @@ class Epub201 extends ExportGenerator {
 		$this->frontMatterPos = $i;
 	}
 
-
 	/**
 	 * @param array $book_contents
 	 * @param array $metadata
@@ -1429,7 +1398,6 @@ class Epub201 extends ExportGenerator {
 			];
 		}
 	}
-
 
 	/**
 	 * Yields an estimated percentage slice of: 40-50
@@ -1703,7 +1671,6 @@ class Epub201 extends ExportGenerator {
 		}
 	}
 
-
 	/**
 	 * Yields an estimated percentage slice of: 50-60
 	 *
@@ -1814,7 +1781,6 @@ class Epub201 extends ExportGenerator {
 		}
 
 	}
-
 
 	/**
 	 * Uses $this->manifest to generate itself.
@@ -1954,7 +1920,6 @@ class Epub201 extends ExportGenerator {
 
 	}
 
-
 	/**
 	 * Determine position of TOC based on Chicago Manual Of Style.
 	 *
@@ -1984,7 +1949,6 @@ class Epub201 extends ExportGenerator {
 
 		return $array_pos;
 	}
-
 
 	/**
 	 * Pummel the HTML into EPUB compatible dough.
@@ -2028,7 +1992,6 @@ class Epub201 extends ExportGenerator {
 		return $html;
 	}
 
-
 	/**
 	 * Parse HTML snippet, download all found <img> tags into /OEBPS/assets/, return the HTML with changed <img> paths.
 	 *
@@ -2061,7 +2024,6 @@ class Epub201 extends ExportGenerator {
 
 		return $doc;
 	}
-
 
 	/**
 	 * Fetch an image with wp_remote_get(), save it to $fullpath with a unique name.
@@ -2186,7 +2148,6 @@ class Epub201 extends ExportGenerator {
 		$this->fetchedImageCache[ $url ] = $filename;
 		return $filename;
 	}
-
 
 	/**
 	 * Fetch a font with wp_remote_get(), save it to $fullpath with a unique name.
@@ -2323,7 +2284,6 @@ class Epub201 extends ExportGenerator {
 		return $doc;
 	}
 
-
 	/**
 	 * Fuzzy image name match.
 	 * For example: <a href="Some_Image-original.png"><img src="some_image-300x200.PNG" /></a>
@@ -2365,7 +2325,6 @@ class Epub201 extends ExportGenerator {
 
 		return true;
 	}
-
 
 	/**
 	 * Try to determine if a URL is pointing to internal content.
@@ -2618,7 +2577,6 @@ class Epub201 extends ExportGenerator {
 
 		return $html;
 	}
-
 
 	/**
 	 * Create NCX file.

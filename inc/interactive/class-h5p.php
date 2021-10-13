@@ -61,7 +61,6 @@ class H5P {
 		return false;
 	}
 
-
 	/**
 	 * Defines REST API callbacks
 	 *
@@ -225,6 +224,7 @@ class H5P {
 
 	/**
 	 * This hook adds a HTML wrapper to identify each hp5 activity
+	 *
 	 * @param $html
 	 * @param $content array this array holds the custom post type information (h5p)
 	 * @return string

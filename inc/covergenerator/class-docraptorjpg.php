@@ -9,7 +9,6 @@ use Pressbooks\Container;
 
 class DocraptorJpg extends Generator {
 
-
 	/**
 	 * @var string
 	 */
@@ -54,7 +53,6 @@ class DocraptorJpg extends Generator {
 		'front-background-image',
 	];
 
-
 	/**
 	 * Constructor
 	 *
@@ -64,8 +62,6 @@ class DocraptorJpg extends Generator {
 		parent::__construct( $input );
 		$this->pdfProfile = apply_filters( 'pb_pdf_for_digital_profile', 'PDF/X-4' );
 	}
-
-
 
 	/**
 	 * Generate Ebook JPG cover
@@ -82,7 +78,6 @@ class DocraptorJpg extends Generator {
 		delete_transient( 'dirsize_cache' ); /** @see get_dirsize() */
 		return $output_path;
 	}
-
 
 	/**
 	 * Generate CSS for Ebook JPG cover
@@ -110,7 +105,6 @@ class DocraptorJpg extends Generator {
 		return $css;
 	}
 
-
 	/**
 	 * Generate HTML for Ebook JPG cover
 	 *
@@ -122,7 +116,6 @@ class DocraptorJpg extends Generator {
 		$html = template( PB_PLUGIN_DIR . 'templates/covergenerator/jpg-cover.php', $vars );
 		return $html;
 	}
-
 
 	// Bonus info, originally tried cropping the PDF print cover to get the Ebook JPG cover, but the inch-to-pixel math wasn't working ( CSS Standard: 1 inch = 96 px, ImageMagick: 1 inch ~= 73.8 ?! )
 	// Here's the command I was using for anyone from the future who wants to try:

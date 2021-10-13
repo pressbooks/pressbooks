@@ -3,6 +3,9 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv3 (or any later version)
  */
+// TODO: Security audit
+// @phpcs:disable Pressbooks.Security.EscapeOutput.OutputNotEscaped
+// @phpcs:disable WordPress.PHP.NoSilencedErrors.Discouraged
 
 namespace Pressbooks\Modules\Export\WordPress;
 
@@ -16,7 +19,6 @@ class Wxr extends Export {
 	function __construct( array $args ) {
 
 	}
-
 
 	/**
 	 * Create $this->outputPath
@@ -42,7 +44,6 @@ class Wxr extends Export {
 		return true;
 	}
 
-
 	/**
 	 * Check the sanity of $this->outputPath
 	 *
@@ -59,7 +60,6 @@ class Wxr extends Export {
 
 		return true;
 	}
-
 
 	/**
 	 * Procedure for "format/wxr" rewrite rule.

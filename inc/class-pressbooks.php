@@ -32,7 +32,6 @@ class Pressbooks {
 		do_action( 'pressbooks_loaded' );
 	}
 
-
 	/**
 	 * Register theme directories, set a filter that hides themes under certain conditions
 	 */
@@ -57,7 +56,6 @@ class Pressbooks {
 		}
 	}
 
-
 	/**
 	 * Used by add_filter( 'allowed_themes' ). Will hide any non-book themes.
 	 *
@@ -79,7 +77,6 @@ class Pressbooks {
 
 		return $themes;
 	}
-
 
 	/**
 	 * Used by add_filter( 'allowed_themes' ). Will hide any book themes.

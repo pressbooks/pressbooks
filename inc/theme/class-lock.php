@@ -65,7 +65,6 @@ class Lock {
 		return \Pressbooks\Utility\get_generated_content_url( '/lock' );
 	}
 
-
 	/**
 	 * @param array $old_value
 	 * @param array $value

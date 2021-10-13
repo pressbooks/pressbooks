@@ -371,7 +371,9 @@ class Book {
 			if ( count( $books ) ) {
 				$sql = "DELETE FROM {$wpdb->blogmeta} WHERE ";
 				$sql .= 'blog_id NOT IN (' . implode( ',', $books ) . ')';
-				$wpdb->query( $sql ); // WPCS: unprepared SQL OK
+				// phpcs:disable WordPress.DB.PreparedSQL.NotPrepared
+				$wpdb->query( $sql );
+				// phpcs:enable
 
 				// Syncing book metadata (into wp_blogmeta)...
 				foreach ( $books as $id ) {
@@ -477,6 +479,7 @@ class Book {
 	/**
 	 * Get the cover thumbnail from WordPress resized items
 	 * It will force https in each image path
+	 *
 	 * @return string
 	 */
 	public function getCoverThumbnail( $book_id, $cover_path, $attachment_id = null ) {
@@ -491,7 +494,6 @@ class Book {
 
 		return  is_ssl() ? str_replace( 'http://', 'https://', $cover_path ) : $cover_path;
 	}
-
 
 	// ------------------------------------------------------------------------
 	// Private
@@ -531,6 +533,7 @@ class Book {
 
 	/**
 	 * Get multiple wp_blogmeta meta_key values for a blog
+	 *
 	 * @param integer $blog_id
 	 * @param array $keys
 	 * @return array
@@ -543,7 +546,7 @@ class Book {
 
 		$placeholders = implode( ', ', array_fill( 0, count( $keys ), '%s' ) );
 		$sql = "SELECT meta_key, meta_value FROM {$wpdb->blogmeta} WHERE meta_key IN ($placeholders) AND blog_id = %d";
-		// phpcs:disable WordPress.WP.PreparedSQL.NotPrepared
+		// phpcs:disable WordPress.DB.PreparedSQL.NotPrepared
 		$results = $wpdb->get_results( $wpdb->prepare( $sql, array_merge( $keys, [ $blog_id ] ) ), ARRAY_A );
 		// phpcs:enable
 

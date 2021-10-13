@@ -68,7 +68,6 @@ class DocraptorPdf extends Generator {
 		'front-background-image',
 	];
 
-
 	/**
 	 * Constructor
 	 *
@@ -79,7 +78,6 @@ class DocraptorPdf extends Generator {
 		$this->pdfOutputIntent = PB_PLUGIN_URL . 'assets/icc/USWebCoatedSWOP.icc';
 		parent::__construct( $input );
 	}
-
 
 	/**
 	 * Generate PDF print cover
@@ -92,7 +90,6 @@ class DocraptorPdf extends Generator {
 		delete_transient( 'dirsize_cache' ); /** @see get_dirsize() */
 		return $output_path;
 	}
-
 
 	/**
 	 * Generate CSS for PDF print cover
@@ -123,7 +120,6 @@ class DocraptorPdf extends Generator {
 
 		return $css;
 	}
-
 
 	/**
 	 * Generate HTML for PDF print cover

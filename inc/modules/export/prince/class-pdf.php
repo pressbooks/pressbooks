@@ -20,14 +20,12 @@ class Pdf extends Export {
 	 */
 	public $url;
 
-
 	/**
 	 * Fullpath to log file used by Prince.
 	 *
 	 * @var string
 	 */
 	public $logfile;
-
 
 	/**
 	 * Fullpath to book CSS file.
@@ -36,14 +34,12 @@ class Pdf extends Export {
 	 */
 	protected $exportStylePath;
 
-
 	/**
 	 * Fullpath to book JavaScript file.
 	 *
 	 * @var string
 	 */
 	protected $exportScriptPath;
-
 
 	/**
 	 * CSS overrides
@@ -61,7 +57,6 @@ class Pdf extends Export {
 	 * @var string
 	 */
 	protected $pdfOutputIntent;
-
 
 	/**
 	 * @param array $args
@@ -84,7 +79,6 @@ class Pdf extends Export {
 
 		$this->themeOptionsOverrides();
 	}
-
 
 	/**
 	 * Create $this->outputPath
@@ -169,7 +163,6 @@ class Pdf extends Export {
 		}
 		return true;
 	}
-
 
 	/**
 	 * Add $this->url as additional log info, fallback to parent.
@@ -267,7 +260,6 @@ class Pdf extends Export {
 
 		return $url_path;
 	}
-
 
 	/**
 	 * Override based on Theme Options

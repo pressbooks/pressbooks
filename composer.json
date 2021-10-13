@@ -48,8 +48,8 @@
 		"vanilla/htmlawed": "^2.2"
 	},
 	"require-dev": {
-		"phpunit/phpunit": "^7",
-		"pressbooks/coding-standards": "^1.0",
+    "phpunit/phpunit": "^7",
+    "pressbooks/coding-standards": "^1.1",
 		"codeception/module-db": "^1.1",
 		"codeception/module-webdriver": "^1.2",
 		"codeception/module-phpbrowser": "^1.0",

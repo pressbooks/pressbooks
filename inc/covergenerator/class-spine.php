@@ -11,7 +11,6 @@ class Spine {
 
 	}
 
-
 	/**
 	 * Spine Width Calculator
 	 *
@@ -37,7 +36,6 @@ class Spine {
 		return round( $pages / $ppi, 4 );
 	}
 
-
 	/**
 	 * Spine Width Calculator (using Caliper)
 	 *
@@ -52,7 +50,6 @@ class Spine {
 
 		return $this->spineWidthCalculator( $pages, $this->caliperToPpi( $caliper ) );
 	}
-
 
 	/**
 	 * Caliper to PPI
@@ -71,7 +68,6 @@ class Spine {
 
 		return round( 2 / $caliper, 0 );
 	}
-
 
 	/**
 	 * Count the pages in the most recent PDF export
@@ -105,7 +101,6 @@ class Spine {
 			return 0;
 		}
 	}
-
 
 	/**
 	 * Count the pages in a PDF file

@@ -2,6 +2,12 @@
 
 namespace Pressbooks\Admin\Covergenerator;
 
+// TODO: Security audit
+// @phpcs:disable Pressbooks.Security.EscapeOutput.OutputNotEscaped
+// @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.InputNotValidated
+// @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.InputNotSanitized
+// @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.MissingUnslash
+
 use PressbooksMix\Assets;
 
 /**
@@ -509,7 +515,6 @@ function pressbooks_cg_text_transform_callback( $args ) {
 	$html .= '</select>';
 	echo $html;
 }
-
 
 function pressbooks_cg_spine_size_callback() {
 	?>

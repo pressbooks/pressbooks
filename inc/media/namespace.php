@@ -42,7 +42,6 @@ function add_mime_types( $existing_mimes = [] ) {
  *
  * @return array
  * @see \get_allowed_mime_types
- *
  */
 function unknown_upload_types( $existing_mimes ) {
 	$site_exts = explode( ' ', get_site_option( 'upload_filetypes', '' ) );

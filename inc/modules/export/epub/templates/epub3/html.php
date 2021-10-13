@@ -1,4 +1,6 @@
 <?php
+// TODO: Security audit
+// @phpcs:disable Pressbooks.Security.EscapeOutput.OutputNotEscaped
 
 // See templating function for reference: \Pressbooks\Modules\Export\Export loadTemplate()
 
