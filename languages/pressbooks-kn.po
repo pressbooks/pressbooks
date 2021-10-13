@@ -1,7 +1,7 @@
 # Copyright (C) 2021 Pressbooks (Book Oven Inc.)
 # This file is distributed under the same license as the Pressbooks plugin.
 # Translators:
-# Antonio D., 2018
+# Omshivaprakash H L <omshivaprakash@gmail.com>, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
@@ -9,368 +9,368 @@ msgstr ""
 "POT-Creation-Date: 2021-10-12T18:18:07+00:00\n"
 "PO-Revision-Date: 2021-10-12 18:19+0000\n"
 "Last-Translator: Ho Man Chan <homan@pressbooks.com>\n"
-"Language-Team: Lithuanian (Lithuania) (http://www.transifex.com/pressbooks/pressbooks/language/lt_LT/)\n"
+"Language-Team: Kannada (http://www.transifex.com/pressbooks/pressbooks/language/kn/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: lt_LT\n"
-"Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < 11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 : n % 1 != 0 ? 2: 3);\n"
+"Language: kn\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Domain: pressbooks\n"
 "X-Generator: WP-CLI 2.3.0\n"
 
 #. Plugin Name of the plugin
 msgid "Pressbooks"
-msgstr ""
+msgstr "ಪ್ರೆಸ್‍ಬುಕ್ಸ್"
 
 #. Plugin URI of the plugin
 #. Author URI of the plugin
 msgid "https://pressbooks.org"
-msgstr ""
+msgstr "https://pressbooks.org"
 
 #. Description of the plugin
 msgid "Simple Book Production"
-msgstr ""
+msgstr "ಸರಳ ಪುಸ್ತಕ ಉತ್ಪಾದನೆ"
 
 #. Author of the plugin
 msgid "Pressbooks (Book Oven Inc.)"
-msgstr ""
+msgstr "ಪ್ರೆಸ್‍ಬುಕ್ಸ್ (ಬುಕ್ ಓವನ್ ಇಂಕ್.)"
 
 #: compatibility.php:103 inc/class-activation.php:328
 msgid "Simple Book Publishing"
-msgstr "Paprastos Knygos Leidyba"
+msgstr "ಸರಳ ಪುಸ್ತಕ ಪ್ರಕಾಶನ"
 
 #: compatibility.php:148
 msgid ""
 "Pressbooks could not create the mu-plugins folder. Please create the "
 "following directory: %s"
-msgstr ""
+msgstr "ಪ್ರೆಸ್‍ಬುಕ್ಸ್ ಮು-ಪ್ಲಗಿನ್ ಫೋಲ್ಡರ್ ಅನ್ನು ರಚಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. ದಯವಿಟ್ಟು ಈ ಕೆಳಗಿನ ಡೈರೆಕ್ಟರಿಯನ್ನು ರಚಿಸಿ: %s"
 
 #: compatibility.php:155
 msgid ""
 "Pressbooks could not copy the autoloader from %1$s to %2$s. Please copy the "
 "file manually."
-msgstr ""
+msgstr "ಪ್ರೆಸ್‍ಬುಕ್ಸ್ ಆಟೋಲೋಡರ್ ಅನ್ನು %1$s ನಿಂದ %2$s ನಕಲು ಮಾಡಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. ದಯವಿಟ್ಟು ಫೈಲ್ ಅನ್ನು ಹಸ್ತಚಾಲಿತವಾಗಿ ನಕಲಿಸಿ."
 
 #: compatibility.php:170
 msgid ""
 "Pressbooks will not work with your version of PHP. Pressbooks requires PHP "
 "version %s or greater. Please upgrade PHP if you would like to use "
 "Pressbooks."
-msgstr ""
+msgstr "ನಿಮ್ಮ ಪಿಎಚ್‍ಪಿ ಆವೃತ್ತಿಯೊಂದಿಗೆ ಪ್ರೆಸ್ ಬುಕ್ ಗಳು ಕೆಲಸ ಮಾಡುವುದಿಲ್ಲ. ಪ್ಪ್ರೆಸ್‍ಬುಕ್ಸ್ ಪಿಎಚ್‍ಪಿ ಆವೃತ್ತಿಯು %s ಅಥವಾ ಅದಕ್ಕಿಂತ ಹೆಚ್ಚಿನದಕ್ಕೆ ಅಗತ್ಯವಿದೆ. ನೀವು ಪ್ರೆಸ್‍ಬುಕ್ಸ್ ಬಳಸಲು ಬಯಸಿದರೆ ದಯವಿಟ್ಟು ಪಿಎಚ್‍ಪಿಯನ್ನು ನವೀಕರಿಸಿ."
 
 #: compatibility.php:183
 msgid ""
 "Pressbooks will not work with your version of WordPress. Pressbooks requires"
 " a dedicated install of WordPress Multisite, version %s or greater. Please "
 "upgrade WordPress if you would like to use Pressbooks."
-msgstr ""
+msgstr "ನಿಮ್ಮ ವರ್ಡ್ಪ್ರೆಸ್ ಆವೃತ್ತಿಯೊಂದಿಗೆ ಪ್ಪ್ರೆಸ್‍ಬುಕ್ಸ್ ಕೆಲಸ ಮಾಡುವುದಿಲ್ಲ. ಪ್ರೆಸ್ ಬುಕ್ ಗಳಿಗೆ ವರ್ಡ್ಪ್ರೆಸ್ ಮಲ್ಟಿಸೈಟ್, ಆವೃತ್ತಿ %s ಅಥವಾ ಅದಕ್ಕಿಂತ ಹೆಚ್ಚಿನಮೀಸಲಾದ ಸ್ಥಾಪನೆಯ ಅಗತ್ಯವಿದೆ. ನೀವು ಪ್ರೆಸ್ ಬುಕ್ ಗಳನ್ನು ಬಳಸಲು ಬಯಸಿದರೆ ದಯವಿಟ್ಟು ವರ್ಡ್ಪ್ರೆಸ್ ಅನ್ನು ನವೀಕರಿಸಿ."
 
 #: compatibility.php:194
 msgid ""
 "The Pressbooks plugin is inactive, but you have active plugins that require "
 "Pressbooks. This is causing errors. Please go to the Plugins page, and "
 "activate Pressbooks."
-msgstr ""
+msgstr "ಪ್ರೆಸ್‍ಬುಕ್ಸ್ ಪ್ಲಗ್ ಇನ್ ನಿಷ್ಕ್ರಿಯವಾಗಿದೆ, ಆದರೆ ಪ್ರೆಸ್ ಬುಕ್ ಗಳ ಅಗತ್ಯವಿರುವ ಸಕ್ರಿಯ ಪ್ಲಗಿನ್ ಗಳನ್ನು ನೀವು ಹೊಂದಿದ್ದೀರಿ. ಇದರಿಂದ ದೋಷಗಳು ಉಂಟಾಗುತ್ತವೆ. ದಯವಿಟ್ಟು ಪ್ಲಗಿನ್ಸ್ ಪುಟಕ್ಕೆ ಹೋಗಿ, ಮತ್ತು ಪ್ಪ್ರೆಸ್‍ಬುಕ್ಸ್ ಸಕ್ರಿಯಗೊಳಿಸಿ."
 
 #: inc/admin/analytics/namespace.php:12 inc/admin/analytics/namespace.php:13
 #: inc/admin/analytics/namespace.php:22 inc/admin/analytics/namespace.php:23
 #: inc/admin/analytics/namespace.php:166 inc/admin/analytics/namespace.php:206
 msgid "Google Analytics"
-msgstr "Google Analytics"
+msgstr "ಗೂಗಲ್ ಅನಾಲಿಟಿಕ್ಸ್"
 
 #: inc/admin/analytics/namespace.php:46 inc/admin/analytics/namespace.php:103
 msgid "Google Analytics ID"
-msgstr "Google Analytics ID"
+msgstr "ಗೂಗಲ್ ಅನಾಲಿಟಿಕ್ಸ್ ಐಡಿ"
 
 #: inc/admin/analytics/namespace.php:51
 msgid ""
 "The Google Analytics ID for your network, e.g. &lsquo;UA-01234567-8&rsquo;."
-msgstr ""
+msgstr "ನಿಮ್ಮ ನೆಟ್ ವರ್ಕ್ ಗಾಗಿ ಗೂಗಲ್ ಅನಾಲಿಟಿಕ್ಸ್ ಐಡಿ, ಉದಾ: 'ಯುಎ-01234567-8'."
 
 #: inc/admin/analytics/namespace.php:69
 msgid "Site-Specific Tracking"
-msgstr "Specifinis svetainės stebėjimas"
+msgstr "ಸೈಟ್-ನಿರ್ದಿಷ್ಟ ಟ್ರ್ಯಾಕಿಂಗ್"
 
 #: inc/admin/analytics/namespace.php:74
 msgid ""
 "If enabled, the Google Analytics settings page will be visible to book "
 "administrators, allowing them to use their own Google Analytics accounts to "
 "track statistics at the book level."
-msgstr "Jei įjungtas, Google Analytics nustatymų puslapis bus matomas knygų administratoriams, leidžiantis jiems naudoti Google Analytics paskyras tam, kad galėtų stebėti knygos statistinius duomenis. "
+msgstr "ಸಕ್ರಿಯಗೊಳಿಸಿದರೆ, ಗೂಗಲ್ ಅನಾಲಿಟಿಕ್ಸ್ ಸೆಟ್ಟಿಂಗ್ ಗಳ ಪುಟವು ಬುಕ್ ನಿರ್ವಾಹಕರಿಗೆ ಗೋಚರಿಸುತ್ತದೆ, ಪುಸ್ತಕ ಮಟ್ಟದಲ್ಲಿ ಅಂಕಿಅಂಶಗಳನ್ನು ಟ್ರ್ಯಾಕ್ ಮಾಡಲು ತಮ್ಮದೇ ಆದ ಗೂಗಲ್ ಅನಾಲಿಟಿಕ್ಸ್ ಖಾತೆಗಳನ್ನು ಬಳಸಲು ಅವರಿಗೆ ಅನುಮತಿಸುತ್ತದೆ."
 
 #: inc/admin/analytics/namespace.php:108
 msgid ""
 "The Google Analytics ID for your book, e.g. &lsquo;UA-01234567-8&rsquo;."
-msgstr ""
+msgstr "ನಿಮ್ಮ ಪುಸ್ತಕಕ್ಕಾಗಿ ಗೂಗಲ್ ಅನಾಲಿಟಿಕ್ಸ್ ಐಡಿ, ಉದಾ: 'ಯುಎ-01234567-8'."
 
 #: inc/admin/analytics/namespace.php:125
 msgid "Google Analytics settings."
-msgstr "Google Analytics nustatymai"
+msgstr "ಗೂಗಲ್ ಅನಾಲಿಟಿಕ್ಸ್ ಸೆಟ್ಟಿಂಗ್‍ಗಳು."
 
 #: inc/admin/analytics/namespace.php:184
 #: inc/admin/network/class-sharingandprivacyoptions.php:182
 msgid "Settings saved."
-msgstr "Nustatymai išsaugoti."
+msgstr "ಸಿದ್ಧತೆಗಳನ್ನು ಉಳಿಸಲಾಗಿದೆ."
 
 #: inc/admin/attachments/namespace.php:39
 msgid "ATTRIBUTIONS"
-msgstr ""
+msgstr "ಆಟ್ರಿಬ್ಯೂಷನ್ಗಳು"
 
 #: inc/admin/attachments/namespace.php:46
 msgid "Source URL"
-msgstr ""
+msgstr "ಮೂಲ ಯು.ಆರ್.ಎಲ್"
 
 #: inc/admin/attachments/namespace.php:54
 #: inc/admin/class-catalog-list-table.php:235
 #: inc/admin/covergenerator/namespace.php:102
 msgid "Author"
-msgstr "Autorius"
+msgstr "ಲೇಖಕ"
 
 #: inc/admin/attachments/namespace.php:60
 msgid "Author URL"
-msgstr ""
+msgstr "ಲೇಖಕ ಯು.ಆರ್.ಎಲ್"
 
 #: inc/admin/attachments/namespace.php:68
 msgid "License"
-msgstr ""
+msgstr "ಪರವಾನಗಿ"
 
 #: inc/admin/attachments/namespace.php:75
 msgid "Adapted by"
-msgstr ""
+msgstr "ಇದರ ಮೂಲಕ ಅಳವಡಿಸಿಕೊಳ್ಳಲಾಗಿದೆ"
 
 #: inc/admin/attachments/namespace.php:81
 msgid "Adapted by URL"
-msgstr ""
+msgstr "ಯು.ಆರ್.ಎಲ್.ನಿಂದ ಅಳವಡಿಸಿಕೊಳ್ಳಲಾಗಿದೆ"
 
 #: inc/admin/branding/namespace.php:180
 msgid "Log In"
-msgstr "Prisijungti"
+msgstr "ಲಾಗಿನ್"
 
 #: inc/admin/branding/namespace.php:181
 msgid "Lost Password"
-msgstr "Pamiršau Slaptažodį"
+msgstr "ಪ್ರವೇಶಪದ ಕಳೆದಿದೆ"
 
 #: inc/admin/branding/namespace.php:182
 msgid "Reset Password"
-msgstr "Atstatyti Slaptažodį"
+msgstr "ಪ್ರವೇಶಪದವನ್ನು ಮರುಹೊಂದಿಸಿ"
 
 #: inc/admin/branding/namespace.php:183
 msgid "Password Reset"
-msgstr "Slaptažodžio Atstatymas"
+msgstr "ಪ್ರವೇಶಪದವನ್ನು ಮರುಹೊಂದಿಸಿ"
 
 #: inc/admin/class-catalog-list-table.php:75
 msgid "Visit Admin"
-msgstr ""
+msgstr "ಅಡ್ಮಿನ್ ಗೆ ಭೇಟಿ ನೀಡಿ"
 
 #: inc/admin/class-catalog-list-table.php:106
 #: inc/admin/class-catalog-list-table.php:276
 #: inc/admin/class-catalog-list-table.php:548
 msgid "Hide in Catalog"
-msgstr "Paslėpti Kataloge"
+msgstr "ಕ್ಯಾಟಲಾಗ್ ನಲ್ಲಿ ಹುದುಗಿಸು"
 
 #: inc/admin/class-catalog-list-table.php:111
 #: inc/admin/class-catalog-list-table.php:275
 #: inc/admin/class-catalog-list-table.php:546
 msgid "Show in Catalog"
-msgstr "Rodyti Kataloge"
+msgstr "ಕ್ಯಾಟಲಾಗ್ ನಲ್ಲಿ ತೋರಿಸು"
 
 #: inc/admin/class-catalog-list-table.php:231
 msgid "Catalog Status"
-msgstr "Katalogo Statusas"
+msgstr "ಕ್ಯಾಟಲಾಗ್ ಸ್ಥಿತಿ"
 
 #: inc/admin/class-catalog-list-table.php:232
 msgid "Privacy Status"
-msgstr "Privatumo Būsena"
+msgstr "ಗೌಪ್ಯತೆ ಸ್ಥಿತಿ"
 
 #: inc/admin/class-catalog-list-table.php:233 inc/class-activation.php:239
 #: inc/modules/export/epub/class-epub201.php:938 tests/test-cloner.php:58
 msgid "Cover"
-msgstr "Viršelis"
+msgstr "ಕವರ್"
 
 #: inc/admin/class-catalog-list-table.php:234
 #: inc/admin/covergenerator/namespace.php:69
 #: inc/admin/metaboxes/namespace.php:201 templates/admin/import.php:90
 msgid "Title"
-msgstr "Pavadinimas"
+msgstr "ಶೀರ್ಷಿಕೆ"
 
 #: inc/admin/class-catalog-list-table.php:239 templates/pb-catalog.php:228
 msgid "Tag"
-msgstr "Žyma"
+msgstr "ಟ್ಯಾಗ್"
 
 #: inc/admin/class-catalog-list-table.php:242 templates/admin/catalog.php:36
 msgid "Featured"
-msgstr ""
+msgstr "ವೈಶಿಷ್ಟ್ಯಪೂರ್ಣ"
 
 #: inc/admin/class-catalog-list-table.php:243
 msgid "Pub Date"
-msgstr "Leidimo Data"
+msgstr "ಪಬ್ ದಿನಾಂಕ"
 
 #: inc/admin/class-catalog-list-table.php:407
 msgid "Edit Tags"
-msgstr "Redaguoti Žymes"
+msgstr "ಟ್ಯಾಗ್ ಗಳನ್ನು ಸಂಪಾದಿಸು"
 
 #: inc/admin/class-catalog-list-table.php:447 templates/admin/organize.php:44
 #: templates/admin/organize.php:55
 msgid "Private"
-msgstr "Privatus"
+msgstr "ಖಾಸಗಿ"
 
 #: inc/admin/class-catalog-list-table.php:447 templates/admin/organize.php:42
 #: templates/admin/organize.php:47
 msgid "Public"
-msgstr "Viešas"
+msgstr "ಸಾರ್ವಜನಿಕ"
 
 #: inc/admin/class-catalog-list-table.php:522 inc/admin/laf/namespace.php:421
 #: inc/admin/laf/namespace.php:601 inc/admin/laf/namespace.php:875
 msgid "My Catalog"
-msgstr "Mano Katalogas"
+msgstr "ನನ್ನ ಕ್ಯಾಟಲಾಗ್"
 
 #: inc/admin/class-catalog-list-table.php:523
 msgid "Edit Profile"
-msgstr "Redaguoti Profilį"
+msgstr "ಪ್ರೊಫೈಲ್ ಸಂಪಾದಿಸು"
 
 #: inc/admin/class-catalog-list-table.php:524
 msgid "Visit Catalog"
-msgstr "Peržiūrėti Katalogą"
+msgstr "ಕ್ಯಾಟಲಾಗ್ ಗೆ ಭೇಟಿ ನೀಡಿ"
 
 #. translators: %s: search keywords
 #: inc/admin/class-catalog-list-table.php:530
 msgid "Search results for &#8220;%s&#8221; returned no items"
-msgstr ""
+msgstr "\"%s\" ಗಾಗಿ ಶೋಧ ಫಲಿತಾಂಶಗಳು ಯಾವುದೇ ಐಟಂಗಳನ್ನು ಹಿಂದಿರುಗಿಸಲಿಲ್ಲ"
 
 #. translators: %s: search keywords
 #: inc/admin/class-catalog-list-table.php:533
 msgid "Search results for &#8220;%s&#8221; returned 1 item"
-msgstr ""
+msgstr "\"%s\" ಗಾಗಿ ಶೋಧ ಫಲಿತಾಂಶಗಳು 1 ಐಟಂ ಹಿಂತಿರುಗಿಸಿದವು"
 
 #. translators: %s: search keywords, %d: total items found
 #: inc/admin/class-catalog-list-table.php:536
 msgid "Search results for &#8220;%1$s&#8221; returned %2$d items"
-msgstr ""
+msgstr "\"%1$s\" ಗಾಗಿ ಶೋಧ ಫಲಿತಾಂಶಗಳು %2$d ಐಟಂಗಳನ್ನು ಹಿಂತಿರುಗಿಸಿದವು"
 
 #: inc/admin/class-catalog-list-table.php:544
 msgid "Organize your public Catalog page."
-msgstr "Organizuokite savo viešąjį Katalogo puslapį."
+msgstr "ನಿಮ್ಮ ಸಾರ್ವಜನಿಕ ಕ್ಯಾಟಲಾಗ್ ಪುಟವನ್ನು ಆಯೋಜಿಸಿ."
 
 #: inc/admin/class-catalog-list-table.php:545
 msgid "Show/Hide books"
-msgstr "Rodyti / Slėpti knygas"
+msgstr "ಪುಸ್ತಕಗಳನ್ನು ತೋರಿಸು/ಮರೆಮಾಡಿ"
 
 #: inc/admin/class-catalog-list-table.php:546
 msgid "To display a book in your catalog choose \"%s\" under Catalog Status. "
-msgstr ""
+msgstr "ನಿಮ್ಮ ಕ್ಯಾಟಲಾಗ್ ನಲ್ಲಿ ಪುಸ್ತಕವನ್ನು ಪ್ರದರ್ಶಿಸಲು ಕ್ಯಾಟಲಾಗ್ ಸ್ಥಿತಿ ಅಡಿಯಲ್ಲಿ \"%s\" ಆಯ್ಕೆಮಾಡಿ. "
 
 #: inc/admin/class-catalog-list-table.php:548
 msgid "To hide a book in your catalog choose \"%s\" under Catalog Status."
-msgstr ""
+msgstr "ನಿಮ್ಮ ಕ್ಯಾಟಲಾಗ್ ನಲ್ಲಿ ಪುಸ್ತಕವನ್ನು ಮರೆಮಾಡಲು ಕ್ಯಾಟಲಾಗ್ ಸ್ಥಿತಿ ಅಡಿಯಲ್ಲಿ \"%s\" ಆಯ್ಕೆಮಾಡಿ."
 
 #: inc/admin/class-catalog-list-table.php:551
 msgid "Catalog sorting"
-msgstr "Katalogo Rūšiavimas"
+msgstr "ಕ್ಯಾಟಲಾಗ್ ವಿಂಗಡಣೆ"
 
 #: inc/admin/class-catalog-list-table.php:552
 msgid ""
 "To add sorting ability, add your Tag names to your <a href=\"%s\">Catalog "
 "Profile</a> page (ex: Authors, Book Genre), then add the appropriate tags to"
 " each individual book."
-msgstr ""
+msgstr "ವಿಂಗಡಣೆ ಸಾಮರ್ಥ್ಯವನ್ನು ಸೇರಿಸಲು, ನಿಮ್ಮ ಟ್ಯಾಗ್ ಹೆಸರುಗಳನ್ನು ನಿಮ್ಮ <a href=\"%s\">ಕ್ಯಾಟಲಾಗ್ ಪ್ರೊಫೈಲ್</a> ಪುಟಕ್ಕೆ ಸೇರಿಸಿ (ಮಾಜಿ: ಲೇಖಕರು, ಪುಸ್ತಕ ಪ್ರಕಾರ), ನಂತರ ಪ್ರತಿ ವೈಯಕ್ತಿಕ ಪುಸ್ತಕಕ್ಕೆ ಸೂಕ್ತ ಟ್ಯಾಗ್ ಗಳನ್ನು ಸೇರಿಸಿ."
 
 #: inc/admin/class-catalog-list-table.php:554
 msgid "Share your catalog"
-msgstr "Pasidalykite savo katalogu"
+msgstr "ನಿಮ್ಮ ಕ್ಯಾಟಲಾಗ್ ಹಂಚಿಕೊಳ್ಳಿ"
 
 #: inc/admin/class-catalog-list-table.php:555
 msgid "The public link to your catalog page"
-msgstr "Vieša nuoroda į jūsų katalogo puslapį"
+msgstr "ನಿಮ್ಮ ಕ್ಯಾಟಲಾಗ್ ಪುಟಕ್ಕೆ ಸಾರ್ವಜನಿಕ ಲಿಂಕ್"
 
 #: inc/admin/class-catalog-list-table.php:568
 msgid "Add By URL"
-msgstr "Pridėti pagal URL"
+msgstr "ಯು.ಆರ್.ಎಲ್.ನಿಂದ ಸೇರಿಸು"
 
 #: inc/admin/class-catalog-list-table.php:579 templates/admin/search.php:81
 msgid "Search"
-msgstr "Paieška"
+msgstr "ಹುಡುಕಿ"
 
 #: inc/admin/class-exportoptions.php:66
 msgid "Email Validation Logs"
-msgstr ""
+msgstr "ಇಮೇಲ್ ಮಾನ್ಯತೆ ಲಾಗ್‍ಗಳು"
 
 #: inc/admin/class-exportoptions.php:71
 msgid "No. Ignore validation errors."
-msgstr ""
+msgstr "ಇಲ್ಲ. ಪ್ರಮಾಣೀಕರಣ ದೋಷಗಳನ್ನು ನಿರ್ಲಕ್ಷಿಸಿ."
 
 #: inc/admin/class-exportoptions.php:72
 msgid "Yes."
-msgstr "Taip."
+msgstr "ಹೌದು."
 
 #: inc/admin/class-exportoptions.php:72
 msgid "Email me validation error logs on export."
-msgstr ""
+msgstr "ರಫ್ತು ಮೇಲೆ ನನಗೆ ಪ್ರಮಾಣೀಕರಣ ದೋಷ ಲಾಗ್ ಗಳನ್ನು ಇಮೇಲ್ ಮಾಡಿ."
 
 #: inc/admin/class-exportoptions.php:79
 msgid "Lock Theme"
-msgstr "Užrakinti Temą"
+msgstr "ಥೀಮ್ ಲಾಕ್ ಮಾಡಿ"
 
 #: inc/admin/class-exportoptions.php:84
 msgid "Lock your theme at its current version."
-msgstr "Užrakinkite temą pagal dabartinę versiją."
+msgstr "ನಿಮ್ಮ ಥೀಮ್ ಅನ್ನು ಅದರ ಪ್ರಸ್ತುತ ಆವೃತ್ತಿಯಲ್ಲಿ ಲಾಕ್ ಮಾಡಿ."
 
 #: inc/admin/class-exportoptions.php:100
 msgid "Export settings."
-msgstr "Eksporto nustatymai."
+msgstr "ರಫ್ತು ಸೆಟ್ಟಿಂಗ್‍ಗಳು."
 
 #: inc/admin/class-exportoptions.php:166
 msgid ""
 "This will prevent any changes to your book&rsquo;s appearance and page count"
 " when themes are updated."
-msgstr ""
+msgstr "ಥೀಮ್ ಗಳನ್ನು ನವೀಕರಿಸಿದಾಗ ನಿಮ್ಮ ಪುಸ್ತಕದ ನೋಟ ಮತ್ತು ಪುಟ ಎಣಿಕೆಯಲ್ಲಿ ಯಾವುದೇ ಬದಲಾವಣೆಗಳನ್ನು ಇದು ತಡೆಯುತ್ತದೆ."
 
 #: inc/admin/class-exportoptions.php:186 inc/admin/laf/namespace.php:366
 msgid "Export Settings"
-msgstr "Eksporto Nustatymai"
+msgstr "ರಫ್ತು ಸೆಟ್ಟಿಂಗ್‍ಗಳು"
 
 #: inc/admin/class-network-managers-list-table.php:76
 #: inc/admin/class-network-managers-list-table.php:80
 msgid "Restrict Access"
-msgstr "Apriboti Prieigą"
+msgstr "ಪ್ರವೇಶ ನಿರಾಕರಿಸು"
 
 #: inc/admin/class-network-managers-list-table.php:76
 #: inc/admin/class-network-managers-list-table.php:80
 msgid "Unrestrict Access"
-msgstr "Neriboti Prieigos"
+msgstr "ಪ್ರವೇಶವನ್ನು ನಿರ್ಬಂಧಿಸದು"
 
 #: inc/admin/class-publishoptions.php:66
 msgid "Amazon URL"
-msgstr "Amazon URL"
+msgstr "ಅಮೆಜಾನ್ ಯು.ಆರ್.ಎಲ್"
 
 #: inc/admin/class-publishoptions.php:74
 msgid "O'Reilly URL"
-msgstr "O'Reilly URL"
+msgstr "ಓ'ರೈಲಿ ಯುಆರ್ ಎಲ್"
 
 #: inc/admin/class-publishoptions.php:82
 msgid "Barnes and Noble URL"
-msgstr "Barnes and Noble URL"
+msgstr "ಬಾರ್ನ್ಸ್ ಮತ್ತು ನೋಬಲ್ ಯು.ಆರ್.ಎಲ್"
 
 #: inc/admin/class-publishoptions.php:90
 msgid "Kobo URL"
-msgstr "Kobo URL"
+msgstr "ಕೋಬೊ ಯು.ಆರ್.ಎಲ್"
 
 #: inc/admin/class-publishoptions.php:98
 msgid "iBooks URL"
-msgstr "iBooks URL"
+msgstr "ಐಬುಕ್ಸ್ ಯು.ಆರ್.ಎಲ್"
 
 #: inc/admin/class-publishoptions.php:106
 msgid "Other Service URL"
-msgstr "Kitų paslaugų URL"
+msgstr "ಇತರ ಸೇವೆ ಯು.ಆರ್.ಎಲ್"
 
 #: inc/admin/class-publishoptions.php:124
 msgid ""
 "Once your book is finished, you can download the files and submit them to "
 "ebookstores and print-on-demand providers."
-msgstr "Kai baigsite knygą, galėsite atsisiųsti failus ir pateikti juos elektroniniams knygynams bei spausdinti pagal reikalavimą tiekėjams."
+msgstr "ನಿಮ್ಮ ಪುಸ್ತಕ ಮುಗಿದ ನಂತರ, ನೀವು ಫೈಲ್ ಗಳನ್ನು ಡೌನ್ ಲೋಡ್ ಮಾಡಬಹುದು ಮತ್ತು ಅವುಗಳನ್ನು ಇಬುಕ್ ಸ್ಟೋರ್ ಗಳು ಮತ್ತು ಪ್ರಿಂಟ್-ಆನ್-ಡಿಮ್ಯಾಂಡ್ ಪೂರೈಕೆದಾರರಿಗೆ ಸಲ್ಲಿಸಬಹುದು."
 
 #: inc/admin/class-publishoptions.php:128
 msgid "Ebook Stores"
-msgstr "Ebook Parduotuvės"
+msgstr "ಇಬುಕ್ ಸ್ಟೋರ್‍ ಗಳು"
 
 #: inc/admin/class-publishoptions.php:129
 msgid ""
@@ -379,100 +379,100 @@ msgid ""
 "serve ebookstores are <a href=\"%1$1s\">Kindle</a>, <a "
 "href=\"%2$2s\">Kobo</a>, and <a href=\"%3$3s\">Nook</a>. Other ebook stores "
 "include Apple iBooks and Google."
-msgstr ""
+msgstr "ಒಮ್ಮೆ ನೀವು ನಿಮ್ಮ ಫೈಲ್ ಗಳನ್ನು ಡೌನ್ ಲೋಡ್ ಮಾಡಿದ ನಂತರ, ನೀವು ಅವುಗಳನ್ನು ಸ್ವತಃ ಪುಸ್ತಕ ಮಳಿಗೆಗಳಿಗೆ ಸಲ್ಲಿಸಬಹುದು, ಅಥವಾ ಮೂರನೇ ಪಕ್ಷದ ವಿತರಕರನ್ನು ಬಳಸಬಹುದು. ಶಿಫಾರಸು ಮಾಡಲಾದ ಸ್ವಯಂ-ಸರ್ವ್ ಪುಸ್ತಕಮಳಿಗೆಗಳು <a href=\"%1$1s\">ಕಿಂಡಲ್,</a> <a href=\"%2$2s\">ಕೊಬೊ</a>ಮತ್ತು <a href=\"%3$3s\">ನೂಕ್</a>. ಇತರ ಇಬುಕ್ ಸ್ಟೋರ್ ಗಳಲ್ಲಿ ಆಪಲ್ ಐಬುಕ್ ಗಳು ಮತ್ತು ಗೂಗಲ್ ಸೇರಿವೆ."
 
 #: inc/admin/class-publishoptions.php:130
 msgid ""
 "If you do not wish to submit your ebooks yourself, we recommend using a "
 "third-party distribution service such as <a href=\"%1s\">IngramSpark</a>, "
 "which can also make your books available online in print."
-msgstr ""
+msgstr "ನೀವು ನಿಮ್ಮ ಇಬುಕ್ ಗಳನ್ನು ನೀವೇ ಸಲ್ಲಿಸಲು ಬಯಸದಿದ್ದರೆ, <a href=\"%1s\">ಇನ್ ಗ್ರಾಮ್ ಸ್ಪಾರ್ಕ್</a>ನಂತಹ ಮೂರನೇ ಪಕ್ಷದ ವಿತರಣಾ ಸೇವೆಯನ್ನು ಬಳಸಲು ನಾವು ಶಿಫಾರಸು ಮಾಡುತ್ತೇವೆ, ಇದು ನಿಮ್ಮ ಪುಸ್ತಕಗಳನ್ನು ಮುದ್ರಣದಲ್ಲಿ ಆನ್ ಲೈನ್ ನಲ್ಲಿ ಲಭ್ಯವಾಗುವಂತೆ ಮಾಡಬಹುದು."
 
 #: inc/admin/class-publishoptions.php:132
 msgid "Print-on-Demand"
-msgstr "Spausdinimas pagal Pareikalavimą"
+msgstr "ಪ್ರಿಂಟ್-ಆನ್-ಡಿಮ್ಯಾಂಡ್"
 
 #: inc/admin/class-publishoptions.php:133
 msgid ""
 "If you wish to sell your printed books online, we recommend going through <a"
 " href=\"%1$1s\">IngramSpark</a> or Amazon's <a "
 "href=\"%2$2s\">CreateSpace</a>."
-msgstr ""
+msgstr "ನೀವು ನಿಮ್ಮ ಮುದ್ರಿತ ಪುಸ್ತಕಗಳನ್ನು ಆನ್ ಲೈನ್ ನಲ್ಲಿ ಮಾರಾಟ ಮಾಡಲು ಬಯಸಿದರೆ, ನಾವು <a href=\"%1$1s\">ಇನ್ ಗ್ರಾಮ್ ಸ್ಪಾರ್ಕ್</a> ಅಥವಾ ಅಮೆಜಾನ್ ನ <a href=\"%2$2s\">ಕ್ರಿಯೇಟ್ ಸ್ಪೇಸ್</a>ಮೂಲಕ ಹೋಗಲು ಶಿಫಾರಸು ಮಾಡುತ್ತೇವೆ."
 
 #: inc/admin/class-publishoptions.php:137
 msgid "Adding BUY Links to Your Pressbooks Web Book"
-msgstr "Pridėti BUY nuorodas į Your Pressbooks internetinę knygą"
+msgstr "ನಿಮ್ಮ ಪ್ರೆಸ್‍ಬುಕ್ಸ್ ವೆಬ್‍ಬುಕ್‍ಗೆ ಲಿಂಕ್ ಗಳನ್ನು ಖರೀದಿಸಿ ಸೇರಿಸುವುದು"
 
 #: inc/admin/class-publishoptions.php:138
 msgid ""
 "If you would like to add <strong>BUY</strong> links to your Pressbooks web "
 "book, add the links to your book at the different retailers below:"
-msgstr ""
+msgstr "ನಿಮ್ಮ ಪ್ರೆಸ್‍ಬುಕ್ಸ್ ವೆಬ್ ಪುಸ್ತಕಕ್ಕೆ <strong>ನೀವು ಬೈ</strong> ಲಿಂಕ್ ಗಳನ್ನು ಸೇರಿಸಲು ಬಯಸಿದರೆ, ಕೆಳಗಿನ ವಿವಿಧ ಚಿಲ್ಲರೆ ಮಾರಾಟಗಾರರಲ್ಲಿ ನಿಮ್ಮ ಪುಸ್ತಕಕ್ಕೆ ಲಿಂಕ್ ಗಳನ್ನು ಸೇರಿಸಿ:"
 
 #: inc/admin/class-publishoptions.php:298 inc/admin/laf/namespace.php:350
 msgid "Publish"
-msgstr "Publikuoti"
+msgstr "ಪ್ರಕಟಿಸು"
 
 #: inc/admin/class-sitemap.php:56 inc/admin/class-sitemap.php:57
 msgid "Sitemap"
-msgstr ""
+msgstr "ಸೈಟ್ ಮ್ಯಾಪ್"
 
 #: inc/admin/covergenerator/namespace.php:11
 #: templates/admin/covergenerator.php:63
 msgid "Cover Generator"
-msgstr ""
+msgstr "ಕವರ್ ಜನರೇಟರ್"
 
 #: inc/admin/covergenerator/namespace.php:39 inc/admin/laf/namespace.php:390
 msgid "Saving settings"
-msgstr ""
+msgstr "ಸೆಟ್ಟಿಂಗ್‍ಗಳನ್ನು ಉಳಿಸಲಾಗುತ್ತಿದೆ"
 
 #: inc/admin/covergenerator/namespace.php:42
 msgid ""
 "Cover generation is not done. Leaving this page, now, will cause problems. "
 "Are you sure?"
-msgstr ""
+msgstr "ಕವರ್ ಜನರೇಷನ್ ಮಾಡಲಾಗಿಲ್ಲ. ಈಗ ಈ ಪುಟವನ್ನು ಬಿಡುವುದು ಸಮಸ್ಯೆಗಳನ್ನು ಉಂಟುಮಾಡುತ್ತದೆ. ಖಚಿತವಾಗಿ ಮುಂದುವರೆಯುವುದೇ?"
 
 #: inc/admin/covergenerator/namespace.php:43 inc/admin/laf/namespace.php:326
 #: inc/admin/laf/namespace.php:389 inc/admin/laf/namespace.php:410
 #: inc/admin/laf/namespace.php:621
 msgid "Reload"
-msgstr ""
+msgstr "ಮರುಲೋಡ್ ಮಾಡಿ"
 
 #: inc/admin/covergenerator/namespace.php:62
 msgid "Text"
-msgstr ""
+msgstr "ಪಠ್ಯ"
 
 #: inc/admin/covergenerator/namespace.php:80
 msgid "Title (Spine)"
-msgstr ""
+msgstr "ಶೀರ್ಷಿಕೆ (ಬೆನ್ನುಮೂಳೆ)"
 
 #: inc/admin/covergenerator/namespace.php:91
 #: inc/admin/metaboxes/namespace.php:222
 msgid "Subtitle"
-msgstr "Paantraštė"
+msgstr "ಉಪಶೀರ್ಷಿಕೆ"
 
 #: inc/admin/covergenerator/namespace.php:113
 msgid "Author (Spine)"
-msgstr ""
+msgstr "ಲೇಖಕ (ಬೆನ್ನುಮೂಳೆ)"
 
 #: inc/admin/covergenerator/namespace.php:124 inc/admin/laf/namespace.php:87
 #: inc/class-activation.php:249 templates/admin/catalog.php:98
 msgid "About"
-msgstr "Apie"
+msgstr "ಬಗ್ಗೆ"
 
 #: inc/admin/covergenerator/namespace.php:135
 msgid "ISBN"
-msgstr ""
+msgstr "ಐಎಸ್ ಬಿಎನ್"
 
 #: inc/admin/covergenerator/namespace.php:140
 msgid ""
 "If you have an ISBN, this will generate a barcode on the back of your print "
 "cover. If you do not have an ISBN, you should leave this field blank."
-msgstr ""
+msgstr "ನೀವು ಐಎಸ್‍ಬಿಎನ್ ಹೊಂದಿದ್ದರೆ, ಇದು ನಿಮ್ಮ ಮುದ್ರಣ ಕವರ್‍ ನ ಹಿಂಭಾಗದಲ್ಲಿ ಬಾರ್‍ ಕೋಡ್ ಅನ್ನು ಉತ್ಪಾದಿಸುತ್ತದೆ. ನೀವು ಐಎಸ್‍ಬಿಎನ್ ಹೊಂದಿಲ್ಲದಿದ್ದರೆ, ನೀವು ಈ ಕ್ಷೇತ್ರವನ್ನು ಖಾಲಿ ಬಿಡಬೇಕು."
 
 #: inc/admin/covergenerator/namespace.php:147
 msgid "or SKU"
-msgstr ""
+msgstr "ಅಥವಾ ಎಸ್.ಕೆ.ಯು"
 
 #: inc/admin/covergenerator/namespace.php:152
 msgid ""
@@ -480,63 +480,63 @@ msgid ""
 "field will generate a barcode with that number on the back of your print "
 "cover. If you do not have a non-ISBN identifier, you should leave this field"
 " blank."
-msgstr ""
+msgstr "ನೀವು ಐಎಸ್ ಬಿಎನ್ ಅಲ್ಲದ 13 ಅಂಕಿಗಳ ಐಡೆಂಟಿಫೈಯರ್ ಅನ್ನು ಹೊಂದಿದ್ದರೆ, ಈ ಕ್ಷೇತ್ರದಲ್ಲಿ ಅದನ್ನು ನಮೂದಿಸಿದರೆ ನಿಮ್ಮ ಮುದ್ರಣ ಕವರ್ ನ ಹಿಂಭಾಗದಲ್ಲಿ ಆ ಸಂಖ್ಯೆಯೊಂದಿಗೆ ಬಾರ್ ಕೋಡ್ ಅನ್ನು ಉತ್ಪಾದಿಸುತ್ತದೆ. ನೀವು ಐಎಸ್ ಬಿಎನ್ ಅಲ್ಲದ ಗುರುತಿಸುವಿಕೆಯನ್ನು ಹೊಂದಿಲ್ಲದಿದ್ದರೆ, ನೀವು ಈ ಕ್ಷೇತ್ರವನ್ನು ಖಾಲಿ ಬಿಡಬೇಕು."
 
 #: inc/admin/covergenerator/namespace.php:159
 msgid "Design"
-msgstr ""
+msgstr "ವಿನ್ಯಾಸ"
 
 #: inc/admin/covergenerator/namespace.php:166
 msgid "Front Cover Background Image"
-msgstr ""
+msgstr "ಫ್ರಂಟ್ ಕವರ್ ಹಿನ್ನೆಲೆ ಚಿತ್ರ"
 
 #: inc/admin/covergenerator/namespace.php:174
 msgid "Book Title Case"
-msgstr ""
+msgstr "ಪುಸ್ತಕ ಶೀರ್ಷಿಕೆ ಕೇಸ್"
 
 #: inc/admin/covergenerator/namespace.php:187
 msgid "Spine Size"
-msgstr ""
+msgstr "ಬೆನ್ನುಮೂಳೆಗಾತ್ರ"
 
 #: inc/admin/covergenerator/namespace.php:194
 msgid "Page Count"
-msgstr ""
+msgstr "ಪುಟ ಎಣಿಕೆ"
 
 #: inc/admin/covergenerator/namespace.php:205
 msgid "Paper Type"
-msgstr ""
+msgstr "ಕಾಗದ ಪ್ರಕಾರ"
 
 #: inc/admin/covergenerator/namespace.php:219
 msgid "Custom PPI"
-msgstr ""
+msgstr "ಕಸ್ಟಮ್ ಪಿಪಿಐ"
 
 #: inc/admin/covergenerator/namespace.php:230
 msgid "Text and Background Colors"
-msgstr ""
+msgstr "ಪಠ್ಯ ಮತ್ತು ಹಿನ್ನೆಲೆ ಬಣ್ಣಗಳು"
 
 #: inc/admin/covergenerator/namespace.php:237
 msgid "Front Cover Text"
-msgstr ""
+msgstr "ಫ್ರಂಟ್ ಕವರ್ ಪಠ್ಯ"
 
 #: inc/admin/covergenerator/namespace.php:248
 msgid "Front Cover Background"
-msgstr ""
+msgstr "ಮುಂಭಾಗದ ಕವರ್ ಹಿನ್ನೆಲೆ"
 
 #: inc/admin/covergenerator/namespace.php:259
 msgid "Spine Text"
-msgstr ""
+msgstr "ಸ್ಪೈನ್ ಪಠ್ಯ"
 
 #: inc/admin/covergenerator/namespace.php:270
 msgid "Spine Background"
-msgstr ""
+msgstr "ಸ್ಪೈನ್ ಹಿನ್ನೆಲೆ"
 
 #: inc/admin/covergenerator/namespace.php:281
 msgid "Back Cover Text"
-msgstr ""
+msgstr "ಬ್ಯಾಕ್ ಕವರ್ ಪಠ್ಯ"
 
 #: inc/admin/covergenerator/namespace.php:292
 msgid "Back Cover Background"
-msgstr ""
+msgstr "ಬ್ಯಾಕ್ ಕವರ್ ಹಿನ್ನೆಲೆ"
 
 #. translators: %s: URL to Book Information page
 #: inc/admin/covergenerator/namespace.php:323
@@ -545,7 +545,7 @@ msgid ""
 " and is used to generate your cover(s). You can reformat the text below as "
 "needed. (<strong>IMPORTANT NOTE:</strong> Changes you make here will "
 "<strong>NOT</strong> be reflected on the Book Information page.)"
-msgstr ""
+msgstr "ಕೆಳಗಿನ ಪಠ್ಯವನ್ನು ನಿಮ್ಮ <a href=\"%s\">ಪುಸ್ತಕ ಮಾಹಿತಿ</a> ಪುಟದಿಂದ ಎಳೆಯಲಾಗಿದೆ, ಮತ್ತು ನಿಮ್ಮ ಕವರ್(ಗಳನ್ನು) ರಚಿಸಲು ಬಳಸಲಾಗುತ್ತದೆ. ಅಗತ್ಯಕ್ಕೆ ತಕ್ಕಂತೆ ನೀವು ಕೆಳಗಿನ ಪಠ್ಯವನ್ನು ಸುಧಾರಿಸಬಹುದು. (ಪ್ರಮುಖ<strong>ಸೂಚನೆ:</strong> ನೀವು ಇಲ್ಲಿ ಮಾಡುವ ಬದಲಾವಣೆಗಳು ಪುಸ್ತಕ ಮಾಹಿತಿ ಪುಟದಲ್ಲಿ <strong>ಪ್ರತಿಫಲಿಸುವುದಿಲ್ಲ.)</strong>"
 
 #. translators: %s: URL to Appearance menu
 #: inc/admin/covergenerator/namespace.php:436
@@ -553,7 +553,7 @@ msgid ""
 "Below you can make small adjustments to the design of your cover. The look "
 "and feel of the cover will echo the theme you have chosen for your book. You"
 " can change your book theme in the <a href=\"%s\">Appearance</a> menu."
-msgstr ""
+msgstr "ಕೆಳಗೆ ನೀವು ನಿಮ್ಮ ಕವರ್ ನ ವಿನ್ಯಾಸಕ್ಕೆ ಸಣ್ಣ ಹೊಂದಾಣಿಕೆಗಳನ್ನು ಮಾಡಬಹುದು. ಮುಖಪುಟದ ನೋಟ ಮತ್ತು ಭಾವನೆಯು ನಿಮ್ಮ ಪುಸ್ತಕಕ್ಕಾಗಿ ನೀವು ಆಯ್ಕೆ ಮಾಡಿದ ವಿಷಯವನ್ನು ಪ್ರತಿಧ್ವನಿಮಾಡುತ್ತದೆ. ನೀವು ನಿಮ್ಮ ಪುಸ್ತಕದ ಥೀಮ್ ಅನ್ನು <a href=\"%s\">ಅಪಿಯರೆನ್ಸ್</a> ಮೆನುವಿನಲ್ಲಿ ಬದಲಾಯಿಸಬಹುದು."
 
 #. translators: 1: pdf page width, 2: pdf page height, 3: URL to Theme Options
 #. page
@@ -562,16 +562,16 @@ msgid ""
 "Your PDF page size is set to %1$s &times; %2$s, and your PDF cover will be "
 "generated with the same dimensions. You can change the PDF page size in the "
 "<a href=\"%3$s\">Theme Options</a> menu."
-msgstr ""
+msgstr "ನಿಮ್ಮ ಪಿಡಿಎಫ್ ಪುಟದ ಗಾತ್ರವನ್ನು %1$s × ಹೊಂದಿಸಲಾಗಿದೆ, ಮತ್ತು ನಿಮ್ಮ %2$s ಪಿಡಿಎಫ್ ಕವರ್ ಅದೇ ಆಯಾಮಗಳೊಂದಿಗೆ ಉತ್ಪತ್ತಿಯಾಗುತ್ತದೆ. <a href=\"%3$s\">ಥೀಮ್ ಆಯ್ಕೆಗಳ</a> ಮೆನುವಿನಲ್ಲಿ ನೀವು ಪಿಡಿಎಫ್ ಪುಟದ ಗಾತ್ರವನ್ನು ಬದಲಾಯಿಸಬಹುದು."
 
 #: inc/admin/covergenerator/namespace.php:452
 #: templates/admin/export.blade.php:57
 msgid "Change Theme"
-msgstr "Pakeisti temą"
+msgstr "ಥೀಮ್ ಬದಲಿಸಿ"
 
 #: inc/admin/covergenerator/namespace.php:453
 msgid "Options"
-msgstr "Parinktys"
+msgstr "ಆಯ್ಕೆಗಳು"
 
 #: inc/admin/covergenerator/namespace.php:456
 msgid "You can upload a background image here."
@@ -628,7 +628,7 @@ msgstr ""
 #: inc/modules/themeoptions/class-pdfoptions.php:532
 #: inc/modules/themeoptions/class-pdfoptions.php:551
 msgid "Custom&hellip;"
-msgstr ""
+msgstr "ಕಸ್ಟಮ್&hellip;"
 
 #: inc/admin/covergenerator/namespace.php:580
 msgid "Choose text color and background colors below."
@@ -651,7 +651,7 @@ msgstr ""
 
 #: inc/admin/dashboard/namespace.php:18
 msgid "Pressbooks News"
-msgstr "Pressbooks Naujienos"
+msgstr ""
 
 #: inc/admin/dashboard/namespace.php:74 inc/admin/dashboard/namespace.php:157
 msgid "Book Permissions"
@@ -659,11 +659,11 @@ msgstr ""
 
 #: inc/admin/dashboard/namespace.php:115
 msgid "My Book"
-msgstr "Mano Knyga"
+msgstr "ನನ್ನ ಪುಸ್ತಕ"
 
 #: inc/admin/dashboard/namespace.php:116 inc/admin/laf/namespace.php:788
 msgid "Users"
-msgstr "Vartotojai"
+msgstr "ಬಳಕೆದಾರರು"
 
 #: inc/admin/dashboard/namespace.php:173
 msgid "Book Invitations"
@@ -679,7 +679,7 @@ msgstr ""
 
 #: inc/admin/dashboard/namespace.php:222
 msgid "Welcome to Pressbooks!"
-msgstr ""
+msgstr "ಪ್ರೆಸ್‍ಬುಕ್ಸ್ ಗೆ ಸ್ವಾಗತ!"
 
 #: inc/admin/dashboard/namespace.php:225
 msgid "You do not have access to any books at the moment."
@@ -693,29 +693,29 @@ msgstr ""
 
 #: inc/admin/dashboard/namespace.php:234 inc/admin/dashboard/namespace.php:250
 msgid "at"
-msgstr ""
+msgstr "ನಲ್ಲಿ"
 
 #: inc/admin/dashboard/namespace.php:241
 msgid "Create a Book"
-msgstr ""
+msgstr "ಪುಸ್ತಕವನ್ನು ರಚಿಸಿ"
 
 #: inc/admin/dashboard/namespace.php:243 inc/admin/laf/namespace.php:401
 #: inc/admin/laf/namespace.php:607 inc/admin/laf/namespace.php:608
 #: templates/admin/cloner.php:13
 msgid "Clone a Book"
-msgstr ""
+msgstr "ಪುಸ್ತಕವನ್ನು ಕ್ಲೋನ್ ಮಾಡಿ"
 
 #: inc/admin/dashboard/namespace.php:248
 msgid ""
 "You can also request access to an existing book by contacting the book's "
 "author or the institution's Pressbooks Network Manager"
-msgstr ""
+msgstr "ಪುಸ್ತಕದ ಲೇಖಕ ಅಥವಾ ಸಂಸ್ಥೆಯ ಪ್ರೆಸ್‍ಬುಕ್ಸ್ ನೆಟ್‍ವರ್ಕ್ ಮ್ಯಾನೇಜರ್ ಅನ್ನು ಸಂಪರ್ಕಿಸುವ ಮೂಲಕ ನೀವು ಅಸ್ತಿತ್ವದಲ್ಲಿರುವ ಪುಸ್ತಕಕ್ಕೆ ಪ್ರವೇಶವನ್ನು ವಿನಂತಿಸಬಹುದು"
 
 #: inc/admin/dashboard/namespace.php:264 inc/class-activation.php:244
 #: inc/modules/export/epub/templates/epub3/toc.php:26
 #: inc/modules/themeoptions/class-pdfoptions.php:285 tests/test-cloner.php:63
 msgid "Table of Contents"
-msgstr "Turinys"
+msgstr "ಪರಿವಿಡಿ"
 
 #: inc/admin/dashboard/namespace.php:266 inc/admin/metaboxes/namespace.php:644
 #: inc/api/endpoints/controller/class-toc.php:192
@@ -723,7 +723,7 @@ msgstr "Turinys"
 #: inc/posttype/namespace.php:547 templates/admin/import.php:91
 #: templates/admin/organize.php:64 templates/admin/organize.php:87
 msgid "Front Matter"
-msgstr "Priekinė Dalis"
+msgstr "ಮುಂಭಾಗದ ಪಠ್ಯ"
 
 #: inc/admin/dashboard/namespace.php:307 inc/admin/metaboxes/namespace.php:646
 #: inc/api/endpoints/controller/class-toc.php:225
@@ -731,17 +731,17 @@ msgstr "Priekinė Dalis"
 #: inc/posttype/namespace.php:550 templates/admin/import.php:96
 #: templates/admin/organize.php:66 templates/admin/organize.php:95
 msgid "Back Matter"
-msgstr "Galinė Dalis"
+msgstr "ಹಿಂಪುಟದ ಪ‍ಠ್ಯ"
 
 #: inc/admin/dashboard/namespace.php:326 inc/admin/dashboard/namespace.php:411
 #: templates/admin/organize.php:272 templates/admin/organize.php:429
 msgid "Add"
-msgstr "Pridėti"
+msgstr "ಸೇರಿಸಿ"
 
 #: inc/admin/dashboard/namespace.php:326 inc/admin/dashboard/namespace.php:411
 #: inc/admin/laf/namespace.php:142
 msgid "Organize"
-msgstr "Organizuoti"
+msgstr ""
 
 #: inc/admin/dashboard/namespace.php:397
 msgid "%1$s total users: "
@@ -750,7 +750,7 @@ msgstr ""
 #: inc/admin/dashboard/namespace.php:420 inc/admin/dashboard/namespace.php:421
 #: inc/admin/laf/namespace.php:772 inc/admin/laf/namespace.php:847
 msgid "Dashboard"
-msgstr "Prietaisų skydelis"
+msgstr "ಡ್ಯಾಶ್‌ಬೋರ್ಡ್"
 
 #: inc/admin/dashboard/namespace.php:470
 msgid "Dashboard Feed"
@@ -762,7 +762,7 @@ msgstr ""
 
 #: inc/admin/dashboard/namespace.php:482
 msgid "Display an RSS feed widget on the dashboard."
-msgstr "Rodyti informacijos suvestinės valdiklį RSS prietaisų skydelyje."
+msgstr ""
 
 #: inc/admin/dashboard/namespace.php:488
 msgid "Feed Title"
@@ -774,11 +774,11 @@ msgstr ""
 
 #: inc/admin/dashboard/namespace.php:523
 msgid "Adjust settings for your dashboard RSS feed widget below."
-msgstr "Nustatykite savo prietaisų skydo RSS informacijos valdiklio nustatymus žemiau."
+msgstr ""
 
 #: inc/admin/delete/class-book.php:52
 msgid "Delete Book"
-msgstr "Ištrinti Knygą"
+msgstr ""
 
 #. translators: Do not translate USERNAME, URL_DELETE, SITE_NAME: those are
 #. placeholders.
@@ -813,15 +813,15 @@ msgstr ""
 
 #: inc/admin/laf/namespace.php:68 inc/admin/laf/namespace.php:732
 msgid "Contact"
-msgstr "Susisiekti"
+msgstr "ಸಂಪರ್ಕಿಸಿ"
 
 #: inc/admin/laf/namespace.php:77
 msgid "Powered by %s"
-msgstr ""
+msgstr "%s ನಿಂದ ಸಾಮರ್ಥ್ಯ ಪಡೆದಿದೆ"
 
 #: inc/admin/laf/namespace.php:97
 msgid "Guides and Tutorials"
-msgstr ""
+msgstr "ಮಾರ್ಗದರ್ಶಿಗಳು ಮತ್ತು ಟ್ಯುಟೋರಿಯಲ್‍ಗಳು"
 
 #: inc/admin/laf/namespace.php:107 templates/admin/sitemap.blade.php:2
 msgid "Site Map"
@@ -829,23 +829,23 @@ msgstr ""
 
 #: inc/admin/laf/namespace.php:157
 msgid "private"
-msgstr "privatus"
+msgstr "ಖಾಸಗಿ"
 
 #: inc/admin/laf/namespace.php:158
 msgid "public"
-msgstr "viešas"
+msgstr "ಸಾರ್ವಜನಿಕ"
 
 #: inc/admin/laf/namespace.php:160
 msgid "Updating book."
-msgstr "Knygos atnaujinimas."
+msgstr ""
 
 #: inc/admin/laf/namespace.php:161
 msgid "Updating chapters."
-msgstr "Skyrių atnaujinimas."
+msgstr ""
 
 #: inc/admin/laf/namespace.php:162
 msgid "Updating part."
-msgstr "Dalies atnaujinimas."
+msgstr ""
 
 #: inc/admin/laf/namespace.php:163
 msgid "Updating front matter."
@@ -857,15 +857,15 @@ msgstr ""
 
 #: inc/admin/laf/namespace.php:167
 msgid "The book has been successfully updated!"
-msgstr "Knyga sėkmingai atnaujinta!"
+msgstr ""
 
 #: inc/admin/laf/namespace.php:168
 msgid "The chapters has been successfully updated!"
-msgstr "Skyriai buvo sėkmingai atnaujinti!"
+msgstr ""
 
 #: inc/admin/laf/namespace.php:169
 msgid "The part has been successfully updated!"
-msgstr "Dalis buvo sėkmingai atnaujinta!"
+msgstr ""
 
 #: inc/admin/laf/namespace.php:170
 msgid "The front matter has been successfully updated!"
@@ -877,15 +877,15 @@ msgstr ""
 
 #: inc/admin/laf/namespace.php:174
 msgid "Sorry, the book could not be updated.!"
-msgstr "Atsiprašome, knygos nepavyko atnaujinti.!"
+msgstr ""
 
 #: inc/admin/laf/namespace.php:175
 msgid "Sorry, the chapters could not be updated."
-msgstr "Atsiprašome, skyrių nepavyko atnaujinti."
+msgstr ""
 
 #: inc/admin/laf/namespace.php:176
 msgid "Sorry, the part could not be updated."
-msgstr "Atsiprašome, dalies nepavyko atnaujinti."
+msgstr ""
 
 #: inc/admin/laf/namespace.php:177
 msgid "Sorry, the front matter could not be updated."
@@ -898,17 +898,17 @@ msgstr ""
 #: inc/admin/laf/namespace.php:188 inc/admin/laf/namespace.php:189
 #: templates/admin/organize.php:74 templates/admin/organize.php:283
 msgid "Add Part"
-msgstr "Pridėti Dalį"
+msgstr "ಭಾಗವನ್ನು ಸೇರಿಸು"
 
 #: inc/admin/laf/namespace.php:196 inc/admin/laf/namespace.php:197
 #: templates/admin/organize.php:73
 msgid "Add Chapter"
-msgstr "Pridėti Skyrių"
+msgstr "ಅಧ್ಯಾಯ ಸೇರಿಸು"
 
 #: inc/admin/laf/namespace.php:204 inc/admin/laf/namespace.php:205
 #: templates/admin/organize.php:71
 msgid "Add Front Matter"
-msgstr ""
+msgstr "ಮುಂಭಾಗದ ಪಠ್ಯ ಸೇರಿಸು"
 
 #: inc/admin/laf/namespace.php:212 inc/admin/laf/namespace.php:213
 #: templates/admin/organize.php:72
@@ -922,7 +922,7 @@ msgstr ""
 
 #: inc/admin/laf/namespace.php:228 inc/admin/laf/namespace.php:229
 msgid "Chapter Types"
-msgstr "Skyrių Tipai"
+msgstr ""
 
 #: inc/admin/laf/namespace.php:236 inc/admin/laf/namespace.php:237
 msgid "Front Matter Types"
@@ -940,24 +940,24 @@ msgstr ""
 #: inc/modules/import/wordpress/class-wxr.php:544
 #: inc/posttype/namespace.php:151
 msgid "Book Info"
-msgstr "Informacija apie Knygą"
+msgstr ""
 
 #: inc/admin/laf/namespace.php:290
 msgid "Choose a subject…"
-msgstr "Pasirinkite temą..."
+msgstr ""
 
 #: inc/admin/laf/namespace.php:291
 msgid "Choose some subject(s)…"
-msgstr "Pasirinkite temą (-as)..."
+msgstr ""
 
 #: inc/admin/laf/namespace.php:301 inc/admin/laf/namespace.php:302
 msgid "Contributors"
-msgstr "Dalyviai"
+msgstr "ಕೊಡುಗೆದಾರರು"
 
 #: inc/admin/laf/namespace.php:308 inc/admin/laf/namespace.php:366
 #: templates/admin/organize.php:70 templates/admin/export.blade.php:11
 msgid "Export"
-msgstr "Eksportuoti"
+msgstr ""
 
 #: inc/admin/laf/namespace.php:321
 msgid "Are you sure you want to delete these export files?"
@@ -987,7 +987,7 @@ msgstr ""
 #: inc/admin/laf/namespace.php:1469
 #: inc/admin/network/class-sharingandprivacyoptions.php:449
 msgid "Sharing and Privacy Settings"
-msgstr "Bendrinimo ir Privatumo Nustatymai"
+msgstr ""
 
 #: inc/admin/laf/namespace.php:353 inc/admin/laf/namespace.php:568
 msgid "Sharing &amp; Privacy"
@@ -995,12 +995,12 @@ msgstr ""
 
 #: inc/admin/laf/namespace.php:371 inc/admin/laf/namespace.php:372
 msgid "QuickLaTeX"
-msgstr "QuickLaTeX"
+msgstr ""
 
 #: inc/admin/laf/namespace.php:380 inc/utility/class-handlestransfers.php:84
 #: templates/admin/import.php:38 templates/admin/import.php:114
 msgid "Import"
-msgstr "Importuoti"
+msgstr "ಆಮದು"
 
 #: inc/admin/laf/namespace.php:388
 msgid ""
@@ -1016,7 +1016,7 @@ msgstr ""
 
 #: inc/admin/laf/namespace.php:685 inc/admin/laf/namespace.php:696
 msgid "About Pressbooks"
-msgstr "Apie Pressbooks"
+msgstr "ಪ್ರೆಸ್‍ಬುಕ್ಸ್ ಬಗ್ಗೆ"
 
 #: inc/admin/laf/namespace.php:707
 msgid "Pressbooks.com"
@@ -1024,24 +1024,24 @@ msgstr "Pressbooks.com"
 
 #: inc/admin/laf/namespace.php:717
 msgid "Help"
-msgstr "Pagalba"
+msgstr "ಸಹಾಯ"
 
 #: inc/admin/laf/namespace.php:761
 msgid "Network Admin"
-msgstr "Tinklo Administratorius"
+msgstr "ನೆಟ್ ವರ್ಕ್ ನಿರ್ವಹಣೆಗಾರರು"
 
 #: inc/admin/laf/namespace.php:780 inc/admin/laf/namespace.php:1524
 #: inc/admin/laf/namespace.php:1534
 msgid "Books"
-msgstr "Knygos"
+msgstr ""
 
 #: inc/admin/laf/namespace.php:797
 msgid "Themes"
-msgstr "Temos"
+msgstr "ಹೊರನೋಟ (ಥೀಮ್) ಗಳು"
 
 #: inc/admin/laf/namespace.php:805
 msgid "Plugins"
-msgstr "Plugins"
+msgstr "ಪ್ಲಗಿನ್‌ಗಳು"
 
 #: inc/admin/laf/namespace.php:855
 msgid "Visit Website"
@@ -1049,7 +1049,7 @@ msgstr ""
 
 #: inc/admin/laf/namespace.php:865
 msgid "My Books"
-msgstr ""
+msgstr "ನನ್ನ ಪುಸ್ತಕಗಳು"
 
 #: inc/admin/laf/namespace.php:885
 msgid "Create A New Book"
@@ -1069,19 +1069,19 @@ msgstr ""
 
 #: inc/admin/laf/namespace.php:1186
 msgid "Book Visibility"
-msgstr "Knygos Matomumas"
+msgstr ""
 
 #: inc/admin/laf/namespace.php:1200
 msgid "Private Content"
-msgstr "Privatus Turinys"
+msgstr ""
 
 #: inc/admin/laf/namespace.php:1213
 msgid "Disable Comments"
-msgstr "Išjungti Komentarus"
+msgstr ""
 
 #: inc/admin/laf/namespace.php:1228
 msgid "Share Latest Export Files"
-msgstr "Bendrinti Naujausius Eksportavimo Failus"
+msgstr ""
 
 #: inc/admin/laf/namespace.php:1258 templates/admin/cloner.php:14
 msgid "Pressbooks Directory"
@@ -1089,16 +1089,16 @@ msgstr ""
 
 #: inc/admin/laf/namespace.php:1276
 msgid "Sharing and Privacy settings"
-msgstr "Bendrinimo ir Privatumo nustatymai"
+msgstr ""
 
 #: inc/admin/laf/namespace.php:1292
 msgid "Public. I would like this book to be visible to everyone."
-msgstr "Viešinti. Noriu, kad ši knyga būtų matoma visiems."
+msgstr ""
 
 #: inc/admin/laf/namespace.php:1298
 msgid ""
 "Private. I would like this book to be accessible only to people I invite."
-msgstr "Privatinti. Noriu, kad ši knyga būtų prieinama tik žmonėms, kuriuos pakviečiu."
+msgstr ""
 
 #: inc/admin/laf/namespace.php:1322
 msgid "Who can see private front matter, chapters and back matter?"
@@ -1106,11 +1106,11 @@ msgstr ""
 
 #: inc/admin/laf/namespace.php:1325
 msgid "Only logged in editors and administrators."
-msgstr "Tik prisijungę redaktoriai ir administratoriai."
+msgstr ""
 
 #: inc/admin/laf/namespace.php:1327
 msgid "All logged in users including subscribers."
-msgstr "Visi prisijungę vartotojai, įskaitant prenumeratorius."
+msgstr ""
 
 #: inc/admin/laf/namespace.php:1348
 msgid ""
@@ -1128,13 +1128,13 @@ msgstr ""
 msgid ""
 "Yes. I would like the latest export files to be available on the homepage "
 "for free, to everyone."
-msgstr "Taip. Norėčiau, kad naujausi eksporto failai pagrindiniame puslapyje būtų prieinami visiems nemokamai."
+msgstr ""
 
 #: inc/admin/laf/namespace.php:1376
 msgid ""
 "No. I would like the latest export files to only be available to "
 "administrators."
-msgstr "Ne. Norėčiau, kad naujausi eksporto failai būtų prieinami tik administratoriams."
+msgstr ""
 
 #: inc/admin/laf/namespace.php:1395
 msgid "Yes. I want this book to be listed in the Pressbooks directory."
@@ -1146,11 +1146,11 @@ msgstr ""
 
 #: inc/admin/laf/namespace.php:1527
 msgid "All Books"
-msgstr "Visos Knygos"
+msgstr ""
 
 #: inc/admin/laf/namespace.php:1537
 msgid "Search Books"
-msgstr "Ieškoti Knygų"
+msgstr ""
 
 #: inc/admin/laf/namespace.php:1543
 msgid "Edit Book: %s"
@@ -1158,11 +1158,11 @@ msgstr ""
 
 #: inc/admin/laf/namespace.php:1546 inc/admin/laf/namespace.php:1555
 msgid "Book Address (URL)"
-msgstr "Knygos Adresas (URL)"
+msgstr ""
 
 #: inc/admin/laf/namespace.php:1552
 msgid "Add New Book"
-msgstr "Pridėti Naują Knygą"
+msgstr ""
 
 #: inc/admin/laf/namespace.php:1558
 #: inc/modules/themeoptions/class-pdfoptions.php:371
@@ -1176,19 +1176,19 @@ msgstr "Pridėti Naują Knygą"
 #: inc/modules/themeoptions/class-pdfoptions.php:525
 #: inc/modules/themeoptions/class-pdfoptions.php:544
 msgid "Book Title"
-msgstr "Knygos Pavadinimas"
+msgstr "ಪುಸ್ತಕ ಶೀರ್ಷಿಕೆ"
 
 #: inc/admin/laf/namespace.php:1561
 msgid "Book Language"
-msgstr "Knygos Kalba"
+msgstr ""
 
 #: inc/admin/laf/namespace.php:1564
 msgid "Add Book"
-msgstr "Pridėti Knygą"
+msgstr ""
 
 #: inc/admin/laf/namespace.php:1581
 msgid "Edit previous or next item"
-msgstr "Redaguoti ankstesnį ar sekantį elementą"
+msgstr ""
 
 #: inc/admin/laf/namespace.php:1586
 msgid "Edit Previous (%s)"
@@ -1231,7 +1231,7 @@ msgstr ""
 #: inc/admin/metaboxes/namespace.php:130 inc/admin/metaboxes/namespace.php:187
 #: inc/class-metadata.php:449
 msgid "Cover Image"
-msgstr "Viršelio nuotrauka"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:173 inc/admin/metaboxes/namespace.php:701
 #: inc/admin/metaboxes/namespace.php:763
@@ -1242,27 +1242,27 @@ msgstr "Viršelio nuotrauka"
 #: inc/posttype/namespace.php:579 templates/admin/import.php:94
 #: tests/test-posttype.php:261
 msgid "Part"
-msgstr "Dalis"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:177
 msgid "Save Part"
-msgstr "Išsaugoti Dalį"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:178
 msgid "Save Book Information"
-msgstr "Išsaugoti Knygos Informaciją"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:179
 msgid "Status & Visibility"
-msgstr "Statusas ir Matomumas"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:193
 msgid "General Book Information"
-msgstr "Bendrosios Knygos Informacija"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:211
 msgid "Short Title"
-msgstr "Trumpa Antraštė"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:212
 msgid ""
@@ -1272,7 +1272,7 @@ msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:232
 msgid "Author(s)"
-msgstr "Autorius (-iai)"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:236 inc/admin/metaboxes/namespace.php:248
 #: inc/admin/metaboxes/namespace.php:260 inc/admin/metaboxes/namespace.php:272
@@ -1283,63 +1283,63 @@ msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:237 inc/admin/metaboxes/namespace.php:676
 msgid "Choose author(s)..."
-msgstr "Pasirinkti autorių (-ius)"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:244
 msgid "Editor(s)"
-msgstr "Redaktorius (-iai)"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:249
 msgid "Choose editor(s)..."
-msgstr "Pasirinkite redaktorių (-ius)..."
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:256
 msgid "Translator(s)"
-msgstr "Vertėjas (-ai)"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:261
 msgid "Choose translator(s)..."
-msgstr "Pasirinkite vertėją (-us)..."
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:268
 msgid "Reviewer(s)"
-msgstr "Recenzentas (-ai)"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:273
 msgid "Choose reviewer(s)..."
-msgstr "Pasirinkite recenzentą (-us)..."
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:280
 msgid "Illustrator(s)"
-msgstr "Ilustratorius (-ai)"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:285
 msgid "Choose illustrator(s)..."
-msgstr "Pasirinkite iliustratorių (-ius)..."
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:292
 msgid "Contributor(s)"
-msgstr "Dalyvis (-ai)"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:297
 msgid "Choose contributor(s)..."
-msgstr "Pasirinkite dalyvį (-us)..."
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:304
 msgid "Publisher"
-msgstr "Leidėjas"
+msgstr "ಪ್ರಕಾಶಕ"
 
 #: inc/admin/metaboxes/namespace.php:305 inc/admin/metaboxes/namespace.php:316
 msgid "This text appears on the title page of your book."
-msgstr "Šis tekstas rodomas knygos tituliniame puslapyje."
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:315
 msgid "Publisher City"
-msgstr "Leidėjo Miestas"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:327
 msgid "Publication Date"
-msgstr "Paskelbimo Data"
+msgstr "ಪ್ರಕಟಣೆ ದಿನಾಂಕ"
 
 #: inc/admin/metaboxes/namespace.php:328 inc/admin/metaboxes/namespace.php:338
 msgid ""
@@ -1349,47 +1349,47 @@ msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:337
 msgid "On-Sale Date"
-msgstr "Pardavimo Data"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:346
 msgid "Ebook ISBN"
-msgstr "E-knygos ISBN"
+msgstr "ಇಬುಕ್ ಐಎಸ್‍ಬಿಎನ್"
 
 #: inc/admin/metaboxes/namespace.php:347
 msgid ""
 "ISBN is the International Standard Book Number, and you'll need one if you "
 "want to sell your book in some online ebook stores. This is added to the "
 "metadata in your ebook."
-msgstr "ISBN yra tarptautinis standartinis knygų numeris, ir jums reikės jo, jei norėsite parduoti knygą kai kuriose internetinėse knygų parduotuvėse. Tai pridedama prie jūsų e-knygos metaduomenų."
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:357
 msgid "Print ISBN"
-msgstr "Atspaudinti ISBN"
+msgstr "ಮುದ್ರಣ ಐಎಸ್‍ಬಿಎನ್"
 
 #: inc/admin/metaboxes/namespace.php:358
 msgid ""
 "ISBN is the International Standard Book Number, and you'll need one if you "
 "want to sell your book in online and physical book stores."
-msgstr "ISBN yra tarptautinis standartinis knygų numeris, ir jums reikės jo, jei norėsite parduoti knygą internetinėse ir fizinėse knygų parduotuvėse."
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:368
 msgid "Digital Object Identifier (DOI)"
-msgstr ""
+msgstr "ಡಿಜಿಟಲ್ ಆಬ್ಜೆಕ್ಟ್ ಐಡೆಂಟಿಫೈಯರ್ (ಡಿಒಐ)"
 
 #: inc/admin/metaboxes/namespace.php:380
 msgid "Language"
-msgstr "Kalba"
+msgstr "ಭಾಷೆ‍"
 
 #: inc/admin/metaboxes/namespace.php:381
 msgid ""
 "This sets metadata in your ebook, making it easier to find in some stores. "
 "It also changes some system generated content for supported languages, such "
 "as the \"Contents\" header."
-msgstr "Tai nustato jūsų e-knygos metaduomenis, todėl jį lengviau rasti kai kuriose parduotuvėse. Tai taip pat pakeičia tam tikrą sistemos sukurtą turinį palaikomomis kalboms, pvz. turinio antraštę."
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:381
 msgid "Help translate Pressbooks into your language!"
-msgstr "Padėkite išversti Pressbooks į savo kalbą!"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:388 inc/class-licensing.php:315
 #: inc/modules/export/epub/class-epub201.php:1153
@@ -1399,7 +1399,7 @@ msgstr "Padėkite išversti Pressbooks į savo kalbą!"
 #: inc/modules/export/htmlbook/class-htmlbook.php:867
 #: inc/modules/export/xhtml/class-xhtml11.php:1086
 msgid "Copyright"
-msgstr "Autorinės Teisės"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:401 templates/admin/cloner.php:19
 msgid "Source Book URL"
@@ -1409,35 +1409,35 @@ msgstr ""
 msgid ""
 "This book was cloned from a pre-existing book at the above URL. This "
 "information will be displayed on the webbook homepage."
-msgstr "Ši knyga buvo klonuota iš anksčiau pateiktos knygos, esančios aukščiau pateiktame URL. Ši informacija bus rodoma žiniatinklio knygos pagrindiniame puslapyje."
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:413
 msgid "Copyright Year"
-msgstr "Autorių teisių metai"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:414
 msgid "Year that the book is/was published."
-msgstr "Metai, kuriais knyga yra/buvo paskelbta."
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:426
 msgid "Copyright Holder"
-msgstr "Autorių teisių savininkas"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:427
 msgid "Name of the copyright holder."
-msgstr "Autorių teisių savininko vardas ir pavardė."
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:439
 msgid "Copyright License"
-msgstr "Autorių teisių licencija"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:440
 msgid "You can select various licenses including Creative Commons."
-msgstr "Galite pasirinkti įvairias licencijas, įskaitant Creative Commons."
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:448
 msgid "Copyright Notice"
-msgstr "Autorių teisių pranešimas"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:449
 msgid ""
@@ -1446,82 +1446,82 @@ msgid ""
 "no license is selected, and will be inserted after the title page. If you "
 "select a Creative Commons license, the custom notice will appear after the "
 "license text in both the webbook and your exports."
-msgstr "Įveskite pasirinktiną pranešimą dėl autorių teisių su bet kokia jūsų norima informacija. Tai pakeis automatiškai sugeneruotą autorių teisių įspėjimą, jei bus pasirinkta \"Visos teisės saugomos\" arba nebus licencijos, ir bus įterpta po puslapio pavadinimu. Jei pasirinksite \"Creative Commons\" licenciją, pasirinktinis pranešimas bus rodomas po licencijos tekstu tiek žiniatinklio knygoje, tiek jūsų eksporte."
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:458
 msgid "About the Book"
-msgstr ""
+msgstr "ಪುಸ್ತಕದ ಬಗ್ಗೆ"
 
 #: inc/admin/metaboxes/namespace.php:466
 msgid "Book Tagline"
-msgstr ""
+msgstr "ಪುಸ್ತಕ ಟ್ಯಾಗ್ ಲೈನ್"
 
 #: inc/admin/metaboxes/namespace.php:467
 msgid ""
 "A very short description of your book. It should fit in a Twitter post, and "
 "encapsulate your book in the briefest sentence."
-msgstr "Labai trumpas jūsų knygos aprašymas. Tai turėtų tilpti į Twitter įrašą ir apibendrinti knygą trumpiausiu sakiniu."
+msgstr "ನಿಮ್ಮ ಪುಸ್ತಕದ ಒಂದು ಸಣ್ಣ ವಿವರಣೆ. ಇದು ಟ್ವಿಟರ್ ಪೋಸ್ಟ್ ನಲ್ಲಿ ಹೊಂದಿಕೊಳ್ಳಬೇಕು, ಮತ್ತು ನಿಮ್ಮ ಪುಸ್ತಕವನ್ನು ಸಂಕ್ಷಿಪ್ತ ವಾಕ್ಯದಲ್ಲಿ ಒಳಗೊಳ್ಳಬೇಕು."
 
 #: inc/admin/metaboxes/namespace.php:478
 msgid "Short Description"
-msgstr "Trumpas Aprašymas"
+msgstr "ಸಂಕ್ಷಿಪ್ತ ವಿವರಣೆ"
 
 #: inc/admin/metaboxes/namespace.php:479
 msgid ""
 "A short paragraph about your book, for catalogs, reviewers etc. to quote."
-msgstr "Pateikiama trumpa pastraipa apie jūsų knygą, katalogus, recenzentus ir kt."
+msgstr "ನಿಮ್ಮ ಪುಸ್ತಕದ ಬಗ್ಗೆ ಒಂದು ಸಣ್ಣ ಪ್ಯಾರಾಗ್ರಾಫ್, ಕ್ಯಾಟಲಾಗ್ ಗಳು, ಸಮೀಕ್ಷಕರು ಇತ್ಯಾದಿಉಲ್ಲೇಖಿಸಲು."
 
 #: inc/admin/metaboxes/namespace.php:490
 msgid "Long Description"
-msgstr "Ilgas Aprašymas"
+msgstr "ದೀರ್ಘ ವಿವರಣೆ"
 
 #: inc/admin/metaboxes/namespace.php:491
 msgid "The full description of your book."
-msgstr "Visas knygos aprašymas."
+msgstr "ನಿಮ್ಮ ಪುಸ್ತಕದ ಸಂಪೂರ್ಣ ವಿವರಣೆ."
 
 #: inc/admin/metaboxes/namespace.php:498
 msgid "Subject(s)"
-msgstr "Dalykas (-ai)"
+msgstr "ವಿಷಯ(ಗಳು)"
 
 #: inc/admin/metaboxes/namespace.php:503
 msgid "Additional Catalog Information"
-msgstr "Papildoma Katalogo Informacija"
+msgstr "ಹೆಚ್ಚುವರಿ ಕ್ಯಾಟಲಾಗ್ ಮಾಹಿತಿ"
 
 #: inc/admin/metaboxes/namespace.php:511
 msgid "Series Title"
-msgstr "Serijos Pavadinimas"
+msgstr "ಸರಣಿ ಶೀರ್ಷಿಕೆ"
 
 #: inc/admin/metaboxes/namespace.php:512 inc/admin/metaboxes/namespace.php:523
 msgid "Add if your book is part of a series."
-msgstr "Pridėti, jei jūsų knyga yra serijos dalis."
+msgstr "ನಿಮ್ಮ ಪುಸ್ತಕವು ಸರಣಿಯ ಭಾಗವಾಗಿದ್ದರೆ ಸೇರಿಸಿ."
 
 #: inc/admin/metaboxes/namespace.php:522
 msgid "Series Number"
-msgstr "Serijos Numeris"
+msgstr "ಸರಣಿ ಸಂಖ್ಯೆ"
 
 #: inc/admin/metaboxes/namespace.php:533
 msgid "Keywords"
-msgstr "Raktiniai Žodžiai"
+msgstr "ಕೀಲಿಪದಗಳು"
 
 #: inc/admin/metaboxes/namespace.php:535
 msgid ""
 "These are added to your webbook cover page, and in your ebook metadata. "
 "Keywords are used by online book stores and search engines."
-msgstr "Jie pridedami prie jūsų internetinio puslapio viršelio ir elektroninių knygų metaduomenų. Raktinius žodžius naudoja internetinės knygų parduotuvės ir paieškos sistemos."
+msgstr "ಇವುಗಳನ್ನು ನಿಮ್ಮ ವೆಬ್ ಬುಕ್ ಕವರ್ ಪುಟಕ್ಕೆ ಮತ್ತು ನಿಮ್ಮ ಇಬುಕ್ ಮೆಟಾಡೇಟಾದಲ್ಲಿ ಸೇರಿಸಲಾಗಿದೆ. ಕೀವರ್ಡ್ ಗಳನ್ನು ಆನ್ ಲೈನ್ ಬುಕ್ ಸ್ಟೋರ್ ಗಳು ಮತ್ತು ಸರ್ಚ್ ಎಂಜಿನ್ ಗಳು ಬಳಸುತ್ತವೆ."
 
 #: inc/admin/metaboxes/namespace.php:542
 msgid "Hashtag"
-msgstr "Hashtag"
+msgstr "ಹ್ಯಾಶ್ ಟ್ಯಾಗ್"
 
 #: inc/admin/metaboxes/namespace.php:543
 msgid ""
 "These are added to your webbook cover page. For those of you who like "
 "Twitter."
-msgstr "Jie pridedami prie jūsų tinklalapio viršelio. Tiems iš jūsų, kurie mėgsta Twitter."
+msgstr "ಇವುಗಳನ್ನು ನಿಮ್ಮ ವೆಬ್ ಬುಕ್ ಕವರ್ ಪುಟಕ್ಕೆ ಸೇರಿಸಲಾಗಿದೆ. ನಿಮ್ಮಲ್ಲಿ ಟ್ವಿಟರ್ ಇಷ್ಟಪಡುವವರಿಗೆ."
 
 #: inc/admin/metaboxes/namespace.php:553
 msgid "List Price (Print)"
-msgstr "Siūloma Kaina (spausdinimo)"
+msgstr "ಪಟ್ಟಿ ಬೆಲೆ (ಮುದ್ರಣ)"
 
 #: inc/admin/metaboxes/namespace.php:554
 msgid "The list price of your book in print."
@@ -1529,27 +1529,27 @@ msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:564
 msgid "List Price (PDF)"
-msgstr "Siūloma Kaina (PDF)"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:565
 msgid "The list price of your book in PDF format."
-msgstr "Jūsų knygos kaina PDF formate."
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:575
 msgid "List Price (ebook)"
-msgstr "Siūloma Kaina (elektroninės knygos)"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:576
 msgid "The list price of your book in Ebook formats."
-msgstr "Jūsų knygos kainoraštis e-knygos formatu."
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:586
 msgid "List Price (Web)"
-msgstr "Siūloma Kaina (žiniatinklio)"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:587
 msgid "The list price of your webbook."
-msgstr "Jūsų internetinės knygos kaina. "
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:599
 msgid "Choose an audience&hellip;"
@@ -1557,27 +1557,27 @@ msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:600
 msgid "Juvenile"
-msgstr "Paaugliai"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:601
 msgid "Young Adult"
-msgstr "Jaunimas"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:602
 msgid "Adult"
-msgstr "Suaugusieji"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:604
 msgid "Audience"
-msgstr "Publika"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:605
 msgid "The target audience for your book."
-msgstr "Tikslinė auditorija jūsų knygai."
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:618
 msgid "BISAC Subject(s)"
-msgstr "BISAC Dalykas (-ai)"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:620
 msgid ""
@@ -1591,7 +1591,7 @@ msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:634
 msgid "BISAC Regional Theme"
-msgstr "BISAC Regioninė Tema"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:635
 msgid ""
@@ -1606,7 +1606,7 @@ msgstr ""
 #: inc/posttype/namespace.php:583 templates/admin/import.php:92
 #: templates/admin/organize.php:91
 msgid "Chapter"
-msgstr "Skyrius"
+msgstr "ಅಧ್ಯಾಯ"
 
 #: inc/admin/metaboxes/namespace.php:650
 msgid "%s Metadata"
@@ -1636,11 +1636,11 @@ msgstr ""
 #: inc/admin/metaboxes/namespace.php:712
 msgid ""
 "Appears on part page. Parts will not appear if a book has only one part."
-msgstr "Rodoma daliniame puslapyje. Dalys nebus rodomos, jei knyga turi tik vieną dalį."
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:720
 msgid "Part Visibility"
-msgstr "Dalies Matomumas"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:730
 msgid "Invisible"
@@ -1648,7 +1648,7 @@ msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:731
 msgid "Hide from table of contents and part numbering."
-msgstr "Slėpti nuo turinio lentelės ir dalinės numeracijos."
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:887
 msgid "Show in Glossary Lists"
@@ -1656,42 +1656,42 @@ msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:898
 msgid "Preview"
-msgstr "Peržiūra"
+msgstr "ಮುನ್ನೋಟ"
 
 #. translators: accessibility text
 #: inc/admin/metaboxes/namespace.php:900
 msgid "(opens in a new window)"
-msgstr "(atsidaro naujame lange)"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:909 templates/admin/organize.php:140
 #: templates/admin/organize.php:243 templates/admin/organize.php:299
 #: templates/admin/organize.php:401
 msgid "Show in Web"
-msgstr "Rodyti Internete"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:913
 msgid "Require a Password"
-msgstr "Reikalauti Slaptažodžio"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:914
 msgid "Password..."
-msgstr "Slaptažodis..."
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:918 templates/admin/organize.php:148
 #: templates/admin/organize.php:247 templates/admin/organize.php:307
 #: templates/admin/organize.php:405
 msgid "Show in Exports"
-msgstr "Rodyti Eksporte"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:922 templates/admin/organize.php:155
 #: templates/admin/organize.php:251 templates/admin/organize.php:315
 #: templates/admin/organize.php:409
 msgid "Show Title"
-msgstr "Rodyti Antraštę"
+msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:1106
 msgid "Primary Subject"
-msgstr "Pirminis subjektas"
+msgstr "ಪ್ರಾಥಮಿಕ ವಿಷಯ"
 
 #: inc/admin/metaboxes/namespace.php:1110
 msgid ""
@@ -1713,7 +1713,7 @@ msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:1113
 msgid "Additional Subject(s)"
-msgstr "Papildomas dalykas(-i) "
+msgstr "ಹೆಚ್ಚುವರಿ ವಿಷಯ(ಗಳು)"
 
 #: inc/admin/metaboxes/namespace.php:1123
 msgid ""
@@ -1732,7 +1732,7 @@ msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:1391
 msgid "Name"
-msgstr ""
+msgstr "ಹೆಸರು"
 
 #: inc/admin/metaboxes/namespace.php:1420
 msgid "Name cannot be left blank."
@@ -1740,31 +1740,31 @@ msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:1454
 msgid "Owner"
-msgstr "Savininkas"
+msgstr ""
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:75
 msgid "Allow Redistribution"
-msgstr "Leisti Perskirstymą"
+msgstr ""
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:81
 msgid "Allow book administrators to enable redistribution of export files."
-msgstr "Leisti knygų administratoriams įgalinti eksporto rinkmenų perskirstymą."
+msgstr ""
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:87
 msgid "Enable network API"
-msgstr "Įgalinti tinklo API"
+msgstr ""
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:93
 msgid "Enable access to your network of books via the Pressbooks REST API."
-msgstr "Įgalinkite prieigą prie savo knygų tinklo, naudodamiesi Pressbooks REST API."
+msgstr ""
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:99
 msgid "Enable Cloning"
-msgstr "Leisti klonavimą"
+msgstr ""
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:105
 msgid "Enable book cloning via the Pressbooks REST API."
-msgstr "Įgalinti knygų klonavimą naudojant Pressbooks REST API."
+msgstr ""
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:111
 msgid "Enable CC with Weblinks"
@@ -1795,16 +1795,16 @@ msgstr ""
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:156
 msgid "Sharing and Privacy settings."
-msgstr "Bendrinimo ir Privatumo nustatymai."
+msgstr ""
 
 #: inc/admin/networkmanagers/namespace.php:18
 #: inc/admin/networkmanagers/namespace.php:19
 msgid "Network Managers"
-msgstr "Tinklo Valdytojai"
+msgstr ""
 
 #: inc/admin/networkmanagers/namespace.php:116
 msgid "Pressbooks Network Managers"
-msgstr "Pressbooks Tinklo Valdytojai"
+msgstr ""
 
 #: inc/admin/networkmanagers/namespace.php:118
 msgid ""
@@ -1823,11 +1823,11 @@ msgstr ""
 
 #: inc/admin/users/class-userbulk.php:61 inc/admin/users/class-userbulk.php:62
 msgid "Bulk Add"
-msgstr ""
+msgstr "ಒಟ್ಟಾಗಿ ಸೇರಿಸಿ"
 
 #: inc/admin/users/class-userbulk.php:164
 msgid "Invalid email address"
-msgstr ""
+msgstr "ಅಮಾನ್ಯವಾದ ಇಮೇಲ್ ವಿಳಾಸ"
 
 #: inc/admin/users/class-userbulk.php:238
 msgid "The following user(s) could not be added."
@@ -1848,7 +1848,7 @@ msgstr ""
 #: inc/api/endpoints/controller/class-toc.php:164
 #: inc/api/endpoints/controller/class-toc.php:177
 msgid "Metadata"
-msgstr "Metaduomenys"
+msgstr "ಮೆಟಾಡೇಟಾ"
 
 #: inc/api/endpoints/controller/class-books.php:153
 msgid "ID offset, overrides page."
@@ -1863,11 +1863,11 @@ msgstr ""
 
 #: inc/api/endpoints/controller/class-toc.php:98
 msgid "Comment count"
-msgstr "Komentarų skaičius"
+msgstr ""
 
 #: inc/api/endpoints/controller/class-toc.php:123
 msgid "Include in exports."
-msgstr "Įtraukti į eksportą."
+msgstr ""
 
 #: inc/api/endpoints/controller/class-toc.php:129
 msgid "Has post content, the content field is not empty."
@@ -1875,11 +1875,11 @@ msgstr ""
 
 #: inc/api/endpoints/controller/class-toc.php:134
 msgid "Word count."
-msgstr "Žodžių skaičius."
+msgstr ""
 
 #: inc/api/namespace.php:71
 msgid "Part ID."
-msgstr "Dalies ID."
+msgstr ""
 
 #: inc/api/namespace.php:195
 msgid "Invalid batch parameter(s)."
@@ -1887,59 +1887,59 @@ msgstr ""
 
 #: inc/api/namespace.php:350
 msgid "Part does not exist"
-msgstr "Dalis neegzistuoja"
+msgstr ""
 
 #: inc/api/namespace.php:357
 msgid "ID is not a part"
-msgstr "ID nėra dalis"
+msgstr ""
 
 #: inc/api/namespace.php:371
 msgid "Failed to update chapter part"
-msgstr "Nepavyko atnaujinti skyriaus dalies"
+msgstr ""
 
 #: inc/class-activation.php:206
 msgid "Main Body"
-msgstr "Pagrindinė Dalis"
+msgstr ""
 
 #: inc/class-activation.php:212 tests/test-book.php:50
 msgid "Introduction"
-msgstr "Įvadas"
+msgstr "‍ಪರಿಚಯ‍"
 
 #: inc/class-activation.php:214 tests/test-book.php:101
 msgid "This is where you can write your introduction."
-msgstr "Čia galite parašyti savo įžangą."
+msgstr ""
 
 #: inc/class-activation.php:219
 msgid "Chapter 1"
-msgstr "1-as skyrius"
+msgstr ""
 
 #: inc/class-activation.php:221
 msgid ""
 "This is the first chapter in the main body of the text. You can change the "
 "text, rename the chapter, add new chapters, and add new parts."
-msgstr "Tai pirmasis pagrindinės dalies skyrius. Galite pakeisti tekstą, pervadinti skyrių, pridėti naujus skyrius bei pridėti naujų dalių."
+msgstr ""
 
 #: inc/class-activation.php:226
 msgid "Appendix"
-msgstr "Priedas"
+msgstr ""
 
 #: inc/class-activation.php:228
 msgid "This is where you can add appendices or other back matter."
-msgstr "Čia galite pridėti priedus ar kitą papildomą medžiagą."
+msgstr ""
 
 #: inc/class-activation.php:234 templates/admin/organize.php:129
 #: templates/admin/organize.php:216 templates/admin/organize.php:290
 #: templates/admin/organize.php:375 tests/test-cloner.php:53
 msgid "Authors"
-msgstr "Autoriai"
+msgstr "ಲೇಖಕರು"
 
 #: inc/class-activation.php:254
 msgid "Buy"
-msgstr "Pirkti"
+msgstr "ಖರೀದಿಸಿ"
 
 #: inc/class-activation.php:259
 msgid "Access Denied"
-msgstr "Prieiga Uždrausta"
+msgstr "ಪ್ರವೇಶ ನಿರಾಕರಿಸಲಾಗಿದೆ"
 
 #: inc/class-activation.php:261
 msgid ""
@@ -1965,28 +1965,28 @@ msgstr ""
 #: inc/posttype/namespace.php:166 inc/posttype/namespace.php:538
 #: templates/admin/import.php:118
 msgid "Book Information"
-msgstr "Informacija apie knygą"
+msgstr "ಪುಸ್ತಕ ಮಾಹಿತಿ"
 
 #: inc/class-activation.php:313
 msgid "Default Data"
-msgstr "Numatytieji Duomenys"
+msgstr ""
 
 #: inc/class-catalog.php:823
 msgid "Catalog Logo"
-msgstr "Katalogo Logotipas"
+msgstr ""
 
 #: inc/class-catalog.php:1180 inc/class-catalog.php:1235
 #: inc/class-catalog.php:1283 templates/admin/catalog.php:19
 msgid "You do not have permission to do that."
-msgstr "Jūs neturite leidimo tai daryti."
+msgstr ""
 
 #: inc/class-catalog.php:1330
 msgid "Invalid URL."
-msgstr "Neteisingas URL"
+msgstr ""
 
 #: inc/class-catalog.php:1350
 msgid "No book found."
-msgstr "Nerasta knygos."
+msgstr ""
 
 #: inc/class-contributors.php:434
 msgid "Prefix"
@@ -2000,11 +2000,11 @@ msgstr ""
 
 #: inc/class-contributors.php:441
 msgid "First Name"
-msgstr "Vardas"
+msgstr ""
 
 #: inc/class-contributors.php:447
 msgid "Last Name"
-msgstr "Pavardė"
+msgstr ""
 
 #: inc/class-contributors.php:453
 msgid "Suffix"
@@ -2040,7 +2040,7 @@ msgstr ""
 
 #: inc/class-contributors.php:485
 msgid "Twitter"
-msgstr ""
+msgstr "ಟ್ವಿಟರ್"
 
 #: inc/class-contributors.php:488
 msgid "Twitter profile for this contributor. Must be a valid URL."
@@ -2048,7 +2048,7 @@ msgstr ""
 
 #: inc/class-contributors.php:492
 msgid "LinkedIn"
-msgstr ""
+msgstr "ಲಿಂಕ್ಡ್ಇನ್"
 
 #: inc/class-contributors.php:495
 msgid "LinkedIn profile for this contributor. Must be a valid URL."
@@ -2056,7 +2056,7 @@ msgstr ""
 
 #: inc/class-contributors.php:499
 msgid "GitHub"
-msgstr ""
+msgstr "ಗಿಟ್‍ಹಬ್"
 
 #: inc/class-contributors.php:502
 msgid "GitHub profile for this contributor. Must be a valid URL."
@@ -2083,8 +2083,6 @@ msgid "%s term"
 msgid_plural "%s terms"
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
 
 #: inc/class-eventstreams.php:199
 #: inc/modules/import/wordpress/class-wxr.php:417
@@ -2092,8 +2090,6 @@ msgid "%s front matter"
 msgid_plural "%s front matter"
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
 
 #: inc/class-eventstreams.php:200
 #: inc/modules/import/wordpress/class-wxr.php:418
@@ -2101,8 +2097,6 @@ msgid "%s part"
 msgid_plural "%s parts"
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
 
 #: inc/class-eventstreams.php:201
 #: inc/modules/import/wordpress/class-wxr.php:419
@@ -2110,8 +2104,6 @@ msgid "%s chapter"
 msgid_plural "%s chapters"
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
 
 #: inc/class-eventstreams.php:202
 #: inc/modules/import/wordpress/class-wxr.php:420
@@ -2119,8 +2111,6 @@ msgid "%s back matter"
 msgid_plural "%s back matter"
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
 
 #: inc/class-eventstreams.php:203
 #: inc/modules/import/wordpress/class-wxr.php:421
@@ -2128,16 +2118,12 @@ msgid "%s media attachment"
 msgid_plural "%s media attachments"
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
 
 #: inc/class-eventstreams.php:204
 msgid "%s H5P element"
 msgid_plural "%s H5P elements"
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
 
 #: inc/class-eventstreams.php:205
 #: inc/modules/import/wordpress/class-wxr.php:422
@@ -2145,8 +2131,6 @@ msgid "%s glossary term"
 msgid_plural "%s glossary terms"
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
 
 #: inc/class-eventstreams.php:227
 msgid "No export format was selected."
@@ -2166,7 +2150,7 @@ msgstr ""
 
 #: inc/class-globaltypography.php:41
 msgid "Ancient Greek"
-msgstr "Senovės graikų"
+msgstr ""
 
 #: inc/class-globaltypography.php:42
 msgid "Armenian"
@@ -2174,7 +2158,7 @@ msgstr ""
 
 #: inc/class-globaltypography.php:43
 msgid "Arabic"
-msgstr "Arabų"
+msgstr "ಅರೇಬಿಕ್"
 
 #: inc/class-globaltypography.php:44
 msgid "Bengali"
@@ -2182,7 +2166,7 @@ msgstr ""
 
 #: inc/class-globaltypography.php:45
 msgid "Biblical Hebrew"
-msgstr "Biblinis, hebrajų"
+msgstr ""
 
 #: inc/class-globaltypography.php:46
 msgid "Canadian Indigenous Syllabics"
@@ -2190,15 +2174,15 @@ msgstr ""
 
 #: inc/class-globaltypography.php:47
 msgid "Devanagari (Hindi and Sanskrit)"
-msgstr "Devanagari (hindi ir sanskritas)"
+msgstr ""
 
 #: inc/class-globaltypography.php:48
 msgid "Chinese (Simplified)"
-msgstr "Kinų (supaprastinta)"
+msgstr "ಚೈನೀಸ್ (ಸರಳೀಕೃತ)"
 
 #: inc/class-globaltypography.php:49
 msgid "Chinese (Traditional)"
-msgstr "Kinų (tradicinė)"
+msgstr "ಚೈನೀಸ್ (ಸಂಪ್ರದಾಯವಾದಿ)"
 
 #: inc/class-globaltypography.php:50
 msgid "Coptic"
@@ -2210,11 +2194,11 @@ msgstr ""
 
 #: inc/class-globaltypography.php:52
 msgid "Punjabi (Gurmukhi)"
-msgstr "Pandžabo (Gurmukhi)"
+msgstr ""
 
 #: inc/class-globaltypography.php:53
 msgid "Japanese"
-msgstr "Japonų"
+msgstr "ಜಪಾನೀಸ್"
 
 #: inc/class-globaltypography.php:54
 msgid "Kannada"
@@ -2222,11 +2206,11 @@ msgstr ""
 
 #: inc/class-globaltypography.php:55
 msgid "Korean"
-msgstr "Korėjiečių"
+msgstr "ಕೊರಿಯನ್"
 
 #: inc/class-globaltypography.php:56
 msgid "Malayalam"
-msgstr ""
+msgstr "മലയാളം"
 
 #: inc/class-globaltypography.php:57
 msgid "Musical Notation"
@@ -2242,11 +2226,11 @@ msgstr ""
 
 #: inc/class-globaltypography.php:60
 msgid "Syriac"
-msgstr "Sirų"
+msgstr ""
 
 #: inc/class-globaltypography.php:61
 msgid "Tamil"
-msgstr "Tamilų"
+msgstr "தமிழ்"
 
 #: inc/class-globaltypography.php:62
 msgid "Telugu"
@@ -2254,11 +2238,11 @@ msgstr ""
 
 #: inc/class-globaltypography.php:63
 msgid "Tibetan"
-msgstr "Tibetiečių"
+msgstr ""
 
 #: inc/class-globaltypography.php:64
 msgid "Turkish"
-msgstr "Turkų"
+msgstr "ಟರ್ಕಿಶ್"
 
 #: inc/class-globaltypography.php:449
 msgid "Your %1$s font could not be downloaded from %2$s."
@@ -2266,7 +2250,7 @@ msgstr ""
 
 #: inc/class-licensing.php:57
 msgid "Public Domain"
-msgstr ""
+msgstr "ಸಾರ್ವಜನಿಕ ಡೊಮೇನ್"
 
 #: inc/class-licensing.php:67
 msgid "CC0 (Creative Commons Zero)"
@@ -2274,19 +2258,19 @@ msgstr ""
 
 #: inc/class-licensing.php:77
 msgid "CC BY (Attribution)"
-msgstr "CC BY (priskyrimas)"
+msgstr ""
 
 #: inc/class-licensing.php:78
 msgid "Creative Commons Attribution 4.0 International License"
-msgstr "Creative Commons Attribution 4.0 tarptautinė licencija"
+msgstr ""
 
 #: inc/class-licensing.php:88
 msgid "CC BY-SA (Attribution ShareAlike)"
-msgstr "CC BY-SA (priskyrimas ShareAlike)"
+msgstr ""
 
 #: inc/class-licensing.php:89
 msgid "Creative Commons Attribution-ShareAlike 4.0 International License"
-msgstr "Creative Commons Attribution-ShareAlike 4.0 tarptautinė licencija"
+msgstr ""
 
 #: inc/class-licensing.php:99
 msgid "CC BY-ND (Attribution NoDerivatives)"
@@ -2294,7 +2278,7 @@ msgstr ""
 
 #: inc/class-licensing.php:100
 msgid "Creative Commons Attribution-NoDerivatives 4.0 International License"
-msgstr "Creative Commons Attribution-NoDerivatives 4.0 tarptautinė licencija"
+msgstr ""
 
 #: inc/class-licensing.php:110
 msgid "CC BY-NC (Attribution NonCommercial)"
@@ -2302,7 +2286,7 @@ msgstr ""
 
 #: inc/class-licensing.php:111
 msgid "Creative Commons Attribution-NonCommercial 4.0 International License"
-msgstr "Creative Commons Attribution-NonCommercial 4.0 tarptautinė licencija"
+msgstr ""
 
 #: inc/class-licensing.php:121
 msgid "CC BY-NC-SA (Attribution NonCommercial ShareAlike)"
@@ -2312,7 +2296,7 @@ msgstr ""
 msgid ""
 "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International "
 "License"
-msgstr "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 tarptautinė licencija"
+msgstr ""
 
 #: inc/class-licensing.php:132
 msgid "CC BY-NC-ND (Attribution NonCommercial NoDerivatives)"
@@ -2322,11 +2306,11 @@ msgstr ""
 msgid ""
 "Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International "
 "License"
-msgstr "Creative Commons Attribution-Noncommercial-NoDerivatives 4.0 tarptautinė licencija"
+msgstr ""
 
 #: inc/class-licensing.php:139 inc/class-licensing.php:320
 msgid "All Rights Reserved"
-msgstr "Visos Teisės Saugomos"
+msgstr "ಎಲ್ಲಾ ಹಕ್ಕುಗಳನ್ನು ಕಾಯ್ದಿರಿಸಲಾಗಿದೆ"
 
 #: inc/class-licensing.php:205
 msgid ""
@@ -2345,7 +2329,7 @@ msgstr ""
 
 #: inc/class-licensing.php:376
 msgid "except where otherwise noted."
-msgstr "išskyrus atvejus, kai nurodyta kitaip."
+msgstr ""
 
 #: inc/class-licensing.php:403 inc/class-licensing.php:427
 msgid "%1$s Copyright &copy;%2$s by %3$s. All Rights Reserved."
@@ -2384,19 +2368,19 @@ msgstr ""
 
 #: inc/class-styles.php:92 templates/admin/custom-styles.php:38
 msgid "Custom Styles"
-msgstr "Pasirinktini Stiliai"
+msgstr ""
 
 #: inc/class-styles.php:114
 msgid "Custom Style for Ebook"
-msgstr "Pasirinktinas e-knygos stilius"
+msgstr ""
 
 #: inc/class-styles.php:119
 msgid "Custom Style for PDF"
-msgstr "Pasirinktinas PDF stilius"
+msgstr ""
 
 #: inc/class-styles.php:124
 msgid "Custom Style for Web"
-msgstr "Pasirinktinas žiniatinklio stilius"
+msgstr ""
 
 #: inc/class-styles.php:642
 msgid "Alegreya"
@@ -2420,7 +2404,7 @@ msgstr ""
 
 #: inc/class-styles.php:647
 msgid "Noto Serif"
-msgstr ""
+msgstr "ನೋಟೊ ಸೆರಿಫ್"
 
 #: inc/class-styles.php:648
 msgid "Sorts Mill Goudy"
@@ -2498,11 +2482,11 @@ msgstr ""
 
 #: inc/class-styles.php:755 templates/admin/custom-styles.php:16
 msgid "Web"
-msgstr "Žiniatinklis"
+msgstr ""
 
 #: inc/class-styles.php:787
 msgid "Last 10 Revisions"
-msgstr "Paskutinių 10 Peržiūrų"
+msgstr ""
 
 #: inc/cloner/class-cloner.php:412 inc/modules/import/api/class-api.php:115
 msgid "Looking up the source book"
@@ -2546,7 +2530,7 @@ msgstr ""
 msgid ""
 "You can only clone from a book hosted by Pressbooks 4.1 or later. Please "
 "ensure that your source book meets these requirements."
-msgstr "Galite klonuoti tik iš knygos, kurioje yra Pressbooks 4.1 ar naujesnė versija. Patikrinkite, ar šaltinio knyga atitinka šiuos reikalavimus."
+msgstr ""
 
 #: inc/cloner/class-cloner.php:524
 msgid "Could not retrieve metadata from %s."
@@ -2593,31 +2577,29 @@ msgstr ""
 
 #: inc/cloner/class-cloner.php:1888
 msgid "Your book URL can only contain lowercase letters (a-z) and numbers."
-msgstr "Jūsų knygos URL gali būti tik mažosios raidės (a-z) ir skaičiai."
+msgstr ""
 
 #: inc/cloner/class-cloner.php:1890
 msgid "Your book URL must contain at least some letters."
-msgstr "Jūsų knygos URL turi būti bent kelios raidės."
+msgstr ""
 
 #: inc/cloner/class-cloner.php:1892
 msgid "That book URL is not allowed."
-msgstr "Knygos URL adresas neleidžiamas."
+msgstr ""
 
 #: inc/cloner/class-cloner.php:1894
 msgid "Your book URL must be at least %s character."
 msgid_plural "Your book URL must be at least %s characters."
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
 
 #: inc/cloner/class-cloner.php:1896
 msgid "Sorry, you may not use that book URL."
-msgstr "Atsiprašome, jūs negalite naudoti šios knygos URL."
+msgstr ""
 
 #: inc/cloner/class-cloner.php:1898
 msgid "Sorry, that book URL already exists!"
-msgstr "Atsiprašome, knygos URL jau egzistuoja!"
+msgstr ""
 
 #: inc/covergenerator/class-generator.php:204
 msgid "Calculating spine width"
@@ -2638,7 +2620,7 @@ msgstr ""
 #: inc/covergenerator/class-generator.php:368
 #: inc/modules/export/class-export.php:333
 msgid "book"
-msgstr "knyga"
+msgstr ""
 
 #: inc/covergenerator/class-generator.php:461
 #: inc/modules/export/prince/class-docraptor.php:118
@@ -2655,11 +2637,11 @@ msgstr ""
 
 #: inc/editor/namespace.php:105
 msgid "Insert Footnote"
-msgstr "Įterpti Išnašą"
+msgstr ""
 
 #: inc/editor/namespace.php:106
 msgid "Convert MS Word Footnotes"
-msgstr "Konvertuoti MS Word Išnašas"
+msgstr ""
 
 #: inc/editor/namespace.php:113
 msgid "Insert LaTeX"
@@ -2667,11 +2649,11 @@ msgstr ""
 
 #: inc/editor/namespace.php:126 templates/admin/import.php:156
 msgid "Cancel"
-msgstr "Atšaukti"
+msgstr "ರದ್ದು"
 
 #: inc/editor/namespace.php:127
 msgid "Description"
-msgstr ""
+msgstr "ವಿವರಣೆ"
 
 #: inc/editor/namespace.php:128
 msgid "Insert Glossary Term"
@@ -2679,7 +2661,7 @@ msgstr ""
 
 #: inc/editor/namespace.php:129
 msgid "Insert"
-msgstr ""
+msgstr "ಸೇರಿಸಿ"
 
 #: inc/editor/namespace.php:131
 msgctxt "JS template string"
@@ -2741,19 +2723,19 @@ msgstr ""
 
 #: inc/editor/namespace.php:233
 msgid "Tight tracking"
-msgstr "Griežtas stebėjimas"
+msgstr ""
 
 #: inc/editor/namespace.php:239
 msgid "Very tight tracking"
-msgstr "Labai griežtas stebėjimas"
+msgstr ""
 
 #: inc/editor/namespace.php:245
 msgid "Loose tracking"
-msgstr "Laisvas stebėjimas"
+msgstr ""
 
 #: inc/editor/namespace.php:251
 msgid "Very loose tracking"
-msgstr "Labai laisvas stebėjimas"
+msgstr ""
 
 #: inc/editor/namespace.php:257
 msgid "Pullquote (left)"
@@ -2767,15 +2749,15 @@ msgstr ""
 #: inc/editor/namespace.php:371
 #: inc/modules/themeoptions/class-weboptions.php:118 languages/tinymce.php:7
 msgid "Standard"
-msgstr "Standartinis"
+msgstr "ಸಾಮಾನ್ಯ"
 
 #: inc/editor/namespace.php:319
 msgid "No lines"
-msgstr "Be eilučių"
+msgstr ""
 
 #: inc/editor/namespace.php:323
 msgid "Lines"
-msgstr "Eilutės"
+msgstr ""
 
 #: inc/editor/namespace.php:327 inc/editor/namespace.php:365
 #: inc/editor/namespace.php:379 languages/tinymce.php:10
@@ -2808,11 +2790,11 @@ msgstr ""
 
 #: inc/editor/namespace.php:361 inc/editor/namespace.php:375
 msgid "Border"
-msgstr "Riba"
+msgstr "ಚೌಕಟ್ಟು"
 
 #: inc/editor/namespace.php:495
 msgid "Internal Link"
-msgstr "Vidinė Nuoroda"
+msgstr ""
 
 #: inc/image/namespace.php:407
 msgid ""
@@ -2826,11 +2808,11 @@ msgstr ""
 
 #: inc/image/namespace.php:447 templates/admin/covergenerator.php:123
 msgid "Are you sure you want to delete this?"
-msgstr "Ar tikrai norite tai ištrinti?"
+msgstr ""
 
 #: inc/image/namespace.php:479
 msgid "Delete"
-msgstr "Ištrinti"
+msgstr ""
 
 #: inc/interactive/class-h5p.php:175
 msgid ""
@@ -2846,23 +2828,23 @@ msgstr ""
 
 #: inc/metadata/namespace.php:114
 msgid "Hide Additional Book Information"
-msgstr "Slėpti Papildomos Knygos Informaciją"
+msgstr ""
 
 #: inc/metadata/namespace.php:117
 msgid "Show Additional Book Information"
-msgstr "Rodyti Papildomos Knygos Informaciją"
+msgstr ""
 
 #: inc/metadata/namespace.php:124
 msgid ""
 "The book information you enter here appears on your book’s cover and title "
 "pages and in the metadata of your webbook and exported files."
-msgstr "Čia pateikiama informacija apie knygą randasi knygos viršelio ir pavadinimo puslapiuose bei jūsų tinklalapio metaduomenyse ir eksportuojamose failuose."
+msgstr ""
 
 #: inc/metadata/namespace.php:126
 msgid ""
 "If you need to enter additional information, click the button below to see "
 "all available fields."
-msgstr "Jei norite įvesti papildomą informaciją, spustelėkite žemiau esantį mygtuką, kad pamatytumėte visus galimus laukus."
+msgstr ""
 
 #: inc/metadata/namespace.php:1161
 msgid ""
@@ -2904,7 +2886,7 @@ msgstr ""
 
 #: inc/modules/export/class-export.php:878
 msgid "Emailed to:"
-msgstr "Išsiųstas el. paštu:"
+msgstr ""
 
 #: inc/modules/export/class-table.php:75
 msgid "Are you sure you want to delete this export file?"
@@ -2912,15 +2894,15 @@ msgstr ""
 
 #: inc/modules/export/class-table.php:125
 msgid "File"
-msgstr ""
+msgstr "ಕಡತ"
 
 #: inc/modules/export/class-table.php:126
 msgid "Format"
-msgstr ""
+msgstr "ನಮೂನೆ"
 
 #: inc/modules/export/class-table.php:127
 msgid "Size"
-msgstr ""
+msgstr "ಗಾತ್ರ"
 
 #: inc/modules/export/class-table.php:128
 msgid "Pin"
@@ -3020,11 +3002,11 @@ msgstr ""
 
 #: inc/modules/export/epub/class-epub201.php:1081
 msgid "Publisher Logo"
-msgstr "Leidėjo Logotipas"
+msgstr ""
 
 #: inc/modules/export/epub/class-epub201.php:1091
 msgid "Title Page"
-msgstr "Titulinis Puslapis"
+msgstr ""
 
 #: inc/modules/export/epub/class-epub201.php:1413
 msgid "Make your own books using Pressbooks"
@@ -3032,18 +3014,18 @@ msgstr ""
 
 #: inc/modules/export/epub/class-epub201.php:1840
 msgid "Table Of Contents"
-msgstr "Turinys"
+msgstr ""
 
 #: inc/modules/export/epub/class-epub201.php:1855
 #: inc/modules/export/htmlbook/class-htmlbook.php:993
 #: inc/modules/export/xhtml/class-xhtml11.php:1159
 msgid "Contents"
-msgstr "Turinys"
+msgstr "ಪರಿವಿಡಿ"
 
 #: inc/modules/export/epub/templates/epub3/opf.php:57
 #: inc/modules/export/epub/templates/epub201/opf.php:53
 msgid "Authored by: "
-msgstr "Autorius:"
+msgstr ""
 
 #: inc/modules/export/htmlbook/class-htmlbook.php:192
 #: inc/modules/export/wordpress/class-wxr.php:81
@@ -3063,17 +3045,17 @@ msgstr ""
 #: inc/utility/namespace.php:1360 inc/utility/namespace.php:1370
 #: inc/utility/namespace.php:1376 templates/admin/covergenerator.php:53
 msgid "and"
-msgstr "ir"
+msgstr "ಮತ್ತು"
 
 #: inc/modules/export/namespace.php:99
 #: inc/modules/export/prince/class-filters.php:74
 msgid "PDF (for print)"
-msgstr "PDF (spausdinti)"
+msgstr ""
 
 #: inc/modules/export/namespace.php:100
 #: inc/modules/export/prince/class-filters.php:75
 msgid "PDF (for digital distribution)"
-msgstr "PDF (skaitmeniniam platinimui)"
+msgstr ""
 
 #: inc/modules/export/namespace.php:101
 msgid "EPUB 2.01"
@@ -3082,15 +3064,15 @@ msgstr ""
 #: inc/modules/export/namespace.php:102 inc/modules/export/namespace.php:200
 #: inc/modules/export/namespace.php:233
 msgid "Pressbooks XML"
-msgstr "Pressbooks XML"
+msgstr ""
 
 #: inc/modules/export/namespace.php:105
 msgid "EPUB 3"
-msgstr "EPUB 3"
+msgstr ""
 
 #: inc/modules/export/namespace.php:106
 msgid "XHTML"
-msgstr "XHTML"
+msgstr ""
 
 #: inc/modules/export/namespace.php:107 inc/modules/export/namespace.php:194
 #: inc/modules/export/namespace.php:228
@@ -3100,12 +3082,12 @@ msgstr ""
 #: inc/modules/export/namespace.php:108 inc/modules/export/namespace.php:199
 #: inc/modules/export/namespace.php:232
 msgid "OpenDocument"
-msgstr "OpenDocument"
+msgstr ""
 
 #: inc/modules/export/namespace.php:109 inc/modules/export/namespace.php:201
 #: inc/modules/export/namespace.php:234
 msgid "WordPress XML"
-msgstr "WordPress XML"
+msgstr ""
 
 #: inc/modules/export/namespace.php:117
 msgid "Common Cartridge with Web Links"
@@ -3154,8 +3136,6 @@ msgid "%s Author"
 msgid_plural "%s Authors"
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
 
 #: inc/modules/export/prince/class-pdf.php:286
 msgid ""
@@ -3165,31 +3145,31 @@ msgstr ""
 
 #: inc/modules/export/xhtml/class-xhtml11.php:166
 msgid "XHTML: "
-msgstr ""
+msgstr "ಎಕ್ಸ್ ಟಿಎಮ್ ಎಲ್: "
 
 #: inc/modules/export/xhtml/class-xhtml11.php:411
 msgid "Creating before title page"
-msgstr ""
+msgstr "ಶೀರ್ಷಿಕೆ ಪುಟದ ಮೊದಲು ರಚಿಸಲಾಗುತ್ತಿದೆ"
 
 #: inc/modules/export/xhtml/class-xhtml11.php:415
 msgid "Creating half title page"
-msgstr ""
+msgstr "ಅರ್ಧ ಶೀರ್ಷಿಕೆ ಪುಟ ವನ್ನು ರಚಿಸಲಾಗುತ್ತಿದೆ"
 
 #: inc/modules/export/xhtml/class-xhtml11.php:431
 msgid "Creating dedication and epigraph"
-msgstr ""
+msgstr "ಸಮರ್ಪಣೆ ಮತ್ತು ಶಾಸನವನ್ನು ರಚಿಸುವುದು"
 
 #: inc/modules/export/xhtml/class-xhtml11.php:545
 msgid "Notes"
-msgstr "Pastabos"
+msgstr "ಪ್ರತಿಕ್ರಿಯೆಗಳು"
 
 #: inc/modules/import/api/class-api.php:83
 msgid "No chapters in %s are licensed for cloning."
-msgstr ""
+msgstr "%s ಯಾವುದೇ ಅಧ್ಯಾಯಗಳು ಕ್ಲೋನಿಂಗ್ ಗೆ ಪರವಾನಗಿ ಪಡೆದಿಲ್ಲ."
 
 #: inc/modules/import/api/class-api.php:141
 msgid "Importing front matter"
-msgstr ""
+msgstr "ಮುಂಭಾಗದ ದ್ರವ್ಯವನ್ನು ಆಮದು ಮಾಡುತ್ತಿದೆ"
 
 #: inc/modules/import/api/class-api.php:164
 msgid "Importing parts and chapters"
@@ -3214,12 +3194,12 @@ msgstr ""
 
 #: inc/modules/import/class-import.php:543
 msgid "Your URL does not appear to be valid"
-msgstr "Jūsų URL nėra tinkamas"
+msgstr ""
 
 #: inc/modules/import/class-import.php:550
 #: inc/modules/import/class-import.php:579
 msgid "The URL you are trying to import is bigger than the maximum file size."
-msgstr "URL, kurį bandote importuoti, yra didesnis nei maksimalus failo dydis."
+msgstr ""
 
 #: inc/modules/import/class-import.php:572
 msgid ""
@@ -3245,13 +3225,13 @@ msgstr ""
 
 #: inc/modules/import/html/class-xhtml.php:45
 msgid "The HTML is larger than pcre.backtrack_limit."
-msgstr "HTML yra didesnis nei pcre.backtrack_limit."
+msgstr ""
 
 #: inc/modules/import/wordpress/class-parser.php:65
 #: inc/modules/import/wordpress/class-parser.php:71
 msgid ""
 "This does not appear to be a WXR file, missing/invalid WXR version number"
-msgstr "Atrodo, kad tai nėra WXR failas, trūksta / neteisingas WXR versijos numeris"
+msgstr ""
 
 #: inc/modules/import/wordpress/class-wxr.php:416
 msgctxt ""
@@ -3266,7 +3246,7 @@ msgstr ""
 
 #: inc/modules/searchandreplace/class-search.php:148
 msgid "No search pattern."
-msgstr "Nėra paieškos modelio."
+msgstr ""
 
 #: inc/modules/searchandreplace/class-searchandreplace.php:60
 msgid ""
@@ -3279,15 +3259,15 @@ msgstr ""
 #: inc/modules/searchandreplace/class-searchandreplace.php:71
 #: templates/admin/search.php:11
 msgid "Search & Replace"
-msgstr "Ieškoti & Pakeisti"
+msgstr ""
 
 #: inc/modules/searchandreplace/types/class-content.php:57
 msgid "view"
-msgstr "Peržiūrėti"
+msgstr "ನೋಡು"
 
 #: inc/modules/searchandreplace/types/class-content.php:59
 msgid "edit"
-msgstr "Redaguoti"
+msgstr "ಸಂಪಾದಿಸಿ"
 
 #: inc/modules/searchandreplace/types/class-content.php:69
 msgid "%1$s ID #%2$d: %3$s"
@@ -3295,14 +3275,14 @@ msgstr ""
 
 #: inc/modules/searchandreplace/types/class-content.php:97
 msgid "Content Text"
-msgstr "Turinio Tekstas"
+msgstr "ವಿಷಯ ಪಠ್ಯ"
 
 #: inc/modules/themeoptions/class-admin.php:88
 #: inc/modules/themeoptions/class-admin.php:89
 #: inc/modules/themeoptions/class-admin.php:142
 #: templates/admin/export.blade.php:58
 msgid "Theme Options"
-msgstr "Temos Parinktys"
+msgstr "ಥೀಮ್ ಆಯ್ಕೆಗಳು"
 
 #: inc/modules/themeoptions/class-admin.php:145
 msgid "Theme Options Tabs"
@@ -3322,7 +3302,7 @@ msgstr ""
 
 #: inc/modules/themeoptions/class-ebookoptions.php:97
 msgid "Ebook Start Point"
-msgstr "E-knygos pradžios taškas"
+msgstr ""
 
 #: inc/modules/themeoptions/class-ebookoptions.php:102
 msgid ""
@@ -3334,7 +3314,7 @@ msgstr ""
 #: inc/modules/themeoptions/class-pdfoptions.php:260
 #: inc/modules/themeoptions/class-weboptions.php:126
 msgid "Paragraph Separation"
-msgstr "Pastraipų Atskyrimas"
+msgstr ""
 
 #: inc/modules/themeoptions/class-ebookoptions.php:114
 #: inc/modules/themeoptions/class-pdfoptions.php:265
@@ -3346,7 +3326,7 @@ msgstr ""
 #: inc/modules/themeoptions/class-pdfoptions.php:266
 #: inc/modules/themeoptions/class-weboptions.php:132
 msgid "Skip lines between paragraphs"
-msgstr "Praleiskite linijas tarp pastraipų"
+msgstr ""
 
 #: inc/modules/themeoptions/class-ebookoptions.php:121
 msgid "Compress Images"
@@ -3354,23 +3334,23 @@ msgstr ""
 
 #: inc/modules/themeoptions/class-ebookoptions.php:126
 msgid "Reduce image size and quality"
-msgstr "Sumažinkite vaizdo dydį ir kokybę"
+msgstr ""
 
 #: inc/modules/themeoptions/class-ebookoptions.php:151
 msgid "These options apply to ebook exports."
-msgstr "Šios parinktys taikomos e-knygų eksportui."
+msgstr ""
 
 #: inc/modules/themeoptions/class-ebookoptions.php:352
 msgid "Ebook Options"
-msgstr "E-knygos parinktys"
+msgstr ""
 
 #: inc/modules/themeoptions/class-globaloptions.php:81
 msgid "Part and Chapter Numbers"
-msgstr "Dalies ir skyriaus numeriai"
+msgstr ""
 
 #: inc/modules/themeoptions/class-globaloptions.php:86
 msgid "Display part and chapter numbers"
-msgstr "Rodyti dalių ir skyrių numerius"
+msgstr ""
 
 #: inc/modules/themeoptions/class-globaloptions.php:92
 msgid "Part Label"
@@ -3394,12 +3374,12 @@ msgstr ""
 
 #: inc/modules/themeoptions/class-globaloptions.php:116
 msgid "Two-Level TOC"
-msgstr "Dviejų lygių TOC"
+msgstr ""
 
 #: inc/modules/themeoptions/class-globaloptions.php:121
 msgid ""
 "Enable two-level table of contents (displays headings under chapter titles)"
-msgstr "Įgalinti dviejų lygių turinį (rodomos antraštės pagal skyriaus pavadinimus)."
+msgstr ""
 
 #: inc/modules/themeoptions/class-globaloptions.php:127
 msgid "About the Author"
@@ -3421,37 +3401,37 @@ msgstr ""
 
 #: inc/modules/themeoptions/class-globaloptions.php:151
 msgid "Language & Script Support"
-msgstr "Kalbos & Scenarijaus Parama"
+msgstr ""
 
 #: inc/modules/themeoptions/class-globaloptions.php:156
 msgid "Include fonts to support the following languages and scripts:"
-msgstr "Įtraukti šriftus šioms kalboms ir scenarijams palaikyti:"
+msgstr ""
 
 #: inc/modules/themeoptions/class-globaloptions.php:170
 msgid "Chapter Licenses"
-msgstr "Skyrių Licencijos"
+msgstr ""
 
 #: inc/modules/themeoptions/class-globaloptions.php:175
 msgid "Do not display section level copyright license"
-msgstr "Nerodyti skyrių lygmens autorių teisių licencijos"
+msgstr ""
 
 #: inc/modules/themeoptions/class-globaloptions.php:176
 msgid "Display section level license on table of contents in export formats"
-msgstr "Rodyti skyrių lygmens licenciją turinio lentelėje eksporto formatu"
+msgstr ""
 
 #: inc/modules/themeoptions/class-globaloptions.php:177
 msgid "Display section level license at end of chapter in export formats"
-msgstr "Rodyti skyrių lygio licenciją skyriaus pabaigoje eksporto formatu"
+msgstr ""
 
 #: inc/modules/themeoptions/class-globaloptions.php:183
 #: languages/tinymce.php:21
 msgid "Examples"
-msgstr "Pavyzdžiai"
+msgstr ""
 
 #: inc/modules/themeoptions/class-globaloptions.php:184
 #: languages/tinymce.php:18
 msgid "Exercises"
-msgstr "Pratimai"
+msgstr ""
 
 #: inc/modules/themeoptions/class-globaloptions.php:185
 #: languages/tinymce.php:15
@@ -3461,7 +3441,7 @@ msgstr ""
 #: inc/modules/themeoptions/class-globaloptions.php:186
 #: languages/tinymce.php:12
 msgid "Learning Objectives"
-msgstr "Mokymosi Tikslai"
+msgstr ""
 
 #: inc/modules/themeoptions/class-globaloptions.php:195
 msgid "Customize colors for %s textboxes using the fields below."
@@ -3469,7 +3449,7 @@ msgstr ""
 
 #: inc/modules/themeoptions/class-globaloptions.php:201
 msgid "Header Color"
-msgstr "Antraštės Spalva"
+msgstr ""
 
 #: inc/modules/themeoptions/class-globaloptions.php:207
 msgid "The header text color for a %s textbox."
@@ -3477,7 +3457,7 @@ msgstr ""
 
 #: inc/modules/themeoptions/class-globaloptions.php:212
 msgid "Header Background"
-msgstr "Antraštės Fonas"
+msgstr ""
 
 #: inc/modules/themeoptions/class-globaloptions.php:218
 msgid "The header background color for a %s textbox."
@@ -3485,7 +3465,7 @@ msgstr ""
 
 #: inc/modules/themeoptions/class-globaloptions.php:223
 msgid "Background"
-msgstr "Fonas"
+msgstr "ಹಿನ್ನೆಲೆ"
 
 #: inc/modules/themeoptions/class-globaloptions.php:229
 msgid "The background color for a %s textbox."
@@ -3493,7 +3473,7 @@ msgstr ""
 
 #: inc/modules/themeoptions/class-globaloptions.php:256
 msgid "These options apply universally to webbook, PDF and ebook exports."
-msgstr "Šie pasirinkimai taikomi internetinių knygų, PDF ir e-knygų eksportui."
+msgstr ""
 
 #: inc/modules/themeoptions/class-globaloptions.php:427
 msgid "Select languages&hellip;"
@@ -3505,11 +3485,11 @@ msgstr ""
 
 #: inc/modules/themeoptions/class-globaloptions.php:543
 msgid "Global Options"
-msgstr "Globaliniai Pasirinkimai"
+msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:103
 msgid "Body Font Size"
-msgstr "Pagrindinės Dalies Šrifto Dydis"
+msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:108
 msgid ""
@@ -3523,11 +3503,11 @@ msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:129
 msgid "Body Line Height"
-msgstr "Pagrindinės Dalies Linijos Aukštis"
+msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:143
 msgid "Page Size"
-msgstr "Puslapio Dydis"
+msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:148
 msgid "Digest (5.5&quot; &times; 8.5&quot;)"
@@ -3567,7 +3547,7 @@ msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:164
 msgid "Page Width"
-msgstr "Puslapio Plotis"
+msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:169
 msgid ""
@@ -3577,7 +3557,7 @@ msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:176
 msgid "Page Height"
-msgstr "Puslapio Aukštis"
+msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:181
 msgid ""
@@ -3587,7 +3567,7 @@ msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:189
 msgid "Margins"
-msgstr "Ribos"
+msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:194
 msgid "Customize your book&rsquo;s margins using the fields below."
@@ -3596,7 +3576,7 @@ msgstr ""
 #: inc/modules/themeoptions/class-pdfoptions.php:200
 #: inc/modules/themeoptions/class-pdfoptions.php:925
 msgid "Outside Margin"
-msgstr "Išorinė Riba"
+msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:205
 #: inc/modules/themeoptions/class-pdfoptions.php:217
@@ -3610,29 +3590,29 @@ msgstr ""
 #: inc/modules/themeoptions/class-pdfoptions.php:212
 #: inc/modules/themeoptions/class-pdfoptions.php:926
 msgid "Inside Margin"
-msgstr "Vidinė Riba"
+msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:224
 #: inc/modules/themeoptions/class-pdfoptions.php:927
 msgid "Top Margin"
-msgstr "Viršutinė Riba"
+msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:236
 #: inc/modules/themeoptions/class-pdfoptions.php:928
 msgid "Bottom Margin"
-msgstr "Apatinė Riba"
+msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:249
 msgid "Hyphens"
-msgstr "Brūkšniai"
+msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:254
 msgid "Enable hyphenation"
-msgstr "Įgalinti brūkšniavimą"
+msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:272
 msgid "Section Openings"
-msgstr "Skirsnio Atidarymas"
+msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:277
 msgid "Left or right page section opening (for print PDF)"
@@ -3640,15 +3620,15 @@ msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:278
 msgid "Right page section openings (for print PDF)"
-msgstr "Dešinės puslapio dalies atidarymas (spausdinti PDF)"
+msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:279
 msgid "No blank pages (for web PDF)"
-msgstr "Nėra tuščių puslapių (žiniatinklio PDF)"
+msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:290
 msgid "Display table of contents"
-msgstr "Rodyti turinį"
+msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:296
 msgid "Crop Marks"
@@ -3664,19 +3644,19 @@ msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:313
 msgid "Convert part numbers into Roman numerals"
-msgstr "Konvertuoti dalių puslapius į romėniškus skaitmenis "
+msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:320
 msgid "Footnote Style"
-msgstr "Išnašos Stilius"
+msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:325
 msgid "Regular footnotes"
-msgstr "Reguliarios išnašos"
+msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:326
 msgid "Display as chapter endnotes"
-msgstr "Rodyti kaip skyriaus antraštes"
+msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:332
 msgid "Widows"
@@ -3711,7 +3691,7 @@ msgstr ""
 #: inc/modules/themeoptions/class-pdfoptions.php:526
 #: inc/modules/themeoptions/class-pdfoptions.php:545
 msgid "Book Subtitle"
-msgstr "Knygos Paantraštė"
+msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:373
 #: inc/modules/themeoptions/class-pdfoptions.php:392
@@ -3724,7 +3704,7 @@ msgstr "Knygos Paantraštė"
 #: inc/modules/themeoptions/class-pdfoptions.php:527
 #: inc/modules/themeoptions/class-pdfoptions.php:546
 msgid "Book Author"
-msgstr "Knygos Autorius"
+msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:374
 #: inc/modules/themeoptions/class-pdfoptions.php:393
@@ -3752,7 +3732,7 @@ msgstr ""
 #: inc/modules/themeoptions/class-pdfoptions.php:531
 #: inc/modules/themeoptions/class-pdfoptions.php:550
 msgid "Blank"
-msgstr "Tuščia"
+msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:385
 msgid "Front Matter Right Page Running Content"
@@ -3765,17 +3745,17 @@ msgstr ""
 #: inc/modules/themeoptions/class-pdfoptions.php:412
 #: inc/modules/themeoptions/class-pdfoptions.php:431
 msgid "Introduction Title"
-msgstr "Įžangos Pavadinimas"
+msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:413
 #: inc/modules/themeoptions/class-pdfoptions.php:432
 msgid "Introduction Author"
-msgstr "Įžangos Autorius"
+msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:414
 #: inc/modules/themeoptions/class-pdfoptions.php:433
 msgid "Introduction Subtitle"
-msgstr "Įžangos Paantraštė"
+msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:423
 msgid "Introduction Right Page Running Content"
@@ -3790,14 +3770,14 @@ msgstr ""
 #: inc/modules/themeoptions/class-pdfoptions.php:486
 #: inc/modules/themeoptions/class-pdfoptions.php:507
 msgid "Part Number"
-msgstr "Dalies Numeris"
+msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:451
 #: inc/modules/themeoptions/class-pdfoptions.php:469
 #: inc/modules/themeoptions/class-pdfoptions.php:487
 #: inc/modules/themeoptions/class-pdfoptions.php:508
 msgid "Part Title"
-msgstr "Dalies Pavadinimas"
+msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:460
 msgid "Part Right Page Running Content"
@@ -3810,17 +3790,17 @@ msgstr ""
 #: inc/modules/themeoptions/class-pdfoptions.php:488
 #: inc/modules/themeoptions/class-pdfoptions.php:509
 msgid "Chapter Title"
-msgstr "Skyriaus Pavadinimas"
+msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:489
 #: inc/modules/themeoptions/class-pdfoptions.php:510
 msgid "Chapter Author"
-msgstr "Skyriaus Autorius"
+msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:490
 #: inc/modules/themeoptions/class-pdfoptions.php:511
 msgid "Chapter Subtitle"
-msgstr "Skyriaus Paantraštė"
+msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:499
 msgid "Chapter Right Page Running Content"
@@ -3851,29 +3831,29 @@ msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:560
 msgid "Increase Font Size"
-msgstr "Padidinti Šrifto Dydį"
+msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:565
 msgid "Increases font size and line height for greater accessibility"
-msgstr "Padidina šrifto dydį ir linijos aukštį siekiant didesnio prieinamumo"
+msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:591
 msgid "These options apply to PDF exports."
-msgstr "Šios parinktys taikomos PDF eksportui."
+msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:933
 msgid ""
 "IMPORTANT: If you plan to use a print-on-demand service, margins under 2cm "
 "on any side can cause your file to be rejected."
-msgstr "SVARBU: jei planuojate naudoti paslaugą \"spausdinti pagal pareikalavimą\", ribos iki 2 cm iš bet kurios pusės gali sukelti jūsų failo atmetimą."
+msgstr ""
 
 #: inc/modules/themeoptions/class-pdfoptions.php:1497
 msgid "PDF Options"
-msgstr "PDF Parinktys"
+msgstr ""
 
 #: inc/modules/themeoptions/class-weboptions.php:101
 msgid "Enable Social Media"
-msgstr "Įgalinti Socialinius Tinklus"
+msgstr ""
 
 #: inc/modules/themeoptions/class-weboptions.php:106
 msgid ""
@@ -3883,27 +3863,27 @@ msgstr ""
 
 #: inc/modules/themeoptions/class-weboptions.php:112
 msgid "Webbook Width"
-msgstr "Internetinės Knygos Plotis"
+msgstr ""
 
 #: inc/modules/themeoptions/class-weboptions.php:117
 msgid "Narrow"
-msgstr "Susiaurinti"
+msgstr ""
 
 #: inc/modules/themeoptions/class-weboptions.php:119
 msgid "Wide"
-msgstr "Platinti"
+msgstr ""
 
 #: inc/modules/themeoptions/class-weboptions.php:138
 msgid "Display Part Title"
-msgstr "Rodyti Dalies Pavadinimą"
+msgstr ""
 
 #: inc/modules/themeoptions/class-weboptions.php:143
 msgid "Display the Part title on each chapter"
-msgstr "Rodyti kiekvieno skyriaus pavadinimą"
+msgstr ""
 
 #: inc/modules/themeoptions/class-weboptions.php:150
 msgid "Collapse Sections"
-msgstr "Suskleisti Skyrius"
+msgstr ""
 
 #: inc/modules/themeoptions/class-weboptions.php:155
 msgid "Collapse sections within front matter, chapters, and back matter"
@@ -3917,29 +3897,29 @@ msgstr ""
 msgid ""
 "Add comparison tool to the end of each front matter, part, chapter, and back"
 " matter"
-msgstr "Pridėkite palyginimo įrankį prie kiekvienos priekinės dalies, dalies, skyriaus ir galinės dalies"
+msgstr ""
 
 #: inc/modules/themeoptions/class-weboptions.php:169
 msgid ""
 "Allows readers to compare content with the original book from which it was "
 "cloned."
-msgstr "Leidžia skaitytojams palyginti turinį su originalia knyga, iš kurios ji buvo klonuota."
+msgstr ""
 
 #: inc/modules/themeoptions/class-weboptions.php:196
 msgid "These options apply to the webbook."
-msgstr "Šios parinktys taikomos internetinei knygai."
+msgstr ""
 
 #: inc/modules/themeoptions/class-weboptions.php:396
 msgid "Web Options"
-msgstr "Interneto Parinktys"
+msgstr ""
 
 #: inc/posttype/namespace.php:65 templates/admin/organize.php:65
 msgid "Chapters"
-msgstr "Skyriai"
+msgstr ""
 
 #: inc/posttype/namespace.php:88 templates/admin/organize.php:67
 msgid "Parts"
-msgstr "Dalys"
+msgstr ""
 
 #: inc/posttype/namespace.php:194
 msgid "Glossary Term"
@@ -3962,19 +3942,19 @@ msgstr ""
 
 #: inc/posttype/namespace.php:324
 msgid "Show title in exports"
-msgstr "Rodyti pavadinimą eksportuose"
+msgstr ""
 
 #: inc/posttype/namespace.php:336
 msgid "Chapter Short Title (appears in the PDF running header)"
-msgstr "Trumpas Skyriaus Pavadinimas (rodomas PDF veikiančioje antraštėje)"
+msgstr ""
 
 #: inc/posttype/namespace.php:345
 msgid "Chapter Subtitle (appears in the Web/ebook/PDF output)"
-msgstr "Skyriaus paantraštė (rodoma žiniatinklyje / e-knygoje / PDF formate)"
+msgstr ""
 
 #: inc/posttype/namespace.php:355
 msgid "Chapter Author (appears in Web/ebook/PDF output)"
-msgstr "Skyriaus Autorius (rodomas žiniatinklyje / e-knygoje / PDF formate)"
+msgstr ""
 
 #: inc/posttype/namespace.php:364
 msgid "Chapter Copyright License (overrides book license on this page)"
@@ -4011,15 +3991,15 @@ msgstr ""
 #: inc/posttype/namespace.php:441
 msgctxt "post status"
 msgid "Web Only"
-msgstr "Tik Internetu"
+msgstr ""
 
 #: inc/posttype/namespace.php:486
 msgid "parts"
-msgstr "dalys"
+msgstr "ಭಾಗಗಳು"
 
 #: inc/posttype/namespace.php:487
 msgid "chapters"
-msgstr "skyriai"
+msgstr "ಅಧ್ಯಾಯಗಳು"
 
 #: inc/posttype/namespace.php:488
 msgid "front matter"
@@ -4031,24 +4011,24 @@ msgstr ""
 
 #: inc/posttype/namespace.php:490
 msgid "glossary"
-msgstr ""
+msgstr "ಪದಕೋಶ"
 
 #: inc/posttype/namespace.php:553 templates/admin/import.php:97
 #: templates/admin/organize.php:68
 msgid "Glossary"
-msgstr ""
+msgstr "ಪದಕೋಶ"
 
 #: inc/redirect/namespace.php:144 inc/redirect/namespace.php:243
 msgid "Error: Unknown export format."
-msgstr "Klaida: nežinomas eksporto formatas."
+msgstr ""
 
 #: inc/redirect/namespace.php:263
 msgid "File not found"
-msgstr "Failas nerastas"
+msgstr ""
 
 #: inc/redirect/namespace.php:350
 msgid "Unsupported post type."
-msgstr "Nepalaikomas posto tipas."
+msgstr ""
 
 #: inc/redirect/namespace.php:384
 msgid "Unsupported taxonomy."
@@ -4056,19 +4036,19 @@ msgstr ""
 
 #: inc/redirect/namespace.php:408
 msgid "You do not have sufficient permissions to access that URL."
-msgstr "Jūs neturite pakankamai leidimų pasiekti šį URL."
+msgstr ""
 
 #: inc/registration/namespace.php:30
 msgid "Register my book now"
-msgstr "Užsiregistruoti mano knygą dabar"
+msgstr ""
 
 #: inc/registration/namespace.php:33
 msgid "Register my book later"
-msgstr "Užregistruoti mano knygą vėliau"
+msgstr ""
 
 #: inc/registration/namespace.php:37
 msgid "Webbook Address:"
-msgstr "Internetinės Knygos Adresas:"
+msgstr ""
 
 #: inc/registration/namespace.php:40 inc/registration/namespace.php:72
 msgid ""
@@ -4080,19 +4060,19 @@ msgstr ""
 
 #: inc/registration/namespace.php:43
 msgid "Book Title:"
-msgstr "Knygos Pavadinimas:"
+msgstr ""
 
 #: inc/registration/namespace.php:46
 msgid "Book Language:"
-msgstr "Knygos Kalba:"
+msgstr ""
 
 #: inc/registration/namespace.php:49
 msgid "Would you like your webbook to be visible to the public?"
-msgstr "Ar norėtumėte, kad jūsų internetinė knyga būtų matoma publikai?"
+msgstr ""
 
 #: inc/registration/namespace.php:53
 msgid "Create Book"
-msgstr "Sukurti Knygą"
+msgstr ""
 
 #: inc/registration/namespace.php:56
 msgid "Register a %s account"
@@ -4100,7 +4080,7 @@ msgstr ""
 
 #: inc/registration/namespace.php:59
 msgid "Create a new book"
-msgstr "Sukurti naują knygą"
+msgstr ""
 
 #: inc/registration/namespace.php:62
 msgid ""
@@ -4114,7 +4094,7 @@ msgstr ""
 
 #: inc/registration/namespace.php:69
 msgid "Books you are already a member of:"
-msgstr "Knygos, kuriose jau esate:"
+msgstr ""
 
 #: inc/registration/namespace.php:75
 msgid "Congratulations! Your new book, %s, is almost ready"
@@ -4154,19 +4134,19 @@ msgstr ""
 
 #: inc/registration/namespace.php:107
 msgid "Password"
-msgstr "Slaptažodis"
+msgstr "ಪ್ರವೇಶಪದ"
 
 #: inc/registration/namespace.php:112
 msgid "Type in your password."
-msgstr "Įveskite savo slaptažodį."
+msgstr ""
 
 #: inc/registration/namespace.php:113
 msgid "Confirm Password"
-msgstr "Patvirtinkite Slaptažodį"
+msgstr ""
 
 #: inc/registration/namespace.php:115
 msgid "Type in your password again."
-msgstr "Įveskite savo slaptažodį dar kartą."
+msgstr ""
 
 #: inc/registration/namespace.php:116
 msgid ""
@@ -4177,15 +4157,15 @@ msgstr ""
 #: inc/registration/namespace.php:130 inc/registration/namespace.php:170
 #: inc/registration/namespace.php:189 inc/registration/namespace.php:208
 msgid "Please try again."
-msgstr "Prašau, pabandykite dar kartą."
+msgstr "ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ."
 
 #: inc/registration/namespace.php:140
 msgid "You have to enter a password."
-msgstr "Turite įvesti slaptažodį."
+msgstr ""
 
 #: inc/registration/namespace.php:146
 msgid "Passwords do not match."
-msgstr "Slaptažodžiai nesutampa."
+msgstr ""
 
 #: inc/registration/namespace.php:335
 msgid "Password must be at least 12 characters."
@@ -4214,11 +4194,11 @@ msgstr ""
 #: inc/shortcodes/footnotes/class-footnotes.php:184
 #: tests/test-shortcodes-footnotes-footnotes.php:164
 msgid "Invalid permissions."
-msgstr "Neteisingi leidimai."
+msgstr ""
 
 #: inc/shortcodes/glossary/class-glossary.php:139
 msgid "Select"
-msgstr ""
+msgstr "ಆರಿಸಿ"
 
 #: inc/theme/class-lock.php:97
 msgid ""
@@ -4302,7 +4282,7 @@ msgstr ""
 msgid ""
 "(Pressbooks could not establish a secure connection to the plugin "
 "recommendations server. Please contact your server administrator.)"
-msgstr "(Pressbooks negalėjo nustatyti saugaus ryšio su įtaiso rekomendacijų serveriu. Susisiekite su serverio administratoriumi.)"
+msgstr ""
 
 #: inc/utility/namespace.php:629
 msgid ""
@@ -4316,11 +4296,11 @@ msgstr ""
 
 #: languages/tinymce.php:5
 msgid "Textboxes"
-msgstr "Teksto laukeliai"
+msgstr ""
 
 #: languages/tinymce.php:6
 msgid "Custom Textbox"
-msgstr "Pasirinktinis teksto laukelis"
+msgstr ""
 
 #: languages/tinymce.php:8
 msgid "Standard (Sidebar)"
@@ -4328,7 +4308,7 @@ msgstr ""
 
 #: languages/tinymce.php:9
 msgid "Type your textbox content here."
-msgstr "Įveskite teksto laukelio turinį čia."
+msgstr ""
 
 #: languages/tinymce.php:11
 msgid "Shaded (Sidebar)"
@@ -4340,7 +4320,7 @@ msgstr ""
 
 #: languages/tinymce.php:14
 msgid "Type your learning objectives here."
-msgstr "Čia įveskite savo mokymosi tikslus."
+msgstr ""
 
 #: languages/tinymce.php:16
 msgid "Key Takeaways (Sidebar)"
@@ -4356,7 +4336,7 @@ msgstr ""
 
 #: languages/tinymce.php:20
 msgid "Type your exercises here."
-msgstr "Čia įveskite savo pratimus."
+msgstr ""
 
 #: languages/tinymce.php:22
 msgid "Examples (Sidebar)"
@@ -4364,19 +4344,19 @@ msgstr ""
 
 #: languages/tinymce.php:23
 msgid "Type your examples here."
-msgstr "Čia įveskite savo pavyzdžius."
+msgstr ""
 
 #: languages/tinymce.php:24
 msgid "Custom..."
-msgstr "Pasirinktinis..."
+msgstr "ಅಗತ್ಯಾನುಗುಣಗೊಳಿಸಿದ..."
 
 #: languages/tinymce.php:25
 msgid "First"
-msgstr "Pirmas"
+msgstr ""
 
 #: languages/tinymce.php:26
 msgid "Second"
-msgstr "Antras"
+msgstr ""
 
 #: languages/tinymce.php:27
 msgid "Apply Class"
@@ -4393,7 +4373,7 @@ msgstr ""
 
 #: pressbooks.php:88
 msgid "Cannot find Pressbooks install."
-msgstr "Nepavyksta rasti Pressbooks install"
+msgstr "ಪ್ರೆಸ್‍ಬುಕ್ಸ್ ಸ್ಥಾಪಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ."
 
 #: templates/admin/catalog.php:27
 msgid "Tags For"
@@ -4401,11 +4381,11 @@ msgstr ""
 
 #: templates/admin/catalog.php:50
 msgid "Tags"
-msgstr "Žymos"
+msgstr "ಟ್ಯಾಗ್ ಗಳು"
 
 #: templates/admin/catalog.php:91
 msgid "My Catalog Profile"
-msgstr "Mano Katalogo Profilis"
+msgstr ""
 
 #: templates/admin/catalog.php:102
 msgid "URL"
@@ -4413,15 +4393,15 @@ msgstr "URL"
 
 #: templates/admin/catalog.php:106
 msgid "Tags Name"
-msgstr "Žymos Pavadinimas"
+msgstr ""
 
 #: templates/admin/catalog.php:115
 msgid "Sidebar Color"
-msgstr "Šoninės Juostos Spalva"
+msgstr ""
 
 #: templates/admin/catalog.php:118
 msgid "Logo Or Image"
-msgstr "Logotipas ar Vaizdas"
+msgstr ""
 
 #: templates/admin/cloner.php:14
 msgid ""
@@ -4443,7 +4423,7 @@ msgstr ""
 
 #: templates/admin/cloner.php:26
 msgid "Target Book URL"
-msgstr "Tikslinės Knygos URL"
+msgstr ""
 
 #: templates/admin/cloner.php:34
 msgid "Enter an available URL where you want this book to be cloned."
@@ -4492,7 +4472,7 @@ msgstr ""
 
 #: templates/admin/covergenerator.php:100
 msgid "Download"
-msgstr ""
+msgstr "ಡೌನ್ಲೋಡ್"
 
 #: templates/admin/covergenerator.php:104
 msgid "Sorry! You have to generate some covers first."
@@ -4517,7 +4497,7 @@ msgstr ""
 
 #: templates/admin/custom-styles.php:43
 msgid "You are currently editing styles for"
-msgstr "Jūs šiuo metu redaguojate stilius"
+msgstr ""
 
 #: templates/admin/custom-styles.php:44
 msgid "Theme %1$s Styles (%2$s)"
@@ -4529,19 +4509,19 @@ msgstr ""
 
 #: templates/admin/custom-styles.php:48
 msgid "Save"
-msgstr "Išsaugoti"
+msgstr "ಉಳಿಸಿ"
 
 #: templates/admin/dashboard.php:34
 msgid "Dashboard Settings"
-msgstr "Prietaisų Skydelio Nustatymai"
+msgstr ""
 
 #: templates/admin/dashboard.php:36
 msgid "Customize your Pressbooks dashboard below."
-msgstr "Modifikuokite Pressbooks prietaisų skydelį žemiau."
+msgstr ""
 
 #: templates/admin/import.php:18
 msgid "Web page or Pressbooks webbook (.html or URL)"
-msgstr "Web page or Pressbooks webbook (.html or URL)"
+msgstr ""
 
 #: templates/admin/import.php:18
 msgid "Web page (.html or URL)"
@@ -4549,19 +4529,19 @@ msgstr ""
 
 #: templates/admin/import.php:28
 msgid "EPUB (.epub)"
-msgstr "EPUB (.epub)"
+msgstr ""
 
 #: templates/admin/import.php:29
 msgid "Microsoft Word (.docx)"
-msgstr "Microsoft Word (.docx)"
+msgstr ""
 
 #: templates/admin/import.php:30
 msgid "OpenOffice (.odt)"
-msgstr "OpenOffice (.odt)"
+msgstr ""
 
 #: templates/admin/import.php:31
 msgid "Pressbooks/WordPress XML (.wxr or .xml)"
-msgstr "Pressbooks/WordPress XML (.wxr or .xml)"
+msgstr ""
 
 #: templates/admin/import.php:44
 msgid "Select content below for import into Pressbooks."
@@ -4581,7 +4561,7 @@ msgstr ""
 
 #: templates/admin/import.php:70
 msgid "Are you sure you want to abort the import?"
-msgstr "Ar tikrai norite nutraukti importą?"
+msgstr ""
 
 #: templates/admin/import.php:88 templates/admin/import.php:143
 msgid "Import all"
@@ -4589,35 +4569,35 @@ msgstr ""
 
 #: templates/admin/import.php:99
 msgid "Other"
-msgstr "Kita"
+msgstr ""
 
 #: templates/admin/import.php:149
 msgid "Show imported content in web"
-msgstr "Rodyti importuotą turinį žiniatinklyje"
+msgstr ""
 
 #: templates/admin/import.php:154
 msgid "Import Selection"
-msgstr "Importuoti Pasirinkimą"
+msgstr ""
 
 #: templates/admin/import.php:181
 msgid "Maximum file size:"
-msgstr "Maksimalus failo dydis:"
+msgstr ""
 
 #: templates/admin/import.php:191
 msgid "Import Type"
-msgstr "Importo Tipas"
+msgstr ""
 
 #: templates/admin/import.php:203
 msgid "Import Source"
-msgstr "Importo Šaltinis"
+msgstr ""
 
 #: templates/admin/import.php:222
 msgid "Begin Import"
-msgstr "Pradėkite Importuoti"
+msgstr ""
 
 #: templates/admin/organize.php:42 templates/admin/organize.php:44
 msgid "This book's global privacy is set to"
-msgstr "Šios knygos globalinis privatumas yra nustatytas"
+msgstr ""
 
 #. translators: %s: URL to Pressbooks Directory
 #: templates/admin/organize.php:50
@@ -4631,7 +4611,7 @@ msgstr ""
 msgid ""
 "Only users you invite can see your book, regardless of individual chapter "
 "visibility below."
-msgstr "Tik jūsų pakviesti naudotojai gali matyti jūsų knygą, neatsižvelgiant į atskirą skyrių matomumą žemiau."
+msgstr ""
 
 #: templates/admin/organize.php:75
 msgid "Add Glossary Term"
@@ -4639,7 +4619,7 @@ msgstr ""
 
 #: templates/admin/organize.php:78
 msgid "Word Count:"
-msgstr "Žodžių Skaičius:"
+msgstr ""
 
 #: templates/admin/organize.php:78
 msgid "%s (whole book)"
@@ -4652,38 +4632,38 @@ msgstr ""
 #: templates/admin/organize.php:123 templates/admin/organize.php:189
 #: templates/admin/organize.php:347
 msgid "Edit"
-msgstr "Redaguoti"
+msgstr "ಸಂಪಾದಿಸಿ"
 
 #: templates/admin/organize.php:125 templates/admin/organize.php:191
 #: templates/admin/organize.php:349
 msgid "Trash"
-msgstr "Šiukšliadėžė"
+msgstr "ಕಸದಬುಟ್ಟಿ"
 
 #: templates/admin/organize.php:126 templates/admin/organize.php:192
 #: templates/admin/organize.php:350
 msgid "View"
-msgstr "Peržiūrėti"
+msgstr "ನೋಡು"
 
 #: templates/admin/organize.php:133 templates/admin/organize.php:292
 msgid "Comments"
-msgstr "Komentarai"
+msgstr "ಪ್ರತಿಕ್ರಿಯೆಗಳು"
 
 #: templates/admin/organize.php:178 templates/admin/organize.php:183
 #: templates/admin/organize.php:336 templates/admin/organize.php:341
 msgid "Ebook start point"
-msgstr "E-knygos pradžios taškas"
+msgstr ""
 
 #: templates/admin/organize.php:199 templates/admin/organize.php:358
 msgid "Move Up"
-msgstr "Aukštyn"
+msgstr ""
 
 #: templates/admin/organize.php:202 templates/admin/organize.php:361
 msgid "Move Down"
-msgstr "Žemyn"
+msgstr ""
 
 #: templates/admin/results.php:4
 msgid "Results"
-msgstr "Rezultatai"
+msgstr ""
 
 #: templates/admin/results.php:6
 msgid "%1$s result(s) found."
@@ -4691,7 +4671,7 @@ msgstr ""
 
 #: templates/admin/results.php:21
 msgid "There are no results."
-msgstr "Rezultatų nėra."
+msgstr ""
 
 #: templates/admin/search.php:12
 msgid ""
@@ -4705,35 +4685,35 @@ msgid ""
 "Be careful replacing text. There is no undo button. However, you can revert "
 "your changes using the Revision History within each chapter, front matter or"
 " back matter."
-msgstr "Būkite atsargūs pakeisdami tekstą. Nėra atšaukimo mygtuko. Tačiau galite grąžinti savo pakeitimus naudodami peržiūros istoriją kiekviename skyriuje, priekinėje ar galinėje dalyje."
+msgstr ""
 
 #: templates/admin/search.php:17
 msgid "Search Within"
-msgstr "Ieškoti viduje"
+msgstr "ಒಳಗೆ ಶೋಧಿಸು"
 
 #: templates/admin/search.php:41
 msgid "Result Order"
-msgstr "Rezultatų tvarka"
+msgstr "ಫಲಿತಾಂಶ ಕ್ರಮ"
 
 #: templates/admin/search.php:50
 msgid "Ascending"
-msgstr "Didėjantis"
+msgstr "ಆರೋಹಣ"
 
 #: templates/admin/search.php:51
 msgid "Descending"
-msgstr "Mažėjantis"
+msgstr "ಅವರೋಹಣ"
 
 #: templates/admin/search.php:56
 msgid "Search For"
-msgstr "Ieškoti"
+msgstr "ಇದಕ್ಕಾಗಿ ಹುಡುಕಿ"
 
 #: templates/admin/search.php:62
 msgid "Replace With"
-msgstr "Pakeisti"
+msgstr ""
 
 #: templates/admin/search.php:69
 msgid "Regex"
-msgstr "Regex"
+msgstr ""
 
 #: templates/admin/search.php:73
 msgid "Enable regular expressions"
@@ -4741,7 +4721,7 @@ msgstr ""
 
 #: templates/admin/search.php:84
 msgid "Preview Replacements"
-msgstr "Peržiūrėti Pakeitimus"
+msgstr ""
 
 #: templates/admin/search.php:85
 msgid "Replace &amp; Save"
@@ -4764,39 +4744,39 @@ msgstr ""
 
 #: templates/admin/trash.php:37
 msgid "Last Modified"
-msgstr "Paskutinį Kartą Keista"
+msgstr ""
 
 #: templates/admin/trash.php:38
 msgid "Type"
-msgstr "Tipas"
+msgstr "ಬಗೆ"
 
 #: templates/admin/trash.php:39
 msgid "Action"
-msgstr "Veiksmas"
+msgstr "ಕ್ರಿಯೆ"
 
 #: templates/pb-catalog.php:160
 msgid "'s Catalog Page"
-msgstr "Katalogo Puslapis"
+msgstr ""
 
 #: templates/pb-catalog.php:181
 msgid "login"
-msgstr "Prisijungti"
+msgstr "ಲಾಗಿನ್"
 
 #: templates/pb-catalog.php:183
 msgid "logout"
-msgstr "Atsijungti"
+msgstr "ನಿರ್ಗಮಿಸು"
 
 #: templates/pb-catalog.php:191
 msgid "Admin"
-msgstr "Adminas"
+msgstr "ನಿರ್ವಹಣೆಗಾರ"
 
 #: templates/pb-catalog.php:244
 msgid "Catalog"
-msgstr "Katalogas"
+msgstr "ಕ್ಯಾಟಲಾಗ್"
 
 #: templates/pb-catalog.php:244
 msgid "filtering by"
-msgstr "Filtravimas pagal"
+msgstr ""
 
 #: templates/pb-catalog.php:269
 msgid ""
@@ -4810,7 +4790,7 @@ msgstr ""
 
 #: tests/test-registration.php:29
 msgid "Create Site"
-msgstr ""
+msgstr "ಜಾಲತಾಣವನ್ನು ರಚಿಸಿ"
 
 #: assets/src/scripts/a11y.js:35 assets/src/scripts/a11y.js:36
 msgid "Gradient selector"
@@ -4818,35 +4798,35 @@ msgstr ""
 
 #: assets/src/scripts/a11y.js:49
 msgid "Black"
-msgstr ""
+msgstr "ಕಪ್ಪು"
 
 #: assets/src/scripts/a11y.js:52
 msgid "White"
-msgstr ""
+msgstr "ಬಿಳಿ"
 
 #: assets/src/scripts/a11y.js:55
 msgid "Red"
-msgstr ""
+msgstr "ಕೆಂಪು"
 
 #: assets/src/scripts/a11y.js:58
 msgid "Orange"
-msgstr ""
+msgstr "ಕಿತ್ತಳೆ"
 
 #: assets/src/scripts/a11y.js:61
 msgid "Yellow"
-msgstr ""
+msgstr "ಹಳದಿ"
 
 #: assets/src/scripts/a11y.js:64
 msgid "Green"
-msgstr ""
+msgstr "ಹಸಿರು"
 
 #: assets/src/scripts/a11y.js:67
 msgid "Blue"
-msgstr ""
+msgstr "ನೀಲಿ"
 
 #: assets/src/scripts/a11y.js:70
 msgid "Purple"
-msgstr ""
+msgstr "ನೇರಳೆ"
 
 #: templates/admin/diagnostics.blade.php:5
 msgid "Please submit this information with any bug reports."
@@ -4897,11 +4877,11 @@ msgstr ""
 
 #: templates/admin/export.blade.php:28
 msgid "Supported formats"
-msgstr "Palaikomi formatai"
+msgstr ""
 
 #: templates/admin/export.blade.php:38
 msgid "Other formats"
-msgstr "Kiti formatai"
+msgstr ""
 
 #: templates/admin/export.blade.php:56
 msgid "Your Theme"
@@ -4909,7 +4889,7 @@ msgstr ""
 
 #: templates/admin/export.blade.php:76
 msgid "Export Your Book"
-msgstr "Eksportuokite savo knygą"
+msgstr ""
 
 #: templates/admin/export.blade.php:81
 msgid "Latest Exports"
@@ -4951,7 +4931,7 @@ msgstr ""
 
 #: templates/admin/mathjax.blade.php:44
 msgid "Text color"
-msgstr ""
+msgstr "ಪಠ್ಯದ ಬಣ್ಣ"
 
 #: templates/admin/mathjax.blade.php:47
 msgid ""
@@ -4967,51 +4947,51 @@ msgstr ""
 msgid ""
 "Affects exports (PDF, EPUB, MOBI.) Webbook uses CommonHTML. CommonHTML "
 "currently only supports MathJax’s default TeX fonts."
-msgstr ""
+msgstr "ರಫ್ತುಗಳ ಮೇಲೆ ಪರಿಣಾಮ ಬೀರುತ್ತದೆ (ಪಿಡಿಎಫ್, ಇಪಬ್, ಎಂಓಬಿಐ.) ವೆಬ್ ಬುಕ್ ಕಾಮನ್ ಎಚ್ ಟಿಎಮ್ ಎಲ್ ಅನ್ನು ಬಳಸುತ್ತದೆ. ಸಾಮಾನ್ಯ ಎಚ್ ಟಿಎಮ್ ಎಲ್ ಪ್ರಸ್ತುತ ಮ್ಯಾಥ್ ಜಾಕ್ಸ್ ನ ಡೀಫಾಲ್ಟ್ TATM ಅಕ್ಷರಗಳನ್ನು ಮಾತ್ರ ಬೆಂಬಲಿಸುತ್ತದೆ."
 
 #: templates/admin/mathjax.blade.php:64
 msgid "Save Changes"
-msgstr ""
+msgstr "ಬದಲಾವಣೆಗಳನ್ನು ಉಳಿಸಿ"
 
 #: templates/admin/sitemap.blade.php:3
 msgid "Admin Bar"
-msgstr ""
+msgstr "ಅಡ್ಮಿನ್ ಪಟ್ಟಿ"
 
 #: templates/admin/sitemap.blade.php:6
 msgid "Side Menu"
-msgstr ""
+msgstr "ಬದಿ ಮೆನು"
 
 #: templates/interactive/audio.blade.php:3
 msgid ""
 "An audio element has been excluded from this version of the text. You can "
 "listen to it online here:"
-msgstr ""
+msgstr "ಪಠ್ಯದ ಈ ಆವೃತ್ತಿಯಿಂದ ಆಡಿಯೋ ಅಂಶವನ್ನು ಹೊರಗಿಡಲಾಗಿದೆ. ನೀವು ಅದನ್ನು ಆನ್ ಲೈನ್ ನಲ್ಲಿ ಇಲ್ಲಿ ಕೇಳಬಹುದು:"
 
 #: templates/interactive/h5p.blade.php:3
 msgid ""
 "An interactive H5P element has been excluded from this version of the text. "
 "You can view it online here:"
-msgstr ""
+msgstr "ಪಠ್ಯದ ಈ ಆವೃತ್ತಿಯಿಂದ ಸಂವಾದಾತ್ಮಕ ಎಚ್5ಪಿ ಅಂಶವನ್ನು ಹೊರಗಿಡಲಾಗಿದೆ. ನೀವು ಅದನ್ನು ಇಲ್ಲಿ ಆನ್ ಲೈನ್ ನಲ್ಲಿ ವೀಕ್ಷಿಸಬಹುದು:"
 
 #: templates/interactive/oembed.blade.php:3
 msgid "Thumbnail for the embedded element \"%s\""
-msgstr ""
+msgstr "ಎಂಬೆಡೆಡ್ ಮೂಲವಸ್ತು \"%s\" ಗಾಗಿ ಕಿರುಚಿತ್ರ"
 
 #: templates/interactive/oembed.blade.php:9
 msgid ""
 "A %s element has been excluded from this version of the text. You can view "
 "it online here:"
-msgstr ""
+msgstr "ಪಠ್ಯದ ಈ ಆವೃತ್ತಿಯಿಂದ %s ಅಂಶವನ್ನು ಹೊರಗಿಡಲಾಗಿದೆ. ನೀವು ಅದನ್ನು ಇಲ್ಲಿ ಆನ್ ಲೈನ್ ನಲ್ಲಿ ವೀಕ್ಷಿಸಬಹುದು:"
 
 #: templates/interactive/oembed.blade.php:12
 #: templates/interactive/shared.blade.php:3
 msgid ""
 "An interactive or media element has been excluded from this version of the "
 "text. You can view it online here:"
-msgstr ""
+msgstr "ಪಠ್ಯದ ಈ ಆವೃತ್ತಿಯಿಂದ ಸಂವಾದಾತ್ಮಕ ಅಥವಾ ಮಾಧ್ಯಮ ಅಂಶವನ್ನು ಹೊರಗಿಡಲಾಗಿದೆ. ನೀವು ಅದನ್ನು ಇಲ್ಲಿ ಆನ್ ಲೈನ್ ನಲ್ಲಿ ವೀಕ್ಷಿಸಬಹುದು:"
 
 #: templates/interactive/video.blade.php:3
 msgid ""
 "A video element has been excluded from this version of the text. You can "
 "watch it online here:"
-msgstr ""
+msgstr "ಪಠ್ಯದ ಈ ಆವೃತ್ತಿಯಿಂದ ವೀಡಿಯೊ ಅಂಶವನ್ನು ಹೊರಗಿಡಲಾಗಿದೆ. ನೀವು ಅದನ್ನು ಇಲ್ಲಿ ಆನ್ ಲೈನ್ ನಲ್ಲಿ ನೋಡಬಹುದು:"

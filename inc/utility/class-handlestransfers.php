@@ -10,8 +10,6 @@
 
 namespace Pressbooks\Utility;
 
-use function Pressbooks\Image\is_valid_image;
-use function Pressbooks\Image\proper_image_extension;
 use function Pressbooks\Redirect\force_download;
 use Pressbooks\Transferable;
 
@@ -335,31 +333,6 @@ trait HandlesTransfers {
 			return false;
 		}
 
-		$tmp_name = download_url( $url );
-
-		if ( ! is_valid_image( $tmp_name, $filename ) ) {
-			try {
-				$filename = proper_image_extension( $tmp_name, $filename );
-
-				if ( ! is_valid_image( $tmp_name, $filename ) ) {
-					return false;
-				}
-			} catch ( \Exception $exc ) {
-				@unlink( $tmp_name );
-
-				return false;
-			}
-		}
-
-		$pid = media_handle_sideload(
-			[
-				'name' => $filename,
-				'tmp_name' => $tmp_name,
-			]
-		);
-
-		@unlink( $tmp_name );
-
-		return wp_get_attachment_url( $pid );
+		return \Pressbooks\Utility\handle_image_upload( $url, $filename );
 	}
 }
