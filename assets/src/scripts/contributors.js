@@ -1,6 +1,6 @@
 /* global pictureSize */
 jQuery( function ( $ ) {
-	const minPictureSize = pictureSize.min,
+	const minPictureSize = parseInt( pictureSize.min ),
 		contributorPictureElement = jQuery( '#contributor-picture' ),
 		contributorPictureThumbnailElement = jQuery( '#contributor-picture-thumbnail' );
 
@@ -166,10 +166,6 @@ jQuery( function ( $ ) {
 			contributorPictureElement.val( croppedImage.url );
 			contributorPictureThumbnailElement.attr( 'src', croppedImage.url ).show();
 		} );
-		pictureLibrary.on( 'skippedcrop', function( croppedImage ) {
-			contributorPictureElement.val( croppedImage.changed.url );
-			contributorPictureThumbnailElement.attr( 'src', croppedImage.changed.url ).show();
-		});
 		pictureLibrary.on( 'insert', function () {
 			const attachment = pictureLibrary.state().get( 'selection' ).first().toJSON();
 			contributorPictureElement.val( attachment.url );
@@ -190,7 +186,7 @@ jQuery( function ( $ ) {
 					.html( htmlError );
 				return;
 			}
-			if ( attachment.width !== minPictureSize || attachment.height !== minPictureSize ) {
+			if ( ! ( attachment.width === minPictureSize && attachment.height === minPictureSize ) ) {
 				pictureLibrary.setState( 'cropper' );
 			} else {
 				contributorPictureElement.val( attachment.url );
