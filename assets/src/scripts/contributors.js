@@ -1,6 +1,6 @@
 /* global pictureSize */
 jQuery( function ( $ ) {
-	const minPictureSize = pictureSize.min,
+	const minPictureSize = parseInt( pictureSize.min ),
 		contributorPictureElement = jQuery( '#contributor-picture' ),
 		contributorPictureThumbnailElement = jQuery( '#contributor-picture-thumbnail' );
 
@@ -186,7 +186,7 @@ jQuery( function ( $ ) {
 					.html( htmlError );
 				return;
 			}
-			if ( attachment.width !== minPictureSize || attachment.height !== minPictureSize ) {
+			if ( ! ( attachment.width === minPictureSize && attachment.height === minPictureSize ) ) {
 				pictureLibrary.setState( 'cropper' );
 			} else {
 				contributorPictureElement.val( attachment.url );
