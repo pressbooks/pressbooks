@@ -40,8 +40,7 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 			[ '\Pressbooks\Modules\Export\Prince\PrintPdf', '\Pressbooks\Modules\Export\Xhtml\Xhtml11' ],
 			[ '\Pressbooks\Modules\Export\Prince\Docraptor', '\Pressbooks\Modules\Export\Xhtml\Xhtml11' ],
 			[ '\Pressbooks\Modules\Export\Prince\DocraptorPrint', '\Pressbooks\Modules\Export\Xhtml\Xhtml11' ],
-			[ '\Pressbooks\Modules\Export\Epub\Epub201', false ],
-			[ '\Pressbooks\Modules\Export\Epub\Epub3', false ],
+			[ '\Pressbooks\Modules\Export\Epub\Epub', false ],
 			[ '\Pressbooks\Modules\Export\WordPress\Wxr', false ],
 			[ '\Pressbooks\Modules\Export\WordPress\VanillaWxr', false ],
 			// [ '\Pressbooks\Modules\Export\Odt\Odt', false ], // TODO: Download/install Saxon-HE in Travis build script

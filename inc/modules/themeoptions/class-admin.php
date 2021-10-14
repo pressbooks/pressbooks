@@ -69,7 +69,7 @@ class Admin {
 			set_site_transient( 'pb_pdf_compatible', true );
 		}
 
-		if ( false === get_site_transient( 'pb_epub_compatible' ) && false === \Pressbooks\Modules\Export\Epub\Epub201::hasDependencies() ) {
+		if ( false === get_site_transient( 'pb_epub_compatible' ) && false === \Pressbooks\Modules\Export\Epub\Epub::hasDependencies() ) {
 			unset( $tabs['ebook'] );
 		} else {
 			set_site_transient( 'pb_epub_compatible', true );

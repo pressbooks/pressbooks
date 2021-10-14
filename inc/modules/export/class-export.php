@@ -682,10 +682,7 @@ abstract class Export {
 				$modules[] = '\Pressbooks\Modules\Export\Prince\PrintPdf';
 			}
 			if ( isset( $x['epub'] ) ) {
-				$modules[] = '\Pressbooks\Modules\Export\Epub\Epub201';
-			}
-			if ( isset( $x['epub3'] ) ) {
-				$modules[] = '\Pressbooks\Modules\Export\Epub\Epub3';
+				$modules[] = '\Pressbooks\Modules\Export\Epub\Epub';
 			}
 			if ( isset( $x['xhtml'] ) ) {
 				$modules[] = '\Pressbooks\Modules\Export\Xhtml\Xhtml11';
