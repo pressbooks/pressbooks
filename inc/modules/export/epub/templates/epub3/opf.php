@@ -133,7 +133,7 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
                     $contributor_number = str_pad($index, 2, '0', STR_PAD_LEFT);
                 }
                 echo "<dc:contributor id='contributor{$contributor_number}'>{$contributor}</dc:contributor>\n";
-                echo "<meta refines='#contributor{$contributor_number}' property='role' scheme='marc:relators' id='role{$contributor_number}'>ctb</meta>\n";
+                echo "<meta refines='#contributor{$contributor_number}' property='role' scheme='marc:relators'>ctb</meta>\n";
                 $index++;
             }
 			unset( $meta['pb_contributors'] );

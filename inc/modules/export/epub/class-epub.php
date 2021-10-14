@@ -361,7 +361,8 @@ class Epub extends ExportGenerator {
 
 		$this->generatorPrefix = sprintf( __( 'EPUB %s: ', 'pressbooks' ), $this->version );
 		// Inject the formatter this will help us to unit test
-		$this->htmlFormatter = is_object( $args['formatter'] )? $args['formatter'] : new Html5Formatter();
+		$this->htmlFormatter = array_key_exists( 'formatter', $args ) && is_object( $args['formatter'] ) ?
+			$args['formatter'] : new Html5Formatter();
 	}
 
 	/**
