@@ -9,6 +9,8 @@
 
 namespace Pressbooks\Modules\Export\Epub;
 
+use Pressbooks\Modules\Export\Html5Formatter;
+use Pressbooks\Modules\Export\HTMLBook\HTMLBook;
 use function Pressbooks\Sanitize\sanitize_xml_attribute;
 use function Pressbooks\Utility\debug_error_log;
 use function Pressbooks\Utility\get_contributors_name_imploded;
@@ -210,6 +212,11 @@ class Epub201 extends ExportGenerator {
 	protected $displayAboutTheAuthors;
 
 	/**
+	 * @var Html5Formatter
+	 */
+	private $html5Formatter;
+
+	/**
 	 * @param array $args
 	 */
 	function __construct( array $args ) {
@@ -242,6 +249,8 @@ class Epub201 extends ExportGenerator {
 		}
 
 		$this->generatorPrefix = sprintf( __( 'EPUB %s: ', 'pressbooks' ), $this->version );
+
+		$this->html5Formatter = new Html5Formatter();
 	}
 
 	/**
@@ -293,8 +302,10 @@ class Epub201 extends ExportGenerator {
 		// Convert
 		yield 2 => $this->generatorPrefix . __( 'Preparing book contents', 'pressbooks' );
 		$this->displayAboutTheAuthors = ! empty( get_option( 'pressbooks_theme_options_global', [] )['about_the_author'] );
+
 		$metadata = Book::getBookInformation();
-		$book_contents = $this->preProcessBookContents( Book::getBookContents() );
+//		$book_contents = $this->preProcessBookContents( Book::getBookContents() );
+		$book_contents = $this->html5Formatter->preProcessBookContents( Book::getBookContents() );
 
 		// Set two letter language code
 		if ( isset( $metadata['pb_language'] ) ) {
