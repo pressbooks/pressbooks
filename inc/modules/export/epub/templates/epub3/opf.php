@@ -38,6 +38,7 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 		echo "\n";
 
 		// Required, Primary ID
+        // TODO: Add DOI?
 		if ( ! empty( $meta['pb_ebook_isbn'] ) ) {
 			echo '<dc:identifier id="PrimaryID">' . trim( $meta['pb_ebook_isbn'] ) . '</dc:identifier>';
 		} else {
@@ -57,27 +58,82 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 		}
 
 		// First author
-		if ( ! \Pressbooks\Utility\empty_space( $meta['pb_authors'] ) ) {
-			$first_author = explode_remove_and( ';', $meta['pb_authors'] )[0];
-		} else {
-			$first_author = sanitize_xml_attribute( __( 'Authored by: ', 'pressbooks' ) . get_bloginfo( 'url' ) );
+        // Check to see if we have pb_editors.
+        // If yes, add each one as a dc:creator with role edt in order in which they are listed in book info
+        // Check to see if we have pb_authors.
+        // yes, add each one as a dc:creator with role aut in the order in which they are listed in book info
+        // Check to see if we have pb_translators
+        // If yes, add each one as a dc:creator with role trl
+        // Check to see if we have pb_illustrators
+        // If yes, add each one as a dec:creator with role ill
+        $index = 1;
+        if ( ! \Pressbooks\Utility\empty_space( $meta['pb_editors'] ) ) {
+            $editors = explode_remove_and(';', $meta['pb_editors']);
+            foreach ( $editors as $editor ) {
+                $contributor_number = $index;
+                if ( $index < 10 ) {
+                    $contributor_number = str_pad( $index, 2, '0', STR_PAD_LEFT );
+                }
+                echo "<dc:creator id='creator{$contributor_number}'>{$editor}</dc:creator>\n";
+                echo "<meta refines='#creator{$contributor_number}' property='role' scheme='marc:relators' id='role'>edt</meta>\n";
+                // TODO: add file-as if possible
+                // echo "<meta refines='#creator{$contributor_number}' property='file-as'>last name, first name</meta>";
+                $index++;
+            }
+        }
+        if ( ! \Pressbooks\Utility\empty_space( $meta['pb_authors'] ) ) {
+            $authors = explode_remove_and(';', $meta['pb_authors']);
+            foreach ( $authors as $author ) {
+                $contributor_number = $index;
+                if ( $index < 10 ) {
+                    $contributor_number = str_pad( $index, 2, '0', STR_PAD_LEFT );
+                }
+                echo "<dc:creator id='creator{$contributor_number}'>{$author}</dc:creator>\n";
+                echo "<meta refines='#creator{$contributor_number}' property='role' scheme='marc:relators' id='role'>aut</meta>\n";
+                // TODO: add file-as if possible
+                // echo "<meta refines='#creator{$contributor_number}' property='file-as'>last name, first name</meta>";
+                $index++;
+            }
+        }
+        if ( ! \Pressbooks\Utility\empty_space( $meta['pb_translators'] ) ) {
+            $translators = explode_remove_and( ';', $meta['pb_translators'] );
+            foreach ( $translators as $translator ) {
+                $contributor_number = $index;
+                if ( $index < 10 ) {
+                    $contributor_number = str_pad( $index, 2, '0', STR_PAD_LEFT );
+                }
+                echo "dc:creator id='creator{$contributor_number}>{$translator}</dc:creator>\n";
+                echo "<meta refines='#creator{$contributor_number}' property='role' scheme='marc:relators' id='role'>trl</meta>\n";
+                $index++;
+            }
+        }
+        if ( ! Pressbooks\Utility\empty_space( $meta['pb_illustrators'] ) ) {
+            $illustrators = explode_remove_and( ';', $meta['pb_illustrators'] );
+            foreach( $illustrators as $illustrator ) {
+                $contributor_number = $index;
+                if( $index < 10 ) {
+                    $contributor_number = str_pad( $index, 2, '0', STR_PAD_LEFT );
+                }
+                echo "dc:creator id='creator{$contributor_number}>{$illustrator}</dc:creator>\n";
+                echo "<meta refines='#creator{$contributor_number}' property='role' scheme='marc:relators' id='role'>ill</meta>\n";
+                $index++;
+            }
+        }
+        if ( $index === 1 ) {
+			echo '<dc:creator id="creator">Pressbooks</dc:creator>';
 		}
-		echo '<dc:creator id="author">' . $first_author . '</dc:creator>' . "\n";
 
 		// Contributing authors
-		if ( ! empty( $meta['pb_authors'] ) ) {
-			$contributors = explode_remove_and( ';', $meta['pb_authors'] );
-			foreach ( $contributors as $contributor ) {
-				echo '<dc:contributor>' . trim( $contributor ) . '</dc:contributor>' . "\n";
-			}
-			unset( $meta['pb_authors'] );
-		}
+        // TODO: Check to see if we have pb_contributor
+        // If yes, add each one as a dc:contributor with role ctb
 		if ( ! empty( $meta['pb_contributors'] ) ) {
 			$contributors = explode_remove_and( ';', $meta['pb_contributors'] );
 			foreach ( $contributors as $contributor ) {
 				echo '<dc:contributor>' . trim( $contributor ) . '</dc:contributor>' . "\n";
+                echo "<meta refines='#contributor{$contributor_number}' property='role' scheme='marc:relators' id='role'>ctb</meta>";
 			}
-			unset( $meta['pb_contributors'] );
+			// TODO: WHY DO THIS?
+            unset( $meta['pb_contributors'] );
 		}
 
 		// Refines
