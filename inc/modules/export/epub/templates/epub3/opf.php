@@ -124,6 +124,7 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 		}
 
 		// Add contributors
+        $index = 1;
 		if ( ! \Pressbooks\Utility\empty_space( $meta['pb_contributors'] ) ) {
 			$contributors = explode_remove_and( ';', $meta['pb_contributors'] );
 			foreach ( $contributors as $contributor ) {
@@ -187,6 +188,15 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 			}
         }
 	?>
+        <!-- TODO: figure out way to add visual, auditory access mode details if book content includes images/audio -->
+        <meta property="schema:accessMode">textual</meta>
+        <meta property="schema:accessModeSufficient">textual</meta>
+        <meta property="schema:accessibilityFeature">alternativeText</meta>
+        <meta property="schema:accessibilityHazard">noFlashingHazard</meta>
+        <meta property="schema:accessibilityHazard">noMotionSimulationHazard</meta>
+        <meta property="schema:accessibilityHazard">noSoundHazard</meta>
+        <!-- TODO: Allow creators to add accessibility info/summary in book info and display it here -->
+        <meta property="schema:accessibilitySummary">This publication attempts to meet WCAG 2.0 Level A.</meta>
     </metadata>
 
 	<manifest>
@@ -204,52 +214,11 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 	<spine toc="ncx">
 		<?php
 		foreach ( $manifest as $k => $v ) {
-
 			$linear = 'yes';
-
 			printf( '<itemref idref="%s" linear="%s" />', $k, $linear );
 			echo "\n";
 		}
 		?>
 	</spine>
-
-	<guide>
-		<reference type="toc" title="Table of Contents" href="OEBPS/table-of-contents.xhtml" />
-		<reference type="cover" title="cover" href="OEBPS/front-cover.xhtml" />
-		<?php
-		/* Set the EPUB's start-point */
-
-		// First, look if the user has set this themselves.
-		$start_key = false;
-		$start_id = false;
-		$ebook_options = get_option( 'pressbooks_theme_options_ebook', [] );
-		if ( isset( $ebook_options['ebook_start_point'] ) && ! empty( $ebook_options['ebook_start_point'] ) ) {
-			$start_id = $ebook_options['ebook_start_point'];
-		}
-
-		// Determine the manifest key for the post ID.
-		foreach ( $manifest as $key => $value ) {
-			if ( $start_id === $value['ID'] ) {
-				$start_key = $key;
-				break;
-			}
-		}
-
-		// If nothing was found, set « the first page after the table of contents » as start point
-		if ( false === $start_key ) {
-			$keys = array_keys( $manifest );
-			$position = array_search( 'table-of-contents', $keys, true );
-			if ( isset( $keys[ $position + 1 ] ) ) {
-				$start_key = $keys[ $position + 1 ];
-			}
-		}
-
-		if ( false !== $start_key ) {
-			printf( '<reference type="text" title="start" href="OEBPS/%s" />', $manifest[ $start_key ]['filename'] );
-			echo "\n";
-		}
-
-		?>
-    </guide>
 
 </package>
