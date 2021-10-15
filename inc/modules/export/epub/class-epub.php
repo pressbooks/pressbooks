@@ -9,8 +9,6 @@
 
 namespace Pressbooks\Modules\Export\Epub;
 
-use Pressbooks\HtmLawed;
-use Pressbooks\Modules\Export\Html5Formatter;
 use function Pressbooks\Sanitize\sanitize_xml_attribute;
 use function Pressbooks\Utility\debug_error_log;
 use function Pressbooks\Utility\get_contributors_name_imploded;
@@ -21,9 +19,11 @@ use function Pressbooks\Utility\str_starts_with;
 use Pressbooks\Book;
 use Pressbooks\Container;
 use Pressbooks\Contributors;
+use Pressbooks\HtmLawed;
 use Pressbooks\HtmlParser;
 use Pressbooks\Modules\Export\Export;
 use Pressbooks\Modules\Export\ExportGenerator;
+use Pressbooks\Modules\Export\Html5Formatter;
 use Pressbooks\Sanitize;
 use Pressbooks\Taxonomy;
 use Pressbooks\Utility\PercentageYield;

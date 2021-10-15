@@ -77,7 +77,6 @@ class Html5Formatter {
 		'pressbooks-promo',
 	];
 
-
 	/**
 	 * @param $book_contents
 	 *

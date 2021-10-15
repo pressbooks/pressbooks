@@ -14,8 +14,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 use function \Pressbooks\Sanitize\sanitize_xml_attribute;
 use function \Pressbooks\Utility\explode_remove_and;
-use HumanNameParser\Exception\NameParsingException;
-use HumanNameParser\Parser;
 
 echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 ?>
@@ -40,16 +38,14 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 		// Required, Primary I
 		if ( ! empty( $meta['pb_ebook_isbn'] ) ) {
 			echo '<dc:identifier id="pub-identifier">' . trim( $meta['pb_ebook_isbn'] ) . '</dc:identifier>';
-            unset( $meta['pb_ebook_isbn'] );
+			unset( $meta['pb_ebook_isbn'] );
+		} elseif ( ! empty( $meta['pb_book_doi'] ) ) {
+			echo '<dc:identifier id="pub-identifier">' . trim( $meta['pb_book_doi'] ) . '</dc:identifier>';
+			unset( $meta['pb_book_doi'] );
+		} else {
+			echo '<dc:identifier id="pub-identifier">' . trim( get_bloginfo( 'url' ) ) . '</dc:identifier>';
 		}
-        elseif ( ! empty( $meta['pb_book_doi'] ) ) {
-            echo '<dc:identifier id="pub-identifier">' . trim( $meta['pb_book_doi'] ) . '</dc:identifier>';
-            unset( $meta['pb_book_doi'] );
-        }
-        else {
-            echo '<dc:identifier id="pub-identifier">' . trim(get_bloginfo('url')) . '</dc:identifier>';
-        }
-        echo "\n";
+		echo "\n";
 
 		// Pick best non-html description
 		if ( ! empty( $meta['pb_about_50'] ) ) {
@@ -60,82 +56,41 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 			unset( $meta['pb_about_140'] );
 		}
 
-
-        // Add creators in the following order: Editors, Authors, Translators, Illustrators
+		// Add creators in the following order: Editors, Authors, Translators, Illustrators
 		$index = 1;
 		if ( ! \Pressbooks\Utility\empty_space( $meta['pb_editors'] ) ) {
-//			echo \Pressbooks\Modules\Export\get_epub_contributor_meta( $meta['pb_editors'], $index, 'edt' );
-			            $editors = explode_remove_and(';', $meta['pb_editors']);
-			            foreach ( $editors as $editor ) {
-			                $contributor_number = $index;
-			                if ( $index < 10 ) {
-			                    $contributor_number = str_pad( $index, 2, '0', STR_PAD_LEFT );
-			                }
-			                echo "<dc:creator id='creator{$contributor_number}'>{$editor}</dc:creator>\n";
-			                echo "<meta refines='#creator{$contributor_number}' property='role' scheme='marc:relators' id='role{$contributor_number}'>edt</meta>\n";
-			                // TODO: add file-as if possible
-			                // echo "<meta refines='#creator{$contributor_number}' property='file-as'>last name, first name</meta>";
-			                $index++;
-			            }
+			echo \Pressbooks\Modules\Export\get_epub_contributor_meta( $meta['pb_editors'], $index, 'edt' );
 		}
+
 		if ( ! \Pressbooks\Utility\empty_space( $meta['pb_authors'] ) ) {
-//			echo \Pressbooks\Modules\Export\get_epub_contributor_meta( $meta['pb_authors'], $index, 'aut' );
-			            $authors = explode_remove_and(';', $meta['pb_authors']);
-			            foreach ( $authors as $author ) {
-			                $contributor_number = $index;
-			                if ( $index < 10 ) {
-			                    $contributor_number = str_pad( $index, 2, '0', STR_PAD_LEFT );
-			                }
-			                echo "<dc:creator id='creator{$contributor_number}'>{$author}</dc:creator>\n";
-			                echo "<meta refines='#creator{$contributor_number}' property='role' scheme='marc:relators' id='role{$contributor_number}'>aut</meta>\n";
-			                // TODO: add file-as if possible
-			                // echo "<meta refines='#creator{$contributor_number}' property='file-as'>last name, first name</meta>";
-			                $index++;
-			            }
+			echo \Pressbooks\Modules\Export\get_epub_contributor_meta( $meta['pb_authors'], $index, 'aut' );
 		}
+
 		if ( ! \Pressbooks\Utility\empty_space( $meta['pb_translators'] ) ) {
-//			echo \Pressbooks\Modules\Export\get_epub_contributor_meta( $meta['pb_translators'], $index, 'trl' );
-			            $translators = explode_remove_and( ';', $meta['pb_translators'] );
-			            foreach ( $translators as $translator ) {
-			                $contributor_number = $index;
-			                if ( $index < 10 ) {
-			                    $contributor_number = str_pad( $index, 2, '0', STR_PAD_LEFT );
-			                }
-			                echo "<dc:creator id='creator{$contributor_number}'>{$translator}</dc:creator>\n";
-			                echo "<meta refines='#creator{$contributor_number}' property='role' scheme='marc:relators' id='role{$contributor_number}'>trl</meta>\n";
-			                $index++;
-			            }
+			echo \Pressbooks\Modules\Export\get_epub_contributor_meta( $meta['pb_translators'], $index, 'trl' );
 		}
+
 		if ( ! \Pressbooks\Utility\empty_space( $meta['pb_illustrators'] ) ) {
-//			echo \Pressbooks\Modules\Export\get_epub_contributor_meta( $meta['pb_illustrators'], $index, 'ill' );
-			            $illustrators = explode_remove_and( ';', $meta['pb_illustrators'] );
-			            foreach( $illustrators as $illustrator ) {
-			                $contributor_number = $index;
-			                if( $index < 10 ) {
-			                    $contributor_number = str_pad( $index, 2, '0', STR_PAD_LEFT );
-			                }
-			                echo "<dc:creator id='creator{$contributor_number}'>{$illustrator}</dc:creator>\n";
-			                echo "<meta refines='#creator{$contributor_number}' property='role' scheme='marc:relators' id='role{$contributor_number}'>ill</meta>\n";
-			                $index++;
-			            }
+			echo \Pressbooks\Modules\Export\get_epub_contributor_meta( $meta['pb_illustrators'], $index, 'ill' );
 		}
+
 		if ( $index === 1 ) {
 			echo '<dc:creator id="creator">Pressbooks</dc:creator>';
 		}
 
 		// Add contributors
-        $index = 1;
+		$index = 1;
 		if ( ! \Pressbooks\Utility\empty_space( $meta['pb_contributors'] ) ) {
 			$contributors = explode_remove_and( ';', $meta['pb_contributors'] );
 			foreach ( $contributors as $contributor ) {
-                $contributor_number = $index;
-                if ($index < 10) {
-                    $contributor_number = str_pad($index, 2, '0', STR_PAD_LEFT);
-                }
-                echo "<dc:contributor id='contributor{$contributor_number}'>{$contributor}</dc:contributor>\n";
-                echo "<meta refines='#contributor{$contributor_number}' property='role' scheme='marc:relators'>ctb</meta>\n";
-                $index++;
-            }
+				$contributor_number = $index;
+				if ( $index < 10 ) {
+					$contributor_number = str_pad( $index, 2, '0', STR_PAD_LEFT );
+				}
+				echo "<dc:contributor id='contributor{$contributor_number}'>{$contributor}</dc:contributor>\n";
+				echo "<meta refines='#contributor{$contributor_number}' property='role' scheme='marc:relators'>ctb</meta>\n";
+				$index++;
+			}
 			unset( $meta['pb_contributors'] );
 		}
 
@@ -186,18 +141,18 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 					// TODO: There should be default behaviour? E.g. echo "<!-- $key, $val -->\n";
 					break;
 			}
-        }
-	?>
-        <!-- TODO: figure out way to add visual, auditory access mode details if book content includes images/audio -->
-        <meta property="schema:accessMode">textual</meta>
-        <meta property="schema:accessModeSufficient">textual</meta>
-        <meta property="schema:accessibilityFeature">alternativeText</meta>
-        <meta property="schema:accessibilityHazard">noFlashingHazard</meta>
-        <meta property="schema:accessibilityHazard">noMotionSimulationHazard</meta>
-        <meta property="schema:accessibilityHazard">noSoundHazard</meta>
-        <!-- TODO: Allow creators to add accessibility info/summary in book info and display it here -->
-        <meta property="schema:accessibilitySummary">This publication attempts to meet WCAG 2.0 Level A.</meta>
-    </metadata>
+		}
+		?>
+		<!-- TODO: figure out way to add visual, auditory access mode details if book content includes images/audio -->
+		<meta property="schema:accessMode">textual</meta>
+		<meta property="schema:accessModeSufficient">textual</meta>
+		<meta property="schema:accessibilityFeature">alternativeText</meta>
+		<meta property="schema:accessibilityHazard">noFlashingHazard</meta>
+		<meta property="schema:accessibilityHazard">noMotionSimulationHazard</meta>
+		<meta property="schema:accessibilityHazard">noSoundHazard</meta>
+		<!-- TODO: Allow creators to add accessibility info/summary in book info and display it here -->
+		<meta property="schema:accessibilitySummary">This publication attempts to meet WCAG 2.0 Level A.</meta>
+	</metadata>
 
 	<manifest>
 		<?php
