@@ -323,11 +323,6 @@ class Epub extends ExportGenerator {
 	];
 
 	/**
-	 * @var Html5Formatter
-	 */
-	protected $htmlFormatter;
-
-	/**
 	 * @param array $args
 	 */
 	function __construct( array $args ) {
@@ -360,9 +355,6 @@ class Epub extends ExportGenerator {
 		}
 
 		$this->generatorPrefix = sprintf( __( 'EPUB %s: ', 'pressbooks' ), $this->version );
-		// Inject the formatter this will help us to unit test
-		$this->htmlFormatter = array_key_exists( 'formatter', $args ) && is_object( $args['formatter'] ) ?
-			$args['formatter'] : new Html5Formatter();
 	}
 
 	/**
@@ -494,7 +486,7 @@ class Epub extends ExportGenerator {
 		yield 2 => $this->generatorPrefix . __( 'Preparing book contents', 'pressbooks' );
 		$this->displayAboutTheAuthors = ! empty( get_option( 'pressbooks_theme_options_global', [] )['about_the_author'] );
 		$metadata = Book::getBookInformation();
-		$book_contents = $this->htmlFormatter->preProcessBookContents( Book::getBookContents() );
+		$book_contents = $this->preProcessBookContents( Book::getBookContents() );
 
 		// Set two letter language code
 		if ( isset( $metadata['pb_language'] ) ) {
@@ -521,6 +513,85 @@ class Epub extends ExportGenerator {
 		}
 		$this->outputPath = $filename;
 		yield 80 => $this->generatorPrefix . __( 'Export successful', 'pressbooks' );
+	}
+
+	/**
+	 * @param $book_contents
+	 *
+	 * @return mixed
+	 */
+	protected function preProcessBookContents( $book_contents ) {
+
+		// We need to change global $id for shortcodes, the_content, ...
+		global $id;
+		$old_id = $id;
+
+		// Do root level structures first.
+		foreach ( $book_contents as $type => $struct ) {
+
+			if ( preg_match( '/^__/', $type ) ) {
+				continue; // Skip __magic keys
+			}
+
+			foreach ( $struct as $i => $val ) {
+
+				if ( isset( $val['post_content'] ) ) {
+					$id = $val['ID'];
+					$book_contents[ $type ][ $i ]['post_content'] = $this->preProcessPostContent( $val['post_content'], $type, $val['ID'] );
+				}
+				if ( isset( $val['post_title'] ) ) {
+					$book_contents[ $type ][ $i ]['post_title'] = sanitize_xml_attribute( $val['post_title'] );
+				}
+				if ( isset( $val['post_name'] ) ) {
+					$book_contents[ $type ][ $i ]['post_name'] = $this->preProcessPostName( $val['post_name'] );
+					$this->sanitizedSlugs[ $val['post_name'] ] = $book_contents[ $type ][ $i ]['post_name'];
+				}
+
+				if ( 'part' === $type ) {
+
+					// Do chapters, which are embedded in part structure
+					foreach ( $book_contents[ $type ][ $i ]['chapters'] as $j => $val2 ) {
+
+						if ( isset( $val2['post_content'] ) ) {
+							$id = $val2['ID'];
+							$book_contents[ $type ][ $i ]['chapters'][ $j ]['post_content'] = $this->preProcessPostContent( $val2['post_content'], 'chapter', $val2['ID'] );
+						}
+						if ( isset( $val2['post_title'] ) ) {
+							$book_contents[ $type ][ $i ]['chapters'][ $j ]['post_title'] = sanitize_xml_attribute( $val2['post_title'] );
+						}
+						if ( isset( $val2['post_name'] ) ) {
+							$book_contents[ $type ][ $i ]['chapters'][ $j ]['post_name'] = $this->preProcessPostName( $val2['post_name'] );
+							$this->sanitizedSlugs[ $val2['post_name'] ] = $book_contents[ $type ][ $i ]['chapters'][ $j ]['post_name'];
+						}
+					}
+				}
+			}
+		}
+
+		$id = $old_id;
+		return $book_contents;
+	}
+
+	/**
+	 * @param string $content
+	 * @param string $type
+	 * @param int $post_id
+	 *
+	 * @return string
+	 */
+	protected function preProcessPostContent( $content, $type = '', $post_id = 0 ) {
+		if (
+			$this->displayAboutTheAuthors &&
+			in_array( $type, [ 'chapter', 'front-matter', 'back-matter' ], true ) &&
+			$post_id > 0
+		) {
+			$content .= \Pressbooks\Modules\Export\get_contributors_section( $post_id );
+		}
+		$content = apply_filters( 'the_export_content', $content );
+		$content = str_ireplace( [ '<b></b>', '<i></i>', '<strong></strong>', '<em></em>' ], '', $content );
+		$content = $this->fixAnnoyingCharacters( $content );
+		$content = $this->tidy( $content );
+		return $content;
 	}
 
 	/**
