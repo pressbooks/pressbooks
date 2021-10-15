@@ -292,8 +292,9 @@ function get_epub_contributor_meta( $contributor_string, &$index, $role ) {
 		if ( $index < 10 ) {
 			$contributor_number = str_pad( $index, 2, '0', STR_PAD_LEFT );
 		}
-		$buffer .= "<dc:creator id='creator{$contributor_number}'>{$contributor}</dc:creator>\n";
-		$buffer .= "<meta refines='#creator{$contributor_number}' property='role' scheme='marc:relators'>{$role}</meta>\n";
+		$type = $role === 'ctb' ? 'contributor' : 'creator';
+		$buffer .= "<dc:{$type} id='{$type}{$contributor_number}'>{$contributor}</dc:{$type}>\n";
+		$buffer .= "<meta refines='#{$type}{$contributor_number}' property='role' scheme='marc:relators'>{$role}</meta>\n";
 		// TODO: add file-as if possible
 		// echo "<meta refines='#creator{$contributor_number}' property='file-as'>last name, first name</meta>";
 		$index++;

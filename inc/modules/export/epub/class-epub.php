@@ -151,7 +151,7 @@ class Epub extends ExportGenerator {
 	/**
 	 * @var string
 	 */
-	protected $filext = 'html';
+	protected $filext = 'xhtml';
 
 	/**
 	 * $var string

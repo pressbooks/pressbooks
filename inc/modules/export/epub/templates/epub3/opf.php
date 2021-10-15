@@ -81,16 +81,7 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 		// Add contributors
 		$index = 1;
 		if ( ! \Pressbooks\Utility\empty_space( $meta['pb_contributors'] ) ) {
-			$contributors = explode_remove_and( ';', $meta['pb_contributors'] );
-			foreach ( $contributors as $contributor ) {
-				$contributor_number = $index;
-				if ( $index < 10 ) {
-					$contributor_number = str_pad( $index, 2, '0', STR_PAD_LEFT );
-				}
-				echo "<dc:contributor id='contributor{$contributor_number}'>{$contributor}</dc:contributor>\n";
-				echo "<meta refines='#contributor{$contributor_number}' property='role' scheme='marc:relators'>ctb</meta>\n";
-				$index++;
-			}
+			echo \Pressbooks\Modules\Export\get_epub_contributor_meta( $meta['pb_contributors'], $index, 'ctb' );
 			unset( $meta['pb_contributors'] );
 		}
 
