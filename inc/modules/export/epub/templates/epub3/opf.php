@@ -134,15 +134,17 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 			}
 		}
 		?>
+		<meta name="cover" content="cover-image" />
 		<!-- TODO: figure out way to add visual, auditory access mode details if book content includes images/audio -->
 		<meta property="schema:accessMode">textual</meta>
-		<meta property="schema:accessModeSufficient">textual</meta>
+		<meta property="schema:accessModeSufficient">textual, visual</meta>
+		<meta property="schema:accessibilityFeature">structuralNavigation</meta>
 		<meta property="schema:accessibilityFeature">alternativeText</meta>
 		<meta property="schema:accessibilityHazard">noFlashingHazard</meta>
 		<meta property="schema:accessibilityHazard">noMotionSimulationHazard</meta>
 		<meta property="schema:accessibilityHazard">noSoundHazard</meta>
 		<!-- TODO: Allow creators to add accessibility info/summary in book info and display it here -->
-		<meta property="schema:accessibilitySummary">This publication attempts to meet WCAG 2.0 Level A.</meta>
+		<meta property="schema:accessibilitySummary">This publication conforms to the EPUB Accessibility specification at WCAG level A.</meta>
 	</metadata>
 
 	<manifest>
@@ -151,13 +153,12 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 		echo $manifest_assets;
 		?>
 		<item id="toc" properties="nav" href="toc.xhtml" media-type="application/xhtml+xml"/>
-		<item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml" />
 		<?php if ( ! empty( $stylesheet ) ) : ?>
-		<item id="stylesheet" href="OEBPS/<?php echo $stylesheet; ?>"  media-type="text/css" />
+		<item id="stylesheet" href="<?php echo $stylesheet; ?>"  media-type="text/css" />
 		<?php endif; ?>
 	</manifest>
 
-	<spine toc="ncx">
+	<spine>
 		<?php
 		foreach ( $manifest as $k => $v ) {
 			$linear = 'yes';
