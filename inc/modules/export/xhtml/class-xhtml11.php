@@ -11,6 +11,7 @@
 
 namespace Pressbooks\Modules\Export\Xhtml;
 
+use Jenssegers\Blade\Blade;
 use function Pressbooks\Sanitize\clean_filename;
 use function Pressbooks\Utility\get_contributors_name_imploded;
 use function Pressbooks\Utility\str_starts_with;
@@ -121,6 +122,11 @@ class Xhtml11 extends ExportGenerator {
 	protected $displayAboutTheAuthors;
 
 	/**
+	 * @var Blade
+	 */
+	protected $blade;
+
+	/**
 	 * @param array $args
 	 */
 	public function __construct( array $args ) {
@@ -129,6 +135,7 @@ class Xhtml11 extends ExportGenerator {
 
 		$this->taxonomy = \Pressbooks\Taxonomy::init();
 		$this->contributors = new \Pressbooks\Contributors();
+		$this->blade = Container::get( 'Blade' );
 
 		if ( Container::get( 'Styles' )->hasBuckram( '0.3.0' ) ) {
 			$this->wrapHeaderElements = true;
@@ -411,7 +418,7 @@ class Xhtml11 extends ExportGenerator {
 
 			// Before Title Page
 			yield 10 => $this->generatorPrefix . __( 'Creating before title page', 'pressbooks' );
-			$this->echoBeforeTitle( $book_contents, $_unused );
+			$this->renderBeforeTitle( $book_contents, $_unused );
 
 			// Half-title
 			yield 15 => $this->generatorPrefix . __( 'Creating half title page', 'pressbooks' );
@@ -419,19 +426,19 @@ class Xhtml11 extends ExportGenerator {
 
 			// Cover
 			yield 20 => $this->generatorPrefix . __( 'Creating cover', 'pressbooks' );
-			$this->echoCover( $book_contents, $metadata );
+			$this->renderCover( $book_contents, $metadata );
 
 			// Title
 			yield 25 => $this->generatorPrefix . __( 'Creating title page', 'pressbooks' );
-			$this->echoTitle( $book_contents, $metadata );
+			$this->renderTitle( $book_contents, $metadata );
 
 			// Copyright
 			yield 30 => $this->generatorPrefix . __( 'Creating copyright page', 'pressbooks' );
-			$this->echoCopyright( $_unused, $metadata );
+			$this->renderCopyright( $metadata );
 
 			// Dedication and Epigraph (In that order!)
 			yield 35 => $this->generatorPrefix . __( 'Creating dedication and epigraph', 'pressbooks' );
-			$this->echoDedicationAndEpigraph( $book_contents, $_unused );
+			$this->renderDedicationAndEpigraph( $book_contents, $_unused );
 
 			// Table of contents
 			yield 40 => $this->generatorPrefix . __( 'Creating table of contents', 'pressbooks' );
@@ -913,7 +920,7 @@ class Xhtml11 extends ExportGenerator {
 	 * @param array $book_contents
 	 * @param array $metadata
 	 */
-	protected function echoCover( $book_contents, $metadata ) {
+	protected function renderCover( $book_contents, $metadata ) {
 		// Does nothing.
 		// Is here for child classes to override if ever needed.
 	}
@@ -922,13 +929,7 @@ class Xhtml11 extends ExportGenerator {
 	 * @param array $book_contents
 	 * @param array $metadata
 	 */
-	protected function echoBeforeTitle( $book_contents, $metadata ) {
-
-		$front_matter_printf = '<div class="front-matter %1$s" id="%2$s">';
-		$front_matter_printf .= '<div class="front-matter-title-wrap"><h3 class="front-matter-number">%3$s</h3><h1 class="front-matter-title">%4$s</h1></div>';
-		$front_matter_printf .= '<div class="ugc front-matter-ugc">%5$s</div>%6$s%7$s';
-		$front_matter_printf .= '</div>';
-
+	protected function renderBeforeTitle( $book_contents, $metadata ) {
 		$i = $this->frontMatterPos;
 		foreach ( [ 'before-title' ] as $compare ) {
 			foreach ( $book_contents['front-matter'] as $front_matter ) {
@@ -948,15 +949,16 @@ class Xhtml11 extends ExportGenerator {
 				$title = ( get_post_meta( $front_matter_id, 'pb_show_title', true ) ? $front_matter['post_title'] : '<span class="display-none">' . $front_matter['post_title'] . '</span>' ); // Preserve auto-indexing in Prince using hidden span
 				$content = $front_matter['post_content'];
 
-				printf(
-					$front_matter_printf,
-					$subclass,
-					$slug,
-					$i,
-					Sanitize\decode( $title ),
-					$content,
-					$this->doEndnotes( $front_matter_id ),
-					$this->doFootnotes( $front_matter_id )
+				echo $this->blade->render(
+				'export/front-matter', [
+						'subclass' => $subclass,
+						'slug' => $slug,
+						'front_matter_number' => $i,
+						'title' => Sanitize\decode( $title ),
+						'content' => $content,
+						'endnotes' => $this->doEndnotes( $front_matter_id ),
+						'footnotes' => $this->doFootnotes( $front_matter_id ),
+					]
 				);
 
 				echo "\n";
@@ -981,8 +983,7 @@ class Xhtml11 extends ExportGenerator {
 	 * @param array $book_contents
 	 * @param array $metadata
 	 */
-	protected function echoTitle( $book_contents, $metadata ) {
-
+	protected function renderTitle( $book_contents, $metadata ) {
 		// Look for custom title-page
 
 		$content = '';
@@ -1004,41 +1005,42 @@ class Xhtml11 extends ExportGenerator {
 		}
 
 		// HTML
-
-		echo '<div id="title-page">';
 		if ( $content ) {
-			echo $content;
+			echo $this->blade->render(
+			'export/title', [
+					'content' => $content,
+				]
+			);
 		} else {
-			printf( '<h1 class="title">%s</h1>', get_bloginfo( 'name' ) );
-			printf( '<h2 class="subtitle">%s</h2>', ( isset( $metadata['pb_subtitle'] ) ) ? $metadata['pb_subtitle'] : '' );
-			if ( isset( $metadata['pb_authors'] ) ) {
-				if ( is_array( $metadata['pb_authors'] ) ) {
-					printf( '<h3 class="author">%s</h3>', get_contributors_name_imploded( $metadata['pb_authors'] ) );
-				} elseif ( is_string( $metadata['pb_authors'] ) ) {
-					printf( '<h3 class="author">%s</h3>', $metadata['pb_authors'] );
-				}
+			$authors = null;
+			$contributors = null;
+
+			if ( isset( $metadata['pb_authors'] ) && ! empty( $metadata['pb_authors'] ) ) {
+				$authors = is_array( $metadata['pb_authors'] ) ? get_contributors_name_imploded( $metadata['pb_authors'] ) : $metadata['pb_authors'];
 			}
-			if ( isset( $metadata['pb_contributors'] ) ) {
-				if ( is_array( $metadata['pb_contributors'] ) ) {
-					printf( '<h3 class="author">%s</h3>', get_contributors_name_imploded( $metadata['pb_contributors'] ) );
-				} elseif ( is_string( $metadata['pb_contributors'] ) ) {
-					printf( '<h3 class="author">%s</h3>', $metadata['pb_contributors'] );
-				}
+
+			if ( isset( $metadata['pb_contributors'] ) && ! empty( $metadata['pb_contributors'] ) ) {
+				$contributors = is_array( $metadata['pb_contributors'] ) ? get_contributors_name_imploded( $metadata['pb_contributors'] ) : $metadata['pb_contributors'];
 			}
-			if ( current_theme_supports( 'pressbooks_publisher_logo' ) ) {
-				printf( '<div class="publisher-logo"><img src="%s" /></div>', get_theme_support( 'pressbooks_publisher_logo' )[0]['logo_uri'] ); // TODO: Support custom publisher logo.
-			}
-			printf( '<h4 class="publisher">%s</h4>', ( isset( $metadata['pb_publisher'] ) ) ? $metadata['pb_publisher'] : '' );
-			printf( '<h5 class="publisher-city">%s</h5>', ( isset( $metadata['pb_publisher_city'] ) ) ? $metadata['pb_publisher_city'] : '' );
+
+			echo $this->blade->render(
+				'export/title', [
+					'title' => get_bloginfo( 'name' ),
+					'subtitle' => $metadata['pb_subtitle'] ?? '',
+					'authors' => $authors,
+					'contributors' => $contributors,
+					'logo' => current_theme_supports( 'pressbooks_publisher_logo' ) ? get_theme_support( 'pressbooks_publisher_logo' )[0]['logo_uri'] : null,
+					'publisher' => $metadata['pb_publisher'] ?? '',
+					'publisher_city' => $metadata['pb_publisher_city'] ?? '',
+				]
+			);
 		}
-		echo "</div>\n";
 	}
 
 	/**
-	 * @param array $book_contents
 	 * @param array $metadata
 	 */
-	protected function echoCopyright( $book_contents, $metadata ) {
+	protected function renderCopyright( $metadata ) {
 
 		if ( empty( $metadata['pb_book_license'] ) ) {
 			$all_rights_reserved = true;
@@ -1053,52 +1055,59 @@ class Xhtml11 extends ExportGenerator {
 			$has_custom_copyright = false;
 		}
 
-		// HTML
-		echo '<div id="copyright-page"><div class="ugc">';
 
 		// Custom Copyright must override All Rights Reserved
 		if ( ! $has_custom_copyright || ( $has_custom_copyright && ! $all_rights_reserved ) ) {
 			$license = $this->doCopyrightLicense( $metadata );
 			if ( $license ) {
-				echo $this->removeAttributionLink( $license );
+				$license_copyright = $this->removeAttributionLink( $license );
 			}
 		}
 
 		// Custom copyright
 		if ( $has_custom_copyright ) {
-			echo $this->tidy( $metadata['pb_custom_copyright'] );
+			$custom_copyright = $this->tidy( $metadata['pb_custom_copyright'] );
 		}
 
 		// default, so something is displayed
+		$has_default = false;
 		if ( empty( $metadata['pb_custom_copyright'] ) && empty( $license ) ) {
-			echo '<p>';
-			echo get_bloginfo( 'name' ) . ' ' . __( 'Copyright', 'pressbooks' ) . ' &#169; ';
+			$has_default = true;
+			$default_copyright_name = get_bloginfo( 'name' ) . ' ' . __( 'Copyright', 'pressbooks' ) . ' &copy; ';
 			if ( ! empty( $meta['pb_copyright_year'] ) ) {
-				echo $meta['pb_copyright_year'] . ' ';
+				$default_copyright_date = $meta['pb_copyright_year'] . ' ';
 			} elseif ( ! empty( $meta['pb_publication_date'] ) ) {
-				echo strftime( '%Y', $meta['pb_publication_date'] );
+				$default_copyright_date = strftime( '%Y', $meta['pb_publication_date'] );
 			} else {
-				echo date( 'Y' );
+				$default_copyright_date = date( 'Y' );
 			}
 			if ( ! empty( $metadata['pb_copyright_holder'] ) ) {
-				echo ' ' . __( 'by', 'pressbooks' ) . ' ' . $metadata['pb_copyright_holder'] . '. ';
+				$default_copyright_holder = ' ' . __( 'by', 'pressbooks' ) . ' ' . $metadata['pb_copyright_holder'] . '. ';
 			}
-			echo '</p>';
 		}
-
-		echo "</div></div>\n";
+		$blade_vars = [];
+		if ( isset( $license_copyright ) ) {
+			$blade_vars['license_copyright'] = $license_copyright;
+		}
+		if ( isset( $custom_copyright ) ) {
+			$blade_vars['custom_copyright'] = $custom_copyright;
+		}
+		if ( $has_default ) {
+			$blade_vars['has_default'] = $has_default;
+			$blade_vars['default_copyright_name'] = $default_copyright_name;
+			$blade_vars['default_copyright_date'] = $default_copyright_date;
+			if ( isset( $default_copyright_holder ) ) {
+				$blade_vars['default_copyright_holder'] = $default_copyright_holder;
+			}
+		}
+		echo $this->blade->render( 'export/copyright', $blade_vars );
 	}
 
 	/**
 	 * @param array $book_contents
 	 * @param array $metadata
 	 */
-	protected function echoDedicationAndEpigraph( $book_contents, $metadata ) {
-
-		$front_matter_printf = '<div class="front-matter %1$s" id="%2$s">';
-		$front_matter_printf .= '<div class="front-matter-title-wrap"><h3 class="front-matter-number">%3$s</h3><h1 class="front-matter-title">%4$s</h1></div>';
-		$front_matter_printf .= '<div class="ugc front-matter-ugc">%5$s</div>%6$s%7$s';
-		$front_matter_printf .= '</div>';
+	protected function renderDedicationAndEpigraph( $book_contents, $metadata ) {
 
 		$i = $this->frontMatterPos;
 		foreach ( [ 'dedication', 'epigraph' ] as $compare ) {
@@ -1119,17 +1128,18 @@ class Xhtml11 extends ExportGenerator {
 				$title = ( get_post_meta( $front_matter_id, 'pb_show_title', true ) ? $front_matter['post_title'] : '<span class="display-none">' . $front_matter['post_title'] . '</span>' ); // Preserve auto-indexing in Prince using hidden span
 				$content = $front_matter['post_content'];
 
-				printf(
-					$front_matter_printf,
-					$subclass,
-					$slug,
-					$i,
-					Sanitize\decode( $title ),
-					$content,
-					$this->doEndnotes( $front_matter_id ),
-					$this->doFootnotes( $front_matter_id )
+				echo $this->blade->render(
+					'export/dedication-epigraph',//TODO: Review if it could be consolidated in a single file
+					[
+						'subclass' => $subclass,
+						'slug' => $slug,
+						'front-matter-number' => $i,
+						'title' => Sanitize\decode( $title ),
+						'content' => $content,
+						'endnotes' => $this->doEndnotes( $front_matter_id ),
+						'footnotes' => $this->doFootnotes( $front_matter_id )
+					]
 				);
-
 				echo "\n";
 				++$i;
 			}
@@ -1604,10 +1614,6 @@ class Xhtml11 extends ExportGenerator {
 	 * @return \Generator
 	 */
 	protected function echoBackMatterGenerator( $book_contents, $metadata ) : \Generator {
-		$back_matter_printf = '<div class="back-matter %1$s" id="%2$s" title="%3$s">';
-		$back_matter_printf .= '<div class="back-matter-title-wrap"><h3 class="back-matter-number">%4$s</h3><h1 class="back-matter-title">%5$s</h1>%6$s</div>';
-		$back_matter_printf .= '<div class="ugc back-matter-ugc">%7$s</div>%8$s%9$s%10$s';
-		$back_matter_printf .= '</div>';
 
 		$y = new PercentageYield( 70, 80, count( $book_contents['back-matter'] ) );
 
@@ -1623,7 +1629,6 @@ class Xhtml11 extends ExportGenerator {
 			$subclass = $this->taxonomy->getBackMatterType( $back_matter_id );
 			$slug = "back-matter-{$back_matter['post_name']}";
 			$title = ( get_post_meta( $back_matter_id, 'pb_show_title', true ) ? $back_matter['post_title'] : '<span class="display-none">' . $back_matter['post_title'] . '</span>' ); // Preserve auto-indexing in Prince using hidden span
-			$after_title = '';
 			$content = $back_matter['post_content'];
 			$append_back_matter_content = apply_filters( 'pb_append_back_matter_content', '', $back_matter_id );
 			$short_title = trim( get_post_meta( $back_matter_id, 'pb_short_title', true ) );
@@ -1637,49 +1642,28 @@ class Xhtml11 extends ExportGenerator {
 				}
 			}
 
-			if ( $author ) {
-				if ( $this->wrapHeaderElements ) {
-					$after_title = '<h2 class="chapter-author">' . Sanitize\decode( $author ) . '</h2>' . $after_title;
-				} else {
-					$content = '<h2 class="chapter-author">' . Sanitize\decode( $author ) . '</h2>' . $content;
-				}
-			}
-
-			if ( $subtitle ) {
-				if ( $this->wrapHeaderElements ) {
-					$after_title = '<h2 class="chapter-subtitle">' . Sanitize\decode( $subtitle ) . '</h2>' . $after_title;
-				} else {
-					$content = '<h2 class="chapter-subtitle">' . Sanitize\decode( $subtitle ) . '</h2>' . $content;
-				}
-			}
-
-			if ( $short_title && $this->outputShortTitle ) {
-				if ( $this->wrapHeaderElements ) {
-					$after_title = '<h6 class="short-title">' . Sanitize\decode( $short_title ) . '</h6>' . $after_title;
-				} else {
-					$content = '<h6 class="short-title">' . Sanitize\decode( $short_title ) . '</h6>' . $content;
-				}
-			}
-
 			$append_back_matter_content .= $this->removeAttributionLink( $this->doSectionLevelLicense( $metadata, $back_matter_id ) );
 
 			$content .= $this->displayAboutTheAuthors ? \Pressbooks\Modules\Export\get_contributors_section( $back_matter_id ) : '';
 
-			printf(
-				$back_matter_printf,
-				$subclass,
-				$slug,
-				( $short_title ) ? $short_title : wp_strip_all_tags( Sanitize\decode( $back_matter['post_title'] ) ),
-				$i,
-				Sanitize\decode( $title ),
-				$after_title,
-				$content,
-				$append_back_matter_content,
-				$this->doEndnotes( $back_matter_id ),
-				$this->doFootnotes( $back_matter_id )
+			echo $this->blade->render(
+				'export/back-matter-generator',
+				[
+					'subclass' => $subclass,
+					'slug' => $slug,
+					'short_title' => ( $short_title ) ? $short_title : wp_strip_all_tags( Sanitize\decode( $back_matter['post_title'] ) ),
+					'back_matter_number' => $i,
+					'title' => Sanitize\decode( $title ),
+					'content' => $content,
+					'append_back_matter_content' => $append_back_matter_content,
+					'endnotes' => $this->doEndnotes( $back_matter_id ),
+					'footnotes' => $this->doFootnotes( $back_matter_id ),
+					'is_new_buckram' => $this->wrapHeaderElements,
+					'author' => $author,
+					'subtitle' => $subtitle,
+					'output_short_title' => $this->outputShortTitle
+				]
 			);
-
-			echo "\n";
 			++$i;
 		}
 

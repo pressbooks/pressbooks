@@ -140,6 +140,9 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 		<meta property="schema:accessModeSufficient">textual, visual</meta>
 		<meta property="schema:accessibilityFeature">structuralNavigation</meta>
 		<meta property="schema:accessibilityFeature">alternativeText</meta>
+		<!-- TODO: if book has long description or MathML, display extra info in meta -->
+		<meta property="schema:accessibilityFeature">MathML</meta>
+		<meta property="schema:accessibilityFeature">longDescription</meta>
 		<meta property="schema:accessibilityHazard">noFlashingHazard</meta>
 		<meta property="schema:accessibilityHazard">noMotionSimulationHazard</meta>
 		<meta property="schema:accessibilityHazard">noSoundHazard</meta>
