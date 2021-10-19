@@ -70,7 +70,7 @@ trait ExportHelpers {
 
 		$data['content'] .= $this->displayAboutTheAuthors ? \Pressbooks\Modules\Export\get_contributors_section( $post_data['ID'] ) : '';
 		$data['is_new_buckram'] = $this->wrapHeaderElements;
-		$data['output_short_title'] = $this->outputShortTitle;
+		$data['output_short_title'] = property_exists( $this,'outputShortTitle' )? $this->outputShortTitle : false;
 		$data['post_type_class'] = kebab_case( $post_type_identifier ); //useful to set in blade templates
 
 		return $data;

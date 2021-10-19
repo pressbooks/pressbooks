@@ -1671,7 +1671,7 @@ class Epub extends ExportGenerator
 	protected function renderPartsAndChaptersGenerator( $book_contents, $metadata ) : \Generator {
 		$ticks = 0;
 		foreach ( $book_contents['part'] as $key => $part ) {
-			$ticks = $ticks + 1 + count( $book_contents['part'][ $key ]['chapters'] );
+			$ticks += 1 + count($book_contents['part'][$key]['chapters']);
 		}
 		$y = new PercentageYield( 40, 50, $ticks );
 
@@ -1680,7 +1680,7 @@ class Epub extends ExportGenerator
 			'stylesheet' => $this->stylesheet,
 			'post_content' => '',
 			'append_chapter_content' => '',
-			'isbn' => ( isset( $metadata['pb_ebook_isbn'] ) ) ? $metadata['pb_ebook_isbn'] : '',
+			'isbn' => $metadata['pb_ebook_isbn'] ?? '',
 			'lang' => $this->lang,
 		];
 
@@ -1694,21 +1694,22 @@ class Epub extends ExportGenerator
 
 			$invisibility = ( get_post_meta( $part['ID'], 'pb_part_invisible', true ) === 'on' ) ? 'invisible' : '';
 
-			$part_printf_changed = '';
 			$array_pos = count( $this->manifest );
 			$has_chapters = false;
+			$wrap_part = false;
+			$part_introduction = $this->hasIntroduction;
 
 			// Inject introduction class?
 			if ( ! $this->hasIntroduction && count( $book_contents['part'] ) > 1 ) {
-				$part_printf_changed = str_replace( '<div class="part %s" id=', '<div class="part introduction %s" id=', $part_printf );
 				$this->hasIntroduction = true;
+				$part_introduction = true;
 			}
 
 			// Inject part content?
 			$part_content = trim( $part['post_content'] );
 			if ( $part_content ) {
 				$part_content = $this->kneadHtml( $this->preProcessPostContent( $part_content ), 'custom', $p );
-				$part_printf_changed = str_replace( '</h1></div>%5$s</div>', '</h1></div><div class="ugc part-ugc">%5$s</div></div>', $part_printf );
+				$wrap_part = true;
 			}
 
 			foreach ( $part['chapters'] as $chapter ) {
@@ -1793,6 +1794,8 @@ class Epub extends ExportGenerator
 					'number' => ( $this->numbered ? \Pressbooks\L10n\romanize( $m ) : '' ),
 					'title' => Sanitize\decode( $part['post_title'] ),
 					'content' => $part_content,
+					'wrap_part' => $wrap_part,
+					'introduction_class' => $part_introduction ? 'introduction' : '',
 				] );
 
 				$file_id = 'part-' . sprintf( '%03s', $i );
@@ -1827,6 +1830,8 @@ class Epub extends ExportGenerator
 						'number' => ( $this->numbered ? \Pressbooks\L10n\romanize( $m ) : '' ),
 						'title' => Sanitize\decode( $part['post_title'] ),
 						'content' => $part_content,
+						'wrap_part' => $wrap_part,
+						'introduction_class' => $part_introduction ? 'introduction' : '',
 					] );
 
 					$file_id = 'part-' . sprintf( '%03s', $i );
@@ -1861,6 +1866,8 @@ class Epub extends ExportGenerator
 							'number' => ( $this->numbered ? \Pressbooks\L10n\romanize( $m ) : '' ),
 							'title' => Sanitize\decode( $part['post_title'] ),
 							'content' => $part_content,
+							'wrap_part' => $wrap_part,
+							'introduction_class' => $part_introduction ? 'introduction' : '',
 						] );
 
 						$file_id = 'part-' . sprintf( '%03s', $i );
@@ -1889,7 +1896,7 @@ class Epub extends ExportGenerator
 			}
 
 			// Did we actually inject the introduction class?
-			if ( $part_printf_changed && ! $has_chapters ) {
+			if ( ( $wrap_part || $part_introduction ) && ! $has_chapters ) {
 				$this->hasIntroduction = false;
 			}
 		}

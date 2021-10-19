@@ -1346,7 +1346,7 @@ class Xhtml11 extends ExportGenerator {
 				$this->hasIntroduction = true;
 			}
 
-			echo "\n";
+			echo $this->blade->render( 'export/generic-post-type', $data );
 			++$i;
 		}
 		$this->frontMatterPos = $i;
@@ -1372,14 +1372,9 @@ class Xhtml11 extends ExportGenerator {
 	 * @return \Generator
 	 */
 	protected function echoPartsAndChaptersGenerator( $book_contents, $metadata ) : \Generator {
-		$part_printf = '<div class="part %1$s" id="%2$s">';
-		$part_printf .= '<div class="part-title-wrap"><h3 class="part-number">%3$s</h3><h1 class="part-title">%4$s</h1></div>%5$s';
-		$part_printf .= '<div class="ugc part-ugc">%6$s%7$s</div>';
-		$part_printf .= '</div>';
-
 		$ticks = 0;
 		foreach ( $book_contents['part'] as $key => $part ) {
-			$ticks = $ticks + 1 + count( $book_contents['part'][ $key ]['chapters'] );
+			$ticks += 1 + count($book_contents['part'][$key]['chapters']);
 		}
 		$y = new PercentageYield( 60, 70, $ticks );
 
@@ -1390,47 +1385,41 @@ class Xhtml11 extends ExportGenerator {
 
 			$invisibility = ( get_post_meta( $part['ID'], 'pb_part_invisible', true ) === 'on' ) ? 'invisible' : '';
 
-			$part_printf_changed = '';
 			$slug = "part-{$part['post_name']}";
 			$title = $part['post_title'];
 			$part_content = trim( $part['post_content'] );
 
 			// Inject introduction class?
+			$part_introduction = $this->hasIntroduction;
+
 			if ( 'invisible' !== $invisibility ) { // visible
 				if ( count( $book_contents['part'] ) === 1 ) { // only part
-					if ( $part_content ) { // has content
-						if ( ! $this->hasIntroduction ) {
-							$part_printf_changed = str_replace( '<div class="part %1$s" id="', '<div class="part introduction %1$s" id="', $part_printf );
-							$this->hasIntroduction = true;
-						}
+					if ( $part_content && ! $this->hasIntroduction ) { // has content
+						$part_introduction = true;
+						$this->hasIntroduction = true;
 					}
 				} elseif ( count( $book_contents['part'] ) > 1 ) { // multiple parts
 					if ( ! $this->hasIntroduction ) {
-						$part_printf_changed = str_replace( '<div class="part %1$s" id="', '<div class="part introduction %1$s" id="', $part_printf );
+						$part_introduction = true;
 						$this->hasIntroduction = true;
 					}
 				}
 			}
 
-			// Inject part content?
-			if ( $part_content ) {
-				if ( $part_printf_changed ) {
-					$part_printf_changed = str_replace( '</h1></div>%s</div>', '</h1></div><div class="ugc part-ugc">%s</div></div>', $part_printf_changed );
-				} else {
-					$part_printf_changed = str_replace( '</h1></div>%s</div>', '</h1></div><div class="ugc part-ugc">%s</div></div>', $part_printf );
-				}
-			}
+			$wrap_part = ( bool ) $part_content;
 
 			$m = ( 'invisible' === $invisibility ) ? '' : $i;
 
 			$my_part = $this->blade->render( 'export/part', [
 				'invisibility' => $invisibility,
 				'id' => $slug,
+				'introduction_class' => ! $part_introduction ? 'introduction' : '',
 				'number' => \Pressbooks\L10n\romanize( $m ),
 				'title' => Sanitize\decode( $title ),
 				'content' => $part_content,
 				'endnotes' => $this->doEndnotes( $part['ID'] ),
 				'footnotes' =>	$this->doFootnotes( $part['ID'] ),
+				'wrap_part' => $wrap_part,
 			] );
 
 			$my_chapters = '';
@@ -1516,7 +1505,7 @@ class Xhtml11 extends ExportGenerator {
 					}
 				}
 				++$i;
-			} elseif ( 'invisible' === $invisibility ) { // invisible
+			} else { // invisible
 				if ( $my_chapters ) {
 					echo $my_chapters;
 				}
