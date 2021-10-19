@@ -10,6 +10,7 @@
 namespace Pressbooks\Modules\Export\Epub;
 
 use Jenssegers\Blade\Blade;
+use Pressbooks\Modules\Export\ExportHelpers;
 use function Pressbooks\Sanitize\sanitize_xml_attribute;
 use function Pressbooks\Utility\debug_error_log;
 use function Pressbooks\Utility\get_contributors_name_imploded;
@@ -30,6 +31,7 @@ use Pressbooks\Utility\PercentageYield;
 
 class Epub extends ExportGenerator
 {
+	use ExportHelpers;
 	/**
 	 * @var array
 	 */
@@ -503,7 +505,7 @@ class Epub extends ExportGenerator
 
 		// Set two letter language code
 		if (isset($metadata['pb_language'])) {
-			list($this->lang) = explode('-', $metadata['pb_language']);
+			[$this->lang] = explode('-', $metadata['pb_language']);
 		}
 
 		try {
@@ -1014,7 +1016,7 @@ class Epub extends ExportGenerator
 
 		// Parts, Chapters
 		yield 40 => $this->generatorPrefix . __( 'Exporting parts and chapters', 'pressbooks' );
-		yield from $this->createPartsAndChaptersGenerator( $book_contents, $metadata );
+		yield from $this->renderPartsAndChaptersGenerator( $book_contents, $metadata );
 
 		// Back-matter
 		yield 50 => $this->generatorPrefix . __( 'Exporting back matter', 'pressbooks' );
@@ -1282,10 +1284,12 @@ class Epub extends ExportGenerator
 
 				$vars['post_title'] = $front_matter['post_title'];
 				$vars['post_content'] = $this->blade->render(
-				'export/front-matter', [
+					'export/generic-post-type',
+					[
+						'post_type_class' => 'front-matter',
 						'subclass' => $subclass,
 						'slug' => $slug,
-						'front_matter_number' => $i,
+						'post_number' => $i,
 						'title' => Sanitize\decode( $title ),
 						'content' => $content,
 					]
@@ -1567,11 +1571,6 @@ class Epub extends ExportGenerator
 	 * @return \Generator
 	 */
 	protected function renderFrontMatterGenerator( $book_contents, $metadata ) : \Generator {
-		$front_matter_printf = '<div class="front-matter %1$s" id="%2$s">';
-		$front_matter_printf .= '<div class="front-matter-title-wrap"><h3 class="front-matter-number">%3$s</h3><h1 class="front-matter-title">%4$s</h1>%5$s</div>';
-		$front_matter_printf .= '<div class="ugc front-matter-ugc">%6$s</div>%7$s';
-		$front_matter_printf .= '</div>';
-
 		$y = new PercentageYield( 30, 40, count( $book_contents['front-matter'] ) );
 
 		$vars = [
@@ -1579,7 +1578,7 @@ class Epub extends ExportGenerator
 			'stylesheet' => $this->stylesheet,
 			'post_content' => '',
 			'append_front_matter_content' => '',
-			'isbn' => ( isset( $metadata['pb_ebook_isbn'] ) ) ? $metadata['pb_ebook_isbn'] : '',
+			'isbn' => $metadata['pb_ebook_isbn'] ?? '',
 			'lang' => $this->lang,
 		];
 
@@ -1591,8 +1590,12 @@ class Epub extends ExportGenerator
 				continue; // Skip
 			}
 
-			$front_matter_id = $front_matter['ID'];
-			$subclass = $this->taxonomy->getFrontMatterType( $front_matter_id );
+			$data = $this->mapBookDataAndContent( $front_matter, $metadata, $i, [
+				'type' => 'front_matter',
+				'needs_tidy_html' => true,
+			] );
+
+			$subclass = $data['subclass'];
 
 			if ( 'dedication' === $subclass || 'epigraph' === $subclass || 'title-page' === $subclass || 'before-title' === $subclass ) {
 				continue; // Skip
@@ -1602,66 +1605,11 @@ class Epub extends ExportGenerator
 				$this->hasIntroduction = true;
 			}
 
-			$slug = $front_matter['post_name'];
-			$title = ( get_post_meta( $front_matter_id, 'pb_show_title', true ) ? $front_matter['post_title'] : '' );
-			$after_title = '';
-			$content = $this->kneadHtml( $front_matter['post_content'], 'front-matter', $i );
-			$append_front_matter_content = $this->kneadHtml( apply_filters( 'pb_append_front_matter_content', '', $front_matter_id ), 'front-matter', $i );
-			$short_title = trim( get_post_meta( $front_matter_id, 'pb_short_title', true ) );
-			$subtitle = trim( get_post_meta( $front_matter_id, 'pb_subtitle', true ) );
-			$author = $this->contributors->get( $front_matter_id, 'pb_authors' );
-
-			if ( Export::shouldParseSubsections() === true ) {
-				if ( Book::getSubsections( $front_matter_id ) !== false ) {
-					$content = Book::tagSubsections( $content, $front_matter_id );
-					$content = $this->html5ToXhtml( $content );
-				}
-			}
-
-			if ( $author ) {
-				if ( $this->wrapHeaderElements ) {
-					$after_title = '<h2 class="chapter-author">' . Sanitize\decode( $author ) . '</h2>' . $after_title;
-				} else {
-					$content = '<h2 class="chapter-author">' . Sanitize\decode( $author ) . '</h2>' . $content;
-				}
-			}
-
-			if ( $subtitle ) {
-				if ( $this->wrapHeaderElements ) {
-					$after_title = '<h2 class="chapter-subtitle">' . Sanitize\decode( $subtitle ) . '</h2>' . $after_title;
-				} else {
-					$content = '<h2 class="chapter-subtitle">' . Sanitize\decode( $subtitle ) . '</h2>' . $content;
-				}
-			}
-
-			if ( $short_title ) {
-				if ( $this->wrapHeaderElements ) {
-					$after_title = '<h6 class="short-title">' . Sanitize\decode( $short_title ) . '</h6>' . $after_title;
-				} else {
-					$content = '<h6 class="short-title">' . Sanitize\decode( $short_title ) . '</h6>' . $content;
-				}
-			}
-
-			$section_license = $this->doSectionLevelLicense( $metadata, $front_matter_id );
-			if ( $section_license ) {
-				$append_front_matter_content .= $this->kneadHtml( $this->tidy( $section_license ), 'front-matter', $i );
-			}
-
 			$vars['post_title'] = $front_matter['post_title'];
-			$vars['post_content'] = sprintf(
-				$front_matter_printf,
-				$subclass,
-				$slug,
-				$i,
-				Sanitize\decode( $title ),
-				$after_title,
-				$content,
-				$var['append_front_matter_content'] = $append_front_matter_content,
-				''
-			);
+			$this->blade->render( 'export/generic-post-type', $data );
 
 			$file_id = 'front-matter-' . sprintf( '%03s', $i );
-			$filename = "{$file_id}-{$slug}.{$this->filext}";
+			$filename = "{$file_id}-{$data['slug']}.{$this->filext}";
 
 			\Pressbooks\Utility\put_contents(
 				$this->tmpDir . "/EPUB/$filename",
@@ -1720,16 +1668,7 @@ class Epub extends ExportGenerator
 	 * @param array $metadata
 	 * @return \Generator
 	 */
-	protected function createPartsAndChaptersGenerator( $book_contents, $metadata ) : \Generator {
-		$part_printf = '<div class="part %1$s" id="%2$s">';
-		$part_printf .= '<div class="part-title-wrap"><h3 class="part-number">%3$s</h3><h1 class="part-title">%4$s</h1></div>%5$s';
-		$part_printf .= '</div>';
-
-		$chapter_printf = '<div class="chapter %1$s" id="%2$s">';
-		$chapter_printf .= '<div class="chapter-title-wrap"><h3 class="chapter-number">%3$s</h3><h2 class="chapter-title">%4$s</h2>%5$s</div>';
-		$chapter_printf .= '<div class="ugc chapter-ugc">%6$s</div>%7$s';
-		$chapter_printf .= '</div>';
-
+	protected function renderPartsAndChaptersGenerator( $book_contents, $metadata ) : \Generator {
 		$ticks = 0;
 		foreach ( $book_contents['part'] as $key => $part ) {
 			$ticks = $ticks + 1 + count( $book_contents['part'][ $key ]['chapters'] );
@@ -1787,39 +1726,12 @@ class Epub extends ExportGenerator
 				$after_title = '';
 				$content = $this->kneadHtml( $chapter['post_content'], 'chapter', $j );
 				$append_chapter_content = $this->kneadHtml( apply_filters( 'pb_append_chapter_content', '', $chapter_id ), 'chapter', $j );
-				$short_title = false; // Ie. running header title is not used in EPUB
 				$subtitle = trim( get_post_meta( $chapter_id, 'pb_subtitle', true ) );
 				$author = $this->contributors->get( $chapter_id, 'pb_authors' );
 
-				if ( Export::shouldParseSubsections() === true ) {
-					if ( Book::getSubsections( $chapter_id ) !== false ) {
-						$content = Book::tagSubsections( $content, $chapter_id );
-						$content = $this->html5ToXhtml( $content );
-					}
-				}
-
-				if ( $author ) {
-					if ( $this->wrapHeaderElements ) {
-						$after_title = '<h2 class="chapter-author">' . Sanitize\decode( $author ) . '</h2>' . $after_title;
-					} else {
-						$content = '<h2 class="chapter-author">' . Sanitize\decode( $author ) . '</h2>' . $content;
-					}
-				}
-
-				if ( $subtitle ) {
-					if ( $this->wrapHeaderElements ) {
-						$after_title = '<h2 class="chapter-subtitle">' . Sanitize\decode( $subtitle ) . '</h2>' . $after_title;
-					} else {
-						$content = '<h2 class="chapter-subtitle">' . Sanitize\decode( $subtitle ) . '</h2>' . $content;
-					}
-				}
-
-				if ( $short_title ) {
-					if ( $this->wrapHeaderElements ) {
-						$after_title = '<h6 class="short-title">' . Sanitize\decode( $short_title ) . '</h6>' . $after_title;
-					} else {
-						$content = '<h6 class="short-title">' . Sanitize\decode( $short_title ) . '</h6>' . $content;
-					}
+				if ( Export::shouldParseSubsections() === true && Book::getSubsections( $chapter_id ) !== false ) {
+					$content = Book::tagSubsections( $content, $chapter_id );
+					$content = $this->html5ToXhtml( $content );
 				}
 
 				// Inject introduction class?
@@ -1835,17 +1747,18 @@ class Epub extends ExportGenerator
 
 				$my_chapter_number = ( strpos( $subclass, 'numberless' ) === false ) ? $c : '';
 				$vars['post_title'] = $chapter['post_title'];
-				$vars['post_content'] = sprintf(
-					$chapter_printf,
-					$subclass,
-					$slug,
-					( $this->numbered ? $my_chapter_number : '' ),
-					Sanitize\decode( $title ),
-					$after_title,
-					$content,
-					$var['append_chapter_content'] = $append_chapter_content,
-					''
-				);
+				$vars['post_content'] = $this->blade->render( 'export/chapter', [
+					'subclass' => $subclass,
+					'id' => $slug,
+					'number' => ( $this->numbered ? $my_chapter_number : '' ),
+					'after_title' => $after_title,
+					'title' => Sanitize\decode( $title ),
+					'content' => $content,
+					'append_content' => $append_chapter_content,
+					'is_new_buckram' => $this->wrapHeaderElements,
+					'subtitle' => Sanitize\decode( $subtitle ),
+					'authors' => $author,
+				] );
 
 				$file_id = 'chapter-' . sprintf( '%03s', $j );
 				$filename = "{$file_id}-{$slug}.{$this->filext}";
@@ -1874,14 +1787,13 @@ class Epub extends ExportGenerator
 				$slug = $part['post_name'];
 				$m = ( 'invisible' === $invisibility ) ? '' : $p;
 				$vars['post_title'] = $part['post_title'];
-				$vars['post_content'] = sprintf(
-					( $part_printf_changed ? $part_printf_changed : $part_printf ),
-					$invisibility,
-					$slug,
-					( $this->numbered ? \Pressbooks\L10n\romanize( $m ) : '' ),
-					Sanitize\decode( $part['post_title'] ),
-					$part_content
-				);
+				$vars['post_content'] = $this->blade->render( 'export/part', [
+					'invisibility' => $invisibility,
+					'id' => $slug,
+					'number' => ( $this->numbered ? \Pressbooks\L10n\romanize( $m ) : '' ),
+					'title' => Sanitize\decode( $part['post_title'] ),
+					'content' => $part_content,
+				] );
 
 				$file_id = 'part-' . sprintf( '%03s', $i );
 				$filename = "{$file_id}-{$slug}.{$this->filext}";
@@ -1909,14 +1821,13 @@ class Epub extends ExportGenerator
 					$slug = $part['post_name'];
 					$m = ( 'invisible' === $invisibility ) ? '' : $p;
 					$vars['post_title'] = $part['post_title'];
-					$vars['post_content'] = sprintf(
-						( $part_printf_changed ? $part_printf_changed : $part_printf ),
-						$invisibility,
-						$slug,
-						( $this->numbered ? \Pressbooks\L10n\romanize( $m ) : '' ),
-						Sanitize\decode( $part['post_title'] ),
-						$part_content
-					);
+					$vars['post_content'] = $this->blade->render( 'export/part', [
+						'invisibility' => $invisibility,
+						'id' => $slug,
+						'number' => ( $this->numbered ? \Pressbooks\L10n\romanize( $m ) : '' ),
+						'title' => Sanitize\decode( $part['post_title'] ),
+						'content' => $part_content,
+					] );
 
 					$file_id = 'part-' . sprintf( '%03s', $i );
 					$filename = "{$file_id}-{$slug}.{$this->filext}";
@@ -1944,14 +1855,13 @@ class Epub extends ExportGenerator
 						$slug = $part['post_name'];
 						$m = ( 'invisible' === $invisibility ) ? '' : $p;
 						$vars['post_title'] = $part['post_title'];
-						$vars['post_content'] = sprintf(
-							( $part_printf_changed ? $part_printf_changed : $part_printf ),
-							$invisibility,
-							$slug,
-							( $this->numbered ? \Pressbooks\L10n\romanize( $m ) : '' ),
-							Sanitize\decode( $part['post_title'] ),
-							$part_content
-						);
+						$vars['post_content'] = $this->blade->render( 'export/part', [
+							'invisibility' => $invisibility,
+							'id' => $slug,
+							'number' => ( $this->numbered ? \Pressbooks\L10n\romanize( $m ) : '' ),
+							'title' => Sanitize\decode( $part['post_title'] ),
+							'content' => $part_content,
+						] );
 
 						$file_id = 'part-' . sprintf( '%03s', $i );
 						$filename = "{$file_id}-{$slug}.{$this->filext}";
@@ -1993,10 +1903,6 @@ class Epub extends ExportGenerator
 	 * @return \Generator
 	 */
 	protected function createBackMatterGenerator( $book_contents, $metadata ) : \Generator {
-		$back_matter_printf = '<div class="back-matter %1$s" id="%2$s">';
-		$back_matter_printf .= '<div class="back-matter-title-wrap"><h3 class="back-matter-number">%3$s</h3><h1 class="back-matter-title">%4$s</h1>%5$s</div>';
-		$back_matter_printf .= '<div class="ugc back-matter-ugc">%6$s</div>%7$s';
-		$back_matter_printf .= '</div>';
 
 		$y = new PercentageYield( 50, 70, count( $book_contents['back-matter'] ) );
 
@@ -2005,7 +1911,7 @@ class Epub extends ExportGenerator
 			'stylesheet' => $this->stylesheet,
 			'post_content' => '',
 			'append_back_matter_content' => '',
-			'isbn' => ( isset( $metadata['pb_ebook_isbn'] ) ) ? $metadata['pb_ebook_isbn'] : '',
+			'isbn' => $metadata['pb_ebook_isbn'] ?? '',
 			'lang' => $this->lang,
 		];
 
@@ -2017,72 +1923,21 @@ class Epub extends ExportGenerator
 				continue; // Skip
 			}
 
-			$back_matter_id = $back_matter['ID'];
-			$subclass = $this->taxonomy->getBackMatterType( $back_matter_id );
-			$slug = $back_matter['post_name'];
-			$title = ( get_post_meta( $back_matter_id, 'pb_show_title', true ) ? $back_matter['post_title'] : '' );
-			$after_title = '';
-			$content = $this->kneadHtml( $back_matter['post_content'], 'back-matter', $i );
-			$append_back_matter_content = $this->kneadHtml( apply_filters( 'pb_append_back_matter_content', '', $back_matter_id ), 'back-matter', $i );
-			$short_title = trim( get_post_meta( $back_matter_id, 'pb_short_title', true ) );
-			$subtitle = trim( get_post_meta( $back_matter_id, 'pb_subtitle', true ) );
-			$author = $this->contributors->get( $back_matter_id, 'pb_authors' );
+			$data = $this->mapBookDataAndContent( $back_matter, $metadata, $i, [
+				'type' => 'back_matter',
+				'needs_tidy_html' => true
+			] );
 
-			if ( Export::shouldParseSubsections() === true ) {
-				if ( Book::getSubsections( $back_matter_id ) !== false ) {
-					$content = Book::tagSubsections( $content, $back_matter_id );
-					$content = $this->html5ToXhtml( $content );
-				}
-			}
+			$vars['post_title'] = $data['title'];
 
-			if ( $author ) {
-				if ( $this->wrapHeaderElements ) {
-					$after_title = '<h2 class="chapter-author">' . Sanitize\decode( $author ) . '</h2>' . $after_title;
-				} else {
-					$content = '<h2 class="chapter-author">' . Sanitize\decode( $author ) . '</h2>' . $content;
-				}
-			}
-
-			if ( $subtitle ) {
-				if ( $this->wrapHeaderElements ) {
-					$after_title = '<h2 class="chapter-subtitle">' . Sanitize\decode( $subtitle ) . '</h2>' . $after_title;
-				} else {
-					$content = '<h2 class="chapter-subtitle">' . Sanitize\decode( $subtitle ) . '</h2>' . $content;
-				}
-			}
-
-			if ( $short_title ) {
-				if ( $this->wrapHeaderElements ) {
-					$after_title = '<h6 class="short-title">' . Sanitize\decode( $short_title ) . '</h6>' . $after_title;
-				} else {
-					$content = '<h6 class="short-title">' . Sanitize\decode( $short_title ) . '</h6>' . $content;
-				}
-			}
-
-			$section_license = $this->doSectionLevelLicense( $metadata, $back_matter_id );
-			if ( $section_license ) {
-				$append_back_matter_content .= $this->kneadHtml( $this->tidy( $section_license ), 'back-matter', $i );
-			}
-
-			$vars['post_title'] = $back_matter['post_title'];
-			$vars['post_content'] = sprintf(
-				$back_matter_printf,
-				$subclass,
-				$slug,
-				$i,
-				Sanitize\decode( $title ),
-				$after_title,
-				$content,
-				$var['append_back_matter_content'] = $append_back_matter_content,
-				''
-			);
+			$vars['post_content'] = $this->blade->render('export/generic-post-type', $data );
 
 			$file_id = 'back-matter-' . sprintf( '%03s', $i );
-			$filename = "{$file_id}-{$slug}.{$this->filext}";
+			$filename = "{$file_id}-{$data['slug']}.{$this->filext}";
 
 			\Pressbooks\Utility\put_contents(
 				$this->tmpDir . "/EPUB/$filename",
-				$this->loadTemplate( $this->dir . '/templates/epub201/html.php', $vars )
+				$this->loadTemplate( $this->dir . '/templates/epub3/html.php', $vars )
 			);
 
 			$this->manifest[ $file_id ] = [
@@ -2711,7 +2566,7 @@ class Epub extends ExportGenerator
 			$anchor = trim( $split_url[ $last_pos ] ); // Found an #anchor
 			$slug = trim( $split_url[ $last_pos - 1 ] );
 		} elseif ( false !== strpos( $split_url[ $last_pos ], '#' ) ) {
-			list( $slug, $anchor ) = explode( '#', $split_url[ $last_pos ] ); // Found an #anchor
+			[ $slug, $anchor ] = explode( '#', $split_url[ $last_pos ] ); // Found an #anchor
 			$anchor = trim( "#{$anchor}" );
 			$slug = trim( $slug );
 		} else {
