@@ -165,9 +165,27 @@ class User {
 	}
 
 	public function setSubscriberRole( $user_login, $user ) {
+		$switched_blog = false;
+		$main_site_id = get_main_site_id();
+		$current_site_id = get_current_blog_id();
+
+		// Switch to the main site if user is logging from a different blog
+		if ( get_current_blog_id() !== $main_site_id ) {
+			$switched_blog = true;
+			$user->for_site( $main_site_id );
+			switch_to_blog( $main_site_id );
+		}
+
 		$caps = $user->get_role_caps();
+
 		if ( ! in_array( 'read', $caps, true ) ) {
 			$user->add_role( 'subscriber' );
+		}
+
+		// If needed, restore original values after adding user as subscriber to the main site
+		if ( $switched_blog ) {
+			$user->for_site( $current_site_id );
+			restore_current_blog();
 		}
 	}
 
