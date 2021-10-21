@@ -9,8 +9,6 @@
 
 namespace Pressbooks\Modules\Export\Epub;
 
-use Jenssegers\Blade\Blade;
-use Pressbooks\Modules\Export\ExportHelpers;
 use function Pressbooks\Sanitize\sanitize_xml_attribute;
 use function Pressbooks\Utility\debug_error_log;
 use function Pressbooks\Utility\get_contributors_name_imploded;
@@ -25,12 +23,13 @@ use Pressbooks\HtmLawed;
 use Pressbooks\HtmlParser;
 use Pressbooks\Modules\Export\Export;
 use Pressbooks\Modules\Export\ExportGenerator;
+use Pressbooks\Modules\Export\ExportHelpers;
 use Pressbooks\Sanitize;
 use Pressbooks\Taxonomy;
 use Pressbooks\Utility\PercentageYield;
 
-class Epub extends ExportGenerator
-{
+class Epub extends ExportGenerator {
+
 	use ExportHelpers;
 	/**
 	 * @var array
@@ -332,8 +331,7 @@ class Epub extends ExportGenerator
 	/**
 	 * @param array $args
 	 */
-	function __construct(array $args)
-	{
+	function __construct( array $args ) {
 
 		// Some defaults
 
@@ -341,37 +339,35 @@ class Epub extends ExportGenerator
 		$this->contributors = new Contributors();
 		$this->blade = Container::get( 'Blade' );
 
-		if (!class_exists('\PclZip')) {
-			require_once(ABSPATH . 'wp-admin/includes/class-pclzip.php');
+		if ( ! class_exists( '\PclZip' ) ) {
+			require_once( ABSPATH . 'wp-admin/includes/class-pclzip.php' );
 		}
 
-		if (!defined('PB_EPUBCHECK_COMMAND')) {
-			define('PB_EPUBCHECK_COMMAND', '/usr/bin/java -jar /opt/epubcheck/epubcheck.jar');
+		if ( ! defined( 'PB_EPUBCHECK_COMMAND' ) ) {
+			define( 'PB_EPUBCHECK_COMMAND', '/usr/bin/java -jar /opt/epubcheck/epubcheck.jar' );
 		}
 
 		$this->tmpDir = $this->createTmpDir();
-		$this->exportStylePath = $this->getExportStylePath('epub');
+		$this->exportStylePath = $this->getExportStylePath( 'epub' );
 
-		if (Container::get('Styles')->hasBuckram('0.3.0')) {
+		if ( Container::get( 'Styles' )->hasBuckram( '0.3.0' ) ) {
 			$this->wrapHeaderElements = true;
 		}
 
 		$this->themeOptionsOverrides();
 
 		// HtmLawed: id values not allowed in input
-		foreach ($this->reservedIds as $val) {
-			$this->fixme[$val] = 1;
+		foreach ( $this->reservedIds as $val ) {
+			$this->fixme[ $val ] = 1;
 		}
 
-		$this->generatorPrefix = sprintf(__('EPUB %s: ', 'pressbooks'), $this->version);
+		$this->generatorPrefix = sprintf( __( 'EPUB %s: ', 'pressbooks' ), $this->version );
 	}
 
 	/**
 	 * Delete temporary directory when done.
 	 */
-	function __destruct()
-	{
-
+	function __destruct() {
 		$this->deleteTmpDir();
 	}
 
@@ -383,21 +379,20 @@ class Epub extends ExportGenerator
 	 * @return array $properties
 	 * @throws \Exception
 	 */
-	protected function getProperties($html_file)
-	{
+	protected function getProperties( $html_file ) {
 
-		$html = \Pressbooks\Utility\get_contents($html_file);
+		$html = \Pressbooks\Utility\get_contents( $html_file );
 		$properties = [];
 
-		if (empty($html)) {
-			throw new \Exception('File contents empty for getProperties');
+		if ( empty( $html ) ) {
+			throw new \Exception( 'File contents empty for getProperties' );
 		}
 
-		if ($this->isMathML($html)) {
+		if ( $this->isMathML( $html ) ) {
 			$properties['mathml'] = 1;
 		}
 
-		if ($this->isScripted($html)) {
+		if ( $this->isScripted( $html ) ) {
 			$properties['scripted'] = 1;
 		}
 
@@ -413,11 +408,10 @@ class Epub extends ExportGenerator
 	 *
 	 * @return bool
 	 */
-	protected function isMathML($html)
-	{
+	protected function isMathML( $html ) {
 
-		foreach ($this->MathMLTags as $tag) {
-			if (false !== stripos($html, "<$tag>")) {
+		foreach ( $this->MathMLTags as $tag ) {
+			if ( false !== stripos( $html, "<$tag>" ) ) {
 				return true;
 			}
 		}
@@ -432,25 +426,24 @@ class Epub extends ExportGenerator
 	 *
 	 * @return bool
 	 */
-	protected function isScripted($html)
-	{
+	protected function isScripted( $html ) {
 
-		if (preg_match('/<script[^>]*>.*?<\/script>/is', $html)) {
+		if ( preg_match( '/<script[^>]*>.*?<\/script>/is', $html ) ) {
 			return true;
 		}
 
 		try {
-			$html5 = new HtmlParser(true);
-			$doc = $html5->loadHTML($html);
-			foreach ($doc->getElementsByTagname('*') as $element) {
-				foreach (iterator_to_array($element->attributes) as $name => $attribute) {
-					if (in_array($name, $this->javaScriptEvents, true)) {
+			$html5 = new HtmlParser( true );
+			$doc = $html5->loadHTML( $html );
+			foreach ( $doc->getElementsByTagname( '*' ) as $element ) {
+				foreach ( iterator_to_array( $element->attributes ) as $name => $attribute ) {
+					if ( in_array( $name, $this->javaScriptEvents, true ) ) {
 						return true;
 					}
 				}
 			}
-		} catch (\Exception $e) {
-			debug_error_log($e);
+		} catch ( \Exception $e ) {
+			debug_error_log( $e );
 		}
 
 		return false;
@@ -461,14 +454,13 @@ class Epub extends ExportGenerator
 	 *
 	 * @return bool
 	 */
-	public function convert()
-	{
+	public function convert() {
 		$this->extraCss = $this->dir . '/templates/epub3/css/css3.css';
 		try {
-			foreach ($this->convertGenerator() as $percentage => $info) {
+			foreach ( $this->convertGenerator() as $percentage => $info ) {
 				// Do nothing, this is a compatibility wrapper that makes the generator work like a regular function
 			}
-		} catch (\Exception $e) {
+		} catch ( \Exception $e ) {
 			return false;
 		}
 		return true;
@@ -480,54 +472,53 @@ class Epub extends ExportGenerator
 	 * @return \Generator
 	 * @throws \Exception
 	 */
-	public function convertGenerator(): \Generator
-	{
+	public function convertGenerator(): \Generator {
 
-		yield 1 => $this->generatorPrefix . __('Initializing', 'pressbooks');
+		yield 1 => $this->generatorPrefix . __( 'Initializing', 'pressbooks' );
 
 		// Sanity check
 
-		if (empty($this->tmpDir) || !is_dir($this->tmpDir)) {
-			$this->logError('$this->tmpDir must be set before calling convert().');
+		if ( empty( $this->tmpDir ) || ! is_dir( $this->tmpDir ) ) {
+			$this->logError( '$this->tmpDir must be set before calling convert().' );
 			throw new \Exception();
 		}
 
-		if (empty($this->exportStylePath) || !is_file($this->exportStylePath)) {
-			$this->logError('$this->exportStylePath must be set before calling convert().');
+		if ( empty( $this->exportStylePath ) || ! is_file( $this->exportStylePath ) ) {
+			$this->logError( '$this->exportStylePath must be set before calling convert().' );
 			throw new \Exception();
 		}
 
 		// Convert
-		yield 2 => $this->generatorPrefix . __('Preparing book contents', 'pressbooks');
-		$this->displayAboutTheAuthors = !empty(get_option('pressbooks_theme_options_global', [])['about_the_author']);
+		yield 2 => $this->generatorPrefix . __( 'Preparing book contents', 'pressbooks' );
+		$this->displayAboutTheAuthors = ! empty( get_option( 'pressbooks_theme_options_global', [] )['about_the_author'] );
 		$metadata = Book::getBookInformation();
-		$book_contents = $this->preProcessBookContents(Book::getBookContents());
+		$book_contents = $this->preProcessBookContents( Book::getBookContents() );
 
 		// Set two letter language code
-		if (isset($metadata['pb_language'])) {
-			[$this->lang] = explode('-', $metadata['pb_language']);
+		if ( isset( $metadata['pb_language'] ) ) {
+			[$this->lang] = explode( '-', $metadata['pb_language'] );
 		}
 
 		try {
 
-			yield 5 => $this->generatorPrefix . __('Creating container', 'pressbooks');
+			yield 5 => $this->generatorPrefix . __( 'Creating container', 'pressbooks' );
 			$this->createContainer();
-			yield from $this->createEPUBGenerator($book_contents, $metadata);
-			$this->createOPF($book_contents, $metadata);
-			$this->createNCX($book_contents, $metadata);
+			yield from $this->createEPUBGenerator( $book_contents, $metadata );
+			$this->createOPF( $book_contents, $metadata );
+			$this->createNCX( $book_contents, $metadata );
 
-		} catch (\Exception $e) {
-			$this->logError($e->getMessage());
+		} catch ( \Exception $e ) {
+			$this->logError( $e->getMessage() );
 			throw new \Exception();
 		}
 
-		yield 75 => $this->generatorPrefix . __('Saving file to exports folder', 'pressbooks');
-		$filename = $this->timestampedFileName($this->suffix);
-		if (!$this->zipEpub($filename)) {
+		yield 75 => $this->generatorPrefix . __( 'Saving file to exports folder', 'pressbooks' );
+		$filename = $this->timestampedFileName( $this->suffix );
+		if ( ! $this->zipEpub( $filename ) ) {
 			throw new \Exception();
 		}
 		$this->outputPath = $filename;
-		yield 80 => $this->generatorPrefix . __('Export successful', 'pressbooks');
+		yield 80 => $this->generatorPrefix . __( 'Export successful', 'pressbooks' );
 	}
 
 	/**
@@ -535,49 +526,48 @@ class Epub extends ExportGenerator
 	 *
 	 * @return mixed
 	 */
-	protected function preProcessBookContents($book_contents)
-	{
+	protected function preProcessBookContents( $book_contents ) {
 
 		// We need to change global $id for shortcodes, the_content, ...
 		global $id;
 		$old_id = $id;
 
 		// Do root level structures first.
-		foreach ($book_contents as $type => $struct) {
+		foreach ( $book_contents as $type => $struct ) {
 
-			if (preg_match('/^__/', $type)) {
+			if ( preg_match( '/^__/', $type ) ) {
 				continue; // Skip __magic keys
 			}
 
-			foreach ($struct as $i => $val) {
+			foreach ( $struct as $i => $val ) {
 
-				if (isset($val['post_content'])) {
+				if ( isset( $val['post_content'] ) ) {
 					$id = $val['ID'];
-					$book_contents[$type][$i]['post_content'] = $this->preProcessPostContent($val['post_content'], $type, $val['ID']);
+					$book_contents[ $type ][ $i ]['post_content'] = $this->preProcessPostContent( $val['post_content'], $type, $val['ID'] );
 				}
-				if (isset($val['post_title'])) {
-					$book_contents[$type][$i]['post_title'] = sanitize_xml_attribute($val['post_title']);
+				if ( isset( $val['post_title'] ) ) {
+					$book_contents[ $type ][ $i ]['post_title'] = sanitize_xml_attribute( $val['post_title'] );
 				}
-				if (isset($val['post_name'])) {
-					$book_contents[$type][$i]['post_name'] = $this->preProcessPostName($val['post_name']);
-					$this->sanitizedSlugs[$val['post_name']] = $book_contents[$type][$i]['post_name'];
+				if ( isset( $val['post_name'] ) ) {
+					$book_contents[ $type ][ $i ]['post_name'] = $this->preProcessPostName( $val['post_name'] );
+					$this->sanitizedSlugs[ $val['post_name'] ] = $book_contents[ $type ][ $i ]['post_name'];
 				}
 
-				if ('part' === $type) {
+				if ( 'part' === $type ) {
 
 					// Do chapters, which are embedded in part structure
-					foreach ($book_contents[$type][$i]['chapters'] as $j => $val2) {
+					foreach ( $book_contents[ $type ][ $i ]['chapters'] as $j => $val2 ) {
 
-						if (isset($val2['post_content'])) {
+						if ( isset( $val2['post_content'] ) ) {
 							$id = $val2['ID'];
-							$book_contents[$type][$i]['chapters'][$j]['post_content'] = $this->preProcessPostContent($val2['post_content'], 'chapter', $val2['ID']);
+							$book_contents[ $type ][ $i ]['chapters'][ $j ]['post_content'] = $this->preProcessPostContent( $val2['post_content'], 'chapter', $val2['ID'] );
 						}
-						if (isset($val2['post_title'])) {
-							$book_contents[$type][$i]['chapters'][$j]['post_title'] = sanitize_xml_attribute($val2['post_title']);
+						if ( isset( $val2['post_title'] ) ) {
+							$book_contents[ $type ][ $i ]['chapters'][ $j ]['post_title'] = sanitize_xml_attribute( $val2['post_title'] );
 						}
-						if (isset($val2['post_name'])) {
-							$book_contents[$type][$i]['chapters'][$j]['post_name'] = $this->preProcessPostName($val2['post_name']);
-							$this->sanitizedSlugs[$val2['post_name']] = $book_contents[$type][$i]['chapters'][$j]['post_name'];
+						if ( isset( $val2['post_name'] ) ) {
+							$book_contents[ $type ][ $i ]['chapters'][ $j ]['post_name'] = $this->preProcessPostName( $val2['post_name'] );
+							$this->sanitizedSlugs[ $val2['post_name'] ] = $book_contents[ $type ][ $i ]['chapters'][ $j ]['post_name'];
 						}
 					}
 				}
@@ -595,19 +585,18 @@ class Epub extends ExportGenerator
 	 *
 	 * @return string
 	 */
-	protected function preProcessPostContent($content, $type = '', $post_id = 0)
-	{
+	protected function preProcessPostContent( $content, $type = '', $post_id = 0 ) {
 		if (
 			$this->displayAboutTheAuthors &&
-			in_array($type, ['chapter', 'front-matter', 'back-matter'], true) &&
+			in_array( $type, [ 'chapter', 'front-matter', 'back-matter' ], true ) &&
 			$post_id > 0
 		) {
-			$content .= \Pressbooks\Modules\Export\get_contributors_section($post_id);
+			$content .= \Pressbooks\Modules\Export\get_contributors_section( $post_id );
 		}
-		$content = apply_filters('the_export_content', $content);
-		$content = str_ireplace(['<b></b>', '<i></i>', '<strong></strong>', '<em></em>'], '', $content);
-		$content = $this->fixAnnoyingCharacters($content);
-		$content = $this->tidy($content);
+		$content = apply_filters( 'the_export_content', $content );
+		$content = str_ireplace( [ '<b></b>', '<i></i>', '<strong></strong>', '<em></em>' ], '', $content );
+		$content = $this->fixAnnoyingCharacters( $content );
+		$content = $this->tidy( $content );
 		return $content;
 	}
 
@@ -1220,7 +1209,7 @@ class Epub extends ExportGenerator
 		// HTML
 		$html = $this->blade->render(
 			'export/cover', [
-				'src' =>  $this->coverImage,
+				'src' => $this->coverImage,
 				'alt' => get_bloginfo( 'name' ),
 			]
 		);
@@ -1358,7 +1347,7 @@ class Epub extends ExportGenerator
 			}
 
 			$html = $this->blade->render(
-			'export/title', [
+				'export/title', [
 					'title' => get_bloginfo( 'name' ),
 					'subtitle' => $metadata['pb_subtitle'] ?? '',
 					'authors' => $authors,
@@ -1529,7 +1518,7 @@ class Epub extends ExportGenerator
 				$vars['post_title'] = $front_matter['post_title'];
 
 				$vars['post_content'] = $this->blade->render(
-					'export/dedication-epigraph',//TODO: Review if it could be consolidated in a single file
+					'export/dedication-epigraph', //TODO: Review if it could be consolidated in a single file
 					[
 						'subclass' => $subclass,
 						'slug' => $slug,
@@ -1671,7 +1660,7 @@ class Epub extends ExportGenerator
 	protected function renderPartsAndChaptersGenerator( $book_contents, $metadata ) : \Generator {
 		$ticks = 0;
 		foreach ( $book_contents['part'] as $key => $part ) {
-			$ticks += 1 + count($book_contents['part'][$key]['chapters']);
+			$ticks += 1 + count( $book_contents['part'][ $key ]['chapters'] );
 		}
 		$y = new PercentageYield( 40, 50, $ticks );
 
@@ -1932,12 +1921,12 @@ class Epub extends ExportGenerator
 
 			$data = $this->mapBookDataAndContent( $back_matter, $metadata, $i, [
 				'type' => 'back_matter',
-				'needs_tidy_html' => true
+				'needs_tidy_html' => true,
 			] );
 
 			$vars['post_title'] = $data['title'];
 
-			$vars['post_content'] = $this->blade->render('export/generic-post-type', $data );
+			$vars['post_content'] = $this->blade->render( 'export/generic-post-type', $data );
 
 			$file_id = 'back-matter-' . sprintf( '%03s', $i );
 			$filename = "{$file_id}-{$data['slug']}.{$this->filext}";

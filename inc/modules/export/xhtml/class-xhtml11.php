@@ -11,7 +11,6 @@
 
 namespace Pressbooks\Modules\Export\Xhtml;
 
-use Jenssegers\Blade\Blade;
 use function Pressbooks\Sanitize\clean_filename;
 use function Pressbooks\Utility\get_contributors_name_imploded;
 use function Pressbooks\Utility\str_starts_with;
@@ -19,9 +18,9 @@ use PressbooksMix\Assets;
 use Pressbooks\Container;
 use Pressbooks\HtmlParser;
 use Pressbooks\Modules\Export\ExportGenerator;
+use Pressbooks\Modules\Export\ExportHelpers;
 use Pressbooks\Sanitize;
 use Pressbooks\Utility\PercentageYield;
-use Pressbooks\Modules\Export\ExportHelpers;
 
 class Xhtml11 extends ExportGenerator {
 
@@ -1011,7 +1010,7 @@ class Xhtml11 extends ExportGenerator {
 		// HTML
 		if ( $content ) {
 			echo $this->blade->render(
-			'export/title', [
+				'export/title', [
 					'content' => $content,
 				]
 			);
@@ -1058,7 +1057,6 @@ class Xhtml11 extends ExportGenerator {
 		} else {
 			$has_custom_copyright = false;
 		}
-
 
 		// Custom Copyright must override All Rights Reserved
 		if ( ! $has_custom_copyright || ( $has_custom_copyright && ! $all_rights_reserved ) ) {
@@ -1133,7 +1131,7 @@ class Xhtml11 extends ExportGenerator {
 				$content = $front_matter['post_content'];
 
 				echo $this->blade->render(
-					'export/dedication-epigraph',//TODO: Review if it could be consolidated in a single file
+					'export/dedication-epigraph', //TODO: Review if it could be consolidated in a single file
 					[
 						'subclass' => $subclass,
 						'slug' => $slug,
@@ -1141,7 +1139,7 @@ class Xhtml11 extends ExportGenerator {
 						'title' => Sanitize\decode( $title ),
 						'content' => $content,
 						'endnotes' => $this->doEndnotes( $front_matter_id ),
-						'footnotes' => $this->doFootnotes( $front_matter_id )
+						'footnotes' => $this->doFootnotes( $front_matter_id ),
 					]
 				);
 				echo "\n";
@@ -1329,7 +1327,7 @@ class Xhtml11 extends ExportGenerator {
 			$data = $this->mapBookDataAndContent( $front_matter, $metadata, $i, [
 				'type' => 'front_matter',
 				'endnotes' => true,
-				'footnotes' => true
+				'footnotes' => true,
 			] );
 
 			$subclass = $data['subclass'];
@@ -1374,7 +1372,7 @@ class Xhtml11 extends ExportGenerator {
 	protected function echoPartsAndChaptersGenerator( $book_contents, $metadata ) : \Generator {
 		$ticks = 0;
 		foreach ( $book_contents['part'] as $key => $part ) {
-			$ticks += 1 + count($book_contents['part'][$key]['chapters']);
+			$ticks += 1 + count( $book_contents['part'][ $key ]['chapters'] );
 		}
 		$y = new PercentageYield( 60, 70, $ticks );
 
@@ -1406,7 +1404,7 @@ class Xhtml11 extends ExportGenerator {
 				}
 			}
 
-			$wrap_part = ( bool ) $part_content;
+			$wrap_part = (bool) $part_content;
 
 			$m = ( 'invisible' === $invisibility ) ? '' : $i;
 
@@ -1418,7 +1416,7 @@ class Xhtml11 extends ExportGenerator {
 				'title' => Sanitize\decode( $title ),
 				'content' => $part_content,
 				'endnotes' => $this->doEndnotes( $part['ID'] ),
-				'footnotes' =>	$this->doFootnotes( $part['ID'] ),
+				'footnotes' => $this->doFootnotes( $part['ID'] ),
 				'wrap_part' => $wrap_part,
 			] );
 
@@ -1471,7 +1469,7 @@ class Xhtml11 extends ExportGenerator {
 					'append_content' => $append_chapter_content,
 					'is_new_buckram' => $this->wrapHeaderElements,
 					'endnotes' => $this->doEndnotes( $chapter_id ),
-					'footnotes' =>$this->doFootnotes( $chapter_id ),
+					'footnotes' => $this->doFootnotes( $chapter_id ),
 					'subtitle' => Sanitize\decode( $subtitle ),
 					'authors' => $author,
 				] );
@@ -1536,7 +1534,7 @@ class Xhtml11 extends ExportGenerator {
 			$data = $this->mapBookDataAndContent( $back_matter, $metadata, $i, [
 				'type' => 'back_matter',
 				'endnotes' => true,
-				'footnotes' => true
+				'footnotes' => true,
 			] );
 
 			echo $this->blade->render( 'export/generic-post-type', $data );

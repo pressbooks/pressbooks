@@ -13,7 +13,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 use function \Pressbooks\Sanitize\sanitize_xml_attribute;
-use function \Pressbooks\Utility\explode_remove_and;
 
 echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 ?>
