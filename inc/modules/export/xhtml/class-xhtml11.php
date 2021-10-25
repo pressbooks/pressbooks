@@ -1548,7 +1548,7 @@ class Xhtml11 extends ExportGenerator {
 					$chapter_printf,
 					$subclass,
 					$slug,
-					( $short_title ) ? $short_title : wp_strip_all_tags( Sanitize\decode( $chapter['post_title'] ) ),
+					( $short_title ) ? Sanitize\decode( $short_title ) : wp_strip_all_tags( Sanitize\decode( $chapter['post_title'] ) ),
 					$my_chapter_number,
 					Sanitize\decode( $title ),
 					$after_title,
