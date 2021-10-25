@@ -44,9 +44,9 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 						}
 
 						if ( preg_match( '/^part-/', $k ) ) {
-							echo '<li><a href="OEBPS/' . $v['filename'] . '">' . $text . '</a>' . "\n";
+							echo '<li><a href="' . $v['filename'] . '">' . $text . '</a>' . "\n";
 						} else {
-							echo '<li><a href="OEBPS/' . $v['filename'] . '">' . $text . '</a></li>' . "\n";
+							echo '<li><a href="' . $v['filename'] . '">' . $text . '</a></li>' . "\n";
 						}
 
 						if ( preg_match( '/^part-/', $k ) ) {
