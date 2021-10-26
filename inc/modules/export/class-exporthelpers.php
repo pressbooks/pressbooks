@@ -75,4 +75,18 @@ trait ExportHelpers {
 
 		return $data;
 	}
+
+	/**
+	 * @param array $book_contents
+	 * @return int
+	 */
+	public function countPartsAndChapters( $book_contents ) {
+		$ticks = count( $book_contents['part'] );
+
+		foreach ( $book_contents['part'] as $part ) {
+			$ticks += count( $part['chapters'] );
+		}
+
+		return $ticks;
+	}
 }

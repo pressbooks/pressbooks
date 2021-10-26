@@ -1,27 +1,24 @@
-<div class="chapter {{ $subclass }}" id="{{ $id }}">
+<div class="chapter {{ $subclass }}" id="{{ $slug }}" title="{{ $sanitized_title }}">
 	<div class="chapter-title-wrap">
 		<p class="chapter-number">{{ $number }}</p>
 		<h1 class="chapter-title">{!! $title !!}</h1>
-		@if( $is_new_buckram )
-			@if( $authors )
-				<p class="chapter-author">{{ $authors }}</p>
-			@endif
-			@if( $subtitle )
-				<p class="chapter-subtitle">{!! $subtitle !!}</p>
-			@endif
+		@if(  isset( $is_new_buckram ) && $is_new_buckram )
+			@include('export/sub-author-partial')
 		@endif
-		{!! $after_title !!}
 	</div>
 	<div class="ugc chapter-ugc">
-		@if( ! $is_new_buckram )
-			@if( $authors )
-				<p class="chapter-author">{{ $authors }}</p>
-			@endif
-			@if( $subtitle )
-				<p class="chapter-subtitle">{!! $subtitle !!}</p>
-			@endif
+		@if(  isset( $is_new_buckram ) && ! $is_new_buckram )
+			@include('export/sub-author-partial')
 		@endif
-			{!! $content !!}
+		{!! $content !!}
 	</div>
-	{!! $append_content !!}
+	@if( isset( $append_content ) )
+		{!! $append_content !!}
+	@endif
+	@if( isset( $endnotes ) )
+		{!! $endnotes !!}
+	@endif
+	@if( isset ( $footnotes ) )
+		{!! $footnotes !!}
+	@endif
 </div>

@@ -1658,11 +1658,7 @@ class Epub extends ExportGenerator {
 	 * @return \Generator
 	 */
 	protected function renderPartsAndChaptersGenerator( $book_contents, $metadata ) : \Generator {
-		$ticks = 0;
-		foreach ( $book_contents['part'] as $key => $part ) {
-			$ticks += 1 + count( $book_contents['part'][ $key ]['chapters'] );
-		}
-		$y = new PercentageYield( 40, 50, $ticks );
+		$yield = new PercentageYield( 40, 50, $this->countPartsAndChapters( $book_contents ) );
 
 		$vars = [
 			'post_title' => '',
@@ -1674,87 +1670,95 @@ class Epub extends ExportGenerator {
 		];
 
 		// Parts, Chapters
-		$i = 1;
-		$j = 1;
-		$c = 1;
-		$p = 1;
+		$chapter_index = 1;
+		$chapter_position = 1;
+		$part_index = 1;
+		$part_position = 1;
+		$parts_amount = count( $book_contents['part'] );
+
 		foreach ( $book_contents['part'] as $part ) {
-			yield from $y->tick( $this->generatorPrefix . __( 'Exporting parts and chapters', 'pressbooks' ) );
+			yield from $yield->tick( $this->generatorPrefix . __( 'Exporting parts and chapters', 'pressbooks' ) );
 
-			$invisibility = ( get_post_meta( $part['ID'], 'pb_part_invisible', true ) === 'on' ) ? 'invisible' : '';
+			$invisible = get_post_meta( $part['ID'], 'pb_part_invisible', true ) === 'on';
 
+			$part_is_introduction = false;
 			$array_pos = count( $this->manifest );
 			$has_chapters = false;
-			$wrap_part = false;
-			$part_introduction = $this->hasIntroduction;
+			$part_content = trim( $part['post_content'] );
+			$part_slug = $part['post_name'];
+			$part_title = $part['post_title'];
 
-			// Inject introduction class?
-			if ( ! $this->hasIntroduction && count( $book_contents['part'] ) > 1 ) {
-				$this->hasIntroduction = true;
-				$part_introduction = true;
+			// Should we inject the introduction class?
+			if ( ! $invisible ) {
+				// if it's single part and has content
+				if ( $part_content && ! $this->hasIntroduction && $parts_amount === 1 ) {
+					$part_is_introduction = true;
+					$this->hasIntroduction = true;
+				} elseif ( ! $this->hasIntroduction && $parts_amount > 1 ) {
+					$part_is_introduction = true;
+					$this->hasIntroduction = true;
+				}
 			}
 
-			// Inject part content?
-			$part_content = trim( $part['post_content'] );
+			$part_number = $invisible ? '' : $part_index;
+
 			if ( $part_content ) {
-				$part_content = $this->kneadHtml( $this->preProcessPostContent( $part_content ), 'custom', $p );
-				$wrap_part = true;
+				$part_content = $this->kneadHtml( $this->preProcessPostContent( $part_content ), 'custom', $part_index );
 			}
 
 			foreach ( $part['chapters'] as $chapter ) {
-				yield from $y->tick( $this->generatorPrefix . __( 'Exporting parts and chapters', 'pressbooks' ) );
+				yield from $yield->tick( $this->generatorPrefix . __( 'Exporting parts and chapters', 'pressbooks' ) );
 
 				if ( ! $chapter['export'] ) {
 					continue; // Skip
 				}
 
-				$chapter_printf_changed = '';
 				$chapter_id = $chapter['ID'];
-				$subclass = $this->taxonomy->getChapterType( $chapter_id );
-				$slug = $chapter['post_name'];
-				$title = ( get_post_meta( $chapter_id, 'pb_show_title', true ) ? $chapter['post_title'] : '' );
-				$after_title = '';
-				$content = $this->kneadHtml( $chapter['post_content'], 'chapter', $j );
-				$append_chapter_content = $this->kneadHtml( apply_filters( 'pb_append_chapter_content', '', $chapter_id ), 'chapter', $j );
-				$subtitle = trim( get_post_meta( $chapter_id, 'pb_subtitle', true ) );
-				$author = $this->contributors->get( $chapter_id, 'pb_authors' );
+				$chapter_subclass = $this->taxonomy->getChapterType( $chapter_id );
+				$chapter_slug = $chapter['post_name'];
+				$chapter_title = get_post_meta( $chapter_id, 'pb_show_title', true ) ? $chapter['post_title'] : '';
+				$chapter_content = $this->kneadHtml( $chapter['post_content'], 'chapter', $chapter_position );
+				$append_chapter_content = $this->kneadHtml( apply_filters( 'pb_append_chapter_content', '', $chapter_id ), 'chapter', $chapter_position );
+				$chapter_subtitle = trim( get_post_meta( $chapter_id, 'pb_subtitle', true ) );
+				$chapter_author = $this->contributors->get( $chapter_id, 'pb_authors' );
 
 				if ( Export::shouldParseSubsections() === true && Book::getSubsections( $chapter_id ) !== false ) {
-					$content = Book::tagSubsections( $content, $chapter_id );
-					$content = $this->html5ToXhtml( $content );
+					$chapter_content = $this->html5ToXhtml( Book::tagSubsections( $chapter_content, $chapter_id ) );
 				}
 
 				// Inject introduction class?
 				if ( ! $this->hasIntroduction ) {
-					$subclass .= ' introduction';
+					$chapter_subclass .= ' introduction';
 					$this->hasIntroduction = true;
 				}
 
-				$section_license = $this->doSectionLevelLicense( $metadata, $chapter_id );
-				if ( $section_license ) {
-					$append_chapter_content .= $this->kneadHtml( $this->tidy( $section_license ), 'chapter', $j );
-				}
+				$append_chapter_content .= $this->kneadHtml( $this->tidy( $this->doSectionLevelLicense( $metadata, $chapter_id ) ), 'chapter', $chapter_position );
 
-				$my_chapter_number = ( strpos( $subclass, 'numberless' ) === false ) ? $c : '';
+				$chapter_number = strpos( $chapter_subclass, 'numberless' ) === false ? $chapter_index : '';
+
 				$vars['post_title'] = $chapter['post_title'];
-				$vars['post_content'] = $this->blade->render( 'export/chapter', [
-					'subclass' => $subclass,
-					'id' => $slug,
-					'number' => ( $this->numbered ? $my_chapter_number : '' ),
-					'after_title' => $after_title,
-					'title' => Sanitize\decode( $title ),
-					'content' => $content,
-					'append_content' => $append_chapter_content,
-					'is_new_buckram' => $this->wrapHeaderElements,
-					'subtitle' => Sanitize\decode( $subtitle ),
-					'authors' => $author,
-				] );
+				$vars['post_content'] = $this->blade->render(
+					'export/chapter',
+					[
+						'subclass' => $chapter_subclass,
+						'slug' => $chapter_slug,
+						'sanitized_title' => wp_strip_all_tags( \Pressbooks\Sanitize\decode( $chapter['post_title'] ) ),
+						'number' => $this->numbered ? $chapter_number : '',
+						'title' => \Pressbooks\Sanitize\decode( $chapter_title ),
+						'is_new_buckram' => $this->wrapHeaderElements,
+						'output_short_title' => false,
+						'author' => $chapter_author,
+						'subtitle' => $chapter_subtitle,
+						'content' => $chapter_content,
+						'append_content' => $append_chapter_content,
+					]
+				);
 
-				$file_id = 'chapter-' . sprintf( '%03s', $j );
-				$filename = "{$file_id}-{$slug}.{$this->filext}";
+				$file_id = 'chapter-' . sprintf( '%03s', $chapter_position );
+				$filename = "{$file_id}-{$chapter_slug}.{$this->filext}";
 
 				\Pressbooks\Utility\put_contents(
-					$this->tmpDir . "/EPUB/$filename",
+					$this->tmpDir . "/EPUB/{$filename}",
 					$this->loadTemplate( $this->dir . '/templates/epub201/html.php', $vars )
 				);
 
@@ -1766,126 +1770,53 @@ class Epub extends ExportGenerator {
 
 				$has_chapters = true;
 
-				$j++;
+				$chapter_position++;
 
-				if ( $my_chapter_number !== '' ) {
-					++$c;
+				if ( $chapter_number ) {
+					++$chapter_index;
 				}
 			}
 
-			if ( count( $book_contents['part'] ) === 1 && $part_content ) { // only part, has content
-				$slug = $part['post_name'];
-				$m = ( 'invisible' === $invisibility ) ? '' : $p;
-				$vars['post_title'] = $part['post_title'];
-				$vars['post_content'] = $this->blade->render( 'export/part', [
-					'invisibility' => $invisibility,
-					'id' => $slug,
-					'number' => ( $this->numbered ? \Pressbooks\L10n\romanize( $m ) : '' ),
-					'title' => Sanitize\decode( $part['post_title'] ),
+			$vars['post_title'] = $part_title;
+			$vars['post_content'] = $this->blade->render(
+				'export/part',
+				[
+					'invisibility' => $invisible ? 'invisible' : '',
+					'introduction' => $part_is_introduction ? 'introduction' : '',
+					'slug' => $part_slug,
+					'number' => $this->numbered ? \Pressbooks\L10n\romanize( $part_number ) : '',
+					'title' => \Pressbooks\Sanitize\decode( $part_title ),
 					'content' => $part_content,
-					'wrap_part' => $wrap_part,
-					'introduction_class' => $part_introduction ? 'introduction' : '',
-				] );
+				]
+			);
 
-				$file_id = 'part-' . sprintf( '%03s', $i );
-				$filename = "{$file_id}-{$slug}.{$this->filext}";
+			$file_id = 'part-' . sprintf( '%03s', $part_position );
+			$filename = "{$file_id}-{$part_slug}.{$this->filext}";
 
+			if ( ( $parts_amount === 1 && $part_content ) || ( $parts_amount > 1 && ( $has_chapters || $part_content ) ) ) {
 				\Pressbooks\Utility\put_contents(
-					$this->tmpDir . "/EPUB/$filename",
+					$this->tmpDir . "/EPUB/{$filename}",
 					$this->loadTemplate( $this->dir . '/templates/epub201/html.php', $vars )
 				);
 
-				// Insert into correct pos
+				// Insert into correct position
 				$this->manifest = array_slice( $this->manifest, 0, $array_pos, true ) + [
 					$file_id => [
 						'ID' => $part['ID'],
-						'post_title' => $part['post_title'],
+						'post_title' => $part_title,
 						'filename' => $filename,
 					],
 				] + array_slice( $this->manifest, $array_pos, count( $this->manifest ) - 1, true );
 
-				++$i;
-				if ( 'invisible' !== $invisibility ) {
-					++$p;
-				}
-			} elseif ( count( $book_contents['part'] ) > 1 ) { // multiple parts
-				if ( $has_chapters ) { // has chapter
-					$slug = $part['post_name'];
-					$m = ( 'invisible' === $invisibility ) ? '' : $p;
-					$vars['post_title'] = $part['post_title'];
-					$vars['post_content'] = $this->blade->render( 'export/part', [
-						'invisibility' => $invisibility,
-						'id' => $slug,
-						'number' => ( $this->numbered ? \Pressbooks\L10n\romanize( $m ) : '' ),
-						'title' => Sanitize\decode( $part['post_title'] ),
-						'content' => $part_content,
-						'wrap_part' => $wrap_part,
-						'introduction_class' => $part_introduction ? 'introduction' : '',
-					] );
+				$part_position++;
 
-					$file_id = 'part-' . sprintf( '%03s', $i );
-					$filename = "{$file_id}-{$slug}.{$this->filext}";
-
-					\Pressbooks\Utility\put_contents(
-						$this->tmpDir . "/EPUB/$filename",
-						$this->loadTemplate( $this->dir . '/templates/epub201/html.php', $vars )
-					);
-
-					// Insert into correct pos
-					$this->manifest = array_slice( $this->manifest, 0, $array_pos, true ) + [
-						$file_id => [
-							'ID' => $part['ID'],
-							'post_title' => $part['post_title'],
-							'filename' => $filename,
-						],
-					] + array_slice( $this->manifest, $array_pos, count( $this->manifest ) - 1, true );
-
-					++$i;
-					if ( 'invisible' !== $invisibility ) {
-						++$p;
-					}
-				} else { // no chapter
-					if ( $part_content ) { // has content
-						$slug = $part['post_name'];
-						$m = ( 'invisible' === $invisibility ) ? '' : $p;
-						$vars['post_title'] = $part['post_title'];
-						$vars['post_content'] = $this->blade->render( 'export/part', [
-							'invisibility' => $invisibility,
-							'id' => $slug,
-							'number' => ( $this->numbered ? \Pressbooks\L10n\romanize( $m ) : '' ),
-							'title' => Sanitize\decode( $part['post_title'] ),
-							'content' => $part_content,
-							'wrap_part' => $wrap_part,
-							'introduction_class' => $part_introduction ? 'introduction' : '',
-						] );
-
-						$file_id = 'part-' . sprintf( '%03s', $i );
-						$filename = "{$file_id}-{$slug}.{$this->filext}";
-
-						\Pressbooks\Utility\put_contents(
-							$this->tmpDir . "/EPUB/$filename",
-							$this->loadTemplate( $this->dir . '/templates/epub201/html.php', $vars )
-						);
-
-						// Insert into correct pos
-						$this->manifest = array_slice( $this->manifest, 0, $array_pos, true ) + [
-							$file_id => [
-								'ID' => $part['ID'],
-								'post_title' => $part['post_title'],
-								'filename' => $filename,
-							],
-						] + array_slice( $this->manifest, $array_pos, count( $this->manifest ) - 1, true );
-
-						++$i;
-						if ( 'invisible' !== $invisibility ) {
-							++$p;
-						}
-					}
+				if ( ! $invisible ) {
+					++$part_index;
 				}
 			}
 
 			// Did we actually inject the introduction class?
-			if ( ( $wrap_part || $part_introduction ) && ! $has_chapters ) {
+			if ( $part_is_introduction && ! $has_chapters ) {
 				$this->hasIntroduction = false;
 			}
 		}

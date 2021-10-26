@@ -343,6 +343,7 @@ class Xhtml11 extends ExportGenerator {
 
 		$this->echoDocType( $_unused, $_unused );
 
+		//TODO: convert to blade
 		echo "<head>\n";
 		echo '<meta content="text/html; charset=UTF-8" http-equiv="content-type" />' . "\n";
 		echo '<meta http-equiv="Content-Language" content="' . $this->lang . '" />' . "\n";
@@ -420,11 +421,11 @@ class Xhtml11 extends ExportGenerator {
 
 			// Before Title Page
 			yield 10 => $this->generatorPrefix . __( 'Creating before title page', 'pressbooks' );
-			$this->renderBeforeTitle( $book_contents, $_unused );
+			$this->renderBeforeTitle( $book_contents );
 
 			// Half-title
 			yield 15 => $this->generatorPrefix . __( 'Creating half title page', 'pressbooks' );
-			$this->echoHalfTitle( $_unused, $_unused );
+			$this->renderHalfTitle();
 
 			// Cover
 			yield 20 => $this->generatorPrefix . __( 'Creating cover', 'pressbooks' );
@@ -440,7 +441,7 @@ class Xhtml11 extends ExportGenerator {
 
 			// Dedication and Epigraph (In that order!)
 			yield 35 => $this->generatorPrefix . __( 'Creating dedication and epigraph', 'pressbooks' );
-			$this->renderDedicationAndEpigraph( $book_contents, $_unused );
+			$this->renderDedicationAndEpigraph( $book_contents );
 
 			// Table of contents
 			yield 40 => $this->generatorPrefix . __( 'Creating table of contents', 'pressbooks' );
@@ -455,7 +456,7 @@ class Xhtml11 extends ExportGenerator {
 
 			// Parts, Chapters
 			yield 60 => $this->generatorPrefix . __( 'Exporting parts and chapters', 'pressbooks' );
-			yield from $this->echoPartsAndChaptersGenerator( $book_contents, $metadata );
+			yield from $this->renderPartsAndChaptersGenerator( $book_contents, $metadata );
 
 			// Back-matter
 			yield 70 => $this->generatorPrefix . __( 'Exporting back matter', 'pressbooks' );
@@ -542,7 +543,7 @@ class Xhtml11 extends ExportGenerator {
 	 * @return string
 	 */
 	function doEndnotes( $id ) {
-
+		// TODO: convert to blade
 		if ( ! isset( $this->endnotes[ $id ] ) || ! count( $this->endnotes[ $id ] ) ) {
 			return '';
 		}
@@ -569,6 +570,7 @@ class Xhtml11 extends ExportGenerator {
 	 * @return string
 	 */
 	function doFootnotes( $id ) {
+		// TODO: convert to blade
 		if ( ! isset( $this->footnotes[ $id ] ) || ! count( $this->footnotes[ $id ] ) ) {
 			return '';
 		}
@@ -929,9 +931,8 @@ class Xhtml11 extends ExportGenerator {
 
 	/**
 	 * @param array $book_contents
-	 * @param array $metadata
 	 */
-	protected function renderBeforeTitle( $book_contents, $metadata ) {
+	protected function renderBeforeTitle( $book_contents ) {
 		$i = $this->frontMatterPos;
 		foreach ( [ 'before-title' ] as $compare ) {
 			foreach ( $book_contents['front-matter'] as $front_matter ) {
@@ -971,15 +972,10 @@ class Xhtml11 extends ExportGenerator {
 		$this->frontMatterPos = $i;
 	}
 
-	/**
-	 * @param array $book_contents
-	 * @param array $metadata
-	 */
-	protected function echoHalfTitle( $book_contents, $metadata ) {
-
-		echo '<div id="half-title-page">';
-		echo '<h1 class="title">' . get_bloginfo( 'name' ) . '</h1>';
-		echo '</div>' . "\n";
+	protected function renderHalfTitle() {
+		echo $this->blade->render(
+			'export/half-title', [ 'title' => get_bloginfo( 'name' ) ]
+		);
 	}
 
 	/**
@@ -1107,9 +1103,8 @@ class Xhtml11 extends ExportGenerator {
 
 	/**
 	 * @param array $book_contents
-	 * @param array $metadata
 	 */
-	protected function renderDedicationAndEpigraph( $book_contents, $metadata ) {
+	protected function renderDedicationAndEpigraph( $book_contents ) {
 
 		$i = $this->frontMatterPos;
 		foreach ( [ 'dedication', 'epigraph' ] as $compare ) {
@@ -1154,7 +1149,7 @@ class Xhtml11 extends ExportGenerator {
 	 * @param array $metadata
 	 */
 	protected function echoToc( $book_contents, $metadata ) {
-
+		// TODO: convert to blade
 		echo '<div id="toc"><h1>' . __( 'Contents', 'pressbooks' ) . '</h1><ul>';
 		foreach ( $book_contents as $type => $struct ) {
 
@@ -1369,147 +1364,130 @@ class Xhtml11 extends ExportGenerator {
 	 * @param array $metadata
 	 * @return \Generator
 	 */
-	protected function echoPartsAndChaptersGenerator( $book_contents, $metadata ) : \Generator {
-		$ticks = 0;
-		foreach ( $book_contents['part'] as $key => $part ) {
-			$ticks += 1 + count( $book_contents['part'][ $key ]['chapters'] );
-		}
-		$y = new PercentageYield( 60, 70, $ticks );
+	protected function renderPartsAndChaptersGenerator( $book_contents, $metadata ) : \Generator {
+		$yield = new PercentageYield( 60, 70, $this->countPartsAndChapters( $book_contents ) );
 
-		$i = 1;
-		$j = 1;
+		$part_index = 1;
+		$chapter_index = 1;
+		$parts_amount = count( $book_contents['part'] );
+
 		foreach ( $book_contents['part'] as $part ) {
-			yield from $y->tick( $this->generatorPrefix . __( 'Exporting parts and chapters', 'pressbooks' ) );
+			yield from $yield->tick( $this->generatorPrefix . __( 'Exporting parts and chapters', 'pressbooks' ) );
 
-			$invisibility = ( get_post_meta( $part['ID'], 'pb_part_invisible', true ) === 'on' ) ? 'invisible' : '';
+			$invisible = get_post_meta( $part['ID'], 'pb_part_invisible', true ) === 'on';
 
-			$slug = "part-{$part['post_name']}";
-			$title = $part['post_title'];
+			$part_is_introduction = false;
+			$part_slug = "part-{$part['post_name']}";
+			$part_title = $part['post_title'];
 			$part_content = trim( $part['post_content'] );
 
-			// Inject introduction class?
-			$part_introduction = $this->hasIntroduction;
-
-			if ( 'invisible' !== $invisibility ) { // visible
-				if ( count( $book_contents['part'] ) === 1 ) { // only part
-					if ( $part_content && ! $this->hasIntroduction ) { // has content
-						$part_introduction = true;
-						$this->hasIntroduction = true;
-					}
-				} elseif ( count( $book_contents['part'] ) > 1 ) { // multiple parts
-					if ( ! $this->hasIntroduction ) {
-						$part_introduction = true;
-						$this->hasIntroduction = true;
-					}
+			// Should we inject the introduction class?
+			if ( ! $invisible ) {
+				// if it's single part and has content
+				if ( $part_content && ! $this->hasIntroduction && $parts_amount === 1 ) {
+					$part_is_introduction = true;
+					$this->hasIntroduction = true;
+				} elseif ( ! $this->hasIntroduction && $parts_amount > 1 ) {
+					$part_is_introduction = true;
+					$this->hasIntroduction = true;
 				}
 			}
 
-			$wrap_part = (bool) $part_content;
+			$part_number = $invisible ? '' : $part_index;
 
-			$m = ( 'invisible' === $invisibility ) ? '' : $i;
+			$rendered_part = $this->blade->render(
+				'export/part',
+				[
+					'invisibility' => $invisible ? 'invisible' : '',
+					'introduction' => $part_is_introduction ? 'introduction' : '',
+					'slug' => $part_slug,
+					'number' => \Pressbooks\L10n\romanize( $part_number ),
+					'title' => \Pressbooks\Sanitize\decode( $part_title ),
+					'content' => $part_content,
+					'endnotes' => $this->doEndnotes( $part['ID'] ),
+					'footnotes' => $this->doFootnotes( $part['ID'] ),
+				]
+			);
 
-			$my_part = $this->blade->render( 'export/part', [
-				'invisibility' => $invisibility,
-				'id' => $slug,
-				'introduction_class' => ! $part_introduction ? 'introduction' : '',
-				'number' => \Pressbooks\L10n\romanize( $m ),
-				'title' => Sanitize\decode( $title ),
-				'content' => $part_content,
-				'endnotes' => $this->doEndnotes( $part['ID'] ),
-				'footnotes' => $this->doFootnotes( $part['ID'] ),
-				'wrap_part' => $wrap_part,
-			] );
-
-			$my_chapters = '';
+			$rendered_chapters = '';
 
 			foreach ( $part['chapters'] as $chapter ) {
-				yield from $y->tick( $this->generatorPrefix . __( 'Exporting parts and chapters', 'pressbooks' ) );
+				yield from $yield->tick( $this->generatorPrefix . __( 'Exporting parts and chapters', 'pressbooks' ) );
 
 				if ( ! $chapter['export'] ) {
 					continue; // Skip
 				}
 
 				$chapter_id = $chapter['ID'];
-				$subclass = $this->taxonomy->getChapterType( $chapter_id );
-				$slug = "chapter-{$chapter['post_name']}";
-				$title = ( get_post_meta( $chapter_id, 'pb_show_title', true ) ? $chapter['post_title'] : '<span class="display-none">' . $chapter['post_title'] . '</span>' ); // Preserve auto-indexing in Prince using hidden span
-				$after_title = '';
-				$content = $chapter['post_content'];
+				$chapter_subclass = $this->taxonomy->getChapterType( $chapter_id );
+				$chapter_slug = "chapter-{$chapter['post_name']}";
+				$chapter_title = get_post_meta( $chapter_id, 'pb_show_title', true ) ? $chapter['post_title'] : '<span class="display-none">' . $chapter['post_title'] . '</span>'; // Preserve auto-indexing in Prince using hidden span
+				$chapter_content = $chapter['post_content'];
 				$append_chapter_content = apply_filters( 'pb_append_chapter_content', '', $chapter_id );
-				$short_title = $this->outputShortTitle ? trim( get_post_meta( $chapter_id, 'pb_short_title', true ) ) : false;
-				$subtitle = trim( get_post_meta( $chapter_id, 'pb_subtitle', true ) );
-				$author = $this->contributors->get( $chapter_id, 'pb_authors' );
+				$chapter_short_title = trim( get_post_meta( $chapter_id, 'pb_short_title', true ) );
+				$chapter_subtitle = trim( get_post_meta( $chapter_id, 'pb_subtitle', true ) );
+				$chapter_author = $this->contributors->get( $chapter_id, 'pb_authors' );
 
-				if ( \Pressbooks\Modules\Export\Export::shouldParseSubsections() === true ) {
-					if ( \Pressbooks\Book::getSubsections( $chapter_id ) !== false ) {
-						$content = \Pressbooks\Book::tagSubsections( $content, $chapter_id );
-						$content = $this->html5ToXhtml( $content );
-					}
+				if ( \Pressbooks\Modules\Export\Export::shouldParseSubsections() && \Pressbooks\Book::getSubsections( $chapter_id ) !== false ) {
+					$chapter_content = \Pressbooks\Book::tagSubsections( $chapter_content, $chapter_id );
 				}
 
-				// Inject introduction class?
 				if ( ! $this->hasIntroduction ) {
-					$subclass .= ' introduction';
 					$this->hasIntroduction = true;
+					$chapter_subclass .= ' introduction';
 				}
 
 				$append_chapter_content .= $this->removeAttributionLink( $this->doSectionLevelLicense( $metadata, $chapter_id ) );
 
-				$content .= $this->displayAboutTheAuthors ? \Pressbooks\Modules\Export\get_contributors_section( $chapter_id ) : '';
+				$chapter_content .= $this->displayAboutTheAuthors
+					? \Pressbooks\Modules\Export\get_contributors_section( $chapter_id )
+					: '';
 
-				$my_chapter_number = ( strpos( $subclass, 'numberless' ) === false ) ? $j : '';
-				$my_chapters .= $this->blade->render( 'export/chapter', [
-					'subclass' => $subclass,
-					'id' => $slug,
-					'short_title' => ( $short_title ) ? $short_title : wp_strip_all_tags( Sanitize\decode( $chapter['post_title'] ) ),
-					'number' => $my_chapter_number,
-					'after_title' => $after_title,
-					'title' => Sanitize\decode( $title ),
-					'content' => $content,
-					'append_content' => $append_chapter_content,
-					'is_new_buckram' => $this->wrapHeaderElements,
-					'endnotes' => $this->doEndnotes( $chapter_id ),
-					'footnotes' => $this->doFootnotes( $chapter_id ),
-					'subtitle' => Sanitize\decode( $subtitle ),
-					'authors' => $author,
-				] );
+				$chapter_number = strpos( $chapter_subclass, 'numberless' ) === false ? $chapter_index : '';
 
-				if ( $my_chapter_number !== '' ) {
-					++$j;
+				$rendered_chapters .= $this->blade->render(
+					'export/chapter',
+					[
+						'subclass' => $chapter_subclass,
+						'slug' => $chapter_slug,
+						'sanitized_title' => $chapter_short_title ?: wp_strip_all_tags( \Pressbooks\Sanitize\decode( $chapter['post_title'] ) ),
+						'number' => $chapter_number,
+						'title' => \Pressbooks\Sanitize\decode( $chapter_title ),
+						'is_new_buckram' => $this->wrapHeaderElements,
+						'output_short_title' => $this->outputShortTitle,
+						'author' => $chapter_author,
+						'subtitle' => $chapter_subtitle,
+						'short_title' => $chapter_short_title,
+						'content' => $chapter_content,
+						'append_content' => $append_chapter_content,
+						'endnotes' => $this->doEndnotes( $chapter_id ),
+						'footnotes' => $this->doFootnotes( $chapter_id ),
+					]
+				);
+
+				if ( $chapter_number ) {
+					++$chapter_index;
 				}
 			}
 
-			// Echo with parts?
+			if ( $invisible ) {
+				echo $rendered_chapters;
 
-			if ( 'invisible' !== $invisibility ) { // visible
-				if ( count( $book_contents['part'] ) === 1 ) { // only part
-					if ( $part_content ) { // has content
-						echo $my_part; // show
-						if ( $my_chapters ) {
-							echo $my_chapters;
-						}
-					} else { // no content
-						if ( $my_chapters ) {
-							echo $my_chapters;
-						}
-					}
-				} elseif ( count( $book_contents['part'] ) > 1 ) { // multiple parts
-					if ( $my_chapters ) { // has chapter
-						echo $my_part . $my_chapters; // show
-					} else { // no chapter
-						if ( $part_content ) { // has content
-							echo $my_part; // show
-						}
-					}
-				}
-				++$i;
-			} else { // invisible
-				if ( $my_chapters ) {
-					echo $my_chapters;
-				}
+				continue;
 			}
+
+			if ( $parts_amount === 1 ) {
+				echo $part_content
+					? $rendered_part . $rendered_chapters
+					: $rendered_chapters;
+			} else {
+				echo $rendered_chapters
+					? $rendered_part . $rendered_chapters
+					: $rendered_part;
+			}
+
+			++$part_index;
 		}
-
 	}
 
 	/**
