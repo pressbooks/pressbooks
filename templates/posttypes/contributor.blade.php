@@ -71,7 +71,7 @@
 							</p>
 						@else
 							<a href="{{$contributor['contributor_github']}}" target="_blank">
-								<svg role="img" aria-labelledby="github-logo" class="contributor__icon-svg">
+								<svg role="img" aria-labelledby="github-logo-{{ $key }}" class="contributor__icon-svg">
 									<title id="github-logo-{{ $key }}">GitHub logo</title>
 									<use href="#github-icon"/>
 								</svg>
