@@ -39,8 +39,8 @@
 							</p>
 						@else
 							<a href="{{$contributor['contributor_twitter']}}" target="_blank">
-								<svg role="img" aria-labelledby="twitter-logo" class="contributor__icon-svg">
-									<title id="twitter-title-logo">Twitter logo</title>
+								<svg role="img" aria-labelledby="twitter-logo-{{ $key }}" class="contributor__icon-svg">
+									<title id="twitter-logo-{{ $key }}">Twitter logo</title>
 									<use href="#twitter-icon"/>
 								</svg>
 							</a>
@@ -55,8 +55,8 @@
 							</p>
 						@else
 							<a href="{{$contributor['contributor_linkedin']}}" target="_blank">
-								<svg role="img" aria-labelledby="linkedin-logo" class="contributor__icon-svg">
-									<title id="linkedin-title-logo">LinkedIn logo</title>
+								<svg role="img" aria-labelledby="linkedin-logo-{{ $key }}" class="contributor__icon-svg">
+									<title id="linkedin-logo-{{ $key }}">LinkedIn logo</title>
 									<use href="#linkedin-icon"/>
 								</svg>
 							</a>
@@ -72,7 +72,7 @@
 						@else
 							<a href="{{$contributor['contributor_github']}}" target="_blank">
 								<svg role="img" aria-labelledby="github-logo" class="contributor__icon-svg">
-									<title id="github-title-logo">GitHub logo</title>
+									<title id="github-logo-{{ $key }}">GitHub logo</title>
 									<use href="#github-icon"/>
 								</svg>
 							</a>
