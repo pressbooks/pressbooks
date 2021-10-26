@@ -1538,10 +1538,8 @@ class Xhtml11 extends ExportGenerator {
 				'footnotes' => true,
 			] );
 
-			$printed = $this->blade->render( 'export/generic-post-type', $data );
-
-			echo $printed;
-
+			echo $this->blade->render( 'export/generic-post-type', $data );
+			
 			++$i;
 		}
 
