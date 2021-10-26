@@ -1,4 +1,4 @@
-<div class="title-page">
+<div id="title-page">
 	@if( isset( $content ) )
 		{!! $content !!}
 	@else
