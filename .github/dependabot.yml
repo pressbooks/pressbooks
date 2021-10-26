@@ -6,7 +6,7 @@ updates:
     directory: "/"
     # Check for updates monthly
     schedule:
-      interval: "monthly"
+      interval: "daily"
     allow:
       # Allow direct updates only (for packages named in package.json)
       - dependency-type: "direct"
@@ -19,7 +19,7 @@ updates:
     directory: "/"
     # Check for updates monthly
     schedule:
-      interval: "monthly"
+      interval: "daily"
     allow:
       # Allow direct updates only (for packages named in composer.json)
       - dependency-type: "direct"

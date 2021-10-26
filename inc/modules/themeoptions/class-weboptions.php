@@ -3,6 +3,8 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv3 (or any later version)
  */
+// TODO: Security audit
+// @phpcs:disable Pressbooks.Security.EscapeOutput.OutputNotEscaped
 
 namespace Pressbooks\Modules\ThemeOptions;
 
@@ -178,7 +180,6 @@ class WebOptions extends \Pressbooks\Options {
 		 * @param string $arg2
 		 *
 		 * @since 3.9.7
-		 *
 		 */
 		do_action( 'pb_theme_options_web_add_settings_fields', $_page, $_section );
 
@@ -406,7 +407,6 @@ class WebOptions extends \Pressbooks\Options {
 		 * @param array $value
 		 *
 		 * @since 3.9.7
-		 *
 		 */
 		return apply_filters(
 			'pb_theme_options_web_defaults', [
@@ -445,7 +445,6 @@ class WebOptions extends \Pressbooks\Options {
 		 * @param array $value
 		 *
 		 * @since 3.9.7
-		 *
 		 */
 		return apply_filters(
 			'pb_theme_options_web_booleans', [
@@ -469,7 +468,6 @@ class WebOptions extends \Pressbooks\Options {
 		 * @param array $value
 		 *
 		 * @since 3.9.7
-		 *
 		 */
 		return apply_filters(
 			'pb_theme_options_web_strings', [
@@ -491,7 +489,6 @@ class WebOptions extends \Pressbooks\Options {
 		 * @param array $value
 		 *
 		 * @since 3.9.7
-		 *
 		 */
 		return apply_filters( 'pb_theme_options_web_integers', [] );
 	}
@@ -508,7 +505,6 @@ class WebOptions extends \Pressbooks\Options {
 		 * @param array $value
 		 *
 		 * @since 3.9.7
-		 *
 		 */
 		return apply_filters( 'pb_theme_options_web_floats', [] );
 	}
@@ -525,7 +521,6 @@ class WebOptions extends \Pressbooks\Options {
 		 * @param array $value
 		 *
 		 * @since 3.9.7
-		 *
 		 */
 		return apply_filters(
 			'pb_theme_options_web_predefined', [

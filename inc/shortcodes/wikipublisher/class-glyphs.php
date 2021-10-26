@@ -19,7 +19,6 @@ class Glyphs {
 	 */
 	static $instance = null;
 
-
 	// ISO-639-3
 	protected $supported_languages = [
 		'grc', // Ancient Greek (polytonic)
@@ -78,7 +77,7 @@ class Glyphs {
 		if ( empty( $content ) || empty( $a['lang'] ) || ! in_array( $a['lang'], $this->supported_languages, true ) ) {
 			// We don't support this language
 			$_error = "*** ERROR: Unsupported pb_language attribute: {$a['lang']} -- ";
-			$_error .= 'Valid choices, based on ISO-639-3, are: ' . implode( $this->supported_languages, ', ' ) . ') ***';
+			$_error .= 'Valid choices, based on ISO-639-3, are: ' . implode( ', ', $this->supported_languages, ) . ') ***';
 
 			return $_error;
 		}
@@ -105,7 +104,6 @@ class Glyphs {
 
 		return $content;
 	}
-
 
 	/**
 	 * @param        $text
@@ -419,7 +417,6 @@ class Glyphs {
 
 		return str_replace( array_keys( $gr_alphabet ), array_values( $gr_alphabet ), $r );
 	}
-
 
 	/**
 	 * @param $text

@@ -48,6 +48,7 @@ class Docx extends Import {
 
 	/**
 	 * Must not rely on all OOXML to be consistent with naming document.xml
+	 *
 	 * @var string
 	 */
 	protected $document_target = '';

@@ -65,7 +65,6 @@ class GlobalTypography {
 		];
 	}
 
-
 	/**
 	 * Get the current theme's font stacks.
 	 *
@@ -129,7 +128,6 @@ class GlobalTypography {
 		$this->getFonts( $languages );
 
 	}
-
 
 	/**
 	 * @return string
@@ -238,7 +236,6 @@ class GlobalTypography {
 		return $return_value;
 	}
 
-
 	/**
 	 * @param $type
 	 * @param array $languages
@@ -288,7 +285,6 @@ class GlobalTypography {
 		$file = $dir . "/_font-stack-{$type}.scss";
 		\Pressbooks\Utility\put_contents( $file, $scss );
 	}
-
 
 	/**
 	 * Array driven development :(

@@ -7,6 +7,10 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv3 (or any later version)
  */
+// TODO: Security audit
+// @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.InputNotValidated
+// @phpcs:disable Pressbooks.Security.EscapeOutput.OutputNotEscaped
+// @phpcs:disable WordPress.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
 
 namespace Pressbooks;
 
@@ -227,11 +231,9 @@ class Book {
 		$book_data_collector = BookDataCollector::init();
 		$book_information_array = $book_data_collector->get( $blog_id, BookDataCollector::BOOK_INFORMATION_ARRAY );
 		if ( self::removeInvalidatedBisacCodes( $blog_id, $book_information_array ) ) {
-			// @codingStandardsIgnoreStart
 			add_error( __(
 				"This book was using a <a href='https://bisg.org/page/InactivatedCodes' target='_blank'> retired BISAC subject term </a>, which has been replaced in your book with a recommended BISAC replacement. You may wish to check the BISAC subject terms manually to confirm that you are satisfied with these replacements."
 			) );
-			// @codingStandardsIgnoreEnd
 			return true;
 		}
 		return false;
@@ -293,7 +295,6 @@ class Book {
 		return apply_filters( 'get_invalidated_codes_alternatives_mapped', $bisac_codes );
 	}
 
-
 	/**
 	 * Returns an array representing the entire structure of a book, in correct order,
 	 * with a minimum amount of fields. Data is raw and must be post-processed.
@@ -347,7 +348,7 @@ class Book {
 		$results = $q->query(
 			[
 				'post_type' => $custom_types,
-				'posts_per_page' => -1, // @codingStandardsIgnoreLine
+				'posts_per_page' => -1, // @phpcs:ignore
 				'post_status' => 'any',
 				'orderby' => 'menu_order',
 				'order' => 'ASC',
@@ -466,7 +467,6 @@ class Book {
 		return $book_structure;
 	}
 
-
 	/**
 	 * Returns an array representing the entire structure of a book, in correct order,
 	 * with a maximum amount of fields. Data is raw and must be post-processed.
@@ -560,7 +560,6 @@ class Book {
 		return $selected_for_export ? $wc_selected_for_export : $wc;
 	}
 
-
 	/**
 	 *
 	 */
@@ -570,7 +569,6 @@ class Book {
 			wp_die();
 		}
 	}
-
 
 	/**
 	 * Delete the Book Object cache(s)
@@ -773,7 +771,7 @@ class Book {
 
 		// Move internal pointer to correct position
 		reset( $pos );
-		while ( $find_me = current( $pos ) ) {
+		while ( $find_me = current( $pos ) ) { // @phpcs:ignore
 			if ( (int) $find_me === (int) $current_post_id ) {
 				break;
 			} else {
@@ -783,7 +781,7 @@ class Book {
 
 		// Get next/previous
 		$what( $pos );
-		while ( $post_id = current( $pos ) ) {
+		while ( $post_id = current( $pos ) ) { // @phpcs:ignore
 			if ( $admin_mode ) {
 				if ( current_user_can( 'edit_post', $post_id ) ) {
 					break;
@@ -810,7 +808,6 @@ class Book {
 		}
 	}
 
-
 	/**
 	 * Select the very first post in a book. May be a chapter or a front matter post
 	 *
@@ -828,7 +825,7 @@ class Book {
 		$pos = array_keys( $order );
 
 		reset( $pos );
-		while ( $first_id = current( $pos ) ) {
+		while ( $first_id = current( $pos ) ) { // @phpcs:disable WordPress.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
 			if ( $admin_mode ) {
 				if ( current_user_can( 'edit_post', $first_id ) ) {
 					break;
@@ -890,7 +887,7 @@ class Book {
 		// Calculate chapter number
 		$i = 0;
 		$type = 'standard';
-		$found = array_merge( [ 'ID' => $post_id ], $lookup[ $post_id ] ); // @codingStandardsIgnoreLine
+		$found = array_merge( [ 'ID' => $post_id ], $lookup[ $post_id ] ); // @phpcs:ignore
 		foreach ( $lookup as $post_id => $val ) {
 			if (
 				$val['post_type'] !== 'chapter' ||
@@ -909,7 +906,6 @@ class Book {
 
 		return ( $type === 'numberless' ) ? 0 : $i;
 	}
-
 
 	/**
 	 * Ensures this chapter/part/front matter has a "menu_order" when it is saved
@@ -976,7 +972,6 @@ class Book {
 
 		return $success ? true : false;
 	}
-
 
 	/**
 	 * Put a Part/Chapter/Front Matter/Back Matter in the trash

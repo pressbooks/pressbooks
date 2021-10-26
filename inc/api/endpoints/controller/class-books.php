@@ -328,7 +328,7 @@ class Books extends \WP_REST_Controller {
 			$conditions .= sprintf( ' AND last_updated > \'%s\'', $datetime->format( 'Y-m-d H:i:s' ) );
 		}
 
-		// phpcs:disable WordPress.WP.PreparedSQL.NotPrepared, WordPress.DB.PreparedSQLPlaceholders.ReplacementsWrongNumber
+		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.ReplacementsWrongNumber
 		$blogs = $wpdb->get_col(
 			$wpdb->prepare(
 				"SELECT SQL_CALC_FOUND_ROWS blog_id FROM {$wpdb->blogs}

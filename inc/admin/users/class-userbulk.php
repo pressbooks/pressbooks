@@ -1,4 +1,9 @@
 <?php
+// TODO: Security audit
+// @phpcs:disable Pressbooks.Security.EscapeOutput.OutputNotEscaped
+// @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.InputNotValidated
+// @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.MissingUnslash
+// @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.InputNotSanitized
 
 namespace Pressbooks\Admin\Users;
 

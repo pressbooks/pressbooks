@@ -3,6 +3,12 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv3 (or any later version)
  */
+// TODO: Security audit
+// @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.MissingUnslash
+// @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.InputNotSanitized
+// @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.InputNotValidated
+// @phpcs:disable WordPress.PHP.DevelopmentFunctions.error_log_print_r
+// @phpcs:disable WordPress.PHP.NoSilencedErrors.Discouraged
 
 namespace Pressbooks\Modules\Export;
 
@@ -53,7 +59,6 @@ abstract class Export {
 	 */
 	public $errorsEmail = [];
 
-
 	/**
 	 * Reserved html IDs.
 	 *
@@ -68,14 +73,12 @@ abstract class Export {
 		'pressbooks-promo',
 	];
 
-
 	/**
 	 * Location where data is held until ready to be displayed.
 	 *
 	 * @var string fullpath
 	 */
 	protected $outputPath;
-
 
 	/**
 	 * Mandatory convert method, create $this->outputPath
@@ -84,14 +87,12 @@ abstract class Export {
 	 */
 	abstract function convert();
 
-
 	/**
 	 * Mandatory validate method, check the sanity of $this->outputPath
 	 *
 	 * @return bool
 	 */
 	abstract function validate();
-
 
 	/**
 	 * Return $this->outputPath
@@ -102,7 +103,6 @@ abstract class Export {
 
 		return $this->outputPath;
 	}
-
 
 	/**
 	 * Return the fullpath to an export module's style file.
@@ -309,7 +309,6 @@ abstract class Export {
 		}
 	}
 
-
 	/**
 	 * Create a temporary file that automatically gets deleted on __sleep()
 	 *
@@ -319,7 +318,6 @@ abstract class Export {
 
 		return \Pressbooks\Utility\create_tmp_file();
 	}
-
 
 	/**
 	 * Create a timestamped filename.
@@ -346,7 +344,6 @@ abstract class Export {
 		return $filename;
 	}
 
-
 	/**
 	 * Create a NONCE using WordPress' NONCE_KEY and a Unix timestamp.
 	 *
@@ -360,7 +357,6 @@ abstract class Export {
 
 		return md5( NONCE_KEY . $timestamp );
 	}
-
 
 	/**
 	 * Verify that a NONCE was created within a range of 5 minutes and is valid.
@@ -388,7 +384,6 @@ abstract class Export {
 		return true;
 	}
 
-
 	/**
 	 * Fix annoying characters that the user probably didn't do on purpose
 	 *
@@ -407,7 +402,6 @@ abstract class Export {
 		return $html;
 	}
 
-
 	/**
 	 * Check a post_name against a list of reserved IDs, sanitize for use as an XML ID.
 	 *
@@ -423,7 +417,6 @@ abstract class Export {
 
 		return \Pressbooks\Sanitize\sanitize_xml_id( $id );
 	}
-
 
 	/**
 	 * Create a temporary directory, no trailing slash!
@@ -578,7 +571,6 @@ abstract class Export {
 		}
 	}
 
-
 	/**
 	 * Detect MIME Content-type for a file.
 	 *
@@ -589,7 +581,6 @@ abstract class Export {
 	static function mimeType( $file ) {
 		return \Pressbooks\Media\mime_type( $file );
 	}
-
 
 	/**
 	 * Get the fullpath to the Exports folder.
@@ -622,7 +613,6 @@ abstract class Export {
 
 		return $path;
 	}
-
 
 	/**
 	 * Catch form submissions
@@ -882,7 +872,6 @@ abstract class Export {
 		}
 	}
 
-
 	/**
 	 * @return string
 	 */
@@ -902,7 +891,6 @@ abstract class Export {
 		}
 		return $loc;
 	}
-
 
 	/**
 	 * Check if a user submitted something to admin.php?page=pb_export
@@ -943,7 +931,6 @@ abstract class Export {
 
 		return false;
 	}
-
 
 	/**
 	 * Download an .htaccess protected file from the exports directory.

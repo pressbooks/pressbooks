@@ -3,6 +3,8 @@
 use Pressbooks\DataCollector\User as UserDataCollector;
 
 class DataCollector_UserTest extends \WP_UnitTestCase {
+	use utilsTrait;
+
 	/**
 	 * @var UserDataCollector
 	 */
@@ -25,6 +27,26 @@ class DataCollector_UserTest extends \WP_UnitTestCase {
 		$last_login = get_user_meta( $user->ID, UserDataCollector::LAST_LOGIN, true );
 		$this->assertNotEmpty( $last_login );
 		$this->assertTrue( DateTime::createFromFormat( 'Y-m-d H:i:s', $last_login ) !== false );
+	}
+
+	/**
+	 * @group datacollector
+	 */
+	public function test_setSubscriberRole() {
+		global $wpdb;
+
+		$user = $this->factory()->user->create_and_get();
+		$this->_book();
+
+		$current_blog_id = get_current_blog_id();
+		$user->for_site( $current_blog_id ); // simulate user login in a book.
+
+		$this->userDataCollector->setSubscriberRole( '', $user );
+
+		$metadata = get_user_meta( $user->ID );
+
+		$this->assertArrayHasKey( "{$wpdb->base_prefix}capabilities", $metadata );
+		$this->assertArrayNotHasKey( "{$wpdb->prefix}capabilities", $metadata );
 	}
 
 	/**

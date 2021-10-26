@@ -3,6 +3,9 @@
  * @author  Book Oven Inc. <code@pressbooks.com>
  * @license GPLv3+
  */
+// TODO: Security audit
+// @phpcs:disable Pressbooks.Security.EscapeOutput.OutputNotEscaped
+// @phpcs:disable WordPress.DB.PreparedSQL.NotPrepared
 
 namespace Pressbooks\Modules\SearchAndReplace\Types;
 
@@ -31,7 +34,7 @@ class Content extends \Pressbooks\Modules\SearchAndReplace\Search {
 			$sql .= sprintf( ' LIMIT %d,%d ', $offset, $limit );
 		}
 
-		$posts = $wpdb->get_results( $sql ); // @codingStandardsIgnoreLine
+		$posts = $wpdb->get_results( $sql );
 
 		if ( count( $posts ) > 0 ) {
 			foreach ( $posts as $key => $post ) {

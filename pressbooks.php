@@ -5,14 +5,16 @@ Plugin URI: https://pressbooks.org
 GitHub Plugin URI: pressbooks/pressbooks
 Release Asset: true
 Description: Simple Book Production
-Version: 5.28.0
+Version: 5.29.0
 Author: Pressbooks (Book Oven Inc.)
 Author URI: https://pressbooks.org
 Text Domain: pressbooks
 License: GPL v3 or later
 Network: True
 */
-
+// TODO: Security audit
+// @phpcs:disable Pressbooks.Security.EscapeOutput.OutputNotEscaped
+// @phpcs:disable WordPress.PHP.NoSilencedErrors.Discouraged
 if ( ! defined( 'ABSPATH' ) ) {
 	return;
 }

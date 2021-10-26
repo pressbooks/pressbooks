@@ -12,7 +12,6 @@ namespace Pressbooks\Shortcodes;
  * rendered tables.
  *
  * @see https://github.com/TobiasBg/TablePress/blob/master/classes/class-tablepress.php#L148-L155
- *
  */
 class TablePress {
 	/**

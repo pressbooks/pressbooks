@@ -31,11 +31,17 @@ class Admin_CatalogListTableTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'Tag 1', $cols['tag_1'] );
 		$this->assertEquals( 'Tag 2', $cols['tag_2'] );
 
+		update_user_meta( $user_id, 'pb_catalog_tag_1_name', 'School' );
+		update_user_meta( $user_id, 'pb_catalog_tag_2_name', 'Subject' );
+		$cols = $this->table->get_columns();
+		$this->assertEquals( 'School', $cols['tag_1'] );
+		$this->assertEquals( 'Subject', $cols['tag_2'] );
+
 		update_user_meta( $user_id, 'pb_catalog_tag_1_name', '<script>alert(1);</script>' );
 		update_user_meta( $user_id, 'pb_catalog_tag_2_name', '<script>alert(2);</script>' );
 		$cols = $this->table->get_columns();
-		$this->assertEquals( 'alert(1);', $cols['tag_1'] );
-		$this->assertEquals( 'alert(2);', $cols['tag_2'] );
+		$this->assertEquals( '', $cols['tag_1'] );
+		$this->assertEquals( '', $cols['tag_2'] );
 	}
 
 }

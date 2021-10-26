@@ -48,7 +48,6 @@ class DocraptorPrint extends Docraptor {
 		return PB_PLUGIN_URL . 'assets/icc/USWebCoatedSWOP.icc';
 	}
 
-
 	/**
 	 * Override based on Theme Options
 	 */

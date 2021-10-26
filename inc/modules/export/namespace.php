@@ -3,6 +3,11 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv3 (or any later version)
  */
+// TODO: Security audit
+// @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.MissingUnslash
+// @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.InputNotSanitized
+// @phpcs:disable Pressbooks.Security.NonceVerification.Missing
+// @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.InputNotValidated
 
 namespace Pressbooks\Modules\Export;
 
@@ -127,7 +132,6 @@ function formats() {
 	 *    $formats['exotic']['docx'] = __( 'Word (Beta)', 'pressbooks' );
 	 *    return $formats;
 	 * } );
-	 *
 	 */
 	$formats = apply_filters( 'pb_export_formats', $formats );
 
@@ -184,6 +188,7 @@ function filetypes() {
 function get_name_from_filetype_slug( $filetype ) {
 	/**
 	 * Add custom export file type slugs to the array of file type slugs and corresponding human-readable filetypes.
+	 *
 	 * @since 5.7.0
 	 */
 	$formats = apply_filters(
@@ -217,6 +222,7 @@ function get_name_from_filetype_slug( $filetype ) {
 function get_name_from_module_classname( $classname ) {
 	/**
 	 * Add custom export module classnames to the array of export module classnames and corresponding human-readable filetypes.
+	 *
 	 * @since 5.7.0
 	 */
 	$formats = apply_filters(

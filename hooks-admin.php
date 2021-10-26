@@ -114,7 +114,7 @@ if ( ! is_network_admin() ) {
 	add_action( 'admin_init', '\Pressbooks\Admin\Laf\privacy_settings_init' );
 }
 
-//  Replaces 'WordPress' with 'Pressbooks' in titles of admin pages.
+// Replaces 'WordPress' with 'Pressbooks' in titles of admin pages.
 add_filter( 'admin_title', '\Pressbooks\Admin\Branding\admin_title' );
 
 // Echo our notices, if any

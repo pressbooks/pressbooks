@@ -3,6 +3,10 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv3 (or any later version)
  */
+// TODO: Security audit
+// @phpcs:disable Pressbooks.Security.EscapeOutput.OutputNotEscaped
+// @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.InputNotValidated
+// @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.MissingUnslash
 
 namespace Pressbooks\Admin\Dashboard;
 
@@ -42,7 +46,6 @@ function replace_network_dashboard_widgets() {
 		add_meta_box( 'pb_dashboard_widget_blog', $options['title'], __NAMESPACE__ . '\display_pressbooks_blog', 'dashboard-network', 'side', 'low' );
 	}
 }
-
 
 /**
  *  Remove unwanted root Dashboard widgets, add our news feed.
@@ -90,7 +93,6 @@ function replace_root_dashboard_widgets() {
 		add_meta_box( 'pb_dashboard_widget_blog', $options['title'], __NAMESPACE__ . '\display_pressbooks_blog', 'dashboard', 'side', 'low' );
 	}
 }
-
 
 /**
  *  Remove all Dashboard widgets and replace with our own
@@ -357,7 +359,6 @@ function display_pressbooks_blog() {
 	}
 	echo $rss;
 }
-
 
 /**
  * Displays a Users widget

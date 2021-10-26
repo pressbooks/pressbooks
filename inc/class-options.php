@@ -3,6 +3,8 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv3 (or any later version)
  */
+// TODO: Security audit
+// @phpcs:disable Pressbooks.Security.EscapeOutput.OutputNotEscaped
 
 namespace Pressbooks;
 
@@ -125,7 +127,7 @@ abstract class Options {
 				if ( empty( $input[ $key ] ) ) {
 					unset( $options[ $key ] );
 				} else {
-					$value = trim( strip_tags( stripslashes( $input[ $key ] ) ) );
+					$value = trim( wp_strip_all_tags( stripslashes( $input[ $key ] ) ) );
 					if ( $value ) {
 						$options[ $key ] = \Pressbooks\Sanitize\canonicalize_url( $value );
 					} else {

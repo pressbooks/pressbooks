@@ -81,7 +81,6 @@ class Content {
 		add_action( 'pb_pre_export', [ $obj, 'beforeExport' ] );
 	}
 
-
 	public function __construct() {
 		$this->blade = Container::get( 'Blade' );
 		$this->h5p = new H5P( $this->blade );
@@ -106,7 +105,6 @@ class Content {
 	 * Delete <iframe> sources not on our whitelist
 	 * Content is expected to be raw, e.g. before the_content filters have been run
 	 * Hooked into `pre_kses` filter
-
 	 *
 	 * @param string $content Content to run through kses.
 	 * @param array $allowed_html Allowed HTML elements.

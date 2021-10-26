@@ -53,7 +53,6 @@ class HtmlParser {
 		}
 	}
 
-
 	/**
 	 * @param \DOMDocument $dom
 	 *
@@ -79,6 +78,5 @@ class HtmlParser {
 
 		return $html;
 	}
-
 
 }

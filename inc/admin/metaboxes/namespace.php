@@ -3,7 +3,12 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv3 (or any later version)
  */
-
+// TODO: Security audit
+// @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.MissingUnslash
+// @phpcs:disable Pressbooks.Security.EscapeOutput.OutputNotEscaped
+// @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.InputNotSanitized
+// @phpcs:disable Pressbooks.Security.NonceVerification.Missing
+// @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.InputNotValidated
 namespace Pressbooks\Admin\Metaboxes;
 
 use function Pressbooks\Sanitize\sanitize_string;
@@ -12,9 +17,9 @@ use Pressbooks\Contributors;
 use Pressbooks\Licensing;
 use Pressbooks\Metadata;
 
-// @codeCoverageIgnoreStart
+// phpcs:ignore
 define( 'METADATA_CALLBACK_INDEX', 4 );
-// @codeCoverageIgnoreEnd
+// TODO: Security audit
 
 /**
  * If the user updates the book's title, then also update the blog name
@@ -59,7 +64,6 @@ function add_required_data( $pid, $post ) {
 		}
 	}
 }
-
 
 /**
  * Process uploaded cover image
@@ -136,7 +140,6 @@ function upload_cover_image( $pid, $post, $image = null ) {
 	wp_update_attachment_metadata( $id, wp_generate_attachment_metadata( $id, $image['file'] ) );
 }
 
-
 /**
  * Force a stylesheet onto our Book Information edit page
  *
@@ -160,7 +163,6 @@ function add_metadata_styles( $hook ) {
 		}
 	}
 }
-
 
 /**
  * Register all metadata groups and fields
@@ -796,7 +798,6 @@ function delete_cover_image() {
 	die();
 }
 
-
 /**
  * Override save dialogue for Parts
  *
@@ -816,7 +817,6 @@ function part_save_box( $post ) {
 	}
 	echo '</div>';
 }
-
 
 /**
  *  Override save dialogue for Book Information
@@ -1037,13 +1037,11 @@ function publish_fields_save( $post_id, $post, $update ) {
 	if ( ! $recursion ) {
 		$recursion = true;
 
-		// @codingStandardsIgnoreStart
 		$show_in_glossary_lists = ( isset( $_POST['glossary_visibility'] ) && (int) $_POST['glossary_visibility'] === 1 ) ? true : false;
 		$show_in_web = ( isset( $_POST['web_visibility'] ) && (int) $_POST['web_visibility'] === 1 ) ? true : false;
 		$require_password = ( isset( $_POST['require_password'] ) && (int) $_POST['require_password'] === 1 ) ? true : false;
 		$show_in_exports = ( isset( $_POST['export_visibility'] ) && (int) $_POST['export_visibility'] === 1 ) ? true : false;
 		$show_title = ( isset( $_POST['pb_show_title'] ) && $_POST['pb_show_title'] === 'on' ) ? 'on' : false;
-		// @codingStandardsIgnoreEnd
 
 		// Content Visibility
 		if ( $post->post_type === 'glossary' ) {

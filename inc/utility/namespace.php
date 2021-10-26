@@ -5,6 +5,13 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv3 (or any later version)
  */
+// TODO: Security audit
+// @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.MissingUnslash
+// @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.InputNotSanitized
+// @phpcs:disable Pressbooks.Security.EscapeOutput.OutputNotEscaped
+// @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.InputNotValidated
+// @phpcs:disable WordPress.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
+// @phpcs:disable WordPress.PHP.DontExtract.extract_extract
 
 namespace Pressbooks\Utility;
 
@@ -60,7 +67,6 @@ function scandir_by_date( $dir ) {
 	return ( $files ) ? $files : [];
 }
 
-
 /**
  * Scan the exports directory, return the files grouped into intervals of 3 minutes, newest first.
  *
@@ -104,7 +110,6 @@ function group_exports( $dir = null ) {
 	return $output;
 }
 
-
 /**
  * Truncate the exports directory, delete old files.
  *
@@ -135,7 +140,6 @@ function truncate_exports( $max, $dir = null ) {
 		++$i;
 	}
 }
-
 
 /**
  * Return the full path to the directory containing media
@@ -211,7 +215,6 @@ function latest_exports() {
 	return $latest;
 }
 
-
 /**
  * Add sitemap to robots.txt
  */
@@ -221,7 +224,6 @@ function add_sitemap_to_robots_txt() {
 		echo 'Sitemap: ' . get_option( 'siteurl' ) . "/?feed=sitemap.xml\n\n";
 	}
 }
-
 
 /**
  * Echo a sitemap
@@ -631,10 +633,10 @@ function change_recommendations_sentence( $translation, $text, $domain ) {
 	return $translation;
 }
 
-
 /**
  * Function to return a string representing max import size by comparing values of upload_max_filesize, post_max_size
  * Uses parse_size helper function since the values in php.ini are strings like 64M and 128K
+ *
  * @return string
  */
 
@@ -744,7 +746,6 @@ function email_error_log( $emails, $subject, $message ) {
 		\wp_mail( $email, $subject, $message );
 	}
 }
-
 
 /**
  * Simple template system.
@@ -1155,7 +1156,6 @@ function get_generated_content_path( $suffix = '', $mkdir = true ) {
  * @param bool $keep_subdomain (optional) Keep subdomain in url
  *
  * @return string
- *
  */
 function get_generated_content_url( $suffix = '', $keep_subdomain = false ) {
 	$path = wp_get_upload_dir()['baseurl'] . '/pressbooks';
@@ -1528,9 +1528,9 @@ function do_shortcode_by_tags( $content, array $tags ) {
 	return $shortcoded;
 }
 
-
 /**
  * This function swap http to https if ssl is available
+ *
  * @param $url
  * @return array|mixed|string|string[]
  */
@@ -1582,7 +1582,7 @@ function handle_image_upload( $url, $filename = 'profile.jpg' ) {
 				return false;
 			}
 		} catch ( \Exception $exc ) {
-            @unlink( $tmp_name ); // @codingStandardsIgnoreLine
+			@unlink( $tmp_name ); // @codingStandardsIgnoreLine
 
 			return false;
 		}
@@ -1600,7 +1600,7 @@ function handle_image_upload( $url, $filename = 'profile.jpg' ) {
 		]
 	);
 
-    @unlink( $tmp_name ); // @codingStandardsIgnoreLine
+	@unlink( $tmp_name ); // @codingStandardsIgnoreLine
 
 	return wp_get_attachment_url( $pid );
 }

@@ -5,6 +5,12 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv3 (or any later version)
  */
+// TODO: Security audit
+// @phpcs:disable Pressbooks.Security.EscapeOutput.OutputNotEscaped
+// @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.InputNotValidated
+// @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.MissingUnslash
+// @phpcs:disable Pressbooks.Security.NonceVerification.Missing
+// @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.InputNotSanitized
 
 namespace Pressbooks\Admin\Laf;
 
@@ -628,7 +634,6 @@ function add_pb_cloner_page() {
 	);
 }
 
-
 /**
  * Displays the Organize page.
  */
@@ -667,7 +672,6 @@ function display_cloner() {
 function display_import() {
 	require( PB_PLUGIN_DIR . 'templates/admin/import.php' );
 }
-
 
 /**
  * Replace WP logo in menu bar with PB one and add links to About page, Contact page, and forums
@@ -945,7 +949,6 @@ function replace_menu_bar_my_sites( $wp_admin_bar ) {
 	}
 }
 
-
 /**
  * @param \WP_Admin_Bar $wp_admin_bar
  *
@@ -1018,7 +1021,6 @@ function remove_menu_bar_update( $wp_admin_bar ) {
 	$wp_admin_bar->remove_menu( 'updates' );
 }
 
-
 /**
  * Remove New Content item from admin menu
  *
@@ -1028,7 +1030,6 @@ function remove_menu_bar_new_content( $wp_admin_bar ) {
 	$wp_admin_bar->remove_menu( 'new-content' );
 }
 
-
 /**
  * @param \WP_Customize_Manager $wp_customize
  *
@@ -1037,7 +1038,6 @@ function remove_menu_bar_new_content( $wp_admin_bar ) {
 function customize_register( $wp_customize ) {
 	$wp_customize->remove_section( 'static_front_page' );
 }
-
 
 /**
  * @return string
@@ -1268,14 +1268,12 @@ function privacy_settings_init() {
 	}
 }
 
-
 /**
  * Privacy settings section callback
  */
 function privacy_settings_section_callback() {
 	echo '<p>' . __( 'Sharing and Privacy settings', 'pressbooks' ) . '.</p>'; // TK
 }
-
 
 /**
  * Privacy settings, blog_public field callback
@@ -1459,7 +1457,6 @@ function book_directory_excluded_sanitize( $input ) {
 	return absint( $input );
 }
 
-
 /**
  * Display Privacy settings
  */
@@ -1598,6 +1595,7 @@ function edit_screen_navigation( $post ) {
 /**
  *
  * $since 5.27.0
+ *
  * @return array
  */
 function get_user_contact_fields() {
@@ -1611,6 +1609,7 @@ function get_user_contact_fields() {
 /**
  *
  * $since 5.27.0
+ *
  * @param array $methods
  * @return array
  */
@@ -1621,6 +1620,7 @@ function modify_user_contact_fields( $methods ) {
 /**
  *
  * $since 5.27.0
+ *
  * @param WP_Error $errors
  * @param bool $update
  * @param stdClass $user

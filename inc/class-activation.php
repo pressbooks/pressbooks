@@ -157,7 +157,6 @@ class Activation {
 		}
 	}
 
-
 	/**
 	 * Determine if book is set up or not to avoid duplication
 	 * (i.e. if activation functions have run and default options set)
@@ -178,13 +177,12 @@ class Activation {
 		if ( ( get_option( 'show_on_front' ) !== 'page' ) || ( ( ! is_int( $pof ) ) || ( ! get_post( $pof ) ) ) || ( ( ! is_int( $pop ) ) || ( ! get_post( $pop ) ) ) ) {
 			return false;
 		}
-		if ( ( wp_count_posts()->publish < 3 ) || ( wp_count_posts( 'page' )->publish < 3 ) || ( count( get_all_category_ids() ) < 3 ) ) {
+		if ( ( wp_count_posts()->publish < 3 ) || ( wp_count_posts( 'page' )->publish < 3 ) || ( count( get_terms() ) < 3 ) ) {
 			return false;
 		}
 
 		return true;
 	}
-
 
 	/**
 	 * Set up default terms for Front Matter and Back Matter

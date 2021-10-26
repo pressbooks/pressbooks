@@ -3,6 +3,8 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv3 (or any later version)
  */
+// TODO: Security audit
+// @phpcs:disable Pressbooks.Security.EscapeOutput.OutputNotEscaped
 
 namespace Pressbooks\Analytics;
 
@@ -37,11 +39,9 @@ function print_analytics() {
 		} else {
 			// TODO: https://developers.google.com/analytics/devguides/collection/upgrade/reference/gajs-analyticsjs#cookiepath
 			// TODO: https://core.trac.wordpress.org/ticket/42093
-			// @codingStandardsIgnoreStart
 			// $path = trailingslashit( parse_url( home_url(), PHP_URL_PATH ) );
 			// $tracking_html .= "ga('create', '{$book_analytics_code}', 'auto', 'bookTracker', {'cookiePath': '{$path}'});\n";
 			// $tracking_html .= "ga('bookTracker.send', 'pageview');\n";
-			// @codingStandardsIgnoreEnd
 		}
 	}
 	$html = '';

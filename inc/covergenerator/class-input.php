@@ -65,7 +65,6 @@ class Input {
 	 */
 	protected $textTransform;
 
-
 	/**
 	 * Trim width
 	 * CSS compatible, example: '6in'
@@ -153,14 +152,12 @@ class Input {
 	 */
 	protected $frontFontColor;
 
-
 	/**
 	 * @return string
 	 */
 	public function getTitle() {
 		return $this->title;
 	}
-
 
 	/**
 	 * @param string $title
@@ -172,14 +169,12 @@ class Input {
 		return $this;
 	}
 
-
 	/**
 	 * @return string
 	 */
 	public function getSpineTitle() {
 		return $this->spine_title;
 	}
-
 
 	/**
 	 * @param string $spine_title
@@ -191,14 +186,12 @@ class Input {
 		return $this;
 	}
 
-
 	/**
 	 * @return string
 	 */
 	public function getSubtitle() {
 		return $this->subtitle;
 	}
-
 
 	/**
 	 * @param string $subtitle
@@ -210,14 +203,12 @@ class Input {
 		return $this;
 	}
 
-
 	/**
 	 * @return string
 	 */
 	public function getAuthor() {
 		return $this->author;
 	}
-
 
 	/**
 	 * @param string $author
@@ -229,14 +220,12 @@ class Input {
 		return $this;
 	}
 
-
 	/**
 	 * @return string
 	 */
 	public function getSpineAuthor() {
 		return $this->spine_author;
 	}
-
 
 	/**
 	 * @param string $spine_author
@@ -248,14 +237,12 @@ class Input {
 		return $this;
 	}
 
-
 	/**
 	 * @return string
 	 */
 	public function getAbout() {
 		return $this->about;
 	}
-
 
 	/**
 	 * @param string $about
@@ -267,14 +254,12 @@ class Input {
 		return $this;
 	}
 
-
 	/**
 	 * @return string
 	 */
 	public function getIsbnImage() {
 		return $this->isbnImage;
 	}
-
 
 	/**
 	 * @param string $isbn_image
@@ -286,14 +271,12 @@ class Input {
 		return $this;
 	}
 
-
 	/**
 	 * @return string
 	 */
 	public function getTextTransform() {
 		return $this->textTransform;
 	}
-
 
 	/**
 	 * @param string $text_transform
@@ -312,7 +295,6 @@ class Input {
 		return $this->trimWidth;
 	}
 
-
 	/**
 	 * @param string $trim_width
 	 *
@@ -323,14 +305,12 @@ class Input {
 		return $this;
 	}
 
-
 	/**
 	 * @return string
 	 */
 	public function getTrimHeight() {
 		return $this->trimHeight;
 	}
-
 
 	/**
 	 * @param string $trim_height
@@ -342,14 +322,12 @@ class Input {
 		return $this;
 	}
 
-
 	/**
 	 * @return string
 	 */
 	public function getTrimBleed() {
 		return $this->trimBleed;
 	}
-
 
 	/**
 	 * @param string $trim_bleed
@@ -361,14 +339,12 @@ class Input {
 		return $this;
 	}
 
-
 	/**
 	 * @return string
 	 */
 	public function getSpineWidth() {
 		return $this->spineWidth;
 	}
-
 
 	/**
 	 * @param string $spine_width
@@ -380,14 +356,12 @@ class Input {
 		return $this;
 	}
 
-
 	/**
 	 * @return string
 	 */
 	public function getSpineBackgroundColor() {
 		return $this->spineBackgroundColor;
 	}
-
 
 	/**
 	 * @param string $spine_background_color
@@ -399,14 +373,12 @@ class Input {
 		return $this;
 	}
 
-
 	/**
 	 * @return string
 	 */
 	public function getSpineFontColor() {
 		return $this->spineFontColor;
 	}
-
 
 	/**
 	 * @param string $spine_font_color
@@ -418,14 +390,12 @@ class Input {
 		return $this;
 	}
 
-
 	/**
 	 * @return string
 	 */
 	public function getBackBackgroundColor() {
 		return $this->backBackgroundColor;
 	}
-
 
 	/**
 	 * @param string $back_background_color
@@ -437,14 +407,12 @@ class Input {
 		return $this;
 	}
 
-
 	/**
 	 * @return string
 	 */
 	public function getBackFontColor() {
 		return $this->backFontColor;
 	}
-
 
 	/**
 	 * @param string $back_font_color
@@ -456,14 +424,12 @@ class Input {
 		return $this;
 	}
 
-
 	/**
 	 * @return string
 	 */
 	public function getFrontBackgroundImage() {
 		return $this->frontBackgroundImage;
 	}
-
 
 	/**
 	 * @param string $front_background_image
@@ -475,14 +441,12 @@ class Input {
 		return $this;
 	}
 
-
 	/**
 	 * @return string
 	 */
 	public function getFrontBackgroundColor() {
 		return $this->frontBackgroundColor;
 	}
-
 
 	/**
 	 * @param string $front_background_color
@@ -494,14 +458,12 @@ class Input {
 		return $this;
 	}
 
-
 	/**
 	 * @return string
 	 */
 	public function getFrontFontColor() {
 		return $this->frontFontColor;
 	}
-
 
 	/**
 	 * @param string $front_font_color

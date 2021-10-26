@@ -69,7 +69,6 @@ class Covergenerator {
 		self::commandLineDefaults();
 	}
 
-
 	/**
 	 * @return bool
 	 */

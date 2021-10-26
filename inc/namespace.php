@@ -77,7 +77,6 @@ function session_kill() {
 	@session_destroy(); // @codingStandardsIgnoreLine
 }
 
-
 /**
  * @return array
  */

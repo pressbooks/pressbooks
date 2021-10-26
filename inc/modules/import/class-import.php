@@ -3,6 +3,13 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv3 (or any later version)
  */
+// TODO: Security audit
+// @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.MissingUnslash
+// @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.InputNotSanitized
+// @phpcs:disable Pressbooks.Security.NonceVerification.Missing
+// @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.InputNotValidated
+// @phpcs:disable WordPress.PHP.NoSilencedErrors.Discouraged
+// @phpcs:disable WordPress.PHP.DevelopmentFunctions.error_log_print_r
 
 namespace Pressbooks\Modules\Import;
 
@@ -26,7 +33,6 @@ abstract class Import {
 	 * @var array
 	 */
 	static $logsEmail = [];
-
 
 	/**
 	 * Mandatory setCurrentImportOption() method, creates WP option 'pressbooks_current_import'
@@ -66,14 +72,12 @@ abstract class Import {
 	 */
 	abstract function setCurrentImportOption( array $upload );
 
-
 	/**
 	 * @param array $current_import WP option 'pressbooks_current_import'
 	 *
 	 * @return bool
 	 */
 	abstract function import( array $current_import );
-
 
 	/**
 	 * Delete 'pressbooks_current_import' option, delete the file too.
@@ -111,7 +115,6 @@ abstract class Import {
 		return \Pressbooks\Utility\create_tmp_file();
 	}
 
-
 	/**
 	 * Get a valid Part id to act as post_parent to a Chapter
 	 *
@@ -138,7 +141,6 @@ abstract class Import {
 		return absint( $results[0]->ID );
 	}
 
-
 	/**
 	 * Check against what the user selected for import in our form
 	 *
@@ -164,7 +166,6 @@ abstract class Import {
 
 		return ( 1 === (int) $chapters[ $id ]['import'] ? true : false );
 	}
-
 
 	/**
 	 * Check against what the user selected for post_type in our form
@@ -194,7 +195,6 @@ abstract class Import {
 		return $chapters[ $id ]['type'];
 	}
 
-
 	/**
 	 * Checks if the file extension matches its mimetype, returns a modified
 	 * filename if they don't match.
@@ -208,7 +208,6 @@ abstract class Import {
 	public function properImageExtension( $path_to_file, $filename ) {
 		return \Pressbooks\Image\proper_image_extension( $path_to_file, $filename );
 	}
-
 
 	/**
 	 * Tidy HTML
@@ -227,7 +226,6 @@ abstract class Import {
 
 		return HtmLawed::filter( $html, $config );
 	}
-
 
 	/**
 	 * Catch form submissions
@@ -607,7 +605,6 @@ abstract class Import {
 		return true;
 	}
 
-
 	/**
 	 * Check that a URL is smaller than MAX UPLOAD without downloading the file
 	 *
@@ -628,7 +625,6 @@ abstract class Import {
 		}
 		return ( $max >= $size );
 	}
-
 
 	/**
 	 * Check if a user submitted something to options-general.php?page=pb_import
@@ -655,7 +651,6 @@ abstract class Import {
 
 		return false;
 	}
-
 
 	/**
 	 * Log something using wp_mail() and error_log(), include useful WordPress info.
@@ -688,6 +683,5 @@ abstract class Import {
 			\Pressbooks\Utility\email_error_log( self::$logsEmail, $subject, $message );
 		}
 	}
-
 
 }

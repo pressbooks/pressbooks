@@ -2,8 +2,11 @@
 <ruleset>
     <!-- Use Pressbooks Coding Standards -->
     <rule ref="vendor/pressbooks/coding-standards">
-        <!-- TODO: This should be enabled sooner than later... -->
-        <exclude name="WordPress.WP.I18n.MissingTranslatorsComment"/>
+        <exclude name="WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase"/>
+		<exclude name="WordPress.NamingConventions.ValidVariableName.PropertyNotSnakeCase"/>
+		<!-- TODO: These should be re-enabled sooner than later... -->
+		<exclude name="Squiz.Commenting"/>
+		<exclude name="Generic.Commenting"/>
     </rule>
     <rule ref="PSR1.Methods.CamelCapsMethodName">
         <!-- Exclude classes that override WP Core: -->

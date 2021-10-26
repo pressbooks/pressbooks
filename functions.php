@@ -97,7 +97,6 @@ function pb_get_book_information() {
 	return \Pressbooks\Book::getBookInformation();
 }
 
-
 /**
  * Shortcut to \Pressbooks\Book::getBookStructure();
  *
@@ -107,7 +106,6 @@ function pb_get_book_structure() {
 
 	return \Pressbooks\Book::getBookStructure();
 }
-
 
 /**
  * Shortcut to \Pressbooks\Sanitize\decode();
@@ -132,7 +130,6 @@ function pb_strip_br( $val ) {
 
 	return \Pressbooks\Sanitize\strip_br( $val );
 }
-
 
 /**
  * Shortcut to \Pressbooks\CustomCss::isCustomCss();
@@ -159,7 +156,6 @@ function pb_is_scss( $version = 1 ) {
 
 	return false;
 }
-
 
 /**
  * Shortcut to \Pressbooks\Metadata\get_seo_meta_elements();
@@ -264,8 +260,6 @@ function pb_get_subsections( $id ) {
 function pb_get_sections( $id ) {
 	return pb_get_subsections( $id );
 }
-
-
 
 /**
  * Returns an array of all subsections in the book, grouped by content type.

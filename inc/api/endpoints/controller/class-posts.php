@@ -35,7 +35,6 @@ class Posts extends \WP_REST_Posts_Controller {
 		add_filter( "rest_{$this->post_type}_trashable", [ $this, 'overrideTrashable' ], 10, 2 );
 	}
 
-
 	/**
 	 * Override the order the posts are displayed
 	 *
