@@ -17,7 +17,7 @@
 		"email": "code@pressbooks.com",
 		"issues": "https://github.com/pressbooks/pressbooks/issues/",
 		"forum": "https://discourse.pressbooks.org",
-		"docs": "http://docs.pressbooks.org/",
+		"docs": "https://docs.pressbooks.org/",
 		"source": "https://github.com/pressbooks/pressbooks/"
 	},
 	"config": {
@@ -87,12 +87,10 @@
 	},
 	"scripts": {
 		"test": [
-			"vendor/bin/phpunit --configuration phpunit.xml --coverage-clover coverage.xml",
-			"@standards"
+			"vendor/bin/phpunit --configuration phpunit.xml"
 		],
 		"test-coverage": [
-			"vendor/bin/phpunit --configuration phpunit.xml --coverage-clover coverage.xml --coverage-html=./coverage-reports",
-			"@standards"
+			"vendor/bin/phpunit --configuration phpunit.xml --coverage-clover coverage.xml --coverage-html=./coverage-reports"
 		],
 		"standards": [
 			"vendor/bin/phpcs --standard=phpcs.ruleset.xml *.php inc/ bin/"
