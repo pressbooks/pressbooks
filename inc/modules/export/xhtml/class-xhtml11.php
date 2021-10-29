@@ -1130,7 +1130,7 @@ class Xhtml11 extends ExportGenerator {
 					[
 						'subclass' => $subclass,
 						'slug' => $slug,
-						'front-matter-number' => $i,
+						'front_matter_number' => $i,
 						'title' => Sanitize\decode( $title ),
 						'content' => $content,
 						'endnotes' => $this->doEndnotes( $front_matter_id ),
@@ -1340,6 +1340,7 @@ class Xhtml11 extends ExportGenerator {
 			}
 
 			echo $this->blade->render( 'export/generic-post-type', $data );
+
 			++$i;
 		}
 		$this->frontMatterPos = $i;
@@ -1516,6 +1517,7 @@ class Xhtml11 extends ExportGenerator {
 			] );
 
 			echo $this->blade->render( 'export/generic-post-type', $data );
+			
 			++$i;
 		}
 

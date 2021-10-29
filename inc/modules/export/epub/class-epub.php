@@ -1595,7 +1595,7 @@ class Epub extends ExportGenerator {
 			}
 
 			$vars['post_title'] = $front_matter['post_title'];
-			$this->blade->render( 'export/generic-post-type', $data );
+			$vars['post_content'] = $this->blade->render( 'export/generic-post-type', $data );
 
 			$file_id = 'front-matter-' . sprintf( '%03s', $i );
 			$filename = "{$file_id}-{$data['slug']}.{$this->filext}";
