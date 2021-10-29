@@ -28,6 +28,7 @@ trait ExportHelpers {
 		$needs_tidy_html = $options['needs_tidy_html'] ?? false;
 		$endnotes = $options['endnotes'] ?? false;
 		$footnotes = $options['footnotes'] ?? false;
+		$slug_as_href = $options['slug_as_href'] ?? false;
 
 		$data = [
 			'id' => $post_data['ID'],
@@ -36,7 +37,7 @@ trait ExportHelpers {
 		$method = studly_case( $post_type_identifier );
 		$taxonomy_method = "get{$method}Type";
 		$data['subclass'] = $this->taxonomy->{$taxonomy_method}( $post_data['ID'] );
-		$data['slug'] = "{$data['post_type_class']}-{$post_data['post_name']}";
+		$data['slug'] = $slug_as_href ? $post_data['post_name'] : "{$data['post_type_class']}-{$post_data['post_name']}";
 		$data['title'] = ( get_post_meta( $post_data['ID'], 'pb_show_title', true ) ? $post_data['post_title'] : '<span class="display-none">' . $post_data['post_title'] . '</span>' ); // Preserve auto-indexing in Prince using hidden span
 		$data['content'] = $post_data['post_content'];
 		$data['append_post_content'] = apply_filters( "pb_append_{$post_type_identifier}_content", '', $post_data['ID'] );
