@@ -11,7 +11,6 @@
 
 namespace Pressbooks\Modules\Export\Xhtml;
 
-use Pressbooks\Modules\Export\Export;
 use function Pressbooks\Sanitize\clean_filename;
 use function Pressbooks\Utility\get_contributors_name_imploded;
 use function Pressbooks\Utility\str_starts_with;
@@ -1155,7 +1154,7 @@ class Xhtml11 extends ExportGenerator {
 			'dedication',
 			'epigraph',
 			'title-page',
-			'before-title'
+			'before-title',
 		];
 
 		foreach ( $book_contents as $type => $struct ) {
@@ -1168,14 +1167,17 @@ class Xhtml11 extends ExportGenerator {
 
 				foreach ( $struct as $part ) {
 
-					$part_data = $this->getPostInformation('chapter', $part,'part');
+					$part_data = $this->getPostInformation( 'chapter', $part, 'part' );
 
 					$rendered_items[] = $this->blade->render('export/bullet-toc-part', [
 						'bullet_class' => 'part',
 						'is_visible' => get_post_meta( $part['ID'], 'pb_part_invisible', true ) !== 'on',
-						'has_content' =>  trim ( $part_data['content'] ), // show in TOC
+						'has_content' => trim( $part_data['content'] ), // show in TOC
 						'has_at_least_one_chapter' => $this->atLeastOneExport( $part['chapters'] ), // show in TOC
-						'item' => [ 'slug' => $part_data['slug'], 'title' => Sanitize\decode( $part_data['title'] ) ],
+						'item' => [
+							'slug' => $part_data['slug'],
+							'title' => Sanitize\decode( $part_data['title'] ),
+						],
 					]);
 
 					foreach ( $part['chapters'] as $chapter ) {
@@ -1184,13 +1186,12 @@ class Xhtml11 extends ExportGenerator {
 							continue;
 						}
 
-						$chapter_data = $this->getExtendedPostInformation('chapter', $chapter);
+						$chapter_data = $this->getExtendedPostInformation( 'chapter', $chapter );
 
 						$rendered_items[] = $this->renderTocPart( 'chapter', $chapter_data );
 
 					}
 				}
-
 			} else {
 				$has_intro = false;
 
@@ -1200,43 +1201,40 @@ class Xhtml11 extends ExportGenerator {
 						continue;
 					}
 
-					switch($type) {
+					switch ( $type ) {
 
 						case 'front-matter':
-
-							$matter_data = $this->getExtendedPostInformation($type, $val);
+							$matter_data = $this->getExtendedPostInformation( $type, $val );
 
 							$post_type = $type;
 
-							if( in_array($matter_data['subclass'], $skipped_items, true ) ) {
+							if ( in_array( $matter_data['subclass'], $skipped_items, true ) ) {
 								continue 2; // break foreach loop iteration
 							}
 
-							$post_type = $has_intro ? $post_type.' post-introduction' : $post_type;
+							$post_type = $has_intro ? $post_type . ' post-introduction' : $post_type;
 							$has_intro = $matter_data['subclass'] === 'introduction';
 
-							$rendered_items[] = $this->renderTocPart( $post_type, $matter_data);
+							$rendered_items[] = $this->renderTocPart( $post_type, $matter_data );
 
 							break;
 
 						case 'back-matter':
+							$matter_data = $this->getExtendedPostInformation( $type, $val );
 
-							$matter_data = $this->getExtendedPostInformation($type, $val);
-
-							$rendered_items[] = $this->renderTocPart( $type, $matter_data);
+							$rendered_items[] = $this->renderTocPart( $type, $matter_data );
 
 							break;
 					}
-
 				}
 			}
 		}
-		$toc = $this->blade->render('export/toc',[
+		$toc = $this->blade->render('export/toc', [
 			'title' => __( 'Contents', 'pressbooks' ),
-			'toc' => $rendered_items
+			'toc' => $rendered_items,
 		]);
 		echo $toc;
-		file_put_contents($_SERVER['DOCUMENT_ROOT'].'/tocbladefinal.log',print_r($toc,true));
+		file_put_contents( $_SERVER['DOCUMENT_ROOT'] . '/tocbladefinal.log', print_r( $toc, true ) );
 	}
 
 	/**
