@@ -1517,7 +1517,7 @@ class Xhtml11 extends ExportGenerator {
 			] );
 
 			echo $this->blade->render( 'export/generic-post-type', $data );
-			
+
 			++$i;
 		}
 
