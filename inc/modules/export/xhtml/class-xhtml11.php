@@ -11,6 +11,7 @@
 
 namespace Pressbooks\Modules\Export\Xhtml;
 
+use Pressbooks\Modules\Export\Export;
 use function Pressbooks\Sanitize\clean_filename;
 use function Pressbooks\Utility\get_contributors_name_imploded;
 use function Pressbooks\Utility\str_starts_with;
@@ -333,7 +334,7 @@ class Xhtml11 extends ExportGenerator {
 
 		// Set two letter language code
 		if ( isset( $metadata['pb_language'] ) ) {
-			list( $this->lang ) = explode( '-', $metadata['pb_language'] );
+			[ $this->lang ] = explode( '-', $metadata['pb_language'] );
 		}
 
 		// ------------------------------------------------------------------------------------------------------------
@@ -445,7 +446,7 @@ class Xhtml11 extends ExportGenerator {
 
 			// Table of contents
 			yield 40 => $this->generatorPrefix . __( 'Creating table of contents', 'pressbooks' );
-			$this->echoToc( $book_contents, $_unused );
+			$this->renderToc( $book_contents );
 
 			// Front-matter
 			yield 50 => $this->generatorPrefix . __( 'Exporting front matter', 'pressbooks' );
@@ -1145,12 +1146,18 @@ class Xhtml11 extends ExportGenerator {
 	}
 
 	/**
-	 * @param array $book_contents
-	 * @param array $metadata
+	 * @param  array  $book_contents
 	 */
-	protected function echoToc( $book_contents, $metadata ) {
-		// TODO: convert to blade
-		echo '<div id="toc"><h1>' . __( 'Contents', 'pressbooks' ) . '</h1><ul>';
+	protected function renderToc( $book_contents ) {
+
+		$rendered_items = [];
+		$skipped_items = [
+			'dedication',
+			'epigraph',
+			'title-page',
+			'before-title'
+		];
+
 		foreach ( $book_contents as $type => $struct ) {
 
 			if ( preg_match( '/^__/', $type ) ) {
@@ -1158,74 +1165,32 @@ class Xhtml11 extends ExportGenerator {
 			}
 
 			if ( 'part' === $type ) {
+
 				foreach ( $struct as $part ) {
-					$slug = "part-{$part['post_name']}";
-					$title = Sanitize\strip_br( $part['post_title'] );
-					$part_content = trim( $part['post_content'] );
-					if ( get_post_meta( $part['ID'], 'pb_part_invisible', true ) !== 'on' ) { // visible
-						if ( count( $book_contents['part'] ) === 1 ) { // only part
-							if ( $part_content ) { // has content
-								printf( '<li class="part"><a href="#%s">%s</a></li>', $slug, Sanitize\decode( $title ) ); // show in TOC
-							} else { // no content
-								printf( '<li class="part display-none"><a href="#%s">%s</a></li>', $slug, Sanitize\decode( $title ) ); // hide from TOC
-							}
-						} elseif ( count( $book_contents['part'] ) > 1 ) { // multiple parts
-							if ( $this->atLeastOneExport( $part['chapters'] ) ) { // has chapter
-								printf( '<li class="part"><a href="#%s">%s</a></li>', $slug, Sanitize\decode( $title ) ); // show in TOC
-							} else { // no chapter
-								if ( $part_content ) { // has content
-									printf( '<li class="part"><a href="#%s">%s</a></li>', $slug, Sanitize\decode( $title ) ); // show in TOC
-								} else { // no content
-									printf( '<li class="part display-none"><a href="#%s">%s</a></li>', $slug, Sanitize\decode( $title ) ); // hide from TOC
-								}
-							}
-						}
-					} elseif ( get_post_meta( $part['ID'], 'pb_part_invisible', true ) === 'on' ) { // invisible
-						printf( '<li class="part display-none"><a href="#%s">%s</a></li>', $slug, Sanitize\decode( $title ) ); // hide from TOC
-					}
-					foreach ( $part['chapters'] as $j => $chapter ) {
+
+					$part_data = $this->getPostInformation('chapter', $part,'part');
+
+					$rendered_items[] = $this->blade->render('export/bullet-toc-part', [
+						'bullet_class' => 'part',
+						'is_visible' => get_post_meta( $part['ID'], 'pb_part_invisible', true ) !== 'on',
+						'has_content' =>  trim ( $part_data['content'] ), // show in TOC
+						'has_at_least_one_chapter' => $this->atLeastOneExport( $part['chapters'] ), // show in TOC
+						'item' => [ 'slug' => $part_data['slug'], 'title' => Sanitize\decode( $part_data['title'] ) ],
+					]);
+
+					foreach ( $part['chapters'] as $chapter ) {
 
 						if ( ! $chapter['export'] ) {
 							continue;
 						}
 
-						$subclass = $this->taxonomy->getChapterType( $chapter['ID'] );
-						$slug = "chapter-{$chapter['post_name']}";
-						$title = Sanitize\strip_br( $chapter['post_title'] );
-						$subtitle = trim( get_post_meta( $chapter['ID'], 'pb_subtitle', true ) );
-						$author = $this->contributors->get( $chapter['ID'], 'pb_authors' );
-						$license = $this->doTocLicense( $chapter['ID'] );
+						$chapter_data = $this->getExtendedPostInformation('chapter', $chapter);
 
-						printf( '<li class="chapter %s"><a href="#%s"><span class="toc-chapter-title">%s</span>', $subclass, $slug, Sanitize\decode( $title ) );
+						$rendered_items[] = $this->renderTocPart( 'chapter', $chapter_data );
 
-						if ( $subtitle ) {
-							echo ' <span class="chapter-subtitle">' . Sanitize\decode( $subtitle ) . '</span>';
-						}
-
-						if ( $author ) {
-							echo ' <span class="chapter-author">' . Sanitize\decode( $author ) . '</span>';
-						}
-
-						if ( $license ) {
-							echo ' <span class="chapter-license">' . $license . '</span> ';
-						}
-
-						echo '</a>';
-
-						if ( \Pressbooks\Modules\Export\Export::shouldParseSubsections() === true ) {
-							$sections = \Pressbooks\Book::getSubsections( $chapter['ID'] );
-							if ( $sections ) {
-								echo '<ul class="sections">';
-								foreach ( $sections as $id => $section_title ) {
-									echo '<li class="section"><a href="#' . $id . '"><span class="toc-subsection-title">' . Sanitize\decode( $section_title ) . '</span></a></li>';
-								}
-								echo '</ul>';
-							}
-						}
-
-						echo '</li>';
 					}
 				}
+
 			} else {
 				$has_intro = false;
 
@@ -1235,69 +1200,43 @@ class Xhtml11 extends ExportGenerator {
 						continue;
 					}
 
-					$typetype = '';
-					$subtitle = '';
-					$author = '';
-					$license = '';
-					$slug = "{$type}-{$val['post_name']}";
-					$title = Sanitize\strip_br( $val['post_title'] );
+					switch($type) {
 
-					if ( 'front-matter' === $type ) {
-						$subclass = $this->taxonomy->getFrontMatterType( $val['ID'] );
-						if ( 'dedication' === $subclass || 'epigraph' === $subclass || 'title-page' === $subclass || 'before-title' === $subclass ) {
-							continue; // Skip
-						} else {
-							$typetype = $type . ' ' . $subclass;
-							if ( $has_intro ) {
-								$typetype .= ' post-introduction';
+						case 'front-matter':
+
+							$matter_data = $this->getExtendedPostInformation($type, $val);
+
+							$post_type = $type;
+
+							if( in_array($matter_data['subclass'], $skipped_items, true ) ) {
+								continue 2; // break foreach loop iteration
 							}
-							if ( $subclass === 'introduction' ) {
-								$has_intro = true;
-							}
-							$subtitle = trim( get_post_meta( $val['ID'], 'pb_subtitle', true ) );
-							$author = $this->contributors->get( $val['ID'], 'pb_authors' );
-							$license = $this->doTocLicense( $val['ID'] );
-						}
-					} elseif ( 'back-matter' === $type ) {
-						$typetype = $type . ' ' . $this->taxonomy->getBackMatterType( $val['ID'] );
-						$subtitle = trim( get_post_meta( $val['ID'], 'pb_subtitle', true ) );
-						$author = $this->contributors->get( $val['ID'], 'pb_authors' );
-						$license = $this->doTocLicense( $val['ID'] );
+
+							$post_type = $has_intro ? $post_type.' post-introduction' : $post_type;
+							$has_intro = $matter_data['subclass'] === 'introduction';
+
+							$rendered_items[] = $this->renderTocPart( $post_type, $matter_data);
+
+							break;
+
+						case 'back-matter':
+
+							$matter_data = $this->getExtendedPostInformation($type, $val);
+
+							$rendered_items[] = $this->renderTocPart( $type, $matter_data);
+
+							break;
 					}
 
-					printf( '<li class="%s"><a href="#%s"><span class="toc-chapter-title">%s</span>', $typetype, $slug, Sanitize\decode( $title ) );
-
-					if ( $subtitle ) {
-						echo ' <span class="chapter-subtitle">' . Sanitize\decode( $subtitle ) . '</span>';
-					}
-
-					if ( $author ) {
-						echo ' <span class="chapter-author">' . Sanitize\decode( $author ) . '</span>';
-					}
-
-					if ( $license ) {
-						echo ' <span class="chapter-license">' . $license . '</span> ';
-					}
-
-					echo '</a>';
-
-					if ( \Pressbooks\Modules\Export\Export::shouldParseSubsections() === true ) {
-						$sections = \Pressbooks\Book::getSubsections( $val['ID'] );
-						if ( $sections ) {
-							echo '<ul class="sections">';
-							foreach ( $sections as $id => $section_title ) {
-								echo '<li class="section"><a href="#' . $id . '"><span class="toc-subsection-title">' . Sanitize\decode( $section_title ) . '</span></a></li>';
-							}
-							echo '</ul>';
-						}
-					}
-
-					echo '</li>';
 				}
 			}
 		}
-		echo "</ul></div>\n";
-
+		$toc = $this->blade->render('export/toc',[
+			'title' => __( 'Contents', 'pressbooks' ),
+			'toc' => $rendered_items
+		]);
+		echo $toc;
+		file_put_contents($_SERVER['DOCUMENT_ROOT'].'/tocbladefinal.log',print_r($toc,true));
 	}
 
 	/**
