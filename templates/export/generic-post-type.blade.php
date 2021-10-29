@@ -1,4 +1,4 @@
-<div class="{{$post_type_class}} {{ $subclass }}" id="{{ $slug }}">
+<div class="{{$post_type_class}} {{ $subclass }}" id="{{ $slug }}" title="{{ $short_title }}">
 	<div class="{{$post_type_class}}-title-wrap">
 		<p class="{{$post_type_class}}-number">{{ $post_number }}</p>
 		<h1 class="{{$post_type_class}}-title">{!! $title !!}</h1>
