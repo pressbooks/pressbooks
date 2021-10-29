@@ -32,7 +32,7 @@ trait ExportHelpers {
 		$data = [
 			'id' => $post_data['ID'],
 		];
-		$data['post_type_class'] = str_replace( '_','-', $post_type_identifier ); // This class is used to map with the SCSS class in buckram Ex: front-matter
+		$data['post_type_class'] = str_replace( '_', '-', $post_type_identifier ); // This class is used to map with the SCSS class in buckram Ex: front-matter
 		$method = studly_case( $post_type_identifier );
 		$taxonomy_method = "get{$method}Type";
 		$data['subclass'] = $this->taxonomy->{$taxonomy_method}( $post_data['ID'] );
