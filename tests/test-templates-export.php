@@ -19,6 +19,7 @@ class TemplateExportTest extends \WP_UnitTestCase {
 		$content = '<p>I am a HTML content <span>inside</span> <strong>a nice template</strong>.';
 		$endnote = 'I am an <span>endnote</span>';
 		$footnote = 'I am a footnote without <i>reference.</i>';
+		$short_title = 'Short title!';
 		$generic_post_rendered = $this->blade->render(
 			'export/generic-post-type',
 			[
@@ -26,6 +27,7 @@ class TemplateExportTest extends \WP_UnitTestCase {
 				'subclass' => 'front-matter-subclass',
 				'slug' => 'front-intro-01',
 				'post_number' => 2,
+				'short_title' => $short_title,
 				'title' => 'I am a nice Front Matter title',
 				'content' => $content,
 				'endnotes' => $endnote,
@@ -33,7 +35,10 @@ class TemplateExportTest extends \WP_UnitTestCase {
 			]
 		);
 
-		$this->assertContains( '<div class="front-matter front-matter-subclass" id="front-intro-01">', $generic_post_rendered );
+		$this->assertContains(
+			"<div class=\"front-matter front-matter-subclass\" id=\"front-intro-01\" title=\"$short_title\">",
+			$generic_post_rendered
+		);
 		$this->assertContains( '<p class="front-matter-number">2</p>', $generic_post_rendered );
 		$this->assertContains( '<h1 class="front-matter-title">I am a nice Front Matter title</h1>', $generic_post_rendered );
 		$this->assertContains( '<div class="ugc front-matter-ugc">', $generic_post_rendered );
