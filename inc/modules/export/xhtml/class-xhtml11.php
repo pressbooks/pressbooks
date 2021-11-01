@@ -1482,9 +1482,13 @@ class Xhtml11 extends ExportGenerator {
 					? $rendered_part . $rendered_chapters
 					: $rendered_chapters;
 			} else {
-				echo $rendered_chapters
-					? $rendered_part . $rendered_chapters
-					: $rendered_part;
+				if ( ! $rendered_chapters ) {
+					echo $part_content ? $rendered_part : '';
+
+					continue;
+				}
+
+				echo $rendered_part . $rendered_chapters;
 			}
 
 			++$part_index;

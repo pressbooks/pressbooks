@@ -85,7 +85,7 @@ class TemplateExportTest extends \WP_UnitTestCase {
 			$chapter_rendered
 		);
 		$this->assertContains( '<p class="chapter-number">1</p>', $chapter_rendered );
-		$this->assertContains( "<h1 class=\"chapter-title\">$title</h1>", $chapter_rendered );
+		$this->assertContains( "<h2 class=\"chapter-title\">$title</h2>", $chapter_rendered );
 		$this->assertContains( "<p class=\"short-title\">$short_title</p>", $chapter_rendered );
 		$this->assertContains( "<p class=\"chapter-subtitle\">$subtitle</p>", $chapter_rendered );
 		$this->assertContains( "<p class=\"chapter-author\">$author</p>", $chapter_rendered );
