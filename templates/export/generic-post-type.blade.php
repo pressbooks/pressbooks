@@ -16,9 +16,9 @@
 		{!! $append_post_content !!}
 	@endif
 	@if( isset( $endnotes ) )
-		{{ $endnotes }}
+		{!! $endnotes !!}
 	@endif
 	@if( isset ( $footnotes ) )
-		{{ $footnotes }}
+		{!! $footnotes !!}
 	@endif
 </div>
