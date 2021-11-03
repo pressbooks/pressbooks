@@ -1175,7 +1175,8 @@ class Xhtml11 extends ExportGenerator {
 						'has_content' => trim( $part_data['content'] ), // show in TOC
 						'has_at_least_one_chapter' => $this->atLeastOneExport( $part['chapters'] ), // show in TOC
 						'item' => [
-							'slug' => $part_data['slug'],
+							'is_epub' => false,
+							'slug' => $part_data['href'],
 							'title' => Sanitize\decode( $part_data['title'] ),
 						],
 					]);
@@ -1188,7 +1189,7 @@ class Xhtml11 extends ExportGenerator {
 
 						$chapter_data = $this->getExtendedPostInformation( 'chapter', $chapter );
 
-						$rendered_items[] = $this->renderTocPart( 'chapter', $chapter_data );
+						$rendered_items[] = $this->renderTocItem( 'chapter', $chapter_data );
 
 					}
 				}
@@ -1215,26 +1216,24 @@ class Xhtml11 extends ExportGenerator {
 							$post_type = $has_intro ? $post_type . ' post-introduction' : $post_type;
 							$has_intro = $matter_data['subclass'] === 'introduction';
 
-							$rendered_items[] = $this->renderTocPart( $post_type, $matter_data );
+							$rendered_items[] = $this->renderTocItem( $post_type, $matter_data );
 
 							break;
 
 						case 'back-matter':
 							$matter_data = $this->getExtendedPostInformation( $type, $val );
 
-							$rendered_items[] = $this->renderTocPart( $type, $matter_data );
+							$rendered_items[] = $this->renderTocItem( $type, $matter_data );
 
 							break;
 					}
 				}
 			}
 		}
-		$toc = $this->blade->render('export/toc', [
+		echo $this->blade->render('export/toc', [
 			'title' => __( 'Contents', 'pressbooks' ),
 			'toc' => $rendered_items,
 		]);
-		echo $toc;
-		file_put_contents( $_SERVER['DOCUMENT_ROOT'] . '/tocbladefinal.log', print_r( $toc, true ) );
 	}
 
 	/**

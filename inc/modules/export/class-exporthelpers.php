@@ -47,7 +47,7 @@ trait ExportHelpers {
 		$data['subclass'] = $this->getPostSubClass( $post_type_identifier, $post_data['ID'] );
 		$data['slug'] = "{$post_type_identifier}-{$post_data['post_name']}";
 		$data['title'] = ( get_post_meta($post_data['ID'], 'pb_show_title',
-		true) ? $post_data['post_title'] : '<span class="display-none">' . $post_data['post_title'] . '</span>' ); // Preserve auto-indexing in Prince using hidden span
+			true) ? $post_data['post_title'] : '<span class="display-none">' . $post_data['post_title'] . '</span>' ); // Preserve auto-indexing in Prince using hidden span
 		$data['content'] = $post_data['post_content'];
 		$data['append_post_content'] = apply_filters( "pb_append_{$post_type_identifier}_content", '', $post_data['ID'] );
 		$data['short_title'] = trim( get_post_meta( $post_data['ID'], 'pb_short_title', true ) );
@@ -56,11 +56,11 @@ trait ExportHelpers {
 		if ( $needs_tidy_html ) {
 			$data['content'] = $this->kneadHtml( $data['content'], $post_type_identifier, $post_type_identifier );
 			$data['append_post_content'] = $this->kneadHtml(apply_filters("pb_append_{$post_type_identifier}_content",
-			'', $post_data['ID']), $post_type_identifier, $post_number);
+				'', $post_data['ID']), $post_type_identifier, $post_number);
 			$data['short_title'] = ( $data['short_title'] ) ?: wp_strip_all_tags( Sanitize\decode( $post_data['post_title'] ) );
 			if ( $section_license ) {
 				$data['append_post_content'] .= $this->kneadHtml($this->tidy( $section_license ), $post_type_identifier,
-				$post_number);
+					$post_number);
 			}
 		} else {
 			$data['append_post_content'] .= $this->removeAttributionLink( $section_license );
@@ -108,6 +108,7 @@ trait ExportHelpers {
 	 *
 	 * @param $post_type
 	 * @param $post
+	 * @param  null  $alias
 	 * @return array
 	 */
 	public function getPostInformation( $post_type, $post, $alias = null ) {
@@ -116,9 +117,9 @@ trait ExportHelpers {
 			'ID' => $post['ID'],
 			'post_type' => $post_type,
 			'subclass' => $this->getPostSubClass( $post_type, $post['ID'] ),
-			'slug' => "{$prefix}-{$post['post_name']}",
+			'href' => $post['href'] ?? "{$prefix}-{$post['post_name']}",
 			'title' => Sanitize\strip_br( $post['post_title'] ),
-			'content' => $post['post_content'],
+			'content' => $post['post_content'] ?? '',
 		];
 	}
 
@@ -137,23 +138,25 @@ trait ExportHelpers {
 	}
 
 	/**
-	 * @param $matter_data
 	 * @param $post_type
+	 * @param $data
+	 * @param  bool  $is_slug
 	 * @return string
 	 */
-	public function renderTocPart( $post_type, $matter_data ) {
-		return $this->blade->render('export/bullet-toc-chapter', array_merge(
-			$matter_data,
+	public function renderTocItem( $post_type, $data, $is_slug = true ) {
+		return $this->blade->render('export/bullet-toc-item', array_merge(
+			$data,
 			[
 				'post_type' => $post_type,
-				'subsections' => Export::shouldParseSubsections() === true ? array_map(static function( $section ) {
+				'href' => $is_slug ? '#'.$data['href'] : $data['href'],
+				'subsections' => Export::shouldParseSubsections() === true ? array_map(static function( $section ) use ($is_slug,$data) {
 					static $index = 0;
 					$index++;
 					return [
-						'slug' => $index,
+						'slug' => $is_slug ? "#{$index}": "${data['href']}#{$index}", // if is_slug xhtml else epub
 						'title' => Sanitize\decode( $section ),
 					];
-				}, \Pressbooks\Book::getSubsections( $matter_data['ID'] ) ) : false,
+				}, \Pressbooks\Book::getSubsections( $data['ID'] ) ) : [],
 			]
 		));
 	}
