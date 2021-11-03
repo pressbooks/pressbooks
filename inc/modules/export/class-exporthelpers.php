@@ -38,7 +38,14 @@ trait ExportHelpers {
 		$taxonomy_method = "get{$method}Type";
 		$data['subclass'] = $this->taxonomy->{$taxonomy_method}( $post_data['ID'] );
 		$data['slug'] = $slug_as_href ? $post_data['post_name'] : "{$data['post_type_class']}-{$post_data['post_name']}";
-		$data['title'] = ( get_post_meta( $post_data['ID'], 'pb_show_title', true ) ? $post_data['post_title'] : '<span class="display-none">' . $post_data['post_title'] . '</span>' ); // Preserve auto-indexing in Prince using hidden span
+		$data['title'] =
+			get_post_meta( $post_data['ID'], 'pb_show_title', true ) ||
+			(
+				array_key_exists( 'remove_hidden_title_span', $options ) &&
+				$options['remove_hidden_title_span']
+			) ?
+				$post_data['post_title'] :
+				'<span class="display-none">' . $post_data['post_title'] . '</span>'; // Preserve auto-indexing in Prince using hidden span
 		$data['content'] = $post_data['post_content'];
 		$data['append_post_content'] = apply_filters( "pb_append_{$post_type_identifier}_content", '', $post_data['ID'] );
 		$data['short_title'] = trim( get_post_meta( $post_data['ID'], 'pb_short_title', true ) );
