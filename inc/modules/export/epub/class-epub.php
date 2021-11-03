@@ -1582,6 +1582,7 @@ class Epub extends ExportGenerator {
 			$data = $this->mapBookDataAndContent( $front_matter, $metadata, $i, [
 				'type' => 'front_matter',
 				'needs_tidy_html' => true,
+				'slug_as_href' => true, // we want the slugs to be proper anchors in the EPUB export
 			] );
 
 			$subclass = $data['subclass'];
@@ -1595,7 +1596,7 @@ class Epub extends ExportGenerator {
 			}
 
 			$vars['post_title'] = $front_matter['post_title'];
-			$this->blade->render( 'export/generic-post-type', $data );
+			$vars['post_content'] = $this->blade->render( 'export/generic-post-type', $data );
 
 			$file_id = 'front-matter-' . sprintf( '%03s', $i );
 			$filename = "{$file_id}-{$data['slug']}.{$this->filext}";
@@ -1853,6 +1854,7 @@ class Epub extends ExportGenerator {
 			$data = $this->mapBookDataAndContent( $back_matter, $metadata, $i, [
 				'type' => 'back_matter',
 				'needs_tidy_html' => true,
+				'slug_as_href' => true, // we want the slugs to be proper anchors in the EPUB export
 			] );
 
 			$vars['post_title'] = $data['title'];

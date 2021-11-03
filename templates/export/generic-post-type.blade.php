@@ -1,4 +1,4 @@
-<div class="{{$post_type_class}} {{ $subclass }}" id="{{ $slug }}">
+<div class="{{$post_type_class}} {{ $subclass }}" id="{{ $slug }}" title="{{ $short_title }}">
 	<div class="{{$post_type_class}}-title-wrap">
 		<p class="{{$post_type_class}}-number">{{ $post_number }}</p>
 		<h1 class="{{$post_type_class}}-title">{!! $title !!}</h1>
@@ -16,9 +16,9 @@
 		{!! $append_post_content !!}
 	@endif
 	@if( isset( $endnotes ) )
-		{{ $endnotes }}
+		{!! $endnotes !!}
 	@endif
 	@if( isset ( $footnotes ) )
-		{{ $footnotes }}
+		{!! $footnotes !!}
 	@endif
 </div>
