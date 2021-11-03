@@ -59,7 +59,7 @@ trait ExportHelpers {
 			$data['content'] = $this->kneadHtml( $data['content'], $post_type_identifier, $post_type_identifier );
 			if ( $section_license ) {
 				$data['append_post_content'] .= $this->kneadHtml($this->tidy( $section_license ), $post_type_identifier,
-					$post_number);
+				$post_number);
 			}
 		} else {
 			$data['append_post_content'] .= $this->removeAttributionLink( $section_license );
@@ -143,19 +143,31 @@ trait ExportHelpers {
 	 * @return string
 	 */
 	public function renderTocItem( $post_type, $data, $is_slug = true ) {
+
+		$subsections = [];
+
+		if ( Export::shouldParseSubsections() === true ) {
+
+			$sections = \Pressbooks\Book::getSubsections( $data['ID'] );
+
+			if ( $sections ) {
+				foreach ( $sections as $id => $subsection ) {
+					$subsections[] = [
+						'slug' => $is_slug ? "#{$id}" : "${data['href']}#{$id}",
+						'title' => Sanitize\decode( $subsection ),
+					];
+				}
+			}
+		}
+
 		return $this->blade->render('export/bullet-toc-item', array_merge(
 			$data,
 			[
+				'title' => Sanitize\decode( $data['title'] ),
+				'subclass' => trim( $data['subclass'] ) !== '' ? ' ' . $data['subclass'] : '', //css class space between toc item and subclasses
 				'post_type' => $post_type,
-				'href' => $is_slug ? '#'.$data['href'] : $data['href'],
-				'subsections' => Export::shouldParseSubsections() === true ? array_map(static function( $section ) use ($is_slug,$data) {
-					static $index = 0;
-					$index++;
-					return [
-						'slug' => $is_slug ? "#{$index}": "${data['href']}#{$index}", // if is_slug xhtml else epub
-						'title' => Sanitize\decode( $section ),
-					];
-				}, \Pressbooks\Book::getSubsections( $data['ID'] ) ) : [],
+				'href' => $is_slug ? '#' . $data['href'] : $data['href'],
+				'subsections' => $subsections,
 			]
 		));
 	}

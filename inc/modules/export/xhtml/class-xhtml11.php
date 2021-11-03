@@ -1176,7 +1176,7 @@ class Xhtml11 extends ExportGenerator {
 						'has_at_least_one_chapter' => $this->atLeastOneExport( $part['chapters'] ), // show in TOC
 						'item' => [
 							'is_epub' => false,
-							'slug' => $part_data['href'],
+							'slug' => '#' . $part_data['href'],
 							'title' => Sanitize\decode( $part_data['title'] ),
 						],
 					]);
