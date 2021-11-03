@@ -1522,7 +1522,7 @@ class Epub extends ExportGenerator {
 					[
 						'subclass' => $subclass,
 						'slug' => $slug,
-						'front-matter-number' => $i,
+						'front_matter_number' => $i,
 						'title' => Sanitize\decode( $title ),
 						'content' => $content,
 					]
