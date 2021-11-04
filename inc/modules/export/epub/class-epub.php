@@ -595,7 +595,6 @@ class Epub extends ExportGenerator {
 		}
 		$content = apply_filters( 'the_export_content', $content );
 		$content = str_ireplace( [ '<b></b>', '<i></i>', '<strong></strong>', '<em></em>' ], '', $content );
-		$content = $this->fixAnnoyingCharacters( $content );
 		$content = $this->tidy( $content );
 		return $content;
 	}
@@ -652,27 +651,6 @@ class Epub extends ExportGenerator {
 
 		yield 90 => $this->generatorPrefix . __( 'Validation successful', 'pressbooks' );
 		yield 100 => $this->generatorPrefix . __( 'Finishing up', 'pressbooks' );
-	}
-
-	/**
-	 * Fix annoying characters that the user probably didn't do on purpose
-	 *
-	 * @param string $html
-	 *
-	 * @return string
-	 */
-	function fixAnnoyingCharacters( $html ) {
-
-		// Do parent first
-		$html = parent::fixAnnoyingCharacters( $html );
-
-		// EPUB specific
-
-		// Adobe Digital Editions has problems with exotic dashes, that is to say if this were 1999...
-		// TODO: Some users want this, others do not want this, make up your mind...
-		// $html = str_replace( array( '–', '&#8211;', '—', '&#8212;', '‑' ), '-', $html ); @codingStandardsIgnoreLine
-
-		return $html;
 	}
 
 	/**

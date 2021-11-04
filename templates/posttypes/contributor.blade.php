@@ -23,8 +23,8 @@
 					@if ( !isset( $exporting ) )
 						<span class="screen-reader-text">website: </span>
 					@endif
-					<a href="{{ $contributor['contributor_user_url'] }}"
-							target="_blank">{{ $contributor['contributor_user_url'] }}
+					<a href="{{ $contributor['contributor_user_url'] }}" target="_blank">
+						{{ $contributor['contributor_user_url'] }}
 					</a>
 				</p>
 			@endif
