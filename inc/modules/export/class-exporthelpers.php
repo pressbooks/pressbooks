@@ -16,14 +16,13 @@ trait ExportHelpers {
 	/**
 	 * Map Book contents
 	 * This trait should be used in classes that are ExportGenerators (black magic traits stuff)
-	 * @param $post_data
-	 * @param $metadata
-	 * @param $post_number
-	 * @param  array  $options post_type,needs_sanitization,endnotes,footnotes
+	 * @param array $post_data
+	 * @param array $metadata
+	 * @param int $post_number
+	 * @param array $options post_type,needs_sanitization,endnotes,footnotes
 	 * @return array
 	 */
-	public function mapBookDataAndContent( $post_data, $metadata, $post_number, $options = [] ) {
-
+	public function mapBookDataAndContent( array $post_data, array $metadata, int $post_number, array $options = [] ) {
 		$post_type_identifier = $options['type'] ?? 'post';
 		$needs_tidy_html = $options['needs_tidy_html'] ?? false;
 		$endnotes = $options['endnotes'] ?? false;
@@ -38,14 +37,14 @@ trait ExportHelpers {
 		$taxonomy_method = "get{$method}Type";
 		$data['subclass'] = $this->taxonomy->{$taxonomy_method}( $post_data['ID'] );
 		$data['slug'] = $slug_as_href ? $post_data['post_name'] : "{$data['post_type_class']}-{$post_data['post_name']}";
-		$data['title'] = ( get_post_meta( $post_data['ID'], 'pb_show_title', true ) ? $post_data['post_title'] : '<span class="display-none">' . $post_data['post_title'] . '</span>' ); // Preserve auto-indexing in Prince using hidden span
+		$data['title'] = get_post_meta( $post_data['ID'], 'pb_show_title', true ) ? $post_data['post_title'] : '<span class="display-none">' . $post_data['post_title'] . '</span>'; // Preserve auto-indexing in Prince using hidden span
 		$data['content'] = $post_data['post_content'];
 		$data['append_post_content'] = apply_filters( "pb_append_{$post_type_identifier}_content", '', $post_data['ID'] );
 		$data['short_title'] = trim( get_post_meta( $post_data['ID'], 'pb_short_title', true ) );
 		$section_license = $this->doSectionLevelLicense( $metadata, $post_data['ID'] );
 
 		if ( $needs_tidy_html ) {
-			$data['content'] = $this->kneadHtml( $data['content'], $post_type_identifier, $post_type_identifier );
+			$data['content'] = $this->kneadHtml( $data['content'], $post_type_identifier, $post_number );
 			$data['append_post_content'] = $this->kneadHtml( apply_filters( "pb_append_{$post_type_identifier}_content", '', $post_data['ID'] ), $post_type_identifier, $post_number );
 			if ( $section_license ) {
 				$data['append_post_content'] .= $this->kneadHtml( $this->tidy( $section_license ), $post_type_identifier, $post_number );
