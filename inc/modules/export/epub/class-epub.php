@@ -1873,8 +1873,8 @@ class Epub extends ExportGenerator {
 	 * Uses $this->manifest to generate itself.
 	 *
 	 * @param array $metadata
-     *
-     * @return void
+	 *
+	 * @return void
 	 * @throws \Exception
 	 */
 	protected function renderToc( array $metadata ): void {
@@ -2666,6 +2666,7 @@ class Epub extends ExportGenerator {
 			throw new \Exception( '$this->manifest cannot be empty. Did you forget to call $this->createEPUB() ?' );
 		}
 
+		// TODO: this seems to not be used anywhere
 		$authors = '';
 		if ( isset( $metadata['pb_authors'] ) && ! empty( $metadata['pb_authors'] ) ) {
 			if ( is_array( $metadata['pb_authors'] ) ) {
@@ -2684,10 +2685,7 @@ class Epub extends ExportGenerator {
 			'lang' => $this->lang,
 		];
 
-		\Pressbooks\Utility\put_contents(
-			$this->tmpDir . '/EPUB/toc.xhtml',
-			$this->loadTemplate( $this->dir . '/templates/epub3/toc.php', $vars )
-		);
+		$this->createEpubFile( $this->generateFilename( 'toc' ), $vars, [ 'template' => 'toc' ] );
 	}
 
 	/**
@@ -2701,31 +2699,6 @@ class Epub extends ExportGenerator {
 		}
 
 		return false;
-	}
-
-	/**
-	 * Override load template function
-	 * Switch path from /epub201 to /epub3 when possible.
-	 *
-	 * @param string $path
-	 * @param array $vars (optional)
-	 *
-	 * @return string
-	 * @throws \Exception
-	 */
-	protected function loadTemplate( $path, array $vars = [] ) {
-		$search = '/templates/epub201/';
-		$replace = '/templates/epub3/';
-
-		$pos = strpos( $path, $search );
-		if ( false !== $pos ) {
-			$new_path = substr_replace( $path, $replace, $pos, strlen( $search ) );
-			if ( file_exists( $new_path ) ) {
-				$path = $new_path;
-			}
-		}
-
-		return parent::loadTemplate( $path, $vars );
 	}
 
 	/**
