@@ -13,6 +13,19 @@ use Pressbooks\Sanitize;
  * Reusable code between export routines
  */
 trait ExportHelpers {
+
+	/**
+	 * @param $post_type_identifier
+	 * @param $id
+	 * @return mixed
+	 */
+	public function getPostSubClass( $post_type_identifier, $id ) {
+		$method = studly_case( $post_type_identifier );
+		$taxonomy_method = "get{$method}Type";
+
+		return $this->taxonomy->{$taxonomy_method}( $id );
+	}
+
 	/**
 	 * Map Book contents
 	 * This trait should be used in classes that are ExportGenerators (black magic traits stuff)
@@ -33,9 +46,7 @@ trait ExportHelpers {
 			'id' => $post_data['ID'],
 		];
 		$data['post_type_class'] = str_replace( '_', '-', $post_type_identifier ); // This class is used to map with the SCSS class in buckram Ex: front-matter
-		$method = studly_case( $post_type_identifier );
-		$taxonomy_method = "get{$method}Type";
-		$data['subclass'] = $this->taxonomy->{$taxonomy_method}( $post_data['ID'] );
+		$data['subclass'] = $this->getPostSubClass( $post_type_identifier, $post_data['ID'] );
 		$data['slug'] = $slug_as_href ? $post_data['post_name'] : "{$data['post_type_class']}-{$post_data['post_name']}";
 		$data['title'] = get_post_meta( $post_data['ID'], 'pb_show_title', true ) ? $post_data['post_title'] : '<span class="display-none">' . $post_data['post_title'] . '</span>'; // Preserve auto-indexing in Prince using hidden span
 		$data['content'] = $post_data['post_content'];
@@ -45,9 +56,10 @@ trait ExportHelpers {
 
 		if ( $needs_tidy_html ) {
 			$data['content'] = $this->kneadHtml( $data['content'], $post_type_identifier, $post_number );
-			$data['append_post_content'] = $this->kneadHtml( apply_filters( "pb_append_{$post_type_identifier}_content", '', $post_data['ID'] ), $post_type_identifier, $post_number );
+
 			if ( $section_license ) {
-				$data['append_post_content'] .= $this->kneadHtml( $this->tidy( $section_license ), $post_type_identifier, $post_number );
+				$data['append_post_content'] .= $this->kneadHtml($this->tidy( $section_license ), $post_type_identifier,
+				$post_number);
 			}
 		} else {
 			$data['append_post_content'] .= $this->removeAttributionLink( $section_license );
@@ -77,7 +89,7 @@ trait ExportHelpers {
 	}
 
 	/**
-	 * @param array $book_contents
+	 * @param  array  $book_contents
 	 * @return int
 	 */
 	public function countPartsAndChapters( $book_contents ) {
@@ -88,5 +100,75 @@ trait ExportHelpers {
 		}
 
 		return $ticks;
+	}
+
+	/**
+	 * getPostInformation
+	 *
+	 * @param $post_type
+	 * @param $post
+	 * @param  null  $alias
+	 * @return array
+	 */
+	public function getPostInformation( $post_type, $post, $alias = null ) {
+		$prefix = $alias ?? $post_type;
+		return [
+			'ID' => $post['ID'],
+			'post_type' => $post_type,
+			'subclass' => $this->getPostSubClass( $post_type, $post['ID'] ),
+			'href' => $post['href'] ?? "{$prefix}-{$post['post_name']}",
+			'title' => Sanitize\strip_br( $post['post_title'] ),
+			'content' => $post['post_content'] ?? '',
+		];
+	}
+
+	/**
+	 * @param $post_type
+	 * @param $post
+	 * @return array
+	 */
+	public function getExtendedPostInformation( $post_type, $post ) {
+		$data = $this->getPostInformation( $post_type, $post );
+		$data['subtitle'] = trim( get_post_meta( $post['ID'], 'pb_subtitle', true ) );
+		$data['author'] = $this->contributors->get( $post['ID'], 'pb_authors' );
+		$data['license'] = $this->doTocLicense( $post['ID'] );
+
+		return $data;
+	}
+
+	/**
+	 * @param $post_type
+	 * @param $data
+	 * @param  bool  $is_slug
+	 * @return string
+	 */
+	public function renderTocItem( $post_type, $data, $is_slug = true ) {
+
+		$subsections = [];
+
+		if ( Export::shouldParseSubsections() === true ) {
+
+			$sections = \Pressbooks\Book::getSubsections( $data['ID'] );
+
+			if ( $sections ) {
+				foreach ( $sections as $id => $subsection ) {
+					$subsections[] = [
+						'slug' => $is_slug ? "#{$id}" : "${data['href']}#{$id}",
+						'title' => Sanitize\decode( $subsection ),
+					];
+				}
+			}
+		}
+
+		return $this->blade->render('export/bullet-toc-item', array_merge(
+			$data,
+			[
+				'title' => Sanitize\decode( $data['title'] ),
+				'subclass' => trim( $data['subclass'] ) !== '' ? ' ' . $data['subclass'] : '', //css class space between toc item and subclasses
+				'post_type' => $post_type,
+				'href' => $is_slug ? '#' . $data['href'] : $data['href'],
+				'subsections' => $subsections,
+			]
+		));
 	}
 }

@@ -1027,7 +1027,7 @@ class Epub extends ExportGenerator {
 		// Table of contents
 		// IMPORTANT: Do this last! Uses $this->manifest to generate itself
 		yield 70 => $this->generatorPrefix . __( 'Creating table of contents', 'pressbooks' );
-		$this->createToc( $book_contents, $metadata );
+		$this->renderToc( $metadata );
 	}
 
 	/**
@@ -1526,7 +1526,7 @@ class Epub extends ExportGenerator {
 					[
 						'subclass' => $subclass,
 						'slug' => $slug,
-						'front-matter-number' => $index,
+						'front_matter_number' => $index,
 						'title' => Sanitize\decode( $title ),
 						'content' => $content,
 					]
@@ -1872,12 +1872,12 @@ class Epub extends ExportGenerator {
 	/**
 	 * Uses $this->manifest to generate itself.
 	 *
-	 * @param array $book_contents
 	 * @param array $metadata
+     *
+     * @return void
 	 * @throws \Exception
 	 */
-	protected function createToc( $book_contents, $metadata ) {
-
+	protected function renderToc( array $metadata ): void {
 		$vars = [
 			'post_title' => '',
 			'stylesheet' => $this->stylesheet,
@@ -1901,105 +1901,74 @@ class Epub extends ExportGenerator {
 			],
 		] + array_slice( $this->manifest, $array_pos + 1, count( $this->manifest ) - 1, true );
 
-		// HTML
+		$chapters_count = 1; // Chapter count
+		$parts_count = 1; // Part count
+		$rendered_items = []; //TOC titles to be sent to the view
 
-		$li_count = 0;
-		$i = 1; // Chapter count
-		$m = 1; // Part count
-		$html = '<div id="toc"><h1>' . __( 'Contents', 'pressbooks' ) . '</h1><ul>';
 		foreach ( $this->manifest as $k => $v ) {
 
-			// We only care about front-matter, part, chapter, back-matter
-			// Skip the rest
+			$query_data = array_merge( $v, [ 'href' => $v['filename'] ] );
 
-			$subtitle = '';
-			$author = '';
-			$license = '';
-			$title = Sanitize\strip_br( $v['post_title'] );
-			if ( preg_match( '/^front-matter-/', $k ) ) {
-				$class = 'front-matter ';
-				$class .= $this->taxonomy->getFrontMatterType( $v['ID'] );
-				$subtitle = trim( get_post_meta( $v['ID'], 'pb_subtitle', true ) );
-				$author = $this->contributors->get( $v['ID'], 'pb_authors' );
-				$license = $this->doTocLicense( $v['ID'] );
-			} elseif ( preg_match( '/^part-/', $k ) ) {
-				$class = 'part';
-				if ( get_post_meta( $v['ID'], 'pb_part_invisible', true ) === 'on' ) {
-					$class .= ' display-none';
-				} else {
-					/**
-					 * Filter the label used for post types (front matter/parts/chapters/back matter) in the TOC and section headings.
-					 *
-					 * @since 5.6.0
-					 *
-					 * @param string $label
-					 * @param array $args
-					 *
-					 * @return string Filtered label
-					 */
-					$title = ( $this->numbered ? apply_filters( 'pb_post_type_label', __( 'Part', 'pressbooks' ), [ 'post_type' => 'part' ] ) . ' ' . \Pressbooks\L10n\romanize( $m ) . '. ' : '' ) . $title;
-					$m++;
-				}
-			} elseif ( preg_match( '/^chapter-/', $k ) ) {
-				$class = implode( ' ', [ 'chapter', $this->taxonomy->getChapterType( $v['ID'] ) ] );
-				$subtitle = trim( get_post_meta( $v['ID'], 'pb_subtitle', true ) );
-				$author = $this->contributors->get( $v['ID'], 'pb_authors' );
-				$license = $this->doTocLicense( $v['ID'] );
-				if ( $this->numbered && $this->taxonomy->getChapterType( $v['ID'] ) !== 'numberless' ) {
-					$title = " $i. " . $title;
-				}
-				if ( $this->taxonomy->getChapterType( $v['ID'] ) !== 'numberless' ) {
-					++$i;
-				}
-			} elseif ( preg_match( '/^back-matter-/', $k ) ) {
-				$class = 'back-matter ';
-				$class .= $this->taxonomy->getBackMatterType( $v['ID'] );
-				$subtitle = trim( get_post_meta( $v['ID'], 'pb_subtitle', true ) );
-				$author = $this->contributors->get( $v['ID'], 'pb_authors' );
-				$license = $this->doTocLicense( $v['ID'] );
-			} else {
-				continue;
-			}
+			if ( 0 === strpos( $k, 'part-' ) ) { //Process parts
 
-			$html .= sprintf( '<li class="%s"><a href="%s"><span class="toc-chapter-title">%s</span>', $class, $v['filename'], Sanitize\decode( $title ) );
+				$data = $this->getPostInformation( 'chapter', $query_data, 'part' );
 
-			if ( $subtitle ) {
-				$html .= ' <span class="chapter-subtitle">' . Sanitize\decode( $subtitle ) . '</span>';
-			}
+				/**
+				 * Filter the label used for post types (front matter/parts/chapters/back matter) in the TOC and section headings.
+				 *
+				 * @since 5.6.0
+				 *
+				 * @param string $label
+				 * @param array $args
+				 *
+				 * @return string Filtered label
+				 */
+				$is_visible = get_post_meta( $data['ID'], 'pb_part_invisible', true ) !== 'on';
+				$rendered_items[] = $this->blade->render('export/bullet-toc-part', [
+					'bullet_class' => 'part',
+					'is_visible' => $is_visible,
+					'has_content' => true, // show in TOC by default in epub
+					'has_at_least_one_chapter' => true, // show in TOC by default in epub
+					'item' => [
+						'is_epub' => true,
+						'slug' => $data['href'],
+						'title' => ( $this->numbered && $is_visible ? apply_filters('pb_post_type_label', __( 'Part', 'pressbooks' ),
+						[ 'post_type' => 'part' ]) . ' ' . \Pressbooks\L10n\romanize( $parts_count ) . '. ' : '' ) . $data['title'],
+					],
+				]);
 
-			if ( $author ) {
-				$html .= ' <span class="chapter-author">' . Sanitize\decode( $author ) . '</span>';
-			}
+				$parts_count = $is_visible ? ++$parts_count : $parts_count;
 
-			if ( $license ) {
-				$html .= ' <span class="chapter-license">' . $license . '</span> ';
-			}
+			} elseif ( 0 === strpos( $k, 'front-matter-' ) || 0 === strpos($k,
+			'back-matter-') ) { //Process front/back matters
 
-			$html .= '</a>';
+				$type = 0 === strpos( $k, 'front-matter-' ) ? 'front-matter' : 'back-matter';
 
-			if ( Export::shouldParseSubsections() === true && $class !== 'part' ) {
-				$sections = Book::getSubsections( $v['ID'] );
-				if ( $sections ) {
-					$html .= '<ul class="sections">';
-					foreach ( $sections as $id => $section_title ) {
-						$html .= '<li class="section"><a href="' . $v['filename'] . '#' . $id . '"><span class="toc-subsection-title">' . Sanitize\decode( $section_title ) . '</span></a></li>';
+				$matter_data = $this->getExtendedPostInformation( $type, $query_data );
+
+				$rendered_items[] = $this->renderTocItem( $type, $matter_data, false );
+
+			} elseif ( 0 === strpos( $k, 'chapter-' ) ) { //Process chapters
+
+				$chapter_data = $this->getExtendedPostInformation( 'chapter', $query_data );
+
+				$chapter_type = $this->taxonomy->getChapterType( $chapter_data['ID'] );
+
+				if ( 'numberless' !== $chapter_type ) {
+					$chapter_data['title'] = "${chapters_count}. ${chapter_data['title']}";
+					if ( $this->numbered ) {
+						$chapters_count++;
 					}
-					$html .= '</ul>';
 				}
+
+				$rendered_items[] = $this->renderTocItem( 'chapter', $chapter_data, false );
 			}
-
-			$html .= "</li>\n";
-			++$li_count;
-
 		}
-		if ( 0 === $li_count ) {
-			$html .= '<li></li>';
-		}
-		$html .= "</ul></div>\n";
 
-		// Create file
-
-		$vars['post_content'] = $html;
+		$vars['post_content'] = $this->blade->render('export/toc', [
+			'title' => __( 'Contents', 'pressbooks' ),
+			'toc' => $rendered_items,
+		]);
 
 		$this->createEpubFile( $filename, $vars );
 	}
