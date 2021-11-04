@@ -215,6 +215,10 @@ function decode( $slug ) {
 	return $slug;
 }
 
+function space_to_numerical_html_entity( string $string ) {
+	return str_replace( '&nbsp;', '&#160;', $string );
+}
+
 /**
  * Strip <br /> tags.
  *

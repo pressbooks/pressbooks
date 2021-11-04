@@ -1728,7 +1728,7 @@ class Epub extends ExportGenerator {
 						'output_short_title' => false,
 						'author' => $chapter_author,
 						'subtitle' => $chapter_subtitle,
-						'content' => $chapter_content,
+						'content' => Sanitize\space_to_numerical_html_entity( $chapter_content ),
 						'append_content' => $append_chapter_content,
 					]
 				);
@@ -1833,9 +1833,10 @@ class Epub extends ExportGenerator {
 				'type' => 'back_matter',
 				'needs_tidy_html' => true,
 				'slug_as_href' => true, // we want the slugs to be proper anchors in the EPUB export
+				'remove_hidden_title_span' => true,
 			] );
 
-			$vars['post_title'] = $data['title'];
+			$vars['post_title'] = Sanitize\decode( $data['title'] );
 
 			$vars['post_content'] = $this->blade->render( 'export/generic-post-type', $data );
 
