@@ -29,14 +29,13 @@ trait ExportHelpers {
 	/**
 	 * Map Book contents
 	 * This trait should be used in classes that are ExportGenerators (black magic traits stuff)
-	 *
-	 * @param $post_data
-	 * @param $metadata
-	 * @param $post_number
-	 * @param  array  $options  post_type,needs_sanitization,endnotes,footnotes
+	 * @param array $post_data
+	 * @param array $metadata
+	 * @param int $post_number
+	 * @param array $options post_type,needs_sanitization,endnotes,footnotes
 	 * @return array
 	 */
-	public function mapBookDataAndContent( $post_data, $metadata, $post_number, $options = [] ) {
+	public function mapBookDataAndContent( array $post_data, array $metadata, int $post_number, array $options = [] ) {
 		$post_type_identifier = $options['type'] ?? 'post';
 		$needs_tidy_html = $options['needs_tidy_html'] ?? false;
 		$endnotes = $options['endnotes'] ?? false;
@@ -60,7 +59,8 @@ trait ExportHelpers {
 		$section_license = $this->doSectionLevelLicense( $metadata, $post_data['ID'] );
 
 		if ( $needs_tidy_html ) {
-			$data['content'] = $this->kneadHtml( $data['content'], $post_type_identifier, $post_type_identifier );
+			$data['content'] = $this->kneadHtml( $data['content'], $post_type_identifier, $post_number );
+
 			if ( $section_license ) {
 				$data['append_post_content'] .= $this->kneadHtml($this->tidy( $section_license ), $post_type_identifier,
 				$post_number);
