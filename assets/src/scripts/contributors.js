@@ -1,5 +1,16 @@
 /* global pictureSize */
 jQuery( function ( $ ) {
+	/**
+	 * @param selector
+	 * @param id
+	 */
+	const addAriaDescribedBy = function ( selector, id ) {
+		const input = jQuery( selector );
+
+		input.attr( 'aria-describedby', id );
+		input.parent().find( 'p' ).attr( 'id', id );
+	};
+
 	const minPictureSize = parseInt( pictureSize.min ),
 		contributorPictureElement = jQuery( '#contributor-picture' ),
 		contributorPictureThumbnailElement = jQuery( '#contributor-picture-thumbnail' );
@@ -8,6 +19,12 @@ jQuery( function ( $ ) {
 	 * Add read only property for slug input
 	 */
 	jQuery( '#slug' ).attr( 'readonly', true );
+
+	addAriaDescribedBy( '#tag-name', 'name-description' );
+	addAriaDescribedBy( '#name', 'name-description' );
+	addAriaDescribedBy( '#tag-slug', 'slug-description' );
+	addAriaDescribedBy( '#slug', 'slug-description' );
+	addAriaDescribedBy( '#btn-media', 'media-description' );
 
 	/**
 	 * Return whether the image must be cropped, based on required dimensions.
