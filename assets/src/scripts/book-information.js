@@ -1,17 +1,7 @@
+import addAriaDescribedBy from './utils/addAriaDescribedBy';
+
 /* global PB_BookInfoToken */
-
 jQuery( document ).ready( function ( $ ) {
-	/**
-	 * @param selector
-	 * @param id
-	 */
-	const addAriaDescribedBy = function ( selector, id ) {
-		const input = jQuery( selector );
-
-		input.attr( 'aria-describedby', id );
-		input.parent().parent().find( 'span[class=description]' ).attr( 'id', id );
-	};
-
 	const inputs = [
 		'pb_short_title', 'pb_publisher', 'pb_publisher_city', 'pb_publication_date', 'pb_onsale_date', 'pb_ebook_isbn',
 		'pb_print_isbn', 'pb_language', 'pb_cover_image', 'primary-subject', 'additional-subjects', 'pb_is_based_on',
@@ -21,7 +11,7 @@ jQuery( document ).ready( function ( $ ) {
 	];
 
 	for ( let input of inputs ) {
-		addAriaDescribedBy( '#' + input, input + '_description' );
+		addAriaDescribedBy( `#${input}`, 'span[class=description]', `${input}_description` );
 	}
 
 	// Set an initial focus to help users of assistive technology

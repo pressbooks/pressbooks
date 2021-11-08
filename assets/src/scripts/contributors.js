@@ -1,16 +1,7 @@
+import addAriaDescribedBy from './utils/addAriaDescribedBy';
+
 /* global pictureSize */
 jQuery( function ( $ ) {
-	/**
-	 * @param selector
-	 * @param id
-	 */
-	const addAriaDescribedBy = function ( selector, id ) {
-		const input = jQuery( selector );
-
-		input.attr( 'aria-describedby', id );
-		input.parent().find( 'p' ).attr( 'id', id );
-	};
-
 	const minPictureSize = parseInt( pictureSize.min ),
 		contributorPictureElement = jQuery( '#contributor-picture' ),
 		contributorPictureThumbnailElement = jQuery( '#contributor-picture-thumbnail' );
@@ -20,11 +11,13 @@ jQuery( function ( $ ) {
 	 */
 	jQuery( '#slug' ).attr( 'readonly', true );
 
-	addAriaDescribedBy( '#tag-name', 'name-description' );
-	addAriaDescribedBy( '#name', 'name-description' );
-	addAriaDescribedBy( '#tag-slug', 'slug-description' );
-	addAriaDescribedBy( '#slug', 'slug-description' );
-	addAriaDescribedBy( '#btn-media', 'media-description' );
+	const inputs = [
+		'tag-name', 'name', 'tag-slug', 'slug', 'btn-media',
+	];
+
+	for ( let input of inputs ) {
+		addAriaDescribedBy( `#${input}`, 'p', `${input}-description` );
+	}
 
 	/**
 	 * Return whether the image must be cropped, based on required dimensions.
