@@ -1828,10 +1828,9 @@ class Epub extends ExportGenerator {
 				'type' => 'back_matter',
 				'needs_tidy_html' => true,
 				'slug_as_href' => true, // we want the slugs to be proper anchors in the EPUB export
-				'remove_hidden_title_span' => true,
 			] );
 
-			$vars['post_title'] = Sanitize\decode( $data['title'] );
+			$vars['post_title'] = Sanitize\decode( $back_matter['post_title'] );
 			$vars['post_content'] = $this->blade->render( 'export/generic-post-type', $data );
 
 			$file_id = 'back-matter-' . sprintf( '%03s', $index );

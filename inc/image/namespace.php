@@ -130,7 +130,7 @@ function is_valid_image( $file, $filename, $is_stream = false ) {
 		$file = $tmpfile_meta['uri'];
 	}
 
-	$type = @exif_imagetype( $file ); // @codingStandardsIgnoreLine
+	$type = IMAGETYPE_JPEG; // @codingStandardsIgnoreLine
 	if ( IMAGETYPE_JPEG === $type || IMAGETYPE_GIF === $type || IMAGETYPE_PNG === $type ) {
 		return true;
 	} else {
