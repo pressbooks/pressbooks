@@ -1,6 +1,26 @@
 // This script is loaded when a user is on the [ Theme Options ] page
 
 jQuery( function ( $ ) {
+	/**
+	 * @param selector
+	 * @param id
+	 */
+	const addAriaDescribedBy = function ( selector, id ) {
+		const input = jQuery( selector );
+
+		input.attr( 'aria-describedby', id );
+		input.parent().find( 'p[class=description]' ).attr( 'id', id );
+	};
+
+	const inputs = [
+		'part_label', 'chapter_label', 'enable_source_comparison', 'pdf_body_font_size', 'pdf_page_margin_outside',
+		'pdf_page_margin_inside', 'pdf_page_margin_top', 'pdf_page_margin_bottom', 'ebook_start_point',
+	];
+
+	for ( let input of inputs ) {
+		addAriaDescribedBy( '#' + input, input + '_description' );
+	}
+
 	$( '.select2' ).select2();
 	$( '.color-picker' ).wpColorPicker();
 	let chapter_numbers = $( '#chapter_numbers' );
