@@ -41,7 +41,6 @@ trait ExportHelpers {
 		$endnotes = $options['endnotes'] ?? false;
 		$footnotes = $options['footnotes'] ?? false;
 		$slug_as_href = $options['slug_as_href'] ?? false;
-		$remove_hidden_title_span = $options['remove_hidden_title_span'] ?? false;
 
 		$data = [
 			'id' => $post_data['ID'],
@@ -49,10 +48,7 @@ trait ExportHelpers {
 		$data['post_type_class'] = str_replace( '_', '-', $post_type_identifier ); // This class is used to map with the SCSS class in buckram Ex: front-matter
 		$data['subclass'] = $this->getPostSubClass( $post_type_identifier, $post_data['ID'] );
 		$data['slug'] = $slug_as_href ? $post_data['post_name'] : "{$data['post_type_class']}-{$post_data['post_name']}";
-		$data['title'] = $post_data['post_title'];
-		if ( ! get_post_meta( $post_data['ID'], 'pb_show_title', true ) ) {
-			$data['title'] = $remove_hidden_title_span ? '' : '<span class="display-none">' . $post_data['post_title'] . '</span>';
-		}
+		$data['title'] = get_post_meta( $post_data['ID'], 'pb_show_title', true ) ? $post_data['post_title'] : '';
 		$data['content'] = $post_data['post_content'];
 		$data['append_post_content'] = apply_filters( "pb_append_{$post_type_identifier}_content", '', $post_data['ID'] );
 		$data['short_title'] = trim( get_post_meta( $post_data['ID'], 'pb_short_title', true ) );
