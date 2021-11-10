@@ -31,6 +31,8 @@ use Pressbooks\Utility\PercentageYield;
 class Epub extends ExportGenerator {
 	use ExportHelpers;
 
+	const VERSION = '3.2';
+
 	/**
 	 * @var array
 	 */
@@ -159,11 +161,6 @@ class Epub extends ExportGenerator {
 	 * @var bool
 	 */
 	protected $compressImages = false;
-
-	/**
-	 * @var string
-	 */
-	protected $version = '3.2';
 
 	/**
 	 * @var string
@@ -384,7 +381,7 @@ class Epub extends ExportGenerator {
 			$this->fixme[ $val ] = 1;
 		}
 
-		$this->generatorPrefix = sprintf( __( 'EPUB %s: ', 'pressbooks' ), $this->version );
+		$this->generatorPrefix = sprintf( __( 'EPUB %s: ', 'pressbooks' ), self::VERSION );
 	}
 
 	/**
@@ -515,7 +512,7 @@ class Epub extends ExportGenerator {
 
 		// Set two letter language code
 		if ( isset( $metadata['pb_language'] ) ) {
-			[$this->lang] = explode( '-', $metadata['pb_language'] );
+			[ $this->lang ] = explode( '-', $metadata['pb_language'] );
 		}
 
 		try {
@@ -541,11 +538,11 @@ class Epub extends ExportGenerator {
 	}
 
 	/**
-	 * @param $book_contents
+	 * @param array $book_contents
 	 *
-	 * @return mixed
+	 * @return array
 	 */
-	protected function preProcessBookContents( $book_contents ) {
+	protected function preProcessBookContents( array $book_contents ): array {
 		// We need to change global $id for shortcodes, the_content, ...
 		global $id;
 		$old_id = $id;
@@ -610,8 +607,7 @@ class Epub extends ExportGenerator {
 		}
 		$content = apply_filters( 'the_export_content', $content );
 		$content = str_ireplace( [ '<b></b>', '<i></i>', '<strong></strong>', '<em></em>' ], '', $content );
-		$content = $this->tidy( $content );
-		return $content;
+		return $this->tidy( $content );
 	}
 
 	/*
@@ -673,9 +669,9 @@ class Epub extends ExportGenerator {
 	 *
 	 * @param string $file
 	 *
-	 * @return mixed|string
+	 * @return string
 	 */
-	public function mediaType( string $file ) {
+	public function mediaType( string $file ): string {
 
 		$mime = static::mimeType( $file );
 		$mime = explode( ';', $mime );
@@ -873,7 +869,7 @@ class Epub extends ExportGenerator {
 			'unique_ids' => 0,
 		];
 
-		return \Pressbooks\HtmLawed::filter( $html, $config );
+		return HtmLawed::filter( $html, $config );
 	}
 
 	/**

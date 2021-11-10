@@ -276,34 +276,6 @@ function update_pins() {
 }
 
 /**
- * Create meta tags for all the contributors.
- *
- * @param string $contributor_string
- * @param int $index
- * @param string $role
- * @return string
- */
-function get_epub_contributor_meta( $contributor_string, &$index, $role ) {
-	$contributors = \Pressbooks\Utility\explode_remove_and( ';', $contributor_string );
-	$buffer = '';
-
-	foreach ( $contributors as $contributor ) {
-		$contributor_number = $index;
-		if ( $index < 10 ) {
-			$contributor_number = str_pad( $index, 2, '0', STR_PAD_LEFT );
-		}
-		$type = $role === 'ctb' ? 'contributor' : 'creator';
-		$buffer .= "<dc:{$type} id='{$type}{$contributor_number}'>{$contributor}</dc:{$type}>\n";
-		$buffer .= "<meta refines='#{$type}{$contributor_number}' property='role' scheme='marc:relators'>{$role}</meta>\n";
-		// TODO: add file-as if possible
-		// echo "<meta refines='#creator{$contributor_number}' property='file-as'>last name, first name</meta>";
-		$index++;
-	}
-
-	return $buffer;
-}
-
-/**
  * Get the HTML for "About the Authors" section given a chapter ID.
  *
  * @param $post_id Integer
