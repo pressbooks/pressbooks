@@ -150,6 +150,7 @@ class H5P {
 				// Do nothing
 			}
 		}
+
 		// HTML
 		return $this->blade->render(
 			'interactive.h5p', [
