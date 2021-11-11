@@ -57,7 +57,8 @@
 		"codeception/module-filesystem": "^1.0",
 		"codeception/module-cli": "^1.1",
 		"codeception/util-universalframework": "^1.0",
-		"lucatume/wp-browser": "^3.0"
+		"lucatume/wp-browser": "^3.0",
+		"yoast/phpunit-polyfills": "^1.0"
 	},
 	"suggest": {
 		"pressbooks/pressbooks-book":
