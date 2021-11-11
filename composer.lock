@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "01ccdfd28f2aa781dab951bf001e12ff",
+    "content-hash": "29029194694a851c7aab6d75d4160e76",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -54,16 +54,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.200.0",
+            "version": "3.201.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "9b3f45c51fe1d07845446675109bb0a8a98c806e"
+                "reference": "d2bb0296a3fe62fbc975075d7b06c41002a6517d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/9b3f45c51fe1d07845446675109bb0a8a98c806e",
-                "reference": "9b3f45c51fe1d07845446675109bb0a8a98c806e",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/d2bb0296a3fe62fbc975075d7b06c41002a6517d",
+                "reference": "d2bb0296a3fe62fbc975075d7b06c41002a6517d",
                 "shasum": ""
             },
             "require": {
@@ -136,7 +136,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2021-11-04T18:42:25+00:00"
+            "time": "2021-11-09T19:28:28+00:00"
         },
         {
             "name": "composer/installers",
@@ -3531,16 +3531,16 @@
         },
         {
             "name": "lucatume/wp-browser",
-            "version": "3.0.12",
+            "version": "3.0.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lucatume/wp-browser.git",
-                "reference": "f6e8d3b38e2b457057262d414a1a69270521dcbd"
+                "reference": "098ba7b6efc880624a504423ad9ce4fdec69f923"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lucatume/wp-browser/zipball/f6e8d3b38e2b457057262d414a1a69270521dcbd",
-                "reference": "f6e8d3b38e2b457057262d414a1a69270521dcbd",
+                "url": "https://api.github.com/repos/lucatume/wp-browser/zipball/098ba7b6efc880624a504423ad9ce4fdec69f923",
+                "reference": "098ba7b6efc880624a504423ad9ce4fdec69f923",
                 "shasum": ""
             },
             "require": {
@@ -3549,7 +3549,6 @@
                 "codeception/codeception": "^2.5 || ^3.0 || ^4.0",
                 "dg/mysql-dump": "^1.3",
                 "ext-fileinfo": "*",
-                "ext-iconv": "*",
                 "ext-json": "*",
                 "ext-pdo": "*",
                 "mikehaertl/php-shellcommand": "^1.6",
@@ -3617,7 +3616,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-10-30T16:28:12+00:00"
+            "time": "2021-11-08T09:01:44+00:00"
         },
         {
             "name": "mikehaertl/php-shellcommand",
@@ -7051,6 +7050,67 @@
                 "wordpress"
             ],
             "time": "2020-02-04T02:52:06+00:00"
+        },
+        {
+            "name": "yoast/phpunit-polyfills",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Yoast/PHPUnit-Polyfills.git",
+                "reference": "1a582ab1d91e86aa450340c4d35631a85314ff9f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Yoast/PHPUnit-Polyfills/zipball/1a582ab1d91e86aa450340c4d35631a85314ff9f",
+                "reference": "1a582ab1d91e86aa450340c4d35631a85314ff9f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4",
+                "phpunit/phpunit": "^4.8.36 || ^5.7.21 || ^6.0 || ^7.0 || ^8.0 || ^9.0"
+            },
+            "require-dev": {
+                "yoast/yoastcs": "^2.2.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "1.x-dev",
+                    "dev-develop": "1.x-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "phpunitpolyfills-autoload.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Team Yoast",
+                    "email": "support@yoast.com",
+                    "homepage": "https://yoast.com"
+                },
+                {
+                    "name": "Contributors",
+                    "homepage": "https://github.com/Yoast/PHPUnit-Polyfills/graphs/contributors"
+                }
+            ],
+            "description": "Set of polyfills for changed PHPUnit functionality to allow for creating PHPUnit cross-version compatible tests",
+            "homepage": "https://github.com/Yoast/PHPUnit-Polyfills",
+            "keywords": [
+                "phpunit",
+                "polyfill",
+                "testing"
+            ],
+            "support": {
+                "issues": "https://github.com/Yoast/PHPUnit-Polyfills/issues",
+                "source": "https://github.com/Yoast/PHPUnit-Polyfills"
+            },
+            "time": "2021-10-03T08:40:26+00:00"
         },
         {
             "name": "zordius/lightncandy",
