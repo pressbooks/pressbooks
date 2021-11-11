@@ -312,18 +312,19 @@ class Content {
 		foreach ( $tags as $tag ) {
 			// Replace
 			$elements = $dom->getElementsByTagName( $tag );
-			$element_number = 1;
-			foreach ( $elements as $element ) {
-				$html = $this->blade->render(
+			$element_number = $elements->length;
+			for ( $i = $elements->length; --$i >= 0; ) {
+				$element = $elements->item( $i );
+				$template = $this->blade->render(
 					"interactive.{$tag}", [
 						'title' => $this->getTitle( $id ),
 						'url' => wp_get_shortlink( $id ),
 						'id' => "$tag-$id-$element_number",
 					]
 				);
-				$fragment = $html5->parser->loadHTMLFragment( $html );
+				$fragment = $html5->parser->loadHTMLFragment( $template );
 				$element->parentNode->replaceChild( $dom->importNode( $fragment, true ), $element );
-				$element_number ++;
+				$element_number --;
 			}
 		}
 

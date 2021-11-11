@@ -106,6 +106,8 @@ class Interactive_ContentTest extends \WP_UnitTestCase {
 	 * @group interactivecontent
 	 */
 	public function test_replaceInteractiveTags() {
+		global $id;
+		$id = 2;
 
 		$html = '
 			<audio controls="controls">
@@ -118,6 +120,8 @@ class Interactive_ContentTest extends \WP_UnitTestCase {
 		$this->assertNotContains( '<audio', $result );
 		$this->assertContains( '<div ', $result );
 		$this->assertContains( 'excluded from this version of the text', $result );
+		$this->assertContains( 'href="#audio-2-1"', $result );
+		$this->assertContains( '>#audio-2-1</a>', $result );
 	}
 
 	/**
