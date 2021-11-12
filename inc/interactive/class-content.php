@@ -310,20 +310,21 @@ class Content {
 		$html5 = new HtmlParser();
 		$dom = $html5->loadHTML( $html );
 		foreach ( $tags as $tag ) {
-			// Load blade template based on $tag
-			$html = $this->blade->render(
-				"interactive.{$tag}", [
-					'title' => $this->getTitle( $id ),
-					'url' => wp_get_shortlink( $id ),
-				]
-			);
-			$fragment = $html5->parser->loadHTMLFragment( $html );
-
 			// Replace
 			$elements = $dom->getElementsByTagName( $tag );
-			for ( $i = $elements->length; --$i >= 0; ) {  // If you're deleting elements from within a loop, you need to loop backwards
-				$iframe = $elements->item( $i );
-				$iframe->parentNode->replaceChild( $dom->importNode( $fragment, true ), $iframe );
+			$element_number = $elements->length;
+			for ( $i = $elements->length; --$i >= 0; ) {
+				$element = $elements->item( $i );
+				$template = $this->blade->render(
+					"interactive.{$tag}", [
+						'title' => $this->getTitle( $id ),
+						'url' => wp_get_shortlink( $id ),
+						'id' => "$tag-$id-$element_number",
+					]
+				);
+				$fragment = $html5->parser->loadHTMLFragment( $template );
+				$element->parentNode->replaceChild( $dom->importNode( $fragment, true ), $element );
+				$element_number --;
 			}
 		}
 
