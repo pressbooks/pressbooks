@@ -54,16 +54,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.202.0",
+            "version": "3.202.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "da75964c7ca13755337ddd63a4b643cb43f0ead0"
+                "reference": "59ee4506f7f2b2f0f1de4b60ab2c1b8294c7afcd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/da75964c7ca13755337ddd63a4b643cb43f0ead0",
-                "reference": "da75964c7ca13755337ddd63a4b643cb43f0ead0",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/59ee4506f7f2b2f0f1de4b60ab2c1b8294c7afcd",
+                "reference": "59ee4506f7f2b2f0f1de4b60ab2c1b8294c7afcd",
                 "shasum": ""
             },
             "require": {
@@ -136,7 +136,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2021-11-10T19:14:14+00:00"
+            "time": "2021-11-11T19:15:25+00:00"
         },
         {
             "name": "composer/installers",
@@ -7107,10 +7107,6 @@
                 "polyfill",
                 "testing"
             ],
-            "support": {
-                "issues": "https://github.com/Yoast/PHPUnit-Polyfills/issues",
-                "source": "https://github.com/Yoast/PHPUnit-Polyfills"
-            },
             "time": "2021-10-03T08:40:26+00:00"
         },
         {
