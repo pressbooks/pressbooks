@@ -22,6 +22,8 @@ class Interactive_PhetTest extends \WP_UnitTestCase {
 	 */
 	public function test_registerEmbedHandlerForWeb() {
 		global $wp_embed;
+		global $id;
+		$id = 2;
 		unset( $wp_embed->handlers[10][ $this->phet::EMBED_ID ] );
 		$this->phet->registerEmbedHandlerForWeb();
 		$this->assertNotEmpty( $wp_embed->handlers[10][ $this->phet::EMBED_ID ] );
@@ -32,6 +34,8 @@ class Interactive_PhetTest extends \WP_UnitTestCase {
 	 */
 	public function test_registerEmbedHandlerForExport() {
 		global $wp_embed;
+		global $id;
+		$id = 2;
 		unset( $wp_embed->handlers[10][ $this->phet::EMBED_ID ] );
 		$this->phet->registerEmbedHandlerForExport();
 		$this->assertNotEmpty( $wp_embed->handlers[10][ $this->phet::EMBED_ID ] );
