@@ -16,6 +16,8 @@ class Phet {
 	 */
 	protected $blade;
 
+	protected $iframes_counter = [];
+
 	/**
 	 * @param \Jenssegers\Blade\Blade $blade
 	 */
@@ -31,9 +33,16 @@ class Phet {
 			self::EMBED_ID,
 			self::EMBED_URL_REGEX,
 			function ( $matches, $attr, $url, $rawattr ) {
+				global $id; // This is the Post ID, [@see WP_Query::setup_postdata, ...]
+				if ( isset( $this->iframes_counter[ $id ] ) ) {
+					$this->iframes_counter[ $id ] ++;
+				} else {
+					$this->iframes_counter[ $id ] = 1;
+				}
 				$embed = sprintf(
-					'<iframe src="https://phet.colorado.edu/sims/html/%1$s" width="800" height="600" scrolling="no" allowfullscreen></iframe>',
-					esc_attr( $matches[1] )
+					'<iframe id="iframe-phet-%2$s" src="https://phet.colorado.edu/sims/html/%1$s" width="800" height="600" scrolling="no" allowfullscreen></iframe>',
+					esc_attr( $matches[1] ),
+					$this->iframes_counter[ $id ]
 				);
 				return apply_filters( 'embed_' . self::EMBED_ID, $embed, $matches, $attr, $url, $rawattr );
 			}
@@ -49,10 +58,17 @@ class Phet {
 			self::EMBED_URL_REGEX,
 			function ( $matches, $attr, $url, $rawattr ) {
 				global $id; // This is the Post ID, [@see WP_Query::setup_postdata, ...]
+				if ( isset( $this->iframes_counter[ $id ] ) ) {
+					$this->iframes_counter[ $id ] ++;
+				} else {
+					$this->iframes_counter[ $id ] = 1;
+				}
 				$embed = $this->blade->render(
-					'interactive.shared', [
+					'interactive.media', [
 						'title' => get_the_title( $id ),
 						'url' => wp_get_shortlink( $id ),
+						'tag' => 'iframe',
+						'id' => 'iframe-phet-' . $this->iframes_counter[ $id ],
 					]
 				);
 				return apply_filters( 'embed_' . self::EMBED_ID, $embed, $matches, $attr, $url, $rawattr );

@@ -97,8 +97,6 @@ class Interactive_ContentTest extends \WP_UnitTestCase {
 
 		$this->assertNotContains( '<iframe', $result );
 		$this->assertContains( '<div ', $result );
-		$this->assertContains( $data->provider_name, $result );
-		$this->assertContains( $data->thumbnail_url, $result );
 		$this->assertContains( 'excluded from this version of the text', $result );
 	}
 

@@ -49,6 +49,16 @@ class Content {
 	protected $phet;
 
 	/**
+	 * @var array
+	 */
+	protected $oembeds = [];
+
+	/**
+	 * @var array
+	 */
+	protected $iframes = [];
+
+	/**
 	 * @return Content
 	 */
 	static public function init() {
@@ -73,7 +83,7 @@ class Content {
 		// @see https://codex.wordpress.org/Embeds/
 		add_action( 'init', [ $obj, 'registerEmbedHandlers' ] );
 		add_filter( 'oembed_providers', [ $obj, 'addExtraOembedProviders' ] );
-		add_filter( 'oembed_result', [ $obj, 'adjustOembeds' ], 10, 3 );
+		add_filter( 'embed_oembed_html', [ $obj, 'adjustOembeds' ], 10, 3 );
 		add_action( 'save_post', [ $obj, 'deleteOembedCaches' ] );
 		add_filter( 'mejs_settings', [ $obj, 'mediaElementConfiguration' ] );
 
@@ -190,23 +200,25 @@ class Content {
 		}
 
 		global $id; // This is the Post ID, [@see WP_Query::setup_postdata, ...]
-
 		$html5 = new HtmlParser();
 		$dom = $html5->loadHTML( $content );
-
-		$html = $this->blade->render(
-			'interactive.shared', [
-				'title' => $this->getTitle( $id ),
-				'url' => wp_get_shortlink( $id ),
-			]
-		);
-		$fragment = $html5->parser->loadHTMLFragment( $html );
-
 		$elements = $dom->getElementsByTagName( 'iframe' );
+		$title = $this->getTitle( $id );
+		$url = wp_get_shortlink( $id );
 		for ( $i = $elements->length; --$i >= 0; ) {  // If you're deleting elements from within a loop, you need to loop backwards
 			$iframe = $elements->item( $i );
+			$template = $this->blade->render(
+				'interactive.media', [
+					'title' => $title,
+					'url' => $url,
+					'tag' => 'iframe',
+				]
+			);
+			$fragment = $html5->parser->loadHTMLFragment( $template );
 			$iframe->parentNode->replaceChild( $dom->importNode( $fragment, true ), $iframe );
 		}
+
+		$dom = $this->removeBreaklinesBetweenInteractiveContents( $dom );
 
 		$s = $html5->saveHTML( $dom );
 		return $s;
@@ -263,16 +275,20 @@ class Content {
 		global $id; // This is the Post ID, [@see WP_Query::setup_postdata, ...]
 
 		$title = $data->title ?? $this->getTitle( $id );
-		$img_src = $data->thumbnail_url ?? null;
-		$provider_name = $data->provider_name ?? null;
 		$url = wp_get_shortlink( $id );
+		if ( isset( $this->iframes[ $id ] ) ) {
+			$this->iframes[ $id ] ++;
+		} else {
+			$this->iframes[ $id ] = 1;
+		}
+		$anchor_id = 'oembed-' . $this->iframes[ $id ];
 
 		$html = $this->blade->render(
-			'interactive.oembed', [
+			'interactive.media', [
 				'title' => $title,
-				'img_src' => $img_src,
-				'provider_name' => $provider_name,
 				'url' => $url,
+				'tag' => 'oembed',
+				'id' => $anchor_id,
 			]
 		);
 
@@ -309,6 +325,8 @@ class Content {
 
 		$html5 = new HtmlParser();
 		$dom = $html5->loadHTML( $html );
+		$title = $this->getTitle( $id );
+		$url = wp_get_shortlink( $id );
 		foreach ( $tags as $tag ) {
 			// Replace
 			$elements = $dom->getElementsByTagName( $tag );
@@ -316,10 +334,11 @@ class Content {
 			for ( $i = $elements->length; --$i >= 0; ) {
 				$element = $elements->item( $i );
 				$template = $this->blade->render(
-					"interactive.{$tag}", [
-						'title' => $this->getTitle( $id ),
-						'url' => wp_get_shortlink( $id ),
+					'interactive.media', [
+						'title' => $title,
+						'url' => $url,
 						'id' => "$tag-$id-$element_number",
+						'tag' => $tag,
 					]
 				);
 				$fragment = $html5->parser->loadHTMLFragment( $template );
@@ -328,8 +347,36 @@ class Content {
 			}
 		}
 
+		$dom = $this->removeBreaklinesBetweenInteractiveContents( $dom );
+
 		$s = $html5->saveHTML( $dom );
 		return $s;
+	}
+
+	/**
+	 * Remove breaklines after interactive contents elements rendered.
+	 *
+	 * @param $dom
+	 * @return mixed
+	 */
+	public function removeBreaklinesBetweenInteractiveContents( $dom ) {
+		$nodes = $dom->getElementsByTagName( 'div' );
+		for ( $i = 0; $i < $nodes->length; $i++ ) {
+			$div_element = $nodes->item( $i );
+			if ( strpos( $div_element->getAttribute( 'class' ), 'interactive-content' ) !== false ) {
+				$interactive_element = $div_element;
+				$next_element = $interactive_element->nextSibling;
+				if (
+					! is_null( $next_element ) &&
+					! is_null( $next_element->nextSibling ) &&
+					$next_element->nextSibling->nodeName === 'br'
+				) {
+					$next_element->nextSibling->parentNode->removeChild( $next_element->nextSibling );
+
+				}
+			}
+		}
+		return $dom;
 	}
 
 	/**
@@ -525,8 +572,16 @@ class Content {
 	 */
 	public function adjustOembeds( $html, $url, $args ) {
 		if ( ! strpos( $html, 'youtube' ) === false ) {
-			return str_replace( '?feature=oembed', '?feature=oembed&rel=0', $html );
+			$html = str_replace( '?feature=oembed', '?feature=oembed&rel=0', $html );
 		}
+		global $id;
+		if ( isset( $this->oembeds[ $id ] ) ) {
+			$this->oembeds[ $id ] ++;
+		} else {
+			$this->oembeds[ $id ] = 1;
+		}
+		$iframe_id = $this->oembeds[ $id ];
+		$html = str_replace( '<iframe', "<iframe id='oembed-$iframe_id'", $html );
 		return $html;
 	}
 
