@@ -2,7 +2,7 @@
 	<a href="{{ $href }}">
 		<span class="toc-chapter-title">{!! $title !!}</span>
 		@if( $subtitle )
-			<span class="chapter-title">{{ $subtitle }}</span>
+			<span class="chapter-subtitle">{{ $subtitle }}</span>
 		@endif
 		@if( $author )
 			<span class="chapter-author">{{ $author }}</span>
