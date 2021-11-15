@@ -218,8 +218,6 @@ class Content {
 			$iframe->parentNode->replaceChild( $dom->importNode( $fragment, true ), $iframe );
 		}
 
-		$dom = $this->removeBreaklinesBetweenInteractiveContents( $dom );
-
 		$s = $html5->saveHTML( $dom );
 		return $s;
 	}
@@ -347,36 +345,8 @@ class Content {
 			}
 		}
 
-		$dom = $this->removeBreaklinesBetweenInteractiveContents( $dom );
-
 		$s = $html5->saveHTML( $dom );
 		return $s;
-	}
-
-	/**
-	 * Remove breaklines after interactive contents elements rendered.
-	 *
-	 * @param $dom
-	 * @return mixed
-	 */
-	public function removeBreaklinesBetweenInteractiveContents( $dom ) {
-		$nodes = $dom->getElementsByTagName( 'div' );
-		for ( $i = 0; $i < $nodes->length; $i++ ) {
-			$div_element = $nodes->item( $i );
-			if ( strpos( $div_element->getAttribute( 'class' ), 'interactive-content' ) !== false ) {
-				$interactive_element = $div_element;
-				$next_element = $interactive_element->nextSibling;
-				if (
-					! is_null( $next_element ) &&
-					! is_null( $next_element->nextSibling ) &&
-					$next_element->nextSibling->nodeName === 'br'
-				) {
-					$next_element->nextSibling->parentNode->removeChild( $next_element->nextSibling );
-
-				}
-			}
-		}
-		return $dom;
 	}
 
 	/**
