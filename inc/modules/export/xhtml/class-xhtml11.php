@@ -1261,14 +1261,14 @@ class Xhtml11 extends ExportGenerator {
 				'footnotes' => true,
 			] );
 
-			$skipClasses = [
+			$skip_classes = [
 				'dedication',
 				'epigraph',
 				'title-page',
 				'before-title',
 			];
 
-			if ( in_array( $data['subclass'], $skipClasses, true ) ) {
+			if ( in_array( $data['subclass'], $skip_classes, true ) ) {
 				continue;
 			}
 
