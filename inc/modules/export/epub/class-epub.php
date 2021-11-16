@@ -1252,7 +1252,7 @@ class Epub extends ExportGenerator {
 				$data = $this->mapBookDataAndContent( $front_matter, $metadata, $index, [
 					'type' => 'front_matter',
 					'needs_tidy_html' => true,
-					'slug_as_href' => true, // we want the slugs to be proper anchors in the EPUB export
+					'is_epub' => true, // we want the slugs to be proper anchors in the EPUB export
 				] );
 
 				$subclass = $data['subclass'];
@@ -1561,7 +1561,7 @@ class Epub extends ExportGenerator {
 			$data = $this->mapBookDataAndContent( $front_matter, $metadata, $index, [
 				'type' => 'front_matter',
 				'needs_tidy_html' => true,
-				'slug_as_href' => true, // we want the slugs to be proper anchors in the EPUB export
+				'is_epub' => true, // we want the slugs to be proper anchors in the EPUB export
 			] );
 
 			$subclass = $data['subclass'];
@@ -1823,7 +1823,7 @@ class Epub extends ExportGenerator {
 			$data = $this->mapBookDataAndContent( $back_matter, $metadata, $index, [
 				'type' => 'back_matter',
 				'needs_tidy_html' => true,
-				'slug_as_href' => true, // we want the slugs to be proper anchors in the EPUB export
+				'is_epub' => true, // we want the slugs to be proper anchors in the EPUB export
 			] );
 
 			$vars['post_title'] = Sanitize\decode( $back_matter['post_title'] );

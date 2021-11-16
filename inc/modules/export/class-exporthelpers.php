@@ -40,14 +40,14 @@ trait ExportHelpers {
 		$needs_tidy_html = $options['needs_tidy_html'] ?? false;
 		$endnotes = $options['endnotes'] ?? false;
 		$footnotes = $options['footnotes'] ?? false;
-		$slug_as_href = $options['slug_as_href'] ?? false;
+		$is_epub = $options['is_epub'] ?? false;
 
 		$data = [
 			'id' => $post_data['ID'],
 		];
 		$data['post_type_class'] = str_replace( '_', '-', $post_type_identifier ); // This class is used to map with the SCSS class in buckram Ex: front-matter
 		$data['subclass'] = $this->getPostSubClass( $post_type_identifier, $post_data['ID'] );
-		$data['slug'] = $slug_as_href ? $post_data['post_name'] : "{$data['post_type_class']}-{$post_data['post_name']}";
+		$data['slug'] = $is_epub ? $post_data['post_name'] : "{$data['post_type_class']}-{$post_data['post_name']}";
 		$data['title'] = get_post_meta( $post_data['ID'], 'pb_show_title', true ) ? $post_data['post_title'] : '';
 		$data['content'] = $post_data['post_content'];
 		$data['append_post_content'] = apply_filters( "pb_append_{$post_type_identifier}_content", '', $post_data['ID'] );
@@ -80,7 +80,10 @@ trait ExportHelpers {
 			$data['content'] = $this->html5ToXhtml( Book::tagSubsections( $data['content'], $post_data['ID'] ) );
 		}
 
-		$data['content'] .= $this->displayAboutTheAuthors ? \Pressbooks\Modules\Export\get_contributors_section( $post_data['ID'] ) : '';
+		if( ! $is_epub ) { // Print contributors in PDF after the content
+			$data['content'] .= $this->displayAboutTheAuthors ? \Pressbooks\Modules\Export\get_contributors_section( $post_data['ID'] ) : '';
+		}
+
 		$data['is_new_buckram'] = $this->wrapHeaderElements;
 		$data['output_short_title'] = property_exists( $this, 'outputShortTitle' ) ? $this->outputShortTitle : false;
 		$data['post_type_identifier'] = $post_type_identifier;
