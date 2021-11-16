@@ -73,7 +73,7 @@ trait ExportHelpers {
 			$data['endnotes'] = $this->doEndnotes( $post_data['ID'] );
 		}
 		if ( $footnotes ) {
-			$data['footnotes'] = $this->doEndnotes( $post_data['ID'] );
+			$data['footnotes'] = $this->doFootnotes( $post_data['ID'] );
 		}
 
 		if ( ( Export::shouldParseSubsections() === true ) && Book::getSubsections( $post_data['ID'] ) !== false ) {
