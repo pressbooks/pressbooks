@@ -1935,7 +1935,7 @@ class PDFOptions extends \Pressbooks\Options {
 			$fontsize = $options['pdf_body_font_size'] . 'pt';
 			$styles->getSass()->setVariables(
 				[
-					'body-font-size' => "(epub: medium, prince: $fontsize, web: 14pt)",
+					'body-font-size' => "(epub: 1em, prince: $fontsize, web: 14pt)",
 				]
 			);
 		}
