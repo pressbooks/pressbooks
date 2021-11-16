@@ -32,16 +32,10 @@ function dependency_errors() {
 		set_site_transient( 'pb_print_pdf_compatible', true );
 	}
 
-	if ( false === (bool) get_site_transient( 'pb_epub_compatible' ) && false === (bool) \Pressbooks\Modules\Export\Epub\Epub201::hasDependencies() ) {
+	if ( false === (bool) get_site_transient( 'pb_epub_compatible' ) && false === (bool) \Pressbooks\Modules\Export\Epub\Epub::hasDependencies() ) {
 		$dependency_errors['epub'] = 'EPUB';
 	} else {
 		set_site_transient( 'pb_epub_compatible', true );
-	}
-
-	if ( false === (bool) get_site_transient( 'pb_epub3_compatible' ) && false === (bool) \Pressbooks\Modules\Export\Epub\Epub3::hasDependencies() ) {
-		$dependency_errors['epub3'] = 'EPUB3';
-	} else {
-		set_site_transient( 'pb_epub3_compatible', true );
 	}
 
 	if ( false === (bool) get_site_transient( 'pb_xhtml_compatible' ) && false === (bool) \Pressbooks\Modules\Export\Xhtml\Xhtml11::hasDependencies() ) {
@@ -103,11 +97,10 @@ function formats() {
 		'standard' => [
 			'print_pdf' => __( 'PDF (for print)', 'pressbooks' ),
 			'pdf' => __( 'PDF (for digital distribution)', 'pressbooks' ),
-			'epub' => __( 'EPUB 2.01', 'pressbooks' ),
+			'epub' => __( 'EPUB', 'pressbooks' ),
 			'wxr' => __( 'Pressbooks XML', 'pressbooks' ),
 		],
 		'exotic' => [
-			'epub3' => __( 'EPUB 3', 'pressbooks' ),
 			'xhtml' => __( 'XHTML', 'pressbooks' ),
 			'htmlbook' => __( 'HTMLBook', 'pressbooks' ),
 			'odt' => __( 'OpenDocument', 'pressbooks' ),
@@ -232,8 +225,7 @@ function get_name_from_module_classname( $classname ) {
 			'\Pressbooks\Modules\Export\Prince\PrintPdf' => __( 'Print PDF', 'pressbooks' ),
 			'\Pressbooks\Modules\Export\Prince\Pdf' => __( 'Digital PDF', 'pressbooks' ),
 			'\Pressbooks\Modules\Export\HTMLBook\HTMLBook' => __( 'HTMLBook', 'pressbooks' ),
-			'\Pressbooks\Modules\Export\Epub\Epub201' => __( 'EPUB', 'pressbooks' ),
-			'\Pressbooks\Modules\Export\Epub\Epub3' => __( 'EPUB3', 'pressbooks' ),
+			'\Pressbooks\Modules\Export\Epub\Epub' => __( 'EPUB', 'pressbooks' ),
 			'\Pressbooks\Modules\Export\Xhtml\Xhtml11' => __( 'XHTML', 'presbooks' ),
 			'\Pressbooks\Modules\Export\Odt\Odt' => __( 'OpenDocument', 'pressbooks' ),
 			'\Pressbooks\Modules\Export\WordPress\Wxr' => __( 'Pressbooks XML', 'pressbooks' ),
