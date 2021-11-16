@@ -80,7 +80,7 @@ trait ExportHelpers {
 			$data['content'] = $this->html5ToXhtml( Book::tagSubsections( $data['content'], $post_data['ID'] ) );
 		}
 
-		if( ! $is_epub ) { // Print contributors in PDF after the content
+		if ( ! $is_epub ) { // Print contributors in PDF after the content
 			$data['content'] .= $this->displayAboutTheAuthors ? \Pressbooks\Modules\Export\get_contributors_section( $post_data['ID'] ) : '';
 		}
 

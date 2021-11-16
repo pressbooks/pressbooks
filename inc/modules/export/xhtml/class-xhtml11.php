@@ -1247,7 +1247,7 @@ class Xhtml11 extends ExportGenerator {
 
 		$y = new PercentageYield( 50, 60, count( $book_contents['front-matter'] ) );
 
-		$i = $this->frontMatterPos;
+		$index = $this->frontMatterPos;
 		foreach ( $book_contents['front-matter'] as $front_matter ) {
 			yield from $y->tick( $this->generatorPrefix . __( 'Exporting front matter', 'pressbooks' ) );
 
@@ -1255,31 +1255,36 @@ class Xhtml11 extends ExportGenerator {
 				continue; // Skip
 			}
 
-			$data = $this->mapBookDataAndContent( $front_matter, $metadata, $i, [
+			$data = $this->mapBookDataAndContent( $front_matter, $metadata, $index, [
 				'type' => 'front_matter',
 				'endnotes' => true,
 				'footnotes' => true,
 			] );
 
-			$subclass = $data['subclass'];
+			$skipClasses = [
+				'dedication',
+				'epigraph',
+				'title-page',
+				'before-title',
+			];
 
-			if ( 'dedication' === $subclass || 'epigraph' === $subclass || 'title-page' === $subclass || 'before-title' === $subclass ) {
-				continue; // Skip
+			if ( in_array( $data['subclass'], $skipClasses, true ) ) {
+				continue;
 			}
 
 			if ( $this->hasIntroduction ) {
-				$subclass .= ' post-introduction';
+				$data['subclass'] .= ' post-introduction';
 			}
 
-			if ( 'introduction' === $subclass ) {
+			if ( 'introduction' === $data['subclass'] ) {
 				$this->hasIntroduction = true;
 			}
 
 			echo $this->blade->render( 'export/generic-post-type', $data );
 
-			++$i;
+			++$index;
 		}
-		$this->frontMatterPos = $i;
+		$this->frontMatterPos = $index;
 	}
 
 	/**
