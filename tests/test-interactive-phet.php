@@ -68,7 +68,7 @@ class Interactive_PhetTest extends \WP_UnitTestCase {
 			''
 		);
 		$this->assertContains(
-			'<div class="textbox interactive-content interactive-content--iframe">',
+			'<div class="textbox interactive-content interactive-content--oembed">',
 			$iframe_html
 		);
 		$this->assertContains(
