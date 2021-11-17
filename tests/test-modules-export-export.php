@@ -416,7 +416,7 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 			$this->assertContains( 'https://github.com/pressbooks/pressbooks', $xhtml_content );
 
 			$this->assertContains( '<p class="chapter-subtitle">Or, A Chapter to Test</p>', $xhtml_content );
-			$this->assertContains( '<p>A YouTube element has been excluded from this version of the text.', $xhtml_content );
+			$this->assertContains( '<p>One or more interactive elements has been excluded from this version of the text', $xhtml_content );
 			$this->assertContains( '#oembed-', $xhtml_content );
 
 		}
