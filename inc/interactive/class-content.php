@@ -273,20 +273,19 @@ class Content {
 		global $id; // This is the Post ID, [@see WP_Query::setup_postdata, ...]
 
 		$title = $data->title ?? $this->getTitle( $id );
-		$url = wp_get_shortlink( $id );
+		$post_url = wp_get_shortlink( $id );
 		if ( isset( $this->iframes[ $id ] ) ) {
 			$this->iframes[ $id ] ++;
 		} else {
 			$this->iframes[ $id ] = 1;
 		}
-		$anchor_id = 'oembed-' . $this->iframes[ $id ];
+		$url = $post_url . '#oembed-' . $this->iframes[ $id ];
 
 		$html = $this->blade->render(
 			'interactive.media', [
 				'title' => $title,
 				'url' => $url,
 				'tag' => 'oembed',
-				'id' => $anchor_id,
 			]
 		);
 
@@ -334,8 +333,7 @@ class Content {
 				$template = $this->blade->render(
 					'interactive.media', [
 						'title' => $title,
-						'url' => $url,
-						'id' => "$tag-$id-$element_number",
+						'url' => "$url#$tag-$id-$element_number",
 						'tag' => $tag,
 					]
 				);

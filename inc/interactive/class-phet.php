@@ -96,9 +96,8 @@ class Phet {
 		$embed = $this->blade->render(
 			'interactive.media', [
 				'title' => get_the_title( $id ),
-				'url' => wp_get_shortlink( $id ),
-				'tag' => 'iframe',
-				'id' => 'iframe-phet-' . $this->iframes_counter[ $id ],
+				'url' => wp_get_shortlink( $id ) . '#iframe-phet-' . $this->iframes_counter[ $id ],
+				'tag' => 'oembed',
 			]
 		);
 		apply_filters( 'embed_' . self::EMBED_ID, $embed, $matches, $attr, $url, $rawattr );
