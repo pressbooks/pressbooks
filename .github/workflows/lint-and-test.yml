@@ -30,7 +30,7 @@ jobs:
             experimental: true
           - php: 7.4
             os: ubuntu-20.04
-            wordpress: trunk
+            wordpress: 5.9
             epubcheck: 4.2.6
             prince: 14.2-1
             experimental: true
@@ -101,7 +101,7 @@ jobs:
         composer remove --dev phpunit/phpunit
         composer update --dev yoast/phpunit-polyfills --with-dependencies --ignore-platform-reqs
         composer test
-      if: matrix.experimental == true && matrix.wordpress != trunk
+      if: matrix.experimental == true && matrix.wordpress != 5.9
 
     - name: Run PHP Tests and PCOV
       run: |
