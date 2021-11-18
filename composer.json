@@ -49,7 +49,7 @@
 	},
 	"require-dev": {
     "pressbooks/coding-standards": "^1.1",
-		"lucatume/wp-browser": "^3.0",
+		"phpunit/phpunit": "^7.5",
 		"yoast/phpunit-polyfills": "^1.0.1"
 	},
 	"suggest": {
