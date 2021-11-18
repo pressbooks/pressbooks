@@ -24,7 +24,13 @@ jobs:
         include:
           - php: 7.4
             os: ubuntu-20.04
-            wordpress: [5.8.2, latest]
+            wordpress: 5.8.2
+            epubcheck: 4.2.6
+            prince: 14.2-1
+            experimental: true
+          - php: 7.4
+            os: ubuntu-20.04
+            wordpress: latest
             epubcheck: 4.2.6
             prince: 14.2-1
             experimental: true
