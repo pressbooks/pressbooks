@@ -49,8 +49,8 @@
 	},
 	"require-dev": {
     "pressbooks/coding-standards": "^1.1",
-		"codeception/module-db": "^1.1",
-		"codeception/module-webdriver": "^1.2",
+    "codeception/module-db": "^1.1",
+    "codeception/module-webdriver": "^1.2",
 		"codeception/module-phpbrowser": "^1.0",
 		"codeception/module-asserts": "^1.3",
 		"codeception/module-filesystem": "^1.0",
