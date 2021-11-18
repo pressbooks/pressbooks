@@ -24,13 +24,13 @@ jobs:
         include:
           - php: 7.4
             os: ubuntu-20.04
-            wordpress: 5.8.2
+            wordpress: latest
             epubcheck: 4.2.6
             prince: 14.2-1
             experimental: true
           - php: 7.4
             os: ubuntu-20.04
-            wordpress: latest
+            wordpress: trunk
             epubcheck: 4.2.6
             prince: 14.2-1
             experimental: true
@@ -97,12 +97,18 @@ jobs:
       run: bash bin/install-wp-tests.sh wordpress_test root root localhost ${{ matrix.wordpress }}
 
     - name: Run PHP Tests
-      run: composer test
-      if: matrix.experimental == true
+      run: |
+        composer remove --dev phpunit/phpunit
+        composer update --dev yoast/phpunit-polyfills --with-dependencies --ignore-platform-reqs
+        composer test
+      if: matrix.experimental == true && matrix.wordpress != trunk
 
     - name: Run PHP Tests and PCOV
-      run: vendor/bin/phpunit --configuration phpunit.xml --coverage-clover coverage.xml
-      if: matrix.experimental == false
+      run: |
+        composer remove --dev phpunit/phpunit
+        composer update --dev yoast/phpunit-polyfills --with-dependencies --ignore-platform-reqs
+        vendor/bin/phpunit --configuration phpunit.xml --coverage-clover coverage.xml
+      if: matrix.experimental == false && matrix.wordpress != 5.9
 
     - name: Upload Coverage to Codecov
       run: bash <(curl -s https://codecov.io/bash)
