@@ -105,7 +105,11 @@ jobs:
 
     - name: Run PHP Tests
       run: composer test
-      if: matrix.experimental == true
+      if: matrix.experimental == true && matrix.wordpress != 'trunk'
+
+    - name: Run PHP Tests with PHPUnit 9
+      run: vender/bin/phpunit --configuration phpunit9.xml
+      if: matrix.exerimental == true && matrix.wordpress == 'trunk'
 
     - name: Run PHP Tests and PCOV
       run: composer require pcov/clobber; vendor/bin/pcov clobber; vendor/bin/phpunit --configuration phpunit.xml --coverage-clover coverage.xml
