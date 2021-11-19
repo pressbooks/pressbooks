@@ -22,10 +22,10 @@ class PostTypeTest extends \WP_UnitTestCase {
 	/**
 	 * @group posttypes
 	 */
-	function on_not_successful_test( Throwable $t ) {
+	function onNotSuccessfulTest( Throwable $t ): void {
 		// Switch back to english for other tests
 		unload_textdomain( 'pressbooks' );
-		parent::on_not_successful_test( $t );
+		parent::onNotSuccessfulTest( $t );
 	}
 
 	/**
