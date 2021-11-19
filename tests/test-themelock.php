@@ -183,7 +183,7 @@ class ThemeLockTest extends \WP_UnitTestCase {
 		$this->assertEquals( $result['name'], $theme->get( 'Name' ) );
 		$this->assertEquals( $result['version'], $theme->get( 'Version' ) );
 		$this->assertEquals( $result['timestamp'], $time );
-		$this->assertContains( 'zig-zag-zog', $result['features'] );
+		$this->assertStringContainsString( 'zig-zag-zog', $result['features'] );
 	}
 
 	/**
@@ -198,6 +198,6 @@ class ThemeLockTest extends \WP_UnitTestCase {
 
 		$this->lock->copyAssets();
 		$result = $this->lock->globalComponentsPath( '/hello-world' );
-		$this->assertContains( 'lock/global-components', $result );
+		$this->assertStringContainsString( 'lock/global-components', $result );
 	}
 }

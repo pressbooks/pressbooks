@@ -64,8 +64,8 @@ class MetaboxesTest extends \WP_UnitTestCase {
 		ob_start();
 		\Pressbooks\Admin\Metaboxes\status_visibility_box( $post );
 		$buffer = ob_get_clean();
-		$this->assertContains( '<div id="misc-publishing-actions">', $buffer );
-		$this->assertContains( '<input type="checkbox" name="export_visibility"', $buffer );
+		$this->assertStringContainsString( '<div id="misc-publishing-actions">', $buffer );
+		$this->assertStringContainsString( '<input type="checkbox" name="export_visibility"', $buffer );
 		$this->assertNotContains( '<input type="checkbox" name="glossary_visibility" id="glossary_visibility"', $buffer );
 
 		// Create glossary post
@@ -83,9 +83,9 @@ class MetaboxesTest extends \WP_UnitTestCase {
 		ob_start();
 		\Pressbooks\Admin\Metaboxes\status_visibility_box( $post );
 		$buffer = ob_get_clean();
-		$this->assertContains( '<div id="misc-publishing-actions">', $buffer );
+		$this->assertStringContainsString( '<div id="misc-publishing-actions">', $buffer );
 		$this->assertNotContains( '<input type="checkbox" name="export_visibility"', $buffer );
-		$this->assertContains( '<input type="checkbox" name="glossary_visibility" id="glossary_visibility"', $buffer );
+		$this->assertStringContainsString( '<input type="checkbox" name="glossary_visibility" id="glossary_visibility"', $buffer );
 	}
 
 	/**
@@ -210,15 +210,15 @@ class MetaboxesTest extends \WP_UnitTestCase {
 		ob_start();
 		\Pressbooks\Admin\Metaboxes\part_save_box( (object) $post );
 		$buffer = ob_get_clean();
-		$this->assertContains( '<div class="submitbox" id="submitpost">', $buffer );
-		$this->assertContains( '<input name="publish" id="publish" type="submit"', $buffer );
+		$this->assertStringContainsString( '<div class="submitbox" id="submitpost">', $buffer );
+		$this->assertStringContainsString( '<input name="publish" id="publish" type="submit"', $buffer );
 
 		$post = [ 'post_status' => 'publish'];
 		ob_start();
 		\Pressbooks\Admin\Metaboxes\part_save_box( (object) $post );
 		$buffer = ob_get_clean();
-		$this->assertContains( '<div class="submitbox" id="submitpost">', $buffer );
-		$this->assertContains( '<input name="save" id="publish" type="submit"', $buffer );
+		$this->assertStringContainsString( '<div class="submitbox" id="submitpost">', $buffer );
+		$this->assertStringContainsString( '<input name="save" id="publish" type="submit"', $buffer );
 	}
 
 	/**
@@ -229,15 +229,15 @@ class MetaboxesTest extends \WP_UnitTestCase {
 		ob_start();
 		\Pressbooks\Admin\Metaboxes\metadata_save_box( (object) $post );
 		$buffer = ob_get_clean();
-		$this->assertContains( '<div class="submitbox" id="submitpost">', $buffer );
-		$this->assertContains( '<input name="publish" id="publish" type="submit"', $buffer );
+		$this->assertStringContainsString( '<div class="submitbox" id="submitpost">', $buffer );
+		$this->assertStringContainsString( '<input name="publish" id="publish" type="submit"', $buffer );
 
 		$post = [ 'post_status' => 'publish'];
 		ob_start();
 		\Pressbooks\Admin\Metaboxes\metadata_save_box( (object) $post );
 		$buffer = ob_get_clean();
-		$this->assertContains( '<div class="submitbox" id="submitpost">', $buffer );
-		$this->assertContains( '<input name="save" id="publish" type="submit"', $buffer );
+		$this->assertStringContainsString( '<div class="submitbox" id="submitpost">', $buffer );
+		$this->assertStringContainsString( '<input name="save" id="publish" type="submit"', $buffer );
 	}
 
 	/**
@@ -277,7 +277,7 @@ class MetaboxesTest extends \WP_UnitTestCase {
 		ob_start();
 		\Pressbooks\Admin\Metaboxes\a11y_contributor_tweaks();
 		$buffer = ob_get_clean();
-		$this->assertContains( 'setCustomValidity(', $buffer );
+		$this->assertStringContainsString( 'setCustomValidity(', $buffer );
 	}
 
 	/**
@@ -291,9 +291,9 @@ class MetaboxesTest extends \WP_UnitTestCase {
 		\Pressbooks\Admin\Metaboxes\contributor_add_form();
 		$buffer = ob_get_clean();
 
-		$this->assertContains( '<img style="display: none" src="" id="contributor-picture-thumbnail" width="120" />', $buffer );
-		$this->assertContains( '<input type="hidden" name="contributor_picture" id="contributor-picture">', $buffer );
-		$this->assertContains( '<label for="contributor-first-name">', $buffer );
+		$this->assertStringContainsString( '<img style="display: none" src="" id="contributor-picture-thumbnail" width="120" />', $buffer );
+		$this->assertStringContainsString( '<input type="hidden" name="contributor_picture" id="contributor-picture">', $buffer );
+		$this->assertStringContainsString( '<label for="contributor-first-name">', $buffer );
 	}
 
 	/**
@@ -301,8 +301,8 @@ class MetaboxesTest extends \WP_UnitTestCase {
 	 */
 	public function test_contributor_editor_settings() {
 		$editor_settings = \Pressbooks\Admin\Metaboxes\get_editor_settings();
-		$this->assertContains( \Pressbooks\Contributors::TAXONOMY . '_description', $editor_settings['textarea_name'] );
-		$this->assertContains( 'bold,italic,|,link,unlink,|,undo,redo', $editor_settings['tinymce']['toolbar1'] );
+		$this->assertStringContainsString( \Pressbooks\Contributors::TAXONOMY . '_description', $editor_settings['textarea_name'] );
+		$this->assertStringContainsString( 'bold,italic,|,link,unlink,|,undo,redo', $editor_settings['tinymce']['toolbar1'] );
 	}
 
 	/**
@@ -357,7 +357,7 @@ class MetaboxesTest extends \WP_UnitTestCase {
 			$term->term_id
 		);
 		$buffer = ob_get_clean();
-		$this->assertContains( 'I am a description', $buffer );
+		$this->assertStringContainsString( 'I am a description', $buffer );
 		$this->assertNotContains( 'strong', $buffer );
 
 		ob_start();
@@ -367,7 +367,7 @@ class MetaboxesTest extends \WP_UnitTestCase {
 			$term->term_id
 		);
 		$buffer = ob_get_clean();
-		$this->assertContains( 'Pressbooks University', $buffer );
+		$this->assertStringContainsString( 'Pressbooks University', $buffer );
 
 		ob_start();
 		\Pressbooks\Admin\Metaboxes\contributor_custom_columns(
@@ -376,7 +376,7 @@ class MetaboxesTest extends \WP_UnitTestCase {
 			$term->term_id
 		);
 		$buffer = ob_get_clean();
-		$this->assertContains( 'Sorry, there is not picture! :/', $buffer );
+		$this->assertStringContainsString( 'Sorry, there is not picture! :/', $buffer );
 	}
 
 }

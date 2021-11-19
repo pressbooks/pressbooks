@@ -17,7 +17,7 @@ class Admin_DeleteBookTest extends \WP_UnitTestCase {
 		$delete_book = new \Pressbooks\Admin\Delete\Book();
 		$content = $delete_book->deleteBookEmailContent( 'WordPress' );
 		$this->assertNotContains( 'WordPress,', $content );
-		$this->assertContains( 'Pressbooks', $content );
+		$this->assertStringContainsString( 'Pressbooks', $content );
 	}
 
 	/**

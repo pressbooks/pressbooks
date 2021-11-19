@@ -42,8 +42,8 @@ class AnalyticsTest extends \WP_UnitTestCase {
 		\Pressbooks\Admin\Analytics\analytics_book_callback( $args );
 		$buffer = ob_get_clean();
 
-		$this->assertContains( 'ga_mu_uaid', $buffer );
-		$this->assertContains( 'Hello World!', $buffer );
+		$this->assertStringContainsString( 'ga_mu_uaid', $buffer );
+		$this->assertStringContainsString( 'Hello World!', $buffer );
 	}
 
 	/**
@@ -55,8 +55,8 @@ class AnalyticsTest extends \WP_UnitTestCase {
 		\Pressbooks\Admin\Analytics\analytics_network_callback( $args );
 		$buffer = ob_get_clean();
 
-		$this->assertContains( 'ga_mu_uaid', $buffer );
-		$this->assertContains( 'Hello World!', $buffer );
+		$this->assertStringContainsString( 'ga_mu_uaid', $buffer );
+		$this->assertStringContainsString( 'Hello World!', $buffer );
 	}
 
 	/**
@@ -68,8 +68,8 @@ class AnalyticsTest extends \WP_UnitTestCase {
 		\Pressbooks\Admin\Analytics\analytics_books_allowed_callback( $args );
 		$buffer = ob_get_clean();
 
-		$this->assertContains( 'ga_mu_site_specific_allowed', $buffer );
-		$this->assertContains( 'Hello World!', $buffer );
+		$this->assertStringContainsString( 'ga_mu_site_specific_allowed', $buffer );
+		$this->assertStringContainsString( 'Hello World!', $buffer );
 	}
 
 	/**
@@ -79,7 +79,7 @@ class AnalyticsTest extends \WP_UnitTestCase {
 		ob_start();
 		\Pressbooks\Admin\Analytics\display_network_analytics_settings( );
 		$buffer = ob_get_clean();
-		$this->assertContains( '</form>', $buffer );
+		$this->assertStringContainsString( '</form>', $buffer );
 	}
 
 	/**
@@ -89,7 +89,7 @@ class AnalyticsTest extends \WP_UnitTestCase {
 		ob_start();
 		\Pressbooks\Admin\Analytics\display_book_analytics_settings( );
 		$buffer = ob_get_clean();
-		$this->assertContains( '</form>', $buffer );
+		$this->assertStringContainsString( '</form>', $buffer );
 	}
 
 	/**
@@ -105,10 +105,10 @@ class AnalyticsTest extends \WP_UnitTestCase {
 		ob_start();
 		\Pressbooks\Analytics\print_analytics();
 		$buffer = ob_get_clean();
-		$this->assertContains( '<script>', $buffer );
-		$this->assertContains( 'Google', $buffer );
-		$this->assertContains( 'Analytics', $buffer );
-		$this->assertContains( 'TEST1', $buffer );
+		$this->assertStringContainsString( '<script>', $buffer );
+		$this->assertStringContainsString( 'Google', $buffer );
+		$this->assertStringContainsString( 'Analytics', $buffer );
+		$this->assertStringContainsString( 'TEST1', $buffer );
 		$this->assertNotContains( 'TEST2', $buffer );
 
 		$this->_book();
@@ -117,17 +117,17 @@ class AnalyticsTest extends \WP_UnitTestCase {
 		ob_start();
 		\Pressbooks\Analytics\print_analytics();
 		$buffer = ob_get_clean();
-		$this->assertContains( 'Google', $buffer );
-		$this->assertContains( 'Analytics', $buffer );
-		$this->assertContains( 'TEST1', $buffer );
-		$this->assertContains( 'TEST2', $buffer );
+		$this->assertStringContainsString( 'Google', $buffer );
+		$this->assertStringContainsString( 'Analytics', $buffer );
+		$this->assertStringContainsString( 'TEST1', $buffer );
+		$this->assertStringContainsString( 'TEST2', $buffer );
 
 		delete_site_option( 'ga_mu_site_specific_allowed' );
 
 		ob_start();
 		\Pressbooks\Admin\Analytics\print_admin_analytics();
 		$buffer = ob_get_clean();
-		$this->assertContains( 'TEST1', $buffer );
+		$this->assertStringContainsString( 'TEST1', $buffer );
 		$this->assertNotContains( 'TEST2', $buffer );
 	}
 

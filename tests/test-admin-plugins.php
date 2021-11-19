@@ -68,7 +68,7 @@ class Admin_PluginsTest extends \WP_UnitTestCase {
 		$caps = \Pressbooks\Admin\Plugins\disable_h5p_security_superadmin( $caps, '' );
 		$this->assertEmpty( $caps );
 		$caps = \Pressbooks\Admin\Plugins\disable_h5p_security_superadmin( $caps, 'disable_h5p_security' );
-		$this->assertContains( 'do_not_allow', $caps );
+		$this->assertStringContainsString( 'do_not_allow', $caps );
 	}
 
 	/**
@@ -81,7 +81,7 @@ class Admin_PluginsTest extends \WP_UnitTestCase {
 
 		\Pressbooks\Admin\Plugins\quicklatex_svg_warning( 'wp-quicklatex/wp-quicklatex.php' );
 		$notices = \Pressbooks\get_all_notices();
-		$this->assertContains( 'a format that may carry a higher security risk', $notices[0] );
+		$this->assertStringContainsString( 'a format that may carry a higher security risk', $notices[0] );
 	}
 
 }

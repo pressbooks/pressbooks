@@ -63,9 +63,9 @@ class SassTest extends \WP_UnitTestCase {
 
 		$result = $this->sass->prependLocalizedVars( $scss );
 
-		$this->assertContains( $scss, $result );
+		$this->assertStringContainsString( $scss, $result );
 
-		$this->assertContains( "\$chapter: 'Chapter';", $result );
+		$this->assertStringContainsString( "\$chapter: 'Chapter';", $result );
 
 	}
 

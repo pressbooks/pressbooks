@@ -51,7 +51,7 @@ class EditorTest extends \WP_UnitTestCase {
 
 		$array = Pressbooks\Editor\add_languages( [] );
 
-		$this->assertContains( PB_PLUGIN_DIR . 'languages/tinymce.php', $array );
+		$this->assertStringContainsString( PB_PLUGIN_DIR . 'languages/tinymce.php', $array );
 	}
 
 	/**
@@ -61,7 +61,7 @@ class EditorTest extends \WP_UnitTestCase {
 
 		$buttons = Pressbooks\Editor\mce_buttons_2( [ 'formatselect' ] );
 
-		$this->assertContains( 'styleselect', $buttons );
+		$this->assertStringContainsString( 'styleselect', $buttons );
 	}
 
 	/**
@@ -71,13 +71,13 @@ class EditorTest extends \WP_UnitTestCase {
 
 		$buttons = Pressbooks\Editor\mce_buttons_3( [] );
 
-		$this->assertContains( 'anchor', $buttons );
-		$this->assertContains( 'footnote', $buttons );
-		$this->assertContains( 'ftnref_convert', $buttons );
-		$this->assertContains( 'latex', $buttons );
-		$this->assertContains( 'glossary', $buttons );
-		$this->assertContains( 'glossary_all', $buttons );
-		$this->assertContains( 'wp_code', $buttons );
+		$this->assertStringContainsString( 'anchor', $buttons );
+		$this->assertStringContainsString( 'footnote', $buttons );
+		$this->assertStringContainsString( 'ftnref_convert', $buttons );
+		$this->assertStringContainsString( 'latex', $buttons );
+		$this->assertStringContainsString( 'glossary', $buttons );
+		$this->assertStringContainsString( 'glossary_all', $buttons );
+		$this->assertStringContainsString( 'wp_code', $buttons );
 	}
 
 	/**

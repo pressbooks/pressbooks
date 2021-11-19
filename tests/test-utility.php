@@ -38,7 +38,7 @@ class UtilityTest extends \WP_UnitTestCase {
 		$files = \Pressbooks\Utility\scandir_by_date( __DIR__ );
 
 		$this->assertTrue( is_array( $files ) );
-		$this->assertContains( basename( __FILE__ ), $files );
+		$this->assertStringContainsString( basename( __FILE__ ), $files );
 		$this->assertNotContains( '.htaccess', $files );
 		$this->assertNotContains( 'data', $files );
 
@@ -311,10 +311,10 @@ class UtilityTest extends \WP_UnitTestCase {
 			]
 		);
 
-		$this->assertContains( '<title>Foobar</title>', $template );
+		$this->assertStringContainsString( '<title>Foobar</title>', $template );
 		$this->assertNotContains( '<title></title>', $template );
 
-		$this->assertContains( '<body>Hello World!</body>', $template );
+		$this->assertStringContainsString( '<body>Hello World!</body>', $template );
 		$this->assertNotContains( '<body></body>', $template );
 
 		try {
@@ -616,7 +616,7 @@ class UtilityTest extends \WP_UnitTestCase {
 	public function get_generated_content_path() {
 		$path = \Pressbooks\Utility\get_generated_content_path();
 		$this->assertStringStartsWith( '/', $path );
-		$this->assertContains( '/pressbooks/', $path );
+		$this->assertStringContainsString( '/pressbooks/', $path );
 	}
 
 	/**
@@ -625,7 +625,7 @@ class UtilityTest extends \WP_UnitTestCase {
 	public function get_generated_content_url() {
 		$url = \Pressbooks\Utility\get_generated_content_url();
 		$this->assertStringStartsWith( 'http', $url );
-		$this->assertContains( '/pressbooks/', $url );
+		$this->assertStringContainsString( '/pressbooks/', $url );
 	}
 
 	/**
@@ -737,7 +737,7 @@ class UtilityTest extends \WP_UnitTestCase {
 	 */
 	public function test_main_contact_email() {
 		$email = \Pressbooks\Utility\main_contact_email();
-		$this->assertContains( '@', $email );
+		$this->assertStringContainsString( '@', $email );
 	}
 
 	/**

@@ -79,44 +79,44 @@ class LicensingTest extends \WP_UnitTestCase {
 
 		// Empty defaults
 		$result = $this->licensing->doLicense( [], $post_id );
-		$this->assertContains( 'All Rights Reserved', $result );
-		$this->assertContains( 'Test Blog', $result ); // Chapter and book license are the same, expected book name
+		$this->assertStringContainsString( 'All Rights Reserved', $result );
+		$this->assertStringContainsString( 'Test Blog', $result ); // Chapter and book license are the same, expected book name
 		$this->assertNotContains( 'Test Chapter', $result );
 
 		// Empty chapter license
 		$result = $this->licensing->doLicense( [ 'pb_book_license' => 'cc-by' ], $post_id );
-		$this->assertContains( 'https://creativecommons.org/licenses/by/', $result );
-		$this->assertContains( 'Test Blog', $result ); // Chapter license is empty, expected book name
+		$this->assertStringContainsString( 'https://creativecommons.org/licenses/by/', $result );
+		$this->assertStringContainsString( 'Test Blog', $result ); // Chapter license is empty, expected book name
 		$this->assertNotContains( 'Test Chapter', $result );
 
 		// Same licenses
 		update_post_meta( $post_id, 'pb_section_license', 'cc-by' );
 		$result = $this->licensing->doLicense( [ 'pb_book_license' => 'cc-by' ], $post_id );
-		$this->assertContains( 'https://creativecommons.org/licenses/by/', $result );
-		$this->assertContains( 'Test Blog', $result ); // Chapter and book license are the same, expected book name
+		$this->assertStringContainsString( 'https://creativecommons.org/licenses/by/', $result );
+		$this->assertStringContainsString( 'Test Blog', $result ); // Chapter and book license are the same, expected book name
 		$this->assertNotContains( 'Test Chapter', $result );
 
 		// Different licenses
 		update_post_meta( $post_id, 'pb_section_license', 'cc-by-nc' );
 		$result = $this->licensing->doLicense( [ 'pb_book_license' => 'cc-by' ], $post_id );
-		$this->assertContains( 'https://creativecommons.org/licenses/by-nc/', $result );
-		$this->assertContains( 'Test Chapter', $result ); // Chapter and book license are the different, expected chapter name
+		$this->assertStringContainsString( 'https://creativecommons.org/licenses/by-nc/', $result );
+		$this->assertStringContainsString( 'Test Chapter', $result ); // Chapter and book license are the different, expected chapter name
 		$this->assertNotContains( 'Test Blog', $result );
 
 		// Chapter license statement reflects only attribution for that specific chapter when a chapter author has been defined.
 		update_post_meta( $post_id, 'pb_section_license', 'cc-by' );
 		$result = $this->licensing->doLicense( [ 'pb_book_license' => 'cc-by', 'pb_authors' => 'Original Person' ], $post_id );
-		$this->assertContains( 'https://creativecommons.org/licenses/by/', $result );
-		$this->assertContains( 'Test Blog', $result ); // Chapter and book license are the same, expected book name
+		$this->assertStringContainsString( 'https://creativecommons.org/licenses/by/', $result );
+		$this->assertStringContainsString( 'Test Blog', $result ); // Chapter and book license are the same, expected book name
 		$this->assertNotContains( 'Test Chapter', $result );
-		$this->assertContains( 'Original Person', $result ); // Expected book authors
+		$this->assertStringContainsString( 'Original Person', $result ); // Expected book authors
 		// Define chapter author
 		( new \Pressbooks\Contributors() )->insert( 'New Person', $post_id, 'pb_authors' );
 		$result = $this->licensing->doLicense( [ 'pb_book_license' => 'cc-by', 'pb_authors' => 'Original Person' ], $post_id );
-		$this->assertContains( 'https://creativecommons.org/licenses/by/', $result );
-		$this->assertContains( 'Test Chapter', $result ); // Chapter and book license are the same but there's a specific author, expected chapter name
+		$this->assertStringContainsString( 'https://creativecommons.org/licenses/by/', $result );
+		$this->assertStringContainsString( 'Test Chapter', $result ); // Chapter and book license are the same but there's a specific author, expected chapter name
 		$this->assertNotContains( 'Test Blog', $result );
-		$this->assertContains( 'New Person', $result );  // Expected chapter authors
+		$this->assertStringContainsString( 'New Person', $result );  // Expected chapter authors
 		$this->assertNotContains( 'Original Person', $result );
 	}
 
@@ -127,8 +127,8 @@ class LicensingTest extends \WP_UnitTestCase {
 	public function test_doLicenseDeprecrated() {
 		$result = $this->licensing->doLicense( [], 0, 'Hello World!' );
 		$this->assertNotContains( 'Hello World!', $result ); // Deprecated
-		$this->assertContains( 'All Rights Reserved', $result ); // Returns some default
-		$this->assertContains( 'Test Blog', $result ); // Book name
+		$this->assertStringContainsString( 'All Rights Reserved', $result ); // Returns some default
+		$this->assertStringContainsString( 'Test Blog', $result ); // Book name
 	}
 
 	/**
@@ -139,16 +139,16 @@ class LicensingTest extends \WP_UnitTestCase {
 		$xml = new \SimpleXMLElement( '<book><title>Hello World!</title></book>' );
 
 		$result = $this->licensing->getLicenseHtml( $xml );
-		$this->assertContains( 'Hello World!', $result );
-		$this->assertContains( 'creativecommons.org', $result );
-		$this->assertContains( 'except where otherwise noted', $result );
-		$this->assertContains( '</div>', $result );
+		$this->assertStringContainsString( 'Hello World!', $result );
+		$this->assertStringContainsString( 'creativecommons.org', $result );
+		$this->assertStringContainsString( 'except where otherwise noted', $result );
+		$this->assertStringContainsString( '</div>', $result );
 
 		$result = $this->licensing->getLicenseHtml( $xml, false );
-		$this->assertContains( 'Hello World!', $result );
-		$this->assertContains( 'creativecommons.org', $result );
+		$this->assertStringContainsString( 'Hello World!', $result );
+		$this->assertStringContainsString( 'creativecommons.org', $result );
 		$this->assertNotContains( 'except where otherwise noted', $result );
-		$this->assertContains( '</div>', $result );
+		$this->assertStringContainsString( '</div>', $result );
 	}
 
 	/**

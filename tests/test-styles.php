@@ -53,14 +53,14 @@ class StylesTest extends \WP_UnitTestCase {
 	public function test_pathToScss() {
 		// V1
 		$v1 = wp_get_theme( 'pressbooks-luther' );
-		$this->assertContains( 'style.scss', $this->cs->getPathToWebScss( $v1 ) );
-		$this->assertContains( '/export/', $this->cs->getPathToEpubScss( $v1 ) );
-		$this->assertContains( '/export/', $this->cs->getPathToPrinceScss( $v1 ) );
+		$this->assertStringContainsString( 'style.scss', $this->cs->getPathToWebScss( $v1 ) );
+		$this->assertStringContainsString( '/export/', $this->cs->getPathToEpubScss( $v1 ) );
+		$this->assertStringContainsString( '/export/', $this->cs->getPathToPrinceScss( $v1 ) );
 		// V2
 		$v2 = wp_get_theme( 'pressbooks-book' );
-		$this->assertContains( '/assets/styles/', $this->cs->getPathToWebScss( $v2 ) );
-		$this->assertContains( '/assets/styles/', $this->cs->getPathToEpubScss( $v2 ) );
-		$this->assertContains( '/assets/styles/', $this->cs->getPathToPrinceScss( $v2 ) );
+		$this->assertStringContainsString( '/assets/styles/', $this->cs->getPathToWebScss( $v2 ) );
+		$this->assertStringContainsString( '/assets/styles/', $this->cs->getPathToEpubScss( $v2 ) );
+		$this->assertStringContainsString( '/assets/styles/', $this->cs->getPathToPrinceScss( $v2 ) );
 	}
 
 	/**
@@ -108,14 +108,14 @@ class StylesTest extends \WP_UnitTestCase {
 		$this->assertTrue( strpos( $result, '// SCSS.' ) === 0 );
 		$result = $this->cs->applyOverrides( '// SCSS.', [ '// Override 1.', '// Override 2.' ] );
 		$this->assertTrue( strpos( $result, '// SCSS.' ) === 0 );
-		$this->assertContains( '// Override 2.', $result );
+		$this->assertStringContainsString( '// Override 2.', $result );
 		// V2
 		switch_theme( 'pressbooks-book' );
 		$result = $this->cs->applyOverrides( '// SCSS.', '// Override.' );
 		$this->assertTrue( strpos( $result, '// Override.' ) === 0 );
 		$result = $this->cs->applyOverrides( '// SCSS.', [ '// Override 1.', '// Override 2.' ] );
 		$this->assertTrue( strpos( $result, '// Override 1.' ) === 0 );
-		$this->assertContains( '// SCSS.', $result );
+		$this->assertStringContainsString( '// SCSS.', $result );
 	}
 
 	/**
@@ -124,14 +124,14 @@ class StylesTest extends \WP_UnitTestCase {
 	public function test_customize() {
 		// V1
 		$this->_book( 'pressbooks-luther' );
-		$this->assertContains( 'font-size:', $this->cs->customizeWeb() );
-		$this->assertContains( 'font-size:', $this->cs->customizeEpub() );
-		$this->assertContains( 'font-size:', $this->cs->customizePrince() );
+		$this->assertStringContainsString( 'font-size:', $this->cs->customizeWeb() );
+		$this->assertStringContainsString( 'font-size:', $this->cs->customizeEpub() );
+		$this->assertStringContainsString( 'font-size:', $this->cs->customizePrince() );
 		// V2
 		switch_theme( 'pressbooks-book' );
-		$this->assertContains( 'font-size:', $this->cs->customizeWeb() );
-		$this->assertContains( 'font-size:', $this->cs->customizeEpub() );
-		$this->assertContains( 'font-size:', $this->cs->customizePrince() );
+		$this->assertStringContainsString( 'font-size:', $this->cs->customizeWeb() );
+		$this->assertStringContainsString( 'font-size:', $this->cs->customizeEpub() );
+		$this->assertStringContainsString( 'font-size:', $this->cs->customizePrince() );
 	}
 
 	/**
@@ -205,13 +205,13 @@ class StylesTest extends \WP_UnitTestCase {
 		$this->_book();
 
 		$dropdown = $this->cs->renderDropdownForSlugs( 'web' );
-		$this->assertContains( '</select>', $dropdown );
+		$this->assertStringContainsString( '</select>', $dropdown );
 		$revisions = $this->cs->renderRevisionsTable( 'web', $this->cs->getPost( 'web' )->ID );
-		$this->assertContains( '</table>', $revisions );
+		$this->assertStringContainsString( '</table>', $revisions );
 
 		ob_start();
 		$this->cs->editor();
 		$output = ob_get_clean();
-		$this->assertContains( '<h1>Custom Styles</h1>', $output );
+		$this->assertStringContainsString( '<h1>Custom Styles</h1>', $output );
 	}
 }

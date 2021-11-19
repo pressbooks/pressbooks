@@ -53,7 +53,7 @@ class ThemeOptionsTest extends \WP_UnitTestCase {
 		ob_start();
 		$this->themeOptions->render();
 		$output = ob_get_clean();
-		$this->assertContains( 'PDF Options</a>', $output );
+		$this->assertStringContainsString( 'PDF Options</a>', $output );
 	}
 
 	/**

@@ -32,8 +32,8 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		\Pressbooks\Admin\Laf\add_footer_link();
 		$buffer = ob_get_clean();
 
-		$this->assertContains( 'Powered by', $buffer );
-		$this->assertContains( 'Pressbooks', $buffer );
+		$this->assertStringContainsString( 'Powered by', $buffer );
+		$this->assertStringContainsString( 'Pressbooks', $buffer );
 
 		add_filter(
 			'pb_help_link', function() {
@@ -51,8 +51,8 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		\Pressbooks\Admin\Laf\add_footer_link();
 		$buffer = ob_get_clean();
 
-		$this->assertContains( 'https://pressbooks.community/', $buffer );
-		$this->assertContains( 'https://pressbooks.org/contact', $buffer );
+		$this->assertStringContainsString( 'https://pressbooks.community/', $buffer );
+		$this->assertStringContainsString( 'https://pressbooks.org/contact', $buffer );
 	}
 
 	/**
@@ -94,32 +94,32 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		$GLOBALS['post'] = get_post( $this->factory()->post->create_object( $new_post ) );
 		$GLOBALS['current_screen'] = WP_Screen::get( 'chapter' );
 		do_action( 'admin_enqueue_scripts', 'post.php' );
-		$this->assertContains( 'pb-post-visibility', $wp_scripts->queue );
+		$this->assertStringContainsString( 'pb-post-visibility', $wp_scripts->queue );
 
 		$new_post['post_type'] = 'back-matter';
 		$GLOBALS['post'] = get_post( $this->factory()->post->create_object( $new_post ) );
 		$GLOBALS['current_screen'] = WP_Screen::get( 'back-matter' );
 		do_action( 'admin_enqueue_scripts', 'post.php' );
-		$this->assertContains( 'pb-post-back-matter', $wp_scripts->queue );
+		$this->assertStringContainsString( 'pb-post-back-matter', $wp_scripts->queue );
 
 		$GLOBALS['post'] = ( new \Pressbooks\Metadata )->getMetaPost();
 		$GLOBALS['current_screen'] = WP_Screen::get( 'metadata' );
 		do_action( 'admin_enqueue_scripts', 'post.php' );
-		$this->assertContains( 'pb-metadata', $wp_scripts->queue );
+		$this->assertStringContainsString( 'pb-metadata', $wp_scripts->queue );
 
 		$new_post['post_type'] = 'post';
 		$GLOBALS['post'] = get_post( $this->factory()->post->create_object( $new_post ) );
 		$GLOBALS['current_screen'] = WP_Screen::get( 'post' );
 		do_action( 'admin_enqueue_scripts', 'toplevel_page_pb_organize' );
-		$this->assertContains( 'pb-organize', $wp_scripts->queue );
-		$this->assertContains( 'pb-organize', $wp_styles->queue );
+		$this->assertStringContainsString( 'pb-organize', $wp_scripts->queue );
+		$this->assertStringContainsString( 'pb-organize', $wp_styles->queue );
 
 		do_action( 'admin_enqueue_scripts', 'toplevel_page_pb_export' );
-		$this->assertContains( 'pb-export', $wp_scripts->queue );
-		$this->assertContains( 'pb-export', $wp_styles->queue );
+		$this->assertStringContainsString( 'pb-export', $wp_scripts->queue );
+		$this->assertStringContainsString( 'pb-export', $wp_styles->queue );
 
 		do_action( 'admin_enqueue_scripts', 'admin_page_pb_import' );
-		$this->assertContains( 'pb-import', $wp_scripts->queue );
+		$this->assertStringContainsString( 'pb-import', $wp_scripts->queue );
 
 		unset( $GLOBALS['post'], $GLOBALS['current_screen'] ); // Cleanup
 
@@ -138,8 +138,8 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		include_once( ABSPATH . '/wp-admin/menu.php' );
 		\Pressbooks\Admin\Laf\fix_root_admin_menu();
 		$this->assertArrayHasKey( 'index.php', $submenu );
-		$this->assertContains( 'Home', $submenu['index.php'][0] );
-		$this->assertContains( 'read', $submenu['index.php'][0] );
+		$this->assertStringContainsString( 'Home', $submenu['index.php'][0] );
+		$this->assertStringContainsString( 'read', $submenu['index.php'][0] );
 	}
 
 	/**
@@ -156,13 +156,13 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		\Pressbooks\Admin\Laf\add_pb_cloner_page();
 		$this->assertArrayHasKey( 'index.php', $submenu );
 		$this->assertArrayHasKey( '', $submenu );
-		$this->assertContains( 'Clone a Book', $submenu[''][0] );
+		$this->assertStringContainsString( 'Clone a Book', $submenu[''][0] );
 		$new_post['post_type'] = 'post';
 		$GLOBALS['post'] = get_post( $this->factory()->post->create_object( $new_post ) );
 		$GLOBALS['current_screen'] = WP_Screen::get( 'post' );
 		\Pressbooks\Admin\Laf\init_css_js();
 		do_action( 'admin_enqueue_scripts' );
-		$this->assertContains( 'pb-cloner', $wp_scripts->queue );
+		$this->assertStringContainsString( 'pb-cloner', $wp_scripts->queue );
 
 		unset( $GLOBALS['post'], $GLOBALS['current_screen'] ); // Cleanup
 	}
@@ -227,8 +227,8 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		ob_start();
 		\Pressbooks\Admin\Laf\display_export();
 		$buffer = ob_get_clean();
-		$this->assertContains( '<h1>Export', $buffer );
-		$this->assertContains( '<div class="clear"></div>', $buffer );
+		$this->assertStringContainsString( '<h1>Export', $buffer );
+		$this->assertStringContainsString( '<div class="clear"></div>', $buffer );
 	}
 
 	/**
@@ -298,10 +298,10 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		\Pressbooks\Admin\Laf\edit_screen_navigation( $post );
 		$buffer = ob_get_clean();
 
-		$this->assertContains( '<nav id="pb-edit-screen-navigation" role="navigation"', $buffer );
-		$this->assertContains( '<a href', $buffer );
-		$this->assertContains( 'Edit Previous', $buffer );
-		$this->assertContains( 'Edit Next', $buffer );
+		$this->assertStringContainsString( '<nav id="pb-edit-screen-navigation" role="navigation"', $buffer );
+		$this->assertStringContainsString( '<a href', $buffer );
+		$this->assertStringContainsString( 'Edit Previous', $buffer );
+		$this->assertStringContainsString( 'Edit Next', $buffer );
 	}
 
 	/**
@@ -317,7 +317,7 @@ class Admin_LafTest extends \WP_UnitTestCase {
 
 		$node = $wp_admin_bar->get_node( 'contact' );
 		$this->assertTrue( is_object( $node ) );
-		$this->assertContains( 'pressbooks.org', $node->href );
+		$this->assertStringContainsString( 'pressbooks.org', $node->href );
 	}
 
 	/**
@@ -378,8 +378,8 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		\Pressbooks\Admin\Laf\add_user_profile_fields( new \WP_User( $user_id ) );
 		$buffer = ob_get_clean();
 
-		$this->assertContains( 'element.insertAdjacentHTML', $buffer );
-		$this->assertContains( 'Your institutional affiliation, e.g. Rebus Foundation, Open University, Amnesty International.', $buffer );
+		$this->assertStringContainsString( 'element.insertAdjacentHTML', $buffer );
+		$this->assertStringContainsString( 'Your institutional affiliation, e.g. Rebus Foundation, Open University, Amnesty International.', $buffer );
 
 		$_REQUEST['institution'] = 'Rebus Foundation';
 

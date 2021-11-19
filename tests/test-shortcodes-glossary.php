@@ -169,7 +169,7 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 
 		foreach ( $terms as $term ) {
 			$content = $this->gl->exportShortcodeHandler( [ 'id' => $term['id'] ], 'First.' );
-			$this->assertContains( "<span class='glossary-term'>", $content );
+			$this->assertStringContainsString( "<span class='glossary-term'>", $content );
 		}
 	}
 
@@ -191,9 +191,9 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 		}
 
 		$content = $this->gl->tooltipContent( 'Hello World' );
-		$this->assertContains( '<div class="glossary">', $content );
-		$this->assertContains( $definitions[0], $content );
-		$this->assertContains( $definitions[1], $content );
+		$this->assertStringContainsString( '<div class="glossary">', $content );
+		$this->assertStringContainsString( $definitions[0], $content );
+		$this->assertStringContainsString( $definitions[1], $content );
 
 		// Initialize shortcode hooks
 		$this->_book();
@@ -204,12 +204,12 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 		$content_with_shortcode = do_shortcode( $content_with_shortcode );
 
 		// Testing media caption
-		$this->assertContains( '<figure', $content_with_shortcode );
-		$this->assertContains( 'Evolutionary algorithms are a heuristic-based approach to solving problems that cannot be easily solved in polynomial time.', $content_with_shortcode );
-		$this->assertContains( '<iframe', $content_with_shortcode );
-		$this->assertContains( 'L--IxUH4fac', $content_with_shortcode );
-		$this->assertContains( '<figcaption', $content_with_shortcode );
-		$this->assertContains( 'Introduction to evolutionary algorithms', $content_with_shortcode );
+		$this->assertStringContainsString( '<figure', $content_with_shortcode );
+		$this->assertStringContainsString( 'Evolutionary algorithms are a heuristic-based approach to solving problems that cannot be easily solved in polynomial time.', $content_with_shortcode );
+		$this->assertStringContainsString( '<iframe', $content_with_shortcode );
+		$this->assertStringContainsString( 'L--IxUH4fac', $content_with_shortcode );
+		$this->assertStringContainsString( '<figcaption', $content_with_shortcode );
+		$this->assertStringContainsString( 'Introduction to evolutionary algorithms', $content_with_shortcode );
 
 	}
 	/**
@@ -249,7 +249,7 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 		// Yes, changed
 		$pid = $this->factory()->post->update_object( $pid, [ 'post_content' => ' &nbsp;    ' ] );
 		$post = get_post( $pid );
-		$this->assertContains( '<dl data-type="glossary">', $this->gl->overrideDisplay( $post->post_content ) );
+		$this->assertStringContainsString( '<dl data-type="glossary">', $this->gl->overrideDisplay( $post->post_content ) );
 	}
 
 }

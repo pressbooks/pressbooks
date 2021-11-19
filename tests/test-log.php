@@ -128,12 +128,12 @@ class LogTest extends \WP_UnitTestCase {
 		$file_content = str_getcsv( file_get_contents( self::TEST_FILE_PATH ) );
 		unlink( self::TEST_FILE_PATH );
 		$this->assertEquals( 'Test key 1', $file_content[1] );
-		$this->assertContains( 'Test value', $file_content[2] );
+		$this->assertStringContainsString( 'Test value', $file_content[2] );
 		$this->assertEquals( 'Test key 2', $file_content[3] );
-		$this->assertContains( 'Test b', $file_content[4] );
-		$this->assertContains( 'Test d', $file_content[4] );
-		$this->assertContains( '[Test a] =>', $file_content[4] );
-		$this->assertContains( '[Test c] =>', $file_content[4] );
+		$this->assertStringContainsString( 'Test b', $file_content[4] );
+		$this->assertStringContainsString( 'Test d', $file_content[4] );
+		$this->assertStringContainsString( '[Test a] =>', $file_content[4] );
+		$this->assertStringContainsString( '[Test c] =>', $file_content[4] );
 	}
 
 	/**

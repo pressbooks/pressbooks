@@ -66,6 +66,6 @@ class Admin_BrandingTest extends \WP_UnitTestCase {
 		ob_start();
 		\Pressbooks\Admin\Branding\favicon();
 		$buffer = ob_get_clean();
-		$this->assertContains( '<link rel="shortcut icon"', $buffer );
+		$this->assertStringContainsString( '<link rel="shortcut icon"', $buffer );
 	}
 }

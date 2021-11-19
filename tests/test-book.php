@@ -238,17 +238,17 @@ class BookTest extends \WP_UnitTestCase {
 
 		$id = $book::getBookStructure()['front-matter'][0]['ID'];
 		$result = $book::tagSubsections( $test, $id );
-		$this->assertContains( "<h1 id=\"front-matter-{$id}-section-1", $result );
-		$this->assertContains( '<b></b>', $result );
+		$this->assertStringContainsString( "<h1 id=\"front-matter-{$id}-section-1", $result );
+		$this->assertStringContainsString( '<b></b>', $result );
 
 		$test = "<H1 style='font-size:small;'>Hi there!<B></B></H1><P>How are you?.</P>"; // ALL CAPS
 		$result = $book::tagSubsections( $test, $id );
-		$this->assertContains( "<h1 style=\"font-size:small;\" id=\"front-matter-{$id}-section-1\" class=\"section-header\"", $result );
-		$this->assertContains( '<b></b>', $result );
+		$this->assertStringContainsString( "<h1 style=\"font-size:small;\" id=\"front-matter-{$id}-section-1\" class=\"section-header\"", $result );
+		$this->assertStringContainsString( '<b></b>', $result );
 
 		$test = "<h1 class='foo' id='bar'>Hi there!<b></b></h1><p>How are you?.</p>"; // existing class and id
 		$result = $book::tagSubsections( $test, $id );
-		$this->assertContains( "<h1 class=\"section-header foo bar\" id=\"front-matter-{$id}-section-1\"", $result );
+		$this->assertStringContainsString( "<h1 class=\"section-header foo bar\" id=\"front-matter-{$id}-section-1\"", $result );
 
 		$test = '<h2>Hi there!<b></b></h2><p>How are you?</p>'; // H2
 		$result = $book::tagSubsections( $test, $id );
@@ -265,7 +265,7 @@ class BookTest extends \WP_UnitTestCase {
 		// Front End Mode
 
 		$url_1 = $book::getFirst();
-		$this->assertContains( 'example.org/', $url_1 );
+		$this->assertStringContainsString( 'example.org/', $url_1 );
 		$post_id = $book::getFirst( true );
 		$this->assertTrue( is_integer( $post_id ) );
 		$this->assertTrue( $post_id > 0 );
@@ -282,7 +282,7 @@ class BookTest extends \WP_UnitTestCase {
 		$post = get_post( $post_id );
 
 		$url = $book::get( 'next' );
-		$this->assertContains( 'example.org/', $url );
+		$this->assertStringContainsString( 'example.org/', $url );
 		$post_id = $book::get( 'next', true );
 		$this->assertTrue( is_integer( $post_id ) );
 		$this->assertTrue( $post_id > 0 );
@@ -301,7 +301,7 @@ class BookTest extends \WP_UnitTestCase {
 		wp_set_current_user( $user_id );
 
 		$url = $book::getFirst( false, true );
-		$this->assertContains( 'example.org/', $url );
+		$this->assertStringContainsString( 'example.org/', $url );
 		$post_id = $book::getFirst( true, true );
 		$this->assertTrue( is_integer( $post_id ) );
 		$this->assertTrue( $post_id > 0 );
@@ -311,7 +311,7 @@ class BookTest extends \WP_UnitTestCase {
 		$post = get_post( $post_id );
 
 		$url = $book::get( 'next', false, true );
-		$this->assertContains( 'example.org/', $url );
+		$this->assertStringContainsString( 'example.org/', $url );
 		$post_id = $book::get( 'next', true, true );
 		$this->assertTrue( is_integer( $post_id ) );
 		$this->assertTrue( $post_id > 0 );
@@ -480,14 +480,14 @@ class BookTest extends \WP_UnitTestCase {
 
 		$metadata = get_post_meta( $meta_post->ID );
 		$this->assertArrayHasKey( 'pb_bisac_subject', $metadata );
-		$this->assertContains( $validated_bisac_codes[0], $metadata['pb_bisac_subject'] );
+		$this->assertStringContainsString( $validated_bisac_codes[0], $metadata['pb_bisac_subject'] );
 		$this->assertNotContains( $invalidated_bisac_codes[0], $metadata['pb_bisac_subject'] );
 
 		$book_information_array_updated = $book_data_collector->get( $blog_id, BookDataCollector::BOOK_INFORMATION_ARRAY );
 		$this->assertArrayHasKey( 'pb_bisac_subject', $book_information_array_updated );
 		$blog_bisac_codes_updated = explode( ', ', $book_information_array_updated['pb_bisac_subject'] );
-		$this->assertContains( $validated_bisac_codes[0], $blog_bisac_codes_updated );
-		$this->assertContains( 'TEC071000', $blog_bisac_codes_updated );
+		$this->assertStringContainsString( $validated_bisac_codes[0], $blog_bisac_codes_updated );
+		$this->assertStringContainsString( 'TEC071000', $blog_bisac_codes_updated );
 		$this->assertNotContains( $invalidated_bisac_codes[0], $blog_bisac_codes_updated );
 	}
 

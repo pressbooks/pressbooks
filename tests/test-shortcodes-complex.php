@@ -143,23 +143,23 @@ class Shortcodes_Complex extends \WP_UnitTestCase {
 	public function test_mediaShortcodeHandler() {
 		// Test a YouTube embed as a src attribute
 		$content = $this->complex->mediaShortCodeHandler( [ 'src' => 'https://www.youtube.com/watch?v=JgIhGTpKTwM' ], '', 'embed' );
-		$this->assertContains( '<iframe', $content );
+		$this->assertStringContainsString( '<iframe', $content );
 
 		// Test a YouTube embed as content
 		$content = $this->complex->mediaShortCodeHandler( [], 'https://www.youtube.com/watch?v=JgIhGTpKTwM', 'embed' );
-		$this->assertContains( '<iframe', $content );
+		$this->assertStringContainsString( '<iframe', $content );
 
 		// Test a YouTube embed as a src attribute with a caption
 		$content = $this->complex->mediaShortCodeHandler( [ 'caption' => 'Deploy day!', 'src' => 'https://www.youtube.com/watch?v=JgIhGTpKTwM' ], '', 'embed' );
-		$this->assertContains( '<figure', $content );
-		$this->assertContains( '<iframe', $content );
-		$this->assertContains( '<figcaption>Deploy day!</figcaption>', $content );
+		$this->assertStringContainsString( '<figure', $content );
+		$this->assertStringContainsString( '<iframe', $content );
+		$this->assertStringContainsString( '<figcaption>Deploy day!</figcaption>', $content );
 
 		// Test a YouTube embed as content with a caption
 		$content = $this->complex->mediaShortCodeHandler( [ 'caption' => 'Deploy day!' ], 'https://www.youtube.com/watch?v=JgIhGTpKTwM', 'embed' );
-		$this->assertContains( '<figure', $content );
-		$this->assertContains( '<iframe', $content );
-		$this->assertContains( '<figcaption>Deploy day!</figcaption>', $content );
+		$this->assertStringContainsString( '<figure', $content );
+		$this->assertStringContainsString( '<iframe', $content );
+		$this->assertStringContainsString( '<figcaption>Deploy day!</figcaption>', $content );
 	}
 
 }

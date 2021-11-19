@@ -13,7 +13,7 @@ class Admin_CoverGeneratorTest extends \WP_UnitTestCase {
 		ob_start();
 		\Pressbooks\Admin\Covergenerator\display_generator();
 		$buffer = ob_get_clean();
-		$this->assertContains( '<h1>Cover Generator</h1>', $buffer );
+		$this->assertStringContainsString( '<h1>Cover Generator</h1>', $buffer );
 	}
 
 	/**
@@ -24,8 +24,8 @@ class Admin_CoverGeneratorTest extends \WP_UnitTestCase {
 		$_REQUEST['page'] = 'pressbooks_cg';
 		$hooks_suffix = get_plugin_page_hookname( 'pressbooks_cg', 'pb_export' );
 		\Pressbooks\Admin\Covergenerator\generator_css_js( $hooks_suffix );
-		$this->assertContains( 'cg/js', $wp_scripts->queue );
-		$this->assertContains( 'cg/css', $wp_styles->queue );
+		$this->assertStringContainsString( 'cg/js', $wp_scripts->queue );
+		$this->assertStringContainsString( 'cg/css', $wp_styles->queue );
 	}
 
 	/**
@@ -44,7 +44,7 @@ class Admin_CoverGeneratorTest extends \WP_UnitTestCase {
 		ob_start();
 		\Pressbooks\Admin\Covergenerator\pressbooks_cg_text_callback();
 		$buffer = ob_get_clean();
-		$this->assertContains( 'The text below is pulled from', $buffer );
+		$this->assertStringContainsString( 'The text below is pulled from', $buffer );
 	}
 
 	/**
@@ -54,7 +54,7 @@ class Admin_CoverGeneratorTest extends \WP_UnitTestCase {
 		ob_start();
 		\Pressbooks\Admin\Covergenerator\pressbooks_cg_title_callback( null );
 		$buffer = ob_get_clean();
-		$this->assertContains( '<textarea id="pb_title"', $buffer );
+		$this->assertStringContainsString( '<textarea id="pb_title"', $buffer );
 	}
 
 	/**
@@ -64,7 +64,7 @@ class Admin_CoverGeneratorTest extends \WP_UnitTestCase {
 		ob_start();
 		\Pressbooks\Admin\Covergenerator\pressbooks_cg_title_spine_callback( null );
 		$buffer = ob_get_clean();
-		$this->assertContains( '<input id="pb_title_spine"', $buffer );
+		$this->assertStringContainsString( '<input id="pb_title_spine"', $buffer );
 	}
 
 	/**
@@ -74,7 +74,7 @@ class Admin_CoverGeneratorTest extends \WP_UnitTestCase {
 		ob_start();
 		\Pressbooks\Admin\Covergenerator\pressbooks_cg_subtitle_callback( null );
 		$buffer = ob_get_clean();
-		$this->assertContains( '<textarea id="pb_subtitle"', $buffer );
+		$this->assertStringContainsString( '<textarea id="pb_subtitle"', $buffer );
 	}
 
 	/**
@@ -84,7 +84,7 @@ class Admin_CoverGeneratorTest extends \WP_UnitTestCase {
 		ob_start();
 		\Pressbooks\Admin\Covergenerator\pressbooks_cg_author_callback( null );
 		$buffer = ob_get_clean();
-		$this->assertContains( '<textarea id="pb_author"', $buffer );
+		$this->assertStringContainsString( '<textarea id="pb_author"', $buffer );
 	}
 
 	/**
@@ -94,7 +94,7 @@ class Admin_CoverGeneratorTest extends \WP_UnitTestCase {
 		ob_start();
 		\Pressbooks\Admin\Covergenerator\pressbooks_cg_author_spine_callback( null );
 		$buffer = ob_get_clean();
-		$this->assertContains( '<input id="pb_author_spine"', $buffer );
+		$this->assertStringContainsString( '<input id="pb_author_spine"', $buffer );
 	}
 
 	/**
@@ -104,7 +104,7 @@ class Admin_CoverGeneratorTest extends \WP_UnitTestCase {
 		ob_start();
 		\Pressbooks\Admin\Covergenerator\pressbooks_cg_about_callback( null );
 		$buffer = ob_get_clean();
-		$this->assertContains( '<div id="wp-pb_about_unlimited-wrap"', $buffer );
+		$this->assertStringContainsString( '<div id="wp-pb_about_unlimited-wrap"', $buffer );
 	}
 
 	/**
@@ -114,7 +114,7 @@ class Admin_CoverGeneratorTest extends \WP_UnitTestCase {
 		ob_start();
 		\Pressbooks\Admin\Covergenerator\pressbooks_cg_isbn_callback( [ 'Description ' ] );
 		$buffer = ob_get_clean();
-		$this->assertContains( '<input id="pb_print_isbn"', $buffer );
+		$this->assertStringContainsString( '<input id="pb_print_isbn"', $buffer );
 	}
 
 	/**
@@ -124,7 +124,7 @@ class Admin_CoverGeneratorTest extends \WP_UnitTestCase {
 		ob_start();
 		\Pressbooks\Admin\Covergenerator\pressbooks_cg_sku_callback( [ 'Description ' ] );
 		$buffer = ob_get_clean();
-		$this->assertContains( '<input id="pb_print_sku"', $buffer );
+		$this->assertStringContainsString( '<input id="pb_print_sku"', $buffer );
 	}
 
 	/**
@@ -134,7 +134,7 @@ class Admin_CoverGeneratorTest extends \WP_UnitTestCase {
 		ob_start();
 		\Pressbooks\Admin\Covergenerator\pressbooks_cg_design_callback();
 		$buffer = ob_get_clean();
-		$this->assertContains( 'You can upload a background image here', $buffer );
+		$this->assertStringContainsString( 'You can upload a background image here', $buffer );
 	}
 
 	/**
@@ -144,7 +144,7 @@ class Admin_CoverGeneratorTest extends \WP_UnitTestCase {
 		ob_start();
 		\Pressbooks\Admin\Covergenerator\pressbooks_cg_front_background_image_callback( null );
 		$buffer = ob_get_clean();
-		$this->assertContains( '<input id="front_background_image"', $buffer );
+		$this->assertStringContainsString( '<input id="front_background_image"', $buffer );
 	}
 
 	/**
@@ -154,7 +154,7 @@ class Admin_CoverGeneratorTest extends \WP_UnitTestCase {
 		ob_start();
 		\Pressbooks\Admin\Covergenerator\pressbooks_cg_text_transform_callback( [] );
 		$buffer = ob_get_clean();
-		$this->assertContains( '<select name=\'pressbooks_cg_options[text_transform]', $buffer );
+		$this->assertStringContainsString( '<select name=\'pressbooks_cg_options[text_transform]', $buffer );
 	}
 
 	/**
@@ -164,7 +164,7 @@ class Admin_CoverGeneratorTest extends \WP_UnitTestCase {
 		ob_start();
 		\Pressbooks\Admin\Covergenerator\pressbooks_cg_spine_size_callback();
 		$buffer = ob_get_clean();
-		$this->assertContains( 'We can calculate the spine size based on CreateSpace and Ingram specifications', $buffer );
+		$this->assertStringContainsString( 'We can calculate the spine size based on CreateSpace and Ingram specifications', $buffer );
 	}
 
 	/**
@@ -174,7 +174,7 @@ class Admin_CoverGeneratorTest extends \WP_UnitTestCase {
 		ob_start();
 		\Pressbooks\Admin\Covergenerator\pressbooks_cg_pdf_pagecount_callback( null );
 		$buffer = ob_get_clean();
-		$this->assertContains( '<input id="pdf_pagecount"', $buffer );
+		$this->assertStringContainsString( '<input id="pdf_pagecount"', $buffer );
 	}
 
 	/**
@@ -184,7 +184,7 @@ class Admin_CoverGeneratorTest extends \WP_UnitTestCase {
 		ob_start();
 		\Pressbooks\Admin\Covergenerator\pressbooks_cg_ppi_callback( [] );
 		$buffer = ob_get_clean();
-		$this->assertContains( '<select name=\'pressbooks_cg_options[ppi]', $buffer );
+		$this->assertStringContainsString( '<select name=\'pressbooks_cg_options[ppi]', $buffer );
 	}
 
 	/**
@@ -194,7 +194,7 @@ class Admin_CoverGeneratorTest extends \WP_UnitTestCase {
 		ob_start();
 		\Pressbooks\Admin\Covergenerator\pressbooks_cg_custom_ppi_callback( null );
 		$buffer = ob_get_clean();
-		$this->assertContains( '<input id="custom_ppi"', $buffer );
+		$this->assertStringContainsString( '<input id="custom_ppi"', $buffer );
 	}
 
 	/**
@@ -204,7 +204,7 @@ class Admin_CoverGeneratorTest extends \WP_UnitTestCase {
 		ob_start();
 		\Pressbooks\Admin\Covergenerator\pressbooks_cg_colors_callback();
 		$buffer = ob_get_clean();
-		$this->assertContains( 'Choose text color and background colors below', $buffer );
+		$this->assertStringContainsString( 'Choose text color and background colors below', $buffer );
 	}
 
 	/**
@@ -214,7 +214,7 @@ class Admin_CoverGeneratorTest extends \WP_UnitTestCase {
 		ob_start();
 		\Pressbooks\Admin\Covergenerator\pressbooks_cg_color_callback( [ 'id' ] );
 		$buffer = ob_get_clean();
-		$this->assertContains( '<input class="colorpicker"', $buffer );
+		$this->assertStringContainsString( '<input class="colorpicker"', $buffer );
 	}
 
 	/**

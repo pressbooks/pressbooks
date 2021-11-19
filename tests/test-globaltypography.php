@@ -69,7 +69,7 @@ class GlobalTypographyTest extends \WP_UnitTestCase {
 
 		$supported_languages = $this->gt->getThemeSupportedLanguages();
 
-		$this->assertContains( 'grc', $supported_languages );
+		$this->assertStringContainsString( 'grc', $supported_languages );
 	}
 
 	/**
@@ -87,7 +87,7 @@ class GlobalTypographyTest extends \WP_UnitTestCase {
 				} else {
 					$this->assertTrue( false, "Cannot download: {$url}" );
 				}
-				$this->assertContains( "https://raw.githubusercontent.com", $font_url );
+				$this->assertStringContainsString( "https://raw.githubusercontent.com", $font_url );
 			}
 		}
 	}

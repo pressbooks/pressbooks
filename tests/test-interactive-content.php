@@ -28,10 +28,10 @@ class Interactive_ContentTest extends \WP_UnitTestCase {
 		';
 		$result = $this->content->deleteIframesNotOnWhitelist( $raw, [ 'post' ] );
 		$this->assertEquals( 1, substr_count( $result, '<iframe' ) );
-		$this->assertContains( 'Test One', $result );
-		$this->assertContains( 'Test Two', $result );
-		$this->assertContains( '<iframe src="https://phet.colorado.edu/', $result );
-		$this->assertContains( '[embed]https://garbage.com/bad.html[/embed]', $result );
+		$this->assertStringContainsString( 'Test One', $result );
+		$this->assertStringContainsString( 'Test Two', $result );
+		$this->assertStringContainsString( '<iframe src="https://phet.colorado.edu/', $result );
+		$this->assertStringContainsString( '[embed]https://garbage.com/bad.html[/embed]', $result );
 		$this->assertNotContains( '<p>', $result );
 
 
@@ -45,11 +45,11 @@ class Interactive_ContentTest extends \WP_UnitTestCase {
 		';
 		$result = $this->content->deleteIframesNotOnWhitelist( $raw, [ 'post' ] );
 		$this->assertEquals( 2, substr_count( $result, '<iframe' ) );
-		$this->assertContains( 'Test Three', $result );
-		$this->assertContains( 'Test Four', $result );
-		$this->assertContains( '<iframe src="https://docs.google.com/forms/d/e/xxx/viewform?embedded=true', $result );
-		$this->assertContains( '[embed]https://docs.google.com/garbage/d/e/xxx/viewform?embedded=true[/embed]', $result );
-		$this->assertContains( '<iframe src="https://www.google.com/maps/d/embed?mid=xxx', $result );
+		$this->assertStringContainsString( 'Test Three', $result );
+		$this->assertStringContainsString( 'Test Four', $result );
+		$this->assertStringContainsString( '<iframe src="https://docs.google.com/forms/d/e/xxx/viewform?embedded=true', $result );
+		$this->assertStringContainsString( '[embed]https://docs.google.com/garbage/d/e/xxx/viewform?embedded=true[/embed]', $result );
+		$this->assertStringContainsString( '<iframe src="https://www.google.com/maps/d/embed?mid=xxx', $result );
 			$this->assertNotContains( '<p>', $result );
 	}
 
@@ -65,9 +65,9 @@ class Interactive_ContentTest extends \WP_UnitTestCase {
 		$result = $this->content->replaceIframes( $html );
 
 		$this->assertNotContains( '<iframe', $result );
-		$this->assertContains( '<div ', $result );
-		$this->assertContains( '<p>Test</p>', $result );
-		$this->assertContains( 'excluded from this version of the text', $result );
+		$this->assertStringContainsString( '<div ', $result );
+		$this->assertStringContainsString( '<p>Test</p>', $result );
+		$this->assertStringContainsString( 'excluded from this version of the text', $result );
 	}
 
 	/**
@@ -96,8 +96,8 @@ class Interactive_ContentTest extends \WP_UnitTestCase {
 		$result = $this->content->replaceOembed( $html, $data, null );
 
 		$this->assertNotContains( '<iframe', $result );
-		$this->assertContains( '<div ', $result );
-		$this->assertContains( 'excluded from this version of the text', $result );
+		$this->assertStringContainsString( '<div ', $result );
+		$this->assertStringContainsString( 'excluded from this version of the text', $result );
 	}
 
 	/**
@@ -116,10 +116,10 @@ class Interactive_ContentTest extends \WP_UnitTestCase {
 
 		$result = $this->content->replaceInteractiveTags( $html );
 		$this->assertNotContains( '<audio', $result );
-		$this->assertContains( '<div ', $result );
-		$this->assertContains( 'excluded from this version of the text', $result );
-		$this->assertContains( 'href="#audio-2-1"', $result );
-		$this->assertContains( '>#audio-2-1</a>', $result );
+		$this->assertStringContainsString( '<div ', $result );
+		$this->assertStringContainsString( 'excluded from this version of the text', $result );
+		$this->assertStringContainsString( 'href="#audio-2-1"', $result );
+		$this->assertStringContainsString( '>#audio-2-1</a>', $result );
 	}
 
 	/**

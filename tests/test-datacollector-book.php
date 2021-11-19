@@ -161,10 +161,10 @@ class DataCollector_BookTest extends \WP_UnitTestCase {
 
 		$x = $this->bookDataCollector->getPossibleValuesFor( BookDataCollector::THEME );
 
-		$this->assertContains( 'McLuhan', $x );
-		$this->assertContains( 'Clarke', $x );
-		$this->assertContains( 'Luther', $x );
-		$this->assertContains( 'King, Of, The, Hill', $x );
+		$this->assertStringContainsString( 'McLuhan', $x );
+		$this->assertStringContainsString( 'Clarke', $x );
+		$this->assertStringContainsString( 'Luther', $x );
+		$this->assertStringContainsString( 'King, Of, The, Hill', $x );
 	}
 
 	/**
@@ -178,13 +178,13 @@ class DataCollector_BookTest extends \WP_UnitTestCase {
 
 		$x = $this->bookDataCollector->getPossibleCommaDelimitedValuesFor( BookDataCollector::THEME );
 
-		$this->assertContains( 'McLuhan', $x );
-		$this->assertContains( 'Clarke', $x );
-		$this->assertContains( 'Luther', $x );
-		$this->assertContains( 'King', $x );
-		$this->assertContains( 'Of', $x );
-		$this->assertContains( 'The', $x );
-		$this->assertContains( 'Hill', $x );
+		$this->assertStringContainsString( 'McLuhan', $x );
+		$this->assertStringContainsString( 'Clarke', $x );
+		$this->assertStringContainsString( 'Luther', $x );
+		$this->assertStringContainsString( 'King', $x );
+		$this->assertStringContainsString( 'Of', $x );
+		$this->assertStringContainsString( 'The', $x );
+		$this->assertStringContainsString( 'Hill', $x );
 	}
 
 	/**
