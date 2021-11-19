@@ -98,14 +98,13 @@ jobs:
 
     - name: Run PHP Tests with PHPUnit 9
       run: |
-        composer remove --dev phpunit/phpunit
-        composer update --dev yoast/phpunit-polyfills --with-dependencies --ignore-platform-reqs
+        composer require --dev phpunit/phpunit ^9
         composer test
-      if: matrix.experimental == true && matrix.wordpress != 'latest'
+      if: matrix.experimental == true && matrix.wordpress == 'trunk'
 
     - name: Run PHP Tests
       run: composer test
-      if: matrix.experimental == true && matrix.wordpress != 5.9
+      if: matrix.experimental == true && matrix.wordpress != 'trunk'
 
     - name: Run PHP Tests and PCOV
       run: composer require pcov/clobber; vendor/bin/pcov clobber; vendor/bin/phpunit --configuration phpunit.xml --coverage-clover coverage.xml
