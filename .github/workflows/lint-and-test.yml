@@ -28,6 +28,12 @@ jobs:
             epubcheck: 4.2.6
             prince: 14.2-1
             experimental: true
+          - php: 7.4
+            os: ubuntu-20.04
+            wordpress: nightly
+            epubcheck: 4.2.6
+            prince: 14.2-1
+            experimental: true
     name: PHPUnit - ${{ matrix.php }} - ${{ matrix.wordpress }}
 
     steps:
@@ -95,7 +101,7 @@ jobs:
         composer remove --dev phpunit/phpunit
         composer update --dev yoast/phpunit-polyfills --with-dependencies --ignore-platform-reqs
         composer test
-      if: matrix.experimental == true && matrix.wordpress == 5.9
+      if: matrix.experimental == true && matrix.wordpress == nightly
 
     - name: Run PHP Tests
       run: composer test
