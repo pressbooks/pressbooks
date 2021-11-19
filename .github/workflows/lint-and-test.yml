@@ -98,7 +98,10 @@ jobs:
 
     - name: Run PHP Tests with PHPUnit 9
       run: |
-        composer require --dev phpunit/phpunit ^9
+        composer remove --dev codeception/*
+        composer remove --dev lucatume/wp-browser
+        composer remove --dev phpunit/phpunit
+        composer update --dev yoast/phpunit-polyfills --with-dependencies --ignore-platform-reqs
         composer test
       if: matrix.experimental == true && matrix.wordpress == 'trunk'
 
