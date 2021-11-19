@@ -161,10 +161,10 @@ class DataCollector_BookTest extends \WP_UnitTestCase {
 
 		$x = $this->bookDataCollector->getPossibleValuesFor( BookDataCollector::THEME );
 
-		$this->assertStringContainsString( 'McLuhan', $x );
-		$this->assertStringContainsString( 'Clarke', $x );
-		$this->assertStringContainsString( 'Luther', $x );
-		$this->assertStringContainsString( 'King, Of, The, Hill', $x );
+		$this->assertContains( 'McLuhan', $x );
+		$this->assertContains( 'Clarke', $x );
+		$this->assertContains( 'Luther', $x );
+		$this->assertContains( 'King, Of, The, Hill', $x );
 	}
 
 	/**

@@ -24,8 +24,8 @@ class Admin_CoverGeneratorTest extends \WP_UnitTestCase {
 		$_REQUEST['page'] = 'pressbooks_cg';
 		$hooks_suffix = get_plugin_page_hookname( 'pressbooks_cg', 'pb_export' );
 		\Pressbooks\Admin\Covergenerator\generator_css_js( $hooks_suffix );
-		$this->assertStringContainsString( 'cg/js', $wp_scripts->queue );
-		$this->assertStringContainsString( 'cg/css', $wp_styles->queue );
+		$this->assertContains( 'cg/js', $wp_scripts->queue );
+		$this->assertContains( 'cg/css', $wp_styles->queue );
 	}
 
 	/**

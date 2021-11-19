@@ -504,11 +504,11 @@ class ContributorsTest extends \WP_UnitTestCase {
 	{
 		$fields = $this->contributor->getUrlFields();
 
-		$this->assertStringContainsString( 'contributor_picture', $fields );
-		$this->assertStringContainsString( 'contributor_user_url', $fields );
-		$this->assertStringContainsString( 'contributor_twitter', $fields );
-		$this->assertStringContainsString( 'contributor_linkedin', $fields );
-		$this->assertStringContainsString( 'contributor_github', $fields );
+		$this->assertContains( 'contributor_picture', $fields );
+		$this->assertContains( 'contributor_user_url', $fields );
+		$this->assertContains( 'contributor_twitter', $fields );
+		$this->assertContains( 'contributor_linkedin', $fields );
+		$this->assertContains( 'contributor_github', $fields );
 	}
 
 	/**

@@ -38,7 +38,7 @@ class UtilityTest extends \WP_UnitTestCase {
 		$files = \Pressbooks\Utility\scandir_by_date( __DIR__ );
 
 		$this->assertTrue( is_array( $files ) );
-		$this->assertStringContainsString( basename( __FILE__ ), $files );
+		$this->assertContains( basename( __FILE__ ), $files );
 		$this->assertNotContains( '.htaccess', $files );
 		$this->assertNotContains( 'data', $files );
 

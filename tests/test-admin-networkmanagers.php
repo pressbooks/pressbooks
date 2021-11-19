@@ -19,8 +19,8 @@ class Admin_NetworkManagers extends \WP_UnitTestCase {
 	public function test_admin_enqueues() {
 		global $wp_scripts, $wp_styles;
 		\Pressbooks\Admin\NetworkManagers\admin_enqueues();
-		$this->assertStringContainsString( 'pb-network-managers', $wp_scripts->queue );
-		$this->assertStringContainsString( 'pb-network-managers', $wp_styles->queue );
+		$this->assertContains( 'pb-network-managers', $wp_scripts->queue );
+		$this->assertContains( 'pb-network-managers', $wp_styles->queue );
 	}
 
 	/**
@@ -90,9 +90,9 @@ class Admin_NetworkManagers extends \WP_UnitTestCase {
 	public function test_permitted_setting_menus() {
 		$allowed = \Pressbooks\Admin\NetworkManagers\permitted_setting_menus();
 		$this->assertTrue( is_array( $allowed ) );
-		$this->assertStringContainsString( 'pb_analytics', $allowed );
-		$this->assertStringContainsString( 'pb_whitelabel_settings', $allowed );
-		$this->assertStringContainsString( 'pressbooks_sharingandprivacy_options', $allowed );
-		$this->assertStringContainsString( 'pb_network_analytics_options', $allowed );
+		$this->assertContains( 'pb_analytics', $allowed );
+		$this->assertContains( 'pb_whitelabel_settings', $allowed );
+		$this->assertContainsg( 'pressbooks_sharingandprivacy_options', $allowed );
+		$this->assertContains( 'pb_network_analytics_options', $allowed );
 	}
 }

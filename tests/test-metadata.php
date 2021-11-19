@@ -624,7 +624,7 @@ class MetadataTest extends \WP_UnitTestCase {
 		\Pressbooks\Metadata\register_contributor_meta();
 		global $wp_scripts;
 		do_action( 'admin_enqueue_scripts', 'term.php' );
-		$this->assertStringContainsString( 'pb_contributors', $wp_scripts->queue );
+		$this->assertContains( 'pb_contributors', $wp_scripts->queue );
 	}
 
 }

@@ -69,7 +69,7 @@ class GlobalTypographyTest extends \WP_UnitTestCase {
 
 		$supported_languages = $this->gt->getThemeSupportedLanguages();
 
-		$this->assertStringContainsString( 'grc', $supported_languages );
+		$this->assertContains( 'grc', $supported_languages );
 	}
 
 	/**

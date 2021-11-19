@@ -183,7 +183,7 @@ class ThemeLockTest extends \WP_UnitTestCase {
 		$this->assertEquals( $result['name'], $theme->get( 'Name' ) );
 		$this->assertEquals( $result['version'], $theme->get( 'Version' ) );
 		$this->assertEquals( $result['timestamp'], $time );
-		$this->assertStringContainsString( 'zig-zag-zog', $result['features'] );
+		$this->assertContains( 'zig-zag-zog', $result['features'] );
 	}
 
 	/**
