@@ -25,8 +25,8 @@ class MetadataTest extends \WP_UnitTestCase {
 	/**
 	 * @group metadata
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 		$this->metadata = new \Pressbooks\Metadata();
 		$this->contributor = new \Pressbooks\Contributors();
 		$this->taxonomy = new \Pressbooks\Taxonomy(

@@ -197,8 +197,8 @@ class OptionsTest extends \WP_UnitTestCase {
 	/**
 	 *
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 		$this->options = new \OptionsMock(
 			[
 				'option_bool' => '1',

@@ -13,8 +13,8 @@ class Modules_Export_ThinCCTest extends \WP_UnitTestCase {
 	/**
 	 *
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 		$this->weblinks = new Pressbooks\Modules\Export\ThinCC\WebLinks( [] );
 
 

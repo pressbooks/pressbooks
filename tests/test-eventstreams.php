@@ -11,8 +11,8 @@ class EventStreamsTest extends \WP_UnitTestCase {
 	/**
 	 * @group eventstreams
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 		$this->eventStreams = new \Pressbooks\EventStreams();
 	}
 

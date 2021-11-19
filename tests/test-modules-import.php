@@ -34,8 +34,8 @@ class Modules_ImportTest extends \WP_UnitTestCase {
 	/**
 	 * @group import
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 		$this->import = new \ImportMock();
 	}
 

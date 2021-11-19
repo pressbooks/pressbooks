@@ -13,8 +13,8 @@ class PressbooksTest extends \WP_UnitTestCase {
 	/**
 	 * @group plugin
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 		$this->pb = new \Pressbooks\Pressbooks();
 	}
 

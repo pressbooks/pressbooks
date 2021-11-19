@@ -13,8 +13,8 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 	/**
 	 * @group glossary
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 
 		$this->gl = $this->getMockBuilder( '\Pressbooks\Shortcodes\Glossary\Glossary' )
 			->setMethods( null )

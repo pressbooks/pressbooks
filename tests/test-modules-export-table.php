@@ -24,8 +24,8 @@ class Modules_Export_TableTest extends \WP_UnitTestCase {
 	/**
 	 * @group export
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 		$GLOBALS['hook_suffix'] = 'mock';
 		$_REQUEST['page'] = 'pb_export';
 		$this->table = new \Pressbooks\Modules\Export\Table();

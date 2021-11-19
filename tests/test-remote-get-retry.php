@@ -5,8 +5,8 @@ class RemoteGetRetryTest extends \WP_UnitTestCase {
 	/**
 	 * @group utility
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 
 		$i = 0;
 		$mockedResponses = [

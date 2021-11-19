@@ -13,8 +13,8 @@ class Admin_SiteMapTest extends \WP_UnitTestCase {
 	/**
 	 * @group sitemap
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 		$this->sitemap = new \Pressbooks\Admin\SiteMap();
 	}
 

@@ -16,9 +16,9 @@ class ContainerTest extends \WP_UnitTestCase {
 	 * @group container
 	 * WP Unit test framework auto initializes our Container but we don't want this, clear it  before running tests
 	 */
-	public function setUp() {
+	public function set_up() {
 
-		parent::setUp();
+		parent::set_up();
 		Container::setInstance( null );
 	}
 
@@ -26,10 +26,10 @@ class ContainerTest extends \WP_UnitTestCase {
 	 * @group container
 	 * Put back Container to the way it was
 	 */
-	public function tearDown() {
+	public function tear_down() {
 
 		Container::init();
-		parent::tearDown();
+		parent::tear_down();
 	}
 
 	/**

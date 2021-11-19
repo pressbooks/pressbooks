@@ -23,8 +23,8 @@ class Modules_Import_OoxmlTest extends \WP_UnitTestCase {
 	/**
 	 * @group import
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 
 		$this->docx = new Pressbooks\Modules\Import\Ooxml\Docx();
 

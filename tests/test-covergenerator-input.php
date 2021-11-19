@@ -11,8 +11,8 @@ class CoverGenerator_InputTest extends \WP_UnitTestCase {
 	/**
 	 * @group covergenerator
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 		$this->input = new \Pressbooks\Covergenerator\Input();
 	}
 

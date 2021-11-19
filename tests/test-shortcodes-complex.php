@@ -14,8 +14,8 @@ class Shortcodes_Complex extends \WP_UnitTestCase {
 	/**
 	 * @group shortcodes
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 
 		$this->complex = $this->getMockBuilder( '\Pressbooks\Shortcodes\Complex\Complex' )
 			->setMethods( null ) // pass null to setMethods() to avoid mocking any method

@@ -13,8 +13,8 @@ class Shortcodes_Attributions_Attachments extends \WP_UnitTestCase {
 	/**
 	 * @group attributions
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 
 		$this->att = $this->getMockBuilder( '\Pressbooks\Shortcodes\Attributions\Attachments' )
 						->setMethods( null )

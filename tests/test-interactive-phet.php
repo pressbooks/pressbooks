@@ -11,8 +11,8 @@ class Interactive_PhetTest extends \WP_UnitTestCase {
 	/**
 	 * @group interactivecontent
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 		$blade = \Pressbooks\Container::get( 'Blade' );
 		$this->phet = new \Pressbooks\Interactive\Phet( $blade );
 	}

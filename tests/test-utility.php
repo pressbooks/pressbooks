@@ -4,7 +4,7 @@ class UtilityTest extends \WP_UnitTestCase {
 
 	use utilsTrait;
 
-	public static function tearDownAfterClass() {
+	public static function tear_down_after_class(() {
 		$_SERVER['SERVER_PORT'] = '';
 	}
 

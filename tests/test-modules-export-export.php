@@ -63,8 +63,8 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 	/**
 	 * @group export
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 		$this->export = new \ExportMock();
 		do_action( 'pb_pre_export' );
 	}

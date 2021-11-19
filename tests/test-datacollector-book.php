@@ -15,8 +15,8 @@ class DataCollector_BookTest extends \WP_UnitTestCase {
 	/**
 	 * @group datacollector
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 		$obj = BookDataCollector::init();
 		remove_action( 'wp_update_site', [ $obj, 'updateSite' ], 999 );
 		remove_action( 'wp_insert_post', [ $obj, 'updateMetaData' ] );
@@ -25,7 +25,7 @@ class DataCollector_BookTest extends \WP_UnitTestCase {
 	}
 
 
-	public static function tearDownAfterClass() {
+	public static function tear_down_after_class(() {
 		// Put the hooks back in place
 		$obj = BookDataCollector::init();
 		$obj::hooks( $obj );

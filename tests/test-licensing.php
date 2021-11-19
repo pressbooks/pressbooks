@@ -13,8 +13,8 @@ class LicensingTest extends \WP_UnitTestCase {
 	/**
 	 * @group licensing
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 		$this->licensing = new \Pressbooks\Licensing();
 	}
 

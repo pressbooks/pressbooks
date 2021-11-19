@@ -15,8 +15,8 @@ class StylesTest extends \WP_UnitTestCase {
 	/**
 	 * @group styles
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 		$this->cs = Container::get( 'Styles' );
 	}
 

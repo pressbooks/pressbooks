@@ -19,8 +19,8 @@ class SearchResultTest extends \WP_UnitTestCase {
 	/**
 	 * @group searchandreplace
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 		$this->result = new \Pressbooks\Modules\SearchAndReplace\Result();
 		$this->content = new \Pressbooks\Modules\SearchAndReplace\Types\Content();
 	}

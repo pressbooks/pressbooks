@@ -13,8 +13,8 @@ class ThemeOptionsTest extends \WP_UnitTestCase {
 	/**
 	 * @group themeoptions
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 		$this->themeOptions = new \Pressbooks\Modules\ThemeOptions\Admin();
 	}
 

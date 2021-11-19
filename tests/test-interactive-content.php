@@ -11,8 +11,8 @@ class Interactive_ContentTest extends \WP_UnitTestCase {
 	/**
 	 * @group interactivecontent
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 		$this->content = new \Pressbooks\Interactive\Content();
 	}
 

@@ -6,10 +6,10 @@ class TemplateExportTest extends \WP_UnitTestCase {
 
 	use utilsTrait;
 
-	public function setUp()
+	public function set_up()
 	{
 		$this->blade = Container::get( 'Blade' );
-		parent::setUp();
+		parent::set_up();
 	}
 
 	/**

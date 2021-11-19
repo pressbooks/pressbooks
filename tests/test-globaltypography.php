@@ -16,8 +16,8 @@ class GlobalTypographyTest extends \WP_UnitTestCase {
 	/**
 	 * @group typography
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 		$this->gt = new GlobalTypography( Container::get( 'Sass' ) );
 	}
 

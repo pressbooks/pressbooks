@@ -21,8 +21,8 @@ class ContributorsTest extends \WP_UnitTestCase {
 	/**
 	 * @group contributors
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 		$this->contributor = new Contributors();
 		$this->taxonomy = new \Pressbooks\Taxonomy(
 			$this->getMockBuilder( '\Pressbooks\Licensing' )->getMock(),

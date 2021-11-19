@@ -14,8 +14,8 @@ class MathJaxTest extends \WP_UnitTestCase {
 	/**
 	 * @group taxonomies
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 		$this->mathjax = new Mathjax();
 	}
 

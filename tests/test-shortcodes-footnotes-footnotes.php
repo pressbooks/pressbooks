@@ -15,8 +15,8 @@ class Shortcodes_Footnotes extends \WP_UnitTestCase {
 	/**
 	 * @group footnotes
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 
 		$this->fn = $this->getMockBuilder( '\Pressbooks\Shortcodes\Footnotes\footnotes' )
 						->setMethods( null )// pass null to setMethods() to avoid mocking any method

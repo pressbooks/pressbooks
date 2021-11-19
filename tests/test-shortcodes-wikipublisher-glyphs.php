@@ -12,8 +12,8 @@ class Shortcodes_WikiPublisher_GlyphsTest extends \WP_UnitTestCase {
 	/**
 	 * @group shortcodes
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 
 		$this->glyphs = $this->getMockBuilder( '\Pressbooks\Shortcodes\Wikipublisher\Glyphs' )
 							->setMethods( null )// pass null to setMethods() to avoid mocking any method

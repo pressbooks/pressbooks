@@ -6,8 +6,8 @@ class Registration extends \WP_UnitTestCase {
 	/**
 	 * @group registration
 	 */
-	function setUp() {
-		parent::setUp();
+	function set_up() {
+		parent::set_up();
 		global $pagenow;
 		$pagenow = 'wp-signup.php';
 		add_filter( 'gettext', '\Pressbooks\Registration\custom_signup_text', 20, 3 );
@@ -16,8 +16,8 @@ class Registration extends \WP_UnitTestCase {
 	/**
 	 * @group registration
 	 */
-	function tearDown() {
-		parent::tearDown();
+	function tear_down() {
+		parent::tear_down();
 		remove_filter( 'gettext', '\Pressbooks\Registration\custom_signup_text' );
 	}
 
