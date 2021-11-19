@@ -94,7 +94,7 @@ class LicensingTest extends \WP_UnitTestCase {
 		$result = $this->licensing->doLicense( [ 'pb_book_license' => 'cc-by' ], $post_id );
 		$this->assertStringContainsString( 'https://creativecommons.org/licenses/by/', $result );
 		$this->assertStringContainsString( 'Test Blog', $result ); // Chapter and book license are the same, expected book name
-		$this->assertNotContains( 'Test Chapter', $result );
+		$this->assertStringNotContainsString( 'Test Chapter', $result );
 
 		// Different licenses
 		update_post_meta( $post_id, 'pb_section_license', 'cc-by-nc' );

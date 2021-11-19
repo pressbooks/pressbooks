@@ -50,7 +50,7 @@ class Interactive_ContentTest extends \WP_UnitTestCase {
 		$this->assertStringContainsString( '<iframe src="https://docs.google.com/forms/d/e/xxx/viewform?embedded=true', $result );
 		$this->assertStringContainsString( '[embed]https://docs.google.com/garbage/d/e/xxx/viewform?embedded=true[/embed]', $result );
 		$this->assertStringContainsString( '<iframe src="https://www.google.com/maps/d/embed?mid=xxx', $result );
-			$this->assertNotContains( '<p>', $result );
+		$this->assertStringNotContainsString( '<p>', $result );
 	}
 
 	/**

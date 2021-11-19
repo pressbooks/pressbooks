@@ -84,7 +84,7 @@ class MetaboxesTest extends \WP_UnitTestCase {
 		\Pressbooks\Admin\Metaboxes\status_visibility_box( $post );
 		$buffer = ob_get_clean();
 		$this->assertStringContainsString( '<div id="misc-publishing-actions">', $buffer );
-		$this->assertNotContains( '<input type="checkbox" name="export_visibility"', $buffer );
+		$this->assertStringNotContainsString( '<input type="checkbox" name="export_visibility"', $buffer );
 		$this->assertStringContainsString( '<input type="checkbox" name="glossary_visibility" id="glossary_visibility"', $buffer );
 	}
 

@@ -486,8 +486,8 @@ class BookTest extends \WP_UnitTestCase {
 		$book_information_array_updated = $book_data_collector->get( $blog_id, BookDataCollector::BOOK_INFORMATION_ARRAY );
 		$this->assertArrayHasKey( 'pb_bisac_subject', $book_information_array_updated );
 		$blog_bisac_codes_updated = explode( ', ', $book_information_array_updated['pb_bisac_subject'] );
-		$this->assertStringContainsString( $validated_bisac_codes[0], $blog_bisac_codes_updated );
-		$this->assertStringContainsString( 'TEC071000', $blog_bisac_codes_updated );
+		$this->assertContains( $validated_bisac_codes[0], $blog_bisac_codes_updated );
+		$this->assertContains( 'TEC071000', $blog_bisac_codes_updated );
 		$this->assertNotContains( $invalidated_bisac_codes[0], $blog_bisac_codes_updated );
 	}
 

@@ -128,7 +128,7 @@ class AnalyticsTest extends \WP_UnitTestCase {
 		\Pressbooks\Admin\Analytics\print_admin_analytics();
 		$buffer = ob_get_clean();
 		$this->assertStringContainsString( 'TEST1', $buffer );
-		$this->assertNotContains( 'TEST2', $buffer );
+		$this->assertStringNotContainsString( 'TEST2', $buffer );
 	}
 
 }
