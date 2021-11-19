@@ -24,18 +24,18 @@ class IntegrationsTest extends \WP_UnitTestCase {
 		$wpdb->suppress_errors( $suppress );
 
 		$this->assertEquals( $source, $cloner->getSourceBookUrl() );
-		$this->assertInternalType( 'int', $cloner->getSourceBookId() );
+		$this->assertIsInt( $cloner->getSourceBookId() );
 
 		$structure = $cloner->getSourceBookStructure();
-		$this->assertInternalType( 'array', $structure );
+		$this->assertIsArray( $structure );
 		$this->assertNotEmpty( $structure );
 
 		$terms = $cloner->getSourceBookTerms();
-		$this->assertInternalType( 'array', $terms );
+		$this->assertIsArray( $terms );
 		$this->assertNotEmpty( $terms );
 
 		$meta = $cloner->getSourceBookMetadata();
-		$this->assertInternalType( 'array', $meta );
+		$this->assertIsArray( $meta );
 		$this->assertNotEmpty( $meta );
 		$this->assertEquals( 'Public Domain', $meta['license']['name'] );
 

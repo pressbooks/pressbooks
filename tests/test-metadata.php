@@ -498,7 +498,7 @@ class MetadataTest extends \WP_UnitTestCase {
 			]
 		);
 		$section_information = \Pressbooks\Metadata\get_section_information( $chapters[0]->ID );
-		$this->assertInternalType( 'array', $section_information );
+		$this->assertIsArray( $section_information );
 		$this->assertStringStartsWith( 'Test Chapter: ', $section_information['pb_title'] );
 		$this->assertEquals( 'Or, A Chapter to Test', $section_information['pb_subtitle'] );
 	}

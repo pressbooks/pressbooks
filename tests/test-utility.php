@@ -175,7 +175,7 @@ class UtilityTest extends \WP_UnitTestCase {
 	 */
 	public function test_check_prince_install() {
 
-		$this->assertInternalType( 'bool', \Pressbooks\Utility\check_prince_install() );
+		$this->assertIsBool( \Pressbooks\Utility\check_prince_install() );
 		$this->assertTrue( defined( 'PB_PRINCE_COMMAND' ) );
 	}
 
@@ -184,7 +184,7 @@ class UtilityTest extends \WP_UnitTestCase {
 	 */
 	public function test_check_epubcheck_install() {
 
-		$this->assertInternalType( 'bool', \Pressbooks\Utility\check_epubcheck_install() );
+		$this->assertIsBool( \Pressbooks\Utility\check_epubcheck_install() );
 		$this->assertTrue( defined( 'PB_EPUBCHECK_COMMAND' ) );
 	}
 
@@ -193,7 +193,7 @@ class UtilityTest extends \WP_UnitTestCase {
 	 */
 	public function test_check_xmllint_install() {
 
-		$this->assertInternalType( 'bool', \Pressbooks\Utility\check_xmllint_install() );
+		$this->assertIsBool( \Pressbooks\Utility\check_xmllint_install() );
 		$this->assertTrue( defined( 'PB_XMLLINT_COMMAND' ) );
 	}
 
@@ -202,7 +202,7 @@ class UtilityTest extends \WP_UnitTestCase {
 	 */
 	public function test_check_saxonhe_install() {
 
-		$this->assertInternalType( 'bool', \Pressbooks\Utility\check_saxonhe_install() );
+		$this->assertIsBool( \Pressbooks\Utility\check_saxonhe_install() );
 		$this->assertTrue( defined( 'PB_SAXON_COMMAND' ) );
 	}
 
@@ -211,8 +211,8 @@ class UtilityTest extends \WP_UnitTestCase {
 	 */
 	public function test_show_experimental_features() {
 
-		$this->assertInternalType( 'bool', \Pressbooks\Utility\show_experimental_features() );
-		$this->assertInternalType( 'bool', \Pressbooks\Utility\show_experimental_features( 'http://pressbooks.com' ) );
+		$this->assertIsBool( \Pressbooks\Utility\show_experimental_features() );
+		$this->assertIsBool( \Pressbooks\Utility\show_experimental_features( 'http://pressbooks.com' ) );
 
 	}
 

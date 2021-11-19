@@ -34,7 +34,7 @@ class Admin_BrandingTest extends \WP_UnitTestCase {
 
 		$title = \Pressbooks\Admin\Branding\login_title();
 
-		$this->assertInternalType( 'string', $title );
+		$this->assertIsString( $title );
 		$this->assertNotEmpty( $title );
 	}
 

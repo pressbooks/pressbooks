@@ -33,7 +33,7 @@ class CoverGeneratorTest extends \WP_UnitTestCase {
 	 * @group covergenerator
 	 */
 	public function test_hasDependencies() {
-		$this->assertInternalType( 'bool', $this->cg->hasDependencies() );
+		$this->assertIsBool( $this->cg->hasDependencies() );
 	}
 
 }

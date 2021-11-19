@@ -117,7 +117,7 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 	public function test_shouldParseSubsections() {
 
 		$val = $this->export->shouldParseSubsections();
-		$this->assertInternalType( 'bool', $val );
+		$this->assertIsBool( $val );
 	}
 
 	//  public function test_logError() {
@@ -163,7 +163,7 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 
 		$time1 = time();
 		$nonce1 = $this->export->nonce( $time1 );
-		$this->assertInternalType( 'string', $nonce1 );
+		$this->assertIsString( $nonce1 );
 
 		$time2 = $time1 + 1;
 		$nonce2 = $this->export->nonce( $time2 );

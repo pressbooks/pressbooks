@@ -221,7 +221,7 @@ class BookTest extends \WP_UnitTestCase {
 		$id = $book::getBookStructure()['part'][0]['chapters'][0]['ID'];
 		$result = $book::getAllSubsections( $book::getBookStructure() );
 		$this->assertArrayHasKey( 'chapters', $result );
-		$this->assertInternalType( 'array', $result['chapters'][ $id ] );
+		$this->assertIsArray( $result['chapters'][ $id ] );
 	}
 
 	/**
