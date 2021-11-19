@@ -647,7 +647,7 @@ class ContributorsTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'John Doe', $term->name );
 		$this->assertEquals( 'johndoe', $term->slug );
 		$this->assertArrayHasKey( 'pb_notices', $_SESSION );
-		$this->assertStringContainsString( 'Successfully imported.', $_SESSION[ 'pb_notices'] );
+		$this->assertContains( 'Successfully imported.', $_SESSION[ 'pb_notices'] );
 
 		unset( $_SESSION['pb_notices'] );
 	}
