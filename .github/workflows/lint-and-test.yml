@@ -101,7 +101,7 @@ jobs:
         composer remove --dev phpunit/phpunit
         composer update --dev yoast/phpunit-polyfills --with-dependencies --ignore-platform-reqs
         composer test
-      if: matrix.experimental == true && matrix.wordpress != latest
+      if: matrix.experimental == true && matrix.wordpress != 'latest'
 
     - name: Run PHP Tests
       run: composer test
