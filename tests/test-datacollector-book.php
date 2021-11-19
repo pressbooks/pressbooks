@@ -25,7 +25,7 @@ class DataCollector_BookTest extends \WP_UnitTestCase {
 	}
 
 
-	public static function tear_down_after_class(() {
+	public static function tear_down_after_class() {
 		// Put the hooks back in place
 		$obj = BookDataCollector::init();
 		$obj::hooks( $obj );
