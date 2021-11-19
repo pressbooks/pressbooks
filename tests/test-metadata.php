@@ -561,7 +561,7 @@ class MetadataTest extends \WP_UnitTestCase {
 		\Pressbooks\Metadata\add_citation_metadata();
 		$buffer = ob_get_clean();
 
-		$this->assertNotContains( '<meta name="og:type" content="book"', $buffer );
+		$this->assertStringNotContainsStrings( '<meta name="og:type" content="book"', $buffer );
 		$this->assertStringContainsString( '<meta name="citation_book_title" content="Some Book">', $buffer );
 		$this->assertStringContainsString( '<meta name="citation_title" content="' . $section_title . '">', $buffer );
 		$this->assertStringContainsString( '<meta name="citation_language" content="en-ca">', $buffer );

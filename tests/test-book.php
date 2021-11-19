@@ -480,7 +480,7 @@ class BookTest extends \WP_UnitTestCase {
 
 		$metadata = get_post_meta( $meta_post->ID );
 		$this->assertArrayHasKey( 'pb_bisac_subject', $metadata );
-		$this->assertStringContainsString( $validated_bisac_codes[0], $metadata['pb_bisac_subject'] );
+		$this->assertContains( $validated_bisac_codes[0], $metadata['pb_bisac_subject'] );
 		$this->assertNotContains( $invalidated_bisac_codes[0], $metadata['pb_bisac_subject'] );
 
 		$book_information_array_updated = $book_data_collector->get( $blog_id, BookDataCollector::BOOK_INFORMATION_ARRAY );

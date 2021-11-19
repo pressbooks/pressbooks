@@ -32,7 +32,7 @@ class Interactive_ContentTest extends \WP_UnitTestCase {
 		$this->assertStringContainsString( 'Test Two', $result );
 		$this->assertStringContainsString( '<iframe src="https://phet.colorado.edu/', $result );
 		$this->assertStringContainsString( '[embed]https://garbage.com/bad.html[/embed]', $result );
-		$this->assertNotContains( '<p>', $result );
+		$this->assertStringNotContainsString( '<p>', $result );
 
 
 		$raw = '
@@ -64,7 +64,7 @@ class Interactive_ContentTest extends \WP_UnitTestCase {
 
 		$result = $this->content->replaceIframes( $html );
 
-		$this->assertNotContains( '<iframe', $result );
+		$this->assertStringNotContainsString( '<iframe', $result );
 		$this->assertStringContainsString( '<div ', $result );
 		$this->assertStringContainsString( '<p>Test</p>', $result );
 		$this->assertStringContainsString( 'excluded from this version of the text', $result );
@@ -95,7 +95,7 @@ class Interactive_ContentTest extends \WP_UnitTestCase {
 
 		$result = $this->content->replaceOembed( $html, $data, null );
 
-		$this->assertNotContains( '<iframe', $result );
+		$this->assertStringNotContainsString( '<iframe', $result );
 		$this->assertStringContainsString( '<div ', $result );
 		$this->assertStringContainsString( 'excluded from this version of the text', $result );
 	}
@@ -115,7 +115,7 @@ class Interactive_ContentTest extends \WP_UnitTestCase {
 		';
 
 		$result = $this->content->replaceInteractiveTags( $html );
-		$this->assertNotContains( '<audio', $result );
+		$this->assertStringNotContainsString( '<audio', $result );
 		$this->assertStringContainsString( '<div ', $result );
 		$this->assertStringContainsString( 'excluded from this version of the text', $result );
 		$this->assertStringContainsString( 'href="#audio-2-1"', $result );

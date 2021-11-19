@@ -138,8 +138,8 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		include_once( ABSPATH . '/wp-admin/menu.php' );
 		\Pressbooks\Admin\Laf\fix_root_admin_menu();
 		$this->assertArrayHasKey( 'index.php', $submenu );
-		$this->assertStringContainsString( 'Home', $submenu['index.php'][0] );
-		$this->assertStringContainsString( 'read', $submenu['index.php'][0] );
+		$this->assertContains( 'Home', $submenu['index.php'][0] );
+		$this->assertContains( 'read', $submenu['index.php'][0] );
 	}
 
 	/**
@@ -317,7 +317,7 @@ class Admin_LafTest extends \WP_UnitTestCase {
 
 		$node = $wp_admin_bar->get_node( 'contact' );
 		$this->assertTrue( is_object( $node ) );
-		$this->assertContains( 'pressbooks.org', $node->href );
+		$this->assertStringContainsString( 'pressbooks.org', $node->href );
 	}
 
 	/**

@@ -152,8 +152,8 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 		$file = $this->export->timestampedFileName( 'foo', false );
 		$this->assertStringEndsWith( '.foo', $file );
 		$this->assertStringStartsNotWith( '/', $file );
-		$this->assertNotContains( '!', $file );
-		$this->assertNotContains( '+', $file );
+		$this->assertStringNotContainsString( '!', $file );
+		$this->assertStringNotContainsString( '+', $file );
 	}
 
 	/**
@@ -521,7 +521,7 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 			$dom->loadHTMLFile( $exporter->getOutputPath(), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD );
 			libxml_clear_errors();
 			$sections = $dom->getElementsByTagName( 'body' );
-			$this->assertNotContains( 'print', $sections[0]->getAttribute( 'class' ) );
+			$this->assertStringNotContainsString( 'print', $sections[0]->getAttribute( 'class' ) );
 			unlink( $exporter->getOutputPath() );
 		}
 	}

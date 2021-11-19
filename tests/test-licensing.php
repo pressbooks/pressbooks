@@ -81,13 +81,13 @@ class LicensingTest extends \WP_UnitTestCase {
 		$result = $this->licensing->doLicense( [], $post_id );
 		$this->assertStringContainsString( 'All Rights Reserved', $result );
 		$this->assertStringContainsString( 'Test Blog', $result ); // Chapter and book license are the same, expected book name
-		$this->assertNotContains( 'Test Chapter', $result );
+		$this->assertStringNotContainsString( 'Test Chapter', $result );
 
 		// Empty chapter license
 		$result = $this->licensing->doLicense( [ 'pb_book_license' => 'cc-by' ], $post_id );
 		$this->assertStringContainsString( 'https://creativecommons.org/licenses/by/', $result );
 		$this->assertStringContainsString( 'Test Blog', $result ); // Chapter license is empty, expected book name
-		$this->assertNotContains( 'Test Chapter', $result );
+		$this->assertStringNotContainsString( 'Test Chapter', $result );
 
 		// Same licenses
 		update_post_meta( $post_id, 'pb_section_license', 'cc-by' );
@@ -101,23 +101,23 @@ class LicensingTest extends \WP_UnitTestCase {
 		$result = $this->licensing->doLicense( [ 'pb_book_license' => 'cc-by' ], $post_id );
 		$this->assertStringContainsString( 'https://creativecommons.org/licenses/by-nc/', $result );
 		$this->assertStringContainsString( 'Test Chapter', $result ); // Chapter and book license are the different, expected chapter name
-		$this->assertNotContains( 'Test Blog', $result );
+		$this->assertStringNotContainsString( 'Test Blog', $result );
 
 		// Chapter license statement reflects only attribution for that specific chapter when a chapter author has been defined.
 		update_post_meta( $post_id, 'pb_section_license', 'cc-by' );
 		$result = $this->licensing->doLicense( [ 'pb_book_license' => 'cc-by', 'pb_authors' => 'Original Person' ], $post_id );
 		$this->assertStringContainsString( 'https://creativecommons.org/licenses/by/', $result );
 		$this->assertStringContainsString( 'Test Blog', $result ); // Chapter and book license are the same, expected book name
-		$this->assertNotContains( 'Test Chapter', $result );
+		$this->assertStringNotContainsString( 'Test Chapter', $result );
 		$this->assertStringContainsString( 'Original Person', $result ); // Expected book authors
 		// Define chapter author
 		( new \Pressbooks\Contributors() )->insert( 'New Person', $post_id, 'pb_authors' );
 		$result = $this->licensing->doLicense( [ 'pb_book_license' => 'cc-by', 'pb_authors' => 'Original Person' ], $post_id );
 		$this->assertStringContainsString( 'https://creativecommons.org/licenses/by/', $result );
 		$this->assertStringContainsString( 'Test Chapter', $result ); // Chapter and book license are the same but there's a specific author, expected chapter name
-		$this->assertNotContains( 'Test Blog', $result );
+		$this->assertStringNotContainsString( 'Test Blog', $result );
 		$this->assertStringContainsString( 'New Person', $result );  // Expected chapter authors
-		$this->assertNotContains( 'Original Person', $result );
+		$this->assertStringNotContainsString( 'Original Person', $result );
 	}
 
 	/**
@@ -126,7 +126,7 @@ class LicensingTest extends \WP_UnitTestCase {
 	 */
 	public function test_doLicenseDeprecrated() {
 		$result = $this->licensing->doLicense( [], 0, 'Hello World!' );
-		$this->assertNotContains( 'Hello World!', $result ); // Deprecated
+		$this->assertStringNotContainsString( 'Hello World!', $result ); // Deprecated
 		$this->assertStringContainsString( 'All Rights Reserved', $result ); // Returns some default
 		$this->assertStringContainsString( 'Test Blog', $result ); // Book name
 	}
@@ -147,7 +147,7 @@ class LicensingTest extends \WP_UnitTestCase {
 		$result = $this->licensing->getLicenseHtml( $xml, false );
 		$this->assertStringContainsString( 'Hello World!', $result );
 		$this->assertStringContainsString( 'creativecommons.org', $result );
-		$this->assertNotContains( 'except where otherwise noted', $result );
+		$this->assertStringNotContainsString( 'except where otherwise noted', $result );
 		$this->assertStringContainsString( '</div>', $result );
 	}
 

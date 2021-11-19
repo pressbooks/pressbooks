@@ -138,26 +138,26 @@ class Registration extends \WP_UnitTestCase {
 		$this->assertTrue( is_string( $errors ) );
 		$this->assertStringContainsString( 'at least 12 characters', $errors );
 		$this->assertStringContainsString( 'at least one upper case letter', $errors );
-		$this->assertNotContains( 'at least one lower case letter', $errors );
+		$this->assertStringNotContainsString( 'at least one lower case letter', $errors );
 		$this->assertStringContainsString( 'at least one number', $errors );
 
 		$errors = \Pressbooks\Registration\check_for_strong_password( 'A' );
 		$this->assertStringContainsString( 'at least 12 characters', $errors );
-		$this->assertNotContains( 'at least one upper case letter', $errors );
+		$this->assertStringNotContainsString( 'at least one upper case letter', $errors );
 		$this->assertStringContainsString( 'at least one lower case letter', $errors );
 		$this->assertStringContainsString( 'at least one number', $errors );
 
 		$errors = \Pressbooks\Registration\check_for_strong_password( 'aaaaAAAAaaaa' );
-		$this->assertNotContains( 'at least 12 characters', $errors );
-		$this->assertNotContains( 'at least one upper case letter', $errors );
-		$this->assertNotContains( 'at least one lower case letter', $errors );
+		$this->assertStringNotContainsString( 'at least 12 characters', $errors );
+		$this->assertStringNotContainsString( 'at least one upper case letter', $errors );
+		$this->assertStringNotContainsString( 'at least one lower case letter', $errors );
 		$this->assertStringContainsString( 'at least one number', $errors );
 
 		$errors = \Pressbooks\Registration\check_for_strong_password( 'aaa1AAAAaaaa' );
-		$this->assertNotContains( 'at least 12 characters', $errors );
-		$this->assertNotContains( 'at least one upper case letter', $errors );
-		$this->assertNotContains( 'at least one lower case letter', $errors );
-		$this->assertNotContains( 'at least one number', $errors );
+		$this->assertStringNotContainsString( 'at least 12 characters', $errors );
+		$this->assertStringNotContainsString( 'at least one upper case letter', $errors );
+		$this->assertStringNotContainsString( 'at least one lower case letter', $errors );
+		$this->assertStringNotContainsString( 'at least one number', $errors );
 
 		$errors = \Pressbooks\Registration\check_for_strong_password( 'aaa1AAAAaaaa' );
 		$this->assertTrue( is_string( $errors ) );

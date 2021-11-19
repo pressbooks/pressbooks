@@ -24,7 +24,7 @@ class Admin_BrandingTest extends \WP_UnitTestCase {
 	 */
 	public function test_login_url() {
 
-		$this->assertRegExp( '#^https?://#i', \Pressbooks\Admin\Branding\login_url() );
+		$this->assertMatchesRegularExpression( '#^https?://#i', \Pressbooks\Admin\Branding\login_url() );
 	}
 
 	/**

@@ -109,7 +109,7 @@ class AnalyticsTest extends \WP_UnitTestCase {
 		$this->assertStringContainsString( 'Google', $buffer );
 		$this->assertStringContainsString( 'Analytics', $buffer );
 		$this->assertStringContainsString( 'TEST1', $buffer );
-		$this->assertNotContains( 'TEST2', $buffer );
+		$this->assertStringNotContainsString( 'TEST2', $buffer );
 
 		$this->_book();
 		update_option( 'ga_mu_uaid', 'TEST2' );

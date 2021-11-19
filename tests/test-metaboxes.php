@@ -66,7 +66,7 @@ class MetaboxesTest extends \WP_UnitTestCase {
 		$buffer = ob_get_clean();
 		$this->assertStringContainsString( '<div id="misc-publishing-actions">', $buffer );
 		$this->assertStringContainsString( '<input type="checkbox" name="export_visibility"', $buffer );
-		$this->assertNotContains( '<input type="checkbox" name="glossary_visibility" id="glossary_visibility"', $buffer );
+		$this->assertStringNotContainsString( '<input type="checkbox" name="glossary_visibility" id="glossary_visibility"', $buffer );
 
 		// Create glossary post
 		$new_post = [
@@ -358,7 +358,7 @@ class MetaboxesTest extends \WP_UnitTestCase {
 		);
 		$buffer = ob_get_clean();
 		$this->assertStringContainsString( 'I am a description', $buffer );
-		$this->assertNotContains( 'strong', $buffer );
+		$this->assertStringNotContainsString( 'strong', $buffer );
 
 		ob_start();
 		\Pressbooks\Admin\Metaboxes\contributor_custom_columns(

@@ -93,7 +93,7 @@ class Modules_ImportTest extends \WP_UnitTestCase {
 		$result = $wordpress_importer->scrapeAndKneadImages( $doc );
 		$images = $result['dom']->getElementsByTagName( 'img' );
 		$this->assertStringContainsString( '#fixme', $images[0]->getAttribute( 'src' ) );
-		$this->assertNotContains( '#fixme', $images[1]->getAttribute( 'src' ) );
+		$this->assertStringNotContainsString( '#fixme', $images[1]->getAttribute( 'src' ) );
 
 	}
 

@@ -269,7 +269,7 @@ class SanitizeTest extends \WP_UnitTestCase {
 		$this->assertStringContainsString( set_url_scheme( WP_CONTENT_URL ), $css );
 		$css = '@font-face { font-family: "Bergamot Ornaments"; src: url(uploads/assets/fonts/garbage.ttf) format("truetype"); font-weight: normal; font-style: normal; }';
 		$css = \Pressbooks\Sanitize\normalize_css_urls( $css );
-		$this->assertNotContains( set_url_scheme( WP_CONTENT_URL ), $css );
+		$this->assertStringNotContainsString( set_url_scheme( WP_CONTENT_URL ), $css );
 		unlink( $uploaded_font );
 
 		// Can't find, no change

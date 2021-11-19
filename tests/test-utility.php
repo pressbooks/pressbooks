@@ -312,10 +312,10 @@ class UtilityTest extends \WP_UnitTestCase {
 		);
 
 		$this->assertStringContainsString( '<title>Foobar</title>', $template );
-		$this->assertNotContains( '<title></title>', $template );
+		$this->assertStringNotContainsString( '<title></title>', $template );
 
 		$this->assertStringContainsString( '<body>Hello World!</body>', $template );
-		$this->assertNotContains( '<body></body>', $template );
+		$this->assertStringNotContainsString( '<body></body>', $template );
 
 		try {
 			\Pressbooks\Utility\template( '/tmp/file/does/not/exist' );
