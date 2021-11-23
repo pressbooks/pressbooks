@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
-"POT-Creation-Date: 2021-10-26T20:16:15+00:00\n"
+"POT-Creation-Date: 2021-11-23T20:15:34+00:00\n"
 "PO-Revision-Date: 2021-10-12 18:19+0000\n"
 "Last-Translator: Ho Man Chan <homan@pressbooks.com>\n"
 "Language-Team: Bulgarian (Bulgaria) (http://www.transifex.com/pressbooks/pressbooks/language/bg_BG/)\n"
@@ -184,7 +184,7 @@ msgid "Privacy Status"
 msgstr "Състояние на поверителност "
 
 #: inc/admin/class-catalog-list-table.php:230 inc/class-activation.php:237
-#: inc/modules/export/epub/class-epub201.php:913 tests/test-cloner.php:58
+#: inc/modules/export/epub/class-epub.php:1211 tests/test-cloner.php:58
 msgid "Cover"
 msgstr "Корица"
 
@@ -343,74 +343,38 @@ msgstr "Премахване на ограниченията върху дост
 msgid "Amazon URL"
 msgstr "URL адрес в Amazon."
 
-#: inc/admin/class-publishoptions.php:76
+#: inc/admin/class-publishoptions.php:77
 msgid "O'Reilly URL"
 msgstr "O'Reilly URL адрес."
 
-#: inc/admin/class-publishoptions.php:84
+#: inc/admin/class-publishoptions.php:86
 msgid "Barnes and Noble URL"
 msgstr "Barnes и Noble URL"
 
-#: inc/admin/class-publishoptions.php:92
+#: inc/admin/class-publishoptions.php:95
 msgid "Kobo URL"
 msgstr "Kobo URL адрес "
 
-#: inc/admin/class-publishoptions.php:100
-msgid "iBooks URL"
-msgstr "iBooks URL адрес "
+#: inc/admin/class-publishoptions.php:104
+msgid "Apple Books URL"
+msgstr ""
 
-#: inc/admin/class-publishoptions.php:108
+#: inc/admin/class-publishoptions.php:113
 msgid "Other Service URL"
 msgstr "Други услуги URL адрес"
 
-#: inc/admin/class-publishoptions.php:126
-msgid ""
-"Once your book is finished, you can download the files and submit them to "
-"ebookstores and print-on-demand providers."
-msgstr "След като книгата Ви е готова, можете да изтеглите файловете и да ги изпратите в електронните магазини и контрагентите извършващи печат при поискване. "
-
-#: inc/admin/class-publishoptions.php:130
-msgid "Ebook Stores"
-msgstr "Магазини за електронни книги "
-
-#: inc/admin/class-publishoptions.php:131
-msgid ""
-"Once you have downloaded your files, you can either submit them to "
-"ebookstores yourself, or use a third-party distributor. Recommended self-"
-"serve ebookstores are <a href=\"%1$1s\">Kindle</a>, <a "
-"href=\"%2$2s\">Kobo</a>, and <a href=\"%3$3s\">Nook</a>. Other ebook stores "
-"include Apple iBooks and Google."
-msgstr "След като изтеглите файловете Ви, можете или да ги изпратите сами в електронните магазини, или да използвате дистрибутор - трета страна. Препоръчителните електронни магазини за електронните книги от нас са:  <a href=\"%1$1s\">Kindle</a>, <a href=\"%2$2s\">Kobo</a>, и <a href=\"%3$3s\">Nook</a>. Други магазини за електронни книги са Apple iBooks и Google.  "
-
 #: inc/admin/class-publishoptions.php:132
+msgid "Add BUY Links to Your Pressbooks Webbook"
+msgstr ""
+
+#: inc/admin/class-publishoptions.php:133
 msgid ""
-"If you do not wish to submit your ebooks yourself, we recommend using a "
-"third-party distribution service such as <a href=\"%1s\">IngramSpark</a>, "
-"which can also make your books available online in print."
-msgstr "Ако не желаете сами да изпращате електронните си книги, препоръчваме да използвате услуга за разпространение на трета страна като <a href=\"%1s\">IngramSpark</a>, която също може да направи Вашите книги достъпни онлайн. "
+"Enter the URLs for locations where your book can be purchased below. <a "
+"href=\"https://guide.pressbooks.com/chapter/publish/\">Our guide</a> "
+"provides additional information about selling and distributing your book."
+msgstr ""
 
-#: inc/admin/class-publishoptions.php:134
-msgid "Print-on-Demand"
-msgstr "Печат при поискване "
-
-#: inc/admin/class-publishoptions.php:135
-msgid ""
-"If you wish to sell your printed books online, we recommend going through <a"
-" href=\"%1$1s\">IngramSpark</a> or Amazon's <a "
-"href=\"%2$2s\">CreateSpace</a>."
-msgstr "Ако искате да продавате своите печатни книги онлайн, препоръчваме да преминете през 1IngramSpark1 или Amazon's 2CreateSpace2."
-
-#: inc/admin/class-publishoptions.php:139
-msgid "Adding BUY Links to Your Pressbooks Web Book"
-msgstr "Добавяне на ВРЪЗКИ ЗА КУПУВАНЕ към вашата уеб книга "
-
-#: inc/admin/class-publishoptions.php:140
-msgid ""
-"If you would like to add <strong>BUY</strong> links to your Pressbooks web "
-"book, add the links to your book at the different retailers below:"
-msgstr "Ако искате да добавите връзки <strong>КУПЕТЕ </strong> към Вашата електронна книга, добавете връзките към вашата книга при различните търговци по-долу: "
-
-#: inc/admin/class-publishoptions.php:300 inc/admin/laf/namespace.php:356
+#: inc/admin/class-publishoptions.php:293 inc/admin/laf/namespace.php:356
 msgid "Publish"
 msgstr "Публикуване"
 
@@ -713,8 +677,8 @@ msgid ""
 msgstr "Можете също така да поискате достъп до съществуваща книга, като пишете до Платформата."
 
 #: inc/admin/dashboard/namespace.php:266 inc/class-activation.php:242
-#: inc/modules/export/epub/templates/epub3/toc.php:28
 #: inc/modules/themeoptions/class-pdfoptions.php:287 tests/test-cloner.php:63
+#: templates/export/epub/toc.blade.php:11
 msgid "Table of Contents"
 msgstr "Съдържание"
 
@@ -1237,7 +1201,7 @@ msgstr "Изображение на корицата "
 #: inc/admin/metaboxes/namespace.php:175 inc/admin/metaboxes/namespace.php:703
 #: inc/admin/metaboxes/namespace.php:765
 #: inc/api/endpoints/controller/class-toc.php:202 inc/class-sass.php:89
-#: inc/modules/export/epub/class-epub201.php:1852
+#: inc/modules/export/epub/class-epub.php:1910
 #: inc/modules/themeoptions/class-globaloptions.php:563
 #: inc/posttype/namespace.php:87 inc/posttype/namespace.php:542
 #: inc/posttype/namespace.php:580 templates/admin/import.php:94
@@ -1393,12 +1357,10 @@ msgid "Help translate Pressbooks into your language!"
 msgstr "Помогнете да преведем платформата на Вашия език! "
 
 #: inc/admin/metaboxes/namespace.php:390 inc/class-licensing.php:315
-#: inc/modules/export/epub/class-epub201.php:1125
-#: inc/modules/export/epub/class-epub201.php:1151
-#: inc/modules/export/epub/templates/epub3/opf.php:101
-#: inc/modules/export/epub/templates/epub201/opf.php:94
+#: inc/modules/export/epub/class-epub.php:1401
+#: inc/modules/export/epub/class-epub.php:1423
 #: inc/modules/export/htmlbook/class-htmlbook.php:855
-#: inc/modules/export/xhtml/class-xhtml11.php:1075
+#: inc/modules/export/xhtml/class-xhtml11.php:1074
 msgid "Copyright"
 msgstr "Авторско право"
 
@@ -2320,11 +2282,10 @@ msgid ""
 msgstr "$title е оттеглено. Методът автоматично ще определи заглавието от лицензите "
 
 #: inc/class-licensing.php:317 inc/class-styles.php:794
-#: inc/modules/export/epub/class-epub201.php:1134
-#: inc/modules/export/epub/templates/epub3/opf.php:110
-#: inc/modules/export/epub/templates/epub201/opf.php:103
+#: inc/modules/export/epub/class-epub.php:1410
 #: inc/modules/export/htmlbook/class-htmlbook.php:864
-#: inc/modules/export/xhtml/class-xhtml11.php:1084
+#: inc/modules/export/xhtml/class-xhtml11.php:1083
+#: templates/export/epub/opf.blade.php:93
 msgid "by"
 msgstr "от"
 
@@ -2522,7 +2483,7 @@ msgid "Cloning back matter"
 msgstr "Клониране на трета корица "
 
 #: inc/cloner/class-cloner.php:500 inc/covergenerator/class-generator.php:298
-#: inc/modules/export/epub/class-epub201.php:379
+#: inc/modules/export/epub/class-epub.php:664
 #: inc/modules/import/class-import.php:373
 msgid "Finishing up"
 msgstr "Довършване "
@@ -2853,39 +2814,39 @@ msgid ""
 " from %2$s. Please report this error to your network manager."
 msgstr "Изисканите  %1$s за тази книга условия на темата не могат да бъдат изтеглени от %2$s.Моля, докладвайте за тази грешка на вашия мрежов мениджър."
 
-#: inc/modules/export/class-export.php:775
+#: inc/modules/export/class-export.php:740
 msgid "%s: Initializing"
 msgstr "%s: Инициализиране"
 
-#: inc/modules/export/class-export.php:777
+#: inc/modules/export/class-export.php:742
 msgid "%s: Exporting"
 msgstr "Файлът се експортира"
 
-#: inc/modules/export/class-export.php:782
+#: inc/modules/export/class-export.php:747
 msgid "%s: Export successful"
 msgstr "Успешен експорт "
 
-#: inc/modules/export/class-export.php:784
+#: inc/modules/export/class-export.php:749
 msgid "%s: Validating file"
 msgstr "%s: Проверка на файл "
 
-#: inc/modules/export/class-export.php:789
+#: inc/modules/export/class-export.php:754
 msgid "%s: Validation successful"
 msgstr "%s: Проверката е успешна "
 
-#: inc/modules/export/class-export.php:793
+#: inc/modules/export/class-export.php:758
 msgid "%s: Finishing up"
 msgstr "%s: Довършване "
 
-#: inc/modules/export/class-export.php:858
+#: inc/modules/export/class-export.php:823
 msgid "The export failed. See logs for more details."
 msgstr "Експортирането не бе успешно. Вижте дневниците за повече подробности. "
 
-#: inc/modules/export/class-export.php:867
+#: inc/modules/export/class-export.php:832
 msgid "Warning: The export has validation errors. See logs for more details."
 msgstr "Предупреждение: Експортът има грешки при проверка. Вижте дневниците за повече подробности. "
 
-#: inc/modules/export/class-export.php:868
+#: inc/modules/export/class-export.php:833
 msgid "Emailed to:"
 msgstr "Изпратено по мейл до:"
 
@@ -2913,134 +2874,125 @@ msgstr "Закачване - пин"
 msgid "Date Exported"
 msgstr "Дата на експорта"
 
-#: inc/modules/export/epub/class-epub201.php:244
+#: inc/modules/export/epub/class-epub.php:384
 msgid "EPUB %s: "
 msgstr "EPUB (eлектронна книга) %s: "
 
-#: inc/modules/export/epub/class-epub201.php:279
-#: inc/modules/export/xhtml/class-xhtml11.php:195
+#: inc/modules/export/epub/class-epub.php:494
+#: inc/modules/export/xhtml/class-xhtml11.php:204
 msgid "Initializing"
 msgstr "Инициализиране"
 
-#: inc/modules/export/epub/class-epub201.php:294
+#: inc/modules/export/epub/class-epub.php:508
 msgid "Preparing book contents"
 msgstr "Подготовка на съдържанието на книгата"
 
-#: inc/modules/export/epub/class-epub201.php:306
+#: inc/modules/export/epub/class-epub.php:519
 msgid "Creating container"
 msgstr "Създаване на кутия-контейнер"
 
-#: inc/modules/export/epub/class-epub201.php:317
-#: inc/modules/export/xhtml/class-xhtml11.php:203
+#: inc/modules/export/epub/class-epub.php:529
+#: inc/modules/export/xhtml/class-xhtml11.php:212
 msgid "Saving file to exports folder"
 msgstr "Запазване на файл в папка за експортиране "
 
-#: inc/modules/export/epub/class-epub201.php:323
-#: inc/modules/export/xhtml/class-xhtml11.php:207
+#: inc/modules/export/epub/class-epub.php:537
+#: inc/modules/export/xhtml/class-xhtml11.php:216
 msgid "Export successful"
 msgstr "Успешно експортиране"
 
-#: inc/modules/export/epub/class-epub201.php:349
-#: inc/modules/export/xhtml/class-xhtml11.php:233
+#: inc/modules/export/epub/class-epub.php:634
+#: inc/modules/export/xhtml/class-xhtml11.php:242
 msgid "Validating file"
 msgstr "Проверка на файл "
 
-#: inc/modules/export/epub/class-epub201.php:378
-#: inc/modules/export/xhtml/class-xhtml11.php:249
+#: inc/modules/export/epub/class-epub.php:663
+#: inc/modules/export/xhtml/class-xhtml11.php:258
 msgid "Validation successful"
 msgstr "Успешно потвърждение"
 
-#: inc/modules/export/epub/class-epub201.php:664
+#: inc/modules/export/epub/class-epub.php:960
 msgid "Compiling styles"
 msgstr "Компилиране на стилове "
 
-#: inc/modules/export/epub/class-epub201.php:673
-#: inc/modules/export/xhtml/class-xhtml11.php:421
+#: inc/modules/export/epub/class-epub.php:969
+#: inc/modules/export/xhtml/class-xhtml11.php:431
 msgid "Creating cover"
 msgstr "Създаване на корица"
 
-#: inc/modules/export/epub/class-epub201.php:680
-#: inc/modules/export/xhtml/class-xhtml11.php:425
+#: inc/modules/export/epub/class-epub.php:976
+#: inc/modules/export/xhtml/class-xhtml11.php:435
 msgid "Creating title page"
 msgstr "Създаване на заглавна страница "
 
-#: inc/modules/export/epub/class-epub201.php:684
-#: inc/modules/export/xhtml/class-xhtml11.php:429
+#: inc/modules/export/epub/class-epub.php:980
+#: inc/modules/export/xhtml/class-xhtml11.php:439
 msgid "Creating copyright page"
 msgstr "Създаване на страница с авторски права "
 
-#: inc/modules/export/epub/class-epub201.php:688
+#: inc/modules/export/epub/class-epub.php:984
 msgid "Exporting dedication and epigraph"
 msgstr "Експортиране на посвещение и епиграф "
 
-#: inc/modules/export/epub/class-epub201.php:692
-#: inc/modules/export/epub/class-epub201.php:1274
-#: inc/modules/export/xhtml/class-xhtml11.php:441
-#: inc/modules/export/xhtml/class-xhtml11.php:1313
+#: inc/modules/export/epub/class-epub.php:988
+#: inc/modules/export/epub/class-epub.php:1555
+#: inc/modules/export/xhtml/class-xhtml11.php:451
+#: inc/modules/export/xhtml/class-xhtml11.php:1252
 msgid "Exporting front matter"
 msgstr "Експортиране на втора корица"
 
-#: inc/modules/export/epub/class-epub201.php:699
-#: inc/modules/export/epub/class-epub201.php:1440
-#: inc/modules/export/epub/class-epub201.php:1462
-#: inc/modules/export/xhtml/class-xhtml11.php:448
-#: inc/modules/export/xhtml/class-xhtml11.php:1437
-#: inc/modules/export/xhtml/class-xhtml11.php:1488
+#: inc/modules/export/epub/class-epub.php:995
+#: inc/modules/export/epub/class-epub.php:1656
+#: inc/modules/export/epub/class-epub.php:1686
+#: inc/modules/export/xhtml/class-xhtml11.php:458
+#: inc/modules/export/xhtml/class-xhtml11.php:1317
+#: inc/modules/export/xhtml/class-xhtml11.php:1357
 msgid "Exporting parts and chapters"
 msgstr "Експортиране на части и глави "
 
-#: inc/modules/export/epub/class-epub201.php:703
-#: inc/modules/export/epub/class-epub201.php:1700
-#: inc/modules/export/xhtml/class-xhtml11.php:452
-#: inc/modules/export/xhtml/class-xhtml11.php:1616
+#: inc/modules/export/epub/class-epub.php:999
+#: inc/modules/export/epub/class-epub.php:1817
+#: inc/modules/export/xhtml/class-xhtml11.php:462
+#: inc/modules/export/xhtml/class-xhtml11.php:1452
 msgid "Exporting back matter"
 msgstr "Експортиране на трета страница"
 
-#: inc/modules/export/epub/class-epub201.php:708
-#: inc/modules/export/xhtml/class-xhtml11.php:437
+#: inc/modules/export/epub/class-epub.php:1004
+#: inc/modules/export/xhtml/class-xhtml11.php:447
 msgid "Creating table of contents"
 msgstr "Създаване на съдържание "
 
-#: inc/modules/export/epub/class-epub201.php:1054
-msgid "Publisher Logo"
-msgstr "Лого на издателя "
-
-#: inc/modules/export/epub/class-epub201.php:1064
+#: inc/modules/export/epub/class-epub.php:1346
 msgid "Title Page"
 msgstr "Заглавна страница"
 
-#: inc/modules/export/epub/class-epub201.php:1382
+#: inc/modules/export/epub/class-epub.php:1611
 msgid "Make your own books using Pressbooks"
 msgstr "Направете свои собствени книги с помощта на платформата"
 
-#: inc/modules/export/epub/class-epub201.php:1806
+#: inc/modules/export/epub/class-epub.php:1869
 msgid "Table Of Contents"
 msgstr "Съдържание"
 
-#: inc/modules/export/epub/class-epub201.php:1821
+#: inc/modules/export/epub/class-epub.php:1944
 #: inc/modules/export/htmlbook/class-htmlbook.php:979
-#: inc/modules/export/xhtml/class-xhtml11.php:1146
+#: inc/modules/export/xhtml/class-xhtml11.php:1234
 msgid "Contents"
 msgstr "Съдържание "
 
-#: inc/modules/export/epub/templates/epub3/opf.php:63
-#: inc/modules/export/epub/templates/epub201/opf.php:59
-msgid "Authored by: "
-msgstr "Автор: "
-
 #: inc/modules/export/htmlbook/class-htmlbook.php:190
 #: inc/modules/export/wordpress/class-wxr.php:81
-#: inc/modules/export/xhtml/class-xhtml11.php:280
+#: inc/modules/export/xhtml/class-xhtml11.php:289
 msgid "Invalid permission error"
 msgstr "Грешка поради проблем с правата"
 
-#: inc/modules/export/namespace.php:90 templates/admin/covergenerator.php:52
+#: inc/modules/export/namespace.php:84 templates/admin/covergenerator.php:52
 msgid ""
 "Some dependencies for %1$s exports could not be found. Please verify that "
 "you have completed the <a href=\"%2$s\">installation instructions</a>."
 msgstr "Някои зависимости за %1$s не можаха да бъдат намерени. Моля, проверете дали сте изпълнили <a href=\"%2$s\">инструкциите за инсталиране</a>."
 
-#: inc/modules/export/namespace.php:91
+#: inc/modules/export/namespace.php:85
 #: inc/modules/themeoptions/class-globaloptions.php:420
 #: inc/utility/namespace.php:1321 inc/utility/namespace.php:1326
 #: inc/utility/namespace.php:1360 inc/utility/namespace.php:1370
@@ -3048,91 +3000,84 @@ msgstr "Някои зависимости за %1$s не можаха да бъ�
 msgid "and"
 msgstr "и"
 
-#: inc/modules/export/namespace.php:104
+#: inc/modules/export/namespace.php:98
 #: inc/modules/export/prince/class-filters.php:74
 msgid "PDF (for print)"
 msgstr "PDF (за печат)"
 
-#: inc/modules/export/namespace.php:105
+#: inc/modules/export/namespace.php:99
 #: inc/modules/export/prince/class-filters.php:75
 msgid "PDF (for digital distribution)"
 msgstr "PDF (за дигитално разпространение) "
 
-#: inc/modules/export/namespace.php:106
-msgid "EPUB 2.01"
-msgstr ""
-
-#: inc/modules/export/namespace.php:107 inc/modules/export/namespace.php:205
-#: inc/modules/export/namespace.php:239
-msgid "Pressbooks XML"
-msgstr "Pressbooks XML"
-
-#: inc/modules/export/namespace.php:110
-msgid "EPUB 3"
-msgstr "EPUB 3"
-
-#: inc/modules/export/namespace.php:111
-msgid "XHTML"
-msgstr "XHTML"
-
-#: inc/modules/export/namespace.php:112 inc/modules/export/namespace.php:199
-#: inc/modules/export/namespace.php:234
-msgid "HTMLBook"
-msgstr "HTMLBook"
-
-#: inc/modules/export/namespace.php:113 inc/modules/export/namespace.php:204
-#: inc/modules/export/namespace.php:238
-msgid "OpenDocument"
-msgstr "OpenDocument"
-
-#: inc/modules/export/namespace.php:114 inc/modules/export/namespace.php:206
-#: inc/modules/export/namespace.php:240
-msgid "WordPress XML"
-msgstr "WordPress XML"
-
-#: inc/modules/export/namespace.php:122
-msgid "Common Cartridge with Web Links"
-msgstr "Обща набор от уеб връзки "
-
-#: inc/modules/export/namespace.php:196 inc/modules/export/namespace.php:230
-#: inc/modules/export/namespace.php:232
-msgid "Print PDF"
-msgstr "Печат на PDF "
-
-#: inc/modules/export/namespace.php:197 inc/modules/export/namespace.php:198
-#: inc/modules/export/namespace.php:231 inc/modules/export/namespace.php:233
-msgid "Digital PDF"
-msgstr "Цифров PDF "
-
-#: inc/modules/export/namespace.php:200 inc/modules/export/namespace.php:235
+#: inc/modules/export/namespace.php:100 inc/modules/export/namespace.php:193
+#: inc/modules/export/namespace.php:228
 msgid "EPUB"
 msgstr "EPUB"
 
-#: inc/modules/export/namespace.php:201
+#: inc/modules/export/namespace.php:101 inc/modules/export/namespace.php:198
+#: inc/modules/export/namespace.php:231
+msgid "Pressbooks XML"
+msgstr "Pressbooks XML"
+
+#: inc/modules/export/namespace.php:104
+msgid "XHTML"
+msgstr "XHTML"
+
+#: inc/modules/export/namespace.php:105 inc/modules/export/namespace.php:192
+#: inc/modules/export/namespace.php:227
+msgid "HTMLBook"
+msgstr "HTMLBook"
+
+#: inc/modules/export/namespace.php:106 inc/modules/export/namespace.php:197
+#: inc/modules/export/namespace.php:230
+msgid "OpenDocument"
+msgstr "OpenDocument"
+
+#: inc/modules/export/namespace.php:107 inc/modules/export/namespace.php:199
+#: inc/modules/export/namespace.php:232
+msgid "WordPress XML"
+msgstr "WordPress XML"
+
+#: inc/modules/export/namespace.php:115
+msgid "Common Cartridge with Web Links"
+msgstr "Обща набор от уеб връзки "
+
+#: inc/modules/export/namespace.php:189 inc/modules/export/namespace.php:223
+#: inc/modules/export/namespace.php:225
+msgid "Print PDF"
+msgstr "Печат на PDF "
+
+#: inc/modules/export/namespace.php:190 inc/modules/export/namespace.php:191
+#: inc/modules/export/namespace.php:224 inc/modules/export/namespace.php:226
+msgid "Digital PDF"
+msgstr "Цифров PDF "
+
+#: inc/modules/export/namespace.php:194
 msgid "MOBI"
 msgstr "MOBI"
 
-#: inc/modules/export/namespace.php:202 inc/modules/export/namespace.php:236
+#: inc/modules/export/namespace.php:195
 msgid "EPUB3"
 msgstr "EPUB3"
 
-#: inc/modules/export/namespace.php:207 inc/modules/export/namespace.php:241
+#: inc/modules/export/namespace.php:200 inc/modules/export/namespace.php:233
 msgid "Common Cartridge (Web Links)"
 msgstr "Обща набор линкове (уеб връзки) "
 
-#: inc/modules/export/namespace.php:277
+#: inc/modules/export/namespace.php:269
 msgid "The file %1$s has been %2$s successfully."
 msgstr "Файлът %1$s бе %2$s успешно."
 
-#: inc/modules/export/namespace.php:279
+#: inc/modules/export/namespace.php:271
 msgid "pinned"
 msgstr "закачено с пин"
 
-#: inc/modules/export/namespace.php:279
+#: inc/modules/export/namespace.php:271
 msgid "unpinned"
 msgstr "премахване на закачането с пин"
 
-#: inc/modules/export/namespace.php:298
+#: inc/modules/export/namespace.php:290
 msgid "%s Author"
 msgid_plural "%s Authors"
 msgstr[0] ""
@@ -3144,23 +3089,23 @@ msgid ""
 " with Prince."
 msgstr "Тази книга е създадена с платформата (всички права запазени) представена с Prince."
 
-#: inc/modules/export/xhtml/class-xhtml11.php:169
+#: inc/modules/export/xhtml/class-xhtml11.php:178
 msgid "XHTML: "
 msgstr "XHTML: "
 
-#: inc/modules/export/xhtml/class-xhtml11.php:413
+#: inc/modules/export/xhtml/class-xhtml11.php:423
 msgid "Creating before title page"
 msgstr "Създаване преди заглавна страница "
 
-#: inc/modules/export/xhtml/class-xhtml11.php:417
+#: inc/modules/export/xhtml/class-xhtml11.php:427
 msgid "Creating half title page"
 msgstr "Създаване на половин заглавна страница "
 
-#: inc/modules/export/xhtml/class-xhtml11.php:433
+#: inc/modules/export/xhtml/class-xhtml11.php:443
 msgid "Creating dedication and epigraph"
 msgstr "Създаване на посвещение и епиграф "
 
-#: inc/modules/export/xhtml/class-xhtml11.php:543
+#: inc/modules/export/xhtml/class-xhtml11.php:553
 msgid "Notes"
 msgstr "Бележки"
 
@@ -4962,11 +4907,9 @@ msgstr ""
 msgid "Side Menu"
 msgstr ""
 
-#: templates/interactive/audio.blade.php:3
-msgid ""
-"An audio element has been excluded from this version of the text. You can "
-"listen to it online here:"
-msgstr ""
+#: templates/export/title.blade.php:16
+msgid "Publisher Logo"
+msgstr "Лого на издателя "
 
 #: templates/interactive/h5p.blade.php:3
 msgid ""
@@ -4974,25 +4917,8 @@ msgid ""
 "You can view it online here:"
 msgstr ""
 
-#: templates/interactive/oembed.blade.php:3
-msgid "Thumbnail for the embedded element \"%s\""
-msgstr ""
-
-#: templates/interactive/oembed.blade.php:9
+#: templates/interactive/media.blade.php:4
 msgid ""
-"A %s element has been excluded from this version of the text. You can view "
-"it online here:"
-msgstr ""
-
-#: templates/interactive/oembed.blade.php:12
-#: templates/interactive/shared.blade.php:3
-msgid ""
-"An interactive or media element has been excluded from this version of the "
-"text. You can view it online here:"
-msgstr ""
-
-#: templates/interactive/video.blade.php:3
-msgid ""
-"A video element has been excluded from this version of the text. You can "
-"watch it online here:"
+"One or more interactive elements has been excluded from this version of the "
+"text. You can view them online here: "
 msgstr ""
