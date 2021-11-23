@@ -2,7 +2,7 @@
 	@foreach($contributors as $contributor_type)
 		<h2 class="contributor__type">{{$contributor_type['title']}}</h2>
 		@foreach($contributor_type['records'] as $contributor)
-			@include('posttypes.contributor',[ 'contributor' => $contributor, 'exporting' => $exporting ])
+			@include('posttypes.contributor',[ 'contributor' => $contributor, 'key' => str_random(), 'exporting' => $exporting ])
 		@endforeach
 	@endforeach
 </section>

@@ -40,8 +40,7 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 			[ '\Pressbooks\Modules\Export\Prince\PrintPdf', '\Pressbooks\Modules\Export\Xhtml\Xhtml11' ],
 			[ '\Pressbooks\Modules\Export\Prince\Docraptor', '\Pressbooks\Modules\Export\Xhtml\Xhtml11' ],
 			[ '\Pressbooks\Modules\Export\Prince\DocraptorPrint', '\Pressbooks\Modules\Export\Xhtml\Xhtml11' ],
-			[ '\Pressbooks\Modules\Export\Epub\Epub201', false ],
-			[ '\Pressbooks\Modules\Export\Epub\Epub3', false ],
+			[ '\Pressbooks\Modules\Export\Epub\Epub', false ],
 			[ '\Pressbooks\Modules\Export\WordPress\Wxr', false ],
 			[ '\Pressbooks\Modules\Export\WordPress\VanillaWxr', false ],
 			// [ '\Pressbooks\Modules\Export\Odt\Odt', false ], // TODO: Download/install Saxon-HE in Travis build script
@@ -415,9 +414,11 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 			$this->assertContains( ' <div id="attachment_1" ', $xhtml_content );
 			$this->assertContains( '<p><em>Ka kite ano!</em></p>', $xhtml_content );
 			$this->assertContains( 'https://github.com/pressbooks/pressbooks', $xhtml_content );
-			$this->assertContains( '</h2><h2 class="chapter-subtitle">Or, A Chapter to Test</h2></div>', $xhtml_content );
-			$this->assertContains( '<p>A YouTube element has been excluded from this version of the text.', $xhtml_content );
-			$this->assertRegExp( '~/?p=\d+#pb-interactive-content"~', $xhtml_content ); //  href="http://example.org/testpath26/?p=21#pb-interactive-content"
+
+			$this->assertContains( '<p class="chapter-subtitle">Or, A Chapter to Test</p>', $xhtml_content );
+			$this->assertContains( '<p>One or more interactive elements has been excluded from this version of the text', $xhtml_content );
+			$this->assertContains( '#oembed-', $xhtml_content );
+
 		}
 
 		foreach ( $paths as $path ) {
@@ -449,7 +450,8 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 		$this->assertContains( '<p><em>Ka kite ano!</em></p>', $xhtml_content );
 		$this->assertContains( 'https://github.com/pressbooks/pressbooks', $xhtml_content );
 		// Heading elements should be in a "bad" place.
-		$this->assertContains( '</h2></div><div class="ugc chapter-ugc"><h2 class="chapter-subtitle">Or, A Chapter to Test</h2>', $xhtml_content );
+		$this->assertContains( '<div class="ugc chapter-ugc">', $xhtml_content );
+		$this->assertContains( '<p class="chapter-subtitle">Or, A Chapter to Test</p>', $xhtml_content );
 
 		unlink( $exporter->getOutputPath() );
 	}

@@ -17,7 +17,7 @@
 		"email": "code@pressbooks.com",
 		"issues": "https://github.com/pressbooks/pressbooks/issues/",
 		"forum": "https://discourse.pressbooks.org",
-		"docs": "http://docs.pressbooks.org/",
+		"docs": "https://docs.pressbooks.org/",
 		"source": "https://github.com/pressbooks/pressbooks/"
 	},
 	"config": {
@@ -48,7 +48,6 @@
 		"vanilla/htmlawed": "^2.2"
 	},
 	"require-dev": {
-    "phpunit/phpunit": "^7",
     "pressbooks/coding-standards": "^1.1",
 		"codeception/module-db": "^1.1",
 		"codeception/module-webdriver": "^1.2",
@@ -57,7 +56,8 @@
 		"codeception/module-filesystem": "^1.0",
 		"codeception/module-cli": "^1.1",
 		"codeception/util-universalframework": "^1.0",
-		"lucatume/wp-browser": "^3.0"
+		"lucatume/wp-browser": "^3.0",
+		"yoast/phpunit-polyfills": "^1.0"
 	},
 	"suggest": {
 		"pressbooks/pressbooks-book":
@@ -87,12 +87,10 @@
 	},
 	"scripts": {
 		"test": [
-			"vendor/bin/phpunit --configuration phpunit.xml --coverage-clover coverage.xml",
-			"@standards"
+			"vendor/bin/phpunit --configuration phpunit.xml"
 		],
 		"test-coverage": [
-			"vendor/bin/phpunit --configuration phpunit.xml --coverage-clover coverage.xml --coverage-html=./coverage-reports",
-			"@standards"
+			"vendor/bin/phpunit --configuration phpunit.xml --coverage-clover coverage.xml --coverage-html=./coverage-reports"
 		],
 		"standards": [
 			"vendor/bin/phpcs --standard=phpcs.ruleset.xml *.php inc/ bin/"
