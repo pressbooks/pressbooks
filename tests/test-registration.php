@@ -6,8 +6,8 @@ class Registration extends \WP_UnitTestCase {
 	/**
 	 * @group registration
 	 */
-	function setUp() {
-		parent::setUp();
+	function set_up() {
+		parent::set_up();
 		global $pagenow;
 		$pagenow = 'wp-signup.php';
 		add_filter( 'gettext', '\Pressbooks\Registration\custom_signup_text', 20, 3 );
@@ -16,8 +16,8 @@ class Registration extends \WP_UnitTestCase {
 	/**
 	 * @group registration
 	 */
-	function tearDown() {
-		parent::tearDown();
+	function tear_down() {
+		parent::tear_down();
 		remove_filter( 'gettext', '\Pressbooks\Registration\custom_signup_text' );
 	}
 
@@ -136,28 +136,28 @@ class Registration extends \WP_UnitTestCase {
 	public function test_check_for_strong_password() {
 		$errors = \Pressbooks\Registration\check_for_strong_password( 'a' );
 		$this->assertTrue( is_string( $errors ) );
-		$this->assertContains( 'at least 12 characters', $errors );
-		$this->assertContains( 'at least one upper case letter', $errors );
-		$this->assertNotContains( 'at least one lower case letter', $errors );
-		$this->assertContains( 'at least one number', $errors );
+		$this->assertStringContainsString( 'at least 12 characters', $errors );
+		$this->assertStringContainsString( 'at least one upper case letter', $errors );
+		$this->assertStringNotContainsString( 'at least one lower case letter', $errors );
+		$this->assertStringContainsString( 'at least one number', $errors );
 
 		$errors = \Pressbooks\Registration\check_for_strong_password( 'A' );
-		$this->assertContains( 'at least 12 characters', $errors );
-		$this->assertNotContains( 'at least one upper case letter', $errors );
-		$this->assertContains( 'at least one lower case letter', $errors );
-		$this->assertContains( 'at least one number', $errors );
+		$this->assertStringContainsString( 'at least 12 characters', $errors );
+		$this->assertStringNotContainsString( 'at least one upper case letter', $errors );
+		$this->assertStringContainsString( 'at least one lower case letter', $errors );
+		$this->assertStringContainsString( 'at least one number', $errors );
 
 		$errors = \Pressbooks\Registration\check_for_strong_password( 'aaaaAAAAaaaa' );
-		$this->assertNotContains( 'at least 12 characters', $errors );
-		$this->assertNotContains( 'at least one upper case letter', $errors );
-		$this->assertNotContains( 'at least one lower case letter', $errors );
-		$this->assertContains( 'at least one number', $errors );
+		$this->assertStringNotContainsString( 'at least 12 characters', $errors );
+		$this->assertStringNotContainsString( 'at least one upper case letter', $errors );
+		$this->assertStringNotContainsString( 'at least one lower case letter', $errors );
+		$this->assertStringContainsString( 'at least one number', $errors );
 
 		$errors = \Pressbooks\Registration\check_for_strong_password( 'aaa1AAAAaaaa' );
-		$this->assertNotContains( 'at least 12 characters', $errors );
-		$this->assertNotContains( 'at least one upper case letter', $errors );
-		$this->assertNotContains( 'at least one lower case letter', $errors );
-		$this->assertNotContains( 'at least one number', $errors );
+		$this->assertStringNotContainsString( 'at least 12 characters', $errors );
+		$this->assertStringNotContainsString( 'at least one upper case letter', $errors );
+		$this->assertStringNotContainsString( 'at least one lower case letter', $errors );
+		$this->assertStringNotContainsString( 'at least one number', $errors );
 
 		$errors = \Pressbooks\Registration\check_for_strong_password( 'aaa1AAAAaaaa' );
 		$this->assertTrue( is_string( $errors ) );
@@ -221,8 +221,8 @@ class Registration extends \WP_UnitTestCase {
 		\Pressbooks\Admin\Dashboard\pending_invitations_callback();
 		$output = ob_get_clean();
 
-		$this->assertContains( get_site_meta( get_current_blog_id(), 'pb_title', true ), $output );
-		$this->assertContains( "<a class='button button-primary' href='" . home_url( '/newbloguser/' . $key ) . "'>Accept</a>", $output );
+		$this->assertStringContainsString( get_site_meta( get_current_blog_id(), 'pb_title', true ), $output );
+		$this->assertStringContainsString( "<a class='button button-primary' href='" . home_url( '/newbloguser/' . $key ) . "'>Accept</a>", $output );
 	}
 
 	/**

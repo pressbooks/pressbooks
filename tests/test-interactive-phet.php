@@ -11,8 +11,8 @@ class Interactive_PhetTest extends \WP_UnitTestCase {
 	/**
 	 * @group interactivecontent
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 		$blade = \Pressbooks\Container::get( 'Blade' );
 		$this->phet = new \Pressbooks\Interactive\Phet( $blade );
 	}
@@ -51,7 +51,7 @@ class Interactive_PhetTest extends \WP_UnitTestCase {
 			'https://pressbooks.com',
 			''
 		);
-		$this->assertContains(
+		$this->assertStringContainsString(
 			"<iframe id=\"iframe-phet-1\" src=\"https://phet.colorado.edu/sims/html/i\" width=\"800\" height=\"600\" scrolling=\"no\" allowfullscreen></iframe>",
 			$iframe_html
 		);
@@ -67,15 +67,15 @@ class Interactive_PhetTest extends \WP_UnitTestCase {
 			'https://pressbooks.com',
 			''
 		);
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'<div class="textbox interactive-content interactive-content--oembed">',
 			$iframe_html
 		);
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'One or more interactive elements has been excluded from this version of the text. You can view them online here',
 			$iframe_html
 		);
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'<a href="#iframe-phet-1" title="">#iframe-phet-1</a>',
 			$iframe_html
 		);

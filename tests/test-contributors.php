@@ -21,8 +21,8 @@ class ContributorsTest extends \WP_UnitTestCase {
 	/**
 	 * @group contributors
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 		$this->contributor = new Contributors();
 		$this->taxonomy = new \Pressbooks\Taxonomy(
 			$this->getMockBuilder( '\Pressbooks\Licensing' )->getMock(),
@@ -245,7 +245,7 @@ class ContributorsTest extends \WP_UnitTestCase {
 		\Pressbooks\Admin\Metaboxes\contributor_edit_form( $term );
 		$buffer = ob_get_clean();
 
-		$this->assertContains( '<button name="dispatch-media-picture" id="btn-media">Upload Picture</button>', $buffer );
+		$this->assertStringContainsString( '<button name="dispatch-media-picture" id="btn-media">Upload Picture</button>', $buffer );
 
 	}
 
@@ -373,10 +373,10 @@ class ContributorsTest extends \WP_UnitTestCase {
 		$pid = $this->factory()->post->update_object( $pid, [ 'post_content' => ' &nbsp;    ' ] );
 		$post = get_post( $pid );
 		$content = $this->contributor->overrideDisplay( $post->post_content );
-		$this->assertContains( '<section class="contributors book-contributors">', $content );
-		$this->assertNotContains( '<h2 class="contributor__type">Reviewers</h2>', $content ); // if no reviewers that should not be printed
-		$this->assertContains( '<h2 class="contributor__type">Authors</h2>', $content ); // two authors should be plural
-		$this->assertContains( '<h2 class="contributor__type">Editor</h2>', $content ); // one editor should be singular
+		$this->assertStringContainsString( '<section class="contributors book-contributors">', $content );
+		$this->assertStringNotContainsString( '<h2 class="contributor__type">Reviewers</h2>', $content ); // if no reviewers that should not be printed
+		$this->assertStringContainsString( '<h2 class="contributor__type">Authors</h2>', $content ); // two authors should be plural
+		$this->assertStringContainsString( '<h2 class="contributor__type">Editor</h2>', $content ); // one editor should be singular
 	}
 
 	/**
@@ -543,9 +543,9 @@ class ContributorsTest extends \WP_UnitTestCase {
 		$this->contributor->renderImportForm();
 		$content = ob_get_clean();
 
-		$this->assertContains( '<h2>Import Contributors</h2>', $content );
-		$this->assertContains( '<input type="hidden" name="action" value="contributor-import">', $content );
-		$this->assertContains( '<input type="file" name="import_file" />', $content );
+		$this->assertStringContainsString( '<h2>Import Contributors</h2>', $content );
+		$this->assertStringContainsString( '<input type="hidden" name="action" value="contributor-import">', $content );
+		$this->assertStringContainsString( '<input type="file" name="import_file" />', $content );
 	}
 
 	/**
@@ -612,16 +612,16 @@ class ContributorsTest extends \WP_UnitTestCase {
 
 		$json = json_encode( $items, JSON_PRETTY_PRINT );
 
-		$this->assertContains('"name": "John Doe"', $json);
-		$this->assertContains('"contributor_prefix": "Dr."', $json);
-		$this->assertContains('"contributor_first_name": "John"', $json);
-		$this->assertContains('"contributor_last_name": "Doe"', $json);
-		$this->assertContains('"contributor_description": "Biographical info <strong>with some html<\/strong>"', $json);
-		$this->assertContains('"contributor_institution": "Rebus Foundation"', $json);
-		$this->assertContains('"contributor_user_url": "https:\/\/someurl.com"', $json);
-		$this->assertContains('"contributor_twitter": "https:\/\/twitter.com\/johndoe"', $json);
-		$this->assertContains('"contributor_linkedin": "https:\/\/linkedin.com\/in\/johndoe"', $json);
-		$this->assertContains('"contributor_github": "https:\/\/github.com\/johndoe"', $json);
+		$this->assertStringContainsString('"name": "John Doe"', $json);
+		$this->assertStringContainsString('"contributor_prefix": "Dr."', $json);
+		$this->assertStringContainsString('"contributor_first_name": "John"', $json);
+		$this->assertStringContainsString('"contributor_last_name": "Doe"', $json);
+		$this->assertStringContainsString('"contributor_description": "Biographical info <strong>with some html<\/strong>"', $json);
+		$this->assertStringContainsString('"contributor_institution": "Rebus Foundation"', $json);
+		$this->assertStringContainsString('"contributor_user_url": "https:\/\/someurl.com"', $json);
+		$this->assertStringContainsString('"contributor_twitter": "https:\/\/twitter.com\/johndoe"', $json);
+		$this->assertStringContainsString('"contributor_linkedin": "https:\/\/linkedin.com\/in\/johndoe"', $json);
+		$this->assertStringContainsString('"contributor_github": "https:\/\/github.com\/johndoe"', $json);
 	}
 
 	/**
@@ -647,10 +647,7 @@ class ContributorsTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'John Doe', $term->name );
 		$this->assertEquals( 'johndoe', $term->slug );
 		$this->assertArrayHasKey( 'pb_notices', $_SESSION );
-		$this->assertArraySubset(
-			[ 'pb_notices' => ['Successfully imported.'] ],
-			$_SESSION
-		);
+		$this->assertContains( 'Successfully imported.', $_SESSION[ 'pb_notices'] );
 
 		unset( $_SESSION['pb_notices'] );
 	}
@@ -693,7 +690,7 @@ class ContributorsTest extends \WP_UnitTestCase {
 	public function test_handleImage() {
 		$src = $this->contributor->handleImage( 'https://pressbooks.com/app/plugins/pressbooks/assets/dist/images/default-book-cover.jpg' );
 
-		$this->assertContains( 'default-book-cover', $src );
+		$this->assertStringContainsString( 'default-book-cover', $src );
 
 		$src = $this->contributor->handleImage( 'not-a-valid-url' );
 

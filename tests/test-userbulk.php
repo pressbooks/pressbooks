@@ -24,8 +24,8 @@ class UserBulkTest extends \WP_UnitTestCase {
 	/**
 	 * Test setup
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 		$this->user_bulk = new UserBulk();
 	}
 

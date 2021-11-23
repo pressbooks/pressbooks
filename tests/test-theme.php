@@ -14,7 +14,7 @@ class ThemeTest extends \WP_UnitTestCase {
 	/**
 	 * @group themes
 	 */
-	public function setUp() {
+	public function set_up() {
 		$this->lock = new \Pressbooks\Theme\Lock();
 	}
 

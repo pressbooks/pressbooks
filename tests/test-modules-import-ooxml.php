@@ -23,8 +23,8 @@ class Modules_Import_OoxmlTest extends \WP_UnitTestCase {
 	/**
 	 * @group import
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 
 		$this->docx = new Pressbooks\Modules\Import\Ooxml\Docx();
 
@@ -87,7 +87,7 @@ class Modules_Import_OoxmlTest extends \WP_UnitTestCase {
 		// happy path for Online Word doc
 		$yes_online = $this->docx->import( $current_import );
 		$this->assertTrue( $yes_online );
-		$this->assertFileNotExists( __DIR__ . '/data/deleteMe.docx' );
+		$this->assertFileDoesNotExist( __DIR__ . '/data/deleteMe.docx' );
 
 		// set the import option for local Word doc
 		copy( __DIR__ . '/data/WordImportTest.docx', __DIR__ . '/data/deleteMe.docx' );
@@ -98,7 +98,7 @@ class Modules_Import_OoxmlTest extends \WP_UnitTestCase {
 		// happy path for local Word doc
 		$yes_local = $this->docx->import( $current_import );
 		$this->assertTrue( $yes_local );
-		$this->assertFileNotExists( __DIR__ . '/data/deleteMe.docx' );
+		$this->assertFileDoesNotExist( __DIR__ . '/data/deleteMe.docx' );
 
 	}
 

@@ -12,8 +12,8 @@ class CoverGenerator_IsbnTest extends \WP_UnitTestCase {
 	/**
 	 * @group covergenerator
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 		\Pressbooks\Covergenerator\Covergenerator::commandLineDefaults();
 		$this->isbn = new \Pressbooks\Covergenerator\Isbn();
 	}
@@ -24,7 +24,7 @@ class CoverGenerator_IsbnTest extends \WP_UnitTestCase {
 	public function test_createBarcode() {
 		$isbn = "978-1-873671-00-9 54499";
 		$url = $this->isbn->createBarcode( $isbn );
-		$this->assertContains( "978-1-873671-00-9-54499", $url );
+		$this->assertStringContainsString( "978-1-873671-00-9-54499", $url );
 		$this->assertEquals( $url, get_option( 'pressbooks_cg_isbn' ) );
 		$this->assertNotEmpty( \Pressbooks\Image\attachment_id_from_url( $url ) );
 	}

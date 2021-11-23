@@ -7,8 +7,8 @@ class Track_BookDownloadTest extends \WP_UnitTestCase {
 
 	protected $table;
 
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 
 		global $wpdb;
 

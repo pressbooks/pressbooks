@@ -14,8 +14,8 @@ class MathJaxTest extends \WP_UnitTestCase {
 	/**
 	 * @group taxonomies
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 		$this->mathjax = new Mathjax();
 	}
 
@@ -35,8 +35,8 @@ class MathJaxTest extends \WP_UnitTestCase {
 		ob_start();
 		$this->mathjax->renderPage();
 		$buffer = ob_get_clean();
-		$this->assertContains( '<h1>MathJax</h1>', $buffer );
-		$this->assertContains( '<input type="hidden" id="pb-mathjax-nonce"', $buffer );
+		$this->assertStringContainsString( '<h1>MathJax</h1>', $buffer );
+		$this->assertStringContainsString( '<input type="hidden" id="pb-mathjax-nonce"', $buffer );
 	}
 
 	public function test_options() {
@@ -115,7 +115,7 @@ class MathJaxTest extends \WP_UnitTestCase {
 		ob_start();
 		$this->mathjax->addHeaders();
 		$buffer = ob_get_clean();
-		$this->assertContains('MathJax.Hub.Config', $buffer);
+		$this->assertStringContainsString('MathJax.Hub.Config', $buffer);
 	}
 
 	public function test_dollarSignLatexMarkup() {
@@ -167,7 +167,7 @@ class MathJaxTest extends \WP_UnitTestCase {
 
 	public function test_allowMathmlTagsInTinyMce() {
 		$options = $this->mathjax->allowMathmlTagsInTinyMce( [] );
-		$this->assertContains( 'math[', $options['extended_valid_elements'] );
+		$this->assertStringContainsString( 'math[', $options['extended_valid_elements'] );
 	}
 
 	public function test_filterLineBreakTagsInMthml() {
@@ -191,7 +191,7 @@ class MathJaxTest extends \WP_UnitTestCase {
 
 		$this->mathjax->usePbMathJax = true;
 		$content = $this->mathjax->replaceMathML( $mathml_content );
-		$this->assertContains( '<img src="http://localhost:3000/mathml', $content );
+		$this->assertStringContainsString( '<img src="http://localhost:3000/mathml', $content );
 	}
 
 }

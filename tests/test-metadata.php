@@ -25,8 +25,8 @@ class MetadataTest extends \WP_UnitTestCase {
 	/**
 	 * @group metadata
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 		$this->metadata = new \Pressbooks\Metadata();
 		$this->contributor = new \Pressbooks\Contributors();
 		$this->taxonomy = new \Pressbooks\Taxonomy(
@@ -42,7 +42,7 @@ class MetadataTest extends \WP_UnitTestCase {
 	public function test_Metadata_JsonSerialize() {
 		$result = json_encode( $this->metadata );
 		$this->assertJson( $result );
-		$this->assertContains( '{"@context":"http:\/\/schema.org","@type":"Book","name":"Test Blog",', $result );
+		$this->assertStringContainsString( '{"@context":"http:\/\/schema.org","@type":"Book","name":"Test Blog",', $result );
 
 	}
 
@@ -52,7 +52,7 @@ class MetadataTest extends \WP_UnitTestCase {
 	public function test_get_microdata_elements() {
 
 		$result = \Pressbooks\Metadata\get_microdata_elements();
-		$this->assertContains( '<meta', $result );
+		$this->assertStringContainsString( '<meta', $result );
 	}
 
 	/**
@@ -61,7 +61,7 @@ class MetadataTest extends \WP_UnitTestCase {
 	public function test_get_seo_meta_elements() {
 
 		$result = \Pressbooks\Metadata\get_seo_meta_elements();
-		$this->assertContains( '<meta', $result );
+		$this->assertStringContainsString( '<meta', $result );
 	}
 
 	/**
@@ -483,7 +483,7 @@ class MetadataTest extends \WP_UnitTestCase {
 		$this->metadata->upgradeToPressbooksFive();
 		$this->assertEquals( \Pressbooks\Taxonomy::VERSION, get_option( 'pressbooks_taxonomy_version' ) );
 		$content = get_post_field( 'post_content', $pid );
-		$this->assertContains( '<iframe width="560" height="315" src="https://www.youtube.com/embed/JgIhGTpKTwM" frameborder="0"></iframe>', $content );
+		$this->assertStringContainsString( '<iframe width="560" height="315" src="https://www.youtube.com/embed/JgIhGTpKTwM" frameborder="0"></iframe>', $content );
 	}
 
 	/**
@@ -498,7 +498,7 @@ class MetadataTest extends \WP_UnitTestCase {
 			]
 		);
 		$section_information = \Pressbooks\Metadata\get_section_information( $chapters[0]->ID );
-		$this->assertInternalType( 'array', $section_information );
+		$this->assertIsArray( $section_information );
 		$this->assertStringStartsWith( 'Test Chapter: ', $section_information['pb_title'] );
 		$this->assertEquals( 'Or, A Chapter to Test', $section_information['pb_subtitle'] );
 	}
@@ -537,14 +537,14 @@ class MetadataTest extends \WP_UnitTestCase {
 		\Pressbooks\Metadata\add_citation_metadata();
 		$buffer = ob_get_clean();
 		$this->assertStringStartsWith( '<meta name="og:type" content="book"', $buffer );
-		$this->assertContains( '<meta name="citation_title" content="Some Book">', $buffer );
-		$this->assertContains( '<meta name="citation_doi" content="10.1000/xyz123">', $buffer );
-		$this->assertContains( '<meta name="citation_isbn" content="9781234567897">', $buffer );
-		$this->assertContains( '<meta name="citation_language" content="en-ca">', $buffer );
-		$this->assertContains( '<meta name="citation_year" content="' . strftime( '%Y', $time ) . '">', $buffer );
-		$this->assertContains( '<meta name="citation_publication_date" content="' . strftime( '%F', $time ) . '">', $buffer );
-		$this->assertContains( '<meta name="citation_publisher" content="Book Oven Inc.">', $buffer );
-		$this->assertContains( '<meta name="citation_author" content="Some Author">', $buffer );
+		$this->assertStringContainsString( '<meta name="citation_title" content="Some Book">', $buffer );
+		$this->assertStringContainsString( '<meta name="citation_doi" content="10.1000/xyz123">', $buffer );
+		$this->assertStringContainsString( '<meta name="citation_isbn" content="9781234567897">', $buffer );
+		$this->assertStringContainsString( '<meta name="citation_language" content="en-ca">', $buffer );
+		$this->assertStringContainsString( '<meta name="citation_year" content="' . strftime( '%Y', $time ) . '">', $buffer );
+		$this->assertStringContainsString( '<meta name="citation_publication_date" content="' . strftime( '%F', $time ) . '">', $buffer );
+		$this->assertStringContainsString( '<meta name="citation_publisher" content="Book Oven Inc.">', $buffer );
+		$this->assertStringContainsString( '<meta name="citation_author" content="Some Author">', $buffer );
 
 		$chapters = get_posts(
 			[
@@ -561,14 +561,14 @@ class MetadataTest extends \WP_UnitTestCase {
 		\Pressbooks\Metadata\add_citation_metadata();
 		$buffer = ob_get_clean();
 
-		$this->assertNotContains( '<meta name="og:type" content="book"', $buffer );
-		$this->assertContains( '<meta name="citation_book_title" content="Some Book">', $buffer );
-		$this->assertContains( '<meta name="citation_title" content="' . $section_title . '">', $buffer );
-		$this->assertContains( '<meta name="citation_language" content="en-ca">', $buffer );
-		$this->assertContains( '<meta name="citation_year" content="' . strftime( '%Y', $time ) . '">', $buffer );
-		$this->assertContains( '<meta name="citation_publication_date" content="' . strftime( '%F', $time ) . '">', $buffer );
-		$this->assertContains( '<meta name="citation_publisher" content="Book Oven Inc.">', $buffer );
-		$this->assertContains( '<meta name="citation_author" content="Some Author">', $buffer );
+		$this->assertStringNotContainsString( '<meta name="og:type" content="book"', $buffer );
+		$this->assertStringContainsString( '<meta name="citation_book_title" content="Some Book">', $buffer );
+		$this->assertStringContainsString( '<meta name="citation_title" content="' . $section_title . '">', $buffer );
+		$this->assertStringContainsString( '<meta name="citation_language" content="en-ca">', $buffer );
+		$this->assertStringContainsString( '<meta name="citation_year" content="' . strftime( '%Y', $time ) . '">', $buffer );
+		$this->assertStringContainsString( '<meta name="citation_publication_date" content="' . strftime( '%F', $time ) . '">', $buffer );
+		$this->assertStringContainsString( '<meta name="citation_publisher" content="Book Oven Inc.">', $buffer );
+		$this->assertStringContainsString( '<meta name="citation_author" content="Some Author">', $buffer );
 	}
 
 	/**

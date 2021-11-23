@@ -24,7 +24,7 @@ class Admin_BrandingTest extends \WP_UnitTestCase {
 	 */
 	public function test_login_url() {
 
-		$this->assertRegExp( '#^https?://#i', \Pressbooks\Admin\Branding\login_url() );
+		$this->assertMatchesRegularExpression( '#^https?://#i', \Pressbooks\Admin\Branding\login_url() );
 	}
 
 	/**
@@ -34,7 +34,7 @@ class Admin_BrandingTest extends \WP_UnitTestCase {
 
 		$title = \Pressbooks\Admin\Branding\login_title();
 
-		$this->assertInternalType( 'string', $title );
+		$this->assertIsString( $title );
 		$this->assertNotEmpty( $title );
 	}
 
@@ -66,6 +66,6 @@ class Admin_BrandingTest extends \WP_UnitTestCase {
 		ob_start();
 		\Pressbooks\Admin\Branding\favicon();
 		$buffer = ob_get_clean();
-		$this->assertContains( '<link rel="shortcut icon"', $buffer );
+		$this->assertStringContainsString( '<link rel="shortcut icon"', $buffer );
 	}
 }

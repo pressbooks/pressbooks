@@ -33,7 +33,7 @@ class PercentageYieldTest extends \WP_UnitTestCase {
 			$loops = 0;
 			foreach ( $y->tick( 'Test' ) as $percentage => $msg ) {
 				$this->assertEquals( $j, $percentage );
-				$this->assertContains( "Test ($i of $ticks)", $msg );
+				$this->assertStringContainsString( "Test ($i of $ticks)", $msg );
 				++$loops;
 			}
 			$this->assertEquals( 1, $loops );
@@ -53,7 +53,7 @@ class PercentageYieldTest extends \WP_UnitTestCase {
 			$loops = 0;
 			foreach ( $y->tick( 'Test' ) as $percentage => $msg ) {
 				$this->assertEquals( $percentage, $i );
-				$this->assertContains( "Test ($i of $ticks)", $msg );
+				$this->assertStringContainsString( "Test ($i of $ticks)", $msg );
 				++$loops;
 			}
 			$this->assertEquals( 1, $loops );
@@ -70,7 +70,7 @@ class PercentageYieldTest extends \WP_UnitTestCase {
 			$loops = 0;
 			foreach ( $y->tick( 'Test' ) as $percentage => $msg ) {
 				$this->assertEquals( $percentage, 99 );
-				$this->assertContains( "Test ($i of $ticks)", $msg );
+				$this->assertStringContainsString( "Test ($i of $ticks)", $msg );
 				++$loops;
 			}
 			$this->assertEquals( 1, $loops );
@@ -87,7 +87,7 @@ class PercentageYieldTest extends \WP_UnitTestCase {
 			$loops = 0;
 			foreach ( $y->tick( 'Test' ) as $percentage => $msg ) {
 				$this->assertEquals( $percentage, $i );
-				$this->assertContains( "Test ($i of $ticks)", $msg );
+				$this->assertStringContainsString( "Test ($i of $ticks)", $msg );
 				++$loops;
 			}
 			$this->assertEquals( 1, $loops );
@@ -96,7 +96,7 @@ class PercentageYieldTest extends \WP_UnitTestCase {
 			$loops = 0;
 			foreach ( $y->tick( 'Test' ) as $percentage => $msg ) {
 				$this->assertEquals( $percentage, 100 );
-				$this->assertContains( "Test ($i of $ticks)", $msg );
+				$this->assertStringContainsString( "Test ($i of $ticks)", $msg );
 				++$loops;
 			}
 			$this->assertEquals( 1, $loops );

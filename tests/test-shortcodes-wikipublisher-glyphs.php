@@ -12,8 +12,8 @@ class Shortcodes_WikiPublisher_GlyphsTest extends \WP_UnitTestCase {
 	/**
 	 * @group shortcodes
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 
 		$this->glyphs = $this->getMockBuilder( '\Pressbooks\Shortcodes\Wikipublisher\Glyphs' )
 							->setMethods( null )// pass null to setMethods() to avoid mocking any method
@@ -31,16 +31,16 @@ class Shortcodes_WikiPublisher_GlyphsTest extends \WP_UnitTestCase {
 			'aeiou'
 		);
 
-		$this->assertContains( '<span lang="grc"', $content );
-		$this->assertContains( '&#945;&#949;&#953;&#959;&#965;', $content );
+		$this->assertStringContainsString( '<span lang="grc"', $content );
+		$this->assertStringContainsString( '&#945;&#949;&#953;&#959;&#965;', $content );
 
 		$content = $this->glyphs->langShortcode(
 			[ 'lang' => 'ell' ],
 			'aeiou'
 		);
 
-		$this->assertContains( '<span lang="el"', $content );
-		$this->assertContains( '&#945;&#949;&#953;&#959;&#965;', $content );
+		$this->assertStringContainsString( '<span lang="el"', $content );
+		$this->assertStringContainsString( '&#945;&#949;&#953;&#959;&#965;', $content );
 	}
 
 	/**
@@ -53,8 +53,8 @@ class Shortcodes_WikiPublisher_GlyphsTest extends \WP_UnitTestCase {
 			'aeiou'
 		);
 
-		$this->assertContains( '<span lang="he"', $content );
-		$this->assertContains( '&#1463;&#1461;&#1460;&#1465;&#1467;', $content );
+		$this->assertStringContainsString( '<span lang="he"', $content );
+		$this->assertStringContainsString( '&#1463;&#1461;&#1460;&#1465;&#1467;', $content );
 	}
 
 	/**
@@ -67,7 +67,7 @@ class Shortcodes_WikiPublisher_GlyphsTest extends \WP_UnitTestCase {
 			'aeiou'
 		);
 
-		$this->assertContains( 'ERROR', $content );
+		$this->assertStringContainsString( 'ERROR', $content );
 	}
 
 }

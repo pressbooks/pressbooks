@@ -17,15 +17,15 @@ class GdprTest extends \WP_UnitTestCase {
 	/**
 	 * @group privacy
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 		$this->privacy = new \Pressbooks\Privacy();
 	}
 
 	/**
 	 * @group privacy
 	 */
-	public static function setUpBeforeClass()
+	public static function set_up_before_class()
 	{
 		$blog_ids = get_sites( [ 'site__not_in' => 1 ] );
 

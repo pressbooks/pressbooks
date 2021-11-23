@@ -24,18 +24,18 @@ class IntegrationsTest extends \WP_UnitTestCase {
 		$wpdb->suppress_errors( $suppress );
 
 		$this->assertEquals( $source, $cloner->getSourceBookUrl() );
-		$this->assertInternalType( 'int', $cloner->getSourceBookId() );
+		$this->assertIsInt( $cloner->getSourceBookId() );
 
 		$structure = $cloner->getSourceBookStructure();
-		$this->assertInternalType( 'array', $structure );
+		$this->assertIsArray( $structure );
 		$this->assertNotEmpty( $structure );
 
 		$terms = $cloner->getSourceBookTerms();
-		$this->assertInternalType( 'array', $terms );
+		$this->assertIsArray( $terms );
 		$this->assertNotEmpty( $terms );
 
 		$meta = $cloner->getSourceBookMetadata();
-		$this->assertInternalType( 'array', $meta );
+		$this->assertIsArray( $meta );
 		$this->assertNotEmpty( $meta );
 		$this->assertEquals( 'Public Domain', $meta['license']['name'] );
 
@@ -133,7 +133,7 @@ class IntegrationsTest extends \WP_UnitTestCase {
 		$this->assertTrue( $importer->import( $options ) );
 
 		$this->asserttrue( count( $_SESSION['pb_notices'] ) === 1 );
-		$this->assertContains( 'Imported 1 front matter, 2 parts, 5 chapters, 1 back matter, 2 media attachments, and 0 glossary terms.', $_SESSION['pb_notices'][0] );
+		$this->assertStringContainsString( 'Imported 1 front matter, 2 parts, 5 chapters, 1 back matter, 2 media attachments, and 0 glossary terms.', $_SESSION['pb_notices'][0] );
 		unset( $_SESSION['pb_notices'] );
 
 		$info = \Pressbooks\Book::getBookInformation();

@@ -15,7 +15,7 @@ class ThemeLockTest extends \WP_UnitTestCase {
 	/**
 	 * @group themes
 	 */
-	public function setUp() {
+	public function set_up() {
 		$this->lock = new Lock();
 	}
 
@@ -198,6 +198,6 @@ class ThemeLockTest extends \WP_UnitTestCase {
 
 		$this->lock->copyAssets();
 		$result = $this->lock->globalComponentsPath( '/hello-world' );
-		$this->assertContains( 'lock/global-components', $result );
+		$this->assertStringContainsString( 'lock/global-components', $result );
 	}
 }
