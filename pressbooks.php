@@ -5,7 +5,7 @@ Plugin URI: https://pressbooks.org
 GitHub Plugin URI: pressbooks/pressbooks
 Release Asset: true
 Description: Simple Book Production
-Version: 5.29.0
+Version: 5.30.0
 Author: Pressbooks (Book Oven Inc.)
 Author URI: https://pressbooks.org
 Text Domain: pressbooks
