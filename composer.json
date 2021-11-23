@@ -45,7 +45,8 @@
 		"pressbooks/pb-cli": "^2.1.0",
 		"scssphp/scssphp": "~1.1.0",
 		"sinergi/browser-detector": "^6.1",
-		"vanilla/htmlawed": "^2.2"
+		"vanilla/htmlawed": "^2.2",
+		"phpoffice/phpword": "^0.18.2"
 	},
 	"require-dev": {
     "pressbooks/coding-standards": "^1.1",

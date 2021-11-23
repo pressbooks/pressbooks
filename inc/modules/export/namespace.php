@@ -102,6 +102,7 @@ function formats() {
 		],
 		'exotic' => [
 			'xhtml' => __( 'XHTML', 'pressbooks' ),
+			'openoffice' => __( 'PHPWord', 'pressbooks' ),
 			'htmlbook' => __( 'HTMLBook', 'pressbooks' ),
 			'odt' => __( 'OpenDocument', 'pressbooks' ),
 			'vanillawxr' => __( 'WordPress XML', 'pressbooks' ),

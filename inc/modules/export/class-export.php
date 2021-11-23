@@ -670,7 +670,9 @@ abstract class Export {
 			if ( isset( $x['weblinks'] ) ) {
 				$modules[] = '\Pressbooks\Modules\Export\ThinCC\WebLinks';
 			}
-
+			if ( isset( $x['openoffice'] ) ) {
+				$modules[] = '\Pressbooks\Modules\Export\Odt\PhpWord';
+			}
 			// --------------------------------------------------------------------------------------------------------
 			// Other People's Plugins
 
