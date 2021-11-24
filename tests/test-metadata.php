@@ -107,6 +107,7 @@ class MetadataTest extends \WP_UnitTestCase {
 	public function test_book_information_to_schema() {
 		$book_information = [
 			'pb_authors' => 'Herman Melville',
+			'pb_editors' => 'Pat Metheny',
 			'pb_title' => 'Moby Dick',
 			'pb_book_doi' => 'my_doi',
 		];
@@ -114,6 +115,7 @@ class MetadataTest extends \WP_UnitTestCase {
 		$result = \Pressbooks\Metadata\book_information_to_schema( $book_information );
 		$this->assertEquals( $result['name'], 'Moby Dick' );
 		$this->assertEquals( $result['author'][0]['name'], 'Herman Melville' );
+		$this->assertEquals( $result['editor'][0]['name'], 'Pat Metheny' );
 		$this->assertEquals( $result['sameAs'], 'https://dx.doi.org/my_doi' );
 		$this->assertEquals( $result['identifier']['value'], 'my_doi' );
 	}
