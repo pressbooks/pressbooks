@@ -22,8 +22,6 @@ jobs:
       with:
         name: pressbooks-languages
         path: languages/
-    - name: Stage updated files
-      run: sudo apt-get install -y gettext
     # - name: Commit updated translation files
     #   uses: stefanzweifel/git-auto-commit-action@v4.1.1
     #   with:
