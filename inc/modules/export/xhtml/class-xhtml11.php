@@ -1415,23 +1415,27 @@ class Xhtml11 extends ExportGenerator {
 			}
 
 			if ( $invisible ) {
-				echo $rendered_chapters;
+				$this->renderPart( $part_slug, $rendered_chapters );
 
 				continue;
 			}
 
 			if ( $parts_amount === 1 ) {
-				echo $part_content
+				$content = $part_content
 					? $rendered_part . $rendered_chapters
 					: $rendered_chapters;
+
+				$this->renderPart( $part_slug, $content );
 			} else {
 				if ( ! $rendered_chapters ) {
-					echo $part_content ? $rendered_part : '';
+					if ( $part_content ) {
+						$this->renderPart( $part_slug, $rendered_part );
+					}
 
 					continue;
 				}
 
-				echo $rendered_part . $rendered_chapters;
+				$this->renderPart( $part_slug, $rendered_part . $rendered_chapters );
 			}
 
 			++$part_index;
@@ -1468,6 +1472,23 @@ class Xhtml11 extends ExportGenerator {
 			++$i;
 		}
 
+	}
+
+	/**
+	 * Renders the complete part wrapper
+	 *
+	 * @param string $id
+	 * @param string $content
+	 * @return void
+	 */
+	protected function renderPart( string $id, string $content ): void {
+		echo $this->blade->render(
+			'export/part-wrapper',
+			[
+				'id' => $id,
+				'content' => $content,
+			]
+		);
 	}
 
 	/**
