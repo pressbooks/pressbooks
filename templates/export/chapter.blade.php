@@ -1,4 +1,4 @@
-<div class="chapter {{ $subclass }}" id="{{ $slug }}" title="{{ $sanitized_title }}">
+<div class="chapter {{ $subclass }} {{ $subsection_class }}" id="{{ $slug }}" title="{{ $sanitized_title }}">
 	<div class="chapter-title-wrap">
 		<p class="chapter-number">{{ $number }}</p>
 		<h1 class="chapter-title">{!! $title !!}</h1>

@@ -1312,6 +1312,7 @@ class Xhtml11 extends ExportGenerator {
 		$part_index = 1;
 		$chapter_index = 1;
 		$parts_amount = count( $book_contents['part'] );
+		$parse_subsections = \Pressbooks\Modules\Export\Export::shouldParseSubsections();
 
 		foreach ( $book_contents['part'] as $part ) {
 			yield from $yield->tick( $this->generatorPrefix . __( 'Exporting parts and chapters', 'pressbooks' ) );
@@ -1370,7 +1371,7 @@ class Xhtml11 extends ExportGenerator {
 				$chapter_subtitle = trim( get_post_meta( $chapter_id, 'pb_subtitle', true ) );
 				$chapter_author = $this->contributors->get( $chapter_id, 'pb_authors' );
 
-				if ( \Pressbooks\Modules\Export\Export::shouldParseSubsections() && \Pressbooks\Book::getSubsections( $chapter_id ) !== false ) {
+				if ( $parse_subsections && \Pressbooks\Book::getSubsections( $chapter_id ) !== false ) {
 					$chapter_content = \Pressbooks\Book::tagSubsections( $chapter_content, $chapter_id );
 				}
 
@@ -1404,6 +1405,7 @@ class Xhtml11 extends ExportGenerator {
 						'append_content' => $append_chapter_content,
 						'endnotes' => $this->doEndnotes( $chapter_id ),
 						'footnotes' => $this->doFootnotes( $chapter_id ),
+						'subsection_class' => $parse_subsections ? 'has-subsections' : '',
 					]
 				);
 
