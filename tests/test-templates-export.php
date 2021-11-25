@@ -81,11 +81,11 @@ class TemplateExportTest extends \WP_UnitTestCase {
 		);
 
 		$this->assertStringContainsString(
-			"<div class=\"chapter chapter-subclass\" id=\"chapter-001\" title=\"$sanitized_title\">",
+			"<div class=\"chapter chapter-subclass \" id=\"chapter-001\" title=\"$sanitized_title\">",
 			$chapter_rendered
 		);
 		$this->assertStringContainsString( '<p class="chapter-number">1</p>', $chapter_rendered );
-		$this->assertStringContainsString( "<h2 class=\"chapter-title\">$title</h2>", $chapter_rendered );
+		$this->assertStringContainsString( "<h1 class=\"chapter-title\">$title</h1>", $chapter_rendered );
 		$this->assertStringContainsString( "<p class=\"short-title\">$short_title</p>", $chapter_rendered );
 		$this->assertStringContainsString( "<p class=\"chapter-subtitle\">$subtitle</p>", $chapter_rendered );
 		$this->assertStringContainsString( "<p class=\"chapter-author\">$author</p>", $chapter_rendered );
