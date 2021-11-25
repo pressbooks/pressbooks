@@ -10,7 +10,7 @@ jobs:
     - name: Install Transifex Client
       run: sudo pip install transifex-client
     - name: Pull translations from Transifex
-      run: tx pull -a --minimum-perc=25
+      run: tx pull --all --force --minimum-perc=25
       env:
         TX_TOKEN: ${{ secrets.TX_TOKEN }}
     - name: Install xgettext
