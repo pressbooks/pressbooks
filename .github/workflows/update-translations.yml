@@ -1,0 +1,31 @@
+name: Update translations from Transifex
+
+on: workflow_dispatch
+
+jobs:
+  update-translations:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install Transifex Client
+      run: sudo pip install transifex-client
+    - name: Pull translations from Transifex
+      run: tx pull --all --force --minimum-perc=25
+      env:
+        TX_TOKEN: ${{ secrets.TX_TOKEN }}
+    - name: Install xgettext
+      run: sudo apt-get install -y gettext
+    - name: Generate MO files
+      run: for file in languages/*.po ; do msgfmt $file -o `echo $file | sed 's/\(.*\.\)po/\1mo/'` ; done
+    # Remove the next four lines and uncomment the last six lines once the process has been confirmed to work as desired.
+    - uses: actions/upload-artifact@v2
+      with:
+        name: pressbooks-languages
+        path: languages/
+    - name: Stage updated files
+      run: sudo apt-get install -y gettext
+    # - name: Commit updated translation files
+    #   uses: stefanzweifel/git-auto-commit-action@v4.1.1
+    #   with:
+    #     commit_message: 'chore(l10n): update translations'
+    #     file_pattern: *.mo *.po
