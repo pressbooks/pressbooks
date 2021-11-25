@@ -28,13 +28,8 @@ jobs:
         composer require jenssegers/blade:1.1.0
     - name: Update POT file
       run: wp pb make-pot . languages/pressbooks.pot --domain=pressbooks --slug=pressbooks --package-name="Pressbooks" --headers="{\"Report-Msgid-Bugs-To\":\"https://github.com/pressbooks/pressbooks/issues\"}"
-    # Remove the next four lines and uncomment the last five lines once the process has been confirmed to work as desired.
-    - uses: actions/upload-artifact@v2
+    - name: Commit updated POT file
+      uses: stefanzweifel/git-auto-commit-action@v4.1.1
       with:
-        name: pressbooks.pot
-        path: languages/pressbooks.pot
-    # - name: Commit updated POT file
-    #   uses: stefanzweifel/git-auto-commit-action@v4.1.1
-    #   with:
-    #     commit_message: 'chore(l10n): update languages/pressbooks.pot'
-    #     file_pattern: '*.pot'
+        commit_message: 'chore(l10n): update languages/pressbooks.pot'
+        file_pattern: '*.pot'
