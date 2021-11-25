@@ -460,7 +460,7 @@ class Xhtml11 extends ExportGenerator {
 
 			// Back-matter
 			yield 70 => $this->generatorPrefix . __( 'Exporting back matter', 'pressbooks' );
-			yield from $this->echoBackMatterGenerator( $book_contents, $metadata );
+			yield from $this->renderBackMatterGenerator( $book_contents, $metadata );
 
 			$buffer_inner_html = ob_get_clean();
 
@@ -1443,7 +1443,7 @@ class Xhtml11 extends ExportGenerator {
 	 * @param array $metadata
 	 * @return \Generator
 	 */
-	protected function echoBackMatterGenerator( $book_contents, $metadata ) : \Generator {
+	protected function renderBackMatterGenerator( $book_contents, $metadata ) : \Generator {
 
 		$y = new PercentageYield( 70, 80, count( $book_contents['back-matter'] ) );
 
