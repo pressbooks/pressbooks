@@ -49,6 +49,11 @@ trait ExportHelpers {
 		$data['subclass'] = $this->getPostSubClass( $post_type_identifier, $post_data['ID'] );
 		$data['slug'] = $is_epub ? $post_data['post_name'] : "{$data['post_type_class']}-{$post_data['post_name']}";
 		$data['title'] = get_post_meta( $post_data['ID'], 'pb_show_title', true ) ? $post_data['post_title'] : '';
+
+		if ( ! $is_epub ) {
+			$data['title'] = empty( $data['title'] ) ? '<span class="display-none">' . $post_data['post_title'] . '</span>' : $data['title'];
+		}
+
 		$data['content'] = $post_data['post_content'];
 		$data['append_post_content'] = apply_filters( "pb_append_{$post_type_identifier}_content", '', $post_data['ID'] );
 		$data['short_title'] = trim( get_post_meta( $post_data['ID'], 'pb_short_title', true ) );
@@ -77,6 +82,7 @@ trait ExportHelpers {
 		}
 
 		if ( ( Export::shouldParseSubsections() === true ) && Book::getSubsections( $post_data['ID'] ) !== false ) {
+			$data['subsection_class'] = 'with-subsections';
 			$data['content'] = $this->html5ToXhtml( Book::tagSubsections( $data['content'], $post_data['ID'] ) );
 		}
 

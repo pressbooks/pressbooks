@@ -55,7 +55,7 @@ class ExportHelpersTest extends \WP_UnitTestCase {
 			]
 		);
 		$this->assertEquals( 'introduction', $front_matter_mapped['subclass'] );
-		$this->assertEmpty( $front_matter_mapped['title'] );
+		$this->assertStringContainsString( '<span class="display-none">Introduction</span>', $front_matter_mapped['title'] );
 		$this->assertEquals( 'front-matter-introduction', $front_matter_mapped['slug'] );
 		$this->assertEquals( 'This is where you can write your introduction.', $front_matter_mapped['content'] );
 		$this->assertEquals( 'front-matter', $front_matter_mapped['post_type_class'] );
@@ -83,7 +83,7 @@ class ExportHelpersTest extends \WP_UnitTestCase {
 		);
 
 		$this->assertEquals( 'appendix', $back_matter_mapped['subclass'] );
-		$this->assertEmpty( $back_matter_mapped['title'] );
+		$this->assertStringContainsString( '<span class="display-none">Appendix</span>', $back_matter_mapped['title'] );
 		$this->assertEquals( 'back-matter-appendix', $back_matter_mapped['slug'] );
 		$this->assertEquals( 'This is where you can add appendices or other back matter.', $back_matter_mapped['content'] );
 		$this->assertEquals( 'back-matter', $back_matter_mapped['post_type_class'] );

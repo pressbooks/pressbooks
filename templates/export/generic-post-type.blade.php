@@ -1,7 +1,7 @@
 @if( isset( $short_title ) )
-	<div class="{{$post_type_class}} {{ $subclass }}" id="{{ $slug }}" title="{{ $short_title }}">
+	<div class="{{$post_type_class}} {{ $subclass }} {{ $subsection_class ?? '' }}" id="{{ $slug }}" title="{{ $short_title }}">
 @else
-	<div class="{{$post_type_class}} {{ $subclass }}" id="{{ $slug }}">
+	<div class="{{$post_type_class}} {{ $subclass }} {{ $subsection_class ?? '' }}" id="{{ $slug }}">
 @endif
 	<div class="{{$post_type_class}}-title-wrap">
 		<p class="{{$post_type_class}}-number">{{ $post_number }}</p>

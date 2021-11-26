@@ -36,7 +36,7 @@ class TemplateExportTest extends \WP_UnitTestCase {
 		);
 
 		$this->assertStringContainsString(
-			"<div class=\"front-matter front-matter-subclass\" id=\"front-intro-01\" title=\"$short_title\">",
+			"<div class=\"front-matter front-matter-subclass \" id=\"front-intro-01\" title=\"$short_title\">",
 			$generic_post_rendered
 		);
 		$this->assertStringContainsString( '<p class="front-matter-number">2</p>', $generic_post_rendered );
@@ -81,11 +81,11 @@ class TemplateExportTest extends \WP_UnitTestCase {
 		);
 
 		$this->assertStringContainsString(
-			"<div class=\"chapter chapter-subclass\" id=\"chapter-001\" title=\"$sanitized_title\">",
+			"<div class=\"chapter chapter-subclass \" id=\"chapter-001\" title=\"$sanitized_title\">",
 			$chapter_rendered
 		);
 		$this->assertStringContainsString( '<p class="chapter-number">1</p>', $chapter_rendered );
-		$this->assertStringContainsString( "<h2 class=\"chapter-title\">$title</h2>", $chapter_rendered );
+		$this->assertStringContainsString( "<h1 class=\"chapter-title\">$title</h1>", $chapter_rendered );
 		$this->assertStringContainsString( "<p class=\"short-title\">$short_title</p>", $chapter_rendered );
 		$this->assertStringContainsString( "<p class=\"chapter-subtitle\">$subtitle</p>", $chapter_rendered );
 		$this->assertStringContainsString( "<p class=\"chapter-author\">$author</p>", $chapter_rendered );
@@ -168,7 +168,7 @@ class TemplateExportTest extends \WP_UnitTestCase {
 			]
 		);
 
-		$this->assertStringContainsString( '<div class="front-matter epigraph-subclass" id="epigraph-1">', $epigraph_rendered );
+		$this->assertStringContainsString( '<div class="front-matter epigraph-subclass " id="epigraph-1">', $epigraph_rendered );
 		$this->assertStringContainsString( '<p class="front-matter-number">2</p>', $epigraph_rendered );
 		$this->assertStringContainsString( '<h1 class="front-matter-title">Thank you</h1>', $epigraph_rendered );
 		$this->assertStringContainsString( 'Dedicated to Carl J', $epigraph_rendered );
