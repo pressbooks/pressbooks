@@ -82,6 +82,7 @@ trait ExportHelpers {
 		}
 
 		if ( ( Export::shouldParseSubsections() === true ) && Book::getSubsections( $post_data['ID'] ) !== false ) {
+			$data['subsection_class'] = 'with-subsections';
 			$data['content'] = $this->html5ToXhtml( Book::tagSubsections( $data['content'], $post_data['ID'] ) );
 		}
 

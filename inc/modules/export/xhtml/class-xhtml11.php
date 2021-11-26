@@ -1106,7 +1106,9 @@ class Xhtml11 extends ExportGenerator {
 	 */
 	protected function renderDedicationAndEpigraph( $book_contents ) {
 
-		$i = $this->frontMatterPos;
+		$index = $this->frontMatterPos;
+		$parse_subsections = \Pressbooks\Modules\Export\Export::shouldParseSubsections();
+
 		foreach ( [ 'dedication', 'epigraph' ] as $compare ) {
 			foreach ( $book_contents['front-matter'] as $front_matter ) {
 
@@ -1130,18 +1132,19 @@ class Xhtml11 extends ExportGenerator {
 					[
 						'subclass' => $subclass,
 						'slug' => $slug,
-						'front_matter_number' => $i,
+						'front_matter_number' => $index,
 						'title' => Sanitize\decode( $title ),
 						'content' => $content,
 						'endnotes' => $this->doEndnotes( $front_matter_id ),
 						'footnotes' => $this->doFootnotes( $front_matter_id ),
+						'subsection_class' => $parse_subsections ? 'with-subsections' : '',
 					]
 				);
 				echo "\n";
-				++$i;
+				++$index;
 			}
 		}
-		$this->frontMatterPos = $i;
+		$this->frontMatterPos = $index;
 	}
 
 	/**
@@ -1405,7 +1408,7 @@ class Xhtml11 extends ExportGenerator {
 						'append_content' => $append_chapter_content,
 						'endnotes' => $this->doEndnotes( $chapter_id ),
 						'footnotes' => $this->doFootnotes( $chapter_id ),
-						'subsection_class' => $parse_subsections ? 'has-subsections' : '',
+						'subsection_class' => $parse_subsections ? 'with-subsections' : '',
 					]
 				);
 
