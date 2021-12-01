@@ -437,7 +437,7 @@ abstract class Generator {
 			$doc->setDocumentContent( $document_content );
 			$doc->setName( get_bloginfo( 'name' ) . ' Cover' );
 			$doc->setPrinceOptions( $prince_options );
-			$doc->setPipeline( 7 ); // Prince 12, see: https://docraptor.com/documentation/api#api_pipeline
+			$doc->setPipeline( 9 ); // Prince 14, see: https://docraptor.com/documentation/api#api_pipeline
 
 			$create_response = $docraptor->createAsyncDoc( $doc );
 			$done = false;
