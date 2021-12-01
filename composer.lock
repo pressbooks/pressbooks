@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f73c94ec5324774b3d1fb61758cb1ab9",
+    "content-hash": "5814b6f1ab4cd03fc27f9a14fa027954",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -331,29 +331,29 @@
         },
         {
             "name": "docraptor/docraptor",
-            "version": "1.3.0",
+            "version": "3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/DocRaptor/docraptor-php.git",
-                "reference": "7739bbf5be46aa5a0d8b636ce8dc9300500fbbab"
+                "reference": "61247608c8dfc27d66bc5473498697d09ede5419"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/DocRaptor/docraptor-php/zipball/7739bbf5be46aa5a0d8b636ce8dc9300500fbbab",
-                "reference": "7739bbf5be46aa5a0d8b636ce8dc9300500fbbab",
+                "url": "https://api.github.com/repos/DocRaptor/docraptor-php/zipball/61247608c8dfc27d66bc5473498697d09ede5419",
+                "reference": "61247608c8dfc27d66bc5473498697d09ede5419",
                 "shasum": ""
             },
             "require": {
                 "ext-curl": "*",
                 "ext-json": "*",
                 "ext-mbstring": "*",
-                "php": ">=5.4"
+                "guzzlehttp/guzzle": "^7.3",
+                "guzzlehttp/psr7": "^2.0",
+                "php": "^7.3 || ^8.0"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "~1.12",
-                "phpunit/phpunit": "~4.8",
-                "satooshi/php-coveralls": "~1.0",
-                "squizlabs/php_codesniffer": "~2.6"
+                "friendsofphp/php-cs-fixer": "^2.12",
+                "phpunit/phpunit": "^8.0 || ^9.0"
             },
             "type": "library",
             "autoload": {
@@ -371,7 +371,7 @@
                     "homepage": "https://github.com/expectedbehavior"
                 }
             ],
-            "description": "A wrapper for the DocRaptor HTML to PDF/XLS service.",
+            "description": "A native client library for the DocRaptor HTML to PDF/XLS service.",
             "homepage": "https://github.com/docraptor/docraptor-php",
             "keywords": [
                 "api",
@@ -381,7 +381,7 @@
                 "xls",
                 "xlsx"
             ],
-            "time": "2017-11-21T19:33:20+00:00"
+            "time": "2021-11-30T20:04:26+00:00"
         },
         {
             "name": "doctrine/inflector",
