@@ -258,7 +258,7 @@ class SanitizeTest extends \WP_UnitTestCase {
 		$css = '@font-face { font-family: "Bergamot Ornaments"; src: url(themes-book/pressbooks-book/fonts/Bergamot-Ornaments.ttf) format("truetype"); font-weight: normal; font-style: normal; }';
 		$css = \Pressbooks\Sanitize\normalize_css_urls( $css );
 		$template_directory_uri = get_template_directory_uri();
-		$this->assertContains( $template_directory_uri . '/assets/book/typography/fonts/Bergamot-Ornaments.ttf', $css );
+		$this->assertStringContainsString( $template_directory_uri . '/assets/book/typography/fonts/Bergamot-Ornaments.ttf', $css );
 
 		// Uploaded font
 		$fullpath_font = get_theme_root( 'pressbooks-book' ) . '/pressbooks-book/assets/book/typography/fonts/Bergamot-Ornaments.ttf';
@@ -266,10 +266,10 @@ class SanitizeTest extends \WP_UnitTestCase {
 		copy( $fullpath_font, $uploaded_font );
 		$css = '@font-face { font-family: "Bergamot Ornaments"; src: url(uploads/assets/fonts/Bergamot-Ornaments.ttf) format("truetype"); font-weight: normal; font-style: normal; }';
 		$css = \Pressbooks\Sanitize\normalize_css_urls( $css );
-		$this->assertContains( set_url_scheme( WP_CONTENT_URL ), $css );
+		$this->assertStringContainsString( set_url_scheme( WP_CONTENT_URL ), $css );
 		$css = '@font-face { font-family: "Bergamot Ornaments"; src: url(uploads/assets/fonts/garbage.ttf) format("truetype"); font-weight: normal; font-style: normal; }';
 		$css = \Pressbooks\Sanitize\normalize_css_urls( $css );
-		$this->assertNotContains( set_url_scheme( WP_CONTENT_URL ), $css );
+		$this->assertStringNotContainsString( set_url_scheme( WP_CONTENT_URL ), $css );
 		unlink( $uploaded_font );
 
 		// Can't find, no change
@@ -278,9 +278,9 @@ class SanitizeTest extends \WP_UnitTestCase {
 
 		// Images in Buckram
 		$css = 'url(pressbooks-book/assets/book/images/icon-video.svg)';
-		$this->assertContains( $template_directory_uri . '/packages/buckram/assets/images/icon-video.svg', Pressbooks\Sanitize\normalize_css_urls( $css ) );
+		$this->assertStringContainsString( $template_directory_uri . '/packages/buckram/assets/images/icon-video.svg', Pressbooks\Sanitize\normalize_css_urls( $css ) );
 		$css = 'url(images/icon-video.svg)';
-		$this->assertContains( $template_directory_uri . '/packages/buckram/assets/images/icon-video.svg', Pressbooks\Sanitize\normalize_css_urls( $css ) );
+		$this->assertStringContainsString( $template_directory_uri . '/packages/buckram/assets/images/icon-video.svg', Pressbooks\Sanitize\normalize_css_urls( $css ) );
 	}
 
 	/**
@@ -472,8 +472,8 @@ RAW;
 <p style="text-align: center">This should be centered.</p>
 RAW;
 		$result = \Pressbooks\Sanitize\sanitize_webbook_content( $content );
-		$this->assertContains( '<table>', $result );
-		$this->assertContains( '<p style="text-align: center">This should be centered.</p>', $result );
+		$this->assertStringContainsString( '<table>', $result );
+		$this->assertStringContainsString( '<p style="text-align: center">This should be centered.</p>', $result );
 	}
 
 	/**
@@ -490,7 +490,7 @@ RAW;
 </table>
 RAW;
 		$result = \Pressbooks\Sanitize\filter_export_content( $content );
-		$this->assertContains( '<table border="1">', $result );
+		$this->assertStringContainsString( '<table border="1">', $result );
 
 	}
 

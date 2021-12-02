@@ -14,8 +14,8 @@ class Shortcodes_Generics extends \WP_UnitTestCase {
 	/**
 	 * @group shortcodes
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 
 		$this->generics = $this->getMockBuilder( '\Pressbooks\Shortcodes\Generics\Generics' )
 			->setMethods( null ) // pass null to setMethods() to avoid mocking any method

@@ -437,38 +437,6 @@ abstract class Export {
 	}
 
 	/**
-	 * Convert an XML string via XSLT file.
-	 *
-	 * @param string $content
-	 * @param string $path_to_xsl
-	 *
-	 * @return string
-	 */
-	protected function transformXML( $content, $path_to_xsl ) {
-
-		libxml_use_internal_errors( true );
-		$content = iconv( 'UTF-8', 'UTF-8//IGNORE', $content );
-
-		$xsl = new \DOMDocument();
-		$xsl->load( $path_to_xsl );
-
-		$proc = new \XSLTProcessor();
-		$proc->importStyleSheet( $xsl );
-
-		$old_value = libxml_disable_entity_loader( true );
-		$xml = new \DOMDocument();
-		$xml->loadXML( $content );
-		libxml_disable_entity_loader( $old_value );
-
-		$content = $proc->transformToXML( $xml );
-
-		$errors = libxml_get_errors(); // TODO: Handle errors gracefully
-		libxml_clear_errors();
-
-		return $content;
-	}
-
-	/**
 	 * Will create an html blob of copyright, returns empty string if something goes wrong
 	 *
 	 * @param array $metadata
@@ -682,10 +650,7 @@ abstract class Export {
 				$modules[] = '\Pressbooks\Modules\Export\Prince\PrintPdf';
 			}
 			if ( isset( $x['epub'] ) ) {
-				$modules[] = '\Pressbooks\Modules\Export\Epub\Epub201';
-			}
-			if ( isset( $x['epub3'] ) ) {
-				$modules[] = '\Pressbooks\Modules\Export\Epub\Epub3';
+				$modules[] = '\Pressbooks\Modules\Export\Epub\Epub';
 			}
 			if ( isset( $x['xhtml'] ) ) {
 				$modules[] = '\Pressbooks\Modules\Export\Xhtml\Xhtml11';

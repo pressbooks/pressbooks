@@ -15,8 +15,8 @@ class Shortcodes_Footnotes extends \WP_UnitTestCase {
 	/**
 	 * @group footnotes
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 
 		$this->fn = $this->getMockBuilder( '\Pressbooks\Shortcodes\Footnotes\footnotes' )
 						->setMethods( null )// pass null to setMethods() to avoid mocking any method
@@ -47,17 +47,17 @@ class Shortcodes_Footnotes extends \WP_UnitTestCase {
 		$id = 1;
 
 		$content = $this->fn->shortcodeHandler( [ 'numbered' => 'yes' ], 'Hello world!' );
-		$this->assertContains( '[1]</sup></a>', $content );
+		$this->assertStringContainsString( '[1]</sup></a>', $content );
 
 		$content = $this->fn->shortcodeHandler( [ 'symbol' => '!' ], 'Hello again world!' ); // Symbol should be ignored because this is already set to numbered
-		$this->assertContains( '[2]</sup></a>', $content );
+		$this->assertStringContainsString( '[2]</sup></a>', $content );
 
 		$content = $this->fn->shortcodeHandler( [ 'suptext' => 'Foo' ], 'Well this is awkward...' );
-		$this->assertContains( '[3. Foo]</sup></a>', $content );
+		$this->assertStringContainsString( '[3. Foo]</sup></a>', $content );
 
-		$this->assertContains( 'aria-label="Footnote 3"', $content );
+		$this->assertStringContainsString( 'aria-label="Footnote 3"', $content );
 
-		$this->assertContains( '#footnote-1-3', $content );
+		$this->assertStringContainsString( '#footnote-1-3', $content );
 
 		$this->assertEmpty( $this->fn->shortcodeHandler( [] ) );
 	}
@@ -72,17 +72,17 @@ class Shortcodes_Footnotes extends \WP_UnitTestCase {
 		$id = 999;
 
 		$content = $this->fn->shortcodeHandler( [ 'numbered' => 'no' ], 'Hello world!' );
-		$this->assertContains( '[*]</sup></a>', $content );
+		$this->assertStringContainsString( '[*]</sup></a>', $content );
 
 		$content = $this->fn->shortcodeHandler( [ 'symbol' => '!' ], 'Hello again world!' );
-		$this->assertContains( '[!]</sup></a>', $content );
+		$this->assertStringContainsString( '[!]</sup></a>', $content );
 
 		$content = $this->fn->shortcodeHandler( [ 'suptext' => 'Foo' ], 'Well this is awkward...' );
-		$this->assertContains( '[*Foo]</sup></a>', $content );
+		$this->assertStringContainsString( '[*Foo]</sup></a>', $content );
 
-		$this->assertContains( 'aria-label="Footnote 3"', $content );
+		$this->assertStringContainsString( 'aria-label="Footnote 3"', $content );
 
-		$this->assertContains( '#footnote-999-3', $content );
+		$this->assertStringContainsString( '#footnote-999-3', $content );
 	}
 
 
@@ -101,12 +101,12 @@ class Shortcodes_Footnotes extends \WP_UnitTestCase {
 
 		$content = $this->fn->footnoteContent( 'Hello World' );
 
-		$this->assertContains( '<div class="footnotes">', $content );
-		$this->assertContains( 'First.', $content );
-		$this->assertContains( 'Second.', $content );
-		$this->assertContains( 'Third.', $content );
-		$this->assertContains( 'aria-label="Return to footnote 2', $content );
-		$this->assertContains( '</ol></div>', $content );
+		$this->assertStringContainsString( '<div class="footnotes">', $content );
+		$this->assertStringContainsString( 'First.', $content );
+		$this->assertStringContainsString( 'Second.', $content );
+		$this->assertStringContainsString( 'Third.', $content );
+		$this->assertStringContainsString( 'aria-label="Return to footnote 2', $content );
+		$this->assertStringContainsString( '</ol></div>', $content );
 	}
 
 
@@ -125,12 +125,12 @@ class Shortcodes_Footnotes extends \WP_UnitTestCase {
 
 		$content = $this->fn->footnoteContent( 'Hello World' );
 
-		$this->assertContains( '<div class="footnotes">', $content );
-		$this->assertContains( 'First.', $content );
-		$this->assertContains( 'Second.', $content );
-		$this->assertContains( 'Third.', $content );
-		$this->assertContains( 'aria-label="Return to footnote 2', $content );
-		$this->assertContains( '</ul></div>', $content );
+		$this->assertStringContainsString( '<div class="footnotes">', $content );
+		$this->assertStringContainsString( 'First.', $content );
+		$this->assertStringContainsString( 'Second.', $content );
+		$this->assertStringContainsString( 'Third.', $content );
+		$this->assertStringContainsString( 'aria-label="Return to footnote 2', $content );
+		$this->assertStringContainsString( '</ul></div>', $content );
 	}
 
 
@@ -144,7 +144,7 @@ class Shortcodes_Footnotes extends \WP_UnitTestCase {
 		ob_start();
 		\Pressbooks\Shortcodes\Footnotes\Footnotes::ajaxFailure( 'foobar' );
 		$buffer = ob_get_clean();
-		$this->assertContains( 'foobar', $buffer );
+		$this->assertStringContainsString( 'foobar', $buffer );
 
 		$this->_fakeAjaxDone( $old_error_reporting );
 	}
@@ -161,7 +161,7 @@ class Shortcodes_Footnotes extends \WP_UnitTestCase {
 		ob_start();
 		\Pressbooks\Shortcodes\Footnotes\Footnotes::convertWordFootnotes();
 		$buffer = ob_get_clean();
-		$this->assertContains( __( 'Invalid permissions.', 'pressbooks' ), $buffer );
+		$this->assertStringContainsString( __( 'Invalid permissions.', 'pressbooks' ), $buffer );
 
 		// Test is json
 		$user_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );

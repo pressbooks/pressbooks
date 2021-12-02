@@ -15,8 +15,8 @@ class TaxonomyTest extends \WP_UnitTestCase {
 	/**
 	 * @group taxonomies
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 
 		$stub1 = $this
 			->getMockBuilder( '\Pressbooks\Licensing' )

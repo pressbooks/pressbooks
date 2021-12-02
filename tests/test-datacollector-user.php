@@ -13,8 +13,8 @@ class DataCollector_UserTest extends \WP_UnitTestCase {
 	/**
 	 * @group datacollector
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 		$this->userDataCollector = new UserDataCollector();
 	}
 

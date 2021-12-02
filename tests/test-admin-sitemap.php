@@ -13,8 +13,8 @@ class Admin_SiteMapTest extends \WP_UnitTestCase {
 	/**
 	 * @group sitemap
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 		$this->sitemap = new \Pressbooks\Admin\SiteMap();
 	}
 
@@ -45,11 +45,11 @@ class Admin_SiteMapTest extends \WP_UnitTestCase {
 		$this->sitemap->renderPage();
 		$buffer = ob_get_clean();
 
-		$this->assertContains( '<h1>Site Map</h1>', $buffer );
-		$this->assertContains( '<h2>Admin Bar</h2>', $buffer );
-		$this->assertContains( '<h2>Side Menu</h2>', $buffer );
-		$this->assertContains( '>Log Out</a>', $buffer );
-		$this->assertContains( '>Dashboard</a>', $buffer );
+		$this->assertStringContainsString( '<h1>Site Map</h1>', $buffer );
+		$this->assertStringContainsString( '<h2>Admin Bar</h2>', $buffer );
+		$this->assertStringContainsString( '<h2>Side Menu</h2>', $buffer );
+		$this->assertStringContainsString( '>Log Out</a>', $buffer );
+		$this->assertStringContainsString( '>Dashboard</a>', $buffer );
 	}
 
 

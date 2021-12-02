@@ -19,12 +19,18 @@ jobs:
         os: [ubuntu-18.04]
         epubcheck: [4.2.4]
         prince: [12.5-1]
-        wordpress: [5.8.1, latest]
+        wordpress: [5.8.2]
         experimental: [false]
         include:
           - php: 7.4
-            os: ubuntu-18.04
+            os: ubuntu-20.04
             wordpress: latest
+            epubcheck: 4.2.6
+            prince: 14.2-1
+            experimental: true
+          - php: 7.4
+            os: ubuntu-20.04
+            wordpress: 'trunk'
             epubcheck: 4.2.6
             prince: 14.2-1
             experimental: true
@@ -58,6 +64,7 @@ jobs:
       with:
         path: node_modules
         key: ${{ runner.OS }}-build-${{ hashFiles('**/package-lock.json') }}
+      if: matrix.experimental == false
 
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
@@ -66,6 +73,16 @@ jobs:
         tools: composer:v1
         coverage: pcov
         extensions: imagick
+      if: matrix.experimental == false
+
+    - name: Setup PHP with Composer 2
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php }}
+        tools: composer
+        coverage: pcov
+        extensions: imagick
+      if: matrix.experimental == true
 
     - name: Install Node dependencies
       run: |
@@ -78,7 +95,6 @@ jobs:
       run: |
         export PATH="$HOME/.composer/vendor/bin:$PATH"
         composer install --no-interaction
-        composer global require "phpunit/phpunit:7.5.20"
         ulimit -n 4096
 
     - name: Run ESLint and Stylelint
@@ -87,20 +103,34 @@ jobs:
 
     - name: Run PHP CodeSniffer
       run: composer standards
+      if: matrix.experimental == false
 
     - name: Install WP tests
       run: bash bin/install-wp-tests.sh wordpress_test root root localhost ${{ matrix.wordpress }}
 
     - name: Run PHP Tests
       run: composer test
-      if: matrix.php != 7.3
+      if: matrix.experimental == true && matrix.wordpress != 'trunk'
+
+    - name: Run PHP Tests with PHPUnit 9
+      run: |
+        composer remove --dev codeception/*
+        composer remove --dev lucatume/wp-browser
+        composer remove --dev phpunit/phpunit
+        composer update --dev yoast/phpunit-polyfills --with-dependencies --ignore-platform-reqs
+        vendor/bin/phpunit --configuration phpunit9.xml
+      if: matrix.wordpress == 'trunk'
 
     - name: Run PHP Tests and PCOV
-      run: composer require pcov/clobber; vendor/bin/pcov clobber; vendor/bin/phpunit --configuration phpunit.xml --coverage-clover coverage.xml
-      if: matrix.php == 7.3
+      run: |
+        composer require pcov/clobber
+        vendor/bin/pcov clobber
+        vendor/bin/phpunit --configuration phpunit.xml --coverage-clover coverage.xml
+      if: matrix.experimental == false
 
     - name: Upload Coverage to Codecov
       run: bash <(curl -s https://codecov.io/bash)
+      if: matrix.experimental == false
 
     - name: Prepare Build
       if: startsWith(github.ref, 'refs/tags/')

@@ -14,7 +14,7 @@ class PDFOptionsTest extends \WP_UnitTestCase {
 		] );
 
 		$result = \Pressbooks\Modules\ThemeOptions\PDFOptions::scssOverrides( '' );
-		$this->assertContains( 'div.part-title-wrap > .part-number, div.chapter-title-wrap > .chapter-number, #toc .part a::before, #toc .chapter a::before { display: none !important; }', $result );
+		$this->assertStringContainsString( 'div.part-title-wrap > .part-number, div.chapter-title-wrap > .chapter-number, #toc .part a::before, #toc .chapter a::before { display: none !important; }', $result );
 
 	}
 

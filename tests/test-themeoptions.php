@@ -13,8 +13,8 @@ class ThemeOptionsTest extends \WP_UnitTestCase {
 	/**
 	 * @group themeoptions
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 		$this->themeOptions = new \Pressbooks\Modules\ThemeOptions\Admin();
 	}
 
@@ -53,7 +53,7 @@ class ThemeOptionsTest extends \WP_UnitTestCase {
 		ob_start();
 		$this->themeOptions->render();
 		$output = ob_get_clean();
-		$this->assertContains( 'PDF Options</a>', $output );
+		$this->assertStringContainsString( 'PDF Options</a>', $output );
 	}
 
 	/**

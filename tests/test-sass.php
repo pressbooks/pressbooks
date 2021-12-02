@@ -16,8 +16,8 @@ class SassTest extends \WP_UnitTestCase {
 	/**
 	 * @group styles
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 		$this->sass = Container::get( 'Sass' );
 	}
 
@@ -63,9 +63,9 @@ class SassTest extends \WP_UnitTestCase {
 
 		$result = $this->sass->prependLocalizedVars( $scss );
 
-		$this->assertContains( $scss, $result );
+		$this->assertStringContainsString( $scss, $result );
 
-		$this->assertContains( "\$chapter: 'Chapter';", $result );
+		$this->assertStringContainsString( "\$chapter: 'Chapter';", $result );
 
 	}
 
@@ -78,7 +78,7 @@ class SassTest extends \WP_UnitTestCase {
 		    14pt;
 		$body-font-size: (
 			web:   14cm,
-		    epub:  medium,
+		    epub:  1em,
             prince:10.5pt,
         )   !default;
         $var1: $var2 !default;
@@ -91,7 +91,7 @@ class SassTest extends \WP_UnitTestCase {
 
 		$this->assertEquals( $vars['red'], '#d4002d' );
 		$this->assertEquals( $vars['font-size'], '14pt' );
-		$this->assertEquals( $vars['body-font-size'], '(web: 14cm, epub: medium, prince: 10.5pt)' );
+		$this->assertEquals( $vars['body-font-size'], '(web: 14cm, epub: 1em, prince: 10.5pt)' );
 		$this->assertEquals( $vars['var1'], '$var2' );
 		$this->assertEquals( $vars['f'], 'xxx(one, two, three, four, five)' );
 		$this->assertArrayNotHasKey( 'ignored', $vars );

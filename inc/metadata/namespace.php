@@ -274,19 +274,23 @@ function book_information_to_schema( $book_information, $network_excluded_direct
 			// Compatibility with previous version (basic strings contributors)
 			if ( is_string( $book_information[ $contributor_type ] ) ) {
 				$contributors_string = explode_remove_and( ';', $book_information[ $contributor_type ] );
-				$book_schema[ $mapped_properties[ $contributor_type ] ] = [];
-				foreach ( $contributors_string as $contributor_name ) {
-					$book_schema[ $mapped_properties[ $contributor_type ] ][] = [
-						'@type' => 'Person',
-						'name' => $contributor_name,
-					];
+				unset( $book_schema[ $mapped_properties[ $contributor_type ] ] );
+				if ( ! empty( $contributors_string ) ) {
+					$book_schema[ $mapped_properties[ $contributor_type ] ] = [];
+					foreach ( $contributors_string as $contributor_name ) {
+						$book_schema[ $mapped_properties[ $contributor_type ] ][] = [
+							'@type' => 'Person',
+							'name' => $contributor_name,
+						];
+					}
 				}
 				continue;
 			}
-			$contributors_array = $book_information[ $contributor_type ];
-			$book_schema[ $mapped_properties[ $contributor_type ] ] = [];
-			foreach ( $contributors_array as $contributor ) {
-				$book_schema[ $mapped_properties[ $contributor_type ] ][] = array_merge( [ '@type' => 'Person' ], $contributor );
+			if ( ! empty( $book_information[ $contributor_type ] ) ) {
+				$book_schema[ $mapped_properties[ $contributor_type ] ] = [];
+				foreach ( $book_information[ $contributor_type ] as $contributor ) {
+					$book_schema[ $mapped_properties[ $contributor_type ] ][] = array_merge( [ '@type' => 'Person' ], $contributor );
+				}
 			}
 		}
 	}

@@ -13,8 +13,8 @@ class Admin_CatalogListTableTest extends \WP_UnitTestCase {
 	/**
 	 * @group my_catalog
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 		$GLOBALS['hook_suffix'] = 'mock';
 		$_REQUEST['page'] = 'pb_catalog';
 		$this->table = new \Pressbooks\Admin\Catalog_List_Table();

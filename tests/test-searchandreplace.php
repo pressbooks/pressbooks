@@ -19,8 +19,8 @@ class SearchResultTest extends \WP_UnitTestCase {
 	/**
 	 * @group searchandreplace
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 		$this->result = new \Pressbooks\Modules\SearchAndReplace\Result();
 		$this->content = new \Pressbooks\Modules\SearchAndReplace\Types\Content();
 	}
@@ -48,11 +48,11 @@ class SearchResultTest extends \WP_UnitTestCase {
 
 		$expr = '/known/e';
 		$result = $this->content->regexValidate( $expr );
-		$this->assertContains( 'Unknown modifier', $result );
+		$this->assertStringContainsString( 'Unknown modifier', $result );
 
 		$expr = "/known/e\0";
 		$result = $this->content->regexValidate( $expr );
-		$this->assertContains( 'Null byte', $result );
+		$this->assertStringContainsString( 'Null byte', $result );
 
 		$expr = '~not a regex/';
 		$result = $this->content->regexValidate( $expr );
@@ -69,19 +69,19 @@ class SearchResultTest extends \WP_UnitTestCase {
 		$this->content->regex = false;
 		$results = $this->content->searchAndReplace( 'chapter', 'laughter', 0, 0, 'asc', true );
 		foreach ( $results as $result ) {
-			$this->assertContains( 'laughter', $result->content );
+			$this->assertStringContainsString( 'laughter', $result->content );
 		}
 
 		$this->content->regex = true;
 		$results = $this->content->searchAndReplace( '/LAUGHTER/i', 'sadness', 0, 0, 'asc', true );
 		foreach ( $results as $result ) {
-			$this->assertContains( 'sadness', $result->content );
+			$this->assertStringContainsString( 'sadness', $result->content );
 		}
 
 		$this->content->regex = false;
 		$results = $this->content->searchAndReplace( 'sadness', '<img src=# onerror=alert(document.cookie)>', 0, 0, 'asc', true );
 		foreach ( $results as $result ) {
-			$this->assertContains( '<img src="#" alt="image" />', $result->content );
+			$this->assertStringContainsString( '<img src="#" alt="image" />', $result->content );
 		}
 	}
 

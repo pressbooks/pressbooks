@@ -221,7 +221,7 @@ class BookTest extends \WP_UnitTestCase {
 		$id = $book::getBookStructure()['part'][0]['chapters'][0]['ID'];
 		$result = $book::getAllSubsections( $book::getBookStructure() );
 		$this->assertArrayHasKey( 'chapters', $result );
-		$this->assertInternalType( 'array', $result['chapters'][ $id ] );
+		$this->assertIsArray( $result['chapters'][ $id ] );
 	}
 
 	/**
@@ -238,17 +238,17 @@ class BookTest extends \WP_UnitTestCase {
 
 		$id = $book::getBookStructure()['front-matter'][0]['ID'];
 		$result = $book::tagSubsections( $test, $id );
-		$this->assertContains( "<h1 id=\"front-matter-{$id}-section-1", $result );
-		$this->assertContains( '<b></b>', $result );
+		$this->assertStringContainsString( "<h1 id=\"front-matter-{$id}-section-1", $result );
+		$this->assertStringContainsString( '<b></b>', $result );
 
 		$test = "<H1 style='font-size:small;'>Hi there!<B></B></H1><P>How are you?.</P>"; // ALL CAPS
 		$result = $book::tagSubsections( $test, $id );
-		$this->assertContains( "<h1 style=\"font-size:small;\" id=\"front-matter-{$id}-section-1\" class=\"section-header\"", $result );
-		$this->assertContains( '<b></b>', $result );
+		$this->assertStringContainsString( "<h1 style=\"font-size:small;\" id=\"front-matter-{$id}-section-1\" class=\"section-header\"", $result );
+		$this->assertStringContainsString( '<b></b>', $result );
 
 		$test = "<h1 class='foo' id='bar'>Hi there!<b></b></h1><p>How are you?.</p>"; // existing class and id
 		$result = $book::tagSubsections( $test, $id );
-		$this->assertContains( "<h1 class=\"section-header foo bar\" id=\"front-matter-{$id}-section-1\"", $result );
+		$this->assertStringContainsString( "<h1 class=\"section-header foo bar\" id=\"front-matter-{$id}-section-1\"", $result );
 
 		$test = '<h2>Hi there!<b></b></h2><p>How are you?</p>'; // H2
 		$result = $book::tagSubsections( $test, $id );
@@ -265,7 +265,7 @@ class BookTest extends \WP_UnitTestCase {
 		// Front End Mode
 
 		$url_1 = $book::getFirst();
-		$this->assertContains( 'example.org/', $url_1 );
+		$this->assertStringContainsString( 'example.org/', $url_1 );
 		$post_id = $book::getFirst( true );
 		$this->assertTrue( is_integer( $post_id ) );
 		$this->assertTrue( $post_id > 0 );
@@ -282,7 +282,7 @@ class BookTest extends \WP_UnitTestCase {
 		$post = get_post( $post_id );
 
 		$url = $book::get( 'next' );
-		$this->assertContains( 'example.org/', $url );
+		$this->assertStringContainsString( 'example.org/', $url );
 		$post_id = $book::get( 'next', true );
 		$this->assertTrue( is_integer( $post_id ) );
 		$this->assertTrue( $post_id > 0 );
@@ -301,7 +301,7 @@ class BookTest extends \WP_UnitTestCase {
 		wp_set_current_user( $user_id );
 
 		$url = $book::getFirst( false, true );
-		$this->assertContains( 'example.org/', $url );
+		$this->assertStringContainsString( 'example.org/', $url );
 		$post_id = $book::getFirst( true, true );
 		$this->assertTrue( is_integer( $post_id ) );
 		$this->assertTrue( $post_id > 0 );
@@ -311,7 +311,7 @@ class BookTest extends \WP_UnitTestCase {
 		$post = get_post( $post_id );
 
 		$url = $book::get( 'next', false, true );
-		$this->assertContains( 'example.org/', $url );
+		$this->assertStringContainsString( 'example.org/', $url );
 		$post_id = $book::get( 'next', true, true );
 		$this->assertTrue( is_integer( $post_id ) );
 		$this->assertTrue( $post_id > 0 );

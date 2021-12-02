@@ -40,8 +40,7 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 			[ '\Pressbooks\Modules\Export\Prince\PrintPdf', '\Pressbooks\Modules\Export\Xhtml\Xhtml11' ],
 			[ '\Pressbooks\Modules\Export\Prince\Docraptor', '\Pressbooks\Modules\Export\Xhtml\Xhtml11' ],
 			[ '\Pressbooks\Modules\Export\Prince\DocraptorPrint', '\Pressbooks\Modules\Export\Xhtml\Xhtml11' ],
-			[ '\Pressbooks\Modules\Export\Epub\Epub201', false ],
-			[ '\Pressbooks\Modules\Export\Epub\Epub3', false ],
+			[ '\Pressbooks\Modules\Export\Epub\Epub', false ],
 			[ '\Pressbooks\Modules\Export\WordPress\Wxr', false ],
 			[ '\Pressbooks\Modules\Export\WordPress\VanillaWxr', false ],
 			// [ '\Pressbooks\Modules\Export\Odt\Odt', false ], // TODO: Download/install Saxon-HE in Travis build script
@@ -64,8 +63,8 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 	/**
 	 * @group export
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 		$this->export = new \ExportMock();
 		do_action( 'pb_pre_export' );
 	}
@@ -118,7 +117,7 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 	public function test_shouldParseSubsections() {
 
 		$val = $this->export->shouldParseSubsections();
-		$this->assertInternalType( 'bool', $val );
+		$this->assertIsBool( $val );
 	}
 
 	//  public function test_logError() {
@@ -153,8 +152,8 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 		$file = $this->export->timestampedFileName( 'foo', false );
 		$this->assertStringEndsWith( '.foo', $file );
 		$this->assertStringStartsNotWith( '/', $file );
-		$this->assertNotContains( '!', $file );
-		$this->assertNotContains( '+', $file );
+		$this->assertStringNotContainsString( '!', $file );
+		$this->assertStringNotContainsString( '+', $file );
 	}
 
 	/**
@@ -164,7 +163,7 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 
 		$time1 = time();
 		$nonce1 = $this->export->nonce( $time1 );
-		$this->assertInternalType( 'string', $nonce1 );
+		$this->assertIsString( $nonce1 );
 
 		$time2 = $time1 + 1;
 		$nonce2 = $this->export->nonce( $time2 );
@@ -410,14 +409,16 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 		if ( $xhtml_path ) {
 			// Verify XHTML content for good measure
 			$xhtml_content = file_get_contents( ( $xhtml_path ) );
-			$this->assertContains( '<div class="footnotes">', $xhtml_content );
-			$this->assertContains( '[latex]', $xhtml_content ); // TODO: add_filter( 'pb_mathjax_use', '__return_true' );
-			$this->assertContains( ' <div id="attachment_1" ', $xhtml_content );
-			$this->assertContains( '<p><em>Ka kite ano!</em></p>', $xhtml_content );
-			$this->assertContains( 'https://github.com/pressbooks/pressbooks', $xhtml_content );
-			$this->assertContains( '</h2><h2 class="chapter-subtitle">Or, A Chapter to Test</h2></div>', $xhtml_content );
-			$this->assertContains( '<p>A YouTube element has been excluded from this version of the text.', $xhtml_content );
-			$this->assertRegExp( '~/?p=\d+#pb-interactive-content"~', $xhtml_content ); //  href="http://example.org/testpath26/?p=21#pb-interactive-content"
+			$this->assertStringContainsString( '<div class="footnotes">', $xhtml_content );
+			$this->assertStringContainsString( '[latex]', $xhtml_content ); // TODO: add_filter( 'pb_mathjax_use', '__return_true' );
+			$this->assertStringContainsString( ' <div id="attachment_1" ', $xhtml_content );
+			$this->assertStringContainsString( '<p><em>Ka kite ano!</em></p>', $xhtml_content );
+			$this->assertStringContainsString( 'https://github.com/pressbooks/pressbooks', $xhtml_content );
+
+			$this->assertStringContainsString( '<p class="chapter-subtitle">Or, A Chapter to Test</p>', $xhtml_content );
+			$this->assertStringContainsString( '<p>One or more interactive elements has been excluded from this version of the text', $xhtml_content );
+			$this->assertStringContainsString( '#oembed-', $xhtml_content );
+
 		}
 
 		foreach ( $paths as $path ) {
@@ -443,13 +444,14 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 		$this->assertTrue( $exporter->validate(), "Could not validate with {$module}" );
 		$xhtml_content = file_get_contents( $exporter->getOutputPath() );
 
-		$this->assertContains( '<div class="footnotes">', $xhtml_content );
-		$this->assertContains( '[latex]', $xhtml_content );
-		$this->assertContains( ' <div id="attachment_1" ', $xhtml_content );
-		$this->assertContains( '<p><em>Ka kite ano!</em></p>', $xhtml_content );
-		$this->assertContains( 'https://github.com/pressbooks/pressbooks', $xhtml_content );
+		$this->assertStringContainsString( '<div class="footnotes">', $xhtml_content );
+		$this->assertStringContainsString( '[latex]', $xhtml_content );
+		$this->assertStringContainsString( ' <div id="attachment_1" ', $xhtml_content );
+		$this->assertStringContainsString( '<p><em>Ka kite ano!</em></p>', $xhtml_content );
+		$this->assertStringContainsString( 'https://github.com/pressbooks/pressbooks', $xhtml_content );
 		// Heading elements should be in a "bad" place.
-		$this->assertContains( '</h2></div><div class="ugc chapter-ugc"><h2 class="chapter-subtitle">Or, A Chapter to Test</h2>', $xhtml_content );
+		$this->assertStringContainsString( '<div class="ugc chapter-ugc">', $xhtml_content );
+		$this->assertStringContainsString( '<p class="chapter-subtitle">Or, A Chapter to Test</p>', $xhtml_content );
 
 		unlink( $exporter->getOutputPath() );
 	}
@@ -479,7 +481,7 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 		$this->assertTrue( $exporter->validate(), "Could not validate with {$module}" );
 		$xhtml_content = file_get_contents( $exporter->getOutputPath() );
 		$url = network_home_url( sprintf( '/wp-content/uploads/sites/%d/pressbooks/css/prince-', get_current_blog_id() ) );
-		$this->assertContains( "<link rel='stylesheet' href='$url", $xhtml_content );
+		$this->assertStringContainsString( "<link rel='stylesheet' href='$url", $xhtml_content );
 		unlink( $exporter->getOutputPath() );
 	}
 
@@ -505,7 +507,7 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 			$dom->loadHTMLFile( $exporter->getOutputPath(), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD );
 			libxml_clear_errors();
 			$sections = $dom->getElementsByTagName( 'body' );
-			$this->assertContains( 'print', $sections[0]->getAttribute( 'class' ) );
+			$this->assertStringContainsString( 'print', $sections[0]->getAttribute( 'class' ) );
 			unlink( $exporter->getOutputPath() );
 		}
 
@@ -519,7 +521,7 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 			$dom->loadHTMLFile( $exporter->getOutputPath(), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD );
 			libxml_clear_errors();
 			$sections = $dom->getElementsByTagName( 'body' );
-			$this->assertNotContains( 'print', $sections[0]->getAttribute( 'class' ) );
+			$this->assertStringNotContainsString( 'print', $sections[0]->getAttribute( 'class' ) );
 			unlink( $exporter->getOutputPath() );
 		}
 	}
@@ -573,14 +575,14 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 		);
 
 		$contributors_print = \Pressbooks\Modules\Export\get_contributors_section( $meta_post->ID );
-		$this->assertContains( $contributor_metadata['name'], $contributors_print );
-		$this->assertContains( $contributor_metadata['github'], $contributors_print );
-		$this->assertContains( $contributor_metadata['linkedin'], $contributors_print );
-		$this->assertContains( $contributor_metadata['twitter'], $contributors_print );
-		$this->assertContains( $contributor_metadata['url'], $contributors_print );
-		$this->assertContains( $contributor_metadata['institution'], $contributors_print );
-		$this->assertContains( $contributor_metadata['description'], $contributors_print );
-		$this->assertContains( "<h3 class=\"about-authors\">About the Author</h3>", $contributors_print );
+		$this->assertStringContainsString( $contributor_metadata['name'], $contributors_print );
+		$this->assertStringContainsString( $contributor_metadata['github'], $contributors_print );
+		$this->assertStringContainsString( $contributor_metadata['linkedin'], $contributors_print );
+		$this->assertStringContainsString( $contributor_metadata['twitter'], $contributors_print );
+		$this->assertStringContainsString( $contributor_metadata['url'], $contributors_print );
+		$this->assertStringContainsString( $contributor_metadata['institution'], $contributors_print );
+		$this->assertStringContainsString( $contributor_metadata['description'], $contributors_print );
+		$this->assertStringContainsString( "<h3 class=\"about-authors\">About the Author</h3>", $contributors_print );
 	}
 
 	/**

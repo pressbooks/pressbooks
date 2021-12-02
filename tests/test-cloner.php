@@ -12,8 +12,8 @@ class ClonerTest extends \WP_UnitTestCase {
 	/**
 	 * @group cloner
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 		$this->cloner = new \Pressbooks\Cloner\Cloner( home_url() );
 	}
 

@@ -13,6 +13,6 @@ class Admin_DiagnosticsTest extends \WP_UnitTestCase {
 		ob_start();
 		\Pressbooks\Admin\Diagnostics\render_page();
 		$buffer = ob_get_clean();
-		$this->assertContains( '<h1>Diagnostics</h1>', $buffer );
+		$this->assertStringContainsString( '<h1>Diagnostics</h1>', $buffer );
 	}
 }
