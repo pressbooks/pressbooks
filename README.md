@@ -10,62 +10,36 @@
 [![Code Coverage](https://codecov.io/gh/pressbooks/pressbooks/branch/dev/graph/badge.svg)](https://codecov.io/gh/pressbooks/pressbooks)
 [![Translate Pressbooks](https://img.shields.io/badge/dynamic/json.svg?label=translated&url=https%3A%2F%2Ftenpercent.now.sh%2F%3Forganization%3Dpressbooks%26project%3Dpressbooks&query=%24.status&colorB=e05d44&suffix=%25)](https://www.transifex.com/pressbooks/pressbooks/translate/)
 
+[Pressbooks](https://pressbooks.org) is a book content management system which allows people to publish webbooks and produce exports in a variety of formats, including EPUB, accessible PDF, print-ready [PDF][pdf], and various XML flavours. [Pressbooks](https://pressbooks.org) is built on top of [WordPress Multisite](https://wordpress.org/support/article/glossary/#multisite), and makes significant changes to:
 
-[Pressbooks](https://pressbooks.org) is a book content management system which
-produces multiple formats: ebooks, webbooks, print-ready [PDF][pdf], and various
-XML flavours. [Pressbooks](https://pressbooks.org) is built on top of
-[WordPress Multisite](https://wordpress.org/support/article/glossary/#multisite), and makes
-significant changes to:
-
-* admin interface (customized for books and other structured documents, such as
+* admin interface (customized for books and other structured documents, like
   magazines, journals, reports, etc.);
 * web presentation layer (again, customized for books and structured documents);
   and
 * export routines.
 
-Pressbooks is free software, released under the
-[GPL v3.0 or later](https://github.com/pressbooks/pressbooks/blob/master/LICENSE.md) license.
+Pressbooks is free software, released under the [GPL v3.0 or later](https://github.com/pressbooks/pressbooks/blob/master/LICENSE.md) license.
 
-Our web/ebook and [PDF][pdf] exports are all driven by HTML + CSS. XML outputs have
-no styling.
+Our webbooks and EPUB/[PDF][pdf] exports are all driven by HTML + CSS. XML outputs have no styling.
 
-[pdf]: https://docraptor.com/blog/docraptor-vs-princexml/ "Note: we use the non-free software PrinceXML for PDF export."
-
-## Important!
-
-* Do **_NOT_** use Pressbooks with an existing WordPress site.
-* Please use with a **_FRESH_** install of
-  [WP **_MULTISITE_**](https://wordpress.org/support/article/glossary/#multisite).
-* If this makes you nervous, please use our free site:
-  [Pressbooks](https://pressbooks.com), or contact us.
-
-## Try pressbooks.com
-
-While Pressbooks is open source, we recommend you try
-[Pressbooks.com](https://pressbooks.com) before deciding whether or not you wish
-to host and maintain your own instance. We can also [host and maintain an
-instance for you](https://pressbooks.com/contact-pressbooks/).
-
-## Installing the Plugin
-
-Pressbooks is not for use on an existing blog. Instead it should be used with a
-fresh, multisite WordPress install.
-
-To install Pressbooks on your site, download the
-[latest release](https://github.com/pressbooks/pressbooks/releases/latest). If
-you need to install Pressbooks for development, please see the
-["Contributing"](.github/CONTRIBUTING.md) guide.
+[pdf]: https://docraptor.com/blog/docraptor-vs-princexml/ "Note: we use the non-free software PrinceXML to produce PDF exports."
 
 ## Requirements
 
-Pressbooks works with PHP 7.3 and WordPress 5.8.2. Lower versions are not
-supported.
+Pressbooks works with PHP 7.3 and WordPress 5.8.2. Lower versions are not supported.
+
+## Installing the Plugin
+
+Pressbooks is not for use on an existing blog. Instead it should be used with a fresh, [multisite WordPress installation](https://wordpress.org/support/article/glossary/#multisite).
+
+To install Pressbooks on your site, download the [latest release](https://github.com/pressbooks/pressbooks/releases/latest) and follow our [installation instructions](https://docs.pressbooks.org/installation). 
+
+You may want to try [Pressbooks.com](https://pressbooks.com/self-publishers/) before deciding whether or not you wish to host and maintain your own instance of Pressbooks. We can also [host and maintain an instance of Pressbooks for you](https://pressbooks.com/for-educational-institutions/).
+
+## Contributor guidelines
+
+Developers who are interested in contributing to our project should consult our ["Contributing"](.github/CONTRIBUTING.md) guidelines and the developer guides published on our [documentation website](https://docs.pressbooks.org).
 
 ## Disclaimers
 
 The Pressbooks plugin is supplied "as is" and all use is at your own risk.
-
-## More Details
-
-Visit our [documentation website](https://docs.pressbooks.org) for
-[installation instructions](https://docs.pressbooks.org/installation) etc.
