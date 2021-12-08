@@ -75,4 +75,19 @@ class DataCollector_UserTest extends \WP_UnitTestCase {
 
 		$this->assertNotEmpty( get_user_meta( $user->ID, UserDataCollector::HIGHEST_ROLE ) );
 	}
+
+	/**
+	 * @group datacollector
+	 */
+	public function test_storeLastActiveDate() {
+		$user = $this->factory()->user->create_and_get( [ 'role' => 'contributor' ] );
+		wp_set_current_user( $user->ID );
+		$this->assertEmpty( get_user_meta( $user->ID, UserDataCollector::USER_DATE_LAST_ACTIVE ) );
+		$this->userDataCollector::storeLastActiveDate();
+		$date_last_active = get_user_meta( $user->ID, UserDataCollector::USER_DATE_LAST_ACTIVE );
+		$this->assertNotEmpty( $date_last_active );
+		$this->assertGreaterThanOrEqual( strtotime( $date_last_active[0] ), strtotime( gmdate( 'Y-m-d H:i:s' ) ) );
+
+
+	}
 }
