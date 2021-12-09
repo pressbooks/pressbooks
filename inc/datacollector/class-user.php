@@ -26,6 +26,8 @@ class User {
 
 	const BOOKS_AS_SUBSCRIBER = 'pb_books_as_subscriber';
 
+	const USER_DATE_LAST_ACTIVE = 'pb_date_last_active';
+
 	/**
 	 * @var User
 	 */
@@ -60,6 +62,10 @@ class User {
 		add_action( 'wp_login', [ $obj, 'setLastLogin' ], 0, 2 );
 		add_action( 'wp_login', [ $obj, 'setSubscriberRole' ], 0, 2 );
 		add_action( 'profile_update', [ $obj, 'updateMetaData' ] );
+		add_action( 'save_post', [ $obj, 'storeLastActiveDate' ], 10 );
+		add_action( 'saved_term', [ $obj, 'storeLastActiveDate' ], 10 );
+		add_action( 'switch_theme', [ $obj, 'storeLastActiveDate' ], 10 );
+		add_action( 'update_option', [ $obj, 'storeLastActiveDate' ], 10 );
 	}
 
 	/**
@@ -236,6 +242,15 @@ class User {
 		preg_match( "~$wpdb->base_prefix(\d+)_capabilities~", $key, $matches );
 
 		return $matches[1] ?? null;
+	}
+
+	/**
+	 * Add last active date to user meta
+	 *
+	 * Hooked into: save_post
+	 */
+	public static function storeLastActiveDate() {
+		update_user_meta( get_current_user_id(), self::USER_DATE_LAST_ACTIVE, gmdate( 'Y-m-d H:i:s' ) );
 	}
 
 }
