@@ -199,9 +199,6 @@ if ( $is_book ) {
 	add_filter( 'attachment_fields_to_edit', '\Pressbooks\Admin\Attachments\add_metadata_attachment', 10, 2 );
 	add_filter( 'attachment_fields_to_save', '\Pressbooks\Admin\Attachments\save_metadata_attachment', 10, 2 );
 	add_filter( 'edit_form_top', [ '\Pressbooks\Book', 'notifyBisacCodesRemoved' ] );
-	add_action( 'save_post', [ 'Pressbooks\DataCollector\User', 'storeLastActiveDate' ], 10 );
-	add_action( 'edit_term', [ 'Pressbooks\DataCollector\User', 'storeLastActiveDate' ], 10 );
-	add_action( 'switch_theme', [ 'Pressbooks\DataCollector\User', 'storeLastActiveDate' ], 10 );
 }
 
 // -------------------------------------------------------------------------------------------------------------------

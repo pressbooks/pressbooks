@@ -62,6 +62,10 @@ class User {
 		add_action( 'wp_login', [ $obj, 'setLastLogin' ], 0, 2 );
 		add_action( 'wp_login', [ $obj, 'setSubscriberRole' ], 0, 2 );
 		add_action( 'profile_update', [ $obj, 'updateMetaData' ] );
+		add_action( 'save_post', [ $obj, 'storeLastActiveDate' ], 10 );
+		add_action( 'saved_term', [ $obj, 'storeLastActiveDate' ], 10 );
+		add_action( 'switch_theme', [ $obj, 'storeLastActiveDate' ], 10 );
+		add_action( 'update_option', [ $obj, 'storeLastActiveDate' ], 10 );
 	}
 
 	/**
