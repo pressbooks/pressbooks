@@ -69,6 +69,14 @@ class DataCollector_UserTest extends \WP_UnitTestCase {
 		$this->userDataCollector->updateNetworkManagers();
 
 		$this->assertNotEmpty( get_site_option( 'pressbooks_network_managers_ids' ) );
+
+		$_POST['status'] = 0;
+
+		\Pressbooks\Admin\NetworkManagers\update_admin_status();
+
+		$this->userDataCollector->updateNetworkManagers();
+
+		$this->assertEmpty( get_site_option( 'pressbooks_network_managers_ids' ) );
 	}
 
 	/**
