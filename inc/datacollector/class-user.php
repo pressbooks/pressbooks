@@ -6,6 +6,8 @@
 
 namespace Pressbooks\DataCollector;
 
+use function Pressbooks\Admin\NetworkManagers\_restricted_users;
+
 class User {
 
 	// Meta Key Constants:
@@ -93,6 +95,23 @@ class User {
 			update_site_option( 'pb_user_sync_cron_timestamp', gmdate( 'Y-m-d H:i:s' ) );
 			delete_transient( $in_progress_transient );
 		}
+	}
+
+	/**
+	 * Updates the network manager's site meta data
+	 *
+	 * @return void
+	 */
+	public function updateNetworkManagers(): void {
+		$users = _restricted_users( true );
+
+		if ( is_array( $users ) && ! empty( $users ) ) {
+			update_site_option( 'pressbooks_network_managers_ids', implode( ',', $users ) );
+
+			return;
+		}
+
+		delete_site_option( 'pressbooks_network_managers_ids' );
 	}
 
 	/**
