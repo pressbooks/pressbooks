@@ -52,6 +52,28 @@ class DataCollector_UserTest extends \WP_UnitTestCase {
 	/**
 	 * @group datacollector
 	 */
+	public function test_updateNetworkManagers() {
+		$user_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+
+		grant_super_admin( $user_id );
+		wp_set_current_user( $user_id );
+
+		$_REQUEST['_ajax_nonce'] = wp_create_nonce( 'pb-network-managers' );
+		$_POST['admin_id'] = $user_id;
+		$_POST['status'] = 1;
+
+		\Pressbooks\Admin\NetworkManagers\update_admin_status();
+
+		$this->assertEmpty( get_site_option( 'pressbooks_network_managers_ids' ) );
+
+		$this->userDataCollector->updateNetworkManagers();
+
+		$this->assertNotEmpty( get_site_option( 'pressbooks_network_managers_ids' ) );
+	}
+
+	/**
+	 * @group datacollector
+	 */
 	public function test_updateAllUsersMetadata() {
 		$user = $this->factory()->user->create_and_get( [ 'role' => 'contributor' ] );
 		$i = 0;
