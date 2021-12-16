@@ -3534,16 +3534,16 @@
         },
         {
             "name": "lucatume/wp-browser",
-            "version": "3.0.15",
+            "version": "3.0.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lucatume/wp-browser.git",
-                "reference": "389f7055e2f25618b955721fc27f63df777f620e"
+                "reference": "496a1e1f4aea4cc6629761bcc2950711861365a6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lucatume/wp-browser/zipball/389f7055e2f25618b955721fc27f63df777f620e",
-                "reference": "389f7055e2f25618b955721fc27f63df777f620e",
+                "url": "https://api.github.com/repos/lucatume/wp-browser/zipball/496a1e1f4aea4cc6629761bcc2950711861365a6",
+                "reference": "496a1e1f4aea4cc6629761bcc2950711861365a6",
                 "shasum": ""
             },
             "require": {
@@ -3560,6 +3560,15 @@
                 "vria/nodiacritic": "^0.1.2",
                 "wp-cli/wp-cli": ">=2.0 <3.0.0",
                 "zordius/lightncandy": "^1.2"
+            },
+            "conflict": {
+                "codeception/module-asserts": ">=2.0",
+                "codeception/module-cli": ">=2.0",
+                "codeception/module-db": ">=2.0",
+                "codeception/module-filesystem": ">=2.0",
+                "codeception/module-phpbrowser": ">=2.0",
+                "codeception/module-webdriver": ">=2.0",
+                "codeception/util-universalframework": ">=2.0"
             },
             "require-dev": {
                 "erusev/parsedown": "^1.7",
@@ -3619,7 +3628,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-12-10T09:27:07+00:00"
+            "time": "2021-12-15T09:13:34+00:00"
         },
         {
             "name": "mikehaertl/php-shellcommand",
@@ -3729,16 +3738,16 @@
         },
         {
             "name": "mustache/mustache",
-            "version": "v2.13.0",
+            "version": "v2.14.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bobthecow/mustache.php.git",
-                "reference": "e95c5a008c23d3151d59ea72484d4f72049ab7f4"
+                "reference": "4e2724dd40ae9499a55e7db7df82665be0ab7e34"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bobthecow/mustache.php/zipball/e95c5a008c23d3151d59ea72484d4f72049ab7f4",
-                "reference": "e95c5a008c23d3151d59ea72484d4f72049ab7f4",
+                "url": "https://api.github.com/repos/bobthecow/mustache.php/zipball/4e2724dd40ae9499a55e7db7df82665be0ab7e34",
+                "reference": "4e2724dd40ae9499a55e7db7df82665be0ab7e34",
                 "shasum": ""
             },
             "require": {
@@ -3771,7 +3780,7 @@
                 "mustache",
                 "templating"
             ],
-            "time": "2019-11-23T21:40:31+00:00"
+            "time": "2021-12-14T14:42:17+00:00"
         },
         {
             "name": "myclabs/deep-copy",
