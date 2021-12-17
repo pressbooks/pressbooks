@@ -140,6 +140,27 @@ class Licensing {
 			],
 		];
 
+		// Custom
+		if ( ! $disable_custom ) {
+			$custom = get_terms(
+				[
+					'taxonomy' => self::TAXONOMY,
+					'hide_empty' => false,
+				]
+			);
+			if ( is_array( $custom ) ) {
+				foreach ( $custom as $custom_term ) {
+					if ( ! isset( $supported[ $custom_term->slug ] ) ) {
+						$supported[ $custom_term->slug ] = [
+							'api' => [], // Not supported
+							'url' => "https://choosealicense.com/no-license/#{$custom_term->slug}",
+							'desc' => $custom_term->name,
+						];
+					}
+				}
+			}
+		}
+
 		if ( $disable_translation ) {
 			remove_filter( 'gettext', [ $this, 'disableTranslation' ], 999 );
 		}
