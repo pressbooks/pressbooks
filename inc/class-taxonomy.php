@@ -458,7 +458,8 @@ class Taxonomy {
 
 	public function insertLicenseTerms() {
 		$extended = apply_filters( 'extend_custom_licenses', [] ); // override inserted license terms only if this hook is called
-		$licenses = ( count( $extended ) > 0 ) ? $extended : $this->licensing->getSupportedTypes( true, true );
+		$supported_licenses = $this->licensing->getSupportedTypes( true, true );
+		$licenses = ( count( $extended ) > 0 ) ? array_merge( $supported_licenses, $extended ) : $supported_licenses;
 		foreach ( $licenses as $key => $val ) {
 				wp_insert_term(
 					$val['desc'], Licensing::TAXONOMY, [

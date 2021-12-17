@@ -141,7 +141,7 @@ class Licensing {
 		];
 
 		// Custom
-		if ( ! $disable_custom ) {
+		if ( ! $disable_custom && ! has_filter( 'extend_custom_licenses' ) ) {
 			$custom = get_terms(
 				[
 					'taxonomy' => self::TAXONOMY,
