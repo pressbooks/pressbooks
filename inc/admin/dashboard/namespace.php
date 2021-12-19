@@ -23,6 +23,28 @@ function get_rss_defaults() {
 	];
 }
 
+function should_display_custom_feed() {
+	$default_options = get_rss_defaults();
+
+	$options = array_map(
+		'stripslashes_deep', get_site_option(
+			'pressbooks_dashboard_feed', $default_options
+		)
+	);
+
+	if ( ! $options['display_feed'] ) {
+		return false;
+	}
+
+	$plugins_config_is_active = is_plugin_active( 'pressbooks-plugins-config/pressbooks-plugins-config.php' );
+
+	if ( ! $plugins_config_is_active ) {
+		return true;
+	}
+
+	return trim( $options['url'], '/' ) !== trim( $default_options['url'], '/' );
+}
+
 /**
  *  Remove unwanted network Dashboard widgets, add our news feed.
  */
@@ -42,7 +64,8 @@ function replace_network_dashboard_widgets() {
 			'pressbooks_dashboard_feed', get_rss_defaults()
 		)
 	);
-	if ( ! empty( $options['display_feed'] ) ) {
+
+	if ( should_display_custom_feed() ) {
 		add_meta_box( 'pb_dashboard_widget_blog', $options['title'], __NAMESPACE__ . '\display_pressbooks_blog', 'dashboard-network', 'side', 'low' );
 	}
 }
@@ -89,7 +112,8 @@ function replace_root_dashboard_widgets() {
 			'pressbooks_dashboard_feed', get_rss_defaults()
 		)
 	);
-	if ( ! empty( $options['display_feed'] ) ) {
+
+	if ( should_display_custom_feed() ) {
 		add_meta_box( 'pb_dashboard_widget_blog', $options['title'], __NAMESPACE__ . '\display_pressbooks_blog', 'dashboard', 'side', 'low' );
 	}
 }
@@ -123,7 +147,8 @@ function replace_dashboard_widgets() {
 			'pressbooks_dashboard_feed', get_rss_defaults()
 		)
 	);
-	if ( ! empty( $options['display_feed'] ) ) {
+
+	if ( should_display_custom_feed() ) {
 		add_meta_box( 'pb_dashboard_widget_blog', $options['title'], __NAMESPACE__ . '\display_pressbooks_blog', 'dashboard', 'side', 'low' );
 	}
 
@@ -206,12 +231,12 @@ function pending_invitations_callback() {
 		);
 
 		echo "
-        <div>
-            <p>$message</p>
-            <a class='button button-primary' href='" . home_url( '/newbloguser/' . $metadata['key'] ) . "'>" . __( 'Accept', 'pressbooks' ) . '</a>
-        </div>
-        <hr/>
-        ';
+		<div>
+			<p>$message</p>
+			<a class='button button-primary' href='" . home_url( '/newbloguser/' . $metadata['key'] ) . "'>" . __( 'Accept', 'pressbooks' ) . '</a>
+		</div>
+		<hr/>
+		';
 	}
 
 	switch_to_blog( $current_blog_id );
@@ -336,7 +361,8 @@ function display_book_widget() {
  */
 function display_pressbooks_blog() {
 	$rss = get_site_transient( 'pb_rss_widget' );
-	if ( empty( $rss ) ) {
+
+	if ( ! $rss ) {
 		$options = array_map(
 			'stripslashes_deep', get_site_option(
 				'pressbooks_dashboard_feed', get_rss_defaults()
@@ -344,6 +370,7 @@ function display_pressbooks_blog() {
 		);
 
 		ob_start();
+
 		wp_widget_rss_output(
 			[
 				'url' => $options['url'],
@@ -353,10 +380,12 @@ function display_pressbooks_blog() {
 				'show_date' => 0,
 			]
 		);
+
 		$rss = ob_get_clean();
 
 		set_site_transient( 'pb_rss_widget', $rss, DAY_IN_SECONDS );
 	}
+
 	echo $rss;
 }
 
