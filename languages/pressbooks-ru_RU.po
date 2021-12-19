@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
-"POT-Creation-Date: 2021-11-23T20:15:34+00:00\n"
+"POT-Creation-Date: 2021-11-24T02:45:05+00:00\n"
 "PO-Revision-Date: 2021-11-23 20:17+0000\n"
 "Last-Translator: Ho Man Chan <homan@pressbooks.com>\n"
 "Language-Team: Russian (http://www.transifex.com/pressbooks/pressbooks/language/ru/)\n"
@@ -681,7 +681,7 @@ msgstr "Вы также можете запросить доступ к уже �
 
 #: inc/admin/dashboard/namespace.php:266 inc/class-activation.php:242
 #: inc/modules/themeoptions/class-pdfoptions.php:287 tests/test-cloner.php:63
-#: templates/export/epub/toc.blade.php:11
+#: templates/export/epub/toc.blade.php:13
 msgid "Table of Contents"
 msgstr "Содержание"
 
@@ -1359,7 +1359,7 @@ msgstr "Это устанавливает метаданные для Вашей
 msgid "Help translate Pressbooks into your language!"
 msgstr "Помогите перевести Pressbooks на Ваш язык!"
 
-#: inc/admin/metaboxes/namespace.php:390 inc/class-licensing.php:315
+#: inc/admin/metaboxes/namespace.php:390 inc/class-licensing.php:320
 #: inc/modules/export/epub/class-epub.php:1401
 #: inc/modules/export/epub/class-epub.php:1423
 #: inc/modules/export/htmlbook/class-htmlbook.php:855
@@ -1768,11 +1768,11 @@ msgstr "Настройки обмена и конфиденциальности.
 msgid "Network Managers"
 msgstr "Сетевые диспетчеры"
 
-#: inc/admin/networkmanagers/namespace.php:119
+#: inc/admin/networkmanagers/namespace.php:116
 msgid "Pressbooks Network Managers"
 msgstr "Сетевые диспетчеры Pressbooks"
 
-#: inc/admin/networkmanagers/namespace.php:121
+#: inc/admin/networkmanagers/namespace.php:118
 msgid ""
 "Network administrators&rsquo; access to network administration menus can be "
 "restricted to leave only sites and users visible to them."
@@ -2290,7 +2290,7 @@ msgid ""
 "License"
 msgstr "Международная лицензия творческого объединения с указанием авторства некоммерческая без производных, версия 4.0"
 
-#: inc/class-licensing.php:139 inc/class-licensing.php:320
+#: inc/class-licensing.php:139 inc/class-licensing.php:325
 msgid "All Rights Reserved"
 msgstr "Все права защищены"
 
@@ -2300,35 +2300,35 @@ msgid ""
 "licenses"
 msgstr ""
 
-#: inc/class-licensing.php:317 inc/class-styles.php:794
+#: inc/class-licensing.php:322 inc/class-styles.php:794
 #: inc/modules/export/epub/class-epub.php:1410
 #: inc/modules/export/htmlbook/class-htmlbook.php:864
 #: inc/modules/export/xhtml/class-xhtml11.php:1083
-#: templates/export/epub/opf.blade.php:93
+#: templates/export/epub/opf.blade.php:95
 msgid "by"
 msgstr "с помощью"
 
-#: inc/class-licensing.php:376
+#: inc/class-licensing.php:381
 msgid "except where otherwise noted."
 msgstr "кроме того, где указано иначе."
 
-#: inc/class-licensing.php:403 inc/class-licensing.php:427
+#: inc/class-licensing.php:408 inc/class-licensing.php:432
 msgid "%1$s Copyright &copy;%2$s by %3$s. All Rights Reserved."
 msgstr ""
 
-#: inc/class-licensing.php:415
+#: inc/class-licensing.php:420
 msgid "Icon for the %s"
 msgstr ""
 
-#: inc/class-licensing.php:417
+#: inc/class-licensing.php:422
 msgid "%1$s by %2$s is licensed under a %3$s, except where otherwise noted."
 msgstr ""
 
-#: inc/class-licensing.php:436 inc/class-licensing.php:446
+#: inc/class-licensing.php:441 inc/class-licensing.php:451
 msgid "Icon for the %s license"
 msgstr ""
 
-#: inc/class-licensing.php:438
+#: inc/class-licensing.php:443
 msgid "This work (%1$s by %2$s) is free of known copyright restrictions."
 msgstr ""
 
@@ -2605,8 +2605,8 @@ msgstr ""
 msgid "book"
 msgstr "книга"
 
-#: inc/covergenerator/class-generator.php:456
-#: inc/modules/export/prince/class-docraptor.php:117
+#: inc/covergenerator/class-generator.php:453
+#: inc/modules/export/prince/class-docraptor.php:116
 msgid "Your PDF could not be retrieved."
 msgstr ""
 
@@ -2829,7 +2829,7 @@ msgid ""
 "all available fields."
 msgstr "Если Вам необходимо ввести дополнительную информацию, нажмите на кнопку ниже, чтобы увидеть доступные поля."
 
-#: inc/metadata/namespace.php:1162
+#: inc/metadata/namespace.php:1166
 msgid ""
 "The %1$s Thema subject terms requested for this book could not be downloaded"
 " from %2$s. Please report this error to your network manager."
@@ -2958,7 +2958,7 @@ msgstr ""
 #: inc/modules/export/epub/class-epub.php:988
 #: inc/modules/export/epub/class-epub.php:1555
 #: inc/modules/export/xhtml/class-xhtml11.php:451
-#: inc/modules/export/xhtml/class-xhtml11.php:1252
+#: inc/modules/export/xhtml/class-xhtml11.php:1255
 msgid "Exporting front matter"
 msgstr ""
 
@@ -2966,15 +2966,15 @@ msgstr ""
 #: inc/modules/export/epub/class-epub.php:1656
 #: inc/modules/export/epub/class-epub.php:1686
 #: inc/modules/export/xhtml/class-xhtml11.php:458
-#: inc/modules/export/xhtml/class-xhtml11.php:1317
-#: inc/modules/export/xhtml/class-xhtml11.php:1357
+#: inc/modules/export/xhtml/class-xhtml11.php:1321
+#: inc/modules/export/xhtml/class-xhtml11.php:1361
 msgid "Exporting parts and chapters"
 msgstr ""
 
 #: inc/modules/export/epub/class-epub.php:999
 #: inc/modules/export/epub/class-epub.php:1817
 #: inc/modules/export/xhtml/class-xhtml11.php:462
-#: inc/modules/export/xhtml/class-xhtml11.php:1452
+#: inc/modules/export/xhtml/class-xhtml11.php:1461
 msgid "Exporting back matter"
 msgstr ""
 
@@ -2997,7 +2997,7 @@ msgstr "Содержание"
 
 #: inc/modules/export/epub/class-epub.php:1944
 #: inc/modules/export/htmlbook/class-htmlbook.php:979
-#: inc/modules/export/xhtml/class-xhtml11.php:1234
+#: inc/modules/export/xhtml/class-xhtml11.php:1237
 msgid "Contents"
 msgstr "Содержание"
 
@@ -4749,8 +4749,9 @@ msgstr "фильтрация по"
 
 #: templates/pb-catalog.php:269
 msgid ""
-"Sorry, but no books matched your filtering criteria. Please <a class"
-"=\"clear-filters\" href=\"#\">clear your current filters</a> and try again."
+"Sorry, but no books matched your filtering criteria. Please <a "
+"class=\"clear-filters\" href=\"#\">clear your current filters</a> and try "
+"again."
 msgstr ""
 
 #: templates/pb-catalog.php:273
