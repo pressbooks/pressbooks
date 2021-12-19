@@ -28,8 +28,6 @@ function get_rss_defaults() {
  * @return bool
  */
 function should_display_custom_feed( array $options ) {
-	$default_options = get_rss_defaults();
-
 	if ( ! $options['display_feed'] ) {
 		return false;
 	}
@@ -40,7 +38,13 @@ function should_display_custom_feed( array $options ) {
 		return true;
 	}
 
-	return trim( $options['url'], '/' ) !== trim( $default_options['url'], '/' );
+	$urls_to_skip = [
+		'https://pressbooks.com/feed',
+		'https://pressbooks.com/blog/feed',
+		'https://pressbooks.community/c/pressbooks-product-updates/19.rss',
+	];
+
+	return ! in_array( trim( $options['url'], '/' ), $urls_to_skip, true );
 }
 
 /**
