@@ -27,7 +27,7 @@ function get_rss_defaults() {
  * @param array $options
  * @return bool
  */
-function should_display_custom_feed( array $options ) {
+function should_display_custom_feed( array $options ): bool {
 	if ( ! $options['display_feed'] ) {
 		return false;
 	}
@@ -44,7 +44,7 @@ function should_display_custom_feed( array $options ) {
 		'https://pressbooks.community/c/pressbooks-product-updates/19.rss',
 	];
 
-	return ! in_array( trim( $options['url'], '/' ), $urls_to_skip, true );
+	return ! in_array( rtrim( $options['url'], '/' ), $urls_to_skip, true );
 }
 
 /**
