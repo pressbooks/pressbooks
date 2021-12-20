@@ -15,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
-"POT-Creation-Date: 2021-11-23T20:15:34+00:00\n"
-"PO-Revision-Date: 2021-11-23 20:17+0000\n"
-"Last-Translator: Ho Man Chan <homan@pressbooks.com>\n"
+"POT-Creation-Date: 2021-11-24T02:52:59+00:00\n"
+"PO-Revision-Date: 2021-11-28 23:50+0000\n"
+"Last-Translator: Eduardo Vera <evera@shinydreamer.xyz>\n"
 "Language-Team: Spanish (http://www.transifex.com/pressbooks/pressbooks/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -365,7 +365,7 @@ msgstr "URL de Kobo"
 
 #: inc/admin/class-publishoptions.php:104
 msgid "Apple Books URL"
-msgstr ""
+msgstr "URL de Apple Books"
 
 #: inc/admin/class-publishoptions.php:113
 msgid "Other Service URL"
@@ -373,14 +373,14 @@ msgstr "URL de otros servicios"
 
 #: inc/admin/class-publishoptions.php:132
 msgid "Add BUY Links to Your Pressbooks Webbook"
-msgstr ""
+msgstr "Añade enlaces de compra a tu libro web de Pressbooks"
 
 #: inc/admin/class-publishoptions.php:133
 msgid ""
 "Enter the URLs for locations where your book can be purchased below. <a "
 "href=\"https://guide.pressbooks.com/chapter/publish/\">Our guide</a> "
 "provides additional information about selling and distributing your book."
-msgstr ""
+msgstr "Establece a continuación las URL con las ubicaciones donde se puede adquirir tu libro. <a href=\"https://guide.pressbooks.com/chapter/publish/\">Nuestra guía</a> ofrece información adicional acerca de la venta y distribución de tu libro."
 
 #: inc/admin/class-publishoptions.php:293 inc/admin/laf/namespace.php:356
 msgid "Publish"
@@ -686,7 +686,7 @@ msgstr "También puedes solicitar acceso a un libro existente contactando con su
 
 #: inc/admin/dashboard/namespace.php:266 inc/class-activation.php:242
 #: inc/modules/themeoptions/class-pdfoptions.php:287 tests/test-cloner.php:63
-#: templates/export/epub/toc.blade.php:11
+#: templates/export/epub/toc.blade.php:13
 msgid "Table of Contents"
 msgstr "Índice"
 
@@ -1364,7 +1364,7 @@ msgstr "Establece los metadatos de tu libro electrónico para hacerlo más fáci
 msgid "Help translate Pressbooks into your language!"
 msgstr "¡Ayuda a traducir Pressbooks a tu idioma!"
 
-#: inc/admin/metaboxes/namespace.php:390 inc/class-licensing.php:315
+#: inc/admin/metaboxes/namespace.php:390 inc/class-licensing.php:320
 #: inc/modules/export/epub/class-epub.php:1401
 #: inc/modules/export/epub/class-epub.php:1423
 #: inc/modules/export/htmlbook/class-htmlbook.php:855
@@ -1773,11 +1773,11 @@ msgstr "Ajustes de difusión y privacidad."
 msgid "Network Managers"
 msgstr "Administradores de la red"
 
-#: inc/admin/networkmanagers/namespace.php:119
+#: inc/admin/networkmanagers/namespace.php:116
 msgid "Pressbooks Network Managers"
 msgstr "Administradores de la red de Pressbooks"
 
-#: inc/admin/networkmanagers/namespace.php:121
+#: inc/admin/networkmanagers/namespace.php:118
 msgid ""
 "Network administrators&rsquo; access to network administration menus can be "
 "restricted to leave only sites and users visible to them."
@@ -2279,7 +2279,7 @@ msgid ""
 "License"
 msgstr "Licencia Creative Commons Atribución-NoComercial-SinDerivadas 4.0 Internacional"
 
-#: inc/class-licensing.php:139 inc/class-licensing.php:320
+#: inc/class-licensing.php:139 inc/class-licensing.php:325
 msgid "All Rights Reserved"
 msgstr "Todos los derechos reservados"
 
@@ -2289,35 +2289,35 @@ msgid ""
 "licenses"
 msgstr "$title es obsoleto. El método determinará el título automáticamente a partir de las licencias."
 
-#: inc/class-licensing.php:317 inc/class-styles.php:794
+#: inc/class-licensing.php:322 inc/class-styles.php:794
 #: inc/modules/export/epub/class-epub.php:1410
 #: inc/modules/export/htmlbook/class-htmlbook.php:864
 #: inc/modules/export/xhtml/class-xhtml11.php:1083
-#: templates/export/epub/opf.blade.php:93
+#: templates/export/epub/opf.blade.php:95
 msgid "by"
 msgstr "por"
 
-#: inc/class-licensing.php:376
+#: inc/class-licensing.php:381
 msgid "except where otherwise noted."
 msgstr "excepto cuando se especifiquen otros términos."
 
-#: inc/class-licensing.php:403 inc/class-licensing.php:427
+#: inc/class-licensing.php:408 inc/class-licensing.php:432
 msgid "%1$s Copyright &copy;%2$s by %3$s. All Rights Reserved."
 msgstr "%1$s Copyright &copy;%2$s por %3$s. Todos los derechos reservados."
 
-#: inc/class-licensing.php:415
+#: inc/class-licensing.php:420
 msgid "Icon for the %s"
 msgstr "Icono de %s"
 
-#: inc/class-licensing.php:417
+#: inc/class-licensing.php:422
 msgid "%1$s by %2$s is licensed under a %3$s, except where otherwise noted."
 msgstr "Excepto cuando se especifiquen otros términos, %1$s por %2$s se distribuye bajo una %3$s."
 
-#: inc/class-licensing.php:436 inc/class-licensing.php:446
+#: inc/class-licensing.php:441 inc/class-licensing.php:451
 msgid "Icon for the %s license"
 msgstr "Icono para la licencia %s"
 
-#: inc/class-licensing.php:438
+#: inc/class-licensing.php:443
 msgid "This work (%1$s by %2$s) is free of known copyright restrictions."
 msgstr "Este trabajo (%1$s por %2$s) no tiene restricciones de copyright conocidas."
 
@@ -2592,8 +2592,8 @@ msgstr "Generando la cubierta"
 msgid "book"
 msgstr "libro"
 
-#: inc/covergenerator/class-generator.php:456
-#: inc/modules/export/prince/class-docraptor.php:117
+#: inc/covergenerator/class-generator.php:453
+#: inc/modules/export/prince/class-docraptor.php:116
 msgid "Your PDF could not be retrieved."
 msgstr "No se ha podido recuperar tu PDF."
 
@@ -2816,7 +2816,7 @@ msgid ""
 "all available fields."
 msgstr "Si necesitas introducir alguna información adicional, haz clic en el botón de abajo para ver todos los campos disponibles."
 
-#: inc/metadata/namespace.php:1162
+#: inc/metadata/namespace.php:1166
 msgid ""
 "The %1$s Thema subject terms requested for this book could not be downloaded"
 " from %2$s. Please report this error to your network manager."
@@ -2945,7 +2945,7 @@ msgstr "Exportando la dedicatoria y el epígrafe"
 #: inc/modules/export/epub/class-epub.php:988
 #: inc/modules/export/epub/class-epub.php:1555
 #: inc/modules/export/xhtml/class-xhtml11.php:451
-#: inc/modules/export/xhtml/class-xhtml11.php:1252
+#: inc/modules/export/xhtml/class-xhtml11.php:1255
 msgid "Exporting front matter"
 msgstr "Exportando las páginas preliminares"
 
@@ -2953,15 +2953,15 @@ msgstr "Exportando las páginas preliminares"
 #: inc/modules/export/epub/class-epub.php:1656
 #: inc/modules/export/epub/class-epub.php:1686
 #: inc/modules/export/xhtml/class-xhtml11.php:458
-#: inc/modules/export/xhtml/class-xhtml11.php:1317
-#: inc/modules/export/xhtml/class-xhtml11.php:1357
+#: inc/modules/export/xhtml/class-xhtml11.php:1321
+#: inc/modules/export/xhtml/class-xhtml11.php:1361
 msgid "Exporting parts and chapters"
 msgstr "Exportando las secciones y los capítulos"
 
 #: inc/modules/export/epub/class-epub.php:999
 #: inc/modules/export/epub/class-epub.php:1817
 #: inc/modules/export/xhtml/class-xhtml11.php:462
-#: inc/modules/export/xhtml/class-xhtml11.php:1452
+#: inc/modules/export/xhtml/class-xhtml11.php:1461
 msgid "Exporting back matter"
 msgstr "Exportando las páginas finales"
 
@@ -2984,7 +2984,7 @@ msgstr "Índice"
 
 #: inc/modules/export/epub/class-epub.php:1944
 #: inc/modules/export/htmlbook/class-htmlbook.php:979
-#: inc/modules/export/xhtml/class-xhtml11.php:1234
+#: inc/modules/export/xhtml/class-xhtml11.php:1237
 msgid "Contents"
 msgstr "Contenido"
 
@@ -4734,8 +4734,9 @@ msgstr "filtrado por"
 
 #: templates/pb-catalog.php:269
 msgid ""
-"Sorry, but no books matched your filtering criteria. Please <a class"
-"=\"clear-filters\" href=\"#\">clear your current filters</a> and try again."
+"Sorry, but no books matched your filtering criteria. Please <a "
+"class=\"clear-filters\" href=\"#\">clear your current filters</a> and try "
+"again."
 msgstr "Lo sentimos, pero ningún libro concuerda con tus criterios de filtrado. <a class=\"clear-filters\" href=\"#\">Actualiza tus filtros</a> e inténtalo de nuevo."
 
 #: templates/pb-catalog.php:273
@@ -4929,4 +4930,4 @@ msgstr "Se excluyó un elemento interactivo H5P en esta versión del texto. Pued
 msgid ""
 "One or more interactive elements has been excluded from this version of the "
 "text. You can view them online here: "
-msgstr ""
+msgstr "Se excluyeron uno o más elementos interactivos en esta versión del texto. Puedes verlos en línea aquí:"
