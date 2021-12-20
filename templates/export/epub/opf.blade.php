@@ -1,3 +1,4 @@
+{!! '<'.'?xml version="1.0" encoding="UTF-8" ?>' !!}
 <package version="3.0" xmlns="http://www.idpf.org/2007/opf" unique-identifier="pub-identifier">
 	<metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
 		<dc:title id="pub-title">{!!  $meta['pb_title'] ?? get_bloginfo('name') !!}</dc:title>

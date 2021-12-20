@@ -12,8 +12,8 @@ class CoverGeneratorTest extends \WP_UnitTestCase {
 	/**
 	 * @group covergenerator
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 		$this->cg = new \Pressbooks\Covergenerator\Covergenerator();
 	}
 
@@ -33,7 +33,7 @@ class CoverGeneratorTest extends \WP_UnitTestCase {
 	 * @group covergenerator
 	 */
 	public function test_hasDependencies() {
-		$this->assertInternalType( 'bool', $this->cg->hasDependencies() );
+		$this->assertIsBool( $this->cg->hasDependencies() );
 	}
 
 }

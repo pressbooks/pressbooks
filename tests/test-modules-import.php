@@ -34,8 +34,8 @@ class Modules_ImportTest extends \WP_UnitTestCase {
 	/**
 	 * @group import
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 		$this->import = new \ImportMock();
 	}
 
@@ -92,8 +92,8 @@ class Modules_ImportTest extends \WP_UnitTestCase {
 
 		$result = $wordpress_importer->scrapeAndKneadImages( $doc );
 		$images = $result['dom']->getElementsByTagName( 'img' );
-		$this->assertContains( '#fixme', $images[0]->getAttribute( 'src' ) );
-		$this->assertNotContains( '#fixme', $images[1]->getAttribute( 'src' ) );
+		$this->assertStringContainsString( '#fixme', $images[0]->getAttribute( 'src' ) );
+		$this->assertStringNotContainsString( '#fixme', $images[1]->getAttribute( 'src' ) );
 
 	}
 
@@ -152,11 +152,11 @@ class Modules_ImportTest extends \WP_UnitTestCase {
 
 		$this->assertEquals( 'contributor', $term->taxonomy );
 		$this->assertEquals( 'Jane Doe', $term->name );
-		$this->assertContains( '4tatoos.jpg', $meta['contributor_picture'][0] );
+		$this->assertStringContainsString( '4tatoos.jpg', $meta['contributor_picture'][0] );
 
 		$term_2 = get_term( $term_2['term_id'] );
 
-		$this->assertContains( '-', $term_2->slug );
+		$this->assertStringContainsString( '-', $term_2->slug );
 
 		// Clean attachments after test
 		$date = date( 'Y/m' );

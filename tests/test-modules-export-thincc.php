@@ -13,8 +13,8 @@ class Modules_Export_ThinCCTest extends \WP_UnitTestCase {
 	/**
 	 *
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 		$this->weblinks = new Pressbooks\Modules\Export\ThinCC\WebLinks( [] );
 
 
@@ -41,16 +41,16 @@ class Modules_Export_ThinCCTest extends \WP_UnitTestCase {
 	public function test_identifiers() {
 		$this->_book();
 		$xml = $this->weblinks->identifiers();
-		$this->assertContains( '</item>', $xml );
-		$this->assertContains( 'identifier=', $xml );
-		$this->assertContains( 'identifierref=', $xml );
+		$this->assertStringContainsString( '</item>', $xml );
+		$this->assertStringContainsString( 'identifier=', $xml );
+		$this->assertStringContainsString( 'identifierref=', $xml );
 	}
 
 	public function test_resources() {
 		$this->_book();
 		$xml = $this->weblinks->resources();
-		$this->assertContains( '</resource>', $xml );
-		$this->assertContains( '<file href=', $xml );
+		$this->assertStringContainsString( '</resource>', $xml );
+		$this->assertStringContainsString( '<file href=', $xml );
 	}
 
 	public function test_createResources() {

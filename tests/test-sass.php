@@ -16,8 +16,8 @@ class SassTest extends \WP_UnitTestCase {
 	/**
 	 * @group styles
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 		$this->sass = Container::get( 'Sass' );
 	}
 
@@ -63,9 +63,9 @@ class SassTest extends \WP_UnitTestCase {
 
 		$result = $this->sass->prependLocalizedVars( $scss );
 
-		$this->assertContains( $scss, $result );
+		$this->assertStringContainsString( $scss, $result );
 
-		$this->assertContains( "\$chapter: 'Chapter';", $result );
+		$this->assertStringContainsString( "\$chapter: 'Chapter';", $result );
 
 	}
 

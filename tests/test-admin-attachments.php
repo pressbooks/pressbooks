@@ -15,7 +15,7 @@ class Admin_AttachmentTest extends \WP_UnitTestCase {
 		$result = \Pressbooks\Admin\Attachments\validate_attachment_metadata( $url_key, $bad_url );
 		$this->assertEmpty( $result );
 		$result = \Pressbooks\Admin\Attachments\validate_attachment_metadata( $url_key, $good_url );
-		$this->assertContains( $good_url, $result );
+		$this->assertStringContainsString( $good_url, $result );
 		$result = \Pressbooks\Admin\Attachments\validate_attachment_metadata( $string_key, '<b>Figure 2.1</b>' );
 		$this->assertEquals( 'Figure 2.1', $result );
 

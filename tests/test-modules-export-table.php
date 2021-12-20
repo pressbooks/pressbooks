@@ -24,8 +24,8 @@ class Modules_Export_TableTest extends \WP_UnitTestCase {
 	/**
 	 * @group export
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 		$GLOBALS['hook_suffix'] = 'mock';
 		$_REQUEST['page'] = 'pb_export';
 		$this->table = new \Pressbooks\Modules\Export\Table();
@@ -38,7 +38,7 @@ class Modules_Export_TableTest extends \WP_UnitTestCase {
 		ob_start();
 		$this->table->single_row( $this->item );
 		$buffer = ob_get_clean();
-		$this->assertContains( "<tr data-id='43761d21'", $buffer );
+		$this->assertStringContainsString( "<tr data-id='43761d21'", $buffer );
 	}
 
 	/**
@@ -54,8 +54,8 @@ class Modules_Export_TableTest extends \WP_UnitTestCase {
 	 */
 	public function test_column_file() {
 		$x = $this->table->column_file( $this->item );
-		$this->assertContains( "<div class='export-file-icon large pdf'", $x );
-		$this->assertContains( "Test-1547581888.pdf", $x );
+		$this->assertStringContainsString( "<div class='export-file-icon large pdf'", $x );
+		$this->assertStringContainsString( "Test-1547581888.pdf", $x );
 	}
 
 	/**
@@ -63,7 +63,7 @@ class Modules_Export_TableTest extends \WP_UnitTestCase {
 	 */
 	public function test_column_pin() {
 		$x = $this->table->column_pin( $this->item );
-		$this->assertContains( "name='pin[43761d21]'", $x );
+		$this->assertStringContainsString( "name='pin[43761d21]'", $x );
 	}
 
 	/**
@@ -112,7 +112,7 @@ class Modules_Export_TableTest extends \WP_UnitTestCase {
 	 */
 	public function test_inlineJs() {
 		$x = $this->table->inlineJs();
-		$this->assertContains( "var _pb_export_formats_map = ", $x );
-		$this->assertContains( "var _pb_export_pins_inventory =", $x );
+		$this->assertStringContainsString( "var _pb_export_formats_map = ", $x );
+		$this->assertStringContainsString( "var _pb_export_pins_inventory =", $x );
 	}
 }

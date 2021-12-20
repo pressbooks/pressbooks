@@ -453,12 +453,19 @@ class Taxonomy {
 			]
 		);
 
-		foreach ( $this->licensing->getSupportedTypes( true, true ) as $key => $val ) {
-			wp_insert_term(
-				$val['desc'], Licensing::TAXONOMY, [
-					'slug' => $key,
-				]
-			);
+		$this->insertLicenseTerms();
+	}
+
+	public function insertLicenseTerms() {
+		$extended = apply_filters( 'extend_custom_licenses', [] ); // override inserted license terms only if this hook is called
+		$supported_licenses = $this->licensing->getSupportedTypes( true, true );
+		$licenses = ( count( $extended ) > 0 ) ? array_merge( $supported_licenses, $extended ) : $supported_licenses;
+		foreach ( $licenses as $key => $val ) {
+				wp_insert_term(
+					$val['desc'], Licensing::TAXONOMY, [
+						'slug' => $key,
+					]
+				);
 		}
 	}
 

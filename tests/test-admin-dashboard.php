@@ -187,9 +187,9 @@ class Admin_DashboardTest extends \WP_UnitTestCase {
 		ob_start();
 		\Pressbooks\Admin\Dashboard\display_book_widget();
 		$buffer = ob_get_clean();
-		$this->assertContains( "<ul class='front-matter'>", $buffer );
-		$this->assertContains( "<ul class='chapters'>", $buffer );
-		$this->assertContains( "<ul class='back-matter'>", $buffer );
+		$this->assertStringContainsString( "<ul class='front-matter'>", $buffer );
+		$this->assertStringContainsString( "<ul class='chapters'>", $buffer );
+		$this->assertStringContainsString( "<ul class='back-matter'>", $buffer );
 	}
 
 	/**
@@ -205,13 +205,13 @@ class Admin_DashboardTest extends \WP_UnitTestCase {
 			$this->markTestIncomplete( 'Unable to fetch Pressbooks RSS' );
 			return;
 		}
-		$this->assertContains( "class='rsswidget'", $buffer );
+		$this->assertStringContainsString( "class='rsswidget'", $buffer );
 
 		// Cache
 		ob_start();
 		\Pressbooks\Admin\Dashboard\display_pressbooks_blog();
 		$buffer = ob_get_clean();
-		$this->assertContains( "class='rsswidget'", $buffer );
+		$this->assertStringContainsString( "class='rsswidget'", $buffer );
 	}
 
 	/**
@@ -222,24 +222,24 @@ class Admin_DashboardTest extends \WP_UnitTestCase {
 		ob_start();
 		\Pressbooks\Admin\Dashboard\display_users_widget();
 		$buffer = ob_get_clean();
-		$this->assertContains( '</table>', $buffer );
-		$this->assertContains( '0 total users:', $buffer );
+		$this->assertStringContainsString( '</table>', $buffer );
+		$this->assertStringContainsString( '0 total users:', $buffer );
 
 		$user_id = $this->factory()->user->create( [ 'role' => 'subscriber' ] );
 		add_user_to_blog( get_current_blog_id(), $user_id, 'subscriber' );
 		ob_start();
 		\Pressbooks\Admin\Dashboard\display_users_widget();
 		$buffer = ob_get_clean();
-		$this->assertContains( '</table>', $buffer );
-		$this->assertContains( '1 total users: 1 subscriber.', $buffer );
+		$this->assertStringContainsString( '</table>', $buffer );
+		$this->assertStringContainsString( '1 total users: 1 subscriber.', $buffer );
 
 		$user_id = $this->factory()->user->create( [ 'role' => 'subscriber' ] );
 		add_user_to_blog( get_current_blog_id(), $user_id, 'subscriber' );
 		ob_start();
 		\Pressbooks\Admin\Dashboard\display_users_widget();
 		$buffer = ob_get_clean();
-		$this->assertContains( '</table>', $buffer );
-		$this->assertContains( '2 total users: 2 subscribers.', $buffer );
+		$this->assertStringContainsString( '</table>', $buffer );
+		$this->assertStringContainsString( '2 total users: 2 subscribers.', $buffer );
 
 	}
 

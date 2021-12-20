@@ -152,10 +152,10 @@ class MediaTest extends \WP_UnitTestCase {
 	 */
 	public function test_mime_type() {
 		$mime = \Pressbooks\Media\mime_type( __DIR__ . '/data/htmlbook.html' );
-		$this->assertContains( 'html', $mime );
+		$this->assertStringContainsString( 'html', $mime );
 
 		$mime = \Pressbooks\Media\mime_type( __DIR__ . '/data/mountains.jpg' );
-		$this->assertContains( 'jpeg', $mime );
+		$this->assertStringContainsString( 'jpeg', $mime );
 	}
 
 	/**

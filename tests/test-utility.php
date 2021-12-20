@@ -4,7 +4,7 @@ class UtilityTest extends \WP_UnitTestCase {
 
 	use utilsTrait;
 
-	public static function tearDownAfterClass() {
+	public static function tear_down_after_class() {
 		$_SERVER['SERVER_PORT'] = '';
 	}
 
@@ -175,7 +175,7 @@ class UtilityTest extends \WP_UnitTestCase {
 	 */
 	public function test_check_prince_install() {
 
-		$this->assertInternalType( 'bool', \Pressbooks\Utility\check_prince_install() );
+		$this->assertIsBool( \Pressbooks\Utility\check_prince_install() );
 		$this->assertTrue( defined( 'PB_PRINCE_COMMAND' ) );
 	}
 
@@ -184,7 +184,7 @@ class UtilityTest extends \WP_UnitTestCase {
 	 */
 	public function test_check_epubcheck_install() {
 
-		$this->assertInternalType( 'bool', \Pressbooks\Utility\check_epubcheck_install() );
+		$this->assertIsBool( \Pressbooks\Utility\check_epubcheck_install() );
 		$this->assertTrue( defined( 'PB_EPUBCHECK_COMMAND' ) );
 	}
 
@@ -193,7 +193,7 @@ class UtilityTest extends \WP_UnitTestCase {
 	 */
 	public function test_check_xmllint_install() {
 
-		$this->assertInternalType( 'bool', \Pressbooks\Utility\check_xmllint_install() );
+		$this->assertIsBool( \Pressbooks\Utility\check_xmllint_install() );
 		$this->assertTrue( defined( 'PB_XMLLINT_COMMAND' ) );
 	}
 
@@ -202,7 +202,7 @@ class UtilityTest extends \WP_UnitTestCase {
 	 */
 	public function test_check_saxonhe_install() {
 
-		$this->assertInternalType( 'bool', \Pressbooks\Utility\check_saxonhe_install() );
+		$this->assertIsBool( \Pressbooks\Utility\check_saxonhe_install() );
 		$this->assertTrue( defined( 'PB_SAXON_COMMAND' ) );
 	}
 
@@ -211,8 +211,8 @@ class UtilityTest extends \WP_UnitTestCase {
 	 */
 	public function test_show_experimental_features() {
 
-		$this->assertInternalType( 'bool', \Pressbooks\Utility\show_experimental_features() );
-		$this->assertInternalType( 'bool', \Pressbooks\Utility\show_experimental_features( 'http://pressbooks.com' ) );
+		$this->assertIsBool( \Pressbooks\Utility\show_experimental_features() );
+		$this->assertIsBool( \Pressbooks\Utility\show_experimental_features( 'http://pressbooks.com' ) );
 
 	}
 
@@ -311,11 +311,11 @@ class UtilityTest extends \WP_UnitTestCase {
 			]
 		);
 
-		$this->assertContains( '<title>Foobar</title>', $template );
-		$this->assertNotContains( '<title></title>', $template );
+		$this->assertStringContainsString( '<title>Foobar</title>', $template );
+		$this->assertStringNotContainsString( '<title></title>', $template );
 
-		$this->assertContains( '<body>Hello World!</body>', $template );
-		$this->assertNotContains( '<body></body>', $template );
+		$this->assertStringContainsString( '<body>Hello World!</body>', $template );
+		$this->assertStringNotContainsString( '<body></body>', $template );
 
 		try {
 			\Pressbooks\Utility\template( '/tmp/file/does/not/exist' );
@@ -616,7 +616,7 @@ class UtilityTest extends \WP_UnitTestCase {
 	public function get_generated_content_path() {
 		$path = \Pressbooks\Utility\get_generated_content_path();
 		$this->assertStringStartsWith( '/', $path );
-		$this->assertContains( '/pressbooks/', $path );
+		$this->assertStringContainsString( '/pressbooks/', $path );
 	}
 
 	/**
@@ -625,7 +625,7 @@ class UtilityTest extends \WP_UnitTestCase {
 	public function get_generated_content_url() {
 		$url = \Pressbooks\Utility\get_generated_content_url();
 		$this->assertStringStartsWith( 'http', $url );
-		$this->assertContains( '/pressbooks/', $url );
+		$this->assertStringContainsString( '/pressbooks/', $url );
 	}
 
 	/**
@@ -737,7 +737,7 @@ class UtilityTest extends \WP_UnitTestCase {
 	 */
 	public function test_main_contact_email() {
 		$email = \Pressbooks\Utility\main_contact_email();
-		$this->assertContains( '@', $email );
+		$this->assertStringContainsString( '@', $email );
 	}
 
 	/**

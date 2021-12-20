@@ -415,12 +415,9 @@ abstract class Generator {
 	 * @return bool
 	 */
 	public function generateWithDocraptor( $pdf_profile, $document_content, $output_path ) {
-		// Configure service
-		$configuration = \DocRaptor\Configuration::getDefaultConfiguration();
-		$configuration->setUsername( DOCRAPTOR_API_KEY );
-
 		// Save PDF as file in exports folder
 		$docraptor = new \DocRaptor\DocApi();
+		$docraptor->getConfig()->setUsername( DOCRAPTOR_API_KEY );
 		$prince_options = new \DocRaptor\PrinceOptions();
 		$prince_options->setHttpTimeout( max( ini_get( 'max_execution_time' ), 30 ) );
 		$prince_options->setProfile( $pdf_profile );
@@ -440,7 +437,7 @@ abstract class Generator {
 			$doc->setDocumentContent( $document_content );
 			$doc->setName( get_bloginfo( 'name' ) . ' Cover' );
 			$doc->setPrinceOptions( $prince_options );
-			$doc->setPipeline( 7 ); // Prince 12, see: https://docraptor.com/documentation/api#api_pipeline
+			$doc->setPipeline( 9 ); // Prince 14, see: https://docraptor.com/documentation/api#api_pipeline
 
 			$create_response = $docraptor->createAsyncDoc( $doc );
 			$done = false;

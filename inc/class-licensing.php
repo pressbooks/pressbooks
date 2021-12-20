@@ -141,7 +141,7 @@ class Licensing {
 		];
 
 		// Custom
-		if ( ! $disable_custom ) {
+		if ( ! $disable_custom && ! has_filter( 'extend_custom_licenses' ) ) {
 			$custom = get_terms(
 				[
 					'taxonomy' => self::TAXONOMY,
@@ -225,10 +225,6 @@ class Licensing {
 		} else {
 			$license = 'all-rights-reserved';
 		}
-		if ( ! $this->isSupportedType( $license ) ) {
-			// License not supported, bail
-			return '';
-		}
 
 		// Unless section is licensed differently, it should display the book license statement
 		if ( $section_license === $book_license && empty( $section_author ) || empty( $section_license ) ) {
@@ -268,6 +264,15 @@ class Licensing {
 			$copyright_year = strftime( '%Y', absint( $metadata['pb_publication_date'] ) );
 		} else {
 			$copyright_year = 0;
+		}
+
+		if ( ! $this->isSupportedType( $license ) ) {
+			// License not supported, bail but allow a custom fallback printer
+			return apply_filters( 'print_custom_license', '', array_merge( $metadata, [
+				'link' => $link,
+				'title' => $title,
+				'copyright_holder' => $copyright_holder,
+			] ) );
 		}
 
 		$html = $this->getLicense( $license, $copyright_holder, $link, $title, $copyright_year );

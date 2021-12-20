@@ -6,10 +6,10 @@ class TemplateExportTest extends \WP_UnitTestCase {
 
 	use utilsTrait;
 
-	public function setUp()
+	public function set_up()
 	{
 		$this->blade = Container::get( 'Blade' );
-		parent::setUp();
+		parent::set_up();
 	}
 
 	/**
@@ -35,16 +35,16 @@ class TemplateExportTest extends \WP_UnitTestCase {
 			]
 		);
 
-		$this->assertContains(
-			"<div class=\"front-matter front-matter-subclass\" id=\"front-intro-01\" title=\"$short_title\">",
+		$this->assertStringContainsString(
+			"<div class=\"front-matter front-matter-subclass \" id=\"front-intro-01\" title=\"$short_title\">",
 			$generic_post_rendered
 		);
-		$this->assertContains( '<p class="front-matter-number">2</p>', $generic_post_rendered );
-		$this->assertContains( '<h1 class="front-matter-title">I am a nice Front Matter title</h1>', $generic_post_rendered );
-		$this->assertContains( '<div class="ugc front-matter-ugc">', $generic_post_rendered );
-		$this->assertContains( $content, $generic_post_rendered );
-		$this->assertContains( $endnote, $generic_post_rendered );
-		$this->assertContains( $footnote, $generic_post_rendered );
+		$this->assertStringContainsString( '<p class="front-matter-number">2</p>', $generic_post_rendered );
+		$this->assertStringContainsString( '<h1 class="front-matter-title">I am a nice Front Matter title</h1>', $generic_post_rendered );
+		$this->assertStringContainsString( '<div class="ugc front-matter-ugc">', $generic_post_rendered );
+		$this->assertStringContainsString( $content, $generic_post_rendered );
+		$this->assertStringContainsString( $endnote, $generic_post_rendered );
+		$this->assertStringContainsString( $footnote, $generic_post_rendered );
 	}
 
 	/**
@@ -80,20 +80,20 @@ class TemplateExportTest extends \WP_UnitTestCase {
 			]
 		);
 
-		$this->assertContains(
-			"<div class=\"chapter chapter-subclass\" id=\"chapter-001\" title=\"$sanitized_title\">",
+		$this->assertStringContainsString(
+			"<div class=\"chapter chapter-subclass \" id=\"chapter-001\" title=\"$sanitized_title\">",
 			$chapter_rendered
 		);
-		$this->assertContains( '<p class="chapter-number">1</p>', $chapter_rendered );
-		$this->assertContains( "<h2 class=\"chapter-title\">$title</h2>", $chapter_rendered );
-		$this->assertContains( "<p class=\"short-title\">$short_title</p>", $chapter_rendered );
-		$this->assertContains( "<p class=\"chapter-subtitle\">$subtitle</p>", $chapter_rendered );
-		$this->assertContains( "<p class=\"chapter-author\">$author</p>", $chapter_rendered );
-		$this->assertContains( '<div class="ugc chapter-ugc">', $chapter_rendered );
-		$this->assertContains( $content, $chapter_rendered );
-		$this->assertContains( $append, $chapter_rendered );
-		$this->assertContains( $footnote, $chapter_rendered );
-		$this->assertContains( $endnote, $chapter_rendered );
+		$this->assertStringContainsString( '<p class="chapter-number">1</p>', $chapter_rendered );
+		$this->assertStringContainsString( "<h1 class=\"chapter-title\">$title</h1>", $chapter_rendered );
+		$this->assertStringContainsString( "<p class=\"short-title\">$short_title</p>", $chapter_rendered );
+		$this->assertStringContainsString( "<p class=\"chapter-subtitle\">$subtitle</p>", $chapter_rendered );
+		$this->assertStringContainsString( "<p class=\"chapter-author\">$author</p>", $chapter_rendered );
+		$this->assertStringContainsString( '<div class="ugc chapter-ugc">', $chapter_rendered );
+		$this->assertStringContainsString( $content, $chapter_rendered );
+		$this->assertStringContainsString( $append, $chapter_rendered );
+		$this->assertStringContainsString( $footnote, $chapter_rendered );
+		$this->assertStringContainsString( $endnote, $chapter_rendered );
 	}
 
 	/**
@@ -105,8 +105,8 @@ class TemplateExportTest extends \WP_UnitTestCase {
 			'export/half-title', [ 'title' => $title ]
 		);
 
-		$this->assertContains( '<div id="half-title-page">', $half_title_rendered );
-		$this->assertContains( "<h1 class=\"title\">$title</h1>", $half_title_rendered );
+		$this->assertStringContainsString( '<div id="half-title-page">', $half_title_rendered );
+		$this->assertStringContainsString( "<h1 class=\"title\">$title</h1>", $half_title_rendered );
 	}
 
 	/**
@@ -127,13 +127,13 @@ class TemplateExportTest extends \WP_UnitTestCase {
 			]
 		);
 
-		$this->assertContains( '<div class="part  " id="part-1">', $rendered_part );
-		$this->assertContains( '<p class="part-number">1</p>', $rendered_part );
-		$this->assertContains( '<h1 class="part-title">This is an amazing part of the book!</h1>', $rendered_part );
-		$this->assertContains( '<div class="ugc part-ugc">', $rendered_part );
-		$this->assertContains( 'Are you ready?', $rendered_part );
-		$this->assertContains( 'I am an <span>endnote</span>', $rendered_part );
-		$this->assertContains( '<strong>I am a footnote</strong>', $rendered_part );
+		$this->assertStringContainsString( '<div class="part  " id="part-1">', $rendered_part );
+		$this->assertStringContainsString( '<p class="part-number">1</p>', $rendered_part );
+		$this->assertStringContainsString( '<h1 class="part-title">This is an amazing part of the book!</h1>', $rendered_part );
+		$this->assertStringContainsString( '<div class="ugc part-ugc">', $rendered_part );
+		$this->assertStringContainsString( 'Are you ready?', $rendered_part );
+		$this->assertStringContainsString( 'I am an <span>endnote</span>', $rendered_part );
+		$this->assertStringContainsString( '<strong>I am a footnote</strong>', $rendered_part );
 	}
 
 	/**
@@ -147,8 +147,8 @@ class TemplateExportTest extends \WP_UnitTestCase {
 			]
 		);
 
-		$this->assertContains( '<div id="cover-image">', $cover_rendered );
-		$this->assertContains( '<img src="assets/https://pressbooks.org/an-image.jpg" alt="Pressbooks" />', $cover_rendered );
+		$this->assertStringContainsString( '<div id="cover-image">', $cover_rendered );
+		$this->assertStringContainsString( '<img src="assets/https://pressbooks.org/an-image.jpg" alt="Pressbooks" />', $cover_rendered );
 	}
 
 	/**
@@ -168,12 +168,12 @@ class TemplateExportTest extends \WP_UnitTestCase {
 			]
 		);
 
-		$this->assertContains( '<div class="front-matter epigraph-subclass" id="epigraph-1">', $epigraph_rendered );
-		$this->assertContains( '<p class="front-matter-number">2</p>', $epigraph_rendered );
-		$this->assertContains( '<h1 class="front-matter-title">Thank you</h1>', $epigraph_rendered );
-		$this->assertContains( 'Dedicated to Carl J', $epigraph_rendered );
-		$this->assertContains( 'Thanks Carl J.', $epigraph_rendered );
-		$this->assertContains( 'Carl J. is a friend.', $epigraph_rendered );
+		$this->assertStringContainsString( '<div class="front-matter epigraph-subclass " id="epigraph-1">', $epigraph_rendered );
+		$this->assertStringContainsString( '<p class="front-matter-number">2</p>', $epigraph_rendered );
+		$this->assertStringContainsString( '<h1 class="front-matter-title">Thank you</h1>', $epigraph_rendered );
+		$this->assertStringContainsString( 'Dedicated to Carl J', $epigraph_rendered );
+		$this->assertStringContainsString( 'Thanks Carl J.', $epigraph_rendered );
+		$this->assertStringContainsString( 'Carl J. is a friend.', $epigraph_rendered );
 	}
 
 	/**
@@ -188,12 +188,12 @@ class TemplateExportTest extends \WP_UnitTestCase {
 			'default_copyright_holder' => 'Default holder text',
 		] );
 
-		$this->assertContains( '<div id="copyright-page">', $copyright_rendered );
-		$this->assertContains( '<div class="ugc">', $copyright_rendered );
-		$this->assertContains( 'Public Domain', $copyright_rendered );
-		$this->assertContains( 'Public Domain Test', $copyright_rendered );
-		$this->assertContains( '2022', $copyright_rendered );
-		$this->assertContains( 'Default holder text', $copyright_rendered );
+		$this->assertStringContainsString( '<div id="copyright-page">', $copyright_rendered );
+		$this->assertStringContainsString( '<div class="ugc">', $copyright_rendered );
+		$this->assertStringContainsString( 'Public Domain', $copyright_rendered );
+		$this->assertStringContainsString( 'Public Domain Test', $copyright_rendered );
+		$this->assertStringContainsString( '2022', $copyright_rendered );
+		$this->assertStringContainsString( 'Default holder text', $copyright_rendered );
 	}
 
 	/**
@@ -206,7 +206,7 @@ class TemplateExportTest extends \WP_UnitTestCase {
 			]
 		);
 
-		$this->assertContains( '<div id="title-page">', $title_rendered );
-		$this->assertContains( 'I am a content in the title page!', $title_rendered );
+		$this->assertStringContainsString( '<div id="title-page">', $title_rendered );
+		$this->assertStringContainsString( 'I am a content in the title page!', $title_rendered );
 	}
 }

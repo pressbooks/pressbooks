@@ -197,8 +197,8 @@ class OptionsTest extends \WP_UnitTestCase {
 	/**
 	 *
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 		$this->options = new \OptionsMock(
 			[
 				'option_bool' => '1',
@@ -412,23 +412,23 @@ class OptionsTest extends \WP_UnitTestCase {
 		ob_start();
 		$options->renderBodyFontField( $fonts );
 		$buffer = ob_get_clean();
-		$this->assertContains( '</optgroup>', $buffer );
-		$this->assertContains( '<select name="pressbooks_theme_options_ebook[ebook_body_font]"', $buffer );
+		$this->assertStringContainsString( '</optgroup>', $buffer );
+		$this->assertStringContainsString( '<select name="pressbooks_theme_options_ebook[ebook_body_font]"', $buffer );
 
 		$options = new \Pressbooks\Modules\ThemeOptions\PDFOptions( [] );
 		ob_start();
 		$options->renderBodyFontField( $fonts );
 		$buffer = ob_get_clean();
-		$this->assertContains( '</optgroup>', $buffer );
-		$this->assertContains( '<select name="pressbooks_theme_options_pdf[pdf_body_font]"', $buffer );
+		$this->assertStringContainsString( '</optgroup>', $buffer );
+		$this->assertStringContainsString( '<select name="pressbooks_theme_options_pdf[pdf_body_font]"', $buffer );
 
 
 		$options = new \Pressbooks\Modules\ThemeOptions\WebOptions( [] );
 		ob_start();
 		$options->renderBodyFontField( $fonts );
 		$buffer = ob_get_clean();
-		$this->assertContains( '</optgroup>', $buffer );
-		$this->assertContains( '<select name="pressbooks_theme_options_web[webbook_body_font]"', $buffer );
+		$this->assertStringContainsString( '</optgroup>', $buffer );
+		$this->assertStringContainsString( '<select name="pressbooks_theme_options_web[webbook_body_font]"', $buffer );
 
 	}
 
@@ -443,23 +443,23 @@ class OptionsTest extends \WP_UnitTestCase {
 		ob_start();
 		$options->renderHeaderFontField( $fonts );
 		$buffer = ob_get_clean();
-		$this->assertContains( '</optgroup>', $buffer );
-		$this->assertContains( '<select name="pressbooks_theme_options_ebook[ebook_header_font]"', $buffer );
+		$this->assertStringContainsString( '</optgroup>', $buffer );
+		$this->assertStringContainsString( '<select name="pressbooks_theme_options_ebook[ebook_header_font]"', $buffer );
 
 		$options = new \Pressbooks\Modules\ThemeOptions\PDFOptions( [] );
 		ob_start();
 		$options->renderHeaderFontField( $fonts );
 		$buffer = ob_get_clean();
-		$this->assertContains( '</optgroup>', $buffer );
-		$this->assertContains( '<select name="pressbooks_theme_options_pdf[pdf_header_font]"', $buffer );
+		$this->assertStringContainsString( '</optgroup>', $buffer );
+		$this->assertStringContainsString( '<select name="pressbooks_theme_options_pdf[pdf_header_font]"', $buffer );
 
 
 		$options = new \Pressbooks\Modules\ThemeOptions\WebOptions( [] );
 		ob_start();
 		$options->renderHeaderFontField( $fonts );
 		$buffer = ob_get_clean();
-		$this->assertContains( '</optgroup>', $buffer );
-		$this->assertContains( '<select name="pressbooks_theme_options_web[webbook_header_font]"', $buffer );
+		$this->assertStringContainsString( '</optgroup>', $buffer );
+		$this->assertStringContainsString( '<select name="pressbooks_theme_options_web[webbook_header_font]"', $buffer );
 	}
 
 	/**
@@ -470,8 +470,8 @@ class OptionsTest extends \WP_UnitTestCase {
 		ob_start();
 		$options->renderAuthorInformation( [ __( 'Display information about authors at the end of each chapter', 'pressbooks' ) ] );
 		$buffer = ob_get_clean();
-		$this->assertContains( '<input ', $buffer );
-		$this->assertContains( 'type="checkbox" ', $buffer );
-		$this->assertContains( 'name="pressbooks_theme_options_global[about_the_author]"', $buffer );
+		$this->assertStringContainsString( '<input ', $buffer );
+		$this->assertStringContainsString( 'type="checkbox" ', $buffer );
+		$this->assertStringContainsString( 'name="pressbooks_theme_options_global[about_the_author]"', $buffer );
 	}
 }

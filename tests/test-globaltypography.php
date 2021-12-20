@@ -16,8 +16,8 @@ class GlobalTypographyTest extends \WP_UnitTestCase {
 	/**
 	 * @group typography
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 		$this->gt = new GlobalTypography( Container::get( 'Sass' ) );
 	}
 
@@ -87,7 +87,7 @@ class GlobalTypographyTest extends \WP_UnitTestCase {
 				} else {
 					$this->assertTrue( false, "Cannot download: {$url}" );
 				}
-				$this->assertContains( "https://raw.githubusercontent.com", $font_url );
+				$this->assertStringContainsString( "https://raw.githubusercontent.com", $font_url );
 			}
 		}
 	}

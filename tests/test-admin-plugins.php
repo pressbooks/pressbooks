@@ -81,7 +81,7 @@ class Admin_PluginsTest extends \WP_UnitTestCase {
 
 		\Pressbooks\Admin\Plugins\quicklatex_svg_warning( 'wp-quicklatex/wp-quicklatex.php' );
 		$notices = \Pressbooks\get_all_notices();
-		$this->assertContains( 'a format that may carry a higher security risk', $notices[0] );
+		$this->assertStringContainsString( 'a format that may carry a higher security risk', $notices[0] );
 	}
 
 }

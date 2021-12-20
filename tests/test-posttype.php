@@ -22,7 +22,7 @@ class PostTypeTest extends \WP_UnitTestCase {
 	/**
 	 * @group posttypes
 	 */
-	function onNotSuccessfulTest( Throwable $t ) {
+	function onNotSuccessfulTest( Throwable $t ): void {
 		// Switch back to english for other tests
 		unload_textdomain( 'pressbooks' );
 		parent::onNotSuccessfulTest( $t );
@@ -101,14 +101,14 @@ class PostTypeTest extends \WP_UnitTestCase {
 		ob_start();
 		after_title( $x );
 		$buffer = ob_get_clean();
-		$this->assertContains( 'supported in glossary terms', $buffer );
+		$this->assertStringContainsString( 'supported in glossary terms', $buffer );
 
 		$x->post_type = 'back-matter';
 		$x->ID = 0;
 		ob_start();
 		after_title( $x );
 		$buffer = ob_get_clean();
-		$this->assertContains( 'id="pb-post-type-notice"', $buffer );
+		$this->assertStringContainsString( 'id="pb-post-type-notice"', $buffer );
 	}
 
 	/**

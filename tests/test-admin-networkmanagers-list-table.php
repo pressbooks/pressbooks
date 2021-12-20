@@ -14,7 +14,7 @@ class Admin_Network_Managers_List_Table extends \WP_UnitTestCase {
 	/**
 	 * @group networkmanagers
 	 */
-	public function setUp() {
+	public function set_up() {
 		$this->table = new Network_Managers_List_Table();
 	}
 

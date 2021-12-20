@@ -11,8 +11,8 @@ class EventStreamsTest extends \WP_UnitTestCase {
 	/**
 	 * @group eventstreams
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 		$this->eventStreams = new \Pressbooks\EventStreams();
 	}
 
@@ -52,11 +52,11 @@ class EventStreamsTest extends \WP_UnitTestCase {
 		$this->assertCount( 8, $this->eventStreams->msgStack );
 		$buffer = implode( '', $this->eventStreams->msgStack );
 		$this->assertTrue( $result );
-		$this->assertContains( 'event: message', $buffer );
-		$this->assertContains( 'data: {"action":"updateStatusBar","percentage":1,"info":"a"}', $buffer );
-		$this->assertContains( 'data: {"action":"updateStatusBar","percentage":100,"info":"z"}', $buffer );
-		$this->assertContains( 'data: {"action":"updateStatusBar","percentage":50,"info":"incrementing percentage is only a convention"}', $buffer );
-		$this->assertContains( 'data: {"action":"complete","error":false}', $buffer );
+		$this->assertStringContainsString( 'event: message', $buffer );
+		$this->assertStringContainsString( 'data: {"action":"updateStatusBar","percentage":1,"info":"a"}', $buffer );
+		$this->assertStringContainsString( 'data: {"action":"updateStatusBar","percentage":100,"info":"z"}', $buffer );
+		$this->assertStringContainsString( 'data: {"action":"updateStatusBar","percentage":50,"info":"incrementing percentage is only a convention"}', $buffer );
+		$this->assertStringContainsString( 'data: {"action":"complete","error":false}', $buffer );
 
 		ob_start();
 		$result = $this->eventStreams->emit( $this->generatorWithError() );
@@ -64,9 +64,9 @@ class EventStreamsTest extends \WP_UnitTestCase {
 		$this->assertCount( 2, $this->eventStreams->msgStack );
 		$buffer = implode( '', $this->eventStreams->msgStack );
 		$this->assertFalse( $result );
-		$this->assertContains( 'event: message', $buffer );
-		$this->assertContains( 'data: {"action":"updateStatusBar","percentage":1,"info":"a"}', $buffer );
-		$this->assertContains( 'data: {"action":"complete","error":"Nooooooooooooooo!"}', $buffer );
+		$this->assertStringContainsString( 'event: message', $buffer );
+		$this->assertStringContainsString( 'data: {"action":"updateStatusBar","percentage":1,"info":"a"}', $buffer );
+		$this->assertStringContainsString( 'data: {"action":"complete","error":"Nooooooooooooooo!"}', $buffer );
 	}
 
 	/**
@@ -79,8 +79,8 @@ class EventStreamsTest extends \WP_UnitTestCase {
 		$this->assertCount( 1, $this->eventStreams->msgStack );
 		$buffer = implode( '', $this->eventStreams->msgStack );
 
-		$this->assertContains( 'event: message', $buffer );
-		$this->assertContains( 'data: {"action":"complete","error":"Nooooooooooooooo, again!"}', $buffer );
+		$this->assertStringContainsString( 'event: message', $buffer );
+		$this->assertStringContainsString( 'data: {"action":"complete","error":"Nooooooooooooooo, again!"}', $buffer );
 	}
 
 	/**
@@ -92,7 +92,7 @@ class EventStreamsTest extends \WP_UnitTestCase {
 		ob_end_clean();
 		$this->assertCount( 1, $this->eventStreams->msgStack );
 		$buffer = implode( '', $this->eventStreams->msgStack );
-		$this->assertContains( 'data: {"action":"complete","error":false}', $buffer );
+		$this->assertStringContainsString( 'data: {"action":"complete","error":false}', $buffer );
 	}
 
 	public function test_importBook_noChaptersError() {
@@ -104,8 +104,8 @@ class EventStreamsTest extends \WP_UnitTestCase {
 		$this->assertCount( 1, $this->eventStreams->msgStack );
 		$buffer = implode( '', $this->eventStreams->msgStack );
 
-		$this->assertContains( 'event: message', $buffer );
-		$this->assertContains( 'data: {"action":"complete","error":"No chapters were selected for import."}', $buffer );
+		$this->assertStringContainsString( 'event: message', $buffer );
+		$this->assertStringContainsString( 'data: {"action":"complete","error":"No chapters were selected for import."}', $buffer );
 	}
 
 }

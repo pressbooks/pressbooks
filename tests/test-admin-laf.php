@@ -32,8 +32,8 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		\Pressbooks\Admin\Laf\add_footer_link();
 		$buffer = ob_get_clean();
 
-		$this->assertContains( 'Powered by', $buffer );
-		$this->assertContains( 'Pressbooks', $buffer );
+		$this->assertStringContainsString( 'Powered by', $buffer );
+		$this->assertStringContainsString( 'Pressbooks', $buffer );
 
 		add_filter(
 			'pb_help_link', function() {
@@ -51,8 +51,8 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		\Pressbooks\Admin\Laf\add_footer_link();
 		$buffer = ob_get_clean();
 
-		$this->assertContains( 'https://pressbooks.community/', $buffer );
-		$this->assertContains( 'https://pressbooks.org/contact', $buffer );
+		$this->assertStringContainsString( 'https://pressbooks.community/', $buffer );
+		$this->assertStringContainsString( 'https://pressbooks.org/contact', $buffer );
 	}
 
 	/**
@@ -227,8 +227,8 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		ob_start();
 		\Pressbooks\Admin\Laf\display_export();
 		$buffer = ob_get_clean();
-		$this->assertContains( '<h1>Export', $buffer );
-		$this->assertContains( '<div class="clear"></div>', $buffer );
+		$this->assertStringContainsString( '<h1>Export', $buffer );
+		$this->assertStringContainsString( '<div class="clear"></div>', $buffer );
 	}
 
 	/**
@@ -298,10 +298,10 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		\Pressbooks\Admin\Laf\edit_screen_navigation( $post );
 		$buffer = ob_get_clean();
 
-		$this->assertContains( '<nav id="pb-edit-screen-navigation" role="navigation"', $buffer );
-		$this->assertContains( '<a href', $buffer );
-		$this->assertContains( 'Edit Previous', $buffer );
-		$this->assertContains( 'Edit Next', $buffer );
+		$this->assertStringContainsString( '<nav id="pb-edit-screen-navigation" role="navigation"', $buffer );
+		$this->assertStringContainsString( '<a href', $buffer );
+		$this->assertStringContainsString( 'Edit Previous', $buffer );
+		$this->assertStringContainsString( 'Edit Next', $buffer );
 	}
 
 	/**
@@ -317,7 +317,7 @@ class Admin_LafTest extends \WP_UnitTestCase {
 
 		$node = $wp_admin_bar->get_node( 'contact' );
 		$this->assertTrue( is_object( $node ) );
-		$this->assertContains( 'pressbooks.org', $node->href );
+		$this->assertStringContainsString( 'pressbooks.org', $node->href );
 	}
 
 	/**
@@ -378,8 +378,8 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		\Pressbooks\Admin\Laf\add_user_profile_fields( new \WP_User( $user_id ) );
 		$buffer = ob_get_clean();
 
-		$this->assertContains( 'element.insertAdjacentHTML', $buffer );
-		$this->assertContains( 'Your institutional affiliation, e.g. Rebus Foundation, Open University, Amnesty International.', $buffer );
+		$this->assertStringContainsString( 'element.insertAdjacentHTML', $buffer );
+		$this->assertStringContainsString( 'Your institutional affiliation, e.g. Rebus Foundation, Open University, Amnesty International.', $buffer );
 
 		$_REQUEST['institution'] = 'Rebus Foundation';
 

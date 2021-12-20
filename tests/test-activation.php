@@ -14,8 +14,8 @@ class ActivationTest extends \WP_UnitTestCase {
 	/**
 	 *
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 
 		$stub1 = $this
 			->getMockBuilder( '\Pressbooks\Licensing' )

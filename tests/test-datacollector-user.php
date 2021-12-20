@@ -13,8 +13,8 @@ class DataCollector_UserTest extends \WP_UnitTestCase {
 	/**
 	 * @group datacollector
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 		$this->userDataCollector = new UserDataCollector();
 	}
 
@@ -52,6 +52,36 @@ class DataCollector_UserTest extends \WP_UnitTestCase {
 	/**
 	 * @group datacollector
 	 */
+	public function test_updateNetworkManagers() {
+		$user_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+
+		grant_super_admin( $user_id );
+		wp_set_current_user( $user_id );
+
+		$_REQUEST['_ajax_nonce'] = wp_create_nonce( 'pb-network-managers' );
+		$_POST['admin_id'] = $user_id;
+		$_POST['status'] = 1;
+
+		\Pressbooks\Admin\NetworkManagers\update_admin_status();
+
+		$this->assertEmpty( get_site_option( 'pressbooks_network_managers_ids' ) );
+
+		$this->userDataCollector->updateNetworkManagers();
+
+		$this->assertNotEmpty( get_site_option( 'pressbooks_network_managers_ids' ) );
+
+		$_POST['status'] = 0;
+
+		\Pressbooks\Admin\NetworkManagers\update_admin_status();
+
+		$this->userDataCollector->updateNetworkManagers();
+
+		$this->assertEmpty( get_site_option( 'pressbooks_network_managers_ids' ) );
+	}
+
+	/**
+	 * @group datacollector
+	 */
 	public function test_updateAllUsersMetadata() {
 		$user = $this->factory()->user->create_and_get( [ 'role' => 'contributor' ] );
 		$i = 0;
@@ -74,5 +104,20 @@ class DataCollector_UserTest extends \WP_UnitTestCase {
 		$this->userDataCollector->updateMetaData( $user->ID );
 
 		$this->assertNotEmpty( get_user_meta( $user->ID, UserDataCollector::HIGHEST_ROLE ) );
+	}
+
+	/**
+	 * @group datacollector
+	 */
+	public function test_storeLastActiveDate() {
+		$user = $this->factory()->user->create_and_get( [ 'role' => 'contributor' ] );
+		wp_set_current_user( $user->ID );
+		$this->assertEmpty( get_user_meta( $user->ID, UserDataCollector::USER_DATE_LAST_ACTIVE ) );
+		$this->userDataCollector::storeLastActiveDate();
+		$date_last_active = get_user_meta( $user->ID, UserDataCollector::USER_DATE_LAST_ACTIVE );
+		$this->assertNotEmpty( $date_last_active );
+		$this->assertGreaterThanOrEqual( strtotime( $date_last_active[0] ), strtotime( gmdate( 'Y-m-d H:i:s' ) ) );
+
+
 	}
 }

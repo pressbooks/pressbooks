@@ -460,7 +460,7 @@ class Xhtml11 extends ExportGenerator {
 
 			// Back-matter
 			yield 70 => $this->generatorPrefix . __( 'Exporting back matter', 'pressbooks' );
-			yield from $this->echoBackMatterGenerator( $book_contents, $metadata );
+			yield from $this->renderBackMatterGenerator( $book_contents, $metadata );
 
 			$buffer_inner_html = ob_get_clean();
 
@@ -1106,7 +1106,9 @@ class Xhtml11 extends ExportGenerator {
 	 */
 	protected function renderDedicationAndEpigraph( $book_contents ) {
 
-		$i = $this->frontMatterPos;
+		$index = $this->frontMatterPos;
+		$parse_subsections = \Pressbooks\Modules\Export\Export::shouldParseSubsections();
+
 		foreach ( [ 'dedication', 'epigraph' ] as $compare ) {
 			foreach ( $book_contents['front-matter'] as $front_matter ) {
 
@@ -1130,18 +1132,19 @@ class Xhtml11 extends ExportGenerator {
 					[
 						'subclass' => $subclass,
 						'slug' => $slug,
-						'front_matter_number' => $i,
+						'front_matter_number' => $index,
 						'title' => Sanitize\decode( $title ),
 						'content' => $content,
 						'endnotes' => $this->doEndnotes( $front_matter_id ),
 						'footnotes' => $this->doFootnotes( $front_matter_id ),
+						'subsection_class' => $parse_subsections ? 'with-subsections' : '',
 					]
 				);
 				echo "\n";
-				++$i;
+				++$index;
 			}
 		}
-		$this->frontMatterPos = $i;
+		$this->frontMatterPos = $index;
 	}
 
 	/**
@@ -1312,6 +1315,7 @@ class Xhtml11 extends ExportGenerator {
 		$part_index = 1;
 		$chapter_index = 1;
 		$parts_amount = count( $book_contents['part'] );
+		$parse_subsections = \Pressbooks\Modules\Export\Export::shouldParseSubsections();
 
 		foreach ( $book_contents['part'] as $part ) {
 			yield from $yield->tick( $this->generatorPrefix . __( 'Exporting parts and chapters', 'pressbooks' ) );
@@ -1370,7 +1374,7 @@ class Xhtml11 extends ExportGenerator {
 				$chapter_subtitle = trim( get_post_meta( $chapter_id, 'pb_subtitle', true ) );
 				$chapter_author = $this->contributors->get( $chapter_id, 'pb_authors' );
 
-				if ( \Pressbooks\Modules\Export\Export::shouldParseSubsections() && \Pressbooks\Book::getSubsections( $chapter_id ) !== false ) {
+				if ( $parse_subsections && \Pressbooks\Book::getSubsections( $chapter_id ) !== false ) {
 					$chapter_content = \Pressbooks\Book::tagSubsections( $chapter_content, $chapter_id );
 				}
 
@@ -1404,6 +1408,7 @@ class Xhtml11 extends ExportGenerator {
 						'append_content' => $append_chapter_content,
 						'endnotes' => $this->doEndnotes( $chapter_id ),
 						'footnotes' => $this->doFootnotes( $chapter_id ),
+						'subsection_class' => $parse_subsections ? 'with-subsections' : '',
 					]
 				);
 
@@ -1413,23 +1418,27 @@ class Xhtml11 extends ExportGenerator {
 			}
 
 			if ( $invisible ) {
-				echo $rendered_chapters;
+				$this->renderPart( $part_slug, $rendered_chapters );
 
 				continue;
 			}
 
 			if ( $parts_amount === 1 ) {
-				echo $part_content
+				$content = $part_content
 					? $rendered_part . $rendered_chapters
 					: $rendered_chapters;
+
+				$this->renderPart( $part_slug, $content );
 			} else {
 				if ( ! $rendered_chapters ) {
-					echo $part_content ? $rendered_part : '';
+					if ( $part_content ) {
+						$this->renderPart( $part_slug, $rendered_part );
+					}
 
 					continue;
 				}
 
-				echo $rendered_part . $rendered_chapters;
+				$this->renderPart( $part_slug, $rendered_part . $rendered_chapters );
 			}
 
 			++$part_index;
@@ -1443,7 +1452,7 @@ class Xhtml11 extends ExportGenerator {
 	 * @param array $metadata
 	 * @return \Generator
 	 */
-	protected function echoBackMatterGenerator( $book_contents, $metadata ) : \Generator {
+	protected function renderBackMatterGenerator( $book_contents, $metadata ) : \Generator {
 
 		$y = new PercentageYield( 70, 80, count( $book_contents['back-matter'] ) );
 
@@ -1466,6 +1475,23 @@ class Xhtml11 extends ExportGenerator {
 			++$i;
 		}
 
+	}
+
+	/**
+	 * Renders the complete part wrapper
+	 *
+	 * @param string $id
+	 * @param string $content
+	 * @return void
+	 */
+	protected function renderPart( string $id, string $content ): void {
+		echo $this->blade->render(
+			'export/part-wrapper',
+			[
+				'id' => $id,
+				'content' => $content,
+			]
+		);
 	}
 
 	/**

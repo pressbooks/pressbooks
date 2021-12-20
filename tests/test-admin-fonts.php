@@ -12,9 +12,9 @@ class Admin_FontsTest extends \WP_UnitTestCase {
 	 * Override
 	 * @group typography
 	 */
-	public function setUp() {
+	public function set_up() {
 
-		parent::setUp();
+		parent::set_up();
 
 		// Replace Sass service with mock
 		Container::set( 'Sass', function () {
@@ -51,10 +51,10 @@ class Admin_FontsTest extends \WP_UnitTestCase {
 	 * Override
 	 * @group typography
 	 */
-	public function tearDown() {
+	public function tear_down() {
 
 		Container::init(); // Reset
-		parent::tearDown();
+		parent::tear_down();
 	}
 
 	/**
