@@ -32,19 +32,11 @@ function should_display_custom_feed( array $options ): bool {
 		return false;
 	}
 
-	$plugins_config_is_active = is_plugin_active( 'pressbooks-plugins-config/pressbooks-plugins-config.php' );
-
-	if ( ! $plugins_config_is_active ) {
-		return true;
+	if ( has_filter( 'display_custom_feed' ) ) {
+		return apply_filters( 'display_custom_feed', $options['url'] );
 	}
 
-	$urls_to_skip = [
-		'https://pressbooks.com/feed',
-		'https://pressbooks.com/blog/feed',
-		'https://pressbooks.community/c/pressbooks-product-updates/19.rss',
-	];
-
-	return ! in_array( rtrim( $options['url'], '/' ), $urls_to_skip, true );
+	return true;
 }
 
 /**
