@@ -272,6 +272,7 @@ class Licensing {
 				'link' => $link,
 				'title' => $title,
 				'copyright_holder' => $copyright_holder,
+				'license' => $license,
 			] ) );
 		}
 
