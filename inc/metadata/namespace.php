@@ -1197,3 +1197,20 @@ function check_thema_lang_file( $post ) {
 	}
 
 }
+
+/**
+ * Return an array of known institutions
+ *
+ * @return array
+ */
+function get_institutions(): array {
+	$items = json_decode(
+		\Pressbooks\Utility\get_contents( PB_PLUGIN_DIR . 'symbionts/institutions/institutions.json' ), true
+	);
+
+	return array_reduce(
+		$items, static function ( $institutions, $institution ) {
+				return $institutions + [ $institution['name'] => $institution['name'] ];
+		}, []
+	);
+}
