@@ -17,6 +17,10 @@ namespace Pressbooks;
 use Pressbooks\DataCollector\Book as BookDataCollector;
 use Pressbooks\Modules\Export\Export;
 use Pressbooks\Modules\Export\Xhtml\Xhtml11;
+use Pressbooks\Modules\ThemeOptions\EbookOptions;
+use Pressbooks\Modules\ThemeOptions\GlobalOptions;
+use Pressbooks\Modules\ThemeOptions\PDFOptions;
+use Pressbooks\Modules\ThemeOptions\WebOptions;
 
 class Book {
 
@@ -82,11 +86,12 @@ class Book {
 	 *
 	 * @param int $id The book ID.
 	 * @param bool $contributors_as_string Read contributors list as a string.
-	 * @param int $read_contributors_from_cache Read contributors from cache, if book information is stored in wp cache.
+	 * @param bool $read_contributors_from_cache Read contributors from cache, if book information is stored in wp cache.
+	 * @param bool $include_theme_info Include Theme & Styles information
 	 *
 	 * @return array
 	 */
-	static function getBookInformation( $id = null, $contributors_as_string = true, $read_contributors_from_cache = true ) {
+	static function getBookInformation( $id = null, $contributors_as_string = true, $read_contributors_from_cache = true, $include_theme_info = false ) {
 
 		if ( ! empty( $id ) && is_int( $id ) ) {
 			$blog_id = $id;
@@ -206,6 +211,14 @@ class Book {
 			$book_information['pb_cover_image'] = \Pressbooks\Image\default_cover_url();
 		}
 
+		if ( $include_theme_info ) {
+			$styles = Styles::getAllPostContent();
+			if ( ! empty( $styles ) ) {
+				$book_information['pb_styles'] = $styles;
+			}
+			$book_information['pb_theme_options'] = self::getThemeOptions();
+		}
+
 		// -----------------------------------------------------------------------------
 		// Cache & Return
 		// -----------------------------------------------------------------------------
@@ -219,6 +232,27 @@ class Book {
 		}
 
 		return $book_information;
+	}
+
+	/**
+	 * Get global, web, pdf and ebook theme options
+	 *
+	 * @return array
+	 */
+	public static function getThemeOptions() {
+		$options_classes = [
+			'\Pressbooks\Modules\ThemeOptions\GlobalOptions',
+			'\Pressbooks\Modules\ThemeOptions\WebOptions',
+			'\Pressbooks\Modules\ThemeOptions\PDFOptions',
+			'\Pressbooks\Modules\ThemeOptions\EbookOptions',
+		];
+		$theme_options = [];
+		foreach ( $options_classes as $option_class ) {
+			$slug = call_user_func($option_class .'::getSlug');
+			$theme_options[ $slug ] =
+				( new $option_class( get_option( 'pressbooks_theme_options_' . $slug ) ) )->options;
+		}
+		return $theme_options;
 	}
 
 	/**
