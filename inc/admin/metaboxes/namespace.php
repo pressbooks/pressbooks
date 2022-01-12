@@ -306,7 +306,7 @@ function add_meta_boxes() {
 			'field_type' => 'multi_select',
 			'select2' => true,
 			'label' => __( 'Institution(s)', 'pressbooks' ),
-			'placeholder' => 'Choose institution(s)...',
+			'placeholder' => __( 'Choose institution(s)...', 'pressbooks' ),
 			'description' => __( 'This optional field can be used to display the institution(s) which created this resource. If your college or university is not listed, please contact your network manager.', 'pressbooks' ),
 			'values' => \Pressbooks\Metadata\get_institutions(),
 		]

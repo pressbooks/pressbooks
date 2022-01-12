@@ -510,7 +510,7 @@ function schema_to_book_information( array $book_schema ): array {
 	if ( isset( $book_schema['institutions'] ) ) {
 		$book_information['pb_institutions'] = array_reduce(
 			$book_schema['institutions'], static function( $carry, $item ) {
-					return array_merge( $carry, [ $item['name'] ] );
+				return array_merge( $carry, [ $item['name'] ] );
 			}, []
 		);
 	}
@@ -1231,7 +1231,7 @@ function get_institutions(): array {
 
 	return array_reduce(
 		$items, static function ( $institutions, $institution ) {
-				return $institutions + [ $institution['name'] => $institution['name'] ];
+			return $institutions + [ $institution['name'] => $institution['name'] ];
 		}, []
 	);
 }
