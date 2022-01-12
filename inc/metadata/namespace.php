@@ -295,6 +295,19 @@ function book_information_to_schema( $book_information, $network_excluded_direct
 		}
 	}
 
+	if ( isset( $book_information['pb_institutions'] ) ) {
+		$book_schema['institutions'] = array_reduce(
+			$book_information['pb_institutions'], static function( $carry, $item ) {
+				return array_merge( $carry, [
+					[
+						'@type' => 'Institution',
+						'name' => $item,
+					],
+				] );
+			}, []
+		);
+	}
+
 	if ( isset( $book_information['pb_publisher'] ) ) {
 		$book_schema['publisher'] = [
 			'@type' => 'Organization',
