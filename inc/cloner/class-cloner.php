@@ -1343,6 +1343,10 @@ class Cloner {
 				}
 			} elseif ( $key === 'pb_title' ) {
 				update_post_meta( $metadata_post_id, $key, $this->targetBookTitle );
+			} elseif ( $key === 'pb_institutions' ) {
+				foreach ( $value as $institution ) {
+					add_post_meta( $metadata_post_id, $key, $institution );
+				}
 			} else {
 				update_post_meta( $metadata_post_id, $key, $value );
 				if ( $key === 'pb_book_license' ) {

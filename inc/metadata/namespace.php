@@ -198,7 +198,7 @@ function has_expanded_metadata() {
  *
  * @return array
  */
-function book_information_to_schema( $book_information, $network_excluded_directory = false ) {
+function book_information_to_schema( array $book_information, bool $network_excluded_directory = false ): array {
 	$book_schema = [];
 
 	$book_schema['@context'] = 'http://schema.org';
@@ -434,13 +434,13 @@ function book_information_to_schema( $book_information, $network_excluded_direct
 /**
  * Convert book Schema.org metadata to Pressbooks Book Information
  *
- * @since 4.1
- *
  * @param array $book_schema
  *
  * @return array
+ * @since 4.1
+ *
  */
-function schema_to_book_information( $book_schema ) {
+function schema_to_book_information( array $book_schema ): array {
 	$book_information = [];
 
 	if ( isset( $book_schema['description'] ) ) {
@@ -505,6 +505,14 @@ function schema_to_book_information( $book_schema ) {
 				$book_information[ $contributor_type ] = get_contributors_name_imploded( $book_schema[ $mapped_properties[ $contributor_type ] ] );
 			}
 		}
+	}
+
+	if ( isset( $book_schema['institutions'] ) ) {
+		$book_information['pb_institutions'] = array_reduce(
+			$book_schema['institutions'], static function( $carry, $item ) {
+					return array_merge( $carry, [ $item['name'] ] );
+			}, []
+		);
 	}
 
 	if ( isset( $book_schema['publisher'] ) ) {
