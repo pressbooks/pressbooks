@@ -230,8 +230,6 @@ function book_information_to_schema( $book_information, $network_excluded_direct
 		'pb_reviewers' => 'reviewedBy',
 		'pb_illustrators' => 'illustrator',
 		'pb_contributors' => 'contributor',
-		'pb_styles' => 'styles',
-		'pb_theme_options' => 'theme_options',
 	];
 
 	foreach ( $mapped_properties as $old => $new ) {

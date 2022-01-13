@@ -211,14 +211,6 @@ class Book {
 			$book_information['pb_cover_image'] = \Pressbooks\Image\default_cover_url();
 		}
 
-		if ( $include_theme_info ) {
-			$styles = Styles::getAllPostContent();
-			if ( ! empty( $styles ) ) {
-				$book_information['pb_styles'] = $styles;
-			}
-			$book_information['pb_theme_options'] = self::getThemeOptions();
-		}
-
 		// -----------------------------------------------------------------------------
 		// Cache & Return
 		// -----------------------------------------------------------------------------

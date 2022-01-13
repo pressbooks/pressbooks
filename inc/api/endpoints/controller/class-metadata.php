@@ -633,7 +633,7 @@ class Metadata extends \WP_REST_Controller {
 	 */
 	public function get_item( $request ) {
 
-		$meta = Book::getBookInformation( null, false, false, true );
+		$meta = Book::getBookInformation( null, false, false );
 		$meta = $this->buildMetadata( $meta );
 
 		$response = rest_ensure_response( $meta );
