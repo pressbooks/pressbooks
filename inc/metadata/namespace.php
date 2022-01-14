@@ -198,7 +198,7 @@ function has_expanded_metadata() {
  *
  * @return array
  */
-function book_information_to_schema( $book_information, $network_excluded_directory = false ) {
+function book_information_to_schema( array $book_information, bool $network_excluded_directory = false ): array {
 	$book_schema = [];
 
 	$book_schema['@context'] = 'http://schema.org';
@@ -293,6 +293,19 @@ function book_information_to_schema( $book_information, $network_excluded_direct
 				}
 			}
 		}
+	}
+
+	if ( isset( $book_information['pb_institutions'] ) ) {
+		$book_schema['institutions'] = array_reduce(
+			$book_information['pb_institutions'], static function( $carry, $item ) {
+				return array_merge( $carry, [
+					[
+						'@type' => 'Institution',
+						'name' => $item,
+					],
+				] );
+			}, []
+		);
 	}
 
 	if ( isset( $book_information['pb_publisher'] ) ) {
@@ -421,13 +434,13 @@ function book_information_to_schema( $book_information, $network_excluded_direct
 /**
  * Convert book Schema.org metadata to Pressbooks Book Information
  *
- * @since 4.1
- *
  * @param array $book_schema
  *
  * @return array
+ * @since 4.1
+ *
  */
-function schema_to_book_information( $book_schema ) {
+function schema_to_book_information( array $book_schema ): array {
 	$book_information = [];
 
 	if ( isset( $book_schema['description'] ) ) {
@@ -492,6 +505,14 @@ function schema_to_book_information( $book_schema ) {
 				$book_information[ $contributor_type ] = get_contributors_name_imploded( $book_schema[ $mapped_properties[ $contributor_type ] ] );
 			}
 		}
+	}
+
+	if ( isset( $book_schema['institutions'] ) ) {
+		$book_information['pb_institutions'] = array_reduce(
+			$book_schema['institutions'], static function( $carry, $item ) {
+				return array_merge( $carry, [ $item['name'] ] );
+			}, []
+		);
 	}
 
 	if ( isset( $book_schema['publisher'] ) ) {
@@ -1196,4 +1217,21 @@ function check_thema_lang_file( $post ) {
 		download_thema_lang( $post, $post->ID, 'pb_language', get_book_metadata_lang() );
 	}
 
+}
+
+/**
+ * Return an array of known institutions
+ *
+ * @return array
+ */
+function get_institutions(): array {
+	$items = json_decode(
+		\Pressbooks\Utility\get_contents( PB_PLUGIN_DIR . 'symbionts/institutions/institutions.json' ), true
+	);
+
+	return array_reduce(
+		$items, static function ( $institutions, $institution ) {
+			return $institutions + [ $institution['name'] => $institution['name'] ];
+		}, []
+	);
 }

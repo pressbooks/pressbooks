@@ -135,7 +135,6 @@ class Book {
 		}
 
 		if ( $meta_post ) {
-
 			// Contributors
 			$book_information = array_merge(
 				$book_information,
@@ -151,13 +150,18 @@ class Book {
 			$expected_the_content = [ 'pb_custom_copyright', 'pb_about_unlimited' ];
 			$expected_url = [ 'pb_cover_image' ];
 			foreach ( get_post_meta( $meta_post->ID ) as $key => $val ) {
-
 				// Skip anything not prefixed with pb_
-				if ( ! preg_match( '/^pb_/', $key ) ) {
+				if ( 0 !== strpos( $key, 'pb_' ) ) {
 					continue;
 				}
 				// Skip contributor meta (already done, look up)
 				if ( $contributors->isValid( $key ) || $contributors->isDeprecated( $key ) ) {
+					continue;
+				}
+
+				if ( $key === 'pb_institutions' ) {
+					$book_information[ $key ] = $val;
+
 					continue;
 				}
 

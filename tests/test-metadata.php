@@ -105,19 +105,44 @@ class MetadataTest extends \WP_UnitTestCase {
 	 * @group metadata
 	 */
 	public function test_book_information_to_schema() {
-		$book_information = [
-			'pb_authors' => 'Herman Melville',
-			'pb_editors' => 'Pat Metheny',
-			'pb_title' => 'Moby Dick',
-			'pb_book_doi' => 'my_doi',
-		];
+		$this->_book();
+
+		$this->taxonomy->registerTaxonomies();
+
+		$meta_post_id = $this->metadata->getMetaPostId();
+
+		$this->contributor->insert( 'Herman Melville', 'pb_authors' );
+		$this->contributor->insert( 'Pat Metheny', 'pb_editors' );
+
+		add_post_meta( $meta_post_id, 'pb_title', 'Moby Dick' );
+		add_post_meta( $meta_post_id, 'pb_book_doi', 'my_doi' );
+		add_post_meta( $meta_post_id, 'pb_authors', 'herman-melville' );
+		add_post_meta( $meta_post_id, 'pb_editors', 'pat-metheny' );
+		add_post_meta( $meta_post_id, 'pb_institutions', 'Some random university' );
+		add_post_meta( $meta_post_id, 'pb_institutions', 'Another random university' );
+
+		$book_information = \Pressbooks\Book::getBookInformation();
 
 		$result = \Pressbooks\Metadata\book_information_to_schema( $book_information );
-		$this->assertEquals( $result['name'], 'Moby Dick' );
-		$this->assertEquals( $result['author'][0]['name'], 'Herman Melville' );
-		$this->assertEquals( $result['editor'][0]['name'], 'Pat Metheny' );
-		$this->assertEquals( $result['sameAs'], 'https://dx.doi.org/my_doi' );
-		$this->assertEquals( $result['identifier']['value'], 'my_doi' );
+
+		$this->assertArraySubset(
+			[
+				'name' => 'Moby Dick',
+				'sameAs' => 'https://dx.doi.org/my_doi',
+				'identifier' => ['value' => 'my_doi'],
+				'author' => [
+					['name' => 'Herman Melville']
+				],
+				'editor' => [
+					['name' => 'Pat Metheny']
+				],
+				'institutions' => [
+					['name' => 'Some random university'],
+					['name' => 'Another random university'],
+				]
+			],
+			$result
+		);
 	}
 
 	/**
@@ -136,6 +161,16 @@ class MetadataTest extends \WP_UnitTestCase {
 				],
 			],
 			'sameAs' => 'https://dx.doi.org/my_doi',
+			'institutions' => [
+				[
+					'@type' => 'Institution',
+					'name' => 'Some random university',
+				],
+				[
+					'@type' => 'Institution',
+					'name' => 'Another random university',
+				],
+			]
 		];
 
 		$result = \Pressbooks\Metadata\schema_to_book_information( $schema );
@@ -143,6 +178,7 @@ class MetadataTest extends \WP_UnitTestCase {
 		$this->assertEquals( $result['pb_authors'][0]['name'], 'Pat Metheny' );
 		$this->assertEquals( $result['pb_book_license'], 'public-domain' );
 		$this->assertEquals( $result['pb_book_doi'], 'my_doi' );
+		$this->assertArraySubset( ['Some random university', 'Another random university'], $result['pb_institutions'] );
 
 		$schema = [
 			'@context' => 'http://schema.org',
