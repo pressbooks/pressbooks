@@ -161,6 +161,16 @@ class MetadataTest extends \WP_UnitTestCase {
 				],
 			],
 			'sameAs' => 'https://dx.doi.org/my_doi',
+			'institutions' => [
+				[
+					'@type' => 'Institution',
+					'name' => 'Some random university',
+				],
+				[
+					'@type' => 'Institution',
+					'name' => 'Another random university',
+				],
+			]
 		];
 
 		$result = \Pressbooks\Metadata\schema_to_book_information( $schema );
@@ -168,6 +178,7 @@ class MetadataTest extends \WP_UnitTestCase {
 		$this->assertEquals( $result['pb_authors'][0]['name'], 'Pat Metheny' );
 		$this->assertEquals( $result['pb_book_license'], 'public-domain' );
 		$this->assertEquals( $result['pb_book_doi'], 'my_doi' );
+		$this->assertArraySubset( ['Some random university', 'Another random university'], $result['pb_institutions'] );
 
 		$schema = [
 			'@context' => 'http://schema.org',
