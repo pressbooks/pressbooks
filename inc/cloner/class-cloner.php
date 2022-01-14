@@ -1322,7 +1322,7 @@ class Cloner {
 
 		// Everything else
 		$book_information['pb_is_based_on'] = $this->sourceBookUrl;
-		$metadata_array_values = [ 'pb_keywords_tags', 'pb_bisac_subject', 'pb_additional_subjects' ];
+		$metadata_array_values = [ 'pb_keywords_tags', 'pb_bisac_subject', 'pb_additional_subjects', 'pb_institutions' ];
 		$authors_slug = [];
 		foreach ( $book_information as $key => $value ) {
 			if ( $this->contributors->isValid( $key ) ) {
@@ -1337,16 +1337,12 @@ class Cloner {
 					}
 				}
 			} elseif ( in_array( $key, $metadata_array_values, true ) ) {
-				$values = explode( ', ', $value );
+				$values = is_array( $value ) ? $value : explode( ', ', $value );
 				foreach ( $values as $v ) {
 					add_post_meta( $metadata_post_id, $key, $v );
 				}
 			} elseif ( $key === 'pb_title' ) {
 				update_post_meta( $metadata_post_id, $key, $this->targetBookTitle );
-			} elseif ( $key === 'pb_institutions' ) {
-				foreach ( $value as $institution ) {
-					add_post_meta( $metadata_post_id, $key, $institution );
-				}
 			} else {
 				update_post_meta( $metadata_post_id, $key, $value );
 				if ( $key === 'pb_book_license' ) {
