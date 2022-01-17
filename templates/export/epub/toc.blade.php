@@ -12,8 +12,11 @@
 			<h1 class="title">{{ __( 'Table of Contents', 'pressbooks' ) }}</h1>
 			<ol epub:type="list">
 			@php( $part_open = false )
-			@foreach( $manifest as $key => $value )
-				@if( $part_open && 0 !== strpos( $key, 'chapter-') )
+			@foreach( $manifest_keys as $key )
+				@php( $value = $manifest[ $key ] )
+				@php( $next_key = next( $manifest_keys ) )
+
+				@if( $part_open && 0 !== strpos( $key, 'chapter-' ) )
 					@php( $part_open = false )
 					</ol></li>
 				@endif
@@ -22,16 +25,14 @@
 					@php( $text = wp_strip_all_tags( \Pressbooks\Sanitize\decode( $value['post_title'] ) ) ?? ' ' )
 
 					@if( 0 === strpos( $key, 'part-' ) )
-						<li><a href="{{ $value['filename'] }}">{{ $text }}</a>
+						@if( $next_key && 0 === strpos( $next_key, 'chapter-' ) )
+							@php( $part_open = true )
+							<li><a href="{{ $value['filename'] }}">{{ $text }}</a><ol>
+						@else
+							<li><a href="{{ $value['filename'] }}">{{ $text }}</a></li>
+						@endif
 					@else
-						<li>
-							<a href="{{ $value['filename'] }}">{{ $text }}</a>
-						</li>
-					@endif
-
-					@if( 0 === strpos($key, 'part-') )
-						@php( $part_open = true )
-						<ol>
+						<li><a href="{{ $value['filename'] }}">{{ $text }}</a></li>
 					@endif
 				@endif
 			@endforeach

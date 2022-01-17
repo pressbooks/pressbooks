@@ -2655,6 +2655,7 @@ class Epub extends ExportGenerator {
 		$vars = [
 			'author' => sanitize_xml_attribute( $authors ),
 			'manifest' => $this->manifest,
+			'manifest_keys' => array_keys( $this->manifest ),
 			'dtd_uid' => ! empty( $metadata['pb_ebook_isbn'] ) ? sanitize_xml_attribute( $metadata['pb_ebook_isbn'] ) : sanitize_xml_attribute( get_bloginfo( 'url' ) ),
 			'enable_external_identifier' => false,
 			'lang' => $this->lang,
