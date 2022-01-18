@@ -236,7 +236,7 @@ class Styles {
 	 *
 	 * @return array
 	 */
-	public static function getAllPostContent() {
+	public static function getAllPostContent() : array {
 		$args = [
 			'post_name__in' => [ 'web', 'epub', 'prince' ],
 			'post_type' => 'custom-style',

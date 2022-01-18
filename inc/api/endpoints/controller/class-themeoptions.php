@@ -73,7 +73,7 @@ class ThemeOptions extends \WP_REST_Controller {
 				'@type' => [
 					'type' => 'string',
 					'enum' => [
-						'Book',
+						'ThemeOptions',
 					],
 					'description' => __( 'The type of the thing.' ),
 					'context' => [ 'view' ],

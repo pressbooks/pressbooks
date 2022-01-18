@@ -71,7 +71,7 @@ class Styles extends \WP_REST_Controller {
 				'@type' => [
 					'type' => 'string',
 					'enum' => [
-						'Book',
+						'Styles',
 					],
 					'description' => __( 'The type of the thing.' ),
 					'context' => [ 'view' ],

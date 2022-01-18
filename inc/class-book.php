@@ -230,7 +230,7 @@ class Book {
 	 *
 	 * @return array
 	 */
-	public static function getThemeOptions() {
+	public static function getThemeOptions() : array {
 		$options_classes = [
 			'\Pressbooks\Modules\ThemeOptions\GlobalOptions',
 			'\Pressbooks\Modules\ThemeOptions\WebOptions',
@@ -240,8 +240,11 @@ class Book {
 		$theme_options = [];
 		foreach ( $options_classes as $option_class ) {
 			$slug = call_user_func( $option_class . '::getSlug' );
-			$theme_options[ $slug ] =
-				( new $option_class( get_option( 'pressbooks_theme_options_' . $slug ) ) )->options;
+			$options = get_option( 'pressbooks_theme_options_' . $slug );
+			if ( $options ) {
+				$theme_options[ $slug ] =
+					( new $option_class( $options ) )->options;
+			}
 		}
 		return $theme_options;
 	}
