@@ -39,6 +39,9 @@ function init_book() {
 	// Register Book Metadata
 	( new Endpoints\Controller\Metadata() )->register_routes();
 
+	// Register Book Styles
+	( new Endpoints\Controller\Styles() )->register_routes();
+
 	// Register Section Metadata
 	( new Endpoints\Controller\SectionMetadata( 'front-matter' ) )->register_routes();
 	( new Endpoints\Controller\SectionMetadata( 'back-matter' ) )->register_routes();

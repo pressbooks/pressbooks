@@ -91,7 +91,7 @@ class Book {
 	 *
 	 * @return array
 	 */
-	static function getBookInformation( $id = null, $contributors_as_string = true, $read_contributors_from_cache = true, $include_theme_info = false ) {
+	static function getBookInformation( $id = null, $contributors_as_string = true, $read_contributors_from_cache = true ) {
 
 		if ( ! empty( $id ) && is_int( $id ) ) {
 			$blog_id = $id;
