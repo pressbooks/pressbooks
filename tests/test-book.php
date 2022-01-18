@@ -525,4 +525,45 @@ class BookTest extends \WP_UnitTestCase {
 		$blog_bisac_codes_updated = explode( ', ', $book_information_array_updated['pb_bisac_subject'] );
 		$this->assertEquals( $bisac_codes, $blog_bisac_codes_updated );
 	}
+
+	/**
+	 * @group book
+	 */
+	public function test_getBookInstitutions() {
+		$book = \Pressbooks\Book::getInstance();
+		$this->_book();
+		$post = ( new \Pressbooks\Metadata() )->getMetaPost();
+
+		$info = $book::getBookInformation();
+		$this->assertArrayNotHasKey( 'pb_institutions', $info );
+
+		add_post_meta( $post->ID, 'pb_institutions', 'Institution One' );
+		add_post_meta( $post->ID, 'pb_institutions', 'Institution Two' );
+
+		$book::deleteBookObjectCache();
+
+		$info = $book::getBookInformation();
+
+		$this->assertArrayHasKey( 'pb_institutions', $info );
+		$this->assertIsArray( $info['pb_institutions'] );
+		$this->assertArraySubset( [ 'Institution One', 'Institution Two' ], $info['pb_institutions'] );
+
+		delete_post_meta( $post->ID, 'pb_institutions', 'Institution Two' );
+
+		$book::deleteBookObjectCache();
+
+		$info = $book::getBookInformation();
+
+		$this->assertArrayHasKey( 'pb_institutions', $info );
+		$this->assertIsArray( $info['pb_institutions'] );
+		$this->assertArraySubset( [ 'Institution One' ], $info['pb_institutions'] );
+
+		delete_post_meta( $post->ID, 'pb_institutions' );
+
+		$book::deleteBookObjectCache();
+
+		$info = $book::getBookInformation();
+
+		$this->assertArrayNotHasKey( 'pb_institutions', $info );
+	}
 }

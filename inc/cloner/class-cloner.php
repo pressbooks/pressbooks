@@ -733,7 +733,7 @@ class Cloner {
 	 *
 	 * @return bool|\Pressbooks\Entities\Cloner\Media[] False if the operation failed; known images assoc array if succeeded.
 	 */
-	public function buildListOfKnownMedia( $url ) {
+	public function buildListOfKnownMedia( string $url ) {
 		// Handle request (local or global)
 		$params = [
 			'per_page' => 100,
@@ -753,7 +753,7 @@ class Cloner {
 		$known_media = [];
 		foreach ( $response as $item ) {
 			$m = $this->createMediaEntity( $item );
-			if ( $item['media_type'] === 'image' ) {
+			if ( $item['media_type'] === 'image' && $item['mime_type'] !== 'image/svg+xml' ) {
 				foreach ( $item['media_details']['sizes'] as $size => $info ) {
 					$attached_file = image_strip_baseurl( $info['source_url'] ); // 2017/08/foo-bar-300x225.png
 					$known_media[ $attached_file ] = $m;
@@ -1322,7 +1322,7 @@ class Cloner {
 
 		// Everything else
 		$book_information['pb_is_based_on'] = $this->sourceBookUrl;
-		$metadata_array_values = [ 'pb_keywords_tags', 'pb_bisac_subject', 'pb_additional_subjects' ];
+		$metadata_array_values = [ 'pb_keywords_tags', 'pb_bisac_subject', 'pb_additional_subjects', 'pb_institutions' ];
 		$authors_slug = [];
 		foreach ( $book_information as $key => $value ) {
 			if ( $this->contributors->isValid( $key ) ) {
@@ -1337,7 +1337,7 @@ class Cloner {
 					}
 				}
 			} elseif ( in_array( $key, $metadata_array_values, true ) ) {
-				$values = explode( ', ', $value );
+				$values = is_array( $value ) ? $value : explode( ', ', $value );
 				foreach ( $values as $v ) {
 					add_post_meta( $metadata_post_id, $key, $v );
 				}
