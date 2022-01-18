@@ -733,7 +733,7 @@ class Cloner {
 	 *
 	 * @return bool|\Pressbooks\Entities\Cloner\Media[] False if the operation failed; known images assoc array if succeeded.
 	 */
-	public function buildListOfKnownMedia( $url ) {
+	public function buildListOfKnownMedia( string $url ) {
 		// Handle request (local or global)
 		$params = [
 			'per_page' => 100,
@@ -753,7 +753,7 @@ class Cloner {
 		$known_media = [];
 		foreach ( $response as $item ) {
 			$m = $this->createMediaEntity( $item );
-			if ( $item['media_type'] === 'image' ) {
+			if ( $item['media_type'] === 'image' && $item['mime_type'] !== 'image/svg+xml' ) {
 				foreach ( $item['media_details']['sizes'] as $size => $info ) {
 					$attached_file = image_strip_baseurl( $info['source_url'] ); // 2017/08/foo-bar-300x225.png
 					$known_media[ $attached_file ] = $m;
