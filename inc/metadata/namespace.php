@@ -1220,6 +1220,35 @@ function check_thema_lang_file( $post ) {
 }
 
 /**
+ * Transform the institution list to better use in the book info page
+ *
+ * @param array $institutions
+ *
+ * @return array
+ */
+function transform_institutions( array $institutions ): array {
+	return array_reduce( $institutions, static function( $carry, $institution ) {
+		return array_merge( $carry, [ $institution['code'] => $institution['name'] ] );
+	}, [] );
+}
+
+/**
+ * Transform the region list to better use in the book info page
+ *
+ * @param string $country
+ * @param array $regions
+ *
+ * @return array
+ */
+function transform_regions( string $country, array $regions ): array {
+	return array_reduce( $regions, static function( $values, $region ) use ( $country ) {
+		$institutions = [ "${country}/${region['name']}" => transform_institutions( $region['institutions'] ?? [] ) ];
+
+		return array_merge( $values, $institutions );
+	}, [] );
+}
+
+/**
  * Return an array of known institutions
  *
  * @return array
@@ -1229,9 +1258,44 @@ function get_institutions(): array {
 		\Pressbooks\Utility\get_contents( PB_PLUGIN_DIR . 'symbionts/institutions/institutions.json' ), true
 	);
 
+	//  return array_reduce(
+	//      $items, static function( $institutions, $country ) {
+	//          $country_name = $country['country'];
+	//          $regions = $country['regions'] ?? [];
+	//
+	//          if ( ! $regions ) {
+	//              return array_merge(
+	//                  $institutions, [ $country_name => transform_institutions( $country['institutions'] ) ]
+	//              );
+	//          }
+	//
+	//          return array_merge(
+	//              $institutions, transform_regions( $country_name, $regions )
+	//          );
+	//      }, []
+	//  );
+
 	return array_reduce(
-		$items, static function ( $institutions, $institution ) {
-			return $institutions + [ $institution['name'] => $institution['name'] ];
+		$items, static function ( $institutions, $country ) {
+			$regions = $country['regions'] ?? [];
+
+			if ( ! $regions ) {
+				return array_merge(
+					$institutions, array_reduce( $country['institutions'], static function( $values, $institution ) {
+						return array_merge( $values, [ $institution['code'] => $institution['name'] ] );
+					}, [] )
+				);
+			}
+
+			return array_merge(
+				$institutions, array_reduce( $country['regions'], static function( $values, $region ) {
+					return array_merge(
+						$values, array_reduce( $region['institutions'], static function( $values, $institution ) {
+							return array_merge( $values, [ $institution['code'] => $institution['name'] ] );
+						}, [] )
+					);
+				}, [] )
+			);
 		}, []
 	);
 }
