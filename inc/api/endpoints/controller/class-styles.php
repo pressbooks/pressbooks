@@ -27,7 +27,7 @@ class Styles extends \WP_REST_Controller {
 	 *
 	 * @return void
 	 */
-	public function register_routes() {
+	public function register_routes(): void {
 		register_rest_route(
 			$this->namespace, '/' . $this->rest_base, [
 				[
@@ -52,7 +52,7 @@ class Styles extends \WP_REST_Controller {
 	 *
 	 * @return array
 	 */
-	public function get_item_schema() {
+	public function get_item_schema() : array {
 		return $this->add_additional_fields_schema( [
 			'$schema' => 'http://json-schema.org/schema#',
 			'title' => 'styles',
@@ -104,7 +104,7 @@ class Styles extends \WP_REST_Controller {
 	 *
 	 * @return bool True if the request has read access
 	 */
-	public function get_item_permissions_check( $request ) {
+	public function get_item_permissions_check( $request ) : bool {
 		return current_user_can( 'edit_posts' ) || get_option( 'blog_public' );
 	}
 
@@ -113,7 +113,7 @@ class Styles extends \WP_REST_Controller {
 	 *
 	 * @return \WP_REST_Response
 	 */
-	public function get_item( $request ) {
+	public function get_item( $request ) : \WP_REST_Response {
 		$response = rest_ensure_response( array_merge(
 			[
 				'@context' => 'http://schema.org',
@@ -128,5 +128,3 @@ class Styles extends \WP_REST_Controller {
 		return $response;
 	}
 }
-
-?>

@@ -169,32 +169,6 @@ class BookTest extends \WP_UnitTestCase {
 	/**
 	 * @group book
 	 */
-	public function test_getBookInformationThemeOptionsAndStyles() {
-		$theme_options = new \Pressbooks\Modules\ThemeOptions\Admin();
-		$book = \Pressbooks\Book::getInstance();
-		$this->_book();
-		$theme_options->loadTabs();
-		$options_classes = [
-			'\Pressbooks\Modules\ThemeOptions\GlobalOptions',
-			'\Pressbooks\Modules\ThemeOptions\WebOptions',
-			'\Pressbooks\Modules\ThemeOptions\PDFOptions',
-			'\Pressbooks\Modules\ThemeOptions\EbookOptions',
-		];
-		$info = $book::getBookInformation( null, true, true, true );
-		$this->assertArrayHasKey( 'pb_styles', $info );
-		$this->assertArrayHasKey( 'pb_theme_options', $info );
-		foreach ( $options_classes as $option_class ) {
-			$slug = call_user_func($option_class .'::getSlug');
-			$options = get_option( 'pressbooks_theme_options_' . $slug );
-			foreach ( $options as $option => $value ) {
-				$this->assertEquals( $value, $info['pb_theme_options'][ $slug ][ $option ] );
-			}
-		}
-	}
-
-	/**
-	 * @group book
-	 */
 	public function test_wordCount() {
 
 		$book = \Pressbooks\Book::getInstance();

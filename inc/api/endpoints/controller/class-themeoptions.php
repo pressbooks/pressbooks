@@ -2,6 +2,8 @@
 
 namespace Pressbooks\Api\Endpoints\Controller;
 
+use Pressbooks\Book;
+
 class ThemeOptions extends \WP_REST_Controller {
 
 	/**
@@ -27,7 +29,7 @@ class ThemeOptions extends \WP_REST_Controller {
 	 *
 	 * @return void
 	 */
-	public function register_routes() {
+	public function register_routes() : void {
 		register_rest_route(
 			$this->namespace, '/' . $this->rest_base, [
 				[
@@ -52,7 +54,7 @@ class ThemeOptions extends \WP_REST_Controller {
 	 *
 	 * @return array
 	 */
-	public function get_item_schema() {
+	public function get_item_schema() : array {
 		return $this->add_additional_fields_schema( [
 			'$schema' => 'http://json-schema.org/schema#',
 			'title' => 'Theme Options',
@@ -77,21 +79,27 @@ class ThemeOptions extends \WP_REST_Controller {
 					'context' => [ 'view' ],
 					'readonly' => true,
 				],
+				'global' => [
+					'type' => 'object',
+					'description' => __( 'The global theme options of the book' ),
+					'context' => [ 'view' ],
+					'readonly' => true,
+				],
 				'web' => [
-					'type' => 'string',
-					'description' => __( 'The styles for the web format of the book' ),
+					'type' => 'object',
+					'description' => __( 'The theme options for web version of the book' ),
 					'context' => [ 'view' ],
 					'readonly' => true,
 				],
-				'epub' => [
-					'type' => 'string',
-					'description' => __( 'The styles for the epub format of the book' ),
+				'pdf' => [
+					'type' => 'object',
+					'description' => __( 'The theme options for pdf version of the book' ),
 					'context' => [ 'view' ],
 					'readonly' => true,
 				],
-				'prince' => [
-					'type' => 'string',
-					'description' => __( 'The styles for the prince format of the book' ),
+				'ebook' => [
+					'type' => 'object',
+					'description' => __( 'The theme options for ebook version of the book' ),
 					'context' => [ 'view' ],
 					'readonly' => true,
 				],
@@ -104,7 +112,7 @@ class ThemeOptions extends \WP_REST_Controller {
 	 *
 	 * @return bool True if the request has read access
 	 */
-	public function get_item_permissions_check( $request ) {
+	public function get_item_permissions_check( $request ) : bool {
 		return current_user_can( 'edit_posts' ) || get_option( 'blog_public' );
 	}
 
@@ -113,13 +121,13 @@ class ThemeOptions extends \WP_REST_Controller {
 	 *
 	 * @return \WP_REST_Response
 	 */
-	public function get_item( $request ) {
+	public function get_item( $request ) : \WP_REST_Response {
 		$response = rest_ensure_response( array_merge(
 			[
 				'@context' => 'http://schema.org',
-				'@type' => 'Book',
+				'@type' => 'ThemeOptions',
 			],
-			\Pressbooks\Styles::getAllPostContent()
+			Book::getThemeOptions()
 		) );
 		$this->linkCollector['self'] = [
 			'href' => rest_url( sprintf( '%s/%s', $this->namespace, $this->rest_base ) ),
@@ -128,5 +136,3 @@ class ThemeOptions extends \WP_REST_Controller {
 		return $response;
 	}
 }
-
-?>

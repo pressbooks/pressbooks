@@ -17,10 +17,6 @@ namespace Pressbooks;
 use Pressbooks\DataCollector\Book as BookDataCollector;
 use Pressbooks\Modules\Export\Export;
 use Pressbooks\Modules\Export\Xhtml\Xhtml11;
-use Pressbooks\Modules\ThemeOptions\EbookOptions;
-use Pressbooks\Modules\ThemeOptions\GlobalOptions;
-use Pressbooks\Modules\ThemeOptions\PDFOptions;
-use Pressbooks\Modules\ThemeOptions\WebOptions;
 
 class Book {
 
@@ -87,7 +83,6 @@ class Book {
 	 * @param int $id The book ID.
 	 * @param bool $contributors_as_string Read contributors list as a string.
 	 * @param bool $read_contributors_from_cache Read contributors from cache, if book information is stored in wp cache.
-	 * @param bool $include_theme_info Include Theme & Styles information
 	 *
 	 * @return array
 	 */
@@ -240,7 +235,7 @@ class Book {
 		];
 		$theme_options = [];
 		foreach ( $options_classes as $option_class ) {
-			$slug = call_user_func($option_class .'::getSlug');
+			$slug = call_user_func( $option_class . '::getSlug' );
 			$theme_options[ $slug ] =
 				( new $option_class( get_option( 'pressbooks_theme_options_' . $slug ) ) )->options;
 		}

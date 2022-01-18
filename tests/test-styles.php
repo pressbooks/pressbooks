@@ -54,9 +54,9 @@ class StylesTest extends \WP_UnitTestCase {
 	public function test_get_all_custom_style_saved() {
 		$this->cs->registerPosts();
 		$this->cs->initPosts();
+		$custom_styles = ".custom-class { margin: auto; }";
 		foreach ( [ 'web', 'epub', 'prince' ] as $slug ) {
 			$post = $this->cs->getPost( $slug );
-			$custom_styles = ".custom-class { margin: auto; }";
 			$post_params = [
 				'ID' => $post->ID,
 				'post_content' => $custom_styles,
