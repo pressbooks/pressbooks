@@ -82,7 +82,7 @@ class Book {
 	 *
 	 * @param int $id The book ID.
 	 * @param bool $contributors_as_string Read contributors list as a string.
-	 * @param int $read_contributors_from_cache Read contributors from cache, if book information is stored in wp cache.
+	 * @param bool $read_contributors_from_cache Read contributors from cache, if book information is stored in wp cache.
 	 *
 	 * @return array
 	 */
@@ -223,6 +223,28 @@ class Book {
 		}
 
 		return $book_information;
+	}
+
+	/**
+	 * Get global, web, pdf and ebook theme options
+	 *
+	 * @return array
+	 */
+	public static function getThemeOptions() : array {
+		$options_classes = [
+			'\Pressbooks\Modules\ThemeOptions\GlobalOptions',
+			'\Pressbooks\Modules\ThemeOptions\WebOptions',
+			'\Pressbooks\Modules\ThemeOptions\PDFOptions',
+			'\Pressbooks\Modules\ThemeOptions\EbookOptions',
+		];
+
+		return array_reduce( $options_classes, static function( $theme_options, $option_class ) {
+			$slug = call_user_func( $option_class . '::getSlug' );
+			$options = get_option( 'pressbooks_theme_options_' . $slug );
+			return $options ?
+				array_merge( $theme_options, [ $slug => ( new $option_class( $options ) )->options ] ) :
+				$theme_options;
+		}, [] );
 	}
 
 	/**

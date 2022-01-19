@@ -38,6 +38,40 @@ class StylesTest extends \WP_UnitTestCase {
 	/**
 	 * @group styles
 	 */
+	public function test_get_all_custom_posts() {
+		$this->cs->registerPosts();
+		$this->cs->initPosts();
+		$all_styles_posts = \Pressbooks\Styles::getAllPostContent();
+		$this->assertNotEmpty( $all_styles_posts );
+		$this->assertArrayHasKey( 'epub', $all_styles_posts );
+		$this->assertArrayHasKey( 'web', $all_styles_posts );
+		$this->assertArrayHasKey( 'prince', $all_styles_posts );
+	}
+
+	/**
+	 * @group styles
+	 */
+	public function test_get_all_custom_style_saved() {
+		$this->cs->registerPosts();
+		$this->cs->initPosts();
+		$custom_styles = ".custom-class { margin: auto; }";
+		foreach ( [ 'web', 'epub', 'prince' ] as $slug ) {
+			$post = $this->cs->getPost( $slug );
+			$post_params = [
+				'ID' => $post->ID,
+				'post_content' => $custom_styles,
+			];
+			wp_update_post( $post_params, true );
+			$all_styles_posts = \Pressbooks\Styles::getAllPostContent();
+			$this->assertArrayHasKey( $slug, $all_styles_posts );
+			$this->assertContains( $custom_styles, $all_styles_posts[ $slug ] );
+		}
+
+	}
+
+	/**
+	 * @group styles
+	 */
 	public function test_basepath() {
 		$v1 = wp_get_theme( 'pressbooks-book' );
 		$this->assertNotEmpty( $this->cs->getDir( $v1, true ) );

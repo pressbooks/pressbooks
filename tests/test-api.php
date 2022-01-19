@@ -1,6 +1,7 @@
 <?php
 
 use Pressbooks\Api\Endpoints\Controller\Posts;
+use Pressbooks\Container;
 
 use function \Pressbooks\Metadata\book_information_to_schema;
 
@@ -52,6 +53,111 @@ class ApiTest extends \WP_UnitTestCase {
 		$this->assertIsInt( $data['metadata']['h5pActivities'] );
 		$this->assertIsBool( $data['metadata']['inCatalog'] );
 		$this->assertIsString( $data['metadata']['license']['code'] );
+	}
+
+	/**
+	 * @group api
+	 */
+	public function test_booksEndpointStylesResponse() {
+		$this->_book();
+		$server = $this->_setupRootApi();
+		$request = new \WP_REST_Request( 'GET', '/pressbooks/v2/styles' );
+		$response = $server->dispatch( $request );
+		$data = $response->get_data();
+		$this->assertArrayHasKey( 'epub', $data );
+		$this->assertArrayHasKey( 'prince', $data );
+		$this->assertArrayHasKey( 'web', $data );
+		$this->assertIsString( $data['epub'] );
+		$this->assertIsString( $data['prince'] );
+		$this->assertIsString( $data['web'] );
+	}
+
+	/**
+	 * @group api
+	 */
+	public function test_BookEndpointStyles() {
+		$this->_book();
+		$styles_container = Container::get( 'Styles' );
+		$styles_container->registerPosts();
+		$styles_container->initPosts();
+		foreach ( [ 'web', 'epub', 'prince' ] as $slug ) {
+			$post = $styles_container->getPost( $slug );
+			$post_params = [
+				'ID' => $post->ID,
+				'post_content' => ".$slug-class { margin: auto; }",
+			];
+			wp_update_post( $post_params, true );
+		}
+		$server = $this->_setupRootApi();
+		$request = new \WP_REST_Request( 'GET', '/pressbooks/v2/styles' );
+		$response = $server->dispatch( $request );
+		$data = $response->get_data();
+		$this->assertEquals( '.epub-class { margin: auto; }', $data['epub'] );
+		$this->assertEquals( '.web-class { margin: auto; }', $data['web'] );
+		$this->assertEquals( '.prince-class { margin: auto; }', $data['prince'] );
+	}
+
+	/**
+	 * @group api
+	 */
+	public function test_booksEndpointThemeResponse() {
+		$this->_book();
+		$options_classes = [
+			'\Pressbooks\Modules\ThemeOptions\GlobalOptions',
+			'\Pressbooks\Modules\ThemeOptions\WebOptions',
+			'\Pressbooks\Modules\ThemeOptions\PDFOptions',
+			'\Pressbooks\Modules\ThemeOptions\EbookOptions',
+		];
+		$slugs = [];
+		foreach ( $options_classes as $option_class ) {
+			$slug = call_user_func( $option_class . '::getSlug' );
+			$slugs[] = $slug;
+			add_option(
+				'pressbooks_theme_options_' . $slug,
+				call_user_func( $option_class . '::getDefaults' )
+			);
+		}
+
+		$server = $this->_setupRootApi();
+		$request = new \WP_REST_Request( 'GET', '/pressbooks/v2/theme' );
+		$response = $server->dispatch( $request );
+		$data = $response->get_data();
+		$this->assertArrayHasKey( 'options', $data );
+		$this->assertArrayHasKey( 'name', $data );
+		$this->assertArrayHasKey( 'version', $data );
+		$this->assertArrayHasKey( 'stylesheet', $data );
+		foreach ( $slugs as $slug ) {
+			$this->assertArrayHasKey( $slug, $data['options'] );
+			$this->assertIsArray( $data['options'][ $slug ] );
+		}
+	}
+
+	/**
+	 * @group api
+	 */
+	public function test_booksEndpointTheme() {
+		$this->_book();
+		$pdf_settings = \Pressbooks\Modules\ThemeOptions\PDFOptions::getDefaults();
+		$pdf_settings['pdf_footnote_font_size'] = '12';
+		add_option( 'pressbooks_theme_options_pdf', $pdf_settings );
+		$global_settings = \Pressbooks\Modules\ThemeOptions\GlobalOptions::getDefaults();
+		$global_settings['chapter_label'] = 'Section';
+		add_option( 'pressbooks_theme_options_global', $global_settings );
+		$ebook_settings = \Pressbooks\Modules\ThemeOptions\EbookOptions::getDefaults();
+		$ebook_settings['ebook_body_font'] = '11';
+		add_option( 'pressbooks_theme_options_ebook', $ebook_settings );
+		$web_settings = \Pressbooks\Modules\ThemeOptions\WebOptions::getDefaults();
+		$web_settings['webbook_width'] = '45em';
+		add_option( 'pressbooks_theme_options_web', $web_settings );
+
+		$server = $this->_setupRootApi();
+		$request = new \WP_REST_Request( 'GET', '/pressbooks/v2/theme' );
+		$response = $server->dispatch( $request );
+		$data = $response->get_data();
+		$this->assertEquals($web_settings['webbook_width'], $data['options']['web']['webbook_width'] );
+		$this->assertEquals($global_settings['chapter_label'], $data['options']['global']['chapter_label'] );
+		$this->assertEquals($pdf_settings['pdf_footnote_font_size'], $data['options']['pdf']['pdf_footnote_font_size'] );
+		$this->assertEquals($ebook_settings['ebook_body_font'], $data['options']['ebook']['ebook_body_font'] );
 	}
 
 	/**
