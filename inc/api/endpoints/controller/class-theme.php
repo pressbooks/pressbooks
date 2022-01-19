@@ -4,7 +4,7 @@ namespace Pressbooks\Api\Endpoints\Controller;
 
 use Pressbooks\Book;
 
-class ThemeOptions extends \WP_REST_Controller {
+class Theme extends \WP_REST_Controller {
 
 	/**
 	 * @var string
@@ -21,7 +21,7 @@ class ThemeOptions extends \WP_REST_Controller {
 	 */
 	public function __construct() {
 		$this->namespace = 'pressbooks/v2';
-		$this->rest_base = 'theme-options';
+		$this->rest_base = 'theme';
 	}
 
 	/**
@@ -57,7 +57,7 @@ class ThemeOptions extends \WP_REST_Controller {
 	public function get_item_schema() : array {
 		return $this->add_additional_fields_schema( [
 			'$schema' => 'http://json-schema.org/schema#',
-			'title' => 'Theme Options',
+			'title' => 'Theme',
 			'type' => 'object',
 			'properties' => [
 				'@context' => [
@@ -73,35 +73,68 @@ class ThemeOptions extends \WP_REST_Controller {
 				'@type' => [
 					'type' => 'string',
 					'enum' => [
-						'ThemeOptions',
+						'Theme',
 					],
-					'description' => __( 'The type of the thing.' ),
+					'description' => __( 'The type of the theme.' ),
 					'context' => [ 'view' ],
 					'readonly' => true,
 				],
-				'global' => [
-					'type' => 'object',
-					'description' => __( 'The global theme options of the book' ),
+				'name' => [
+					'type' => 'string',
+					'description' => __( 'The theme\'s name' ),
 					'context' => [ 'view' ],
 					'readonly' => true,
 				],
-				'web' => [
-					'type' => 'object',
-					'description' => __( 'The theme options for web version of the book' ),
+				'version' => [
+					'type' => 'string',
+					'description' => __( 'The theme\'s version' ),
 					'context' => [ 'view' ],
 					'readonly' => true,
 				],
-				'pdf' => [
-					'type' => 'object',
-					'description' => __( 'The theme options for pdf version of the book' ),
+				'stylesheet' => [
+					'type' => 'string',
+					'description' => __( 'The theme\'s stylesheet' ),
 					'context' => [ 'view' ],
 					'readonly' => true,
 				],
-				'ebook' => [
-					'type' => 'object',
-					'description' => __( 'The theme options for ebook version of the book' ),
-					'context' => [ 'view' ],
-					'readonly' => true,
+				'options' => [
+					'type' => 'array',
+					'description' => __( 'The theme options for the book' ),
+					'items' => [
+						'@type' => [
+							'type' => 'string',
+							'enum' => [
+								'Option',
+							],
+							'description' => __( 'The theme option for the book' ),
+							'context' => [ 'view' ],
+							'readonly' => true,
+						],
+						'global' => [
+							'type' => 'object',
+							'description' => __( 'The global theme options of the book' ),
+							'context' => [ 'view' ],
+							'readonly' => true,
+						],
+						'web' => [
+							'type' => 'object',
+							'description' => __( 'The theme options for web version of the book' ),
+							'context' => [ 'view' ],
+							'readonly' => true,
+						],
+						'pdf' => [
+							'type' => 'object',
+							'description' => __( 'The theme options for pdf version of the book' ),
+							'context' => [ 'view' ],
+							'readonly' => true,
+						],
+						'ebook' => [
+							'type' => 'object',
+							'description' => __( 'The theme options for ebook version of the book' ),
+							'context' => [ 'view' ],
+							'readonly' => true,
+						],
+					],
 				],
 			],
 		] );
@@ -122,13 +155,15 @@ class ThemeOptions extends \WP_REST_Controller {
 	 * @return \WP_REST_Response
 	 */
 	public function get_item( $request ) : \WP_REST_Response {
-		$response = rest_ensure_response( array_merge(
-			[
-				'@context' => 'http://schema.org',
-				'@type' => 'ThemeOptions',
-			],
-			Book::getThemeOptions()
-		) );
+		$theme = wp_get_theme();
+		$response = rest_ensure_response( [
+			'@context' => 'http://schema.org',
+			'@type' => 'Theme',
+			'name' => $theme->get( 'Name' ),
+			'version' => $theme->get( 'Version' ),
+			'stylesheet' => $theme->get_stylesheet(),
+			'options' => Book::getThemeOptions(),
+		] );
 		$this->linkCollector['self'] = [
 			'href' => rest_url( sprintf( '%s/%s', $this->namespace, $this->rest_base ) ),
 		];

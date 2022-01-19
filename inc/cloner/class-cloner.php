@@ -18,6 +18,7 @@ use function Pressbooks\Utility\str_lreplace;
 use function Pressbooks\Utility\str_remove_prefix;
 use function Pressbooks\Utility\str_starts_with;
 use Pressbooks\Admin\Network\SharingAndPrivacyOptions;
+use Pressbooks\Container;
 use Pressbooks\Utility\PercentageYield;
 
 class Cloner {
@@ -80,6 +81,20 @@ class Cloner {
 	 * @var array
 	 */
 	protected $sourceBookMetadata;
+
+	/**
+	 * The styles of the source book
+	 *
+	 * @var array
+	 */
+	protected $sourceStyles;
+
+	/**
+	 * The theme of the source book
+	 *
+	 * @var array
+	 */
+	protected $sourceTheme;
 
 	/**
 	 * The URL of the target book.
@@ -425,8 +440,13 @@ class Cloner {
 		$this->clonePreProcess();
 
 		// Clone Metadata
-		yield 20 => __( 'Cloning metadata', 'pressbooks' );
+		yield 15 => __( 'Cloning metadata', 'pressbooks' );
 		$this->clonedItems['metadata'][] = $this->cloneMetadata();
+
+		yield 20 => __( 'Cloning Styles and Theme Options', 'pressbooks' );
+		$this->clonedItems['styles'] = $this->cloneStyles();
+
+		$this->clonedItems['theme'] = $this->cloneTheme();
 
 		// Clone Taxonomy Terms
 		$y = new PercentageYield( 30, 40, count( $this->sourceBookTerms ) );
@@ -577,6 +597,12 @@ class Cloner {
 
 		// Set up $this->sourceBookGlossary
 		$this->sourceBookGlossary = $this->getBookGlossary( $this->sourceBookUrl );
+
+		// Styles
+		$this->sourceStyles = $this->getBookStyles( $this->sourceBookUrl );
+
+		// Theme options
+		$this->sourceTheme = $this->getBookTheme( $this->sourceBookUrl );
 
 		$this->maybeRestoreCurrentBlog();
 		return true;
@@ -799,6 +825,36 @@ class Cloner {
 		$transition->oldId = $old_id;
 		$transition->newId = $new_id;
 		$this->transitions[] = $transition;
+	}
+
+	/**
+	 * Fetch an array containing the styles of a book.
+	 *
+	 * @param string $url
+	 * @return array
+	 */
+	public function getBookStyles( string $url ) : array {
+		$response = $this->handleGetRequest( $url, 'pressbooks/v2', 'styles' );
+		if ( is_wp_error( $response ) ) {
+			// Keep compatibility
+			return [];
+		}
+		return $response;
+	}
+
+	/**
+	 * Fetch an array containing the theme and its options of a book.
+	 *
+	 * @param string $url
+	 * @return array
+	 */
+	public function getBookTheme( string $url ) : array {
+		$response = $this->handleGetRequest( $url, 'pressbooks/v2', 'theme' );
+		if ( is_wp_error( $response ) ) {
+			// Keep compatibility
+			return [];
+		}
+		return $response;
 	}
 
 	/**
@@ -1286,6 +1342,60 @@ class Cloner {
 		}
 
 		return $result;
+	}
+
+	/**
+	 * Clone theme and its options to the target book.
+	 *
+	 * @return bool
+	 */
+	public function cloneTheme() : bool {
+		if ( empty( $this->sourceTheme )  ) {
+			return false;
+		}
+		$theme = wp_get_theme( $this->sourceTheme['stylesheet'] );
+		if ( ! $theme->exists() || $theme->get( 'Version' ) !== $this->sourceTheme['version'] ) {
+			return false;
+		}
+		switch_theme( $this->sourceTheme['stylesheet'] );
+
+		$clonable_options_classes = [
+			'\Pressbooks\Modules\ThemeOptions\GlobalOptions',
+			'\Pressbooks\Modules\ThemeOptions\WebOptions',
+			'\Pressbooks\Modules\ThemeOptions\PDFOptions',
+			'\Pressbooks\Modules\ThemeOptions\EbookOptions',
+		];
+		foreach ( $clonable_options_classes as $option_class ) {
+			$slug = call_user_func( $option_class . '::getSlug' );
+			if ( isset( $this->sourceTheme['options'][ $slug ] ) ) {
+				update_option( 'pressbooks_theme_options_' . $slug, $this->sourceTheme['options'][ $slug ] );
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * Clone book styles to the target book.
+	 *
+	 * @return bool
+	 */
+	public function cloneStyles() : bool {
+		$styles_container = Container::get( 'Styles' );
+		$styles_container->registerPosts();
+		$styles_container->initPosts();
+		foreach ( $styles_container->getSupported() as $slug => $style_type ) {
+			if ( isset( $this->sourceStyles[ $slug ] ) ) {
+				$post = $styles_container->getPost( $slug );
+				$post_params = [
+					'ID' => $post->ID,
+					'post_content' => $this->sourceStyles[ $slug ],
+				];
+				if ( is_wp_error( wp_update_post( $post_params, true ) ) ) {
+					return false;
+				}
+			}
+		}
+		return true;
 	}
 
 	/**
