@@ -248,13 +248,11 @@ class Styles {
 		];
 		$q = new \WP_Query();
 		$results = $q->query( $args );
-		$styles = [];
-		if ( ! empty( $results ) ) {
-			foreach ( $results as $post ) {
-				$styles[ $post->post_name ] = $post->post_content;
-			}
-		}
-		return $styles;
+		return ! empty( $results ) ?
+			array_reduce( $results, static function( $styles, $style ) {
+				return $styles + [ $style->post_name => $style->post_content ];
+			}, [] ) : [];
+
 	}
 
 	/**

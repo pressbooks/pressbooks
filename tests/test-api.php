@@ -100,7 +100,7 @@ class ApiTest extends \WP_UnitTestCase {
 	/**
 	 * @group api
 	 */
-	public function test_booksEndpointThemeOptionsResponse() {
+	public function test_booksEndpointThemeResponse() {
 		$this->_book();
 		$options_classes = [
 			'\Pressbooks\Modules\ThemeOptions\GlobalOptions',
@@ -119,19 +119,23 @@ class ApiTest extends \WP_UnitTestCase {
 		}
 
 		$server = $this->_setupRootApi();
-		$request = new \WP_REST_Request( 'GET', '/pressbooks/v2/theme-options' );
+		$request = new \WP_REST_Request( 'GET', '/pressbooks/v2/theme' );
 		$response = $server->dispatch( $request );
 		$data = $response->get_data();
+		$this->assertArrayHasKey( 'options', $data );
+		$this->assertArrayHasKey( 'name', $data );
+		$this->assertArrayHasKey( 'version', $data );
+		$this->assertArrayHasKey( 'stylesheet', $data );
 		foreach ( $slugs as $slug ) {
-			$this->assertArrayHasKey( $slug, $data );
-			$this->assertIsArray( $data[ $slug ] );
+			$this->assertArrayHasKey( $slug, $data['options'] );
+			$this->assertIsArray( $data['options'][ $slug ] );
 		}
 	}
 
 	/**
 	 * @group api
 	 */
-	public function test_booksEndpointThemeOptions() {
+	public function test_booksEndpointTheme() {
 		$this->_book();
 		$pdf_settings = \Pressbooks\Modules\ThemeOptions\PDFOptions::getDefaults();
 		$pdf_settings['pdf_footnote_font_size'] = '12';
@@ -147,13 +151,13 @@ class ApiTest extends \WP_UnitTestCase {
 		add_option( 'pressbooks_theme_options_web', $web_settings );
 
 		$server = $this->_setupRootApi();
-		$request = new \WP_REST_Request( 'GET', '/pressbooks/v2/theme-options' );
+		$request = new \WP_REST_Request( 'GET', '/pressbooks/v2/theme' );
 		$response = $server->dispatch( $request );
 		$data = $response->get_data();
-		$this->assertEquals($web_settings['webbook_width'], $data['web']['webbook_width'] );
-		$this->assertEquals($global_settings['chapter_label'], $data['global']['chapter_label'] );
-		$this->assertEquals($pdf_settings['pdf_footnote_font_size'], $data['pdf']['pdf_footnote_font_size'] );
-		$this->assertEquals($ebook_settings['ebook_body_font'], $data['ebook']['ebook_body_font'] );
+		$this->assertEquals($web_settings['webbook_width'], $data['options']['web']['webbook_width'] );
+		$this->assertEquals($global_settings['chapter_label'], $data['options']['global']['chapter_label'] );
+		$this->assertEquals($pdf_settings['pdf_footnote_font_size'], $data['options']['pdf']['pdf_footnote_font_size'] );
+		$this->assertEquals($ebook_settings['ebook_body_font'], $data['options']['ebook']['ebook_body_font'] );
 	}
 
 	/**
