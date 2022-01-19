@@ -237,16 +237,14 @@ class Book {
 			'\Pressbooks\Modules\ThemeOptions\PDFOptions',
 			'\Pressbooks\Modules\ThemeOptions\EbookOptions',
 		];
-		$theme_options = [];
-		foreach ( $options_classes as $option_class ) {
+
+		return array_reduce( $options_classes, static function( $theme_options, $option_class ) {
 			$slug = call_user_func( $option_class . '::getSlug' );
 			$options = get_option( 'pressbooks_theme_options_' . $slug );
-			if ( $options ) {
-				$theme_options[ $slug ] =
-					( new $option_class( $options ) )->options;
-			}
-		}
-		return $theme_options;
+			return $options ?
+				array_merge( $theme_options, [ $slug => ( new $option_class( $options ) )->options ] ) :
+				$theme_options;
+		}, [] );
 	}
 
 	/**
