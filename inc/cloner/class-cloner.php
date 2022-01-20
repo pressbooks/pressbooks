@@ -511,6 +511,7 @@ class Cloner {
 
 		// Switch theme and clone custom styles
 		$this->clonedItems['theme'] = $this->switchTheme();
+		$this->cloneThemeOptions();
 		$this->clonedItems['styles'] = $this->cloneStyles();
 
 		// Clone Glossary
@@ -847,15 +848,11 @@ class Cloner {
 	 */
 	public function getBookStyles( string $url ) : array {
 		$response = $this->handleGetRequest( $url, 'pressbooks/v2', 'styles' );
-		if ( is_wp_error( $response ) ) {
-			// Keep compatibility
-			return [];
-		}
-		return $response;
+		return is_wp_error( $response ) ? [] : $response;
 	}
 
 	/**
-	 * Fetch an array containing the theme and its options of a book.
+	 * Fetch an array containing the theme information of a book.
 	 *
 	 * @param string $url
 	 * @return array
@@ -1353,7 +1350,7 @@ class Cloner {
 	}
 
 	/**
-	 * Switch theme and clone its options to the target book only the theme with same version matches.
+	 * Switch to target book theme only the theme is available and the version matches.
 	 *
 	 * @return bool
 	 */
@@ -1366,7 +1363,6 @@ class Cloner {
 			return false;
 		}
 		switch_theme( $this->sourceTheme['stylesheet'] );
-		$this->cloneThemeOptions();
 		return true;
 	}
 
