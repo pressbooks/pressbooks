@@ -1241,10 +1241,15 @@ function transform_institutions( array $institutions ): array {
  * @return array
  */
 function transform_regions( string $country, array $regions ): array {
-	return array_reduce( $regions, static function( $values, $region ) use ( $country ) {
-		$institutions = [ "${country}/${region['name']}" => transform_institutions( $region['institutions'] ?? [] ) ];
-
-		return array_merge( $values, $institutions );
+	//	return array_reduce( $regions, static function( $values, $region ) use ( $country ) {
+	//		$institutions = [ "${country}/${region['name']}" => transform_institutions( $region['institutions'] ?? [] ) ];
+	//
+	//		return array_merge( $values, $institutions );
+	//	}, [] );
+	return array_reduce( $regions, static function( $values, $region ) {
+		return array_merge(
+			$values, transform_institutions( $region['institutions'] )
+		);
 	}, [] );
 }
 
@@ -1281,20 +1286,12 @@ function get_institutions(): array {
 
 			if ( ! $regions ) {
 				return array_merge(
-					$institutions, array_reduce( $country['institutions'], static function( $values, $institution ) {
-						return array_merge( $values, [ $institution['code'] => $institution['name'] ] );
-					}, [] )
+					$institutions, transform_institutions( $country['institutions'] )
 				);
 			}
 
 			return array_merge(
-				$institutions, array_reduce( $country['regions'], static function( $values, $region ) {
-					return array_merge(
-						$values, array_reduce( $region['institutions'], static function( $values, $institution ) {
-							return array_merge( $values, [ $institution['code'] => $institution['name'] ] );
-						}, [] )
-					);
-				}, [] )
+				$institutions, transform_regions( $country['country'], $regions )
 			);
 		}, []
 	);
