@@ -297,11 +297,12 @@ function book_information_to_schema( array $book_information, bool $network_excl
 
 	if ( isset( $book_information['pb_institutions'] ) ) {
 		$book_schema['institutions'] = array_reduce(
-			$book_information['pb_institutions'], static function( $carry, $item ) {
+			$book_information['pb_institutions'], static function( $carry, $code ) {
 				return array_merge( $carry, [
 					[
 						'@type' => 'Institution',
-						'name' => $item,
+                        'code' => $code,
+						'name' => \Pressbooks\Metadata\get_institution_by_code( $code ),
 					],
 				] );
 			}, []
@@ -510,7 +511,7 @@ function schema_to_book_information( array $book_schema ): array {
 	if ( isset( $book_schema['institutions'] ) ) {
 		$book_information['pb_institutions'] = array_reduce(
 			$book_schema['institutions'], static function( $carry, $item ) {
-				return array_merge( $carry, [ $item['name'] ] );
+				return array_merge( $carry, [ $item['code'] ] );
 			}, []
 		);
 	}

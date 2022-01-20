@@ -118,8 +118,8 @@ class MetadataTest extends \WP_UnitTestCase {
 		add_post_meta( $meta_post_id, 'pb_book_doi', 'my_doi' );
 		add_post_meta( $meta_post_id, 'pb_authors', 'herman-melville' );
 		add_post_meta( $meta_post_id, 'pb_editors', 'pat-metheny' );
-		add_post_meta( $meta_post_id, 'pb_institutions', 'Some random university' );
-		add_post_meta( $meta_post_id, 'pb_institutions', 'Another random university' );
+		add_post_meta( $meta_post_id, 'pb_institutions', 'CA-ON-001' );
+		add_post_meta( $meta_post_id, 'pb_institutions', 'CA-ON-002' );
 
 		$book_information = \Pressbooks\Book::getBookInformation();
 
@@ -137,8 +137,8 @@ class MetadataTest extends \WP_UnitTestCase {
 					['name' => 'Pat Metheny']
 				],
 				'institutions' => [
-					['name' => 'Some random university'],
-					['name' => 'Another random university'],
+					['name' => 'Algoma University'],
+					['name' => 'Algonquin College'],
 				]
 			],
 			$result
@@ -164,11 +164,13 @@ class MetadataTest extends \WP_UnitTestCase {
 			'institutions' => [
 				[
 					'@type' => 'Institution',
-					'name' => 'Some random university',
+					'code' => 'CA-ON-001',
+					'name' => 'Algoma University',
 				],
 				[
 					'@type' => 'Institution',
-					'name' => 'Another random university',
+					'code' => 'CA-ON-002',
+					'name' => 'Algonquin College',
 				],
 			]
 		];
@@ -178,7 +180,7 @@ class MetadataTest extends \WP_UnitTestCase {
 		$this->assertEquals( $result['pb_authors'][0]['name'], 'Pat Metheny' );
 		$this->assertEquals( $result['pb_book_license'], 'public-domain' );
 		$this->assertEquals( $result['pb_book_doi'], 'my_doi' );
-		$this->assertArraySubset( ['Some random university', 'Another random university'], $result['pb_institutions'] );
+		$this->assertArraySubset( ['CA-ON-001', 'CA-ON-002'], $result['pb_institutions'] );
 
 		$schema = [
 			'@context' => 'http://schema.org',
