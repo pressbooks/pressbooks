@@ -12,7 +12,7 @@ class Styles extends \WP_REST_Controller {
 	/**
 	 * @var
 	 */
-	protected $rent_base;
+	protected $rest_base;
 
 	/**
 	 * Metadata

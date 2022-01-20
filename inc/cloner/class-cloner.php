@@ -23,6 +23,8 @@ use Pressbooks\Utility\PercentageYield;
 
 class Cloner {
 
+	const THEME_OPTIONS_CLONED_OPTION = 'pressbooks_theme_options_cloned';
+
 	/**
 	 * @var bool
 	 */
@@ -259,6 +261,13 @@ class Cloner {
 	private $contributorsInserted = [];
 
 	/**
+	 * Map of chapters, front matters, back matters and parts IDs
+	 *
+	 * @var array
+	 */
+	private $idPostsMap = [];
+
+	/**
 	 * Constructor.
 	 *
 	 * @since 4.1.0
@@ -440,13 +449,8 @@ class Cloner {
 		$this->clonePreProcess();
 
 		// Clone Metadata
-		yield 15 => __( 'Cloning metadata', 'pressbooks' );
+		yield 20 => __( 'Cloning metadata', 'pressbooks' );
 		$this->clonedItems['metadata'][] = $this->cloneMetadata();
-
-		yield 20 => __( 'Cloning Styles and Theme Options', 'pressbooks' );
-		$this->clonedItems['styles'] = $this->cloneStyles();
-
-		$this->clonedItems['theme'] = $this->cloneTheme();
 
 		// Clone Taxonomy Terms
 		$y = new PercentageYield( 30, 40, count( $this->sourceBookTerms ) );
@@ -467,6 +471,7 @@ class Cloner {
 			$new_frontmatter = $this->cloneFrontMatter( $frontmatter['id'] );
 			if ( $new_frontmatter !== false ) {
 				$this->clonedItems['front-matter'][] = $new_frontmatter;
+				$this->idPostsMap[ $frontmatter['id'] ] = $new_frontmatter;
 			}
 		}
 
@@ -480,12 +485,14 @@ class Cloner {
 			yield from $y->tick( __( 'Cloning parts and chapters', 'pressbooks' ) );
 			$new_part = $this->clonePart( $part['id'] );
 			if ( $new_part !== false ) {
+				$this->idPostsMap[ $part['id'] ] = $new_part;
 				$this->clonedItems['parts'][] = $new_part;
 				foreach ( $this->sourceBookStructure['parts'][ $key ]['chapters'] as $chapter ) {
 					yield from $y->tick( __( 'Cloning parts and chapters', 'pressbooks' ) );
 					$new_chapter = $this->cloneChapter( $chapter['id'], $new_part );
 					if ( $new_chapter !== false ) {
 						$this->clonedItems['chapters'][] = $new_chapter;
+						$this->idPostsMap[ $chapter['id'] ] = $new_chapter;
 					}
 				}
 			}
@@ -498,8 +505,13 @@ class Cloner {
 			$new_backmatter = $this->cloneBackMatter( $backmatter['id'] );
 			if ( $new_backmatter !== false ) {
 				$this->clonedItems['back-matter'][] = $new_backmatter;
+				$this->idPostsMap[ $backmatter['id'] ] = $new_backmatter;
 			}
 		}
+
+		// Switch theme and clone custom styles
+		$this->clonedItems['theme'] = $this->switchTheme();
+		$this->clonedItems['styles'] = $this->cloneStyles();
 
 		// Clone Glossary
 		$y = new PercentageYield( 90, 100, count( $this->sourceBookGlossary ) );
@@ -850,11 +862,7 @@ class Cloner {
 	 */
 	public function getBookTheme( string $url ) : array {
 		$response = $this->handleGetRequest( $url, 'pressbooks/v2', 'theme' );
-		if ( is_wp_error( $response ) ) {
-			// Keep compatibility
-			return [];
-		}
-		return $response;
+		return is_wp_error( $response ) ? [] : $response;
 	}
 
 	/**
@@ -1345,12 +1353,12 @@ class Cloner {
 	}
 
 	/**
-	 * Clone theme and its options to the target book.
+	 * Switch theme and clone its options to the target book only the theme with same version matches.
 	 *
 	 * @return bool
 	 */
-	public function cloneTheme() : bool {
-		if ( empty( $this->sourceTheme )  ) {
+	public function switchTheme() : bool {
+		if ( empty( $this->sourceTheme ) ) {
 			return false;
 		}
 		$theme = wp_get_theme( $this->sourceTheme['stylesheet'] );
@@ -1358,28 +1366,58 @@ class Cloner {
 			return false;
 		}
 		switch_theme( $this->sourceTheme['stylesheet'] );
+		$this->cloneThemeOptions();
+		return true;
+	}
 
+	/**
+	 * Clone Theme Options to the targe book.
+	 *
+	 * @return void
+	 */
+	public function cloneThemeOptions() : void {
 		$clonable_options_classes = [
 			'\Pressbooks\Modules\ThemeOptions\GlobalOptions',
 			'\Pressbooks\Modules\ThemeOptions\WebOptions',
 			'\Pressbooks\Modules\ThemeOptions\PDFOptions',
 			'\Pressbooks\Modules\ThemeOptions\EbookOptions',
 		];
+
+		if (
+			isset( $this->sourceTheme['options']['ebook']['ebook_start_point'] ) &&
+			isset( $this->idPostsMap[ $this->sourceTheme['options']['ebook']['ebook_start_point'] ] )
+		) {
+			$this->sourceTheme['options']['ebook']['ebook_start_point'] =
+				$this->idPostsMap[ $this->sourceTheme['options']['ebook']['ebook_start_point'] ];
+		}
+
 		foreach ( $clonable_options_classes as $option_class ) {
 			$slug = call_user_func( $option_class . '::getSlug' );
 			if ( isset( $this->sourceTheme['options'][ $slug ] ) ) {
 				update_option( 'pressbooks_theme_options_' . $slug, $this->sourceTheme['options'][ $slug ] );
 			}
 		}
-		return true;
+		add_option( self::THEME_OPTIONS_CLONED_OPTION, 1 );
 	}
 
 	/**
-	 * Clone book styles to the target book.
+	 * Get source theme
+	 *
+	 * @return array
+	 */
+	public function getSourceTheme() : array {
+		return $this->sourceTheme;
+	}
+
+	/**
+	 * Clone book styles to the target book only if the theme and theme options were cloned.
 	 *
 	 * @return bool
 	 */
 	public function cloneStyles() : bool {
+		if ( empty( $this->sourceStyles ) || ! $this->clonedItems['theme'] ) {
+			return false;
+		}
 		$styles_container = Container::get( 'Styles' );
 		$styles_container->registerPosts();
 		$styles_container->initPosts();
@@ -1390,9 +1428,7 @@ class Cloner {
 					'ID' => $post->ID,
 					'post_content' => $this->sourceStyles[ $slug ],
 				];
-				if ( is_wp_error( wp_update_post( $post_params, true ) ) ) {
-					return false;
-				}
+				wp_update_post( $post_params, true );
 			}
 		}
 		return true;
