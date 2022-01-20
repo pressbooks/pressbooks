@@ -665,5 +665,28 @@ class MetadataTest extends \WP_UnitTestCase {
 		$this->assertContains( 'pb_contributors', $wp_scripts->queue );
 	}
 
+	/**
+	 * group metadata
+	 */
+	public function test_get_institutions(): void {
+		$institutions = \Pressbooks\Metadata\get_institutions();
+
+		$this->assertArraySubset( [
+			'CA-ON-001' => 'Algoma University',
+			'CA-ON-002' => 'Algonquin College',
+			// ...
+			'CA-ON-049' => 'Wilfrid Laurier University',
+			'CA-ON-050' => 'York University',
+		], $institutions );
+	}
+
+	/**
+	 * @group metadata
+	 */
+	public function test_get_institution_by_code(): void {
+		$this->assertEquals( 'Algoma University', \Pressbooks\Metadata\get_institution_by_code( 'CA-ON-001' ) );
+		$this->assertEquals( 'York University', \Pressbooks\Metadata\get_institution_by_code( 'CA-ON-050' ) );
+		$this->assertNull( \Pressbooks\Metadata\get_institution_by_code( 'NOT-VALID-CODE' ) );
+	}
 }
 

@@ -1259,8 +1259,10 @@ function transform_regions( string $country, array $regions ): array {
  * @return array
  */
 function get_institutions(): array {
+    $filepath = PB_PLUGIN_DIR . 'symbionts/institutions/institutions.json';
+
 	$items = json_decode(
-		\Pressbooks\Utility\get_contents( PB_PLUGIN_DIR . 'symbionts/institutions/institutions.json' ), true
+		\Pressbooks\Utility\get_contents( $filepath ), true
 	);
 
 	//  return array_reduce(
@@ -1295,4 +1297,17 @@ function get_institutions(): array {
 			);
 		}, []
 	);
+}
+
+/**
+ * Retrieve the institution name from an institution code.
+ *
+ * @param string $code The institution code.
+ *
+ * @return string|null The institution name.
+ */
+function get_institution_by_code( string $code ): ?string {
+    $institutions = get_institutions();
+
+    return $institutions[ $code ] ?? null;
 }
