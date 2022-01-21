@@ -301,7 +301,7 @@ function book_information_to_schema( array $book_information, bool $network_excl
 				return array_merge( $carry, [
 					[
 						'@type' => 'Institution',
-                        'code' => $code,
+						'code' => $code,
 						'name' => \Pressbooks\Metadata\get_institution_by_code( $code ),
 					],
 				] );
@@ -1260,7 +1260,7 @@ function transform_regions( string $country, array $regions ): array {
  * @return array
  */
 function get_institutions(): array {
-    $filepath = PB_PLUGIN_DIR . 'symbionts/institutions/institutions.json';
+	$filepath = PB_PLUGIN_DIR . 'symbionts/institutions/institutions.json';
 
 	$items = json_decode(
 		\Pressbooks\Utility\get_contents( $filepath ), true
@@ -1308,7 +1308,7 @@ function get_institutions(): array {
  * @return string|null The institution name.
  */
 function get_institution_by_code( string $code ): ?string {
-    $institutions = get_institutions();
+	$institutions = get_institutions();
 
-    return $institutions[ $code ] ?? null;
+	return $institutions[ $code ] ?? null;
 }
