@@ -510,9 +510,12 @@ class Cloner {
 		}
 
 		// Switch theme and clone custom styles
-		$this->clonedItems['theme'] = $this->switchTheme();
-		$this->cloneThemeOptions();
-		$this->clonedItems['styles'] = $this->cloneStyles();
+		$this->clonedItems['theme'] = false;
+		if ( $this->switchTheme() ) {
+			$this->clonedItems['theme'] = true;
+			$this->cloneThemeOptions();
+			$this->clonedItems['styles'] = $this->cloneStyles();
+		}
 
 		// Clone Glossary
 		$y = new PercentageYield( 90, 100, count( $this->sourceBookGlossary ) );
