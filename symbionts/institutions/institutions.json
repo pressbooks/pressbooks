@@ -1,52 +1,262 @@
 [
-  {"name": "Algoma University"},
-  {"name": "Algonquin College"},
-  {"name": "Brock University"},
-  {"name": "Cambrian College"},
-  {"name": "Canadore College"},
-  {"name": "Carleton University"},
-  {"name": "Centennial College"},
-  {"name": "Collège Boréal"},
-  {"name": "Conestoga College"},
-  {"name": "Confederation College"},
-  {"name": "Durham College"},
-  {"name": "Fanshawe College"},
-  {"name": "First Nations Technical Institute (FNTI)"},
-  {"name": "Fleming College"},
-  {"name": "George Brown College"},
-  {"name": "Georgian College"},
-  {"name": "Humber College"},
-  {"name": "Kenjgewin Teg"},
-  {"name": "La Cité"},
-  {"name": "Lakehead University"},
-  {"name": "Lambton College"},
-  {"name": "Laurentian University"},
-  {"name": "Loyalist College"},
-  {"name": "McMaster University"},
-  {"name": "Mohawk College"},
-  {"name": "Niagara College"},
-  {"name": "Nipissing University"},
-  {"name": "Northern College"},
-  {"name": "OCAD University"},
-  {"name": "Ontario Tech University"},
-  {"name": "Queen’s University"},
-  {"name": "Royal Military College of Canada"},
-  {"name": "Ryerson University"},
-  {"name": "Sault College"},
-  {"name": "Seneca College"},
-  {"name": "Seven Generations Education Institute"},
-  {"name": "Sheridan College"},
-  {"name": "Six Nations Polytechnic"},
-  {"name": "St. Clair College"},
-  {"name": "St. Lawrence College"},
-  {"name": "Trent University"},
-  {"name": "Université de l’Ontario français"},
-  {"name": "University of Guelph"},
-  {"name": "University of Ottawa"},
-  {"name": "University of Toronto"},
-  {"name": "University of Waterloo"},
-  {"name": "University of Windsor"},
-  {"name": "Western University"},
-  {"name": "Wilfrid Laurier University"},
-  {"name": "York University"}
+  {
+    "country": "Canada",
+    "regions": [
+      {
+        "name": "Ontario",
+        "institutions": [
+          {
+            "code": "CA-ON-001",
+            "name": "Algoma University",
+            "url": "https://algomau.ca/"
+          },
+          {
+            "code": "CA-ON-002",
+            "name": "Algonquin College",
+            "url": "https://www.algonquincollege.com/"
+          },
+          {
+            "code": "CA-ON-003",
+            "name": "Brock University",
+            "url": "https://brocku.ca/"
+          },
+          {
+            "code": "CA-ON-004",
+            "name": "Cambrian College",
+            "url": "https://cambriancollege.ca/"
+          },
+          {
+            "code": "CA-ON-005",
+            "name": "Canadore College",
+            "url": "https://www.canadorecollege.ca/"
+          },
+          {
+            "code": "CA-ON-006",
+            "name": "Carleton University",
+            "url": "https://carleton.ca/"
+          },
+          {
+            "code": "CA-ON-007",
+            "name": "Centennial College",
+            "url": "https://www.centennialcollege.ca/"
+          },
+          {
+            "code": "CA-ON-008",
+            "name": "Collège Boréal",
+            "url": "https://www.collegeboreal.ca/"
+          },
+          {
+            "code": "CA-ON-009",
+            "name": "Conestoga College",
+            "url": "https://www.conestogac.on.ca/"
+          },
+          {
+            "code": "CA-ON-010",
+            "name": "Confederation College",
+            "url": "https://www.confederationcollege.ca/"
+          },
+          {
+            "code": "CA-ON-011",
+            "name": "Durham College",
+            "url": "https://durhamcollege.ca/"
+          },
+          {
+            "code": "CA-ON-012",
+            "name": "Fanshawe College",
+            "url": "https://www.fanshawec.ca/"
+          },
+          {
+            "code": "CA-ON-013",
+            "name": "First Nations Technical Institute",
+            "url": "https://fnti.net/"
+          },
+          {
+            "code": "CA-ON-014",
+            "name": "Fleming College",
+            "url": "https://flemingcollege.ca/"
+          },
+          {
+            "code": "CA-ON-015",
+            "name": "George Brown College",
+            "url": "https://www.georgebrown.ca/"
+          },
+          {
+            "code": "CA-ON-016",
+            "name": "Georgian College",
+            "url": "https://www.georgiancollege.ca/"
+          },
+          {
+            "code": "CA-ON-017",
+            "name": "Humber College",
+            "url": "https://www.humber.ca/"
+          },
+          {
+            "code": "CA-ON-018",
+            "name": "Kenjgewin Teg",
+            "url": "https://www.kenjgewinteg.ca/"
+          },
+          {
+            "code": "CA-ON-019",
+            "name": "La Cité",
+            "url": "https://www.collegelacite.ca/"
+          },
+          {
+            "code": "CA-ON-020",
+            "name": "Lakehead University",
+            "url": "https://www.lakeheadu.ca/"
+          },
+          {
+            "code": "CA-ON-021",
+            "name": "Lambton College",
+            "url": "https://www.lambtoncollege.ca/"
+          },
+          {
+            "code": "CA-ON-022",
+            "name": "Laurentian University",
+            "url": "https://laurentian.ca/"
+          },
+          {
+            "code": "CA-ON-023",
+            "name": "Loyalist College",
+            "url": "https://www.loyalistcollege.com/"
+          },
+          {
+            "code": "CA-ON-024",
+            "name": "McMaster University",
+            "url": "https://www.mcmaster.ca/"
+          },
+          {
+            "code": "CA-ON-025",
+            "name": "Mohawk College",
+            "url": "https://www.mohawkcollege.ca/"
+          },
+          {
+            "code": "CA-ON-026",
+            "name": "Niagara College",
+            "url": "https://www.niagaracollege.ca/"
+          },
+          {
+            "code": "CA-ON-027",
+            "name": "Nipissing University",
+            "url": "https://www.nipissingu.ca/"
+          },
+          {
+            "code": "CA-ON-028",
+            "name": "Northern College",
+            "url": "https://www.northernc.on.ca/"
+          },
+          {
+            "code": "CA-ON-029",
+            "name": "OCAD University",
+            "url": "https://www.ocadu.ca/"
+          },
+          {
+            "code": "CA-ON-030",
+            "name": "Ontario Tech University",
+            "url": "https://ontariotechu.ca/"
+          },
+          {
+            "code": "CA-ON-031",
+            "name": "Queen’s University",
+            "url": "https://www.queensu.ca/"
+          },
+          {
+            "code": "CA-ON-032",
+            "name": "Royal Military College of Canada",
+            "url": "https://www.rmc-cmr.ca/"
+          },
+          {
+            "code": "CA-ON-033",
+            "name": "Ryerson University",
+            "url": "https://www.ryerson.ca/"
+          },
+          {
+            "code": "CA-ON-034",
+            "name": "Sault College",
+            "url": "https://www.saultcollege.ca/"
+          },
+          {
+            "code": "CA-ON-035",
+            "name": "Seneca College",
+            "url": "https://www.senecacollege.ca/"
+          },
+          {
+            "code": "CA-ON-036",
+            "name": "Seven Generations Education Institute",
+            "url": "https://www.7generations.org/"
+          },
+          {
+            "code": "CA-ON-037",
+            "name": "Sheridan College",
+            "url": "https://www.sheridancollege.ca/"
+          },
+          {
+            "code": "CA-ON-038",
+            "name": "Six Nations Polytechnic",
+            "url": "https://www.snpolytechnic.com/"
+          },
+          {
+            "code": "CA-ON-039",
+            "name": "St. Clair College",
+            "url": "https://www.stclaircollege.ca/"
+          },
+          {
+            "code": "CA-ON-040",
+            "name": "St. Lawrence College",
+            "url": "https://www.stlawrencecollege.ca/"
+          },
+          {
+            "code": "CA-ON-041",
+            "name": "Trent University",
+            "url": "https://www.trentu.ca/"
+          },
+          {
+            "code": "CA-ON-042",
+            "name": "Université de l’Ontario français",
+            "url": "https://uontario.ca/"
+          },
+          {
+            "code": "CA-ON-043",
+            "name": "University of Guelph",
+            "url": "https://www.uoguelph.ca/"
+          },
+          {
+            "code": "CA-ON-044",
+            "name": "University of Ottawa",
+            "url": "https://www2.uottawa.ca/"
+          },
+          {
+            "code": "CA-ON-045",
+            "name": "University of Toronto",
+            "url": "https://www.utoronto.ca/"
+          },
+          {
+            "code": "CA-ON-046",
+            "name": "University of Waterloo",
+            "url": "https://uwaterloo.ca/"
+          },
+          {
+            "code": "CA-ON-047",
+            "name": "University of Windsor",
+            "url": "https://www.uwindsor.ca/"
+          },
+          {
+            "code": "CA-ON-048",
+            "name": "Western University",
+            "url": "https://www.uwo.ca/"
+          },
+          {
+            "code": "CA-ON-049",
+            "name": "Wilfrid Laurier University",
+            "url": "https://www.wlu.ca/"
+          },
+          {
+            "code": "CA-ON-050",
+            "name": "York University",
+            "url": "https://www.yorku.ca/"
+          }
+        ]
+      }
+    ]
+  }
 ]

@@ -297,11 +297,12 @@ function book_information_to_schema( array $book_information, bool $network_excl
 
 	if ( isset( $book_information['pb_institutions'] ) ) {
 		$book_schema['institutions'] = array_reduce(
-			$book_information['pb_institutions'], static function( $carry, $item ) {
+			$book_information['pb_institutions'], static function( $carry, $code ) {
 				return array_merge( $carry, [
 					[
 						'@type' => 'Institution',
-						'name' => $item,
+						'code' => $code,
+						'name' => \Pressbooks\Metadata\get_institution_by_code( $code ),
 					],
 				] );
 			}, []
@@ -510,7 +511,7 @@ function schema_to_book_information( array $book_schema ): array {
 	if ( isset( $book_schema['institutions'] ) ) {
 		$book_information['pb_institutions'] = array_reduce(
 			$book_schema['institutions'], static function( $carry, $item ) {
-				return array_merge( $carry, [ $item['name'] ] );
+				return array_merge( $carry, [ $item['code'] ] );
 			}, []
 		);
 	}
@@ -1220,18 +1221,72 @@ function check_thema_lang_file( $post ) {
 }
 
 /**
+ * Transform the institution list to better use in the book info page
+ *
+ * @param array $institutions
+ *
+ * @return array
+ */
+function transform_institutions( array $institutions ): array {
+	return array_reduce( $institutions, static function( $carry, $institution ) {
+		return array_merge( $carry, [ $institution['code'] => $institution['name'] ] );
+	}, [] );
+}
+
+/**
+ * Transform the region list to better use in the book info page
+ *
+ * @param string $country
+ * @param array $regions
+ *
+ * @return array
+ */
+function transform_regions( string $country, array $regions ): array {
+	return array_reduce( $regions, static function( $values, $region ) {
+		return array_merge(
+			$values, transform_institutions( $region['institutions'] )
+		);
+	}, [] );
+}
+
+/**
  * Return an array of known institutions
  *
  * @return array
  */
 function get_institutions(): array {
+	$filepath = PB_PLUGIN_DIR . 'symbionts/institutions/institutions.json';
+
 	$items = json_decode(
-		\Pressbooks\Utility\get_contents( PB_PLUGIN_DIR . 'symbionts/institutions/institutions.json' ), true
+		\Pressbooks\Utility\get_contents( $filepath ), true
 	);
 
 	return array_reduce(
-		$items, static function ( $institutions, $institution ) {
-			return $institutions + [ $institution['name'] => $institution['name'] ];
+		$items, static function ( $institutions, $country ) {
+			$regions = $country['regions'] ?? [];
+
+			if ( ! $regions ) {
+				return array_merge(
+					$institutions, transform_institutions( $country['institutions'] )
+				);
+			}
+
+			return array_merge(
+				$institutions, transform_regions( $country['country'], $regions )
+			);
 		}, []
 	);
+}
+
+/**
+ * Retrieve the institution name from an institution code.
+ *
+ * @param string $code The institution code.
+ *
+ * @return string|null The institution name.
+ */
+function get_institution_by_code( string $code ): ?string {
+	$institutions = get_institutions();
+
+	return $institutions[ $code ] ?? null;
 }
