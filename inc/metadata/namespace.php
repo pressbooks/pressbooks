@@ -1242,11 +1242,6 @@ function transform_institutions( array $institutions ): array {
  * @return array
  */
 function transform_regions( string $country, array $regions ): array {
-	//	return array_reduce( $regions, static function( $values, $region ) use ( $country ) {
-	//		$institutions = [ "${country}/${region['name']}" => transform_institutions( $region['institutions'] ?? [] ) ];
-	//
-	//		return array_merge( $values, $institutions );
-	//	}, [] );
 	return array_reduce( $regions, static function( $values, $region ) {
 		return array_merge(
 			$values, transform_institutions( $region['institutions'] )
@@ -1265,23 +1260,6 @@ function get_institutions(): array {
 	$items = json_decode(
 		\Pressbooks\Utility\get_contents( $filepath ), true
 	);
-
-	//  return array_reduce(
-	//      $items, static function( $institutions, $country ) {
-	//          $country_name = $country['country'];
-	//          $regions = $country['regions'] ?? [];
-	//
-	//          if ( ! $regions ) {
-	//              return array_merge(
-	//                  $institutions, [ $country_name => transform_institutions( $country['institutions'] ) ]
-	//              );
-	//          }
-	//
-	//          return array_merge(
-	//              $institutions, transform_regions( $country_name, $regions )
-	//          );
-	//      }, []
-	//  );
 
 	return array_reduce(
 		$items, static function ( $institutions, $country ) {
