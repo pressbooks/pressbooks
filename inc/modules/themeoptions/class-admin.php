@@ -12,6 +12,7 @@
 namespace Pressbooks\Modules\ThemeOptions;
 
 use function \Pressbooks\Utility\debug_error_log;
+use Pressbooks\Cloner\Cloner;
 
 /**
  * Not a subclass of \Pressbooks\Options!
@@ -167,16 +168,25 @@ class Admin {
 	}
 
 	/**
-	 * Override saved options with filtered defaults when switching theme
+	 * Override saved options with filtered defaults when switching theme if the theme was not selected by cloning.
+	 * If the theme switched is a result of the cloning routine, the Cloner::THEME_OPTIONS_CLONED_OPTION option is
+	 * deleted to make sure the defaults option will be overriden after future switch themes.
+	 *
+	 * @return void
 	 */
-	public function afterSwitchTheme() {
-		$this->clearCache();
-		foreach ( $this->getTabs() as $slug => $subclass ) {
-			/** @var \Pressbooks\Options $subclass (not instantiated, just a string) */
-			$current_options = get_option( "pressbooks_theme_options_{$slug}", [] );
-			if ( ! empty( $current_options ) ) {
-				update_option( "pressbooks_theme_options_{$slug}", $subclass::filterDefaults( $current_options ) );
+	public function afterSwitchTheme() : void {
+		$cloned_options = get_option( Cloner::THEME_OPTIONS_CLONED_OPTION );
+		if ( ! $cloned_options ) {
+			$this->clearCache();
+			foreach ( $this->getTabs() as $slug => $subclass ) {
+				/** @var \Pressbooks\Options $subclass (not instantiated, just a string) */
+				$current_options = get_option( "pressbooks_theme_options_{$slug}", [] );
+				if ( ! empty( $current_options ) ) {
+					update_option( "pressbooks_theme_options_{$slug}", $subclass::filterDefaults( $current_options ) );
+				}
 			}
+		} else {
+			delete_option( Cloner::THEME_OPTIONS_CLONED_OPTION );
 		}
 	}
 
