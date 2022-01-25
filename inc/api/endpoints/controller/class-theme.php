@@ -56,29 +56,9 @@ class Theme extends \WP_REST_Controller {
 	 */
 	public function get_item_schema() : array {
 		return $this->add_additional_fields_schema( [
-			'$schema' => 'http://json-schema.org/schema#',
 			'title' => 'Theme',
 			'type' => 'object',
 			'properties' => [
-				'@context' => [
-					'type' => 'string',
-					'format' => 'uri',
-					'enum' => [
-						'http://schema.org',
-					],
-					'description' => __( 'The JSON-LD context.' ),
-					'context' => [ 'view' ],
-					'readonly' => true,
-				],
-				'@type' => [
-					'type' => 'string',
-					'enum' => [
-						'Theme',
-					],
-					'description' => __( 'The type of the theme.' ),
-					'context' => [ 'view' ],
-					'readonly' => true,
-				],
 				'name' => [
 					'type' => 'string',
 					'description' => __( 'The theme\'s name' ),
@@ -157,8 +137,6 @@ class Theme extends \WP_REST_Controller {
 	public function get_item( $request ) : \WP_REST_Response {
 		$theme = wp_get_theme();
 		$response = rest_ensure_response( [
-			'@context' => 'http://schema.org',
-			'@type' => 'Theme',
 			'name' => $theme->get( 'Name' ),
 			'version' => $theme->get( 'Version' ),
 			'stylesheet' => $theme->get_stylesheet(),
