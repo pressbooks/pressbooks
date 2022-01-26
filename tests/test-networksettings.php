@@ -40,4 +40,8 @@ class NetworkSettingsTest extends \WP_UnitTestCase {
 		$this->assertFalse( $this->networkSettings->saveNetworkSettings() );
 	}
 
+	public function test_getDefaultTheme() {
+		$this->assertEquals( 'pressbooks-book', \Pressbooks\Admin\Network\NetworkSettings::getDefaultTheme() );
+	}
+
 }

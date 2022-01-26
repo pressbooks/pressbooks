@@ -61,11 +61,12 @@ class NetworkSettings {
 		echo '<tr><th scope="row">' . __( 'Default Theme', 'pressbooks' ) . '</th><td>';
 		$options = '';
 		$themes = $GLOBALS['pressbooks']->allowedBookThemes( \WP_Theme::get_allowed_on_network() );
+		$default_theme = get_site_option( $this->customOptions['default_theme'], self::getDefaultTheme() );
 		foreach ( $themes as $theme => $_ ) {
 			$options .= sprintf(
 				'<option value="%1$s"%2$s>%3$s</option>',
 				$theme,
-				selected( get_site_option( $this->customOptions['default_theme'], self::DEFAULT_THEME ), $theme, false ),
+				selected( $default_theme, $theme, false ),
 				wp_get_theme( $theme )->get( 'Name' )
 			);
 		}
@@ -91,5 +92,16 @@ class NetworkSettings {
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * Get default theme defined by default if available, otherwise it returns 'pressbooks-book'
+	 *
+	 * @return string
+	 */
+	public static function getDefaultTheme() {
+		$themes = $GLOBALS['pressbooks']->allowedBookThemes( \WP_Theme::get_allowed_on_network() );
+		return array_key_exists( self::DEFAULT_THEME, $themes ) ?
+			self::DEFAULT_THEME : 'pressbooks-book';
 	}
 }
