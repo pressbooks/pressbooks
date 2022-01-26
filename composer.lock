@@ -58,16 +58,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.209.11",
+            "version": "3.209.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "9f9591bff3dc0b2bc5400eb81e2e22228f2e4c95"
+                "reference": "02e488042410fac0af67fd37f222d5b3c0424b72"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/9f9591bff3dc0b2bc5400eb81e2e22228f2e4c95",
-                "reference": "9f9591bff3dc0b2bc5400eb81e2e22228f2e4c95",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/02e488042410fac0af67fd37f222d5b3c0424b72",
+                "reference": "02e488042410fac0af67fd37f222d5b3c0424b72",
                 "shasum": ""
             },
             "require": {
@@ -143,9 +143,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.209.11"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.209.12"
             },
-            "time": "2022-01-24T19:15:49+00:00"
+            "time": "2022-01-25T19:17:24+00:00"
         },
         {
             "name": "composer/installers",
@@ -3385,16 +3385,16 @@
         },
         {
             "name": "codeception/phpunit-wrapper",
-            "version": "9.0.6",
+            "version": "9.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/phpunit-wrapper.git",
-                "reference": "b0c06abb3181eedca690170f7ed0fd26a70bfacc"
+                "reference": "7d6b1a5ea4ed28d010e5d36b993db813eb49710b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/phpunit-wrapper/zipball/b0c06abb3181eedca690170f7ed0fd26a70bfacc",
-                "reference": "b0c06abb3181eedca690170f7ed0fd26a70bfacc",
+                "url": "https://api.github.com/repos/Codeception/phpunit-wrapper/zipball/7d6b1a5ea4ed28d010e5d36b993db813eb49710b",
+                "reference": "7d6b1a5ea4ed28d010e5d36b993db813eb49710b",
                 "shasum": ""
             },
             "require": {
@@ -3428,9 +3428,9 @@
             "description": "PHPUnit classes used by Codeception",
             "support": {
                 "issues": "https://github.com/Codeception/phpunit-wrapper/issues",
-                "source": "https://github.com/Codeception/phpunit-wrapper/tree/9.0.6"
+                "source": "https://github.com/Codeception/phpunit-wrapper/tree/9.0.7"
             },
-            "time": "2020-12-28T13:59:47+00:00"
+            "time": "2022-01-26T14:43:10+00:00"
         },
         {
             "name": "codeception/stub",
@@ -7867,21 +7867,21 @@
         },
         {
             "name": "wp-cli/wp-cli",
-            "version": "v2.5.0",
+            "version": "v2.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wp-cli/wp-cli.git",
-                "reference": "0bcf0c54f4d35685211d435e25219cc7acbe6d48"
+                "reference": "dee13c2baf6bf972484a63f8b8dab48f7220f095"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wp-cli/wp-cli/zipball/0bcf0c54f4d35685211d435e25219cc7acbe6d48",
-                "reference": "0bcf0c54f4d35685211d435e25219cc7acbe6d48",
+                "url": "https://api.github.com/repos/wp-cli/wp-cli/zipball/dee13c2baf6bf972484a63f8b8dab48f7220f095",
+                "reference": "dee13c2baf6bf972484a63f8b8dab48f7220f095",
                 "shasum": ""
             },
             "require": {
                 "ext-curl": "*",
-                "mustache/mustache": "~2.13",
+                "mustache/mustache": "^2.14.1",
                 "php": "^5.6 || ^7.0 || ^8.0",
                 "rmccue/requests": "^1.8",
                 "symfony/finder": ">2.7",
@@ -7889,12 +7889,12 @@
                 "wp-cli/php-cli-tools": "~0.11.2"
             },
             "require-dev": {
-                "roave/security-advisories": "dev-master",
+                "roave/security-advisories": "dev-latest",
                 "wp-cli/db-command": "^1.3 || ^2",
                 "wp-cli/entity-command": "^1.2 || ^2",
                 "wp-cli/extension-command": "^1.1 || ^2",
                 "wp-cli/package-command": "^1 || ^2",
-                "wp-cli/wp-cli-tests": "^3.0.7"
+                "wp-cli/wp-cli-tests": "^3.1.3"
             },
             "suggest": {
                 "ext-readline": "Include for a better --prompt implementation",
@@ -7907,7 +7907,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.5.x-dev"
+                    "dev-master": "2.6.x-dev"
                 }
             },
             "autoload": {
@@ -7934,7 +7934,7 @@
                 "issues": "https://github.com/wp-cli/wp-cli/issues",
                 "source": "https://github.com/wp-cli/wp-cli"
             },
-            "time": "2021-05-14T13:44:51+00:00"
+            "time": "2022-01-25T16:31:27+00:00"
         },
         {
             "name": "wp-coding-standards/wpcs",
@@ -8116,5 +8116,5 @@
     "platform-overrides": {
         "php": "7.4"
     },
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "2.1.0"
 }

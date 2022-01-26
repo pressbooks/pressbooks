@@ -12,7 +12,7 @@ class Styles extends \WP_REST_Controller {
 	/**
 	 * @var
 	 */
-	protected $rent_base;
+	protected $rest_base;
 
 	/**
 	 * Metadata
@@ -54,29 +54,9 @@ class Styles extends \WP_REST_Controller {
 	 */
 	public function get_item_schema() : array {
 		return $this->add_additional_fields_schema( [
-			'$schema' => 'http://json-schema.org/schema#',
 			'title' => 'styles',
 			'type' => 'object',
 			'properties' => [
-				'@context' => [
-					'type' => 'string',
-					'format' => 'uri',
-					'enum' => [
-						'http://schema.org',
-					],
-					'description' => __( 'The JSON-LD context.' ),
-					'context' => [ 'view' ],
-					'readonly' => true,
-				],
-				'@type' => [
-					'type' => 'string',
-					'enum' => [
-						'Styles',
-					],
-					'description' => __( 'The type of the thing.' ),
-					'context' => [ 'view' ],
-					'readonly' => true,
-				],
 				'web' => [
 					'type' => 'string',
 					'description' => __( 'The styles for the web format of the book' ),
@@ -114,13 +94,7 @@ class Styles extends \WP_REST_Controller {
 	 * @return \WP_REST_Response
 	 */
 	public function get_item( $request ) : \WP_REST_Response {
-		$response = rest_ensure_response( array_merge(
-			[
-				'@context' => 'http://schema.org',
-				'@type' => 'Styles',
-			],
-			\Pressbooks\Styles::getAllPostContent()
-		) );
+		$response = rest_ensure_response( \Pressbooks\Styles::getAllPostContent() );
 		$this->linkCollector['self'] = [
 			'href' => rest_url( sprintf( '%s/%s', $this->namespace, $this->rest_base ) ),
 		];
