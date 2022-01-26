@@ -107,8 +107,6 @@ jobs:
 
     - name: Run PHP Tests and PCOV
       run: |
-        composer require pcov/clobber
-        vendor/bin/pcov clobber
         vendor/bin/phpunit --configuration phpunit.xml --coverage-clover coverage.xml
       if: matrix.experimental == false
 
