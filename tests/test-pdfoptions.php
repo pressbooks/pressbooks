@@ -12,7 +12,7 @@ class PDFOptionsTest extends \WP_UnitTestCase {
 		update_option( 'pressbooks_theme_options_global', [
 			'chapter_numbers' => 0,
 		] );
-
+		$this->_setPdfOptionsForTesting();
 		$result = \Pressbooks\Modules\ThemeOptions\PDFOptions::scssOverrides( '' );
 		$this->assertStringContainsString( 'div.part-title-wrap > .part-number, div.chapter-title-wrap > .chapter-number, #toc .part a::before, #toc .chapter a::before { display: none !important; }', $result );
 

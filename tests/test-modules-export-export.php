@@ -590,7 +590,7 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 	 */
 	public function test_HTMLBookConstructor() {
 		$html_book = new Pressbooks\Modules\Export\HTMLBook\HTMLBook( [ 'endnotes' => true ] );
-		$this->assertContains( 'endnotes', $_GET );
+		$this->assertArrayHasKey( 'endnotes', $_GET );
 		$this->assertTrue( $_GET['endnotes'] );
 	}
 

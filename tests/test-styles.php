@@ -64,7 +64,7 @@ class StylesTest extends \WP_UnitTestCase {
 			wp_update_post( $post_params, true );
 			$all_styles_posts = \Pressbooks\Styles::getAllPostContent();
 			$this->assertArrayHasKey( $slug, $all_styles_posts );
-			$this->assertContains( $custom_styles, $all_styles_posts[ $slug ] );
+			$this->assertStringContainsString( $custom_styles, $all_styles_posts[ $slug ] );
 		}
 
 	}

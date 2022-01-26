@@ -85,6 +85,7 @@ class ImageTest extends \WP_UnitTestCase {
 	 * @group media
 	 */
 	public function test_fudge_factor() {
+		ini_set('memory_limit',-1);
 		$before = (int) ini_get( 'memory_limit' );
 		$format = 'png';
 		$file = __DIR__ . '/data/pb.png';

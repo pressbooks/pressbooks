@@ -19,6 +19,7 @@ class GdprTest extends \WP_UnitTestCase {
 	 */
 	public function set_up() {
 		parent::set_up();
+		self::flush_cache();
 		$this->privacy = new \Pressbooks\Privacy();
 	}
 

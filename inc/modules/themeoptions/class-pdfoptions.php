@@ -1878,7 +1878,7 @@ class PDFOptions extends \Pressbooks\Options {
 		$options = get_option( 'pressbooks_theme_options_global' );
 
 		// Should we display chapter numbers? True (default) or false.
-		if ( ! $options['chapter_numbers'] ) {
+		if ( is_array( $options ) && ! isset( $options['chapter_numbers'] ) ) {
 			if ( $v2_compatible ) {
 				$styles->getSass()->setVariables(
 					[

@@ -5,7 +5,7 @@ use Pressbooks\DataCollector\Book as BookDataCollector;
 
 class BookTest extends \WP_UnitTestCase {
 
-	use utilsTrait;
+	use utilsTrait, \DMS\PHPUnitExtensions\ArraySubset\ArraySubsetAsserts;
 
 	/**
 	 * @group book

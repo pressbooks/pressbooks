@@ -2,7 +2,7 @@
 
 class MetadataTest extends \WP_UnitTestCase {
 
-	use utilsTrait;
+	use utilsTrait, \DMS\PHPUnitExtensions\ArraySubset\ArraySubsetAsserts;
 
 	/**
 	 * @var \Pressbooks\Metadata
