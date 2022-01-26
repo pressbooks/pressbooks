@@ -256,4 +256,20 @@ https://youtu.be/Lqqsp8soXTo
 
 		return $allowed;
 	}
+
+	/**
+	 * This behaviour is working as expected on the front end, but during tests we need to set this custom values because they are hidden in the UI.
+	 * It was working before because PHP 7.3 was hiding the warning for access to an inexistent array key.
+	 * In the past if you try to read $options['key'] even $option was not an array no warning was triggered.
+	 */
+	public function _setPdfOptionsForTesting() {
+		update_option( 'pressbooks_theme_options_pdf',
+			[
+				'pdf_page_width' => 10,
+				'pdf_page_height' => 10,
+				'pdf_crop_marks' => 0,
+				'pdf_hyphens' => 0,
+				'pdf_toc' => 1
+			] );
+	}
 }

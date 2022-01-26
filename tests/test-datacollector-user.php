@@ -53,6 +53,7 @@ class DataCollector_UserTest extends \WP_UnitTestCase {
 	 * @group datacollector
 	 */
 	public function test_updateNetworkManagers() {
+		delete_site_option( 'pressbooks_network_managers_ids' );
 		$user_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
 
 		grant_super_admin( $user_id );
@@ -64,7 +65,7 @@ class DataCollector_UserTest extends \WP_UnitTestCase {
 
 		\Pressbooks\Admin\NetworkManagers\update_admin_status();
 
-		$this->assertEmpty( get_site_option( 'pressbooks_network_managers_ids' ) );
+		$this->assertEmpty( get_site_option( 'pressbooks_network_managers_ids', [] ) );
 
 		$this->userDataCollector->updateNetworkManagers();
 
@@ -76,7 +77,7 @@ class DataCollector_UserTest extends \WP_UnitTestCase {
 
 		$this->userDataCollector->updateNetworkManagers();
 
-		$this->assertEmpty( get_site_option( 'pressbooks_network_managers_ids' ) );
+		$this->assertEmpty( get_site_option( 'pressbooks_network_managers_ids', [] ) );
 	}
 
 	/**

@@ -2,10 +2,11 @@
 
 // require_once( PB_PLUGIN_DIR . 'inc/class-book.php' );
 use Pressbooks\DataCollector\Book as BookDataCollector;
+use DMS\PHPUnitExtensions\ArraySubset\ArraySubsetAsserts;
 
 class BookTest extends \WP_UnitTestCase {
 
-	use utilsTrait;
+	use utilsTrait, ArraySubsetAsserts;
 
 	/**
 	 * @group book

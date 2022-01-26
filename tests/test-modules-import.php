@@ -160,7 +160,11 @@ class Modules_ImportTest extends \WP_UnitTestCase {
 
 		// Clean attachments after test
 		$date = date( 'Y/m' );
-		array_map( 'unlink', array_filter( (array) glob( "/tmp/wordpress/wp-content/uploads/{$date}/*" ) ) );
+		array_map( static function($file) {
+			if( is_file( $file ) ) {
+				unlink($file);
+			}
+		}, array_filter( (array) glob( "/tmp/wordpress/wp-content/uploads/{$date}/*" ) ) );
 	}
 
 	public function test_searchMultipleContributorValues() {

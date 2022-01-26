@@ -553,10 +553,11 @@ function resize_down( $format, $fullpath, $max_w = 1024, $max_h = 1024 ) {
 /**
  * Adjust memory for large images
  *
- * @param string $format expect jpg, jpeg, gif, or png
- * @param string $fullpath path to read image file
+ * @param  string  $format  expect jpg, jpeg, gif, or png
+ * @param  string  $fullpath  path to read image file
+ * @param  float  $fudge This is a guestimate, your mileage may very
  */
-function fudge_factor( $format, $fullpath ) {
+function fudge_factor( $format, $fullpath, $fudge = 1.65 ) {
 
 	$size = @getimagesize( $fullpath ); // @codingStandardsIgnoreLine
 	if ( false === $size ) {
@@ -565,7 +566,6 @@ function fudge_factor( $format, $fullpath ) {
 
 	if ( 'jpeg' === $format ) {
 		// Jpeg
-		$fudge = 1.65; // This is a guestimate, your mileage may very
 		$memory_needed = round( ( $size[0] * $size[1] * $size['bits'] * $size['channels'] / 8 + pow( 2, 16 ) ) * $fudge );
 	} else {
 		// Not Sure
@@ -573,7 +573,7 @@ function fudge_factor( $format, $fullpath ) {
 		if ( isset( $size['bits'] ) ) {
 			$memory_needed = $memory_needed * $size['bits'];
 		}
-		$memory_needed = round( $memory_needed );
+		$memory_needed = round( $memory_needed * $fudge );
 	}
 
 	if ( memory_get_usage() + $memory_needed > (int) ini_get( 'memory_limit' ) * pow( 1024, 2 ) ) {

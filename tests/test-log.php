@@ -29,6 +29,7 @@ class LogTest extends \WP_UnitTestCase {
 	 * Test setup
 	 */
 	public function set_up() {
+		parent::set_up();
 		$this->setEnvironmentVariables();
 	}
 

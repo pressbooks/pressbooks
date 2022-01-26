@@ -88,7 +88,7 @@ class ImageTest extends \WP_UnitTestCase {
 		$before = (int) ini_get( 'memory_limit' );
 		$format = 'png';
 		$file = __DIR__ . '/data/pb.png';
-		@\Pressbooks\Image\fudge_factor( $format, $file );
+		@\Pressbooks\Image\fudge_factor( $format, $file, 100 ); //adjust fudge to png during tests to avoid false positives
 		$after = (int) ini_get( 'memory_limit' );
 		$this->assertTrue( $before < $after );
 		ini_set( 'memory_limit', $before );

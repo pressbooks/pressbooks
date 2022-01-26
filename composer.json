@@ -24,6 +24,10 @@
     "process-timeout":0,
 		"platform": {
 			"php": "7.3"
+		},
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": true,
+			"composer/installers": true
 		}
 	},
 	"require": {
@@ -57,7 +61,8 @@
 		"lucatume/wp-browser": "^3.0",
 		"phpunit/phpunit": "^9.5",
 		"pressbooks/coding-standards": "^1.1",
-		"yoast/phpunit-polyfills": "^1.0.1"
+		"yoast/phpunit-polyfills": "^1.0.1",
+    "dms/phpunit-arraysubset-asserts": "^0.3.1"
 	},
 	"suggest": {
 		"pressbooks/pressbooks-book":
