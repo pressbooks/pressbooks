@@ -213,12 +213,12 @@ class EventStreams {
 			if ( ! empty( $source_theme ) ) {
 				$theme_notice = ! $cloned_items['theme'] ?
 					sprintf(
-						__( ' The source book\'s theme, \'%1$s (%2$s)\', was not available on this network and could not be applied. Contact your network manager with questions about theme availability.', 'pressbooks' ),
+						__( 'The source book\'s theme, \'%1$s (%2$s)\', was not available on this network and could not be applied. Contact your network manager with questions about theme availability.', 'pressbooks' ),
 						$source_theme['name'],
 						$source_theme['version']
 					) :
-					__( ' The source book\'s theme, theme settings, and custom styles were successfully applied.', 'pressbooks' );
-				$notice .= $theme_notice;
+					__( 'The source book\'s theme, theme settings, and custom styles were successfully applied.', 'pressbooks' );
+				$notice .= " $theme_notice";
 			}
 			\Pressbooks\add_notice( $notice );
 		}
