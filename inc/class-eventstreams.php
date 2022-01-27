@@ -217,8 +217,8 @@ class EventStreams {
 						$source_theme['name'],
 						$source_theme['version']
 					) :
-					__( ' The source book\'s theme, theme settings, and custom styles were successfully applied.', 'pressbooks' );
-				$notice .= $theme_notice;
+					__( 'The source book\'s theme, theme settings, and custom styles were successfully applied.', 'pressbooks' );
+				$notice .= " $theme_notice";
 			}
 			\Pressbooks\add_notice( $notice );
 		}
