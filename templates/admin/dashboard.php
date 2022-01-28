@@ -24,6 +24,7 @@ if ( ! empty( $_POST ) ) {
 			$options['title'] = $_REQUEST['pressbooks_dashboard_feed']['title'];
 		}
 
+		delete_site_transient( 'pb_rss_widget' ); // Clean up old cache
 		update_site_option( 'pressbooks_dashboard_feed', $options ); ?>
 		<div id="message" role="status" class="updated notice is-dismissible"><p><strong><?php _e( 'Settings saved.', 'pressbooks-oauth' ); ?></strong></div>
 		<?php }
