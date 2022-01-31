@@ -12,8 +12,8 @@ class NetworkSettingsTest extends \WP_UnitTestCase {
 	 */
 	private $networkSettings;
 
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 		$this->networkSettings = new \Pressbooks\Admin\Network\NetworkSettings();
 	}
 
