@@ -59,7 +59,6 @@
 		"codeception/module-phpbrowser": "^1.0",
 		"codeception/module-webdriver": "^1.2",
 		"lucatume/wp-browser": "^3.0",
-		"phpunit/phpunit": "^9.5",
 		"pressbooks/coding-standards": "^1.1",
 		"yoast/phpunit-polyfills": "^1.0.1",
     "dms/phpunit-arraysubset-asserts": "^0.3.1"
