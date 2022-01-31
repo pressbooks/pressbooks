@@ -139,10 +139,10 @@ class DataCollector_BookTest extends \WP_UnitTestCase {
 	}
 
 	/**
-	 * @expectedException \LogicException
 	 * @group datacollector
 	 */
 	public function test_get_LogicExeption() {
+		$this->expectException(\LogicException::class);
 		$this->_book();
 		$book_id = get_current_blog_id();
 		update_site_meta( $book_id, BookDataCollector::BOOK_INFORMATION_ARRAY, new \StdClass() ); // No hackers allowed

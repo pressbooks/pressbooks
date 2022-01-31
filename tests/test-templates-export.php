@@ -8,8 +8,8 @@ class TemplateExportTest extends \WP_UnitTestCase {
 
 	public function set_up()
 	{
-		$this->blade = Container::get( 'Blade' );
 		parent::set_up();
+		$this->blade = Container::get( 'Blade' );
 	}
 
 	/**

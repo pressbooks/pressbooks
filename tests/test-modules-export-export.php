@@ -397,7 +397,7 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 			}
 			if ( strpos( $format, '\HTMLBook\HTMLBook' ) !== false ) {
 				// TODO: HTMLBook is too strict we don't pass the validation
-			} elseif ( $runtime->isPHPDBG() && strpos( $format, '\Epub\Epub' ) !== false ) {
+			} elseif ( strpos( $format, '\Epub\Epub' ) !== false ) {
 				// TODO: exec(): Unable to fork [/usr/bin/java -jar /opt/epubcheck/epubcheck.jar -q /path/to.epub 2>&1]
 			} else {
 				$this->assertTrue( $exporter->validate(), "Could not validate with {$format}" );
@@ -590,7 +590,7 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 	 */
 	public function test_HTMLBookConstructor() {
 		$html_book = new Pressbooks\Modules\Export\HTMLBook\HTMLBook( [ 'endnotes' => true ] );
-		$this->assertContains( 'endnotes', $_GET );
+		$this->assertArrayHasKey( 'endnotes', $_GET );
 		$this->assertTrue( $_GET['endnotes'] );
 	}
 

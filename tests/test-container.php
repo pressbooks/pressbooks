@@ -99,18 +99,18 @@ class ContainerTest extends \WP_UnitTestCase {
 	}
 
 	/**
-	 * @expectedException \LogicException
 	 * @group container
 	 */
 	public function test_getException() {
+		$this->expectException(\LogicException::class);
 		$var = Container::get( 'foo' );
 	}
 
 	/**
-	 * @expectedException \LogicException
 	 * @group container
 	 */
 	public function test_setException() {
+		$this->expectException(\LogicException::class);
 		Container::set( 'foo', 'bar' );
 	}
 

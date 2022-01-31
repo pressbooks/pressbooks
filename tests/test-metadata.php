@@ -1,8 +1,10 @@
 <?php
 
+use DMS\PHPUnitExtensions\ArraySubset\ArraySubsetAsserts;
+
 class MetadataTest extends \WP_UnitTestCase {
 
-	use utilsTrait;
+	use utilsTrait, ArraySubsetAsserts;
 
 	/**
 	 * @var \Pressbooks\Metadata
