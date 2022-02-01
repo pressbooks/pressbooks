@@ -342,6 +342,26 @@ function replace_book_admin_menu() {
 		}
 	);
 
+	// Import
+	$import_page = add_menu_page( __( 'Import', 'pressbooks' ), __( 'Import', 'pressbooks' ), 'edit_posts', 'pb_import', __NAMESPACE__ . '\display_import', 'dashicons-migrate', 16 );
+	add_action(
+		'admin_enqueue_scripts', function ( $hook ) use ( $import_page ) {
+			if ( $hook === $import_page ) {
+				wp_localize_script(
+					'pb-import', 'PB_ImportToken', [
+						'ajaxUrl' => wp_nonce_url( admin_url( 'admin-ajax.php?action=import-book' ), 'pb-import' ),
+						'redirectUrl' => admin_url( 'admin.php?page=pb_organize' ),
+						'unloadWarning' => __( 'Imports are not done. Leaving this page, now, will cause problems. Are you sure?', 'pressbooks' ),
+						'reloadSnippet' => '<em>(<a href="javascript:window.location.reload(true)">' . __( 'Reload', 'pressbooks' ) . '</a>)</em>',
+						'ajaxSubmitMsg' => __( 'Saving settings', 'pressbooks' ),
+					]
+				);
+				wp_enqueue_script( 'pb-import' );
+				wp_deregister_script( 'heartbeat' );
+			}
+		}
+	);
+
 	// Publish
 	$option = get_option( 'pressbooks_ecommerce_links', PublishOptions::getDefaults() );
 	$page = new PublishOptions( $option );
@@ -353,7 +373,7 @@ function replace_book_admin_menu() {
 		update_option( 'pressbooks_ecommerce_links_version', $page::VERSION, false );
 	}
 
-	add_menu_page( __( 'Publish', 'pressbooks' ), __( 'Publish', 'pressbooks' ), 'edit_posts', 'pb_publish', [ $page, 'render' ], 'dashicons-products', 16 );
+	add_menu_page( __( 'Publish', 'pressbooks' ), __( 'Publish', 'pressbooks' ), 'edit_posts', 'pb_publish', [ $page, 'render' ], 'dashicons-products', 17 );
 
 	// Privacy
 	add_options_page( __( 'Sharing and Privacy Settings', 'pressbooks' ), __( 'Sharing &amp; Privacy', 'pressbooks' ), 'manage_options', 'pressbooks_sharingandprivacy_options', __NAMESPACE__ . '\display_privacy_settings' );
@@ -381,26 +401,6 @@ function replace_book_admin_menu() {
 			'quicklatex_options_do_page'
 		);
 	}
-
-	// Import
-	$import_page = add_management_page( __( 'Import', 'pressbooks' ), __( 'Import', 'pressbooks' ), 'edit_posts', 'pb_import', __NAMESPACE__ . '\display_import' );
-	add_action(
-		'admin_enqueue_scripts', function ( $hook ) use ( $import_page ) {
-			if ( $hook === $import_page ) {
-				wp_localize_script(
-					'pb-import', 'PB_ImportToken', [
-						'ajaxUrl' => wp_nonce_url( admin_url( 'admin-ajax.php?action=import-book' ), 'pb-import' ),
-						'redirectUrl' => admin_url( 'admin.php?page=pb_organize' ),
-						'unloadWarning' => __( 'Imports are not done. Leaving this page, now, will cause problems. Are you sure?', 'pressbooks' ),
-						'reloadSnippet' => '<em>(<a href="javascript:window.location.reload(true)">' . __( 'Reload', 'pressbooks' ) . '</a>)</em>',
-						'ajaxSubmitMsg' => __( 'Saving settings', 'pressbooks' ),
-					]
-				);
-				wp_enqueue_script( 'pb-import' );
-				wp_deregister_script( 'heartbeat' );
-			}
-		}
-	);
 
 	// Clone a Book
 	if ( Cloner::isEnabled() && ( can_create_new_books() || is_super_admin() ) ) {
@@ -461,6 +461,7 @@ function reorder_book_admin_menu( $menu_order = [] ) {
 		book_info_slug(),
 		'themes.php',
 		'pb_export',
+		'pb_import',
 		'pb_publish',
 		'separator2',
 		'plugins.php',
