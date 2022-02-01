@@ -97,7 +97,6 @@ function replace_root_dashboard_widgets() {
 			'normal',
 			'high'
 		);
-		return true;
 	}
 	// Add our news feed.
 	$options = array_map(
