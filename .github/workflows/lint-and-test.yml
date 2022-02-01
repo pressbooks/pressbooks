@@ -104,6 +104,7 @@ jobs:
 
     - name: Run PHP Tests
       run: composer test
+      if: matrix.experimental == true
 
     - name: Run PHP Tests and PCOV
       run: |
