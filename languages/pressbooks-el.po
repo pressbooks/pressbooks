@@ -1,5 +1,5 @@
-# Copyright (C) 2021 Pressbooks (Book Oven Inc.)
-# This file is distributed under the same license as the Pressbooks plugin.
+# Copyright (C) 2022 Pressbooks (Book Oven Inc.)
+# This file is distributed under the GPL v3 or later.
 # Translators:
 # aggelos manousopoulos <a.manousopoulos@gmail.com>, 2015-2018,2021
 # LaScapigliata <ditri2000@hotmail.com>, 2015
@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
-"POT-Creation-Date: 2021-11-24T02:52:59+00:00\n"
-"PO-Revision-Date: 2021-11-23 20:17+0000\n"
+"POT-Creation-Date: 2022-02-01T23:06:15+00:00\n"
+"PO-Revision-Date: 2022-02-01 23:07+0000\n"
 "Last-Translator: Ho Man Chan <homan@pressbooks.com>\n"
 "Language-Team: Greek (http://www.transifex.com/pressbooks/pressbooks/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Language: el\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Domain: pressbooks\n"
-"X-Generator: WP-CLI 2.3.0\n"
+"X-Generator: WP-CLI 2.5.0\n"
 
 #. Plugin Name of the plugin
 msgid "Pressbooks"
@@ -622,71 +622,71 @@ msgstr ""
 msgid "Pressbooks News"
 msgstr "Τα Νέα του Pressbooks"
 
-#: inc/admin/dashboard/namespace.php:77 inc/admin/dashboard/namespace.php:159
+#: inc/admin/dashboard/namespace.php:94 inc/admin/dashboard/namespace.php:177
 msgid "Book Permissions"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:117
+#: inc/admin/dashboard/namespace.php:134
 msgid "My Book"
 msgstr "Το βιβλίο μου"
 
-#: inc/admin/dashboard/namespace.php:118 inc/admin/laf/namespace.php:792
+#: inc/admin/dashboard/namespace.php:135 inc/admin/laf/namespace.php:792
 msgid "Users"
 msgstr "Χρήστες"
 
-#: inc/admin/dashboard/namespace.php:175
+#: inc/admin/dashboard/namespace.php:193
 msgid "Book Invitations"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:201
+#: inc/admin/dashboard/namespace.php:219
 msgid "You have been invited to join <a href=\"%1$s\">%2$s</a> as %3$s %4$s"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:211
+#: inc/admin/dashboard/namespace.php:229
 msgid "Accept"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:224
+#: inc/admin/dashboard/namespace.php:242
 msgid "Welcome to Pressbooks!"
 msgstr "Καλώς ήλθατε στο Pressbooks!"
 
-#: inc/admin/dashboard/namespace.php:227
+#: inc/admin/dashboard/namespace.php:245
 msgid "You do not have access to any books at the moment."
 msgstr "Δεν έχετε πρόσβαση σε βιβλία προς το παρόν. "
 
-#: inc/admin/dashboard/namespace.php:234
+#: inc/admin/dashboard/namespace.php:252
 msgid ""
 "This network does not allow users to create new books. To create a new book,"
 " please contact your Pressbooks Network Manager"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:236 inc/admin/dashboard/namespace.php:252
+#: inc/admin/dashboard/namespace.php:254 inc/admin/dashboard/namespace.php:270
 msgid "at"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:243
+#: inc/admin/dashboard/namespace.php:261
 msgid "Create a Book"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:245 inc/admin/laf/namespace.php:407
+#: inc/admin/dashboard/namespace.php:263 inc/admin/laf/namespace.php:407
 #: inc/admin/laf/namespace.php:613 inc/admin/laf/namespace.php:614
 #: templates/admin/cloner.php:13
 msgid "Clone a Book"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:250
+#: inc/admin/dashboard/namespace.php:268
 msgid ""
 "You can also request access to an existing book by contacting the book's "
 "author or the institution's Pressbooks Network Manager"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:266 inc/class-activation.php:242
+#: inc/admin/dashboard/namespace.php:284 inc/class-activation.php:242
 #: inc/modules/themeoptions/class-pdfoptions.php:287 tests/test-cloner.php:63
 #: templates/export/epub/toc.blade.php:13
 msgid "Table of Contents"
 msgstr "Πίνακας Περιεχομένων"
 
-#: inc/admin/dashboard/namespace.php:268 inc/admin/metaboxes/namespace.php:646
+#: inc/admin/dashboard/namespace.php:286 inc/admin/metaboxes/namespace.php:664
 #: inc/api/endpoints/controller/class-toc.php:192
 #: inc/posttype/namespace.php:115 inc/posttype/namespace.php:116
 #: inc/posttype/namespace.php:548 templates/admin/import.php:91
@@ -694,7 +694,7 @@ msgstr "Πίνακας Περιεχομένων"
 msgid "Front Matter"
 msgstr "Προκειμενικά στοιχεία"
 
-#: inc/admin/dashboard/namespace.php:309 inc/admin/metaboxes/namespace.php:648
+#: inc/admin/dashboard/namespace.php:327 inc/admin/metaboxes/namespace.php:666
 #: inc/api/endpoints/controller/class-toc.php:225
 #: inc/posttype/namespace.php:143 inc/posttype/namespace.php:144
 #: inc/posttype/namespace.php:551 templates/admin/import.php:96
@@ -702,46 +702,46 @@ msgstr "Προκειμενικά στοιχεία"
 msgid "Back Matter"
 msgstr "Μετακειμενικά στοιχεία"
 
-#: inc/admin/dashboard/namespace.php:328 inc/admin/dashboard/namespace.php:412
+#: inc/admin/dashboard/namespace.php:346 inc/admin/dashboard/namespace.php:434
 #: templates/admin/organize.php:272 templates/admin/organize.php:429
 msgid "Add"
 msgstr "Προσθήκη"
 
-#: inc/admin/dashboard/namespace.php:328 inc/admin/dashboard/namespace.php:412
+#: inc/admin/dashboard/namespace.php:346 inc/admin/dashboard/namespace.php:434
 #: inc/admin/laf/namespace.php:148
 msgid "Organize"
 msgstr "Οργάνωση"
 
-#: inc/admin/dashboard/namespace.php:398
+#: inc/admin/dashboard/namespace.php:420
 msgid "%1$s total users: "
 msgstr "%1$s χρήστες συνολικά: "
 
-#: inc/admin/dashboard/namespace.php:421 inc/admin/dashboard/namespace.php:422
+#: inc/admin/dashboard/namespace.php:443 inc/admin/dashboard/namespace.php:444
 #: inc/admin/laf/namespace.php:776 inc/admin/laf/namespace.php:851
 msgid "Dashboard"
 msgstr "Πίνακας ελέγχου"
 
-#: inc/admin/dashboard/namespace.php:471
+#: inc/admin/dashboard/namespace.php:493
 msgid "Dashboard Feed"
 msgstr "Τροφοδοσία Πίνακα Ελέγχου"
 
-#: inc/admin/dashboard/namespace.php:478
+#: inc/admin/dashboard/namespace.php:500
 msgid "Display Feed"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:483
+#: inc/admin/dashboard/namespace.php:505
 msgid "Display an RSS feed widget on the dashboard."
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:489
+#: inc/admin/dashboard/namespace.php:511
 msgid "Feed Title"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:497
+#: inc/admin/dashboard/namespace.php:519
 msgid "Feed URL"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:524
+#: inc/admin/dashboard/namespace.php:546
 msgid "Adjust settings for your dashboard RSS feed widget below."
 msgstr ""
 
@@ -1202,8 +1202,8 @@ msgstr ""
 msgid "Cover Image"
 msgstr "Εικόνα εξωφύλλου"
 
-#: inc/admin/metaboxes/namespace.php:175 inc/admin/metaboxes/namespace.php:703
-#: inc/admin/metaboxes/namespace.php:765
+#: inc/admin/metaboxes/namespace.php:175 inc/admin/metaboxes/namespace.php:721
+#: inc/admin/metaboxes/namespace.php:783
 #: inc/api/endpoints/controller/class-toc.php:202 inc/class-sass.php:89
 #: inc/modules/export/epub/class-epub.php:1910
 #: inc/modules/themeoptions/class-globaloptions.php:563
@@ -1246,11 +1246,11 @@ msgstr "Συγγραφέας (-είς)"
 #: inc/admin/metaboxes/namespace.php:238 inc/admin/metaboxes/namespace.php:250
 #: inc/admin/metaboxes/namespace.php:262 inc/admin/metaboxes/namespace.php:274
 #: inc/admin/metaboxes/namespace.php:286 inc/admin/metaboxes/namespace.php:298
-#: inc/admin/metaboxes/namespace.php:677
+#: inc/admin/metaboxes/namespace.php:695
 msgid "Create New Contributor"
 msgstr "Προσθήκη συντελεστή"
 
-#: inc/admin/metaboxes/namespace.php:239 inc/admin/metaboxes/namespace.php:678
+#: inc/admin/metaboxes/namespace.php:239 inc/admin/metaboxes/namespace.php:696
 msgid "Choose author(s)..."
 msgstr ""
 
@@ -1294,73 +1294,88 @@ msgstr "Συντελεστής(ες)"
 msgid "Choose contributor(s)..."
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:306
+#: inc/admin/metaboxes/namespace.php:313
+msgid "Institution(s)"
+msgstr ""
+
+#: inc/admin/metaboxes/namespace.php:314
+msgid "Choose institution(s)..."
+msgstr ""
+
+#: inc/admin/metaboxes/namespace.php:315
+msgid ""
+"This optional field can be used to display the institution(s) which created "
+"this resource. If your college or university is not listed, please contact "
+"your network manager."
+msgstr ""
+
+#: inc/admin/metaboxes/namespace.php:324
 msgid "Publisher"
 msgstr "Εκδότης"
 
-#: inc/admin/metaboxes/namespace.php:307 inc/admin/metaboxes/namespace.php:318
+#: inc/admin/metaboxes/namespace.php:325 inc/admin/metaboxes/namespace.php:336
 msgid "This text appears on the title page of your book."
 msgstr "Το κείμενο αυτό εμφανίζεται στη σελίδα τίτλου του βιβλίου."
 
-#: inc/admin/metaboxes/namespace.php:317
+#: inc/admin/metaboxes/namespace.php:335
 msgid "Publisher City"
 msgstr "Πόλη έκδοσης"
 
-#: inc/admin/metaboxes/namespace.php:329
+#: inc/admin/metaboxes/namespace.php:347
 msgid "Publication Date"
 msgstr "Ημερομηνία έκδοσης"
 
-#: inc/admin/metaboxes/namespace.php:330 inc/admin/metaboxes/namespace.php:340
+#: inc/admin/metaboxes/namespace.php:348 inc/admin/metaboxes/namespace.php:358
 msgid ""
 "This is added to the metadata in your ebook. Please write date in YYYY-MM-DD"
 " format."
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:339
+#: inc/admin/metaboxes/namespace.php:357
 msgid "On-Sale Date"
 msgstr "Ημερομηνία πώλησης"
 
-#: inc/admin/metaboxes/namespace.php:348
+#: inc/admin/metaboxes/namespace.php:366
 msgid "Ebook ISBN"
 msgstr "ISBN ψηφιακού βιβλίου"
 
-#: inc/admin/metaboxes/namespace.php:349
+#: inc/admin/metaboxes/namespace.php:367
 msgid ""
 "ISBN is the International Standard Book Number, and you'll need one if you "
 "want to sell your book in some online ebook stores. This is added to the "
 "metadata in your ebook."
 msgstr "Το ISBN είναι ο Διεθνής Πρότυπος Αριθμός Βιβλίου και απαιτείται ένας εάν θέλετε να πωλήσετε το βιβλίο σας σε διαδικτυακά βιβλιοπωλεία. Προστίθεται στα  μεταδεδομένα του βιβλίου σας."
 
-#: inc/admin/metaboxes/namespace.php:359
+#: inc/admin/metaboxes/namespace.php:377
 msgid "Print ISBN"
 msgstr "Εκτύπωση ISBN"
 
-#: inc/admin/metaboxes/namespace.php:360
+#: inc/admin/metaboxes/namespace.php:378
 msgid ""
 "ISBN is the International Standard Book Number, and you'll need one if you "
 "want to sell your book in online and physical book stores."
 msgstr "Το ISBN είναι ο Διεθνής Πρότυπος Αριθμός Βιβλίου και απαιτείται ένας εάν θέλετε να πωλήσετε το βιβλίο σας σε διαδικτυακά και συμβατικά βιβλιοπωλεία. "
 
-#: inc/admin/metaboxes/namespace.php:370
+#: inc/admin/metaboxes/namespace.php:388
 msgid "Digital Object Identifier (DOI)"
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:382
+#: inc/admin/metaboxes/namespace.php:400
 msgid "Language"
 msgstr "Γλώσσα"
 
-#: inc/admin/metaboxes/namespace.php:383
+#: inc/admin/metaboxes/namespace.php:401
 msgid ""
 "This sets metadata in your ebook, making it easier to find in some stores. "
 "It also changes some system generated content for supported languages, such "
 "as the \"Contents\" header."
 msgstr "Αυτό δημιουργεί μεταδεδομένα στο ψηφιακό βιβλίο σας για ευκολότερη ανεύρευσή του σε μερικά καταστήματα. Αλλάζει επίσης το περιεχόμενο που δημιουργείται αυτόματα από το σύστημα για τις υποστηριζόμενες γλώσσες, όπως για παράδειγμα η επικεφαλίδα \"Contents\" στον πίνακα περιεχομένων."
 
-#: inc/admin/metaboxes/namespace.php:383
+#: inc/admin/metaboxes/namespace.php:401
 msgid "Help translate Pressbooks into your language!"
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:390 inc/class-licensing.php:320
+#: inc/admin/metaboxes/namespace.php:408 inc/class-licensing.php:321
 #: inc/modules/export/epub/class-epub.php:1401
 #: inc/modules/export/epub/class-epub.php:1423
 #: inc/modules/export/htmlbook/class-htmlbook.php:855
@@ -1368,45 +1383,45 @@ msgstr ""
 msgid "Copyright"
 msgstr "Copyright"
 
-#: inc/admin/metaboxes/namespace.php:403 templates/admin/cloner.php:19
+#: inc/admin/metaboxes/namespace.php:421 templates/admin/cloner.php:19
 msgid "Source Book URL"
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:405
+#: inc/admin/metaboxes/namespace.php:423
 msgid ""
 "This book was cloned from a pre-existing book at the above URL. This "
 "information will be displayed on the webbook homepage."
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:415
+#: inc/admin/metaboxes/namespace.php:433
 msgid "Copyright Year"
 msgstr "Έτος Copyright"
 
-#: inc/admin/metaboxes/namespace.php:416
+#: inc/admin/metaboxes/namespace.php:434
 msgid "Year that the book is/was published."
 msgstr "Έτος έκδοσης του βιβλίου"
 
-#: inc/admin/metaboxes/namespace.php:428
+#: inc/admin/metaboxes/namespace.php:446
 msgid "Copyright Holder"
 msgstr "Ιδιοκτήτης δικαιωμάτων"
 
-#: inc/admin/metaboxes/namespace.php:429
+#: inc/admin/metaboxes/namespace.php:447
 msgid "Name of the copyright holder."
 msgstr "Όνομα κατόχου των δικαιωμάτων."
 
-#: inc/admin/metaboxes/namespace.php:441
+#: inc/admin/metaboxes/namespace.php:459
 msgid "Copyright License"
 msgstr "Άδεια δικαιωμάτων"
 
-#: inc/admin/metaboxes/namespace.php:442
+#: inc/admin/metaboxes/namespace.php:460
 msgid "You can select various licenses including Creative Commons."
 msgstr "Μπορείτε να επιλέξετε διάφορα δικαιώματα συμπεριλαμβανομένων των Creative Commons"
 
-#: inc/admin/metaboxes/namespace.php:450
+#: inc/admin/metaboxes/namespace.php:468
 msgid "Copyright Notice"
 msgstr "Επισήμανση πνευματικών δικαιωμάτων"
 
-#: inc/admin/metaboxes/namespace.php:451
+#: inc/admin/metaboxes/namespace.php:469
 msgid ""
 "Enter a custom copyright notice, with whatever information you like. This "
 "will override the auto-generated copyright notice if All Rights Reserved or "
@@ -1415,158 +1430,158 @@ msgid ""
 "license text in both the webbook and your exports."
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:460
+#: inc/admin/metaboxes/namespace.php:478
 msgid "About the Book"
 msgstr "Σχετικά με το βιβλίο"
 
-#: inc/admin/metaboxes/namespace.php:468
+#: inc/admin/metaboxes/namespace.php:486
 msgid "Book Tagline"
 msgstr "Ετικέτα βιβλίου"
 
-#: inc/admin/metaboxes/namespace.php:469
+#: inc/admin/metaboxes/namespace.php:487
 msgid ""
 "A very short description of your book. It should fit in a Twitter post, and "
 "encapsulate your book in the briefest sentence."
 msgstr "Μία πολύ σύντομη περιγραφή του βιβλίου σας. Θα πρέπει να χωράει σε ένα post του Twitter και να συμπυκνώνει το βιβλίο σας σε μία πρόταση"
 
-#: inc/admin/metaboxes/namespace.php:480
+#: inc/admin/metaboxes/namespace.php:498
 msgid "Short Description"
 msgstr "Σύντομη περιγραφή"
 
-#: inc/admin/metaboxes/namespace.php:481
+#: inc/admin/metaboxes/namespace.php:499
 msgid ""
 "A short paragraph about your book, for catalogs, reviewers etc. to quote."
 msgstr "Μία μικρή παράγραφος για το βιβλίο σας, για αναφορά σε καταλόγους, για κριτικούς κλπ."
 
-#: inc/admin/metaboxes/namespace.php:492
+#: inc/admin/metaboxes/namespace.php:510
 msgid "Long Description"
 msgstr "Εκτενής περιγραφή"
 
-#: inc/admin/metaboxes/namespace.php:493
+#: inc/admin/metaboxes/namespace.php:511
 msgid "The full description of your book."
 msgstr "Πλήρης περιγραφή του βιβλίου"
 
-#: inc/admin/metaboxes/namespace.php:500
+#: inc/admin/metaboxes/namespace.php:518
 msgid "Subject(s)"
 msgstr "Θέμα(τα)"
 
-#: inc/admin/metaboxes/namespace.php:505
+#: inc/admin/metaboxes/namespace.php:523
 msgid "Additional Catalog Information"
 msgstr "Επιπρόσθετες πληροφορίες καταλόγου"
 
-#: inc/admin/metaboxes/namespace.php:513
+#: inc/admin/metaboxes/namespace.php:531
 msgid "Series Title"
 msgstr "Τίτλος σειράς"
 
-#: inc/admin/metaboxes/namespace.php:514 inc/admin/metaboxes/namespace.php:525
+#: inc/admin/metaboxes/namespace.php:532 inc/admin/metaboxes/namespace.php:543
 msgid "Add if your book is part of a series."
 msgstr "Συμπληρώνεται εάν το βιβλίο αποτελεί μέρος σειράς"
 
-#: inc/admin/metaboxes/namespace.php:524
+#: inc/admin/metaboxes/namespace.php:542
 msgid "Series Number"
 msgstr "Αριθμός σειράς"
 
-#: inc/admin/metaboxes/namespace.php:535
+#: inc/admin/metaboxes/namespace.php:553
 msgid "Keywords"
 msgstr "Λέξεις-κλειδιά"
 
-#: inc/admin/metaboxes/namespace.php:537
+#: inc/admin/metaboxes/namespace.php:555
 msgid ""
 "These are added to your webbook cover page, and in your ebook metadata. "
 "Keywords are used by online book stores and search engines."
 msgstr "Αυτές θα προστεθούν στο εξώφυλλο του βιβλίου στη web μορφή του και στα μεταδεδομένα του ψηφιακού βιβλίου. Οι λέξεις - κλειδιά χρησιμοποιούνται από τα διαδικτυακά βιβλιοπωλεία και τις μηχανές αναζήτησης."
 
-#: inc/admin/metaboxes/namespace.php:544
+#: inc/admin/metaboxes/namespace.php:562
 msgid "Hashtag"
 msgstr "Hashtag"
 
-#: inc/admin/metaboxes/namespace.php:545
+#: inc/admin/metaboxes/namespace.php:563
 msgid ""
 "These are added to your webbook cover page. For those of you who like "
 "Twitter."
 msgstr "Θα προστεθούν στο εξώφυλλο του βιβλίου στη web μορφή του. Για όσους αγαπούν το Twitter. "
 
-#: inc/admin/metaboxes/namespace.php:555
+#: inc/admin/metaboxes/namespace.php:573
 msgid "List Price (Print)"
 msgstr "Τιμή καταλόγου (Έντυπο)"
 
-#: inc/admin/metaboxes/namespace.php:556
+#: inc/admin/metaboxes/namespace.php:574
 msgid "The list price of your book in print."
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:566
+#: inc/admin/metaboxes/namespace.php:584
 msgid "List Price (PDF)"
 msgstr "Τιμή καταλόγου (PDF)"
 
-#: inc/admin/metaboxes/namespace.php:567
+#: inc/admin/metaboxes/namespace.php:585
 msgid "The list price of your book in PDF format."
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:577
+#: inc/admin/metaboxes/namespace.php:595
 msgid "List Price (ebook)"
 msgstr "Τιμή καταλόγου (ψηφιακό βιβλίο)"
 
-#: inc/admin/metaboxes/namespace.php:578
+#: inc/admin/metaboxes/namespace.php:596
 msgid "The list price of your book in Ebook formats."
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:588
+#: inc/admin/metaboxes/namespace.php:606
 msgid "List Price (Web)"
 msgstr "Τιμή καταλόγου (Web)"
 
-#: inc/admin/metaboxes/namespace.php:589
+#: inc/admin/metaboxes/namespace.php:607
 msgid "The list price of your webbook."
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:601
+#: inc/admin/metaboxes/namespace.php:619
 msgid "Choose an audience&hellip;"
 msgstr "Επιλέξτε το κοινό σας"
 
-#: inc/admin/metaboxes/namespace.php:602
+#: inc/admin/metaboxes/namespace.php:620
 msgid "Juvenile"
 msgstr "Νεανικό"
 
-#: inc/admin/metaboxes/namespace.php:603
+#: inc/admin/metaboxes/namespace.php:621
 msgid "Young Adult"
 msgstr "Νέοι ενήλικες"
 
-#: inc/admin/metaboxes/namespace.php:604
+#: inc/admin/metaboxes/namespace.php:622
 msgid "Adult"
 msgstr "Ενήλικες"
 
-#: inc/admin/metaboxes/namespace.php:606
+#: inc/admin/metaboxes/namespace.php:624
 msgid "Audience"
 msgstr "Κοινό"
 
-#: inc/admin/metaboxes/namespace.php:607
+#: inc/admin/metaboxes/namespace.php:625
 msgid "The target audience for your book."
 msgstr "Το κοινό στο οποίο απευθύνεται το βιβλίο σας"
 
-#: inc/admin/metaboxes/namespace.php:620
+#: inc/admin/metaboxes/namespace.php:638
 msgid "BISAC Subject(s)"
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:622
+#: inc/admin/metaboxes/namespace.php:640
 msgid ""
 "BISAC Subject Headings help libraries and bookstores properly classify your "
 "book. To select the appropriate subject heading for your book, consult %s."
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:622
+#: inc/admin/metaboxes/namespace.php:640
 msgid "the BISAC Subject Headings list"
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:636
+#: inc/admin/metaboxes/namespace.php:654
 msgid "BISAC Regional Theme"
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:637
+#: inc/admin/metaboxes/namespace.php:655
 msgid ""
 "BISAC Regional Themes help libraries and bookstores properly classify your "
 "book."
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:647
+#: inc/admin/metaboxes/namespace.php:665
 #: inc/api/endpoints/controller/class-toc.php:209 inc/class-sass.php:78
 #: inc/modules/themeoptions/class-globaloptions.php:564
 #: inc/posttype/namespace.php:64 inc/posttype/namespace.php:545
@@ -1575,92 +1590,92 @@ msgstr ""
 msgid "Chapter"
 msgstr "Κεφάλαιο"
 
-#: inc/admin/metaboxes/namespace.php:652
+#: inc/admin/metaboxes/namespace.php:670
 msgid "%s Metadata"
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:659
+#: inc/admin/metaboxes/namespace.php:677
 msgid ""
 "%s Short Title (appears in the PDF running header and webbook navigation)"
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:666
+#: inc/admin/metaboxes/namespace.php:684
 msgid "%s Subtitle (appears in the Web/ebook/PDF output)"
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:673
+#: inc/admin/metaboxes/namespace.php:691
 msgid "%s Author(s)"
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:687
+#: inc/admin/metaboxes/namespace.php:705
 msgid "%s Copyright License (overrides book license on this page)"
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:694
+#: inc/admin/metaboxes/namespace.php:712
 msgid "%s Digital Object Identifier (DOI)"
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:714
+#: inc/admin/metaboxes/namespace.php:732
 msgid ""
 "Appears on part page. Parts will not appear if a book has only one part."
 msgstr "Εμφανίζεται στη σελίδα του μέρους. Τα μέρη δεν εμφανίζονται εάν το βιβλίο έχει μόνο ένα μέρος."
 
-#: inc/admin/metaboxes/namespace.php:722
+#: inc/admin/metaboxes/namespace.php:740
 msgid "Part Visibility"
 msgstr "Ορατότητα μέρους"
 
-#: inc/admin/metaboxes/namespace.php:732
+#: inc/admin/metaboxes/namespace.php:750
 msgid "Invisible"
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:733
+#: inc/admin/metaboxes/namespace.php:751
 msgid "Hide from table of contents and part numbering."
 msgstr "Απόκρυψη από τον πίνακα περιεχομένων και την αρίθμηση μερών."
 
-#: inc/admin/metaboxes/namespace.php:887
+#: inc/admin/metaboxes/namespace.php:905
 msgid "Show in Glossary Lists"
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:898
+#: inc/admin/metaboxes/namespace.php:916
 msgid "Preview"
 msgstr ""
 
 #. translators: accessibility text
-#: inc/admin/metaboxes/namespace.php:900
+#: inc/admin/metaboxes/namespace.php:918
 msgid "(opens in a new window)"
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:909 templates/admin/organize.php:140
+#: inc/admin/metaboxes/namespace.php:927 templates/admin/organize.php:140
 #: templates/admin/organize.php:243 templates/admin/organize.php:299
 #: templates/admin/organize.php:401
 msgid "Show in Web"
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:913
+#: inc/admin/metaboxes/namespace.php:931
 msgid "Require a Password"
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:914
+#: inc/admin/metaboxes/namespace.php:932
 msgid "Password..."
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:918 templates/admin/organize.php:148
+#: inc/admin/metaboxes/namespace.php:936 templates/admin/organize.php:148
 #: templates/admin/organize.php:247 templates/admin/organize.php:307
 #: templates/admin/organize.php:405
 msgid "Show in Exports"
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:922 templates/admin/organize.php:155
+#: inc/admin/metaboxes/namespace.php:940 templates/admin/organize.php:155
 #: templates/admin/organize.php:251 templates/admin/organize.php:315
 #: templates/admin/organize.php:409
 msgid "Show Title"
 msgstr "Εμφάνιση τίτλου"
 
-#: inc/admin/metaboxes/namespace.php:1104
+#: inc/admin/metaboxes/namespace.php:1122
 msgid "Primary Subject"
 msgstr "Κύριο θέμα"
 
-#: inc/admin/metaboxes/namespace.php:1108
+#: inc/admin/metaboxes/namespace.php:1126
 msgid ""
 "%1$s subject terms appear on the web homepage of your book and help "
 "categorize your book in your network catalog and Pressbooks Directory (if "
@@ -1668,21 +1683,21 @@ msgid ""
 "book."
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:1108
-#: inc/admin/metaboxes/namespace.php:1121
+#: inc/admin/metaboxes/namespace.php:1126
+#: inc/admin/metaboxes/namespace.php:1139
 msgid "Thema"
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:1108
-#: inc/admin/metaboxes/namespace.php:1121
+#: inc/admin/metaboxes/namespace.php:1126
+#: inc/admin/metaboxes/namespace.php:1139
 msgid "the Thema subject category list"
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:1111
+#: inc/admin/metaboxes/namespace.php:1129
 msgid "Additional Subject(s)"
 msgstr "Δευτερεύον(τα) θέμα(τα)"
 
-#: inc/admin/metaboxes/namespace.php:1121
+#: inc/admin/metaboxes/namespace.php:1139
 msgid ""
 "%1$s subject terms appear on the web homepage of your book and help "
 "categorize your book in your network catalog and Pressbooks Directory (if "
@@ -1690,23 +1705,32 @@ msgid ""
 "appropriate for your book."
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:1224
-#: inc/admin/metaboxes/namespace.php:1280
+#: inc/admin/metaboxes/namespace.php:1242
+#: inc/admin/metaboxes/namespace.php:1298
 msgid ""
 "Images should be square (400px x 400px). You will be allowed to crop images "
 "after upload."
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:1389
+#: inc/admin/metaboxes/namespace.php:1407
 msgid "Name"
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:1418
+#: inc/admin/metaboxes/namespace.php:1436
 msgid "Name cannot be left blank."
 msgstr ""
 
-#: inc/admin/metaboxes/namespace.php:1452
+#: inc/admin/metaboxes/namespace.php:1470
 msgid "Owner"
+msgstr ""
+
+#: inc/admin/network/class-networksettings.php:59
+#: tests/test-networksettings.php:30
+msgid "Theme Settings"
+msgstr ""
+
+#: inc/admin/network/class-networksettings.php:61
+msgid "Default Theme"
 msgstr ""
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:81
@@ -1821,7 +1845,7 @@ msgstr ""
 msgid "ID offset, overrides page."
 msgstr ""
 
-#: inc/api/endpoints/controller/class-metadata.php:513
+#: inc/api/endpoints/controller/class-metadata.php:543
 #: inc/api/endpoints/controller/class-sectionmetadata.php:453
 msgid ""
 "URL of a reference Web page that unambiguously indicates the item's "
@@ -1844,23 +1868,23 @@ msgstr ""
 msgid "Word count."
 msgstr ""
 
-#: inc/api/namespace.php:71
+#: inc/api/namespace.php:77
 msgid "Part ID."
 msgstr ""
 
-#: inc/api/namespace.php:195
+#: inc/api/namespace.php:201
 msgid "Invalid batch parameter(s)."
 msgstr ""
 
-#: inc/api/namespace.php:350
+#: inc/api/namespace.php:356
 msgid "Part does not exist"
 msgstr "Το μέρος αυτό δεν υπάρχει."
 
-#: inc/api/namespace.php:357
+#: inc/api/namespace.php:363
 msgid "ID is not a part"
 msgstr ""
 
-#: inc/api/namespace.php:371
+#: inc/api/namespace.php:377
 msgid "Failed to update chapter part"
 msgstr ""
 
@@ -1868,11 +1892,11 @@ msgstr ""
 msgid "Main Body"
 msgstr "Κυρίως μέρος"
 
-#: inc/class-activation.php:210 tests/test-book.php:50
+#: inc/class-activation.php:210 tests/test-book.php:51
 msgid "Introduction"
 msgstr "Εισαγωγή"
 
-#: inc/class-activation.php:212 tests/test-book.php:101
+#: inc/class-activation.php:212 tests/test-book.php:102
 msgid "This is where you can write your introduction."
 msgstr "Εδώ μπορείτε να γράψετε την εισαγωγή του βιβλίου σας"
 
@@ -2099,15 +2123,28 @@ msgid_plural "%s glossary terms"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/class-eventstreams.php:231
+#: inc/class-eventstreams.php:216
+msgid ""
+" The source book's theme, '%1$s (%2$s)', was not available on this network "
+"and could not be applied. Contact your network manager with questions about "
+"theme availability."
+msgstr ""
+
+#: inc/class-eventstreams.php:220
+msgid ""
+"The source book's theme, theme settings, and custom styles were successfully"
+" applied."
+msgstr ""
+
+#: inc/class-eventstreams.php:242
 msgid "No export format was selected."
 msgstr ""
 
-#: inc/class-eventstreams.php:275
+#: inc/class-eventstreams.php:286
 msgid "No chapters were selected for import."
 msgstr ""
 
-#: inc/class-eventstreams.php:299
+#: inc/class-eventstreams.php:310
 msgid "You do not have sufficient permissions to access this page."
 msgstr ""
 
@@ -2275,7 +2312,7 @@ msgid ""
 "License"
 msgstr ""
 
-#: inc/class-licensing.php:139 inc/class-licensing.php:325
+#: inc/class-licensing.php:139 inc/class-licensing.php:326
 msgid "All Rights Reserved"
 msgstr "Τα πνευματικά δικαιώματα προστατεύονται"
 
@@ -2285,7 +2322,7 @@ msgid ""
 "licenses"
 msgstr ""
 
-#: inc/class-licensing.php:322 inc/class-styles.php:794
+#: inc/class-licensing.php:323 inc/class-styles.php:818
 #: inc/modules/export/epub/class-epub.php:1410
 #: inc/modules/export/htmlbook/class-htmlbook.php:864
 #: inc/modules/export/xhtml/class-xhtml11.php:1083
@@ -2293,27 +2330,27 @@ msgstr ""
 msgid "by"
 msgstr "από"
 
-#: inc/class-licensing.php:381
+#: inc/class-licensing.php:382
 msgid "except where otherwise noted."
 msgstr "εκτός εάν υπάρχει διαφορετική επισήμανση."
 
-#: inc/class-licensing.php:408 inc/class-licensing.php:432
+#: inc/class-licensing.php:409 inc/class-licensing.php:433
 msgid "%1$s Copyright &copy;%2$s by %3$s. All Rights Reserved."
 msgstr ""
 
-#: inc/class-licensing.php:420
+#: inc/class-licensing.php:421
 msgid "Icon for the %s"
 msgstr ""
 
-#: inc/class-licensing.php:422
+#: inc/class-licensing.php:423
 msgid "%1$s by %2$s is licensed under a %3$s, except where otherwise noted."
 msgstr ""
 
-#: inc/class-licensing.php:441 inc/class-licensing.php:451
+#: inc/class-licensing.php:442 inc/class-licensing.php:452
 msgid "Icon for the %s license"
 msgstr ""
 
-#: inc/class-licensing.php:443
+#: inc/class-licensing.php:444
 msgid "This work (%1$s by %2$s) is free of known copyright restrictions."
 msgstr ""
 
@@ -2348,222 +2385,222 @@ msgstr "Προσαρμοσμένο στιλ για PDF"
 msgid "Custom Style for Web"
 msgstr "Προσαρμοσμένο στιλ για Web"
 
-#: inc/class-styles.php:646
+#: inc/class-styles.php:670
 msgid "Alegreya"
 msgstr ""
 
-#: inc/class-styles.php:647
+#: inc/class-styles.php:671
 msgid "Cormorant Garamond"
 msgstr ""
 
-#: inc/class-styles.php:648
+#: inc/class-styles.php:672
 msgid "Crimson Text"
 msgstr ""
 
-#: inc/class-styles.php:649
+#: inc/class-styles.php:673
 msgid "GNU FreeFont Serif"
 msgstr ""
 
-#: inc/class-styles.php:650
+#: inc/class-styles.php:674
 msgid "New Athena Unicode"
 msgstr ""
 
-#: inc/class-styles.php:651
+#: inc/class-styles.php:675
 msgid "Noto Serif"
 msgstr ""
 
-#: inc/class-styles.php:652
+#: inc/class-styles.php:676
 msgid "Sorts Mill Goudy"
 msgstr ""
 
-#: inc/class-styles.php:653
+#: inc/class-styles.php:677
 msgid "Spectral"
 msgstr ""
 
-#: inc/class-styles.php:657
+#: inc/class-styles.php:681
 msgid "Barlow"
 msgstr ""
 
-#: inc/class-styles.php:658
+#: inc/class-styles.php:682
 msgid "GNU FreeFont Sans"
 msgstr ""
 
-#: inc/class-styles.php:659
+#: inc/class-styles.php:683
 msgid "K2D"
 msgstr ""
 
-#: inc/class-styles.php:660
+#: inc/class-styles.php:684
 msgid "Lato"
 msgstr ""
 
-#: inc/class-styles.php:661
+#: inc/class-styles.php:685
 msgid "Libre Franklin"
 msgstr ""
 
-#: inc/class-styles.php:662
+#: inc/class-styles.php:686
 msgid "Montserrat"
 msgstr ""
 
-#: inc/class-styles.php:663
+#: inc/class-styles.php:687
 msgid "Noto Sans"
 msgstr ""
 
-#: inc/class-styles.php:664
+#: inc/class-styles.php:688
 msgid "Open Sans"
 msgstr ""
 
-#: inc/class-styles.php:665
+#: inc/class-styles.php:689
 msgid "Raleway"
 msgstr ""
 
-#: inc/class-styles.php:666
+#: inc/class-styles.php:690
 msgid "Roboto"
 msgstr ""
 
-#: inc/class-styles.php:667
+#: inc/class-styles.php:691
 msgid "Rubik"
 msgstr ""
 
-#: inc/class-styles.php:668
+#: inc/class-styles.php:692
 msgid "Source Sans Pro"
 msgstr ""
 
-#: inc/class-styles.php:672 tests/test-styles.php:185
+#: inc/class-styles.php:696 tests/test-styles.php:219
 msgid "Theme default"
 msgstr ""
 
-#: inc/class-styles.php:673 inc/class-styles.php:687 tests/test-styles.php:186
+#: inc/class-styles.php:697 inc/class-styles.php:711 tests/test-styles.php:220
 msgid "Serif"
 msgstr ""
 
-#: inc/class-styles.php:674 tests/test-styles.php:187
+#: inc/class-styles.php:698 tests/test-styles.php:221
 msgid "Sans serif"
 msgstr ""
 
-#: inc/class-styles.php:719
+#: inc/class-styles.php:743
 msgid ""
 "Unexpected Error: There was a problem trying to query slug: %s - Please "
 "contact technical support."
 msgstr "Απρόσμενο σφάλμα: Υπήρξε ένα πρόβλημα στο ερώτημα: %s - Παρακαλώ επικοινωνήστε με την τεχνική υποστήριξη."
 
-#: inc/class-styles.php:759 templates/admin/custom-styles.php:16
+#: inc/class-styles.php:783 templates/admin/custom-styles.php:16
 msgid "Web"
 msgstr "Web"
 
-#: inc/class-styles.php:791
+#: inc/class-styles.php:815
 msgid "Last 10 Revisions"
 msgstr "Τελευταίες 10 αναθεωρήσεις"
 
-#: inc/cloner/class-cloner.php:411 inc/modules/import/api/class-api.php:115
+#: inc/cloner/class-cloner.php:435 inc/modules/import/api/class-api.php:115
 msgid "Looking up the source book"
 msgstr ""
 
-#: inc/cloner/class-cloner.php:413
+#: inc/cloner/class-cloner.php:437
 msgid "Failed to setup source"
 msgstr ""
 
-#: inc/cloner/class-cloner.php:417
+#: inc/cloner/class-cloner.php:441
 msgid "Creating the target book"
 msgstr ""
 
-#: inc/cloner/class-cloner.php:428
+#: inc/cloner/class-cloner.php:452
 msgid "Cloning metadata"
 msgstr ""
 
-#: inc/cloner/class-cloner.php:435
+#: inc/cloner/class-cloner.php:459
 msgid "Cloning contributors and licenses"
 msgstr ""
 
-#: inc/cloner/class-cloner.php:446
+#: inc/cloner/class-cloner.php:470
 msgid "Cloning front matter"
 msgstr ""
 
-#: inc/cloner/class-cloner.php:460 inc/cloner/class-cloner.php:465
+#: inc/cloner/class-cloner.php:485 inc/cloner/class-cloner.php:491
 msgid "Cloning parts and chapters"
 msgstr ""
 
-#: inc/cloner/class-cloner.php:477
+#: inc/cloner/class-cloner.php:504
 msgid "Cloning back matter"
 msgstr ""
 
-#: inc/cloner/class-cloner.php:500 inc/covergenerator/class-generator.php:298
+#: inc/cloner/class-cloner.php:536 inc/covergenerator/class-generator.php:298
 #: inc/modules/export/epub/class-epub.php:664
 #: inc/modules/import/class-import.php:373
 msgid "Finishing up"
 msgstr ""
 
-#: inc/cloner/class-cloner.php:516
+#: inc/cloner/class-cloner.php:552
 msgid ""
 "You can only clone from a book hosted by Pressbooks 4.1 or later. Please "
 "ensure that your source book meets these requirements."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:523
+#: inc/cloner/class-cloner.php:559
 msgid "Could not retrieve metadata from %s."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:531
+#: inc/cloner/class-cloner.php:567
 msgid "%s is not licensed for cloning."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:540
+#: inc/cloner/class-cloner.php:576
 msgid "Could not retrieve contents and structure from %s."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:548
+#: inc/cloner/class-cloner.php:584
 msgid "Could not retrieve taxonomies from %s."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:556
+#: inc/cloner/class-cloner.php:592
 msgid "Could not retrieve media from %s."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:725
+#: inc/cloner/class-cloner.php:767
 msgid ""
 "The source book contained H5P content that could not be cloned. Please "
 "review the cloned version of your book carefully, as missing H5P content "
 "will be indicated. You may want to remove or replace these elements."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:747
+#: inc/cloner/class-cloner.php:789
 msgid "The source book&rsquo;s media could not be read."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:821
+#: inc/cloner/class-cloner.php:885
 msgid "The source book&rsquo;s metadata could not be read."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:852
+#: inc/cloner/class-cloner.php:916
 msgid "The source book&rsquo;s structure and contents could not be read."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:894
+#: inc/cloner/class-cloner.php:958
 msgid "The source book&rsquo;s taxonomies could not be read."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:1885
+#: inc/cloner/class-cloner.php:2030
 msgid "Your book URL can only contain lowercase letters (a-z) and numbers."
 msgstr "H διεύθυνση του βιβλίου σας μπορεί να περιέχει μόνο πεζά γράμματα (a-z) και αριθμούς."
 
-#: inc/cloner/class-cloner.php:1887
+#: inc/cloner/class-cloner.php:2032
 msgid "Your book URL must contain at least some letters."
 msgstr "Η διεύθυνση του βιβλίου σας πρέπει να περιέχει κάποια γράμματα."
 
-#: inc/cloner/class-cloner.php:1889
+#: inc/cloner/class-cloner.php:2034
 msgid "That book URL is not allowed."
 msgstr "Αυτή η διεύθυνση δεν είναι αποδεκτή."
 
-#: inc/cloner/class-cloner.php:1891
+#: inc/cloner/class-cloner.php:2036
 msgid "Your book URL must be at least %s character."
 msgid_plural "Your book URL must be at least %s characters."
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/cloner/class-cloner.php:1893
+#: inc/cloner/class-cloner.php:2038
 msgid "Sorry, you may not use that book URL."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:1895
+#: inc/cloner/class-cloner.php:2040
 msgid "Sorry, that book URL already exists!"
 msgstr "Λυπούμαστε, αυτή η διεύθυνση βιβλίου υπάρχει ήδη!"
 
@@ -2812,7 +2849,7 @@ msgid ""
 "all available fields."
 msgstr ""
 
-#: inc/metadata/namespace.php:1166
+#: inc/metadata/namespace.php:1188
 msgid ""
 "The %1$s Thema subject terms requested for this book could not be downloaded"
 " from %2$s. Please report this error to your network manager."
@@ -3227,14 +3264,14 @@ msgstr ""
 msgid "Content Text"
 msgstr ""
 
-#: inc/modules/themeoptions/class-admin.php:93
 #: inc/modules/themeoptions/class-admin.php:94
-#: inc/modules/themeoptions/class-admin.php:148
+#: inc/modules/themeoptions/class-admin.php:95
+#: inc/modules/themeoptions/class-admin.php:149
 #: templates/admin/export.blade.php:58
 msgid "Theme Options"
 msgstr "Επιλογές Θέματος"
 
-#: inc/modules/themeoptions/class-admin.php:151
+#: inc/modules/themeoptions/class-admin.php:152
 msgid "Theme Options Tabs"
 msgstr ""
 
@@ -4461,11 +4498,11 @@ msgstr ""
 msgid "Save"
 msgstr "Αποθήκευση"
 
-#: templates/admin/dashboard.php:34
+#: templates/admin/dashboard.php:35
 msgid "Dashboard Settings"
 msgstr ""
 
-#: templates/admin/dashboard.php:36
+#: templates/admin/dashboard.php:37
 msgid "Customize your Pressbooks dashboard below."
 msgstr ""
 
