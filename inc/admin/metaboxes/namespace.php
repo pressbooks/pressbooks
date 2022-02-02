@@ -300,6 +300,24 @@ function add_meta_boxes() {
 		]
 	);
 
+	/**
+	 * This is an MVP for a future feature.
+	 * It's being released to get feedback from users.
+	 */
+	if ( is_plugin_active( 'pressbooks-ecampus-ontario/pressbooks-ecampus-ontario.php' ) ) {
+		x_add_metadata_field(
+			'pb_institutions', 'metadata', [
+				'group' => 'general-book-information',
+				'field_type' => 'multi_select',
+				'select2' => true,
+				'label' => __( 'Institution(s)', 'pressbooks' ),
+				'placeholder' => __( 'Choose institution(s)...', 'pressbooks' ),
+				'description' => __( 'This optional field can be used to display the institution(s) which created this resource. If your college or university is not listed, please contact your network manager.', 'pressbooks' ),
+				'values' => \Pressbooks\Metadata\get_institutions(),
+			]
+		);
+	}
+
 	x_add_metadata_field(
 		'pb_publisher', 'metadata', [
 			'group' => 'general-book-information',

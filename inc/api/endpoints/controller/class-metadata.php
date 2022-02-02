@@ -350,6 +350,36 @@ class Metadata extends \WP_REST_Controller {
 						],
 					],
 				],
+				'institutions' => [
+					'type' => 'array',
+					'description' => __( 'The institutions which created the Book.' ),
+					'items' => [
+						'type' => 'object',
+						'properties' => [
+							'@type' => [
+								'type' => 'string',
+								'enum' => [
+									'Institution',
+								],
+								'description' => __( 'The type of the institution.' ),
+								'context' => [ 'view' ],
+								'readonly' => true,
+							],
+							'code' => [
+								'type' => 'string',
+								'description' => __( 'The identifier of the institution.' ),
+								'context' => [ 'view' ],
+								'readonly' => true,
+							],
+							'name' => [
+								'type' => 'string',
+								'description' => __( 'The name of the institution.' ),
+								'context' => [ 'view' ],
+								'readonly' => true,
+							],
+						],
+					],
+				],
 				'publisher' => [
 					'type' => 'object',
 					'description' => __( 'The publisher of the Book.' ),

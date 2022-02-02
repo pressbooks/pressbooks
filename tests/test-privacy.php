@@ -27,6 +27,7 @@ class GdprTest extends \WP_UnitTestCase {
 	 */
 	public static function set_up_before_class()
 	{
+		parent::set_up_before_class();
 		$blog_ids = get_sites( [ 'site__not_in' => 1 ] );
 
 		foreach ( $blog_ids as $blog ) {
@@ -57,7 +58,6 @@ class GdprTest extends \WP_UnitTestCase {
 		$current_screen = WP_Screen::get( 'front-matter' ); // is_admin
 		global $wp_current_filter;
 		$wp_current_filter = [ 'admin_init' ]; // doing_action
-
 		$this->privacy->addPrivacyPolicyContent();
 		$policies = WP_Privacy_Policy_Content::get_suggested_policy_text();
 		$result = false;
@@ -75,6 +75,12 @@ class GdprTest extends \WP_UnitTestCase {
 	 */
 	public function test_namespace() {
 		$last_updated_before = get_blog_details()->last_updated;
+		// Doing it right
+		global $current_screen;
+		$current_screen = WP_Screen::get( 'front-matter' ); // is_admin
+		global $wp_current_filter;
+		$wp_current_filter = [ 'admin_init' ]; // doing_action
+		$this->privacy->addPrivacyPolicyContent();
 		update_site_option( 'pressbooks_sharingandprivacy_options', [ 'network_directory_excluded' => 0 ] );
 		add_action( 'admin_init', '\Pressbooks\Admin\Laf\privacy_settings_init' );
 		@do_action( 'admin_init' );

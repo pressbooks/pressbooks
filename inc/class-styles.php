@@ -232,6 +232,30 @@ class Styles {
 	}
 
 	/**
+	 * Get web, epub and prince styles post content in array format
+	 *
+	 * @return array
+	 */
+	public static function getAllPostContent() : array {
+		$args = [
+			'post_name__in' => [ 'web', 'epub', 'prince' ],
+			'post_type' => 'custom-style',
+			'posts_per_page' => 3,
+			'post_status' => 'publish',
+			'orderby' => 'modified',
+			'no_found_rows' => true,
+			'cache_results' => true,
+		];
+		$q = new \WP_Query();
+		$results = $q->query( $args );
+		return ! empty( $results ) ?
+			array_reduce( $results, static function( $styles, $style ) {
+				return $styles + [ $style->post_name => $style->post_content ];
+			}, [] ) : [];
+
+	}
+
+	/**
 	 *
 	 * Get stylesheet directory, applies filter: pb_stylesheet_directory
 	 *

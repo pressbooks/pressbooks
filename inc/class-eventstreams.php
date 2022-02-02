@@ -209,6 +209,17 @@ class EventStreams {
 				sprintf( _n( '%s glossary term', '%s glossary terms', count( getset( $cloned_items, 'glossary', [] ) ), 'pressbooks' ), count( getset( $cloned_items, 'glossary', [] ) ) ),
 				sprintf( '<a href="%1$s"><em>%2$s</em></a>', trailingslashit( $cloner->getTargetBookUrl() ) . 'wp-admin/', $cloner->getTargetBookTitle() )
 			);
+			$source_theme = $cloner->getSourceTheme();
+			if ( ! empty( $source_theme ) ) {
+				$theme_notice = ! $cloned_items['theme'] ?
+					sprintf(
+						__( ' The source book\'s theme, \'%1$s (%2$s)\', was not available on this network and could not be applied. Contact your network manager with questions about theme availability.', 'pressbooks' ),
+						$source_theme['name'],
+						$source_theme['version']
+					) :
+					__( 'The source book\'s theme, theme settings, and custom styles were successfully applied.', 'pressbooks' );
+				$notice .= " $theme_notice";
+			}
 			\Pressbooks\add_notice( $notice );
 		}
 

@@ -18,19 +18,13 @@ jobs:
         php: [7.3]
         os: [ubuntu-18.04]
         epubcheck: [4.2.4]
-        prince: [12.5-1]
-        wordpress: [5.8.2]
+        prince: [14.2-1]
+        wordpress: [5.9]
         experimental: [false]
         include:
           - php: 7.4
             os: ubuntu-20.04
             wordpress: latest
-            epubcheck: 4.2.6
-            prince: 14.2-1
-            experimental: true
-          - php: 7.4
-            os: ubuntu-20.04
-            wordpress: 'trunk'
             epubcheck: 4.2.6
             prince: 14.2-1
             experimental: true
@@ -110,21 +104,10 @@ jobs:
 
     - name: Run PHP Tests
       run: composer test
-      if: matrix.experimental == true && matrix.wordpress != 'trunk'
-
-    - name: Run PHP Tests with PHPUnit 9
-      run: |
-        composer remove --dev codeception/*
-        composer remove --dev lucatume/wp-browser
-        composer remove --dev phpunit/phpunit
-        composer update --dev yoast/phpunit-polyfills --with-dependencies --ignore-platform-reqs
-        vendor/bin/phpunit --configuration phpunit9.xml
-      if: matrix.wordpress == 'trunk'
+      if: matrix.experimental == true
 
     - name: Run PHP Tests and PCOV
       run: |
-        composer require pcov/clobber
-        vendor/bin/pcov clobber
         vendor/bin/phpunit --configuration phpunit.xml --coverage-clover coverage.xml
       if: matrix.experimental == false
 
