@@ -28,7 +28,7 @@ jobs:
             epubcheck: 4.2.6
             prince: 14.2-1
             experimental: true
-    name: PHPUnit - ${{ matrix.php }} - ${{ matrix.wordpress }}
+    name: Test - PHP ${{ matrix.php }} - WP ${{ matrix.wordpress }}
 
     steps:
     - name: Checkout code
