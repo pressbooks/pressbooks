@@ -374,3 +374,4 @@ add_action( 'show_user_profile', '\Pressbooks\Admin\Laf\add_user_profile_fields'
 add_action( 'edit_user_profile', '\Pressbooks\Admin\Laf\add_user_profile_fields', 11 );
 add_action( 'edit_user_profile_update', '\Pressbooks\Admin\Laf\update_user_profile_fields', 11 );
 add_action( 'personal_options_update', '\Pressbooks\Admin\Laf\update_user_profile_fields', 11 );
+add_action( 'network_admin_menu', '\Pressbooks\Admin\Laf\customize_network_admin_menu', 1 );

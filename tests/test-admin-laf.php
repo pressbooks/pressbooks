@@ -398,4 +398,25 @@ class Admin_LafTest extends \WP_UnitTestCase {
 
 	}
 
+	/**
+	 * @group branding
+	 */
+
+	function test_append_network_home_menu() {
+		$user_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+		grant_super_admin( $user_id );
+		wp_set_current_user( $user_id );
+		global $submenu;
+		include_once( ABSPATH . '/wp-admin/menu.php' );
+		\Pressbooks\Admin\Laf\customize_network_admin_menu();
+		$slug = '../network/index.php';
+		$this->assertArrayHasKey( $slug, $submenu );
+		$this->assertContains( 'Network Home', $submenu[$slug][0] );
+		$this->assertContains( 'Customize Appearance', $submenu[$slug][1] );
+		$this->assertContains( 'Pages', $submenu[$slug][2] );
+		$this->assertContains( 'Media Library', $submenu[$slug][3] );
+		$this->assertContains( 'Site Traffic', $submenu[$slug][4] );
+		$this->assertContains( 'Redirects', $submenu[$slug][5] );
+	}
+
 }

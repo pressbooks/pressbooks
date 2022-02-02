@@ -134,6 +134,9 @@ class RedirectTest extends \WP_UnitTestCase {
 		$this->assertEquals( $logged_in->user_login, $user->user_login );
 	}
 
+	/**
+	 * @group redirect
+	 */
 	public function test_break_reset_password_loop() {
 		$user_id = $this->factory()->user->create( [ 'role' => 'subscriber' ] );
 		$user = get_userdata( $user_id );
@@ -156,6 +159,20 @@ class RedirectTest extends \WP_UnitTestCase {
 		$user = new WP_Error();
 		$url = \Pressbooks\Redirect\break_reset_password_loop( $redirect_to, $requested_redirect_to, $user );
 		$this->assertNotEquals( admin_url(), $url );
+	}
+
+	/**
+	 * @group redirect
+	 */
+	public function test_network_manager_redirect()
+	{
+		$user_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+		grant_super_admin( $user_id );
+		wp_set_current_user( $user_id );
+		$user = get_userdata( $user_id );
+		$redirect_to = '/wp-admin/network/';
+		@\Pressbooks\Redirect\redirect_network_managers_to_network_home(false, $user); // headers already sent during tests in redirections
+		$this->assertNotEquals( admin_url(), $redirect_to );
 	}
 
 }

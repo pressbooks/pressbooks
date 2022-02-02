@@ -492,3 +492,17 @@ function break_reset_password_loop( $redirect_to, $requested_redirect_to, $user 
 	}
 	return $redirect_to;
 }
+
+/**
+ * Redirect to the network managers dashboard after login
+ * @param $user_login
+ * @param $user
+ */
+function redirect_network_managers_to_network_home( $user_login, $user ) {
+	if ( is_super_admin( $user->ID ) ) {
+		wp_redirect( admin_url( '/network' ) );
+		if ( $user_login ) {
+			exit;
+		}
+	}
+}

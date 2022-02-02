@@ -337,3 +337,7 @@ $wp-spinner-anim-duration: 1.08s;
   display: none;
   width: 100%;
 }
+
+li[id="toplevel_page_..-network-index"] li.wp-first-item {
+  display: none;
+}

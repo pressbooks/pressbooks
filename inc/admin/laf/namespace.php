@@ -829,39 +829,6 @@ function replace_menu_bar_my_sites( $wp_admin_bar ) {
 		}
 	}
 
-	if ( $show_website_admin || is_super_admin() ) {
-		$website_id = get_main_site_id();
-		$menu_id = 'blog-' . $website_id;
-		$admin_url = get_admin_url( $website_id );
-
-		$wp_admin_bar->add_menu(
-			[
-				'id' => 'pb-site-admin',
-				'title' => get_blog_option( $website_id, 'blogname' ),
-				'href' => $admin_url,
-				'meta' => ( is_main_site() && ! is_network_admin() ) ? [
-					'class' => 'you-are-here',
-				] : [],
-			]
-		);
-		$wp_admin_bar->add_menu(
-			[
-				'parent' => 'pb-site-admin',
-				'id' => $menu_id . '-d',
-				'title' => __( 'Dashboard', 'pressbooks' ),
-				'href' => $admin_url,
-			]
-		);
-		$wp_admin_bar->add_menu(
-			[
-				'parent' => 'pb-site-admin',
-				'id' => $menu_id . '-v',
-				'title' => __( 'Visit Website', 'pressbooks' ),
-				'href' => get_home_url( $website_id, '/' ),
-			]
-		);
-	}
-
 	// Books Admin
 	$wp_admin_bar->add_menu(
 		[
@@ -1678,4 +1645,54 @@ function update_user_profile_fields( $user_id ) {
 	}
 
 	update_user_meta( $user_id, 'institution', sanitize_string( $_REQUEST['institution'] ) );
+}
+
+/**
+ * This function enhance the network admin menu
+ */
+function customize_network_admin_menu() {
+	add_menu_page(
+		'index.php',
+		__( 'Network Home', 'pressbooks' ),
+		__( 'Network Home', 'pressbooks' ),
+		'../network/index.php',
+		'',
+		'dashicons-admin-home',
+		4
+	);
+	add_submenu_page(
+		'../network/index.php',
+		__( 'Customize Appearance', 'pressbooks' ),
+		__( 'Customize Appearance', 'pressbooks' ),
+		'manage_options',
+		'../customize.php?return=%2Fwp%2Fwp-admin%2Fnav-menus.php'
+	);
+	add_submenu_page(
+		'../network/index.php',
+		__( 'Pages', 'pressbooks' ),
+		__( 'Pages', 'pressbooks' ),
+		'manage_options',
+		'../edit.php?post_type=page'
+	);
+	add_submenu_page(
+		'../network/index.php',
+		__( 'Media Library', 'pressbooks' ),
+		__( 'Media Library', 'pressbooks' ),
+		'manage_options',
+		'../upload.php'
+	);
+	add_submenu_page(
+		'../network/index.php',
+		__( 'Site Traffic', 'pressbooks' ),
+		__( 'Site Traffic', 'pressbooks' ),
+		'manage_options',
+		'../index.php?page=koko-analytics'
+	);
+	add_submenu_page(
+		'../network/index.php',
+		__( 'Redirects', 'pressbooks' ),
+		__( 'Redirects', 'pressbooks' ),
+		'manage_options',
+		'../tools.php?page=redirection.php'
+	);
 }
