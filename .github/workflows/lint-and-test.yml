@@ -15,20 +15,20 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: [7.3]
-        os: [ubuntu-18.04]
+        php: [7.3, 7.4]
+        os: [ubuntu-20.04]
         epubcheck: [4.2.4]
         prince: [14.2-1]
         wordpress: [5.9]
         experimental: [false]
         include:
-          - php: 7.4
+          - php: 8.0
             os: ubuntu-20.04
             wordpress: latest
             epubcheck: 4.2.6
             prince: 14.2-1
             experimental: true
-    name: PHPUnit - ${{ matrix.php }} - ${{ matrix.wordpress }}
+    name: Test - PHP ${{ matrix.php }} - WP ${{ matrix.wordpress }}
 
     steps:
     - name: Checkout code
@@ -43,9 +43,9 @@ jobs:
         unzip epubcheck-${{ matrix.epubcheck }}.zip -d /opt/
         mv /opt/epubcheck-${{ matrix.epubcheck }} /opt/epubcheck
         rm epubcheck-${{ matrix.epubcheck }}.zip
-        wget https://www.princexml.com/download/prince_${{ matrix.prince }}_ubuntu18.04_amd64.deb
-        sudo dpkg -i prince_${{ matrix.prince }}_ubuntu18.04_amd64.deb
-        rm prince_${{ matrix.prince }}_ubuntu18.04_amd64.deb
+        wget https://www.princexml.com/download/prince_${{ matrix.prince }}_ubuntu20.04_amd64.deb
+        sudo dpkg -i prince_${{ matrix.prince }}_ubuntu20.04_amd64.deb
+        rm prince_${{ matrix.prince }}_ubuntu20.04_amd64.deb
 
     - name: Cache Composer packages
       uses: actions/cache@v2
@@ -107,13 +107,12 @@ jobs:
       if: matrix.experimental == true
 
     - name: Run PHP Tests and PCOV
-      run: |
-        vendor/bin/phpunit --configuration phpunit.xml --coverage-clover coverage.xml
+      run: composer test-coverage
       if: matrix.experimental == false
 
     - name: Upload Coverage to Codecov
       run: bash <(curl -s https://codecov.io/bash)
-      if: matrix.experimental == false
+      if: matrix.experimental == false && matrix.php == 7.3
 
     - name: Prepare Build
       if: startsWith(github.ref, 'refs/tags/')
