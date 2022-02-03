@@ -58,16 +58,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.209.15",
+            "version": "3.209.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "8656babb2e58ea3e7c9a40724e8a545ce40bb622"
+                "reference": "5c128ac9a1513bed9b8975fb66821724d0f80ebe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/8656babb2e58ea3e7c9a40724e8a545ce40bb622",
-                "reference": "8656babb2e58ea3e7c9a40724e8a545ce40bb622",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/5c128ac9a1513bed9b8975fb66821724d0f80ebe",
+                "reference": "5c128ac9a1513bed9b8975fb66821724d0f80ebe",
                 "shasum": ""
             },
             "require": {
@@ -111,12 +111,12 @@
                 }
             },
             "autoload": {
-                "psr-4": {
-                    "Aws\\": "src/"
-                },
                 "files": [
                     "src/functions.php"
-                ]
+                ],
+                "psr-4": {
+                    "Aws\\": "src/"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -140,7 +140,12 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2022-01-28T19:14:57+00:00"
+            "support": {
+                "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
+                "issues": "https://github.com/aws/aws-sdk-php/issues",
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.209.16"
+            },
+            "time": "2022-02-02T19:17:06+00:00"
         },
         {
             "name": "composer/installers",
