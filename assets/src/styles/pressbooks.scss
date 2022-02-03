@@ -8,6 +8,12 @@
   transform: translateZ(0);
 }
 
+.toplevel_page_pb_import {
+  .wp-menu-image {
+    transform: rotate(180deg);
+  }
+}
+
 /* Fix for Chrome bug: https://code.google.com/p/chromium/issues/detail?id=509179#c51
 
 /* Admin Bar */

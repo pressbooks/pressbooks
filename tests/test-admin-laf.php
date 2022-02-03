@@ -72,7 +72,8 @@ class Admin_LafTest extends \WP_UnitTestCase {
 
 		$this->assertEquals( $menu[12][0], 'Book Info' );
 		$this->assertEquals( $menu[14][0], 'Export' );
-		$this->assertEquals( $menu[16][0], 'Publish' );
+		$this->assertEquals( $menu[16][0], 'Import' );
+		$this->assertEquals( $menu[17][0], 'Publish' );
 		$this->assertNotContains(
 			[
 				'QuickLaTex',
@@ -118,7 +119,7 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		$this->assertContains( 'pb-export', $wp_scripts->queue );
 		$this->assertContains( 'pb-export', $wp_styles->queue );
 
-		do_action( 'admin_enqueue_scripts', 'admin_page_pb_import' );
+		do_action( 'admin_enqueue_scripts', 'toplevel_page_pb_import' );
 		$this->assertContains( 'pb-import', $wp_scripts->queue );
 
 		unset( $GLOBALS['post'], $GLOBALS['current_screen'] ); // Cleanup

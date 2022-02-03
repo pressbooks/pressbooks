@@ -11,8 +11,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$import_form_url = wp_nonce_url( get_admin_url( get_current_blog_id(), '/tools.php?page=pb_import&import=yes' ), 'pb-import' );
-$import_revoke_url = wp_nonce_url( get_admin_url( get_current_blog_id(), '/tools.php?page=pb_import&revoke=yes' ), 'pb-revoke-import' );
+$import_form_url = wp_nonce_url( get_admin_url( get_current_blog_id(), '/admin.php?page=pb_import&import=yes' ), 'pb-import' );
+$import_revoke_url = wp_nonce_url( get_admin_url( get_current_blog_id(), '/admin.php?page=pb_import&revoke=yes' ), 'pb-revoke-import' );
 $current_import = get_option( 'pressbooks_current_import' );
 $custom_post_types = apply_filters( 'pb_import_custom_post_types', [] );
 $html_type_of = Cloner::isEnabled() ? __( 'Web page or Pressbooks webbook (.html or URL)', 'pressbooks' ) : __( 'Web page (.html or URL)', 'pressbooks' );

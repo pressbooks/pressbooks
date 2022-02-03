@@ -246,7 +246,7 @@ abstract class Import {
 		// --------------------------------------------------------------------------------------------------------
 		// Determine at what stage of the import we are and do something about it
 
-		$redirect_url = get_admin_url( get_current_blog_id(), '/tools.php?page=pb_import' );
+		$redirect_url = get_admin_url( get_current_blog_id(), '/admin.php?page=pb_import' );
 		$current_import = get_option( 'pressbooks_current_import' );
 
 		// Revoke
