@@ -58,16 +58,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.209.16",
+            "version": "3.209.21",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "5c128ac9a1513bed9b8975fb66821724d0f80ebe"
+                "reference": "3f5b867920f422d605c38aad95f5c334183b39bb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/5c128ac9a1513bed9b8975fb66821724d0f80ebe",
-                "reference": "5c128ac9a1513bed9b8975fb66821724d0f80ebe",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/3f5b867920f422d605c38aad95f5c334183b39bb",
+                "reference": "3f5b867920f422d605c38aad95f5c334183b39bb",
                 "shasum": ""
             },
             "require": {
@@ -143,9 +143,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.209.16"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.209.21"
             },
-            "time": "2022-02-02T19:17:06+00:00"
+            "time": "2022-02-09T19:17:07+00:00"
         },
         {
             "name": "composer/installers",
@@ -7031,12 +7031,12 @@
                 }
             },
             "autoload": {
-                "psr-4": {
-                    "Symfony\\Polyfill\\Intl\\Normalizer\\": ""
-                },
                 "files": [
                     "bootstrap.php"
                 ],
+                "psr-4": {
+                    "Symfony\\Polyfill\\Intl\\Normalizer\\": ""
+                },
                 "classmap": [
                     "Resources/stubs"
                 ]
