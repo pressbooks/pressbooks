@@ -1046,6 +1046,36 @@
             "code": "CA-ON-060",
             "name": "York University",
             "url": "https:\/\/www.yorku.ca\/"
+          },
+          {
+            "code": "CA-ON-061",
+            "name": "Anishinabek Education Institute",
+            "url": "https:\/\/aeipostsecondary.ca\/"
+          },
+          {
+            "code": "CA-ON-062",
+            "name": "Iohahi:io Akwesasne Adult Education",
+            "url": "http:\/\/iohahiio.ambe.ca\/"
+          },
+          {
+            "code": "CA-ON-063",
+            "name": "Centre Oshki-Pimache-O-Win Education & Training Institute",
+            "url": "https:\/\/www.oshki.ca\/"
+          },
+          {
+            "code": "CA-ON-064",
+            "name": "Ogwehoweh Skills and Trades Training",
+            "url": "https:\/\/osttc.com\/"
+          },
+          {
+            "code": "CA-ON-065",
+            "name": "Centre Shingwauk Kinoomaage Gamig",
+            "url": "https:\/\/shingwauku.org\/"
+          },
+          {
+            "code": "CA-ON-066",
+            "name": "Michener Institute of Education at University Health Network",
+            "url": "https:\/\/michener.ca\/"
           }
         ]
       },
