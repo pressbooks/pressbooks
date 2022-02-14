@@ -176,6 +176,7 @@ if ( $is_book ) {
 	add_action( 'save_post', [ '\Pressbooks\Book', 'consolidatePost' ], 10, 2 );
 	add_action( 'save_post_metadata', '\Pressbooks\Admin\Metaboxes\upload_cover_image', 10, 2 );
 	add_action( 'wp_insert_post', '\Pressbooks\Admin\Metaboxes\add_required_data', 10, 2 );
+	add_action( 'save_post_metadata', '\Pressbooks\Admin\Metaboxes\save_institutions_metadata', 10, 2 );
 	add_action( 'save_post_metadata', '\Pressbooks\Admin\Metaboxes\save_subject_metadata', 10, 2 );
 	add_action( 'contributor_pre_add_form', '\Pressbooks\Admin\Metaboxes\contributor_add_form_picture' );
 	add_action( 'contributor_add_form_fields', '\Pressbooks\Admin\Metaboxes\contributor_add_form' );
@@ -242,6 +243,7 @@ add_action( 'wp_ajax_pb_update_global_privacy_options', [ '\Pressbooks\Book', 'u
 // Book Information Page
 add_action( 'wp_ajax_pb_delete_cover_image', '\Pressbooks\Admin\Metaboxes\delete_cover_image' );
 add_action( 'wp_ajax_pb_get_thema_subjects', '\Pressbooks\Admin\Metaboxes\get_thema_subjects' );
+add_action( 'wp_ajax_pb_get_institutions', '\Pressbooks\Admin\Metaboxes\get_institutions_json' );
 // Convert MS Word Footnotes
 add_action( 'wp_ajax_pb_ftnref_convert', [ '\Pressbooks\Shortcodes\Footnotes\Footnotes', 'convertWordFootnotes' ] );
 // User Catalog Page

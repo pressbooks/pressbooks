@@ -298,11 +298,14 @@ function book_information_to_schema( array $book_information, bool $network_excl
 	if ( isset( $book_information['pb_institutions'] ) ) {
 		$book_schema['institutions'] = array_reduce(
 			$book_information['pb_institutions'], static function( $carry, $code ) {
+				$institution = \Pressbooks\Metadata\get_institution_by_code( $code );
+
 				return array_merge( $carry, [
 					[
 						'@type' => 'Institution',
 						'code' => $code,
-						'name' => \Pressbooks\Metadata\get_institution_by_code( $code ),
+						'name' => $institution['name'],
+						'url' => $institution['url'],
 					],
 				] );
 			}, []
@@ -1228,8 +1231,12 @@ function check_thema_lang_file( $post ) {
  * @return array
  */
 function transform_institutions( array $institutions ): array {
+	usort( $institutions, static function ( $a, $b ) {
+		return strcmp( $a['name'], $b['name'] );
+	} );
+
 	return array_reduce( $institutions, static function( $carry, $institution ) {
-		return array_merge( $carry, [ $institution['code'] => $institution['name'] ] );
+		return array_merge( $carry, [ $institution['code'] => $institution ] );
 	}, [] );
 }
 
@@ -1242,51 +1249,90 @@ function transform_institutions( array $institutions ): array {
  * @return array
  */
 function transform_regions( string $country, array $regions ): array {
-	return array_reduce( $regions, static function( $values, $region ) {
-		return array_merge(
-			$values, transform_institutions( $region['institutions'] )
-		);
+	return array_reduce( $regions, static function( $values, $region ) use ( $country ) {
+		$institutions = [ "${country}/${region['name']}" => transform_institutions( $region['institutions'] ?? [] ) ];
+
+		return array_merge( $values, $institutions );
 	}, [] );
 }
 
 /**
- * Return an array of known institutions
+ * Return an array of known institutions.
  *
  * @return array
  */
 function get_institutions(): array {
+	$institutions = get_transient( 'pb_institutions_list' );
+
+	if ( $institutions ) {
+		return $institutions;
+	}
+
 	$filepath = PB_PLUGIN_DIR . 'symbionts/institutions/institutions.json';
 
 	$items = json_decode(
 		\Pressbooks\Utility\get_contents( $filepath ), true
 	);
 
-	return array_reduce(
-		$items, static function ( $institutions, $country ) {
+	$institutions = array_reduce(
+		$items, static function( $list, $country ) {
+			$country_name = $country['country'];
 			$regions = $country['regions'] ?? [];
-
-			if ( ! $regions ) {
-				return array_merge(
-					$institutions, transform_institutions( $country['institutions'] )
-				);
-			}
+			$institutions = $country['institutions'] ?? [];
 
 			return array_merge(
-				$institutions, transform_regions( $country['country'], $regions )
+				$list, array_merge(
+					[ $country_name => transform_institutions( $institutions ) ],
+					transform_regions( $country_name, $regions )
+				)
 			);
 		}, []
 	);
+
+	set_transient( 'pb_institutions_list', $institutions, DAY_IN_SECONDS );
+
+	return $institutions;
 }
 
 /**
- * Retrieve the institution name from an institution code.
+ * Return an array of known institutions flattened.
+ *
+ * @return array
+ */
+function get_institutions_flattened(): array {
+	return array_reduce( get_institutions(), static function( $carry, $institutions ) {
+		return array_merge( $carry, array_reduce( $institutions, static function( $carry, $institution ) {
+			return array_merge( $carry, [ $institution['code'] => $institution['name'] ] );
+		}, [] ) );
+	}, [] );
+}
+
+/**
+ * Retrieve the institution from an institution code.
+ *
+ * @param string $code The institution code.
+ *
+ * @return array|null The institution.
+ */
+function get_institution_by_code( string $code ): ?array {
+	foreach ( get_institutions() as $institutions ) {
+		if ( array_key_exists( $code, $institutions ) ) {
+			return $institutions[ $code ];
+		}
+	}
+
+	return null;
+}
+
+/**
+ * Retrieve the institution from an institution code.
  *
  * @param string $code The institution code.
  *
  * @return string|null The institution name.
  */
-function get_institution_by_code( string $code ): ?string {
-	$institutions = get_institutions();
+function get_institution_name( string $code ): ?string {
+	$institution = get_institution_by_code( $code );
 
-	return $institutions[ $code ] ?? null;
+	return $institution['name'] ?? null;
 }

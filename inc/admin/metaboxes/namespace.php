@@ -13,6 +13,7 @@ namespace Pressbooks\Admin\Metaboxes;
 
 use function Pressbooks\Sanitize\sanitize_string;
 use PressbooksMix\Assets;
+use Pressbooks\Container;
 use Pressbooks\Contributors;
 use Pressbooks\Licensing;
 use Pressbooks\Metadata;
@@ -300,24 +301,6 @@ function add_meta_boxes() {
 		]
 	);
 
-	/**
-	 * This is an MVP for a future feature.
-	 * It's being released to get feedback from users.
-	 */
-	if ( is_plugin_active( 'pressbooks-ecampus-ontario/pressbooks-ecampus-ontario.php' ) ) {
-		x_add_metadata_field(
-			'pb_institutions', 'metadata', [
-				'group' => 'general-book-information',
-				'field_type' => 'multi_select',
-				'select2' => true,
-				'label' => __( 'Institution(s)', 'pressbooks' ),
-				'placeholder' => __( 'Choose institution(s)...', 'pressbooks' ),
-				'description' => __( 'This optional field can be used to display the institution(s) which created this resource. If your college or university is not listed, please contact your network manager.', 'pressbooks' ),
-				'values' => \Pressbooks\Metadata\get_institutions(),
-			]
-		);
-	}
-
 	x_add_metadata_field(
 		'pb_publisher', 'metadata', [
 			'group' => 'general-book-information',
@@ -514,6 +497,8 @@ function add_meta_boxes() {
 			},
 		]
 	);
+
+	add_meta_box( 'institutions', __( 'Institutions', 'pressbooks' ), __NAMESPACE__ . '\institutions_metabox', 'metadata', 'normal', 'low' );
 
 	add_meta_box( 'subject', __( 'Subject(s)', 'pressbooks' ), __NAMESPACE__ . '\metadata_subject_box', 'metadata', 'normal', 'low' );
 
@@ -1104,6 +1089,24 @@ function publish_fields_save( $post_id, $post, $update ) {
 }
 
 /**
+ * Display the institutions meta box
+ *
+ * @since 5.33.0
+ *
+ * @param \WP_Post $post
+ */
+function institutions_metabox( \WP_Post $post ): void {
+	wp_nonce_field( basename( __FILE__ ), 'institutions_metabox_nonce' );
+
+	$institutions = get_post_meta( $post->ID, 'pb_institutions', false );
+
+	echo Container::get( 'Blade' )->render(
+		'admin.institutions',
+		compact( 'institutions' )
+	);
+}
+
+/**
  * Display subjects meta box
  *
  * @since 4.4.0
@@ -1139,6 +1142,77 @@ function metadata_subject_box( $post ) {
 		<span class="description"><?php printf( __( '%1$s subject terms appear on the web homepage of your book and help categorize your book in your network catalog and Pressbooks Directory (if applicable). Use %2$s to determine which additional subject categories are appropriate for your book.', 'pressbooks' ), sprintf( '<a href="%1$s"><em>%2$s</em></a>', 'https://www.editeur.org/151/Thema', __( 'Thema', 'pressbooks' ) ), sprintf( '<a href="%1$s">%2$s</a>', 'https://ns.editeur.org/thema/en', __( 'the Thema subject category list', 'pressbooks' ) ) ); ?></span>
 	</div>
 	<?php
+}
+
+/**
+ * Return the list of institutions in the Select2 data format
+ *
+ * @since 5.33.0
+ * @see https://select2.org/data-sources/formats
+ *
+ * @return void
+ */
+function get_institutions_json(): void {
+	check_ajax_referer( 'pb-metadata' );
+
+	$items = [];
+	$q = $_REQUEST['q'] ?? '';
+
+	foreach ( \Pressbooks\Metadata\get_institutions() as $region => $institutions ) {
+		$children = array_values( array_filter( $institutions, static function( $institution ) use ( $q ) {
+			return ! $q || stripos( $institution['name'], $q ) !== false;
+		} ) );
+
+		if ( ! empty( $children ) ) {
+			$items[] = [
+				'text' => $region,
+				'children' => array_map( static function( $institution ) {
+					return [
+						'id' => $institution['code'],
+						'text' => $institution['name'],
+					];
+				}, $children ),
+			];
+		}
+	}
+
+	wp_send_json([
+		'results' => $items,
+		'pagination' => [
+			'more' => false,
+		],
+	]);
+}
+
+/**
+ * Save the institutions metadata
+ *
+ * @since 5.33.0
+ *
+ * @param int $post_id
+ *
+ * @return void
+ */
+function save_institutions_metadata( int $post_id ): void {
+	if ( ! wp_verify_nonce( $_POST['institutions_metabox_nonce'], basename( __FILE__ ) ) ) {
+		return;
+	}
+
+	if ( ! current_user_can( 'edit_post', $post_id ) ) {
+		return;
+	}
+
+	if ( isset( $_REQUEST['pb_institutions'] ) && ! empty( $_REQUEST['pb_institutions'] ) ) {
+		$value = ( is_array( $_POST['pb_institutions'] ) ) ? $_POST['pb_institutions'] : [ $_POST['pb_institutions'] ];
+
+		delete_post_meta( $post_id, 'pb_institutions' );
+
+		foreach ( $value as $v ) {
+			add_post_meta( $post_id, 'pb_institutions', sanitize_text_field( $v ) );
+		}
+	} else {
+		delete_post_meta( $post_id, 'pb_institutions' );
+	}
 }
 
 /**

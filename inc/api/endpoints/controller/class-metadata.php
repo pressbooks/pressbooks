@@ -377,6 +377,12 @@ class Metadata extends \WP_REST_Controller {
 								'context' => [ 'view' ],
 								'readonly' => true,
 							],
+							'url' => [
+								'type' => 'string',
+								'description' => __( 'The url of the institutions.' ),
+								'context' => [ 'view' ],
+								'readonly' => true,
+							],
 						],
 					],
 				],
