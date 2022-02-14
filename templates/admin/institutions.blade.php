@@ -5,4 +5,7 @@
             <option value="{{ $institution }}" selected>{{ \Pressbooks\Metadata\get_institution_name( $institution ) }}</option>
         @endforeach
     </select>
+    <div class="description">
+        {{ __( 'This optional field can be used to display the institution(s) which created this resource. If your college or university is not listed, please contact your network manager.', 'pressbooks' ) }}
+    </div>
 </div>
