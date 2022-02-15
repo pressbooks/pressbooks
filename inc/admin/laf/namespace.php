@@ -292,7 +292,9 @@ function replace_book_admin_menu() {
 					wp_localize_script(
 						'pb-metadata', 'PB_BookInfoToken', [
 							'ajaxUrl' => wp_nonce_url( admin_url( 'admin-ajax.php?action=pb_get_thema_subjects' ), 'pb-metadata' ),
+							'institutionsAPI' => wp_nonce_url( admin_url( 'admin-ajax.php?action=pb_get_institutions' ), 'pb-metadata' ),
 							'bookInfoMenuId' => preg_replace( '|[^a-zA-Z0-9_:.]|', '-', $bookinfo_page ),
+							'selectInstitutionsText' => __( 'Choose institution(s)... ', 'pressbooks' ),
 							'selectSubjectText' => __( 'Choose a subject…', 'pressbooks' ),
 							'selectSubjectsText' => __( 'Choose some subject(s)…', 'pressbooks' ),
 						]
