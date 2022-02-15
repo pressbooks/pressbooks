@@ -1152,7 +1152,7 @@ function metadata_subject_box( $post ) {
  *
  * @return void
  */
-function get_institutions_json(): void {
+function get_institutions_to_select(): void {
 	check_ajax_referer( 'pb-metadata' );
 
 	$items = [];
@@ -1202,7 +1202,7 @@ function save_institutions_metadata( int $post_id ): void {
 		return;
 	}
 
-	if ( isset( $_REQUEST['pb_institutions'] ) && ! empty( $_REQUEST['pb_institutions'] ) ) {
+	if ( isset( $_POST['pb_institutions'] ) && ! empty( $_POST['pb_institutions'] ) ) {
 		$value = ( is_array( $_POST['pb_institutions'] ) ) ? $_POST['pb_institutions'] : [ $_POST['pb_institutions'] ];
 
 		delete_post_meta( $post_id, 'pb_institutions' );

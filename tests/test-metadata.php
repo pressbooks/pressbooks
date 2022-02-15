@@ -127,7 +127,7 @@ class MetadataTest extends \WP_UnitTestCase {
 
 		$result = \Pressbooks\Metadata\book_information_to_schema( $book_information );
 
-		$this->assertArraySubset(
+		self::assertArraySubset(
 			[
 				'name' => 'Moby Dick',
 				'sameAs' => 'https://dx.doi.org/my_doi',
@@ -182,7 +182,7 @@ class MetadataTest extends \WP_UnitTestCase {
 		$this->assertEquals( $result['pb_authors'][0]['name'], 'Pat Metheny' );
 		$this->assertEquals( $result['pb_book_license'], 'public-domain' );
 		$this->assertEquals( $result['pb_book_doi'], 'my_doi' );
-		$this->assertArraySubset( ['CA-ON-001', 'CA-ON-002'], $result['pb_institutions'] );
+		self::assertArraySubset( ['CA-ON-001', 'CA-ON-002'], $result['pb_institutions'] );
 
 		$schema = [
 			'@context' => 'http://schema.org',
@@ -670,27 +670,115 @@ class MetadataTest extends \WP_UnitTestCase {
 	}
 
 	/**
+	 * @group metadata
+	 */
+	public function test_transform_institutions(): void {
+		$result = \Pressbooks\Metadata\transform_institutions( [
+			[ 'code' => 'XX-XX-001', 'name' => 'Random University Name', 'url' => 'https://random-university.com' ],
+			[ 'code' => 'XX-XX-002', 'name' => 'Another Random University Name', 'url' => 'https://another-random-university.com' ],
+		] );
+
+		self::assertArraySubset( [
+			'XX-XX-001' => [ 'code' => 'XX-XX-001', 'name' => 'Random University Name', 'url' => 'https://random-university.com' ],
+			'XX-XX-002' => [ 'code' => 'XX-XX-002', 'name' => 'Another Random University Name', 'url' => 'https://another-random-university.com' ],
+		], $result );
+	}
+
+	/**
+	 * @group metadata
+	 */
+	public function test_transform_regions(): void {
+		$result = \Pressbooks\Metadata\transform_regions( 'Random country', [
+			[
+				'name' => 'Random Region Name',
+				'institutions' => [
+					[
+						'code'=>'XX-XX-001',
+						'name'=>'Random University Name',
+						'url'=>'https://random-university.com',
+					],
+					[
+						'code'=>'XX-XX-002',
+						'name'=>'Another Random University Name',
+						'url'=>'https://another-random-university.com',
+					]
+				]
+			]
+		] );
+
+		self::assertArraySubset( [
+			'Random country/Random Region Name' => [
+				'XX-XX-001' => [ 'code' => 'XX-XX-001', 'name' => 'Random University Name', 'url' => 'https://random-university.com' ],
+				'XX-XX-002' => [ 'code' => 'XX-XX-002', 'name' => 'Another Random University Name', 'url' => 'https://another-random-university.com' ],
+			]
+		], $result );
+	}
+
+	/**
 	 * group metadata
 	 */
 	public function test_get_institutions(): void {
-		$institutions = \Pressbooks\Metadata\get_institutions();
+		$result = \Pressbooks\Metadata\get_institutions();
 
-		$this->assertArraySubset( [
+		self::assertArraySubset( [
+			'Australia' => [
+				'AU-XX-001' => [
+					'code' => 'AU-XX-001',
+					'name' => 'Australian Catholic University',
+					'url' => 'https://www.acu.edu.au/'
+				]
+			],
+			'Australia/New South Wales' => [
+				'AU-NSW-001' => [
+					'code' => 'AU-NSW-001',
+					'name' => 'Avondale University',
+					'url' => 'https://www.avondale.edu.au/'
+				]
+			],
+		], $result );
+	}
+
+	/**
+	 * @group metadata
+	 */
+	public function test_get_institutions_flattened(): void {
+		$result = \Pressbooks\Metadata\get_institutions_flattened();
+
+		self::assertArraySubset( [
 			'CA-ON-001' => 'Algoma University',
 			'CA-ON-002' => 'Algonquin College',
 			// ...
-			'CA-ON-049' => 'Wilfrid Laurier University',
-			'CA-ON-050' => 'York University',
-		], $institutions );
+			'CA-ON-049' => 'University of Ottawa',
+			'CA-ON-050' => 'University of Sudbury',
+		], $result );
 	}
 
 	/**
 	 * @group metadata
 	 */
 	public function test_get_institution_by_code(): void {
-		$this->assertEquals( 'Algoma University', \Pressbooks\Metadata\get_institution_by_code( 'CA-ON-001' ) );
-		$this->assertEquals( 'York University', \Pressbooks\Metadata\get_institution_by_code( 'CA-ON-050' ) );
+		$this->assertEquals( [
+			'code' => 'CA-ON-001',
+			'name' => 'Algoma University',
+			'url' => 'https://algomau.ca/'
+		], \Pressbooks\Metadata\get_institution_by_code( 'CA-ON-001' ) );
+
+		$this->assertEquals( [
+			'code' => 'CA-ON-050',
+			'name' => 'University of Sudbury',
+			'url' => 'https://www.usudbury.com/'
+		], \Pressbooks\Metadata\get_institution_by_code( 'CA-ON-050' ) );
+
 		$this->assertNull( \Pressbooks\Metadata\get_institution_by_code( 'NOT-VALID-CODE' ) );
+	}
+
+	/**
+	 * @group metadata
+	 */
+	public function test_get_institution_name(): void {
+		$this->assertEquals( 'Algoma University', \Pressbooks\Metadata\get_institution_name( 'CA-ON-001' ) );
+		$this->assertEquals( 'University of Sudbury', \Pressbooks\Metadata\get_institution_name( 'CA-ON-050' ) );
+		$this->assertNull( \Pressbooks\Metadata\get_institution_name( 'NOT-VALID-CODE' ) );
 	}
 }
 

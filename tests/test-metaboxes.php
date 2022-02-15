@@ -243,6 +243,23 @@ class MetaboxesTest extends \WP_UnitTestCase {
 	/**
 	 * @group metaboxes
 	 */
+	public function test_institutions_metabox(): void {
+		$this->_book();
+
+		$metadata = new \Pressbooks\Metadata();
+
+		ob_start();
+		\Pressbooks\Admin\Metaboxes\institutions_metabox( $metadata->getMetaPost() );
+		$result = ob_get_clean();
+
+		$this->assertStringContainsString( '<div class="custom-metadata-field institutions">', $result );
+		$this->assertStringContainsString( '<label for="pb-institutions">Institutions</label>', $result);
+		$this->assertStringContainsString( '<select id="pb-institutions" name="pb_institutions[]" multiple>', $result);
+	}
+
+	/**
+	 * @group metaboxes
+	 */
 	public function test_get_thema_subjects() {
 		$reporting = $this->_fakeAjax();
 		$_REQUEST['_ajax_nonce'] = wp_create_nonce( 'pb-metadata' );

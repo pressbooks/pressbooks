@@ -243,7 +243,7 @@ add_action( 'wp_ajax_pb_update_global_privacy_options', [ '\Pressbooks\Book', 'u
 // Book Information Page
 add_action( 'wp_ajax_pb_delete_cover_image', '\Pressbooks\Admin\Metaboxes\delete_cover_image' );
 add_action( 'wp_ajax_pb_get_thema_subjects', '\Pressbooks\Admin\Metaboxes\get_thema_subjects' );
-add_action( 'wp_ajax_pb_get_institutions', '\Pressbooks\Admin\Metaboxes\get_institutions_json' );
+add_action( 'wp_ajax_pb_get_institutions', '\Pressbooks\Admin\Metaboxes\get_institutions_to_select' );
 // Convert MS Word Footnotes
 add_action( 'wp_ajax_pb_ftnref_convert', [ '\Pressbooks\Shortcodes\Footnotes\Footnotes', 'convertWordFootnotes' ] );
 // User Catalog Page
