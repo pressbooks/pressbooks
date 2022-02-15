@@ -1,7 +1,6 @@
 /* global PB_BookInfoToken */
 
 jQuery( document ).ready( function ( $ ) {
-	console.log(PB_BookInfoToken);
 	// Set an initial focus to help users of assistive technology
 	$( '#pb_title' ).trigger( 'focus' );
 	// Select2, The jQuery replacement for select boxes
