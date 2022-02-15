@@ -1226,6 +1226,8 @@ function check_thema_lang_file( $post ) {
 /**
  * Transform the institution list to better use in the book info page
  *
+ * @since 5.33.0
+ *
  * @param array $institutions
  *
  * @return array
@@ -1243,6 +1245,8 @@ function transform_institutions( array $institutions ): array {
 /**
  * Transform the region list to better use in the book info page
  *
+ * @since 5.33.0
+ *
  * @param string $country
  * @param array $regions
  *
@@ -1258,6 +1262,8 @@ function transform_regions( string $country, array $regions ): array {
 
 /**
  * Return an array of known institutions.
+ *
+ * @since 5.33.0
  *
  * @return array
  */
@@ -1297,6 +1303,8 @@ function get_institutions(): array {
 /**
  * Return an array of known institutions flattened.
  *
+ * @since 5.33.0
+ *
  * @return array
  */
 function get_institutions_flattened(): array {
@@ -1309,6 +1317,8 @@ function get_institutions_flattened(): array {
 
 /**
  * Retrieve the institution from an institution code.
+ *
+ * @since 5.33.0
  *
  * @param string $code The institution code.
  *
@@ -1326,6 +1336,8 @@ function get_institution_by_code( string $code ): ?array {
 
 /**
  * Retrieve the institution from an institution code.
+ *
+ * @since 5.33.0
  *
  * @param string $code The institution code.
  *
