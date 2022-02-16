@@ -788,11 +788,22 @@ class HTMLBook extends Export {
 		if ( ! $content ) {
 			$content .= sprintf( '<h1 class="title">%s</h1>', get_bloginfo( 'name' ) );
 			$content .= sprintf( '<p class="subtitle">%s</p>', ( isset( $metadata['pb_subtitle'] ) ) ? $metadata['pb_subtitle'] : '' );
-			if ( isset( $metadata['pb_authors'] ) ) {
+			if ( isset( $metadata['pb_authors'] ) && ! empty($metadata['pb_authors'] )) { //if no authors listed, try editors
 				if ( is_string( $metadata['pb_authors'] ) ) {
 					$content .= sprintf( '<p class="author">%s</p>', $metadata['pb_authors'] );
 				} else {
 					$authors = $metadata['pb_authors'];
+					foreach ( $authors as $author ) {
+						$name = is_array( $author ) && array_key_exists( 'name', $author ) ? $author['name'] : $author;
+						$content .= sprintf( '<p class="author">%s</p>', $name );
+					}
+				}
+			}  elseif ( isset( $metadata['pb_editors'] ) && ! empty($metadata['pb_editors']) ){
+				$content .= '<p class="author">Edited By</p>';
+				if ( is_string( $metadata['pb_editors'] ) ) {
+					$content .= sprintf( '<p class="author">%s</p>', $metadata['pb_editors'] );
+				} else {
+					$authors = $metadata['pb_editors'];
 					foreach ( $authors as $author ) {
 						$name = is_array( $author ) && array_key_exists( 'name', $author ) ? $author['name'] : $author;
 						$content .= sprintf( '<p class="author">%s</p>', $name );

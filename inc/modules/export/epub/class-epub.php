@@ -1321,6 +1321,10 @@ class Epub extends ExportGenerator {
 
 			if ( isset( $metadata['pb_authors'] ) && ! empty( $metadata['pb_authors'] ) ) {
 				$authors = is_array( $metadata['pb_authors'] ) ? get_contributors_name_imploded( $metadata['pb_authors'] ) : $metadata['pb_authors'];
+			} elseif ( isset( $metadata['pb_editors'] ) && ! empty( $metadata['pb_editors'] ) ) {
+				$authors = is_array( $metadata['pb_editors'] ) ? get_contributors_name_imploded( $metadata['pb_editors'] ) : $metadata['pb_editors'];
+				$authors = 'Edited By ' . $authors;
+
 			}
 
 			if ( isset( $metadata['pb_contributors'] ) && ! empty( $metadata['pb_contributors'] ) ) {
