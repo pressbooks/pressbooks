@@ -799,7 +799,7 @@ class HTMLBook extends Export {
 					}
 				}
 			}  elseif ( isset( $metadata['pb_editors'] ) && ! empty($metadata['pb_editors']) ){
-				$content .= sprintf('<p class="author">%s</p>', __('Edited By', 'pressbooks') );
+				$content .= sprintf('<p class="author">%s</p>', __('Edited By ', 'pressbooks') );
 				if ( is_string( $metadata['pb_editors'] ) ) {
 					$content .= sprintf( '<p class="author">%s</p>', $metadata['pb_editors'] );
 				} else {

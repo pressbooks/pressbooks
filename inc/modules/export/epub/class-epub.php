@@ -1323,7 +1323,7 @@ class Epub extends ExportGenerator {
 				$authors = is_array( $metadata['pb_authors'] ) ? get_contributors_name_imploded( $metadata['pb_authors'] ) : $metadata['pb_authors'];
 			} elseif ( isset( $metadata['pb_editors'] ) && ! empty( $metadata['pb_editors'] ) ) {
 				$authors = is_array( $metadata['pb_editors'] ) ? get_contributors_name_imploded( $metadata['pb_editors'] ) : $metadata['pb_editors'];
-				$authors = __('Edited By', 'pressbooks') . $authors;
+				$authors = __('Edited By ', 'pressbooks') . $authors;
 
 			}
 
