@@ -49,7 +49,8 @@
 		"pressbooks/pb-cli": "^2.1.0",
 		"scssphp/scssphp": "~1.1.0",
 		"sinergi/browser-detector": "^6.1",
-		"vanilla/htmlawed": "^2.2"
+		"vanilla/htmlawed": "^2.2",
+		"phpcompatibility/php-compatibility": "^9.3"
 	},
 	"require-dev": {
 		"codeception/module-asserts": "^1.3",
