@@ -798,7 +798,7 @@ class HTMLBook extends Export {
 						$content .= sprintf( '<p class="author">%s</p>', $name );
 					}
 				}
-			}  elseif ( isset( $metadata['pb_editors'] ) && ! empty($metadata['pb_editors']) ){
+			}  elseif ( isset( $metadata['pb_editors'] ) && ! empty($metadata['pb_editors']) ) {
 				$content .= sprintf('<p class="author">%s</p>', __('Edited By ', 'pressbooks') );
 				if ( is_string( $metadata['pb_editors'] ) ) {
 					$content .= sprintf( '<p class="author">%s</p>', $metadata['pb_editors'] );
@@ -806,6 +806,30 @@ class HTMLBook extends Export {
 					$authors = $metadata['pb_editors'];
 					foreach ( $authors as $author ) {
 						$name = is_array( $author ) && array_key_exists( 'name', $author ) ? $author['name'] : $author;
+						$content .= sprintf( '<p class="author">%s</p>', $name );
+					}
+				}
+			}
+			if ( isset( $metadata['pb_translators'] ) && ! empty($metadata['pb_translators'] ) ) {
+				$content .= sprintf('<p class="author">%s</p>', __('Translated By ', 'pressbooks') );
+				if ( is_string( $metadata['pb_translators'] ) ) {
+					$content .= sprintf( '<p class="author">%s</p>', $metadata['pb_translators'] );
+				} else {
+					$translators = $metadata['pb_translators'];
+					foreach ( $translators as $translator ) {
+						$name = is_array( $translator ) && array_key_exists( 'name', $translator ) ? $translator['name'] : $translator;
+						$content .= sprintf( '<p class="author">%s</p>', $name );
+					}
+				}
+			}
+			if ( isset( $metadata['pb_illustrators'] ) && ! empty($metadata['pb_illustrators'] ) ) {
+				$content .= sprintf('<p class="author">%s</p>', __('Illustrated By ', 'pressbooks') );
+				if ( is_string( $metadata['pb_illustrators'] ) ) {
+					$content .= sprintf( '<p class="author">%s</p>', $metadata['pb_illustrators'] );
+				} else {
+					$illustrators = $metadata['pb_illustrators'];
+					foreach ( $illustrators as $illustrator ) {
+						$name = is_array( $illustrator ) && array_key_exists( 'name', $illustrator ) ? $illustrator['name'] : $illustrator;
 						$content .= sprintf( '<p class="author">%s</p>', $name );
 					}
 				}

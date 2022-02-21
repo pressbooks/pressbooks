@@ -1013,12 +1013,25 @@ class Xhtml11 extends ExportGenerator {
 		} else {
 			$authors = null;
 			$contributors = null;
+			$translators = null;
+			$illustrators = null;
 
 			if ( isset( $metadata['pb_authors'] ) && ! empty( $metadata['pb_authors'] ) ) {
 				$authors = is_array( $metadata['pb_authors'] ) ? get_contributors_name_imploded( $metadata['pb_authors'] ) : $metadata['pb_authors'];
 			} elseif ( isset( $metadata['pb_editors'] ) && ! empty( $metadata['pb_editors'] ) ) {
 				$authors = is_array( $metadata['pb_editors'] ) ? get_contributors_name_imploded( $metadata['pb_editors'] ) : $metadata['pb_editors'];
 				$authors = __('Edited By ', 'pressbooks') . $authors;
+			}
+
+			if ( isset( $metadata['pb_translators'] ) && ! empty( $metadata['pb_translators'] ) ) {
+				$translators = is_array( $metadata['pb_translators'] ) ? get_contributors_name_imploded( $metadata['pb_translators'] ) : $metadata['pb_translators'];
+				$translators = __('Translated By ', 'pressbooks') . $translators;
+
+			}
+
+			if ( isset( $metadata['pb_illustrators'] ) && ! empty( $metadata['pb_illustrators'] ) ) {
+				$illustrators = is_array( $metadata['pb_illustrators'] ) ? get_contributors_name_imploded( $metadata['pb_illustrators'] ) : $metadata['pb_illustrators'];
+				$illustrators = __('Illustrated By ', 'pressbooks') . $illustrators;
 			}
 
 			if ( isset( $metadata['pb_contributors'] ) && ! empty( $metadata['pb_contributors'] ) ) {
@@ -1030,6 +1043,8 @@ class Xhtml11 extends ExportGenerator {
 					'title' => get_bloginfo( 'name' ),
 					'subtitle' => $metadata['pb_subtitle'] ?? '',
 					'authors' => $authors,
+					'translators' => $translators,
+					'illustrators' => $illustrators,
 					'contributors' => $contributors,
 					'logo' => current_theme_supports( 'pressbooks_publisher_logo' ) ? get_theme_support( 'pressbooks_publisher_logo' )[0]['logo_uri'] : null,
 					'publisher' => $metadata['pb_publisher'] ?? '',
