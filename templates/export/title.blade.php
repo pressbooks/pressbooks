@@ -7,6 +7,9 @@
 		@if( $authors )
 			<p class="author">{{ $authors }}</p>
 		@endif
+		@if( $editors )
+			<p class="author">{{ $editors }}</p>
+		@endif
 		@if( $translators )
 			<p class="author">{{ $translators }}</p>
 		@endif

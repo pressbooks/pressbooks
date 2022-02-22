@@ -798,14 +798,15 @@ class HTMLBook extends Export {
 						$content .= sprintf( '<p class="author">%s</p>', $name );
 					}
 				}
-			}  elseif ( isset( $metadata['pb_editors'] ) && ! empty($metadata['pb_editors']) ) {
+			}
+			if ( isset( $metadata['pb_editors'] ) && ! empty($metadata['pb_editors']) ) {
 				$content .= sprintf('<p class="author">%s</p>', __('Edited By ', 'pressbooks') );
 				if ( is_string( $metadata['pb_editors'] ) ) {
 					$content .= sprintf( '<p class="author">%s</p>', $metadata['pb_editors'] );
 				} else {
-					$authors = $metadata['pb_editors'];
-					foreach ( $authors as $author ) {
-						$name = is_array( $author ) && array_key_exists( 'name', $author ) ? $author['name'] : $author;
+					$editors = $metadata['pb_editors'];
+					foreach ( $editors as $editor ) {
+						$name = is_array( $editor ) && array_key_exists( 'name', $editor ) ? $editor['name'] : $editor;
 						$content .= sprintf( '<p class="author">%s</p>', $name );
 					}
 				}
