@@ -788,7 +788,7 @@ class HTMLBook extends Export {
 		if ( ! $content ) {
 			$content .= sprintf( '<h1 class="title">%s</h1>', get_bloginfo( 'name' ) );
 			$content .= sprintf( '<p class="subtitle">%s</p>', ( isset( $metadata['pb_subtitle'] ) ) ? $metadata['pb_subtitle'] : '' );
-			if ( isset( $metadata['pb_authors'] ) && ! empty($metadata['pb_authors'] )) {
+			if ( isset( $metadata['pb_authors'] ) && ! empty( $metadata['pb_authors'] ) ) {
 				if ( is_string( $metadata['pb_authors'] ) ) {
 					$content .= sprintf( '<p class="author">%s</p>', $metadata['pb_authors'] );
 				} else {
@@ -799,8 +799,8 @@ class HTMLBook extends Export {
 					}
 				}
 			}
-			if ( isset( $metadata['pb_editors'] ) && ! empty($metadata['pb_editors']) ) {
-				$content .= sprintf('<p class="author">%s</p>', __('Edited By ', 'pressbooks') );
+			if ( isset( $metadata['pb_editors'] ) && ! empty( $metadata['pb_editors'] ) ) {
+				$content .= sprintf( '<p class="author">%s</p>', __( 'Edited By ', 'pressbooks' ) );
 				if ( is_string( $metadata['pb_editors'] ) ) {
 					$content .= sprintf( '<p class="author">%s</p>', $metadata['pb_editors'] );
 				} else {
@@ -811,8 +811,8 @@ class HTMLBook extends Export {
 					}
 				}
 			}
-			if ( isset( $metadata['pb_translators'] ) && ! empty($metadata['pb_translators'] ) ) {
-				$content .= sprintf('<p class="author">%s</p>', __('Translated By ', 'pressbooks') );
+			if ( isset( $metadata['pb_translators'] ) && ! empty( $metadata['pb_translators'] ) ) {
+				$content .= sprintf( '<p class="author">%s</p>', __( 'Translated By ', 'pressbooks' ) );
 				if ( is_string( $metadata['pb_translators'] ) ) {
 					$content .= sprintf( '<p class="author">%s</p>', $metadata['pb_translators'] );
 				} else {
@@ -823,8 +823,8 @@ class HTMLBook extends Export {
 					}
 				}
 			}
-			if ( isset( $metadata['pb_illustrators'] ) && ! empty($metadata['pb_illustrators'] ) ) {
-				$content .= sprintf('<p class="author">%s</p>', __('Illustrated By ', 'pressbooks') );
+			if ( isset( $metadata['pb_illustrators'] ) && ! empty( $metadata['pb_illustrators'] ) ) {
+				$content .= sprintf( '<p class="author">%s</p>', __( 'Illustrated By ', 'pressbooks' ) );
 				if ( is_string( $metadata['pb_illustrators'] ) ) {
 					$content .= sprintf( '<p class="author">%s</p>', $metadata['pb_illustrators'] );
 				} else {

@@ -1328,23 +1328,23 @@ class Epub extends ExportGenerator {
 
 			if ( isset( $metadata['pb_editors'] ) && ! empty( $metadata['pb_editors'] ) ) {
 				$editors = is_array( $metadata['pb_editors'] ) ? get_contributors_name_imploded( $metadata['pb_editors'] ) : $metadata['pb_editors'];
-				$editors = __('Edited By ', 'pressbooks') . $editors;
+				$editors = __( 'Edited By ', 'pressbooks' ) . $editors;
 			}
 
 			if ( isset( $metadata['pb_translators'] ) && ! empty( $metadata['pb_translators'] ) ) {
 				$translators = is_array( $metadata['pb_translators'] ) ? get_contributors_name_imploded( $metadata['pb_translators'] ) : $metadata['pb_translators'];
-				$translators = __('Translated By ', 'pressbooks') . $translators;
+				$translators = __( 'Translated By ', 'pressbooks' ) . $translators;
 
 			}
 
 			if ( isset( $metadata['pb_illustrators'] ) && ! empty( $metadata['pb_illustrators'] ) ) {
 				$illustrators = is_array( $metadata['pb_illustrators'] ) ? get_contributors_name_imploded( $metadata['pb_illustrators'] ) : $metadata['pb_illustrators'];
-				$illustrators = __('Illustrated By ', 'pressbooks') . $illustrators;
+				$illustrators = __( 'Illustrated By ', 'pressbooks' ) . $illustrators;
 			}
 
 			if ( isset( $metadata['pb_contributors'] ) && ! empty( $metadata['pb_contributors'] ) ) {
 				$contributors = is_array( $metadata['pb_contributors'] ) ? get_contributors_name_imploded( $metadata['pb_contributors'] ) : $metadata['pb_contributors'];
-				$contributors = __('Contributors: ', 'pressbooks') . $contributors;
+				$contributors = __( 'Contributors: ', 'pressbooks' ) . $contributors;
 
 			}
 

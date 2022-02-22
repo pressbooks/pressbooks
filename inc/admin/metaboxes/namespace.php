@@ -49,7 +49,7 @@ function add_required_data( $pid, $post ) {
 		return; // Do nothing
 	}
 	$pb_authors = get_post_meta( $pid, 'pb_authors', true );
-	$pb_editors = get_post_meta($pid, 'pb_editors', true);
+	$pb_editors = get_post_meta( $pid, 'pb_editors', true );
 	if ( ! $pb_authors && ! $pb_editors ) {
 		// if pb_authors and pb_editors are missing, set pb_author to the primary book user
 		$user_id = get_current_user_id();
