@@ -788,7 +788,7 @@ class HTMLBook extends Export {
 		if ( ! $content ) {
 			$content .= sprintf( '<h1 class="title">%s</h1>', get_bloginfo( 'name' ) );
 			$content .= sprintf( '<p class="subtitle">%s</p>', ( isset( $metadata['pb_subtitle'] ) ) ? $metadata['pb_subtitle'] : '' );
-			if ( isset( $metadata['pb_authors'] ) && ! empty($metadata['pb_authors'] )) { //if no authors listed, try editors
+			if ( isset( $metadata['pb_authors'] ) && ! empty($metadata['pb_authors'] )) {
 				if ( is_string( $metadata['pb_authors'] ) ) {
 					$content .= sprintf( '<p class="author">%s</p>', $metadata['pb_authors'] );
 				} else {
