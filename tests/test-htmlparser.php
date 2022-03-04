@@ -54,4 +54,15 @@ class HtmlParserTest extends \WP_UnitTestCase {
 
 	}
 
+	/**
+	 * @group htmlparser
+	 */
+	public function test_removeFixMeWrapper() {
+		$html5 = new HtmlParser( true );
+		$html = '<div><!-- pb_fixme --><p>I am a paragraph</p><!-- pb_fixme --></div>';
+		$this->assertEquals( '<p>I am a paragraph</p>', $html5->removeFixMeWrapper( $html ) );
+		$html = '<p>I am a paragraph</p>';
+		$this->assertEquals( $html, $html5->removeFixMeWrapper( $html ) );
+	}
+
 }
