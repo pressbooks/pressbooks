@@ -20,7 +20,7 @@ jobs:
     - name: Generate MO files
       run: for file in languages/*.po ; do msgfmt $file -o `echo $file | sed 's/\(.*\.\)po/\1mo/'` ; done
     - name: Commit updated translation files
-      uses: stefanzweifel/git-auto-commit-action@v4.1.1
+      uses: stefanzweifel/git-auto-commit-action@v4.13.1
       with:
         commit_message: 'chore(l10n): update translations'
         file_pattern: '*.mo *.po'
