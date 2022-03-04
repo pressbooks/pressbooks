@@ -70,20 +70,20 @@ class HtmlParser {
 		return $this->removeFixMeWrapper( \Pressbooks\Sanitize\strip_container_tags( $html ) );
 	}
 
-    /**
-     * Remove `<div><!-- pb_fixme --><!-- pb_fixme --></div>` from HTML.
-     *
-     * @param string $html
-     * @return string
-     */
-    public function removeFixMeWrapper( string $html ) {
-        return strtr(
-            $html,
-            [
-                '<div><!-- pb_fixme -->' => '',
-                '<!-- pb_fixme --></div>' => '',
-            ]
-        );
-    }
+	/**
+	 * Remove `<div><!-- pb_fixme --><!-- pb_fixme --></div>` from HTML.
+	 *
+	 * @param string $html
+	 * @return string
+	 */
+	public function removeFixMeWrapper( string $html ) {
+		return strtr(
+			$html,
+			[
+				'<div><!-- pb_fixme -->' => '',
+				'<!-- pb_fixme --></div>' => '',
+			]
+		);
+	}
 
 }
