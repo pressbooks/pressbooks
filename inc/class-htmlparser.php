@@ -41,7 +41,6 @@ class HtmlParser {
 	 * @return \DOMDocument
 	 */
 	public function loadHTML( $html, $options = [] ) {
-		$html = '<div><!-- pb_fixme -->' . $html . '<!-- pb_fixme --></div>';
 		if ( $this->parser instanceof \DOMDocument ) {
 			libxml_use_internal_errors( true );
 			$this->parser->loadHTML( mb_convert_encoding( $html, 'HTML-ENTITIES', 'UTF-8' ), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD );
@@ -68,15 +67,7 @@ class HtmlParser {
 			$html = $this->parser->saveHTML( $dom );
 		}
 
-		$html = \Pressbooks\Sanitize\strip_container_tags( $html );
-
-		$replace_pairs = [
-			'<div><!-- pb_fixme -->' => '',
-			'<!-- pb_fixme --></div>' => '',
-		];
-		$html = strtr( $html, $replace_pairs );
-
-		return $html;
+		return \Pressbooks\Sanitize\strip_container_tags( $html );
 	}
 
 }
