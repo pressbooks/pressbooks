@@ -24,3 +24,4 @@ jobs:
       with:
         commit_message: 'chore(l10n): update translations'
         file_pattern: '*.mo *.po'
+        push_options: --force
