@@ -31,7 +31,7 @@ jobs:
     - name: Update POT file
       run: wp pb make-pot . languages/pressbooks.pot --domain=pressbooks --slug=pressbooks --package-name="Pressbooks" --headers="{\"Report-Msgid-Bugs-To\":\"https://github.com/pressbooks/pressbooks/issues\"}"
     - name: Commit updated POT file
-      uses: stefanzweifel/git-auto-commit-action@v4.1.1
+      uses: stefanzweifel/git-auto-commit-action@v4.13.1
       with:
         commit_message: 'chore(l10n): update languages/pressbooks.pot'
         file_pattern: '*.pot'
