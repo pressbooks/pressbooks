@@ -35,3 +35,4 @@ jobs:
       with:
         commit_message: 'chore(l10n): update languages/pressbooks.pot'
         file_pattern: '*.pot'
+        push_options: --force
