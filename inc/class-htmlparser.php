@@ -78,7 +78,7 @@ class HtmlParser {
      */
     public function removeFixMeWrapper( string $html ) {
         return strtr(
-            \Pressbooks\Sanitize\strip_container_tags( $html ),
+            $html,
             [
                 '<div><!-- pb_fixme -->' => '',
                 '<!-- pb_fixme --></div>' => '',
