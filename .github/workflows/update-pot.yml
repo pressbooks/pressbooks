@@ -13,6 +13,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+      with:
+          token: ${{ secrets.PAT_FOR_GITHUB_ACTIONS }}
     - name: Setup PHP with tools
       uses: shivammathur/setup-php@v2
       with:
