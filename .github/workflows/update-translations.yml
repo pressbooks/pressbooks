@@ -8,7 +8,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
       with:
-          token: ${{ secrets.PAT_FOR_GITHUB_ACTIONS }}
+        token: ${{ secrets.PAT_FOR_GITHUB_ACTIONS }}
     - name: Install Transifex Client
       run: sudo pip install transifex-client
     - name: Pull translations from Transifex
@@ -23,4 +23,4 @@ jobs:
       uses: stefanzweifel/git-auto-commit-action@v4.1.1
       with:
         commit_message: 'chore(l10n): update translations'
-        file_pattern: *.mo *.po
+        file_pattern: '*.mo *.po'
