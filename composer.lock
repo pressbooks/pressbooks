@@ -58,16 +58,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.209.28",
+            "version": "3.212.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "dfc4fdee991cdf764241125490a0b22875af6afe"
+                "reference": "e4a5f8dca671281e8e2122607a4da2a8348489bf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/dfc4fdee991cdf764241125490a0b22875af6afe",
-                "reference": "dfc4fdee991cdf764241125490a0b22875af6afe",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/e4a5f8dca671281e8e2122607a4da2a8348489bf",
+                "reference": "e4a5f8dca671281e8e2122607a4da2a8348489bf",
                 "shasum": ""
             },
             "require": {
@@ -143,9 +143,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.209.28"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.212.1"
             },
-            "time": "2022-02-21T19:14:33+00:00"
+            "time": "2022-03-03T19:19:37+00:00"
         },
         {
             "name": "composer/installers",
