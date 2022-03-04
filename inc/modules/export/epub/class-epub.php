@@ -2013,8 +2013,8 @@ class Epub extends ExportGenerator {
 		// Ie. It will spit out the characters converted in encoded format. Instead do the following:
 		$html = $dom->saveXML( $dom->documentElement );
 
-		// Remove auto-created <html> <body> and <!DOCTYPE> tags.
-		return \Pressbooks\Sanitize\strip_container_tags( $html );
+		// Remove pb_fixme wrapper and remove auto-created <html> <body> and <!DOCTYPE> tags.
+		return $html5->removeFixMeWrapper( \Pressbooks\Sanitize\strip_container_tags( $html ) );
 	}
 
 	/**
