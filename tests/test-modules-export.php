@@ -52,6 +52,8 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'Print PDF', $type );
 		$type = \Pressbooks\Modules\Export\get_name_from_filetype_slug( 'wtfbbq' );
 		$this->assertEquals( 'Wtfbbq', $type );
+		$type = \Pressbooks\Modules\Export\get_name_from_filetype_slug( 'thincc11' );
+		$this->assertEquals( 'Common Cartridge with LTI links (1.1)', $type );
 	}
 
 	/**
