@@ -164,6 +164,9 @@ function filetypes() {
 			'mpdf' => '._oss.pdf',
 			'odf' => '.odt',
 			'weblinks' => '._1_1_weblinks.imscc',
+			'thincc11' => '._1_1.imscc',
+			'thincc12' => '._1_2.imscc',
+			'thincc13' => '._1_3.imscc',
 		]
 	);
 	return $filetypes;
@@ -198,6 +201,9 @@ function get_name_from_filetype_slug( $filetype ) {
 			'wxr' => __( 'Pressbooks XML', 'pressbooks' ),
 			'vanillawxr' => __( 'WordPress XML', 'pressbooks' ),
 			'weblinks' => __( 'Common Cartridge (Web Links)', 'pressbooks' ),
+			'thincc11' => __( 'Common Cartridge with LTI links (1.1)', 'pressbooks' ),
+			'thincc12' => __( 'Common Cartridge with LTI links (1.2)', 'pressbooks' ),
+			'thincc13' => __( 'Common Cartridge with LTI links (1.3)', 'pressbooks' ),
 		]
 	);
 	return isset( $formats[ $filetype ] ) ? $formats[ $filetype ] : ucfirst( $filetype );
