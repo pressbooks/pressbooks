@@ -1,12 +1,15 @@
 name: Update POT file
 
-on:
-  push:
-    branches:
-    - dev
-    paths:
-    - '**.php'
-    - '**.js'
+# Temporarily give this manual trigger. Remove this line and uncomment lines below once working as desired.
+on: workflow_dispatch
+
+# on:
+#  push:
+#    branches:
+#    - dev
+#    paths:
+#    - '**.php'
+#    - '**.js'
 
 jobs:
   update-pot:
