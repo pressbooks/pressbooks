@@ -67,16 +67,23 @@ class HtmlParser {
 		} else {
 			$html = $this->parser->saveHTML( $dom );
 		}
+		return $this->removeFixMeWrapper( \Pressbooks\Sanitize\strip_container_tags( $html ) );
+	}
 
-		$html = \Pressbooks\Sanitize\strip_container_tags( $html );
-
-		$replace_pairs = [
-			'<div><!-- pb_fixme -->' => '',
-			'<!-- pb_fixme --></div>' => '',
-		];
-		$html = strtr( $html, $replace_pairs );
-
-		return $html;
+	/**
+	 * Remove `<div><!-- pb_fixme --><!-- pb_fixme --></div>` from HTML.
+	 *
+	 * @param string $html
+	 * @return string
+	 */
+	public function removeFixMeWrapper( string $html ) {
+		return strtr(
+			$html,
+			[
+				'<div><!-- pb_fixme -->' => '',
+				'<!-- pb_fixme --></div>' => '',
+			]
+		);
 	}
 
 }

@@ -1,26 +1,31 @@
 name: Update POT file
 
-on:
-  push:
-    branches:
-    - dev
-    paths:
-    - '**.php'
-    - '**.js'
+# Temporarily give this manual trigger. Remove this line and uncomment lines below once working as desired.
+on: workflow_dispatch
+
+# on:
+#  push:
+#    branches:
+#    - dev
+#    paths:
+#    - '**.php'
+#    - '**.js'
 
 jobs:
   update-pot:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+      with:
+          token: ${{ secrets.PAT_FOR_GITHUB_ACTIONS }}
     - name: Setup PHP with tools
       uses: shivammathur/setup-php@v2
       with:
-        php-version: '7.3'
+        php-version: '7.4'
         tools: composer, wp-cli
     - name: Install dependencies
       run: |
-        wp package install wp-cli/i18n-command:2.2.8
+        wp package install wp-cli/i18n-command
         cd /home/runner/.wp-cli/packages/
         composer config repositories.wp-cli '{"type": "composer","url": "https://wp-cli.org/package-index/","canonical": false}'
         cd ./
@@ -29,7 +34,7 @@ jobs:
     - name: Update POT file
       run: wp pb make-pot . languages/pressbooks.pot --domain=pressbooks --slug=pressbooks --package-name="Pressbooks" --headers="{\"Report-Msgid-Bugs-To\":\"https://github.com/pressbooks/pressbooks/issues\"}"
     - name: Commit updated POT file
-      uses: stefanzweifel/git-auto-commit-action@v4.1.1
+      uses: stefanzweifel/git-auto-commit-action@v4.13.1
       with:
         commit_message: 'chore(l10n): update languages/pressbooks.pot'
         file_pattern: '*.pot'

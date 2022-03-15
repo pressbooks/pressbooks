@@ -292,7 +292,7 @@ class Book {
 		$exports_by_format = '';
 		$latest_exports = \Pressbooks\Utility\latest_exports();
 		foreach ( $latest_exports as $filetype => $filename ) {
-			$filetype = str_replace( '_', '-', $filetype );
+			$filetype = ! str_contains( $filetype, 'print' ) ? str_replace( '_', '-', $filetype ) : $filetype;
 			$name = \Pressbooks\Modules\Export\get_name_from_filetype_slug( $filetype );
 			$exports_by_format .= "{$name},";
 		}
