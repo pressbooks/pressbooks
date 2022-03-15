@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
-"POT-Creation-Date: 2022-02-22T21:34:21+00:00\n"
-"PO-Revision-Date: 2022-02-22 21:34+0000\n"
+"POT-Creation-Date: 2022-03-15T18:08:45+00:00\n"
+"PO-Revision-Date: 2022-03-15 18:09+0000\n"
 "Last-Translator: Ho Man Chan <homan@pressbooks.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/pressbooks/pressbooks/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -3032,13 +3032,13 @@ msgstr "PDF (用于印刷)"
 msgid "PDF (for digital distribution)"
 msgstr "PDF (用于数字分发)"
 
-#: inc/modules/export/namespace.php:100 inc/modules/export/namespace.php:193
-#: inc/modules/export/namespace.php:228
+#: inc/modules/export/namespace.php:100 inc/modules/export/namespace.php:196
+#: inc/modules/export/namespace.php:234
 msgid "EPUB"
 msgstr "EPUB"
 
-#: inc/modules/export/namespace.php:101 inc/modules/export/namespace.php:198
-#: inc/modules/export/namespace.php:231
+#: inc/modules/export/namespace.php:101 inc/modules/export/namespace.php:201
+#: inc/modules/export/namespace.php:237
 msgid "Pressbooks XML"
 msgstr "Pressbooks XML"
 
@@ -3046,18 +3046,18 @@ msgstr "Pressbooks XML"
 msgid "XHTML"
 msgstr "XHTML"
 
-#: inc/modules/export/namespace.php:105 inc/modules/export/namespace.php:192
-#: inc/modules/export/namespace.php:227
+#: inc/modules/export/namespace.php:105 inc/modules/export/namespace.php:195
+#: inc/modules/export/namespace.php:233
 msgid "HTMLBook"
 msgstr "HTMLBook"
 
-#: inc/modules/export/namespace.php:106 inc/modules/export/namespace.php:197
-#: inc/modules/export/namespace.php:230
+#: inc/modules/export/namespace.php:106 inc/modules/export/namespace.php:200
+#: inc/modules/export/namespace.php:236
 msgid "OpenDocument"
 msgstr "开放文档"
 
-#: inc/modules/export/namespace.php:107 inc/modules/export/namespace.php:199
-#: inc/modules/export/namespace.php:232
+#: inc/modules/export/namespace.php:107 inc/modules/export/namespace.php:202
+#: inc/modules/export/namespace.php:238
 msgid "WordPress XML"
 msgstr "WordPress XML"
 
@@ -3065,41 +3065,53 @@ msgstr "WordPress XML"
 msgid "Common Cartridge with Web Links"
 msgstr "Common Cartridge with Web Links"
 
-#: inc/modules/export/namespace.php:189 inc/modules/export/namespace.php:223
-#: inc/modules/export/namespace.php:225
+#: inc/modules/export/namespace.php:192 inc/modules/export/namespace.php:229
+#: inc/modules/export/namespace.php:231
 msgid "Print PDF"
 msgstr "打印PDF"
 
-#: inc/modules/export/namespace.php:190 inc/modules/export/namespace.php:191
-#: inc/modules/export/namespace.php:224 inc/modules/export/namespace.php:226
+#: inc/modules/export/namespace.php:193 inc/modules/export/namespace.php:194
+#: inc/modules/export/namespace.php:230 inc/modules/export/namespace.php:232
 msgid "Digital PDF"
 msgstr "数码PDF"
 
-#: inc/modules/export/namespace.php:194
+#: inc/modules/export/namespace.php:197
 msgid "MOBI"
 msgstr "MOBI"
 
-#: inc/modules/export/namespace.php:195
+#: inc/modules/export/namespace.php:198
 msgid "EPUB3"
 msgstr "EPUB3"
 
-#: inc/modules/export/namespace.php:200 inc/modules/export/namespace.php:233
+#: inc/modules/export/namespace.php:203 inc/modules/export/namespace.php:239
 msgid "Common Cartridge (Web Links)"
 msgstr "Common Cartridge (Web Links)"
 
-#: inc/modules/export/namespace.php:269
+#: inc/modules/export/namespace.php:204
+msgid "Common Cartridge with LTI links (1.1)"
+msgstr ""
+
+#: inc/modules/export/namespace.php:205
+msgid "Common Cartridge with LTI links (1.2)"
+msgstr ""
+
+#: inc/modules/export/namespace.php:206
+msgid "Common Cartridge with LTI links (1.3)"
+msgstr ""
+
+#: inc/modules/export/namespace.php:275
 msgid "The file %1$s has been %2$s successfully."
 msgstr "文件%1$s已成功%2$s。"
 
-#: inc/modules/export/namespace.php:271
+#: inc/modules/export/namespace.php:277
 msgid "pinned"
 msgstr "选定"
 
-#: inc/modules/export/namespace.php:271
+#: inc/modules/export/namespace.php:277
 msgid "unpinned"
 msgstr "未选定"
 
-#: inc/modules/export/namespace.php:290
+#: inc/modules/export/namespace.php:296
 msgid "%s Author"
 msgid_plural "%s Authors"
 msgstr[0] "%s作者"
@@ -4341,6 +4353,14 @@ msgstr "缺少 Pressbooks 依赖项。 请确保您的项目。Composer 自动�
 #: pressbooks.php:90
 msgid "Cannot find Pressbooks install."
 msgstr "未能找到Pressbooks安装。"
+
+#: symbionts/custom-metadata/custom_metadata.php:1288
+msgid "datetimepicker not supported by Pressbooks"
+msgstr ""
+
+#: symbionts/custom-metadata/custom_metadata.php:1294
+msgid "timepicker not supported by Pressbooks"
+msgstr ""
 
 #: templates/admin/catalog.php:27
 msgid "Tags For"
