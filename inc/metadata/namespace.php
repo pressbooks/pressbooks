@@ -371,11 +371,11 @@ function book_information_to_schema( array $book_information, bool $network_excl
 			'value' => $book_information['pb_book_doi'],
 		];
 		/**
-		 * Filter the DOI resolver service URL (default: https://dx.doi.org).
+		 * Filter the DOI resolver service URL (default: https://doi.org).
 		 *
 		 * @since 5.6.0
 		 */
-		$doi_resolver = apply_filters( 'pb_doi_resolver', 'https://dx.doi.org' );
+		$doi_resolver = apply_filters( 'pb_doi_resolver', 'https://doi.org' );
 		$book_schema['sameAs'] = trailingslashit( $doi_resolver ) . $book_information['pb_book_doi'];
 	}
 
@@ -550,11 +550,11 @@ function schema_to_book_information( array $book_schema ): array {
 
 	if ( isset( $book_schema['sameAs'] ) ) {
 		/**
-		 * Filter the DOI resolver service URL (default: https://dx.doi.org).
+		 * Filter the DOI resolver service URL (default: https://doi.org).
 		 *
 		 * @since 5.6.0
 		 */
-		$doi_resolver = apply_filters( 'pb_doi_resolver', 'https://dx.doi.org' );
+		$doi_resolver = apply_filters( 'pb_doi_resolver', 'https://doi.org' );
 		$book_information['pb_book_doi'] = str_replace( trailingslashit( $doi_resolver ), '', $book_schema['sameAs'] );
 	}
 
@@ -707,11 +707,11 @@ function section_information_to_schema( $section_information, $book_information 
 			'value' => $section_information['pb_section_doi'],
 		];
 		/**
-		 * Filter the DOI resolver service URL (default: https://dx.doi.org).
+		 * Filter the DOI resolver service URL (default: https://doi.org).
 		 *
 		 * @since 5.6.0
 		 */
-		$doi_resolver = apply_filters( 'pb_doi_resolver', 'https://dx.doi.org' );
+		$doi_resolver = apply_filters( 'pb_doi_resolver', 'https://doi.org' );
 		$section_schema['sameAs'] = trailingslashit( $doi_resolver ) . $section_information['pb_section_doi'];
 	}
 
@@ -795,11 +795,11 @@ function schema_to_section_information( $section_schema, $book_schema ) {
 
 	if ( isset( $section_schema['sameAs'] ) ) {
 		/**
-		 * Filter the DOI resolver service URL (default: https://dx.doi.org).
+		 * Filter the DOI resolver service URL (default: https://doi.org).
 		 *
 		 * @since 5.6.0
 		 */
-		$doi_resolver = apply_filters( 'pb_doi_resolver', 'https://dx.doi.org' );
+		$doi_resolver = apply_filters( 'pb_doi_resolver', 'https://doi.org' );
 		$section_information['pb_section_doi'] = str_replace( trailingslashit( $doi_resolver ), '', $section_schema['sameAs'] );
 	}
 
