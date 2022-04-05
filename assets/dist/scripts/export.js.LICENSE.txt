@@ -1,1 +1,1 @@
-/*! js-cookie v3.0.0 | MIT */
+/*! js-cookie v3.0.1 | MIT */
