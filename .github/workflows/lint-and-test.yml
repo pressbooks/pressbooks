@@ -15,11 +15,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: [7.3, 7.4]
+        php: [7.4]
         os: [ubuntu-20.04]
         epubcheck: [4.2.4]
         prince: [14.2-1]
-        wordpress: [5.9]
+        wordpress: [5.9.2, latest]
         experimental: [false]
         include:
           - php: 8.0
@@ -112,7 +112,7 @@ jobs:
 
     - name: Upload Coverage to Codecov
       run: bash <(curl -s https://codecov.io/bash)
-      if: matrix.experimental == false && matrix.php == 7.3
+      if: matrix.experimental == false
 
     - name: Prepare Build
       if: startsWith(github.ref, 'refs/tags/')

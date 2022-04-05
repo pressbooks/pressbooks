@@ -44,10 +44,11 @@ class GlobalTypography {
 			'bn' => __( 'Bengali', 'pressbooks' ),
 			'he' => __( 'Biblical Hebrew', 'pressbooks' ),
 			'cans' => __( 'Canadian Indigenous Syllabics', 'pressbooks' ),
-			'hi' => __( 'Devanagari (Hindi and Sanskrit)', 'pressbooks' ),
+			'chr' => __( 'Cherokee', 'pressbooks' ),
 			'zh_HANS' => __( 'Chinese (Simplified)', 'pressbooks' ),
 			'zh_HANT' => __( 'Chinese (Traditional)', 'pressbooks' ),
 			'cop' => __( 'Coptic', 'pressbooks' ),
+			'hi' => __( 'Devanagari (Hindi and Sanskrit)', 'pressbooks' ),
 			'gu' => __( 'Gujarati', 'pressbooks' ),
 			'pan' => __( 'Punjabi (Gurmukhi)', 'pressbooks' ),
 			'ja' => __( 'Japanese', 'pressbooks' ),
@@ -306,12 +307,21 @@ class GlobalTypography {
 				'baseurl' => 'https://github.com/googlefonts/noto-fonts/raw/main/unhinted/ttf/',
 				'files' => [
 					'NotoSansCanadianAboriginal-Regular.ttf' => 'NotoSansCanadianAboriginal/NotoSansCanadianAboriginal-Regular.ttf',
+					'NotoSansCanadianAboriginal-Bold.ttf' => 'NotoSansCanadianAboriginal/NotoSansCanadianAboriginal-Bold.ttf',
+				],
+			],
+			'chr' => [
+				'baseurl' => 'https://github.com/googlefonts/noto-fonts/raw/main/unhinted/ttf/',
+				'files' => [
+					'NotoSansCherokee-Regular.ttf' => 'NotoSansCherokee/NotoSansCherokee-Regular.ttf',
+					'NotoSansCherokee-Bold.ttf' => 'NotoSansCherokee/NotoSansCherokee-Bold.ttf',
 				],
 			],
 			'ff' => [
 				'baseurl' => 'https://github.com/googlefonts/noto-fonts/raw/main/unhinted/ttf/',
 				'files' => [
 					'NotoSansAdlam-Regular.ttf' => 'NotoSansAdlam/NotoSansAdlam-Regular.ttf',
+					'NotoSansAdlam-Bold.ttf' => 'NotoSansAdlam/NotoSansAdlam-Bold.ttf',
 				],
 			],
 			'hi' => [
