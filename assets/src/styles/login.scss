@@ -203,10 +203,6 @@ body.pressbooks.login {
         box-shadow: none;
         border-radius: 0;
 
-        &:focus {
-          box-shadow: 0 0 0 3px rgba(#b01109, 0.25);
-        }
-
         label & {
           position: absolute;
           top: 0;
@@ -216,11 +212,6 @@ body.pressbooks.login {
 
       [type="checkbox"] {
         border: solid 2px var(--primary, #b01109);
-        box-shadow: none;
-
-        &:focus {
-          box-shadow: 0 0 0 3px rgba(#b01109, 0.25);
-        }
 
         &:checked:before {
           color: var(--primary, #b01109);
