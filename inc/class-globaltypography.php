@@ -314,7 +314,7 @@ class GlobalTypography {
 				'baseurl' => 'https://github.com/googlefonts/noto-fonts/raw/main/unhinted/ttf/',
 				'files' => [
 					'NotoSansCherokee-Regular.ttf' => 'NotoSansCherokee/NotoSansCherokee-Regular.ttf',
-					'NotoSansCherokee-Bold.ttf' => 'NotoSansCherokee/NotoSansCherokee-Bold.ttf'
+					'NotoSansCherokee-Bold.ttf' => 'NotoSansCherokee/NotoSansCherokee-Bold.ttf',
 				],
 			],
 			'ff' => [
