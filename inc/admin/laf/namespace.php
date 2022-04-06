@@ -604,7 +604,6 @@ function fix_root_admin_menu() {
 		if ( class_exists( '\H5P_Plugin_Admin' ) ) {
 			remove_action( 'admin_menu', [ \H5P_Plugin_Admin::get_instance(), 'add_plugin_admin_menu' ] );
 		}
-		return true;
 	}
 	// Catalog
 	add_submenu_page( 'index.php', __( 'My Catalog', 'pressbooks' ), __( 'My Catalog', 'pressbooks' ), 'read', 'pb_catalog', '\Pressbooks\Catalog::addMenu' );
