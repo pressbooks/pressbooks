@@ -130,7 +130,7 @@ class MetadataTest extends \WP_UnitTestCase {
 		self::assertArraySubset(
 			[
 				'name' => 'Moby Dick',
-				'sameAs' => 'https://dx.doi.org/my_doi',
+				'sameAs' => 'https://doi.org/my_doi',
 				'identifier' => ['value' => 'my_doi'],
 				'author' => [
 					['name' => 'Herman Melville']
@@ -162,7 +162,7 @@ class MetadataTest extends \WP_UnitTestCase {
 					'name' => 'Pat Metheny',
 				],
 			],
-			'sameAs' => 'https://dx.doi.org/my_doi',
+			'sameAs' => 'https://doi.org/my_doi',
 			'institutions' => [
 				[
 					'@type' => 'Institution',
@@ -409,7 +409,7 @@ class MetadataTest extends \WP_UnitTestCase {
 				'url' => 'https://creativecommons.org/publicdomain/zero/1.0/',
 				'name' => 'Public Domain (No Rights Reserved)',
 			],
-			'sameAs' => 'https://dx.doi.org/my_doi',
+			'sameAs' => 'https://doi.org/my_doi',
 		];
 
 		$result = \Pressbooks\Metadata\schema_to_section_information( $section_schema, $book_schema );
