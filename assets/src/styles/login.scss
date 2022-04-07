@@ -31,7 +31,6 @@ body.pressbooks.login {
     background: var(--primary, #b01109);
     border-color: var(--primary, #b01109);
     color: var(--primary-fg, #fff);
-    box-shadow: none;
     display: inline-block;
     font-family: "Karla", sans-serif;
     font-weight: 500;
@@ -55,12 +54,6 @@ body.pressbooks.login {
       text-decoration: none;
     }
 
-    &:focus,
-    &.focus {
-      outline: 0;
-      box-shadow: 0 0 0 3px rgba(#b01109, 0.25);
-    }
-
     &.disabled,
     &:disabled,
     [disabled] {
@@ -68,14 +61,11 @@ body.pressbooks.login {
       border-color: var(--primary, #b01109) !important;
       color: var(--primary-fg, #fff) !important;
       opacity: 0.65;
-      box-shadow: none;
     }
 
     &:active,
     &.active {
       background-image: none;
-      box-shadow: 0 0 0 3px var(--primary),
-        inset 0 3px 5px rgba(0, 0, 0, 0.125);
     }
   }
 
@@ -110,7 +100,6 @@ body.pressbooks.login {
   #login_error {
     margin-bottom: 2rem;
     background: #eee;
-    box-shadow: none;
   }
 
   #login {
@@ -124,7 +113,6 @@ body.pressbooks.login {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    box-shadow: -3px 5px 4px 2px rgba(149, 149, 149, 0.2);
 
     @media (min-width: 768px) {
       padding: 60px 132px 40px;
