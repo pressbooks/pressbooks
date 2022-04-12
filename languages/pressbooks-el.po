@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
-"POT-Creation-Date: 2022-03-15T18:08:45+00:00\n"
-"PO-Revision-Date: 2022-03-15 18:09+0000\n"
-"Last-Translator: Ho Man Chan <homan@pressbooks.com>\n"
+"POT-Creation-Date: 2022-04-12T13:56:33+00:00\n"
+"PO-Revision-Date: 2013-12-21 21:04+0000\n"
+"Last-Translator: aggelos manousopoulos <a.manousopoulos@gmail.com>, 2015-2018,2021\n"
 "Language-Team: Greek (http://www.transifex.com/pressbooks/pressbooks/language/el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -225,7 +225,7 @@ msgid "Public"
 msgstr "Δημόσιο"
 
 #: inc/admin/class-catalog-list-table.php:507 inc/admin/laf/namespace.php:429
-#: inc/admin/laf/namespace.php:610 inc/admin/laf/namespace.php:882
+#: inc/admin/laf/namespace.php:609 inc/admin/laf/namespace.php:881
 msgid "My Catalog"
 msgstr "Ο κατάλογός μου"
 
@@ -403,7 +403,7 @@ msgstr ""
 
 #: inc/admin/covergenerator/namespace.php:49 inc/admin/laf/namespace.php:334
 #: inc/admin/laf/namespace.php:357 inc/admin/laf/namespace.php:418
-#: inc/admin/laf/namespace.php:630
+#: inc/admin/laf/namespace.php:629
 msgid "Reload"
 msgstr ""
 
@@ -630,7 +630,7 @@ msgstr ""
 msgid "My Book"
 msgstr "Το βιβλίο μου"
 
-#: inc/admin/dashboard/namespace.php:135 inc/admin/laf/namespace.php:795
+#: inc/admin/dashboard/namespace.php:135 inc/admin/laf/namespace.php:794
 msgid "Users"
 msgstr "Χρήστες"
 
@@ -669,7 +669,7 @@ msgid "Create a Book"
 msgstr ""
 
 #: inc/admin/dashboard/namespace.php:263 inc/admin/laf/namespace.php:409
-#: inc/admin/laf/namespace.php:616 inc/admin/laf/namespace.php:617
+#: inc/admin/laf/namespace.php:615 inc/admin/laf/namespace.php:616
 #: templates/admin/cloner.php:13
 msgid "Clone a Book"
 msgstr ""
@@ -717,7 +717,7 @@ msgid "%1$s total users: "
 msgstr "%1$s χρήστες συνολικά: "
 
 #: inc/admin/dashboard/namespace.php:443 inc/admin/dashboard/namespace.php:444
-#: inc/admin/laf/namespace.php:779 inc/admin/laf/namespace.php:854
+#: inc/admin/laf/namespace.php:778 inc/admin/laf/namespace.php:853
 msgid "Dashboard"
 msgstr "Πίνακας ελέγχου"
 
@@ -780,7 +780,7 @@ msgstr "Διαγνωστικά"
 msgid "Stylesheet regenerated."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:74 inc/admin/laf/namespace.php:739
+#: inc/admin/laf/namespace.php:74 inc/admin/laf/namespace.php:738
 msgid "Contact"
 msgstr "Επικοινωνία"
 
@@ -968,7 +968,7 @@ msgid ""
 msgstr ""
 
 #: inc/admin/laf/namespace.php:381 inc/admin/laf/namespace.php:577
-#: inc/admin/laf/namespace.php:1469
+#: inc/admin/laf/namespace.php:1468
 #: inc/admin/network/class-sharingandprivacyoptions.php:459
 msgid "Sharing and Privacy Settings"
 msgstr ""
@@ -981,58 +981,58 @@ msgstr ""
 msgid "QuickLaTeX"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:417 inc/admin/laf/namespace.php:629
+#: inc/admin/laf/namespace.php:417 inc/admin/laf/namespace.php:628
 msgid ""
 "Cloning is not done. Leaving this page, now, will cause problems. Are you "
 "sure?"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:692 inc/admin/laf/namespace.php:703
+#: inc/admin/laf/namespace.php:691 inc/admin/laf/namespace.php:702
 msgid "About Pressbooks"
 msgstr "Σχετικα με το Pressbooks"
 
-#: inc/admin/laf/namespace.php:714
+#: inc/admin/laf/namespace.php:713
 msgid "Pressbooks.com"
 msgstr "Pressbooks.com"
 
-#: inc/admin/laf/namespace.php:724
+#: inc/admin/laf/namespace.php:723
 msgid "Help"
 msgstr "Βοήθεια"
 
-#: inc/admin/laf/namespace.php:768
+#: inc/admin/laf/namespace.php:767
 msgid "Network Admin"
 msgstr "Διαχειριστής δικτύου"
 
-#: inc/admin/laf/namespace.php:787 inc/admin/laf/namespace.php:1524
-#: inc/admin/laf/namespace.php:1534
+#: inc/admin/laf/namespace.php:786 inc/admin/laf/namespace.php:1523
+#: inc/admin/laf/namespace.php:1533
 msgid "Books"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:804
+#: inc/admin/laf/namespace.php:803
 msgid "Themes"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:812
+#: inc/admin/laf/namespace.php:811
 msgid "Plugins"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:862
+#: inc/admin/laf/namespace.php:861
 msgid "Visit Website"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:872
+#: inc/admin/laf/namespace.php:871
 msgid "My Books"
 msgstr "Τα βιβλία μου"
 
-#: inc/admin/laf/namespace.php:892
+#: inc/admin/laf/namespace.php:891
 msgid "Create A New Book"
 msgstr "Δημιουργία νέου"
 
-#: inc/admin/laf/namespace.php:904
+#: inc/admin/laf/namespace.php:903
 msgid "Clone A Book"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1126
+#: inc/admin/laf/namespace.php:1125
 msgid ""
 "Are you sure you want to unlock your theme? This will update your book to "
 "the most recent version of your selected theme, which may change your "
@@ -1040,104 +1040,104 @@ msgid ""
 "page, this action will NOT be reversable!"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1189
+#: inc/admin/laf/namespace.php:1188
 msgid "Book Visibility"
 msgstr "Ορατότητα βιβλίου"
 
-#: inc/admin/laf/namespace.php:1203
+#: inc/admin/laf/namespace.php:1202
 msgid "Private Content"
 msgstr "Ιδιωτικό περιεχόμενο"
 
-#: inc/admin/laf/namespace.php:1216
+#: inc/admin/laf/namespace.php:1215
 msgid "Disable Comments"
 msgstr "Απενεργοποίηση σχολίων"
 
-#: inc/admin/laf/namespace.php:1231
+#: inc/admin/laf/namespace.php:1230
 msgid "Share Latest Export Files"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1261 templates/admin/cloner.php:14
+#: inc/admin/laf/namespace.php:1260 templates/admin/cloner.php:14
 msgid "Pressbooks Directory"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1278
+#: inc/admin/laf/namespace.php:1277
 msgid "Sharing and Privacy settings"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1293
+#: inc/admin/laf/namespace.php:1292
 msgid "Public. I would like this book to be visible to everyone."
 msgstr "Δημόσιο. Θέλω αυτό το βιβλίο να είναι ορατό σε όλους."
 
-#: inc/admin/laf/namespace.php:1299
+#: inc/admin/laf/namespace.php:1298
 msgid ""
 "Private. I would like this book to be accessible only to people I invite."
 msgstr "Ιδιωτικό. Θέλω αυτό το βιβλίο να είναι προσβάσιμο σε όσους προσκαλώ."
 
-#: inc/admin/laf/namespace.php:1323
+#: inc/admin/laf/namespace.php:1322
 msgid "Who can see private front matter, chapters and back matter?"
 msgstr "Ποιος μπορεί να δει τα κεφάλαια, τα προκειμενικά και μετακειμενικά στοιχεία του βιβλίου;"
 
-#: inc/admin/laf/namespace.php:1326
+#: inc/admin/laf/namespace.php:1325
 msgid "Only logged in editors and administrators."
 msgstr "Μόνο συνδεδεμένοι επιμελητές και διαχειριστές."
 
-#: inc/admin/laf/namespace.php:1328
+#: inc/admin/laf/namespace.php:1327
 msgid "All logged in users including subscribers."
 msgstr "Όλοι οι συνδεδεμένοι χρήστες και οι εγγεγραμμένοι"
 
-#: inc/admin/laf/namespace.php:1349
+#: inc/admin/laf/namespace.php:1348
 msgid ""
 "Yes. I want to automatically disable comments, trackbacks and pingbacks on "
 "all front matter, chapters and back matter."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1355
+#: inc/admin/laf/namespace.php:1354
 msgid ""
 "No. I want to leave comments, trackbacks and pingbacks enabled on all front "
 "matter, chapters and back matter unless I disable them manually."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1371
+#: inc/admin/laf/namespace.php:1370
 msgid ""
 "Yes. I would like the latest export files to be available on the homepage "
 "for free, to everyone."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1377
+#: inc/admin/laf/namespace.php:1376
 msgid ""
 "No. I would like the latest export files to only be available to "
 "administrators."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1396
+#: inc/admin/laf/namespace.php:1395
 msgid "Yes. I want this book to be listed in the Pressbooks directory."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1402
+#: inc/admin/laf/namespace.php:1401
 msgid "No. Exclude this book from the Pressbooks directory."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1527
+#: inc/admin/laf/namespace.php:1526
 msgid "All Books"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1537
+#: inc/admin/laf/namespace.php:1536
 msgid "Search Books"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1543
+#: inc/admin/laf/namespace.php:1542
 msgid "Edit Book: %s"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1546 inc/admin/laf/namespace.php:1555
+#: inc/admin/laf/namespace.php:1545 inc/admin/laf/namespace.php:1554
 msgid "Book Address (URL)"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1552
+#: inc/admin/laf/namespace.php:1551
 msgid "Add New Book"
 msgstr "Προσθήκη νέου βιβλίου"
 
-#: inc/admin/laf/namespace.php:1558
+#: inc/admin/laf/namespace.php:1557
 #: inc/modules/themeoptions/class-pdfoptions.php:373
 #: inc/modules/themeoptions/class-pdfoptions.php:392
 #: inc/modules/themeoptions/class-pdfoptions.php:411
@@ -1151,39 +1151,39 @@ msgstr "Προσθήκη νέου βιβλίου"
 msgid "Book Title"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1561
+#: inc/admin/laf/namespace.php:1560
 msgid "Book Language"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1564
+#: inc/admin/laf/namespace.php:1563
 msgid "Add Book"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1581
+#: inc/admin/laf/namespace.php:1580
 msgid "Edit previous or next item"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1586
+#: inc/admin/laf/namespace.php:1585
 msgid "Edit Previous (%s)"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1591
+#: inc/admin/laf/namespace.php:1590
 msgid "Edit Next (%s)"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1606
+#: inc/admin/laf/namespace.php:1605
 msgid "Twitter URL"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1607
+#: inc/admin/laf/namespace.php:1606
 msgid "LinkedIn URL"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1608
+#: inc/admin/laf/namespace.php:1607
 msgid "GitHub URL"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1654
+#: inc/admin/laf/namespace.php:1653
 msgid ""
 "Your institutional affiliation, e.g. Rebus Foundation, Open University, "
 "Amnesty International."
@@ -2171,7 +2171,7 @@ msgid "Canadian Indigenous Syllabics"
 msgstr ""
 
 #: inc/class-globaltypography.php:47
-msgid "Devanagari (Hindi and Sanskrit)"
+msgid "Cherokee"
 msgstr ""
 
 #: inc/class-globaltypography.php:48
@@ -2187,62 +2187,66 @@ msgid "Coptic"
 msgstr "Κοπτική"
 
 #: inc/class-globaltypography.php:51
+msgid "Devanagari (Hindi and Sanskrit)"
+msgstr ""
+
+#: inc/class-globaltypography.php:52
 msgid "Gujarati"
 msgstr "Γκουτζαράτι"
 
-#: inc/class-globaltypography.php:52
+#: inc/class-globaltypography.php:53
 msgid "Punjabi (Gurmukhi)"
 msgstr "Παντζάμπι (Γκουρμούχι)"
 
-#: inc/class-globaltypography.php:53
+#: inc/class-globaltypography.php:54
 msgid "Japanese"
 msgstr "Ιαπωνική"
 
-#: inc/class-globaltypography.php:54
+#: inc/class-globaltypography.php:55
 msgid "Kannada"
 msgstr ""
 
-#: inc/class-globaltypography.php:55
+#: inc/class-globaltypography.php:56
 msgid "Korean"
 msgstr "Κορεατική"
 
-#: inc/class-globaltypography.php:56
+#: inc/class-globaltypography.php:57
 msgid "Malayalam"
 msgstr ""
 
-#: inc/class-globaltypography.php:57
+#: inc/class-globaltypography.php:58
 msgid "Musical Notation"
 msgstr ""
 
-#: inc/class-globaltypography.php:58
+#: inc/class-globaltypography.php:59
 msgid "N'Ko"
 msgstr ""
 
-#: inc/class-globaltypography.php:59
+#: inc/class-globaltypography.php:60
 msgid "Odia"
 msgstr ""
 
-#: inc/class-globaltypography.php:60
+#: inc/class-globaltypography.php:61
 msgid "Syriac"
 msgstr "Συριακή"
 
-#: inc/class-globaltypography.php:61
+#: inc/class-globaltypography.php:62
 msgid "Tamil"
 msgstr "Ταμίλ"
 
-#: inc/class-globaltypography.php:62
+#: inc/class-globaltypography.php:63
 msgid "Telugu"
 msgstr ""
 
-#: inc/class-globaltypography.php:63
+#: inc/class-globaltypography.php:64
 msgid "Tibetan"
 msgstr "Θιβετιανή"
 
-#: inc/class-globaltypography.php:64
+#: inc/class-globaltypography.php:65
 msgid "Turkish"
 msgstr "Τούρκικα"
 
-#: inc/class-globaltypography.php:445
+#: inc/class-globaltypography.php:455
 msgid "Your %1$s font could not be downloaded from %2$s."
 msgstr ""
 
@@ -4367,14 +4371,6 @@ msgstr ""
 #: pressbooks.php:90
 msgid "Cannot find Pressbooks install."
 msgstr "Δεν βρέθηκε εγκατεστημένο το Pressbook."
-
-#: symbionts/custom-metadata/custom_metadata.php:1288
-msgid "datetimepicker not supported by Pressbooks"
-msgstr ""
-
-#: symbionts/custom-metadata/custom_metadata.php:1294
-msgid "timepicker not supported by Pressbooks"
-msgstr ""
 
 #: templates/admin/catalog.php:27
 msgid "Tags For"
