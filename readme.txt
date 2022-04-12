@@ -2,9 +2,9 @@
 Contributors: Pressbooks <code@pressbooks.com>
 Tags: ebooks, publishing, webbooks
 Requires at least: 5.9
-Tested up to: 5.9.2
+Tested up to: 5.9.3
 Requires PHP: 7.3
-Stable tag: 5.33.1
+Stable tag: 5.34.0
 License: GPL v3.0 or later
 License URI: https://github.com/pressbooks/pressbooks/blob/master/LICENSE.md
 
@@ -18,12 +18,15 @@ For installation instructions, visit [docs.pressbooks.org/installation](https://
 
 == Changelog ==
 
-= 5.33.1 =
+= 5.34.0 =
 
-* See: https://github.com/pressbooks/pressbooks/releases/tag/5.33.1
+* See: https://github.com/pressbooks/pressbooks/releases/tag/5.34.0
 * Full release history available at: https://github.com/pressbooks/pressbooks/releases
 
 == Upgrade Notice ==
+
+= 5.34.0=
+* Pressbooks 5.34.0 requires [McLuhan >= 2.18.0](https://github.com/pressbooks/pressbooks-book/)
 
 = 5.33.0=
 * Pressbooks 5.33.0 requires [McLuhan >= 2.17.0](https://github.com/pressbooks/pressbooks-book/)
