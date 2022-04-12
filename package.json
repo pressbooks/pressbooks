@@ -28,7 +28,7 @@
 		"select2": "github:woocommerce/selectWoo#1.0.5",
 		"sidr": "^2.2.1",
 		"tinymce": "^4.9.11",
-		"wp-admin-colors": "^5.8.0"
+		"wp-admin-colors": "^5.9.0"
 	},
 	"devDependencies": {
 		"pressbooks-build-tools": "^3.0.1"
