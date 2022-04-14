@@ -33,7 +33,7 @@
 	"require": {
 		"php": ">=7.3",
 		"aws/aws-sdk-php": "^3.173",
-		"composer/installers": "~2.1",
+		"composer/installers": "^2.1",
 		"davidgorges/human-name-parser": "^1.0",
 		"docraptor/docraptor": "^3.0",
 		"fale/isbn": "^3.0",
