@@ -13,15 +13,15 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node }}
-      - name: Cache node modules
+      - name: Cache Node modules
         uses: actions/cache@v2
         with:
           path: node_modules
           key: ${{ runner.OS }}-build-${{ hashFiles('**/package-lock.json') }}
-      - name: Install Node dependencies
-          run: |
-            node -v
-            npm install
-            npm run build
+      - name: Install Node dependencies & build assets
+        run: |
+          node -v
+          npm install
+          npm run build
       - name: Run ESLint and Stylelint
-          run: npm run lint
+        run: npm run lint

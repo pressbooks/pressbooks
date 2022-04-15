@@ -1,4 +1,4 @@
-name: Test
+name: Run Standards & Tests
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
     branches: [ dev ]
 
 jobs:
-  lint-and-test:
+  standards-and-tests:
     runs-on: ${{ matrix.os }}
     continue-on-error: ${{ matrix.experimental }}
     strategy:
