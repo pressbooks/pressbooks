@@ -72,10 +72,11 @@ function replace_root_dashboard_widgets() {
 	// Remove unwanted dashboard widgets
 	remove_meta_box( 'dashboard_primary', 'dashboard', 'side' );
 	remove_meta_box( 'dashboard_quick_press', 'dashboard', 'side' );
+	remove_meta_box( 'dashboard_recent_drafts', 'dashboard', 'side' );
 	remove_meta_box( 'health_check_status', 'dashboard', 'normal' );
 	remove_meta_box( 'dashboard_activity', 'dashboard', 'normal' );
 	remove_meta_box( 'dashboard_site_health', 'dashboard', 'normal' );
-	remove_meta_box( 'dashboard_recent_drafts', 'dashboard', 'side' );
+
 
 	// Remove third-party widgets
 	remove_meta_box( 'dashboard_rediscache', 'dashboard', 'normal' );
