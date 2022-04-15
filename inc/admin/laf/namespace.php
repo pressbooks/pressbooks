@@ -1701,7 +1701,7 @@ function replace_wordpress_howdy( $wp_admin_bar ) {
  * @since 5.35.0
  */
 
-function removeEmoji() {
+function remove_emoji() {
 	remove_action( 'admin_print_styles', 'print_emoji_styles' );
 	remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
 	remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
