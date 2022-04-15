@@ -1,4 +1,4 @@
-name: Lint and test
+name: Test
 
 on:
   push:
@@ -53,22 +53,6 @@ jobs:
         path: vendor
         key: ${{ matrix.php }}-php-${{ hashFiles('**/composer.lock') }}
 
-    - name: Cache node modules
-      uses: actions/cache@v2
-      with:
-        path: node_modules
-        key: ${{ runner.OS }}-build-${{ hashFiles('**/package-lock.json') }}
-      if: matrix.experimental == false
-
-    - name: Setup PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: ${{ matrix.php }}
-        tools: composer:v1
-        coverage: pcov
-        extensions: imagick
-      if: matrix.experimental == false
-
     - name: Setup PHP with Composer 2
       uses: shivammathur/setup-php@v2
       with:
@@ -76,24 +60,12 @@ jobs:
         tools: composer
         coverage: pcov
         extensions: imagick
-      if: matrix.experimental == true
-
-    - name: Install Node dependencies
-      run: |
-        node -v
-        npm install
-        npm run build
-      if: matrix.experimental == false
 
     - name: Install PHP dependencies
       run: |
         export PATH="$HOME/.composer/vendor/bin:$PATH"
         composer install --no-interaction
         ulimit -n 4096
-
-    - name: Run ESLint and Stylelint
-      run: npm run lint
-      if: matrix.experimental == false
 
     - name: Run PHP CodeSniffer
       run: composer standards

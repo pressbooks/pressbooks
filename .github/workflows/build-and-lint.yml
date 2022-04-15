@@ -1,0 +1,27 @@
+on: push
+name: Build & Lint
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [ '14' ]
+    name: Node ${{ matrix.node }}
+    steps:
+      - uses: actions/checkout@v1
+      - name: Setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Cache node modules
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.OS }}-build-${{ hashFiles('**/package-lock.json') }}
+      - name: Install Node dependencies
+          run: |
+            node -v
+            npm install
+            npm run build
+      - name: Run ESLint and Stylelint
+          run: npm run lint
