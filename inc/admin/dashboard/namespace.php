@@ -77,7 +77,6 @@ function replace_root_dashboard_widgets() {
 	remove_meta_box( 'dashboard_activity', 'dashboard', 'normal' );
 	remove_meta_box( 'dashboard_site_health', 'dashboard', 'normal' );
 
-
 	// Remove third-party widgets
 	remove_meta_box( 'dashboard_rediscache', 'dashboard', 'normal' );
 	$user = wp_get_current_user();
