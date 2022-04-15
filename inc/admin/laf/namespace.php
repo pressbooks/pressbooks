@@ -1688,10 +1688,10 @@ function update_user_profile_fields( $user_id ) {
  * @param object $wp_admin_bar
  */
 function replace_wordpress_howdy( $wp_admin_bar ) {
-	$my_account = $wp_admin_bar->get_node('my-account');
+	$my_account = $wp_admin_bar->get_node( 'my-account' );
 	$newtext = str_replace( 'Howdy,', 'Hello,', $my_account->title );
-	$wp_admin_bar->add_node( array(
-			'id' => 'my-account',
-			'title' => $newtext,
-	) );
+	$wp_admin_bar->add_node( [
+		'id' => 'my-account',
+		'title' => $newtext,
+	] );
 }
