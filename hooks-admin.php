@@ -40,6 +40,7 @@ add_action( 'admin_bar_menu', '\Pressbooks\Admin\Laf\replace_menu_bar_branding',
 add_action( 'admin_bar_menu', '\Pressbooks\Admin\Laf\replace_menu_bar_my_sites', 21 );
 add_action( 'admin_bar_menu', '\Pressbooks\Admin\Laf\remove_menu_bar_update', 41 );
 add_action( 'admin_bar_menu', '\Pressbooks\Admin\Laf\remove_menu_bar_new_content', 71 );
+add_filter( 'admin_bar_menu', '\Pressbooks\Admin\Laf\replace_wordpress_howdy', 25 );
 add_action( 'admin_head', '\Pressbooks\Admin\Branding\favicon' );
 
 // Add contact Info
@@ -53,6 +54,7 @@ add_action( 'wp_user_dashboard_setup', '\Pressbooks\Admin\Laf\add_pb_cloner_page
 add_action( 'admin_menu', '\Pressbooks\Admin\Dashboard\add_menu', 1 );
 add_action( 'admin_menu', '\Pressbooks\Admin\Diagnostics\add_menu', 30 );
 add_action( 'init', [ '\Pressbooks\Admin\SiteMap', 'init' ] );
+add_action( 'init', '\Pressbooks\Admin\Laf\remove_emoji' );
 add_action( 'wp_user_dashboard_setup', '\Pressbooks\Admin\Dashboard\lowly_user' );
 remove_action( 'welcome_panel', 'wp_welcome_panel' );
 

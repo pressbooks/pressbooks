@@ -1681,3 +1681,39 @@ function update_user_profile_fields( $user_id ) {
 
 	update_user_meta( $user_id, 'institution', sanitize_string( $_REQUEST['institution'] ) );
 }
+
+/**
+ *
+ * @since 5.35.0
+ * @param object $wp_admin_bar
+ */
+function replace_wordpress_howdy( $wp_admin_bar ) {
+	$my_account = $wp_admin_bar->get_node( 'my-account' );
+	$newtext = str_replace( 'Howdy,', 'Hello,', $my_account->title );
+	$wp_admin_bar->add_node( [
+		'id' => 'my-account',
+		'title' => $newtext,
+	] );
+}
+
+/**
+ *
+ * @since 5.35.0
+ */
+function remove_emoji() {
+	remove_action( 'admin_print_styles', 'print_emoji_styles' );
+	remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
+	remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
+	remove_action( 'wp_print_styles', 'print_emoji_styles' );
+	remove_filter( 'wp_mail', 'wp_staticize_emoji_for_email' );
+	remove_filter( 'the_content_feed', 'wp_staticize_emoji' );
+	remove_filter( 'comment_text_rss', 'wp_staticize_emoji' );
+	add_filter( 'emoji_svg_url', '__return_false' );
+	add_filter('tiny_mce_plugins', function ( $plugins ) {
+		if ( is_array( $plugins ) ) {
+			return array_diff( $plugins, [ 'wpemoji' ] );
+		} else {
+			return [];
+		}
+	});
+}

@@ -129,7 +129,6 @@ class Admin_LafTest extends \WP_UnitTestCase {
 	/**
 	 * @group branding
 	 */
-
 	function test_fix_root_admin_menu() {
 		$user_id = $this->factory()->user->create();
 		$user = get_userdata( $user_id );
@@ -146,7 +145,6 @@ class Admin_LafTest extends \WP_UnitTestCase {
 	/**
 	 * @group branding
 	 */
-
 	function test_add_pb_cloner_page() {
 		$user_id = $this->factory()->user->create();
 		$user = get_userdata( $user_id );
@@ -369,7 +367,9 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'The LinkedIn URL field is not a valid URL.', $error_handler->get_error_message( 'linkedin' ) );
 
 	}
-
+	/**
+	 * @group branding
+	 */
 	function test_institution_fields_hooks() {
 
 		global $post, $pagenow;
@@ -397,6 +397,20 @@ class Admin_LafTest extends \WP_UnitTestCase {
 
 		$this->assertNull( $result );
 
+	}
+	/**
+	 * @group branding
+	 */
+	function test_remove_emoji() {
+		\Pressbooks\Admin\Laf\remove_emoji();
+
+		$this->assertFalse( has_action( 'print_emoji_detection_script', 'wp_head' ) );
+		$this->assertFalse( has_action( 'print_emoji_styles', 'wp_print_styles' ) );
+		$this->assertFalse( has_action( 'print_emoji_detection_script', 'admin_print_scripts', ) );
+		$this->assertFalse( has_action( 'admin_print_styles', 'print_emoji_styles' ) );
+		$this->assertFalse( has_filter( 'wp_mail', 'wp_staticize_emoji_for_email' ) );
+		$this->assertFalse( has_filter( 'wp_staticize_emoji', 'the_content_feed' ) );
+		$this->assertFalse( has_filter( 'wp_staticize_emoji', 'comment_text_css' ) );
 	}
 
 }
