@@ -23,7 +23,7 @@
 	"config": {
     "process-timeout":0,
 		"platform": {
-			"php": "7.3"
+			"php": "7.4"
 		},
 		"allow-plugins": {
 			"dealerdirect/phpcodesniffer-composer-installer": true,
@@ -31,7 +31,7 @@
 		}
 	},
 	"require": {
-		"php": ">=7.3",
+		"php": ">=7.4",
 		"aws/aws-sdk-php": "^3.173",
 		"composer/installers": "^2.1",
 		"davidgorges/human-name-parser": "^1.0",
