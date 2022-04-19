@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b372322b5bb31a290b97549b6949cdd2",
+    "content-hash": "580dced21ec18da294aad48969d8e23e",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -1423,33 +1423,97 @@
             "time": "2018-05-05T15:27:52+00:00"
         },
         {
-            "name": "johnbillion/extended-cpts",
-            "version": "4.5.2",
+            "name": "johnbillion/args",
+            "version": "0.9.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/johnbillion/extended-cpts.git",
-                "reference": "59ce9f4e0422512eec6f698ccba4a6a81b018fdb"
+                "url": "https://github.com/johnbillion/args.git",
+                "reference": "a1a3feb05cc9fc3914ed96eeab009259aea326c1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnbillion/extended-cpts/zipball/59ce9f4e0422512eec6f698ccba4a6a81b018fdb",
-                "reference": "59ce9f4e0422512eec6f698ccba4a6a81b018fdb",
+                "url": "https://api.github.com/repos/johnbillion/args/zipball/a1a3feb05cc9fc3914ed96eeab009259aea326c1",
+                "reference": "a1a3feb05cc9fc3914ed96eeab009259aea326c1",
                 "shasum": ""
             },
             "require": {
-                "php": "^7 | ^8"
+                "php": ">=7.4"
             },
             "require-dev": {
-                "automattic/phpcs-neutron-standard": "1.6.0",
+                "humanmade/coding-standards": "^1.1",
+                "johnbillion/falsey-assertequals-detector": "^3",
+                "phpdocumentor/reflection": "~4.0",
+                "phpstan/phpstan": "^1.0",
+                "phpstan/phpstan-phpunit": "^1.0",
+                "phpunit/phpunit": "^9.0",
+                "roots/wordpress": "^5.7.0"
+            },
+            "type": "library",
+            "extra": {
+                "wordpress-install-dir": "vendor/wordpress/wordpress"
+            },
+            "autoload": {
+                "psr-4": {
+                    "Args\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "John Blackbourn",
+                    "homepage": "https://johnblackbourn.com/"
+                }
+            ],
+            "description": "I don't want to get into an argument about this.",
+            "support": {
+                "issues": "https://github.com/johnbillion/args/issues",
+                "source": "https://github.com/johnbillion/args/tree/0.9.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/sponsors/johnbillion",
+                    "type": "github"
+                }
+            ],
+            "time": "2021-12-18T21:21:14+00:00"
+        },
+        {
+            "name": "johnbillion/extended-cpts",
+            "version": "5.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/johnbillion/extended-cpts.git",
+                "reference": "d6d83bb41eba9a3603929244c71f3f806c2a14d8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/johnbillion/extended-cpts/zipball/d6d83bb41eba9a3603929244c71f3f806c2a14d8",
+                "reference": "d6d83bb41eba9a3603929244c71f3f806c2a14d8",
+                "shasum": ""
+            },
+            "require": {
+                "johnbillion/args": "^0.9.0",
+                "php": ">= 7.4.0"
+            },
+            "require-dev": {
+                "automattic/phpcs-neutron-standard": "1.7.0",
+                "cweagans/composer-patches": "^1.7",
                 "dealerdirect/phpcodesniffer-composer-installer": "^0.7",
-                "johnbillion/falsey-assertequals-detector": "^2",
+                "johnbillion/falsey-assertequals-detector": "*",
+                "lucatume/wp-browser": "^3.0",
                 "phpcompatibility/phpcompatibility-wp": "^2",
-                "phpunit/phpunit": "^6",
-                "roots/wordpress": "^5.7.0",
+                "phpstan/phpstan": "^1.0",
+                "phpstan/phpstan-phpunit": "^1.0",
+                "phpunit/phpunit": "^9",
+                "roots/wordpress": "^5.8.0",
+                "szepeviktor/phpstan-wordpress": "^1.0",
                 "vlucas/phpdotenv": "^3",
-                "wp-cli/db-command": "^2.0",
-                "wp-coding-standards/wpcs": "2.3.0",
-                "wp-phpunit/wp-phpunit": "^5.7.0"
+                "wp-cli/core-command": "^2",
+                "wp-cli/db-command": "^2",
+                "wp-coding-standards/wpcs": "2.3.0"
             },
             "suggest": {
                 "seravo/wp-custom-bulk-actions": "Custom Bulk Actions",
@@ -1457,14 +1521,23 @@
             },
             "type": "library",
             "extra": {
+                "branch-alias": {
+                    "dev-develop": "5.0-dev"
+                },
+                "patches": {
+                    "lucatume/wp-browser": {
+                        "https://github.com/lucatume/wp-browser/issues/554": "tests/patches/wp-browser-554.patch"
+                    }
+                },
                 "wordpress-install-dir": "tests/wordpress"
             },
             "autoload": {
                 "files": [
-                    "extended-cpts.php"
+                    "functions.php"
                 ],
                 "psr-4": {
-                    "ExtCPTs\\Tests\\": "tests/phpunit"
+                    "ExtCPTs\\": "src",
+                    "ExtCPTs\\Tests\\": "tests/integration"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -1481,7 +1554,7 @@
             "homepage": "https://github.com/johnbillion/extended-cpts/",
             "support": {
                 "issues": "https://github.com/johnbillion/extended-cpts/issues",
-                "source": "https://github.com/johnbillion/extended-cpts/tree/4.5.2"
+                "source": "https://github.com/johnbillion/extended-cpts/tree/5.0.1"
             },
             "funding": [
                 {
@@ -1489,7 +1562,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-03-21T00:26:19+00:00"
+            "time": "2022-02-13T16:19:47+00:00"
         },
         {
             "name": "masterminds/html5",

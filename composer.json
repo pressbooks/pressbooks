@@ -41,7 +41,7 @@
 		"illuminate/container": "5.4.*",
 		"jenssegers/blade": "^1.1",
 		"jenssegers/imagehash": "0.5.0",
-		"johnbillion/extended-cpts": "^4.2",
+		"johnbillion/extended-cpts": "^5.0",
 		"masterminds/html5": "^2.6",
 		"maxbanton/cwh": "^2.0",
 		"monolog/monolog": "^2.2",
