@@ -1,5 +1,12 @@
-on: push
 name: Build & Lint
+on:
+  push:
+    branches: [ dev, master ]
+    tags:
+      - '*.*.*'
+  pull_request:
+    branches: [ dev ]
+
 jobs:
   build:
     runs-on: ubuntu-latest
