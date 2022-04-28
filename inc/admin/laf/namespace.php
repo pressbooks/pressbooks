@@ -1210,21 +1210,25 @@ function privacy_settings_init() {
 		__NAMESPACE__ . '\privacy_permissive_private_content_sanitize'
 	);
 
-	add_settings_field(
-		'disable_comments',
-		__( 'Disable Comments', 'pressbooks' ),
-		__NAMESPACE__ . '\privacy_disable_comments_callback',
-		'privacy_settings',
-		'privacy_settings_section'
-	);
-	register_setting(
-		'privacy_settings',
-		'pressbooks_sharingandprivacy_options',
-		__NAMESPACE__ . '\privacy_disable_comments_sanitize'
-	);
+	if ( apply_filters( 'pb_comments_management', true ) ) {
+		add_settings_field(
+			'disable_comments',
+			__( 'Disable Comments', 'pressbooks' ),
+			__NAMESPACE__ . '\privacy_disable_comments_callback',
+			'privacy_settings',
+			'privacy_settings_section'
+		);
+		register_setting(
+			'privacy_settings',
+			'pressbooks_sharingandprivacy_options',
+			__NAMESPACE__ . '\privacy_disable_comments_sanitize'
+		);
+	}
 
 	$sharingandprivacy = get_site_option( 'pressbooks_sharingandprivacy_options' );
-	if ( ! empty( $sharingandprivacy['allow_redistribution'] ) ) {
+	$allows_downloads = apply_filters( 'pb_allows_downloads', true );
+
+	if ( ! empty( $sharingandprivacy['allow_redistribution'] ) && $allows_downloads ) {
 		add_settings_field(
 			'latest_files_public',
 			__( 'Share Latest Export Files', 'pressbooks' ),
