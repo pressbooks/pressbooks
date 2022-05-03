@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
-"POT-Creation-Date: 2022-04-12T13:56:33+00:00\n"
+"POT-Creation-Date: 2022-05-03T20:31:26+00:00\n"
 "PO-Revision-Date: 2013-12-21 21:04+0000\n"
 "Last-Translator: Giuseppe Pignataro <rogepix@gmail.com>, 2014,2021\n"
 "Language-Team: Italian (http://www.transifex.com/pressbooks/pressbooks/language/it/)\n"
@@ -619,71 +619,71 @@ msgstr ""
 msgid "Pressbooks News"
 msgstr "Pressbooks News"
 
-#: inc/admin/dashboard/namespace.php:94 inc/admin/dashboard/namespace.php:177
+#: inc/admin/dashboard/namespace.php:95 inc/admin/dashboard/namespace.php:178
 msgid "Book Permissions"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:134
+#: inc/admin/dashboard/namespace.php:135
 msgid "My Book"
 msgstr "Il Mio Libro"
 
-#: inc/admin/dashboard/namespace.php:135 inc/admin/laf/namespace.php:794
+#: inc/admin/dashboard/namespace.php:136 inc/admin/laf/namespace.php:794
 msgid "Users"
 msgstr "Utenti"
 
-#: inc/admin/dashboard/namespace.php:193
+#: inc/admin/dashboard/namespace.php:194
 msgid "Book Invitations"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:219
+#: inc/admin/dashboard/namespace.php:220
 msgid "You have been invited to join <a href=\"%1$s\">%2$s</a> as %3$s %4$s"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:229
+#: inc/admin/dashboard/namespace.php:230
 msgid "Accept"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:242
+#: inc/admin/dashboard/namespace.php:243
 msgid "Welcome to Pressbooks!"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:245
+#: inc/admin/dashboard/namespace.php:246
 msgid "You do not have access to any books at the moment."
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:252
+#: inc/admin/dashboard/namespace.php:253
 msgid ""
 "This network does not allow users to create new books. To create a new book,"
 " please contact your Pressbooks Network Manager"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:254 inc/admin/dashboard/namespace.php:270
+#: inc/admin/dashboard/namespace.php:255 inc/admin/dashboard/namespace.php:271
 msgid "at"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:261
+#: inc/admin/dashboard/namespace.php:262
 msgid "Create a Book"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:263 inc/admin/laf/namespace.php:409
+#: inc/admin/dashboard/namespace.php:264 inc/admin/laf/namespace.php:409
 #: inc/admin/laf/namespace.php:615 inc/admin/laf/namespace.php:616
 #: templates/admin/cloner.php:13
 msgid "Clone a Book"
 msgstr "Crea una Copia di un Libro"
 
-#: inc/admin/dashboard/namespace.php:268
+#: inc/admin/dashboard/namespace.php:269
 msgid ""
 "You can also request access to an existing book by contacting the book's "
 "author or the institution's Pressbooks Network Manager"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:284 inc/class-activation.php:242
+#: inc/admin/dashboard/namespace.php:285 inc/class-activation.php:242
 #: inc/modules/themeoptions/class-pdfoptions.php:287 tests/test-cloner.php:63
 #: templates/export/epub/toc.blade.php:13
 msgid "Table of Contents"
 msgstr "Indice"
 
-#: inc/admin/dashboard/namespace.php:286 inc/admin/metaboxes/namespace.php:649
+#: inc/admin/dashboard/namespace.php:287 inc/admin/metaboxes/namespace.php:649
 #: inc/api/endpoints/controller/class-toc.php:192
 #: inc/posttype/namespace.php:115 inc/posttype/namespace.php:116
 #: inc/posttype/namespace.php:548 templates/admin/import.php:91
@@ -691,7 +691,7 @@ msgstr "Indice"
 msgid "Front Matter"
 msgstr "Introduzione"
 
-#: inc/admin/dashboard/namespace.php:327 inc/admin/metaboxes/namespace.php:651
+#: inc/admin/dashboard/namespace.php:328 inc/admin/metaboxes/namespace.php:651
 #: inc/api/endpoints/controller/class-toc.php:225
 #: inc/posttype/namespace.php:143 inc/posttype/namespace.php:144
 #: inc/posttype/namespace.php:551 templates/admin/import.php:96
@@ -699,46 +699,46 @@ msgstr "Introduzione"
 msgid "Back Matter"
 msgstr "Conclusione"
 
-#: inc/admin/dashboard/namespace.php:346 inc/admin/dashboard/namespace.php:434
+#: inc/admin/dashboard/namespace.php:347 inc/admin/dashboard/namespace.php:435
 #: templates/admin/organize.php:272 templates/admin/organize.php:429
 msgid "Add"
 msgstr "Aggiungi"
 
-#: inc/admin/dashboard/namespace.php:346 inc/admin/dashboard/namespace.php:434
+#: inc/admin/dashboard/namespace.php:347 inc/admin/dashboard/namespace.php:435
 #: inc/admin/laf/namespace.php:148
 msgid "Organize"
 msgstr "Organizza"
 
-#: inc/admin/dashboard/namespace.php:420
+#: inc/admin/dashboard/namespace.php:421
 msgid "%1$s total users: "
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:443 inc/admin/dashboard/namespace.php:444
+#: inc/admin/dashboard/namespace.php:444 inc/admin/dashboard/namespace.php:445
 #: inc/admin/laf/namespace.php:778 inc/admin/laf/namespace.php:853
 msgid "Dashboard"
 msgstr "Dashboard"
 
-#: inc/admin/dashboard/namespace.php:493
+#: inc/admin/dashboard/namespace.php:494
 msgid "Dashboard Feed"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:500
+#: inc/admin/dashboard/namespace.php:501
 msgid "Display Feed"
 msgstr "Visualizza Feed"
 
-#: inc/admin/dashboard/namespace.php:505
+#: inc/admin/dashboard/namespace.php:506
 msgid "Display an RSS feed widget on the dashboard."
 msgstr "Visualizzare un feed widget RSS nel dashboard."
 
-#: inc/admin/dashboard/namespace.php:511
+#: inc/admin/dashboard/namespace.php:512
 msgid "Feed Title"
 msgstr "Titolo del Feed"
 
-#: inc/admin/dashboard/namespace.php:519
+#: inc/admin/dashboard/namespace.php:520
 msgid "Feed URL"
 msgstr "Indirizzo del Feed"
 
-#: inc/admin/dashboard/namespace.php:546
+#: inc/admin/dashboard/namespace.php:547
 msgid "Adjust settings for your dashboard RSS feed widget below."
 msgstr "Migliora impostazioni del feed widget del dashboard RSS in basso."
 
