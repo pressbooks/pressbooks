@@ -67,7 +67,7 @@ function network_analytics_settings_init() {
 	// Are books allowed?
 	// TODO: https://developers.google.com/analytics/devguides/collection/upgrade/reference/gajs-analyticsjs#cookiepath
 	// TODO: https://core.trac.wordpress.org/ticket/42093
-	if ( is_subdomain_install() || defined( 'WP_TESTS_MULTISITE' ) ) {
+	//  if ( is_subdomain_install() || defined( 'WP_TESTS_MULTISITE' ) ) {
 		add_settings_field(
 			'ga_mu_site_specific_allowed',
 			__( 'Site-Specific Tracking', 'pressbooks' ),
@@ -86,8 +86,7 @@ function network_analytics_settings_init() {
 				'default' => false,
 			]
 		);
-	}
-
+	//  }
 }
 
 /**
