@@ -26,7 +26,7 @@ Our webbooks and EPUB/[PDF][pdf] exports are all driven by HTML + CSS. XML outpu
 
 ## Requirements
 
-Pressbooks works with PHP 7.3 and WordPress 5.9. Lower versions are not supported.
+Pressbooks works with PHP 7.4 and WordPress 5.9.3. Lower versions are not supported.
 
 ## Installing the Plugin
 
