@@ -19,7 +19,7 @@ function get_rss_defaults() {
 	return [
 		'display_feed' => 1,
 		'url' => 'https://pressbooks.com/feed/',
-		'title' => __( 'Pressbooks News', 'pressbooks' ),
+		'title' => __( 'Pressbooks announcements', 'pressbooks' ),
 	];
 }
 
@@ -92,7 +92,7 @@ function replace_root_dashboard_widgets() {
 	) {
 		add_meta_box(
 			'pb_dashboard_widget_book_permissions',
-			__( 'Book Permissions', 'pressbooks' ),
+			__( 'Get started with Pressbooks', 'pressbooks' ),
 			__NAMESPACE__ . '\lowly_user_callback',
 			'dashboard',
 			'normal',
@@ -240,39 +240,33 @@ function pending_invitations_callback() {
  * Callback for /wp-admin/user/ widget
  */
 function lowly_user_callback() {
-	echo '<p>' . __( 'Welcome to Pressbooks!', 'pressbooks' ) . '</p>';
+	echo '<p>' . sprintf( __( 'Welcome to %s', 'pressbooks' ), get_bloginfo( 'name', 'display' ) ) . '!</p>';
 	$user_has_books = count( get_blogs_of_user( get_current_user_id() ) ) > 1;
 	if ( ! $user_has_books ) {
-		echo '<p>' . __( 'You do not have access to any books at the moment.', 'pressbooks' ) . '</p>';
+		echo '<p>' . esc_html_e( 'You do not currently have access to any books on this network.', 'pressbooks' ) . '</p>';
 	}
 	$contact = \Pressbooks\Utility\main_contact_email();
 	// Values can be 'all', 'none', 'blog', or 'user', @see wp-signup.php
 	$active_signup = apply_filters( 'wpmu_active_signup', get_site_option( 'registration', 'none' ) );
 	if ( in_array( $active_signup, [ 'none', 'user' ], true ) ) {
-		echo '<p>';
-		_e( 'This network does not allow users to create new books. To create a new book, please contact your Pressbooks Network Manager', 'pressbooks' );
-		if ( ! empty( $contact ) ) {
-			echo ' ' . __( 'at', 'pressbooks' ) . " $contact";
-		} else {
-			echo '.';
+		echo '<p>' . __( 'This network does not allow users to create new books. To create a new book, please contact a network manager', 'pressbooks' );
+		if ( ! empty( $contact ) && strpos( $contact, '@pressbooks.com' ) == false ) {
+			echo ' ' . sprintf( __( 'at <a href="mailto:%1$s">%2$s</a>', 'pressbooks' ), $contact, $contact );
 		}
-		echo '</p>';
+		echo '.</p>';
 	} else {
 		$href_create = network_home_url( 'wp-signup.php' );
-		$text_create = __( 'Create a Book', 'pressbooks' );
+		$text_create = __( 'Create a book', 'pressbooks' );
 		$href_clone = admin_url( 'admin.php?page=pb_cloner' );
-		$text_clone = __( 'Clone a Book', 'pressbooks' );
-		echo "<p><a class='button button-hero button-primary' href='{$href_create}'>{$text_create}</a></p><p><a class='button button-hero button-primary' href='{$href_clone}'>{$text_clone}</a></p>";
+		$text_clone = __( 'Clone a book', 'pressbooks' );
+		echo '<p>' . sprintf( __( 'Get started on your next publishing project by creating a new book or cloning an existing book. The <a href="https://pressbooks.directory" target="_blank">Pressbooks Directory</a> includes thousands of openly licensed books available for cloning.', 'pressbooks' ) ) . "</p><p><a class='button button-hero button-primary create-book' href='{$href_create}'>" . $text_create . "</a></p><p><a class='button button-hero button-primary clone-book' href='{$href_clone}'>" . $text_clone . '</a></p>';
 	}
 	if ( ! $user_has_books ) {
-		echo '<p>';
-		_e( "You can also request access to an existing book by contacting the book's author or the institution's Pressbooks Network Manager", 'pressbooks' );
-		if ( ! empty( $contact ) ) {
-			echo ' ' . __( 'at', 'pressbooks' ) . " $contact";
-		} else {
-			echo '.';
+		echo '<p>' . __( 'You can also request access to an existing book by contacting your network manager', 'pressbooks' );
+		if ( ! empty( $contact ) && strpos( $contact, '@pressbooks.com' ) == false ) {
+			echo ' ' . sprintf( __( 'at <a href="mailto:%1$s">%2$s</a>', 'pressbooks' ), $contact, $contact );
 		}
-		echo '</p>';
+		echo '.</p>';
 	}
 }
 
