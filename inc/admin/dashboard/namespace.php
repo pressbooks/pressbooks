@@ -368,7 +368,7 @@ function display_pressbooks_blog() {
 		wp_widget_rss_output(
 			[
 				'url' => $options['url'],
-				'items' => 5,
+				'items' => 3,
 				'show_summary' => 1,
 				'show_author' => 0,
 				'show_date' => 0,
