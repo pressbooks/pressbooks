@@ -250,7 +250,7 @@ function lowly_user_callback() {
 	$active_signup = apply_filters( 'wpmu_active_signup', get_site_option( 'registration', 'none' ) );
 	if ( in_array( $active_signup, [ 'none', 'user' ], true ) ) {
 		echo '<p>' . __( 'This network does not allow users to create new books. To create a new book, please contact a network manager', 'pressbooks' );
-		if ( ! empty( $contact ) && strpos( $contact, '@pressbooks.com' ) == false ) {
+		if ( ! empty( $contact ) && strpos( $contact, '@pressbooks.com' ) === false ) {
 			echo ' ' . sprintf( __( 'at <a href="mailto:%1$s">%2$s</a>', 'pressbooks' ), $contact, $contact );
 		}
 		echo '.</p>';
@@ -263,7 +263,7 @@ function lowly_user_callback() {
 	}
 	if ( ! $user_has_books ) {
 		echo '<p>' . __( 'You can also request access to an existing book by contacting your network manager', 'pressbooks' );
-		if ( ! empty( $contact ) && strpos( $contact, '@pressbooks.com' ) == false ) {
+		if ( ! empty( $contact ) && strpos( $contact, '@pressbooks.com' ) === false ) {
 			echo ' ' . sprintf( __( 'at <a href="mailto:%1$s">%2$s</a>', 'pressbooks' ), $contact, $contact );
 		}
 		echo '.</p>';
