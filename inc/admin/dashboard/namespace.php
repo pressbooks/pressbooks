@@ -38,7 +38,7 @@ function should_display_custom_feed( array $options ): bool {
 }
 
 /**
- *  Remove unwanted network Dashboard widgets, add our news feed.
+ *  Remove unwanted network Dashboard widgets, add our desired widgets.
  */
 function replace_network_dashboard_widgets() {
 
@@ -60,6 +60,7 @@ function replace_network_dashboard_widgets() {
 	if ( should_display_custom_feed( $options ) ) {
 		add_meta_box( 'pb_dashboard_widget_blog', $options['title'], __NAMESPACE__ . '\display_pressbooks_blog', 'dashboard-network', 'side', 'low' );
 	}
+
 }
 
 /**
@@ -105,6 +106,9 @@ function replace_root_dashboard_widgets() {
 		)
 	);
 
+	// Add our support widget
+	add_meta_box( 'pb_dashboard_widget_support', esc_html__( 'Need Help?', 'pressbooks' ), __NAMESPACE__ . '\display_support_widget', 'dashboard', 'normal', 'high' );
+
 	if ( should_display_custom_feed( $options ) ) {
 		add_meta_box( 'pb_dashboard_widget_blog', $options['title'], __NAMESPACE__ . '\display_pressbooks_blog', 'dashboard', 'side', 'low' );
 	}
@@ -132,6 +136,7 @@ function replace_dashboard_widgets() {
 	$book_name = get_bloginfo( 'name' );
 	add_meta_box( 'pb_dashboard_widget_book', ( $book_name ? $book_name : esc_html__( 'My Book', 'pressbooks' ) ), __NAMESPACE__ . '\display_book_widget', 'dashboard', 'normal', 'high' );
 	add_meta_box( 'pb_dashboard_widget_users', esc_html__( 'Users', 'pressbooks' ), __NAMESPACE__ . '\display_users_widget', 'dashboard', 'side', 'high' );
+	add_meta_box( 'pb_dashboard_widget_support', esc_html__( 'Need Help?', 'pressbooks' ), __NAMESPACE__ . 'display_support_widget', 'dashboard', 'normal', 'high' );
 
 	// Add our news feed.
 	$options = array_map(
@@ -143,7 +148,6 @@ function replace_dashboard_widgets() {
 	if ( should_display_custom_feed( $options ) ) {
 		add_meta_box( 'pb_dashboard_widget_blog', $options['title'], __NAMESPACE__ . '\display_pressbooks_blog', 'dashboard', 'side', 'low' );
 	}
-
 }
 
 /**
@@ -374,6 +378,18 @@ function display_pressbooks_blog() {
 
 	echo $rss;
 }
+
+/**
+ * Displays a Support widget
+ */
+function display_support_widget() {
+	$contact = \Pressbooks\Utility\main_contact_email();
+	echo '<p>' . __( 'The <a href="https://guide.pressbooks.com" target="_blank">Pressbooks User Guide</a> is a one-stop resource which describes how to do nearly everything with Pressbooks. Start with the <a href="https://guide.pressbooks.com/front-matter/the-simple-5-step-guide-to-making-a-book-with-pressbooks/" target="_blank">5 step guide to making a book</a> or explore the table of contents.', 'pressbooks' ) . '</p><p>' . __( 'The <a href="https://www.youtube.com/c/Pressbooks/videos" target="_blank">Pressbooks YouTube channel</a> features dozens of recordings covering a wide variety of common publishing tasks. Our <a href="https://www.youtube.com/watch?v=hrcrFJVgbbs&list=PLMFmJu3NJheuRt1rZwNCEElROtSjc5dJG" target="_blank">Fundamentals of Pressbooks playlist</a> is a good place to get started.', 'pressbooks' ) . '</p><p>' . __( 'Pressbooks regularly hosts <a href="https://pressbooks.com/webinars/" target="_blank">live training webinars</a> which cover useful topics for beginners and advanced users alike.', 'pressbooks' ) . '</p>';
+	if ( ! empty( $contact ) && strpos( $contact, '@pressbooks.com' ) === false ) {
+		echo '<p>' . sprintf( __( 'For additional support, contact your network manager at <a href="mailto:%1$s">%2$s</a>', 'pressbooks' ), $contact, $contact ) . '</p>';
+	}
+}
+
 
 /**
  * Displays a Users widget
