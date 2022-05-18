@@ -3,8 +3,6 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv3 (or any later version)
  */
-// TODO: Security audit
-// @phpcs:disable Pressbooks.Security.EscapeOutput.OutputNotEscaped
 
 namespace Pressbooks\Admin\Dashboard;
 
@@ -60,7 +58,6 @@ function replace_network_dashboard_widgets() {
 	if ( should_display_custom_feed( $options ) ) {
 		add_meta_box( 'pb_dashboard_widget_blog', $options['title'], __NAMESPACE__ . '\display_pressbooks_blog', 'dashboard-network', 'side', 'low' );
 	}
-
 }
 
 /**
@@ -107,7 +104,7 @@ function replace_root_dashboard_widgets() {
 	);
 
 	// Add our support widget
-	add_meta_box( 'pb_dashboard_widget_support', esc_html__( 'Need Help?', 'pressbooks' ), __NAMESPACE__ . '\display_support_widget', 'dashboard', 'normal', 'high' );
+	add_meta_box( 'pb_dashboard_widget_support', esc_html__( 'Need help?', 'pressbooks' ), __NAMESPACE__ . '\display_support_widget', 'dashboard', 'normal', 'high' );
 
 	if ( should_display_custom_feed( $options ) ) {
 		add_meta_box( 'pb_dashboard_widget_blog', $options['title'], __NAMESPACE__ . '\display_pressbooks_blog', 'dashboard', 'side', 'low' );
@@ -183,6 +180,8 @@ function lowly_user() {
 		'normal',
 		'high'
 	);
+	add_meta_box( 'pb_dashboard_widget_support', esc_html__( 'Need Help?', 'pressbooks' ), __NAMESPACE__ . '\display_support_widget', 'dashboard-user', 'normal', 'high' );
+
 }
 
 /**
@@ -217,18 +216,13 @@ function pending_invitations_callback() {
 		$metadata = maybe_unserialize( $invitation->meta_value );
 
 		switch_to_blog( $metadata['blog_id'] );
+		$article = preg_match( '/^[aeiou]/i', $metadata['role'] ) ? __( 'an', 'pressbooks' ) : __( 'a', 'pressbooks' );
 
-		$message = sprintf(
-			__( 'You have been invited to join <a href="%1$s">%2$s</a> as %3$s %4$s', 'pressbooks' ),
-			home_url(),
-			get_site_meta( $metadata['blog_id'], 'pb_title', true ),
-			preg_match( '/^[aeiou]/i', $metadata['role'] ) ? 'an' : 'a',
-			$metadata['role']
-		);
-
-		echo "
+		echo '
 		<div>
-			<p>$message</p>
+			<p>' . sprintf( esc_html__( 'You have been invited to join %1s as %2$s %3$s', 'pressbooks' ),
+			sprintf( '<a href="%1$s">%2$s</a>', esc_url( home_url() ), esc_html( get_site_meta( $metadata['blog_id'], 'pb_title', true ) ) ),
+		esc_html( $article ), esc_html( $metadata['role'] ) ) . "</p>
 			<a class='button button-primary' href='" . esc_url( home_url( '/newbloguser/' . $metadata['key'] ) ) . "'>" . esc_html__( 'Accept', 'pressbooks' ) . '</a>
 		</div>
 		<hr/>
@@ -253,7 +247,7 @@ function lowly_user_callback() {
 	if ( in_array( $active_signup, [ 'none', 'user' ], true ) ) {
 		echo '<p>' . esc_html__( 'This network does not allow users to create new books. To create a new book, please contact a network manager', 'pressbooks' );
 		if ( ! empty( $contact ) && strpos( $contact, '@pressbooks.com' ) === false ) {
-			echo ' ' . esc_html__( 'at ', 'pressbooks' ) . sprintf( '<a href="mailto:%1$s">%2$s</a>', esc_url( $contact ), esc_html( $contact ) );
+			echo ' ' . esc_html__( 'at ', 'pressbooks' ) . sprintf( '<a href="%1$s">%2$s</a>', esc_url( "mailto:{$contact}" ), esc_html( $contact ) );
 		}
 		echo '.</p>';
 	} else {
@@ -261,12 +255,12 @@ function lowly_user_callback() {
 		$text_create = esc_html__( 'Create a book', 'pressbooks' );
 		$href_clone = admin_url( 'admin.php?page=pb_cloner' );
 		$text_clone = esc_html__( 'Clone a book', 'pressbooks' );
-		echo '<p>' . sprintf( esc_html__( 'Get started on your next publishing project by creating a new book or cloning an existing book. The %1$s includes thousands of openly licensed books available for cloning.', 'pressbooks' ), sprintf( '<a href="https://pressbooks.directory" target="_blank">%s</a>', esc_html__( 'Pressbooks Directory', 'pressbooks' ) ) ) . "</p><p><a class='button button-hero button-primary create-book' href='{$href_create}'>{$text_create}</a></p><p><a class='button button-hero button-primary clone-book' href='{$href_clone}'>{$text_clone}</a></p>";
+		echo '<p>' . sprintf( esc_html__( 'Get started on your next publishing project by creating a new book or cloning an existing book. The %1$s includes thousands of openly licensed books available for cloning.', 'pressbooks' ), sprintf( '<a href="https://pressbooks.directory" target="_blank">%s</a>', esc_html__( 'Pressbooks Directory', 'pressbooks' ) ) ) . "</p><p><a class='button button-hero button-primary create-book' href='" . esc_url( $href_create ) . "'>" . esc_html( $text_create ) . "</a></p><p><a class='button button-hero button-primary clone-book' href='" . esc_url( $href_clone ) . "'>" . esc_html( $text_clone ) . '</a></p>';
 	}
 	if ( ! $user_has_books ) {
 		echo '<p>' . esc_html__( 'You can also request access to an existing book by contacting your network manager', 'pressbooks' );
 		if ( ! empty( $contact ) && strpos( $contact, '@pressbooks.com' ) === false ) {
-			echo ' ' . esc_html__( 'at ', 'pressbooks' ) . sprintf( '<a href="mailto:%1$s">%2$s</a>', esc_url( $contact ), esc_html( $contact ) );
+			echo ' ' . esc_html__( 'at ', 'pressbooks' ) . sprintf( '<a href="%1$s">%2$s</a>', esc_url( "mailto:{$contact}" ), esc_html( $contact ) );
 		}
 		echo '.</p>';
 	}
@@ -375,7 +369,7 @@ function display_pressbooks_blog() {
 
 		set_site_transient( 'pb_rss_widget', $rss, DAY_IN_SECONDS );
 	}
-
+	// @codingStandardsIgnoreLine
 	echo $rss;
 }
 
@@ -384,10 +378,18 @@ function display_pressbooks_blog() {
  */
 function display_support_widget() {
 	$contact = \Pressbooks\Utility\main_contact_email();
-	echo '<p>' . __( 'The <a href="https://guide.pressbooks.com" target="_blank">Pressbooks User Guide</a> is a one-stop resource which describes how to do nearly everything with Pressbooks. Start with the <a href="https://guide.pressbooks.com/front-matter/the-simple-5-step-guide-to-making-a-book-with-pressbooks/" target="_blank">5 step guide to making a book</a> or explore the table of contents.', 'pressbooks' ) . '</p><p>' . __( 'The <a href="https://www.youtube.com/c/Pressbooks/videos" target="_blank">Pressbooks YouTube channel</a> features dozens of recordings covering a wide variety of common publishing tasks. Our <a href="https://www.youtube.com/watch?v=hrcrFJVgbbs&list=PLMFmJu3NJheuRt1rZwNCEElROtSjc5dJG" target="_blank">Fundamentals of Pressbooks playlist</a> is a good place to get started.', 'pressbooks' ) . '</p><p>' . __( 'Pressbooks regularly hosts <a href="https://pressbooks.com/webinars/" target="_blank">live training webinars</a> which cover useful topics for beginners and advanced users alike.', 'pressbooks' ) . '</p>';
+	$message = __( 'The %1$s describes how to do nearly everything with Pressbooks. Start with the %2$s or explore the table of contents.', 'pressbooks' );
+	$message2 = __( 'The %1$s features dozens of recordings covering a wide variety of common publishing tasks. Our %2$s is a good place to begin.', 'pressbooks' );
+	$message3 = __( 'Pressbooks regularly hosts %s for beginners and advanced users alike.', 'pressbooks' );
+	$message4 = __( 'You are welcome to ask and respond to general questions on our %s.', 'pressbooks' );
+	echo '<p>' . sprintf( esc_html( $message ), sprintf( '<a href="%1$s" target="_blank">%2$s</a>', esc_url( 'https://guide.pressbooks.com' ), esc_html__( 'Pressbooks User Guide', 'pressbooks' ) ), sprintf( '<a href="%1$s" target="_blank">%2$s</a>', esc_url( 'https://guide.pressbooks.com/front-matter/the-simple-5-step-guide-to-making-a-book-with-pressbooks/' ), esc_html__( '5 step guide to making a book' ) ) )
+			. '</p><p>' . sprintf( esc_html( $message2 ), sprintf( '<a href="%1$s" target="_blank">%2$s</a>', esc_url( 'https://www.youtube.com/c/Pressbooks/videos' ), esc_html__( 'Pressbooks YouTube channel', 'pressbooks' ) ), sprintf( '<a href="%1$s" target="_blank">%2$s</a>', esc_url( 'https://www.youtube.com/watch?v=hrcrFJVgbbs&list=PLMFmJu3NJheuRt1rZwNCEElROtSjc5dJG' ), esc_html__( 'Fundamentals of Pressbooks playlist', 'pressbooks' ) ) )
+			. '</p><p>' . sprintf( esc_html( $message3 ), sprintf( '<a href="%1$s" target="_blank">%2$s</a>', esc_url( 'https://pressbooks.com/webinars/' ), esc_html__( 'live training webinars', 'pressbooks' ) ) ) . '</p>';
+	echo '<p>' . sprintf( esc_html( $message4 ), sprintf( '<a href="%1$s" target="_blank">%2$s</a>', esc_url( 'https://pressbooks.community' ), esc_html__( 'community forum', 'pressbooks' ) ) );
 	if ( ! empty( $contact ) && strpos( $contact, '@pressbooks.com' ) === false ) {
-		echo '<p>' . sprintf( __( 'For additional support, contact your network manager at <a href="mailto:%1$s">%2$s</a>', 'pressbooks' ), esc_url( $contact ), esc_html( $contact ) ) . '</p>';
+		echo ' ' . sprintf( esc_html__( 'For additional support, contact your network manager at %s.', 'pressbooks' ), sprintf( '<a href="%1$s">%2$s</a>', esc_url( "mailto:$contact" ), esc_html( $contact ) ) );
 	}
+	echo '</p>';
 }
 
 /**
@@ -436,7 +438,7 @@ function display_users_widget() {
 		}
 		$types_of_totals[] = "{$count} {$capability}";
 	}
-	echo \Pressbooks\Utility\oxford_comma( $types_of_totals );
+	echo esc_html( \Pressbooks\Utility\oxford_comma( $types_of_totals ) );
 	echo '.</p>';
 
 	echo '<div class="part-buttons"> <a href="user-new.php">' . esc_html__( 'Add', 'pressbooks' ) . '</a> | <a class="remove" href="users.php">' . esc_html__( 'Organize', 'pressbooks' ) . '</a></div>';
@@ -560,9 +562,7 @@ function display_feed_callback( $args ) {
 		'pressbooks_dashboard_feed', get_rss_defaults()
 	);
 
-	$html = '<input id="display_feed" name="pressbooks_dashboard_feed[display_feed]" type="checkbox" value="1" ' . checked( $options['display_feed'], 1, false ) . '/>';
-	$html .= '<p class="description">' . $args['description'] . '</p>';
-	echo $html;
+	echo '<input id="display_feed" name="pressbooks_dashboard_feed[display_feed]" type="checkbox" value="1" ' . checked( $options['display_feed'], 1, false ) . '/><p class="description">' . esc_html( $args['description'] ) . '</p>';
 }
 
 function title_callback( $args ) {
@@ -571,16 +571,14 @@ function title_callback( $args ) {
 			'pressbooks_dashboard_feed', get_rss_defaults()
 		)
 	);
-	$html = '<input id="title" name="pressbooks_dashboard_feed[title]" type="text" value="' . $options['title'] . '" />';
-	echo $html;
+	echo '<input id="title" name="pressbooks_dashboard_feed[title]" type="text" value="' . esc_url( $options['title'] ) . '" />';
 }
 
 function url_callback( $args ) {
 	$options = get_site_option(
 		'pressbooks_dashboard_feed', get_rss_defaults()
 	);
-	$html = '<input id="url" name="pressbooks_dashboard_feed[url]" type="text" value="' . $options['url'] . '" />';
-	echo $html;
+	echo '<input id="url" name="pressbooks_dashboard_feed[url]" type="text" value="' . esc_url( $options['url'] ) . '" />';
 }
 
 function display_feed_sanitize( $input ) {
