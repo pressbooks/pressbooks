@@ -5,8 +5,6 @@
  */
 // TODO: Security audit
 // @phpcs:disable Pressbooks.Security.EscapeOutput.OutputNotEscaped
-// @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.InputNotValidated
-// @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.MissingUnslash
 
 namespace Pressbooks\Admin\Dashboard;
 
@@ -19,7 +17,7 @@ function get_rss_defaults() {
 	return [
 		'display_feed' => 1,
 		'url' => 'https://pressbooks.com/feed/',
-		'title' => __( 'Pressbooks announcements', 'pressbooks' ),
+		'title' => esc_html__( 'Pressbooks announcements', 'pressbooks' ),
 	];
 }
 
@@ -92,7 +90,7 @@ function replace_root_dashboard_widgets() {
 	) {
 		add_meta_box(
 			'pb_dashboard_widget_book_permissions',
-			__( 'Get started with Pressbooks', 'pressbooks' ),
+			esc_html__( 'Get started with Pressbooks', 'pressbooks' ),
 			__NAMESPACE__ . '\lowly_user_callback',
 			'dashboard',
 			'normal',
@@ -132,8 +130,8 @@ function replace_dashboard_widgets() {
 
 	// Replace with our own
 	$book_name = get_bloginfo( 'name' );
-	add_meta_box( 'pb_dashboard_widget_book', ( $book_name ? $book_name : __( 'My Book', 'pressbooks' ) ), __NAMESPACE__ . '\display_book_widget', 'dashboard', 'normal', 'high' );
-	add_meta_box( 'pb_dashboard_widget_users', __( 'Users', 'pressbooks' ), __NAMESPACE__ . '\display_users_widget', 'dashboard', 'side', 'high' );
+	add_meta_box( 'pb_dashboard_widget_book', ( $book_name ? $book_name : esc_html__( 'My Book', 'pressbooks' ) ), __NAMESPACE__ . '\display_book_widget', 'dashboard', 'normal', 'high' );
+	add_meta_box( 'pb_dashboard_widget_users', esc_html__( 'Users', 'pressbooks' ), __NAMESPACE__ . '\display_users_widget', 'dashboard', 'side', 'high' );
 
 	// Add our news feed.
 	$options = array_map(
@@ -175,7 +173,7 @@ function lowly_user() {
 
 	add_meta_box(
 		'pb_dashboard_widget_book_permissions',
-		__( 'Book Permissions', 'pressbooks' ),
+		esc_html__( 'Book Permissions', 'pressbooks' ),
 		__NAMESPACE__ . '\lowly_user_callback',
 		'dashboard-user',
 		'normal',
@@ -191,7 +189,7 @@ function lowly_user() {
 function add_pending_invitation_meta_box( $screen ) {
 	add_meta_box(
 		'pb_dashboard_widget_book_invitations',
-		__( 'Book Invitations', 'pressbooks' ),
+		esc_html__( 'Book Invitations', 'pressbooks' ),
 		__NAMESPACE__ . '\pending_invitations_callback',
 		$screen,
 		'normal',
@@ -227,7 +225,7 @@ function pending_invitations_callback() {
 		echo "
 		<div>
 			<p>$message</p>
-			<a class='button button-primary' href='" . home_url( '/newbloguser/' . $metadata['key'] ) . "'>" . __( 'Accept', 'pressbooks' ) . '</a>
+			<a class='button button-primary' href='" . home_url( '/newbloguser/' . $metadata['key'] ) . "'>" . esc_html__( 'Accept', 'pressbooks' ) . '</a>
 		</div>
 		<hr/>
 		';
@@ -240,31 +238,31 @@ function pending_invitations_callback() {
  * Callback for /wp-admin/user/ widget
  */
 function lowly_user_callback() {
-	echo '<p>' . sprintf( __( 'Welcome to %s', 'pressbooks' ), get_bloginfo( 'name', 'display' ) ) . '!</p>';
+	echo '<p>' . sprintf( esc_html__( 'Welcome to %s', 'pressbooks' ), get_bloginfo( 'name', 'display' ) ) . '!</p>';
 	$user_has_books = count( get_blogs_of_user( get_current_user_id() ) ) > 1;
 	if ( ! $user_has_books ) {
-		echo '<p>' . esc_html_e( 'You do not currently have access to any books on this network.', 'pressbooks' ) . '</p>';
+		echo '<p>' . esc_html__( 'You do not currently have access to any books on this network.', 'pressbooks' ) . '</p>';
 	}
 	$contact = \Pressbooks\Utility\main_contact_email();
 	// Values can be 'all', 'none', 'blog', or 'user', @see wp-signup.php
 	$active_signup = apply_filters( 'wpmu_active_signup', get_site_option( 'registration', 'none' ) );
 	if ( in_array( $active_signup, [ 'none', 'user' ], true ) ) {
-		echo '<p>' . __( 'This network does not allow users to create new books. To create a new book, please contact a network manager', 'pressbooks' );
+		echo '<p>' . esc_html__( 'This network does not allow users to create new books. To create a new book, please contact a network manager', 'pressbooks' );
 		if ( ! empty( $contact ) && strpos( $contact, '@pressbooks.com' ) === false ) {
-			echo ' ' . sprintf( __( 'at <a href="mailto:%1$s">%2$s</a>', 'pressbooks' ), $contact, $contact );
+			echo ' ' . esc_html__( 'at ', 'pressbooks' ) . sprintf( '<a href="mailto:%1$s">%2$s</a>', $contact, $contact );
 		}
 		echo '.</p>';
 	} else {
 		$href_create = network_home_url( 'wp-signup.php' );
-		$text_create = __( 'Create a book', 'pressbooks' );
+		$text_create = esc_html__( 'Create a book', 'pressbooks' );
 		$href_clone = admin_url( 'admin.php?page=pb_cloner' );
-		$text_clone = __( 'Clone a book', 'pressbooks' );
-		echo '<p>' . sprintf( __( 'Get started on your next publishing project by creating a new book or cloning an existing book. The <a href="https://pressbooks.directory" target="_blank">Pressbooks Directory</a> includes thousands of openly licensed books available for cloning.', 'pressbooks' ) ) . "</p><p><a class='button button-hero button-primary create-book' href='{$href_create}'>" . $text_create . "</a></p><p><a class='button button-hero button-primary clone-book' href='{$href_clone}'>" . $text_clone . '</a></p>';
+		$text_clone = esc_html__( 'Clone a book', 'pressbooks' );
+		echo '<p>' . sprintf( esc_html__( 'Get started on your next publishing project by creating a new book or cloning an existing book. The %1$s includes thousands of openly licensed books available for cloning.', 'pressbooks' ), sprintf( '<a href="https://pressbooks.directory" target="_blank">%s</a>', esc_html__( 'Pressbooks Directory', 'pressbooks' ) ) ) . "</p><p><a class='button button-hero button-primary create-book' href='{$href_create}'>" . $text_create . "</a></p><p><a class='button button-hero button-primary clone-book' href='{$href_clone}'>" . $text_clone . '</a></p>';
 	}
 	if ( ! $user_has_books ) {
-		echo '<p>' . __( 'You can also request access to an existing book by contacting your network manager', 'pressbooks' );
+		echo '<p>' . esc_html__( 'You can also request access to an existing book by contacting your network manager', 'pressbooks' );
 		if ( ! empty( $contact ) && strpos( $contact, '@pressbooks.com' ) === false ) {
-			echo ' ' . sprintf( __( 'at <a href="mailto:%1$s">%2$s</a>', 'pressbooks' ), $contact, $contact );
+			echo ' ' . esc_html__( 'at ', 'pressbooks' ) . sprintf( '<a href="mailto:%1$s">%2$s</a>', $contact, $contact );
 		}
 		echo '.</p>';
 	}
@@ -405,14 +403,14 @@ function display_users_widget() {
 		}
 
 		if ( $displayed < $limit ) {
-			echo '<tr><td>' . get_avatar( $user->user_id, 32 ) . '</td><td>' . get_userdata( $user->user_id )->display_name . ' - ' . ucfirst( $capability ) . '</td></tr>';
+			echo '<tr><td>' . get_avatar( $user->user_id, 32 ) . '</td><td>' . esc_html( get_userdata( $user->user_id )->display_name ) . ' - ' . esc_html( ucfirst( $capability ) ) . '</td></tr>';
 			$displayed++;
 		}
 	}
 	echo '</table>';
 
 	echo '<p>';
-	printf( __( '%1$s total users: ', 'pressbooks' ), count( $users ) );
+	printf( esc_html__( '%1$s total users: ', 'pressbooks' ), count( $users ) );
 	$types_of_totals = [];
 	foreach ( $types_of_users as $capability => $count ) {
 		if ( $capability === 'contributor' ) {
@@ -426,7 +424,7 @@ function display_users_widget() {
 	echo \Pressbooks\Utility\oxford_comma( $types_of_totals );
 	echo '.</p>';
 
-	echo '<div class="part-buttons"> <a href="user-new.php">' . __( 'Add', 'pressbooks' ) . '</a> | <a class="remove" href="users.php">' . __( 'Organize', 'pressbooks' ) . '</a></div>';
+	echo '<div class="part-buttons"> <a href="user-new.php">' . esc_html__( 'Add', 'pressbooks' ) . '</a> | <a class="remove" href="users.php">' . esc_html__( 'Organize', 'pressbooks' ) . '</a></div>';
 }
 
 /**
@@ -435,8 +433,8 @@ function display_users_widget() {
 function add_menu() {
 	add_submenu_page(
 		'settings.php',
-		__( 'Dashboard', 'pressbooks' ),
-		__( 'Dashboard', 'pressbooks' ),
+		esc_html__( 'Dashboard', 'pressbooks' ),
+		esc_html__( 'Dashboard', 'pressbooks' ),
 		'manage_network',
 		'pb_dashboard',
 		__NAMESPACE__ . '\options'
@@ -455,8 +453,8 @@ function init_network_integrations_menu() {
 	static $init_pb_network_integrations_menu = false;
 	if ( ! $init_pb_network_integrations_menu ) {
 		add_menu_page(
-			__( 'Integrations', 'pressbooks-lti-provider' ),
-			__( 'Integrations', 'pressbooks-lti-provider' ),
+			esc_html__( 'Integrations', 'pressbooks-lti-provider' ),
+			esc_html__( 'Integrations', 'pressbooks-lti-provider' ),
 			'manage_network',
 			$parent_slug,
 			'',
@@ -485,25 +483,25 @@ function dashboard_options_init() {
 
 	add_settings_section(
 		'dashboard_feed',
-		__( 'Dashboard Feed', 'pressbooks' ),
+		esc_html__( 'Dashboard Feed', 'pressbooks' ),
 		__NAMESPACE__ . '\dashboard_feed_callback',
 		$_page
 	);
 
 	add_settings_field(
 		'display_feed',
-		__( 'Display Feed', 'pressbooks' ),
+		esc_html__( 'Display Feed', 'pressbooks' ),
 		__NAMESPACE__ . '\display_feed_callback',
 		$_page,
 		'dashboard_feed',
 		[
-			'description' => __( 'Display an RSS feed widget on the dashboard.', 'pressbooks' ),
+			'description' => esc_html__( 'Display an RSS feed widget on the dashboard.', 'pressbooks' ),
 		]
 	);
 
 	add_settings_field(
 		'title',
-		__( 'Feed Title', 'pressbooks' ),
+		esc_html__( 'Feed Title', 'pressbooks' ),
 		__NAMESPACE__ . '\title_callback',
 		$_page,
 		'dashboard_feed'
@@ -511,7 +509,7 @@ function dashboard_options_init() {
 
 	add_settings_field(
 		'url',
-		__( 'Feed URL', 'pressbooks' ),
+		esc_html__( 'Feed URL', 'pressbooks' ),
 		__NAMESPACE__ . '\url_callback',
 		$_page,
 		'dashboard_feed'
@@ -538,7 +536,7 @@ function dashboard_options_init() {
 
 function dashboard_feed_callback( $args ) {
 	?>
-	<p><?php __( 'Adjust settings for your dashboard RSS feed widget below.', 'pressbooks' ); ?></p>
+	<p><?php esc_html__( 'Adjust settings for your dashboard RSS feed widget below.', 'pressbooks' ); ?></p>
 	<?php
 }
 
