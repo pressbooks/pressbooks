@@ -229,7 +229,7 @@ function pending_invitations_callback() {
 		echo "
 		<div>
 			<p>$message</p>
-			<a class='button button-primary' href='" . home_url( '/newbloguser/' . $metadata['key'] ) . "'>" . esc_html__( 'Accept', 'pressbooks' ) . '</a>
+			<a class='button button-primary' href='" . esc_url( home_url( '/newbloguser/' . $metadata['key'] ) ) . "'>" . esc_html__( 'Accept', 'pressbooks' ) . '</a>
 		</div>
 		<hr/>
 		';
@@ -242,7 +242,7 @@ function pending_invitations_callback() {
  * Callback for /wp-admin/user/ widget
  */
 function lowly_user_callback() {
-	echo '<p>' . sprintf( esc_html__( 'Welcome to %s', 'pressbooks' ), get_bloginfo( 'name', 'display' ) ) . '!</p>';
+	echo '<p>' . sprintf( esc_html__( 'Welcome to %s', 'pressbooks' ), esc_html( get_bloginfo( 'name', 'display' ) ) ) . '!</p>';
 	$user_has_books = count( get_blogs_of_user( get_current_user_id() ) ) > 1;
 	if ( ! $user_has_books ) {
 		echo '<p>' . esc_html__( 'You do not currently have access to any books on this network.', 'pressbooks' ) . '</p>';
@@ -253,7 +253,7 @@ function lowly_user_callback() {
 	if ( in_array( $active_signup, [ 'none', 'user' ], true ) ) {
 		echo '<p>' . esc_html__( 'This network does not allow users to create new books. To create a new book, please contact a network manager', 'pressbooks' );
 		if ( ! empty( $contact ) && strpos( $contact, '@pressbooks.com' ) === false ) {
-			echo ' ' . esc_html__( 'at ', 'pressbooks' ) . sprintf( '<a href="mailto:%1$s">%1$s</a>', $contact );
+			echo ' ' . esc_html__( 'at ', 'pressbooks' ) . sprintf( '<a href="mailto:%1$s">%2$s</a>', esc_url( $contact ), esc_html( $contact ) );
 		}
 		echo '.</p>';
 	} else {
@@ -266,7 +266,7 @@ function lowly_user_callback() {
 	if ( ! $user_has_books ) {
 		echo '<p>' . esc_html__( 'You can also request access to an existing book by contacting your network manager', 'pressbooks' );
 		if ( ! empty( $contact ) && strpos( $contact, '@pressbooks.com' ) === false ) {
-			echo ' ' . esc_html__( 'at ', 'pressbooks' ) . sprintf( '<a href="mailto:%1$s">%1$s</a>', $contact );
+			echo ' ' . esc_html__( 'at ', 'pressbooks' ) . sprintf( '<a href="mailto:%1$s">%2$s</a>', esc_url( $contact ), esc_html( $contact ) );
 		}
 		echo '.</p>';
 	}
@@ -287,7 +287,7 @@ function display_book_widget() {
 					$title = ( ! empty( $component['post_title'] ) ? $component['post_title'] : '&hellip;' );
 					printf(
 						"<li>%s</li>\n",
-						current_user_can( 'edit_post', $component['ID'] ) ? sprintf( '<a href="%1$s">%2$s</a>', admin_url( 'post.php?post=' . $component['ID'] . '&action=edit' ), $title ) : $title
+						current_user_can( 'edit_post', $component['ID'] ) ? sprintf( '<a href="%1$s">%2$s</a>', esc_url( admin_url( 'post.php?post=' . $component['ID'] . '&action=edit' ) ), esc_html( $title ) ) : esc_html( $title )
 					);
 				}
 				?>
@@ -302,7 +302,7 @@ function display_book_widget() {
 				if ( current_user_can( 'edit_post', $part['ID'] ) ) {
 					printf(
 						"<h3><strong>%s</strong></h3>\n",
-						current_user_can( 'edit_post', $part['ID'] ) ? sprintf( '<a href="%1$s">%2$s</a>', admin_url( 'post.php?post=' . $part['ID'] . '&action=edit' ), $title ) : $title
+						current_user_can( 'edit_post', $part['ID'] ) ? sprintf( '<a href="%1$s">%2$s</a>', esc_url( admin_url( 'post.php?post=' . $part['ID'] . '&action=edit' ) ), esc_html( $title ) ) : esc_html( $title )
 					);
 				}
 				?>
@@ -312,7 +312,7 @@ function display_book_widget() {
 					$title = ( ! empty( $component['post_title'] ) ? $component['post_title'] : '&hellip;' );
 					printf(
 						"<li>%s</li>\n",
-						current_user_can( 'edit_post', $component['ID'] ) ? sprintf( '<a href="%1$s">%2$s</a>', admin_url( 'post.php?post=' . $component['ID'] . '&action=edit' ), $title ) : $title
+						current_user_can( 'edit_post', $component['ID'] ) ? sprintf( '<a href="%1$s">%2$s</a>', esc_url( admin_url( 'post.php?post=' . $component['ID'] . '&action=edit' ) ), esc_html( $title ) ) : esc_html( $title )
 					);
 				}
 				?>
@@ -328,7 +328,7 @@ function display_book_widget() {
 					$title = ( ! empty( $component['post_title'] ) ? $component['post_title'] : '&hellip;' );
 					printf(
 						"<li>%s</li>\n",
-						current_user_can( 'edit_post', $component['ID'] ) ? sprintf( '<a href="%1$s">%2$s</a>', admin_url( 'post.php?post=' . $component['ID'] . '&action=edit' ), $title ) : $title
+						current_user_can( 'edit_post', $component['ID'] ) ? sprintf( '<a href="%1$s">%2$s</a>', esc_url( admin_url( 'post.php?post=' . $component['ID'] . '&action=edit' ) ), esc_html( $title ) ) : esc_html( $title )
 					);
 				}
 				?>
@@ -340,7 +340,7 @@ function display_book_widget() {
 	if ( current_user_can( 'edit_posts' ) ) {
 		?>
 	<div class="part-buttons">
-		<a href="post-new.php?post_type=chapter"><?php _e( 'Add', 'pressbooks' ); ?></a> | <a class="organize" href="<?php echo admin_url( 'admin.php?page=pb_organize' ); ?>"><?php _e( 'Organize', 'pressbooks' ); ?></a>
+		<a href="post-new.php?post_type=chapter"><?php _e( 'Add', 'pressbooks' ); ?></a> | <a class="organize" href="<?php echo esc_url( admin_url( 'admin.php?page=pb_organize' ) ); ?>"><?php _e( 'Organize', 'pressbooks' ); ?></a>
 	</div>
 		<?php
 	}
@@ -386,7 +386,7 @@ function display_support_widget() {
 	$contact = \Pressbooks\Utility\main_contact_email();
 	echo '<p>' . __( 'The <a href="https://guide.pressbooks.com" target="_blank">Pressbooks User Guide</a> is a one-stop resource which describes how to do nearly everything with Pressbooks. Start with the <a href="https://guide.pressbooks.com/front-matter/the-simple-5-step-guide-to-making-a-book-with-pressbooks/" target="_blank">5 step guide to making a book</a> or explore the table of contents.', 'pressbooks' ) . '</p><p>' . __( 'The <a href="https://www.youtube.com/c/Pressbooks/videos" target="_blank">Pressbooks YouTube channel</a> features dozens of recordings covering a wide variety of common publishing tasks. Our <a href="https://www.youtube.com/watch?v=hrcrFJVgbbs&list=PLMFmJu3NJheuRt1rZwNCEElROtSjc5dJG" target="_blank">Fundamentals of Pressbooks playlist</a> is a good place to get started.', 'pressbooks' ) . '</p><p>' . __( 'Pressbooks regularly hosts <a href="https://pressbooks.com/webinars/" target="_blank">live training webinars</a> which cover useful topics for beginners and advanced users alike.', 'pressbooks' ) . '</p>';
 	if ( ! empty( $contact ) && strpos( $contact, '@pressbooks.com' ) === false ) {
-		echo '<p>' . sprintf( __( 'For additional support, contact your network manager at <a href="mailto:%1$s">%1$s</a>', 'pressbooks' ), $contact ) . '</p>';
+		echo '<p>' . sprintf( __( 'For additional support, contact your network manager at <a href="mailto:%1$s">%2$s</a>', 'pressbooks' ), esc_url( $contact ), esc_html( $contact ) ) . '</p>';
 	}
 }
 
