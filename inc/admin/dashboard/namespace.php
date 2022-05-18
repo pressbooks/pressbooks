@@ -136,7 +136,7 @@ function replace_dashboard_widgets() {
 	$book_name = get_bloginfo( 'name' );
 	add_meta_box( 'pb_dashboard_widget_book', ( $book_name ? $book_name : esc_html__( 'My Book', 'pressbooks' ) ), __NAMESPACE__ . '\display_book_widget', 'dashboard', 'normal', 'high' );
 	add_meta_box( 'pb_dashboard_widget_users', esc_html__( 'Users', 'pressbooks' ), __NAMESPACE__ . '\display_users_widget', 'dashboard', 'side', 'high' );
-	add_meta_box( 'pb_dashboard_widget_support', esc_html__( 'Need Help?', 'pressbooks' ), __NAMESPACE__ . 'display_support_widget', 'dashboard', 'normal', 'high' );
+	add_meta_box( 'pb_dashboard_widget_support', esc_html__( 'Need Help?', 'pressbooks' ), __NAMESPACE__ . '\display_support_widget', 'dashboard', 'normal', 'high' );
 
 	// Add our news feed.
 	$options = array_map(
@@ -253,7 +253,7 @@ function lowly_user_callback() {
 	if ( in_array( $active_signup, [ 'none', 'user' ], true ) ) {
 		echo '<p>' . esc_html__( 'This network does not allow users to create new books. To create a new book, please contact a network manager', 'pressbooks' );
 		if ( ! empty( $contact ) && strpos( $contact, '@pressbooks.com' ) === false ) {
-			echo ' ' . esc_html__( 'at ', 'pressbooks' ) . sprintf( '<a href="mailto:%1$s">%2$s</a>', $contact, $contact );
+			echo ' ' . esc_html__( 'at ', 'pressbooks' ) . sprintf( '<a href="mailto:%1$s">%1$s</a>', $contact );
 		}
 		echo '.</p>';
 	} else {
@@ -261,12 +261,12 @@ function lowly_user_callback() {
 		$text_create = esc_html__( 'Create a book', 'pressbooks' );
 		$href_clone = admin_url( 'admin.php?page=pb_cloner' );
 		$text_clone = esc_html__( 'Clone a book', 'pressbooks' );
-		echo '<p>' . sprintf( esc_html__( 'Get started on your next publishing project by creating a new book or cloning an existing book. The %1$s includes thousands of openly licensed books available for cloning.', 'pressbooks' ), sprintf( '<a href="https://pressbooks.directory" target="_blank">%s</a>', esc_html__( 'Pressbooks Directory', 'pressbooks' ) ) ) . "</p><p><a class='button button-hero button-primary create-book' href='{$href_create}'>" . $text_create . "</a></p><p><a class='button button-hero button-primary clone-book' href='{$href_clone}'>" . $text_clone . '</a></p>';
+		echo '<p>' . sprintf( esc_html__( 'Get started on your next publishing project by creating a new book or cloning an existing book. The %1$s includes thousands of openly licensed books available for cloning.', 'pressbooks' ), sprintf( '<a href="https://pressbooks.directory" target="_blank">%s</a>', esc_html__( 'Pressbooks Directory', 'pressbooks' ) ) ) . "</p><p><a class='button button-hero button-primary create-book' href='{$href_create}'>{$text_create}</a></p><p><a class='button button-hero button-primary clone-book' href='{$href_clone}'>{$text_clone}</a></p>";
 	}
 	if ( ! $user_has_books ) {
 		echo '<p>' . esc_html__( 'You can also request access to an existing book by contacting your network manager', 'pressbooks' );
 		if ( ! empty( $contact ) && strpos( $contact, '@pressbooks.com' ) === false ) {
-			echo ' ' . esc_html__( 'at ', 'pressbooks' ) . sprintf( '<a href="mailto:%1$s">%2$s</a>', $contact, $contact );
+			echo ' ' . esc_html__( 'at ', 'pressbooks' ) . sprintf( '<a href="mailto:%1$s">%1$s</a>', $contact );
 		}
 		echo '.</p>';
 	}
@@ -386,10 +386,9 @@ function display_support_widget() {
 	$contact = \Pressbooks\Utility\main_contact_email();
 	echo '<p>' . __( 'The <a href="https://guide.pressbooks.com" target="_blank">Pressbooks User Guide</a> is a one-stop resource which describes how to do nearly everything with Pressbooks. Start with the <a href="https://guide.pressbooks.com/front-matter/the-simple-5-step-guide-to-making-a-book-with-pressbooks/" target="_blank">5 step guide to making a book</a> or explore the table of contents.', 'pressbooks' ) . '</p><p>' . __( 'The <a href="https://www.youtube.com/c/Pressbooks/videos" target="_blank">Pressbooks YouTube channel</a> features dozens of recordings covering a wide variety of common publishing tasks. Our <a href="https://www.youtube.com/watch?v=hrcrFJVgbbs&list=PLMFmJu3NJheuRt1rZwNCEElROtSjc5dJG" target="_blank">Fundamentals of Pressbooks playlist</a> is a good place to get started.', 'pressbooks' ) . '</p><p>' . __( 'Pressbooks regularly hosts <a href="https://pressbooks.com/webinars/" target="_blank">live training webinars</a> which cover useful topics for beginners and advanced users alike.', 'pressbooks' ) . '</p>';
 	if ( ! empty( $contact ) && strpos( $contact, '@pressbooks.com' ) === false ) {
-		echo '<p>' . sprintf( __( 'For additional support, contact your network manager at <a href="mailto:%1$s">%2$s</a>', 'pressbooks' ), $contact, $contact ) . '</p>';
+		echo '<p>' . sprintf( __( 'For additional support, contact your network manager at <a href="mailto:%1$s">%1$s</a>', 'pressbooks' ), $contact ) . '</p>';
 	}
 }
-
 
 /**
  * Displays a Users widget
