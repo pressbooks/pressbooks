@@ -255,7 +255,7 @@ function lowly_user_callback() {
 		$text_create = esc_html__( 'Create a book', 'pressbooks' );
 		$href_clone = admin_url( 'admin.php?page=pb_cloner' );
 		$text_clone = esc_html__( 'Clone a book', 'pressbooks' );
-		echo '<p>' . sprintf( esc_html__( 'Get started on your next publishing project by creating a new book or cloning an existing book. The %1$s includes thousands of openly licensed books available for cloning.', 'pressbooks' ), sprintf( '<a href="https://pressbooks.directory" target="_blank">%s</a>', esc_html__( 'Pressbooks Directory', 'pressbooks' ) ) ) . "</p><p><a class='button button-hero button-primary create-book' href='" . esc_url( $href_create ) . "'>" . esc_html( $text_create ) . "</a></p><p><a class='button button-hero button-primary clone-book' href='" . esc_url( $href_clone ) . "'>" . esc_html( $text_clone ) . '</a></p>';
+		echo '<p>' . sprintf( esc_html__( 'Get started on your next publishing project by creating a new book or cloning an existing book. The %1$s includes thousands of openly licensed books available for cloning.', 'pressbooks' ), sprintf( '<a href="https://pressbooks.directory" target="_blank">%s</a>', esc_html__( 'Pressbooks Directory', 'pressbooks' ) ) ) . "</p><p><a class='button button-hero button-primary create-book' href='" . esc_url( $href_create ) . "'>" . esc_html( $text_create ) . "</a><a class='button button-hero button-primary clone-book' href='" . esc_url( $href_clone ) . "'>" . esc_html( $text_clone ) . '</a></p>';
 	}
 	if ( ! $user_has_books ) {
 		echo '<p>' . esc_html__( 'You can also request access to an existing book by contacting your network manager', 'pressbooks' );
