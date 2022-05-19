@@ -378,18 +378,13 @@ function display_pressbooks_blog() {
  */
 function display_support_widget() {
 	$contact = \Pressbooks\Utility\main_contact_email();
-	$message = __( 'The %1$s describes how to do nearly everything with Pressbooks. Start with the %2$s or explore the table of contents.', 'pressbooks' );
-	$message2 = __( 'The %1$s features dozens of recordings covering a wide variety of common publishing tasks. Our %2$s is a good place to begin.', 'pressbooks' );
-	$message3 = __( 'Pressbooks regularly hosts %s for beginners and advanced users.', 'pressbooks' );
-	$message4 = __( 'You are welcome to ask and respond to general questions on our %s.', 'pressbooks' );
-	echo '<p>' . sprintf( esc_html( $message ), sprintf( '<a href="%1$s" target="_blank">%2$s</a>', esc_url( 'https://guide.pressbooks.com' ), esc_html__( 'Pressbooks User Guide', 'pressbooks' ) ), sprintf( '<a href="%1$s" target="_blank">%2$s</a>', esc_url( 'https://guide.pressbooks.com/front-matter/the-simple-5-step-guide-to-making-a-book-with-pressbooks/' ), esc_html__( 'guide to making a book' ) ) )
-			. '</p><p>' . sprintf( esc_html( $message2 ), sprintf( '<a href="%1$s" target="_blank">%2$s</a>', esc_url( 'https://www.youtube.com/c/Pressbooks/videos' ), esc_html__( 'Pressbooks YouTube channel', 'pressbooks' ) ), sprintf( '<a href="%1$s" target="_blank">%2$s</a>', esc_url( 'https://www.youtube.com/watch?v=hrcrFJVgbbs&list=PLMFmJu3NJheuRt1rZwNCEElROtSjc5dJG' ), esc_html__( 'Fundamentals of Pressbooks playlist', 'pressbooks' ) ) )
-			. '</p><p>' . sprintf( esc_html( $message3 ), sprintf( '<a href="%1$s" target="_blank">%2$s</a>', esc_url( 'https://pressbooks.com/webinars/' ), esc_html__( 'live training webinars', 'pressbooks' ) ) ) . '</p>';
-	echo '<p>' . sprintf( esc_html( $message4 ), sprintf( '<a href="%1$s" target="_blank">%2$s</a>', esc_url( 'https://pressbooks.community' ), esc_html__( 'community forum', 'pressbooks' ) ) );
+	echo '<p>' . /* translators: %s: URL to Pressbooks User Guide */ sprintf( esc_html__( 'Consult the %s.', 'pressbooks' ), sprintf( '<a href="%1$s" target="_blank">%2$s</a>', esc_url( 'https://guide.pressbooks.com' ), esc_html__( 'Pressbooks User Guide', 'pressbooks' ) ) )
+			. '</p><p>' . /* translators: %s: URL to Pressbooks YouTube channel */ sprintf( esc_html__( 'Watch tutorials on the %s.', 'pressbooks' ), sprintf( '<a href="%1$s" target="_blank">%2$s</a>', esc_url( 'https://www.youtube.com/c/Pressbooks/playlists' ), esc_html__( 'Pressbooks YouTube channel', 'pressbooks' ) ) )
+			. '</p><p>' . /* translators: %s: URL to Pressbooks training webinars */ sprintf( esc_html__( 'Attend a %s.', 'pressbooks' ), sprintf( '<a href="%1$s" target="_blank">%2$s</a>', esc_url( 'https://pressbooks.com/webinars/' ), esc_html__( 'live training webinar', 'pressbooks' ) ) )
+			. '</p><p>' . /* translators: %s: URL to Pressbooks community forum */ sprintf( esc_html__( 'Participate in the %s.', 'pressbooks' ), sprintf( '<a href="%1$s" target="_blank">%2$s</a>', esc_url( 'https://pressbooks.community' ), esc_html__( 'community forum', 'pressbooks' ) ) ) . '</p>';
 	if ( ! empty( $contact ) && strpos( $contact, '@pressbooks.com' ) === false ) {
-		echo ' ' . sprintf( esc_html__( 'For additional support, contact your network manager at %s.', 'pressbooks' ), sprintf( '<a href="%1$s">%2$s</a>', esc_url( "mailto:$contact" ), esc_html( $contact ) ) );
+		echo '<p>' . /* translators: %s: email address for network manager */ sprintf( esc_html__( 'For additional support, contact your network manager at %s.', 'pressbooks' ), sprintf( '<a href="%1$s">%2$s</a>', esc_url( "mailto:$contact" ), esc_html( $contact ) ) ) . '</p>';
 	}
-	echo '</p>';
 }
 
 /**
