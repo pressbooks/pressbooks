@@ -195,6 +195,22 @@ class Admin_DashboardTest extends \WP_UnitTestCase {
 	/**
 	 * @group dashboard
 	 */
+	public function test_display_suport_widget() {
+		$this->_book();
+
+		ob_start();
+		\Pressbooks\Admin\Dashboard\display_support_widget();
+		$buffer = ob_get_clean();
+
+		$this->assertStringContainsString( '<p>Consult the <a href="https://guide.pressbooks.com" target="_blank">Pressbooks User Guide</a>.</p>', $buffer );
+		$this->assertStringContainsString( '<p>Watch tutorials on the <a href="https://www.youtube.com/c/Pressbooks/playlists" target="_blank">Pressbooks YouTube channel</a>.</p>', $buffer );
+		$this->assertStringContainsString( '<p>Attend a <a href="https://pressbooks.com/webinars/" target="_blank">live training webinar</a>.</p>', $buffer );
+		$this->assertStringContainsString( '<p>Participate in the <a href="https://pressbooks.community" target="_blank">community forum</a>.</p>', $buffer );
+	}
+
+	/**
+	 * @group dashboard
+	 */
 	public function test_display_pressbooks_blog() {
 		// No cache
 		delete_site_transient( 'pb_rss_widget' );

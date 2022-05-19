@@ -156,6 +156,12 @@
   }
 }
 
+.wp-core-ui .button.button-hero.create-book, .wp-core-ui .button.button-hero.clone-book {
+  width: 150px;
+  padding: 0;
+  text-align: center;
+}
+
 /* User Screen */
 
 .network-admin-restricted {
