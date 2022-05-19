@@ -380,7 +380,7 @@ function display_support_widget() {
 	$contact = \Pressbooks\Utility\main_contact_email();
 	$message = __( 'The %1$s describes how to do nearly everything with Pressbooks. Start with the %2$s or explore the table of contents.', 'pressbooks' );
 	$message2 = __( 'The %1$s features dozens of recordings covering a wide variety of common publishing tasks. Our %2$s is a good place to begin.', 'pressbooks' );
-	$message3 = __( 'Pressbooks regularly hosts %s for beginners and advanced users alike.', 'pressbooks' );
+	$message3 = __( 'Pressbooks regularly hosts %s for beginners and advanced users.', 'pressbooks' );
 	$message4 = __( 'You are welcome to ask and respond to general questions on our %s.', 'pressbooks' );
 	echo '<p>' . sprintf( esc_html( $message ), sprintf( '<a href="%1$s" target="_blank">%2$s</a>', esc_url( 'https://guide.pressbooks.com' ), esc_html__( 'Pressbooks User Guide', 'pressbooks' ) ), sprintf( '<a href="%1$s" target="_blank">%2$s</a>', esc_url( 'https://guide.pressbooks.com/front-matter/the-simple-5-step-guide-to-making-a-book-with-pressbooks/' ), esc_html__( 'guide to making a book' ) ) )
 			. '</p><p>' . sprintf( esc_html( $message2 ), sprintf( '<a href="%1$s" target="_blank">%2$s</a>', esc_url( 'https://www.youtube.com/c/Pressbooks/videos' ), esc_html__( 'Pressbooks YouTube channel', 'pressbooks' ) ), sprintf( '<a href="%1$s" target="_blank">%2$s</a>', esc_url( 'https://www.youtube.com/watch?v=hrcrFJVgbbs&list=PLMFmJu3NJheuRt1rZwNCEElROtSjc5dJG' ), esc_html__( 'Fundamentals of Pressbooks playlist', 'pressbooks' ) ) )
