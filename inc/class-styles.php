@@ -667,7 +667,6 @@ class Styles {
 	 */
 	public function getShapeShifterFonts() {
 		$serif = [
-			'Alegreya' => __( 'Alegreya', 'pressbooks' ),
 			'Cormorant Garamond' => __( 'Cormorant Garamond', 'pressbooks' ),
 			'Crimson Text' => __( 'Crimson Text', 'pressbooks' ),
 			'FreeSerif' => __( 'GNU FreeFont Serif', 'pressbooks' ),
@@ -678,6 +677,7 @@ class Styles {
 		];
 
 		$sans_serif = [
+			'Alegreya Sans' => __( 'Alegreya Sans', 'pressbooks' ),
 			'Barlow' => __( 'Barlow', 'pressbooks' ),
 			'FreeSans' => __( 'GNU FreeFont Sans', 'pressbooks' ),
 			'K2D' => __( 'K2D', 'pressbooks' ),
