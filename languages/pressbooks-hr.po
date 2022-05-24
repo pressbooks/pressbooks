@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
-"POT-Creation-Date: 2022-05-03T20:31:26+00:00\n"
+"POT-Creation-Date: 2022-05-24T20:09:34+00:00\n"
 "PO-Revision-Date: 2013-12-21 21:04+0000\n"
 "Last-Translator: Dubravko Cvikl <dcvikl@cvikl.hr>, 2019\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/pressbooks/pressbooks/language/hr_HR/)\n"
@@ -74,11 +74,11 @@ msgstr "Pressbooks dodatak nije aktivan, ali imate aktivne dodatke koji zahtijev
 
 #: inc/admin/analytics/namespace.php:16 inc/admin/analytics/namespace.php:17
 #: inc/admin/analytics/namespace.php:26 inc/admin/analytics/namespace.php:27
-#: inc/admin/analytics/namespace.php:170 inc/admin/analytics/namespace.php:210
+#: inc/admin/analytics/namespace.php:169 inc/admin/analytics/namespace.php:209
 msgid "Google Analytics"
 msgstr "Google Analytics"
 
-#: inc/admin/analytics/namespace.php:50 inc/admin/analytics/namespace.php:107
+#: inc/admin/analytics/namespace.php:50 inc/admin/analytics/namespace.php:106
 msgid "Google Analytics ID"
 msgstr "Google Analytics ID"
 
@@ -98,16 +98,16 @@ msgid ""
 "track statistics at the book level."
 msgstr "Ako je omogućeno, administratori knjiga vidjet će stranicu za postavke Google Analytics, te će moći postavljati i upravljati vlastitim Google Analytics računima za praćenje na razini knjiga (pojedinih web mjesta)."
 
-#: inc/admin/analytics/namespace.php:112
+#: inc/admin/analytics/namespace.php:111
 msgid ""
 "The Google Analytics ID for your book, e.g. &lsquo;UA-01234567-8&rsquo;."
 msgstr "Google Analytics ID za Vašu knjigu, npr.: &lsquo;UA-01234567-8&rsquo;."
 
-#: inc/admin/analytics/namespace.php:129
+#: inc/admin/analytics/namespace.php:128
 msgid "Google Analytics settings."
 msgstr "Google Analytics postavke"
 
-#: inc/admin/analytics/namespace.php:188
+#: inc/admin/analytics/namespace.php:187
 #: inc/admin/network/class-sharingandprivacyoptions.php:188
 msgid "Settings saved."
 msgstr "Postavke pohranjene."
@@ -529,7 +529,7 @@ msgid ""
 msgstr "Veličina stranice PDF-a je postavljena na %1$s &times;%2$s i veličina korica će biti izrađena sa tom veličinom. Veličinu stranice možete promijeniti putem izbornika <a href=\"%3$s\">Postavke izgleda/teme</a>."
 
 #: inc/admin/covergenerator/namespace.php:458
-#: templates/admin/export.blade.php:57
+#: templates/admin/export.blade.php:59
 msgid "Change Theme"
 msgstr "Izmijeni izgled/temu"
 
@@ -613,75 +613,105 @@ msgid ""
 " %1$s to %2$s."
 msgstr "Vaša slika je u krivom omjeru. Omjer slika mora biti %1$s prema %2$s."
 
-#: inc/admin/dashboard/namespace.php:22
-msgid "Pressbooks News"
-msgstr "Pressbooks novosti"
+#: inc/admin/dashboard/namespace.php:18
+msgid "Pressbooks announcements"
+msgstr ""
 
-#: inc/admin/dashboard/namespace.php:95 inc/admin/dashboard/namespace.php:178
-msgid "Book Permissions"
-msgstr "Prava za knjigu"
+#: inc/admin/dashboard/namespace.php:91
+msgid "Get started with Pressbooks"
+msgstr ""
 
-#: inc/admin/dashboard/namespace.php:135
+#: inc/admin/dashboard/namespace.php:107
+msgid "Need help?"
+msgstr ""
+
+#: inc/admin/dashboard/namespace.php:134
 msgid "My Book"
 msgstr "Moja knjiga"
 
-#: inc/admin/dashboard/namespace.php:136 inc/admin/laf/namespace.php:794
+#: inc/admin/dashboard/namespace.php:135 inc/admin/laf/namespace.php:794
 msgid "Users"
 msgstr "Korisnici"
 
-#: inc/admin/dashboard/namespace.php:194
+#: inc/admin/dashboard/namespace.php:136 inc/admin/dashboard/namespace.php:183
+msgid "Need Help?"
+msgstr ""
+
+#: inc/admin/dashboard/namespace.php:177
+msgid "Book Permissions"
+msgstr "Prava za knjigu"
+
+#: inc/admin/dashboard/namespace.php:195
 msgid "Book Invitations"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:220
-msgid "You have been invited to join <a href=\"%1$s\">%2$s</a> as %3$s %4$s"
+#: inc/admin/dashboard/namespace.php:219
+msgid "an"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:230
+#: inc/admin/dashboard/namespace.php:219
+msgid "a"
+msgstr ""
+
+#: inc/admin/dashboard/namespace.php:223
+msgid "You have been invited to join %1s as %2$s %3$s"
+msgstr ""
+
+#: inc/admin/dashboard/namespace.php:226
 msgid "Accept"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:243
-msgid "Welcome to Pressbooks!"
-msgstr "Dobrodošli na Pressbooks!"
-
-#: inc/admin/dashboard/namespace.php:246
-msgid "You do not have access to any books at the moment."
-msgstr "Trenutno nemate pristupa na niti jednu knjigu."
-
-#: inc/admin/dashboard/namespace.php:253
-msgid ""
-"This network does not allow users to create new books. To create a new book,"
-" please contact your Pressbooks Network Manager"
-msgstr "Mreža ne dozvoljava korisnicima izradu novih knjiga. Za stvaranje nove knjige molimo da se obratite svom voditelju Pressbooks mreže"
-
-#: inc/admin/dashboard/namespace.php:255 inc/admin/dashboard/namespace.php:271
-msgid "at"
-msgstr "na"
-
-#: inc/admin/dashboard/namespace.php:262
-msgid "Create a Book"
+#: inc/admin/dashboard/namespace.php:239
+msgid "Welcome to %s"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:264 inc/admin/laf/namespace.php:409
-#: inc/admin/laf/namespace.php:615 inc/admin/laf/namespace.php:616
-#: templates/admin/cloner.php:13
-msgid "Clone a Book"
-msgstr "Kloniraj knjigu"
+#: inc/admin/dashboard/namespace.php:242
+msgid "You do not currently have access to any books on this network."
+msgstr ""
 
-#: inc/admin/dashboard/namespace.php:269
+#: inc/admin/dashboard/namespace.php:248
 msgid ""
-"You can also request access to an existing book by contacting the book's "
-"author or the institution's Pressbooks Network Manager"
-msgstr "Možete zatražiti i pristup već postojećoj knjizi na način da se obratite svom voditelju Pressbooks mreže"
+"This network does not allow users to create new books. To create a new book,"
+" please contact a network manager"
+msgstr ""
 
-#: inc/admin/dashboard/namespace.php:285 inc/class-activation.php:242
+#: inc/admin/dashboard/namespace.php:250 inc/admin/dashboard/namespace.php:263
+msgid "at "
+msgstr ""
+
+#: inc/admin/dashboard/namespace.php:255
+msgid "Create a book"
+msgstr ""
+
+#: inc/admin/dashboard/namespace.php:257
+msgid "Clone a book"
+msgstr ""
+
+#: inc/admin/dashboard/namespace.php:258
+msgid ""
+"Get started on your next publishing project by creating a new book or "
+"cloning an existing book. The %1$s includes thousands of openly licensed "
+"books available for cloning."
+msgstr ""
+
+#: inc/admin/dashboard/namespace.php:258 inc/admin/laf/namespace.php:1264
+#: templates/admin/cloner.php:14
+msgid "Pressbooks Directory"
+msgstr ""
+
+#: inc/admin/dashboard/namespace.php:261
+msgid ""
+"You can also request access to an existing book by contacting your network "
+"manager"
+msgstr ""
+
+#: inc/admin/dashboard/namespace.php:275 inc/class-activation.php:242
 #: inc/modules/themeoptions/class-pdfoptions.php:287 tests/test-cloner.php:63
 #: templates/export/epub/toc.blade.php:13
 msgid "Table of Contents"
 msgstr "Tablica sadržaja"
 
-#: inc/admin/dashboard/namespace.php:287 inc/admin/metaboxes/namespace.php:649
+#: inc/admin/dashboard/namespace.php:277 inc/admin/metaboxes/namespace.php:649
 #: inc/api/endpoints/controller/class-toc.php:192
 #: inc/posttype/namespace.php:115 inc/posttype/namespace.php:116
 #: inc/posttype/namespace.php:548 templates/admin/import.php:91
@@ -689,7 +719,7 @@ msgstr "Tablica sadržaja"
 msgid "Front Matter"
 msgstr "Uvodne stranice"
 
-#: inc/admin/dashboard/namespace.php:328 inc/admin/metaboxes/namespace.php:651
+#: inc/admin/dashboard/namespace.php:318 inc/admin/metaboxes/namespace.php:651
 #: inc/api/endpoints/controller/class-toc.php:225
 #: inc/posttype/namespace.php:143 inc/posttype/namespace.php:144
 #: inc/posttype/namespace.php:551 templates/admin/import.php:96
@@ -697,46 +727,91 @@ msgstr "Uvodne stranice"
 msgid "Back Matter"
 msgstr "Završne stranice"
 
-#: inc/admin/dashboard/namespace.php:347 inc/admin/dashboard/namespace.php:435
+#: inc/admin/dashboard/namespace.php:337 inc/admin/dashboard/namespace.php:439
 #: templates/admin/organize.php:272 templates/admin/organize.php:429
 msgid "Add"
 msgstr "Dodaj"
 
-#: inc/admin/dashboard/namespace.php:347 inc/admin/dashboard/namespace.php:435
+#: inc/admin/dashboard/namespace.php:337 inc/admin/dashboard/namespace.php:439
 #: inc/admin/laf/namespace.php:148
 msgid "Organize"
 msgstr "Uredi"
 
-#: inc/admin/dashboard/namespace.php:421
+#. translators: %s: URL to Pressbooks User Guide
+#: inc/admin/dashboard/namespace.php:381
+msgid "Consult the %s."
+msgstr ""
+
+#. translators: %s: URL to Pressbooks User Guide
+#: inc/admin/dashboard/namespace.php:381
+msgid "Pressbooks User Guide"
+msgstr ""
+
+#. translators: %s: URL to Pressbooks YouTube channel
+#: inc/admin/dashboard/namespace.php:382
+msgid "Watch tutorials on the %s."
+msgstr ""
+
+#. translators: %s: URL to Pressbooks YouTube channel
+#: inc/admin/dashboard/namespace.php:382
+msgid "Pressbooks YouTube channel"
+msgstr ""
+
+#. translators: %s: URL to Pressbooks training webinars
+#: inc/admin/dashboard/namespace.php:383
+msgid "Attend a %s."
+msgstr ""
+
+#. translators: %s: URL to Pressbooks training webinars
+#: inc/admin/dashboard/namespace.php:383
+msgid "live training webinar"
+msgstr ""
+
+#. translators: %s: URL to Pressbooks community forum
+#: inc/admin/dashboard/namespace.php:384
+msgid "Participate in the %s."
+msgstr ""
+
+#. translators: %s: URL to Pressbooks community forum
+#: inc/admin/dashboard/namespace.php:384
+msgid "community forum"
+msgstr ""
+
+#. translators: %s: email address for network manager
+#: inc/admin/dashboard/namespace.php:386
+msgid "For additional support, contact your network manager at %s."
+msgstr ""
+
+#: inc/admin/dashboard/namespace.php:425
 msgid "%1$s total users: "
 msgstr "%1$s ukupni broj korisnika:"
 
-#: inc/admin/dashboard/namespace.php:444 inc/admin/dashboard/namespace.php:445
+#: inc/admin/dashboard/namespace.php:448 inc/admin/dashboard/namespace.php:449
 #: inc/admin/laf/namespace.php:778 inc/admin/laf/namespace.php:853
 msgid "Dashboard"
 msgstr "Kontrolna ploča"
 
-#: inc/admin/dashboard/namespace.php:494
+#: inc/admin/dashboard/namespace.php:498
 msgid "Dashboard Feed"
 msgstr "Kanal kontrolne ploče"
 
-#: inc/admin/dashboard/namespace.php:501
+#: inc/admin/dashboard/namespace.php:505
 msgid "Display Feed"
 msgstr "Prikaži kanal"
 
-#: inc/admin/dashboard/namespace.php:506
+#: inc/admin/dashboard/namespace.php:510
 msgid "Display an RSS feed widget on the dashboard."
 msgstr "Prikaži kontrolu RSS kanala na kontrolnoj ploči"
 
-#: inc/admin/dashboard/namespace.php:512
+#: inc/admin/dashboard/namespace.php:516
 msgid "Feed Title"
 msgstr "Naziv kanala"
 
-#: inc/admin/dashboard/namespace.php:520
+#: inc/admin/dashboard/namespace.php:524
 msgid "Feed URL"
 msgstr "URL kanala"
 
-#: inc/admin/dashboard/namespace.php:547
+#: inc/admin/dashboard/namespace.php:551
 msgid "Adjust settings for your dashboard RSS feed widget below."
 msgstr "Prilagodite postavke kontrole RSS kanala koji se nalazi na kontrolnoj ploči "
 
@@ -963,7 +1038,7 @@ msgid ""
 msgstr "Uvozi nisu završeni. Ako sada napustite stranicu doći će do grešaka. Jeste li sigurni?"
 
 #: inc/admin/laf/namespace.php:381 inc/admin/laf/namespace.php:577
-#: inc/admin/laf/namespace.php:1468
+#: inc/admin/laf/namespace.php:1472
 #: inc/admin/network/class-sharingandprivacyoptions.php:459
 msgid "Sharing and Privacy Settings"
 msgstr "Postavke dijeljenja i privatnost"
@@ -975,6 +1050,11 @@ msgstr "Dijeljenje &amp; privatnost"
 #: inc/admin/laf/namespace.php:399 inc/admin/laf/namespace.php:400
 msgid "QuickLaTeX"
 msgstr "QuickLaTeX"
+
+#: inc/admin/laf/namespace.php:409 inc/admin/laf/namespace.php:615
+#: inc/admin/laf/namespace.php:616 templates/admin/cloner.php:13
+msgid "Clone a Book"
+msgstr "Kloniraj knjigu"
 
 #: inc/admin/laf/namespace.php:417 inc/admin/laf/namespace.php:628
 msgid ""
@@ -998,8 +1078,8 @@ msgstr "Pomoć"
 msgid "Network Admin"
 msgstr "Mrežni Admin"
 
-#: inc/admin/laf/namespace.php:786 inc/admin/laf/namespace.php:1523
-#: inc/admin/laf/namespace.php:1533
+#: inc/admin/laf/namespace.php:786 inc/admin/laf/namespace.php:1527
+#: inc/admin/laf/namespace.php:1537
 msgid "Books"
 msgstr "Knjige"
 
@@ -1043,96 +1123,92 @@ msgstr "Vidljivost knjige"
 msgid "Private Content"
 msgstr "Privatni sadržaj"
 
-#: inc/admin/laf/namespace.php:1215
+#: inc/admin/laf/namespace.php:1216
 msgid "Disable Comments"
 msgstr "Onemogući komentare"
 
-#: inc/admin/laf/namespace.php:1230
+#: inc/admin/laf/namespace.php:1234
 msgid "Share Latest Export Files"
 msgstr "Dijeli zadnje izvezene zapise"
 
-#: inc/admin/laf/namespace.php:1260 templates/admin/cloner.php:14
-msgid "Pressbooks Directory"
-msgstr ""
-
-#: inc/admin/laf/namespace.php:1277
+#: inc/admin/laf/namespace.php:1281
 msgid "Sharing and Privacy settings"
 msgstr "Postavke dijeljenja i privatnosti"
 
-#: inc/admin/laf/namespace.php:1292
+#: inc/admin/laf/namespace.php:1296
 msgid "Public. I would like this book to be visible to everyone."
 msgstr "Javno. Želim da ovu knjigu vide svi."
 
-#: inc/admin/laf/namespace.php:1298
+#: inc/admin/laf/namespace.php:1302
 msgid ""
 "Private. I would like this book to be accessible only to people I invite."
 msgstr "Privatno. Želim da ovu knjigu vide samo osobe koje pozovem."
 
-#: inc/admin/laf/namespace.php:1322
+#: inc/admin/laf/namespace.php:1326
 msgid "Who can see private front matter, chapters and back matter?"
 msgstr "Tko može vidjeti privatne uvodne i završne stranice knjige."
 
-#: inc/admin/laf/namespace.php:1325
+#: inc/admin/laf/namespace.php:1329
 msgid "Only logged in editors and administrators."
 msgstr "Samo prijavljeni urednici i administratori."
 
-#: inc/admin/laf/namespace.php:1327
+#: inc/admin/laf/namespace.php:1331
 msgid "All logged in users including subscribers."
 msgstr "Svi prijavljeni korisnici uključujući pretplatnike."
 
-#: inc/admin/laf/namespace.php:1348
+#: inc/admin/laf/namespace.php:1352
 msgid ""
 "Yes. I want to automatically disable comments, trackbacks and pingbacks on "
 "all front matter, chapters and back matter."
 msgstr "Da. Želim onemogućiti sve povratne veze i komentare za sve uvodne stranice, poglavlja i završne stranice knjige."
 
-#: inc/admin/laf/namespace.php:1354
+#: inc/admin/laf/namespace.php:1358
 msgid ""
 "No. I want to leave comments, trackbacks and pingbacks enabled on all front "
 "matter, chapters and back matter unless I disable them manually."
 msgstr "Ne. Želim da povratne veze i komentari ostanu dostupni za sve uvodne stranice, poglavlja i završne stranice knjige, osim ako ih ručno onemogućim."
 
-#: inc/admin/laf/namespace.php:1370
+#: inc/admin/laf/namespace.php:1374
 msgid ""
 "Yes. I would like the latest export files to be available on the homepage "
 "for free, to everyone."
 msgstr "Da. Želim da su zadnje izvezeni zapisi knjige besplatno dostupni za preuzimanje na početnoj stranici za sve korisnike. "
 
-#: inc/admin/laf/namespace.php:1376
+#: inc/admin/laf/namespace.php:1380
 msgid ""
 "No. I would like the latest export files to only be available to "
 "administrators."
 msgstr "Ne. Želim da su zadnje izvezeni zapisi dostupni samo administratorima."
 
-#: inc/admin/laf/namespace.php:1395
+#: inc/admin/laf/namespace.php:1399
 msgid "Yes. I want this book to be listed in the Pressbooks directory."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1401
+#: inc/admin/laf/namespace.php:1405
 msgid "No. Exclude this book from the Pressbooks directory."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1526
+#: inc/admin/laf/namespace.php:1530
 msgid "All Books"
 msgstr "Sve knjige"
 
-#: inc/admin/laf/namespace.php:1536
+#: inc/admin/laf/namespace.php:1540
 msgid "Search Books"
 msgstr "Pretraži knjige"
 
-#: inc/admin/laf/namespace.php:1542
+#: inc/admin/laf/namespace.php:1546
 msgid "Edit Book: %s"
 msgstr "Uredi knjigu: %s"
 
-#: inc/admin/laf/namespace.php:1545 inc/admin/laf/namespace.php:1554
+#: inc/admin/laf/namespace.php:1549 inc/admin/laf/namespace.php:1558
 msgid "Book Address (URL)"
 msgstr "Adresa (URL) knjige"
 
-#: inc/admin/laf/namespace.php:1551
+#: inc/admin/laf/namespace.php:1555
 msgid "Add New Book"
 msgstr "Dodaj novu knjigu"
 
-#: inc/admin/laf/namespace.php:1557
+#: inc/admin/laf/namespace.php:1561
 #: inc/modules/themeoptions/class-pdfoptions.php:373
 #: inc/modules/themeoptions/class-pdfoptions.php:392
 #: inc/modules/themeoptions/class-pdfoptions.php:411
@@ -1146,39 +1222,39 @@ msgstr "Dodaj novu knjigu"
 msgid "Book Title"
 msgstr "Naslov knjige"
 
-#: inc/admin/laf/namespace.php:1560
+#: inc/admin/laf/namespace.php:1564
 msgid "Book Language"
 msgstr "Jezik knjige"
 
-#: inc/admin/laf/namespace.php:1563
+#: inc/admin/laf/namespace.php:1567
 msgid "Add Book"
 msgstr "Dodaj knjigu"
 
-#: inc/admin/laf/namespace.php:1580
+#: inc/admin/laf/namespace.php:1584
 msgid "Edit previous or next item"
 msgstr "Uredi prethodnu ili slijedeću stavku"
 
-#: inc/admin/laf/namespace.php:1585
+#: inc/admin/laf/namespace.php:1589
 msgid "Edit Previous (%s)"
 msgstr "Uredi prethodno (%s)"
 
-#: inc/admin/laf/namespace.php:1590
+#: inc/admin/laf/namespace.php:1594
 msgid "Edit Next (%s)"
 msgstr "Uredi slijedeće (%s)"
 
-#: inc/admin/laf/namespace.php:1605
+#: inc/admin/laf/namespace.php:1609
 msgid "Twitter URL"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1606
+#: inc/admin/laf/namespace.php:1610
 msgid "LinkedIn URL"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1607
+#: inc/admin/laf/namespace.php:1611
 msgid "GitHub URL"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1653
+#: inc/admin/laf/namespace.php:1657
 msgid ""
 "Your institutional affiliation, e.g. Rebus Foundation, Open University, "
 "Amnesty International."
@@ -2370,7 +2446,7 @@ msgid ""
 "%2$s"
 msgstr "Došlo je do sa SASS kodom. Kontaktirajte svog administratora web mjesta. Greška: %1$s %2$s"
 
-#: inc/class-styles.php:96 templates/admin/custom-styles.php:38
+#: inc/class-styles.php:96 templates/admin/custom-styles.php:42
 msgid "Custom Styles"
 msgstr "Vlastiti stilovi"
 
@@ -2387,35 +2463,35 @@ msgid "Custom Style for Web"
 msgstr "Vlastiti stilovi za web"
 
 #: inc/class-styles.php:670
-msgid "Alegreya"
-msgstr ""
-
-#: inc/class-styles.php:671
 msgid "Cormorant Garamond"
 msgstr ""
 
-#: inc/class-styles.php:672
+#: inc/class-styles.php:671
 msgid "Crimson Text"
 msgstr ""
 
-#: inc/class-styles.php:673
+#: inc/class-styles.php:672
 msgid "GNU FreeFont Serif"
 msgstr ""
 
-#: inc/class-styles.php:674
+#: inc/class-styles.php:673
 msgid "New Athena Unicode"
 msgstr ""
 
-#: inc/class-styles.php:675
+#: inc/class-styles.php:674
 msgid "Noto Serif"
 msgstr ""
 
-#: inc/class-styles.php:676
+#: inc/class-styles.php:675
 msgid "Sorts Mill Goudy"
 msgstr ""
 
-#: inc/class-styles.php:677
+#: inc/class-styles.php:676
 msgid "Spectral"
+msgstr ""
+
+#: inc/class-styles.php:680
+msgid "Alegreya Sans"
 msgstr ""
 
 #: inc/class-styles.php:681
@@ -2484,7 +2560,7 @@ msgid ""
 "contact technical support."
 msgstr "Nepredviđena greška. Došlo je do greške pri upitu: %s - Molimo kontaktirajte tehničku podršku."
 
-#: inc/class-styles.php:783 templates/admin/custom-styles.php:16
+#: inc/class-styles.php:783 templates/admin/custom-styles.php:20
 msgid "Web"
 msgstr "Web"
 
@@ -3282,7 +3358,7 @@ msgstr "Tekst sadržaja"
 #: inc/modules/themeoptions/class-admin.php:94
 #: inc/modules/themeoptions/class-admin.php:95
 #: inc/modules/themeoptions/class-admin.php:149
-#: templates/admin/export.blade.php:58
+#: templates/admin/export.blade.php:60
 msgid "Theme Options"
 msgstr "Opcije izgleda"
 
@@ -4493,23 +4569,23 @@ msgstr "Jeste li sigurni da želite obrisati SVE trenutne zapise korica?"
 msgid "Delete All Covers"
 msgstr "Izbriši sve korice"
 
-#: templates/admin/custom-styles.php:33
+#: templates/admin/custom-styles.php:37
 msgid "Error: Something went wrong. See logs for more details."
 msgstr "Greška: Nešto je pošlo po zlu. Pregledajte zapisnike za više pojedinosti."
 
-#: templates/admin/custom-styles.php:43
+#: templates/admin/custom-styles.php:47
 msgid "You are currently editing styles for"
 msgstr "Trenutno uređujete stilove za"
 
-#: templates/admin/custom-styles.php:44
+#: templates/admin/custom-styles.php:48
 msgid "Theme %1$s Styles (%2$s)"
 msgstr "Stilovi (%2$s) izgleda %1$s"
 
-#: templates/admin/custom-styles.php:46
+#: templates/admin/custom-styles.php:50
 msgid "Your %s Styles"
 msgstr "Vaši stilovi %s"
 
-#: templates/admin/custom-styles.php:48
+#: templates/admin/custom-styles.php:52
 msgid "Save"
 msgstr "Pohrani"
 
@@ -4882,19 +4958,19 @@ msgstr "Postavke izvoza"
 msgid "Supported formats"
 msgstr "Podržani formati"
 
-#: templates/admin/export.blade.php:38
+#: templates/admin/export.blade.php:39
 msgid "Other formats"
 msgstr "Ostali formati"
 
-#: templates/admin/export.blade.php:56
+#: templates/admin/export.blade.php:58
 msgid "Your Theme"
 msgstr "Vaš izgled"
 
-#: templates/admin/export.blade.php:76
+#: templates/admin/export.blade.php:78
 msgid "Export Your Book"
 msgstr "Izvezi knjigu"
 
-#: templates/admin/export.blade.php:81
+#: templates/admin/export.blade.php:83
 msgid "Latest Exports"
 msgstr "Zadnji izvozi"
 
