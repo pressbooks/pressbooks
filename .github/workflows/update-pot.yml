@@ -1,12 +1,12 @@
 name: Update POT file
 
 on:
-push:
-  branches:
-    - dev
-  paths:
-    - '**.php'
-    - '**.js'
+  push:
+    branches:
+      - dev
+    paths:
+      - '**.php'
+      - '**.js'
 
 jobs:
   update-pot:
