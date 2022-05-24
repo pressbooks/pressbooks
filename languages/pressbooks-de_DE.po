@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
-"POT-Creation-Date: 2022-05-03T20:31:26+00:00\n"
+"POT-Creation-Date: 2022-05-24T20:09:34+00:00\n"
 "PO-Revision-Date: 2013-12-21 21:04+0000\n"
 "Last-Translator: nebulon42, 2019\n"
 "Language-Team: German (http://www.transifex.com/pressbooks/pressbooks/language/de/)\n"
@@ -86,11 +86,11 @@ msgstr "Das Plugin für Pressbooks ist inaktiv, aber Sie haben aktive Plugins, d
 
 #: inc/admin/analytics/namespace.php:16 inc/admin/analytics/namespace.php:17
 #: inc/admin/analytics/namespace.php:26 inc/admin/analytics/namespace.php:27
-#: inc/admin/analytics/namespace.php:170 inc/admin/analytics/namespace.php:210
+#: inc/admin/analytics/namespace.php:169 inc/admin/analytics/namespace.php:209
 msgid "Google Analytics"
 msgstr "Google Analytics"
 
-#: inc/admin/analytics/namespace.php:50 inc/admin/analytics/namespace.php:107
+#: inc/admin/analytics/namespace.php:50 inc/admin/analytics/namespace.php:106
 msgid "Google Analytics ID"
 msgstr "Google Analytics ID"
 
@@ -110,16 +110,16 @@ msgid ""
 "track statistics at the book level."
 msgstr "Wenn aktiviert wird die Einstellungs-Seite von Google Analytics für Bücher-Administratoren sichtbar sein und erlaubt ihnen ihr eigenes Google Analytics-Konto zu verwenden, um Statistiken auf Buchebene zu erheben."
 
-#: inc/admin/analytics/namespace.php:112
+#: inc/admin/analytics/namespace.php:111
 msgid ""
 "The Google Analytics ID for your book, e.g. &lsquo;UA-01234567-8&rsquo;."
 msgstr "Die Google Analytics ID für Ihr Buch z.B. &lsquo;UA-01234567-8&rsquo;."
 
-#: inc/admin/analytics/namespace.php:129
+#: inc/admin/analytics/namespace.php:128
 msgid "Google Analytics settings."
 msgstr "Google Analytics Einstellungen."
 
-#: inc/admin/analytics/namespace.php:188
+#: inc/admin/analytics/namespace.php:187
 #: inc/admin/network/class-sharingandprivacyoptions.php:188
 msgid "Settings saved."
 msgstr "Einstellungen gespeichert."
@@ -541,7 +541,7 @@ msgid ""
 msgstr "Ihre PDF-Seitengröße ist auf %1$s &times; %2$s eingestellt und Ihr PDF-Titelbild wird mit den selben Abmessungen erzeugt. Sie können die PDF-Seitengröße im Menü <a href=\"%3$s\">Layout-Optionen</a> ändern."
 
 #: inc/admin/covergenerator/namespace.php:458
-#: templates/admin/export.blade.php:57
+#: templates/admin/export.blade.php:59
 msgid "Change Theme"
 msgstr "Layout wechseln"
 
@@ -625,75 +625,105 @@ msgid ""
 " %1$s to %2$s."
 msgstr "Ihr Bild hat das falsche Seitenverhältnis. Das Bild muss ein Seitenverhältnis von %1$s zu %2$s besitzen."
 
-#: inc/admin/dashboard/namespace.php:22
-msgid "Pressbooks News"
-msgstr "Pressbooks Neuigkeiten"
+#: inc/admin/dashboard/namespace.php:18
+msgid "Pressbooks announcements"
+msgstr ""
 
-#: inc/admin/dashboard/namespace.php:95 inc/admin/dashboard/namespace.php:178
-msgid "Book Permissions"
-msgstr "Buch-Berechtigungen"
+#: inc/admin/dashboard/namespace.php:91
+msgid "Get started with Pressbooks"
+msgstr ""
 
-#: inc/admin/dashboard/namespace.php:135
+#: inc/admin/dashboard/namespace.php:107
+msgid "Need help?"
+msgstr ""
+
+#: inc/admin/dashboard/namespace.php:134
 msgid "My Book"
 msgstr "Mein Buch"
 
-#: inc/admin/dashboard/namespace.php:136 inc/admin/laf/namespace.php:794
+#: inc/admin/dashboard/namespace.php:135 inc/admin/laf/namespace.php:794
 msgid "Users"
 msgstr "Nutzer"
 
-#: inc/admin/dashboard/namespace.php:194
+#: inc/admin/dashboard/namespace.php:136 inc/admin/dashboard/namespace.php:183
+msgid "Need Help?"
+msgstr ""
+
+#: inc/admin/dashboard/namespace.php:177
+msgid "Book Permissions"
+msgstr "Buch-Berechtigungen"
+
+#: inc/admin/dashboard/namespace.php:195
 msgid "Book Invitations"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:220
-msgid "You have been invited to join <a href=\"%1$s\">%2$s</a> as %3$s %4$s"
+#: inc/admin/dashboard/namespace.php:219
+msgid "an"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:230
+#: inc/admin/dashboard/namespace.php:219
+msgid "a"
+msgstr ""
+
+#: inc/admin/dashboard/namespace.php:223
+msgid "You have been invited to join %1s as %2$s %3$s"
+msgstr ""
+
+#: inc/admin/dashboard/namespace.php:226
 msgid "Accept"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:243
-msgid "Welcome to Pressbooks!"
-msgstr "Willkommen zu Pressbooks!"
-
-#: inc/admin/dashboard/namespace.php:246
-msgid "You do not have access to any books at the moment."
-msgstr "Sie haben derzeit keinen Zugriff auf irgendein Buch."
-
-#: inc/admin/dashboard/namespace.php:253
-msgid ""
-"This network does not allow users to create new books. To create a new book,"
-" please contact your Pressbooks Network Manager"
-msgstr "In diesem Netzwerk können Benutzer keine neuen Bücher erstellen. Wenden Sie sich an Ihren Pressbooks Netzwerk-Verwalter, um ein neues Buch zu erstellen"
-
-#: inc/admin/dashboard/namespace.php:255 inc/admin/dashboard/namespace.php:271
-msgid "at"
-msgstr "bei"
-
-#: inc/admin/dashboard/namespace.php:262
-msgid "Create a Book"
+#: inc/admin/dashboard/namespace.php:239
+msgid "Welcome to %s"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:264 inc/admin/laf/namespace.php:409
-#: inc/admin/laf/namespace.php:615 inc/admin/laf/namespace.php:616
-#: templates/admin/cloner.php:13
-msgid "Clone a Book"
-msgstr "Ein Buch klonen"
+#: inc/admin/dashboard/namespace.php:242
+msgid "You do not currently have access to any books on this network."
+msgstr ""
 
-#: inc/admin/dashboard/namespace.php:269
+#: inc/admin/dashboard/namespace.php:248
 msgid ""
-"You can also request access to an existing book by contacting the book's "
-"author or the institution's Pressbooks Network Manager"
-msgstr "Sie können Zugriff auf ein existierendes Buch beantragen, indem Sie seinen Autor oder den Netzwerk-Manager von Pressbooks der Institution kontaktieren."
+"This network does not allow users to create new books. To create a new book,"
+" please contact a network manager"
+msgstr ""
 
-#: inc/admin/dashboard/namespace.php:285 inc/class-activation.php:242
+#: inc/admin/dashboard/namespace.php:250 inc/admin/dashboard/namespace.php:263
+msgid "at "
+msgstr ""
+
+#: inc/admin/dashboard/namespace.php:255
+msgid "Create a book"
+msgstr ""
+
+#: inc/admin/dashboard/namespace.php:257
+msgid "Clone a book"
+msgstr ""
+
+#: inc/admin/dashboard/namespace.php:258
+msgid ""
+"Get started on your next publishing project by creating a new book or "
+"cloning an existing book. The %1$s includes thousands of openly licensed "
+"books available for cloning."
+msgstr ""
+
+#: inc/admin/dashboard/namespace.php:258 inc/admin/laf/namespace.php:1264
+#: templates/admin/cloner.php:14
+msgid "Pressbooks Directory"
+msgstr ""
+
+#: inc/admin/dashboard/namespace.php:261
+msgid ""
+"You can also request access to an existing book by contacting your network "
+"manager"
+msgstr ""
+
+#: inc/admin/dashboard/namespace.php:275 inc/class-activation.php:242
 #: inc/modules/themeoptions/class-pdfoptions.php:287 tests/test-cloner.php:63
 #: templates/export/epub/toc.blade.php:13
 msgid "Table of Contents"
 msgstr "Inhaltsverzeichnis"
 
-#: inc/admin/dashboard/namespace.php:287 inc/admin/metaboxes/namespace.php:649
+#: inc/admin/dashboard/namespace.php:277 inc/admin/metaboxes/namespace.php:649
 #: inc/api/endpoints/controller/class-toc.php:192
 #: inc/posttype/namespace.php:115 inc/posttype/namespace.php:116
 #: inc/posttype/namespace.php:548 templates/admin/import.php:91
@@ -701,7 +731,7 @@ msgstr "Inhaltsverzeichnis"
 msgid "Front Matter"
 msgstr "Titelei"
 
-#: inc/admin/dashboard/namespace.php:328 inc/admin/metaboxes/namespace.php:651
+#: inc/admin/dashboard/namespace.php:318 inc/admin/metaboxes/namespace.php:651
 #: inc/api/endpoints/controller/class-toc.php:225
 #: inc/posttype/namespace.php:143 inc/posttype/namespace.php:144
 #: inc/posttype/namespace.php:551 templates/admin/import.php:96
@@ -709,46 +739,91 @@ msgstr "Titelei"
 msgid "Back Matter"
 msgstr "Anhang"
 
-#: inc/admin/dashboard/namespace.php:347 inc/admin/dashboard/namespace.php:435
+#: inc/admin/dashboard/namespace.php:337 inc/admin/dashboard/namespace.php:439
 #: templates/admin/organize.php:272 templates/admin/organize.php:429
 msgid "Add"
 msgstr "Hinzufügen"
 
-#: inc/admin/dashboard/namespace.php:347 inc/admin/dashboard/namespace.php:435
+#: inc/admin/dashboard/namespace.php:337 inc/admin/dashboard/namespace.php:439
 #: inc/admin/laf/namespace.php:148
 msgid "Organize"
 msgstr "Organisieren"
 
-#: inc/admin/dashboard/namespace.php:421
+#. translators: %s: URL to Pressbooks User Guide
+#: inc/admin/dashboard/namespace.php:381
+msgid "Consult the %s."
+msgstr ""
+
+#. translators: %s: URL to Pressbooks User Guide
+#: inc/admin/dashboard/namespace.php:381
+msgid "Pressbooks User Guide"
+msgstr ""
+
+#. translators: %s: URL to Pressbooks YouTube channel
+#: inc/admin/dashboard/namespace.php:382
+msgid "Watch tutorials on the %s."
+msgstr ""
+
+#. translators: %s: URL to Pressbooks YouTube channel
+#: inc/admin/dashboard/namespace.php:382
+msgid "Pressbooks YouTube channel"
+msgstr ""
+
+#. translators: %s: URL to Pressbooks training webinars
+#: inc/admin/dashboard/namespace.php:383
+msgid "Attend a %s."
+msgstr ""
+
+#. translators: %s: URL to Pressbooks training webinars
+#: inc/admin/dashboard/namespace.php:383
+msgid "live training webinar"
+msgstr ""
+
+#. translators: %s: URL to Pressbooks community forum
+#: inc/admin/dashboard/namespace.php:384
+msgid "Participate in the %s."
+msgstr ""
+
+#. translators: %s: URL to Pressbooks community forum
+#: inc/admin/dashboard/namespace.php:384
+msgid "community forum"
+msgstr ""
+
+#. translators: %s: email address for network manager
+#: inc/admin/dashboard/namespace.php:386
+msgid "For additional support, contact your network manager at %s."
+msgstr ""
+
+#: inc/admin/dashboard/namespace.php:425
 msgid "%1$s total users: "
 msgstr "%1$s Benutzer insgesamt:"
 
-#: inc/admin/dashboard/namespace.php:444 inc/admin/dashboard/namespace.php:445
+#: inc/admin/dashboard/namespace.php:448 inc/admin/dashboard/namespace.php:449
 #: inc/admin/laf/namespace.php:778 inc/admin/laf/namespace.php:853
 msgid "Dashboard"
 msgstr "Dashboard"
 
-#: inc/admin/dashboard/namespace.php:494
+#: inc/admin/dashboard/namespace.php:498
 msgid "Dashboard Feed"
 msgstr "Dashboard Feed"
 
-#: inc/admin/dashboard/namespace.php:501
+#: inc/admin/dashboard/namespace.php:505
 msgid "Display Feed"
 msgstr "Feed Anzeigen"
 
-#: inc/admin/dashboard/namespace.php:506
+#: inc/admin/dashboard/namespace.php:510
 msgid "Display an RSS feed widget on the dashboard."
 msgstr "RSS Feed Widget auf dem Dashboard anzeigen."
 
-#: inc/admin/dashboard/namespace.php:512
+#: inc/admin/dashboard/namespace.php:516
 msgid "Feed Title"
 msgstr "Feed Titel"
 
-#: inc/admin/dashboard/namespace.php:520
+#: inc/admin/dashboard/namespace.php:524
 msgid "Feed URL"
 msgstr "Feed URL"
 
-#: inc/admin/dashboard/namespace.php:547
+#: inc/admin/dashboard/namespace.php:551
 msgid "Adjust settings for your dashboard RSS feed widget below."
 msgstr "Bearbeiten Sie die Einstellungen für das RSS Feed Widget Ihres Dashboards unten."
 
@@ -975,7 +1050,7 @@ msgid ""
 msgstr "Importe sind nicht vollständig. Wenn Sie diese Seite jetzt verlassen, wird das zu Problemen führen. Sind Sie sich sicher?"
 
 #: inc/admin/laf/namespace.php:381 inc/admin/laf/namespace.php:577
-#: inc/admin/laf/namespace.php:1468
+#: inc/admin/laf/namespace.php:1472
 #: inc/admin/network/class-sharingandprivacyoptions.php:459
 msgid "Sharing and Privacy Settings"
 msgstr "Freigaben und Datenschutzeinstellungen"
@@ -987,6 +1062,11 @@ msgstr "Freigaben &amp; Datenschutz"
 #: inc/admin/laf/namespace.php:399 inc/admin/laf/namespace.php:400
 msgid "QuickLaTeX"
 msgstr "QuickLaTeX"
+
+#: inc/admin/laf/namespace.php:409 inc/admin/laf/namespace.php:615
+#: inc/admin/laf/namespace.php:616 templates/admin/cloner.php:13
+msgid "Clone a Book"
+msgstr "Ein Buch klonen"
 
 #: inc/admin/laf/namespace.php:417 inc/admin/laf/namespace.php:628
 msgid ""
@@ -1010,8 +1090,8 @@ msgstr "Hilfe"
 msgid "Network Admin"
 msgstr "Netzwerk-Verwalter"
 
-#: inc/admin/laf/namespace.php:786 inc/admin/laf/namespace.php:1523
-#: inc/admin/laf/namespace.php:1533
+#: inc/admin/laf/namespace.php:786 inc/admin/laf/namespace.php:1527
+#: inc/admin/laf/namespace.php:1537
 msgid "Books"
 msgstr "Bücher"
 
@@ -1055,96 +1135,92 @@ msgstr "Sichtbarkeit des Buchs"
 msgid "Private Content"
 msgstr "Privater Inhalt"
 
-#: inc/admin/laf/namespace.php:1215
+#: inc/admin/laf/namespace.php:1216
 msgid "Disable Comments"
 msgstr "Kommentare deaktivieren"
 
-#: inc/admin/laf/namespace.php:1230
+#: inc/admin/laf/namespace.php:1234
 msgid "Share Latest Export Files"
 msgstr "Neueste Export-Dateien teilen"
 
-#: inc/admin/laf/namespace.php:1260 templates/admin/cloner.php:14
-msgid "Pressbooks Directory"
-msgstr ""
-
-#: inc/admin/laf/namespace.php:1277
+#: inc/admin/laf/namespace.php:1281
 msgid "Sharing and Privacy settings"
 msgstr "Freigabe und Datenschutzeinstellungen"
 
-#: inc/admin/laf/namespace.php:1292
+#: inc/admin/laf/namespace.php:1296
 msgid "Public. I would like this book to be visible to everyone."
 msgstr "Öffentlich. Ich möchte, dass das Buch für alle sichtbar ist."
 
-#: inc/admin/laf/namespace.php:1298
+#: inc/admin/laf/namespace.php:1302
 msgid ""
 "Private. I would like this book to be accessible only to people I invite."
 msgstr "Privat. Ich möchte, dass das Buch nur für Leute zugänglich ist, die ich einlade."
 
-#: inc/admin/laf/namespace.php:1322
+#: inc/admin/laf/namespace.php:1326
 msgid "Who can see private front matter, chapters and back matter?"
 msgstr "Wer darf private Titeleien, Kapitel und Anhänge sehen?"
 
-#: inc/admin/laf/namespace.php:1325
+#: inc/admin/laf/namespace.php:1329
 msgid "Only logged in editors and administrators."
 msgstr "Nur angemeldete Editoren und Administratoren."
 
-#: inc/admin/laf/namespace.php:1327
+#: inc/admin/laf/namespace.php:1331
 msgid "All logged in users including subscribers."
 msgstr "Alle angemeldeten Benutzer inklusive Teilnehmer."
 
-#: inc/admin/laf/namespace.php:1348
+#: inc/admin/laf/namespace.php:1352
 msgid ""
 "Yes. I want to automatically disable comments, trackbacks and pingbacks on "
 "all front matter, chapters and back matter."
 msgstr "Ja. Ich möchte automatisch Kommentare, Trackbacks und Pingbacks auf allen Titeleien, Kapiteln und Anhängen deaktivieren."
 
-#: inc/admin/laf/namespace.php:1354
+#: inc/admin/laf/namespace.php:1358
 msgid ""
 "No. I want to leave comments, trackbacks and pingbacks enabled on all front "
 "matter, chapters and back matter unless I disable them manually."
 msgstr "Nein. Ich möchte Kommentare, Trackbacks und Pingbacks auf allen Titeleien, Kapiteln und Anhängen aktiviert lassen, außer ich deaktiviere sie per Hand."
 
-#: inc/admin/laf/namespace.php:1370
+#: inc/admin/laf/namespace.php:1374
 msgid ""
 "Yes. I would like the latest export files to be available on the homepage "
 "for free, to everyone."
 msgstr "Ja. Ich möchte, dass die neuesten Exportdateien auf der Homepage für alle kostenlos zur Verfügung stehen."
 
-#: inc/admin/laf/namespace.php:1376
+#: inc/admin/laf/namespace.php:1380
 msgid ""
 "No. I would like the latest export files to only be available to "
 "administrators."
 msgstr "Nein. Ich möchte, dass die neuesten Exportdateien nur für Administratoren zur Verfügung stehen."
 
-#: inc/admin/laf/namespace.php:1395
+#: inc/admin/laf/namespace.php:1399
 msgid "Yes. I want this book to be listed in the Pressbooks directory."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1401
+#: inc/admin/laf/namespace.php:1405
 msgid "No. Exclude this book from the Pressbooks directory."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1526
+#: inc/admin/laf/namespace.php:1530
 msgid "All Books"
 msgstr "Alle Bücher"
 
-#: inc/admin/laf/namespace.php:1536
+#: inc/admin/laf/namespace.php:1540
 msgid "Search Books"
 msgstr "Bücher durchsuchen"
 
-#: inc/admin/laf/namespace.php:1542
+#: inc/admin/laf/namespace.php:1546
 msgid "Edit Book: %s"
 msgstr "Buch bearbeiten: %s"
 
-#: inc/admin/laf/namespace.php:1545 inc/admin/laf/namespace.php:1554
+#: inc/admin/laf/namespace.php:1549 inc/admin/laf/namespace.php:1558
 msgid "Book Address (URL)"
 msgstr "Buch-Adresse (URL)"
 
-#: inc/admin/laf/namespace.php:1551
+#: inc/admin/laf/namespace.php:1555
 msgid "Add New Book"
 msgstr "Neues Buch hinzufügen"
 
-#: inc/admin/laf/namespace.php:1557
+#: inc/admin/laf/namespace.php:1561
 #: inc/modules/themeoptions/class-pdfoptions.php:373
 #: inc/modules/themeoptions/class-pdfoptions.php:392
 #: inc/modules/themeoptions/class-pdfoptions.php:411
@@ -1158,39 +1234,39 @@ msgstr "Neues Buch hinzufügen"
 msgid "Book Title"
 msgstr "Buchtitel"
 
-#: inc/admin/laf/namespace.php:1560
+#: inc/admin/laf/namespace.php:1564
 msgid "Book Language"
 msgstr "Sprache des Buchs"
 
-#: inc/admin/laf/namespace.php:1563
+#: inc/admin/laf/namespace.php:1567
 msgid "Add Book"
 msgstr "Buch hinzufügen"
 
-#: inc/admin/laf/namespace.php:1580
+#: inc/admin/laf/namespace.php:1584
 msgid "Edit previous or next item"
 msgstr "Vorhergehendes oder nächstes Element bearbeiten"
 
-#: inc/admin/laf/namespace.php:1585
+#: inc/admin/laf/namespace.php:1589
 msgid "Edit Previous (%s)"
 msgstr "Vorhergehendes bearbeiten (%s)"
 
-#: inc/admin/laf/namespace.php:1590
+#: inc/admin/laf/namespace.php:1594
 msgid "Edit Next (%s)"
 msgstr "Nächstes bearbeiten (%s) "
 
-#: inc/admin/laf/namespace.php:1605
+#: inc/admin/laf/namespace.php:1609
 msgid "Twitter URL"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1606
+#: inc/admin/laf/namespace.php:1610
 msgid "LinkedIn URL"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1607
+#: inc/admin/laf/namespace.php:1611
 msgid "GitHub URL"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1653
+#: inc/admin/laf/namespace.php:1657
 msgid ""
 "Your institutional affiliation, e.g. Rebus Foundation, Open University, "
 "Amnesty International."
@@ -2374,7 +2450,7 @@ msgid ""
 "%2$s"
 msgstr "Es gab ein Problem mit SASS. Kontaktieren Sie Ihren Seiten-Verwalter. Fehler: %1$s %2$s"
 
-#: inc/class-styles.php:96 templates/admin/custom-styles.php:38
+#: inc/class-styles.php:96 templates/admin/custom-styles.php:42
 msgid "Custom Styles"
 msgstr "Benutzerdefinierte Stile"
 
@@ -2391,36 +2467,36 @@ msgid "Custom Style for Web"
 msgstr "Benutzerdefinierter Stil für Web"
 
 #: inc/class-styles.php:670
-msgid "Alegreya"
-msgstr "Alegreya"
-
-#: inc/class-styles.php:671
 msgid "Cormorant Garamond"
 msgstr "Cormorant Garamond"
 
-#: inc/class-styles.php:672
+#: inc/class-styles.php:671
 msgid "Crimson Text"
 msgstr "Crimson Text"
 
-#: inc/class-styles.php:673
+#: inc/class-styles.php:672
 msgid "GNU FreeFont Serif"
 msgstr "GNU FreeFont Serif"
 
-#: inc/class-styles.php:674
+#: inc/class-styles.php:673
 msgid "New Athena Unicode"
 msgstr ""
 
-#: inc/class-styles.php:675
+#: inc/class-styles.php:674
 msgid "Noto Serif"
 msgstr ""
 
-#: inc/class-styles.php:676
+#: inc/class-styles.php:675
 msgid "Sorts Mill Goudy"
 msgstr ""
 
-#: inc/class-styles.php:677
+#: inc/class-styles.php:676
 msgid "Spectral"
 msgstr "Spectral"
+
+#: inc/class-styles.php:680
+msgid "Alegreya Sans"
+msgstr ""
 
 #: inc/class-styles.php:681
 msgid "Barlow"
@@ -2488,7 +2564,7 @@ msgid ""
 "contact technical support."
 msgstr "Unerwarteter Fehler: Bei der Abfrage ist ein Fehler aufgetreten: %s - Bitte setzen Sie sich mit dem Support in Verbindung."
 
-#: inc/class-styles.php:783 templates/admin/custom-styles.php:16
+#: inc/class-styles.php:783 templates/admin/custom-styles.php:20
 msgid "Web"
 msgstr "Web"
 
@@ -3284,7 +3360,7 @@ msgstr "Inhaltstext"
 #: inc/modules/themeoptions/class-admin.php:94
 #: inc/modules/themeoptions/class-admin.php:95
 #: inc/modules/themeoptions/class-admin.php:149
-#: templates/admin/export.blade.php:58
+#: templates/admin/export.blade.php:60
 msgid "Theme Options"
 msgstr "Layout-Optionen"
 
@@ -4495,23 +4571,23 @@ msgstr "Sind Sie sicher, dass Sie ALLE Ihren aktuellen Umschläge löschen möch
 msgid "Delete All Covers"
 msgstr "Alle Umschläge löschen"
 
-#: templates/admin/custom-styles.php:33
+#: templates/admin/custom-styles.php:37
 msgid "Error: Something went wrong. See logs for more details."
 msgstr "Fehler: Irgendetwas ist schiefgelaufen. Sehen Sie sich die Log-Dateien für weitere Details an."
 
-#: templates/admin/custom-styles.php:43
+#: templates/admin/custom-styles.php:47
 msgid "You are currently editing styles for"
 msgstr "Sie bearbeiten derzeit Stile für"
 
-#: templates/admin/custom-styles.php:44
+#: templates/admin/custom-styles.php:48
 msgid "Theme %1$s Styles (%2$s)"
 msgstr "Layout %1$s Stile (%2$s)"
 
-#: templates/admin/custom-styles.php:46
+#: templates/admin/custom-styles.php:50
 msgid "Your %s Styles"
 msgstr "Ihre %s Stile"
 
-#: templates/admin/custom-styles.php:48
+#: templates/admin/custom-styles.php:52
 msgid "Save"
 msgstr "Speichern"
 
@@ -4884,19 +4960,19 @@ msgstr "Export-Optionen"
 msgid "Supported formats"
 msgstr "Unterstützte Formate"
 
-#: templates/admin/export.blade.php:38
+#: templates/admin/export.blade.php:39
 msgid "Other formats"
 msgstr "Andere Formate"
 
-#: templates/admin/export.blade.php:56
+#: templates/admin/export.blade.php:58
 msgid "Your Theme"
 msgstr "Ihr Layout"
 
-#: templates/admin/export.blade.php:76
+#: templates/admin/export.blade.php:78
 msgid "Export Your Book"
 msgstr "Buch exportieren"
 
-#: templates/admin/export.blade.php:81
+#: templates/admin/export.blade.php:83
 msgid "Latest Exports"
 msgstr "Letzte Exporte"
 
