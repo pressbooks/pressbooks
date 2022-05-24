@@ -87,7 +87,6 @@ function network_analytics_settings_init() {
 			]
 		);
 	}
-
 }
 
 /**
