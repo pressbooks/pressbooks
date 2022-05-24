@@ -22,5 +22,5 @@ jobs:
     - name: Commit updated translation files
       uses: stefanzweifel/git-auto-commit-action@v4.13.1
       with:
-        commit_message: 'chore(l10n): update translations'
+        commit_message: 'chore(l10n): update translations [ci skip]'
         file_pattern: '*.mo *.po'

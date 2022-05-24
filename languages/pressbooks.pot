@@ -2,8 +2,8 @@
 # This file is distributed under the GPL v3 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Pressbooks 5.35.0-dev\n"
-"Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/issues\n"
+"Project-Id-Version: Pressbooks 5.35.0\n"
+"Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2022-05-24T20:32:49+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.6.0\n"
+"X-Generator: WP-CLI 2.5.0\n"
 "X-Domain: pressbooks\n"
 
 #. Plugin Name of the plugin
@@ -503,6 +503,7 @@ msgid "Your PDF page size is set to %1$s &times; %2$s, and your PDF cover will b
 msgstr ""
 
 #: inc/admin/covergenerator/namespace.php:458
+#: templates/admin/export.blade.php:59
 msgid "Change Theme"
 msgstr ""
 
@@ -662,6 +663,7 @@ msgstr ""
 #: inc/class-activation.php:242
 #: inc/modules/themeoptions/class-pdfoptions.php:287
 #: tests/test-cloner.php:63
+#: templates/export/epub/toc.blade.php:13
 msgid "Table of Contents"
 msgstr ""
 
@@ -809,6 +811,7 @@ msgstr ""
 #: inc/admin/diagnostics/namespace.php:33
 #: inc/admin/diagnostics/namespace.php:34
 #: inc/admin/laf/namespace.php:108
+#: templates/admin/diagnostics.blade.php:4
 msgid "Diagnostics"
 msgstr ""
 
@@ -830,6 +833,7 @@ msgid "Guides and Tutorials"
 msgstr ""
 
 #: inc/admin/laf/namespace.php:113
+#: templates/admin/sitemap.blade.php:2
 msgid "Site Map"
 msgstr ""
 
@@ -979,6 +983,7 @@ msgstr ""
 #: inc/admin/laf/namespace.php:316
 #: inc/admin/laf/namespace.php:394
 #: templates/admin/organize.php:70
+#: templates/admin/export.blade.php:11
 msgid "Export"
 msgstr ""
 
@@ -1481,6 +1486,7 @@ msgid "Subject(s)"
 msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:503
+#: templates/admin/institutions.blade.php:2
 msgid "Institutions"
 msgstr ""
 
@@ -2313,6 +2319,7 @@ msgstr ""
 #: inc/modules/export/epub/class-epub.php:1410
 #: inc/modules/export/htmlbook/class-htmlbook.php:864
 #: inc/modules/export/xhtml/class-xhtml11.php:1083
+#: templates/export/epub/opf.blade.php:95
 msgid "by"
 msgstr ""
 
@@ -2344,6 +2351,7 @@ msgstr ""
 
 #: inc/class-mathjax.php:162
 #: inc/class-mathjax.php:163
+#: templates/admin/mathjax.blade.php:2
 msgid "MathJax"
 msgstr ""
 
@@ -3260,6 +3268,7 @@ msgstr ""
 #: inc/modules/themeoptions/class-admin.php:94
 #: inc/modules/themeoptions/class-admin.php:95
 #: inc/modules/themeoptions/class-admin.php:149
+#: templates/admin/export.blade.php:60
 msgid "Theme Options"
 msgstr ""
 
@@ -4281,14 +4290,6 @@ msgstr ""
 msgid "Cannot find Pressbooks install."
 msgstr ""
 
-#: symbionts/custom-metadata/custom_metadata.php:1288
-msgid "datetimepicker not supported by Pressbooks"
-msgstr ""
-
-#: symbionts/custom-metadata/custom_metadata.php:1294
-msgid "timepicker not supported by Pressbooks"
-msgstr ""
-
 #: templates/admin/catalog.php:27
 msgid "Tags For"
 msgstr ""
@@ -4723,104 +4724,140 @@ msgstr ""
 msgid "Purple"
 msgstr ""
 
+#: templates/admin/diagnostics.blade.php:5
 msgid "Please submit this information with any bug reports."
 msgstr ""
 
+#: templates/admin/diagnostics.blade.php:6
 msgid "To copy the system info, click below then press Ctrl + C (PC) or Cmd + C (Mac)."
 msgstr ""
 
+#: templates/admin/diagnostics.blade.php:8
 msgid "View Source"
 msgstr ""
 
+#: templates/admin/diagnostics.blade.php:9
 msgid "<a href=\"%s\">View your book&rsquo;s XHTML source</a> to diagnose issues you may be encountering with your PDF exports."
 msgstr ""
 
+#: templates/admin/diagnostics.blade.php:10
 msgid "Regenerate Webbook Stylesheet"
 msgstr ""
 
+#: templates/admin/diagnostics.blade.php:11
 msgid "If your webbook stylesheet has issues, it may help to regenerate it."
 msgstr ""
 
+#: templates/admin/diagnostics.blade.php:12
 msgid "Regenerate Stylesheet"
 msgstr ""
 
+#: templates/admin/export.blade.php:12
 msgid "You can select multiple formats below. Pressbooks keeps the last 3 exports of each file format. You can pin specific files to make sure they don't get deleted."
 msgstr ""
 
+#: templates/admin/export.blade.php:15
 msgid "Toggle panel: Export Options"
 msgstr ""
 
+#: templates/admin/export.blade.php:19
 msgid "Export Options"
 msgstr ""
 
+#: templates/admin/export.blade.php:28
 msgid "Supported formats"
 msgstr ""
 
+#: templates/admin/export.blade.php:39
 msgid "Other formats"
 msgstr ""
 
+#: templates/admin/export.blade.php:58
 msgid "Your Theme"
 msgstr ""
 
+#: templates/admin/export.blade.php:78
 msgid "Export Your Book"
 msgstr ""
 
+#: templates/admin/export.blade.php:83
 msgid "Latest Exports"
 msgstr ""
 
+#: templates/admin/institutions.blade.php:9
 msgid "This optional field can be used to display the institution(s) which created this resource. If your college or university is not listed, please contact your network manager."
 msgstr ""
 
+#: templates/admin/mathjax.blade.php:5
 msgid "If you can see a big integral, then PB-MathJax is configured correctly, and all is well."
 msgstr ""
 
+#: templates/admin/mathjax.blade.php:10
 msgid "Syntax"
 msgstr ""
 
+#: templates/admin/mathjax.blade.php:13
 msgid "LaTeX"
 msgstr ""
 
+#: templates/admin/mathjax.blade.php:15
+#: templates/admin/mathjax.blade.php:26
 msgid "Shortcode syntax: %s"
 msgstr ""
 
+#: templates/admin/mathjax.blade.php:19
+#: templates/admin/mathjax.blade.php:30
 msgid "Dollar sign syntax: %s"
 msgstr ""
 
+#: templates/admin/mathjax.blade.php:24
 msgid "AsciiMath"
 msgstr ""
 
+#: templates/admin/mathjax.blade.php:35
 msgid "MathML"
 msgstr ""
 
+#: templates/admin/mathjax.blade.php:37
 msgid "Markup syntax: %s"
 msgstr ""
 
+#: templates/admin/mathjax.blade.php:44
 msgid "Text color"
 msgstr ""
 
+#: templates/admin/mathjax.blade.php:47
 msgid "A six digit hexadecimal number like <code>000000</code> or <code>ffffff</code>"
 msgstr ""
 
+#: templates/admin/mathjax.blade.php:52
 msgid "SVG/PNG Fonts"
 msgstr ""
 
+#: templates/admin/mathjax.blade.php:58
 msgid "Affects exports (PDF, EPUB, MOBI.) Webbook uses CommonHTML. CommonHTML currently only supports MathJax’s default TeX fonts."
 msgstr ""
 
+#: templates/admin/mathjax.blade.php:64
 msgid "Save Changes"
 msgstr ""
 
+#: templates/admin/sitemap.blade.php:3
 msgid "Admin Bar"
 msgstr ""
 
+#: templates/admin/sitemap.blade.php:6
 msgid "Side Menu"
 msgstr ""
 
+#: templates/export/title.blade.php:16
 msgid "Publisher Logo"
 msgstr ""
 
+#: templates/interactive/h5p.blade.php:3
 msgid "An interactive H5P element has been excluded from this version of the text. You can view it online here:"
 msgstr ""
 
+#: templates/interactive/media.blade.php:4
 msgid "One or more interactive elements has been excluded from this version of the text. You can view them online here: "
 msgstr ""

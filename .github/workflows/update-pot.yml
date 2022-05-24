@@ -1,15 +1,12 @@
 name: Update POT file
 
-# Temporarily give this manual trigger. Remove this line and uncomment lines below once working as desired.
-on: workflow_dispatch
-
-# on:
-#  push:
-#    branches:
-#    - dev
-#    paths:
-#    - '**.php'
-#    - '**.js'
+on:
+  push:
+    branches:
+    - dev
+    paths:
+    - '**.php'
+    - '**.js'
 
 jobs:
   update-pot:
@@ -36,5 +33,5 @@ jobs:
     - name: Commit updated POT file
       uses: stefanzweifel/git-auto-commit-action@v4.13.1
       with:
-        commit_message: 'chore(l10n): update languages/pressbooks.pot'
+        commit_message: 'chore(l10n): update languages/pressbooks.pot [ci skip]'
         file_pattern: '*.pot'
