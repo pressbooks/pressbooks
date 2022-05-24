@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-05-20T01:15:03+00:00\n"
+"POT-Creation-Date: 2022-05-24T20:32:49+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: pressbooks\n"
@@ -2373,35 +2373,35 @@ msgid "Custom Style for Web"
 msgstr ""
 
 #: inc/class-styles.php:670
-msgid "Alegreya"
-msgstr ""
-
-#: inc/class-styles.php:671
 msgid "Cormorant Garamond"
 msgstr ""
 
-#: inc/class-styles.php:672
+#: inc/class-styles.php:671
 msgid "Crimson Text"
 msgstr ""
 
-#: inc/class-styles.php:673
+#: inc/class-styles.php:672
 msgid "GNU FreeFont Serif"
 msgstr ""
 
-#: inc/class-styles.php:674
+#: inc/class-styles.php:673
 msgid "New Athena Unicode"
 msgstr ""
 
-#: inc/class-styles.php:675
+#: inc/class-styles.php:674
 msgid "Noto Serif"
 msgstr ""
 
-#: inc/class-styles.php:676
+#: inc/class-styles.php:675
 msgid "Sorts Mill Goudy"
 msgstr ""
 
-#: inc/class-styles.php:677
+#: inc/class-styles.php:676
 msgid "Spectral"
+msgstr ""
+
+#: inc/class-styles.php:680
+msgid "Alegreya Sans"
 msgstr ""
 
 #: inc/class-styles.php:681
