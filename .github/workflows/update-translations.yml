@@ -18,7 +18,7 @@ jobs:
     - name: Setup PHP with tools
       uses: shivammathur/setup-php@v2
       with:
-        php-version: '7.3'
+        php-version: '7.4'
         tools: composer, wp-cli
     - name: Install dependencies
       run: wp package install wp-cli/i18n-command
