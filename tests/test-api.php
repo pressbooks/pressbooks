@@ -402,13 +402,14 @@ class ApiTest extends \WP_UnitTestCase {
 		$this->factory()->post->create_object( $term1 );
 		$this->factory()->post->create_object( $term2 );
 		$this->factory()->post->create_object( $term3 );
+		$this->factory()->post->create_object( $term4 );
 
 		$request = new \WP_REST_Request( 'GET', '/pressbooks/v2/glossary' );
 		$response = $server->dispatch( $request );
 		$data = $response->get_data();
 
 		$this->assertEquals( 3, count( $data ) );
-		$this->assertEquals( 'Synapse', $data[0]['title']['rendered'] );
+		$this->assertEquals( 'Private: Not done', $data[0]['title']['rendered'] );
 		$this->assertEquals( 'ML', $data[1]['title']['rendered'] );
 	}
 
