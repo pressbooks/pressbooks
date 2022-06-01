@@ -392,6 +392,13 @@ class ApiTest extends \WP_UnitTestCase {
 			'post_status'  => 'publish',
 		];
 
+		$term4 = [
+			'post_type'    => 'glossary',
+			'post_title'   => 'Moved to trash',
+			'post_content' => 'This term was moved to trash.',
+			'post_status'  => 'trash',
+		];
+
 		$this->factory()->post->create_object( $term1 );
 		$this->factory()->post->create_object( $term2 );
 		$this->factory()->post->create_object( $term3 );
@@ -400,7 +407,7 @@ class ApiTest extends \WP_UnitTestCase {
 		$response = $server->dispatch( $request );
 		$data = $response->get_data();
 
-		$this->assertEquals( 2, count( $data ) );
+		$this->assertEquals( 3, count( $data ) );
 		$this->assertEquals( 'Synapse', $data[0]['title']['rendered'] );
 		$this->assertEquals( 'ML', $data[1]['title']['rendered'] );
 	}

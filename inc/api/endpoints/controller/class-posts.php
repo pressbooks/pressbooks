@@ -152,16 +152,10 @@ class Posts extends \WP_REST_Posts_Controller {
 	 * @return bool Whether the post can be read.
 	 */
 	public function check_read_permission( $post ) {
-
-		if ( parent::check_read_permission( $post ) ) {
-			return true;
-		}
-
-		if ( current_user_can( 'edit_posts' ) ) {
-			return true;
-		}
-
-		return false;
+		// Private and public glossaries can be exposed
+		return parent::check_read_permission( $post ) ||
+			current_user_can( 'edit_posts' ) ||
+			$post->post_type === 'glossary';
 	}
 
 	/**
