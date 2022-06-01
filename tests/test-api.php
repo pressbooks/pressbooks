@@ -410,7 +410,7 @@ class ApiTest extends \WP_UnitTestCase {
 
 		$this->assertEquals( 3, count( $data ) );
 		$this->assertEquals( 'Private: Not done', $data[0]['title']['rendered'] );
-		$this->assertEquals( 'ML', $data[1]['title']['rendered'] );
+		$this->assertEquals( 'Synapse', $data[1]['title']['rendered'] );
 	}
 
 }
