@@ -1543,8 +1543,10 @@ class Cloner {
 			unset( $section[ $bad_key ] );
 		}
 
-		// Set status
-		$section['status'] = 'publish';
+		// Private and public glossaries can be cloned
+		if ( $post_type !== 'glossary' ) {
+			$section['status'] = 'publish';
+		}
 
 		// Download media (images, videos, `select * from wp_posts where post_type = 'attachment'` ... )
 		list( $content, $attachments ) = $this->retrieveSectionContent( $section );
