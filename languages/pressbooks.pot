@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-05-24T21:07:18+00:00\n"
+"POT-Creation-Date: 2022-06-06T16:24:48+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: pressbooks\n"
@@ -2566,29 +2566,29 @@ msgstr ""
 msgid "The source book&rsquo;s taxonomies could not be read."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:2030
+#: inc/cloner/class-cloner.php:2032
 msgid "Your book URL can only contain lowercase letters (a-z) and numbers."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:2032
+#: inc/cloner/class-cloner.php:2034
 msgid "Your book URL must contain at least some letters."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:2034
+#: inc/cloner/class-cloner.php:2036
 msgid "That book URL is not allowed."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:2036
+#: inc/cloner/class-cloner.php:2038
 msgid "Your book URL must be at least %s character."
 msgid_plural "Your book URL must be at least %s characters."
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/cloner/class-cloner.php:2038
+#: inc/cloner/class-cloner.php:2040
 msgid "Sorry, you may not use that book URL."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:2040
+#: inc/cloner/class-cloner.php:2042
 msgid "Sorry, that book URL already exists!"
 msgstr ""
 
