@@ -19,9 +19,7 @@ jobs:
       uses: shivammathur/setup-php@v2
       with:
         php-version: '7.4'
-        tools: composer, wp-cli
-    - name: Install dependencies
-      run: wp package install wp-cli/i18n-command
+        tools: composer, wp-cli/wp-cli-bundle
     - name: Generate MO files
       run: wp i18n make-mo languages
     # Remove this step once you are satisfied with the results; alternatively, you can leave it in place and remove
