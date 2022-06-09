@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-06-06T16:24:48+00:00\n"
+"POT-Creation-Date: 2022-06-09T14:14:56+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: pressbooks\n"
@@ -503,6 +503,7 @@ msgid "Your PDF page size is set to %1$s &times; %2$s, and your PDF cover will b
 msgstr ""
 
 #: inc/admin/covergenerator/namespace.php:458
+#: templates/admin/export.blade.php:61
 msgid "Change Theme"
 msgstr ""
 
@@ -662,6 +663,7 @@ msgstr ""
 #: inc/class-activation.php:242
 #: inc/modules/themeoptions/class-pdfoptions.php:287
 #: tests/test-cloner.php:63
+#: templates/export/epub/toc.blade.php:13
 msgid "Table of Contents"
 msgstr ""
 
@@ -809,6 +811,7 @@ msgstr ""
 #: inc/admin/diagnostics/namespace.php:33
 #: inc/admin/diagnostics/namespace.php:34
 #: inc/admin/laf/namespace.php:108
+#: templates/admin/diagnostics.blade.php:4
 msgid "Diagnostics"
 msgstr ""
 
@@ -830,6 +833,7 @@ msgid "Guides and Tutorials"
 msgstr ""
 
 #: inc/admin/laf/namespace.php:113
+#: templates/admin/sitemap.blade.php:2
 msgid "Site Map"
 msgstr ""
 
@@ -979,6 +983,7 @@ msgstr ""
 #: inc/admin/laf/namespace.php:316
 #: inc/admin/laf/namespace.php:394
 #: templates/admin/organize.php:70
+#: templates/admin/export.blade.php:11
 msgid "Export"
 msgstr ""
 
@@ -1481,6 +1486,7 @@ msgid "Subject(s)"
 msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:503
+#: templates/admin/institutions.blade.php:2
 msgid "Institutions"
 msgstr ""
 
@@ -2313,6 +2319,7 @@ msgstr ""
 #: inc/modules/export/epub/class-epub.php:1410
 #: inc/modules/export/htmlbook/class-htmlbook.php:864
 #: inc/modules/export/xhtml/class-xhtml11.php:1083
+#: templates/export/epub/opf.blade.php:100
 msgid "by"
 msgstr ""
 
@@ -2344,6 +2351,7 @@ msgstr ""
 
 #: inc/class-mathjax.php:162
 #: inc/class-mathjax.php:163
+#: templates/admin/mathjax.blade.php:2
 msgid "MathJax"
 msgstr ""
 
@@ -2481,114 +2489,114 @@ msgstr ""
 msgid "Last 10 Revisions"
 msgstr ""
 
-#: inc/cloner/class-cloner.php:435
+#: inc/cloner/class-cloner.php:438
 #: inc/modules/import/api/class-api.php:115
 msgid "Looking up the source book"
 msgstr ""
 
-#: inc/cloner/class-cloner.php:437
+#: inc/cloner/class-cloner.php:440
 msgid "Failed to setup source"
 msgstr ""
 
-#: inc/cloner/class-cloner.php:441
+#: inc/cloner/class-cloner.php:444
 msgid "Creating the target book"
 msgstr ""
 
-#: inc/cloner/class-cloner.php:452
+#: inc/cloner/class-cloner.php:455
 msgid "Cloning metadata"
 msgstr ""
 
-#: inc/cloner/class-cloner.php:459
+#: inc/cloner/class-cloner.php:462
 msgid "Cloning contributors and licenses"
 msgstr ""
 
-#: inc/cloner/class-cloner.php:470
+#: inc/cloner/class-cloner.php:473
 msgid "Cloning front matter"
 msgstr ""
 
-#: inc/cloner/class-cloner.php:485
-#: inc/cloner/class-cloner.php:491
+#: inc/cloner/class-cloner.php:488
+#: inc/cloner/class-cloner.php:494
 msgid "Cloning parts and chapters"
 msgstr ""
 
-#: inc/cloner/class-cloner.php:504
+#: inc/cloner/class-cloner.php:507
 msgid "Cloning back matter"
 msgstr ""
 
-#: inc/cloner/class-cloner.php:536
+#: inc/cloner/class-cloner.php:539
 #: inc/covergenerator/class-generator.php:298
 #: inc/modules/export/epub/class-epub.php:664
 #: inc/modules/import/class-import.php:373
 msgid "Finishing up"
 msgstr ""
 
-#: inc/cloner/class-cloner.php:552
+#: inc/cloner/class-cloner.php:555
 msgid "You can only clone from a book hosted by Pressbooks 4.1 or later. Please ensure that your source book meets these requirements."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:559
+#: inc/cloner/class-cloner.php:562
 msgid "Could not retrieve metadata from %s."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:567
+#: inc/cloner/class-cloner.php:570
 msgid "%s is not licensed for cloning."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:576
+#: inc/cloner/class-cloner.php:579
 msgid "Could not retrieve contents and structure from %s."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:584
+#: inc/cloner/class-cloner.php:587
 msgid "Could not retrieve taxonomies from %s."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:592
+#: inc/cloner/class-cloner.php:595
 msgid "Could not retrieve media from %s."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:767
+#: inc/cloner/class-cloner.php:770
 msgid "The source book contained H5P content that could not be cloned. Please review the cloned version of your book carefully, as missing H5P content will be indicated. You may want to remove or replace these elements."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:789
+#: inc/cloner/class-cloner.php:792
 msgid "The source book&rsquo;s media could not be read."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:885
+#: inc/cloner/class-cloner.php:888
 msgid "The source book&rsquo;s metadata could not be read."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:916
+#: inc/cloner/class-cloner.php:919
 msgid "The source book&rsquo;s structure and contents could not be read."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:958
+#: inc/cloner/class-cloner.php:961
 msgid "The source book&rsquo;s taxonomies could not be read."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:2032
+#: inc/cloner/class-cloner.php:2035
 msgid "Your book URL can only contain lowercase letters (a-z) and numbers."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:2034
+#: inc/cloner/class-cloner.php:2037
 msgid "Your book URL must contain at least some letters."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:2036
+#: inc/cloner/class-cloner.php:2039
 msgid "That book URL is not allowed."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:2038
+#: inc/cloner/class-cloner.php:2041
 msgid "Your book URL must be at least %s character."
 msgid_plural "Your book URL must be at least %s characters."
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/cloner/class-cloner.php:2040
+#: inc/cloner/class-cloner.php:2043
 msgid "Sorry, you may not use that book URL."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:2042
+#: inc/cloner/class-cloner.php:2045
 msgid "Sorry, that book URL already exists!"
 msgstr ""
 
@@ -3260,6 +3268,7 @@ msgstr ""
 #: inc/modules/themeoptions/class-admin.php:94
 #: inc/modules/themeoptions/class-admin.php:95
 #: inc/modules/themeoptions/class-admin.php:149
+#: templates/admin/export.blade.php:62
 msgid "Theme Options"
 msgstr ""
 
@@ -4686,6 +4695,144 @@ msgstr ""
 msgid "Create Site"
 msgstr ""
 
+#: templates/admin/diagnostics.blade.php:5
+msgid "Please submit this information with any bug reports."
+msgstr ""
+
+#: templates/admin/diagnostics.blade.php:6
+msgid "To copy the system info, click below then press Ctrl + C (PC) or Cmd + C (Mac)."
+msgstr ""
+
+#: templates/admin/diagnostics.blade.php:8
+msgid "View Source"
+msgstr ""
+
+#: templates/admin/diagnostics.blade.php:9
+msgid "<a href=\"%s\">View your book&rsquo;s XHTML source</a> to diagnose issues you may be encountering with your PDF exports."
+msgstr ""
+
+#: templates/admin/diagnostics.blade.php:10
+msgid "Regenerate Webbook Stylesheet"
+msgstr ""
+
+#: templates/admin/diagnostics.blade.php:11
+msgid "If your webbook stylesheet has issues, it may help to regenerate it."
+msgstr ""
+
+#: templates/admin/diagnostics.blade.php:12
+msgid "Regenerate Stylesheet"
+msgstr ""
+
+#: templates/admin/export.blade.php:12
+msgid "You can select multiple formats below. Pressbooks keeps the last 3 exports of each file format. You can pin specific files to make sure they don't get deleted."
+msgstr ""
+
+#: templates/admin/export.blade.php:15
+msgid "Toggle panel: Export Options"
+msgstr ""
+
+#: templates/admin/export.blade.php:19
+msgid "Export Options"
+msgstr ""
+
+#: templates/admin/export.blade.php:28
+msgid "Supported formats"
+msgstr ""
+
+#: templates/admin/export.blade.php:40
+msgid "Other formats"
+msgstr ""
+
+#: templates/admin/export.blade.php:60
+msgid "Your Theme"
+msgstr ""
+
+#: templates/admin/export.blade.php:80
+msgid "Export Your Book"
+msgstr ""
+
+#: templates/admin/export.blade.php:85
+msgid "Latest Exports"
+msgstr ""
+
+#: templates/admin/institutions.blade.php:10
+msgid "This optional field can be used to display the institution(s) which created this resource. If your college or university is not listed, please contact your network manager."
+msgstr ""
+
+#: templates/admin/mathjax.blade.php:5
+msgid "If you can see a big integral, then PB-MathJax is configured correctly, and all is well."
+msgstr ""
+
+#: templates/admin/mathjax.blade.php:10
+msgid "Syntax"
+msgstr ""
+
+#: templates/admin/mathjax.blade.php:13
+msgid "LaTeX"
+msgstr ""
+
+#: templates/admin/mathjax.blade.php:15
+#: templates/admin/mathjax.blade.php:26
+msgid "Shortcode syntax: %s"
+msgstr ""
+
+#: templates/admin/mathjax.blade.php:19
+#: templates/admin/mathjax.blade.php:30
+msgid "Dollar sign syntax: %s"
+msgstr ""
+
+#: templates/admin/mathjax.blade.php:24
+msgid "AsciiMath"
+msgstr ""
+
+#: templates/admin/mathjax.blade.php:35
+msgid "MathML"
+msgstr ""
+
+#: templates/admin/mathjax.blade.php:37
+msgid "Markup syntax: %s"
+msgstr ""
+
+#: templates/admin/mathjax.blade.php:44
+msgid "Text color"
+msgstr ""
+
+#: templates/admin/mathjax.blade.php:47
+msgid "A six digit hexadecimal number like <code>000000</code> or <code>ffffff</code>"
+msgstr ""
+
+#: templates/admin/mathjax.blade.php:52
+msgid "SVG/PNG Fonts"
+msgstr ""
+
+#: templates/admin/mathjax.blade.php:59
+msgid "Affects exports (PDF, EPUB, MOBI.) Webbook uses CommonHTML. CommonHTML currently only supports MathJax’s default TeX fonts."
+msgstr ""
+
+#: templates/admin/mathjax.blade.php:65
+msgid "Save Changes"
+msgstr ""
+
+#: templates/admin/sitemap.blade.php:3
+msgid "Admin Bar"
+msgstr ""
+
+#: templates/admin/sitemap.blade.php:6
+msgid "Side Menu"
+msgstr ""
+
+#: templates/export/title.blade.php:16
+msgid "Publisher Logo"
+msgstr ""
+
+#: templates/interactive/h5p.blade.php:3
+msgid "An interactive H5P element has been excluded from this version of the text. You can view it online here:"
+msgstr ""
+
+#: templates/interactive/media.blade.php:4
+msgid "One or more interactive elements has been excluded from this version of the text. You can view them online here: "
+msgstr ""
+
 #: assets/src/scripts/a11y.js:35
 #: assets/src/scripts/a11y.js:36
 msgid "Gradient selector"
@@ -4721,106 +4868,4 @@ msgstr ""
 
 #: assets/src/scripts/a11y.js:70
 msgid "Purple"
-msgstr ""
-
-msgid "Please submit this information with any bug reports."
-msgstr ""
-
-msgid "To copy the system info, click below then press Ctrl + C (PC) or Cmd + C (Mac)."
-msgstr ""
-
-msgid "View Source"
-msgstr ""
-
-msgid "<a href=\"%s\">View your book&rsquo;s XHTML source</a> to diagnose issues you may be encountering with your PDF exports."
-msgstr ""
-
-msgid "Regenerate Webbook Stylesheet"
-msgstr ""
-
-msgid "If your webbook stylesheet has issues, it may help to regenerate it."
-msgstr ""
-
-msgid "Regenerate Stylesheet"
-msgstr ""
-
-msgid "You can select multiple formats below. Pressbooks keeps the last 3 exports of each file format. You can pin specific files to make sure they don't get deleted."
-msgstr ""
-
-msgid "Toggle panel: Export Options"
-msgstr ""
-
-msgid "Export Options"
-msgstr ""
-
-msgid "Supported formats"
-msgstr ""
-
-msgid "Other formats"
-msgstr ""
-
-msgid "Your Theme"
-msgstr ""
-
-msgid "Export Your Book"
-msgstr ""
-
-msgid "Latest Exports"
-msgstr ""
-
-msgid "This optional field can be used to display the institution(s) which created this resource. If your college or university is not listed, please contact your network manager."
-msgstr ""
-
-msgid "If you can see a big integral, then PB-MathJax is configured correctly, and all is well."
-msgstr ""
-
-msgid "Syntax"
-msgstr ""
-
-msgid "LaTeX"
-msgstr ""
-
-msgid "Shortcode syntax: %s"
-msgstr ""
-
-msgid "Dollar sign syntax: %s"
-msgstr ""
-
-msgid "AsciiMath"
-msgstr ""
-
-msgid "MathML"
-msgstr ""
-
-msgid "Markup syntax: %s"
-msgstr ""
-
-msgid "Text color"
-msgstr ""
-
-msgid "A six digit hexadecimal number like <code>000000</code> or <code>ffffff</code>"
-msgstr ""
-
-msgid "SVG/PNG Fonts"
-msgstr ""
-
-msgid "Affects exports (PDF, EPUB, MOBI.) Webbook uses CommonHTML. CommonHTML currently only supports MathJax’s default TeX fonts."
-msgstr ""
-
-msgid "Save Changes"
-msgstr ""
-
-msgid "Admin Bar"
-msgstr ""
-
-msgid "Side Menu"
-msgstr ""
-
-msgid "Publisher Logo"
-msgstr ""
-
-msgid "An interactive H5P element has been excluded from this version of the text. You can view it online here:"
-msgstr ""
-
-msgid "One or more interactive elements has been excluded from this version of the text. You can view them online here: "
 msgstr ""
