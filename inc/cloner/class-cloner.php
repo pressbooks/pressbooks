@@ -8,9 +8,6 @@
 
 namespace Pressbooks\Cloner;
 
-use Pressbooks\Interactive\H5P;
-use Pressbooks\Shortcodes\Attributions\Attachments;
-use Pressbooks\Shortcodes\Glossary\Glossary;
 use function Pressbooks\Image\default_cover_url;
 use function Pressbooks\Image\strip_baseurl as image_strip_baseurl;
 use function Pressbooks\Media\strip_baseurl as media_strip_baseurl;
@@ -22,6 +19,7 @@ use function Pressbooks\Utility\str_remove_prefix;
 use function Pressbooks\Utility\str_starts_with;
 use Pressbooks\Admin\Network\SharingAndPrivacyOptions;
 use Pressbooks\Container;
+use Pressbooks\Shortcodes\Glossary\Glossary;
 use Pressbooks\Utility\PercentageYield;
 
 class Cloner {
