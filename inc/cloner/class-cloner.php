@@ -321,9 +321,8 @@ class Cloner {
 		$this->h5p = $h5p ? $h5p : \Pressbooks\Interactive\Content::init()->getH5P();
 		$this->downloads = $downloads ? $downloads : new Downloads( $this, $this->h5p );
 		$this->contributors = $contributors ? $contributors : new \Pressbooks\Contributors();
-		// Register glossary and Attachments shortcodes if not already registered.
+		// Register glossary shortcode if not already registered.
 		Glossary::init();
-		Attachments::init();
 	}
 
 	/**
