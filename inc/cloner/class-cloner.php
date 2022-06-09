@@ -19,6 +19,7 @@ use function Pressbooks\Utility\str_remove_prefix;
 use function Pressbooks\Utility\str_starts_with;
 use Pressbooks\Admin\Network\SharingAndPrivacyOptions;
 use Pressbooks\Container;
+use Pressbooks\Shortcodes\Glossary\Glossary;
 use Pressbooks\Utility\PercentageYield;
 
 class Cloner {
@@ -318,6 +319,8 @@ class Cloner {
 		$this->h5p = $h5p ? $h5p : \Pressbooks\Interactive\Content::init()->getH5P();
 		$this->downloads = $downloads ? $downloads : new Downloads( $this, $this->h5p );
 		$this->contributors = $contributors ? $contributors : new \Pressbooks\Contributors();
+		// Register glossary shortcode if not already registered.
+		Glossary::init();
 	}
 
 	/**
