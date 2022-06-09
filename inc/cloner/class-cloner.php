@@ -8,6 +8,9 @@
 
 namespace Pressbooks\Cloner;
 
+use Pressbooks\Interactive\H5P;
+use Pressbooks\Shortcodes\Attributions\Attachments;
+use Pressbooks\Shortcodes\Glossary\Glossary;
 use function Pressbooks\Image\default_cover_url;
 use function Pressbooks\Image\strip_baseurl as image_strip_baseurl;
 use function Pressbooks\Media\strip_baseurl as media_strip_baseurl;
@@ -318,6 +321,9 @@ class Cloner {
 		$this->h5p = $h5p ? $h5p : \Pressbooks\Interactive\Content::init()->getH5P();
 		$this->downloads = $downloads ? $downloads : new Downloads( $this, $this->h5p );
 		$this->contributors = $contributors ? $contributors : new \Pressbooks\Contributors();
+		// Register glossary and Attachments shortcodes if not already registered.
+		Glossary::init();
+		Attachments::init();
 	}
 
 	/**
