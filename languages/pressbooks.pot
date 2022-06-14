@@ -2,14 +2,14 @@
 # This file is distributed under the GPL v3 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Pressbooks 5.35.0\n"
+"Project-Id-Version: Pressbooks 5.35.1\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/issues\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-06-14T14:41:20+00:00\n"
+"POT-Creation-Date: 2022-06-14T15:41:03+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: pressbooks\n"
@@ -4282,11 +4282,11 @@ msgid "Apply Class"
 msgstr ""
 
 #. translators: 1: URL to Composer documentation, 2: URL to Pressbooks latest releases
-#: pressbooks.php:79
+#: pressbooks.php:80
 msgid "Pressbooks dependencies are missing. Please make sure that your project&rsquo;s <a href=\"%1$s\">Composer autoload file</a> is being required, or use the <a href=\"%2$s\">latest release</a> instead."
 msgstr ""
 
-#: pressbooks.php:90
+#: pressbooks.php:91
 msgid "Cannot find Pressbooks install."
 msgstr ""
 
