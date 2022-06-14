@@ -34,11 +34,6 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Install Node
-      uses: actions/setup-node@v2
-      with:
-        node-version: '14'
-
     - name: Install OS dependencies
       run: |
         sudo apt update
@@ -66,25 +61,11 @@ jobs:
         coverage: pcov
         extensions: imagick
 
-    - name: Install Node dependencies
-      run: |
-        node -v
-        npm install
-      if: matrix.experimental == false
-
     - name: Install PHP dependencies
       run: |
         export PATH="$HOME/.composer/vendor/bin:$PATH"
         composer install --no-interaction
         ulimit -n 4096
-
-    - name: Run Lint
-      run: npm run lint
-      if: matrix.experimental == false
-
-    - name: Run Frontend Tests
-      run: npm run test
-      if: matrix.experimental == false
 
     - name: Run PHP CodeSniffer
       run: composer standards
