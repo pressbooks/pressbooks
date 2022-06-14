@@ -2,10 +2,10 @@
 # This file is distributed under the GPL v3 or later.
 # Translators:
 # Antonio D., 2018,2020
-# Eduardo Vera <evera@shinydreamer.xyz>, 2021-2022
-# Eduardo Vera <evera@shinydreamer.xyz>, 2021
-# Eduardo Vera <evera@shinydreamer.xyz>, 2020-2021
-# Eduardo Vera <evera@shinydreamer.xyz>, 2020
+# Eduardo Vera, 2021-2022
+# Eduardo Vera, 2021
+# Eduardo Vera, 2020-2021
+# Eduardo Vera, 2020
 # jorge santibañez <info@letrapixel.com>, 2017
 # taskforsome <taskforsome@gmail.com>, 2014
 # taskforsome <taskforsome@gmail.com>, 2014
@@ -17,7 +17,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
 "POT-Creation-Date: 2022-05-24T20:09:34+00:00\n"
 "PO-Revision-Date: 2013-12-21 21:04+0000\n"
-"Last-Translator: Eduardo Vera <evera@shinydreamer.xyz>, 2021-2022\n"
+"Last-Translator: Eduardo Vera, 2021-2022\n"
 "Language-Team: Spanish (http://www.transifex.com/pressbooks/pressbooks/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -624,15 +624,15 @@ msgstr "Tu imagen no tiene la relación de aspecto correcta; debe ser de %1$s a 
 
 #: inc/admin/dashboard/namespace.php:18
 msgid "Pressbooks announcements"
-msgstr ""
+msgstr "Anuncios de Pressbooks"
 
 #: inc/admin/dashboard/namespace.php:91
 msgid "Get started with Pressbooks"
-msgstr ""
+msgstr "Primeros pasos con Pressbooks"
 
 #: inc/admin/dashboard/namespace.php:107
 msgid "Need help?"
-msgstr ""
+msgstr "¿Necesitas ayuda?"
 
 #: inc/admin/dashboard/namespace.php:134
 msgid "My Book"
@@ -644,7 +644,7 @@ msgstr "Usuarios"
 
 #: inc/admin/dashboard/namespace.php:136 inc/admin/dashboard/namespace.php:183
 msgid "Need Help?"
-msgstr ""
+msgstr "¿Necesitas ayuda?"
 
 #: inc/admin/dashboard/namespace.php:177
 msgid "Book Permissions"
@@ -656,15 +656,15 @@ msgstr "Invitaciones de libros"
 
 #: inc/admin/dashboard/namespace.php:219
 msgid "an"
-msgstr ""
+msgstr "un"
 
 #: inc/admin/dashboard/namespace.php:219
 msgid "a"
-msgstr ""
+msgstr "un"
 
 #: inc/admin/dashboard/namespace.php:223
 msgid "You have been invited to join %1s as %2$s %3$s"
-msgstr ""
+msgstr "Tienes una invitación para unirte a %1s como %2$s %3$s"
 
 #: inc/admin/dashboard/namespace.php:226
 msgid "Accept"
@@ -672,36 +672,36 @@ msgstr "Aceptar"
 
 #: inc/admin/dashboard/namespace.php:239
 msgid "Welcome to %s"
-msgstr ""
+msgstr "Esto es %s"
 
 #: inc/admin/dashboard/namespace.php:242
 msgid "You do not currently have access to any books on this network."
-msgstr ""
+msgstr "Por el momento, no tienes acceso a ningún libro."
 
 #: inc/admin/dashboard/namespace.php:248
 msgid ""
 "This network does not allow users to create new books. To create a new book,"
 " please contact a network manager"
-msgstr ""
+msgstr "En esta red no se permite a los usuarios crear nuevos libros. Para crear un nuevo libro, contacta con un administrador de la red."
 
 #: inc/admin/dashboard/namespace.php:250 inc/admin/dashboard/namespace.php:263
 msgid "at "
-msgstr ""
+msgstr "en"
 
 #: inc/admin/dashboard/namespace.php:255
 msgid "Create a book"
-msgstr ""
+msgstr "Crear un libro"
 
 #: inc/admin/dashboard/namespace.php:257
 msgid "Clone a book"
-msgstr ""
+msgstr "Clonar un libro"
 
 #: inc/admin/dashboard/namespace.php:258
 msgid ""
 "Get started on your next publishing project by creating a new book or "
 "cloning an existing book. The %1$s includes thousands of openly licensed "
 "books available for cloning."
-msgstr ""
+msgstr "Emprende tu próximo proyecto de publicación creando un libro nuevo o clonando uno existente. En el %1$s se incluyen miles de libros con licencia abierta disponibles para clonar."
 
 #: inc/admin/dashboard/namespace.php:258 inc/admin/laf/namespace.php:1264
 #: templates/admin/cloner.php:14
@@ -712,7 +712,7 @@ msgstr "Directorio de Pressbooks"
 msgid ""
 "You can also request access to an existing book by contacting your network "
 "manager"
-msgstr ""
+msgstr "También puedes solicitar acceso a un libro existente contactando con el administrador de la red."
 
 #: inc/admin/dashboard/namespace.php:275 inc/class-activation.php:242
 #: inc/modules/themeoptions/class-pdfoptions.php:287 tests/test-cloner.php:63
@@ -749,47 +749,47 @@ msgstr "Organizar"
 #. translators: %s: URL to Pressbooks User Guide
 #: inc/admin/dashboard/namespace.php:381
 msgid "Consult the %s."
-msgstr ""
+msgstr "Consulta la %s."
 
 #. translators: %s: URL to Pressbooks User Guide
 #: inc/admin/dashboard/namespace.php:381
 msgid "Pressbooks User Guide"
-msgstr ""
+msgstr "guía de Pressbooks"
 
 #. translators: %s: URL to Pressbooks YouTube channel
 #: inc/admin/dashboard/namespace.php:382
 msgid "Watch tutorials on the %s."
-msgstr ""
+msgstr "Mira tutoriales en el %s."
 
 #. translators: %s: URL to Pressbooks YouTube channel
 #: inc/admin/dashboard/namespace.php:382
 msgid "Pressbooks YouTube channel"
-msgstr ""
+msgstr "canal de YouTube de Pressbooks"
 
 #. translators: %s: URL to Pressbooks training webinars
 #: inc/admin/dashboard/namespace.php:383
 msgid "Attend a %s."
-msgstr ""
+msgstr "Asiste a un %s."
 
 #. translators: %s: URL to Pressbooks training webinars
 #: inc/admin/dashboard/namespace.php:383
 msgid "live training webinar"
-msgstr ""
+msgstr "webinario formativo en directo"
 
 #. translators: %s: URL to Pressbooks community forum
 #: inc/admin/dashboard/namespace.php:384
 msgid "Participate in the %s."
-msgstr ""
+msgstr "Participa en el %s."
 
 #. translators: %s: URL to Pressbooks community forum
 #: inc/admin/dashboard/namespace.php:384
 msgid "community forum"
-msgstr ""
+msgstr "foro de la comunidad"
 
 #. translators: %s: email address for network manager
 #: inc/admin/dashboard/namespace.php:386
 msgid "For additional support, contact your network manager at %s."
-msgstr ""
+msgstr "Para obtener soporte adicional, contacta con el administrador de la red en %s."
 
 #: inc/admin/dashboard/namespace.php:425
 msgid "%1$s total users: "
@@ -2501,7 +2501,7 @@ msgstr "Spectral"
 
 #: inc/class-styles.php:680
 msgid "Alegreya Sans"
-msgstr ""
+msgstr "Alegreya Sans"
 
 #: inc/class-styles.php:681
 msgid "Barlow"
