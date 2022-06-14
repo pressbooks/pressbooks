@@ -19,19 +19,18 @@ jobs:
       uses: shivammathur/setup-php@v2
       with:
         php-version: '7.4'
-        tools: composer, wp-cli
-    - name: Install dependencies
-      run: |
-        wp package install wp-cli/i18n-command
-        cd /home/runner/.wp-cli/packages/
-        composer config repositories.wp-cli '{"type": "composer","url": "https://wp-cli.org/package-index/","canonical": false}'
-        cd ./
-        wp package install pressbooks/pb-cli:2.1.0
-        composer require jenssegers/blade:1.1.0
+        tools: composer, wp-cli/wp-cli-bundle
     - name: Update POT file
-      run: wp pb make-pot . languages/pressbooks.pot --domain=pressbooks --slug=pressbooks --package-name="Pressbooks" --headers="{\"Report-Msgid-Bugs-To\":\"https://github.com/pressbooks/pressbooks/issues\"}"
-    - name: Commit updated POT file
-      uses: stefanzweifel/git-auto-commit-action@v4.13.1
+      run: wp i18n make-pot . languages/pressbooks.pot --domain=pressbooks --slug=pressbooks --package-name="Pressbooks" --headers="{\"Report-Msgid-Bugs-To\":\"https://github.com/pressbooks/pressbooks/issues\"}"
+    # Remove this step once you are satisfied with the results; alternatively, you can leave it in place and remove
+    # the commented out step that follows.
+    - name: Open PR with changes
+      uses: peter-evans/create-pull-request@v4
       with:
-        commit_message: 'chore(l10n): update languages/pressbooks.pot [ci skip]'
-        file_pattern: '*.pot'
+        title: 'chore(l10n): update languages/pressbooks.pot'
+    # - name: Commit updated POT file
+    #   uses: stefanzweifel/git-auto-commit-action@v4.13.1
+    #   with:
+    #     commit_message: 'chore(l10n): update languages/pressbooks.pot'
+    #     file_pattern: '*.pot'
+
