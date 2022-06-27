@@ -254,6 +254,27 @@ class ApiTest extends \WP_UnitTestCase {
 		}
 	}
 
+	public function test_parts_endpoint() {
+		$this->_book();
+
+		$book = \Pressbooks\Book::getInstance();
+		$struct = $book::getBookStructure();
+		$part_id = $struct['part'][0]['ID'];
+		$server = $this->_setupBookApi();
+		$request = new \WP_REST_Request( 'GET', "/pressbooks/v2/parts/{$part_id}" );
+		$response = $server->dispatch( $request );
+		$data = $response->get_data();
+		$this->assertEquals('', $data['meta']['pb_part_invisible_string']);
+
+		update_post_meta( $part_id, 'pb_part_invisible', 'on' );
+		$book::deleteBookObjectCache();
+
+		$request = new \WP_REST_Request( 'GET', "/pressbooks/v2/parts/{$part_id}" );
+		$response = $server->dispatch( $request );
+		$data = $response->get_data();
+		$this->assertEquals('on', $data['meta']['pb_part_invisible_string']);
+	}
+
 	/**
 	 * @group api
 	 */
