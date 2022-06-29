@@ -466,16 +466,10 @@ class SectionMetadata extends \WP_REST_Controller {
 	 * @return bool True if the request has read access, WP_Error object otherwise.
 	 */
 	public function get_item_permissions_check( $request ) {
-
-		if ( current_user_can( 'edit_posts' ) ) {
+		if ( has_filter( 'pb_set_api_items_permission' ) && apply_filters( 'pb_set_api_items_permission', $this->rest_base ) ) {
 			return true;
 		}
-
-		if ( get_option( 'blog_public' ) ) {
-			return true;
-		}
-
-		return false;
+		return current_user_can( 'edit_posts' ) || get_option( 'blog_public' );
 	}
 
 	/**
