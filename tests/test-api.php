@@ -371,7 +371,7 @@ class ApiTest extends \WP_UnitTestCase {
 
 		$server = $this->_setupBookApi();
 
-		$controller = new Posts('glossary');
+		new Posts('glossary');
 
 		$term1 = [
 			'post_type'    => 'glossary',
@@ -411,6 +411,47 @@ class ApiTest extends \WP_UnitTestCase {
 		$this->assertEquals( 3, count( $data ) );
 		$this->assertEquals( 'Private: Not done', $data[0]['title']['rendered'] );
 		$this->assertEquals( 'Synapse', $data[1]['title']['rendered'] );
+	}
+
+	/**
+	 * @test
+	 * @group api
+	 */
+	public function set_api_permissions_item(): void {
+		$this->_book();
+		new Posts('glossary');
+		$term1 = [
+			'post_type'    => 'glossary',
+			'post_title'   => 'Synapse',
+			'post_content' => 'Definition',
+			'post_status'  => 'publish',
+		];
+		$term2 = [
+			'post_type'    => 'glossary',
+			'post_title'   => 'Not done',
+			'post_content' => 'This term is not done so the status is private.',
+			'post_status'  => 'private',
+		];
+		$this->factory()->post->create_object( $term1 );
+		$this->factory()->post->create_object( $term2 );
+
+		update_option( 'blog_public', 0 );
+
+		$server = $this->_setupRootApi();
+		$request = new \WP_REST_Request( 'GET', '/pressbooks/v2/glossary' );
+		$response = $server->dispatch( $request );
+		$data = $response->get_data();
+		$this->assertArrayHasKey( 'code', $data );
+		$this->assertArrayHasKey( 'data', $data );
+		$this->assertEquals( $data['code'], 'rest_forbidden' );
+		$this->assertEquals( $data['data']['status'], 401 );
+
+		add_filter( 'pb_set_api_items_permission', '__return_true' );
+
+		$request = new \WP_REST_Request( 'GET', '/pressbooks/v2/glossary' );
+		$response = $server->dispatch( $request );
+		$data = $response->get_data();
+		$this->assertEquals( 2, count( $data ) );
 	}
 
 }
