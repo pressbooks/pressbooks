@@ -2,14 +2,14 @@
 # This file is distributed under the GPL v3 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Pressbooks 5.35.1\n"
+"Project-Id-Version: Pressbooks 5.36.0\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/issues\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-06-14T15:50:55+00:00\n"
+"POT-Creation-Date: 2022-07-05T21:54:59+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: pressbooks\n"
@@ -1870,23 +1870,23 @@ msgstr ""
 msgid "Word count."
 msgstr ""
 
-#: inc/api/namespace.php:77
+#: inc/api/namespace.php:76
 msgid "Part ID."
 msgstr ""
 
-#: inc/api/namespace.php:201
+#: inc/api/namespace.php:200
 msgid "Invalid batch parameter(s)."
 msgstr ""
 
-#: inc/api/namespace.php:356
+#: inc/api/namespace.php:355
 msgid "Part does not exist"
 msgstr ""
 
-#: inc/api/namespace.php:363
+#: inc/api/namespace.php:362
 msgid "ID is not a part"
 msgstr ""
 
-#: inc/api/namespace.php:377
+#: inc/api/namespace.php:376
 msgid "Failed to update chapter part"
 msgstr ""
 
@@ -2574,29 +2574,29 @@ msgstr ""
 msgid "The source book&rsquo;s taxonomies could not be read."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:2035
+#: inc/cloner/class-cloner.php:2039
 msgid "Your book URL can only contain lowercase letters (a-z) and numbers."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:2037
+#: inc/cloner/class-cloner.php:2041
 msgid "Your book URL must contain at least some letters."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:2039
+#: inc/cloner/class-cloner.php:2043
 msgid "That book URL is not allowed."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:2041
+#: inc/cloner/class-cloner.php:2045
 msgid "Your book URL must be at least %s character."
 msgid_plural "Your book URL must be at least %s characters."
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/cloner/class-cloner.php:2043
+#: inc/cloner/class-cloner.php:2047
 msgid "Sorry, you may not use that book URL."
 msgstr ""
 
-#: inc/cloner/class-cloner.php:2045
+#: inc/cloner/class-cloner.php:2049
 msgid "Sorry, that book URL already exists!"
 msgstr ""
 
@@ -2814,7 +2814,7 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: inc/interactive/class-h5p.php:174
+#: inc/interactive/class-h5p.php:180
 msgid "The original version of this chapter contained H5P content. You may want to remove or replace this element."
 msgstr ""
 

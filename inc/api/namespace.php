@@ -45,11 +45,10 @@ function init_book() {
 	// Register Theme Options
 	( new Endpoints\Controller\Theme() )->register_routes();
 
-	// Register Section Metadata
-	( new Endpoints\Controller\SectionMetadata( 'front-matter' ) )->register_routes();
-	( new Endpoints\Controller\SectionMetadata( 'back-matter' ) )->register_routes();
-	( new Endpoints\Controller\SectionMetadata( 'chapter' ) )->register_routes();
-	( new Endpoints\Controller\SectionMetadata( 'glossary' ) )->register_routes();
+	foreach ( [ 'front-matter', 'back-matter', 'chapter', 'glossary' ] as $post_type ) {
+		( new Endpoints\Controller\SectionMetadata( $post_type ) )->register_routes();
+		( new Endpoints\Controller\CustomType( $post_type ) )->register_routes();
+	}
 
 	foreach ( get_custom_post_types() as $post_type ) {
 		// Override Revisions routes for our custom post types
