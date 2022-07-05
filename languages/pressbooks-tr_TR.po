@@ -1,7 +1,7 @@
 # Copyright (C) 2022 Pressbooks (Book Oven Inc.)
 # This file is distributed under the GPL v3 or later.
 # Translators:
-# Zeki Tuman, 2022
+# Ali Fuat Demir <afuatdemir@gmail.com>, 2022
 # Antonio D., 2017
 # ayse tekbas <ayse.tekbas@gmail.com>, 2016
 # Mustafa Bulun <mustafa.bulun@bizimajans.com>, 2020-2021
@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
 "POT-Creation-Date: 2022-05-24T20:09:34+00:00\n"
 "PO-Revision-Date: 2013-12-21 21:04+0000\n"
-"Last-Translator: Zeki Tuman, 2022\n"
+"Last-Translator: Ali Fuat Demir <afuatdemir@gmail.com>, 2022\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/pressbooks/pressbooks/language/tr_TR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -368,14 +368,14 @@ msgstr "Diğer Servislerin URL'si"
 
 #: inc/admin/class-publishoptions.php:132
 msgid "Add BUY Links to Your Pressbooks Webbook"
-msgstr ""
+msgstr "Pressbooks Web Kitabınıza SATIN AL Bağlantıları Ekleyin"
 
 #: inc/admin/class-publishoptions.php:133
 msgid ""
 "Enter the URLs for locations where your book can be purchased below. <a "
 "href=\"https://guide.pressbooks.com/chapter/publish/\">Our guide</a> "
 "provides additional information about selling and distributing your book."
-msgstr ""
+msgstr "Kitabınızın satın alınabileceği konumların URL'lerini aşağıki alana girin. <a href=\"https://guide.pressbooks.com/chapter/publish/\">href=\"https://guide.pressbooks.com/chapter/publish/\"> Rehberimiz</a> kitabınızın satışı ve dağıtımı hakkında ek bilgiler sağlar."
 
 #: inc/admin/class-publishoptions.php:293 inc/admin/laf/namespace.php:378
 msgid "Publish"
@@ -619,15 +619,15 @@ msgstr "Resminiz yanlış en-boy oranına sahip. Resim en boy oranı %1$s -%2$s 
 
 #: inc/admin/dashboard/namespace.php:18
 msgid "Pressbooks announcements"
-msgstr ""
+msgstr "Pressbooks Duyuruları"
 
 #: inc/admin/dashboard/namespace.php:91
 msgid "Get started with Pressbooks"
-msgstr ""
+msgstr "Pressbook'u kullanmaya başlayın\n "
 
 #: inc/admin/dashboard/namespace.php:107
 msgid "Need help?"
-msgstr ""
+msgstr "Yardıma ihtiyacın var mı?"
 
 #: inc/admin/dashboard/namespace.php:134
 msgid "My Book"
@@ -639,7 +639,7 @@ msgstr "Kullanıcılar"
 
 #: inc/admin/dashboard/namespace.php:136 inc/admin/dashboard/namespace.php:183
 msgid "Need Help?"
-msgstr ""
+msgstr "Yardıma ihtiyacın var mı?"
 
 #: inc/admin/dashboard/namespace.php:177
 msgid "Book Permissions"
@@ -647,19 +647,19 @@ msgstr "Kitap İzinleri"
 
 #: inc/admin/dashboard/namespace.php:195
 msgid "Book Invitations"
-msgstr ""
+msgstr "Kitap Davetiyeleri"
 
 #: inc/admin/dashboard/namespace.php:219
 msgid "an"
-msgstr ""
+msgstr "bir"
 
 #: inc/admin/dashboard/namespace.php:219
 msgid "a"
-msgstr ""
+msgstr "bir"
 
 #: inc/admin/dashboard/namespace.php:223
 msgid "You have been invited to join %1s as %2$s %3$s"
-msgstr ""
+msgstr "%1s'e %2$s %3$s olarak davet edildiniz"
 
 #: inc/admin/dashboard/namespace.php:226
 msgid "Accept"
@@ -667,36 +667,36 @@ msgstr "Accept"
 
 #: inc/admin/dashboard/namespace.php:239
 msgid "Welcome to %s"
-msgstr ""
+msgstr "%s'e hoş geldiniz\n "
 
 #: inc/admin/dashboard/namespace.php:242
 msgid "You do not currently have access to any books on this network."
-msgstr ""
+msgstr "Şu anda bu ağdaki hiçbir kitaba erişiminiz yok."
 
 #: inc/admin/dashboard/namespace.php:248
 msgid ""
 "This network does not allow users to create new books. To create a new book,"
 " please contact a network manager"
-msgstr ""
+msgstr "Bu ağ, kullanıcıların yeni kitaplar oluşturmasına izin vermez. Yeni bir kitap oluşturmak için lütfen bir ağ yöneticisi ile iletişime geçin"
 
 #: inc/admin/dashboard/namespace.php:250 inc/admin/dashboard/namespace.php:263
 msgid "at "
-msgstr ""
+msgstr "de"
 
 #: inc/admin/dashboard/namespace.php:255
 msgid "Create a book"
-msgstr ""
+msgstr "Kitap oluştur"
 
 #: inc/admin/dashboard/namespace.php:257
 msgid "Clone a book"
-msgstr ""
+msgstr "Kitap klonla"
 
 #: inc/admin/dashboard/namespace.php:258
 msgid ""
 "Get started on your next publishing project by creating a new book or "
 "cloning an existing book. The %1$s includes thousands of openly licensed "
 "books available for cloning."
-msgstr ""
+msgstr "Yeni bir kitap oluşturarak veya mevcut bir kitabı klonlayarak bir sonraki yayın projenize başlayın. %1$s, klonlamaya uygun binlerce açık lisanslı kitabı içerir."
 
 #: inc/admin/dashboard/namespace.php:258 inc/admin/laf/namespace.php:1264
 #: templates/admin/cloner.php:14
@@ -707,7 +707,7 @@ msgstr "Pressbooks Dizini"
 msgid ""
 "You can also request access to an existing book by contacting your network "
 "manager"
-msgstr ""
+msgstr "Ayrıca ağ yöneticinizle iletişime geçerek mevcut bir kitaba erişim talebinde bulunabilirsiniz."
 
 #: inc/admin/dashboard/namespace.php:275 inc/class-activation.php:242
 #: inc/modules/themeoptions/class-pdfoptions.php:287 tests/test-cloner.php:63
@@ -744,47 +744,47 @@ msgstr "Organize et"
 #. translators: %s: URL to Pressbooks User Guide
 #: inc/admin/dashboard/namespace.php:381
 msgid "Consult the %s."
-msgstr ""
+msgstr "%s'ye danışın."
 
 #. translators: %s: URL to Pressbooks User Guide
 #: inc/admin/dashboard/namespace.php:381
 msgid "Pressbooks User Guide"
-msgstr ""
+msgstr "Pressbooks Kullanıcı Klavuzu"
 
 #. translators: %s: URL to Pressbooks YouTube channel
 #: inc/admin/dashboard/namespace.php:382
 msgid "Watch tutorials on the %s."
-msgstr ""
+msgstr "%s.'deki eğitimleri izleyin."
 
 #. translators: %s: URL to Pressbooks YouTube channel
 #: inc/admin/dashboard/namespace.php:382
 msgid "Pressbooks YouTube channel"
-msgstr ""
+msgstr "Pressbooks YouTube kanalı"
 
 #. translators: %s: URL to Pressbooks training webinars
 #: inc/admin/dashboard/namespace.php:383
 msgid "Attend a %s."
-msgstr ""
+msgstr "%s'ye katılın."
 
 #. translators: %s: URL to Pressbooks training webinars
 #: inc/admin/dashboard/namespace.php:383
 msgid "live training webinar"
-msgstr ""
+msgstr "canlı web semineri eğitimi"
 
 #. translators: %s: URL to Pressbooks community forum
 #: inc/admin/dashboard/namespace.php:384
 msgid "Participate in the %s."
-msgstr ""
+msgstr "%s'ye katılın."
 
 #. translators: %s: URL to Pressbooks community forum
 #: inc/admin/dashboard/namespace.php:384
 msgid "community forum"
-msgstr ""
+msgstr "topluluk formu"
 
 #. translators: %s: email address for network manager
 #: inc/admin/dashboard/namespace.php:386
 msgid "For additional support, contact your network manager at %s."
-msgstr ""
+msgstr "Daha fazla destek almak için%s adresinden ağ yöneticinizle iletişime geçin."
 
 #: inc/admin/dashboard/namespace.php:425
 msgid "%1$s total users: "
@@ -987,7 +987,7 @@ msgstr "Kitap bilgisi"
 
 #: inc/admin/laf/namespace.php:297
 msgid "Choose institution(s)... "
-msgstr ""
+msgstr "Kurum(lar) seçin..."
 
 #: inc/admin/laf/namespace.php:298
 msgid "Choose a subject…"
@@ -1248,15 +1248,15 @@ msgstr "Sonrakini Düzenle (%s)"
 
 #: inc/admin/laf/namespace.php:1609
 msgid "Twitter URL"
-msgstr ""
+msgstr "Twitter URL"
 
 #: inc/admin/laf/namespace.php:1610
 msgid "LinkedIn URL"
-msgstr ""
+msgstr "LinkedIn URL"
 
 #: inc/admin/laf/namespace.php:1611
 msgid "GitHub URL"
-msgstr ""
+msgstr "GitHub URL"
 
 #: inc/admin/laf/namespace.php:1657
 msgid ""
@@ -1268,13 +1268,13 @@ msgstr "Kurumsal ilişkiniz, örn. Rebus Foundation, Open University, Uluslarara
 msgid ""
 "Your cover image was not saved because it is too small (%1$s x %2$s). It "
 "should be at least 800px in height."
-msgstr ""
+msgstr "Kapak resminiz çok küçük olduğu için kaydedilmedi (%1$s x%2$s). En az 800 piksel yüksekliğinde olmalıdır."
 
 #: inc/admin/metaboxes/namespace.php:110
 msgid ""
 "Your cover image was not saved because the aspect ratio (%s) is outside the "
 "permitted range (.66 to 1). We recommend an aspect ratio of .75."
-msgstr ""
+msgstr "En boy oranı (%s) izin verilen aralığın (.66 - 1) dışında olduğu için kapak resminiz kaydedilmedi. 0,75 en boy oranı öneririz."
 
 #: inc/admin/metaboxes/namespace.php:135 inc/admin/metaboxes/namespace.php:190
 #: inc/class-metadata.php:437
@@ -1532,7 +1532,7 @@ msgstr "Konu / Konular"
 #: inc/admin/metaboxes/namespace.php:503
 #: templates/admin/institutions.blade.php:2
 msgid "Institutions"
-msgstr ""
+msgstr "Kuruluşlar"
 
 #: inc/admin/metaboxes/namespace.php:508
 msgid "Additional Catalog Information"
@@ -1634,11 +1634,11 @@ msgstr "BISAC konusu (ları)"
 msgid ""
 "BISAC Subject Headings help libraries and bookstores properly classify your "
 "book. To select the appropriate subject heading for your book, consult %s."
-msgstr ""
+msgstr "BISAC Konu Başlıkları, kitaplıkların ve kütüphanecilerin kitabınızı doğru şekilde tasnif etmesine yardımcı olur. Kitabınız için uygun konu başlığını seçmek için%s'e danışın."
 
 #: inc/admin/metaboxes/namespace.php:625
 msgid "the BISAC Subject Headings list"
-msgstr ""
+msgstr "BISAC Konu Başlıkları listesi"
 
 #: inc/admin/metaboxes/namespace.php:639
 msgid "BISAC Regional Theme"
@@ -1648,7 +1648,7 @@ msgstr "BISAC Bölgesel Tema"
 msgid ""
 "BISAC Regional Themes help libraries and bookstores properly classify your "
 "book."
-msgstr ""
+msgstr "BISAC Bölgesel Temaları, kitaplıkların ve kütüphanecilerin kitabınızı doğru şekilde sınıflandırmasına yardımcı olur."
 
 #: inc/admin/metaboxes/namespace.php:650
 #: inc/api/endpoints/controller/class-toc.php:209 inc/class-sass.php:78
@@ -1750,7 +1750,7 @@ msgid ""
 "categorize your book in your network catalog and Pressbooks Directory (if "
 "applicable). Use %2$s to determine which subject category is best for your "
 "book."
-msgstr ""
+msgstr "%1$s konu terimleri kitabınızın web ana sayfasında görünür ve kitabınızı ağ kataloğunuzda ve Pressbooks Dizininde (varsa) kategorilere ayırmanıza yardımcı olur. Kitabınız için hangi konu kategorisinin en iyi olduğunu belirlemek için %2$s kullanın."
 
 #: inc/admin/metaboxes/namespace.php:1129
 #: inc/admin/metaboxes/namespace.php:1142
@@ -1760,7 +1760,7 @@ msgstr "Tema"
 #: inc/admin/metaboxes/namespace.php:1129
 #: inc/admin/metaboxes/namespace.php:1142
 msgid "the Thema subject category list"
-msgstr ""
+msgstr "Tema konu kategori listesi"
 
 #: inc/admin/metaboxes/namespace.php:1132
 msgid "Additional Subject(s)"
@@ -1772,18 +1772,18 @@ msgid ""
 "categorize your book in your network catalog and Pressbooks Directory (if "
 "applicable). Use %2$s to determine which additional subject categories are "
 "appropriate for your book."
-msgstr ""
+msgstr "%1$s konu terimleri kitabınızın web ana sayfasında görünür ve kitabınızı ağ kataloğunuzda ve Pressbooks Dizininde (varsa) kategorilere ayırmanıza yardımcı olur. Kitabınız için hangi ek konu kategorilerinin uygun olduğunu belirlemek için%2$s kullanın."
 
 #: inc/admin/metaboxes/namespace.php:1316
 #: inc/admin/metaboxes/namespace.php:1372
 msgid ""
 "Images should be square (400px x 400px). You will be allowed to crop images "
 "after upload."
-msgstr ""
+msgstr "Görüntüler kare olmalıdır (400px x 400px). Yüklemeden sonra görüntüleri kırpmanıza izin verilir."
 
 #: inc/admin/metaboxes/namespace.php:1481
 msgid "Name"
-msgstr ""
+msgstr "İsim"
 
 #: inc/admin/metaboxes/namespace.php:1510
 msgid "Name cannot be left blank."
@@ -1796,11 +1796,11 @@ msgstr "Sahibi"
 #: inc/admin/network/class-networksettings.php:59
 #: tests/test-networksettings.php:30
 msgid "Theme Settings"
-msgstr ""
+msgstr "Tema Ayarları"
 
 #: inc/admin/network/class-networksettings.php:61
 msgid "Default Theme"
-msgstr ""
+msgstr "Geçerli Tema"
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:81
 msgid "Allow Redistribution"
@@ -1844,14 +1844,14 @@ msgstr "Kataloglanmamış halka açık kitapları Pressbooks Dizininden hariç t
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:141
 msgid "Iframe Allowlist"
-msgstr ""
+msgstr "Iframe İzin Verilenler Listesi"
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:146
 msgid ""
 "To allowlist all content from a domain: <code>guide.pressbooks.com</code> To"
 " allowlist a path: <code>//guide.pressbooks.com/some/path/</code> One per "
 "line."
-msgstr ""
+msgstr "Bir etki alanındaki tüm içeriği izin vermek için<code>guide.pressbooks.com</code> yolun izin vermesini sağlamak için:<code> //guide.pressbooks.com/some/path/</code> satır başına bir adet."
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:162
 msgid "Sharing and Privacy settings."
@@ -2056,7 +2056,7 @@ msgstr "Önek"
 msgid ""
 "Prefix to be displayed before this contributor's name, e.g. Dr., Prof., Ms.,"
 " Rev., Capt."
-msgstr ""
+msgstr "Ön ek, katkıda bulunanın adından önce görüntülenir, örn. DR., Prof., Bayan, Göz., Çev."
 
 #: inc/class-contributors.php:443
 msgid "First Name"
@@ -2068,13 +2068,13 @@ msgstr "Soyad"
 
 #: inc/class-contributors.php:455
 msgid "Suffix"
-msgstr ""
+msgstr "Sonek"
 
 #: inc/class-contributors.php:458
 msgid ""
 "Suffix to be displayed after this contributors's name, e.g. Jr., Sr., IV, "
 "PhD, MD, USN (Ret.)."
-msgstr ""
+msgstr "Bu katılımcının adından sonra görüntülenecek sonek, örn.  IV, Dr, Doç, Gen (Emk.)"
 
 #: inc/class-contributors.php:462
 msgid "Picture"
@@ -2086,47 +2086,47 @@ msgstr "Biyografik Bilgiler"
 
 #: inc/class-contributors.php:473
 msgid "Institution"
-msgstr ""
+msgstr "Kuruluş"
 
 #: inc/class-contributors.php:476
 msgid ""
 "Institution this contributor is associated with, e.g. Rebus Foundation, Open"
 " University, Amnesty International."
-msgstr ""
+msgstr "Katkıda bulunanan'ın ilişkili olduğu kuruluş, ör. Rebus Vakfı, Açık Üniversite, Uluslararası Af Örgütü."
 
 #: inc/class-contributors.php:483
 msgid "Website for this contributor. Must be a valid URL."
-msgstr ""
+msgstr "Katkıda bulunanın web sitesi. Geçerli bir URL olmalıdır."
 
 #: inc/class-contributors.php:487
 msgid "Twitter"
-msgstr ""
+msgstr "Twitter"
 
 #: inc/class-contributors.php:490
 msgid "Twitter profile for this contributor. Must be a valid URL."
-msgstr ""
+msgstr "Katkıda bulananın Twitter profili. Geçerli bir URL olmalıdır."
 
 #: inc/class-contributors.php:494
 msgid "LinkedIn"
-msgstr ""
+msgstr "LinkedIn"
 
 #: inc/class-contributors.php:497
 msgid "LinkedIn profile for this contributor. Must be a valid URL."
-msgstr ""
+msgstr "Katkıda bulunanın Linkedin profili. Geçerli bir URL olmalıdır."
 
 #: inc/class-contributors.php:501
 msgid "GitHub"
-msgstr ""
+msgstr "GitHub"
 
 #: inc/class-contributors.php:504
 msgid "GitHub profile for this contributor. Must be a valid URL."
-msgstr ""
+msgstr "Katkıda bulunanın GitHub profili. Geçerli bir URL olmalıdır."
 
 #: inc/class-contributors.php:575
 msgid ""
 "<p>Import multiple contributors at once by uploading a valid JSON file. See "
 "<a href=\"%s\" target=\"_blank\">our guide</a> for details.</p>"
-msgstr ""
+msgstr "<p>Geçerli bir JSON dosyası yükleyerek birden fazla katkıda bulananları aynı anda içe aktarın  Ayrıntılar için<a href=\"%s\" target=\"_blank\">kılavuzumuza</a> bakın.</p>"
 
 #: inc/class-contributors.php:578
 msgid "Import Contributors"
@@ -2197,13 +2197,13 @@ msgid ""
 " The source book's theme, '%1$s (%2$s)', was not available on this network "
 "and could not be applied. Contact your network manager with questions about "
 "theme availability."
-msgstr ""
+msgstr "Kaynak kitabın teması olan %1$s(%2$s) bu ağda mevcut değildi ve uygulanamadı. Tema kullanılabilirliği ile ilgili sorularınız için ağ yöneticinize başvurun."
 
 #: inc/class-eventstreams.php:220
 msgid ""
 "The source book's theme, theme settings, and custom styles were successfully"
 " applied."
-msgstr ""
+msgstr "Kaynak kitabın teması, tema ayarları ve özel stiller başarıyla uygulandı."
 
 #: inc/class-eventstreams.php:242
 msgid "No export format was selected."
@@ -2247,7 +2247,7 @@ msgstr "Kanada Yerli Hece Yazısı"
 
 #: inc/class-globaltypography.php:47
 msgid "Cherokee"
-msgstr ""
+msgstr "Çeroki dili"
 
 #: inc/class-globaltypography.php:48
 msgid "Chinese (Simplified)"
@@ -2335,55 +2335,55 @@ msgstr "CC0 (Creative Commons Zero)"
 
 #: inc/class-licensing.php:77
 msgid "CC BY (Attribution)"
-msgstr "CC BY (Attribution)"
+msgstr "CC BY (Atıf)"
 
 #: inc/class-licensing.php:78
 msgid "Creative Commons Attribution 4.0 International License"
-msgstr "Creative Commons Attribution 4.0 International License"
+msgstr "Creative Commons Atıf 4.0 Uluslararası Lisans"
 
 #: inc/class-licensing.php:88
 msgid "CC BY-SA (Attribution ShareAlike)"
-msgstr "CC BY-SA (Attribution ShareAlike)"
+msgstr "CC BY-SA (Aynı Şekilde Paylaş)"
 
 #: inc/class-licensing.php:89
 msgid "Creative Commons Attribution-ShareAlike 4.0 International License"
-msgstr "Creative Commons Attribution-ShareAlike 4.0 International License"
+msgstr "Creative Commons Aynı Şekilde Paylaş 4.0 Uluslararası Lisans"
 
 #: inc/class-licensing.php:99
 msgid "CC BY-ND (Attribution NoDerivatives)"
-msgstr "CC BY-ND (Attribution NoDerivatives)"
+msgstr "CC BY-ND  (Atıf Türetilemez)"
 
 #: inc/class-licensing.php:100
 msgid "Creative Commons Attribution-NoDerivatives 4.0 International License"
-msgstr "Creative Commons Attribution-NoDerivatives 4.0 International License"
+msgstr "Creative Commons Atıf-Türetilemez 4.0 Uluslararası Lisans"
 
 #: inc/class-licensing.php:110
 msgid "CC BY-NC (Attribution NonCommercial)"
-msgstr "CC BY-NC (Attribution NonCommercial)"
+msgstr "CC BY-NC (Atıf Gayri Ticari )"
 
 #: inc/class-licensing.php:111
 msgid "Creative Commons Attribution-NonCommercial 4.0 International License"
-msgstr "Creative Commons Attribution-NonCommercial 4.0 International License"
+msgstr "Creative Commons Atıf-Gayri Ticari 4.0 Uluslararası Lisansı"
 
 #: inc/class-licensing.php:121
 msgid "CC BY-NC-SA (Attribution NonCommercial ShareAlike)"
-msgstr "CC BY-NC-SA (Attribution NonCommercial ShareAlike)"
+msgstr "CC BY-NC-SA (Atıf Gayri Ticari Aynı Şekilde Paylaş)"
 
 #: inc/class-licensing.php:122
 msgid ""
 "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International "
 "License"
-msgstr "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License"
+msgstr "Creative Commons Atıf-Gayri Ticari-Aynı Şekilde Paylaş 4.0 Uluslararası Lisansı"
 
 #: inc/class-licensing.php:132
 msgid "CC BY-NC-ND (Attribution NonCommercial NoDerivatives)"
-msgstr "CC BY-NC-ND (Attribution NonCommercial NoDerivatives)"
+msgstr "CCBY-NC-ND (Atıf-Gayri Ticari-Türetilemez)"
 
 #: inc/class-licensing.php:133
 msgid ""
 "Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International "
 "License"
-msgstr "Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License"
+msgstr "Creative Commons Atıf-Gayri Ticari-Türetilemez 4.0 Uluslararası Lisansı"
 
 #: inc/class-licensing.php:139 inc/class-licensing.php:326
 msgid "All Rights Reserved"
@@ -2488,7 +2488,7 @@ msgstr "Spectral"
 
 #: inc/class-styles.php:680
 msgid "Alegreya Sans"
-msgstr ""
+msgstr "Alegreya Sans"
 
 #: inc/class-styles.php:681
 msgid "Barlow"
@@ -2926,7 +2926,7 @@ msgstr "Ek bilgi girmeniz gerekirse, mevcut tüm alanları görmek için aşağ�
 msgid ""
 "The %1$s Thema subject terms requested for this book could not be downloaded"
 " from %2$s. Please report this error to your network manager."
-msgstr ""
+msgstr "Bu kitap için istenen %1$s Tema konu terimleri %2$ss'den indirilemedi. Lütfen bu hatayı ağ yöneticinize bildirin."
 
 #: inc/modules/export/class-export.php:740
 msgid "%s: Initializing"
@@ -3177,19 +3177,19 @@ msgstr "EPUB3"
 
 #: inc/modules/export/namespace.php:203 inc/modules/export/namespace.php:239
 msgid "Common Cartridge (Web Links)"
-msgstr "Ortak Kartuş (Web Bağlantısı)"
+msgstr " Common Cartridge (Web Bağlantısı)"
 
 #: inc/modules/export/namespace.php:204
 msgid "Common Cartridge with LTI links (1.1)"
-msgstr ""
+msgstr "Common Cartridge  LTI link ile (1.1)"
 
 #: inc/modules/export/namespace.php:205
 msgid "Common Cartridge with LTI links (1.2)"
-msgstr ""
+msgstr "Common Cartridge LTI linki ile (1.2)"
 
 #: inc/modules/export/namespace.php:206
 msgid "Common Cartridge with LTI links (1.3)"
-msgstr ""
+msgstr "Common Cartridge LTI linki ile (1.3)"
 
 #: inc/modules/export/namespace.php:275
 msgid "The file %1$s has been %2$s successfully."
@@ -3339,7 +3339,7 @@ msgstr "Görünüm"
 
 #: inc/modules/searchandreplace/types/class-content.php:62
 msgid "edit"
-msgstr "editlemek"
+msgstr "düzenle"
 
 #: inc/modules/searchandreplace/types/class-content.php:72
 msgid "%1$s ID #%2$d: %3$s"
@@ -3503,7 +3503,7 @@ msgstr "Örnekler"
 #: inc/modules/themeoptions/class-globaloptions.php:186
 #: languages/tinymce.php:18
 msgid "Exercises"
-msgstr "Egzersizler"
+msgstr "Alıştırmalar"
 
 #: inc/modules/themeoptions/class-globaloptions.php:187
 #: languages/tinymce.php:15
@@ -3557,7 +3557,7 @@ msgstr "Bu tema %s ler için yerleşik destek içerir."
 
 #: inc/modules/themeoptions/class-globaloptions.php:545
 msgid "Global Options"
-msgstr "Küresel seçenekler"
+msgstr "Genel seçenekler"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:105
 msgid "Body Font Size"
@@ -3625,7 +3625,7 @@ msgstr "Sayfa Genişliği"
 msgid ""
 "Page width must be expressed in CSS-compatible units, e.g. "
 "&lsquo;5.5in&rsquo; or &lsquo;10cm&rsquo;."
-msgstr "Sayfa genişliği, CSS uyumlu birimlerle ifade edilmelidir (5.5in veya 10cm gibi)"
+msgstr "Sayfa genişliği, CSS uyumlu birimlerle ifade edilmelidir. ör. 5.5in veya 10cm,"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:178
 msgid "Page Height"
@@ -3635,7 +3635,7 @@ msgstr "Sayfa Yüksekliği"
 msgid ""
 "Page height must be expressed in CSS-compatible units, e.g. "
 "&lsquo;8.5in&rsquo; or &lsquo;10cm&rsquo;."
-msgstr "Sayfa yüksekliği, CSS uyumlu birimlerle ifade edilmelidir (8.5in veya 10cm gibi)"
+msgstr "Sayfa yüksekliği, CSS uyumlu birimlerle ifade edilmelidir; ör. 8.5in veya 10cm,"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:191
 msgid "Margins"
@@ -3925,7 +3925,7 @@ msgstr "PDF seçenekleri"
 
 #: inc/modules/themeoptions/class-weboptions.php:103
 msgid "Enable Social Media"
-msgstr "Sosyal medyaya olanak ver"
+msgstr "Sosyal medyayı etkinleştir"
 
 #: inc/modules/themeoptions/class-weboptions.php:108
 msgid ""
@@ -4006,7 +4006,7 @@ msgstr "Bağlantılar, kalın metin ve italik metin sözlük terimlerinde destek
 #: inc/posttype/namespace.php:248
 msgid ""
 "To display a list of contributors, leave this back matter's content blank."
-msgstr ""
+msgstr "Katkıda bulunanların listesini görüntülemek için bu arka bölümün içeriğini boş bırakın."
 
 #: inc/posttype/namespace.php:287
 msgid "Unlisted"
@@ -4257,7 +4257,7 @@ msgstr "Şifre en az bir rakam içermek zorundadır."
 
 #: inc/shortcodes/attributions/class-attachments.php:200
 msgid " &copy; "
-msgstr " &copy; "
+msgstr " &Kopyala; "
 
 #: inc/shortcodes/attributions/class-attachments.php:201
 msgid " adapted by "
@@ -4321,23 +4321,23 @@ msgstr "Luther, Pressbooks’un varsayılan kitap teması olarak McLuhan ile de�
 
 #: inc/utility/class-handlestransfers.php:41
 msgid "Download JSON"
-msgstr ""
+msgstr "JSON İndir"
 
 #: inc/utility/class-handlestransfers.php:119
 msgid "Successfully imported."
-msgstr ""
+msgstr "Başarıyla içe aktarıldı."
 
 #: inc/utility/class-handlestransfers.php:244
 msgid ""
 "One or more contributors could not be imported because they were missing a "
 "name or slug."
-msgstr ""
+msgstr "Bir veya daha fazla katkıda bulunanlar, bir ad veya bilgi eksik olduğundan içe aktarılamadı."
 
 #: inc/utility/class-handlestransfers.php:311
 msgid ""
 "Values for one or more of the imported contributors were altered by our "
 "validation routine. "
-msgstr ""
+msgstr "İçe aktarılan katkıda bulunanların bir veya daha fazlasının değerleri, doğrulama rutinimiz tarafından değiştirildi."
 
 #: inc/utility/class-percentageyield.php:90
 msgid " (%1$d of %2$d)"
@@ -4481,17 +4481,17 @@ msgid ""
 "the thousands of books in the %2$s for material you would like to clone. "
 "Once a book is cloned into your network, you can edit content, add new "
 "media, and enhance with H5P interactive activities."
-msgstr ""
+msgstr "Bu araç, bir Pressbooks ağından diğerine %1$s almanıza olanak tanır. %2$s içindeki binlerce kitabı klonlamak istediğiniz materyal için arayın. Bir kitap ağınıza kopyalandıktan sonra içeriği düzenleyebilir, yeni ortam ekleyebilir ve H5P etkileşimli etkinlik ile geliştirebilirsiniz."
 
 #: templates/admin/cloner.php:14
 msgid "clone openly licensed books"
-msgstr ""
+msgstr "açık lisanslı kitapları klonla"
 
 #: templates/admin/cloner.php:22
 msgid ""
 "Enter the URL to a Pressbooks book with an open license which permits "
 "cloning."
-msgstr ""
+msgstr "Klonlamala izin veren bir açık lisansa sahip bir Pressbooks kitabının URL'sini girin."
 
 #: templates/admin/cloner.php:26
 msgid "Target Book URL"
@@ -4499,7 +4499,7 @@ msgstr "Hedef Kitap URL'si"
 
 #: templates/admin/cloner.php:34
 msgid "Enter an available URL where you want this book to be cloned."
-msgstr ""
+msgstr "Bu kitabın klonlanağacı  kullanılabilir bir URL girin."
 
 #: templates/admin/cloner.php:38
 msgid "Target Book Title"
@@ -4677,7 +4677,7 @@ msgid ""
 "Anyone with the link can see your book. Public books are eligible to be "
 "listed in <a href=\"%s\">Pressbooks Directory</a>. Individual chapters can "
 "be set to private."
-msgstr ""
+msgstr "Bağlantıya sahip herkes kitabınızı görebilir. Genel kitaplar <a href=\"%s\">Pressbooks Dizini</a>inde listelenebilir. Ayrı bölümler özel olarak ayarlanabilir."
 
 #: templates/admin/organize.php:56
 msgid ""
@@ -4973,7 +4973,7 @@ msgid ""
 "This optional field can be used to display the institution(s) which created "
 "this resource. If your college or university is not listed, please contact "
 "your network manager."
-msgstr ""
+msgstr "Bu isteğe bağlı alan, bu kaynağı oluşturan kurum(lar)ı görüntülemek için kullanılabilir. Kolej veya üniversiteniz listede yoksa, lütfen ağ yöneticinizle iletişime geçin."
 
 #: templates/admin/mathjax.blade.php:5
 msgid ""
@@ -5055,4 +5055,4 @@ msgstr "Etkileşimli bir H5P öğesi, metnin bu sürümünde yer almadı. Burada
 msgid ""
 "One or more interactive elements has been excluded from this version of the "
 "text. You can view them online here: "
-msgstr ""
+msgstr "Bir veya daha fazla etkileşimli öğe, metnin bu sürümünde yer almadı. Bunları çevrimiçi olarak burada görüntüleyebilirsiniz:"
