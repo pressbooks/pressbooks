@@ -997,8 +997,8 @@ class Cloner {
 	 * @return bool Whether or not the book is public and licensed for cloning (or true if the current user is a network administrator and the book is in the current network).
 	 */
 	public function isSourceCloneable( $metadata_license ): bool {
-		if ( has_filter( 'pb_set_source_clonable' ) ) {
-			return apply_filters( 'pb_set_source_clonable', [] );
+		if ( has_filter( 'pb_set_source_clonable' ) && apply_filters( 'pb_set_source_clonable', [] ) ) {
+			return true;
 		}
 
 		$restrictive_licenses = [
