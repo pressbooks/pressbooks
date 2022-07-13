@@ -23,7 +23,7 @@ class CustomType extends \WP_REST_Posts_Controller {
 		$schema['properties']['content'] = [
 			'description' => __( 'The content for the post.' ),
 			'type'        => 'object',
-			'context'     => [ 'view', 'edit' ],
+			'context'     => [ 'view', 'edit', 'embed' ],
 			'arg_options' => [
 				'sanitize_callback' => null, // Note: sanitization implemented in self::prepare_item_for_database().
 				'validate_callback' => null, // Note: validation implemented in self::prepare_item_for_database().
@@ -32,24 +32,15 @@ class CustomType extends \WP_REST_Posts_Controller {
 				'raw'           => [
 					'description' => __( 'Content for the post, as it exists in the database.' ),
 					'type'        => 'string',
-					'context'     => [ 'edit', 'view' ],
 				],
 				'rendered'      => [
 					'description' => __( 'HTML content for the post, transformed for display.' ),
 					'type'        => 'string',
-					'context'     => [ 'view', 'edit' ],
-					'readonly'    => true,
-				],
-				'block_version' => [
-					'description' => __( 'Version of the content block format used by the post.' ),
-					'type'        => 'integer',
-					'context'     => [ 'edit', 'view' ],
 					'readonly'    => true,
 				],
 				'protected'     => [
 					'description' => __( 'Whether the content is protected with a password.' ),
 					'type'        => 'boolean',
-					'context'     => [ 'view', 'edit', 'embed' ],
 					'readonly'    => true,
 				],
 			],
@@ -66,16 +57,15 @@ class CustomType extends \WP_REST_Posts_Controller {
 				'raw'      => [
 					'description' => __( 'Title for the post, as it exists in the database.' ),
 					'type'        => 'string',
-					'context'     => [ 'edit', 'view' ],
 				],
 				'rendered' => [
 					'description' => __( 'HTML title for the post, transformed for display.' ),
 					'type'        => 'string',
-					'context'     => [ 'view', 'edit', 'embed' ],
 					'readonly'    => true,
 				],
 			],
 		];
+		$schema['properties']['meta'] = $this->meta->get_field_schema();
 		return $schema;
 	}
 
@@ -85,7 +75,7 @@ class CustomType extends \WP_REST_Posts_Controller {
 	 * @return bool True if the request has read access, WP_Error object otherwise.
 	 */
 	public function get_items_permissions_check( $request ): bool {
-		if ( has_filter( 'pb_set_api_items_permission' ) && apply_filters( 'pb_set_api_items_permission', $this->rest_base ) ) {
+		if ( has_filter( 'pb_set_api_items_permission' ) && apply_filters( 'pb_set_api_items_permission', false ) ) {
 			return true;
 		}
 		return current_user_can( 'edit_posts' ) || get_option( 'blog_public' );
@@ -102,7 +92,13 @@ class CustomType extends \WP_REST_Posts_Controller {
 	 * @return bool Whether the post can be read.
 	 */
 	public function check_read_permission( $post ): bool {
-		if ( $this->post_type === 'glossary' ) {
+		if (
+			$this->post_type === 'glossary' ||
+			(
+				has_filter( 'pb_set_api_items_permission' ) &&
+				apply_filters( 'pb_set_api_items_permission', false )
+			)
+		) {
 			// display glossary with any status
 			return true;
 		}
