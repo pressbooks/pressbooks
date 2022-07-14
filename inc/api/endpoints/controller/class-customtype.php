@@ -71,6 +71,12 @@ class CustomType extends \WP_REST_Posts_Controller {
 			'context' => [ 'view', 'edit', 'embed' ],
 		];
 		$schema['properties']['meta'] = $this->meta->get_field_schema();
+
+		$type = $this->post_type === 'chapters' ? 'chapter' : $this->post_type;
+		$schema['properties']["{$type}-type"] = [
+			'description' => __( 'The type of ' . $type . '.' ),
+			'context' => [ 'view', 'edit', 'embed' ],
+		];
 		return $schema;
 	}
 

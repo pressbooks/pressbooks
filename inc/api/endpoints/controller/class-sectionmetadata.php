@@ -466,7 +466,7 @@ class SectionMetadata extends \WP_REST_Controller {
 	 * @return bool True if the request has read access, WP_Error object otherwise.
 	 */
 	public function get_item_permissions_check( $request ) {
-		if ( has_filter( 'pb_set_api_items_permission' ) && apply_filters( 'pb_set_api_items_permission', $this->rest_base ) ) {
+		if ( has_filter( 'pb_set_api_items_permission' ) && apply_filters( 'pb_set_api_items_permission', false ) ) {
 			return true;
 		}
 		return current_user_can( 'edit_posts' ) || get_option( 'blog_public' );
@@ -478,13 +478,20 @@ class SectionMetadata extends \WP_REST_Controller {
 	 * @return \WP_Error|\WP_REST_Response Response object on success, or WP_Error object on failure.
 	 */
 	public function get_item( $request ) {
+		$post_status = [ 'web-only', 'publish' ];
+
+		if ( has_filter( 'pb_set_api_items_permission' ) && apply_filters( 'pb_set_api_items_permission', false ) ) {
+			$post_status = array_merge( [ 'private', 'draft' ], $post_status );
+		}
+
 		$posts = get_posts(
 			[
 				'p' => $request['parent'],
 				'post_type' => $this->post_type,
-				'post_status' => [ 'web-only', 'publish' ],
+				'post_status' => $post_status,
 			]
 		);
+
 		$error = new \WP_Error(
 			'rest_post_invalid_id', __( 'Invalid post ID.' ), [
 				'status' => 404,
