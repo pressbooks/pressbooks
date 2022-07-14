@@ -261,7 +261,11 @@ class Toc extends \WP_REST_Controller {
 
 		$struct = Book::getBookStructure();
 		unset( $struct['__order'] );
-		$struct = $this->fixBookStructure( $struct, current_user_can( 'edit_posts' ) );
+		$has_permission = current_user_can( 'edit_posts' );
+		if ( has_filter( 'pb_set_api_items_permission' ) && apply_filters( 'pb_set_api_items_permission', false ) ) {
+			$has_permission = true;
+		}
+		$struct = $this->fixBookStructure( $struct, $has_permission );
 
 		$response = rest_ensure_response( $struct );
 		$this->linkCollector['self'] = [
@@ -366,7 +370,7 @@ class Toc extends \WP_REST_Controller {
 
 		$part_base = 'parts';
 		$part_rest_url = rest_url( sprintf( '%s/%s', $this->namespace, $part_base ) );
-		$chapter_base = 'chapters';
+		$chapter_base = 'chapter';
 		$chapter_rest_url = rest_url( sprintf( '%s/%s', $this->namespace, $chapter_base ) );
 
 		$part = [];

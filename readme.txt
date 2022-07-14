@@ -18,9 +18,9 @@ For installation instructions, visit [https://pressbooks.org/user-docs/installat
 
 == Changelog ==
 
-= 5.36.0 =
+= 5.36.1 =
 
-* See: https://github.com/pressbooks/pressbooks/releases/tag/5.36.0
+* See: https://github.com/pressbooks/pressbooks/releases/tag/5.36.1
 * Full release history available at: https://github.com/pressbooks/pressbooks/releases
 
 == Upgrade Notice ==
