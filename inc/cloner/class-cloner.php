@@ -1552,7 +1552,7 @@ class Cloner {
 
 		// Private and public glossaries can be cloned
 		if ( $post_type !== 'glossary' ) {
-			$section['status'] = 'publish';
+			$section['status'] = $section['status'] ?? 'publish';
 		}
 
 		// Download media (images, videos, `select * from wp_posts where post_type = 'attachment'` ... )
@@ -1561,7 +1561,7 @@ class Cloner {
 		$content = $this->retrieveH5P( $content );
 
 		// Set title and content
-		$section['title'] = $section['title']['rendered'];
+		$section['title'] = $section['title']['raw'] ?? $section['title']['rendered'];
 		$section['content'] = $content;
 
 		// Set part

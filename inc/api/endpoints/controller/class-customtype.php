@@ -65,6 +65,11 @@ class CustomType extends \WP_REST_Posts_Controller {
 				],
 			],
 		];
+		$schema['properties']['status'] = [
+			'description' => __( 'The status for the post.' ),
+			'type'        => 'string',
+			'context' => [ 'view', 'edit', 'embed' ],
+		];
 		$schema['properties']['meta'] = $this->meta->get_field_schema();
 		return $schema;
 	}
