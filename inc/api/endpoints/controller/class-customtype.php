@@ -21,7 +21,7 @@ class CustomType extends \WP_REST_Posts_Controller {
 	public function get_item_schema(): array {
 		$schema = parent::get_item_schema();
 		$schema['properties']['content'] = [
-			'description' => __( 'The content for the post.' ),
+			'description' => __( 'The content for the post.', 'pressbooks' ),
 			'type'        => 'object',
 			'context'     => [ 'view', 'edit', 'embed' ],
 			'arg_options' => [
@@ -30,23 +30,23 @@ class CustomType extends \WP_REST_Posts_Controller {
 			],
 			'properties'  => [
 				'raw'           => [
-					'description' => __( 'Content for the post, as it exists in the database.' ),
+					'description' => __( 'Content for the post, as it exists in the database.', 'pressbooks' ),
 					'type'        => 'string',
 				],
 				'rendered'      => [
-					'description' => __( 'HTML content for the post, transformed for display.' ),
+					'description' => __( 'HTML content for the post, transformed for display.', 'pressbooks' ),
 					'type'        => 'string',
 					'readonly'    => true,
 				],
 				'protected'     => [
-					'description' => __( 'Whether the content is protected with a password.' ),
+					'description' => __( 'Whether the content is protected with a password.', 'pressbooks' ),
 					'type'        => 'boolean',
 					'readonly'    => true,
 				],
 			],
 		];
 		$schema['properties']['title'] = [
-			'description' => __( 'The title for the post.' ),
+			'description' => __( 'The title for the post.', 'pressbooks' ),
 			'type'        => 'object',
 			'context'     => [ 'view', 'edit', 'embed' ],
 			'arg_options' => [
@@ -55,22 +55,28 @@ class CustomType extends \WP_REST_Posts_Controller {
 			],
 			'properties'  => [
 				'raw'      => [
-					'description' => __( 'Title for the post, as it exists in the database.' ),
+					'description' => __( 'Title for the post, as it exists in the database.', 'pressbooks' ),
 					'type'        => 'string',
 				],
 				'rendered' => [
-					'description' => __( 'HTML title for the post, transformed for display.' ),
+					'description' => __( 'HTML title for the post, transformed for display.', 'pressbooks' ),
 					'type'        => 'string',
 					'readonly'    => true,
 				],
 			],
 		];
 		$schema['properties']['status'] = [
-			'description' => __( 'The status for the post.' ),
+			'description' => __( 'The status for the post.', 'pressbooks' ),
 			'type'        => 'string',
 			'context' => [ 'view', 'edit', 'embed' ],
 		];
 		$schema['properties']['meta'] = $this->meta->get_field_schema();
+
+		$type = $this->post_type === 'chapters' ? 'chapter' : $this->post_type;
+		$schema['properties'][ "{$type}-type" ] = [
+			'description' => sprintf( __( 'The type of %s.', 'pressbooks' ), $type ),
+			'context' => [ 'view', 'edit', 'embed' ],
+		];
 		return $schema;
 	}
 
