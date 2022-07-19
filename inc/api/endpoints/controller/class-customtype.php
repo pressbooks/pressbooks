@@ -21,41 +21,32 @@ class CustomType extends \WP_REST_Posts_Controller {
 	public function get_item_schema(): array {
 		$schema = parent::get_item_schema();
 		$schema['properties']['content'] = [
-			'description' => __( 'The content for the post.' ),
+			'description' => __( 'The content for the post.', 'pressbooks' ),
 			'type'        => 'object',
-			'context'     => [ 'view', 'edit' ],
+			'context'     => [ 'view', 'edit', 'embed' ],
 			'arg_options' => [
 				'sanitize_callback' => null, // Note: sanitization implemented in self::prepare_item_for_database().
 				'validate_callback' => null, // Note: validation implemented in self::prepare_item_for_database().
 			],
 			'properties'  => [
 				'raw'           => [
-					'description' => __( 'Content for the post, as it exists in the database.' ),
+					'description' => __( 'Content for the post, as it exists in the database.', 'pressbooks' ),
 					'type'        => 'string',
-					'context'     => [ 'edit', 'view' ],
 				],
 				'rendered'      => [
-					'description' => __( 'HTML content for the post, transformed for display.' ),
+					'description' => __( 'HTML content for the post, transformed for display.', 'pressbooks' ),
 					'type'        => 'string',
-					'context'     => [ 'view', 'edit' ],
-					'readonly'    => true,
-				],
-				'block_version' => [
-					'description' => __( 'Version of the content block format used by the post.' ),
-					'type'        => 'integer',
-					'context'     => [ 'edit', 'view' ],
 					'readonly'    => true,
 				],
 				'protected'     => [
-					'description' => __( 'Whether the content is protected with a password.' ),
+					'description' => __( 'Whether the content is protected with a password.', 'pressbooks' ),
 					'type'        => 'boolean',
-					'context'     => [ 'view', 'edit', 'embed' ],
 					'readonly'    => true,
 				],
 			],
 		];
 		$schema['properties']['title'] = [
-			'description' => __( 'The title for the post.' ),
+			'description' => __( 'The title for the post.', 'pressbooks' ),
 			'type'        => 'object',
 			'context'     => [ 'view', 'edit', 'embed' ],
 			'arg_options' => [
@@ -64,17 +55,27 @@ class CustomType extends \WP_REST_Posts_Controller {
 			],
 			'properties'  => [
 				'raw'      => [
-					'description' => __( 'Title for the post, as it exists in the database.' ),
+					'description' => __( 'Title for the post, as it exists in the database.', 'pressbooks' ),
 					'type'        => 'string',
-					'context'     => [ 'edit', 'view' ],
 				],
 				'rendered' => [
-					'description' => __( 'HTML title for the post, transformed for display.' ),
+					'description' => __( 'HTML title for the post, transformed for display.', 'pressbooks' ),
 					'type'        => 'string',
-					'context'     => [ 'view', 'edit', 'embed' ],
 					'readonly'    => true,
 				],
 			],
+		];
+		$schema['properties']['status'] = [
+			'description' => __( 'The status for the post.', 'pressbooks' ),
+			'type'        => 'string',
+			'context' => [ 'view', 'edit', 'embed' ],
+		];
+		$schema['properties']['meta'] = $this->meta->get_field_schema();
+
+		$type = $this->post_type === 'chapters' ? 'chapter' : $this->post_type;
+		$schema['properties'][ "{$type}-type" ] = [
+			'description' => sprintf( __( 'The type of %s.', 'pressbooks' ), $type ),
+			'context' => [ 'view', 'edit', 'embed' ],
 		];
 		return $schema;
 	}
@@ -85,7 +86,7 @@ class CustomType extends \WP_REST_Posts_Controller {
 	 * @return bool True if the request has read access, WP_Error object otherwise.
 	 */
 	public function get_items_permissions_check( $request ): bool {
-		if ( has_filter( 'pb_set_api_items_permission' ) && apply_filters( 'pb_set_api_items_permission', $this->rest_base ) ) {
+		if ( has_filter( 'pb_set_api_items_permission' ) && apply_filters( 'pb_set_api_items_permission', false ) ) {
 			return true;
 		}
 		return current_user_can( 'edit_posts' ) || get_option( 'blog_public' );
@@ -102,7 +103,13 @@ class CustomType extends \WP_REST_Posts_Controller {
 	 * @return bool Whether the post can be read.
 	 */
 	public function check_read_permission( $post ): bool {
-		if ( $this->post_type === 'glossary' ) {
+		if (
+			$this->post_type === 'glossary' ||
+			(
+				has_filter( 'pb_set_api_items_permission' ) &&
+				apply_filters( 'pb_set_api_items_permission', false )
+			)
+		) {
 			// display glossary with any status
 			return true;
 		}
