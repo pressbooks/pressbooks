@@ -22,16 +22,13 @@
 	},
 	"config": {
     "process-timeout":0,
-		"platform": {
-			"php": "7.4"
-		},
 		"allow-plugins": {
 			"dealerdirect/phpcodesniffer-composer-installer": true,
 			"composer/installers": true
 		}
 	},
 	"require": {
-		"php": ">=7.4",
+		"php": ">=8.0",
 		"aws/aws-sdk-php": "^3.173",
 		"composer/installers": "^2.1",
 		"davidgorges/human-name-parser": "^1.0",
@@ -62,7 +59,8 @@
 		"lucatume/wp-browser": "^3.0",
 		"pressbooks/coding-standards": "^1.1",
 		"yoast/phpunit-polyfills": "^1.0.1",
-    "dms/phpunit-arraysubset-asserts": "^0.4.0"
+    "dms/phpunit-arraysubset-asserts": "^0.4.0",
+		"rector/rector": "^0.13.8"
 	},
 	"suggest": {
 		"pressbooks/pressbooks-book":
