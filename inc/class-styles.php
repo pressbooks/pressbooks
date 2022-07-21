@@ -39,7 +39,8 @@ class Styles {
 	/**
 	 * @param Sass $sass
 	 */
-	public function __construct( protected Sass $sass ) {   }
+	public function __construct( protected Sass $sass ) {
+	}
 
 	/**
 	 * @return array
@@ -442,9 +443,9 @@ class Styles {
 	 * @param string $scss
 	 * @param array|string $overrides
 	 *
-	 * @return string
+	 * @return string|null
 	 */
-	public function customize( string $type, string $scss, array | string $overrides = [] ): string {
+	public function customize( string $type, string $scss, array | string $overrides = [] ): ?string {
 		$scss = $this->applyOverrides( $scss, $overrides );
 
 		// Apply Theme Options

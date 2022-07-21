@@ -24,11 +24,12 @@ define( 'METADATA_CALLBACK_INDEX', 4 );
 /**
  * If the user updates the book's title, then also update the blog name
  *
- * @param int $post_id
+ * @param string|int|null $meta_id
+ * @param int|null $post_id
  * @param string $meta_key
  * @param string $meta_value
  */
-function title_update( string | int $meta_id, $post_id, $meta_key, $meta_value ) {
+function title_update( string | int | null $meta_id, int | null $post_id, string $meta_key, string $meta_value ): void {
 	if ( 'pb_title' !== $meta_key ) {
 		return;
 	} else {

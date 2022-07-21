@@ -146,7 +146,7 @@ class GlobalTypography {
 	 * @return array
 	 * @see \Pressbooks\Modules\ThemeOptions\GlobalOptions::renderLanguagesField
 	 */
-	public function getThemeSupportedLanguages(): array {
+	public function getThemeSupportedLanguages(): array | false {
 		$return_value = false;
 
 		$fullpath = get_stylesheet_directory() . '/theme-information.php';

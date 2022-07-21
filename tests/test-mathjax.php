@@ -1,5 +1,6 @@
 <?php
 
+use Pressbooks\MathJax;
 
 class MathJaxTest extends \WP_UnitTestCase {
 

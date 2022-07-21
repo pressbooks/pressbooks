@@ -39,7 +39,6 @@ class GlobalTypographyTest extends \WP_UnitTestCase {
 	 * @group typography
 	 */
 	public function test_getRequiredLanguages() {
-
 		$result = $this->gt->_getRequiredLanguages();
 
 		$this->assertTrue( is_array( $result ) );

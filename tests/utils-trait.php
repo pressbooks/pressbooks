@@ -171,7 +171,7 @@ https://youtu.be/Lqqsp8soXTo
 	 */
 	private function _fakeAjax() {
 		add_filter( 'wp_doing_ajax', '__return_true' );
-		add_filter( 'wp_die_ajax_handler', '__return_false', 1, 1 ); // Override die()
+		add_filter( 'wp_die_ajax_handler', fn() => '__return_true', 1, 1 ); // Override die()
 		return error_reporting( error_reporting() & ~E_WARNING ); // Suppress warnings
 	}
 
