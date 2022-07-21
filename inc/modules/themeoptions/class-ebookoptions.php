@@ -63,7 +63,7 @@ class EbookOptions extends \Pressbooks\Options {
 			$_page
 		);
 
-		$styles = \Pressbooks\Container::get( 'Styles' );
+		$styles = \Pressbooks\Container::getInstance()->get( 'Styles' );
 		$shape_shifter_compatible = $styles->isShapeShifterCompatible();
 
 		if ( $shape_shifter_compatible ) {
@@ -472,7 +472,7 @@ class EbookOptions extends \Pressbooks\Options {
 	 */
 	public static function scssOverrides( $scss ) {
 
-		$styles = \Pressbooks\Container::get( 'Styles' );
+		$styles = \Pressbooks\Container::getInstance()->get( 'Styles' );
 		$v2_compatible = $styles->isCurrentThemeCompatible( 2 );
 		$shape_shifter_compatible = $styles->isShapeShifterCompatible();
 

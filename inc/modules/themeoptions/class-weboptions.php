@@ -67,7 +67,7 @@ class WebOptions extends \Pressbooks\Options {
 			$_page
 		);
 
-		$styles = \Pressbooks\Container::get( 'Styles' );
+		$styles = \Pressbooks\Container::getInstance()->get( 'Styles' );
 		$shape_shifter_compatible = $styles->isShapeShifterCompatible();
 
 		if ( $shape_shifter_compatible ) {
@@ -137,7 +137,7 @@ class WebOptions extends \Pressbooks\Options {
 			]
 		);
 
-		if ( Container::get( 'Styles' )->hasBuckram() ) {
+		if ( Container::getInstance()->get( 'Styles' )->hasBuckram() ) {
 			add_settings_field(
 				'collapse_sections',
 				__( 'Collapse Sections', 'pressbooks' ),
@@ -516,7 +516,7 @@ class WebOptions extends \Pressbooks\Options {
 	 */
 	public static function scssOverrides( $scss ) {
 
-		$styles = Container::get( 'Styles' );
+		$styles = Container::getInstance()->get( 'Styles' );
 		$v2_compatible = $styles->isCurrentThemeCompatible( 2 );
 		$shape_shifter_compatible = $styles->isShapeShifterCompatible();
 

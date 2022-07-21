@@ -80,7 +80,7 @@ class OptionsMock extends \Pressbooks\Options {
 				submit_button();
 				?>
 			</form>
-		</div> 
+		</div>
 		<?php
 	}
 
@@ -402,7 +402,7 @@ class OptionsTest extends \WP_UnitTestCase {
 	 */
 	public function test_renderBodyFontField() {
 
-		$fonts = \Pressbooks\Container::get( 'Styles' )->getShapeShifterFonts();
+		$fonts = \Pressbooks\Container::getInstance()->get( 'Styles' )->getShapeShifterFonts();
 
 		$options = new \Pressbooks\Modules\ThemeOptions\EbookOptions( [] );
 		ob_start();
@@ -432,7 +432,7 @@ class OptionsTest extends \WP_UnitTestCase {
 	 */
 	public function test_renderHeaderFontField() {
 
-		$fonts = \Pressbooks\Container::get( 'Styles' )->getShapeShifterFonts();
+		$fonts = \Pressbooks\Container::getInstance()->get( 'Styles' )->getShapeShifterFonts();
 
 		$options = new \Pressbooks\Modules\ThemeOptions\EbookOptions( [] );
 		ob_start();

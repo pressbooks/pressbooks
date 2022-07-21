@@ -124,10 +124,10 @@ abstract class Export {
 
 		if ( ! $fullpath ) {
 			// Look for SCSS file
-			$fullpath = Container::get( 'Styles' )->getPathToScss( $type );
+			$fullpath = Container::getInstance()->get( 'Styles' )->getPathToScss( $type );
 			if ( ! $fullpath ) {
 				// Look For CSS file
-				$dir = Container::get( 'Styles' )->getDir();
+				$dir = Container::getInstance()->get( 'Styles' )->getDir();
 				$fullpath = realpath( "$dir/export/$type/style.css" );
 			}
 		}
@@ -145,9 +145,9 @@ abstract class Export {
 	function getLatestExportStylePath( $type ) {
 		// This method only supports Prince stylesheets at the moment.
 		if ( in_array( $type, [ 'prince' ], true ) ) {
-			foreach ( scandir_by_date( Container::get( 'Sass' )->pathToUserGeneratedCss() ) as $file ) {
+			foreach ( scandir_by_date( Container::getInstance()->get( 'Sass' )->pathToUserGeneratedCss() ) as $file ) {
 				if ( preg_match( '/(' . $type . ')-([0-9]*)/', $file, $matches ) ) {
-					return Container::get( 'Sass' )->pathToUserGeneratedCss() . "/$type-{$matches[2]}.css";
+					return Container::getInstance()->get( 'Sass' )->pathToUserGeneratedCss() . "/$type-{$matches[2]}.css";
 				}
 			}
 		}
@@ -165,9 +165,9 @@ abstract class Export {
 	function getLatestExportStyleUrl( $type ) {
 		// This method only supports Prince stylesheets at the moment.
 		if ( in_array( $type, [ 'prince' ], true ) ) {
-			foreach ( scandir_by_date( Container::get( 'Sass' )->pathToUserGeneratedCss() ) as $file ) {
+			foreach ( scandir_by_date( Container::getInstance()->get( 'Sass' )->pathToUserGeneratedCss() ) as $file ) {
 				if ( preg_match( '/(' . $type . ')-([0-9]*)/', $file, $matches ) ) {
-					return Container::get( 'Sass' )->urlToUserGeneratedCss( true ) . "/$type-{$matches[2]}.css";
+					return Container::getInstance()->get( 'Sass' )->urlToUserGeneratedCss( true ) . "/$type-{$matches[2]}.css";
 				}
 			}
 		}
@@ -184,13 +184,13 @@ abstract class Export {
 	function truncateExportStylesheets( $type, $max = 1 ) {
 		// This method only supports Prince stylesheets at the moment.
 		if ( in_array( $type, [ 'prince' ], true ) ) {
-			$stylesheets = scandir_by_date( Container::get( 'Sass' )->pathToUserGeneratedCss() );
+			$stylesheets = scandir_by_date( Container::getInstance()->get( 'Sass' )->pathToUserGeneratedCss() );
 			$max = absint( $max );
 			$i = 1;
 			foreach ( $stylesheets as $stylesheet ) {
 				if ( preg_match( '/(' . $type . ')-([0-9]*)/', $stylesheet, $matches ) ) {
 					if ( $i > $max ) {
-						unlink( Container::get( 'Sass' )->pathToUserGeneratedCss() . '/' . $stylesheet );
+						unlink( Container::getInstance()->get( 'Sass' )->pathToUserGeneratedCss() . '/' . $stylesheet );
 					}
 					$i++;
 				}
@@ -217,8 +217,8 @@ abstract class Export {
 		}
 
 		if ( ! $fullpath ) {
-			$dir = Container::get( 'Styles' )->getDir();
-			if ( Container::get( 'Styles' )->isCurrentThemeCompatible( 2 ) ) {
+			$dir = Container::getInstance()->get( 'Styles' )->getDir();
+			if ( Container::getInstance()->get( 'Styles' )->isCurrentThemeCompatible( 2 ) ) {
 				// Check for v2 themes
 				$fullpath = realpath( "$dir/assets/scripts/$type/script.js" );
 			} else {
@@ -243,8 +243,8 @@ abstract class Export {
 
 		$url = false;
 
-		$dir = Container::get( 'Styles' )->getDir();
-		if ( Container::get( 'Styles' )->isCurrentThemeCompatible( 2 ) && realpath( "$dir/assets/scripts/$type/script.js" ) ) {
+		$dir = Container::getInstance()->get( 'Styles' )->getDir();
+		if ( Container::getInstance()->get( 'Styles' )->isCurrentThemeCompatible( 2 ) && realpath( "$dir/assets/scripts/$type/script.js" ) ) {
 			$url = apply_filters( 'pb_stylesheet_directory_uri', get_stylesheet_directory_uri() ) . "/assets/scripts/$type/script.js";
 		} elseif ( realpath( "$dir/export/$type/script.js" ) ) {
 			$url = apply_filters( 'pb_stylesheet_directory_uri', get_stylesheet_directory_uri() ) . "/export/$type/script.js";

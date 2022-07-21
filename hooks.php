@@ -263,7 +263,7 @@ add_action( 'init', '\Pressbooks\Theme\update_template_root' );
 
 add_action(
 	'init', function() {
-		Container::get( 'Styles' )->maybeUpdateStylesheets();
+		Container::getInstance()->get( 'Styles' )->maybeUpdateStylesheets();
 	}
 );
 
@@ -323,7 +323,7 @@ add_filter( 'wp_mail_from_name', '\Pressbooks\Utility\mail_from_name' );
 // (Custom) Styles
 // -------------------------------------------------------------------------------------------------------------------
 
-Container::get( 'Styles' )->init();
+Container::getInstance()->get( 'Styles' )->init();
 
 if ( $is_book ) {
 	// Overrides (sometimes a web stylesheet update will be triggered by a visitor so this filter needs to be active outside of the admin)

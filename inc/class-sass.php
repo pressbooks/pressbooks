@@ -52,7 +52,7 @@ class Sass {
 			$this->pathToUserGeneratedSass(),
 			$this->pathToGlobals(),
 			$this->pathToFonts(),
-			Container::get( 'Styles' )->getDir( $theme ) . "/assets/styles/$type/",
+			Container::getInstance()->get( 'Styles' )->getDir( $theme ) . "/assets/styles/$type/",
 		];
 	}
 
@@ -334,6 +334,6 @@ class Sass {
 	 * @return bool
 	 */
 	public function isCurrentThemeCompatible( $version = 1, $theme = null ) {
-		return Container::get( 'Styles' )->isCurrentThemeCompatible( $version, $theme );
+		return Container::getInstance()->get( 'Styles' )->isCurrentThemeCompatible( $version, $theme );
 	}
 }

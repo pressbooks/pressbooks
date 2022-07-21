@@ -32,7 +32,7 @@ class EditorTest extends \WP_UnitTestCase {
 	public function test_add_editor_style() {
 		$this->_book( 'pressbooks-clarke' );
 
-		$file = \Pressbooks\Container::get( 'Sass' )->pathToUserGeneratedCss() . '/editor.css';
+		$file = \Pressbooks\Container::getInstance()->get( 'Sass' )->pathToUserGeneratedCss() . '/editor.css';
 		if ( file_exists( $file ) ) {
 			@unlink( $file );
 		}

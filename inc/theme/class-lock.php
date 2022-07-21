@@ -151,7 +151,7 @@ class Lock {
 		// Lock the globals in a consistent place
 		// We know some files may be duplicated, we do this on purpose to future-proof (and because we're lazy)
 
-		$path_to_globals = Container::get( 'Sass' )->pathToGlobals();
+		$path_to_globals = Container::getInstance()->get( 'Sass' )->pathToGlobals();
 		$ok = \Pressbooks\Utility\rcopy(
 			$path_to_globals,
 			"{$dest_dir}/global-components/",

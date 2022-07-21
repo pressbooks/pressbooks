@@ -654,7 +654,7 @@ function display_trash() {
  * Displays the Export Admin Page
  */
 function display_export() {
-	$blade = \Pressbooks\Container::get( 'Blade' );
+	$blade = \Pressbooks\Container::getInstance()->get( 'Blade' );
 	echo $blade->render(
 		'admin.export',
 		\Pressbooks\Modules\Export\template_data()

@@ -68,7 +68,7 @@ class SiteMap {
 		$this->printMenuTree();
 		$menu_for_sitemap = ob_get_clean();
 
-		$blade = \Pressbooks\Container::get( 'Blade' );
+		$blade = \Pressbooks\Container::getInstance()->get( 'Blade' );
 		echo $blade->render(
 			'admin.sitemap',
 			[

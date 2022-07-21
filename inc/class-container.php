@@ -10,13 +10,14 @@ class Container extends \Illuminate\Container\Container {
 	/**
 	 * If you add services, don't forget to also edit config/.phpstorm.meta.php
 	 *
-	 * @param \Illuminate\Contracts\Container\Container $c
+	 * @param \Illuminate\Contracts\Container\Container|null $container
 	 */
-	public static function init( $c = null ) {
-		if ( is_null( $c ) ) {
-			$c = require( __DIR__ . '/../services.php' );
+	public static function init( \Illuminate\Contracts\Container\Container $container = null ) {
+		if ( is_null( $container ) ) {
+			$container = require( __DIR__ . '/../services.php' );
 		}
-		static::setInstance( $c );
+
+		static::setInstance( $container );
 	}
 
 	/**
@@ -24,7 +25,7 @@ class Container extends \Illuminate\Container\Container {
 	 *
 	 * @return mixed
 	 */
-	public static function get( $var ) {
+	public function get( $var ) {
 		if ( is_null( static::$instance ) ) {
 			throw new \LogicException( 'Container not set, call init() or setInstance() before using get().' );
 		}

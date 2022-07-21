@@ -97,7 +97,7 @@ class DocraptorPdf extends Generator {
 	 * @return string the generated CSS
 	 */
 	protected function generateCss() {
-		$styles = Container::get( 'Styles' );
+		$styles = Container::getInstance()->get( 'Styles' );
 		$scss = $this->getScssVars();
 
 		$icc = $this->pdfOutputIntent;
@@ -115,7 +115,7 @@ class DocraptorPdf extends Generator {
 		$css = \Pressbooks\Sanitize\normalize_css_urls( $css );
 
 		if ( WP_DEBUG ) {
-			Container::get( 'Sass' )->debug( $css, $scss, 'cover-pdf' );
+			Container::getInstance()->get( 'Sass' )->debug( $css, $scss, 'cover-pdf' );
 		}
 
 		return $css;

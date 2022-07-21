@@ -102,7 +102,7 @@ class PrincePdf extends Generator {
 	 * @return string Path to generated CSS file
 	 */
 	protected function generateCss() {
-		$styles = Container::get( 'Styles' );
+		$styles = Container::getInstance()->get( 'Styles' );
 		$scss = $this->getScssVars();
 
 		if ( $styles->isCurrentThemeCompatible( 1 ) ) {
@@ -116,7 +116,7 @@ class PrincePdf extends Generator {
 		$css = \Pressbooks\Sanitize\normalize_css_urls( $css );
 
 		if ( WP_DEBUG ) {
-			Container::get( 'Sass' )->debug( $css, $scss, 'cover-pdf' );
+			Container::getInstance()->get( 'Sass' )->debug( $css, $scss, 'cover-pdf' );
 		}
 
 		return $css;

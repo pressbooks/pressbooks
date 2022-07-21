@@ -88,7 +88,7 @@ class PrinceJpg extends Generator {
 	 * @return string the generated CSS
 	 */
 	protected function generateCss() {
-		$styles = Container::get( 'Styles' );
+		$styles = Container::getInstance()->get( 'Styles' );
 		$scss = $this->getScssVars();
 
 		if ( $styles->isCurrentThemeCompatible( 1 ) ) {
@@ -102,7 +102,7 @@ class PrinceJpg extends Generator {
 		$css = \Pressbooks\Sanitize\normalize_css_urls( $css );
 
 		if ( WP_DEBUG ) {
-			Container::get( 'Sass' )->debug( $css, $scss, 'cover-jpg' );
+			Container::getInstance()->get( 'Sass' )->debug( $css, $scss, 'cover-jpg' );
 		}
 
 		return $css;

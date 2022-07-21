@@ -150,7 +150,7 @@ function migrate_book_themes() {
 	// Fix badly compiled *DEPRECATED* Custom CSS theme
 	if ( $pressbooks_theme_migration === 2 ) {
 		if ( CustomCss::isCustomCss() ) {
-			Container::get( 'Styles' )->updateWebBookStyleSheet();
+			Container::getInstance()->get( 'Styles' )->updateWebBookStyleSheet();
 		}
 		$pressbooks_theme_migration = 3;
 		update_option( 'pressbooks_theme_migration', $pressbooks_theme_migration );

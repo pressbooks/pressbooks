@@ -164,7 +164,7 @@ function admin_enqueue_scripts( $hook ) {
  */
 function mce_button_scripts( $plugin_array ) {
 	$assets = new Assets( 'pressbooks', 'plugin' );
-	$styles = Container::get( 'Styles' );
+	$styles = Container::getInstance()->get( 'Styles' );
 
 	$plugin_array['apply_class'] = $assets->getPath( 'scripts/applyclass.js' );
 	if ( $styles->hasBuckram( '1.0' ) ) {
@@ -401,8 +401,8 @@ function mce_table_editor_options( $settings ) {
  */
 function update_editor_style() {
 
-	$styles = Container::get( 'Styles' );
-	$sass = Container::get( 'Sass' );
+	$styles = Container::getInstance()->get( 'Styles' );
+	$sass = Container::getInstance()->get( 'Sass' );
 
 	if ( $styles->isCurrentThemeCompatible( 1 ) ) {
 		$scss = \Pressbooks\Utility\get_contents( $sass->pathToPartials() . '/_editor-with-custom-fonts.scss' );
@@ -433,7 +433,7 @@ function update_editor_style() {
  */
 function add_editor_style() {
 
-	$sass = Container::get( 'Sass' );
+	$sass = Container::getInstance()->get( 'Sass' );
 	$path = $sass->pathToUserGeneratedCss() . '/editor.css';
 	if ( file_exists( $path ) ) {
 		$hash = md5( filemtime( $path ) );

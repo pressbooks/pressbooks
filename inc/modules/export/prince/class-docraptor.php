@@ -44,13 +44,13 @@ class Docraptor extends Pdf {
 		$this->outputPath = $filename;
 
 		// Fonts
-		Container::get( 'GlobalTypography' )->getFonts();
+		Container::getInstance()->get( 'GlobalTypography' )->getFonts();
 
 		// CSS
 		$this->truncateExportStylesheets( 'prince' );
 		$timestamp = time();
 		$css = $this->kneadCss();
-		$css_file = Container::get( 'Sass' )->pathToUserGeneratedCss() . "/prince-$timestamp.css";
+		$css_file = Container::getInstance()->get( 'Sass' )->pathToUserGeneratedCss() . "/prince-$timestamp.css";
 		\Pressbooks\Utility\put_contents( $css_file, $css );
 
 		// --------------------------------------------------------------------

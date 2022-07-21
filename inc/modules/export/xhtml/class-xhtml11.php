@@ -137,13 +137,13 @@ class Xhtml11 extends ExportGenerator {
 
 		$this->taxonomy = \Pressbooks\Taxonomy::init();
 		$this->contributors = new \Pressbooks\Contributors();
-		$this->blade = Container::get( 'Blade' );
+		$this->blade = Container::getInstance()->get( 'Blade' );
 
-		if ( Container::get( 'Styles' )->hasBuckram( '0.3.0' ) ) {
+		if ( Container::getInstance()->get( 'Styles' )->hasBuckram( '0.3.0' ) ) {
 			$this->wrapHeaderElements = true;
 		}
 
-		if ( Container::get( 'Styles' )->hasBuckram( '1.2.0' ) ) {
+		if ( Container::getInstance()->get( 'Styles' )->hasBuckram( '1.2.0' ) ) {
 			$this->outputShortTitle = false;
 		}
 

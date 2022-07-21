@@ -324,7 +324,7 @@ class WebLinks extends Export {
 	 */
 	public function render( $view, $data ) {
 		$version = str_replace( '.', '_', $this->version );
-		return \Pressbooks\Container::get( 'Blade' )->render( "thincc.{$version}.{$view}", $data );
+		return \Pressbooks\Container::getInstance()->get( 'Blade' )->render( "thincc.{$version}.{$view}", $data );
 	}
 
 	/**

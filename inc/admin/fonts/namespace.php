@@ -17,8 +17,8 @@ function update_font_stacks() {
 	if ( ! get_transient( 'pressbooks_updating_font_stacks' ) ) {
 		set_transient( 'pressbooks_updating_font_stacks', 1, 5 * MINUTE_IN_SECONDS );
 
-		Container::get( 'GlobalTypography' )->updateGlobalTypographyMixin();
-		Container::get( 'Styles' )->updateWebBookStyleSheet();
+		Container::getInstance()->get( 'GlobalTypography' )->updateGlobalTypographyMixin();
+		Container::getInstance()->get( 'Styles' )->updateWebBookStyleSheet();
 		update_editor_style();
 
 		delete_transient( 'pressbooks_updating_font_stacks' );
@@ -38,12 +38,12 @@ function maybe_update_font_stacks() {
 	if ( ! get_transient( 'pressbooks_updating_font_stacks' ) ) {
 		set_transient( 'pressbooks_updating_font_stacks', 1, 5 * MINUTE_IN_SECONDS );
 
-		$sass = Container::get( 'Sass' );
+		$sass = Container::getInstance()->get( 'Sass' );
 		if ( ! is_file( $sass->pathToUserGeneratedSass() . '/_font-stack-web.scss' ) ) {
-			Container::get( 'GlobalTypography' )->updateGlobalTypographyMixin();
+			Container::getInstance()->get( 'GlobalTypography' )->updateGlobalTypographyMixin();
 		}
 		if ( realpath( get_stylesheet_directory() . '/style.scss' ) && ! is_file( $sass->pathToUserGeneratedCss() . '/style.css' ) ) {
-			Container::get( 'Styles' )->updateWebBookStyleSheet();
+			Container::getInstance()->get( 'Styles' )->updateWebBookStyleSheet();
 		}
 		if ( ! is_file( $sass->pathToUserGeneratedCss() . '/editor.css' ) ) {
 			update_editor_style();

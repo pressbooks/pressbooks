@@ -820,7 +820,7 @@ class Contributors implements BackMatter, Transferable {
 		return $this->display(
 			$content, function() {
 
-				$blade = Container::get( 'Blade' );
+				$blade = Container::getInstance()->get( 'Blade' );
 
 				return $blade->render(
 					'posttypes/contributors', [

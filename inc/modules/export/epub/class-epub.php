@@ -353,7 +353,7 @@ class Epub extends ExportGenerator {
 		// Some defaults
 		$this->taxonomy = Taxonomy::init();
 		$this->contributors = Contributors::init();
-		$this->blade = Container::get( 'Blade' );
+		$this->blade = Container::getInstance()->get( 'Blade' );
 
 		if ( ! class_exists( '\PclZip' ) ) {
 			require_once( ABSPATH . 'wp-admin/includes/class-pclzip.php' );
@@ -370,7 +370,7 @@ class Epub extends ExportGenerator {
 
 		$this->exportStylePath = $this->getExportStylePath( 'epub' );
 
-		if ( Container::get( 'Styles' )->hasBuckram( '0.3.0' ) ) {
+		if ( Container::getInstance()->get( 'Styles' )->hasBuckram( '0.3.0' ) ) {
 			$this->wrapHeaderElements = true;
 		}
 
@@ -1006,7 +1006,7 @@ class Epub extends ExportGenerator {
 	 * @throws \Exception
 	 */
 	protected function scrapeKneadAndSaveCss( string $path_to_original_stylesheet, string $path_to_copy_of_stylesheet ): void {
-		$styles = Container::get( 'Styles' );
+		$styles = Container::getInstance()->get( 'Styles' );
 
 		$scss = \Pressbooks\Utility\get_contents( $path_to_copy_of_stylesheet );
 
@@ -1029,7 +1029,7 @@ class Epub extends ExportGenerator {
 		$this->createEpubFile( $this->stylesheet, $css );
 
 		if ( WP_DEBUG ) {
-			Container::get( 'Sass' )->debug( $css, $scss, 'epub' );
+			Container::getInstance()->get( 'Sass' )->debug( $css, $scss, 'epub' );
 		}
 
 	}

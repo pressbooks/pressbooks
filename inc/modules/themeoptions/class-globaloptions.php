@@ -59,7 +59,7 @@ class GlobalOptions extends \Pressbooks\Options {
 			add_option( $_option, $this->defaults );
 		}
 
-		$custom_styles = Container::get( 'Styles' );
+		$custom_styles = Container::getInstance()->get( 'Styles' );
 		$v2_compatible = $custom_styles->isCurrentThemeCompatible( 2 );
 
 		add_settings_section(
@@ -137,7 +137,7 @@ class GlobalOptions extends \Pressbooks\Options {
 			]
 		);
 
-		if ( Container::get( 'Styles' )->isCurrentThemeCompatible( 1 ) === true || Container::get( 'Styles' )->isCurrentThemeCompatible( 2 ) === true ) { // we can only enable foreign language typography for themes that use SCSS
+		if ( Container::getInstance()->get( 'Styles' )->isCurrentThemeCompatible( 1 ) === true || Container::getInstance()->get( 'Styles' )->isCurrentThemeCompatible( 2 ) === true ) { // we can only enable foreign language typography for themes that use SCSS
 
 			add_settings_field(
 				'pressbooks_global_typography',
@@ -385,9 +385,9 @@ class GlobalOptions extends \Pressbooks\Options {
 			$foreign_languages = [];
 		}
 
-		$languages = Container::get( 'GlobalTypography' )->getSupportedLanguages();
+		$languages = Container::getInstance()->get( 'GlobalTypography' )->getSupportedLanguages();
 
-		$already_supported_languages = Container::get( 'GlobalTypography' )->getThemeSupportedLanguages();
+		$already_supported_languages = Container::getInstance()->get( 'GlobalTypography' )->getThemeSupportedLanguages();
 
 		if ( false === $already_supported_languages ) {
 			$already_supported_languages = [];
@@ -586,7 +586,7 @@ class GlobalOptions extends \Pressbooks\Options {
 		if ( $parsed_sass_variables === false ) {
 			// Order of files matter. If a variable is duplicated in other files then the last one takes precedence
 			$parsed_sass_variables = [];
-			$sass = Container::get( 'Sass' );
+			$sass = Container::getInstance()->get( 'Sass' );
 			$path_to_global = $sass->pathToGlobals();
 			$path_to_theme = get_stylesheet_directory();
 			$files = [

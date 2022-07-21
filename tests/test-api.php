@@ -77,7 +77,7 @@ class ApiTest extends \WP_UnitTestCase {
 	 */
 	public function test_BookEndpointStyles() {
 		$this->_book();
-		$styles_container = Container::get( 'Styles' );
+		$styles_container = Container::getInstance()->get( 'Styles' );
 		$styles_container->registerPosts();
 		$styles_container->initPosts();
 		foreach ( [ 'web', 'epub', 'prince' ] as $slug ) {

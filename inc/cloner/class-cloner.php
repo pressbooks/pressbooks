@@ -1418,7 +1418,7 @@ class Cloner {
 		if ( empty( $this->sourceStyles ) || ! $this->clonedItems['theme'] ) {
 			return false;
 		}
-		$styles_container = Container::get( 'Styles' );
+		$styles_container = Container::getInstance()->get( 'Styles' );
 		$styles_container->registerPosts();
 		$styles_container->initPosts();
 		foreach ( $styles_container->getSupported() as $slug => $style_type ) {

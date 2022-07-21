@@ -99,13 +99,13 @@ class Pdf extends Export {
 		$this->outputPath = $filename;
 
 		// Fonts
-		Container::get( 'GlobalTypography' )->getFonts();
+		Container::getInstance()->get( 'GlobalTypography' )->getFonts();
 
 		// CSS
 		$this->truncateExportStylesheets( 'prince' );
 		$timestamp = time();
 		$css = $this->kneadCss();
-		$css_file = Container::get( 'Sass' )->pathToUserGeneratedCss() . "/prince-$timestamp.css";
+		$css_file = Container::getInstance()->get( 'Sass' )->pathToUserGeneratedCss() . "/prince-$timestamp.css";
 		\Pressbooks\Utility\put_contents( $css_file, $css );
 
 		// --------------------------------------------------------------------
@@ -223,7 +223,7 @@ class Pdf extends Export {
 	 */
 	protected function kneadCss() {
 
-		$styles = Container::get( 'Styles' );
+		$styles = Container::getInstance()->get( 'Styles' );
 
 		$scss = \Pressbooks\Utility\get_contents( $this->exportStylePath );
 
@@ -238,7 +238,7 @@ class Pdf extends Export {
 		$css = normalize_css_urls( $css, $this->urlPath() );
 
 		if ( WP_DEBUG ) {
-			Container::get( 'Sass' )->debug( $css, $scss, 'prince' );
+			Container::getInstance()->get( 'Sass' )->debug( $css, $scss, 'prince' );
 		}
 
 		return $css;
@@ -251,7 +251,7 @@ class Pdf extends Export {
 	 * @return string
 	 */
 	protected function urlPath() {
-		$dir = str_replace( Container::get( 'Styles' )->getDir(), '', pathinfo( $this->exportStylePath, PATHINFO_DIRNAME ) );
+		$dir = str_replace( Container::getInstance()->get( 'Styles' )->getDir(), '', pathinfo( $this->exportStylePath, PATHINFO_DIRNAME ) );
 		$dir = ltrim( $dir, '/' );
 		$url_path = trailingslashit( get_stylesheet_directory_uri() ) . $dir;
 		$url_path = set_url_scheme( $url_path );

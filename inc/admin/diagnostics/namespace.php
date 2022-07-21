@@ -172,7 +172,7 @@ function render_page() {
 	}
 	$output .= 'imagick: ' . ( extension_loaded( 'imagick' ) ? 'Installed' : 'Not Installed' ) . "\n";
 	$output .= 'xsl: ' . ( extension_loaded( 'xsl' ) ? 'Installed' : 'Not Installed' );
-	$blade = \Pressbooks\Container::get( 'Blade' );
+	$blade = \Pressbooks\Container::getInstance()->get( 'Blade' );
 	echo $blade->render(
 		'admin.diagnostics',
 		[
@@ -193,7 +193,7 @@ function render_page() {
 function handle_stylesheet_regeneration() {
 	if ( check_admin_referer( 'pb-regenerate-webbook-stylesheet' ) ) {
 		( new Admin() )->clearCache();
-		Container::get( 'Styles' )->updateWebBookStyleSheet();
+		Container::getInstance()->get( 'Styles' )->updateWebBookStyleSheet();
 
 		// Ok!
 		\Pressbooks\add_notice( __( 'Stylesheet regenerated.', 'pressbooks' ) );

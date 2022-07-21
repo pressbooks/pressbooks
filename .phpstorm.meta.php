@@ -4,7 +4,7 @@
 
 namespace PHPSTORM_META {
 
-    override(\Pressbooks\Container::get(0),
+    override(\Pressbooks\Container::getInstance()->get(0),
         map([
 	        'Blade' => \Jenssegers\Blade\Blade::class,
 	        'GlobalTypography' => \Pressbooks\GlobalTypography::class,

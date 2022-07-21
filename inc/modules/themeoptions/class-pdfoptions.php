@@ -67,7 +67,7 @@ class PDFOptions extends \Pressbooks\Options {
 			$_page
 		);
 
-		$custom_styles = Container::get( 'Styles' );
+		$custom_styles = Container::getInstance()->get( 'Styles' );
 		$v2_compatible = $custom_styles->isCurrentThemeCompatible( 2 );
 		$shape_shifter_compatible = $custom_styles->isShapeShifterCompatible();
 
@@ -1491,7 +1491,7 @@ class PDFOptions extends \Pressbooks\Options {
 		if ( $parsed_sass_variables === false ) {
 			// Order of files matter. If a variable is duplicated in other files then the last one takes precedence
 			$parsed_sass_variables = [];
-			$sass = Container::get( 'Sass' );
+			$sass = Container::getInstance()->get( 'Sass' );
 			$path_to_global = $sass->pathToGlobals();
 			$path_to_theme = get_stylesheet_directory();
 			$files = [
@@ -1773,7 +1773,7 @@ class PDFOptions extends \Pressbooks\Options {
 	 */
 	public static function scssOverrides( $scss ) {
 
-		$styles = Container::get( 'Styles' );
+		$styles = Container::getInstance()->get( 'Styles' );
 		$v2_compatible = $styles->isCurrentThemeCompatible( 2 );
 		$shape_shifter_compatible = $styles->isShapeShifterCompatible();
 

@@ -215,17 +215,17 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 		$css_files = [];
 
 		$timestamp1 = time();
-		$css_file1 = Container::get( 'Sass' )->pathToUserGeneratedCss() . "/prince-$timestamp1.css";
+		$css_file1 = Container::getInstance()->get( 'Sass' )->pathToUserGeneratedCss() . "/prince-$timestamp1.css";
 		$this->assertTrue( \Pressbooks\Utility\put_contents( $css_file1, $css ) );
 		$css_files[] = $css_file1;
 
 		$timestamp2 = time();
-		$css_file2 = Container::get( 'Sass' )->pathToUserGeneratedCss() . "/prince-$timestamp2.css";
+		$css_file2 = Container::getInstance()->get( 'Sass' )->pathToUserGeneratedCss() . "/prince-$timestamp2.css";
 		$this->assertTrue( \Pressbooks\Utility\put_contents( $css_file1, $css ) );
 		$css_files[] = $css_file2;
 
 		$latest = $i->getLatestExportStylePath( 'prince' );
-		$this->assertEquals( Container::get( 'Sass' )->pathToUserGeneratedCss() . '/prince-' . $timestamp2 . '.css', $latest );
+		$this->assertEquals( Container::getInstance()->get( 'Sass' )->pathToUserGeneratedCss() . '/prince-' . $timestamp2 . '.css', $latest );
 
 		$latest = $i->getLatestExportStylePath( 'garbage' );
 		$this->assertFalse( $latest );
@@ -254,12 +254,12 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 		$css_files = [];
 
 		$timestamp1 = time();
-		$css_file1 = Container::get( 'Sass' )->pathToUserGeneratedCss() . "/prince-$timestamp1.css";
+		$css_file1 = Container::getInstance()->get( 'Sass' )->pathToUserGeneratedCss() . "/prince-$timestamp1.css";
 		\Pressbooks\Utility\put_contents( $css_file1, $css );
 		$css_files[] = $css_file1;
 
 		$timestamp2 = time();
-		$css_file2 = Container::get( 'Sass' )->pathToUserGeneratedCss() . "/prince-$timestamp2.css";
+		$css_file2 = Container::getInstance()->get( 'Sass' )->pathToUserGeneratedCss() . "/prince-$timestamp2.css";
 		\Pressbooks\Utility\put_contents( $css_file2, $css );
 		$css_files[] = $css_file2;
 
@@ -292,34 +292,34 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 
 		$css_files = [];
 
-		$webbook_css = Container::get( 'Sass' )->pathToUserGeneratedCss() . '/style.css';
+		$webbook_css = Container::getInstance()->get( 'Sass' )->pathToUserGeneratedCss() . '/style.css';
 		\Pressbooks\Utility\put_contents( $webbook_css, $css );
 
 		$timestamp1 = time();
-		$css_file1 = Container::get( 'Sass' )->pathToUserGeneratedCss() . "/prince-$timestamp1.css";
+		$css_file1 = Container::getInstance()->get( 'Sass' )->pathToUserGeneratedCss() . "/prince-$timestamp1.css";
 		\Pressbooks\Utility\put_contents( $css_file1, $css );
 		$css_files[] = $css_file1;
 
 		$timestamp2 = time();
-		$css_file2 = Container::get( 'Sass' )->pathToUserGeneratedCss() . "/prince-$timestamp2.css";
+		$css_file2 = Container::getInstance()->get( 'Sass' )->pathToUserGeneratedCss() . "/prince-$timestamp2.css";
 		\Pressbooks\Utility\put_contents( $css_file2, $css );
 		$css_files[] = $css_file2;
 
 		$timestamp3 = time();
-		$css_file3 = Container::get( 'Sass' )->pathToUserGeneratedCss() . "/prince-$timestamp3.css";
+		$css_file3 = Container::getInstance()->get( 'Sass' )->pathToUserGeneratedCss() . "/prince-$timestamp3.css";
 		\Pressbooks\Utility\put_contents( $css_file3, $css );
 		$css_files[] = $css_file3;
 
 		$timestamps = [ $timestamp1, $timestamp2, $timestamp3 ];
 		rsort( $timestamps );
 
-		$files = scandir( Container::get( 'Sass' )->pathToUserGeneratedCss() );
+		$files = scandir( Container::getInstance()->get( 'Sass' )->pathToUserGeneratedCss() );
 
 		$i->truncateExportStylesheets( 'prince' );
 
 		$i->truncateExportStylesheets( 'style' );
 
-		$files = scandir( Container::get( 'Sass' )->pathToUserGeneratedCss() );
+		$files = scandir( Container::getInstance()->get( 'Sass' )->pathToUserGeneratedCss() );
 
 		$this->assertTrue( in_array( 'style.css', $files, true ) );
 
@@ -472,7 +472,7 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 		}
 		$timestamp = time();
 		$css = '/* Silence is golden. */';
-		$css_file = Container::get( 'Sass' )->pathToUserGeneratedCss() . "/prince-$timestamp.css";
+		$css_file = Container::getInstance()->get( 'Sass' )->pathToUserGeneratedCss() . "/prince-$timestamp.css";
 		\Pressbooks\Utility\put_contents( $css_file, $css );
 
 		$module = '\Pressbooks\Modules\Export\Xhtml\Xhtml11';

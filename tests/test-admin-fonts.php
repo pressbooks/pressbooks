@@ -39,7 +39,7 @@ class Admin_FontsTest extends \WP_UnitTestCase {
 
 			$stub = $this
 				->getMockBuilder( '\Pressbooks\GlobalTypography' )
-				->setConstructorArgs( [ Container::get( 'Sass' ) ] )
+				->setConstructorArgs( [ Container::getInstance()->get( 'Sass' ) ] )
 				->getMock();
 
 			return $stub;

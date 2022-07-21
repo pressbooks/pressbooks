@@ -17,7 +17,7 @@ class SassTest extends \WP_UnitTestCase {
 	 */
 	public function set_up() {
 		parent::set_up();
-		$this->sass = Container::get( 'Sass' );
+		$this->sass = Container::getInstance()->get( 'Sass' );
 	}
 
 	/**
