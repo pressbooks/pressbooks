@@ -19,28 +19,22 @@ namespace Pressbooks;
  * @see https://github.com/phillord/mathjax-latex
  */
 class MathJax {
+	public const OPTION = 'pb_mathjax';
 
-	const OPTION = 'pb_mathjax';
-
-	/**
-	 * @var MathJax
-	 */
-	private static $instance = null;
+	private static ?\Pressbooks\MathJax $instance = null;
 
 	/**
 	 * @var array{fg: string, font: string}
 	 */
-	private $defaultOptions = [
+	private array $defaultOptions = [
 		'fg' => '000000',
 		'font' => 'TeX',
 	];
 
 	/**
 	 * @see http://docs.mathjax.org/en/latest/options/output-processors/SVG.html#configure-svg
-	 *
-	 * @var array
 	 */
-	private $possibleFonts = [
+	private array $possibleFonts = [
 		'TeX',
 		'STIX-Web',
 		'Asana-Math',
@@ -52,10 +46,8 @@ class MathJax {
 
 	/**
 	 * Webbook Section Cache
-	 *
-	 * @var array
 	 */
-	private $sectionHasMath = [];
+	private array $sectionHasMath = [];
 
 	/**
 	 * Use PB MathJax Node.js service to render SVG/PNG image?
@@ -76,7 +68,7 @@ class MathJax {
 	/**
 	 * @return MathJax
 	 */
-	static public function init() {
+	public static function init() {
 		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
 
@@ -99,10 +91,7 @@ class MathJax {
 		return self::$instance;
 	}
 
-	/**
-	 * @param MathJax $obj
-	 */
-	static public function hooks( MathJax $obj ) {
+	public static function hooks( MathJax $obj ) {
 		if ( Book::isBook() ) {
 			add_action( 'admin_menu', [ $obj, 'addMenu' ] );
 		}
@@ -249,7 +238,7 @@ class MathJax {
 				$content = $post->post_content;
 				$math_tags = [ '[/latex]', '$latex', '[/asciimath]', '$asciimath', '</math>' ];
 				foreach ( $math_tags as $math_tag ) {
-					if ( strpos( $content, $math_tag ) !== false ) {
+					if ( str_contains( $content, $math_tag ) ) {
 						$has_math = true;
 						break;
 					}
@@ -835,12 +824,10 @@ class MathJax {
 	public function filterLineBreakTagsInMthml( $content ) {
 		$filtered_content = preg_replace_callback(
 			'/(<math.*>.*<\/math>)/isU',
-			function( $matches ) {
-				return str_replace( [ '<br/>', '<br />', '<br>', '<p>', '</p>' ], '', $matches[0] );
-			},
+			fn( $matches) => str_replace( [ '<br/>', '<br />', '<br>', '<p>', '</p>' ], '', $matches[0] ),
 			$content
 		);
-		return null === $filtered_content ? $content : $filtered_content;
+		return $filtered_content ?? $content;
 	}
 
 	/**
@@ -852,12 +839,10 @@ class MathJax {
 	public function filterLineBreakTagsInSvg( $content ) {
 		$filtered_content = preg_replace_callback(
 			'/(<svg.*>.*<\/svg>)/isU',
-			function( $matches ) {
-				return str_replace( [ '<br/>', '<br />', '<br>', '<p>', '</p>' ], '', $matches[0] );
-			},
+			fn( $matches) => str_replace( [ '<br/>', '<br />', '<br>', '<p>', '</p>' ], '', $matches[0] ),
 			$content
 		);
-		return null === $filtered_content ? $content : $filtered_content;
+		return $filtered_content ?? $content;
 	}
 
 	/**
@@ -911,7 +896,7 @@ class MathJax {
 			$content
 		);
 
-		return null === $filtered_content ? $content : $filtered_content;
+		return $filtered_content ?? $content;
 
 	}
 

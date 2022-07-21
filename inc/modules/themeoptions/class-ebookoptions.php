@@ -9,21 +9,13 @@
 namespace Pressbooks\Modules\ThemeOptions;
 
 class EbookOptions extends \Pressbooks\Options {
-
 	/**
 	 * The value for option: pressbooks_theme_options_ebook_version
 	 *
 	 * @see upgrade()
 	 * @var int
 	 */
-	const VERSION = 2;
-
-	/**
-	 * Web theme options.
-	 *
-	 * @var array
-	 */
-	public $options;
+	public const VERSION = 2;
 
 	/**
 	 * Web theme defaults.
@@ -37,14 +29,13 @@ class EbookOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $options
 	 */
-	function __construct( array $options ) {
-		$this->options = $options;
-		$this->defaults = $this->getDefaults();
-		$this->booleans = $this->getBooleanOptions();
-		$this->strings = $this->getStringOptions();
-		$this->integers = $this->getIntegerOptions();
-		$this->floats = $this->getFloatOptions();
-		$this->predefined = $this->getPredefinedOptions();
+	public function __construct( public array $options ) {
+		$this->defaults = static::getDefaults();
+		$this->booleans = static::getBooleanOptions();
+		$this->strings = static::getStringOptions();
+		$this->integers = static::getIntegerOptions();
+		$this->floats = static::getFloatOptions();
+		$this->predefined = static::getPredefinedOptions();
 
 		foreach ( $this->defaults as $key => $value ) {
 			if ( ! isset( $this->options[ $key ] ) ) {
@@ -56,10 +47,10 @@ class EbookOptions extends \Pressbooks\Options {
 	/**
 	 * Configure the ebook options tab using the settings API.
 	 */
-	function init() {
-		$_option = 'pressbooks_theme_options_' . $this->getSlug();
+	public function init() {
+		$_option = 'pressbooks_theme_options_' . static::getSlug();
 		$_page = $_option;
-		$_section = $this->getSlug() . '_options_section';
+		$_section = static::getSlug() . '_options_section';
 
 		if ( false === get_option( $_option ) ) {
 			add_option( $_option, $this->defaults );
@@ -67,7 +58,7 @@ class EbookOptions extends \Pressbooks\Options {
 
 		add_settings_section(
 			$_section,
-			$this->getTitle(),
+			static::getTitle(),
 			[ $this, 'display' ],
 			$_page
 		);
@@ -149,14 +140,14 @@ class EbookOptions extends \Pressbooks\Options {
 	/**
 	 * Display the Ebook options tab description.
 	 */
-	function display() {
+	public function display() {
 		echo '<p>' . __( 'These options apply to ebook exports.', 'pressbooks' ) . '</p>';
 	}
 
 	/**
 	 * Render the Ebook options tab form (NOT USED).
 	 */
-	function render() {
+	public function render() {
 	}
 
 	/**
@@ -164,7 +155,7 @@ class EbookOptions extends \Pressbooks\Options {
 	 *
 	 * @param int $version
 	 */
-	function upgrade( $version ) {
+	public function upgrade( $version ) {
 		if ( $version < 1 ) {
 			$this->doInitialUpgrade();
 		}
@@ -176,8 +167,8 @@ class EbookOptions extends \Pressbooks\Options {
 	/**
 	 * Update values to human-readable equivalents within Ebook options.
 	 */
-	function doInitialUpgrade() {
-		$_option = $this->getSlug();
+	public function doInitialUpgrade() {
+		$_option = static::getSlug();
 		$options = get_option( 'pressbooks_theme_options_' . $_option, $this->defaults );
 
 		if ( ! isset( $options['ebook_paragraph_separation'] ) || 1 === absint( $options['ebook_paragraph_separation'] ) ) {
@@ -192,8 +183,8 @@ class EbookOptions extends \Pressbooks\Options {
 	/**
 	 * Update values to human-readable equivalents within Ebook options.
 	 */
-	function setEbookStartPoint() {
-		$_option = $this->getSlug();
+	public function setEbookStartPoint() {
+		$_option = static::getSlug();
 		$options = get_option( 'pressbooks_theme_options_' . $_option, $this->defaults );
 
 		$struct = \Pressbooks\Book::getBookStructure();
@@ -233,7 +224,7 @@ class EbookOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderEbookStartPointField( $args ) {
+	public function renderEbookStartPointField( $args ) {
 		unset( $args['label_for'], $args['class'] );
 
 		$options = [
@@ -252,16 +243,14 @@ class EbookOptions extends \Pressbooks\Options {
 			$options[ $v['ID'] ] = $v['post_title'];
 		}
 
-		$this->renderSelect(
-			[
-				'id' => 'ebook_start_point',
-				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
-				'option' => 'ebook_start_point',
-				'value' => ( isset( $this->options['ebook_start_point'] ) ) ? $this->options['ebook_start_point'] : '',
-				'choices' => $options,
-				'description' => $args[0],
-			]
-		);
+		static::renderSelect([
+			'id' => 'ebook_start_point',
+			'name' => 'pressbooks_theme_options_' . static::getSlug(),
+			'option' => 'ebook_start_point',
+			'value' => $this->options['ebook_start_point'] ?? '',
+			'choices' => $options,
+			'description' => $args[0],
+		]);
 	}
 
 	/**
@@ -269,17 +258,15 @@ class EbookOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderParagraphSeparationField( $args ) {
+	public function renderParagraphSeparationField( $args ) {
 		unset( $args['label_for'], $args['class'] );
-		$this->renderRadioButtons(
-			[
-				'id' => 'ebook_paragraph_separation',
-				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
-				'option' => 'ebook_paragraph_separation',
-				'value' => ( isset( $this->options['ebook_paragraph_separation'] ) ) ? $this->options['ebook_paragraph_separation'] : '',
-				'choices' => $args,
-			]
-		);
+		static::renderRadioButtons([
+			'id' => 'ebook_paragraph_separation',
+			'name' => 'pressbooks_theme_options_' . static::getSlug(),
+			'option' => 'ebook_paragraph_separation',
+			'value' => $this->options['ebook_paragraph_separation'] ?? '',
+			'choices' => $args,
+		]);
 	}
 
 	/**
@@ -287,17 +274,15 @@ class EbookOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderCompressImagesField( $args ) {
+	public function renderCompressImagesField( $args ) {
 		unset( $args['label_for'], $args['class'] );
-		$this->renderCheckbox(
-			[
-				'id' => 'ebook_compress_images',
-				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
-				'option' => 'ebook_compress_images',
-				'value' => ( isset( $this->options['ebook_compress_images'] ) ) ? $this->options['ebook_compress_images'] : '',
-				'label' => $args[0],
-			]
-		);
+		static::renderCheckbox([
+			'id' => 'ebook_compress_images',
+			'name' => 'pressbooks_theme_options_' . static::getSlug(),
+			'option' => 'ebook_compress_images',
+			'value' => $this->options['ebook_compress_images'] ?? '',
+			'label' => $args[0],
+		]);
 	}
 
 	/**
@@ -305,17 +290,15 @@ class EbookOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderHeaderFontField( $args ) {
+	public function renderHeaderFontField( $args ) {
 		unset( $args['label_for'], $args['class'] );
-		$this->renderSelectOptGroup(
-			[
-				'id' => 'ebook_header_font',
-				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
-				'option' => 'ebook_header_font',
-				'value' => ( isset( $this->options['ebook_header_font'] ) ) ? $this->options['ebook_header_font'] : '',
-				'choices' => $args,
-			]
-		);
+		static::renderSelectOptGroup([
+			'id' => 'ebook_header_font',
+			'name' => 'pressbooks_theme_options_' . static::getSlug(),
+			'option' => 'ebook_header_font',
+			'value' => $this->options['ebook_header_font'] ?? '',
+			'choices' => $args,
+		]);
 	}
 
 	/**
@@ -323,17 +306,15 @@ class EbookOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderBodyFontField( $args ) {
+	public function renderBodyFontField( $args ) {
 		unset( $args['label_for'], $args['class'] );
-		$this->renderSelectOptGroup(
-			[
-				'id' => 'ebook_body_font',
-				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
-				'option' => 'ebook_body_font',
-				'value' => ( isset( $this->options['ebook_body_font'] ) ) ? $this->options['ebook_body_font'] : '',
-				'choices' => $args,
-			]
-		);
+		static::renderSelectOptGroup([
+			'id' => 'ebook_body_font',
+			'name' => 'pressbooks_theme_options_' . static::getSlug(),
+			'option' => 'ebook_body_font',
+			'value' => $this->options['ebook_body_font'] ?? '',
+			'choices' => $args,
+		]);
 	}
 
 	/**
@@ -341,7 +322,7 @@ class EbookOptions extends \Pressbooks\Options {
 	 *
 	 * @return string $slug
 	 */
-	static function getSlug() {
+	public static function getSlug() {
 		return 'ebook';
 	}
 
@@ -350,7 +331,7 @@ class EbookOptions extends \Pressbooks\Options {
 	 *
 	 * @return string $title
 	 */
-	static function getTitle() {
+	public static function getTitle() {
 		return __( 'Ebook Options', 'pressbooks' );
 	}
 
@@ -359,7 +340,7 @@ class EbookOptions extends \Pressbooks\Options {
 	 *
 	 * @return array $defaults
 	 */
-	static function getDefaults() {
+	public static function getDefaults() {
 		/**
 		 * @since 3.9.7
 		 *
@@ -382,7 +363,7 @@ class EbookOptions extends \Pressbooks\Options {
 	 *
 	 * @return array $defaults
 	 */
-	static function filterDefaults( $defaults ) {
+	public static function filterDefaults( $defaults ) {
 		return $defaults;
 	}
 
@@ -391,7 +372,7 @@ class EbookOptions extends \Pressbooks\Options {
 	 *
 	 * @return array $options
 	 */
-	static function getBooleanOptions() {
+	public static function getBooleanOptions() {
 		/**
 		 * Allow custom boolean options to be passed to sanitization routines.
 		 *
@@ -411,7 +392,7 @@ class EbookOptions extends \Pressbooks\Options {
 	 *
 	 * @return array $options
 	 */
-	static function getStringOptions() {
+	public static function getStringOptions() {
 		/**
 		 * Allow custom string options to be passed to sanitization routines.
 		 *
@@ -432,7 +413,7 @@ class EbookOptions extends \Pressbooks\Options {
 	 *
 	 * @return array $options
 	 */
-	static function getIntegerOptions() {
+	public static function getIntegerOptions() {
 		/**
 		 * Allow custom integer options to be passed to sanitization routines.
 		 *
@@ -448,7 +429,7 @@ class EbookOptions extends \Pressbooks\Options {
 	 *
 	 * @return array $options
 	 */
-	static function getFloatOptions() {
+	public static function getFloatOptions() {
 		/**
 		 * Allow custom float options to be passed to sanitization routines.
 		 *
@@ -464,7 +445,7 @@ class EbookOptions extends \Pressbooks\Options {
 	 *
 	 * @return array $options
 	 */
-	static function getPredefinedOptions() {
+	public static function getPredefinedOptions() {
 		/**
 		 * Allow custom predifined options to be passed to sanitization routines.
 		 *
@@ -489,7 +470,7 @@ class EbookOptions extends \Pressbooks\Options {
 	 *
 	 * @since 3.9.8
 	 */
-	static function scssOverrides( $scss ) {
+	public static function scssOverrides( $scss ) {
 
 		$styles = \Pressbooks\Container::get( 'Styles' );
 		$v2_compatible = $styles->isCurrentThemeCompatible( 2 );

@@ -12,33 +12,30 @@ class User {
 
 	// Meta Key Constants:
 
-	const LAST_LOGIN = 'pb_last_login';
+	public const LAST_LOGIN = 'pb_last_login';
 
-	const HIGHEST_ROLE = 'pb_highest_role';
+	public const HIGHEST_ROLE = 'pb_highest_role';
 
-	const TOTAL_BOOKS = 'pb_total_books';
+	public const TOTAL_BOOKS = 'pb_total_books';
 
-	const BOOKS_AS_ADMIN = 'pb_books_as_admin';
+	public const BOOKS_AS_ADMIN = 'pb_books_as_admin';
 
-	const BOOKS_AS_EDITOR = 'pb_books_as_editor';
+	public const BOOKS_AS_EDITOR = 'pb_books_as_editor';
 
-	const BOOKS_AS_AUTHOR = 'pb_books_as_author';
+	public const BOOKS_AS_AUTHOR = 'pb_books_as_author';
 
-	const BOOKS_AS_CONTRIBUTOR = 'pb_books_as_contributor';
+	public const BOOKS_AS_CONTRIBUTOR = 'pb_books_as_contributor';
 
-	const BOOKS_AS_SUBSCRIBER = 'pb_books_as_subscriber';
+	public const BOOKS_AS_SUBSCRIBER = 'pb_books_as_subscriber';
 
-	const USER_DATE_LAST_ACTIVE = 'pb_date_last_active';
+	public const USER_DATE_LAST_ACTIVE = 'pb_date_last_active';
 
-	/**
-	 * @var User
-	 */
-	private static $instance = null;
+	private static ?\Pressbooks\DataCollector\User $instance = null;
 
 	/**
 	 * @var array role => weight
 	 */
-	private $roles = [
+	private array $roles = [
 		'subscriber' => 10,
 		'contributor' => 20,
 		'author' => 30,
@@ -57,9 +54,6 @@ class User {
 		return self::$instance;
 	}
 
-	/**
-	 * @param User $obj
-	 */
 	public static function hooks( User $obj ) {
 		add_action( 'wp_login', [ $obj, 'setLastLogin' ], 0, 2 );
 		add_action( 'wp_login', [ $obj, 'setSubscriberRole' ], 0, 2 );
@@ -70,9 +64,6 @@ class User {
 		add_action( 'update_option', [ $obj, 'storeLastActiveDate' ], 10 );
 	}
 
-	/**
-	 * @return \Generator
-	 */
 	public function updateAllUsersMetadata(): \Generator {
 		// Try to stop a Cache Stampede, Dog-Pile, Cascading Failure...
 		$in_progress_transient = 'pb_user_sync_cron_in_progress';
@@ -233,19 +224,15 @@ class User {
 	 * @param array $roles
 	 * @return false|int|string
 	 */
-	private function getHighestRole( array $roles ) {
+	private function getHighestRole( array $roles ): false | int | string {
 		// Get all roles that the user is associated.
 		$all_roles = array_filter(
-			$roles, function ( $value ) {
-				return $value;
-			}
+			$roles, fn( $value) => $value
 		);
 
 		// Get the highest score based on the user roles.
 		$highest_score = array_reduce(
-			array_intersect_key( $this->roles, $all_roles ), function ( $carry, $value ) {
-				return $value > $carry ? $value : $carry;
-			}
+			array_intersect_key( $this->roles, $all_roles ), fn( $carry, $value) => $value > $carry ? $value : $carry
 		);
 
 		return array_search( $highest_score, $this->roles, true ) ?: '';

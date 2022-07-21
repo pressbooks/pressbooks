@@ -25,7 +25,7 @@ use Pressbooks\Utility;
  */
 function add_metadata_attachment( $form_fields, $post ) {
 
-	if ( substr( $post->post_mime_type, 0, 5 ) === 'image' ) {
+	if ( str_starts_with( $post->post_mime_type, 'image' ) ) {
 
 		$author = get_post_meta( $post->ID, 'pb_media_attribution_author', true );
 		$author_url = get_post_meta( $post->ID, 'pb_media_attribution_author_url', true );
@@ -42,7 +42,7 @@ function add_metadata_attachment( $form_fields, $post ) {
 		];
 
 		$form_fields['pb_media_attribution_title_url'] = [
-			'value' => isset( $source_url ) ? $source_url : '',
+			'value' => $source_url ?? '',
 			'label' => __( 'Source URL', 'pressbooks' ),
 			'input' => 'html',
 			'helps' => 'Please enter a valid URL: https://example.com',
@@ -50,13 +50,13 @@ function add_metadata_attachment( $form_fields, $post ) {
 		];
 
 		$form_fields['pb_media_attribution_author'] = [
-			'value' => isset( $author ) ? $author : '',
+			'value' => $author ?? '',
 			'label' => __( 'Author', 'pressbooks' ),
 			'input' => 'text',
 		];
 
 		$form_fields['pb_media_attribution_author_url'] = [
-			'value' => isset( $author_url ) ? $author_url : '',
+			'value' => $author_url ?? '',
 			'label' => __( 'Author URL', 'pressbooks' ),
 			'input' => 'html',
 			'helps' => 'Please enter a valid URL: https://example.com',
@@ -64,20 +64,20 @@ function add_metadata_attachment( $form_fields, $post ) {
 		];
 
 		$form_fields['pb_media_attribution_license'] = [
-			'value' => isset( $license ) ? $license : '',
+			'value' => $license ?? '',
 			'label' => __( 'License', 'pressbooks' ),
 			'input' => 'html',
 			'html'  => render_attachment_license_options( $post->ID, $license ),
 		];
 
 		$form_fields['pb_media_attribution_adapted'] = [
-			'value' => isset( $adapted ) ? $adapted : '',
+			'value' => $adapted ?? '',
 			'label' => __( 'Adapted by', 'pressbooks' ),
 			'input' => 'text',
 		];
 
 		$form_fields['pb_media_attribution_adapted_url'] = [
-			'value' => isset( $adapted_url ) ? $adapted_url : '',
+			'value' => $adapted_url ?? '',
 			'label' => __( 'Adapted by URL', 'pressbooks' ),
 			'input' => 'html',
 			'helps' => 'Please enter a valid URL: https://example.com',
@@ -152,13 +152,11 @@ function save_metadata_attachment( $post, $form_fields ) {
  *
  * @param $key
  * @param $form_field
- *
- * @return false|string
  */
-function validate_attachment_metadata( $key, $form_field ) {
+function validate_attachment_metadata( $key, $form_field ): false | string {
 
 	if ( Utility\str_ends_with( $key, '_url' ) && Utility\str_starts_with( $key, 'pb_' ) ) {
-		$form_field = ( wp_http_validate_url( $form_field ) ) ? wp_http_validate_url( $form_field ) : '';
+		$form_field = wp_http_validate_url( $form_field ) ?: '';
 	} elseif ( Utility\str_starts_with( $key, 'pb_' ) ) {
 		$form_field = sanitize_text_field( $form_field );
 	}

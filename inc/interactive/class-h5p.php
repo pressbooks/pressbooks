@@ -17,18 +17,12 @@ namespace Pressbooks\Interactive;
  */
 class H5P {
 
-	const SHORTCODE = 'h5p';
-
-	/**
-	 * @var \Jenssegers\Blade\Blade
-	 */
-	protected $blade;
+	public const SHORTCODE = 'h5p';
 
 	/**
 	 * @param \Jenssegers\Blade\Blade $blade
 	 */
-	public function __construct( $blade ) {
-		$this->blade = $blade;
+	public function __construct( protected $blade ) {
 		if ( is_file( WP_PLUGIN_DIR . '/h5p/autoloader.php' ) ) {
 			require_once( WP_PLUGIN_DIR . '/h5p/autoloader.php' );
 		}
@@ -80,7 +74,7 @@ class H5P {
 			) {
 				add_filter( 'h5p_rest_api_all_permission', '__return_true' );
 			}
-		} catch ( \Throwable $e ) {
+		} catch ( \Throwable ) {
 			return false;
 		}
 		return true;
@@ -96,7 +90,7 @@ class H5P {
 	public function fetch( $url ) {
 		try {
 			$new_h5p_id = \H5P_Plugin::get_instance()->fetch_h5p( $url );
-		} catch ( \Throwable $e ) {
+		} catch ( \Throwable ) {
 			$new_h5p_id = 0;
 		}
 		return $new_h5p_id;
@@ -152,7 +146,7 @@ class H5P {
 				if ( is_array( $content ) && ! empty( $content['title'] ) ) {
 					$h5p_title = $content['title'];
 				}
-			} catch ( \Throwable $e ) {
+			} catch ( \Throwable ) {
 				// Do nothing
 			}
 		}
@@ -174,7 +168,7 @@ class H5P {
 	 *
 	 * @return string
 	 */
-	public function replaceUncloneable( $content, $ids = [] ) {
+	public function replaceUncloneable( $content, array | int $ids = [] ) {
 		$pattern = get_shortcode_regex( [ self::SHORTCODE ] );
 		$callback = function ( $shortcode ) use ( $ids ) {
 			$warning = __( 'The original version of this chapter contained H5P content. You may want to remove or replace this element.', 'pressbooks' );

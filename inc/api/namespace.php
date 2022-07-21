@@ -2,7 +2,6 @@
 
 namespace Pressbooks\Api;
 
-use function Pressbooks\Utility\str_starts_with;
 use Pressbooks\Admin\Network\SharingAndPrivacyOptions;
 
 /**
@@ -68,9 +67,7 @@ function init_book() {
 	// We disable hierarchical mode but still want to use `post_parent`
 	register_rest_field(
 		'chapter', 'part', [
-			'get_callback' => function ( $post_arr ) {
-				return (int) get_post( $post_arr['id'] )->post_parent;
-			},
+			'get_callback' => fn( $post_arr) => (int) get_post( $post_arr['id'] )->post_parent,
 			'update_callback' => __NAMESPACE__ . '\update_part_id',
 			'schema' => [
 				'description' => __( 'Part ID.', 'pressbooks' ),
@@ -268,8 +265,8 @@ function hide_endpoints_from_book( $endpoints ) {
 				( str_starts_with( $key, '/wp/v2/glossary-type' ) ) ||
 				( str_starts_with( $key, '/wp/v2/license' ) ) ||
 				( str_starts_with( $key, '/wp/v2/contributor' ) ) ||
-				( str_starts_with( $key, '/wp/v2' ) && strpos( $key, '/revisions' ) !== false ) ||
-				( str_starts_with( $key, '/wp/v2' ) && strpos( $key, '/autosaves' ) !== false )
+				( str_starts_with( $key, '/wp/v2' ) && str_contains( $key, '/revisions' ) ) ||
+				( str_starts_with( $key, '/wp/v2' ) && str_contains( $key, '/autosaves' ) )
 			) {
 				unset( $endpoints[ $key ] );
 			}
@@ -293,10 +290,10 @@ function fix_book_urls( $url, $path ) {
 	$wpns = 'wp/v2/';
 	$pbns = 'pressbooks/v2/';
 
-	if ( strpos( $path, $wpns ) !== false ) {
+	if ( str_contains( $path, $wpns ) ) {
 		$fixes = get_custom_post_types() + [ 'license', 'contributor' ];
 		foreach ( $fixes as $fix ) {
-			if ( strpos( $path, "{$wpns}{$fix}" ) !== false ) {
+			if ( str_contains( $path, "{$wpns}{$fix}" ) ) {
 				$url = str_replace( $wpns, $pbns, $url );
 				break;
 			}
@@ -344,10 +341,8 @@ function fix_attachment( $response, $post, $request ) {
  *
  * @param int $part_id
  * @param \WP_Post $post_obj
- *
- * @return bool|\WP_Error
  */
-function update_part_id( $part_id, $post_obj ) {
+function update_part_id( $part_id, $post_obj ): bool | \WP_Error {
 
 	$part = get_post( $part_id );
 	if ( $part === null ) {

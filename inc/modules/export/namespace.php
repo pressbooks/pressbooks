@@ -206,7 +206,7 @@ function get_name_from_filetype_slug( $filetype ) {
 			'thincc13' => __( 'Common Cartridge with LTI links (1.3)', 'pressbooks' ),
 		]
 	);
-	return isset( $formats[ $filetype ] ) ? $formats[ $filetype ] : ucfirst( $filetype );
+	return $formats[ $filetype ] ?? ucfirst( $filetype );
 }
 
 /**
@@ -239,7 +239,7 @@ function get_name_from_module_classname( $classname ) {
 			'\Pressbooks\Modules\Export\ThinCC\WebLinks' => __( 'Common Cartridge (Web Links)', 'pressbooks' ),
 		]
 	);
-	return isset( $formats[ $classname ] ) ? $formats[ $classname ] : substr( strrchr( $classname, '\\' ), 1 );
+	return $formats[ $classname ] ?? substr( strrchr( $classname, '\\' ), 1 );
 }
 
 /**
@@ -267,7 +267,7 @@ function template_data() {
  */
 function update_pins() {
 	check_ajax_referer( 'pb-export-pins' );
-	$pins = json_decode( stripcslashes( $_POST['pins'] ), true );
+	$pins = json_decode( stripcslashes( $_POST['pins'] ), true, 512, JSON_THROW_ON_ERROR );
 	if ( is_array( $pins ) ) {
 		set_transient( Table::PIN, $pins );
 		$data = [

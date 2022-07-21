@@ -40,10 +40,7 @@ class Glyphs {
 		return self::$instance;
 	}
 
-	/**
-	 * @param Glyphs $obj
-	 */
-	static public function hooks( Glyphs $obj ) {
+	public static function hooks( Glyphs $obj ) {
 		add_shortcode( 'pb_language', [ $obj, 'langShortcode' ] );
 		add_filter(
 			'no_texturize_shortcodes',
@@ -67,7 +64,7 @@ class Glyphs {
 	 * @return string
 	 */
 	public function langShortcode( $atts, $content = null ) {
-
+		$language = null;
 		$a = shortcode_atts(
 			[
 				'lang' => '',
@@ -112,7 +109,6 @@ class Glyphs {
 	 * @return string
 	 */
 	private function greek( $text, $lang = 'grc' ) {
-
 		$monotonics = [
 			"'a" => '&#940;',
 			"'e" => '&#941;',

@@ -13,8 +13,7 @@ use Pressbooks\Modules\Import\ImportGenerator;
 use Pressbooks\Utility\PercentageYield;
 
 class Epub201 extends ImportGenerator {
-
-	const TYPE_OF = 'epub';
+	public const TYPE_OF = 'epub';
 
 	/**
 	 * Reference to the object that represents the Epub zip folder
@@ -54,7 +53,7 @@ class Epub201 extends ImportGenerator {
 	/**
 	 *
 	 */
-	function __construct() {
+	public function __construct() {
 		if ( ! function_exists( 'media_handle_sideload' ) ) {
 			require_once( ABSPATH . 'wp-admin/includes/image.php' );
 			require_once( ABSPATH . 'wp-admin/includes/file.php' );
@@ -66,14 +65,13 @@ class Epub201 extends ImportGenerator {
 
 	/**
 	 * @param array $upload
-	 *
 	 * @return bool
+	 * @throws \Exception
 	 */
-	function setCurrentImportOption( array $upload ) {
-
+	public function setCurrentImportOption( array $upload ): bool {
 		try {
 			$this->setCurrentZip( $upload['file'] );
-		} catch ( \Exception $e ) {
+		} catch ( \Exception ) {
 			return false;
 		}
 
@@ -128,15 +126,14 @@ class Epub201 extends ImportGenerator {
 
 	/**
 	 * @param array $current_import
-	 *
 	 * @return bool
 	 */
-	function import( array $current_import ) {
+	public function import( array $current_import ) {
 		try {
 			foreach ( $this->importGenerator( $current_import ) as $percentage => $info ) {
 				// Do nothing, this is a compatibility wrapper that makes the generator work like a regular function
 			}
-		} catch ( \Exception $e ) {
+		} catch ( \Exception ) {
 			return false;
 		}
 		return true;
@@ -144,11 +141,10 @@ class Epub201 extends ImportGenerator {
 
 	/**
 	 * @param array $current_import
-	 *
-	 * @throws \Exception
 	 * @return \Generator
+	 * @throws \Exception
 	 */
-	function importGenerator( array $current_import ) : \Generator {
+	public function importGenerator( array $current_import ) : \Generator {
 		yield 10 => __( 'Opening EPUB file', 'pressbooks' );
 		$this->setCurrentZip( $current_import['file'] );
 
@@ -174,7 +170,6 @@ class Epub201 extends ImportGenerator {
 	 * @param \SimpleXMLElement $xml
 	 */
 	protected function parseMetadata( \SimpleXMLElement $xml ) {
-
 		foreach ( $xml->metadata->children( 'dc', true ) as $key => $val ) {
 
 			$val = (string) $val;
@@ -199,7 +194,6 @@ class Epub201 extends ImportGenerator {
 	 * @param array $match_ids
 	 * @param $chapter_parent
 	 * @param array $current_import
-	 *
 	 * @return \Generator
 	 */
 	protected function parseManifestGenerator( \SimpleXMLElement $xml, array $match_ids, $chapter_parent, $current_import ) : \Generator {
@@ -221,7 +215,6 @@ class Epub201 extends ImportGenerator {
 	 *
 	 * @param \SimpleXMLElement $xml
 	 * @param array $match_ids
-	 *
 	 * @return int[]
 	 */
 	protected function selectedForImport( \SimpleXMLElement $xml, array $match_ids ) {
@@ -303,10 +296,10 @@ class Epub201 extends ImportGenerator {
 	 *
 	 * @param $file
 	 * @param bool $as_xml
-	 *
 	 * @return string|\SimpleXMLElement
+	 * @throws \Exception
 	 */
-	protected function getZipContent( $file, $as_xml = true ) {
+	protected function getZipContent( $file, bool $as_xml = true ): string | \SimpleXMLElement {
 
 		// Locates an entry using its name
 		$index = $this->zip->locateName( urldecode( $file ) );
@@ -334,6 +327,7 @@ class Epub201 extends ImportGenerator {
 	 * @param string $post_type
 	 * @param int $chapter_parent
 	 * @param string $post_status
+	 * @throws \Exception
 	 */
 	protected function kneadAndInsert( $href, $post_type, $chapter_parent, $post_status ) {
 
@@ -446,6 +440,7 @@ class Epub201 extends ImportGenerator {
 	 * @param string $copyright_file
 	 *
 	 * @return boolean
+	 * @throws \Exception
 	 * @see createCopyright() in /export/epub/class-pb-epub201.php
 	 */
 	protected function pbCheck( $copyright_file ) {
@@ -469,10 +464,10 @@ class Epub201 extends ImportGenerator {
 	 *
 	 * @param \DOMDocument $doc
 	 * @param string $href original filename, with (relative) path
-	 *
 	 * @return \DOMDocument
+	 * @throws \Exception
 	 */
-	protected function scrapeAndKneadImages( \DOMDocument $doc, $href ) {
+	protected function scrapeAndKneadImages( \DOMDocument $doc, string $href ): \DOMDocument {
 
 		$images = $doc->getElementsByTagName( 'img' );
 		foreach ( $images as $image ) {
@@ -499,14 +494,15 @@ class Epub201 extends ImportGenerator {
 	 * @param $url         string
 	 * @param string $href original filename, with (relative) path
 	 *
+	 * @return string filename
+	 * @throws \Exception
 	 * @see media_handle_sideload
 	 *
-	 * @return string filename
 	 */
 	protected function fetchAndSaveUniqueImage( $url, $href ) {
 
 		$path_parts = pathinfo( $href );
-		$dir = ( isset( $path_parts['dirname'] ) ) ? $path_parts['dirname'] : '';
+		$dir = $path_parts['dirname'] ?? '';
 		$img_location = ( $dir ? "$dir/$url" : $url );
 
 		// Cheap cache
@@ -539,7 +535,7 @@ class Epub201 extends ImportGenerator {
 				if ( ! $image_content ) {
 					throw new \Exception( 'Could not import images from EPUB' );
 				}
-			} catch ( \Exception $e ) {
+			} catch ( \Exception ) {
 				$already_done[ $img_location ] = '';
 				return '';
 			}
@@ -556,7 +552,7 @@ class Epub201 extends ImportGenerator {
 				if ( ! \Pressbooks\Image\is_valid_image( $tmp_name, $filename ) ) {
 					throw new \Exception( 'Image is corrupt, and file extension matches the mime type' );
 				}
-			} catch ( \Exception $exc ) {
+			} catch ( \Exception ) {
 				// Garbage, Don't import
 				$already_done[ $img_location ] = '';
 				return '';
@@ -584,23 +580,20 @@ class Epub201 extends ImportGenerator {
 	 * @param \DOMDocument $doc
 	 * @param string $type front-matter, part, chapter, back-matter, ...
 	 * @param string $href original filename, with (relative) path
-	 *
 	 * @return \DOMDocument
 	 */
-	protected function kneadHref( \DOMDocument $doc, $type, $href ) {
-
+	protected function kneadHref( \DOMDocument $doc, string $type, string $href ): \DOMDocument {
 		// TODO: Fix self-referencing URLs
 
 		return $doc;
 	}
 
 	/**
-	* Parse manifest with type 'application/xhtml+xml' to array
-	*
-	* @param \SimpleXMLElement $xml
-	*/
+	 * Parse manifest with type 'application/xhtml+xml' to array
+	 *
+	 * @param \SimpleXMLElement $xml
+	 */
 	protected function parseManifestToArray( \SimpleXMLElement $xml ) {
-
 		foreach ( $xml->manifest->children() as $item ) {
 			/** @var \SimpleXMLElement $item */
 			// Get attributes

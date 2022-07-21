@@ -178,7 +178,7 @@ class Sass {
 	 * @return string
 	 */
 	public function compile( $scss, $includes = [] ) {
-
+		$scssphp = null;
 		$scss = $this->prependLocalizedVars( $scss );
 
 		try {

@@ -456,7 +456,7 @@ function programmatic_login( $username ) {
  *
  * @return bool|\WP_User a WP_User object if the username matched an existing user, or false if it didn't
  */
-function allow_programmatic_login( $user, $username, $password ) {
+function allow_programmatic_login( $user, $username, $password ): bool | \WP_User {
 	$user = get_user_by( 'login', $username );
 	if ( $user !== false && is_user_spammy( $user ) === false ) {
 		return $user;
@@ -471,17 +471,16 @@ function allow_programmatic_login( $user, $username, $password ) {
  *
  * @param string $redirect_to The redirect destination URL.
  * @param string $requested_redirect_to The requested redirect destination URL passed as a parameter.
- * @param \WP_User|\WP_Error $user
  *
  * @return string
  */
-function break_reset_password_loop( $redirect_to, $requested_redirect_to, $user ) {
+function break_reset_password_loop( $redirect_to, $requested_redirect_to, \WP_User | \WP_Error $user ) {
 	if ( $user && $user instanceof \WP_User ) {
 		$parsed_url = wp_parse_url( $redirect_to );
 		if ( $parsed_url === false ) {
 			return $redirect_to;
 		}
-		if ( strpos( $parsed_url['path'] ?? '', 'wp-login.php' ) === false ) {
+		if ( ! str_contains( $parsed_url['path'] ?? '', 'wp-login.php' ) ) {
 			return $redirect_to;
 		}
 		parse_str( $parsed_url['query'] ?? '', $parsed_query );

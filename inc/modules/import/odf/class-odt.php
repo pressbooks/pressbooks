@@ -11,8 +11,7 @@ use Pressbooks\Book;
 use Pressbooks\Modules\Import\Import;
 
 class Odt extends Import {
-
-	const TYPE_OF = 'odt';
+	public const TYPE_OF = 'odt';
 
 	/**
 	 * @var \ZipArchive
@@ -29,10 +28,7 @@ class Odt extends Import {
 	 */
 	protected $authors;
 
-	/**
-	 *
-	 */
-	function __construct() {
+	public function __construct() {
 		if ( ! function_exists( 'media_handle_sideload' ) ) {
 			require_once( ABSPATH . 'wp-admin/includes/image.php' );
 			require_once( ABSPATH . 'wp-admin/includes/file.php' );
@@ -46,14 +42,12 @@ class Odt extends Import {
 	 * Imports content, only after options (chapters, parts) have been selected
 	 *
 	 * @param array $current_import
-	 *
-	 * @return boolean - returns false if import fails
+	 * @return bool - returns false if import fails
 	 */
-	function import( array $current_import ) {
-
+	public function import( array $current_import ): bool {
 		try {
 			$this->isValidZip( $current_import['file'] );
-		} catch ( \Exception $e ) {
+		} catch ( \Exception ) {
 			return false;
 		}
 
@@ -95,7 +89,6 @@ class Odt extends Import {
 	 * @param \DOMDocument $meta
 	 */
 	protected function parseMetaData( \DOMDocument $meta ) {
-
 		$node_list = $meta->getElementsByTagName( 'creator' );
 		if ( $node_list->item( 0 ) ) {
 			$this->authors = $node_list->item( 0 )->nodeValue;
@@ -167,11 +160,9 @@ class Odt extends Import {
 	 * Parse HTML snippet, save all found <img> tags using media_handle_sideload(), return the HTML with changed <img> paths.
 	 *
 	 * @param \DOMDocument $doc
-	 *
 	 * @return \DOMDocument
 	 */
-	protected function scrapeAndKneadImages( \DOMDocument $doc ) {
-
+	protected function scrapeAndKneadImages( \DOMDocument $doc ): \DOMDocument {
 		$images = $doc->getElementsByTagName( 'img' );
 		foreach ( $images as $image ) {
 			/** @var \DOMElement $image */
@@ -243,7 +234,7 @@ class Odt extends Import {
 				if ( ! \Pressbooks\Image\is_valid_image( $tmp_name, $filename ) ) {
 					throw new \Exception( 'Image is corrupt, and file extension matches the mime type' );
 				}
-			} catch ( \Exception $exc ) {
+			} catch ( \Exception ) {
 				// Garbage, Don't import
 				$already_done[ $img_location ] = '';
 
@@ -294,14 +285,12 @@ class Odt extends Import {
 	 * Chapter detection
 	 *
 	 * @param array $upload
-	 *
-	 * @return boolean
+	 * @return bool
 	 */
-	function setCurrentImportOption( array $upload ) {
-
+	public function setCurrentImportOption( array $upload ): bool {
 		try {
 			$this->isValidZip( $upload['file'] );
-		} catch ( \Exception $e ) {
+		} catch ( \Exception ) {
 			return false;
 		}
 
@@ -345,11 +334,9 @@ class Odt extends Import {
 	 *
 	 * @param \DOMNode $node
 	 * @param string $chapter_name
-	 *
 	 * @return \DOMNode|mixed
 	 */
-	protected function findTheNode( \DOMNode $node, $chapter_name ) {
-
+	protected function findTheNode( \DOMNode $node, string $chapter_name ) {
 		if ( XML_ELEMENT_NODE !== $node->nodeType ) {
 			return '';
 		}
@@ -387,11 +374,10 @@ class Odt extends Import {
 	 * @param \DOMNodeList $dom_list
 	 * @param int $index
 	 * @param string $chapter_title
-	 *
 	 * @return string XHTML
+	 * @throws \DOMException
 	 */
-	protected function getChapter( \DOMNodeList $dom_list, $index, $chapter_title ) {
-
+	protected function getChapter( \DOMNodeList $dom_list, int $index, string $chapter_title ): string {
 		if ( empty( $chapter_title ) ) {
 			$chapter_title = 'unknown';
 		}
@@ -440,13 +426,12 @@ class Odt extends Import {
 	/**
 	 * Find and return the identified chapter
 	 *
-	 * @param \DomDocument $xml
+	 * @param \DOMDocument
 	 * @param string $chapter_title
-	 *
 	 * @return string XML
+	 * @throws \DOMException
 	 */
-	protected function parseContent( \DomDocument $xml, $chapter_title ) {
-
+	protected function parseContent( \DOMDocument $xml, $chapter_title ): string {
 		$element = $xml->documentElement;
 		$node_list = $element->childNodes;
 		$chapter_node = '';
@@ -514,12 +499,10 @@ class Odt extends Import {
 	 * Locates an entry using its name, returns the entry contents
 	 *
 	 * @param string $file - path to a file
-	 * @param boolean $as_xml
-	 *
-	 * @return boolean|\DOMDocument
+	 * @param bool $as_xml
+	 * @return bool|\DOMDocument
 	 */
-	protected function getZipContent( $file, $as_xml = true ) {
-
+	protected function getZipContent( string $file, bool $as_xml = true ): bool | \DOMDocument {
 		// Locates an entry using its name
 		$index = $this->zip->locateName( $file );
 

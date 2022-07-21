@@ -12,21 +12,13 @@ use function \Pressbooks\Utility\getset;
 use Pressbooks\Container;
 
 class GlobalOptions extends \Pressbooks\Options {
-
 	/**
 	 * The value for option: pressbooks_theme_options_global_version
 	 *
 	 * @see upgrade()
 	 * @var int
 	 */
-	const VERSION = 2;
-
-	/**
-	 * Global theme options.
-	 *
-	 * @var array
-	 */
-	public $options;
+	public const VERSION = 2;
 
 	/**
 	 * Global theme defaults.
@@ -40,14 +32,13 @@ class GlobalOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $options
 	 */
-	function __construct( array $options ) {
-		$this->options = $options;
-		$this->defaults = $this->getDefaults();
-		$this->booleans = $this->getBooleanOptions();
-		$this->strings = $this->getStringOptions();
-		$this->integers = $this->getIntegerOptions();
-		$this->floats = $this->getFloatOptions();
-		$this->predefined = $this->getPredefinedOptions();
+	public function __construct( public array $options ) {
+		$this->defaults = static::getDefaults();
+		$this->booleans = static::getBooleanOptions();
+		$this->strings = static::getStringOptions();
+		$this->integers = static::getIntegerOptions();
+		$this->floats = static::getFloatOptions();
+		$this->predefined = static::getPredefinedOptions();
 
 		foreach ( $this->defaults as $key => $value ) {
 			if ( ! isset( $this->options[ $key ] ) ) {
@@ -59,10 +50,10 @@ class GlobalOptions extends \Pressbooks\Options {
 	/**
 	 * Configure the global options tab using the settings API.
 	 */
-	function init() {
-		$_option = 'pressbooks_theme_options_' . $this->getSlug();
+	public function init() {
+		$_option = 'pressbooks_theme_options_' . static::getSlug();
 		$_page = $_option;
-		$_section = $this->getSlug() . '_options_section';
+		$_section = static::getSlug() . '_options_section';
 
 		if ( false === get_option( $_option ) ) {
 			add_option( $_option, $this->defaults );
@@ -73,7 +64,7 @@ class GlobalOptions extends \Pressbooks\Options {
 
 		add_settings_section(
 			$_section,
-			$this->getTitle(),
+			static::getTitle(),
 			[ $this, 'display' ],
 			$_page
 		);
@@ -254,14 +245,14 @@ class GlobalOptions extends \Pressbooks\Options {
 	/**
 	 * Display the global options tab description.
 	 */
-	function display() {
+	public function display() {
 		echo '<p>' . __( 'These options apply universally to webbook, PDF and ebook exports.', 'pressbooks' ) . '</p>';
 	}
 
 	/**
 	 * Render the PDF options tab form (NOT USED).
 	 */
-	function render() {
+	public function render() {
 	}
 
 	/**
@@ -271,7 +262,7 @@ class GlobalOptions extends \Pressbooks\Options {
 	 *
 	 * @return array
 	 */
-	function sanitizeLanguages( $input ) {
+	public function sanitizeLanguages( $input ) {
 		if ( ! is_array( $input ) ) {
 			$input = [];
 		}
@@ -283,7 +274,7 @@ class GlobalOptions extends \Pressbooks\Options {
 	 *
 	 * @param int $version
 	 */
-	function upgrade( $version ) {
+	public function upgrade( $version ) {
 		if ( $version < 1 ) {
 			$this->doInitialUpgrade();
 		}
@@ -292,8 +283,8 @@ class GlobalOptions extends \Pressbooks\Options {
 	/**
 	 * Remove deprecated keys from global options, clarify two-level TOC key name.
 	 */
-	function doInitialUpgrade() {
-		$_option = $this->getSlug();
+	public function doInitialUpgrade() {
+		$_option = static::getSlug();
 		$options = get_option( 'pressbooks_theme_options_' . $_option, $this->defaults );
 		$deprecated = [
 			'pressbooks_enable_chapter_types',
@@ -320,17 +311,15 @@ class GlobalOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderChapterNumbersField( $args ) {
+	public function renderChapterNumbersField( $args ) {
 		unset( $args['label_for'], $args['class'] );
-		$this->renderCheckbox(
-			[
-				'id' => 'chapter_numbers',
-				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
-				'option' => 'chapter_numbers',
-				'value' => ( isset( $this->options['chapter_numbers'] ) ) ? $this->options['chapter_numbers'] : '',
-				'label' => $args[0],
-			]
-		);
+		static::renderCheckbox([
+			'id' => 'chapter_numbers',
+			'name' => 'pressbooks_theme_options_' . static::getSlug(),
+			'option' => 'chapter_numbers',
+			'value' => $this->options['chapter_numbers'] ?? '',
+			'label' => $args[0],
+		]);
 	}
 
 	/**
@@ -338,17 +327,15 @@ class GlobalOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderTwoLevelTOCField( $args ) {
+	public function renderTwoLevelTOCField( $args ) {
 		unset( $args['label_for'], $args['class'] );
-		$this->renderCheckbox(
-			[
-				'id' => 'parse_subsections',
-				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
-				'option' => 'parse_subsections',
-				'value' => ( isset( $this->options['parse_subsections'] ) ) ? $this->options['parse_subsections'] : '',
-				'label' => $args[0],
-			]
-		);
+		static::renderCheckbox([
+			'id' => 'parse_subsections',
+			'name' => 'pressbooks_theme_options_' . static::getSlug(),
+			'option' => 'parse_subsections',
+			'value' => $this->options['parse_subsections'] ?? '',
+			'label' => $args[0],
+		]);
 	}
 
 	/**
@@ -356,17 +343,15 @@ class GlobalOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderAuthorInformation( $args ) {
+	public function renderAuthorInformation( $args ) {
 		unset( $args['label_for'], $args['class'] );
-		$this->renderCheckbox(
-			[
-				'id' => 'about_the_author',
-				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
-				'option' => 'about_the_author',
-				'value' => ( isset( $this->options['about_the_author'] ) ) ? $this->options['about_the_author'] : '',
-				'label' => $args[0],
-			]
-		);
+		static::renderCheckbox([
+			'id' => 'about_the_author',
+			'name' => 'pressbooks_theme_options_' . static::getSlug(),
+			'option' => 'about_the_author',
+			'value' => $this->options['about_the_author'] ?? '',
+			'label' => $args[0],
+		]);
 	}
 
 	/**
@@ -376,17 +361,15 @@ class GlobalOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderAttachmentAttributionsField( $args ) {
+	public function renderAttachmentAttributionsField( $args ) {
 		unset( $args['label_for'], $args['class'] );
-		$this->renderCheckbox(
-			[
-				'id' => 'attachment_attributions',
-				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
-				'option' => 'attachment_attributions',
-				'value' => ( isset( $this->options['attachment_attributions'] ) ) ? $this->options['attachment_attributions'] : '',
-				'label' => $args[0],
-			]
-		);
+		static::renderCheckbox([
+			'id' => 'attachment_attributions',
+			'name' => 'pressbooks_theme_options_' . static::getSlug(),
+			'option' => 'attachment_attributions',
+			'value' => $this->options['attachment_attributions'] ?? '',
+			'label' => $args[0],
+		]);
 	}
 
 	/**
@@ -394,7 +377,7 @@ class GlobalOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderLanguagesField( $args ) {
+	public function renderLanguagesField( $args ) {
 		unset( $args['label_for'], $args['class'] );
 
 		$foreign_languages = get_option( 'pressbooks_global_typography' );
@@ -413,7 +396,7 @@ class GlobalOptions extends \Pressbooks\Options {
 		$already_supported_languages_string = '';
 
 		$i = 1;
-		$c = count( $already_supported_languages );
+		$c = is_countable( $already_supported_languages ) ? count( $already_supported_languages ) : 0;
 		foreach ( $already_supported_languages as $lang ) {
 			$already_supported_languages_string .= $languages[ $lang ];
 			if ( $i < $c && $i === $c - 1 ) {
@@ -445,17 +428,15 @@ class GlobalOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderCopyrightLicenseField( $args ) {
+	public function renderCopyrightLicenseField( $args ) {
 		unset( $args['label_for'], $args['class'] );
-		$this->renderRadioButtons(
-			[
-				'id' => 'copyright_license',
-				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
-				'option' => 'copyright_license',
-				'value' => getset( $this->options, 'copyright_license', 0 ),
-				'choices' => $args,
-			]
-		);
+		static::renderRadioButtons([
+			'id' => 'copyright_license',
+			'name' => 'pressbooks_theme_options_' . static::getSlug(),
+			'option' => 'copyright_license',
+			'value' => getset( $this->options, 'copyright_license', 0 ),
+			'choices' => $args,
+		]);
 	}
 
 	/**
@@ -463,7 +444,7 @@ class GlobalOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderTextboxHeader( $args ) {
+	public function renderTextboxHeader( $args ) {
 		unset( $args['label_for'], $args['class'] );
 		printf( $args[0] );
 	}
@@ -473,18 +454,16 @@ class GlobalOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderTextboxColorField( $args ) {
+	public function renderTextboxColorField( $args ) {
 		unset( $args['label_for'], $args['class'] );
-		$this->renderColorField(
-			[
-				'id' => $args['key'],
-				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
-				'option' => $args['key'],
-				'value' => ( isset( $this->options[ $args['key'] ] ) ) ? $this->options[ $args['key'] ] : $this->defaults[ $args['key'] ],
-				'default' => $this->defaults[ $args['key'] ],
-				'description' => $args['description'],
-			]
-		);
+		static::renderColorField([
+			'id' => $args['key'],
+			'name' => 'pressbooks_theme_options_' . static::getSlug(),
+			'option' => $args['key'],
+			'value' => $this->options[ $args['key'] ] ?? $this->defaults[ $args['key'] ],
+			'default' => $this->defaults[ $args['key'] ],
+			'description' => $args['description'],
+		]);
 	}
 
 	/**
@@ -492,19 +471,17 @@ class GlobalOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderPartLabelField( $args ) {
+	public function renderPartLabelField( $args ) {
 		unset( $args['label_for'], $args['class'] );
-		$this->renderField(
-			[
-				'id' => 'part_label',
-				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
-				'option' => 'part_label',
-				'value' => getset( $this->options, 'part_label' ),
-				'description' => $args[0],
-				'type' => 'text',
-				'class' => 'regular-text',
-			]
-		);
+		static::renderField([
+			'id' => 'part_label',
+			'name' => 'pressbooks_theme_options_' . static::getSlug(),
+			'option' => 'part_label',
+			'value' => getset( $this->options, 'part_label' ),
+			'description' => $args[0],
+			'type' => 'text',
+			'class' => 'regular-text',
+		]);
 	}
 
 	/**
@@ -512,19 +489,17 @@ class GlobalOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderChapterLabelField( $args ) {
+	public function renderChapterLabelField( $args ) {
 		unset( $args['label_for'], $args['class'] );
-		$this->renderField(
-			[
-				'id' => 'chapter_label',
-				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
-				'option' => 'chapter_label',
-				'value' => getset( $this->options, 'chapter_label' ),
-				'description' => $args[0],
-				'type' => 'text',
-				'class' => 'regular-text',
-			]
-		);
+		static::renderField([
+			'id' => 'chapter_label',
+			'name' => 'pressbooks_theme_options_' . static::getSlug(),
+			'option' => 'chapter_label',
+			'value' => getset( $this->options, 'chapter_label' ),
+			'description' => $args[0],
+			'type' => 'text',
+			'class' => 'regular-text',
+		]);
 	}
 
 	/**
@@ -532,7 +507,7 @@ class GlobalOptions extends \Pressbooks\Options {
 	 *
 	 * @return string $slug
 	 */
-	static function getSlug() {
+	public static function getSlug() {
 		return 'global';
 	}
 
@@ -541,7 +516,7 @@ class GlobalOptions extends \Pressbooks\Options {
 	 *
 	 * @return string $title
 	 */
-	static function getTitle() {
+	public static function getTitle() {
 		return __( 'Global Options', 'pressbooks' );
 	}
 
@@ -550,7 +525,7 @@ class GlobalOptions extends \Pressbooks\Options {
 	 *
 	 * @return array $defaults
 	 */
-	static function getDefaults() {
+	public static function getDefaults() {
 		/**
 		 * @since 3.9.7
 		 *
@@ -588,7 +563,7 @@ class GlobalOptions extends \Pressbooks\Options {
 	 *
 	 * @return array $defaults
 	 */
-	static function filterDefaults( $defaults ) {
+	public static function filterDefaults( $defaults ) {
 
 		// SASS => WP
 		$overrides = [
@@ -644,7 +619,7 @@ class GlobalOptions extends \Pressbooks\Options {
 	 *
 	 * @return array $options
 	 */
-	static function getBooleanOptions() {
+	public static function getBooleanOptions() {
 		/**
 		 * Allow custom boolean options to be passed to sanitization routines.
 		 *
@@ -667,7 +642,7 @@ class GlobalOptions extends \Pressbooks\Options {
 	 *
 	 * @return array $options
 	 */
-	static function getStringOptions() {
+	public static function getStringOptions() {
 		/**
 		 * Allow custom string options to be passed to sanitization routines.
 		 *
@@ -700,7 +675,7 @@ class GlobalOptions extends \Pressbooks\Options {
 	 *
 	 * @return array $options
 	 */
-	static function getIntegerOptions() {
+	public static function getIntegerOptions() {
 		/**
 		 * Allow custom integer options to be passed to sanitization routines.
 		 *
@@ -720,7 +695,7 @@ class GlobalOptions extends \Pressbooks\Options {
 	 *
 	 * @return array $options
 	 */
-	static function getFloatOptions() {
+	public static function getFloatOptions() {
 		/**
 		 * Allow custom float options to be passed to sanitization routines.
 		 *
@@ -736,7 +711,7 @@ class GlobalOptions extends \Pressbooks\Options {
 	 *
 	 * @return array $options
 	 */
-	static function getPredefinedOptions() {
+	public static function getPredefinedOptions() {
 		/**
 		 * Allow custom predifined options to be passed to sanitization routines.
 		 *

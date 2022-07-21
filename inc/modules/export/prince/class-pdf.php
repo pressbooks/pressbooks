@@ -12,7 +12,6 @@ use Pressbooks\Container;
 use Pressbooks\Modules\Export\Export;
 
 class Pdf extends Export {
-
 	/**
 	 * Service URL
 	 *
@@ -62,7 +61,6 @@ class Pdf extends Export {
 	 * @param array $args
 	 */
 	function __construct( array $args ) {
-
 		if ( ! defined( 'PB_PRINCE_COMMAND' ) ) {
 			define( 'PB_PRINCE_COMMAND', '/usr/bin/prince' );
 		}
@@ -86,7 +84,7 @@ class Pdf extends Export {
 	 * @return bool
 	 */
 	function convert() {
-
+		$msg = null;
 		// Sanity check
 		if ( empty( $this->exportStylePath ) || ! is_file( $this->exportStylePath ) ) {
 			$this->logError( '$this->exportStylePath must be set before calling convert().' );
@@ -124,7 +122,7 @@ class Pdf extends Export {
 		if ( $this->pdfProfile && $this->pdfOutputIntent ) {
 			$prince->setPDFProfile( $this->pdfProfile );
 			$prince->setPDFOutputIntent( $this->pdfOutputIntent );
-		} elseif ( stripos( get_class( $this ), 'print' ) === false && empty( $this->pdfProfile ) ) {
+		} elseif ( stripos( $this::class, 'print' ) === false && empty( $this->pdfProfile ) ) {
 			// PDF for digital distribution without any PB_PDF_PROFILE
 			// Use PDF/UA-1, enhanced for accessibility.
 			$prince->setPDFProfile( 'PDF/UA-1' );
@@ -195,7 +193,7 @@ class Pdf extends Export {
 
 		$mime = static::mimeType( $file );
 
-		return ( strpos( $mime, 'application/pdf' ) !== false );
+		return ( str_contains( $mime, 'application/pdf' ) );
 	}
 
 	/**

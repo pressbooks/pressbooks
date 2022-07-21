@@ -31,7 +31,7 @@ function filter_plugins( $plugins ) {
 		];
 		$approved = [];
 		foreach ( $plugins as $slug => $value ) {
-			if ( strpos( $slug, 'pressbooks-' ) !== false || in_array( explode( '/', $slug )[0], $slugs, true ) ) {
+			if ( str_contains( $slug, 'pressbooks-' ) || in_array( explode( '/', $slug )[0], $slugs, true ) ) {
 				$approved[ $slug ] = $value;
 			}
 		}

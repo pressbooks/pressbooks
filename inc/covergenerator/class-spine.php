@@ -97,7 +97,7 @@ class Spine {
 
 		try {
 			return $this->countPagesInPdf( $path_to_pdf );
-		} catch ( \Exception $e ) {
+		} catch ( \Exception ) {
 			return 0;
 		}
 	}

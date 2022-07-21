@@ -18,8 +18,7 @@ use Pressbooks\Metadata;
 use Pressbooks\Modules\Import\Import;
 
 class Wxr extends Import {
-
-	const TYPE_OF = 'wxr';
+	public const TYPE_OF = 'wxr';
 
 	/**
 	 * If Pressbooks generated the WXR file
@@ -73,10 +72,7 @@ class Wxr extends Import {
 	 */
 	protected $postsWithAttachmentsShortcodesToFix = [];
 
-	/**
-	 *
-	 */
-	function __construct() {
+	public function __construct() {
 		if ( ! function_exists( 'media_handle_sideload' ) ) {
 			require_once( ABSPATH . 'wp-admin/includes/image.php' );
 			require_once( ABSPATH . 'wp-admin/includes/file.php' );
@@ -92,8 +88,8 @@ class Wxr extends Import {
 	 * @param null \Pressbooks\Contributors $contributors
 	 */
 	public function dependencies( $downloads = null, $contributors = null ) {
-		$this->downloads = $downloads ? $downloads : new Downloads( $this );
-		$this->contributors = $contributors ? $contributors : new Contributors();
+		$this->downloads = $downloads ?: new Downloads( $this );
+		$this->contributors = $contributors ?: new Contributors();
 	}
 
 	/**
@@ -119,15 +115,13 @@ class Wxr extends Import {
 
 	/**
 	 * @param array $upload
-	 *
 	 * @return bool
 	 */
-	function setCurrentImportOption( array $upload ) {
-
+	public function setCurrentImportOption( array $upload ): bool {
 		try {
 			$parser = new Parser();
 			$xml = $parser->parse( $upload['file'] );
-		} catch ( \Exception $e ) {
+		} catch ( \Exception ) {
 			return false;
 		}
 
@@ -190,7 +184,7 @@ class Wxr extends Import {
 	 * @param false $override_slug when true it will add a random string at the end to disambiguate from existent terms
 	 * @return array|int[]|\WP_Error
 	 */
-	private function saveTerm( $term, $override_slug = false ) {
+	private function saveTerm( $term, $override_slug = false ): array | \WP_Error {
 		return wp_insert_term(
 			$term['term_name'],
 			$term['term_taxonomy'],
@@ -242,15 +236,14 @@ class Wxr extends Import {
 
 	/**
 	 * @param array $current_import
-	 *
 	 * @return bool
 	 */
-	function import( array $current_import ) {
+	public function import( array $current_import ) {
 
 		try {
 			$parser = new Parser();
 			$xml = $parser->parse( $current_import['file'] );
-		} catch ( \Exception $e ) {
+		} catch ( \Exception ) {
 			return false;
 		}
 
@@ -263,9 +256,7 @@ class Wxr extends Import {
 		// Sort by the length of sourceUrls for better search and replace
 		$known_media_sorted = $this->knownMedia;
 		uasort(
-			$known_media_sorted, function ( $a, $b ) {
-				return strlen( $b->sourceUrl ) <=> strlen( $a->sourceUrl );
-			}
+			$known_media_sorted, fn( $a, $b) => strlen( $b->sourceUrl ) <=> strlen( $a->sourceUrl )
 		);
 		$this->knownMedia = $known_media_sorted;
 
@@ -430,7 +421,6 @@ class Wxr extends Import {
 	 * @param array $xml
 	 */
 	protected function pbCheck( array $xml ) {
-
 		$pt = 0;
 		$ch = 0;
 		$fm = 0;
@@ -471,9 +461,7 @@ class Wxr extends Import {
 
 		//first, put them in ascending menu_order
 		usort(
-			$xml, function ( $a, $b ) {
-				return ( $a['menu_order'] - $b['menu_order'] );
-			}
+			$xml, fn( $a, $b) => $a['menu_order'] - $b['menu_order']
 		);
 
 		// Start with book info
@@ -639,7 +627,7 @@ class Wxr extends Import {
 		$metadata = get_post_meta( $pid );
 		foreach ( $metadata as $key => $val ) {
 			// Does key start with pb_ prefix?
-			if ( 0 === strpos( $key, 'pb_' ) ) {
+			if ( str_starts_with( $key, 'pb_' ) ) {
 				delete_post_meta( $pid, $key );
 			}
 		}
@@ -658,7 +646,7 @@ class Wxr extends Import {
 
 		// Import post meta
 		foreach ( $p['postmeta'] as $meta ) {
-			if ( 0 !== strpos( $meta['key'], 'pb_' ) ) {
+			if ( ! str_starts_with( $meta['key'], 'pb_' ) ) {
 				continue; // Skip
 			}
 			// Skip contributor meta (already done, look up)
@@ -686,10 +674,9 @@ class Wxr extends Import {
 	 *
 	 * @param string $meta_key
 	 * @param array $postmeta
-	 *
 	 * @return string meta field value
 	 */
-	protected function searchForMetaValue( $meta_key, array $postmeta ) {
+	protected function searchForMetaValue( string $meta_key, array $postmeta ): string {
 
 		if ( empty( $postmeta ) ) {
 			return '';
@@ -714,8 +701,7 @@ class Wxr extends Import {
 	 * @param array $postmeta
 	 * @return array
 	 */
-	public function searchMultipleContributorValues( $meta_key, array $postmeta = [] ) {
-
+	public function searchMultipleContributorValues( $meta_key, array $postmeta = [] ): array {
 		$values = [];
 
 		foreach ( $postmeta as $meta ) {

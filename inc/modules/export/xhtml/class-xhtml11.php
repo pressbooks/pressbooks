@@ -26,7 +26,7 @@ class Xhtml11 extends ExportGenerator {
 
 	use ExportHelpers;
 
-	const TRANSIENT = 'pressbooks_export_xhtml_buffer_inner_html';
+	public const TRANSIENT = 'pressbooks_export_xhtml_buffer_inner_html';
 
 	/**
 	 * Prettify HTML
@@ -188,7 +188,7 @@ class Xhtml11 extends ExportGenerator {
 			foreach ( $this->convertGenerator() as $percentage => $info ) {
 				// Do nothing, this is a compatibility wrapper that makes the generator work like a regular function
 			}
-		} catch ( \Exception $e ) {
+		} catch ( \Exception ) {
 			return false;
 		}
 		return true;
@@ -226,7 +226,7 @@ class Xhtml11 extends ExportGenerator {
 			foreach ( $this->validateGenerator() as $percentage => $info ) {
 				// Do nothing, this is a compatibility wrapper that makes the generator work like a regular function
 			}
-		} catch ( \Exception $e ) {
+		} catch ( \Exception ) {
 			return false;
 		}
 		return true;
@@ -284,7 +284,7 @@ class Xhtml11 extends ExportGenerator {
 
 		if ( ! current_user_can( 'edit_posts' ) ) {
 			$timestamp = ( isset( $_REQUEST['timestamp'] ) ) ? absint( $_REQUEST['timestamp'] ) : 0;
-			$hashkey = ( isset( $_REQUEST['hashkey'] ) ) ? $_REQUEST['hashkey'] : '';
+			$hashkey = $_REQUEST['hashkey'] ?? '';
 			if ( ! $this->verifyNonce( $timestamp, $hashkey ) ) {
 				wp_die( __( 'Invalid permission error', 'pressbooks' ) );
 			}
@@ -294,7 +294,7 @@ class Xhtml11 extends ExportGenerator {
 			foreach ( $this->transformGenerator() as $percentage => $info ) {
 				// Do nothing, this is a compatibility wrapper that makes the generator work like a regular function
 			}
-		} catch ( \Exception $e ) {
+		} catch ( \Exception ) {
 			return null;
 		}
 
@@ -505,7 +505,7 @@ class Xhtml11 extends ExportGenerator {
 	function footnoteShortcode( $atts, $content = null ) {
 		global $id; // This is the Post ID, [@see WP_Query::setup_postdata, preProcessBookContents, ...]
 		$this->footnotes[ $id ][] = trim( $content );
-		$ref_id = count( $this->footnotes[ $id ] );
+		$ref_id = is_countable( $this->footnotes[ $id ] ) ? count( $this->footnotes[ $id ] ) : 0;
 		$ref_id_dom = $id . '-' . $ref_id;
 		return "<span class='footnote'><span class='footnote-indirect' data-fnref='$ref_id_dom'></span></span>";
 	}
@@ -530,7 +530,7 @@ class Xhtml11 extends ExportGenerator {
 
 		$this->endnotes[ $id ][] = trim( $content );
 
-		return '<sup class="endnote">' . count( $this->endnotes[ $id ] ) . '</sup>';
+		return '<sup class="endnote">' . ( is_countable( $this->endnotes[ $id ] ) ? count( $this->endnotes[ $id ] ) : 0 ) . '</sup>';
 	}
 
 	/**
@@ -544,7 +544,7 @@ class Xhtml11 extends ExportGenerator {
 	 */
 	function doEndnotes( $id ) {
 		// TODO: convert to blade
-		if ( ! isset( $this->endnotes[ $id ] ) || ! count( $this->endnotes[ $id ] ) ) {
+		if ( ! isset( $this->endnotes[ $id ] ) || ! ( is_countable( $this->endnotes[ $id ] ) ? count( $this->endnotes[ $id ] ) : 0 ) ) {
 			return '';
 		}
 
@@ -571,7 +571,7 @@ class Xhtml11 extends ExportGenerator {
 	 */
 	function doFootnotes( $id ) {
 		// TODO: convert to blade
-		if ( ! isset( $this->footnotes[ $id ] ) || ! count( $this->footnotes[ $id ] ) ) {
+		if ( ! isset( $this->footnotes[ $id ] ) || ! ( is_countable( $this->footnotes[ $id ] ) ? count( $this->footnotes[ $id ] ) : 0 ) ) {
 			return '';
 		}
 
@@ -1040,7 +1040,7 @@ class Xhtml11 extends ExportGenerator {
 	 * @param array $metadata
 	 */
 	protected function renderCopyright( $metadata ) {
-
+		$meta = [];
 		if ( empty( $metadata['pb_book_license'] ) ) {
 			$all_rights_reserved = true;
 		} elseif ( $metadata['pb_book_license'] === 'all-rights-reserved' ) {
@@ -1246,9 +1246,9 @@ class Xhtml11 extends ExportGenerator {
 	 * @param array $metadata
 	 * @return \Generator
 	 */
-	protected function renderFrontMatterGenerator( $book_contents, $metadata ) : \Generator {
+	protected function renderFrontMatterGenerator( array $book_contents, array $metadata ) : \Generator {
 
-		$y = new PercentageYield( 50, 60, count( $book_contents['front-matter'] ) );
+		$y = new PercentageYield( 50, 60, is_countable( $book_contents['front-matter'] ) ? count( $book_contents['front-matter'] ) : 0 );
 
 		$index = $this->frontMatterPos;
 		foreach ( $book_contents['front-matter'] as $front_matter ) {
@@ -1309,12 +1309,12 @@ class Xhtml11 extends ExportGenerator {
 	 * @param array $metadata
 	 * @return \Generator
 	 */
-	protected function renderPartsAndChaptersGenerator( $book_contents, $metadata ) : \Generator {
+	protected function renderPartsAndChaptersGenerator( array $book_contents, array $metadata ) : \Generator {
 		$yield = new PercentageYield( 60, 70, $this->countPartsAndChapters( $book_contents ) );
 
 		$part_index = 1;
 		$chapter_index = 1;
-		$parts_amount = count( $book_contents['part'] );
+		$parts_amount = is_countable( $book_contents['part'] ) ? count( $book_contents['part'] ) : 0;
 		$parse_subsections = \Pressbooks\Modules\Export\Export::shouldParseSubsections();
 
 		foreach ( $book_contents['part'] as $part ) {
@@ -1389,7 +1389,7 @@ class Xhtml11 extends ExportGenerator {
 					? \Pressbooks\Modules\Export\get_contributors_section( $chapter_id )
 					: '';
 
-				$chapter_number = strpos( $chapter_subclass, 'numberless' ) === false ? $chapter_index : '';
+				$chapter_number = ! str_contains( $chapter_subclass, 'numberless' ) ? $chapter_index : '';
 
 				$rendered_chapters .= $this->blade->render(
 					'export/chapter',
@@ -1452,9 +1452,8 @@ class Xhtml11 extends ExportGenerator {
 	 * @param array $metadata
 	 * @return \Generator
 	 */
-	protected function renderBackMatterGenerator( $book_contents, $metadata ) : \Generator {
-
-		$y = new PercentageYield( 70, 80, count( $book_contents['back-matter'] ) );
+	protected function renderBackMatterGenerator( array $book_contents, array $metadata ) : \Generator {
+		$y = new PercentageYield( 70, 80, is_countable( $book_contents['back-matter'] ) ? count( $book_contents['back-matter'] ) : 0 );
 
 		$i = 1;
 		foreach ( $book_contents['back-matter'] as $back_matter ) {
@@ -1498,10 +1497,9 @@ class Xhtml11 extends ExportGenerator {
 	 * Does array of chapters have at least one export? Recursive.
 	 *
 	 * @param array $chapters
-	 *
 	 * @return bool
 	 */
-	protected function atLeastOneExport( array $chapters ) {
+	protected function atLeastOneExport( array $chapters ): bool {
 
 		foreach ( $chapters as $key => $val ) {
 			if ( is_array( $val ) ) {
@@ -1524,7 +1522,7 @@ class Xhtml11 extends ExportGenerator {
 	 *
 	 * @return bool
 	 */
-	static function hasDependencies() {
+	public static function hasDependencies() {
 		if ( true === \Pressbooks\Utility\check_xmllint_install() ) {
 			return true;
 		}

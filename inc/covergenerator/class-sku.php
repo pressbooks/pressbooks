@@ -101,7 +101,7 @@ class Sku extends Isbn {
 	 * @return string
 	 */
 	public function invocation( $sku, $not_used_1, $not_used_2, $text_font, $text_size ) {
-
+		$ps = [];
 		$ps[] = "50 50 moveto ({$sku}) (includetext textfont={$text_font} textsize={$text_size} height=0.5)";
 		$ps[] = '/code128 /uk.co.terryburton.bwipp findresource exec';
 

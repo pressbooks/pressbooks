@@ -16,7 +16,7 @@ class Privacy {
 	/**
 	 * @return Privacy
 	 */
-	static public function init() {
+	public static function init() {
 		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
 			self::hooks( self::$instance );
@@ -27,7 +27,7 @@ class Privacy {
 	/**
 	 * @param Privacy $obj
 	 */
-	static public function hooks( Privacy $obj ) {
+	public static function hooks( Privacy $obj ) {
 		add_filter( 'schedule_event', [ $obj, 'reschedulePrivacyCron' ] );
 	}
 

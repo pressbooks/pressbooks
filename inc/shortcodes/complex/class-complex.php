@@ -10,7 +10,6 @@ use function \Pressbooks\Utility\do_shortcode_by_tags;
 use function \Pressbooks\Utility\str_starts_with;
 
 class Complex {
-
 	/**
 	 * @var Complex - Static property to hold our singleton instance.
 	 */
@@ -19,7 +18,7 @@ class Complex {
 	/**
 	 * Adds shortcodes based on $self->complex.
 	 */
-	static public function init() {
+	public static function init() {
 		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
 			self::hooks( self::$instance );
@@ -29,10 +28,8 @@ class Complex {
 
 	/**
 	 * Shortcode registration hooks.
-	 *
-	 * @param Complex $obj
 	 */
-	static public function hooks( Complex $obj ) {
+	public static function hooks( Complex $obj ) {
 		add_shortcode( 'anchor', [ $obj, 'anchorShortCodeHandler' ] );
 		add_shortcode( 'columns', [ $obj, 'columnsShortCodeHandler' ] );
 		add_shortcode( 'email', [ $obj, 'emailShortCodeHandler' ] );
@@ -156,7 +153,7 @@ class Complex {
 				'<a href="mailto:%1$s"%2$s>%3$s</a>',
 				antispambot( $address ),
 				( isset( $atts['class'] ) ) ? sprintf( ' class="%s"', $atts['class'] ) : '',
-				( $content ) ? $content : antispambot( $address )
+				$content ?: antispambot( $address )
 			);
 		}
 	}

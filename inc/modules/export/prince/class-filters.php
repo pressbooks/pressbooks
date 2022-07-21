@@ -8,15 +8,12 @@ namespace Pressbooks\Modules\Export\Prince;
 
 class Filters {
 
-	/**
-	 * @var Filters
-	 */
-	private static $instance = null;
+	private static ?\Pressbooks\Modules\Export\Prince\Filters $instance = null;
 
 	/**
 	 * @return Filters
 	 */
-	static public function init() {
+	public static function init() {
 		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
 			self::hooks( self::$instance );
@@ -24,10 +21,7 @@ class Filters {
 		return self::$instance;
 	}
 
-	/**
-	 * @param Filters $obj
-	 */
-	static public function hooks( Filters $obj ) {
+	public static function hooks( Filters $obj ) {
 		if ( $obj->overridePrince() ) {
 			add_filter( 'pb_export_formats', [ $obj, 'addToFormats' ] );
 			add_filter( 'pb_active_export_modules', [ $obj, 'addToModules' ] );

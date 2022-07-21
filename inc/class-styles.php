@@ -20,8 +20,7 @@ use function \Pressbooks\Utility\debug_error_log;
  * Basically, a pile of lessons learned over the years, used to generate the SCSS that is, then, passed into the \Pressbooks\Sass compiler, to generate the CSS we deserve.
  */
 class Styles {
-
-	const PAGE = 'pb_custom_styles';
+	public const PAGE = 'pb_custom_styles';
 
 	/**
 	 * Supported formats
@@ -38,16 +37,9 @@ class Styles {
 	];
 
 	/**
-	 * @var Sass
-	 */
-	protected $sass;
-
-	/**
 	 * @param Sass $sass
 	 */
-	public function __construct( $sass ) {
-		$this->sass = $sass;
-	}
+	public function __construct( protected Sass $sass ) {   }
 
 	/**
 	 * @return array
@@ -177,34 +169,23 @@ class Styles {
 		register_post_type( 'custom-style', $args );
 	}
 
-	/**
-	 * @return \WP_Post|false
-	 */
-	public function getWebPost() {
+	public function getWebPost(): \WP_Post | false {
 		return $this->getPost( 'web' );
 	}
 
-	/**
-	 * @return \WP_Post|false
-	 */
-	public function getEpubPost() {
+	public function getEpubPost(): \WP_Post | false {
 		return $this->getPost( 'epub' );
 	}
 
-	/**
-	 * @return \WP_Post|false
-	 */
-	public function getPrincePost() {
+	public function getPrincePost(): \WP_Post | false {
 		return $this->getPost( 'prince' );
 	}
 
 	/**
 	 * @param string $slug post_name
-	 *
 	 * @return \WP_Post|false
 	 */
-	public function getPost( $slug ) {
-
+	public function getPost( $slug ): \WP_Post | false {
 		// Supported post names (ie. slugs)
 		$supported = array_keys( $this->supported );
 		if ( ! in_array( $slug, $supported, true ) ) {
@@ -249,22 +230,18 @@ class Styles {
 		$q = new \WP_Query();
 		$results = $q->query( $args );
 		return ! empty( $results ) ?
-			array_reduce( $results, static function( $styles, $style ) {
-				return $styles + [ $style->post_name => $style->post_content ];
-			}, [] ) : [];
+			array_reduce( $results, static fn( $styles, $style) => $styles + [ $style->post_name => $style->post_content ], [] ) : [];
 
 	}
 
 	/**
-	 *
 	 * Get stylesheet directory, applies filter: pb_stylesheet_directory
 	 *
 	 * @param \WP_Theme $theme (optional)
 	 * @param bool $realpath (optional)
-	 *
 	 * @return string|false
 	 */
-	public function getDir( $theme = null, $realpath = false ) {
+	public function getDir( $theme = null, $realpath = false ): string | false {
 
 		if ( $theme ) {
 			$dir = $theme->get_stylesheet_directory();
@@ -285,10 +262,9 @@ class Styles {
 	 * Fullpath to SCSS file for Web
 	 *
 	 * @param \WP_Theme $theme (optional)
-	 *
-	 * @return false|string
+	 * @return string|false
 	 */
-	public function getPathToWebScss( $theme = null ) {
+	public function getPathToWebScss( $theme = null ): false | string {
 		return $this->getPathToScss( 'web', $theme );
 	}
 
@@ -296,10 +272,9 @@ class Styles {
 	 * Fullpath to SCSS file for Prince XML
 	 *
 	 * @param \WP_Theme $theme (optional)
-	 *
-	 * @return false|string
+	 * @return string|false
 	 */
-	public function getPathToPrinceScss( $theme = null ) {
+	public function getPathToPrinceScss( $theme = null ): false | string {
 		return $this->getPathToScss( 'prince', $theme );
 	}
 
@@ -307,10 +282,9 @@ class Styles {
 	 * Fullpath to SCSS file for Epub
 	 *
 	 * @param \WP_Theme $theme (optional)
-	 *
-	 * @return false|string
+	 * @return string|false
 	 */
-	public function getPathToEpubScss( $theme = null ) {
+	public function getPathToEpubScss( $theme = null ): false | string {
 		return $this->getPathToScss( 'epub', $theme );
 	}
 
@@ -319,10 +293,9 @@ class Styles {
 	 *
 	 * @param string $type
 	 * @param \WP_Theme $theme (optional)
-	 *
 	 * @return string|false
 	 */
-	public function getPathToScss( $type, $theme = null ) {
+	public function getPathToScss( $type, $theme = null ): string | false {
 
 		if ( null === $theme ) {
 			$theme = wp_get_theme();
@@ -395,7 +368,7 @@ class Styles {
 	 *
 	 * @return string|bool
 	 */
-	public function getBuckramVersion() {
+	public function getBuckramVersion(): string | bool {
 		$fullpath = realpath( $this->sass->pathToGlobals() . 'buckram.scss' );
 		if ( is_file( $fullpath ) ) {
 			return get_file_data(
@@ -411,13 +384,12 @@ class Styles {
 	/**
 	 * Check that the currently active theme uses Buckram (optionally a minimum version of Buckram).
 	 *
+	 * @param int|string $version
+	 * @return bool
 	 * @since 5.3.0
 	 *
-	 * @param int|string $version
-	 *
-	 * @return bool
 	 */
-	public function hasBuckram( $version = 0 ) {
+	public function hasBuckram( int | string $version = 0 ): bool {
 		if ( $this->isCurrentThemeCompatible( 2 ) && version_compare( $this->getBuckramVersion(), $version ) >= 0 ) {
 			return true;
 		}
@@ -429,7 +401,7 @@ class Styles {
 	 *
 	 * @return string
 	 */
-	public function customizeWeb( $overrides = [] ) {
+	public function customizeWeb( array | string $overrides = [] ) {
 		$path = $this->getPathToWebScss();
 		if ( $path ) {
 			return $this->customize( 'web', \Pressbooks\Utility\get_contents( $path ), $overrides );
@@ -442,7 +414,7 @@ class Styles {
 	 *
 	 * @return string
 	 */
-	public function customizePrince( $overrides = [] ) {
+	public function customizePrince( array | string $overrides = [] ) {
 		$path = $this->getPathToPrinceScss();
 		if ( $path ) {
 			return $this->customize( 'prince', \Pressbooks\Utility\get_contents( $path ), $overrides );
@@ -455,7 +427,7 @@ class Styles {
 	 *
 	 * @return string
 	 */
-	public function customizeEpub( $overrides = [] ) {
+	public function customizeEpub( array | string $overrides = [] ) {
 		$path = $this->getPathToEpubScss();
 		if ( $path ) {
 			return $this->customize( 'epub', \Pressbooks\Utility\get_contents( $path ), $overrides );
@@ -472,7 +444,7 @@ class Styles {
 	 *
 	 * @return string
 	 */
-	public function customize( $type, $scss, $overrides = [] ) {
+	public function customize( string $type, string $scss, array | string $overrides = [] ): string {
 		$scss = $this->applyOverrides( $scss, $overrides );
 
 		// Apply Theme Options
@@ -521,7 +493,7 @@ class Styles {
 	 *
 	 * @return string
 	 */
-	public function applyOverrides( $scss, $overrides = [] ) {
+	public function applyOverrides( string $scss, array | string $overrides = [] ): array | string {
 
 		if ( ! is_array( $overrides ) ) {
 			$overrides = (array) $overrides;
@@ -728,7 +700,7 @@ class Styles {
 	 */
 	public function editor() {
 
-		$slug = isset( $_GET['slug'] ) ? $_GET['slug'] : get_transient( 'pb-last-custom-style-slug' );
+		$slug = $_GET['slug'] ?? get_transient( 'pb-last-custom-style-slug' );
 		if ( ! $slug ) {
 			$slug = 'web';
 		}
@@ -834,7 +806,7 @@ class Styles {
 
 		// Process form
 		if ( isset( $_GET['custom_styles'] ) && $_GET['custom_styles'] === 'yes' && isset( $_POST['your_styles'] ) && check_admin_referer( 'pb-custom-styles' ) ) {
-			$slug = isset( $_POST['slug'] ) ? $_POST['slug'] : 'web';
+			$slug = $_POST['slug'] ?? 'web';
 			$redirect_url = get_admin_url( get_current_blog_id(), '/themes.php?page=' . $this::PAGE . '&slug=' . $slug );
 
 			if ( ! isset( $_POST['post_id'], $_POST['post_id_integrity'] ) ) {

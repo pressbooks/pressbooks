@@ -115,7 +115,7 @@ class Isbn {
 	public function validateIsbnNumber( $isbn_number ) {
 
 		// Regex to split a string only by the last whitespace character
-		@list( $isbn_number, $addon ) = preg_split( '/\s+(?=\S*+$)/', trim( $isbn_number ) ); // @codingStandardsIgnoreLine
+		@[$isbn_number, $addon] = preg_split( '/\s+(?=\S*+$)/', trim( $isbn_number ) ); // @codingStandardsIgnoreLine
 
 		$is_valid_isbn = ( new \Isbn\Isbn() )->validation->isbn( $isbn_number );
 		$is_valid_addon = true;
@@ -139,7 +139,7 @@ class Isbn {
 	public function fixIsbnNumber( $isbn_number ) {
 
 		// Regex to split a string only by the last whitespace character
-		@list( $isbn_number, $addon ) = preg_split( '/\s+(?=\S*+$)/', trim( $isbn_number ) ); // @codingStandardsIgnoreLine
+		@[$isbn_number, $addon] = preg_split( '/\s+(?=\S*+$)/', trim( $isbn_number ) ); // @codingStandardsIgnoreLine
 
 		$isbn_number = ( new \Isbn\Isbn() )->hyphens->fixHyphens( $isbn_number );
 
@@ -166,7 +166,7 @@ class Isbn {
 	 * @return string
 	 */
 	public function invocation( $isbn, $isbn_text_font, $isbn_text_size, $text_font, $text_size ) {
-
+		$ps = [];
 		$ps[] = "50 50 moveto ({$isbn}) (includetext isbntextfont={$isbn_text_font} isbntextsize={$isbn_text_size} textfont={$text_font} textsize={$text_size})";
 		$ps[] = '/isbn /uk.co.terryburton.bwipp findresource exec';
 

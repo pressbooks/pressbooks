@@ -14,7 +14,7 @@ class Glossary implements BackMatter {
 
 	use AutoDisplayable;
 
-	const SHORTCODE = 'pb_glossary';
+	public const SHORTCODE = 'pb_glossary';
 
 	/**
 	 * @var Glossary
@@ -31,7 +31,7 @@ class Glossary implements BackMatter {
 	 *
 	 * @return Glossary
 	 */
-	static public function init() {
+	public static function init() {
 		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
 			self::hooks( self::$instance );
@@ -40,10 +40,7 @@ class Glossary implements BackMatter {
 		return self::$instance;
 	}
 
-	/**
-	 * @param Glossary $obj
-	 */
-	static public function hooks( Glossary $obj ) {
+	public static function hooks( Glossary $obj ) {
 		// Webbook shortcode
 		add_shortcode( self::SHORTCODE, [ $obj, 'webShortcodeHandler' ] );
 		add_action(
@@ -135,6 +132,7 @@ class Glossary implements BackMatter {
 	 * @return string
 	 */
 	public function getGlossaryTermsListbox( $reset = false ) {
+		$values = [];
 		$values[] = [
 			'text' => '-- ' . __( 'Select', 'pressbooks' ) . ' --',
 			'value' => '',
@@ -349,9 +347,7 @@ class Glossary implements BackMatter {
 	public function overrideDisplay( $content ) {
 
 		return $this->display(
-			$content, function() {
-				return $this->glossaryTerms();
-			}
+			$content, fn() => $this->glossaryTerms()
 		);
 
 	}

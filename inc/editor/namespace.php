@@ -471,7 +471,7 @@ function add_anchors_to_wp_link_query( $results, $query ) {
 	// Note to future-self: $results are paginated. If the user scrolls down, ajax is triggered, more function calls will happen.
 	$url = wp_parse_url( $_SERVER['HTTP_REFERER'] );
 	parse_str( $url['query'], $query );
-	$current_post_id = isset( $query['post'] ) ? $query['post'] : 0;
+	$current_post_id = $query['post'] ?? 0;
 	$new_results = [];
 	foreach ( $results as $result ) {
 		$new_results[] = $result;
@@ -526,9 +526,7 @@ function hide_gutenberg() {
 
 		// Don't use block editor for any post types
 		add_filter(
-			'use_block_editor_for_post_type', function ( $use_block_editor, $post_type ) {
-				return false;
-			}, 10, 2
+			'use_block_editor_for_post_type', fn( $use_block_editor, $post_type) => false, 10, 2
 		);
 	}
 
@@ -540,8 +538,6 @@ function hide_gutenberg() {
 
 	// Short circuit the classic-editor-replace option, always replace
 	add_filter(
-		'pre_option_classic-editor-replace', function () {
-			return 'replace';
-		}
+		'pre_option_classic-editor-replace', fn() => 'replace'
 	);
 }

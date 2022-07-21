@@ -11,7 +11,6 @@ use Monolog\Formatter\JsonFormatter;
 use Monolog\Logger;
 
 class CloudWatchProvider implements StorageProvider {
-
 	/**
 	 * @var string
 	 */
@@ -37,43 +36,13 @@ class CloudWatchProvider implements StorageProvider {
 	 */
 	private $client;
 
-	/**
-	 * @var CloudWatch
-	 */
-	private $handler;
+	private ?\Maxbanton\Cwh\Handler\CloudWatch $handler = null;
 
-	/**
-	 * @var Logger
-	 */
-	private $logger;
+	private ?\Monolog\Logger $logger = null;
 
-	/**
-	 * @var integer
-	 */
-	private $retention_days;
+	public const AWS_CONFIG_FILENAME = 'does_not_exist.ini';
 
-	/**
-	 * @var string
-	 */
-	private $group;
-
-	/**
-	 * @var string
-	 */
-	private $stream;
-
-	/**
-	 * @var string
-	 */
-	private $channel;
-
-	const AWS_CONFIG_FILENAME = 'does_not_exist.ini';
-
-	public function __construct( int $retention_days, string $group, string $stream, string $channel ) {
-		$this->retention_days = $retention_days;
-		$this->group = $group;
-		$this->stream = $stream;
-		$this->channel = $channel;
+	public function __construct( private int $retention_days, private string $group, private string $stream, private string $channel ) {
 	}
 
 	private function create() {
@@ -153,7 +122,7 @@ class CloudWatchProvider implements StorageProvider {
 
 	public function getDataFormat( $data ) {
 		$scheme = is_ssl() ? 'https' : 'http';
-		$data['Environment'] = env( 'WP_ENV' ) ? env( 'WP_ENV' ) : 'production';
+		$data['Environment'] = env( 'WP_ENV' ) ?: 'production';
 		$data['Network'] = [
 			'Name' => get_site_option( 'site_name' ),
 			'URL' => network_home_url( '', $scheme ),

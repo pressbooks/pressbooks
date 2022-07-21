@@ -17,7 +17,7 @@ use function \Pressbooks\Utility\implode_add_and;
  */
 class Licensing {
 
-	const TAXONOMY = 'license';
+	public const TAXONOMY = 'license';
 
 	/**
 	 * Wheee!
@@ -205,7 +205,7 @@ class Licensing {
 			_doing_it_wrong( __METHOD__, __( '$title is deprecated. Method will automatically determine title from licenses', 'pressbooks' ), 'Pressbooks 5.7.0' );
 		}
 
-		$book_license = isset( $metadata['pb_book_license'] ) ? $metadata['pb_book_license'] : '';
+		$book_license = $metadata['pb_book_license'] ?? '';
 		if ( empty( $post_id ) ) {
 			// if no post $id given, set empty strings
 			$section_license = '';
@@ -366,13 +366,10 @@ class Licensing {
 	 * @deprecated 5.3.0
 	 * @deprecated No longer used by internal code and no longer recommended.
 	 *
-	 * @param \SimpleXMLElement $response
 	 * @param $except_where_otherwise_noted bool (optional)
-	 *
 	 * @return string $html blob of copyright information
 	 */
 	public function getLicenseHtml( \SimpleXMLElement $response, $except_where_otherwise_noted = true ) {
-
 		$content = $response->asXML();
 		$content = trim( str_replace( [ '<p xmlns:dct="http://purl.org/dc/terms/">', '</p>', '<html>', '</html>' ], '', $content ) );
 		$content = preg_replace( '/http:\/\/i.creativecommons/iU', 'https://i.creativecommons', $content );

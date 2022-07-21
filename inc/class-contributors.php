@@ -26,7 +26,7 @@ class Contributors implements BackMatter, Transferable {
 
 	public const TAXONOMY = 'contributor';
 
-	const PICTURE_MIN_PIXELS = 400;
+	public const PICTURE_MIN_PIXELS = 400;
 
 	/**
 	 * @var Contributors
@@ -58,10 +58,7 @@ class Contributors implements BackMatter, Transferable {
 		'pb_editor',
 		'pb_translator',
 	];
-	/**
-	 * @var bool
-	 */
-	private $exporting;
+	private ?bool $exporting = null;
 
 	/**
 	 * Function to init our class, set filters & hooks, set a singleton instance
@@ -77,9 +74,6 @@ class Contributors implements BackMatter, Transferable {
 		return self::$instance;
 	}
 
-	/**
-	 * @param Contributors $obj
-	 */
 	public static function hooks( Contributors $obj ) {
 		add_action( 'delete_' . self::TAXONOMY, [ $obj, 'deleteContributor' ], 10, 3 );
 
@@ -224,13 +218,12 @@ class Contributors implements BackMatter, Transferable {
 	 * if $post_id is present ($post_id != 0) and the metadata will be updated anyway.
 	 * The contributor_picture will be downloaded to the media if the field and $downloads object is present.
 	 *
-	 * @param string | array $data
 	 * @param int $post_id
 	 * @param string $contributor_type
 	 * @param \Pressbooks\Cloner\Downloads $downloads (optional)
 	 * @return array|false|int|mixed
 	 */
-	public function insert( $data, $post_id = 0, $contributor_type = 'pb_authors', $downloads = null, $compare_by = 'name' ) {
+	public function insert( string | array $data, $post_id = 0, $contributor_type = 'pb_authors', $downloads = null, $compare_by = 'name' ) {
 		if ( is_string( $data ) ) {
 			return $this->insertByFullName( $data, $post_id, $contributor_type );
 		}
@@ -318,7 +311,7 @@ class Contributors implements BackMatter, Transferable {
 	 *
 	 * @return array|false An array containing the `term_id` and `term_taxonomy_id`, false otherwise.
 	 */
-	public function insertByFullName( $full_name, $post_id = 0, $contributor_type = 'pb_authors' ) {
+	public function insertByFullName( $full_name, $post_id = 0, $contributor_type = 'pb_authors' ): array | false {
 		$full_name = trim( $full_name );
 		$slug = sanitize_title_with_dashes( remove_accents( $full_name ), '', 'save' );
 		$term = get_term_by( 'slug', $slug, self::TAXONOMY );
@@ -346,13 +339,11 @@ class Contributors implements BackMatter, Transferable {
 	 * Associate a Contributor's Term ID to a Post ID (Taxonomy + Meta)
 	 * Technically we are assigning the Term Slug to the Post ID. This function handles either.
 	 *
-	 * @param int|string $term_id
 	 * @param int $post_id
 	 * @param string $contributor_type
-	 *
 	 * @return bool
 	 */
-	public function link( $term_id, $post_id, $contributor_type = 'pb_authors' ) {
+	public function link( int | string $term_id, $post_id, $contributor_type = 'pb_authors' ) {
 		global $wpdb;
 		if ( ! str_starts_with( $contributor_type, 'pb_' ) ) {
 			$contributor_type = 'pb_' . $contributor_type;
@@ -379,13 +370,11 @@ class Contributors implements BackMatter, Transferable {
 	/**
 	 * Disassociate a Contributor's Term ID to a Post ID (Taxonomy + Meta)
 	 *
-	 * @param int|string $term_id
 	 * @param int $post_id
 	 * @param string $contributor_type
-	 *
 	 * @return bool
 	 */
-	public function unlink( $term_id, $post_id, $contributor_type = 'pb_authors' ) {
+	public function unlink( int | string $term_id, $post_id, $contributor_type = 'pb_authors' ) {
 		if ( ! str_starts_with( $contributor_type, 'pb_' ) ) {
 			$contributor_type = 'pb_' . $contributor_type;
 		}
@@ -587,7 +576,7 @@ class Contributors implements BackMatter, Transferable {
 	 *
 	 * @return array|false An array containing the `term_id` and `term_taxonomy_id`, false otherwise.
 	 */
-	public function addBlogUser( $user_id ) {
+	public function addBlogUser( $user_id ): array | false {
 		$user = get_userdata( $user_id );
 		if ( $user && user_can( $user, 'edit_posts' ) ) {
 			$slug = $user->user_nicename;
@@ -640,7 +629,7 @@ class Contributors implements BackMatter, Transferable {
 	 *
 	 * @return array|false An array containing the `term_id` and `term_taxonomy_id`, false otherwise.
 	 */
-	public function updateBlogUser( $user_id, $old_user_data ) {
+	public function updateBlogUser( $user_id, $old_user_data ): array | false {
 		$user = get_userdata( $user_id );
 		if ( $user && user_can( $user, 'edit_posts' ) ) {
 			$slug = $user->user_nicename;
@@ -705,7 +694,7 @@ class Contributors implements BackMatter, Transferable {
 					$does_contains_roman_number = false;
 					$roman_numbers_suffix = [ 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII' ];
 					foreach ( $roman_numbers_suffix as $roman_number ) {
-						if ( strpos( $suffix, $roman_number ) !== false ) {
+						if ( str_contains( $suffix, $roman_number ) ) {
 							$does_contains_roman_number = true;
 							break;
 						}
@@ -744,13 +733,10 @@ class Contributors implements BackMatter, Transferable {
 
 	/**
 	 * @param string $old_slug
-	 * @param string|array $names
 	 * @param int $post_id
-	 *
 	 * @return array|false An array containing `term_id` and `term_taxonomy_id`, false otherwise.
 	 */
-	public function convert( $old_slug, $names, $post_id ) {
-
+	public function convert( $old_slug, string | array $names, $post_id ): array | false {
 		$new_slug = $this->maybeUpgradeSlug( $old_slug );
 		if ( $new_slug === $old_slug ) {
 			return false; // Nothing to convert
@@ -814,7 +800,7 @@ class Contributors implements BackMatter, Transferable {
 			$contributors = $this->getContributorsWithMeta( $meta_post->ID, $contributor_type );
 			$contributors_count = count( $contributors );
 			if ( $contributors_count > 0 ) {
-				list( ,$title ) = explode( '_', $contributor_type );
+				[, $title] = explode( '_', $contributor_type );
 				$records[ $contributor_type ]['title'] = Str::ucfirst( $contributors_count > 1 ? $title : Str::singular( $title ) ); // ex. return Author or Authors
 				$records[ $contributor_type ]['records'] = $contributors;
 			}

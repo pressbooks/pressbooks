@@ -14,17 +14,17 @@ class Activation {
 	/**
 	 * @var int Current blog id (defaults to 1, main blog)
 	 */
-	private $blog_id = 1;
+	private int $blog_id = 1;
 
 	/**
 	 * @var int Current user id (defaults to 1, admin)
 	 */
-	private $user_id = 1;
+	private int $user_id = 1;
 
 	/**
 	 * @var array The set of default WP options to set up on activation
 	 */
-	private $opts = [
+	private array $opts = [
 		'pressbooks_theme_migration' => 2,
 		'show_on_front' => 'page',
 		'rewrite_rules' => '',
@@ -36,16 +36,11 @@ class Activation {
 	protected static $instance = null;
 
 	/**
-	 * @var Taxonomy
-	 */
-	protected $taxonomy;
-
-	/**
 	 * @since 5.0.0
 	 *
 	 * @return Activation
 	 */
-	static public function init() {
+	public static function init() {
 		if ( is_null( self::$instance ) ) {
 			$taxonomy = Taxonomy::init();
 			self::$instance = new self( $taxonomy );
@@ -56,10 +51,8 @@ class Activation {
 
 	/**
 	 * @since 5.0.0
-	 *
-	 * @param Activation $obj
 	 */
-	static public function hooks( Activation $obj ) {
+	public static function hooks( Activation $obj ) {
 		// $priority must be after the database tables are created
 		// See add_action( 'wp_initialize_site', 'wp_initialize_site', 10, 2 );
 		add_action( 'wp_initialize_site', [ $obj, 'wpmuNewBlog' ], 11, 2 );
@@ -72,8 +65,7 @@ class Activation {
 	/**
 	 * @param Taxonomy $taxonomy
 	 */
-	function __construct( $taxonomy ) {
-		$this->taxonomy = $taxonomy;
+	function __construct( protected $taxonomy ) {
 	}
 
 	/**
@@ -177,7 +169,7 @@ class Activation {
 		if ( ( get_option( 'show_on_front' ) !== 'page' ) || ( ( ! is_int( $pof ) ) || ( ! get_post( $pof ) ) ) || ( ( ! is_int( $pop ) ) || ( ! get_post( $pop ) ) ) ) {
 			return false;
 		}
-		if ( ( wp_count_posts()->publish < 3 ) || ( wp_count_posts( 'page' )->publish < 3 ) || ( count( get_terms() ) < 3 ) ) {
+		if ( ( wp_count_posts()->publish < 3 ) || ( wp_count_posts( 'page' )->publish < 3 ) || ( ( is_countable( get_terms() ) ? count( get_terms() ) : 0 ) < 3 ) ) {
 			return false;
 		}
 

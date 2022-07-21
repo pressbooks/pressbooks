@@ -15,14 +15,7 @@ class ExportOptions extends \Pressbooks\Options {
 	 * @see upgrade()
 	 * @var int
 	 */
-	const VERSION = 1;
-
-	/**
-	 * Export options.
-	 *
-	 * @var array
-	 */
-	public $options;
+	public const VERSION = 1;
 
 	/**
 	 * Export defaults.
@@ -36,10 +29,9 @@ class ExportOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $options
 	 */
-	function __construct( array $options ) {
-		$this->options = $options;
-		$this->defaults = $this->getDefaults();
-		$this->booleans = $this->getBooleanOptions();
+	public function __construct( public array $options ) {
+		$this->defaults = static::getDefaults();
+		$this->booleans = static::getBooleanOptions();
 
 		foreach ( $this->defaults as $key => $value ) {
 			if ( ! isset( $this->options[ $key ] ) ) {
@@ -51,10 +43,10 @@ class ExportOptions extends \Pressbooks\Options {
 	/**
 	 * Configure the export options page using the settings API.
 	 */
-	function init() {
-		$_option = $this->getSlug();
+	public function init() {
+		$_option = static::getSlug();
 		$_page = $_option;
-		$_section = $this->getSlug() . '_section';
+		$_section = static::getSlug() . '_section';
 
 		add_settings_section(
 			$_section,
@@ -98,18 +90,18 @@ class ExportOptions extends \Pressbooks\Options {
 	/**
 	 * Display the export options page description.
 	 */
-	function display() {
+	public function display() {
 		echo '<p>' . __( 'Export settings.', 'pressbooks' ) . '</p>';
 	}
 
-	function render() {
+	public function render() {
 		?>
 		<div class="wrap">
-			<h1><?php echo $this->getTitle(); ?></h1>
+			<h1><?php echo static::getTitle(); ?></h1>
 			<form method="post" action="options.php">
 				<?php
-				settings_fields( $this->getSlug() );
-				do_settings_sections( $this->getSlug() );
+				settings_fields( static::getSlug() );
+				do_settings_sections( static::getSlug() );
 				submit_button();
 				?>
 			</form>
@@ -117,14 +109,14 @@ class ExportOptions extends \Pressbooks\Options {
 		<?php
 	}
 
-	function upgrade( $version ) {
+	public function upgrade( $version ) {
 		if ( $version < 1 ) {
 			$this->doInitialUpgrade();
 		}
 	}
 
-	function doInitialUpgrade() {
-		$_option = $this->getSlug();
+	public function doInitialUpgrade() {
+		$_option = static::getSlug();
 		$options = [];
 
 		$email_validation_logs = get_option( 'pressbooks_email_validation_logs', 0 );
@@ -140,16 +132,14 @@ class ExportOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderEmailValidationLogsField( $args ) {
-		$this->renderRadioButtons(
-			[
-				'id' => 'email_validation_logs',
-				'name' => $this->getSlug(),
-				'option' => 'email_validation_logs',
-				'value' => ( isset( $this->options['email_validation_logs'] ) ) ? $this->options['email_validation_logs'] : '',
-				'choices' => $args,
-			]
-		);
+	public function renderEmailValidationLogsField( $args ) {
+		static::renderRadioButtons([
+			'id' => 'email_validation_logs',
+			'name' => static::getSlug(),
+			'option' => 'email_validation_logs',
+			'value' => $this->options['email_validation_logs'] ?? '',
+			'choices' => $args,
+		]);
 	}
 
 	/**
@@ -157,17 +147,15 @@ class ExportOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderThemeLockField( $args ) {
-		$this->renderCheckbox(
-			[
-				'id' => 'theme_lock',
-				'name' => $this->getSlug(),
-				'option' => 'theme_lock',
-				'value' => ( isset( $this->options['theme_lock'] ) ) ? $this->options['theme_lock'] : '',
-				'label' => $args[0],
-				'description' => __( 'This will prevent any changes to your book&rsquo;s appearance and page count when themes are updated.', 'pressbooks' ),
-			]
-		);
+	public function renderThemeLockField( $args ) {
+		static::renderCheckbox([
+			'id' => 'theme_lock',
+			'name' => static::getSlug(),
+			'option' => 'theme_lock',
+			'value' => $this->options['theme_lock'] ?? '',
+			'label' => $args[0],
+			'description' => __( 'This will prevent any changes to your book&rsquo;s appearance and page count when themes are updated.', 'pressbooks' ),
+		]);
 	}
 
 	/**
@@ -175,7 +163,7 @@ class ExportOptions extends \Pressbooks\Options {
 	 *
 	 * @return string $slug
 	 */
-	static function getSlug() {
+	public static function getSlug() {
 		return 'pressbooks_export_options';
 	}
 
@@ -184,7 +172,7 @@ class ExportOptions extends \Pressbooks\Options {
 	 *
 	 * @return string $title
 	 */
-	static function getTitle() {
+	public static function getTitle() {
 		return __( 'Export Settings', 'pressbooks' );
 	}
 
@@ -193,7 +181,7 @@ class ExportOptions extends \Pressbooks\Options {
 	 *
 	 * @return array $defaults
 	 */
-	static function getDefaults() {
+	public static function getDefaults() {
 		return [
 			'email_validation_logs' => 0,
 			'theme_lock' => 0,
@@ -205,7 +193,7 @@ class ExportOptions extends \Pressbooks\Options {
 	 *
 	 * @return array $options
 	 */
-	static function getBooleanOptions() {
+	public static function getBooleanOptions() {
 		return [
 			'email_validation_logs',
 			'theme_lock',
@@ -219,7 +207,7 @@ class ExportOptions extends \Pressbooks\Options {
 	 *
 	 * @return array $defaults
 	 */
-	static function filterDefaults( $defaults ) {
+	public static function filterDefaults( $defaults ) {
 		return $defaults;
 	}
 }

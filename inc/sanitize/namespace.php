@@ -274,7 +274,7 @@ function canonicalize_url( $url ) {
 	if ( ! preg_match( '#^https?://#i', $url ) ) {
 		// Remove ftp://, gopher://, fake://, etc
 		if ( mb_strpos( $url, '://' ) ) {
-			list( $garbage, $url ) = mb_split( '://', $url );
+			[$garbage, $url] = mb_split( '://', $url );
 		}
 		// Prepend http
 		$url = 'http://' . $url;
@@ -526,6 +526,7 @@ function strip_container_tags( $html ) {
  */
 function cleanup_css( $css ) {
 
+	$warnings = [];
 	$css = stripslashes( $css );
 	$prev = $css;
 	$css = preg_replace( '/\\\\([0-9a-fA-F]{2,4})/', '\\\\\\\\$1', $prev );
@@ -597,7 +598,7 @@ function is_valid_timestamp( $timestamp ) {
  */
 function reverse_wpautop( $pee ) {
 	// Pre tags shouldn't be touched by autop. Replace pre tags with placeholders and bring them back after autop.
-	if ( strpos( $pee, '<pre' ) !== false ) {
+	if ( str_contains( $pee, '<pre' ) ) {
 		$pee_parts = explode( '</pre>', $pee );
 		$last_pee = array_pop( $pee_parts );
 		$pee = '';
@@ -694,16 +695,14 @@ function reverse_wpautop( $pee ) {
  * @since 5.9.1
  *
  * @param string $content
- * @param int|array $htmlawed_config
- * @param array|string $htmlawed_spec
  *
  * @return string
  */
-function htmlawed_with_mixed_markup( $content, $htmlawed_config = null, $htmlawed_spec = null ) {
+function htmlawed_with_mixed_markup( $content, int | array $htmlawed_config = null, array | string $htmlawed_spec = null ) {
 	$keep = [ 'math', 'svg' ];
 	$hidden_tags = [];
 	foreach ( $keep as $tag ) {
-		if ( strpos( $content, "<{$tag}" ) !== false ) {
+		if ( str_contains( $content, "<{$tag}" ) ) {
 			$content_parts = explode( "</{$tag}>", $content );
 			$last_content = array_pop( $content_parts );
 			$content = '';

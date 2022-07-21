@@ -20,33 +20,32 @@ use function Pressbooks\Utility\str_starts_with;
  * @property array predefined
  */
 abstract class Options {
-
 	/**
 	 * @var int
 	 */
-	const VERSION = null;
+	public const VERSION = null;
 
 	/**
 	 * Configure the options page or tab using the settings API.
 	 */
-	abstract function init();
+	abstract public function init();
 
 	/**
 	 * Display the options page or tab description.
 	 */
-	abstract function display();
+	abstract public function display();
 
 	/**
 	 * Render the options page or tab.
 	 */
-	abstract function render();
+	abstract public function render();
 
 	/**
 	 * Upgrade handler for the options page or tab.
 	 *
 	 * @param int $version
 	 */
-	abstract function upgrade( $version );
+	abstract public function upgrade( $version );
 
 	/**
 	 * Get the slug for this options page or tab.
@@ -85,7 +84,7 @@ abstract class Options {
 	 *
 	 * @return array $options
 	 */
-	function sanitize( $input ) {
+	public function sanitize( $input ) {
 		$options = [];
 
 		if ( ! is_array( $input ) ) {
@@ -187,7 +186,7 @@ abstract class Options {
 	 * @type bool $disabled Is the field disabled?
 	 * }
 	 */
-	static function renderField( $args ) {
+	public static function renderField( $args ) {
 		$defaults = [
 			'id' => null,
 			'name' => null,
@@ -240,7 +239,7 @@ abstract class Options {
 	 * @type bool $disabled Is the field disabled?
 	 * }
 	 */
-	static function renderTextarea( $args ) {
+	public static function renderTextarea( $args ) {
 		$defaults = [
 			'id' => null,
 			'name' => null,
@@ -291,7 +290,7 @@ abstract class Options {
 	 * @type bool $disabled Is the field disabled?
 	 * }
 	 */
-	static function renderColorField( $args ) {
+	public static function renderColorField( $args ) {
 		$defaults = [
 			'id' => null,
 			'name' => null,
@@ -326,7 +325,7 @@ abstract class Options {
 	 *
 	 * @param array $args
 	 */
-	static function renderCheckbox( $args ) {
+	public static function renderCheckbox( $args ) {
 		$defaults = [
 			'id' => null,
 			'name' => null,
@@ -362,7 +361,7 @@ abstract class Options {
 	 *
 	 * @param array $args
 	 */
-	static function renderRadioButtons( $args ) {
+	public static function renderRadioButtons( $args ) {
 		$defaults = [
 			'id' => null,
 			'name' => null,
@@ -401,7 +400,7 @@ abstract class Options {
 	 *
 	 * @param array $args
 	 */
-	static function renderSelect( $args ) {
+	public static function renderSelect( $args ) {
 		$defaults = [
 			'id' => null,
 			'name' => null,
@@ -446,7 +445,7 @@ abstract class Options {
 	 *
 	 * @param array $args
 	 */
-	static function renderSelectOptGroup( $args ) {
+	public static function renderSelectOptGroup( $args ) {
 		$defaults = [
 			'id' => null,
 			'name' => null,
@@ -504,7 +503,7 @@ abstract class Options {
 	 *
 	 * @param array $args
 	 */
-	static function renderCustomSelect( $args ) {
+	public static function renderCustomSelect( $args ) {
 		$defaults = [
 			'id' => null,
 			'name' => null,
@@ -544,7 +543,7 @@ abstract class Options {
 	 *
 	 * @param string $option name of the updated option.
 	 */
-	static function deleteCacheAfterUpdate( $option ) {
+	public static function deleteCacheAfterUpdate( $option ) {
 		if ( str_starts_with( $option, 'pressbooks_' ) ) {
 			Book::deleteBookObjectCache();
 		}
@@ -556,7 +555,7 @@ abstract class Options {
 	 * @param string $opt
 	 * @return mixed
 	 */
-	static function getOption( $opt ) {
+	public static function getOption( $opt ) {
 		$var = get_site_option( static::getSlug(), [] );
 
 		if ( isset( $var[ $opt ] ) ) {

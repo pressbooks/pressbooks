@@ -136,8 +136,8 @@ function validate_passwords( $content ) {
 		wp_die( __( 'Please try again.', 'pressbooks' ) );
 	}
 
-	$password_1 = isset( $_POST['password_1'] ) ? $_POST['password_1'] : '';
-	$password_2 = isset( $_POST['password_2'] ) ? $_POST['password_2'] : '';
+	$password_1 = $_POST['password_1'] ?? '';
+	$password_2 = $_POST['password_2'] ?? '';
 
 	if ( isset( $_POST['stage'] ) && 'validate-user-signup' === $_POST['stage'] ) {
 
@@ -228,7 +228,7 @@ function override_password_generation( $generated_password ) {
 	$signup = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $wpdb->signups WHERE activation_key = %s", $key ) );
 
 	// Only override filter on wp-activate.php screen
-	if ( strpos( $_SERVER['PHP_SELF'], 'wp-activate.php' ) !== false && $signup && ! $signup->active ) {
+	if ( str_contains( $_SERVER['PHP_SELF'], 'wp-activate.php' ) && $signup && ! $signup->active ) {
 		$meta = safer_unserialize( $signup->meta );
 		if ( is_array( $meta ) && isset( $meta['password'] ) ) {
 			// Set the "random" password to our predefined one
@@ -390,9 +390,10 @@ function save_invitation_data( $user_id, $role, $newuser_key ) {
  * user meta table.
  *
  * @param int $user_id
- * @param bool|\WP_Error$result
  */
-function clean_invitation_data( $user_id, $result ) {
+function clean_invitation_data( $user_id, bool | \WP_Error $result ) {
+	$parts = null;
+	$key = null;
 	// If was not possible to add the user we skip.
 	if ( $result !== true ) {
 		return;

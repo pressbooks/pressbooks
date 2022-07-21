@@ -7,22 +7,16 @@ namespace Pressbooks\Interactive;
  */
 class Phet {
 
-	const EMBED_ID = 'phet_html5';
+	public const EMBED_ID = 'phet_html5';
 
-	const EMBED_URL_REGEX = '#https?://phet\.colorado\.edu/sims/html/(.+)/?#i';
-
-	/**
-	 * @var \Jenssegers\Blade\Blade
-	 */
-	protected $blade;
+	public const EMBED_URL_REGEX = '#https?://phet\.colorado\.edu/sims/html/(.+)/?#i';
 
 	protected $iframes_counter = [];
 
 	/**
 	 * @param \Jenssegers\Blade\Blade $blade
 	 */
-	public function __construct( $blade ) {
-		$this->blade = $blade;
+	public function __construct( protected $blade ) {
 	}
 
 	/**

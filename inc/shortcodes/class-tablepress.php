@@ -14,15 +14,12 @@ namespace Pressbooks\Shortcodes;
  * @see https://github.com/TobiasBg/TablePress/blob/master/classes/class-tablepress.php#L148-L155
  */
 class TablePress {
-	/**
-	 * @var TablePress
-	 */
-	private static $instance = null;
+	private static ?\Pressbooks\Shortcodes\TablePress $instance = null;
 
 	/**
 	 * @return TablePress
 	 */
-	static public function init() {
+	public static function init() {
 		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
 			self::hooks( self::$instance );
@@ -30,10 +27,7 @@ class TablePress {
 		return self::$instance;
 	}
 
-	/**
-	 * @param TablePress $obj
-	 */
-	static public function hooks( TablePress $obj ) {
+	public static function hooks( TablePress $obj ) {
 		if ( is_plugin_active( 'tablepress/tablepress.php' ) || is_plugin_active_for_network( 'tablepress/tablepress.php' ) ) {
 			// Load shortcodes
 			$obj->loadShortcodes();

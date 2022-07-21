@@ -597,7 +597,7 @@ function fix_root_admin_menu() {
 	$user = wp_get_current_user();
 	if (
 		$user->roles &&
-		count( $user->roles ) === 1 &&
+		( is_countable( $user->roles ) ? count( $user->roles ) : 0 ) === 1 &&
 		$user->roles[0] === 'subscriber'
 	) {
 		remove_submenu_page( 'index.php', 'my-sites.php' );
@@ -820,7 +820,7 @@ function replace_menu_bar_my_sites( $wp_admin_bar ) {
 	$user = wp_get_current_user();
 	if (
 		$user->roles &&
-		count( $user->roles ) === 1 &&
+		( is_countable( $user->roles ) ? count( $user->roles ) : 0 ) === 1 &&
 		$user->roles[0] === 'subscriber'
 	) {
 		foreach ( (array) $wp_admin_bar->user->blogs as $blog ) {
@@ -966,7 +966,7 @@ function show_menu_bar( $wp_admin_bar ) {
 		// Always show menu for super admin
 		$show_menu = true;
 	} else {
-		if ( count( $wp_admin_bar->user->blogs ) >= 1 ) {
+		if ( ( is_countable( $wp_admin_bar->user->blogs ) ? count( $wp_admin_bar->user->blogs ) : 0 ) >= 1 ) {
 			// Show menu for a user that has books
 			$show_menu = true;
 		} else {
@@ -1100,21 +1100,15 @@ function init_css_js() {
 	// Upgrade Select2 in Custom Metadata Manager
 	add_filter(
 		'custom_metadata_manager_select2_js',
-		function ( $path ) use ( $assets ) {
-			return $assets->getPath( 'scripts/select2.js' );
-		}
+		fn( $path) => $assets->getPath( 'scripts/select2.js' )
 	);
 	add_filter(
 		'custom_metadata_manager_select2_js_version',
-		function ( $version ) {
-			return get_bloginfo( 'version' );
-		}
+		fn( $version) => get_bloginfo( 'version' )
 	);
 	add_filter(
 		'custom_metadata_manager_select2_css',
-		function ( $path ) use ( $assets ) {
-			return $assets->getPath( 'styles/select2.css' );
-		}
+		fn( $path) => $assets->getPath( 'styles/select2.css' )
 	);
 
 	if ( isset( $_REQUEST['page'] ) && $_REQUEST['page'] === 'pressbooks_export_options' ) {
@@ -1436,6 +1430,7 @@ function privacy_permissive_private_content_sanitize( $input ) {
  * @return string
  */
 function privacy_disable_comments_sanitize( $input ) {
+	$output = [];
 	$output['disable_comments'] = absint( $input['disable_comments'] );
 	return $output;
 }
@@ -1448,6 +1443,7 @@ function privacy_disable_comments_sanitize( $input ) {
  * @return string
  */
 function privacy_pbt_redistribute_settings_sanitize( $input ) {
+	$output = [];
 	$output['latest_files_public'] = absint( $input['latest_files_public'] );
 	return $output;
 }
@@ -1648,7 +1644,6 @@ function sanitize_user_profile( WP_Error $errors, $update, $user ) {
 /**
  *
  * @since 5.27.0
- * @param \WP_User $user
  */
 function add_user_profile_fields( \WP_User $user ) {
 

@@ -12,8 +12,7 @@ use Pressbooks\Modules\Import\Import;
 use Pressbooks\Utility;
 
 class Docx extends Import {
-
-	const TYPE_OF = 'docx';
+	public const TYPE_OF = 'docx';
 
 	/**
 	 * @var \ZipArchive
@@ -58,20 +57,17 @@ class Docx extends Import {
 	 */
 	protected $fn_styles = [];
 
-	const DOCUMENT_SCHEMA = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument';
-	const METADATA_SCHEMA = 'http://schemas.openxmlformats.org/package/2006/relationships/metadata/core-properties';
-	const IMAGE_SCHEMA = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/image';
-	const FOOTNOTES_SCHEMA = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/footnotes';
-	const ENDNOTES_SCHEMA = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/endnotes';
-	const HYPERLINK_SCHEMA = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink';
-	const STYLESHEET_SCHEMA = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles';
+	public const DOCUMENT_SCHEMA = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument';
+	public const METADATA_SCHEMA = 'http://schemas.openxmlformats.org/package/2006/relationships/metadata/core-properties';
+	public const IMAGE_SCHEMA = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/image';
+	public const FOOTNOTES_SCHEMA = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/footnotes';
+	public const ENDNOTES_SCHEMA = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/endnotes';
+	public const HYPERLINK_SCHEMA = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink';
+	public const STYLESHEET_SCHEMA = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles';
 
-	const FOOTNOTE_HREF_PATTERN = '/^#sdfootnote(\d+)sym$/';
+	public const FOOTNOTE_HREF_PATTERN = '/^#sdfootnote(\d+)sym$/';
 
-	/**
-	 *
-	 */
-	function __construct() {
+	public function __construct() {
 		if ( ! function_exists( 'media_handle_sideload' ) ) {
 			require_once( ABSPATH . 'wp-admin/includes/image.php' );
 			require_once( ABSPATH . 'wp-admin/includes/file.php' );
@@ -82,12 +78,10 @@ class Docx extends Import {
 	}
 
 	/**
-	 *
 	 * @param array $current_import
-	 *
-	 * @return boolean
+	 * @return bool
 	 */
-	function import( array $current_import ) {
+	public function import( array $current_import ): bool {
 		try {
 			$this->isValidZip( $current_import['file'] );
 		} catch ( \Exception $e ) {
@@ -176,10 +170,9 @@ class Docx extends Import {
 	 * @param \DOMDocument $dom_doc
 	 * @param string $tag
 	 * @param string $attr
-	 *
 	 * @return array
 	 */
-	protected function getIDs( \DOMDocument $dom_doc, $tag = 'footnoteReference', $attr = 'w:id' ) {
+	protected function getIDs( \DOMDocument $dom_doc, string $tag = 'footnoteReference', string $attr = 'w:id' ): array {
 		$fn_ids = [];
 
 		$doc_elem = $dom_doc->documentElement;
@@ -205,28 +198,15 @@ class Docx extends Import {
 	 *
 	 * @param array $ids
 	 * @param string $tag
-	 * @param boolean $fn_styles
-	 *
+	 * @param bool $fn_styles
 	 * @return array|bool
 	 * @throws \Exception if there is discrepancy between the number of footnotes in document.xml and footnotes.xml
 	 */
-	protected function getRelationshipPart( array $ids, $tag = 'footnotes', $fn_styles = false ) {
+	protected function getRelationshipPart( array $ids, string $tag = 'footnotes', bool $fn_styles = false ): array | bool {
 		$footnotes = [];
 		$tag_name = rtrim( $tag, 's' );
 
-		// get the path for the footnotes
-		switch ( $tag ) {
-
-			case 'endnotes':
-				$target_path = $this->getTargetPath( self::ENDNOTES_SCHEMA, $tag );
-				break;
-			case 'hyperlink':
-				$target_path = $this->getTargetPath( self::HYPERLINK_SCHEMA, $tag );
-				break;
-			default:
-				$target_path = $this->getTargetPath( self::FOOTNOTES_SCHEMA, $tag );
-				break;
-		}
+		$target_path = $this->findTargetPath( $tag );
 
 		// safety — if there are no footnotes, return
 		if ( empty( $target_path ) ) {
@@ -368,11 +348,9 @@ class Docx extends Import {
 	 * Parse HTML snippet, save all found <img> tags using media_handle_sideload(), return the HTML with changed <img> paths.
 	 *
 	 * @param \DOMDocument $doc
-	 *
 	 * @return \DOMDocument
 	 */
-	protected function scrapeAndKneadImages( \DOMDocument $doc ) {
-
+	protected function scrapeAndKneadImages( \DOMDocument $doc ): \DOMDocument {
 		$images = $doc->getElementsByTagName( 'img' );
 		foreach ( $images as $image ) {
 			/** @var \DOMElement $image */
@@ -436,7 +414,7 @@ class Docx extends Import {
 					throw new \Exception( 'Image could not be retrieved in the DOCX file with Pressbooks\Import\Ooxml\fetchAndSaveUniqueImage()' );
 				}
 			} catch ( \Exception $exc ) {
-				$this->log( $exc->getMessage() );
+				static::log( $exc->getMessage() );
 				$already_done[ $img_location ] = '';
 
 				return '';
@@ -454,7 +432,7 @@ class Docx extends Import {
 				if ( ! \Pressbooks\Image\is_valid_image( $tmp_name, $filename ) ) {
 					throw new \Exception( 'Image is corrupt, and file extension matches the mime type' );
 				}
-			} catch ( \Exception $exc ) {
+			} catch ( \Exception ) {
 				// Garbage, Don't import
 				$already_done[ $img_location ] = '';
 
@@ -478,12 +456,11 @@ class Docx extends Import {
 	}
 
 	/**
-	 * @param \DomDocument $xml
+	 * @param \DOMDocument $xml
 	 * @param string $chapter_title
-	 *
 	 * @return string
 	 */
-	protected function parseContent( \DomDocument $xml, $chapter_title ) {
+	protected function parseContent( \DOMDocument $xml, string $chapter_title ): string {
 		$element = $xml->documentElement;
 		$node_list = $element->childNodes;
 		$chapter_node = '';
@@ -515,11 +492,10 @@ class Docx extends Import {
 	 * @param \DOMNodeList $dom_list
 	 * @param int $index
 	 * @param string $chapter_title
-	 *
 	 * @return string XHTML
+	 * @throws \DOMException
 	 */
-	protected function getChapter( \DOMNodeList $dom_list, $index, $chapter_title ) {
-
+	protected function getChapter( \DOMNodeList $dom_list, int $index, string $chapter_title ): string {
 		if ( empty( $chapter_title ) ) {
 			$chapter_title = 'unknown';
 		}
@@ -574,10 +550,9 @@ class Docx extends Import {
 	 * adds external hyperlinks, if they are present in a chapter
 	 *
 	 * @param \DOMDocument $chapter
-	 *
 	 * @return \DOMDocument
 	 */
-	protected function addHyperlinks( \DOMDocument $chapter ) {
+	protected function addHyperlinks( \DOMDocument $chapter ): \DOMDocument {
 		$ln = $chapter->getElementsByTagName( 'a' );
 
 		for ( $i = $ln->length; --$i >= 0; ) {  // If you're deleting elements from within a loop, you need to loop backwards
@@ -606,10 +581,9 @@ class Docx extends Import {
 	 * adds footnotes, if they are present in the chapter
 	 *
 	 * @param \DOMDocument $chapter
-	 *
 	 * @return \DOMDocument
 	 */
-	protected function addFootnotes( \DOMDocument $chapter ) {
+	protected function addFootnotes( \DOMDocument $chapter ): \DOMDocument {
 		$fn_candidates = $chapter->getelementsByTagName( 'a' );
 		$fn_ids = [];
 		foreach ( $fn_candidates as $fn_candidate ) {
@@ -632,10 +606,10 @@ class Docx extends Import {
 	 *
 	 * @param \DOMDocument $chapter
 	 * @param array $fn_ids
-	 *
 	 * @return \DOMDocument
+	 * @throws \DOMException
 	 */
-	private function addFootnotesToDOM( \DOMDocument $chapter, $fn_ids ) {
+	private function addFootnotesToDOM( \DOMDocument $chapter, array $fn_ids ): \DOMDocument {
 		// TODO either/or is not sufficient, needs to be built to
 		// cover a use case where both are present.
 		$notes = [];
@@ -675,7 +649,7 @@ class Docx extends Import {
 							$style_element->appendChild( $text_element );
 
 							$e = explode( $text_style, $footnote_text );
-							$position = strpos( $footnote_text, $text_style );
+							$position = strpos( $footnote_text, (string) $text_style );
 
 							if ( $position === 0 ) {
 								$footnote_text = str_replace( $text_style, '', $footnote_text );
@@ -708,11 +682,9 @@ class Docx extends Import {
 	 *
 	 * @param \DOMNode $node
 	 * @param string $chapter_name
-	 *
 	 * @return \DOMNode|mixed
 	 */
-	protected function findTheNode( \DOMNode $node, $chapter_name ) {
-
+	protected function findTheNode( \DOMNode $node, string $chapter_name ) {
 		if ( XML_ELEMENT_NODE !== $node->nodeType ) {
 			return '';
 		}
@@ -743,10 +715,6 @@ class Docx extends Import {
 		return '';
 	}
 
-	/**
-	 *
-	 * @param \DomDocument $meta
-	 */
 	protected function parseMetaData( \DomDocument $meta ) {
 		$node_list = $meta->getElementsByTagName( 'creator' );
 		if ( $node_list->item( 0 ) ) {
@@ -755,15 +723,13 @@ class Docx extends Import {
 	}
 
 	/**
-	 *
 	 * @param array $upload
-	 *
-	 * @return boolean
+	 * @return bool
 	 */
-	function setCurrentImportOption( array $upload ) {
+	public function setCurrentImportOption( array $upload ): bool {
 		try {
 			$this->isValidZip( $upload['file'] );
-		} catch ( \Exception $e ) {
+		} catch ( \Exception ) {
 			return false;
 		}
 
@@ -855,10 +821,9 @@ class Docx extends Import {
 	 *
 	 * @param string $schema
 	 * @param string $id
-	 *
 	 * @return string|array
 	 */
-	protected function getTargetPath( $schema, $id = '' ) {
+	protected function getTargetPath( string $schema, string $id = '' ): array | string {
 		// The subfolder name "_rels", the file extension ".rels" are
 		// reserved names in an OPC package
 		if ( empty( $id ) ) {
@@ -912,10 +877,9 @@ class Docx extends Import {
 	 *
 	 * @param string $file
 	 * @param bool $as_xml (optional)
-	 *
-	 * @return boolean|\DOMDocument
+	 * @return bool|\DOMDocument
 	 */
-	protected function getZipContent( $file, $as_xml = true ) {
+	protected function getZipContent( string $file, bool $as_xml = true ): bool | \DOMDocument {
 		// Locates an entry using its name
 		$index = $this->zip->locateName( $file );
 
@@ -969,6 +933,18 @@ class Docx extends Import {
 		];
 
 		return \Pressbooks\HtmLawed::filter( $html, $config );
+	}
+
+	/**
+	 * @param string $tag
+	 * @return array|string
+	 */
+	protected function findTargetPath( string $tag ): array | string {
+		return match ( $tag ) {
+			'endnotes' => $this->getTargetPath( self::ENDNOTES_SCHEMA, $tag ),
+			'hyperlink' => $this->getTargetPath( self::HYPERLINK_SCHEMA, $tag ),
+		default => $this->getTargetPath( self::FOOTNOTES_SCHEMA, $tag ),
+		};
 	}
 
 }

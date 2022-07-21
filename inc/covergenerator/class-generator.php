@@ -14,12 +14,6 @@ use function Pressbooks\Utility\debug_error_log;
  * A class that generates a cover should extend this class
  */
 abstract class Generator {
-
-	/**
-	 * @var Input
-	 */
-	protected $input;
-
 	/**
 	 * Required HTML variables
 	 *
@@ -53,8 +47,7 @@ abstract class Generator {
 	 *
 	 * @param Input $input
 	 */
-	public function __construct( Input $input ) {
-		$this->input = $input;
+	public function __construct( protected Input $input ) {
 	}
 
 	/**
@@ -118,7 +111,6 @@ abstract class Generator {
 	 * @return string
 	 */
 	protected function getScssVars() {
-
 		$sass = '';
 
 		// Required
@@ -151,7 +143,6 @@ abstract class Generator {
 	 * @return array
 	 */
 	protected function getHtmlTemplateVars() {
-
 		$html_vars = [];
 
 		// Required
@@ -336,7 +327,7 @@ abstract class Generator {
 	 * @see pressbooks/templates/admin/generator.php
 	 */
 	public static function formDownload() {
-		$filename = sanitize_file_name( isset( $_GET['file'] ) ? $_GET['file'] : '' ); // @codingStandardsIgnoreLine
+		$filename = sanitize_file_name( $_GET['file'] ?? '' ); // @codingStandardsIgnoreLine
 		static::_downloadCoverFile( $filename );
 	}
 
@@ -360,7 +351,7 @@ abstract class Generator {
 	 * @return string
 	 */
 	public function timestampedFileName( $extension, $fullpath = true ) {
-		$book_title = ( get_bloginfo( 'name' ) ) ? get_bloginfo( 'name' ) : __( 'book', 'pressbooks' );
+		$book_title = get_bloginfo( 'name' ) ?: __( 'book', 'pressbooks' );
 		$book_title_slug = sanitize_file_name( $book_title );
 		$book_title_slug = str_replace( [ '+' ], '', $book_title_slug ); // Remove symbols which confuse Apache (Ie. form urlencoded spaces)
 		$book_title_slug = sanitize_file_name( $book_title_slug ); // str_replace() may inadvertently create a new bad filename, sanitize again for good measure.
@@ -385,6 +376,7 @@ abstract class Generator {
 	 * @return bool
 	 */
 	public function generateWithPrince( $pdf_profile, $pdf_output_intent, $document_content, $output_path ) {
+		$msg = null;
 		$log_file = create_tmp_file();
 		$prince = new \PrinceXMLPhp\PrinceWrapper( PB_PRINCE_COMMAND );
 		$prince->setHTML( true );

@@ -220,7 +220,7 @@ class Odt extends Export {
 	 *
 	 * @return bool|string
 	 */
-	protected function queryXhtml() {
+	protected function queryXhtml(): bool | string {
 
 		$args = [
 			'timeout' => $this->timeout,
@@ -286,7 +286,7 @@ class Odt extends Export {
 
 		$mime = static::mimeType( $file );
 
-		return ( strpos( $mime, 'application/vnd.oasis.opendocument.text' ) !== false );
+		return ( str_contains( $mime, 'application/vnd.oasis.opendocument.text' ) );
 	}
 
 	/**
@@ -353,7 +353,7 @@ class Odt extends Export {
 			$format = strtolower( end( $format ) ); // Extension
 			try {
 				\Pressbooks\Image\resize_down( $format, $tmp_file );
-			} catch ( \Exception $e ) {
+			} catch ( \Exception ) {
 				return '';
 			}
 		}
@@ -392,7 +392,7 @@ class Odt extends Export {
 	 *
 	 * @return bool
 	 */
-	static function hasDependencies() {
+	public static function hasDependencies() {
 		if ( false !== \Pressbooks\Utility\check_saxonhe_install() ) {
 			return true;
 		}

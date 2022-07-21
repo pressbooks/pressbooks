@@ -11,19 +11,13 @@ namespace Pressbooks\Admin\Network;
 
 class NetworkSettings {
 
-	const DEFAULT_THEME_OPTION = 'pressbooks_default_book_theme';
+	public const DEFAULT_THEME_OPTION = 'pressbooks_default_book_theme';
 
-	const DEFAULT_THEME = 'pressbooks-malala';
+	public const DEFAULT_THEME = 'pressbooks-malala';
 
-	/**
-	 * @var array
-	 */
-	private $customOptions = [];
+	private array $customOptions = [];
 
-	/**
-	 * @var NetworkSettings
-	 */
-	private static $instance = null;
+	private static ?\Pressbooks\Admin\Network\NetworkSettings $instance = null;
 
 	public function __construct() {
 		$this->customOptions = [
@@ -42,9 +36,6 @@ class NetworkSettings {
 		return self::$instance;
 	}
 
-	/**
-	 * @param NetworkSettings $obj
-	 */
 	public static function hooks( NetworkSettings $obj ) {
 		add_filter( 'wpmu_options', [ $obj, 'renderCustomOptions' ] );
 		add_action( 'update_wpmu_options', [ $obj, 'saveNetworkSettings' ] );

@@ -254,7 +254,7 @@ class Toc extends \WP_REST_Controller {
 	 *
 	 * @return \WP_Error|\WP_REST_Response Response object on success, or WP_Error object on failure.
 	 */
-	public function get_item( $request ) {
+	public function get_item( $request ): \WP_Error | \WP_REST_Response {
 
 		// Register missing routes
 		$this->registerRouteDependencies();

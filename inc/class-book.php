@@ -20,8 +20,8 @@ use Pressbooks\Modules\Export\Xhtml\Xhtml11;
 
 class Book {
 
-	const SUBSECTIONS_TRANSIENT = 'pb_book_subsections';
-	const SUBSECTION_PROCESSING_TRANSIENT = 'pb_getting_all_subsections';
+	public const SUBSECTIONS_TRANSIENT = 'pb_book_subsections';
+	public const SUBSECTION_PROCESSING_TRANSIENT = 'pb_getting_all_subsections';
 
 	/**
 	 * @var Book
@@ -59,7 +59,7 @@ class Book {
 	/**
 	 * Prevent from being unserialized (which would create a second instance of it)
 	 */
-	private function __wakeup() {
+	public function __wakeup() {
 	}
 
 	/**
@@ -67,8 +67,7 @@ class Book {
 	 *
 	 * @return bool
 	 */
-	static function isBook() {
-
+	public static function isBook() {
 		// Currently, the main site is considered a "blog/landing page" whereas everything else is considered a "book".
 		// We might improve this in the future.
 
@@ -86,7 +85,7 @@ class Book {
 	 *
 	 * @return array
 	 */
-	static function getBookInformation( $id = null, $contributors_as_string = true, $read_contributors_from_cache = true ) {
+	public static function getBookInformation( $id = null, $contributors_as_string = true, $read_contributors_from_cache = true ) {
 
 		if ( ! empty( $id ) && is_int( $id ) ) {
 			$blog_id = $id;
@@ -151,7 +150,7 @@ class Book {
 			$expected_url = [ 'pb_cover_image' ];
 			foreach ( get_post_meta( $meta_post->ID ) as $key => $val ) {
 				// Skip anything not prefixed with pb_
-				if ( 0 !== strpos( $key, 'pb_' ) ) {
+				if ( ! str_starts_with( $key, 'pb_' ) ) {
 					continue;
 				}
 				// Skip contributor meta (already done, look up)
@@ -206,7 +205,7 @@ class Book {
 				include( ABSPATH . 'wp-includes/pluggable.php' );
 			}
 			$author = get_user_by( 'email', get_bloginfo( 'admin_email' ) );
-			$book_information['pb_authors'] = isset( $author->display_name ) ? $author->display_name : '';
+			$book_information['pb_authors'] = $author->display_name ?? '';
 			$book_information['pb_cover_image'] = \Pressbooks\Image\default_cover_url();
 		}
 
@@ -252,7 +251,7 @@ class Book {
 	 *
 	 * @return bool
 	 */
-	static function notifyBisacCodesRemoved() {
+	public static function notifyBisacCodesRemoved() {
 		global $blog_id;
 		$book_data_collector = BookDataCollector::init();
 		$book_information_array = $book_data_collector->get( $blog_id, BookDataCollector::BOOK_INFORMATION_ARRAY );
@@ -272,7 +271,7 @@ class Book {
 	 * @param array $book_information_array
 	 * @return bool
 	 */
-	static function removeInvalidatedBisacCodes( int $blog_id, array $book_information_array ) {
+	public static function removeInvalidatedBisacCodes( int $blog_id, array $book_information_array ): bool {
 		if ( array_key_exists( 'pb_bisac_subject', $book_information_array ) ) {
 			$book_information_array['pb_bisac_subject'] = explode(
 				', ',
@@ -296,7 +295,7 @@ class Book {
 	 *
 	 * @return bool
 	 */
-	static function removeInvalidatedBisacCodesFromPostMeta() {
+	public static function removeInvalidatedBisacCodesFromPostMeta() {
 		$meta = new Metadata();
 		$meta_post = $meta->getMetaPost();
 		$metadata = get_post_meta( $meta_post->ID );
@@ -317,7 +316,7 @@ class Book {
 	 * @param array $bisac_codes
 	 * @return array
 	 */
-	static function getReplacementForInvalidatedBisacCodes( array $bisac_codes ) {
+	public static function getReplacementForInvalidatedBisacCodes( array $bisac_codes ): array {
 		return apply_filters( 'get_invalidated_codes_alternatives_mapped', $bisac_codes );
 	}
 
@@ -331,7 +330,7 @@ class Book {
 	 *
 	 * @return array
 	 */
-	static function getBookStructure( $id = null ) {
+	public static function getBookStructure( $id = null ) {
 
 		if ( ! empty( $id ) && is_int( $id ) ) {
 			$blog_id = $id;
@@ -500,7 +499,7 @@ class Book {
 	 * @see bottom of this file for more info
 	 * @return array
 	 */
-	static function getBookContents() {
+	public static function getBookContents() {
 
 		global $blog_id;
 
@@ -559,7 +558,7 @@ class Book {
 	 *
 	 * @return int
 	 */
-	static function wordCount( $selected_for_export = false ) {
+	public static function wordCount( $selected_for_export = false ) {
 		$wc = 0;
 		$wc_selected_for_export = 0;
 		foreach ( static::getBookStructure() as $key => $section ) {
@@ -589,7 +588,7 @@ class Book {
 	/**
 	 *
 	 */
-	static function ajaxWordCount() {
+	public static function ajaxWordCount() {
 		if ( check_ajax_referer( 'pb-update-word-count-for-export' ) ) {
 			echo \Pressbooks\Book::wordCount( true );
 			wp_die();
@@ -599,7 +598,7 @@ class Book {
 	/**
 	 * Delete the Book Object cache(s)
 	 */
-	static function deleteBookObjectCache() {
+	public static function deleteBookObjectCache() {
 
 		global $blog_id;
 
@@ -631,10 +630,9 @@ class Book {
 	 * Returns an array of subsections in front matter, back matter, or chapters.
 	 *
 	 * @param $id
-	 *
 	 * @return array|false
 	 */
-	static function getSubsections( $id ) {
+	public static function getSubsections( $id ): array | false {
 		$parent = get_post( $id );
 		if ( empty( $parent ) ) {
 			return false;
@@ -680,7 +678,7 @@ class Book {
 	 * @param array $book_structure The book structure from getBookStructure()
 	 * @return array The subsections, grouped by parent post type
 	 */
-	static function getAllSubsections( $book_structure ) {
+	public static function getAllSubsections( $book_structure ) {
 		if ( Export::shouldParseSubsections() ) {
 			$book_subsections_transient = \Pressbooks\Book::SUBSECTIONS_TRANSIENT;
 			$subsection_processing_transient = \Pressbooks\Book::SUBSECTION_PROCESSING_TRANSIENT;
@@ -725,10 +723,9 @@ class Book {
 	 *
 	 * @param string $content
 	 * @param int $id
-	 *
 	 * @return string|false
 	 */
-	static function tagSubsections( $content, $id ) {
+	public static function tagSubsections( string $content, int $id ): string | false {
 		$parent = get_post( $id );
 		if ( empty( $parent ) ) {
 			return false;
@@ -759,7 +756,7 @@ class Book {
 	/**
 	 * WP_Ajax hook. Updates a post's privacy setting (whether the post is published or privately published)
 	 */
-	static function updateGlobalPrivacyOptions() {
+	public static function updateGlobalPrivacyOptions() {
 		if ( check_ajax_referer( 'pb-organize-book-privacy' ) ) {
 			$blog_public = absint( $_POST['blog_public'] );
 
@@ -778,7 +775,7 @@ class Book {
 	 *
 	 * @return mixed URL of requested post, or Post ID if $return_post_id is set to true
 	 */
-	static function get( $what = 'next', $return_post_id = false, $admin_mode = false ) {
+	public static function get( $what = 'next', $return_post_id = false, $admin_mode = false ) {
 
 		if ( 'first' === $what ) {
 			return static::getFirst( $return_post_id, $admin_mode );
@@ -842,7 +839,7 @@ class Book {
 	 *
 	 * @return mixed URL of first post, or Post ID if $return_post_id is set to true
 	 */
-	static function getFirst( $return_post_id = false, $admin_mode = false ) {
+	public static function getFirst( $return_post_id = false, $admin_mode = false ) {
 
 		global $blog_id;
 
@@ -887,7 +884,7 @@ class Book {
 	 *
 	 * @return int
 	 */
-	static function getChapterNumber( $post_id, $type_of = 'webbook' ) {
+	public static function getChapterNumber( $post_id, $type_of = 'webbook' ) {
 
 		if ( empty( static::$__order ) ) {
 			self::$__order = static::getBookStructure()['__order'];
@@ -941,7 +938,7 @@ class Book {
 	 *
 	 * @return bool
 	 */
-	static function consolidatePost( $pid, $post ) {
+	public static function consolidatePost( $pid, $post ) {
 
 		if ( false === Book::isBook() || wp_is_post_revision( $pid ) || 'auto-draft' === get_post_status( $pid ) ) {
 			return false;
@@ -1006,7 +1003,7 @@ class Book {
 	 *
 	 * @return bool
 	 */
-	static function deletePost( $pid ) {
+	public static function deletePost( $pid ) {
 
 		if ( false === Book::isBook() || wp_is_post_revision( $pid ) || 'auto-draft' === get_post_status( $pid ) ) {
 			return false;

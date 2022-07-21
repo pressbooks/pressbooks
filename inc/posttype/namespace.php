@@ -322,9 +322,7 @@ function register_meta() {
 				$defaults, [
 					'object_subtype' => $post_type,
 					'description' => __( 'Show title in exports', 'pressbooks' ),
-					'sanitize_callback' => function( $v ) {
-						return ( $v ? 'on' : null );
-					},
+					'sanitize_callback' => fn( $v) => $v ? 'on' : null,
 				]
 			)
 		);
@@ -527,36 +525,20 @@ function can_export( $post_id = 0 ) {
 }
 
 /**
- * @since 5.2.0
- *
  * @param string $posttype The slug of a post type
- *
- * @return string The localized label for the post type, or false if an invalid post type was supplied.
+ * @return bool|string The localized label for the post type, or false if an invalid post type was supplied.
+ * @since 5.2.0
  */
-function get_post_type_label( $posttype ) {
-	switch ( $posttype ) :
-		case 'metadata':
-			$label = __( 'Book Information', 'pressbooks' );
-			break;
-		case 'part':
-			$label = __( 'Part', 'pressbooks' );
-			break;
-		case 'chapter':
-			$label = __( 'Chapter', 'pressbooks' );
-			break;
-		case 'front-matter':
-			$label = __( 'Front Matter', 'pressbooks' );
-			break;
-		case 'back-matter':
-			$label = __( 'Back Matter', 'pressbooks' );
-			break;
-		case 'glossary':
-			$label = __( 'Glossary', 'pressbooks' );
-			break;
-		default:
-			$label = false;
-	endswitch;
-	return $label;
+function get_post_type_label( $posttype ): bool | string {
+	return match ( $posttype ) {
+		'metadata' => __( 'Book Information', 'pressbooks' ),
+		'part' => __( 'Part', 'pressbooks' ),
+		'chapter' => __( 'Chapter', 'pressbooks' ),
+		'front-matter' => __( 'Front Matter', 'pressbooks' ),
+		'back-matter' => __( 'Back Matter', 'pressbooks' ),
+		'glossary' => __( 'Glossary', 'pressbooks' ),
+	default => false,
+	};
 }
 
 /**

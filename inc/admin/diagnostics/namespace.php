@@ -101,10 +101,10 @@ function render_page() {
 	$output .= 'PrinceXML: ' . ( check_prince_install() ? 'Installed' : 'Not Installed' ) . "\n"; // TODO: version
 	$output .= 'Saxon-HE: ' . ( check_saxonhe_install() ? 'Installed' : 'Not Installed' ) . "\n\n"; // TODO: version
 	$muplugins = get_mu_plugins();
-	if ( count( $muplugins ) > 0 ) {
+	if ( ( is_countable( $muplugins ) ? count( $muplugins ) : 0 ) > 0 ) {
 		$output .= '#### Must-Use Plugins' . "\n\n";
 		foreach ( $muplugins as $plugin => $plugin_data ) {
-			$output .= $plugin_data['Name'] . ': ' . ( $plugin_data['Version'] ? $plugin_data['Version'] : 'n/a' ) . "\n";
+			$output .= $plugin_data['Name'] . ': ' . ( $plugin_data['Version'] ?: 'n/a' ) . "\n";
 		}
 	}
 	$output .= "\n#### Network Active Plugins\n\n";

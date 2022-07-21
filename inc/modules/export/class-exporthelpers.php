@@ -13,7 +13,6 @@ use Pressbooks\Sanitize;
  * Reusable code between export routines
  */
 trait ExportHelpers {
-
 	/**
 	 * @param $post_type_identifier
 	 * @param $id
@@ -29,9 +28,7 @@ trait ExportHelpers {
 	/**
 	 * Map Book contents
 	 * This trait should be used in classes that are ExportGenerators (black magic traits stuff)
-	 * @param array $post_data
-	 * @param array $metadata
-	 * @param int $post_number
+
 	 * @param array $options post_type,needs_sanitization,endnotes,footnotes
 	 * @return array
 	 */

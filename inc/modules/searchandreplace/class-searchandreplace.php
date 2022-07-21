@@ -18,15 +18,12 @@ use PressbooksMix\Assets;
 
 class SearchAndReplace {
 
-	/**
-	 * @var SearchAndReplace
-	 */
-	private static $instance = null;
+	private static ?\Pressbooks\Modules\SearchAndReplace\SearchAndReplace $instance = null;
 
 	/**
 	 * @return SearchAndReplace|null
 	 */
-	static public function init() {
+	public static function init() {
 		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
 			self::hooks( self::$instance );
@@ -34,7 +31,7 @@ class SearchAndReplace {
 		return self::$instance;
 	}
 
-	static public function hooks( SearchAndReplace $obj ) {
+	public static function hooks( SearchAndReplace $obj ) {
 		if ( is_admin() ) {
 			add_filter( 'admin_menu', [ $obj, 'adminMenu' ] );
 			add_action( 'load-tools_page_pressbooks-search-and-replace', [ $obj, 'searchHead' ] );
@@ -179,7 +176,7 @@ class SearchAndReplace {
 
 	private function render( $template, $template_vars = [] ) {
 		foreach ( $template_vars as $key => $val ) {
-			$$key = $val;
+			${$key} = $val;
 		}
 
 		if ( file_exists( PB_PLUGIN_DIR . "templates/admin/$template.php" ) ) {

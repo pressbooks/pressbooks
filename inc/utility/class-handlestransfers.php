@@ -191,7 +191,7 @@ trait HandlesTransfers {
 	 *
 	 * @return array|false
 	 */
-	public function handleUpload() {
+	public function handleUpload(): array | false {
 		if ( empty( $_FILES['import_file']['name'] ) ) {
 			return false;
 		}
@@ -228,7 +228,7 @@ trait HandlesTransfers {
 		$items = [];
 		$invalid_rows = false;
 
-		foreach ( json_decode( file_get_contents( $upload['file'] ) ) as $key => $item ) {
+		foreach ( json_decode( file_get_contents( $upload['file'] ), null, 512, JSON_THROW_ON_ERROR ) as $key => $item ) {
 			$item = (array) $item;
 
 			if ( ! isset( $item['name'], $item['slug'] ) ) {
@@ -290,7 +290,7 @@ trait HandlesTransfers {
 					continue;
 				}
 
-				if ( false !== strpos( $field, 'picture' ) ) {
+				if ( str_contains( $field, 'picture' ) ) {
 					// Skip the picture if we are unable to get the src url.
 					$src = $this->handleImage( $item[ $field ] );
 
@@ -318,7 +318,7 @@ trait HandlesTransfers {
 	 * @param string $url
 	 * @return false|string
 	 */
-	public function handleImage( $url ) {
+	public function handleImage( string $url ): false | string {
 		if ( ! $url ) {
 			return false;
 		}

@@ -9,23 +9,13 @@
 namespace Pressbooks;
 
 class GlobalTypography {
-
-	/**
-	 * @var Sass
-	 */
-	protected $sass;
-
-	/**
-	 * @param Sass $sass
-	 */
-	public function __construct( $sass ) {
-		$this->sass = $sass;
+	public function __construct( protected Sass $sass ) {
 	}
 
 	/**
 	 * @return Sass
 	 */
-	public function getSass() {
+	public function getSass(): Sass {
 		return $this->sass;
 	}
 
@@ -35,7 +25,7 @@ class GlobalTypography {
 	 * @return array
 	 * @see \Pressbooks\Modules\ThemeOptions\GlobalOptions::renderLanguagesField
 	 */
-	function getSupportedLanguages() {
+	public function getSupportedLanguages() {
 		return [
 			'ff' => __( 'Adlam', 'pressbooks' ),
 			'grc' => __( 'Ancient Greek', 'pressbooks' ),
@@ -73,8 +63,7 @@ class GlobalTypography {
 	 *
 	 * @return string
 	 */
-	function getThemeFontStacks( $type ) {
-
+	public function getThemeFontStacks( string $type ): string {
 		$return_value = '';
 
 		$fullpath = $this->sass->pathToUserGeneratedSass() . "/_font-stack-{$type}.scss";
@@ -91,7 +80,7 @@ class GlobalTypography {
 	 *
 	 * @return array
 	 */
-	function _getRequiredLanguages() {
+	public function _getRequiredLanguages(): array {
 		$languages = get_option( 'pressbooks_global_typography', [] );
 		$book_lang = $this->_getBookLanguage();
 
@@ -114,12 +103,9 @@ class GlobalTypography {
 	 * Creates the necessary @import statements and variables, for foreign language support
 	 * (CSS fallback font stacks, for unknown characters)
 	 */
-	function updateGlobalTypographyMixin() {
-
+	public function updateGlobalTypographyMixin(): void {
 		$languages = $this->_getRequiredLanguages();
-
 		// Auto-create SCSS files
-
 		// TODO: Use self::getThemeFontStacks() to parse if stack has $serif or $sans-serif strings
 
 		foreach ( [ 'prince', 'epub', 'web' ] as $type ) {
@@ -127,88 +113,31 @@ class GlobalTypography {
 		}
 
 		$this->getFonts( $languages );
-
 	}
 
-	/**
-	 * @return string
-	 */
-	protected function _getBookLanguage() {
-
-		$lang = '';
+	protected function _getBookLanguage(): string {
 		$metadata = Book::getBookInformation();
-		$book_lang = ( isset( $metadata['pb_language'] ) ) ? $metadata['pb_language'] : 'en';
+		$book_lang = $metadata['pb_language'] ?? 'en';
 
-		switch ( $book_lang ) {
-			case 'el': // Ancient Greek
-				$lang = 'grc';
-				break;
-			case 'ar': // Arabic
-			case 'ar-dz':
-			case 'ar-bh':
-			case 'ar-eg':
-			case 'ar-jo':
-			case 'ar-kw':
-			case 'ar-lb':
-			case 'ar-ma':
-			case 'ar-om':
-			case 'ar-qa':
-			case 'ar-sa':
-			case 'ar-sy':
-			case 'ar-tn':
-			case 'ar-ae':
-			case 'ar-ye':
-				$lang = 'ar';
-				break;
-			case 'bn': // Bengali
-				$lang = 'bn';
-				break;
-			case 'he': // Biblical Hebrew
-				$lang = 'he';
-				break;
-			case 'hi': // Hindi
-			case 'sa': // Sanskrit
-				$lang = 'hi';
-				break;
-			case 'kn': // Kannada
-				$lang = 'kn';
-				break;
-			case 'ml': // Malayalam
-				$lang = 'ml';
-				break;
-			case 'or': // Odia
-				$lang = 'or';
-				break;
-			case 'zh': // Chinese (Simplified)
-			case 'zh-cn':
-			case 'zh-sg':
-				$lang = 'zh_HANS';
-				break;
-			case 'zh-hk': // Chinese (Traditional)
-			case 'zh-tw':
-				$lang = 'zh_HANT';
-				break;
-			case 'gu': // Gujarati
-				$lang = 'gu';
-				break;
-			case 'ja': // Japanese
-				$lang = 'ja';
-				break;
-			case 'ko': // Korean
-				$lang = 'ko';
-				break;
-			case 'ta': // Tamil
-				$lang = 'ta';
-				break;
-			case 'te': // Telugu
-				$lang = 'te';
-				break;
-			case 'tr': // Turkish
-				$lang = 'tr';
-				break;
-		}
-
-		return $lang;
+		return match ( $book_lang ) {
+			'el' => 'grc',
+			'ar', 'ar-dz', 'ar-bh', 'ar-eg', 'ar-jo', 'ar-kw', 'ar-lb', 'ar-ma', 'ar-om', 'ar-qa', 'ar-sa', 'ar-sy', 'ar-tn', 'ar-ae', 'ar-ye' => 'ar',
+			'bn' => 'bn',
+			'he' => 'he',
+			'hi', 'sa' => 'hi',
+			'kn' => 'kn',
+			'ml' => 'ml',
+			'or' => 'or',
+			'zh', 'zh-cn', 'zh-sg' => 'zh_HANS',
+			'zh-hk', 'zh-tw' => 'zh_HANT',
+			'gu' => 'gu',
+			'ja' => 'ja',
+			'ko' => 'ko',
+			'ta' => 'ta',
+			'te' => 'te',
+			'tr' => 'tr',
+		default => '',
+		};
 	}
 
 	/**
@@ -217,14 +146,12 @@ class GlobalTypography {
 	 * @return array
 	 * @see \Pressbooks\Modules\ThemeOptions\GlobalOptions::renderLanguagesField
 	 */
-	function getThemeSupportedLanguages() {
-
+	public function getThemeSupportedLanguages(): array {
 		$return_value = false;
 
 		$fullpath = get_stylesheet_directory() . '/theme-information.php';
 
 		if ( is_file( $fullpath ) ) {
-
 			require( $fullpath );
 
 			if ( ! empty( $supported_languages ) ) {
@@ -240,17 +167,13 @@ class GlobalTypography {
 	/**
 	 * @param $type
 	 * @param array $languages
-	 *
 	 * @return void
 	 */
-	protected function _sassify( $type, array $languages ) {
-
+	protected function _sassify( $type, array $languages ): void {
 		// Create Scss
-
 		$scss = "// Global Typography \n";
 
 		foreach ( $languages as $lang ) {
-
 			// Find scss font template in order of priority
 			foreach ( [ "fonts-{$lang}-{$type}", "fonts-{$lang}" ] as $i ) {
 				if ( file_exists( $this->sass->pathToFonts() . "/_{$i}.scss" ) ) {
@@ -425,11 +348,11 @@ class GlobalTypography {
 	/**
 	 * Check for absent font files and download if necessary.
 	 *
-	 * @param array $languages
+	 * @param array|null $languages
 	 *
 	 * @return bool
 	 */
-	function getFonts( $languages = null ) {
+	public function getFonts( array $languages = null ): bool {
 		if ( ! $languages ) {
 			$languages = $this->_getRequiredLanguages();
 		}

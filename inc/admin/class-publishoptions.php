@@ -15,14 +15,7 @@ class PublishOptions extends \Pressbooks\Options {
 	 * @see upgrade()
 	 * @var int
 	 */
-	const VERSION = 1;
-
-	/**
-	 * Publish options.
-	 *
-	 * @var array
-	 */
-	public $options;
+	public const VERSION = 1;
 
 	/**
 	 * Publish defaults.
@@ -36,10 +29,9 @@ class PublishOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $options
 	 */
-	function __construct( array $options ) {
-		$this->options = $options;
-		$this->defaults = $this->getDefaults();
-		$this->urls = $this->getUrlOptions();
+	public function __construct( public array $options ) {
+		$this->defaults = static::getDefaults();
+		$this->urls = static::getUrlOptions();
 
 		foreach ( $this->defaults as $key => $value ) {
 			if ( ! isset( $this->options[ $key ] ) ) {
@@ -51,10 +43,10 @@ class PublishOptions extends \Pressbooks\Options {
 	/**
 	 * Configure the publish options page using the settings API.
 	 */
-	function init() {
-		$_option = $this->getSlug();
+	public function init() {
+		$_option = static::getSlug();
 		$_page = $_option;
-		$_section = $this->getSlug() . '_section';
+		$_section = static::getSlug() . '_section';
 
 		add_settings_section(
 			$_section,
@@ -127,7 +119,7 @@ class PublishOptions extends \Pressbooks\Options {
 	/**
 	 * Display the publish options page description.
 	 */
-	function display() {
+	public function display() {
 		ob_start(); ?>
 		<h2><?php _e( 'Add BUY Links to Your Pressbooks Webbook', 'pressbooks' ); ?></h2>
 		<p><?php _e( 'Enter the URLs for locations where your book can be purchased below. <a href="https://guide.pressbooks.com/chapter/publish/">Our guide</a> provides additional information about selling and distributing your book.', 'pressbooks' ); ?></p>
@@ -155,14 +147,14 @@ class PublishOptions extends \Pressbooks\Options {
 		);
 	}
 
-	function render() {
+	public function render() {
 		?>
 		<div class="wrap">
-			<h1><?php echo $this->getTitle(); ?></h1>
+			<h1><?php echo static::getTitle(); ?></h1>
 			<form method="post" action="options.php">
 				<?php
-				settings_fields( $this->getSlug() );
-				do_settings_sections( $this->getSlug() );
+				settings_fields( static::getSlug() );
+				do_settings_sections( static::getSlug() );
 				submit_button();
 				?>
 			</form>
@@ -170,109 +162,97 @@ class PublishOptions extends \Pressbooks\Options {
 		<?php
 	}
 
-	function upgrade( $version ) {
+	public function upgrade( $version ) {
 		if ( $version < 1 ) {
 			$this->doInitialUpgrade();
 		}
 	}
 
-	function doInitialUpgrade() {
+	public function doInitialUpgrade() {
 	}
 
 	/**
 	 * Render the amazon field.
 	 */
-	function renderAmazonField() {
-		$this->renderField(
-			[
-				'id' => 'amazon',
-				'name' => $this->getSlug(),
-				'option' => 'amazon',
-				'value' => ( isset( $this->options['amazon'] ) ) ? $this->options['amazon'] : '',
-				'type' => 'url',
-				'class' => 'regular-text code',
-			]
-		);
+	public function renderAmazonField() {
+		static::renderField([
+			'id' => 'amazon',
+			'name' => static::getSlug(),
+			'option' => 'amazon',
+			'value' => $this->options['amazon'] ?? '',
+			'type' => 'url',
+			'class' => 'regular-text code',
+		]);
 	}
 
 	/**
 	 * Render the oreilly field.
 	 */
-	function renderOReillyField() {
-		$this->renderField(
-			[
-				'id' => 'oreilly',
-				'name' => $this->getSlug(),
-				'option' => 'oreilly',
-				'value' => ( isset( $this->options['oreilly'] ) ) ? $this->options['oreilly'] : '',
-				'type' => 'url',
-				'class' => 'regular-text code',
-			]
-		);
+	public function renderOReillyField() {
+		static::renderField([
+			'id' => 'oreilly',
+			'name' => static::getSlug(),
+			'option' => 'oreilly',
+			'value' => $this->options['oreilly'] ?? '',
+			'type' => 'url',
+			'class' => 'regular-text code',
+		]);
 	}
 
 	/**
 	 * Render the barnesandnoble field.
 	 */
-	function renderBarnesAndNobleField() {
-		$this->renderField(
-			[
-				'id' => 'barnesandnoble',
-				'name' => $this->getSlug(),
-				'option' => 'barnesandnoble',
-				'value' => ( isset( $this->options['barnesandnoble'] ) ) ? $this->options['barnesandnoble'] : '',
-				'type' => 'url',
-				'class' => 'regular-text code',
-			]
-		);
+	public function renderBarnesAndNobleField() {
+		static::renderField([
+			'id' => 'barnesandnoble',
+			'name' => static::getSlug(),
+			'option' => 'barnesandnoble',
+			'value' => $this->options['barnesandnoble'] ?? '',
+			'type' => 'url',
+			'class' => 'regular-text code',
+		]);
 	}
 
 	/**
 	 * Render the barnesandnoble field.
 	 */
-	function renderKoboField() {
-		$this->renderField(
-			[
-				'id' => 'kobo',
-				'name' => $this->getSlug(),
-				'option' => 'kobo',
-				'value' => ( isset( $this->options['kobo'] ) ) ? $this->options['kobo'] : '',
-				'type' => 'url',
-				'class' => 'regular-text code',
-			]
-		);
+	public function renderKoboField() {
+		static::renderField([
+			'id' => 'kobo',
+			'name' => static::getSlug(),
+			'option' => 'kobo',
+			'value' => $this->options['kobo'] ?? '',
+			'type' => 'url',
+			'class' => 'regular-text code',
+		]);
 	}
 
 	/**
 	 * Render the Apple Books field.
 	 */
-	function renderAppleBooksField() {
-		$this->renderField(
-			[
-				'id' => 'applebooks',
-				'name' => $this->getSlug(),
-				'option' => 'applebooks',
-				'value' => ( isset( $this->options['applebooks'] ) ) ? $this->options['applebooks'] : '',
-				'type' => 'url',
-				'class' => 'regular-text code',
-			]
-		);
+	public function renderAppleBooksField() {
+		static::renderField([
+			'id' => 'applebooks',
+			'name' => static::getSlug(),
+			'option' => 'applebooks',
+			'value' => $this->options['applebooks'] ?? '',
+			'type' => 'url',
+			'class' => 'regular-text code',
+		]);
 	}
 
 	/**
 	 * Render the other service field.
 	 */
-	function renderOtherServiceField() {
-		$this->renderField(
-			[
-				'id' => 'otherservice',
-				'name' => $this->getSlug(),
-				'option' => 'otherservice',
-				'value' => ( isset( $this->options['otherservice'] ) ) ? $this->options['otherservice'] : '',
-				'type' => 'url',
-				'class' => 'regular-text code',
-			]
-		);
+	public function renderOtherServiceField() {
+		static::renderField([
+			'id' => 'otherservice',
+			'name' => static::getSlug(),
+			'option' => 'otherservice',
+			'value' => $this->options['otherservice'] ?? '',
+			'type' => 'url',
+			'class' => 'regular-text code',
+		]);
 	}
 
 	/**
@@ -280,7 +260,7 @@ class PublishOptions extends \Pressbooks\Options {
 	 *
 	 * @return string $slug
 	 */
-	static function getSlug() {
+	public static function getSlug() {
 		return 'pressbooks_ecommerce_links';
 	}
 
@@ -289,7 +269,7 @@ class PublishOptions extends \Pressbooks\Options {
 	 *
 	 * @return string $title
 	 */
-	static function getTitle() {
+	public static function getTitle() {
 		return __( 'Publish', 'pressbooks' );
 	}
 
@@ -298,7 +278,7 @@ class PublishOptions extends \Pressbooks\Options {
 	 *
 	 * @return array $defaults
 	 */
-	static function getDefaults() {
+	public static function getDefaults() {
 		return [
 			'amazon' => '',
 			'oreilly' => '',
@@ -314,7 +294,7 @@ class PublishOptions extends \Pressbooks\Options {
 	 *
 	 * @return array $options
 	 */
-	static function getUrlOptions() {
+	public static function getUrlOptions() {
 		return [
 			'amazon',
 			'oreilly',
@@ -332,7 +312,7 @@ class PublishOptions extends \Pressbooks\Options {
 	 *
 	 * @return array $defaults
 	 */
-	static function filterDefaults( $defaults ) {
+	public static function filterDefaults( $defaults ) {
 		return $defaults;
 	}
 }

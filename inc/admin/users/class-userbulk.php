@@ -10,18 +10,17 @@ namespace Pressbooks\Admin\Users;
 use Pressbooks\Container;
 
 class UserBulk {
+	public const SLUG = 'user_bulk_new';
 
-	const SLUG = 'user_bulk_new';
+	public const PARENT_SLUG = 'users.php';
 
-	const PARENT_SLUG = 'users.php';
+	public const TEMPLATE = 'admin.user_bulk_new';
 
-	const TEMPLATE = 'admin.user_bulk_new';
+	public const USER_STATUS_NEW = 'new';
 
-	const USER_STATUS_NEW = 'new';
+	public const USER_STATUS_INVITED = 'invited';
 
-	const USER_STATUS_INVITED = 'invited';
-
-	const USER_STATUS_ERROR = 'error';
+	public const USER_STATUS_ERROR = 'error';
 
 	/**
 	 * @var UserBulk
@@ -36,7 +35,7 @@ class UserBulk {
 	/**
 	 * @return UserBulk
 	 */
-	static public function init() {
+	public static function init() {
 		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
 			self::hooks( self::$instance );
@@ -47,7 +46,7 @@ class UserBulk {
 	/**
 	 * @param UserBulk $obj
 	 */
-	static public function hooks( UserBulk $obj ) {
+	public static function hooks( UserBulk $obj ) {
 		if ( \Pressbooks\Book::isBook() ) {
 			add_action( 'admin_menu', [ $obj, 'addMenu' ] );
 		}
@@ -121,23 +120,16 @@ class UserBulk {
 				$result = $this->linkNewUserToBook( $email, $role );
 			}
 
-			array_push(
-				$results, [
-					'email'  => $email,
-					'status' => $result,
-				]
-			);
+			$results[] = [
+				'email' => $email,
+				'status' => $result,
+			];
 		}
 
 		return $results;
 	}
 
-	/**
-	 * @param string $email
-	 * @param string $role
-	 * @return WP_Error|bool
-	 */
-	public function linkNewUserToBook( string $email, string $role ) {
+	public function linkNewUserToBook( string $email, string $role ): \WP_Error | bool {
 		$user_details = $this->generateUserNameFromEmail( $email );
 
 		if ( is_wp_error( $user_details['errors'] ) && $user_details['errors']->has_errors() ) {
@@ -145,7 +137,7 @@ class UserBulk {
 		}
 
 		$user_name = $user_details['user_name'];
-		$unique_username = apply_filters( 'pre_user_login', $this->sanitizeUser( wp_unslash( $user_name ), true ) );
+		$unique_username = apply_filters( 'pre_user_login', $this->sanitizeUser( wp_unslash( $user_name ) ) );
 
 		// link newly created user to book
 		wpmu_signup_user(
@@ -161,7 +153,6 @@ class UserBulk {
 	}
 
 	/**
-	 * @param string $email
 	 * @return array
 	 */
 	public function generateUserNameFromEmail( string $email ) {
@@ -187,8 +178,6 @@ class UserBulk {
 	 * @see https://core.trac.wordpress.org/ticket/17904
 	 *
 	 * @param string $username
-	 *
-	 * @return string
 	 */
 	public function sanitizeUser( $username ) : string {
 		$unique_username = sanitize_user( $username, true );
@@ -204,10 +193,6 @@ class UserBulk {
 		return $unique_username;
 	}
 
-	/**
-	 * @param array $results
-	 * @return string
-	 */
 	public function getBulkResultHtml( array $results ) : string {
 		$output_success_new = '';
 		$output_success_invited = '';
@@ -230,12 +215,7 @@ class UserBulk {
 		return $html_output;
 	}
 
-	/**
-	 * @param string|\WP_Error $status
-	 *
-	 * @return string
-	 */
-	public function getBulkMessageSubtitle( $status ) : string {
+	public function getBulkMessageSubtitle( string | \WP_Error $status ) : string {
 		$subtitle = '';
 
 		switch ( $status ) {

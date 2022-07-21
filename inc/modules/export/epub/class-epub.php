@@ -31,7 +31,7 @@ use Pressbooks\Utility\PercentageYield;
 class Epub extends ExportGenerator {
 	use ExportHelpers;
 
-	const VERSION = '3.2';
+	public const VERSION = '3.2';
 
 	/**
 	 * @var array
@@ -395,7 +395,6 @@ class Epub extends ExportGenerator {
 	 * Check for existence of properties attributes
 	 *
 	 * @param string $html_file
-	 *
 	 * @return array
 	 * @throws \Exception
 	 */
@@ -424,7 +423,6 @@ class Epub extends ExportGenerator {
 	 * Check for existence of scripting MathML elements
 	 *
 	 * @param string $html
-	 *
 	 * @return bool
 	 */
 	protected function isMathML( string $html ): bool {
@@ -441,7 +439,6 @@ class Epub extends ExportGenerator {
 	 * Check for existence of scripting elements
 	 *
 	 * @param string $html
-	 *
 	 * @return bool
 	 */
 	protected function isScripted( string $html ): bool {
@@ -478,7 +475,7 @@ class Epub extends ExportGenerator {
 			foreach ( $this->convertGenerator() as $percentage => $info ) {
 				// Do nothing, this is a compatibility wrapper that makes the generator work like a regular function
 			}
-		} catch ( \Exception $e ) {
+		} catch ( \Exception ) {
 			return false;
 		}
 		return true;
@@ -537,11 +534,6 @@ class Epub extends ExportGenerator {
 		yield 80 => $this->generatorPrefix . __( 'Export successful', 'pressbooks' );
 	}
 
-	/**
-	 * @param array $book_contents
-	 *
-	 * @return array
-	 */
 	protected function preProcessBookContents( array $book_contents ): array {
 		// We need to change global $id for shortcodes, the_content, ...
 		global $id;
@@ -550,7 +542,7 @@ class Epub extends ExportGenerator {
 		// Do root level structures first.
 		foreach ( $book_contents as $type => $struct ) {
 
-			if ( 0 === strpos( $type, '__' ) ) {
+			if ( str_starts_with( $type, '__' ) ) {
 				continue; // Skip __magic keys
 			}
 
@@ -590,13 +582,6 @@ class Epub extends ExportGenerator {
 		return $book_contents;
 	}
 
-	/**
-	 * @param string $content
-	 * @param string $type
-	 * @param int $post_id
-	 *
-	 * @return string
-	 */
 	protected function preProcessPostContent( string $content, string $type = '', int $post_id = 0 ): string {
 		if (
 			$this->displayAboutTheAuthors &&
@@ -618,7 +603,7 @@ class Epub extends ExportGenerator {
 			foreach ( $this->validateGenerator() as $percentage => $info ) {
 				// Do nothing, this is a compatibility wrapper that makes the generator work like a regular function
 			}
-		} catch ( \Exception $e ) {
+		} catch ( \Exception ) {
 			return false;
 		}
 		return true;
@@ -642,13 +627,13 @@ class Epub extends ExportGenerator {
 		exec( $command, $output, $return_var );
 
 		foreach ( $output as $k => $v ) {
-			if ( strpos( $v, 'Picked up _JAVA_OPTIONS:' ) !== false ) {
+			if ( str_contains( $v, 'Picked up _JAVA_OPTIONS:' ) ) {
 				// Remove JAVA warnings that are not actually errors
 				unset( $output[ $k ] );
-			} elseif ( strpos( $v, 'non-standard font type application/x-font-ttf' ) !== false ) {
+			} elseif ( str_contains( $v, 'non-standard font type application/x-font-ttf' ) ) {
 				// @see https://github.com/IDPF/epubcheck/issues/586, https://github.com/IDPF/epubcheck/pull/633
 				unset( $output[ $k ] );
-			} elseif ( strpos( $v, 'non-standard font type application/font-sfnt' ) !== false ) {
+			} elseif ( str_contains( $v, 'non-standard font type application/font-sfnt' ) ) {
 				// @see https://github.com/w3c/epubcheck/issues/339
 				unset( $output[ $k ] );
 			}
@@ -668,7 +653,6 @@ class Epub extends ExportGenerator {
 	 * Override mimeType, get rid of '; charset=binary'
 	 *
 	 * @param string $file
-	 *
 	 * @return string
 	 */
 	public function mediaType( string $file ): string {
@@ -685,7 +669,6 @@ class Epub extends ExportGenerator {
 	 * @return void
 	 */
 	protected function themeOptionsOverrides(): void {
-
 		// --------------------------------------------------------------------
 		// CSS
 
@@ -715,7 +698,6 @@ class Epub extends ExportGenerator {
 	 * Tidy HTML
 	 *
 	 * @param string $html
-	 *
 	 * @return string
 	 */
 	protected function tidy( string $html ): string {
@@ -781,10 +763,9 @@ class Epub extends ExportGenerator {
 	 *
 	 * @param string $url
 	 * @param string $fullpath
-	 *
 	 * @return string|array
 	 */
-	protected function fetchAndSaveUniqueMedia( string $url, string $fullpath ) {
+	protected function fetchAndSaveUniqueMedia( string $url, string $fullpath ): array | string {
 		if ( isset( $this->fetchedMediaCache[ $url ] ) ) {
 			return $this->fetchedMediaCache[ $url ];
 		}
@@ -860,7 +841,6 @@ class Epub extends ExportGenerator {
 	 * Clean up content processed by HTML5 Parser, change it back into XHTML
 	 *
 	 * @param string $html
-	 *
 	 * @return string
 	 */
 	protected function html5ToXhtml( string $html ): string {
@@ -888,7 +868,6 @@ class Epub extends ExportGenerator {
 	 * Zip the contents of an EPUB following the conventions outlined in Open Publication Structure 2.0.1
 	 *
 	 * @param string $filename
-	 *
 	 * @return bool
 	 */
 	protected function zipEpub( string $filename ): bool {
@@ -951,7 +930,6 @@ class Epub extends ExportGenerator {
 	 *
 	 * @param array $book_contents
 	 * @param array $metadata
-	 *
 	 * @return \Generator
 	 * @throws \Exception
 	 */
@@ -1022,9 +1000,8 @@ class Epub extends ExportGenerator {
 	/**
 	 * Parse CSS, copy assets, rewrite copy.
 	 *
-	 * @param string $path_to_original_stylesheet *
+	 * @param string $path_to_original_stylesheet
 	 * @param string $path_to_copy_of_stylesheet
-	 *
 	 * @return void
 	 * @throws \Exception
 	 */
@@ -1063,7 +1040,6 @@ class Epub extends ExportGenerator {
 	 * @param string $css The EPUB's (S)CSS content.
 	 * @param string $scss_dir The directory which contains the theme's SCSS files. No trailing slash.
 	 * @param string $path_to_epub_assets The EPUB's assets directory. No trailing slash,
-	 *
 	 * @return string
 	 */
 	protected function normalizeCssUrls( string $css, string $scss_dir, string $path_to_epub_assets ): string {
@@ -1175,7 +1151,6 @@ class Epub extends ExportGenerator {
 
 	/**
 	 * @param array $metadata
-	 *
 	 * @return void
 	 * @throws \Exception
 	 */
@@ -1229,7 +1204,6 @@ class Epub extends ExportGenerator {
 	/**
 	 * @param array $book_contents
 	 * @param array $metadata
-	 *
 	 * @return void
 	 * @throws \Exception
 	 */
@@ -1284,7 +1258,6 @@ class Epub extends ExportGenerator {
 	/**
 	 * @param array $book_contents
 	 * @param array $metadata
-	 *
 	 * @return void
 	 * @throws \Exception
 	 */
@@ -1363,11 +1336,11 @@ class Epub extends ExportGenerator {
 
 	/**
 	 * @param array $metadata
-	 *
 	 * @return void
 	 * @throws \Exception
 	 */
 	protected function renderCopyright( array $metadata ): void {
+		$meta = [];
 		if ( empty( $metadata['pb_book_license'] ) ) {
 			$all_rights_reserved = true;
 		} elseif ( $metadata['pb_book_license'] === 'all-rights-reserved' ) {
@@ -1459,9 +1432,9 @@ class Epub extends ExportGenerator {
 	}
 
 	/**
+	 *
 	 * @param array $book_contents
 	 * @param array $metadata
-	 *
 	 * @return void
 	 * @throws \Exception
 	 */
@@ -1534,12 +1507,11 @@ class Epub extends ExportGenerator {
 	 *
 	 * @param array $book_contents
 	 * @param array $metadata
-	 *
 	 * @return \Generator
 	 * @throws \Exception
 	 */
 	protected function renderFrontMatterGenerator( array $book_contents, array $metadata ) : \Generator {
-		$yield = new PercentageYield( 30, 40, count( $book_contents['front-matter'] ) );
+		$yield = new PercentageYield( 30, 40, is_countable( $book_contents['front-matter'] ) ? count( $book_contents['front-matter'] ) : 0 );
 
 		$vars = [
 			'post_title' => '',
@@ -1596,7 +1568,6 @@ class Epub extends ExportGenerator {
 	/**
 	 * @param array $book_contents
 	 * @param array $metadata
-	 *
 	 * @return void
 	 * @throws \Exception
 	 */
@@ -1629,7 +1600,6 @@ class Epub extends ExportGenerator {
 	 *
 	 * @param array $book_contents
 	 * @param array $metadata
-	 *
 	 * @return \Generator
 	 * @throws \Exception
 	 */
@@ -1650,7 +1620,7 @@ class Epub extends ExportGenerator {
 		$chapter_position = 1;
 		$part_index = 1;
 		$part_position = 1;
-		$parts_amount = count( $book_contents['part'] );
+		$parts_amount = is_countable( $book_contents['part'] ) ? count( $book_contents['part'] ) : 0;
 
 		foreach ( $book_contents['part'] as $part ) {
 			yield from $yield->tick( $this->generatorPrefix . __( 'Exporting parts and chapters', 'pressbooks' ) );
@@ -1710,7 +1680,7 @@ class Epub extends ExportGenerator {
 
 				$append_chapter_content .= $this->kneadHtml( $this->tidy( $this->doSectionLevelLicense( $metadata, $chapter_id ) ), 'chapter', $chapter_position );
 
-				$chapter_number = strpos( $chapter_subclass, 'numberless' ) === false ? $chapter_index : '';
+				$chapter_number = ! str_contains( $chapter_subclass, 'numberless' ) ? $chapter_index : '';
 
 				$vars['post_title'] = $chapter['post_title'];
 				$vars['post_content'] = $this->blade->render(
@@ -1796,12 +1766,11 @@ class Epub extends ExportGenerator {
 	 *
 	 * @param array $book_contents
 	 * @param array $metadata
-	 *
 	 * @return \Generator
 	 * @throws \Exception
 	 */
 	protected function renderBackMatterGenerator( array $book_contents, array $metadata ) : \Generator {
-		$yield = new PercentageYield( 50, 70, count( $book_contents['back-matter'] ) );
+		$yield = new PercentageYield( 50, 70, is_countable( $book_contents['back-matter'] ) ? count( $book_contents['back-matter'] ) : 0 );
 
 		$vars = [
 			'post_title' => '',
@@ -1848,7 +1817,6 @@ class Epub extends ExportGenerator {
 	 * Uses $this->manifest to generate itself.
 	 *
 	 * @param array $metadata
-	 *
 	 * @return void
 	 * @throws \Exception
 	 */
@@ -1884,7 +1852,7 @@ class Epub extends ExportGenerator {
 
 			$query_data = array_merge( $v, [ 'href' => $v['filename'] ] );
 
-			if ( 0 === strpos( $k, 'part-' ) ) { //Process parts
+			if ( str_starts_with( $k, 'part-' ) ) { //Process parts
 
 				$data = $this->getPostInformation( 'chapter', $query_data, 'part' );
 
@@ -1914,16 +1882,15 @@ class Epub extends ExportGenerator {
 
 				$parts_count = $is_visible ? ++$parts_count : $parts_count;
 
-			} elseif ( 0 === strpos( $k, 'front-matter-' ) || 0 === strpos($k,
-			'back-matter-') ) { //Process front/back matters
+			} elseif ( str_starts_with( $k, 'front-matter-' ) || str_starts_with( $k, 'back-matter-' ) ) { //Process front/back matters
 
-				$type = 0 === strpos( $k, 'front-matter-' ) ? 'front-matter' : 'back-matter';
+				$type = str_starts_with( $k, 'front-matter-' ) ? 'front-matter' : 'back-matter';
 
 				$matter_data = $this->getExtendedPostInformation( $type, $query_data );
 
 				$rendered_items[] = $this->renderTocItem( $type, $matter_data, false );
 
-			} elseif ( 0 === strpos( $k, 'chapter-' ) ) { //Process chapters
+			} elseif ( str_starts_with( $k, 'chapter-' ) ) { //Process chapters
 
 				$chapter_data = $this->getExtendedPostInformation( 'chapter', $query_data );
 
@@ -1984,7 +1951,6 @@ class Epub extends ExportGenerator {
 	 * @param string $html
 	 * @param string $type front-matter, part, chapter, back-matter, ...
 	 * @param int $pos (optional) position of content, used when creating filenames like: chapter-001, chapter-002, ...
-	 *
 	 * @return string
 	 */
 	protected function kneadHtml( string $html, string $type, int $pos = 0 ): string {
@@ -2021,7 +1987,6 @@ class Epub extends ExportGenerator {
 	 * Parse HTML snippet, download all found <img> tags into /EPUB/assets/, return the HTML with changed <img> paths.
 	 *
 	 * @param \DOMDocument $doc
-	 *
 	 * @return \DOMDocument
 	 */
 	protected function scrapeAndKneadImages( \DOMDocument $doc ): \DOMDocument {
@@ -2154,7 +2119,7 @@ class Epub extends ExportGenerator {
 				$format = strtolower( end( $format ) ); // Extension
 				try {
 					\Pressbooks\Image\resize_down( $format, $tmp_file );
-				} catch ( \Exception $e ) {
+				} catch ( \Exception ) {
 					return '';
 				}
 			}
@@ -2240,7 +2205,6 @@ class Epub extends ExportGenerator {
 	 * into /EPUB/assets/, return the HTML with changed 'src' paths.
 	 *
 	 * @param \DOMDocument $doc
-	 *
 	 * @return \DOMDocument
 	 */
 	protected function scrapeAndKneadMedia( \DOMDocument $doc ): \DOMDocument {
@@ -2277,7 +2241,6 @@ class Epub extends ExportGenerator {
 	 * @param \DOMDocument $doc
 	 * @param string $type front-matter, part, chapter, back-matter, ...
 	 * @param int $pos (optional) position of content, used when creating filenames like: chapter-001, chapter-002, ...
-	 *
 	 * @return \DOMDocument
 	 */
 	protected function kneadHref( \DOMDocument $doc, string $type, int $pos ): \DOMDocument {
@@ -2337,7 +2300,6 @@ class Epub extends ExportGenerator {
 	 *
 	 * @param string $file1
 	 * @param string $file2
-	 *
 	 * @return bool
 	 */
 	protected function fuzzyImageNameMatch( string $file1, string $file2 ): bool {
@@ -2376,10 +2338,11 @@ class Epub extends ExportGenerator {
 	 *
 	 * @param string $url
 	 * @param int $pos (optional) position of content, used when creating filenames like: chapter-001, chapter-002, ...
-	 *
 	 * @return bool|string
 	 */
-	protected function fuzzyHrefMatch( string $url, int $pos ) {
+	protected function fuzzyHrefMatch( string $url, int $pos ): bool | string {
+		$val = [];
+		$post_id = null;
 		if ( ! $pos ) {
 			return false;
 		}
@@ -2413,10 +2376,10 @@ class Epub extends ExportGenerator {
 		$anchor = '';
 
 		// Guess the slug
-		if ( $last_pos > 0 && '#' === substr( trim( $split_url[ $last_pos ] ), 0, 1 ) ) {
+		if ( $last_pos > 0 && str_starts_with( trim( $split_url[ $last_pos ] ), '#' ) ) {
 			$anchor = trim( $split_url[ $last_pos ] ); // Found an #anchor
 			$slug = trim( $split_url[ $last_pos - 1 ] );
-		} elseif ( false !== strpos( $split_url[ $last_pos ], '#' ) ) {
+		} elseif ( str_contains( $split_url[ $last_pos ], '#' ) ) {
 			[ $slug, $anchor ] = explode( '#', $split_url[ $last_pos ] ); // Found an #anchor
 			$anchor = trim( "#{$anchor}" );
 			$slug = trim( $slug );
@@ -2495,7 +2458,7 @@ class Epub extends ExportGenerator {
 	 * Reorder the book structure to conform to Chicago Style, so that the
 	 * book begins with Before Title, Title Page, Dedication, Epigraph.
 	 *
-	 * @param array $order
+	 * @param array $oder
 	 * @return array
 	 */
 	protected function fixOrder( array $order ): array {
@@ -2533,7 +2496,7 @@ class Epub extends ExportGenerator {
 	 *
 	 * @param array $book_contents
 	 * @param array $metadata
-	 *
+	 * @return void
 	 * @throws \Exception
 	 */
 	protected function createOPF( array $book_contents, array $metadata ): void {
@@ -2633,7 +2596,7 @@ class Epub extends ExportGenerator {
 	 *
 	 * @param array $book_contents
 	 * @param array $metadata
-	 *
+	 * @return void
 	 * @throws \Exception
 	 */
 	protected function createNCX( array $book_contents, array $metadata ): void {
@@ -2669,7 +2632,7 @@ class Epub extends ExportGenerator {
 	 *
 	 * @return bool
 	 */
-	static function hasDependencies(): bool {
+	public static function hasDependencies(): bool {
 		if ( false !== \Pressbooks\Utility\check_epubcheck_install() ) {
 			return true;
 		}
@@ -2683,11 +2646,9 @@ class Epub extends ExportGenerator {
 	 * @param string $filename
 	 * @param array|string $data
 	 * @param array $options (optional)
-	 *
 	 * @return void
-	 * @throws \Exception
 	 */
-	protected function createEpubFile( string $filename, $data, array $options = [] ): void {
+	protected function createEpubFile( string $filename, array | string $data, array $options = [] ): void {
 		$directory = $options['directory'] ?? $this->epubDir;
 		$template = $options['template'] ?? 'html';
 
@@ -2702,21 +2663,12 @@ class Epub extends ExportGenerator {
 		\Pressbooks\Utility\put_contents( $path, $this->blade->render( "export/epub/{$template}", $data ) );
 	}
 
-	/**
-	 * @param string $file_id
-	 * @param string $slug
-	 * @return string
-	 */
 	protected function generateFilename( string $file_id, string $slug = '' ): string {
 		return $slug
 			? $file_id . '-' . $slug . '.' . $this->filext
 			: $file_id . '.' . $this->filext;
 	}
 
-	/**
-	 * @param string $file_id
-	 * @param array $data
-	 */
 	protected function updateManifest( string $file_id, array $data ): void {
 		$this->manifest[ $file_id ] = $data;
 	}

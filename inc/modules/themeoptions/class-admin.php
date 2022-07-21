@@ -20,15 +20,12 @@ use Pressbooks\Cloner\Cloner;
  */
 class Admin {
 
-	/**
-	 * @var Admin
-	 */
-	private static $instance = null;
+	private static ?\Pressbooks\Modules\ThemeOptions\Admin $instance = null;
 
 	/**
 	 * @return Admin
 	 */
-	static public function init() {
+	public static function init() {
 		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
 			self::hooks( self::$instance );
@@ -36,10 +33,7 @@ class Admin {
 		return self::$instance;
 	}
 
-	/**
-	 * @param Admin $obj
-	 */
-	static public function hooks( Admin $obj ) {
+	public static function hooks( Admin $obj ) {
 		add_action( 'admin_init', [ $obj, 'loadTabs' ] );
 		add_filter( 'admin_menu', [ $obj, 'adminMenu' ] );
 		add_action( 'after_switch_theme', [ $obj, 'afterSwitchTheme' ] );
@@ -148,7 +142,7 @@ class Admin {
 		<div class="wrap">
 			<h1><?php echo wp_get_theme(); ?> <?php _e( 'Theme Options', 'pressbooks' ); ?></h1>
 			<?php settings_errors(); ?>
-			<?php $active_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'global'; ?>
+			<?php $active_tab = $_GET['tab'] ?? 'global'; ?>
 			<nav class="nav-tab-wrapper" aria-label="<?php esc_attr_e( 'Theme Options Tabs', 'pressbooks' ); ?>">
 				<?php foreach ( $this->getTabs() as $slug => $subclass ) { ?>
 					<a href="<?php echo admin_url( '/themes.php' ); ?>?page=pressbooks_theme_options&tab=<?php echo $slug; ?>"

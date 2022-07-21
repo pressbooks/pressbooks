@@ -20,7 +20,7 @@ class HtmLawed {
 	 *
 	 * @return string
 	 */
-	static function filter( $html, array $config = null, $spec = null ) {
+	public static function filter( $html, array $config = null, $spec = null ) {
 		return \Htmlawed::filter( $html, $config, $spec );
 	}
 }

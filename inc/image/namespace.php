@@ -275,19 +275,13 @@ function fix_intermediate_image_size_options() {
 
 	foreach ( $our_sizes as $key => $val ) {
 		add_filter(
-			"pre_option_{$key}_size_w", function () use ( $val ) {
-				return $val['width'];
-			}
+			"pre_option_{$key}_size_w", fn() => $val['width']
 		);
 		add_filter(
-			"pre_option_{$key}_size_h", function () use ( $val ) {
-				return $val['height'];
-			}
+			"pre_option_{$key}_size_h", fn() => $val['height']
 		);
 		add_filter(
-			"pre_option_{$key}_crop", function () use ( $val ) {
-				return $val['crop'];
-			}
+			"pre_option_{$key}_crop", fn() => $val['crop']
 		);
 	}
 }
@@ -322,7 +316,7 @@ function delete_attachment( $post_id ) {
 		update_post_meta( $meta_post->ID, 'pb_cover_image', \Pressbooks\Image\default_cover_url() );
 		\Pressbooks\Book::deleteBookObjectCache();
 
-	} elseif ( $post && strpos( $post->post_name, 'pb-catalog-logo' ) === 0 ) {
+	} elseif ( $post && str_starts_with( $post->post_name, 'pb-catalog-logo' ) ) {
 
 		// Reset pb_catalog_logo to default
 
@@ -370,7 +364,7 @@ function save_attachment( $data, $post_id ) {
 		update_post_meta( $meta_post->ID, 'pb_cover_image', $url );
 		\Pressbooks\Book::deleteBookObjectCache();
 
-	} elseif ( $post && strpos( $post->post_name, 'pb-catalog-logo' ) === 0 ) {
+	} elseif ( $post && str_starts_with( $post->post_name, 'pb-catalog-logo' ) ) {
 
 		// Update pb_catalog_logo to point to edited file
 		update_user_meta( $post->post_author, 'pb_catalog_logo', $url );
@@ -522,7 +516,7 @@ function resize_down( $format, $fullpath, $max_w = 1024, $max_h = 1024 ) {
 
 	}
 
-	list( $orig_w, $orig_h ) = getimagesize( $fullpath );
+	[$orig_w, $orig_h] = getimagesize( $fullpath );
 	$ratio = $orig_w * 1.0 / $orig_h;
 	$w_oversized = ( $orig_w > $max_w );
 	$h_oversized = ( $orig_h > $max_h );
@@ -566,7 +560,7 @@ function fudge_factor( $format, $fullpath, $fudge = 1.65 ) {
 
 	if ( 'jpeg' === $format ) {
 		// Jpeg
-		$memory_needed = round( ( $size[0] * $size[1] * $size['bits'] * $size['channels'] / 8 + pow( 2, 16 ) ) * $fudge );
+		$memory_needed = round( ( $size[0] * $size[1] * $size['bits'] * $size['channels'] / 8 + 2 ** 16 ) * $fudge );
 	} else {
 		// Not Sure
 		$memory_needed = $size[0] * $size[1];
@@ -576,8 +570,8 @@ function fudge_factor( $format, $fullpath, $fudge = 1.65 ) {
 		$memory_needed = round( $memory_needed * $fudge );
 	}
 
-	if ( memory_get_usage() + $memory_needed > (int) ini_get( 'memory_limit' ) * pow( 1024, 2 ) ) {
-		$memory_limit = (int) ini_get( 'memory_limit' ) + ceil( ( ( memory_get_usage() + $memory_needed ) - (int) ini_get( 'memory_limit' ) * pow( 1024, 2 ) ) / pow( 1024, 2 ) ) . 'M';
+	if ( memory_get_usage() + $memory_needed > (int) ini_get( 'memory_limit' ) * 1024 ** 2 ) {
+		$memory_limit = (int) ini_get( 'memory_limit' ) + ceil( ( ( memory_get_usage() + $memory_needed ) - (int) ini_get( 'memory_limit' ) * 1024 ** 2 ) / 1024 ** 2 ) . 'M';
 		trigger_error( "Image is too big, attempting to compensate by setting memory_limit to {$memory_limit} ...", E_USER_WARNING );
 		ini_set( 'memory_limit', $memory_limit );
 	}
@@ -620,7 +614,7 @@ function proper_image_extension( $path_to_file, $filename ) {
  *
  * @return float|false DPI. On failure, false is returned.
  */
-function get_dpi( $path_to_file, $force_exif = false ) {
+function get_dpi( $path_to_file, $force_exif = false ): float | false {
 
 	if ( extension_loaded( 'imagick' ) && $force_exif === false ) {
 		try {
@@ -629,7 +623,7 @@ function get_dpi( $path_to_file, $force_exif = false ) {
 			if ( isset( $res['x'], $res['y'] ) && $res['x'] === $res['y'] ) {
 				$dpi = (float) $res['x'];
 			}
-		} catch ( \Exception $e ) {
+		} catch ( \Exception ) {
 			return false;
 		}
 	} else {
@@ -661,8 +655,8 @@ function gcd( $a, $b ) {
  *
  * @return string|false Aspect ratio. On failure, false is returned.
  */
-function get_aspect_ratio( $path_to_file ) {
-	list( $x, $y ) = @getimagesize( $path_to_file ); // @codingStandardsIgnoreLine
+function get_aspect_ratio( $path_to_file ): string | false {
+	[$x, $y] = @getimagesize( $path_to_file ); // @codingStandardsIgnoreLine
 	if ( empty( $x ) || empty( $y ) ) {
 		return false;
 	}
@@ -694,8 +688,8 @@ function same_aspect_ratio( $path_to_file_1, $path_to_file_2 ) {
 	// Plan b, test against what would happen on resize
 	// (big height / big width) x small width = small height
 
-	list( $width1, $height1 ) = @getimagesize( $path_to_file_1 ); // @codingStandardsIgnoreLine
-	list( $width2, $height2 ) = @getimagesize( $path_to_file_2 ); // @codingStandardsIgnoreLine
+	[$width1, $height1] = @getimagesize( $path_to_file_1 ); // @codingStandardsIgnoreLine
+	[$width2, $height2] = @getimagesize( $path_to_file_2 ); // @codingStandardsIgnoreLine
 
 	if ( $width1 && $width2 ) {
 		if ( $width1 > $width2 ) {
@@ -723,12 +717,12 @@ function same_aspect_ratio( $path_to_file_1, $path_to_file_2 ) {
  *
  * @return int|false Distance. On failure, false is returned.
  */
-function differences( $path_to_file_1, $path_to_file_2 ) {
+function differences( $path_to_file_1, $path_to_file_2 ): int | false {
 
 	try {
 		$hasher = new ImageHash();
 		$distance = $hasher->compare( $path_to_file_1, $path_to_file_2 );
-	} catch ( \Exception $e ) {
+	} catch ( \Exception ) {
 		return false;
 	}
 
@@ -749,8 +743,8 @@ function is_bigger_version( $smaller, $bigger ) {
 		differences( $smaller, $bigger ) <= 5
 	) {
 		// Check if the image is, in fact, bigger.
-		list( $x1, $y1 ) = getimagesize( $smaller );
-		list( $x2, $y2 ) = getimagesize( $bigger );
+		[$x1, $y1] = getimagesize( $smaller );
+		[$x2, $y2] = getimagesize( $bigger );
 		if ( $x1 < $x2 && $y1 < $y2 ) {
 			return true;
 		}

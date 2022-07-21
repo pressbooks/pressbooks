@@ -49,7 +49,7 @@ function unknown_upload_types( $existing_mimes ) {
 	foreach ( $site_exts as $ext ) {
 		$already_there = false;
 		foreach ( $existing_mimes as $ext_pattern => $mime ) {
-			if ( $ext !== '' && strpos( $ext_pattern, $ext ) !== false ) {
+			if ( $ext !== '' && str_contains( $ext_pattern, $ext ) ) {
 				$already_there = true;
 				break;
 			}
@@ -97,10 +97,9 @@ function add_lord_of_the_files_types( $existing_mimes = [] ) {
  * @param mixed $match
  * @param string $ext
  *
- * @return array|bool
  * @see https://github.com/Blobfolio/blob-mimes/blob/master/wp/lib/blobfolio/wp/bm/mime/aliases.php
  */
-function get_lord_of_the_files_mime_aliases( $match, $ext ) {
+function get_lord_of_the_files_mime_aliases( $match, $ext ): array | bool {
 	if ( $match === false ) {
 		$match = []; // Recast
 	}

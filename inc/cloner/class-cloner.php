@@ -23,8 +23,7 @@ use Pressbooks\Shortcodes\Glossary\Glossary;
 use Pressbooks\Utility\PercentageYield;
 
 class Cloner {
-
-	const THEME_OPTIONS_CLONED_OPTION = 'pressbooks_theme_options_cloned';
+	public const THEME_OPTIONS_CLONED_OPTION = 'pressbooks_theme_options_cloned';
 
 	/**
 	 * @var bool
@@ -256,17 +255,15 @@ class Cloner {
 
 	/**
 	 * List of contributors inserted.
-	 *
 	 * @var array
 	 */
-	private $contributorsInserted = [];
+	private array $contributorsInserted = [];
 
 	/**
 	 * Map of chapters, front matters, back matters and parts IDs
-	 *
 	 * @var array
 	 */
-	private $idPostsMap = [];
+	private array $idPostsMap = [];
 
 	/**
 	 * Constructor.
@@ -316,9 +313,9 @@ class Cloner {
 	 * @param null \Pressbooks\Contributors $contributors
 	 */
 	public function dependencies( $h5p = null, $downloads = null, $contributors = null ) {
-		$this->h5p = $h5p ? $h5p : \Pressbooks\Interactive\Content::init()->getH5P();
-		$this->downloads = $downloads ? $downloads : new Downloads( $this, $this->h5p );
-		$this->contributors = $contributors ? $contributors : new \Pressbooks\Contributors();
+		$this->h5p = $h5p ?: \Pressbooks\Interactive\Content::init()->getH5P();
+		$this->downloads = $downloads ?: new Downloads( $this, $this->h5p );
+		$this->contributors = $contributors ?: new \Pressbooks\Contributors();
 		// Register glossary shortcode if not already registered.
 		Glossary::init();
 	}
@@ -420,7 +417,7 @@ class Cloner {
 			foreach ( $this->cloneBookGenerator() as $percentage => $info ) {
 				// Do nothing, this is a compatibility wrapper that makes the generator work like a regular function
 			}
-		} catch ( \Exception $e ) {
+		} catch ( \Exception ) {
 			return false;
 		}
 		return true;
@@ -431,10 +428,8 @@ class Cloner {
 	 *
 	 * @since 5.7.0
 	 * @throws \Exception
-	 * @return \Generator
 	 */
 	public function cloneBookGenerator() : \Generator {
-
 		yield 1 => __( 'Looking up the source book', 'pressbooks' );
 		if ( ! $this->setupSource() ) {
 			throw new \Exception( ! empty( $_SESSION['pb_errors'][0] ) ? $_SESSION['pb_errors'][0] : __( 'Failed to setup source', 'pressbooks' ) );
@@ -456,7 +451,7 @@ class Cloner {
 		$this->clonedItems['metadata'][] = $this->cloneMetadata();
 
 		// Clone Taxonomy Terms
-		$y = new PercentageYield( 30, 40, count( $this->sourceBookTerms ) );
+		$y = new PercentageYield( 30, 40, count( (array) $this->sourceBookTerms ) );
 		$this->targetBookTerms = $this->getBookTerms( $this->targetBookUrl );
 		foreach ( $this->sourceBookTerms as $term ) {
 			yield from $y->tick( __( 'Cloning contributors and licenses', 'pressbooks' ) );
@@ -468,7 +463,7 @@ class Cloner {
 		}
 
 		// Clone Front Matter
-		$y = new PercentageYield( 40, 50, count( $this->sourceBookStructure['front-matter'] ) );
+		$y = new PercentageYield( 40, 50, is_countable( $this->sourceBookStructure['front-matter'] ) ? count( $this->sourceBookStructure['front-matter'] ) : 0 );
 		foreach ( $this->sourceBookStructure['front-matter'] as $frontmatter ) {
 			yield from $y->tick( __( 'Cloning front matter', 'pressbooks' ) );
 			$new_frontmatter = $this->cloneFrontMatter( $frontmatter['id'] );
@@ -481,7 +476,7 @@ class Cloner {
 		// Clone Parts and chapters
 		$ticks = 0;
 		foreach ( $this->sourceBookStructure['parts'] as $key => $part ) {
-			$ticks += 1 + count( $this->sourceBookStructure['parts'][ $key ]['chapters'] );
+			$ticks += 1 + ( is_countable( $this->sourceBookStructure['parts'][ $key ]['chapters'] ) ? count( $this->sourceBookStructure['parts'][ $key ]['chapters'] ) : 0 );
 		}
 		$y = new PercentageYield( 50, 80, $ticks );
 		foreach ( $this->sourceBookStructure['parts'] as $key => $part ) {
@@ -502,7 +497,7 @@ class Cloner {
 		}
 
 		// Clone Back Matter
-		$y = new PercentageYield( 80, 90, count( $this->sourceBookStructure['back-matter'] ) );
+		$y = new PercentageYield( 80, 90, is_countable( $this->sourceBookStructure['back-matter'] ) ? count( $this->sourceBookStructure['back-matter'] ) : 0 );
 		foreach ( $this->sourceBookStructure['back-matter'] as $backmatter ) {
 			yield from $y->tick( __( 'Cloning back matter', 'pressbooks' ) );
 			$new_backmatter = $this->cloneBackMatter( $backmatter['id'] );
@@ -521,7 +516,7 @@ class Cloner {
 		}
 
 		// Clone Glossary
-		$y = new PercentageYield( 90, 100, count( $this->sourceBookGlossary ) );
+		$y = new PercentageYield( 90, 100, count( (array) $this->sourceBookGlossary ) );
 		foreach ( $this->sourceBookGlossary as $glossary ) {
 			yield from $y->tick( __( 'Cloning glossary terms' ) );
 			$new_glossary = $this->cloneGlossary( $glossary['id'] );
@@ -599,9 +594,7 @@ class Cloner {
 		// Sort by the length of sourceUrls for better, left to right, search and replace loops
 		$known_media_sorted = $this->knownMedia;
 		uasort(
-			$known_media_sorted, function ( $a, $b ) {
-				return strlen( $b->sourceUrl ) <=> strlen( $a->sourceUrl );
-			}
+			$known_media_sorted, fn( $a, $b) => strlen( $b->sourceUrl ) <=> strlen( $a->sourceUrl )
 		);
 		$this->knownMedia = $known_media_sorted;
 
@@ -646,7 +639,8 @@ class Cloner {
 	 *
 	 * @return bool | int False if creating a new term failed; the ID of the new term if it the clone succeeded or the ID of a matching term if it exists.
 	 */
-	public function cloneTerm( $term_id ) {
+	public function cloneTerm( $term_id ): bool | int {
+		$term = [];
 		// Retrieve term
 		foreach ( $this->sourceBookTerms as $k => $v ) {
 			if ( $v['id'] === absint( $term_id ) ) {
@@ -702,7 +696,7 @@ class Cloner {
 	 *
 	 * @return bool | int False if the clone failed; the ID of the new front matter if it succeeded.
 	 */
-	public function cloneFrontMatter( $id ) {
+	public function cloneFrontMatter( $id ): bool | int {
 		return $this->cloneSection( $id, 'front-matter' );
 	}
 
@@ -715,7 +709,7 @@ class Cloner {
 	 *
 	 * @return bool | int False if the clone failed; the ID of the new part if it succeeded.
 	 */
-	public function clonePart( $id ) {
+	public function clonePart( $id ): bool | int {
 		return $this->cloneSection( $id, 'part' );
 	}
 
@@ -729,7 +723,7 @@ class Cloner {
 	 *
 	 * @return bool | int False if the clone failed; the ID of the new chapter if it succeeded.
 	 */
-	public function cloneChapter( $id, $part_id ) {
+	public function cloneChapter( $id, $part_id ): bool | int {
 		return $this->cloneSection( $id, 'chapter', $part_id );
 	}
 
@@ -742,7 +736,7 @@ class Cloner {
 	 *
 	 * @return bool | int False if the clone failed; the ID of the new back matter if it succeeded.
 	 */
-	public function cloneBackMatter( $id ) {
+	public function cloneBackMatter( $id ): bool | int {
 		return $this->cloneSection( $id, 'back-matter' );
 	}
 
@@ -755,7 +749,7 @@ class Cloner {
 	 *
 	 * @return bool | int False if the clone failed; the ID of the new back matter if it succeeded.
 	 */
-	public function cloneGlossary( $id ) {
+	public function cloneGlossary( $id ): bool | int {
 		return $this->cloneSection( $id, 'glossary' );
 	}
 
@@ -778,7 +772,7 @@ class Cloner {
 	 *
 	 * @return bool|\Pressbooks\Entities\Cloner\Media[] False if the operation failed; known images assoc array if succeeded.
 	 */
-	public function buildListOfKnownMedia( string $url ) {
+	public function buildListOfKnownMedia( string $url ): bool | array {
 		// Handle request (local or global)
 		$params = [
 			'per_page' => 100,
@@ -817,7 +811,7 @@ class Cloner {
 	 *
 	 * @return bool|\Pressbooks\Entities\Cloner\H5P[]  False if the operation failed; known H5P array if succeeded.
 	 */
-	public function buildListOfKnownH5P( $url ) {
+	public function buildListOfKnownH5P( $url ): bool | array {
 		$response = $this->handleGetRequest( $url, 'h5p/v1', 'all' );
 		if ( is_wp_error( $response ) || @$response['data']['status'] >= 400 ) { // @codingStandardsIgnoreLine
 			return false;
@@ -851,6 +845,7 @@ class Cloner {
 	 *
 	 * @param string $url
 	 * @return array
+	 * @throws \JsonException
 	 */
 	public function getBookStyles( string $url ) : array {
 		$response = $this->handleGetRequest( $url, 'pressbooks/v2', 'styles' );
@@ -862,6 +857,7 @@ class Cloner {
 	 *
 	 * @param string $url
 	 * @return array
+	 * @throws \JsonException
 	 */
 	public function getBookTheme( string $url ) : array {
 		$response = $this->handleGetRequest( $url, 'pressbooks/v2', 'theme' );
@@ -877,7 +873,7 @@ class Cloner {
 	 *
 	 * @return bool | array False if the operation failed; the metadata array if it succeeded.
 	 */
-	public function getBookMetadata( $url ) {
+	public function getBookMetadata( $url ): bool | array {
 		// Handle request (local or global)
 		$response = $this->handleGetRequest( $url, 'pressbooks/v2', 'metadata' );
 
@@ -904,7 +900,7 @@ class Cloner {
 	 *
 	 * @return bool | array False if the operation failed; the structure and contents array if it succeeded.
 	 */
-	public function getBookStructure( $url ) {
+	public function getBookStructure( $url ): bool | array {
 		// Handle request (local or global)
 		$response = $this->handleGetRequest(
 			$url, 'pressbooks/v2', 'toc', [
@@ -1072,7 +1068,7 @@ class Cloner {
 	 *
 	 * @return string|false Returns (corrected) URL on success, false on failure
 	 */
-	public function discoverWordPressApi( $url ) {
+	public function discoverWordPressApi( $url ): string | false {
 
 		// Use redirection because our servers redirect when missing a trailing slash
 		$response = wp_safe_remote_head(
@@ -1091,7 +1087,7 @@ class Cloner {
 			}
 			foreach ( $headers['link'] as $link ) {
 				// Parse: <http://example.com/wp-json/>; rel="https://api.w.org/">, <http://example.com/?rest_route=/>; rel="https://api.w.org/"
-				if ( strpos( $link, 'rel="https://api.w.org/"' ) !== false || strpos( $link, "rel='https://api.w.org/'" ) !== false ) {
+				if ( str_contains( $link, 'rel="https://api.w.org/"' ) || str_contains( $link, "rel='https://api.w.org/'" ) ) {
 					preg_match( '#\<(.*?)\>.*?//api\.w\.org/#', $link, $matches );
 					if ( empty( $matches[1] ) ) {
 						return false;
@@ -1326,7 +1322,7 @@ class Cloner {
 	 *
 	 * @return bool | int False if the creation failed; the ID of the new book if it succeeded.
 	 */
-	protected function createBook() {
+	protected function createBook(): bool | int {
 		$host = wp_parse_url( network_home_url(), PHP_URL_HOST );
 		if ( is_subdomain_install() ) {
 			$domain = $this->getSubdomainOrSubDirectory( $this->targetBookUrl ) . '.' . $host;
@@ -1343,9 +1339,7 @@ class Cloner {
 		$user_id = get_current_user_id();
 		// Disable automatic redirect to new book dashboard
 		add_filter(
-			'pb_redirect_to_new_book', function () {
-				return false;
-			}
+			'pb_redirect_to_new_book', fn() => false
 		);
 		// Remove default content so that the book only contains the results of the clone operation
 		add_filter( 'pb_default_book_content', [ $this, 'removeDefaultBookContent' ] );
@@ -1447,7 +1441,7 @@ class Cloner {
 	 *
 	 * @return bool | int False if the creation failed; the ID of the new book's book information post if it succeeded.
 	 */
-	protected function cloneMetadata() {
+	protected function cloneMetadata(): bool | int {
 		$metadata_post_id = ( new \Pressbooks\Metadata )->getMetaPostId();
 
 		if ( ! $metadata_post_id ) {
@@ -1523,7 +1517,7 @@ class Cloner {
 	 *
 	 * @return bool | int False if the clone failed; the ID of the new section if it succeeded.
 	 */
-	protected function cloneSection( $section_id, $post_type, $parent_id = null ) {
+	protected function cloneSection( $section_id, $post_type, $parent_id = null ): bool | int {
 
 		// Is the section license OK?
 		// The global license is for the 'collection' and within that collection you have stuff with licenses that differ from the global one...
@@ -1552,11 +1546,11 @@ class Cloner {
 
 		// Private and public glossaries can be cloned
 		if ( $post_type !== 'glossary' ) {
-			$section['status'] = $section['status'] ?? 'publish';
+			$section['status'] ??= 'publish';
 		}
 
 		// Download media (images, videos, `select * from wp_posts where post_type = 'attachment'` ... )
-		list( $content, $attachments ) = $this->retrieveSectionContent( $section );
+		[$content, $attachments] = $this->retrieveSectionContent( $section );
 		// Download H5P
 		$content = $this->retrieveH5P( $content );
 
@@ -1817,18 +1811,16 @@ class Cloner {
 	/**
 	 * Handle a get request against the REST API using either rest_do_request() or wp_remote_get() as appropriate.
 	 *
-	 * @since 4.1.0
-	 *
 	 * @param string $url The URL against which the request should be made (not including the REST base)
 	 * @param string $namespace The namespace for the request, e.g. 'pressbooks/v2'
 	 * @param string $endpoint The endpoint for the request, e.g. 'toc'
 	 * @param array $params URL parameters
 	 * @param bool $paginate (optional, if results are paginated then get next page)
 	 * @param array $previous_results (optional, used recursively for when results are paginated)
-	 *
-	 * @return array|\WP_Error
+	 * @throws \JsonException
+	 * @since 4.1.0
 	 */
-	protected function handleGetRequest( $url, $namespace, $endpoint, $params = [], $paginate = true, $previous_results = [] ) {
+	protected function handleGetRequest( $url, $namespace, $endpoint, $params = [], $paginate = true, $previous_results = [] ): array | \WP_Error {
 		global $blog_id;
 
 		// Is the book local? If so, is it the current book? If not, switch to it.
@@ -1881,7 +1873,7 @@ class Cloner {
 			} elseif ( isset( $response['response']['code'] ) && $response['response']['code'] >= 400 ) {
 				return new \WP_Error( $response['response']['code'], $response['response']['message'] );
 			} else {
-				$results = json_decode( $response['body'], true );
+				$results = json_decode( $response['body'], true, 512, JSON_THROW_ON_ERROR );
 			}
 		}
 
@@ -1906,10 +1898,9 @@ class Cloner {
 	 * Or: <http://pressbooks.dev/test/wp-json/wp/v2/media?media_type=image&page=1>; rel="prev", <http://pressbooks.dev/test/wp-json/wp/v2/media?media_type=image&page=3>; rel="next"
 	 *
 	 * @param \WP_REST_Response|array $response
-	 *
 	 * @return string|false
 	 */
-	protected function nextWebLink( $response ) {
+	protected function nextWebLink( \WP_REST_Response | array $response ): string | false {
 		$header = $this->extractLinkHeader( $response );
 		$links = explode( ',', $header );
 		foreach ( $links as $link ) {
@@ -1923,10 +1914,9 @@ class Cloner {
 
 	/**
 	 * @param \WP_REST_Response|array $response
-	 *
 	 * @return string
 	 */
-	protected function extractLinkHeader( $response ) {
+	protected function extractLinkHeader( \WP_REST_Response | array $response ) {
 		if ( is_object( $response ) && property_exists( $response, 'headers' ) && is_array( $response->headers ) && isset( $response->headers['Link'] ) ) {
 			return $response->headers['Link'];
 		}
@@ -1952,7 +1942,7 @@ class Cloner {
 			if ( ! strpos( $part, '=' ) ) {
 				continue;
 			}
-			list( $key, $value ) = explode( '=', $part, 2 );
+			[$key, $value] = explode( '=', $part, 2 );
 			$key = trim( $key );
 			$value = trim( $value, '" ' );
 			$attrs[ $key ] = $value;
@@ -2009,10 +1999,9 @@ class Cloner {
 	 * @since 4.1.0
 	 *
 	 * @param string $blogname
-	 *
-	 * @return string|\WP_Error
+	 * @return array|\WP_Error
 	 */
-	public static function validateNewBookName( $blogname ) {
+	public static function validateNewBookName( $blogname ): string | \WP_Error {
 		global $wpdb, $domain;
 
 		$current_network = get_network();

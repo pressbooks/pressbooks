@@ -8,13 +8,6 @@ use Pressbooks\Book;
 class SectionMetadata extends \WP_REST_Controller {
 
 	/**
-	 * Post type.
-	 *
-	 * @var string
-	 */
-	protected $post_type;
-
-	/**
 	 * The base of the parent controller's route.
 	 *
 	 * @var string
@@ -31,22 +24,15 @@ class SectionMetadata extends \WP_REST_Controller {
 	 *
 	 * @param string $post_type Post type.
 	 */
-	public function __construct( $post_type ) {
+	public function __construct( protected $post_type ) {
 		$this->namespace = 'pressbooks/v2';
 		$this->rest_base = 'metadata';
-		$this->post_type = $post_type;
-
-		switch ( $post_type ) {
-			case 'chapter':
-				$parent_base = 'chapters';
-				break;
-			case 'part':
-				$parent_base = 'parts';
-				break;
-			default:
-				$parent_base = $post_type;
-		}
-		$this->parent_base = $parent_base;
+		$parent_base = match ( $post_type ) {
+			'chapter' => 'chapters',
+			'part' => 'parts',
+		default => $post_type,
+		};
+			$this->parent_base = $parent_base;
 	}
 
 	/**
@@ -477,7 +463,7 @@ class SectionMetadata extends \WP_REST_Controller {
 	 *
 	 * @return \WP_Error|\WP_REST_Response Response object on success, or WP_Error object on failure.
 	 */
-	public function get_item( $request ) {
+	public function get_item( $request ): \WP_Error | \WP_REST_Response {
 		$post_status = [ 'web-only', 'publish' ];
 
 		if ( has_filter( 'pb_set_api_items_permission' ) && apply_filters( 'pb_set_api_items_permission', false ) ) {

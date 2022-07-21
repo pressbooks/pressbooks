@@ -193,10 +193,7 @@ function has_expanded_metadata() {
  *
  * @since 4.1
  *
- * @param array $book_information
- * @param bool  $network_excluded_directory
  *
- * @return array
  */
 function book_information_to_schema( array $book_information, bool $network_excluded_directory = false ): array {
 	$book_schema = [];
@@ -438,9 +435,7 @@ function book_information_to_schema( array $book_information, bool $network_excl
 /**
  * Convert book Schema.org metadata to Pressbooks Book Information
  *
- * @param array $book_schema
  *
- * @return array
  * @since 4.1
  *
  */
@@ -513,9 +508,7 @@ function schema_to_book_information( array $book_schema ): array {
 
 	if ( isset( $book_schema['institutions'] ) ) {
 		$book_information['pb_institutions'] = array_reduce(
-			$book_schema['institutions'], static function( $carry, $item ) {
-				return array_merge( $carry, [ $item['code'] ] );
-			}, []
+			$book_schema['institutions'], static fn( $carry, $item) => array_merge( $carry, [ $item['code'] ] ), []
 		);
 	}
 
@@ -824,10 +817,8 @@ function get_book_metadata_lang() {
 
 /**
  * This function returns the current's book language thema file if exists otherwise returns false
- *
- * @return false|string
  */
-function get_thema_lang_file() {
+function get_thema_lang_file(): false | string {
 
 	$locale = get_book_metadata_lang();
 
@@ -855,7 +846,7 @@ function get_thema_subjects( $include_qualifiers = false ) {
 
 	$json = get_contents( $thema_json );
 
-	$values = json_decode( $json );
+	$values = json_decode( $json, null, 512, JSON_THROW_ON_ERROR );
 	$subjects = [];
 	foreach ( $values->CodeList->ThemaCodes->Code as $code ) {
 		if ( ctype_alpha( substr( $code->CodeValue, 0, 1 ) ) || $include_qualifiers && ctype_digit( substr( $code->CodeValue, 0, 1 ) ) ) {
@@ -886,7 +877,7 @@ function get_thema_subjects( $include_qualifiers = false ) {
 function get_subject_from_thema( $code ) {
 	$subjects = get_thema_subjects( true );
 	foreach ( $subjects as $key => $group ) {
-		if ( strpos( $code, strval( $key ) ) === 0 ) {
+		if ( str_starts_with( $code, strval( $key ) ) ) {
 			return $group['children'][ $code ];
 		}
 	}
@@ -1153,9 +1144,9 @@ function get_in_catalog_option() {
  * @param $post_id
  * @param $meta_key
  * @param $meta_value
- * @return true|false
+ * @return bool
  */
-function download_thema_lang( $meta_id, $post_id, $meta_key, $meta_value ) {
+function download_thema_lang( $meta_id, $post_id, $meta_key, $meta_value ): bool {
 	if ( 'pb_language' !== $meta_key || $meta_value === 'en' ) {
 		return false;
 	}
@@ -1228,18 +1219,12 @@ function check_thema_lang_file( $post ) {
  *
  * @since 5.33.0
  *
- * @param array $institutions
  *
- * @return array
  */
 function transform_institutions( array $institutions ): array {
-	usort( $institutions, static function ( $a, $b ) {
-		return strcmp( $a['name'], $b['name'] );
-	} );
+	usort( $institutions, static fn( $a, $b) => strcmp( $a['name'], $b['name'] ) );
 
-	return array_reduce( $institutions, static function( $carry, $institution ) {
-		return array_merge( $carry, [ $institution['code'] => $institution ] );
-	}, [] );
+	return array_reduce( $institutions, static fn( $carry, $institution) => array_merge( $carry, [ $institution['code'] => $institution ] ), [] );
 }
 
 /**
@@ -1247,10 +1232,7 @@ function transform_institutions( array $institutions ): array {
  *
  * @since 5.33.0
  *
- * @param string $country
- * @param array $regions
  *
- * @return array
  */
 function transform_regions( string $country, array $regions ): array {
 	return array_reduce( $regions, static function( $values, $region ) use ( $country ) {
@@ -1264,8 +1246,6 @@ function transform_regions( string $country, array $regions ): array {
  * Return an array of known institutions.
  *
  * @since 5.33.0
- *
- * @return array
  */
 function get_institutions(): array {
 	$institutions = get_transient( 'pb_institutions_list' );
@@ -1277,7 +1257,7 @@ function get_institutions(): array {
 	$filepath = PB_PLUGIN_DIR . 'symbionts/institutions/institutions.json';
 
 	$items = json_decode(
-		\Pressbooks\Utility\get_contents( $filepath ), true
+		\Pressbooks\Utility\get_contents( $filepath ), true, 512, JSON_THROW_ON_ERROR
 	);
 
 	$institutions = array_reduce(
@@ -1304,15 +1284,9 @@ function get_institutions(): array {
  * Return an array of known institutions flattened.
  *
  * @since 5.33.0
- *
- * @return array
  */
 function get_institutions_flattened(): array {
-	return array_reduce( get_institutions(), static function( $carry, $institutions ) {
-		return array_merge( $carry, array_reduce( $institutions, static function( $carry, $institution ) {
-			return array_merge( $carry, [ $institution['code'] => $institution['name'] ] );
-		}, [] ) );
-	}, [] );
+	return array_reduce( get_institutions(), static fn( $carry, $institutions) => array_merge( $carry, array_reduce( $institutions, static fn( $carry, $institution) => array_merge( $carry, [ $institution['code'] => $institution['name'] ] ), [] ) ), [] );
 }
 
 /**

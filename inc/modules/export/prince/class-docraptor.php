@@ -9,7 +9,6 @@ namespace Pressbooks\Modules\Export\Prince;
 use Pressbooks\Container;
 
 class Docraptor extends Pdf {
-
 	/**
 	 * @since 5.4.0
 	 *
@@ -18,19 +17,18 @@ class Docraptor extends Pdf {
 	 * @param array $args
 	 */
 	public function __construct( array $args ) {
-
 		parent::__construct( $args );
 		$this->url .= '&style=prince&script=prince&movefootnotes=true';
 	}
 
 	/**
-	 * @since 5.4.0
-	 *
 	 * Create $this->outputPath.
 	 *
 	 * @return bool|string
+	 * @throws \JsonException
+	 * @since 5.4.0
 	 */
-	public function convert() {
+	public function convert(): bool | string {
 
 		// Sanity check
 		if ( empty( $this->exportStylePath ) || ! is_file( $this->exportStylePath ) ) {
@@ -69,7 +67,7 @@ class Docraptor extends Pdf {
 			$prince_options->setProfile( $this->pdfProfile );
 			// DocRaptor doesn't let us setPDFOutputIntent like Prince does, we cheat with a CSS hack later
 			// @see \Pressbooks\Modules\Export\Prince\DocraptorPrint::themeOptionsOverrides
-		} elseif ( stripos( get_class( $this ), 'print' ) === false && empty( $this->pdfProfile ) ) {
+		} elseif ( stripos( $this::class, 'print' ) === false && empty( $this->pdfProfile ) ) {
 			// PDF (for digital distribution) without any PB_PDF_PROFILE
 			// Use PDF/UA-1, enhanced for accessibility.
 			$prince_options->setProfile( 'PDF/UA-1' );
@@ -160,7 +158,7 @@ class Docraptor extends Pdf {
 		if ( is_wp_error( $response ) ) {
 			return $response->get_error_message();
 		}
-		$logs = json_decode( $response['body'] );
+		$logs = json_decode( $response['body'], null, 512, JSON_THROW_ON_ERROR );
 		if ( $logs ) {
 			foreach ( $logs as $log ) {
 				if ( $log->status_id == $id ) { // @codingStandardsIgnoreLine

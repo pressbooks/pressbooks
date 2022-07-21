@@ -19,7 +19,7 @@ use Pressbooks\DataCollector\Book;
 
 class SharingAndPrivacyOptions extends \Pressbooks\Options {
 
-	const NETWORK_DIRECTORY_EXCLUDED = 'network_directory_excluded';
+	public const NETWORK_DIRECTORY_EXCLUDED = 'network_directory_excluded';
 
 	/**
 	 * The value for *site* option: pressbooks_sharingandprivacy_options_version
@@ -27,14 +27,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	 * @see upgrade()
 	 * @var int
 	 */
-	const VERSION = 4;
-
-	/**
-	 * Sharing and Privacy options.
-	 *
-	 * @var array
-	 */
-	public $options;
+	public const VERSION = 4;
 
 	/**
 	 * Sharing and Privacy defaults.
@@ -48,11 +41,10 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $options
 	 */
-	function __construct( array $options ) {
-		$this->options = $options;
-		$this->defaults = $this->getDefaults();
-		$this->booleans = $this->getBooleanOptions();
-		$this->multiline_strings = $this->getMultilineStringOptions();
+	public function __construct( public array $options ) {
+		$this->defaults = static::getDefaults();
+		$this->booleans = static::getBooleanOptions();
+		$this->multiline_strings = static::getMultilineStringOptions();
 
 		foreach ( $this->defaults as $key => $value ) {
 			if ( ! isset( $this->options[ $key ] ) ) {
@@ -64,10 +56,10 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	/**
 	 * Configure the network export options page using the settings API.
 	 */
-	function init() {
-		$_option = $this->getSlug();
+	public function init() {
+		$_option = static::getSlug();
 		$_page = $_option;
-		$_section = $this->getSlug() . '_section';
+		$_section = static::getSlug() . '_section';
 
 		add_settings_section(
 			$_section,
@@ -158,15 +150,15 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	/**
 	 * Display the network sharing and privacy options page description.
 	 */
-	function display() {
+	public function display() {
 		echo '<p>' . __( 'Sharing and Privacy settings.', 'pressbooks' ) . '</p>';
 	}
 
-	function render() {
-		$_option = $this->getSlug();
+	public function render() {
+		$_option = static::getSlug();
 		?>
 		<div class="wrap">
-			<h1><?php echo $this->getTitle(); ?></h1>
+			<h1><?php echo static::getTitle(); ?></h1>
 			<?php
 			$nonce = ( ! empty( $_REQUEST['_wpnonce'] ) ) ? $_REQUEST['_wpnonce'] : '';
 			if ( ! empty( $_POST ) ) {
@@ -192,8 +184,8 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 			?>
 			<form method="post" action="">
 				<?php
-				settings_fields( $this->getSlug() );
-				do_settings_sections( $this->getSlug() );
+				settings_fields( static::getSlug() );
+				do_settings_sections( static::getSlug() );
 				submit_button();
 				?>
 			</form>
@@ -230,7 +222,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	 *
 	 * @param bool $revert  un-checking network exclude
 	 */
-	static function excludeNonCatalogBooksFromDirectory( $callback, bool $revert = false ) {
+	public static function excludeNonCatalogBooksFromDirectory( $callback, bool $revert = false ) {
 		$book_ids = self::getPublicBooks( ! $revert );
 
 		if ( count( $book_ids ) > 0 ) {
@@ -243,7 +235,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	 *
 	 * @return array    public books
 	 */
-	static function getPublicBooks( $only_non_catalog = false ) {
+	public static function getPublicBooks( $only_non_catalog = false ) {
 		global $wpdb;
 
 		$public = Book::PUBLIC;
@@ -282,15 +274,13 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	 * @param $book_ids
 	 * @return array   Responses from actions
 	 */
-	static function excludeNonCatalogBooksFromDirectoryAction( array $book_ids, bool $revert = false ) {
+	public static function excludeNonCatalogBooksFromDirectoryAction( array $book_ids, bool $revert = false ) {
 
 		$is_deleted = [];
 
 		if ( ! $revert ) {
 			$is_deleted = array_map(
-				function( $book_ids ) {
-					return BookDirectory::init()->deleteBookFromDirectory( $book_ids );
-				},
+				fn( $book_ids) => BookDirectory::init()->deleteBookFromDirectory( $book_ids ),
 				array_chunk( $book_ids, 50 )
 			);
 		}
@@ -312,9 +302,9 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	/**
 	 * @param int $version
 	 */
-	function upgrade( $version ) {
+	public function upgrade( $version ) {
 
-		$slug = $this->getSlug();
+		$slug = static::getSlug();
 		$options = get_site_option( $slug, [] );
 
 		if ( $version < 2 ) {
@@ -337,17 +327,15 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderAllowRedistributionField( $args ) {
-		$options = get_site_option( $this->getSlug() );
-		$this->renderCheckbox(
-			[
-				'id' => 'allow_redistribution',
-				'name' => $this->getSlug(),
-				'option' => 'allow_redistribution',
-				'value' => ( isset( $options['allow_redistribution'] ) ) ? $options['allow_redistribution'] : '',
-				'label' => $args[0],
-			]
-		);
+	public function renderAllowRedistributionField( $args ) {
+		$options = get_site_option( static::getSlug() );
+		static::renderCheckbox([
+			'id' => 'allow_redistribution',
+			'name' => static::getSlug(),
+			'option' => 'allow_redistribution',
+			'value' => $options['allow_redistribution'] ?? '',
+			'label' => $args[0],
+		]);
 	}
 
 	/**
@@ -355,17 +343,15 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderAllowRootApi( $args ) {
-		$options = get_site_option( $this->getSlug() );
-		$this->renderCheckbox(
-			[
-				'id' => 'enable_network_api',
-				'name' => $this->getSlug(),
-				'option' => 'enable_network_api',
-				'value' => ( isset( $options['enable_network_api'] ) ) ? $options['enable_network_api'] : '',
-				'label' => $args[0],
-			]
-		);
+	public function renderAllowRootApi( $args ) {
+		$options = get_site_option( static::getSlug() );
+		static::renderCheckbox([
+			'id' => 'enable_network_api',
+			'name' => static::getSlug(),
+			'option' => 'enable_network_api',
+			'value' => $options['enable_network_api'] ?? '',
+			'label' => $args[0],
+		]);
 	}
 
 	/**
@@ -373,17 +359,15 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderAllowCloning( $args ) {
-		$options = get_site_option( $this->getSlug() );
-		$this->renderCheckbox(
-			[
-				'id' => 'enable_cloning',
-				'name' => $this->getSlug(),
-				'option' => 'enable_cloning',
-				'value' => ( isset( $options['enable_cloning'] ) ) ? $options['enable_cloning'] : '',
-				'label' => $args[0],
-			]
-		);
+	public function renderAllowCloning( $args ) {
+		$options = get_site_option( static::getSlug() );
+		static::renderCheckbox([
+			'id' => 'enable_cloning',
+			'name' => static::getSlug(),
+			'option' => 'enable_cloning',
+			'value' => $options['enable_cloning'] ?? '',
+			'label' => $args[0],
+		]);
 	}
 
 	/**
@@ -391,17 +375,15 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderAllowThinCcWeblinks( $args ) {
-		$options = get_site_option( $this->getSlug() );
-		$this->renderCheckbox(
-			[
-				'id' => 'enable_thincc_weblinks',
-				'name' => $this->getSlug(),
-				'option' => 'enable_thincc_weblinks',
-				'value' => ( isset( $options['enable_thincc_weblinks'] ) ) ? $options['enable_thincc_weblinks'] : '',
-				'label' => $args[0],
-			]
-		);
+	public function renderAllowThinCcWeblinks( $args ) {
+		$options = get_site_option( static::getSlug() );
+		static::renderCheckbox([
+			'id' => 'enable_thincc_weblinks',
+			'name' => static::getSlug(),
+			'option' => 'enable_thincc_weblinks',
+			'value' => $options['enable_thincc_weblinks'] ?? '',
+			'label' => $args[0],
+		]);
 	}
 
 	/**
@@ -409,17 +391,15 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderNetworkExcludeNonCataloguedPublicBooks( $args ) {
-		$options = get_site_option( $this->getSlug() );
-		$this->renderCheckbox(
-			[
-				'id' => self::NETWORK_DIRECTORY_EXCLUDED,
-				'name' => $this->getSlug(),
-				'option' => self::NETWORK_DIRECTORY_EXCLUDED,
-				'value' => ( isset( $options[ self::NETWORK_DIRECTORY_EXCLUDED ] ) ) ? $options[ self::NETWORK_DIRECTORY_EXCLUDED ] : '',
-				'label' => $args[0],
-			]
-		);
+	public function renderNetworkExcludeNonCataloguedPublicBooks( $args ) {
+		$options = get_site_option( static::getSlug() );
+		static::renderCheckbox([
+			'id' => self::NETWORK_DIRECTORY_EXCLUDED,
+			'name' => static::getSlug(),
+			'option' => self::NETWORK_DIRECTORY_EXCLUDED,
+			'value' => $options[ self::NETWORK_DIRECTORY_EXCLUDED ] ?? '',
+			'label' => $args[0],
+		]);
 	}
 
 	/**
@@ -427,18 +407,16 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	 *
 	 * @param $args
 	 */
-	function renderIframesWhiteList( $args ) {
+	public function renderIframesWhiteList( $args ) {
 		unset( $args['label_for'], $args['class'] );
-		$options = get_site_option( $this->getSlug() );
-		$this->renderTextarea(
-			[
-				'id' => 'iframe_whitelist',
-				'name' => $this->getSlug(),
-				'option' => 'iframe_whitelist',
-				'value' => ( isset( $options['iframe_whitelist'] ) ) ? $options['iframe_whitelist'] : '',
-				'description' => $args[0],
-			]
-		);
+		$options = get_site_option( static::getSlug() );
+		static::renderTextarea([
+			'id' => 'iframe_whitelist',
+			'name' => static::getSlug(),
+			'option' => 'iframe_whitelist',
+			'value' => $options['iframe_whitelist'] ?? '',
+			'description' => $args[0],
+		]);
 	}
 
 	/**
@@ -446,7 +424,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	 *
 	 * @return string $slug
 	 */
-	static function getSlug() {
+	public static function getSlug() {
 		return 'pressbooks_sharingandprivacy_options';
 	}
 
@@ -455,7 +433,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	 *
 	 * @return string $title
 	 */
-	static function getTitle() {
+	public static function getTitle() {
 		return __( 'Sharing and Privacy Settings', 'pressbooks' );
 	}
 
@@ -464,7 +442,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	 *
 	 * @return array $defaults
 	 */
-	static function getDefaults() {
+	public static function getDefaults() {
 		return [
 			'allow_redistribution'           => 0,
 			'enable_network_api'             => 1,
@@ -480,7 +458,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	 *
 	 * @return array $options
 	 */
-	static function getBooleanOptions() {
+	public static function getBooleanOptions() {
 		return [
 			'allow_redistribution',
 			'enable_network_api',
@@ -495,7 +473,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	 *
 	 * @return array $options
 	 */
-	static function getMultilineStringOptions() {
+	public static function getMultilineStringOptions() {
 		return [
 			'iframe_whitelist',
 		];
@@ -508,7 +486,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	 *
 	 * @return array $defaults
 	 */
-	static function filterDefaults( $defaults ) {
+	public static function filterDefaults( $defaults ) {
 		return $defaults;
 	}
 }

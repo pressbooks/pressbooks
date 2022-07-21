@@ -12,8 +12,7 @@ use Pressbooks\Modules\Import\ImportGenerator;
 use Pressbooks\Utility\PercentageYield;
 
 class Api extends ImportGenerator {
-
-	const TYPE_OF = 'api';
+	public const TYPE_OF = 'api';
 
 	/**
 	 * @var Cloner
@@ -21,9 +20,7 @@ class Api extends ImportGenerator {
 	protected $cloner;
 
 	/**
-	 *
 	 * @param array $upload
-	 *
 	 * @return bool
 	 */
 	public function setCurrentImportOption( array $upload ) {
@@ -88,9 +85,7 @@ class Api extends ImportGenerator {
 	}
 
 	/**
-	 *
 	 * @param array $current_import
-	 *
 	 * @return bool
 	 */
 	public function import( array $current_import ) {
@@ -98,18 +93,16 @@ class Api extends ImportGenerator {
 			foreach ( $this->importGenerator( $current_import ) as $percentage => $info ) {
 				// Do nothing, this is a compatibility wrapper that makes the generator work like a regular function
 			}
-		} catch ( \Exception $e ) {
+		} catch ( \Exception ) {
 			return false;
 		}
 		return true;
 	}
 
 	/**
-	 *
 	 * @param array $current_import
-	 *
-	 * @throws \Exception
 	 * @return \Generator
+	 * @throws \Exception
 	 */
 	public function importGenerator( array $current_import ) : \Generator {
 		yield 1 => __( 'Looking up the source book', 'pressbooks' );
@@ -171,7 +164,7 @@ class Api extends ImportGenerator {
 			foreach ( $this->cloner->getSourceBookStructure()['parts'][ $key ]['chapters'] as $chapter ) {
 				if ( $this->flaggedForImport( $chapter['id'] ) ) {
 					yield from $y->tick( $ch_emit_msg );
-					$ch_id = $this->cloner->cloneChapter( $chapter['id'], ( $part_id ? $part_id : $parent_id ) );
+					$ch_id = $this->cloner->cloneChapter( $chapter['id'], ( $part_id ?: $parent_id ) );
 					$this->updatePost( $ch_id, $post_status );
 				}
 			}

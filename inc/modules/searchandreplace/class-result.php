@@ -51,7 +51,7 @@ class Result {
 	 * @return bool
 	 */
 	function singleLine() {
-		if ( strpos( $this->search_plain, "\r" ) !== false || strpos( $this->search_plain, "\n" ) !== false ) {
+		if ( str_contains( $this->search_plain, "\r" ) || str_contains( $this->search_plain, "\n" ) ) {
 			return false;
 		}
 		return true;

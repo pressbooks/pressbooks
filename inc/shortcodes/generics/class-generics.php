@@ -49,7 +49,7 @@ class Generics {
 	/**
 	 * Adds shortcodes based on $self->generics.
 	 */
-	static public function init() {
+	public static function init() {
 		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
 			self::hooks( self::$instance );
@@ -57,10 +57,7 @@ class Generics {
 		return self::$instance;
 	}
 
-	/**
-	 * @param Generics $obj
-	 */
-	static public function hooks( Generics $obj ) {
+	public static function hooks( Generics $obj ) {
 		foreach ( $obj->blockShortcodes as $shortcode => $tag ) {
 			add_shortcode( $shortcode, [ $obj, 'blockShortcodeHandler' ] );
 		}
@@ -75,7 +72,7 @@ class Generics {
 	public function __construct() {
 	}
 
-	public function blockShortcodeHandler( $atts, $content = '', $shortcode ) {
+	public function blockShortcodeHandler( $atts, $shortcode, $content = '' ) {
 		$tag = $this->blockShortcodes[ $shortcode ];
 
 		if ( ! $content ) {
@@ -97,7 +94,7 @@ class Generics {
 		return '<' . $tag . $class . '>' . do_shortcode( $content ) . '</' . $tag . '>';
 	}
 
-	public function multilineBlockShortcodeHandler( $atts, $content = '', $shortcode ) {
+	public function multilineBlockShortcodeHandler( $atts, $shortcode, $content = '' ) {
 		$tag = $this->multilineBlockShortcodes[ $shortcode ];
 
 		if ( ! $content ) {
@@ -119,7 +116,7 @@ class Generics {
 		return '<' . $tag . $class . '>' . do_shortcode( $content ) . '</' . $tag . '>';
 	}
 
-	public function inlineShortcodeHandler( $atts, $content = '', $shortcode ) {
+	public function inlineShortcodeHandler( $atts, $shortcode, $content = '' ) {
 		$tag = $this->inlineShortcodes[ $shortcode ];
 
 		if ( ! $content ) {

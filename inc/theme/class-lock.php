@@ -10,15 +10,12 @@ use Pressbooks\Container;
 
 class Lock {
 
-	/**
-	 * @var Lock
-	 */
-	private static $instance = null;
+	private static ?\Pressbooks\Theme\Lock $instance = null;
 
 	/**
 	 * @return Lock
 	 */
-	static public function init() {
+	public static function init() {
 		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
 			self::hooks( self::$instance );
@@ -26,10 +23,7 @@ class Lock {
 		return self::$instance;
 	}
 
-	/**
-	 * @param Lock $obj
-	 */
-	static public function hooks( Lock $obj ) {
+	public static function hooks( Lock $obj ) {
 		if ( \Pressbooks\Book::isBook() && $obj->isLocked() ) {
 			add_filter( 'pb_stylesheet_directory', [ $obj, 'getLockDir' ] );
 			add_filter( 'pb_stylesheet_directory_uri', [ $obj, 'getLockDirURI' ] );
@@ -225,7 +219,7 @@ class Lock {
 	 */
 	public function getLockData() {
 		$json = \Pressbooks\Utility\get_contents( $this->getLockDir( false ) . '/lock.json' );
-		$output = json_decode( $json, true );
+		$output = json_decode( $json, true, 512, JSON_THROW_ON_ERROR );
 		return $output;
 	}
 

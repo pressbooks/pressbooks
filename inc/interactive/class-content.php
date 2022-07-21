@@ -11,12 +11,9 @@ class Content {
 	/**
 	 * Anchor we append to URLs to hint that its interactive content
 	 */
-	const ANCHOR = '#pb-interactive-content';
+	public const ANCHOR = '#pb-interactive-content';
 
-	/**
-	 * @var Content
-	 */
-	private static $instance = null;
+	private static ?\Pressbooks\Interactive\Content $instance = null;
 
 	/**
 	 * @var array
@@ -61,7 +58,7 @@ class Content {
 	/**
 	 * @return Content
 	 */
-	static public function init() {
+	public static function init() {
 		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
 			self::hooks( self::$instance );
@@ -69,10 +66,7 @@ class Content {
 		return self::$instance;
 	}
 
-	/**
-	 * @param Content $obj
-	 */
-	static public function hooks( Content $obj ) {
+	public static function hooks( Content $obj ) {
 
 		// Iframes
 		// Note to self: admins are not affected by kses

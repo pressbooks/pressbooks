@@ -83,7 +83,7 @@ function replace_root_dashboard_widgets() {
 
 	if (
 		$user->roles &&
-		count( $user->roles ) === 1 &&
+		( is_countable( $user->roles ) ? count( $user->roles ) : 0 ) === 1 &&
 		$user->roles[0] === 'subscriber'
 	) {
 		add_meta_box(
@@ -131,7 +131,7 @@ function replace_dashboard_widgets() {
 
 	// Replace with our own
 	$book_name = get_bloginfo( 'name' );
-	add_meta_box( 'pb_dashboard_widget_book', ( $book_name ? $book_name : esc_html__( 'My Book', 'pressbooks' ) ), __NAMESPACE__ . '\display_book_widget', 'dashboard', 'normal', 'high' );
+	add_meta_box( 'pb_dashboard_widget_book', ( $book_name ?: esc_html__( 'My Book', 'pressbooks' ) ), __NAMESPACE__ . '\display_book_widget', 'dashboard', 'normal', 'high' );
 	add_meta_box( 'pb_dashboard_widget_users', esc_html__( 'Users', 'pressbooks' ), __NAMESPACE__ . '\display_users_widget', 'dashboard', 'side', 'high' );
 	add_meta_box( 'pb_dashboard_widget_support', esc_html__( 'Need Help?', 'pressbooks' ), __NAMESPACE__ . '\display_support_widget', 'dashboard', 'normal', 'high' );
 
@@ -236,8 +236,12 @@ function pending_invitations_callback() {
  * Callback for /wp-admin/user/ widget
  */
 function lowly_user_callback() {
+	$user_blogs = get_blogs_of_user( get_current_user_id() );
+	$blogs_count = is_countable( $user_blogs ) ? count( $user_blogs ) : 0;
+	$user_has_books = $blogs_count > 1;
+
 	echo '<p>' . sprintf( esc_html__( 'Welcome to %s', 'pressbooks' ), esc_html( get_bloginfo( 'name', 'display' ) ) ) . '!</p>';
-	$user_has_books = count( get_blogs_of_user( get_current_user_id() ) ) > 1;
+
 	if ( ! $user_has_books ) {
 		echo '<p>' . esc_html__( 'You do not currently have access to any books on this network.', 'pressbooks' ) . '</p>';
 	}
@@ -246,7 +250,7 @@ function lowly_user_callback() {
 	$active_signup = apply_filters( 'wpmu_active_signup', get_site_option( 'registration', 'none' ) );
 	if ( in_array( $active_signup, [ 'none', 'user' ], true ) ) {
 		echo '<p>' . esc_html__( 'This network does not allow users to create new books. To create a new book, please contact a network manager', 'pressbooks' );
-		if ( ! empty( $contact ) && strpos( $contact, '@pressbooks.com' ) === false ) {
+		if ( ! empty( $contact ) && ! str_contains( $contact, '@pressbooks.com' ) ) {
 			echo ' ' . esc_html__( 'at ', 'pressbooks' ) . sprintf( '<a href="%1$s">%2$s</a>', esc_url( "mailto:{$contact}" ), esc_html( $contact ) );
 		}
 		echo '.</p>';
@@ -259,7 +263,7 @@ function lowly_user_callback() {
 	}
 	if ( ! $user_has_books ) {
 		echo '<p>' . esc_html__( 'You can also request access to an existing book by contacting your network manager', 'pressbooks' );
-		if ( ! empty( $contact ) && strpos( $contact, '@pressbooks.com' ) === false ) {
+		if ( ! empty( $contact ) && ! str_contains( $contact, '@pressbooks.com' ) ) {
 			echo ' ' . esc_html__( 'at ', 'pressbooks' ) . sprintf( '<a href="%1$s">%2$s</a>', esc_url( "mailto:{$contact}" ), esc_html( $contact ) );
 		}
 		echo '.</p>';
@@ -382,7 +386,7 @@ function display_support_widget() {
 			. '</p><p>' . /* translators: %s: URL to Pressbooks YouTube channel */ sprintf( esc_html__( 'Watch tutorials on the %s.', 'pressbooks' ), sprintf( '<a href="%1$s" target="_blank">%2$s</a>', esc_url( 'https://www.youtube.com/c/Pressbooks/playlists' ), esc_html__( 'Pressbooks YouTube channel', 'pressbooks' ) ) )
 			. '</p><p>' . /* translators: %s: URL to Pressbooks training webinars */ sprintf( esc_html__( 'Attend a %s.', 'pressbooks' ), sprintf( '<a href="%1$s" target="_blank">%2$s</a>', esc_url( 'https://pressbooks.com/webinars/' ), esc_html__( 'live training webinar', 'pressbooks' ) ) )
 			. '</p><p>' . /* translators: %s: URL to Pressbooks community forum */ sprintf( esc_html__( 'Participate in the %s.', 'pressbooks' ), sprintf( '<a href="%1$s" target="_blank">%2$s</a>', esc_url( 'https://pressbooks.community' ), esc_html__( 'community forum', 'pressbooks' ) ) ) . '</p>';
-	if ( ! empty( $contact ) && strpos( $contact, '@pressbooks.com' ) === false ) {
+	if ( ! empty( $contact ) && ! str_contains( $contact, '@pressbooks.com' ) ) {
 		echo '<p>' . /* translators: %s: email address for network manager */ sprintf( esc_html__( 'For additional support, contact your network manager at %s.', 'pressbooks' ), sprintf( '<a href="%1$s">%2$s</a>', esc_url( "mailto:$contact" ), esc_html( $contact ) ) ) . '</p>';
 	}
 }
@@ -422,7 +426,7 @@ function display_users_widget() {
 	echo '</table>';
 
 	echo '<p>';
-	printf( esc_html__( '%1$s total users: ', 'pressbooks' ), count( $users ) );
+	printf( esc_html__( '%1$s total users: ', 'pressbooks' ), is_countable( $users ) ? count( $users ) : 0 );
 	$types_of_totals = [];
 	foreach ( $types_of_users as $capability => $count ) {
 		if ( $capability === 'contributor' ) {

@@ -198,7 +198,7 @@ function migrate_book_themes() {
  */
 function update_template_root() {
 	$template_root = get_option( 'template_root' );
-	if ( strpos( $template_root, '/plugins/pressbooks/themes-book' ) !== false ) {
+	if ( str_contains( $template_root, '/plugins/pressbooks/themes-book' ) ) {
 		update_option( 'template_root', str_replace( '/plugins/pressbooks/themes-book', '/themes', $template_root ) );
 	}
 }

@@ -13,10 +13,9 @@
 namespace Pressbooks\Modules\Export;
 
 class Table extends \WP_List_Table {
+	public const PIN = 'pb_export_pins';
 
-	const PIN = 'pb_export_pins';
-
-	private $_pins = [];
+	private array $_pins = [];
 
 	public function __construct( $args = [] ) {
 		$args = [
@@ -70,6 +69,7 @@ class Table extends \WP_List_Table {
 	 * @return string Text to be placed inside the column <td>
 	 */
 	public function column_file( $item ) {
+		$actions = [];
 		$html = '<div class="export-file">';
 		$html .= $this->getIcon( $item['file'] );
 		$html .= '<div class="export-file-name">' . esc_html( $item['file'] ) . '</div>';
@@ -356,25 +356,8 @@ class Table extends \WP_List_Table {
 	 */
 	protected function getCssClass( $file ) {
 		$file_extension = substr( strrchr( $file, '.' ), 1 );
-		switch ( $file_extension ) {
-			case 'epub':
-				$pre_suffix = strstr( $file, '._3.epub' );
-				break;
-			case 'pdf':
-				$pre_suffix = strstr( $file, '._print.pdf' );
-				break;
-			case 'html':
-				$pre_suffix = strstr( $file, '.-htmlbook.html' );
-				break;
-			case 'xml':
-				$pre_suffix = strstr( $file, '._vanilla.xml' );
-				break;
-			case 'imscc':
-				$pre_suffix = strstr( $file, '._1_1_weblinks' );
-				break;
-			default:
-				$pre_suffix = false;
-		}
+		$pre_suffix = $this->getSuffix( $file_extension, $file );
+
 		if ( 'html' === $file_extension && '.-htmlbook.html' === $pre_suffix ) {
 			$file_class = 'htmlbook';
 		} elseif ( 'html' === $file_extension && false === $pre_suffix ) {
@@ -439,7 +422,7 @@ class Table extends \WP_List_Table {
 	protected function processBulkActions() {
 		if ( 'delete' === $this->current_action() ) {
 			check_admin_referer( 'bulk-files' );
-			$ids = isset( $_REQUEST['ID'] ) ? $_REQUEST['ID'] : [];
+			$ids = $_REQUEST['ID'] ?? [];
 			if ( ! is_array( $ids ) ) {
 				$ids = [ $ids ];
 			}
@@ -474,5 +457,21 @@ class Table extends \WP_List_Table {
 				break;
 			}
 		}
+	}
+
+	/**
+	 * @param string $file_extension
+	 * @param string $file
+	 * @return false|string
+	 */
+	protected function getSuffix( string $file_extension, string $file ): string | false {
+		return match ( $file_extension ) {
+			'epub' => strstr( $file, '._3.epub' ),
+			'pdf' => strstr( $file, '._print.pdf' ),
+			'html' => strstr( $file, '.-htmlbook.html' ),
+			'xml' => strstr( $file, '._vanilla.xml' ),
+			'imscc' => strstr( $file, '._1_1_weblinks' ),
+		default => false,
+		};
 	}
 }

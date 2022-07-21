@@ -33,7 +33,7 @@ class Footnotes {
 	 *
 	 * @return Footnotes
 	 */
-	static public function init() {
+	public static function init() {
 		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
 			self::hooks( self::$instance );
@@ -41,10 +41,7 @@ class Footnotes {
 		return self::$instance;
 	}
 
-	/**
-	 * @param Footnotes $obj
-	 */
-	static public function hooks( Footnotes $obj ) {
+	public static function hooks( Footnotes $obj ) {
 		add_shortcode( 'footnote', [ $obj, 'shortcodeHandler' ] );
 		add_filter(
 			'no_texturize_shortcodes',
@@ -99,7 +96,7 @@ class Footnotes {
 
 		$this->footnotes[ $id ][] = $content;
 		$footnotes = $this->footnotes[ $id ];
-		$num = count( $footnotes );
+		$num = is_countable( $footnotes ) ? count( $footnotes ) : 0;
 		$numlabel = "$id-$num";
 
 		$retval = '<a class="footnote" title="' . \Pressbooks\Sanitize\sanitize_xml_attribute( wp_strip_all_tags( $content ) ) . '" id="return-footnote-' . $numlabel . '" href="#footnote-' . $numlabel . '" aria-label="Footnote ' . $num . '"><sup class="footnote">[';
@@ -167,7 +164,7 @@ class Footnotes {
 	 *
 	 * @param string $msg (optional)
 	 */
-	static function ajaxFailure( $msg = '' ) {
+	public static function ajaxFailure( $msg = '' ) {
 
 		if ( ! headers_sent() ) {
 			header( 'HTTP/1.0 500 Internal Server Error' );
@@ -181,7 +178,7 @@ class Footnotes {
 	/**
 	 * WP_Ajax hook. Convert MS Word footnotes to Pressbooks compatible [footnotes]
 	 */
-	static function convertWordFootnotes() {
+	public static function convertWordFootnotes() {
 
 		if ( ! current_user_can( 'edit_posts' ) || ! check_ajax_referer( 'pb-footnote-convert', false, false ) ) {
 			static::ajaxFailure( __( 'Invalid permissions.', 'pressbooks' ) );

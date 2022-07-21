@@ -455,7 +455,7 @@ function set_locale( $lang ) {
 	if ( '__UNSET__' === $loc ) {
 		return $lang;
 	} else {
-		return ( $loc ? $loc : $lang );
+		return ( $loc ?: $lang );
 	}
 }
 
@@ -469,7 +469,7 @@ function set_locale( $lang ) {
 function set_root_locale( $lang ) {
 	// Try to retrieve the network setting
 	$loc = get_site_option( 'WPLANG' );
-	return ( $loc ? $loc : $lang );
+	return ( $loc ?: $lang );
 }
 
 /**
@@ -485,7 +485,7 @@ function set_root_locale( $lang ) {
  * @return string|bool Returns the language code if successfully downloaded
  *                     (or already installed), or false on failure.
  */
-function install_book_locale( $meta_id, $post_id, $meta_key, $meta_value ) {
+function install_book_locale( $meta_id, $post_id, $meta_key, $meta_value ): string | bool {
 	if ( 'pb_language' !== $meta_key ) {
 		return false;
 	}

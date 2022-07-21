@@ -7,7 +7,6 @@
 namespace Pressbooks\Utility;
 
 class PercentageYield {
-
 	/**
 	 * Starting percentage (between 1-100)
 	 *
@@ -21,13 +20,6 @@ class PercentageYield {
 	 * @var int
 	 */
 	protected $end;
-
-	/**
-	 * Total messages to yield (any number)
-	 *
-	 * @var int
-	 */
-	protected $total;
 
 	/**
 	 * Estimated chunks (modulo === 0)
@@ -57,10 +49,9 @@ class PercentageYield {
 	 * @param int $end Ending percentage
 	 * @param int $total Total messages to yield
 	 */
-	public function __construct( $start, $end, $total ) {
+	public function __construct( int $start, int $end, protected int $total ) {
 		$this->start = max( 1, min( 100, $start ) );
 		$this->end = max( 1, min( 100, $end ) );
-		$this->total = $total;
 		$range = $this->end - $this->start;
 		if ( $range <= 0 ) {
 			$this->chunks = 1;
@@ -77,10 +68,9 @@ class PercentageYield {
 	 *
 	 * @param string $msg
 	 * @param bool $emit (optional, default is true)
-	 *
 	 * @return \Generator
 	 */
-	public function tick( $msg, $emit = true ) : \Generator {
+	public function tick( string $msg, bool $emit = true ) : \Generator {
 		$percentage = $this->j;
 		if ( $percentage < $this->start ) {
 			$percentage = $this->start;

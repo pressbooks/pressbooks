@@ -64,7 +64,7 @@ class Catalog_List_Table extends \WP_List_Table {
 	 */
 	function column_title( $item ) {
 
-		list( $user_id, $blog_id ) = explode( ':', $item['ID'] );
+		[$user_id, $blog_id] = explode( ':', $item['ID'] );
 
 		// Build row actions
 		$actions = [
@@ -307,7 +307,7 @@ class Catalog_List_Table extends \WP_List_Table {
 		// Pagination
 		$per_page = 1000;
 		$current_page = $this->get_pagenum();
-		$total_items = count( $data );
+		$total_items = is_countable( $data ) ? count( $data ) : 0;
 
 		/* The WP_List_Table class does not handle pagination for us, so we need
 		 * to ensure that the data is trimmed to only the current page. We can use
@@ -480,7 +480,7 @@ class Catalog_List_Table extends \WP_List_Table {
 				} else {
 					continue;
 				}
-			} elseif ( false !== stripos( $val, $keyword ) ) {
+			} elseif ( false !== stripos( $val, (string) $keyword ) ) {
 				return true;
 			}
 		}
@@ -491,7 +491,7 @@ class Catalog_List_Table extends \WP_List_Table {
 	/**
 	 * WP Hook, Instantiate UI
 	 */
-	static function addMenu() {
+	public static function addMenu() {
 
 		$url = get_admin_url( get_current_blog_id(), '/index.php?page=pb_catalog' );
 		$view_url = static::viewCatalogUrl();
@@ -585,7 +585,7 @@ class Catalog_List_Table extends \WP_List_Table {
 	 *
 	 * @return string
 	 */
-	static function addSearchParamsToUrl( $url ) {
+	public static function addSearchParamsToUrl( $url ) {
 
 		if ( ! empty( $_REQUEST['s'] ) ) {
 			$url = esc_url( add_query_arg( 's', $_REQUEST['s'], $url ) );
@@ -611,7 +611,7 @@ class Catalog_List_Table extends \WP_List_Table {
 	 *
 	 * @return string
 	 */
-	static function viewCatalogUrl() {
+	public static function viewCatalogUrl() {
 
 		if ( isset( $_REQUEST['user_id'] ) ) {
 

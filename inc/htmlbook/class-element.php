@@ -16,7 +16,7 @@ use Masterminds\HTML5;
  * @see https://github.com/oreillymedia/HTMLBook
  * @see https://oreillymedia.github.io/HTMLBook
  */
-class Element {
+class Element implements \Stringable {
 
 	/**
 	 * In HTMLBook, the majority of elements classified by the HTML5 specification
@@ -278,7 +278,7 @@ class Element {
 			if ( $var instanceof Element ) {
 				return ( in_array( $var->getTag(), $this->inline, true ) );
 			}
-			return ( strpos( get_class( $var ), 'Pressbooks\HTMLBook\Inline\\' ) !== false );
+			return ( str_contains( $var::class, 'Pressbooks\HTMLBook\Inline\\' ) );
 		}
 
 		if ( is_string( $var ) ) {
@@ -304,7 +304,7 @@ class Element {
 			if ( $var instanceof Element ) {
 				return ( in_array( $var->getTag(), $this->block, true ) );
 			}
-			return ( strpos( get_class( $var ), 'Pressbooks\HTMLBook\Block\\' ) !== false );
+			return ( str_contains( $var::class, 'Pressbooks\HTMLBook\Block\\' ) );
 		}
 
 		if ( is_string( $var ) ) {
@@ -373,7 +373,7 @@ class Element {
 	/**
 	 * @return string
 	 */
-	public function __toString() {
+	public function __toString(): string {
 		if ( empty( $this->tag ) ) {
 			trigger_error( 'Tag is required but was not set.', E_USER_ERROR );
 		}

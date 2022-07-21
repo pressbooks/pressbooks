@@ -17,17 +17,17 @@ class SiteMap {
 	 *
 	 * @var string
 	 */
-	private $adminBarForSiteMap = '';
+	private string $adminBarForSiteMap = '';
 
 	/**
 	 * @var SiteMap
 	 */
-	private static $instance = null;
+	private static ?\Pressbooks\Admin\SiteMap $instance = null;
 
 	/**
 	 * @return SiteMap
 	 */
-	static public function init() {
+	public static function init() {
 		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
 			self::hooks( self::$instance );
@@ -35,10 +35,7 @@ class SiteMap {
 		return self::$instance;
 	}
 
-	/**
-	 * @param SiteMap $obj
-	 */
-	static public function hooks( SiteMap $obj ) {
+	public static function hooks( SiteMap $obj ) {
 		add_action( 'admin_menu', [ $obj, 'addMenu' ], 30 );
 		add_action( 'wp_before_admin_bar_render', [ $obj, 'adminBar' ] );
 	}

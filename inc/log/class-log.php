@@ -4,25 +4,13 @@ namespace Pressbooks\Log;
 
 class Log {
 
-	/**
-	 * @var array
-	 */
-	private $data;
+	private array $data;
 
-	/**
-	 * @var StorageProvider
-	 */
-	private $store_provider;
+	private string $file_header;
 
-	/**
-	 * @var string
-	 */
-	private $file_header;
+	public const CSV_COLUMNS = [ 'Date', 'Key', 'Value' ];
 
-	const CSV_COLUMNS = [ 'Date', 'Key', 'Value' ];
-
-	public function __construct( StorageProvider $store_provider ) {
-		$this->store_provider = $store_provider;
+	public function __construct( private StorageProvider $store_provider ) {
 		$this->data = [];
 		$this->file_header = implode( ',', self::CSV_COLUMNS ) . "\n";
 	}

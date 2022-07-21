@@ -19,10 +19,7 @@ use Pressbooks\Modules\Import\Import;
 
 class EventStreams {
 
-	/**
-	 * @var EventStreams
-	 */
-	private static $instance = null;
+	private static ?\Pressbooks\EventStreams $instance = null;
 
 	/**
 	 * @var array
@@ -32,7 +29,7 @@ class EventStreams {
 	/**
 	 * @return EventStreams
 	 */
-	static public function init() {
+	public static function init() {
 		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
 			self::hooks( self::$instance );
@@ -40,10 +37,7 @@ class EventStreams {
 		return self::$instance;
 	}
 
-	/**
-	 * @param EventStreams $obj
-	 */
-	static public function hooks( EventStreams $obj ) {
+	public static function hooks( EventStreams $obj ) {
 		add_action( 'wp_ajax_clone-book', [ $obj, 'cloneBook' ] );
 		add_action( 'wp_ajax_export-book', [ $obj, 'exportBook' ] );
 		add_action( 'wp_ajax_import-book', [ $obj, 'importBook' ] );
@@ -61,7 +55,6 @@ class EventStreams {
 	 * The value is a string of information for the user
 	 * Emits event-stream responses (SSE)
 	 *
-	 * @param \Generator $generator
 	 * @param bool $auto_complete
 	 * @return bool
 	 */
@@ -199,14 +192,14 @@ class EventStreams {
 			$cloned_items = $cloner->getClonedItems();
 			$notice = sprintf(
 				__( 'Cloning succeeded! Cloned %1$s, %2$s, %3$s, %4$s, %5$s, %6$s, %7$s, and %8$s to %9$s.', 'pressbooks' ),
-				sprintf( _n( '%s term', '%s terms', count( getset( $cloned_items, 'terms', [] ) ), 'pressbooks' ), count( getset( $cloned_items, 'terms', [] ) ) ),
-				sprintf( _n( '%s front matter', '%s front matter', count( getset( $cloned_items, 'front-matter', [] ) ), 'pressbooks' ), count( getset( $cloned_items, 'front-matter', [] ) ) ),
-				sprintf( _n( '%s part', '%s parts', count( getset( $cloned_items, 'parts', [] ) ), 'pressbooks' ), count( getset( $cloned_items, 'parts', [] ) ) ),
-				sprintf( _n( '%s chapter', '%s chapters', count( getset( $cloned_items, 'chapters', [] ) ), 'pressbooks' ), count( getset( $cloned_items, 'chapters', [] ) ) ),
-				sprintf( _n( '%s back matter', '%s back matter', count( getset( $cloned_items, 'back-matter', [] ) ), 'pressbooks' ), count( getset( $cloned_items, 'back-matter', [] ) ) ),
-				sprintf( _n( '%s media attachment', '%s media attachments', count( getset( $cloned_items, 'media', [] ) ), 'pressbooks' ), count( getset( $cloned_items, 'media', [] ) ) ),
-				sprintf( _n( '%s H5P element', '%s H5P elements', count( getset( $cloned_items, 'h5p', [] ) ), 'pressbooks' ), count( getset( $cloned_items, 'h5p', [] ) ) ),
-				sprintf( _n( '%s glossary term', '%s glossary terms', count( getset( $cloned_items, 'glossary', [] ) ), 'pressbooks' ), count( getset( $cloned_items, 'glossary', [] ) ) ),
+				sprintf( _n( '%s term', '%s terms', is_countable( getset( $cloned_items, 'terms', [] ) ) ? count( getset( $cloned_items, 'terms', [] ) ) : 0, 'pressbooks' ), is_countable( getset( $cloned_items, 'terms', [] ) ) ? count( getset( $cloned_items, 'terms', [] ) ) : 0 ),
+				sprintf( _n( '%s front matter', '%s front matter', is_countable( getset( $cloned_items, 'front-matter', [] ) ) ? count( getset( $cloned_items, 'front-matter', [] ) ) : 0, 'pressbooks' ), is_countable( getset( $cloned_items, 'front-matter', [] ) ) ? count( getset( $cloned_items, 'front-matter', [] ) ) : 0 ),
+				sprintf( _n( '%s part', '%s parts', is_countable( getset( $cloned_items, 'parts', [] ) ) ? count( getset( $cloned_items, 'parts', [] ) ) : 0, 'pressbooks' ), is_countable( getset( $cloned_items, 'parts', [] ) ) ? count( getset( $cloned_items, 'parts', [] ) ) : 0 ),
+				sprintf( _n( '%s chapter', '%s chapters', is_countable( getset( $cloned_items, 'chapters', [] ) ) ? count( getset( $cloned_items, 'chapters', [] ) ) : 0, 'pressbooks' ), is_countable( getset( $cloned_items, 'chapters', [] ) ) ? count( getset( $cloned_items, 'chapters', [] ) ) : 0 ),
+				sprintf( _n( '%s back matter', '%s back matter', is_countable( getset( $cloned_items, 'back-matter', [] ) ) ? count( getset( $cloned_items, 'back-matter', [] ) ) : 0, 'pressbooks' ), is_countable( getset( $cloned_items, 'back-matter', [] ) ) ? count( getset( $cloned_items, 'back-matter', [] ) ) : 0 ),
+				sprintf( _n( '%s media attachment', '%s media attachments', is_countable( getset( $cloned_items, 'media', [] ) ) ? count( getset( $cloned_items, 'media', [] ) ) : 0, 'pressbooks' ), is_countable( getset( $cloned_items, 'media', [] ) ) ? count( getset( $cloned_items, 'media', [] ) ) : 0 ),
+				sprintf( _n( '%s H5P element', '%s H5P elements', is_countable( getset( $cloned_items, 'h5p', [] ) ) ? count( getset( $cloned_items, 'h5p', [] ) ) : 0, 'pressbooks' ), is_countable( getset( $cloned_items, 'h5p', [] ) ) ? count( getset( $cloned_items, 'h5p', [] ) ) : 0 ),
+				sprintf( _n( '%s glossary term', '%s glossary terms', is_countable( getset( $cloned_items, 'glossary', [] ) ) ? count( getset( $cloned_items, 'glossary', [] ) ) : 0, 'pressbooks' ), is_countable( getset( $cloned_items, 'glossary', [] ) ) ? count( getset( $cloned_items, 'glossary', [] ) ) : 0 ),
 				sprintf( '<a href="%1$s"><em>%2$s</em></a>', trailingslashit( $cloner->getTargetBookUrl() ) . 'wp-admin/', $cloner->getTargetBookTitle() )
 			);
 			$source_theme = $cloner->getSourceTheme();

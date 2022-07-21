@@ -261,7 +261,7 @@ abstract class Export {
 	 *
 	 * @return bool
 	 */
-	static function shouldParseSubsections() {
+	public static function shouldParseSubsections() {
 
 		$options = get_option( 'pressbooks_theme_options_global' );
 
@@ -283,7 +283,7 @@ abstract class Export {
 		/** $var \WP_User $current_user */
 		global $current_user;
 
-		$subject = get_class( $this );
+		$subject = $this::class;
 
 		$info = [
 			'time' => strftime( '%c' ),
@@ -328,7 +328,7 @@ abstract class Export {
 	 * @return string
 	 */
 	function timestampedFileName( $extension, $fullpath = true ) {
-		$book_title = ( get_bloginfo( 'name' ) ) ? get_bloginfo( 'name' ) : __( 'book', 'pressbooks' );
+		$book_title = get_bloginfo( 'name' ) ?: __( 'book', 'pressbooks' );
 		$book_title_slug = sanitize_file_name( $book_title );
 		$book_title_slug = str_replace( [ '+' ], '', $book_title_slug ); // Remove symbols which confuse Apache (Ie. form urlencoded spaces)
 		$book_title_slug = sanitize_file_name( $book_title_slug ); // str_replace() may inadvertently create a new bad filename, sanitize again for good measure.
@@ -530,7 +530,7 @@ abstract class Export {
 	protected function loadTemplate( $path, array $vars = [] ) {
 		try {
 			return \Pressbooks\Utility\template( $path, $vars );
-		} catch ( \Exception $e ) {
+		} catch ( \Exception ) {
 			if ( WP_DEBUG ) {
 				return "File not found: {$path}";
 			} else {
@@ -546,7 +546,7 @@ abstract class Export {
 	 *
 	 * @return string
 	 */
-	static function mimeType( $file ) {
+	public static function mimeType( $file ) {
 		return \Pressbooks\Media\mime_type( $file );
 	}
 
@@ -556,7 +556,7 @@ abstract class Export {
 	 *
 	 * @return string fullpath
 	 */
-	static function getExportFolder() {
+	public static function getExportFolder() {
 
 		$path = \Pressbooks\Utility\get_media_prefix() . 'exports/';
 		if ( ! file_exists( $path ) ) {
@@ -587,7 +587,7 @@ abstract class Export {
 	 *
 	 * @see pressbooks/templates/admin/export.blade.php
 	 */
-	static function formSubmit() {
+	public static function formSubmit() {
 
 		if ( false === static::isFormSubmission() || false === current_user_can( 'edit_posts' ) ) {
 			// Don't do anything in this function, bail.
@@ -608,7 +608,7 @@ abstract class Export {
 	/**
 	 * Pre-Export
 	 */
-	static function preExport() {
+	public static function preExport() {
 		/**
 		 * Let other plugins tweak things before exporting
 		 *
@@ -634,7 +634,7 @@ abstract class Export {
 	 *
 	 * @return array
 	 */
-	static function modules() {
+	public static function modules() {
 		$modules = [];
 		if ( is_array( getset( '_GET', 'export_formats' ) ) && check_admin_referer( 'pb-export' ) ) {
 
@@ -701,7 +701,7 @@ abstract class Export {
 	 *
 	 * @return \Generator
 	 */
-	static function exportGenerator( $modules ) : \Generator {
+	public static function exportGenerator( $modules ) : \Generator {
 		/**
 		 * Maximum execution time, in seconds. If set to zero, no time limit
 		 * Overrides PHP's max_execution_time of a Nginx->PHP-FPM->PHP configuration
@@ -728,10 +728,10 @@ abstract class Export {
 					yield from $exporter->convertGenerator();
 					try {
 						yield from $exporter->validateGenerator();
-					} catch ( \Exception $e ) {
+					} catch ( \Exception ) {
 						static::$exportValidationWarning[ $module ] = $exporter->getOutputPath();
 					}
-				} catch ( \Exception $e ) {
+				} catch ( \Exception ) {
 					static::$exportConversionError[ $module ] = $exporter->getOutputPath();
 				}
 			} else {
@@ -774,7 +774,7 @@ abstract class Export {
 	/**
 	 * Post Export
 	 */
-	static function postExport() {
+	public static function postExport() {
 
 		$conversion_error = static::$exportConversionError;
 		$validation_warning = static::$exportValidationWarning;
@@ -840,7 +840,7 @@ abstract class Export {
 	/**
 	 * @return string
 	 */
-	static function locale() {
+	public static function locale() {
 		$loc = 'en_US';
 		if ( function_exists( 'get_available_languages' ) ) {
 			$compare_with = get_available_languages( PB_PLUGIN_DIR . '/languages/' );
@@ -848,7 +848,7 @@ abstract class Export {
 			$book_lang = $codes[ \Pressbooks\L10n\get_book_language() ];
 			foreach ( $compare_with as $compare ) {
 				$compare = str_replace( 'pressbooks-', '', $compare );
-				if ( strpos( $book_lang, $compare ) === 0 ) {
+				if ( str_starts_with( $book_lang, $compare ) ) {
 					$loc = $compare;
 					break;
 				}
@@ -862,7 +862,7 @@ abstract class Export {
 	 *
 	 * @return bool
 	 */
-	static function isFormSubmission() {
+	public static function isFormSubmission() {
 
 		// EventSource (Progress bar)
 		if ( wp_doing_ajax() ) {

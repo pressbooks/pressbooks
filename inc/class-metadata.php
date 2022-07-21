@@ -11,14 +11,13 @@
 namespace Pressbooks;
 
 class Metadata implements \JsonSerializable {
-
 	/**
 	 * The value for option: pressbooks_metadata_version
 	 *
 	 * @see upgrade()
 	 * @var int
 	 */
-	const VERSION = 13;
+	public const VERSION = 13;
 
 	/**
 	 * Deprecated meta keys represented by checkboxes in the GUI.
@@ -68,8 +67,7 @@ class Metadata implements \JsonSerializable {
 	 *
 	 * @return \WP_Post|bool
 	 */
-	public function getMetaPost() {
-
+	public function getMetaPost(): \WP_Post | bool {
 		$args = [
 			'post_type' => 'metadata',
 			'posts_per_page' => 1,
@@ -110,11 +108,8 @@ class Metadata implements \JsonSerializable {
 	 *
 	 * @param int $post_id
 	 * @param string $meta_key
-	 *
-	 * @return int|bool
 	 */
-	public function getMidByKey( $post_id, $meta_key ) {
-
+	public function getMidByKey( $post_id, $meta_key ): int | bool {
 		/** @var \wpdb $wpdb */
 		global $wpdb;
 		$mid = $wpdb->get_var( $wpdb->prepare( "SELECT meta_id FROM $wpdb->postmeta WHERE post_id = %d AND meta_key = %s LIMIT 1 ", $post_id, $meta_key ) );
@@ -204,7 +199,7 @@ class Metadata implements \JsonSerializable {
 
 		if ( $options ) {
 			foreach ( $options as $meta_key => $meta_value ) {
-				$new_meta_key = ( isset( $compare[ $meta_key ] ) ) ? $compare[ $meta_key ] : false;
+				$new_meta_key = $compare[ $meta_key ] ?? false;
 				if ( $new_meta_key ) {
 					$new_options[ $new_meta_key ] = $meta_value;
 				}
@@ -233,7 +228,7 @@ class Metadata implements \JsonSerializable {
 		$compare = $this->getDeprecatedComparisonTable( 'metadata' );
 
 		foreach ( $metadata as $meta_key => $meta_value ) {
-			$new_meta_key = ( isset( $compare[ $meta_key ] ) ) ? $compare[ $meta_key ] : false;
+			$new_meta_key = $compare[ $meta_key ] ?? false;
 			if ( $new_meta_key ) {
 				$meta_id = $this->getMidByKey( $meta_post->ID, $meta_key );
 				if ( $meta_id ) {
@@ -275,7 +270,7 @@ class Metadata implements \JsonSerializable {
 			$compare = $this->getDeprecatedComparisonTable( get_post_type( $post_id ) );
 
 			foreach ( $meta as $meta_key => $meta_value ) {
-				$new_meta_key = ( isset( $compare[ $meta_key ] ) ) ? $compare[ $meta_key ] : false;
+				$new_meta_key = $compare[ $meta_key ] ?? false;
 				if ( $new_meta_key ) {
 					$meta_id = $this->getMidByKey( $post_id, $meta_key );
 					if ( $meta_id ) {

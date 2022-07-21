@@ -51,9 +51,6 @@ class CodeListings extends Element {
 		return $this->codeLanguage;
 	}
 
-	/**
-	 * @param string $code_language
-	 */
 	public function setCodeLanguage( string $code_language ) {
 		$this->codeLanguage = $code_language;
 	}

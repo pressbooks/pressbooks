@@ -12,21 +12,13 @@ use Pressbooks\Container;
 use Pressbooks\Metadata;
 
 class WebOptions extends \Pressbooks\Options {
-
 	/**
 	 * The value for option: pressbooks_theme_options_web_version
 	 *
 	 * @see upgrade()
 	 * @var int
 	 */
-	const VERSION = 1;
-
-	/**
-	 * Web theme options.
-	 *
-	 * @var array
-	 */
-	public $options;
+	public const VERSION = 1;
 
 	/**
 	 * Web theme defaults.
@@ -40,14 +32,13 @@ class WebOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $options
 	 */
-	function __construct( array $options ) {
-		$this->options = $options;
-		$this->defaults = $this->getDefaults();
-		$this->booleans = $this->getBooleanOptions();
-		$this->strings = $this->getStringOptions();
-		$this->integers = $this->getIntegerOptions();
-		$this->floats = $this->getFloatOptions();
-		$this->predefined = $this->getPredefinedOptions();
+	public function __construct( public array $options ) {
+		$this->defaults = static::getDefaults();
+		$this->booleans = static::getBooleanOptions();
+		$this->strings = static::getStringOptions();
+		$this->integers = static::getIntegerOptions();
+		$this->floats = static::getFloatOptions();
+		$this->predefined = static::getPredefinedOptions();
 
 		foreach ( $this->defaults as $key => $value ) {
 			if ( ! isset( $this->options[ $key ] ) ) {
@@ -59,10 +50,10 @@ class WebOptions extends \Pressbooks\Options {
 	/**
 	 * Configure the web options tab using the settings API.
 	 */
-	function init() {
-		$_option = 'pressbooks_theme_options_' . $this->getSlug();
+	public function init() {
+		$_option = 'pressbooks_theme_options_' . static::getSlug();
 		$_page = $_option;
-		$_section = $this->getSlug() . '_options_section';
+		$_section = static::getSlug() . '_options_section';
 		$meta = new Metadata();
 
 		if ( false === get_option( $_option ) ) {
@@ -71,7 +62,7 @@ class WebOptions extends \Pressbooks\Options {
 
 		add_settings_section(
 			$_section,
-			$this->getTitle(),
+			static::getTitle(),
 			[ $this, 'display' ],
 			$_page
 		);
@@ -193,14 +184,14 @@ class WebOptions extends \Pressbooks\Options {
 	/**
 	 * Display the web options tab description.
 	 */
-	function display() {
+	public function display() {
 		echo '<p>' . __( 'These options apply to the webbook.', 'pressbooks' ) . '</p>';
 	}
 
 	/**
 	 * Render the web options tab form (NOT USED).
 	 */
-	function render() {
+	public function render() {
 	}
 
 	/**
@@ -208,7 +199,7 @@ class WebOptions extends \Pressbooks\Options {
 	 *
 	 * @param int $version
 	 */
-	function upgrade( $version ) {
+	public function upgrade( $version ) {
 		if ( $version < 1 ) {
 			$this->doInitialUpgrade();
 		}
@@ -217,8 +208,8 @@ class WebOptions extends \Pressbooks\Options {
 	/**
 	 * Remove deprecated keys from web options.
 	 */
-	function doInitialUpgrade() {
-		$_option = $this->getSlug();
+	public function doInitialUpgrade() {
+		$_option = static::getSlug();
 		$options = get_option( 'pressbooks_theme_options_' . $_option, $this->defaults );
 		$deprecated = [
 			'toc_collapse',
@@ -239,17 +230,15 @@ class WebOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderSocialMediaField( $args ) {
+	public function renderSocialMediaField( $args ) {
 		unset( $args['label_for'], $args['class'] );
-		$this->renderCheckbox(
-			[
-				'id' => 'social_media',
-				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
-				'option' => 'social_media',
-				'value' => ( isset( $this->options['social_media'] ) ) ? $this->options['social_media'] : '',
-				'label' => $args[0],
-			]
-		);
+		static::renderCheckbox([
+			'id' => 'social_media',
+			'name' => 'pressbooks_theme_options_' . static::getSlug(),
+			'option' => 'social_media',
+			'value' => $this->options['social_media'] ?? '',
+			'label' => $args[0],
+		]);
 	}
 
 	/**
@@ -257,17 +246,15 @@ class WebOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderWebbookWidthField( $args ) {
+	public function renderWebbookWidthField( $args ) {
 		unset( $args['label_for'], $args['class'] );
-		$this->renderSelect(
-			[
-				'id' => 'webbook_width',
-				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
-				'option' => 'webbook_width',
-				'value' => ( isset( $this->options['webbook_width'] ) ) ? $this->options['webbook_width'] : $this->defaults['webbook_width'],
-				'choices' => $args,
-			]
-		);
+		static::renderSelect([
+			'id' => 'webbook_width',
+			'name' => 'pressbooks_theme_options_' . static::getSlug(),
+			'option' => 'webbook_width',
+			'value' => $this->options['webbook_width'] ?? $this->defaults['webbook_width'],
+			'choices' => $args,
+		]);
 	}
 
 	/**
@@ -275,17 +262,15 @@ class WebOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderParagraphSeparationField( $args ) {
+	public function renderParagraphSeparationField( $args ) {
 		unset( $args['label_for'], $args['class'] );
-		$this->renderRadioButtons(
-			[
-				'id' => 'paragraph_separation',
-				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
-				'option' => 'paragraph_separation',
-				'value' => ( isset( $this->options['paragraph_separation'] ) ) ? $this->options['paragraph_separation'] : '',
-				'choices' => $args,
-			]
-		);
+		static::renderRadioButtons([
+			'id' => 'paragraph_separation',
+			'name' => 'pressbooks_theme_options_' . static::getSlug(),
+			'option' => 'paragraph_separation',
+			'value' => $this->options['paragraph_separation'] ?? '',
+			'choices' => $args,
+		]);
 	}
 
 	/**
@@ -293,17 +278,15 @@ class WebOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderPartTitle( $args ) {
+	public function renderPartTitle( $args ) {
 		unset( $args['label_for'], $args['class'] );
-		$this->renderCheckbox(
-			[
-				'id' => 'part_title',
-				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
-				'option' => 'part_title',
-				'value' => ( isset( $this->options['part_title'] ) ) ? $this->options['part_title'] : '',
-				'label' => $args[0],
-			]
-		);
+		static::renderCheckbox([
+			'id' => 'part_title',
+			'name' => 'pressbooks_theme_options_' . static::getSlug(),
+			'option' => 'part_title',
+			'value' => $this->options['part_title'] ?? '',
+			'label' => $args[0],
+		]);
 	}
 
 	/**
@@ -311,17 +294,15 @@ class WebOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderCollapseSections( $args ) {
+	public function renderCollapseSections( $args ) {
 		unset( $args['label_for'], $args['class'] );
-		$this->renderCheckbox(
-			[
-				'id' => 'collapse_sections',
-				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
-				'option' => 'collapse_sections',
-				'value' => ( isset( $this->options['part_title'] ) ) ? $this->options['collapse_sections'] : '',
-				'label' => $args[0],
-			]
-		);
+		static::renderCheckbox([
+			'id' => 'collapse_sections',
+			'name' => 'pressbooks_theme_options_' . static::getSlug(),
+			'option' => 'collapse_sections',
+			'value' => ( isset( $this->options['part_title'] ) ) ? $this->options['collapse_sections'] : '',
+			'label' => $args[0],
+		]);
 	}
 
 	/**
@@ -329,18 +310,16 @@ class WebOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderEnableSourceComparison( $args ) {
+	public function renderEnableSourceComparison( $args ) {
 		unset( $args['label_for'], $args['class'] );
-		$this->renderCheckbox(
-			[
-				'id' => 'enable_source_comparison',
-				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
-				'option' => 'enable_source_comparison',
-				'value' => ( isset( $this->options['enable_source_comparison'] ) ) ? $this->options['enable_source_comparison'] : '',
-				'label' => $args[0],
-				'description' => $args[1],
-			]
-		);
+		static::renderCheckbox([
+			'id' => 'enable_source_comparison',
+			'name' => 'pressbooks_theme_options_' . static::getSlug(),
+			'option' => 'enable_source_comparison',
+			'value' => $this->options['enable_source_comparison'] ?? '',
+			'label' => $args[0],
+			'description' => $args[1],
+		]);
 	}
 
 	/**
@@ -348,17 +327,15 @@ class WebOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderHeaderFontField( $args ) {
+	public function renderHeaderFontField( $args ) {
 		unset( $args['label_for'], $args['class'] );
-		$this->renderSelectOptGroup(
-			[
-				'id' => 'webbook_header_font',
-				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
-				'option' => 'webbook_header_font',
-				'value' => ( isset( $this->options['webbook_header_font'] ) ) ? $this->options['webbook_header_font'] : '',
-				'choices' => $args,
-			]
-		);
+		static::renderSelectOptGroup([
+			'id' => 'webbook_header_font',
+			'name' => 'pressbooks_theme_options_' . static::getSlug(),
+			'option' => 'webbook_header_font',
+			'value' => $this->options['webbook_header_font'] ?? '',
+			'choices' => $args,
+		]);
 	}
 
 	/**
@@ -366,17 +343,15 @@ class WebOptions extends \Pressbooks\Options {
 	 *
 	 * @param array $args
 	 */
-	function renderBodyFontField( $args ) {
+	public function renderBodyFontField( $args ) {
 		unset( $args['label_for'], $args['class'] );
-		$this->renderSelectOptGroup(
-			[
-				'id' => 'webbook_body_font',
-				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
-				'option' => 'webbook_body_font',
-				'value' => ( isset( $this->options['webbook_body_font'] ) ) ? $this->options['webbook_body_font'] : '',
-				'choices' => $args,
-			]
-		);
+		static::renderSelectOptGroup([
+			'id' => 'webbook_body_font',
+			'name' => 'pressbooks_theme_options_' . static::getSlug(),
+			'option' => 'webbook_body_font',
+			'value' => $this->options['webbook_body_font'] ?? '',
+			'choices' => $args,
+		]);
 	}
 
 	/**
@@ -384,7 +359,7 @@ class WebOptions extends \Pressbooks\Options {
 	 *
 	 * @return string $slug
 	 */
-	static function getSlug() {
+	public static function getSlug() {
 		return 'web';
 	}
 
@@ -393,7 +368,7 @@ class WebOptions extends \Pressbooks\Options {
 	 *
 	 * @return string $title
 	 */
-	static function getTitle() {
+	public static function getTitle() {
 		return __( 'Web Options', 'pressbooks' );
 	}
 
@@ -402,7 +377,7 @@ class WebOptions extends \Pressbooks\Options {
 	 *
 	 * @return array $defaults
 	 */
-	static function getDefaults() {
+	public static function getDefaults() {
 		/**
 		 * @param array $value
 		 *
@@ -429,7 +404,7 @@ class WebOptions extends \Pressbooks\Options {
 	 *
 	 * @return array $defaults
 	 */
-	static function filterDefaults( $defaults ) {
+	public static function filterDefaults( $defaults ) {
 		return $defaults;
 	}
 
@@ -438,7 +413,7 @@ class WebOptions extends \Pressbooks\Options {
 	 *
 	 * @return array $options
 	 */
-	static function getBooleanOptions() {
+	public static function getBooleanOptions() {
 		/**
 		 * Allow custom boolean options to be passed to sanitization routines.
 		 *
@@ -461,7 +436,7 @@ class WebOptions extends \Pressbooks\Options {
 	 *
 	 * @return array $options
 	 */
-	static function getStringOptions() {
+	public static function getStringOptions() {
 		/**
 		 * Allow custom string options to be passed to sanitization routines.
 		 *
@@ -482,7 +457,7 @@ class WebOptions extends \Pressbooks\Options {
 	 *
 	 * @return array $options
 	 */
-	static function getIntegerOptions() {
+	public static function getIntegerOptions() {
 		/**
 		 * Allow custom integer options to be passed to sanitization routines.
 		 *
@@ -498,7 +473,7 @@ class WebOptions extends \Pressbooks\Options {
 	 *
 	 * @return array $options
 	 */
-	static function getFloatOptions() {
+	public static function getFloatOptions() {
 		/**
 		 * Allow custom float options to be passed to sanitization routines.
 		 *
@@ -514,7 +489,7 @@ class WebOptions extends \Pressbooks\Options {
 	 *
 	 * @return array $options
 	 */
-	static function getPredefinedOptions() {
+	public static function getPredefinedOptions() {
 		/**
 		 * Allow custom predifined options to be passed to sanitization routines.
 		 *
@@ -539,7 +514,7 @@ class WebOptions extends \Pressbooks\Options {
 	 *
 	 * @since 3.9.8
 	 */
-	static function scssOverrides( $scss ) {
+	public static function scssOverrides( $scss ) {
 
 		$styles = Container::get( 'Styles' );
 		$v2_compatible = $styles->isCurrentThemeCompatible( 2 );

@@ -490,12 +490,12 @@ function pressbooks_cg_front_background_image_callback( $args ) {
 		$numeric_height = 0;
 	}
 
-	$html = '<input id="front_background_image" name="pressbooks_cg_options[front_background_image]" type="hidden" value="' . ( isset( $option['front_background_image'] ) ? $option['front_background_image'] : '' ) . '" />';
+	$html = '<input id="front_background_image" name="pressbooks_cg_options[front_background_image]" type="hidden" value="' . ( $option['front_background_image'] ?? '' ) . '" />';
 	$html .= '<button class="button front-background-image-upload-button' . ( isset( $option['front_background_image'] ) ? ' hidden' : '' ) . '">Upload Image</button>';
 	/* translators: 1: minimum width, 2: minimum height, 3: aspect ratio width, 4: aspect ratio height */
 	$html .= '<p class="description front-background-image-description' . ( isset( $option['front_background_image'] ) ? ' hidden' : '' ) . '">' . sprintf( __( 'Your image must be at least %1$s pixels in width by %2$s pixels in height, with an aspect ratio of %3$s to %4$s.', 'pressbooks' ), round( $width ), round( $height ), $numeric_width, $numeric_height ) . '</p>';
 	$html .= '<div class="front-background-image-preview-wrap' . ( isset( $option['front_background_image'] ) ? '' : ' hidden' ) . '">';
-	$html .= '<p><img class="front-background-image" alt="Front Cover Background Image" src="' . ( isset( $option['front_background_image'] ) ? $option['front_background_image'] : 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=' ) . '" /></p>'; // Fallback to Tiny 26 bytes GIF
+	$html .= '<p><img class="front-background-image" alt="Front Cover Background Image" src="' . ( $option['front_background_image'] ?? 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=' ) . '" /></p>'; // Fallback to Tiny 26 bytes GIF
 	$html .= '<p><input type="button" class="button button-primary delete-front-background-image" value="' . __( 'Delete Background Image', 'pressbooks' ) . '" /></p>';
 	$html .= '</div>';
 	echo $html;

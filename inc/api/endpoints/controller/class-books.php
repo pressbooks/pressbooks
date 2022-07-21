@@ -241,6 +241,7 @@ class Books extends \WP_REST_Controller {
 	 * @return array
 	 */
 	protected function renderBook( $id ) {
+		$metadata_thumb = [];
 		$metadata_info_array = $this->bookDataCollector->get( $id, BookDataCollector::BOOK_INFORMATION_ARRAY );
 
 		$keys = [

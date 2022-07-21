@@ -185,7 +185,7 @@ class HTMLBook extends Export {
 
 		if ( ! current_user_can( 'edit_posts' ) ) {
 			$timestamp = ( isset( $_REQUEST['timestamp'] ) ) ? absint( $_REQUEST['timestamp'] ) : 0;
-			$hashkey = ( isset( $_REQUEST['hashkey'] ) ) ? $_REQUEST['hashkey'] : '';
+			$hashkey = $_REQUEST['hashkey'] ?? '';
 			if ( ! $this->verifyNonce( $timestamp, $hashkey ) ) {
 				wp_die( __( 'Invalid permission error', 'pressbooks' ) );
 			}
@@ -208,7 +208,7 @@ class HTMLBook extends Export {
 
 		// Set two letter language code
 		if ( isset( $metadata['pb_language'] ) ) {
-			list( $this->lang ) = explode( '-', $metadata['pb_language'] );
+			[$this->lang] = explode( '-', $metadata['pb_language'] );
 		}
 
 		ob_start();
@@ -787,7 +787,7 @@ class HTMLBook extends Export {
 
 		if ( ! $content ) {
 			$content .= sprintf( '<h1 class="title">%s</h1>', get_bloginfo( 'name' ) );
-			$content .= sprintf( '<p class="subtitle">%s</p>', ( isset( $metadata['pb_subtitle'] ) ) ? $metadata['pb_subtitle'] : '' );
+			$content .= sprintf( '<p class="subtitle">%s</p>', $metadata['pb_subtitle'] ?? '' );
 			if ( isset( $metadata['pb_authors'] ) ) {
 				if ( is_string( $metadata['pb_authors'] ) ) {
 					$content .= sprintf( '<p class="author">%s</p>', $metadata['pb_authors'] );
@@ -802,8 +802,8 @@ class HTMLBook extends Export {
 			if ( current_theme_supports( 'pressbooks_publisher_logo' ) ) {
 				$content .= sprintf( '<p class="publisher-logo"><img src="%s" /></p>', get_theme_support( 'pressbooks_publisher_logo' )[0]['logo_uri'] ); // TODO: Support custom publisher logo.
 			}
-			$content .= sprintf( '<p class="publisher">%s</p>', ( isset( $metadata['pb_publisher'] ) ) ? $metadata['pb_publisher'] : '' );
-			$content .= sprintf( '<p class="publisher-city">%s</p>', ( isset( $metadata['pb_publisher_city'] ) ) ? $metadata['pb_publisher_city'] : '' );
+			$content .= sprintf( '<p class="publisher">%s</p>', $metadata['pb_publisher'] ?? '' );
+			$content .= sprintf( '<p class="publisher-city">%s</p>', $metadata['pb_publisher_city'] ?? '' );
 		}
 
 		$fm->setContent( $content );
@@ -816,7 +816,7 @@ class HTMLBook extends Export {
 	 * @param array $metadata
 	 */
 	protected function copyright( $book, $metadata ) {
-
+		$meta = [];
 		if ( empty( $metadata['pb_book_license'] ) ) {
 			$all_rights_reserved = true;
 		} elseif ( $metadata['pb_book_license'] === 'all-rights-reserved' ) {
@@ -998,7 +998,7 @@ class HTMLBook extends Export {
 					$li->setContent( sprintf( '<a href="#%s">%s</a>', $slug, Sanitize\decode( $title ) ) );
 
 					if ( get_post_meta( $part['ID'], 'pb_part_invisible', true ) !== 'on' ) { // visible
-						if ( count( $book_contents['part'] ) === 1 ) { // only part
+						if ( ( is_countable( $book_contents['part'] ) ? count( $book_contents['part'] ) : 0 ) === 1 ) { // only part
 							if ( $part_content ) { // has content
 								$li->setAttributes(
 									[
@@ -1014,7 +1014,7 @@ class HTMLBook extends Export {
 								); // hide from TOC
 								$ordered_lists->appendContent( $li );
 							}
-						} elseif ( count( $book_contents['part'] ) > 1 ) { // multiple parts
+						} elseif ( ( is_countable( $book_contents['part'] ) ? count( $book_contents['part'] ) : 0 ) > 1 ) { // multiple parts
 							if ( $this->atLeastOneExport( $part['chapters'] ) ) { // has chapter
 								$li->setAttributes(
 									[
@@ -1238,7 +1238,7 @@ class HTMLBook extends Export {
 				[
 					'class' => "front-matter {$subclass}",
 					'id' => "front-matter-{$front_matter['post_name']}",
-					'title' => $short_title ? $short_title : wp_strip_all_tags( Sanitize\decode( $front_matter['post_title'] ) ),
+					'title' => $short_title ?: wp_strip_all_tags( Sanitize\decode( $front_matter['post_title'] ) ),
 				]
 			);
 
@@ -1329,14 +1329,14 @@ class HTMLBook extends Export {
 			// Inject introduction class?
 			$inject_introduction_class = false;
 			if ( 'invisible' !== $invisibility ) { // visible
-				if ( count( $book_contents['part'] ) === 1 ) { // only part
+				if ( ( is_countable( $book_contents['part'] ) ? count( $book_contents['part'] ) : 0 ) === 1 ) { // only part
 					if ( $part_content ) { // has content
 						if ( ! $this->hasIntroduction ) {
 							$inject_introduction_class = true;
 							$this->hasIntroduction = true;
 						}
 					}
-				} elseif ( count( $book_contents['part'] ) > 1 ) { // multiple parts
+				} elseif ( ( is_countable( $book_contents['part'] ) ? count( $book_contents['part'] ) : 0 ) > 1 ) { // multiple parts
 					if ( ! $this->hasIntroduction ) {
 						$inject_introduction_class = true;
 						$this->hasIntroduction = true;
@@ -1451,7 +1451,7 @@ class HTMLBook extends Export {
 				$my_chapter->appendAttributes(
 					[
 						'id' => $slug,
-						'title' => $short_title ? $short_title : wp_strip_all_tags( Sanitize\decode( $chapter['post_title'] ) ),
+						'title' => $short_title ?: wp_strip_all_tags( Sanitize\decode( $chapter['post_title'] ) ),
 					]
 				);
 
@@ -1470,7 +1470,7 @@ class HTMLBook extends Export {
 						'class' => 'chapter-number',
 					]
 				);
-				$my_chapter_number = ( strpos( $subclass, 'numberless' ) === false ) ? $j : '';
+				$my_chapter_number = ( ! str_contains( $subclass, 'numberless' ) ) ? $j : '';
 				$p->setContent( $my_chapter_number );
 
 				$header = new Header();
@@ -1501,7 +1501,7 @@ class HTMLBook extends Export {
 			// Echo with parts?
 
 			if ( 'invisible' !== $invisibility ) { // visible
-				if ( count( $book_contents['part'] ) === 1 ) { // only part
+				if ( ( is_countable( $book_contents['part'] ) ? count( $book_contents['part'] ) : 0 ) === 1 ) { // only part
 					if ( $part_content ) { // has content
 						$book->appendContent( $my_part );
 					} else { // no content
@@ -1511,7 +1511,7 @@ class HTMLBook extends Export {
 							}
 						}
 					}
-				} elseif ( count( $book_contents['part'] ) > 1 ) { // multiple parts
+				} elseif ( ( is_countable( $book_contents['part'] ) ? count( $book_contents['part'] ) : 0 ) > 1 ) { // multiple parts
 					$book->appendContent( $my_part );
 				}
 				++$i;
@@ -1571,7 +1571,7 @@ class HTMLBook extends Export {
 				[
 					'class' => "back-matter {$subclass}",
 					'id' => "back-matter-{$back_matter['post_name']}",
-					'title' => $short_title ? $short_title : wp_strip_all_tags( Sanitize\decode( $back_matter['post_title'] ) ),
+					'title' => $short_title ?: wp_strip_all_tags( Sanitize\decode( $back_matter['post_title'] ) ),
 				]
 			);
 
@@ -1635,11 +1635,9 @@ class HTMLBook extends Export {
 	 * Does array of chapters have at least one export? Recursive.
 	 *
 	 * @param array $chapters
-	 *
 	 * @return bool
 	 */
 	protected function atLeastOneExport( array $chapters ) {
-
 		foreach ( $chapters as $key => $val ) {
 			if ( is_array( $val ) ) {
 				$found = $this->atLeastOneExport( $val );
@@ -1661,7 +1659,7 @@ class HTMLBook extends Export {
 	 *
 	 * @return bool
 	 */
-	static function hasDependencies() {
+	public static function hasDependencies() {
 		if ( true === \Pressbooks\Utility\check_xmllint_install() ) {
 			return true;
 		}

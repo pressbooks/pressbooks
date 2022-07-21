@@ -13,85 +13,82 @@ class Book {
 
 	// Meta Key Constants:
 
-	const COVER = 'pb_cover_image';
+	public const COVER = 'pb_cover_image';
 
-	const TITLE = 'pb_title';
+	public const TITLE = 'pb_title';
 
-	const LAST_EDITED = 'pb_last_edited';
+	public const LAST_EDITED = 'pb_last_edited';
 
-	const CREATED = 'pb_created';
+	public const CREATED = 'pb_created';
 
-	const WORD_COUNT = 'pb_word_count';
+	public const WORD_COUNT = 'pb_word_count';
 
-	const TOTAL_AUTHORS = 'pb_total_authors';
+	public const TOTAL_AUTHORS = 'pb_total_authors';
 
-	const TOTAL_READERS = 'pb_total_readers';
+	public const TOTAL_READERS = 'pb_total_readers';
 
-	const STORAGE_SIZE = 'pb_storage_size';
+	public const STORAGE_SIZE = 'pb_storage_size';
 
-	const LANGUAGE = 'pb_language';
+	public const LANGUAGE = 'pb_language';
 
-	const SUBJECT = 'pb_subject';
+	public const SUBJECT = 'pb_subject';
 
-	const THEME = 'pb_theme';
+	public const THEME = 'pb_theme';
 
-	const LICENSE = 'pb_book_license';
+	public const LICENSE = 'pb_book_license';
 
-	const PUBLIC = 'pb_is_public';
+	public const PUBLIC = 'pb_is_public';
 
-	const IN_CATALOG = 'pb_in_catalog';
+	public const IN_CATALOG = 'pb_in_catalog';
 
-	const IS_CLONE = 'pb_is_clone';
+	public const IS_CLONE = 'pb_is_clone';
 
-	const HAS_EXPORTS = 'pb_has_exports';
+	public const HAS_EXPORTS = 'pb_has_exports';
 
-	const LAST_EXPORT = 'pb_last_export';
+	public const LAST_EXPORT = 'pb_last_export';
 
-	const ALLOWS_DOWNLOADS = 'pb_latest_files_public';
+	public const ALLOWS_DOWNLOADS = 'pb_latest_files_public';
 
-	const EXPORTS_BY_FORMAT = 'pb_exports_by_format';
+	public const EXPORTS_BY_FORMAT = 'pb_exports_by_format';
 
-	const TOTAL_REVISIONS = 'pb_total_revisions';
+	public const TOTAL_REVISIONS = 'pb_total_revisions';
 
-	const TIMESTAMP = 'pb_book_sync_timestamp';
+	public const TIMESTAMP = 'pb_book_sync_timestamp';
 
-	const MEDIA_LIBRARY_URL = 'pb_admin_url';
+	public const MEDIA_LIBRARY_URL = 'pb_admin_url';
 
-	const AKISMET_ACTIVATED = 'pb_akismet_activated';
+	public const AKISMET_ACTIVATED = 'pb_akismet_activated';
 
-	const PARSEDOWN_PARTY_ACTIVATED = 'pb_parsedown_party_activated';
+	public const PARSEDOWN_PARTY_ACTIVATED = 'pb_parsedown_party_activated';
 
-	const WP_QUICK_LATEX_ACTIVATED = 'pb_wp_quick_latex_activated';
+	public const WP_QUICK_LATEX_ACTIVATED = 'pb_wp_quick_latex_activated';
 
-	const HYPOTHESIS_ACTIVATED = 'pb_hypothesis_activated';
+	public const HYPOTHESIS_ACTIVATED = 'pb_hypothesis_activated';
 
-	const GLOSSARY_TERMS = 'pb_glossary_terms';
+	public const GLOSSARY_TERMS = 'pb_glossary_terms';
 
-	const H5P_ACTIVITIES = 'pb_h5p_activities';
+	public const H5P_ACTIVITIES = 'pb_h5p_activities';
 
-	const TABLEPRESS_TABLES = 'pb_tablepress_tables';
+	public const TABLEPRESS_TABLES = 'pb_tablepress_tables';
 
-	const BOOK_URL = 'pb_book_url';
+	public const BOOK_URL = 'pb_book_url';
 
-	const DEACTIVATED = 'pb_deactivated';
+	public const DEACTIVATED = 'pb_deactivated';
 
-	const BOOK_INFORMATION_ARRAY = 'pb_book_information_array';
+	public const BOOK_INFORMATION_ARRAY = 'pb_book_information_array';
 
-	const LTI_GRADING_ENABLED = 'pb_lti_grading_enabled';
+	public const LTI_GRADING_ENABLED = 'pb_lti_grading_enabled';
 
-	const BOOK_DIRECTORY_EXCLUDED = 'pb_book_directory_excluded';
+	public const BOOK_DIRECTORY_EXCLUDED = 'pb_book_directory_excluded';
 
-	/**
-	 * @var Book
-	 */
-	private static $instance = null;
+	private static ?\Pressbooks\DataCollector\Book $instance = null;
 
 	/**
 	 * Hypothesis is considered active if one of these keys is enabled.
 	 *
 	 * @var string[]
 	 */
-	private static $hypothesis_keys = [
+	private static array $hypothesis_keys = [
 		'allow-on-part',
 		'allow-on-chapter',
 		'allow-on-front-matter',
@@ -109,9 +106,6 @@ class Book {
 		return self::$instance;
 	}
 
-	/**
-	 * @param Book $obj
-	 */
 	public static function hooks( Book $obj ) {
 		add_action( 'wp_update_site', [ $obj, 'updateSite' ], 999, 2 );
 		add_action( 'wp_insert_post', [ $obj, 'updateMetaData' ], 10, 3 ); // Trigger after deleteBookObjectCache
@@ -350,9 +344,6 @@ class Book {
 		restore_current_blog();
 	}
 
-	/**
-	 * @return \Generator
-	 */
 	public function copyAllBooksIntoSiteTable(): \Generator {
 		// Try to stop a Cache Stampede, Dog-Pile, Cascading Failure...
 		$in_progress_transient = 'pb_book_sync_cron_in_progress';
@@ -368,7 +359,7 @@ class Book {
 			$books = $wpdb->get_col( $wpdb->prepare( "SELECT blog_id FROM {$wpdb->blogs} WHERE archived = 0 AND spam = 0 AND blog_id != %d ", $main_site_id ) );
 
 			// Purging books that no longer exist (from wp_blogmeta)...
-			if ( count( $books ) ) {
+			if ( is_countable( $books ) ? count( $books ) : 0 ) {
 				$sql = "DELETE FROM {$wpdb->blogmeta} WHERE ";
 				$sql .= 'blog_id NOT IN (' . implode( ',', $books ) . ')';
 				// phpcs:disable WordPress.DB.PreparedSQL.NotPrepared
@@ -416,7 +407,7 @@ class Book {
 					}
 				}
 			}
-		} catch ( \ReflectionException $e ) {
+		} catch ( \ReflectionException ) {
 			return false;
 		}
 		if ( is_object( $val ) ) {
@@ -486,7 +477,7 @@ class Book {
 
 		switch_to_blog( $book_id );
 
-		$cover_id = $attachment_id ? $attachment_id : attachment_id_from_url( $cover_path );
+		$cover_id = $attachment_id ?: attachment_id_from_url( $cover_path );
 
 		if ( $cover_id ) {
 			$cover_path = wp_get_attachment_image_url( $cover_id, 'pb_cover_large', false );

@@ -12,7 +12,7 @@ class Container extends \Illuminate\Container\Container {
 	 *
 	 * @param \Illuminate\Contracts\Container\Container $c
 	 */
-	static function init( $c = null ) {
+	public static function init( $c = null ) {
 		if ( is_null( $c ) ) {
 			$c = require( __DIR__ . '/../services.php' );
 		}
@@ -24,7 +24,7 @@ class Container extends \Illuminate\Container\Container {
 	 *
 	 * @return mixed
 	 */
-	static function get( $var ) {
+	public static function get( $var ) {
 		if ( is_null( static::$instance ) ) {
 			throw new \LogicException( 'Container not set, call init() or setInstance() before using get().' );
 		}
@@ -37,7 +37,7 @@ class Container extends \Illuminate\Container\Container {
 	 * @param string $type (optional)
 	 * @param bool $replace (optional)
 	 */
-	static function set( $key, $val, $type = null, $replace = false ) {
+	public static function set( $key, $val, $type = null, $replace = false ) {
 		if ( is_null( static::$instance ) ) {
 			throw new \LogicException( 'Container not set, call init() or setInstance() before using set().' );
 		}

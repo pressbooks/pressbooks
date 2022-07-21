@@ -7,16 +7,12 @@
 namespace Pressbooks\Admin\Delete;
 
 class Book {
-
-	/**
-	 * @var \Pressbooks\Admin\Delete\Book
-	 */
-	private static $instance = null;
+	private static ?\Pressbooks\Admin\Delete\Book $instance = null;
 
 	/**
 	 * @return \Pressbooks\Admin\Delete\Book
 	 */
-	static public function init() {
+	public static function init() {
 		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
 			self::hooks( self::$instance );
@@ -24,7 +20,7 @@ class Book {
 		return self::$instance;
 	}
 
-	static public function hooks( Book $obj ) {
+	public static function hooks( Book $obj ) {
 		// Hide from side menu
 		remove_submenu_page( 'tools.php', 'ms-delete-site.php' );
 		// Add to top menu

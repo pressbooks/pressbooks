@@ -24,7 +24,7 @@ abstract class Import {
 	/**
 	 * Abstract CONST
 	 */
-	const TYPE_OF = null;
+	public const TYPE_OF = null;
 
 	/**
 	 * Email addresses to send logs.
@@ -233,7 +233,7 @@ abstract class Import {
 	 * @see pressbooks/templates/admin/import.php
 	 * @see \Pressbooks\EventStreams::importBook
 	 */
-	static public function formSubmit() {
+	public static function formSubmit() {
 
 		// --------------------------------------------------------------------------------------------------------
 		// Sanity check
@@ -275,7 +275,7 @@ abstract class Import {
 	/**
 	 * Pre-Import
 	 */
-	static function preImport() {
+	public static function preImport() {
 		// TODO
 	}
 
@@ -286,7 +286,7 @@ abstract class Import {
 	 *
 	 * @return \Generator
 	 */
-	static function doImportGenerator( array $current_import ) : \Generator {
+	public static function doImportGenerator( array $current_import ) : \Generator {
 
 		// Set post status
 		$current_import['default_post_status'] = ( isset( $_POST['show_imports_in_web'] ) ) ? 'publish' : 'private'; // @codingStandardsIgnoreLine
@@ -346,7 +346,7 @@ abstract class Import {
 				}
 				foreach ( $importers as $i ) {
 					if ( is_object( $i ) ) {
-						$class = get_class( $i );
+						$class = $i::class;
 						if (
 							count( $importers ) === 1 ||
 							defined( "{$class}::TYPE_OF" ) && $class::TYPE_OF === $current_import['type_of']
@@ -363,7 +363,7 @@ abstract class Import {
 				/** @var \Pressbooks\Modules\Import\ImportGenerator $importer */
 				try {
 					yield from $importer->importGenerator( $current_import );
-				} catch ( \Exception $e ) {
+				} catch ( \Exception ) {
 
 				}
 			} else {
@@ -378,7 +378,7 @@ abstract class Import {
 	/**
 	 * Post Export
 	 */
-	static function postImport() {
+	public static function postImport() {
 		// TODO
 	}
 
@@ -486,7 +486,7 @@ abstract class Import {
 				}
 				foreach ( $importers as $importer ) {
 					if ( is_object( $importer ) ) {
-						$class = get_class( $importer );
+						$class = $importer::class;
 						if (
 							count( $importers ) === 1 ||
 							defined( "{$class}::TYPE_OF" ) && $class::TYPE_OF === $_POST['type_of']
@@ -631,7 +631,7 @@ abstract class Import {
 	 *
 	 * @return bool
 	 */
-	static function isFormSubmission() {
+	public static function isFormSubmission() {
 
 		if ( empty( $_REQUEST['page'] ) ) {
 			return false;
@@ -663,7 +663,7 @@ abstract class Import {
 	 * @param string $message
 	 * @param array $more_info
 	 */
-	static function log( $message, array $more_info = [] ) {
+	public static function log( $message, array $more_info = [] ) {
 
 		/** $var \WP_User $current_user */
 		global $current_user;

@@ -29,9 +29,6 @@ class Validator {
 		return $this->schemaPath ?? ( PB_PLUGIN_DIR . 'symbionts/HTMLBook/schema/htmlbook.xsd' );
 	}
 
-	/**
-	 * @param string $schema_path
-	 */
 	public function setSchemaPath( string $schema_path ) {
 		$this->schemaPath = $schema_path;
 	}
@@ -46,12 +43,9 @@ class Validator {
 	/**
 	 * Validate an HTMLBook file
 	 *
-	 * @param string $path
-	 *
 	 * @return bool
 	 */
 	public function validate( string $path ) {
-
 		$command = PB_XMLLINT_COMMAND . ' --noout --schema ' . escapeshellcmd( $this->getSchemaPath() ) . ' ' . escapeshellcmd( $path ) . ' 2>&1';
 
 		// Execute command

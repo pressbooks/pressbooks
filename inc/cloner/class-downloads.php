@@ -14,17 +14,6 @@ use function Pressbooks\Media\strip_baseurl as media_strip_baseurl;
 use function Pressbooks\Utility\str_lreplace;
 
 class Downloads {
-
-	/**
-	 * @var Cloner
-	 */
-	protected $cloner;
-
-	/**
-	 * @var \Pressbooks\Interactive\H5P
-	 */
-	protected $h5p;
-
 	/**
 	 * Regular expression for image extensions that Pressbooks knows how to resize, analyse, etc.
 	 *
@@ -51,9 +40,7 @@ class Downloads {
 	 * @param Cloner $cloner
 	 * @param \Pressbooks\Interactive\H5P $h5p
 	 */
-	public function __construct( $cloner, $h5p ) {
-		$this->cloner = $cloner;
-		$this->h5p = $h5p;
+	public function __construct( protected $cloner, protected $h5p ) {
 	}
 
 	/**
@@ -66,14 +53,10 @@ class Downloads {
 	/**
 	 * Parse HTML snippet, save all found <img> tags using media_handle_sideload(), return the HTML with changed <img> paths.
 	 *
-	 * @param \DOMDocument $dom
-	 *
 	 * @see \Pressbooks\Cloner\Cloner::$knownMedia
-	 *
 	 * @return array{dom: \DOMDocument, attachments: int[]}
 	 */
 	public function scrapeAndKneadImages( \DOMDocument $dom ) {
-
 		$images = $dom->getElementsByTagName( 'img' );
 		$attachments = [];
 
@@ -155,7 +138,7 @@ class Downloads {
 				if ( ! \Pressbooks\Image\is_valid_image( $tmp_name, $filename ) ) {
 					throw new \Exception( 'Image is corrupt, and file extension matches the mime type' );
 				}
-			} catch ( \Exception $exc ) {
+			} catch ( \Exception ) {
 				// Garbage, don't import
 				$this->imageWasAlreadyDownloaded[ $remote_img_location ] = 0;
 				@unlink( $tmp_name ); // @codingStandardsIgnoreLine
@@ -257,14 +240,14 @@ class Downloads {
 					$image->setAttribute( 'class', preg_replace( '/wp-image-\d+/', "wp-image-{$attachment_id}", $image->getAttribute( 'class' ) ) );
 				}
 				// Update wrapper IDs
-				if ( $image->parentNode->tagName === 'div' && strpos( $image->parentNode->getAttribute( 'id' ), 'attachment_' ) !== false ) {
+				if ( $image->parentNode->tagName === 'div' && str_contains( $image->parentNode->getAttribute( 'id' ), 'attachment_' ) ) {
 					// <div> id
 					$image->parentNode->setAttribute( 'id', preg_replace( '/attachment_\d+/', "attachment_{$attachment_id}", $image->parentNode->getAttribute( 'id' ) ) );
 				}
 				foreach ( $image->parentNode->childNodes as $child ) {
 					if ( $child instanceof \DOMText &&
-						strpos( $child->nodeValue, '[caption ' ) !== false &&
-						strpos( $child->nodeValue, 'attachment_' ) !== false
+						str_contains( $child->nodeValue, '[caption ' ) &&
+						str_contains( $child->nodeValue, 'attachment_' )
 					) {
 						// [caption] id
 						$child->nodeValue = preg_replace( '/attachment_\d+/', "attachment_{$attachment_id}", $child->nodeValue );
@@ -307,7 +290,7 @@ class Downloads {
 				// Skip images, these are handled elsewhere
 				continue;
 			}
-			if ( strpos( $dom_as_string, $media->sourceUrl ) !== false ) {
+			if ( str_contains( $dom_as_string, $media->sourceUrl ) ) {
 				$src_old = $media->sourceUrl;
 				$attachment_id = $this->fetchAndSaveUniqueMedia( $src_old );
 				if ( $attachment_id === -1 ) {

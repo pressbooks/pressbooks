@@ -11,34 +11,20 @@
 namespace Pressbooks;
 
 class Taxonomy {
-
 	/**
 	 * The value for option: pressbooks_taxonomy_version
 	 *
 	 * @see upgrade()
 	 * @var int
 	 */
-	const VERSION = 4;
+	public const VERSION = 4;
 
-	/**
-	 * @var Taxonomy
-	 */
-	private static $instance = null;
-
-	/**
-	 * @var Licensing
-	 */
-	private $licensing;
-
-	/**
-	 * @var Contributors
-	 */
-	private $contributors;
+	private static ?\Pressbooks\Taxonomy $instance = null;
 
 	/**
 	 * @return Taxonomy
 	 */
-	static public function init() {
+	public static function init() {
 		if ( is_null( self::$instance ) ) {
 			$licensing = new Licensing();
 			$contributor = new Contributors();
@@ -48,10 +34,7 @@ class Taxonomy {
 		return self::$instance;
 	}
 
-	/**
-	 * @param Taxonomy $obj
-	 */
-	static public function hooks( Taxonomy $obj ) {
+	public static function hooks( Taxonomy $obj ) {
 		if ( Book::isBook() ) {
 			add_action( 'init', [ $obj, 'registerTaxonomies' ] );
 			add_action( 'init', [ $obj, 'maybeUpgrade' ], 1000 );
@@ -75,9 +58,7 @@ class Taxonomy {
 	 * @param Licensing $licensing
 	 * @param Contributors $contributors
 	 */
-	public function __construct( $licensing, $contributors ) {
-		$this->licensing = $licensing;
-		$this->contributors = $contributors;
+	public function __construct( private $licensing, private $contributors ) {
 	}
 
 	/**
@@ -459,7 +440,7 @@ class Taxonomy {
 	public function insertLicenseTerms() {
 		$extended = apply_filters( 'extend_custom_licenses', [] ); // override inserted license terms only if this hook is called
 		$supported_licenses = $this->licensing->getSupportedTypes( true, true );
-		$licenses = ( count( $extended ) > 0 ) ? array_merge( $supported_licenses, $extended ) : $supported_licenses;
+		$licenses = ( ( is_countable( $extended ) ? count( $extended ) : 0 ) > 0 ) ? array_merge( $supported_licenses, $extended ) : $supported_licenses;
 		foreach ( $licenses as $key => $val ) {
 				wp_insert_term(
 					$val['desc'], Licensing::TAXONOMY, [
@@ -674,7 +655,7 @@ class Taxonomy {
 	 *
 	 * @return array|false An array containing the `term_id` and `term_taxonomy_id`, false otherwise.
 	 */
-	public function upgradeToContributorTaxonomy( $meta_id, $object_id, $meta_key, $meta_value ) {
+	public function upgradeToContributorTaxonomy( $meta_id, $object_id, $meta_key, $meta_value ): array | false {
 		return $this->contributors->convert( $meta_key, $meta_value, $object_id );
 	}
 

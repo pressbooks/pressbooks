@@ -20,7 +20,7 @@ class CustomCss {
 	 *
 	 * @return string fullpath
 	 */
-	static function getCustomCssFolder() {
+	public static function getCustomCssFolder() {
 
 		$path = \Pressbooks\Utility\get_media_prefix() . 'custom-css/';
 		if ( ! file_exists( $path ) ) {
@@ -35,7 +35,7 @@ class CustomCss {
 	 *
 	 * @return bool
 	 */
-	static function isCustomCss() {
+	public static function isCustomCss() {
 		return ( 'pressbooks-custom-css' === get_stylesheet() );
 	}
 
@@ -44,7 +44,7 @@ class CustomCss {
 	 *
 	 * @return bool
 	 */
-	static function isRomanized() {
+	public static function isRomanized() {
 
 		$options = get_option( 'pressbooks_theme_options_pdf' );
 		if ( isset( $options['pdf_romanize_parts'] ) ) {
@@ -60,7 +60,7 @@ class CustomCss {
 	 *
 	 * @return string
 	 */
-	static function getBaseTheme( $slug ) {
+	public static function getBaseTheme( $slug ) {
 		$filename = static::getCustomCssFolder() . sanitize_file_name( $slug . '.css' );
 		if ( ! file_exists( $filename ) ) {
 			return false;
@@ -81,7 +81,7 @@ class CustomCss {
 	 * @see https://github.com/pressbooks/pressbooks-custom-css
 	 * @see \Pressbooks\Activation::wpmuActivate
 	 */
-	static function upgradeCustomCss() {
+	public static function upgradeCustomCss() {
 
 		/** @var $wpdb \wpdb */
 		global $wpdb;

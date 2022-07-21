@@ -133,7 +133,7 @@ class Posts extends \WP_REST_Posts_Controller {
 	 *
 	 * @return bool|\WP_Error True if the request has read access, WP_Error object otherwise.
 	 */
-	public function get_items_permissions_check( $request ) {
+	public function get_items_permissions_check( $request ): bool | \WP_Error {
 
 		if ( current_user_can( 'edit_posts' ) ) {
 			return true;

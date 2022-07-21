@@ -8,7 +8,6 @@ use Aws\S3\S3Client as S3Client;
 use function Pressbooks\Utility\debug_error_log;
 
 class S3StorageProvider implements StorageProvider {
-
 	/**
 	 * @var string
 	 */
@@ -39,26 +38,11 @@ class S3StorageProvider implements StorageProvider {
 	 */
 	private $client;
 
-	/**
-	 * @var string
-	 */
-	private $file_path;
+	private ?string $file_path = null;
 
-	/**
-	 * @var string
-	 */
-	private $filename;
+	public const AWS_CONFIG_FILENAME = 'does_not_exist.ini';
 
-	/**
-	 * @var string
-	 */
-	private $aws_folder;
-
-	const AWS_CONFIG_FILENAME = 'does_not_exist.ini';
-
-	public function __construct( string $aws_folder, string $filename ) {
-		$this->aws_folder = $aws_folder;
-		$this->filename = $filename;
+	public function __construct( private string $aws_folder, private string $filename ) {
 	}
 
 	private function create() {
@@ -73,7 +57,7 @@ class S3StorageProvider implements StorageProvider {
 			$this->bucket_name = env( 'AWS_S3_OIDC_BUCKET' );
 			$this->access_key_id = env( 'AWS_ACCESS_KEY_ID' );
 			$this->secret_key = env( 'AWS_SECRET_ACCESS_KEY' );
-			$environment = env( 'WP_ENV' ) ? env( 'WP_ENV' ) : 'production';
+			$environment = env( 'WP_ENV' ) ?: 'production';
 			$scheme = is_ssl() ? 'https' : 'http';
 			$this->file_path = is_null( $this->file_path ) ? 's3://' . $this->bucket_name . '/' . $this->aws_folder .
 				'/' . $environment . '/' . wp_hash( network_home_url( '', $scheme ) ) . '/' . current_time( 'Y-m' ) .

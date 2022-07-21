@@ -16,12 +16,11 @@ use WP_Site;
  * @package Pressbooks
  */
 class BookDirectory {
+	public const DEFAULT_DELETE_BOOK_ENDPOINT = 'https://api.pressbooks.com/book-directory-fetcher/api/books/delete';
 
-	const DEFAULT_DELETE_BOOK_ENDPOINT = 'https://api.pressbooks.com/book-directory-fetcher/api/books/delete';
+	public const DELETION_PREFIX = 'remove-';
 
-	const DELETION_PREFIX = 'remove-';
-
-	const DELETIONS_META_KEY = 'book_directory_removals';
+	public const DELETIONS_META_KEY = 'book_directory_removals';
 
 	/**
 	 * @var BookDirectory
@@ -38,7 +37,7 @@ class BookDirectory {
 	 *
 	 * @return BookDirectory
 	 */
-	static public function init() {
+	public static function init() {
 
 		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
@@ -53,10 +52,8 @@ class BookDirectory {
 
 	/**
 	 * @since 5.14.3
-	 *
-	 * @param BookDirectory $obj
 	 */
-	static public function hooks( BookDirectory $obj ) {
+	public static function hooks( BookDirectory $obj ) {
 		add_filter( 'update_option_blog_public', [ $obj, 'setBookPrivate' ], 10, 2 );
 		add_action( 'wp_update_site', [ $obj, 'softDeleteActions' ], 10, 2 );
 		add_action( 'wp_delete_site', [ $obj, 'deleteAction' ], 10, 2 );
@@ -66,7 +63,6 @@ class BookDirectory {
 	 * Detects a book deletion and triggers a book deletion request to the book fetcher API.
 	 *
 	 * @param WP_Site $site
-	 *
 	 * @return bool
 	 * @since 5.14.3
 	 */
@@ -121,7 +117,7 @@ class BookDirectory {
 	 */
 	public function deleteBookFromDirectory( array $book_ids = null ) {
 		if ( filter_var( self::$delete_book_endpoint, FILTER_VALIDATE_URL ) ) {
-			$book_ids = $book_ids ?? [ get_current_blog_id() ];
+			$book_ids ??= [ get_current_blog_id() ];
 			$sid = sprintf( '%s-%s-%s', uniqid( self::DELETION_PREFIX, true ), wp_rand( 1, 99 ), $book_ids[0] );
 
 			$header = [
@@ -139,7 +135,7 @@ class BookDirectory {
 
 			try {
 				$result = \Requests::post( self::$delete_book_endpoint, $header, wp_json_encode( $data ) );
-			} catch ( \Exception $exception ) {
+			} catch ( \Exception ) {
 				update_site_option( self::DELETIONS_META_KEY, $removals );
 				return false;
 			}
