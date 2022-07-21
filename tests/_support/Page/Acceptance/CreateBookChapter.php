@@ -1,24 +1,16 @@
 <?php
 namespace Page\Acceptance;
 
-use AcceptanceTester;
-
 class CreateBookChapter
 {
-	public static $URL = '/wp-admin/post-new.php?post_type=chapter';
+	public static string $URL = '/wp-admin/post-new.php?post_type=chapter';
 
-	protected $titleField = '#title';
-	protected $contentField = '#content';
-	protected $saveButton = '#publishing-action input[type=submit]';
+	protected string $titleField = '#title';
+	protected string $contentField = '#content';
+	protected string $saveButton = '#publishing-action input[type=submit]';
 
-	/**
-	 * @var AcceptanceTester;
-	 */
-	protected $acceptanceTester;
-
-	public function __construct( AcceptanceTester $I )
+	public function __construct( protected \AcceptanceTester $acceptanceTester )
 	{
-		$this->acceptanceTester = $I;
 	}
 
 	public function createChapter( string $bookURL, string $title, string $content = null ): void

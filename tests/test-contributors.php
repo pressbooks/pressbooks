@@ -359,7 +359,7 @@ class ContributorsTest extends \WP_UnitTestCase {
 		// No change
 		global $post;
 		$args = [
-			'post_title' => 'Test Contributors Page: ' . rand(),
+			'post_title' => 'Test Contributors Page: ' . random_int(0, mt_getrandmax()),
 			'post_type' => 'back-matter',
 			'post_status' => 'publish',
 			'post_content' => 'Not empty',

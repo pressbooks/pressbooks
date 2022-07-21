@@ -52,19 +52,13 @@ class ContainerTest extends \WP_UnitTestCase {
 		Container::init( new FakeContainer() );
 
 		Container::set(
-			'test1', function () {
-				return 'test1';
-			}
+			'test1', fn() => 'test1'
 		);
 		Container::set(
-			'test2', function () {
-				return 'test2';
-			}, 'factory'
+			'test2', fn() => 'test2', 'factory'
 		);
 		Container::set(
-			'test3', function () {
-				return 'test3';
-			}, 'protect'
+			'test3', fn() => 'test3', 'protect'
 		);
 
 		$var1 = Container::get( 'test1' );
@@ -80,18 +74,14 @@ class ContainerTest extends \WP_UnitTestCase {
 
 		// Should not replace
 		Container::set(
-			'test1', function () {
-				return 'test4';
-			}
+			'test1', fn() => 'test4'
 		);
 		$var4 = Container::get( 'test1' );
 		$this->assertTrue( 'test1' == $var4 );
 
 		// Should replace
 		Container::set(
-			'test1', function () {
-				return 'test4';
-			},
+			'test1', fn() => 'test4',
 			null, true
 		);
 		$var5 = Container::get( 'test1' );

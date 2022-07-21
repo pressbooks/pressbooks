@@ -23,7 +23,7 @@ class LogTest extends \WP_UnitTestCase {
 	 */
 	private $log;
 
-	const TEST_FILE_PATH = 'tests/data/log.csv';
+	public const TEST_FILE_PATH = 'tests/data/log.csv';
 
 	/**
 	 * Test setup
@@ -103,7 +103,7 @@ class LogTest extends \WP_UnitTestCase {
 	 */
 	private function callMethodForReflection($object, string $method , array $parameters = []) {
 		try {
-			$className = get_class( $object );
+			$className = $object::class;
 			$reflection = new \ReflectionClass( $className );
 		} catch ( \ReflectionException $e ) {
 			throw new \Exception( $e->getMessage() );

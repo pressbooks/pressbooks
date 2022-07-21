@@ -57,7 +57,7 @@ class Modules_Export_ThinCCTest extends \WP_UnitTestCase {
 		$this->_book();
 		$this->weblinks->createResources();
 		foreach ( scandir( $this->weblinks->getTmpDir() ) as $file ) {
-			if ( substr( $file, 0, 2 ) === 'R_' && preg_match( '/\.xml/', $file ) ) {
+			if ( str_starts_with($file, 'R_') && preg_match( '/\.xml/', $file ) ) {
 				// At least one resource was created
 				$this->assertTrue( true );
 				return;

@@ -384,20 +384,20 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 			$exporter = new $format( [] );
 
 			if (
-				strpos( $format, '\Prince\\' ) !== false ||
-				strpos( $format, '\Odt\\' ) !== false
+				str_contains( $format, '\Prince\\' ) ||
+				str_contains( $format, '\Odt\\' )
 			) {
 				$exporter->url = $xhtml_path;
 			}
 
 			$this->assertTrue( $exporter->convert(), "Could not convert with {$module}" );
 			$paths[] = $exporter->getOutputPath();
-			if ( strpos( $format, '\Xhtml\Xhtml11' ) !== false ) {
+			if ( str_contains( $format, '\Xhtml\Xhtml11' ) ) {
 				$xhtml_path = $exporter->getOutputPath();
 			}
-			if ( strpos( $format, '\HTMLBook\HTMLBook' ) !== false ) {
+			if ( str_contains( $format, '\HTMLBook\HTMLBook' ) ) {
 				// TODO: HTMLBook is too strict we don't pass the validation
-			} elseif ( strpos( $format, '\Epub\Epub' ) !== false ) {
+			} elseif ( str_contains( $format, '\Epub\Epub' ) ) {
 				// TODO: exec(): Unable to fork [/usr/bin/java -jar /opt/epubcheck/epubcheck.jar -q /path/to.epub 2>&1]
 			} else {
 				$this->assertTrue( $exporter->validate(), "Could not validate with {$format}" );

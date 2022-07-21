@@ -37,6 +37,7 @@ class AnalyticsTest extends \WP_UnitTestCase {
 	 * @group analytics
 	 */
 	public function test_analytics_book_callback() {
+		$args = [];
 		$args[0] = 'Hello World!';
 		ob_start();
 		\Pressbooks\Admin\Analytics\analytics_book_callback( $args );
@@ -50,6 +51,7 @@ class AnalyticsTest extends \WP_UnitTestCase {
 	 * @group analytics
 	 */
 	public function test_analytics_network_callback() {
+		$args = [];
 		$args[0] = 'Hello World!';
 		ob_start();
 		\Pressbooks\Admin\Analytics\analytics_network_callback( $args );
@@ -63,6 +65,7 @@ class AnalyticsTest extends \WP_UnitTestCase {
 	 * @group analytics
 	 */
 	public function test_analytics_books_allowed_callback() {
+		$args = [];
 		$args[0] = 'Hello World!';
 		ob_start();
 		\Pressbooks\Admin\Analytics\analytics_books_allowed_callback( $args );

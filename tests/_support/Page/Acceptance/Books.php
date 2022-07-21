@@ -3,8 +3,7 @@ namespace Page\Acceptance;
 
 class Books
 {
-	// include url of current page
-	public static $URL = '/wp-admin/my-sites.php';
+	public static string $URL = '/wp-admin/my-sites.php';
 
 	/**
 	 * Declare UI map for this page here. CSS or XPath allowed.
@@ -17,19 +16,12 @@ class Books
 	 * You can append any additional parameter to URL
 	 * and use it in tests like: Page\Edit::route('/123-post');
 	 */
-	public static function route($param)
+	public static function route( string $param ): string
 	{
 		return static::$URL.$param;
 	}
 
-	/**
-	 * @var \AcceptanceTester;
-	 */
-	protected $acceptanceTester;
-
-	public function __construct(\AcceptanceTester $I)
+	public function __construct( protected \AcceptanceTester $acceptanceTester )
 	{
-		$this->acceptanceTester = $I;
 	}
-
 }

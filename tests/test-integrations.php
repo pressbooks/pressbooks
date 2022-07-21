@@ -41,13 +41,13 @@ class IntegrationsTest extends \WP_UnitTestCase {
 
 		$cloned_items = $cloner->getClonedItems();
 
-		$this->assertTrue( count( $cloned_items['metadata'] ) === 1 );
-		$this->assertTrue( count( $cloned_items['terms'] ) === 48 );
-		$this->assertTrue( count( $cloned_items['front-matter'] ) === 1 );
-		$this->assertTrue( count( $cloned_items['parts'] ) === 2 );
-		$this->assertTrue( count( $cloned_items['chapters'] ) === 5 );
-		$this->assertTrue( count( $cloned_items['back-matter'] ) === 1 );
-		$this->assertTrue( count( $cloned_items['media'] ) === 2 );
+		$this->assertTrue( (is_countable($cloned_items['metadata']) ? count( $cloned_items['metadata'] ) : 0) === 1 );
+		$this->assertTrue( (is_countable($cloned_items['terms']) ? count( $cloned_items['terms'] ) : 0) === 48 );
+		$this->assertTrue( (is_countable($cloned_items['front-matter']) ? count( $cloned_items['front-matter'] ) : 0) === 1 );
+		$this->assertTrue( (is_countable($cloned_items['parts']) ? count( $cloned_items['parts'] ) : 0) === 2 );
+		$this->assertTrue( (is_countable($cloned_items['chapters']) ? count( $cloned_items['chapters'] ) : 0) === 5 );
+		$this->assertTrue( (is_countable($cloned_items['back-matter']) ? count( $cloned_items['back-matter'] ) : 0) === 1 );
+		$this->assertTrue( (is_countable($cloned_items['media']) ? count( $cloned_items['media'] ) : 0) === 2 );
 	}
 
 	/**
@@ -92,7 +92,7 @@ class IntegrationsTest extends \WP_UnitTestCase {
 				'post_mime_type' => 'image/jpeg',
 			]
 		);
-		$this->assertEquals( 1, count( $results ) );
+		$this->assertEquals( 1, is_countable($results) ? count( $results ) : 0 );
 
 		/** @var \WP_Post $post */
 		$post = $results[0];
@@ -132,7 +132,7 @@ class IntegrationsTest extends \WP_UnitTestCase {
 		$_POST['chapters'] = $post;
 		$this->assertTrue( $importer->import( $options ) );
 
-		$this->asserttrue( count( $_SESSION['pb_notices'] ) === 1 );
+		$this->asserttrue( (is_countable($_SESSION['pb_notices']) ? count( $_SESSION['pb_notices'] ) : 0) === 1 );
 		$this->assertStringContainsString( 'Imported 1 front matter, 2 parts, 5 chapters, 1 back matter, 2 media attachments, and 0 glossary terms.', $_SESSION['pb_notices'][0] );
 		unset( $_SESSION['pb_notices'] );
 
@@ -156,7 +156,7 @@ class IntegrationsTest extends \WP_UnitTestCase {
 				'post_mime_type' => 'image/jpeg',
 			]
 		);
-		$this->assertEquals( 1, count( $results ) );
+		$this->assertEquals( 1, is_countable($results) ? count( $results ) : 0 );
 
 		/** @var \WP_Post $post */
 		$post = $results[0];

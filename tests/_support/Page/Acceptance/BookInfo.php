@@ -1,23 +1,16 @@
 <?php
 namespace Page\Acceptance;
 
-use AcceptanceTester;
-
 class BookInfo
 {
-	public static $URL = '/wp-admin/post.php?post=16&action=edit';
+	public static string $URL = '/wp-admin/post.php?post=16&action=edit';
 
-	protected $titleField = '#pb_title';
-	protected $saveButton = '#submitpost input[type=submit]';
+	protected string $titleField = '#pb_title';
 
-	/**
-	 * @var AcceptanceTester;
-	 */
-	protected $acceptanceTester;
+	protected string $saveButton = '#submitpost input[type=submit]';
 
-	public function __construct( AcceptanceTester $I )
+	public function __construct( protected \AcceptanceTester $acceptanceTester )
 	{
-		$this->acceptanceTester = $I;
 	}
 
 	public function updateBookTitle( string $bookURL, string $newTitle ): void

@@ -16,7 +16,7 @@ class CreateBookCest
 	 */
 	public function tryToCreateABook(AcceptanceTester $I, \Page\Acceptance\CreateBook $createBookPage, \Codeception\Example $example)
 	{
-		$bookWebAddress = "book".rand();
+		$bookWebAddress = "book".random_int(0, mt_getrandmax());
 		$bookTitle = "$bookWebAddress Title";
 		$createBookPage->createBook($bookWebAddress, $bookTitle, (bool) $example['blogPublic']);
 		$I->amOnPage("/$bookWebAddress/wp-admin");
@@ -25,7 +25,7 @@ class CreateBookCest
 
 	public function tryToCreateABookWithShortWebAddress(AcceptanceTester $I, \Page\Acceptance\CreateBook $createBookPage)
 	{
-		$bookWebAddress = rand(0,999);
+		$bookWebAddress = random_int(0,999);
 		$bookTitle = "$bookWebAddress Title";
 		$createBookPage->createBook($bookWebAddress, $bookTitle, true);
 		$I->see('Site name must be at least 4 characters.');

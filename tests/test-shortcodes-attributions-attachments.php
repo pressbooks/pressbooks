@@ -125,7 +125,7 @@ class Shortcodes_Attributions_Attachments extends \WP_UnitTestCase {
 		$pid = $this->_createAttachment();
 		$this->assertEmpty( $this->att->getBookMedia() ); // Once per PHP invocation, there should be no change on second call
 		$result = $this->att->getBookMedia( true ); // Or, use the reset switch
-		$this->assertEquals( 1, count( $result ) );
+		$this->assertEquals( 1, is_countable($result) ? count( $result ) : 0 );
 		$this->assertArrayHasKey( $pid, $result );
 		$this->assertStringContainsString( 'http://example.org/wp-content/uploads', $result[ $pid ] );
 	}

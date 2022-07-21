@@ -68,7 +68,7 @@ class MathJaxTest extends \WP_UnitTestCase {
 
 	public function test_sectionHasMath() {
 		$new_post = [
-			'post_title' => 'Test Chapter: ' . rand(),
+			'post_title' => 'Test Chapter: ' . random_int(0, mt_getrandmax()),
 			'post_type' => 'chapter',
 			'post_status' => 'published',
 			'post_content' => 'No math',
@@ -78,7 +78,7 @@ class MathJaxTest extends \WP_UnitTestCase {
 		$this->assertFalse( $this->mathjax->sectionHasMath());
 
 		$new_post = [
-			'post_title' => 'Test Chapter: ' . rand(),
+			'post_title' => 'Test Chapter: ' . random_int(0, mt_getrandmax()),
 			'post_type' => 'chapter',
 			'post_status' => 'published',
 			'post_content' => '[latex]\boldsymbol{\frac{m_{\textbf{drop}}gd}{V}}[/latex]',
@@ -91,7 +91,7 @@ class MathJaxTest extends \WP_UnitTestCase {
 
 	public function test_addHeaders() {
 		$new_post = [
-			'post_title' => 'Test Chapter: ' . rand(),
+			'post_title' => 'Test Chapter: ' . random_int(0, mt_getrandmax()),
 			'post_type' => 'chapter',
 			'post_status' => 'published',
 			'post_content' => 'No math',
@@ -105,7 +105,7 @@ class MathJaxTest extends \WP_UnitTestCase {
 
 
 		$new_post = [
-			'post_title' => 'Test Chapter: ' . rand(),
+			'post_title' => 'Test Chapter: ' . random_int(0, mt_getrandmax()),
 			'post_type' => 'chapter',
 			'post_status' => 'published',
 			'post_content' => '[latex]\boldsymbol{\frac{m_{\textbf{drop}}gd}{V}}[/latex]',

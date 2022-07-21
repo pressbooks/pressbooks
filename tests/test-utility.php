@@ -74,7 +74,7 @@ class UtilityTest extends \WP_UnitTestCase {
 		switch_to_blog( $this->factory()->blog->create() );
 		$prefix = \Pressbooks\Utility\get_media_prefix();
 		$this->assertTrue(
-			false !== strpos( $prefix, '/blogs.dir/' ) || false !== strpos( $prefix, '/uploads/sites/' )
+			str_contains( $prefix, '/blogs.dir/' ) || str_contains( $prefix, '/uploads/sites/' )
 		);
 	}
 
@@ -90,7 +90,7 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertStringStartsWith( WP_CONTENT_DIR, $path );
 		$this->assertStringEndsWith( 'foobar.jpg', $path );
 		$this->assertTrue(
-			false !== strpos( $path, '/blogs.dir/' ) || false !== strpos( $path, '/uploads/sites/' )
+			str_contains( $path, '/blogs.dir/' ) || str_contains( $path, '/uploads/sites/' )
 		);
 	}
 
@@ -267,8 +267,8 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertTrue( is_float( \Pressbooks\Utility\parse_size( '1' ) ) );
 
 		$this->assertEquals( 65536, \Pressbooks\Utility\parse_size( '64K' ) );
-		$this->assertEquals( 2097152, \Pressbooks\Utility\parse_size( '2M' ) );
-		$this->assertEquals( 8388608, \Pressbooks\Utility\parse_size( '8M' ) );
+		$this->assertEquals( 2_097_152, \Pressbooks\Utility\parse_size( '2M' ) );
+		$this->assertEquals( 8_388_608, \Pressbooks\Utility\parse_size( '8M' ) );
 	}
 
 	/**
@@ -282,14 +282,14 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertEquals( '1.95 KB', \Pressbooks\Utility\format_bytes( 2000 ) );
 		$this->assertEquals( '1.9531 KB', \Pressbooks\Utility\format_bytes( 2000, 4 ) );
 
-		$this->assertEquals( '1.91 MB', \Pressbooks\Utility\format_bytes( 2000000 ) );
-		$this->assertEquals( '1.9073 MB', \Pressbooks\Utility\format_bytes( 2000000, 4 ) );
+		$this->assertEquals( '1.91 MB', \Pressbooks\Utility\format_bytes( 2_000_000 ) );
+		$this->assertEquals( '1.9073 MB', \Pressbooks\Utility\format_bytes( 2_000_000, 4 ) );
 
-		$this->assertEquals( '1.86 GB', \Pressbooks\Utility\format_bytes( 2000000000 ) );
-		$this->assertEquals( '1.8626 GB', \Pressbooks\Utility\format_bytes( 2000000000, 4 ) );
+		$this->assertEquals( '1.86 GB', \Pressbooks\Utility\format_bytes( 2_000_000_000 ) );
+		$this->assertEquals( '1.8626 GB', \Pressbooks\Utility\format_bytes( 2_000_000_000, 4 ) );
 
-		$this->assertEquals( '1.82 TB', \Pressbooks\Utility\format_bytes( 2000000000000 ) );
-		$this->assertEquals( '1.819 TB', \Pressbooks\Utility\format_bytes( 2000000000000, 4 ) );
+		$this->assertEquals( '1.82 TB', \Pressbooks\Utility\format_bytes( 2_000_000_000_000 ) );
+		$this->assertEquals( '1.819 TB', \Pressbooks\Utility\format_bytes( 2_000_000_000_000, 4 ) );
 	}
 
 
@@ -319,7 +319,7 @@ class UtilityTest extends \WP_UnitTestCase {
 
 		try {
 			\Pressbooks\Utility\template( '/tmp/file/does/not/exist' );
-		} catch ( \Exception $e ) {
+		} catch ( \Exception ) {
 			$this->assertTrue( true ); // Expected exception was thrown
 			return;
 		}
@@ -649,6 +649,7 @@ class UtilityTest extends \WP_UnitTestCase {
 	 * @group utility
 	 */
 	public function test_explode_remove_and() {
+		$vars = [];
 		$this->assertEquals( '', \Pressbooks\Utility\implode_add_and( ';', [] ) );
 		$vars[] = 'One Person';
 		$this->assertEquals( 'One Person', \Pressbooks\Utility\implode_add_and( ';', $vars ) );
@@ -664,6 +665,7 @@ class UtilityTest extends \WP_UnitTestCase {
 	 * @group utility
 	 */
 	public function test_oxford_comma() {
+		$vars = [];
 		$this->assertEquals( '', \Pressbooks\Utility\oxford_comma( [] ) );
 		$vars[] = 'One Person';
 		$this->assertEquals( 'One Person', \Pressbooks\Utility\oxford_comma( $vars ) );

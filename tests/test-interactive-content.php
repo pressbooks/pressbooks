@@ -146,6 +146,7 @@ class Interactive_ContentTest extends \WP_UnitTestCase {
 	 * @group interactivecontent
 	 */
 	public function test_mediaElementConfiguration() {
+		$s = [];
 		$s['_foo'] = 'bar';
 		$s['autoRewind'] = true;
 		$s = $this->content->mediaElementConfiguration( $s );

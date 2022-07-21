@@ -57,6 +57,7 @@ class Track_BookDownloadTest extends \WP_UnitTestCase {
 	 * @group book_download
 	 */
 	public function test_download_book_call_exception() {
+		$message = null;
 		$_GET['type'] = 'epub';
 		$GLOBALS['wp_query']->query_vars = array_merge( $GLOBALS['wp_query']->query_vars, [ 'open' => 'download' ] );
 

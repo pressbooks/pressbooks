@@ -124,7 +124,7 @@ class UserBulkTest extends \WP_UnitTestCase {
 		);
 
 		$results = $this->user_bulk->bulkAddUsers();
-		$count = count( $results );
+		$count = is_countable($results) ? count( $results ) : 0;
 
 		for ( $i = 0; $i < $count; $i++ ) {
 			$this->assertTrue( in_array( $results[$i]['email'], $this->post_users ) );
@@ -201,7 +201,7 @@ class UserBulkTest extends \WP_UnitTestCase {
 		$errors = [];
 
 		foreach( $this->post_users as $email ) {
-			if ( rand( 0, 1 ) ) {
+			if ( random_int( 0, 1 ) ) {
 				array_push( $success, [
 					'email'     => $email,
 					'status'    => true
@@ -214,21 +214,21 @@ class UserBulkTest extends \WP_UnitTestCase {
 			}
 		}
 
-		$html = $this->user_bulk->getBulkResultHtml( array_merge( $success, $errors ) );
+		$html = $this->user_bulk->getBulkResultHtml( [...$success, ...$errors] );
 		$parser = new HtmlParser( true );
 		$doc = $parser->loadHTML( $html );
 
 		if ( ! empty( $success ) ) {
 			$success_message_str = $doc->getElementById( 'bulk-success' )->textContent;
 			foreach( $success as $result ) {
-				$this->assertTrue( false !== strpos( $success_message_str, $result['email'] ) );
+				$this->assertTrue( str_contains( $success_message_str, $result['email'] ) );
 			}
 		}
 
 		if ( ! empty( $errors ) ) {
 			$error_message_str = $doc->getElementById( 'bulk-errors' )->textContent;
 			foreach( $errors as $result ) {
-				$this->assertTrue( false !== strpos( $error_message_str, $result['email'] ) );
+				$this->assertTrue( str_contains( $error_message_str, $result['email'] ) );
 			}
 		}
 	}

@@ -156,7 +156,8 @@ class EditorTest extends \WP_UnitTestCase {
 	 */
 	public function test_add_anchors_to_wp_link_query() {
 
-		$post_title = 'Chapter With Anchor: ' . rand();
+		$results = [];
+		$post_title = 'Chapter With Anchor: ' . random_int(0, mt_getrandmax());
 		$new_post = [
 			'post_title' => $post_title,
 			'post_type' => 'chapter',

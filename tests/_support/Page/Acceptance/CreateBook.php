@@ -3,8 +3,7 @@ namespace Page\Acceptance;
 
 class CreateBook
 {
-	// include url of current page
-	public static $URL = '/wp/wp-signup.php';
+	public static string $URL = '/wp/wp-signup.php';
 
 	/**
 	 * Declare UI map for this page here. CSS or XPath allowed.
@@ -12,33 +11,27 @@ class CreateBook
 	 * public static $formSubmitButton = "#mainForm input[type=submit]";
 	 */
 
-	public $bookWebAddressField = '#blogname';
-	public $bookTitleField = '#blog_title';
-	public $bookPrivacyOptionOn = 'input#blog_public_on';
-	public $bookPrivacyOptionOff = 'input#blog_public_off';
-	public $createButton = '#setupform input[type=submit]';
+	public string $bookWebAddressField = '#blogname';
+	public string $bookTitleField = '#blog_title';
+	public string $bookPrivacyOptionOn = 'input#blog_public_on';
+	public string $bookPrivacyOptionOff = 'input#blog_public_off';
+	public string $createButton = '#setupform input[type=submit]';
 
 	/**
 	 * Basic route example for your current URL
 	 * You can append any additional parameter to URL
 	 * and use it in tests like: Page\Edit::route('/123-post');
 	 */
-	public static function route($param)
+	public static function route( string $param ): string
 	{
 		return static::$URL.$param;
 	}
 
-	/**
-	 * @var \AcceptanceTester;
-	 */
-	protected $acceptanceTester;
-
-	public function __construct(\AcceptanceTester $I)
+	public function __construct( protected \AcceptanceTester $acceptanceTester )
 	{
-		$this->acceptanceTester = $I;
 	}
 
-	public function createBook(string $bookWebAddress, string $bookTitle, bool $publicPrivacy = true)
+	public function createBook( string $bookWebAddress, string $bookTitle, bool $publicPrivacy = true ): void
 	{
 		$I = $this->acceptanceTester;
 
@@ -52,5 +45,4 @@ class CreateBook
 		}
 		$I->click($this->createButton);
 	}
-
 }

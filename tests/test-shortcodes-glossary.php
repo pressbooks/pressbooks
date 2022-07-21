@@ -136,7 +136,7 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 	 */
 	public function test_getGlossaryTerms() {
 		$terms = $this->gl->getGlossaryTerms();
-		$this->assertEquals( 4, count( $terms ) );
+		$this->assertEquals( 4, is_countable($terms) ? count( $terms ) : 0 );
 		$this->assertEquals( 'A computer system modeled on the human brain and <a href="https://en.wikipedia.org/wiki/Nervous_system" target="_blank">nervous system</a>.', $terms['Neural Network']['content'] );
 		$this->assertEquals( 'else,something', $terms['Neural Network']['type'] );
 		$this->assertEquals( 'publish', $terms['Neural Network']['status'] );
@@ -216,6 +216,7 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 	 * @group glossary
 	 */
 	public function test_sanitizeGlossaryTerm() {
+		$data = [];
 		$data['post_type'] = 'imaginary-post-type';
 		$data['post_content'] = '<a href="https://google.com" onclick="event.preventDefault(); alert(\'evil!\');">All</a> is <strong>good.</strong>';
 		$results = $this->gl->sanitizeGlossaryTerm( $data );
@@ -236,7 +237,7 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 		// No change
 		global $post;
 		$args = [
-			'post_title' => 'Test Glossary: ' . rand(),
+			'post_title' => 'Test Glossary: ' . random_int(0, mt_getrandmax()),
 			'post_type' => 'back-matter',
 			'post_status' => 'publish',
 			'post_content' => 'Not empty',

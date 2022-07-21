@@ -48,7 +48,7 @@ trait utilsTrait {
 
 		// Second Part & Chapter
 		$new_post = [
-			'post_title' => 'Test Part: ' . rand(),
+			'post_title' => 'Test Part: ' . random_int(0, mt_getrandmax()),
 			'post_type' => 'part',
 			'post_status' => 'publish',
 			'post_content' => 'Part content...',
@@ -130,7 +130,7 @@ https://youtu.be/Lqqsp8soXTo
 		}
 
 		$new_post = [
-			'post_title' => 'Test Chapter: ' . rand(),
+			'post_title' => 'Test Chapter: ' . random_int(0, mt_getrandmax()),
 			'post_type' => 'chapter',
 			'post_status' => 'publish',
 			'post_content' => trim( $content ),

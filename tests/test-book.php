@@ -44,7 +44,7 @@ class BookTest extends \WP_UnitTestCase {
 		$this->_createChapter(); // Create orphan
 		$structure = $book::getBookStructure();
 
-		$this->assertTrue( count( $structure['__orphans'] ) === 1 ); // In __orphans because doesn't belong to a part
+		$this->assertTrue( (is_countable($structure['__orphans']) ? count( $structure['__orphans'] ) : 0) === 1 ); // In __orphans because doesn't belong to a part
 		$vals = array_values( $structure['__orphans'] );
 		$page = array_shift( $vals );
 		$this->assertTrue( $page['export'] );
@@ -63,7 +63,7 @@ class BookTest extends \WP_UnitTestCase {
 			]
 		);
 		$structure = $book::getBookStructure( $blog_id );
-		$this->assertTrue( count( $structure['__orphans'] ) === 1 );
+		$this->assertTrue( (is_countable($structure['__orphans']) ? count( $structure['__orphans'] ) : 0) === 1 );
 		$vals = array_values( $structure['__orphans'] );
 		$page = array_shift( $vals );
 		$this->assertTrue( $page['export'] );
@@ -78,7 +78,7 @@ class BookTest extends \WP_UnitTestCase {
 		);
 		$book::deleteBookObjectCache();
 		$structure = $book::getBookStructure();
-		$this->assertTrue( count( $structure['__orphans'] ) === 1 );
+		$this->assertTrue( (is_countable($structure['__orphans']) ? count( $structure['__orphans'] ) : 0) === 1 );
 		$vals = array_values( $structure['__orphans'] );
 		$page = array_shift( $vals );
 		$this->assertFalse( $page['export'] );
@@ -95,7 +95,7 @@ class BookTest extends \WP_UnitTestCase {
 		$this->_book();
 		$this->_createChapter(); // Create orphan
 		$contents = $book::getBookContents();
-		$this->assertTrue( count( $contents['__orphans'] ) === 1 ); // In __orphans because doesn't belong to a part
+		$this->assertTrue( (is_countable($contents['__orphans']) ? count( $contents['__orphans'] ) : 0) === 1 ); // In __orphans because doesn't belong to a part
 		$vals = array_values( $contents['__orphans'] );
 		$page = array_shift( $vals );
 		$this->assertTrue( $page['export'] );
@@ -113,7 +113,7 @@ class BookTest extends \WP_UnitTestCase {
 			]
 		);
 		$contents = $book::getBookContents();
-		$this->assertTrue( count( $contents['__orphans'] ) === 1 );
+		$this->assertTrue( (is_countable($contents['__orphans']) ? count( $contents['__orphans'] ) : 0) === 1 );
 		$vals = array_values( $contents['__orphans'] );
 		$page = array_shift( $vals );
 		$this->assertTrue( $page['export'] );
@@ -128,7 +128,7 @@ class BookTest extends \WP_UnitTestCase {
 		);
 		$book::deleteBookObjectCache();
 		$contents = $book::getBookContents();
-		$this->assertTrue( count( $contents['__orphans'] ) === 1 );
+		$this->assertTrue( (is_countable($contents['__orphans']) ? count( $contents['__orphans'] ) : 0) === 1 );
 		$vals = array_values( $contents['__orphans'] );
 		$page = array_shift( $vals );
 		$this->assertFalse( $page['export'] );
@@ -463,9 +463,7 @@ class BookTest extends \WP_UnitTestCase {
 		}
 
 		add_filter(
-			'get_invalidated_codes_alternatives_mapped', function( $bisac_codes ) {
-				return [ 'TEC071000', 'COM051010', 'CRA001000', 'CRA053000' ];
-			}, 10, 1
+			'get_invalidated_codes_alternatives_mapped', fn($bisac_codes) => [ 'TEC071000', 'COM051010', 'CRA001000', 'CRA053000' ], 10, 1
 		);
 		$this->assertTrue( \Pressbooks\Book::notifyBisacCodesRemoved() );
 
@@ -511,9 +509,7 @@ class BookTest extends \WP_UnitTestCase {
 		}
 
 		add_filter(
-			'get_invalidated_codes_alternatives_mapped', function( $bisac_codes ) {
-				return [ 'CRA001000', 'CRA053000' ];
-			}, 10, 1
+			'get_invalidated_codes_alternatives_mapped', fn($bisac_codes) => [ 'CRA001000', 'CRA053000' ], 10, 1
 		);
 		$this->assertFalse( \Pressbooks\Book::notifyBisacCodesRemoved() );
 

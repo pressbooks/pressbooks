@@ -36,15 +36,11 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		$this->assertStringContainsString( 'Pressbooks', $buffer );
 
 		add_filter(
-			'pb_help_link', function() {
-				return 'https://pressbooks.community/';
-			}
+			'pb_help_link', fn() => 'https://pressbooks.community/'
 		);
 
 		add_filter(
-			'pb_contact_link', function() {
-				return 'https://pressbooks.org/contact';
-			}
+			'pb_contact_link', fn() => 'https://pressbooks.org/contact'
 		);
 
 		ob_start();
@@ -59,7 +55,7 @@ class Admin_LafTest extends \WP_UnitTestCase {
 	 * @group branding
 	 */
 	function test_replace_book_admin_menu_AND_init_css_js() {
-
+		$new_post = [];
 		global $menu, $submenu;
 
 		// Fake load the admin menu
@@ -146,6 +142,7 @@ class Admin_LafTest extends \WP_UnitTestCase {
 	 * @group branding
 	 */
 	function test_add_pb_cloner_page() {
+		$new_post = [];
 		$user_id = $this->factory()->user->create();
 		$user = get_userdata( $user_id );
 		$user->add_role( 'subscriber' );

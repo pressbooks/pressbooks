@@ -4,7 +4,6 @@ use Codeception\Actor;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\WebDriverBy;
 
-
 /**
  * Inherited Methods
  * @method void wantToTest($text)

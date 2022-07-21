@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "131a0abdc4fc9c5e944957d65ef18f3c",
+    "content-hash": "1bffa17874a96de55742f1aa0e87ef38",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -58,16 +58,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.231.9",
+            "version": "3.231.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "fbda3e544226b44f79ead89de78f220d30ef3796"
+                "reference": "e46b7c5fcb70fadf38079755982cc1d3f0583c41"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/fbda3e544226b44f79ead89de78f220d30ef3796",
-                "reference": "fbda3e544226b44f79ead89de78f220d30ef3796",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/e46b7c5fcb70fadf38079755982cc1d3f0583c41",
+                "reference": "e46b7c5fcb70fadf38079755982cc1d3f0583c41",
                 "shasum": ""
             },
             "require": {
@@ -144,9 +144,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.231.9"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.231.10"
             },
-            "time": "2022-07-19T18:14:37+00:00"
+            "time": "2022-07-20T18:17:18+00:00"
         },
         {
             "name": "composer/installers",
@@ -5351,24 +5351,23 @@
         },
         {
             "name": "pressbooks/coding-standards",
-            "version": "1.1.0",
+            "version": "dev-pbcd-update-rules",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pressbooks/coding-standards.git",
-                "reference": "e332af77b246b088c5320934296746c1033a98cb"
+                "reference": "98f7b6c9b4b77c371c0ffc7615b338dd4548aa29"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pressbooks/coding-standards/zipball/e332af77b246b088c5320934296746c1033a98cb",
-                "reference": "e332af77b246b088c5320934296746c1033a98cb",
+                "url": "https://api.github.com/repos/pressbooks/coding-standards/zipball/98f7b6c9b4b77c371c0ffc7615b338dd4548aa29",
+                "reference": "98f7b6c9b4b77c371c0ffc7615b338dd4548aa29",
                 "shasum": ""
             },
             "require": {
-                "humanmade/coding-standards": "^1.0",
-                "squizlabs/php_codesniffer": "^3.5"
+                "humanmade/coding-standards": "^1.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^7.0"
+                "phpunit/phpunit": "^9.5"
             },
             "type": "project",
             "notification-url": "https://packagist.org/downloads/",
@@ -5377,9 +5376,9 @@
             ],
             "support": {
                 "issues": "https://github.com/pressbooks/coding-standards/issues",
-                "source": "https://github.com/pressbooks/coding-standards/tree/1.1.0"
+                "source": "https://github.com/pressbooks/coding-standards/tree/pbcd-update-rules"
             },
-            "time": "2021-08-09T16:26:32+00:00"
+            "time": "2022-07-20T17:45:11+00:00"
         },
         {
             "name": "psr/container",
@@ -8263,7 +8262,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "pressbooks/coding-standards": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

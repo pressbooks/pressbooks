@@ -10,14 +10,7 @@ class OptionsMock extends \Pressbooks\Options {
 	 * @see upgrade()
 	 * @var int
 	 */
-	const VERSION = 1;
-
-	/**
-	 * Export options.
-	 *
-	 * @var array
-	 */
-	public $options;
+	public const VERSION = 1;
 
 	/**
 	 * Export defaults.
@@ -31,14 +24,13 @@ class OptionsMock extends \Pressbooks\Options {
 	 *
 	 * @param array $options The retrieved options.
 	 */
-	function __construct( array $options ) {
-		$this->options = $options;
-		$this->defaults = $this->getDefaults();
-		$this->booleans = $this->getBooleanOptions();
-		$this->strings = $this->getStringOptions();
-		$this->integers = $this->getIntegerOptions();
-		$this->floats = $this->getFloatOptions();
-		$this->predefined = $this->getPredefinedOptions();
+	function __construct( public array $options ) {
+		$this->defaults = static::getDefaults();
+		$this->booleans = static::getBooleanOptions();
+		$this->strings = static::getStringOptions();
+		$this->integers = static::getIntegerOptions();
+		$this->floats = static::getFloatOptions();
+		$this->predefined = static::getPredefinedOptions();
 
 		foreach ( $this->defaults as $key => $value ) {
 			if ( ! isset( $this->options[ $key ] ) ) {
@@ -51,8 +43,8 @@ class OptionsMock extends \Pressbooks\Options {
 	 *
 	 */
 	function init() {
-		$_page = $_option = $this->getSlug();
-		$_section = $this->getSlug() . '_section';
+		$_page = $_option = static::getSlug();
+		$_section = static::getSlug() . '_section';
 
 		add_settings_section(
 			$_section,
@@ -81,10 +73,10 @@ class OptionsMock extends \Pressbooks\Options {
 	function render() {
 	?>
 		<div class="wrap">
-			<h1><?php echo $this->getTitle(); ?></h1>
+			<h1><?php echo static::getTitle(); ?></h1>
 			<form method="post" action="options.php">
-				<?php settings_fields( $this->getSlug() );
-				do_settings_sections( $this->getSlug() );
+				<?php settings_fields( static::getSlug() );
+				do_settings_sections( static::getSlug() );
 				submit_button(); ?>
 			</form>
 		</div> <?php
@@ -255,7 +247,8 @@ class OptionsTest extends \WP_UnitTestCase {
 	 * @group options
 	 */
 	public function test_sanityChecks_ShapeShifter() {
-		add_filter( 'pb_is_shape_shifter_compatible', '__return_true' );
+		$options = [];
+  add_filter( 'pb_is_shape_shifter_compatible', '__return_true' );
 		$options[] = '\Pressbooks\Modules\ThemeOptions\EbookOptions';;
 		$options[] = '\Pressbooks\Modules\ThemeOptions\PDFOptions';
 		$options[] = '\Pressbooks\Modules\ThemeOptions\WebOptions';

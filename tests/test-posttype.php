@@ -59,6 +59,7 @@ class PostTypeTest extends \WP_UnitTestCase {
 	 * @group posttypes
 	 */
 	function test_row_actions() {
+		$actions = [];
 		$actions['do-not-touch'] = 1;
 		$actions['view'] = 1;
 		$actions['inline hide-if-no-js'] = 1;
@@ -116,6 +117,7 @@ class PostTypeTest extends \WP_UnitTestCase {
 	 */
 	function test_wp_editor_settings() {
 
+		$settings = [];
 		global $post;
 		$settings['tinymce'] = true;
 
@@ -135,6 +137,7 @@ class PostTypeTest extends \WP_UnitTestCase {
 	 * @group posttypes
 	 */
 	function test_display_post_states() {
+		$post_states = [];
 		$x = new \StdClass();
 
 		$post_states['private'] = 'Private';
@@ -181,6 +184,7 @@ class PostTypeTest extends \WP_UnitTestCase {
 	 * @group posttypes
 	 */
 	function test_add_post_types_rss() {
+		$args = [];
 		$args['feed'] = true;
 		$args = add_post_types_rss( $args );
 		$this->assertArrayHasKey( 'feed', $args );

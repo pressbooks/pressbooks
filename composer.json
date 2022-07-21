@@ -57,9 +57,9 @@
 		"codeception/module-phpbrowser": "^1.0",
 		"codeception/module-webdriver": "^1.2",
 		"lucatume/wp-browser": "^3.0",
-		"pressbooks/coding-standards": "^1.1",
+		"pressbooks/coding-standards": "dev-pbcd-update-rules",
 		"yoast/phpunit-polyfills": "^1.0.1",
-    "dms/phpunit-arraysubset-asserts": "^0.4.0",
+		"dms/phpunit-arraysubset-asserts": "^0.4.0",
 		"rector/rector": "^0.13.8"
 	},
 	"suggest": {

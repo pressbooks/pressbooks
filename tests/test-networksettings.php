@@ -7,10 +7,7 @@ class NetworkSettingsTest extends \WP_UnitTestCase {
 
 	use utilsTrait;
 
-	/**
-	 * @var \Pressbooks\Admin\Network\NetworkSettings
-	 */
-	private $networkSettings;
+	private ?\Pressbooks\Admin\Network\NetworkSettings $networkSettings = null;
 
 	public function set_up() {
 		parent::set_up();

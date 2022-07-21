@@ -50,7 +50,7 @@ class MetaboxesTest extends \WP_UnitTestCase {
 
 		// Create front-matter post
 		$new_post = [
-			'post_title' => 'Test Chapter: ' . rand(),
+			'post_title' => 'Test Chapter: ' . random_int(0, mt_getrandmax()),
 			'post_type' => 'front-matter',
 			'post_status' => 'draft',
 			'post_content' => 'Hello World',
@@ -70,7 +70,7 @@ class MetaboxesTest extends \WP_UnitTestCase {
 
 		// Create glossary post
 		$new_post = [
-			'post_title' => 'Test Glossary: ' . rand(),
+			'post_title' => 'Test Glossary: ' . random_int(0, mt_getrandmax()),
 			'post_type' => 'glossary',
 			'post_status' => 'private',
 			'post_content' => 'Hello World',
@@ -105,7 +105,7 @@ class MetaboxesTest extends \WP_UnitTestCase {
 
 		// Create front-matter post
 		$new_post = [
-			'post_title' => 'Test Chapter: ' . rand(),
+			'post_title' => 'Test Chapter: ' . random_int(0, mt_getrandmax()),
 			'post_type' => 'front-matter',
 			'post_status' => 'draft',
 			'post_content' => 'Hello World',
@@ -183,7 +183,7 @@ class MetaboxesTest extends \WP_UnitTestCase {
 
 		// Create glossary post
 		$new_post = [
-			'post_title' => 'Test Glossary: ' . rand(),
+			'post_title' => 'Test Glossary: ' . random_int(0, mt_getrandmax()),
 			'post_type' => 'glossary',
 			'post_status' => 'private',
 			'post_content' => 'Hello World',
@@ -266,7 +266,7 @@ class MetaboxesTest extends \WP_UnitTestCase {
 
 		ob_start();
 		\Pressbooks\Admin\Metaboxes\get_thema_subjects();
-		$buffer = json_decode( ob_get_clean(), true );
+		$buffer = json_decode( ob_get_clean(), true, 512, JSON_THROW_ON_ERROR );
 		$this->assertNotEmpty( $buffer['results'] );
 		// Test Select2 data format
 		$this->assertArrayHasKey( 'text', $buffer['results'][0] );
@@ -277,7 +277,7 @@ class MetaboxesTest extends \WP_UnitTestCase {
 		$_REQUEST['q'] = 'xxxxxxxxxxxxxx';
 		ob_start();
 		\Pressbooks\Admin\Metaboxes\get_thema_subjects();
-		$buffer = json_decode( ob_get_clean(), true );
+		$buffer = json_decode( ob_get_clean(), true, 512, JSON_THROW_ON_ERROR );
 		$this->assertEmpty( $buffer['results'] );
 
 		$this->_fakeAjaxDone( $reporting );

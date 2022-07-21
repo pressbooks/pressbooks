@@ -149,7 +149,7 @@ class CoverGenerator_SpineTest extends \WP_UnitTestCase {
 
 		try {
 			$pages = $this->spine->countPagesInPdf( '/tmp/file/does/not/exist' );
-		} catch ( \Exception $e ) {
+		} catch ( \Exception ) {
 			$this->assertTrue( true );
 			return;
 		}

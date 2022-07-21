@@ -22,9 +22,7 @@ class RemoteGetRetryTest extends \WP_UnitTestCase {
 		}, 1, 3);
 
 		// disable sleep to speed up tests
-		add_filter( 'pressbooks_remote_get_retry_wait_time', function( $sleep ) {
-			return 0;
-		});
+		add_filter( 'pressbooks_remote_get_retry_wait_time', fn($sleep) => 0);
 	}
 
 	/**

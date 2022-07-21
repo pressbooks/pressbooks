@@ -317,7 +317,7 @@ class ApiTest extends \WP_UnitTestCase {
 		$response = $server->dispatch( $request );
 		$data = $response->get_data();
 
-		$this->assertEquals( 2, count( $data ) );
+		$this->assertEquals( 2, is_countable($data) ? count( $data ) : 0 );
 		$this->assertInstanceOf( '\WP_REST_Response', $data[0] );
 		$this->assertInstanceOf( '\WP_REST_Response', $data[1] );
 		$this->assertEquals( 200, $data[0]->get_data()['status'] );
@@ -353,7 +353,7 @@ class ApiTest extends \WP_UnitTestCase {
 		$response = $server->dispatch( $request );
 		$data = $response->get_data();
 
-		$this->assertEquals( 2, count( $data ) );
+		$this->assertEquals( 2, is_countable($data) ? count( $data ) : 0 );
 		$this->assertInstanceOf( '\WP_REST_Response', $data[0] );
 		$this->assertInstanceOf( '\WP_REST_Response', $data[1] );
 		$this->assertEquals( 201, $data[0]->get_data()['status'] );
@@ -408,7 +408,7 @@ class ApiTest extends \WP_UnitTestCase {
 		$response = $server->dispatch( $request );
 		$data = $response->get_data();
 
-		$this->assertEquals( 3, count( $data ) );
+		$this->assertEquals( 3, is_countable($data) ? count( $data ) : 0 );
 		$this->assertEquals( 'Private: Not done', $data[0]['title']['rendered'] );
 		$this->assertEquals( 'Synapse', $data[1]['title']['rendered'] );
 	}
@@ -451,7 +451,7 @@ class ApiTest extends \WP_UnitTestCase {
 		$request = new \WP_REST_Request( 'GET', '/pressbooks/v2/glossary' );
 		$response = $server->dispatch( $request );
 		$data = $response->get_data();
-		$this->assertEquals( 2, count( $data ) );
+		$this->assertEquals( 2, is_countable($data) ? count( $data ) : 0 );
 	}
 
 }

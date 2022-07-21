@@ -42,7 +42,7 @@ class MetadataTest extends \WP_UnitTestCase {
 	 * @group metadata
 	 */
 	public function test_Metadata_JsonSerialize() {
-		$result = json_encode( $this->metadata );
+		$result = json_encode( $this->metadata, JSON_THROW_ON_ERROR );
 		$this->assertJson( $result );
 		$this->assertStringContainsString( '{"@context":"http:\/\/schema.org","@type":"Book","name":"Test Blog",', $result );
 
@@ -349,7 +349,7 @@ class MetadataTest extends \WP_UnitTestCase {
 		$this->assertArrayHasKey( 'contributor_user_url', $result['pb_illustrators'][0] );
 		$this->assertArrayHasKey( 'contributor_institution', $result['pb_contributors'][0] );
 		$this->assertEquals( $result['pb_audience'], 'adult' );
-		$this->assertEquals( $result['pb_publication_date'], 1516838400 );
+		$this->assertEquals( $result['pb_publication_date'], 1_516_838_400 );
 		$this->assertEquals( $result['pb_copyright_holder'], 'Test 6' );
 	}
 

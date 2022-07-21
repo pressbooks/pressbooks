@@ -139,16 +139,16 @@ class StylesTest extends \WP_UnitTestCase {
 		// V1
 		$this->_book( 'pressbooks-luther' );
 		$result = $this->cs->applyOverrides( '// SCSS.', '// Override.' );
-		$this->assertTrue( strpos( $result, '// SCSS.' ) === 0 );
+		$this->assertTrue( str_starts_with($result, '// SCSS.') );
 		$result = $this->cs->applyOverrides( '// SCSS.', [ '// Override 1.', '// Override 2.' ] );
-		$this->assertTrue( strpos( $result, '// SCSS.' ) === 0 );
+		$this->assertTrue( str_starts_with($result, '// SCSS.') );
 		$this->assertStringContainsString( '// Override 2.', $result );
 		// V2
 		switch_theme( 'pressbooks-book' );
 		$result = $this->cs->applyOverrides( '// SCSS.', '// Override.' );
-		$this->assertTrue( strpos( $result, '// Override.' ) === 0 );
+		$this->assertTrue( str_starts_with($result, '// Override.') );
 		$result = $this->cs->applyOverrides( '// SCSS.', [ '// Override 1.', '// Override 2.' ] );
-		$this->assertTrue( strpos( $result, '// Override 1.' ) === 0 );
+		$this->assertTrue( str_starts_with($result, '// Override 1.') );
 		$this->assertStringContainsString( '// SCSS.', $result );
 	}
 

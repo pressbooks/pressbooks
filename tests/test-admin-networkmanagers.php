@@ -27,6 +27,8 @@ class Admin_NetworkManagers extends \WP_UnitTestCase {
 	 * @group networkmanagers
 	 */
 	public function test_update_admin_status_AND_is_restricted_AND_hide_network_menus() {
+		$my_menu = [];
+		$my_submenu = [];
 		$user_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
 		grant_super_admin( $user_id );
 		wp_set_current_user( $user_id );
