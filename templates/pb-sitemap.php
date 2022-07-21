@@ -13,12 +13,12 @@ echo '<?xml version="1.0" encoding="' . get_option( 'blog_charset' ) . '"?' . '>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <?php
 
-	$query_args = array(
-		'post_type'   => array( 'post', 'page', 'front-matter', 'part', 'chapter', 'back-matter' ),
-		'post_status' => 'publish',
-		'orderby'     => 'date',
-		'posts_per_page' => 50000,
-	);
+	$query_args = [
+			'post_type' => [ 'post', 'page', 'front-matter', 'part', 'chapter', 'back-matter' ],
+			'post_status' => 'publish',
+			'orderby' => 'date',
+			'posts_per_page' => 50000
+	];
 	query_posts( $query_args );
 
 	if ( have_posts() ) : while ( have_posts() ) : the_post();

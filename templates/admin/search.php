@@ -18,8 +18,8 @@ $regex_enabled = ( defined( 'PB_ENABLE_REGEX_SEARCHREPLACE' ) && PB_ENABLE_REGEX
 				<td>
 					<select name="source">
 						<?php foreach ( $searches as $search_type ) : ?>
-							<option value="<?php echo get_class( $search_type ) ?>" <?php // @codingStandardsIgnoreLine
-							selected( stripslashes( @$_POST['source'] ), get_class( $search_type ) ); ?>/><?php echo esc_attr( $search_type->name() ) ?></option>
+							<option value="<?php echo $search_type::class ?>" <?php // @codingStandardsIgnoreLine
+							selected( stripslashes( @$_POST['source'] ), $search_type::class ); ?>/><?php echo esc_attr( $search_type->name() ) ?></option>
 						<?php endforeach; ?>
 					</select>
 				</td>
@@ -42,7 +42,7 @@ $regex_enabled = ( defined( 'PB_ENABLE_REGEX_SEARCHREPLACE' ) && PB_ENABLE_REGEX
 				<td>
 					<?php
 					// @codingStandardsIgnoreStart
-					$orderby = isset( $_POST['orderby'] ) ? $_POST['orderby'] : '';
+					$orderby = $_POST['orderby'] ?? '';
 					$regex = ! empty( $_POST['regex'] );
 					// @codingStandardsIgnoreEnd
 					?>

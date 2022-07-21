@@ -2,8 +2,8 @@
 } ?>
 <div class="wrap">
 	<h1><?php _e( 'Results', 'pressbooks' ) ?></h1>
-	<?php if ( count( $results ) > 0 ) : ?>
-	  <p><?php printf( __( '%1$s result(s) found.', 'pressbooks' ), count( $results ) ); ?></p>
+	<?php if ( (is_countable($results) ? count( $results ) : 0) > 0 ) : ?>
+	  <p><?php printf( __( '%1$s result(s) found.', 'pressbooks' ), is_countable($results) ? count( $results ) : 0 ); ?></p>
 
 		<ol class="results">
 		<?php foreach ( $results as $pos => $result ) : ?>

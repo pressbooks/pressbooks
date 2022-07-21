@@ -103,7 +103,7 @@ if ( isset( $ebook_options['ebook_start_point'] ) && ! empty( $ebook_options['eb
 		if ( 'chapter' === $slug ) :
 			?>
 			<?php
-			$parts = count( $book_structure['part'] );
+			$parts = is_countable($book_structure['part']) ? count( $book_structure['part'] ) : 0;
 			$p = 1;
 			foreach ( $book_structure['part'] as $part ) :
 				$can_edit = current_user_can( 'edit_post', $part['ID'] );
@@ -121,7 +121,7 @@ if ( isset( $ebook_options['ebook_start_point'] ) && ! empty( $ebook_options['eb
 								<div class="row-actions">
 									<?php if ( $can_edit ) { ?>
 									<a href="<?php echo admin_url( 'post.php?post=' . $part['ID'] . '&action=edit' ); ?>"><?php _e( 'Edit', 'pressbooks' ); ?></a> | <?php } ?>
-									<?php if ( count( $book_structure['part'] ) > 1 && $can_delete ) : ?>
+									<?php if ( (is_countable($book_structure['part']) ? count( $book_structure['part'] ) : 0) > 1 && $can_delete ) : ?>
 									<a class="delete-link" href="<?php echo get_delete_post_link( $part['ID'] ); ?>"><?php _e( 'Trash', 'pressbooks' ); ?></a> | <?php endif; ?>
 									<a href="<?php echo get_permalink( $part['ID'] ); ?>"><?php _e( 'View', 'pressbooks' ); ?></a>
 								</div>
@@ -158,11 +158,11 @@ if ( isset( $ebook_options['ebook_start_point'] ) && ! empty( $ebook_options['eb
 						</tr>
 					</thead>
 
-					<?php if ( count( $part['chapters'] ) > 0 ) : ?>
+					<?php if ( (is_countable($part['chapters']) ? count( $part['chapters'] ) : 0) > 0 ) : ?>
 
 					<tbody id="the-list-<?php echo $part['ID']; ?>">
 						<?php
-						$chapters = count( $part['chapters'] );
+						$chapters = is_countable($part['chapters']) ? count( $part['chapters'] ) : 0;
 						$c = 1; // Start the chapter counter
 						foreach ( $part['chapters'] as $content ) :
 							$can_edit = current_user_can( 'edit_post', $content['ID'] );
@@ -320,7 +320,7 @@ endif;
 
 			<tbody id="the-list-<?php echo $slug; ?>">
 			<?php
-			$sections = count( $book_structure[ $slug ] );
+			$sections = is_countable($book_structure[ $slug ]) ? count( $book_structure[ $slug ] ) : 0;
 			$s = 1; // Start the counter
 			foreach ( $book_structure[ $slug ] as $content ) :
 				$can_edit = current_user_can( 'edit_post', $content['ID'] );

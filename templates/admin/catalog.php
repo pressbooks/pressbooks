@@ -11,7 +11,7 @@ if ( 'edit_tags' == $_REQUEST['action'] ) :
 
 	// TODO: Move logic out of the template
 
-	@list( $user_id, $blog_id ) = explode( ':', @$_REQUEST['ID'] );
+	@[$user_id, $blog_id] = explode( ':', @$_REQUEST['ID'] );
 	$user_id = absint( $user_id );
 	$blog_id = absint( $blog_id );
 
