@@ -26,9 +26,6 @@ class Container extends \Illuminate\Container\Container {
 	 * @return mixed
 	 */
 	public function get( $var ) {
-		if ( is_null( static::$instance ) ) {
-			throw new \LogicException( 'Container not set, call init() or setInstance() before using get().' );
-		}
 		return static::$instance[ $var ];
 	}
 

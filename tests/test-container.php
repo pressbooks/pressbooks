@@ -89,14 +89,6 @@ class ContainerTest extends \WP_UnitTestCase {
 	/**
 	 * @group container
 	 */
-	public function test_getException() {
-		$this->expectException( \LogicException::class );
-		$var = Container::getInstance()->get( 'foo' );
-	}
-
-	/**
-	 * @group container
-	 */
 	public function test_setException() {
 		$this->expectException( \LogicException::class );
 		Container::set( 'foo', 'bar' );

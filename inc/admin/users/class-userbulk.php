@@ -129,7 +129,7 @@ class UserBulk {
 		return $results;
 	}
 
-	public function linkNewUserToBook( string $email, string $role ): \WP_Error | bool {
+	public function linkNewUserToBook( string $email, string $role ): \WP_Error | string {
 		$user_details = $this->generateUserNameFromEmail( $email );
 
 		if ( is_wp_error( $user_details['errors'] ) && $user_details['errors']->has_errors() ) {

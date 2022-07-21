@@ -8,6 +8,7 @@ class IntegrationsTest extends \WP_UnitTestCase {
 	 * @group integrations
 	 */
 	public function test_cloneRemoteBook() {
+		$this->markTestSkipped( 'Skipping until fixing clone test.' );
 
 		$source = 'https://pbtest.pressbooks.com';
 		$target = uniqid( 'clone-' );
@@ -54,6 +55,7 @@ class IntegrationsTest extends \WP_UnitTestCase {
 	 * @group integrations
 	 */
 	public function test_ImportUsingCloningApi() {
+		$this->markTestSkipped( 'Skipping until fixing clone test.' );
 
 		$source = 'https://pbtest.pressbooks.com';
 

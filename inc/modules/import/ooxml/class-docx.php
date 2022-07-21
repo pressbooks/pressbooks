@@ -868,6 +868,14 @@ class Docx extends Import {
 			}
 		}
 
+		if ( is_array( $path ) ) {
+			foreach ( $path as $index => $p ) {
+				$path[ $index ] = Utility\str_remove_prefix( $p, '/' );
+			}
+
+			return $path;
+		}
+
 		return Utility\str_remove_prefix( $path, '/' );
 	}
 
