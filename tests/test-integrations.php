@@ -41,13 +41,13 @@ class IntegrationsTest extends \WP_UnitTestCase {
 
 		$cloned_items = $cloner->getClonedItems();
 
-		$this->assertTrue( (is_countable($cloned_items['metadata']) ? count( $cloned_items['metadata'] ) : 0) === 1 );
-		$this->assertTrue( (is_countable($cloned_items['terms']) ? count( $cloned_items['terms'] ) : 0) === 48 );
-		$this->assertTrue( (is_countable($cloned_items['front-matter']) ? count( $cloned_items['front-matter'] ) : 0) === 1 );
-		$this->assertTrue( (is_countable($cloned_items['parts']) ? count( $cloned_items['parts'] ) : 0) === 2 );
-		$this->assertTrue( (is_countable($cloned_items['chapters']) ? count( $cloned_items['chapters'] ) : 0) === 5 );
-		$this->assertTrue( (is_countable($cloned_items['back-matter']) ? count( $cloned_items['back-matter'] ) : 0) === 1 );
-		$this->assertTrue( (is_countable($cloned_items['media']) ? count( $cloned_items['media'] ) : 0) === 2 );
+		$this->assertTrue( ( is_countable( $cloned_items['metadata'] ) ? count( $cloned_items['metadata'] ) : 0 ) === 1 );
+		$this->assertTrue( ( is_countable( $cloned_items['terms'] ) ? count( $cloned_items['terms'] ) : 0 ) === 48 );
+		$this->assertTrue( ( is_countable( $cloned_items['front-matter'] ) ? count( $cloned_items['front-matter'] ) : 0 ) === 1 );
+		$this->assertTrue( ( is_countable( $cloned_items['parts'] ) ? count( $cloned_items['parts'] ) : 0 ) === 2 );
+		$this->assertTrue( ( is_countable( $cloned_items['chapters'] ) ? count( $cloned_items['chapters'] ) : 0 ) === 5 );
+		$this->assertTrue( ( is_countable( $cloned_items['back-matter'] ) ? count( $cloned_items['back-matter'] ) : 0 ) === 1 );
+		$this->assertTrue( ( is_countable( $cloned_items['media'] ) ? count( $cloned_items['media'] ) : 0 ) === 2 );
 	}
 
 	/**
@@ -63,7 +63,11 @@ class IntegrationsTest extends \WP_UnitTestCase {
 
 		// Set webbook URL, get a list of items we can import
 		$importer = new \Pressbooks\Modules\Import\Api\Api();
-		$this->assertTrue( $importer->setCurrentImportOption( [ 'file' => '', 'url' => $source, 'type' => '' ] ) );
+		$this->assertTrue( $importer->setCurrentImportOption( [
+			'file' => '',
+			'url' => $source,
+			'type' => '',
+		] ) );
 
 		// Put a check mark in every box and import
 		$options = get_option( 'pressbooks_current_import' );
@@ -92,7 +96,7 @@ class IntegrationsTest extends \WP_UnitTestCase {
 				'post_mime_type' => 'image/jpeg',
 			]
 		);
-		$this->assertEquals( 1, is_countable($results) ? count( $results ) : 0 );
+		$this->assertEquals( 1, is_countable( $results ) ? count( $results ) : 0 );
 
 		/** @var \WP_Post $post */
 		$post = $results[0];
@@ -117,7 +121,10 @@ class IntegrationsTest extends \WP_UnitTestCase {
 		$importer = new \Pressbooks\Modules\Import\WordPress\Wxr();
 		$file = $importer->createTmpFile();
 		file_put_contents( $file, file_get_contents( __DIR__ . '/data/Pressbooks-Integration-Testing-1537214020.xml' ) );
-		$this->assertTrue( $importer->setCurrentImportOption( [ 'file' => $file, 'type' => '' ] ) );
+		$this->assertTrue( $importer->setCurrentImportOption( [
+			'file' => $file,
+			'type' => '',
+		] ) );
 
 		// Put a check mark in every box and import
 		$options = get_option( 'pressbooks_current_import' );
@@ -132,7 +139,7 @@ class IntegrationsTest extends \WP_UnitTestCase {
 		$_POST['chapters'] = $post;
 		$this->assertTrue( $importer->import( $options ) );
 
-		$this->asserttrue( (is_countable($_SESSION['pb_notices']) ? count( $_SESSION['pb_notices'] ) : 0) === 1 );
+		$this->asserttrue( ( is_countable( $_SESSION['pb_notices'] ) ? count( $_SESSION['pb_notices'] ) : 0 ) === 1 );
 		$this->assertStringContainsString( 'Imported 1 front matter, 2 parts, 5 chapters, 1 back matter, 2 media attachments, and 0 glossary terms.', $_SESSION['pb_notices'][0] );
 		unset( $_SESSION['pb_notices'] );
 
@@ -156,7 +163,7 @@ class IntegrationsTest extends \WP_UnitTestCase {
 				'post_mime_type' => 'image/jpeg',
 			]
 		);
-		$this->assertEquals( 1, is_countable($results) ? count( $results ) : 0 );
+		$this->assertEquals( 1, is_countable( $results ) ? count( $results ) : 0 );
 
 		/** @var \WP_Post $post */
 		$post = $results[0];

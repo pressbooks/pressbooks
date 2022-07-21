@@ -25,7 +25,7 @@ class ExportHelpersTest extends \WP_UnitTestCase {
 						'chapter 1',
 						'chapter 2',
 					],
-				]
+				],
 			],
 		];
 		$this->assertEquals( 7, $this->countPartsAndChapters( $book_contents ) );
@@ -97,16 +97,16 @@ class ExportHelpersTest extends \WP_UnitTestCase {
 		$xhtml_reflection = new \ReflectionClass( 'Pressbooks\Modules\Export\Xhtml\Xhtml11' );
 		$xhtml_method = $xhtml_reflection->getMethod( 'removeAttributionLink' );
 		$xhtml_method->setAccessible( true );
-		return $xhtml_method->invokeArgs( new \Pressbooks\Modules\Export\Xhtml\Xhtml11( [ ] ), [ $content ] );
+		return $xhtml_method->invokeArgs( new \Pressbooks\Modules\Export\Xhtml\Xhtml11( [] ), [ $content ] );
 	}
 
 	public function doEndnotes( $id ) {
-		$xhtml = new \Pressbooks\Modules\Export\Xhtml\Xhtml11( [ ] );
+		$xhtml = new \Pressbooks\Modules\Export\Xhtml\Xhtml11( [] );
 		return $xhtml->doEndnotes( $id );
 	}
 
 	public function doFootnotes( $id ) {
-		$xhtml = new \Pressbooks\Modules\Export\Xhtml\Xhtml11( [ ] );
+		$xhtml = new \Pressbooks\Modules\Export\Xhtml\Xhtml11( [] );
 		return $xhtml->doFootnotes( $id );
 	}
 }

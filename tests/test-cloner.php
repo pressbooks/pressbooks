@@ -142,7 +142,7 @@ class ClonerTest extends \WP_UnitTestCase {
 	 * @group cloner
 	 */
 	public function is_source_clonable_through_pb_set_source_clonable_filter(): void {
-		add_filter( 'pb_set_source_clonable', '__return_true');
+		add_filter( 'pb_set_source_clonable', '__return_true' );
 		$this->assertTrue( $this->cloner->isSourceCloneable( [ 'url' => 'https://creativecommons.org/licenses/by-nd/4.0/' ] ) );
 		$this->assertTrue( $this->cloner->isSourceCloneable( 'https://choosealicense.com/no-license/' ) );
 	}
@@ -150,7 +150,7 @@ class ClonerTest extends \WP_UnitTestCase {
 	/**
 	 * @group cloner
 	 */
-	public function test_discoverWordPressApi(){
+	public function test_discoverWordPressApi() {
 
 		// Hook a fake HTTP request response.
 		add_filter(

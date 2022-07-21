@@ -54,7 +54,7 @@ class StylesTest extends \WP_UnitTestCase {
 	public function test_get_all_custom_style_saved() {
 		$this->cs->registerPosts();
 		$this->cs->initPosts();
-		$custom_styles = ".custom-class { margin: auto; }";
+		$custom_styles = '.custom-class { margin: auto; }';
 		foreach ( [ 'web', 'epub', 'prince' ] as $slug ) {
 			$post = $this->cs->getPost( $slug );
 			$post_params = [
@@ -139,16 +139,16 @@ class StylesTest extends \WP_UnitTestCase {
 		// V1
 		$this->_book( 'pressbooks-luther' );
 		$result = $this->cs->applyOverrides( '// SCSS.', '// Override.' );
-		$this->assertTrue( str_starts_with($result, '// SCSS.') );
+		$this->assertTrue( str_starts_with( $result, '// SCSS.' ) );
 		$result = $this->cs->applyOverrides( '// SCSS.', [ '// Override 1.', '// Override 2.' ] );
-		$this->assertTrue( str_starts_with($result, '// SCSS.') );
+		$this->assertTrue( str_starts_with( $result, '// SCSS.' ) );
 		$this->assertStringContainsString( '// Override 2.', $result );
 		// V2
 		switch_theme( 'pressbooks-book' );
 		$result = $this->cs->applyOverrides( '// SCSS.', '// Override.' );
-		$this->assertTrue( str_starts_with($result, '// Override.') );
+		$this->assertTrue( str_starts_with( $result, '// Override.' ) );
 		$result = $this->cs->applyOverrides( '// SCSS.', [ '// Override 1.', '// Override 2.' ] );
-		$this->assertTrue( str_starts_with($result, '// Override 1.') );
+		$this->assertTrue( str_starts_with( $result, '// Override 1.' ) );
 		$this->assertStringContainsString( '// SCSS.', $result );
 	}
 
@@ -203,12 +203,11 @@ class StylesTest extends \WP_UnitTestCase {
 	}
 
 	public function test_isShapeShifterCompatible() {
-		$this->assertIsBool($this->cs->isShapeShifterCompatible());
+		$this->assertIsBool( $this->cs->isShapeShifterCompatible() );
 
 		add_filter( 'pb_is_shape_shifter_compatible', '__return_true' );
 		$this->assertTrue( $this->cs->isShapeShifterCompatible() );
 		remove_filter( 'pb_is_shape_shifter_compatible', '__return_true' );
-
 
 		add_filter( 'pb_is_shape_shifter_compatible', '__return_false' );
 		$this->assertFalse( $this->cs->isShapeShifterCompatible() );

@@ -6,7 +6,7 @@ class Admin_CoverGeneratorTest extends \WP_UnitTestCase {
 
 	use utilsTrait;
 
-	public function set_up(){
+	public function set_up() {
 		parent::set_up();
 		$this->_setPdfOptionsForTesting();
 	}

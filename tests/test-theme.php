@@ -1,6 +1,5 @@
 <?php
 
-use function Pressbooks\Theme\update_lock_file;
 
 class ThemeTest extends \WP_UnitTestCase {
 	use utilsTrait;

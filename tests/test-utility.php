@@ -61,7 +61,6 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertNotContains( 'data', $files );
 	}
 
-
 	//  public function test_truncate_exports() {
 	//      // TODO: Testing this as-is would delete files. Need to refactor to allow mocking the file system.
 	//      $this->markTestIncomplete();
@@ -291,7 +290,6 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertEquals( '1.82 TB', \Pressbooks\Utility\format_bytes( 2_000_000_000_000 ) );
 		$this->assertEquals( '1.819 TB', \Pressbooks\Utility\format_bytes( 2_000_000_000_000, 4 ) );
 	}
-
 
 	//  public function test_email_error_log() {
 	//      // TODO: Testing this as-is would send emails, write to error_log... Need to refactor
@@ -828,11 +826,10 @@ class UtilityTest extends \WP_UnitTestCase {
 	/**
 	 * @group utility
 	 */
-	public function test_get_number_of_invitations()
-	{
+	public function test_get_number_of_invitations() {
 		$this->_book();
 
-		$role = [ 'name' => 'author'];
+		$role = [ 'name' => 'author' ];
 		$key = wp_generate_password( 20, false );
 		$user = get_userdata( $this->factory()->user->create() );
 

@@ -157,7 +157,7 @@ class EditorTest extends \WP_UnitTestCase {
 	public function test_add_anchors_to_wp_link_query() {
 
 		$results = [];
-		$post_title = 'Chapter With Anchor: ' . random_int(0, mt_getrandmax());
+		$post_title = 'Chapter With Anchor: ' . random_int( 0, mt_getrandmax() );
 		$new_post = [
 			'post_title' => $post_title,
 			'post_type' => 'chapter',
@@ -166,12 +166,36 @@ class EditorTest extends \WP_UnitTestCase {
 		];
 		$post_id = $this->factory()->post->create_object( $new_post );
 
-		$results[] = [ 'ID' => $post_id, 'title' => $post_title, 'permalink' => 'https://pressbooks.test/book/chapter/anchor/', 'info' => 'Chapter' ];
-		$results[] = [ 'ID' => $post_id + 2, 'title' => 'Appendix', 'permalink' => 'https://pressbooks.test/book/back-matter/appendix/', 'info' => 'Back Matter' ];
-		$results[] = [ 'ID' => $post_id + 3, 'title' => 'Introduction', 'permalink' => 'https://pressbooks.test/book/front-matter/introduction/', 'info' => 'Front Matter' ];
-		$results[] = [ 'ID' => $post_id + 4, 'title' => 'Main Body', 'permalink' => 'https://pressbooks.test/book/part/main-body/', 'info' => 'Part' ];
-		$results[] = [ 'ID' => $post_id + 5, 'title' => 'Chapter 1', 'permalink' => 'https://pressbooks.test/book/chapter/chapter-1/', 'info' => 'Chapter' ];
-
+		$results[] = [
+			'ID' => $post_id,
+			'title' => $post_title,
+			'permalink' => 'https://pressbooks.test/book/chapter/anchor/',
+			'info' => 'Chapter',
+		];
+		$results[] = [
+			'ID' => $post_id + 2,
+			'title' => 'Appendix',
+			'permalink' => 'https://pressbooks.test/book/back-matter/appendix/',
+			'info' => 'Back Matter',
+		];
+		$results[] = [
+			'ID' => $post_id + 3,
+			'title' => 'Introduction',
+			'permalink' => 'https://pressbooks.test/book/front-matter/introduction/',
+			'info' => 'Front Matter',
+		];
+		$results[] = [
+			'ID' => $post_id + 4,
+			'title' => 'Main Body',
+			'permalink' => 'https://pressbooks.test/book/part/main-body/',
+			'info' => 'Part',
+		];
+		$results[] = [
+			'ID' => $post_id + 5,
+			'title' => 'Chapter 1',
+			'permalink' => 'https://pressbooks.test/book/chapter/chapter-1/',
+			'info' => 'Chapter',
+		];
 
 		/*
 		// Not used
@@ -194,7 +218,6 @@ class EditorTest extends \WP_UnitTestCase {
 		*/
 		$query = [];
 
-
 		// Relative to self
 		$_SERVER['HTTP_REFERER'] = "https://pressbooks.test/book/wp-admin/post.php?post={$post_id}&action=edit";
 		$new_results = \Pressbooks\Editor\add_anchors_to_wp_link_query( $results, $query );
@@ -202,7 +225,7 @@ class EditorTest extends \WP_UnitTestCase {
 		$this->assertEquals( $new_results[2]['permalink'], '#anchor2' );
 
 		// Link to another chapter
-		$_SERVER['HTTP_REFERER'] = "https://pressbooks.test/book/wp-admin/post.php?post=" . ( $post_id + 999 ) . "&action=edit";
+		$_SERVER['HTTP_REFERER'] = 'https://pressbooks.test/book/wp-admin/post.php?post=' . ( $post_id + 999 ) . '&action=edit';
 		$new_results = \Pressbooks\Editor\add_anchors_to_wp_link_query( $results, $query );
 		$this->assertEquals( $new_results[1]['permalink'], 'https://pressbooks.test/book/chapter/anchor#anchor1' );
 		$this->assertEquals( $new_results[2]['permalink'], 'https://pressbooks.test/book/chapter/anchor#anchor2' );

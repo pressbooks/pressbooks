@@ -117,7 +117,6 @@ class SanitizeTest extends \WP_UnitTestCase {
 		$this->assertEquals( 1, strlen( $test ) );
 	}
 
-
 	/**
 	 * Generate a string containing all the ASCII control characters
 	 *
@@ -528,7 +527,15 @@ RAW;
 			]
 		);
 		$result = \Pressbooks\Sanitize\safer_unserialize( $x );
-		$this->assertEquals( [ 'a', 'b', 'c', 'd' => [ 'e' => false ], false, false, false ], $result );
+		$this->assertEquals( [
+			'a',
+			'b',
+			'c',
+			'd' => [ 'e' => false ],
+			false,
+			false,
+			false,
+		], $result );
 
 		// Junk is not allowed
 		$x = 'This is not serialized';
@@ -578,7 +585,7 @@ RAW;
 
 		$test = '<img src=# onerror=alert(document.cookie)> HTML is allowed';
 		$test = \Pressbooks\Sanitize\sanitize_string( $test, true );
-		$this->assertEquals( '<img src="#" alt="image" /> HTML is allowed' , $test);
+		$this->assertEquals( '<img src="#" alt="image" /> HTML is allowed', $test );
 
 		$test = '&lt;img src=# onerror=alert(document.cookie)&gt; HTML should be cleaned';
 		$test = \Pressbooks\Sanitize\sanitize_string( $test );

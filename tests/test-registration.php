@@ -21,7 +21,6 @@ class Registration extends \WP_UnitTestCase {
 		remove_filter( 'gettext', '\Pressbooks\Registration\custom_signup_text' );
 	}
 
-
 	/**
 	 * @group registration
 	 */
@@ -170,7 +169,7 @@ class Registration extends \WP_UnitTestCase {
 	public function test_invitation_sent_to_existing_user() {
 		$this->_book();
 
-		$role = [ 'name' => 'author'];
+		$role = [ 'name' => 'author' ];
 		$key = wp_generate_password( 20, false );
 		$user = get_userdata( $this->factory()->user->create() );
 
@@ -205,7 +204,7 @@ class Registration extends \WP_UnitTestCase {
 	public function test_display_invitation() {
 		$this->_book();
 
-		$role = [ 'name' => 'author'];
+		$role = [ 'name' => 'author' ];
 		$key = wp_generate_password( 20, false );
 		$user = get_userdata( $this->factory()->user->create() );
 
@@ -213,7 +212,7 @@ class Registration extends \WP_UnitTestCase {
 
 		do_action( 'invite_user', $user->ID, $role, $key );
 
-		$this->assertNotEmpty( get_user_meta( $user->ID, $meta_key, true) );
+		$this->assertNotEmpty( get_user_meta( $user->ID, $meta_key, true ) );
 
 		wp_set_current_user( $user->ID );
 
@@ -231,7 +230,7 @@ class Registration extends \WP_UnitTestCase {
 	public function test_display_invitation_does_not_show_to_the_wrong_user() {
 		$this->_book();
 
-		$role = [ 'name' => 'author'];
+		$role = [ 'name' => 'author' ];
 		$key = wp_generate_password( 20, false );
 		$user = get_userdata( $this->factory()->user->create() );
 
@@ -239,7 +238,7 @@ class Registration extends \WP_UnitTestCase {
 
 		do_action( 'invite_user', $user->ID, $role, $key );
 
-		$this->assertNotEmpty( get_user_meta( $user->ID, $meta_key, true) );
+		$this->assertNotEmpty( get_user_meta( $user->ID, $meta_key, true ) );
 
 		$user_2 = get_userdata( $this->factory()->user->create() );
 		wp_set_current_user( $user_2->ID );
@@ -254,14 +253,13 @@ class Registration extends \WP_UnitTestCase {
 	/**
 	 * @group invitation
 	 */
-	public function test_nothing_is_displayed_when_user_has_no_invitation()
-	{
+	public function test_nothing_is_displayed_when_user_has_no_invitation() {
 		$this->_book();
 
 		$key = wp_generate_password( 20, false );
 		$user = get_userdata( $this->factory()->user->create() );
 
-		$this->assertEmpty( get_user_meta( $user->ID, 'new_user_' . $key, true) );
+		$this->assertEmpty( get_user_meta( $user->ID, 'new_user_' . $key, true ) );
 
 		wp_set_current_user( $user->ID );
 
@@ -278,7 +276,7 @@ class Registration extends \WP_UnitTestCase {
 	public function test_accept_invitation() {
 		$this->_book();
 
-		$role = [ 'name' => 'author'];
+		$role = [ 'name' => 'author' ];
 		$key = wp_generate_password( 20, false );
 		$user = get_userdata( $this->factory()->user->create() );
 
@@ -295,7 +293,7 @@ class Registration extends \WP_UnitTestCase {
 
 		do_action( 'invite_user', $user->ID, $role, $key );
 
-		$this->assertNotEmpty( get_user_meta( $user->ID, $meta_key, true) );
+		$this->assertNotEmpty( get_user_meta( $user->ID, $meta_key, true ) );
 
 		$_SERVER['REQUEST_URI'] = '/newbloguser/' . $key;
 		add_existing_user_to_blog( get_option( $meta_key ) );
@@ -306,11 +304,10 @@ class Registration extends \WP_UnitTestCase {
 	/**
 	 * @group invitation
 	 */
-	public function test_clean_invitation_data_does_not_delete_data_if_activation_fails()
-	{
-		$this->_book();
+	public function test_clean_invitation_data_does_not_delete_data_if_activation_fails() {
+		 $this->_book();
 
-		$role = [ 'name' => 'author'];
+		$role = [ 'name' => 'author' ];
 		$key = wp_generate_password( 20, false );
 		$user = get_userdata( $this->factory()->user->create() );
 
@@ -327,7 +324,7 @@ class Registration extends \WP_UnitTestCase {
 
 		do_action( 'invite_user', $user->ID, $role, $key );
 
-		$this->assertNotEmpty( get_user_meta( $user->ID, $meta_key, true) );
+		$this->assertNotEmpty( get_user_meta( $user->ID, $meta_key, true ) );
 
 		$_SERVER['REQUEST_URI'] = '/newbloguser/' . $key;
 		\Pressbooks\Registration\clean_invitation_data( $user->ID, false );

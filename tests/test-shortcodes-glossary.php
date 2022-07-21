@@ -103,8 +103,8 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 		$this->assertEquals( '<dl data-type="glossary"><dt data-type="glossterm"><dfn id="dfn-machine-learning-ml">Machine Learning (ML)</dfn></dt><dd data-type="glossdef"><p>Machine learning is a method of data analysis that automates analytical model building</p>
 </dd><dt data-type="glossterm"><dfn id="dfn-neural-network">Neural Network</dfn></dt><dd data-type="glossdef"><p>A computer system modeled on the human brain and <a href="https://en.wikipedia.org/wiki/Nervous_system" target="_blank">nervous system</a>.</p>
 </dd><dt data-type="glossterm"><dfn id="dfn-support-vector-machine">Support Vector Machine</dfn></dt><dd data-type="glossdef"><p>An algorithm that uses a nonlinear mapping to transform the original training data into a higher dimension</p>
-</dd></dl>'
-		, $dl );
+</dd></dl>',
+		$dl );
 		// assures found by type
 		$dl = $this->gl->glossaryTerms( 'definitions' );
 		$this->assertEquals( '<dl data-type="glossary"><dt data-type="glossterm"><dfn id="dfn-support-vector-machine">Support Vector Machine</dfn></dt><dd data-type="glossdef"><p>An algorithm that uses a nonlinear mapping to transform the original training data into a higher dimension</p>
@@ -136,7 +136,7 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 	 */
 	public function test_getGlossaryTerms() {
 		$terms = $this->gl->getGlossaryTerms();
-		$this->assertEquals( 4, is_countable($terms) ? count( $terms ) : 0 );
+		$this->assertEquals( 4, is_countable( $terms ) ? count( $terms ) : 0 );
 		$this->assertEquals( 'A computer system modeled on the human brain and <a href="https://en.wikipedia.org/wiki/Nervous_system" target="_blank">nervous system</a>.', $terms['Neural Network']['content'] );
 		$this->assertEquals( 'else,something', $terms['Neural Network']['type'] );
 		$this->assertEquals( 'publish', $terms['Neural Network']['status'] );
@@ -237,7 +237,7 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 		// No change
 		global $post;
 		$args = [
-			'post_title' => 'Test Glossary: ' . random_int(0, mt_getrandmax()),
+			'post_title' => 'Test Glossary: ' . random_int( 0, mt_getrandmax() ),
 			'post_type' => 'back-matter',
 			'post_status' => 'publish',
 			'post_content' => 'Not empty',

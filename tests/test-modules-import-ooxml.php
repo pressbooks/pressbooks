@@ -116,7 +116,7 @@ class Modules_Import_OoxmlTest extends \WP_UnitTestCase {
 		$footnotes_style = $import_class->getMethod( 'getFootnotesStyles' );
 		$footnotes_style->setAccessible( true );
 		$array_styles = $footnotes_style->invokeArgs( $this->docx, [ $text_tags, $ids ] );
-		$this->assertGreaterThan( 0, is_countable($array_styles) ? count( $array_styles ) : 0 );
+		$this->assertGreaterThan( 0, is_countable( $array_styles ) ? count( $array_styles ) : 0 );
 	}
 
 	/**

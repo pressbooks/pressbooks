@@ -16,7 +16,7 @@ class RedirectTest extends \WP_UnitTestCase {
 		global $_pb_redirect_location;
 		$_pb_redirect_location = null;
 
-		$var = "https://press��books.co�m";
+		$var = 'https://press��books.co�m';
 		\Pressbooks\Redirect\location( $var );
 		$this->assertEquals( 'https://pressbooks.com', $_pb_redirect_location );
 	}

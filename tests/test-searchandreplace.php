@@ -42,7 +42,7 @@ class SearchResultTest extends \WP_UnitTestCase {
 	 */
 	public function test_regexValidate() {
 
-		$expr = "/known/i";
+		$expr = '/known/i';
 		$result = $this->content->regexValidate( $expr );
 		$this->assertEquals( null, $result );
 

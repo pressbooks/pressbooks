@@ -1,8 +1,8 @@
 <?php
 namespace Page\Acceptance;
 
-class Login
-{
+class Login {
+
 	public static string $URL = '/wp/wp-login.php';
 
 	/**
@@ -20,22 +20,18 @@ class Login
 	 * You can append any additional parameter to URL
 	 * and use it in tests like: Page\Edit::route('/123-post');
 	 */
-	public static function route( string $param ): string
-	{
-		return static::$URL.$param;
+	public static function route( string $param ): string {
+		return static::$URL . $param;
 	}
 
-	public function __construct( protected \AcceptanceTester $acceptanceTester )
-	{
-	}
+	public function __construct( protected \AcceptanceTester $acceptanceTester ) {  }
 
-	public function login(string $name, string $password): void
-	{
+	public function login( string $name, string $password ): void {
 		$I = $this->acceptanceTester;
 
-		$I->amOnPage(self::$URL);
-		$I->fillField($this->usernameField, $name);
-		$I->fillField($this->passwordField, $password);
-		$I->click($this->loginButton);
+		$I->amOnPage( self::$URL );
+		$I->fillField( $this->usernameField, $name );
+		$I->fillField( $this->passwordField, $password );
+		$I->click( $this->loginButton );
 	}
 }

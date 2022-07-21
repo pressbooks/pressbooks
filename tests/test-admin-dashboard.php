@@ -26,7 +26,6 @@ class Admin_DashboardTest extends \WP_UnitTestCase {
 		$this->assertTrue( isset( $wp_meta_boxes['dashboard-network']['side']['low']['pb_dashboard_widget_blog'] ) );
 	}
 
-
 	/**
 	 * @group dashboard
 	 */
@@ -35,7 +34,7 @@ class Admin_DashboardTest extends \WP_UnitTestCase {
 		\Pressbooks\Admin\Dashboard\replace_root_dashboard_widgets();
 		$this->assertArrayHasKey( 'dashboard', $wp_meta_boxes );
 		$this->assertTrue( isset( $wp_meta_boxes['dashboard']['side']['low']['pb_dashboard_widget_blog'] ) );
-		$this->assertFalse( isset( $wp_meta_boxes['dashboard']['normal']['high']['pb_dashboard_widget_book_invitations']));
+		$this->assertFalse( isset( $wp_meta_boxes['dashboard']['normal']['high']['pb_dashboard_widget_book_invitations'] ) );
 	}
 
 	/**
@@ -46,7 +45,7 @@ class Admin_DashboardTest extends \WP_UnitTestCase {
 
 		global $wp_meta_boxes;
 
-		$role = [ 'name' => 'author'];
+		$role = [ 'name' => 'author' ];
 		$key = wp_generate_password( 20, false );
 		$user = get_userdata( $this->factory()->user->create() );
 
@@ -65,7 +64,7 @@ class Admin_DashboardTest extends \WP_UnitTestCase {
 
 		\Pressbooks\Admin\Dashboard\replace_root_dashboard_widgets();
 		$this->assertArrayHasKey( 'dashboard', $wp_meta_boxes );
-		$this->assertTrue( isset( $wp_meta_boxes['dashboard']['normal']['high']['pb_dashboard_widget_book_invitations']));
+		$this->assertTrue( isset( $wp_meta_boxes['dashboard']['normal']['high']['pb_dashboard_widget_book_invitations'] ) );
 	}
 
 	/**
@@ -113,7 +112,7 @@ class Admin_DashboardTest extends \WP_UnitTestCase {
 
 		$wp_meta_boxes['dashboard-user']['normal']['core']['dashboard_site_health'] = 1;
 
-		$role = [ 'name' => 'author'];
+		$role = [ 'name' => 'author' ];
 		$key = wp_generate_password( 20, false );
 		$user = get_userdata( $this->factory()->user->create() );
 
@@ -132,7 +131,7 @@ class Admin_DashboardTest extends \WP_UnitTestCase {
 
 		\Pressbooks\Admin\Dashboard\lowly_user();
 		$this->assertArrayHasKey( 'dashboard', $wp_meta_boxes );
-		$this->assertTrue( isset( $wp_meta_boxes['dashboard-user']['normal']['high']['pb_dashboard_widget_book_invitations']));
+		$this->assertTrue( isset( $wp_meta_boxes['dashboard-user']['normal']['high']['pb_dashboard_widget_book_invitations'] ) );
 	}
 
 	/**
@@ -161,13 +160,12 @@ class Admin_DashboardTest extends \WP_UnitTestCase {
 						'args' => [ '__widget_basename' => 'WordPress Events and News' ],
 					],
 				],
-			]
+			],
 		];
 		\Pressbooks\Admin\Dashboard\lowly_user();
 		$this->assertFalse( isset( $wp_meta_boxes['dashboard-user']['normal']['high']['dashboard_primary'] ) );
 		$this->assertFalse( isset( $wp_meta_boxes['dashboard-user']['normal']['high']['dashboard_site_health'] ) );
 	}
-
 
 	/**
 	 * @group dashboard

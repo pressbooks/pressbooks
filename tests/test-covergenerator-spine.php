@@ -48,7 +48,6 @@ class CoverGenerator_SpineTest extends \WP_UnitTestCase {
 		$this->assertNotEquals( $expected + 1, $this->spine->spineWidthCalculator( $pages, $ppi ) );
 	}
 
-
 	/**
 	 *  [ $pages, $caliper, $expected ]
 	 *
@@ -78,7 +77,6 @@ class CoverGenerator_SpineTest extends \WP_UnitTestCase {
 		$this->assertEquals( $expected, $this->spine->spineWidthCalculatorCaliper( $pages, $caliper ) );
 		$this->assertNotEquals( $expected + 1, $this->spine->spineWidthCalculatorCaliper( $pages, $caliper ) );
 	}
-
 
 	/**
 	 *  [ $caliper, $expected ]
@@ -113,7 +111,6 @@ class CoverGenerator_SpineTest extends \WP_UnitTestCase {
 		];
 	}
 
-
 	/**
 	 * @dataProvider caliperToPpiProvider
 	 *
@@ -137,7 +134,6 @@ class CoverGenerator_SpineTest extends \WP_UnitTestCase {
 		$this->assertEquals( 11, $pages );
 		unlink( $dest );
 	}
-
 
 	/**
 	 * @group covergenerator

@@ -1,8 +1,8 @@
 <?php
 namespace Page\Acceptance;
 
-class Home
-{
+class Home {
+
 	public static string $URL = '';
 
 	/**
@@ -16,12 +16,9 @@ class Home
 	 * You can append any additional parameter to URL
 	 * and use it in tests like: Page\Edit::route('/123-post');
 	 */
-	public static function route( string $param ): string
-	{
-		return static::$URL.$param;
+	public static function route( string $param ): string {
+		return static::$URL . $param;
 	}
 
-	public function __construct( protected \AcceptanceTester $acceptanceTester )
-	{
-	}
+	public function __construct( protected \AcceptanceTester $acceptanceTester ) {  }
 }

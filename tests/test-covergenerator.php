@@ -2,7 +2,6 @@
 
 class CoverGeneratorTest extends \WP_UnitTestCase {
 
-
 	/**
 	 * @var \Pressbooks\Covergenerator\Covergenerator
 	 * @group covergenerator

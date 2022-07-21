@@ -1,8 +1,8 @@
 <?php
 
-use Pressbooks\DataCollector\Book as DataCollector;
 use function Pressbooks\Admin\Laf\book_directory_excluded_callback;
 use Pressbooks\Admin\Network\SharingAndPrivacyOptions;
+use Pressbooks\DataCollector\Book as DataCollector;
 
 class GdprTest extends \WP_UnitTestCase {
 
@@ -25,13 +25,12 @@ class GdprTest extends \WP_UnitTestCase {
 	/**
 	 * @group privacy
 	 */
-	public static function set_up_before_class()
-	{
+	public static function set_up_before_class() {
 		parent::set_up_before_class();
 		$blog_ids = get_sites( [ 'site__not_in' => 1 ] );
 
 		foreach ( $blog_ids as $blog ) {
-			wp_delete_site($blog->blog_id);
+			wp_delete_site( $blog->blog_id );
 		}
 	}
 
@@ -39,11 +38,17 @@ class GdprTest extends \WP_UnitTestCase {
 	 * @group privacy
 	 */
 	public function test_reschedulePrivacyDeleteOldExportFiles() {
-		$nochange = (object) [ 'hook' => 'cant_touch_this', 'interval' => 3600 ];
+		$nochange = (object) [
+			'hook' => 'cant_touch_this',
+			'interval' => 3600,
+		];
 		$event = $this->privacy->reschedulePrivacyCron( $nochange );
 		$this->assertEquals( $nochange, $event );
 
-		$fixme = (object) [ 'hook' => 'wp_privacy_delete_old_export_files', 'interval' => 3600 ];
+		$fixme = (object) [
+			'hook' => 'wp_privacy_delete_old_export_files',
+			'interval' => 3600,
+		];
 		$event = $this->privacy->reschedulePrivacyCron( $fixme );
 		$this->assertEquals( $event->schedule, 'twicedaily' );
 		$this->assertEquals( $event->interval, 43200 );
@@ -129,7 +134,7 @@ class GdprTest extends \WP_UnitTestCase {
 
 		update_site_meta( get_current_blog_id(), \Pressbooks\DataCollector\Book::IN_CATALOG, 0 );
 		$this->assertCount( 1, SharingAndPrivacyOptions::getPublicBooks() );
-		$this->assertCount( 1, SharingAndPrivacyOptions::getPublicBooks(false) );
+		$this->assertCount( 1, SharingAndPrivacyOptions::getPublicBooks( false ) );
 		$this->assertCount( 1, SharingAndPrivacyOptions::getPublicBooks( true ) );
 
 		$this->_book();
@@ -204,7 +209,7 @@ class GdprTest extends \WP_UnitTestCase {
 		);
 
 		$this->assertEquals(
-			SharingAndPrivacyOptions::excludeNonCatalogBooksFromDirectoryAction( $books, true),
+			SharingAndPrivacyOptions::excludeNonCatalogBooksFromDirectoryAction( $books, true ),
 			[
 				'directory_delete_responses' => [],
 				'blogs_not_updated' => [ 9876 ],

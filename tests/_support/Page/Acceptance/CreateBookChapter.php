@@ -1,20 +1,17 @@
 <?php
 namespace Page\Acceptance;
 
-class CreateBookChapter
-{
+class CreateBookChapter {
+
 	public static string $URL = '/wp-admin/post-new.php?post_type=chapter';
 
 	protected string $titleField = '#title';
 	protected string $contentField = '#content';
 	protected string $saveButton = '#publishing-action input[type=submit]';
 
-	public function __construct( protected \AcceptanceTester $acceptanceTester )
-	{
-	}
+	public function __construct( protected \AcceptanceTester $acceptanceTester ) {  }
 
-	public function createChapter( string $bookURL, string $title, string $content = null ): void
-	{
+	public function createChapter( string $bookURL, string $title, string $content = null ): void {
 		$I = $this->acceptanceTester;
 
 		$I->amOnPage( $bookURL . self::$URL );

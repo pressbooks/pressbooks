@@ -266,7 +266,6 @@ class ImageTest extends \WP_UnitTestCase {
 		$this->assertTrue( (bool) $image_to_check->getImageAlphaChannel() );
 		$this->assertEquals( 400, getimagesize( $resized )[0] );
 
-
 		/*
 		 * Test Jpeg
 		 */

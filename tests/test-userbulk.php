@@ -52,7 +52,7 @@ class UserBulkTest extends \WP_UnitTestCase {
 	 * @group userbulk
 	 */
 	public function test_addMenu() {
-		$this->user_bulk->addMenu( );
+		$this->user_bulk->addMenu();
 		$this->assertTrue( true ); // Did not crash
 	}
 
@@ -124,11 +124,11 @@ class UserBulkTest extends \WP_UnitTestCase {
 		);
 
 		$results = $this->user_bulk->bulkAddUsers();
-		$count = is_countable($results) ? count( $results ) : 0;
+		$count = is_countable( $results ) ? count( $results ) : 0;
 
 		for ( $i = 0; $i < $count; $i++ ) {
-			$this->assertTrue( in_array( $results[$i]['email'], $this->post_users ) );
-			$this->assertEquals( $results[$i]['status'], $assertions[$i] );
+			$this->assertTrue( in_array( $results[ $i ]['email'], $this->post_users ) );
+			$this->assertEquals( $results[ $i ]['status'], $assertions[ $i ] );
 		}
 	}
 
@@ -200,34 +200,34 @@ class UserBulkTest extends \WP_UnitTestCase {
 		$success = [];
 		$errors = [];
 
-		foreach( $this->post_users as $email ) {
+		foreach ( $this->post_users as $email ) {
 			if ( random_int( 0, 1 ) ) {
 				array_push( $success, [
 					'email'     => $email,
-					'status'    => true
+					'status'    => true,
 				] );
 			} else {
 				array_push( $errors, [
 					'email'     => $email,
-					'status'    => new WP_Error( 1, 'WP error message' )
+					'status'    => new WP_Error( 1, 'WP error message' ),
 				] );
 			}
 		}
 
-		$html = $this->user_bulk->getBulkResultHtml( [...$success, ...$errors] );
+		$html = $this->user_bulk->getBulkResultHtml( [ ...$success, ...$errors ] );
 		$parser = new HtmlParser( true );
 		$doc = $parser->loadHTML( $html );
 
 		if ( ! empty( $success ) ) {
 			$success_message_str = $doc->getElementById( 'bulk-success' )->textContent;
-			foreach( $success as $result ) {
+			foreach ( $success as $result ) {
 				$this->assertTrue( str_contains( $success_message_str, $result['email'] ) );
 			}
 		}
 
 		if ( ! empty( $errors ) ) {
 			$error_message_str = $doc->getElementById( 'bulk-errors' )->textContent;
-			foreach( $errors as $result ) {
+			foreach ( $errors as $result ) {
 				$this->assertTrue( str_contains( $error_message_str, $result['email'] ) );
 			}
 		}
@@ -237,7 +237,7 @@ class UserBulkTest extends \WP_UnitTestCase {
 	 * @group userbulk
 	 */
 	public function test_getBulkMessageSubtitle() {
-		$subtitle_error =  'The following user(s) could not be added.';
+		$subtitle_error = 'The following user(s) could not be added.';
 		$subtitle_success_invite = 'User(s) successfully added to this book.';
 		$subtitle_success = 'An invitation email has been sent to the user(s) below. A confirmation link must be clicked before their account is created.';
 

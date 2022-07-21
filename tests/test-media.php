@@ -103,7 +103,6 @@ class MediaTest extends \WP_UnitTestCase {
 		}
 	}
 
-
 	/**
 	 * @group media
 	 * @see https://github.com/pressbooks/pressbooks/issues/263
@@ -128,7 +127,7 @@ class MediaTest extends \WP_UnitTestCase {
 		$this->assertStringStartsWith( '<div class="wp-nocaption aligncenter wp-image-294 size-full"><a ', $converted );
 		$this->assertStringEndsWith( '</a></div>', $converted );
 
-		// Wordpress will insert a break in specific use cases on center aligned images, we want to convert this.
+		// WordPress will insert a break in specific use cases on center aligned images, we want to convert this.
 		$case = '<p><a href="https://university.pressbooks.pub/app/uploads/sites/112/2018/12/image1-1.jpeg"><img class="aligncenter wp-image-33 size-thumbnail" src="https://university.pressbooks.pub/app/uploads/sites/112/2018/12/image1-1-150x150.jpeg" alt="Green cacti and a grey sky" width="150" height="150" /></a><br />Lorem ipsum.</p>';
 		$converted = \Pressbooks\Media\force_wrap_images( $case );
 		$this->assertStringStartsWith( '<div class="wp-nocaption aligncenter wp-image-33 size-thumbnail"><a ', $converted );
@@ -250,13 +249,13 @@ class MediaTest extends \WP_UnitTestCase {
 
 		$cover_image = get_post_meta( $post_ID, 'pb_cover_image', true );
 
-		$this->assertNotEquals( $cover_image, $image['url']);
+		$this->assertNotEquals( $cover_image, $image['url'] );
 
 		\Pressbooks\Admin\Metaboxes\upload_cover_image( $post_ID, null, $image );
 		$cover_image = get_post_meta( $post_ID, 'pb_cover_image', true );
 
-		$this->assertEquals( $cover_image, $image['url']);
-    }
+		$this->assertEquals( $cover_image, $image['url'] );
+	}
 
 	/**
 	 * @group cover_image
@@ -301,33 +300,33 @@ class MediaTest extends \WP_UnitTestCase {
 		$cover_image = get_post_meta( $post_ID, 'pb_cover_image', true );
 
 		$this->assertEmpty( $cover_image );
-    }
+	}
 
-    /**
-     * @group cover_image
-     */
-    public function test_upload_cover_image_fails_if_less_than_800_tall() {
-        $this->_book();
-        wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
+	/**
+	 * @group cover_image
+	 */
+	public function test_upload_cover_image_fails_if_less_than_800_tall() {
+		$this->_book();
+		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
 
-        $_FILES = [
-            'pb_cover_image' => [
-                'name' => 'lt_800_tall.jpeg',
-            ],
-        ];
+		$_FILES = [
+			'pb_cover_image' => [
+				'name' => 'lt_800_tall.jpeg',
+			],
+		];
 
-        $image = [
-            'file' => __DIR__ . '/data/upload/lt_800_tall.jpeg',
-            'url' => 'https://pressbooks.test/app/uploads/sites/4/2021/07/lt_800_tall.jpeg',
-            'type' => 'image/jpeg',
-        ];
+		$image = [
+			'file' => __DIR__ . '/data/upload/lt_800_tall.jpeg',
+			'url' => 'https://pressbooks.test/app/uploads/sites/4/2021/07/lt_800_tall.jpeg',
+			'type' => 'image/jpeg',
+		];
 
-        global $post_ID;
-        $post_ID = '42';
+		global $post_ID;
+		$post_ID = '42';
 
-        \Pressbooks\Admin\Metaboxes\upload_cover_image( $post_ID, null, $image );
-        $cover_image = get_post_meta( $post_ID, 'pb_cover_image', true );
+		\Pressbooks\Admin\Metaboxes\upload_cover_image( $post_ID, null, $image );
+		$cover_image = get_post_meta( $post_ID, 'pb_cover_image', true );
 
-        $this->assertEmpty( $cover_image );
-    }
+		$this->assertEmpty( $cover_image );
+	}
 }

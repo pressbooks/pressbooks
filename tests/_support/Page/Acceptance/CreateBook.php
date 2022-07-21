@@ -1,8 +1,8 @@
 <?php
 namespace Page\Acceptance;
 
-class CreateBook
-{
+class CreateBook {
+
 	public static string $URL = '/wp/wp-signup.php';
 
 	/**
@@ -22,27 +22,23 @@ class CreateBook
 	 * You can append any additional parameter to URL
 	 * and use it in tests like: Page\Edit::route('/123-post');
 	 */
-	public static function route( string $param ): string
-	{
-		return static::$URL.$param;
+	public static function route( string $param ): string {
+		return static::$URL . $param;
 	}
 
-	public function __construct( protected \AcceptanceTester $acceptanceTester )
-	{
-	}
+	public function __construct( protected \AcceptanceTester $acceptanceTester ) {  }
 
-	public function createBook( string $bookWebAddress, string $bookTitle, bool $publicPrivacy = true ): void
-	{
+	public function createBook( string $bookWebAddress, string $bookTitle, bool $publicPrivacy = true ): void {
 		$I = $this->acceptanceTester;
 
-		$I->amOnPage(self::$URL);
-		$I->fillField($this->bookWebAddressField, $bookWebAddress);
-		$I->fillField($this->bookTitleField, $bookTitle);
+		$I->amOnPage( self::$URL );
+		$I->fillField( $this->bookWebAddressField, $bookWebAddress );
+		$I->fillField( $this->bookTitleField, $bookTitle );
 		if ( $publicPrivacy ) {
-			$I->checkOption($this->bookPrivacyOptionOn);
+			$I->checkOption( $this->bookPrivacyOptionOn );
 		} else {
-			$I->checkOption($this->bookPrivacyOptionOff);
+			$I->checkOption( $this->bookPrivacyOptionOff );
 		}
-		$I->click($this->createButton);
+		$I->click( $this->createButton );
 	}
 }

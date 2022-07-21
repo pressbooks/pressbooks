@@ -56,7 +56,10 @@ class Shortcodes_Complex extends \WP_UnitTestCase {
 		$this->assertEquals( '<a id="my-anchor-with-a-title" title="My anchor"></a>', $content );
 
 		// Test an anchor with an optional class.
-		$content = $this->complex->anchorShortCodeHandler( [ 'id' => 'my-anchor', 'class' => 'admiralty' ], '', 'anchor' );
+		$content = $this->complex->anchorShortCodeHandler( [
+			'id' => 'my-anchor',
+			'class' => 'admiralty',
+		], '', 'anchor' );
 		$this->assertEquals( '<a id="my-anchor" class="admiralty"></a>', $content );
 
 		$this->assertEmpty( $this->complex->anchorShortCodeHandler( [], '', 'anchor' ) );
@@ -92,7 +95,10 @@ class Shortcodes_Complex extends \WP_UnitTestCase {
 </div>', $content );
 
 		// Test a column with class and count attributes.
-		$content = $this->complex->columnsShortCodeHandler( [ 'count' => 3, 'class' => 'my-class' ], 'Call me Ishmael.', 'columns' );
+		$content = $this->complex->columnsShortCodeHandler( [
+			'count' => 3,
+			'class' => 'my-class',
+		], 'Call me Ishmael.', 'columns' );
 		$this->assertEquals( '<div class="my-class threecolumn"><p>Call me Ishmael.</p>
 </div>', $content );
 
@@ -116,7 +122,10 @@ class Shortcodes_Complex extends \WP_UnitTestCase {
 		$this->assertEquals( '<a href="mailto:me@here.com">me@here.com</a>', wp_kses_decode_entities( $content ) );
 
 		// Test an email with an optional class.
-		$content = $this->complex->emailShortCodeHandler( [ 'address' => 'me@here.com', 'class' => 'envelope' ], '', 'email' );
+		$content = $this->complex->emailShortCodeHandler( [
+			'address' => 'me@here.com',
+			'class' => 'envelope',
+		], '', 'email' );
 		$this->assertEquals( '<a href="mailto:me@here.com" class="envelope">me@here.com</a>', wp_kses_decode_entities( $content ) );
 
 		// Test an email with an invalid address and content.
@@ -150,7 +159,10 @@ class Shortcodes_Complex extends \WP_UnitTestCase {
 		$this->assertStringContainsString( '<iframe', $content );
 
 		// Test a YouTube embed as a src attribute with a caption
-		$content = $this->complex->mediaShortCodeHandler( [ 'caption' => 'Deploy day!', 'src' => 'https://www.youtube.com/watch?v=JgIhGTpKTwM' ], '', 'embed' );
+		$content = $this->complex->mediaShortCodeHandler( [
+			'caption' => 'Deploy day!',
+			'src' => 'https://www.youtube.com/watch?v=JgIhGTpKTwM',
+		], '', 'embed' );
 		$this->assertStringContainsString( '<figure', $content );
 		$this->assertStringContainsString( '<iframe', $content );
 		$this->assertStringContainsString( '<figcaption>Deploy day!</figcaption>', $content );

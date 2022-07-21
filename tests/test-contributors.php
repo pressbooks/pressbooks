@@ -53,10 +53,10 @@ class ContributorsTest extends \WP_UnitTestCase {
 
 		\Pressbooks\Contributors::init();
 
-		$this->assertNotEmpty( $wp_filter['the_content' ]);
-		$this->assertNotEmpty( $wp_filter['handle_bulk_actions-edit-contributor' ]);
-		$this->assertNotEmpty( $wp_filter['bulk_actions-edit-contributor' ]);
-		$this->assertNotEmpty( $wp_filter['delete_contributor' ]);
+		$this->assertNotEmpty( $wp_filter['the_content'] );
+		$this->assertNotEmpty( $wp_filter['handle_bulk_actions-edit-contributor'] );
+		$this->assertNotEmpty( $wp_filter['bulk_actions-edit-contributor'] );
+		$this->assertNotEmpty( $wp_filter['delete_contributor'] );
 		$this->assertNotEmpty( $wp_filter['upload_mimes'] );
 	}
 
@@ -359,7 +359,7 @@ class ContributorsTest extends \WP_UnitTestCase {
 		// No change
 		global $post;
 		$args = [
-			'post_title' => 'Test Contributors Page: ' . random_int(0, mt_getrandmax()),
+			'post_title' => 'Test Contributors Page: ' . random_int( 0, mt_getrandmax() ),
 			'post_type' => 'back-matter',
 			'post_status' => 'publish',
 			'post_content' => 'Not empty',
@@ -439,15 +439,17 @@ class ContributorsTest extends \WP_UnitTestCase {
 		$contributor_two = $this->contributor->addBlogUser( $user_two );
 
 		$contributors = $this->getMockBuilder( Contributors::class )
-			->setMethods(['exportTaxonomyList', 'importTaxonomyList'])
+			->setMethods( [ 'exportTaxonomyList', 'importTaxonomyList' ] )
 			->getMock();
 
 		$contributors->expects( $this->once() )->method( 'exportTaxonomyList' )->with([
-			$contributor_one['term_id'], $contributor_two['term_id']
+			$contributor_one['term_id'],
+			$contributor_two['term_id'],
 		]);
 
 		$contributors->handleBulkAction( false, 'contributor-download', [
-			$contributor_one['term_id'], $contributor_two['term_id']
+			$contributor_one['term_id'],
+			$contributor_two['term_id'],
 		]);
 
 		$contributors->expects( $this->once() )->method( 'importTaxonomyList' );
@@ -485,7 +487,7 @@ class ContributorsTest extends \WP_UnitTestCase {
 		);
 
 		$contributors = $this->getMockBuilder( Contributors::class )
-			->setMethods(['downloadJson'])
+			->setMethods( [ 'downloadJson' ] )
 			->getMock();
 
 		$contributors->expects( $this->once() )
@@ -493,15 +495,14 @@ class ContributorsTest extends \WP_UnitTestCase {
 			->with( $content );
 
 		$contributors->handleBulkAction( false, 'contributor-download', [
-			$contributor['term_id']
+			$contributor['term_id'],
 		]);
 	}
 
 	/**
 	 * @group contributors
 	 */
-	public function test_getUrlFields()
-	{
+	public function test_getUrlFields() {
 		$fields = $this->contributor->getUrlFields();
 
 		$this->assertContains( 'contributor_picture', $fields );
@@ -514,8 +515,7 @@ class ContributorsTest extends \WP_UnitTestCase {
 	/**
 	 * @group contributors
 	 */
-	public function test_sanitizeField()
-	{
+	public function test_sanitizeField() {
 		$value = $this->contributor->sanitizeField( 'contributor_description', 'I\'m a <strong>description</strong>' );
 
 		$this->assertEquals( 'I\'m a <strong>description</strong>', $value );
@@ -603,7 +603,7 @@ class ContributorsTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'John', $items[0]['contributor_first_name'] );
 		$this->assertEquals( 'Doe', $items[0]['contributor_last_name'] );
 		$this->assertEquals( '', $items[0]['contributor_suffix'] );
-		$this->assertEquals( "Biographical info <strong>with some html</strong>", $items[0]['contributor_description'] );
+		$this->assertEquals( 'Biographical info <strong>with some html</strong>', $items[0]['contributor_description'] );
 		$this->assertEquals( 'Rebus Foundation', $items[0]['contributor_institution'] );
 		$this->assertEquals( 'https://someurl.com', $items[0]['contributor_user_url'] );
 		$this->assertEquals( 'https://twitter.com/johndoe', $items[0]['contributor_twitter'] );
@@ -612,16 +612,16 @@ class ContributorsTest extends \WP_UnitTestCase {
 
 		$json = json_encode( $items, JSON_PRETTY_PRINT );
 
-		$this->assertStringContainsString('"name": "John Doe"', $json);
-		$this->assertStringContainsString('"contributor_prefix": "Dr."', $json);
-		$this->assertStringContainsString('"contributor_first_name": "John"', $json);
-		$this->assertStringContainsString('"contributor_last_name": "Doe"', $json);
-		$this->assertStringContainsString('"contributor_description": "Biographical info <strong>with some html<\/strong>"', $json);
-		$this->assertStringContainsString('"contributor_institution": "Rebus Foundation"', $json);
-		$this->assertStringContainsString('"contributor_user_url": "https:\/\/someurl.com"', $json);
-		$this->assertStringContainsString('"contributor_twitter": "https:\/\/twitter.com\/johndoe"', $json);
-		$this->assertStringContainsString('"contributor_linkedin": "https:\/\/linkedin.com\/in\/johndoe"', $json);
-		$this->assertStringContainsString('"contributor_github": "https:\/\/github.com\/johndoe"', $json);
+		$this->assertStringContainsString( '"name": "John Doe"', $json );
+		$this->assertStringContainsString( '"contributor_prefix": "Dr."', $json );
+		$this->assertStringContainsString( '"contributor_first_name": "John"', $json );
+		$this->assertStringContainsString( '"contributor_last_name": "Doe"', $json );
+		$this->assertStringContainsString( '"contributor_description": "Biographical info <strong>with some html<\/strong>"', $json );
+		$this->assertStringContainsString( '"contributor_institution": "Rebus Foundation"', $json );
+		$this->assertStringContainsString( '"contributor_user_url": "https:\/\/someurl.com"', $json );
+		$this->assertStringContainsString( '"contributor_twitter": "https:\/\/twitter.com\/johndoe"', $json );
+		$this->assertStringContainsString( '"contributor_linkedin": "https:\/\/linkedin.com\/in\/johndoe"', $json );
+		$this->assertStringContainsString( '"contributor_github": "https:\/\/github.com\/johndoe"', $json );
 	}
 
 	/**
@@ -629,7 +629,7 @@ class ContributorsTest extends \WP_UnitTestCase {
 	 */
 	public function test_importTaxonomyList() {
 		$contributors = $this->getMockBuilder( Contributors::class )
-			->setMethods(['handleUpload'])
+			->setMethods( [ 'handleUpload' ] )
 			->getMock();
 
 		copy( __DIR__ . '/data/test-contributor-list.json', __DIR__ . '/data/upload/test-contributor-list.json' );
@@ -647,7 +647,7 @@ class ContributorsTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'John Doe', $term->name );
 		$this->assertEquals( 'johndoe', $term->slug );
 		$this->assertArrayHasKey( 'pb_notices', $_SESSION );
-		$this->assertContains( 'Successfully imported.', $_SESSION[ 'pb_notices'] );
+		$this->assertContains( 'Successfully imported.', $_SESSION['pb_notices'] );
 
 		unset( $_SESSION['pb_notices'] );
 	}
@@ -657,7 +657,7 @@ class ContributorsTest extends \WP_UnitTestCase {
 	 */
 	public function test_skipsImportCsv() {
 		$contributors = $this->getMockBuilder( Contributors::class )
-			->setMethods(['handleUpload'])
+			->setMethods( [ 'handleUpload' ] )
 			->getMock();
 
 		$contributors->expects( $this->once() )
@@ -708,21 +708,21 @@ class ContributorsTest extends \WP_UnitTestCase {
 			'role' => 'contributor',
 			'first_name' => 'John',
 			'last_name' => 'Doe',
-			'user_nicename' => 'johndoe'
+			'user_nicename' => 'johndoe',
 		] );
 
 		$monsieur_fake_id = $this->factory()->user->create([
 			'role' => 'contributor',
 			'first_name' => 'Monsieur',
 			'last_name' => 'Fake',
-			'user_nicename' => 'monsieurfake'
+			'user_nicename' => 'monsieurfake',
 		] );
 
 		$result = $this->contributor->addBlogUser( $john_doe_id );
 		$john_doe = get_term( $result['term_id'], 'contributor' );
 
 		$result = $this->contributor->addBlogUser( $monsieur_fake_id );
-		$monsieur_fake = get_term( $result[ 'term_id'], 'contributor' );
+		$monsieur_fake = get_term( $result['term_id'], 'contributor' );
 
 		add_post_meta( $post_id, 'pb_authors', $john_doe->slug );
 		add_post_meta( $post_id, 'pb_authors', $monsieur_fake->slug );
@@ -742,7 +742,7 @@ class ContributorsTest extends \WP_UnitTestCase {
 
 		$authors = $wpdb->get_results( "SELECT meta_value FROM {$wpdb->prefix}postmeta WHERE post_id = $post_id and meta_key = 'pb_authors'" );
 
-		$this->assertNull( get_term( $result[ 'term_id'], 'contributor' ) );
+		$this->assertNull( get_term( $result['term_id'], 'contributor' ) );
 		$this->assertCount( 1, $authors );
 		$this->assertNotEquals( 'monsieurfake', $authors[0]->meta_value );
 	}

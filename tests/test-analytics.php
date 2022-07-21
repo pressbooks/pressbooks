@@ -80,7 +80,7 @@ class AnalyticsTest extends \WP_UnitTestCase {
 	 */
 	public function test_display_network_analytics_settings() {
 		ob_start();
-		\Pressbooks\Admin\Analytics\display_network_analytics_settings( );
+		\Pressbooks\Admin\Analytics\display_network_analytics_settings();
 		$buffer = ob_get_clean();
 		$this->assertStringContainsString( '</form>', $buffer );
 	}
@@ -90,7 +90,7 @@ class AnalyticsTest extends \WP_UnitTestCase {
 	 */
 	public function test_display_book_analytics_settings() {
 		ob_start();
-		\Pressbooks\Admin\Analytics\display_book_analytics_settings( );
+		\Pressbooks\Admin\Analytics\display_book_analytics_settings();
 		$buffer = ob_get_clean();
 		$this->assertStringContainsString( '</form>', $buffer );
 	}

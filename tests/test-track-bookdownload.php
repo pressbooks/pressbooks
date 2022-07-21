@@ -12,11 +12,11 @@ class Track_BookDownloadTest extends \WP_UnitTestCase {
 
 		global $wpdb;
 
-		$reflection = new ReflectionClass(BookDownload::class);
-		$instance = $reflection->getProperty('instance');
-		$instance->setAccessible(true);
-		$instance->setValue(null);
-		$instance->setAccessible(false);
+		$reflection = new ReflectionClass( BookDownload::class );
+		$instance = $reflection->getProperty( 'instance' );
+		$instance->setAccessible( true );
+		$instance->setValue( null );
+		$instance->setAccessible( false );
 
 		$this->_book();
 
@@ -61,9 +61,9 @@ class Track_BookDownloadTest extends \WP_UnitTestCase {
 		$_GET['type'] = 'epub';
 		$GLOBALS['wp_query']->query_vars = array_merge( $GLOBALS['wp_query']->query_vars, [ 'open' => 'download' ] );
 
-		try{
+		try {
 			\Pressbooks\Redirect\do_open();
-		} catch (\WPDieException $e) {
+		} catch ( \WPDieException $e ) {
 			$message = $e->getMessage();
 		}
 

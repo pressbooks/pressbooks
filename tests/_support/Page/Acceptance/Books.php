@@ -1,8 +1,8 @@
 <?php
 namespace Page\Acceptance;
 
-class Books
-{
+class Books {
+
 	public static string $URL = '/wp-admin/my-sites.php';
 
 	/**
@@ -16,12 +16,9 @@ class Books
 	 * You can append any additional parameter to URL
 	 * and use it in tests like: Page\Edit::route('/123-post');
 	 */
-	public static function route( string $param ): string
-	{
-		return static::$URL.$param;
+	public static function route( string $param ): string {
+		return static::$URL . $param;
 	}
 
-	public function __construct( protected \AcceptanceTester $acceptanceTester )
-	{
-	}
+	public function __construct( protected \AcceptanceTester $acceptanceTester ) {  }
 }

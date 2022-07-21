@@ -27,8 +27,8 @@ class ThemeLockTest extends \WP_UnitTestCase {
 		$this->assertTrue( $instance instanceof \Pressbooks\Theme\Lock );
 	}
 
-//	public function test_hooks() { // TODO
-//	}
+	//  public function test_hooks() { // TODO
+	//  }
 
 	/**
 	 * @group themes

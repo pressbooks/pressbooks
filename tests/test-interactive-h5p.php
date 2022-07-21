@@ -8,7 +8,6 @@ class Interactive_H5PTest extends \WP_UnitTestCase {
 	 */
 	protected $h5p;
 
-
 	/**
 	 * @group interactivecontent
 	 */

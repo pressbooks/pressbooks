@@ -12,7 +12,6 @@ class SassTest extends \WP_UnitTestCase {
 	 */
 	protected $sass;
 
-
 	/**
 	 * @group styles
 	 */

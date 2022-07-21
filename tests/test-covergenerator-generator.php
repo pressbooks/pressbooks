@@ -77,5 +77,4 @@ class CoverGenerator_GeneratorTest extends \WP_UnitTestCase {
 		$this->assertStringContainsString( 'jpeg', \Pressbooks\Media\mime_type( $output_path ) );
 	}
 
-
 }

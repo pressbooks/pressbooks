@@ -52,7 +52,7 @@ class Interactive_PhetTest extends \WP_UnitTestCase {
 			''
 		);
 		$this->assertStringContainsString(
-			"<iframe id=\"iframe-phet-1\" src=\"https://phet.colorado.edu/sims/html/i\" width=\"800\" height=\"600\" scrolling=\"no\" allowfullscreen></iframe>",
+			'<iframe id="iframe-phet-1" src="https://phet.colorado.edu/sims/html/i" width="800" height="600" scrolling="no" allowfullscreen></iframe>',
 			$iframe_html
 		);
 	}

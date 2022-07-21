@@ -18,7 +18,6 @@ class Admin_SiteMapTest extends \WP_UnitTestCase {
 		$this->sitemap = new \Pressbooks\Admin\SiteMap();
 	}
 
-
 	/**
 	 * @group eventstreams
 	 */
@@ -51,6 +50,5 @@ class Admin_SiteMapTest extends \WP_UnitTestCase {
 		$this->assertStringContainsString( '>Log Out</a>', $buffer );
 		$this->assertStringContainsString( '>Dashboard</a>', $buffer );
 	}
-
 
 }

@@ -16,7 +16,6 @@ class EventStreamsTest extends \WP_UnitTestCase {
 		$this->eventStreams = new \Pressbooks\EventStreams();
 	}
 
-
 	/**
 	 * @return Generator
 	 * @group eventstreams

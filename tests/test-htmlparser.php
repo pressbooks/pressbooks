@@ -2,9 +2,7 @@
 
 use Pressbooks\HtmlParser;
 
-
 class HtmlParserTest extends \WP_UnitTestCase {
-
 
 	/**
 	 * @group htmlparser

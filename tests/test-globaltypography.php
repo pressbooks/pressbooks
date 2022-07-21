@@ -1,7 +1,7 @@
 <?php
 
-use \Pressbooks\GlobalTypography;
 use \Pressbooks\Container;
+use \Pressbooks\GlobalTypography;
 
 class GlobalTypographyTest extends \WP_UnitTestCase {
 
@@ -87,7 +87,7 @@ class GlobalTypographyTest extends \WP_UnitTestCase {
 				} else {
 					$this->assertTrue( false, "Cannot download: {$url}" );
 				}
-				$this->assertStringContainsString( "https://raw.githubusercontent.com", $font_url );
+				$this->assertStringContainsString( 'https://raw.githubusercontent.com', $font_url );
 			}
 		}
 	}

@@ -28,7 +28,7 @@ class Admin_Network_Managers_List_Table extends \WP_UnitTestCase {
 		update_site_option( 'pressbooks_network_managers', [ $user_id ] );
 		$this->table->prepare_items();
 		// Two super-admins
-		$this->assertEquals( is_countable($this->table->items) ? count( $this->table->items ) : 0, 2 );
+		$this->assertEquals( is_countable( $this->table->items ) ? count( $this->table->items ) : 0, 2 );
 		// Normal username
 		$this->assertEquals( $this->table->items[0]['user_login'], 'admin' );
 		// Weird username

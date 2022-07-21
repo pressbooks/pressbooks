@@ -101,7 +101,7 @@ class LogTest extends \WP_UnitTestCase {
 	 * @return mixed
 	 * @throws ReflectionException
 	 */
-	private function callMethodForReflection($object, string $method , array $parameters = []) {
+	private function callMethodForReflection( $object, string $method, array $parameters = [] ) {
 		try {
 			$className = $object::class;
 			$reflection = new \ReflectionClass( $className );
@@ -120,7 +120,7 @@ class LogTest extends \WP_UnitTestCase {
 	 */
 	public function test_s3_store() {
 		$this->setS3ClientMock();
-		$this->log->addRowToData( 'Test key 1', ['Test value'] );
+		$this->log->addRowToData( 'Test key 1', [ 'Test value' ] );
 		$this->log->addRowToData( 'Test key 2', [
 			'Test a' => 'Test b',
 			'Test c' => 'Test d',
@@ -143,7 +143,7 @@ class LogTest extends \WP_UnitTestCase {
 	public function test_s3_invalid_store_action_because_fake_env_variables() {
 		$s3_provider = new Log\S3StorageProvider( 'tests/data', 'log.csv' );
 		$this->log = new Log\Log( $s3_provider );
-		$this->log->addRowToData( 'Test key 1', ['Test value'] );
+		$this->log->addRowToData( 'Test key 1', [ 'Test value' ] );
 		$this->log->addRowToData( 'Test key 2', [
 			'Test a' => 'Test b',
 			'Test c' => 'Test d',
@@ -164,7 +164,7 @@ class LogTest extends \WP_UnitTestCase {
 	 */
 	public function test_cloudwatch_store() {
 		$this->setLoggerMock();
-		$this->log->addRowToData( 'Test key 1', ['Test value'] );
+		$this->log->addRowToData( 'Test key 1', [ 'Test value' ] );
 		$this->log->addRowToData( 'Test key 2', [
 			'Test a' => 'Test b',
 			'Test c' => 'Test d',
@@ -178,7 +178,7 @@ class LogTest extends \WP_UnitTestCase {
 	public function test_cloudwatch_invalid_store_action_because_fake_env_variables() {
 		$cloudwatch_provider = new Log\CloudWatchProvider( 90, 'pressbooks-logs', 'pressbooks-plugin', 'saml-logs' );
 		$this->log = new Log\Log( $cloudwatch_provider );
-		$this->log->addRowToData( 'Test key 1', ['Test value'] );
+		$this->log->addRowToData( 'Test key 1', [ 'Test value' ] );
 		$this->log->addRowToData( 'Test key 2', [
 			'Test a' => 'Test b',
 			'Test c' => 'Test d',

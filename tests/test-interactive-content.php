@@ -34,7 +34,6 @@ class Interactive_ContentTest extends \WP_UnitTestCase {
 		$this->assertStringContainsString( '[embed]https://garbage.com/bad.html[/embed]', $result );
 		$this->assertStringNotContainsString( '<p>', $result );
 
-
 		$raw = '
 		Test Three
 		<iframe src="https://docs.google.com/forms/d/e/xxx/viewform?embedded=true" width="640" height="398" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>

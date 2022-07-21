@@ -2,7 +2,7 @@
 
 class ThemeOptionsTest extends \WP_UnitTestCase {
 
-    use utilsTrait;
+	use utilsTrait;
 
 	/**
 	 * @var \Pressbooks\Modules\ThemeOptions\Admin

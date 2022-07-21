@@ -4,7 +4,6 @@ require_once( PB_PLUGIN_DIR . 'inc/admin/networkmanagers/namespace.php' );
 
 class Admin_NetworkManagers extends \WP_UnitTestCase {
 
-
 	/**
 	 * @group networkmanagers
 	 */

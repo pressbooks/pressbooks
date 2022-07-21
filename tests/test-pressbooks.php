@@ -2,13 +2,11 @@
 
 class PressbooksTest extends \WP_UnitTestCase {
 
-
 	/**
 	 * @var \Pressbooks\Pressbooks()
 	 * @group plugin
 	 */
 	protected $pb;
-
 
 	/**
 	 * @group plugin
@@ -22,7 +20,12 @@ class PressbooksTest extends \WP_UnitTestCase {
 	 * @group plugin
 	 */
 	public function test_allowedBookThemes() {
-		$result = $this->pb->allowedBookThemes( [ 'pressbooks-book' => true, 'pressbooks-clarke' => true, 'pressbooks-fake' => true, 'twentyseventeen' => true ] );
+		$result = $this->pb->allowedBookThemes( [
+			'pressbooks-book' => true,
+			'pressbooks-clarke' => true,
+			'pressbooks-fake' => true,
+			'twentyseventeen' => true,
+		] );
 		$this->assertTrue( is_array( $result ) );
 		$this->assertCount( 2, $result );
 		$this->assertArrayHasKey( 'pressbooks-book', $result );
@@ -33,7 +36,12 @@ class PressbooksTest extends \WP_UnitTestCase {
 	 * @group plugin
 	 */
 	public function test_allowedRootThemes() {
-		$result = $this->pb->allowedRootThemes( [ 'pressbooks-book' => true, 'pressbooks-clarke' => true, 'pressbooks-fake' => true, 'twentytwenty' => true ] );
+		$result = $this->pb->allowedRootThemes( [
+			'pressbooks-book' => true,
+			'pressbooks-clarke' => true,
+			'pressbooks-fake' => true,
+			'twentytwenty' => true,
+		] );
 		$this->assertTrue( is_array( $result ) );
 		$this->assertCount( 1, $result );
 		$this->assertArrayHasKey( 'twentytwenty', $result );

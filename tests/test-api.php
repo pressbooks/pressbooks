@@ -1,9 +1,9 @@
 <?php
 
-use Pressbooks\Api\Endpoints\Controller\Posts;
-use Pressbooks\Container;
-
 use function \Pressbooks\Metadata\book_information_to_schema;
+use Pressbooks\Api\Endpoints\Controller\Posts;
+
+use Pressbooks\Container;
 
 class ApiTest extends \WP_UnitTestCase {
 
@@ -154,10 +154,10 @@ class ApiTest extends \WP_UnitTestCase {
 		$request = new \WP_REST_Request( 'GET', '/pressbooks/v2/theme' );
 		$response = $server->dispatch( $request );
 		$data = $response->get_data();
-		$this->assertEquals($web_settings['webbook_width'], $data['options']['web']['webbook_width'] );
-		$this->assertEquals($global_settings['chapter_label'], $data['options']['global']['chapter_label'] );
-		$this->assertEquals($pdf_settings['pdf_footnote_font_size'], $data['options']['pdf']['pdf_footnote_font_size'] );
-		$this->assertEquals($ebook_settings['ebook_body_font'], $data['options']['ebook']['ebook_body_font'] );
+		$this->assertEquals( $web_settings['webbook_width'], $data['options']['web']['webbook_width'] );
+		$this->assertEquals( $global_settings['chapter_label'], $data['options']['global']['chapter_label'] );
+		$this->assertEquals( $pdf_settings['pdf_footnote_font_size'], $data['options']['pdf']['pdf_footnote_font_size'] );
+		$this->assertEquals( $ebook_settings['ebook_body_font'], $data['options']['ebook']['ebook_body_font'] );
 	}
 
 	/**
@@ -165,7 +165,7 @@ class ApiTest extends \WP_UnitTestCase {
 	 */
 	public function test_informationToSchema() {
 		$book_information = [
-			"pb_authors" => [
+			'pb_authors' => [
 				[
 					'name' => 'admin',
 					'contributor_first_name' => 'Pat',
@@ -173,20 +173,20 @@ class ApiTest extends \WP_UnitTestCase {
 					'contributor_description' => 'The drummer is the leader of any band',
 				],
 			],
-            "pb_title" => "The onboarding process",
-			"pb_language" => "en",
-			"pb_cover_image" => "https://pressbooks.test/app/plugins/pressbooks/assets/dist/images/default-book-cover.jpg",
-			"pb_thumbnail" => "https://pressbooks.test/app/plugins/pressbooks/assets/dist/images/default-book-cover.jpg",
-            "pb_primary_subject" => "YXHB",
-			"pb_additional_subjects" => "ATL, ABK",
-			"pb_subtitle" => "subtitle test",
-			"pb_word_count" => "4840",
-            "pb_storage_size" => "39570177",
-            "pb_in_catalog" => 1,
-            "pb_h5p_activities" => 6,
-            "pb_book_url" => "https://pressbooks.test/theonboarding",
-            "pb_book_directory_excluded" => 1,
-			"last_updated" => 1584921600,
+			'pb_title' => 'The onboarding process',
+			'pb_language' => 'en',
+			'pb_cover_image' => 'https://pressbooks.test/app/plugins/pressbooks/assets/dist/images/default-book-cover.jpg',
+			'pb_thumbnail' => 'https://pressbooks.test/app/plugins/pressbooks/assets/dist/images/default-book-cover.jpg',
+			'pb_primary_subject' => 'YXHB',
+			'pb_additional_subjects' => 'ATL, ABK',
+			'pb_subtitle' => 'subtitle test',
+			'pb_word_count' => '4840',
+			'pb_storage_size' => '39570177',
+			'pb_in_catalog' => 1,
+			'pb_h5p_activities' => 6,
+			'pb_book_url' => 'https://pressbooks.test/theonboarding',
+			'pb_book_directory_excluded' => 1,
+			'last_updated' => 1584921600,
 		];
 		$schema = book_information_to_schema( $book_information );
 
@@ -317,7 +317,7 @@ class ApiTest extends \WP_UnitTestCase {
 		$response = $server->dispatch( $request );
 		$data = $response->get_data();
 
-		$this->assertEquals( 2, is_countable($data) ? count( $data ) : 0 );
+		$this->assertEquals( 2, is_countable( $data ) ? count( $data ) : 0 );
 		$this->assertInstanceOf( '\WP_REST_Response', $data[0] );
 		$this->assertInstanceOf( '\WP_REST_Response', $data[1] );
 		$this->assertEquals( 200, $data[0]->get_data()['status'] );
@@ -353,7 +353,7 @@ class ApiTest extends \WP_UnitTestCase {
 		$response = $server->dispatch( $request );
 		$data = $response->get_data();
 
-		$this->assertEquals( 2, is_countable($data) ? count( $data ) : 0 );
+		$this->assertEquals( 2, is_countable( $data ) ? count( $data ) : 0 );
 		$this->assertInstanceOf( '\WP_REST_Response', $data[0] );
 		$this->assertInstanceOf( '\WP_REST_Response', $data[1] );
 		$this->assertEquals( 201, $data[0]->get_data()['status'] );
@@ -371,7 +371,7 @@ class ApiTest extends \WP_UnitTestCase {
 
 		$server = $this->_setupBookApi();
 
-		new Posts('glossary');
+		new Posts( 'glossary' );
 
 		$term1 = [
 			'post_type'    => 'glossary',
@@ -408,7 +408,7 @@ class ApiTest extends \WP_UnitTestCase {
 		$response = $server->dispatch( $request );
 		$data = $response->get_data();
 
-		$this->assertEquals( 3, is_countable($data) ? count( $data ) : 0 );
+		$this->assertEquals( 3, is_countable( $data ) ? count( $data ) : 0 );
 		$this->assertEquals( 'Private: Not done', $data[0]['title']['rendered'] );
 		$this->assertEquals( 'Synapse', $data[1]['title']['rendered'] );
 	}
@@ -419,7 +419,7 @@ class ApiTest extends \WP_UnitTestCase {
 	 */
 	public function set_api_permissions_item(): void {
 		$this->_book();
-		new Posts('glossary');
+		new Posts( 'glossary' );
 		$term1 = [
 			'post_type'    => 'glossary',
 			'post_title'   => 'Synapse',
@@ -451,7 +451,7 @@ class ApiTest extends \WP_UnitTestCase {
 		$request = new \WP_REST_Request( 'GET', '/pressbooks/v2/glossary' );
 		$response = $server->dispatch( $request );
 		$data = $response->get_data();
-		$this->assertEquals( 2, is_countable($data) ? count( $data ) : 0 );
+		$this->assertEquals( 2, is_countable( $data ) ? count( $data ) : 0 );
 	}
 
 }

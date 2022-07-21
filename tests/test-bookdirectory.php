@@ -2,7 +2,6 @@
 
 use Pressbooks\BookDirectory;
 
-
 /**
  * @group bookDirectory
  */

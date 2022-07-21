@@ -131,17 +131,17 @@ class MetadataTest extends \WP_UnitTestCase {
 			[
 				'name' => 'Moby Dick',
 				'sameAs' => 'https://doi.org/my_doi',
-				'identifier' => ['value' => 'my_doi'],
+				'identifier' => [ 'value' => 'my_doi' ],
 				'author' => [
-					['name' => 'Herman Melville']
+					[ 'name' => 'Herman Melville' ],
 				],
 				'editor' => [
-					['name' => 'Pat Metheny']
+					[ 'name' => 'Pat Metheny' ],
 				],
 				'institutions' => [
-					['name' => 'Algoma University'],
-					['name' => 'Algonquin College'],
-				]
+					[ 'name' => 'Algoma University' ],
+					[ 'name' => 'Algonquin College' ],
+				],
 			],
 			$result
 		);
@@ -174,7 +174,7 @@ class MetadataTest extends \WP_UnitTestCase {
 					'code' => 'CA-ON-002',
 					'name' => 'Algonquin College',
 				],
-			]
+			],
 		];
 
 		$result = \Pressbooks\Metadata\schema_to_book_information( $schema );
@@ -182,7 +182,7 @@ class MetadataTest extends \WP_UnitTestCase {
 		$this->assertEquals( $result['pb_authors'][0]['name'], 'Pat Metheny' );
 		$this->assertEquals( $result['pb_book_license'], 'public-domain' );
 		$this->assertEquals( $result['pb_book_doi'], 'my_doi' );
-		self::assertArraySubset( ['CA-ON-001', 'CA-ON-002'], $result['pb_institutions'] );
+		self::assertArraySubset( [ 'CA-ON-001', 'CA-ON-002' ], $result['pb_institutions'] );
 
 		$schema = [
 			'@context' => 'http://schema.org',
@@ -197,129 +197,129 @@ class MetadataTest extends \WP_UnitTestCase {
 				[
 					'@type' => 'Person',
 					'name' => 'Pat Metheny',
-					'contributor_prefix' => "Mr",
-					'contributor_first_name' => "Patrick",
-					'contributor_last_name' => "Metheny",
-					'contributor_suffix' => "Musician",
-					'contributor_picture' => "https://pressbooks.test/app/uploads/sites/5/2021/09/cropped-IMG_5226-3-scaled-1.jpg",
-					'contributor_description' => "Hi <strong>I am a contributor</strong>!",
-					'contributor_institution' => "PMG",
-					'contributor_user_url' => "https://patmetheny.com",
-					'contributor_linkedin' => "https://linkedin.com/pm",
+					'contributor_prefix' => 'Mr',
+					'contributor_first_name' => 'Patrick',
+					'contributor_last_name' => 'Metheny',
+					'contributor_suffix' => 'Musician',
+					'contributor_picture' => 'https://pressbooks.test/app/uploads/sites/5/2021/09/cropped-IMG_5226-3-scaled-1.jpg',
+					'contributor_description' => 'Hi <strong>I am a contributor</strong>!',
+					'contributor_institution' => 'PMG',
+					'contributor_user_url' => 'https://patmetheny.com',
+					'contributor_linkedin' => 'https://linkedin.com/pm',
 				],
 			],
 			'editor' => [
 				[
 					'@type' => 'Person',
 					'name' => 'Pat Metheny',
-					'contributor_prefix' => "Mr",
-					'contributor_first_name' => "Patrick",
-					'contributor_last_name' => "Metheny",
-					'contributor_suffix' => "Musician",
-					'contributor_picture' => "https://pressbooks.test/app/uploads/sites/5/2021/09/cropped-IMG_5226-3-scaled-1.jpg",
-					'contributor_description' => "Hi <strong>I am a contributor</strong>!",
-					'contributor_institution' => "PMG",
-					'contributor_user_url' => "https://patmetheny.com",
-					'contributor_linkedin' => "https://linkedin.com/pm",
+					'contributor_prefix' => 'Mr',
+					'contributor_first_name' => 'Patrick',
+					'contributor_last_name' => 'Metheny',
+					'contributor_suffix' => 'Musician',
+					'contributor_picture' => 'https://pressbooks.test/app/uploads/sites/5/2021/09/cropped-IMG_5226-3-scaled-1.jpg',
+					'contributor_description' => 'Hi <strong>I am a contributor</strong>!',
+					'contributor_institution' => 'PMG',
+					'contributor_user_url' => 'https://patmetheny.com',
+					'contributor_linkedin' => 'https://linkedin.com/pm',
 				],
 				[
 					'@type' => 'Person',
 					'name' => 'Pedro Aznar',
-					'contributor_prefix' => "Mr",
-					'contributor_first_name' => "Pedro",
-					'contributor_last_name' => "Aznar",
-					'contributor_suffix' => "Musician",
-					'contributor_picture' => "https://pressbooks.test/app/uploads/sites/5/2021/09/cropped-IMG_5226-3-scaled-2.jpg",
-					'contributor_description' => "Hi <strong>I am a contributor</strong>!",
-					'contributor_institution' => "PMG",
-					'contributor_user_url' => "https://pedroaznar.com.com",
-					'contributor_linkedin' => "https://linkedin.com/pa",
+					'contributor_prefix' => 'Mr',
+					'contributor_first_name' => 'Pedro',
+					'contributor_last_name' => 'Aznar',
+					'contributor_suffix' => 'Musician',
+					'contributor_picture' => 'https://pressbooks.test/app/uploads/sites/5/2021/09/cropped-IMG_5226-3-scaled-2.jpg',
+					'contributor_description' => 'Hi <strong>I am a contributor</strong>!',
+					'contributor_institution' => 'PMG',
+					'contributor_user_url' => 'https://pedroaznar.com.com',
+					'contributor_linkedin' => 'https://linkedin.com/pa',
 				],
 			],
 			'translator' => [
 				[
 					'@type' => 'Person',
 					'name' => 'Pedro Aznar',
-					'contributor_prefix' => "Mr",
-					'contributor_first_name' => "Pedro",
-					'contributor_last_name' => "Aznar",
-					'contributor_suffix' => "Musician",
-					'contributor_picture' => "https://pressbooks.test/app/uploads/sites/5/2021/09/cropped-IMG_5226-3-scaled-2.jpg",
-					'contributor_description' => "Hi <strong>I am a contributor</strong>!",
-					'contributor_institution' => "PMG",
-					'contributor_user_url' => "https://pedroaznar.com.com",
-					'contributor_linkedin' => "https://linkedin.com/pa",
+					'contributor_prefix' => 'Mr',
+					'contributor_first_name' => 'Pedro',
+					'contributor_last_name' => 'Aznar',
+					'contributor_suffix' => 'Musician',
+					'contributor_picture' => 'https://pressbooks.test/app/uploads/sites/5/2021/09/cropped-IMG_5226-3-scaled-2.jpg',
+					'contributor_description' => 'Hi <strong>I am a contributor</strong>!',
+					'contributor_institution' => 'PMG',
+					'contributor_user_url' => 'https://pedroaznar.com.com',
+					'contributor_linkedin' => 'https://linkedin.com/pa',
 				],
 			],
 			'reviewedBy' => [
 				[
 					'@type' => 'Person',
 					'name' => 'Pedro Aznar',
-					'contributor_prefix' => "Mr",
-					'contributor_first_name' => "Pedro",
-					'contributor_last_name' => "Aznar",
-					'contributor_suffix' => "Musician",
-					'contributor_picture' => "https://pressbooks.test/app/uploads/sites/5/2021/09/cropped-IMG_5226-3-scaled-2.jpg",
-					'contributor_description' => "Hi <strong>I am a contributor</strong>!",
-					'contributor_institution' => "PMG",
-					'contributor_user_url' => "https://pedroaznar.com.com",
-					'contributor_linkedin' => "https://linkedin.com/pa",
+					'contributor_prefix' => 'Mr',
+					'contributor_first_name' => 'Pedro',
+					'contributor_last_name' => 'Aznar',
+					'contributor_suffix' => 'Musician',
+					'contributor_picture' => 'https://pressbooks.test/app/uploads/sites/5/2021/09/cropped-IMG_5226-3-scaled-2.jpg',
+					'contributor_description' => 'Hi <strong>I am a contributor</strong>!',
+					'contributor_institution' => 'PMG',
+					'contributor_user_url' => 'https://pedroaznar.com.com',
+					'contributor_linkedin' => 'https://linkedin.com/pa',
 				],
 			],
 			'illustrator' => [
 				[
 					'@type' => 'Person',
 					'name' => 'Pat Metheny',
-					'contributor_prefix' => "Mr",
-					'contributor_first_name' => "Patrick",
-					'contributor_last_name' => "Metheny",
-					'contributor_suffix' => "Musician",
-					'contributor_picture' => "https://pressbooks.test/app/uploads/sites/5/2021/09/cropped-IMG_5226-3-scaled-1.jpg",
-					'contributor_description' => "Hi <strong>I am a contributor</strong>!",
-					'contributor_institution' => "PMG",
-					'contributor_user_url' => "https://patmetheny.com",
-					'contributor_linkedin' => "https://linkedin.com/pm",
+					'contributor_prefix' => 'Mr',
+					'contributor_first_name' => 'Patrick',
+					'contributor_last_name' => 'Metheny',
+					'contributor_suffix' => 'Musician',
+					'contributor_picture' => 'https://pressbooks.test/app/uploads/sites/5/2021/09/cropped-IMG_5226-3-scaled-1.jpg',
+					'contributor_description' => 'Hi <strong>I am a contributor</strong>!',
+					'contributor_institution' => 'PMG',
+					'contributor_user_url' => 'https://patmetheny.com',
+					'contributor_linkedin' => 'https://linkedin.com/pm',
 				],
 				[
 					'@type' => 'Person',
 					'name' => 'Pedro Aznar',
-					'contributor_prefix' => "Mr",
-					'contributor_first_name' => "Pedro",
-					'contributor_last_name' => "Aznar",
-					'contributor_suffix' => "Musician",
-					'contributor_picture' => "https://pressbooks.test/app/uploads/sites/5/2021/09/cropped-IMG_5226-3-scaled-2.jpg",
-					'contributor_description' => "Hi <strong>I am a contributor</strong>!",
-					'contributor_institution' => "PMG",
-					'contributor_user_url' => "https://pedroaznar.com.com",
-					'contributor_linkedin' => "https://linkedin.com/pa",
+					'contributor_prefix' => 'Mr',
+					'contributor_first_name' => 'Pedro',
+					'contributor_last_name' => 'Aznar',
+					'contributor_suffix' => 'Musician',
+					'contributor_picture' => 'https://pressbooks.test/app/uploads/sites/5/2021/09/cropped-IMG_5226-3-scaled-2.jpg',
+					'contributor_description' => 'Hi <strong>I am a contributor</strong>!',
+					'contributor_institution' => 'PMG',
+					'contributor_user_url' => 'https://pedroaznar.com.com',
+					'contributor_linkedin' => 'https://linkedin.com/pa',
 				],
 			],
 			'contributor' => [
 				[
 					'@type' => 'Person',
 					'name' => 'Pat Metheny',
-					'contributor_prefix' => "Mr",
-					'contributor_first_name' => "Patrick",
-					'contributor_last_name' => "Metheny",
-					'contributor_suffix' => "Musician",
-					'contributor_picture' => "https://pressbooks.test/app/uploads/sites/5/2021/09/cropped-IMG_5226-3-scaled-1.jpg",
-					'contributor_description' => "Hi <strong>I am a contributor</strong>!",
-					'contributor_institution' => "PMG",
-					'contributor_user_url' => "https://patmetheny.com",
-					'contributor_linkedin' => "https://linkedin.com/pm",
+					'contributor_prefix' => 'Mr',
+					'contributor_first_name' => 'Patrick',
+					'contributor_last_name' => 'Metheny',
+					'contributor_suffix' => 'Musician',
+					'contributor_picture' => 'https://pressbooks.test/app/uploads/sites/5/2021/09/cropped-IMG_5226-3-scaled-1.jpg',
+					'contributor_description' => 'Hi <strong>I am a contributor</strong>!',
+					'contributor_institution' => 'PMG',
+					'contributor_user_url' => 'https://patmetheny.com',
+					'contributor_linkedin' => 'https://linkedin.com/pm',
 				],
 				[
 					'@type' => 'Person',
 					'name' => 'Pedro Aznar',
-					'contributor_prefix' => "Mr",
-					'contributor_first_name' => "Pedro",
-					'contributor_last_name' => "Aznar",
-					'contributor_suffix' => "Musician",
-					'contributor_picture' => "https://pressbooks.test/app/uploads/sites/5/2021/09/cropped-IMG_5226-3-scaled-2.jpg",
-					'contributor_description' => "Hi <strong>I am a contributor</strong>!",
-					'contributor_institution' => "PMG",
-					'contributor_user_url' => "https://pedroaznar.com.com",
-					'contributor_linkedin' => "https://linkedin.com/pa",
+					'contributor_prefix' => 'Mr',
+					'contributor_first_name' => 'Pedro',
+					'contributor_last_name' => 'Aznar',
+					'contributor_suffix' => 'Musician',
+					'contributor_picture' => 'https://pressbooks.test/app/uploads/sites/5/2021/09/cropped-IMG_5226-3-scaled-2.jpg',
+					'contributor_description' => 'Hi <strong>I am a contributor</strong>!',
+					'contributor_institution' => 'PMG',
+					'contributor_user_url' => 'https://pedroaznar.com.com',
+					'contributor_linkedin' => 'https://linkedin.com/pa',
 				],
 			],
 			'audience' => [
@@ -674,13 +674,29 @@ class MetadataTest extends \WP_UnitTestCase {
 	 */
 	public function test_transform_institutions(): void {
 		$result = \Pressbooks\Metadata\transform_institutions( [
-			[ 'code' => 'XX-XX-001', 'name' => 'Random University Name', 'url' => 'https://random-university.com' ],
-			[ 'code' => 'XX-XX-002', 'name' => 'Another Random University Name', 'url' => 'https://another-random-university.com' ],
+			[
+				'code' => 'XX-XX-001',
+				'name' => 'Random University Name',
+				'url' => 'https://random-university.com',
+			],
+			[
+				'code' => 'XX-XX-002',
+				'name' => 'Another Random University Name',
+				'url' => 'https://another-random-university.com',
+			],
 		] );
 
 		self::assertArraySubset( [
-			'XX-XX-001' => [ 'code' => 'XX-XX-001', 'name' => 'Random University Name', 'url' => 'https://random-university.com' ],
-			'XX-XX-002' => [ 'code' => 'XX-XX-002', 'name' => 'Another Random University Name', 'url' => 'https://another-random-university.com' ],
+			'XX-XX-001' => [
+				'code' => 'XX-XX-001',
+				'name' => 'Random University Name',
+				'url' => 'https://random-university.com',
+			],
+			'XX-XX-002' => [
+				'code' => 'XX-XX-002',
+				'name' => 'Another Random University Name',
+				'url' => 'https://another-random-university.com',
+			],
 		], $result );
 	}
 
@@ -693,24 +709,32 @@ class MetadataTest extends \WP_UnitTestCase {
 				'name' => 'Random Region Name',
 				'institutions' => [
 					[
-						'code'=>'XX-XX-001',
-						'name'=>'Random University Name',
-						'url'=>'https://random-university.com',
+						'code' => 'XX-XX-001',
+						'name' => 'Random University Name',
+						'url' => 'https://random-university.com',
 					],
 					[
-						'code'=>'XX-XX-002',
-						'name'=>'Another Random University Name',
-						'url'=>'https://another-random-university.com',
-					]
-				]
-			]
+						'code' => 'XX-XX-002',
+						'name' => 'Another Random University Name',
+						'url' => 'https://another-random-university.com',
+					],
+				],
+			],
 		] );
 
 		self::assertArraySubset( [
 			'Random country/Random Region Name' => [
-				'XX-XX-001' => [ 'code' => 'XX-XX-001', 'name' => 'Random University Name', 'url' => 'https://random-university.com' ],
-				'XX-XX-002' => [ 'code' => 'XX-XX-002', 'name' => 'Another Random University Name', 'url' => 'https://another-random-university.com' ],
-			]
+				'XX-XX-001' => [
+					'code' => 'XX-XX-001',
+					'name' => 'Random University Name',
+					'url' => 'https://random-university.com',
+				],
+				'XX-XX-002' => [
+					'code' => 'XX-XX-002',
+					'name' => 'Another Random University Name',
+					'url' => 'https://another-random-university.com',
+				],
+			],
 		], $result );
 	}
 
@@ -725,15 +749,15 @@ class MetadataTest extends \WP_UnitTestCase {
 				'AU-XX-001' => [
 					'code' => 'AU-XX-001',
 					'name' => 'Australian Catholic University',
-					'url' => 'https://www.acu.edu.au/'
-				]
+					'url' => 'https://www.acu.edu.au/',
+				],
 			],
 			'Australia/New South Wales' => [
 				'AU-NSW-001' => [
 					'code' => 'AU-NSW-001',
 					'name' => 'Avondale University',
-					'url' => 'https://www.avondale.edu.au/'
-				]
+					'url' => 'https://www.avondale.edu.au/',
+				],
 			],
 		], $result );
 	}
@@ -760,13 +784,13 @@ class MetadataTest extends \WP_UnitTestCase {
 		$this->assertEquals( [
 			'code' => 'CA-ON-001',
 			'name' => 'Algoma University',
-			'url' => 'https://algomau.ca/'
+			'url' => 'https://algomau.ca/',
 		], \Pressbooks\Metadata\get_institution_by_code( 'CA-ON-001' ) );
 
 		$this->assertEquals( [
 			'code' => 'CA-ON-050',
 			'name' => 'University of Sudbury',
-			'url' => 'https://www.usudbury.com/'
+			'url' => 'https://www.usudbury.com/',
 		], \Pressbooks\Metadata\get_institution_by_code( 'CA-ON-050' ) );
 
 		$this->assertNull( \Pressbooks\Metadata\get_institution_by_code( 'NOT-VALID-CODE' ) );

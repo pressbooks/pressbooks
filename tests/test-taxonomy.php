@@ -30,7 +30,10 @@ class TaxonomyTest extends \WP_UnitTestCase {
 			->getMock();
 		$stub2
 			->method( 'convert' )
-			->willReturn( [ 'term_id' => 999, 'term_taxonomy_id' => 999 ] );
+			->willReturn( [
+				'term_id' => 999,
+				'term_taxonomy_id' => 999,
+			] );
 
 		$this->taxonomy = new Taxonomy( $stub1, $stub2 );
 	}
@@ -127,7 +130,10 @@ class TaxonomyTest extends \WP_UnitTestCase {
 	 * @group taxonomies
 	 */
 	public function test_removeTaxonomyViewLinks() {
-		$arr = [ 'view' => 1, 'something_else' => 2 ];
+		$arr = [
+			'view' => 1,
+			'something_else' => 2,
+		];
 		$res = $this->taxonomy->removeTaxonomyViewLinks( $arr, null );
 		$this->assertArrayNotHasKey( 'view', $res );
 		$this->assertEquals( 2, $res['something_else'] );

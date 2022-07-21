@@ -119,6 +119,5 @@ class DataCollector_UserTest extends \WP_UnitTestCase {
 		$this->assertNotEmpty( $date_last_active );
 		$this->assertGreaterThanOrEqual( strtotime( $date_last_active[0] ), strtotime( gmdate( 'Y-m-d H:i:s' ) ) );
 
-
 	}
 }

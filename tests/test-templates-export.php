@@ -6,8 +6,7 @@ class TemplateExportTest extends \WP_UnitTestCase {
 
 	use utilsTrait;
 
-	public function set_up()
-	{
+	public function set_up() {
 		parent::set_up();
 		$this->blade = Container::get( 'Blade' );
 	}

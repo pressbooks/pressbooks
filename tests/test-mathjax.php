@@ -1,6 +1,5 @@
 <?php
 
-use Pressbooks\MathJax;
 
 class MathJaxTest extends \WP_UnitTestCase {
 
@@ -18,7 +17,6 @@ class MathJaxTest extends \WP_UnitTestCase {
 		parent::set_up();
 		$this->mathjax = new Mathjax();
 	}
-
 
 	function test_beforeExport() {
 		$this->assertFalse( $this->mathjax->usePbMathJax );
@@ -68,30 +66,30 @@ class MathJaxTest extends \WP_UnitTestCase {
 
 	public function test_sectionHasMath() {
 		$new_post = [
-			'post_title' => 'Test Chapter: ' . random_int(0, mt_getrandmax()),
+			'post_title' => 'Test Chapter: ' . random_int( 0, mt_getrandmax() ),
 			'post_type' => 'chapter',
 			'post_status' => 'published',
 			'post_content' => 'No math',
 		];
 		$pid = $this->factory()->post->create_object( $new_post );
 		$GLOBALS['post'] = $pid;
-		$this->assertFalse( $this->mathjax->sectionHasMath());
+		$this->assertFalse( $this->mathjax->sectionHasMath() );
 
 		$new_post = [
-			'post_title' => 'Test Chapter: ' . random_int(0, mt_getrandmax()),
+			'post_title' => 'Test Chapter: ' . random_int( 0, mt_getrandmax() ),
 			'post_type' => 'chapter',
 			'post_status' => 'published',
 			'post_content' => '[latex]\boldsymbol{\frac{m_{\textbf{drop}}gd}{V}}[/latex]',
 		];
 		$pid = $this->factory()->post->create_object( $new_post );
 		$GLOBALS['post'] = $pid;
-		$this->assertTrue( $this->mathjax->sectionHasMath());
+		$this->assertTrue( $this->mathjax->sectionHasMath() );
 
 	}
 
 	public function test_addHeaders() {
 		$new_post = [
-			'post_title' => 'Test Chapter: ' . random_int(0, mt_getrandmax()),
+			'post_title' => 'Test Chapter: ' . random_int( 0, mt_getrandmax() ),
 			'post_type' => 'chapter',
 			'post_status' => 'published',
 			'post_content' => 'No math',
@@ -103,9 +101,8 @@ class MathJaxTest extends \WP_UnitTestCase {
 		$buffer = ob_get_clean();
 		$this->assertEmpty( $buffer );
 
-
 		$new_post = [
-			'post_title' => 'Test Chapter: ' . random_int(0, mt_getrandmax()),
+			'post_title' => 'Test Chapter: ' . random_int( 0, mt_getrandmax() ),
 			'post_type' => 'chapter',
 			'post_status' => 'published',
 			'post_content' => '[latex]\boldsymbol{\frac{m_{\textbf{drop}}gd}{V}}[/latex]',
@@ -115,7 +112,7 @@ class MathJaxTest extends \WP_UnitTestCase {
 		ob_start();
 		$this->mathjax->addHeaders();
 		$buffer = ob_get_clean();
-		$this->assertStringContainsString('MathJax.Hub.Config', $buffer);
+		$this->assertStringContainsString( 'MathJax.Hub.Config', $buffer );
 	}
 
 	public function test_dollarSignLatexMarkup() {

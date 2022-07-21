@@ -1,12 +1,9 @@
 <?php
 
-use \Codeception\Util\HttpCode;
 
-class CreateBookCest
-{
+class CreateBookCest {
 
-	public function _before(AcceptanceTester $I)
-	{
+	public function _before( AcceptanceTester $I ) {
 		$I->loginAsAdmin();
 	}
 
@@ -14,23 +11,21 @@ class CreateBookCest
 	 * @example { "blogPublic": "1" }
 	 * @example { "blogPublic": "0" }
 	 */
-	public function tryToCreateABook(AcceptanceTester $I, \Page\Acceptance\CreateBook $createBookPage, \Codeception\Example $example)
-	{
-		$bookWebAddress = "book".random_int(0, mt_getrandmax());
+	public function tryToCreateABook( AcceptanceTester $I, \Page\Acceptance\CreateBook $createBookPage, \Codeception\Example $example ) {
+		$bookWebAddress = 'book' . random_int( 0, mt_getrandmax() );
 		$bookTitle = "$bookWebAddress Title";
-		$createBookPage->createBook($bookWebAddress, $bookTitle, (bool) $example['blogPublic']);
-		$I->amOnPage("/$bookWebAddress/wp-admin");
-		$I->see($bookTitle);
+		$createBookPage->createBook( $bookWebAddress, $bookTitle, (bool) $example['blogPublic'] );
+		$I->amOnPage( "/$bookWebAddress/wp-admin" );
+		$I->see( $bookTitle );
 	}
 
-	public function tryToCreateABookWithShortWebAddress(AcceptanceTester $I, \Page\Acceptance\CreateBook $createBookPage)
-	{
-		$bookWebAddress = random_int(0,999);
+	public function tryToCreateABookWithShortWebAddress( AcceptanceTester $I, \Page\Acceptance\CreateBook $createBookPage ) {
+		$bookWebAddress = random_int( 0, 999 );
 		$bookTitle = "$bookWebAddress Title";
-		$createBookPage->createBook($bookWebAddress, $bookTitle, true);
-		$I->see('Site name must be at least 4 characters.');
-		$I->amOnPage("/wp-admin/my-sites.php");
-		$I->dontSee($bookTitle);
+		$createBookPage->createBook( $bookWebAddress, $bookTitle, true );
+		$I->see( 'Site name must be at least 4 characters.' );
+		$I->amOnPage( '/wp-admin/my-sites.php' );
+		$I->dontSee( $bookTitle );
 	}
 
 }

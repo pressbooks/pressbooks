@@ -55,7 +55,7 @@ class Modules_Export_TableTest extends \WP_UnitTestCase {
 	public function test_column_file() {
 		$x = $this->table->column_file( $this->item );
 		$this->assertStringContainsString( "<div class='export-file-icon large pdf'", $x );
-		$this->assertStringContainsString( "Test-1547581888.pdf", $x );
+		$this->assertStringContainsString( 'Test-1547581888.pdf', $x );
 	}
 
 	/**
@@ -112,7 +112,7 @@ class Modules_Export_TableTest extends \WP_UnitTestCase {
 	 */
 	public function test_inlineJs() {
 		$x = $this->table->inlineJs();
-		$this->assertStringContainsString( "var _pb_export_formats_map = ", $x );
-		$this->assertStringContainsString( "var _pb_export_pins_inventory =", $x );
+		$this->assertStringContainsString( 'var _pb_export_formats_map = ', $x );
+		$this->assertStringContainsString( 'var _pb_export_pins_inventory =', $x );
 	}
 }

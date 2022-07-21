@@ -16,11 +16,11 @@
  *
  * @SuppressWarnings(PHPMD)
 */
-class WpunitTester extends \Codeception\Actor
-{
-    use _generated\WpunitTesterActions;
+class WpunitTester extends \Codeception\Actor {
 
-    /**
-     * Define custom actions here
-     */
+	use _generated\WpunitTesterActions;
+
+	/**
+	 * Define custom actions here
+	 */
 }

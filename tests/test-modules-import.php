@@ -20,7 +20,6 @@ class ImportMock extends \Pressbooks\Modules\Import\Import {
 	}
 }
 
-
 class Modules_ImportTest extends \WP_UnitTestCase {
 
 	use utilsTrait;
@@ -160,9 +159,9 @@ class Modules_ImportTest extends \WP_UnitTestCase {
 
 		// Clean attachments after test
 		$date = date( 'Y/m' );
-		array_map( static function($file) {
-			if( is_file( $file ) ) {
-				unlink($file);
+		array_map( static function( $file ) {
+			if ( is_file( $file ) ) {
+				unlink( $file );
 			}
 		}, array_filter( (array) glob( "/tmp/wordpress/wp-content/uploads/{$date}/*" ) ) );
 	}
@@ -194,13 +193,13 @@ class Modules_ImportTest extends \WP_UnitTestCase {
 
 		$import = new Wxr();
 		$values = $import->searchMultipleContributorValues( 'pb_authors', $post_meta );
-		$this->assertCount(1, $values);
+		$this->assertCount( 1, $values );
 
 		$values = $import->searchMultipleContributorValues( 'pb_editors', $post_meta );
-		$this->assertCount(3, $values);
+		$this->assertCount( 3, $values );
 
 		$values = $import->searchMultipleContributorValues( 'pb_fail', $post_meta );
-		$this->assertCount(0, $values);
+		$this->assertCount( 0, $values );
 	}
 
 }

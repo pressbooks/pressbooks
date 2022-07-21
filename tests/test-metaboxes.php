@@ -2,7 +2,6 @@
 
 require_once( PB_PLUGIN_DIR . 'inc/admin/metaboxes/namespace.php' );
 
-
 class MetaboxesTest extends \WP_UnitTestCase {
 
 	use utilsTrait;
@@ -50,7 +49,7 @@ class MetaboxesTest extends \WP_UnitTestCase {
 
 		// Create front-matter post
 		$new_post = [
-			'post_title' => 'Test Chapter: ' . random_int(0, mt_getrandmax()),
+			'post_title' => 'Test Chapter: ' . random_int( 0, mt_getrandmax() ),
 			'post_type' => 'front-matter',
 			'post_status' => 'draft',
 			'post_content' => 'Hello World',
@@ -70,7 +69,7 @@ class MetaboxesTest extends \WP_UnitTestCase {
 
 		// Create glossary post
 		$new_post = [
-			'post_title' => 'Test Glossary: ' . random_int(0, mt_getrandmax()),
+			'post_title' => 'Test Glossary: ' . random_int( 0, mt_getrandmax() ),
 			'post_type' => 'glossary',
 			'post_status' => 'private',
 			'post_content' => 'Hello World',
@@ -105,7 +104,7 @@ class MetaboxesTest extends \WP_UnitTestCase {
 
 		// Create front-matter post
 		$new_post = [
-			'post_title' => 'Test Chapter: ' . random_int(0, mt_getrandmax()),
+			'post_title' => 'Test Chapter: ' . random_int( 0, mt_getrandmax() ),
 			'post_type' => 'front-matter',
 			'post_status' => 'draft',
 			'post_content' => 'Hello World',
@@ -183,7 +182,7 @@ class MetaboxesTest extends \WP_UnitTestCase {
 
 		// Create glossary post
 		$new_post = [
-			'post_title' => 'Test Glossary: ' . random_int(0, mt_getrandmax()),
+			'post_title' => 'Test Glossary: ' . random_int( 0, mt_getrandmax() ),
 			'post_type' => 'glossary',
 			'post_status' => 'private',
 			'post_content' => 'Hello World',
@@ -206,14 +205,14 @@ class MetaboxesTest extends \WP_UnitTestCase {
 	 * @group metaboxes
 	 */
 	public function test_part_save_box() {
-		$post = [ 'post_status' => 'draft'];
+		$post = [ 'post_status' => 'draft' ];
 		ob_start();
 		\Pressbooks\Admin\Metaboxes\part_save_box( (object) $post );
 		$buffer = ob_get_clean();
 		$this->assertStringContainsString( '<div class="submitbox" id="submitpost">', $buffer );
 		$this->assertStringContainsString( '<input name="publish" id="publish" type="submit"', $buffer );
 
-		$post = [ 'post_status' => 'publish'];
+		$post = [ 'post_status' => 'publish' ];
 		ob_start();
 		\Pressbooks\Admin\Metaboxes\part_save_box( (object) $post );
 		$buffer = ob_get_clean();
@@ -225,14 +224,14 @@ class MetaboxesTest extends \WP_UnitTestCase {
 	 * @group metaboxes
 	 */
 	public function test_metadata_save_box() {
-		$post = [ 'post_status' => 'draft'];
+		$post = [ 'post_status' => 'draft' ];
 		ob_start();
 		\Pressbooks\Admin\Metaboxes\metadata_save_box( (object) $post );
 		$buffer = ob_get_clean();
 		$this->assertStringContainsString( '<div class="submitbox" id="submitpost">', $buffer );
 		$this->assertStringContainsString( '<input name="publish" id="publish" type="submit"', $buffer );
 
-		$post = [ 'post_status' => 'publish'];
+		$post = [ 'post_status' => 'publish' ];
 		ob_start();
 		\Pressbooks\Admin\Metaboxes\metadata_save_box( (object) $post );
 		$buffer = ob_get_clean();
@@ -253,8 +252,8 @@ class MetaboxesTest extends \WP_UnitTestCase {
 		$result = ob_get_clean();
 
 		$this->assertStringContainsString( '<div class="custom-metadata-field institutions">', $result );
-		$this->assertStringContainsString( '<label for="pb-institutions">Institutions</label>', $result);
-		$this->assertStringContainsString( '<select id="pb-institutions" name="pb_institutions[]" multiple>', $result);
+		$this->assertStringContainsString( '<label for="pb-institutions">Institutions</label>', $result );
+		$this->assertStringContainsString( '<select id="pb-institutions" name="pb_institutions[]" multiple>', $result );
 	}
 
 	/**

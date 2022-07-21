@@ -3,12 +3,11 @@
 use Page\Acceptance\CreateBook;
 use Page\Acceptance\CreateBookPart;
 
-class CreatePartCest
-{
+class CreatePartCest {
+
 	public $bookURL = 'samplebook';
 
-	public function _before( AcceptanceTester $I, CreateBook $createBookPage ): void
-	{
+	public function _before( AcceptanceTester $I, CreateBook $createBookPage ): void {
 		$I->loginAsAdmin();
 
 		$createBookPage->createBook( $this->bookURL, 'Sample Book' );
@@ -16,8 +15,7 @@ class CreatePartCest
 		$I->amOnPage( "$this->bookURL/wp-admin" );
 	}
 
-	public function tryToCreateABookPart( AcceptanceTester $I, CreateBookPart $createBookPartPage ): void
-	{
+	public function tryToCreateABookPart( AcceptanceTester $I, CreateBookPart $createBookPartPage ): void {
 		$I->click( 'Organize' );
 
 		$I->dontSee( $partName = 'Section A' );

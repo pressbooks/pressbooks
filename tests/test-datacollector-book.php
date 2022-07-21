@@ -11,7 +11,6 @@ class DataCollector_BookTest extends \WP_UnitTestCase {
 	 */
 	protected $bookDataCollector;
 
-
 	/**
 	 * @group datacollector
 	 */
@@ -24,14 +23,12 @@ class DataCollector_BookTest extends \WP_UnitTestCase {
 		$this->bookDataCollector = $obj;
 	}
 
-
 	public static function tear_down_after_class() {
 		// Put the hooks back in place
 		$obj = BookDataCollector::init();
 		$obj::hooks( $obj );
 		$_SERVER['SERVER_PORT'] = '';
 	}
-
 
 	/**
 	 * @group datacollector
@@ -142,13 +139,12 @@ class DataCollector_BookTest extends \WP_UnitTestCase {
 	 * @group datacollector
 	 */
 	public function test_get_LogicExeption() {
-		$this->expectException(\LogicException::class);
+		$this->expectException( \LogicException::class );
 		$this->_book();
 		$book_id = get_current_blog_id();
 		update_site_meta( $book_id, BookDataCollector::BOOK_INFORMATION_ARRAY, new \StdClass() ); // No hackers allowed
 		$x = $this->bookDataCollector->get( $book_id, BookDataCollector::BOOK_INFORMATION_ARRAY );
 	}
-
 
 	/**
 	 * @group datacollector
@@ -196,7 +192,6 @@ class DataCollector_BookTest extends \WP_UnitTestCase {
 		$this->assertTrue( $x > 0 );
 	}
 
-
 	/**
 	 * @group datacollector
 	 */
@@ -211,7 +206,6 @@ class DataCollector_BookTest extends \WP_UnitTestCase {
 
 		remove_action( 'wp_update_site', [ $this->bookDataCollector, 'updateSite' ], 999 );
 	}
-
 
 	/**
 	 * @group datacollector
@@ -239,6 +233,5 @@ class DataCollector_BookTest extends \WP_UnitTestCase {
 
 		$this->assertEquals( 1, preg_match( '/https:\/\/.*-350x467\.jpg/', $path ) );
 	}
-
 
 }

@@ -46,7 +46,6 @@ class Admin_FontsTest extends \WP_UnitTestCase {
 		}, null, true );
 	}
 
-
 	/**
 	 * Override
 	 * @group typography
@@ -77,6 +76,5 @@ class Admin_FontsTest extends \WP_UnitTestCase {
 		$this->assertTrue( true ); // Did not crash
 		$this->assertFalse( get_transient( 'pressbooks_updating_font_stacks' ) );
 	}
-
 
 }

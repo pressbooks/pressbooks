@@ -8,9 +8,7 @@ class FakeContainer extends \Illuminate\Container\Container {
 class AnotherFakeContainer extends \Illuminate\Container\Container {
 }
 
-
 class ContainerTest extends \WP_UnitTestCase {
-
 
 	/**
 	 * @group container
@@ -92,7 +90,7 @@ class ContainerTest extends \WP_UnitTestCase {
 	 * @group container
 	 */
 	public function test_getException() {
-		$this->expectException(\LogicException::class);
+		$this->expectException( \LogicException::class );
 		$var = Container::get( 'foo' );
 	}
 
@@ -100,7 +98,7 @@ class ContainerTest extends \WP_UnitTestCase {
 	 * @group container
 	 */
 	public function test_setException() {
-		$this->expectException(\LogicException::class);
+		$this->expectException( \LogicException::class );
 		Container::set( 'foo', 'bar' );
 	}
 

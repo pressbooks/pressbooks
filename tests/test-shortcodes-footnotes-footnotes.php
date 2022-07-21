@@ -11,7 +11,6 @@ class Shortcodes_Footnotes extends \WP_UnitTestCase {
 	 */
 	protected $fn;
 
-
 	/**
 	 * @group footnotes
 	 */
@@ -37,7 +36,6 @@ class Shortcodes_Footnotes extends \WP_UnitTestCase {
 		$this->assertArrayHasKey( 'footnote', $shortcode_tags );
 	}
 
-
 	/**
 	 * @group footnotes
 	 */
@@ -62,7 +60,6 @@ class Shortcodes_Footnotes extends \WP_UnitTestCase {
 		$this->assertEmpty( $this->fn->shortcodeHandler( [] ) );
 	}
 
-
 	/**
 	 * @group footnotes
 	 */
@@ -84,7 +81,6 @@ class Shortcodes_Footnotes extends \WP_UnitTestCase {
 
 		$this->assertStringContainsString( '#footnote-999-3', $content );
 	}
-
 
 	/**
 	 * @group footnotes
@@ -109,7 +105,6 @@ class Shortcodes_Footnotes extends \WP_UnitTestCase {
 		$this->assertStringContainsString( '</ol></div>', $content );
 	}
 
-
 	/**
 	 * @group footnotes
 	 */
@@ -133,7 +128,6 @@ class Shortcodes_Footnotes extends \WP_UnitTestCase {
 		$this->assertStringContainsString( '</ul></div>', $content );
 	}
 
-
 	/**
 	 * @group footnotes
 	 */
@@ -148,7 +142,6 @@ class Shortcodes_Footnotes extends \WP_UnitTestCase {
 
 		$this->_fakeAjaxDone( $old_error_reporting );
 	}
-
 
 	/**
 	 * @group footnotes
@@ -177,6 +170,5 @@ class Shortcodes_Footnotes extends \WP_UnitTestCase {
 
 		$this->_fakeAjaxDone( $old_error_reporting );
 	}
-
 
 }

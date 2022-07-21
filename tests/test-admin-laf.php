@@ -2,7 +2,6 @@
 
 require_once( PB_PLUGIN_DIR . 'inc/admin/laf/namespace.php' );
 
-
 class Admin_LafTest extends \WP_UnitTestCase {
 
 	use utilsTrait;

@@ -7,7 +7,6 @@ class Modules_Export_ThinCCTest extends \WP_UnitTestCase {
 	 */
 	protected $weblinks;
 
-
 	use utilsTrait;
 
 	/**
@@ -17,13 +16,12 @@ class Modules_Export_ThinCCTest extends \WP_UnitTestCase {
 		parent::set_up();
 		$this->weblinks = new Pressbooks\Modules\Export\ThinCC\WebLinks( [] );
 
-
 	}
 
 	public function test_sanityCheckExports() {
 		$this->_book();
-		$this->assertTrue( $this->weblinks->convert(), "Could not convert with CommonCartridge11" );
-		$this->assertTrue( $this->weblinks->validate(), "Could not validate with CommonCartridge11" );
+		$this->assertTrue( $this->weblinks->convert(), 'Could not convert with CommonCartridge11' );
+		$this->assertTrue( $this->weblinks->validate(), 'Could not validate with CommonCartridge11' );
 	}
 
 	public function test_deleteTmpDir() {
@@ -57,7 +55,7 @@ class Modules_Export_ThinCCTest extends \WP_UnitTestCase {
 		$this->_book();
 		$this->weblinks->createResources();
 		foreach ( scandir( $this->weblinks->getTmpDir() ) as $file ) {
-			if ( str_starts_with($file, 'R_') && preg_match( '/\.xml/', $file ) ) {
+			if ( str_starts_with( $file, 'R_' ) && preg_match( '/\.xml/', $file ) ) {
 				// At least one resource was created
 				$this->assertTrue( true );
 				return;

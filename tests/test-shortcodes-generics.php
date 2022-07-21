@@ -42,11 +42,11 @@ class Shortcodes_Generics extends \WP_UnitTestCase {
 
 		// Test a straightforward tag.
 		$content = $this->generics->blockShortcodeHandler( [], 'A heading', 'heading' );
-		$this->assertEquals( "<h1>A heading</h1>", $content );
+		$this->assertEquals( '<h1>A heading</h1>', $content );
 
 		// Test a tag with a class attribute.
 		$content = $this->generics->blockShortcodeHandler( [ 'class' => 'special' ], 'A heading', 'heading' );
-		$this->assertEquals( "<h1 class=\"special\">A heading</h1>", $content );
+		$this->assertEquals( '<h1 class="special">A heading</h1>', $content );
 
 		$this->assertEmpty( $this->generics->blockShortcodeHandler( [], '', 'heading' ) );
 	}
@@ -82,11 +82,11 @@ class Shortcodes_Generics extends \WP_UnitTestCase {
 
 		// Test a straightforward tag.
 		$content = $this->generics->inlineShortcodeHandler( [], 'WHY ARE YOU SHOUTING', 'strong' );
-		$this->assertEquals( "<strong>WHY ARE YOU SHOUTING</strong>", $content );
+		$this->assertEquals( '<strong>WHY ARE YOU SHOUTING</strong>', $content );
 
 		// Test a tag with a class attribute.
 		$content = $this->generics->inlineShortcodeHandler( [ 'class' => 'loud' ], 'WHY ARE YOU SHOUTING', 'strong' );
-		$this->assertEquals( "<strong class=\"loud\">WHY ARE YOU SHOUTING</strong>", $content );
+		$this->assertEquals( '<strong class="loud">WHY ARE YOU SHOUTING</strong>', $content );
 
 		$this->assertEmpty( $this->generics->inlineShortcodeHandler( [], '', 'strong' ) );
 	}

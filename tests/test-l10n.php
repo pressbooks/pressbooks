@@ -2,21 +2,26 @@
 
 class L10nTest extends \WP_UnitTestCase {
 
-
 	/**
 	 * @group localization
 	 */
 	public function test_get_locale() {
-		apply_filters( 'locale', fn($locale) => 'en_US' );
+		apply_filters( 'locale', fn( $locale) => 'en_US' );
 		$locale = \Pressbooks\L10n\get_locale();
 		$this->assertEquals( 'en_US', $locale );
 
-		$user_id = $this->factory()->user->create( [ 'role' => 'contributor', 'locale' => 'fr_FR' ] );
+		$user_id = $this->factory()->user->create( [
+			'role' => 'contributor',
+			'locale' => 'fr_FR',
+		] );
 		wp_set_current_user( $user_id );
 		$locale = \Pressbooks\L10n\get_locale();
 		$this->assertEquals( 'fr_FR', $locale );
 
-		wp_update_user( ['ID' => $user_id, 'locale' => ''] );
+		wp_update_user( [
+			'ID' => $user_id,
+			'locale' => '',
+		] );
 		$locale = \Pressbooks\L10n\get_locale();
 		$this->assertEquals( 'en_US', $locale );
 	}
@@ -124,9 +129,8 @@ class L10nTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'zh_CN', $output );
 	}
 
-
-//	public function test_update_user_locale() { // TODO
-//	}
+	//  public function test_update_user_locale() { // TODO
+	//  }
 
 	public function test_get_book_language() {
 		$lang = \Pressbooks\L10n\get_book_language();
