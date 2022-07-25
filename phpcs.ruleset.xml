@@ -1,25 +1,13 @@
 <?xml version="1.0"?>
 <ruleset>
     <!-- Use Pressbooks Coding Standards -->
-    <rule ref="vendor/pressbooks/coding-standards">
-        <exclude name="WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase"/>
-		<exclude name="WordPress.NamingConventions.ValidVariableName.PropertyNotSnakeCase"/>
-		<!-- TODO: These should be re-enabled sooner than later... -->
-		<exclude name="Squiz.Commenting"/>
-		<exclude name="Generic.Commenting"/>
-    </rule>
+    <rule ref="vendor/pressbooks/coding-standards" />
     <rule ref="PSR1.Methods.CamelCapsMethodName">
         <!-- Exclude classes that override WP Core: -->
         <exclude-pattern>/inc/admin/class-catalog-list-table.php</exclude-pattern>
         <exclude-pattern>/inc/admin/class-network-managers-list-table.php</exclude-pattern>
         <exclude-pattern>/api/endpoints/controller/*</exclude-pattern>
         <exclude-pattern>/inc/modules/export/class-table.php</exclude-pattern>
-    </rule>
-    <!-- Disable Side Effects and MissingNamespace rules for bootstrapping files: -->
-    <rule ref="PSR1.Files.SideEffects">
-        <exclude-pattern>/pressbooks.php</exclude-pattern>
-        <exclude-pattern>/functions.php</exclude-pattern>
-        <exclude-pattern>/compatibility.php</exclude-pattern>
     </rule>
     <rule ref="HM.Functions.NamespacedFunctions.MissingNamespace">
         <exclude-pattern>/pressbooks.php</exclude-pattern>
@@ -28,8 +16,5 @@
     </rule>
     <!-- Disable all rules for these files: -->
     <exclude-pattern>/hm-autoloader.php</exclude-pattern>
-    <exclude-pattern>*.blade.php</exclude-pattern>
-	<!-- Run against the PHPCompatibility ruleset -->
-	<rule ref="PHPCompatibility"/>
 	<config name="testVersion" value="8.0"/>
 </ruleset>
