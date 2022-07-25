@@ -1367,13 +1367,13 @@ function privacy_disable_comments_callback( $args ) {
 function privacy_latest_files_public_callback( $args ) {
 	$blog_public = get_option( 'pbt_redistribute_settings', [] );
 	$html = '<input type="radio" id="latest_files_public" name="pbt_redistribute_settings[latest_files_public]" value="1" ';
-	if ( isset($blog_public['latest_files_public']) && $blog_public['latest_files_public'] == 1 ) {
+	if ( isset($blog_public['latest_files_public']) && $blog_public['latest_files_public'] === 1 ) {
 		$html .= 'checked="checked" ';
 	}
 	$html .= '/>';
 	$html .= '<label for="latest_files_public"> ' . __( 'Yes. I would like the latest export files to be available on the homepage for free, to everyone.', 'pressbooks' ) . '</label><br />';
 	$html .= '<input type="radio" id="latest_files_private" name="pbt_redistribute_settings[latest_files_public]" value="0" ';
-	if ( ! isset($blog_public['latest_files_public']) || $blog_public['latest_files_public'] == 0 ) {
+	if ( ! isset($blog_public['latest_files_public']) || $blog_public['latest_files_public'] === 0 ) {
 		$html .= 'checked="checked" ';
 	}
 	$html .= '/>';
