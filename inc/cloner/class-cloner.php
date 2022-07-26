@@ -1599,7 +1599,7 @@ class Cloner {
 		// Remove items handled by cloneSectionMetadata()
 		unset( $section['meta']['pb_authors'], $section['meta']['pb_section_license'] );
 
-		if ( array_key_exists( 'pb_part_invisible', $section['meta'] ) ) {
+		if ( isset($section['meta']) && array_key_exists( 'pb_part_invisible', $section['meta'] ) ) {
 			unset( $section['meta']['pb_part_invisible'] );
 		}
 
