@@ -13,6 +13,7 @@
 # Gilbert MOISIO <gmoisio@gmail.com>, 2017
 # Hubert GB <hgblouin@tciinc.ca>, 2019
 # Hugh McGuire <hugh@pressbooks.com>, 2018
+# Ian Curtis, 2022
 # Ned Zimmerman <ned@bight.dev>, 2014
 # Ned Zimmerman, 2014-2015
 # Ned Zimmerman <ned@bight.dev>, 2015
@@ -27,7 +28,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
 "POT-Creation-Date: 2022-05-24T20:09:34+00:00\n"
 "PO-Revision-Date: 2013-12-21 21:04+0000\n"
-"Last-Translator: Dac Chartrand <dac.chartrand@gmail.com>, 2017-2018,2020\n"
+"Last-Translator: Ian Curtis, 2022\n"
 "Language-Team: French (http://www.transifex.com/pressbooks/pressbooks/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -678,21 +679,21 @@ msgstr ""
 
 #: inc/admin/dashboard/namespace.php:226
 msgid "Accept"
-msgstr ""
+msgstr "Accepter"
 
 #: inc/admin/dashboard/namespace.php:239
 msgid "Welcome to %s"
-msgstr ""
+msgstr "Bienvenue à %s"
 
 #: inc/admin/dashboard/namespace.php:242
 msgid "You do not currently have access to any books on this network."
-msgstr ""
+msgstr "En ce moment, vous ne pouvez pas accéder à aucun livre sur ce réseau."
 
 #: inc/admin/dashboard/namespace.php:248
 msgid ""
 "This network does not allow users to create new books. To create a new book,"
 " please contact a network manager"
-msgstr ""
+msgstr "Ce réseau ne permet pas les utilisateurs à créer les nouveaux livres. Pour créer un nouveaux livre, veuillez contacter un administrateur de réseau."
 
 #: inc/admin/dashboard/namespace.php:250 inc/admin/dashboard/namespace.php:263
 msgid "at "
@@ -700,11 +701,11 @@ msgstr ""
 
 #: inc/admin/dashboard/namespace.php:255
 msgid "Create a book"
-msgstr ""
+msgstr "Créer un livre"
 
 #: inc/admin/dashboard/namespace.php:257
 msgid "Clone a book"
-msgstr ""
+msgstr "Dupliquer un livre"
 
 #: inc/admin/dashboard/namespace.php:258
 msgid ""
@@ -774,7 +775,7 @@ msgstr ""
 #. translators: %s: URL to Pressbooks YouTube channel
 #: inc/admin/dashboard/namespace.php:382
 msgid "Pressbooks YouTube channel"
-msgstr ""
+msgstr "La chaîne YouTube Pressbooks"
 
 #. translators: %s: URL to Pressbooks training webinars
 #: inc/admin/dashboard/namespace.php:383
@@ -1002,7 +1003,7 @@ msgstr "Information sur le livre"
 
 #: inc/admin/laf/namespace.php:297
 msgid "Choose institution(s)... "
-msgstr ""
+msgstr "Choisir l'institution / les institutions..."
 
 #: inc/admin/laf/namespace.php:298
 msgid "Choose a subject…"
@@ -1116,7 +1117,7 @@ msgstr "Consultez le site web"
 
 #: inc/admin/laf/namespace.php:871
 msgid "My Books"
-msgstr ""
+msgstr "Mes livres"
 
 #: inc/admin/laf/namespace.php:891
 msgid "Create A New Book"
@@ -1201,11 +1202,11 @@ msgstr "Non. Je souhaite que les derniers fichiers exportés ne soient accessibl
 
 #: inc/admin/laf/namespace.php:1399
 msgid "Yes. I want this book to be listed in the Pressbooks directory."
-msgstr ""
+msgstr "Oui. Je veux que ce livre soit répertoirié dans l'annuaire Pressbooks."
 
 #: inc/admin/laf/namespace.php:1405
 msgid "No. Exclude this book from the Pressbooks directory."
-msgstr ""
+msgstr "Non. Exclure ce livre de l'annuaire Pressbooks."
 
 #: inc/admin/laf/namespace.php:1530
 msgid "All Books"
@@ -1547,7 +1548,7 @@ msgstr "Sujet(s)"
 #: inc/admin/metaboxes/namespace.php:503
 #: templates/admin/institutions.blade.php:2
 msgid "Institutions"
-msgstr ""
+msgstr "Les institutions"
 
 #: inc/admin/metaboxes/namespace.php:508
 msgid "Additional Catalog Information"

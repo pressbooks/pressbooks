@@ -98,6 +98,7 @@ jobs:
         chmod +x wp-cli.phar
         mv wp-cli.phar /usr/local/bin/wp
         wp package install wp-cli/dist-archive-command
+        npm install
         npm run build
         composer install --no-dev --optimize-autoloader
         cd ..
