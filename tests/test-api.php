@@ -264,14 +264,16 @@ class ApiTest extends \WP_UnitTestCase {
 		$request = new \WP_REST_Request( 'GET', "/pressbooks/v2/parts/{$part_id}" );
 		$response = $server->dispatch( $request );
 		$data = $response->get_data();
+		$this->assertFalse($data['meta']['pb_part_invisible']);
 		$this->assertEquals('', $data['meta']['pb_part_invisible_string']);
 
-		update_post_meta( $part_id, 'pb_part_invisible', 'on' );
+		update_post_meta( $part_id, 'pb_part_invisible',  'on');
 		$book::deleteBookObjectCache();
 
 		$request = new \WP_REST_Request( 'GET', "/pressbooks/v2/parts/{$part_id}" );
 		$response = $server->dispatch( $request );
 		$data = $response->get_data();
+		$this->assertNull($data['meta']['pb_part_invisible']);
 		$this->assertEquals('on', $data['meta']['pb_part_invisible_string']);
 	}
 

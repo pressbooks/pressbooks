@@ -94,12 +94,8 @@ class Posts extends \WP_REST_Posts_Controller {
 		}
 
 		if ( $post->post_type === 'part' && isset( $response->data['meta'] ) ) {
-			if ( isset( $response->data['meta']['pb_part_invisible'] ) ) {
-				$response->data['meta']['pb_part_invisible_string'] = is_null( $response->data['meta']['pb_part_invisible'] ) ?
-					'on' : '';
-			} else {
-				$response->data['meta']['pb_part_invisible_string'] = 'on';
-			}
+			$response->data['meta']['pb_part_invisible_string'] = ! isset( $response->data['meta']['pb_part_invisible'] ) || is_null( $response->data['meta']['pb_part_invisible'] ) ?
+				'on' : '';
 		}
 
 		return $response;
