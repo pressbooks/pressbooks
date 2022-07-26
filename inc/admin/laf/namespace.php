@@ -1294,7 +1294,7 @@ function privacy_blog_public_callback( $args ) {
 	}
 	$html .= '/>';
 	$html .= '<label for="blog-public"> ' . __( 'Public. I would like this book to be visible to everyone.', 'pressbooks' ) . '</label><br />';
-	$html .= '<input type="radio" id="blog-public" name="blog_public" value="0" ';
+	$html .= '<input type="radio" id="blog-norobots" name="blog_public" value="0" ';
 	if ( ! $blog_public ) {
 		$html .= 'checked="checked" ';
 	}
