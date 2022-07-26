@@ -378,6 +378,15 @@ function register_meta() {
 	);
 
 	\register_meta(
+		'post', 'pb_part_invisible_string', array_merge(
+			$defaults, [
+				'object_subtype' => 'part',
+				'description' => __( 'Whether or not the part is shown in the table of contents', 'pressbooks' ),
+			]
+		)
+	);
+
+	\register_meta(
 		'post', 'pb_media_attribution_title_url', array_merge(
 			$defaults, [
 				'object_subtype' => 'attachment',
