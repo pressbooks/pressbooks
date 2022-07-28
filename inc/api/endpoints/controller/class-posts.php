@@ -80,7 +80,11 @@ class Posts extends \WP_REST_Posts_Controller {
 		// Check that content is empty (if not then API has already verified that the user can_access_password_content)
 		if ( in_array( $request['context'], [ 'view', 'embed' ], true ) ) {
 			if ( ! empty( $response->data['content'] ) ) {
-				if ( $response->data['content']['protected'] && empty( $response->data['content']['rendered'] ) ) {
+				if (
+					! apply_filters( 'pb_set_api_items_permission', false ) &&
+					$response->data['content']['protected'] &&
+					empty( $response->data['content']['rendered'] )
+				) {
 					// Hide raw data
 					$response->data['content']['raw'] = '';
 				}
@@ -137,8 +141,8 @@ class Posts extends \WP_REST_Posts_Controller {
 		if ( has_filter( 'pb_set_api_items_permission' ) && apply_filters( 'pb_set_api_items_permission', false ) ) {
 			return true;
 		}
-		return current_user_can( 'edit_posts' ) || get_option( 'blog_public' ) ?
-			true : parent::get_items_permissions_check( $request );
+		return current_user_can( 'edit_posts' ) || get_option( 'blog_public' ) ||
+			parent::get_items_permissions_check( $request );
 	}
 
 	/**
