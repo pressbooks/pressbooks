@@ -134,16 +134,11 @@ class Posts extends \WP_REST_Posts_Controller {
 	 * @return bool|\WP_Error True if the request has read access, WP_Error object otherwise.
 	 */
 	public function get_items_permissions_check( $request ) {
-
-		if ( current_user_can( 'edit_posts' ) ) {
+		if ( has_filter( 'pb_set_api_items_permission' ) && apply_filters( 'pb_set_api_items_permission', false ) ) {
 			return true;
 		}
-
-		if ( 1 !== absint( get_option( 'blog_public' ) ) ) {
-			return false;
-		}
-
-		return parent::get_items_permissions_check( $request );
+		return current_user_can( 'edit_posts' ) || get_option( 'blog_public' ) ?
+			true : parent::get_items_permissions_check( $request );
 	}
 
 	/**
@@ -152,7 +147,9 @@ class Posts extends \WP_REST_Posts_Controller {
 	 * @return bool Whether the post can be read.
 	 */
 	public function check_read_permission( $post ) {
-		// Private and public glossaries can be exposed
+		if ( has_filter( 'pb_set_api_items_permission' ) && apply_filters( 'pb_set_api_items_permission', false ) ) {
+			return true;
+		}
 		return parent::check_read_permission( $post ) ||
 			current_user_can( 'edit_posts' ) ||
 			$post->post_type === 'glossary';
@@ -191,4 +188,38 @@ class Posts extends \WP_REST_Posts_Controller {
 		return $schema;
 	}
 
+	/**
+	 * Retrieves a collection of posts.
+	 *
+	 * @since 4.7.0
+	 *
+	 * @param \WP_REST_Request $request Full details about the request.
+	 * @return \WP_REST_Response|\WP_Error Response object on success, or WP_Error object on failure.
+	 */
+	public function get_items( $request ) {
+		if ( has_filter( 'pb_set_api_items_permission' ) && apply_filters( 'pb_set_api_items_permission', false ) ) {
+			add_filter( 'post_password_required', [ $this, 'check_password_required' ], 10, 2 );
+		}
+		return parent::get_items( $request );
+	}
+
+	/**
+	 * Override the result of the post password check for REST requested posts.
+	 *
+	 * Allow users to read the content of password protected posts if they have
+	 * previously passed a permission check or if they have the `edit_post` capability
+	 * for the post being checked or if pb_set_items_permissions filter is true.
+	 *
+	 * @since 5.7.1
+	 *
+	 * @param bool    $required Whether the post requires a password check.
+	 * @param \WP_Post $post     The post been password checked.
+	 * @return bool Result of password check taking in to account REST API considerations.
+	 */
+	public function check_password_required( $required, $post ) {
+		if ( has_filter( 'pb_set_api_items_permission' ) && apply_filters( 'pb_set_api_items_permission', false ) ) {
+			return false;
+		}
+		return parent::check_password_required( $required, $post );
+	}
 }
