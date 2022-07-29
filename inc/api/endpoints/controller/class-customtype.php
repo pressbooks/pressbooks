@@ -75,6 +75,7 @@ class CustomType extends \WP_REST_Posts_Controller {
 		$type = $this->post_type === 'chapters' ? 'chapter' : $this->post_type;
 		$schema['properties'][ "{$type}-type" ] = [
 			'description' => sprintf( __( 'The type of %s.', 'pressbooks' ), $type ),
+			'type'		  => 'string',
 			'context' => [ 'view', 'edit', 'embed' ],
 		];
 		return $schema;
