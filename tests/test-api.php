@@ -31,7 +31,7 @@ class ApiTest extends \WP_UnitTestCase {
 	/**
 	 * @group api
 	 */
-	public function test_booksEndpointMetada() {
+	public function test_booksEndpointMetadata() {
 		$this->_book();
 		$server = $this->_setupRootApi();
 		$endpoint = '/pressbooks/v2/books';
@@ -257,6 +257,48 @@ class ApiTest extends \WP_UnitTestCase {
 	/**
 	 * @group api
 	 */
+	public function test_partsEndpoint() {
+		$server = $this->_setupBookApi();
+
+		new Posts('part');
+
+		$visible_part = [
+			'post_type'    => 'part',
+			'post_title'   => 'Visible',
+			'post_content' => 'This space intentionally left blank.',
+			'post_status'  => 'publish',
+		];
+		$invisible_part = [
+			'post_type'    => 'part',
+			'post_title'   => 'Invisible',
+			'post_content' => 'This space intentionally left blank.',
+			'post_status'  => 'publish',
+		];
+
+		$visible_id = $this->factory()->post->create_object( $visible_part );
+		delete_post_meta( $visible_id, 'pb_part_invisible' );
+
+		$invisible_id = $this->factory()->post->create_object( $invisible_part );
+		update_post_meta( $invisible_id, 'pb_part_invisible', 'on' );
+
+		$request = new \WP_REST_Request( 'GET', "/pressbooks/v2/parts/{$visible_id}" );
+		$response = $server->dispatch( $request );
+		$data = $response->get_data();
+
+		$this->assertFalse($data['meta']['pb_part_invisible']);
+		$this->assertEquals('', $data['meta']['pb_part_invisible_string']);
+
+		$request = new \WP_REST_Request( 'GET', "/pressbooks/v2/parts/{$invisible_id}" );
+		$response = $server->dispatch( $request );
+		$data = $response->get_data();
+
+		$this->assertNull($data['meta']['pb_part_invisible']);
+		$this->assertEquals('on', $data['meta']['pb_part_invisible_string']);
+	}
+
+	/**
+	 * @group api
+	 */
 	public function test_book_api_filter_modified_since() {
 		$epochNow = strtotime( 'today' );
 		$epochFuture = strtotime( '+1 week' );
@@ -419,26 +461,26 @@ class ApiTest extends \WP_UnitTestCase {
 	 */
 	public function set_api_permissions_item(): void {
 		$this->_book();
-		new Posts('glossary');
-		$term1 = [
-			'post_type'    => 'glossary',
-			'post_title'   => 'Synapse',
-			'post_content' => 'Definition',
+		new Posts('front-matter');
+		$post1 = [
+			'post_type'    => 'front-matter',
+			'post_title'   => 'Front matter title I',
+			'post_content' => 'This is a front matter content I',
 			'post_status'  => 'publish',
 		];
-		$term2 = [
-			'post_type'    => 'glossary',
-			'post_title'   => 'Not done',
-			'post_content' => 'This term is not done so the status is private.',
-			'post_status'  => 'private',
+		$post2 = [
+			'post_type'    => 'front-matter',
+			'post_title'   => 'Front matter title II',
+			'post_content' => 'This is a front matter content II',
+			'post_status'  => 'publish',
 		];
-		$this->factory()->post->create_object( $term1 );
-		$this->factory()->post->create_object( $term2 );
+		$this->factory()->post->create_object( $post1 );
+		$this->factory()->post->create_object( $post2 );
 
 		update_option( 'blog_public', 0 );
 
 		$server = $this->_setupRootApi();
-		$request = new \WP_REST_Request( 'GET', '/pressbooks/v2/glossary' );
+		$request = new \WP_REST_Request( 'GET', '/pressbooks/v2/toc' );
 		$response = $server->dispatch( $request );
 		$data = $response->get_data();
 		$this->assertArrayHasKey( 'code', $data );
@@ -448,10 +490,44 @@ class ApiTest extends \WP_UnitTestCase {
 
 		add_filter( 'pb_set_api_items_permission', '__return_true' );
 
-		$request = new \WP_REST_Request( 'GET', '/pressbooks/v2/glossary' );
+		$request = new \WP_REST_Request( 'GET', '/pressbooks/v2/toc' );
 		$response = $server->dispatch( $request );
 		$data = $response->get_data();
-		$this->assertEquals( 2, count( $data ) );
+		$this->assertEquals( 3, count( $data['front-matter'] ) );
+		$this->assertEquals( $post1['post_title'], $data['front-matter'][0]['title'] );
+		$this->assertEquals( $post2['post_title'], $data['front-matter'][1]['title'] );
+	}
+
+	/**
+	 * @test
+	 * @group api
+	 */
+	public function get_password_protected_posts(): void {
+		$this->_book();
+		new Posts('back-matter');
+		$protected_post = [
+			'post_type'    => 'back-matter',
+			'post_title'   => 'Back matter title I',
+			'post_content' => 'This is a back matter content I',
+			'post_status'  => 'publish',
+			'post_password' => '123456',
+		];
+		$protected_post_id = $this->factory()->post->create_object( $protected_post );
+		update_option( 'blog_public', 0 );
+
+		$server = $this->_setupRootApi();
+
+		$request = new \WP_REST_Request( 'GET', '/pressbooks/v2/back-matter/' . $protected_post_id );
+		$response = $server->dispatch( $request );
+		$data = $response->get_data();
+		$this->assertEmpty( $data['content']['raw'] );
+
+		add_filter( 'pb_set_api_items_permission', '__return_true' );
+
+		$response = $server->dispatch( $request );
+		$data = $response->get_data();
+		$this->assertEquals( $protected_post['post_content'], $data['content']['raw'] );
+
 	}
 
 }
