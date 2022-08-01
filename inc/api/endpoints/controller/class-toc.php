@@ -370,7 +370,7 @@ class Toc extends \WP_REST_Controller {
 
 		$part_base = 'parts';
 		$part_rest_url = rest_url( sprintf( '%s/%s', $this->namespace, $part_base ) );
-		$chapter_base = 'chapter';
+		$chapter_base = 'chapters';
 		$chapter_rest_url = rest_url( sprintf( '%s/%s', $this->namespace, $chapter_base ) );
 
 		$part = [];
@@ -400,7 +400,7 @@ class Toc extends \WP_REST_Controller {
 					];
 
 					// Metadata
-					$request_metadata = new \WP_REST_Request( 'GET', "/pressbooks/v2/chapters/{$new_ch['id']}/metadata" );
+					$request_metadata = new \WP_REST_Request( 'GET', "/pressbooks/v2/{$chapter_base}/{$new_ch['id']}/metadata" );
 					$response_metadata = rest_do_request( $request_metadata );
 					$new_ch['metadata'] = $this->prepare_response_for_collection( $response_metadata );
 					$this->linkCollector['metadata'][] = [

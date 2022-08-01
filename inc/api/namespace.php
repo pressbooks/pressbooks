@@ -46,7 +46,6 @@ function init_book() {
 
 	foreach ( [ 'front-matter', 'back-matter', 'chapter', 'glossary' ] as $post_type ) {
 		( new Endpoints\Controller\SectionMetadata( $post_type ) )->register_routes();
-		( new Endpoints\Controller\CustomType( $post_type ) )->register_routes();
 	}
 
 	foreach ( get_custom_post_types() as $post_type ) {

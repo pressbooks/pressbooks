@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-07-26T23:41:40+00:00\n"
+"POT-Creation-Date: 2022-08-01T15:31:46+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: pressbooks\n"
@@ -1849,42 +1849,6 @@ msgstr ""
 msgid "ID offset, overrides page."
 msgstr ""
 
-#: inc/api/endpoints/controller/class-customtype.php:24
-msgid "The content for the post."
-msgstr ""
-
-#: inc/api/endpoints/controller/class-customtype.php:33
-msgid "Content for the post, as it exists in the database."
-msgstr ""
-
-#: inc/api/endpoints/controller/class-customtype.php:37
-msgid "HTML content for the post, transformed for display."
-msgstr ""
-
-#: inc/api/endpoints/controller/class-customtype.php:42
-msgid "Whether the content is protected with a password."
-msgstr ""
-
-#: inc/api/endpoints/controller/class-customtype.php:49
-msgid "The title for the post."
-msgstr ""
-
-#: inc/api/endpoints/controller/class-customtype.php:58
-msgid "Title for the post, as it exists in the database."
-msgstr ""
-
-#: inc/api/endpoints/controller/class-customtype.php:62
-msgid "HTML title for the post, transformed for display."
-msgstr ""
-
-#: inc/api/endpoints/controller/class-customtype.php:69
-msgid "The status for the post."
-msgstr ""
-
-#: inc/api/endpoints/controller/class-customtype.php:77
-msgid "The type of %s."
-msgstr ""
-
 #: inc/api/endpoints/controller/class-metadata.php:549
 #: inc/api/endpoints/controller/class-sectionmetadata.php:453
 msgid "URL of a reference Web page that unambiguously indicates the item's identity."
@@ -1906,23 +1870,23 @@ msgstr ""
 msgid "Word count."
 msgstr ""
 
-#: inc/api/namespace.php:76
+#: inc/api/namespace.php:75
 msgid "Part ID."
 msgstr ""
 
-#: inc/api/namespace.php:200
+#: inc/api/namespace.php:199
 msgid "Invalid batch parameter(s)."
 msgstr ""
 
-#: inc/api/namespace.php:355
+#: inc/api/namespace.php:354
 msgid "Part does not exist"
 msgstr ""
 
-#: inc/api/namespace.php:362
+#: inc/api/namespace.php:361
 msgid "ID is not a part"
 msgstr ""
 
-#: inc/api/namespace.php:376
+#: inc/api/namespace.php:375
 msgid "Failed to update chapter part"
 msgstr ""
 
