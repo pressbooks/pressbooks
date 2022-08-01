@@ -31,7 +31,7 @@ class ApiTest extends \WP_UnitTestCase {
 	/**
 	 * @group api
 	 */
-	public function test_booksEndpointMetada() {
+	public function test_booksEndpointMetadata() {
 		$this->_book();
 		$server = $this->_setupRootApi();
 		$endpoint = '/pressbooks/v2/books';
@@ -252,6 +252,48 @@ class ApiTest extends \WP_UnitTestCase {
 			$status = $response->get_status();
 			$this->assertEquals( 404, $status );
 		}
+	}
+
+	/**
+	 * @group api
+	 */
+	public function test_partsEndpoint() {
+		$server = $this->_setupBookApi();
+
+		new Posts('part');
+
+		$visible_part = [
+			'post_type'    => 'part',
+			'post_title'   => 'Visible',
+			'post_content' => 'This space intentionally left blank.',
+			'post_status'  => 'publish',
+		];
+		$invisible_part = [
+			'post_type'    => 'part',
+			'post_title'   => 'Invisible',
+			'post_content' => 'This space intentionally left blank.',
+			'post_status'  => 'publish',
+		];
+
+		$visible_id = $this->factory()->post->create_object( $visible_part );
+		delete_post_meta( $visible_id, 'pb_part_invisible' );
+
+		$invisible_id = $this->factory()->post->create_object( $invisible_part );
+		update_post_meta( $invisible_id, 'pb_part_invisible', 'on' );
+
+		$request = new \WP_REST_Request( 'GET', "/pressbooks/v2/parts/{$visible_id}" );
+		$response = $server->dispatch( $request );
+		$data = $response->get_data();
+
+		$this->assertFalse($data['meta']['pb_part_invisible']);
+		$this->assertEquals('', $data['meta']['pb_part_invisible_string']);
+
+		$request = new \WP_REST_Request( 'GET', "/pressbooks/v2/parts/{$invisible_id}" );
+		$response = $server->dispatch( $request );
+		$data = $response->get_data();
+
+		$this->assertNull($data['meta']['pb_part_invisible']);
+		$this->assertEquals('on', $data['meta']['pb_part_invisible_string']);
 	}
 
 	/**
