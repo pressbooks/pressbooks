@@ -137,7 +137,7 @@ class Posts extends \WP_REST_Posts_Controller {
 	 *
 	 * @return bool|\WP_Error True if the request has read access, WP_Error object otherwise.
 	 */
-	public function get_items_permissions_check( \WP_REST_Request $request ): bool | \WP_Error {
+	public function get_items_permissions_check( $request ): bool | \WP_Error {
 		if ( has_filter( 'pb_set_api_items_permission' ) && apply_filters( 'pb_set_api_items_permission', false ) ) {
 			return true;
 		}
