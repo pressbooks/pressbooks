@@ -259,12 +259,16 @@ class Toc extends \WP_REST_Controller {
 		// Register missing routes
 		$this->registerRouteDependencies();
 
+		// Don't add Private: to the front matter, back matter, or chapter titles in any case when exposing the TOC to the API.
+		remove_action( 'the_title', '\PressbooksBook\Filters\add_private_to_title' );
+
 		$struct = Book::getBookStructure();
 		unset( $struct['__order'] );
 		$has_permission = current_user_can( 'edit_posts' );
 		if ( has_filter( 'pb_set_api_items_permission' ) && apply_filters( 'pb_set_api_items_permission', false ) ) {
 			$has_permission = true;
 		}
+
 		$struct = $this->fixBookStructure( $struct, $has_permission );
 
 		$response = rest_ensure_response( $struct );

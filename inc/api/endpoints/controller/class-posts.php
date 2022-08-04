@@ -189,6 +189,12 @@ class Posts extends \WP_REST_Posts_Controller {
 			}
 		}
 
+		$schema['properties']['status'] = [
+			'description' => __( 'The status for the post.', 'pressbooks' ),
+			'type'        => 'string',
+			'context' => [ 'view', 'edit', 'embed' ],
+		];
+
 		return $schema;
 	}
 
