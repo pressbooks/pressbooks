@@ -191,10 +191,17 @@ https://youtu.be/Lqqsp8soXTo
 	 */
 	private function _openTextbook( $with_media = false ) {
 		$this->_book( 'pressbooks-book', $with_media );
+		$blog_id = get_current_blog_id();
+
 		update_option( 'blog_public', 1 );
+
 		$meta_post = ( new \Pressbooks\Metadata() )->getMetaPost();
 		update_post_meta( $meta_post->ID, 'pb_book_license', 'cc-by' );
 		wp_set_object_terms( $meta_post->ID, 'cc-by', \Pressbooks\Licensing::TAXONOMY ); // Link
+
+		update_site_meta( $blog_id, 'pb_is_public', 1 );
+		update_site_meta( $blog_id, 'pb_book_license', 'cc-by' );
+
 		\Pressbooks\Book::deleteBookObjectCache();
 	}
 
