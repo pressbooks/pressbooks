@@ -38,7 +38,11 @@
 		"docraptor/docraptor": "^3.0",
 		"fale/isbn": "^3.0",
 		"gridonic/princexml-php": "^1.2",
-		"illuminate/container": "^8.83.23",
+		"illuminate/container": "^8.0",
+		"illuminate/contracts": "^8.0",
+		"illuminate/events": "^8.0",
+		"illuminate/filesystem": "^8.0",
+		"illuminate/view": "^8.0",
 		"jenssegers/imagehash": "0.5.0",
 		"johnbillion/extended-cpts": "^5.0",
 		"masterminds/html5": "^2.6",
@@ -61,7 +65,7 @@
 		"lucatume/wp-browser": "^3.0",
 		"pressbooks/coding-standards": "^1.1",
 		"yoast/phpunit-polyfills": "^1.0.1",
-    "dms/phpunit-arraysubset-asserts": "^0.4.0"
+		"dms/phpunit-arraysubset-asserts": "^0.4.0"
 	},
 	"suggest": {
 		"pressbooks/pressbooks-book":
