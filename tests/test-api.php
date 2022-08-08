@@ -451,7 +451,7 @@ class ApiTest extends \WP_UnitTestCase {
 		$data = $response->get_data();
 
 		$this->assertEquals( 3, count( $data ) );
-		$this->assertEquals( 'Not done', $data[0]['title']['rendered'] );
+		$this->assertEquals( 'Private: Not done', $data[0]['title']['rendered'] );
 		$this->assertEquals( 'Synapse', $data[1]['title']['rendered'] );
 	}
 
@@ -472,7 +472,7 @@ class ApiTest extends \WP_UnitTestCase {
 			'post_type'    => 'front-matter',
 			'post_title'   => 'Front matter title II',
 			'post_content' => 'This is a front matter content II',
-			'post_status'  => 'publish',
+			'post_status'  => 'private',
 		];
 		$this->factory()->post->create_object( $post1 );
 		$this->factory()->post->create_object( $post2 );
