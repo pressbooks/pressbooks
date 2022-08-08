@@ -5,8 +5,8 @@
  */
 
 use function \Pressbooks\Utility\include_plugins as include_symbionts;
-use Pressbooks\Book;
 use Illuminate\Container\Container;
+use Pressbooks\Book;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

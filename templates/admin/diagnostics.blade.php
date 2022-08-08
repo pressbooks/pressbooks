@@ -1,4 +1,4 @@
-{!! $notices or '' !!}
+{!! $notices ?? '' !!}
 <div class="wrap">
 	<h1>{{ __( 'Diagnostics', 'pressbooks' ) }}</h1>
 	<p>{{ __( 'Please submit this information with any bug reports.', 'pressbooks' ) }}</p>

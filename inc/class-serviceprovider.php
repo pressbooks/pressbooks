@@ -1,13 +1,13 @@
 <?php
 
 namespace Pressbooks;
-use \Illuminate\Container\Container;
+
+use Illuminate\Container\Container;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\View\Compilers\BladeCompiler;
 use Illuminate\View\Engines\CompilerEngine;
 use Illuminate\View\Engines\EngineResolver;
-use Illuminate\View\Engines\PhpEngine;
 use Illuminate\View\Factory;
 use Illuminate\View\FileViewFinder;
 
@@ -19,67 +19,61 @@ class ServiceProvider {
 	 * If you add services, don't forget to also edit config/.phpstorm.meta.php
 	 *
 	 */
-	public static function init(): void
-	{
-		$c = Container::getInstance();
+	public static function init(): void {
+		$container = Container::getInstance();
 
-		$c->singleton(
+		$container->singleton(
 			'Sass', function () {
-			return new Sass();
+				return new Sass();
 			}
 		);
 
-		$c->singleton(
-			'GlobalTypography', function ( Container $c ) {
-			return new GlobalTypography( $c->make( 'Sass' ) );
+		$container->singleton(
+			'GlobalTypography', function ( Container $container ) {
+				return new GlobalTypography( $container->make( 'Sass' ) );
 			}
 		);
 
-		$c->singleton(
-			'Styles', function ( Container $c ) {
-			return new Styles( $c->make( 'Sass' ) );
+		$container->singleton(
+			'Styles', function ( Container $container ) {
+				return new Styles( $container->make( 'Sass' ) );
 			}
 		);
 
-		$c->singleton(
-			'Blade', function ( Container $c ) {
-			// Configuration
-			// Note that you can set several directories where your templates are located
-			$pathsToTemplates = [__DIR__ . '/templates'];
-			$pathToCompiledTemplates = \Pressbooks\Utility\get_cache_path();
+		$container->singleton(
+			'Blade', function ( Container $container ) {
+				// Configuration
+				// Note that you can set several directories where your templates are located
+				$path_to_templates = [ dirname( __DIR__ ) . '/templates' ];
+				$path_to_compiled_templates = \Pressbooks\Utility\get_cache_path();
 
-			// Dependencies
-			$filesystem = new Filesystem;
-			$eventDispatcher = new Dispatcher(new Container);
+				// Dependencies
+				$filesystem = new Filesystem;
+				$event_dispatcher = new Dispatcher( new Container );
 
-			// Create View Factory capable of rendering PHP and Blade templates
-			$viewResolver = new EngineResolver;
-			$bladeCompiler = new BladeCompiler($filesystem, $pathToCompiledTemplates);
+				// Create View Factory capable of rendering PHP and Blade templates
+				$view_resolver = new EngineResolver;
+				$blade_compiler = new BladeCompiler( $filesystem, $path_to_compiled_templates );
 
-			$viewResolver->register('blade', function () use ($bladeCompiler) {
-				return new CompilerEngine($bladeCompiler);
-			});
+				$view_resolver->register('blade', function () use ( $blade_compiler ) {
+					return new CompilerEngine( $blade_compiler );
+				});
 
-			$viewResolver->register('php', function () {
-				return new PhpEngine;
-			});
+				$view_finder = new FileViewFinder( $filesystem, $path_to_templates );
 
-			$viewFinder = new FileViewFinder($filesystem, $pathsToTemplates);
+				return new class(new Factory( $view_resolver, $view_finder, $event_dispatcher )) {
+					/**
+					 * @var \Illuminate\View\Factory
+					 */
+					private Factory $factory;
 
-			return new class(new Factory($viewResolver, $viewFinder, $eventDispatcher)) {
-				/**
-				 * @var \Illuminate\View\Factory
-				 */
-				private Factory $factory;
-
-				public function __construct(Factory $factory) {
-					$this->factory = $factory;
-				}
-				public function render($view, $data = []): string
-				{
-					return $this->factory->make($view, $data)->render();
-				}
-			};
+					public function __construct( Factory $factory ) {
+						$this->factory = $factory;
+					}
+					public function render( $view, $data = [] ): string {
+						return $this->factory->make( $view, $data )->render();
+					}
+				};
 			}
 		);
 	}
