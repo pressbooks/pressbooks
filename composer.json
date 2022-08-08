@@ -45,6 +45,7 @@
 		"illuminate/view": "^8.0",
 		"jenssegers/imagehash": "0.5.0",
 		"johnbillion/extended-cpts": "^5.0",
+    "laravel/helpers": "^1.5",
 		"masterminds/html5": "^2.6",
 		"maxbanton/cwh": "^2.0",
 		"monolog/monolog": "^2.2",
