@@ -1,6 +1,6 @@
 <?php
 
-use Pressbooks\Container;
+use Illuminate\Container\Container;
 
 class FakeContainer extends \Illuminate\Container\Container {
 }
@@ -67,9 +67,9 @@ class ContainerTest extends \WP_UnitTestCase {
 			}, 'protect'
 		);
 
-		$var1 = Container::get( 'test1' );
-		$var2 = Container::get( 'test2' );
-		$var3 = Container::get( 'test3' );
+		$var1 = Container::getInstance()->get( 'test1' );
+		$var2 = Container::getInstance()->get( 'test2' );
+		$var3 = Container::getInstance()->get( 'test3' );
 
 		$this->assertTrue( 'test1' == $var1 );
 
@@ -84,7 +84,7 @@ class ContainerTest extends \WP_UnitTestCase {
 				return 'test4';
 			}
 		);
-		$var4 = Container::get( 'test1' );
+		$var4 = Container::getInstance()->get( 'test1' );
 		$this->assertTrue( 'test1' == $var4 );
 
 		// Should replace
@@ -94,7 +94,7 @@ class ContainerTest extends \WP_UnitTestCase {
 			},
 			null, true
 		);
-		$var5 = Container::get( 'test1' );
+		$var5 = Container::getInstance()->get( 'test1' );
 		$this->assertTrue( 'test4' == $var5 );
 	}
 
@@ -103,7 +103,7 @@ class ContainerTest extends \WP_UnitTestCase {
 	 */
 	public function test_getException() {
 		$this->expectException(\LogicException::class);
-		$var = Container::get( 'foo' );
+		$var = Container::getInstance()->get( 'foo' );
 	}
 
 	/**

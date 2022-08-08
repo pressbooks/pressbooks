@@ -2,7 +2,7 @@
 
 require_once( PB_PLUGIN_DIR . 'inc/admin/fonts/namespace.php' );
 
-use Pressbooks\Container;
+use Illuminate\Container\Container;
 
 class Admin_FontsTest extends \WP_UnitTestCase {
 
@@ -39,7 +39,7 @@ class Admin_FontsTest extends \WP_UnitTestCase {
 
 			$stub = $this
 				->getMockBuilder( '\Pressbooks\GlobalTypography' )
-				->setConstructorArgs( [ Container::get( 'Sass' ) ] )
+				->setConstructorArgs( [ Container::getInstance()->get( 'Sass' ) ] )
 				->getMock();
 
 			return $stub;

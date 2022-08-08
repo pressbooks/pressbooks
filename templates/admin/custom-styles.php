@@ -14,7 +14,7 @@ if ( ! apply_filters( 'pb_access_to_custom_styles', true ) ) {
  * @var string $slug
  */
 
-$styles = \Pressbooks\Container::get( 'Styles' );
+$styles = \Pressbooks\Container::getInstance()->get( 'Styles' );
 $custom_form_url = wp_nonce_url( get_admin_url( get_current_blog_id(), '/themes.php?page=' . $styles::PAGE . '&custom_styles=yes' ), 'pb-custom-styles' );
 $slugs_dropdown = $styles->renderDropdownForSlugs( $slug );
 $current_label = ( $styles->getSupported()[ $slug ] !== 'Web' ) ? $styles->getSupported()[ $slug ] : __( 'Web', 'pressbooks' );

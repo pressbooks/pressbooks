@@ -1,6 +1,6 @@
 <?php
 
-use Pressbooks\Container;
+use Illuminate\Container\Container;
 
 class SassTest extends \WP_UnitTestCase {
 
@@ -18,7 +18,7 @@ class SassTest extends \WP_UnitTestCase {
 	 */
 	public function set_up() {
 		parent::set_up();
-		$this->sass = Container::get( 'Sass' );
+		$this->sass = Container::getInstance()->get( 'Sass' );
 	}
 
 	/**
