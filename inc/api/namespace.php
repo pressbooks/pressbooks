@@ -32,8 +32,6 @@ function add_help_link( $response ) {
  * @see https://developer.wordpress.org/rest-api/extending-the-rest-api/
  */
 function init_book() {
-	// Don't add Private: to the front matter, back matter, or chapter titles in any case when exposing the TOC to the API.
-	remove_action( 'the_title', '\PressbooksBook\Filters\add_private_to_title' );
 
 	// Register TOC
 	( new Endpoints\Controller\Toc() )->register_routes();

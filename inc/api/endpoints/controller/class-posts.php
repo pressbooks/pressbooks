@@ -102,6 +102,14 @@ class Posts extends \WP_REST_Posts_Controller {
 				'on' : '';
 		}
 
+		// Override post title to avoid \PressbooksBook\Filters\add_private_to_title filter for the_title hook.
+		if ( ! empty( $response->data['title']['rendered'] ) ) {
+			$response->data['title']['rendered'] = $post->post_title;
+		}
+		if ( ! empty( $response->data['title']['raw'] ) ) {
+			$response->data['title']['raw'] = $post->post_title;
+		}
+
 		return $response;
 	}
 
