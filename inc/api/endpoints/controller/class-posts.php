@@ -102,14 +102,6 @@ class Posts extends \WP_REST_Posts_Controller {
 				'on' : '';
 		}
 
-		// Override post title to avoid \PressbooksBook\Filters\add_private_to_title filter for the_title hook.
-		if ( ! empty( $response->data['title']['rendered'] ) ) {
-			$response->data['title']['rendered'] = $post->post_title;
-		}
-		if ( ! empty( $response->data['title']['raw'] ) ) {
-			$response->data['title']['raw'] = $post->post_title;
-		}
-
 		return $response;
 	}
 
@@ -195,6 +187,10 @@ class Posts extends \WP_REST_Posts_Controller {
 			if ( isset( $schema['properties'][ $taxonomy ] ) ) {
 				$schema['properties'][ $taxonomy ]['context'][] = 'embed';
 			}
+		}
+
+		if ( isset( $schema['properties']['title'] ) ) {
+			array_push( $schema['properties']['title']['properties']['raw']['context'], 'view', 'embed' );
 		}
 
 		$schema['properties']['status'] = [
