@@ -62,16 +62,20 @@ class ServiceProvider {
 				$view_finder = new FileViewFinder( $filesystem, $path_to_templates );
 
 				return new class(new Factory( $view_resolver, $view_finder, $event_dispatcher )) {
-					/**
-					 * @var \Illuminate\View\Factory
-					 */
-					private Factory $factory;
+					protected Factory $factory;
 
 					public function __construct( Factory $factory ) {
 						$this->factory = $factory;
 					}
+
 					public function render( $view, $data = [] ): string {
 						return $this->factory->make( $view, $data )->render();
+					}
+
+					public function addNamespace( $namespace, $hints ): self {
+						$this->factory->addNamespace( $namespace, $hints );
+
+						return $this;
 					}
 				};
 			}
