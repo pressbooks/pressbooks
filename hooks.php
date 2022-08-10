@@ -5,8 +5,8 @@
  */
 
 use function \Pressbooks\Utility\include_plugins as include_symbionts;
-use Illuminate\Container\Container;
 use Pressbooks\Book;
+use Pressbooks\Container;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -259,7 +259,7 @@ add_action( 'init', '\Pressbooks\Theme\update_template_root' );
 
 add_action(
 	'init', function() {
-		Container::getInstance()->get( 'Styles' )->maybeUpdateStylesheets();
+		Container::get( 'Styles' )->maybeUpdateStylesheets();
 	}
 );
 
@@ -319,7 +319,7 @@ add_filter( 'wp_mail_from_name', '\Pressbooks\Utility\mail_from_name' );
 // (Custom) Styles
 // -------------------------------------------------------------------------------------------------------------------
 
-Container::getInstance()->get( 'Styles' )->init();
+Container::get( 'Styles' )->init();
 
 if ( $is_book ) {
 	// Overrides (sometimes a web stylesheet update will be triggered by a visitor so this filter needs to be active outside of the admin)

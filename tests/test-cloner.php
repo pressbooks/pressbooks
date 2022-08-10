@@ -1,7 +1,6 @@
 <?php
 
 class ClonerTest extends \WP_UnitTestCase {
-
 	use utilsTrait;
 
 	/**
@@ -151,7 +150,6 @@ class ClonerTest extends \WP_UnitTestCase {
 	 * @group cloner
 	 */
 	public function test_discoverWordPressApi(){
-
 		// Hook a fake HTTP request response.
 		add_filter(
 			'pre_http_request',
@@ -187,5 +185,4 @@ class ClonerTest extends \WP_UnitTestCase {
 		$url = $cloner->discoverWordPressApi( 'https://also-good.com' );
 		$this->assertEquals( 'http://example.com/?rest_route=', $url );
 	}
-
 }

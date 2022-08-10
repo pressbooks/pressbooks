@@ -3,7 +3,6 @@
 use Pressbooks\Admin\Network_Managers_List_Table;
 
 class Admin_Network_Managers_List_Table extends \WP_UnitTestCase {
-
 	use utilsTrait;
 
 	/**

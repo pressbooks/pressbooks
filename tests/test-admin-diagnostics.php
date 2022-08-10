@@ -3,7 +3,6 @@
 require_once( PB_PLUGIN_DIR . 'inc/admin/diagnostics/namespace.php' );
 
 class Admin_DiagnosticsTest extends \WP_UnitTestCase {
-
 	use utilsTrait;
 
 	/**

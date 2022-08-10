@@ -17,9 +17,9 @@ class Container {
 	}
 
 	public static function set( $key, $val, $type = null, $replace = false ): LaravelContainer {
-
 		if ( $replace ) {
 			LaravelContainer::getInstance()->forgetInstance( $key );
+			LaravelContainer::getInstance()->offsetSet( $key, $val );
 		}
 
 		if ( ! LaravelContainer::getInstance()->bound( $key ) ) {

@@ -3,7 +3,6 @@
 use Pressbooks\Activation;
 
 class ActivationTest extends \WP_UnitTestCase {
-
 	use utilsTrait;
 
 	/**
@@ -11,9 +10,6 @@ class ActivationTest extends \WP_UnitTestCase {
 	 */
 	protected $activation;
 
-	/**
-	 *
-	 */
 	public function set_up() {
 		parent::set_up();
 

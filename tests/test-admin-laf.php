@@ -4,7 +4,6 @@ require_once( PB_PLUGIN_DIR . 'inc/admin/laf/namespace.php' );
 
 
 class Admin_LafTest extends \WP_UnitTestCase {
-
 	use utilsTrait;
 
 	function test_can_create_new_book() {
@@ -27,7 +26,6 @@ class Admin_LafTest extends \WP_UnitTestCase {
 	 * @group branding
 	 */
 	function test_add_footer_link() {
-
 		ob_start();
 		\Pressbooks\Admin\Laf\add_footer_link();
 		$buffer = ob_get_clean();
@@ -59,7 +57,6 @@ class Admin_LafTest extends \WP_UnitTestCase {
 	 * @group branding
 	 */
 	function test_replace_book_admin_menu_AND_init_css_js() {
-
 		global $menu, $submenu;
 
 		// Fake load the admin menu
@@ -123,7 +120,6 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		$this->assertContains( 'pb-import', $wp_scripts->queue );
 
 		unset( $GLOBALS['post'], $GLOBALS['current_screen'] ); // Cleanup
-
 	}
 
 	/**
@@ -281,7 +277,6 @@ class Admin_LafTest extends \WP_UnitTestCase {
 	 * @group branding
 	 */
 	function test_edit_screen_navigation() {
-
 		$this->_book();
 
 		// Mock
@@ -323,20 +318,17 @@ class Admin_LafTest extends \WP_UnitTestCase {
 	 * @group branding
 	 */
 	function test_user_contact_fields() {
-
 		$fields = \Pressbooks\Admin\Laf\get_user_contact_fields();
 
 		$this->assertCount( 3, $fields );
 
 		$this->assertEquals( 'Twitter URL', $fields['twitter'] );
-
 	}
 
 	/**
 	 * @group branding
 	 */
 	function test_modify_user_fields() {
-
 		$methods = [
 			'aim' => '',
 			'yim' => '',
@@ -346,13 +338,11 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		$fields = \Pressbooks\Admin\Laf\modify_user_contact_fields( $methods );
 
 		$this->assertCount( 3, $fields );
-
 	}
 	/**
 	 * @group branding
 	 */
 	function test_sanitize_user_profile() {
-
 		$_POST['twitter'] = 'https://twitter.com/pb';
 		$_POST['linkedin'] = 'htd';
 		$_POST['github'] = 'https://github.com/pressbooks';
@@ -365,13 +355,12 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		$this->assertTrue( $error_handler->has_errors() );
 
 		$this->assertEquals( 'The LinkedIn URL field is not a valid URL.', $error_handler->get_error_message( 'linkedin' ) );
-
 	}
+
 	/**
 	 * @group branding
 	 */
 	function test_institution_fields_hooks() {
-
 		global $post, $pagenow;
 		$user_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
 		wp_set_current_user( $user_id );
@@ -396,8 +385,8 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		$result = \Pressbooks\Admin\Laf\update_user_profile_fields( $user_id );
 
 		$this->assertNull( $result );
-
 	}
+
 	/**
 	 * @group branding
 	 */
@@ -412,5 +401,4 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		$this->assertFalse( has_filter( 'wp_staticize_emoji', 'the_content_feed' ) );
 		$this->assertFalse( has_filter( 'wp_staticize_emoji', 'comment_text_css' ) );
 	}
-
 }

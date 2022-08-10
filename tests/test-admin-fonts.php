@@ -2,10 +2,10 @@
 
 require_once( PB_PLUGIN_DIR . 'inc/admin/fonts/namespace.php' );
 
-use Illuminate\Container\Container;
+use Pressbooks\Container;
+use Pressbooks\ServiceProvider;
 
 class Admin_FontsTest extends \WP_UnitTestCase {
-
 	use utilsTrait;
 
 	/**
@@ -13,12 +13,10 @@ class Admin_FontsTest extends \WP_UnitTestCase {
 	 * @group typography
 	 */
 	public function set_up() {
-
 		parent::set_up();
 
 		// Replace Sass service with mock
 		Container::set( 'Sass', function () {
-
 			$stub = $this
 				->getMockBuilder( '\Pressbooks\Sass' )
 				->getMock();
@@ -36,13 +34,10 @@ class Admin_FontsTest extends \WP_UnitTestCase {
 
 		// Replace GlobalTypography service with mock
 		Container::set( 'GlobalTypography', function () {
-
-			$stub = $this
+			return $this
 				->getMockBuilder( '\Pressbooks\GlobalTypography' )
-				->setConstructorArgs( [ Container::getInstance()->get( 'Sass' ) ] )
+				->setConstructorArgs( [ Container::get( 'Sass' ) ] )
 				->getMock();
-
-			return $stub;
 		}, null, true );
 	}
 
@@ -52,8 +47,8 @@ class Admin_FontsTest extends \WP_UnitTestCase {
 	 * @group typography
 	 */
 	public function tear_down() {
+		ServiceProvider::init();
 
-		Container::init(); // Reset
 		parent::tear_down();
 	}
 
@@ -61,7 +56,6 @@ class Admin_FontsTest extends \WP_UnitTestCase {
 	 * @group typography
 	 */
 	public function test_update_font_stacks() {
-
 		\Pressbooks\Admin\Fonts\update_font_stacks();
 		$this->assertTrue( true ); // Did not crash
 		$this->assertFalse( get_transient( 'pressbooks_updating_font_stacks' ) );
@@ -71,12 +65,9 @@ class Admin_FontsTest extends \WP_UnitTestCase {
 	 * @group typography
 	 */
 	public function test_fix_missing_font_stacks() {
-
 		$this->_book( 'pressbooks-luther' );
 		\Pressbooks\Admin\Fonts\maybe_update_font_stacks();
 		$this->assertTrue( true ); // Did not crash
 		$this->assertFalse( get_transient( 'pressbooks_updating_font_stacks' ) );
 	}
-
-
 }
