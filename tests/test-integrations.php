@@ -8,7 +8,6 @@ class IntegrationsTest extends \WP_UnitTestCase {
 	 * @group integrations
 	 */
 	public function test_cloneRemoteBook() {
-
 		$source = 'https://pbtest.pressbooks.com';
 		$target = uniqid( 'clone-' );
 
@@ -54,7 +53,6 @@ class IntegrationsTest extends \WP_UnitTestCase {
 	 * @group integrations
 	 */
 	public function test_ImportUsingCloningApi() {
-
 		$source = 'https://pbtest.pressbooks.com';
 
 		$this->_setupBookApi();

@@ -32,7 +32,7 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Install OS dependencies
       run: |
@@ -48,7 +48,7 @@ jobs:
         rm prince_${{ matrix.prince }}_ubuntu20.04_amd64.deb
 
     - name: Cache Composer packages
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: vendor
         key: ${{ matrix.php }}-php-${{ hashFiles('**/composer.lock') }}
