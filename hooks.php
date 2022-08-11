@@ -257,11 +257,9 @@ add_action( 'init', '\Pressbooks\Theme\update_template_root' );
 // Regenerate stylesheets
 // -------------------------------------------------------------------------------------------------------------------
 
-add_action(
-	'init', function() {
-		Container::get( 'Styles' )->maybeUpdateStylesheets();
-	}
-);
+add_action( 'plugins_loaded', function() {
+	Container::get( 'Styles' )->maybeUpdateStylesheets();
+} );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Force Flush
