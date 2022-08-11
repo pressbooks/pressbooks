@@ -607,8 +607,14 @@ class Styles {
 	 * @return bool
 	 */
 	public function maybeUpdateStylesheets() {
+		global $wp_query;
+
 		// If this is ajax/cron/404, don't update right now
-		if ( wp_doing_ajax() || wp_doing_cron() || is_404() ) {
+		if ( wp_doing_ajax() || wp_doing_cron() ) {
+			return false;
+		}
+
+		if ( isset( $wp_query ) && is_404() ) {
 			return false;
 		}
 
