@@ -1,7 +1,6 @@
 <?php
 
 class Shortcodes_Glossary extends \WP_UnitTestCase {
-
 	use utilsTrait;
 
 	/**
@@ -27,6 +26,7 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 		$this->_createGlossaryTerms();
 		$this->gl->getGlossaryTerms( true ); // Reset cache
 	}
+
 	/**
 	 * @group glossary
 	 */
@@ -69,7 +69,6 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 	 * @group glossary
 	 */
 	private function _createGlossaryPost() {
-
 		$args = [
 			'post_type'    => 'glossary',
 			'post_title'   => 'PHP',
@@ -84,7 +83,6 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 	 * @group glossary
 	 */
 	public function test_getInstance() {
-
 		$val = $this->gl->init();
 
 		$this->assertTrue( $val instanceof \Pressbooks\Shortcodes\Glossary\Glossary );
@@ -92,7 +90,6 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 		global $shortcode_tags;
 
 		$this->assertArrayHasKey( 'pb_glossary', $shortcode_tags );
-
 	}
 	/**
 	 * @group glossary
@@ -117,6 +114,7 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 		$this->assertEquals( '<dl data-type="glossary"><dt data-type="glossterm"><dfn id="dfn-machine-learning-ml">Machine Learning (ML)</dfn></dt><dd data-type="glossdef"><p>Machine learning is a method of data analysis that automates analytical model building</p>
 </dd></dl>', $dl );
 	}
+
 	/**
 	 * @group glossary
 	 */
@@ -131,6 +129,7 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 		$result = $this->gl->glossaryTooltip( $pid, 'PHP' );
 		$this->assertEquals( 'PHP', $result );
 	}
+
 	/**
 	 * @group glossary
 	 */
@@ -210,7 +209,6 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 		$this->assertStringContainsString( 'L--IxUH4fac', $content_with_shortcode );
 		$this->assertStringContainsString( '<figcaption', $content_with_shortcode );
 		$this->assertStringContainsString( 'Introduction to evolutionary algorithms', $content_with_shortcode );
-
 	}
 	/**
 	 * @group glossary
@@ -251,5 +249,4 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 		$post = get_post( $pid );
 		$this->assertStringContainsString( '<dl data-type="glossary">', $this->gl->overrideDisplay( $post->post_content ) );
 	}
-
 }

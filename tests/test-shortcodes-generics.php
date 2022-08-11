@@ -2,7 +2,6 @@
 
 
 class Shortcodes_Generics extends \WP_UnitTestCase {
-
 	use utilsTrait;
 
 	/**
@@ -39,7 +38,6 @@ class Shortcodes_Generics extends \WP_UnitTestCase {
 	 * @group shortcodes
 	 */
 	public function test_blockShortcodeHandler() {
-
 		// Test a straightforward tag.
 		$content = $this->generics->blockShortcodeHandler( [], 'A heading', 'heading' );
 		$this->assertEquals( "<h1>A heading</h1>", $content );
@@ -55,7 +53,6 @@ class Shortcodes_Generics extends \WP_UnitTestCase {
 	 * @group shortcodes
 	 */
 	public function test_multilineBlockShortcodeHandler() {
-
 		// Test a straightforward tag.
 		$content = $this->generics->multilineBlockShortcodeHandler( [], 'A normal blockquote', 'blockquote' );
 		$this->assertEquals( "<blockquote><p>A normal blockquote</p>\n</blockquote>", $content );
@@ -79,7 +76,6 @@ class Shortcodes_Generics extends \WP_UnitTestCase {
 	 * @group shortcodes
 	 */
 	public function test_inlineShortcodeHandler() {
-
 		// Test a straightforward tag.
 		$content = $this->generics->inlineShortcodeHandler( [], 'WHY ARE YOU SHOUTING', 'strong' );
 		$this->assertEquals( "<strong>WHY ARE YOU SHOUTING</strong>", $content );

@@ -1,14 +1,11 @@
 <?php
 
 class PressbooksTest extends \WP_UnitTestCase {
-
-
 	/**
 	 * @var \Pressbooks\Pressbooks()
 	 * @group plugin
 	 */
 	protected $pb;
-
 
 	/**
 	 * @group plugin

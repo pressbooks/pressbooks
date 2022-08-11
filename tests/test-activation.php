@@ -34,7 +34,8 @@ class ActivationTest extends \WP_UnitTestCase {
 	 */
 	public function test_init() {
 		$instance = Activation::init();
-		$this->assertTrue( $instance instanceof Activation );
+
+		$this->assertInstanceOf( Activation::class, $instance );
 	}
 
 	/**

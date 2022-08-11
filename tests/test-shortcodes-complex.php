@@ -2,7 +2,6 @@
 
 
 class Shortcodes_Complex extends \WP_UnitTestCase {
-
 	use utilsTrait;
 
 	/**
@@ -161,5 +160,4 @@ class Shortcodes_Complex extends \WP_UnitTestCase {
 		$this->assertStringContainsString( '<iframe', $content );
 		$this->assertStringContainsString( '<figcaption>Deploy day!</figcaption>', $content );
 	}
-
 }

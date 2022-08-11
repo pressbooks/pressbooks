@@ -1,14 +1,12 @@
 <?php
 
 class EditorTest extends \WP_UnitTestCase {
-
 	use utilsTrait;
 
 	/**
 	 * @group editor
 	 */
 	public function test_mce_valid_word_elements() {
-
 		$array = Pressbooks\Editor\mce_valid_word_elements( [] );
 
 		$this->assertArrayHasKey( 'paste_word_valid_elements', $array );
@@ -32,7 +30,7 @@ class EditorTest extends \WP_UnitTestCase {
 	public function test_add_editor_style() {
 		$this->_book( 'pressbooks-clarke' );
 
-		$file = \Pressbooks\Container::getInstance()->get( 'Sass' )->pathToUserGeneratedCss() . '/editor.css';
+		$file = \Pressbooks\Container::get( 'Sass' )->pathToUserGeneratedCss() . '/editor.css';
 		if ( file_exists( $file ) ) {
 			@unlink( $file );
 		}
@@ -48,7 +46,6 @@ class EditorTest extends \WP_UnitTestCase {
 	 * @group editor
 	 */
 	public function test_add_languages() {
-
 		$array = Pressbooks\Editor\add_languages( [] );
 
 		$this->assertContains( PB_PLUGIN_DIR . 'languages/tinymce.php', $array );
@@ -58,7 +55,6 @@ class EditorTest extends \WP_UnitTestCase {
 	 * @group editor
 	 */
 	public function test_mce_buttons_2() {
-
 		$buttons = Pressbooks\Editor\mce_buttons_2( [ 'formatselect' ] );
 
 		$this->assertContains( 'styleselect', $buttons );
@@ -68,7 +64,6 @@ class EditorTest extends \WP_UnitTestCase {
 	 * @group editor
 	 */
 	public function test_mce_buttons_3() {
-
 		$buttons = Pressbooks\Editor\mce_buttons_3( [] );
 
 		$this->assertContains( 'anchor', $buttons );
@@ -93,7 +88,6 @@ class EditorTest extends \WP_UnitTestCase {
 	 * @group editor
 	 */
 	public function test_mce_button_scripts() {
-
 		$x = Pressbooks\Editor\mce_button_scripts( [] );
 
 		$this->assertArrayHasKey( 'table', $x );
@@ -107,7 +101,6 @@ class EditorTest extends \WP_UnitTestCase {
 	 * @group editor
 	 */
 	public function test_mce_before_init_insert_formats() {
-
 		$x = Pressbooks\Editor\mce_before_init_insert_formats( [] );
 
 		$this->assertArrayHasKey( 'style_formats', $x );
@@ -117,7 +110,6 @@ class EditorTest extends \WP_UnitTestCase {
 	 * @group editor
 	 */
 	public function test_metadata_manager_default_editor_args() {
-
 		$x = Pressbooks\Editor\metadata_manager_default_editor_args( [] );
 
 		$this->assertArrayHasKey( 'tinymce', $x );
@@ -127,7 +119,6 @@ class EditorTest extends \WP_UnitTestCase {
 	 * @group editor
 	 */
 	public function test_mce_table_editor_options() {
-
 		$x = Pressbooks\Editor\mce_table_editor_options( [] );
 
 		$this->assertArrayHasKey( 'table_class_list', $x );
@@ -144,7 +135,6 @@ class EditorTest extends \WP_UnitTestCase {
 	 * @group editor
 	 */
 	public function test_customize_wp_link_query_args() {
-
 		$x = \Pressbooks\Editor\customize_wp_link_query_args( [ 'post_type' => [ 'post' ] ] );
 
 		$this->assertFalse( in_array( 'post', $x['post_type'] ) );
@@ -155,7 +145,6 @@ class EditorTest extends \WP_UnitTestCase {
 	 * @group editor
 	 */
 	public function test_add_anchors_to_wp_link_query() {
-
 		$post_title = 'Chapter With Anchor: ' . rand();
 		$new_post = [
 			'post_title' => $post_title,
@@ -171,26 +160,6 @@ class EditorTest extends \WP_UnitTestCase {
 		$results[] = [ 'ID' => $post_id + 4, 'title' => 'Main Body', 'permalink' => 'https://pressbooks.test/book/part/main-body/', 'info' => 'Part' ];
 		$results[] = [ 'ID' => $post_id + 5, 'title' => 'Chapter 1', 'permalink' => 'https://pressbooks.test/book/chapter/chapter-1/', 'info' => 'Chapter' ];
 
-
-		/*
-		// Not used
-		// Looks something like this if the code were to change
-		Array (
-			[post_type] => Array
-			(
-				[0] => part
-				[1] => chapter
-				[2] => front-matter
-				[3] => back-matter
-			)
-			[suppress_filters] => 1
-			[update_post_term_cache] =>
-			[update_post_meta_cache] =>
-			[post_status] => publish
-			[posts_per_page] => 20
-			[offset] => 0
-		)
-		*/
 		$query = [];
 
 
@@ -230,5 +199,4 @@ class EditorTest extends \WP_UnitTestCase {
 		$this->assertFalse( is_plugin_active( 'gutenberg/gutenberg.php' ) );
 		$this->assertEquals( 'replace', get_option( 'classic-editor-replace' ) );
 	}
-
 }

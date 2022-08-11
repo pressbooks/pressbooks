@@ -1,7 +1,6 @@
 <?php
 
 class Shortcodes_Attributions_Attachments extends \WP_UnitTestCase {
-
 	use utilsTrait;
 
 	/**
@@ -17,16 +16,15 @@ class Shortcodes_Attributions_Attachments extends \WP_UnitTestCase {
 		parent::set_up();
 
 		$this->att = $this->getMockBuilder( '\Pressbooks\Shortcodes\Attributions\Attachments' )
-						->setMethods( null )
-						->disableOriginalConstructor()
-						->getMock();
+			->setMethods( null )
+			->disableOriginalConstructor()
+			->getMock();
 	}
 
 	/**
 	 * @group attributions
 	 */
 	public function test_getInstance() {
-
 		$val = $this->att->init();
 
 		$this->assertTrue( $val instanceof \Pressbooks\Shortcodes\Attributions\Attachments );
@@ -39,10 +37,8 @@ class Shortcodes_Attributions_Attachments extends \WP_UnitTestCase {
 	 * @group attributions
 	 */
 	public function test_getAttributions() {
-
 		$result = $this->att->getAttributions( 'I have no <b>images</b>' );
 		$this->assertEquals( 'I have no <b>images</b>', $result );
-
 	}
 
 	/**
@@ -66,14 +62,12 @@ class Shortcodes_Attributions_Attachments extends \WP_UnitTestCase {
 		$this->assertEquals( 'https://sourceoforiginal.com', $result[ $pid ]['title_url'] );
 		$this->assertEquals( 'cc-by', $result[ $pid ]['license'] );
 		$this->assertEquals( 'Original Author', $result[ $pid ]['author'] );
-
 	}
 
 	/**
 	 * @group attributions
 	 */
 	private function _createAttachment() {
-
 		$pid = $this->factory()->attachment->create_upload_object( __DIR__ . '/data/skates.jpg' );
 		update_post_meta( $pid, 'pb_media_attribution_title_url', 'https://sourceoforiginal.com' );
 		update_post_meta( $pid, 'pb_media_attribution_author', 'Original Author' );
@@ -129,5 +123,4 @@ class Shortcodes_Attributions_Attachments extends \WP_UnitTestCase {
 		$this->assertArrayHasKey( $pid, $result );
 		$this->assertStringContainsString( 'http://example.org/wp-content/uploads', $result[ $pid ] );
 	}
-
 }

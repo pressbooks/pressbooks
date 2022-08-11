@@ -4,8 +4,6 @@ use Pressbooks\HtmlParser;
 
 
 class HtmlParserTest extends \WP_UnitTestCase {
-
-
 	/**
 	 * @group htmlparser
 	 */
@@ -27,7 +25,6 @@ class HtmlParserTest extends \WP_UnitTestCase {
 			trim( "<p>Hello</p>\n<img src=\"ééé.png\" alt=\"èèè\">\n<p>World</p>" ),
 			trim( $html5->saveHTML( $doc ) )
 		);
-
 	}
 
 	/**
@@ -51,7 +48,6 @@ class HtmlParserTest extends \WP_UnitTestCase {
 			trim( "<p>Hello</p>\r\n<img src=\"%C3%A9%C3%A9%C3%A9.png\" alt=\"&egrave;&egrave;&egrave;\">\r\n<p>World</p>" ),
 			trim( $html5->saveHTML( $doc ) )
 		);
-
 	}
 
 	/**
@@ -64,5 +60,4 @@ class HtmlParserTest extends \WP_UnitTestCase {
 		$html = '<p>I am a paragraph</p>';
 		$this->assertEquals( $html, $html5->removeFixMeWrapper( $html ) );
 	}
-
 }

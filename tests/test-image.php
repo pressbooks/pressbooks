@@ -3,7 +3,6 @@
 use function \Pressbooks\Utility\str_ends_with;
 
 class ImageTest extends \WP_UnitTestCase {
-
 	/**
 	 * @group media
 	 */
@@ -110,7 +109,6 @@ class ImageTest extends \WP_UnitTestCase {
 	 * @group media
 	 */
 	public function test_get_dpi() {
-
 		$file = __DIR__ . '/data/template.php';
 		$dpi = \Pressbooks\Image\get_dpi( $file );
 		$this->assertTrue( false === $dpi );
@@ -140,7 +138,6 @@ class ImageTest extends \WP_UnitTestCase {
 	 * @group media
 	 */
 	public function test_get_aspect_ratio() {
-
 		$file = __DIR__ . '/data/template.php';
 		$aspect_ratio = \Pressbooks\Image\get_aspect_ratio( $file );
 		$this->assertTrue( false === $aspect_ratio );
@@ -170,7 +167,6 @@ class ImageTest extends \WP_UnitTestCase {
 	 * @group media
 	 */
 	public function test_differences() {
-
 		$file1 = __DIR__ . '/data/template.php';
 		$file2 = __DIR__ . '/data/pb.png';
 		$file3 = __DIR__ . '/data/mountains.jpg';
@@ -190,7 +186,6 @@ class ImageTest extends \WP_UnitTestCase {
 	 * @group media
 	 */
 	public function test_is_bigger_version() {
-
 		$mountains = __DIR__ . '/data/mountains.jpg';
 		$file1 = __DIR__ . '/data/template.php';
 		$file2 = __DIR__ . '/data/pb.png';
@@ -224,7 +219,6 @@ class ImageTest extends \WP_UnitTestCase {
 	 * @group media
 	 */
 	public function test_same_aspect_ratio() {
-
 		$file1 = __DIR__ . '/data/DosenmoorBirken1.jpg';
 		$file2 = __DIR__ . '/data/DosenmoorBirken1-300x201.jpg';
 		$file3 = __DIR__ . '/data/mountains.jpg';
@@ -249,7 +243,6 @@ class ImageTest extends \WP_UnitTestCase {
 	 * @throws Exception
 	 */
 	public function test_imageResize() {
-
 		ini_set( 'memory_limit', '256M' ); //Needed to resize and open the image for testing
 
 		/*
@@ -280,7 +273,5 @@ class ImageTest extends \WP_UnitTestCase {
 		$image_to_check = new \Imagick( $resized );
 		$this->assertFalse( (bool) $image_to_check->getImageAlphaChannel() );
 		$this->assertEquals( 200, getimagesize( $resized )[0] );
-
 	}
-
 }

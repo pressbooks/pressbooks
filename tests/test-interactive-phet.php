@@ -1,7 +1,6 @@
 <?php
 
 class Interactive_PhetTest extends \WP_UnitTestCase {
-
 	/**
 	 * @var \Pressbooks\Interactive\Phet
 	 * @group interactivecontent
@@ -13,7 +12,7 @@ class Interactive_PhetTest extends \WP_UnitTestCase {
 	 */
 	public function set_up() {
 		parent::set_up();
-		$blade = \Pressbooks\Container::getInstance()->get( 'Blade' );
+		$blade = \Pressbooks\Container::get( 'Blade' );
 		$this->phet = new \Pressbooks\Interactive\Phet( $blade );
 	}
 
@@ -80,5 +79,4 @@ class Interactive_PhetTest extends \WP_UnitTestCase {
 			$iframe_html
 		);
 	}
-
 }

@@ -21,7 +21,6 @@ class Registration extends \WP_UnitTestCase {
 		remove_filter( 'gettext', '\Pressbooks\Registration\custom_signup_text' );
 	}
 
-
 	/**
 	 * @group registration
 	 */
@@ -34,7 +33,6 @@ class Registration extends \WP_UnitTestCase {
 	 * @group registration
 	 */
 	public function test_add_password_field() {
-
 		// Test for field label in output
 
 		$e = new WP_Error();
@@ -46,7 +44,6 @@ class Registration extends \WP_UnitTestCase {
 	 * @group registration
 	 */
 	public function test_validate_passwords() {
-
 		global $_POST;
 
 		// Test for correct stage
@@ -85,7 +82,6 @@ class Registration extends \WP_UnitTestCase {
 	 * @group registration
 	 */
 	public function test_add_temporary_password() {
-
 		global $_POST;
 
 		// Test for temporarily encrypted password key in $meta array, matching input password
@@ -107,7 +103,6 @@ class Registration extends \WP_UnitTestCase {
 	 * @group registration
 	 */
 	public function test_add_hidden_password_field() {
-
 		global $_POST;
 
 		// Test for password field in output when password is supplied
@@ -116,7 +111,6 @@ class Registration extends \WP_UnitTestCase {
 
 		$this->expectOutputRegex( '/(<input type="hidden" name="password_1.*)(" value=").*(").*(\/>)/' );
 		\Pressbooks\Registration\add_hidden_password_field();
-
 	}
 
 	/**
@@ -254,8 +248,7 @@ class Registration extends \WP_UnitTestCase {
 	/**
 	 * @group invitation
 	 */
-	public function test_nothing_is_displayed_when_user_has_no_invitation()
-	{
+	public function test_nothing_is_displayed_when_user_has_no_invitation() {
 		$this->_book();
 
 		$key = wp_generate_password( 20, false );
@@ -306,8 +299,7 @@ class Registration extends \WP_UnitTestCase {
 	/**
 	 * @group invitation
 	 */
-	public function test_clean_invitation_data_does_not_delete_data_if_activation_fails()
-	{
+	public function test_clean_invitation_data_does_not_delete_data_if_activation_fails() {
 		$this->_book();
 
 		$role = [ 'name' => 'author'];

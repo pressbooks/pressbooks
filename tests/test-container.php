@@ -37,11 +37,11 @@ class ContainerTest extends \WP_UnitTestCase {
 	public function test_initSetGet() {
 		Container::getInstance()->setInstance( new FakeContainer() );
 
-		$this->assertTrue( Container::getInstance() instanceof FakeContainer );
+		$this->assertInstanceOf( FakeContainer::class, Container::getInstance() );
 
 		Container::getInstance()->setInstance( new AnotherFakeContainer() );
 
-		$this->assertTrue( Container::getInstance() instanceof AnotherFakeContainer );
+		$this->assertInstanceOf( AnotherFakeContainer::class, Container::getInstance() );
 	}
 
 	/**
@@ -89,5 +89,23 @@ class ContainerTest extends \WP_UnitTestCase {
 		$this->expectException(\Illuminate\Container\EntryNotFoundException::class);
 
 		$var = Container::get( 'foo' );
+	}
+
+	/**
+	 * @test
+	 * @group container
+	 */
+	public function it_adds_namespace_to_blade_view_finder() {
+		ServiceProvider::init();
+
+		$blade = Container::get( 'Blade' );
+
+		$this->expectException( InvalidArgumentException::class );
+
+		$blade->render( 'Foo::template', [ 'name' => 'World'] );
+
+		$blade->addNamespace( 'Foo', __DIR__ . '/data' );
+
+		$this->assertEquals( '<div>Hello, World!</div>', $blade->render( 'Foo::template', [ 'name' => 'World'] ) );
 	}
 }

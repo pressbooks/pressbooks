@@ -4,7 +4,6 @@ use Pressbooks\Admin\Users\UserBulk;
 use Pressbooks\HtmlParser;
 
 class UserBulkTest extends \WP_UnitTestCase {
-
 	/**
 	 * @var UserBulk
 	 */

@@ -6,7 +6,6 @@ use function \Pressbooks\Redirect\{
 };
 
 class RedirectTest extends \WP_UnitTestCase {
-
 	use utilsTrait;
 
 	/**
@@ -157,5 +156,4 @@ class RedirectTest extends \WP_UnitTestCase {
 		$url = \Pressbooks\Redirect\break_reset_password_loop( $redirect_to, $requested_redirect_to, $user );
 		$this->assertNotEquals( admin_url(), $url );
 	}
-
 }

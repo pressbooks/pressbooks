@@ -1,9 +1,8 @@
 <?php
 
-use Illuminate\Container\Container;
+use Pressbooks\Container;
 
 class ExportMock extends \Pressbooks\Modules\Export\Export {
-
 	/**
 	 * @group export
 	 */
@@ -21,7 +20,6 @@ class ExportMock extends \Pressbooks\Modules\Export\Export {
 }
 
 class Modules_Export_ExportTest extends \WP_UnitTestCase {
-
 	use utilsTrait;
 
 	/**
@@ -47,7 +45,6 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 			[ '\Pressbooks\Modules\Export\HTMLBook\HTMLBook', false ],
 			[ '\Pressbooks\Modules\Export\ThinCc\WebLinks', false ],
 		];
-
 	}
 
 	/**
@@ -73,7 +70,6 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 	 * @group export
 	 */
 	public function test_getExportStylePath() {
-
 		$this->_book( 'pressbooks-luther' );
 
 		$path = $this->export->getExportStylePath( 'epub' );
@@ -98,7 +94,6 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 	 * @group export
 	 */
 	public function test_getExportScriptPath() {
-
 		$this->_book( 'pressbooks-luther' );
 
 		$path = $this->export->getExportScriptPath( 'epub' );
@@ -115,7 +110,6 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 	 * @group export
 	 */
 	public function test_shouldParseSubsections() {
-
 		$val = $this->export->shouldParseSubsections();
 		$this->assertIsBool( $val );
 	}
@@ -129,7 +123,6 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 	 * @group export
 	 */
 	public function test_createTmpFile() {
-
 		$file = $this->export->createTmpFile();
 		$this->assertFileExists( $file );
 
@@ -141,7 +134,6 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 	 * @group export
 	 */
 	public function test_timestampedFileName() {
-
 		$this->_book();
 
 		$file = $this->export->timestampedFileName( 'epub', true );
@@ -160,7 +152,6 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 	 * @group export
 	 */
 	public function test_nonce_AND_verifyNonce() {
-
 		$time1 = time();
 		$nonce1 = $this->export->nonce( $time1 );
 		$this->assertIsString( $nonce1 );
@@ -181,7 +172,6 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 	 * @group export
 	 */
 	public function test_mimeType() {
-
 		$i = $this->export;
 		$mime = $i::mimeType( __DIR__ . '/data/pb.png' );
 		$this->assertStringStartsWith( 'image/png', $mime );
@@ -191,7 +181,6 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 	 * @group export
 	 */
 	public function test_getExportFolder() {
-
 		$this->_book();
 
 		$i = $this->export;
@@ -205,7 +194,6 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 	 * @group export
 	 */
 	public function test_getLatestExportStylePath() {
-
 		$this->_book();
 
 		$i = $this->export;
@@ -215,17 +203,17 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 		$css_files = [];
 
 		$timestamp1 = time();
-		$css_file1 = Container::getInstance()->get( 'Sass' )->pathToUserGeneratedCss() . "/prince-$timestamp1.css";
+		$css_file1 = Container::get( 'Sass' )->pathToUserGeneratedCss() . "/prince-$timestamp1.css";
 		$this->assertTrue( \Pressbooks\Utility\put_contents( $css_file1, $css ) );
 		$css_files[] = $css_file1;
 
 		$timestamp2 = time();
-		$css_file2 = Container::getInstance()->get( 'Sass' )->pathToUserGeneratedCss() . "/prince-$timestamp2.css";
+		$css_file2 = Container::get( 'Sass' )->pathToUserGeneratedCss() . "/prince-$timestamp2.css";
 		$this->assertTrue( \Pressbooks\Utility\put_contents( $css_file1, $css ) );
 		$css_files[] = $css_file2;
 
 		$latest = $i->getLatestExportStylePath( 'prince' );
-		$this->assertEquals( Container::getInstance()->get( 'Sass' )->pathToUserGeneratedCss() . '/prince-' . $timestamp2 . '.css', $latest );
+		$this->assertEquals( Container::get( 'Sass' )->pathToUserGeneratedCss() . '/prince-' . $timestamp2 . '.css', $latest );
 
 		$latest = $i->getLatestExportStylePath( 'garbage' );
 		$this->assertFalse( $latest );
@@ -244,7 +232,6 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 	 * @group export
 	 */
 	public function test_getLatestExportStyleUrl() {
-
 		$this->_book();
 
 		$i = $this->export;
@@ -254,12 +241,12 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 		$css_files = [];
 
 		$timestamp1 = time();
-		$css_file1 = Container::getInstance()->get( 'Sass' )->pathToUserGeneratedCss() . "/prince-$timestamp1.css";
+		$css_file1 = Container::get( 'Sass' )->pathToUserGeneratedCss() . "/prince-$timestamp1.css";
 		\Pressbooks\Utility\put_contents( $css_file1, $css );
 		$css_files[] = $css_file1;
 
 		$timestamp2 = time();
-		$css_file2 = Container::getInstance()->get( 'Sass' )->pathToUserGeneratedCss() . "/prince-$timestamp2.css";
+		$css_file2 = Container::get( 'Sass' )->pathToUserGeneratedCss() . "/prince-$timestamp2.css";
 		\Pressbooks\Utility\put_contents( $css_file2, $css );
 		$css_files[] = $css_file2;
 
@@ -283,7 +270,6 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 	 * @group export
 	 */
 	public function test_truncateExportStylesheets() {
-
 		$this->_book();
 
 		$i = $this->export;
@@ -292,34 +278,34 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 
 		$css_files = [];
 
-		$webbook_css = Container::getInstance()->get( 'Sass' )->pathToUserGeneratedCss() . '/style.css';
+		$webbook_css = Container::get( 'Sass' )->pathToUserGeneratedCss() . '/style.css';
 		\Pressbooks\Utility\put_contents( $webbook_css, $css );
 
 		$timestamp1 = time();
-		$css_file1 = Container::getInstance()->get( 'Sass' )->pathToUserGeneratedCss() . "/prince-$timestamp1.css";
+		$css_file1 = Container::get( 'Sass' )->pathToUserGeneratedCss() . "/prince-$timestamp1.css";
 		\Pressbooks\Utility\put_contents( $css_file1, $css );
 		$css_files[] = $css_file1;
 
 		$timestamp2 = time();
-		$css_file2 = Container::getInstance()->get( 'Sass' )->pathToUserGeneratedCss() . "/prince-$timestamp2.css";
+		$css_file2 = Container::get( 'Sass' )->pathToUserGeneratedCss() . "/prince-$timestamp2.css";
 		\Pressbooks\Utility\put_contents( $css_file2, $css );
 		$css_files[] = $css_file2;
 
 		$timestamp3 = time();
-		$css_file3 = Container::getInstance()->get( 'Sass' )->pathToUserGeneratedCss() . "/prince-$timestamp3.css";
+		$css_file3 = Container::get( 'Sass' )->pathToUserGeneratedCss() . "/prince-$timestamp3.css";
 		\Pressbooks\Utility\put_contents( $css_file3, $css );
 		$css_files[] = $css_file3;
 
 		$timestamps = [ $timestamp1, $timestamp2, $timestamp3 ];
 		rsort( $timestamps );
 
-		$files = scandir( Container::getInstance()->get( 'Sass' )->pathToUserGeneratedCss() );
+		$files = scandir( Container::get( 'Sass' )->pathToUserGeneratedCss() );
 
 		$i->truncateExportStylesheets( 'prince' );
 
 		$i->truncateExportStylesheets( 'style' );
 
-		$files = scandir( Container::getInstance()->get( 'Sass' )->pathToUserGeneratedCss() );
+		$files = scandir( Container::get( 'Sass' )->pathToUserGeneratedCss() );
 
 		$this->assertTrue( in_array( 'style.css', $files, true ) );
 
@@ -356,7 +342,6 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 	 * @group export
 	 */
 	public function test_sanityChecks( $module, $prerequisite ) {
-
 		$runtime = new \SebastianBergmann\Environment\Runtime();
 
 		$this->_book();
@@ -430,7 +415,6 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 	 * @group export
 	 */
 	public function test_sanityCheckXhtmlWithoutBuckram() {
-
 		$this->_book( 'pressbooks-luther' ); // Use an old book.
 		$meta_post = ( new \Pressbooks\Metadata() )->getMetaPost();
 		( new \Pressbooks\Contributors() )->insert( 'Ned Zimmerman', $meta_post->ID );
@@ -472,7 +456,7 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 		}
 		$timestamp = time();
 		$css = '/* Silence is golden. */';
-		$css_file = Container::getInstance()->get( 'Sass' )->pathToUserGeneratedCss() . "/prince-$timestamp.css";
+		$css_file = Container::get( 'Sass' )->pathToUserGeneratedCss() . "/prince-$timestamp.css";
 		\Pressbooks\Utility\put_contents( $css_file, $css );
 
 		$module = '\Pressbooks\Modules\Export\Xhtml\Xhtml11';
@@ -604,5 +588,4 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 		$this->assertArrayHasKey( 'class', $attributes );
 		$this->assertEquals( 'endnote', $attributes['class'] );
 	}
-
 }

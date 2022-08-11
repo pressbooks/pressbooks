@@ -3,7 +3,6 @@
 use Pressbooks\DataCollector\Book as BookDataCollector;
 
 class DataCollector_BookTest extends \WP_UnitTestCase {
-
 	use utilsTrait;
 
 	/**
@@ -11,27 +10,29 @@ class DataCollector_BookTest extends \WP_UnitTestCase {
 	 */
 	protected $bookDataCollector;
 
-
 	/**
 	 * @group datacollector
 	 */
 	public function set_up() {
 		parent::set_up();
+
 		$obj = BookDataCollector::init();
+
 		remove_action( 'wp_update_site', [ $obj, 'updateSite' ], 999 );
 		remove_action( 'wp_insert_post', [ $obj, 'updateMetaData' ] );
 		remove_action( 'wp_delete_site', [ $obj, 'deleteSite' ], 999 );
+
 		$this->bookDataCollector = $obj;
 	}
-
 
 	public static function tear_down_after_class() {
 		// Put the hooks back in place
 		$obj = BookDataCollector::init();
+
 		$obj::hooks( $obj );
+
 		$_SERVER['SERVER_PORT'] = '';
 	}
-
 
 	/**
 	 * @group datacollector
@@ -149,7 +150,6 @@ class DataCollector_BookTest extends \WP_UnitTestCase {
 		$x = $this->bookDataCollector->get( $book_id, BookDataCollector::BOOK_INFORMATION_ARRAY );
 	}
 
-
 	/**
 	 * @group datacollector
 	 */
@@ -196,7 +196,6 @@ class DataCollector_BookTest extends \WP_UnitTestCase {
 		$this->assertTrue( $x > 0 );
 	}
 
-
 	/**
 	 * @group datacollector
 	 */
@@ -211,7 +210,6 @@ class DataCollector_BookTest extends \WP_UnitTestCase {
 
 		remove_action( 'wp_update_site', [ $this->bookDataCollector, 'updateSite' ], 999 );
 	}
-
 
 	/**
 	 * @group datacollector
@@ -239,6 +237,4 @@ class DataCollector_BookTest extends \WP_UnitTestCase {
 
 		$this->assertEquals( 1, preg_match( '/https:\/\/.*-350x467\.jpg/', $path ) );
 	}
-
-
 }

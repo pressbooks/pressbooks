@@ -3,7 +3,6 @@
 use Pressbooks\Theme\Lock;
 
 class ThemeLockTest extends \WP_UnitTestCase {
-
 	use utilsTrait;
 
 	/**

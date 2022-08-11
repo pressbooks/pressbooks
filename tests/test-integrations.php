@@ -1,7 +1,6 @@
 <?php
 
 class IntegrationsTest extends \WP_UnitTestCase {
-
 	use utilsTrait;
 
 	/**
@@ -166,5 +165,4 @@ class IntegrationsTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'Test Image Author', get_post_meta( $post->ID, 'pb_media_attribution_author', true ) );
 		$this->assertEquals( 'https://pressbooks.education/', get_post_meta( $post->ID, 'pb_media_attribution_adapted_url', true ) );
 	}
-
 }

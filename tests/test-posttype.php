@@ -18,7 +18,6 @@ use function \Pressbooks\PostType\{
 };
 
 class PostTypeTest extends \WP_UnitTestCase {
-
 	/**
 	 * @group posttypes
 	 */
@@ -115,7 +114,6 @@ class PostTypeTest extends \WP_UnitTestCase {
 	 * @group posttypes
 	 */
 	function test_wp_editor_settings() {
-
 		global $post;
 		$settings['tinymce'] = true;
 

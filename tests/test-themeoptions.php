@@ -1,7 +1,6 @@
 <?php
 
 class ThemeOptionsTest extends \WP_UnitTestCase {
-
     use utilsTrait;
 
 	/**
