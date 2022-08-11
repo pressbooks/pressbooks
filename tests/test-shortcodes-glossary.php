@@ -85,7 +85,7 @@ class Shortcodes_Glossary extends \WP_UnitTestCase {
 	public function test_getInstance() {
 		$val = $this->gl->init();
 
-		$this->assertTrue( $val instanceof \Pressbooks\Shortcodes\Glossary\Glossary );
+		$this->assertInstanceOf( \Pressbooks\Shortcodes\Glossary\Glossary::class, $val );
 
 		global $shortcode_tags;
 

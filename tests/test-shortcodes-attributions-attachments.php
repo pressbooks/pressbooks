@@ -27,7 +27,7 @@ class Shortcodes_Attributions_Attachments extends \WP_UnitTestCase {
 	public function test_getInstance() {
 		$val = $this->att->init();
 
-		$this->assertTrue( $val instanceof \Pressbooks\Shortcodes\Attributions\Attachments );
+		$this->assertInstanceOf( \Pressbooks\Shortcodes\Attributions\Attachments::class, $val );
 
 		global $shortcode_tags;
 		$this->assertArrayHasKey( 'media_attributions', $shortcode_tags );

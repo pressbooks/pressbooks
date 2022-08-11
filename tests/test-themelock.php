@@ -23,7 +23,7 @@ class ThemeLockTest extends \WP_UnitTestCase {
 	 */
 	public function test_init() {
 		$instance = Lock::init();
-		$this->assertTrue( $instance instanceof \Pressbooks\Theme\Lock );
+		$this->assertInstanceOf( \Pressbooks\Theme\Lock::class, $instance );
 	}
 
 //	public function test_hooks() { // TODO

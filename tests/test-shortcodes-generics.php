@@ -28,7 +28,7 @@ class Shortcodes_Generics extends \WP_UnitTestCase {
 	public function test_getInstance() {
 		$val = $this->generics->init();
 
-		$this->assertTrue( $val instanceof \Pressbooks\Shortcodes\Generics\Generics );
+		$this->assertInstanceOf( \Pressbooks\Shortcodes\Generics\Generics::class, $val );
 
 		global $shortcode_tags;
 		$this->assertArrayHasKey( 'blockquote', $shortcode_tags );
