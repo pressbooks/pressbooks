@@ -2,14 +2,14 @@
 # This file is distributed under the GPL v3 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Pressbooks 5.36.1\n"
+"Project-Id-Version: Pressbooks 5.37.0\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/issues\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-08-01T15:31:46+00:00\n"
+"POT-Creation-Date: 2022-08-10T18:09:55+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: pressbooks\n"
@@ -1852,6 +1852,10 @@ msgstr ""
 #: inc/api/endpoints/controller/class-metadata.php:549
 #: inc/api/endpoints/controller/class-sectionmetadata.php:453
 msgid "URL of a reference Web page that unambiguously indicates the item's identity."
+msgstr ""
+
+#: inc/api/endpoints/controller/class-posts.php:197
+msgid "The status for the post."
 msgstr ""
 
 #: inc/api/endpoints/controller/class-toc.php:98

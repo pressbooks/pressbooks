@@ -265,6 +265,7 @@ class Toc extends \WP_REST_Controller {
 		if ( has_filter( 'pb_set_api_items_permission' ) && apply_filters( 'pb_set_api_items_permission', false ) ) {
 			$has_permission = true;
 		}
+
 		$struct = $this->fixBookStructure( $struct, $has_permission );
 
 		$response = rest_ensure_response( $struct );
