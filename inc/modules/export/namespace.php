@@ -83,7 +83,7 @@ function dependency_errors_msg() {
 		sprintf(
 			__( 'Some dependencies for %1$s exports could not be found. Please verify that you have completed the <a href="%2$s">installation instructions</a>.', 'pressbooks' ),
 			( $pos ) ? substr_replace( $formats, ', ' . __( 'and', 'pressbooks' ) . ' ', $pos, strlen( ', ' ) ) : $formats,
-			'http://docs.pressbooks.org/installation'
+			'https://pressbooks.org/user-docs/installation/'
 		)
 	);
 	return $dependency_errors_msg;

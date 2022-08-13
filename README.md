@@ -32,13 +32,13 @@ Pressbooks works with PHP 7.4 and WordPress 5.9.3. Lower versions are not suppor
 
 Pressbooks is not for use on an existing blog. Instead it should be used with a fresh, [multisite WordPress installation](https://wordpress.org/support/article/glossary/#multisite).
 
-To install Pressbooks on your site, download the [latest release](https://github.com/pressbooks/pressbooks/releases/latest) and follow our [installation instructions](https://docs.pressbooks.org/installation). 
+To install Pressbooks on your site, download the [latest release](https://github.com/pressbooks/pressbooks/releases/latest) and follow our [installation instructions](https://pressbooks.org/user-docs/installation/). 
 
 You may want to try [Pressbooks.com](https://pressbooks.com/self-publishers/) before deciding whether or not you wish to host and maintain your own instance of Pressbooks. We can also [host and maintain an instance of Pressbooks for you](https://pressbooks.com/for-educational-institutions/).
 
 ## Contributor guidelines
 
-Developers who are interested in contributing to our project should consult our ["Contributing"](.github/CONTRIBUTING.md) guidelines and the developer guides published on our [documentation website](https://docs.pressbooks.org).
+Developers who are interested in contributing to our project should consult our ["Contributing"](.github/CONTRIBUTING.md) guidelines and the developer guides published on our [documentation website](https://pressbooks.org/dev-docs/).
 
 ## Disclaimers
 
