@@ -168,25 +168,16 @@ input#generate-jpg {
     span.cover-file-icon {
       display: block;
       margin: 0 auto 8px;
-      width: 48px;
-      height: 48px;
-      background-size: 48px 48px;
-      background-position: -0 0;
-      background-repeat: no-repeat;
 
-      &.pdf {
-        background-image: url(../images/pdf-48.png);
-
-        @include hidpi {
-          background-image: url(../images/pdf-96.png);
-        }
+      svg {
+        height: 48px;
+        width: 48px;
       }
 
-      &.jpg {
-        background-image: url(../images/jpg-48.png);
-
-        @include hidpi {
-          background-image: url(../images/jpg-96.png);
+      &.jpg,
+      &.pdf {
+        .badge {
+          fill: #BB2026;
         }
       }
     }

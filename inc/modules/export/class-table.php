@@ -12,8 +12,9 @@
 
 namespace Pressbooks\Modules\Export;
 
-class Table extends \WP_List_Table {
+use Pressbooks\Container;
 
+class Table extends \WP_List_Table {
 	const PIN = 'pb_export_pins';
 
 	private $_pins = [];
@@ -419,7 +420,44 @@ class Table extends \WP_List_Table {
 	 */
 	protected function getIcon( $file, $size = 'large' ) {
 		$file_class = $this->getCssClass( $file );
-		$html = "<div class='export-file-icon {$size} {$file_class}' title='" . esc_attr( $file ) . "'></div>";
+
+		switch ($file_class) {
+			case 'epub':
+				$file_type =  'EPUB';
+				break;
+			case 'epub3':
+				$file_type =  'EPUB3';
+				break;
+			case 'htmlbook':
+				$file_type =  'HTML5';
+				break;
+			case 'icml':
+				$file_type =  'ICML';
+				break;
+			case 'weblinks':
+				$file_type = 'IMSCC';
+				break;
+			case 'pdf':
+				$file_type =  'PDF';
+				break;
+			case 'print_pdf':
+				$file_type =  'Print PDF';
+				break;
+			case 'vanillawxr':
+				$file_type = 'WXR';
+				break;
+			case 'wxr':
+				$file_type = 'WXR';
+				break;
+			case 'xhtml';
+				$file_type =  'XHTML';
+				break;
+			default:
+				$file_type = __('Export');
+				break;
+		};
+
+		$html = "<div class='export-file-icon {$size} {$file_class}'>" . Container::get( 'Blade' )->render('admin.icon', ['file_type' => $file_type]) . "</div>";
 		return $html;
 	}
 

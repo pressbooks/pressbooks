@@ -115,8 +115,7 @@ if ( $dependency_errors ) {
 					<form class="cover-file" action="<?php echo $delete_form_url; ?>" method="post">
 						<input type="hidden" name="filename" value="<?php echo $file; ?>"/>
 						<div class="cover-file-container">
-							<a class="cover-file" href="<?php echo( $download_form_url . $file ); ?>"><span class="cover-file-icon large <?php echo $icon_type; ?>"
-																											title="<?php echo esc_attr( $file ); ?>"></span></a>
+							<a class="cover-file" href="<?php echo( $download_form_url . $file ); ?>"><?php Pressbooks\Container::get('blade')->render('admin.icon', ['file_type' => $file_type]); ?></a>
 							<div class="file-actions">
 								<a href="<?php echo( $download_form_url . $file ); ?>"><span class="dashicons dashicons-download"></span></a>
 								<button class="delete" type="submit" name="submit" value="Delete"
