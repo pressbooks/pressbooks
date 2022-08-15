@@ -137,7 +137,7 @@ class Xhtml11 extends ExportGenerator {
 
 		$this->taxonomy = \Pressbooks\Taxonomy::init();
 		$this->contributors = new \Pressbooks\Contributors();
-		$this->blade = Container::get( 'Blade' );
+		$this->blade = Container::get( 'PBlade' );
 
 		if ( Container::get( 'Styles' )->hasBuckram( '0.3.0' ) ) {
 			$this->wrapHeaderElements = true;

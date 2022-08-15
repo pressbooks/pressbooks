@@ -98,7 +98,7 @@ class ContainerTest extends \WP_UnitTestCase {
 	public function it_adds_namespace_to_blade_view_finder() {
 		ServiceProvider::init();
 
-		$blade = Container::get( 'Blade' );
+		$blade = Container::get( 'PBlade' );
 
 		$this->expectException( InvalidArgumentException::class );
 

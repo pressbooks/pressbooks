@@ -41,7 +41,7 @@ class ServiceProvider {
 		);
 
 		$container->singleton(
-			'Blade', function ( Container $container ) {
+			'PBlade', function ( Container $container ) {
 				// Configuration
 				// Note that you can set several directories where your templates are located
 				$path_to_templates = [ dirname( __DIR__ ) . '/templates' ];

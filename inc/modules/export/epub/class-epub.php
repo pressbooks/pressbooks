@@ -353,7 +353,7 @@ class Epub extends ExportGenerator {
 		// Some defaults
 		$this->taxonomy = Taxonomy::init();
 		$this->contributors = Contributors::init();
-		$this->blade = Container::get( 'Blade' );
+		$this->blade = Container::get( 'PBlade' );
 
 		if ( ! class_exists( '\PclZip' ) ) {
 			require_once( ABSPATH . 'wp-admin/includes/class-pclzip.php' );

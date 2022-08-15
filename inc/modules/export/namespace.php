@@ -296,7 +296,7 @@ function get_contributors_section( $post_id ) {
 	$title = sprintf( _n( '%s Author', '%s Authors', count( $chapter_contributors ), 'pressbooks' ), 'About the' );
 	$print = '<div class="contributors">';
 	$print .= "<h3 class=\"about-authors\">{$title}</h3>";
-	$blade_engine = Container::get( 'Blade' );
+	$blade_engine = Container::get( 'PBlade' );
 	foreach ( $chapter_contributors as $contributor ) {
 		$print .= $blade_engine->render(
 			'posttypes.contributor', [

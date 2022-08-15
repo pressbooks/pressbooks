@@ -183,7 +183,7 @@ class MathJax {
 			$test_image = '<p class="latex mathjax">' . __( '<code>PB_MATHJAX_URL</code> is not configured.', 'pressbooks' ) . '</p>';
 		}
 
-		$blade = Container::get( 'Blade' );
+		$blade = Container::get( 'PBlade' );
 		echo $blade->render(
 			'admin.mathjax',
 			[
