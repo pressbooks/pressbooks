@@ -2,7 +2,6 @@
 
 namespace Pressbooks;
 
-use Illuminate\Container\Container;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\View\Compilers\BladeCompiler;
@@ -10,6 +9,7 @@ use Illuminate\View\Engines\CompilerEngine;
 use Illuminate\View\Engines\EngineResolver;
 use Illuminate\View\Factory;
 use Illuminate\View\FileViewFinder;
+use Roots\Acorn\Application as Container;
 
 /**
  * Service Provider for Pressbooks
@@ -19,8 +19,10 @@ class ServiceProvider {
 	 * If you add services, don't forget to also edit config/.phpstorm.meta.php
 	 *
 	 */
-	public static function init(): void {
-		$container = Container::getInstance();
+	public static function init(): void {;
+		echo 'getting the container instance<br>';
+		$container = \Roots\Acorn\Application::getInstance();
+		echo 'adding bindings to container<br>';
 
 		$container->singleton(
 			'Sass', function () {
