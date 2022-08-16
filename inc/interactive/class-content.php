@@ -92,7 +92,7 @@ class Content {
 	}
 
 	public function __construct() {
-		$this->blade = Container::get( 'PBlade' );
+		$this->blade = Container::get( 'Blade' );
 		$this->h5p = new H5P( $this->blade );
 		$this->phet = new Phet( $this->blade );
 	}

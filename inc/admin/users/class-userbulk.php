@@ -54,7 +54,7 @@ class UserBulk {
 	}
 
 	public function __construct() {
-		$this->blade = Container::get( 'PBlade' );
+		$this->blade = Container::get( 'Blade' );
 	}
 
 	/**

@@ -12,7 +12,7 @@ class Interactive_H5PTest extends \WP_UnitTestCase {
 	 */
 	public function set_up() {
 		parent::set_up();
-		$blade = \Pressbooks\Container::get( 'PBlade' );
+		$blade = \Pressbooks\Container::get( 'Blade' );
 		$this->h5p = new \Pressbooks\Interactive\H5P( $blade );
 	}
 

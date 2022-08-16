@@ -2,7 +2,7 @@
 
 namespace Pressbooks;
 
-use Roots\Acorn\Application as LaravelContainer;
+use Illuminate\Container\Container as LaravelContainer;
 
 /**
  * Application Container for Pressbooks
@@ -13,7 +13,6 @@ class Container {
 	 * @throws \Psr\Container\NotFoundExceptionInterface
 	 */
 	public static function get( $key ) {
-		echo 'getting ' . $key . ' from the container<br>';
 		return LaravelContainer::getInstance()->get( $key );
 	}
 

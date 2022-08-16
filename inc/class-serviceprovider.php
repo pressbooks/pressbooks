@@ -2,6 +2,7 @@
 
 namespace Pressbooks;
 
+use Illuminate\Container\Container;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\View\Compilers\BladeCompiler;
@@ -9,7 +10,6 @@ use Illuminate\View\Engines\CompilerEngine;
 use Illuminate\View\Engines\EngineResolver;
 use Illuminate\View\Factory;
 use Illuminate\View\FileViewFinder;
-use Roots\Acorn\Application as Container;
 
 /**
  * Service Provider for Pressbooks
@@ -20,9 +20,7 @@ class ServiceProvider {
 	 *
 	 */
 	public static function init(): void {;
-		echo 'getting the container instance<br>';
-		$container = \Roots\Acorn\Application::getInstance();
-		echo 'adding bindings to container<br>';
+		$container = Container::getInstance();
 
 		$container->singleton(
 			'Sass', function () {
@@ -43,7 +41,7 @@ class ServiceProvider {
 		);
 
 		$container->singleton(
-			'PBlade', function ( Container $container ) {
+			'Blade', function ( Container $container ) {
 				// Configuration
 				// Note that you can set several directories where your templates are located
 				$path_to_templates = [ dirname( __DIR__ ) . '/templates' ];

@@ -173,7 +173,7 @@ function render_page() {
 	}
 	$output .= 'imagick: ' . ( extension_loaded( 'imagick' ) ? 'Installed' : 'Not Installed' ) . "\n";
 	$output .= 'xsl: ' . ( extension_loaded( 'xsl' ) ? 'Installed' : 'Not Installed' );
-	echo \Pressbooks\Container::get( 'PBlade' )
+	echo \Pressbooks\Container::get( 'Blade' )
 		->render(
 			'admin.diagnostics', [
 				'output' => $output,

@@ -30,15 +30,7 @@ $enable_network_api = \Pressbooks\Api\is_enabled();
 // Initialize services
 // -------------------------------------------------------------------------------------------------------------------
 
-\Roots\Acorn\Application::setInstance();
-\Roots\bootloader();
-
-add_action( 'plugins_loaded', function () {
-	\Pressbooks\ServiceProvider::init();
-//	echo '<pre>';
-//	print_r( Container::getInstance() );
-//	echo '</pre>';
-} );
+\Pressbooks\ServiceProvider::init();
 
 // -------------------------------------------------------------------------------------------------------------------
 // Activation
@@ -325,9 +317,7 @@ add_filter( 'wp_mail_from_name', '\Pressbooks\Utility\mail_from_name' );
 // (Custom) Styles
 // -------------------------------------------------------------------------------------------------------------------
 
-add_action( 'plugins_loaded', function() {
-	Container::get( 'Styles' )->init();
-} );
+Container::get( 'Styles' )->init();
 
 if ( $is_book ) {
 	// Overrides (sometimes a web stylesheet update will be triggered by a visitor so this filter needs to be active outside of the admin)

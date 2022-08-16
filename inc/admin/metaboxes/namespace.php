@@ -1100,7 +1100,7 @@ function institutions_metabox( \WP_Post $post ): void {
 
 	$institutions = get_post_meta( $post->ID, 'pb_institutions', false );
 
-	echo Container::get( 'PBlade' )->render(
+	echo Container::get( 'Blade' )->render(
 		'admin.institutions',
 		compact( 'institutions' )
 	);
