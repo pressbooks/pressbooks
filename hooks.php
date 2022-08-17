@@ -257,7 +257,7 @@ add_action( 'init', '\Pressbooks\Theme\update_template_root' );
 // Regenerate stylesheets
 // -------------------------------------------------------------------------------------------------------------------
 
-add_action( 'plugins_loaded', function() {
+add_action( 'init', function() {
 	Container::get( 'Styles' )->maybeUpdateStylesheets();
 } );
 
