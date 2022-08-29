@@ -108,6 +108,57 @@ class DataCollector_BookTest extends \WP_UnitTestCase {
 	/**
 	 * @group datacollector
 	 */
+	public function test_check_book_meta_is_copied(): void {
+		$this->_book();
+
+		$contributors = [
+			'pb_authors' => [
+				[ 'name' => 'John Doe', 'slug' => 'john' ],
+				[ 'name' => 'Antonio Sanchez', 'slug' => 'antonio' ],
+			],
+			'pb_editors' => [
+				[ 'name' =>  'Pat Metheny', 'slug' => 'pat' ],
+				[ 'name' =>  'Pedro Aznar', 'slug' => 'pedro' ],
+			],
+		];
+
+		$site = get_site();
+		$metadata_post = ( new \Pressbooks\Metadata() )->getMetaPost();
+
+		foreach ( $contributors as $contributor_type => $contributors_array ) {
+			foreach ( $contributors_array as $contributor ) {
+				add_post_meta( $metadata_post->ID, $contributor_type, $contributor['name'] );
+				( new \Pressbooks\Contributors() )->insert( $contributor, $metadata_post->ID, $contributor_type );
+			}
+		}
+
+		add_post_meta( $metadata_post->ID, 'pb_institutions', 'CA-ON-001' );
+		add_post_meta( $metadata_post->ID, 'pb_institutions', 'CA-ON-002' );
+		add_post_meta( $metadata_post->ID, 'pb_publisher', 'Publisher Name' );
+
+		wp_cache_flush();
+
+		$this->bookDataCollector->copyBookMetaIntoSiteTable( $site->id );
+
+		$data_collected = [
+			'pb_authors' => get_site_meta( $site->id, BookDataCollector::AUTHORS ),
+			'pb_editors' => get_site_meta( $site->id, BookDataCollector::EDITORS ),
+		];
+
+		foreach ( $contributors as $contributor_type => $contributors_array ) {
+			foreach ( $contributors_array as $contributor ) {
+				$this->assertContains( $contributor['name'], $data_collected[ $contributor_type ] );
+			}
+		}
+
+		$this->assertContains( 'Algoma University', get_site_meta( $site->id, BookDataCollector::INSTITUTIONS ) );
+		$this->assertContains( 'Algonquin College', get_site_meta( $site->id, BookDataCollector::INSTITUTIONS ) );
+		$this->assertEquals( 'Publisher Name', get_site_meta( $site->id, BookDataCollector::PUBLISHER, true ) );
+	}
+
+	/**
+	 * @group datacollector
+	 */
 	public function test_themaSubjectsLocale() {
 		$this->assertEquals( 'en', $this->bookDataCollector->themaSubjectsLocale( 'fr' ) );
 	}

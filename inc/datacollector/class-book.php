@@ -7,6 +7,7 @@
 namespace Pressbooks\DataCollector;
 
 use function Pressbooks\Image\attachment_id_from_url;
+use function Pressbooks\Metadata\get_institution_by_code;
 use function \Pressbooks\Metadata\get_in_catalog_option;
 
 class Book {
@@ -80,6 +81,18 @@ class Book {
 	const LTI_GRADING_ENABLED = 'pb_lti_grading_enabled';
 
 	const BOOK_DIRECTORY_EXCLUDED = 'pb_book_directory_excluded';
+
+	const AUTHORS = 'pb_authors';
+
+	const EDITORS = 'pb_editors';
+
+	const SHORT_DESCRIPTION = 'pb_about_50';
+
+	const LONG_DESCRIPTION = 'pb_about_unlimited';
+
+	const INSTITUTIONS = 'pb_institutions';
+
+	const PUBLISHER = 'pb_publisher';
 
 	/**
 	 * @var Book
@@ -192,7 +205,7 @@ class Book {
 		// --------------------------------------------------------------------
 
 		// Book info
-		$metadata = \Pressbooks\Book::getBookInformation();
+		$metadata = \Pressbooks\Book::getBookInformation( null, false );
 		update_site_meta( $book_id, self::BOOK_INFORMATION_ARRAY, $metadata );
 
 		// pb_cover_image
@@ -261,6 +274,26 @@ class Book {
 		// @see \Aldine\Admin\BLOG_OPTION, Not using constant because Aldine is optional
 		$in_catalog = empty( get_option( get_in_catalog_option() ) ) ? 0 : 1;
 		update_site_meta( $book_id, self::IN_CATALOG, $in_catalog );
+
+		$this->saveArrayMetadata( $book_id, self::AUTHORS, 'name', $metadata );
+
+		$this->saveArrayMetadata( $book_id, self::EDITORS, 'name', $metadata );
+
+		if ( isset( $metadata['pb_institutions'] ) ) {
+			delete_site_meta( $book_id, self::INSTITUTIONS );
+			foreach ( $metadata['pb_institutions'] as $institution ) {
+				$institution_data = get_institution_by_code( $institution );
+				if ( isset( $institution_data['name'] ) ) {
+					add_site_meta( $book_id, self::INSTITUTIONS, $institution_data['name'] );
+				}
+			}
+		}
+
+		update_site_meta( $book_id, self::SHORT_DESCRIPTION, $metadata['pb_about_50'] ?? '' );
+
+		update_site_meta( $book_id, self::LONG_DESCRIPTION, $metadata['pb_about_unlimited'] ?? '' );
+
+		update_site_meta( $book_id, self::PUBLISHER, $metadata['pb_publisher'] ?? '' );
 
 		// --------------------------------------------------------------------
 		// Network Analytic Filters
@@ -348,6 +381,25 @@ class Book {
 		update_site_meta( $book_id, self::TIMESTAMP, gmdate( 'Y-m-d H:i:s' ) );
 
 		restore_current_blog();
+	}
+
+	/**
+	 * Save array metadata in multiple meta keys with the same name.
+	 *
+	 * @param int $blog_id
+	 * @param string $meta_key
+	 * @param string $array_key
+	 * @param array $metadata
+	 *
+	 * @return void
+	 */
+	private function saveArrayMetadata( int $blog_id, string $meta_key, string $array_key, array $metadata ): void {
+		if ( isset( $metadata[ $meta_key ] ) ) {
+			delete_site_meta( $blog_id, $meta_key );
+			foreach ( $metadata[ $meta_key ] as $value ) {
+				add_site_meta( $blog_id, $meta_key, $value[ $array_key ] );
+			}
+		}
 	}
 
 	/**

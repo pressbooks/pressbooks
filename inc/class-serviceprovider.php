@@ -19,7 +19,8 @@ class ServiceProvider {
 	 * If you add services, don't forget to also edit config/.phpstorm.meta.php
 	 *
 	 */
-	public static function init(): void {;
+	public static function init(): void {
+
 		$container = Container::getInstance();
 
 		$container->singleton(
