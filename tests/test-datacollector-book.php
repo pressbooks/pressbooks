@@ -134,6 +134,9 @@ class DataCollector_BookTest extends \WP_UnitTestCase {
 
 		add_post_meta( $metadata_post->ID, 'pb_institutions', 'CA-ON-001' );
 		add_post_meta( $metadata_post->ID, 'pb_institutions', 'CA-ON-002' );
+		add_post_meta( $metadata_post->ID, 'pb_primary_subject', 'ABA' );
+		add_post_meta( $metadata_post->ID, 'pb_additional_subjects', 'AVP, AVR, AVRQ' );
+		add_post_meta( $metadata_post->ID, 'pb_institutions', 'CA-ON-002' );
 		add_post_meta( $metadata_post->ID, 'pb_publisher', 'Publisher Name' );
 
 		wp_cache_flush();
@@ -153,7 +156,11 @@ class DataCollector_BookTest extends \WP_UnitTestCase {
 
 		$this->assertContains( 'Algoma University', get_site_meta( $site->id, BookDataCollector::INSTITUTIONS ) );
 		$this->assertContains( 'Algonquin College', get_site_meta( $site->id, BookDataCollector::INSTITUTIONS ) );
+		$this->assertContains( 'Musicians, singers, bands and groups', get_site_meta( $site->id, BookDataCollector::ADDITIONAL_SUBJECTS ) );
+		$this->assertContains( 'Musical instruments', get_site_meta( $site->id, BookDataCollector::ADDITIONAL_SUBJECTS ) );
+		$this->assertContains( 'Mechanical musical instruments', get_site_meta( $site->id, BookDataCollector::ADDITIONAL_SUBJECTS ) );
 		$this->assertEquals( 'Publisher Name', get_site_meta( $site->id, BookDataCollector::PUBLISHER, true ) );
+		$this->assertEquals( 'Theory of art', get_site_meta( $site->id, BookDataCollector::SUBJECT, true ) );
 	}
 
 	/**

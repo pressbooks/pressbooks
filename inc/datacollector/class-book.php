@@ -94,6 +94,8 @@ class Book {
 
 	const PUBLISHER = 'pb_publisher';
 
+	const ADDITIONAL_SUBJECTS = 'pb_additional_subjects';
+
 	/**
 	 * @var Book
 	 */
@@ -258,6 +260,17 @@ class Book {
 			remove_filter( 'pb_thema_subjects_locale', [ $this, 'themaSubjectsLocale' ] );
 		}
 		update_site_meta( $book_id, self::SUBJECT, $subject ?? $metadata['pb_subject'] ?? null );
+
+		if ( ! empty( $metadata['pb_additional_subjects'] ) ) {
+			delete_site_meta( $book_id, self::ADDITIONAL_SUBJECTS );
+			$additional_subject_codes = explode( ', ', $metadata['pb_additional_subjects'] );
+			foreach ( $additional_subject_codes as $additional_subject_code ) {
+				add_filter( 'pb_thema_subjects_locale', [ $this, 'themaSubjectsLocale' ] );
+				$subject = \Pressbooks\Metadata\get_subject_from_thema( $additional_subject_code );
+				remove_filter( 'pb_thema_subjects_locale', [ $this, 'themaSubjectsLocale' ] );
+				add_site_meta( $book_id, self::ADDITIONAL_SUBJECTS, $subject );
+			}
+		}
 
 		// pb_theme
 		$theme_name = wp_get_theme()->display( 'Name' );
