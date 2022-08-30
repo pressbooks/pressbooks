@@ -154,11 +154,14 @@ class DataCollector_BookTest extends \WP_UnitTestCase {
 			}
 		}
 
-		$this->assertContains( 'Algoma University', get_site_meta( $site->id, BookDataCollector::INSTITUTIONS ) );
-		$this->assertContains( 'Algonquin College', get_site_meta( $site->id, BookDataCollector::INSTITUTIONS ) );
-		$this->assertContains( 'Musicians, singers, bands and groups', get_site_meta( $site->id, BookDataCollector::ADDITIONAL_SUBJECTS ) );
-		$this->assertContains( 'Musical instruments', get_site_meta( $site->id, BookDataCollector::ADDITIONAL_SUBJECTS ) );
-		$this->assertContains( 'Mechanical musical instruments', get_site_meta( $site->id, BookDataCollector::ADDITIONAL_SUBJECTS ) );
+		$institutions_collected = get_site_meta( $site->id, BookDataCollector::INSTITUTIONS );
+		$subjects_collected = get_site_meta( $site->id, BookDataCollector::SUBJECTS_CODES );
+
+		$this->assertContains( 'Algoma University', $institutions_collected );
+		$this->assertContains( 'Algonquin College', $institutions_collected );
+		$this->assertContains( 'ABA', $subjects_collected );
+		$this->assertContains( 'AVP', $subjects_collected );
+		$this->assertContains( 'AVRQ', $subjects_collected );
 		$this->assertEquals( 'Publisher Name', get_site_meta( $site->id, BookDataCollector::PUBLISHER, true ) );
 		$this->assertEquals( 'Theory of art', get_site_meta( $site->id, BookDataCollector::SUBJECT, true ) );
 	}

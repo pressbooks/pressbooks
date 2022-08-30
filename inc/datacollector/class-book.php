@@ -94,7 +94,7 @@ class Book {
 
 	const PUBLISHER = 'pb_publisher';
 
-	const ADDITIONAL_SUBJECTS = 'pb_additional_subjects';
+	const SUBJECTS_CODES = 'pb_subjects_code';
 
 	/**
 	 * @var Book
@@ -254,21 +254,23 @@ class Book {
 		update_site_meta( $book_id, self::LANGUAGE, $metadata['pb_language'] ?? 'en' );
 
 		// pb_subject
+		$subject_list = '';
 		if ( ! empty( $metadata['pb_primary_subject'] ) ) {
 			add_filter( 'pb_thema_subjects_locale', [ $this, 'themaSubjectsLocale' ] );
 			$subject = \Pressbooks\Metadata\get_subject_from_thema( $metadata['pb_primary_subject'] );
 			remove_filter( 'pb_thema_subjects_locale', [ $this, 'themaSubjectsLocale' ] );
+			$subject_list .= $metadata['pb_primary_subject'];
 		}
 		update_site_meta( $book_id, self::SUBJECT, $subject ?? $metadata['pb_subject'] ?? null );
 
 		if ( ! empty( $metadata['pb_additional_subjects'] ) ) {
-			delete_site_meta( $book_id, self::ADDITIONAL_SUBJECTS );
-			$additional_subject_codes = explode( ', ', $metadata['pb_additional_subjects'] );
-			foreach ( $additional_subject_codes as $additional_subject_code ) {
-				add_filter( 'pb_thema_subjects_locale', [ $this, 'themaSubjectsLocale' ] );
-				$subject = \Pressbooks\Metadata\get_subject_from_thema( $additional_subject_code );
-				remove_filter( 'pb_thema_subjects_locale', [ $this, 'themaSubjectsLocale' ] );
-				add_site_meta( $book_id, self::ADDITIONAL_SUBJECTS, $subject );
+			$subject_list .= ', ' . $metadata['pb_additional_subjects'];
+		}
+		if ( $subject_list ) {
+			delete_site_meta( $book_id, self::SUBJECTS_CODES );
+			$subjects = explode( ', ', $subject_list );
+			foreach ( $subjects as $subject ) {
+				add_site_meta( $book_id, self::SUBJECTS_CODES, $subject );
 			}
 		}
 
