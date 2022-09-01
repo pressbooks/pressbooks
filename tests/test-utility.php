@@ -294,7 +294,7 @@ class UtilityTest extends \WP_UnitTestCase {
 
 
 	//  public function test_email_error_log() {
-	//      // TODO: Testing this as-is would send emails, write to error_log... Need to refactor
+	//      // TODO: Testing this as-is would send emails, write to trigger_error... Need to refactor
 	//      $this->markTestIncomplete();
 	//  }
 
