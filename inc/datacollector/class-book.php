@@ -97,6 +97,11 @@ class Book {
 	const SUBJECTS_CODES = 'pb_subjects_code';
 
 	/**
+	 * Thema subjects strings with main site language applied.
+	 */
+	const SUBJECTS_STRINGS = 'pb_subjects_string';
+
+	/**
 	 * @var Book
 	 */
 	private static $instance = null;
@@ -268,9 +273,11 @@ class Book {
 		}
 		if ( $subject_list ) {
 			delete_site_meta( $book_id, self::SUBJECTS_CODES );
+			delete_site_meta( $book_id, self::SUBJECTS_STRINGS );
 			$subjects = explode( ', ', $subject_list );
 			foreach ( $subjects as $subject ) {
 				add_site_meta( $book_id, self::SUBJECTS_CODES, $subject );
+				add_site_meta( $book_id, self::SUBJECTS_STRINGS, \Pressbooks\Metadata\get_subject_from_thema( $subject, true ) );
 			}
 		}
 
