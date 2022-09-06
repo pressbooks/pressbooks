@@ -653,7 +653,7 @@ abstract class Import {
 	}
 
 	/**
-	 * Log something using wp_mail() and error_log(), include useful WordPress info.
+	 * Log something using wp_mail() and trigger_error(), include useful WordPress info.
 	 *
 	 * Note: This method is here temporarily. We are using it to find & fix bugs for the first iterations of import.
 	 * Do not count on this method being here in the future.
