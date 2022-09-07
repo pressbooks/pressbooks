@@ -52,7 +52,7 @@
 		"maxbanton/cwh": "^2.0",
 		"monolog/monolog": "^2.2",
 		"pressbooks/mix": "^2.1",
-		"pressbooks/pb-cli": "dev-dev",
+		"pressbooks/pb-cli": "^3",
 		"scssphp/scssphp": "~1.1.0",
 		"sinergi/browser-detector": "^6.1",
 		"vanilla/htmlawed": "^2.2",
