@@ -120,7 +120,7 @@ class Book {
 						break;
 					}
 				}
-				if ( ! $read_contributors_from_cache || $contributors_cached_as_string !== $contributors_as_string ) {
+				if ( $meta_post && ( ! $read_contributors_from_cache || $contributors_cached_as_string !== $contributors_as_string ) ) {
 					$cached_book_information = array_merge(
 						$cached_book_information,
 						$contributors->getAll(
