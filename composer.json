@@ -16,8 +16,8 @@
 	"support": {
 		"email": "code@pressbooks.com",
 		"issues": "https://github.com/pressbooks/pressbooks/issues/",
-		"forum": "https://discourse.pressbooks.org",
-		"docs": "https://docs.pressbooks.org/",
+		"forum": "https://pressbooks.community",
+		"docs": "https://pressbooks.org/user-docs/",
 		"source": "https://github.com/pressbooks/pressbooks/"
 	},
 	"config": {
