@@ -4,7 +4,6 @@ use Pressbooks\Admin\Users\UserBulk;
 use Pressbooks\HtmlParser;
 
 class UserBulkTest extends \WP_UnitTestCase {
-
 	/**
 	 * @var UserBulk
 	 */
@@ -45,7 +44,7 @@ class UserBulkTest extends \WP_UnitTestCase {
 	 */
 	public function test_init() {
 		$instance = UserBulk::init();
-		$this->assertTrue( $instance instanceof UserBulk );
+		$this->assertInstanceOf( UserBulk::class, $instance );
 	}
 
 	/**
@@ -68,7 +67,7 @@ class UserBulkTest extends \WP_UnitTestCase {
 		$users_input = $doc->getElementById( 'users' );
 		$user_rol_dropdown = $doc->getElementById( 'adduser-role' );
 
-		$this->assertTrue( $doc instanceof \DOMDocument );
+		$this->assertInstanceOf( \DOMDocument::class, $doc );
 		$this->assertEquals( 1, $doc->getElementsByTagName( 'form' )->length );
 		$this->assertInstanceOf( DOMElement::class, $users_input );
 		$this->assertInstanceOf( DOMElement::class, $user_rol_dropdown );
@@ -146,7 +145,7 @@ class UserBulkTest extends \WP_UnitTestCase {
 		$wp_error = $this->user_bulk->linkNewUserToBook( $existing_user->user_email, 'editor' );
 		$success = $this->user_bulk->linkNewUserToBook( $new_user_email, 'editor' );
 
-		$this->assertTrue( $wp_error instanceof WP_Error ); // cannot link existing users
+		$this->assertInstanceOf( WP_Error::class, $wp_error ); // cannot link existing users
 		$this->assertEquals( $success, $this->user_bulk::USER_STATUS_NEW );
 	}
 

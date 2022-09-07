@@ -3,14 +3,12 @@
 require_once( PB_PLUGIN_DIR . 'inc/admin/organize/namespace.php' );
 
 class Admin_OrganizeTest extends \WP_UnitTestCase {
-
 	use utilsTrait;
 
 	/**
 	 * @group organize
 	 */
 	public function test_update_post_visibility() {
-
 		$this->_book();
 		$user_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
 		wp_set_current_user( $user_id );
@@ -33,7 +31,6 @@ class Admin_OrganizeTest extends \WP_UnitTestCase {
 	 * @group organize
 	 */
 	public function test_update_post_title_visibility() {
-
 		$this->_book();
 		$user_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
 		wp_set_current_user( $user_id );
@@ -56,7 +53,6 @@ class Admin_OrganizeTest extends \WP_UnitTestCase {
 	 * @group organize
 	 */
 	public function test_reorder() {
-
 		$this->_book();
 		$user_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
 		wp_set_current_user( $user_id );
@@ -82,5 +78,4 @@ class Admin_OrganizeTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'Chapter 1', $one['post_title'] );
 		$this->assertNotEquals( 'Chapter 1', $two['post_title'] );
 	}
-
 }

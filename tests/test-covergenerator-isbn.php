@@ -1,8 +1,6 @@
 <?php
 
 class CoverGenerator_IsbnTest extends \WP_UnitTestCase {
-
-
 	/**
 	 * @var \Pressbooks\Covergenerator\Isbn
 	 * @group covergenerator
@@ -29,7 +27,6 @@ class CoverGenerator_IsbnTest extends \WP_UnitTestCase {
 		$this->assertNotEmpty( \Pressbooks\Image\attachment_id_from_url( $url ) );
 	}
 
-
 	/**
 	 *  [ $isbnNumber, $expected ]
 	 *
@@ -37,7 +34,6 @@ class CoverGenerator_IsbnTest extends \WP_UnitTestCase {
 	 * @group covergenerator
 	 */
 	public function validateIsbnNumberProvider() {
-
 		return [
 			[ '978-1-873671-00-9 54499', true ],
 			[ '978-1-873671-00-9 59', true ],
@@ -65,7 +61,6 @@ class CoverGenerator_IsbnTest extends \WP_UnitTestCase {
 	 * @group covergenerator
 	 */
 	public function test_validateIsbnNumber( $isbnNumber, $expected ) {
-
 		$this->assertEquals( $expected, $this->isbn->validateIsbnNumber( $isbnNumber ) );
 	}
 
@@ -77,7 +72,6 @@ class CoverGenerator_IsbnTest extends \WP_UnitTestCase {
 	 * @group covergenerator
 	 */
 	public function fixIsbnNumberProvider() {
-
 		return [
 			[ '978-1-873671-00-9 54499', '978-1-873671-00-9 54499' ],
 			[ '9992158-10-7', '99921-58-10-7' ],
@@ -94,10 +88,7 @@ class CoverGenerator_IsbnTest extends \WP_UnitTestCase {
 	 * @group covergenerator
 	 */
 	public function test_fixIsbnNumber( $isbnNumber, $expected ) {
-
 		$this->assertEquals( $expected, $this->isbn->fixIsbnNumber( $isbnNumber ) );
 
 	}
-
-
 }

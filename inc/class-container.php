@@ -2,58 +2,40 @@
 
 namespace Pressbooks;
 
+use Illuminate\Container\Container as LaravelContainer;
+
 /**
- * Redundant wrapper around \Illuminate\Container\Container() for backwards compatibility (we used to use Pimple)
+ * Application Container for Pressbooks
  */
-class Container extends \Illuminate\Container\Container {
-
+class Container {
 	/**
-	 * If you add services, don't forget to also edit config/.phpstorm.meta.php
-	 *
-	 * @param \Illuminate\Contracts\Container\Container $c
+	 * @throws \Psr\Container\ContainerExceptionInterface
+	 * @throws \Psr\Container\NotFoundExceptionInterface
 	 */
-	static function init( $c = null ) {
-		if ( is_null( $c ) ) {
-			$c = require( __DIR__ . '/../services.php' );
-		}
-		static::setInstance( $c );
+	public static function get( $key ) {
+		return LaravelContainer::getInstance()->get( $key );
 	}
 
-	/**
-	 * @param string $var
-	 *
-	 * @return mixed
-	 */
-	static function get( $var ) {
-		if ( is_null( static::$instance ) ) {
-			throw new \LogicException( 'Container not set, call init() or setInstance() before using get().' );
-		}
-		return static::$instance[ $var ];
-	}
-
-	/**
-	 * @param string $key
-	 * @param mixed $val
-	 * @param string $type (optional)
-	 * @param bool $replace (optional)
-	 */
-	static function set( $key, $val, $type = null, $replace = false ) {
-		if ( is_null( static::$instance ) ) {
-			throw new \LogicException( 'Container not set, call init() or setInstance() before using set().' );
-		}
-
+	public static function set( $key, $val, $type = null, $replace = false ): LaravelContainer {
 		if ( $replace ) {
-			unset( static::$instance[ $key ] );
+			LaravelContainer::getInstance()->forgetInstance( $key );
+			LaravelContainer::getInstance()->offsetSet( $key, $val );
 		}
 
-		if ( ! static::$instance->bound( $key ) ) {
+		if ( ! LaravelContainer::getInstance()->bound( $key ) ) {
 			if ( in_array( $type, [ 'factory', 'bind' ], true ) ) {
-				static::$instance->bind( $key, $val );
+				LaravelContainer::getInstance()->bind( $key, $val );
 			} elseif ( in_array( $type, [ 'protect', 'instance' ], true ) ) {
-				static::$instance->instance( $key, $val );
+				LaravelContainer::getInstance()->instance( $key, $val );
 			} else {
-				static::$instance->singleton( $key, $val );
+				LaravelContainer::getInstance()->singleton( $key, $val );
 			}
 		}
+
+		return LaravelContainer::getInstance();
+	}
+
+	public static function getInstance(): LaravelContainer {
+		return LaravelContainer::getInstance();
 	}
 }

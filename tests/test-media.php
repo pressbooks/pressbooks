@@ -7,7 +7,6 @@ class MediaTest extends \WP_UnitTestCase {
 	 * @group media
 	 */
 	public function test_add_mime_types() {
-
 		$supportedFileExtensions = [ 'mp4', 'webm', 'ogv', 'ogg', 'mp3', 'aac', 'vorbis' ];
 		$jitMimes = [ 'foobar' => 'foo/bar' ];
 
@@ -102,7 +101,6 @@ class MediaTest extends \WP_UnitTestCase {
 			$this->assertFalse( \Pressbooks\Media\is_valid_media( '__UNUSED__', $file ) );
 		}
 	}
-
 
 	/**
 	 * @group media

@@ -6,14 +6,12 @@ use Pressbooks\Container;
 use function \Pressbooks\Metadata\book_information_to_schema;
 
 class ApiTest extends \WP_UnitTestCase {
-
 	use utilsTrait;
 
 	/**
 	 * @group api
 	 */
 	public function test_rootEndpoints() {
-
 		$server = $this->_setupRootApi();
 
 		// Test that endpoints exist
@@ -202,7 +200,6 @@ class ApiTest extends \WP_UnitTestCase {
 	 * @group api
 	 */
 	public function test_BookEndpoints() {
-
 		// Test that endpoints exist
 		$endpoints = [
 			'/pressbooks/v2/parts',
@@ -410,7 +407,6 @@ class ApiTest extends \WP_UnitTestCase {
 	 * @group api
 	 */
 	public function test_glossaryApi() {
-
 		$server = $this->_setupBookApi();
 
 		new Posts('glossary');
@@ -528,7 +524,5 @@ class ApiTest extends \WP_UnitTestCase {
 		$response = $server->dispatch( $request );
 		$data = $response->get_data();
 		$this->assertEquals( $protected_post['post_content'], $data['content']['raw'] );
-
 	}
-
 }

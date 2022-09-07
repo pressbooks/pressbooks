@@ -3,7 +3,6 @@
 use Pressbooks\Contributors;
 
 class ContributorsTest extends \WP_UnitTestCase {
-
 	use utilsTrait;
 
 	/**
@@ -246,14 +245,12 @@ class ContributorsTest extends \WP_UnitTestCase {
 		$buffer = ob_get_clean();
 
 		$this->assertStringContainsString( '<button name="dispatch-media-picture" id="btn-media">Upload Picture</button>', $buffer );
-
 	}
 
 	/**
 	 * @group contributors
 	 */
 	public function test_getContributorsMeta() {
-
 		$this->taxonomy->registerTaxonomies();
 		$post_id = $this->_createChapter();
 
@@ -269,7 +266,6 @@ class ContributorsTest extends \WP_UnitTestCase {
 		$contributors = $this->contributor->getContributorsWithMeta( $post_id, 'fake_reviewer' );
 
 		$this->assertCount( 0, $contributors );
-
 	}
 
 	/**
@@ -316,7 +312,6 @@ class ContributorsTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'Prof. Apurva Ashook IV', $name2 );
 		$this->assertEquals( 'Mario Bros', $name3 );
 		$this->assertEquals( 'Sir. Isaac Asimov', $name4 );
-
 	}
 
 	/**
@@ -341,7 +336,6 @@ class ContributorsTest extends \WP_UnitTestCase {
 	 * @group contributors
 	 */
 	public function test_contributorsBackMatterAutoDisplay() {
-
 		$this->taxonomy->registerTaxonomies();
 		$this->_book();
 
@@ -383,7 +377,6 @@ class ContributorsTest extends \WP_UnitTestCase {
 	 * @group contributors
 	 */
 	public function test_getAllContributors() {
-
 		$this->taxonomy->registerTaxonomies();
 		$this->_book();
 
@@ -402,7 +395,6 @@ class ContributorsTest extends \WP_UnitTestCase {
 
 		$this->assertEquals( 'Editor', $contributors['pb_editors']['title'] ); // Singular for one element
 		$this->assertEquals( 'Authors', $contributors['pb_authors']['title'] ); // Plural for two or more
-
 	}
 
 	/**
@@ -500,8 +492,7 @@ class ContributorsTest extends \WP_UnitTestCase {
 	/**
 	 * @group contributors
 	 */
-	public function test_getUrlFields()
-	{
+	public function test_getUrlFields() {
 		$fields = $this->contributor->getUrlFields();
 
 		$this->assertContains( 'contributor_picture', $fields );
@@ -514,8 +505,7 @@ class ContributorsTest extends \WP_UnitTestCase {
 	/**
 	 * @group contributors
 	 */
-	public function test_sanitizeField()
-	{
+	public function test_sanitizeField() {
 		$value = $this->contributor->sanitizeField( 'contributor_description', 'I\'m a <strong>description</strong>' );
 
 		$this->assertEquals( 'I\'m a <strong>description</strong>', $value );

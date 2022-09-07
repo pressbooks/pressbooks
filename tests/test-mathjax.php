@@ -3,7 +3,6 @@
 use Pressbooks\MathJax;
 
 class MathJaxTest extends \WP_UnitTestCase {
-
 	use utilsTrait;
 
 	/**
@@ -18,7 +17,6 @@ class MathJaxTest extends \WP_UnitTestCase {
 		parent::set_up();
 		$this->mathjax = new Mathjax();
 	}
-
 
 	function test_beforeExport() {
 		$this->assertFalse( $this->mathjax->usePbMathJax );
@@ -193,5 +191,4 @@ class MathJaxTest extends \WP_UnitTestCase {
 		$content = $this->mathjax->replaceMathML( $mathml_content );
 		$this->assertStringContainsString( '<img src="http://localhost:3000/mathml', $content );
 	}
-
 }

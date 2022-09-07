@@ -3,7 +3,6 @@
 use Pressbooks\Container;
 
 class StylesTest extends \WP_UnitTestCase {
-
 	use utilsTrait;
 
 	/**
@@ -66,7 +65,6 @@ class StylesTest extends \WP_UnitTestCase {
 			$this->assertArrayHasKey( $slug, $all_styles_posts );
 			$this->assertStringContainsString( $custom_styles, $all_styles_posts[ $slug ] );
 		}
-
 	}
 
 	/**
@@ -172,7 +170,6 @@ class StylesTest extends \WP_UnitTestCase {
 	 * @group styles
 	 */
 	public function test_updateWebBookStyleSheet() {
-
 		$this->_book( 'pressbooks-clarke' ); // Pick a theme with some built-in $supported_languages
 
 		$this->cs->updateWebBookStyleSheet();
@@ -187,7 +184,6 @@ class StylesTest extends \WP_UnitTestCase {
 	 * @group styles
 	 */
 	public function test_maybeUpdateStyleSheets() {
-
 		$this->_book( 'pressbooks-book' );
 
 		update_option( 'pressbooks_theme_version', 2.0 );

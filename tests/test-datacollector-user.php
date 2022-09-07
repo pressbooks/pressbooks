@@ -15,6 +15,7 @@ class DataCollector_UserTest extends \WP_UnitTestCase {
 	 */
 	public function set_up() {
 		parent::set_up();
+
 		$this->userDataCollector = new UserDataCollector();
 	}
 
@@ -26,7 +27,7 @@ class DataCollector_UserTest extends \WP_UnitTestCase {
 		$this->userDataCollector->setLastLogin( null, $user );
 		$last_login = get_user_meta( $user->ID, UserDataCollector::LAST_LOGIN, true );
 		$this->assertNotEmpty( $last_login );
-		$this->assertTrue( DateTime::createFromFormat( 'Y-m-d H:i:s', $last_login ) !== false );
+		$this->assertNotFalse( DateTime::createFromFormat( 'Y-m-d H:i:s', $last_login ) );
 	}
 
 	/**
@@ -118,7 +119,5 @@ class DataCollector_UserTest extends \WP_UnitTestCase {
 		$date_last_active = get_user_meta( $user->ID, UserDataCollector::USER_DATE_LAST_ACTIVE );
 		$this->assertNotEmpty( $date_last_active );
 		$this->assertGreaterThanOrEqual( strtotime( $date_last_active[0] ), strtotime( gmdate( 'Y-m-d H:i:s' ) ) );
-
-
 	}
 }

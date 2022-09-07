@@ -20,9 +20,7 @@ class ImportMock extends \Pressbooks\Modules\Import\Import {
 	}
 }
 
-
 class Modules_ImportTest extends \WP_UnitTestCase {
-
 	use utilsTrait;
 
 	/**
@@ -50,7 +48,6 @@ class Modules_ImportTest extends \WP_UnitTestCase {
 	 * @group import
 	 */
 	public function test_createTmpFile() {
-
 		$file = $this->import->createTmpFile();
 		$this->assertFileExists( $file );
 
@@ -62,7 +59,6 @@ class Modules_ImportTest extends \WP_UnitTestCase {
 	 * @group import
 	 */
 	public function test_isFormSubmission() {
-
 		$this->assertFalse( $this->import::isFormSubmission() );
 
 		$_REQUEST['page'] = 'pb_import';
@@ -82,7 +78,6 @@ class Modules_ImportTest extends \WP_UnitTestCase {
 	 * @group import
 	 */
 	public function test_scrapeAndKneadImages() {
-
 		$html = '<img src="pathtoremoteImage/image.jpg" /> <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4QAqRXhpZgA" />';
 
 		$doc = new DOMDocument();
@@ -202,5 +197,4 @@ class Modules_ImportTest extends \WP_UnitTestCase {
 		$values = $import->searchMultipleContributorValues( 'pb_fail', $post_meta );
 		$this->assertCount(0, $values);
 	}
-
 }

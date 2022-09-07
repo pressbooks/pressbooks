@@ -4,7 +4,6 @@
  * @group networksettings
  */
 class NetworkSettingsTest extends \WP_UnitTestCase {
-
 	use utilsTrait;
 
 	/**
@@ -43,5 +42,4 @@ class NetworkSettingsTest extends \WP_UnitTestCase {
 	public function test_getDefaultTheme() {
 		$this->assertEquals( 'pressbooks-book', \Pressbooks\Admin\Network\NetworkSettings::getDefaultTheme() );
 	}
-
 }

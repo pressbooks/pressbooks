@@ -2,7 +2,6 @@
 
 
 class Shortcodes_Complex extends \WP_UnitTestCase {
-
 	use utilsTrait;
 
 	/**
@@ -29,7 +28,7 @@ class Shortcodes_Complex extends \WP_UnitTestCase {
 	public function test_getInstance() {
 		$val = $this->complex->init();
 
-		$this->assertTrue( $val instanceof \Pressbooks\Shortcodes\Complex\Complex );
+		$this->assertInstanceOf( \Pressbooks\Shortcodes\Complex\Complex::class, $val );
 
 		global $shortcode_tags;
 		$this->assertArrayHasKey( 'anchor', $shortcode_tags );
@@ -161,5 +160,4 @@ class Shortcodes_Complex extends \WP_UnitTestCase {
 		$this->assertStringContainsString( '<iframe', $content );
 		$this->assertStringContainsString( '<figcaption>Deploy day!</figcaption>', $content );
 	}
-
 }

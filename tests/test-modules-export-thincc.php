@@ -1,12 +1,10 @@
 <?php
 
 class Modules_Export_ThinCCTest extends \WP_UnitTestCase {
-
 	/**
 	 * @var \Pressbooks\Modules\Export\ThinCC\WebLinks
 	 */
 	protected $weblinks;
-
 
 	use utilsTrait;
 
@@ -16,8 +14,6 @@ class Modules_Export_ThinCCTest extends \WP_UnitTestCase {
 	public function set_up() {
 		parent::set_up();
 		$this->weblinks = new Pressbooks\Modules\Export\ThinCC\WebLinks( [] );
-
-
 	}
 
 	public function test_sanityCheckExports() {
@@ -72,5 +68,4 @@ class Modules_Export_ThinCCTest extends \WP_UnitTestCase {
 		$this->assertTrue( $this->weblinks->showInWeb( 'web-only' ) );
 		$this->assertTrue( $this->weblinks->showInWeb( 'publish' ) );
 	}
-
 }

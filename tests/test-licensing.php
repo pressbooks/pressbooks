@@ -1,7 +1,6 @@
 <?php
 
 class LicensingTest extends \WP_UnitTestCase {
-
 	use utilsTrait;
 
 	/**
@@ -135,7 +134,6 @@ class LicensingTest extends \WP_UnitTestCase {
 	 * @group licensing
 	 */
 	public function test_getWebLicenseHtml() {
-
 		$xml = new \SimpleXMLElement( '<book><title>Hello World!</title></book>' );
 
 		$result = $this->licensing->getLicenseHtml( $xml );

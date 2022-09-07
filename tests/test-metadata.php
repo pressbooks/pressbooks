@@ -3,7 +3,6 @@
 use DMS\PHPUnitExtensions\ArraySubset\ArraySubsetAsserts;
 
 class MetadataTest extends \WP_UnitTestCase {
-
 	use utilsTrait, ArraySubsetAsserts;
 
 	/**
@@ -52,7 +51,6 @@ class MetadataTest extends \WP_UnitTestCase {
 	 * @group metadata
 	 */
 	public function test_get_microdata_elements() {
-
 		$result = \Pressbooks\Metadata\get_microdata_elements();
 		$this->assertStringContainsString( '<meta', $result );
 	}
@@ -61,7 +59,6 @@ class MetadataTest extends \WP_UnitTestCase {
 	 * @group metadata
 	 */
 	public function test_get_seo_meta_elements() {
-
 		$result = \Pressbooks\Metadata\get_seo_meta_elements();
 		$this->assertStringContainsString( '<meta', $result );
 	}

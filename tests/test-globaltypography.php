@@ -4,7 +4,6 @@ use \Pressbooks\GlobalTypography;
 use \Pressbooks\Container;
 
 class GlobalTypographyTest extends \WP_UnitTestCase {
-
 	use utilsTrait;
 
 	/**
@@ -25,7 +24,6 @@ class GlobalTypographyTest extends \WP_UnitTestCase {
 	 * @group typography
 	 */
 	public function test_getSupportedLanguages() {
-
 		$result = $this->gt->getSupportedLanguages();
 
 		$this->assertTrue( is_array( $result ) );
@@ -39,7 +37,6 @@ class GlobalTypographyTest extends \WP_UnitTestCase {
 	 * @group typography
 	 */
 	public function test_getRequiredLanguages() {
-
 		$result = $this->gt->_getRequiredLanguages();
 
 		$this->assertTrue( is_array( $result ) );
@@ -49,7 +46,6 @@ class GlobalTypographyTest extends \WP_UnitTestCase {
 	 * @group typography
 	 */
 	public function test_getThemeFontStacks() {
-
 		$this->_book( 'pressbooks-clarke' ); // Pick a theme with some built-in $supported_languages
 
 		$this->gt->updateGlobalTypographyMixin();
@@ -62,7 +58,6 @@ class GlobalTypographyTest extends \WP_UnitTestCase {
 	 * @group typography
 	 */
 	public function test_getThemeSupportedLanguages() {
-
 		$this->_book();
 
 		add_theme_support( 'pressbooks_global_typography', 'grc', 'he' );
