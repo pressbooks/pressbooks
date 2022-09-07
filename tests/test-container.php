@@ -100,12 +100,12 @@ class ContainerTest extends \WP_UnitTestCase {
 
 		$blade = Container::get( 'Blade' );
 
-		$this->expectException( InvalidArgumentException::class );
-
-		$blade->render( 'Foo::template', [ 'name' => 'World'] );
-
 		$blade->addNamespace( 'Foo', __DIR__ . '/data' );
 
-		$this->assertEquals( '<div>Hello, World!</div>', $blade->render( 'Foo::template', [ 'name' => 'World'] ) );
+		$this->assertEquals( "<div>Hello, World!</div>\n", $blade->render( 'Foo::template', [ 'name' => 'World'] ) );
+
+		$this->expectException( InvalidArgumentException::class );
+
+		$blade->render( 'Bar::template', [ 'name' => 'World'] );
 	}
 }
