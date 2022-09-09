@@ -1,4 +1,6 @@
 @import "partials/colors";
+@import "~wp-admin-colors/dist/admin";
+
 $mine-shaft2: darken($mine-shaft, 5%);
 $monza2: #3a3a3a;
 $highlight: #AD0000;
@@ -6,6 +8,7 @@ $boulder: darken($boulder, 5%);
 
 a {
   text-decoration: underline !important;
+
   &:hover,
   &:active,
   &:focus {
@@ -47,8 +50,6 @@ $menu-collapse-focus-text: $monza2;
 $menu-collapse-focus-icon: $monza2;
 $adminbar-avatar-frame: $white;
 $adminbar-input-background: $white;
-
-@import "~wp-admin-colors/dist/admin";
 
 // Core UI
 
@@ -153,8 +154,10 @@ div.error {
       }
     }
   }
+
   .you-are-here {
     background: lighten($monza2, 7%);
+
     a.ab-item {
       color: white;
     }
@@ -241,6 +244,7 @@ button.move-down,
 button.editinline,
 button.button-link {
   color: darken($monza2, 5%) !important;
+
   &:hover {
     color: $highlight !important;
   }

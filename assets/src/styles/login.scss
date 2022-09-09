@@ -8,7 +8,7 @@ body.pressbooks.login {
   height: auto;
   width: 100%;
   margin-top: 4rem;
-  font-family: "Karla", sans-serif;
+  font-family: Karla, sans-serif;
 
   @media (min-width: 48rem) {
     margin-top: 10rem;
@@ -32,7 +32,7 @@ body.pressbooks.login {
     border-color: var(--primary, #b01109);
     color: var(--primary-fg, #fff);
     display: inline-block;
-    font-family: "Karla", sans-serif;
+    font-family: Karla, sans-serif;
     font-weight: 500;
     letter-spacing: math.div(2, 18) * 1em;
     min-height: 59px;
@@ -96,8 +96,8 @@ body.pressbooks.login {
     }
   }
 
-  .message,
-  #login_error {
+
+  .message, #login_error { /* stylelint-disable-line */
     margin-bottom: 2rem;
     background: #eee;
   }
@@ -201,7 +201,7 @@ body.pressbooks.login {
       [type="checkbox"] {
         border: solid 2px var(--primary, #b01109);
 
-        &:checked:before {
+        &:checked::before {
           color: var(--primary, #b01109);
         }
       }
@@ -225,6 +225,7 @@ body.pressbooks.login {
     #nav,
     #backtoblog {
       text-align: center;
+
       a {
         color: var(--primary, #b01109);
         font-weight: 600;

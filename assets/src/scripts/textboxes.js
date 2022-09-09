@@ -43,7 +43,7 @@ tinymce.PluginManager.add( 'textboxes', function ( editor ) {
 	 * @param selection
 	 */
 	function eduTextboxWithSelection( type, title, selection ) {
-		return `<div class="textbox textbox--${type}"><header class="textbox__header"><p class="textbox__title">${title}</p></header>\n<div class="textbox__content">${selection}</div></div><p></p>`;
+		return `<div class="textbox textbox--${ type }"><header class="textbox__header"><p class="textbox__title">${ title }</p></header>\n<div class="textbox__content">${ selection }</div></div><p></p>`;
 	}
 
 	/**
@@ -54,7 +54,7 @@ tinymce.PluginManager.add( 'textboxes', function ( editor ) {
 	 * @param second
 	 */
 	function eduTextboxWithPlaceholder( type, title, placeholder, first, second ) {
-		return `<div class="textbox textbox--${type}"><header class="textbox__header"><p class="textbox__title">${title}</p></header>\n<div class="textbox__content"><p>${placeholder}</p><ul><li>${first}</li><li>${second}</li></ul></div></div><p></p>`;
+		return `<div class="textbox textbox--${ type }"><header class="textbox__header"><p class="textbox__title">${ title }</p></header>\n<div class="textbox__content"><p>${ placeholder }</p><ul><li>${ first }</li><li>${ second }</li></ul></div></div><p></p>`;
 	}
 
 	/**
@@ -63,7 +63,7 @@ tinymce.PluginManager.add( 'textboxes', function ( editor ) {
 	 * @param selection
 	 */
 	function eduSidebarTextboxWithSelection( type, title, selection ) {
-		return `<div class="textbox textbox--sidebar textbox--${type}"><header class="textbox__header"><p class="textbox__title">${title}</p></header>\n<div class="textbox__content">${selection}</div></div><p></p>`;
+		return `<div class="textbox textbox--sidebar textbox--${ type }"><header class="textbox__header"><p class="textbox__title">${ title }</p></header>\n<div class="textbox__content">${ selection }</div></div><p></p>`;
 	}
 
 	/**
@@ -80,7 +80,7 @@ tinymce.PluginManager.add( 'textboxes', function ( editor ) {
 		first,
 		second
 	) {
-		return `<div class="textbox textbox--sidebar textbox--${type}"><header class="textbox__header"><p class="textbox__title">${title}</p></header>\n<div class="textbox__content"><p>${placeholder}</p><ul><li>${first}</li><li>${second}</li></ul></div></div><p></p>`;
+		return `<div class="textbox textbox--sidebar textbox--${ type }"><header class="textbox__header"><p class="textbox__title">${ title }</p></header>\n<div class="textbox__content"><p>${ placeholder }</p><ul><li>${ first }</li><li>${ second }</li></ul></div></div><p></p>`;
 	}
 
 	editor.addButton( 'textboxes', {
@@ -196,8 +196,8 @@ tinymce.PluginManager.add( 'textboxes', function ( editor ) {
 				onclick: function () {
 					let type = 'examples';
 					let selection = editor.selection.getContent();
-					let title = editor.getLang( `strings.${type}` );
-					let placeholder = editor.getLang( `strings.${type}placeholder` );
+					let title = editor.getLang( `strings.${ type }` );
+					let placeholder = editor.getLang( `strings.${ type }placeholder` );
 					let first = editor.getLang( 'strings.first' );
 					let second = editor.getLang( 'strings.second' );
 					if ( selection !== '' ) {
@@ -223,8 +223,8 @@ tinymce.PluginManager.add( 'textboxes', function ( editor ) {
 				onclick: function () {
 					let type = 'examples';
 					let selection = editor.selection.getContent();
-					let title = editor.getLang( `strings.${type}sidebar` );
-					let placeholder = editor.getLang( `strings.${type}placeholder` );
+					let title = editor.getLang( `strings.${ type }sidebar` );
+					let placeholder = editor.getLang( `strings.${ type }placeholder` );
 					let first = editor.getLang( 'strings.first' );
 					let second = editor.getLang( 'strings.second' );
 					if ( selection !== '' ) {
@@ -256,8 +256,8 @@ tinymce.PluginManager.add( 'textboxes', function ( editor ) {
 				onclick: function () {
 					let type = 'exercises';
 					let selection = editor.selection.getContent();
-					let title = editor.getLang( `strings.${type}` );
-					let placeholder = editor.getLang( `strings.${type}placeholder` );
+					let title = editor.getLang( `strings.${ type }` );
+					let placeholder = editor.getLang( `strings.${ type }placeholder` );
 					let first = editor.getLang( 'strings.first' );
 					let second = editor.getLang( 'strings.second' );
 					if ( selection !== '' ) {
@@ -283,8 +283,8 @@ tinymce.PluginManager.add( 'textboxes', function ( editor ) {
 				onclick: function () {
 					let type = 'exercises';
 					let selection = editor.selection.getContent();
-					let title = editor.getLang( `strings.${type}sidebar` );
-					let placeholder = editor.getLang( `strings.${type}placeholder` );
+					let title = editor.getLang( `strings.${ type }sidebar` );
+					let placeholder = editor.getLang( `strings.${ type }placeholder` );
 					let first = editor.getLang( 'strings.first' );
 					let second = editor.getLang( 'strings.second' );
 					if ( selection !== '' ) {

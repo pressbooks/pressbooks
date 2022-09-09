@@ -8,7 +8,7 @@
   transform: translateZ(0);
 }
 
-#toplevel_page_pb_import {
+#toplevel_page_pb_import { /* stylelint-disable-line */
   .wp-menu-image {
     transform: rotate(180deg);
   }
@@ -19,7 +19,7 @@
 /* Admin Bar */
 
 @font-face {
-  font-family: "PBFont";
+  font-family: PBFont;
   src: url("../fonts/PBFont.eot");
   src: url("../fonts/PBFont.eot?#iefix") format("embedded-opentype"),
     url("../fonts/PBFont.ttf") format("truetype"),
@@ -35,7 +35,7 @@
   }
 
    .quicklinks li .blavatar::before {
-    font: 14px/1 "PBFont", sans-serif !important;
+    font: 14px/1 PBFont, sans-serif !important;
     -webkit-font-smoothing: antialiased;
     background: none;
     content: "\e600" !important;
@@ -66,7 +66,7 @@
   }
 
   #wp-admin-bar-wp-logo > .ab-item .ab-icon::before {
-    font: 20px/1 "PBFont", sans-serif !important;
+    font: 20px/1 PBFont, sans-serif !important;
     -webkit-font-smoothing: antialiased;
     background: none;
     content: "\e600" !important;
@@ -97,7 +97,7 @@
         position: relative;
 
         &::before {
-          font: 400 34px/1 "dashicons", sans-serif !important;
+          font: 400 34px/1 dashicons, sans-serif !important;
           text-align: center;
           text-indent: 0;
           top: 7px;
@@ -113,7 +113,7 @@
     }
 
     #wp-admin-bar-wp-logo > .ab-item .ab-icon::before {
-      font: 28px/1 "PBFont", sans-serif !important;
+      font: 28px/1 PBFont, sans-serif !important;
     }
   }
 }
@@ -131,7 +131,7 @@
 /* Dashboard Widgets */
 
 #dashboard-widgets {
-  #pb_dashboard_widget_book {
+  #pb_dashboard_widget_book { /* stylelint-disable-line */
     h4 {
       font-weight: bold;
     }
@@ -198,7 +198,7 @@ div.taxonomy_multi_select span.description a.button {
 i.mce-i-icon {
   padding: 0 2px 0 0;
   margin-left: -2px;
-  font: 400 20px/1 "dashicons", sans-serif;
+  font: 400 20px/1 dashicons, sans-serif;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   vertical-align: top;
@@ -224,11 +224,13 @@ i.mce-i-icon {
     p {
       text-align: left;
     }
+
     p#pb-password-protected {
       text-align: left;
       margin-left: 1em;
       display: none;
-      #post_password {
+
+      #post_password { /* stylelint-disable-line */
         margin-top: 0.5em;
         display: none;
       }
@@ -239,13 +241,13 @@ i.mce-i-icon {
 // Edit Screen Navigation
 
 #pb-edit-screen-navigation {
-  margin: 1em 0 0 0;
+  margin: 1em 0 0;
 
   @media (min-width: 851px) {
     margin-right: 300px;
   }
 
-  &:after {
+  &::after {
     /* clearfix */
     content: "";
     display: table;
@@ -283,6 +285,7 @@ $wp-spinner-anim-duration: 1.08s;
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -297,7 +300,7 @@ $wp-spinner-anim-duration: 1.08s;
     background: $wp-spinner-bg;
     animation: infinite-spinning $wp-spinner-anim-duration linear infinite;
 
-    &:after {
+    &::after {
       content: "";
       position: absolute;
       top: 2px;
@@ -311,7 +314,7 @@ $wp-spinner-anim-duration: 1.08s;
   }
 }
 
-#toplevel_page_quicklatex-settings {
+#toplevel_page_quicklatex-settings { /* stylelint-disable-line */
   display: none;
 }
 
