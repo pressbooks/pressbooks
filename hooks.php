@@ -30,11 +30,7 @@ $enable_network_api = \Pressbooks\Api\is_enabled();
 // Initialize services
 // -------------------------------------------------------------------------------------------------------------------
 
-if ( ! empty( $GLOBALS['PB_PIMPLE_OVERRIDE'] ) ) {
-	Container::init( $GLOBALS['PB_PIMPLE_OVERRIDE'] );
-} else {
-	Container::init();
-}
+\Pressbooks\ServiceProvider::init();
 
 // -------------------------------------------------------------------------------------------------------------------
 // Activation
@@ -261,11 +257,9 @@ add_action( 'init', '\Pressbooks\Theme\update_template_root' );
 // Regenerate stylesheets
 // -------------------------------------------------------------------------------------------------------------------
 
-add_action(
-	'init', function() {
-		Container::get( 'Styles' )->maybeUpdateStylesheets();
-	}
-);
+add_action( 'init', function() {
+	Container::get( 'Styles' )->maybeUpdateStylesheets();
+} );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Force Flush

@@ -1,7 +1,6 @@
 <?php
 
 class Admin_SiteMapTest extends \WP_UnitTestCase {
-
 	use utilsTrait;
 
 	/**
@@ -18,12 +17,10 @@ class Admin_SiteMapTest extends \WP_UnitTestCase {
 		$this->sitemap = new \Pressbooks\Admin\SiteMap();
 	}
 
-
 	/**
 	 * @group eventstreams
 	 */
 	public function test_renderPage() {
-
 		// Fake load the admin menu
 		global $menu, $submenu;
 		$this->_book();
@@ -51,6 +48,4 @@ class Admin_SiteMapTest extends \WP_UnitTestCase {
 		$this->assertStringContainsString( '>Log Out</a>', $buffer );
 		$this->assertStringContainsString( '>Dashboard</a>', $buffer );
 	}
-
-
 }

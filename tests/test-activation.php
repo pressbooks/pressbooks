@@ -3,7 +3,6 @@
 use Pressbooks\Activation;
 
 class ActivationTest extends \WP_UnitTestCase {
-
 	use utilsTrait;
 
 	/**
@@ -11,9 +10,6 @@ class ActivationTest extends \WP_UnitTestCase {
 	 */
 	protected $activation;
 
-	/**
-	 *
-	 */
 	public function set_up() {
 		parent::set_up();
 
@@ -38,7 +34,8 @@ class ActivationTest extends \WP_UnitTestCase {
 	 */
 	public function test_init() {
 		$instance = Activation::init();
-		$this->assertTrue( $instance instanceof Activation );
+
+		$this->assertInstanceOf( Activation::class, $instance );
 	}
 
 	/**

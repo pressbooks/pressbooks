@@ -1,8 +1,6 @@
 <?php
 
 class CoverGeneratorTest extends \WP_UnitTestCase {
-
-
 	/**
 	 * @var \Pressbooks\Covergenerator\Covergenerator
 	 * @group covergenerator
@@ -35,5 +33,4 @@ class CoverGeneratorTest extends \WP_UnitTestCase {
 	public function test_hasDependencies() {
 		$this->assertIsBool( $this->cg->hasDependencies() );
 	}
-
 }

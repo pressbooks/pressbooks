@@ -3,7 +3,6 @@
 use Pressbooks\Taxonomy;
 
 class TaxonomyTest extends \WP_UnitTestCase {
-
 	use utilsTrait;
 
 	/**
@@ -40,7 +39,7 @@ class TaxonomyTest extends \WP_UnitTestCase {
 	 */
 	public function test_init() {
 		$instance = Taxonomy::init();
-		$this->assertTrue( $instance instanceof Taxonomy );
+		$this->assertInstanceOf( Taxonomy::class, $instance );
 	}
 
 	/**
@@ -132,5 +131,4 @@ class TaxonomyTest extends \WP_UnitTestCase {
 		$this->assertArrayNotHasKey( 'view', $res );
 		$this->assertEquals( 2, $res['something_else'] );
 	}
-
 }

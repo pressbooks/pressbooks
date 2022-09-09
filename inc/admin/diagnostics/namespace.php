@@ -17,6 +17,7 @@ use function Pressbooks\Utility\check_saxonhe_install;
 use function Pressbooks\Utility\check_xmllint_install;
 use Pressbooks\Book;
 use Pressbooks\Container;
+use Pressbooks\HtmLawed;
 use Pressbooks\Modules\ThemeOptions\Admin;
 use Pressbooks\Theme\Lock;
 use Sinergi\BrowserDetector\Browser;
@@ -172,15 +173,14 @@ function render_page() {
 	}
 	$output .= 'imagick: ' . ( extension_loaded( 'imagick' ) ? 'Installed' : 'Not Installed' ) . "\n";
 	$output .= 'xsl: ' . ( extension_loaded( 'xsl' ) ? 'Installed' : 'Not Installed' );
-	$blade = \Pressbooks\Container::get( 'Blade' );
-	echo $blade->render(
-		'admin.diagnostics',
-		[
-			'output' => $output,
-			'regenerate_webbook_stylesheet_url' => $regenerate_webbook_stylesheet_url,
-			'is_book' => $is_book,
-		]
-	);
+	echo \Pressbooks\Container::get( 'Blade' )
+		->render(
+			'admin.diagnostics', [
+				'output' => $output,
+				'regenerate_webbook_stylesheet_url' => HtmLawed::filter( $regenerate_webbook_stylesheet_url, [ 'safe' => 1 ] ),
+				'is_book' => $is_book,
+			]
+		);
 }
 
 /**

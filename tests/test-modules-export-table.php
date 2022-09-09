@@ -1,7 +1,6 @@
 <?php
 
 class Modules_Export_TableTest extends \WP_UnitTestCase {
-
 	/**
 	 * @var \Pressbooks\Modules\Export\Table
 	 * @group export

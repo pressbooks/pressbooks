@@ -1,8 +1,6 @@
 <?php
 
 class CoverGenerator_SkuTest extends \WP_UnitTestCase {
-
-
 	/**
 	 * @var \Pressbooks\Covergenerator\Sku
 	 * @group covergenerator
@@ -28,5 +26,4 @@ class CoverGenerator_SkuTest extends \WP_UnitTestCase {
 		$this->assertEquals( $url, get_option( 'pressbooks_cg_sku' ) );
 		$this->assertNotEmpty( \Pressbooks\Image\attachment_id_from_url( $url ) );
 	}
-
 }

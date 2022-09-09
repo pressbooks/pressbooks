@@ -21,7 +21,7 @@
 		"source": "https://github.com/pressbooks/pressbooks/"
 	},
 	"config": {
-    "process-timeout":0,
+		"process-timeout":0,
 		"platform": {
 			"php": "7.4"
 		},
@@ -38,19 +38,26 @@
 		"docraptor/docraptor": "^3.0",
 		"fale/isbn": "^3.0",
 		"gridonic/princexml-php": "^1.2",
-		"illuminate/container": "5.4.*",
-		"jenssegers/blade": "^1.1",
+		"illuminate/container": "^8.0",
+		"illuminate/contracts": "^8.0",
+		"illuminate/events": "^8.0",
+		"illuminate/http": "^8.0",
+		"illuminate/filesystem": "^8.0",
+		"illuminate/support": "^8.0",
+		"illuminate/view": "^8.0",
 		"jenssegers/imagehash": "0.5.0",
 		"johnbillion/extended-cpts": "^5.0",
+		"laravel/helpers": "^1.5",
 		"masterminds/html5": "^2.6",
 		"maxbanton/cwh": "^2.0",
 		"monolog/monolog": "^2.2",
 		"pressbooks/mix": "^2.1",
-		"pressbooks/pb-cli": "^2.1.0",
+		"pressbooks/pb-cli": "^3",
 		"scssphp/scssphp": "~1.1.0",
 		"sinergi/browser-detector": "^6.1",
 		"vanilla/htmlawed": "^2.2",
-		"phpcompatibility/php-compatibility": "^9.3"
+		"phpcompatibility/php-compatibility": "^9.3",
+		"vlucas/phpdotenv": "^5.4"
 	},
 	"require-dev": {
 		"codeception/module-asserts": "^1.3",
@@ -62,7 +69,7 @@
 		"lucatume/wp-browser": "^3.0",
 		"pressbooks/coding-standards": "^1.1",
 		"yoast/phpunit-polyfills": "^1.0.1",
-    "dms/phpunit-arraysubset-asserts": "^0.4.0"
+		"dms/phpunit-arraysubset-asserts": "^0.4.0"
 	},
 	"suggest": {
 		"pressbooks/pressbooks-book":
@@ -90,7 +97,7 @@
 			"yarn.lock"
 		]
 	},
-	"scripts": {
+  "scripts": {
 		"test": [
 			"vendor/bin/phpunit --configuration phpunit.xml"
 		],

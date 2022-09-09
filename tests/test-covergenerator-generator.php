@@ -1,7 +1,6 @@
 <?php
 
 class CoverGenerator_GeneratorTest extends \WP_UnitTestCase {
-
 	use utilsTrait;
 
 	/**
@@ -9,8 +8,7 @@ class CoverGenerator_GeneratorTest extends \WP_UnitTestCase {
 	 * @group covergenerator
 	 */
 	protected function input() {
-		$input = new \Pressbooks\Covergenerator\Input();
-		$input
+		return ( new \Pressbooks\Covergenerator\Input() )
 			->setTitle( 'My Test Cover' )
 			->setSpineTitle( 'My Test Cover' )
 			->setSubtitle( 'Test' )
@@ -20,14 +18,12 @@ class CoverGenerator_GeneratorTest extends \WP_UnitTestCase {
 			->setTrimWidth( '5.5in' )
 			->setTrimHeight( '8.5in' )
 			->setSpineWidth( '1.9531in' );
-		return $input;
 	}
 
 	/**
 	 * @group covergenerator
 	 */
 	public function test_generators() {
-
 		\Pressbooks\Covergenerator\Covergenerator::commandLineDefaults();
 
 		// V2
@@ -76,6 +72,4 @@ class CoverGenerator_GeneratorTest extends \WP_UnitTestCase {
 		$this->assertFileExists( $output_path );
 		$this->assertStringContainsString( 'jpeg', \Pressbooks\Media\mime_type( $output_path ) );
 	}
-
-
 }

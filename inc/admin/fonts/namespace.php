@@ -29,9 +29,15 @@ function update_font_stacks() {
  * Fix Sass for everything that has to do with dynamically generated font stacks
  */
 function maybe_update_font_stacks() {
+	global $wp_query;
+
 	// If this is ajax/cron/404, don't update right now
-	if ( wp_doing_ajax() || wp_doing_cron() || is_404() ) {
+	if ( wp_doing_ajax() || wp_doing_cron() ) {
 		return;
+	}
+
+	if ( isset( $wp_query ) && is_404() ) {
+		return false;
 	}
 
 	// Try to stop a Cache Stampede, Dog-Pile, Cascading Failure...

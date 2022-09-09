@@ -825,11 +825,23 @@ function get_book_metadata_lang() {
 /**
  * This function returns the current's book language thema file if exists otherwise returns false
  *
+ * @param bool $main_site If true, it will return the main site's language file
  * @return false|string
  */
-function get_thema_lang_file() {
+function get_thema_lang_file( bool $main_site = false ) {
+	$locale = false;
+	if ( $main_site ) {
+		switch_to_blog( get_main_site_id() );
+		$locale_option = get_option( 'WPLANG' );
+		restore_current_blog();
+		if ( $locale_option && strpos( $locale_option, '_' ) !== false ) {
+			$locale = explode( '_', $locale_option )[0];
+		}
+	}
 
-	$locale = get_book_metadata_lang();
+	if ( ! $locale ) {
+		$locale = get_book_metadata_lang();
+	}
 
 	$thema_files_path = WP_CONTENT_DIR . '/uploads/assets/thema/symbionts/';
 
@@ -844,12 +856,13 @@ function get_thema_lang_file() {
  * @since 4.4.0
  *
  * @param bool $include_qualifiers Whether or not the Theme subject qualifiers should be included.
+ * @param bool $main_site Whether or not to use the main site's Thema subjects.
  *.
  * @return array
  */
-function get_thema_subjects( $include_qualifiers = false ) {
+function get_thema_subjects( bool $include_qualifiers = false, bool $main_site = false ) {
 
-	$thema_file = get_thema_lang_file();
+	$thema_file = get_thema_lang_file( $main_site );
 
 	$thema_json = file_exists( $thema_file ) ? $thema_file : PB_PLUGIN_DIR . 'symbionts/thema/en.json';
 
@@ -880,11 +893,12 @@ function get_thema_subjects( $include_qualifiers = false ) {
  * @since 4.4.0
  *
  * @param string $code The Thema code.
+ * @param bool $main_site Whether or not to use the main site's Thema subjects.
  *
  * @return string The subject name.
  */
-function get_subject_from_thema( $code ) {
-	$subjects = get_thema_subjects( true );
+function get_subject_from_thema( string $code, bool $main_site = false ) {
+	$subjects = get_thema_subjects( true, $main_site );
 	foreach ( $subjects as $key => $group ) {
 		if ( strpos( $code, strval( $key ) ) === 0 ) {
 			return $group['children'][ $code ];

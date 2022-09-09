@@ -186,7 +186,6 @@ class OptionsMock extends \Pressbooks\Options {
 }
 
 class OptionsTest extends \WP_UnitTestCase {
-
 	use utilsTrait;
 
 	/**
@@ -267,7 +266,6 @@ class OptionsTest extends \WP_UnitTestCase {
 	 * @group options
 	 */
 	public function test_sanitize() {
-
 		// Test empty boolean.
 		$input = [];
 		$result = $this->options->sanitize( $input );
@@ -405,7 +403,6 @@ class OptionsTest extends \WP_UnitTestCase {
 	 * @group options
 	 */
 	public function test_renderBodyFontField() {
-
 		$fonts = \Pressbooks\Container::get( 'Styles' )->getShapeShifterFonts();
 
 		$options = new \Pressbooks\Modules\ThemeOptions\EbookOptions( [] );
@@ -429,14 +426,12 @@ class OptionsTest extends \WP_UnitTestCase {
 		$buffer = ob_get_clean();
 		$this->assertStringContainsString( '</optgroup>', $buffer );
 		$this->assertStringContainsString( '<select name="pressbooks_theme_options_web[webbook_body_font]"', $buffer );
-
 	}
 
 	/**
 	 * @group options
 	 */
 	public function test_renderHeaderFontField() {
-
 		$fonts = \Pressbooks\Container::get( 'Styles' )->getShapeShifterFonts();
 
 		$options = new \Pressbooks\Modules\ThemeOptions\EbookOptions( [] );

@@ -1,7 +1,6 @@
 <?php
 
 class CoverGenerator_InputTest extends \WP_UnitTestCase {
-
 	/**
 	 * @var \Pressbooks\Covergenerator\Input
 	 * @group covergenerator
@@ -20,7 +19,6 @@ class CoverGenerator_InputTest extends \WP_UnitTestCase {
 	 * @group covergenerator
 	 */
 	public function test_mutatorMethods() {
-
 		$this->assertEmpty( $this->input->getTitle() );
 		$this->assertEmpty( $this->input->getSpineTitle() );
 		$this->assertEmpty( $this->input->getSubtitle() );
@@ -83,5 +81,4 @@ class CoverGenerator_InputTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'r', $this->input->getFrontBackgroundColor() );
 		$this->assertEquals( 's', $this->input->getFrontFontColor() );
 	}
-
 }

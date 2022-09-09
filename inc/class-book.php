@@ -120,7 +120,7 @@ class Book {
 						break;
 					}
 				}
-				if ( ! $read_contributors_from_cache || $contributors_cached_as_string !== $contributors_as_string ) {
+				if ( $meta_post && ( ! $read_contributors_from_cache || $contributors_cached_as_string !== $contributors_as_string ) ) {
 					$cached_book_information = array_merge(
 						$cached_book_information,
 						$contributors->getAll(
@@ -206,7 +206,8 @@ class Book {
 				include( ABSPATH . 'wp-includes/pluggable.php' );
 			}
 			$author = get_user_by( 'email', get_bloginfo( 'admin_email' ) );
-			$book_information['pb_authors'] = isset( $author->display_name ) ? $author->display_name : '';
+			$author_metadata = $author->display_name ?? '';
+			$book_information['pb_authors'] = $contributors_as_string ? $author_metadata : [ [ 'name' => $author_metadata ] ];
 			$book_information['pb_cover_image'] = \Pressbooks\Image\default_cover_url();
 		}
 
@@ -1122,112 +1123,3 @@ class Book {
 	}
 
 }
-
-/* --------------------------------------------------------------------------------------------------------------------
-
-getBookStructure() and getBookContents() will return a multidimensional array or an (air quotes) "book object" that
-contains everything Pressbooks considers a book. This book object is returned in the correct order so that, with
-straightforward foreach() loops, a programmer or template designer can render a book however they see fit.
-
- * getBookStructure() returns a minimal subset of get_post( $post->ID, ARRAY_A ) plus our own custom key/values
- * getBookContents() returns the entirety of get_post( $post->ID, ARRAY_A ) plus our own custom key/values
-
-getBookStructure() and getBookContents() will cache results using wp_cache_* functions. If you change the book, make
-sure to call static::deleteBookObjectCache() for a sane user experience.
-
-The book object looks something like this:
-
-	$book_structure = [
-		'front-matter' => [
-			0 => [
-				'export' => true,
-				'has_post_content' => true,
-				'word_count' => 999,
-				// key/values from: get_post( $post->ID, ARRAY_A ),
-			],
-			1 => [
-				'export' => false,
-				'has_post_content' => true,
-				'word_count' => 999,
-				// key/values from: get_post( $post->ID, ARRAY_A ),
-			],
-			// ...
-		],
-		'part' => [
-			0 => [
-				'export' => true,
-				'has_post_content' => true,
-				'word_count' => 999,
-				// key/values from: get_post( $post->ID, ARRAY_A ),
-				'chapters' => [
-					0 => [
-						'export' => true,
-						'has_post_content' => true,
-						'word_count' => 999,
-						// key/values from: get_post( $post->ID, ARRAY_A ),
-					],
-					1 => [
-						'export' => false,
-						'has_post_content' => true,
-						'word_count' => 999,
-						// key/values from: get_post( $post->ID, ARRAY_A ),
-					],
-					// ...
-				],
-			],
-			1 => [
-				'export' => true,
-				'has_post_content' => true,
-				'word_count' => 999,
-				// key/values from: get_post( $post->ID, ARRAY_A ),
-				'chapters' => [
-					0 => [
-						'export' => true,
-						'has_post_content' => true,
-						'word_count' => 999,
-						// key/values from: get_post( $post->ID, ARRAY_A ),
-					],
-					1 => [
-						'export' => false,
-						'has_post_content' => true,
-						'word_count' => 999,
-						// key/values from: get_post( $post->ID, ARRAY_A ),
-					],
-				],
-				// ...
-			],
-			// ...
-		],
-		'back-matter' => [
-			0 => [
-				'export' => true,
-				'has_post_content' => true,
-				'word_count' => 999,
-				// key/values from: get_post( $post->ID, ARRAY_A ),
-			],
-			1 => [
-				'export' => false,
-				'has_post_content' => true,
-				'word_count' => 999,
-				// key/values from: get_post( $post->ID, ARRAY_A ),
-			],
-			// ...
-		],
-		'__order' => [
-			$post->ID => [
-				'export' => true,
-				'post_status' => 'publish',
-				'post_name' => 'introduction',
-				'post_type' => 'front-matter',
-			],
-			$post->ID => [
-				'export' => false,
-				'post_status' => 'publish',
-				'post_name' => 'chapter-1',
-				'post_type' => 'chapter',
-			],
-			// ...
-		],
-	];
-
-*/

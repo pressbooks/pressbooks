@@ -3,7 +3,6 @@
 use Pressbooks\Modules\Export\ExportHelpers;
 
 class ExportHelpersTest extends \WP_UnitTestCase {
-
 	use ExportHelpers;
 	use utilsTrait;
 

@@ -1,7 +1,6 @@
 <?php
 
 class UtilityTest extends \WP_UnitTestCase {
-
 	use utilsTrait;
 
 	public static function tear_down_after_class() {
@@ -12,7 +11,6 @@ class UtilityTest extends \WP_UnitTestCase {
 	 * @group utility
 	 */
 	public function test_getset() {
-
 		$array = [ 'hello' => 'world' ];
 		$this->assertEquals( \Pressbooks\Utility\getset( $array, 'hello' ), 'world' );
 		$this->assertEquals( \Pressbooks\Utility\getset( $array, 'nothing' ), null );
@@ -34,7 +32,6 @@ class UtilityTest extends \WP_UnitTestCase {
 	 * @group utility
 	 */
 	public function test_scandir_by_date() {
-
 		$files = \Pressbooks\Utility\scandir_by_date( __DIR__ );
 
 		$this->assertTrue( is_array( $files ) );
@@ -52,7 +49,6 @@ class UtilityTest extends \WP_UnitTestCase {
 	 * @group utility
 	 */
 	public function test_group_exports() {
-
 		$files = \Pressbooks\Utility\group_exports();
 		$this->assertTrue( is_array( $files ) );
 
@@ -82,7 +78,6 @@ class UtilityTest extends \WP_UnitTestCase {
 	 * @group utility
 	 */
 	public function test_get_media_path() {
-
 		$guid = 'http://pressbooks.dev/test/wp-content/uploads/sites/3/2015/11/foobar.jpg';
 
 		$path = \Pressbooks\Utility\get_media_path( $guid );
@@ -118,7 +113,6 @@ class UtilityTest extends \WP_UnitTestCase {
 	 * @group utility
 	 */
 	public function test_add_sitemap_to_robots_txt_0() {
-
 		update_option( 'blog_public', 0 );
 		$this->expectOutputRegex( '/^\s*$/' ); // string is empty or has only whitespace
 		\Pressbooks\Utility\add_sitemap_to_robots_txt();
@@ -128,7 +122,6 @@ class UtilityTest extends \WP_UnitTestCase {
 	 * @group utility
 	 */
 	public function test_add_sitemap_to_robots_txt_1() {
-
 		update_option( 'blog_public', 1 );
 		$this->expectOutputRegex( '/Sitemap:(.+)feed=sitemap.xml/' );
 		\Pressbooks\Utility\add_sitemap_to_robots_txt();
@@ -138,7 +131,6 @@ class UtilityTest extends \WP_UnitTestCase {
 	 * @group utility
 	 */
 	public function test_do_sitemap_0() {
-
 		update_option( 'blog_public', 0 );
 		$this->expectOutputRegex( '/404 Not Found/i' );
 		\Pressbooks\Utility\do_sitemap();
@@ -148,7 +140,6 @@ class UtilityTest extends \WP_UnitTestCase {
 	 * @group utility
 	 */
 	public function test_do_sitemap_1() {
-
 		update_option( 'blog_public', 1 );
 		$this->expectOutputRegex( '/^<\?xml /' );
 		\Pressbooks\Utility\do_sitemap();
@@ -158,7 +149,6 @@ class UtilityTest extends \WP_UnitTestCase {
 	 * @group utility
 	 */
 	public function test_create_tmp_file() {
-
 		$file = \Pressbooks\Utility\create_tmp_file();
 		$this->assertFileExists( $file );
 
@@ -174,7 +164,6 @@ class UtilityTest extends \WP_UnitTestCase {
 	 * @group utility
 	 */
 	public function test_check_prince_install() {
-
 		$this->assertIsBool( \Pressbooks\Utility\check_prince_install() );
 		$this->assertTrue( defined( 'PB_PRINCE_COMMAND' ) );
 	}
@@ -183,7 +172,6 @@ class UtilityTest extends \WP_UnitTestCase {
 	 * @group utility
 	 */
 	public function test_check_epubcheck_install() {
-
 		$this->assertIsBool( \Pressbooks\Utility\check_epubcheck_install() );
 		$this->assertTrue( defined( 'PB_EPUBCHECK_COMMAND' ) );
 	}
@@ -192,7 +180,6 @@ class UtilityTest extends \WP_UnitTestCase {
 	 * @group utility
 	 */
 	public function test_check_xmllint_install() {
-
 		$this->assertIsBool( \Pressbooks\Utility\check_xmllint_install() );
 		$this->assertTrue( defined( 'PB_XMLLINT_COMMAND' ) );
 	}
@@ -201,7 +188,6 @@ class UtilityTest extends \WP_UnitTestCase {
 	 * @group utility
 	 */
 	public function test_check_saxonhe_install() {
-
 		$this->assertIsBool( \Pressbooks\Utility\check_saxonhe_install() );
 		$this->assertTrue( defined( 'PB_SAXON_COMMAND' ) );
 	}
@@ -210,7 +196,6 @@ class UtilityTest extends \WP_UnitTestCase {
 	 * @group utility
 	 */
 	public function test_show_experimental_features() {
-
 		$this->assertIsBool( \Pressbooks\Utility\show_experimental_features() );
 		$this->assertIsBool( \Pressbooks\Utility\show_experimental_features( 'http://pressbooks.com' ) );
 
@@ -220,7 +205,6 @@ class UtilityTest extends \WP_UnitTestCase {
 	 * @group utility
 	 */
 	public function test_include_plugins() {
-
 		\Pressbooks\Utility\include_plugins();
 		$this->assertTrue( class_exists( 'custom_metadata_manager' ) );
 	}
@@ -229,7 +213,6 @@ class UtilityTest extends \WP_UnitTestCase {
 	 * @group utility
 	 */
 	public function test_filter_plugins() {
-
 		$symbionts = [ 'a-plugin-that-does-not-exist/foobar.php' => 1 ];
 
 		$filtered = \Pressbooks\Utility\filter_plugins( $symbionts );
@@ -250,20 +233,17 @@ class UtilityTest extends \WP_UnitTestCase {
 	 * @group utility
 	 */
 	public function test_file_upload_max_size() {
-
 		$maxSize = \Pressbooks\Utility\file_upload_max_size();
 
 		$this->assertTrue(
 			ini_get( 'post_max_size' ) == $maxSize || ini_get( 'upload_max_filesize' ) == $maxSize
 		);
-
 	}
 
 	/**
 	 * @group utility
 	 */
 	public function test_parse_size() {
-
 		$this->assertTrue( is_float( \Pressbooks\Utility\parse_size( '1' ) ) );
 
 		$this->assertEquals( 65536, \Pressbooks\Utility\parse_size( '64K' ) );
@@ -275,7 +255,6 @@ class UtilityTest extends \WP_UnitTestCase {
 	 * @group utility
 	 */
 	public function test_format_bytes() {
-
 		$this->assertEquals( '200 B', \Pressbooks\Utility\format_bytes( 200 ) );
 		$this->assertEquals( '200 B', \Pressbooks\Utility\format_bytes( 200, 4 ) );
 
@@ -294,7 +273,7 @@ class UtilityTest extends \WP_UnitTestCase {
 
 
 	//  public function test_email_error_log() {
-	//      // TODO: Testing this as-is would send emails, write to error_log... Need to refactor
+	//      // TODO: Testing this as-is would send emails, write to trigger_error... Need to refactor
 	//      $this->markTestIncomplete();
 	//  }
 
@@ -302,7 +281,6 @@ class UtilityTest extends \WP_UnitTestCase {
 	 * @group utility
 	 */
 	public function test_template() {
-
 		$template = \Pressbooks\Utility\template(
 			__DIR__ . '/data/template.php',
 			[
@@ -502,7 +480,6 @@ class UtilityTest extends \WP_UnitTestCase {
 	 * @group utility
 	 */
 	public function test_str_remove_prefix() {
-
 		$result = \Pressbooks\Utility\str_remove_prefix( 'foo foo foo bar', 'foo' );
 		$this->assertEquals( ' foo foo bar', $result );
 
@@ -517,7 +494,6 @@ class UtilityTest extends \WP_UnitTestCase {
 	 * @group utility
 	 */
 	public function test_str_lreplace() {
-
 		$result = \Pressbooks\Utility\str_lreplace( 'foo', 'bar', 'foo foo foo bar' );
 		$this->assertEquals( 'foo foo bar bar', $result );
 
@@ -547,7 +523,6 @@ class UtilityTest extends \WP_UnitTestCase {
 	 * @group utility
 	 */
 	public function test_word_count() {
-
 		$content = 'This is four words.';
 		$count = \Pressbooks\Utility\word_count( $content );
 		$this->assertEquals( 4, $count );
@@ -569,7 +544,6 @@ class UtilityTest extends \WP_UnitTestCase {
 	 * @group utility
 	 */
 	public function test_absolute_path() {
-
 		$path = '/simple/path';
 		$this->assertEquals( '/simple/path', \Pressbooks\Utility\absolute_path( $path ) );
 
@@ -753,7 +727,6 @@ class UtilityTest extends \WP_UnitTestCase {
 	 * @group utility
 	 */
 	public function test_shortcode_att_replace() {
-
 		$c = '<h1>Test</h1><p>[pb_glossary hello=world id=111 foo=bar]Skatboards[/pb_glossary], not [pb_glossary hello=world id=222 foo=bar]death[/pb_glossary].</p><p>[some id=222]other shortcode[/some]</p>';
 		$x = \Pressbooks\Utility\shortcode_att_replace( $c, 'pb_glossary', 'id', 222, 999 );
 		$this->assertEquals( '<h1>Test</h1><p>[pb_glossary hello=world id=111 foo=bar]Skatboards[/pb_glossary], not [pb_glossary hello=world id=999 foo=bar]death[/pb_glossary].</p><p>[some id=222]other shortcode[/some]</p>', $x );
@@ -808,7 +781,6 @@ class UtilityTest extends \WP_UnitTestCase {
 	 * @group utility
 	 */
 	public function test_contractAndTraits() {
-
 		$contributors = new \Pressbooks\Contributors();
 		$glossary = new Pressbooks\Shortcodes\Glossary\Glossary();
 
@@ -820,14 +792,12 @@ class UtilityTest extends \WP_UnitTestCase {
 
 		$this->assertTrue( is_a( $class1->getMethod( 'display' ), '\ReflectionMethod' ) );
 		$this->assertTrue( is_a( $class2->getMethod( 'display' ), '\ReflectionMethod' ) );
-
 	}
 
 	/**
 	 * @group utility
 	 */
-	public function test_get_number_of_invitations()
-	{
+	public function test_get_number_of_invitations() {
 		$this->_book();
 
 		$role = [ 'name' => 'author'];
@@ -851,5 +821,4 @@ class UtilityTest extends \WP_UnitTestCase {
 
 		$this->assertEquals( 1, \Pressbooks\Utility\get_number_of_invitations( $user ) );
 	}
-
 }

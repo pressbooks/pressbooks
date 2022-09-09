@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-08-15T13:49:57+00:00\n"
+"POT-Creation-Date: 2022-09-07T19:16:47+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: pressbooks\n"
@@ -168,7 +168,7 @@ msgstr ""
 #: inc/admin/class-catalog-list-table.php:230
 #: inc/class-activation.php:237
 #: inc/modules/export/epub/class-epub.php:1211
-#: tests/test-cloner.php:58
+#: tests/test-cloner.php:57
 msgid "Cover"
 msgstr ""
 
@@ -662,7 +662,7 @@ msgstr ""
 #: inc/admin/dashboard/namespace.php:275
 #: inc/class-activation.php:242
 #: inc/modules/themeoptions/class-pdfoptions.php:287
-#: tests/test-cloner.php:63
+#: tests/test-cloner.php:62
 #: templates/export/epub/toc.blade.php:13
 msgid "Table of Contents"
 msgstr ""
@@ -808,8 +808,8 @@ msgid ""
 "###SITE_NAME###"
 msgstr ""
 
-#: inc/admin/diagnostics/namespace.php:33
 #: inc/admin/diagnostics/namespace.php:34
+#: inc/admin/diagnostics/namespace.php:35
 #: inc/admin/laf/namespace.php:108
 #: templates/admin/diagnostics.blade.php:4
 msgid "Diagnostics"
@@ -1258,7 +1258,7 @@ msgstr ""
 #: inc/posttype/namespace.php:542
 #: inc/posttype/namespace.php:580
 #: templates/admin/import.php:94
-#: tests/test-posttype.php:261
+#: tests/test-posttype.php:259
 msgid "Part"
 msgstr ""
 
@@ -1740,7 +1740,7 @@ msgid "Owner"
 msgstr ""
 
 #: inc/admin/network/class-networksettings.php:59
-#: tests/test-networksettings.php:30
+#: tests/test-networksettings.php:29
 msgid "Theme Settings"
 msgstr ""
 
@@ -1899,12 +1899,12 @@ msgid "Main Body"
 msgstr ""
 
 #: inc/class-activation.php:210
-#: tests/test-book.php:51
+#: tests/test-book.php:47
 msgid "Introduction"
 msgstr ""
 
 #: inc/class-activation.php:212
-#: tests/test-book.php:102
+#: tests/test-book.php:97
 msgid "This is where you can write your introduction."
 msgstr ""
 
@@ -1929,7 +1929,7 @@ msgstr ""
 #: templates/admin/organize.php:216
 #: templates/admin/organize.php:290
 #: templates/admin/organize.php:375
-#: tests/test-cloner.php:53
+#: tests/test-cloner.php:52
 msgid "Authors"
 msgstr ""
 
@@ -2319,7 +2319,7 @@ msgid "$title is deprecated. Method will automatically determine title from lice
 msgstr ""
 
 #: inc/class-licensing.php:323
-#: inc/class-styles.php:818
+#: inc/class-styles.php:824
 #: inc/modules/export/epub/class-epub.php:1410
 #: inc/modules/export/htmlbook/class-htmlbook.php:864
 #: inc/modules/export/xhtml/class-xhtml11.php:1083
@@ -2384,112 +2384,112 @@ msgstr ""
 msgid "Custom Style for Web"
 msgstr ""
 
-#: inc/class-styles.php:670
+#: inc/class-styles.php:676
 msgid "Cormorant Garamond"
 msgstr ""
 
-#: inc/class-styles.php:671
+#: inc/class-styles.php:677
 msgid "Crimson Text"
 msgstr ""
 
-#: inc/class-styles.php:672
+#: inc/class-styles.php:678
 msgid "GNU FreeFont Serif"
 msgstr ""
 
-#: inc/class-styles.php:673
+#: inc/class-styles.php:679
 msgid "New Athena Unicode"
 msgstr ""
 
-#: inc/class-styles.php:674
+#: inc/class-styles.php:680
 msgid "Noto Serif"
 msgstr ""
 
-#: inc/class-styles.php:675
+#: inc/class-styles.php:681
 msgid "Sorts Mill Goudy"
 msgstr ""
 
-#: inc/class-styles.php:676
+#: inc/class-styles.php:682
 msgid "Spectral"
 msgstr ""
 
-#: inc/class-styles.php:680
+#: inc/class-styles.php:686
 msgid "Alegreya Sans"
 msgstr ""
 
-#: inc/class-styles.php:681
+#: inc/class-styles.php:687
 msgid "Barlow"
 msgstr ""
 
-#: inc/class-styles.php:682
+#: inc/class-styles.php:688
 msgid "GNU FreeFont Sans"
 msgstr ""
 
-#: inc/class-styles.php:683
+#: inc/class-styles.php:689
 msgid "K2D"
 msgstr ""
 
-#: inc/class-styles.php:684
+#: inc/class-styles.php:690
 msgid "Lato"
 msgstr ""
 
-#: inc/class-styles.php:685
+#: inc/class-styles.php:691
 msgid "Libre Franklin"
 msgstr ""
 
-#: inc/class-styles.php:686
+#: inc/class-styles.php:692
 msgid "Montserrat"
 msgstr ""
 
-#: inc/class-styles.php:687
+#: inc/class-styles.php:693
 msgid "Noto Sans"
 msgstr ""
 
-#: inc/class-styles.php:688
+#: inc/class-styles.php:694
 msgid "Open Sans"
 msgstr ""
 
-#: inc/class-styles.php:689
+#: inc/class-styles.php:695
 msgid "Raleway"
 msgstr ""
 
-#: inc/class-styles.php:690
+#: inc/class-styles.php:696
 msgid "Roboto"
 msgstr ""
 
-#: inc/class-styles.php:691
+#: inc/class-styles.php:697
 msgid "Rubik"
 msgstr ""
 
-#: inc/class-styles.php:692
+#: inc/class-styles.php:698
 msgid "Source Sans Pro"
 msgstr ""
 
-#: inc/class-styles.php:696
-#: tests/test-styles.php:219
+#: inc/class-styles.php:702
+#: tests/test-styles.php:215
 msgid "Theme default"
 msgstr ""
 
-#: inc/class-styles.php:697
-#: inc/class-styles.php:711
-#: tests/test-styles.php:220
+#: inc/class-styles.php:703
+#: inc/class-styles.php:717
+#: tests/test-styles.php:216
 msgid "Serif"
 msgstr ""
 
-#: inc/class-styles.php:698
-#: tests/test-styles.php:221
+#: inc/class-styles.php:704
+#: tests/test-styles.php:217
 msgid "Sans serif"
 msgstr ""
 
-#: inc/class-styles.php:743
+#: inc/class-styles.php:749
 msgid "Unexpected Error: There was a problem trying to query slug: %s - Please contact technical support."
 msgstr ""
 
-#: inc/class-styles.php:783
+#: inc/class-styles.php:789
 #: templates/admin/custom-styles.php:20
 msgid "Web"
 msgstr ""
 
-#: inc/class-styles.php:815
+#: inc/class-styles.php:821
 msgid "Last 10 Revisions"
 msgstr ""
 
@@ -2843,7 +2843,7 @@ msgstr ""
 msgid "If you need to enter additional information, click the button below to see all available fields."
 msgstr ""
 
-#: inc/metadata/namespace.php:1191
+#: inc/metadata/namespace.php:1205
 msgid "The %1$s Thema subject terms requested for this book could not be downloaded from %2$s. Please report this error to your network manager."
 msgstr ""
 
@@ -3371,7 +3371,7 @@ msgid "About the Author"
 msgstr ""
 
 #: inc/modules/themeoptions/class-globaloptions.php:134
-#: tests/test-options.php:471
+#: tests/test-options.php:466
 msgid "Display information about authors at the end of each chapter"
 msgstr ""
 
@@ -4139,7 +4139,7 @@ msgid " adapted by "
 msgstr ""
 
 #: inc/shortcodes/footnotes/class-footnotes.php:187
-#: tests/test-shortcodes-footnotes-footnotes.php:164
+#: tests/test-shortcodes-footnotes-footnotes.php:149
 msgid "Invalid permissions."
 msgstr ""
 
@@ -4695,7 +4695,7 @@ msgstr ""
 msgid "Pressbooks: the CMS for Books."
 msgstr ""
 
-#: tests/test-registration.php:29
+#: tests/test-registration.php:28
 msgid "Create Site"
 msgstr ""
 

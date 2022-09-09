@@ -3,7 +3,6 @@
 use Pressbooks\Container;
 
 class ExportMock extends \Pressbooks\Modules\Export\Export {
-
 	/**
 	 * @group export
 	 */
@@ -21,7 +20,6 @@ class ExportMock extends \Pressbooks\Modules\Export\Export {
 }
 
 class Modules_Export_ExportTest extends \WP_UnitTestCase {
-
 	use utilsTrait;
 
 	/**
@@ -47,7 +45,6 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 			[ '\Pressbooks\Modules\Export\HTMLBook\HTMLBook', false ],
 			[ '\Pressbooks\Modules\Export\ThinCc\WebLinks', false ],
 		];
-
 	}
 
 	/**
@@ -73,7 +70,6 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 	 * @group export
 	 */
 	public function test_getExportStylePath() {
-
 		$this->_book( 'pressbooks-luther' );
 
 		$path = $this->export->getExportStylePath( 'epub' );
@@ -98,7 +94,6 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 	 * @group export
 	 */
 	public function test_getExportScriptPath() {
-
 		$this->_book( 'pressbooks-luther' );
 
 		$path = $this->export->getExportScriptPath( 'epub' );
@@ -115,7 +110,6 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 	 * @group export
 	 */
 	public function test_shouldParseSubsections() {
-
 		$val = $this->export->shouldParseSubsections();
 		$this->assertIsBool( $val );
 	}
@@ -129,7 +123,6 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 	 * @group export
 	 */
 	public function test_createTmpFile() {
-
 		$file = $this->export->createTmpFile();
 		$this->assertFileExists( $file );
 
@@ -141,7 +134,6 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 	 * @group export
 	 */
 	public function test_timestampedFileName() {
-
 		$this->_book();
 
 		$file = $this->export->timestampedFileName( 'epub', true );
@@ -160,7 +152,6 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 	 * @group export
 	 */
 	public function test_nonce_AND_verifyNonce() {
-
 		$time1 = time();
 		$nonce1 = $this->export->nonce( $time1 );
 		$this->assertIsString( $nonce1 );
@@ -181,7 +172,6 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 	 * @group export
 	 */
 	public function test_mimeType() {
-
 		$i = $this->export;
 		$mime = $i::mimeType( __DIR__ . '/data/pb.png' );
 		$this->assertStringStartsWith( 'image/png', $mime );
@@ -191,7 +181,6 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 	 * @group export
 	 */
 	public function test_getExportFolder() {
-
 		$this->_book();
 
 		$i = $this->export;
@@ -205,7 +194,6 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 	 * @group export
 	 */
 	public function test_getLatestExportStylePath() {
-
 		$this->_book();
 
 		$i = $this->export;
@@ -244,7 +232,6 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 	 * @group export
 	 */
 	public function test_getLatestExportStyleUrl() {
-
 		$this->_book();
 
 		$i = $this->export;
@@ -283,7 +270,6 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 	 * @group export
 	 */
 	public function test_truncateExportStylesheets() {
-
 		$this->_book();
 
 		$i = $this->export;
@@ -356,7 +342,6 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 	 * @group export
 	 */
 	public function test_sanityChecks( $module, $prerequisite ) {
-
 		$runtime = new \SebastianBergmann\Environment\Runtime();
 
 		$this->_book();
@@ -430,7 +415,6 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 	 * @group export
 	 */
 	public function test_sanityCheckXhtmlWithoutBuckram() {
-
 		$this->_book( 'pressbooks-luther' ); // Use an old book.
 		$meta_post = ( new \Pressbooks\Metadata() )->getMetaPost();
 		( new \Pressbooks\Contributors() )->insert( 'Ned Zimmerman', $meta_post->ID );
@@ -604,5 +588,4 @@ class Modules_Export_ExportTest extends \WP_UnitTestCase {
 		$this->assertArrayHasKey( 'class', $attributes );
 		$this->assertEquals( 'endnote', $attributes['class'] );
 	}
-
 }

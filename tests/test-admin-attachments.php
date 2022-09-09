@@ -2,7 +2,6 @@
 require_once( PB_PLUGIN_DIR . 'inc/admin/attachments/namespace.php' );
 
 class Admin_AttachmentTest extends \WP_UnitTestCase {
-
 	/**
 	 * @group media
 	 */
@@ -18,6 +17,5 @@ class Admin_AttachmentTest extends \WP_UnitTestCase {
 		$this->assertStringContainsString( $good_url, $result );
 		$result = \Pressbooks\Admin\Attachments\validate_attachment_metadata( $string_key, '<b>Figure 2.1</b>' );
 		$this->assertEquals( 'Figure 2.1', $result );
-
 	}
 }

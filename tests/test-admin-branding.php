@@ -23,7 +23,6 @@ class Admin_BrandingTest extends \WP_UnitTestCase {
 	 * @group branding
 	 */
 	public function test_login_url() {
-
 		$this->assertMatchesRegularExpression( '#^https?://#i', \Pressbooks\Admin\Branding\login_url() );
 	}
 
@@ -31,7 +30,6 @@ class Admin_BrandingTest extends \WP_UnitTestCase {
 	 * @group branding
 	 */
 	public function test_login_title() {
-
 		$title = \Pressbooks\Admin\Branding\login_title();
 
 		$this->assertIsString( $title );
@@ -42,7 +40,6 @@ class Admin_BrandingTest extends \WP_UnitTestCase {
 	 * @group branding
 	 */
 	function test_admin_title() {
-
 		$result = \Pressbooks\Admin\Branding\admin_title( 'Hello WordPress!' );
 		$this->assertEquals( $result, 'Hello Pressbooks!' );
 
