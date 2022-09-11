@@ -28,7 +28,7 @@ jobs:
       - name: Install Node dependencies & build assets
         run: |
           node -v
-          npm install
+          npm ci
           npm run build
       - name: Run ESLint and Stylelint
         run: npm run lint

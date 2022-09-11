@@ -59,12 +59,12 @@
 			"tinymce": true
 		},
 		"rules": {
-      "jsdoc/require-param-type": "off",
-      "jsdoc/require-returns": "off",
-      "jsdoc/require-param-description": "off",
-      "jsdoc/no-undefined-types": "off",
-      "jsdoc/require-returns-description": "off",
-      "no-unused-vars": "off"
+			"jsdoc/require-param-type": "off",
+			"jsdoc/require-returns": "off",
+			"jsdoc/require-param-description": "off",
+			"jsdoc/no-undefined-types": "off",
+			"jsdoc/require-returns-description": "off",
+			"no-unused-vars": "off"
 		},
 		"settings": {
 			"react": {
