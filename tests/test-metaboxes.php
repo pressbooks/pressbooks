@@ -2,9 +2,7 @@
 
 require_once( PB_PLUGIN_DIR . 'inc/admin/metaboxes/namespace.php' );
 
-
 class MetaboxesTest extends \WP_UnitTestCase {
-
 	use utilsTrait;
 
 	/**
@@ -27,8 +25,8 @@ class MetaboxesTest extends \WP_UnitTestCase {
 	 * @group metaboxes
 	 */
 	public function test_add_meta_boxes() {
-
 		global $wp_meta_boxes;
+
 		$c = custom_metadata_manager::instance();
 
 		update_option( 'pressbooks_show_expanded_metadata', 1 );
@@ -92,7 +90,6 @@ class MetaboxesTest extends \WP_UnitTestCase {
 	 * @group metaboxes
 	 */
 	public function test_publish_fields_save() {
-
 		\Pressbooks\Metadata\init_book_data_models();
 
 		global $pagenow;
@@ -301,7 +298,6 @@ class MetaboxesTest extends \WP_UnitTestCase {
 	 * @group metaboxes
 	 */
 	public function test_contributor_metaboxes() {
-
 		$user_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
 		wp_set_current_user( $user_id );
 		ob_start();
@@ -395,5 +391,4 @@ class MetaboxesTest extends \WP_UnitTestCase {
 		$buffer = ob_get_clean();
 		$this->assertStringContainsString( 'Sorry, there is not picture! :/', $buffer );
 	}
-
 }

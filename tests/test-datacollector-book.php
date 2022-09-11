@@ -3,7 +3,6 @@
 use Pressbooks\DataCollector\Book as BookDataCollector;
 
 class DataCollector_BookTest extends \WP_UnitTestCase {
-
 	use utilsTrait;
 
 	/**
@@ -11,27 +10,29 @@ class DataCollector_BookTest extends \WP_UnitTestCase {
 	 */
 	protected $bookDataCollector;
 
-
 	/**
 	 * @group datacollector
 	 */
 	public function set_up() {
 		parent::set_up();
+
 		$obj = BookDataCollector::init();
+
 		remove_action( 'wp_update_site', [ $obj, 'updateSite' ], 999 );
 		remove_action( 'wp_insert_post', [ $obj, 'updateMetaData' ] );
 		remove_action( 'wp_delete_site', [ $obj, 'deleteSite' ], 999 );
+
 		$this->bookDataCollector = $obj;
 	}
-
 
 	public static function tear_down_after_class() {
 		// Put the hooks back in place
 		$obj = BookDataCollector::init();
+
 		$obj::hooks( $obj );
+
 		$_SERVER['SERVER_PORT'] = '';
 	}
-
 
 	/**
 	 * @group datacollector
@@ -107,6 +108,67 @@ class DataCollector_BookTest extends \WP_UnitTestCase {
 	/**
 	 * @group datacollector
 	 */
+	public function test_check_book_meta_is_copied(): void {
+		$this->_book();
+
+		$contributors = [
+			'pb_authors' => [
+				[ 'name' => 'John Doe', 'slug' => 'john' ],
+				[ 'name' => 'Antonio Sanchez', 'slug' => 'antonio' ],
+			],
+			'pb_editors' => [
+				[ 'name' =>  'Pat Metheny', 'slug' => 'pat' ],
+				[ 'name' =>  'Pedro Aznar', 'slug' => 'pedro' ],
+			],
+		];
+
+		$site = get_site();
+		$metadata_post = ( new \Pressbooks\Metadata() )->getMetaPost();
+
+		foreach ( $contributors as $contributor_type => $contributors_array ) {
+			foreach ( $contributors_array as $contributor ) {
+				add_post_meta( $metadata_post->ID, $contributor_type, $contributor['name'] );
+				( new \Pressbooks\Contributors() )->insert( $contributor, $metadata_post->ID, $contributor_type );
+			}
+		}
+
+		add_post_meta( $metadata_post->ID, 'pb_institutions', 'CA-ON-001' );
+		add_post_meta( $metadata_post->ID, 'pb_institutions', 'CA-ON-002' );
+		add_post_meta( $metadata_post->ID, 'pb_primary_subject', 'ABA' );
+		add_post_meta( $metadata_post->ID, 'pb_additional_subjects', 'AVP, AVR, AVRQ' );
+		add_post_meta( $metadata_post->ID, 'pb_institutions', 'CA-ON-002' );
+		add_post_meta( $metadata_post->ID, 'pb_publisher', 'Publisher Name' );
+
+		wp_cache_flush();
+
+		$this->bookDataCollector->copyBookMetaIntoSiteTable( $site->id );
+
+		$data_collected = [
+			'pb_authors' => get_site_meta( $site->id, BookDataCollector::AUTHORS ),
+			'pb_editors' => get_site_meta( $site->id, BookDataCollector::EDITORS ),
+		];
+
+		foreach ( $contributors as $contributor_type => $contributors_array ) {
+			foreach ( $contributors_array as $contributor ) {
+				$this->assertContains( $contributor['name'], $data_collected[ $contributor_type ] );
+			}
+		}
+
+		$institutions_collected = get_site_meta( $site->id, BookDataCollector::INSTITUTIONS );
+		$subjects_collected = get_site_meta( $site->id, BookDataCollector::SUBJECTS_CODES );
+
+		$this->assertContains( 'Algoma University', $institutions_collected );
+		$this->assertContains( 'Algonquin College', $institutions_collected );
+		$this->assertContains( 'ABA', $subjects_collected );
+		$this->assertContains( 'AVP', $subjects_collected );
+		$this->assertContains( 'AVRQ', $subjects_collected );
+		$this->assertEquals( 'Publisher Name', get_site_meta( $site->id, BookDataCollector::PUBLISHER, true ) );
+		$this->assertEquals( 'Theory of art', get_site_meta( $site->id, BookDataCollector::SUBJECT, true ) );
+	}
+
+	/**
+	 * @group datacollector
+	 */
 	public function test_themaSubjectsLocale() {
 		$this->assertEquals( 'en', $this->bookDataCollector->themaSubjectsLocale( 'fr' ) );
 	}
@@ -148,7 +210,6 @@ class DataCollector_BookTest extends \WP_UnitTestCase {
 		update_site_meta( $book_id, BookDataCollector::BOOK_INFORMATION_ARRAY, new \StdClass() ); // No hackers allowed
 		$x = $this->bookDataCollector->get( $book_id, BookDataCollector::BOOK_INFORMATION_ARRAY );
 	}
-
 
 	/**
 	 * @group datacollector
@@ -196,7 +257,6 @@ class DataCollector_BookTest extends \WP_UnitTestCase {
 		$this->assertTrue( $x > 0 );
 	}
 
-
 	/**
 	 * @group datacollector
 	 */
@@ -211,7 +271,6 @@ class DataCollector_BookTest extends \WP_UnitTestCase {
 
 		remove_action( 'wp_update_site', [ $this->bookDataCollector, 'updateSite' ], 999 );
 	}
-
 
 	/**
 	 * @group datacollector
@@ -239,6 +298,4 @@ class DataCollector_BookTest extends \WP_UnitTestCase {
 
 		$this->assertEquals( 1, preg_match( '/https:\/\/.*-350x467\.jpg/', $path ) );
 	}
-
-
 }

@@ -5,7 +5,6 @@ use function Pressbooks\Admin\Laf\book_directory_excluded_callback;
 use Pressbooks\Admin\Network\SharingAndPrivacyOptions;
 
 class GdprTest extends \WP_UnitTestCase {
-
 	use utilsTrait;
 
 	/**
@@ -25,8 +24,7 @@ class GdprTest extends \WP_UnitTestCase {
 	/**
 	 * @group privacy
 	 */
-	public static function set_up_before_class()
-	{
+	public static function set_up_before_class() {
 		parent::set_up_before_class();
 		$blog_ids = get_sites( [ 'site__not_in' => 1 ] );
 
@@ -103,14 +101,12 @@ class GdprTest extends \WP_UnitTestCase {
 		$this->assertEquals( $buffer, $html_group );
 
 		$this->assertEquals( get_option( 'pb_book_directory_excluded' ), 0 );
-
 	}
 
 	/**
 	 * @group privacy
 	 */
 	public function test_getPublicBooks_zero_to_one_non_catalog_books() {
-
 		// assume the first blog is the main wp site and not a book
 		$this->assertIsArray( SharingAndPrivacyOptions::getPublicBooks() );
 		$this->assertCount( 0, SharingAndPrivacyOptions::getPublicBooks() );
@@ -149,14 +145,12 @@ class GdprTest extends \WP_UnitTestCase {
 		$this->assertCount( 2, SharingAndPrivacyOptions::getPublicBooks() );
 		$this->assertCount( 2, SharingAndPrivacyOptions::getPublicBooks( false ) );
 		$this->assertCount( 1, SharingAndPrivacyOptions::getPublicBooks( true ) );
-
 	}
 
 	/**
 	 * @group privacy
 	 */
 	public function test_excludeNonCatalogBooksFromDirectoryAction() {
-
 		$books = $this->factory()->blog->create_many( 2 );
 
 		$this->assertEquals(
@@ -211,5 +205,4 @@ class GdprTest extends \WP_UnitTestCase {
 			]
 		);
 	}
-
 }

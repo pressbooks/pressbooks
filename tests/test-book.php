@@ -5,14 +5,12 @@ use Pressbooks\DataCollector\Book as BookDataCollector;
 use DMS\PHPUnitExtensions\ArraySubset\ArraySubsetAsserts;
 
 class BookTest extends \WP_UnitTestCase {
-
 	use utilsTrait, ArraySubsetAsserts;
 
 	/**
 	 * @group book
 	 */
 	public function test_getInstance() {
-
 		$book = \Pressbooks\Book::getInstance();
 
 		$this->assertInstanceOf( '\Pressbooks\Book', $book );
@@ -22,7 +20,6 @@ class BookTest extends \WP_UnitTestCase {
 	 * @group book
 	 */
 	public function test_isBook() {
-
 		$book = \Pressbooks\Book::getInstance();
 
 		switch_to_blog( get_network()->site_id );
@@ -36,7 +33,6 @@ class BookTest extends \WP_UnitTestCase {
 	 * @group book
 	 */
 	public function test_getBookStructure() {
-
 		$book = \Pressbooks\Book::getInstance();
 
 		// Returns export value
@@ -88,7 +84,6 @@ class BookTest extends \WP_UnitTestCase {
 	 * @group book
 	 */
 	public function test_getBookContents() {
-
 		$book = \Pressbooks\Book::getInstance();
 
 		// Returns export value
@@ -138,7 +133,6 @@ class BookTest extends \WP_UnitTestCase {
 	 * @group book
 	 */
 	public function test_getBookInformation() {
-
 		$book = \Pressbooks\Book::getInstance();
 
 		$this->_book();
@@ -171,7 +165,6 @@ class BookTest extends \WP_UnitTestCase {
 	 * @group book
 	 */
 	public function test_wordCount() {
-
 		$book = \Pressbooks\Book::getInstance();
 
 		$this->_book();
@@ -229,7 +222,6 @@ class BookTest extends \WP_UnitTestCase {
 	 * @group book
 	 */
 	public function test_tagSubsections() {
-
 		$this->_book();
 		$book = \Pressbooks\Book::getInstance();
 
@@ -354,7 +346,6 @@ class BookTest extends \WP_UnitTestCase {
 	}
 
 	public function test_getSanitizedBookAboutInfo() {
-
 		$this->_book();
 		$mp = ( new \Pressbooks\Metadata() )->getMetaPost();
 
@@ -428,18 +419,14 @@ class BookTest extends \WP_UnitTestCase {
 		];
 
 		foreach ( $fields as $group => $book_fields ) {
-
 			foreach ( $book_fields as $field_to_test ) {
-
 				$field = $c->get_field( $field_to_test, $group, 'metadata' );
 				$_POST[ $field_to_test ] = $string_to_sanitize;
 				$c->save_metadata_field( $field_to_test, $field, 'metadata', $mp->ID );
 				$value = $c->get_metadata_field_value( $field_to_test, $field, 'metadata', $mp->ID );
 				$this->assertEquals( 'This is a book title', $value[0] );
-
 			}
 		}
-
 	}
 
 	/**

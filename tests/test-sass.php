@@ -3,7 +3,6 @@
 use Pressbooks\Container;
 
 class SassTest extends \WP_UnitTestCase {
-
 	use utilsTrait;
 
 	/**
@@ -11,7 +10,6 @@ class SassTest extends \WP_UnitTestCase {
 	 * @group styles
 	 */
 	protected $sass;
-
 
 	/**
 	 * @group styles
@@ -25,7 +23,6 @@ class SassTest extends \WP_UnitTestCase {
 	 * @group styles
 	 */
 	public function test_paths() {
-
 		$this->assertNotEmpty( $this->sass->pathToPartials() );
 		$this->assertNotEmpty( $this->sass->pathToGlobals() );
 		$this->assertNotEmpty( $this->sass->pathToFonts() );
@@ -43,7 +40,6 @@ class SassTest extends \WP_UnitTestCase {
 	 * @group styles
 	 */
 	public function test_getStringsToLocalize() {
-
 		$result = $this->sass->getStringsToLocalize();
 
 		$this->assertTrue( is_array( $result ) );
@@ -51,14 +47,12 @@ class SassTest extends \WP_UnitTestCase {
 		$this->assertArrayHasKey( 'chapter', $result );
 
 		$this->assertEquals( 'chapter', strtolower( $result['chapter'] ) );
-
 	}
 
 	/**
 	 * @group styles
 	 */
 	public function test_prependLocalizedVars() {
-
 		$scss = '/* Silence is golden. */';
 
 		$result = $this->sass->prependLocalizedVars( $scss );
@@ -66,7 +60,6 @@ class SassTest extends \WP_UnitTestCase {
 		$this->assertStringContainsString( $scss, $result );
 
 		$this->assertStringContainsString( "\$chapter: 'Chapter';", $result );
-
 	}
 
 	/**

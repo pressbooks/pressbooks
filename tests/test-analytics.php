@@ -3,7 +3,6 @@
 require_once( PB_PLUGIN_DIR . 'inc/admin/analytics/namespace.php' );
 
 class AnalyticsTest extends \WP_UnitTestCase {
-
 	use utilsTrait;
 
 	/**
@@ -96,7 +95,6 @@ class AnalyticsTest extends \WP_UnitTestCase {
 	 * @group analytics
 	 */
 	public function test_print_analytics() {
-
 		switch_to_blog( get_network()->site_id );
 		update_site_option( 'ga_mu_uaid', 'TEST1' );
 		update_site_option( 'ga_mu_site_specific_allowed', true );
@@ -130,5 +128,4 @@ class AnalyticsTest extends \WP_UnitTestCase {
 		$this->assertStringContainsString( 'TEST1', $buffer );
 		$this->assertStringNotContainsString( 'TEST2', $buffer );
 	}
-
 }

@@ -3,7 +3,6 @@
 require_once( PB_PLUGIN_DIR . 'inc/modules/export/namespace.php' );
 
 class Modules_ExportTest extends \WP_UnitTestCase {
-
 	use utilsTrait;
 
 	/**
@@ -79,7 +78,6 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 	 * @group export
 	 */
 	public function test_isFormSubmission() {
-
 		$this->assertFalse( \Pressbooks\Modules\Export\Export::isFormSubmission() );
 
 		$_REQUEST['page'] = 'pb_export';

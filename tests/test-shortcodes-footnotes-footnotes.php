@@ -2,7 +2,6 @@
 
 
 class Shortcodes_Footnotes extends \WP_UnitTestCase {
-
 	use utilsTrait;
 
 	/**
@@ -11,7 +10,6 @@ class Shortcodes_Footnotes extends \WP_UnitTestCase {
 	 */
 	protected $fn;
 
-
 	/**
 	 * @group footnotes
 	 */
@@ -19,30 +17,27 @@ class Shortcodes_Footnotes extends \WP_UnitTestCase {
 		parent::set_up();
 
 		$this->fn = $this->getMockBuilder( '\Pressbooks\Shortcodes\Footnotes\footnotes' )
-						->setMethods( null )// pass null to setMethods() to avoid mocking any method
-						->disableOriginalConstructor()// disable private constructor
-						->getMock();
+			->setMethods( null )// pass null to setMethods() to avoid mocking any method
+			->disableOriginalConstructor()// disable private constructor
+			->getMock();
 	}
 
 	/**
 	 * @group footnotes
 	 */
 	public function test_getInstance() {
-
 		$val = $this->fn->init();
 
-		$this->assertTrue( $val instanceof \Pressbooks\Shortcodes\Footnotes\Footnotes );
+		$this->assertInstanceOf( \Pressbooks\Shortcodes\Footnotes\Footnotes::class, $val );
 
 		global $shortcode_tags;
 		$this->assertArrayHasKey( 'footnote', $shortcode_tags );
 	}
 
-
 	/**
 	 * @group footnotes
 	 */
 	public function test_shortcodeHandler_numbered() {
-
 		global $id;
 		$id = 1;
 
@@ -62,12 +57,10 @@ class Shortcodes_Footnotes extends \WP_UnitTestCase {
 		$this->assertEmpty( $this->fn->shortcodeHandler( [] ) );
 	}
 
-
 	/**
 	 * @group footnotes
 	 */
 	public function test_shortcodeHandler_notNumbered() {
-
 		global $id;
 		$id = 999;
 
@@ -85,12 +78,10 @@ class Shortcodes_Footnotes extends \WP_UnitTestCase {
 		$this->assertStringContainsString( '#footnote-999-3', $content );
 	}
 
-
 	/**
 	 * @group footnotes
 	 */
 	public function test_footnoteContent_numbered() {
-
 		global $id;
 		$id = 1;
 
@@ -109,12 +100,10 @@ class Shortcodes_Footnotes extends \WP_UnitTestCase {
 		$this->assertStringContainsString( '</ol></div>', $content );
 	}
 
-
 	/**
 	 * @group footnotes
 	 */
 	public function test_footnoteContent_notNumbered() {
-
 		global $id;
 		$id = 999;
 
@@ -133,12 +122,10 @@ class Shortcodes_Footnotes extends \WP_UnitTestCase {
 		$this->assertStringContainsString( '</ul></div>', $content );
 	}
 
-
 	/**
 	 * @group footnotes
 	 */
 	public function test_ajaxFailure() {
-
 		$old_error_reporting = $this->_fakeAjax();
 
 		ob_start();
@@ -149,12 +136,10 @@ class Shortcodes_Footnotes extends \WP_UnitTestCase {
 		$this->_fakeAjaxDone( $old_error_reporting );
 	}
 
-
 	/**
 	 * @group footnotes
 	 */
 	public function test_convertWordFootnotes() {
-
 		$old_error_reporting = $this->_fakeAjax();
 
 		// Test invalid permissions
@@ -177,6 +162,4 @@ class Shortcodes_Footnotes extends \WP_UnitTestCase {
 
 		$this->_fakeAjaxDone( $old_error_reporting );
 	}
-
-
 }

@@ -1,12 +1,10 @@
 <?php
 
 class SanitizeTest extends \WP_UnitTestCase {
-
 	/**
 	 * @group sanitize
 	 */
 	public function test_html5_to_xhtml11() {
-
 		$html = '<article style="font-weight:bold;">Foo</article><h1>Hello!</h1><command>Bar</command>';
 		$html = \Pressbooks\Sanitize\html5_to_xhtml11( $html );
 		$this->assertEquals(
@@ -19,7 +17,6 @@ class SanitizeTest extends \WP_UnitTestCase {
 	 * @group sanitize
 	 */
 	public function test_html5_to_epub3() {
-
 		$html = '<article style="font-weight:bold;">Foo</article><h1>Hello!</h1><command>Bar</command>';
 		$html = \Pressbooks\Sanitize\html5_to_epub3( $html );
 		$this->assertEquals(
@@ -32,7 +29,6 @@ class SanitizeTest extends \WP_UnitTestCase {
 	 * @group sanitize
 	 */
 	public function test_fix_audio_shortcode() {
-
 		\Pressbooks\Sanitize\fix_audio_shortcode();
 		$this->assertTrue( has_filter( 'wp_audio_shortcode' ) );
 
@@ -45,7 +41,6 @@ class SanitizeTest extends \WP_UnitTestCase {
 	 * @group sanitize
 	 */
 	public function test_sanitize_xml_attribute() {
-
 		$var = 'Hello-World!';
 		$this->assertEquals( $var, \Pressbooks\Sanitize\sanitize_xml_attribute( $var ) );
 
@@ -60,7 +55,6 @@ class SanitizeTest extends \WP_UnitTestCase {
 	 * @group sanitize
 	 */
 	public function test_sanitize_xml_id() {
-
 		$var = 'Hello-World!';
 		$test = $this->_generateControlCharacters() . $var;
 		$test = \Pressbooks\Sanitize\sanitize_xml_id( $test );
@@ -83,7 +77,6 @@ class SanitizeTest extends \WP_UnitTestCase {
 	 * @group sanitize
 	 */
 	public function test_remove_control_characters() {
-
 		$var = 'Hello-World!';
 		$test = $this->_generateControlCharacters() . $var;
 		$test = \Pressbooks\Sanitize\remove_control_characters( $test );
@@ -102,7 +95,6 @@ class SanitizeTest extends \WP_UnitTestCase {
 	 * @group sanitize
 	 */
 	public function test_force_ascii() {
-
 		$var = 'Hello-World!';
 		$test = $this->_generateControlCharacters() . $var;
 		$test = \Pressbooks\Sanitize\force_ascii( $test );
@@ -117,7 +109,6 @@ class SanitizeTest extends \WP_UnitTestCase {
 		$this->assertEquals( 1, strlen( $test ) );
 	}
 
-
 	/**
 	 * Generate a string containing all the ASCII control characters
 	 *
@@ -125,7 +116,6 @@ class SanitizeTest extends \WP_UnitTestCase {
 	 * @group sanitize
 	 */
 	private function _generateControlCharacters() {
-
 		$controlCharacters = chr( 127 );
 		for ( $i = 0; $i < 32; ++$i ) {
 			$controlCharacters .= chr( $i );
@@ -138,7 +128,6 @@ class SanitizeTest extends \WP_UnitTestCase {
 	 * @group sanitize
 	 */
 	public function test_decode() {
-
 		$test = '&#48;&#49;&#50;&#51;&#52;&#53;&#038;&#54;&#55;&#56;&#57;';
 		$test = \Pressbooks\Sanitize\decode( $test );
 		$this->assertEquals( '012345&#038;6789', $test );
@@ -152,7 +141,6 @@ class SanitizeTest extends \WP_UnitTestCase {
 	 * @group sanitize
 	 */
 	public function test_strip_br() {
-
 		$test = 'Hello <br /> World!';
 		$test = \Pressbooks\Sanitize\strip_br( $test );
 		$this->assertEquals( 'Hello   World!', $test );
@@ -174,7 +162,6 @@ class SanitizeTest extends \WP_UnitTestCase {
 	 * @group sanitize
 	 */
 	public function test_filter_title() {
-
 		// Acceptable Tags: <br />, <span> with class, <em>, and <strong>.
 
 		$test = '<h1><em>Hello</em><br/><strong>World!</strong></h1>';
@@ -194,7 +181,6 @@ class SanitizeTest extends \WP_UnitTestCase {
 	 * @group sanitize
 	 */
 	public function test_canonicalize_url() {
-
 		$url = 'pressbooks.com/';
 		$this->assertEquals( 'http://pressbooks.com', \Pressbooks\Sanitize\canonicalize_url( $url ) );
 
@@ -218,7 +204,6 @@ class SanitizeTest extends \WP_UnitTestCase {
 	 * @group sanitize
 	 */
 	public function test_maybe_https() {
-
 		if ( isset( $_SERVER['HTTPS'] ) ) {
 			$old = $_SERVER['HTTPS'];
 		}
@@ -287,7 +272,6 @@ class SanitizeTest extends \WP_UnitTestCase {
 	 * @group sanitize
 	 */
 	public function test_allow_post_content() {
-
 		global $allowedposttags;
 
 		\Pressbooks\Sanitize\allow_post_content();
@@ -299,7 +283,6 @@ class SanitizeTest extends \WP_UnitTestCase {
 	 * @group sanitize
 	 */
 	public function test_clean_filename() {
-
 		$file = '../../hacker.php';
 		$file = \Pressbooks\Sanitize\clean_filename( $file );
 		$this->assertEquals( $file, 'hacker.php' );
@@ -317,7 +300,6 @@ class SanitizeTest extends \WP_UnitTestCase {
 	 * @group sanitize
 	 */
 	public function test_strip_container_tags() {
-
 		$test = '<HTML><div id="title-page"><h1 class="title">My Test Book</h1></div></HTML>';
 		$result = \Pressbooks\Sanitize\strip_container_tags( $test );
 		$this->assertEquals( '<div id="title-page"><h1 class="title">My Test Book</h1></div>', $result );
@@ -600,5 +582,4 @@ RAW;
 		$test = \Pressbooks\Sanitize\sanitize_string( $test, true );
 		$this->assertEquals( '<a href="https://pressbooks.org">xxs link</a>', $test );
 	}
-
 }
