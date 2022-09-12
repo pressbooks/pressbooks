@@ -189,26 +189,26 @@ function updateControls( table ) {
 					table.prev( '[id^=part]' ).length &&
 					table.next( '[id^=part]' ).length
 				) {
-					controls = ` | ${up} | ${down}`;
+					controls = ` | ${ up } | ${ down }`;
 				} else if ( table.is( '[id^=part]' ) && table.next( '[id^=part]' ).length ) {
-					controls = ` | ${down}`;
+					controls = ` | ${ down }`;
 				} else if ( table.is( '[id^=part]' ) && table.prev( '[id^=part]' ).length ) {
-					controls = ` | ${up}`;
+					controls = ` | ${ up }`;
 				}
 			} else if ( $( el ).is( 'tr:first-of-type' ) ) {
 				if ( table.is( '[id^=part]' ) && table.prev( '[id^=part]' ).length ) {
-					controls = ` | ${up} | ${down}`;
+					controls = ` | ${ up } | ${ down }`;
 				} else {
-					controls = ` | ${down}`;
+					controls = ` | ${ down }`;
 				}
 			} else if ( $( el ).is( 'tr:last-of-type' ) ) {
 				if ( table.is( '[id^=part]' ) && table.next( '[id^=part]' ).length ) {
-					controls = ` | ${up} | ${down}`;
+					controls = ` | ${ up } | ${ down }`;
 				} else {
-					controls = ` | ${up}`;
+					controls = ` | ${ up }`;
 				}
 			} else {
-				controls = ` | ${up} | ${down}`;
+				controls = ` | ${ up } | ${ down }`;
 			}
 
 			$( el )
@@ -234,8 +234,8 @@ function reorder( row ) {
 		data: {
 			action: 'pb_reorder',
 			id: item.id,
-			old_order: $( `#${pb.organize.oldParent}` ).sortable( 'serialize' ),
-			new_order: $( `#${pb.organize.newParent}` ).sortable( 'serialize' ),
+			old_order: $( `#${ pb.organize.oldParent }` ).sortable( 'serialize' ),
+			new_order: $( `#${ pb.organize.newParent }` ).sortable( 'serialize' ),
 			old_parent: pb.organize.oldParent.replace( /^part_([0-9]+)$/i, '$1' ),
 			new_parent: pb.organize.newParent.replace( /^part_([0-9]+)$/i, '$1' ),
 			_ajax_nonce: PB_OrganizeToken.reorderNonce,
@@ -246,9 +246,9 @@ function reorder( row ) {
 		beforeSend: () => {
 			showModal( item );
 			if ( pb.organize.oldParent !== pb.organize.newParent ) {
-				updateControls( $( `#${pb.organize.oldParent}` ) );
+				updateControls( $( `#${ pb.organize.oldParent }` ) );
 			}
-			updateControls( $( `#${pb.organize.newParent}` ) );
+			updateControls( $( `#${ pb.organize.newParent }` ) );
 		},
 		/**
 		 *
@@ -523,13 +523,13 @@ $( document ).ready( () => {
 			let ids = getIdsInTable( table );
 			if ( pb.organize.bulkToggle[id] ) {
 				table
-					.find( `tr td.column-${format} input[type=checkbox]` )
+					.find( `tr td.column-${ format } input[type=checkbox]` )
 					.prop( 'checked', false );
 				pb.organize.bulkToggle[id] = false;
 				updateVisibility( ids.join(), postType, format, 0 );
 			} else {
 				table
-					.find( `tr td.column-${format} input[type="checkbox"]` )
+					.find( `tr td.column-${ format } input[type="checkbox"]` )
 					.prop( 'checked', true );
 				pb.organize.bulkToggle[id] = true;
 				updateVisibility( ids.join(), postType, format, 1 );

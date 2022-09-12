@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: [ '14' ]
+        node: [ '16', '18' ]
     name: Node ${{ matrix.node }}
     steps:
       - uses: actions/checkout@v3
@@ -28,7 +28,7 @@ jobs:
       - name: Install Node dependencies & build assets
         run: |
           node -v
-          npm install
+          npm ci
           npm run build
       - name: Run ESLint and Stylelint
         run: npm run lint

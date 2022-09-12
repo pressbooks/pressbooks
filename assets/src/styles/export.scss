@@ -22,7 +22,7 @@
     .toggle-indicator::before {
       content: "\f142";
       display: inline-block;
-      font: normal 20px/1 "dashicons", sans-serif;
+      font: normal 20px/1 dashicons, sans-serif;
       speak: none;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
@@ -101,98 +101,98 @@
       background-repeat: no-repeat;
 
       &.epub {
-        background-image: url(../images/epub-48.png);
+        background-image: url("../images/epub-48.png");
 
         @include hidpi {
-          background-image: url(../images/epub-96.png);
+          background-image: url("../images/epub-96.png");
         }
       }
 
       &.epub3 {
-        background-image: url(../images/epub3-48.png);
+        background-image: url("../images/epub3-48.png");
 
         @include hidpi {
-          background-image: url(../images/epub3-96.png);
+          background-image: url("../images/epub3-96.png");
         }
       }
 
       &.icml {
-        background-image: url(../images/icml-48.png);
+        background-image: url("../images/icml-48.png");
 
         @include hidpi {
-          background-image: url(../images/icml-96.png);
+          background-image: url("../images/icml-96.png");
         }
       }
 
       &.mobi {
-        background-image: url(../images/mobi-48.png);
+        background-image: url("../images/mobi-48.png");
 
         @include hidpi {
-          background-image: url(../images/mobi-96.png);
+          background-image: url("../images/mobi-96.png");
         }
       }
 
       &.print_pdf {
-        background-image: url(../images/print-pdf-48.png);
+        background-image: url("../images/print-pdf-48.png");
 
         @include hidpi {
-          background-image: url(../images/print-pdf-96.png);
+          background-image: url("../images/print-pdf-96.png");
         }
       }
 
       &.pdf {
-        background-image: url(../images/pdf-48.png);
+        background-image: url("../images/pdf-48.png");
 
         @include hidpi {
-          background-image: url(../images/pdf-96.png);
+          background-image: url("../images/pdf-96.png");
         }
       }
 
       &.wxr {
-        background-image: url(../images/wxr-48.png);
+        background-image: url("../images/wxr-48.png");
 
         @include hidpi {
-          background-image: url(../images/wxr-96.png);
+          background-image: url("../images/wxr-96.png");
         }
       }
 
       &.vanillawxr {
-        background-image: url(../images/vanillawxr-48.png);
+        background-image: url("../images/vanillawxr-48.png");
 
         @include hidpi {
-          background-image: url(../images/vanillawxr-96.png);
+          background-image: url("../images/vanillawxr-96.png");
         }
       }
 
       &.xhtml {
-        background-image: url(../images/xhtml-48.png);
+        background-image: url("../images/xhtml-48.png");
 
         @include hidpi {
-          background-image: url(../images/xhtml-96.png);
+          background-image: url("../images/xhtml-96.png");
         }
       }
 
       &.htmlbook {
-        background-image: url(../images/html5-48.png);
+        background-image: url("../images/html5-48.png");
 
         @include hidpi {
-          background-image: url(../images/html5-96.png);
+          background-image: url("../images/html5-96.png");
         }
       }
 
       &.odt {
-        background-image: url(../images/odt-48.png);
+        background-image: url("../images/odt-48.png");
 
         @include hidpi {
-          background-image: url(../images/odt-96.png);
+          background-image: url("../images/odt-96.png");
         }
       }
 
       &.weblinks {
-        background-image: url(../images/imscc-48.png);
+        background-image: url("../images/imscc-48.png");
 
         @include hidpi {
-          background-image: url(../images/imscc-96.png);
+          background-image: url("../images/imscc-96.png");
         }
       }
     }
@@ -203,17 +203,14 @@
   }
 
   td.column-pin label {
-    @include visually-hidden();
+    @include visually-hidden;
   }
 
   .theme {
     border: 1px solid #dedede;
     width: 325px;
     max-width: 100%;
-    -webkit-box-shadow: 0 1px 1px -1px rgba(0, 0, 0, 0.1);
-    box-shadow: 0 1px 1px -1px rgba(0, 0, 0, 0.1);
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
+    box-shadow: 0 1px 1px -1px rgb(0 0 0 / 10%);
     box-sizing: border-box;
 
     /* Has a fixed aspect ratio of 1.5 to 1 regardless of screenshot size */
@@ -221,13 +218,12 @@
       display: block;
       overflow: hidden;
       position: relative;
-      -webkit-transition: opacity 0.2s ease-in-out;
       transition: opacity 0.2s ease-in-out;
 
       &::after {
         content: '';
         display: block;
-        padding-top: 66.66666%; // using a 3/2 aspect ratio
+        padding-top: 66.6666%; // using a 3/2 aspect ratio
       }
 
       img {
@@ -236,8 +232,7 @@
         left: 0;
         top: 0;
         width: 100%;
-        -webkit-transform: translateZ(0); // Prevents rendering bugs in Chrome
-        -webkit-transition: opacity 0.2s ease-in-out;
+        transform: translateZ(0); // Prevents rendering bugs in Chrome
         transition: opacity 0.2s ease-in-out;
       }
     }
@@ -259,7 +254,7 @@
   }
 }
 
-@media screen and(min-width: 1200px) {
+@media screen and (min-width: 1200px) {
   .toplevel_page_pb_export {
     .grid {
       grid-template-columns: repeat(2, 1fr);

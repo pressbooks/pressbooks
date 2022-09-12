@@ -4,16 +4,16 @@
 	"scripts": {
 		"install-build-tools": "npm install --no-save pressbooks-build-tools",
 		"watch": "mix watch",
-		"build": "npm run production",
-		"production": "mix --production",
+		"build": "mix --production",
 		"test": "npm run lint",
 		"lint": "npm run -s lint:scripts && npm run -s lint:styles",
 		"lint:scripts": "eslint \"assets/src/scripts/*.js\"",
 		"lint:fix-scripts": "eslint \"assets/src/scripts/*.js\" --fix",
-		"lint:styles": "stylelint \"assets/src/styles/**/*.scss\" --syntax scss"
+		"lint:styles": "stylelint \"assets/src/styles/**/*.scss\" scss",
+		"lint:fix-styles": "stylelint \"assets/src/styles/**/*.scss\" scss --fix"
 	},
 	"engines": {
-		"node": ">= 6.9.4"
+		"node": ">= 16"
 	},
 	"dependencies": {
 		"block-ui": "^2.70.1",
@@ -25,13 +25,13 @@
 		"js-cookie": "^3.0.1",
 		"pagedjs": "^0.3.5",
 		"popper.js": "^1.16.1",
-		"select2": "github:woocommerce/selectWoo#1.0.5",
+		"select2": "github:woocommerce/selectWoo#1.0.8",
 		"sidr": "^2.2.1",
 		"tinymce": "^4.9.11",
 		"wp-admin-colors": "^6.0.0"
 	},
 	"devDependencies": {
-		"pressbooks-build-tools": "^3.0.1"
+		"pressbooks-build-tools": "^4.0.0"
 	},
 	"repository": {
 		"type": "git",
@@ -63,7 +63,8 @@
 			"jsdoc/require-returns": "off",
 			"jsdoc/require-param-description": "off",
 			"jsdoc/no-undefined-types": "off",
-			"jsdoc/require-returns-description": "off"
+			"jsdoc/require-returns-description": "off",
+			"no-unused-vars": "off"
 		},
 		"settings": {
 			"react": {
@@ -74,7 +75,8 @@
 	"stylelint": {
 		"extends": "./node_modules/pressbooks-build-tools/config/stylelint.js",
 		"rules": {
-			"no-descending-specificity": null
+			"no-descending-specificity": null,
+			"scss/no-global-function-names": null
 		}
 	}
 }

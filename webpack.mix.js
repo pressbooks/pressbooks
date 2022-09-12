@@ -89,10 +89,9 @@ mix
 		'assets/dist/scripts/sticky.js'
 	)
 	.scripts(
-		'node_modules/js-cookie/src/js.cookie.js',
+		'node_modules/js-cookie/dist/js.cookie.js',
 		'assets/dist/scripts/js-cookie.js'
 	)
-
 	.scripts(
 		'node_modules/select2/dist/js/select2.js',
 		'assets/dist/scripts/select2.js'

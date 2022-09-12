@@ -48,6 +48,7 @@
     th {
       vertical-align: top;
       padding-top: 8px;
+
       span {
         &[id$="show_title"],
         &[id$="visibility"] {
@@ -83,7 +84,7 @@
 
   [role="alert"] {
     &.visually-hidden {
-      @include visually-hidden();
+      @include visually-hidden;
     }
   }
 }
@@ -92,7 +93,7 @@
   table {
     .author-label,
     input + label {
-      @include visually-hidden();
+      @include visually-hidden;
     }
   }
 }
