@@ -390,7 +390,7 @@ class Table extends \WP_List_Table {
 			$file_class = 'print_pdf';
 		} elseif ( 'imscc' === $file_extension && '._1_1_weblinks.imscc' === $pre_suffix ) {
 			$file_class = 'weblinks';
-		} elseif ('odt' === $file_extension) {
+		} elseif ( 'odt' === $file_extension ) {
 			$file_class = 'odf';
 		} else {
 			/**
@@ -425,7 +425,7 @@ class Table extends \WP_List_Table {
 
 		$file_type = \Pressbooks\Modules\Export\get_name_from_filetype_slug( $file_class, true );
 
-		$html = "<div class='export-file-icon {$size} {$file_class}'>" . Container::get( 'Blade' )->render('admin.icon', ['file_type' => $file_type]) . "</div>";
+		$html = "<div class='export-file-icon {$size} {$file_class}'>" . Container::get( 'Blade' )->render( 'admin.icon', [ 'file_type' => $file_type ] ) . '</div>';
 		return $html;
 	}
 
