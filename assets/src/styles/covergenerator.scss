@@ -168,17 +168,11 @@ input#generate-jpg {
     .cover-file-icon {
       display: block;
       margin: 0 auto 8px;
+      text-decoration: none;
 
       svg {
         height: 48px;
         width: 48px;
-      }
-
-      &.jpg,
-      &.pdf {
-        .badge {
-          fill: #BB2026;
-        }
       }
     }
 
