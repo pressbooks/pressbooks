@@ -39,10 +39,7 @@ input#generate-jpg {
   position: relative;
   border: 1px solid #dedede;
   width: 325px;
-  -webkit-box-shadow: 0 1px 1px -1px rgba(0, 0, 0, 0.1);
-  box-shadow: 0 1px 1px -1px rgba(0, 0, 0, 0.1);
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
+  box-shadow: 0 1px 1px -1px rgb(0 0 0 / 10%);
   box-sizing: border-box;
 
   &:hover,
@@ -55,13 +52,12 @@ input#generate-jpg {
     display: block;
     overflow: hidden;
     position: relative;
-    -webkit-transition: opacity 0.2s ease-in-out;
     transition: opacity 0.2s ease-in-out;
 
     &::after {
       content: '';
       display: block;
-      padding-top: 66.66666%; // using a 3/2 aspect ratio
+      padding-top: 66.6666%; // using a 3/2 aspect ratio
     }
 
     img {
@@ -70,8 +66,7 @@ input#generate-jpg {
       left: 0;
       top: 0;
       width: 100%;
-      -webkit-transform: translateZ(0); // Prevents rendering bugs in Chrome
-      -webkit-transition: opacity 0.2s ease-in-out;
+      transform: translateZ(0); // Prevents rendering bugs in Chrome
       transition: opacity 0.2s ease-in-out;
     }
   }
@@ -81,27 +76,24 @@ input#generate-jpg {
     font-weight: 600;
     margin: 0;
     padding: 15px;
-    -webkit-box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.1);
-    box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0 1px 0 rgb(0 0 0 / 10%);
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    background: #fff;
-    background: rgba(255, 255, 255, 0.65);
+    background: rgb(255 255 255 / 65%);
   }
 
   .theme-actions {
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
     opacity: 0;
-    -webkit-transition: opacity 0.1s ease-in-out;
     transition: opacity 0.1s ease-in-out;
     position: absolute;
     bottom: 0;
     right: 0;
     height: 38px;
     padding: 9px 10px 0;
-    background: rgba(244, 244, 244, 0.7);
-    border-left: 1px solid rgba(0, 0, 0, 0.05);
+    background: rgb(244 244 244 / 70%);
+    border-left: 1px solid rgb(0 0 0 / 5%);
 
     .button-primary {
       margin-right: 3px;
@@ -131,24 +123,13 @@ input#generate-jpg {
 
   &:hover {
     .theme-actions {
-      -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+      filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
       opacity: 1;
     }
 
     .theme-screenshot {
       background: #fff;
     }
-  }
-}
-
-// HiDPI mixin. Default value set to 1.3 to target Google Nexus 7 (http://bjango.com/articles/min-device-pixel-ratio/)
-@mixin hidpi($ratio: 1.3) {
-  @media only screen and (-webkit-min-device-pixel-ratio: $ratio),
-  only screen and (min--moz-device-pixel-ratio: $ratio),
-  only screen and (-o-min-device-pixel-ratio: list.slash($ratio, 1)),
-  only screen and (min-resolution: round($ratio * 96dpi)),
-  only screen and (min-resolution: $ratio * 1dppx) {
-    @content;
   }
 }
 
