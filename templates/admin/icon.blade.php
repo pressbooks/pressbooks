@@ -12,7 +12,7 @@
 		<use fill='#000' filter='url(#c)' xlink:href='#d'/>
 		<use class='badge' xlink:href='#d'/>
 		<text font-size='18' font-weight='bold' fill='#FFF' text-anchor='middle'>
-			<tspan x='50%' y='84'>{{ $file_type }}</tspan>
+			<tspan x='50%' y='84'>{{ !is_null($file_type) ? $file_type : __('Export', 'pressbooks') }}</tspan>
 		</text>
 	</g>
 </svg>

@@ -192,20 +192,20 @@ function get_name_from_filetype_slug( $filetype, $short = false ) {
 	$formats = apply_filters(
 		'pb_export_filetype_names', [
 			'print_pdf' => __( 'Print PDF', 'pressbooks' ),
-			'pdf' => $short ? __('PDF') : __( 'Digital PDF', 'pressbooks' ),
-			'mpdf' => $short ? __('PDF') : __( 'Digital PDF', 'pressbooks' ),
-			'htmlbook' => $short ? __('HTML5') :__( 'HTMLBook', 'pressbooks' ),
+			'pdf' => $short ? __('PDF', 'pressbooks') : __( 'Digital PDF', 'pressbooks' ),
+			'mpdf' => $short ? __('PDF', 'pressbooks') : __( 'Digital PDF', 'pressbooks' ),
+			'htmlbook' => $short ? __('HTML5', 'pressbooks') :__( 'HTMLBook', 'pressbooks' ),
 			'epub' => __( 'EPUB', 'pressbooks' ),
 			'mobi' => __( 'MOBI', 'pressbooks' ),
 			'epub3' => __( 'EPUB3', 'pressbooks' ),
 			'xhtml' => __( 'XHTML', 'presbooks' ),
-			'odf' => $short ? __('ODT') : __( 'OpenDocument', 'pressbooks' ),
-			'wxr' => $short ? __('WXR') : __( 'Pressbooks XML', 'pressbooks' ),
-			'vanillawxr' => $short ? __('WXR') : __( 'WordPress XML', 'pressbooks' ),
-			'weblinks' => $short ? __('IMSCC') : __( 'Common Cartridge (Web Links)', 'pressbooks' ),
-			'thincc11' => $short ? __('IMSCC') : __( 'Common Cartridge with LTI links (1.1)', 'pressbooks' ),
-			'thincc12' => $short ? __('IMSCC') : __( 'Common Cartridge with LTI links (1.2)', 'pressbooks' ),
-			'thincc13' => $short ? __('IMSCC') : __( 'Common Cartridge with LTI links (1.3)', 'pressbooks' ),
+			'odf' => $short ? __('ODT', 'pressbooks') : __( 'OpenDocument', 'pressbooks' ),
+			'wxr' => $short ? __('WXR', 'pressbooks') : __( 'Pressbooks XML', 'pressbooks' ),
+			'vanillawxr' => $short ? __('WXR', 'pressbooks') : __( 'WordPress XML', 'pressbooks' ),
+			'weblinks' => $short ? __('IMSCC', 'pressbooks') : __( 'Common Cartridge (Web Links)', 'pressbooks' ),
+			'thincc11' => $short ? __('IMSCC', 'pressbooks') : __( 'Common Cartridge with LTI links (1.1)', 'pressbooks' ),
+			'thincc12' => $short ? __('IMSCC', 'pressbooks') : __( 'Common Cartridge with LTI links (1.2)', 'pressbooks' ),
+			'thincc13' => $short ? __('IMSCC', 'pressbooks') : __( 'Common Cartridge with LTI links (1.3)', 'pressbooks' ),
 		]
 	);
 	return isset( $formats[ $filetype ] ) ? $formats[ $filetype ] : ucfirst( $filetype );
