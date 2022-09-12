@@ -93,113 +93,42 @@
     vertical-align: top;
     margin: 0 10px 0 0;
 
-    &.large {
-      width: 48px;
+    svg {
       height: 48px;
-      background-size: 48px 48px;
-      background-position: -0 0;
-      background-repeat: no-repeat;
+      width: 48px;
+    }
 
-      &.epub {
-        background-image: url("../images/epub-48.png");
-
-        @include hidpi {
-          background-image: url("../images/epub-96.png");
-        }
-      }
-
-      &.epub3 {
-        background-image: url("../images/epub3-48.png");
-
-        @include hidpi {
-          background-image: url("../images/epub3-96.png");
-        }
-      }
-
-      &.icml {
-        background-image: url("../images/icml-48.png");
-
-        @include hidpi {
-          background-image: url("../images/icml-96.png");
-        }
-      }
-
-      &.mobi {
-        background-image: url("../images/mobi-48.png");
-
-        @include hidpi {
-          background-image: url("../images/mobi-96.png");
-        }
-      }
-
-      &.print_pdf {
-        background-image: url("../images/print-pdf-48.png");
-
-        @include hidpi {
-          background-image: url("../images/print-pdf-96.png");
-        }
-      }
-
-      &.pdf {
-        background-image: url("../images/pdf-48.png");
-
-        @include hidpi {
-          background-image: url("../images/pdf-96.png");
-        }
-      }
-
-      &.wxr {
-        background-image: url("../images/wxr-48.png");
-
-        @include hidpi {
-          background-image: url("../images/wxr-96.png");
-        }
-      }
-
-      &.vanillawxr {
-        background-image: url("../images/vanillawxr-48.png");
-
-        @include hidpi {
-          background-image: url("../images/vanillawxr-96.png");
-        }
-      }
-
-      &.xhtml {
-        background-image: url("../images/xhtml-48.png");
-
-        @include hidpi {
-          background-image: url("../images/xhtml-96.png");
-        }
-      }
-
-      &.htmlbook {
-        background-image: url("../images/html5-48.png");
-
-        @include hidpi {
-          background-image: url("../images/html5-96.png");
-        }
-      }
-
-      &.odt {
-        background-image: url("../images/odt-48.png");
-
-        @include hidpi {
-          background-image: url("../images/odt-96.png");
-        }
-      }
-
-      &.weblinks {
-        background-image: url("../images/imscc-48.png");
-
-        @include hidpi {
-          background-image: url("../images/imscc-96.png");
-        }
+    &.epub,
+    &.epub3,
+    &.mobi {
+      .badge {
+        fill: #7FAA45;
       }
     }
-  }
 
-  td.column-file .row-actions {
-    margin-left: 58px;
+    &.print_pdf,
+    &.pdf,
+    &.wxr {
+      .badge {
+        fill: #BB2026;
+      }
+    }
+
+    &.icml,
+    &.vanillawxr,
+    &.xhtml,
+    &.htmlbook,
+    &.weblinks {
+      .badge {
+        fill: #179EBF;
+      }
+    }
+
+    &.odf {
+      .badge {
+        fill: #007DCA;
+      }
+    }
   }
 
   td.column-pin label {

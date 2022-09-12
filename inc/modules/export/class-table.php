@@ -12,8 +12,9 @@
 
 namespace Pressbooks\Modules\Export;
 
-class Table extends \WP_List_Table {
+use Pressbooks\Container;
 
+class Table extends \WP_List_Table {
 	const PIN = 'pb_export_pins';
 
 	private $_pins = [];
@@ -389,6 +390,8 @@ class Table extends \WP_List_Table {
 			$file_class = 'print_pdf';
 		} elseif ( 'imscc' === $file_extension && '._1_1_weblinks.imscc' === $pre_suffix ) {
 			$file_class = 'weblinks';
+		} elseif ( 'odt' === $file_extension ) {
+			$file_class = 'odf';
 		} else {
 			/**
 			 * Map custom export format file extensions to their CSS class.
@@ -419,7 +422,10 @@ class Table extends \WP_List_Table {
 	 */
 	protected function getIcon( $file, $size = 'large' ) {
 		$file_class = $this->getCssClass( $file );
-		$html = "<div class='export-file-icon {$size} {$file_class}' title='" . esc_attr( $file ) . "'></div>";
+
+		$file_type = \Pressbooks\Modules\Export\get_name_from_filetype_slug( $file_class, true );
+
+		$html = "<div class='export-file-icon {$size} {$file_class}'>" . Container::get( 'Blade' )->render( 'admin.icon', [ 'file_type' => $file_type ] ) . '</div>';
 		return $html;
 	}
 

@@ -466,7 +466,10 @@ function pressbooks_cg_design_callback() {
 function pressbooks_cg_front_background_image_callback( $args ) {
 	unset( $args['label_for'], $args['class'] );
 	$option = get_option( 'pressbooks_cg_options' );
-	$pdf_options = get_option( 'pressbooks_theme_options_pdf' );
+	$pdf_options = get_option( 'pressbooks_theme_options_pdf', [
+		'pdf_page_width' => '5.5in',
+		'pdf_page_height' => '8.5in',
+	] );
 
 	if ( strpos( $pdf_options['pdf_page_width'], 'in' ) ) {
 		$width = ( str_replace( 'in', '', $pdf_options['pdf_page_width'] ) + 0.125 ) * 300;
