@@ -390,6 +390,8 @@ class Table extends \WP_List_Table {
 			$file_class = 'print_pdf';
 		} elseif ( 'imscc' === $file_extension && '._1_1_weblinks.imscc' === $pre_suffix ) {
 			$file_class = 'weblinks';
+		} elseif ('odt' === $file_extension) {
+			$file_class = 'odf';
 		} else {
 			/**
 			 * Map custom export format file extensions to their CSS class.
@@ -421,41 +423,7 @@ class Table extends \WP_List_Table {
 	protected function getIcon( $file, $size = 'large' ) {
 		$file_class = $this->getCssClass( $file );
 
-		switch ($file_class) {
-			case 'epub':
-				$file_type =  'EPUB';
-				break;
-			case 'epub3':
-				$file_type =  'EPUB3';
-				break;
-			case 'htmlbook':
-				$file_type =  'HTML5';
-				break;
-			case 'icml':
-				$file_type =  'ICML';
-				break;
-			case 'weblinks':
-				$file_type = 'IMSCC';
-				break;
-			case 'pdf':
-				$file_type =  'PDF';
-				break;
-			case 'print_pdf':
-				$file_type =  'Print PDF';
-				break;
-			case 'vanillawxr':
-				$file_type = 'WXR';
-				break;
-			case 'wxr':
-				$file_type = 'WXR';
-				break;
-			case 'xhtml';
-				$file_type =  'XHTML';
-				break;
-			default:
-				$file_type = __('Export');
-				break;
-		};
+		$file_type = \Pressbooks\Modules\Export\get_name_from_filetype_slug( $file_class, true );
 
 		$html = "<div class='export-file-icon {$size} {$file_class}'>" . Container::get( 'Blade' )->render('admin.icon', ['file_type' => $file_type]) . "</div>";
 		return $html;

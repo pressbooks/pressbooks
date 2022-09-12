@@ -110,15 +110,24 @@ if ( $dependency_errors ) {
 			<?php
 			foreach ( $covers as $date => $files ) {
 				foreach ( $files as $file ) {
-					$icon_type = strtolower( pathinfo( $file, PATHINFO_EXTENSION ) );
+					$file_class = strtolower( pathinfo( $file, PATHINFO_EXTENSION ) );
 					?>
 					<form class="cover-file" action="<?php echo $delete_form_url; ?>" method="post">
 						<input type="hidden" name="filename" value="<?php echo $file; ?>"/>
 						<div class="cover-file-container">
-							<a class="cover-file" href="<?php echo( $download_form_url . $file ); ?>"><?php Pressbooks\Container::get('blade')->render('admin.icon', ['file_type' => $file_type]); ?></a>
+							<a class="cover-file-icon <?php echo $file_class; ?>" href="<?php echo( $download_form_url . $file ); ?>"><span class="screen-reader-text"><?php
+								/* translators: %s file format */
+								printf( __( 'Download %s cover', 'pressbooks' ), strtoupper($file_class))
+								?></span><?php echo \Pressbooks\Container::get('Blade')->render('admin.icon', ['file_type' => strtoupper($file_class)]); ?></a>
 							<div class="file-actions">
-								<a href="<?php echo( $download_form_url . $file ); ?>"><span class="dashicons dashicons-download"></span></a>
-								<button class="delete" type="submit" name="submit" value="Delete"
+								<a href="<?php echo( $download_form_url . $file ); ?>"><span class="screen-reader-text"><?php
+								/* translators: %s file format */
+								printf( __( 'Download %s cover', 'pressbooks' ), strtoupper($file_class))
+								?></span><span class="dashicons dashicons-download"></span></a>
+								<button class="delete" type="submit" name="submit" value="<?php
+								/* translators: %s file format */
+								printf( __( 'Delete %s cover', 'pressbooks' ), strtoupper($file_class))
+								?>"
 										onclick="if ( !confirm('<?php esc_attr_e( 'Are you sure you want to delete this?', 'pressbooks' ); ?>' ) ) { return false }"><span
 											class="dashicons dashicons-trash"></span></button>
 							</div>

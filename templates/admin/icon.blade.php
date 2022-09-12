@@ -1,4 +1,4 @@
-<svg viewBox='0 0 96 96' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'>
+<svg viewBox='0 0 96 96' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' aria-hidden="true" role="presentation">
 	<defs>
 		<filter x='-.6%' y='-.5%' width='102.4%' height='102.1%' filterUnits='objectBoundingBox' id='a'><feOffset dx='1' dy='1' in='SourceAlpha' result='shadowOffsetOuter1'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.27 0' in='shadowOffsetOuter1'/></filter>
 		<filter x='-.5%' y='-1.9%' width='102.1%' height='107.7%' filterUnits='objectBoundingBox' id='c'><feOffset dx='1' dy='1' in='SourceAlpha' result='shadowOffsetOuter1'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.27 0' in='shadowOffsetOuter1'/></filter>
