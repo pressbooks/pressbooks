@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-09-12T00:35:37+00:00\n"
+"POT-Creation-Date: 2022-09-12T02:47:45+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: pressbooks\n"
@@ -516,32 +516,32 @@ msgid "You can upload a background image here."
 msgstr ""
 
 #. translators: 1: minimum width, 2: minimum height, 3: aspect ratio width, 4: aspect ratio height
-#: inc/admin/covergenerator/namespace.php:496
+#: inc/admin/covergenerator/namespace.php:499
 msgid "Your image must be at least %1$s pixels in width by %2$s pixels in height, with an aspect ratio of %3$s to %4$s."
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:499
+#: inc/admin/covergenerator/namespace.php:502
 msgid "Delete Background Image"
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:521
+#: inc/admin/covergenerator/namespace.php:524
 msgid "Spine size is calculated based on the number of pages in your book, and the weight of the paper used in printing."
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:527
+#: inc/admin/covergenerator/namespace.php:530
 msgid "You haven't exported any PDF copies of your book, so you will need to enter a page count below."
 msgstr ""
 
 #. translators: %s: number of pages in pdf
-#: inc/admin/covergenerator/namespace.php:530
+#: inc/admin/covergenerator/namespace.php:533
 msgid "The last PDF you exported has %s pages (you can edit this below if you like)."
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:534
+#: inc/admin/covergenerator/namespace.php:537
 msgid "We can calculate the spine size based on CreateSpace and Ingram specifications, or you can enter your own custom pages per inch (PPI) defined by your printer."
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:567
+#: inc/admin/covergenerator/namespace.php:570
 #: inc/modules/themeoptions/class-pdfoptions.php:159
 #: inc/modules/themeoptions/class-pdfoptions.php:380
 #: inc/modules/themeoptions/class-pdfoptions.php:399
@@ -556,17 +556,17 @@ msgstr ""
 msgid "Custom&hellip;"
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:585
+#: inc/admin/covergenerator/namespace.php:588
 msgid "Choose text color and background colors below."
 msgstr ""
 
 #. translators: 1: minimum width, 2: minimum height, 3: image width 4: image height
-#: inc/admin/covergenerator/namespace.php:750
+#: inc/admin/covergenerator/namespace.php:753
 msgid "Your image is too small. The image must be %1$d by %2$d pixels. Your image is %3$d by %4$d pixels."
 msgstr ""
 
 #. translators: 1: pdf page width, 2: pdf page height
-#: inc/admin/covergenerator/namespace.php:760
+#: inc/admin/covergenerator/namespace.php:763
 msgid "Your image is the wrong aspect ratio. The image must have an aspect ratio of %1$s to %2$s."
 msgstr ""
 
@@ -984,6 +984,7 @@ msgstr ""
 #: inc/admin/laf/namespace.php:394
 #: templates/admin/organize.php:70
 #: templates/admin/export.blade.php:11
+#: templates/admin/icon.blade.php:15
 msgid "Export"
 msgstr ""
 
@@ -2810,7 +2811,7 @@ msgid "This image will be displayed on the webbook home page and used as the int
 msgstr ""
 
 #: inc/image/namespace.php:432
-#: templates/admin/covergenerator.php:123
+#: templates/admin/covergenerator.php:131
 msgid "Are you sure you want to delete this?"
 msgstr ""
 
@@ -2883,27 +2884,27 @@ msgstr ""
 msgid "Emailed to:"
 msgstr ""
 
-#: inc/modules/export/class-table.php:81
+#: inc/modules/export/class-table.php:82
 msgid "Are you sure you want to delete this export file?"
 msgstr ""
 
-#: inc/modules/export/class-table.php:131
+#: inc/modules/export/class-table.php:132
 msgid "File"
 msgstr ""
 
-#: inc/modules/export/class-table.php:132
+#: inc/modules/export/class-table.php:133
 msgid "Format"
 msgstr ""
 
-#: inc/modules/export/class-table.php:133
+#: inc/modules/export/class-table.php:134
 msgid "Size"
 msgstr ""
 
-#: inc/modules/export/class-table.php:134
+#: inc/modules/export/class-table.php:135
 msgid "Pin"
 msgstr ""
 
-#: inc/modules/export/class-table.php:135
+#: inc/modules/export/class-table.php:136
 msgid "Date Exported"
 msgstr ""
 
@@ -3046,14 +3047,14 @@ msgid "PDF (for digital distribution)"
 msgstr ""
 
 #: inc/modules/export/namespace.php:100
-#: inc/modules/export/namespace.php:196
-#: inc/modules/export/namespace.php:234
+#: inc/modules/export/namespace.php:198
+#: inc/modules/export/namespace.php:236
 msgid "EPUB"
 msgstr ""
 
 #: inc/modules/export/namespace.php:101
-#: inc/modules/export/namespace.php:201
-#: inc/modules/export/namespace.php:237
+#: inc/modules/export/namespace.php:203
+#: inc/modules/export/namespace.php:239
 msgid "Pressbooks XML"
 msgstr ""
 
@@ -3062,20 +3063,20 @@ msgid "XHTML"
 msgstr ""
 
 #: inc/modules/export/namespace.php:105
-#: inc/modules/export/namespace.php:195
-#: inc/modules/export/namespace.php:233
+#: inc/modules/export/namespace.php:197
+#: inc/modules/export/namespace.php:235
 msgid "HTMLBook"
 msgstr ""
 
 #: inc/modules/export/namespace.php:106
-#: inc/modules/export/namespace.php:200
-#: inc/modules/export/namespace.php:236
+#: inc/modules/export/namespace.php:202
+#: inc/modules/export/namespace.php:238
 msgid "OpenDocument"
 msgstr ""
 
 #: inc/modules/export/namespace.php:107
-#: inc/modules/export/namespace.php:202
-#: inc/modules/export/namespace.php:238
+#: inc/modules/export/namespace.php:204
+#: inc/modules/export/namespace.php:240
 msgid "WordPress XML"
 msgstr ""
 
@@ -3083,57 +3084,82 @@ msgstr ""
 msgid "Common Cartridge with Web Links"
 msgstr ""
 
-#: inc/modules/export/namespace.php:192
-#: inc/modules/export/namespace.php:229
+#: inc/modules/export/namespace.php:194
 #: inc/modules/export/namespace.php:231
+#: inc/modules/export/namespace.php:233
 msgid "Print PDF"
 msgstr ""
 
-#: inc/modules/export/namespace.php:193
-#: inc/modules/export/namespace.php:194
-#: inc/modules/export/namespace.php:230
+#: inc/modules/export/namespace.php:195
+#: inc/modules/export/namespace.php:196
+msgid "PDF"
+msgstr ""
+
+#: inc/modules/export/namespace.php:195
+#: inc/modules/export/namespace.php:196
 #: inc/modules/export/namespace.php:232
+#: inc/modules/export/namespace.php:234
 msgid "Digital PDF"
 msgstr ""
 
 #: inc/modules/export/namespace.php:197
+msgid "HTML5"
+msgstr ""
+
+#: inc/modules/export/namespace.php:199
 msgid "MOBI"
 msgstr ""
 
-#: inc/modules/export/namespace.php:198
+#: inc/modules/export/namespace.php:200
 msgid "EPUB3"
 msgstr ""
 
-#: inc/modules/export/namespace.php:203
-#: inc/modules/export/namespace.php:239
-msgid "Common Cartridge (Web Links)"
+#: inc/modules/export/namespace.php:202
+msgid "ODT"
 msgstr ""
 
+#: inc/modules/export/namespace.php:203
 #: inc/modules/export/namespace.php:204
-msgid "Common Cartridge with LTI links (1.1)"
+msgid "WXR"
 msgstr ""
 
 #: inc/modules/export/namespace.php:205
-msgid "Common Cartridge with LTI links (1.2)"
+#: inc/modules/export/namespace.php:206
+#: inc/modules/export/namespace.php:207
+#: inc/modules/export/namespace.php:208
+msgid "IMSCC"
+msgstr ""
+
+#: inc/modules/export/namespace.php:205
+#: inc/modules/export/namespace.php:241
+msgid "Common Cartridge (Web Links)"
 msgstr ""
 
 #: inc/modules/export/namespace.php:206
+msgid "Common Cartridge with LTI links (1.1)"
+msgstr ""
+
+#: inc/modules/export/namespace.php:207
+msgid "Common Cartridge with LTI links (1.2)"
+msgstr ""
+
+#: inc/modules/export/namespace.php:208
 msgid "Common Cartridge with LTI links (1.3)"
 msgstr ""
 
-#: inc/modules/export/namespace.php:275
+#: inc/modules/export/namespace.php:277
 msgid "The file %1$s has been %2$s successfully."
 msgstr ""
 
-#: inc/modules/export/namespace.php:277
+#: inc/modules/export/namespace.php:279
 msgid "pinned"
 msgstr ""
 
-#: inc/modules/export/namespace.php:277
+#: inc/modules/export/namespace.php:279
 msgid "unpinned"
 msgstr ""
 
-#: inc/modules/export/namespace.php:296
+#: inc/modules/export/namespace.php:298
 msgid "%s Author"
 msgid_plural "%s Authors"
 msgstr[0] ""
@@ -4396,11 +4422,22 @@ msgstr ""
 msgid "Your latest covers were generated on %s. Hover to download them."
 msgstr ""
 
-#: templates/admin/covergenerator.php:139
+#. translators: %s file format
+#: templates/admin/covergenerator.php:120
+#: templates/admin/covergenerator.php:125
+msgid "Download %s cover"
+msgstr ""
+
+#. translators: %s file format
+#: templates/admin/covergenerator.php:129
+msgid "Delete %s cover"
+msgstr ""
+
+#: templates/admin/covergenerator.php:147
 msgid "Are you sure you want to delete ALL your current covers?"
 msgstr ""
 
-#: templates/admin/covergenerator.php:139
+#: templates/admin/covergenerator.php:147
 msgid "Delete All Covers"
 msgstr ""
 
