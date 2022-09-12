@@ -13,7 +13,7 @@
 		"lint:fix-styles": "stylelint \"assets/src/styles/**/*.scss\" scss --fix"
 	},
 	"engines": {
-		"node": ">= 14"
+		"node": ">= 16"
 	},
 	"dependencies": {
 		"block-ui": "^2.70.1",
