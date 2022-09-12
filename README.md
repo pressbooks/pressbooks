@@ -1,14 +1,14 @@
 # Pressbooks
 Contributors: Pressbooks <code@pressbooks.com>
 Tags: ebooks, publishing, webbooks
-Requires at least: 5.9.3
-Tested up to: 6.0.1
+Requires at least: 6.0.2
+Tested up to: 6.0.2
+Stable tag: 6.0.0
 Requires PHP: 7.4
-Stable tag: 5.37.0
 License: GPL v3.0 or later
 License URI: https://github.com/pressbooks/pressbooks/blob/master/LICENSE.md
 
-[Pressbooks](https://pressbooks.org/) is an open source book publishing tool built on a WordPress multisite platform.
+Pressbooks is an open source book publishing tool built on a WordPress multisite platform.
 
 ## Description 
 
