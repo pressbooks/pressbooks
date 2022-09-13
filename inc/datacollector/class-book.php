@@ -201,7 +201,6 @@ class Book {
 	 * @param int $book_id
 	 */
 	public function copyBookMetaIntoSiteTable( $book_id ) {
-
 		// TODO:
 		//  Override \Pressbooks\L10n\get_book_language() so that all info collected appears in Admin language
 
@@ -241,13 +240,17 @@ class Book {
 		// pb_total_readers
 		$count_users = count_users();
 		$total_readers = 0;
+
 		if ( isset( $count_users['avail_roles'], $count_users['avail_roles']['none'] ) ) {
 			$total_readers += $count_users['avail_roles']['none'];
 		}
+
 		if ( isset( $count_users['avail_roles'], $count_users['avail_roles']['subscriber'] ) ) {
 			$total_readers += $count_users['avail_roles']['subscriber'];
 		}
+
 		$total_authors = $count_users['total_users'] - $total_readers;
+
 		update_site_meta( $book_id, self::TOTAL_AUTHORS, $total_authors );
 		update_site_meta( $book_id, self::TOTAL_READERS, $total_readers );
 
@@ -260,20 +263,25 @@ class Book {
 
 		// pb_subject
 		$subject_list = '';
+
 		if ( ! empty( $metadata['pb_primary_subject'] ) ) {
 			add_filter( 'pb_thema_subjects_locale', [ $this, 'themaSubjectsLocale' ] );
 			$subject = \Pressbooks\Metadata\get_subject_from_thema( $metadata['pb_primary_subject'] );
 			remove_filter( 'pb_thema_subjects_locale', [ $this, 'themaSubjectsLocale' ] );
 			$subject_list .= $metadata['pb_primary_subject'];
 		}
+
 		update_site_meta( $book_id, self::SUBJECT, $subject ?? $metadata['pb_subject'] ?? null );
 
 		if ( ! empty( $metadata['pb_additional_subjects'] ) ) {
 			$subject_list .= ', ' . $metadata['pb_additional_subjects'];
 		}
+
+		// clean up subject codes and strings before adding
+		delete_site_meta( $book_id, self::SUBJECTS_CODES );
+		delete_site_meta( $book_id, self::SUBJECTS_STRINGS );
+
 		if ( $subject_list ) {
-			delete_site_meta( $book_id, self::SUBJECTS_CODES );
-			delete_site_meta( $book_id, self::SUBJECTS_STRINGS );
 			$subjects = explode( ', ', $subject_list );
 			foreach ( $subjects as $subject ) {
 				add_site_meta( $book_id, self::SUBJECTS_CODES, $subject );
@@ -301,13 +309,14 @@ class Book {
 
 		$this->saveArrayMetadata( $book_id, self::EDITORS, 'name', $metadata );
 
-		if ( isset( $metadata['pb_institutions'] ) ) {
-			delete_site_meta( $book_id, self::INSTITUTIONS );
-			foreach ( $metadata['pb_institutions'] as $institution ) {
-				$institution_data = get_institution_by_code( $institution );
-				if ( isset( $institution_data['name'] ) ) {
-					add_site_meta( $book_id, self::INSTITUTIONS, $institution_data['name'] );
-				}
+		// pb_institutions
+		// clean up institutions before adding
+		delete_site_meta( $book_id, self::INSTITUTIONS );
+
+		foreach ( $metadata['pb_institutions'] ?? [] as $institution ) {
+			$institution_data = get_institution_by_code( $institution );
+			if ( isset( $institution_data['name'] ) ) {
+				add_site_meta( $book_id, self::INSTITUTIONS, $institution_data['name'] );
 			}
 		}
 
@@ -416,8 +425,10 @@ class Book {
 	 * @return void
 	 */
 	private function saveArrayMetadata( int $blog_id, string $meta_key, string $array_key, array $metadata ): void {
+		// clean up meta key before adding
+		delete_site_meta( $blog_id, $meta_key );
+
 		if ( isset( $metadata[ $meta_key ] ) && is_array( $metadata[ $meta_key ] ) ) {
-			delete_site_meta( $blog_id, $meta_key );
 			foreach ( $metadata[ $meta_key ] as $value ) {
 				add_site_meta( $blog_id, $meta_key, $value[ $array_key ] );
 			}

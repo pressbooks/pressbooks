@@ -169,6 +169,46 @@ class DataCollector_BookTest extends \WP_UnitTestCase {
 	/**
 	 * @group datacollector
 	 */
+	public function test_check_book_meta_removed_when_empty(): void {
+		$this->_book();
+
+		$book_id = get_current_blog_id();
+
+		$metadata_post = ( new \Pressbooks\Metadata() )->getMetaPost();
+
+		add_post_meta( $metadata_post->ID, 'pb_institutions', 'CA-ON-001' );
+		add_post_meta( $metadata_post->ID, 'pb_institutions', 'CA-ON-002' );
+		add_post_meta( $metadata_post->ID, 'pb_primary_subject', 'ABA' );
+		add_post_meta( $metadata_post->ID, 'pb_additional_subjects', 'AVP, AVR, AVRQ' );
+		add_post_meta( $metadata_post->ID, 'pb_publisher', 'Publisher Name' );
+
+		\Pressbooks\Book::deleteBookObjectCache();
+
+		$this->bookDataCollector->copyBookMetaIntoSiteTable( $book_id );
+
+		$this->assertNotEmpty( get_site_meta( $book_id, BookDataCollector::INSTITUTIONS ) );
+		$this->assertNotEmpty( get_site_meta( $book_id, BookDataCollector::SUBJECTS_CODES ) );
+		$this->assertNotEmpty( get_site_meta( $book_id, BookDataCollector::PUBLISHER, true ) );
+		$this->assertNotEmpty( get_site_meta( $book_id, BookDataCollector::SUBJECT, true ) );
+
+		delete_post_meta( $metadata_post->ID, 'pb_institutions' );
+		delete_post_meta( $metadata_post->ID, 'pb_primary_subject' );
+		delete_post_meta( $metadata_post->ID, 'pb_additional_subjects' );
+		delete_post_meta( $metadata_post->ID, 'pb_publisher' );
+
+		\Pressbooks\Book::deleteBookObjectCache();
+
+		$this->bookDataCollector->copyBookMetaIntoSiteTable( $book_id );
+
+		$this->assertEmpty( get_site_meta( $book_id, BookDataCollector::INSTITUTIONS ) );
+		$this->assertEmpty( get_site_meta( $book_id, BookDataCollector::SUBJECTS_CODES ) );
+		$this->assertEmpty( get_site_meta( $book_id, BookDataCollector::PUBLISHER, true ) );
+		$this->assertEmpty( get_site_meta( $book_id, BookDataCollector::SUBJECT, true ) );
+	}
+
+	/**
+	 * @group datacollector
+	 */
 	public function test_themaSubjectsLocale() {
 		$this->assertEquals( 'en', $this->bookDataCollector->themaSubjectsLocale( 'fr' ) );
 	}
