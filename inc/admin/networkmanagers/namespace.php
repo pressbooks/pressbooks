@@ -9,7 +9,6 @@
 
 namespace Pressbooks\Admin\NetworkManagers;
 
-use function Pressbooks\Sanitize\safer_unserialize;
 use PressbooksMix\Assets;
 
 /**
@@ -45,29 +44,23 @@ function admin_enqueues() {
 /**
  * Get a list of restricted super users
  * (A network manager is a restricted super user)
- * Cheap cached in a static variable to improve i/o performance
  *
- * @param bool $reset
  *
  * @return array
  */
-function _restricted_users( $reset = false ) {
-	// Cheap cache
-	static $restricted = false;
-	if ( $reset ) {
-		$restricted = false;
-	}
-	if ( $restricted === false ) {
-		global $wpdb;
-		$restricted = $wpdb->get_results( "SELECT * FROM {$wpdb->sitemeta} WHERE meta_key = 'pressbooks_network_managers'" );
-		if ( $restricted ) {
-			$restricted = safer_unserialize( $restricted[0]->meta_value );
-		}
-		if ( empty( $restricted ) ) {
-			$restricted = [];
+function _restricted_users() {
+	$network_admins = get_site_option( 'site_admins' );
+	$network_managers = get_network_option( null, 'pressbooks_network_managers', [] );
+	$restricted_users_ids = [];
+	foreach ( $network_admins as $username ) {
+		$user = get_user_by( 'login', $username );
+		$is_restricted = in_array( absint( $user->ID ), $network_managers, true );
+
+		if ( $is_restricted ) {
+			$restricted_users_ids[] = $user->ID;
 		}
 	}
-	return $restricted;
+	return $restricted_users_ids;
 }
 
 /**
@@ -75,7 +68,7 @@ function _restricted_users( $reset = false ) {
  */
 function update_admin_status() {
 	if ( check_ajax_referer( 'pb-network-managers' ) ) {
-		$restricted = _restricted_users( true );
+		$restricted = _restricted_users();
 		$id = absint( $_POST['admin_id'] );
 
 		if ( 1 === absint( $_POST['status'] ) ) {
@@ -95,7 +88,7 @@ function update_admin_status() {
 			delete_site_option( 'pressbooks_network_managers' );
 		}
 		// Reset the cheap cache after updating the option
-		_restricted_users( true );
+		_restricted_users();
 	}
 
 }

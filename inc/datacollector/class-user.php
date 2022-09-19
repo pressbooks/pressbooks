@@ -103,7 +103,7 @@ class User {
 	 * @return void
 	 */
 	public function updateNetworkManagers(): void {
-		$users = _restricted_users( true );
+		$users = _restricted_users();
 
 		if ( is_array( $users ) && ! empty( $users ) ) {
 			update_site_option( 'pressbooks_network_managers_ids', implode( ',', $users ) );
