@@ -9,7 +9,6 @@
 
 namespace Pressbooks\Admin\NetworkManagers;
 
-use function Pressbooks\Sanitize\safer_unserialize;
 use PressbooksMix\Assets;
 
 /**
