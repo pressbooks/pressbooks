@@ -700,7 +700,7 @@ function format_bytes( $bytes, $precision = 2 ) {
  */
 function debug_error_log( $message, $message_type = null ) {
 	if ( defined( 'WP_TESTS_MULTISITE' ) === false && WP_DEBUG ) {
-		\trigger_error( $message, $message_type ); // @codingStandardsIgnoreLine
+		\trigger_error( $message, $message_type ?? E_USER_NOTICE ); // @codingStandardsIgnoreLine
 	}
 }
 
