@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-09-21T16:35:14+00:00\n"
+"POT-Creation-Date: 2022-09-21T18:51:07+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: pressbooks\n"
@@ -3008,7 +3008,7 @@ msgstr ""
 msgid "Table Of Contents"
 msgstr ""
 
-#: inc/modules/export/epub/class-epub.php:1944
+#: inc/modules/export/epub/class-epub.php:1942
 #: inc/modules/export/htmlbook/class-htmlbook.php:979
 #: inc/modules/export/xhtml/class-xhtml11.php:1237
 msgid "Contents"
