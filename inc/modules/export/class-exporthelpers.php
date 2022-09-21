@@ -48,7 +48,7 @@ trait ExportHelpers {
 		$data['post_type_class'] = str_replace( '_', '-', $post_type_identifier ); // This class is used to map with the SCSS class in buckram Ex: front-matter
 		$data['subclass'] = $this->getPostSubClass( $post_type_identifier, $post_data['ID'] );
 		$data['slug'] = $is_epub ? $post_data['post_name'] : "{$data['post_type_class']}-{$post_data['post_name']}";
-		$data['title'] = get_post_meta( $post_data['ID'], 'pb_show_title', true ) ? $post_data['post_title'] : '';
+		$data['title'] = get_post_meta( $post_data['ID'], 'pb_show_title', true ) ? Sanitize\decode( $post_data['post_title'] ) : '';
 
 		if ( ! $is_epub ) {
 			$data['title'] = empty( $data['title'] ) ? '<span class="display-none">' . $post_data['post_title'] . '</span>' : $data['title'];
