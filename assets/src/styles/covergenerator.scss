@@ -134,17 +134,16 @@ input#generate-jpg {
 }
 
 .cover-files {
-  padding: 10px;
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
   margin-bottom: 1.25em;
+  padding: 10px;
 
   form.cover-file {
     display: inline-block;
-    text-align: center;
+    text-align: left;
     padding: 0 10px 0 0;
-
-    a {
-      text-align: center;
-    }
 
     .cover-file-icon {
       display: block;
@@ -161,15 +160,15 @@ input#generate-jpg {
       padding-right: 1.5em;
 
       .file-actions {
-        visibility: hidden;
-
         a,
         button {
           color: black;
           text-decoration: none;
-          display: inline-block;
-          width: 20px;
-          height: 20px;
+          display: block;
+
+          .dashicons {
+            height: 20px;
+          }
 
           &:hover {
             color: #c5002a;
@@ -181,12 +180,6 @@ input#generate-jpg {
           border: none;
           cursor: pointer;
           padding: 0;
-        }
-      }
-
-      &:hover {
-        .file-actions {
-          visibility: visible;
         }
       }
     }

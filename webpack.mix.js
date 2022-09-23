@@ -14,7 +14,7 @@ let mix = require( 'laravel-mix' );
  */
 
 const assets = 'assets';
-const dist = `${assets}/dist`;
+const dist = `${ assets }/dist`;
 const templates = 'templates';
 
 // BrowserSync
@@ -24,9 +24,9 @@ mix.browserSync( {
 	port: 3100,
 	files: [
 		'*.php',
-		`${templates}/**/*.php`,
-		`${dist}/styles/*.css`,
-		`${dist}/scripts/*.js`,
+		`${ templates }/**/*.php`,
+		`${ dist }/styles/*.css`,
+		`${ dist }/scripts/*.js`,
 	],
 } );
 
