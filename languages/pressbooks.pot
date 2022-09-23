@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-09-21T18:56:10+00:00\n"
+"POT-Creation-Date: 2022-09-23T14:47:30+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: pressbooks\n"
@@ -105,7 +105,7 @@ msgstr ""
 
 #: inc/admin/attachments/namespace.php:54
 #: inc/admin/class-catalog-list-table.php:232
-#: inc/admin/covergenerator/namespace.php:108
+#: inc/admin/covergenerator/namespace.php:109
 msgid "Author"
 msgstr ""
 
@@ -173,7 +173,7 @@ msgid "Cover"
 msgstr ""
 
 #: inc/admin/class-catalog-list-table.php:231
-#: inc/admin/covergenerator/namespace.php:75
+#: inc/admin/covergenerator/namespace.php:76
 #: inc/admin/metaboxes/namespace.php:204
 #: templates/admin/import.php:90
 msgid "Title"
@@ -369,21 +369,21 @@ msgstr ""
 msgid "Sitemap"
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:17
+#: inc/admin/covergenerator/namespace.php:18
 #: templates/admin/covergenerator.php:63
 msgid "Cover Generator"
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:45
+#: inc/admin/covergenerator/namespace.php:46
 #: inc/admin/laf/namespace.php:358
 msgid "Saving settings"
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:48
+#: inc/admin/covergenerator/namespace.php:49
 msgid "Cover generation is not done. Leaving this page, now, will cause problems. Are you sure?"
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:49
+#: inc/admin/covergenerator/namespace.php:50
 #: inc/admin/laf/namespace.php:334
 #: inc/admin/laf/namespace.php:357
 #: inc/admin/laf/namespace.php:418
@@ -391,157 +391,157 @@ msgstr ""
 msgid "Reload"
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:68
+#: inc/admin/covergenerator/namespace.php:69
 msgid "Text"
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:86
+#: inc/admin/covergenerator/namespace.php:87
 msgid "Title (Spine)"
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:97
+#: inc/admin/covergenerator/namespace.php:98
 #: inc/admin/metaboxes/namespace.php:225
 msgid "Subtitle"
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:119
+#: inc/admin/covergenerator/namespace.php:120
 msgid "Author (Spine)"
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:130
+#: inc/admin/covergenerator/namespace.php:131
 #: inc/admin/laf/namespace.php:93
 #: inc/class-activation.php:247
 #: templates/admin/catalog.php:98
 msgid "About"
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:141
+#: inc/admin/covergenerator/namespace.php:142
 msgid "ISBN"
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:146
+#: inc/admin/covergenerator/namespace.php:147
 msgid "If you have an ISBN, this will generate a barcode on the back of your print cover. If you do not have an ISBN, you should leave this field blank."
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:153
+#: inc/admin/covergenerator/namespace.php:154
 msgid "or SKU"
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:158
+#: inc/admin/covergenerator/namespace.php:159
 msgid "If you have a 13-digit identifier that is not an ISBN, entering it in this field will generate a barcode with that number on the back of your print cover. If you do not have a non-ISBN identifier, you should leave this field blank."
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:165
+#: inc/admin/covergenerator/namespace.php:166
 msgid "Design"
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:172
+#: inc/admin/covergenerator/namespace.php:173
 msgid "Front Cover Background Image"
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:180
+#: inc/admin/covergenerator/namespace.php:181
 msgid "Book Title Case"
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:193
+#: inc/admin/covergenerator/namespace.php:194
 msgid "Spine Size"
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:200
+#: inc/admin/covergenerator/namespace.php:201
 msgid "Page Count"
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:211
+#: inc/admin/covergenerator/namespace.php:212
 msgid "Paper Type"
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:225
+#: inc/admin/covergenerator/namespace.php:226
 msgid "Custom PPI"
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:236
+#: inc/admin/covergenerator/namespace.php:237
 msgid "Text and Background Colors"
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:243
+#: inc/admin/covergenerator/namespace.php:244
 msgid "Front Cover Text"
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:254
+#: inc/admin/covergenerator/namespace.php:255
 msgid "Front Cover Background"
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:265
+#: inc/admin/covergenerator/namespace.php:266
 msgid "Spine Text"
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:276
+#: inc/admin/covergenerator/namespace.php:277
 msgid "Spine Background"
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:287
+#: inc/admin/covergenerator/namespace.php:288
 msgid "Back Cover Text"
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:298
+#: inc/admin/covergenerator/namespace.php:299
 msgid "Back Cover Background"
 msgstr ""
 
 #. translators: %s: URL to Book Information page
-#: inc/admin/covergenerator/namespace.php:329
+#: inc/admin/covergenerator/namespace.php:330
 msgid "The text below is pulled from your <a href=\"%s\">Book Information</a> page, and is used to generate your cover(s). You can reformat the text below as needed. (<strong>IMPORTANT NOTE:</strong> Changes you make here will <strong>NOT</strong> be reflected on the Book Information page.)"
 msgstr ""
 
 #. translators: %s: URL to Appearance menu
-#: inc/admin/covergenerator/namespace.php:442
+#: inc/admin/covergenerator/namespace.php:443
 msgid "Below you can make small adjustments to the design of your cover. The look and feel of the cover will echo the theme you have chosen for your book. You can change your book theme in the <a href=\"%s\">Appearance</a> menu."
 msgstr ""
 
 #. translators: 1: pdf page width, 2: pdf page height, 3: URL to Theme Options page
-#: inc/admin/covergenerator/namespace.php:449
+#: inc/admin/covergenerator/namespace.php:450
 msgid "Your PDF page size is set to %1$s &times; %2$s, and your PDF cover will be generated with the same dimensions. You can change the PDF page size in the <a href=\"%3$s\">Theme Options</a> menu."
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:458
+#: inc/admin/covergenerator/namespace.php:459
 #: templates/admin/export.blade.php:61
 msgid "Change Theme"
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:459
+#: inc/admin/covergenerator/namespace.php:460
 msgid "Options"
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:462
+#: inc/admin/covergenerator/namespace.php:463
 msgid "You can upload a background image here."
 msgstr ""
 
 #. translators: 1: minimum width, 2: minimum height, 3: aspect ratio width, 4: aspect ratio height
-#: inc/admin/covergenerator/namespace.php:499
+#: inc/admin/covergenerator/namespace.php:500
 msgid "Your image must be at least %1$s pixels in width by %2$s pixels in height, with an aspect ratio of %3$s to %4$s."
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:502
+#: inc/admin/covergenerator/namespace.php:503
 msgid "Delete Background Image"
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:524
+#: inc/admin/covergenerator/namespace.php:525
 msgid "Spine size is calculated based on the number of pages in your book, and the weight of the paper used in printing."
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:530
+#: inc/admin/covergenerator/namespace.php:531
 msgid "You haven't exported any PDF copies of your book, so you will need to enter a page count below."
 msgstr ""
 
 #. translators: %s: number of pages in pdf
-#: inc/admin/covergenerator/namespace.php:533
+#: inc/admin/covergenerator/namespace.php:534
 msgid "The last PDF you exported has %s pages (you can edit this below if you like)."
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:537
+#: inc/admin/covergenerator/namespace.php:538
 msgid "We can calculate the spine size based on CreateSpace and Ingram specifications, or you can enter your own custom pages per inch (PPI) defined by your printer."
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:570
+#: inc/admin/covergenerator/namespace.php:571
 #: inc/modules/themeoptions/class-pdfoptions.php:159
 #: inc/modules/themeoptions/class-pdfoptions.php:380
 #: inc/modules/themeoptions/class-pdfoptions.php:399
@@ -556,17 +556,17 @@ msgstr ""
 msgid "Custom&hellip;"
 msgstr ""
 
-#: inc/admin/covergenerator/namespace.php:588
+#: inc/admin/covergenerator/namespace.php:589
 msgid "Choose text color and background colors below."
 msgstr ""
 
 #. translators: 1: minimum width, 2: minimum height, 3: image width 4: image height
-#: inc/admin/covergenerator/namespace.php:753
+#: inc/admin/covergenerator/namespace.php:754
 msgid "Your image is too small. The image must be %1$d by %2$d pixels. Your image is %3$d by %4$d pixels."
 msgstr ""
 
 #. translators: 1: pdf page width, 2: pdf page height
-#: inc/admin/covergenerator/namespace.php:763
+#: inc/admin/covergenerator/namespace.php:764
 msgid "Your image is the wrong aspect ratio. The image must have an aspect ratio of %1$s to %2$s."
 msgstr ""
 
@@ -2811,7 +2811,7 @@ msgid "This image will be displayed on the webbook home page and used as the int
 msgstr ""
 
 #: inc/image/namespace.php:432
-#: templates/admin/covergenerator.php:131
+#: templates/admin/covergenerator.php:130
 msgid "Are you sure you want to delete this?"
 msgstr ""
 
@@ -4419,25 +4419,29 @@ msgstr ""
 
 #. translators: %s date/time
 #: templates/admin/covergenerator.php:107
-msgid "Your latest covers were generated on %s. Hover to download them."
+msgid "Your latest covers were generated on %s."
 msgstr ""
 
 #. translators: %s file format
 #: templates/admin/covergenerator.php:120
-#: templates/admin/covergenerator.php:125
+msgid "%s cover"
+msgstr ""
+
+#. translators: %s file format
+#: templates/admin/covergenerator.php:127
 msgid "Download %s cover"
 msgstr ""
 
 #. translators: %s file format
-#: templates/admin/covergenerator.php:129
+#: templates/admin/covergenerator.php:134
 msgid "Delete %s cover"
 msgstr ""
 
-#: templates/admin/covergenerator.php:147
+#: templates/admin/covergenerator.php:151
 msgid "Are you sure you want to delete ALL your current covers?"
 msgstr ""
 
-#: templates/admin/covergenerator.php:147
+#: templates/admin/covergenerator.php:151
 msgid "Delete All Covers"
 msgstr ""
 
