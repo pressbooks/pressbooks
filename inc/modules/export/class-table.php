@@ -423,7 +423,7 @@ class Table extends \WP_List_Table {
 	protected function getIcon( $file, $size = 'large' ) {
 		$file_class = $this->getCssClass( $file );
 
-		$file_type = \Pressbooks\Modules\Export\get_name_from_filetype_slug( $file_class, true );
+		$file_type = \Pressbooks\Modules\Export\get_shortname_from_filetype_slug( $file_class );
 
 		$html = "<div class='export-file-icon {$size} {$file_class}'>" . Container::get( 'Blade' )->render( 'admin.icon', [ 'file_type' => $file_type ] ) . '</div>';
 		return $html;

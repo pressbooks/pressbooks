@@ -179,11 +179,9 @@ function filetypes() {
  *
  * @param string $filetype The filetype slug.
  *
- * @param bool $short Whether the method should return a long name or a short name, suitable for an icon badge.
- *
  * @return string A human-readable filetype.
  */
-function get_name_from_filetype_slug( $filetype, $short = false ) {
+function get_name_from_filetype_slug( $filetype ) {
 	/**
 	 * Add custom export file type slugs to the array of file type slugs and corresponding human-readable filetypes.
 	 *
@@ -192,20 +190,57 @@ function get_name_from_filetype_slug( $filetype, $short = false ) {
 	$formats = apply_filters(
 		'pb_export_filetype_names', [
 			'print_pdf' => __( 'Print PDF', 'pressbooks' ),
-			'pdf' => $short ? __( 'PDF', 'pressbooks' ) : __( 'Digital PDF', 'pressbooks' ),
-			'mpdf' => $short ? __( 'PDF', 'pressbooks' ) : __( 'Digital PDF', 'pressbooks' ),
-			'htmlbook' => $short ? __( 'HTML5', 'pressbooks' ) : __( 'HTMLBook', 'pressbooks' ),
+			'pdf' => __( 'Digital PDF', 'pressbooks' ),
+			'mpdf' => __( 'Digital PDF', 'pressbooks' ),
+			'htmlbook' => __( 'HTMLBook', 'pressbooks' ),
 			'epub' => __( 'EPUB', 'pressbooks' ),
 			'mobi' => __( 'MOBI', 'pressbooks' ),
 			'epub3' => __( 'EPUB3', 'pressbooks' ),
 			'xhtml' => __( 'XHTML', 'presbooks' ),
-			'odf' => $short ? __( 'ODT', 'pressbooks' ) : __( 'OpenDocument', 'pressbooks' ),
-			'wxr' => $short ? __( 'WXR', 'pressbooks' ) : __( 'Pressbooks XML', 'pressbooks' ),
-			'vanillawxr' => $short ? __( 'WXR', 'pressbooks' ) : __( 'WordPress XML', 'pressbooks' ),
-			'weblinks' => $short ? __( 'IMSCC', 'pressbooks' ) : __( 'Common Cartridge (Web Links)', 'pressbooks' ),
-			'thincc11' => $short ? __( 'IMSCC', 'pressbooks' ) : __( 'Common Cartridge with LTI links (1.1)', 'pressbooks' ),
-			'thincc12' => $short ? __( 'IMSCC', 'pressbooks' ) : __( 'Common Cartridge with LTI links (1.2)', 'pressbooks' ),
-			'thincc13' => $short ? __( 'IMSCC', 'pressbooks' ) : __( 'Common Cartridge with LTI links (1.3)', 'pressbooks' ),
+			'odf' => __( 'OpenDocument', 'pressbooks' ),
+			'wxr' => __( 'Pressbooks XML', 'pressbooks' ),
+			'vanillawxr' => __( 'WordPress XML', 'pressbooks' ),
+			'weblinks' => __( 'Common Cartridge (Web Links)', 'pressbooks' ),
+			'thincc11' => __( 'Common Cartridge (LTI Links)', 'pressbooks' ),
+			'thincc12' => __( 'Common Cartridge (LTI Links)', 'pressbooks' ),
+			'thincc13' => __( 'Common Cartridge (LTI Links)', 'pressbooks' ),
+		]
+	);
+	return isset( $formats[ $filetype ] ) ? $formats[ $filetype ] : ucfirst( $filetype );
+}
+
+/**
+ * Return a human-readable short filetype for a given filetype slug. Used on icon badges.
+ *
+ * @since 6.1.0
+ *
+ * @param string $filetype The filetype slug.
+ *
+ * @return string A human-readable short filetype.
+ */
+function get_shortname_from_filetype_slug( $filetype ) {
+	/**
+	 * Add custom export file type slugs to the array of file type slugs and corresponding human-readable short filetypes.
+	 *
+	 * @since 6.1.0
+	 */
+	$formats = apply_filters(
+		'pb_export_filetype_shortnames', [
+			'print_pdf' => __( 'Print PDF', 'pressbooks' ),
+			'pdf' => __( 'PDF', 'pressbooks' ),
+			'mpdf' => __( 'PDF', 'pressbooks' ),
+			'htmlbook' => __( 'HTML5', 'pressbooks' ),
+			'epub' => __( 'EPUB', 'pressbooks' ),
+			'mobi' => __( 'MOBI', 'pressbooks' ),
+			'epub3' => __( 'EPUB3', 'pressbooks' ),
+			'xhtml' => __( 'XHTML', 'presbooks' ),
+			'odf' => __( 'ODT', 'pressbooks' ),
+			'wxr' => __( 'WXR', 'pressbooks' ),
+			'vanillawxr' => __( 'WXR', 'pressbooks' ),
+			'weblinks' => __( 'IMSCC', 'pressbooks' ),
+			'thincc11' => __( 'IMSCC', 'pressbooks' ),
+			'thincc12' => __( 'IMSCC', 'pressbooks' ),
+			'thincc13' => __( 'IMSCC', 'pressbooks' ),
 		]
 	);
 	return isset( $formats[ $filetype ] ) ? $formats[ $filetype ] : ucfirst( $filetype );

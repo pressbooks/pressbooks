@@ -52,7 +52,19 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 		$type = \Pressbooks\Modules\Export\get_name_from_filetype_slug( 'wtfbbq' );
 		$this->assertEquals( 'Wtfbbq', $type );
 		$type = \Pressbooks\Modules\Export\get_name_from_filetype_slug( 'thincc11' );
-		$this->assertEquals( 'Common Cartridge with LTI links (1.1)', $type );
+		$this->assertEquals( 'Common Cartridge (LTI Links)', $type );
+	}
+
+	/**
+	 * @group export
+	 */
+	public function test_get_shortname_from_filetype_slug() {
+		$type = \Pressbooks\Modules\Export\get_shortname_from_filetype_slug( 'print_pdf' );
+		$this->assertEquals( 'Print PDF', $type );
+		$type = \Pressbooks\Modules\Export\get_shortname_from_filetype_slug( 'wtfbbq' );
+		$this->assertEquals( 'Wtfbbq', $type );
+		$type = \Pressbooks\Modules\Export\get_shortname_from_filetype_slug( 'thincc11' );
+		$this->assertEquals( 'IMSCC', $type );
 	}
 
 	/**
