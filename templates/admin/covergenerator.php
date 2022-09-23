@@ -104,7 +104,7 @@ if ( $dependency_errors ) {
 		echo '<p>' . _e( 'Sorry! You have to generate some covers first.', 'pressbooks' ) . '</p>';
 	} else {
 		/* translators: %s date/time */
-		printf( '<p>' . __( 'Your latest covers were generated on %s. Hover to download them.', 'pressbooks' ) . '</p>', strftime( '%B %e, %Y at %l:%M %p', array_keys( $covers )[0] ) );
+		printf( '<p>' . __( 'Your latest covers were generated on %s.', 'pressbooks' ) . '</p>', strftime( '%B %e, %Y at %l:%M %p', array_keys( $covers )[0] ) );
 		?>
 		<div class="cover-files">
 			<?php
@@ -115,21 +115,24 @@ if ( $dependency_errors ) {
 					<form class="cover-file" action="<?php echo $delete_form_url; ?>" method="post">
 						<input type="hidden" name="filename" value="<?php echo $file; ?>"/>
 						<div class="cover-file-container">
-							<a class="cover-file-icon <?php echo $file_class; ?>" href="<?php echo( $download_form_url . $file ); ?>"><span class="screen-reader-text"><?php
+							<div class="cover-file-icon <?php echo $file_class; ?>"><span class="screen-reader-text"><?php
 								/* translators: %s file format */
-								printf( __( 'Download %s cover', 'pressbooks' ), strtoupper($file_class))
-								?></span><?php echo \Pressbooks\Container::get('Blade')->render('admin.icon', ['file_type' => strtoupper($file_class)]); ?></a>
+								printf( __( '%s cover', 'pressbooks' ), strtoupper($file_class))
+								?></span><?php echo \Pressbooks\Container::get('Blade')->render('admin.icon', ['file_type' => strtoupper($file_class)]); ?></div>
 							<div class="file-actions">
-								<a href="<?php echo( $download_form_url . $file ); ?>"><span class="screen-reader-text"><?php
+								<a href="<?php echo( $download_form_url . $file ); ?>">
+								<span class="dashicons dashicons-download"></span>
+								<?php
 								/* translators: %s file format */
 								printf( __( 'Download %s cover', 'pressbooks' ), strtoupper($file_class))
-								?></span><span class="dashicons dashicons-download"></span></a>
-								<button class="delete" type="submit" name="submit" value="<?php
+								?></a>
+								<button class="delete" type="submit" name="submit"
+										onclick="if ( !confirm('<?php esc_attr_e( 'Are you sure you want to delete this?', 'pressbooks' ); ?>' ) ) { return false }">
+										<span class="dashicons dashicons-trash"></span>
+											<?php
 								/* translators: %s file format */
 								printf( __( 'Delete %s cover', 'pressbooks' ), strtoupper($file_class))
-								?>"
-										onclick="if ( !confirm('<?php esc_attr_e( 'Are you sure you want to delete this?', 'pressbooks' ); ?>' ) ) { return false }"><span
-											class="dashicons dashicons-trash"></span></button>
+								?></button>
 							</div>
 						</div>
 					</form>
@@ -140,14 +143,14 @@ if ( $dependency_errors ) {
 				<?php
 			}
 			?>
-			<?php if ( ! empty( $covers ) && current_user_can( 'manage_network' ) ) : ?>
+		</div>
+		<?php if ( ! empty( $covers ) && current_user_can( 'manage_network' ) ) : ?>
 				<form class="delete-all" action="<?php echo $delete_all_form_url; ?>" method="post">
 					<input type="hidden" name="delete_all_covers" value="1"/>
 					<button class="button" type="submit" name="submit" value="Delete All Covers"
 							onclick="if ( !confirm('<?php esc_attr_e( 'Are you sure you want to delete ALL your current covers?', 'pressbooks' ); ?>' ) ) { return false }"><?php _e( 'Delete All Covers', 'pressbooks' ); ?></button>
 				</form>
 			<?php endif; ?>
-		</div>
 		<?php
 	} ?>
 </div>

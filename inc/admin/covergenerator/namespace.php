@@ -9,6 +9,7 @@ namespace Pressbooks\Admin\Covergenerator;
 // @phpcs:disable Pressbooks.Security.ValidatedSanitizedInput.MissingUnslash
 
 use PressbooksMix\Assets;
+use Pressbooks\Modules\ThemeOptions\PDFOptions;
 
 /**
  * Add menu to pb_export
@@ -444,7 +445,7 @@ function pressbooks_cg_design_callback() {
 		</p>
 	<p>
 	<?php
-		$options = get_option( 'pressbooks_theme_options_pdf' );
+		$options = get_option( 'pressbooks_theme_options_pdf', PDFOptions::getDefaults() );
 		/* translators: 1: pdf page width, 2: pdf page height, 3: URL to Theme Options page */
 		printf( __( 'Your PDF page size is set to %1$s &times; %2$s, and your PDF cover will be generated with the same dimensions. You can change the PDF page size in the <a href="%3$s">Theme Options</a> menu.', 'pressbooks' ), $options['pdf_page_width'], $options['pdf_page_height'], admin_url( 'themes.php?page=pressbooks_theme_options&tab=pdf' ) );
 	?>
