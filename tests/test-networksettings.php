@@ -27,16 +27,34 @@ class NetworkSettingsTest extends \WP_UnitTestCase {
 		$this->networkSettings->renderCustomOptions();
 		$buffer = ob_get_clean();
 		$this->assertStringContainsString( '<h3>' . __( 'Theme Settings', 'pressbooks' ) . '</h3>', $buffer );
-		$option = \Pressbooks\Admin\Network\NetworkSettings::DEFAULT_THEME_OPTION;
-		$this->assertStringContainsString( "<select id=\"$option\" name=\"$option\"", $buffer );
+		$theme_option = \Pressbooks\Admin\Network\NetworkSettings::DEFAULT_THEME_OPTION;
+		$this->assertStringContainsString( "<select id=\"$theme_option\" name=\"$theme_option\"", $buffer );
+		$cta_option = \Pressbooks\Admin\Network\NetworkSettings::DISPLAY_CTA_BANNER_OPTION;
+		$this->assertStringContainsString( "<input type=\"checkbox\" id=\"$cta_option\"", $buffer );
 	}
 
-	public function test_saveNetworkSettings() {
+	public function test_saveDefaultThemeNetworkSettings() {
 		$this->_book();
 		$option = \Pressbooks\Admin\Network\NetworkSettings::DEFAULT_THEME_OPTION;
 		update_site_option( $option, 'pressbooks-book' );
 		$_POST[ $option ] = 'invalid-theme';
-		$this->assertFalse( $this->networkSettings->saveNetworkSettings() );
+		$this->networkSettings->saveNetworkSettings();
+		$this->assertEquals( 'pressbooks-book', get_site_option( $option ) );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_saves_cta_banner_displaying_option(): void {
+		$this->_book();
+		$option = \Pressbooks\Admin\Network\NetworkSettings::DISPLAY_CTA_BANNER_OPTION;
+
+		$this->networkSettings->saveNetworkSettings();
+		$this->assertEquals( '0', get_site_option( $option ) );
+
+		$_POST[ $option ] = '1';
+		$this->networkSettings->saveNetworkSettings();
+		$this->assertEquals( '1', get_site_option( $option ) );
 	}
 
 	public function test_getDefaultTheme() {
