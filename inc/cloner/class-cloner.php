@@ -1007,6 +1007,12 @@ class Cloner {
 			'https://choosealicense.com/no-license/',
 		];
 
+		$extended_restrictive_licenses = apply_filters( 'extend_restrictive_licenses', [] );
+
+		$restrictive_licenses = is_array( $extended_restrictive_licenses )
+			? array_merge( $restrictive_licenses, $extended_restrictive_licenses )
+			: $restrictive_licenses;
+
 		if ( is_array( $metadata_license ) ) {
 			$license_url = $metadata_license['url'];
 		} else { // Backwards compatibility.
