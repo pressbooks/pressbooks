@@ -54,6 +54,7 @@ class GlobalTypography {
 			'ja' => __( 'Japanese', 'pressbooks' ),
 			'kn' => __( 'Kannada', 'pressbooks' ),
 			'ko' => __( 'Korean', 'pressbooks' ),
+			'kr' => __( 'Khmer', 'pressbooks' ),
 			'ml' => __( 'Malayalam', 'pressbooks' ),
 			'music' => __( 'Musical Notation', 'pressbooks' ),
 			'nqo' => __( 'N\'Ko', 'pressbooks' ),
@@ -295,51 +296,53 @@ class GlobalTypography {
 	function fontPacks() {
 		$fontpacks = [
 			'bn' => [
-				'baseurl' => 'https://github.com/notofonts/noto-fonts/raw/main/unhinted/ttf/',
+				'baseurl' => 'https://github.com/notofonts/noto-fonts/raw/main/unhinted/otf/',
 				'files' => [
-					'NotoSansBengali-Bold.ttf' => 'NotoSansBengali/NotoSansBengali-Bold.ttf',
-					'NotoSansBengali-Regular.ttf' => 'NotoSansBengali/NotoSansBengali-Regular.ttf',
-					'NotoSerifBengali-Bold.ttf' => 'NotoSerifBengali/NotoSerifBengali-Bold.ttf',
-					'NotoSerifBengali-Regular.ttf' => 'NotoSerifBengali/NotoSerifBengali-Regular.ttf',
+					'NotoSansBengali-Bold.otf' => 'NotoSansBengali/NotoSansBengali-Bold.otf',
+					'NotoSansBengali-Regular.otf' => 'NotoSansBengali/NotoSansBengali-Regular.otf',
+					'NotoSerifBengali-Bold.otf' => 'NotoSerifBengali/NotoSerifBengali-Bold.otf',
+					'NotoSerifBengali-Regular.otf' => 'NotoSerifBengali/NotoSerifBengali-Regular.otf',
 				],
 			],
 			'cans' => [
-				'baseurl' => 'https://github.com/notofonts/noto-fonts/raw/main/unhinted/ttf/',
+				'baseurl' => 'https://github.com/notofonts/noto-fonts/raw/main/unhinted/otf/',
 				'files' => [
-					'NotoSansCanadianAboriginal-Regular.ttf' => 'NotoSansCanadianAboriginal/NotoSansCanadianAboriginal-Regular.ttf',
-					'NotoSansCanadianAboriginal-Bold.ttf' => 'NotoSansCanadianAboriginal/NotoSansCanadianAboriginal-Bold.ttf',
+					'NotoSansCanadianAboriginal-Regular.otf' => 'NotoSansCanadianAboriginal/NotoSansCanadianAboriginal-Regular.otf',
+					'NotoSansCanadianAboriginal-Bold.otf' => 'NotoSansCanadianAboriginal/NotoSansCanadianAboriginal-Bold.otf',
 				],
 			],
 			'chr' => [
-				'baseurl' => 'https://github.com/notofonts/noto-fonts/raw/main/unhinted/ttf/',
+				'baseurl' => 'https://github.com/notofonts/noto-fonts/raw/main/unhinted/otf/',
 				'files' => [
-					'NotoSansCherokee-Regular.ttf' => 'NotoSansCherokee/NotoSansCherokee-Regular.ttf',
-					'NotoSansCherokee-Bold.ttf' => 'NotoSansCherokee/NotoSansCherokee-Bold.ttf',
+					'NotoSansCherokee-Regular.otf' => 'NotoSansCherokee/NotoSansCherokee-Regular.otf',
+					'NotoSansCherokee-Bold.otf' => 'NotoSansCherokee/NotoSansCherokee-Bold.otf',
 				],
 			],
 			'ff' => [
-				'baseurl' => 'https://github.com/notofonts/noto-fonts/raw/main/unhinted/ttf/',
+				'baseurl' => 'https://github.com/notofonts/noto-fonts/raw/main/unhinted/otf/',
 				'files' => [
-					'NotoSansAdlam-Regular.ttf' => 'NotoSansAdlam/NotoSansAdlam-Regular.ttf',
-					'NotoSansAdlam-Bold.ttf' => 'NotoSansAdlam/NotoSansAdlam-Bold.ttf',
+					'NotoSansAdlam-Regular.otf' => 'NotoSansAdlam/NotoSansAdlam-Regular.otf',
+					'NotoSansAdlam-Bold.otf' => 'NotoSansAdlam/NotoSansAdlam-Bold.otf',
+					'NotoSansAdlamUnjoined-Regular.otf' => 'NotoSansAdlamUnjoined/NotoSansAdlamUnjoined-Regular.otf',
+					'NotoSansAdlamUnjoined-Bold.otf' => 'NotoSansAdlamUnjoined/NotoSansAdlamUnjoined-Bold.otf',
 				],
 			],
 			'hi' => [
-				'baseurl' => 'https://github.com/notofonts/noto-fonts/raw/main/unhinted/ttf/',
+				'baseurl' => 'https://github.com/notofonts/noto-fonts/raw/main/unhinted/otf/',
 				'files' => [
-					'NotoSansDevanagari-Regular.ttf' => 'NotoSansDevanagari/NotoSansDevanagari-Regular.ttf',
-					'NotoSansDevanagari-Bold.ttf' => 'NotoSansDevanagari/NotoSansDevanagari-Bold.ttf',
-					'NotoSerifDevanagari-Bold.ttf' => 'NotoSerifDevanagari/NotoSerifDevanagari-Bold.ttf',
-					'NotoSerifDevanagari-Regular.ttf' => 'NotoSerifDevanagari/NotoSerifDevanagari-Regular.ttf',
+					'NotoSansDevanagari-Regular.otf' => 'NotoSansDevanagari/NotoSansDevanagari-Regular.otf',
+					'NotoSansDevanagari-Bold.otf' => 'NotoSansDevanagari/NotoSansDevanagari-Bold.otf',
+					'NotoSerifDevanagari-Bold.otf' => 'NotoSerifDevanagari/NotoSerifDevanagari-Bold.otf',
+					'NotoSerifDevanagari-Regular.otf' => 'NotoSerifDevanagari/NotoSerifDevanagari-Regular.otf',
 				],
 			],
 			'hy' => [
-				'baseurl' => 'https://github.com/notofonts/noto-fonts/raw/main/unhinted/ttf/',
+				'baseurl' => 'https://github.com/notofonts/noto-fonts/raw/main/unhinted/otf/',
 				'files' => [
-					'NotoSansArmenian-Regular.ttf' => 'NotoSansArmenian/NotoSansArmenian-Regular.ttf',
-					'NotoSansArmenian-Bold.ttf' => 'NotoSansArmenian/NotoSansArmenian-Bold.ttf',
-					'NotoSerifArmenian-Regular.ttf' => 'NotoSerifArmenian/NotoSerifArmenian-Regular.ttf',
-					'NotoSerifArmenian-Bold.ttf' => 'NotoSerifArmenian/NotoSerifArmenian-Bold.ttf',
+					'NotoSansArmenian-Regular.otf' => 'NotoSansArmenian/NotoSansArmenian-Regular.otf',
+					'NotoSansArmenian-Bold.otf' => 'NotoSansArmenian/NotoSansArmenian-Bold.otf',
+					'NotoSerifArmenian-Regular.otf' => 'NotoSerifArmenian/NotoSerifArmenian-Regular.otf',
+					'NotoSerifArmenian-Bold.otf' => 'NotoSerifArmenian/NotoSerifArmenian-Bold.otf',
 				],
 			],
 			'ja' => [
@@ -351,12 +354,12 @@ class GlobalTypography {
 				],
 			],
 			'kn' => [
-				'baseurl' => 'https://github.com/notofonts/noto-fonts/raw/main/unhinted/ttf/',
+				'baseurl' => 'https://github.com/notofonts/noto-fonts/raw/main/unhinted/otf/',
 				'files' => [
-					'NotoSansKannada-Bold.ttf' => 'NotoSansKannada/NotoSansKannada-Bold.ttf',
-					'NotoSansKannada-Regular.ttf' => 'NotoSansKannada/NotoSansKannada-Regular.ttf',
-					'NotoSerifKannada-Bold.ttf' => 'NotoSerifKannada/NotoSerifKannada-Bold.ttf',
-					'NotoSerifKannada-Regular.ttf' => 'NotoSerifKannada/NotoSerifKannada-Regular.ttf',
+					'NotoSansKannada-Bold.otf' => 'NotoSansKannada/NotoSansKannada-Bold.otf',
+					'NotoSansKannada-Regular.otf' => 'NotoSansKannada/NotoSansKannada-Regular.otf',
+					'NotoSerifKannada-Bold.otf' => 'NotoSerifKannada/NotoSerifKannada-Bold.otf',
+					'NotoSerifKannada-Regular.otf' => 'NotoSerifKannada/NotoSerifKannada-Regular.otf',
 				],
 			],
 			'ko' => [
@@ -366,13 +369,22 @@ class GlobalTypography {
 					'NotoSansCJKkr-Bold.otf' => 'NotoSansCJKkr-Bold.otf',
 				],
 			],
-			'ml' => [
-				'baseurl' => 'https://github.com/notofonts/noto-fonts/raw/main/unhinted/ttf/',
+			'kr' => [
+				'baseurl' => 'https://github.com/notofonts/noto-fonts/raw/main/unhinted/otf/',
 				'files' => [
-					'NotoSansMalayalam-Bold.ttf' => 'NotoSansMalayalam/NotoSansMalayalam-Bold.ttf',
-					'NotoSansMalayalam-Regular.ttf' => 'NotoSansMalayalam/NotoSansMalayalam-Regular.ttf',
-					'NotoSerifMalayalam-Bold.ttf' => 'NotoSerifMalayalam/NotoSerifMalayalam-Bold.ttf',
-					'NotoSerifMalayalam-Regular.ttf' => 'NotoSerifMalayalam/NotoSerifMalayalam-Regular.ttf',
+					'NotoSansKhmer-Regular.otf' => 'NotoSansKhmer/NotoSansKhmer-Regular.otf',
+					'NotoSansKhmer-Bold.otf' => 'NotoSansKhmer/NotoSansKhmer-Bold.otf',
+					'NotoSerifKhmer-Regular.otf' => 'NotoSerifKhmer/NotoSerifKhmer-Regular.otf',
+					'NotoSerifKhmer-Bold.otf' => 'NotoSerifKhmer/NotoSerifKhmer-Bold.otf',
+				],
+			],
+			'ml' => [
+				'baseurl' => 'https://github.com/notofonts/noto-fonts/raw/main/unhinted/otf/',
+				'files' => [
+					'NotoSansMalayalam-Bold.otf' => 'NotoSansMalayalam/NotoSansMalayalam-Bold.otf',
+					'NotoSansMalayalam-Regular.otf' => 'NotoSansMalayalam/NotoSansMalayalam-Regular.otf',
+					'NotoSerifMalayalam-Bold.otf' => 'NotoSerifMalayalam/NotoSerifMalayalam-Bold.otf',
+					'NotoSerifMalayalam-Regular.otf' => 'NotoSerifMalayalam/NotoSerifMalayalam-Regular.otf',
 				],
 			],
 			'music' => [
@@ -382,25 +394,27 @@ class GlobalTypography {
 				],
 			],
 			'nqo' => [
-				'baseurl' => 'https://github.com/notofonts/noto-fonts/raw/main/unhinted/ttf/',
+				'baseurl' => 'https://github.com/notofonts/noto-fonts/raw/main/unhinted/otf/',
 				'files' => [
-					'NotoSansNKo-Regular.ttf' => 'NotoSansNKo/NotoSansNKo-Regular.ttf',
+					'NotoSansNKo-Regular.otf' => 'NotoSansNKo/NotoSansNKo-Regular.otf',
 				],
 			],
 			'or' => [
-				'baseurl' => 'https://github.com/notofonts/noto-fonts/raw/main/hinted/ttf/',
+				'baseurl' => 'https://github.com/notofonts/noto-fonts/raw/main/unhinted/otf/',
 				'files' => [
-					'NotoSansOriya-Bold.ttf' => 'NotoSansOriya/NotoSansOriya-Bold.ttf',
-					'NotoSansOriya-Regular.ttf' => 'NotoSansOriya/NotoSansOriya-Regular.ttf',
+					'NotoSansOriya-Bold.otf' => 'NotoSansOriya/NotoSansOriya-Bold.otf',
+					'NotoSansOriya-Regular.otf' => 'NotoSansOriya/NotoSansOriya-Regular.otf',
+					'NotoSerifOriya-Bold.otf' => 'NotoSerifOriya/NotoSerifOriya-Bold.otf',
+					'NotoSerifOriya-Regular.otf' => 'NotoSerifOriya/NotoSerifOriya-Regular.otf',
 				],
 			],
 			'te' => [
-				'baseurl' => 'https://github.com/notofonts/noto-fonts/raw/main/unhinted/ttf/',
+				'baseurl' => 'https://github.com/notofonts/noto-fonts/raw/main/unhinted/otf/',
 				'files' => [
-					'NotoSansTelugu-Bold.ttf' => 'NotoSansTelugu/NotoSansTelugu-Bold.ttf',
-					'NotoSansTelugu-Regular.ttf' => 'NotoSansTelugu/NotoSansTelugu-Regular.ttf',
-					'NotoSerifTelugu-Bold.ttf' => 'NotoSerifTelugu/NotoSerifTelugu-Bold.ttf',
-					'NotoSerifTelugu-Regular.ttf' => 'NotoSerifTelugu/NotoSerifTelugu-Regular.ttf',
+					'NotoSansTelugu-Bold.otf' => 'NotoSansTelugu/NotoSansTelugu-Bold.otf',
+					'NotoSansTelugu-Regular.otf' => 'NotoSansTelugu/NotoSansTelugu-Regular.otf',
+					'NotoSerifTelugu-Bold.otf' => 'NotoSerifTelugu/NotoSerifTelugu-Bold.otf',
+					'NotoSerifTelugu-Regular.otf' => 'NotoSerifTelugu/NotoSerifTelugu-Regular.otf',
 				],
 			],
 			'zh_HANS' => [
