@@ -370,7 +370,7 @@ class GlobalTypography {
 				],
 			],
 			'kr' => [
-				'baseurl' => 'https://github.com/googlefonts/noto-fonts/raw/main/unhinted/otf/',
+				'baseurl' => 'https://github.com/notofonts/noto-fonts/raw/main/unhinted/otf/',
 				'files' => [
 					'NotoSansKhmer-Regular.otf' => 'NotoSansKhmer/NotoSansKhmer-Regular.otf',
 					'NotoSansKhmer-Bold.otf' => 'NotoSansKhmer/NotoSansKhmer-Bold.otf',
