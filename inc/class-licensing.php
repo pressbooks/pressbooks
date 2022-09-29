@@ -140,6 +140,13 @@ class Licensing {
 			],
 		];
 
+		// Merge custom licenses to the supported ones if we have any
+		$extended = apply_filters( 'extend_custom_licenses', [] );
+
+		$supported = is_array( $extended )
+			? array_merge( $supported, $extended )
+			: $supported;
+
 		// Custom
 		if ( ! $disable_custom && ! has_filter( 'extend_custom_licenses' ) ) {
 			$custom = get_terms(
@@ -148,6 +155,7 @@ class Licensing {
 					'hide_empty' => false,
 				]
 			);
+
 			if ( is_array( $custom ) ) {
 				foreach ( $custom as $custom_term ) {
 					if ( ! isset( $supported[ $custom_term->slug ] ) ) {
