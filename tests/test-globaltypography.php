@@ -98,15 +98,15 @@ class GlobalTypographyTest extends \WP_UnitTestCase {
 		$this->assertFileExists( WP_CONTENT_DIR . '/uploads/assets/fonts/NotoSansCJKkr-Regular.otf' );
 		$this->assertFileExists( WP_CONTENT_DIR . '/uploads/assets/fonts/NotoSansCJKkr-Bold.otf' );
 
-		@unlink( WP_CONTENT_DIR . '/uploads/assets/fonts/NotoSansBengali-Regular.ttf' );
-		@unlink( WP_CONTENT_DIR . '/uploads/assets/fonts/NotoSansBengali-Bold.ttf' );
-		@unlink( WP_CONTENT_DIR . '/uploads/assets/fonts/NotoSerifBengali-Regular.ttf' );
-		@unlink( WP_CONTENT_DIR . '/uploads/assets/fonts/NotoSerifBengali-Bold.ttf' );
+		@unlink( WP_CONTENT_DIR . '/uploads/assets/fonts/NotoSansBengali-Regular.otf' );
+		@unlink( WP_CONTENT_DIR . '/uploads/assets/fonts/NotoSansBengali-Bold.otf' );
+		@unlink( WP_CONTENT_DIR . '/uploads/assets/fonts/NotoSerifBengali-Regular.otf' );
+		@unlink( WP_CONTENT_DIR . '/uploads/assets/fonts/NotoSerifBengali-Bold.otf' );
 		$result = $this->gt->getFonts( [ 'bn' ] );
 		$this->assertTrue( $result );
-		$this->assertFileExists( WP_CONTENT_DIR . '/uploads/assets/fonts/NotoSansBengali-Regular.ttf' );
-		$this->assertFileExists( WP_CONTENT_DIR . '/uploads/assets/fonts/NotoSansBengali-Bold.ttf' );
-		$this->assertFileExists( WP_CONTENT_DIR . '/uploads/assets/fonts/NotoSerifBengali-Regular.ttf' );
-		$this->assertFileExists( WP_CONTENT_DIR . '/uploads/assets/fonts/NotoSerifBengali-Bold.ttf' );
+		$this->assertFileExists( WP_CONTENT_DIR . '/uploads/assets/fonts/NotoSansBengali-Regular.otf' );
+		$this->assertFileExists( WP_CONTENT_DIR . '/uploads/assets/fonts/NotoSansBengali-Bold.otf' );
+		$this->assertFileExists( WP_CONTENT_DIR . '/uploads/assets/fonts/NotoSerifBengali-Regular.otf' );
+		$this->assertFileExists( WP_CONTENT_DIR . '/uploads/assets/fonts/NotoSerifBengali-Bold.otf' );
 	}
 }
