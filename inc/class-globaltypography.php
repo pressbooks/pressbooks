@@ -54,6 +54,7 @@ class GlobalTypography {
 			'ja' => __( 'Japanese', 'pressbooks' ),
 			'kn' => __( 'Kannada', 'pressbooks' ),
 			'ko' => __( 'Korean', 'pressbooks' ),
+			'kr' => __( 'Khmer', 'pressbooks' ),
 			'ml' => __( 'Malayalam', 'pressbooks' ),
 			'music' => __( 'Musical Notation', 'pressbooks' ),
 			'nqo' => __( 'N\'Ko', 'pressbooks' ),
@@ -364,6 +365,15 @@ class GlobalTypography {
 				'files' => [
 					'NotoSansCJKkr-Regular.otf' => 'NotoSansCJKkr-Regular.otf',
 					'NotoSansCJKkr-Bold.otf' => 'NotoSansCJKkr-Bold.otf',
+				],
+			],
+			'kr' => [
+				'baseurl' => 'https://github.com/googlefonts/noto-fonts/raw/main/unhinted/otf/',
+				'files' => [
+					'NotoSansKhmer-Regular.otf' => 'NotoSansKhmer/NotoSansKhmer-Regular.otf',
+					'NotoSansKhmer-Bold.otf' => 'NotoSansKhmer/NotoSansKhmer-Bold.otf',
+					'NotoSerifKhmer-Regular.otf' => 'NotoSerifKhmer/NotoSerifKhmer-Regular.otf',
+					'NotoSerifKhmer-Bold.otf' => 'NotoSerifKhmer/NotoSerifKhmer-Bold.otf',
 				],
 			],
 			'ml' => [

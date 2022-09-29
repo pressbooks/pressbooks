@@ -19,14 +19,20 @@ jobs:
         os: [ubuntu-20.04]
         epubcheck: [4.2.4]
         prince: [14.2-1]
-        wordpress: [6.0.2, latest]
+        wordpress: [6.0.2]
         experimental: [false]
         include:
-          - php: 8.0
+          - php: 7.4
             os: ubuntu-20.04
             wordpress: latest
             epubcheck: 4.2.6
             prince: 14.2-1
+            experimental: true
+          - php: 8.0
+            os: ubuntu-20.04
+            wordpress: latest
+            epubcheck: 4.2.6
+            prince: 14.3-1
             experimental: true
     name: Test - PHP ${{ matrix.php }} - WP ${{ matrix.wordpress }}
 
@@ -83,7 +89,7 @@ jobs:
       if: matrix.experimental == false
 
     - name: Upload Coverage to Codecov
-      run: bash <(curl -s https://codecov.io/bash)
+      uses: codecov/codecov-action@v3
       if: matrix.experimental == false
 
     - name: Prepare Build
