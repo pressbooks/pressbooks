@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-09-29T12:50:16+00:00\n"
+"POT-Creation-Date: 2022-09-29T21:35:36+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: pressbooks\n"
@@ -2227,42 +2227,46 @@ msgid "Korean"
 msgstr ""
 
 #: inc/class-globaltypography.php:57
-msgid "Malayalam"
+msgid "Khmer"
 msgstr ""
 
 #: inc/class-globaltypography.php:58
-msgid "Musical Notation"
+msgid "Malayalam"
 msgstr ""
 
 #: inc/class-globaltypography.php:59
-msgid "N'Ko"
+msgid "Musical Notation"
 msgstr ""
 
 #: inc/class-globaltypography.php:60
-msgid "Odia"
+msgid "N'Ko"
 msgstr ""
 
 #: inc/class-globaltypography.php:61
-msgid "Syriac"
+msgid "Odia"
 msgstr ""
 
 #: inc/class-globaltypography.php:62
-msgid "Tamil"
+msgid "Syriac"
 msgstr ""
 
 #: inc/class-globaltypography.php:63
-msgid "Telugu"
+msgid "Tamil"
 msgstr ""
 
 #: inc/class-globaltypography.php:64
-msgid "Tibetan"
+msgid "Telugu"
 msgstr ""
 
 #: inc/class-globaltypography.php:65
+msgid "Tibetan"
+msgstr ""
+
+#: inc/class-globaltypography.php:66
 msgid "Turkish"
 msgstr ""
 
-#: inc/class-globaltypography.php:455
+#: inc/class-globaltypography.php:469
 msgid "Your %1$s font could not be downloaded from %2$s."
 msgstr ""
 
