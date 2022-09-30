@@ -40,7 +40,6 @@
 			// This button adds the single glossary term short-code with the corresponding term id as an attribute
 			ed.addButton( 'glossary', {
 				title: PB_GlossaryToken.glossary_button_title,
-				text: false,
 				icon: 'icon dashicons-index-card',
 				/**
 				 *
