@@ -368,7 +368,7 @@ $wp-spinner-anim-duration: 1.08s;
 .themes-php .search-form label {
   border: unset;
   clip: unset;
-  -webkit-clip-path: unset;
+  -webkit-clip-path: unset; /* stylelint-disable-line */
   clip-path: unset;
   height: unset;
   font-size: 14px;
