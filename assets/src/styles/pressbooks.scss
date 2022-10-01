@@ -333,6 +333,12 @@ $wp-spinner-anim-duration: 1.08s;
   }
 }
 
+@media screen and (max-width: 782px) {
+  .column-contributor_picture {
+    display: none;
+  }
+}
+
 .column-contributor_picture img {
   float: left;
   max-width: 60px;
@@ -340,7 +346,6 @@ $wp-spinner-anim-duration: 1.08s;
   border-radius: 50%;
   margin-right: 1.5rem;
 }
-
 
 .mce-window[aria-label="Table properties"] .mce-formitem:nth-child(6) {
   display: none;
@@ -356,3 +361,4 @@ $wp-spinner-anim-duration: 1.08s;
   display: none;
   width: 100%;
 }
+
