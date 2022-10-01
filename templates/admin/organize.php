@@ -61,18 +61,22 @@ if ( isset( $ebook_options['ebook_start_point'] ) && ! empty( $ebook_options['eb
 	<?php endif; ?>
 	<h1 class="wp-heading-inline"><?php bloginfo( 'name' ); ?></h1>
 		<?php if ( is_super_admin() ) : ?>
+		<div class="page-title-actions">
 			<a class="page-title-action" href="<?php echo admin_url( 'edit.php?post_type=front-matter' ); ?>"><?php _e( 'Front Matter', 'pressbooks' ); ?></a>
 			<a class="page-title-action" href="<?php echo admin_url( 'edit.php?post_type=chapter' ); ?>"><?php _e( 'Chapters', 'pressbooks' ); ?></a>
 			<a class="page-title-action" href="<?php echo admin_url( 'edit.php?post_type=back-matter' ); ?>"><?php _e( 'Back Matter', 'pressbooks' ); ?></a>
 			<a class="page-title-action" href="<?php echo admin_url( 'edit.php?post_type=part' ); ?>"><?php _e( 'Parts', 'pressbooks' ); ?></a>
 			<a class="page-title-action" href="<?php echo admin_url( 'edit.php?post_type=glossary' ); ?>"><?php _e( 'Glossary', 'pressbooks' ); ?></a>
+		</div>
 		<?php elseif ( current_user_can( 'edit_posts' ) ) : ?>
+		<div class="page-title-actions">
 			<a class="page-title-action" href="<?php echo admin_url( 'admin.php?page=pb_export' ); ?>"><?php _e( 'Export', 'pressbooks' ); ?></a>
 			<a class="page-title-action" href="<?php echo admin_url( 'post-new.php?post_type=front-matter' ); ?>"><?php _e( 'Add Front Matter', 'pressbooks' ); ?></a>
 			<a class="page-title-action" href="<?php echo admin_url( 'post-new.php?post_type=back-matter' ); ?>"><?php _e( 'Add Back Matter', 'pressbooks' ); ?></a>
 			<a class="page-title-action" href="<?php echo admin_url( 'post-new.php?post_type=chapter' ); ?>"><?php _e( 'Add Chapter', 'pressbooks' ); ?></a>
 			<a class="page-title-action" href="<?php echo admin_url( 'post-new.php?post_type=part' ); ?>"><?php _e( 'Add Part', 'pressbooks' ); ?></a>
 			<a class="page-title-action" href="<?php echo admin_url( 'post-new.php?post_type=glossary' ); ?>"><?php _e( 'Add Glossary Term', 'pressbooks' ); ?></a>
+		</div>
 		<?php endif; ?>
 	<p class="word-count">
 		<strong><?php _e( 'Word Count:', 'pressbooks' ); ?></strong> <?php printf( __( '%s (whole book)', 'pressbooks' ), "<span id='wc-all'>$wc</span>" ); ?> /

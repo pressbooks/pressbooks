@@ -337,6 +337,10 @@ $wp-spinner-anim-duration: 1.08s;
   .column-contributor_picture {
     display: none;
   }
+
+  .column-contributor_picture img {
+    margin-top: 1.5rem
+  }
 }
 
 .column-contributor_picture img {
