@@ -211,7 +211,7 @@ abstract class Options {
 			$args['type'],
 			$args['value'],
 			( ! empty( $args['disabled'] ) ) ? ' disabled' : '',
-			( isset( $args['description'] ) ) ? ' aria-describedby="'.$args['id'].'-description"' : ''
+			( isset( $args['description'] ) ) ? ' aria-describedby="' . $args['id'] . '-description"' : ''
 		);
 		if ( isset( $args['append'] ) ) {
 			echo ' ' . $args['append'];
@@ -265,7 +265,7 @@ abstract class Options {
 			$args['option'],
 			$args['rows'],
 			( ! empty( $args['disabled'] ) ) ? ' disabled' : '',
-			( isset( $args['description'] ) ) ? ' aria-describedby="'.$args['id'].'-description"' : '',
+			( isset( $args['description'] ) ) ? ' aria-describedby="' . $args['id'] . '-description"' : '',
 			esc_textarea( $args['value'] )
 		);
 		if ( isset( $args['append'] ) ) {
@@ -350,7 +350,7 @@ abstract class Options {
 			$args['option'],
 			checked( 1, $args['value'], false ),
 			( ! empty( $args['disabled'] ) ) ? ' disabled' : '',
-			( isset( $args['description'] ) ) ? ' aria-describedby="'.$args['id'].'-description"' : '',
+			( isset( $args['description'] ) ) ? ' aria-describedby="' . $args['id'] . '-description"' : '',
 			$args['id'],
 			$args['label']
 		);
@@ -437,7 +437,7 @@ abstract class Options {
 			$args['id'],
 			( $args['multiple'] ) ? ' multiple' : '',
 			( ! empty( $args['disabled'] ) ) ? ' disabled' : '',
-			( isset( $args['description'] ) ) ? ' aria-describedby="'.$args['id'].'-description"' : '',
+			( isset( $args['description'] ) ) ? ' aria-describedby="' . $args['id'] . '-description"' : '',
 			$options
 		);
 		if ( isset( $args['description'] ) ) {
@@ -497,7 +497,7 @@ abstract class Options {
 			$args['id'],
 			( $args['multiple'] ) ? ' multiple' : '',
 			( ! empty( $args['disabled'] ) ) ? ' disabled' : '',
-			( isset( $args['description'] ) ) ? ' aria-describedby="'.$args['id'].'-description"' : '',
+			( isset( $args['description'] ) ) ? ' aria-describedby="' . $args['id'] . '-description"' : '',
 			$options
 		);
 		if ( isset( $args['description'] ) ) {
