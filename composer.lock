@@ -344,16 +344,16 @@
         },
         {
             "name": "docraptor/docraptor",
-            "version": "3.0.1",
+            "version": "3.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/DocRaptor/docraptor-php.git",
-                "reference": "76ee245efa88231a06d0c77d2d1f8321baaa7d6a"
+                "reference": "5eded17bd9886c79b2d817f0ca3de7ab429510c6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/DocRaptor/docraptor-php/zipball/76ee245efa88231a06d0c77d2d1f8321baaa7d6a",
-                "reference": "76ee245efa88231a06d0c77d2d1f8321baaa7d6a",
+                "url": "https://api.github.com/repos/DocRaptor/docraptor-php/zipball/5eded17bd9886c79b2d817f0ca3de7ab429510c6",
+                "reference": "5eded17bd9886c79b2d817f0ca3de7ab429510c6",
                 "shasum": ""
             },
             "require": {
@@ -361,11 +361,11 @@
                 "ext-json": "*",
                 "ext-mbstring": "*",
                 "guzzlehttp/guzzle": "^7.3",
-                "guzzlehttp/psr7": "^2.0",
-                "php": "^7.3 || ^8.0"
+                "guzzlehttp/psr7": "^1.7 || ^2.0",
+                "php": "^7.4 || ^8.0"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "^2.12",
+                "friendsofphp/php-cs-fixer": "^3.5",
                 "phpunit/phpunit": "^8.0 || ^9.0"
             },
             "type": "library",
@@ -396,9 +396,9 @@
             ],
             "support": {
                 "issues": "https://github.com/DocRaptor/docraptor-php/issues",
-                "source": "https://github.com/DocRaptor/docraptor-php/tree/v3.0.1"
+                "source": "https://github.com/DocRaptor/docraptor-php/tree/v3.0.2"
             },
-            "time": "2021-12-02T19:21:13+00:00"
+            "time": "2022-09-27T19:40:50+00:00"
         },
         {
             "name": "doctrine/inflector",
