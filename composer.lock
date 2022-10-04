@@ -1584,7 +1584,7 @@
         },
         {
             "name": "illuminate/view",
-            "version": "v8.83.24",
+            "version": "v8.83.25",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/view.git",
