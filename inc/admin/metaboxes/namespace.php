@@ -1310,9 +1310,9 @@ function contributor_add_form() {
 				<img style="display: none" src="" id="<?php echo $meta_tags['tag']; ?>-thumbnail" width="120" /> <br />
 				<div class="form-field <?php echo $meta_tags['tag']; ?>-wrap">
 					<label for="<?php echo $meta_tags['tag']; ?>"><?php echo $meta_tags['label']; ?></label>
-					<button name="dispatch-media-picture" id="btn-media">Upload Picture</button>
+					<button name="dispatch-media-picture" id="btn-media" aria-describedby="picture-description">Upload Picture</button>
 					<input type="hidden" name="<?php echo $term; ?>" id="<?php echo $meta_tags['tag']; ?>">
-					<p>
+					<p id="picture-description">
 						<?php echo __( 'Images should be square (400px x 400px). You will be allowed to crop images after upload.', 'pressbooks' ); ?>
 					</p>
 				</div>
@@ -1367,8 +1367,8 @@ function contributor_edit_form( $term ) {
 								<img style="display: none" id="<?php echo $meta_tags['tag']; ?>-thumbnail" width="120" />
 							<?php endif; ?>
 							<br />
-							<button name="dispatch-media-picture" id="btn-media">Upload Picture</button>
-							<p class="description">
+							<button name="dispatch-media-picture" id="btn-media" aria-describedby="picture-description">Upload Picture</button>
+							<p class="description" id="picture-description">
 								<?php echo __( 'Images should be square (400px x 400px). You will be allowed to crop images after upload.', 'pressbooks' ); ?>
 							</p>
 							<input

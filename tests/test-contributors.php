@@ -244,7 +244,7 @@ class ContributorsTest extends \WP_UnitTestCase {
 		\Pressbooks\Admin\Metaboxes\contributor_edit_form( $term );
 		$buffer = ob_get_clean();
 
-		$this->assertStringContainsString( '<button name="dispatch-media-picture" id="btn-media">Upload Picture</button>', $buffer );
+		$this->assertStringContainsString( '<button name="dispatch-media-picture" id="btn-media" aria-describedby="picture-description">Upload Picture</button>', $buffer );
 	}
 
 	/**
