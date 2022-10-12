@@ -18,7 +18,7 @@ jobs:
     - name: Setup PHP with tools
       uses: shivammathur/setup-php@v2
       with:
-        php-version: '7.4'
+        php-version: '8.0'
         tools: composer, wp-cli/wp-cli-bundle
     - name: Generate MO files
       run: wp i18n make-mo languages
