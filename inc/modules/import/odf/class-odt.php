@@ -147,7 +147,6 @@ class Odt extends Import {
 
 		libxml_use_internal_errors( true );
 
-
 		$doc = new \DOMDocument( '1.0', 'UTF-8' );
 		$doc->loadXML( $body );
 
@@ -545,7 +544,6 @@ class Odt extends Import {
 
 		$xml = new \DOMDocument();
 		$xml->loadXML( $content, LIBXML_NOBLANKS | LIBXML_NOENT | LIBXML_NONET | LIBXML_XINCLUDE | LIBXML_NOERROR | LIBXML_NOWARNING );
-
 
 		return $xml;
 	}
