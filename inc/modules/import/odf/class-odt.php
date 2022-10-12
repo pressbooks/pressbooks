@@ -147,10 +147,9 @@ class Odt extends Import {
 
 		libxml_use_internal_errors( true );
 
-		$old_value = libxml_disable_entity_loader( true );
+
 		$doc = new \DOMDocument( '1.0', 'UTF-8' );
 		$doc->loadXML( $body );
-		libxml_disable_entity_loader( $old_value );
 
 		// Download images, change to relative paths
 		$doc = $this->scrapeAndKneadImages( $doc );
@@ -543,10 +542,10 @@ class Odt extends Import {
 
 		// trouble with simplexmlelement and elements with dashes
 		// (ODT's are ripe with dashes), so giving it to the DOM
-		$old_value = libxml_disable_entity_loader( true );
+
 		$xml = new \DOMDocument();
 		$xml->loadXML( $content, LIBXML_NOBLANKS | LIBXML_NOENT | LIBXML_NONET | LIBXML_XINCLUDE | LIBXML_NOERROR | LIBXML_NOWARNING );
-		libxml_disable_entity_loader( $old_value );
+
 
 		return $xml;
 	}
