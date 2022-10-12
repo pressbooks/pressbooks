@@ -15,25 +15,16 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: [8.0]
+        php: [7.4, 8.0]
         os: [ubuntu-20.04]
         epubcheck: [4.2.6]
         prince: [14.3-1]
-        wordpress: [6.0.2]
-        experimental: [false]
+        wordpress: [6.0.2, latest]
         include:
-          - php: 7.4
-            os: ubuntu-20.04
-            wordpress: latest
-            epubcheck: 4.2.6
-            prince: 14.3-1
-            experimental: true
-          - php: 8.0
-            os: ubuntu-20.04
-            wordpress: latest
-            epubcheck: 4.2.6
-            prince: 14.3-1
-            experimental: true
+          - experimental: true
+          - experimental: false
+            php: 8.0
+            wordpress: 6.0.2
 
     name: Test - PHP ${{ matrix.php }} - WP ${{ matrix.wordpress }}
 
