@@ -769,7 +769,7 @@ class custom_metadata_manager {
 		return $this->is_registered_object_type( $object_type ) && array_key_exists( $group_slug, $this->get_groups_in_object_type( $object_type ) );
 	}
 
-	function is_registered_field( $field_slug, $group_slug = '', $object_type = null ) {
+	function is_registered_field( $field_slug, $group_slug, $object_type ) {
 		if ( $group_slug )
 			return $this->is_registered_group( $group_slug, $object_type ) && array_key_exists( $field_slug, $this->get_fields_in_group( $group_slug, $object_type ) );
 		else
