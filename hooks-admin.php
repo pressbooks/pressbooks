@@ -172,6 +172,7 @@ add_action(
 );
 
 add_action( 'custom_metadata_manager_init_metadata', '\Pressbooks\Admin\Metaboxes\add_meta_boxes' );
+add_action( 'cmb2_admin_init', '\Pressbooks\Admin\Metaboxes\cmb2_meta_boxes' );
 
 if ( $is_book ) {
 	add_action( 'admin_enqueue_scripts', '\Pressbooks\Admin\Metaboxes\add_metadata_styles' );

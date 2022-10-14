@@ -33,6 +33,7 @@
 	"require": {
 		"php": ">=7.4",
 		"aws/aws-sdk-php": "^3.173",
+		"cmb2/cmb2": "^2.10",
 		"composer/installers": "^2.1",
 		"davidgorges/human-name-parser": "^1.0",
 		"docraptor/docraptor": "^3.0",
@@ -41,8 +42,8 @@
 		"illuminate/container": "^8.0",
 		"illuminate/contracts": "^8.0",
 		"illuminate/events": "^8.0",
-		"illuminate/http": "^8.0",
 		"illuminate/filesystem": "^8.0",
+		"illuminate/http": "^8.0",
 		"illuminate/support": "^8.0",
 		"illuminate/view": "^8.0",
 		"jenssegers/imagehash": "0.5.0",
@@ -51,12 +52,12 @@
 		"masterminds/html5": "^2.6",
 		"maxbanton/cwh": "^2.0",
 		"monolog/monolog": "^2.2",
+		"phpcompatibility/php-compatibility": "^9.3",
 		"pressbooks/mix": "^2.1",
 		"pressbooks/pb-cli": "^3",
 		"scssphp/scssphp": "~1.1.0",
 		"sinergi/browser-detector": "^6.1",
 		"vanilla/htmlawed": "^2.2",
-		"phpcompatibility/php-compatibility": "^9.3",
 		"vlucas/phpdotenv": "^5.4"
 	},
 	"require-dev": {
@@ -97,6 +98,14 @@
 			"yarn.lock"
 		]
 	},
+  "autoload": {
+    "files": ["vendor/cmb2/cmb2/init.php"]
+  },
+  "extra": {
+      "installer-paths": {
+          "vendor/cmb2/cmb2": ["cmb2/cmb2"]
+      }
+  },
   "scripts": {
 		"test": [
 			"vendor/bin/phpunit --configuration phpunit.xml"

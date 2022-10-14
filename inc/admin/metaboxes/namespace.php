@@ -165,6 +165,122 @@ function add_metadata_styles( $hook ) {
 	}
 }
 
+function cmb2_meta_boxes() {
+	$general = new_cmb2_box( [
+		'id' => 'cmb2-general-book-information',
+		'title' => __( 'General Book Information', 'pressbooks' ),
+		'object_types' => [ 'metadata' ],
+		'priority' => 'high',
+		'show_names' => true,
+		'cmb_styles' => false,
+	] );
+
+	$general->add_field( [
+		'name' => __( 'Title', 'pressbooks' ),
+		'id' => 'pb_title',
+		'type' => 'text',
+	] );
+
+	$general->add_field( [
+		'name' => __( 'Short Title', 'pressbooks' ),
+		'description' => __( 'In case of long titles that might be truncated in running heads in the PDF export.', 'pressbooks' ),
+		'id' => 'pb_short_title',
+		'type' => 'text',
+	] );
+
+	$general->add_field( [
+		'name' => __( 'Subtitle', 'pressbooks' ),
+		'id' => 'pb_subtitle',
+		'type' => 'text',
+	] );
+
+	// TODO: Contributors
+
+	$general->add_field( [
+		'name' => __( 'Publisher', 'pressbooks' ),
+		'description' => __( 'This text appears on the title page of your book.', 'pressbooks' ),
+		'id' => 'pb_publisher',
+		'type' => 'text',
+	] );
+
+	$general->add_field( [
+		'name' => __( 'Publisher City', 'pressbooks' ),
+		'description' => __( 'This text appears on the title page of your book.', 'pressbooks' ),
+		'id' => 'pb_publisher_city',
+		'type' => 'text',
+	] );
+
+	// TODO: pb_publication_date
+	// TODO: pb_onsale_date
+
+	$general->add_field( [
+		'name' => __( 'Ebook ISBN', 'pressbooks' ),
+		'description' => __( 'ISBN is the International Standard Book Number, and you\'ll need one if you want to sell your book in some online ebook stores. This is added to the metadata in your ebook.', 'pressbooks' ),
+		'id' => 'pb_ebook_isbn',
+		'type' => 'text',
+	] );
+
+	$general->add_field( [
+		'name' => __( 'Print ISBN', 'pressbooks' ),
+		'description' => __( 'ISBN is the International Standard Book Number, and you\'ll need one if you want to sell your book in online and physical book stores.', 'pressbooks' ),
+		'id' => 'pb_print_isbn',
+		'type' => 'text',
+	] );
+
+	$general->add_field( [
+		'name' => __( 'Digital Object Identifier (DOI)', 'pressbooks' ),
+		'id' => 'pb_book_doi',
+		'type' => 'text',
+	] );
+
+	// TODO: pb_language
+
+	$cover = new_cmb2_box( [
+		'id' => 'cmb2-cover-image',
+		'title' => __( 'Cover Image', 'pressbooks' ),
+		'object_types' => [ 'metadata' ],
+		'priority' => 'high',
+		'show_names' => true,
+		'cmb_styles' => false,
+	] );
+
+	$subjects = new_cmb2_box( [
+		'id' => 'cmb2-subjects',
+		'title' => __( 'Subject(s)', 'pressbooks' ),
+		'object_types' => [ 'metadata' ],
+		'priority' => 'high',
+		'show_names' => true,
+		'cmb_styles' => false,
+	] );
+
+	$institutions = new_cmb2_box( [
+		'id' => 'cmb2-institutions',
+		'title' => __( 'Institutions', 'pressbooks' ),
+		'object_types' => [ 'metadata' ],
+		'priority' => 'high',
+		'show_names' => true,
+		'cmb_styles' => false,
+	] );
+
+	$copyright = new_cmb2_box( [
+		'id' => 'cmb2-copyright',
+		'title' => __( 'Copyright', 'pressbooks' ),
+		'object_types' => [ 'metadata' ],
+		'priority' => 'high',
+		'show_names' => true,
+		'cmb_styles' => false,
+	] );
+
+	$about = new_cmb2_box( [
+		'id' => 'cmb2-about-the-book',
+		'title' => __( 'About the Book', 'pressbooks' ),
+		'object_types' => [ 'metadata' ],
+		'priority' => 'high',
+		'show_names' => true,
+		'cmb_styles' => false,
+	] );
+}
+
 /**
  * Register all metadata groups and fields
  */
@@ -195,37 +311,6 @@ function add_meta_boxes() {
 		'general-book-information', 'metadata', [
 			'label' => __( 'General Book Information', 'pressbooks' ),
 			'priority' => 'high',
-		]
-	);
-
-	x_add_metadata_field(
-		'pb_title', 'metadata', [
-			'group' => 'general-book-information',
-			'label' => __( 'Title', 'pressbooks' ),
-			'sanitize_callback' => function ( ...$args ) {
-				return sanitize_text_field( $args[ METADATA_CALLBACK_INDEX ] );
-			},
-		]
-	);
-
-	x_add_metadata_field(
-		'pb_short_title', 'metadata', [
-			'group' => 'general-book-information',
-			'label' => __( 'Short Title', 'pressbooks' ),
-			'description' => __( 'In case of long titles that might be truncated in running heads in the PDF export.', 'pressbooks' ),
-			'sanitize_callback' => function ( ...$args ) {
-				return sanitize_text_field( $args[ METADATA_CALLBACK_INDEX ] );
-			},
-		]
-	);
-
-	x_add_metadata_field(
-		'pb_subtitle', 'metadata', [
-			'group' => 'general-book-information',
-			'label' => __( 'Subtitle', 'pressbooks' ),
-			'sanitize_callback' => function ( ...$args ) {
-				return sanitize_text_field( $args[ METADATA_CALLBACK_INDEX ] );
-			},
 		]
 	);
 
@@ -302,28 +387,6 @@ function add_meta_boxes() {
 	);
 
 	x_add_metadata_field(
-		'pb_publisher', 'metadata', [
-			'group' => 'general-book-information',
-			'label' => __( 'Publisher', 'pressbooks' ),
-			'description' => __( 'This text appears on the title page of your book.', 'pressbooks' ),
-			'sanitize_callback' => function ( ...$args ) {
-				return sanitize_text_field( $args[ METADATA_CALLBACK_INDEX ] );
-			},
-		]
-	);
-
-	x_add_metadata_field(
-		'pb_publisher_city', 'metadata', [
-			'group' => 'general-book-information',
-			'label' => __( 'Publisher City', 'pressbooks' ),
-			'description' => __( 'This text appears on the title page of your book.', 'pressbooks' ),
-			'sanitize_callback' => function ( ...$args ) {
-				return sanitize_text_field( $args[ METADATA_CALLBACK_INDEX ] );
-			},
-		]
-	);
-
-	x_add_metadata_field(
 		'pb_publication_date', 'metadata', [
 			'field_type' => 'datepicker',
 			'group' => 'general-book-information',
@@ -342,38 +405,6 @@ function add_meta_boxes() {
 			]
 		);
 	}
-
-	x_add_metadata_field(
-		'pb_ebook_isbn', 'metadata', [
-			'group' => 'general-book-information',
-			'label' => __( 'Ebook ISBN', 'pressbooks' ),
-			'description' => __( 'ISBN is the International Standard Book Number, and you\'ll need one if you want to sell your book in some online ebook stores. This is added to the metadata in your ebook.', 'pressbooks' ),
-			'sanitize_callback' => function ( ...$args ) {
-				return sanitize_text_field( $args[ METADATA_CALLBACK_INDEX ] );
-			},
-		]
-	);
-
-	x_add_metadata_field(
-		'pb_print_isbn', 'metadata', [
-			'group' => 'general-book-information',
-			'label' => __( 'Print ISBN', 'pressbooks' ),
-			'description' => __( 'ISBN is the International Standard Book Number, and you\'ll need one if you want to sell your book in online and physical book stores.', 'pressbooks' ),
-			'sanitize_callback' => function ( ...$args ) {
-				return sanitize_text_field( $args[ METADATA_CALLBACK_INDEX ] );
-			},
-		]
-	);
-
-	x_add_metadata_field(
-		'pb_book_doi', 'metadata', [
-			'group' => 'general-book-information',
-			'label' => __( 'Digital Object Identifier (DOI)', 'pressbooks' ),
-			'sanitize_callback' => function ( ...$args ) {
-				return sanitize_text_field( $args[ METADATA_CALLBACK_INDEX ] );
-			},
-		]
-	);
 
 	x_add_metadata_field(
 		'pb_language', 'metadata', [

@@ -23,3 +23,32 @@ $side-right-space: 20px;
     margin-right: 0 !important;
   }
 }
+
+.cmb-field-list {
+  padding-top: 20px;
+}
+
+.cmb-row {
+  margin-bottom: 15px;
+}
+
+.cmb-th label {
+  color: #000;
+  display: block;
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 600;
+  margin: 5px 0;
+}
+
+.cmb2-metabox-description {
+  font-size: 11px;
+  margin-top: 3px;
+  margin-bottom: 0;
+}
+
+.cmb-td input {
+  width: 100%;
+  max-width: 40rem;
+  margin: 3px 0;
+}
