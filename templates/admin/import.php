@@ -203,7 +203,7 @@ $import_option_types = apply_filters( 'pb_select_import_type', [
 						</div>
 						<div x-show="source == 'url'">
 							<label for="import_http"><?php _e( 'Source URL', 'pressbooks' ); ?></label>
-							<input type="url" class="widefat" name="import_http" id="import_http" placeholder="https://url-to-import.com" style="display:block;" aria-label="<?php _e( 'Source URL', 'pressbooks' ); ?>" disabled />
+							<input type="url" class="widefat" name="import_http" id="import_http" placeholder="https://url-to-import.com" style="display:block;" aria-label="<?php _e( 'Source URL', 'pressbooks' ); ?>" />
 						</div>
 					</td>
 				</tr>
