@@ -48,8 +48,8 @@ Developers who are interested in contributing to our project should consult our 
 The Pressbooks plugin is supplied "as is" and all use is at your own risk.
 
 ## Changelog
-### 6.1.0
-* See: https://github.com/pressbooks/pressbooks/releases/tag/6.1.0
+### 6.2.0
+* See: https://github.com/pressbooks/pressbooks/releases/tag/6.2.0
 * Full release history available at: https://github.com/pressbooks/pressbooks/releases
 
 ## Upgrade Notices
