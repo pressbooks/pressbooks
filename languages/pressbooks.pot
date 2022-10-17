@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-10-13T23:51:20+00:00\n"
+"POT-Creation-Date: 2022-10-17T14:16:47+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.0\n"
 "X-Domain: pressbooks\n"
@@ -100,6 +100,8 @@ msgid "ATTRIBUTIONS"
 msgstr ""
 
 #: inc/admin/attachments/namespace.php:46
+#: templates/admin/import.php:205
+#: templates/admin/import.php:206
 msgid "Source URL"
 msgstr ""
 
@@ -650,7 +652,7 @@ msgid "Get started on your next publishing project by creating a new book or clo
 msgstr ""
 
 #: inc/admin/dashboard/namespace.php:258
-#: inc/admin/laf/namespace.php:1264
+#: inc/admin/laf/namespace.php:1268
 #: templates/admin/cloner.php:14
 msgid "Pressbooks Directory"
 msgstr ""
@@ -1021,7 +1023,7 @@ msgstr ""
 
 #: inc/admin/laf/namespace.php:381
 #: inc/admin/laf/namespace.php:577
-#: inc/admin/laf/namespace.php:1472
+#: inc/admin/laf/namespace.php:1476
 #: inc/admin/network/class-sharingandprivacyoptions.php:459
 msgid "Sharing and Privacy Settings"
 msgstr ""
@@ -1066,8 +1068,8 @@ msgid "Network Admin"
 msgstr ""
 
 #: inc/admin/laf/namespace.php:786
-#: inc/admin/laf/namespace.php:1527
-#: inc/admin/laf/namespace.php:1537
+#: inc/admin/laf/namespace.php:1531
+#: inc/admin/laf/namespace.php:1541
 msgid "Books"
 msgstr ""
 
@@ -1099,92 +1101,92 @@ msgstr ""
 msgid "Are you sure you want to unlock your theme? This will update your book to the most recent version of your selected theme, which may change your book&rsquo;s appearance and page count. Once you save your settings on this page, this action will NOT be reversable!"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1188
+#: inc/admin/laf/namespace.php:1192
 msgid "Book Visibility"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1202
+#: inc/admin/laf/namespace.php:1206
 msgid "Private Content"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1216
+#: inc/admin/laf/namespace.php:1220
 msgid "Disable Comments"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1234
+#: inc/admin/laf/namespace.php:1238
 msgid "Share Latest Export Files"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1281
+#: inc/admin/laf/namespace.php:1285
 msgid "Sharing and Privacy settings"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1296
+#: inc/admin/laf/namespace.php:1300
 msgid "Public. I would like this book to be visible to everyone."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1302
+#: inc/admin/laf/namespace.php:1306
 msgid "Private. I would like this book to be accessible only to people I invite."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1326
+#: inc/admin/laf/namespace.php:1330
 msgid "Who can see private front matter, chapters and back matter?"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1329
+#: inc/admin/laf/namespace.php:1333
 msgid "Only logged in editors and administrators."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1331
+#: inc/admin/laf/namespace.php:1335
 msgid "All logged in users including subscribers."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1352
+#: inc/admin/laf/namespace.php:1356
 msgid "Yes. I want to automatically disable comments, trackbacks and pingbacks on all front matter, chapters and back matter."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1358
+#: inc/admin/laf/namespace.php:1362
 msgid "No. I want to leave comments, trackbacks and pingbacks enabled on all front matter, chapters and back matter unless I disable them manually."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1374
+#: inc/admin/laf/namespace.php:1378
 msgid "Yes. I would like the latest export files to be available on the homepage for free, to everyone."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1380
+#: inc/admin/laf/namespace.php:1384
 msgid "No. I would like the latest export files to only be available to administrators."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1399
+#: inc/admin/laf/namespace.php:1403
 msgid "Yes. I want this book to be listed in the Pressbooks directory."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1405
+#: inc/admin/laf/namespace.php:1409
 msgid "No. Exclude this book from the Pressbooks directory."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1530
+#: inc/admin/laf/namespace.php:1534
 msgid "All Books"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1540
+#: inc/admin/laf/namespace.php:1544
 msgid "Search Books"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1546
+#: inc/admin/laf/namespace.php:1550
 msgid "Edit Book: %s"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1549
-#: inc/admin/laf/namespace.php:1558
+#: inc/admin/laf/namespace.php:1553
+#: inc/admin/laf/namespace.php:1562
 msgid "Book Address (URL)"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1555
+#: inc/admin/laf/namespace.php:1559
 msgid "Add New Book"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1561
+#: inc/admin/laf/namespace.php:1565
 #: inc/modules/themeoptions/class-pdfoptions.php:373
 #: inc/modules/themeoptions/class-pdfoptions.php:392
 #: inc/modules/themeoptions/class-pdfoptions.php:411
@@ -1198,39 +1200,39 @@ msgstr ""
 msgid "Book Title"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1564
+#: inc/admin/laf/namespace.php:1568
 msgid "Book Language"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1567
+#: inc/admin/laf/namespace.php:1571
 msgid "Add Book"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1584
+#: inc/admin/laf/namespace.php:1588
 msgid "Edit previous or next item"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1589
+#: inc/admin/laf/namespace.php:1593
 msgid "Edit Previous (%s)"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1594
+#: inc/admin/laf/namespace.php:1598
 msgid "Edit Next (%s)"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1609
+#: inc/admin/laf/namespace.php:1613
 msgid "Twitter URL"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1610
+#: inc/admin/laf/namespace.php:1614
 msgid "LinkedIn URL"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1611
+#: inc/admin/laf/namespace.php:1615
 msgid "GitHub URL"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:1657
+#: inc/admin/laf/namespace.php:1661
 msgid "Your institutional affiliation, e.g. Rebus Foundation, Open University, Amnesty International."
 msgstr ""
 
@@ -4548,19 +4550,24 @@ msgstr ""
 msgid "Import Selection"
 msgstr ""
 
-#: templates/admin/import.php:181
+#: templates/admin/import.php:165
 msgid "Maximum file size:"
 msgstr ""
 
-#: templates/admin/import.php:191
+#: templates/admin/import.php:174
 msgid "Import Type"
 msgstr ""
 
-#: templates/admin/import.php:203
+#: templates/admin/import.php:186
+#: templates/admin/import.php:190
 msgid "Import Source"
 msgstr ""
 
-#: templates/admin/import.php:222
+#: templates/admin/import.php:201
+msgid "Choose file"
+msgstr ""
+
+#: templates/admin/import.php:214
 msgid "Begin Import"
 msgstr ""
 
