@@ -1157,6 +1157,10 @@ function init_css_js() {
 	wp_enqueue_script( 'jquery' );
 	wp_enqueue_script( 'jquery-ui-core' );
 
+	// Always enqueue AlpineJS.
+	wp_register_script( 'alpinejs', $assets->getPath( 'scripts/alpine.min.js' ), [], false, true );
+	wp_enqueue_script( 'alpinejs' );
+
 	// A11y
 	wp_register_script( 'pb-a11y', $assets->getPath( 'scripts/a11y.js' ), [ 'jquery', 'wp-i18n' ], false, true );
 	wp_enqueue_script( 'pb-a11y' );
