@@ -9,9 +9,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-10-17T17:17:48+00:00\n"
+"POT-Creation-Date: 2022-10-18T19:33:01+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.7.0\n"
+"X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: pressbooks\n"
 
 #. Plugin Name of the plugin
@@ -3267,8 +3267,8 @@ msgstr ""
 msgid "The HTML is larger than pcre.backtrack_limit."
 msgstr ""
 
-#: inc/modules/import/wordpress/class-parser.php:65
-#: inc/modules/import/wordpress/class-parser.php:71
+#: inc/modules/import/wordpress/class-parser.php:73
+#: inc/modules/import/wordpress/class-parser.php:79
 msgid "This does not appear to be a WXR file, missing/invalid WXR version number"
 msgstr ""
 
