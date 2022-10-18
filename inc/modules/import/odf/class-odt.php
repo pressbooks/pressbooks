@@ -147,6 +147,11 @@ class Odt extends Import {
 
 		libxml_use_internal_errors( true );
 
+		// TODO: remove when we get rid of php 7.4 support
+		if ( PHP_VERSION_ID < 80000 ) {
+			$old_value = libxml_disable_entity_loader( true );
+		}
+
 		$doc = new \DOMDocument( '1.0', 'UTF-8' );
 		$doc->loadXML( $body );
 
@@ -541,9 +546,18 @@ class Odt extends Import {
 
 		// trouble with simplexmlelement and elements with dashes
 		// (ODT's are ripe with dashes), so giving it to the DOM
+		// TODO: remove when we get rid of php 7.4 support
+		if ( PHP_VERSION_ID < 80000 ) {
+			$old_value = libxml_disable_entity_loader( true );
+		}
 
 		$xml = new \DOMDocument();
 		$xml->loadXML( $content, LIBXML_NOBLANKS | LIBXML_NOENT | LIBXML_NONET | LIBXML_XINCLUDE | LIBXML_NOERROR | LIBXML_NOWARNING );
+
+		// TODO: remove when we get rid of php 7.4 support
+		if ( PHP_VERSION_ID < 80000 ) {
+			libxml_disable_entity_loader( $old_value );
+		}
 
 		return $xml;
 	}

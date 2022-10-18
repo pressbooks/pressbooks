@@ -33,6 +33,11 @@ class Parser {
 
 		libxml_use_internal_errors( true );
 
+		// TODO: remove when we get rid of php 7.4 support
+		if ( PHP_VERSION_ID < 80000 ) {
+			$old_value = libxml_disable_entity_loader( true );
+		}
+
 		$dom = new \DOMDocument;
 		$dom->recover = true; // Try to parse non-well formed documents
 		$success = $dom->loadXML( \Pressbooks\Utility\get_contents( $file ) );
@@ -42,6 +47,11 @@ class Parser {
 				$success = false;
 				break;
 			}
+		}
+
+		// TODO: remove when we get rid of php 7.4 support
+		if ( PHP_VERSION_ID < 80000 ) {
+			libxml_disable_entity_loader( $old_value );
 		}
 
 		// @codingStandardsIgnoreStart
