@@ -47,7 +47,8 @@ $side-right-space: 20px;
   margin-bottom: 0;
 }
 
-.cmb-td input {
+.cmb-td input[type="text"],
+.cmb-td input[type="url"] {
   width: 100%;
   max-width: 40rem;
   margin: 3px 0;

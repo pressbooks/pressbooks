@@ -165,6 +165,22 @@ function add_metadata_styles( $hook ) {
 	}
 }
 
+function cmb2_render_taxonomy_multiselect( $field, $escaped_value, $object_id, $object_type, $field_type_object ) {
+	$blade = Container::get( 'Blade' );
+
+	echo $blade->render(
+		'cmb2/taxonomy-multiselect', [
+			'args' => $field->args,
+			'options' => get_terms( $field->args['taxonomy'], [ 'hide_empty' => false ] ),
+			'selections' => is_array( $escaped_value ) ? $escaped_value : [ $escaped_value ],
+		]
+	);
+}
+
+function cmb2_sanitize_taxonomy_multiselect_callback( $override_value, $value, $object_id, $field_args, $sanitizer_object ) {
+	wp_set_object_terms( $object_id, $value, $field_args['taxonomy'] );
+}
+
 function cmb2_meta_boxes() {
 	$general = new_cmb2_box( [
 		'id' => 'cmb2-general-book-information',
@@ -194,7 +210,22 @@ function cmb2_meta_boxes() {
 		'type' => 'text',
 	] );
 
-	// TODO: Contributors
+	foreach ( [
+		'pb_authors' => __( 'Author(s)', 'pressbooks' ),
+		'pb_editors' => __( 'Editor(s)', 'pressbooks' ),
+		'pb_translators' => __( 'Translator(s)', 'pressbooks' ),
+		'pb_reviewers' => __( 'Reviewer(s)', 'pressbooks' ),
+		'pb_illustrators' => __( 'Illustrator(s)', 'pressbooks' ),
+		'pb_contributors' => __( 'Contributor(s)', 'pressbooks' ),
+	] as $id => $name ) {
+		$general->add_field([
+			'name' => $name,
+			'id' => $id,
+			'type' => 'taxonomy_multiselect',
+			'taxonomy' => Contributors::TAXONOMY,
+			'multiple' => true,
+		]);
+	}
 
 	$general->add_field( [
 		'name' => __( 'Publisher', 'pressbooks' ),
@@ -311,78 +342,6 @@ function add_meta_boxes() {
 		'general-book-information', 'metadata', [
 			'label' => __( 'General Book Information', 'pressbooks' ),
 			'priority' => 'high',
-		]
-	);
-
-	x_add_metadata_field(
-		'pb_authors', 'metadata', [
-			'group' => 'general-book-information',
-			'label' => __( 'Author(s)', 'pressbooks' ),
-			'field_type' => 'taxonomy_multi_select',
-			'taxonomy' => Contributors::TAXONOMY,
-			'select2' => true,
-			'description' => '<a class="button" href="edit-tags.php?taxonomy=contributor">' . __( 'Create New Contributor', 'pressbooks' ) . '</a>',
-			'placeholder' => __( 'Choose author(s)...', 'pressbooks' ),
-		]
-	);
-
-	x_add_metadata_field(
-		'pb_editors', 'metadata', [
-			'group' => 'general-book-information',
-			'label' => __( 'Editor(s)', 'pressbooks' ),
-			'field_type' => 'taxonomy_multi_select',
-			'taxonomy' => Contributors::TAXONOMY,
-			'select2' => true,
-			'description' => '<a class="button" href="edit-tags.php?taxonomy=contributor">' . __( 'Create New Contributor', 'pressbooks' ) . '</a>',
-			'placeholder' => __( 'Choose editor(s)...', 'pressbooks' ),
-		]
-	);
-
-	x_add_metadata_field(
-		'pb_translators', 'metadata', [
-			'group' => 'general-book-information',
-			'label' => __( 'Translator(s)', 'pressbooks' ),
-			'field_type' => 'taxonomy_multi_select',
-			'taxonomy' => Contributors::TAXONOMY,
-			'select2' => true,
-			'description' => '<a class="button" href="edit-tags.php?taxonomy=contributor">' . __( 'Create New Contributor', 'pressbooks' ) . '</a>',
-			'placeholder' => __( 'Choose translator(s)...', 'pressbooks' ),
-		]
-	);
-
-	x_add_metadata_field(
-		'pb_reviewers', 'metadata', [
-			'group' => 'general-book-information',
-			'label' => __( 'Reviewer(s)', 'pressbooks' ),
-			'field_type' => 'taxonomy_multi_select',
-			'taxonomy' => Contributors::TAXONOMY,
-			'select2' => true,
-			'description' => '<a class="button" href="edit-tags.php?taxonomy=contributor">' . __( 'Create New Contributor', 'pressbooks' ) . '</a>',
-			'placeholder' => __( 'Choose reviewer(s)...', 'pressbooks' ),
-		]
-	);
-
-	x_add_metadata_field(
-		'pb_illustrators', 'metadata', [
-			'group' => 'general-book-information',
-			'label' => __( 'Illustrator(s)', 'pressbooks' ),
-			'field_type' => 'taxonomy_multi_select',
-			'taxonomy' => Contributors::TAXONOMY,
-			'select2' => true,
-			'description' => '<a class="button" href="edit-tags.php?taxonomy=contributor">' . __( 'Create New Contributor', 'pressbooks' ) . '</a>',
-			'placeholder' => __( 'Choose illustrator(s)...', 'pressbooks' ),
-		]
-	);
-
-	x_add_metadata_field(
-		'pb_contributors', 'metadata', [
-			'group' => 'general-book-information',
-			'label' => __( 'Contributor(s)', 'pressbooks' ),
-			'field_type' => 'taxonomy_multi_select',
-			'taxonomy' => Contributors::TAXONOMY,
-			'select2' => true,
-			'description' => '<a class="button" href="edit-tags.php?taxonomy=contributor">' . __( 'Create New Contributor', 'pressbooks' ) . '</a>',
-			'placeholder' => __( 'Choose contributor(s)...', 'pressbooks' ),
 		]
 	);
 

@@ -172,6 +172,8 @@ add_action(
 );
 
 add_action( 'custom_metadata_manager_init_metadata', '\Pressbooks\Admin\Metaboxes\add_meta_boxes' );
+add_action( 'cmb2_render_taxonomy_multiselect', '\Pressbooks\Admin\Metaboxes\cmb2_render_taxonomy_multiselect', 10, 5 );
+add_filter( 'cmb2_sanitize_taxonomy_multiselect', '\Pressbooks\Admin\Metaboxes\cmb2_sanitize_taxonomy_multiselect_callback', 10, 5 );
 add_action( 'cmb2_admin_init', '\Pressbooks\Admin\Metaboxes\cmb2_meta_boxes' );
 
 if ( $is_book ) {
