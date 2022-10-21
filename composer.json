@@ -22,16 +22,13 @@
 	},
 	"config": {
 		"process-timeout":0,
-		"platform": {
-			"php": "7.4"
-		},
 		"allow-plugins": {
 			"dealerdirect/phpcodesniffer-composer-installer": true,
 			"composer/installers": true
 		}
 	},
 	"require": {
-		"php": ">=7.4",
+		"php": "^7.4|8.0.*",
 		"aws/aws-sdk-php": "^3.173",
 		"cmb2/cmb2": "^2.10",
 		"composer/installers": "^2.1",

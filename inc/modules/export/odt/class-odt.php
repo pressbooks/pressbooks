@@ -115,11 +115,21 @@ class Odt extends Export {
 		}
 
 		libxml_use_internal_errors( true );
-		$old_value = libxml_disable_entity_loader( true );
+
+		// TODO: remove when we get rid of php 7.4 support
+		if ( PHP_VERSION_ID < 80000 ) {
+			$old_value = libxml_disable_entity_loader( true );
+		}
+
 		$doc = new \DOMDocument();
 		$doc->recover = true; // Try to parse non-well formed documents
 		$doc->loadXML( $urlcontent, LIBXML_NOBLANKS | LIBXML_NOENT | LIBXML_NONET | LIBXML_XINCLUDE | LIBXML_NOERROR | LIBXML_NOWARNING );
-		libxml_disable_entity_loader( $old_value );
+
+		// TODO: remove when we get rid of php 7.4 support
+		if ( PHP_VERSION_ID < 80000 ) {
+			libxml_disable_entity_loader( $old_value );
+		}
+
 		$xpath = new \DOMXPath( $doc );
 
 		$tables = $xpath->query( '//table' );
