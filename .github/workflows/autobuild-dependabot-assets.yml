@@ -33,7 +33,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: Merge pull request with built assets into Dependabot branch
         if: ${{ steps.cpr.outputs.pull-request-number }}
-        uses: "pascalgn/automerge-action@v0.15.2"
+        uses: "pascalgn/automerge-action@v0.15.5"
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
           MERGE_LABELS: automerge
