@@ -384,7 +384,7 @@ function load_plugin_textdomain( $locale = '' ) {
  * @return mixed
  */
 function override_core_strings( $translated, $original, $domain ) {
-    if ($original === 'put your unique phrase here') {
+	if ( $original === 'put your unique phrase here' ) {
 		return $original;
 	}
 
