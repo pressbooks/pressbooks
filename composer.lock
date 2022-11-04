@@ -58,16 +58,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.238.5",
+            "version": "3.240.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "2f5440652fa7a6f20a1bb15926dd8248c24c733c"
+                "reference": "81d8e135af0bbd0fd4dc1ffbcfb8869595ddadd2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/2f5440652fa7a6f20a1bb15926dd8248c24c733c",
-                "reference": "2f5440652fa7a6f20a1bb15926dd8248c24c733c",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/81d8e135af0bbd0fd4dc1ffbcfb8869595ddadd2",
+                "reference": "81d8e135af0bbd0fd4dc1ffbcfb8869595ddadd2",
                 "shasum": ""
             },
             "require": {
@@ -146,9 +146,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.238.5"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.240.6"
             },
-            "time": "2022-10-14T18:15:06+00:00"
+            "time": "2022-10-31T18:22:22+00:00"
         },
         {
             "name": "cmb2/cmb2",
@@ -925,16 +925,16 @@
         },
         {
             "name": "guzzlehttp/psr7",
-            "version": "2.4.1",
+            "version": "2.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/psr7.git",
-                "reference": "69568e4293f4fa993f3b0e51c9723e1e17c41379"
+                "reference": "67c26b443f348a51926030c83481b85718457d3d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/psr7/zipball/69568e4293f4fa993f3b0e51c9723e1e17c41379",
-                "reference": "69568e4293f4fa993f3b0e51c9723e1e17c41379",
+                "url": "https://api.github.com/repos/guzzle/psr7/zipball/67c26b443f348a51926030c83481b85718457d3d",
+                "reference": "67c26b443f348a51926030c83481b85718457d3d",
                 "shasum": ""
             },
             "require": {
@@ -1024,7 +1024,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/psr7/issues",
-                "source": "https://github.com/guzzle/psr7/tree/2.4.1"
+                "source": "https://github.com/guzzle/psr7/tree/2.4.3"
             },
             "funding": [
                 {
@@ -1040,7 +1040,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-08-28T14:45:39+00:00"
+            "time": "2022-10-26T14:07:24+00:00"
         },
         {
             "name": "illuminate/bus",
@@ -2602,20 +2602,20 @@
         },
         {
             "name": "pressbooks/pb-cli",
-            "version": "3.0.0",
+            "version": "3.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pressbooks/pb-cli.git",
-                "reference": "1e0e271f7d50aeaa155f640e575247e104a36640"
+                "reference": "17c72b14234b4505b360728d7a2622629a3527f6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pressbooks/pb-cli/zipball/1e0e271f7d50aeaa155f640e575247e104a36640",
-                "reference": "1e0e271f7d50aeaa155f640e575247e104a36640",
+                "url": "https://api.github.com/repos/pressbooks/pb-cli/zipball/17c72b14234b4505b360728d7a2622629a3527f6",
+                "reference": "17c72b14234b4505b360728d7a2622629a3527f6",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.4"
+                "php": "^7.4|8.0.*"
             },
             "require-dev": {
                 "wp-cli/entity-command": "^2.1",
@@ -2650,9 +2650,9 @@
             "homepage": "https://github.com/pressbooks/pb-cli/",
             "support": {
                 "issues": "https://github.com/pressbooks/pb-cli/issues",
-                "source": "https://github.com/pressbooks/pb-cli/tree/3.0.0"
+                "source": "https://github.com/pressbooks/pb-cli/tree/3.0.1"
             },
-            "time": "2022-09-07T21:28:38+00:00"
+            "time": "2022-10-19T16:02:31+00:00"
         },
         {
             "name": "psr/container",
