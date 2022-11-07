@@ -32,7 +32,7 @@
 	<pubDate>Mon, 17 Sep 2018 19:53:40 +0000</pubDate>
 	<language>en-US</language>
 	<wp:wxr_version>1.2</wp:wxr_version>
-	<wp:base_site_url>http://pressbooks.com/</wp:base_site_url>
+	<wp:base_site_url>http://dev.pressbooks.pub/</wp:base_site_url>
 	<wp:base_blog_url>http://dev.pressbooks.pub/pbtest</wp:base_blog_url>
 
 	<wp:author><wp:author_id>10852</wp:author_id><wp:author_login><![CDATA[connerbw]]></wp:author_login><wp:author_email><![CDATA[dac@pressbooks.com]]></wp:author_email><wp:author_display_name><![CDATA[connerbw]]></wp:author_display_name><wp:author_first_name><![CDATA[]]></wp:author_first_name><wp:author_last_name><![CDATA[]]></wp:author_last_name></wp:author>
@@ -730,7 +730,7 @@
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key><![CDATA[pb_cover_image]]></wp:meta_key>
-			<wp:meta_value><![CDATA[https://pressbooks.com/app/plugins/pressbooks/assets/dist/images/default-book-cover.jpg]]></wp:meta_value>
+			<wp:meta_value><![CDATA[https://dev.pressbooks.pub/app/plugins/pressbooks/assets/dist/images/default-book-cover.jpg]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key><![CDATA[_edit_last]]></wp:meta_key>
@@ -754,7 +754,7 @@
 		<link>http://dev.pressbooks.pub/pbtest/chapter/hosted-video/monkey/</link>
 		<pubDate>Tue, 28 Aug 2018 13:07:02 +0000</pubDate>
 		<dc:creator><![CDATA[connerbw]]></dc:creator>
-		<guid isPermaLink="false">https://pressbooks.com/app/uploads/sites/109504/2018/08/monkey.mp4</guid>
+		<guid isPermaLink="false">https://dev.pressbooks.pub/app/uploads/2022/11/GMT20221026-150419_Recording_1780x988.mp4</guid>
 		<description></description>
 		<content:encoded><![CDATA[Test video description.]]></content:encoded>
 		<excerpt:encoded><![CDATA[Test Video Caption]]></excerpt:encoded>
@@ -770,7 +770,7 @@
 		<wp:post_type><![CDATA[attachment]]></wp:post_type>
 		<wp:post_password><![CDATA[]]></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
-		<wp:attachment_url><![CDATA[https://pressbooks.com/app/uploads/sites/109504/2018/08/monkey.mp4]]></wp:attachment_url>
+		<wp:attachment_url><![CDATA[https://dev.pressbooks.pub/app/uploads/2022/11/GMT20221026-150419_Recording_1780x988.mp4]]></wp:attachment_url>
 		<wp:postmeta>
 			<wp:meta_key><![CDATA[_wp_attached_file]]></wp:meta_key>
 			<wp:meta_value><![CDATA[2018/08/monkey.mp4]]></wp:meta_value>
@@ -785,7 +785,7 @@
 		<link>http://dev.pressbooks.pub/pbtest/chapter/hosted-image/4tatoos/</link>
 		<pubDate>Tue, 28 Aug 2018 13:07:07 +0000</pubDate>
 		<dc:creator><![CDATA[connerbw]]></dc:creator>
-		<guid isPermaLink="false">https://pressbooks.com/app/uploads/sites/109504/2018/08/4tatoos.jpg</guid>
+		<guid isPermaLink="false">https://dev.pressbooks.pub/app/uploads/sites/156/2022/11/Screen-Shot-2022-10-27-at-5.56.59-AM.png</guid>
 		<description></description>
 		<content:encoded><![CDATA[Test image description.]]></content:encoded>
 		<excerpt:encoded><![CDATA[Test Image Caption]]></excerpt:encoded>
@@ -801,7 +801,7 @@
 		<wp:post_type><![CDATA[attachment]]></wp:post_type>
 		<wp:post_password><![CDATA[]]></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
-		<wp:attachment_url><![CDATA[https://pressbooks.com/app/uploads/sites/109504/2018/08/4tatoos.jpg]]></wp:attachment_url>
+		<wp:attachment_url><![CDATA[https://dev.pressbooks.pub/app/uploads/sites/156/2022/11/Screen-Shot-2022-10-27-at-5.56.59-AM.png]]></wp:attachment_url>
 		<wp:postmeta>
 			<wp:meta_key><![CDATA[_wp_attached_file]]></wp:meta_key>
 			<wp:meta_value><![CDATA[2018/08/4tatoos.jpg]]></wp:meta_value>
@@ -848,7 +848,7 @@
 		<description></description>
 		<content:encoded><![CDATA[This is a video.
 
-[video width="480" height="268" mp4="https://pressbooks.com/app/uploads/sites/109504/2018/08/monkey.mp4"][/video]]]></content:encoded>
+[video width="480" height="268" mp4="https://dev.pressbooks.pub/app/uploads/2022/11/GMT20221026-150419_Recording_1780x988.mp4"][/video]]]></content:encoded>
 		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
 		<wp:post_id>27</wp:post_id>
 		<wp:post_date><![CDATA[2018-08-28 13:13:29]]></wp:post_date>
@@ -880,7 +880,7 @@
 		<description></description>
 		<content:encoded><![CDATA[This is a picture.
 
-<img class="alignnone wp-image-24 size-medium" src="https://pressbooks.com/app/uploads/sites/109504/2018/08/4tatoos-300x200.jpg" alt="" width="300" height="200" />]]></content:encoded>
+<img class="alignnone wp-image-24 size-medium" src="https://dev.pressbooks.pub/app/uploads/sites/156/2022/11/Screen-Shot-2022-09-26-at-10.36.45-AM-300x108.png" alt="" width="300" height="108" />]]></content:encoded>
 		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
 		<wp:post_id>29</wp:post_id>
 		<wp:post_date><![CDATA[2018-08-28 13:14:59]]></wp:post_date>
