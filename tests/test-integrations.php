@@ -37,7 +37,7 @@ class IntegrationsTest extends \WP_UnitTestCase {
 		$this->assertNotEmpty( $meta );
 		$this->assertEquals( 'Public Domain', $meta['license']['name'] );
 
-		$cloned_items = $cloner->getClonedItems(); var_dump( $cloned_items );die();
+		$cloned_items = $cloner->getClonedItems();
 
 		$this->assertTrue( count( $cloned_items['metadata'] ) === 1 );
 		$this->assertTrue( count( $cloned_items['terms'] ) === 49 );
