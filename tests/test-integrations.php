@@ -7,7 +7,7 @@ class IntegrationsTest extends \WP_UnitTestCase {
 	 * @group integrations
 	 */
 	public function test_cloneRemoteBook() {
-		$source = 'https://pbtest.pressbooks.com';
+		$source = 'https://dev.pressbooks.pub/pbtest';
 		$target = uniqid( 'clone-' );
 
 		$this->_setupBookApi();
@@ -40,7 +40,7 @@ class IntegrationsTest extends \WP_UnitTestCase {
 		$cloned_items = $cloner->getClonedItems();
 
 		$this->assertTrue( count( $cloned_items['metadata'] ) === 1 );
-		$this->assertTrue( count( $cloned_items['terms'] ) === 48 );
+		$this->assertTrue( count( $cloned_items['terms'] ) === 49 );
 		$this->assertTrue( count( $cloned_items['front-matter'] ) === 1 );
 		$this->assertTrue( count( $cloned_items['parts'] ) === 2 );
 		$this->assertTrue( count( $cloned_items['chapters'] ) === 5 );
@@ -52,7 +52,7 @@ class IntegrationsTest extends \WP_UnitTestCase {
 	 * @group integrations
 	 */
 	public function test_ImportUsingCloningApi() {
-		$source = 'https://pbtest.pressbooks.com';
+		$source = 'https://dev.pressbooks.pub/pbtest';
 
 		$this->_setupBookApi();
 		$user_id = $this->factory()->user->create( [ 'role' => 'administrator' ] ); // TODO: Why doesn't contributor work?
@@ -94,7 +94,7 @@ class IntegrationsTest extends \WP_UnitTestCase {
 		/** @var \WP_Post $post */
 		$post = $results[0];
 
-		// TODO: Check $post->post_excerpt, $post->post_content, and $post->post_title once code has been deployed to https://pbtest.pressbooks.com
+		// TODO: Check $post->post_excerpt, $post->post_content, and $post->post_title once code has been deployed to https://dev.pressbooks.pub/pbtest
 		$this->assertEquals( 'Test Image Alt Text', get_post_meta( $post->ID, '_wp_attachment_image_alt', true ) );
 		$this->assertEquals( 'Test Image Author', get_post_meta( $post->ID, 'pb_media_attribution_author', true ) );
 		$this->assertEquals( 'https://pressbooks.education/', get_post_meta( $post->ID, 'pb_media_attribution_adapted_url', true ) );

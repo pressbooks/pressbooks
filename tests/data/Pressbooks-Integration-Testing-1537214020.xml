@@ -27,13 +27,13 @@
 
 <channel>
 	<title>Pressbooks Integration Testing</title>
-	<link>http://pbtest.pressbooks.com</link>
+	<link>http://dev.pressbooks.pub/pbtest</link>
 	<description>Simple Book Publishing</description>
 	<pubDate>Mon, 17 Sep 2018 19:53:40 +0000</pubDate>
 	<language>en-US</language>
 	<wp:wxr_version>1.2</wp:wxr_version>
 	<wp:base_site_url>http://pressbooks.com/</wp:base_site_url>
-	<wp:base_blog_url>http://pbtest.pressbooks.com</wp:base_blog_url>
+	<wp:base_blog_url>http://dev.pressbooks.pub/pbtest</wp:base_blog_url>
 
 	<wp:author><wp:author_id>10852</wp:author_id><wp:author_login><![CDATA[connerbw]]></wp:author_login><wp:author_email><![CDATA[dac@pressbooks.com]]></wp:author_email><wp:author_display_name><![CDATA[connerbw]]></wp:author_display_name><wp:author_first_name><![CDATA[]]></wp:author_first_name><wp:author_last_name><![CDATA[]]></wp:author_last_name></wp:author>
 
@@ -440,10 +440,10 @@
 
 	<item>
 		<title>Main Body</title>
-		<link>http://pbtest.pressbooks.com/part/main-body/</link>
+		<link>http://dev.pressbooks.pub/pbtest/part/main-body/</link>
 		<pubDate>Tue, 28 Aug 2018 12:57:20 +0000</pubDate>
 		<dc:creator><![CDATA[connerbw]]></dc:creator>
-		<guid isPermaLink="false">https://pbtest.pressbooks.com/2018/08/28/main-body/</guid>
+		<guid isPermaLink="false">https://dev.pressbooks.pub/pbtest/2018/08/28/main-body/</guid>
 		<description></description>
 		<content:encoded><![CDATA[]]></content:encoded>
 		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
@@ -462,10 +462,10 @@
 	</item>
 	<item>
 		<title>Introduction</title>
-		<link>http://pbtest.pressbooks.com/front-matter/introduction__trashed/</link>
+		<link>http://dev.pressbooks.pub/pbtest/front-matter/introduction__trashed/</link>
 		<pubDate>Tue, 28 Aug 2018 12:57:20 +0000</pubDate>
 		<dc:creator><![CDATA[connerbw]]></dc:creator>
-		<guid isPermaLink="false">https://pbtest.pressbooks.com/2018/08/28/introduction/</guid>
+		<guid isPermaLink="false">https://dev.pressbooks.pub/pbtest/2018/08/28/introduction/</guid>
 		<description></description>
 		<content:encoded><![CDATA[This is where you can write your introduction.]]></content:encoded>
 		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
@@ -497,10 +497,10 @@
 	</item>
 	<item>
 		<title>Chapter 1</title>
-		<link>http://pbtest.pressbooks.com/chapter/chapter-1__trashed/</link>
+		<link>http://dev.pressbooks.pub/pbtest/chapter/chapter-1__trashed/</link>
 		<pubDate>Tue, 28 Aug 2018 12:57:20 +0000</pubDate>
 		<dc:creator><![CDATA[connerbw]]></dc:creator>
-		<guid isPermaLink="false">https://pbtest.pressbooks.com/2018/08/28/chapter-1/</guid>
+		<guid isPermaLink="false">https://dev.pressbooks.pub/pbtest/2018/08/28/chapter-1/</guid>
 		<description></description>
 		<content:encoded><![CDATA[This is the first chapter in the main body of the text. You can change the text, rename the chapter, add new chapters, and add new parts.]]></content:encoded>
 		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
@@ -532,10 +532,10 @@
 	</item>
 	<item>
 		<title>Appendix</title>
-		<link>http://pbtest.pressbooks.com/back-matter/appendix__trashed/</link>
+		<link>http://dev.pressbooks.pub/pbtest/back-matter/appendix__trashed/</link>
 		<pubDate>Tue, 28 Aug 2018 12:57:20 +0000</pubDate>
 		<dc:creator><![CDATA[connerbw]]></dc:creator>
-		<guid isPermaLink="false">https://pbtest.pressbooks.com/2018/08/28/appendix/</guid>
+		<guid isPermaLink="false">https://dev.pressbooks.pub/pbtest/2018/08/28/appendix/</guid>
 		<description></description>
 		<content:encoded><![CDATA[This is where you can add appendices or other back matter.]]></content:encoded>
 		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
@@ -567,10 +567,10 @@
 	</item>
 	<item>
 		<title>Authors</title>
-		<link>http://pbtest.pressbooks.com/authors/</link>
+		<link>http://dev.pressbooks.pub/pbtest/authors/</link>
 		<pubDate>Tue, 28 Aug 2018 12:57:20 +0000</pubDate>
 		<dc:creator><![CDATA[connerbw]]></dc:creator>
-		<guid isPermaLink="false">https://pbtest.pressbooks.com/authors/</guid>
+		<guid isPermaLink="false">https://dev.pressbooks.pub/pbtest/authors/</guid>
 		<description></description>
 		<content:encoded><![CDATA[<!-- Here be dragons. -->]]></content:encoded>
 		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
@@ -589,10 +589,10 @@
 	</item>
 	<item>
 		<title>Cover</title>
-		<link>http://pbtest.pressbooks.com/</link>
+		<link>http://dev.pressbooks.pub/pbtest/</link>
 		<pubDate>Tue, 28 Aug 2018 12:57:20 +0000</pubDate>
 		<dc:creator><![CDATA[connerbw]]></dc:creator>
-		<guid isPermaLink="false">https://pbtest.pressbooks.com/cover/</guid>
+		<guid isPermaLink="false">https://dev.pressbooks.pub/pbtest/cover/</guid>
 		<description></description>
 		<content:encoded><![CDATA[<!-- Here be dragons. -->]]></content:encoded>
 		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
@@ -611,10 +611,10 @@
 	</item>
 	<item>
 		<title>Table of Contents</title>
-		<link>http://pbtest.pressbooks.com/table-of-contents/</link>
+		<link>http://dev.pressbooks.pub/pbtest/table-of-contents/</link>
 		<pubDate>Tue, 28 Aug 2018 12:57:20 +0000</pubDate>
 		<dc:creator><![CDATA[connerbw]]></dc:creator>
-		<guid isPermaLink="false">https://pbtest.pressbooks.com/table-of-contents/</guid>
+		<guid isPermaLink="false">https://dev.pressbooks.pub/pbtest/table-of-contents/</guid>
 		<description></description>
 		<content:encoded><![CDATA[<!-- Here be dragons. -->]]></content:encoded>
 		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
@@ -633,10 +633,10 @@
 	</item>
 	<item>
 		<title>About</title>
-		<link>http://pbtest.pressbooks.com/about/</link>
+		<link>http://dev.pressbooks.pub/pbtest/about/</link>
 		<pubDate>Tue, 28 Aug 2018 12:57:20 +0000</pubDate>
 		<dc:creator><![CDATA[connerbw]]></dc:creator>
-		<guid isPermaLink="false">https://pbtest.pressbooks.com/about/</guid>
+		<guid isPermaLink="false">https://dev.pressbooks.pub/pbtest/about/</guid>
 		<description></description>
 		<content:encoded><![CDATA[<!-- Here be dragons. -->]]></content:encoded>
 		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
@@ -655,10 +655,10 @@
 	</item>
 	<item>
 		<title>Buy</title>
-		<link>http://pbtest.pressbooks.com/buy/</link>
+		<link>http://dev.pressbooks.pub/pbtest/buy/</link>
 		<pubDate>Tue, 28 Aug 2018 12:57:21 +0000</pubDate>
 		<dc:creator><![CDATA[connerbw]]></dc:creator>
-		<guid isPermaLink="false">https://pbtest.pressbooks.com/buy/</guid>
+		<guid isPermaLink="false">https://dev.pressbooks.pub/pbtest/buy/</guid>
 		<description></description>
 		<content:encoded><![CDATA[<!-- Here be dragons. -->]]></content:encoded>
 		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
@@ -677,10 +677,10 @@
 	</item>
 	<item>
 		<title>Access Denied</title>
-		<link>http://pbtest.pressbooks.com/access-denied/</link>
+		<link>http://dev.pressbooks.pub/pbtest/access-denied/</link>
 		<pubDate>Tue, 28 Aug 2018 12:57:21 +0000</pubDate>
 		<dc:creator><![CDATA[connerbw]]></dc:creator>
-		<guid isPermaLink="false">https://pbtest.pressbooks.com/access-denied/</guid>
+		<guid isPermaLink="false">https://dev.pressbooks.pub/pbtest/access-denied/</guid>
 		<description></description>
 		<content:encoded><![CDATA[<!-- Here be dragons. -->]]></content:encoded>
 		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
@@ -699,10 +699,10 @@
 	</item>
 	<item>
 		<title>Book Information</title>
-		<link>http://pbtest.pressbooks.com/?metadata=book-information</link>
+		<link>http://dev.pressbooks.pub/pbtest/?metadata=book-information</link>
 		<pubDate>Tue, 28 Aug 2018 12:57:21 +0000</pubDate>
 		<dc:creator><![CDATA[connerbw]]></dc:creator>
-		<guid isPermaLink="false">https://pbtest.pressbooks.com/2018/08/28/book-information/</guid>
+		<guid isPermaLink="false">https://dev.pressbooks.pub/pbtest/2018/08/28/book-information/</guid>
 		<description></description>
 		<content:encoded><![CDATA[]]></content:encoded>
 		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
@@ -751,7 +751,7 @@
 	</item>
 	<item>
 		<title>Test Video</title>
-		<link>http://pbtest.pressbooks.com/chapter/hosted-video/monkey/</link>
+		<link>http://dev.pressbooks.pub/pbtest/chapter/hosted-video/monkey/</link>
 		<pubDate>Tue, 28 Aug 2018 13:07:02 +0000</pubDate>
 		<dc:creator><![CDATA[connerbw]]></dc:creator>
 		<guid isPermaLink="false">https://pressbooks.com/app/uploads/sites/109504/2018/08/monkey.mp4</guid>
@@ -782,7 +782,7 @@
 	</item>
 	<item>
 		<title>Test Image</title>
-		<link>http://pbtest.pressbooks.com/chapter/hosted-image/4tatoos/</link>
+		<link>http://dev.pressbooks.pub/pbtest/chapter/hosted-image/4tatoos/</link>
 		<pubDate>Tue, 28 Aug 2018 13:07:07 +0000</pubDate>
 		<dc:creator><![CDATA[connerbw]]></dc:creator>
 		<guid isPermaLink="false">https://pressbooks.com/app/uploads/sites/109504/2018/08/4tatoos.jpg</guid>
@@ -841,10 +841,10 @@
 	</item>
 	<item>
 		<title>Hosted Video</title>
-		<link>http://pbtest.pressbooks.com/chapter/hosted-video/</link>
+		<link>http://dev.pressbooks.pub/pbtest/chapter/hosted-video/</link>
 		<pubDate>Tue, 28 Aug 2018 13:13:29 +0000</pubDate>
 		<dc:creator><![CDATA[connerbw]]></dc:creator>
-		<guid isPermaLink="false">http://pbtest.pressbooks.com/?post_type=chapter&#038;p=27</guid>
+		<guid isPermaLink="false">http://dev.pressbooks.pub/pbtest/?post_type=chapter&#038;p=27</guid>
 		<description></description>
 		<content:encoded><![CDATA[This is a video.
 
@@ -873,10 +873,10 @@
 	</item>
 	<item>
 		<title>Hosted Image</title>
-		<link>http://pbtest.pressbooks.com/chapter/hosted-image/</link>
+		<link>http://dev.pressbooks.pub/pbtest/chapter/hosted-image/</link>
 		<pubDate>Tue, 28 Aug 2018 13:14:59 +0000</pubDate>
 		<dc:creator><![CDATA[connerbw]]></dc:creator>
-		<guid isPermaLink="false">http://pbtest.pressbooks.com/?post_type=chapter&#038;p=29</guid>
+		<guid isPermaLink="false">http://dev.pressbooks.pub/pbtest/?post_type=chapter&#038;p=29</guid>
 		<description></description>
 		<content:encoded><![CDATA[This is a picture.
 
@@ -905,10 +905,10 @@
 	</item>
 	<item>
 		<title>Lorem Ipsum</title>
-		<link>http://pbtest.pressbooks.com/chapter/lorem-ipsum/</link>
+		<link>http://dev.pressbooks.pub/pbtest/chapter/lorem-ipsum/</link>
 		<pubDate>Tue, 28 Aug 2018 13:16:32 +0000</pubDate>
 		<dc:creator><![CDATA[connerbw]]></dc:creator>
-		<guid isPermaLink="false">http://pbtest.pressbooks.com/?post_type=chapter&#038;p=32</guid>
+		<guid isPermaLink="false">http://dev.pressbooks.pub/pbtest/?post_type=chapter&#038;p=32</guid>
 		<description></description>
 		<content:encoded><![CDATA[Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas suscipit faucibus sapien. Etiam ex eros, tincidunt vitae leo at, venenatis varius velit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Morbi non elit feugiat, aliquet nunc bibendum, laoreet sapien. Morbi nec nibh quis justo semper volutpat. Phasellus malesuada leo magna. Duis consectetur congue ipsum id posuere. Pellentesque elit est, sagittis tincidunt tincidunt sit amet, pretium vel leo. Nam vitae elementum turpis. Maecenas dignissim mollis lorem, vel volutpat dolor tincidunt sed. Curabitur aliquet volutpat lorem ut hendrerit. Maecenas euismod tempus augue. Fusce sed quam ac leo dapibus vestibulum quis a velit. Donec efficitur sodales dolor vel imperdiet. Nullam malesuada maximus nibh, in laoreet turpis tempus accumsan. Quisque sollicitudin magna et accumsan malesuada.]]></content:encoded>
 		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
@@ -935,10 +935,10 @@
 	</item>
 	<item>
 		<title>Introduction</title>
-		<link>http://pbtest.pressbooks.com/front-matter/introduction/</link>
+		<link>http://dev.pressbooks.pub/pbtest/front-matter/introduction/</link>
 		<pubDate>Tue, 28 Aug 2018 13:18:09 +0000</pubDate>
 		<dc:creator><![CDATA[connerbw]]></dc:creator>
-		<guid isPermaLink="false">http://pbtest.pressbooks.com/?post_type=front-matter&#038;p=34</guid>
+		<guid isPermaLink="false">http://dev.pressbooks.pub/pbtest/?post_type=front-matter&#038;p=34</guid>
 		<description></description>
 		<content:encoded><![CDATA[Hello, my name is Pressbooks.]]></content:encoded>
 		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
@@ -966,10 +966,10 @@
 	</item>
 	<item>
 		<title>Conclusion</title>
-		<link>http://pbtest.pressbooks.com/back-matter/conclusion/</link>
+		<link>http://dev.pressbooks.pub/pbtest/back-matter/conclusion/</link>
 		<pubDate>Tue, 28 Aug 2018 13:18:30 +0000</pubDate>
 		<dc:creator><![CDATA[connerbw]]></dc:creator>
-		<guid isPermaLink="false">http://pbtest.pressbooks.com/?post_type=back-matter&#038;p=36</guid>
+		<guid isPermaLink="false">http://dev.pressbooks.pub/pbtest/?post_type=back-matter&#038;p=36</guid>
 		<description></description>
 		<content:encoded><![CDATA[Goodbye.]]></content:encoded>
 		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
@@ -997,16 +997,16 @@
 	</item>
 	<item>
 		<title>Internal Links</title>
-		<link>http://pbtest.pressbooks.com/chapter/internal-links/</link>
+		<link>http://dev.pressbooks.pub/pbtest/chapter/internal-links/</link>
 		<pubDate>Tue, 28 Aug 2018 13:19:48 +0000</pubDate>
 		<dc:creator><![CDATA[connerbw]]></dc:creator>
-		<guid isPermaLink="false">http://pbtest.pressbooks.com/?post_type=chapter&#038;p=38</guid>
+		<guid isPermaLink="false">http://dev.pressbooks.pub/pbtest/?post_type=chapter&#038;p=38</guid>
 		<description></description>
-		<content:encoded><![CDATA[<a href="http://pbtest.pressbooks.com/front-matter/introduction/">Introduction</a>
+		<content:encoded><![CDATA[<a href="http://dev.pressbooks.pub/pbtest/front-matter/introduction/">Introduction</a>
 
-<a href="http://pbtest.pressbooks.com/chapter/lorem-ipsum/">Lorem Ipsum</a>
+<a href="http://dev.pressbooks.pub/pbtest/chapter/lorem-ipsum/">Lorem Ipsum</a>
 
-<a href="http://pbtest.pressbooks.com/back-matter/conclusion/">Conclusion</a>]]></content:encoded>
+<a href="http://dev.pressbooks.pub/pbtest/back-matter/conclusion/">Conclusion</a>]]></content:encoded>
 		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
 		<wp:post_id>38</wp:post_id>
 		<wp:post_date><![CDATA[2018-08-28 13:19:48]]></wp:post_date>
@@ -1031,10 +1031,10 @@
 	</item>
 	<item>
 		<title>YouTube</title>
-		<link>http://pbtest.pressbooks.com/chapter/youtube-link/</link>
+		<link>http://dev.pressbooks.pub/pbtest/chapter/youtube-link/</link>
 		<pubDate>Tue, 28 Aug 2018 13:21:12 +0000</pubDate>
 		<dc:creator><![CDATA[connerbw]]></dc:creator>
-		<guid isPermaLink="false">http://pbtest.pressbooks.com/?post_type=chapter&#038;p=40</guid>
+		<guid isPermaLink="false">http://dev.pressbooks.pub/pbtest/?post_type=chapter&#038;p=40</guid>
 		<description></description>
 		<content:encoded><![CDATA[This is  an oEmbed link.
 
@@ -1079,10 +1079,10 @@ https://youtu.be/Lqqsp8soXTo]]></content:encoded>
 	</item>
 	<item>
 		<title>Media</title>
-		<link>http://pbtest.pressbooks.com/part/media/</link>
+		<link>http://dev.pressbooks.pub/pbtest/part/media/</link>
 		<pubDate>Tue, 28 Aug 2018 13:12:09 +0000</pubDate>
 		<dc:creator><![CDATA[connerbw]]></dc:creator>
-		<guid isPermaLink="false">http://pbtest.pressbooks.com/?post_type=part&#038;p=25</guid>
+		<guid isPermaLink="false">http://dev.pressbooks.pub/pbtest/?post_type=part&#038;p=25</guid>
 		<description></description>
 		<content:encoded><![CDATA[]]></content:encoded>
 		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
