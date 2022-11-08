@@ -30,7 +30,7 @@ class PressbooksTest extends \WP_UnitTestCase {
 	 * @group plugin
 	 */
 	public function test_allowedRootThemes() {
-		$result = $this->pb->allowedRootThemes( [ 'pressbooks-book' => true, 'pressbooks-clarke' => true, 'pressbooks-fake' => true, 'twentytwenty' => true ] );
+		$result = $this->pb->allowedRootThemes( [ 'pressbooks-book' => true, 'pressbooks-clarke' => true, 'pressbooks-fake' => true, 'twentytwentyone' => true ] );
 		$this->assertTrue( is_array( $result ) );
 		$this->assertCount( 1, $result );
 		$this->assertArrayHasKey( 'twentytwenty', $result );
