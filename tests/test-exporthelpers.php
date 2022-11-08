@@ -7,6 +7,11 @@ class ExportHelpersTest extends \WP_UnitTestCase {
 	use utilsTrait;
 
 	/**
+	 * @var bool
+	 */
+	protected $displayAboutTheAuthors;
+
+	/**
 	 * @group export_helpers
 	 */
 	public function test_countPartsAndChapters() {
