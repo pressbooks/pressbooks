@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-10-31T16:51:55+00:00\n"
+"POT-Creation-Date: 2022-11-08T01:11:30+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: pressbooks\n"
@@ -2841,8 +2841,8 @@ msgstr ""
 msgid "The original version of this chapter contained H5P content. You may want to remove or replace this element."
 msgstr ""
 
-#: inc/l10n/namespace.php:508
-#: inc/l10n/namespace.php:531
+#: inc/l10n/namespace.php:512
+#: inc/l10n/namespace.php:535
 msgid "Please contact your system administrator if you would like them to install extended %s language support for the Pressbooks interface."
 msgstr ""
 
