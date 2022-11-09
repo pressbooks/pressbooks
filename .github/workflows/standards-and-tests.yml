@@ -19,7 +19,7 @@ jobs:
         os: [ubuntu-20.04]
         epubcheck: [4.2.6]
         prince: [14.3-1]
-        wordpress: [6.0.3, latest]
+        wordpress: [6.0.3, '6.1', latest]
         include:
           - experimental: true
           - experimental: false
