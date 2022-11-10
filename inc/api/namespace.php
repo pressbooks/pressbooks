@@ -142,6 +142,8 @@ function init_root() {
 
 	// Register Directory endpoints
 	( new Endpoints\Controller\Directory() )->register_routes();
+
+	( new Endpoints\Controller\HealthCheck() )->register_routes();
 }
 
 /**
