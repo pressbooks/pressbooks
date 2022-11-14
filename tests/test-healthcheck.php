@@ -44,12 +44,14 @@ class HealthCheckTest extends \WP_UnitTestCase {
 			'database' => [
 				'status' => 'Connected',
 				'has_issue' => false,
+				'issue' => null,
 			],
 			'filesystem' => [
 				'status' => 'Accessible',
 				'writable' => true,
 				'readable' => true,
 				'has_issue' => false,
+				'issues' => [],
 			]
 		], $data );
 	}
@@ -61,6 +63,7 @@ class HealthCheckTest extends \WP_UnitTestCase {
 		$this->assertEquals([
 			'status' => 'Connected',
 			'has_issue' => false,
+			'issue' => null,
 		], (new DatabaseCheck)->run());
 	}
 
@@ -83,6 +86,7 @@ class HealthCheckTest extends \WP_UnitTestCase {
 			'writable' => true,
 			'readable' => true,
 			'has_issue' => false,
+			'issues' => [],
 		], (new FilesystemCheck)->run());
 	}
 }

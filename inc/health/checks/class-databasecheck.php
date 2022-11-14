@@ -21,6 +21,7 @@ class DatabaseCheck extends Check {
 		return [
 			'status' => $has_issue ? 'Not connected' : 'Connected',
 			'has_issue' => $has_issue,
+			'issue' => $has_issue ? 'Could not connect to the database' : null,
 		];
 	}
 }

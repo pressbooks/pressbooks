@@ -3,6 +3,7 @@
 namespace Pressbooks\Health\Checks;
 
 use Pressbooks\Health\Check;
+use Symfony\Component\Process\Process;
 
 class FilesystemCheck extends Check {
 	public function __construct() {
@@ -12,40 +13,42 @@ class FilesystemCheck extends Check {
 	public function run(): array {
 		global $wp_filesystem;
 
+		$issues = [];
 		$has_issue = false;
 
-		if ( ! WP_Filesystem() ) {
+		if ( ! WP_Filesystem() || ! $wp_filesystem->connect() ) {
 			$has_issue = true;
+
+			$issues[] = 'Failed to obtain filesystem write access.';
 		}
 
-		if ( ! $wp_filesystem->connect() ) {
+		$disk_usage = $this->getDiskUsagePercentage();
+
+		if ( $disk_usage > 90 ) {
 			$has_issue = true;
+
+			$issues[] = "The disk is almost full ({$disk_usage}% used).";
 		}
 
 		return [
 			'status' => $has_issue ? 'Not Accessible' : 'Accessible',
 			'writable' => $wp_filesystem->is_writable( WP_CONTENT_DIR ),
 			'readable' => $wp_filesystem->is_readable( WP_CONTENT_DIR ),
-			'free_space' => $this->calculateFreeSpace(),
-			'total_space' => $this->calculateTotalSpace(),
+			'space_used' => $disk_usage,
 			'has_issue' => $has_issue,
+			'issues' => $issues,
 		];
 	}
 
-	protected function calculateFreeSpace(): string {
-		return $this->calculateSpace( disk_free_space( '.' ) );
-	}
+	protected function getDiskUsagePercentage(): string {
+		$process = Process::fromShellCommandline( 'df -P .' );
 
-	protected function calculateTotalSpace():string {
-		return $this->calculateSpace( disk_total_space( '.' ) );
-	}
+		$process->run();
+		$output = $process->getOutput();
 
-	protected function calculateSpace( float $bytes ): string {
-		$base = 1024;
-		$suffixes = [ 'B', 'KB', 'MB', 'GB', 'TB' ];
+		$matches = [];
+		preg_match( '/(\d*)%/', $output, $matches, PREG_UNMATCHED_AS_NULL );
 
-		$index = min( (int) log( $bytes, $base ), count( $suffixes ) - 1 );
-
-		return sprintf( '%1.2f', $bytes / pow( $base, $index ) ) . $suffixes[ $index ];
+		return (int) $matches[1] ?? 0;
 	}
 }
