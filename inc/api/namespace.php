@@ -145,13 +145,14 @@ function init_root() {
 
 	( new Endpoints\Controller\HealthCheck() )->register_routes();
 
-	add_filter( 'rest_endpoints', function( $endpoints ) {
-		return array_filter(
+	add_filter(
+		'rest_endpoints',
+		fn ( $endpoints ) => array_filter(
 			$endpoints,
 			fn( $endpoint ) => ! str_contains( $endpoint, 'wp/v2/users' ),
 			ARRAY_FILTER_USE_KEY
-		);
-	});
+		)
+	);
 }
 
 /**

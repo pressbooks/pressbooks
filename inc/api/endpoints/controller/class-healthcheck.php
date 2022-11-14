@@ -35,9 +35,9 @@ class HealthCheck extends WP_REST_Controller {
 			$check->getName() => $check->run(),
 		]);
 
-		$status = $results->filter(function( array $result ) {
-			return $result['has_issue'] ?? false;
-		})->isEmpty() ? 200 : 500;
+		$status = $results
+			->filter( fn( array $result ) => $result['has_issue'] ?? false )
+			->isEmpty() ? 200 : 500;
 
 		return rest_ensure_response(
 			new WP_REST_Response( $results, $status )
