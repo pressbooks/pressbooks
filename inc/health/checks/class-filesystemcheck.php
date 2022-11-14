@@ -3,6 +3,7 @@
 namespace Pressbooks\Health\Checks;
 
 use Pressbooks\Health\Check;
+use Pressbooks\Health\Result;
 use Symfony\Component\Process\Process;
 
 class FilesystemCheck extends Check {
@@ -10,34 +11,31 @@ class FilesystemCheck extends Check {
 		$this->name = 'filesystem';
 	}
 
-	public function run(): array {
+	public function run(): Result {
 		global $wp_filesystem;
 
-		$issues = [];
-		$has_issue = false;
+		$result = Result::make();
 
 		if ( ! WP_Filesystem() || ! $wp_filesystem->connect() ) {
-			$has_issue = true;
+			return $result->failed( 'Failed to obtain filesystem write access.' );
+		}
 
-			$issues[] = 'Failed to obtain filesystem write access.';
+		if ( ! $wp_filesystem->is_writable( WP_CONTENT_DIR ) ) {
+			return $result->failed( 'The filesystem is not writable.' );
+		}
+
+		if ( ! $wp_filesystem->is_readable( WP_CONTENT_DIR ) ) {
+			return $result->failed( 'The filesystem is not readable.' );
 		}
 
 		$disk_usage = $this->getDiskUsagePercentage();
 
+		// TODO: allow users to customise the failure threshold
 		if ( $disk_usage > 90 ) {
-			$has_issue = true;
-
-			$issues[] = "The disk is almost full ({$disk_usage}% used).";
+			return $result->failed( "The disk is almost full ({$disk_usage}% used)." );
 		}
 
-		return [
-			'status' => $has_issue ? 'Not Accessible' : 'Accessible',
-			'writable' => $wp_filesystem->is_writable( WP_CONTENT_DIR ),
-			'readable' => $wp_filesystem->is_readable( WP_CONTENT_DIR ),
-			'space_used' => $disk_usage,
-			'has_issue' => $has_issue,
-			'issues' => $issues,
-		];
+		return $result->ok();
 	}
 
 	protected function getDiskUsagePercentage(): string {

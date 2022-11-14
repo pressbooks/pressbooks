@@ -6,6 +6,8 @@ use Pressbooks\Health\Check;
 use Pressbooks\Health\checks\CacheCheck;
 use Pressbooks\Health\checks\DatabaseCheck;
 use Pressbooks\Health\checks\FilesystemCheck;
+use Pressbooks\Health\Checks\ObjectCacheProCheck;
+use Pressbooks\Health\Result;
 use WP_REST_Controller;
 use WP_REST_Response;
 use WP_REST_Server;
@@ -25,18 +27,21 @@ class HealthCheck extends WP_REST_Controller {
 	}
 
 	public function healthCheck(): WP_REST_Response {
+		// TODO: allow users to customise the list of checks
 		$checks = [
 			new CacheCheck,
+			new ObjectCacheProCheck,
 			new DatabaseCheck,
 			new FilesystemCheck,
 		];
 
-		$results = collect( $checks )->flatMap(fn( Check $check ) => [
-			$check->getName() => $check->run(),
-		]);
+		$results = collect( $checks )
+			->flatMap(fn( Check $check ) => [
+				$check->getName() => $check->run(),
+			]);
 
 		$status = $results
-			->filter( fn( array $result ) => $result['has_issue'] ?? false )
+			->filter( fn( Result $result ) => ! $result->status )
 			->isEmpty() ? 200 : 500;
 
 		return rest_ensure_response(

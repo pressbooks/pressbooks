@@ -2,52 +2,33 @@
 
 namespace Pressbooks\Health\Checks;
 
+use Illuminate\Support\Str;
 use Pressbooks\Health\Check;
-use RedisCachePro\Diagnostics\Diagnostics;
+use Pressbooks\Health\Result;
 
 class CacheCheck extends Check {
 	public function __construct() {
 		$this->name = 'cache';
 	}
 
-	public function run(): array {
-		global $wp_object_cache;
+	public function run(): Result {
+		$result = Result::make();
 
-		$has_issue = false;
+		return $this->canWriteValuesToCache()
+			? $result->ok()
+			: $result->failed( 'Could not set or retrieve an application cache value.' );
+	}
 
-		if ( ! is_plugin_active_for_network( 'object-cache-pro/object-cache-pro.php' ) ) {
-			// TODO: how to handle non object cache pro cache?
-			return [
-				'status' => 'Unknown',
-				'has_issue' => false,
-			];
-		}
+	protected function canWriteValuesToCache(): bool {
+		$key = 'pressbooks-health:cache';
+		$expected_value = Str::random( 20 );
 
-		$diagnostics = ( new Diagnostics( $wp_object_cache ) )
-			->withFilesystemAccess()
-			->toArray();
+		wp_cache_add( $key, $expected_value );
 
-		/** @var Diagnostic $status */
-		$status = $diagnostics[ Diagnostics::GENERAL ]['status'];
+		$actual_value = wp_cache_get( $key );
 
-		/** @var Diagnostic $license */
-		$license = $diagnostics[ Diagnostics::GENERAL ]['license'];
+		wp_cache_delete( $key );
 
-		/** @var Diagnostic $filesystem */
-		$filesystem = $diagnostics[ Diagnostics::GENERAL ]['filesystem'];
-
-		$errors = $diagnostics[ Diagnostics::ERRORS ];
-
-		if ( $status->hasIssue() || $license->hasIssue() || $license->hasIssue() || ! empty( $errors ) ) {
-			$has_issue = true;
-		}
-
-		return [
-			'status' => (string) $status->withComment(),
-			'license' => (string) $license->withComment(),
-			'filesystem' => (string) $filesystem->withComment(),
-			'has_issue' => $has_issue,
-			'errors' => $errors,
-		];
+		return $actual_value === $expected_value;
 	}
 }

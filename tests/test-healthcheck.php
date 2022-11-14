@@ -1,16 +1,10 @@
 <?php
 
-use DMS\PHPUnitExtensions\ArraySubset\ArraySubsetAsserts;
-use Pressbooks\Api\Endpoints\Controller\Posts;
-use Pressbooks\Container;
-
 use Pressbooks\Health\Checks\CacheCheck;
 use Pressbooks\Health\Checks\DatabaseCheck;
 use Pressbooks\Health\Checks\FilesystemCheck;
-use function \Pressbooks\Metadata\book_information_to_schema;
 
 class HealthCheckTest extends \WP_UnitTestCase {
-	use ArraySubsetAsserts;
 	use utilsTrait;
 
 	/**
@@ -35,58 +29,65 @@ class HealthCheckTest extends \WP_UnitTestCase {
 		$request = new WP_REST_Request( 'GET', '/pressbooks/v2/health-check' );
 
 		$response = $server->dispatch( $request );
+
+//		/** @var \Illuminate\Support\Collection $data */
 		$data = $response->get_data();
 
 		$this->assertEquals( 200, $response->status );
 
-		$this->assertArraySubset( [
-			'cache' => [],
+		$this->assertEquals( [
+			'cache' => [
+				'status' => 'Ok',
+				'message' => '',
+			],
+			'object-cache-pro' => [
+				'status' => 'Ok',
+				'message' => 'Object Cache Pro plugin is not installed.',
+			],
 			'database' => [
-				'status' => 'Connected',
-				'has_issue' => false,
-				'issue' => null,
+				'status' => 'Ok',
+				'message' => '',
 			],
 			'filesystem' => [
-				'status' => 'Accessible',
-				'writable' => true,
-				'readable' => true,
-				'has_issue' => false,
-				'issues' => [],
+				'status' => 'Ok',
+				'message' => '',
 			]
-		], $data );
+		], $data->toArray() );
 	}
 
 	/**
 	 * @group health-check
 	 */
 	public function test_checks_database_connection(): void {
+		$result = (new DatabaseCheck)->run();
+
 		$this->assertEquals([
-			'status' => 'Connected',
-			'has_issue' => false,
-			'issue' => null,
-		], (new DatabaseCheck)->run());
+			'status' => 'Ok',
+			'message' => '',
+		], $result->toArray());
 	}
 
 	/**
 	 * @group health-check
 	 */
 	public function test_checks_cache_connection(): void {
-		$this->assertEquals([
-			'status' => 'Unknown',
-			'has_issue' => false,
-		], (new CacheCheck)->run());
+		$result = (new CacheCheck)->run();
+
+		$this->assertEquals( [
+			'status' => 'Ok',
+			'message' => '',
+		], $result->toArray() );
 	}
 
 	/**
 	 * @group health-check
 	 */
 	public function test_checks_filesystem(): void {
-		$this->assertArraySubset([
-			'status' => 'Accessible',
-			'writable' => true,
-			'readable' => true,
-			'has_issue' => false,
-			'issues' => [],
-		], (new FilesystemCheck)->run());
+		$result = (new FilesystemCheck)->run();
+
+		$this->assertEquals([
+			'status' => 'Ok',
+			'message' => '',
+		], $result->toArray());
 	}
 }
