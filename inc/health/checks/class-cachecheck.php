@@ -7,10 +7,6 @@ use Pressbooks\Health\Check;
 use Pressbooks\Health\Result;
 
 class CacheCheck extends Check {
-	public function __construct() {
-		$this->name = 'cache';
-	}
-
 	public function run(): Result {
 		$result = Result::make();
 

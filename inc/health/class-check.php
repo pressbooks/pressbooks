@@ -2,12 +2,17 @@
 
 namespace Pressbooks\Health;
 
-abstract class Check {
-	protected ?string $name = null;
+use Illuminate\Support\Str;
+use ReflectionClass;
 
+abstract class Check {
 	abstract public function run(): Result;
 
 	public function getName(): ?string {
-		return $this->name;
+		$class = new ReflectionClass( $this );
+
+		return Str::of( $class->getShortName() )
+			->kebab()
+			->before( '-check' );
 	}
 }

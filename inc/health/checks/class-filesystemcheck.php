@@ -7,10 +7,6 @@ use Pressbooks\Health\Result;
 use Symfony\Component\Process\Process;
 
 class FilesystemCheck extends Check {
-	public function __construct() {
-		$this->name = 'filesystem';
-	}
-
 	public function run(): Result {
 		$result = Result::make();
 

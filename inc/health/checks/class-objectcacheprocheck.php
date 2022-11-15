@@ -7,10 +7,6 @@ use Pressbooks\Health\Result;
 use RedisCachePro\Diagnostics\Diagnostics;
 
 class ObjectCacheProCheck extends Check {
-	public function __construct() {
-		$this->name = 'object-cache-pro';
-	}
-
 	public function run(): Result {
 		$result = Result::make();
 
