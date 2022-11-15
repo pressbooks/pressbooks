@@ -33,7 +33,7 @@ class HealthCheckTest extends \WP_UnitTestCase {
 
 		$response = $server->dispatch( $request );
 
-		$this->assertEquals( 401, $response->status );
+		$this->assertEquals( 400, $response->status );
 
 		$request->set_query_params( [
 			'_token' => 'not-a-valid-token',
