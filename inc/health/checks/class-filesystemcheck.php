@@ -51,7 +51,11 @@ class FilesystemCheck extends Check {
 	}
 
 	protected function getDiskUsagePercentage(): int {
-		$output = shell_exec( 'df -P .' );
+		$process = Process::fromShellCommandline( 'df -P .' );
+
+		$process->run();
+
+		$output = $process->getOutput();
 
 		$matches = [];
 		preg_match( '/(\d*)%/', $output, $matches, PREG_UNMATCHED_AS_NULL );
