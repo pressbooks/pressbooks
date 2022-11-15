@@ -343,3 +343,5 @@ add_filter( 'admin_email_check_interval', '__return_false' );
 // Book directory event actions
 // -------------------------------------------------------------------------------------------------------------------
 add_filter( 'init', [ '\Pressbooks\BookDirectory', 'init' ], 10, 2 );
+
+add_action( 'activated_plugin', '\Pressbooks\Utility\delete_options_cached' );
