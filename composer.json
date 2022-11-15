@@ -54,7 +54,8 @@
 		"sinergi/browser-detector": "^6.1",
 		"vanilla/htmlawed": "^2.2",
 		"phpcompatibility/php-compatibility": "^9.3",
-		"vlucas/phpdotenv": "^5.4"
+		"vlucas/phpdotenv": "^5.4",
+		"symfony/process": "^5.4"
 	},
 	"require-dev": {
 		"codeception/module-asserts": "^1.3",
