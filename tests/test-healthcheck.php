@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Str;
 use Pressbooks\Health\Checks\CacheCheck;
 use Pressbooks\Health\Checks\DatabaseCheck;
 use Pressbooks\Health\Checks\FilesystemCheck;
@@ -25,10 +26,36 @@ class HealthCheckTest extends \WP_UnitTestCase {
 	 * @test
 	 * @group health-check
 	 */
+	public function health_check_endpoint_forbidden_response(): void {
+		$server = $this->_setupRootApi();
+
+		$request = new WP_REST_Request( 'GET', '/pressbooks/v2/health-check' );
+
+		$response = $server->dispatch( $request );
+
+		$this->assertEquals( 401, $response->status );
+
+		$request->set_query_params( [
+			'_token' => 'not-a-valid-token',
+		] );
+
+		$response = $server->dispatch( $request );
+
+		$this->assertEquals( 401, $response->status );
+	}
+
+	/**
+	 * @test
+	 * @group health-check
+	 */
 	public function health_check_endpoint_success_response(): void {
 		$server = $this->_setupRootApi();
 
 		$request = new WP_REST_Request( 'GET', '/pressbooks/v2/health-check' );
+
+		$request->set_query_params( [
+			'_token' => env( 'PB_HEALTH_CHECK_TOKEN' ),
+		] );
 
 		$response = $server->dispatch( $request );
 

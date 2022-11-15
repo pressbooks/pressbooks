@@ -9,6 +9,7 @@ use Pressbooks\Health\checks\FilesystemCheck;
 use Pressbooks\Health\Checks\ObjectCacheProCheck;
 use Pressbooks\Health\Result;
 use WP_REST_Controller;
+use WP_REST_Request;
 use WP_REST_Response;
 use WP_REST_Server;
 
@@ -22,7 +23,7 @@ class HealthCheck extends WP_REST_Controller {
 		register_rest_route($this->namespace, $this->rest_base, [
 			'methods' => WP_REST_Server::READABLE,
 			'callback' => [ $this, 'healthCheck' ],
-			'permission_callback' => '__return_true',
+			'permission_callback' => [ $this, 'authorize' ],
 		]);
 	}
 
@@ -47,5 +48,20 @@ class HealthCheck extends WP_REST_Controller {
 		return rest_ensure_response(
 			new WP_REST_Response( $results, $status )
 		);
+	}
+
+	public function authorize( WP_REST_Request $request ): bool {
+		$value = $request->get_param( '_token' );
+		$expected = env( 'PB_HEALTH_CHECK_TOKEN' );
+
+		if ( ! $value ) {
+			return false;
+		}
+
+		if ( $value !== $expected ) {
+			return false;
+		}
+
+		return true;
 	}
 }
