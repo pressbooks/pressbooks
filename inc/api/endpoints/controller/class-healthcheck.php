@@ -24,6 +24,13 @@ class HealthCheck extends WP_REST_Controller {
 			'methods' => WP_REST_Server::READABLE,
 			'callback' => [ $this, 'healthCheck' ],
 			'permission_callback' => [ $this, 'authorize' ],
+			'args' => [
+				'_token' => [
+					'description' => 'A token stored in your .env file as PB_HEALTH_CHECK_TOKEN and used to authorize the request.',
+					'type' => 'string',
+					'required' => true,
+				],
+			],
 		]);
 	}
 
