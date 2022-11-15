@@ -11,12 +11,16 @@ class DatabaseCheck extends Check {
 	}
 
 	public function run(): Result {
-		global $wpdb;
-
 		$result = Result::make();
 
-		return $wpdb->check_connection()
+		return $this->checkConnection()
 			? $result->ok()
-			: $result->failed( 'Could not connect to the database' );
+			: $result->failed( 'Could not connect to the database.' );
+	}
+
+	protected function checkConnection(): bool {
+		global $wpdb;
+
+		return $wpdb->check_connection();
 	}
 }

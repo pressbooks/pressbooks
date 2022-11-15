@@ -12,19 +12,17 @@ class FilesystemCheck extends Check {
 	}
 
 	public function run(): Result {
-		global $wp_filesystem;
-
 		$result = Result::make();
 
-		if ( ! WP_Filesystem() || ! $wp_filesystem->connect() ) {
+		if ( ! $this->canConnectToFilesystem() ) {
 			return $result->failed( 'Failed to obtain filesystem write access.' );
 		}
 
-		if ( ! $wp_filesystem->is_writable( WP_CONTENT_DIR ) ) {
+		if ( ! $this->canWriteToFilesystem() ) {
 			return $result->failed( 'The filesystem is not writable.' );
 		}
 
-		if ( ! $wp_filesystem->is_readable( WP_CONTENT_DIR ) ) {
+		if ( ! $this->canReadFromFilesystem() ) {
 			return $result->failed( 'The filesystem is not readable.' );
 		}
 
@@ -38,7 +36,29 @@ class FilesystemCheck extends Check {
 		return $result->ok();
 	}
 
-	protected function getDiskUsagePercentage(): string {
+	protected function canConnectToFilesystem(): bool {
+		global $wp_filesystem;
+
+		if ( ! WP_Filesystem() ) {
+			return false;
+		}
+
+		return $wp_filesystem->connect();
+	}
+
+	protected function canWriteToFilesystem(): bool {
+		global $wp_filesystem;
+
+		return $wp_filesystem->is_writable( WP_CONTENT_DIR );
+	}
+
+	protected function canReadFromFilesystem(): bool {
+		global $wp_filesystem;
+
+		return $wp_filesystem->is_readable( WP_CONTENT_DIR );
+	}
+
+	protected function getDiskUsagePercentage(): int {
 		$process = Process::fromShellCommandline( 'df -P .' );
 
 		$process->run();

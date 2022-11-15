@@ -8,9 +8,10 @@ class HealthCheckTest extends \WP_UnitTestCase {
 	use utilsTrait;
 
 	/**
+	 * @test
 	 * @group health-check
 	 */
-	public function test_health_check_endpoint_exists(): void {
+	public function health_check_endpoint_exists(): void {
 		$server = $this->_setupRootApi();
 
 		$request = new WP_REST_Request( 'OPTIONS', '/pressbooks/v2/health-check' );
@@ -21,16 +22,17 @@ class HealthCheckTest extends \WP_UnitTestCase {
 	}
 
 	/**
+	 * @test
 	 * @group health-check
 	 */
-	public function test_health_check_endpoint_success_response(): void {
+	public function health_check_endpoint_success_response(): void {
 		$server = $this->_setupRootApi();
 
 		$request = new WP_REST_Request( 'GET', '/pressbooks/v2/health-check' );
 
 		$response = $server->dispatch( $request );
 
-//		/** @var \Illuminate\Support\Collection $data */
+		/** @var \Illuminate\Support\Collection $data */
 		$data = $response->get_data();
 
 		$this->assertEquals( 200, $response->status );
@@ -56,22 +58,11 @@ class HealthCheckTest extends \WP_UnitTestCase {
 	}
 
 	/**
+	 * @test
 	 * @group health-check
 	 */
-	public function test_checks_database_connection(): void {
-		$result = (new DatabaseCheck)->run();
-
-		$this->assertEquals([
-			'status' => 'Ok',
-			'message' => '',
-		], $result->toArray());
-	}
-
-	/**
-	 * @group health-check
-	 */
-	public function test_checks_cache_connection(): void {
-		$result = (new CacheCheck)->run();
+	public function it_checks_database_connection(): void {
+		$result = ( new DatabaseCheck )->run();
 
 		$this->assertEquals( [
 			'status' => 'Ok',
@@ -80,14 +71,124 @@ class HealthCheckTest extends \WP_UnitTestCase {
 	}
 
 	/**
+	 * @test
 	 * @group health-check
 	 */
-	public function test_checks_filesystem(): void {
-		$result = (new FilesystemCheck)->run();
+	public function database_connection_check_fails(): void {
+		$check = $this->getMockBuilder( DatabaseCheck::class )
+			->onlyMethods( [ 'checkConnection' ] )
+			->getMock();
 
-		$this->assertEquals([
+		$check->method( 'checkConnection' )->willReturn( false );
+
+		$result = $check->run();
+
+		$this->assertEquals( [
+			'status' => 'Failed',
+			'message' => 'Could not connect to the database.',
+		], $result->toArray() );
+	}
+
+	/**
+	 * @test
+	 * @group health-check
+	 */
+	public function it_checks_cache_connection(): void {
+		$result = ( new CacheCheck )->run();
+
+		$this->assertEquals( [
 			'status' => 'Ok',
 			'message' => '',
-		], $result->toArray());
+		], $result->toArray() );
+	}
+
+	/**
+	 * @test
+	 * @group health-check
+	 */
+	public function cache_connection_check_fails(): void {
+		$check = $this->getMockBuilder( CacheCheck::class )
+			->onlyMethods( [ 'canWriteValuesToCache' ] )
+			->getMock();
+
+		$check->method( 'canWriteValuesToCache' )->willReturn( false );
+
+		$result = $check->run();
+
+		$this->assertEquals( [
+			'status' => 'Failed',
+			'message' => 'Could not set or retrieve an application cache value.',
+		], $result->toArray() );
+	}
+
+	/**
+	 * @test
+	 * @group health-check
+	 */
+	public function it_checks_filesystem(): void {
+		$result = ( new FilesystemCheck )->run();
+
+		$this->assertEquals( [
+			'status' => 'Ok',
+			'message' => '',
+		], $result->toArray() );
+	}
+
+	/**
+	 * @test
+	 * @group health-check
+	 */
+	public function filesystem_check_fails(): void {
+		$checkConnection = $this->getMockBuilder( FilesystemCheck::class )
+			->onlyMethods( [ 'canConnectToFilesystem' ] )
+			->getMock();
+
+		$checkConnection->method( 'canConnectToFilesystem' )->willReturn( false );
+
+		$connectionResult = $checkConnection->run();
+
+		$this->assertEquals( [
+			'status' => 'Failed',
+			'message' => 'Failed to obtain filesystem write access.',
+		], $connectionResult->toArray() );
+
+		$checkWritable = $this->getMockBuilder( FilesystemCheck::class )
+			->onlyMethods( [ 'canWriteToFilesystem' ] )
+			->getMock();
+
+		$checkWritable->method( 'canWriteToFilesystem' )->willReturn( false );
+
+		$writableResult = $checkWritable->run();
+
+		$this->assertEquals( [
+			'status' => 'Failed',
+			'message' => 'The filesystem is not writable.',
+		], $writableResult->toArray() );
+
+		$checkReadable = $this->getMockBuilder( FilesystemCheck::class )
+			->onlyMethods( [ 'canReadFromFilesystem' ] )
+			->getMock();
+
+		$checkReadable->method( 'canReadFromFilesystem' )->willReturn( false );
+
+		$readableResult = $checkReadable->run();
+
+		$this->assertEquals( [
+			'status' => 'Failed',
+			'message' => 'The filesystem is not readable.',
+		], $readableResult->toArray() );
+
+		$checkDisk = $this->getMockBuilder( FilesystemCheck::class )
+			->onlyMethods( [ 'getDiskUsagePercentage' ] )
+			->getMock();
+
+		$checkDisk->method( 'getDiskUsagePercentage' )->willReturn( 91 );
+
+		$diskResult = $checkDisk->run();
+
+		$this->assertEquals( [
+			'status' => 'Failed',
+			'message' => 'The disk is almost full (91% used).',
+		], $diskResult->toArray() );
 	}
 }
