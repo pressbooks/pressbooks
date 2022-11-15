@@ -11,7 +11,7 @@ class ObjectCacheProCheck extends Check {
 		$result = Result::make();
 
 		if ( ! is_plugin_active_for_network( 'object-cache-pro/object-cache-pro.php' ) ) {
-			return $result->ok( 'Object Cache Pro plugin is not installed.' );
+			return $result->ok( 'Object Cache Pro plugin is either inactive or not installed.' );
 		}
 
 		global $wp_object_cache;

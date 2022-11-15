@@ -71,7 +71,7 @@ class HealthCheckTest extends \WP_UnitTestCase {
 			],
 			'object-cache-pro' => [
 				'status' => 'Ok',
-				'message' => 'Object Cache Pro plugin is not installed.',
+				'message' => 'Object Cache Pro plugin is either inactive or not installed.',
 			],
 			'database' => [
 				'status' => 'Ok',
