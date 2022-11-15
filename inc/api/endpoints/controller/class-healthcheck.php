@@ -58,13 +58,6 @@ class HealthCheck extends WP_REST_Controller {
 	}
 
 	public function authorize( WP_REST_Request $request ): bool {
-		$value = $request->get_param( '_token' );
-		$expected = env( 'PB_HEALTH_CHECK_TOKEN' );
-
-		if ( $value !== $expected ) {
-			return false;
-		}
-
-		return true;
+		return $request->get_param( '_token' ) === env( 'PB_HEALTH_CHECK_TOKEN' );
 	}
 }

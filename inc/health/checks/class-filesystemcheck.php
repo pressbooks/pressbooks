@@ -35,11 +35,7 @@ class FilesystemCheck extends Check {
 	protected function canConnectToFilesystem(): bool {
 		global $wp_filesystem;
 
-		if ( ! WP_Filesystem() ) {
-			return false;
-		}
-
-		return $wp_filesystem->connect();
+		return WP_Filesystem() ? $wp_filesystem->connect() : false;
 	}
 
 	protected function canWriteToFilesystem(): bool {
