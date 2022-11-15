@@ -3,9 +3,9 @@
 namespace Pressbooks\Api\Endpoints\Controller;
 
 use Pressbooks\Health\Check;
-use Pressbooks\Health\checks\CacheCheck;
-use Pressbooks\Health\checks\DatabaseCheck;
-use Pressbooks\Health\checks\FilesystemCheck;
+use Pressbooks\Health\Checks\CacheCheck;
+use Pressbooks\Health\Checks\DatabaseCheck;
+use Pressbooks\Health\Checks\FilesystemCheck;
 use Pressbooks\Health\Checks\ObjectCacheProCheck;
 use Pressbooks\Health\Result;
 use WP_REST_Controller;
