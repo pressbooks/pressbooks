@@ -146,12 +146,31 @@ function init_root() {
 	( new Endpoints\Controller\HealthCheck() )->register_routes();
 
 	add_filter(
-		'rest_endpoints',
-		fn ( $endpoints ) => array_filter(
-			$endpoints,
-			fn( $endpoint ) => ! str_contains( $endpoint, 'wp/v2/users' ),
-			ARRAY_FILTER_USE_KEY
-		)
+		'rest_endpoints', function ( $endpoints ) {
+			foreach ( $endpoints as $route => $endpoint ) {
+				if ( ! str_contains( $route, 'wp/v2/users' ) ) {
+					continue;
+				}
+
+				foreach ( $endpoint as $index => $handler ) {
+					if ( ! is_array( $handler ) ) {
+						continue;
+					}
+
+					if ( ! isset( $handler['methods'] ) ) {
+						continue;
+					}
+
+					if ( $handler['methods'] !== 'GET' ) {
+						continue;
+					}
+
+					unset( $endpoints[ $route ][ $index ] );
+				}
+			}
+
+			return $endpoints;
+		}
 	);
 }
 
