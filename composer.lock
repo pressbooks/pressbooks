@@ -2543,20 +2543,20 @@
         },
         {
             "name": "pressbooks/pb-cli",
-            "version": "3.0.1",
+            "version": "3.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pressbooks/pb-cli.git",
-                "reference": "17c72b14234b4505b360728d7a2622629a3527f6"
+                "reference": "e529ae31833f73a36b2fa226453ca4aa96766f6d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pressbooks/pb-cli/zipball/17c72b14234b4505b360728d7a2622629a3527f6",
-                "reference": "17c72b14234b4505b360728d7a2622629a3527f6",
+                "url": "https://api.github.com/repos/pressbooks/pb-cli/zipball/e529ae31833f73a36b2fa226453ca4aa96766f6d",
+                "reference": "e529ae31833f73a36b2fa226453ca4aa96766f6d",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.4|8.0.*"
+                "php": "^8.0"
             },
             "require-dev": {
                 "wp-cli/entity-command": "^2.1",
@@ -2591,9 +2591,9 @@
             "homepage": "https://github.com/pressbooks/pb-cli/",
             "support": {
                 "issues": "https://github.com/pressbooks/pb-cli/issues",
-                "source": "https://github.com/pressbooks/pb-cli/tree/3.0.1"
+                "source": "https://github.com/pressbooks/pb-cli/tree/3.1.0"
             },
-            "time": "2022-10-19T16:02:31+00:00"
+            "time": "2022-11-16T16:49:09+00:00"
         },
         {
             "name": "psr/container",
