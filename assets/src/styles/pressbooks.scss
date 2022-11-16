@@ -73,7 +73,7 @@
   }
 
   #wp-admin-bar-my-books-list {
-    min-height: 100px;
+    height: auto;
     max-height: calc(100vh - 150px);
     overflow-y: auto;
     padding-right: 5px;

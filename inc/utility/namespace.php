@@ -1604,3 +1604,12 @@ function handle_image_upload( $url, $filename = 'profile.jpg' ) {
 
 	return wp_get_attachment_url( $pid );
 }
+
+/**
+ * Remove 'alloptions' cache key from the 'options' cache group.
+ *
+ * @return void
+ */
+function delete_options_cached() : void {
+	wp_cache_delete( 'alloptions', 'options' );
+}

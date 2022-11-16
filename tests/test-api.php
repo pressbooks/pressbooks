@@ -525,4 +525,20 @@ class ApiTest extends \WP_UnitTestCase {
 		$data = $response->get_data();
 		$this->assertEquals( $protected_post['post_content'], $data['content']['raw'] );
 	}
+
+	/**
+	 * @test
+	 * @group api
+	 */
+	public function it_disable_users_endpoint(): void {
+		$server = $this->_setupRootApi();
+
+		$request = new WP_REST_Request( 'GET', '/wp/v2/users' );
+
+		$response = $server->dispatch( $request );
+		$data = $response->data;
+
+		$this->assertEquals( 404, $response->status );
+		$this->assertEquals( 'No route was found matching the URL and request method.', $data['message'] );
+	}
 }
