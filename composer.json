@@ -22,16 +22,13 @@
 	},
 	"config": {
 		"process-timeout":0,
-		"platform": {
-			"php": "7.4"
-		},
 		"allow-plugins": {
 			"dealerdirect/phpcodesniffer-composer-installer": true,
 			"composer/installers": true
 		}
 	},
 	"require": {
-		"php": ">=7.4",
+		"php": "^8.0",
 		"aws/aws-sdk-php": "^3.173",
 		"composer/installers": "^2.1",
 		"davidgorges/human-name-parser": "^1.0",
@@ -57,7 +54,8 @@
 		"sinergi/browser-detector": "^6.1",
 		"vanilla/htmlawed": "^2.2",
 		"phpcompatibility/php-compatibility": "^9.3",
-		"vlucas/phpdotenv": "^5.4"
+		"vlucas/phpdotenv": "^5.4",
+		"symfony/process": "^5.4"
 	},
 	"require-dev": {
 		"codeception/module-asserts": "^1.3",

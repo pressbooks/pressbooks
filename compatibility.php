@@ -31,11 +31,11 @@ function pb_meets_minimum_requirements() {
 
 	// PHP Version
 	global $pb_minimum_php;
-	$pb_minimum_php = '7.4.0';
+	$pb_minimum_php = '8.0.0';
 
 	// WordPress Version
 	global $pb_minimum_wp;
-	$pb_minimum_wp = '6.0.2';
+	$pb_minimum_wp = '6.1.1';
 
 	include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 	$is_compatible = true;

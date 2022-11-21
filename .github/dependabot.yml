@@ -25,3 +25,11 @@ updates:
       - dependency-type: "direct"
     # Allow up to 10 open pull requests for composer dependencies
     open-pull-requests-limit: 10
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    allow:
+      - dependency-type: "direct"
+    open-pull-requests-limit: 10

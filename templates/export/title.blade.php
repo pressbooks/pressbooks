@@ -2,8 +2,8 @@
 	@if( isset( $content ) )
 		{!! $content !!}
 	@else
-		<h1 class="title">{{ $title }}</h1>
-		<h2 class="subtitle">{{ $subtitle }}</h2>
+		<h1 class="title">{!! $title !!}</h1>
+		<h2 class="subtitle">{!! $subtitle !!}</h2>
 		@if( $authors )
 			<p class="author">{{ $authors }}</p>
 		@endif

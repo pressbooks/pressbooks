@@ -16,1092 +16,1112 @@
 <!-- 7. WordPress will then import each of the posts, pages, comments, categories, etc. -->
 <!--    contained in this file into your site. -->
 
-<!-- generator="WordPress/4.9.8" created="2018-09-17 19:53" -->
+<!-- generator="WordPress/6.0.3" created="2022-11-08 00:50" -->
 <rss version="2.0"
-	xmlns:excerpt="http://wordpress.org/export/1.2/excerpt/"
-	xmlns:content="http://purl.org/rss/1.0/modules/content/"
-	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
-	xmlns:dc="http://purl.org/dc/elements/1.1/"
-	xmlns:wp="http://wordpress.org/export/1.2/"
+	 xmlns:excerpt="http://wordpress.org/export/1.2/excerpt/"
+	 xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	 xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	 xmlns:dc="http://purl.org/dc/elements/1.1/"
+	 xmlns:wp="http://wordpress.org/export/1.2/"
 >
 
-<channel>
-	<title>Pressbooks Integration Testing</title>
-	<link>http://pbtest.pressbooks.com</link>
-	<description>Simple Book Publishing</description>
-	<pubDate>Mon, 17 Sep 2018 19:53:40 +0000</pubDate>
-	<language>en-US</language>
-	<wp:wxr_version>1.2</wp:wxr_version>
-	<wp:base_site_url>http://pressbooks.com/</wp:base_site_url>
-	<wp:base_blog_url>http://pbtest.pressbooks.com</wp:base_blog_url>
+	<channel>
+		<title>Pressbooks Integration Testing</title>
+		<link>https://dev.pressbooks.pub/pbtest</link>
+		<description>Simple Book Publishing</description>
+		<pubDate>Tue, 08 Nov 2022 00:50:59 +0000</pubDate>
+		<language>en-US</language>
+		<wp:wxr_version>1.2</wp:wxr_version>
+		<wp:base_site_url>https://dev.pressbooks.pub/</wp:base_site_url>
+		<wp:base_blog_url>https://dev.pressbooks.pub/pbtest</wp:base_blog_url>
 
-	<wp:author><wp:author_id>10852</wp:author_id><wp:author_login><![CDATA[connerbw]]></wp:author_login><wp:author_email><![CDATA[dac@pressbooks.com]]></wp:author_email><wp:author_display_name><![CDATA[connerbw]]></wp:author_display_name><wp:author_first_name><![CDATA[]]></wp:author_first_name><wp:author_last_name><![CDATA[]]></wp:author_last_name></wp:author>
+		<wp:author><wp:author_id>1</wp:author_id><wp:author_login><![CDATA[pressbooks]]></wp:author_login><wp:author_email><![CDATA[ops@pressbooks.com]]></wp:author_email><wp:author_display_name><![CDATA[pressbooks]]></wp:author_display_name><wp:author_first_name><![CDATA[]]></wp:author_first_name><wp:author_last_name><![CDATA[]]></wp:author_last_name></wp:author>
+		<wp:author><wp:author_id>3</wp:author_id><wp:author_login><![CDATA[steel]]></wp:author_login><wp:author_email><![CDATA[steel@pressbooks.com]]></wp:author_email><wp:author_display_name><![CDATA[steel]]></wp:author_display_name><wp:author_first_name><![CDATA[Steel]]></wp:author_first_name><wp:author_last_name><![CDATA[Wagstaff]]></wp:author_last_name></wp:author>
 
-	<wp:category>
-		<wp:term_id>1</wp:term_id>
-		<wp:category_nicename><![CDATA[uncategorized]]></wp:category_nicename>
-		<wp:category_parent><![CDATA[]]></wp:category_parent>
-		<wp:cat_name><![CDATA[Uncategorized]]></wp:cat_name>
-	</wp:category>
-	<wp:term>
-		<wp:term_id><![CDATA[23]]></wp:term_id>
-		<wp:term_taxonomy><![CDATA[back-matter-type]]></wp:term_taxonomy>
-		<wp:term_slug><![CDATA[about-the-author]]></wp:term_slug>
-		<wp:term_parent><![CDATA[]]></wp:term_parent>
-		<wp:term_name><![CDATA[About the Author]]></wp:term_name>
-	</wp:term>
-	<wp:term>
-		<wp:term_id><![CDATA[24]]></wp:term_id>
-		<wp:term_taxonomy><![CDATA[back-matter-type]]></wp:term_taxonomy>
-		<wp:term_slug><![CDATA[about-the-publisher]]></wp:term_slug>
-		<wp:term_parent><![CDATA[]]></wp:term_parent>
-		<wp:term_name><![CDATA[About the Publisher]]></wp:term_name>
-	</wp:term>
-	<wp:term>
-		<wp:term_id><![CDATA[2]]></wp:term_id>
-		<wp:term_taxonomy><![CDATA[front-matter-type]]></wp:term_taxonomy>
-		<wp:term_slug><![CDATA[abstracts]]></wp:term_slug>
-		<wp:term_parent><![CDATA[]]></wp:term_parent>
-		<wp:term_name><![CDATA[Abstract]]></wp:term_name>
-	</wp:term>
-	<wp:term>
-		<wp:term_id><![CDATA[3]]></wp:term_id>
-		<wp:term_taxonomy><![CDATA[front-matter-type]]></wp:term_taxonomy>
-		<wp:term_slug><![CDATA[acknowledgements]]></wp:term_slug>
-		<wp:term_parent><![CDATA[]]></wp:term_parent>
-		<wp:term_name><![CDATA[Acknowledgements]]></wp:term_name>
-	</wp:term>
-	<wp:term>
-		<wp:term_id><![CDATA[25]]></wp:term_id>
-		<wp:term_taxonomy><![CDATA[back-matter-type]]></wp:term_taxonomy>
-		<wp:term_slug><![CDATA[acknowledgements]]></wp:term_slug>
-		<wp:term_parent><![CDATA[]]></wp:term_parent>
-		<wp:term_name><![CDATA[Acknowledgements]]></wp:term_name>
-	</wp:term>
-	<wp:term>
-		<wp:term_id><![CDATA[26]]></wp:term_id>
-		<wp:term_taxonomy><![CDATA[back-matter-type]]></wp:term_taxonomy>
-		<wp:term_slug><![CDATA[afterword]]></wp:term_slug>
-		<wp:term_parent><![CDATA[]]></wp:term_parent>
-		<wp:term_name><![CDATA[Afterword]]></wp:term_name>
-	</wp:term>
-	<wp:term>
-		<wp:term_id><![CDATA[56]]></wp:term_id>
-		<wp:term_taxonomy><![CDATA[license]]></wp:term_taxonomy>
-		<wp:term_slug><![CDATA[all-rights-reserved]]></wp:term_slug>
-		<wp:term_parent><![CDATA[]]></wp:term_parent>
-		<wp:term_name><![CDATA[All Rights Reserved]]></wp:term_name>
-	</wp:term>
-	<wp:term>
-		<wp:term_id><![CDATA[27]]></wp:term_id>
-		<wp:term_taxonomy><![CDATA[back-matter-type]]></wp:term_taxonomy>
-		<wp:term_slug><![CDATA[appendix]]></wp:term_slug>
-		<wp:term_parent><![CDATA[]]></wp:term_parent>
-		<wp:term_name><![CDATA[Appendix]]></wp:term_name>
-	</wp:term>
-	<wp:term>
-		<wp:term_id><![CDATA[28]]></wp:term_id>
-		<wp:term_taxonomy><![CDATA[back-matter-type]]></wp:term_taxonomy>
-		<wp:term_slug><![CDATA[authors-note]]></wp:term_slug>
-		<wp:term_parent><![CDATA[]]></wp:term_parent>
-		<wp:term_name><![CDATA[Author's Note]]></wp:term_name>
-	</wp:term>
-	<wp:term>
-		<wp:term_id><![CDATA[29]]></wp:term_id>
-		<wp:term_taxonomy><![CDATA[back-matter-type]]></wp:term_taxonomy>
-		<wp:term_slug><![CDATA[back-of-book-ad]]></wp:term_slug>
-		<wp:term_parent><![CDATA[]]></wp:term_parent>
-		<wp:term_name><![CDATA[Back of Book Ad]]></wp:term_name>
-	</wp:term>
-	<wp:term>
-		<wp:term_id><![CDATA[4]]></wp:term_id>
-		<wp:term_taxonomy><![CDATA[front-matter-type]]></wp:term_taxonomy>
-		<wp:term_slug><![CDATA[before-title]]></wp:term_slug>
-		<wp:term_parent><![CDATA[]]></wp:term_parent>
-		<wp:term_name><![CDATA[Before Title Page]]></wp:term_name>
-	</wp:term>
-	<wp:term>
-		<wp:term_id><![CDATA[30]]></wp:term_id>
-		<wp:term_taxonomy><![CDATA[back-matter-type]]></wp:term_taxonomy>
-		<wp:term_slug><![CDATA[bibliography]]></wp:term_slug>
-		<wp:term_parent><![CDATA[]]></wp:term_parent>
-		<wp:term_name><![CDATA[Bibliography]]></wp:term_name>
-	</wp:term>
-	<wp:term>
-		<wp:term_id><![CDATA[31]]></wp:term_id>
-		<wp:term_taxonomy><![CDATA[back-matter-type]]></wp:term_taxonomy>
-		<wp:term_slug><![CDATA[biographical-note]]></wp:term_slug>
-		<wp:term_parent><![CDATA[]]></wp:term_parent>
-		<wp:term_name><![CDATA[Biographical Note]]></wp:term_name>
-	</wp:term>
-	<wp:term>
-		<wp:term_id><![CDATA[50]]></wp:term_id>
-		<wp:term_taxonomy><![CDATA[license]]></wp:term_taxonomy>
-		<wp:term_slug><![CDATA[cc-by]]></wp:term_slug>
-		<wp:term_parent><![CDATA[]]></wp:term_parent>
-		<wp:term_name><![CDATA[CC BY (Attribution)]]></wp:term_name>
-	</wp:term>
-	<wp:term>
-		<wp:term_id><![CDATA[53]]></wp:term_id>
-		<wp:term_taxonomy><![CDATA[license]]></wp:term_taxonomy>
-		<wp:term_slug><![CDATA[cc-by-nc]]></wp:term_slug>
-		<wp:term_parent><![CDATA[]]></wp:term_parent>
-		<wp:term_name><![CDATA[CC BY-NC (Attribution NonCommercial)]]></wp:term_name>
-	</wp:term>
-	<wp:term>
-		<wp:term_id><![CDATA[55]]></wp:term_id>
-		<wp:term_taxonomy><![CDATA[license]]></wp:term_taxonomy>
-		<wp:term_slug><![CDATA[cc-by-nc-nd]]></wp:term_slug>
-		<wp:term_parent><![CDATA[]]></wp:term_parent>
-		<wp:term_name><![CDATA[CC BY-NC-ND (Attribution NonCommercial NoDerivatives)]]></wp:term_name>
-	</wp:term>
-	<wp:term>
-		<wp:term_id><![CDATA[54]]></wp:term_id>
-		<wp:term_taxonomy><![CDATA[license]]></wp:term_taxonomy>
-		<wp:term_slug><![CDATA[cc-by-nc-sa]]></wp:term_slug>
-		<wp:term_parent><![CDATA[]]></wp:term_parent>
-		<wp:term_name><![CDATA[CC BY-NC-SA (Attribution NonCommercial ShareAlike)]]></wp:term_name>
-	</wp:term>
-	<wp:term>
-		<wp:term_id><![CDATA[52]]></wp:term_id>
-		<wp:term_taxonomy><![CDATA[license]]></wp:term_taxonomy>
-		<wp:term_slug><![CDATA[cc-by-nd]]></wp:term_slug>
-		<wp:term_parent><![CDATA[]]></wp:term_parent>
-		<wp:term_name><![CDATA[CC BY-ND (Attribution NoDerivatives)]]></wp:term_name>
-	</wp:term>
-	<wp:term>
-		<wp:term_id><![CDATA[51]]></wp:term_id>
-		<wp:term_taxonomy><![CDATA[license]]></wp:term_taxonomy>
-		<wp:term_slug><![CDATA[cc-by-sa]]></wp:term_slug>
-		<wp:term_parent><![CDATA[]]></wp:term_parent>
-		<wp:term_name><![CDATA[CC BY-SA (Attribution ShareAlike)]]></wp:term_name>
-	</wp:term>
-	<wp:term>
-		<wp:term_id><![CDATA[5]]></wp:term_id>
-		<wp:term_taxonomy><![CDATA[front-matter-type]]></wp:term_taxonomy>
-		<wp:term_slug><![CDATA[chronology-timeline]]></wp:term_slug>
-		<wp:term_parent><![CDATA[]]></wp:term_parent>
-		<wp:term_name><![CDATA[Chronology, Timeline]]></wp:term_name>
-	</wp:term>
-	<wp:term>
-		<wp:term_id><![CDATA[32]]></wp:term_id>
-		<wp:term_taxonomy><![CDATA[back-matter-type]]></wp:term_taxonomy>
-		<wp:term_slug><![CDATA[colophon]]></wp:term_slug>
-		<wp:term_parent><![CDATA[]]></wp:term_parent>
-		<wp:term_name><![CDATA[Colophon]]></wp:term_name>
-	</wp:term>
-	<wp:term>
-		<wp:term_id><![CDATA[33]]></wp:term_id>
-		<wp:term_taxonomy><![CDATA[back-matter-type]]></wp:term_taxonomy>
-		<wp:term_slug><![CDATA[conclusion]]></wp:term_slug>
-		<wp:term_parent><![CDATA[]]></wp:term_parent>
-		<wp:term_name><![CDATA[Conclusion]]></wp:term_name>
-	</wp:term>
-	<wp:term>
-		<wp:term_id><![CDATA[34]]></wp:term_id>
-		<wp:term_taxonomy><![CDATA[back-matter-type]]></wp:term_taxonomy>
-		<wp:term_slug><![CDATA[credits]]></wp:term_slug>
-		<wp:term_parent><![CDATA[]]></wp:term_parent>
-		<wp:term_name><![CDATA[Credits]]></wp:term_name>
-	</wp:term>
-	<wp:term>
-		<wp:term_id><![CDATA[6]]></wp:term_id>
-		<wp:term_taxonomy><![CDATA[front-matter-type]]></wp:term_taxonomy>
-		<wp:term_slug><![CDATA[dedication]]></wp:term_slug>
-		<wp:term_parent><![CDATA[]]></wp:term_parent>
-		<wp:term_name><![CDATA[Dedication]]></wp:term_name>
-	</wp:term>
-	<wp:term>
-		<wp:term_id><![CDATA[35]]></wp:term_id>
-		<wp:term_taxonomy><![CDATA[back-matter-type]]></wp:term_taxonomy>
-		<wp:term_slug><![CDATA[dedication]]></wp:term_slug>
-		<wp:term_parent><![CDATA[]]></wp:term_parent>
-		<wp:term_name><![CDATA[Dedication]]></wp:term_name>
-	</wp:term>
-	<wp:term>
-		<wp:term_id><![CDATA[7]]></wp:term_id>
-		<wp:term_taxonomy><![CDATA[front-matter-type]]></wp:term_taxonomy>
-		<wp:term_slug><![CDATA[disclaimer]]></wp:term_slug>
-		<wp:term_parent><![CDATA[]]></wp:term_parent>
-		<wp:term_name><![CDATA[Disclaimer]]></wp:term_name>
-	</wp:term>
-	<wp:term>
-		<wp:term_id><![CDATA[8]]></wp:term_id>
-		<wp:term_taxonomy><![CDATA[front-matter-type]]></wp:term_taxonomy>
-		<wp:term_slug><![CDATA[epigraph]]></wp:term_slug>
-		<wp:term_parent><![CDATA[]]></wp:term_parent>
-		<wp:term_name><![CDATA[Epigraph]]></wp:term_name>
-	</wp:term>
-	<wp:term>
-		<wp:term_id><![CDATA[36]]></wp:term_id>
-		<wp:term_taxonomy><![CDATA[back-matter-type]]></wp:term_taxonomy>
-		<wp:term_slug><![CDATA[epilogue]]></wp:term_slug>
-		<wp:term_parent><![CDATA[]]></wp:term_parent>
-		<wp:term_name><![CDATA[Epilogue]]></wp:term_name>
-	</wp:term>
-	<wp:term>
-		<wp:term_id><![CDATA[9]]></wp:term_id>
-		<wp:term_taxonomy><![CDATA[front-matter-type]]></wp:term_taxonomy>
-		<wp:term_slug><![CDATA[foreword]]></wp:term_slug>
-		<wp:term_parent><![CDATA[]]></wp:term_parent>
-		<wp:term_name><![CDATA[Foreword]]></wp:term_name>
-	</wp:term>
-	<wp:term>
-		<wp:term_id><![CDATA[10]]></wp:term_id>
-		<wp:term_taxonomy><![CDATA[front-matter-type]]></wp:term_taxonomy>
-		<wp:term_slug><![CDATA[genealogy-family-tree]]></wp:term_slug>
-		<wp:term_parent><![CDATA[]]></wp:term_parent>
-		<wp:term_name><![CDATA[Genealogy, Family Tree]]></wp:term_name>
-	</wp:term>
-	<wp:term>
-		<wp:term_id><![CDATA[37]]></wp:term_id>
-		<wp:term_taxonomy><![CDATA[back-matter-type]]></wp:term_taxonomy>
-		<wp:term_slug><![CDATA[glossary]]></wp:term_slug>
-		<wp:term_parent><![CDATA[]]></wp:term_parent>
-		<wp:term_name><![CDATA[Glossary]]></wp:term_name>
-	</wp:term>
-	<wp:term>
-		<wp:term_id><![CDATA[11]]></wp:term_id>
-		<wp:term_taxonomy><![CDATA[front-matter-type]]></wp:term_taxonomy>
-		<wp:term_slug><![CDATA[image-credits]]></wp:term_slug>
-		<wp:term_parent><![CDATA[]]></wp:term_parent>
-		<wp:term_name><![CDATA[Image credits]]></wp:term_name>
-	</wp:term>
-	<wp:term>
-		<wp:term_id><![CDATA[38]]></wp:term_id>
-		<wp:term_taxonomy><![CDATA[back-matter-type]]></wp:term_taxonomy>
-		<wp:term_slug><![CDATA[index]]></wp:term_slug>
-		<wp:term_parent><![CDATA[]]></wp:term_parent>
-		<wp:term_name><![CDATA[Index]]></wp:term_name>
-	</wp:term>
-	<wp:term>
-		<wp:term_id><![CDATA[12]]></wp:term_id>
-		<wp:term_taxonomy><![CDATA[front-matter-type]]></wp:term_taxonomy>
-		<wp:term_slug><![CDATA[introduction]]></wp:term_slug>
-		<wp:term_parent><![CDATA[]]></wp:term_parent>
-		<wp:term_name><![CDATA[Introduction]]></wp:term_name>
-	</wp:term>
-	<wp:term>
-		<wp:term_id><![CDATA[13]]></wp:term_id>
-		<wp:term_taxonomy><![CDATA[front-matter-type]]></wp:term_taxonomy>
-		<wp:term_slug><![CDATA[list-of-abbreviations]]></wp:term_slug>
-		<wp:term_parent><![CDATA[]]></wp:term_parent>
-		<wp:term_name><![CDATA[List of Abbreviations]]></wp:term_name>
-	</wp:term>
-	<wp:term>
-		<wp:term_id><![CDATA[14]]></wp:term_id>
-		<wp:term_taxonomy><![CDATA[front-matter-type]]></wp:term_taxonomy>
-		<wp:term_slug><![CDATA[list-of-characters]]></wp:term_slug>
-		<wp:term_parent><![CDATA[]]></wp:term_parent>
-		<wp:term_name><![CDATA[List of Characters]]></wp:term_name>
-	</wp:term>
-	<wp:term>
-		<wp:term_id><![CDATA[15]]></wp:term_id>
-		<wp:term_taxonomy><![CDATA[front-matter-type]]></wp:term_taxonomy>
-		<wp:term_slug><![CDATA[list-of-illustrations]]></wp:term_slug>
-		<wp:term_parent><![CDATA[]]></wp:term_parent>
-		<wp:term_name><![CDATA[List of Illustrations]]></wp:term_name>
-	</wp:term>
-	<wp:term>
-		<wp:term_id><![CDATA[16]]></wp:term_id>
-		<wp:term_taxonomy><![CDATA[front-matter-type]]></wp:term_taxonomy>
-		<wp:term_slug><![CDATA[list-of-tables]]></wp:term_slug>
-		<wp:term_parent><![CDATA[]]></wp:term_parent>
-		<wp:term_name><![CDATA[List of Tables]]></wp:term_name>
-	</wp:term>
-	<wp:term>
-		<wp:term_id><![CDATA[17]]></wp:term_id>
-		<wp:term_taxonomy><![CDATA[front-matter-type]]></wp:term_taxonomy>
-		<wp:term_slug><![CDATA[miscellaneous]]></wp:term_slug>
-		<wp:term_parent><![CDATA[]]></wp:term_parent>
-		<wp:term_name><![CDATA[Miscellaneous]]></wp:term_name>
-	</wp:term>
-	<wp:term>
-		<wp:term_id><![CDATA[39]]></wp:term_id>
-		<wp:term_taxonomy><![CDATA[back-matter-type]]></wp:term_taxonomy>
-		<wp:term_slug><![CDATA[miscellaneous]]></wp:term_slug>
-		<wp:term_parent><![CDATA[]]></wp:term_parent>
-		<wp:term_name><![CDATA[Miscellaneous]]></wp:term_name>
-	</wp:term>
-	<wp:term>
-		<wp:term_id><![CDATA[58]]></wp:term_id>
-		<wp:term_taxonomy><![CDATA[contributor]]></wp:term_taxonomy>
-		<wp:term_slug><![CDATA[nobody]]></wp:term_slug>
-		<wp:term_parent><![CDATA[]]></wp:term_parent>
-		<wp:term_name><![CDATA[Nobody]]></wp:term_name>
-	</wp:term>
-	<wp:term>
-		<wp:term_id><![CDATA[40]]></wp:term_id>
-		<wp:term_taxonomy><![CDATA[back-matter-type]]></wp:term_taxonomy>
-		<wp:term_slug><![CDATA[notes]]></wp:term_slug>
-		<wp:term_parent><![CDATA[]]></wp:term_parent>
-		<wp:term_name><![CDATA[Notes]]></wp:term_name>
-	</wp:term>
-	<wp:term>
-		<wp:term_id><![CDATA[48]]></wp:term_id>
-		<wp:term_taxonomy><![CDATA[chapter-type]]></wp:term_taxonomy>
-		<wp:term_slug><![CDATA[numberless]]></wp:term_slug>
-		<wp:term_parent><![CDATA[]]></wp:term_parent>
-		<wp:term_name><![CDATA[Numberless]]></wp:term_name>
-	</wp:term>
-	<wp:term>
-		<wp:term_id><![CDATA[18]]></wp:term_id>
-		<wp:term_taxonomy><![CDATA[front-matter-type]]></wp:term_taxonomy>
-		<wp:term_slug><![CDATA[other-books]]></wp:term_slug>
-		<wp:term_parent><![CDATA[]]></wp:term_parent>
-		<wp:term_name><![CDATA[Other Books by Author]]></wp:term_name>
-	</wp:term>
-	<wp:term>
-		<wp:term_id><![CDATA[41]]></wp:term_id>
-		<wp:term_taxonomy><![CDATA[back-matter-type]]></wp:term_taxonomy>
-		<wp:term_slug><![CDATA[other-books]]></wp:term_slug>
-		<wp:term_parent><![CDATA[]]></wp:term_parent>
-		<wp:term_name><![CDATA[Other Books by Author]]></wp:term_name>
-	</wp:term>
-	<wp:term>
-		<wp:term_id><![CDATA[42]]></wp:term_id>
-		<wp:term_taxonomy><![CDATA[back-matter-type]]></wp:term_taxonomy>
-		<wp:term_slug><![CDATA[permissions]]></wp:term_slug>
-		<wp:term_parent><![CDATA[]]></wp:term_parent>
-		<wp:term_name><![CDATA[Permissions]]></wp:term_name>
-	</wp:term>
-	<wp:term>
-		<wp:term_id><![CDATA[19]]></wp:term_id>
-		<wp:term_taxonomy><![CDATA[front-matter-type]]></wp:term_taxonomy>
-		<wp:term_slug><![CDATA[preface]]></wp:term_slug>
-		<wp:term_parent><![CDATA[]]></wp:term_parent>
-		<wp:term_name><![CDATA[Preface]]></wp:term_name>
-	</wp:term>
-	<wp:term>
-		<wp:term_id><![CDATA[20]]></wp:term_id>
-		<wp:term_taxonomy><![CDATA[front-matter-type]]></wp:term_taxonomy>
-		<wp:term_slug><![CDATA[prologue]]></wp:term_slug>
-		<wp:term_parent><![CDATA[]]></wp:term_parent>
-		<wp:term_name><![CDATA[Prologue]]></wp:term_name>
-	</wp:term>
-	<wp:term>
-		<wp:term_id><![CDATA[49]]></wp:term_id>
-		<wp:term_taxonomy><![CDATA[license]]></wp:term_taxonomy>
-		<wp:term_slug><![CDATA[public-domain]]></wp:term_slug>
-		<wp:term_parent><![CDATA[]]></wp:term_parent>
-		<wp:term_name><![CDATA[Public Domain (No Rights Reserved)]]></wp:term_name>
-	</wp:term>
-	<wp:term>
-		<wp:term_id><![CDATA[43]]></wp:term_id>
-		<wp:term_taxonomy><![CDATA[back-matter-type]]></wp:term_taxonomy>
-		<wp:term_slug><![CDATA[reading-group-guide]]></wp:term_slug>
-		<wp:term_parent><![CDATA[]]></wp:term_parent>
-		<wp:term_name><![CDATA[Reading Group Guide]]></wp:term_name>
-	</wp:term>
-	<wp:term>
-		<wp:term_id><![CDATA[21]]></wp:term_id>
-		<wp:term_taxonomy><![CDATA[front-matter-type]]></wp:term_taxonomy>
-		<wp:term_slug><![CDATA[recommended-citation]]></wp:term_slug>
-		<wp:term_parent><![CDATA[]]></wp:term_parent>
-		<wp:term_name><![CDATA[Recommended citation]]></wp:term_name>
-	</wp:term>
-	<wp:term>
-		<wp:term_id><![CDATA[44]]></wp:term_id>
-		<wp:term_taxonomy><![CDATA[back-matter-type]]></wp:term_taxonomy>
-		<wp:term_slug><![CDATA[resources]]></wp:term_slug>
-		<wp:term_parent><![CDATA[]]></wp:term_parent>
-		<wp:term_name><![CDATA[Resources]]></wp:term_name>
-	</wp:term>
-	<wp:term>
-		<wp:term_id><![CDATA[45]]></wp:term_id>
-		<wp:term_taxonomy><![CDATA[back-matter-type]]></wp:term_taxonomy>
-		<wp:term_slug><![CDATA[sources]]></wp:term_slug>
-		<wp:term_parent><![CDATA[]]></wp:term_parent>
-		<wp:term_name><![CDATA[Sources]]></wp:term_name>
-	</wp:term>
-	<wp:term>
-		<wp:term_id><![CDATA[47]]></wp:term_id>
-		<wp:term_taxonomy><![CDATA[chapter-type]]></wp:term_taxonomy>
-		<wp:term_slug><![CDATA[standard]]></wp:term_slug>
-		<wp:term_parent><![CDATA[]]></wp:term_parent>
-		<wp:term_name><![CDATA[Standard]]></wp:term_name>
-	</wp:term>
-	<wp:term>
-		<wp:term_id><![CDATA[46]]></wp:term_id>
-		<wp:term_taxonomy><![CDATA[back-matter-type]]></wp:term_taxonomy>
-		<wp:term_slug><![CDATA[suggested-reading]]></wp:term_slug>
-		<wp:term_parent><![CDATA[]]></wp:term_parent>
-		<wp:term_name><![CDATA[Suggested Reading]]></wp:term_name>
-	</wp:term>
-	<wp:term>
-		<wp:term_id><![CDATA[22]]></wp:term_id>
-		<wp:term_taxonomy><![CDATA[front-matter-type]]></wp:term_taxonomy>
-		<wp:term_slug><![CDATA[title-page]]></wp:term_slug>
-		<wp:term_parent><![CDATA[]]></wp:term_parent>
-		<wp:term_name><![CDATA[Title Page]]></wp:term_name>
-	</wp:term>
+		<wp:category>
+			<wp:term_id>1</wp:term_id>
+			<wp:category_nicename><![CDATA[uncategorized]]></wp:category_nicename>
+			<wp:category_parent><![CDATA[]]></wp:category_parent>
+			<wp:cat_name><![CDATA[Uncategorized]]></wp:cat_name>
+		</wp:category>
+		<wp:term>
+			<wp:term_id>24</wp:term_id>
+			<wp:term_taxonomy><![CDATA[back-matter-type]]></wp:term_taxonomy>
+			<wp:term_slug><![CDATA[about-the-author]]></wp:term_slug>
+			<wp:term_parent><![CDATA[]]></wp:term_parent>
+			<wp:term_name><![CDATA[About the Author]]></wp:term_name>
+		</wp:term>
+		<wp:term>
+			<wp:term_id>25</wp:term_id>
+			<wp:term_taxonomy><![CDATA[back-matter-type]]></wp:term_taxonomy>
+			<wp:term_slug><![CDATA[about-the-publisher]]></wp:term_slug>
+			<wp:term_parent><![CDATA[]]></wp:term_parent>
+			<wp:term_name><![CDATA[About the Publisher]]></wp:term_name>
+		</wp:term>
+		<wp:term>
+			<wp:term_id>3</wp:term_id>
+			<wp:term_taxonomy><![CDATA[front-matter-type]]></wp:term_taxonomy>
+			<wp:term_slug><![CDATA[abstracts]]></wp:term_slug>
+			<wp:term_parent><![CDATA[]]></wp:term_parent>
+			<wp:term_name><![CDATA[Abstract]]></wp:term_name>
+		</wp:term>
+		<wp:term>
+			<wp:term_id>26</wp:term_id>
+			<wp:term_taxonomy><![CDATA[back-matter-type]]></wp:term_taxonomy>
+			<wp:term_slug><![CDATA[acknowledgements]]></wp:term_slug>
+			<wp:term_parent><![CDATA[]]></wp:term_parent>
+			<wp:term_name><![CDATA[Acknowledgements]]></wp:term_name>
+		</wp:term>
+		<wp:term>
+			<wp:term_id>4</wp:term_id>
+			<wp:term_taxonomy><![CDATA[front-matter-type]]></wp:term_taxonomy>
+			<wp:term_slug><![CDATA[acknowledgements]]></wp:term_slug>
+			<wp:term_parent><![CDATA[]]></wp:term_parent>
+			<wp:term_name><![CDATA[Acknowledgements]]></wp:term_name>
+		</wp:term>
+		<wp:term>
+			<wp:term_id>27</wp:term_id>
+			<wp:term_taxonomy><![CDATA[back-matter-type]]></wp:term_taxonomy>
+			<wp:term_slug><![CDATA[afterword]]></wp:term_slug>
+			<wp:term_parent><![CDATA[]]></wp:term_parent>
+			<wp:term_name><![CDATA[Afterword]]></wp:term_name>
+		</wp:term>
+		<wp:term>
+			<wp:term_id>59</wp:term_id>
+			<wp:term_taxonomy><![CDATA[license]]></wp:term_taxonomy>
+			<wp:term_slug><![CDATA[all-rights-reserved]]></wp:term_slug>
+			<wp:term_parent><![CDATA[]]></wp:term_parent>
+			<wp:term_name><![CDATA[All Rights Reserved]]></wp:term_name>
+		</wp:term>
+		<wp:term>
+			<wp:term_id>28</wp:term_id>
+			<wp:term_taxonomy><![CDATA[back-matter-type]]></wp:term_taxonomy>
+			<wp:term_slug><![CDATA[appendix]]></wp:term_slug>
+			<wp:term_parent><![CDATA[]]></wp:term_parent>
+			<wp:term_name><![CDATA[Appendix]]></wp:term_name>
+		</wp:term>
+		<wp:term>
+			<wp:term_id>29</wp:term_id>
+			<wp:term_taxonomy><![CDATA[back-matter-type]]></wp:term_taxonomy>
+			<wp:term_slug><![CDATA[authors-note]]></wp:term_slug>
+			<wp:term_parent><![CDATA[]]></wp:term_parent>
+			<wp:term_name><![CDATA[Author's Note]]></wp:term_name>
+		</wp:term>
+		<wp:term>
+			<wp:term_id>30</wp:term_id>
+			<wp:term_taxonomy><![CDATA[back-matter-type]]></wp:term_taxonomy>
+			<wp:term_slug><![CDATA[back-of-book-ad]]></wp:term_slug>
+			<wp:term_parent><![CDATA[]]></wp:term_parent>
+			<wp:term_name><![CDATA[Back of Book Ad]]></wp:term_name>
+		</wp:term>
+		<wp:term>
+			<wp:term_id>5</wp:term_id>
+			<wp:term_taxonomy><![CDATA[front-matter-type]]></wp:term_taxonomy>
+			<wp:term_slug><![CDATA[before-title]]></wp:term_slug>
+			<wp:term_parent><![CDATA[]]></wp:term_parent>
+			<wp:term_name><![CDATA[Before Title Page]]></wp:term_name>
+		</wp:term>
+		<wp:term>
+			<wp:term_id>31</wp:term_id>
+			<wp:term_taxonomy><![CDATA[back-matter-type]]></wp:term_taxonomy>
+			<wp:term_slug><![CDATA[bibliography]]></wp:term_slug>
+			<wp:term_parent><![CDATA[]]></wp:term_parent>
+			<wp:term_name><![CDATA[Bibliography]]></wp:term_name>
+		</wp:term>
+		<wp:term>
+			<wp:term_id>32</wp:term_id>
+			<wp:term_taxonomy><![CDATA[back-matter-type]]></wp:term_taxonomy>
+			<wp:term_slug><![CDATA[biographical-note]]></wp:term_slug>
+			<wp:term_parent><![CDATA[]]></wp:term_parent>
+			<wp:term_name><![CDATA[Biographical Note]]></wp:term_name>
+		</wp:term>
+		<wp:term>
+			<wp:term_id>53</wp:term_id>
+			<wp:term_taxonomy><![CDATA[license]]></wp:term_taxonomy>
+			<wp:term_slug><![CDATA[cc-by]]></wp:term_slug>
+			<wp:term_parent><![CDATA[]]></wp:term_parent>
+			<wp:term_name><![CDATA[CC BY (Attribution)]]></wp:term_name>
+		</wp:term>
+		<wp:term>
+			<wp:term_id>56</wp:term_id>
+			<wp:term_taxonomy><![CDATA[license]]></wp:term_taxonomy>
+			<wp:term_slug><![CDATA[cc-by-nc]]></wp:term_slug>
+			<wp:term_parent><![CDATA[]]></wp:term_parent>
+			<wp:term_name><![CDATA[CC BY-NC (Attribution NonCommercial)]]></wp:term_name>
+		</wp:term>
+		<wp:term>
+			<wp:term_id>58</wp:term_id>
+			<wp:term_taxonomy><![CDATA[license]]></wp:term_taxonomy>
+			<wp:term_slug><![CDATA[cc-by-nc-nd]]></wp:term_slug>
+			<wp:term_parent><![CDATA[]]></wp:term_parent>
+			<wp:term_name><![CDATA[CC BY-NC-ND (Attribution NonCommercial NoDerivatives)]]></wp:term_name>
+		</wp:term>
+		<wp:term>
+			<wp:term_id>57</wp:term_id>
+			<wp:term_taxonomy><![CDATA[license]]></wp:term_taxonomy>
+			<wp:term_slug><![CDATA[cc-by-nc-sa]]></wp:term_slug>
+			<wp:term_parent><![CDATA[]]></wp:term_parent>
+			<wp:term_name><![CDATA[CC BY-NC-SA (Attribution NonCommercial ShareAlike)]]></wp:term_name>
+		</wp:term>
+		<wp:term>
+			<wp:term_id>55</wp:term_id>
+			<wp:term_taxonomy><![CDATA[license]]></wp:term_taxonomy>
+			<wp:term_slug><![CDATA[cc-by-nd]]></wp:term_slug>
+			<wp:term_parent><![CDATA[]]></wp:term_parent>
+			<wp:term_name><![CDATA[CC BY-ND (Attribution NoDerivatives)]]></wp:term_name>
+		</wp:term>
+		<wp:term>
+			<wp:term_id>54</wp:term_id>
+			<wp:term_taxonomy><![CDATA[license]]></wp:term_taxonomy>
+			<wp:term_slug><![CDATA[cc-by-sa]]></wp:term_slug>
+			<wp:term_parent><![CDATA[]]></wp:term_parent>
+			<wp:term_name><![CDATA[CC BY-SA (Attribution ShareAlike)]]></wp:term_name>
+		</wp:term>
+		<wp:term>
+			<wp:term_id>52</wp:term_id>
+			<wp:term_taxonomy><![CDATA[license]]></wp:term_taxonomy>
+			<wp:term_slug><![CDATA[cc-zero]]></wp:term_slug>
+			<wp:term_parent><![CDATA[]]></wp:term_parent>
+			<wp:term_name><![CDATA[CC0 (Creative Commons Zero)]]></wp:term_name>
+		</wp:term>
+		<wp:term>
+			<wp:term_id>6</wp:term_id>
+			<wp:term_taxonomy><![CDATA[front-matter-type]]></wp:term_taxonomy>
+			<wp:term_slug><![CDATA[chronology-timeline]]></wp:term_slug>
+			<wp:term_parent><![CDATA[]]></wp:term_parent>
+			<wp:term_name><![CDATA[Chronology, Timeline]]></wp:term_name>
+		</wp:term>
+		<wp:term>
+			<wp:term_id>33</wp:term_id>
+			<wp:term_taxonomy><![CDATA[back-matter-type]]></wp:term_taxonomy>
+			<wp:term_slug><![CDATA[colophon]]></wp:term_slug>
+			<wp:term_parent><![CDATA[]]></wp:term_parent>
+			<wp:term_name><![CDATA[Colophon]]></wp:term_name>
+		</wp:term>
+		<wp:term>
+			<wp:term_id>34</wp:term_id>
+			<wp:term_taxonomy><![CDATA[back-matter-type]]></wp:term_taxonomy>
+			<wp:term_slug><![CDATA[conclusion]]></wp:term_slug>
+			<wp:term_parent><![CDATA[]]></wp:term_parent>
+			<wp:term_name><![CDATA[Conclusion]]></wp:term_name>
+		</wp:term>
+		<wp:term>
+			<wp:term_id>2</wp:term_id>
+			<wp:term_taxonomy><![CDATA[back-matter-type]]></wp:term_taxonomy>
+			<wp:term_slug><![CDATA[contributors]]></wp:term_slug>
+			<wp:term_parent><![CDATA[]]></wp:term_parent>
+			<wp:term_name><![CDATA[Contributors]]></wp:term_name>
+		</wp:term>
+		<wp:term>
+			<wp:term_id>35</wp:term_id>
+			<wp:term_taxonomy><![CDATA[back-matter-type]]></wp:term_taxonomy>
+			<wp:term_slug><![CDATA[credits]]></wp:term_slug>
+			<wp:term_parent><![CDATA[]]></wp:term_parent>
+			<wp:term_name><![CDATA[Credits]]></wp:term_name>
+		</wp:term>
+		<wp:term>
+			<wp:term_id>7</wp:term_id>
+			<wp:term_taxonomy><![CDATA[front-matter-type]]></wp:term_taxonomy>
+			<wp:term_slug><![CDATA[dedication]]></wp:term_slug>
+			<wp:term_parent><![CDATA[]]></wp:term_parent>
+			<wp:term_name><![CDATA[Dedication]]></wp:term_name>
+		</wp:term>
+		<wp:term>
+			<wp:term_id>36</wp:term_id>
+			<wp:term_taxonomy><![CDATA[back-matter-type]]></wp:term_taxonomy>
+			<wp:term_slug><![CDATA[dedication]]></wp:term_slug>
+			<wp:term_parent><![CDATA[]]></wp:term_parent>
+			<wp:term_name><![CDATA[Dedication]]></wp:term_name>
+		</wp:term>
+		<wp:term>
+			<wp:term_id>8</wp:term_id>
+			<wp:term_taxonomy><![CDATA[front-matter-type]]></wp:term_taxonomy>
+			<wp:term_slug><![CDATA[disclaimer]]></wp:term_slug>
+			<wp:term_parent><![CDATA[]]></wp:term_parent>
+			<wp:term_name><![CDATA[Disclaimer]]></wp:term_name>
+		</wp:term>
+		<wp:term>
+			<wp:term_id>9</wp:term_id>
+			<wp:term_taxonomy><![CDATA[front-matter-type]]></wp:term_taxonomy>
+			<wp:term_slug><![CDATA[epigraph]]></wp:term_slug>
+			<wp:term_parent><![CDATA[]]></wp:term_parent>
+			<wp:term_name><![CDATA[Epigraph]]></wp:term_name>
+		</wp:term>
+		<wp:term>
+			<wp:term_id>37</wp:term_id>
+			<wp:term_taxonomy><![CDATA[back-matter-type]]></wp:term_taxonomy>
+			<wp:term_slug><![CDATA[epilogue]]></wp:term_slug>
+			<wp:term_parent><![CDATA[]]></wp:term_parent>
+			<wp:term_name><![CDATA[Epilogue]]></wp:term_name>
+		</wp:term>
+		<wp:term>
+			<wp:term_id>10</wp:term_id>
+			<wp:term_taxonomy><![CDATA[front-matter-type]]></wp:term_taxonomy>
+			<wp:term_slug><![CDATA[foreword]]></wp:term_slug>
+			<wp:term_parent><![CDATA[]]></wp:term_parent>
+			<wp:term_name><![CDATA[Foreword]]></wp:term_name>
+		</wp:term>
+		<wp:term>
+			<wp:term_id>11</wp:term_id>
+			<wp:term_taxonomy><![CDATA[front-matter-type]]></wp:term_taxonomy>
+			<wp:term_slug><![CDATA[genealogy-family-tree]]></wp:term_slug>
+			<wp:term_parent><![CDATA[]]></wp:term_parent>
+			<wp:term_name><![CDATA[Genealogy, Family Tree]]></wp:term_name>
+		</wp:term>
+		<wp:term>
+			<wp:term_id>38</wp:term_id>
+			<wp:term_taxonomy><![CDATA[back-matter-type]]></wp:term_taxonomy>
+			<wp:term_slug><![CDATA[glossary]]></wp:term_slug>
+			<wp:term_parent><![CDATA[]]></wp:term_parent>
+			<wp:term_name><![CDATA[Glossary]]></wp:term_name>
+		</wp:term>
+		<wp:term>
+			<wp:term_id>12</wp:term_id>
+			<wp:term_taxonomy><![CDATA[front-matter-type]]></wp:term_taxonomy>
+			<wp:term_slug><![CDATA[image-credits]]></wp:term_slug>
+			<wp:term_parent><![CDATA[]]></wp:term_parent>
+			<wp:term_name><![CDATA[Image credits]]></wp:term_name>
+		</wp:term>
+		<wp:term>
+			<wp:term_id>39</wp:term_id>
+			<wp:term_taxonomy><![CDATA[back-matter-type]]></wp:term_taxonomy>
+			<wp:term_slug><![CDATA[index]]></wp:term_slug>
+			<wp:term_parent><![CDATA[]]></wp:term_parent>
+			<wp:term_name><![CDATA[Index]]></wp:term_name>
+		</wp:term>
+		<wp:term>
+			<wp:term_id>13</wp:term_id>
+			<wp:term_taxonomy><![CDATA[front-matter-type]]></wp:term_taxonomy>
+			<wp:term_slug><![CDATA[introduction]]></wp:term_slug>
+			<wp:term_parent><![CDATA[]]></wp:term_parent>
+			<wp:term_name><![CDATA[Introduction]]></wp:term_name>
+		</wp:term>
+		<wp:term>
+			<wp:term_id>14</wp:term_id>
+			<wp:term_taxonomy><![CDATA[front-matter-type]]></wp:term_taxonomy>
+			<wp:term_slug><![CDATA[list-of-abbreviations]]></wp:term_slug>
+			<wp:term_parent><![CDATA[]]></wp:term_parent>
+			<wp:term_name><![CDATA[List of Abbreviations]]></wp:term_name>
+		</wp:term>
+		<wp:term>
+			<wp:term_id>15</wp:term_id>
+			<wp:term_taxonomy><![CDATA[front-matter-type]]></wp:term_taxonomy>
+			<wp:term_slug><![CDATA[list-of-characters]]></wp:term_slug>
+			<wp:term_parent><![CDATA[]]></wp:term_parent>
+			<wp:term_name><![CDATA[List of Characters]]></wp:term_name>
+		</wp:term>
+		<wp:term>
+			<wp:term_id>16</wp:term_id>
+			<wp:term_taxonomy><![CDATA[front-matter-type]]></wp:term_taxonomy>
+			<wp:term_slug><![CDATA[list-of-illustrations]]></wp:term_slug>
+			<wp:term_parent><![CDATA[]]></wp:term_parent>
+			<wp:term_name><![CDATA[List of Illustrations]]></wp:term_name>
+		</wp:term>
+		<wp:term>
+			<wp:term_id>17</wp:term_id>
+			<wp:term_taxonomy><![CDATA[front-matter-type]]></wp:term_taxonomy>
+			<wp:term_slug><![CDATA[list-of-tables]]></wp:term_slug>
+			<wp:term_parent><![CDATA[]]></wp:term_parent>
+			<wp:term_name><![CDATA[List of Tables]]></wp:term_name>
+		</wp:term>
+		<wp:term>
+			<wp:term_id>18</wp:term_id>
+			<wp:term_taxonomy><![CDATA[front-matter-type]]></wp:term_taxonomy>
+			<wp:term_slug><![CDATA[miscellaneous]]></wp:term_slug>
+			<wp:term_parent><![CDATA[]]></wp:term_parent>
+			<wp:term_name><![CDATA[Miscellaneous]]></wp:term_name>
+		</wp:term>
+		<wp:term>
+			<wp:term_id>50</wp:term_id>
+			<wp:term_taxonomy><![CDATA[glossary-type]]></wp:term_taxonomy>
+			<wp:term_slug><![CDATA[miscellaneous]]></wp:term_slug>
+			<wp:term_parent><![CDATA[]]></wp:term_parent>
+			<wp:term_name><![CDATA[Miscellaneous]]></wp:term_name>
+		</wp:term>
+		<wp:term>
+			<wp:term_id>40</wp:term_id>
+			<wp:term_taxonomy><![CDATA[back-matter-type]]></wp:term_taxonomy>
+			<wp:term_slug><![CDATA[miscellaneous]]></wp:term_slug>
+			<wp:term_parent><![CDATA[]]></wp:term_parent>
+			<wp:term_name><![CDATA[Miscellaneous]]></wp:term_name>
+		</wp:term>
+		<wp:term>
+			<wp:term_id>61</wp:term_id>
+			<wp:term_taxonomy><![CDATA[contributor]]></wp:term_taxonomy>
+			<wp:term_slug><![CDATA[nobody]]></wp:term_slug>
+			<wp:term_parent><![CDATA[]]></wp:term_parent>
+			<wp:term_name><![CDATA[Nobody]]></wp:term_name>
+		</wp:term>
+		<wp:term>
+			<wp:term_id>41</wp:term_id>
+			<wp:term_taxonomy><![CDATA[back-matter-type]]></wp:term_taxonomy>
+			<wp:term_slug><![CDATA[notes]]></wp:term_slug>
+			<wp:term_parent><![CDATA[]]></wp:term_parent>
+			<wp:term_name><![CDATA[Notes]]></wp:term_name>
+		</wp:term>
+		<wp:term>
+			<wp:term_id>49</wp:term_id>
+			<wp:term_taxonomy><![CDATA[chapter-type]]></wp:term_taxonomy>
+			<wp:term_slug><![CDATA[numberless]]></wp:term_slug>
+			<wp:term_parent><![CDATA[]]></wp:term_parent>
+			<wp:term_name><![CDATA[Numberless]]></wp:term_name>
+		</wp:term>
+		<wp:term>
+			<wp:term_id>42</wp:term_id>
+			<wp:term_taxonomy><![CDATA[back-matter-type]]></wp:term_taxonomy>
+			<wp:term_slug><![CDATA[other-books]]></wp:term_slug>
+			<wp:term_parent><![CDATA[]]></wp:term_parent>
+			<wp:term_name><![CDATA[Other Books by Author]]></wp:term_name>
+		</wp:term>
+		<wp:term>
+			<wp:term_id>19</wp:term_id>
+			<wp:term_taxonomy><![CDATA[front-matter-type]]></wp:term_taxonomy>
+			<wp:term_slug><![CDATA[other-books]]></wp:term_slug>
+			<wp:term_parent><![CDATA[]]></wp:term_parent>
+			<wp:term_name><![CDATA[Other Books by Author]]></wp:term_name>
+		</wp:term>
+		<wp:term>
+			<wp:term_id>43</wp:term_id>
+			<wp:term_taxonomy><![CDATA[back-matter-type]]></wp:term_taxonomy>
+			<wp:term_slug><![CDATA[permissions]]></wp:term_slug>
+			<wp:term_parent><![CDATA[]]></wp:term_parent>
+			<wp:term_name><![CDATA[Permissions]]></wp:term_name>
+		</wp:term>
+		<wp:term>
+			<wp:term_id>20</wp:term_id>
+			<wp:term_taxonomy><![CDATA[front-matter-type]]></wp:term_taxonomy>
+			<wp:term_slug><![CDATA[preface]]></wp:term_slug>
+			<wp:term_parent><![CDATA[]]></wp:term_parent>
+			<wp:term_name><![CDATA[Preface]]></wp:term_name>
+		</wp:term>
+		<wp:term>
+			<wp:term_id>21</wp:term_id>
+			<wp:term_taxonomy><![CDATA[front-matter-type]]></wp:term_taxonomy>
+			<wp:term_slug><![CDATA[prologue]]></wp:term_slug>
+			<wp:term_parent><![CDATA[]]></wp:term_parent>
+			<wp:term_name><![CDATA[Prologue]]></wp:term_name>
+		</wp:term>
+		<wp:term>
+			<wp:term_id>51</wp:term_id>
+			<wp:term_taxonomy><![CDATA[license]]></wp:term_taxonomy>
+			<wp:term_slug><![CDATA[public-domain]]></wp:term_slug>
+			<wp:term_parent><![CDATA[]]></wp:term_parent>
+			<wp:term_name><![CDATA[Public Domain]]></wp:term_name>
+		</wp:term>
+		<wp:term>
+			<wp:term_id>44</wp:term_id>
+			<wp:term_taxonomy><![CDATA[back-matter-type]]></wp:term_taxonomy>
+			<wp:term_slug><![CDATA[reading-group-guide]]></wp:term_slug>
+			<wp:term_parent><![CDATA[]]></wp:term_parent>
+			<wp:term_name><![CDATA[Reading Group Guide]]></wp:term_name>
+		</wp:term>
+		<wp:term>
+			<wp:term_id>22</wp:term_id>
+			<wp:term_taxonomy><![CDATA[front-matter-type]]></wp:term_taxonomy>
+			<wp:term_slug><![CDATA[recommended-citation]]></wp:term_slug>
+			<wp:term_parent><![CDATA[]]></wp:term_parent>
+			<wp:term_name><![CDATA[Recommended citation]]></wp:term_name>
+		</wp:term>
+		<wp:term>
+			<wp:term_id>45</wp:term_id>
+			<wp:term_taxonomy><![CDATA[back-matter-type]]></wp:term_taxonomy>
+			<wp:term_slug><![CDATA[resources]]></wp:term_slug>
+			<wp:term_parent><![CDATA[]]></wp:term_parent>
+			<wp:term_name><![CDATA[Resources]]></wp:term_name>
+		</wp:term>
+		<wp:term>
+			<wp:term_id>46</wp:term_id>
+			<wp:term_taxonomy><![CDATA[back-matter-type]]></wp:term_taxonomy>
+			<wp:term_slug><![CDATA[sources]]></wp:term_slug>
+			<wp:term_parent><![CDATA[]]></wp:term_parent>
+			<wp:term_name><![CDATA[Sources]]></wp:term_name>
+		</wp:term>
+		<wp:term>
+			<wp:term_id>48</wp:term_id>
+			<wp:term_taxonomy><![CDATA[chapter-type]]></wp:term_taxonomy>
+			<wp:term_slug><![CDATA[standard]]></wp:term_slug>
+			<wp:term_parent><![CDATA[]]></wp:term_parent>
+			<wp:term_name><![CDATA[Standard]]></wp:term_name>
+		</wp:term>
+		<wp:term>
+			<wp:term_id>60</wp:term_id>
+			<wp:term_taxonomy><![CDATA[contributor]]></wp:term_taxonomy>
+			<wp:term_slug><![CDATA[steel]]></wp:term_slug>
+			<wp:term_parent><![CDATA[]]></wp:term_parent>
+			<wp:term_name><![CDATA[Steel Wagstaff]]></wp:term_name>
+			<wp:termmeta>
+				<wp:meta_key><![CDATA[contributor_first_name]]></wp:meta_key>
+				<wp:meta_value><![CDATA[Steel]]></wp:meta_value>
+			</wp:termmeta>
+			<wp:termmeta>
+				<wp:meta_key><![CDATA[contributor_last_name]]></wp:meta_key>
+				<wp:meta_value><![CDATA[Wagstaff]]></wp:meta_value>
+			</wp:termmeta>
+			<wp:termmeta>
+				<wp:meta_key><![CDATA[contributor_picture]]></wp:meta_key>
+				<wp:meta_value><![CDATA[https://dev.pressbooks.pub/app/uploads/sites/156/2022/11/profile.jpg]]></wp:meta_value>
+			</wp:termmeta>
+		</wp:term>
+		<wp:term>
+			<wp:term_id>47</wp:term_id>
+			<wp:term_taxonomy><![CDATA[back-matter-type]]></wp:term_taxonomy>
+			<wp:term_slug><![CDATA[suggested-reading]]></wp:term_slug>
+			<wp:term_parent><![CDATA[]]></wp:term_parent>
+			<wp:term_name><![CDATA[Suggested Reading]]></wp:term_name>
+		</wp:term>
+		<wp:term>
+			<wp:term_id>23</wp:term_id>
+			<wp:term_taxonomy><![CDATA[front-matter-type]]></wp:term_taxonomy>
+			<wp:term_slug><![CDATA[title-page]]></wp:term_slug>
+			<wp:term_parent><![CDATA[]]></wp:term_parent>
+			<wp:term_name><![CDATA[Title Page]]></wp:term_name>
+		</wp:term>
 
-	<generator>https://wordpress.org/?v=4.9.8</generator>
+		<generator>https://wordpress.org/?v=6.0.3</generator>
 
-	<item>
-		<title>Main Body</title>
-		<link>http://pbtest.pressbooks.com/part/main-body/</link>
-		<pubDate>Tue, 28 Aug 2018 12:57:20 +0000</pubDate>
-		<dc:creator><![CDATA[connerbw]]></dc:creator>
-		<guid isPermaLink="false">https://pbtest.pressbooks.com/2018/08/28/main-body/</guid>
-		<description></description>
-		<content:encoded><![CDATA[]]></content:encoded>
-		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
-		<wp:post_id>3</wp:post_id>
-		<wp:post_date><![CDATA[2018-08-28 12:57:20]]></wp:post_date>
-		<wp:post_date_gmt><![CDATA[2018-08-28 12:57:20]]></wp:post_date_gmt>
-		<wp:comment_status><![CDATA[closed]]></wp:comment_status>
-		<wp:ping_status><![CDATA[closed]]></wp:ping_status>
-		<wp:post_name><![CDATA[main-body]]></wp:post_name>
-		<wp:status><![CDATA[publish]]></wp:status>
-		<wp:post_parent>0</wp:post_parent>
-		<wp:menu_order>1</wp:menu_order>
-		<wp:post_type><![CDATA[part]]></wp:post_type>
-		<wp:post_password><![CDATA[]]></wp:post_password>
-		<wp:is_sticky>0</wp:is_sticky>
-	</item>
-	<item>
-		<title>Introduction</title>
-		<link>http://pbtest.pressbooks.com/front-matter/introduction__trashed/</link>
-		<pubDate>Tue, 28 Aug 2018 12:57:20 +0000</pubDate>
-		<dc:creator><![CDATA[connerbw]]></dc:creator>
-		<guid isPermaLink="false">https://pbtest.pressbooks.com/2018/08/28/introduction/</guid>
-		<description></description>
-		<content:encoded><![CDATA[This is where you can write your introduction.]]></content:encoded>
-		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
-		<wp:post_id>4</wp:post_id>
-		<wp:post_date><![CDATA[2018-08-28 12:57:20]]></wp:post_date>
-		<wp:post_date_gmt><![CDATA[2018-08-28 12:57:20]]></wp:post_date_gmt>
-		<wp:comment_status><![CDATA[open]]></wp:comment_status>
-		<wp:ping_status><![CDATA[closed]]></wp:ping_status>
-		<wp:post_name><![CDATA[introduction__trashed]]></wp:post_name>
-		<wp:status><![CDATA[trash]]></wp:status>
-		<wp:post_parent>0</wp:post_parent>
-		<wp:menu_order>1</wp:menu_order>
-		<wp:post_type><![CDATA[front-matter]]></wp:post_type>
-		<wp:post_password><![CDATA[]]></wp:post_password>
-		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="front-matter-type" nicename="introduction"><![CDATA[Introduction]]></category>
-		<wp:postmeta>
-			<wp:meta_key><![CDATA[_wp_trash_meta_status]]></wp:meta_key>
-			<wp:meta_value><![CDATA[publish]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:postmeta>
-			<wp:meta_key><![CDATA[_wp_trash_meta_time]]></wp:meta_key>
-			<wp:meta_value><![CDATA[1535461516]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:postmeta>
-			<wp:meta_key><![CDATA[_wp_desired_post_slug]]></wp:meta_key>
-			<wp:meta_value><![CDATA[introduction]]></wp:meta_value>
-		</wp:postmeta>
-	</item>
-	<item>
-		<title>Chapter 1</title>
-		<link>http://pbtest.pressbooks.com/chapter/chapter-1__trashed/</link>
-		<pubDate>Tue, 28 Aug 2018 12:57:20 +0000</pubDate>
-		<dc:creator><![CDATA[connerbw]]></dc:creator>
-		<guid isPermaLink="false">https://pbtest.pressbooks.com/2018/08/28/chapter-1/</guid>
-		<description></description>
-		<content:encoded><![CDATA[This is the first chapter in the main body of the text. You can change the text, rename the chapter, add new chapters, and add new parts.]]></content:encoded>
-		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
-		<wp:post_id>5</wp:post_id>
-		<wp:post_date><![CDATA[2018-08-28 12:57:20]]></wp:post_date>
-		<wp:post_date_gmt><![CDATA[2018-08-28 12:57:20]]></wp:post_date_gmt>
-		<wp:comment_status><![CDATA[open]]></wp:comment_status>
-		<wp:ping_status><![CDATA[closed]]></wp:ping_status>
-		<wp:post_name><![CDATA[chapter-1__trashed]]></wp:post_name>
-		<wp:status><![CDATA[trash]]></wp:status>
-		<wp:post_parent>3</wp:post_parent>
-		<wp:menu_order>1</wp:menu_order>
-		<wp:post_type><![CDATA[chapter]]></wp:post_type>
-		<wp:post_password><![CDATA[]]></wp:post_password>
-		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="chapter-type" nicename="standard"><![CDATA[Standard]]></category>
-		<wp:postmeta>
-			<wp:meta_key><![CDATA[_wp_trash_meta_status]]></wp:meta_key>
-			<wp:meta_value><![CDATA[publish]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:postmeta>
-			<wp:meta_key><![CDATA[_wp_trash_meta_time]]></wp:meta_key>
-			<wp:meta_value><![CDATA[1535461513]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:postmeta>
-			<wp:meta_key><![CDATA[_wp_desired_post_slug]]></wp:meta_key>
-			<wp:meta_value><![CDATA[chapter-1]]></wp:meta_value>
-		</wp:postmeta>
-	</item>
-	<item>
-		<title>Appendix</title>
-		<link>http://pbtest.pressbooks.com/back-matter/appendix__trashed/</link>
-		<pubDate>Tue, 28 Aug 2018 12:57:20 +0000</pubDate>
-		<dc:creator><![CDATA[connerbw]]></dc:creator>
-		<guid isPermaLink="false">https://pbtest.pressbooks.com/2018/08/28/appendix/</guid>
-		<description></description>
-		<content:encoded><![CDATA[This is where you can add appendices or other back matter.]]></content:encoded>
-		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
-		<wp:post_id>6</wp:post_id>
-		<wp:post_date><![CDATA[2018-08-28 12:57:20]]></wp:post_date>
-		<wp:post_date_gmt><![CDATA[2018-08-28 12:57:20]]></wp:post_date_gmt>
-		<wp:comment_status><![CDATA[open]]></wp:comment_status>
-		<wp:ping_status><![CDATA[closed]]></wp:ping_status>
-		<wp:post_name><![CDATA[appendix__trashed]]></wp:post_name>
-		<wp:status><![CDATA[trash]]></wp:status>
-		<wp:post_parent>0</wp:post_parent>
-		<wp:menu_order>1</wp:menu_order>
-		<wp:post_type><![CDATA[back-matter]]></wp:post_type>
-		<wp:post_password><![CDATA[]]></wp:post_password>
-		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="back-matter-type" nicename="appendix"><![CDATA[Appendix]]></category>
-		<wp:postmeta>
-			<wp:meta_key><![CDATA[_wp_trash_meta_status]]></wp:meta_key>
-			<wp:meta_value><![CDATA[publish]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:postmeta>
-			<wp:meta_key><![CDATA[_wp_trash_meta_time]]></wp:meta_key>
-			<wp:meta_value><![CDATA[1535461519]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:postmeta>
-			<wp:meta_key><![CDATA[_wp_desired_post_slug]]></wp:meta_key>
-			<wp:meta_value><![CDATA[appendix]]></wp:meta_value>
-		</wp:postmeta>
-	</item>
-	<item>
-		<title>Authors</title>
-		<link>http://pbtest.pressbooks.com/authors/</link>
-		<pubDate>Tue, 28 Aug 2018 12:57:20 +0000</pubDate>
-		<dc:creator><![CDATA[connerbw]]></dc:creator>
-		<guid isPermaLink="false">https://pbtest.pressbooks.com/authors/</guid>
-		<description></description>
-		<content:encoded><![CDATA[<!-- Here be dragons. -->]]></content:encoded>
-		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
-		<wp:post_id>7</wp:post_id>
-		<wp:post_date><![CDATA[2018-08-28 12:57:20]]></wp:post_date>
-		<wp:post_date_gmt><![CDATA[2018-08-28 12:57:20]]></wp:post_date_gmt>
-		<wp:comment_status><![CDATA[closed]]></wp:comment_status>
-		<wp:ping_status><![CDATA[closed]]></wp:ping_status>
-		<wp:post_name><![CDATA[authors]]></wp:post_name>
-		<wp:status><![CDATA[publish]]></wp:status>
-		<wp:post_parent>0</wp:post_parent>
-		<wp:menu_order>0</wp:menu_order>
-		<wp:post_type><![CDATA[page]]></wp:post_type>
-		<wp:post_password><![CDATA[]]></wp:post_password>
-		<wp:is_sticky>0</wp:is_sticky>
-	</item>
-	<item>
-		<title>Cover</title>
-		<link>http://pbtest.pressbooks.com/</link>
-		<pubDate>Tue, 28 Aug 2018 12:57:20 +0000</pubDate>
-		<dc:creator><![CDATA[connerbw]]></dc:creator>
-		<guid isPermaLink="false">https://pbtest.pressbooks.com/cover/</guid>
-		<description></description>
-		<content:encoded><![CDATA[<!-- Here be dragons. -->]]></content:encoded>
-		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
-		<wp:post_id>8</wp:post_id>
-		<wp:post_date><![CDATA[2018-08-28 12:57:20]]></wp:post_date>
-		<wp:post_date_gmt><![CDATA[2018-08-28 12:57:20]]></wp:post_date_gmt>
-		<wp:comment_status><![CDATA[closed]]></wp:comment_status>
-		<wp:ping_status><![CDATA[closed]]></wp:ping_status>
-		<wp:post_name><![CDATA[cover]]></wp:post_name>
-		<wp:status><![CDATA[publish]]></wp:status>
-		<wp:post_parent>0</wp:post_parent>
-		<wp:menu_order>0</wp:menu_order>
-		<wp:post_type><![CDATA[page]]></wp:post_type>
-		<wp:post_password><![CDATA[]]></wp:post_password>
-		<wp:is_sticky>0</wp:is_sticky>
-	</item>
-	<item>
-		<title>Table of Contents</title>
-		<link>http://pbtest.pressbooks.com/table-of-contents/</link>
-		<pubDate>Tue, 28 Aug 2018 12:57:20 +0000</pubDate>
-		<dc:creator><![CDATA[connerbw]]></dc:creator>
-		<guid isPermaLink="false">https://pbtest.pressbooks.com/table-of-contents/</guid>
-		<description></description>
-		<content:encoded><![CDATA[<!-- Here be dragons. -->]]></content:encoded>
-		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
-		<wp:post_id>9</wp:post_id>
-		<wp:post_date><![CDATA[2018-08-28 12:57:20]]></wp:post_date>
-		<wp:post_date_gmt><![CDATA[2018-08-28 12:57:20]]></wp:post_date_gmt>
-		<wp:comment_status><![CDATA[closed]]></wp:comment_status>
-		<wp:ping_status><![CDATA[closed]]></wp:ping_status>
-		<wp:post_name><![CDATA[table-of-contents]]></wp:post_name>
-		<wp:status><![CDATA[publish]]></wp:status>
-		<wp:post_parent>0</wp:post_parent>
-		<wp:menu_order>0</wp:menu_order>
-		<wp:post_type><![CDATA[page]]></wp:post_type>
-		<wp:post_password><![CDATA[]]></wp:post_password>
-		<wp:is_sticky>0</wp:is_sticky>
-	</item>
-	<item>
-		<title>About</title>
-		<link>http://pbtest.pressbooks.com/about/</link>
-		<pubDate>Tue, 28 Aug 2018 12:57:20 +0000</pubDate>
-		<dc:creator><![CDATA[connerbw]]></dc:creator>
-		<guid isPermaLink="false">https://pbtest.pressbooks.com/about/</guid>
-		<description></description>
-		<content:encoded><![CDATA[<!-- Here be dragons. -->]]></content:encoded>
-		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
-		<wp:post_id>10</wp:post_id>
-		<wp:post_date><![CDATA[2018-08-28 12:57:20]]></wp:post_date>
-		<wp:post_date_gmt><![CDATA[2018-08-28 12:57:20]]></wp:post_date_gmt>
-		<wp:comment_status><![CDATA[closed]]></wp:comment_status>
-		<wp:ping_status><![CDATA[closed]]></wp:ping_status>
-		<wp:post_name><![CDATA[about]]></wp:post_name>
-		<wp:status><![CDATA[publish]]></wp:status>
-		<wp:post_parent>0</wp:post_parent>
-		<wp:menu_order>0</wp:menu_order>
-		<wp:post_type><![CDATA[page]]></wp:post_type>
-		<wp:post_password><![CDATA[]]></wp:post_password>
-		<wp:is_sticky>0</wp:is_sticky>
-	</item>
-	<item>
-		<title>Buy</title>
-		<link>http://pbtest.pressbooks.com/buy/</link>
-		<pubDate>Tue, 28 Aug 2018 12:57:21 +0000</pubDate>
-		<dc:creator><![CDATA[connerbw]]></dc:creator>
-		<guid isPermaLink="false">https://pbtest.pressbooks.com/buy/</guid>
-		<description></description>
-		<content:encoded><![CDATA[<!-- Here be dragons. -->]]></content:encoded>
-		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
-		<wp:post_id>11</wp:post_id>
-		<wp:post_date><![CDATA[2018-08-28 12:57:21]]></wp:post_date>
-		<wp:post_date_gmt><![CDATA[2018-08-28 12:57:21]]></wp:post_date_gmt>
-		<wp:comment_status><![CDATA[closed]]></wp:comment_status>
-		<wp:ping_status><![CDATA[closed]]></wp:ping_status>
-		<wp:post_name><![CDATA[buy]]></wp:post_name>
-		<wp:status><![CDATA[publish]]></wp:status>
-		<wp:post_parent>0</wp:post_parent>
-		<wp:menu_order>0</wp:menu_order>
-		<wp:post_type><![CDATA[page]]></wp:post_type>
-		<wp:post_password><![CDATA[]]></wp:post_password>
-		<wp:is_sticky>0</wp:is_sticky>
-	</item>
-	<item>
-		<title>Access Denied</title>
-		<link>http://pbtest.pressbooks.com/access-denied/</link>
-		<pubDate>Tue, 28 Aug 2018 12:57:21 +0000</pubDate>
-		<dc:creator><![CDATA[connerbw]]></dc:creator>
-		<guid isPermaLink="false">https://pbtest.pressbooks.com/access-denied/</guid>
-		<description></description>
-		<content:encoded><![CDATA[<!-- Here be dragons. -->]]></content:encoded>
-		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
-		<wp:post_id>12</wp:post_id>
-		<wp:post_date><![CDATA[2018-08-28 12:57:21]]></wp:post_date>
-		<wp:post_date_gmt><![CDATA[2018-08-28 12:57:21]]></wp:post_date_gmt>
-		<wp:comment_status><![CDATA[closed]]></wp:comment_status>
-		<wp:ping_status><![CDATA[closed]]></wp:ping_status>
-		<wp:post_name><![CDATA[access-denied]]></wp:post_name>
-		<wp:status><![CDATA[publish]]></wp:status>
-		<wp:post_parent>0</wp:post_parent>
-		<wp:menu_order>0</wp:menu_order>
-		<wp:post_type><![CDATA[page]]></wp:post_type>
-		<wp:post_password><![CDATA[]]></wp:post_password>
-		<wp:is_sticky>0</wp:is_sticky>
-	</item>
-	<item>
-		<title>Book Information</title>
-		<link>http://pbtest.pressbooks.com/?metadata=book-information</link>
-		<pubDate>Tue, 28 Aug 2018 12:57:21 +0000</pubDate>
-		<dc:creator><![CDATA[connerbw]]></dc:creator>
-		<guid isPermaLink="false">https://pbtest.pressbooks.com/2018/08/28/book-information/</guid>
-		<description></description>
-		<content:encoded><![CDATA[]]></content:encoded>
-		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
-		<wp:post_id>16</wp:post_id>
-		<wp:post_date><![CDATA[2018-08-28 12:57:21]]></wp:post_date>
-		<wp:post_date_gmt><![CDATA[2018-08-28 12:57:21]]></wp:post_date_gmt>
-		<wp:comment_status><![CDATA[closed]]></wp:comment_status>
-		<wp:ping_status><![CDATA[closed]]></wp:ping_status>
-		<wp:post_name><![CDATA[book-information]]></wp:post_name>
-		<wp:status><![CDATA[publish]]></wp:status>
-		<wp:post_parent>0</wp:post_parent>
-		<wp:menu_order>1</wp:menu_order>
-		<wp:post_type><![CDATA[metadata]]></wp:post_type>
-		<wp:post_password><![CDATA[]]></wp:post_password>
-		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="contributor" nicename="nobody"><![CDATA[Nobody]]></category>
-		<category domain="license" nicename="public-domain"><![CDATA[Public Domain (No Rights Reserved)]]></category>
-		<wp:postmeta>
-			<wp:meta_key><![CDATA[pb_title]]></wp:meta_key>
-			<wp:meta_value><![CDATA[Pressbooks Integration Testing]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:postmeta>
-			<wp:meta_key><![CDATA[pb_language]]></wp:meta_key>
-			<wp:meta_value><![CDATA[en]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:postmeta>
-			<wp:meta_key><![CDATA[pb_cover_image]]></wp:meta_key>
-			<wp:meta_value><![CDATA[https://pressbooks.com/app/plugins/pressbooks/assets/dist/images/default-book-cover.jpg]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:postmeta>
-			<wp:meta_key><![CDATA[_edit_last]]></wp:meta_key>
-			<wp:meta_value><![CDATA[10852]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:postmeta>
-			<wp:meta_key><![CDATA[pb_book_license]]></wp:meta_key>
-			<wp:meta_value><![CDATA[public-domain]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:postmeta>
-			<wp:meta_key><![CDATA[pb_authors]]></wp:meta_key>
-			<wp:meta_value><![CDATA[nobody]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:postmeta>
-			<wp:meta_key><![CDATA[pb_about_50]]></wp:meta_key>
-			<wp:meta_value><![CDATA[This book is for the developers of Pressbooks and their automated testing.]]></wp:meta_value>
-		</wp:postmeta>
-	</item>
-	<item>
-		<title>Test Video</title>
-		<link>http://pbtest.pressbooks.com/chapter/hosted-video/monkey/</link>
-		<pubDate>Tue, 28 Aug 2018 13:07:02 +0000</pubDate>
-		<dc:creator><![CDATA[connerbw]]></dc:creator>
-		<guid isPermaLink="false">https://pressbooks.com/app/uploads/sites/109504/2018/08/monkey.mp4</guid>
-		<description></description>
-		<content:encoded><![CDATA[Test video description.]]></content:encoded>
-		<excerpt:encoded><![CDATA[Test Video Caption]]></excerpt:encoded>
-		<wp:post_id>23</wp:post_id>
-		<wp:post_date><![CDATA[2018-08-28 13:07:02]]></wp:post_date>
-		<wp:post_date_gmt><![CDATA[2018-08-28 13:07:02]]></wp:post_date_gmt>
-		<wp:comment_status><![CDATA[closed]]></wp:comment_status>
-		<wp:ping_status><![CDATA[closed]]></wp:ping_status>
-		<wp:post_name><![CDATA[monkey]]></wp:post_name>
-		<wp:status><![CDATA[inherit]]></wp:status>
-		<wp:post_parent>27</wp:post_parent>
-		<wp:menu_order>0</wp:menu_order>
-		<wp:post_type><![CDATA[attachment]]></wp:post_type>
-		<wp:post_password><![CDATA[]]></wp:post_password>
-		<wp:is_sticky>0</wp:is_sticky>
-		<wp:attachment_url><![CDATA[https://pressbooks.com/app/uploads/sites/109504/2018/08/monkey.mp4]]></wp:attachment_url>
-		<wp:postmeta>
-			<wp:meta_key><![CDATA[_wp_attached_file]]></wp:meta_key>
-			<wp:meta_value><![CDATA[2018/08/monkey.mp4]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:postmeta>
-			<wp:meta_key><![CDATA[_wp_attachment_metadata]]></wp:meta_key>
-			<wp:meta_value><![CDATA[a:10:{s:7:"bitrate";i:250774;s:8:"filesize";i:126602;s:9:"mime_type";s:15:"video/quicktime";s:6:"length";i:4;s:16:"length_formatted";s:4:"0:04";s:5:"width";i:480;s:6:"height";i:268;s:10:"fileformat";s:3:"mp4";s:10:"dataformat";s:9:"quicktime";s:17:"created_timestamp";i:-2082844800;}]]></wp:meta_value>
-		</wp:postmeta>
-	</item>
-	<item>
-		<title>Test Image</title>
-		<link>http://pbtest.pressbooks.com/chapter/hosted-image/4tatoos/</link>
-		<pubDate>Tue, 28 Aug 2018 13:07:07 +0000</pubDate>
-		<dc:creator><![CDATA[connerbw]]></dc:creator>
-		<guid isPermaLink="false">https://pressbooks.com/app/uploads/sites/109504/2018/08/4tatoos.jpg</guid>
-		<description></description>
-		<content:encoded><![CDATA[Test image description.]]></content:encoded>
-		<excerpt:encoded><![CDATA[Test Image Caption]]></excerpt:encoded>
-		<wp:post_id>24</wp:post_id>
-		<wp:post_date><![CDATA[2018-08-28 13:07:07]]></wp:post_date>
-		<wp:post_date_gmt><![CDATA[2018-08-28 13:07:07]]></wp:post_date_gmt>
-		<wp:comment_status><![CDATA[closed]]></wp:comment_status>
-		<wp:ping_status><![CDATA[closed]]></wp:ping_status>
-		<wp:post_name><![CDATA[4tatoos]]></wp:post_name>
-		<wp:status><![CDATA[inherit]]></wp:status>
-		<wp:post_parent>29</wp:post_parent>
-		<wp:menu_order>0</wp:menu_order>
-		<wp:post_type><![CDATA[attachment]]></wp:post_type>
-		<wp:post_password><![CDATA[]]></wp:post_password>
-		<wp:is_sticky>0</wp:is_sticky>
-		<wp:attachment_url><![CDATA[https://pressbooks.com/app/uploads/sites/109504/2018/08/4tatoos.jpg]]></wp:attachment_url>
-		<wp:postmeta>
-			<wp:meta_key><![CDATA[_wp_attached_file]]></wp:meta_key>
-			<wp:meta_value><![CDATA[2018/08/4tatoos.jpg]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:postmeta>
-			<wp:meta_key><![CDATA[_wp_attachment_metadata]]></wp:meta_key>
-			<wp:meta_value><![CDATA[a:5:{s:5:"width";i:1024;s:6:"height";i:681;s:4:"file";s:19:"2018/08/4tatoos.jpg";s:5:"sizes";a:7:{s:9:"thumbnail";a:4:{s:4:"file";s:19:"4tatoos-150x150.jpg";s:5:"width";i:150;s:6:"height";i:150;s:9:"mime-type";s:10:"image/jpeg";}s:6:"medium";a:4:{s:4:"file";s:19:"4tatoos-300x200.jpg";s:5:"width";i:300;s:6:"height";i:200;s:9:"mime-type";s:10:"image/jpeg";}s:12:"medium_large";a:4:{s:4:"file";s:19:"4tatoos-768x511.jpg";s:5:"width";i:768;s:6:"height";i:511;s:9:"mime-type";s:10:"image/jpeg";}s:5:"large";a:4:{s:4:"file";s:20:"4tatoos-1024x681.jpg";s:5:"width";i:1024;s:6:"height";i:681;s:9:"mime-type";s:10:"image/jpeg";}s:14:"pb_cover_small";a:4:{s:4:"file";s:17:"4tatoos-65x43.jpg";s:5:"width";i:65;s:6:"height";i:43;s:9:"mime-type";s:10:"image/jpeg";}s:15:"pb_cover_medium";a:4:{s:4:"file";s:19:"4tatoos-225x150.jpg";s:5:"width";i:225;s:6:"height";i:150;s:9:"mime-type";s:10:"image/jpeg";}s:14:"pb_cover_large";a:4:{s:4:"file";s:19:"4tatoos-350x233.jpg";s:5:"width";i:350;s:6:"height";i:233;s:9:"mime-type";s:10:"image/jpeg";}}s:10:"image_meta";a:12:{s:8:"aperture";s:3:"2.8";s:6:"credit";s:0:"";s:6:"camera";s:7:"DMC-LX1";s:7:"caption";s:0:"";s:17:"created_timestamp";s:10:"1446594299";s:9:"copyright";s:0:"";s:12:"focal_length";s:3:"6.3";s:3:"iso";s:3:"200";s:13:"shutter_speed";s:3:"0.1";s:5:"title";s:0:"";s:11:"orientation";s:1:"0";s:8:"keywords";a:0:{}}}]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:postmeta>
-			<wp:meta_key><![CDATA[_wp_attachment_image_alt]]></wp:meta_key>
-			<wp:meta_value><![CDATA[Test Image Alt Text]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:postmeta>
-			<wp:meta_key><![CDATA[pb_media_attribution_author]]></wp:meta_key>
-			<wp:meta_value><![CDATA[Test Image Author]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:postmeta>
-			<wp:meta_key><![CDATA[pb_media_attribution_author_url]]></wp:meta_key>
-			<wp:meta_value><![CDATA[https://github.com/connerbw]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:postmeta>
-			<wp:meta_key><![CDATA[pb_media_attribution_adapted]]></wp:meta_key>
-			<wp:meta_value><![CDATA[Adapted By]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:postmeta>
-			<wp:meta_key><![CDATA[pb_media_attribution_adapted_url]]></wp:meta_key>
-			<wp:meta_value><![CDATA[https://pressbooks.education/]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:postmeta>
-			<wp:meta_key><![CDATA[pb_media_attribution_title_url]]></wp:meta_key>
-			<wp:meta_value><![CDATA[https://pressbooks.org]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:postmeta>
-			<wp:meta_key><![CDATA[pb_media_attribution_license]]></wp:meta_key>
-			<wp:meta_value><![CDATA[public-domain]]></wp:meta_value>
-		</wp:postmeta>
-	</item>
-	<item>
-		<title>Hosted Video</title>
-		<link>http://pbtest.pressbooks.com/chapter/hosted-video/</link>
-		<pubDate>Tue, 28 Aug 2018 13:13:29 +0000</pubDate>
-		<dc:creator><![CDATA[connerbw]]></dc:creator>
-		<guid isPermaLink="false">http://pbtest.pressbooks.com/?post_type=chapter&#038;p=27</guid>
-		<description></description>
-		<content:encoded><![CDATA[This is a video.
-
-[video width="480" height="268" mp4="https://pressbooks.com/app/uploads/sites/109504/2018/08/monkey.mp4"][/video]]]></content:encoded>
-		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
-		<wp:post_id>27</wp:post_id>
-		<wp:post_date><![CDATA[2018-08-28 13:13:29]]></wp:post_date>
-		<wp:post_date_gmt><![CDATA[2018-08-28 13:13:29]]></wp:post_date_gmt>
-		<wp:comment_status><![CDATA[closed]]></wp:comment_status>
-		<wp:ping_status><![CDATA[closed]]></wp:ping_status>
-		<wp:post_name><![CDATA[hosted-video]]></wp:post_name>
-		<wp:status><![CDATA[publish]]></wp:status>
-		<wp:post_parent>25</wp:post_parent>
-		<wp:menu_order>1</wp:menu_order>
-		<wp:post_type><![CDATA[chapter]]></wp:post_type>
-		<wp:post_password><![CDATA[]]></wp:post_password>
-		<wp:is_sticky>0</wp:is_sticky>
-		<wp:postmeta>
-			<wp:meta_key><![CDATA[_edit_last]]></wp:meta_key>
-			<wp:meta_value><![CDATA[10852]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:postmeta>
-			<wp:meta_key><![CDATA[pb_show_title]]></wp:meta_key>
-			<wp:meta_value><![CDATA[on]]></wp:meta_value>
-		</wp:postmeta>
-	</item>
-	<item>
-		<title>Hosted Image</title>
-		<link>http://pbtest.pressbooks.com/chapter/hosted-image/</link>
-		<pubDate>Tue, 28 Aug 2018 13:14:59 +0000</pubDate>
-		<dc:creator><![CDATA[connerbw]]></dc:creator>
-		<guid isPermaLink="false">http://pbtest.pressbooks.com/?post_type=chapter&#038;p=29</guid>
-		<description></description>
-		<content:encoded><![CDATA[This is a picture.
-
-<img class="alignnone wp-image-24 size-medium" src="https://pressbooks.com/app/uploads/sites/109504/2018/08/4tatoos-300x200.jpg" alt="" width="300" height="200" />]]></content:encoded>
-		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
-		<wp:post_id>29</wp:post_id>
-		<wp:post_date><![CDATA[2018-08-28 13:14:59]]></wp:post_date>
-		<wp:post_date_gmt><![CDATA[2018-08-28 13:14:59]]></wp:post_date_gmt>
-		<wp:comment_status><![CDATA[closed]]></wp:comment_status>
-		<wp:ping_status><![CDATA[closed]]></wp:ping_status>
-		<wp:post_name><![CDATA[hosted-image]]></wp:post_name>
-		<wp:status><![CDATA[publish]]></wp:status>
-		<wp:post_parent>25</wp:post_parent>
-		<wp:menu_order>2</wp:menu_order>
-		<wp:post_type><![CDATA[chapter]]></wp:post_type>
-		<wp:post_password><![CDATA[]]></wp:post_password>
-		<wp:is_sticky>0</wp:is_sticky>
-		<wp:postmeta>
-			<wp:meta_key><![CDATA[_edit_last]]></wp:meta_key>
-			<wp:meta_value><![CDATA[10852]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:postmeta>
-			<wp:meta_key><![CDATA[pb_show_title]]></wp:meta_key>
-			<wp:meta_value><![CDATA[on]]></wp:meta_value>
-		</wp:postmeta>
-	</item>
-	<item>
-		<title>Lorem Ipsum</title>
-		<link>http://pbtest.pressbooks.com/chapter/lorem-ipsum/</link>
-		<pubDate>Tue, 28 Aug 2018 13:16:32 +0000</pubDate>
-		<dc:creator><![CDATA[connerbw]]></dc:creator>
-		<guid isPermaLink="false">http://pbtest.pressbooks.com/?post_type=chapter&#038;p=32</guid>
-		<description></description>
-		<content:encoded><![CDATA[Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas suscipit faucibus sapien. Etiam ex eros, tincidunt vitae leo at, venenatis varius velit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Morbi non elit feugiat, aliquet nunc bibendum, laoreet sapien. Morbi nec nibh quis justo semper volutpat. Phasellus malesuada leo magna. Duis consectetur congue ipsum id posuere. Pellentesque elit est, sagittis tincidunt tincidunt sit amet, pretium vel leo. Nam vitae elementum turpis. Maecenas dignissim mollis lorem, vel volutpat dolor tincidunt sed. Curabitur aliquet volutpat lorem ut hendrerit. Maecenas euismod tempus augue. Fusce sed quam ac leo dapibus vestibulum quis a velit. Donec efficitur sodales dolor vel imperdiet. Nullam malesuada maximus nibh, in laoreet turpis tempus accumsan. Quisque sollicitudin magna et accumsan malesuada.]]></content:encoded>
-		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
-		<wp:post_id>32</wp:post_id>
-		<wp:post_date><![CDATA[2018-08-28 13:16:32]]></wp:post_date>
-		<wp:post_date_gmt><![CDATA[2018-08-28 13:16:32]]></wp:post_date_gmt>
-		<wp:comment_status><![CDATA[closed]]></wp:comment_status>
-		<wp:ping_status><![CDATA[closed]]></wp:ping_status>
-		<wp:post_name><![CDATA[lorem-ipsum]]></wp:post_name>
-		<wp:status><![CDATA[publish]]></wp:status>
-		<wp:post_parent>3</wp:post_parent>
-		<wp:menu_order>1</wp:menu_order>
-		<wp:post_type><![CDATA[chapter]]></wp:post_type>
-		<wp:post_password><![CDATA[]]></wp:post_password>
-		<wp:is_sticky>0</wp:is_sticky>
-		<wp:postmeta>
-			<wp:meta_key><![CDATA[_edit_last]]></wp:meta_key>
-			<wp:meta_value><![CDATA[10852]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:postmeta>
-			<wp:meta_key><![CDATA[pb_show_title]]></wp:meta_key>
-			<wp:meta_value><![CDATA[on]]></wp:meta_value>
-		</wp:postmeta>
-	</item>
-	<item>
-		<title>Introduction</title>
-		<link>http://pbtest.pressbooks.com/front-matter/introduction/</link>
-		<pubDate>Tue, 28 Aug 2018 13:18:09 +0000</pubDate>
-		<dc:creator><![CDATA[connerbw]]></dc:creator>
-		<guid isPermaLink="false">http://pbtest.pressbooks.com/?post_type=front-matter&#038;p=34</guid>
-		<description></description>
-		<content:encoded><![CDATA[Hello, my name is Pressbooks.]]></content:encoded>
-		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
-		<wp:post_id>34</wp:post_id>
-		<wp:post_date><![CDATA[2018-08-28 13:18:09]]></wp:post_date>
-		<wp:post_date_gmt><![CDATA[2018-08-28 13:18:09]]></wp:post_date_gmt>
-		<wp:comment_status><![CDATA[closed]]></wp:comment_status>
-		<wp:ping_status><![CDATA[closed]]></wp:ping_status>
-		<wp:post_name><![CDATA[introduction]]></wp:post_name>
-		<wp:status><![CDATA[publish]]></wp:status>
-		<wp:post_parent>0</wp:post_parent>
-		<wp:menu_order>1</wp:menu_order>
-		<wp:post_type><![CDATA[front-matter]]></wp:post_type>
-		<wp:post_password><![CDATA[]]></wp:post_password>
-		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="front-matter-type" nicename="introduction"><![CDATA[Introduction]]></category>
-		<wp:postmeta>
-			<wp:meta_key><![CDATA[_edit_last]]></wp:meta_key>
-			<wp:meta_value><![CDATA[10852]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:postmeta>
-			<wp:meta_key><![CDATA[pb_show_title]]></wp:meta_key>
-			<wp:meta_value><![CDATA[on]]></wp:meta_value>
-		</wp:postmeta>
-	</item>
-	<item>
-		<title>Conclusion</title>
-		<link>http://pbtest.pressbooks.com/back-matter/conclusion/</link>
-		<pubDate>Tue, 28 Aug 2018 13:18:30 +0000</pubDate>
-		<dc:creator><![CDATA[connerbw]]></dc:creator>
-		<guid isPermaLink="false">http://pbtest.pressbooks.com/?post_type=back-matter&#038;p=36</guid>
-		<description></description>
-		<content:encoded><![CDATA[Goodbye.]]></content:encoded>
-		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
-		<wp:post_id>36</wp:post_id>
-		<wp:post_date><![CDATA[2018-08-28 13:18:30]]></wp:post_date>
-		<wp:post_date_gmt><![CDATA[2018-08-28 13:18:30]]></wp:post_date_gmt>
-		<wp:comment_status><![CDATA[closed]]></wp:comment_status>
-		<wp:ping_status><![CDATA[closed]]></wp:ping_status>
-		<wp:post_name><![CDATA[conclusion]]></wp:post_name>
-		<wp:status><![CDATA[publish]]></wp:status>
-		<wp:post_parent>0</wp:post_parent>
-		<wp:menu_order>1</wp:menu_order>
-		<wp:post_type><![CDATA[back-matter]]></wp:post_type>
-		<wp:post_password><![CDATA[]]></wp:post_password>
-		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="back-matter-type" nicename="conclusion"><![CDATA[Conclusion]]></category>
-		<wp:postmeta>
-			<wp:meta_key><![CDATA[_edit_last]]></wp:meta_key>
-			<wp:meta_value><![CDATA[10852]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:postmeta>
-			<wp:meta_key><![CDATA[pb_show_title]]></wp:meta_key>
-			<wp:meta_value><![CDATA[on]]></wp:meta_value>
-		</wp:postmeta>
-	</item>
-	<item>
-		<title>Internal Links</title>
-		<link>http://pbtest.pressbooks.com/chapter/internal-links/</link>
-		<pubDate>Tue, 28 Aug 2018 13:19:48 +0000</pubDate>
-		<dc:creator><![CDATA[connerbw]]></dc:creator>
-		<guid isPermaLink="false">http://pbtest.pressbooks.com/?post_type=chapter&#038;p=38</guid>
-		<description></description>
-		<content:encoded><![CDATA[<a href="http://pbtest.pressbooks.com/front-matter/introduction/">Introduction</a>
+		<item>
+			<title><![CDATA[Authors]]></title>
+			<link>https://dev.pressbooks.pub/pbtest/authors/</link>
+			<pubDate>Mon, 07 Nov 2022 16:32:36 +0000</pubDate>
+			<dc:creator><![CDATA[steel]]></dc:creator>
+			<guid isPermaLink="false">https://dev.pressbooks.pub/pbtest/authors/</guid>
+			<description></description>
+			<content:encoded><![CDATA[<!-- Here be dragons. -->]]></content:encoded>
+			<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+			<wp:post_id>3</wp:post_id>
+			<wp:post_date><![CDATA[2022-11-07 16:32:36]]></wp:post_date>
+			<wp:post_date_gmt><![CDATA[2022-11-07 16:32:36]]></wp:post_date_gmt>
+			<wp:post_modified><![CDATA[2022-11-07 16:32:36]]></wp:post_modified>
+			<wp:post_modified_gmt><![CDATA[2022-11-07 16:32:36]]></wp:post_modified_gmt>
+			<wp:comment_status><![CDATA[closed]]></wp:comment_status>
+			<wp:ping_status><![CDATA[closed]]></wp:ping_status>
+			<wp:post_name><![CDATA[authors]]></wp:post_name>
+			<wp:status><![CDATA[publish]]></wp:status>
+			<wp:post_parent>0</wp:post_parent>
+			<wp:menu_order>0</wp:menu_order>
+			<wp:post_type><![CDATA[page]]></wp:post_type>
+			<wp:post_password><![CDATA[]]></wp:post_password>
+			<wp:is_sticky>0</wp:is_sticky>
+		</item>
+		<item>
+			<title><![CDATA[Cover]]></title>
+			<link>https://dev.pressbooks.pub/pbtest/</link>
+			<pubDate>Mon, 07 Nov 2022 16:32:36 +0000</pubDate>
+			<dc:creator><![CDATA[steel]]></dc:creator>
+			<guid isPermaLink="false">https://dev.pressbooks.pub/pbtest/cover/</guid>
+			<description></description>
+			<content:encoded><![CDATA[<!-- Here be dragons. -->]]></content:encoded>
+			<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+			<wp:post_id>4</wp:post_id>
+			<wp:post_date><![CDATA[2022-11-07 16:32:36]]></wp:post_date>
+			<wp:post_date_gmt><![CDATA[2022-11-07 16:32:36]]></wp:post_date_gmt>
+			<wp:post_modified><![CDATA[2022-11-07 16:32:36]]></wp:post_modified>
+			<wp:post_modified_gmt><![CDATA[2022-11-07 16:32:36]]></wp:post_modified_gmt>
+			<wp:comment_status><![CDATA[closed]]></wp:comment_status>
+			<wp:ping_status><![CDATA[closed]]></wp:ping_status>
+			<wp:post_name><![CDATA[cover]]></wp:post_name>
+			<wp:status><![CDATA[publish]]></wp:status>
+			<wp:post_parent>0</wp:post_parent>
+			<wp:menu_order>0</wp:menu_order>
+			<wp:post_type><![CDATA[page]]></wp:post_type>
+			<wp:post_password><![CDATA[]]></wp:post_password>
+			<wp:is_sticky>0</wp:is_sticky>
+		</item>
+		<item>
+			<title><![CDATA[Table of Contents]]></title>
+			<link>https://dev.pressbooks.pub/pbtest/table-of-contents/</link>
+			<pubDate>Mon, 07 Nov 2022 16:32:36 +0000</pubDate>
+			<dc:creator><![CDATA[steel]]></dc:creator>
+			<guid isPermaLink="false">https://dev.pressbooks.pub/pbtest/table-of-contents/</guid>
+			<description></description>
+			<content:encoded><![CDATA[<!-- Here be dragons. -->]]></content:encoded>
+			<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+			<wp:post_id>5</wp:post_id>
+			<wp:post_date><![CDATA[2022-11-07 16:32:36]]></wp:post_date>
+			<wp:post_date_gmt><![CDATA[2022-11-07 16:32:36]]></wp:post_date_gmt>
+			<wp:post_modified><![CDATA[2022-11-07 16:32:36]]></wp:post_modified>
+			<wp:post_modified_gmt><![CDATA[2022-11-07 16:32:36]]></wp:post_modified_gmt>
+			<wp:comment_status><![CDATA[closed]]></wp:comment_status>
+			<wp:ping_status><![CDATA[closed]]></wp:ping_status>
+			<wp:post_name><![CDATA[table-of-contents]]></wp:post_name>
+			<wp:status><![CDATA[publish]]></wp:status>
+			<wp:post_parent>0</wp:post_parent>
+			<wp:menu_order>0</wp:menu_order>
+			<wp:post_type><![CDATA[page]]></wp:post_type>
+			<wp:post_password><![CDATA[]]></wp:post_password>
+			<wp:is_sticky>0</wp:is_sticky>
+		</item>
+		<item>
+			<title><![CDATA[About]]></title>
+			<link>https://dev.pressbooks.pub/pbtest/about/</link>
+			<pubDate>Mon, 07 Nov 2022 16:32:36 +0000</pubDate>
+			<dc:creator><![CDATA[steel]]></dc:creator>
+			<guid isPermaLink="false">https://dev.pressbooks.pub/pbtest/about/</guid>
+			<description></description>
+			<content:encoded><![CDATA[<!-- Here be dragons. -->]]></content:encoded>
+			<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+			<wp:post_id>6</wp:post_id>
+			<wp:post_date><![CDATA[2022-11-07 16:32:36]]></wp:post_date>
+			<wp:post_date_gmt><![CDATA[2022-11-07 16:32:36]]></wp:post_date_gmt>
+			<wp:post_modified><![CDATA[2022-11-07 16:32:36]]></wp:post_modified>
+			<wp:post_modified_gmt><![CDATA[2022-11-07 16:32:36]]></wp:post_modified_gmt>
+			<wp:comment_status><![CDATA[closed]]></wp:comment_status>
+			<wp:ping_status><![CDATA[closed]]></wp:ping_status>
+			<wp:post_name><![CDATA[about]]></wp:post_name>
+			<wp:status><![CDATA[publish]]></wp:status>
+			<wp:post_parent>0</wp:post_parent>
+			<wp:menu_order>0</wp:menu_order>
+			<wp:post_type><![CDATA[page]]></wp:post_type>
+			<wp:post_password><![CDATA[]]></wp:post_password>
+			<wp:is_sticky>0</wp:is_sticky>
+		</item>
+		<item>
+			<title><![CDATA[Buy]]></title>
+			<link>https://dev.pressbooks.pub/pbtest/buy/</link>
+			<pubDate>Mon, 07 Nov 2022 16:32:36 +0000</pubDate>
+			<dc:creator><![CDATA[steel]]></dc:creator>
+			<guid isPermaLink="false">https://dev.pressbooks.pub/pbtest/buy/</guid>
+			<description></description>
+			<content:encoded><![CDATA[<!-- Here be dragons. -->]]></content:encoded>
+			<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+			<wp:post_id>7</wp:post_id>
+			<wp:post_date><![CDATA[2022-11-07 16:32:36]]></wp:post_date>
+			<wp:post_date_gmt><![CDATA[2022-11-07 16:32:36]]></wp:post_date_gmt>
+			<wp:post_modified><![CDATA[2022-11-07 16:32:36]]></wp:post_modified>
+			<wp:post_modified_gmt><![CDATA[2022-11-07 16:32:36]]></wp:post_modified_gmt>
+			<wp:comment_status><![CDATA[closed]]></wp:comment_status>
+			<wp:ping_status><![CDATA[closed]]></wp:ping_status>
+			<wp:post_name><![CDATA[buy]]></wp:post_name>
+			<wp:status><![CDATA[publish]]></wp:status>
+			<wp:post_parent>0</wp:post_parent>
+			<wp:menu_order>0</wp:menu_order>
+			<wp:post_type><![CDATA[page]]></wp:post_type>
+			<wp:post_password><![CDATA[]]></wp:post_password>
+			<wp:is_sticky>0</wp:is_sticky>
+		</item>
+		<item>
+			<title><![CDATA[Access Denied]]></title>
+			<link>https://dev.pressbooks.pub/pbtest/access-denied/</link>
+			<pubDate>Mon, 07 Nov 2022 16:32:36 +0000</pubDate>
+			<dc:creator><![CDATA[steel]]></dc:creator>
+			<guid isPermaLink="false">https://dev.pressbooks.pub/pbtest/access-denied/</guid>
+			<description></description>
+			<content:encoded><![CDATA[<!-- Here be dragons. -->]]></content:encoded>
+			<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+			<wp:post_id>8</wp:post_id>
+			<wp:post_date><![CDATA[2022-11-07 16:32:36]]></wp:post_date>
+			<wp:post_date_gmt><![CDATA[2022-11-07 16:32:36]]></wp:post_date_gmt>
+			<wp:post_modified><![CDATA[2022-11-07 16:32:36]]></wp:post_modified>
+			<wp:post_modified_gmt><![CDATA[2022-11-07 16:32:36]]></wp:post_modified_gmt>
+			<wp:comment_status><![CDATA[closed]]></wp:comment_status>
+			<wp:ping_status><![CDATA[closed]]></wp:ping_status>
+			<wp:post_name><![CDATA[access-denied]]></wp:post_name>
+			<wp:status><![CDATA[publish]]></wp:status>
+			<wp:post_parent>0</wp:post_parent>
+			<wp:menu_order>0</wp:menu_order>
+			<wp:post_type><![CDATA[page]]></wp:post_type>
+			<wp:post_password><![CDATA[]]></wp:post_password>
+			<wp:is_sticky>0</wp:is_sticky>
+		</item>
+		<item>
+			<title><![CDATA[Book Information]]></title>
+			<link>https://dev.pressbooks.pub/pbtest/?metadata=book-information</link>
+			<pubDate>Mon, 07 Nov 2022 16:32:36 +0000</pubDate>
+			<dc:creator><![CDATA[steel]]></dc:creator>
+			<guid isPermaLink="false">https://dev.pressbooks.pub/pbtest/?p=12</guid>
+			<description></description>
+			<content:encoded><![CDATA[]]></content:encoded>
+			<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+			<wp:post_id>12</wp:post_id>
+			<wp:post_date><![CDATA[2022-11-07 16:32:36]]></wp:post_date>
+			<wp:post_date_gmt><![CDATA[2022-11-07 16:32:36]]></wp:post_date_gmt>
+			<wp:post_modified><![CDATA[2022-11-07 16:34:39]]></wp:post_modified>
+			<wp:post_modified_gmt><![CDATA[2022-11-07 16:34:39]]></wp:post_modified_gmt>
+			<wp:comment_status><![CDATA[closed]]></wp:comment_status>
+			<wp:ping_status><![CDATA[closed]]></wp:ping_status>
+			<wp:post_name><![CDATA[book-information]]></wp:post_name>
+			<wp:status><![CDATA[publish]]></wp:status>
+			<wp:post_parent>0</wp:post_parent>
+			<wp:menu_order>1</wp:menu_order>
+			<wp:post_type><![CDATA[metadata]]></wp:post_type>
+			<wp:post_password><![CDATA[]]></wp:post_password>
+			<wp:is_sticky>0</wp:is_sticky>
+			<category domain="contributor" nicename="nobody"><![CDATA[Nobody]]></category>
+			<category domain="license" nicename="public-domain"><![CDATA[Public Domain]]></category>
+			<wp:postmeta>
+				<wp:meta_key><![CDATA[pb_title]]></wp:meta_key>
+				<wp:meta_value><![CDATA[Pressbooks Integration Testing]]></wp:meta_value>
+			</wp:postmeta>
+			<wp:postmeta>
+				<wp:meta_key><![CDATA[pb_language]]></wp:meta_key>
+				<wp:meta_value><![CDATA[en]]></wp:meta_value>
+			</wp:postmeta>
+			<wp:postmeta>
+				<wp:meta_key><![CDATA[pb_cover_image]]></wp:meta_key>
+				<wp:meta_value><![CDATA[https://dev.pressbooks.pub/app/plugins/pressbooks/assets/dist/images/default-book-cover.jpg]]></wp:meta_value>
+			</wp:postmeta>
+			<wp:postmeta>
+				<wp:meta_key><![CDATA[pb_about_50]]></wp:meta_key>
+				<wp:meta_value><![CDATA[This book is for the developers of Pressbooks and their automated testing.]]></wp:meta_value>
+			</wp:postmeta>
+			<wp:postmeta>
+				<wp:meta_key><![CDATA[pb_book_license]]></wp:meta_key>
+				<wp:meta_value><![CDATA[public-domain]]></wp:meta_value>
+			</wp:postmeta>
+			<wp:postmeta>
+				<wp:meta_key><![CDATA[_edit_last]]></wp:meta_key>
+				<wp:meta_value><![CDATA[3]]></wp:meta_value>
+			</wp:postmeta>
+			<wp:postmeta>
+				<wp:meta_key><![CDATA[pb_additional_subjects]]></wp:meta_key>
+				<wp:meta_value><![CDATA[]]></wp:meta_value>
+			</wp:postmeta>
+			<wp:postmeta>
+				<wp:meta_key><![CDATA[pb_authors]]></wp:meta_key>
+				<wp:meta_value><![CDATA[nobody]]></wp:meta_value>
+			</wp:postmeta>
+			<wp:postmeta>
+				<wp:meta_key><![CDATA[pb_keywords_tags]]></wp:meta_key>
+				<wp:meta_value><![CDATA[]]></wp:meta_value>
+			</wp:postmeta>
+			<wp:postmeta>
+				<wp:meta_key><![CDATA[pb_bisac_subject]]></wp:meta_key>
+				<wp:meta_value><![CDATA[BUS070030]]></wp:meta_value>
+			</wp:postmeta>
+		</item>
+		<item>
+			<title><![CDATA[Introduction]]></title>
+			<link>https://dev.pressbooks.pub/pbtest/front-matter/introduction/</link>
+			<pubDate>Tue, 28 Aug 2018 13:18:09 +0000</pubDate>
+			<dc:creator><![CDATA[steel]]></dc:creator>
+			<guid isPermaLink="false">https://dev.pressbooks.pub/pbtest/front-matter/introduction/</guid>
+			<description></description>
+			<content:encoded><![CDATA[Hello, my name is Pressbooks.]]></content:encoded>
+			<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+			<wp:post_id>17</wp:post_id>
+			<wp:post_date><![CDATA[2018-08-28 13:18:09]]></wp:post_date>
+			<wp:post_date_gmt><![CDATA[2018-08-28 13:18:09]]></wp:post_date_gmt>
+			<wp:post_modified><![CDATA[2018-08-28 13:18:09]]></wp:post_modified>
+			<wp:post_modified_gmt><![CDATA[2018-08-28 13:18:09]]></wp:post_modified_gmt>
+			<wp:comment_status><![CDATA[open]]></wp:comment_status>
+			<wp:ping_status><![CDATA[closed]]></wp:ping_status>
+			<wp:post_name><![CDATA[introduction]]></wp:post_name>
+			<wp:status><![CDATA[publish]]></wp:status>
+			<wp:post_parent>0</wp:post_parent>
+			<wp:menu_order>1</wp:menu_order>
+			<wp:post_type><![CDATA[front-matter]]></wp:post_type>
+			<wp:post_password><![CDATA[]]></wp:post_password>
+			<wp:is_sticky>0</wp:is_sticky>
+			<category domain="front-matter-type" nicename="introduction"><![CDATA[Introduction]]></category>
+			<wp:postmeta>
+				<wp:meta_key><![CDATA[pb_is_based_on]]></wp:meta_key>
+				<wp:meta_value><![CDATA[https://pbtest.pressbooks.com/front-matter/introduction/]]></wp:meta_value>
+			</wp:postmeta>
+			<wp:postmeta>
+				<wp:meta_key><![CDATA[pb_show_title]]></wp:meta_key>
+				<wp:meta_value><![CDATA[on]]></wp:meta_value>
+			</wp:postmeta>
+		</item>
+		<item>
+			<title><![CDATA[Main Body]]></title>
+			<link>https://dev.pressbooks.pub/pbtest/part/main-body/</link>
+			<pubDate>Tue, 28 Aug 2018 12:57:20 +0000</pubDate>
+			<dc:creator><![CDATA[steel]]></dc:creator>
+			<guid isPermaLink="false">https://dev.pressbooks.pub/pbtest/part/main-body/</guid>
+			<description></description>
+			<content:encoded><![CDATA[]]></content:encoded>
+			<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+			<wp:post_id>18</wp:post_id>
+			<wp:post_date><![CDATA[2018-08-28 12:57:20]]></wp:post_date>
+			<wp:post_date_gmt><![CDATA[2018-08-28 12:57:20]]></wp:post_date_gmt>
+			<wp:post_modified><![CDATA[2018-08-28 12:57:20]]></wp:post_modified>
+			<wp:post_modified_gmt><![CDATA[2018-08-28 12:57:20]]></wp:post_modified_gmt>
+			<wp:comment_status><![CDATA[closed]]></wp:comment_status>
+			<wp:ping_status><![CDATA[closed]]></wp:ping_status>
+			<wp:post_name><![CDATA[main-body]]></wp:post_name>
+			<wp:status><![CDATA[publish]]></wp:status>
+			<wp:post_parent>0</wp:post_parent>
+			<wp:menu_order>1</wp:menu_order>
+			<wp:post_type><![CDATA[part]]></wp:post_type>
+			<wp:post_password><![CDATA[]]></wp:post_password>
+			<wp:is_sticky>0</wp:is_sticky>
+			<wp:postmeta>
+				<wp:meta_key><![CDATA[pb_is_based_on]]></wp:meta_key>
+				<wp:meta_value><![CDATA[https://pbtest.pressbooks.com/part/main-body/]]></wp:meta_value>
+			</wp:postmeta>
+		</item>
+		<item>
+			<title><![CDATA[Lorem Ipsum]]></title>
+			<link>https://dev.pressbooks.pub/pbtest/chapter/lorem-ipsum/</link>
+			<pubDate>Tue, 28 Aug 2018 13:16:32 +0000</pubDate>
+			<dc:creator><![CDATA[steel]]></dc:creator>
+			<guid isPermaLink="false">https://dev.pressbooks.pub/pbtest/chapter/lorem-ipsum/</guid>
+			<description></description>
+			<content:encoded><![CDATA[Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas suscipit faucibus sapien. Etiam ex eros, tincidunt vitae leo at, venenatis varius velit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Morbi non elit feugiat, aliquet nunc bibendum, laoreet sapien. Morbi nec nibh quis justo semper volutpat. Phasellus malesuada leo magna. Duis consectetur congue ipsum id posuere. Pellentesque elit est, sagittis tincidunt tincidunt sit amet, pretium vel leo. Nam vitae elementum turpis. Maecenas dignissim mollis lorem, vel volutpat dolor tincidunt sed. Curabitur aliquet volutpat lorem ut hendrerit. Maecenas euismod tempus augue. Fusce sed quam ac leo dapibus vestibulum quis a velit. Donec efficitur sodales dolor vel imperdiet. Nullam malesuada maximus nibh, in laoreet turpis tempus accumsan. Quisque sollicitudin magna et accumsan malesuada.]]></content:encoded>
+			<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+			<wp:post_id>19</wp:post_id>
+			<wp:post_date><![CDATA[2018-08-28 13:16:32]]></wp:post_date>
+			<wp:post_date_gmt><![CDATA[2018-08-28 13:16:32]]></wp:post_date_gmt>
+			<wp:post_modified><![CDATA[2022-11-07 16:32:42]]></wp:post_modified>
+			<wp:post_modified_gmt><![CDATA[2022-11-07 16:32:42]]></wp:post_modified_gmt>
+			<wp:comment_status><![CDATA[open]]></wp:comment_status>
+			<wp:ping_status><![CDATA[closed]]></wp:ping_status>
+			<wp:post_name><![CDATA[lorem-ipsum]]></wp:post_name>
+			<wp:status><![CDATA[publish]]></wp:status>
+			<wp:post_parent>18</wp:post_parent>
+			<wp:menu_order>1</wp:menu_order>
+			<wp:post_type><![CDATA[chapter]]></wp:post_type>
+			<wp:post_password><![CDATA[]]></wp:post_password>
+			<wp:is_sticky>0</wp:is_sticky>
+			<wp:postmeta>
+				<wp:meta_key><![CDATA[pb_is_based_on]]></wp:meta_key>
+				<wp:meta_value><![CDATA[https://pbtest.pressbooks.com/chapter/lorem-ipsum/]]></wp:meta_value>
+			</wp:postmeta>
+			<wp:postmeta>
+				<wp:meta_key><![CDATA[pb_show_title]]></wp:meta_key>
+				<wp:meta_value><![CDATA[on]]></wp:meta_value>
+			</wp:postmeta>
+		</item>
+		<item>
+			<title><![CDATA[Internal Links]]></title>
+			<link>https://dev.pressbooks.pub/pbtest/chapter/internal-links/</link>
+			<pubDate>Tue, 28 Aug 2018 13:19:48 +0000</pubDate>
+			<dc:creator><![CDATA[steel]]></dc:creator>
+			<guid isPermaLink="false">https://dev.pressbooks.pub/pbtest/chapter/internal-links/</guid>
+			<description></description>
+			<content:encoded><![CDATA[<a href="http://pbtest.pressbooks.com/front-matter/introduction/">Introduction</a>
 
 <a href="http://pbtest.pressbooks.com/chapter/lorem-ipsum/">Lorem Ipsum</a>
 
 <a href="http://pbtest.pressbooks.com/back-matter/conclusion/">Conclusion</a>]]></content:encoded>
-		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
-		<wp:post_id>38</wp:post_id>
-		<wp:post_date><![CDATA[2018-08-28 13:19:48]]></wp:post_date>
-		<wp:post_date_gmt><![CDATA[2018-08-28 13:19:48]]></wp:post_date_gmt>
-		<wp:comment_status><![CDATA[closed]]></wp:comment_status>
-		<wp:ping_status><![CDATA[closed]]></wp:ping_status>
-		<wp:post_name><![CDATA[internal-links]]></wp:post_name>
-		<wp:status><![CDATA[publish]]></wp:status>
-		<wp:post_parent>3</wp:post_parent>
-		<wp:menu_order>2</wp:menu_order>
-		<wp:post_type><![CDATA[chapter]]></wp:post_type>
-		<wp:post_password><![CDATA[]]></wp:post_password>
-		<wp:is_sticky>0</wp:is_sticky>
-		<wp:postmeta>
-			<wp:meta_key><![CDATA[_edit_last]]></wp:meta_key>
-			<wp:meta_value><![CDATA[10852]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:postmeta>
-			<wp:meta_key><![CDATA[pb_show_title]]></wp:meta_key>
-			<wp:meta_value><![CDATA[on]]></wp:meta_value>
-		</wp:postmeta>
-	</item>
-	<item>
-		<title>YouTube</title>
-		<link>http://pbtest.pressbooks.com/chapter/youtube-link/</link>
-		<pubDate>Tue, 28 Aug 2018 13:21:12 +0000</pubDate>
-		<dc:creator><![CDATA[connerbw]]></dc:creator>
-		<guid isPermaLink="false">http://pbtest.pressbooks.com/?post_type=chapter&#038;p=40</guid>
-		<description></description>
-		<content:encoded><![CDATA[This is  an oEmbed link.
+			<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+			<wp:post_id>21</wp:post_id>
+			<wp:post_date><![CDATA[2018-08-28 13:19:48]]></wp:post_date>
+			<wp:post_date_gmt><![CDATA[2018-08-28 13:19:48]]></wp:post_date_gmt>
+			<wp:post_modified><![CDATA[2022-11-07 16:32:43]]></wp:post_modified>
+			<wp:post_modified_gmt><![CDATA[2022-11-07 16:32:43]]></wp:post_modified_gmt>
+			<wp:comment_status><![CDATA[open]]></wp:comment_status>
+			<wp:ping_status><![CDATA[closed]]></wp:ping_status>
+			<wp:post_name><![CDATA[internal-links]]></wp:post_name>
+			<wp:status><![CDATA[publish]]></wp:status>
+			<wp:post_parent>18</wp:post_parent>
+			<wp:menu_order>2</wp:menu_order>
+			<wp:post_type><![CDATA[chapter]]></wp:post_type>
+			<wp:post_password><![CDATA[]]></wp:post_password>
+			<wp:is_sticky>0</wp:is_sticky>
+			<wp:postmeta>
+				<wp:meta_key><![CDATA[pb_is_based_on]]></wp:meta_key>
+				<wp:meta_value><![CDATA[https://pbtest.pressbooks.com/chapter/internal-links/]]></wp:meta_value>
+			</wp:postmeta>
+			<wp:postmeta>
+				<wp:meta_key><![CDATA[pb_show_title]]></wp:meta_key>
+				<wp:meta_value><![CDATA[on]]></wp:meta_value>
+			</wp:postmeta>
+		</item>
+		<item>
+			<title><![CDATA[Media]]></title>
+			<link>https://dev.pressbooks.pub/pbtest/part/media/</link>
+			<pubDate>Tue, 28 Aug 2018 13:12:09 +0000</pubDate>
+			<dc:creator><![CDATA[steel]]></dc:creator>
+			<guid isPermaLink="false">https://dev.pressbooks.pub/pbtest/part/media/</guid>
+			<description></description>
+			<content:encoded><![CDATA[]]></content:encoded>
+			<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+			<wp:post_id>23</wp:post_id>
+			<wp:post_date><![CDATA[2018-08-28 13:12:09]]></wp:post_date>
+			<wp:post_date_gmt><![CDATA[2018-08-28 13:12:09]]></wp:post_date_gmt>
+			<wp:post_modified><![CDATA[2018-08-28 13:12:09]]></wp:post_modified>
+			<wp:post_modified_gmt><![CDATA[2018-08-28 13:12:09]]></wp:post_modified_gmt>
+			<wp:comment_status><![CDATA[closed]]></wp:comment_status>
+			<wp:ping_status><![CDATA[closed]]></wp:ping_status>
+			<wp:post_name><![CDATA[media]]></wp:post_name>
+			<wp:status><![CDATA[publish]]></wp:status>
+			<wp:post_parent>0</wp:post_parent>
+			<wp:menu_order>2</wp:menu_order>
+			<wp:post_type><![CDATA[part]]></wp:post_type>
+			<wp:post_password><![CDATA[]]></wp:post_password>
+			<wp:is_sticky>0</wp:is_sticky>
+			<wp:postmeta>
+				<wp:meta_key><![CDATA[pb_is_based_on]]></wp:meta_key>
+				<wp:meta_value><![CDATA[https://pbtest.pressbooks.com/part/media/]]></wp:meta_value>
+			</wp:postmeta>
+		</item>
+		<item>
+			<title><![CDATA[Hosted Video]]></title>
+			<link>https://dev.pressbooks.pub/pbtest/chapter/hosted-video/</link>
+			<pubDate>Tue, 28 Aug 2018 13:13:29 +0000</pubDate>
+			<dc:creator><![CDATA[steel]]></dc:creator>
+			<guid isPermaLink="false">https://dev.pressbooks.pub/pbtest/chapter/hosted-video/</guid>
+			<description></description>
+			<content:encoded><![CDATA[This is a video.
+
+[video width="480" height="268" mp4="https://dev.pressbooks.pub/app/uploads/sites/156/2018/08/monkey.mp4"][/video]]]></content:encoded>
+			<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+			<wp:post_id>24</wp:post_id>
+			<wp:post_date><![CDATA[2018-08-28 13:13:29]]></wp:post_date>
+			<wp:post_date_gmt><![CDATA[2018-08-28 13:13:29]]></wp:post_date_gmt>
+			<wp:post_modified><![CDATA[2022-11-08 00:29:35]]></wp:post_modified>
+			<wp:post_modified_gmt><![CDATA[2022-11-08 00:29:35]]></wp:post_modified_gmt>
+			<wp:comment_status><![CDATA[open]]></wp:comment_status>
+			<wp:ping_status><![CDATA[closed]]></wp:ping_status>
+			<wp:post_name><![CDATA[hosted-video]]></wp:post_name>
+			<wp:status><![CDATA[publish]]></wp:status>
+			<wp:post_parent>23</wp:post_parent>
+			<wp:menu_order>1</wp:menu_order>
+			<wp:post_type><![CDATA[chapter]]></wp:post_type>
+			<wp:post_password><![CDATA[]]></wp:post_password>
+			<wp:is_sticky>0</wp:is_sticky>
+			<wp:postmeta>
+				<wp:meta_key><![CDATA[pb_is_based_on]]></wp:meta_key>
+				<wp:meta_value><![CDATA[https://pbtest.pressbooks.com/chapter/hosted-video/]]></wp:meta_value>
+			</wp:postmeta>
+			<wp:postmeta>
+				<wp:meta_key><![CDATA[pb_show_title]]></wp:meta_key>
+				<wp:meta_value><![CDATA[on]]></wp:meta_value>
+			</wp:postmeta>
+			<wp:postmeta>
+				<wp:meta_key><![CDATA[_edit_last]]></wp:meta_key>
+				<wp:meta_value><![CDATA[7]]></wp:meta_value>
+			</wp:postmeta>
+		</item>
+		<item>
+			<title><![CDATA[Hosted Image]]></title>
+			<link>https://dev.pressbooks.pub/pbtest/chapter/hosted-image/</link>
+			<pubDate>Tue, 28 Aug 2018 13:14:59 +0000</pubDate>
+			<dc:creator><![CDATA[steel]]></dc:creator>
+			<guid isPermaLink="false">https://dev.pressbooks.pub/pbtest/chapter/hosted-image/</guid>
+			<description></description>
+			<content:encoded><![CDATA[This is a picture.
+
+[caption id="attachment_48" align="alignnone" width="300"]<img class="wp-image-48 size-medium" src="https://dev.pressbooks.pub/app/uploads/sites/156/2022/11/trombone-300x121.jpg" alt="Test Image Alt Text" width="300" height="121" /> Test Image Caption[/caption]]]></content:encoded>
+			<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+			<wp:post_id>26</wp:post_id>
+			<wp:post_date><![CDATA[2018-08-28 13:14:59]]></wp:post_date>
+			<wp:post_date_gmt><![CDATA[2018-08-28 13:14:59]]></wp:post_date_gmt>
+			<wp:post_modified><![CDATA[2022-11-08 00:37:44]]></wp:post_modified>
+			<wp:post_modified_gmt><![CDATA[2022-11-08 00:37:44]]></wp:post_modified_gmt>
+			<wp:comment_status><![CDATA[open]]></wp:comment_status>
+			<wp:ping_status><![CDATA[closed]]></wp:ping_status>
+			<wp:post_name><![CDATA[hosted-image]]></wp:post_name>
+			<wp:status><![CDATA[publish]]></wp:status>
+			<wp:post_parent>23</wp:post_parent>
+			<wp:menu_order>2</wp:menu_order>
+			<wp:post_type><![CDATA[chapter]]></wp:post_type>
+			<wp:post_password><![CDATA[]]></wp:post_password>
+			<wp:is_sticky>0</wp:is_sticky>
+			<wp:postmeta>
+				<wp:meta_key><![CDATA[pb_is_based_on]]></wp:meta_key>
+				<wp:meta_value><![CDATA[https://pbtest.pressbooks.com/chapter/hosted-image/]]></wp:meta_value>
+			</wp:postmeta>
+			<wp:postmeta>
+				<wp:meta_key><![CDATA[pb_show_title]]></wp:meta_key>
+				<wp:meta_value><![CDATA[on]]></wp:meta_value>
+			</wp:postmeta>
+			<wp:postmeta>
+				<wp:meta_key><![CDATA[_edit_last]]></wp:meta_key>
+				<wp:meta_value><![CDATA[3]]></wp:meta_value>
+			</wp:postmeta>
+		</item>
+		<item>
+			<title><![CDATA[YouTube]]></title>
+			<link>https://dev.pressbooks.pub/pbtest/chapter/youtube-link/</link>
+			<pubDate>Tue, 28 Aug 2018 13:21:12 +0000</pubDate>
+			<dc:creator><![CDATA[steel]]></dc:creator>
+			<guid isPermaLink="false">https://dev.pressbooks.pub/pbtest/chapter/youtube-link/</guid>
+			<description></description>
+			<content:encoded><![CDATA[This is  an oEmbed link.
 
 https://youtu.be/Lqqsp8soXTo]]></content:encoded>
-		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
-		<wp:post_id>40</wp:post_id>
-		<wp:post_date><![CDATA[2018-08-28 13:21:12]]></wp:post_date>
-		<wp:post_date_gmt><![CDATA[2018-08-28 13:21:12]]></wp:post_date_gmt>
-		<wp:comment_status><![CDATA[closed]]></wp:comment_status>
-		<wp:ping_status><![CDATA[closed]]></wp:ping_status>
-		<wp:post_name><![CDATA[youtube-link]]></wp:post_name>
-		<wp:status><![CDATA[publish]]></wp:status>
-		<wp:post_parent>25</wp:post_parent>
-		<wp:menu_order>3</wp:menu_order>
-		<wp:post_type><![CDATA[chapter]]></wp:post_type>
-		<wp:post_password><![CDATA[]]></wp:post_password>
-		<wp:is_sticky>0</wp:is_sticky>
-		<wp:postmeta>
-			<wp:meta_key><![CDATA[_edit_last]]></wp:meta_key>
-			<wp:meta_value><![CDATA[10852]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:postmeta>
-			<wp:meta_key><![CDATA[pb_show_title]]></wp:meta_key>
-			<wp:meta_value><![CDATA[on]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:postmeta>
-			<wp:meta_key><![CDATA[_oembed_35de37f4e24354411b9dee3697950677]]></wp:meta_key>
-			<wp:meta_value><![CDATA[<iframe width="500" height="375" src="https://www.youtube.com/embed/Lqqsp8soXTo?feature=oembed" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:postmeta>
-			<wp:meta_key><![CDATA[_oembed_time_35de37f4e24354411b9dee3697950677]]></wp:meta_key>
-			<wp:meta_value><![CDATA[1535462870]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:postmeta>
-			<wp:meta_key><![CDATA[_oembed_0f92ba5c4af9241237a58c7784892bb6]]></wp:meta_key>
-			<wp:meta_value><![CDATA[<iframe width="998" height="749" src="https://www.youtube.com/embed/Lqqsp8soXTo?feature=oembed" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:postmeta>
-			<wp:meta_key><![CDATA[_oembed_time_0f92ba5c4af9241237a58c7784892bb6]]></wp:meta_key>
-			<wp:meta_value><![CDATA[1535462870]]></wp:meta_value>
-		</wp:postmeta>
-	</item>
-	<item>
-		<title>Media</title>
-		<link>http://pbtest.pressbooks.com/part/media/</link>
-		<pubDate>Tue, 28 Aug 2018 13:12:09 +0000</pubDate>
-		<dc:creator><![CDATA[connerbw]]></dc:creator>
-		<guid isPermaLink="false">http://pbtest.pressbooks.com/?post_type=part&#038;p=25</guid>
-		<description></description>
-		<content:encoded><![CDATA[]]></content:encoded>
-		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
-		<wp:post_id>25</wp:post_id>
-		<wp:post_date><![CDATA[2018-08-28 13:12:09]]></wp:post_date>
-		<wp:post_date_gmt><![CDATA[2018-08-28 13:12:09]]></wp:post_date_gmt>
-		<wp:comment_status><![CDATA[closed]]></wp:comment_status>
-		<wp:ping_status><![CDATA[closed]]></wp:ping_status>
-		<wp:post_name><![CDATA[media]]></wp:post_name>
-		<wp:status><![CDATA[publish]]></wp:status>
-		<wp:post_parent>0</wp:post_parent>
-		<wp:menu_order>2</wp:menu_order>
-		<wp:post_type><![CDATA[part]]></wp:post_type>
-		<wp:post_password><![CDATA[]]></wp:post_password>
-		<wp:is_sticky>0</wp:is_sticky>
-		<wp:postmeta>
-			<wp:meta_key><![CDATA[_edit_last]]></wp:meta_key>
-			<wp:meta_value><![CDATA[10852]]></wp:meta_value>
-		</wp:postmeta>
-	</item>
-</channel>
+			<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+			<wp:post_id>28</wp:post_id>
+			<wp:post_date><![CDATA[2018-08-28 13:21:12]]></wp:post_date>
+			<wp:post_date_gmt><![CDATA[2018-08-28 13:21:12]]></wp:post_date_gmt>
+			<wp:post_modified><![CDATA[2022-11-07 16:32:43]]></wp:post_modified>
+			<wp:post_modified_gmt><![CDATA[2022-11-07 16:32:43]]></wp:post_modified_gmt>
+			<wp:comment_status><![CDATA[open]]></wp:comment_status>
+			<wp:ping_status><![CDATA[closed]]></wp:ping_status>
+			<wp:post_name><![CDATA[youtube-link]]></wp:post_name>
+			<wp:status><![CDATA[publish]]></wp:status>
+			<wp:post_parent>23</wp:post_parent>
+			<wp:menu_order>3</wp:menu_order>
+			<wp:post_type><![CDATA[chapter]]></wp:post_type>
+			<wp:post_password><![CDATA[]]></wp:post_password>
+			<wp:is_sticky>0</wp:is_sticky>
+			<wp:postmeta>
+				<wp:meta_key><![CDATA[pb_is_based_on]]></wp:meta_key>
+				<wp:meta_value><![CDATA[https://pbtest.pressbooks.com/chapter/youtube-link/]]></wp:meta_value>
+			</wp:postmeta>
+			<wp:postmeta>
+				<wp:meta_key><![CDATA[pb_show_title]]></wp:meta_key>
+				<wp:meta_value><![CDATA[on]]></wp:meta_value>
+			</wp:postmeta>
+			<wp:postmeta>
+				<wp:meta_key><![CDATA[_oembed_35de37f4e24354411b9dee3697950677]]></wp:meta_key>
+				<wp:meta_value><![CDATA[<iframe title="Introduction to Using Pressbooks" width="500" height="375" src="https://www.youtube.com/embed/Lqqsp8soXTo?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>]]></wp:meta_value>
+			</wp:postmeta>
+			<wp:postmeta>
+				<wp:meta_key><![CDATA[_oembed_time_35de37f4e24354411b9dee3697950677]]></wp:meta_key>
+				<wp:meta_value><![CDATA[1667850482]]></wp:meta_value>
+			</wp:postmeta>
+			<wp:postmeta>
+				<wp:meta_key><![CDATA[_oembed_e21749f79ff2ec3fe1fe21beda96f8b7]]></wp:meta_key>
+				<wp:meta_value><![CDATA[<iframe title="Introduction to Using Pressbooks" width="1007" height="755" src="https://www.youtube.com/embed/Lqqsp8soXTo?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>]]></wp:meta_value>
+			</wp:postmeta>
+			<wp:postmeta>
+				<wp:meta_key><![CDATA[_oembed_time_e21749f79ff2ec3fe1fe21beda96f8b7]]></wp:meta_key>
+				<wp:meta_value><![CDATA[1667867153]]></wp:meta_value>
+			</wp:postmeta>
+		</item>
+		<item>
+			<title><![CDATA[Conclusion]]></title>
+			<link>https://dev.pressbooks.pub/pbtest/back-matter/conclusion/</link>
+			<pubDate>Tue, 28 Aug 2018 13:18:30 +0000</pubDate>
+			<dc:creator><![CDATA[steel]]></dc:creator>
+			<guid isPermaLink="false">https://dev.pressbooks.pub/pbtest/back-matter/conclusion/</guid>
+			<description></description>
+			<content:encoded><![CDATA[Goodbye.]]></content:encoded>
+			<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+			<wp:post_id>30</wp:post_id>
+			<wp:post_date><![CDATA[2018-08-28 13:18:30]]></wp:post_date>
+			<wp:post_date_gmt><![CDATA[2018-08-28 13:18:30]]></wp:post_date_gmt>
+			<wp:post_modified><![CDATA[2018-08-28 13:18:30]]></wp:post_modified>
+			<wp:post_modified_gmt><![CDATA[2018-08-28 13:18:30]]></wp:post_modified_gmt>
+			<wp:comment_status><![CDATA[open]]></wp:comment_status>
+			<wp:ping_status><![CDATA[closed]]></wp:ping_status>
+			<wp:post_name><![CDATA[conclusion]]></wp:post_name>
+			<wp:status><![CDATA[publish]]></wp:status>
+			<wp:post_parent>0</wp:post_parent>
+			<wp:menu_order>1</wp:menu_order>
+			<wp:post_type><![CDATA[back-matter]]></wp:post_type>
+			<wp:post_password><![CDATA[]]></wp:post_password>
+			<wp:is_sticky>0</wp:is_sticky>
+			<category domain="back-matter-type" nicename="conclusion"><![CDATA[Conclusion]]></category>
+			<wp:postmeta>
+				<wp:meta_key><![CDATA[pb_is_based_on]]></wp:meta_key>
+				<wp:meta_value><![CDATA[https://pbtest.pressbooks.com/back-matter/conclusion/]]></wp:meta_value>
+			</wp:postmeta>
+			<wp:postmeta>
+				<wp:meta_key><![CDATA[pb_show_title]]></wp:meta_key>
+				<wp:meta_value><![CDATA[on]]></wp:meta_value>
+			</wp:postmeta>
+		</item>
+		<item>
+			<title><![CDATA[H5P listing]]></title>
+			<link>https://dev.pressbooks.pub/pbtest/h5p-listing/</link>
+			<pubDate>Mon, 07 Nov 2022 16:32:52 +0000</pubDate>
+			<dc:creator><![CDATA[pressbooks]]></dc:creator>
+			<guid isPermaLink="false">https://dev.pressbooks.pub/pbtest/h5p-listing/</guid>
+			<description></description>
+			<content:encoded><![CDATA[<!-- Here be dragons. -->]]></content:encoded>
+			<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+			<wp:post_id>31</wp:post_id>
+			<wp:post_date><![CDATA[2022-11-07 16:32:52]]></wp:post_date>
+			<wp:post_date_gmt><![CDATA[2022-11-07 16:32:52]]></wp:post_date_gmt>
+			<wp:post_modified><![CDATA[2022-11-07 16:32:52]]></wp:post_modified>
+			<wp:post_modified_gmt><![CDATA[2022-11-07 16:32:52]]></wp:post_modified_gmt>
+			<wp:comment_status><![CDATA[closed]]></wp:comment_status>
+			<wp:ping_status><![CDATA[closed]]></wp:ping_status>
+			<wp:post_name><![CDATA[h5p-listing]]></wp:post_name>
+			<wp:status><![CDATA[publish]]></wp:status>
+			<wp:post_parent>0</wp:post_parent>
+			<wp:menu_order>1</wp:menu_order>
+			<wp:post_type><![CDATA[page]]></wp:post_type>
+			<wp:post_password><![CDATA[]]></wp:post_password>
+			<wp:is_sticky>0</wp:is_sticky>
+		</item>
+		<item>
+			<title><![CDATA[monkey]]></title>
+			<link>https://dev.pressbooks.pub/pbtest/chapter/hosted-video/monkey/</link>
+			<pubDate>Tue, 08 Nov 2022 00:26:09 +0000</pubDate>
+			<dc:creator><![CDATA[steel]]></dc:creator>
+			<guid isPermaLink="false">https://dev.pressbooks.pub/app/uploads/sites/156/2018/08/monkey.mp4</guid>
+			<description></description>
+			<content:encoded><![CDATA[]]></content:encoded>
+			<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+			<wp:post_id>46</wp:post_id>
+			<wp:post_date><![CDATA[2022-11-08 00:26:09]]></wp:post_date>
+			<wp:post_date_gmt><![CDATA[2022-11-08 00:26:09]]></wp:post_date_gmt>
+			<wp:post_modified><![CDATA[2022-11-08 00:26:09]]></wp:post_modified>
+			<wp:post_modified_gmt><![CDATA[2022-11-08 00:26:09]]></wp:post_modified_gmt>
+			<wp:comment_status><![CDATA[closed]]></wp:comment_status>
+			<wp:ping_status><![CDATA[closed]]></wp:ping_status>
+			<wp:post_name><![CDATA[monkey]]></wp:post_name>
+			<wp:status><![CDATA[inherit]]></wp:status>
+			<wp:post_parent>24</wp:post_parent>
+			<wp:menu_order>0</wp:menu_order>
+			<wp:post_type><![CDATA[attachment]]></wp:post_type>
+			<wp:post_password><![CDATA[]]></wp:post_password>
+			<wp:is_sticky>0</wp:is_sticky>
+			<wp:attachment_url><![CDATA[https://dev.pressbooks.pub/app/uploads/sites/156/2018/08/monkey.mp4]]></wp:attachment_url>
+			<wp:postmeta>
+				<wp:meta_key><![CDATA[_wp_attached_file]]></wp:meta_key>
+				<wp:meta_value><![CDATA[2018/08/monkey.mp4]]></wp:meta_value>
+			</wp:postmeta>
+			<wp:postmeta>
+				<wp:meta_key><![CDATA[_wp_attachment_metadata]]></wp:meta_key>
+				<wp:meta_value><![CDATA[a:10:{s:7:"bitrate";i:250774;s:8:"filesize";i:126602;s:9:"mime_type";s:15:"video/quicktime";s:6:"length";i:4;s:16:"length_formatted";s:4:"0:04";s:5:"width";i:480;s:6:"height";i:268;s:10:"fileformat";s:3:"mp4";s:10:"dataformat";s:9:"quicktime";s:17:"created_timestamp";i:-2082844800;}]]></wp:meta_value>
+			</wp:postmeta>
+		</item>
+		<item>
+			<title><![CDATA[Test Image]]></title>
+			<link>https://dev.pressbooks.pub/pbtest/chapter/hosted-image/trombone/</link>
+			<pubDate>Tue, 08 Nov 2022 00:31:28 +0000</pubDate>
+			<dc:creator><![CDATA[steel]]></dc:creator>
+			<guid isPermaLink="false">https://dev.pressbooks.pub/app/uploads/sites/156/2022/11/trombone.jpg</guid>
+			<description></description>
+			<content:encoded><![CDATA[Test image description.]]></content:encoded>
+			<excerpt:encoded><![CDATA[Test Image Caption]]></excerpt:encoded>
+			<wp:post_id>48</wp:post_id>
+			<wp:post_date><![CDATA[2022-11-08 00:31:28]]></wp:post_date>
+			<wp:post_date_gmt><![CDATA[2022-11-08 00:31:28]]></wp:post_date_gmt>
+			<wp:post_modified><![CDATA[2022-11-08 00:50:37]]></wp:post_modified>
+			<wp:post_modified_gmt><![CDATA[2022-11-08 00:50:37]]></wp:post_modified_gmt>
+			<wp:comment_status><![CDATA[closed]]></wp:comment_status>
+			<wp:ping_status><![CDATA[closed]]></wp:ping_status>
+			<wp:post_name><![CDATA[trombone]]></wp:post_name>
+			<wp:status><![CDATA[inherit]]></wp:status>
+			<wp:post_parent>26</wp:post_parent>
+			<wp:menu_order>0</wp:menu_order>
+			<wp:post_type><![CDATA[attachment]]></wp:post_type>
+			<wp:post_password><![CDATA[]]></wp:post_password>
+			<wp:is_sticky>0</wp:is_sticky>
+			<wp:attachment_url><![CDATA[https://dev.pressbooks.pub/app/uploads/sites/156/2022/11/trombone.jpg]]></wp:attachment_url>
+			<wp:postmeta>
+				<wp:meta_key><![CDATA[_wp_attached_file]]></wp:meta_key>
+				<wp:meta_value><![CDATA[2022/11/trombone.jpg]]></wp:meta_value>
+			</wp:postmeta>
+			<wp:postmeta>
+				<wp:meta_key><![CDATA[_wp_attachment_metadata]]></wp:meta_key>
+				<wp:meta_value><![CDATA[a:6:{s:5:"width";i:320;s:6:"height";i:129;s:4:"file";s:20:"2022/11/trombone.jpg";s:8:"filesize";i:9944;s:5:"sizes";a:4:{s:6:"medium";a:5:{s:4:"file";s:20:"trombone-300x121.jpg";s:5:"width";i:300;s:6:"height";i:121;s:9:"mime-type";s:10:"image/jpeg";s:8:"filesize";i:6103;}s:9:"thumbnail";a:5:{s:4:"file";s:20:"trombone-150x129.jpg";s:5:"width";i:150;s:6:"height";i:129;s:9:"mime-type";s:10:"image/jpeg";s:8:"filesize";i:4983;}s:14:"pb_cover_small";a:5:{s:4:"file";s:18:"trombone-65x26.jpg";s:5:"width";i:65;s:6:"height";i:26;s:9:"mime-type";s:10:"image/jpeg";s:8:"filesize";i:1189;}s:15:"pb_cover_medium";a:5:{s:4:"file";s:19:"trombone-225x91.jpg";s:5:"width";i:225;s:6:"height";i:91;s:9:"mime-type";s:10:"image/jpeg";s:8:"filesize";i:4127;}}s:10:"image_meta";a:12:{s:8:"aperture";s:1:"0";s:6:"credit";s:0:"";s:6:"camera";s:0:"";s:7:"caption";s:0:"";s:17:"created_timestamp";s:1:"0";s:9:"copyright";s:0:"";s:12:"focal_length";s:1:"0";s:3:"iso";s:1:"0";s:13:"shutter_speed";s:1:"0";s:5:"title";s:0:"";s:11:"orientation";s:1:"0";s:8:"keywords";a:0:{}}}]]></wp:meta_value>
+			</wp:postmeta>
+			<wp:postmeta>
+				<wp:meta_key><![CDATA[_wp_attachment_image_alt]]></wp:meta_key>
+				<wp:meta_value><![CDATA[Test Image Alt Text]]></wp:meta_value>
+			</wp:postmeta>
+			<wp:postmeta>
+				<wp:meta_key><![CDATA[pb_media_attribution_author]]></wp:meta_key>
+				<wp:meta_value><![CDATA[Test Image Author]]></wp:meta_value>
+			</wp:postmeta>
+			<wp:postmeta>
+				<wp:meta_key><![CDATA[pb_media_attribution_author_url]]></wp:meta_key>
+				<wp:meta_value><![CDATA[]]></wp:meta_value>
+			</wp:postmeta>
+			<wp:postmeta>
+				<wp:meta_key><![CDATA[pb_media_attribution_adapted]]></wp:meta_key>
+				<wp:meta_value><![CDATA[]]></wp:meta_value>
+			</wp:postmeta>
+			<wp:postmeta>
+				<wp:meta_key><![CDATA[pb_media_attribution_adapted_url]]></wp:meta_key>
+				<wp:meta_value><![CDATA[https://pressbooks.education/]]></wp:meta_value>
+			</wp:postmeta>
+			<wp:postmeta>
+				<wp:meta_key><![CDATA[pb_media_attribution_title_url]]></wp:meta_key>
+				<wp:meta_value><![CDATA[]]></wp:meta_value>
+			</wp:postmeta>
+			<wp:postmeta>
+				<wp:meta_key><![CDATA[pb_media_attribution_license]]></wp:meta_key>
+				<wp:meta_value><![CDATA[]]></wp:meta_value>
+			</wp:postmeta>
+		</item>
+	</channel>
 </rss>

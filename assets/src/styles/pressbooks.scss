@@ -73,7 +73,7 @@
   }
 
   #wp-admin-bar-my-books-list {
-    min-height: 100px;
+    height: auto;
     max-height: calc(100vh - 150px);
     overflow-y: auto;
     padding-right: 5px;
@@ -360,9 +360,37 @@ $wp-spinner-anim-duration: 1.08s;
 }
 
 // Progress Bars
-
 #pb-sse-progressbar {
   display: none;
   width: 100%;
 }
 
+// WordPress search fields
+.plugins-php .search-form .search-box,
+.themes-php .search-form {
+  align-items: center;
+  display: flex;
+  margin-bottom: 1rem;
+}
+
+.plugins-php .search-form label,
+.themes-php .search-form label {
+  border: unset;
+  clip: unset;
+  -webkit-clip-path: unset; /* stylelint-disable-line */
+  clip-path: unset;
+  height: unset;
+  font-size: 14px;
+  margin: unset;
+  margin-right: 0.75rem;
+  overflow: unset;
+  padding: unset;
+  position: unset;
+  width: unset;
+  word-wrap: unset;
+}
+
+.themes-php .search-form .wp-filter-search {
+  left: 0;
+  top: 0;
+}

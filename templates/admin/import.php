@@ -161,29 +161,12 @@ $import_option_types = apply_filters( 'pb_select_import_type', [
 	<?php } else { ?>
 
 		<!-- STEP 1: Start by uploading a file -->
-
-		<script type="text/javascript">
-			jQuery(function ($) {
-				var pb_file = $('#pb-file');
-				pb_file.find('[type="radio"]').on('change', function() {
-					var pb_file_checked = pb_file.find('[type="radio"]:checked').val();
-					if ( pb_file_checked === 'file' ) {
-						$( '#import_http' ).val( '' ).attr( 'disabled', true);
-						$( '#import_file' ).removeAttr( 'disabled' ).focus();
-					} else if ( pb_file_checked === 'url' ) {
-						$('#import_http').removeAttr('disabled').focus();
-						$('#import_file').val('').attr('disabled', true);
-					}
-				});
-			});
-		</script>
 		<p>
 			<?php _e( 'Maximum file size:', 'pressbooks' );
 			echo ' ' . \Pressbooks\Utility\file_upload_max_size(); ?>
 		</p>
 
 		<form id="pb-import-form-step-1" action="<?php echo $import_form_url ?>" enctype="multipart/form-data" method="post">
-
 			<table class="form-table" role="none">
 				<tbody>
 				<tr>
@@ -198,21 +181,30 @@ $import_option_types = apply_filters( 'pb_select_import_type', [
 						</select>
 					</td>
 				</tr>
-				<tr class="pb-input-types">
+				<tr class="pb-input-types" x-data>
 					<th scope="row">
-						<label for="import_file"><?php _e( 'Import Source', 'pressbooks' ); ?></label>
+						<?php _e( 'Import Source', 'pressbooks' ); ?>
 					</th>
-					<td id="pb-file">
+					<td id="pb-file" x-data="{ source: 'file' }">
 						<fieldset>
-							<input id="r1" name="import_type" type="radio" value="file" checked="checked"/>
-							<label for="r1">Upload File </label>
-							<input type="file" name="import_file" id="import_file" style="display:block;"/>
+							<legend class="screen-reader-text"><?php _e( 'Import Source', 'pressbooks' ); ?></legend>
+							<p>
+								<input id="r1" name="import_type" type="radio" value="file" checked="checked" x-model="source" />
+								<label for="r1">Upload File </label>
+							</p>
+							<p>
+								<input id="r2" type="radio" name="import_type" value="url" x-model="source" />
+								<label for="r2">Import from URL</label>
+							</p>
 						</fieldset>
-						<fieldset>
-							<input id="r2" type="radio" name="import_type" value="url"/>
-							<label for="r2">Import from URL</label>
-							<input type="url" class="widefat" name="import_http" id="import_http" placeholder="https://url-to-import.com" style="display:block;" disabled/>
-						</fieldset>
+						<div x-show="source == 'file'">
+							<label for="import_file"><?php _e( 'Choose file', 'pressbooks' ); ?></label>
+							<input type="file" name="import_file" id="import_file" style="display:block;" />
+						</div>
+						<div x-show="source == 'url'">
+							<label for="import_http"><?php _e( 'Source URL', 'pressbooks' ); ?></label>
+							<input type="url" class="widefat" name="import_http" id="import_http" placeholder="https://url-to-import.com" style="display:block;" aria-label="<?php _e( 'Source URL', 'pressbooks' ); ?>" />
+						</div>
 					</td>
 				</tr>
 

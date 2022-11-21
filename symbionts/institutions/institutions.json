@@ -1129,7 +1129,7 @@
           },
           {
             "code": "CA-QC-006",
-            "name": "\u00c9TS Montr\u00e9al",
+            "name": "\u00c9cole de Technologie Sup\u00e9rieure",
             "url": "https:\/\/www.etsmtl.ca\/"
           },
           {
@@ -5046,6 +5046,56 @@
             "code": "US-IN-037",
             "name": "Wabash College",
             "url": "https:\/\/www.wabash.edu\/"
+          },
+          {
+            "code": "US-IN-038",
+            "name": "Anabaptist Mennonite Biblical Seminary",
+            "url": "https:\/\/www.ambs.edu\/"
+          },
+          {
+            "code": "US-IN-039",
+            "name": "Christian Theological Seminary",
+            "url": "https:\/\/www.cts.edu\/"
+          },
+          {
+            "code": "US-IN-040",
+            "name": "Earlham College",
+            "url": "https:\/\/www.earlham.edu\/"
+          },
+          {
+            "code": "US-IN-041",
+            "name": "Concordia Theological Seminary",
+            "url": "https:\/\/www.ctsfw.edu\/"
+          },
+          {
+            "code": "US-IN-042",
+            "name": "Goshen College",
+            "url": "https:\/\/www.goshen.edu\/"
+          },
+          {
+            "code": "US-IN-043",
+            "name": "Grace College",
+            "url": "https:\/\/www.grace.edu\/"
+          },
+          {
+            "code": "US-IN-044",
+            "name": "Oakland City University",
+            "url": "https:\/\/www.oak.edu\/"
+          },
+          {
+            "code": "US-IN-045",
+            "name": "Saint Mary-of-the-Woods College",
+            "url": "https:\/\/www.smwc.edu\/"
+          },
+          {
+            "code": "US-IN-045",
+            "name": "Saint Mary-of-the-Woods College",
+            "url": "https:\/\/www.smwc.edu\/"
+          },
+          {
+            "code": "US-IN-046",
+            "name": "Saint Meinrad Seminary and School of Theology",
+            "url": "https:\/\/www.saintmeinrad.edu\/"
           }
         ]
       },

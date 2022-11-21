@@ -244,7 +244,7 @@ class ContributorsTest extends \WP_UnitTestCase {
 		\Pressbooks\Admin\Metaboxes\contributor_edit_form( $term );
 		$buffer = ob_get_clean();
 
-		$this->assertStringContainsString( '<button name="dispatch-media-picture" id="btn-media">Upload Picture</button>', $buffer );
+		$this->assertStringContainsString( '<button name="dispatch-media-picture" id="btn-media" aria-describedby="picture-description">Upload Picture</button>', $buffer );
 	}
 
 	/**
@@ -678,7 +678,7 @@ class ContributorsTest extends \WP_UnitTestCase {
 	 * @group contributors
 	 */
 	public function test_handleImage() {
-		$src = $this->contributor->handleImage( 'https://pressbooks.com/app/plugins/pressbooks/assets/dist/images/default-book-cover.jpg' );
+		$src = $this->contributor->handleImage( 'https://dev.pressbooks.pub/app/plugins/pressbooks/assets/dist/images/default-book-cover.jpg' );
 
 		$this->assertStringContainsString( 'default-book-cover', $src );
 
