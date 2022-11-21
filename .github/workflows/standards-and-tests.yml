@@ -2,11 +2,11 @@ name: Run Standards & Tests
 
 on:
   push:
-    branches: [ dev, master ]
+    branches: [dev, master]
     tags:
       - '*.*.*'
   pull_request:
-    branches: [ dev ]
+    branches: [dev]
 
 jobs:
   standards-and-tests:
@@ -15,16 +15,16 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: [7.4, 8.0]
+        php: [8.0, 8.1]
         os: [ubuntu-20.04]
         epubcheck: [4.2.6]
         prince: [14.3-1]
-        wordpress: [6.0.3, '6.1', latest]
+        wordpress: [6.1.1, latest]
         include:
           - experimental: true
           - experimental: false
             php: 8.0
-            wordpress: 6.0.3
+            wordpress: 6.1.1
 
     name: Test - PHP ${{ matrix.php }} - WP ${{ matrix.wordpress }}
 
