@@ -58,16 +58,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.245.0",
+            "version": "3.246.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "8a561bf0eddee0b905153332cfcc899801d3722b"
+                "reference": "34c2e3d699d08bc8f212d57f0d7a374a7404c653"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/8a561bf0eddee0b905153332cfcc899801d3722b",
-                "reference": "8a561bf0eddee0b905153332cfcc899801d3722b",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/34c2e3d699d08bc8f212d57f0d7a374a7404c653",
+                "reference": "34c2e3d699d08bc8f212d57f0d7a374a7404c653",
                 "shasum": ""
             },
             "require": {
@@ -146,9 +146,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.245.0"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.246.1"
             },
-            "time": "2022-11-16T19:26:45+00:00"
+            "time": "2022-11-19T22:48:18+00:00"
         },
         {
             "name": "composer/installers",
@@ -3117,60 +3117,60 @@
             "time": "2021-09-23T13:51:44+00:00"
         },
         {
-		  "name": "squizlabs/php_codesniffer",
-		  "version": "3.5.8",
-		  "source": {
-			"type": "git",
-			"url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-			"reference": "9d583721a7157ee997f235f327de038e7ea6dac4"
-		  },
-		  "dist": {
-			"type": "zip",
-			"url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/9d583721a7157ee997f235f327de038e7ea6dac4",
-			"reference": "9d583721a7157ee997f235f327de038e7ea6dac4",
-			"shasum": ""
-		  },
-		  "require": {
-			"ext-simplexml": "*",
-			"ext-tokenizer": "*",
-			"ext-xmlwriter": "*",
-			"php": ">=5.4.0"
-		  },
-		  "require-dev": {
-			"phpunit/phpunit": "^4.0 || ^5.0 || ^6.0 || ^7.0"
-		  },
-		  "bin": [
-			"bin/phpcs",
-			"bin/phpcbf"
-		  ],
-		  "type": "library",
-		  "extra": {
-			"branch-alias": {
-			  "dev-master": "3.x-dev"
-			}
-		  },
-		  "notification-url": "https://packagist.org/downloads/",
-		  "license": [
-			"BSD-3-Clause"
-		  ],
-		  "authors": [
-			{
-			  "name": "Greg Sherwood",
-			  "role": "lead"
-			}
-		  ],
-		  "description": "PHP_CodeSniffer tokenizes PHP, JavaScript and CSS files and detects violations of a defined set of coding standards.",
-		  "homepage": "https://github.com/squizlabs/PHP_CodeSniffer",
-		  "keywords": [
-			"phpcs",
-			"standards"
-		  ],
-		  "support": {
-			"issues": "https://github.com/squizlabs/PHP_CodeSniffer/issues",
-			"source": "https://github.com/squizlabs/PHP_CodeSniffer",
-			"wiki": "https://github.com/squizlabs/PHP_CodeSniffer/wiki"
-		  },
-		  "time": "2020-10-23T02:01:07+00:00"
+            "name": "squizlabs/php_codesniffer",
+            "version": "3.5.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
+                "reference": "9d583721a7157ee997f235f327de038e7ea6dac4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/9d583721a7157ee997f235f327de038e7ea6dac4",
+                "reference": "9d583721a7157ee997f235f327de038e7ea6dac4",
+                "shasum": ""
+            },
+            "require": {
+                "ext-simplexml": "*",
+                "ext-tokenizer": "*",
+                "ext-xmlwriter": "*",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.0 || ^5.0 || ^6.0 || ^7.0"
+            },
+            "bin": [
+                "bin/phpcs",
+                "bin/phpcbf"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.x-dev"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Greg Sherwood",
+                    "role": "lead"
+                }
+            ],
+            "description": "PHP_CodeSniffer tokenizes PHP, JavaScript and CSS files and detects violations of a defined set of coding standards.",
+            "homepage": "https://github.com/squizlabs/PHP_CodeSniffer",
+            "keywords": [
+                "phpcs",
+                "standards"
+            ],
+            "support": {
+                "issues": "https://github.com/squizlabs/PHP_CodeSniffer/issues",
+                "source": "https://github.com/squizlabs/PHP_CodeSniffer",
+                "wiki": "https://github.com/squizlabs/PHP_CodeSniffer/wiki"
+            },
+            "time": "2020-10-23T02:01:07+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
@@ -6034,42 +6034,42 @@
             "time": "2019-07-30T11:13:07+00:00"
         },
         {
-		  "name": "humanmade/coding-standards",
-		  "version": "v1.1.3",
-		  "source": {
-			"type": "git",
-			"url": "https://github.com/humanmade/coding-standards.git",
-			"reference": "6efe4b8fd33c22f06febc658c805acdc1e4d94f5"
-		  },
-		  "dist": {
-			"type": "zip",
-			"url": "https://api.github.com/repos/humanmade/coding-standards/zipball/6efe4b8fd33c22f06febc658c805acdc1e4d94f5",
-			"reference": "6efe4b8fd33c22f06febc658c805acdc1e4d94f5",
-			"shasum": ""
-		  },
-		  "require": {
-			"automattic/vipwpcs": "2.0.0",
-			"dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
-			"fig-r/psr2r-sniffer": "^0.5.0",
-			"php": ">=7.1",
-			"phpcompatibility/phpcompatibility-wp": "^2.0.0",
-			"squizlabs/php_codesniffer": "~3.5.0",
-			"wp-coding-standards/wpcs": "2.2.1"
-		  },
-		  "require-dev": {
-			"phpunit/phpunit": "^5.7"
-		  },
-		  "type": "phpcodesniffer-standard",
-		  "notification-url": "https://packagist.org/downloads/",
-		  "license": [
-			"GPL-2.0-or-later"
-		  ],
-		  "description": "Human Made Coding Standards",
-		  "support": {
-			"issues": "https://github.com/humanmade/coding-standards/issues",
-			"source": "https://github.com/humanmade/coding-standards/tree/v1.1.3"
-		  },
-		  "time": "2021-02-03T22:20:56+00:00"
+            "name": "humanmade/coding-standards",
+            "version": "v1.1.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/humanmade/coding-standards.git",
+                "reference": "6efe4b8fd33c22f06febc658c805acdc1e4d94f5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/humanmade/coding-standards/zipball/6efe4b8fd33c22f06febc658c805acdc1e4d94f5",
+                "reference": "6efe4b8fd33c22f06febc658c805acdc1e4d94f5",
+                "shasum": ""
+            },
+            "require": {
+                "automattic/vipwpcs": "2.0.0",
+                "dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
+                "fig-r/psr2r-sniffer": "^0.5.0",
+                "php": ">=7.1",
+                "phpcompatibility/phpcompatibility-wp": "^2.0.0",
+                "squizlabs/php_codesniffer": "~3.5.0",
+                "wp-coding-standards/wpcs": "2.2.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^5.7"
+            },
+            "type": "phpcodesniffer-standard",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "description": "Human Made Coding Standards",
+            "support": {
+                "issues": "https://github.com/humanmade/coding-standards/issues",
+                "source": "https://github.com/humanmade/coding-standards/tree/v1.1.3"
+            },
+            "time": "2021-02-03T22:20:56+00:00"
         },
         {
             "name": "lucatume/wp-browser",
@@ -9131,56 +9131,56 @@
             },
             "time": "2022-10-17T23:10:42+00:00"
         },
-	  {
-		"name": "wp-coding-standards/wpcs",
-		"version": "2.2.1",
-		"source": {
-		  "type": "git",
-		  "url": "https://github.com/WordPress/WordPress-Coding-Standards.git",
-		  "reference": "b5a453203114cc2284b1a614c4953456fbe4f546"
-		},
-		"dist": {
-		  "type": "zip",
-		  "url": "https://api.github.com/repos/WordPress/WordPress-Coding-Standards/zipball/b5a453203114cc2284b1a614c4953456fbe4f546",
-		  "reference": "b5a453203114cc2284b1a614c4953456fbe4f546",
-		  "shasum": ""
-		},
-		"require": {
-		  "php": ">=5.4",
-		  "squizlabs/php_codesniffer": "^3.3.1"
-		},
-		"require-dev": {
-		  "dealerdirect/phpcodesniffer-composer-installer": "^0.5 || ^0.6",
-		  "phpcompatibility/php-compatibility": "^9.0",
-		  "phpunit/phpunit": "^4.0 || ^5.0 || ^6.0 || ^7.0"
-		},
-		"suggest": {
-		  "dealerdirect/phpcodesniffer-composer-installer": "^0.6 || This Composer plugin will sort out the PHPCS 'installed_paths' automatically."
-		},
-		"type": "phpcodesniffer-standard",
-		"notification-url": "https://packagist.org/downloads/",
-		"license": [
-		  "MIT"
-		],
-		"authors": [
-		  {
-			"name": "Contributors",
-			"homepage": "https://github.com/WordPress/WordPress-Coding-Standards/graphs/contributors"
-		  }
-		],
-		"description": "PHP_CodeSniffer rules (sniffs) to enforce WordPress coding conventions",
-		"keywords": [
-		  "phpcs",
-		  "standards",
-		  "wordpress"
-		],
-		"support": {
-		  "issues": "https://github.com/WordPress/WordPress-Coding-Standards/issues",
-		  "source": "https://github.com/WordPress/WordPress-Coding-Standards",
-		  "wiki": "https://github.com/WordPress/WordPress-Coding-Standards/wiki"
-		},
-		"time": "2020-02-04T02:52:06+00:00"
-	  },
+        {
+            "name": "wp-coding-standards/wpcs",
+            "version": "2.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/WordPress/WordPress-Coding-Standards.git",
+                "reference": "b5a453203114cc2284b1a614c4953456fbe4f546"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/WordPress/WordPress-Coding-Standards/zipball/b5a453203114cc2284b1a614c4953456fbe4f546",
+                "reference": "b5a453203114cc2284b1a614c4953456fbe4f546",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4",
+                "squizlabs/php_codesniffer": "^3.3.1"
+            },
+            "require-dev": {
+                "dealerdirect/phpcodesniffer-composer-installer": "^0.5 || ^0.6",
+                "phpcompatibility/php-compatibility": "^9.0",
+                "phpunit/phpunit": "^4.0 || ^5.0 || ^6.0 || ^7.0"
+            },
+            "suggest": {
+                "dealerdirect/phpcodesniffer-composer-installer": "^0.6 || This Composer plugin will sort out the PHPCS 'installed_paths' automatically."
+            },
+            "type": "phpcodesniffer-standard",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Contributors",
+                    "homepage": "https://github.com/WordPress/WordPress-Coding-Standards/graphs/contributors"
+                }
+            ],
+            "description": "PHP_CodeSniffer rules (sniffs) to enforce WordPress coding conventions",
+            "keywords": [
+                "phpcs",
+                "standards",
+                "wordpress"
+            ],
+            "support": {
+                "issues": "https://github.com/WordPress/WordPress-Coding-Standards/issues",
+                "source": "https://github.com/WordPress/WordPress-Coding-Standards",
+                "wiki": "https://github.com/WordPress/WordPress-Coding-Standards/wiki"
+            },
+            "time": "2020-02-04T02:52:06+00:00"
+        },
         {
             "name": "yoast/phpunit-polyfills",
             "version": "1.0.4",
