@@ -55,7 +55,7 @@
 		"vanilla/htmlawed": "^2.2",
 		"phpcompatibility/php-compatibility": "^9.3",
 		"vlucas/phpdotenv": "^5.4",
-		"symfony/process": "^5.4"
+		"symfony/process": "^6.0"
 	},
 	"require-dev": {
 		"codeception/module-asserts": "^1.3",
