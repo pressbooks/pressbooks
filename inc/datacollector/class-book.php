@@ -512,12 +512,27 @@ class Book {
 
 	/**
 	 * @param string $meta_key
-	 *
+	 * @param bool $in_catalog If true, will only consider books added to the network catalog.
 	 * @return array
 	 */
-	public function getPossibleValuesFor( $meta_key ) {
+	public function getPossibleValuesFor( string $meta_key, bool $in_catalog = false ): array {
 		global $wpdb;
-		return $wpdb->get_col( $wpdb->prepare( "SELECT meta_value FROM {$wpdb->blogmeta} WHERE meta_key = %s AND meta_value <> '' GROUP BY meta_value ORDER BY meta_value ", $meta_key ) );
+
+		$filter = $in_catalog ?
+			"AND blog_id IN (SELECT blog_id FROM {$wpdb->blogmeta} WHERE meta_key = 'pb_in_catalog' AND meta_value = 1)"
+			: '';
+
+		$query = <<<SQL
+SELECT meta_value
+FROM {$wpdb->blogmeta}
+WHERE meta_key = %s
+  AND meta_value <> ''
+  {$filter}
+GROUP BY meta_value
+ORDER BY meta_value
+SQL;
+
+		return $wpdb->get_col( $wpdb->prepare( $query, $meta_key ) ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 	}
 
 	/**
