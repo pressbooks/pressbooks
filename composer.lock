@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1550ea639d9eefb82a2b44c28dbffd51",
+    "content-hash": "82b9fd081a252a1eb2c9acd8f6205746",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -344,16 +344,16 @@
         },
         {
             "name": "docraptor/docraptor",
-            "version": "3.0.2",
+            "version": "4.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/DocRaptor/docraptor-php.git",
-                "reference": "5eded17bd9886c79b2d817f0ca3de7ab429510c6"
+                "reference": "9f90d8164c923be21cd2c6ba23da8841c8940074"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/DocRaptor/docraptor-php/zipball/5eded17bd9886c79b2d817f0ca3de7ab429510c6",
-                "reference": "5eded17bd9886c79b2d817f0ca3de7ab429510c6",
+                "url": "https://api.github.com/repos/DocRaptor/docraptor-php/zipball/9f90d8164c923be21cd2c6ba23da8841c8940074",
+                "reference": "9f90d8164c923be21cd2c6ba23da8841c8940074",
                 "shasum": ""
             },
             "require": {
@@ -396,9 +396,9 @@
             ],
             "support": {
                 "issues": "https://github.com/DocRaptor/docraptor-php/issues",
-                "source": "https://github.com/DocRaptor/docraptor-php/tree/v3.0.2"
+                "source": "https://github.com/DocRaptor/docraptor-php/tree/v4.0.0"
             },
-            "time": "2022-09-27T19:40:50+00:00"
+            "time": "2022-11-14T21:19:56+00:00"
         },
         {
             "name": "doctrine/inflector",
