@@ -1318,7 +1318,7 @@ function oxford_comma( array $vars, string $last_separator = null ) {
  * @param string|null $last_separator
  * @return string
  */
-function implode_add_and( string $separator, array $array_of_strings, string|null $last_separator = null ): string {
+function implode_add_and( string $separator, array $array_of_strings, string | null $last_separator = null ): string {
 	$last_separator = ( $last_separator ) ?? __( 'and', 'pressbooks' );
 	if ( count( $array_of_strings ) === 2 ) {
 		return $array_of_strings[0] . ' ' . $last_separator . ' ' . $array_of_strings[1];
