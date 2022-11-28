@@ -1299,11 +1299,12 @@ function get_contributors_name_imploded( array $contributors_array ) {
  * @since 5.0.0
  *
  * @param array $vars
+ * @param string $translation_domain
  *
  * @return string
  */
-function oxford_comma( array $vars ) {
-	return implode_add_and( ',', $vars );
+function oxford_comma( array $vars, string $translation_domain = 'pressbooks' ) {
+	return implode_add_and( ',', $vars, $translation_domain );
 }
 
 /**
@@ -1314,16 +1315,17 @@ function oxford_comma( array $vars ) {
  *
  * @param string $str_implode
  * @param array $array_of_strings
+ * @param string $translation_domain
  * @return string
  */
-function implode_add_and( string $separator, array $array_of_strings ) {
+function implode_add_and( string $separator, array $array_of_strings, string $translation_domain = 'pressbooks' ): string {
 	if ( count( $array_of_strings ) === 2 ) {
-		return $array_of_strings[0] . ' ' . __( 'and', 'pressbooks' ) . ' ' . $array_of_strings[1];
+		return $array_of_strings[0] . ' ' . __( 'and', $translation_domain ) . ' ' . $array_of_strings[1];
 	} else {
 		$last = array_pop( $array_of_strings );
 		$output = implode( $separator . ' ', $array_of_strings );
 		if ( $output ) {
-			$output .= $separator . ' ' . __( 'and', 'pressbooks' ) . ' ';
+			$output .= $separator . ' ' . __( 'and', $translation_domain ) . ' ';
 		}
 		$output .= $last;
 		return $output;
