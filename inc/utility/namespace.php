@@ -1320,12 +1320,12 @@ function oxford_comma( array $vars, string $translation_domain = 'pressbooks' ) 
  */
 function implode_add_and( string $separator, array $array_of_strings, string $translation_domain = 'pressbooks' ): string {
 	if ( count( $array_of_strings ) === 2 ) {
-		return $array_of_strings[0] . ' ' . __( 'and', $translation_domain ) . ' ' . $array_of_strings[1];
+		return $array_of_strings[0] . ' ' . __( 'and', $translation_domain ) . ' ' . $array_of_strings[1]; // phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralDomain
 	} else {
 		$last = array_pop( $array_of_strings );
 		$output = implode( $separator . ' ', $array_of_strings );
 		if ( $output ) {
-			$output .= $separator . ' ' . __( 'and', $translation_domain ) . ' ';
+			$output .= $separator . ' ' . __( 'and', $translation_domain ) . ' '; // phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralDomain
 		}
 		$output .= $last;
 		return $output;
