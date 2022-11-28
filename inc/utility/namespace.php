@@ -1299,33 +1299,34 @@ function get_contributors_name_imploded( array $contributors_array ) {
  * @since 5.0.0
  *
  * @param array $vars
- * @param string $translation_domain
+ * @param string|null $last_separator
  *
  * @return string
  */
-function oxford_comma( array $vars, string $translation_domain = 'pressbooks' ) {
-	return implode_add_and( ',', $vars, $translation_domain );
+function oxford_comma( array $vars, string $last_separator = null ) {
+	return implode_add_and( ',', $vars, $last_separator );
 }
 
 /**
  * Implode an array and add a localized version of the word 'and' between the final two terms.
  * Example:
- * $str_implode = ';' $array_of_string = [ 'Carl Calson', 'Mark Thomson, PhD', 'John K.' ];
+ * $str_implode = ';' $array_of_string = [ 'Carl Carlson', 'Mark Thomson, PhD', 'John K.' ];
  * Output: 'Carl Carlson; Mark Thomson, PhD; and John K.'
  *
- * @param string $str_implode
+ * @param string $separator
  * @param array $array_of_strings
- * @param string $translation_domain
+ * @param string|null $last_separator
  * @return string
  */
-function implode_add_and( string $separator, array $array_of_strings, string $translation_domain = 'pressbooks' ): string {
+function implode_add_and( string $separator, array $array_of_strings, string|null $last_separator = null ): string {
+	$last_separator = ( $last_separator ) ?? __( 'and', 'pressbooks' );
 	if ( count( $array_of_strings ) === 2 ) {
-		return $array_of_strings[0] . ' ' . __( 'and', $translation_domain ) . ' ' . $array_of_strings[1]; // phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralDomain
+		return $array_of_strings[0] . ' ' . $last_separator . ' ' . $array_of_strings[1];
 	} else {
 		$last = array_pop( $array_of_strings );
 		$output = implode( $separator . ' ', $array_of_strings );
 		if ( $output ) {
-			$output .= $separator . ' ' . __( 'and', $translation_domain ) . ' '; // phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralDomain
+			$output .= $separator . ' ' . $last_separator . ' ';
 		}
 		$output .= $last;
 		return $output;
