@@ -89,6 +89,7 @@ if ( is_network_admin() ) {
 
 if ( true === is_main_site() ) {
 	add_action( 'wp_dashboard_setup', '\Pressbooks\Admin\Dashboard\replace_root_dashboard_widgets' );
+	add_action( 'plugins_loaded', [ \Pressbooks\Admin\Dashboard\NewUserDashboard::class, 'init' ] );
 }
 
 // Replace strings
