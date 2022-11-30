@@ -1,12 +1,8 @@
 <?php
-/**
- * TODO: phpcs detects named arguments as "goto" language, remove this once we upgrade phpcs.
- * @phpcs:disable Generic.PHP.DiscourageGoto.Found
- */
 namespace Pressbooks\Admin\Dashboard;
 
-use Pressbooks\Container;
 use PressbooksMix\Assets;
+use Pressbooks\Container;
 
 class NewUserDashboard {
 	protected static ?NewUserDashboard $instance = null;
@@ -30,9 +26,9 @@ class NewUserDashboard {
 			return;
 		}
 
-		add_action( hook_name: 'load-index.php', callback: [ $this, 'redirectToHomePage' ] );
-		add_action( hook_name: 'admin_head', callback: [ $this, 'removeDefaultHomePage' ] );
-		add_action( hook_name: 'admin_menu', callback: [ $this, 'addPressbooksHomePage' ] );
+		add_action( 'load-index.php', [ $this, 'redirectToHomePage' ] );
+		add_action( 'admin_head', [ $this, 'removeDefaultHomePage' ] );
+		add_action( 'admin_menu', [ $this, 'addPressbooksHomePage' ] );
 	}
 
 	public function redirectToHomePage(): void {
@@ -52,17 +48,17 @@ class NewUserDashboard {
 			return;
 		}
 
-		remove_submenu_page( menu_slug: $this->menu, submenu_slug: $this->menu );
+		remove_submenu_page( $this->menu, $this->menu );
 	}
 
 	public function addPressbooksHomePage(): void {
 		$page = add_dashboard_page(
-			page_title: __( 'Dashboard', 'pressbooks' ),
-			menu_title: __( 'Home', 'pressbooks' ),
-			capability: 'read',
-			menu_slug: $this->submenu,
-			callback: [ $this, 'renderHomePage' ],
-			position: 0,
+			__( 'Dashboard', 'pressbooks' ),
+			__( 'Home', 'pressbooks' ),
+			'read',
+			$this->submenu,
+			[ $this, 'renderHomePage' ],
+			0,
 		);
 
 		add_action( "admin_print_styles-{$page}", function() {
