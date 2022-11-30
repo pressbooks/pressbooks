@@ -1,60 +1,45 @@
 @import 'partials/colors';
 
-.pb-dashboard-panel {
-  background-color: $white;
+* {
   box-sizing: border-box;
   font-family: Karla, sans-serif;
-  padding: 1.5rem;
-  width: 100%;
-
-  h2 {
-    font-size: 1.5rem;
-  }
 }
 
-.pb-dashboard-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-  width: 100%;
+.pb-dashboard-row {
+  margin-bottom: 1rem;
+
+  .pb-dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
 
   .pb-dashboard-panel {
-    .pb-dashboard-image {
-      align-items: center;
-      display: flex;
-      justify-content: center;
+    background-color: $white;
+    padding: 1rem;
 
-      svg {
-        height: auto;
-        width: 66%;
-      }
-    }
+    &.pb-dashboard-invitations {
+      .invitation {
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
 
-    .pb-dashboard-content {
-      padding: 0 .5rem;
-    }
-
-    .pb-dashboard-action {
-      width: 100%;
-
-      .button {
-        border-radius: .6125rem;
-        font-weight: 600;
-        text-align: center;
-        width: 100%;
+        a.button {
+          margin-left: .5rem;
+        }
       }
     }
   }
-}
 
-@media screen and (max-width: 1280px) {
-  .pb-dashboard-grid {
-    grid-template-columns: repeat(2, 1fr);
+  @media screen and (max-width: 1280px) {
+    .pb-dashboard-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
-}
 
-@media screen and (max-width: 768px) {
-  .pb-dashboard-grid {
-    grid-template-columns: 1fr;
+  @media screen and (max-width: 768px) {
+    .pb-dashboard-grid {
+      grid-template-columns: 1fr;
+    }
   }
 }
