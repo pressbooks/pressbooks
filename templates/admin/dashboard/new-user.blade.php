@@ -1,4 +1,19 @@
 <div class="wrap">
+	@if($invitations->isNotEmpty())
+		<div class="pb-dashboard-panel">
+			<div class="pb-dashboard-content">
+				<h2>{{ __( 'Book Invitations', 'pressbooks' ) }}</h2>
+
+				@foreach($invitations as $invitation)
+					<div>
+						<p>{!! sprintf( __( 'You have been invited to join %1$s as %2$s', 'pressbooks' ), $invitation['book_url'], $invitation['role'] ) !!}</p>
+						<a class="button button-hero button-primary" href="{{ $invitation['accept_link'] }}">{{ __( 'Accept', 'pressbooks' ) }}</a>
+					</div>
+				@endforeach
+			</div>
+		</div>
+	@endif
+
 	<div class="pb-dashboard-grid">
 		<div class="pb-dashboard-panel">
 			<div class="pb-dashboard-image">

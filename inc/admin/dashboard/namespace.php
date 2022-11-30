@@ -61,57 +61,6 @@ function replace_network_dashboard_widgets() {
 }
 
 /**
- *  Remove unwanted root Dashboard widgets, add our news feed.
- */
-function replace_root_dashboard_widgets() {
-
-	// Remove unwanted dashboard widgets
-	remove_meta_box( 'dashboard_primary', 'dashboard', 'side' );
-	remove_meta_box( 'dashboard_quick_press', 'dashboard', 'side' );
-	remove_meta_box( 'dashboard_recent_drafts', 'dashboard', 'side' );
-	remove_meta_box( 'health_check_status', 'dashboard', 'normal' );
-	remove_meta_box( 'dashboard_activity', 'dashboard', 'normal' );
-	remove_meta_box( 'dashboard_site_health', 'dashboard', 'normal' );
-
-	// Remove third-party widgets
-	remove_meta_box( 'dashboard_rediscache', 'dashboard', 'normal' );
-	$user = wp_get_current_user();
-
-	if ( \Pressbooks\Utility\get_number_of_invitations( $user ) ) {
-		add_pending_invitation_meta_box( 'dashboard' );
-	}
-
-	if (
-		$user->roles &&
-		count( $user->roles ) === 1 &&
-		$user->roles[0] === 'subscriber'
-	) {
-		add_meta_box(
-			'pb_dashboard_widget_book_permissions',
-			esc_html__( 'Get started with Pressbooks', 'pressbooks' ),
-			__NAMESPACE__ . '\lowly_user_callback',
-			'dashboard',
-			'normal',
-			'high'
-		);
-	}
-	// Add our news feed.
-	$options = array_map(
-		'stripslashes_deep',
-		get_site_option(
-			'pressbooks_dashboard_feed', get_rss_defaults()
-		)
-	);
-
-	// Add our support widget
-	add_meta_box( 'pb_dashboard_widget_support', esc_html__( 'Need help?', 'pressbooks' ), __NAMESPACE__ . '\display_support_widget', 'dashboard', 'normal', 'high' );
-
-	if ( should_display_custom_feed( $options ) ) {
-		add_meta_box( 'pb_dashboard_widget_blog', $options['title'], __NAMESPACE__ . '\display_pressbooks_blog', 'dashboard', 'side', 'low' );
-	}
-}
-
-/**
  *  Remove all Dashboard widgets and replace with our own
  */
 function replace_dashboard_widgets() {

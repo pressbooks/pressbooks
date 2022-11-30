@@ -1,4 +1,7 @@
 <?php
+/**
+ * @phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
+ */
 namespace Pressbooks\Admin\Dashboard;
 
 use PressbooksMix\Assets;
@@ -74,9 +77,12 @@ class NewUserDashboard {
 	 * @throws \Psr\Container\NotFoundExceptionInterface
 	 */
 	public function renderHomePage(): void {
-		/** @var \Illuminate\View\View $blade */
+		global $wpdb;
+
 		$blade = Container::get( 'Blade' );
 
-		echo $blade->render( 'admin.dashboard.new-user' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo $blade->render( 'admin.dashboard.new-user', [
+			'invitations' => Invitations::getPendingInvitations(),
+		] );
 	}
 }
