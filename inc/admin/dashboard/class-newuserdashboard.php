@@ -37,7 +37,9 @@ class NewUserDashboard {
 	public function redirectToHomePage(): void {
 		$screen = get_current_screen();
 
-		if ( $screen->base !== 'dashboard' ) {
+		$dashboards = collect( [ 'dashboard', 'dashboard-user' ] );
+
+		if ( $dashboards->doesntContain( fn ( string $name ) => $screen->base === $name ) ) {
 			return;
 		}
 
