@@ -82,6 +82,7 @@ class NewUserDashboard {
 		$blade = Container::get( 'Blade' );
 
 		echo $blade->render( 'admin.dashboard.new-user', [
+			'site_name' => get_bloginfo( 'name' ),
 			'invitations' => Invitations::getPendingInvitations(),
 		] );
 	}
