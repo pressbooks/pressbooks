@@ -9,16 +9,20 @@
   justify-content: center;
   gap: 1.5rem;
   border-radius: .375rem;
+
   --tw-bg-opacity: 1;
+
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
   padding: 1rem;
-  --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / .1), 0 2px 4px -2px rgb(0 0 0 / .1);
+
+  --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -2px rgb(0 0 0 / 10%);
   --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
+
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),var(--tw-ring-shadow, 0 0 #0000),var(--tw-shadow);
 }
 
 .book-cards .book-card .book-cover {
-  width: 33.333333%;
+  width: 33.3333%;
   max-width: 17.1875rem;
 }
 
@@ -76,26 +80,26 @@
   margin-bottom: .5rem;
 }
 
-.book-cards .book-card .book-info .book-description.line-clamp *:not(a):not(em):not(del):not(span):not(strong):not(u) {
+.book-cards .book-card .book-info .book-description.line-clamp *:not(a, em, del, span, strong, u) {
   display: contents;
 }
 
-.book-cards .book-card .book-info .book-description.line-clamp p:after,
-.book-cards .book-card .book-info .book-description.line-clamp ul:after,
-.book-cards .book-card .book-info .book-description.line-clamp ol:after,
-.book-cards .book-card .book-info .book-description.line-clamp li:after,
-.book-cards .book-card .book-info .book-description.line-clamp u:after {
+.book-cards .book-card .book-info .book-description.line-clamp p::after,
+.book-cards .book-card .book-info .book-description.line-clamp ul::after,
+.book-cards .book-card .book-info .book-description.line-clamp ol::after,
+.book-cards .book-card .book-info .book-description.line-clamp li::after,
+.book-cards .book-card .book-info .book-description.line-clamp u::after {
   content: "\a";
   white-space: break-spaces;
 }
 
-.book-cards .book-card .book-info .book-description.line-clamp p:after {
+.book-cards .book-card .book-info .book-description.line-clamp p::after {
   content: "\a\a";
 }
 
 .line-clamp {
   -webkit-line-clamp: 4;
-  display: -webkit-box;
+  display: box;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }

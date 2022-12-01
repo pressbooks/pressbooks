@@ -1613,3 +1613,14 @@ function handle_image_upload( $url, $filename = 'profile.jpg' ) {
 function delete_options_cached() : void {
 	wp_cache_delete( 'alloptions', 'options' );
 }
+
+/**
+ * Are Algolia Search environment variables present?
+ *
+ * @return bool
+ */
+function are_algolia_search_env_var_presents(): bool {
+	return env( 'ALGOLIA_APP_ID' ) &&
+		env( 'ALGOLIA_API_KEY' ) &&
+		env( 'ALGOLIA_INDEX_NAME' );
+}
