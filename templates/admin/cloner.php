@@ -46,4 +46,6 @@ if ( is_subdomain_install() ) {
 		<progress id="pb-sse-progressbar" max="100"></progress>
 		<p><b><span id="pb-sse-minutes"></span><span id="pb-sse-seconds"></span></b> <span id="pb-sse-info" aria-live="polite"></span></p>
 	</form>
+	<div id="searchbox"></div>
+	<div id="hits"class="book-cards"></div>
 </div>

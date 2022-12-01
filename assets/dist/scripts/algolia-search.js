@@ -1,0 +1,1 @@
+(()=>{var a=algoliasearch(PBAlgolia.applicationId,PBAlgolia.apiKey),e=instantsearch({indexName:PBAlgolia.indexName,searchClient:a,searchFunction:function(a){a.state.query&&a.search()}});e.addWidgets([instantsearch.widgets.searchBox({container:"#searchbox"}),instantsearch.widgets.hits({container:"#hits",templates:{item:"".concat(PBAlgolia.hitsTemplate)}})]),e.start()})();

@@ -1161,6 +1161,28 @@ function init_css_js() {
 	wp_register_script( 'alpinejs', $assets->getPath( 'scripts/alpine.min.js' ), [], false, true );
 	wp_enqueue_script( 'alpinejs' );
 
+	if ( isset( $_REQUEST['page'] ) && $_REQUEST['page'] === 'pb_cloner' ) {
+		// InstantSearch
+		wp_register_script( 'instantsearch', $assets->getPath( 'scripts/instantsearch.production.min.js' ), [], false, true );
+		wp_enqueue_script( 'instantsearch' );
+
+		// Algolia
+		wp_register_script( 'algolia', $assets->getPath( 'scripts/algoliasearch-lite.umd.js' ), [], false, true );
+		wp_enqueue_script( 'algolia' );
+
+		wp_register_style( 'algolia-search', $assets->getPath( 'styles/clonerbookcard.css' ) );
+		wp_enqueue_style( 'algolia-search' );
+
+		wp_register_script( 'algolia-search', $assets->getPath( 'scripts/algolia-search.js' ), [ 'algolia' ], false, true );
+		wp_enqueue_script( 'algolia-search' );
+		wp_localize_script( 'algolia-search', 'PBAlgolia', [
+				'applicationId' => env( 'ALGOLIA_APP_ID' ),
+				'apiKey' => env( 'ALGOLIA_API_KEY' ),
+				'indexName' => env( 'ALGOLIA_INDEX_NAME' ),
+				'hitsTemplate' => file_get_contents( PB_PLUGIN_DIR . '/templates/admin/cloner-suggestions.html' ),
+		] );
+	}
+
 	// A11y
 	wp_register_script( 'pb-a11y', $assets->getPath( 'scripts/a11y.js' ), [ 'jquery', 'wp-i18n' ], false, true );
 	wp_enqueue_script( 'pb-a11y' );
