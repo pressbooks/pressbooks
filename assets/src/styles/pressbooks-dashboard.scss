@@ -10,16 +10,25 @@
 
   h2 {
     font-size: 1.5rem;
+    margin: .5rem 0 1rem;
   }
 
-  p, {
+  p {
     font-size: 1.125rem;
+    margin: 0 0 1rem 0;
   }
 }
 
 .pb-dashboard-row {
   margin-bottom: 1rem;
   max-width: 1220px;
+
+  a.button.button-primary {
+    font-size: 1.125rem;
+    font-weight: 700;
+    text-align: center;
+    border-radius: 10px;
+  }
 
   .pb-dashboard-grid {
     display: grid;
@@ -32,12 +41,8 @@
     }
 
     .pb-dashboard-action a.button.button-primary {
-      font-size: 1.125rem;
-      font-weight: 700;
       display: block;
       width: 100%;
-      text-align: center;
-      border-radius: 10px;
     }
   }
 
@@ -76,7 +81,8 @@
         justify-content: space-between;
 
         a.button {
-          margin-left: .5rem;
+          margin-left: 1rem;
+          padding: 0 1.5rem;
         }
       }
     }
@@ -100,4 +106,3 @@
   }
 
 }
-
