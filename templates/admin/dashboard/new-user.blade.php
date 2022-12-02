@@ -1,17 +1,16 @@
 <div class="wrap">
 	<div class="pb-dashboard-row">
 		<div class="pb-dashboard-panel">
-			<div class="pb-dashboard-content" style="display: flex; align-items: end; justify-content: space-between;">
-				<h2 style="display: flex; flex-direction: column; font-size: 1.5rem; margin: .5rem 0;">
+			<div class="pb-dashboard-content banner">
+				<h2>
 					{{ __( 'Welcome to', 'pressbooks' ) }}
-					<span style="margin-top: .5rem; font-weight: 300;">{{ $site_name }}</span>
+					<span class="network-title">{!! $site_name !!}</span>
 				</h2>
 
-				<div class="pb-dashboard-image" style="width: 300px;">
+				<div class="pb-dashboard-image">
 					<img
 						src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-network-welcome.png" }}"
-						alt="{{ sprintf( __( 'Welcome to %s art', 'pressbooks' ), $site_name ) }}"
-						style="width: 100%;"
+						alt="{{ __( 'Network welcome art', 'pressbooks' ) }}"
 					/>
 				</div>
 			</div>
@@ -41,7 +40,6 @@
 					<img
 						src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-create-book.png" }}"
 						alt="{{ __( 'Create a new book art', 'pressbooks' ) }}"
-						style="width: 100%;"
 					/>
 				</div>
 
@@ -63,7 +61,6 @@
 					<img
 						src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-adapt-book.png" }}"
 						alt="{{ __( 'Adapt a book art', 'pressbooks' ) }}"
-						style="width: 100%;"
 					/>
 				</div>
 

@@ -1,5 +1,5 @@
 {
-    "/scripts/anchor.js": "/scripts/anchor.js?id=b3150a18f60cba2608453d1de6a9a12d",
+    "/scripts/anchor.js": "/scripts/anchor.js?id=f92b244e2767196b371f701189168ad2",
     "/scripts/applyclass.js": "/scripts/applyclass.js?id=641f754fa01204658cf4bedc00e12868",
     "/scripts/book-information.js": "/scripts/book-information.js?id=b5cb7967a733681d83fc447064188607",
     "/scripts/catalog.js": "/scripts/catalog.js?id=8ecd06d186e37d763581c6429a6ec521",
@@ -29,6 +29,7 @@
     "/scripts/a11y.js": "/scripts/a11y.js?id=e132b0dac7f3fdd4838492fa6d2ebb3b",
     "/scripts/export-footnotes.js": "/scripts/export-footnotes.js?id=6374a71d7b882e03e41c004d1411e689",
     "/scripts/contributors.js": "/scripts/contributors.js?id=348b3ba30b1f91174fa89e3b5b376026",
+    "/styles/pressbooks-dashboard.css": "/styles/pressbooks-dashboard.css?id=76cab879b8c327d220d8e372b9d96d01",
     "/styles/export.css": "/styles/export.css?id=9fdb8491dce9f80a5034f70a977022b7",
     "/styles/covergenerator.css": "/styles/covergenerator.css?id=1cd35bfc7c79a060df8417f8d21d95e1",
     "/styles/colors-pb-a11y.css": "/styles/colors-pb-a11y.css?id=f7b0995dd8e6d16522cbbd245dc20deb",
@@ -38,7 +39,6 @@
     "/styles/style-catalog.css": "/styles/style-catalog.css?id=649bc9a92f1a54ff2d3439bf92d9c887",
     "/styles/select2.css": "/styles/select2.css?id=6a264132e868c6da31d8c69b236c4dd7",
     "/styles/search-and-replace.css": "/styles/search-and-replace.css?id=f7f65c85e4e6720cfab9836a65f91947",
-    "/styles/pressbooks-dashboard.css": "/styles/pressbooks-dashboard.css?id=08e5451e3395d3c9b76ff582f1a71fc7",
     "/styles/pressbooks.css": "/styles/pressbooks.css?id=5ee904e6b68f2e1afdfb6c5da2edced6",
     "/styles/organize.css": "/styles/organize.css?id=645d8ecf7b2cbfa0af942ab4a2ed12c2",
     "/styles/network-managers.css": "/styles/network-managers.css?id=b86dddd3dd20194fd3ffc29512038002",

@@ -1,22 +1,73 @@
 @import 'partials/colors';
+@import 'https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200;0,400;0,700;1,200;1,400;1,700&family=Spectral:ital,wght@0,200;0,400;0,700;1,200;1,400;1,700&display=swap';
 
 * {
   box-sizing: border-box;
+}
+
+.pb-dashboard-content {
   font-family: Karla, sans-serif;
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  p, {
+    font-size: 1.125rem;
+  }
 }
 
 .pb-dashboard-row {
   margin-bottom: 1rem;
+  max-width: 1220px;
 
   .pb-dashboard-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
+
+    .pb-dashboard-image {
+      max-width: 300px;
+      margin: 0 auto;
+    }
+
+    .pb-dashboard-action a.button.button-primary {
+      font-size: 1.125rem;
+      font-weight: 700;
+      display: block;
+      width: 100%;
+      text-align: center;
+      border-radius: 10px;
+    }
+  }
+
+  .pb-dashboard-content.banner {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+
+    h2 {
+      display: flex;
+      flex-direction: column;
+      margin: .5rem 0;
+    }
+
+    .network-title {
+      font-weight: 300;
+      font-size: 2rem;
+      line-height: 1;
+    }
+
+    .pb-dashboard-image {
+      max-width: 400px;
+      margin-top: -4rem;
+    }
+
   }
 
   .pb-dashboard-panel {
     background-color: $white;
-    padding: 1rem;
+    padding: 1.5rem;
 
     &.pb-dashboard-invitations {
       .invitation {
@@ -31,9 +82,14 @@
     }
   }
 
-  @media screen and (max-width: 1280px) {
-    .pb-dashboard-grid {
-      grid-template-columns: repeat(2, 1fr);
+  .pb-dashboard-image img {
+    width: 100%;
+  }
+
+  @media screen and (max-width: 1436px) {
+    .pb-dashboard-content.banner .pb-dashboard-image {
+      width: 30%;
+      margin-top: -6vw;
     }
   }
 
@@ -42,4 +98,6 @@
       grid-template-columns: 1fr;
     }
   }
+
 }
+
