@@ -15,7 +15,7 @@
 
   p {
     font-size: 1.125rem;
-    margin: 0 0 1rem 0;
+    margin: 0 0 1rem;
   }
 }
 
@@ -94,6 +94,7 @@
 
   @media screen and (max-width: 1436px) {
     .pb-dashboard-content.banner .pb-dashboard-image {
+      // TODO: fix these experimental values
       width: 30%;
       margin-top: -6vw;
     }
