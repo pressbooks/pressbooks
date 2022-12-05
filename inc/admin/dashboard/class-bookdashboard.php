@@ -31,8 +31,14 @@ class BookDashboard {
 	}
 
 	public function redirectToBookDash(): void {
+		$screen = get_current_screen();
+
+		if ( $screen->base === 'dashboard' ) {
+			return;
+		}
+
 		wp_redirect(
-			//TODO: usesiteurl ( "index.php?page={$this->submenu}" )
+			admin_url( "index.php?page={$this->submenu}" )
 		);
 	}
 
