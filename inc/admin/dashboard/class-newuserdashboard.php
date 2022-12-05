@@ -25,10 +25,6 @@ class NewUserDashboard {
 	}
 
 	public function hooks(): void {
-		if ( ! is_main_site() ) {
-			return;
-		}
-
 		add_action( 'load-index.php', [ $this, 'redirectToHomePage' ] );
 		add_action( 'admin_head', [ $this, 'removeDefaultHomePage' ] );
 		add_action( 'admin_menu', [ $this, 'addPressbooksHomePage' ] );
@@ -39,7 +35,7 @@ class NewUserDashboard {
 
 		$dashboards = collect( [ 'dashboard', 'dashboard-user' ] );
 
-		if ( $dashboards->doesntContain( fn ( string $name ) => $screen->base === $name ) ) {
+		if ( $dashboards->doesntContain( $screen->base ) ) {
 			return;
 		}
 
