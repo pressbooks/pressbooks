@@ -55,7 +55,6 @@ add_action( 'admin_menu', '\Pressbooks\Admin\Dashboard\add_menu', 1 );
 add_action( 'admin_menu', '\Pressbooks\Admin\Diagnostics\add_menu', 30 );
 add_action( 'init', [ '\Pressbooks\Admin\SiteMap', 'init' ] );
 add_action( 'init', '\Pressbooks\Admin\Laf\remove_emoji' );
-add_action( 'wp_user_dashboard_setup', '\Pressbooks\Admin\Dashboard\lowly_user' );
 remove_action( 'welcome_panel', 'wp_welcome_panel' );
 
 if ( $is_book ) {
