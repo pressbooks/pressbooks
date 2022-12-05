@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-11-22T17:56:55+00:00\n"
+"POT-Creation-Date: 2022-12-05T20:25:34+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: pressbooks\n"
@@ -572,96 +572,44 @@ msgstr ""
 msgid "Your image is the wrong aspect ratio. The image must have an aspect ratio of %1$s to %2$s."
 msgstr ""
 
+#: inc/admin/dashboard/class-invitations.php:29
+msgid "an"
+msgstr ""
+
+#: inc/admin/dashboard/class-invitations.php:30
+msgid "a"
+msgstr ""
+
+#: inc/admin/dashboard/class-newuserdashboard.php:57
+#: inc/admin/dashboard/namespace.php:277
+#: inc/admin/dashboard/namespace.php:278
+#: inc/admin/laf/namespace.php:778
+#: inc/admin/laf/namespace.php:853
+msgid "Dashboard"
+msgstr ""
+
+#: inc/admin/dashboard/class-newuserdashboard.php:58
+msgid "Home"
+msgstr ""
+
 #: inc/admin/dashboard/namespace.php:18
 msgid "Pressbooks announcements"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:91
-msgid "Get started with Pressbooks"
-msgstr ""
-
-#: inc/admin/dashboard/namespace.php:107
-msgid "Need help?"
-msgstr ""
-
-#: inc/admin/dashboard/namespace.php:134
+#: inc/admin/dashboard/namespace.php:82
 msgid "My Book"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:135
+#: inc/admin/dashboard/namespace.php:83
 #: inc/admin/laf/namespace.php:794
 msgid "Users"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:136
-#: inc/admin/dashboard/namespace.php:183
+#: inc/admin/dashboard/namespace.php:84
 msgid "Need Help?"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:177
-msgid "Book Permissions"
-msgstr ""
-
-#: inc/admin/dashboard/namespace.php:195
-msgid "Book Invitations"
-msgstr ""
-
-#: inc/admin/dashboard/namespace.php:219
-msgid "an"
-msgstr ""
-
-#: inc/admin/dashboard/namespace.php:219
-msgid "a"
-msgstr ""
-
-#: inc/admin/dashboard/namespace.php:223
-msgid "You have been invited to join %1s as %2$s %3$s"
-msgstr ""
-
-#: inc/admin/dashboard/namespace.php:226
-msgid "Accept"
-msgstr ""
-
-#: inc/admin/dashboard/namespace.php:239
-msgid "Welcome to %s"
-msgstr ""
-
-#: inc/admin/dashboard/namespace.php:242
-msgid "You do not currently have access to any books on this network."
-msgstr ""
-
-#: inc/admin/dashboard/namespace.php:248
-msgid "This network does not allow users to create new books. To create a new book, please contact a network manager"
-msgstr ""
-
-#: inc/admin/dashboard/namespace.php:250
-#: inc/admin/dashboard/namespace.php:263
-msgid "at "
-msgstr ""
-
-#: inc/admin/dashboard/namespace.php:255
-msgid "Create a book"
-msgstr ""
-
-#: inc/admin/dashboard/namespace.php:257
-msgid "Clone a book"
-msgstr ""
-
-#: inc/admin/dashboard/namespace.php:258
-msgid "Get started on your next publishing project by creating a new book or cloning an existing book. The %1$s includes thousands of openly licensed books available for cloning."
-msgstr ""
-
-#: inc/admin/dashboard/namespace.php:258
-#: inc/admin/laf/namespace.php:1268
-#: templates/admin/cloner.php:14
-msgid "Pressbooks Directory"
-msgstr ""
-
-#: inc/admin/dashboard/namespace.php:261
-msgid "You can also request access to an existing book by contacting your network manager"
-msgstr ""
-
-#: inc/admin/dashboard/namespace.php:275
+#: inc/admin/dashboard/namespace.php:104
 #: inc/class-activation.php:242
 #: inc/modules/themeoptions/class-pdfoptions.php:287
 #: tests/test-cloner.php:62
@@ -669,7 +617,7 @@ msgstr ""
 msgid "Table of Contents"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:277
+#: inc/admin/dashboard/namespace.php:106
 #: inc/admin/metaboxes/namespace.php:649
 #: inc/api/endpoints/controller/class-toc.php:192
 #: inc/posttype/namespace.php:115
@@ -681,7 +629,7 @@ msgstr ""
 msgid "Front Matter"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:318
+#: inc/admin/dashboard/namespace.php:147
 #: inc/admin/metaboxes/namespace.php:651
 #: inc/api/endpoints/controller/class-toc.php:225
 #: inc/posttype/namespace.php:143
@@ -693,96 +641,89 @@ msgstr ""
 msgid "Back Matter"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:337
-#: inc/admin/dashboard/namespace.php:439
+#: inc/admin/dashboard/namespace.php:166
+#: inc/admin/dashboard/namespace.php:268
 #: templates/admin/organize.php:272
 #: templates/admin/organize.php:429
 msgid "Add"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:337
-#: inc/admin/dashboard/namespace.php:439
+#: inc/admin/dashboard/namespace.php:166
+#: inc/admin/dashboard/namespace.php:268
 #: inc/admin/laf/namespace.php:148
 msgid "Organize"
 msgstr ""
 
 #. translators: %s: URL to Pressbooks User Guide
-#: inc/admin/dashboard/namespace.php:381
+#: inc/admin/dashboard/namespace.php:210
 msgid "Consult the %s."
 msgstr ""
 
 #. translators: %s: URL to Pressbooks User Guide
-#: inc/admin/dashboard/namespace.php:381
+#: inc/admin/dashboard/namespace.php:210
 msgid "Pressbooks User Guide"
 msgstr ""
 
 #. translators: %s: URL to Pressbooks YouTube channel
-#: inc/admin/dashboard/namespace.php:382
+#: inc/admin/dashboard/namespace.php:211
 msgid "Watch tutorials on the %s."
 msgstr ""
 
 #. translators: %s: URL to Pressbooks YouTube channel
-#: inc/admin/dashboard/namespace.php:382
+#: inc/admin/dashboard/namespace.php:211
 msgid "Pressbooks YouTube channel"
 msgstr ""
 
 #. translators: %s: URL to Pressbooks training webinars
-#: inc/admin/dashboard/namespace.php:383
+#: inc/admin/dashboard/namespace.php:212
 msgid "Attend a %s."
 msgstr ""
 
 #. translators: %s: URL to Pressbooks training webinars
-#: inc/admin/dashboard/namespace.php:383
+#: inc/admin/dashboard/namespace.php:212
 msgid "live training webinar"
 msgstr ""
 
 #. translators: %s: URL to Pressbooks community forum
-#: inc/admin/dashboard/namespace.php:384
+#: inc/admin/dashboard/namespace.php:213
 msgid "Participate in the %s."
 msgstr ""
 
 #. translators: %s: URL to Pressbooks community forum
-#: inc/admin/dashboard/namespace.php:384
+#: inc/admin/dashboard/namespace.php:213
 msgid "community forum"
 msgstr ""
 
 #. translators: %s: email address for network manager
-#: inc/admin/dashboard/namespace.php:386
+#: inc/admin/dashboard/namespace.php:215
 msgid "For additional support, contact your network manager at %s."
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:425
+#: inc/admin/dashboard/namespace.php:254
 msgid "%1$s total users: "
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:448
-#: inc/admin/dashboard/namespace.php:449
-#: inc/admin/laf/namespace.php:778
-#: inc/admin/laf/namespace.php:853
-msgid "Dashboard"
-msgstr ""
-
-#: inc/admin/dashboard/namespace.php:498
+#: inc/admin/dashboard/namespace.php:327
 msgid "Dashboard Feed"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:505
+#: inc/admin/dashboard/namespace.php:334
 msgid "Display Feed"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:510
+#: inc/admin/dashboard/namespace.php:339
 msgid "Display an RSS feed widget on the dashboard."
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:516
+#: inc/admin/dashboard/namespace.php:345
 msgid "Feed Title"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:524
+#: inc/admin/dashboard/namespace.php:353
 msgid "Feed URL"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:551
+#: inc/admin/dashboard/namespace.php:380
 msgid "Adjust settings for your dashboard RSS feed widget below."
 msgstr ""
 
@@ -1115,6 +1056,11 @@ msgstr ""
 
 #: inc/admin/laf/namespace.php:1238
 msgid "Share Latest Export Files"
+msgstr ""
+
+#: inc/admin/laf/namespace.php:1268
+#: templates/admin/cloner.php:14
+msgid "Pressbooks Directory"
 msgstr ""
 
 #: inc/admin/laf/namespace.php:1285
@@ -4759,6 +4705,52 @@ msgstr ""
 
 #: tests/test-registration.php:28
 msgid "Create Site"
+msgstr ""
+
+#: templates/admin/dashboard/new-user.blade.php:6
+msgid "Welcome to"
+msgstr ""
+
+#: templates/admin/dashboard/new-user.blade.php:14
+msgid "Network welcome art"
+msgstr ""
+
+#: templates/admin/dashboard/new-user.blade.php:24
+msgid "Book Invitations"
+msgstr ""
+
+#: templates/admin/dashboard/new-user.blade.php:29
+msgid "You have been invited to join %1$s as %2$s"
+msgstr ""
+
+#: templates/admin/dashboard/new-user.blade.php:30
+msgid "Accept"
+msgstr ""
+
+#: templates/admin/dashboard/new-user.blade.php:44
+msgid "Create a new book art"
+msgstr ""
+
+#: templates/admin/dashboard/new-user.blade.php:49
+#: templates/admin/dashboard/new-user.blade.php:56
+msgid "Create a book"
+msgstr ""
+
+#: templates/admin/dashboard/new-user.blade.php:51
+msgid "Create a new book full of engaging content: words, images, audio, video, footnotes, glossary terms, mathematical formula, interactive quizzes, and more."
+msgstr ""
+
+#: templates/admin/dashboard/new-user.blade.php:66
+msgid "Adapt a book art"
+msgstr ""
+
+#: templates/admin/dashboard/new-user.blade.php:71
+#: templates/admin/dashboard/new-user.blade.php:78
+msgid "Adapt a book"
+msgstr ""
+
+#: templates/admin/dashboard/new-user.blade.php:73
+msgid "Use our cloning tool to make your own personalized copy of any of the thousands of openly licensed educational books already published with Pressbooks."
 msgstr ""
 
 #: templates/admin/diagnostics.blade.php:5
