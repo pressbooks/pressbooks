@@ -1179,7 +1179,7 @@ function init_css_js() {
 			'applicationId' => env( 'ALGOLIA_APP_ID' ),
 			'apiKey' => env( 'ALGOLIA_API_KEY' ),
 			'indexName' => env( 'ALGOLIA_INDEX_NAME' ),
-			'hitsTemplate' => file_get_contents( PB_PLUGIN_DIR . '/templates/admin/cloner-suggestions.html' ),
+			'hitsTemplate' => file_get_contents( PB_PLUGIN_DIR . '/templates/admin/cloner-book-card.html' ),
 		] );
 	}
 
