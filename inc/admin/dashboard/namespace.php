@@ -66,7 +66,7 @@ function replace_network_dashboard_widgets() {
 function replace_dashboard_widgets() {
 	global $wp_meta_boxes;
 	// Remove all dashboard widgets
-	foreach ( $wp_meta_boxes['dashboard'] as $widget_section => $widget_type ) {
+	foreach ( $wp_meta_boxes['dashboard'] ?? [] as $widget_section => $widget_type ) {
 		foreach ( $widget_type as $widget_cat => $widget ) {
 			foreach ( $widget as $widget_name => $widget_data ) {
 				unset( $wp_meta_boxes['dashboard'][ $widget_section ][ $widget_cat ][ $widget_name ] );
