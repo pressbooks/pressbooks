@@ -101,12 +101,17 @@
     width: 100%;
   }
 
-  @media screen and (max-width: 1436px) {
-    .pb-dashboard-content.banner .pb-dashboard-image {
-      // TODO: fix these experimental values
-      width: 30%;
-      margin-top: -6vw;
-    }
+  .pb-dashboard-action svg {
+    height: 25px;
+    margin-right: .5rem;
+  }
+
+  #view svg {
+    transform: rotate(270deg);
+  }
+
+  #delete {
+    margin-top: 3rem;
   }
 
   @media screen and (max-width: 768px) {
