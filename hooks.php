@@ -55,7 +55,7 @@ if ( $is_book ) {
 	add_filter( 'rest_prepare_attachment', '\Pressbooks\Api\fix_attachment', 10, 3 );
 } elseif ( $enable_network_api ) {
 	add_action( 'rest_api_init', '\Pressbooks\Api\init_book' );
-	add_action( 'rest_api_init', '\Pressbooks\Api\init_root' );
+	add_action( 'rest_api_init', '\Pressbooks\Api\init_root', 9 );
 }
 
 add_action( 'plugins_loaded', [ '\Pressbooks\DataCollector\User', 'init' ] );
