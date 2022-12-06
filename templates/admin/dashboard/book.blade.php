@@ -99,7 +99,7 @@ use function Pressbooks\Image\thumbnail_from_url;
 			</div>
 		</div>
 	</div>
-	<div x-data="{showResources: false}">
+	<div x-data="{show: false}">
 		<div class="pb-dashboard-row">
 			<div class="pb-dashboard-panel pb-dashboard-grid">
 				<div class="pb-dashboard-image">
@@ -111,14 +111,14 @@ use function Pressbooks\Image\thumbnail_from_url;
 				<div class="pb-dashboard-content">
 					<h2>{{ __( 'Want help?', 'pressbooks' ) }}</h2>
 					<p>{{ __( 'We have resources designed to help you at every stage of the writing and publishing process.', 'pressbooks' ) }}</p>
-					<button class="button button-hero" x-on:click="showResources = !showResources">
-						<span x-show="!showResources">{{ __( 'Show resources', 'pressbooks' ) }}</span>
-						<span x-show="showResources">{{ __( 'Hide resources', 'pressbooks' ) }}</span>
+					<button type="button" class="button button-hero" x-on:click="show = !show">
+						<span x-show="!show">{{ __( 'Show resources', 'pressbooks' ) }}</span>
+						<span x-show="show">{{ __( 'Hide resources', 'pressbooks' ) }}</span>
 					</button>
 				</div>
 			</div>
 		</div>
-		<div class="pb-dashboard-row" x-bind:class="showResources ? '' : 'hidden'">
+		<div class="pb-dashboard-row" x-show="show" x-transition>
 			<div class="pb-dashboard-panel">
 				<div class="pb-dashboard-content">
 					<h2>{{ __('Guides & Video tutorials', 'pressbooks') }}</h2>
@@ -133,7 +133,7 @@ use function Pressbooks\Image\thumbnail_from_url;
 				</div>
 			</div>
 		</div>
-		<div class="pb-dashboard-row" x-bind:class="showResources ? '' : 'hidden'">
+		<div class="pb-dashboard-row" x-show="show" x-transition>
 			<div class="pb-dashboard-grid">
 				<div class="pb-dashboard-panel">
 					<div class="pb-dashboard-content">
