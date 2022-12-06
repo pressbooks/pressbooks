@@ -99,7 +99,7 @@ class BookDashboard {
 		$rss = ob_get_clean();
 
 		return Str::contains( $rss, 'An error has occurred, which probably means the feed is down. Try again later' )
-			? __( 'There are currently no upcoming webinars scheduled.', 'pressbooks' )
+			? '<p>' . __( 'There are currently no upcoming webinars scheduled.', 'pressbooks' ) . '</p>'
 			: $rss;
 	}
 }
