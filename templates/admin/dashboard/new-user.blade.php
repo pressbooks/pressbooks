@@ -6,13 +6,6 @@
 					{{ __( 'Welcome to', 'pressbooks' ) }}
 					<span class="network-title">{!! $site_name !!}</span>
 				</h2>
-
-				<div class="pb-dashboard-image">
-					<img
-						src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-network-welcome.png" }}"
-						alt="{{ __( 'Network welcome art', 'pressbooks' ) }}"
-					/>
-				</div>
 			</div>
 		</div>
 	</div>

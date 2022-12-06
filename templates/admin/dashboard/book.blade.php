@@ -1,82 +1,68 @@
+<?php
+use function Pressbooks\Admin\Laf\book_info_slug;
+?>
+
 <div class="wrap">
-	<h2>Book Dashboard</h2>
-{{--	<div class="pb-dashboard-row">--}}
-{{--		<div class="pb-dashboard-panel">--}}
-{{--			<div class="pb-dashboard-content banner">--}}
-{{--				<h2>--}}
-{{--					{{ __( 'Welcome to', 'pressbooks' ) }}--}}
-{{--					<span class="network-title">{!! $site_name !!}</span>--}}
-{{--				</h2>--}}
-
-{{--				<div class="pb-dashboard-image">--}}
-{{--					<img--}}
-{{--							src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-network-welcome.png" }}"--}}
-{{--							alt="{{ __( 'Network welcome art', 'pressbooks' ) }}"--}}
-{{--					/>--}}
-{{--				</div>--}}
-{{--			</div>--}}
-{{--		</div>--}}
-{{--	</div>--}}
-{{--	<div class="pb-dashboard-row">--}}
-{{--		@if($invitations->isNotEmpty())--}}
-{{--			<div class="pb-dashboard-panel pb-dashboard-invitations">--}}
-{{--				<div class="pb-dashboard-content">--}}
-{{--					<h2>{{ __( 'Book Invitations', 'pressbooks' ) }}</h2>--}}
-
-{{--					@foreach($invitations as $invitation)--}}
-{{--						<div class="invitation">--}}
-{{--							<p>{!! sprintf( __( 'You have been invited to join %1$s as %2$s', 'pressbooks' ), $invitation['book_url'], $invitation['role'] ) !!}</p>--}}
-{{--							<a class="button button-primary" href="{{ $invitation['accept_link'] }}">{{ __( 'Accept', 'pressbooks' ) }}</a>--}}
-{{--						</div>--}}
-{{--					@endforeach--}}
-{{--				</div>--}}
-{{--			</div>--}}
-{{--		@endif--}}
-{{--	</div>--}}
-
-{{--	<div class="pb-dashboard-row">--}}
-{{--		<div class="pb-dashboard-grid">--}}
-{{--			<div class="pb-dashboard-panel">--}}
-{{--				<div class="pb-dashboard-image">--}}
-{{--					<img--}}
-{{--							src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-create-book.png" }}"--}}
-{{--							alt="{{ __( 'Create a new book art', 'pressbooks' ) }}"--}}
-{{--					/>--}}
-{{--				</div>--}}
-
-{{--				<div class="pb-dashboard-content">--}}
-{{--					<h2>{{ __( 'Create a book', 'pressbooks' ) }}</h2>--}}
-
-{{--					<p>{{ __( 'Create a new book full of engaging content: words, images, audio, video, footnotes, glossary terms, mathematical formula, interactive quizzes, and more.', 'pressbooks' ) }}</p>--}}
-{{--				</div>--}}
-
-{{--				<div class="pb-dashboard-action">--}}
-{{--					<a class="button button-hero button-primary" href="{{ network_home_url( 'wp-signup.php' ) }}">--}}
-{{--						{{ __( 'Create a book', 'pressbooks' ) }}--}}
-{{--					</a>--}}
-{{--				</div>--}}
-{{--			</div>--}}
-
-{{--			<div class="pb-dashboard-panel">--}}
-{{--				<div class="pb-dashboard-image">--}}
-{{--					<img--}}
-{{--							src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-adapt-book.png" }}"--}}
-{{--							alt="{{ __( 'Adapt a book art', 'pressbooks' ) }}"--}}
-{{--					/>--}}
-{{--				</div>--}}
-
-{{--				<div class="pb-dashboard-content">--}}
-{{--					<h2>{{ __( 'Adapt a book', 'pressbooks' ) }}</h2>--}}
-
-{{--					<p>{{ __( 'Use our cloning tool to make your own personalized copy of any of the thousands of openly licensed educational books already published with Pressbooks.', 'pressbooks' ) }}</p>--}}
-{{--				</div>--}}
-
-{{--				<div class="pb-dashboard-action">--}}
-{{--					<a class="button button-hero button-primary" href="{{ admin_url( 'admin.php?page=pb_cloner' ) }}">--}}
-{{--						{{ __( 'Adapt a book', 'pressbooks' ) }}--}}
-{{--					</a>--}}
-{{--				</div>--}}
-{{--			</div>--}}
-{{--		</div>--}}
-{{--	</div>--}}
+	<div class="pb-dashboard-row">
+		<div class="pb-dashboard-panel">
+			<div class="pb-dashboard-content banner">
+				<h2 class="site-title">{!! $site_name !!} <span>Dashboard</span></h2>
+			</div>
+		</div>
+	</div>
+	<div class="pb-dashboard-row">
+		<div class="pb-dashboard-grid">
+			<div class="pb-dashboard-panel">
+				<div class="pb-dashboard-book-cover">
+					<img src=""/>
+				</div>
+				<div class="pb-dashboard-content">
+					<ul class="pb-dashboard-action">
+						<li><a href="{{ get_home_url() }}">{{ __( 'View book', 'pressbooks' ) }}</a></li>
+						<li><a href="{{ book_info_slug() }}">{{ __( 'Edit book info', 'pressbooks' ) }}</a></li>
+						<li><a href="?page=pb_organize">{{ __( 'Organize book', 'pressbooks' ) }}</a></li>
+						<li><a href="themes.php">{{ __( 'Change theme', 'pressbooks' ) }}</a></li>
+						<li><a href="users.php">{{ __( 'Add collaborators', 'pressbooks' ) }}</a></li>
+						<li><a href="?page=koko-analytics">{{ __( 'View Analytics', 'pressbooks' ) }}</a></li>
+						<li><a href="ms-delete-site.php">{{ __( 'Delete book', 'pressbooks' ) }}</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="pb-dashboard-panel">
+				<div class="pb-dashboard-image">
+					<img
+							src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-adapt-book.png" }}"
+							alt="{{ __( 'Write a new chapter art', 'pressbooks' ) }}"
+					/>
+				</div>
+				<div class="pb-dashboard-content">
+					<div class="pb-dashboard-action">
+						<a class="button button-hero button-primary" href="{{ admin_url( 'admin.php?page=pb_cloner' ) }}">
+							{{ __( 'Write a new chapter', 'pressbooks' ) }}
+						</a>
+						<a class="button button-hero" href="{{ admin_url( 'admin.php?page=pb_cloner' ) }}">
+							{{ __( 'Import Content', 'pressbooks' ) }}
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="pb-dashboard-row">
+		<div class="pb-dashboard-panel">
+			<div class="pb-dashboard-image">
+				<img
+						src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-adapt-book.png" }}"
+						alt="{{ __( 'Write a new chapter art', 'pressbooks' ) }}"
+				/>
+			</div>
+			<div class="pb-dashboard-content">
+				<h2>{{ __( 'Want help?', 'pressbooks' ) }}</h2>
+				<p>{{ __( 'We have resources designed to help you at every stage of the writing and publishing process.', 'pressbooks' ) }}</p>
+				<a class="button button-hero" href="{{ admin_url( 'admin.php?page=pb_cloner' ) }}">
+					{{ __( 'Show resources', 'pressbooks' ) }}
+				</a>
+			</div>
+		</div>
+	</div>
 </div>
