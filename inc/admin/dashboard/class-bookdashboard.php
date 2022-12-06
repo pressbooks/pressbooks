@@ -71,14 +71,18 @@ class BookDashboard {
 	 * @throws \Psr\Container\NotFoundExceptionInterface
 	 */
 	public function renderBookDashboard(): void {
-		global $wpdb;
-
 		$blade = Container::get( 'Blade' );
 
 		echo $blade->render( 'admin.dashboard.book', [
 			'site_name' => get_bloginfo( 'name' ),
-			'edit_book_link' => book_info_slug(),
-			'rss' => $this->getWebinarsRssFeed(),
+			'book_url' => get_home_url(),
+			'book_info_url' => book_info_slug(),
+			'organize_url' => admin_url( 'admin.php?page=pb_organize' ),
+			'themes_url' => admin_url( 'themes.php' ),
+			'users_url' => admin_url( 'users.php' ),
+			'analytics_url' => admin_url( 'index.php?page=koko-analytics' ),
+			'delete_book_url' => admin_url( 'ms-delete-site.php' ),
+			'webinar_rss' => $this->getWebinarsRssFeed(),
 		] );
 	}
 
