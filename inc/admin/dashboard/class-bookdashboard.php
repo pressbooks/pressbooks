@@ -4,10 +4,10 @@
  */
 namespace Pressbooks\Admin\Dashboard;
 
+use function Pressbooks\Admin\Laf\book_info_slug;
 use Illuminate\Support\Str;
 use PressbooksMix\Assets;
 use Pressbooks\Container;
-use function Pressbooks\Admin\Laf\book_info_slug;
 
 class BookDashboard {
 	protected static ?BookDashboard $instance = null;
