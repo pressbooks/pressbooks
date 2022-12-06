@@ -61,64 +61,12 @@ function replace_network_dashboard_widgets() {
 }
 
 /**
- *  Remove unwanted root Dashboard widgets, add our news feed.
- */
-function replace_root_dashboard_widgets() {
-
-	// Remove unwanted dashboard widgets
-	remove_meta_box( 'dashboard_primary', 'dashboard', 'side' );
-	remove_meta_box( 'dashboard_quick_press', 'dashboard', 'side' );
-	remove_meta_box( 'dashboard_recent_drafts', 'dashboard', 'side' );
-	remove_meta_box( 'health_check_status', 'dashboard', 'normal' );
-	remove_meta_box( 'dashboard_activity', 'dashboard', 'normal' );
-	remove_meta_box( 'dashboard_site_health', 'dashboard', 'normal' );
-
-	// Remove third-party widgets
-	remove_meta_box( 'dashboard_rediscache', 'dashboard', 'normal' );
-	$user = wp_get_current_user();
-
-	if ( \Pressbooks\Utility\get_number_of_invitations( $user ) ) {
-		add_pending_invitation_meta_box( 'dashboard' );
-	}
-
-	if (
-		$user->roles &&
-		count( $user->roles ) === 1 &&
-		$user->roles[0] === 'subscriber'
-	) {
-		add_meta_box(
-			'pb_dashboard_widget_book_permissions',
-			esc_html__( 'Get started with Pressbooks', 'pressbooks' ),
-			__NAMESPACE__ . '\lowly_user_callback',
-			'dashboard',
-			'normal',
-			'high'
-		);
-	}
-	// Add our news feed.
-	$options = array_map(
-		'stripslashes_deep',
-		get_site_option(
-			'pressbooks_dashboard_feed', get_rss_defaults()
-		)
-	);
-
-	// Add our support widget
-	add_meta_box( 'pb_dashboard_widget_support', esc_html__( 'Need help?', 'pressbooks' ), __NAMESPACE__ . '\display_support_widget', 'dashboard', 'normal', 'high' );
-
-	if ( should_display_custom_feed( $options ) ) {
-		add_meta_box( 'pb_dashboard_widget_blog', $options['title'], __NAMESPACE__ . '\display_pressbooks_blog', 'dashboard', 'side', 'low' );
-	}
-}
-
-/**
  *  Remove all Dashboard widgets and replace with our own
  */
 function replace_dashboard_widgets() {
-
 	global $wp_meta_boxes;
 	// Remove all dashboard widgets
-	foreach ( $wp_meta_boxes['dashboard'] as $widget_section => $widget_type ) {
+	foreach ( $wp_meta_boxes['dashboard'] ?? [] as $widget_section => $widget_type ) {
 		foreach ( $widget_type as $widget_cat => $widget ) {
 			foreach ( $widget as $widget_name => $widget_data ) {
 				unset( $wp_meta_boxes['dashboard'][ $widget_section ][ $widget_cat ][ $widget_name ] );
@@ -144,125 +92,6 @@ function replace_dashboard_widgets() {
 
 	if ( should_display_custom_feed( $options ) ) {
 		add_meta_box( 'pb_dashboard_widget_blog', $options['title'], __NAMESPACE__ . '\display_pressbooks_blog', 'dashboard', 'side', 'low' );
-	}
-}
-
-/**
- * A widget for /wp-admin/user/ in case someone without adequate permissions lands here (SSO, atypical config, ...)
- */
-function lowly_user() {
-	global $wp_meta_boxes;
-	// https://github.com/pressbooks/pressbooks/issues/2041:  Remove health status and primary (WP news) widgets
-	if ( array_key_exists( 'dashboard-user', $wp_meta_boxes ) ) {
-		if (
-			array_key_exists( 'side', $wp_meta_boxes['dashboard-user'] ) &&
-			array_key_exists( 'dashboard_primary', $wp_meta_boxes['dashboard-user']['side']['core'] )
-		) {
-			unset( $wp_meta_boxes['dashboard-user']['side']['core']['dashboard_primary'] );
-		}
-		if (
-			array_key_exists( 'normal', $wp_meta_boxes['dashboard-user'] ) &&
-			array_key_exists( 'dashboard_site_health', $wp_meta_boxes['dashboard-user']['normal']['core'] )
-		) {
-			unset( $wp_meta_boxes['dashboard-user']['normal']['core']['dashboard_site_health'] );
-		}
-	}
-
-	if ( \Pressbooks\Utility\get_number_of_invitations( wp_get_current_user() ) ) {
-		add_pending_invitation_meta_box( 'dashboard-user' );
-	}
-
-	add_meta_box(
-		'pb_dashboard_widget_book_permissions',
-		esc_html__( 'Book Permissions', 'pressbooks' ),
-		__NAMESPACE__ . '\lowly_user_callback',
-		'dashboard-user',
-		'normal',
-		'high'
-	);
-	add_meta_box( 'pb_dashboard_widget_support', esc_html__( 'Need Help?', 'pressbooks' ), __NAMESPACE__ . '\display_support_widget', 'dashboard-user', 'normal', 'high' );
-
-}
-
-/**
- * Adds pending invitations meta box
- *
- * @param string $screen
- */
-function add_pending_invitation_meta_box( $screen ) {
-	add_meta_box(
-		'pb_dashboard_widget_book_invitations',
-		esc_html__( 'Book Invitations', 'pressbooks' ),
-		__NAMESPACE__ . '\pending_invitations_callback',
-		$screen,
-		'normal',
-		'high'
-	);
-}
-/**
- * Callback for /wp-admin and /wp-admin/user widget
- *
- * Renders book invitations if user has at least one pending book invitation.
- */
-function pending_invitations_callback() {
-	global $wpdb;
-
-	$current_blog_id = get_current_blog_id();
-	$user_id = get_current_user_id();
-
-	$invitations = $wpdb->get_results( $wpdb->prepare( "SELECT meta_key, meta_value FROM $wpdb->usermeta WHERE meta_key LIKE %s AND user_id = %d", 'new_user_%', $user_id ) );
-
-	foreach ( $invitations as $invitation ) {
-		$metadata = maybe_unserialize( $invitation->meta_value );
-
-		switch_to_blog( $metadata['blog_id'] );
-		$article = preg_match( '/^[aeiou]/i', $metadata['role'] ) ? __( 'an', 'pressbooks' ) : __( 'a', 'pressbooks' );
-
-		echo '
-		<div>
-			<p>' . sprintf( esc_html__( 'You have been invited to join %1s as %2$s %3$s', 'pressbooks' ),
-			sprintf( '<a href="%1$s">%2$s</a>', esc_url( home_url() ), esc_html( get_site_meta( $metadata['blog_id'], 'pb_title', true ) ) ),
-		esc_html( $article ), esc_html( $metadata['role'] ) ) . "</p>
-			<a class='button button-primary' href='" . esc_url( home_url( '/newbloguser/' . $metadata['key'] ) ) . "'>" . esc_html__( 'Accept', 'pressbooks' ) . '</a>
-		</div>
-		<hr/>
-		';
-	}
-
-	switch_to_blog( $current_blog_id );
-}
-
-/**
- * Callback for /wp-admin/user/ widget
- */
-function lowly_user_callback() {
-	echo '<p>' . sprintf( esc_html__( 'Welcome to %s', 'pressbooks' ), esc_html( get_bloginfo( 'name', 'display' ) ) ) . '!</p>';
-	$user_has_books = count( get_blogs_of_user( get_current_user_id() ) ) > 1;
-	if ( ! $user_has_books ) {
-		echo '<p>' . esc_html__( 'You do not currently have access to any books on this network.', 'pressbooks' ) . '</p>';
-	}
-	$contact = \Pressbooks\Utility\main_contact_email();
-	// Values can be 'all', 'none', 'blog', or 'user', @see wp-signup.php
-	$active_signup = apply_filters( 'wpmu_active_signup', get_site_option( 'registration', 'none' ) );
-	if ( in_array( $active_signup, [ 'none', 'user' ], true ) ) {
-		echo '<p>' . esc_html__( 'This network does not allow users to create new books. To create a new book, please contact a network manager', 'pressbooks' );
-		if ( ! empty( $contact ) && strpos( $contact, '@pressbooks.com' ) === false ) {
-			echo ' ' . esc_html__( 'at ', 'pressbooks' ) . sprintf( '<a href="%1$s">%2$s</a>', esc_url( "mailto:{$contact}" ), esc_html( $contact ) );
-		}
-		echo '.</p>';
-	} else {
-		$href_create = network_home_url( 'wp-signup.php' );
-		$text_create = esc_html__( 'Create a book', 'pressbooks' );
-		$href_clone = admin_url( 'admin.php?page=pb_cloner' );
-		$text_clone = esc_html__( 'Clone a book', 'pressbooks' );
-		echo '<p>' . sprintf( esc_html__( 'Get started on your next publishing project by creating a new book or cloning an existing book. The %1$s includes thousands of openly licensed books available for cloning.', 'pressbooks' ), sprintf( '<a href="https://pressbooks.directory" target="_blank">%s</a>', esc_html__( 'Pressbooks Directory', 'pressbooks' ) ) ) . "</p><p><a class='button button-hero button-primary create-book' href='" . esc_url( $href_create ) . "'>" . esc_html( $text_create ) . "</a><a class='button button-hero button-primary clone-book' href='" . esc_url( $href_clone ) . "'>" . esc_html( $text_clone ) . '</a></p>';
-	}
-	if ( ! $user_has_books ) {
-		echo '<p>' . esc_html__( 'You can also request access to an existing book by contacting your network manager', 'pressbooks' );
-		if ( ! empty( $contact ) && strpos( $contact, '@pressbooks.com' ) === false ) {
-			echo ' ' . esc_html__( 'at ', 'pressbooks' ) . sprintf( '<a href="%1$s">%2$s</a>', esc_url( "mailto:{$contact}" ), esc_html( $contact ) );
-		}
-		echo '.</p>';
 	}
 }
 

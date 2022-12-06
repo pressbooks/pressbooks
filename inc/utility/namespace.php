@@ -1542,20 +1542,6 @@ function apply_https_if_available( $url ) {
 }
 
 /**
- * Checks if the user has pending invitations
- *
- * @param \WP_User $user
- * @return int
- */
-function get_number_of_invitations( $user ) {
-	global $wpdb;
-
-	$invitations = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(1) FROM $wpdb->usermeta WHERE meta_key LIKE %s AND user_id = %d", 'new_user_%', $user->ID ) );
-
-	return (int) $invitations;
-}
-
-/**
  * Creates a new image based on the url provided during import.
  *
  * @param string $url
