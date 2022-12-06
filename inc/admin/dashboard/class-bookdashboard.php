@@ -35,7 +35,7 @@ class BookDashboard {
 	public function redirectToBookDash(): void {
 		$screen = get_current_screen();
 
-		if ( $screen->base === 'dashboard' ) {
+		if ( $screen->base !== 'dashboard' ) {
 			return;
 		}
 
