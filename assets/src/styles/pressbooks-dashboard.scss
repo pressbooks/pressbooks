@@ -24,7 +24,7 @@
   margin-bottom: 1rem;
   max-width: 1220px;
 
-  a.button.button-hero {
+  .button.button-hero {
     font-size: 1.125rem;
     font-weight: 700;
     text-align: center;
@@ -32,10 +32,6 @@
     display: block;
     width: 100%;
     margin-bottom: 1rem;
-  }
-
-  a.button.button-secondary {
-
   }
 
   .pb-dashboard-grid {
@@ -49,10 +45,7 @@
     }
   }
 
-  .pb-dashboard-content.banner {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
+  .pb-dashboard-content {
 
     h2 {
       display: flex;
@@ -101,17 +94,29 @@
     width: 100%;
   }
 
-  .pb-dashboard-action svg {
-    height: 25px;
-    margin-right: .5rem;
-  }
+  .pb-dashboard-action {
 
-  #view svg {
-    transform: rotate(270deg);
-  }
+    ul {
+      margin: 0;
+    }
 
-  #delete {
-    margin-top: 3rem;
+    li {
+      display: flex;
+      align-items: center;
+    }
+
+    svg {
+      height: 25px;
+      margin-right: .75rem;
+    }
+
+    #view svg {
+      transform: rotate(270deg);
+    }
+
+    #delete {
+      margin: 3rem 0 0;
+    }
   }
 
   @media screen and (max-width: 768px) {
@@ -119,5 +124,8 @@
       grid-template-columns: 1fr;
     }
   }
+}
 
+.book-dash .pb-dashboard-row .pb-dashboard-grid .pb-dashboard-image {
+  max-width: 225px;
 }
