@@ -1,5 +1,4 @@
 <?php
-use function Pressbooks\Admin\Laf\book_info_slug;
 use Pressbooks\Metadata;
 use function Pressbooks\Image\thumbnail_from_url;
 ?>
@@ -27,7 +26,7 @@ use function Pressbooks\Image\thumbnail_from_url;
 									<path stroke-linecap="round" stroke-linejoin="round" d="M9 8.25H7.5a2.25 2.25 0 00-2.25 2.25v9a2.25 2.25 0 002.25 2.25h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25H15m0-3l-3-3m0 0l-3 3m3-3V15" />
 								</svg>
 								{{ __( 'View book', 'pressbooks' ) }}</a></li>
-						<li id="book_info"><a href="{{ book_info_slug() }}">
+						<li id="book_info"><a href="{!! $edit_book_link !!}">
 								<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
 									<path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
 								</svg>
@@ -80,59 +79,57 @@ use function Pressbooks\Image\thumbnail_from_url;
 			</div>
 		</div>
 	</div>
-	<div class="pb-dashboard-row">
-		<div class="pb-dashboard-panel pb-dashboard-grid">
-			<div class="pb-dashboard-image">
-				<img
+	<div x-data="{showResources: false}">
+		<div class="pb-dashboard-row">
+			<div class="pb-dashboard-panel pb-dashboard-grid">
+				<div class="pb-dashboard-image">
+					<img
 						src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-help.png" }}"
 						alt="{{ __( 'Want help? art', 'pressbooks' ) }}"
-				/>
-			</div>
-			<div class="pb-dashboard-content">
-				<h2>{{ __( 'Want help?', 'pressbooks' ) }}</h2>
-				<p>{{ __( 'We have resources designed to help you at every stage of the writing and publishing process.', 'pressbooks' ) }}</p>
-				{{-- TODO: make button below a toggle action to show/hide final rows --}}
-				<a class="button button-hero" href="">
-					{{ __( 'Show resources', 'pressbooks' ) }}
-				</a>
-			</div>
-		</div>
-	</div>
-	<div class="pb-dashboard-row toggle">
-		<div class="pb-dashboard-panel">
-			<h2>{{ __('Guides & Video tutorials', 'pressbooks') }}</h2>
-			<ul>
-				<li><a href="https://guide.pressbooks.com" target="_blank">{{ __('Pressbooks User Guide', 'pressbooks' )}}</a></li>
-				<li><a href="#" target="_blank">{{ __('Edit your profile', 'pressbooks' )}}</a></li>
-				<li><a href="#" target="_blank">{{ __('Create a book', 'pressbooks' )}}</a></li>
-				<li><a href="#" target="_blank">{{ __('Clone a book', 'pressbooks' )}}</a></li>
-				<li><a href="#" target="_blank">{{ __('Create & edit a chapter', 'pressbooks' )}}</a></li>
-			</ul>
-		</div>
-	</div>
-	<div class="pb-dashboard-row toggle">
-		<div class="pb-dashboard-grid">
-			<div class="pb-dashboard-panel">
+					/>
+				</div>
 				<div class="pb-dashboard-content">
-					<h2>{{ __('Attend a live training webinar', 'pressbooks') }}</h2>
-					{{-- TODO: replace links below with entries from webinars RSS feed: https://pressbooks.com/webinars/feed/ --}}
-					<ul>
-						<li><a href="https://guide.pressbooks.com" target="_blank">{{ __('Pressbooks User Guide', 'pressbooks' ) }}</a></li>
-						<li><a href="#" target="_blank">{{ __('Edit your profile', 'pressbooks' ) }}</a></li>
-						<li><a href="#" target="_blank">{{ __('Create a book', 'pressbooks' ) }}</a></li>
-						<li><a href="#" target="_blank">{{ __('Clone a book', 'pressbooks' ) }}</a></li>
-						<li><a href="#" target="_blank">{{ __('Create & edit a chapter', 'pressbooks' ) }}</a></li>
-					</ul>
-					<p>{{ __('All webinars are recorded and uploaded to the Pressbooks YouTube channel', 'pressbooks' ) }}</p>
+					<h2>{{ __( 'Want help?', 'pressbooks' ) }}</h2>
+					<p>{{ __( 'We have resources designed to help you at every stage of the writing and publishing process.', 'pressbooks' ) }}</p>
+					<button class="button button-hero" x-on:click="showResources = !showResources">
+						<span x-show="!showResources">{{ __( 'Show resources', 'pressbooks' ) }}</span>
+						<span x-show="showResources">{{ __( 'Hide resources', 'pressbooks' ) }}</span>
+					</button>
 				</div>
 			</div>
+		</div>
+		<div class="pb-dashboard-row" x-bind:class="showResources ? '' : 'hidden'">
 			<div class="pb-dashboard-panel">
 				<div class="pb-dashboard-content">
-					<h2>{{ __('Participate in the community forum', 'pressbooks' ) }} </h2>
-					{{-- TODO: add links to desired sample forum topics--}}
-					<p>
-						<a href='https://pressbooks.community' target="_blank">{{ __( 'Visit forum', 'pressbooks' ) }}</a>
-					</p>
+					<h2>{{ __('Guides & Video tutorials', 'pressbooks') }}</h2>
+					{{-- TODO: add links to youtube videos. --}}
+					<ul>
+						<li><a href="https://guide.pressbooks.com" target="_blank">{{ __('Pressbooks User Guide', 'pressbooks' )}}</a></li>
+						<li><a href="#" target="_blank">{{ __('Edit your profile', 'pressbooks' )}}</a></li>
+						<li><a href="#" target="_blank">{{ __('Create a book', 'pressbooks' )}}</a></li>
+						<li><a href="#" target="_blank">{{ __('Clone a book', 'pressbooks' )}}</a></li>
+						<li><a href="#" target="_blank">{{ __('Create & edit a chapter', 'pressbooks' )}}</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="pb-dashboard-row" x-bind:class="showResources ? '' : 'hidden'">
+			<div class="pb-dashboard-grid">
+				<div class="pb-dashboard-panel">
+					<div class="pb-dashboard-content">
+						<h2>{{ __('Attend a live training webinar', 'pressbooks') }}</h2>
+						{!! $rss !!}
+						<p>{{ __('All webinars are recorded and uploaded to the Pressbooks YouTube channel', 'pressbooks' ) }}</p>
+					</div>
+				</div>
+				<div class="pb-dashboard-panel">
+					<div class="pb-dashboard-content">
+						<h2>{{ __('Participate in the community forum', 'pressbooks' ) }} </h2>
+						{{-- TODO: add links to desired sample forum topics--}}
+						<p>
+							<a href='https://pressbooks.community' target="_blank">{{ __( 'Visit forum', 'pressbooks' ) }}</a>
+						</p>
+					</div>
 				</div>
 			</div>
 		</div>

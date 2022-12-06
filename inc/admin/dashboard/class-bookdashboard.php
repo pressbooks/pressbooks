@@ -4,8 +4,10 @@
  */
 namespace Pressbooks\Admin\Dashboard;
 
+use Illuminate\Support\Str;
 use PressbooksMix\Assets;
 use Pressbooks\Container;
+use function Pressbooks\Admin\Laf\book_info_slug;
 
 class BookDashboard {
 	protected static ?BookDashboard $instance = null;
@@ -74,7 +76,26 @@ class BookDashboard {
 		$blade = Container::get( 'Blade' );
 
 		echo $blade->render( 'admin.dashboard.book', [
-			'site_name' => get_bloginfo( 'name' )
+			'site_name' => get_bloginfo( 'name' ),
+			'edit_book_link' => book_info_slug(),
+			'rss' => $this->getWebinarsRssFeed(),
 		] );
+	}
+
+	protected function getWebinarsRssFeed(): string {
+		ob_start();
+
+		wp_widget_rss_output( 'https://pressbooks.com/webinars/feed/', [
+			'items' => 3,
+			'show_summary' => 1,
+			'show_author' => 0,
+			'show_date' => 0,
+		] );
+
+		$rss = ob_get_clean();
+
+		return Str::contains( $rss, 'An error has occurred, which probably means the feed is down. Try again later' )
+			? __( 'There are currently no upcoming webinars scheduled.', 'pressbooks' )
+			: $rss;
 	}
 }
