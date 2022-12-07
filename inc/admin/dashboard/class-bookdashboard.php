@@ -79,17 +79,23 @@ class BookDashboard {
 	public function renderBookDashboard(): void {
 		$blade = Container::get( 'Blade' );
 
+		global $blog_id;
+		$current_user = wp_get_current_user();
+
 		echo $blade->render( 'admin.dashboard.book', [
+			'is_current_user_subscriber' => count( $current_user->roles ) === 1 && $current_user->roles[0] === 'subscriber',
 			'site_name' => get_bloginfo( 'name' ),
 			'book_cover' => $this->getBookCover(),
 			'book_url' => get_home_url(),
-			'book_info_url' => book_info_slug(),
-			'organize_url' => admin_url( 'admin.php?page=pb_organize' ),
-			'themes_url' => admin_url( 'themes.php' ),
-			'users_url' => admin_url( 'users.php' ),
-			'analytics_url' => admin_url( 'index.php?page=koko-analytics' ),
-			'delete_book_url' => admin_url( 'ms-delete-site.php' ),
+			'book_info_url' => current_user_can( 'edit_post', $blog_id ) ? book_info_slug() : false,
+			'organize_url' => current_user_can( 'edit_posts' ) ? admin_url( 'admin.php?page=pb_organize' ) : false,
+			'themes_url' => current_user_can( 'switch_themes' ) ? admin_url( 'themes.php' ) : false,
+			'users_url' => current_user_can( 'list_users' ) ? admin_url( 'users.php' ) : false,
+			'analytics_url' => current_user_can( 'view_koko_analytics' ) ? admin_url( 'index.php?page=koko-analytics' ) : false,
+			'delete_book_url' => current_user_can( 'delete_site' ) ? admin_url( 'ms-delete-site.php' ) : false,
 			'webinars' => $this->getWebinarsRssFeed(),
+			'write_chapter_url' => current_user_can( 'edit_posts' ) ? admin_url( 'post-new.php?post_type=chapter' ) : false,
+			'import_content_url' => current_user_can( 'edit_posts' ) ? admin_url( 'admin.php?page=pb_import' ) : false,
 		] );
 	}
 
