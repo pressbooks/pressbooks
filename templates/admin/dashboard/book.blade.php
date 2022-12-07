@@ -1,8 +1,3 @@
-<?php
-use Pressbooks\Metadata;
-use function Pressbooks\Image\thumbnail_from_url;
-?>
-
 <div class="book-dash wrap">
 	<div class="pb-dashboard-row">
 		<div class="pb-dashboard-panel">
@@ -15,8 +10,7 @@ use function Pressbooks\Image\thumbnail_from_url;
 		<div class="pb-dashboard-grid">
 			<div class="pb-dashboard-panel pb-dashboard-grid">
 				<div class="pb-dashboard-image book-cover">
-					{{-- TODO: replace with better method for getting/showing book cover? --}}
-					<img src="{{ thumbnail_from_url( get_post_meta( ( new Metadata )->getMetaPostId(), 'pb_cover_image', true ), 'pb_cover_medium' ) }}" alt="{!! $site_name !!} cover"/>
+					<img src="{{ $book_cover }}" alt="{!! $site_name !!} cover"/>
 				</div>
 				<div class="pb-dashboard-content">
 					<ul class="pb-dashboard-action">
@@ -123,12 +117,11 @@ use function Pressbooks\Image\thumbnail_from_url;
 				<div class="pb-dashboard-content">
 					<h2>{{ __('Guides & Video tutorials', 'pressbooks') }}</h2>
 					{{-- TODO: add links to youtube videos. --}}
-					<ul>
-						<li><a href="https://guide.pressbooks.com" target="_blank">{{ __('Pressbooks User Guide', 'pressbooks' )}}</a></li>
-						<li><a href="#" target="_blank">{{ __('Edit your profile', 'pressbooks' )}}</a></li>
-						<li><a href="#" target="_blank">{{ __('Create a book', 'pressbooks' )}}</a></li>
-						<li><a href="#" target="_blank">{{ __('Clone a book', 'pressbooks' )}}</a></li>
-						<li><a href="#" target="_blank">{{ __('Create & edit a chapter', 'pressbooks' )}}</a></li>
+					<ul class="horizontal">
+						<li class="resources" id="guide"><a href="https://guide.pressbooks.com" target="_blank">{{ __('Pressbooks User Guide', 'pressbooks' )}}</a></li>
+						<li class="resources" id="getting-started"><a href="#" target="_blank">{{ __('Getting Started with Pressbooks', 'pressbooks' )}}</a></li>
+						<li class="resources" id="intro"><a href="https://www.youtube.com/watch?v=hrcrFJVgbbs&list=PLMFmJu3NJheuRt1rZwNCEElROtSjc5dJG" target="_blank">{{ __('Introduction to Pressbooks', 'pressbooks' )}}</a></li>
+						<li class="resources" id="spotlight"><a href="https://www.youtube.com/watch?v=PuDdA7u6_xg&list=PLMFmJu3NJhev49Z5S8iyuE_2145zVaj7L" target="_blank">{{ __('Pressbooks Spotlight Sessions', 'pressbooks' )}}</a></li>
 					</ul>
 				</div>
 			</div>
@@ -138,8 +131,15 @@ use function Pressbooks\Image\thumbnail_from_url;
 				<div class="pb-dashboard-panel">
 					<div class="pb-dashboard-content">
 						<h2>{{ __('Attend a live training webinar', 'pressbooks') }}</h2>
-						{!! $webinar_rss !!}
-						<p>{{ __('All webinars are recorded and uploaded to the Pressbooks YouTube channel', 'pressbooks' ) }}</p>
+						<ol class="webinars">
+							@foreach ( $webinars as $webinar )
+								<li class="webinar">
+									<h3><a href="{{ $webinar['link' ]}}" target="_blank">{{ $webinar['title'] }}</a></h3>
+									<span>{{ $webinar['date'] }}</span>
+								</li>
+							@endforeach
+						</ol>
+						<p>{{ printf( __( 'Several past webinars can be viewed on the %s.', 'pressbooks' ), sprintf( '<a href="https://www.youtube.com/@Pressbooks/videos" target="_blank">%s</a>', __( 'Pressbooks YouTube channel', 'pressbooks' ) ) ) }}</p>
 					</div>
 				</div>
 				<div class="pb-dashboard-panel">

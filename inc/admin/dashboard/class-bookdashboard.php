@@ -4,10 +4,14 @@
  */
 namespace Pressbooks\Admin\Dashboard;
 
+use Illuminate\Support\Carbon;
 use function Pressbooks\Admin\Laf\book_info_slug;
 use Illuminate\Support\Str;
 use PressbooksMix\Assets;
 use Pressbooks\Container;
+use Pressbooks\Metadata;
+use function Pressbooks\Image\thumbnail_from_url;
+
 
 class BookDashboard {
 	protected static ?BookDashboard $instance = null;
@@ -75,6 +79,7 @@ class BookDashboard {
 
 		echo $blade->render( 'admin.dashboard.book', [
 			'site_name' => get_bloginfo( 'name' ),
+			'book_cover' => $this->getBookCover(),
 			'book_url' => get_home_url(),
 			'book_info_url' => book_info_slug(),
 			'organize_url' => admin_url( 'admin.php?page=pb_organize' ),
@@ -82,24 +87,38 @@ class BookDashboard {
 			'users_url' => admin_url( 'users.php' ),
 			'analytics_url' => admin_url( 'index.php?page=koko-analytics' ),
 			'delete_book_url' => admin_url( 'ms-delete-site.php' ),
-			'webinar_rss' => $this->getWebinarsRssFeed(),
+			'webinars' => $this->getWebinarsRssFeed(),
 		] );
 	}
 
-	protected function getWebinarsRssFeed(): string {
-		ob_start();
+	protected function getBookCover(): string {
+		$cover_image = get_post_meta( ( new Metadata )->getMetaPostId(), 'pb_cover_image', true );
+		$cover_image = Str::of($cover_image);
+		if ($cover_image->endsWith( 'default-book-cover.jpg' ) ){
+			return $cover_image->replace( 'default-book-cover.jpg', 'default-book-cover-225x0@2x.jpg' );
+		}
+		return thumbnail_from_url( $cover_image, 'pb_cover_medium' );
+	}
 
-		wp_widget_rss_output( 'https://pressbooks.com/webinars/feed/', [
-			'items' => 3,
-			'show_summary' => 1,
-			'show_author' => 0,
-			'show_date' => 0,
-		] );
-
-		$rss = ob_get_clean();
-
-		return Str::contains( $rss, 'An error has occurred, which probably means the feed is down. Try again later' )
-			? '<p>' . __( 'There are currently no upcoming webinars scheduled.', 'pressbooks' ) . '</p>'
-			: $rss;
+	protected function getWebinarsRssFeed(): array {
+		$url = "https://pressbooks.com/webinars/feed/";
+		if( @simplexml_load_file( $url ) ) {
+			$feeds = simplexml_load_file( $url );
+		}
+		else {
+			return [];
+		}
+		$i = 0;
+		$webinars = [];
+		if( !empty( $feeds ) ) {
+			foreach( $feeds->channel->item as $item ) {
+				$webinars[] = [ 'title' => $item->title, 'link' => $item->link, 'date' => Carbon::parse( $item->pubDate, 'UTC' )->format('M d, Y @ g:i A T' ) ];
+				if ( $i >= 3 ) {
+					break;
+				}
+				$i++;
+			}
+		}
+		return $webinars;
 	}
 }
