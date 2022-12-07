@@ -124,17 +124,17 @@
 							<img
 								src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-welcome.png" }}"
 								alt="{{ __( 'Getting started art', 'pressbooks' ) }}"
-							/><br/>
+							/>
 							{{ __('Getting started with Pressbooks', 'pressbooks' )}}
 						</a>
 						<p>{{ __( 'Watch a short video series to learn how to get started with Pressbooks.', 'pressbooks' ) }}</p>
 					</li>
-					<li>
+					<li class="resources" id="pressbooks-guide">
 						<a href="https://guide.pressbooks.com" target="_blank">
 							<img
 								src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-guide.png" }}"
 								alt="{{ __( 'User guide art', 'pressbooks' ) }}"
-							/><br/>
+							/>
 							{{ __('Pressbooks user guide', 'pressbooks' )}}
 						</a>
 						<p>{{ __( 'Dig into our detailed handbook to learn how to accomplish your publishing goals.', 'pressbooks' ) }}</p>
@@ -144,7 +144,7 @@
 							<img
 								src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-forum.png" }}"
 								alt="{{ __( 'User forum art', 'pressbooks' ) }}"
-							/><br/>
+							/>
 							{{ __('Pressbooks community forum', 'pressbooks' ) }}
 						</a>
 						<p>{{ __( 'Discuss software and publishing questions with other Pressbooks users in the community forum.', 'pressbooks' ) }}</p>
@@ -154,7 +154,7 @@
 							<img
 								src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-forum.png" }}"
 								alt="{{ __( 'User forum art', 'pressbooks' ) }}"
-							/><br/>
+							/>
 							{{ __('Pressbooks training webinars', 'pressbooks') }}
 						</a>
 						<p>{{ __( 'Register for a free webinar.', 'pressbooks' ) }}</p>
