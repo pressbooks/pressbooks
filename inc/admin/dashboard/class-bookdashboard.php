@@ -6,14 +6,10 @@ namespace Pressbooks\Admin\Dashboard;
 
 use function Pressbooks\Admin\Laf\book_info_slug;
 use function Pressbooks\Image\thumbnail_from_url;
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\GuzzleException;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 use PressbooksMix\Assets;
 use Pressbooks\Container;
 use Pressbooks\Metadata;
-use SimpleXMLElement;
 
 class BookDashboard {
 	protected static ?BookDashboard $instance = null;
@@ -93,7 +89,6 @@ class BookDashboard {
 			'users_url' => current_user_can( 'list_users' ) ? admin_url( 'users.php' ) : false,
 			'analytics_url' => current_user_can( 'view_koko_analytics' ) ? admin_url( 'index.php?page=koko-analytics' ) : false,
 			'delete_book_url' => current_user_can( 'delete_site' ) ? admin_url( 'ms-delete-site.php' ) : false,
-			'webinars' => $this->getWebinarsRssFeed(),
 			'write_chapter_url' => current_user_can( 'edit_posts' ) ? admin_url( 'post-new.php?post_type=chapter' ) : false,
 			'import_content_url' => current_user_can( 'edit_posts' ) ? admin_url( 'admin.php?page=pb_import' ) : false,
 		] );
@@ -106,49 +101,5 @@ class BookDashboard {
 			return $cover_image->replace( 'default-book-cover.jpg', 'default-book-cover-225x0@2x.jpg' );
 		}
 		return thumbnail_from_url( $cover_image, 'pb_cover_medium' );
-	}
-
-	protected function getWebinarsRssFeed(): array {
-		$webinars = [];
-
-		try {
-			$response = ( new Client() )->get(
-				'https://pressbooks.com/webinars/feed/', [
-					'headers' => [ 'Accept' => 'application/xml' ],
-					'timeout' => 120,
-				]
-			);
-
-			$content = new SimpleXMLElement(
-				$response->getBody()->getContents()
-			);
-
-			if ( ! $content->channel ) {
-				return $webinars;
-			}
-
-			$items = 1;
-
-			foreach ( $content->channel->item ?? [] as $item ) {
-				if ( $items > 2 ) {
-					break;
-				}
-
-				$date = Carbon::parse( $item->pubDate )->setTimezone( 'US/Eastern' );
-
-				$webinars[] = [
-					'title' => $item->title,
-					'link' => $item->link,
-					'date' => $date->format( 'M d, Y @ h:i A T' ),
-				];
-
-				$items++;
-			}
-
-			return $webinars;
-		} catch ( GuzzleException ) {
-			// TODO: Steel, should we log this?
-			return $webinars;
-		}
 	}
 }

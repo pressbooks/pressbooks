@@ -10,7 +10,7 @@
 		<div class="pb-dashboard-row">
 			<div class="pb-dashboard-grid">
 				<div class="pb-dashboard-panel pb-dashboard-grid">
-					<div class="pb-dashboard-image book-cover">
+					<div class="pb-book-cover">
 						<img src="{{ $book_cover }}" alt="{!! $site_name !!} cover"/>
 					</div>
 					<div class="pb-dashboard-content">
@@ -122,7 +122,7 @@
 					<li class="resources" id="getting-started">
 						<a href="#" target="_blank">
 							<img
-								src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-welcome.png" }}"
+								src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-getting-started.png" }}"
 								alt="{{ __( 'Getting started art', 'pressbooks' ) }}"
 							/>
 							{{ __('Getting started with Pressbooks', 'pressbooks' )}}
@@ -147,27 +147,17 @@
 							/>
 							{{ __('Pressbooks community forum', 'pressbooks' ) }}
 						</a>
-						<p>{{ __( 'Discuss software and publishing questions with other Pressbooks users in the community forum.', 'pressbooks' ) }}</p>
+						<p>{{ __( 'Discuss Pressbooks related questions with other users in the community forum.', 'pressbooks' ) }}</p>
 					</li>
 					<li class="resources" id="webinars">
 						<a href="https://pressbooks.com/webinars" target="_blank">
 							<img
-								src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-forum.png" }}"
+								src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-webinars.png" }}"
 								alt="{{ __( 'User forum art', 'pressbooks' ) }}"
 							/>
 							{{ __('Pressbooks training webinars', 'pressbooks') }}
 						</a>
-						<p>{{ __( 'Register for a free webinar.', 'pressbooks' ) }}</p>
-						<ol class="webinars">
-							@forelse ( $webinars as $webinar )
-								<li class="webinar">
-									<h3><a href="{{ $webinar['link' ]}}" target="_blank">{{ $webinar['title'] }}</a></h3>
-									<span>{{ $webinar['date'] }}</span>
-								</li>
-							@empty
-								<p>{{ __( 'There are currently no upcoming webinars scheduled.', 'pressbooks' ) }}</p>
-							@endforelse
-						</ol>
+						<p>{{ __( 'Register to attend one of our free webinars to learn more about Pressbooks features.', 'pressbooks' ) }}</p>
 					</li>
 				</ul>
 			</div>
