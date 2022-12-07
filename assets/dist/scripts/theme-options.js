@@ -1,1 +1,194 @@
-jQuery((function(t){t(".select2").select2(),t(".color-picker").wpColorPicker();var n=t("#chapter_numbers");t(document).ready((function(){n.is(":checked")?t("#part_label, #chapter_label").parent().parent().show():t("#part_label, #chapter_label").parent().parent().hide(),n.on("change",(function(){this.checked?t("#part_label, #chapter_label").parent().parent().show():t("#part_label, #chapter_label").parent().parent().hide()})),"10"!==t("#pdf_page_size").val()&&t("#pdf_page_width, #pdf_page_height").parent().parent().hide();var e=t("input#running_content_front_matter_left_custom");e.attr("aria-labelledby","running_content_front_matter_left"),t("select#running_content_front_matter_left").on("change",(function(){var n=t(this).val();e.val(n),""===n&&e.trigger("focus").val("")}));var a=t("input#running_content_front_matter_right_custom");a.attr("aria-labelledby","running_content_front_matter_right"),t("select#running_content_front_matter_right").on("change",(function(){var n=t(this).val();a.val(n),""===n&&a.trigger("focus").val("")}));var r=t("input#running_content_introduction_left_custom");r.attr("aria-labelledby","running_content_introduction_left"),t("select#running_content_introduction_left").on("change",(function(){var n=t(this).val();r.val(n),""===n&&r.trigger("focus").val("")}));var i=t("input#running_content_introduction_right_custom");i.attr("aria-labelledby","running_content_introduction_right"),t("select#running_content_introduction_right").on("change",(function(){var n=t(this).val();i.val(n),""===n&&i.trigger("focus").val("")}));var _=t("input#running_content_part_left_custom");_.attr("aria-labelledby","running_content_part_left"),t("select#running_content_part_left").on("change",(function(){var n=t(this).val();_.val(n),""===n&&_.trigger("focus").val("")}));var c=t("input#running_content_part_right_custom");c.attr("aria-labelledby","running_content_part_right"),t("select#running_content_part_right").on("change",(function(){var n=t(this).val();c.val(n),""===n&&c.trigger("focus").val("")}));var p=t("input#running_content_chapter_left_custom");p.attr("aria-labelledby","running_content_chapter_left"),t("select#running_content_chapter_left").on("change",(function(){var n=t(this).val();p.val(n),""===n&&p.trigger("focus").val("")}));var l=t("input#running_content_chapter_right_custom");l.attr("aria-labelledby","running_content_chapter_right"),t("select#running_content_chapter_right").on("change",(function(){var n=t(this).val();l.val(n),""===n&&l.trigger("focus").val("")}));var g=t("input#running_content_back_matter_left_custom");g.attr("aria-labelledby","running_content_back_matter_left"),t("select#running_content_back_matter_left").on("change",(function(){var n=t(this).val();g.val(n),""===n&&g.trigger("focus").val("")}));var h=t("input#running_content_back_matter_right_custom");h.attr("aria-labelledby","running_content_back_matter_right"),t("select#running_content_back_matter_right").on("change",(function(){var n=t(this).val();h.val(n),""===n&&h.trigger("focus").val("")})),t("#pdf_page_size").on("change",(function(){switch(t("#pdf_page_size").val()){case"1":default:t("#pdf_page_width").val("5.5in").parent().parent().hide(),t("#pdf_page_height").val("8.5in").parent().parent().hide();break;case"2":t("#pdf_page_width").val("6in").parent().parent().hide(),t("#pdf_page_height").val("9in").parent().parent().hide();break;case"3":t("#pdf_page_width").val("8.5in").parent().parent().hide(),t("#pdf_page_height").val("11in").parent().parent().hide();break;case"4":t("#pdf_page_width").val("8.5in").parent().parent().hide(),t("#pdf_page_height").val("9.25in").parent().parent().hide();break;case"5":t("#pdf_page_width").val("5in").parent().parent().hide(),t("#pdf_page_height").val("7.75in").parent().parent().hide();break;case"6":t("#pdf_page_width").val("4.25in").parent().parent().hide(),t("#pdf_page_height").val("7in").parent().parent().hide();break;case"7":t("#pdf_page_width").val("21cm").parent().parent().hide(),t("#pdf_page_height").val("29.7cm").parent().parent().hide();break;case"8":t("#pdf_page_width").val("14.8cm").parent().parent().hide(),t("#pdf_page_height").val("21cm").parent().parent().hide();break;case"9":t("#pdf_page_width").val("5in").parent().parent().hide(),t("#pdf_page_height").val("8in").parent().parent().hide();break;case"10":t("#pdf_page_width").val("").parent().parent().fadeToggle(),t("#pdf_page_height").val("").parent().parent().fadeToggle()}}))}))}));
+/******/ (() => { // webpackBootstrap
+var __webpack_exports__ = {};
+/*!*********************************************!*\
+  !*** ./assets/src/scripts/theme-options.js ***!
+  \*********************************************/
+// This script is loaded when a user is on the [ Theme Options ] page
+jQuery(function ($) {
+  $('.select2').select2();
+  $('.color-picker').wpColorPicker();
+  var chapter_numbers = $('#chapter_numbers');
+  $(document).ready(function () {
+    // Init
+    if (chapter_numbers.is(':checked')) {
+      $('#part_label, #chapter_label').parent().parent().show();
+    } else {
+      $('#part_label, #chapter_label').parent().parent().hide();
+    } // On change
+
+
+    chapter_numbers.on('change', function () {
+      if (this.checked) {
+        $('#part_label, #chapter_label').parent().parent().show();
+      } else {
+        $('#part_label, #chapter_label').parent().parent().hide();
+      }
+    });
+
+    if ($('#pdf_page_size').val() !== '10') {
+      $('#pdf_page_width, #pdf_page_height').parent().parent().hide();
+    }
+
+    var running_content_front_matter_left_custom = $('input#running_content_front_matter_left_custom');
+    running_content_front_matter_left_custom.attr('aria-labelledby', 'running_content_front_matter_left');
+    $('select#running_content_front_matter_left').on('change', function () {
+      var runningcontent = $(this).val();
+      running_content_front_matter_left_custom.val(runningcontent);
+
+      if (runningcontent === '') {
+        running_content_front_matter_left_custom.trigger('focus').val('');
+      }
+    });
+    var running_content_front_matter_right_custom = $('input#running_content_front_matter_right_custom');
+    running_content_front_matter_right_custom.attr('aria-labelledby', 'running_content_front_matter_right');
+    $('select#running_content_front_matter_right').on('change', function () {
+      var runningcontent = $(this).val();
+      running_content_front_matter_right_custom.val(runningcontent);
+
+      if (runningcontent === '') {
+        running_content_front_matter_right_custom.trigger('focus').val('');
+      }
+    });
+    var running_content_introduction_left_custom = $('input#running_content_introduction_left_custom');
+    running_content_introduction_left_custom.attr('aria-labelledby', 'running_content_introduction_left');
+    $('select#running_content_introduction_left').on('change', function () {
+      var runningcontent = $(this).val();
+      running_content_introduction_left_custom.val(runningcontent);
+
+      if (runningcontent === '') {
+        running_content_introduction_left_custom.trigger('focus').val('');
+      }
+    });
+    var running_content_introduction_right_custom = $('input#running_content_introduction_right_custom');
+    running_content_introduction_right_custom.attr('aria-labelledby', 'running_content_introduction_right');
+    $('select#running_content_introduction_right').on('change', function () {
+      var runningcontent = $(this).val();
+      running_content_introduction_right_custom.val(runningcontent);
+
+      if (runningcontent === '') {
+        running_content_introduction_right_custom.trigger('focus').val('');
+      }
+    });
+    var running_content_part_left_custom = $('input#running_content_part_left_custom');
+    running_content_part_left_custom.attr('aria-labelledby', 'running_content_part_left');
+    $('select#running_content_part_left').on('change', function () {
+      var runningcontent = $(this).val();
+      running_content_part_left_custom.val(runningcontent);
+
+      if (runningcontent === '') {
+        running_content_part_left_custom.trigger('focus').val('');
+      }
+    });
+    var running_content_part_right_custom = $('input#running_content_part_right_custom');
+    running_content_part_right_custom.attr('aria-labelledby', 'running_content_part_right');
+    $('select#running_content_part_right').on('change', function () {
+      var runningcontent = $(this).val();
+      running_content_part_right_custom.val(runningcontent);
+
+      if (runningcontent === '') {
+        running_content_part_right_custom.trigger('focus').val('');
+      }
+    });
+    var running_content_chapter_left_custom = $('input#running_content_chapter_left_custom');
+    running_content_chapter_left_custom.attr('aria-labelledby', 'running_content_chapter_left');
+    $('select#running_content_chapter_left').on('change', function () {
+      var runningcontent = $(this).val();
+      running_content_chapter_left_custom.val(runningcontent);
+
+      if (runningcontent === '') {
+        running_content_chapter_left_custom.trigger('focus').val('');
+      }
+    });
+    var running_content_chapter_right_custom = $('input#running_content_chapter_right_custom');
+    running_content_chapter_right_custom.attr('aria-labelledby', 'running_content_chapter_right');
+    $('select#running_content_chapter_right').on('change', function () {
+      var runningcontent = $(this).val();
+      running_content_chapter_right_custom.val(runningcontent);
+
+      if (runningcontent === '') {
+        running_content_chapter_right_custom.trigger('focus').val('');
+      }
+    });
+    var running_content_back_matter_left_custom = $('input#running_content_back_matter_left_custom');
+    running_content_back_matter_left_custom.attr('aria-labelledby', 'running_content_back_matter_left');
+    $('select#running_content_back_matter_left').on('change', function () {
+      var runningcontent = $(this).val();
+      running_content_back_matter_left_custom.val(runningcontent);
+
+      if (runningcontent === '') {
+        running_content_back_matter_left_custom.trigger('focus').val('');
+      }
+    });
+    var running_content_back_matter_right_custom = $('input#running_content_back_matter_right_custom');
+    running_content_back_matter_right_custom.attr('aria-labelledby', 'running_content_back_matter_right');
+    $('select#running_content_back_matter_right').on('change', function () {
+      var runningcontent = $(this).val();
+      running_content_back_matter_right_custom.val(runningcontent);
+
+      if (runningcontent === '') {
+        running_content_back_matter_right_custom.trigger('focus').val('');
+      }
+    });
+    $('#pdf_page_size').on('change', function () {
+      var size = $('#pdf_page_size').val();
+
+      switch (size) {
+        case '1':
+          $('#pdf_page_width').val('5.5in').parent().parent().hide();
+          $('#pdf_page_height').val('8.5in').parent().parent().hide();
+          break;
+
+        case '2':
+          $('#pdf_page_width').val('6in').parent().parent().hide();
+          $('#pdf_page_height').val('9in').parent().parent().hide();
+          break;
+
+        case '3':
+          $('#pdf_page_width').val('8.5in').parent().parent().hide();
+          $('#pdf_page_height').val('11in').parent().parent().hide();
+          break;
+
+        case '4':
+          $('#pdf_page_width').val('8.5in').parent().parent().hide();
+          $('#pdf_page_height').val('9.25in').parent().parent().hide();
+          break;
+
+        case '5':
+          $('#pdf_page_width').val('5in').parent().parent().hide();
+          $('#pdf_page_height').val('7.75in').parent().parent().hide();
+          break;
+
+        case '6':
+          $('#pdf_page_width').val('4.25in').parent().parent().hide();
+          $('#pdf_page_height').val('7in').parent().parent().hide();
+          break;
+
+        case '7':
+          $('#pdf_page_width').val('21cm').parent().parent().hide();
+          $('#pdf_page_height').val('29.7cm').parent().parent().hide();
+          break;
+
+        case '8':
+          $('#pdf_page_width').val('14.8cm').parent().parent().hide();
+          $('#pdf_page_height').val('21cm').parent().parent().hide();
+          break;
+
+        case '9':
+          $('#pdf_page_width').val('5in').parent().parent().hide();
+          $('#pdf_page_height').val('8in').parent().parent().hide();
+          break;
+
+        case '10':
+          $('#pdf_page_width').val('').parent().parent().fadeToggle();
+          $('#pdf_page_height').val('').parent().parent().fadeToggle();
+          break;
+
+        default:
+          $('#pdf_page_width').val('5.5in').parent().parent().hide();
+          $('#pdf_page_height').val('8.5in').parent().parent().hide();
+      }
+    });
+  });
+});
+/******/ })()
+;

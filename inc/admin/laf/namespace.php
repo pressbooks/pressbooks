@@ -1170,12 +1170,12 @@ function init_css_js() {
 		wp_register_script( 'instantsearch', $assets->getPath( 'scripts/instantsearch.production.min.js' ), [ 'algolia' ], false, true );
 		wp_enqueue_script( 'instantsearch' );
 
-		wp_register_style( 'algolia-search', $assets->getPath( 'styles/clonerbookcard.css' ) );
-		wp_enqueue_style( 'algolia-search' );
+		wp_register_style( 'cloner-page', $assets->getPath( 'styles/cloner.css' ) );
+		wp_enqueue_style( 'cloner-page' );
 
-		wp_register_script( 'algolia-search', $assets->getPath( 'scripts/algolia-search.js' ), [], false, true );
-		wp_enqueue_script( 'algolia-search' );
-		wp_localize_script( 'algolia-search', 'PBAlgolia', [
+		wp_register_script( 'cloner-page', $assets->getPath( 'scripts/algolia-search.js' ), [], false, true );
+		wp_enqueue_script( 'cloner-page' );
+		wp_localize_script( 'cloner-page', 'PBAlgolia', [
 			'applicationId' => env( 'ALGOLIA_APP_ID' ),
 			'apiKey' => env( 'ALGOLIA_API_KEY' ),
 			'indexName' => env( 'ALGOLIA_INDEX_NAME' ),

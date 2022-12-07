@@ -1,1 +1,192 @@
-(()=>{var __webpack_exports__={};(function(){tinymce.create("tinymce.plugins.glossary",{init:function init(ed,url){var glossaryTermValues=JSON.parse(PB_GlossaryToken.listbox_values);function termValue(e){for(var t in glossaryTermValues)if(Object.prototype.hasOwnProperty.call(glossaryTermValues,t)&&glossaryTermValues[t].text.toLowerCase().trim()===e.toLowerCase().trim())return glossaryTermValues[t].value;return""}function termName(e){for(var t in glossaryTermValues)if(Object.prototype.hasOwnProperty.call(glossaryTermValues,t)&&glossaryTermValues[t].value===e)return glossaryTermValues[t].text;return""}ed.addButton("glossary",{title:PB_GlossaryToken.glossary_button_title,icon:"icon dashicons-index-card",onclick:function onclick(){var mySelection=ed.selection.getContent(),listValue=termValue(mySelection),termExistsMessage="",termExists=""!==listValue,termAutofillValue=termExists?"":mySelection,myActiveTab;if(listValue)myActiveTab=1;else if(myActiveTab=0,mySelection){var templateString1=mySelection.trim();termExistsMessage=eval("`"+PB_GlossaryToken.not_found.replace(/`/g,"")+"`")}var myWindow=tinymce.activeEditor.windowManager.open({title:PB_GlossaryToken.window_title,bodyType:"tabpanel",body:[{title:PB_GlossaryToken.tab0_title,type:"form",items:[{type:"container",name:"container",html:termExistsMessage},{name:"title",type:"textbox",label:PB_GlossaryToken.term_title,value:termAutofillValue},{name:"body",type:"textbox",label:PB_GlossaryToken.description,multiline:!0,minHeight:100}]},{title:PB_GlossaryToken.tab1_title,type:"form",items:[{type:"listbox",name:"term",label:PB_GlossaryToken.select_a_term,values:glossaryTermValues,value:listValue}]}],buttons:[{text:PB_GlossaryToken.cancel,onclick:"close"},{text:PB_GlossaryToken.insert,subtype:"primary",onclick:"submit"}],onsubmit:function(e){if("t0"===this.find("tabpanel")[0].activeTabId){if(!e.data.title||0===e.data.title.length)return alert(PB_GlossaryToken.term_is_empty),!1;if(termValue(e.data.title))return alert(PB_GlossaryToken.term_already_exists),!1;wp.api.loadPromise.done((function(){var t=new wp.api.models.Glossary({title:e.data.title,content:e.data.body,status:"publish"});t.save().done((function(){mySelection?ed.selection.setContent('[pb_glossary id="'+t.id+'"]'+mySelection+"[/pb_glossary]"):ed.selection.setContent('[pb_glossary id="'+t.id+'"]'+e.data.title+"[/pb_glossary]"),glossaryTermValues.push({text:e.data.title,value:t.id})}))}))}else{if(!e.data.term||0===e.data.term.length)return alert(PB_GlossaryToken.term_not_selected),!1;mySelection?ed.selection.setContent('[pb_glossary id="'+e.data.term+'"]'+mySelection+"[/pb_glossary]"):ed.selection.setContent('[pb_glossary id="'+e.data.term+'"]'+termName(e.data.term)+"[/pb_glossary]")}}});myWindow.find("tabpanel")[0].activateTab(myActiveTab)}})},createControl:function(e,t){return null}}),tinymce.PluginManager.add("glossary",tinymce.plugins.glossary)})()})();
+/******/ (() => { // webpackBootstrap
+var __webpack_exports__ = {};
+/*!****************************************!*\
+  !*** ./assets/src/scripts/glossary.js ***!
+  \****************************************/
+/* global PB_GlossaryToken */
+(function () {
+  tinymce.create('tinymce.plugins.glossary', {
+    /**
+     * @param ed
+     * @param url
+     */
+    init: function init(ed, url) {
+      var glossaryTermValues = JSON.parse(PB_GlossaryToken.listbox_values);
+      /**
+       * @param name
+       */
+
+      function termValue(name) {
+        for (var key in glossaryTermValues) {
+          if (Object.prototype.hasOwnProperty.call(glossaryTermValues, key)) {
+            if (glossaryTermValues[key].text.toLowerCase().trim() === name.toLowerCase().trim()) {
+              return glossaryTermValues[key].value;
+            }
+          }
+        }
+
+        return '';
+      }
+      /**
+       * @param value
+       */
+
+
+      function termName(value) {
+        for (var key in glossaryTermValues) {
+          if (Object.prototype.hasOwnProperty.call(glossaryTermValues, key)) {
+            if (glossaryTermValues[key].value === value) {
+              return glossaryTermValues[key].text;
+            }
+          }
+        }
+
+        return '';
+      } // This button adds the single glossary term short-code with the corresponding term id as an attribute
+
+
+      ed.addButton('glossary', {
+        title: PB_GlossaryToken.glossary_button_title,
+        icon: 'icon dashicons-index-card',
+
+        /**
+         *
+         */
+        onclick: function onclick() {
+          // get the user highlighted selection from the TinyMCE editor
+          var mySelection = ed.selection.getContent(); // placeholder for our default listbox value
+
+          var listValue = termValue(mySelection); // placeholder for our term doesn't exist message
+
+          var termExistsMessage = ''; // Does the term exist?
+
+          var termExists = listValue !== '' ? true : false; // Autofill the term name if the term does not exist
+
+          var termAutofillValue = termExists ? '' : mySelection; // if the selection matches an existing term, let's set it so we can use it as our default listbox value
+
+          var myActiveTab;
+
+          if (listValue) {
+            myActiveTab = 1;
+          } else {
+            myActiveTab = 0;
+
+            if (mySelection) {
+              var templateString1 = mySelection.trim(); // eslint-disable-line no-unused-vars
+
+              termExistsMessage = eval('`' + PB_GlossaryToken.not_found.replace(/`/g, '') + '`'); // eslint-disable-line no-eval
+            }
+          } // display the UI
+
+
+          var myWindow = tinymce.activeEditor.windowManager.open({
+            title: PB_GlossaryToken.window_title,
+            bodyType: 'tabpanel',
+            body: [{
+              title: PB_GlossaryToken.tab0_title,
+              type: 'form',
+              items: [{
+                type: 'container',
+                name: 'container',
+                html: termExistsMessage
+              }, {
+                name: 'title',
+                type: 'textbox',
+                label: PB_GlossaryToken.term_title,
+                value: termAutofillValue
+              }, {
+                name: 'body',
+                type: 'textbox',
+                label: PB_GlossaryToken.description,
+                multiline: true,
+                minHeight: 100
+              }]
+            }, {
+              title: PB_GlossaryToken.tab1_title,
+              type: 'form',
+              items: [{
+                type: 'listbox',
+                name: 'term',
+                label: PB_GlossaryToken.select_a_term,
+                values: glossaryTermValues,
+                value: listValue
+              }]
+            }],
+            buttons: [{
+              text: PB_GlossaryToken.cancel,
+              onclick: 'close'
+            }, {
+              text: PB_GlossaryToken.insert,
+              subtype: 'primary',
+              onclick: 'submit'
+            }],
+
+            /**
+             * @param event
+             */
+            onsubmit: function onsubmit(event) {
+              var mySubmittedTabId = this.find('tabpanel')[0].activeTabId;
+
+              if (mySubmittedTabId === 't0') {
+                // Create and Insert Term
+                if (!event.data.title || event.data.title.length === 0) {
+                  alert(PB_GlossaryToken.term_is_empty);
+                  return false;
+                }
+
+                if (termValue(event.data.title)) {
+                  alert(PB_GlossaryToken.term_already_exists);
+                  return false;
+                }
+
+                wp.api.loadPromise.done(function () {
+                  var glossary = new wp.api.models.Glossary({
+                    title: event.data.title,
+                    content: event.data.body,
+                    status: 'publish'
+                  });
+                  glossary.save().done(function () {
+                    if (mySelection) {
+                      ed.selection.setContent('[pb_glossary id="' + glossary.id + '"]' + mySelection + '[/pb_glossary]');
+                    } else {
+                      ed.selection.setContent('[pb_glossary id="' + glossary.id + '"]' + event.data.title + '[/pb_glossary]');
+                    }
+
+                    glossaryTermValues.push({
+                      text: event.data.title,
+                      value: glossary.id
+                    });
+                  });
+                });
+              } else {
+                // Choose Existing Term
+                if (!event.data.term || event.data.term.length === 0) {
+                  alert(PB_GlossaryToken.term_not_selected);
+                  return false;
+                } else if (mySelection) {
+                  // if there's a highlighted selection, use that as the text
+                  ed.selection.setContent('[pb_glossary id="' + event.data.term + '"]' + mySelection + '[/pb_glossary]');
+                } else {
+                  // otherwise, use the value of the listbox as the text
+                  ed.selection.setContent('[pb_glossary id="' + event.data.term + '"]' + termName(event.data.term) + '[/pb_glossary]');
+                }
+              }
+            }
+          });
+          myWindow.find('tabpanel')[0].activateTab(myActiveTab);
+        }
+      });
+    },
+
+    /**
+     * @param n
+     * @param cm
+     */
+    createControl: function createControl(n, cm) {
+      return null;
+    }
+  });
+  tinymce.PluginManager.add('glossary', tinymce.plugins.glossary);
+})();
+/******/ })()
+;

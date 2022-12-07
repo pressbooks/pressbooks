@@ -1,0 +1,111 @@
+.ais-Hits-item {
+  list-style-type: none;
+}
+
+.pb-cloner {
+  max-width: 1220px;
+  background: white;
+  padding: 20px;
+}
+
+.book-cards .book-card {
+  flex-direction: row;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 1.5rem;
+  border-radius: .375rem;
+
+  --tw-bg-opacity: 1;
+
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+  padding: 1rem;
+
+  --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -2px rgb(0 0 0 / 10%);
+  --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
+
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),var(--tw-ring-shadow, 0 0 #0000),var(--tw-shadow);
+}
+
+.book-cards .book-card .book-cover {
+  width: 33.3333%;
+  max-width: 17.1875rem;
+}
+
+.book-cards .book-card .book-cover img {
+  width: 100%;
+  object-fit: cover;
+}
+
+.book-cards .book-card .book-info {
+  flex: 1 1 0%;
+}
+
+.book-cards .book-card .book-info h2 {
+  margin-top: 1rem;
+  text-align: left;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 700;
+  text-transform: none;
+}
+
+.book-cards .book-card .book-info a {
+  color: var(--primary);
+  text-decoration: underline;
+}
+
+.book-cards .book-card .book-info a:hover {
+  color: var(--primary-dark);
+}
+
+.book-cards .book-card .book-info p {
+  margin: 0;
+}
+
+.book-cards .book-card .book-info > p:first-of-type {
+  font-size: .875rem;
+  line-height: 1.25rem;
+}
+
+.book-cards .book-card .book-info .book-extra-info {
+  margin-top: 1rem;
+}
+
+.book-cards .book-card .book-info .book-extra-info p span {
+  font-weight: 700;
+}
+
+.book-cards .book-card .book-info .book-description {
+  margin-top: 1.5rem;
+  margin-bottom: .5rem;
+  word-break: break-all;
+}
+
+.book-cards .book-card .book-info .book-description p {
+  margin-bottom: .5rem;
+}
+
+.book-cards .book-card .book-info .book-description.line-clamp *:not(a, em, del, span, strong, u) {
+  display: contents;
+}
+
+.book-cards .book-card .book-info .book-description.line-clamp p::after,
+.book-cards .book-card .book-info .book-description.line-clamp ul::after,
+.book-cards .book-card .book-info .book-description.line-clamp ol::after,
+.book-cards .book-card .book-info .book-description.line-clamp li::after,
+.book-cards .book-card .book-info .book-description.line-clamp u::after {
+  content: "\a";
+  white-space: break-spaces;
+}
+
+.book-cards .book-card .book-info .book-description.line-clamp p::after {
+  content: "\a\a";
+}
+
+.line-clamp {
+  -webkit-line-clamp: 4;
+  display: box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

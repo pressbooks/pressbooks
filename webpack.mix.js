@@ -120,7 +120,7 @@ mix
 	.sass( 'assets/src/styles/select2.scss', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/style-catalog.scss', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/theme-options.scss', 'assets/dist/styles/' )
-	.sass( 'assets/src/styles/clonerbookcard.scss', 'assets/dist/styles/' )
+	.sass( 'assets/src/styles/cloner.scss', 'assets/dist/styles/' )
 	.copy( 'node_modules/alpinejs/dist/cdn.min.js', 'assets/dist/scripts/alpine.min.js' )
 	.copy( 'node_modules/instantsearch.js/dist/instantsearch.production.min.js', 'assets/dist/scripts/instantsearch.production.min.js' )
 	.copy( 'node_modules/algoliasearch/dist/algoliasearch-lite.umd.js', 'assets/dist/scripts/algoliasearch-lite.umd.js' )
