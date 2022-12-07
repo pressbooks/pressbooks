@@ -132,12 +132,15 @@
 					<div class="pb-dashboard-content">
 						<h2>{{ __('Attend a live training webinar', 'pressbooks') }}</h2>
 						<ol class="webinars">
-							@foreach ( $webinars as $webinar )
+							@forelse ( $webinars as $webinar )
 								<li class="webinar">
 									<h3><a href="{{ $webinar['link' ]}}" target="_blank">{{ $webinar['title'] }}</a></h3>
 									<span>{{ $webinar['date'] }}</span>
 								</li>
-							@endforeach
+							@empty
+								{{-- TODO: update the message when there are no webinars --}}
+								<p>{{ __( 'There are no webinars in the upcoming months.', 'Pressbooks' ) }}</p>
+							@endforelse
 						</ol>
 						<p>{{ printf( __( 'Several past webinars can be viewed on the %s.', 'pressbooks' ), sprintf( '<a href="https://www.youtube.com/@Pressbooks/videos" target="_blank">%s</a>', __( 'Pressbooks YouTube channel', 'pressbooks' ) ) ) }}</p>
 					</div>
