@@ -64,42 +64,18 @@ $yellow: #F2C744;
     grid-template-columns: repeat(4, 1fr);
     gap: 1rem;
 
-    li.resources {
-      position: relative;
-      height: 150px;
-    }
-
     a {
-      position: absolute;
-      bottom: 0;
-      padding: 1rem;
-      color: white;
+      display: block;
+      margin-bottom: .5rem;
     }
 
-    #guide {
-      background-color: $grey;
-
-      a {
-        color: $red;
-      }
-    }
-
-    #getting-started {
-      background-color: $red;
-    }
-
-    #forum {
-      background-color: $green;
-    }
-
-    #spotlight {
-      background-color: $yellow;
-
-      a {
-        color: $green;
-      }
+    img {
+      display: block;
+      margin: 0 auto;
+      max-height: 170px;
     }
   }
+
 
   .pb-dashboard-content {
     h2 {
@@ -122,14 +98,19 @@ $yellow: #F2C744;
       }
     }
 
+    h3 {
+      font-size: 1.25rem;
+      margin: 0 0 .75rem;
+    }
+
+    h4 {
+      font-size: 1.125rem;
+      margin: .25rem 0;
+    }
+
     .webinars {
       list-style-type: none;
       margin-left: 0;
-
-      h3 {
-        font-size: 1.25rem;
-        margin-bottom: .25rem;
-      }
 
       span {
         font-size: 1rem;
@@ -187,7 +168,7 @@ $yellow: #F2C744;
     }
 
     ul.horizontal {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: 1fr;
     }
   }
 }

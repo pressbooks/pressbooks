@@ -124,7 +124,7 @@ class BookDashboard {
 			$items = 1;
 
 			foreach ( $content->channel->item ?? [] as $item ) {
-				if ( $items > 3 ) {
+				if ( $items > 2 ) {
 					break;
 				}
 

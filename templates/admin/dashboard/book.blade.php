@@ -93,60 +93,54 @@
 			</div>
 		</div>
 	</div>
-	<div x-data="{show: false}">
 		<div class="pb-dashboard-row">
-			<div class="pb-dashboard-panel pb-dashboard-grid">
-				<div class="pb-dashboard-image">
-					<img
-						src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-help.png" }}"
-						alt="{{ __( 'Want help? art', 'pressbooks' ) }}"
-					/>
-				</div>
-				<div class="pb-dashboard-content">
-					<h2>{{ __( 'Want help?', 'pressbooks' ) }}</h2>
-					<p>{{ __( 'We have resources designed to help you at every stage of the writing and publishing process.', 'pressbooks' ) }}</p>
-					<button type="button" class="button button-hero" x-on:click="show = !show">
-						<span x-show="!show">{{ __( 'Show resources', 'pressbooks' ) }}</span>
-						<span x-show="show">{{ __( 'Hide resources', 'pressbooks' ) }}</span>
-					</button>
-				</div>
-			</div>
-		</div>
-		<div class="pb-dashboard-row" x-show="show" x-transition>
 			<div class="pb-dashboard-panel">
 				<div class="pb-dashboard-content">
 					<h2>{{ __('Support Resources', 'pressbooks') }}</h2>
 					{{-- TODO: add link to new YouTube playlist. --}}
 					<ul class="horizontal">
-						<li class="resources" id="guide"><a href="https://guide.pressbooks.com" target="_blank">{{ __('Pressbooks User Guide', 'pressbooks' )}}</a></li>
-						<li class="resources" id="getting-started"><a href="#" target="_blank">{{ __('Getting Started with Pressbooks', 'pressbooks' )}}</a></li>
-						<li class="resources" id="spotlight"><a href="https://www.youtube.com/watch?v=PuDdA7u6_xg&list=PLMFmJu3NJhev49Z5S8iyuE_2145zVaj7L" target="_blank">{{ __('Pressbooks Spotlight Sessions', 'pressbooks' )}}</a></li>
-						<li class="resources" id="forum"><a href="https://pressbooks.community" target="_blank">{{ __('Participate in the community forum', 'pressbooks' ) }}</a></li>
+						<li class="resources" id="getting-started"><a href="#" target="_blank"><img
+										src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-welcome.png" }}"
+										alt="{{ __( 'Getting started art', 'pressbooks' ) }}"
+								/><br/>
+								{{ __('Getting started with Pressbooks', 'pressbooks' )}}</a>
+							<p>{{ __( 'Watch a short video series to learn how to get started with Pressbooks.', 'pressbooks' ) }}</p></li>
+						<li><a href="https://guide.pressbooks.com" target="_blank"><img
+											src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-guide.png" }}"
+											alt="{{ __( 'User guide art', 'pressbooks' ) }}"
+									/><br/>
+								{{ __('Pressbooks user guide', 'pressbooks' )}}</a>
+							<p>{{ __( 'Dig into our detailed handbook to learn how to accomplish your publishing goals.', 'pressbooks' ) }}</p>
+							</p>
+						</li>
+						<li class="resources" id="forum"><a href="https://pressbooks.community" target="_blank"><img
+										src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-forum.png" }}"
+										alt="{{ __( 'User forum art', 'pressbooks' ) }}"
+								/><br/>
+								{{ __('Pressbooks community forum', 'pressbooks' ) }}</a>
+						<p>{{ __( 'Discuss software and publishing questions with other Pressbooks users in the community forum.', 'pressbooks' ) }}</p>
+						</li>
+						<li class="resources" id="webinars">
+							<a href="https://pressbooks.com/webinars" target="_blank"><img
+										src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-forum.png" }}"
+										alt="{{ __( 'User forum art', 'pressbooks' ) }}"
+								/><br/>
+								{{ __('Pressbooks training webinars', 'pressbooks') }}</a>
+							<p>{{ __( 'Register for a free webinar.', 'pressbooks' ) }}</p>
+							<ol class="webinars">
+								@forelse ( $webinars as $webinar )
+									<li class="webinar">
+										<h3><a href="{{ $webinar['link' ]}}" target="_blank">{{ $webinar['title'] }}</a></h3>
+										<span>{{ $webinar['date'] }}</span>
+									</li>
+								@empty
+									<p>{{ __( 'There are currently no upcoming webinars scheduled.', 'pressbooks' ) }}</p>
+								@endforelse
+							</ol>
+						</li>
 					</ul>
 				</div>
-			</div>
-		</div>
-		<div class="pb-dashboard-row" x-show="show" x-transition>
-			<div class="pb-dashboard-grid">
-				<div class="pb-dashboard-panel">
-					<div class="pb-dashboard-content">
-						<h2>{{ __('Attend a live training webinar', 'pressbooks') }}</h2>
-						<ol class="webinars">
-							@forelse ( $webinars as $webinar )
-								<li class="webinar">
-									<h3><a href="{{ $webinar['link' ]}}" target="_blank">{{ $webinar['title'] }}</a></h3>
-									<span>{{ $webinar['date'] }}</span>
-								</li>
-							@empty
-								{{-- TODO: update the message when there are no webinars --}}
-								<p>{{ __( 'There are no webinars in the upcoming months.', 'Pressbooks' ) }}</p>
-							@endforelse
-						</ol>
-						<p>{!! sprintf( __( 'Several past webinars can be viewed on the %s.', 'pressbooks' ), sprintf( '<a href="https://www.youtube.com/@Pressbooks/videos" target="_blank">%s</a>', __( 'Pressbooks YouTube channel', 'pressbooks' ) ) ) !!}</p>
-					</div>
-				</div>
-					</div>
-				</div>
+
 			</div>
 		</div>
 	</div>
