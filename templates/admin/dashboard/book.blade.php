@@ -115,13 +115,13 @@
 		<div class="pb-dashboard-row" x-show="show" x-transition>
 			<div class="pb-dashboard-panel">
 				<div class="pb-dashboard-content">
-					<h2>{{ __('Guides & Video tutorials', 'pressbooks') }}</h2>
-					{{-- TODO: add links to youtube videos. --}}
+					<h2>{{ __('Support Resources', 'pressbooks') }}</h2>
+					{{-- TODO: add link to new YouTube playlist. --}}
 					<ul class="horizontal">
 						<li class="resources" id="guide"><a href="https://guide.pressbooks.com" target="_blank">{{ __('Pressbooks User Guide', 'pressbooks' )}}</a></li>
 						<li class="resources" id="getting-started"><a href="#" target="_blank">{{ __('Getting Started with Pressbooks', 'pressbooks' )}}</a></li>
-						<li class="resources" id="intro"><a href="https://www.youtube.com/watch?v=hrcrFJVgbbs&list=PLMFmJu3NJheuRt1rZwNCEElROtSjc5dJG" target="_blank">{{ __('Introduction to Pressbooks', 'pressbooks' )}}</a></li>
 						<li class="resources" id="spotlight"><a href="https://www.youtube.com/watch?v=PuDdA7u6_xg&list=PLMFmJu3NJhev49Z5S8iyuE_2145zVaj7L" target="_blank">{{ __('Pressbooks Spotlight Sessions', 'pressbooks' )}}</a></li>
+						<li class="resources" id="forum"><a href="https://pressbooks.community" target="_blank">{{ __('Participate in the community forum', 'pressbooks' ) }}</a></li>
 					</ul>
 				</div>
 			</div>
@@ -142,16 +142,9 @@
 								<p>{{ __( 'There are no webinars in the upcoming months.', 'Pressbooks' ) }}</p>
 							@endforelse
 						</ol>
-						<p>{{ printf( __( 'Several past webinars can be viewed on the %s.', 'pressbooks' ), sprintf( '<a href="https://www.youtube.com/@Pressbooks/videos" target="_blank">%s</a>', __( 'Pressbooks YouTube channel', 'pressbooks' ) ) ) }}</p>
+						<p>{!! sprintf( __( 'Several past webinars can be viewed on the %s.', 'pressbooks' ), sprintf( '<a href="https://www.youtube.com/@Pressbooks/videos" target="_blank">%s</a>', __( 'Pressbooks YouTube channel', 'pressbooks' ) ) ) !!}</p>
 					</div>
 				</div>
-				<div class="pb-dashboard-panel">
-					<div class="pb-dashboard-content">
-						<h2>{{ __('Participate in the community forum', 'pressbooks' ) }} </h2>
-						{{-- TODO: add links to desired sample forum topics--}}
-						<p>
-							<a href='https://pressbooks.community' target="_blank">{{ __( 'Visit forum', 'pressbooks' ) }}</a>
-						</p>
 					</div>
 				</div>
 			</div>
