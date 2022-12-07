@@ -87,7 +87,7 @@ class BookDashboard {
 			'site_name' => get_bloginfo( 'name' ),
 			'book_cover' => $this->getBookCover(),
 			'book_url' => get_home_url(),
-			'book_info_url' => current_user_can( 'edit_post', $blog_id ) ? book_info_slug() : false,
+			'book_info_url' => current_user_can( 'edit_posts', $blog_id ) ? book_info_slug() : false,
 			'organize_url' => current_user_can( 'edit_posts' ) ? admin_url( 'admin.php?page=pb_organize' ) : false,
 			'themes_url' => current_user_can( 'switch_themes' ) ? admin_url( 'themes.php' ) : false,
 			'users_url' => current_user_can( 'list_users' ) ? admin_url( 'users.php' ) : false,
