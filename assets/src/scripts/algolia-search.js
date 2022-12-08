@@ -68,17 +68,7 @@ search.addWidgets( [
 			 * @param root0.html
 			 */
 			text( data, { html } ) {
-				let count = '';
-
-				if ( data.hasManyResults ) {
-					count += `${ data.nbHits } results`;
-				} else if ( data.hasOneResult ) {
-					count += '1 result';
-				} else {
-					count += 'no result';
-				}
-
-				return html`<span>${ count } results found</span>`;
+				return html `${ data.nbHits } ${ PBAlgolia.resultsTemplate }`;
 			},
 		},
 	} ),

@@ -1182,11 +1182,15 @@ function init_css_js() {
 
 		wp_register_script( 'cloner-page', $assets->getPath( 'scripts/algolia-search.js' ), [], false, true );
 		wp_enqueue_script( 'cloner-page' );
+
+		$blade = \Pressbooks\Container::get( 'Blade' );
+
 		wp_localize_script( 'cloner-page', 'PBAlgolia', [
 			'applicationId' => env( 'ALGOLIA_APP_ID' ),
 			'apiKey' => env( 'ALGOLIA_API_KEY' ),
 			'indexName' => env( 'ALGOLIA_INDEX_NAME' ),
-			'hitsTemplate' => file_get_contents( PB_PLUGIN_DIR . '/templates/admin/cloner/cloner-book-card.html' ),
+			'hitsTemplate' => $blade->render( 'admin.cloner.book-card' ),
+			'resultsTemplate' => $blade->render( 'admin.cloner.results' ),
 		] );
 	}
 
