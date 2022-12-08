@@ -103,11 +103,7 @@ class BookDashboard {
 	 * @return bool
 	 */
 	private function currentUserCan( string $capability, int | null $blog_id = null ): bool {
-		if ( is_super_admin() ) {
-			return true;
-		}
-
-		return current_user_can( $capability, $blog_id );
+		return is_super_admin() || current_user_can($capability, $blog_id);
 	}
 
 	protected function getBookCover(): string {
