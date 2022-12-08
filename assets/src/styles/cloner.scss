@@ -1,0 +1,60 @@
+.pb-cloner{
+  margin-top: 1.5rem;
+}
+.pb-dashboard-panel {
+
+  #source_book_url{
+    width: 80%;
+  }
+
+  .pb-directory-logo {
+    margin-bottom: 1rem;
+  }
+
+  .pb-label {
+    font-size: 1.11rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    + span {
+      font-size: 0.6rem;
+      font-weight: 400;
+    }
+  }
+
+  .pb-directory-search {
+    margin: 0.5rem 0;
+    width: 100%;
+    font-weight: bold;
+
+    input {
+      width: 100%;
+    }
+  }
+
+  .book-cards {
+    .ais-Hits-item {
+      margin-bottom: 1rem;
+      list-style: none;
+
+      .book-card {
+        display: flex;
+        align-items: center;
+
+        .book-cover {
+          margin-right: 1rem;
+
+          img {
+            width: 100px;
+          }
+        }
+
+        .book-info {
+
+        }
+      }
+    }
+  }
+  .ais-SearchBox-reset {
+    display: none;
+  }
+}
