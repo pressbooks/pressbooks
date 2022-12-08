@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-12-08T15:30:12+00:00\n"
+"POT-Creation-Date: 2022-12-08T16:16:06+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: pressbooks\n"
@@ -574,8 +574,6 @@ msgstr ""
 
 #: inc/admin/dashboard/class-bookdashboard.php:55
 #: inc/admin/dashboard/class-newuserdashboard.php:57
-#: inc/admin/dashboard/namespace.php:15
-#: inc/admin/dashboard/namespace.php:16
 #: inc/admin/laf/namespace.php:778
 #: inc/admin/laf/namespace.php:853
 msgid "Dashboard"
@@ -592,26 +590,6 @@ msgstr ""
 
 #: inc/admin/dashboard/class-invitations.php:30
 msgid "a"
-msgstr ""
-
-#: inc/admin/dashboard/namespace.php:65
-msgid "Dashboard Feed"
-msgstr ""
-
-#: inc/admin/dashboard/namespace.php:72
-msgid "Display Feed"
-msgstr ""
-
-#: inc/admin/dashboard/namespace.php:77
-msgid "Display an RSS feed widget on the dashboard."
-msgstr ""
-
-#: inc/admin/dashboard/namespace.php:83
-msgid "Feed Title"
-msgstr ""
-
-#: inc/admin/dashboard/namespace.php:91
-msgid "Feed URL"
 msgstr ""
 
 #: inc/admin/delete/class-book.php:52
@@ -4349,14 +4327,6 @@ msgstr ""
 
 #: templates/admin/custom-styles.php:52
 msgid "Save"
-msgstr ""
-
-#: templates/admin/dashboard.php:35
-msgid "Dashboard Settings"
-msgstr ""
-
-#: templates/admin/dashboard.php:37
-msgid "Customize your Pressbooks dashboard below."
 msgstr ""
 
 #: templates/admin/import.php:18
