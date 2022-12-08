@@ -1,12 +1,6 @@
 @import 'partials/colors';
 @import 'https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200;0,400;0,700;1,200;1,400;1,700&family=Spectral:ital,wght@0,200;0,400;0,700;1,200;1,400;1,700&display=swap';
 
-$red: #D82C30;
-$grey: #F0F9FA;
-$green: #114C59;
-$blue: #63AFB9;
-$yellow: #F2C744;
-
 * {
   box-sizing: border-box;
 }
@@ -62,7 +56,8 @@ $yellow: #F2C744;
   ul.horizontal {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 1rem;
+    gap: 1.5rem;
+    margin-bottom: 0;
 
     li {
       margin-bottom: 0;
@@ -75,7 +70,7 @@ $yellow: #F2C744;
 
     img {
       display: block;
-      margin: 0 auto 1rem;
+      margin: 0 auto .5rem;
       max-height: 175px;
     }
   }
@@ -101,12 +96,6 @@ $yellow: #F2C744;
         font-weight: 300;
       }
     }
-
-    h3 {
-      font-size: 1.25rem;
-      margin: 0 0 .75rem;
-    }
-
   }
 
   .pb-dashboard-panel {
@@ -156,7 +145,6 @@ $yellow: #F2C744;
   @media screen and (max-width: 1220px) {
     ul.horizontal {
       grid-template-columns: repeat(2, 1fr);
-      gap: 1.5rem;
     }
   }
 

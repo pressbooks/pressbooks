@@ -120,44 +120,44 @@
 				{{-- TODO: add link to new YouTube playlist. --}}
 				<ul class="horizontal">
 					<li class="resources" id="getting-started">
-						<a href="#" target="_blank">
+						<a href="https://youtube.com/playlist?list=PLMFmJu3NJhevTbp5XAbdif8OloNhqOw5n" target="_blank">
 							<img
 								src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-getting-started.png" }}"
-								alt="{{ __( 'Getting started art', 'pressbooks' ) }}"
+								alt=""
 							/>
 							{{ __('Getting started with Pressbooks', 'pressbooks' )}}
 						</a>
-						<p>{{ __( 'Watch a short video series to learn how to get started with Pressbooks.', 'pressbooks' ) }}</p>
+						<p>{{ __( 'Watch a short video series on how to get started with Pressbooks.', 'pressbooks' ) }}</p>
 					</li>
 					<li class="resources" id="pressbooks-guide">
 						<a href="https://guide.pressbooks.com" target="_blank">
 							<img
 								src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-guide.png" }}"
-								alt="{{ __( 'User guide art', 'pressbooks' ) }}"
+								alt=""
 							/>
 							{{ __('Pressbooks user guide', 'pressbooks' )}}
 						</a>
-						<p>{{ __( 'Dig into our detailed handbook to learn how to accomplish your publishing goals.', 'pressbooks' ) }}</p>
+						<p>{{ __( 'Find help and how-tos for your publishing project in this detailed handbook.', 'pressbooks' ) }}</p>
 					</li>
 					<li class="resources" id="forum">
 						<a href="https://pressbooks.community" target="_blank">
 							<img
 								src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-forum.png" }}"
-								alt="{{ __( 'User forum art', 'pressbooks' ) }}"
+								alt=""
 							/>
 							{{ __('Pressbooks community forum', 'pressbooks' ) }}
 						</a>
-						<p>{{ __( 'Discuss Pressbooks related questions with other users in the community forum.', 'pressbooks' ) }}</p>
+						<p>{{ __( 'Discuss Pressbooks related questions with other users in our public forum.', 'pressbooks' ) }}</p>
 					</li>
 					<li class="resources" id="webinars">
 						<a href="https://pressbooks.com/webinars" target="_blank">
 							<img
 								src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-webinars.png" }}"
-								alt="{{ __( 'User forum art', 'pressbooks' ) }}"
+								alt=""
 							/>
 							{{ __('Pressbooks training webinars', 'pressbooks') }}
 						</a>
-						<p>{{ __( 'Register to attend one of our free webinars to learn more about Pressbooks features.', 'pressbooks' ) }}</p>
+						<p>{{ __( 'Register for free webinars to learn about Pressbooks features and best practices.', 'pressbooks' ) }}</p>
 					</li>
 				</ul>
 			</div>
