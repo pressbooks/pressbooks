@@ -11,6 +11,10 @@ class L10nTest extends \WP_UnitTestCase {
 
 		$user_id = $this->factory()->user->create( [ 'role' => 'contributor', 'locale' => 'fr_FR' ] );
 		wp_set_current_user( $user_id );
+		$this->assertEquals( 'en_US', $locale );
+
+		global $current_screen;
+		$current_screen = WP_Screen::get( 'admin' ); // is_admin
 		$locale = \Pressbooks\L10n\get_locale();
 		$this->assertEquals( 'fr_FR', $locale );
 

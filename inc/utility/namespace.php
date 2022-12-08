@@ -1309,14 +1309,14 @@ function oxford_comma( array $vars ) {
 /**
  * Implode an array and add a localized version of the word 'and' between the final two terms.
  * Example:
- * $str_implode = ';' $array_of_string = [ 'Carl Calson', 'Mark Thomson, PhD', 'John K.' ];
+ * $str_implode = ';' $array_of_string = [ 'Carl Carlson', 'Mark Thomson, PhD', 'John K.' ];
  * Output: 'Carl Carlson; Mark Thomson, PhD; and John K.'
  *
- * @param string $str_implode
+ * @param string $separator
  * @param array $array_of_strings
  * @return string
  */
-function implode_add_and( string $separator, array $array_of_strings ) {
+function implode_add_and( string $separator, array $array_of_strings ): string {
 	if ( count( $array_of_strings ) === 2 ) {
 		return $array_of_strings[0] . ' ' . __( 'and', 'pressbooks' ) . ' ' . $array_of_strings[1];
 	} else {
