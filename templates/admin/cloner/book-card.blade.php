@@ -22,7 +22,7 @@
 		<div class="book-description line-clamp">
 			@{{{ description }}}
 		</div>
-		<div>
+		<div class="book-select-book">
 			<button
 				class="button button-primary"
 				onClick="window.selectBookToClone('@{{ url }}')"
