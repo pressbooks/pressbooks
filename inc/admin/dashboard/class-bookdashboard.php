@@ -77,33 +77,41 @@ class BookDashboard {
 
 		$current_user = wp_get_current_user();
 
-		global $blog_id;
+		$permissions = $this->getUserPermissions();
 
 		echo $blade->render( 'admin.dashboard.book', [
 			'is_current_user_subscriber' => count( $current_user->roles ) === 1 && $current_user->roles[0] === 'subscriber',
 			'site_name' => get_bloginfo( 'name' ),
 			'book_cover' => $this->getBookCover(),
 			'book_url' => get_home_url(),
-			'book_info_url' => $this->currentUserCan( 'edit_post', $blog_id ) ? book_info_slug() : false,
-			'organize_url' => $this->currentUserCan( 'edit_posts' ) ? admin_url( 'admin.php?page=pb_organize' ) : false,
-			'themes_url' => $this->currentUserCan( 'switch_themes' ) ? admin_url( 'themes.php' ) : false,
-			'users_url' => $this->currentUserCan( 'list_users' ) ? admin_url( 'users.php' ) : false,
-			'analytics_url' => $this->currentUserCan( 'view_koko_analytics' ) ? admin_url( 'index.php?page=koko-analytics' ) : false,
-			'delete_book_url' => $this->currentUserCan( 'delete_site' ) ? admin_url( 'ms-delete-site.php' ) : false,
-			'write_chapter_url' => $this->currentUserCan( 'edit_posts' ) ? admin_url( 'post-new.php?post_type=chapter' ) : false,
-			'import_content_url' => $this->currentUserCan( 'edit_posts' ) ? admin_url( 'admin.php?page=pb_import' ) : false,
+			'book_info_url' => $permissions['edit_post'] ? book_info_slug() : false,
+			'organize_url' => $permissions['edit_posts'] ? admin_url( 'admin.php?page=pb_organize' ) : false,
+			'themes_url' => $permissions['switch_themes'] ? admin_url( 'themes.php' ) : false,
+			'users_url' => $permissions['list_users'] ? admin_url( 'users.php' ) : false,
+			'analytics_url' => $permissions['view_koko_analytics'] ? admin_url( 'index.php?page=koko-analytics' ) : false,
+			'delete_book_url' => $permissions['delete_site'] ? admin_url( 'ms-delete-site.php' ) : false,
+			'write_chapter_url' => $permissions['edit_posts'] ? admin_url( 'post-new.php?post_type=chapter' ) : false,
+			'import_content_url' => $permissions['edit_posts'] ? admin_url( 'admin.php?page=pb_import' ) : false,
 		] );
 	}
 
 	/**
-	 * Check if current user has the capability to perform certain actions on the book dashboard.
+	 * Get user permissions according his capabilities and super admin status.
 	 *
-	 * @param string $capability
-	 * @param int|null $blog_id
-	 * @return bool
+	 * @return array
 	 */
-	private function currentUserCan( string $capability, int | null $blog_id = null ): bool {
-		return is_super_admin() || current_user_can($capability, $blog_id);
+	private function getUserPermissions(): array {
+		$is_super_admin = is_super_admin();
+		global $blog_id;
+
+		return [
+			'edit_post' => $is_super_admin || current_user_can( 'edit_post', $blog_id ),
+			'edit_posts' => $is_super_admin || current_user_can( 'edit_posts' ),
+			'switch_themes' => $is_super_admin || current_user_can( 'switch_themes' ),
+			'list_users' => $is_super_admin || current_user_can( 'list_users' ),
+			'view_koko_analytics' => $is_super_admin || current_user_can( 'view_koko_analytics' ),
+			'delete_site' => $is_super_admin || current_user_can( 'delete_site' ),
+		];
 	}
 
 	protected function getBookCover(): string {
