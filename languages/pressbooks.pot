@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-12-08T17:28:12+00:00\n"
+"POT-Creation-Date: 2022-12-08T19:09:39+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: pressbooks\n"
@@ -4606,79 +4606,79 @@ msgstr ""
 msgid "Create Site"
 msgstr ""
 
-#: templates/admin/dashboard/book.blade.php:23
-msgid "View book"
+#: templates/admin/dashboard/book.blade.php:7
+msgid "Visit book"
 msgstr ""
 
-#: templates/admin/dashboard/book.blade.php:33
+#: templates/admin/dashboard/book.blade.php:28
 msgid "Edit book info"
 msgstr ""
 
-#: templates/admin/dashboard/book.blade.php:44
+#: templates/admin/dashboard/book.blade.php:39
 msgid "Organize book"
 msgstr ""
 
-#: templates/admin/dashboard/book.blade.php:55
+#: templates/admin/dashboard/book.blade.php:50
 msgid "Change theme"
 msgstr ""
 
-#: templates/admin/dashboard/book.blade.php:66
+#: templates/admin/dashboard/book.blade.php:61
 msgid "Add collaborators"
 msgstr ""
 
-#: templates/admin/dashboard/book.blade.php:77
+#: templates/admin/dashboard/book.blade.php:72
 msgid "View Analytics"
 msgstr ""
 
-#: templates/admin/dashboard/book.blade.php:88
+#: templates/admin/dashboard/book.blade.php:83
 msgid "Delete book"
 msgstr ""
 
-#: templates/admin/dashboard/book.blade.php:101
+#: templates/admin/dashboard/book.blade.php:96
 msgid "Write a new chapter art"
 msgstr ""
 
-#: templates/admin/dashboard/book.blade.php:108
+#: templates/admin/dashboard/book.blade.php:103
 msgid "Write a new chapter"
 msgstr ""
 
-#: templates/admin/dashboard/book.blade.php:114
+#: templates/admin/dashboard/book.blade.php:109
 msgid "Import Content"
 msgstr ""
 
-#: templates/admin/dashboard/book.blade.php:128
+#: templates/admin/dashboard/book.blade.php:123
 msgid "Support Resources"
 msgstr ""
 
-#: templates/admin/dashboard/book.blade.php:137
+#: templates/admin/dashboard/book.blade.php:132
 msgid "Getting started with Pressbooks"
 msgstr ""
 
-#: templates/admin/dashboard/book.blade.php:140
+#: templates/admin/dashboard/book.blade.php:135
 msgid "Watch a short video series on how to get started with Pressbooks."
 msgstr ""
 
-#: templates/admin/dashboard/book.blade.php:148
+#: templates/admin/dashboard/book.blade.php:143
 msgid "Pressbooks user guide"
 msgstr ""
 
-#: templates/admin/dashboard/book.blade.php:151
+#: templates/admin/dashboard/book.blade.php:146
 msgid "Find help and how-tos for your publishing project in this detailed handbook."
 msgstr ""
 
-#: templates/admin/dashboard/book.blade.php:159
+#: templates/admin/dashboard/book.blade.php:154
 msgid "Pressbooks community forum"
 msgstr ""
 
-#: templates/admin/dashboard/book.blade.php:162
+#: templates/admin/dashboard/book.blade.php:157
 msgid "Discuss Pressbooks related questions with other users in our public forum."
 msgstr ""
 
-#: templates/admin/dashboard/book.blade.php:170
+#: templates/admin/dashboard/book.blade.php:165
 msgid "Pressbooks training webinars"
 msgstr ""
 
-#: templates/admin/dashboard/book.blade.php:173
+#: templates/admin/dashboard/book.blade.php:168
 msgid "Register for free webinars to learn about Pressbooks features and best practices."
 msgstr ""
 
