@@ -31,7 +31,7 @@
 		<div class="pb-directory-logo">
 			<img src="https://pressbooks.directory/assets/logo-pressbooks-directory.svg" alt="Pressbooks Directory"/>
 		</div>
-		<label class="pb-label" for="searchbox">{{ __( 'Search', 'pressbooks' ) }}</label> <span>7 results found</span>
+		<label class="pb-label" for="searchbox">{{ __( 'Search', 'pressbooks' ) }}</label> <span id="stats"></span>
 		<div id="searchbox" class="pb-directory-search"></div>
 		<div id="book-cards" class="book-cards"></div>
 	</div>

@@ -19,27 +19,30 @@ const search = instantsearch( {
 			helper.search();
 		}
 		window.algoliaHelper = helper;
-		console.log(window.algoliaHelper);
 	},
 } );
 
+/**
+ *
+ * @param url
+ */
 window.selectBookToClone = function ( url ) {
 	const cloneBook = document.getElementById( 'source_book_url' );
 	const newBook = document.getElementById( 'target_book_url' );
 	cloneBook.value = url;
-	const path = url.split('/');
+	const path = url.split( '/' );
 	newBook.value = path.length > 2 ? path[3] : '';
 	// scroll to top
 	window.scrollTo( 0, 0 );
 	searchWrapper.innerHTML = '';
 	document.querySelector( '#searchbox input' ).value = '';
-}
-document.querySelector( '#searchbox').addEventListener( 'input', ( event ) => {
-	if( event.target.value.length === 0 ) {
+};
+document.querySelector( '#searchbox' ).addEventListener( 'input', event => {
+	if ( event.target.value.length === 0 ) {
 		event.target.value = '';
 		searchWrapper.innerHTML = '';
 	}
-});
+} );
 
 search.addWidgets( [
 	instantsearch.widgets.searchBox( {
@@ -53,6 +56,30 @@ search.addWidgets( [
 		container: '#book-cards',
 		templates: {
 			item: `${ PBAlgolia.hitsTemplate }`,
+		},
+	} ),
+	instantsearch.widgets.stats( {
+		container: '#stats',
+		templates: {
+			/**
+			 *
+			 * @param data
+			 * @param root0
+			 * @param root0.html
+			 */
+			text( data, { html } ) {
+				let count = '';
+
+				if ( data.hasManyResults ) {
+					count += `${ data.nbHits } results`;
+				} else if ( data.hasOneResult ) {
+					count += '1 result';
+				} else {
+					count += 'no result';
+				}
+
+				return html`<span>${ count } results found</span>`;
+			},
 		},
 	} ),
 ] );
