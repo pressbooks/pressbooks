@@ -64,6 +64,7 @@ mix
 	.js( 'assets/src/scripts/a11y.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/export-footnotes.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/contributors.js', 'assets/dist/scripts/' )
+	.js( 'assets/src/scripts/algolia-search.js', 'assets/dist/scripts/' )
 	.scripts(
 		'node_modules/event-source-polyfill/src/eventsource.js',
 		'assets/dist/scripts/eventsource.polyfill.js'
@@ -120,6 +121,9 @@ mix
 	.sass( 'assets/src/styles/select2.scss', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/style-catalog.scss', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/theme-options.scss', 'assets/dist/styles/' )
+	.sass( 'assets/src/styles/cloner.scss', 'assets/dist/styles/' )
 	.copy( 'node_modules/alpinejs/dist/cdn.min.js', 'assets/dist/scripts/alpine.min.js' )
+	.copy( 'node_modules/instantsearch.js/dist/instantsearch.production.min.js', 'assets/dist/scripts/instantsearch.production.min.js' )
+	.copy( 'node_modules/algoliasearch/dist/algoliasearch-lite.umd.js', 'assets/dist/scripts/algoliasearch-lite.umd.js' )
 	.copyDirectory( 'assets/src/fonts', 'assets/dist/fonts' )
 	.copyDirectory( 'assets/src/images', 'assets/dist/images' );
