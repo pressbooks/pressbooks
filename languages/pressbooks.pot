@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-12-05T20:25:34+00:00\n"
+"POT-Creation-Date: 2022-12-08T15:18:32+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: pressbooks\n"
@@ -572,6 +572,20 @@ msgstr ""
 msgid "Your image is the wrong aspect ratio. The image must have an aspect ratio of %1$s to %2$s."
 msgstr ""
 
+#: inc/admin/dashboard/class-bookdashboard.php:55
+#: inc/admin/dashboard/class-newuserdashboard.php:57
+#: inc/admin/dashboard/namespace.php:15
+#: inc/admin/dashboard/namespace.php:16
+#: inc/admin/laf/namespace.php:778
+#: inc/admin/laf/namespace.php:853
+msgid "Dashboard"
+msgstr ""
+
+#: inc/admin/dashboard/class-bookdashboard.php:56
+#: inc/admin/dashboard/class-newuserdashboard.php:58
+msgid "Home"
+msgstr ""
+
 #: inc/admin/dashboard/class-invitations.php:29
 msgid "an"
 msgstr ""
@@ -580,151 +594,24 @@ msgstr ""
 msgid "a"
 msgstr ""
 
-#: inc/admin/dashboard/class-newuserdashboard.php:57
-#: inc/admin/dashboard/namespace.php:277
-#: inc/admin/dashboard/namespace.php:278
-#: inc/admin/laf/namespace.php:778
-#: inc/admin/laf/namespace.php:853
-msgid "Dashboard"
-msgstr ""
-
-#: inc/admin/dashboard/class-newuserdashboard.php:58
-msgid "Home"
-msgstr ""
-
-#: inc/admin/dashboard/namespace.php:18
-msgid "Pressbooks announcements"
-msgstr ""
-
-#: inc/admin/dashboard/namespace.php:82
-msgid "My Book"
-msgstr ""
-
-#: inc/admin/dashboard/namespace.php:83
-#: inc/admin/laf/namespace.php:794
-msgid "Users"
-msgstr ""
-
-#: inc/admin/dashboard/namespace.php:84
-msgid "Need Help?"
-msgstr ""
-
-#: inc/admin/dashboard/namespace.php:104
-#: inc/class-activation.php:242
-#: inc/modules/themeoptions/class-pdfoptions.php:287
-#: tests/test-cloner.php:62
-#: templates/export/epub/toc.blade.php:13
-msgid "Table of Contents"
-msgstr ""
-
-#: inc/admin/dashboard/namespace.php:106
-#: inc/admin/metaboxes/namespace.php:649
-#: inc/api/endpoints/controller/class-toc.php:192
-#: inc/posttype/namespace.php:115
-#: inc/posttype/namespace.php:116
-#: inc/posttype/namespace.php:548
-#: templates/admin/import.php:91
-#: templates/admin/organize.php:64
-#: templates/admin/organize.php:87
-msgid "Front Matter"
-msgstr ""
-
-#: inc/admin/dashboard/namespace.php:147
-#: inc/admin/metaboxes/namespace.php:651
-#: inc/api/endpoints/controller/class-toc.php:225
-#: inc/posttype/namespace.php:143
-#: inc/posttype/namespace.php:144
-#: inc/posttype/namespace.php:551
-#: templates/admin/import.php:96
-#: templates/admin/organize.php:66
-#: templates/admin/organize.php:95
-msgid "Back Matter"
-msgstr ""
-
-#: inc/admin/dashboard/namespace.php:166
-#: inc/admin/dashboard/namespace.php:268
-#: templates/admin/organize.php:272
-#: templates/admin/organize.php:429
-msgid "Add"
-msgstr ""
-
-#: inc/admin/dashboard/namespace.php:166
-#: inc/admin/dashboard/namespace.php:268
-#: inc/admin/laf/namespace.php:148
-msgid "Organize"
-msgstr ""
-
-#. translators: %s: URL to Pressbooks User Guide
-#: inc/admin/dashboard/namespace.php:210
-msgid "Consult the %s."
-msgstr ""
-
-#. translators: %s: URL to Pressbooks User Guide
-#: inc/admin/dashboard/namespace.php:210
-msgid "Pressbooks User Guide"
-msgstr ""
-
-#. translators: %s: URL to Pressbooks YouTube channel
-#: inc/admin/dashboard/namespace.php:211
-msgid "Watch tutorials on the %s."
-msgstr ""
-
-#. translators: %s: URL to Pressbooks YouTube channel
-#: inc/admin/dashboard/namespace.php:211
-msgid "Pressbooks YouTube channel"
-msgstr ""
-
-#. translators: %s: URL to Pressbooks training webinars
-#: inc/admin/dashboard/namespace.php:212
-msgid "Attend a %s."
-msgstr ""
-
-#. translators: %s: URL to Pressbooks training webinars
-#: inc/admin/dashboard/namespace.php:212
-msgid "live training webinar"
-msgstr ""
-
-#. translators: %s: URL to Pressbooks community forum
-#: inc/admin/dashboard/namespace.php:213
-msgid "Participate in the %s."
-msgstr ""
-
-#. translators: %s: URL to Pressbooks community forum
-#: inc/admin/dashboard/namespace.php:213
-msgid "community forum"
-msgstr ""
-
-#. translators: %s: email address for network manager
-#: inc/admin/dashboard/namespace.php:215
-msgid "For additional support, contact your network manager at %s."
-msgstr ""
-
-#: inc/admin/dashboard/namespace.php:254
-msgid "%1$s total users: "
-msgstr ""
-
-#: inc/admin/dashboard/namespace.php:327
+#: inc/admin/dashboard/namespace.php:65
 msgid "Dashboard Feed"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:334
+#: inc/admin/dashboard/namespace.php:72
 msgid "Display Feed"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:339
+#: inc/admin/dashboard/namespace.php:77
 msgid "Display an RSS feed widget on the dashboard."
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:345
+#: inc/admin/dashboard/namespace.php:83
 msgid "Feed Title"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:353
+#: inc/admin/dashboard/namespace.php:91
 msgid "Feed URL"
-msgstr ""
-
-#: inc/admin/dashboard/namespace.php:380
-msgid "Adjust settings for your dashboard RSS feed widget below."
 msgstr ""
 
 #: inc/admin/delete/class-book.php:52
@@ -778,6 +665,10 @@ msgstr ""
 #: inc/admin/laf/namespace.php:113
 #: templates/admin/sitemap.blade.php:2
 msgid "Site Map"
+msgstr ""
+
+#: inc/admin/laf/namespace.php:148
+msgid "Organize"
 msgstr ""
 
 #: inc/admin/laf/namespace.php:163
@@ -1012,6 +903,10 @@ msgstr ""
 #: inc/admin/laf/namespace.php:1531
 #: inc/admin/laf/namespace.php:1541
 msgid "Books"
+msgstr ""
+
+#: inc/admin/laf/namespace.php:794
+msgid "Users"
 msgstr ""
 
 #: inc/admin/laf/namespace.php:803
@@ -1548,6 +1443,17 @@ msgstr ""
 msgid "BISAC Regional Themes help libraries and bookstores properly classify your book."
 msgstr ""
 
+#: inc/admin/metaboxes/namespace.php:649
+#: inc/api/endpoints/controller/class-toc.php:192
+#: inc/posttype/namespace.php:115
+#: inc/posttype/namespace.php:116
+#: inc/posttype/namespace.php:548
+#: templates/admin/import.php:91
+#: templates/admin/organize.php:64
+#: templates/admin/organize.php:87
+msgid "Front Matter"
+msgstr ""
+
 #: inc/admin/metaboxes/namespace.php:650
 #: inc/api/endpoints/controller/class-toc.php:209
 #: inc/class-sass.php:78
@@ -1558,6 +1464,17 @@ msgstr ""
 #: templates/admin/import.php:92
 #: templates/admin/organize.php:91
 msgid "Chapter"
+msgstr ""
+
+#: inc/admin/metaboxes/namespace.php:651
+#: inc/api/endpoints/controller/class-toc.php:225
+#: inc/posttype/namespace.php:143
+#: inc/posttype/namespace.php:144
+#: inc/posttype/namespace.php:551
+#: templates/admin/import.php:96
+#: templates/admin/organize.php:66
+#: templates/admin/organize.php:95
+msgid "Back Matter"
 msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:655
@@ -1892,6 +1809,13 @@ msgstr ""
 #: templates/admin/organize.php:375
 #: tests/test-cloner.php:52
 msgid "Authors"
+msgstr ""
+
+#: inc/class-activation.php:242
+#: inc/modules/themeoptions/class-pdfoptions.php:287
+#: tests/test-cloner.php:62
+#: templates/export/epub/toc.blade.php:13
+msgid "Table of Contents"
 msgstr ""
 
 #: inc/class-activation.php:252
@@ -4587,6 +4511,11 @@ msgstr ""
 msgid "Move Down"
 msgstr ""
 
+#: templates/admin/organize.php:272
+#: templates/admin/organize.php:429
+msgid "Add"
+msgstr ""
+
 #: templates/admin/results.php:4
 msgid "Results"
 msgstr ""
@@ -4707,49 +4636,121 @@ msgstr ""
 msgid "Create Site"
 msgstr ""
 
+#: templates/admin/dashboard/book.blade.php:23
+msgid "View book"
+msgstr ""
+
+#: templates/admin/dashboard/book.blade.php:33
+msgid "Edit book info"
+msgstr ""
+
+#: templates/admin/dashboard/book.blade.php:44
+msgid "Organize book"
+msgstr ""
+
+#: templates/admin/dashboard/book.blade.php:55
+msgid "Change theme"
+msgstr ""
+
+#: templates/admin/dashboard/book.blade.php:66
+msgid "Add collaborators"
+msgstr ""
+
+#: templates/admin/dashboard/book.blade.php:77
+msgid "View Analytics"
+msgstr ""
+
+#: templates/admin/dashboard/book.blade.php:88
+msgid "Delete book"
+msgstr ""
+
+#: templates/admin/dashboard/book.blade.php:101
+msgid "Write a new chapter art"
+msgstr ""
+
+#: templates/admin/dashboard/book.blade.php:108
+msgid "Write a new chapter"
+msgstr ""
+
+#: templates/admin/dashboard/book.blade.php:114
+msgid "Import Content"
+msgstr ""
+
+#: templates/admin/dashboard/book.blade.php:128
+msgid "Support Resources"
+msgstr ""
+
+#: templates/admin/dashboard/book.blade.php:137
+msgid "Getting started with Pressbooks"
+msgstr ""
+
+#: templates/admin/dashboard/book.blade.php:140
+msgid "Watch a short video series on how to get started with Pressbooks."
+msgstr ""
+
+#: templates/admin/dashboard/book.blade.php:148
+msgid "Pressbooks user guide"
+msgstr ""
+
+#: templates/admin/dashboard/book.blade.php:151
+msgid "Find help and how-tos for your publishing project in this detailed handbook."
+msgstr ""
+
+#: templates/admin/dashboard/book.blade.php:159
+msgid "Pressbooks community forum"
+msgstr ""
+
+#: templates/admin/dashboard/book.blade.php:162
+msgid "Discuss Pressbooks related questions with other users in our public forum."
+msgstr ""
+
+#: templates/admin/dashboard/book.blade.php:170
+msgid "Pressbooks training webinars"
+msgstr ""
+
+#: templates/admin/dashboard/book.blade.php:173
+msgid "Register for free webinars to learn about Pressbooks features and best practices."
+msgstr ""
+
 #: templates/admin/dashboard/new-user.blade.php:6
 msgid "Welcome to"
 msgstr ""
 
-#: templates/admin/dashboard/new-user.blade.php:14
-msgid "Network welcome art"
-msgstr ""
-
-#: templates/admin/dashboard/new-user.blade.php:24
+#: templates/admin/dashboard/new-user.blade.php:17
 msgid "Book Invitations"
 msgstr ""
 
-#: templates/admin/dashboard/new-user.blade.php:29
+#: templates/admin/dashboard/new-user.blade.php:22
 msgid "You have been invited to join %1$s as %2$s"
 msgstr ""
 
-#: templates/admin/dashboard/new-user.blade.php:30
+#: templates/admin/dashboard/new-user.blade.php:23
 msgid "Accept"
 msgstr ""
 
-#: templates/admin/dashboard/new-user.blade.php:44
+#: templates/admin/dashboard/new-user.blade.php:37
 msgid "Create a new book art"
 msgstr ""
 
+#: templates/admin/dashboard/new-user.blade.php:42
 #: templates/admin/dashboard/new-user.blade.php:49
-#: templates/admin/dashboard/new-user.blade.php:56
 msgid "Create a book"
 msgstr ""
 
-#: templates/admin/dashboard/new-user.blade.php:51
+#: templates/admin/dashboard/new-user.blade.php:44
 msgid "Create a new book full of engaging content: words, images, audio, video, footnotes, glossary terms, mathematical formula, interactive quizzes, and more."
 msgstr ""
 
-#: templates/admin/dashboard/new-user.blade.php:66
+#: templates/admin/dashboard/new-user.blade.php:59
 msgid "Adapt a book art"
 msgstr ""
 
+#: templates/admin/dashboard/new-user.blade.php:64
 #: templates/admin/dashboard/new-user.blade.php:71
-#: templates/admin/dashboard/new-user.blade.php:78
 msgid "Adapt a book"
 msgstr ""
 
-#: templates/admin/dashboard/new-user.blade.php:73
+#: templates/admin/dashboard/new-user.blade.php:66
 msgid "Use our cloning tool to make your own personalized copy of any of the thousands of openly licensed educational books already published with Pressbooks."
 msgstr ""
 
