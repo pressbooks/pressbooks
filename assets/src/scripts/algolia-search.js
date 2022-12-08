@@ -28,8 +28,8 @@ const search = instantsearch( {
  * @param url
  */
 window.selectBookToClone = function ( url ) {
-	const cloneBook = document.getElementById( 'source_book_url' );
-	const newBook = document.getElementById( 'target_book_url' );
+	const cloneBook = document.getElementById( 'source-book-url' );
+	const newBook = document.getElementById( 'target-book-url' );
 	cloneBook.value = url;
 	const path = url.split( '/' );
 	newBook.value = path.length > 2 ? path[3] : '';

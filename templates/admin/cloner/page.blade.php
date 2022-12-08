@@ -14,7 +14,7 @@
 				@if( is_subdomain_install() )
 					<span><input class="regular-text code" id="target-book-url" name="target_book_url" type="text" required/>.{{ $domain }}</span>
 				@else
-					<span>{{ $base_url }} <input class="regular-text code" id="target_book_url" name="target_book_url" type="text" required/></span>
+					<span>{{ $base_url }} <input class="regular-text code" id="target-book-url" name="target_book_url" type="text" required/></span>
 				@endif
 			</div>
 			<p><input id="pb-cloner-button" class="button button-primary" type="submit"
