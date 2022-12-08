@@ -14,44 +14,69 @@
     line-height: 1.3;
   }
 
-  p {
+  p, li {
     font-size: 1.125rem;
     margin: 0 0 1rem;
   }
+}
+
+.pb-dashboard-image, .pb-book-cover {
+  max-width: 300px;
+  margin: 0 auto;
+
+  img {
+    width: 100%;
+  }
+}
+
+.book-dash * .pb-dashboard-image {
+  max-width: 225px;
 }
 
 .pb-dashboard-row {
   margin-bottom: 1rem;
   max-width: 1220px;
 
-  a.button.button-primary {
-    font-size: 1.125rem;
-    font-weight: 700;
-    text-align: center;
-    border-radius: 10px;
-  }
-
   .pb-dashboard-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
+  }
 
-    .pb-dashboard-image {
-      max-width: 300px;
-      margin: 0 auto;
+  .button.button-hero {
+    font-size: 1.125rem;
+    font-weight: 700;
+    text-align: center;
+    border-radius: 10px;
+    display: block;
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  ul.horizontal {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 0;
+
+    li {
+      margin-bottom: 0;
     }
 
-    .pb-dashboard-action a.button.button-primary {
+    a {
       display: block;
-      width: 100%;
+      margin-bottom: .5rem;
+    }
+
+    img {
+      display: block;
+      margin: 0 auto .5rem;
+      max-height: 175px;
     }
   }
 
-  .pb-dashboard-content.banner {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
 
+  .pb-dashboard-content {
     h2 {
       display: flex;
       flex-direction: column;
@@ -63,11 +88,14 @@
       line-height: 1;
     }
 
-    .pb-dashboard-image {
-      max-width: 400px;
-      margin-top: -4rem;
-    }
+    .site-title {
+      font-size: 2rem;
 
+      span {
+        font-size: 1.4rem;
+        font-weight: 300;
+      }
+    }
   }
 
   .pb-dashboard-panel {
@@ -92,15 +120,31 @@
     }
   }
 
-  .pb-dashboard-image img {
-    width: 100%;
+  ul.pb-dashboard-action {
+    margin: 0;
+
+    li {
+      display: flex;
+      align-items: center;
+    }
+
+    svg {
+      height: 25px;
+      margin-right: .75rem;
+    }
+
+    #view svg {
+      transform: rotate(270deg);
+    }
+
+    #delete {
+      margin: 3rem 0 0;
+    }
   }
 
-  @media screen and (max-width: 1436px) {
-    .pb-dashboard-content.banner .pb-dashboard-image {
-      // TODO: fix these experimental values
-      width: 30%;
-      margin-top: -6vw;
+  @media screen and (max-width: 1220px) {
+    ul.horizontal {
+      grid-template-columns: repeat(2, 1fr);
     }
   }
 
@@ -108,6 +152,9 @@
     .pb-dashboard-grid {
       grid-template-columns: 1fr;
     }
-  }
 
+    ul.horizontal {
+      grid-template-columns: 1fr;
+    }
+  }
 }

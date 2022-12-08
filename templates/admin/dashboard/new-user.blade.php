@@ -1,18 +1,11 @@
 <div class="wrap">
 	<div class="pb-dashboard-row">
 		<div class="pb-dashboard-panel">
-			<div class="pb-dashboard-content banner">
+			<div class="pb-dashboard-content">
 				<h2>
 					{{ __( 'Welcome to', 'pressbooks' ) }}
 					<span class="network-title">{!! $site_name !!}</span>
 				</h2>
-
-				<div class="pb-dashboard-image">
-					<img
-						src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-network-welcome.png" }}"
-						alt="{{ __( 'Network welcome art', 'pressbooks' ) }}"
-					/>
-				</div>
 			</div>
 		</div>
 	</div>
