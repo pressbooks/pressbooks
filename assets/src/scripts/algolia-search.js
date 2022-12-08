@@ -47,6 +47,7 @@ document.querySelector( '#searchbox' ).addEventListener( 'input', event => {
 search.addWidgets( [
 	instantsearch.widgets.searchBox( {
 		container: '#searchbox',
+		placeholder: 'Search openly licensed books',
 		showSubmit: false,
 	} ),
 
