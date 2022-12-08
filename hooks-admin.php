@@ -47,11 +47,8 @@ add_action( 'admin_head', '\Pressbooks\Admin\Branding\favicon' );
 add_filter( 'admin_footer_text', '\Pressbooks\Admin\Laf\add_footer_link' );
 
 // Dashboard settings
-add_action( 'admin_init', '\Pressbooks\Admin\Dashboard\dashboard_options_init' );
-add_action( 'network_admin_menu', '\Pressbooks\Admin\Dashboard\add_menu', 2 );
 add_action( 'admin_menu', '\Pressbooks\Admin\Laf\add_pb_cloner_page', 1 );
 add_action( 'wp_user_dashboard_setup', '\Pressbooks\Admin\Laf\add_pb_cloner_page', 1 );
-add_action( 'admin_menu', '\Pressbooks\Admin\Dashboard\add_menu', 1 );
 add_action( 'admin_menu', '\Pressbooks\Admin\Diagnostics\add_menu', 30 );
 add_action( 'init', [ '\Pressbooks\Admin\SiteMap', 'init' ] );
 add_action( 'init', '\Pressbooks\Admin\Laf\remove_emoji' );
