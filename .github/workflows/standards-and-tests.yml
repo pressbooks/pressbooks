@@ -112,3 +112,10 @@ jobs:
       with:
         files:
           ${{github.workspace}}/*.zip
+
+    - name: Trigger Bedrock Update
+      if: github.ref == 'refs/heads/dev' && matrix.experimental == false
+      uses: pressbooks/composer-autoupdate-bedrock@v1.0
+      with:
+        triggered-by: ${{ github.repository }}
+        token: ${{ secrets.PAT_COMPOSER_UPDATE }}
