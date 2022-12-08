@@ -665,7 +665,13 @@ function display_export() {
  * Displays the Clone a Book Page
  */
 function display_cloner() {
-	require( PB_PLUGIN_DIR . 'templates/admin/cloner.php' );
+	$blade = \Pressbooks\Container::get( 'Blade' );
+	echo $blade->render('admin.cloner.page',
+		[
+			'base_url' => network_home_url(),
+			'domain' => wp_parse_url( network_home_url(), PHP_URL_HOST ),
+		]
+	);
 }
 
 /**
@@ -1160,6 +1166,33 @@ function init_css_js() {
 	// Always enqueue AlpineJS.
 	wp_register_script( 'alpinejs', $assets->getPath( 'scripts/alpine.min.js' ), [], false, true );
 	wp_enqueue_script( 'alpinejs' );
+
+	if ( isset( $_REQUEST['page'] ) && $_REQUEST['page'] === 'pb_cloner' && \Pressbooks\Utility\are_algolia_search_env_var_presents() ) {
+		// Algolia
+		wp_register_script( 'algolia', $assets->getPath( 'scripts/algoliasearch-lite.umd.js' ), [], false, true );
+		wp_enqueue_script( 'algolia' );
+
+		// InstantSearch
+		wp_register_script( 'instantsearch', $assets->getPath( 'scripts/instantsearch.production.min.js' ), [ 'algolia' ], false, true );
+		wp_enqueue_script( 'instantsearch' );
+
+		wp_enqueue_style( 'pb-book-dashboard', $assets->getPath( 'styles/pressbooks-dashboard.css' ) );
+		wp_register_style( 'cloner-page', $assets->getPath( 'styles/cloner.css' ) );
+		wp_enqueue_style( 'cloner-page' );
+
+		wp_register_script( 'cloner-page', $assets->getPath( 'scripts/algolia-search.js' ), [], false, true );
+		wp_enqueue_script( 'cloner-page' );
+
+		$blade = \Pressbooks\Container::get( 'Blade' );
+
+		wp_localize_script( 'cloner-page', 'PBAlgolia', [
+			'applicationId' => env( 'ALGOLIA_APP_ID' ),
+			'apiKey' => env( 'ALGOLIA_API_KEY' ),
+			'indexName' => env( 'ALGOLIA_INDEX_NAME' ),
+			'hitsTemplate' => $blade->render( 'admin.cloner.book-card' ),
+			'resultsTemplate' => $blade->render( 'admin.cloner.results' ),
+		] );
+	}
 
 	// A11y
 	wp_register_script( 'pb-a11y', $assets->getPath( 'scripts/a11y.js' ), [ 'jquery', 'wp-i18n' ], false, true );
