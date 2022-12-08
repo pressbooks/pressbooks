@@ -5,6 +5,7 @@
 const searchClient = algoliasearch( PBAlgolia.applicationId, PBAlgolia.apiKey );
 
 const searchWrapper = document.getElementById( 'book-cards' );
+const statsHelper = document.getElementById( 'stats' );
 
 const search = instantsearch( {
 	indexName: PBAlgolia.indexName,
@@ -35,12 +36,14 @@ window.selectBookToClone = function ( url ) {
 	// scroll to top
 	window.scrollTo( 0, 0 );
 	searchWrapper.innerHTML = '';
+	statsHelper.innerHTML = '';
 	document.querySelector( '#searchbox input' ).value = '';
 };
 document.querySelector( '#searchbox' ).addEventListener( 'input', event => {
 	if ( event.target.value.length === 0 ) {
 		event.target.value = '';
 		searchWrapper.innerHTML = '';
+		statsHelper.innerHTML = '';
 	}
 } );
 
