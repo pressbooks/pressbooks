@@ -28,6 +28,7 @@
 
     input {
       width: 100%;
+      font-weight: normal;
     }
   }
 
@@ -37,19 +38,41 @@
       list-style: none;
 
       .book-card {
+        width: 100%;
         display: flex;
         align-items: center;
+        border-bottom: 0.5px solid;
+        margin-bottom: 1rem;
+        padding-bottom: 1rem;
 
         .book-cover {
           margin-right: 1rem;
 
           img {
-            width: 100px;
+            aspect-ratio: 3/4;
+            max-width: 140px;
           }
         }
 
         .book-info {
+          width: 100%;
+        }
 
+        .line-clamp {
+          display: -webkit-box;
+          -webkit-line-clamp: 3;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+
+        .book-select-book {
+          width: 100%;
+          flex: 1;
+          justify-content: flex-end;
+          align-items: flex-end;
+          flex-direction: column;
+          display: flex;
+          margin-top: 1rem;
         }
       }
     }
