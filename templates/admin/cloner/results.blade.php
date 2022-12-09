@@ -1,1 +1,1 @@
-{{ __( 'results found', 'pressbooks' ) }}
+{{ __( 'results shown', 'pressbooks' ) }}
