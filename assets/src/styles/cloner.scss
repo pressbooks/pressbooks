@@ -132,12 +132,12 @@
             }
 
             p {
-              margin: 0 0 1rem 0;
+              margin: 0 0 1rem;
             }
           }
 
           .line-clamp {
-            display: -webkit-box;
+            display: -webkit-box; /* stylelint-disable-line */
             -webkit-line-clamp: 5;
             -webkit-box-orient: vertical;
             overflow: hidden;
