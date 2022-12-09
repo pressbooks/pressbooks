@@ -1168,31 +1168,31 @@ function init_css_js() {
 	wp_enqueue_script( 'alpinejs' );
 
 	// Enqueue styles for cloner page
-	if ( isset( $_REQUEST['page'] ) && $_REQUEST['page'] === 'pb_cloner') {
+	if ( isset( $_REQUEST['page'] ) && $_REQUEST['page'] === 'pb_cloner' ) {
 		wp_register_style( 'cloner-page', $assets->getPath( 'styles/cloner.css' ) );
 		wp_enqueue_style( 'cloner-page' );
 
 		$blade = \Pressbooks\Container::get( 'Blade' );
 
 		// Enqueue Algolia & Instantsearch scripts only if required env values are present.
-		if (\Pressbooks\Utility\are_algolia_search_env_var_presents() ) {
+		if ( \Pressbooks\Utility\are_algolia_search_env_var_presents() ) {
 			// Algolia
-			wp_register_script('algolia', $assets->getPath('scripts/algoliasearch-lite.umd.js'), [], false, true);
-			wp_enqueue_script('algolia');
+			wp_register_script( 'algolia', $assets->getPath( 'scripts/algoliasearch-lite.umd.js' ), [], false, true );
+			wp_enqueue_script( 'algolia' );
 
 			// InstantSearch
-			wp_register_script('instantsearch', $assets->getPath('scripts/instantsearch.production.min.js'), ['algolia'], false, true);
-			wp_enqueue_script('instantsearch');
+			wp_register_script( 'instantsearch', $assets->getPath( 'scripts/instantsearch.production.min.js' ), [ 'algolia' ], false, true );
+			wp_enqueue_script( 'instantsearch' );
 
-			wp_register_script('cloner-page', $assets->getPath('scripts/algolia-search.js'), [], false, true);
-			wp_enqueue_script('cloner-page');
+			wp_register_script( 'cloner-page', $assets->getPath( 'scripts/algolia-search.js' ), [], false, true );
+			wp_enqueue_script( 'cloner-page' );
 
 			wp_localize_script('cloner-page', 'PBAlgolia', [
-					'applicationId' => env('ALGOLIA_APP_ID'),
-					'apiKey' => env('ALGOLIA_API_KEY'),
-					'indexName' => env('ALGOLIA_INDEX_NAME'),
-					'hitsTemplate' => $blade->render('admin.cloner.book-card'),
-					'resultsTemplate' => $blade->render('admin.cloner.results'),
+				'applicationId' => env( 'ALGOLIA_APP_ID' ),
+				'apiKey' => env( 'ALGOLIA_API_KEY' ),
+				'indexName' => env( 'ALGOLIA_INDEX_NAME' ),
+				'hitsTemplate' => $blade->render( 'admin.cloner.book-card' ),
+				'resultsTemplate' => $blade->render( 'admin.cloner.results' ),
 			]);
 		}
 	}
