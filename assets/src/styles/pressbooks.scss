@@ -354,6 +354,7 @@ $wp-spinner-anim-duration: 1.08s;
 #pb-sse-progressbar {
   display: none;
   width: 100%;
+  margin-top: 1rem;
 }
 
 // WordPress search fields
@@ -367,9 +368,8 @@ $wp-spinner-anim-duration: 1.08s;
 .plugins-php .search-form label,
 .themes-php .search-form label {
   border: unset;
-  clip: unset;
-  -webkit-clip-path: unset; /* stylelint-disable-line */
   clip-path: unset;
+  -webkit-clip-path: unset;
   height: unset;
   font-size: 14px;
   margin: unset;
