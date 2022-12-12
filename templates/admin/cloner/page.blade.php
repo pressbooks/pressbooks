@@ -19,18 +19,20 @@
 			<strong><span id="pb-sse-minutes"></span><span id="pb-sse-seconds"></span></strong> <span id="pb-sse-info" aria-live="polite"></span>
 		</form>
 	</div>
-	<div class="pb-cloner-section search">
-		<h2 class="section-title">{{ __('Search the Pressbooks Directory', 'pressbooks') }}</h2>
-		<div class="flex">
-			<div class="instructions">
-				<p>{{ __( 'Use the search bar below to quickly search the Pressbooks Directory for books you can clone. To use advanced search and filtering capabilities, visit the Directory itself.', 'pressbooks') }}</p>
+	@if( \Pressbooks\Utility\is_algolia_search_enabled() )
+		<div class="pb-cloner-section search">
+			<h2 class="section-title">{{ __( 'Search the Pressbooks Directory', 'pressbooks' ) }}</h2>
+			<div class="flex">
+				<div class="instructions">
+					<p>{{ __( 'Use the search bar below to quickly search the Pressbooks Directory for books you can clone. To use advanced search and filtering capabilities, visit the Directory itself.', 'pressbooks') }}</p>
+				</div>
+				<div class="image">
+					<a class="pb-directory-logo" href="https://pressbooks.directory" target="_blank"><img src="https://pressbooks.directory/assets/logo-pressbooks-directory.svg" alt="Pressbooks Directory"/></a>
+				</div>
 			</div>
-			<div class="image">
-				<a class="pb-directory-logo" href="https://pressbooks.directory" target="_blank"><img src="https://pressbooks.directory/assets/logo-pressbooks-directory.svg" alt="Pressbooks Directory"/></a>
-			</div>
+			<label class="pb-label screen-reader-text" for="searchbox">{{ __( 'Search', 'pressbooks' ) }}</label> <span id="stats" aria-live="polite"></span>
+			<div id="searchbox" class="pb-directory-search"></div>
+			<div id="book-cards" class="book-cards"></div>
 		</div>
-		<label class="pb-label screen-reader-text" for="searchbox">{{ __( 'Search', 'pressbooks' ) }}</label> <span id="stats" aria-live="polite"></span>
-		<div id="searchbox" class="pb-directory-search"></div>
-		<div id="book-cards" class="book-cards"></div>
-	</div>
+	@endif
 </div>

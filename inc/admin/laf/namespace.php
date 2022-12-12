@@ -1175,7 +1175,7 @@ function init_css_js() {
 		$blade = \Pressbooks\Container::get( 'Blade' );
 
 		// Enqueue Algolia & Instantsearch scripts only if required env values are present.
-		if ( \Pressbooks\Utility\are_algolia_search_env_var_presents() ) {
+		if ( \Pressbooks\Utility\is_algolia_search_enabled() ) {
 			// Algolia
 			wp_register_script( 'algolia', $assets->getPath( 'scripts/algoliasearch-lite.umd.js' ), [], false, true );
 			wp_enqueue_script( 'algolia' );
