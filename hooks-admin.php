@@ -79,10 +79,6 @@ if ( $is_book ) {
 	// See Pressbooks\Privacy::addPrivacyPolicyContent() for reference.
 }
 
-if ( is_network_admin() ) {
-	add_action( 'wp_network_dashboard_setup', '\Pressbooks\Admin\Dashboard\replace_network_dashboard_widgets' );
-}
-
 if ( true === is_main_site() ) {
 	add_action( 'plugins_loaded', [ \Pressbooks\Admin\Dashboard\NewUserDashboard::class, 'init' ] );
 }
