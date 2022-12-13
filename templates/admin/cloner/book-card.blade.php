@@ -1,6 +1,6 @@
 <div class="book-card">
 	<div class="book-cover">
-		<img src="@{{ thumbnailUrl }}" alt=""/>
+		<img src="@{{ thumbnailUrl }}" alt="@{{{ name }}} cover"/>
 	</div>
 	<div class="book-info">
 		<h2><a href="@{{ url }}" target="_blank">@{{{ name }}}</a></h2>
@@ -13,7 +13,7 @@
 			</span>&nbsp;|
 			<span class="language">&nbsp;@{{ languageName }}</span>
 		</p>
-			{{-- TODO: add conditional which only prints if a book has an author --}}
+		{{-- TODO: add conditional which only prints if a book has an author --}}
 		<p class="author">
 			<span class="author">{{ __( 'By', 'pressbooks' ) }} </span> @{{{ author }}}
 		</p>
