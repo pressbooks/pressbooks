@@ -72,7 +72,8 @@ search.addWidgets( [
 			 * @param root0.html
 			 */
 			text( data, { html } ) {
-				return html `${ data.nbHits } ${ PBAlgolia.resultsTemplate }`;
+				const resultsShown = data.nbHits <= 20  ? data.nbHits : 20;
+				return html `${ PBAlgolia.resultsTemplate.replace( '%resultsShown', resultsShown ).replace( '%totalResults', data.nbHits ) }`;
 			},
 		},
 	} ),

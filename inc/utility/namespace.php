@@ -1605,8 +1605,6 @@ function delete_options_cached() : void {
  *
  * @return bool
  */
-function are_algolia_search_env_var_presents(): bool {
-	return env( 'ALGOLIA_APP_ID' ) &&
-		env( 'ALGOLIA_API_KEY' ) &&
-		env( 'ALGOLIA_INDEX_NAME' );
+function is_algolia_search_enabled(): bool {
+	return env( 'ALGOLIA_APP_ID' ) && env( 'ALGOLIA_API_KEY' ) && env( 'ALGOLIA_INDEX_NAME' );
 }
