@@ -26,9 +26,6 @@
 			<label class="pb-label screen-reader-text" for="searchbox">{{ __( 'Search', 'pressbooks' ) }}</label> <span id="stats" aria-live="polite"></span>
 			<div id="searchbox" class="pb-directory-search"></div>
 			<div id="book-cards" class="book-cards"></div>
-			<div class="instructions">
-				<p>{!! sprintf( __( 'This search only displays up to 20 results. To see more results, %s.', 'pressbooks' ), sprintf( '<a href="https://pressbooks.directory" target="_blank">%s</a>',  __('visit the Directory itself', 'pressbooks' ) ) ) !!}</p>
-			</div>
 		</div>
 	@endif
 </div>
