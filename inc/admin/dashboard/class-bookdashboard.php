@@ -102,10 +102,10 @@ class BookDashboard {
 	 */
 	private function getUserPermissions(): array {
 		$is_super_admin = is_super_admin();
-		global $blog_id;
+		$post_meta_id = ( new Metadata() )->getMetaPostId();
 
 		return [
-			'edit_post' => $is_super_admin || current_user_can( 'edit_post', $blog_id ),
+			'edit_post' => $is_super_admin || current_user_can( 'edit_post', $post_meta_id ),
 			'edit_posts' => $is_super_admin || current_user_can( 'edit_posts' ),
 			'switch_themes' => $is_super_admin || current_user_can( 'switch_themes' ),
 			'list_users' => $is_super_admin || current_user_can( 'list_users' ),
