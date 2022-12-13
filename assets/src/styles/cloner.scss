@@ -84,14 +84,9 @@
       font-weight: bold;
     }
 
-    .flex {
-      display: flex;
-      gap: 1.5rem;
+    .pb-directory-logo {
+      display: block;
       margin-bottom: 1rem;
-
-      p {
-        margin: 0;
-      }
     }
 
     .book-cards {

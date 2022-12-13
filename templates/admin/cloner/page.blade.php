@@ -22,17 +22,13 @@
 	@if( \Pressbooks\Utility\is_algolia_search_enabled() )
 		<div class="pb-cloner-section search">
 			<h2 class="section-title">{{ __( 'Search the Pressbooks Directory', 'pressbooks' ) }}</h2>
-			<div class="flex">
-				<div class="instructions">
-					<p>{!! sprintf( __( 'Use the search bar below to quickly search the Pressbooks Directory for books you can clone. To use advanced search and filtering capabilities, %s.', 'pressbooks' ), sprintf( '<a href="https://pressbooks.directory" target="_blank">%s</a>',  __('visit the Directory itself', 'pressbooks' ) ) ) !!}</p>
-				</div>
-				<div class="image">
-					<a class="pb-directory-logo" href="https://pressbooks.directory" target="_blank"><img src="https://pressbooks.directory/assets/logo-pressbooks-directory.svg" alt="Pressbooks Directory"/></a>
-				</div>
-			</div>
+			<a class="pb-directory-logo" href="https://pressbooks.directory" target="_blank"><img src="https://pressbooks.directory/assets/logo-pressbooks-directory.svg" alt="Pressbooks Directory"/></a>
 			<label class="pb-label screen-reader-text" for="searchbox">{{ __( 'Search', 'pressbooks' ) }}</label> <span id="stats" aria-live="polite"></span>
 			<div id="searchbox" class="pb-directory-search"></div>
 			<div id="book-cards" class="book-cards"></div>
+			<div class="instructions">
+				<p>{!! sprintf( __( 'This search only displays up to 20 results. To see more results, %s.', 'pressbooks' ), sprintf( '<a href="https://pressbooks.directory" target="_blank">%s</a>',  __('visit the Directory itself', 'pressbooks' ) ) ) !!}</p>
+			</div>
 		</div>
 	@endif
 </div>
