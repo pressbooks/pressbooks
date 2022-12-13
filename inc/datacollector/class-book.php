@@ -44,6 +44,8 @@ class Book {
 
 	const IS_CLONE = 'pb_is_clone';
 
+	const IS_BASED_ON = 'pb_is_based_on';
+
 	const HAS_EXPORTS = 'pb_has_exports';
 
 	const LAST_EXPORT = 'pb_last_export';
@@ -332,6 +334,7 @@ class Book {
 
 		// pb_is_based_on
 		update_site_meta( $book_id, self::IS_CLONE, empty( $metadata['pb_is_based_on'] ) ? 0 : 1 );
+		update_site_meta( $book_id, self::IS_BASED_ON, $metadata['pb_is_based_on'] ?? null );
 
 		// pb_total_revisions
 		$revisions = $this->revisions();
