@@ -1,1 +1,1 @@
-{{ __( 'results shown', 'pressbooks' ) }}
+%resultsShown {{ __('of', 'pressbooks') }} %totalResults {{ __('results shown', 'pressbooks') }}
