@@ -54,7 +54,7 @@ The Pressbooks plugin is supplied "as is" and all use is at your own risk.
 
 ## Upgrade Notices
 ### 6.4.0
-* Pressbooks 6.4.o requires PHP >= 8.0
+* Pressbooks 6.4.0 requires PHP >= 8.0
 * Pressbooks 6.4.0 requires [WordPress 6.1.1](https://wordpress.org/support/wordpress-version/version-6-1-1/)
 
 ### 6.0.0
