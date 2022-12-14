@@ -11,7 +11,10 @@
 		</p>
 		{{-- TODO: add conditional which only prints if a book has an author --}}
 		<p class="author">
-			<span class="author">{{ __( 'By', 'pressbooks' ) }} </span> @{{{ author }}}
+			<span>{{ __( 'By', 'pressbooks' ) }} </span>
+			@{{#author}}
+				<span class="author-name">@{{{.}}}</span>
+			@{{/author}}
 		</p>
 		{{-- TODO: add conditional which only prints if a book has a long or short description --}}
 		<div class="book-description line-clamp">

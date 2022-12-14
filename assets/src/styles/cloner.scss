@@ -132,6 +132,10 @@
 
             p {
               margin: 0 0 1rem;
+
+              span.author-name:not(:last-of-type)::after {
+                content: ", ";
+              }
             }
           }
 
