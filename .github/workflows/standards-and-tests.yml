@@ -85,7 +85,7 @@ jobs:
       if: matrix.experimental == false
 
     - name: Prepare Build
-      if: startsWith(github.ref, 'refs/tags/')
+      if: startsWith(github.ref, 'refs/tags/') && matrix.experimental == false
       run: |
         export COMPOSER_MEMORY_LIMIT=-1
         export GITHUB_BUILD_PATH=${{github.workspace}}
@@ -105,7 +105,7 @@ jobs:
         ls $GITHUB_BUILD_PATH
 
     - name: Deploy
-      if: startsWith(github.ref, 'refs/tags/')
+      if: startsWith(github.ref, 'refs/tags/') && matrix.experimental == false
       uses: softprops/action-gh-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
