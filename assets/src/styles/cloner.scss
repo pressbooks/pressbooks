@@ -125,13 +125,17 @@
            .book-details {
               margin-top: .25rem;
 
-             .license:after, .h5p-count:after {
+             .license::after, .h5p-count::after {
                content: "\00a0|"
              }
             }
 
             p {
               margin: 0 0 1rem;
+
+              span.author-name:not(:last-of-type)::after {
+                content: ", ";
+              }
             }
           }
 

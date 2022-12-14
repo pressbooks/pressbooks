@@ -9,14 +9,19 @@
 			<span class="h5p-count"><a href="@{{ url }}/h5p-listing" target="_blank">@{{ h5pActivities }} {{ __( 'H5P Activities', 'pressbooks' ) }}</a></span>
 			<span class="language">@{{ languageName }}</span>
 		</p>
-		{{-- TODO: add conditional which only prints if a book has an author --}}
-		<p class="author">
-			<span class="author">{{ __( 'By', 'pressbooks' ) }} </span> @{{{ author }}}
-		</p>
-		{{-- TODO: add conditional which only prints if a book has a long or short description --}}
-		<div class="book-description line-clamp">
-			@{{{ description }}}
-		</div>
+		@{{#author.length}}
+			<p class="author">
+				<span>{{ __( 'By', 'pressbooks' ) }} </span>
+				@{{#author}}
+					<span class="author-name">@{{{.}}}</span>
+				@{{/author}}
+			</p>
+		@{{/author.length}}
+		@{{#description}}
+			<div class="book-description line-clamp">
+				@{{{ description }}}
+			</div>
+		@{{/description}}
 		<button
 			class="button button-primary select-book"
 			onClick="window.selectBookToClone('@{{ url }}')"
