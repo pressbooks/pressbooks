@@ -21,7 +21,7 @@
 		"block-ui": "^2.70.1",
 		"countup.js": "^2.3.2",
 		"event-source-polyfill": "^1.0.31",
-		"instantsearch.js": "^4.49.1",
+		"instantsearch.js": "^4.49.2",
 		"isotope-layout": "^3.0.6",
 		"jquery-match-height": "^0.7.2",
 		"jquery-sticky": "^1.0.4",
