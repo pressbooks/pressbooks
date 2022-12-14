@@ -17,7 +17,12 @@ const search = instantsearch( {
 	searchFunction( helper ) {
 		// Ensure we only trigger a search when there's a query
 		if ( helper.state.query ) {
-			helper.search();
+			helper
+				.setQueryParameter( 'facets', [ 'licenseCode' ] )
+				.addFacetExclusion( 'licenseCode', 'All Rights Reserved' )
+				.addFacetExclusion( 'licenseCode', 'CC BY-BC-ND' )
+				.addFacetExclusion( 'licenseCode', 'CC BY-ND' )
+				.search();
 		}
 		window.algoliaHelper = helper;
 	},

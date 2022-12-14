@@ -3,7 +3,7 @@ Contributors: Pressbooks <code@pressbooks.com>
 Tags: ebooks, publishing, webbooks
 Requires at least: 6.1.1
 Tested up to: 6.1.1
-Stable tag: 6.5.0
+Stable tag: 6.5.1
 Requires PHP: 8.0
 License: GPL v3.0 or later
 License URI: https://github.com/pressbooks/pressbooks/blob/master/LICENSE.md
@@ -48,8 +48,8 @@ Developers who are interested in contributing to our project should consult our 
 The Pressbooks plugin is supplied "as is" and all use is at your own risk.
 
 ## Changelog
-### 6.5.0
-* See: https://github.com/pressbooks/pressbooks/releases/tag/6.5.0
+### 6.5.1
+* See: https://github.com/pressbooks/pressbooks/releases/tag/6.5.1
 * Full release history available at: https://github.com/pressbooks/pressbooks/releases
 
 ## Upgrade Notices
