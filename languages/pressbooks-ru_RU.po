@@ -6,13 +6,14 @@
 # Antonio D., 2017
 # vharitonov <vharitonov@gmail.com>, 2014
 # vharitonov <vharitonov@gmail.com>, 2014
+# Дмитрий Горяченков, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
 "POT-Creation-Date: 2022-05-24T20:09:34+00:00\n"
 "PO-Revision-Date: 2013-12-21 21:04+0000\n"
-"Last-Translator: Antonio D., 2017-2018\n"
+"Last-Translator: Дмитрий Горяченков, 2022\n"
 "Language-Team: Russian (http://www.transifex.com/pressbooks/pressbooks/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -47,13 +48,13 @@ msgstr "Простое книгоиздание"
 msgid ""
 "Pressbooks could not create the mu-plugins folder. Please create the "
 "following directory: %s"
-msgstr ""
+msgstr "Pressbooks не удалось создать папку mu-plugins. Пожалуйста, создайте следующий каталог: %s"
 
 #: compatibility.php:157
 msgid ""
 "Pressbooks could not copy the autoloader from %1$s to %2$s. Please copy the "
 "file manually."
-msgstr ""
+msgstr "Pressbooks не удалось скопировать автозагрузчик из% 1$s в% 2$s. Пожалуйста, скопируйте файл вручную."
 
 #: compatibility.php:172
 msgid ""
@@ -105,7 +106,7 @@ msgstr "Если эта функция включена, на странице �
 #: inc/admin/analytics/namespace.php:111
 msgid ""
 "The Google Analytics ID for your book, e.g. &lsquo;UA-01234567-8&rsquo;."
-msgstr ""
+msgstr "Идентификатор Google Analytics для вашей книги, например &lsquo;UA-01234567-8&rsquo;."
 
 #: inc/admin/analytics/namespace.php:128
 msgid "Google Analytics settings."
