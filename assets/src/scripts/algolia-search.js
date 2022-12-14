@@ -18,7 +18,7 @@ const search = instantsearch( {
 		// Ensure we only trigger a search when there's a query
 		if ( helper.state.query ) {
 			helper
-				.setQueryParameter( 'facets', ['licenseCode'] )
+				.setQueryParameter( 'facets', [ 'licenseCode' ] )
 				.addFacetExclusion( 'licenseCode', 'All Rights Reserved' )
 				.addFacetExclusion( 'licenseCode', 'CC BY-BC-ND' )
 				.addFacetExclusion( 'licenseCode', 'CC BY-ND' )
