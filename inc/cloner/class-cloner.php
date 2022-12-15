@@ -2076,7 +2076,6 @@ class Cloner {
 		return (bool) $enable_cloning;
 	}
 
-
 	/**
 	 * Notify the source book that a clone has been completed.
 	 *
@@ -2095,7 +2094,7 @@ class Cloner {
 				if ( $switch ) {
 					switch_to_blog( $local_book );
 				}
-				$request = new \WP_REST_Request( 'POST', "/pressbooks/v2/clone/complete" );
+				$request = new \WP_REST_Request( 'POST', '/pressbooks/v2/clone/complete' );
 				$request->set_body_params( $params );
 				$response = rest_do_request( $request );
 
