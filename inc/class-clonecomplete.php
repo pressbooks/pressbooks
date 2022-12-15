@@ -4,7 +4,7 @@ namespace Pressbooks;
 
 class CloneComplete {
 
-	public static string $table = 'pb_clones_complete';
+	public static string $table = 'pressbooks_clones_complete';
 
 	public static function install(): void {
 		static::createTable();
