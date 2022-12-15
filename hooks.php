@@ -345,3 +345,9 @@ add_filter( 'admin_email_check_interval', '__return_false' );
 add_filter( 'init', [ '\Pressbooks\BookDirectory', 'init' ], 10, 2 );
 
 add_action( 'activated_plugin', '\Pressbooks\Utility\delete_options_cached' );
+
+// Clone complete table
+register_deactivation_hook( __FILE__, [ \Pressbooks\CloneComplete::class, 'uninstall' ] );
+add_action( 'init', [ \Pressbooks\CloneComplete::class, 'install' ] );
+
+

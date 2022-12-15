@@ -135,6 +135,11 @@ class Toc extends \WP_REST_Controller {
 				'type' => 'integer',
 				'readonly' => true,
 			],
+			'clone_token' => [
+				'description' => __( 'Clone token to send when clone succeed.', 'pressbooks' ),
+				'type' => 'string',
+				'readonly' => true,
+			],
 			'link' => [
 				'description' => __( 'URL to the object.' ),
 				'type' => 'string',
@@ -266,9 +271,11 @@ class Toc extends \WP_REST_Controller {
 			$has_permission = true;
 		}
 
-		$struct = $this->fixBookStructure( $struct, $has_permission );
+		$toc = $this->fixBookStructure( $struct, $has_permission );
+		$clone_tokens = new \Pressbooks\CloneTokens();
+		$toc['clone_tokens'] = $clone_tokens->generateToken();
 
-		$response = rest_ensure_response( $struct );
+		$response = rest_ensure_response( $toc );
 		$this->linkCollector['self'] = [
 			'href' => rest_url( sprintf( '%s/%s', $this->namespace, $this->rest_base ) ),
 		];

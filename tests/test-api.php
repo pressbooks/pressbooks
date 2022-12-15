@@ -499,6 +499,35 @@ class ApiTest extends \WP_UnitTestCase {
 	 * @test
 	 * @group api
 	 */
+	public function clone_token_is_valid(): void {
+		$this->_book();
+		new Posts('front-matter');
+		$post1 = [
+			'post_type'    => 'front-matter',
+			'post_title'   => 'Front matter title I',
+			'post_content' => 'This is a front matter content I',
+			'post_status'  => 'publish',
+		];
+		$post2 = [
+			'post_type'    => 'front-matter',
+			'post_title'   => 'Front matter title II',
+			'post_content' => 'This is a front matter content II',
+			'post_status'  => 'private',
+		];
+		$this->factory()->post->create_object( $post1 );
+		$this->factory()->post->create_object( $post2 );
+
+		$server = $this->_setupRootApi();
+		$request = new \WP_REST_Request( 'GET', '/pressbooks/v2/toc' );
+		$response = $server->dispatch( $request );
+		$data = $response->get_data();
+		$this->assertIsString( $data['clone_tokens'] );
+	}
+
+	/**
+	 * @test
+	 * @group api
+	 */
 	public function get_password_protected_posts(): void {
 		$this->_book();
 		new Posts('back-matter');

@@ -45,6 +45,9 @@ function init_book() {
 	// Register Theme Options
 	( new Endpoints\Controller\Theme() )->register_routes();
 
+	// Register Clone Complete
+	( new Endpoints\Controller\CloneComplete( new \Pressbooks\CloneTokens() ) )->register_routes();
+
 	foreach ( [ 'front-matter', 'back-matter', 'chapter', 'glossary' ] as $post_type ) {
 		( new Endpoints\Controller\SectionMetadata( $post_type ) )->register_routes();
 	}
