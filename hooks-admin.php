@@ -48,6 +48,7 @@ add_filter( 'admin_footer_text', '\Pressbooks\Admin\Laf\add_footer_link' );
 
 // Dashboard settings
 add_action( 'admin_menu', '\Pressbooks\Admin\Laf\add_pb_cloner_page', 1 );
+add_action( 'admin_menu', '\Pressbooks\Admin\Laf\add_cloning_stats_page', 1 );
 add_action( 'wp_user_dashboard_setup', '\Pressbooks\Admin\Laf\add_pb_cloner_page', 1 );
 add_action( 'admin_menu', '\Pressbooks\Admin\Diagnostics\add_menu', 30 );
 add_action( 'init', [ '\Pressbooks\Admin\SiteMap', 'init' ] );

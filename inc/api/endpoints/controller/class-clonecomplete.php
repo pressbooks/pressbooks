@@ -2,6 +2,8 @@
 
 namespace Pressbooks\Api\Endpoints\Controller;
 
+use Pressbooks\CloneTokens;
+
 class CloneComplete extends \WP_REST_Controller {
 
 	/**
@@ -15,14 +17,14 @@ class CloneComplete extends \WP_REST_Controller {
 	protected $rest_base = 'complete';
 
 	/**
-	 * @var \Pressbooks\CloneTokens
+	 * @var CloneTokens
 	 */
 	protected $clone_tokens;
 
 	/**
-	 * @param \Pressbooks\CloneTokens $clone_tokens
+	 * @param CloneTokens $clone_tokens
 	 */
-	public function __construct( \Pressbooks\CloneTokens $clone_tokens ) {
+	public function __construct( CloneTokens $clone_tokens ) {
 		$this->clone_tokens = $clone_tokens;
 	}
 
@@ -45,6 +47,9 @@ class CloneComplete extends \WP_REST_Controller {
 							'required' => true,
 							'validate_callback' => [ $this, 'validateUrl' ],
 						],
+						'name' => [
+							'required' => true,
+						],
 					],
 				],
 			]
@@ -59,7 +64,7 @@ class CloneComplete extends \WP_REST_Controller {
 	public function cloneComplete( \WP_REST_Request $request ): \WP_REST_Response {
 		$clone_complete = new \Pressbooks\CloneComplete();
 		global $blog_id;
-		$clone_complete->store( $blog_id, $request->get_param( 'url' ) );
+		$clone_complete->store( $blog_id, $request->get_param( 'url' ), $request->get_param( 'name' ) );
 		return new \WP_REST_Response( [ 'success' => true ], 200 );
 	}
 
