@@ -136,7 +136,7 @@ class Toc extends \WP_REST_Controller {
 				'readonly' => true,
 			],
 			'clone_token' => [
-				'description' => __( 'Clone token to send when clone succeed.', 'pressbooks' ),
+				'description' => __( 'Clone token.', 'pressbooks' ),
 				'type' => 'string',
 				'readonly' => true,
 			],
@@ -273,7 +273,7 @@ class Toc extends \WP_REST_Controller {
 
 		$toc = $this->fixBookStructure( $struct, $has_permission );
 		$clone_tokens = new \Pressbooks\CloneTokens();
-		$toc['clone_tokens'] = $clone_tokens->generateToken();
+		$toc['clone_token'] = $clone_tokens->generateToken();
 
 		$response = rest_ensure_response( $toc );
 		$this->linkCollector['self'] = [

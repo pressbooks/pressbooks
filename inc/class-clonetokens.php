@@ -35,16 +35,12 @@ class CloneTokens {
 	 * @return bool
 	 */
 	public function isTokenValid( string $token ): bool {
+		$this->tokens = get_option( $this->option_name, [] );
 		$this->removeExpiredTokens();
 		if ( isset( $this->tokens[ $token ] ) ) {
-			if ( $this->tokens[ $token ] ) {
-				unset( $this->tokens[ $token ] );
-				$this->save();
-				return true;
-			} else {
-				unset( $this->tokens[ $token ] );
-				$this->save();
-			}
+			unset( $this->tokens[ $token ] );
+			$this->save();
+			return true;
 		}
 		return false;
 	}
@@ -66,13 +62,6 @@ class CloneTokens {
 	 */
 	protected function save(): void {
 		update_option( $this->option_name, $this->tokens );
-	}
-
-	/**
-	 * @return void
-	 */
-	public function __construct() {
-		$this->tokens = get_option( $this->option_name, [] );
 	}
 
 }
