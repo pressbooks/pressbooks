@@ -4,7 +4,9 @@
  */
 namespace Pressbooks\Admin\Dashboard;
 
+use function Pressbooks\Admin\Laf\can_create_new_books;
 use PressbooksMix\Assets;
+use Pressbooks\Cloner\Cloner;
 use Pressbooks\Container;
 
 class NewUserDashboard {
@@ -81,6 +83,8 @@ class NewUserDashboard {
 
 		echo $blade->render( 'admin.dashboard.new-user', [
 			'site_name' => get_bloginfo( 'name' ),
+			'can_create_new_books' => can_create_new_books(),
+			'can_clone_books' => Cloner::isEnabled() && ( can_create_new_books() || is_super_admin() ),
 			'invitations' => Invitations::getPendingInvitations(),
 		] );
 	}
