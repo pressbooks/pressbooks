@@ -9,13 +9,14 @@
 			</div>
 		</div>
 	</div>
-	<div class="pb-dashboard-row">
-		@if($invitations->isNotEmpty())
+
+	@if( $invitations->isNotEmpty() )
+		<div class="pb-dashboard-row">
 			<div class="pb-dashboard-panel pb-dashboard-invitations">
 				<div class="pb-dashboard-content">
 					<h2>{{ __( 'Book Invitations', 'pressbooks' ) }}</h2>
 
-					@foreach($invitations as $invitation)
+					@foreach( $invitations as $invitation )
 						<div class="invitation">
 							<p>{!! sprintf( __( 'You have been invited to join %1$s as %2$s', 'pressbooks' ), $invitation['book_url'], $invitation['role'] ) !!}</p>
 							<a class="button button-primary" href="{{ $invitation['accept_link'] }}">{{ __( 'Accept', 'pressbooks' ) }}</a>
@@ -23,8 +24,8 @@
 					@endforeach
 				</div>
 			</div>
-		@endif
-	</div>
+		</div>
+	@endif
 
 	@if( $can_create_new_books || $can_clone_books )
 		<div class="pb-dashboard-row">
