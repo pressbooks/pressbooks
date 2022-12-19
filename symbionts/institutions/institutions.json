@@ -4031,6 +4031,11 @@
             "code": "US-GA-067",
             "name": "Wiregrass Georgia Technical College",
             "url": "https:\/\/www.wiregrass.edu\/"
+          },
+           {
+            "code": "US-GA-068",
+            "name": "Atlanta University Center",
+            "url": "https:\/\/aucenter.edu/\/"
           }
         ]
       },
@@ -12741,6 +12746,16 @@
             "code": "US-WA-056",
             "name": "Yakima Valley College",
             "url": "https:\/\/www.yvcc.edu\/"
+          },
+          {
+            "code": "US-WA-057",
+            "name": "Seattle Colleges District",
+            "url": "https:\/\/www.seattlecolleges.edu/\/"
+          },
+          {
+            "code": "US-WA-058",
+            "name": "Community Colleges of Spokane District",
+            "url": "https:\/\/ccs.spokane.edu/\/"
           }
         ]
       },
