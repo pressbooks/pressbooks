@@ -26,49 +26,55 @@
 		@endif
 	</div>
 
-	<div class="pb-dashboard-row">
-		<div class="pb-dashboard-grid">
-			<div class="pb-dashboard-panel">
-				<div class="pb-dashboard-image">
-					<img
-						src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-create-book.png" }}"
-						alt="{{ __( 'Create a new book art', 'pressbooks' ) }}"
-					/>
-				</div>
+	@if( $can_create_new_books || $can_clone_books )
+		<div class="pb-dashboard-row">
+			<div class="pb-dashboard-grid">
+				@if( $can_create_new_books )
+					<div class="pb-dashboard-panel">
+						<div class="pb-dashboard-image">
+							<img
+								src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-create-book.png" }}"
+								alt="{{ __( 'Create a new book art', 'pressbooks' ) }}"
+							/>
+						</div>
 
-				<div class="pb-dashboard-content">
-					<h2>{{ __( 'Create a book', 'pressbooks' ) }}</h2>
+						<div class="pb-dashboard-content">
+							<h2>{{ __( 'Create a book', 'pressbooks' ) }}</h2>
 
-					<p>{{ __( 'Create a new book full of engaging content: words, images, audio, video, footnotes, glossary terms, mathematical formula, interactive quizzes, and more.', 'pressbooks' ) }}</p>
-				</div>
+							<p>{{ __( 'Create a new book full of engaging content: words, images, audio, video, footnotes, glossary terms, mathematical formula, interactive quizzes, and more.', 'pressbooks' ) }}</p>
+						</div>
 
-				<div class="pb-dashboard-action">
-					<a class="button button-hero button-primary" href="{{ network_home_url( 'wp-signup.php' ) }}">
-						{{ __( 'Create a book', 'pressbooks' ) }}
-					</a>
-				</div>
-			</div>
+						<div class="pb-dashboard-action">
+							<a class="button button-hero button-primary" href="{{ network_home_url( 'wp-signup.php' ) }}">
+								{{ __( 'Create a book', 'pressbooks' ) }}
+							</a>
+						</div>
+					</div>
+				@endif
 
-			<div class="pb-dashboard-panel">
-				<div class="pb-dashboard-image">
-					<img
-						src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-adapt-book.png" }}"
-						alt="{{ __( 'Adapt a book art', 'pressbooks' ) }}"
-					/>
-				</div>
+				@if( $can_clone_books )
+					<div class="pb-dashboard-panel">
+						<div class="pb-dashboard-image">
+							<img
+								src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-adapt-book.png" }}"
+								alt="{{ __( 'Adapt a book art', 'pressbooks' ) }}"
+							/>
+						</div>
 
-				<div class="pb-dashboard-content">
-					<h2>{{ __( 'Adapt a book', 'pressbooks' ) }}</h2>
+						<div class="pb-dashboard-content">
+							<h2>{{ __( 'Adapt a book', 'pressbooks' ) }}</h2>
 
-					<p>{{ __( 'Use our cloning tool to make your own personalized copy of any of the thousands of openly licensed educational books already published with Pressbooks.', 'pressbooks' ) }}</p>
-				</div>
+							<p>{{ __( 'Use our cloning tool to make your own personalized copy of any of the thousands of openly licensed educational books already published with Pressbooks.', 'pressbooks' ) }}</p>
+						</div>
 
-				<div class="pb-dashboard-action">
-					<a class="button button-hero button-primary" href="{{ admin_url( 'admin.php?page=pb_cloner' ) }}">
-						{{ __( 'Adapt a book', 'pressbooks' ) }}
-					</a>
-				</div>
+						<div class="pb-dashboard-action">
+							<a class="button button-hero button-primary" href="{{ admin_url( 'admin.php?page=pb_cloner' ) }}">
+								{{ __( 'Adapt a book', 'pressbooks' ) }}
+							</a>
+						</div>
+					</div>
+				@endif
 			</div>
 		</div>
-	</div>
+	@endif
 </div>
