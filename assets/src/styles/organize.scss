@@ -57,6 +57,8 @@
     }
   }
 
+
+
   table {
     th {
       vertical-align: top;
@@ -72,8 +74,13 @@
     }
 
     td {
+      .row-title:focus-within .row-actions {
+        left: 0;
+      }
+
       .row-actions {
         font-weight: normal;
+        margin-left: 0;
 
         button {
           padding: 0;
@@ -95,18 +102,36 @@
     }
   }
 
+  tfoot {
+    display: none;
+  }
+
+  tr {
+    display: flex;
+    flex-direction: column;
+  }
+
   [role="alert"] {
     &.visually-hidden {
       @include visually-hidden;
     }
   }
-}
+  @media (min-width: 783px) {
+    table {
+      .author-label,
+      input + label {
+        @include visually-hidden;
+      }
+    }
 
-@media (min-width: 783px) {
-  table {
-    .author-label,
-    input + label {
-      @include visually-hidden;
+    tr {
+      display: table-row;
+    }
+
+    tfoot {
+      display: table-footer-group;
     }
   }
 }
+
+
