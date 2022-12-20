@@ -11,7 +11,7 @@
 </div>
 @if($cloning_stats)
 <div class="pb-cloner stats wrap">
-	<h2 class="section-title">{{ __( 'Clones information', 'pressbooks' ) }}</h2>
+	<h2 class="section-title">{{ __( 'Clones made from this book:', 'pressbooks' ) }}</h2>
 	<ol>
 		@foreach($cloning_stats as $clone)
 			<li>
