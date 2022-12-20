@@ -44,6 +44,8 @@ class Book {
 
 	const IS_CLONE = 'pb_is_clone';
 
+	const IS_BASED_ON = 'pb_is_based_on';
+
 	const HAS_EXPORTS = 'pb_has_exports';
 
 	const LAST_EXPORT = 'pb_last_export';
@@ -332,6 +334,7 @@ class Book {
 
 		// pb_is_based_on
 		update_site_meta( $book_id, self::IS_CLONE, empty( $metadata['pb_is_based_on'] ) ? 0 : 1 );
+		update_site_meta( $book_id, self::IS_BASED_ON, $metadata['pb_is_based_on'] ?? null );
 
 		// pb_total_revisions
 		$revisions = $this->revisions();
@@ -512,12 +515,27 @@ class Book {
 
 	/**
 	 * @param string $meta_key
-	 *
+	 * @param bool $in_catalog If true, will only consider books added to the network catalog.
 	 * @return array
 	 */
-	public function getPossibleValuesFor( $meta_key ) {
+	public function getPossibleValuesFor( string $meta_key, bool $in_catalog = false ): array {
 		global $wpdb;
-		return $wpdb->get_col( $wpdb->prepare( "SELECT meta_value FROM {$wpdb->blogmeta} WHERE meta_key = %s AND meta_value <> '' GROUP BY meta_value ORDER BY meta_value ", $meta_key ) );
+
+		$filter = $in_catalog ?
+			"AND blog_id IN (SELECT blog_id FROM {$wpdb->blogmeta} WHERE meta_key = 'pb_in_catalog' AND meta_value = 1)"
+			: '';
+
+		$query = <<<SQL
+SELECT meta_value
+FROM {$wpdb->blogmeta}
+WHERE meta_key = %s
+  AND meta_value <> ''
+  {$filter}
+GROUP BY meta_value
+ORDER BY meta_value
+SQL;
+
+		return $wpdb->get_col( $wpdb->prepare( $query, $meta_key ) ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 	}
 
 	/**

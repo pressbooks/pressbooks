@@ -437,7 +437,7 @@ abstract class Generator {
 			$doc->setDocumentContent( $document_content );
 			$doc->setName( get_bloginfo( 'name' ) . ' Cover' );
 			$doc->setPrinceOptions( $prince_options );
-			$doc->setPipeline( 9 ); // Prince 14, see: https://docraptor.com/documentation/api#api_pipeline
+			$doc->setPipeline( 9.2 ); // Prince 14.3, see: https://docraptor.com/documentation/api#api_pipeline
 
 			$create_response = $docraptor->createAsyncDoc( $doc );
 			$done = false;
@@ -459,6 +459,7 @@ abstract class Generator {
 						$done = true;
 						break;
 					case 'failed':
+						// TODO: are these done in the wrong order? $done will never be set to true here, I don't think
 						wp_die( $status_response );
 						$done = true;
 						break;

@@ -260,12 +260,27 @@ class DataCollector_BookTest extends \WP_UnitTestCase {
 		update_site_meta( 3, BookDataCollector::THEME, 'Luther' );
 		update_site_meta( 4, BookDataCollector::THEME, 'King, Of, The, Hill' );
 
-		$x = $this->bookDataCollector->getPossibleValuesFor( BookDataCollector::THEME );
+		update_site_meta( 1, BookDataCollector::IN_CATALOG, 1 );
+		update_site_meta( 2, BookDataCollector::IN_CATALOG, 0 );
+		update_site_meta( 3, BookDataCollector::IN_CATALOG, 1 );
+		update_site_meta( 4, BookDataCollector::IN_CATALOG, 0 );
 
-		$this->assertContains( 'McLuhan', $x );
-		$this->assertContains( 'Clarke', $x );
-		$this->assertContains( 'Luther', $x );
-		$this->assertContains( 'King, Of, The, Hill', $x );
+		$themes = $this->bookDataCollector->getPossibleValuesFor( BookDataCollector::THEME );
+
+		$this->assertCount( 4, $themes );
+		$this->assertContains( 'McLuhan', $themes );
+		$this->assertContains( 'Clarke', $themes );
+		$this->assertContains( 'Luther', $themes );
+		$this->assertContains( 'King, Of, The, Hill', $themes );
+
+		$catalog_themes = $this->bookDataCollector->getPossibleValuesFor(
+			BookDataCollector::THEME,
+			$in_catalog = true
+		);
+
+		$this->assertCount( 2, $catalog_themes );
+		$this->assertContains( 'McLuhan', $catalog_themes );
+		$this->assertContains( 'Luther', $catalog_themes );
 	}
 
 	/**

@@ -32,7 +32,7 @@
 		"aws/aws-sdk-php": "^3.173",
 		"composer/installers": "^2.1",
 		"davidgorges/human-name-parser": "^1.0",
-		"docraptor/docraptor": "^3.0",
+		"docraptor/docraptor": "^4.0",
 		"fale/isbn": "^3.0",
 		"gridonic/princexml-php": "^1.2",
 		"illuminate/container": "^8.0",
@@ -55,7 +55,7 @@
 		"vanilla/htmlawed": "^2.2",
 		"phpcompatibility/php-compatibility": "^9.3",
 		"vlucas/phpdotenv": "^5.4",
-		"symfony/process": "^5.4"
+		"symfony/process": "^6.0"
 	},
 	"require-dev": {
 		"codeception/module-asserts": "^1.3",

@@ -47,21 +47,18 @@ add_action( 'admin_head', '\Pressbooks\Admin\Branding\favicon' );
 add_filter( 'admin_footer_text', '\Pressbooks\Admin\Laf\add_footer_link' );
 
 // Dashboard settings
-add_action( 'admin_init', '\Pressbooks\Admin\Dashboard\dashboard_options_init' );
-add_action( 'network_admin_menu', '\Pressbooks\Admin\Dashboard\add_menu', 2 );
 add_action( 'admin_menu', '\Pressbooks\Admin\Laf\add_pb_cloner_page', 1 );
 add_action( 'wp_user_dashboard_setup', '\Pressbooks\Admin\Laf\add_pb_cloner_page', 1 );
-add_action( 'admin_menu', '\Pressbooks\Admin\Dashboard\add_menu', 1 );
 add_action( 'admin_menu', '\Pressbooks\Admin\Diagnostics\add_menu', 30 );
 add_action( 'init', [ '\Pressbooks\Admin\SiteMap', 'init' ] );
 add_action( 'init', '\Pressbooks\Admin\Laf\remove_emoji' );
-add_action( 'wp_user_dashboard_setup', '\Pressbooks\Admin\Dashboard\lowly_user' );
 remove_action( 'welcome_panel', 'wp_welcome_panel' );
 
 if ( $is_book ) {
 	// Aggressively replace default interface
 	add_action( 'init', [ '\Pressbooks\Modules\SearchAndReplace\SearchAndReplace', 'init' ] );
 	add_action( 'after_setup_theme', [ '\Pressbooks\Modules\ThemeOptions\Admin', 'init' ] );
+	add_action( 'plugins_loaded', [ \Pressbooks\Admin\Dashboard\BookDashboard::class, 'init' ] );
 	add_action( 'admin_init', '\Pressbooks\Redirect\redirect_away_from_bad_urls' );
 	add_action( 'admin_menu', '\Pressbooks\Admin\Laf\replace_book_admin_menu', 1 );
 	add_filter( 'custom_menu_order', '__return_true' );
@@ -69,7 +66,6 @@ if ( $is_book ) {
 	add_action( 'admin_menu', [ '\Pressbooks\Admin\Delete\Book', 'init' ] );
 	add_filter( 'parent_file', '\Pressbooks\Admin\Laf\fix_parent_file' );
 	add_filter( 'submenu_file', '\Pressbooks\Admin\Laf\fix_submenu_file', 10, 2 );
-	add_action( 'wp_dashboard_setup', '\Pressbooks\Admin\Dashboard\replace_dashboard_widgets' );
 	add_action( 'customize_register', '\Pressbooks\Admin\Laf\customize_register', 1000 );
 	add_filter( 'all_plugins', '\Pressbooks\Admin\Plugins\filter_plugins' );
 	add_filter( 'set-screen-option', '\Pressbooks\Admin\Laf\custom_screen_options', 10, 3 );
@@ -83,12 +79,8 @@ if ( $is_book ) {
 	// See Pressbooks\Privacy::addPrivacyPolicyContent() for reference.
 }
 
-if ( is_network_admin() ) {
-	add_action( 'wp_network_dashboard_setup', '\Pressbooks\Admin\Dashboard\replace_network_dashboard_widgets' );
-}
-
 if ( true === is_main_site() ) {
-	add_action( 'wp_dashboard_setup', '\Pressbooks\Admin\Dashboard\replace_root_dashboard_widgets' );
+	add_action( 'plugins_loaded', [ \Pressbooks\Admin\Dashboard\NewUserDashboard::class, 'init' ] );
 }
 
 // Replace strings
