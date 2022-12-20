@@ -39,7 +39,7 @@ class CloneComplete {
 	public static function dropTable(): void {
 		global $wpdb;
 		$table = static::$table;
-		$wpdb->query( "DROP TABLE IF EXISTS {$wpdb->base_prefix}{$table}" ); // @codingStandardsIgnoreLine
+		$result = $wpdb->query( "DROP TABLE IF EXISTS {$wpdb->base_prefix}{$table}" ); // @codingStandardsIgnoreLine
 	}
 
 	/**
@@ -62,12 +62,11 @@ class CloneComplete {
 		);
 	}
 
-	public static function getCloningStats()
-	{
+	public static function getCloningStats() {
 		global $wpdb;
 		$table = static::$table;
 		$blog_id = get_current_blog_id();
-		return $wpdb->get_results( "SELECT * FROM {$wpdb->base_prefix}{$table} WHERE blog_id = $blog_id" );
+		return $wpdb->get_results( "SELECT * FROM {$wpdb->base_prefix}{$table} WHERE blog_id = $blog_id" ); // @codingStandardsIgnoreLine
 	}
 
 }

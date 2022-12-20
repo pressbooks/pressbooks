@@ -14,8 +14,6 @@
 
 namespace Pressbooks\Admin\Laf;
 
-use Pressbooks\CloneComplete;
-use Pressbooks\Container;
 use function Pressbooks\Admin\NetworkManagers\is_restricted;
 use function Pressbooks\PostType\get_post_type_label;
 use function Pressbooks\Sanitize\sanitize_string;
@@ -26,7 +24,9 @@ use Pressbooks\Admin\Network\SharingAndPrivacyOptions;
 use Pressbooks\Admin\PublishOptions;
 use Pressbooks\Book;
 use Pressbooks\BookDirectory;
+use Pressbooks\CloneComplete;
 use Pressbooks\Cloner\Cloner;
+use Pressbooks\Container;
 use Pressbooks\DataCollector\Book as DataCollector;
 use Pressbooks\Metadata;
 use WP_Error;
@@ -638,8 +638,7 @@ function add_pb_cloner_page() {
 	);
 }
 
-function add_cloning_stats_page()
-{
+function add_cloning_stats_page() {
 	add_management_page(
 		__( 'Cloning Stats', 'pressbooks' ),
 		__( 'Cloning Stats', 'pressbooks' ),
@@ -679,7 +678,7 @@ function display_export() {
  */
 function display_cloner() {
 	$blade = Container::get( 'Blade' );
-	echo $blade->render( 'admin.cloner.page' ,
+	echo $blade->render( 'admin.cloner.page',
 		[
 			'base_url' => network_home_url(),
 			'domain' => wp_parse_url( network_home_url(), PHP_URL_HOST ),
@@ -692,7 +691,7 @@ function display_cloning_stats() {
 	echo $blade->render( 'admin.cloner.stats',
 		[
 			'book' => get_blog_details(),
-			'cloning_stats' => CloneComplete::getCloningStats()
+			'cloning_stats' => CloneComplete::getCloningStats(),
 		]
 	);
 }
