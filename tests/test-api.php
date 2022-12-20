@@ -521,7 +521,7 @@ class ApiTest extends \WP_UnitTestCase {
 		$request = new \WP_REST_Request( 'GET', '/pressbooks/v2/toc' );
 		$response = $server->dispatch( $request );
 		$data = $response->get_data();
-		$this->assertIsString( $data['clone_tokens'] );
+		$this->assertIsString( $data['clone_token'] );
 	}
 
 	/**
