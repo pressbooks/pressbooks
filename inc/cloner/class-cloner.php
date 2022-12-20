@@ -2091,15 +2091,15 @@ class Cloner {
 				'name' => $this->targetBookTitle,
 			];
 			if ( $local_book ) {
-				$switch = $local_book !== $blog_id;
-				if ( $switch ) {
+				$switch_book = $local_book !== $blog_id;
+				if ( $switch_book ) {
 					switch_to_blog( $local_book );
 				}
 				$request = new \WP_REST_Request( 'POST', '/pressbooks/v2/clone/complete' );
 				$request->set_body_params( $params );
 				$response = rest_do_request( $request );
 
-				if ( $switch ) {
+				if ( $switch_book ) {
 					restore_current_blog();
 				}
 

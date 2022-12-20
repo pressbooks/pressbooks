@@ -55,6 +55,71 @@ class ApiTest extends \WP_UnitTestCase {
 
 	/**
 	 * @group api
+	 * @test
+	 */
+	public function clone_complete_endpoint_invalid_token(): void {
+		$server = $this->_setupRootApi();
+		$endpoint = '/pressbooks/v2/clone/complete';
+		$request = new \WP_REST_Request( 'POST', $endpoint );
+		$request->set_body_params( [
+			'token' => 'invalid_token',
+			'url' => 'https://example.com',
+			'name' => 'Test',
+		] );
+		$response = $server->dispatch( $request );
+		$this->assertEquals( 400, $response->get_status() );
+		$data = $response->get_data();
+		$this->assertEquals( 'rest_invalid_param', $data['code'] );
+		$this->assertEquals( 'Invalid parameter(s): token', $data['message'] );
+	}
+
+	/**
+	 * @group api
+	 * @test
+	 */
+	public function clone_complete_endpoint_valid_token(): void {
+		$tokens = new \Pressbooks\CloneTokens();
+		$token = $tokens->generateToken();
+
+		$server = $this->_setupRootApi();
+		$endpoint = '/pressbooks/v2/clone/complete';
+		$request = new \WP_REST_Request( 'POST', $endpoint );
+		$request->set_body_params( [
+			'token' => $token,
+			'url' => 'https://example.com',
+			'name' => 'Test',
+		] );
+		$response = $server->dispatch( $request );
+		$this->assertEquals( 200, $response->get_status() );
+		$data = $response->get_data();
+		$this->assertTrue( $data['success'] );
+	}
+
+	/**
+	 * @group api
+	 * @test
+	 */
+	public function clone_complete_endpoint_valid_token_with_invalid_url(): void {
+		$tokens = new \Pressbooks\CloneTokens();
+		$token = $tokens->generateToken();
+
+		$server = $this->_setupRootApi();
+		$endpoint = '/pressbooks/v2/clone/complete';
+		$request = new \WP_REST_Request( 'POST', $endpoint );
+		$request->set_body_params( [
+			'token' => $token,
+			'url' => 'invalid_url',
+			'name' => 'Test',
+		] );
+		$response = $server->dispatch( $request );
+		$this->assertEquals( 400, $response->get_status() );
+		$data = $response->get_data();
+		$this->assertEquals( 'rest_invalid_param', $data['code'] );
+		$this->assertEquals( 'Invalid parameter(s): url', $data['message'] );
+	}
+
+	/**
+	 * @group api
 	 */
 	public function test_booksEndpointStylesResponse() {
 		$this->_book();
