@@ -174,7 +174,7 @@ class Admin_LafTest extends \WP_UnitTestCase {
 		include_once( ABSPATH . '/wp-admin/menu.php' );
 		\Pressbooks\Admin\Laf\add_cloning_stats_page();
 		$this->assertArrayHasKey( 'tools.php', $submenu );
-		$this->assertContains( 'Cloning Stats', $submenu['tools.php'][0] );
+		$this->assertContains( 'Cloning Stats', $submenu['tools.php'][36] );
 	}
 
 	/**
