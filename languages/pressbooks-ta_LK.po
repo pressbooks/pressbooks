@@ -4671,7 +4671,7 @@ msgid "Begin Import"
 msgstr "இறக்குமதிசெய்ய ஆரம்பிக்கவும்"
 
 #: templates/admin/organize.php:42 templates/admin/organize.php:44
-msgid "This book's global privacy is set to"
+msgid "This book’s global privacy is set to"
 msgstr "இப்புத்தகத்தின் பொதுவான தனிஉரிமை "
 
 #. translators: %s: URL to Pressbooks Directory

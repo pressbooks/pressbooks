@@ -4683,7 +4683,7 @@ msgid "Begin Import"
 msgstr "Comenzar con la importación"
 
 #: templates/admin/organize.php:42 templates/admin/organize.php:44
-msgid "This book's global privacy is set to"
+msgid "This book’s global privacy is set to"
 msgstr "El estado de privacidad de este libro es"
 
 #. translators: %s: URL to Pressbooks Directory

@@ -4684,7 +4684,7 @@ msgid "Begin Import"
 msgstr "Pradėkite Importuoti"
 
 #: templates/admin/organize.php:42 templates/admin/organize.php:44
-msgid "This book's global privacy is set to"
+msgid "This book’s global privacy is set to"
 msgstr "Šios knygos globalinis privatumas yra nustatytas"
 
 #. translators: %s: URL to Pressbooks Directory

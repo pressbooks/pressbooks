@@ -640,7 +640,45 @@ function add_pb_cloner_page() {
  * Displays the Organize page.
  */
 function display_organize() {
-	require( PB_PLUGIN_DIR . 'templates/admin/organize.php' );
+	$blade = \Pressbooks\Container::get( 'Blade' );
+	$book_structure = \Pressbooks\Book::getBookStructure();
+	$ebook_options = get_option( 'pressbooks_theme_options_ebook' );
+	echo $blade->render(
+		'admin.organize',
+		[
+			'statuses' => get_post_stati( [], 'objects' ),
+			'book_structure' => $book_structure,
+			'parts' => count( $book_structure['part'] ),
+			'meta_post' => ( new \Pressbooks\Metadata() )->getMetaPost(),
+			'book_is_public' => ( ! empty( get_option( 'blog_public' ) ) ) ? 1 : 0,
+			'disable_comments' => \Pressbooks\Utility\disable_comments(),
+			'wc' => \Pressbooks\Book::wordCount(),
+			'wc_selected_for_export' => \Pressbooks\Book::wordCount( true ),
+			'can_manage_options' => current_user_can( 'manage_options' ),
+			'can_edit_posts' => current_user_can( 'edit_posts' ),
+			'can_edit_others_posts' => current_user_can( 'edit_others_posts' ),
+			'contributors' => new \Pressbooks\Contributors(),
+			'start_point' => false,
+			'ebook_options' => $ebook_options,
+			'start_point' => ( isset( $ebook_options['ebook_start_point'] ) && ! empty( $ebook_options['ebook_start_point'] ) )
+				? (int) $ebook_options['ebook_start_point']
+				: null,
+			'types' => [
+				'front-matter' => [
+					'name' => __( 'Front Matter', 'pressbooks' ),
+					'abbreviation' => 'fm',
+				],
+				'chapter' => [
+					'name' => __( 'Chapter', 'pressbooks' ),
+					'abbreviation' => 'chapter',
+				],
+				'back-matter' => [
+					'name' => __( 'Back Matter', 'pressbooks' ),
+					'abbreviation' => 'bm',
+				],
+			],
+		]
+	);
 }
 
 /**
