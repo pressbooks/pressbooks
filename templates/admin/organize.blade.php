@@ -29,20 +29,20 @@
 	<h1 class="wp-heading-inline">{{ get_bloginfo( 'name' ) }}</h1>
 		@if ( is_super_admin() )
 		<div class="page-title-actions">
-			<a class="page-title-action" href="{{ admin_url( 'edit.php?post_type=front-matter' ) }}">{{ __( 'Front Matter', 'pressbooks' ) }}</a>
-			<a class="page-title-action" href="{{ admin_url( 'edit.php?post_type=chapter' ) }}">{{ __( 'Chapters', 'pressbooks' ) }}</a>
-			<a class="page-title-action" href="{{ admin_url( 'edit.php?post_type=back-matter' ) }}">{{ __( 'Back Matter', 'pressbooks' ) }}</a>
-			<a class="page-title-action" href="{{ admin_url( 'edit.php?post_type=part' ) }}">{{ __( 'Parts', 'pressbooks' ) }}</a>
-			<a class="page-title-action" href="{{ admin_url( 'edit.php?post_type=glossary' ) }}">{{ __( 'Glossary', 'pressbooks' ) }}</a>
+			<a class="page-title-action" href="{!! admin_url( 'edit.php?post_type=front-matter' ) !!}">{{ __( 'Front Matter', 'pressbooks' ) }}</a>
+			<a class="page-title-action" href="{!! admin_url( 'edit.php?post_type=chapter' ) !!}">{{ __( 'Chapters', 'pressbooks' ) }}</a>
+			<a class="page-title-action" href="{!! admin_url( 'edit.php?post_type=back-matter' ) !!}">{{ __( 'Back Matter', 'pressbooks' ) }}</a>
+			<a class="page-title-action" href="{!! admin_url( 'edit.php?post_type=part' ) !!}">{{ __( 'Parts', 'pressbooks' ) }}</a>
+			<a class="page-title-action" href="{!! admin_url( 'edit.php?post_type=glossary' ) !!}">{{ __( 'Glossary', 'pressbooks' ) }}</a>
 		</div>
 		@elseif ( $can_edit_posts )
 		<div class="page-title-actions">
-			<a class="page-title-action" href="{{ admin_url( 'admin.php?page=pb_export' ) }}">{{ __( 'Export', 'pressbooks' ) }}</a>
-			<a class="page-title-action" href="{{ admin_url( 'post-new.php?post_type=front-matter' ) }}">{{ __( 'Add Front Matter', 'pressbooks' ) }}</a>
-			<a class="page-title-action" href="{{ admin_url( 'post-new.php?post_type=back-matter' ) }}">{{ __( 'Add Back Matter', 'pressbooks' ) }}</a>
-			<a class="page-title-action" href="{{ admin_url( 'post-new.php?post_type=chapter' ) }}">{{ __( 'Add Chapter', 'pressbooks' ) }}</a>
-			<a class="page-title-action" href="{{ admin_url( 'post-new.php?post_type=part' ) }}">{{ __( 'Add Part', 'pressbooks' ) }}</a>
-			<a class="page-title-action" href="{{ admin_url( 'post-new.php?post_type=glossary' ) }}">{{ __( 'Add Glossary Term', 'pressbooks' ) }}</a>
+			<a class="page-title-action" href="{!! admin_url( 'admin.php?page=pb_export' ) !!}">{{ __( 'Export', 'pressbooks' ) }}</a>
+			<a class="page-title-action" href="{!! admin_url( 'post-new.php?post_type=front-matter' ) !!}">{{ __( 'Add Front Matter', 'pressbooks' ) }}</a>
+			<a class="page-title-action" href="{!! admin_url( 'post-new.php?post_type=back-matter' ) !!}">{{ __( 'Add Back Matter', 'pressbooks' ) }}</a>
+			<a class="page-title-action" href="{!! admin_url( 'post-new.php?post_type=chapter' ) !!}">{{ __( 'Add Chapter', 'pressbooks' ) }}</a>
+			<a class="page-title-action" href="{!! admin_url( 'post-new.php?post_type=part' ) !!}">{{ __( 'Add Part', 'pressbooks' ) }}</a>
+			<a class="page-title-action" href="{!! admin_url( 'post-new.php?post_type=glossary' ) !!}">{{ __( 'Add Glossary Term', 'pressbooks' ) }}</a>
 		</div>
 		@endif
 	<p class="word-count">
@@ -56,39 +56,34 @@
 				{{ $group['name'] }}
 			@else
 				{{ $group['title'] }}
+
 			@endif
 		</h2>
+		@if(str_contains($slug, 'part'))
+		<div class="part-actions">
+			@if ( current_user_can( 'edit_post', $group['id'] ) )
+			<a href="{!! admin_url( 'post.php?post=' . $group['id'] . '&action=edit' ) !!}">{!! sprintf(__( 'Edit​%s', 'pressbooks' ), '<span class="screen-reader-text"> ' . $group['title'] . '</span>') !!}</a> | @endif
+			@if ( $parts > 1 && current_user_can( 'delete_post', $group['id'] ) )
+			<a class="delete-link" href="{!! get_delete_post_link( $group['id'] ) !!}">{!! sprintf(__( 'Trash​%s', 'pressbooks' ), '<span class="screen-reader-text"> ' . $group['title'] . '</span>') !!}</a> | @endif
+			<a href="{!! get_permalink( $group['id'] ) !!}">{!! sprintf(__( 'View​%s', 'pressbooks' ), '<span class="screen-reader-text"> ' . $group['title'] . '</span>') !!}</a>
+		</div>
+		@endif
 		<table id="{{ $slug }}" class="wp-list-table widefat fixed striped {{ str_contains($slug, 'part') ? 'chapters' : $slug }}">
 			<thead>
 				<tr>
 					<th scope="col" id="title_{{ $slug }}" class="has-row-actions manage-column column-title column-primary">{{ __('Title') }}</th>
-					<th tabindex='0'>{{ __('Authors', 'pressbooks') }}</th>
+					<th>{{ __('Authors', 'pressbooks') }}</th>
 					@if (false === $disable_comments)
 					<th>{{ __('Comments', 'pressbooks') }}</th>
 					@endif
 					<th>
-						<span
-							role="button"
-							tabindex='0'
-							aria-label="check/uncheck Show in Web for all {{ $group['name'] }} pages"
-							id="{{ $slug }}_web_visibility">{{ __('Show in Web', 'pressbooks') }}
-						</span>
+						{{ __('Show in Web', 'pressbooks') }}
 					</th>
 					<th>
-						<span
-							role="button"
-							tabindex='0'
-							aria-label="check/uncheck Show in Exports for all {{ $group['name'] }} pages"
-							id="{{ $slug }}_export_visibility">{{ __('Show in Exports', 'pressbooks') }}
-						</span>
+						{{ __('Show in Exports', 'pressbooks') }}
 					</th>
 					<th>
-						<span
-							role="button"
-							tabindex='0'
-							aria-label="check/uncheck Show Title for all {{ $group['name'] }} pages"
-							id="{{ $slug }}_show_title">{{ __('Show Title', 'pressbooks') }}
-						</span>
+						{{ __('Show Title', 'pressbooks') }}
 					</th>
 				</tr>
 			</thead>
@@ -99,7 +94,7 @@
 					<td class="title column-title has-row-actions">
 					<div class="row-title">
 						@if( current_user_can( 'edit_post', $content['ID'] ) )
-							<a href="{{ admin_url( 'post.php?post=' . $content['ID'] . '&action=edit' ) }}">
+							<a href="{!! admin_url( 'post.php?post=' . $content['ID'] . '&action=edit' ) !!}">
 								{{ $content['post_title'] }}
 								@if( $start_point === $content['ID'] )
 								<span class="ebook-start-point" title="{{ __( 'Ebook start point', 'pressbooks' ) }}">&#9733;</span>
@@ -113,9 +108,9 @@
 						@endif
 
 						<div class="row-actions">
-							@if( current_user_can( 'edit_post', $content['ID'] ) )<a href="{{ admin_url( 'post.php?post=' . $content['ID'] . '&action=edit' ) }}">{{ __( 'Edit', 'pressbooks' ) }}</a> | @endif
-							@if( current_user_can( 'delete_post', $content['ID'] ) )<a class="delete-link" href="{{ get_delete_post_link( $content['ID'] ) }}">{{ __( 'Trash', 'pressbooks' ) }}</a> | @endif
-							<a href="{{ get_permalink( $content['ID'] ) }}">{{ __( 'View', 'pressbooks' ) }}</a>
+							@if( current_user_can( 'edit_post', $content['ID'] ) )<a href="{!! admin_url( 'post.php?post=' . $content['ID'] . '&action=edit' ) !!}">{!! sprintf(__( 'Edit​%s', 'pressbooks' ), '<span class="screen-reader-text"> ' . $content['post_title'] . '</span>') !!}</a> | @endif
+							@if( current_user_can( 'delete_post', $content['ID'] ) )<a class="delete-link" href="{!! get_delete_post_link( $content['ID'] ) !!}">{!! sprintf(__( 'Trash%s', 'pressbooks' ), '<span class="screen-reader-text"> ' . $content['post_title'] . '</span>') !!}</a> | @endif
+							<a href="{!! get_permalink( $content['ID'] ) !!}">{!! sprintf(__( 'View%s', 'pressbooks' ), '<span class="screen-reader-text"> ' . $content['post_title'] . '</span>') !!}</a>
 							@if ( $can_edit_others_posts )
 								@if ( $loop->iteration > 1 ||
 									$group['index'] > 1 && $parts > 1 ||
@@ -123,8 +118,8 @@
 									$group['index'] < $parts
 								)
 									<span class="reorder">
-										@if ( $loop->iteration > 1 || $group['index'] > 1 && $parts > 1 ) | <button class="move-up">{{ __( 'Move Up', 'pressbooks' ) }}</button>@endif
-										@if ( $loop->iteration < count( $group['items'] ) || $group['index'] < $parts) | <button class="move-down">{{ __( 'Move Down', 'pressbooks' ) }}</button>@endif
+										@if ( $loop->iteration > 1 || $group['index'] > 1 && $parts > 1 ) | <button class="move-up">{!! sprintf(__( 'Move%s Up', 'pressbooks' ), '<span class="screen-reader-text"> ' . $content['post_title'] . '</span>') !!}</button>@endif
+										@if ( $loop->iteration < count( $group['items'] ) || $group['index'] < $parts) | <button class="move-down">{!! sprintf(__( 'Move%s Down', 'pressbooks' ), '<span class="screen-reader-text"> ' . $content['post_title'] . '</span>') !!}</button>@endif
 									</span>
 								@endif
 							@endif
@@ -137,22 +132,22 @@
 					</td>
 					@if(!$disable_comments )
 					<td class="comments column-comments">
-						<a class="post-comment-count" href="{{ admin_url( 'edit-comments.php?p=' . $content['ID'] ) }}">
+						<a class="post-comment-count" href="{!! admin_url( 'edit-comments.php?p=' . $content['ID'] ) !!}">
 							<span class="comment-count">{{ $content['comment_count'] }}</span>
 						</a>
 					</td>
 					@endif
-					<td class="visibility column-web">
-						<input class="web_visibility" type="checkbox" data-id="{{ $content['ID'] }}" name="web_visibility_[{{ $content['ID'] }}]" id="web_visibility_{{ $content['ID'] }}" {{ checked( true, in_array( $content['post_status'], [ 'web-only', 'publish' ], true ), false ) }} {{ !current_user_can( 'publish_post', $content['ID'] ) ? 'disabled' : '' }}>
+					<td class="visibility column-web ">
+						<input class="web_visibility toggle" type="checkbox" data-id="{{ $content['ID'] }}" name="web_visibility_[{{ $content['ID'] }}]" id="web_visibility_{{ $content['ID'] }}" {{ checked( true, in_array( $content['post_status'], [ 'web-only', 'publish' ], true ), false ) }} {{ !current_user_can( 'publish_post', $content['ID'] ) ? 'disabled' : '' }}>
 						<label for="web_visibility_{{ $content['ID'] }}">{{ sprintf(__( 'Show %s in Web', 'pressbooks' ), $content['post_title']) }}</label>
 					</td>
 					<td class="visibility column-export">
-						<input class="export_visibility" type="checkbox" data-id="{{ $content['ID'] }}" name="export_visibility_[{{ $content['ID'] }}]" id="export_visibility_{{ $content['ID'] }}" {{ checked( true, in_array( $content['post_status'], [ 'private', 'publish' ], true ), false ) }} {{ !current_user_can( 'publish_post', $content['ID'] ) ? 'disabled' : '' }}>
+						<input class="export_visibility toggle" type="checkbox" data-id="{{ $content['ID'] }}" name="export_visibility_[{{ $content['ID'] }}]" id="export_visibility_{{ $content['ID'] }}" {{ checked( true, in_array( $content['post_status'], [ 'private', 'publish' ], true ), false ) }} {{ !current_user_can( 'publish_post', $content['ID'] ) ? 'disabled' : '' }}>
 						<label for="export_visibility_{{ $content['ID'] }}">{{ sprintf(__( 'Show %s in Exports', 'pressbooks' ), $content['post_title']) }}</label>
 					</td>
 					<td class="export column-showtitle">
-						<input class="show_title" type="checkbox" data-id="{{ $content['ID'] }}" name="show_title_[{{ $content['ID'] }}]" id="show_title_{{ $content['ID'] }}" {{ checked( get_post_meta( $content['ID'], 'pb_show_title', true ), 'on', false ) }} {{ !current_user_can( 'edit_post', $content['ID'] ) ? 'disabled' : '' }}>
-						<label for="show_title_{{ $content['ID'] }}">{{ printf(__( 'Show Title for %s', 'pressbooks' ), $content['post_title']) }}</label>
+						<input class="show_title toggle" type="checkbox" data-id="{{ $content['ID'] }}" name="show_title_[{{ $content['ID'] }}]" id="show_title_{{ $content['ID'] }}" {{ checked( get_post_meta( $content['ID'], 'pb_show_title', true ), 'on', false ) }} {{ !current_user_can( 'edit_post', $content['ID'] ) ? 'disabled' : '' }}>
+						<label for="show_title_{{ $content['ID'] }}">{{ sprintf(__( 'Show Title for %s', 'pressbooks' ), $content['post_title']) }}</label>
 					</td>
 				</tr>
 				@endforeach
@@ -172,9 +167,9 @@
 		</table>
 		@if ( $can_edit_posts )
 		<p class="footer-action">
-			<a href="{{ admin_url( 'post-new.php?post_type=' . $slug ) }}" class="button">{{ __( 'Add', 'pressbooks' ) }} {{ $group['name'] }}</a>
+			<a href="{!! admin_url( 'post-new.php?post_type=' . $slug ) !!}" class="button">{{ __( 'Add', 'pressbooks' ) }} {{ $group['name'] }}</a>
 			@if(str_contains($slug, 'part'))
-			<a class="button" href="{{ admin_url( 'post-new.php?post_type=part' ) }}">{{ __( 'Add Part', 'pressbooks' ) }}</a>
+			<a class="button" href="{!! admin_url( 'post-new.php?post_type=part' ) !!}">{{ __( 'Add Part', 'pressbooks' ) }}</a>
 			@endif
 		</p>
 		@endif

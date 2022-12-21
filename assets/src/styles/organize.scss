@@ -57,7 +57,28 @@
     }
   }
 
+  .row-actions,
+  .part-actions {
+    font-weight: normal;
+    margin-left: 0;
 
+    button {
+      padding: 0;
+      border: 0;
+      color: darken($monza, 5%);
+      background-color: transparent;
+      cursor: pointer;
+
+      &:focus,
+      &:hover {
+        color: $monza;
+      }
+    }
+  }
+
+  .part-actions {
+    padding-bottom: 1em;
+  }
 
   table {
     th {
@@ -78,23 +99,7 @@
         left: 0;
       }
 
-      .row-actions {
-        font-weight: normal;
-        margin-left: 0;
 
-        button {
-          padding: 0;
-          border: 0;
-          color: darken($monza, 5%);
-          background-color: transparent;
-          cursor: pointer;
-
-          &:focus,
-          &:hover {
-            color: $monza;
-          }
-        }
-      }
     }
 
     & + table {
@@ -134,4 +139,56 @@
   }
 }
 
+input.toggle[type="checkbox"] {
+  appearance: none;
+  content: "";
+  display: inline-block;
+  box-sizing: border-box;
+  box-shadow: none;
+  vertical-align: top;
+  background: $white;
+  border: 1px solid $mine-shaft;
+  position: relative;
+  width: 36px;
+  height: 18px;
+  border-radius: 9px;
+  transition: 0.2s background ease;
 
+  &::before {
+    display: block;
+    position: relative;
+    content: "";
+    box-sizing: border-box;
+    top: 2px;
+    left: 2px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    transition: 0.1s transform ease;
+    background-color: $mine-shaft;
+    border: 5px solid $mine-shaft;
+    margin: 0;
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 2px $white, 0 0 0 4px $monza;
+  }
+
+  &:checked {
+    border-color: $monza;
+    background: $monza;
+
+    &::before {
+      background-color: $white;
+      border-color: $white;
+      transform: translateX(18px);
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  input.toggle[type="checkbox"]::before {
+    transition-duration: 0s;
+    transition-delay: 0s;
+  }
+}

@@ -657,6 +657,7 @@ function display_organize() {
 			'name' => __( 'Chapter', 'pressbooks' ),
 			'abbreviation' => 'chapter',
 			'title' => $part['post_title'],
+			'id' => $part['ID'],
 			'index' => $key + 1,
 			'items' => $part['chapters'],
 		];
