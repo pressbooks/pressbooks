@@ -654,8 +654,8 @@ function display_organize() {
 		'items' => $book_structure['front-matter'],
 	];
 
-	foreach($book_structure['part'] as $key => $part) {
-		$structure['part_'. $part['ID']] = [
+	foreach ( $book_structure['part'] as $key => $part ) {
+		$structure[ 'part_' . $part['ID'] ] = [
 			'name' => __( 'Chapter', 'pressbooks' ),
 			'abbreviation' => 'chapter',
 			'title' => $part['post_title'],
