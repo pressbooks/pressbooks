@@ -643,11 +643,36 @@ function display_organize() {
 	$blade = \Pressbooks\Container::get( 'Blade' );
 	$book_structure = \Pressbooks\Book::getBookStructure();
 	$ebook_options = get_option( 'pressbooks_theme_options_ebook' );
+	$structure = [];
+
+	$structure['front-matter'] = [
+		'name' => __( 'Front Matter', 'pressbooks' ),
+		'abbreviation' => 'fm',
+		'index' => null,
+		'items' => $book_structure['front-matter'],
+	];
+
+	foreach($book_structure['part'] as $key => $part) {
+		$structure['part_'. $part['ID']] = [
+			'name' => __( 'Chapter', 'pressbooks' ),
+			'abbreviation' => 'chapter',
+			'title' => $part['post_title'],
+			'index' => $key + 1,
+			'items' => $part['chapters'],
+		];
+	}
+
+	$structure['back-matter'] = [
+		'name' => __( 'Back Matter', 'pressbooks' ),
+		'abbreviation' => 'bm',
+		'index' => null,
+		'items' => $book_structure['back-matter'],
+	];
+
 	echo $blade->render(
 		'admin.organize',
 		[
 			'statuses' => get_post_stati( [], 'objects' ),
-			'book_structure' => $book_structure,
 			'parts' => count( $book_structure['part'] ),
 			'meta_post' => ( new \Pressbooks\Metadata() )->getMetaPost(),
 			'book_is_public' => ( ! empty( get_option( 'blog_public' ) ) ) ? 1 : 0,
@@ -658,25 +683,11 @@ function display_organize() {
 			'can_edit_posts' => current_user_can( 'edit_posts' ),
 			'can_edit_others_posts' => current_user_can( 'edit_others_posts' ),
 			'contributors' => new \Pressbooks\Contributors(),
-			'start_point' => false,
 			'ebook_options' => $ebook_options,
 			'start_point' => ( isset( $ebook_options['ebook_start_point'] ) && ! empty( $ebook_options['ebook_start_point'] ) )
 				? (int) $ebook_options['ebook_start_point']
-				: null,
-			'types' => [
-				'front-matter' => [
-					'name' => __( 'Front Matter', 'pressbooks' ),
-					'abbreviation' => 'fm',
-				],
-				'chapter' => [
-					'name' => __( 'Chapter', 'pressbooks' ),
-					'abbreviation' => 'chapter',
-				],
-				'back-matter' => [
-					'name' => __( 'Back Matter', 'pressbooks' ),
-					'abbreviation' => 'bm',
-				],
-			],
+				: false,
+			'structure' => $structure,
 		]
 	);
 }
