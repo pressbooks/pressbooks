@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-12-21T13:01:59+00:00\n"
+"POT-Creation-Date: 2022-12-21T23:30:07+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: pressbooks\n"
@@ -745,7 +745,7 @@ msgstr ""
 
 #: inc/admin/laf/namespace.php:226
 #: inc/admin/laf/namespace.php:227
-#: inc/editor/namespace.php:146
+#: inc/editor/namespace.php:147
 #: inc/posttype/namespace.php:195
 msgid "Glossary Terms"
 msgstr ""
@@ -2509,166 +2509,166 @@ msgstr ""
 msgid "Insert Footnote"
 msgstr ""
 
-#: inc/editor/namespace.php:111
+#: inc/editor/namespace.php:112
 msgid "Convert MS Word Footnotes"
 msgstr ""
 
-#: inc/editor/namespace.php:118
+#: inc/editor/namespace.php:119
 msgid "Insert LaTeX"
 msgstr ""
 
-#: inc/editor/namespace.php:131
+#: inc/editor/namespace.php:132
 #: templates/admin/import.php:156
 msgid "Cancel"
 msgstr ""
 
-#: inc/editor/namespace.php:132
+#: inc/editor/namespace.php:133
 msgid "Description"
 msgstr ""
 
-#: inc/editor/namespace.php:133
+#: inc/editor/namespace.php:134
 msgid "Insert Glossary Term"
 msgstr ""
 
-#: inc/editor/namespace.php:134
+#: inc/editor/namespace.php:135
 msgid "Insert"
 msgstr ""
 
-#: inc/editor/namespace.php:136
+#: inc/editor/namespace.php:137
 msgctxt "JS template string"
 msgid "Glossary term <em>${templateString1}</em> not found. Please create it."
 msgstr ""
 
-#: inc/editor/namespace.php:137
+#: inc/editor/namespace.php:138
 msgid "Select a Term"
 msgstr ""
 
-#: inc/editor/namespace.php:138
+#: inc/editor/namespace.php:139
 msgid "Create and Insert Term"
 msgstr ""
 
-#: inc/editor/namespace.php:139
+#: inc/editor/namespace.php:140
 msgid "Choose Existing Term"
 msgstr ""
 
-#: inc/editor/namespace.php:140
+#: inc/editor/namespace.php:141
 msgid "Glossary term already exists."
 msgstr ""
 
-#: inc/editor/namespace.php:142
+#: inc/editor/namespace.php:143
 msgid "Cannot submit empty Glossary term."
 msgstr ""
 
-#: inc/editor/namespace.php:143
+#: inc/editor/namespace.php:144
 msgid "A term was not selected?"
 msgstr ""
 
-#: inc/editor/namespace.php:144
+#: inc/editor/namespace.php:145
 #: inc/posttype/namespace.php:243
 msgid "To display a list of glossary terms, leave this back matter's content blank."
 msgstr ""
 
-#: inc/editor/namespace.php:145
+#: inc/editor/namespace.php:146
 msgid "Term"
 msgstr ""
 
-#: inc/editor/namespace.php:203
+#: inc/editor/namespace.php:204
 msgid "Indent"
 msgstr ""
 
-#: inc/editor/namespace.php:209
+#: inc/editor/namespace.php:210
 msgid "Hanging indent"
 msgstr ""
 
-#: inc/editor/namespace.php:215
+#: inc/editor/namespace.php:216
 msgid "No indent"
 msgstr ""
 
-#: inc/editor/namespace.php:221
+#: inc/editor/namespace.php:222
 msgid "Write right to left"
 msgstr ""
 
-#: inc/editor/namespace.php:229
+#: inc/editor/namespace.php:230
 msgid "Write left to right"
 msgstr ""
 
-#: inc/editor/namespace.php:237
+#: inc/editor/namespace.php:238
 msgid "Tight tracking"
 msgstr ""
 
-#: inc/editor/namespace.php:243
+#: inc/editor/namespace.php:244
 msgid "Very tight tracking"
 msgstr ""
 
-#: inc/editor/namespace.php:249
+#: inc/editor/namespace.php:250
 msgid "Loose tracking"
 msgstr ""
 
-#: inc/editor/namespace.php:255
+#: inc/editor/namespace.php:256
 msgid "Very loose tracking"
 msgstr ""
 
-#: inc/editor/namespace.php:261
+#: inc/editor/namespace.php:262
 msgid "Pullquote (left)"
 msgstr ""
 
-#: inc/editor/namespace.php:267
+#: inc/editor/namespace.php:268
 msgid "Pullquote (right)"
 msgstr ""
 
-#: inc/editor/namespace.php:317
-#: inc/editor/namespace.php:359
-#: inc/editor/namespace.php:373
+#: inc/editor/namespace.php:318
+#: inc/editor/namespace.php:360
+#: inc/editor/namespace.php:374
 #: inc/modules/themeoptions/class-weboptions.php:120
 #: languages/tinymce.php:7
 msgid "Standard"
 msgstr ""
 
-#: inc/editor/namespace.php:321
+#: inc/editor/namespace.php:322
 msgid "No lines"
 msgstr ""
 
-#: inc/editor/namespace.php:325
+#: inc/editor/namespace.php:326
 msgid "Lines"
 msgstr ""
 
-#: inc/editor/namespace.php:329
-#: inc/editor/namespace.php:367
-#: inc/editor/namespace.php:381
+#: inc/editor/namespace.php:330
+#: inc/editor/namespace.php:368
+#: inc/editor/namespace.php:382
 #: languages/tinymce.php:10
 msgid "Shaded"
 msgstr ""
 
-#: inc/editor/namespace.php:333
+#: inc/editor/namespace.php:334
 msgid "Full Grid"
 msgstr ""
 
-#: inc/editor/namespace.php:337
+#: inc/editor/namespace.php:338
 msgid "Standard Landscape*"
 msgstr ""
 
-#: inc/editor/namespace.php:341
+#: inc/editor/namespace.php:342
 msgid "No lines Landscape*"
 msgstr ""
 
-#: inc/editor/namespace.php:345
+#: inc/editor/namespace.php:346
 msgid "Lines Landscape*"
 msgstr ""
 
-#: inc/editor/namespace.php:349
+#: inc/editor/namespace.php:350
 msgid "Shaded Landscape*"
 msgstr ""
 
-#: inc/editor/namespace.php:353
+#: inc/editor/namespace.php:354
 msgid "Full Grid Landscape*"
 msgstr ""
 
-#: inc/editor/namespace.php:363
-#: inc/editor/namespace.php:377
+#: inc/editor/namespace.php:364
+#: inc/editor/namespace.php:378
 msgid "Border"
 msgstr ""
 
-#: inc/editor/namespace.php:494
+#: inc/editor/namespace.php:495
 msgid "Internal Link"
 msgstr ""
 
