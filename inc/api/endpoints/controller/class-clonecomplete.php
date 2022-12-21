@@ -17,15 +17,9 @@ class CloneComplete extends \WP_REST_Controller {
 	protected $rest_base = 'complete';
 
 	/**
-	 * @var CloneTokens
-	 */
-	protected $clone_tokens;
-
-	/**
 	 * @param CloneTokens $clone_tokens
 	 */
-	public function __construct( CloneTokens $clone_tokens ) {
-		$this->clone_tokens = $clone_tokens;
+	public function __construct( protected CloneTokens $clone_tokens ) {
 	}
 
 	/**
@@ -62,9 +56,12 @@ class CloneComplete extends \WP_REST_Controller {
 	 * @return \WP_REST_Response
 	 */
 	public function cloneComplete( \WP_REST_Request $request ): \WP_REST_Response {
-		$clone_complete = new \Pressbooks\CloneComplete();
 		global $blog_id;
-		$clone_complete->store( $blog_id, $request->get_param( 'url' ), $request->get_param( 'name' ) );
+		( new \Pressbooks\CloneComplete() )->store(
+			$blog_id,
+			$request->get_param( 'url' ),
+			$request->get_param( 'name' )
+		);
 		return new \WP_REST_Response( [ 'success' => true ], 200 );
 	}
 

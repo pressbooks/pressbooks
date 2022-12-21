@@ -4,7 +4,7 @@ namespace Pressbooks;
 
 class CloneComplete {
 
-	public static string $table = 'pressbooks_clones_complete';
+	public static string $table = 'pressbooks_completed_clones';
 
 	public static function install(): void {
 		static::createTable();
@@ -26,7 +26,7 @@ class CloneComplete {
 			blog_id bigint(20) NOT NULL,
 			target_book_name varchar(255) NOT NULL,
 			target_book_url varchar(255) NOT NULL,
-			created_at datetime NOT NULL,
+			created_at datetime DEFAULT (CURRENT_DATE) NOT NULL,
 			PRIMARY KEY  (id)
 		) $charset_collate;";
 		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
@@ -39,7 +39,7 @@ class CloneComplete {
 	public static function dropTable(): void {
 		global $wpdb;
 		$table = static::$table;
-		$result = $wpdb->query( "DROP TABLE IF EXISTS {$wpdb->base_prefix}{$table}" ); // @codingStandardsIgnoreLine
+		$wpdb->query( "DROP TABLE IF EXISTS {$wpdb->base_prefix}{$table}" ); // @codingStandardsIgnoreLine
 	}
 
 	/**
@@ -57,16 +57,24 @@ class CloneComplete {
 				'blog_id' => $blog_id,
 				'target_book_name' => $target_book_name,
 				'target_book_url' => $target_book_url,
-				'created_at' => current_time( 'mysql' ),
 			]
 		);
 	}
 
-	public static function getCloningStats() {
+	/**
+	 * @param
+	 * @return array|null
+	 */
+	public static function getCloningStats(): array | null {
 		global $wpdb;
 		$table = static::$table;
 		$blog_id = get_current_blog_id();
-		return $wpdb->get_results( "SELECT * FROM {$wpdb->base_prefix}{$table} WHERE blog_id = $blog_id" ); // @codingStandardsIgnoreLine
+		return $wpdb->get_results(
+			$wpdb->prepare(
+				"SELECT * FROM {$wpdb->base_prefix}{$table} WHERE blog_id = %d ORDER BY created_at DESC",  // @codingStandardsIgnoreLine
+				$blog_id
+			)
+		);
 	}
 
 }

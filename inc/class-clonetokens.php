@@ -19,6 +19,10 @@ class CloneTokens {
 	 */
 	protected $expiration = 3600; // 1 hour
 
+	public function __construct() {
+		$this->tokens = get_option( $this->option_name, [] );
+	}
+
 	/**
 	 * @return string
 	 */
@@ -35,7 +39,6 @@ class CloneTokens {
 	 * @return bool
 	 */
 	public function isTokenValid( string $token ): bool {
-		$this->tokens = get_option( $this->option_name, [] );
 		$this->removeExpiredTokens();
 		if ( isset( $this->tokens[ $token ] ) ) {
 			unset( $this->tokens[ $token ] );
@@ -49,6 +52,7 @@ class CloneTokens {
 	 * @return void
 	 */
 	private function removeExpiredTokens(): void {
+		$this->tokens = get_option( $this->option_name, [] );
 		foreach ( $this->tokens as $token => $timestamp ) {
 			if ( $timestamp + $this->expiration < time() ) {
 				unset( $this->tokens[ $token ] );
