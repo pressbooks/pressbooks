@@ -180,8 +180,8 @@ function updateControls( table ) {
 		.children( 'tr' )
 		.each( ( i, el ) => {
 			let controls = '';
-			let up = '<button class="move-up">Move Up</button>';
-			let down = '<button class="move-down">Move Down</button>';
+			let up = `<button class="move-up">${ PB_OrganizeToken.moveUp }</button>`;
+			let down = `<button class="move-down">${ PB_OrganizeToken.moveDown }</button>`;
 
 			if ( $( el ).is( 'tr:only-of-type' ) ) {
 				if (
@@ -482,7 +482,7 @@ $( document ).ready( () => {
 		}
 	} );
 
-	$( '.allow-bulk-operations table thead th span[id$="show_title"]' ).on(
+	$( '.allow-bulk-operations table thead th button[id$="show_title"]' ).on(
 		'click',
 		event => {
 			let id = $( event.target ).attr( 'id' );
@@ -499,17 +499,19 @@ $( document ).ready( () => {
 					.prop( 'checked', false );
 				pb.organize.bulkToggle[id] = false;
 				updateTitleVisibility( ids.join(), postType, '' );
+				event.target.setAttribute( 'aria-pressed', false );
 			} else {
 				table
 					.find( 'tr td.column-showtitle input[type="checkbox"]' )
 					.prop( 'checked', true );
 				pb.organize.bulkToggle[id] = true;
 				updateTitleVisibility( ids.join(), postType, 'on' );
+				event.target.setAttribute( 'aria-pressed', true );
 			}
 		}
 	);
 
-	$( '.allow-bulk-operations table thead th span[id$="visibility"]' ).on(
+	$( '.allow-bulk-operations table thead th button[id$="visibility"]' ).on(
 		'click',
 		event => {
 			let id = $( event.target ).attr( 'id' );
@@ -528,12 +530,14 @@ $( document ).ready( () => {
 					.prop( 'checked', false );
 				pb.organize.bulkToggle[id] = false;
 				updateVisibility( ids.join(), postType, format, 0 );
+				event.target.setAttribute( 'aria-pressed', false );
 			} else {
 				table
 					.find( `tr td.column-${ format } input[type="checkbox"]` )
 					.prop( 'checked', true );
 				pb.organize.bulkToggle[id] = true;
 				updateVisibility( ids.join(), postType, format, 1 );
+				event.target.setAttribute( 'aria-pressed', true );
 			}
 		}
 	);

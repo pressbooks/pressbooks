@@ -162,6 +162,8 @@ function replace_book_admin_menu() {
 						'wordCountNonce' => wp_create_nonce( 'pb-update-word-count-for-export' ),
 						'bookPrivate' => __( 'private', 'pressbooks' ),
 						'bookPublic' => __( 'public', 'pressbooks' ),
+						'moveUp' => __( 'Move Up', 'pressbooks' ),
+						'moveDown' => __( 'Move Down', 'pressbooks' ),
 						'updating' => [
 							'book' => __( 'Updating book.', 'pressbooks' ),
 							'chapter' => __( 'Updating chapters.', 'pressbooks' ),
