@@ -16,7 +16,7 @@
 			<li class="clone-info">
 				<strong>{{ $clone->target_book_name}}</strong><br/>
 				<strong>{{ __( 'URL', 'pressbooks' ) }}:</strong> {{ $clone->target_book_url }}<br/>
-				<strong>{{ __( 'Date of clone', 'pressbooks' ) }}:</strong> {{ $clone->created_at }}
+				<strong>{{ __( 'Date of clone', 'pressbooks' ) }}:</strong> {{ \Carbon\Carbon::parse($clone->created_at)->format('Y-m-d') }}
 			</li>
 		@endforeach
 	</ol>
