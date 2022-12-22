@@ -2115,7 +2115,7 @@ class Cloner {
 				'pressbooks/v2/clone',
 				'complete'
 			);
-			$response = wp_remote_post( $request_url, $params );
+			$response = wp_remote_post( $request_url, [ 'body' => $params ] );
 
 			if ( is_wp_error( $response ) ) {
 				return false;
