@@ -24,7 +24,9 @@ use Pressbooks\Admin\Network\SharingAndPrivacyOptions;
 use Pressbooks\Admin\PublishOptions;
 use Pressbooks\Book;
 use Pressbooks\BookDirectory;
+use Pressbooks\CloneComplete;
 use Pressbooks\Cloner\Cloner;
+use Pressbooks\Container;
 use Pressbooks\DataCollector\Book as DataCollector;
 use Pressbooks\Metadata;
 use WP_Error;
@@ -636,6 +638,16 @@ function add_pb_cloner_page() {
 	);
 }
 
+function add_cloning_stats_page() {
+	add_management_page(
+		__( 'Cloning Stats', 'pressbooks' ),
+		__( 'Cloning Stats', 'pressbooks' ),
+		'read',
+		'pb_cloner_stats',
+		__NAMESPACE__ . '\display_cloning_stats'
+	);
+}
+
 /**
  * Displays the Organize page.
  */
@@ -654,7 +666,7 @@ function display_trash() {
  * Displays the Export Admin Page
  */
 function display_export() {
-	$blade = \Pressbooks\Container::get( 'Blade' );
+	$blade = Container::get( 'Blade' );
 	echo $blade->render(
 		'admin.export',
 		\Pressbooks\Modules\Export\template_data()
@@ -665,11 +677,21 @@ function display_export() {
  * Displays the Clone a Book Page
  */
 function display_cloner() {
-	$blade = \Pressbooks\Container::get( 'Blade' );
-	echo $blade->render('admin.cloner.page',
+	$blade = Container::get( 'Blade' );
+	echo $blade->render( 'admin.cloner.page',
 		[
 			'base_url' => network_home_url(),
 			'domain' => wp_parse_url( network_home_url(), PHP_URL_HOST ),
+		]
+	);
+}
+
+function display_cloning_stats() {
+	$blade = Container::get( 'Blade' );
+	echo $blade->render( 'admin.cloner.stats',
+		[
+			'book' => get_blog_details(),
+			'cloning_stats' => CloneComplete::getCloningStats(),
 		]
 	);
 }
@@ -1168,11 +1190,11 @@ function init_css_js() {
 	wp_enqueue_script( 'alpinejs' );
 
 	// Enqueue styles for cloner page
-	if ( isset( $_REQUEST['page'] ) && $_REQUEST['page'] === 'pb_cloner' ) {
+	if ( isset( $_REQUEST['page'] ) && str_starts_with( $_REQUEST['page'], 'pb_cloner' ) ) {
 		wp_register_style( 'cloner-page', $assets->getPath( 'styles/cloner.css' ) );
 		wp_enqueue_style( 'cloner-page' );
 
-		$blade = \Pressbooks\Container::get( 'Blade' );
+		$blade = Container::get( 'Blade' );
 
 		// Enqueue Algolia & Instantsearch scripts only if required env values are present.
 		if ( \Pressbooks\Utility\is_algolia_search_enabled() ) {
