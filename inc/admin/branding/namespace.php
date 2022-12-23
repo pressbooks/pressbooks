@@ -67,7 +67,7 @@ function custom_login_logo() {
 	} else {
 		$logo = sprintf(
 			'<style type="text/css">.login h1 a {background-image: url(%s);}</style>',
-			PB_PLUGIN_URL . 'assets/dist/images/PB-logo.svg'
+			PB_PLUGIN_URL . 'assets/dist/images/pb-logo.svg'
 		);
 	}
 	$style = '<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karla:400,400i,700|Spectral:400,400i,600" />';

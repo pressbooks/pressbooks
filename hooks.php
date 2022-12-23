@@ -6,6 +6,7 @@
 
 use function \Pressbooks\Utility\include_plugins as include_symbionts;
 use Pressbooks\Book;
+use Pressbooks\CloneComplete;
 use Pressbooks\Container;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -345,3 +346,9 @@ add_filter( 'admin_email_check_interval', '__return_false' );
 add_filter( 'init', [ '\Pressbooks\BookDirectory', 'init' ], 10, 2 );
 
 add_action( 'activated_plugin', '\Pressbooks\Utility\delete_options_cached' );
+
+// Clone complete table
+register_deactivation_hook( 'pressbooks/pressbooks.php', [ CloneComplete::class, 'uninstall' ] );
+add_action( 'init', [ CloneComplete::class, 'install' ] );
+
+
