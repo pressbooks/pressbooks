@@ -161,6 +161,21 @@ class Admin_LafTest extends \WP_UnitTestCase {
 
 		unset( $GLOBALS['post'], $GLOBALS['current_screen'] ); // Cleanup
 	}
+	/**
+	 * @group branding
+	 * @test
+	 */
+	function cloning_stats_submenu_is_added() {
+		$user_id = $this->factory()->user->create();
+		$user = get_userdata( $user_id );
+		$user->add_role( 'subscriber' );
+		wp_set_current_user( $user_id );
+		global $submenu;
+		include_once( ABSPATH . '/wp-admin/menu.php' );
+		\Pressbooks\Admin\Laf\add_cloning_stats_page();
+		$this->assertArrayHasKey( 'tools.php', $submenu );
+		$this->assertContains( 'Cloning Stats', $submenu['tools.php'][36] );
+	}
 
 	/**
 	 * @group branding

@@ -168,5 +168,13 @@
     .ais-SearchBox-reset {
       display: none;
     }
+
+    &.stats ol {
+     margin-left: 1rem;
+
+      li {
+        margin-bottom: 1rem;
+      }
+    }
   }
 }

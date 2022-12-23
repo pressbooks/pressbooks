@@ -269,6 +269,11 @@ class Cloner {
 	private $idPostsMap = [];
 
 	/**
+	 * @var string
+	 */
+	private string $cloneToken = '';
+
+	/**
 	 * Constructor.
 	 *
 	 * @since 4.1.0
@@ -535,6 +540,7 @@ class Cloner {
 
 		wp_defer_term_counting( false ); // Flush
 		restore_current_blog();
+		$this->notifyCloneComplete();
 
 		yield 100 => __( 'Finishing up', 'pressbooks' );
 	}
@@ -922,7 +928,10 @@ class Cloner {
 			return false;
 		}
 
-		// Return successful response
+		if ( isset( $response['clone_token'] ) ) {
+			$this->cloneToken = $response['clone_token'];
+		}
+
 		return $response;
 	}
 
@@ -2065,6 +2074,54 @@ class Cloner {
 	public static function isEnabled() {
 		$enable_cloning = SharingAndPrivacyOptions::getOption( 'enable_cloning' );
 		return (bool) $enable_cloning;
+	}
+
+	/**
+	 * Notify the source book that a clone has been completed.
+	 *
+	 * @return bool
+	 */
+	private function notifyCloneComplete(): bool {
+		if ( $this->cloneToken ) {
+			global $blog_id;
+			$local_book = $this->getBookId( $this->sourceBookUrl );
+			$params = [
+				'token' => $this->cloneToken,
+				'url' => $this->targetBookUrl,
+				'name' => $this->targetBookTitle,
+			];
+			if ( $local_book ) {
+				$switch_book = $local_book !== $blog_id;
+				if ( $switch_book ) {
+					switch_to_blog( $local_book );
+				}
+				$request = new \WP_REST_Request( 'POST', '/pressbooks/v2/clone/complete' );
+				$request->set_body_params( $params );
+				$response = rest_do_request( $request );
+
+				if ( $switch_book ) {
+					restore_current_blog();
+				}
+
+				if ( is_wp_error( $response ) ) {
+					return false;
+				}
+				return true;
+			}
+			$request_url = sprintf(
+				'%1$s/%2$s/%3$s/%4$s',
+				$this->sourceBookUrl,
+				$this->restBase,
+				'pressbooks/v2/clone',
+				'complete'
+			);
+			$response = wp_remote_post( $request_url, [ 'body' => $params ] );
+
+			if ( is_wp_error( $response ) ) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 }
