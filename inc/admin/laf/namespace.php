@@ -1175,6 +1175,7 @@ function init_css_js() {
 		wp_enqueue_style( 'theme-options', $assets->getPath( 'styles/theme-options.css' ) );
 		wp_enqueue_script( 'select2-js', $assets->getPath( 'scripts/select2.js' ), [ 'jquery' ] );
 		wp_enqueue_script( 'theme-options-js', $assets->getPath( 'scripts/theme-options.js' ), [ 'jquery', 'wp-color-picker' ] );
+		wp_enqueue_script( 'pressbooks-multiselect-js', $assets->getPath( 'scripts/pressbooks-multiselect.js' ), [], null, true );
 	}
 
 	// Upgrade Select2 in Custom Metadata Manager

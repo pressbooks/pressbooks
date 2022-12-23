@@ -65,6 +65,7 @@ mix
 	.js( 'assets/src/scripts/export-footnotes.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/contributors.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/algolia-search.js', 'assets/dist/scripts/' )
+	.js( 'node_modules/@pressbooks/multiselect/pressbooks-multiselect.js', 'assets/dist/scripts/pressbooks-multiselect.js' )
 	.scripts(
 		'node_modules/event-source-polyfill/src/eventsource.js',
 		'assets/dist/scripts/eventsource.polyfill.js'
