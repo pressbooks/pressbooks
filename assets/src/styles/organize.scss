@@ -14,19 +14,22 @@
     display: flex;
     gap: 12px;
 
-    h2 {
-      margin-bottom: 0;
+    .title-and-actions {
+      padding-left: 10px;
+
+      h2 {
+        margin-bottom: 0;
+      }
     }
 
     .type-action {
       margin: .75em 0 0;
 
       a {
-        margin-right: 4px;
-      }
+          margin-right: 4px;
+        }
     }
   }
-
 
   @media screen and (min-width: 768px) {
     .page-title-actions {
