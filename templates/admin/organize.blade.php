@@ -9,10 +9,12 @@
             <div class="inside">
                 @if ($book_is_public)
                     <h4 class="publicize-alert public">{{ __('This book’s global privacy is set to', 'pressbooks') }}
-                        <span>{{ __('Public', 'pressbooks') }}</span></h4>
+                        <span>{{ __('Public', 'pressbooks') }}</span>
+                    </h4>
                 @else
                     <h4 class="publicize-alert private">{{ __('This book’s global privacy is set to', 'pressbooks') }}
-                        <span>{{ __('Private', 'pressbooks') }}</span></h4>
+                        <span>{{ __('Private', 'pressbooks') }}</span>
+                    </h4>
                 @endif
                 <div class="publicize-form">
                     <label for="blog-public"><input type="radio" {{ checked($book_is_public, 1, false) }}
@@ -47,8 +49,7 @@
     @elseif ($can_edit_posts)
         <div class="page-title-actions">
             <a class="page-title-action" href="{!! admin_url('admin.php?page=pb_export') !!}">{{ __('Export', 'pressbooks') }}</a>
-            <a class="page-title-action"
-                href="{!! admin_url('post-new.php?post_type=front-matter') !!}">{{ __('Add Front Matter', 'pressbooks') }}</a>
+            <a class="page-title-action" href="{!! admin_url('post-new.php?post_type=front-matter') !!}">{{ __('Add Front Matter', 'pressbooks') }}</a>
             <a class="page-title-action" href="{!! admin_url('post-new.php?post_type=back-matter') !!}">{{ __('Add Back Matter', 'pressbooks') }}</a>
             <a class="page-title-action" href="{!! admin_url('post-new.php?post_type=chapter') !!}">{{ __('Add Chapter', 'pressbooks') }}</a>
             <a class="page-title-action" href="{!! admin_url('post-new.php?post_type=part') !!}">{{ __('Add Part', 'pressbooks') }}</a>
@@ -65,169 +66,170 @@
     </p>
 
     @foreach ($structure as $slug => $group)
-        <h2>
-            @if (!str_contains($slug, 'part'))
-                {{ $group['name'] }}
-            @else
-                {{ $group['title'] }}
-            @endif
-        </h2>
-        @if (str_contains($slug, 'part'))
-            <div class="part-actions">
-                @if (current_user_can('edit_post', $group['id']))
-                    <a href="{!! admin_url('post.php?post=' . $group['id'] . '&action=edit') !!}">{!! sprintf(__('Edit​%s', 'pressbooks'), '<span class="screen-reader-text"> ' . $group['title'] . '</span>') !!}</a> |
+        <div role="region" aria-labelledby="{{ $slug }}">
+            <h2 class="wp-heading-inline">
+                @if (!str_contains($slug, 'part'))
+                    {{ $group['name'] }}
+                @else
+                    {{ $group['title'] }}
                 @endif
-                @if ($parts > 1 && current_user_can('delete_post', $group['id']))
-                    <a class="delete-link" href="{!! get_delete_post_link($group['id']) !!}">{!! sprintf(__('Trash​%s', 'pressbooks'), '<span class="screen-reader-text"> ' . $group['title'] . '</span>') !!}</a> |
-                @endif
-                <a href="{!! get_permalink($group['id']) !!}">{!! sprintf(__('View​%s', 'pressbooks'), '<span class="screen-reader-text"> ' . $group['title'] . '</span>') !!}</a>
-            </div>
-        @endif
-        <table id="{{ $slug }}"
-            class="wp-list-table widefat fixed striped {{ str_contains($slug, 'part') ? 'chapters' : $slug }}">
-            <thead>
-                <tr>
-                    <th scope="col">{{ __('Title') }}</th>
-                    <th scope="col">{{ __('Authors', 'pressbooks') }}</th>
-                    @if (false === $disable_comments)
-                        <th scope="col">{{ __('Comments', 'pressbooks') }}</th>
+            </h2>
+            @if ($can_edit_posts)
+                <div class="page-title-actions">
+                    <a href="{!! admin_url('post-new.php?post_type=' . $slug) !!}" class="page-title-action">{{ __('Add', 'pressbooks') }}
+                        {{ $group['name'] }}</a>
+                    @if (str_contains($slug, 'part'))
+                        <a class="page-title-action"
+                            href="{!! admin_url('post-new.php?post_type=part') !!}">{{ __('Add Part', 'pressbooks') }}</a>
                     @endif
-                    <th scope="col"><button class="button"
-                            id="{{ str_contains($slug, 'part') ? 'chapters' : $slug }}_web_visibility" type="button"
-                            aria-pressed="false">{{ __('Show in Web', 'pressbooks') }}</button></th>
-                    <th scope="col"><button class="button"
-                            id="{{ str_contains($slug, 'part') ? 'chapters' : $slug }}_export_visibility"
-                            type="button" aria-pressed="false">{{ __('Show in Exports', 'pressbooks') }}</button></th>
-                    <th scope="col"><button class="button"
-                            id="{{ str_contains($slug, 'part') ? 'chapters' : $slug }}_show_title" type="button"
-                            aria-pressed="false">{{ __('Show Title', 'pressbooks') }}</button></th>
-                </tr>
-            </thead>
+                </div>
+            @endif
+            @if (str_contains($slug, 'part'))
+                <div class="part-actions">
+                    @if (current_user_can('edit_post', $group['id']))
+                        <a href="{!! admin_url('post.php?post=' . $group['id'] . '&action=edit') !!}">{!! sprintf(__('Edit​%s', 'pressbooks'), '<span class="screen-reader-text"> ' . $group['title'] . '</span>') !!}</a> |
+                    @endif
+                    @if ($parts > 1 && current_user_can('delete_post', $group['id']))
+                        <a class="delete-link" href="{!! get_delete_post_link($group['id']) !!}">{!! sprintf(__('Trash​%s', 'pressbooks'), '<span class="screen-reader-text"> ' . $group['title'] . '</span>') !!}</a> |
+                    @endif
+                    <a href="{!! get_permalink($group['id']) !!}">{!! sprintf(__('View​%s', 'pressbooks'), '<span class="screen-reader-text"> ' . $group['title'] . '</span>') !!}</a>
+                </div>
+            @endif
+            <table id="{{ $slug }}"
+                class="wp-list-table widefat fixed striped {{ str_contains($slug, 'part') ? 'chapters' : $slug }}">
+                <caption class="screen-reader-text">
+                    @if (!str_contains($slug, 'part'))
+                        {{ $group['name'] }}
+                    @else
+                        {{ $group['title'] }}
+                    @endif
+                </caption>
+                <thead>
+                    <tr>
+                        <th scope="col">{{ __('Title') }}</th>
+                        <th scope="col">{{ __('Authors', 'pressbooks') }}</th>
+                        @if (false === $disable_comments)
+                            <th scope="col">{{ __('Comments', 'pressbooks') }}</th>
+                        @endif
+                        <th scope="col"><button class="button"
+                                id="{{ str_contains($slug, 'part') ? 'chapters' : $slug }}_web_visibility"
+                                type="button" aria-pressed="false">{{ __('Show in Web', 'pressbooks') }}</button></th>
+                        <th scope="col"><button class="button"
+                                id="{{ str_contains($slug, 'part') ? 'chapters' : $slug }}_export_visibility"
+                                type="button" aria-pressed="false">{{ __('Show in Exports', 'pressbooks') }}</button>
+                        </th>
+                        <th scope="col"><button class="button"
+                                id="{{ str_contains($slug, 'part') ? 'chapters' : $slug }}_show_title" type="button"
+                                aria-pressed="false">{{ __('Show Title', 'pressbooks') }}</button></th>
+                    </tr>
+                </thead>
 
-            <tbody id="the-list-{{ $slug }}">
-                @foreach ($group['items'] as $content)
-                    <tr id="{{ $slug }}_{{ $content['ID'] }}">
-                        <td class="title column-title has-row-actions">
-                            <div class="row-title">
-                                @if (current_user_can('edit_post', $content['ID']))
-                                    <a href="{!! admin_url('post.php?post=' . $content['ID'] . '&action=edit') !!}">
+                <tbody id="the-list-{{ $slug }}">
+                    @foreach ($group['items'] as $content)
+                        <tr id="{{ $slug }}_{{ $content['ID'] }}">
+                            <td class="title column-title has-row-actions">
+                                <div class="row-title">
+                                    @if (current_user_can('edit_post', $content['ID']))
+                                        <a href="{!! admin_url('post.php?post=' . $content['ID'] . '&action=edit') !!}">
+                                            {{ $content['post_title'] }}
+                                            @if ($start_point === $content['ID'])
+                                                <span class="ebook-start-point"
+                                                    title="{{ __('Ebook start point', 'pressbooks') }}">&#9733;</span>
+                                            @endif
+                                        </a>
+                                    @else
                                         {{ $content['post_title'] }}
                                         @if ($start_point === $content['ID'])
                                             <span class="ebook-start-point"
                                                 title="{{ __('Ebook start point', 'pressbooks') }}">&#9733;</span>
                                         @endif
-                                    </a>
-                                @else
-                                    {{ $content['post_title'] }}
-                                    @if ($start_point === $content['ID'])
-                                        <span class="ebook-start-point"
-                                            title="{{ __('Ebook start point', 'pressbooks') }}">&#9733;</span>
                                     @endif
-                                @endif
 
-                                <div class="row-actions">
-                                    @if (current_user_can('edit_post', $content['ID']))
-                                        <a href="{!! admin_url('post.php?post=' . $content['ID'] . '&action=edit') !!}">{!! sprintf(
-                                            __('Edit​%s', 'pressbooks'),
-                                            '<span class="screen-reader-text"> ' . $content['post_title'] . '</span>',
-                                        ) !!}</a> |
-                                    @endif
-                                    @if (current_user_can('delete_post', $content['ID']))
-                                        <a class="delete-link"
-                                            href="{!! get_delete_post_link($content['ID']) !!}">{!! sprintf(
-                                                __('Trash%s', 'pressbooks'),
+                                    <div class="row-actions">
+                                        @if (current_user_can('edit_post', $content['ID']))
+                                            <a href="{!! admin_url('post.php?post=' . $content['ID'] . '&action=edit') !!}">{!! sprintf(
+                                                __('Edit​%s', 'pressbooks'),
                                                 '<span class="screen-reader-text"> ' . $content['post_title'] . '</span>',
                                             ) !!}</a> |
-                                    @endif
-                                    <a href="{!! get_permalink($content['ID']) !!}">{!! sprintf(
-                                        __('View%s', 'pressbooks'),
-                                        '<span class="screen-reader-text"> ' . $content['post_title'] . '</span>',
-                                    ) !!}</a>
-                                    @if ($can_edit_others_posts)
-                                        @if ($loop->iteration > 1 ||
-                                            ($group['index'] > 1 && $parts > 1) ||
-                                            $loop->iteration < count($group['items']) ||
-                                            $group['index'] < $parts)
-                                            <span class="reorder">
-                                                @if ($loop->iteration > 1 || ($group['index'] > 1 && $parts > 1))
-                                                    | <button class="move-up">{!! sprintf(
-                                                        __('Move%s Up', 'pressbooks'),
-                                                        '<span class="screen-reader-text"> ' . $content['post_title'] . '</span>',
-                                                    ) !!}</button>
-                                                @endif
-                                                @if ($loop->iteration < count($group['items']) || $group['index'] < $parts)
-                                                    | <button class="move-down">{!! sprintf(
-                                                        __('Move%s Down', 'pressbooks'),
-                                                        '<span class="screen-reader-text"> ' . $content['post_title'] . '</span>',
-                                                    ) !!}</button>
-                                                @endif
-                                            </span>
                                         @endif
-                                    @endif
+                                        @if (current_user_can('delete_post', $content['ID']))
+                                            <a class="delete-link"
+                                                href="{!! get_delete_post_link($content['ID']) !!}">{!! sprintf(
+                                                    __('Trash%s', 'pressbooks'),
+                                                    '<span class="screen-reader-text"> ' . $content['post_title'] . '</span>',
+                                                ) !!}</a> |
+                                        @endif
+                                        <a href="{!! get_permalink($content['ID']) !!}">{!! sprintf(
+                                            __('View%s', 'pressbooks'),
+                                            '<span class="screen-reader-text"> ' . $content['post_title'] . '</span>',
+                                        ) !!}</a>
+                                        @if ($can_edit_others_posts)
+                                            @if ($loop->iteration > 1 ||
+                                                ($group['index'] > 1 && $parts > 1) ||
+                                                $loop->iteration < count($group['items']) ||
+                                                $group['index'] < $parts)
+                                                <span class="reorder">
+                                                    @if ($loop->iteration > 1 || ($group['index'] > 1 && $parts > 1))
+                                                        | <button class="move-up">{!! sprintf(
+                                                            __('Move%s Up', 'pressbooks'),
+                                                            '<span class="screen-reader-text"> ' . $content['post_title'] . '</span>',
+                                                        ) !!}</button>
+                                                    @endif
+                                                    @if ($loop->iteration < count($group['items']) || $group['index'] < $parts)
+                                                        | <button class="move-down">{!! sprintf(
+                                                            __('Move%s Down', 'pressbooks'),
+                                                            '<span class="screen-reader-text"> ' . $content['post_title'] . '</span>',
+                                                        ) !!}</button>
+                                                    @endif
+                                                </span>
+                                            @endif
+                                        @endif
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
-                        <td class="author column-author">
-                            <span class="author-label">{{ __('Authors', 'pressbooks') }}:</span>
-                            {{ $contributors->get($content['ID'], 'pb_authors') ?: '—' }}
-                        </td>
-                        @if (!$disable_comments)
-                            <td class="comments column-comments">
-                                <a class="post-comment-count" href="{!! admin_url('edit-comments.php?p=' . $content['ID']) !!}">
-                                    <span class="comment-count">{{ $content['comment_count'] }}</span>
-                                </a>
                             </td>
-                        @endif
-                        <td class="visibility column-web ">
-                            <input class="web_visibility toggle" type="checkbox" data-id="{{ $content['ID'] }}"
-                                name="web_visibility_[{{ $content['ID'] }}]"
-                                id="web_visibility_{{ $content['ID'] }}"
-                                {{ checked(true, in_array($content['post_status'], ['web-only', 'publish'], true), false) }}
-                                {{ !current_user_can('publish_post', $content['ID']) ? 'disabled' : '' }}>
-                            <label
-                                for="web_visibility_{{ $content['ID'] }}">{{ sprintf(__('Show %s in Web', 'pressbooks'), $content['post_title']) }}</label>
-                        </td>
-                        <td class="visibility column-export">
-                            <input class="export_visibility toggle" type="checkbox" data-id="{{ $content['ID'] }}"
-                                name="export_visibility_[{{ $content['ID'] }}]"
-                                id="export_visibility_{{ $content['ID'] }}"
-                                {{ checked(true, in_array($content['post_status'], ['private', 'publish'], true), false) }}
-                                {{ !current_user_can('publish_post', $content['ID']) ? 'disabled' : '' }}>
-                            <label
-                                for="export_visibility_{{ $content['ID'] }}">{{ sprintf(__('Show %s in Exports', 'pressbooks'), $content['post_title']) }}</label>
-                        </td>
-                        <td class="export column-showtitle">
-                            <input class="show_title toggle" type="checkbox" data-id="{{ $content['ID'] }}"
-                                name="show_title_[{{ $content['ID'] }}]" id="show_title_{{ $content['ID'] }}"
-                                {{ checked(get_post_meta($content['ID'], 'pb_show_title', true), 'on', false) }}
-                                {{ !current_user_can('edit_post', $content['ID']) ? 'disabled' : '' }}>
-                            <label
-                                for="show_title_{{ $content['ID'] }}">{{ sprintf(__('Show title for %s', 'pressbooks'), $content['post_title']) }}</label>
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-            <tfoot>
-                <tr>
-                    <th>&nbsp;</th>
-                    <th>&nbsp;</th>
-                    @if (!$disable_comments)
-                        <th>&nbsp;</th>
-                    @endif
-                    <th>&nbsp;</th>
-                    <th>&nbsp;</th>
-                    <th>&nbsp;</th>
-                </tr>
-            </tfoot>
-        </table>
-        @if ($can_edit_posts)
-            <p class="footer-action">
-                <a href="{!! admin_url('post-new.php?post_type=' . $slug) !!}" class="button">{{ __('Add', 'pressbooks') }}
-                    {{ $group['name'] }}</a>
-                @if (str_contains($slug, 'part'))
-                    <a class="button" href="{!! admin_url('post-new.php?post_type=part') !!}">{{ __('Add Part', 'pressbooks') }}</a>
-                @endif
-            </p>
-        @endif
+                            <td class="author column-author">
+                                <span class="author-label">{{ __('Authors', 'pressbooks') }}:</span>
+                                {{ $contributors->get($content['ID'], 'pb_authors') ?: '—' }}
+                            </td>
+                            @if (!$disable_comments)
+                                <td class="comments column-comments">
+                                    <a class="post-comment-count" href="{!! admin_url('edit-comments.php?p=' . $content['ID']) !!}">
+                                        <span class="comment-count">{{ $content['comment_count'] }}</span><span
+                                            class="screen-reader-text">
+                                            {{ _n('comment', 'comments', $content['comment_count'], 'pressbooks') }}</span>
+                                    </a>
+                                </td>
+                            @endif
+                            <td class="visibility column-web ">
+                                <input class="web_visibility toggle" type="checkbox" data-id="{{ $content['ID'] }}"
+                                    name="web_visibility_[{{ $content['ID'] }}]"
+                                    id="web_visibility_{{ $content['ID'] }}"
+                                    {{ checked(true, in_array($content['post_status'], ['web-only', 'publish'], true), false) }}
+                                    {{ !current_user_can('publish_post', $content['ID']) ? 'disabled' : '' }}>
+                                <label
+                                    for="web_visibility_{{ $content['ID'] }}">{{ sprintf(__('Show %s in Web', 'pressbooks'), $content['post_title']) }}</label>
+                            </td>
+                            <td class="visibility column-export">
+                                <input class="export_visibility toggle" type="checkbox"
+                                    data-id="{{ $content['ID'] }}" name="export_visibility_[{{ $content['ID'] }}]"
+                                    id="export_visibility_{{ $content['ID'] }}"
+                                    {{ checked(true, in_array($content['post_status'], ['private', 'publish'], true), false) }}
+                                    {{ !current_user_can('publish_post', $content['ID']) ? 'disabled' : '' }}>
+                                <label
+                                    for="export_visibility_{{ $content['ID'] }}">{{ sprintf(__('Show %s in Exports', 'pressbooks'), $content['post_title']) }}</label>
+                            </td>
+                            <td class="export column-showtitle">
+                                <input class="show_title toggle" type="checkbox" data-id="{{ $content['ID'] }}"
+                                    name="show_title_[{{ $content['ID'] }}]" id="show_title_{{ $content['ID'] }}"
+                                    {{ checked(get_post_meta($content['ID'], 'pb_show_title', true), 'on', false) }}
+                                    {{ !current_user_can('edit_post', $content['ID']) ? 'disabled' : '' }}>
+                                <label
+                                    for="show_title_{{ $content['ID'] }}">{{ sprintf(__('Show title for %s', 'pressbooks'), $content['post_title']) }}</label>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     @endforeach
 </div>

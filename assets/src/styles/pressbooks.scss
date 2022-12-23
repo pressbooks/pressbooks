@@ -464,3 +464,36 @@ input.toggle[type="checkbox"] {
   top: 2px;
 }
 
+// Heading as inline-block
+.wrap h2.wp-heading-inline {
+  display: inline-block;
+}
+
+// Page title actions
+.page-title-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 1.5rem;
+}
+
+
+@media screen and (min-width: 768px) {
+  .page-title-actions {
+    display: inline-block;
+  }
+}
+
+// Section title with actions
+h2 + .page-title-actions {
+  margin-bottom: 0.5rem;
+}
+
+h2 + .page-title-actions .page-title-action {
+  top: -1px;
+}
+
+// Space between regions on an admin page
+.wrap [role="region"] + [role="region"] {
+  margin-top: 1.5rem;
+}
