@@ -4674,7 +4674,7 @@ msgid "Begin Import"
 msgstr "Započni uvoz"
 
 #: templates/admin/organize.php:42 templates/admin/organize.php:44
-msgid "This book's global privacy is set to"
+msgid "This book’s global privacy is set to"
 msgstr "Privatnost za ovu knjigu postavljena je na"
 
 #. translators: %s: URL to Pressbooks Directory

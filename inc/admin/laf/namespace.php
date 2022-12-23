@@ -164,6 +164,8 @@ function replace_book_admin_menu() {
 						'wordCountNonce' => wp_create_nonce( 'pb-update-word-count-for-export' ),
 						'bookPrivate' => __( 'private', 'pressbooks' ),
 						'bookPublic' => __( 'public', 'pressbooks' ),
+						'moveUp' => __( 'Move Up', 'pressbooks' ),
+						'moveDown' => __( 'Move Down', 'pressbooks' ),
 						'updating' => [
 							'book' => __( 'Updating book.', 'pressbooks' ),
 							'chapter' => __( 'Updating chapters.', 'pressbooks' ),
@@ -652,7 +654,57 @@ function add_cloning_stats_page() {
  * Displays the Organize page.
  */
 function display_organize() {
-	require( PB_PLUGIN_DIR . 'templates/admin/organize.php' );
+	$blade = \Pressbooks\Container::get( 'Blade' );
+	$book_structure = \Pressbooks\Book::getBookStructure();
+	$ebook_options = get_option( 'pressbooks_theme_options_ebook' );
+	$structure = [];
+
+	$structure['front-matter'] = [
+		'name' => __( 'Front Matter', 'pressbooks' ),
+		'abbreviation' => 'fm',
+		'index' => null,
+		'items' => $book_structure['front-matter'],
+	];
+
+	foreach ( $book_structure['part'] as $key => $part ) {
+		$structure[ 'part_' . $part['ID'] ] = [
+			'name' => __( 'Chapter', 'pressbooks' ),
+			'abbreviation' => 'chapter',
+			'title' => $part['post_title'],
+			'id' => $part['ID'],
+			'index' => $key + 1,
+			'items' => $part['chapters'],
+		];
+	}
+
+	$structure['back-matter'] = [
+		'name' => __( 'Back Matter', 'pressbooks' ),
+		'abbreviation' => 'bm',
+		'index' => null,
+		'items' => $book_structure['back-matter'],
+	];
+
+	echo $blade->render(
+		'admin.organize',
+		[
+			'statuses' => get_post_stati( [], 'objects' ),
+			'parts' => count( $book_structure['part'] ),
+			'meta_post' => ( new \Pressbooks\Metadata() )->getMetaPost(),
+			'book_is_public' => ( ! empty( get_option( 'blog_public' ) ) ) ? 1 : 0,
+			'disable_comments' => \Pressbooks\Utility\disable_comments(),
+			'wc' => \Pressbooks\Book::wordCount(),
+			'wc_selected_for_export' => \Pressbooks\Book::wordCount( true ),
+			'can_manage_options' => current_user_can( 'manage_options' ),
+			'can_edit_posts' => current_user_can( 'edit_posts' ),
+			'can_edit_others_posts' => current_user_can( 'edit_others_posts' ),
+			'contributors' => new \Pressbooks\Contributors(),
+			'ebook_options' => $ebook_options,
+			'start_point' => ( isset( $ebook_options['ebook_start_point'] ) && ! empty( $ebook_options['ebook_start_point'] ) )
+				? (int) $ebook_options['ebook_start_point']
+				: false,
+			'structure' => $structure,
+		]
+	);
 }
 
 /**

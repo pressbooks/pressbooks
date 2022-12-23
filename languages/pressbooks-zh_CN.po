@@ -4655,7 +4655,7 @@ msgid "Begin Import"
 msgstr "开始导入"
 
 #: templates/admin/organize.php:42 templates/admin/organize.php:44
-msgid "This book's global privacy is set to"
+msgid "This book’s global privacy is set to"
 msgstr "该书的全局隐私设置到"
 
 #. translators: %s: URL to Pressbooks Directory

@@ -11,7 +11,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2022-12-22T18:51:41+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.7.1\n"
+"X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: pressbooks\n"
 
 #. Plugin Name of the plugin
@@ -201,14 +201,14 @@ msgid "Edit Tags"
 msgstr ""
 
 #: inc/admin/class-catalog-list-table.php:435
-#: templates/admin/organize.php:44
-#: templates/admin/organize.php:55
+#: templates/admin/organize.blade.php:13
+#: templates/admin/organize.blade.php:23
 msgid "Private"
 msgstr ""
 
 #: inc/admin/class-catalog-list-table.php:435
-#: templates/admin/organize.php:42
-#: templates/admin/organize.php:47
+#: templates/admin/organize.blade.php:11
+#: templates/admin/organize.blade.php:16
 msgid "Public"
 msgstr ""
 
@@ -800,6 +800,7 @@ msgstr ""
 #: templates/admin/organize.php:70
 #: templates/admin/export.blade.php:11
 #: templates/admin/icon.blade.php:15
+#: templates/admin/organize.blade.php:42
 msgid "Export"
 msgstr ""
 
@@ -1516,10 +1517,7 @@ msgid "(opens in a new window)"
 msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:912
-#: templates/admin/organize.php:140
-#: templates/admin/organize.php:243
-#: templates/admin/organize.php:299
-#: templates/admin/organize.php:401
+#: templates/admin/organize.blade.php:80
 msgid "Show in Web"
 msgstr ""
 
@@ -1532,18 +1530,12 @@ msgid "Password..."
 msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:921
-#: templates/admin/organize.php:148
-#: templates/admin/organize.php:247
-#: templates/admin/organize.php:307
-#: templates/admin/organize.php:405
+#: templates/admin/organize.blade.php:89
 msgid "Show in Exports"
 msgstr ""
 
 #: inc/admin/metaboxes/namespace.php:925
-#: templates/admin/organize.php:155
-#: templates/admin/organize.php:251
-#: templates/admin/organize.php:315
-#: templates/admin/organize.php:409
+#: templates/admin/organize.blade.php:98
 msgid "Show Title"
 msgstr ""
 
@@ -1792,11 +1784,9 @@ msgid "This is where you can add appendices or other back matter."
 msgstr ""
 
 #: inc/class-activation.php:232
-#: templates/admin/organize.php:129
-#: templates/admin/organize.php:216
-#: templates/admin/organize.php:290
-#: templates/admin/organize.php:375
 #: tests/test-cloner.php:52
+#: templates/admin/organize.blade.php:71
+#: templates/admin/organize.blade.php:147
 msgid "Authors"
 msgstr ""
 
@@ -3782,12 +3772,12 @@ msgid "Web Options"
 msgstr ""
 
 #: inc/posttype/namespace.php:65
-#: templates/admin/organize.php:65
+#: templates/admin/organize.blade.php:35
 msgid "Chapters"
 msgstr ""
 
 #: inc/posttype/namespace.php:88
-#: templates/admin/organize.php:67
+#: templates/admin/organize.blade.php:37
 msgid "Parts"
 msgstr ""
 
@@ -3882,7 +3872,7 @@ msgstr ""
 
 #: inc/posttype/namespace.php:554
 #: templates/admin/import.php:97
-#: templates/admin/organize.php:68
+#: templates/admin/organize.blade.php:38
 msgid "Glossary"
 msgstr ""
 
@@ -4392,81 +4382,6 @@ msgstr ""
 msgid "Begin Import"
 msgstr ""
 
-#: templates/admin/organize.php:42
-#: templates/admin/organize.php:44
-msgid "This book's global privacy is set to"
-msgstr ""
-
-#. translators: %s: URL to Pressbooks Directory
-#: templates/admin/organize.php:50
-msgid "Anyone with the link can see your book. Public books are eligible to be listed in <a href=\"%s\">Pressbooks Directory</a>. Individual chapters can be set to private."
-msgstr ""
-
-#: templates/admin/organize.php:56
-msgid "Only users you invite can see your book, regardless of individual chapter visibility below."
-msgstr ""
-
-#: templates/admin/organize.php:75
-msgid "Add Glossary Term"
-msgstr ""
-
-#: templates/admin/organize.php:78
-msgid "Word Count:"
-msgstr ""
-
-#: templates/admin/organize.php:78
-msgid "%s (whole book)"
-msgstr ""
-
-#: templates/admin/organize.php:79
-msgid "%s (selected for export)"
-msgstr ""
-
-#: templates/admin/organize.php:123
-#: templates/admin/organize.php:189
-#: templates/admin/organize.php:347
-msgid "Edit"
-msgstr ""
-
-#: templates/admin/organize.php:125
-#: templates/admin/organize.php:191
-#: templates/admin/organize.php:349
-msgid "Trash"
-msgstr ""
-
-#: templates/admin/organize.php:126
-#: templates/admin/organize.php:192
-#: templates/admin/organize.php:350
-msgid "View"
-msgstr ""
-
-#: templates/admin/organize.php:133
-#: templates/admin/organize.php:292
-msgid "Comments"
-msgstr ""
-
-#: templates/admin/organize.php:178
-#: templates/admin/organize.php:183
-#: templates/admin/organize.php:336
-#: templates/admin/organize.php:341
-msgid "Ebook start point"
-msgstr ""
-
-#: templates/admin/organize.php:199
-#: templates/admin/organize.php:358
-msgid "Move Up"
-msgstr ""
-
-#: templates/admin/organize.php:202
-#: templates/admin/organize.php:361
-msgid "Move Down"
-msgstr ""
-
-#: templates/admin/organize.php:272
-#: templates/admin/organize.php:429
-msgid "Add"
-msgstr ""
-
 #: templates/admin/results.php:4
 msgid "Results"
 msgstr ""
@@ -4893,6 +4808,80 @@ msgstr ""
 
 #: templates/admin/mathjax.blade.php:65
 msgid "Save Changes"
+msgstr ""
+
+#: templates/admin/organize.blade.php:11
+#: templates/admin/organize.blade.php:13
+msgid "This book’s global privacy is set to"
+msgstr ""
+
+#: templates/admin/organize.blade.php:18
+msgid "Anyone with the link can see your book. Public books are eligible to be listed in <a href=\"%s\">Pressbooks Directory</a>. Individual chapters can be set to private."
+msgstr ""
+
+#: templates/admin/organize.blade.php:24
+msgid "Only users you invite can see your book, regardless of individual chapter visibility below."
+msgstr ""
+
+#: templates/admin/organize.blade.php:47
+msgid "Add Glossary Term"
+msgstr ""
+
+#: templates/admin/organize.blade.php:51
+msgid "Word Count:"
+msgstr ""
+
+#: templates/admin/organize.blade.php:51
+msgid "%s (whole book)"
+msgstr ""
+
+#: templates/admin/organize.blade.php:52
+msgid "%s (selected for export)"
+msgstr ""
+
+#: templates/admin/organize.blade.php:73
+msgid "Comments"
+msgstr ""
+
+#: templates/admin/organize.blade.php:116
+#: templates/admin/organize.blade.php:123
+msgid "Ebook start point"
+msgstr ""
+
+#: templates/admin/organize.blade.php:128
+msgid "Edit"
+msgstr ""
+
+#: templates/admin/organize.blade.php:129
+msgid "Trash"
+msgstr ""
+
+#: templates/admin/organize.blade.php:130
+msgid "View"
+msgstr ""
+
+#: templates/admin/organize.blade.php:138
+msgid "Move Up"
+msgstr ""
+
+#: templates/admin/organize.blade.php:139
+msgid "Move Down"
+msgstr ""
+
+#: templates/admin/organize.blade.php:160
+msgid "Show %s in Web"
+msgstr ""
+
+#: templates/admin/organize.blade.php:164
+msgid "Show %s in Exports"
+msgstr ""
+
+#: templates/admin/organize.blade.php:168
+msgid "Show Title for %s"
+msgstr ""
+
+#: templates/admin/organize.blade.php:188
+msgid "Add"
 msgstr ""
 
 #: templates/admin/sitemap.blade.php:3
