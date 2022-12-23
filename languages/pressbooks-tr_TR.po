@@ -4,6 +4,7 @@
 # Ali Fuat Demir <afuatdemir@gmail.com>, 2022
 # Antonio D., 2017
 # ayse tekbas <ayse.tekbas@gmail.com>, 2016
+# Hakan Demiralp, 2022
 # Mustafa Bulun <mustafa.bulun@bizimajans.com>, 2020-2021
 # Antonio D., 2016
 msgid ""
@@ -12,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
 "POT-Creation-Date: 2022-05-24T20:09:34+00:00\n"
 "PO-Revision-Date: 2013-12-21 21:04+0000\n"
-"Last-Translator: Ali Fuat Demir <afuatdemir@gmail.com>, 2022\n"
+"Last-Translator: Hakan Demiralp, 2022\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/pressbooks/pressbooks/language/tr_TR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2409,7 +2410,7 @@ msgstr "Aksi belirtilmediği durumlarda"
 
 #: inc/class-licensing.php:409 inc/class-licensing.php:433
 msgid "%1$s Copyright &copy;%2$s by %3$s. All Rights Reserved."
-msgstr "%1$s Copyright &copy;%2$s tarafından %3$s. Tüm hakları saklıdır."
+msgstr "%1$s &copy;%2$sTelif sahibi %3$s. Tüm hakları saklıdır."
 
 #: inc/class-licensing.php:421
 msgid "Icon for the %s"
@@ -4668,7 +4669,7 @@ msgid "Begin Import"
 msgstr "İçe Aktarmaya Başla"
 
 #: templates/admin/organize.php:42 templates/admin/organize.php:44
-msgid "This book's global privacy is set to"
+msgid "This book’s global privacy is set to"
 msgstr "Bu kitabın küresel gizliliği -e ayarlandı"
 
 #. translators: %s: URL to Pressbooks Directory

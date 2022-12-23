@@ -14,6 +14,7 @@
 # Hubert GB <hgblouin@tciinc.ca>, 2019
 # Hugh McGuire <hugh@pressbooks.com>, 2018
 # Ian Curtis, 2022
+# MMOUNA MOUM, 2022
 # Ned Zimmerman <ned@bight.dev>, 2014
 # Ned Zimmerman, 2014-2015
 # Ned Zimmerman <ned@bight.dev>, 2015
@@ -28,7 +29,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks/\n"
 "POT-Creation-Date: 2022-05-24T20:09:34+00:00\n"
 "PO-Revision-Date: 2013-12-21 21:04+0000\n"
-"Last-Translator: Ian Curtis, 2022\n"
+"Last-Translator: MMOUNA MOUM, 2022\n"
 "Language-Team: French (http://www.transifex.com/pressbooks/pressbooks/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -255,12 +256,12 @@ msgstr "Consulter le catalogue"
 #. translators: %s: search keywords
 #: inc/admin/class-catalog-list-table.php:515
 msgid "Search results for &#8220;%s&#8221; returned no items"
-msgstr ""
+msgstr "Les résultats de la recherche pour &#8220;%s&#8221 ; n'ont donné aucun résultat."
 
 #. translators: %s: search keywords
 #: inc/admin/class-catalog-list-table.php:518
 msgid "Search results for &#8220;%s&#8221; returned 1 item"
-msgstr ""
+msgstr "Résultats de la recherche pour &#8220;%s&#8221 ; a retourné 1 item"
 
 #. translators: %s: search keywords, %d: total items found
 #: inc/admin/class-catalog-list-table.php:521
@@ -376,7 +377,7 @@ msgstr "Adresse URL Kobo"
 
 #: inc/admin/class-publishoptions.php:104
 msgid "Apple Books URL"
-msgstr ""
+msgstr "URL des livres Apple"
 
 #: inc/admin/class-publishoptions.php:113
 msgid "Other Service URL"
@@ -384,14 +385,14 @@ msgstr "Adresse URL d&rsquo;un autre service"
 
 #: inc/admin/class-publishoptions.php:132
 msgid "Add BUY Links to Your Pressbooks Webbook"
-msgstr ""
+msgstr "Ajoutez des liens Acheter à votre livre Web Pressbooks"
 
 #: inc/admin/class-publishoptions.php:133
 msgid ""
 "Enter the URLs for locations where your book can be purchased below. <a "
 "href=\"https://guide.pressbooks.com/chapter/publish/\">Our guide</a> "
 "provides additional information about selling and distributing your book."
-msgstr ""
+msgstr "Saisissez ci-dessous les URL des lieux où votre livre peut être acheté. <a href=\"https://guide.pressbooks.com/chapter/publish/\">Notre guide </a>fournit des informations supplémentaires sur la vente et la distribution de votre livre."
 
 #: inc/admin/class-publishoptions.php:293 inc/admin/laf/namespace.php:378
 msgid "Publish"
@@ -635,15 +636,15 @@ msgstr "Votre image présente un mauvais rapport hauteur/largeur. L&rsquo;image 
 
 #: inc/admin/dashboard/namespace.php:18
 msgid "Pressbooks announcements"
-msgstr ""
+msgstr "Annonces de pressbooks"
 
 #: inc/admin/dashboard/namespace.php:91
 msgid "Get started with Pressbooks"
-msgstr ""
+msgstr "Commencez avec Pressbooks"
 
 #: inc/admin/dashboard/namespace.php:107
 msgid "Need help?"
-msgstr ""
+msgstr "Besoin d'aide ?"
 
 #: inc/admin/dashboard/namespace.php:134
 msgid "My Book"
@@ -655,7 +656,7 @@ msgstr "Utilisateurs"
 
 #: inc/admin/dashboard/namespace.php:136 inc/admin/dashboard/namespace.php:183
 msgid "Need Help?"
-msgstr ""
+msgstr "Besoin d'aide?"
 
 #: inc/admin/dashboard/namespace.php:177
 msgid "Book Permissions"
@@ -663,11 +664,11 @@ msgstr "Autorisations pour le livre"
 
 #: inc/admin/dashboard/namespace.php:195
 msgid "Book Invitations"
-msgstr ""
+msgstr "Invitations à des livres"
 
 #: inc/admin/dashboard/namespace.php:219
 msgid "an"
-msgstr ""
+msgstr "un"
 
 #: inc/admin/dashboard/namespace.php:219
 msgid "a"
@@ -675,7 +676,7 @@ msgstr ""
 
 #: inc/admin/dashboard/namespace.php:223
 msgid "You have been invited to join %1s as %2$s %3$s"
-msgstr ""
+msgstr "Vous avez été invité à joindre %1s en tant que %2$s %3$s"
 
 #: inc/admin/dashboard/namespace.php:226
 msgid "Accept"
@@ -697,7 +698,7 @@ msgstr "Ce réseau ne permet pas les utilisateurs à créer les nouveaux livres.
 
 #: inc/admin/dashboard/namespace.php:250 inc/admin/dashboard/namespace.php:263
 msgid "at "
-msgstr ""
+msgstr "à "
 
 #: inc/admin/dashboard/namespace.php:255
 msgid "Create a book"
@@ -712,18 +713,18 @@ msgid ""
 "Get started on your next publishing project by creating a new book or "
 "cloning an existing book. The %1$s includes thousands of openly licensed "
 "books available for cloning."
-msgstr ""
+msgstr "Commencez votre prochain projet de publication en créant un nouveau livre ou en clonant un livre existant. Le site comprend des milliers de livres sous licence libre disponibles pour le clonage."
 
 #: inc/admin/dashboard/namespace.php:258 inc/admin/laf/namespace.php:1264
 #: templates/admin/cloner.php:14
 msgid "Pressbooks Directory"
-msgstr ""
+msgstr "Catalogue Pressbooks"
 
 #: inc/admin/dashboard/namespace.php:261
 msgid ""
 "You can also request access to an existing book by contacting your network "
 "manager"
-msgstr ""
+msgstr "Vous pouvez également demander l'accès à un livre existant en contactant votre gestionnaire de réseau."
 
 #: inc/admin/dashboard/namespace.php:275 inc/class-activation.php:242
 #: inc/modules/themeoptions/class-pdfoptions.php:287 tests/test-cloner.php:63
@@ -760,17 +761,17 @@ msgstr "Organiser"
 #. translators: %s: URL to Pressbooks User Guide
 #: inc/admin/dashboard/namespace.php:381
 msgid "Consult the %s."
-msgstr ""
+msgstr "Consultez le %s."
 
 #. translators: %s: URL to Pressbooks User Guide
 #: inc/admin/dashboard/namespace.php:381
 msgid "Pressbooks User Guide"
-msgstr ""
+msgstr "Guide de l'utilisateur Pressbooks"
 
 #. translators: %s: URL to Pressbooks YouTube channel
 #: inc/admin/dashboard/namespace.php:382
 msgid "Watch tutorials on the %s."
-msgstr ""
+msgstr "Regardez les tutoriels sur le %s."
 
 #. translators: %s: URL to Pressbooks YouTube channel
 #: inc/admin/dashboard/namespace.php:382
@@ -780,27 +781,27 @@ msgstr "La chaîne YouTube Pressbooks"
 #. translators: %s: URL to Pressbooks training webinars
 #: inc/admin/dashboard/namespace.php:383
 msgid "Attend a %s."
-msgstr ""
+msgstr "Assister à %s."
 
 #. translators: %s: URL to Pressbooks training webinars
 #: inc/admin/dashboard/namespace.php:383
 msgid "live training webinar"
-msgstr ""
+msgstr "webinaire de formation en ligne"
 
 #. translators: %s: URL to Pressbooks community forum
 #: inc/admin/dashboard/namespace.php:384
 msgid "Participate in the %s."
-msgstr ""
+msgstr "Participez à la %s."
 
 #. translators: %s: URL to Pressbooks community forum
 #: inc/admin/dashboard/namespace.php:384
 msgid "community forum"
-msgstr ""
+msgstr "Le forum de la communauté"
 
 #. translators: %s: email address for network manager
 #: inc/admin/dashboard/namespace.php:386
 msgid "For additional support, contact your network manager at %s."
-msgstr ""
+msgstr "Pour une assistance supplémentaire, contactez votre gestionnaire de réseau àadministrateur de réseau à %s."
 
 #: inc/admin/dashboard/namespace.php:425
 msgid "%1$s total users: "
@@ -1264,33 +1265,33 @@ msgstr "Modifier la section suivante (%s)"
 
 #: inc/admin/laf/namespace.php:1609
 msgid "Twitter URL"
-msgstr ""
+msgstr "URL de Twitter"
 
 #: inc/admin/laf/namespace.php:1610
 msgid "LinkedIn URL"
-msgstr ""
+msgstr "URL de LinkedIn "
 
 #: inc/admin/laf/namespace.php:1611
 msgid "GitHub URL"
-msgstr ""
+msgstr "URL de GitHub "
 
 #: inc/admin/laf/namespace.php:1657
 msgid ""
 "Your institutional affiliation, e.g. Rebus Foundation, Open University, "
 "Amnesty International."
-msgstr ""
+msgstr "Votre affiliation institutionnelle, par exemple la Fondation Rebus, l'Université ouverte, Amnesty International."
 
 #: inc/admin/metaboxes/namespace.php:104
 msgid ""
 "Your cover image was not saved because it is too small (%1$s x %2$s). It "
 "should be at least 800px in height."
-msgstr ""
+msgstr "Votre image de couverture n'a pas été enregistrée car elle est trop petite (%1$s x%2$s ). Elle doit avoir une hauteur d'au moins 800px."
 
 #: inc/admin/metaboxes/namespace.php:110
 msgid ""
 "Your cover image was not saved because the aspect ratio (%s) is outside the "
 "permitted range (.66 to 1). We recommend an aspect ratio of .75."
-msgstr ""
+msgstr "Votre image de couverture n'a pas été enregistrée car le rapport hauteur/largeur (%s) est en dehors de la plage autorisée (.66 à 1). Nous recommandons un rapport d'aspect de .75."
 
 #: inc/admin/metaboxes/namespace.php:135 inc/admin/metaboxes/namespace.php:190
 #: inc/class-metadata.php:437
@@ -1795,11 +1796,11 @@ msgstr ""
 msgid ""
 "Images should be square (400px x 400px). You will be allowed to crop images "
 "after upload."
-msgstr ""
+msgstr "Les images doivent être carrées (400px x 400px). Vous serez autorisé à recadrer les images après le téléchargement."
 
 #: inc/admin/metaboxes/namespace.php:1481
 msgid "Name"
-msgstr ""
+msgstr "Nom"
 
 #: inc/admin/metaboxes/namespace.php:1510
 msgid "Name cannot be left blank."
@@ -1812,11 +1813,11 @@ msgstr "Propriétaire"
 #: inc/admin/network/class-networksettings.php:59
 #: tests/test-networksettings.php:30
 msgid "Theme Settings"
-msgstr ""
+msgstr "Paramètres du thème"
 
 #: inc/admin/network/class-networksettings.php:61
 msgid "Default Theme"
-msgstr ""
+msgstr "Thème par défaut"
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:81
 msgid "Allow Redistribution"
@@ -1852,15 +1853,15 @@ msgstr "Laisser les utilisateurs produire le format « Common Cartridge » ave
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:129
 msgid "Book directory"
-msgstr ""
+msgstr "Répertoire de livres"
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:135
 msgid "Exclude non-catalogued public books from Pressbooks Directory."
-msgstr ""
+msgstr "Exclure les livres publics non catalogués du répertoire Pressbooks."
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:141
 msgid "Iframe Allowlist"
-msgstr ""
+msgstr "Liste de Iframe autorisées"
 
 #: inc/admin/network/class-sharingandprivacyoptions.php:146
 msgid ""
@@ -1895,7 +1896,7 @@ msgid ""
 "plugin also includes an advanced setting which allows users to create and "
 "display SVG files, a format that may carry a higher security risk than other"
 " image formats."
-msgstr ""
+msgstr "Veuillez noter que tout contenu fourni par un service tiers distant, comme WP QuickLaTeX, peut ne pas être sécuritaire à 100 %. Le plugin WP QuickLaTeX comprend également un paramètre avancé qui permet aux utilisateurs de créer et d'afficher des fichiers SVG, un format qui peut présenter un risque de sécurité plus élevé que les autres formats d'image."
 
 #: inc/admin/users/class-userbulk.php:66 inc/admin/users/class-userbulk.php:67
 msgid "Bulk Add"
@@ -1907,17 +1908,17 @@ msgstr "Courriel invalide"
 
 #: inc/admin/users/class-userbulk.php:243
 msgid "The following user(s) could not be added."
-msgstr ""
+msgstr "Le ou les utilisateurs suivants n'ont pas pu être ajoutés."
 
 #: inc/admin/users/class-userbulk.php:246
 msgid "User(s) successfully added to this book."
-msgstr ""
+msgstr "Utilisateur(s) ajouté(s) avec succès à ce livre."
 
 #: inc/admin/users/class-userbulk.php:249
 msgid ""
 "An invitation email has been sent to the user(s) below. A confirmation link "
 "must be clicked before their account is created."
-msgstr ""
+msgstr "Un courriel d'invitation a été envoyé à l'utilisateur ou aux utilisateurs ci-dessous. Un lien de confirmation doit être cliqué pour que leur compte soit créé."
 
 #: inc/api/endpoints/controller/class-books.php:127
 #: inc/api/endpoints/controller/class-toc.php:151
@@ -2066,13 +2067,13 @@ msgstr "Aucun livre trouvé."
 
 #: inc/class-contributors.php:436
 msgid "Prefix"
-msgstr ""
+msgstr "Préfixe"
 
 #: inc/class-contributors.php:439
 msgid ""
 "Prefix to be displayed before this contributor's name, e.g. Dr., Prof., Ms.,"
 " Rev., Capt."
-msgstr ""
+msgstr "Préfixe à afficher devant le nom de ce contributeur, par exemple Dr, Prof, Mme, Rev, Capt."
 
 #: inc/class-contributors.php:443
 msgid "First Name"
@@ -2084,7 +2085,7 @@ msgstr "Nom de famille"
 
 #: inc/class-contributors.php:455
 msgid "Suffix"
-msgstr ""
+msgstr "Suffixe"
 
 #: inc/class-contributors.php:458
 msgid ""
@@ -2094,49 +2095,49 @@ msgstr ""
 
 #: inc/class-contributors.php:462
 msgid "Picture"
-msgstr ""
+msgstr "Photo"
 
 #: inc/class-contributors.php:468
 msgid "Biographical Info"
-msgstr ""
+msgstr "Informations biographiques"
 
 #: inc/class-contributors.php:473
 msgid "Institution"
-msgstr ""
+msgstr "Institution"
 
 #: inc/class-contributors.php:476
 msgid ""
 "Institution this contributor is associated with, e.g. Rebus Foundation, Open"
 " University, Amnesty International."
-msgstr ""
+msgstr "Institution à laquelle ce contributeur est associé, par exemple la Fondation Rebus, l'Université ouverte, Amnesty International."
 
 #: inc/class-contributors.php:483
 msgid "Website for this contributor. Must be a valid URL."
-msgstr ""
+msgstr "Site Web de ce contributeur. Il doit s'agir d'une URL valide."
 
 #: inc/class-contributors.php:487
 msgid "Twitter"
-msgstr ""
+msgstr "Twitter"
 
 #: inc/class-contributors.php:490
 msgid "Twitter profile for this contributor. Must be a valid URL."
-msgstr ""
+msgstr "Profil Twitter de ce contributeur. Il doit s'agir d'une URL valide."
 
 #: inc/class-contributors.php:494
 msgid "LinkedIn"
-msgstr ""
+msgstr "LinkedIn"
 
 #: inc/class-contributors.php:497
 msgid "LinkedIn profile for this contributor. Must be a valid URL."
-msgstr ""
+msgstr "Profil LinkedIn de ce contributeur. Il doit s'agir d'une URL valide."
 
 #: inc/class-contributors.php:501
 msgid "GitHub"
-msgstr ""
+msgstr "GitHub"
 
 #: inc/class-contributors.php:504
 msgid "GitHub profile for this contributor. Must be a valid URL."
-msgstr ""
+msgstr "Profil GitHub de ce contributeur. Il doit s'agir d'une URL valide."
 
 #: inc/class-contributors.php:575
 msgid ""
@@ -2227,7 +2228,7 @@ msgstr ""
 msgid ""
 "The source book's theme, theme settings, and custom styles were successfully"
 " applied."
-msgstr ""
+msgstr "Le thème, les paramètres du thème et les styles personnalisés du livre source ont été appliqués avec succès."
 
 #: inc/class-eventstreams.php:242
 msgid "No export format was selected."
@@ -2746,7 +2747,7 @@ msgstr "Convertir les notes de bas de page de MS Word"
 
 #: inc/editor/namespace.php:118
 msgid "Insert LaTeX"
-msgstr ""
+msgstr "Insérer du LaTeX"
 
 #: inc/editor/namespace.php:131 templates/admin/import.php:156
 msgid "Cancel"
@@ -2816,11 +2817,11 @@ msgstr "Aucun renfoncement"
 
 #: inc/editor/namespace.php:221
 msgid "Write right to left"
-msgstr ""
+msgstr "Écrire de droite à gauche"
 
 #: inc/editor/namespace.php:229
 msgid "Write left to right"
-msgstr ""
+msgstr "Écrire de  gauche à droite"
 
 #: inc/editor/namespace.php:237
 msgid "Tight tracking"
@@ -2905,7 +2906,7 @@ msgid ""
 "resized upon upload. Read more in <a "
 "href=\"https://guide.pressbooks.com/chapter/how-to-design-your-book-cover/\""
 " target=\"_blank\">our guide</a>."
-msgstr ""
+msgstr "Cette image sera affichée sur la page d'accueil du webbook et utilisée comme couverture interne dans les exportations d'ebooks. Les images de couverture doivent mesurer au moins 800 px et avoir un rapport hauteur/largeur compris entre 0,66 et 1. Les images très grandes seront redimensionnées lors du téléchargement. Pour en savoir plus <a href=\"https://guide.pressbooks.com/chapter/how-to-design-your-book-cover/\" target=\"_blank\">, consultez notre guide.</a>"
 
 #: inc/image/namespace.php:432 templates/admin/covergenerator.php:123
 msgid "Are you sure you want to delete this?"
@@ -3390,13 +3391,13 @@ msgstr "Onglets options du thème"
 #: inc/modules/themeoptions/class-pdfoptions.php:86
 #: inc/modules/themeoptions/class-weboptions.php:85
 msgid "Header Font"
-msgstr ""
+msgstr "Police d'en-tête"
 
 #: inc/modules/themeoptions/class-ebookoptions.php:89
 #: inc/modules/themeoptions/class-pdfoptions.php:94
 #: inc/modules/themeoptions/class-weboptions.php:93
 msgid "Body Font"
-msgstr ""
+msgstr "Police du corps du texte"
 
 #: inc/modules/themeoptions/class-ebookoptions.php:99
 msgid "Ebook Start Point"
@@ -3481,12 +3482,12 @@ msgstr "Activer la table des matières à deux niveaux (affiche les en-têtes so
 
 #: inc/modules/themeoptions/class-globaloptions.php:129
 msgid "About the Author"
-msgstr ""
+msgstr "À propos de l'auteur"
 
 #: inc/modules/themeoptions/class-globaloptions.php:134
 #: tests/test-options.php:471
 msgid "Display information about authors at the end of each chapter"
-msgstr ""
+msgstr "Afficher des informations sur les auteurs à la fin de chaque chapitre"
 
 #: inc/modules/themeoptions/class-globaloptions.php:140
 #: inc/shortcodes/attributions/class-attachments.php:262
@@ -3597,7 +3598,7 @@ msgstr "La taille de police des en-têtes est proportionnelle à la taille de la
 
 #: inc/modules/themeoptions/class-pdfoptions.php:118
 msgid "Footnote Font Size"
-msgstr ""
+msgstr "Taille de la police des notes de bas de page"
 
 #: inc/modules/themeoptions/class-pdfoptions.php:131
 msgid "Body Line Height"
@@ -3957,7 +3958,7 @@ msgstr "Activer les médias sociaux"
 msgid ""
 "Adds a button to cover page and each chapter which allows readers to share "
 "links to your book through Twitter"
-msgstr ""
+msgstr "Ajoute un bouton à la page de couverture et à chaque chapitre qui permet aux lecteurs de partager des liens vers votre livre via Twitter"
 
 #: inc/modules/themeoptions/class-weboptions.php:114
 msgid "Webbook Width"
@@ -4032,7 +4033,7 @@ msgstr "Les liens, le texte en gras ou en italique sont pris en charge dans les 
 #: inc/posttype/namespace.php:248
 msgid ""
 "To display a list of contributors, leave this back matter's content blank."
-msgstr ""
+msgstr "Pour afficher la liste des contributeurs, laissez le contenu de cette page finale vide."
 
 #: inc/posttype/namespace.php:287
 msgid "Unlisted"
@@ -4250,7 +4251,7 @@ msgstr "Entrez votre mot de passe à nouveau."
 msgid ""
 "Password must be at least 12 characters in length, include at least one "
 "upper case letter, and have at least one number."
-msgstr ""
+msgstr "Le mot de passe doit comporter au moins 12 caractères, au moins une lettre majuscule et au moins un chiffre."
 
 #: inc/registration/namespace.php:136 inc/registration/namespace.php:176
 #: inc/registration/namespace.php:195 inc/registration/namespace.php:214
@@ -4267,15 +4268,15 @@ msgstr "Les mots de passe ne sont pas identiques."
 
 #: inc/registration/namespace.php:341
 msgid "Password must be at least 12 characters."
-msgstr ""
+msgstr "Le mot de passe doit comporter au moins 12 caractères."
 
 #: inc/registration/namespace.php:345
 msgid "Password must include at least one upper case letter."
-msgstr ""
+msgstr "Le mot de passe doit comporter au moins une lettre majuscule."
 
 #: inc/registration/namespace.php:349
 msgid "Password must include at least one lower case letter."
-msgstr ""
+msgstr "Le mot de passe doit comprendre au moins une lettre minuscule."
 
 #: inc/registration/namespace.php:353
 msgid "Password must include at least one number."
@@ -4525,7 +4526,7 @@ msgstr "Adresse URL du livre cible"
 
 #: templates/admin/cloner.php:34
 msgid "Enter an available URL where you want this book to be cloned."
-msgstr ""
+msgstr "Entrez une URL disponible où vous voulez que ce livre soit cloné."
 
 #: templates/admin/cloner.php:38
 msgid "Target Book Title"
@@ -4539,7 +4540,7 @@ msgstr "Facultatif. Si vous laissez ce champ vide, le titre du livre source sera
 
 #: templates/admin/cloner.php:45
 msgid "Clone This Book"
-msgstr ""
+msgstr "Clonez ce livre"
 
 #: templates/admin/covergenerator.php:65 templates/admin/covergenerator.php:85
 msgid ""
@@ -4651,11 +4652,11 @@ msgstr "Source&nbsp;:"
 
 #: templates/admin/import.php:63
 msgid "Selected all sections for import"
-msgstr ""
+msgstr "Sélection de toutes les sections pour l'importation"
 
 #: templates/admin/import.php:65
 msgid "Unselected all sections for import"
-msgstr ""
+msgstr "Désélectionner toutes les sections pour l'importation"
 
 #: templates/admin/import.php:70
 msgid "Are you sure you want to abort the import?"
@@ -4663,7 +4664,7 @@ msgstr "Voulez-vous vraiment annuler l&rsquo;importation?"
 
 #: templates/admin/import.php:88 templates/admin/import.php:143
 msgid "Import all"
-msgstr ""
+msgstr "Importez tout"
 
 #: templates/admin/import.php:99
 msgid "Other"
@@ -4694,7 +4695,7 @@ msgid "Begin Import"
 msgstr "Commencer l&rsquo;importation"
 
 #: templates/admin/organize.php:42 templates/admin/organize.php:44
-msgid "This book's global privacy is set to"
+msgid "This book’s global privacy is set to"
 msgstr "Le niveau de confidentialité du livre est"
 
 #. translators: %s: URL to Pressbooks Directory
@@ -4703,7 +4704,7 @@ msgid ""
 "Anyone with the link can see your book. Public books are eligible to be "
 "listed in <a href=\"%s\">Pressbooks Directory</a>. Individual chapters can "
 "be set to private."
-msgstr ""
+msgstr "Toute personne ayant le lien peut voir votre livre. Les livres publics peuvent figurer dans <a href=\"%s\">le répertoire Pressbooks</a>. Les chapitres individuels peuvent être définis comme privés."
 
 #: templates/admin/organize.php:56
 msgid ""
@@ -4999,7 +5000,7 @@ msgid ""
 "This optional field can be used to display the institution(s) which created "
 "this resource. If your college or university is not listed, please contact "
 "your network manager."
-msgstr ""
+msgstr "Ce champ facultatif peut être utilisé pour afficher le ou les établissements qui ont créé cette ressource. Si votre établissement ne figure pas dans la liste, veuillez contacter votre gestionnaire de réseau."
 
 #: templates/admin/mathjax.blade.php:5
 msgid ""
@@ -5075,10 +5076,10 @@ msgstr "Logo de l&rsquo;éditeur"
 msgid ""
 "An interactive H5P element has been excluded from this version of the text. "
 "You can view it online here:"
-msgstr ""
+msgstr "Un élément interactif H5P a été exclu de cette version du texte. Vous pouvez le consulter en ligne ici :"
 
 #: templates/interactive/media.blade.php:4
 msgid ""
 "One or more interactive elements has been excluded from this version of the "
 "text. You can view them online here: "
-msgstr ""
+msgstr "Un ou plusieurs éléments interactifs ont été exclus de cette version du texte. Vous pouvez les visualiser en ligne ici : "

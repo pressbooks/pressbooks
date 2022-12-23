@@ -6,6 +6,7 @@
 
 use function \Pressbooks\Utility\include_plugins as include_symbionts;
 use Pressbooks\Book;
+use Pressbooks\CloneComplete;
 use Pressbooks\Container;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -55,7 +56,7 @@ if ( $is_book ) {
 	add_filter( 'rest_prepare_attachment', '\Pressbooks\Api\fix_attachment', 10, 3 );
 } elseif ( $enable_network_api ) {
 	add_action( 'rest_api_init', '\Pressbooks\Api\init_book' );
-	add_action( 'rest_api_init', '\Pressbooks\Api\init_root' );
+	add_action( 'rest_api_init', '\Pressbooks\Api\init_root', 9 );
 }
 
 add_action( 'plugins_loaded', [ '\Pressbooks\DataCollector\User', 'init' ] );
@@ -345,3 +346,9 @@ add_filter( 'admin_email_check_interval', '__return_false' );
 add_filter( 'init', [ '\Pressbooks\BookDirectory', 'init' ], 10, 2 );
 
 add_action( 'activated_plugin', '\Pressbooks\Utility\delete_options_cached' );
+
+// Clone complete table
+register_deactivation_hook( 'pressbooks/pressbooks.php', [ CloneComplete::class, 'uninstall' ] );
+add_action( 'init', [ CloneComplete::class, 'install' ] );
+
+

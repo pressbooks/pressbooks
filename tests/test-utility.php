@@ -793,32 +793,4 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertTrue( is_a( $class1->getMethod( 'display' ), '\ReflectionMethod' ) );
 		$this->assertTrue( is_a( $class2->getMethod( 'display' ), '\ReflectionMethod' ) );
 	}
-
-	/**
-	 * @group utility
-	 */
-	public function test_get_number_of_invitations() {
-		$this->_book();
-
-		$role = [ 'name' => 'author'];
-		$key = wp_generate_password( 20, false );
-		$user = get_userdata( $this->factory()->user->create() );
-
-		$meta_key = 'new_user_' . $key;
-
-		$this->assertEquals( 0, \Pressbooks\Utility\get_number_of_invitations( $user ) );
-
-		add_option(
-			$meta_key,
-			[
-				'user_id' => $user->ID,
-				'email' => $user->user_email,
-				'role' => $role['name'],
-			]
-		);
-
-		do_action( 'invite_user', $user->ID, $role, $key );
-
-		$this->assertEquals( 1, \Pressbooks\Utility\get_number_of_invitations( $user ) );
-	}
 }

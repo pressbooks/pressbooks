@@ -24,7 +24,9 @@ use Pressbooks\Admin\Network\SharingAndPrivacyOptions;
 use Pressbooks\Admin\PublishOptions;
 use Pressbooks\Book;
 use Pressbooks\BookDirectory;
+use Pressbooks\CloneComplete;
 use Pressbooks\Cloner\Cloner;
+use Pressbooks\Container;
 use Pressbooks\DataCollector\Book as DataCollector;
 use Pressbooks\Metadata;
 use WP_Error;
@@ -162,6 +164,8 @@ function replace_book_admin_menu() {
 						'wordCountNonce' => wp_create_nonce( 'pb-update-word-count-for-export' ),
 						'bookPrivate' => __( 'private', 'pressbooks' ),
 						'bookPublic' => __( 'public', 'pressbooks' ),
+						'moveUp' => __( 'Move Up', 'pressbooks' ),
+						'moveDown' => __( 'Move Down', 'pressbooks' ),
 						'updating' => [
 							'book' => __( 'Updating book.', 'pressbooks' ),
 							'chapter' => __( 'Updating chapters.', 'pressbooks' ),
@@ -636,11 +640,71 @@ function add_pb_cloner_page() {
 	);
 }
 
+function add_cloning_stats_page() {
+	add_management_page(
+		__( 'Cloning Stats', 'pressbooks' ),
+		__( 'Cloning Stats', 'pressbooks' ),
+		'read',
+		'pb_cloner_stats',
+		__NAMESPACE__ . '\display_cloning_stats'
+	);
+}
+
 /**
  * Displays the Organize page.
  */
 function display_organize() {
-	require( PB_PLUGIN_DIR . 'templates/admin/organize.php' );
+	$blade = \Pressbooks\Container::get( 'Blade' );
+	$book_structure = \Pressbooks\Book::getBookStructure();
+	$ebook_options = get_option( 'pressbooks_theme_options_ebook' );
+	$structure = [];
+
+	$structure['front-matter'] = [
+		'name' => __( 'Front Matter', 'pressbooks' ),
+		'abbreviation' => 'fm',
+		'index' => null,
+		'items' => $book_structure['front-matter'],
+	];
+
+	foreach ( $book_structure['part'] as $key => $part ) {
+		$structure[ 'part_' . $part['ID'] ] = [
+			'name' => __( 'Chapter', 'pressbooks' ),
+			'abbreviation' => 'chapter',
+			'title' => $part['post_title'],
+			'id' => $part['ID'],
+			'index' => $key + 1,
+			'items' => $part['chapters'],
+		];
+	}
+
+	$structure['back-matter'] = [
+		'name' => __( 'Back Matter', 'pressbooks' ),
+		'abbreviation' => 'bm',
+		'index' => null,
+		'items' => $book_structure['back-matter'],
+	];
+
+	echo $blade->render(
+		'admin.organize',
+		[
+			'statuses' => get_post_stati( [], 'objects' ),
+			'parts' => count( $book_structure['part'] ),
+			'meta_post' => ( new \Pressbooks\Metadata() )->getMetaPost(),
+			'book_is_public' => ( ! empty( get_option( 'blog_public' ) ) ) ? 1 : 0,
+			'disable_comments' => \Pressbooks\Utility\disable_comments(),
+			'wc' => \Pressbooks\Book::wordCount(),
+			'wc_selected_for_export' => \Pressbooks\Book::wordCount( true ),
+			'can_manage_options' => current_user_can( 'manage_options' ),
+			'can_edit_posts' => current_user_can( 'edit_posts' ),
+			'can_edit_others_posts' => current_user_can( 'edit_others_posts' ),
+			'contributors' => new \Pressbooks\Contributors(),
+			'ebook_options' => $ebook_options,
+			'start_point' => ( isset( $ebook_options['ebook_start_point'] ) && ! empty( $ebook_options['ebook_start_point'] ) )
+				? (int) $ebook_options['ebook_start_point']
+				: false,
+			'structure' => $structure,
+		]
+	);
 }
 
 /**
@@ -654,7 +718,7 @@ function display_trash() {
  * Displays the Export Admin Page
  */
 function display_export() {
-	$blade = \Pressbooks\Container::get( 'Blade' );
+	$blade = Container::get( 'Blade' );
 	echo $blade->render(
 		'admin.export',
 		\Pressbooks\Modules\Export\template_data()
@@ -665,7 +729,23 @@ function display_export() {
  * Displays the Clone a Book Page
  */
 function display_cloner() {
-	require( PB_PLUGIN_DIR . 'templates/admin/cloner.php' );
+	$blade = Container::get( 'Blade' );
+	echo $blade->render( 'admin.cloner.page',
+		[
+			'base_url' => network_home_url(),
+			'domain' => wp_parse_url( network_home_url(), PHP_URL_HOST ),
+		]
+	);
+}
+
+function display_cloning_stats() {
+	$blade = Container::get( 'Blade' );
+	echo $blade->render( 'admin.cloner.stats',
+		[
+			'book' => get_blog_details(),
+			'cloning_stats' => CloneComplete::getCloningStats(),
+		]
+	);
 }
 
 /**
@@ -1153,13 +1233,43 @@ function init_css_js() {
 	wp_register_style( 'pb-export', $assets->getPath( 'styles/export.css' ) );
 	wp_register_style( 'pb-organize', $assets->getPath( 'styles/organize.css' ) );
 
-	// Always enqueue jquery and jquery-ui-core because we use them all over the place
+	// Always enqueue jquery and jquery-ui-core.
 	wp_enqueue_script( 'jquery' );
 	wp_enqueue_script( 'jquery-ui-core' );
 
 	// Always enqueue AlpineJS.
 	wp_register_script( 'alpinejs', $assets->getPath( 'scripts/alpine.min.js' ), [], false, true );
 	wp_enqueue_script( 'alpinejs' );
+
+	// Enqueue styles for cloner page
+	if ( isset( $_REQUEST['page'] ) && str_starts_with( $_REQUEST['page'], 'pb_cloner' ) ) {
+		wp_register_style( 'cloner-page', $assets->getPath( 'styles/cloner.css' ) );
+		wp_enqueue_style( 'cloner-page' );
+
+		$blade = Container::get( 'Blade' );
+
+		// Enqueue Algolia & Instantsearch scripts only if required env values are present.
+		if ( \Pressbooks\Utility\is_algolia_search_enabled() ) {
+			// Algolia
+			wp_register_script( 'algolia', $assets->getPath( 'scripts/algoliasearch-lite.umd.js' ), [], false, true );
+			wp_enqueue_script( 'algolia' );
+
+			// InstantSearch
+			wp_register_script( 'instantsearch', $assets->getPath( 'scripts/instantsearch.production.min.js' ), [ 'algolia' ], false, true );
+			wp_enqueue_script( 'instantsearch' );
+
+			wp_register_script( 'cloner-page', $assets->getPath( 'scripts/algolia-search.js' ), [], false, true );
+			wp_enqueue_script( 'cloner-page' );
+
+			wp_localize_script('cloner-page', 'PBAlgolia', [
+				'applicationId' => env( 'ALGOLIA_APP_ID' ),
+				'apiKey' => env( 'ALGOLIA_API_KEY' ),
+				'indexName' => env( 'ALGOLIA_INDEX_NAME' ),
+				'hitsTemplate' => $blade->render( 'admin.cloner.book-card' ),
+				'resultsTemplate' => $blade->render( 'admin.cloner.results' ),
+			]);
+		}
+	}
 
 	// A11y
 	wp_register_script( 'pb-a11y', $assets->getPath( 'scripts/a11y.js' ), [ 'jquery', 'wp-i18n' ], false, true );

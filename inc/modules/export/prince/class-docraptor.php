@@ -100,7 +100,7 @@ class Docraptor extends Pdf {
 			}
 			$doc->setName( get_bloginfo( 'name' ) );
 			$doc->setPrinceOptions( $prince_options );
-			$doc->setPipeline( 9 ); // Prince 14, see: https://docraptor.com/documentation/api#api_pipeline
+			$doc->setPipeline( 9.2 ); // Prince 14.3, see: https://docraptor.com/documentation/api#api_pipeline
 
 			$create_response = $docraptor->createAsyncDoc( $doc );
 			$done = false;

@@ -108,6 +108,7 @@ function admin_enqueue_scripts( $hook ) {
 		'editor', 'PB_FootnotesToken', [
 			'nonce' => wp_create_nonce( 'pb-footnote-convert' ),
 			'fn_title' => __( 'Insert Footnote', 'pressbooks' ),
+			'fn_icon' => PB_PLUGIN_URL . 'assets/dist/images/footnote.svg',
 			'ftnref_title' => __( 'Convert MS Word Footnotes', 'pressbooks' ),
 		]
 	);

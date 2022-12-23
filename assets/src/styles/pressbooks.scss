@@ -333,6 +333,16 @@ $wp-spinner-anim-duration: 1.08s;
   }
 }
 
+@media screen and (max-width: 782px) {
+  .column-contributor_picture {
+    display: none;
+  }
+
+  .column-contributor_picture img {
+    margin-top: 1.5rem
+  }
+}
+
 .column-contributor_picture img {
   float: left;
   max-width: 60px;
@@ -340,7 +350,6 @@ $wp-spinner-anim-duration: 1.08s;
   border-radius: 50%;
   margin-right: 1.5rem;
 }
-
 
 .mce-window[aria-label="Table properties"] .mce-formitem:nth-child(6) {
   display: none;
@@ -354,6 +363,7 @@ $wp-spinner-anim-duration: 1.08s;
 #pb-sse-progressbar {
   display: none;
   width: 100%;
+  margin-top: 1rem;
 }
 
 // WordPress search fields
@@ -367,9 +377,8 @@ $wp-spinner-anim-duration: 1.08s;
 .plugins-php .search-form label,
 .themes-php .search-form label {
   border: unset;
-  clip: unset;
-  -webkit-clip-path: unset; /* stylelint-disable-line */
   clip-path: unset;
+  -webkit-clip-path: unset; /* stylelint-disable-line */
   height: unset;
   font-size: 14px;
   margin: unset;
@@ -384,4 +393,107 @@ $wp-spinner-anim-duration: 1.08s;
 .themes-php .search-form .wp-filter-search {
   left: 0;
   top: 0;
+}
+
+// Toggle checkboxes
+
+input.toggle[type="checkbox"] {
+  appearance: none;
+  background: $white;
+  border-radius: 9px;
+  border: 1px solid $mine-shaft;
+  box-shadow: none;
+  box-sizing: border-box;
+  content: "";
+  display: inline-block;
+  height: 18px;
+  position: relative;
+  transition: 0.2s background ease;
+  vertical-align: top;
+  width: 36px;
+
+  &::before {
+    background-color: $mine-shaft;
+    border-radius: 50%;
+    border: 5px solid $mine-shaft;
+    box-sizing: border-box;
+    content: "";
+    display: block;
+    height: 12px;
+    left: 2px;
+    margin: 0;
+    position: relative;
+    top: 2px;
+    transition: 0.1s transform ease;
+    width: 12px;
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 2px $white, 0 0 0 4px $monza;
+  }
+
+  &:checked {
+    background: $monza;
+    border-color: $monza;
+
+    &::before {
+      background-color: $white;
+      border-color: $white;
+      content: "";
+      height: 12px;
+      margin: 0;
+      transform: translateX(18px);
+      width: 12px;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  input.toggle[type="checkbox"]::before {
+    transition-delay: 0s;
+    transition-duration: 0s;
+  }
+}
+
+// Button with pressed state
+.wp-core-ui .button[aria-pressed="true"],
+.wp-core-ui .button[aria-pressed="true"]:focus {
+  box-shadow: -1px -1px 0 1px $monza;
+  left: 2px;
+  position: relative;
+  top: 2px;
+}
+
+// Heading as inline-block
+.wrap h2.wp-heading-inline {
+  display: inline-block;
+}
+
+// Page title actions
+.page-title-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 1.5rem;
+}
+
+
+@media screen and (min-width: 768px) {
+  .page-title-actions {
+    display: inline-block;
+  }
+}
+
+// Section title with actions
+h2 + .page-title-actions {
+  margin-bottom: 0.5rem;
+}
+
+h2 + .page-title-actions .page-title-action {
+  top: -1px;
+}
+
+// Space between regions on an admin page
+.wrap [role="region"] + [role="region"] {
+  margin-top: 1.5rem;
 }

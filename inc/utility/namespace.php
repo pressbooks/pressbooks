@@ -1309,14 +1309,14 @@ function oxford_comma( array $vars ) {
 /**
  * Implode an array and add a localized version of the word 'and' between the final two terms.
  * Example:
- * $str_implode = ';' $array_of_string = [ 'Carl Calson', 'Mark Thomson, PhD', 'John K.' ];
+ * $str_implode = ';' $array_of_string = [ 'Carl Carlson', 'Mark Thomson, PhD', 'John K.' ];
  * Output: 'Carl Carlson; Mark Thomson, PhD; and John K.'
  *
- * @param string $str_implode
+ * @param string $separator
  * @param array $array_of_strings
  * @return string
  */
-function implode_add_and( string $separator, array $array_of_strings ) {
+function implode_add_and( string $separator, array $array_of_strings ): string {
 	if ( count( $array_of_strings ) === 2 ) {
 		return $array_of_strings[0] . ' ' . __( 'and', 'pressbooks' ) . ' ' . $array_of_strings[1];
 	} else {
@@ -1539,20 +1539,6 @@ function apply_https_if_available( $url ) {
 }
 
 /**
- * Checks if the user has pending invitations
- *
- * @param \WP_User $user
- * @return int
- */
-function get_number_of_invitations( $user ) {
-	global $wpdb;
-
-	$invitations = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(1) FROM $wpdb->usermeta WHERE meta_key LIKE %s AND user_id = %d", 'new_user_%', $user->ID ) );
-
-	return (int) $invitations;
-}
-
-/**
  * Creates a new image based on the url provided during import.
  *
  * @param string $url
@@ -1612,4 +1598,13 @@ function handle_image_upload( $url, $filename = 'profile.jpg' ) {
  */
 function delete_options_cached() : void {
 	wp_cache_delete( 'alloptions', 'options' );
+}
+
+/**
+ * Are Algolia Search environment variables present?
+ *
+ * @return bool
+ */
+function is_algolia_search_enabled(): bool {
+	return env( 'ALGOLIA_APP_ID' ) && env( 'ALGOLIA_API_KEY' ) && env( 'ALGOLIA_INDEX_NAME' );
 }
