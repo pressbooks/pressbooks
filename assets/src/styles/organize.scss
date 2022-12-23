@@ -10,6 +10,23 @@
     gap: 4px;
   }
 
+  .flex {
+    display: flex;
+    gap: 12px;
+
+    h2 {
+      margin-bottom: 0;
+    }
+
+    .type-action {
+      margin: .75em 0 0;
+
+      a {
+        margin-right: 4px;
+      }
+    }
+  }
+
 
   @media screen and (min-width: 768px) {
     .page-title-actions {
@@ -76,11 +93,9 @@
     }
   }
 
-  .part-actions {
-    padding-bottom: 1em;
-  }
-
   table {
+    margin: 1em 0;
+
     th {
       vertical-align: top;
       padding-top: 8px;
