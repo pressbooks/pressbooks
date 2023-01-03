@@ -109,7 +109,7 @@ class BookDashboard {
 			'edit_posts' => $is_super_admin || current_user_can( 'edit_posts' ),
 			'switch_themes' => $is_super_admin || current_user_can( 'switch_themes' ),
 			'list_users' => $is_super_admin || current_user_can( 'list_users' ),
-			'view_koko_analytics' => $is_super_admin || current_user_can( 'view_koko_analytics' ),
+			'view_koko_analytics' => is_plugin_active( 'koko-analytics/koko-analytics.php' ) && current_user_can( 'view_koko_analytics' ),
 			'delete_site' => $is_super_admin || current_user_can( 'delete_site' ),
 		];
 	}
