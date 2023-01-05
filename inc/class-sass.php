@@ -261,7 +261,11 @@ class Sass {
 						$val = "{$fncall}({$fncall_params})";
 						break;
 					default:
-						$val = @( new \ScssPhp\ScssPhp\Compiler() )->compileValue( $item[2] ); // @codingStandardsIgnoreLine
+						try {
+							$val = @( new \ScssPhp\ScssPhp\Compiler() )->compileValue( $item[2] ); // @codingStandardsIgnoreLine
+						} catch ( \TypeError $e ) {
+							$val = '';
+						}
 				}
 				$output[ $key ] = $val;
 			}
