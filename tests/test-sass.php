@@ -100,7 +100,8 @@ class SassTest extends \WP_UnitTestCase {
 		$css = $this->sass->compile( $scss );
 		$expected = <<<EOF
 p {
-  font-size: 999; }
+  font-size: 999;
+}
 EOF;
 		$this->assertEquals( trim( $expected ), trim( $css ) );
 	}

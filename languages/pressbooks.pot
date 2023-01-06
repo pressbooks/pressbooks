@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-01-03T19:05:18+00:00\n"
+"POT-Creation-Date: 2023-01-06T17:01:53+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: pressbooks\n"
@@ -1930,11 +1930,11 @@ msgstr ""
 msgid "GitHub profile for this contributor. Must be a valid URL."
 msgstr ""
 
-#: inc/class-contributors.php:575
+#: inc/class-contributors.php:577
 msgid "<p>Import multiple contributors at once by uploading a valid JSON file. See <a href=\"%s\" target=\"_blank\">our guide</a> for details.</p>"
 msgstr ""
 
-#: inc/class-contributors.php:578
+#: inc/class-contributors.php:581
 msgid "Import Contributors"
 msgstr ""
 
