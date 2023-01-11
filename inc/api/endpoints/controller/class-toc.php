@@ -135,11 +135,6 @@ class Toc extends \WP_REST_Controller {
 				'type' => 'integer',
 				'readonly' => true,
 			],
-			'clone_token' => [
-				'description' => __( 'Clone token.', 'pressbooks' ),
-				'type' => 'string',
-				'readonly' => true,
-			],
 			'link' => [
 				'description' => __( 'URL to the object.' ),
 				'type' => 'string',
@@ -234,8 +229,12 @@ class Toc extends \WP_REST_Controller {
 						'properties' => $bm_item,
 					],
 				],
-				'context' => [ 'view' ],
-				'readonly' => true,
+				'clone_token' => [
+					'description' => __( 'Clone token.', 'pressbooks' ),
+					'type' => 'string',
+					'readonly' => true,
+					'context' => [ 'view' ],
+				],
 			],
 		];
 
