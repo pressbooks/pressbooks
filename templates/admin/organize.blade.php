@@ -76,11 +76,17 @@
             </h2>
             @if ($can_edit_posts)
                 <div class="page-title-actions">
-                    <a href="{!! admin_url('post-new.php?post_type=' . $slug) !!}" class="page-title-action">{{ __('Add', 'pressbooks') }}
-                        {{ $group['name'] }}</a>
                     @if (str_contains($slug, 'part'))
-                        <a class="page-title-action"
-                            href="{!! admin_url('post-new.php?post_type=part') !!}">{{ __('Add Part', 'pressbooks') }}</a>
+						<a class="page-title-action" href="{!! admin_url("post-new.php?post_type={$group['abbreviation']}&startparent={$group['id']}") !!}">
+							{{ __('Add', 'pressbooks') }} {{ $group['name'] }}
+						</a>
+                        <a class="page-title-action" href="{!! admin_url('post-new.php?post_type=part') !!}">
+							{{ __('Add Part', 'pressbooks') }}
+						</a>
+					@else
+						<a class="page-title-action" href="{!! admin_url('post-new.php?post_type=' . $slug) !!}">
+							{{ __('Add', 'pressbooks') }} {{ $group['name'] }}
+						</a>
                     @endif
                 </div>
             @endif
