@@ -8,6 +8,6 @@
 		<p>{!! sprintf( __( '<a href="%s">View your book&rsquo;s XHTML source</a> to diagnose issues you may be encountering with your PDF exports.', 'pressbooks' ), home_url() . '/format/xhtml?debug=prince' ) !!}</p>
 		<h2>{{ __( 'Regenerate Webbook Stylesheet', 'pressbooks' ) }}</h2>
 		<p>{{ __( 'If your webbook stylesheet has issues, it may help to regenerate it.', 'pressbooks' ) }}</p>
-		<p><form action="{{ $regenerate_webbook_stylesheet_url }}" method="post"><input type="submit" name="submit" id="submit" class="button button-primary" value="{{ __( 'Regenerate Stylesheet', 'pressbooks' ) }}" /></form></p>
+		<p><form action="{!! $regenerate_webbook_stylesheet_url !!}" method="post"><input type="submit" name="submit" id="submit" class="button button-primary" value="{{ __( 'Regenerate Stylesheet', 'pressbooks' ) }}" /></form></p>
 	@endif
 </div>
