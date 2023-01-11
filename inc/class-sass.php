@@ -286,7 +286,7 @@ class Sass {
 		global $current_user;
 
 		$info = [
-			'time' => strftime( '%c' ),
+			'time' => date( 'D M H:i:s Y', time() ),
 			'user' => ( isset( $current_user ) ? $current_user->user_login : '__UNKNOWN__' ),
 			'site_url' => site_url(),
 			'blog_id' => get_current_blog_id(),

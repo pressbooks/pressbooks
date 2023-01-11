@@ -876,7 +876,7 @@ function get_thema_subjects( bool $include_qualifiers = false, bool $main_site =
 				$subjects[ $code->CodeValue ] = [
 					'label' => $code->CodeDescription,
 				];
-				if ( ctype_alpha( $code->CodeValue ) ) {
+				if ( ctype_alpha( (string) $code->CodeValue ) ) {
 					$subjects[ $code->CodeValue ]['children'][ $code->CodeValue ] = $code->CodeDescription;
 				}
 			} else {

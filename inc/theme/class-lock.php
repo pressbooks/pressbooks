@@ -95,8 +95,8 @@ class Lock {
 				sprintf(
 					__( 'Your book&rsquo;s theme, %1$s, has been locked in its current state as of %2$s at %3$s.', 'pressbooks' ),
 					$data['name'],
-					strftime( '%x', $data['timestamp'] ),
-					strftime( '%X', $data['timestamp'] )
+					date( 'm/d/y', $data['timestamp'] ),
+					date( 'H:i:s', $data['timestamp'] )
 				)
 			);
 			return $data;
