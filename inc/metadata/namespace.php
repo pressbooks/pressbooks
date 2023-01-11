@@ -334,10 +334,10 @@ function book_information_to_schema( array $book_information, bool $network_excl
 	}
 
 	if ( isset( $book_information['pb_publication_date'] ) && is_valid_timestamp( $book_information['pb_publication_date'] ) ) {
-		$book_schema['datePublished'] = strftime( '%F', (int) $book_information['pb_publication_date'] );
+		$book_schema['datePublished'] = date( 'Y-m-d', (int) $book_information['pb_publication_date'] );
 
 		if ( ! isset( $book_information['pb_copyright_year'] ) ) {
-			$book_schema['copyrightYear'] = strftime( '%Y', (int) $book_information['pb_publication_date'] );
+			$book_schema['copyrightYear'] = date( 'Y', (int) $book_information['pb_publication_date'] );
 		}
 	}
 
