@@ -79,7 +79,7 @@
 				@if( ! empty( $meta['pb_copyright_year'] ) )
 					{{ $meta['pb_copyright_year'] }}
 				@elseif( ! empty( $meta['pb_publication_date'] ) )
-					{{ strftime( '%Y', $meta['pb_publication_date'] ) }}
+					{{ date( 'Y', $meta['pb_publication_date'] ) }}
 				@else
 					{{ date( 'Y' ) }}
 				@endif

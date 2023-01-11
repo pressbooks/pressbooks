@@ -104,7 +104,7 @@ if ( $dependency_errors ) {
 		echo '<p>' . _e( 'Sorry! You have to generate some covers first.', 'pressbooks' ) . '</p>';
 	} else {
 		/* translators: %s date/time */
-		printf( '<p>' . __( 'Your latest covers were generated on %s.', 'pressbooks' ) . '</p>', strftime( '%B %e, %Y at %l:%M %p', array_keys( $covers )[0] ) );
+		printf( '<p>' . __( 'Your latest covers were generated on %s.', 'pressbooks' ) . '</p>', date( 'F j, Y at g:i A', array_keys( $covers )[0] ) );
 		?>
 		<div class="cover-files">
 			<?php

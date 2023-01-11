@@ -268,8 +268,8 @@ class Lock {
 				$_SESSION['pb_errors'][] = sprintf(
 					__( 'Your book&rsquo;s theme, %1$s, was locked in its current state as of %2$s at %3$s. To select a new theme or change your theme options, please %4$s.', 'pressbooks' ),
 					$data['name'],
-					strftime( '%x', $data['timestamp'] ),
-					strftime( '%X', $data['timestamp'] ),
+					date( 'm/d/y', $data['timestamp'] ),
+					date( 'H:i:s', $data['timestamp'] ),
 					sprintf(
 						'<a href="%s">%s</a>',
 						admin_url( 'options-general.php?page=pressbooks_export_options' ),
