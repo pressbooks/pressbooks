@@ -163,7 +163,7 @@ trait ExportHelpers {
 				foreach ( $sections as $id => $subsection ) {
 					$subsections[] = [
 						'slug' => $is_slug ? "#{$id}" : "${data['href']}#{$id}",
-						'title' => Sanitize\decode( $subsection ),
+						'title' => Sanitize\decode( $subsection, false ),
 					];
 				}
 			}
@@ -172,7 +172,7 @@ trait ExportHelpers {
 		return $this->blade->render('export/bullet-toc-item', array_merge(
 			$data,
 			[
-				'title' => Sanitize\decode( $data['title'] ),
+				'title' => Sanitize\decode( $data['title'], false ),
 				'subclass' => trim( $data['subclass'] ) !== '' ? ' ' . $data['subclass'] : '', //css class space between toc item and subclasses
 				'post_type' => $post_type,
 				'href' => $is_slug ? '#' . $data['href'] : $data['href'],

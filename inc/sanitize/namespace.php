@@ -201,18 +201,18 @@ function force_ascii( $slug ) {
 }
 
 /**
- * Reverse htmlspecialchars() except ampersands.
+ * Reverse htmlspecialchars().
  *
- * @param $slug
+ * @param string $slug
+ * @param bool $exclude_ampersands (optional)
  *
  * @return mixed
  */
-function decode( $slug ) {
+function decode( string $slug, bool $exclude_ampersands = true ) {
 
 	$slug = html_entity_decode( $slug, ENT_NOQUOTES | ENT_XHTML, 'UTF-8' );
-	$slug = preg_replace( '/&([^#])(?![a-z1-4]{1,8};)/i', '&#038;$1', $slug );
 
-	return $slug;
+	return $exclude_ampersands ? preg_replace( '/&([^#])(?![a-z1-4]{1,8};)/i', '&#038;$1', $slug ) : $slug;
 }
 
 function space_to_numerical_html_entity( string $string ) {
