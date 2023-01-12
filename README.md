@@ -6,7 +6,7 @@ Tested up to: 6.1.1
 Stable tag: 6.6.0
 Requires PHP: 8.0
 License: GPL v3.0 or later
-License URI: https://github.com/pressbooks/pressbooks/blob/master/LICENSE.md
+License URI: https://github.com/pressbooks/pressbooks/blob/production/LICENSE.md
 
 Pressbooks is an open source book publishing tool built on a WordPress multisite platform.
 
@@ -21,7 +21,7 @@ Pressbooks is an open source book publishing tool built on a WordPress multisite
 [![Code Coverage](https://codecov.io/gh/pressbooks/pressbooks/branch/dev/graph/badge.svg)](https://codecov.io/gh/pressbooks/pressbooks)
 [![Translate Pressbooks](https://img.shields.io/badge/dynamic/json.svg?label=translated&url=https%3A%2F%2Ftenpercent.now.sh%2F%3Forganization%3Dpressbooks%26project%3Dpressbooks&query=%24.status&colorB=e05d44&suffix=%25)](https://www.transifex.com/pressbooks/pressbooks/translate/)
 
-[Pressbooks](https://pressbooks.org) is an open source book publishing tool built on a WordPress multisite platform. Pressbooks outputs books in multiple formats, including PDF, EPUB, web, and a variety of XML flavours, using a theming/templating system, driven by CSS. Pressbooks is free software, released under the [GPL v3.0 or later](https://github.com/pressbooks/pressbooks/blob/master/LICENSE.md) license.
+[Pressbooks](https://pressbooks.org) is an open source book publishing tool built on a WordPress multisite platform. Pressbooks outputs books in multiple formats, including PDF, EPUB, web, and a variety of XML flavours, using a theming/templating system, driven by CSS. Pressbooks is free software, released under the [GPL v3.0 or later](https://github.com/pressbooks/pressbooks/blob/production/LICENSE.md) license.
 
 Our webbooks and EPUB/[PDF][pdf] exports are all driven by HTML + CSS. XML outputs have no styling.
 
